@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Milalaova miaraka amin\'ny namana</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Milalaova miaraka amin\'ny namana</string>
   <string name="playWithTheMachine">Milalaova miaraka amin\'ny solosaina</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Raha te hanasa olona hilalao dia alefaso any aminy ity URL ity</string>
   <string name="gameOver">Vita ny lalao</string>
@@ -134,7 +133,6 @@
   <string name="recipient">Antontany</string>
   <string name="send">Alefaso</string>
   <string name="incrementInSeconds">Increment in seconds</string>
-  <string name="freeOnlineChess">Echéc maimaimpoana amin\'ny tranon\'kala</string>
   <string name="spectators">Mpijery:</string>
   <plurals name="nbWins">
     <item quantity="one">Fandresena %s</item>
@@ -167,7 +165,6 @@
   <string name="tournamentPoints">Isa azo tamin\'ny fifaninanana</string>
   <string name="viewTournament">Jereo ny fifaninanana</string>
   <string name="backToGame">Hiverina any amin\'ny lalao</string>
-  <string name="siteDescription">Lalao échec maimaimpoana. Milalaova échec miraka amina interface tsara voatra. Tsy mila fisoratana anarana, tsy misy dokam-barotra, tsy mila plugin. Milalaova échec miraka amin\'ny solosaina, namana na mpandray anjara voafantina.</string>
   <string name="xJoinedTeamY">%1$s dia niditra tao amin\'ny %2$s</string>
   <string name="xCreatedTeamY">Namorona ny vondrona %1$s i %2$s</string>
   <string name="averageElo">Filaharana ankapobeny</string>
@@ -185,7 +182,6 @@
     <item quantity="one">Lalao nampidirina %s</item>
     <item quantity="other">Lalao nampidirina %s</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">CAPTCHAn\'ny échec ito.</string>
   <string name="clickOnTheBoardToMakeYourMove">Cliquer-o eo amin\'ny faritry ny lalao hanaovanao ny hetsikao voalohany, ary porofoy fa olombelona ianao.</string>
   <string name="notACheckmate">Tsy échec et mat</string>
   <string name="retry">Avereno andramana</string>
@@ -247,8 +243,6 @@
   <string name="lastName">Fanampin\'anarana</string>
   <string name="biography">Biographie</string>
   <string name="country">Firenena</string>
-  <string name="watchLichessTV">Mijereva Lichess TV</string>
-  <string name="previouslyOnLichessTV">Teto amin\'ny Lichess TV</string>
   <string name="onlinePlayers">Ny mpilalao connectés</string>
   <string name="activeToday">Mpifaninana nilalao be indrindra androany</string>
   <string name="activePlayers">Mpifaninana nilalao be indrindra</string>

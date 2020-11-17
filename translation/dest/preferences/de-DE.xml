@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">Einstellungen</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">Einstellungen</string>
   <string name="gameDisplay">Spieldarstellung</string>
   <string name="pieceAnimation">Figurenanimation</string>
   <string name="materialDifference">Materialunterschied</string>
@@ -9,13 +8,9 @@
   <string name="boardCoordinates">Brettkoordinaten (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Notation während des Spiels anzeigen</string>
   <string name="pgnPieceNotation">Zugnotation</string>
-  <string name="chessPieceSymbol">Schachfigurensymbol</string>
-  <string name="pgnLetter">Buchstaben (K, Q, R, B, N)</string>
   <string name="zenMode">Zen-Modus</string>
   <string name="displayBoardResizeHandle">Regler zum Ändern der Brettgröße anzeigen</string>
   <string name="onlyOnInitialPosition">Nur in der Anfangsstellung</string>
-  <string name="blindfoldChess">Blindschach (unsichtbare Figuren)</string>
-  <string name="chessClock">Schachuhr</string>
   <string name="tenthsOfSeconds">Zehntelsekunden</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Wenn Restzeit &lt; 10 Sekunden</string>
   <string name="horizontalGreenProgressBars">Horizontale grüne Fortschrittsbalken</string>

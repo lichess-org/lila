@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="team">Komanda</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="team">Komanda</string>
   <string name="teams">Komandalar</string>
   <plurals name="nbMembers">
     <item quantity="one">%s üzvləri</item>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">Nuostatos</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="settings">Nuostatos</string>
   <string name="closeAccount">Uždaryti paskyrą</string>
   <string name="closingIsDefinitive">Uždarymas yra galutinis. Kelio atgal nebus. Ar tikrai to norite?</string>
   <string name="cantOpenSimilarAccount">Negalėsite susikurti kitos paskyros su tokiu pačiu vardu, net jeigu skirsis didžiosios / mažosios raidės.</string>

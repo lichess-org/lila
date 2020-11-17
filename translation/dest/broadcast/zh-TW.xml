@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="broadcasts">比賽直播</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="broadcasts">比賽直播</string>
   <string name="liveBroadcasts">錦標賽直播</string>
   <string name="newBroadcast">新的現場直播</string>
   <string name="ongoing">進行中</string>

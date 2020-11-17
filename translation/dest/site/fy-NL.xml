@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Spylje mei in freon</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Spylje mei in freon</string>
   <string name="playWithTheMachine">Spylje mei de kompjûter</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Om ien út te nûgjen foar in potsje, jou dizze URL</string>
   <string name="gameOver">De partij is dien</string>
@@ -97,7 +96,6 @@
   <string name="subject">Underwerp</string>
   <string name="recipient">Untfanger</string>
   <string name="send">Stjoer</string>
-  <string name="freeOnlineChess">Fergees Online Skaken</string>
   <string name="spectators">Taskôgers</string>
   <string name="tournament">Toernoai</string>
   <string name="tournaments">Toernoaien</string>
@@ -108,9 +106,6 @@
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
-  <string name="playChessEverywhere">Oeral skaken spyljen</string>
-  <string name="asFreeAsLichess">As fergees as lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Boud út de leafde foar skaken, net jild</string>
   <string name="zeroAdvertisement">Gjin advertinsjes</string>
   <string name="phoneAndTablet">Telefoan en tablet</string>
   <string name="onlineAndOfflinePlay">Online en offline spylje</string>
@@ -135,9 +130,6 @@
   <string name="usernameSuffixInvalid">Oan de ein fan de brûkersnamme moat in letter of in sifer komme.</string>
   <string name="usernameCharsInvalid">De brûkersnamme kin allinne mar bestean út letter, sifers, ûnderstrekingsteken en keppelteken.</string>
   <string name="usernameUnacceptable">Dizze brûkersnamme kin der net op troch.</string>
-  <string name="directlySupportLichess">Lichess daliks stypje</string>
-  <string name="playChessInStyle">Skaak yn styl</string>
-  <string name="chessBasics">Wêr\'t it by skaken om giet</string>
   <string name="invalidPgn">Unjildige PGN</string>
   <string name="invalidFen">Unjildige FEN</string>
   <string name="error.minLength">De minimum langte is %s</string>

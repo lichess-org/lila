@@ -1,8 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="lichessClasses">Klasoù echedoù</string>
-  <string name="applyToBeLichessTeacher">Lakaat e anv evit bezañ kelenner</string>
-  <string name="noClassesYet">Klas ebet evit poent.</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="noClassesYet">Klas ebet evit poent.</string>
   <string name="teachersX">Kelennerien: %s</string>
   <string name="newClass">Klas nevez</string>
   <string name="closeClass">Serriñ ar c\'hlas</string>
@@ -24,9 +21,7 @@ Anv-implijer: %2$s
 Ger-tremen: %3$s</string>
   <string name="inviteDesc2">Ur gemennadenn gant liamm evit mont er c\'hlas ennañ a vo kaset dezhe.</string>
   <string name="inviteDesc4">Arabat pediñ forzh piv forzh penaos.</string>
-  <string name="createANewLichessAccount">Krouiñ ur gont Lichess nevez</string>
   <string name="createDesc3">Da ziwall: ne c\'hall ket ur studier kaout meur a gont.</string>
-  <string name="lichessUsername">Anv-implijer Lichess</string>
   <string name="generateANewUsername">Krouiñ ur ger-tremen nevez</string>
   <string name="onlyVisibleToTeachers">Gwelet e vo gant ar gelennerien hepken</string>
   <string name="teachers">Kelennerien</string>

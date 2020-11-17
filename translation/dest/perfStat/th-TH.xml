@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="perfStats">สถิติ %s</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="perfStats">สถิติ %s</string>
   <string name="viewTheGames">ดูเกม</string>
   <string name="provisional">แบบชั่วคราว</string>
   <string name="notEnoughRatedGames">จำนวนเกมที่ได้เล่นแบบคิดคะแนน ไม่เพียงพอในการสร้างระดับคะแนนที่เชื่อถือได้</string>

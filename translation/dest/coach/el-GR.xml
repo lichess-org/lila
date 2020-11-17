@@ -1,10 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="lichessCoaches">Lichess προπονητές</string>
-  <string name="lichessCoach">Lichess προπονητής</string>
-  <string name="areYouCoach">Είστε εξαίρετοι προπονητές σκακιού με τίτλο %s;</string>
-  <string name="nmOrFideTitle">NM ή FIDE τίτλο</string>
-  <string name="confirmTitle">Επιβεβαιώστε εδώ τον τίτλο σας και θα εξετάσουμε την αίτησή σας.</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="confirmTitle">Επιβεβαιώστε εδώ τον τίτλο σας και θα εξετάσουμε την αίτησή σας.</string>
   <string name="sendApplication">Στείλτε μας ένα email στο %s και θα εξετάσουμε την αίτησή σας.</string>
   <string name="location">Τοποθεσία</string>
   <string name="languages">Γλώσσες</string>
@@ -13,7 +8,6 @@
   <string name="availability">Διαθεσιμότητα</string>
   <string name="accepting">Αποδέχομαι μαθητές</string>
   <string name="notAccepting">Δεν δέχομαι μαθητές προς το παρόν</string>
-  <string name="xCoachesStudents">%s προπονεί μαθητές σκακιού</string>
   <string name="viewXProfile">Προβολή προφίλ του %s</string>
   <string name="sendPM">Αποστολή προσωπικού μηνύματος</string>
   <string name="aboutMe">Σχετικά με μένα</string>

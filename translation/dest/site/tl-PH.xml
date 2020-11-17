@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Makipaglaro sa Kaibigan</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Makipaglaro sa Kaibigan</string>
   <string name="playWithTheMachine">Makipaglaro sa Makina</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para mag-anyaya ng iba, ibigay itong URL</string>
   <string name="gameOver">Tapos</string>
@@ -247,7 +246,6 @@
   <string name="recipient">Tatanggap</string>
   <string name="send">Ipadala</string>
   <string name="incrementInSeconds">Nadadagdagn ng segundos</string>
-  <string name="freeOnlineChess">Libreng Online Chess</string>
   <string name="spectators">Manonood</string>
   <plurals name="nbRated">
     <item quantity="one">%s namarkahan</item>
@@ -320,7 +318,6 @@
   <string name="mustBeInTeam">Kailangang miyembro ng %s na team</string>
   <string name="youAreNotInTeam">Ikaw ay hindi miyembro ng %s na team</string>
   <string name="backToGame">Bumalik sa laro</string>
-  <string name="siteDescription">Libreng online na server ng chess. Maglaro ng Chess ngayon sa isang malinis na interface. Walang rehistrasyon, walang mga ad, walang plugin na kailangan. Maglaro ng Chess kasama ang kompyuter, mga kaibigan, o kahit sinong mga kalaban.</string>
   <string name="xJoinedTeamY">%1$s sumali sa koponan %2$s</string>
   <string name="xCreatedTeamY">%1$s nagawa na koponan %2$s</string>
   <string name="averageElo">Karaniwang marka</string>
@@ -339,9 +336,7 @@
     <item quantity="one">%s naluwas na laro</item>
     <item quantity="other">%s naluwas na mga laro</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Ito ay isang CAPTCHA ng chess.</string>
   <string name="clickOnTheBoardToMakeYourMove">I-click sa board para makagawa ng iyong galaw, at patunayan na ikaw ay tao.</string>
-  <string name="captcha.fail">Pakilutas ang captcha ng chess.</string>
   <string name="notACheckmate">Hindi ito checkmate</string>
   <string name="retry">Subukan muli</string>
   <string name="reconnecting">Muling Kumukonekta</string>
@@ -385,7 +380,6 @@
   <string name="conditionOfEntry">Kondisyon para makapasok:</string>
   <string name="safeTournamentName">Pumili ka ng angkop na pangalan ng paligsahan.</string>
   <string name="inappropriateNameWarning">Maaaring masara ang iyong account kapag naglagay ka ng kahit anong hindi naaangkop na bagay.</string>
-  <string name="emptyTournamentName">Pabayaang walang laman upang pangalanan ang paligsahang ito sa isang Grandmaster.</string>
   <string name="recommendNotTouching">Payo naming huwag pakialaman ang mga ito.</string>
   <string name="fewerPlayers">Kung maglagay ka ng mga kondisyon upang makapasok, kakaunti ang mga maglalaro ng iyong paligsahan.</string>
   <string name="join">Sumali</string>
@@ -430,8 +424,6 @@
   <string name="biography">Talambuhay</string>
   <string name="country">Bansa</string>
   <string name="inlineNotation">Nakalinyang notasyon</string>
-  <string name="watchLichessTV">Tumingin sa Lichess TV</string>
-  <string name="previouslyOnLichessTV">Ang Nakaraan sa Lichess TV</string>
   <string name="onlinePlayers">Mga online na manlalaro</string>
   <string name="activeToday">Aktibo ngayon</string>
   <string name="activePlayers">Aktibong manlalaro</string>
@@ -451,7 +443,7 @@
   <string name="butYouCanKeepTrying">Pero pwede kang magpatuloy.</string>
   <string name="success">Tagumpay</string>
   <string name="wasThisPuzzleAnyGood">Magaling ba ang palaisipang ito?</string>
-  <string name="pleaseVotePuzzle">Tulungan ang Lichess na umunlad sa pagboto, gamit ang taas o baba na arrow:</string>
+  <string name="pleaseVotePuzzle">Tulungan ang Lishogi na umunlad sa pagboto, gamit ang taas o baba na arrow:</string>
   <string name="thankYou">Salamat!</string>
   <string name="ratingX">Marka: %s</string>
   <plurals name="playedXTimes">
@@ -538,7 +530,6 @@
   <string name="starting">Nagsisimula:</string>
   <string name="allInformationIsPublicAndOptional">Ang lahat ng impormasyon ay nasa publiko at opsyonal.</string>
   <string name="yourCityRegionOrDepartment">Ang iyong lungsod, rehiyon, o probinsya.</string>
-  <string name="biographyDescription">Sabihin mo ako tungkol sa iyo, ano ang gusto mo sa chess, paboritong mga pagbukas, mga laro, mga manlalaro…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Pinakamarami: %s karakter.</item>
     <item quantity="other">Pinakamarami: %s mga karakter.</item>
@@ -554,7 +545,6 @@
   <string name="clock">Orasan</string>
   <string name="unauthorizedError">Ang pagbukas ay hindi pinapayagan.</string>
   <string name="noInternetConnection">Walang koneksyon ng internet. Pwede ka parin maglaro ng offline galing sa menu.</string>
-  <string name="connectedToLichess">Konectado sa lichess.org</string>
   <string name="signedOut">Ikaw ay nasign-out</string>
   <string name="loginSuccessful">Ikaw ay nasign-in ngayon</string>
   <string name="playOnTheBoardOffline">Sa ibabaw ng board</string>
@@ -614,7 +604,6 @@
   <string name="simulClockHint">Fischer na Orasan ng pagaayos. Mas maraming manlalaro na iyong nilaro, mas maraming oras ang iyong maaring kailanganin.</string>
   <string name="simulAddExtraTime">Maaring magdadag ng sobrang oras sa iyong orasan upang tumulong na makaya ang simul.</string>
   <string name="simulHostExtraTime">Maghost ng sobrang oras sa orasan</string>
-  <string name="lichessTournaments">Mga Paligsahan ng Lichess</string>
   <string name="tournamentFAQ">Lugar ng paligsahan na FAQ</string>
   <string name="tournamentOfficial">Opisyal</string>
   <string name="timeBeforeTournamentStarts">Oras bago magsimula ang paligsahan</string>
@@ -625,8 +614,6 @@
   <string name="keyShowOrHideComments">ipakita/itago ang mga komento</string>
   <string name="keyEnterOrExitVariation">pumasok/lumabas na pagkakaiba-iba</string>
   <string name="newTournament">Bagong torneo</string>
-  <string name="tournamentHomeTitle">Paligsahan ng Chess tampok ang ibat-ibang pagkontrol sa oras at mga pagkakaiba-iba</string>
-  <string name="tournamentHomeDescription">Maglaro ng mabilis sa mga paligsahn ng chess! Sumali sa opisyal na nakaiskedyul na mga paligsahan, o gumawa na iyong sarili. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, at marami pang magagamit para sa walang katapusang kasayahan ng chess.</string>
   <string name="tournamentNotFound">Hindi mahanap ang torneo</string>
   <string name="tournamentDoesNotExist">Itong torneo nato ay hindi nag-eexist</string>
   <string name="tournamentMayHaveBeenCanceled">Ito ay maaring makansela, kung lahat ng mga manlalaro ay umalis bago magsimula ang paligsahan.</string>
@@ -644,8 +631,6 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Kung wala kang nakikitang email, suriin ang ibang lugar kagaya ng junk, spam, mga sosyal, o ibang mga folder.</string>
   <string name="weHaveSentYouAnEmailTo">Kami ay nagpadala ng email kay %s. I-click ang link sa email upang ibalik ang iyong password.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Sa pagrerehistro, ikaw ay pumayag na madikit sa aming %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Network lag sa pagitan mo at ng lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Oras upang maproseso ang isang galaw sa server ng lichess</string>
   <string name="downloadAnnotated">I-download ang na-annotate</string>
   <string name="downloadRaw">I-download ang raw</string>
   <string name="downloadImported">Naluwas na mga nadownload</string>
@@ -654,29 +639,23 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Pwede kang magscroll sa ibabaw ng board upang gumalaw sa laro.</string>
   <string name="analysisShapesHowTo">Pindutin ang shift+click o pindutin ang kanan ng mouse upang gumawa ngcmga bilog at mga arrow sa board.</string>
   <string name="letOtherPlayersMessageYou">Hayaan ang ibang mga manlalaro na magmensahe sayo</string>
-  <string name="shareYourInsightsData">Ibahagi ang iyong mga data ng pananaw</string>
   <string name="withNobody">Walang kasama</string>
   <string name="withFriends">Kasama ang mga kaibigan</string>
   <string name="withEverybody">Kasama ang lahat</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Ikaw ay nakarehistro na sa email: %s</string>
   <string name="kidMode">Batang mode</string>
   <string name="kidModeExplanation">Ito ay tungkol sa kaligtasan. Sa batang mode, lahat ng site pangkomunikasyon ay hindi pinagana. Paganahin ito para sa iyong mga bata at mga studyante, upang maprotektahan sa ibang gumagamit ng internet.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Sa batang mode, ang logo ng lichess ay nakakuha ng %s icon, dapat malaman na ligtas ang iyong bata.</string>
   <string name="enableKidMode">Paganahin ang Batang mode</string>
   <string name="disableKidMode">Huwag paganahin ang batang mode</string>
   <string name="security">Seguridad</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ito ay isang listahan ng mga aparatu na nakalog-in sa iyong akawnt. Bawiin ang kahit anong sesyon na hindi mo kilala.</string>
   <string name="alternativelyYouCanX">Altenatibong pwede mong %s.</string>
   <string name="revokeAllSessions">bawiin ang lahat ng sesyon</string>
-  <string name="playChessEverywhere">Maglaro ng chess kahit saan</string>
-  <string name="asFreeAsLichess">Kasinglibre ng lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Ginawa para sa pag-ibig sa chess, hindi sa pera</string>
   <string name="everybodyGetsAllFeaturesForFree">Ang lahat ay nakakuha ng lahat ng tampok ng libre</string>
   <string name="zeroAdvertisement">Walang advertisement</string>
   <string name="fullFeatured">Buong tinampok</string>
   <string name="phoneAndTablet">Telepono at tablet</string>
   <string name="bulletBlitzClassical">Bullet, blitz, klasikal</string>
-  <string name="correspondenceChess">Chess ng pagsusulatan</string>
   <string name="onlineAndOfflinePlay">Online at offline na paglalaro</string>
   <string name="viewTheSolution">Tingnan ang solusyon</string>
   <string name="followAndChallengeFriends">Sundin at hamunin ang mga kaibigan</string>
@@ -708,9 +687,6 @@
   <string name="usernameSuffixInvalid">Kailangang tapusin ang iyong pangalan gamit ang kahit anong letra o numero.</string>
   <string name="usernameCharsInvalid">Maaari lang maglaman ang iyong pangalan ng mga letra, numero, salungguhit, at gitling.</string>
   <string name="usernameUnacceptable">Ang username na ito ay hindi matatanggap.</string>
-  <string name="directlySupportLichess">Direktang sumusuporta sa Lichess</string>
-  <string name="playChessInStyle">Maglaro ng chess na may istilo</string>
-  <string name="chessBasics">Mga pangunahing kaalaman ng Chess</string>
   <string name="coaches">Mga Tagapagsanay</string>
   <string name="invalidPgn">Maling PGN</string>
   <string name="invalidFen">Maling FEN</string>

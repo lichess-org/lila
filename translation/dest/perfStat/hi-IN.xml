@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="perfStats">%s आँकड़े</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="perfStats">%s आँकड़े</string>
   <string name="viewTheGames">खेल देखें</string>
   <string name="provisional">अनंतिम</string>
   <string name="notEnoughRatedGames">विश्वसनीय रेटिंग स्थापित करने के लिए पर्याप्त रेटेड गेम नहीं खेले गए हैं।</string>

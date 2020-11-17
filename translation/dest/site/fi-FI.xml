@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Pelaa ystävää vastaan</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Pelaa ystävää vastaan</string>
   <string name="playWithTheMachine">Pelaa tietokonetta vastaan</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Anna tämä linkki hänelle, jonka kanssa haluat pelata</string>
   <string name="gameOver">Peli ohi</string>
@@ -247,7 +246,6 @@
   <string name="recipient">Vastaanottaja</string>
   <string name="send">Lähetä</string>
   <string name="incrementInSeconds">Lisäaika sekunteina</string>
-  <string name="freeOnlineChess">Maksutonta shakkia verkossa</string>
   <string name="spectators">Katsojat:</string>
   <plurals name="nbRated">
     <item quantity="one">%s pisteytetty</item>
@@ -324,7 +322,6 @@
   <string name="mustBeInTeam">Tulee olla joukkueessa %s</string>
   <string name="youAreNotInTeam">Et ole joukkueessa %s</string>
   <string name="backToGame">Takaisin peliin</string>
-  <string name="siteDescription">Ilmaista virtuaalishakkia. Pelaa shakkia nyt selkeällä käyttöliittymällä. Ei rekisteröitymistä, mainoksia tai selaimen lisäosia. Pelaa shakkia tekoälyn, ystävien tai satunnaisten pelaajien kanssa.</string>
   <string name="xJoinedTeamY">%1$s liittyi joukkueeseen %2$s</string>
   <string name="xCreatedTeamY">%1$s loi joukkueen %2$s</string>
   <string name="xStartedStreaming">%s alkoi striimata</string>
@@ -346,9 +343,7 @@
     <item quantity="one">%s Tuotua peliä</item>
     <item quantity="other">%s Tuotua peliä</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Tämä on shakkivarmistus.</string>
   <string name="clickOnTheBoardToMakeYourMove">Tee siirtosi todistaaksesi olevasi ihminen.</string>
-  <string name="captcha.fail">Ratkaise shakki-captcha.</string>
   <string name="notACheckmate">Siirto ei ole shakkimatti</string>
   <string name="whiteCheckmatesInOneMove">Valkean yhden siirron matti</string>
   <string name="blackCheckmatesInOneMove">Mustan yhden siirron matti</string>
@@ -399,7 +394,6 @@
   <string name="advancedSettings">Lisäasetukset</string>
   <string name="safeTournamentName">Valitse asiallinen nimi turnaukselle.</string>
   <string name="inappropriateNameWarning">Hiemankin epäasiallinen voi aiheuttaa tunnuksesi sulkemisen.</string>
-  <string name="emptyTournamentName">Jos jätät tyhjäksi, turnaus nimetään jonkun suurmestarin mukaan.</string>
   <string name="recommendNotTouching">Emme suosittele näihin koskemista.</string>
   <string name="fewerPlayers">Jos asetat liittymisehtoja, turnauksessasi tulee olemaan vähemmän pelaajia.</string>
   <string name="showAdvancedSettings">Näytä lisäasetukset</string>
@@ -447,8 +441,6 @@
   <string name="country">Maa</string>
   <string name="socialMediaLinks">Sosiaalisen median linkit</string>
   <string name="inlineNotation">Rivinsisäinen kommentointi</string>
-  <string name="watchLichessTV">Katso Lichess TV:tä</string>
-  <string name="previouslyOnLichessTV">Viimeksi Lichess TV:ssä</string>
   <string name="onlinePlayers">Paikalla olevat pelaajat</string>
   <string name="activeToday">Aktiivisena tänään</string>
   <string name="activePlayers">Aktiiviset pelaajat</string>
@@ -468,7 +460,7 @@
   <string name="butYouCanKeepTrying">Mutta voit jatkaa yrittämistä.</string>
   <string name="success">Onnistuit</string>
   <string name="wasThisPuzzleAnyGood">Piditkö tästä tehtävästä?</string>
-  <string name="pleaseVotePuzzle">Auta lichessiä parantamaan tehtäviä äänestämällä nuolilla:</string>
+  <string name="pleaseVotePuzzle">Auta lishogiiä parantamaan tehtäviä äänestämällä nuolilla:</string>
   <string name="thankYou">Kiitos!</string>
   <string name="ratingX">Vahvuusluku: %s</string>
   <string name="hidden">piilotettu</string>
@@ -561,7 +553,6 @@
   <string name="starting">Alkamassa:</string>
   <string name="allInformationIsPublicAndOptional">Kaikki informaatio on julkista ja vapaaehtoista.</string>
   <string name="yourCityRegionOrDepartment">Kaupunkisi, alueesi tai maakuntasi.</string>
-  <string name="biographyDescription">Kerro itsestäsi, parhaista asioista shakissa tai suosikkiavauksistasi, -peleistäsi, -pelaajistasi…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maksimi: %s merkkiä.</item>
     <item quantity="other">Maksimi: %s merkkiä.</item>
@@ -577,7 +568,6 @@
   <string name="clock">Kello</string>
   <string name="unauthorizedError">Pääsy evätty.</string>
   <string name="noInternetConnection">Ei Internet-yhteyttä. Voit silti pelata offline-tilassa.</string>
-  <string name="connectedToLichess">Nyt olet yhteydessä lichess.org:iin</string>
   <string name="signedOut">Olet kirjautunut ulos</string>
   <string name="loginSuccessful">Olet nyt kirjautuneena sisään</string>
   <string name="playOnTheBoardOffline">Pelaa offline-tilassa kaveria vastaan</string>
@@ -619,7 +609,6 @@
   <string name="webmasters">Ylläpitäjät</string>
   <string name="about">Tietoa sivustosta</string>
   <string name="aboutX">Tietoa %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s on ilmainen (%2$s), vapaa ja mainokseton avoimen lähdekoodin shakkipalvelin.</string>
   <string name="really">oikeasti</string>
   <string name="contribute">Osallistu</string>
   <string name="termsOfService">Käyttöehdot</string>
@@ -643,7 +632,6 @@
   <string name="simulClockHint">Fischer-kellon asetukset. Mitä enemmän pelaajia on, sitä enemmän aikaa saatat tarvita.</string>
   <string name="simulAddExtraTime">Voit lisätä aikaa kelloosi selviytyäksesi simultaanista.</string>
   <string name="simulHostExtraTime">Isännän ylimääräinen aika</string>
-  <string name="lichessTournaments">Lichessin turnaukset</string>
   <string name="tournamentFAQ">Areenaturnausten UKK</string>
   <string name="tournamentOfficial">Virallinen</string>
   <string name="timeBeforeTournamentStarts">Aika ennen turnauksen alkua</string>
@@ -654,8 +642,6 @@
   <string name="keyShowOrHideComments">näytä/piilota kommentit</string>
   <string name="keyEnterOrExitVariation">lisää/poista muunnelma</string>
   <string name="newTournament">Uusi turnaus</string>
-  <string name="tournamentHomeTitle">Shakkiturnaus, jossa on monia aikarajoja ja variantteja</string>
-  <string name="tournamentHomeDescription">Pelaa nopeita shakkiturnauksia! Liity aikataulutettuihin turnauksiin tai luo omasi. Tarjolla monia variantteja loputtomaan hauskanpitoon.</string>
   <string name="tournamentNotFound">Turnausta ei löydy</string>
   <string name="tournamentDoesNotExist">Tätä turnausta ei ole olemassa.</string>
   <string name="tournamentMayHaveBeenCanceled">Se on saatettua perua, jos kaikki pelaajat poistuivat turnauksesta ennen sen alkamista.</string>
@@ -676,9 +662,7 @@
   <string name="weHaveSentYouAnEmailClickTheLink">Olemme lähettäneet sinulle sähköpostiviestin. Klikkaa viestissä olevaa linkkiä aktivoidaksesi tilisi.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jos et näe viestiä, tarkista muut paikat joihin se voi olla joutunut (kuten roskaposti- ja spämmikansiot).</string>
   <string name="weHaveSentYouAnEmailTo">Olemme lähettäneet sähköpostiviestin osoitteeseen %s. Klikkaa viestissä olevaa linkkiä nollataksesi salasanasi.</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">Rekistöitymällä hyväksyt lichessin %s ja sitoudut noudattamaan niitä.</string>
-  <string name="networkLagBetweenYouAndLichess">Verkkoviive sinun ja lichessin välillä</string>
-  <string name="timeToProcessAMoveOnLichessServer">Palvelimen siirtojen käsittelyyn vaatima aika</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">Rekistöitymällä hyväksyt lishogiin %s ja sitoudut noudattamaan niitä.</string>
   <string name="downloadAnnotated">Lataa kommenttien kanssa</string>
   <string name="downloadRaw">Lataa ilman kommentteja</string>
   <string name="downloadImported">Imuroi tuotu PGN</string>
@@ -687,29 +671,23 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Voit kelata siirtoja myös hiiren vieritysrullalla.</string>
   <string name="analysisShapesHowTo">Käytä hiiren kakkospainiketta (tai shiftiä ja ykköspainiketta) piirtääksesi ympyröitä ja nuolia laudalle.</string>
   <string name="letOtherPlayersMessageYou">Anna muiden käyttäjien lähettää sinulle viestejä</string>
-  <string name="shareYourInsightsData">Jaa Insights-tietosi</string>
   <string name="withNobody">Ei kenellekään</string>
   <string name="withFriends">Kavereille</string>
   <string name="withEverybody">Kaikille</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Olet jo rekisteröinyt sähköpostiosoitteen: %s</string>
   <string name="kidMode">Lapsitila</string>
   <string name="kidModeExplanation">Turvallisuusasia. Lapsitilassa kaikki kommunikointi sivustolla on pois käytöstä. Käytä tätä suojaamaan lasta tai koululaista muilta internetin käyttäjiltä.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Lapsitilassa Lichessin logoon liitetään %s-ikoni, jotta tiedät lapsesi olevan turvassa.</string>
   <string name="enableKidMode">Lapsitila käyttöön</string>
   <string name="disableKidMode">Lapsitila käytöstä</string>
   <string name="security">Turvallisuus</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Lista laitteista joihin olet kirjautunut tunnuksellasi. Katkaise sessiot, joita et tunnista.</string>
   <string name="alternativelyYouCanX">Tai voit %s.</string>
   <string name="revokeAllSessions">katkaista kaikki sessiot</string>
-  <string name="playChessEverywhere">Pelaa shakkia kaikkialla</string>
-  <string name="asFreeAsLichess">Yhtä ilmainen ja vapaa kuin lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Rakennettu rakkaudesta shakkiin, ei rahan</string>
   <string name="everybodyGetsAllFeaturesForFree">Jokainen saa kaikki ominaisuudet ilmaiseksi</string>
   <string name="zeroAdvertisement">Ei mainoksia</string>
   <string name="fullFeatured">Kaikki ominaisuudet</string>
   <string name="phoneAndTablet">Puhelin ja tabletti</string>
   <string name="bulletBlitzClassical">Luoti, blitz, klassinen</string>
-  <string name="correspondenceChess">Kirjeshakki</string>
   <string name="onlineAndOfflinePlay">Online- ja offline-peli</string>
   <string name="viewTheSolution">Katso ratkaisu</string>
   <string name="followAndChallengeFriends">Seuraa ja haasta ystäviäsi</string>
@@ -742,9 +720,6 @@
   <string name="usernameSuffixInvalid">Käyttäjänimen täytyy loppua kirjaimeen tai numeroon.</string>
   <string name="usernameCharsInvalid">Käyttäjänimi voi sisältää vain kirjaimia, numeroita, alaviivoja ja väliviivoja.</string>
   <string name="usernameUnacceptable">Käyttäjänimi ei kelpaa.</string>
-  <string name="directlySupportLichess">Lahjoita Lichessille</string>
-  <string name="playChessInStyle">Tyylikästä shakinpeluuta</string>
-  <string name="chessBasics">Shakin perusteet</string>
   <string name="coaches">Valmentajat</string>
   <string name="invalidPgn">PGN ei kelpaa</string>
   <string name="invalidFen">FEN ei kelpaa</string>
@@ -821,7 +796,6 @@
   <string name="weHadToTimeYouOutForAWhile">Meidän täytyi komentaa sinut jäähylle hetkeksi.</string>
   <string name="timeoutExpires">Jäähy päättyy %s.</string>
   <string name="why">Miksi?</string>
-  <string name="pleasantChessExperience">Haluamme tarjota mukavan shakkielämyksen kaikille.</string>
   <string name="goodPractice">Siksi meidän tulee huolehtia siitä, että kaikki käyttäytyvät asiallisesti.</string>
   <string name="potentialProblem">Kun mahdollinen ongelma havaitaan, näytämme tämän viestin.</string>
   <string name="howToAvoidThis">Miten tämän välttää?</string>
@@ -829,14 +803,13 @@
   <string name="tryToWin">Yritä voittaa (tai edes pelata tasan) joka peli jonka pelaat.</string>
   <string name="resignLostGames">Luovuta hävityt pelit (äläkä juoksuta kelloa loppuun).</string>
   <string name="temporaryInconvenience">Pahoittelemme tilapäistä harmia,</string>
-  <string name="wishYouGreatGames">ja toivotamme hyviä pelejä lichess.org -sivustolla.</string>
+  <string name="wishYouGreatGames">ja toivotamme hyviä pelejä lishogi.org -sivustolla.</string>
   <string name="thankYouForReading">Kiitos kun luit!</string>
   <string name="lifetimeScore">Kaikkien aikojen yhteistilanne</string>
   <string name="currentMatchScore">Nykyisen ottelun tilanne</string>
-  <string name="agreementAssistance">Vakuutan etten ota vastaan ulkopuolista apua pelieni aikana (shakkitietokoneilta, kirjoilta, tietokannoilta enkä muilta ihmisiltä).</string>
   <string name="agreementNice">Vakuutan että käyttäydyn aina muita pelaajia kunnioittaen.</string>
   <string name="agreementAccount">Vakuutan etten luo useita tunnuksia.</string>
-  <string name="agreementPolicy">Vakuutan että noudatan Lichessin sääntöjä.</string>
+  <string name="agreementPolicy">Vakuutan että noudatan Lishogiin sääntöjä.</string>
   <string name="searchOrStartNewDiscussion">Etsi tai aloita uusi keskustelu</string>
   <string name="edit">Muokkaa</string>
   <string name="rapid">Nopea</string>
@@ -847,7 +820,6 @@
   <string name="rapidDesc">Pikapelit: 8-25 minuuttia</string>
   <string name="classicalDesc">Klassiset pelit: 25 minuuttia tai enemmän</string>
   <string name="correspondenceDesc">Kirjeshakkipelit: yksi tai useampi päivä per siirto</string>
-  <string name="puzzleDesc">Taktiikkaharjoittelu</string>
   <string name="important">Tärkeää</string>
   <string name="yourQuestionMayHaveBeenAnswered">Kysymykseesi saattaa jo löytyä vastaus %1$s</string>
   <string name="inTheFAQ">FAQ:sta</string>

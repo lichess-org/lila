@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">การตั้งค่า</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">การตั้งค่า</string>
   <string name="gameDisplay">การแสดงเกม</string>
   <string name="pieceAnimation">ความเร็วตัวหมาก</string>
   <string name="materialDifference">วัตถุที่มีต่างกัน</string>
@@ -9,13 +8,9 @@
   <string name="boardCoordinates">พิกัดกระดาน</string>
   <string name="moveListWhilePlaying">แสดงรายชื่อตาที่เดินในขณะที่เล่น</string>
   <string name="pgnPieceNotation">สัญกรณ์การเดิน</string>
-  <string name="chessPieceSymbol">สัญลักษณ์ตัวหมากรุก</string>
-  <string name="pgnLetter">ตัวอักษร (K, Q, R, B, N)</string>
   <string name="zenMode">โหมดซ่อนเร้น</string>
   <string name="displayBoardResizeHandle">แสดงตัวปรับขนาดกระดาน</string>
   <string name="onlyOnInitialPosition">เฉพาะก่อนเริ่มเดินหมาก</string>
-  <string name="blindfoldChess">หมากรุกอำพราง (ไม่เห็นตัวหมาก)</string>
-  <string name="chessClock">นาฬิกาหมากรุก</string>
   <string name="tenthsOfSeconds">ทศนิยมของวินาที</string>
   <string name="whenTimeRemainingLessThanTenSeconds">เมื่อเหลือเวลา &lt; 10 วินาที</string>
   <string name="horizontalGreenProgressBars">แถบแนวนอนสีเขียวแสดงความคืบหน้า</string>

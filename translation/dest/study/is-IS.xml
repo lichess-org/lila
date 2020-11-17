@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="hot">Heitt</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="hot">Heitt</string>
   <string name="mostPopular">Vinsælast</string>
   <plurals name="nbChapters">
     <item quantity="one">%s kafli</item>

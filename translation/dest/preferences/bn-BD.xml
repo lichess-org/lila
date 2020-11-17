@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">পছন্দসমূহ</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">পছন্দসমূহ</string>
   <string name="gameDisplay">খেলার বোর্ড এর রূপ</string>
   <string name="pieceAnimation">গুটির অ্যানিমেশন</string>
   <string name="materialDifference">গুটির মধ্যে ব্যবধান</string>
@@ -9,11 +8,7 @@
   <string name="boardCoordinates">বোর্ডের স্থানাংকর (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">খেলার সময় তালিকা সরান</string>
   <string name="pgnPieceNotation">প্রতীক চিহ্ন সরান</string>
-  <string name="chessPieceSymbol">দাবার টুকরোর ধরন</string>
-  <string name="pgnLetter">বর্ণ (কে, কিউ, আর, বি, এন)</string>
   <string name="zenMode">জেন মোড</string>
-  <string name="blindfoldChess">বেপরোয়াভাবে দাবা (অদৃশ্য টুকরা)</string>
-  <string name="chessClock">দাবার ঘড়ি</string>
   <string name="tenthsOfSeconds">সেকেন্ডের কাটা</string>
   <string name="whenTimeRemainingLessThanTenSeconds">যখন সময় বাকি &lt; 10 সেকেন্ড</string>
   <string name="horizontalGreenProgressBars">সমতল সবুজ অগ্রগতি বার</string>

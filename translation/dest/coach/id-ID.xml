@@ -1,10 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="lichessCoaches">Pelatih Lichess</string>
-  <string name="lichessCoach">Pelatih Lichess</string>
-  <string name="areYouCoach">Apakah Anda seorang pelatih catur yang hebat dengan %s?</string>
-  <string name="nmOrFideTitle">Gelar NM atau FIDE</string>
-  <string name="confirmTitle">Konfirmasikan gelar Anda di sini dan kami akan meninjau aplikasi Anda.</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="confirmTitle">Konfirmasikan gelar Anda di sini dan kami akan meninjau aplikasi Anda.</string>
   <string name="sendApplication">Kirim email kepada kami di %s dan kami akan meninjau aplikasi Anda.</string>
   <string name="location">Lokasi</string>
   <string name="languages">Bahasa</string>
@@ -13,8 +8,7 @@
   <string name="availability">Ketersediaan</string>
   <string name="accepting">Penerimaan murid</string>
   <string name="notAccepting">Tidak menerima murid saat ini</string>
-  <string name="xCoachesStudents">%s pelatih murid pecatur</string>
-  <string name="viewXProfile">Lihat %s profil Lichess</string>
+  <string name="viewXProfile">Lihat %s profil Lishogi</string>
   <string name="sendPM">Kirim pesan pribadi</string>
   <string name="aboutMe">Tentang saya</string>
   <string name="playingExperience">Pengalaman bermain</string>

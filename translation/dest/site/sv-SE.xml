@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Spela med en vän</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Spela med en vän</string>
   <string name="playWithTheMachine">Spela mot datorn</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">För att bjuda in någon att spela, ge dem den här länken</string>
   <string name="gameOver">Partiet är slut</string>
@@ -247,7 +246,6 @@
   <string name="recipient">Mottagare</string>
   <string name="send">Skicka</string>
   <string name="incrementInSeconds">Tilläggssekunder</string>
-  <string name="freeOnlineChess">Gratis schack på internet</string>
   <string name="spectators">Åskådare:</string>
   <plurals name="nbRated">
     <item quantity="one">%s rankat</item>
@@ -275,7 +273,7 @@
     <item quantity="one">Ge %s sekund</item>
     <item quantity="other">Ge %s sekunder</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Detta konto bröt mot användarvillkoren för Lichess</string>
+  <string name="thisAccountViolatedTos">Detta konto bröt mot användarvillkoren för Lishogi</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Den här spelaren manipulerar sin rating</string>
   <string name="openingExplorerAndTablebase">Öppningsutforskare &amp; slutspelsteori</string>
   <string name="takeback">Gör om drag</string>
@@ -325,7 +323,6 @@
   <string name="mustBeInTeam">Du måste vara medlem i %s</string>
   <string name="youAreNotInTeam">Du är inte medlem i %s</string>
   <string name="backToGame">Tillbaka till partiet</string>
-  <string name="siteDescription">Gratis Schack på internet. Spela Schack nu, med ett enkelt gränssnitt. Ingen registrering, inga annonser, inga insticksprogram behövs. Spela schack mot datorn, vänner eller vem som helst.</string>
   <string name="xJoinedTeamY">%1$s gick med i lag %2$s</string>
   <string name="xCreatedTeamY">%1$s skapade lag %2$s</string>
   <string name="xStartedStreaming">%s började sända video</string>
@@ -347,9 +344,7 @@
     <item quantity="one">%s Importerat parti</item>
     <item quantity="other">%s Importerade partier</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Detta är en schack-CAPTCHA</string>
   <string name="clickOnTheBoardToMakeYourMove">Klicka på brädet och gör ditt drag för att bevisa att du är en människa.</string>
-  <string name="captcha.fail">Vänligen lös schack-captchan.</string>
   <string name="notACheckmate">Inte schackmatt</string>
   <string name="whiteCheckmatesInOneMove">Vit gör schackmatt på ett drag</string>
   <string name="blackCheckmatesInOneMove">Svart gör schackmatt på ett drag</string>
@@ -400,7 +395,6 @@
   <string name="advancedSettings">Avancerade inställningar</string>
   <string name="safeTournamentName">Välj ett mycket säkert namn för turneringen.</string>
   <string name="inappropriateNameWarning">Någonting, om än bara lite, olämpligt skulle kunna få ditt konto att stängas.</string>
-  <string name="emptyTournamentName">Lämna tom för att namnge turneringen efter en slumpmässig stormästare.</string>
   <string name="recommendNotTouching">Vi rekommenderar att inte röra dessa.</string>
   <string name="fewerPlayers">Om du anger inträdesvillkor kommer din turnering att ha färre spelare.</string>
   <string name="showAdvancedSettings">Visa avancerade inställningar</string>
@@ -448,8 +442,6 @@
   <string name="country">Land</string>
   <string name="socialMediaLinks">Länkar till sociala medier</string>
   <string name="inlineNotation">Visa notation</string>
-  <string name="watchLichessTV">Titta på Lichess-TV</string>
-  <string name="previouslyOnLichessTV">Föregående Lichess-TV</string>
   <string name="onlinePlayers">Inloggade spelare</string>
   <string name="activeToday">Mest aktiva idag</string>
   <string name="activePlayers">Mest aktiva spelare</string>
@@ -469,7 +461,7 @@
   <string name="butYouCanKeepTrying">Men du kan fortsätta försöka.</string>
   <string name="success">Rätt</string>
   <string name="wasThisPuzzleAnyGood">Var det här schackproblemet bra?</string>
-  <string name="pleaseVotePuzzle">Hjälp lichess att bli bättre genom att rösta (använd pil upp eller pil ner):</string>
+  <string name="pleaseVotePuzzle">Hjälp lishogi att bli bättre genom att rösta (använd pil upp eller pil ner):</string>
   <string name="thankYou">Tack!</string>
   <string name="ratingX">Rating: %s</string>
   <string name="hidden">dold</string>
@@ -562,7 +554,6 @@
   <string name="starting">Startar:</string>
   <string name="allInformationIsPublicAndOptional">All information är synlig för alla och frivillig.</string>
   <string name="yourCityRegionOrDepartment">Din stad, region eller område.</string>
-  <string name="biographyDescription">Berätta om dig själv, dina intressen, vad du gillar med schack, dina favoritöppningar, spelare, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Max: %s tecken.</item>
     <item quantity="other">Max: %s tecken.</item>
@@ -578,7 +569,6 @@
   <string name="clock">Klocka</string>
   <string name="unauthorizedError">Tillgång är oauktoriserad</string>
   <string name="noInternetConnection">Ingen internet förbindelse. Du kan spela offline från menyn.</string>
-  <string name="connectedToLichess">Du är nu ansluten till lichess.org</string>
   <string name="signedOut">Du har loggats ut</string>
   <string name="loginSuccessful">Du är nu inloggad</string>
   <string name="playOnTheBoardOffline">Spela 2 på samma enhet</string>
@@ -618,9 +608,8 @@
   <string name="streamersMenu">Videosändningar</string>
   <string name="mobileApp">Mobilapp</string>
   <string name="webmasters">Webbmasters</string>
-  <string name="about">Om Lichess</string>
+  <string name="about">Om Lishogi</string>
   <string name="aboutX">Om %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s är en gratis (%2$s), oberoende och reklamfri schackserver med öppen källkod.</string>
   <string name="really">på riktigt</string>
   <string name="contribute">Hjälp till</string>
   <string name="termsOfService">Användarvillkor</string>
@@ -644,7 +633,6 @@
   <string name="simulClockHint">Inställningar för fischerklocka. Ju fler spelare du tar dig an, desto mer tid kan du behöva.</string>
   <string name="simulAddExtraTime">Du kan lägga till extra tid till dig för att klara av simultanspelet.</string>
   <string name="simulHostExtraTime">Värdens extratid</string>
-  <string name="lichessTournaments">Lichess-turneringar</string>
   <string name="tournamentFAQ">Turnering: Vanliga frågor</string>
   <string name="tournamentOfficial">Officiell</string>
   <string name="timeBeforeTournamentStarts">Tid tills turneringen börjar</string>
@@ -655,8 +643,6 @@
   <string name="keyShowOrHideComments">visa/göm kommentarer</string>
   <string name="keyEnterOrExitVariation">påbörja/avsluta variant</string>
   <string name="newTournament">Ny turnering</string>
-  <string name="tournamentHomeTitle">Schackturnering med olika betänketider och schackvarianter</string>
-  <string name="tournamentHomeDescription">Spela snabba schackturneringar! Delta i en officiell schemalagd turnering, eller skapa din egen. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck och fler alternativ erbjuds för ändlösa schacknöjen.</string>
   <string name="tournamentNotFound">Turneringen kunde inte hittas</string>
   <string name="tournamentDoesNotExist">Denna turnering finns inte.</string>
   <string name="tournamentMayHaveBeenCanceled">Turneringen kan blivit inställd om alla spelare lämnade innan den började.</string>
@@ -678,8 +664,6 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Om du inte ser e-postmeddelandet, kontrollera andra ställen där det kan vara, som din skräppost, spam, sociala eller andra mappar.</string>
   <string name="weHaveSentYouAnEmailTo">Vi har skickat ett e-postmeddelande till %s. Tryck på länken i e-posten för att återställa ditt lösenord.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Genom att registrera samtycker du till att vara bunden av våra %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Nätverksfördröjning mellan dig och lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Tid att bearbeta ett drag på lichess server</string>
   <string name="downloadAnnotated">Hämta med noter</string>
   <string name="downloadRaw">Hämta avskalad</string>
   <string name="downloadImported">Hämta importerad</string>
@@ -688,29 +672,23 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan också skrolla över brädet för att gå framåt/bakåt i partiet.</string>
   <string name="analysisShapesHowTo">Håll nere Skift när du klickar eller högerklickar för att rita cirklar och pilar på brädet.</string>
   <string name="letOtherPlayersMessageYou">Tillåt att andra spelare skickar meddelanden till dig</string>
-  <string name="shareYourInsightsData">Dela din information från Chess Insights</string>
   <string name="withNobody">Med ingen</string>
   <string name="withFriends">Med vänner</string>
   <string name="withEverybody">Med alla</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Du har redan registrerat en e-postadress: %s</string>
   <string name="kidMode">Barnsäkert läge</string>
   <string name="kidModeExplanation">Detta är en säkerhetsinställning. I barnsäkert läge är all kommunikation inaktiverad. Använd detta för dina barn och skolelever för att skydda dem från andra internetanvändare.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">I barnsäkert läge får lichess-logotypen en %s ikon, så att du vet att dina barn är säkra.</string>
   <string name="enableKidMode">Aktivera barnsäkert läge</string>
   <string name="disableKidMode">Avaktivera barnsäkert läge</string>
   <string name="security">Säkerhet</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Detta är en lista över enheter som har loggat in på ditt konto. Återkalla alla sessioner som du inte känner igen.</string>
   <string name="alternativelyYouCanX">Alternativt kan du %s.</string>
   <string name="revokeAllSessions">återkalla alla sessioner</string>
-  <string name="playChessEverywhere">Spela schack var du vill</string>
-  <string name="asFreeAsLichess">Lika gratis som lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Byggt med kärlek till schack, inte pengar</string>
   <string name="everybodyGetsAllFeaturesForFree">Alla får alla funktioner gratis</string>
   <string name="zeroAdvertisement">Ingen reklam</string>
   <string name="fullFeatured">Alla funktioner</string>
   <string name="phoneAndTablet">Mobil och platta</string>
   <string name="bulletBlitzClassical">Bullet, blixt och klassiskt</string>
-  <string name="correspondenceChess">Korrespondensschack</string>
   <string name="onlineAndOfflinePlay">Spela uppkopplad eller nedkopplad</string>
   <string name="viewTheSolution">Visa lösningen</string>
   <string name="followAndChallengeFriends">Följ och utmana vänner</string>
@@ -743,9 +721,6 @@
   <string name="usernameSuffixInvalid">Användarnamnet måste sluta med en bokstav eller ett nummer.</string>
   <string name="usernameCharsInvalid">Användarnamnet får bara innehålla bokstäver, siffror, understrykningstecken och bindestreck.</string>
   <string name="usernameUnacceptable">Detta användarnamn är inte acceptabelt.</string>
-  <string name="directlySupportLichess">Stöd Lichess</string>
-  <string name="playChessInStyle">Spela schack med stil</string>
-  <string name="chessBasics">Grunderna i schack</string>
   <string name="coaches">Schacktränare</string>
   <string name="invalidPgn">Ogiltig PGN</string>
   <string name="invalidFen">Ogiltig FEN</string>
@@ -822,7 +797,6 @@
   <string name="weHadToTimeYouOutForAWhile">Vi är tvugna att stänga av dig en stund.</string>
   <string name="timeoutExpires">Avstängningen upphör om %s.</string>
   <string name="why">Varför?</string>
-  <string name="pleasantChessExperience">Vårt mål är att tillhandahålla alla en behaglig schackupplevelse till alla.</string>
   <string name="goodPractice">Därför måste vi försäkra oss om att alla spelare följer god sed.</string>
   <string name="potentialProblem">När ett möjligt problem upptäcks visar vi detta meddelande.</string>
   <string name="howToAvoidThis">Hur undviker jag det här?</string>
@@ -830,14 +804,13 @@
   <string name="tryToWin">Försök vinna (eller åtminstone nå remi i) varje parti som du spelar.</string>
   <string name="resignLostGames">Ge upp förlorade partier (i stället för att låta tiden rinna ut).</string>
   <string name="temporaryInconvenience">Vi ber om ursäkt för den tillfälliga olägenheten,</string>
-  <string name="wishYouGreatGames">och önskar dig bra partier på lichess.org.</string>
+  <string name="wishYouGreatGames">och önskar dig bra partier på lishogi.org.</string>
   <string name="thankYouForReading">Tack för att du läste!</string>
   <string name="lifetimeScore">Livstidspoäng</string>
   <string name="currentMatchScore">Nuvarande matchpoäng</string>
-  <string name="agreementAssistance">Jag lovar att jag inte kommer att få hjälp under mina partier (från en schackdator, bok, databas eller annan person).</string>
   <string name="agreementNice">Jag lovar att jag alltid kommer att vara respektfull mot andra spelare.</string>
   <string name="agreementAccount">Jag instämmer med att jag inte kommer att skapa flera konton.</string>
-  <string name="agreementPolicy">Jag instämmer med att jag kommer att följa alla Lichess-regler.</string>
+  <string name="agreementPolicy">Jag instämmer med att jag kommer att följa alla Lishogi-regler.</string>
   <string name="searchOrStartNewDiscussion">Sök eller starta ny konversation</string>
   <string name="edit">Redigera</string>
   <string name="rapid">Rapid</string>
@@ -848,7 +821,6 @@
   <string name="rapidDesc">Snabba partier: 8 till 25 minuter</string>
   <string name="classicalDesc">Klassiska partier: 25 minuter och mer</string>
   <string name="correspondenceDesc">Korrespondensschack: en eller flera dagar per drag</string>
-  <string name="puzzleDesc">Schacktaktikträning</string>
   <string name="important">Viktigt</string>
   <string name="yourQuestionMayHaveBeenAnswered">Din fråga kan redan ha ett svar %1$s</string>
   <string name="inTheFAQ">i Vanliga frågor.</string>

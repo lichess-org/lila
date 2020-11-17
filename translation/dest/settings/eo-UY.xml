@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">Agordoj</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="settings">Agordoj</string>
   <string name="closeAccount">Fermi konton</string>
   <string name="closingIsDefinitive">Fermo estas definitiva. Ne plu eblos reven. Ĉu vi certas?</string>
   <string name="cantOpenSimilarAccount">Vi ne rajtos malfermi novan konton kun la sama nomo, eĉ se la situacio estos malsama.</string>

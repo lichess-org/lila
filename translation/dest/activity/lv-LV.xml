@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="activity">Aktivitāte</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="activity">Aktivitāte</string>
   <string name="hostedALiveStream">Rīkoja tiešsaistes straumi</string>
   <plurals name="supportedNbMonths">
-    <item quantity="zero">%1$s mēnešus atbalstīja lichess.org kā %2$s</item>
-    <item quantity="one">%1$s mēnesi atbalstīja lichess.org kā %2$s</item>
-    <item quantity="other">%1$s mēnešus atbalstīja lichess.org kā %2$s</item>
+    <item quantity="zero">%1$s mēnešus atbalstīja lishogi.org kā %2$s</item>
+    <item quantity="one">%1$s mēnesi atbalstīja lishogi.org kā %2$s</item>
+    <item quantity="other">%1$s mēnešus atbalstīja lishogi.org kā %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="zero">Mācījās no %1$s pozīcijām sadaļā %2$s</item>
@@ -77,7 +76,7 @@
     <item quantity="one">%1$s. vieta (labākajos %2$s%%) spēlējot %3$s spēli %4$s</item>
     <item quantity="other">%1$s. vieta (labākajos %2$s%%) spēlējot %3$s spēles %4$s</item>
   </plurals>
-  <string name="signedUp">Reģistrējās lichess.org</string>
+  <string name="signedUp">Reģistrējās lishogi.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="zero">Pievienojās %s komandām</item>
     <item quantity="one">Pievienojās %s komandai</item>

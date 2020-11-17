@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Igraj s prijateljem</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Igraj s prijateljem</string>
   <string name="playWithTheMachine">Igraj proti računalniku</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kopiraj URL in povabi prijatelja k igri</string>
   <string name="gameOver">Konec igre</string>
@@ -269,7 +268,6 @@
   <string name="recipient">Prejemnik</string>
   <string name="send">Pošlji</string>
   <string name="incrementInSeconds">Dodan čas na potezo v sekundah</string>
-  <string name="freeOnlineChess">Brezplačni internetni šah</string>
   <string name="spectators">Seznam gledalcev:</string>
   <plurals name="nbRated">
     <item quantity="one">%s rangiran</item>
@@ -309,7 +307,7 @@
     <item quantity="few">Dodaj %s sekunde</item>
     <item quantity="other">Dodaj %s sekund</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Ta račun je kršil pogoje uporabe Lichess-a</string>
+  <string name="thisAccountViolatedTos">Ta račun je kršil pogoje uporabe Lishogi-a</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Igralec je umetno zvišal/znižal svoj rating</string>
   <string name="openingExplorerAndTablebase">Odpri brskalnik otvoritev &amp; baz</string>
   <string name="takeback">Popravek poteze</string>
@@ -371,7 +369,6 @@
   <string name="mustBeInTeam">Morate biti v ekipi %s</string>
   <string name="youAreNotInTeam">Niste v ekipi %s</string>
   <string name="backToGame">Vrni se v igro</string>
-  <string name="siteDescription">Brezplačni internetni šah. Igraj šah na enostavnem vmesniku. Brez registracije, brez reklam in brez dodatnih vtičnikov. Igraj šah proti računalniku, prijatelju ali naključnemu nasprotniku.</string>
   <string name="xJoinedTeamY">%1$s se je pridružil ekipi %2$s</string>
   <string name="xCreatedTeamY">%1$s je ustvaril ekipo %2$s</string>
   <string name="xStartedStreaming">%s je pričel z oddajanjem</string>
@@ -395,9 +392,7 @@
     <item quantity="few">%s uvožene igre</item>
     <item quantity="other">%s uvoženih iger</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">To je test, ki loči ljudi od računalnikov</string>
   <string name="clickOnTheBoardToMakeYourMove">Odigraj potezo in dokaži, da nisi robot</string>
-  <string name="captcha.fail">Prosimo, rešite ta test.</string>
   <string name="notACheckmate">To ni mat</string>
   <string name="whiteCheckmatesInOneMove">Beli matira v eni potezi</string>
   <string name="blackCheckmatesInOneMove">Črni matira v eni potezi</string>
@@ -456,7 +451,6 @@
   <string name="advancedSettings">Napredne nastavitve</string>
   <string name="safeTournamentName">Izberite zelo varno ime za turnir.</string>
   <string name="inappropriateNameWarning">Že zelo majhna neprimernost lahko povzroči ukinitev vašega računa.</string>
-  <string name="emptyTournamentName">Pustite prazno, da bo turnir imenovan po naključnem velemojstru.</string>
   <string name="recommendNotTouching">Priporočamo, da se tega ne dotikate.</string>
   <string name="fewerPlayers">Če nastavite pogoje za vstop, bo imel vaš turnir manj igralcev.</string>
   <string name="showAdvancedSettings">Prikaži napredne nastavitve</string>
@@ -504,8 +498,6 @@
   <string name="country">Država</string>
   <string name="socialMediaLinks">Povezava za sledenje na družabnih omrežjih</string>
   <string name="inlineNotation">Dodatna notacija</string>
-  <string name="watchLichessTV">Glej Lichess TV</string>
-  <string name="previouslyOnLichessTV">Nazadnje na Lichess TV</string>
   <string name="onlinePlayers">Prijavljeni igralci</string>
   <string name="activeToday">Danes aktivni</string>
   <string name="activePlayers">Aktivni igralci</string>
@@ -525,7 +517,7 @@
   <string name="butYouCanKeepTrying">Lahko poskušaš še naprej</string>
   <string name="success">Uspešno</string>
   <string name="wasThisPuzzleAnyGood">Je bil problem zanimiv?</string>
-  <string name="pleaseVotePuzzle">Pomagajte izboljšati Lichess z glasovanjem, uporabite puščico navzgor/navzdol:</string>
+  <string name="pleaseVotePuzzle">Pomagajte izboljšati Lishogi z glasovanjem, uporabite puščico navzgor/navzdol:</string>
   <string name="thankYou">Hvala!</string>
   <string name="ratingX">Rating: %s</string>
   <string name="hidden">skrito</string>
@@ -625,7 +617,6 @@ v %3$s</string>
   <string name="starting">Začetek:</string>
   <string name="allInformationIsPublicAndOptional">Vsi podatki so vidni in niso obvezni.</string>
   <string name="yourCityRegionOrDepartment">Tvoje mesto, občina ali regija.</string>
-  <string name="biographyDescription">Povej o sebi, kaj ti je všeč pri šahu, najljubše otvoritve, partije, igralci…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Največ: %s znak.</item>
     <item quantity="two">Največ: %s znaka.</item>
@@ -645,7 +636,6 @@ v %3$s</string>
   <string name="clock">Ura</string>
   <string name="unauthorizedError">Dostop ni avtoriziran</string>
   <string name="noInternetConnection">Ni internetne povezave. Še vedno lahko igraš nepovezan preko menija.</string>
-  <string name="connectedToLichess">Povezani ste na lichess.org</string>
   <string name="signedOut">Odjavili ste se</string>
   <string name="loginSuccessful">Prijava uspešna</string>
   <string name="playOnTheBoardOffline">Proti človeku</string>
@@ -689,7 +679,6 @@ v %3$s</string>
   <string name="webmasters">Razvijalci</string>
   <string name="about">O</string>
   <string name="aboutX">O %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s je brezplačen (%2$s), svoboden, brez oglasov, odprtokoden šahovski strežnik.</string>
   <string name="really">resnično</string>
   <string name="contribute">Prispevaj</string>
   <string name="termsOfService">Pogoji uporabe</string>
@@ -713,7 +702,6 @@ v %3$s</string>
   <string name="simulClockHint">Fischerjeva nastavitev ure. Več igralcev kot sprejmeš, več časa boš morda potreboval.</string>
   <string name="simulAddExtraTime">Uri lahko dodaš več časa v pomoč pri igranju simultanke.</string>
   <string name="simulHostExtraTime">Dodaten čas za gostitelja</string>
-  <string name="lichessTournaments">Lichess turnirji</string>
   <string name="tournamentFAQ">Turnirji - odgovori na pogosta vprašanja</string>
   <string name="tournamentOfficial">Uradno</string>
   <string name="timeBeforeTournamentStarts">Čas do začetka turnirja</string>
@@ -724,8 +712,6 @@ v %3$s</string>
   <string name="keyShowOrHideComments">pokaži/skrij komentarje</string>
   <string name="keyEnterOrExitVariation">vstopi/izstopi v varianto</string>
   <string name="newTournament">Nov turnir</string>
-  <string name="tournamentHomeTitle">Turnir z možnostjo različnih variant in različnih igralnih časov</string>
-  <string name="tournamentHomeDescription">Igraj turnirje z hitrim tempom! Pridruži se uradnemu turnirju ali ustvari svoj turnir. Hitropotezno, Pospešeno, Klasično, Šah960, Trojni šah in ostale možnosti so na voljo za neskončno šahovsko zabavo.</string>
   <string name="tournamentNotFound">Turnir ni najden</string>
   <string name="tournamentDoesNotExist">Ta turnir ne obstaja.</string>
   <string name="tournamentMayHaveBeenCanceled">Lahko je odpovedan, če so vsi igralci zapustili turnir preden se je začel.</string>
@@ -749,8 +735,6 @@ v %3$s</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Če ne vidite elektronskega sporočila, preverite druga mesta, kjer bi lahko bilo, npr. v smetnjaku ali v drugih mapah.</string>
   <string name="weHaveSentYouAnEmailTo">Elektronsko pošto smo poslali na %s. Kliknite na povezavo v emailu, da obnovite svoje geslo.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Z registracijo se strinjate z našimi %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Omrežna zakasnitev med vami in lichessom</string>
-  <string name="timeToProcessAMoveOnLichessServer">Čas za obdelavo poteze na lichess strežniku</string>
   <string name="downloadAnnotated">Prenesi s komentarji</string>
   <string name="downloadRaw">Prenesi brez komentarjev</string>
   <string name="downloadImported">Prenesi uvoženo PGN datoteko</string>
@@ -759,29 +743,23 @@ v %3$s</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Lahko se skozi partijo pomikaš tudi z miško</string>
   <string name="analysisShapesHowTo">Pritisni shift+klik ali desni klik za risanje krožcev in puščic po šahovnici</string>
   <string name="letOtherPlayersMessageYou">Dovoli drugim, da ti pišejo sporočila</string>
-  <string name="shareYourInsightsData">Deli svoje statistične podatke</string>
   <string name="withNobody">Z nikomer</string>
   <string name="withFriends">S prijatelji</string>
   <string name="withEverybody">Z vsemi</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Tvoj email %s je že registriran</string>
   <string name="kidMode">Način za otroke</string>
   <string name="kidModeExplanation">To je o varnosti. V načinu za otroke so vsi pogovori onemogočeni. Omogočite ta način, da otroke in šolarje zaščitite pred drugimi uporabniki na internetu.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">V načinu za otroke ima lichess ikono %s in označuje da so otroci varni.</string>
   <string name="enableKidMode">Vključite otroški način</string>
   <string name="disableKidMode">Izključite otroški način</string>
   <string name="security">Varnost</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">To je seznam naprav, ki so prijavljene v tvoj račun. Prekličite vse seje, ki jih ne prepoznate.</string>
   <string name="alternativelyYouCanX">Alternativa je %s.</string>
   <string name="revokeAllSessions">preklic vseh sej</string>
-  <string name="playChessEverywhere">Igraj šah kjerkoli</string>
-  <string name="asFreeAsLichess">Brezplačen kot lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Razvit zaradi ljubezni do šaha, ne denarja</string>
   <string name="everybodyGetsAllFeaturesForFree">Vsak dobi vse funkcije zastonj</string>
   <string name="zeroAdvertisement">Brez oglasov</string>
   <string name="fullFeatured">Polna funkcionalnost</string>
   <string name="phoneAndTablet">Telefon in tablica</string>
   <string name="bulletBlitzClassical">Hitropotezno, pospešeno, klasično</string>
-  <string name="correspondenceChess">Dopisni šah</string>
   <string name="onlineAndOfflinePlay">Igranje s povezavo ali brez povezave</string>
   <string name="viewTheSolution">Poglej rešitev</string>
   <string name="followAndChallengeFriends">Sledi in izzovi prijatelje</string>
@@ -816,9 +794,6 @@ v %3$s</string>
   <string name="usernameSuffixInvalid">Uporabniško ime se mora končati s črko ali s številko.</string>
   <string name="usernameCharsInvalid">Uporabniško ime sme vsebovati le črke, številke, podčrtaje in vezaje.</string>
   <string name="usernameUnacceptable">To uporabniško ime ni sprejemljivo.</string>
-  <string name="directlySupportLichess">Direktno pomagaj Lichess-u</string>
-  <string name="playChessInStyle">Šahirajte v slogu</string>
-  <string name="chessBasics">Šahovske osnove</string>
   <string name="coaches">Trenerji</string>
   <string name="invalidPgn">Neveljaven PGN</string>
   <string name="invalidFen">Neveljaven FEN</string>
@@ -901,7 +876,6 @@ v %3$s</string>
   <string name="weHadToTimeYouOutForAWhile">Morali smo vas za nekaj časa onemogočiti.</string>
   <string name="timeoutExpires">Omejitev poteče v %s.</string>
   <string name="why">Zakaj?</string>
-  <string name="pleasantChessExperience">Želimo, da imajo z igranjem vsi prijetno izkušnjo.</string>
   <string name="goodPractice">Da bi to dosegli, moramo zagotoviti, da se vsi igralci držijo dobre prakse.</string>
   <string name="potentialProblem">Ko zaznamo možno težavo, se prikaže to sporočilo.</string>
   <string name="howToAvoidThis">Kako se izogniti temu?</string>
@@ -909,14 +883,13 @@ v %3$s</string>
   <string name="tryToWin">Poskusite zmagati (ali vsaj remizirati) vsako igro, ki jo igrate.</string>
   <string name="resignLostGames">Predajte izgubljene partije (ne čakajte, da se šahovska ura izteče).</string>
   <string name="temporaryInconvenience">Opravičujemo se vam za začasno neprijetnost,</string>
-  <string name="wishYouGreatGames">in vam želimo prijetno igranje na lichess.org.</string>
+  <string name="wishYouGreatGames">in vam želimo prijetno igranje na lishogi.org.</string>
   <string name="thankYouForReading">Hvala vam za branje!</string>
   <string name="lifetimeScore">Dosedanji rezultat</string>
   <string name="currentMatchScore">Rezultat trenutne tekme</string>
-  <string name="agreementAssistance">Strinjam se, da ne bom nikoli uporabljal pomoči med partijo (od računalnika, knjige, podatkovne baze ali od druge osebe).</string>
   <string name="agreementNice">Strinjam se, da bom do drugih vedno prijazen.</string>
   <string name="agreementAccount">Strinjam se, da ne bom ustvaril več uporabniških računov.</string>
-  <string name="agreementPolicy">Strinjam se, da bom spoštoval vsa pravila Lichess strani.</string>
+  <string name="agreementPolicy">Strinjam se, da bom spoštoval vsa pravila Lishogi strani.</string>
   <string name="searchOrStartNewDiscussion">Poišči ali prični nov pogovor</string>
   <string name="edit">Uredi</string>
   <string name="rapid">Pospešeni</string>
@@ -927,7 +900,6 @@ v %3$s</string>
   <string name="rapidDesc">Pospešene igre: od 8 do 25 minut</string>
   <string name="classicalDesc">Klasične partije: 25 minut in več</string>
   <string name="correspondenceDesc">Dopisne igre: dan ali več za potezo</string>
-  <string name="puzzleDesc">Trening šahovskih taktik</string>
   <string name="important">Pomembno</string>
   <string name="inTheFAQ">v odgovorih na pogosta vprašanja.</string>
   <string name="useTheReportForm">uporabi prijavni obrazec</string>

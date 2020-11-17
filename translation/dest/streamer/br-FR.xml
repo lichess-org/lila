@@ -1,11 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="lichessStreamers">Streamerien Lichess</string>
-  <string name="lichessStreamer">Streamer Lichess</string>
-  <string name="live">WAR-EEUN!</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="live">WAR-EEUN!</string>
   <string name="offline">EZLINENN</string>
   <string name="lastStream">Stream diwezhañ %s</string>
-  <string name="becomeStreamer">Dont da vezañ ur streamer war Lichess</string>
+  <string name="becomeStreamer">Dont da vezañ ur streamer war Lishogi</string>
   <string name="doYouHaveStream">Ur chadenn Twitch pe YouTube ho peus?</string>
   <string name="hereWeGo">Deomp dezhi!</string>
   <string name="allStreamers">An holl streamerien</string>

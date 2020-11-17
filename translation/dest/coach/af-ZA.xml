@@ -1,10 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="lichessCoaches">Lichess afrigters</string>
-  <string name="lichessCoach">Lichess afrigter</string>
-  <string name="areYouCoach">Is jy \'n uitstekende skaak afrigter met \'n %s?</string>
-  <string name="nmOrFideTitle">NM of FIDE titel</string>
-  <string name="confirmTitle">Bevestig jou titel hier en ons sal jou aansoek hersien.</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="confirmTitle">Bevestig jou titel hier en ons sal jou aansoek hersien.</string>
   <string name="sendApplication">Stuur vir ons \'n e-pos na %s en ons sal jou aansoek nagaan.</string>
   <string name="location">Ligging</string>
   <string name="languages">Tale</string>
@@ -13,8 +8,7 @@
   <string name="availability">Beskikbaarheid</string>
   <string name="accepting">Aanvaar studente</string>
   <string name="notAccepting">Aanvaar nie tans studente nie</string>
-  <string name="xCoachesStudents">%s rig skaak studente af</string>
-  <string name="viewXProfile">Sien %s se Lichess profiel</string>
+  <string name="viewXProfile">Sien %s se Lishogi profiel</string>
   <string name="sendPM">Stuur \'n privaat boodskap</string>
   <string name="aboutMe">Wie is ek?</string>
   <string name="playingExperience">Speel ervaring</string>

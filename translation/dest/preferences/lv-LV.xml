@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">Uzstādījumi</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">Uzstādījumi</string>
   <string name="gameDisplay">Spēles izskats</string>
   <string name="pieceAnimation">Figūru animācija</string>
   <string name="materialDifference">Materiāla starpība</string>
@@ -9,13 +8,9 @@
   <string name="boardCoordinates">Galdiņa koordinātas (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Gājienu saraksts spēles laikā</string>
   <string name="pgnPieceNotation">Gājienu notācija</string>
-  <string name="chessPieceSymbol">Šaha figūras simbols</string>
-  <string name="pgnLetter">Burts (K, D, T, L, Z)</string>
   <string name="zenMode">Zen režīms</string>
   <string name="displayBoardResizeHandle">Rādīt galdiņa izmēra maiņas rīku</string>
   <string name="onlyOnInitialPosition">Tikai sākotnējajā pozīcijā</string>
-  <string name="blindfoldChess">Aklais šahs (ar neredzamām figūrām)</string>
-  <string name="chessClock">Šaha pulkstenis</string>
   <string name="tenthsOfSeconds">Sekunžu desmitdaļas</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Ja atlicis &lt; 10 sekundēm</string>
   <string name="horizontalGreenProgressBars">Zaļā horizontālā izpildes josla</string>

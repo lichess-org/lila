@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Xogar cun amigo</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Xogar cun amigo</string>
   <string name="playWithTheMachine">Xogar contra a máquina</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para invitar a alguén a xogar, dálle este URL</string>
   <string name="gameOver">Partida rematada</string>
@@ -234,7 +233,6 @@
   <string name="recipient">Destinatario</string>
   <string name="send">Enviar</string>
   <string name="incrementInSeconds">Incremento en segundos</string>
-  <string name="freeOnlineChess">Xadrez libre en liña</string>
   <string name="spectators">Espectadores:</string>
   <plurals name="nbRated">
     <item quantity="one">%s puntuadas</item>
@@ -307,7 +305,6 @@
   <string name="mustBeInTeam">Tés que estar no equipo %s</string>
   <string name="youAreNotInTeam">Non estás no equipo %s</string>
   <string name="backToGame">Voltar á partida</string>
-  <string name="siteDescription">Xadrez libre en liña. Xoga ó xadrez cunha interface limpa. Sen rexistrarse, sen anuncios, sen necesidade de plugins. Xoga ó xadrez contra o ordenador, amigos ou rivais aleatorios.</string>
   <string name="xJoinedTeamY">%1$s uniuse ó equipo %2$s</string>
   <string name="xCreatedTeamY">%1$s creou o equipo %2$s</string>
   <string name="averageElo">Puntuación media</string>
@@ -327,9 +324,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
     <item quantity="one">%s Partidas importadas</item>
     <item quantity="other">%s Partidas importadas</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Isto é un CAPTCHA de xadrez.</string>
   <string name="clickOnTheBoardToMakeYourMove">Fai clic no tableiro para facer a túa xogada, e probar que es humano.</string>
-  <string name="captcha.fail">Por favor resolve o captcha de xadrez.</string>
   <string name="notACheckmate">Non é xaque mate.</string>
   <string name="retry">Reintentar</string>
   <string name="reconnecting">Reconectando</string>
@@ -374,7 +369,6 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="advancedSettings">Axustes avanzados</string>
   <string name="safeTournamentName">Escolla un nome seguro para o torneo.</string>
   <string name="inappropriateNameWarning">Calquera comportamento lixeiramente inadecuado podería levar ao peche da súa conta.</string>
-  <string name="emptyTournamentName">Deixe en branco e o torneo terá o nome aleatorio de un Grande Mestre.</string>
   <string name="recommendNotTouching">Nós recomendamos que non toque nestas opcións.</string>
   <string name="fewerPlayers">Se estableces condicións de entrada, o teu torneo terá menos xogadores.</string>
   <string name="showAdvancedSettings">Amosar axustes avanzados</string>
@@ -420,8 +414,6 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="biography">Biografía</string>
   <string name="country">País</string>
   <string name="inlineNotation">Notación compacta</string>
-  <string name="watchLichessTV">Mirar Lichess TV</string>
-  <string name="previouslyOnLichessTV">Previamente en Lichess TV</string>
   <string name="onlinePlayers">Xogadores en liña</string>
   <string name="activeToday">Activos hoxe</string>
   <string name="activePlayers">Xogadores activos</string>
@@ -441,7 +433,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="butYouCanKeepTrying">Pero podes seguir intentándoo.</string>
   <string name="success">Éxito</string>
   <string name="wasThisPuzzleAnyGood">Que che pareceu este problema?</string>
-  <string name="pleaseVotePuzzle">Axúdanos a mellorar Lichess votando, mediante as frechas arriba e abaixo:</string>
+  <string name="pleaseVotePuzzle">Axúdanos a mellorar Lishogi votando, mediante as frechas arriba e abaixo:</string>
   <string name="thankYou">Grazas!</string>
   <string name="ratingX">Dificultade: %s</string>
   <plurals name="playedXTimes">
@@ -528,7 +520,6 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="starting">Comezo:</string>
   <string name="allInformationIsPublicAndOptional">Toda a información é pública e opcional.</string>
   <string name="yourCityRegionOrDepartment">A túa cidade, rexión, ou provincia.</string>
-  <string name="biographyDescription">Cóntanos sobre ti, que che gusta do xadrez, as túas aperturas preferidas, partidas, xogadores…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Máximo: %s caracteres.</item>
     <item quantity="other">Máximo: %s caracteres.</item>
@@ -544,7 +535,6 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="clock">Reloxo</string>
   <string name="unauthorizedError">Acceso non autorizado.</string>
   <string name="noInternetConnection">Sen conexión a Internet. Aínda podes xogar offline dende o menú.</string>
-  <string name="connectedToLichess">Estás conectado a lichess.org</string>
   <string name="signedOut">Finalizaches a túa sesión.</string>
   <string name="loginSuccessful">Iniciaches sesión</string>
   <string name="playOnTheBoardOffline">No taboleiro</string>
@@ -583,7 +573,6 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="webmasters">Administradores web</string>
   <string name="about">Acerca de</string>
   <string name="aboutX">Acerca de %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s é un servidor de xadrez de código aberto, gratuito (%2$s), libre, e sen publicidade.</string>
   <string name="really">realmente</string>
   <string name="contribute">Contribuír</string>
   <string name="termsOfService">Termos do Servizo</string>
@@ -607,7 +596,6 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="simulClockHint">Modo Fischer de reloxo. Cantos máis xogadores, máis tempo necesitas.</string>
   <string name="simulAddExtraTime">Podes engadir tempo extra ó teu reloxo para axudarte coa simultánea.</string>
   <string name="simulHostExtraTime">Tempo extra para o simultaneador</string>
-  <string name="lichessTournaments">Torneos de Lichess</string>
   <string name="tournamentFAQ">Preguntas frecuentes sobre torneos</string>
   <string name="tournamentOfficial">Oficial</string>
   <string name="timeBeforeTournamentStarts">Tempo antes de que o torneo comece</string>
@@ -618,8 +606,6 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentarios</string>
   <string name="keyEnterOrExitVariation">entrar/saír de variante</string>
   <string name="newTournament">Novo torneo</string>
-  <string name="tournamentHomeTitle">Torneo de xadrez con varios controis de tempo e variantes</string>
-  <string name="tournamentHomeDescription">Xoga torneos de xadrez acelerados! Únete a un torneo oficial programado, ou crea un de teu. Bullet, Blitz, Estándar, Chess960, King of the Hill, Threecheck, e máis opcións dispoñibles para unha diversión xadrecística sen fin.</string>
   <string name="tournamentNotFound">Torneo non atopado</string>
   <string name="tournamentDoesNotExist">Este torneo non existe.</string>
   <string name="tournamentMayHaveBeenCanceled">Poida que fose cancelado, se todos os xogadores marcharon antes de que o torneo comezase.</string>
@@ -637,8 +623,6 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se non ves o correo, revisa outras carpetas onde poda estar, coma a de spam ou correo basura.</string>
   <string name="weHaveSentYouAnEmailTo">Enviámosche un correo a %s. Segue a ligazón no correo para restaurar o teu contrasinal.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ó rexistrarte, aceptas os nosos %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Retardo da rede entre ti e máis lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Tempo para procesar un movimiento no servidor de lichess</string>
   <string name="downloadAnnotated">Descarga con notación</string>
   <string name="downloadRaw">Descarga sen notación</string>
   <string name="downloadImported">Descargar importadas</string>
@@ -647,29 +631,23 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Tamén podes facer scroll sobre o taboleiro para moverte pola partida.</string>
   <string name="analysisShapesHowTo">Pulsa Mays+clic ou fai clic dereito para debuxar círculos e frechas no taboleiro.</string>
   <string name="letOtherPlayersMessageYou">Permitir que outros xogadores te envíen mensaxes</string>
-  <string name="shareYourInsightsData">Compartir os teus datos estatísticos</string>
   <string name="withNobody">Con ninguén</string>
   <string name="withFriends">Cos teus amigos</string>
   <string name="withEverybody">Con todo o mundo</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Xa rexistraches o correo: %s</string>
   <string name="kidMode">Modo infantil</string>
   <string name="kidModeExplanation">Por seguridade, no modo infantil desactívanse tódalas comunicacións. Activa isto para protexer aos teus nenos ou alumnos de outros usuarios de Internet.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">En modo infantil, o logo de lichess ten unha icona de %s, indicando que os nenos están seguros.</string>
   <string name="enableKidMode">Activar modo infantil</string>
   <string name="disableKidMode">Desactivar modo infantil</string>
   <string name="security">Seguridade</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Esta é unha lista de dispositivos que teñen iniciado sesión coa túa conta. Peche todas as sesións que non recoñeza.</string>
   <string name="alternativelyYouCanX">Alternativamente podes %s.</string>
   <string name="revokeAllSessions">pechar todas as sesións</string>
-  <string name="playChessEverywhere">Xoga ó xadrez en todas partes</string>
-  <string name="asFreeAsLichess">Tan libre coma lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Construído por amor ó xadrez, non ó diñeiro</string>
   <string name="everybodyGetsAllFeaturesForFree">Todos obteñen todas as funcións gratis</string>
   <string name="zeroAdvertisement">Publicidade cero</string>
   <string name="fullFeatured">Repleta de funcións</string>
   <string name="phoneAndTablet">Teléfono e tableta</string>
   <string name="bulletBlitzClassical">Bullet, blitz, clásico</string>
-  <string name="correspondenceChess">Xadrez postal</string>
   <string name="onlineAndOfflinePlay">Xogo en liña e fóra dela</string>
   <string name="viewTheSolution">Mira a solución</string>
   <string name="followAndChallengeFriends">Segue e reta amigos</string>
@@ -702,9 +680,6 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="usernameSuffixInvalid">O nome de usuarui debe rematar cunha letra ou cun número.</string>
   <string name="usernameCharsInvalid">O nome de usuario só pode conter letras, números, trazos baixos e guións.</string>
   <string name="usernameUnacceptable">Este nome de usuario non é aceptable.</string>
-  <string name="directlySupportLichess">Apoiar directamente a Lichess</string>
-  <string name="playChessInStyle">Xogar ao xadrez con estilo</string>
-  <string name="chessBasics">Fundamentos de xadrez</string>
   <string name="coaches">Entrenadores</string>
   <string name="invalidPgn">PGN non válido</string>
   <string name="invalidFen">FEN non válido</string>

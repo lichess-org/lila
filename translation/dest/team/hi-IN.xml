@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="team">टीम</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="team">टीम</string>
   <string name="teams">समूह</string>
   <plurals name="nbMembers">
     <item quantity="one">%s सदस्य</item>

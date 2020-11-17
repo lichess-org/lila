@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="hourlyRapidArena">Snøggsjakk-arena - kvar time</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="hourlyRapidArena">Snøggsjakk-arena - kvar time</string>
   <string name="hourlyRapid">Snøggsjakk kvar time</string>
   <string name="hourlyXArena">%s arena - kvar time</string>
   <string name="hourlyX">Kvar time %s</string>

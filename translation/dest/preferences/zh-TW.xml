@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">偏好設置</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">偏好設置</string>
   <string name="gameDisplay">棋局顯示</string>
   <string name="pieceAnimation">棋子動畫</string>
   <string name="materialDifference">子力差距</string>
@@ -9,8 +8,6 @@
   <string name="boardCoordinates">棋盘坐标（A-H, 1-8）</string>
   <string name="moveListWhilePlaying">遊戲進行時顯示棋譜</string>
   <string name="zenMode">禪意模式</string>
-  <string name="blindfoldChess">蒙眼象棋 (看不见棋子)</string>
-  <string name="chessClock">棋鍾</string>
   <string name="tenthsOfSeconds">十分之一秒</string>
   <string name="whenTimeRemainingLessThanTenSeconds">當剩餘時間小於10秒</string>
   <string name="horizontalGreenProgressBars">绿色横进度条</string>

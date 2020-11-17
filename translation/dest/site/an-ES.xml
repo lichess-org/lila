@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Chugar con un amigo</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Chugar con un amigo</string>
   <string name="playWithTheMachine">Chugar con a maquina</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pa convidar a belún a chugar, ninvia-le esta URL</string>
   <string name="gameOver">Partida rematada</string>

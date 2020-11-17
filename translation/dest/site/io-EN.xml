@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Ludar kun amiko</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Ludar kun amiko</string>
   <string name="playWithTheMachine">Ludar kun komputero</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Por invitar ulu por ludar, donez ica URL</string>
   <string name="gameOver">Ludo Finis</string>
@@ -86,7 +85,6 @@
   <string name="spectatorRoom">Spekterochambro</string>
   <string name="composeMessage">Kompozar mesajo</string>
   <string name="incrementInSeconds">Kreskajo en sekundi</string>
-  <string name="freeOnlineChess">Libera Enlinea Shakoludo</string>
   <string name="spectators">Spekteri:</string>
   <string name="exportGames">Exportacar ludi</string>
   <string name="ratingRange">Elo-rango</string>
@@ -100,7 +98,6 @@
   <string name="bookmarkThisGame">Paginomarkizar ica ludo</string>
   <string name="tournament">Turniro</string>
   <string name="tournamentPoints">Turniropunti</string>
-  <string name="siteDescription">Libera enlinea Shakoludo. Shakoludez nun en neta interfaco. Nula enrejistro, nula reklamo, nula extensoprogramo necesa. Shakoludez kun komputero, amiki o hazarda adversi.</string>
   <string name="averageElo">Mezavalora Elo</string>
   <string name="location">Loko</string>
   <string name="filterGames">Filtrar ludi</string>

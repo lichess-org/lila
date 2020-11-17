@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">मित्र के साथ खेलें</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">मित्र के साथ खेलें</string>
   <string name="playWithTheMachine">कंप्यूटर के साथ खेलें</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">इस खेल में किसी को आमंत्रित करने के लिए उन्हें ये पता दें</string>
   <string name="gameOver">खेल समाप्त</string>
@@ -247,7 +246,6 @@
   <string name="recipient">प्राप्तकर्ता</string>
   <string name="send">भेजें</string>
   <string name="incrementInSeconds">हर चाल पर सेकंड्स की वृद्धि</string>
-  <string name="freeOnlineChess">मुफ्त ऑनलाइन शतरंज</string>
   <string name="spectators">दर्शक</string>
   <plurals name="nbRated">
     <item quantity="one">%s रेटेड खेल</item>
@@ -324,7 +322,6 @@
   <string name="mustBeInTeam">टीम में होना ज़रूरी है %s</string>
   <string name="youAreNotInTeam">आप %s का हिस्सा नही हो</string>
   <string name="backToGame">खेल पर लौटें।</string>
-  <string name="siteDescription">खेलें शतरंज मुफ्त और ऑनलाइन साफ़ सुथरे अंदाज में| न कोई पंजीकरण, न कोई प्रचार और न ही किसी अन्य बहरी चीज की आव्यशकता| शतरंज कम्प्युटर, दोस्तों या किसी भी प्रतिद्वंदी के साथ खेलें|</string>
   <string name="xJoinedTeamY">%1$s %2$s समूह से जुड़ा</string>
   <string name="xCreatedTeamY">%1$s ने  %2$s समूह बनाया</string>
   <string name="xStartedStreaming">%s ने चलचित्र का संचार शुरू किया</string>
@@ -346,9 +343,7 @@
     <item quantity="one">%s खेल आयत (इम्पोर्ट) किये गए</item>
     <item quantity="other">%s खेल आयत (इम्पोर्ट) किये गए</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">यह इंसानों और कम्प्यूटरों को अलग करने के लिए शतरंज की पहेली है</string>
   <string name="clickOnTheBoardToMakeYourMove">अपनी चाल चलने के लिए बोर्ड पर क्लिक करें और साबित करे की आप इंसान हैं।</string>
-  <string name="captcha.fail">कृपया शतरंज कैप्चा हल करें।</string>
   <string name="notACheckmate">शह और मात नहीं</string>
   <string name="whiteCheckmatesInOneMove">सफेद १ चाल में शहमात देगा</string>
   <string name="blackCheckmatesInOneMove">काला १ चाल में शहमात देगा</string>
@@ -399,7 +394,6 @@
   <string name="advancedSettings">एडव्हान्स सेटिंग्ज</string>
   <string name="safeTournamentName">टूर्नामेंट के लिए उचित नाम चुनिए ।</string>
   <string name="inappropriateNameWarning">थोड़ा सा भी अनुचित नाम चुनने से आपका ख़ाता बंद हो सकता है।</string>
-  <string name="emptyTournamentName">खाली रखने पर बेतरतीब ढंग से कोई एक सर्वश्रेष्ठ शतरंज के खिलाड़ी के बाद टूर्नामेंट का नाम चुना जाएगा।</string>
   <string name="recommendNotTouching">हम इन चिज़ों को छूने की सलाह नहीं देते ।</string>
   <string name="fewerPlayers">यदि अत्यधिक एवं अनुचित शर्ते रखे तो आपके टूर्नामेंट में कम खिलाड़ियों होंगे।</string>
   <string name="showAdvancedSettings">एडवांस्ड सेटिंग्स दिखाएं</string>
@@ -447,8 +441,6 @@
   <string name="country">देश</string>
   <string name="socialMediaLinks">सामाजिक माध्यम</string>
   <string name="inlineNotation">इनलाइन नोटेशन</string>
-  <string name="watchLichessTV">Lichess TV देखें</string>
-  <string name="previouslyOnLichessTV">इससे पहले Lichess TV पर</string>
   <string name="onlinePlayers">ऑनलाइन खिलाड़ियों</string>
   <string name="activeToday">आज सक्रिय</string>
   <string name="activePlayers">सक्रिय  खिलाडी</string>
@@ -564,7 +556,6 @@
   <string name="starting">शुरू हो रहा है:</string>
   <string name="allInformationIsPublicAndOptional">सभी जानकारी सार्वजनिक और वैकल्पिक है।</string>
   <string name="yourCityRegionOrDepartment">आपका शहर, क्षेत्र, या प्रांत।</string>
-  <string name="biographyDescription">अपने बारे मे बताएँ, आपको शतरंज मे क्या अच्छा लगता है, आपका पसंदीदा शुऱुआतें, खेलें, खिलाड़ी...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">अधिकतम %s अक्षर|</item>
     <item quantity="other">अधिकतम %s अक्षर|</item>
@@ -580,7 +571,6 @@
   <string name="clock">घड़ी</string>
   <string name="unauthorizedError">पहुँच अनधिकृत है।</string>
   <string name="noInternetConnection">कोई इंटरनेट कनेक्शन नहीं। आप अब भी मेनू से ऑफ़लाइन खेल सकते हैं।</string>
-  <string name="connectedToLichess">अब आप lichess.org से जुड़े हैं</string>
   <string name="signedOut">आप खातें से बहार आ चुके हैं</string>
   <string name="loginSuccessful">अब आप खाते के अंदर हैं</string>
   <string name="playOnTheBoardOffline">बोर्ड पर</string>
@@ -622,7 +612,6 @@
   <string name="webmasters">वेबमास्टर्स</string>
   <string name="about">के बारे में</string>
   <string name="aboutX">%s के बारे में</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s एक मुफ्त (%2$s), स्वतंत्र, विज्ञापनों से मुक्त, खुला स्रोत, शतरंज सर्वर है।</string>
   <string name="really">सचमुच</string>
   <string name="contribute">सहयोग करें</string>
   <string name="termsOfService">नियम और शर्तें</string>
@@ -646,7 +635,6 @@
   <string name="simulClockHint">फिशर क्लॉक सेटअप। आप जितने ज्यादा खिलाडी लेंगे, उतना आपको अधिक समय की आव्यशकता होगी।</string>
   <string name="simulAddExtraTime">सिमुल का सामना करने के लिए आप अपनी घडी में अतिरिक्त समय जोड़ सकते हैं</string>
   <string name="simulHostExtraTime">अतिरिक्त समय की मेजबानी करें</string>
-  <string name="lichessTournaments">lichess की प्रतियोगिताएं</string>
   <string name="tournamentFAQ">अखाडा प्रतियोगिता के बारे में कई बार पूछे गए  सवाल</string>
   <string name="tournamentOfficial">आधिकारिक</string>
   <string name="timeBeforeTournamentStarts">प्रतियोगिता के आरंभ होने में समय</string>
@@ -657,8 +645,6 @@
   <string name="keyShowOrHideComments">टिपण्णी दिखाएँ/छिपाएँ</string>
   <string name="keyEnterOrExitVariation">अंदर बाहर करे</string>
   <string name="newTournament">नया टूर्नमेंट बनायें</string>
-  <string name="tournamentHomeTitle">शतरंज का टूर्नमेंट, अलग अलग खेल समय और प्रकार के साथ</string>
-  <string name="tournamentHomeDescription">तेज़ रफ़्तार वाले शतरंज टूर्नमेंट खेलिए! आधिकारिक अन्यूसशीट टूर्नमेंट मे भाग लें, या खुद का टूर्नमेंट बनायें! Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck और अधिक प्रकार के मज़ेदार शतरंज के किस्म खेलिए!</string>
   <string name="tournamentNotFound">टूर्नामेंट नहीं मिला</string>
   <string name="tournamentDoesNotExist">यह टूर्नामेंट मौजूद नहीं है।</string>
   <string name="tournamentMayHaveBeenCanceled">टूर्नमेंट रद्द् हो गया होगा, अगर सभी खिलाड़ी टूर्नमेंट शुरू होने से पहले चले तौंरमेंट छोड़ चुके है</string>
@@ -680,8 +666,6 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">आप ईमेल नहीं देखते हैं, तो अन्य स्थानों पर यह हो सकता है, आपकी कबाड़, स्पैम, सामाजिक, या अन्य फ़ोल्डर की तरह की जाँच करें।</string>
   <string name="weHaveSentYouAnEmailTo">हम%s के लिए एक ईमेल भेज दिया है। अपना पासवर्ड रीसेट करने के लिए ईमेल में लिंक पर क्लिक करें।</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">दर्ज करके, आप हमारे %s द्वारा बाध्य होने के लिए सहमत हैं।</string>
-  <string name="networkLagBetweenYouAndLichess">आप और lichess के बीच नेटवर्क के अंतराल</string>
-  <string name="timeToProcessAMoveOnLichessServer">Lichess सर्वर पर एक कदम प्रक्रिया के लिए समय</string>
   <string name="downloadAnnotated">एनोटेट डाउनलोड करें</string>
   <string name="downloadRaw">कच्चा डाउनलोड करें</string>
   <string name="downloadImported">डाउनलोड आयातित</string>
@@ -690,29 +674,23 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">आप खेल में जाने के लिए बोर्ड पर भी स्क्रॉल कर सकते हैं।</string>
   <string name="analysisShapesHowTo">बोर्ड पर मंडलियां और तीरों को आकर्षित करने के लिए shift + click या right-click दबाएं</string>
   <string name="letOtherPlayersMessageYou">अन्य खिलाड़ियों को आपको संदेश देने दें</string>
-  <string name="shareYourInsightsData">अपने इनसाइट डेटा साझा करें</string>
   <string name="withNobody">किसी के साथ नहीं</string>
   <string name="withFriends">दोस्तों के साथ</string>
   <string name="withEverybody">सभी के साथ</string>
   <string name="youHaveAlreadyRegisteredTheEmail">आपने पहले ही ईमेल दर्ज कर लिया है: %s</string>
   <string name="kidMode">बच्चा मोड</string>
   <string name="kidModeExplanation">यह सुरक्षा के बारे में है। बच्चे मोड में, सभी साइट संचार अक्षम हैं। यह अपने बच्चों के लिए सक्षम और स्कूल के छात्रों उन्हें अन्य इंटरनेट उपयोगकर्ताओं से सुरक्षित करने के लिए।</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">बच्चे के मोड में, lichess लोगो को %s आइकन मिलता है, इसलिए आप जानते हैं कि आपके बच्चे सुरक्षित हैं</string>
   <string name="enableKidMode">बच्चे मोड को सक्षम करें</string>
   <string name="disableKidMode">बच्चे मोड अक्षम करें</string>
   <string name="security">सुरक्षा</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">यह उन डिवाइसों की एक सूची है जो आपके खाते में लॉग इन हैं। उन सत्रों को रद्द करें जिन्हें आप नहीं पहचानते हैं</string>
   <string name="alternativelyYouCanX">वैकल्पिक रूप से आप %s कर सकते हैं।</string>
   <string name="revokeAllSessions">सभी सत्र रद्द</string>
-  <string name="playChessEverywhere">हर जगह शतरंज खेलें</string>
-  <string name="asFreeAsLichess">Lichess जैसा मुक्त</string>
-  <string name="builtForTheLoveOfChessNotMoney">शतरंज के प्यार के लिए निर्मित, धन के लिए नहीं</string>
   <string name="everybodyGetsAllFeaturesForFree">हर कोई मुफ्त में सभी सुविधाओं प्राप्त करता है</string>
   <string name="zeroAdvertisement">शून्य विज्ञापन</string>
   <string name="fullFeatured">पूरा विशेष रुप से प्रदर्शित</string>
   <string name="phoneAndTablet">फोन और टैबलेट</string>
   <string name="bulletBlitzClassical">बुलेट, ब्लिट्ज, क्लासिकल</string>
-  <string name="correspondenceChess">पत्राचार शतरंज</string>
   <string name="onlineAndOfflinePlay">ऑनलाइन और ऑफ़लाइन खेलने के लिए</string>
   <string name="viewTheSolution">समाधान देखें</string>
   <string name="followAndChallengeFriends">अपने दोस्तों को चुनौती</string>
@@ -745,9 +723,6 @@
   <string name="usernameSuffixInvalid">जो नाम आप उपयोग करते, वह किसी अक्षर या संख्या के साथ समाप्त होना चाहिए ।</string>
   <string name="usernameCharsInvalid">जो नाम आप उपयोग करते, उनमें सिर्फ पत्र, संख्या, अंडरस्कोर और हाइफ़न होना चाहिए ।</string>
   <string name="usernameUnacceptable">यह उपयोगकर्ता नाम स्वीकार्य नहीं है।</string>
-  <string name="directlySupportLichess">Lichess का समर्थन करें</string>
-  <string name="playChessInStyle">शैली में शतरंज खेलें</string>
-  <string name="chessBasics">शतरंज मूल बातें</string>
   <string name="coaches">कोच</string>
   <string name="invalidPgn">अमान्य PGN</string>
   <string name="invalidFen">अमान्य FEN</string>
@@ -824,7 +799,6 @@
   <string name="weHadToTimeYouOutForAWhile">हमें आपको कुछ समय के लिए प्रतिबंधित करना पड़ा।</string>
   <string name="timeoutExpires">आपका प्रतिबंध %s समाप्त हो जाएगा।</string>
   <string name="why">क्यों?</string>
-  <string name="pleasantChessExperience">हम सभी के लिए एक सुखद शतरंज अनुभव प्रदान करना चाहते हैं।</string>
   <string name="goodPractice">इसलिए, हमें यह सुनिश्चित करना होगा कि सभी खिलाड़ी अच्छे अभ्यास का पालन करें।</string>
   <string name="potentialProblem">जब एक संभावित समस्या का पता चलता है, हम इस संदेश को प्रदर्शित करते हैं।</string>
   <string name="howToAvoidThis">इससे कैसे बचा जाए?</string>
@@ -832,14 +806,13 @@
   <string name="tryToWin">आपके द्वारा खेले जाने वाले हर खेल को जीतने की कोशिश करें। (या कम से कम खेल ड्रा करें)।</string>
   <string name="resignLostGames">हारे हुए खेलों को त्याग दें (घड़ी को अंत तक न चलने दें)।</string>
   <string name="temporaryInconvenience">हमें अल्पकालिक असुविधा के लिए खेद है</string>
-  <string name="wishYouGreatGames">और lichess.org पर आपको अनेक शानदार खेलों की शुभकामनाएं।</string>
+  <string name="wishYouGreatGames">और lishogi.org पर आपको अनेक शानदार खेलों की शुभकामनाएं।</string>
   <string name="thankYouForReading">पढ़ने के लिए धन्यवाद!</string>
   <string name="lifetimeScore">जीवनकाल स्कोर</string>
   <string name="currentMatchScore">वर्तमान मैच का स्कोर</string>
-  <string name="agreementAssistance">मैं मानता हूं कि मुझे अपने खेल के दौरान (शतरंज के कंप्यूटर, पुस्तक, डेटाबेस या किसी अन्य व्यक्ति से) सहायता प्राप्त नहीं होगी।</string>
   <string name="agreementNice">मैं इस बात से सहमत हूं कि मैं हमेशा अन्य खिलाड़ियों के प्रति सम्मानजनक रहूंगा।</string>
   <string name="agreementAccount">मैं सहमत हूं कि मैं अनेक अकाउंट नहीं बनाऊंगा।</string>
-  <string name="agreementPolicy">मैं इस बात से सहमत हूं कि मैं सभी Lichess नीतियों का पालन करूंगा।</string>
+  <string name="agreementPolicy">मैं इस बात से सहमत हूं कि मैं सभी Lishogi नीतियों का पालन करूंगा।</string>
   <string name="searchOrStartNewDiscussion">खोजे या नया वार्तालाप आरम्भ करें</string>
   <string name="edit">संशोधन करें</string>
   <string name="rapid">रैपिड</string>
@@ -850,5 +823,4 @@
   <string name="rapidDesc">रैपिड गेम्स: 8 से 25 मिनट</string>
   <string name="classicalDesc">क्लॅसिकल खेल: 25 मिनट और अधिक</string>
   <string name="correspondenceDesc">पत्राचार खेल: एक या कई दिन प्रति चाल</string>
-  <string name="puzzleDesc">शतरंज की रणनीति के प्रशिक्षक</string>
-</resources>
+  </resources>

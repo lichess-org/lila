@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search">ସନ୍ଧାନ କର</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="search">ସନ୍ଧାନ କର</string>
   <string name="advancedSearch">ଉନ୍ନତ ସନ୍ଧାନ</string>
   <plurals name="xGamesFound">
     <item quantity="one">ଖେଳ ଟିଏ ମିଳିଲା</item>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="private">Pribadi</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="private">Pribadi</string>
   <string name="myStudies">Studi saya</string>
   <string name="studiesIContributeTo">Studi yang saya kontribusikan kepada</string>
   <string name="myPublicStudies">Studi publik saya</string>

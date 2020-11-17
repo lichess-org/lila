@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">Innstillingar</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="settings">Innstillingar</string>
   <string name="closeAccount">Steng konto</string>
   <string name="closingIsDefinitive">Å stenge kontoen er ei avgjerd som ikkje kan reverseras. Er du heilt sikker?</string>
   <string name="cantOpenSimilarAccount">Du kan ikkje oppretta ein ny konto med det same brukarnamnet, sjølv om du endrar bokstavstorleiken (små bokstaver til STORE eller STORE bokstavar til små).</string>

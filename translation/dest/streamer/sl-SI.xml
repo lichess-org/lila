@@ -1,12 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="lichessStreamers">Lichess voditelji prenosa</string>
-  <string name="lichessStreamer">Lichess voditelj prenosa</string>
-  <string name="live">V ŽIVO!</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="live">V ŽIVO!</string>
   <string name="offline">Brez povezave</string>
   <string name="currentlyStreaming">Trenutno prenašajo: %s</string>
   <string name="lastStream">Zadnji prenos: %s</string>
-  <string name="becomeStreamer">Postani Lichess voditelj prenosa</string>
+  <string name="becomeStreamer">Postani Lishogi voditelj prenosa</string>
   <string name="doYouHaveStream">Ali imaš Twitch ali Youtube kanal?</string>
   <string name="hereWeGo">Gremo!</string>
   <string name="allStreamers">Vsi voditelji prenosa</string>
@@ -15,13 +12,13 @@
   <string name="downloadKit">Prenos kompleta za voditelja prenosa</string>
   <string name="xIsStreaming">%s prenaša</string>
   <string name="rules">Pravila za vodenje prenosa</string>
-  <string name="rule1">Vključite ključno besedo \"lichess.org\" v vaš naslov oddaje, ko prenašate na Lichess-u.</string>
-  <string name="rule2">Odstranite ključno besedo, ko prenašate dogodke, ki niso povezani z Lichess-om.</string>
-  <string name="rule3">Lichess bo samodejno zaznal vaš prenos in omogočil naslednje prednosti:</string>
+  <string name="rule1">Vključite ključno besedo \"lishogi.org\" v vaš naslov oddaje, ko prenašate na Lishogi-u.</string>
+  <string name="rule2">Odstranite ključno besedo, ko prenašate dogodke, ki niso povezani z Lishogi-om.</string>
+  <string name="rule3">Lishogi bo samodejno zaznal vaš prenos in omogočil naslednje prednosti:</string>
   <string name="perks">Prednosti prenosa s klučno besedo</string>
-  <string name="perk1">Pridobite gorečo ikono voditelja oddaj v svojem profilu Lichess.</string>
+  <string name="perk1">Pridobite gorečo ikono voditelja oddaj v svojem profilu Lishogi.</string>
   <string name="perk2">Skočite na vrh seznama voditeljev oddaj.</string>
-  <string name="perk3">Obvestite vaše Lichess sledilce.</string>
+  <string name="perk3">Obvestite vaše Lishogi sledilce.</string>
   <string name="perk4">Predvajajte vaš prenos v svojih igrah, turnirjih in študijah.</string>
   <string name="approved">Vaš prenos je odobren.</string>
   <string name="pendingReview">Vaš prenos so pregledali moderatorji.</string>
@@ -30,12 +27,12 @@
   <string name="requestReview">zahtevati pregled moderatorja</string>
   <string name="anotherLanguage">Če je vaš prenos v jeziku, ki ni angleški, na začetku naslova svojega prenosa vključite pravilno jezikovno oznako (%s), priloženo v oglatih oklepajih. 
 Kot naprimer, lahko vključite \"[RU]\" za ruščino, \"[TR]\" za turščino, \"[FR]\" za francoščino itd.
-To postavite v naslov oddaje na strani Twitch ali YouTube, ne pa v nastavitve prenosa Lichess. 
+To postavite v naslov oddaje na strani Twitch ali YouTube, ne pa v nastavitve prenosa Lishogi. 
 Če je vaša oddaja v angleščini, jezikovne oznake ni treba vključevati.</string>
   <string name="twitchUsername">Vaše Twitch uporabniško ime ali URL</string>
   <string name="optionalOrEmpty">Neobvezno. Pustite prazno, če ga ni</string>
   <string name="youtubeChannel">Vaš Youtube kanal ali URL</string>
-  <string name="streamerName">Vaše ime voditelja oddaj na Lichess</string>
+  <string name="streamerName">Vaše ime voditelja oddaj na Lishogi</string>
   <plurals name="keepItShort">
     <item quantity="one">Naj bo kratko: največ %s znak</item>
     <item quantity="two">Naj bo kratko: največ %s znaka</item>
@@ -54,5 +51,5 @@ To postavite v naslov oddaje na strani Twitch ali YouTube, ne pa v nastavitve pr
   <string name="maxSize">Največja velikost: %s</string>
   <string name="installBlocker">Namestite blokator zlonamerne programske opreme!</string>
   <string name="beSafe">Bodite varni pred oglasi in sledilci, okužbami Twitch in YouTube.
-Lichess priporoča uBlock Origin, ki je brezplačen in odprtokoden.</string>
+Lishogi priporoča uBlock Origin, ki je brezplačen in odprtokoden.</string>
 </resources>

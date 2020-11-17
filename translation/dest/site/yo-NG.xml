@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="gameOver">Game Ose</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="gameOver">Game Ose</string>
   <string name="white">Funfun</string>
   <string name="black">Dudu</string>
   <string name="whiteIsVictorious">Funfun ni ṣẹgun</string>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="dailyRapidArena">Arena diario rápido</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="dailyRapidArena">Arena diario rápido</string>
   <string name="dailyRapid">Diario rápido</string>
   <string name="dailyClassicalArena">Arena diario clásico</string>
   <string name="dailyClassical">Diario clásico</string>

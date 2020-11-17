@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="lichessClasses">فصول</string>
-  <string name="features">مزايا</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="features">مزايا</string>
   <string name="trackStudentProgress">تابع مستوي تقدم الطلبة في الألعاب و الألغاز</string>
   <string name="noClassesYet">لا يوجد حصص.</string>
   <string name="reopen">إعاده فتح</string>
@@ -10,7 +8,6 @@
   <string name="makeSureToCopy">تأكد من حفظ أو كتابه كلمه المرور. لن تتمكن من رؤيتها مجددا!</string>
   <string name="realName">الاسم الحقيقي</string>
   <string name="addStudent">أضف طالب</string>
-  <string name="createANewLichessAccount">إنشاء حساب مستخدم جديد</string>
   <string name="progress">مستوي التقدم</string>
   <string name="winrate">نسبة الفوز</string>
   <string name="na">غير متوفر</string>

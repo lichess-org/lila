@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Туспа выља</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Туспа выља</string>
   <string name="playWithTheMachine">Машинпа выља</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Пӗр-пӗр ҫынпа выљас тесен, каҫҫине йар</string>
   <string name="gameOver">Вӑйӑ вӗҫленчӗ</string>
@@ -161,7 +160,6 @@
   <string name="recipient">Илекенни</string>
   <string name="send">Йар</string>
   <string name="incrementInSeconds">Ҫеккунт инкременчӗ</string>
-  <string name="freeOnlineChess">Тӳлевсӗр Онлайн Шахмат</string>
   <string name="spectators">Сӑнавҫӑ:</string>
   <plurals name="nbWins">
     <item quantity="other">%s ҫӗнтерӳ</item>
@@ -192,7 +190,6 @@
   <string name="viewTournament">Туринира сӑна</string>
   <string name="backToTournament">Турнира тавӑрӑн</string>
   <string name="backToGame">Вӑййине тавӑрӑн</string>
-  <string name="siteDescription">Шахматла выљамалли тӳлевсӗр сервер. Рекламӑсӑр, плагинсӗр, ӑнлануллӑ интерфейс. Регистратсисӗр выљама май килни. Компйутӑрпа, тусупа йе ӑнсӑрт ӑмӑртуҫӑпа шахматла выљасси.</string>
   <string name="xJoinedTeamY">%1$s -&gt; %2$s ушкӑна хутшӑннӑ</string>
   <string name="xCreatedTeamY">%1$s усӑҫ %2$s ушкӑн йӗркеленӗ</string>
   <string name="averageElo">Вӑтам рейтинг</string>
@@ -209,7 +206,6 @@
   <plurals name="nbImportedGames">
     <item quantity="other">%s Импортланӑ вӑйӑ</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Ку вӑл CAPTCHA шахматла.</string>
   <string name="clickOnTheBoardToMakeYourMove">Етем пулнине ҫирӗплетес тесе, тата куҫас тесе хӑма ҫине пус.</string>
   <string name="notACheckmate">Мат туни мар</string>
   <string name="retry">Тепӗр хут</string>
@@ -273,8 +269,6 @@
   <string name="lastName">Хушамат</string>
   <string name="biography">Биографи</string>
   <string name="country">Ҫӗр-шыв</string>
-  <string name="watchLichessTV">Lichess TV кур</string>
-  <string name="previouslyOnLichessTV">Lichess TV паҫӑр кӑтартни</string>
   <string name="onlinePlayers">Тетелти вӑйӑҫӑ</string>
   <string name="activeToday">Пайан тимлисем</string>
   <string name="activePlayers">Тимлӗ вӑйӑҫӑ</string>
@@ -294,7 +288,7 @@
   <string name="butYouCanKeepTrying">Ҫапах та малалла хӑтланма пултаратӑн.</string>
   <string name="success">Ӑнӑҫуллӑ</string>
   <string name="wasThisPuzzleAnyGood">Ку лартӑм лайӑх пулнӑ-и мӗн?</string>
-  <string name="pleaseVotePuzzle">Lichess лайӑхлатас тесен, ҫи йе ай йӗппипе усӑ курса хак пар:</string>
+  <string name="pleaseVotePuzzle">Lishogi лайӑхлатас тесен, ҫи йе ай йӗппипе усӑ курса хак пар:</string>
   <string name="thankYou">Тавах!</string>
   <string name="ratingX">Рейтинг: %s</string>
   <plurals name="playedXTimes">
@@ -387,7 +381,6 @@
   <string name="clock">Сехет</string>
   <string name="unauthorizedError">Сайт ҫине кӗмен.</string>
   <string name="noInternetConnection">Интернет ҫыхӑнӑвӗ ҫук. Ҫапах та менӳрен офлайн та выльама пултаратӑн.</string>
-  <string name="connectedToLichess">Lichess.org сайтпа ҫыхӑнтарнӑ</string>
   <string name="signedOut">Есӗ аккаунтран тухрӑн</string>
   <string name="loginSuccessful">Есӗ аккаунта кӗтӗн</string>
   <string name="playOnTheBoardOffline">Пӗр хӑма ҫинче</string>
@@ -437,7 +430,6 @@
   <string name="aboutSimulSettings">Пӗр вӑхӑтри вӑйӑ йаланах ахаль вӑйӑ. Рематч выльама, тавӑрма тата \"ытлаши вӑхӑт\" илме ҫук.</string>
   <string name="create">Йӗркелес</string>
   <string name="whenCreateSimul">Пӗр вӑхӑтри вӑйӑ йӗрекелесен, санӑн темиҫе ӑмӑртуҫпа пӗр вӑхӑтра выльамалла.</string>
-  <string name="lichessTournaments">Lichess турнирӗсем</string>
   <string name="tournamentFAQ">Аренӑ турнирӗн ТЛЫӗ</string>
   <string name="tournamentOfficial">Офиссаллӑ</string>
   <string name="timeBeforeTournamentStarts">Турнир пуҫланиччен хушши</string>
@@ -460,8 +452,6 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ҫырӑвӗ курӑнмасть пулсан, вӑл пурри-ҫуккине спам папкинче йе ытти папкӑра тӗрӗсле.</string>
   <string name="weHaveSentYouAnEmailTo">Епир %s ҫине ҫыру йатӑмӑр. Вӑрттӑн сӑмахна улӑштарас тесе ҫырури каҫӑ ҫине пус.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Регистратсилесси пирӗн %s килӗшессине пӗлтерет.</string>
-  <string name="networkLagBetweenYouAndLichess">Санпа Lichess хушшинче тетел чӑрмантарса тӑни пур</string>
-  <string name="timeToProcessAMoveOnLichessServer">Lichess сервӗрӗ пӗр куҫӑм ӗҫлесе илмелли вӑхӑт</string>
   <string name="downloadAnnotated">Ӑнлантаруллă</string>
   <string name="downloadRaw">Ӑнлантарусӑр</string>
   <string name="downloadImported">Оригиналлӑ</string>
@@ -472,15 +462,11 @@
   <string name="letOtherPlayersMessageYou">Ытти вӑйӑҫ ман пата ҫырасси</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Есӗ ҫак пуштӑпа регистратсиленнӗ-ха: %s</string>
   <string name="kidMode">Ача-пӑча решимӗ</string>
-  <string name="playChessEverywhere">Шахматла пур ҫӗрте выљасси</string>
-  <string name="asFreeAsLichess">Lichess пекех тӳлевсӗр</string>
-  <string name="builtForTheLoveOfChessNotMoney">Укҫашӑн мар, шахматшӑн хайланӑ</string>
   <string name="everybodyGetsAllFeaturesForFree">Мӗнпур мехел пуриншӗн те тӳлевсӗр</string>
   <string name="zeroAdvertisement">Пӗр рекламӑ та ҫукки</string>
   <string name="fullFeatured">Тулли меллӗ</string>
   <string name="phoneAndTablet">Телефон тата планшет майлӑ</string>
   <string name="bulletBlitzClassical">Bullet, блитс, классикла</string>
-  <string name="correspondenceChess">Куҫӑн мар шахмат</string>
   <string name="onlineAndOfflinePlay">Онлайн тата офлайн выльасси</string>
   <string name="viewTheSolution">Тупсӑмне тишкер</string>
   <string name="followAndChallengeFriends">Тус ҫине ҫырӑнасси, туса выљатасси</string>
@@ -501,7 +487,6 @@
   <string name="boardTheme">Хӑма теми</string>
   <string name="boardSize">Хӑма калӑпӑшӗ</string>
   <string name="pieceSet">Кӗлетке пуххи</string>
-  <string name="chessBasics">Шахмат никӗсӗсем</string>
   <string name="coaches">Хӑнӑхтаруҫӑ</string>
   <string name="error.unknown">Йӑнӑш</string>
   <string name="challenges">Чӗнтерӳ</string>

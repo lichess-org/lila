@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="broadcasts">Transmissões</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="broadcasts">Transmissões</string>
   <string name="liveBroadcasts">Transmissões do torneio ao vivo</string>
   <string name="newBroadcast">Nova transmissão ao vivo</string>
   <string name="ongoing">Em andamento</string>
@@ -11,7 +10,7 @@
   <string name="fullDescription">Descrição completa do evento</string>
   <string name="fullDescriptionHelp">Descrição longa e opcional da transmissão. %1$s está disponível. O comprimento deve ser menor que %2$s caracteres.</string>
   <string name="sourceUrl">URL de origem</string>
-  <string name="sourceUrlHelp">URL que Lichess irá verificar para obter atualizações PGN. Deve ser acessível ao público a partir da Internet.</string>
+  <string name="sourceUrlHelp">URL que Lishogi irá verificar para obter atualizações PGN. Deve ser acessível ao público a partir da Internet.</string>
   <string name="roundNumber">Número da rodada</string>
   <string name="startDate">Data de início em seu próprio fuso horário</string>
   <string name="startDateHelp">Opcional, se você sabe quando o evento começa</string>

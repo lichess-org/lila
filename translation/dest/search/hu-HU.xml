@@ -1,11 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search">Keresés</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="search">Keresés</string>
   <string name="advancedSearch">Bővített keresés</string>
-  <plurals name="searchInXGames">
-    <item quantity="one">Keresés %s játszmában</item>
-    <item quantity="other">Keresés %s játszmában</item>
-  </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">Egy talált játszma</item>
     <item quantity="other">%s talált játszma</item>

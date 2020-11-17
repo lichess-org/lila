@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="broadcasts">Transmissioner</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="broadcasts">Transmissioner</string>
   <string name="liveBroadcasts">Live turnerings-transmissioner</string>
   <string name="newBroadcast">Ny live-transmission</string>
   <string name="ongoing">I gang</string>
@@ -11,7 +10,7 @@
   <string name="fullDescription">Fuld beskrivelse af begivenheden</string>
   <string name="fullDescriptionHelp">Valgfri lang beskrivelse af transmissionen. %1$s er tilgængelig. Længde skal være mindre end %2$s tegn.</string>
   <string name="sourceUrl">Kilde URL</string>
-  <string name="sourceUrlHelp">URL som Lichess vil trække på for at få PGN updates. Den skal være offentlig tilgængelig fra internettet.</string>
+  <string name="sourceUrlHelp">URL som Lishogi vil trække på for at få PGN updates. Den skal være offentlig tilgængelig fra internettet.</string>
   <string name="roundNumber">Rundenummer</string>
   <string name="startDate">Startdato i din egen tidszone</string>
   <string name="startDateHelp">Valgfri, hvis du ved, hvornår begivenheden starter</string>

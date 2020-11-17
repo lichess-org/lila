@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="hourlyRapidArena">تورنمنت ساعتی یکبار شطرنج سریع</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="hourlyRapidArena">تورنمنت ساعتی یکبار شطرنج سریع</string>
   <string name="hourlyRapid">هرساعت با تورنومنت شطرنج سریع</string>
   <string name="hourlyXArena">مسابقات شطرنج سریع %s با آرنا</string>
   <string name="dailyRapidArena">تورنمنت شطرنج سریع روزانه</string>

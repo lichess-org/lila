@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="contact">লাইকেস. আর. সি. / এর যোগাযোগের সংক্ষিপ্ত লিঙ্ক, হোমপেজে দৃশ্যমান</string>
-  <string name="contactLichess">পৃষ্ঠার শিরোনাম lichess. org/contact</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="contact">লাইকেস. আর. সি. / এর যোগাযোগের সংক্ষিপ্ত লিঙ্ক, হোমপেজে দৃশ্যমান</string>
   <string name="whatCanWeHelpYouWith">আমরা কি আপনাকে কোন সাহায্য করতে পারি?</string>
   <string name="visitThisPage">সমস্যাটি সমাধান করতে এই পৃষ্ঠাটি দেখুন</string>
   <string name="iCantLogIn">আমি লগ ইন করতে পারি না</string>

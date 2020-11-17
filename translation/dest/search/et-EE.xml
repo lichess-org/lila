@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search">Otsi</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="search">Otsi</string>
   <string name="advancedSearch">Täpsem otsing</string>
   <string name="opponentName">Vastase nimi</string>
   <string name="loser">Kaotaja</string>

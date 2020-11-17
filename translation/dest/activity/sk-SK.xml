@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="activity">Aktivita</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="activity">Aktivita</string>
   <string name="hostedALiveStream">Vysielal naživo</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Podporuje lichess.org %1$s mesiac ako %2$s</item>
-    <item quantity="few">Podporuje lichess.org %1$s mesiace ako %2$s</item>
-    <item quantity="many">Podporuje lichess.org %1$s mesiacov ako %2$s</item>
-    <item quantity="other">Podporuje lichess.org %1$s mesiacov ako %2$s</item>
+    <item quantity="one">Podporuje lishogi.org %1$s mesiac ako %2$s</item>
+    <item quantity="few">Podporuje lishogi.org %1$s mesiace ako %2$s</item>
+    <item quantity="many">Podporuje lishogi.org %1$s mesiacov ako %2$s</item>
+    <item quantity="other">Podporuje lishogi.org %1$s mesiacov ako %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Precvičená %1$s pozícia v %2$s</item>
@@ -92,7 +91,7 @@
     <item quantity="many">Umiestnenie na %1$s mieste (top %2$s%%) s %3$s partiami v %4$s</item>
     <item quantity="other">Umiestnenie na %1$s mieste (top %2$s%%) s %3$s partiami v %4$s</item>
   </plurals>
-  <string name="signedUp">Registrácia na lichess.org</string>
+  <string name="signedUp">Registrácia na lishogi.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Pripojenie sa k %s tímu</item>
     <item quantity="few">Pripojenie sa k %s tímom</item>

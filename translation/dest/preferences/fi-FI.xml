@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">Asetukset</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">Asetukset</string>
   <string name="gameDisplay">Ulkoasu</string>
   <string name="pieceAnimation">Nappuloiden animaatio</string>
   <string name="materialDifference">Materiaaliero</string>
@@ -9,13 +8,9 @@
   <string name="boardCoordinates">Laudan koordinaatit (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Siirtolista pelin aikana</string>
   <string name="pgnPieceNotation">Siirtojen merkintätapa</string>
-  <string name="chessPieceSymbol">Shakkinappulasymbolit</string>
-  <string name="pgnLetter">Kirjaimet (K, D, T, L, R)</string>
   <string name="zenMode">Zen-moodi</string>
   <string name="displayBoardResizeHandle">Näytä laudan koon muokkauskahva</string>
   <string name="onlyOnInitialPosition">Vain alkuasemassa</string>
-  <string name="blindfoldChess">Sokkoshakki (näkymättömät nappulat)</string>
-  <string name="chessClock">Shakkikello</string>
   <string name="tenthsOfSeconds">Sekunnin kymmenesosat</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Kun aikaa jäljellä &lt; 10 sekuntia</string>
   <string name="horizontalGreenProgressBars">Vaakasuora vihreä ajanetenemispalkki</string>

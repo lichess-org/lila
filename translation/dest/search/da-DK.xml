@@ -1,11 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search">Søg</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="search">Søg</string>
   <string name="advancedSearch">Avanceret søgning</string>
-  <plurals name="searchInXGames">
-    <item quantity="one">Søg i %s skakparti</item>
-    <item quantity="other">Søg i %s skakpartier</item>
-  </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">Ét parti fundet</item>
     <item quantity="other">%s partier fundet</item>

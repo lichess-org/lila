@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="activity">Aktivita</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="activity">Aktivita</string>
   <string name="hostedALiveStream">Hostoval živý stream</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Podporuje lichess.org %1$s měsíc jako %2$s</item>
-    <item quantity="few">Podporuje lichess.org %1$s měsíce jako %2$s</item>
-    <item quantity="many">Podporuje lichess.org %1$s měsíců jako %2$s</item>
-    <item quantity="other">Podporuje lichess.org %1$s měsíců jako %2$s</item>
+    <item quantity="one">Podporuje lishogi.org %1$s měsíc jako %2$s</item>
+    <item quantity="few">Podporuje lishogi.org %1$s měsíce jako %2$s</item>
+    <item quantity="many">Podporuje lishogi.org %1$s měsíců jako %2$s</item>
+    <item quantity="other">Podporuje lishogi.org %1$s měsíců jako %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Procvičena %1$s pozice v %2$s</item>
@@ -92,7 +91,7 @@
     <item quantity="many">Skončil #%1$s (top %2$s%%) s %3$s hrami v %4$s</item>
     <item quantity="other">Skončil #%1$s (top %2$s%%) s %3$s hrami v %4$s</item>
   </plurals>
-  <string name="signedUp">Vytvořen účet na lichess</string>
+  <string name="signedUp">Vytvořen účet na lishogi</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Přidal se k %s týmu</item>
     <item quantity="few">Přidal se k %s týmům</item>

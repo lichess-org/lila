@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Ghjucà cun un amicu</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Ghjucà cun un amicu</string>
   <string name="playWithTheMachine">Ghjucà cù l\'urdinatore</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per invità à qualchissia à ghjucà, dà questu URL</string>
   <string name="gameOver">Persu</string>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="perfStats">%s statistik</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="perfStats">%s statistik</string>
   <string name="viewTheGames">Lihat permainan</string>
   <string name="provisional">penyisihan</string>
   <string name="notEnoughRatedGames">Tidak mencukupi permainan dirating yang telah dimainkan untuk mendapatkan rating yang dapat diandalkan.</string>

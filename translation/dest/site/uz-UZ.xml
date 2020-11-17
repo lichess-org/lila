@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Do‘stingiz bilan o‘ynang</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Do‘stingiz bilan o‘ynang</string>
   <string name="playWithTheMachine">Kompyuter bilan o\'ynang</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kimnidir o\'yinga taklif qilish uchun ushbu URL ni olib unga bering</string>
   <string name="gameOver">O‘yin tugadi</string>
@@ -247,7 +246,6 @@
   <string name="recipient">Oluvchi</string>
   <string name="send">Jo\'natish</string>
   <string name="incrementInSeconds">Sekundlarda oshirish</string>
-  <string name="freeOnlineChess">Bepul online shahmat</string>
   <string name="spectators">Kuzatuvchilar:</string>
   <plurals name="nbRated">
     <item quantity="one">%s reytingda</item>
@@ -324,7 +322,6 @@
   <string name="mustBeInTeam">%s jamoada bo\'lishingiz kerak</string>
   <string name="youAreNotInTeam">Siz %s jamoada emassiz</string>
   <string name="backToGame">O\'yinga qaytish</string>
-  <string name="siteDescription">Bepul online Shahmat Server. Qulay interfeysda Shahmatni xoziroq o\'ynang. Ro\'yhatdan o\'tish shart emas, reklamalar yo\'q, hech qanday qo\'shimcha uskunalarni o\'rnatish shart emas.</string>
   <string name="xJoinedTeamY">%1$s o\'yinchi %2$s jamoaga qo\'shildi</string>
   <string name="xCreatedTeamY">%1$s o\'yinchi %2$s jamoa yaratdi</string>
   <string name="xStartedStreaming">%s ta boshlangan ijro</string>
@@ -346,9 +343,7 @@
     <item quantity="one">%s import qilingan o\'yin</item>
     <item quantity="other">%s import qilingan o\'yinlar</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Bu shahmat CAPTCHA si.</string>
   <string name="clickOnTheBoardToMakeYourMove">Doska ustida bosib yurishni amalga oshiring va o\'zingizni inson ekanligingizni tasdiqlang.</string>
-  <string name="captcha.fail">Iltimos shahmat captcha sini yeching.</string>
   <string name="notACheckmate">Shoh mot bo\'lmadi</string>
   <string name="whiteCheckmatesInOneMove">Oqlar bitta yurishda mot</string>
   <string name="blackCheckmatesInOneMove">Qoralar bitta yurishda mot</string>
@@ -399,7 +394,6 @@
   <string name="advancedSettings">Qo\'shimcha sozlashlar</string>
   <string name="safeTournamentName">Turnir uchun juda ham xavfsiz nom tanlash.</string>
   <string name="inappropriateNameWarning">Sal noqulayku lekin so\'rashimiz joiz, balkim sizni akkountingizni yopish kerak.</string>
-  <string name="emptyTournamentName">Turnir nomini tasodifiy Grassmeyster nomiga moslab qo\'yish uchun ochiq qoldiring.</string>
   <string name="recommendNotTouching">Biz sizga bu joyda teginmaslikni maslahat beramiz.</string>
   <string name="fewerPlayers">Agar siz kirish shartlarini sozlagan bo\'lsangiz, sizni turniringiz kam kishidan iborat bo\'ladi.</string>
   <string name="showAdvancedSettings">Qo\'shimcha shartlarni namoyish qilish</string>
@@ -447,8 +441,6 @@
   <string name="country">Mamlakat</string>
   <string name="socialMediaLinks">Ijtimoiy media linklari</string>
   <string name="inlineNotation">Ichki yozuv</string>
-  <string name="watchLichessTV">Lichess TV ni tomosha qilish</string>
-  <string name="previouslyOnLichessTV">Lichess TV dagi bundan oldingisi</string>
   <string name="onlinePlayers">Online o\'yinchilar</string>
   <string name="activeToday">Bugungi faollar</string>
   <string name="activePlayers">Faol o\'yinchilar</string>
@@ -468,7 +460,7 @@
   <string name="butYouCanKeepTrying">Ammo siz yana urinib ko\'rishingiz mumkin.</string>
   <string name="success">Muvaffaqiyat</string>
   <string name="wasThisPuzzleAnyGood">Boshqotirma yaxshimikan?</string>
-  <string name="pleaseVotePuzzle">Yuqoriga pastga o\'qlar yordamida baholab Lichess rivoji uchun hissa qo\'shing:</string>
+  <string name="pleaseVotePuzzle">Yuqoriga pastga o\'qlar yordamida baholab Lishogi rivoji uchun hissa qo\'shing:</string>
   <string name="thankYou">Rahmat!</string>
   <string name="ratingX">Reyting: %s</string>
   <string name="hidden">berkitilgan</string>
@@ -561,7 +553,6 @@
   <string name="starting">Boshlanadi:</string>
   <string name="allInformationIsPublicAndOptional">Barcha xabarlar ochiq va ixtiyoriy.</string>
   <string name="yourCityRegionOrDepartment">Sizning shaharingiz, viloyatingiz.</string>
-  <string name="biographyDescription">Oz\'ingiz haqingizda gapirib bering, o\'zingizni qiziqishlaringiz, sizga shahmatda nima yoqadi, sizning yoqtirgan debyutlaringiz, siz yoqtirgan o\'yinchilar, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maksimum: %s belgi.</item>
     <item quantity="other">Maksimum: %s belgilar.</item>
@@ -577,7 +568,6 @@
   <string name="clock">Soat</string>
   <string name="unauthorizedError">Ruhsat berilmagan huquq.</string>
   <string name="noInternetConnection">Internet bog\'lanishi yo\'q. Siz bemalol menudan offline o\'ynashni tanlashingiz mumkin.</string>
-  <string name="connectedToLichess">Siz xozirda lichess.org ga bog\'langansiz</string>
   <string name="signedOut">Siz tizimdan chiqdingiz</string>
   <string name="loginSuccessful">Siz tizimga kirdingiz</string>
   <string name="playOnTheBoardOffline">Doska ustida</string>
@@ -619,7 +609,6 @@
   <string name="webmasters">Webustalar</string>
   <string name="about">Dastur haqida</string>
   <string name="aboutX">%s haqida</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s bepul (%2$s), erkin, reklamasiz, ochiq server.</string>
   <string name="really">haqiqatda ham</string>
   <string name="contribute">Hissa qo‘shish</string>
   <string name="termsOfService">Xizmatlar terminlari</string>
@@ -643,7 +632,6 @@
   <string name="simulClockHint">Fisher soatini sozlash. Qancha ko\'p o\'yinchi olsangiz shunga mos vaqt olishingiz kerak bo\'ladi.</string>
   <string name="simulAddExtraTime">Seansga ulgurishingiz uchun siz soatingizga qo\'shimcha vaqt qo\'shishingiz mumkin.</string>
   <string name="simulHostExtraTime">Seanschi qo\'shimcha vaqti</string>
-  <string name="lichessTournaments">Lichess turnirlar</string>
   <string name="tournamentFAQ">Turnir arenasidan Savollar Va Javoblar</string>
   <string name="tournamentOfficial">Rasmiy</string>
   <string name="timeBeforeTournamentStarts">Turnir boshlanishigacha vaqt</string>
@@ -654,8 +642,6 @@
   <string name="keyShowOrHideComments">izohlarni ko\'rsatish/yashirish</string>
   <string name="keyEnterOrExitVariation">kirish/chiqishni almashtirish</string>
   <string name="newTournament">Yangi turnir</string>
-  <string name="tournamentHomeTitle">Turli xil vaqtlar va variantlar bilan yaratilgan shahmat turnirlari</string>
-  <string name="tournamentHomeDescription">Dinamik shahmat turnirlarini o\'ynang! Rasmiy rejalashtirilgan turnirlarda qatnashing yoki o\'zingiz shaxsiy turnir yarating. Tezkor, Blitz, Klassik, Shahmat960, Tepalik qiroli, Uchtashoh va boshqa opsiyalardan foydalangan holatda o\'zingizga qiziqarli shahmat musobaqalarini uyushtirishingiz mumkin.</string>
   <string name="tournamentNotFound">Turnir topilmadi</string>
   <string name="tournamentDoesNotExist">Bu turnir mavjud emas.</string>
   <string name="tournamentMayHaveBeenCanceled">Ehtimol, u bekor qilingan, agar xamma ishtirokchilar turnir boshlanmasdan uni tark erishgan bo\'lsa.</string>
@@ -677,8 +663,6 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Agar siz emailni ko\'rmasangiz, boshqa kataloglaringizni qarab ko\'ring, masalan, spam, ijtimoiy va boshqa shularga o\'xshashlarni.</string>
   <string name="weHaveSentYouAnEmailTo">Biz %s ga hat yubordik. Parolni qayta tiklash uchun emaildagi linkni bosing.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ro\'yhatdan o\'tib bizning %s shartlarimizga roziligingizni bildirasiz.</string>
-  <string name="networkLagBetweenYouAndLichess">Lichess va sizning o\'rtangizdagi tarmoq kechikishi</string>
-  <string name="timeToProcessAMoveOnLichessServer">Lichess serverida yurishni amalga oshirish uchun vaqt</string>
   <string name="downloadAnnotated">Annotatsiya holatda yuklash</string>
   <string name="downloadRaw">Boricha yuklash</string>
   <string name="downloadImported">Import qilinganni yuklash</string>
@@ -687,29 +671,23 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Siz o\'yin davomida doska ustida sichqoncha yugurgichidan foydalanishingiz mumkin.</string>
   <string name="analysisShapesHowTo">Doskada strelka va aylanalarni chizish uchun shift+click tugmalarini bosing yoki sichqoncha o\'ng tugmasidan foydalaning.</string>
   <string name="letOtherPlayersMessageYou">Boshqa o\'yinchilarga siz bilan xabarlashishga imkon bering</string>
-  <string name="shareYourInsightsData">O\'zingizni shahmat haqidagi ma\'lumotlaringiz bilan ulashing</string>
   <string name="withNobody">Hech kim bilan</string>
   <string name="withFriends">Do\'stlar bilan</string>
   <string name="withEverybody">Hamma bilan</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Siz ushbu email bilan ro\'yhatdan o\'tgansiz: %s</string>
   <string name="kidMode">Bola rejimi</string>
   <string name="kidModeExplanation">Bu ximoya uchun. Bola rejimida hamma saytlar bog\'liqligi o\'chiriladi. Buni o\'zingizni studentlaringiz va bolalaringiz uchun yoqib qo\'ying. Shunda Internetdagi boshqa foydalanuvchilardan ximoyalagan bo\'lasiz.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Bola rejimida lichess logosi %s belgini oladi, shundan siz bola rejimi ekanligini.</string>
   <string name="enableKidMode">Bola rejimini yoqish</string>
   <string name="disableKidMode">Bola rejimini o\'chirish</string>
   <string name="security">Xavfsizlik</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Sizning akkauntingiz bilan kirilgan qurilmalaringiz ro\'yhati. O\'zingizga tanimagan seanslarni bekor qilishingiz mumkin.</string>
   <string name="alternativelyYouCanX">Yoki siz %s ni qilishingiz mumkin.</string>
   <string name="revokeAllSessions">barcha sessiyalarni bekor qilish</string>
-  <string name="playChessEverywhere">Shahmatni xamma joyda o\'ynash</string>
-  <string name="asFreeAsLichess">Lichess kabi bepul</string>
-  <string name="builtForTheLoveOfChessNotMoney">Pulga qiziqib emas, shahmatga bo\'lgan sevgi orqali yasalgan</string>
   <string name="everybodyGetsAllFeaturesForFree">Barcha xamma funksiyaga bepul foydalanish huquqiga ega</string>
   <string name="zeroAdvertisement">Reklamalar umuman yo\'q</string>
   <string name="fullFeatured">To\'laqonfunksiyali</string>
   <string name="phoneAndTablet">Telefon va planshet</string>
   <string name="bulletBlitzClassical">Tezkor, blitz, klassik</string>
-  <string name="correspondenceChess">Yozishmali shahmat</string>
   <string name="onlineAndOfflinePlay">Online va offline o\'ynash</string>
   <string name="viewTheSolution">Yechimni ko\'rish</string>
   <string name="followAndChallengeFriends">Do\'stlarni kuzating va ular bilan bellashing</string>
@@ -742,9 +720,6 @@
   <string name="usernameSuffixInvalid">Foydalanuvchi nomi harf yoki son bilan tugashi kerak.</string>
   <string name="usernameCharsInvalid">Foydalanuvchi nomi faqat harflarni, raqamlarni, tag chiziqni va o\'rta chiziqni (defis) tashkil etishi mumkin.</string>
   <string name="usernameUnacceptable">Foydalanuvchi nomi qabul qilinadigan emas.</string>
-  <string name="directlySupportLichess">Lichessni qo\'llab quvvatlayman</string>
-  <string name="playChessInStyle">Shahmatni stillarda o\'ynash</string>
-  <string name="chessBasics">Shahmat asoslari</string>
   <string name="coaches">Murabbiylar</string>
   <string name="invalidPgn">PGN da xatolik</string>
   <string name="invalidFen">FEN da xatolik</string>
@@ -821,7 +796,6 @@
   <string name="weHadToTimeYouOutForAWhile">Biz sizga bir muncha vaqtga taym aut berishimiz kerak edi.</string>
   <string name="timeoutExpires">Taym aut %s dan keyin tugaydi.</string>
   <string name="why">Nima uchun?</string>
-  <string name="pleasantChessExperience">Biz har bir kishiga shahmat malakasini oshirishni maqsad qilganmiz.</string>
   <string name="goodPractice">Buning uchun biz barcha o\'yinchilar yaxshi amaliyot ortidan ketishi uchun imkoniyat yaratishimiz kerak.</string>
   <string name="potentialProblem">Qachon qandaydir jiddiy muammo aniqlansa biz bu habarni chiqaramiz.</string>
   <string name="howToAvoidThis">Qanday qilib bundan qochish mumkin?</string>
@@ -829,14 +803,13 @@
   <string name="tryToWin">Har bior o\'yinda yutish uchun harakat qiling (kamida durrang uchun kurashing).</string>
   <string name="resignLostGames">Boy berilgan o\'yinda taslim bo\'ling (vaqt ketishiga yo\'l qo\'ymang).</string>
   <string name="temporaryInconvenience">Vaqtinchalik noqulaylik uchun uzr so\'raymiz</string>
-  <string name="wishYouGreatGames">va lichess.org dagi o\'yinlarda muvaffaqiyat tilaymiz.</string>
+  <string name="wishYouGreatGames">va lishogi.org dagi o\'yinlarda muvaffaqiyat tilaymiz.</string>
   <string name="thankYouForReading">O\'qiganingiz uchun rahmat!</string>
   <string name="lifetimeScore">Hisoblar solishtirilganda</string>
   <string name="currentMatchScore">Joriy o\'yin holati</string>
-  <string name="agreementAssistance">Men o\'yin davomida hech qanday (kompyuter shahmatidan, kitobdan, qandaydir ma\'lumotlar omboridan va boshqa odamlardan) yordam olmaslikka roziman.</string>
   <string name="agreementNice">Boshqa o\'yinchilarga hurmat bilan munosabatda bo\'lishga roziman.</string>
   <string name="agreementAccount">Men bir nechta hisob ochmaslikka roziman.</string>
-  <string name="agreementPolicy">Men Lichess tartib qoidalariga amal qilishga roziman.</string>
+  <string name="agreementPolicy">Men Lishogi tartib qoidalariga amal qilishga roziman.</string>
   <string name="searchOrStartNewDiscussion">Qidirish yoki yangi fikr almashinuv</string>
   <string name="edit">Tahrirlash</string>
   <string name="rapid">Tez</string>
@@ -847,5 +820,4 @@
   <string name="rapidDesc">Tezkorroq o\'yinlar: 8 dan 25 minutga qadar bo\'lganlar</string>
   <string name="classicalDesc">Klassik o\'yinlar: 25 minut va undan yuqori bo\'lganlar</string>
   <string name="correspondenceDesc">Yozishmali o\'yinlar: bir yoki bir necha kunli yurishli o\'yinlar</string>
-  <string name="puzzleDesc">Shaxmat taktikalarini o\'rgatuvchi murabbiy</string>
-</resources>
+  </resources>

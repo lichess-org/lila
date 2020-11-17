@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">עדיפויות</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">עדיפויות</string>
   <string name="gameDisplay">תצוגת המשחק</string>
   <string name="pieceAnimation">אנימציית הכלים</string>
   <string name="materialDifference">הבדל בחומר</string>
@@ -9,13 +8,9 @@
   <string name="boardCoordinates">קואורדינטות לוח (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">רשימת מהלכים במהלך המשחק</string>
   <string name="pgnPieceNotation">תיאור המהלכים</string>
-  <string name="chessPieceSymbol">סימן הכלי</string>
-  <string name="pgnLetter">אות ( K, Q, R, B, N)</string>
   <string name="zenMode">מצב זן</string>
   <string name="displayBoardResizeHandle">הצג סמן להגדלת הלוח</string>
   <string name="onlyOnInitialPosition">רק במצב ההתחלתי</string>
-  <string name="blindfoldChess">לשחק עם עיניים מכוסות: הכלים אינם נראים</string>
-  <string name="chessClock">שעון השחמט</string>
   <string name="tenthsOfSeconds">עשיריות שניה</string>
   <string name="whenTimeRemainingLessThanTenSeconds">כאשר הזמן נותר קטן מעשר שניות</string>
   <string name="horizontalGreenProgressBars">מדי התקדמות ירוקים אופקיים</string>

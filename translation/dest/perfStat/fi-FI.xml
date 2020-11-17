@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="perfStats">%s-tilastot</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="perfStats">%s-tilastot</string>
   <string name="viewTheGames">Katso pelit</string>
   <string name="provisional">tilapäinen</string>
   <string name="notEnoughRatedGames">Ei ole pelattu riittävän montaa pisteytettyä peliä, jotta voitaisiin muodostaa luotettava vahvuusluku.</string>

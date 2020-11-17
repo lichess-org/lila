@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="isItRated">Vai tas ir vērtēts?</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="isItRated">Vai tas ir vērtēts?</string>
   <string name="willBeNotified">Saņemsiet paziņojumu, kad turnīrs sāksies, tāpēc gaidot varat droši spēlēt citā cilnē.</string>
   <string name="isRated">Šis ir vērtēts turnīrs un ietekmēs jūsu reitingu.</string>
   <string name="isNotRated">Šis turnīrs *nav* vērtēts un *neietekmēs* jūsu reitingu.</string>

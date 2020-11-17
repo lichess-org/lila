@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="hourlyRapidArena">Urna Pospešena Arena</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="hourlyRapidArena">Urna Pospešena Arena</string>
   <string name="hourlyRapid">Urna Arena</string>
   <string name="hourlyXArena">Urna %s Arena</string>
   <string name="hourlyX">Urni %s</string>

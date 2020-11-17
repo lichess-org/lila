@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">เล่นกับเพื่อน</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">เล่นกับเพื่อน</string>
   <string name="playWithTheMachine">เล่นกับคอมพิวเตอร์</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ให้ URL นี้เพื่อเชิญคนมาเล่น</string>
   <string name="gameOver">จบเกม</string>
@@ -235,7 +234,6 @@
   <string name="recipient">ผู้รับ</string>
   <string name="send">ส่ง</string>
   <string name="incrementInSeconds">วินาทีที่บวกเพิ่ม</string>
-  <string name="freeOnlineChess">หมากรุกสากลออนไลน์ฟรี</string>
   <string name="spectators">ผู้สังเกตการณ์:</string>
   <plurals name="nbRated">
     <item quantity="other">%s เกมที่คิดคะแนน</item>
@@ -300,7 +298,6 @@
   <string name="mustBeInTeam">ต้องอยู่ในทีม %s</string>
   <string name="youAreNotInTeam">คุณไม่ได้อยู่ในทีม %s</string>
   <string name="backToGame">กลับสู่เกม</string>
-  <string name="siteDescription">เกมหมากรุกสากลออนไลน์ฟรี เล่นได้ทันทีในรูปลักษณ์ที่สะอาดตา โดยไม่จำเป็นต้องลงทะเบียน, ไม่มีโฆษณา, ไม่ต้องการปลั๊กอิน, เล่นหมากรุกกับคอมพิวเตอร์หรือเพื่อน หรือสุ่มคู่แข่งก็ได้</string>
   <string name="xJoinedTeamY">%1$s ได้เข้าร่วมทีม %2$s</string>
   <string name="xCreatedTeamY">%1$s ได้สร้างทีม %2$s</string>
   <string name="xStartedStreaming">%s ได้เริ่มการสตรีม</string>
@@ -320,9 +317,7 @@
   <plurals name="nbImportedGames">
     <item quantity="other">%s เกมที่ถูกนำเข้า</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">นี่คือปริศนาหมากรุก</string>
   <string name="clickOnTheBoardToMakeYourMove">คลิกบนกระดานเพื่อเดินหมากของคุณ และพิสูจน์ว่าคุณคือมนุษย์</string>
-  <string name="captcha.fail">โปรดแก้รหัสปริศนาหมากรุก</string>
   <string name="notACheckmate">ไม่ใช่รุกจน</string>
   <string name="whiteCheckmatesInOneMove">ขาวต้องรุกจนโดยเดินครั้งเดียว</string>
   <string name="blackCheckmatesInOneMove">ดำต้องรุกจนโดยเดินครั้งเดียว</string>
@@ -369,7 +364,6 @@
   <string name="advancedSettings">การตั้งค่าขั้นสูง</string>
   <string name="safeTournamentName">เลือกชื่อที่ปลอดภัยสุดสำหรับทัวร์นาเมนต์</string>
   <string name="inappropriateNameWarning">อะไรที่ไม่เหมาะสมแม้เพียงเล็กน้อย ก็สามารถทำให้บัญชีของคุณถูกปิดได้</string>
-  <string name="emptyTournamentName">ปล่อยว่างไว้เพื่อตั้งชื่อทัวร์นาเมนต์หลังจากสุ่มแกรนด์มาสเตอร์</string>
   <string name="recommendNotTouching">เราแนะนำว่าอย่าแตะต้องสิ่งเหล่านี้</string>
   <string name="fewerPlayers">ถ้าคุณตั้งค่าเงื่อนไขการเข้าร่วม ทัวร์นาเมนต์ของคุณจะมีผู้เข้าเล่นได้น้อยลง</string>
   <string name="showAdvancedSettings">แสดงการตั้งค่าขั้นสูง</string>
@@ -417,8 +411,6 @@
   <string name="country">ประเทศ</string>
   <string name="socialMediaLinks">ลิงก์สื่อโซเชียล</string>
   <string name="inlineNotation">สัญกรณ์ในบรรทัด</string>
-  <string name="watchLichessTV">ดู Lichess TV</string>
-  <string name="previouslyOnLichessTV">Lichess TV ก่อนหน้า</string>
   <string name="onlinePlayers">ผู้เล่นออนไลน์</string>
   <string name="activeToday">ขยันในวันนี้</string>
   <string name="activePlayers">ผู้เล่นที่ขยัน</string>
@@ -438,7 +430,7 @@
   <string name="butYouCanKeepTrying">แต่คุณสามารถลองแก้ต่อได้</string>
   <string name="success">สำเร็จ</string>
   <string name="wasThisPuzzleAnyGood">ปริศนานี้ดีพอหรือไม่?</string>
-  <string name="pleaseVotePuzzle">ช่วย lichess ปรับปรุงโดยใช้ปุ่มลูกศรขึ้นหรือลง เพื่อทำการโหวต:</string>
+  <string name="pleaseVotePuzzle">ช่วย lishogi ปรับปรุงโดยใช้ปุ่มลูกศรขึ้นหรือลง เพื่อทำการโหวต:</string>
   <string name="thankYou">ขอบคุณ!</string>
   <string name="ratingX">ระดับคะแนน: %s</string>
   <string name="hidden">ถูกซ่อน</string>
@@ -529,7 +521,6 @@
   <string name="starting">กำลังเริ่ม:</string>
   <string name="allInformationIsPublicAndOptional">ข้อมูลทั้งหมดเป็นสาธารณะ และไม่บังคับกรอก</string>
   <string name="yourCityRegionOrDepartment">เมือง, ภูมิภาค, หรือจังหวัดของคุณ</string>
-  <string name="biographyDescription">บอกเกี่ยวกับตัวคุณว่าชอบอะไรในหมากรุก เช่น การเปิดหมาก, เกม, หรือผู้เล่นที่ชอบ ฯลฯ</string>
   <plurals name="maximumNbCharacters">
     <item quantity="other">สูงสุด: %s ตัวอักษร</item>
   </plurals>
@@ -543,7 +534,6 @@
   <string name="clock">นาฬิกา</string>
   <string name="unauthorizedError">สิทธิ์เข้าถึงยังไม่ถูกต้อง</string>
   <string name="noInternetConnection">ไม่มีการเชื่อมต่ออินเตอร์เน็ต แต่คุณสามารถเล่นออฟไลน์ได้จากเมนู</string>
-  <string name="connectedToLichess">ขณะนี้คุณเชื่อมต่ออยู่กับ lichess.org</string>
   <string name="signedOut">คุณได้ลงชื่อออกแล้ว</string>
   <string name="loginSuccessful">ตอนนี้คุณลงชื่อเข้าแล้ว</string>
   <string name="playOnTheBoardOffline">เล่นกระดานเดียวกัน</string>
@@ -584,7 +574,6 @@
   <string name="webmasters">เว็บมาสเตอร์</string>
   <string name="about">เกี่ยวกับ</string>
   <string name="aboutX">เกี่ยวกับ %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s เป็นเซิร์ฟเวอร์หมากรุกระบบเปิด ซึ่งอิสระ ไม่มีโฆษณา และฟรี (%2$s)</string>
   <string name="really">จริง ๆ</string>
   <string name="contribute">เอื้อเฟื้อ</string>
   <string name="termsOfService">ข้อกำหนดการใช้</string>
@@ -608,7 +597,6 @@
   <string name="simulClockHint">การตั้งนาฬิกาฟิสเชอร์ ยิ่งคุณเล่นกับผู้เล่นหลายคน คุณยิ่งต้องการเวลามากขึ้น</string>
   <string name="simulAddExtraTime">คุณอาจบวกเวลาพิเศษให้นาฬิกาของคุณ เพื่อช่วยคุณรับมือกับไซมัล</string>
   <string name="simulHostExtraTime">เวลานาฬิกาพิเศษโฮสต์</string>
-  <string name="lichessTournaments">ทัวร์นาเมนต์ Lichess</string>
   <string name="tournamentFAQ">ถามตอบสนามทัวร์นาเมนต์</string>
   <string name="tournamentOfficial">เป็นทางการ</string>
   <string name="timeBeforeTournamentStarts">เวลาก่อนทัวร์นาเมนต์จะเริ่ม</string>
@@ -619,8 +607,6 @@
   <string name="keyShowOrHideComments">แสดง/ซ่อนความคิดเห็น</string>
   <string name="keyEnterOrExitVariation">เข้าสู่/ออกจากตัวแปรกติกา</string>
   <string name="newTournament">ทัวร์นาเมนต์ใหม่</string>
-  <string name="tournamentHomeTitle">ทัวร์นาเมนต์หมากรุกซึ่งมีการควบคุมเวลาและตัวแปรกติกาต่างๆ</string>
-  <string name="tournamentHomeDescription">เล่นทัวร์นาเมนต์หมากรุกได้ทันที! เข้าร่วมทัวร์นาเมนต์ที่กำหนดเวลาไว้อย่างเป็นทางการ หรือสร้างขึ้นด้วยตัวคุณเอง  มีทั้งบุลลิท, บลิทซ์, คลาสสิก, หมากรุก960, ราชันย์แห่งขุนเขา, สามรุก, และตัวเลือกที่มีให้อีกมากมายเพื่อความสนุกที่ไม่รู้จบของหมากรุก</string>
   <string name="tournamentNotFound">ไม่พบทัวร์นาเมนต์</string>
   <string name="tournamentDoesNotExist">ทัวร์นาเมนต์นี้ไม่มีอยู่</string>
   <string name="tournamentMayHaveBeenCanceled">มันอาจถูกยกเลิกไปแล้ว หากผู้เล่นทุกคนออกไปก่อนที่ทัวร์นาเมนต์จะเริ่มต้น</string>
@@ -640,8 +626,6 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">ถ้าคุณไม่พบอีเมล ลองตรวจดูในหมวดอื่นๆ เช่น ถังขยะ สแปม โซเชียล หรือโฟลเดอร์อื่นๆ</string>
   <string name="weHaveSentYouAnEmailTo">เราได้ส่งอีเมลไปที่ %s แล้ว คลิกลิงค์ในอีเมลเพื่อตั้งรหัสผ่านใหม่</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">โดยการลงทะเบียน คุณยอมรับที่จะผูกพันธ์ด้วย %s ของเรา</string>
-  <string name="networkLagBetweenYouAndLichess">เครือข่ายล่าช้าระหว่างคุณกับ lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">เวลาเพื่อทำการเดินหนึ่งครั้งบนเซิร์ฟเวอร์ของ lichess</string>
   <string name="downloadAnnotated">ดาวน์โหลดพร้อมตัวอธิบาย</string>
   <string name="downloadRaw">ดาวน์โหลดข้อมูลดิบ</string>
   <string name="downloadImported">ดาวน์โหลดสิ่งที่นำเข้า</string>
@@ -650,29 +634,23 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">คุณสามารถหมุนเลื่อนเหนือกระดานเพื่อเดินในเกมได้ด้วย</string>
   <string name="analysisShapesHowTo">กด shift+คลิก หรือ คลิกขวา เพื่อวาดวงกลมและลูกศรบนกระดาน</string>
   <string name="letOtherPlayersMessageYou">อนุญาตให้ผู้อื่นส่งข้อความถึงคุณ</string>
-  <string name="shareYourInsightsData">แบ่งปันข้อมูลเชิงลึกของคุณ</string>
   <string name="withNobody">ไม่มีใคร</string>
   <string name="withFriends">กับเพื่อนๆ</string>
   <string name="withEverybody">กับทุกคน</string>
   <string name="youHaveAlreadyRegisteredTheEmail">คุณได้ลงทะเบียนอีเมลไว้แล้ว: %s</string>
   <string name="kidMode">โหมดเด็ก</string>
   <string name="kidModeExplanation">สิ่งนี้เป็นเรื่องเกี่ยวกับความปลอดภัย ในโหมดสำหรับเด็ก การสื่อสารของไซต์ทั้งหมดจะถูกปิด จงใช้งานสิ่งนี้สำหรับเด็กและนักเรียนของคุณ เพื่อปกป้องพวกเขาจากผู้ใช้อินเทอร์เน็ตอื่นๆ</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">ในโหมดสำหรับเด็ก โลโก้ lichess จะมีไอคอน %s เพื่อให้คุณรู้ว่าเด็กๆของคุณปลอดภัย</string>
   <string name="enableKidMode">เปิดใช้งานโหมดสำหรับเด็ก</string>
   <string name="disableKidMode">ปิดใช้งานโหมดสำหรับเด็ก</string>
   <string name="security">ความปลอดภัย</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">นี่คือรายการอุปกรณ์ที่ได้เข้าสู่บัญชีของคุณ จงยกเลิกวาระที่คุณไม่รู้จัก</string>
   <string name="alternativelyYouCanX">อีกวิธีหนึ่งคือคุณสามารถ %s</string>
   <string name="revokeAllSessions">ยกเลิกวาระทั้งหมด</string>
-  <string name="playChessEverywhere">เล่นหมากรุกได้ทุกที่</string>
-  <string name="asFreeAsLichess">อิสระเหมือนดั่ง lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">สรรสร้างเพื่อคนรักหมากรุก ไม่ใช่เพื่อเงินตรา</string>
   <string name="everybodyGetsAllFeaturesForFree">ทุกคนจะได้รับคุณลักษณะทั้งหมดฟรี</string>
   <string name="zeroAdvertisement">โฆษณาเป็นศูนย์</string>
   <string name="fullFeatured">คุณลักษณะครบถ้วน</string>
   <string name="phoneAndTablet">โทรศัพท์และแท็บเล็ต</string>
   <string name="bulletBlitzClassical">บุลลิต, บลิตซ์, คลาสสิก</string>
-  <string name="correspondenceChess">หมากรุกแบบยาวนาน</string>
   <string name="onlineAndOfflinePlay">เล่นออนไลน์ และออฟไลน์</string>
   <string name="viewTheSolution">ดูเฉลย</string>
   <string name="followAndChallengeFriends">ติดตามและท้าดวลกับเพื่อนๆ</string>
@@ -704,9 +682,6 @@
   <string name="usernameSuffixInvalid">ชื่อผู้ใช้ที่ต้องลงท้ายด้วยตัวอักษรหรือตัวเลข</string>
   <string name="usernameCharsInvalid">ชื่อผู้ใช้ประกอบด้วยตัวอักษร, ตัวเลข, ขีดล่าง และเครื่องหมายขีด เท่านั้น</string>
   <string name="usernameUnacceptable">ไม่ยอมรับชื่อผู้ใช้นี้</string>
-  <string name="directlySupportLichess">สนับสนุน Lichess โดยตรง</string>
-  <string name="playChessInStyle">เล่นหมากรุกแบบมีสไตล์</string>
-  <string name="chessBasics">พื้นฐานหมากรุก</string>
   <string name="coaches">ผู้ฝึกสอน</string>
   <string name="invalidPgn">PGN ไม่ถูกต้อง</string>
   <string name="invalidFen">FEN ไม่ถูกต้อง</string>
@@ -780,7 +755,6 @@
   <string name="weHadToTimeYouOutForAWhile">เราจำเป็นต้องให้คุณรอคอยสักช่วงหนึ่ง</string>
   <string name="timeoutExpires">เวลารอคอย สิ้นสุดใน %s</string>
   <string name="why">ทำไม?</string>
-  <string name="pleasantChessExperience">เรามุ่งหวังจะมอบประสบการณ์เกมหมากรุกที่น่าพอใจให้กับทุกคน</string>
   <string name="goodPractice">เพื่อให้ได้ผล เราต้องแน่ใจว่าผู้เล่นทุกคนได้ปฏิบัติตามเป็นอย่างดี</string>
   <string name="potentialProblem">เมื่อตรวจพบปัญหาที่อาจจะเกิดขึ้น เราจะแสดงข้อความนี้</string>
   <string name="howToAvoidThis">จะหลีกเลี่ยงสิ่งนี้อย่างไร?</string>
@@ -788,14 +762,13 @@
   <string name="tryToWin">พยายามเอาชนะ (หรืออย่างน้อยก็เสมอ) ทุกเกมที่คุณเล่น</string>
   <string name="resignLostGames">ยอมแพ้ในเกมที่แพ้ (อย่าปล่อยให้นาฬิกาหมดเวลา)</string>
   <string name="temporaryInconvenience">เราขออภัยในความไม่สะดวกชั่วคราว</string>
-  <string name="wishYouGreatGames">และปรารถนาให้คุณมีเกมที่ยอดเยี่ยมบน lichess.org</string>
+  <string name="wishYouGreatGames">และปรารถนาให้คุณมีเกมที่ยอดเยี่ยมบน lishogi.org</string>
   <string name="thankYouForReading">ขอบคุณที่อ่าน!</string>
   <string name="lifetimeScore">สกอร์ตลอดชีพ</string>
   <string name="currentMatchScore">สกอร์เกมปัจจุบัน</string>
-  <string name="agreementAssistance">ฉันยอมรับว่า จะไม่ใช้ตัวช่วยระหว่างเกมของฉัน (จากคอมพิวเตอร์หมากรุก, หนังสือ, ฐานข้อมูล หรือบุคคลอื่น)</string>
   <string name="agreementNice">ฉันยอมรับว่า ฉันจะเคารพผู้เล่นคนอื่นเสมอ</string>
   <string name="agreementAccount">ฉันยอมรับว่า ฉันจะไม่สร้างหลายบัญชี</string>
-  <string name="agreementPolicy">ฉันยอมรับว่า ฉันจะปฏิบัติตามทุกนโยบายของ Lichess</string>
+  <string name="agreementPolicy">ฉันยอมรับว่า ฉันจะปฏิบัติตามทุกนโยบายของ Lishogi</string>
   <string name="searchOrStartNewDiscussion">ค้นหา หรือเริ่มการสนทนาใหม่</string>
   <string name="edit">แก้ไข</string>
   <string name="rapid">แรปพิด</string>

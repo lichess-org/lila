@@ -1,13 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search">Szukaj</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="search">Szukaj</string>
   <string name="advancedSearch">Wyszukiwanie zaawansowane</string>
-  <plurals name="searchInXGames">
-    <item quantity="one">Szukaj w jednej partii</item>
-    <item quantity="few">Szukaj wśród %s partii</item>
-    <item quantity="many">Szukaj wśród %s partii</item>
-    <item quantity="other">Szukaj wśród %s partii</item>
-  </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">Znaleziono jedną partię</item>
     <item quantity="few">Znaleziono %s partie</item>

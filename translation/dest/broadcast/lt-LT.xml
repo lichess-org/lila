@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="broadcasts">Transliacijos</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="broadcasts">Transliacijos</string>
   <string name="liveBroadcasts">Vykstančios turnyrų transliacijos</string>
   <string name="newBroadcast">Nauja transliacija</string>
   <string name="ongoing">Vykstančios</string>
@@ -11,7 +10,7 @@
   <string name="fullDescription">Pilnas renginio aprašymas</string>
   <string name="fullDescriptionHelp">Neprivalomas pilnas transliacijos aprašymas. Galima naudoti %1$s. Ilgis negali viršyti %2$s simbolių.</string>
   <string name="sourceUrl">Šaltinio URL</string>
-  <string name="sourceUrlHelp">URL, į kurį „Lichess“ kreipsis gauti PGN atnaujinimus. Privalo būti viešai pasiekiamas internete.</string>
+  <string name="sourceUrlHelp">URL, į kurį „Lishogi“ kreipsis gauti PGN atnaujinimus. Privalo būti viešai pasiekiamas internete.</string>
   <string name="roundNumber">Raundo numeris</string>
   <string name="startDate">Pradžios laikas jūsų laiko juostoje</string>
   <string name="startDateHelp">Neprivaloma; tik jeigu žinote, kada prasideda renginys</string>

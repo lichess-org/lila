@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="activity">Aktiivsus</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="activity">Aktiivsus</string>
   <string name="hostedALiveStream">Näitas kellegi teise otseülekannet</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Toeta Lichess.org\'i %1$s kuu %2$s</item>
-    <item quantity="other">Toeta Lichess.org\'i %1$s kuud %2$s</item>
+    <item quantity="one">Toeta Lishogi.org\'i %1$s kuu %2$s</item>
+    <item quantity="other">Toeta Lishogi.org\'i %1$s kuud %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Harjutas %1$s seisu teemas %2$s</item>
@@ -62,7 +61,7 @@
     <item quantity="one">Saavutas #%1$s koha (parima %2$s%% seas) %3$s mänguga turniiril %4$s</item>
     <item quantity="other">Saavutas #%1$s koha (parima %2$s%% seas) %3$s mänguga turniiril %4$s</item>
   </plurals>
-  <string name="signedUp">Registreerus lehel lichess.org</string>
+  <string name="signedUp">Registreerus lehel lishogi.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Liitus %s rühmaga</item>
     <item quantity="other">Liitus %s rühmaga</item>

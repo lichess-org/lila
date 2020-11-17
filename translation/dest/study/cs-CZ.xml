@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="private">Soukromé</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="private">Soukromé</string>
   <string name="myStudies">Moje studie</string>
   <string name="studiesIContributeTo">Studie, ke kterým přispívám</string>
   <string name="myPublicStudies">Moje veřejné studie</string>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Lagun baten aurka jokatu</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Lagun baten aurka jokatu</string>
   <string name="playWithTheMachine">Ordenagailuaren aurka jokatu</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Norbait jokatzera gonbidatzeko, URL hau bidali iezaiozu</string>
   <string name="gameOver">Partida amaitu da</string>
@@ -247,7 +246,6 @@
   <string name="recipient">Mezuaren hartzailea</string>
   <string name="send">Bidali</string>
   <string name="incrementInSeconds">Segundo-gehiketa</string>
-  <string name="freeOnlineChess">Doako xakea Interneten</string>
   <string name="spectators">Ikusleak</string>
   <plurals name="nbRated">
     <item quantity="one">Sailkatutako %s</item>
@@ -275,7 +273,7 @@
     <item quantity="one">Segundo %s eman</item>
     <item quantity="other">%s segundo eman</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Kontu honek Lichessen Erabilera Baldintzak urratu egin ditu</string>
+  <string name="thisAccountViolatedTos">Kontu honek Lishogien Erabilera Baldintzak urratu egin ditu</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Jokalariak bere sailkapena aldatzen du artifizialki</string>
   <string name="openingExplorerAndTablebase">Hasiera arakatzailea &amp; finalen datu-basea</string>
   <string name="takeback">Jokaldia atzera egin</string>
@@ -325,7 +323,6 @@
   <string name="mustBeInTeam">%s taldean egon behar da</string>
   <string name="youAreNotInTeam">Ez zaude %s taldean</string>
   <string name="backToGame">Partidara itzuli</string>
-  <string name="siteDescription">Doako xake zerbitzaria. Xakean interfaze argiarekin jokatu. Izena ematea ez da beharrezkoa. Iragarkirik gabe. Jokatu xakean ordenagailu, lagun edo beste aurkariekin.</string>
   <string name="xJoinedTeamY">%1$s %2$s taldean sartu da</string>
   <string name="xCreatedTeamY">%1$s(e)k %2$s taldea sortu du</string>
   <string name="xStartedStreaming">%s emanaldiarekin hasi da</string>
@@ -347,9 +344,7 @@
     <item quantity="one">%s inportatutako partidak</item>
     <item quantity="other">%s inportatutako partidak</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Hau xake-CAPTCHA bat da</string>
   <string name="clickOnTheBoardToMakeYourMove">Egizu jokaldia taulan, gizakia zarela frogatzeko.</string>
-  <string name="captcha.fail">Ebatzi xake captcha mesedez.</string>
   <string name="notACheckmate">Hori ez da xake-matea!</string>
   <string name="whiteCheckmatesInOneMove">Zuriek xake-mate jokaldi bakarrean</string>
   <string name="blackCheckmatesInOneMove">Beltzek xake-mate jokaldi bakarrean</string>
@@ -400,7 +395,6 @@
   <string name="advancedSettings">Ezarpen aurreratuak</string>
   <string name="safeTournamentName">Adeitasunezko izena hauta ezazu.</string>
   <string name="inappropriateNameWarning">Errespetua galduz gero, zure kontua itxiko dugu.</string>
-  <string name="emptyTournamentName">Ez baduzu betetzen, txapelketak Maisu Handi baten izena hartuko du, ausaz.</string>
   <string name="recommendNotTouching">Hobe ez ukitu hau.</string>
   <string name="fewerPlayers">Parte hartzeko baldintzak jartzen badituzu, jokalari gutxiago sartuko dira txapelketan.</string>
   <string name="showAdvancedSettings">Ezarpen aurreratuak</string>
@@ -448,8 +442,6 @@
   <string name="country">Herrialdea</string>
   <string name="socialMediaLinks">Sare sozialen loturak</string>
   <string name="inlineNotation">Lerroarteko oharrak</string>
-  <string name="watchLichessTV">Lichess TV Ikusi</string>
-  <string name="previouslyOnLichessTV">Aurreko Lichess TV saioak</string>
   <string name="onlinePlayers">Konektatutako jokalariak</string>
   <string name="activeToday">Gaurko aktiboak</string>
   <string name="activePlayers">Jokalari aktiboak</string>
@@ -469,7 +461,7 @@
   <string name="butYouCanKeepTrying">Baina berriro saia zaitezke.</string>
   <string name="success">Zorionak</string>
   <string name="wasThisPuzzleAnyGood">Ariketa hau gustatu zaizu?</string>
-  <string name="pleaseVotePuzzle">Eman botoa Lichessi laguntzeko, goranzko zein beheranzko gezia hautatuz:</string>
+  <string name="pleaseVotePuzzle">Eman botoa Lishogii laguntzeko, goranzko zein beheranzko gezia hautatuz:</string>
   <string name="thankYou">Eskerrik asko!</string>
   <string name="ratingX">Sailkapena: %s</string>
   <string name="hidden">ezkutuan</string>
@@ -562,7 +554,6 @@
   <string name="starting">Hasten da:</string>
   <string name="allInformationIsPublicAndOptional">Informazio guztia publiko eta aukerakoa da</string>
   <string name="yourCityRegionOrDepartment">Zure hiria, eskualdea, edo probintzia</string>
-  <string name="biographyDescription">Esan zerbait zuri buruz, zer gustatzen zaizun xakean, zure hasiera gogokoenak, jokalariak…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Gehienez: %s karaktere</item>
     <item quantity="other">Gehienez: %s karaktere</item>
@@ -578,7 +569,6 @@
   <string name="clock">Erlojua</string>
   <string name="unauthorizedError">Ez baimendutako sarbidea</string>
   <string name="noInternetConnection">Ez dago internet konexiorik. Offine ere jokatu dezakezu.</string>
-  <string name="connectedToLichess">Lichess.org-era konektatuta</string>
   <string name="signedOut">Deskonektatuta</string>
   <string name="loginSuccessful">Konektatuta</string>
   <string name="playOnTheBoardOffline">Taulan</string>
@@ -620,9 +610,8 @@
   <string name="webmasters">Webguneen kudeatzaileak</string>
   <string name="about">Honi buruz</string>
   <string name="aboutX">%s-i buruz</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s doako (%2$s), libre, iragarki-gabeko eta kode irekiko xake zerbitzaria da.</string>
   <string name="really">benetan</string>
-  <string name="contribute">Lichessi lagundu</string>
+  <string name="contribute">Lishogii lagundu</string>
   <string name="termsOfService">ToS</string>
   <string name="sourceCode">Iturburu kodea</string>
   <string name="simultaneousExhibitions">Aldibereko partidak</string>
@@ -644,7 +633,6 @@
   <string name="simulClockHint">Fischer erloju doikuntza. Zenbat eta jokalari gehiagoren aurka jokatua,  are denbora gehiago behar izango duzu</string>
   <string name="simulAddExtraTime">Aldibereko partidetan aritu ahal izateko, agian  denbora gehiago gehitu beharko diozu zure erlojuari</string>
   <string name="simulHostExtraTime">Denbora gehitu erlojuan</string>
-  <string name="lichessTournaments">Lichess txapelketak</string>
   <string name="tournamentFAQ">Arena txapelketaren ohiko galderak</string>
   <string name="tournamentOfficial">Ofiziala</string>
   <string name="timeBeforeTournamentStarts">Txapelketa hasteko denbora</string>
@@ -655,8 +643,6 @@
   <string name="keyShowOrHideComments">Iruzkinak erakutsi/ezkutatu</string>
   <string name="keyEnterOrExitVariation">Aldaerara sartu/atera</string>
   <string name="newTournament">Txapelketa berria</string>
-  <string name="tournamentHomeTitle">Xake-txapelketak, aldaera eta denbora-kontrol batzuekin.</string>
-  <string name="tournamentHomeDescription">Txapelketa azkarrak jokatu! Txapelketa batetara sartu, edo zeurea sortu.  Bullet, Blitz, Klasikoa, Xake960, Erregeatontorrean, Hiruxake eta aukera  gehiago, xake dibertsio amaigabea lortzeko.</string>
   <string name="tournamentNotFound">Txapelketa ez da aurkitu</string>
   <string name="tournamentDoesNotExist">Txapelketa hau ez dago</string>
   <string name="tournamentMayHaveBeenCanceled">Agian bertan behera geratu da, jokalari guztiak atera direlako hasi baino lehen.</string>
@@ -678,8 +664,6 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ez baduzu mezua aurkitzen, begiratu beste tokietan: zaborrontzian, spam karpetan, ...</string>
   <string name="weHaveSentYouAnEmailTo">Mezu bat bidali dugu %s helbidera. Egizu klik mezuan zure pasahitza berrizteko.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Izena ematean, gure %s onartzen dituzu.</string>
-  <string name="networkLagBetweenYouAndLichess">Sarearen atzerapena Lichessen eta zure artean</string>
-  <string name="timeToProcessAMoveOnLichessServer">Lichess zerbitzariak jokaldi bat egiteko denbora</string>
   <string name="downloadAnnotated">Oharrekin jaitsi</string>
   <string name="downloadRaw">Oharrik gabe jaitsi</string>
   <string name="downloadImported">Igo zen moduan jaitsi</string>
@@ -688,29 +672,23 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Partidan aurrera-atzera egiteko, korritze-barra ere erabili ahal duzu.</string>
   <string name="analysisShapesHowTo">Zirkuluak eta geziak marrazteko, egizu shift+klik edo eskuin-klik.</string>
   <string name="letOtherPlayersMessageYou">Utzi beste jokalariei zuri mezuak bidaltzen</string>
-  <string name="shareYourInsightsData">Zure partiden analitika partekatu</string>
   <string name="withNobody">Inorekin ere ez</string>
   <string name="withFriends">Lagunekin</string>
   <string name="withEverybody">Edonorekin</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Email hau erregistratu duzu dagoeneko: %s</string>
   <string name="kidMode">Haurren modua</string>
   <string name="kidModeExplanation">Hau segurtasunari buruzkoa da. Haurren moduan, webguneko komunikazio guztiak desaktibatuta daude. Aktibatu zure haur eta ikasleei beste Internet erabiltzaileengandik babesteko.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Haurren moduan, lichess logoak %s ikonoa du, haurrak seguru daudela jakin dezazun.</string>
   <string name="enableKidMode">Haurren modua aktibatu</string>
   <string name="disableKidMode">Haurren modua desaktibatu</string>
   <string name="security">Segurtasuna</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Zure kontua erabili duten gailuen zerre da da hau. Itxi ezagutzen ez dituzun sesio guztiak.</string>
   <string name="alternativelyYouCanX">Gainera %s ditzakezu.</string>
   <string name="revokeAllSessions">sesio guztiak itxi</string>
-  <string name="playChessEverywhere">Jokatu xakean, nonnahi</string>
-  <string name="asFreeAsLichess">Debalde, lichess bezala</string>
-  <string name="builtForTheLoveOfChessNotMoney">Xakea maite dugulako sortuta, ez diruagatik.</string>
   <string name="everybodyGetsAllFeaturesForFree">Ezaugarri guztiak eskuragarri, dohain.</string>
   <string name="zeroAdvertisement">Publizitaterik gabe</string>
   <string name="fullFeatured">Aukeraz beteta</string>
   <string name="phoneAndTablet">Sakelekoan zein tabletan</string>
   <string name="bulletBlitzClassical">Bullet, blitz, klasikoa</string>
-  <string name="correspondenceChess">Posta-xakea</string>
   <string name="onlineAndOfflinePlay">Online zein offline jokatu</string>
   <string name="viewTheSolution">Erantzuna ikusi</string>
   <string name="followAndChallengeFriends">Jarraitu eta desafio egin lagunei</string>
@@ -743,9 +721,6 @@
   <string name="usernameSuffixInvalid">Erabiltzaile izena hizki edo zenbaki batekin bukatu behar da.</string>
   <string name="usernameCharsInvalid">Erabiltzaile izenak hizkiak, zenbakiak, azpiko marrak eta gidoiak bakarrik izan ditzake.</string>
   <string name="usernameUnacceptable">Erabiltzaile hori ezin da erabili.</string>
-  <string name="directlySupportLichess">Lichess zuzenean lagundu</string>
-  <string name="playChessInStyle">Xakean estiloarekin jokatu</string>
-  <string name="chessBasics">Oinarrizko xakea</string>
   <string name="coaches">Entrenatzaileak</string>
   <string name="invalidPgn">PGNa ez da zuzena</string>
   <string name="invalidFen">FENa ez da zuzena</string>
@@ -822,7 +797,6 @@
   <string name="weHadToTimeYouOutForAWhile">Denbora tarte baterako bota egin behar izan zaitugu.</string>
   <string name="timeoutExpires">Kanporaketaren amaiera: %s.</string>
   <string name="why">Zergatik?</string>
-  <string name="pleasantChessExperience">Guztioi xakean jokatzeko aukera atsegina eskaintzea da gure helburua.</string>
   <string name="goodPractice">Horretarako, jokalari guztiek praktika onak jarraitzen dituztela ziur izan behar dugu.</string>
   <string name="potentialProblem">Arazo bat aurkitzen dugunean, mezu hau erakusten dugu.</string>
   <string name="howToAvoidThis">Nola ekidin hau?</string>
@@ -830,14 +804,13 @@
   <string name="tryToWin">Jokatutako partida guztiak irabazten saiatu (edo gutxienez berdindu).</string>
   <string name="resignLostGames">Galdutako partidetan amore eman (ez utzi denbora agortzen).</string>
   <string name="temporaryInconvenience">Barkatu eragozpenak,</string>
-  <string name="wishYouGreatGames">segi lichess.org-en jokatzen.</string>
+  <string name="wishYouGreatGames">segi lishogi.org-en jokatzen.</string>
   <string name="thankYouForReading">Eskerrik asko irakurtzeagatik!</string>
   <string name="lifetimeScore">Jokalari honekin duzun emaitza</string>
   <string name="currentMatchScore">Uneko partidetako emaitza</string>
-  <string name="agreementAssistance">Nire partidetan ez dut inoiz laguntzarik jasoko (ordenagailuak, liburua, datu-base bat edo beste pertsona bat).</string>
   <string name="agreementNice">Atsegina izango naiz beste jokalariekin.</string>
   <string name="agreementAccount">Ez dut erabiltzaile bat baino gehiago sortuko.</string>
-  <string name="agreementPolicy">Lichessek ezarritako politikak beteko ditut.</string>
+  <string name="agreementPolicy">Lishogiek ezarritako politikak beteko ditut.</string>
   <string name="searchOrStartNewDiscussion">Hizketaldia bilatu edo berria hasi</string>
   <string name="edit">Aldatu</string>
   <string name="rapid">Aktiboa</string>
@@ -848,7 +821,6 @@
   <string name="rapidDesc">Partida aktiboak: 8-25 minutu artekoak</string>
   <string name="classicalDesc">Partida estandarrak: 25 minutu edo gehiagokoak</string>
   <string name="correspondenceDesc">Posta bidezko partidak: egun bat edo gehiago jokaldi bakoitzeko</string>
-  <string name="puzzleDesc">Taktika ariketak</string>
   <string name="important">Garrantzitsua</string>
   <string name="yourQuestionMayHaveBeenAnswered">Zure galderak agian badu erantzuna %1$s</string>
   <string name="inTheFAQ">SEGtan.</string>

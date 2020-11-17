@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="private">خاص</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="private">خاص</string>
   <string name="myStudies">دراستي</string>
   <string name="studiesIContributeTo">الدراسات المساهم بها</string>
   <string name="myPublicStudies">دراسات العامة</string>

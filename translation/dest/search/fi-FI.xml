@@ -1,11 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search">Etsi</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="search">Etsi</string>
   <string name="advancedSearch">Tarkennettu haku</string>
-  <plurals name="searchInXGames">
-    <item quantity="one">Hae %s shakkipelistä</item>
-    <item quantity="other">Hae %s shakkipelistä</item>
-  </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">Yksi peli löytyi</item>
     <item quantity="other">%s peliä löytyi</item>

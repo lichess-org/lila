@@ -1,16 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="faqAbbreviation">FAG</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="faqAbbreviation">FAG</string>
   <string name="frequentlyAskedQuestions">Foar Ar Goulennoù</string>
-  <string name="whyIsLichessCalledLichess">Perak e vez graet Lichess eus Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Ur ger savet digant pevar ger all eo, \"live/light/libre\" ha \"chess\". Distaget e vez %1$s.</string>
-  <string name="leechess">li-tchess</string>
   <string name="hearItPronouncedBySpecialist">Selaou ar ger distaget gant unan hag a oar mat.</string>
   <string name="whyLiveLightLibre">\"Live\" peogwir ez eus krogadoù da c\'hoari ha da sellet oute war-eeun a-hed an amzer; \"light\" ha \"libre\" dre ma \'z eo digor e vammenn ha gant se hep kudennoù perc\'hennañ a laka lec\'hiennoù all da vezañ pounner mat.</string>
-  <string name="howCanIContributeToLichess">Penaos e c\'hallan sikour Lichess?</string>
   <string name="otherWaysToHelp">doareoù all da sikour</string>
-  <string name="areThereWebsitesBasedOnLichess">Ha lec\'hiennoù all zo diazezet war Lichess?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Hag ez eus. Awenet eo bet lec\'hiennoù all digor o mammenn hag ober a reont gant hor %1$s, %2$s, or %3$s.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>

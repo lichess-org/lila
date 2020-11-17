@@ -1,11 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search">खोजें</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="search">खोजें</string>
   <string name="advancedSearch">उच्च खोज</string>
-  <plurals name="searchInXGames">
-    <item quantity="one">%s शतरंज के खेल में खोजें</item>
-    <item quantity="other">%s शतरंज के खेलो में खोजें</item>
-  </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">एक खेल मिला</item>
     <item quantity="other">%s खेल मिले</item>

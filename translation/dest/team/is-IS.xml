@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="teams">Lið</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="teams">Lið</string>
   <plurals name="nbMembers">
     <item quantity="one">%s meðlimir</item>
     <item quantity="other">%s meðlimir</item>

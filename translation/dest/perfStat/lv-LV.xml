@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="perfStats">%s statistika</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="perfStats">%s statistika</string>
   <string name="viewTheGames">Skatīt spēles</string>
   <string name="provisional">pagaidu</string>
   <string name="notEnoughRatedGames">Nav spēlēts pietiekami vērtētu spēļu, lai izveidotu uzticamu reitingu.</string>

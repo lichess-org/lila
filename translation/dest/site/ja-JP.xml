@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">友達と対局する</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">友達と対局する</string>
   <string name="playWithTheMachine">AIと対局する</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">対局に招待するときこのURLを知らせてください</string>
   <string name="gameOver">終局</string>
@@ -236,7 +235,6 @@
   <string name="recipient">受信者</string>
   <string name="send">送信する</string>
   <string name="incrementInSeconds">１手ごとに増える秒数</string>
-  <string name="freeOnlineChess">無料オンラインチェス</string>
   <string name="spectators">観覧者:</string>
   <plurals name="nbRated">
     <item quantity="other">%s 局レート戦</item>
@@ -258,7 +256,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">%s秒を与える</item>
   </plurals>
-  <string name="thisAccountViolatedTos">このアカウントは Lichess の利用規約に違反しました</string>
+  <string name="thisAccountViolatedTos">このアカウントは Lishogi の利用規約に違反しました</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">このプレイヤーは不正にレーティングを操作しています</string>
   <string name="openingExplorerAndTablebase">序盤探索&amp;テーブルベース</string>
   <string name="takeback">待った</string>
@@ -302,7 +300,6 @@
   <string name="mustBeInTeam">チーム %s のメンバー限定</string>
   <string name="youAreNotInTeam">チーム %s に入っていません</string>
   <string name="backToGame">ゲームに戻る</string>
-  <string name="siteDescription">無料オンラインチェス。簡素なインターフェースですぐに対局を。登録不要、広告なし、プラグイン不要。AIと、友達と、知らない相手とも対局できます。</string>
   <string name="xJoinedTeamY">%1$s がチーム %2$s に参加しました</string>
   <string name="xCreatedTeamY">%1$s がチーム %2$s を作成しました</string>
   <string name="xStartedStreaming">%s が配信を開始</string>
@@ -324,9 +321,7 @@
   <plurals name="nbImportedGames">
     <item quantity="other">%s 局をインポート</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">これはロボットよけの認証です。</string>
   <string name="clickOnTheBoardToMakeYourMove">駒を動かしてあなたが人間である事を証明して下さい。</string>
-  <string name="captcha.fail">問題を解いて人間だと証明してください。</string>
   <string name="notACheckmate">チェックメイトではありません</string>
   <string name="whiteCheckmatesInOneMove">白 1 手でチェックメイト</string>
   <string name="blackCheckmatesInOneMove">黒 1 手でチェックメイト</string>
@@ -373,7 +368,6 @@
   <string name="advancedSettings">高度な設定</string>
   <string name="safeTournamentName">トーナメントの名前は無難なものにしてください。</string>
   <string name="inappropriateNameWarning">少しでも不適切な名前の場合、あなたのアカウントを停止することがあります。</string>
-  <string name="emptyTournamentName">空白のままにしておくと、自動でランダムな有名選手の名前がつきます。</string>
   <string name="recommendNotTouching">ここは触らないことを推奨します。</string>
   <string name="fewerPlayers">参加条件を決めると、当然参加者は少なくなります。</string>
   <string name="showAdvancedSettings">「高度な設定」を表示</string>
@@ -421,8 +415,6 @@
   <string name="country">国</string>
   <string name="socialMediaLinks">ソーシャルメディアへのリンク</string>
   <string name="inlineNotation">棋譜を行書き</string>
-  <string name="watchLichessTV">Lichess TV を観戦</string>
-  <string name="previouslyOnLichessTV">過去の Lichess TV 対局</string>
   <string name="onlinePlayers">接続中のプレイヤー</string>
   <string name="activeToday">今日の対局数上位</string>
   <string name="activePlayers">総対局数上位</string>
@@ -533,7 +525,6 @@
   <string name="starting">開始時刻：</string>
   <string name="allInformationIsPublicAndOptional">情報の記入はすべて任意で、すべて公開されます。</string>
   <string name="yourCityRegionOrDepartment">居住地の市、地域、または県</string>
-  <string name="biographyDescription">自己紹介（チェスの好きな点、お気に入りの戦法、ゲーム、選手など）</string>
   <plurals name="maximumNbCharacters">
     <item quantity="other">最大: %s 文字</item>
   </plurals>
@@ -547,7 +538,6 @@
   <string name="clock">時間制限</string>
   <string name="unauthorizedError">アクセス権限がありません。</string>
   <string name="noInternetConnection">インターネット接続なし。メニューからオフラインでプレイできます。</string>
-  <string name="connectedToLichess">lichess.org に接続しています。</string>
   <string name="signedOut">サインアウトしました。</string>
   <string name="loginSuccessful">ログインしました</string>
   <string name="playOnTheBoardOffline">オフライン（2人対戦）</string>
@@ -586,9 +576,8 @@
   <string name="streamersMenu">配信者</string>
   <string name="mobileApp">モバイルアプリ</string>
   <string name="webmasters">ウェブサイト運営者の方へ</string>
-  <string name="about">Lichess概要</string>
+  <string name="about">Lishogi概要</string>
   <string name="aboutX">%s について</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s は無料 (%2$s)・自由・広告なし・オープンソースのチェス サーバです。</string>
   <string name="really">本当に</string>
   <string name="contribute">力を貸す</string>
   <string name="termsOfService">利用規約（英文）</string>
@@ -612,7 +601,6 @@
   <string name="simulClockHint">フィッシャーモードの設定。相手が多いほど追加時間は長めに。</string>
   <string name="simulAddExtraTime">同時対局の手間を考え、自分に持時間をさらに追加できます。</string>
   <string name="simulHostExtraTime">ホスト延長時間</string>
-  <string name="lichessTournaments">Lichess トーナメント</string>
   <string name="tournamentFAQ">アリーナ・トーナメントFAQ</string>
   <string name="tournamentOfficial">公式</string>
   <string name="timeBeforeTournamentStarts">開始までの時間</string>
@@ -623,8 +611,6 @@
   <string name="keyShowOrHideComments">コメントを表示する/隠す</string>
   <string name="keyEnterOrExitVariation">変化に入る/出る</string>
   <string name="newTournament">新しいトーナメント</string>
-  <string name="tournamentHomeTitle">さまざまな持時間とルールのチェストーナメント</string>
-  <string name="tournamentHomeDescription">早指しのチェストーナメントに参加しよう！　定時のトーナメントに参加するほか、自分で作ることもできます。ブレット、ブリッツ、クラシック、チェス960、キングオブザヒル、3チェックなどチェスの無限の楽しみを。</string>
   <string name="tournamentNotFound">トーナメントが見つかりません</string>
   <string name="tournamentDoesNotExist">このトーナメントは存在しません</string>
   <string name="tournamentMayHaveBeenCanceled">開始前に全員が棄権してキャンセルされた可能性があります。</string>
@@ -645,8 +631,6 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">メールが見つからない場合は、他の場所（スパムフォルダなど）を確認してください。</string>
   <string name="weHaveSentYouAnEmailTo">%sにメールを送信しました。リンクをクリックしてパスワードの変更を完了してください。</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">登録するとあなたは %s に従うと同意したことになります。</string>
-  <string name="networkLagBetweenYouAndLichess">あなたと Lichess の間のネットワークラグ</string>
-  <string name="timeToProcessAMoveOnLichessServer">Lichess サーバが手を処理する時間</string>
   <string name="downloadAnnotated">解説つきダウンロード</string>
   <string name="downloadRaw">棋譜のみダウンロード</string>
   <string name="downloadImported">インポート分のダウンロード</string>
@@ -655,29 +639,23 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">盤上で駒を動かすことでも手を入力できます。</string>
   <string name="analysisShapesHowTo">Shift + クリックや右クリックで盤上に丸や矢印が描けます。</string>
   <string name="letOtherPlayersMessageYou">他のプレイヤーからのメッセージを受け付ける</string>
-  <string name="shareYourInsightsData">Insights のデータを共有する</string>
   <string name="withNobody">誰にも見せない</string>
   <string name="withFriends">友達にだけ</string>
   <string name="withEverybody">誰にでも</string>
   <string name="youHaveAlreadyRegisteredTheEmail">あなたは既にメールアドレスを登録しています: %s</string>
   <string name="kidMode">キッズモード</string>
   <string name="kidModeExplanation">これは安全対策です。「キッズモード」ではサイト上の会話がすべて無効になります。子供や生徒のアカウントでこのモードを有効にしておけば、彼らを他のユーザーから守ることができます。</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">キッズモードでは Lichess のロゴに %s のアイコンが付き、安全であることを示します。</string>
   <string name="enableKidMode">キッズモードを有効化</string>
   <string name="disableKidMode">キッズモードを無効化</string>
   <string name="security">セキュリティ</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">これはあなたのアカウントにログインしたデバイスの一覧です。覚えのないセッションは削除してください。</string>
   <string name="alternativelyYouCanX">あるいは %s こともできます。</string>
   <string name="revokeAllSessions">すべてのセッションを取り消す</string>
-  <string name="playChessEverywhere">どこでもチェスをプレイ</string>
-  <string name="asFreeAsLichess">Lichess は常に無料</string>
-  <string name="builtForTheLoveOfChessNotMoney">金ではなくチェス愛のために作られたアプリ</string>
   <string name="everybodyGetsAllFeaturesForFree">誰でもすべての機能が無料です</string>
   <string name="zeroAdvertisement">広告いっさいなし</string>
   <string name="fullFeatured">幅広い機能</string>
   <string name="phoneAndTablet">携帯やタブレットで</string>
   <string name="bulletBlitzClassical">ブレット、ブリッツ、クラシカル</string>
-  <string name="correspondenceChess">通信戦</string>
   <string name="onlineAndOfflinePlay">オンラインでもオフラインでも</string>
   <string name="viewTheSolution">解答を見る</string>
   <string name="followAndChallengeFriends">友達をフォローして対戦しよう</string>
@@ -709,9 +687,6 @@
   <string name="usernameSuffixInvalid">ユーザー名の最後は英字か数字でなくてはなりません。</string>
   <string name="usernameCharsInvalid">ユーザー名に使えるのは英字、数字、アンダースコア、ハイフンだけです。</string>
   <string name="usernameUnacceptable">このユーザー名は認められません。</string>
-  <string name="directlySupportLichess">Lichess を支援（寄付）</string>
-  <string name="playChessInStyle">グッズ購入</string>
-  <string name="chessBasics">チェスの基本</string>
   <string name="coaches">コーチ</string>
   <string name="invalidPgn">無効な PGN</string>
   <string name="invalidFen">無効な FEN</string>
@@ -785,7 +760,6 @@
   <string name="weHadToTimeYouOutForAWhile">しばらくプレイを禁止します。</string>
   <string name="timeoutExpires">禁止は %s 後に解けます。</string>
   <string name="why">どうして？</string>
-  <string name="pleasantChessExperience">Lichess ではすべての人に楽しいチェス体験を提供しています。</string>
   <string name="goodPractice">そのためには、すべての人にマナーを守っていただく必要があります。</string>
   <string name="potentialProblem">問題があった場合、このメッセージ画面が表示されます。</string>
   <string name="howToAvoidThis">どうすればいいの？</string>
@@ -793,14 +767,13 @@
   <string name="tryToWin">すべてのゲームで勝ち（またはドロー）を目指す</string>
   <string name="resignLostGames">敗勢なら投了する（時間切れまで放置しない）</string>
   <string name="temporaryInconvenience">しばらくご不便をおかけしますが</string>
-  <string name="wishYouGreatGames">今後も Lichess ですばらしいゲームを楽しまれるよう願っています。</string>
+  <string name="wishYouGreatGames">今後も Lishogi ですばらしいゲームを楽しまれるよう願っています。</string>
   <string name="thankYouForReading">熟読ありがとう！</string>
   <string name="lifetimeScore">通算成績</string>
   <string name="currentMatchScore">現在のスコア</string>
-  <string name="agreementAssistance">私はいかなる場合も対局中に外部の力を借りないことに同意します（コンピュータ、書籍、データベース、別の人物）。</string>
   <string name="agreementNice">私は常に他のプレイヤーへの礼儀を守ることに同意します。</string>
   <string name="agreementAccount">私は複数のアカウントを持たないことに同意します。</string>
-  <string name="agreementPolicy">私は Lichess のすべてのポリシーに従うことに同意します。</string>
+  <string name="agreementPolicy">私は Lishogi のすべてのポリシーに従うことに同意します。</string>
   <string name="searchOrStartNewDiscussion">検索または新しいトピックを始める</string>
   <string name="edit">編集</string>
   <string name="rapid">ラピッド</string>
@@ -811,7 +784,6 @@
   <string name="rapidDesc">ラピッド：8 分から 25 分</string>
   <string name="classicalDesc">クラシカル：25 分以上</string>
   <string name="correspondenceDesc">通信戦：1 手につき 1 日から数日</string>
-  <string name="puzzleDesc">タクティクス問題</string>
   <string name="important">重要</string>
   <string name="yourQuestionMayHaveBeenAnswered">ご質問の答えはすでに %1$s にあるかもしれません</string>
   <string name="inTheFAQ">FAQ 内</string>

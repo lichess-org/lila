@@ -1,63 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="learnChess">Học cách chơi cờ vua</string>
-  <string name="byPlaying">bằng cách chơi nó!</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="byPlaying">bằng cách chơi nó!</string>
   <string name="menu">Menu</string>
   <string name="progressX">Tiến trình %s</string>
   <string name="resetMyProgress">Đặt lại quá trình của tôi</string>
   <string name="youWillLoseAllYourProgress">Bạn sẽ mất tất cả các thành tích của bạn!</string>
   <string name="play">chơi!</string>
-  <string name="chessPieces">Các quân cờ</string>
   <string name="theRook">Quân xe</string>
   <string name="itMovesInStraightLines">Nó đi theo các đường thẳng</string>
   <string name="rookIntro">Quân xe là một quân cờ mạnh. Bạn đã sẵn sàng điều khiển nó chưa?</string>
-  <string name="rookGoal">Bấm vào quân xe để đưa nó đến ngôi sao!</string>
   <string name="grabAllTheStars">Lấy tất cả các ngôi sao!</string>
-  <string name="theFewerMoves">Bạn đi càng ít nước đi thì bạn sẽ càng được nhiều điểm!</string>
-  <string name="useTwoRooks">Dùng hai quân xe để tăng tốc mọi thứ!</string>
   <string name="rookComplete">Chúc mừng! Bạn đã làm chủ được quân xe.</string>
   <string name="theBishop">Quân tượng</string>
   <string name="itMovesDiagonally">Nó đi chéo</string>
   <string name="bishopIntro">Tiếp theo chúng ta sẽ học cách điều khiển quân tượng!</string>
-  <string name="youNeedBothBishops">Một quân tượng ô trắng, một quân tượng ô đen. Bạn cần cả hai!</string>
   <string name="bishopComplete">Chúc mừng! Bạn có thể chỉ huy một quân tượng.</string>
-  <string name="theQueen">Quân hậu</string>
-  <string name="queenCombinesRookAndBishop">Hậu = xe + tượng</string>
-  <string name="queenIntro">Quân cờ mạnh nhất là đây. Hoàng hậu vĩ đại!</string>
-  <string name="queenComplete">Chúc mừng! Bạn đã nắm mọi bí mật của quân hậu.</string>
   <string name="theKing">Quân vua</string>
   <string name="theMostImportantPiece">Quân cờ quan trọng nhất</string>
   <string name="kingIntro">Bạn là quân vua. Nếu bạn bị ăn thì sẽ thua ván cờ.</string>
-  <string name="theKingIsSlow">Quân vua đi chậm.</string>
-  <string name="lastOne">Bài cuối!</string>
   <string name="kingComplete">Bây giờ bạn có thể chỉ huy người chỉ huy!</string>
   <string name="theKnight">Quân mã</string>
-  <string name="itMovesInAnLShape">Nó đi theo hình chữ L</string>
-  <string name="knightIntro">Đây là một thử thách cho bạn. Quân mã là... một quân khó khăn.</string>
-  <string name="knightsHaveAFancyWay">Quân mã nhảy vòng quanh một cách sành điệu!</string>
-  <string name="knightsCanJumpOverObstacles">Quân mã có thể nhảy qua các chướng ngại vật!
-Trốn thoát và chiếm những ngôi sao!</string>
   <string name="knightComplete">Chúc mừng! Bạn đã làm chủ được quân mã.</string>
   <string name="thePawn">Quân tốt</string>
-  <string name="itMovesForwardOnly">Nó chỉ đi về phía trước</string>
   <string name="pawnIntro">Tốt rất yếu, nhưng chúng có rất nhiều tiềm năng.</string>
-  <string name="pawnsMoveOneSquareOnly">Tốt chỉ đi về phía trước một bước.
-Nhưng khi chúng đi đến bên kia của bàn cờ, chúng trở thành một quân mạnh hơn!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">Phần lớn trường hợp phong cấp thành một quân hậu là tốt nhất.
-Nhưng đôi khi một quân mã có thể có ích!</string>
-  <string name="pawnsMoveForward">Tốt đi về phía trước
-nhưng có thể ăn quân theo hướng xéo!</string>
-  <string name="captureThenPromote">Ăn quân rồi hãy phong cấp!</string>
-  <string name="useAllThePawns">Hãy sử dụng hết quân Tốt!
-Không cần phong cấp đâu.</string>
-  <string name="aPawnOnTheSecondRank">Một con Tốt mà nằm ở hàng hai có thể đi 2 ô trong một nước đi đấy!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">Hãy lấy tất cả các ngôi sao!
-Nhưng không cần phải phong cấp đâu.</string>
   <string name="pawnComplete">Xin chúc mừng!
 Bạn đã nắm mọi bí mật của quân Tốt.</string>
-  <string name="pawnPromotion">Phong cấp cho Tốt</string>
-  <string name="yourPawnReachedTheEndOfTheBoard">Con Tốt của bạn đã đến bên kia của bàn cờ rồi đấy!</string>
-  <string name="itNowPromotesToAStrongerPiece">Bây giờ nó cần phải phong cấp lên một con quân mạnh hơn.</string>
   <string name="selectThePieceYouWant">Hãy chọn con quân mà bạn muốn!</string>
   <string name="fundamentals">Nguyên tắc cơ bản</string>
   <string name="capture">Ăn quân</string>
@@ -66,7 +32,6 @@ Bạn đã nắm mọi bí mật của quân Tốt.</string>
   <string name="takeTheBlackPieces">Hãy bắt lấy quân đen!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Bắt lấy quân đen!
 Nhưng đừng để mất quân của bạn.</string>
-  <string name="captureComplete">Xin chúc mừng! Bạn đã nắm được cách đánh với các quân cờ!</string>
   <string name="protection">Phòng thủ</string>
   <string name="keepYourPiecesSafe">Đề phòng an toàn cho quân của bạn</string>
   <string name="protectionIntro">Xác định các quân tấn công của đối thủ và phòng thủ bọn chúng!</string>
@@ -77,7 +42,6 @@ Nhưng đừng để mất quân của bạn.</string>
   <string name="combat">Giao chiến</string>
   <string name="captureAndDefendPieces">Bắt và bảo vệ quân</string>
   <string name="combatIntro">Một chiến binh giỏi phải biết cả tấn công lẫn phòng thủ!</string>
-  <string name="combatComplete">Chúc mừng! Bạn đã biết làm sao để chiến đấu với các quân cờ!</string>
   <string name="checkInOne">Chiếu trong 1 nước</string>
   <string name="attackTheOpponentsKing">Tấn công Vua đối phương</string>
   <string name="checkInOneIntro">Để chiếu đối thủ, hãy tấn công quân Vua. Họ sẽ phải phòng thủ!</string>
@@ -96,12 +60,10 @@ Nhưng đừng để mất quân của bạn.</string>
   <string name="defeatTheOpponentsKing">Đánh bại Vua đối phương</string>
   <string name="mateInOneIntro">Bạn thắng khi đối phương không thể chống lại nước chiếu tướng.</string>
   <string name="attackYourOpponentsKing">Tấn công Vua đối phương bằng cách không thể phòng thủ!</string>
-  <string name="mateInOneComplete">Chúc mừng! Đó là làm sao để bạn thắng ván cờ!</string>
   <string name="intermediate">Trung cấp</string>
   <string name="boardSetup">Cài đặt bàn cờ</string>
   <string name="howTheGameStarts">Ván đấu bắt đầu như thế nào</string>
   <string name="boardSetupIntro">Hai bên quân đối mặt với nhau, sẵn sàng cho cuộc chiến.</string>
-  <string name="thisIsTheInitialPosition">Đây là vị trí ban đầu của mọi ván cờ. Hãy đi nước bất kỳ để tiếp tục.</string>
   <string name="firstPlaceTheRooks">Hãy đặt những quân xe! Vị trí ở phía các góc bàn cờ.</string>
   <string name="thenPlaceTheKnights">Rồi đặt những quân Mã! ngay cạnh quân Xe.</string>
   <string name="placeTheBishops">Đặt quân Tượng! Ngay cạnh quân Mã.</string>
@@ -111,39 +73,6 @@ Nó ở ô cùng màu với quân của bạn.</string>
 Bên phải cạnh quân Hậu.</string>
   <string name="pawnsFormTheFrontLine">Các quân tốt tạo nên hàng phía trước.
 Hãy đi nước bất kỳ để tiếp tục.</string>
-  <string name="boardSetupComplete">Chúc mừng! Bạn đã biết cách thiết lập bàn cờ.</string>
-  <string name="castling">Nhập thành</string>
-  <string name="theSpecialKingMove">Nước đi đặc biệt của Vua</string>
-  <string name="castlingIntro">Chuyển quân Vua đến vị trí an toàn, và triển khai quân Xe để tấn công!</string>
-  <string name="castleKingSide">Di chuyển quân Vua 2 ô để nhập thành gần!</string>
-  <string name="castleQueenSide">Di chuyển quân Vua 2 ô để nhập thành xa!</string>
-  <string name="theKnightIsInTheWay">Quân Mã đang trong nước nhập thành! Di chuyển nó và nhập thành gần.</string>
-  <string name="castleKingSideMovePiecesFirst">Nhập thành gần!
-Bạn cần đi hết quân ở đó trước.</string>
-  <string name="castleQueenSideMovePiecesFirst">Nhập thành xa!
-Bạn cần đi hết quân ở đó trước.</string>
-  <string name="youCannotCastleIfMoved">Bạn không thể nhập thành nếu
-quân Vua đã di chuyển
-hoặc quân Xe đã di chuyển.</string>
-  <string name="youCannotCastleIfAttacked">Bạn không thể nhập thành nếu
-quân Vua bị chiếu trên đường nhập thành.
-Hãy chặn nước chiếu sau đó nhập thành!</string>
-  <string name="findAWayToCastleKingSide">Tìm cách để nhập thành gần!</string>
-  <string name="findAWayToCastleQueenSide">Tìm cách để nhập thành xa!</string>
-  <string name="castlingComplete">Xin chúc mừng! Bạn luôn nên nhập thành trong mọi ván đấu.</string>
-  <string name="enPassant">Bắt tốt qua đường</string>
-  <string name="theSpecialPawnMove">Nước cờ tốt đặc biệt</string>
-  <string name="enPassantIntro">Khi đối thủ di chuyển tốt lên hai ô, bạn có thể bắt nó như khi nó di chuyên lên một ô.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">Quân đen vừa di chuyển tốt
-lên hai ô!
-Hãy bắt tốt qua đường.</string>
-  <string name="enPassantOnlyWorksImmediately">Bắt tốt qua đường chỉ xảy ra
-ngay lập tức sau khi đối thủ
-di chuyển quân tốt.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">Bắt tốt qua đường chỉ xảy ra
-nếu tốt của bạn ở hàng thứ 5.</string>
-  <string name="takeAllThePawnsEnPassant">Bắt tất các các quân tốt bằng bắt tốt qua đường!</string>
-  <string name="enPassantComplete">Xin chúc mừng! Bây giờ bạn có thể bắt tốt qua đường.</string>
   <string name="stalemate">Hòa pat</string>
   <string name="theGameIsADraw">Ván cờ kết thúc hòa</string>
   <string name="stalemateIntro">Khi người chơi không bị chiếu và không có nước đi nào hợp lệ, nó được tính là hòa pat. Ván cờ kết thúc hòa: không ai thắng, không ai thua.</string>
@@ -177,15 +106,11 @@ Tốt = 1</string>
   <string name="checkInTwoGoal">Đe dọa Vua đối phương trong 2 nước!</string>
   <string name="checkInTwoComplete">Chúc mừng! Bạn đang chiếu tướng, bắt buộc đối thủ phải phòng thủ quân Vua!</string>
   <string name="whatNext">Bước tiếp theo?</string>
-  <string name="youKnowHowToPlayChess">Bạn biết cách chơi cờ rồi đấy, xin chúc mừng! Bạn có muốn trở thành một người chơi tốt hơn?</string>
   <string name="register">Đăng kí</string>
-  <string name="getAFreeLichessAccount">Tạo một tài khoản Lichess miễn phí</string>
   <string name="practice">Tập luyện</string>
-  <string name="learnCommonChessPositions">Học về các thế cờ cơ bản</string>
   <string name="puzzles">Câu đố</string>
   <string name="exerciseYourTacticalSkills">Luyện tập các kĩ năng chiến thuật của bạn</string>
   <string name="videos">Video</string>
-  <string name="watchInstructiveChessVideos">Xem những video hướng dẫn</string>
   <string name="playPeople">Đấu với người</string>
   <string name="opponentsFromAroundTheWorld">Các đối thủ từ khắp nơi trên thế giới</string>
   <string name="playMachine">Đấu với máy</string>

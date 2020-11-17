@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="contact">Kontakt</string>
-  <string name="contactLichess">Kontaktuj Lichess</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="contact">Kontakt</string>
   <string name="whatCanWeHelpYouWith">Ako ti môžeme pomôcť?</string>
   <string name="visitThisPage">Pre vyriešenie problému navštív túto stránku</string>
   <string name="iCantLogIn">Nemôžem sa prihlásiť</string>
@@ -12,7 +10,7 @@
   <string name="lost2FA">Stratil som prístup k mojím dvojfaktorovým autentifikačným kódom</string>
   <string name="doPasswordReset">Dokonči obnovenie hesla na odstránenie druhého faktoru.</string>
   <string name="accountSupport">Potrebujem poradiť s účtom</string>
-  <string name="wantTitle">Chcem aby sa môj titul zobrazoval na Lichess</string>
+  <string name="wantTitle">Chcem aby sa môj titul zobrazoval na Lishogi</string>
   <string name="wantCloseAccount">Chcem deaktivovať svoj účet</string>
   <string name="closeYourAccount">Môžeš deaktivovať svoj účet na tejto stránke</string>
   <string name="doNotAskByEmail">Nežiadaj od nás aby sme ti zrušili účet cez email, neurobíme to.</string>

@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="activity">Aktiveco</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="activity">Aktiveco</string>
   <string name="hostedALiveStream">Gastigis vivan rivereton</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Subtenis lichess.org dum %1$s monato kiel %2$s</item>
-    <item quantity="other">Subtenis lichess.org dum %1$s monatoj kiel %2$s</item>
+    <item quantity="one">Subtenis lishogi.org dum %1$s monato kiel %2$s</item>
+    <item quantity="other">Subtenis lishogi.org dum %1$s monatoj kiel %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Praktikis %1$s pozicion %2$s</item>
@@ -62,7 +61,7 @@
     <item quantity="one">Rangita #%1$s (supro %2$s%%) kun %3$s ludo en %4$s</item>
     <item quantity="other">Rangita #%1$s (supro %2$s%%) kun %3$s ludoj en %4$s</item>
   </plurals>
-  <string name="signedUp">Subskribis al lichess.org</string>
+  <string name="signedUp">Subskribis al lishogi.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Aliĝis %s teamo</item>
     <item quantity="other">Aliĝis %s teamoj</item>

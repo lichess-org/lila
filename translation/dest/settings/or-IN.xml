@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">ସେଟିଂସମୂହ</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="settings">ସେଟିଂସମୂହ</string>
   <string name="closeAccount">ଆକାଉଣ୍ଟ ବନ୍ଦ କରନ୍ତୁ</string>
   <string name="closingIsDefinitive">ବନ୍ଦ କରିବା ନିଶ୍ଚିତ ଅଟେ | ପଛକୁ ଫେରିବା ନାହିଁ | ଆପଣ ନିଶ୍ଚିତ କି?</string>
   <string name="cantOpenSimilarAccount">ସମାନ ନାମ ସହିତ ଏକ ନୂତନ ଖାତା ଖୋଲିବାକୁ ଆପଣଙ୍କୁ ଅନୁମତି ଦିଆଯିବ ନାହିଁ, ଯଦିଓ ମାମଲା ଭିନ୍ନ ଅଟେ</string>

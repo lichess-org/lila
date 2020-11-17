@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="perfStats">Stadegoù %s</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="perfStats">Stadegoù %s</string>
   <string name="viewTheGames">Gwelet ar c\'hrogadoù</string>
   <string name="provisional">da c\'hortoz</string>
   <string name="notEnoughRatedGames">N\'eo ket bet c\'hoariet trawalc\'h a grogadoù renket evit kaout ur renkadur a glot gant ho live.</string>

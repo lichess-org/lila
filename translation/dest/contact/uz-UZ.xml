@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="contact">Aloqa</string>
-  <string name="contactLichess">Lichess bilan aloqa</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="contact">Aloqa</string>
   <string name="whatCanWeHelpYouWith">Sizga qanday yordam bera olamiz?</string>
   <string name="visitThisPage">Muammoni hal qilish uchun ushbu sahifaga tashrif buyuring</string>
   <string name="iCantLogIn">Men kira olmayabman</string>
@@ -12,8 +10,8 @@
   <string name="lost2FA">Ikki bosqichli tasdiqlash kodlariga kirish huquqimni yo\'qotdim</string>
   <string name="doPasswordReset">Ikkinchi qadamni olib tashlash uchun parolni tiklashni tugating</string>
   <string name="accountSupport">Profilimga yordami kerak</string>
-  <string name="wantTitle">Lichess mening nomim ko\'rsatilishini xohlayman</string>
-  <string name="visitTitleConfirmation">Lichessda profilida o\'z nomingizni ko\'rsatish va Titul Arenenada qatnashish uchun darajangizni tasdiqlash sahifasiga tashrif buyuring</string>
+  <string name="wantTitle">Lishogi mening nomim ko\'rsatilishini xohlayman</string>
+  <string name="visitTitleConfirmation">Lishogida profilida o\'z nomingizni ko\'rsatish va Titul Arenenada qatnashish uchun darajangizni tasdiqlash sahifasiga tashrif buyuring</string>
   <string name="wantCloseAccount">Profilimni yopmoqchiman</string>
   <string name="closeYourAccount">Siz ushbu sahifada profilingizni yopishingiz mumkin</string>
 </resources>

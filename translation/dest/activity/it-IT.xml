@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="activity">Attività</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="activity">Attività</string>
   <string name="hostedALiveStream">Ha ospitato uno stream live</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Supporta lichess.org da %1$s mese in qualità di %2$s</item>
-    <item quantity="other">Supporta lichess.org da %1$s mesi in qualità di %2$s</item>
+    <item quantity="one">Supporta lishogi.org da %1$s mese in qualità di %2$s</item>
+    <item quantity="other">Supporta lishogi.org da %1$s mesi in qualità di %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Ha studiato %1$s posizione in %2$s</item>
@@ -62,7 +61,7 @@
     <item quantity="one">Si è classificato %1$s° (nel miglior %2$s%%) con %3$s partita in %4$s</item>
     <item quantity="other">Si è classificato %1$s° (nel miglior %2$s%%) con %3$s partite in %4$s</item>
   </plurals>
-  <string name="signedUp">Si è registrato su lichess.org</string>
+  <string name="signedUp">Si è registrato su lishogi.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Si è unito ad %s gruppo</item>
     <item quantity="other">Si è unito a %s gruppi</item>

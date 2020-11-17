@@ -1,10 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search">Cari</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="search">Cari</string>
   <string name="advancedSearch">Pencarian lanjutan</string>
-  <plurals name="searchInXGames">
-    <item quantity="other">Cari dalam %s permainan catur</item>
-  </plurals>
   <plurals name="xGamesFound">
     <item quantity="other">%s permainan ditemukan</item>
   </plurals>

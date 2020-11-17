@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="private">Yashirin</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="private">Yashirin</string>
   <string name="myStudies">Mening ta\'limlarim</string>
   <string name="studiesIContributeTo">Men ishtirok etayotgan ta\'limlar</string>
   <string name="myPublicStudies">Mening ochiq ta\'limlarim</string>

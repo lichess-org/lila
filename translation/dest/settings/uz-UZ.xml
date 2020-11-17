@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">Sozlashlar</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="settings">Sozlashlar</string>
   <string name="closeAccount">Hisobni yopish</string>
   <string name="closingIsDefinitive">Yopish qati\'y. Ortga qayta olmaysiz. Siz shuni xohlaysizmi?</string>
   <string name="cantOpenSimilarAccount">Siz boshqa bunday nomli akkount yarata olmaysiz, hatto harflar katta-kichigi bilan farq qilsa ham.</string>

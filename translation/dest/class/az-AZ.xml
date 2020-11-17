@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="lichessClasses">Siniflər</string>
-  <string name="features">Özəlliklər</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="features">Özəlliklər</string>
 </resources>

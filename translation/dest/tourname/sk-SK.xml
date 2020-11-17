@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="hourlyRapidArena">Hodinová Rapid Aréna</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="hourlyRapidArena">Hodinová Rapid Aréna</string>
   <string name="hourlyRapid">Hodinový Rapid</string>
   <string name="hourlyXArena">Hodinová %s Aréna</string>
   <string name="hourlyX">Hodinový %s</string>

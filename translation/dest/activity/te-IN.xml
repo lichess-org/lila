@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="activity">కార్యకలాపములు</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="activity">కార్యకలాపములు</string>
   <string name="hostedALiveStream">ప్రత్యక్ష ప్రసారం మొదలయింది</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">%2$s గా lichess.org ను %1$s నెల పోషించాను</item>
-    <item quantity="other">%2$s గా lichess.org ను %1$s నెలలు పోషించాను</item>
+    <item quantity="one">%2$s గా lishogi.org ను %1$s నెల పోషించాను</item>
+    <item quantity="other">%2$s గా lishogi.org ను %1$s నెలలు పోషించాను</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">%2$s విభాగములో %1$s వ వ్యూహాము సాధన చేశారు</item>
@@ -62,7 +61,7 @@
     <item quantity="one">%4$s పోటీలో %3$s ఆటల తరువాత మీరు %1$s స్థానంలో (అంటే %2$s%% శాతం ఉన్నత స్థానంలో) ఉన్నారు</item>
     <item quantity="other">%4$s పోటీలో %3$s ఆట తరువాత మీరు %1$s స్థానంలో (అంటే %2$s%% శాతం ఉన్నత స్థానంలో) ఉన్నారు</item>
   </plurals>
-  <string name="signedUp">Lichess.org లో ఆడటానికి సంతకం చేశారు</string>
+  <string name="signedUp">Lishogi.org లో ఆడటానికి సంతకం చేశారు</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s జట్టులో చేరారు</item>
     <item quantity="other">%s జట్లలో చేరారు</item>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="private">नीजि</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="private">नीजि</string>
   <string name="myStudies">मेरा पाठहरु</string>
   <string name="studiesIContributeTo">मैले योगदान दिएका पाठहरु</string>
   <string name="myPublicStudies">मेरा सार्वजनिक पाठहरु</string>

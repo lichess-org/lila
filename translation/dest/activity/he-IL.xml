@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="activity">פעילות</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="activity">פעילות</string>
   <string name="hostedALiveStream">רץ בשידור ישיר</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">תמך בליצ\'ס במשך %1$s חודש כ%2$s</item>
@@ -92,7 +91,7 @@
     <item quantity="many">מדורג במקום #%1$s (מעל %%%2$s) עם %3$s משחקים ב%4$s</item>
     <item quantity="other">מדורג במקום #%1$s (מעל %%%2$s) עם %3$s משחקים ב%4$s</item>
   </plurals>
-  <string name="signedUp">נרשם לlichess.org</string>
+  <string name="signedUp">נרשם לlishogi.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">הצטרף לקבוצה אחת</item>
     <item quantity="two">הצטרף לשתי קבוצות</item>

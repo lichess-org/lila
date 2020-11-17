@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="lichessClasses">Wane</string>
-  <string name="newClass">Waneya nû</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="newClass">Waneya nû</string>
   <string name="closeClass">Waneyê bigir</string>
   <string name="closedByX">Ji aliyê %s ve hat girtin</string>
   <string name="reopen">Ji nû ve veke</string>

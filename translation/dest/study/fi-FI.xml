@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="private">Yksityinen</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="private">Yksityinen</string>
   <string name="myStudies">Tutkielmani</string>
   <string name="studiesIContributeTo">Tutkielmat joihin olen osallisena</string>
   <string name="myPublicStudies">Julkiset tutkielmani</string>

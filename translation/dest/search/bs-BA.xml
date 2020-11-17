@@ -1,12 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search">Traži</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="search">Traži</string>
   <string name="advancedSearch">Napredna pretraga</string>
-  <plurals name="searchInXGames">
-    <item quantity="one">Pretraga %s šahovske partije</item>
-    <item quantity="few">Pretraga %s šahovske partije</item>
-    <item quantity="other">Pretraga %s šahovskih partija</item>
-  </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">Jenda partija pronađena</item>
     <item quantity="few">%s partije pronađene</item>

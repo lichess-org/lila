@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">Voorkeuren</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">Voorkeuren</string>
   <string name="gameDisplay">Speluiterlijk</string>
   <string name="pieceAnimation">Stukanimatie</string>
   <string name="materialDifference">Materiaalverschil</string>
@@ -9,13 +8,9 @@
   <string name="boardCoordinates">Bordcoördinaten (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Zetnotatie zichtbaar tijdens partij</string>
   <string name="pgnPieceNotation">Stuknotatie in PGN</string>
-  <string name="chessPieceSymbol">Schaakstuksymbool</string>
-  <string name="pgnLetter">PGN-letter (K, D, T, L, P)</string>
   <string name="zenMode">Zen modus</string>
   <string name="displayBoardResizeHandle">Toon wijzig bordformaat knop</string>
   <string name="onlyOnInitialPosition">Alleen tijdens de startpositie</string>
-  <string name="blindfoldChess">Blindschaak (onzichtbare stukken)</string>
-  <string name="chessClock">Schaakklok</string>
   <string name="tenthsOfSeconds">Tienden van seconden</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Wanneer resterende tijd &lt; 10 seconden</string>
   <string name="horizontalGreenProgressBars">Horizontale groene voortgangsbalk</string>

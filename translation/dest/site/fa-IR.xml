@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">بازی با دوستان</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">بازی با دوستان</string>
   <string name="playWithTheMachine">بازی با رایانه</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت کردن حریف این لینک را برای او بفرستید</string>
   <string name="gameOver">پایان بازی</string>
@@ -243,7 +242,6 @@
   <string name="recipient">گیرنده</string>
   <string name="send">ارسال</string>
   <string name="incrementInSeconds">پاداش زمانی(به ثانیه)</string>
-  <string name="freeOnlineChess">شطرنج آنلاین رایگان</string>
   <string name="spectators">تماشاگران :</string>
   <plurals name="nbRated">
     <item quantity="one">%s بازی رسمی</item>
@@ -320,7 +318,6 @@
   <string name="mustBeInTeam">باید در تیمه %s باشید</string>
   <string name="youAreNotInTeam">شما در تیمه %s نیستید</string>
   <string name="backToGame">بازگشت به بازی</string>
-  <string name="siteDescription">شطرنج آنلاین رایگان. همین حالا شطرنج بازی کنید. بدون نیاز به ثبت نام، بدون تبلیغات، بدون نیاز به افزونه. بازی با کامپیوتر، دوستان و یا حریفان تصادفی.</string>
   <string name="xJoinedTeamY">%1$s به تیم %2$s پیوست</string>
   <string name="xCreatedTeamY">%1$s تیم %2$s را ایجاد کرد</string>
   <string name="xStartedStreaming">%s شروع به استریم کرده است</string>
@@ -342,9 +339,7 @@
     <item quantity="one">%s بارگزاری شده</item>
     <item quantity="other">%s بارگزاری شده</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">این یک کپچا [کد امنیتی] شطرنجی است</string>
   <string name="clickOnTheBoardToMakeYourMove">برای اثبات اینکه کامپیوتر نیستید، روی صفحه کلیک کنید تا حرکت خود را انجام دهید</string>
-  <string name="captcha.fail">لطفا captcha را حل کنید</string>
   <string name="notACheckmate">عدم کیش و مات</string>
   <string name="whiteCheckmatesInOneMove">سفید در یک حرکت مات می‌کند</string>
   <string name="blackCheckmatesInOneMove">سیاه در یک حرکت مات می‌کند</string>
@@ -395,7 +390,6 @@
   <string name="advancedSettings">تنظیمات پیشرفته</string>
   <string name="safeTournamentName">یک نام بسیار امن برای مسابقات انتخاب کنید.</string>
   <string name="inappropriateNameWarning">هرچیز حتی کمی نامناسب ممکن است باعث بسته شدن حساب کاربری شما بشود.</string>
-  <string name="emptyTournamentName">این مکان را خالی بگذارید تا به صورت تصادفی اسم یک استاد بزرگ برای مسابقات انتخاب شود.</string>
   <string name="recommendNotTouching">توصیه میکنیم که تنظیمات پیشرفته را تغییر ندهید.</string>
   <string name="fewerPlayers">اگر برای مسابقات شرایط ورود تعیین کنید بازیکنان کمتری وارد می شوند.</string>
   <string name="showAdvancedSettings">نمایش تنظیمات پیشرفته</string>
@@ -443,8 +437,6 @@
   <string name="country">کشور</string>
   <string name="socialMediaLinks">لینک های رسانه های اجتماعی</string>
   <string name="inlineNotation">نمایش اطلاعات درون خطها</string>
-  <string name="watchLichessTV">تلویزیون لیچس را ببین</string>
-  <string name="previouslyOnLichessTV">بازی قبلی در لیچس</string>
   <string name="onlinePlayers">بازکنان آنلاین</string>
   <string name="activeToday">فعالیت امروز</string>
   <string name="activePlayers">بازیکنان فعال</string>
@@ -554,7 +546,6 @@
   <string name="starting">شروع</string>
   <string name="allInformationIsPublicAndOptional">تمامی اطلاعات عمومی و اختیاری است.</string>
   <string name="yourCityRegionOrDepartment">شهر شما، منطقه، و یا استان.</string>
-  <string name="biographyDescription">درباره ی خودتان بگویید - به چه چیزی در شطرنج علاقه داریدو گشایش ها - بازی ها و بازیکنان مورد علاقه تان…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">حداکثر: %s حرف</item>
     <item quantity="other">حداکثر: %s حرف</item>
@@ -570,7 +561,6 @@
   <string name="clock">ساعت</string>
   <string name="unauthorizedError">دسترسی مقدور نیست</string>
   <string name="noInternetConnection">ارتباط اینترنتی قطع است. همچنان می‌توانید از طریق منو به صورت آفلاین بازی کنید.</string>
-  <string name="connectedToLichess">اکنون به lichess.org وصل شده‌اید.</string>
   <string name="signedOut">شما بیرون رفتید</string>
   <string name="loginSuccessful">شما وارد شدید</string>
   <string name="playOnTheBoardOffline">آفلاین روی تخته بازی کنید</string>
@@ -634,7 +624,6 @@
   <string name="simulClockHint">تنظیم ساعت فیشر. هرچه از بازیکنان بیشتری برنده شوید، زمان بیشتری نیاز دارید</string>
   <string name="simulAddExtraTime">برای کمک به شما میتوانید برای خود زمان اضافی در نظر بگیرید.</string>
   <string name="simulHostExtraTime">زمان اضافی میزبان</string>
-  <string name="lichessTournaments">مسابقات لی چس</string>
   <string name="tournamentFAQ">سوالات متداول مسابقات</string>
   <string name="tournamentOfficial">رسمی</string>
   <string name="timeBeforeTournamentStarts">زمان باقی مانده به شروع مسابقه</string>
@@ -645,8 +634,6 @@
   <string name="keyShowOrHideComments">نمایش/ پنهان کردن نظرات</string>
   <string name="keyEnterOrExitVariation">ورود / خروج به شاخه</string>
   <string name="newTournament">مسابقه جدید</string>
-  <string name="tournamentHomeTitle">مسابقات شطرنج با ویژگی های مختلف مثل کنترل زمان و غیره</string>
-  <string name="tournamentHomeDescription">مسابقات شطرنج حرکت سریع را بازی کنید! به مسابقات رسمی برنامه ریزی شده بپیوندید ، یا خودتان بسازید. گلوله، برق آسای، کلاسیک، شطرنج 960، پادشاه تپه، سه کیش، و گزینه های بیشتر موجود برای شطرنج سرگرم کننده بی پایان</string>
   <string name="tournamentNotFound">مسابقات یافت نشد</string>
   <string name="tournamentDoesNotExist">این مسابقات وجود ندارد</string>
   <string name="tournamentMayHaveBeenCanceled">ممکن است مسابقه لغو شده باشد,شاید همه ی بازیکنان مسابقه را قبل از شروع ترک کرده باشند</string>
@@ -665,8 +652,6 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">اگر ایمیل را مشاهده نمی کنید پوشه ی اسپم را بررسی کنید</string>
   <string name="weHaveSentYouAnEmailTo">ایمیل ارسال شد.بر روی لینک داخل ایمیل کلیک کنید تا پسورد شما ریست شود %s  به آدرس</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">ما پایبند خواهید بود %s با کلیک بر روی نام نویسی شما به</string>
-  <string name="networkLagBetweenYouAndLichess">تاخیر شبکه بین شما و لیچس</string>
-  <string name="timeToProcessAMoveOnLichessServer">زمان سپری شده برای پردازش یک حرکت</string>
   <string name="downloadAnnotated">دانلود محتوا</string>
   <string name="downloadRaw">دانلود خام</string>
   <string name="downloadImported">دانلود جایگذاری شده</string>
@@ -675,29 +660,23 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">شما  می توانید برای حرکت در بازی از صفحه استفاده کنید</string>
   <string name="analysisShapesHowTo">و کلیک کنید یا راست کلیک کنید تا دایره یا فلش در صفحه بکشید shift</string>
   <string name="letOtherPlayersMessageYou">ارسال پیام توسط بقیه به شما</string>
-  <string name="shareYourInsightsData">اشتراک گذاشتن داده های شما</string>
   <string name="withNobody">هیچکس</string>
   <string name="withFriends">با دوستان</string>
   <string name="withEverybody">با همه</string>
   <string name="youHaveAlreadyRegisteredTheEmail">این ایمیل %s قبلا برای نام نویسی استفاده شده است</string>
   <string name="kidMode">حالت کودکان</string>
   <string name="kidModeExplanation">این گزینه،امنیتی است.با فعال کردن حالت ((کودکانه))،همه ی ارتباطات(چت کردن و...)غیر فعال می شوند.با فعال کردن این گزینه،کودکان خود را محافطت کنید.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">در حالت کودکانه،به نماد لیچس،یک %s اضافه می شود تا شما از فعال بودن آن مطلع شوید.</string>
   <string name="enableKidMode">فعال کردن حالت کودکانه</string>
   <string name="disableKidMode">غیر فعال کردن حالت کودکانه</string>
   <string name="security">امنیت</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">این لیستی از تمامی دستگاه هایی است که وارد حساب کاربری شما شده اند.مواردی را که نمی شناسید،باطل کنید.</string>
   <string name="alternativelyYouCanX">همچنین شما می توانید %s.</string>
   <string name="revokeAllSessions">باطل کردن تمامی موارد</string>
-  <string name="playChessEverywhere">همه جا شطرنج بازی کنید</string>
-  <string name="asFreeAsLichess">رایگان به مانند لیچس</string>
-  <string name="builtForTheLoveOfChessNotMoney">ساخته شده با عشق به شطرنج نه پول</string>
   <string name="everybodyGetsAllFeaturesForFree">همگی از مزایا بصورت رایگان استفاده می کنند</string>
   <string name="zeroAdvertisement">بدون تبلیغات</string>
   <string name="fullFeatured">با تمامی امکانات</string>
   <string name="phoneAndTablet">موبایل و تبلت</string>
   <string name="bulletBlitzClassical">Bullet, برق آسا, classical</string>
-  <string name="correspondenceChess">شطرنج مکاتبه ای</string>
   <string name="onlineAndOfflinePlay">بازی کردن آنلاین وآفلاین</string>
   <string name="viewTheSolution">دیدن راهِ حل</string>
   <string name="followAndChallengeFriends">دنبال کردن و به مبارزه طلبیدنِ دوستان</string>
@@ -730,9 +709,6 @@
   <string name="usernameSuffixInvalid">نام کاربری باید با حرف یا شماره خاتمه یابد.</string>
   <string name="usernameCharsInvalid">نام کاربری فقط می تواند شامل حروف،اعداد،خط فاصله یا زیر خط(under line) باشد.</string>
   <string name="usernameUnacceptable">این نام کاربری قابل قبول نیست.</string>
-  <string name="directlySupportLichess">مستقیما لیچس را حمایت کنید.</string>
-  <string name="playChessInStyle">استایل شطرنج باز داشته باشید!</string>
-  <string name="chessBasics">اصول شطرنج</string>
   <string name="coaches">مربی ها</string>
   <string name="invalidPgn">فایل PGN نامعتبر است</string>
   <string name="invalidFen">پوزیشن وارد شده نامعتبر است</string>

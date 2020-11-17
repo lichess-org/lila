@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">o musi lon poka pi jan pona</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">o musi lon poka pi jan pona</string>
   <string name="playWithTheMachine">o musi lon poka ilo</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">sina wile musi la o pana e ni tawa jan pona sina</string>
   <string name="gameOver">musi li pini</string>
@@ -143,7 +142,6 @@
   <string name="recipient">sina toki tawa jan seme?</string>
   <string name="send">o pana</string>
   <string name="incrementInSeconds">tenpo pi kama jo</string>
-  <string name="freeOnlineChess">musi pi mani ala</string>
   <string name="spectators">jan lukin</string>
   <string name="exportGames">o kama jo e musi</string>
   <string name="ratingRange">nanpa Glicko</string>
@@ -162,8 +160,6 @@
   <string name="viewTournament">o lukin e musi pi musi mute</string>
   <string name="backToTournament">o tawa musi</string>
   <string name="backToGame">o tawa musi</string>
-  <string name="siteDescription">musi pi mani ala
-o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun li lon ala. sina en jan pona sina en jan ante li ken musi lon ilo sona.</string>
   <string name="xJoinedTeamY">%1$s li tawa kulupu %2$s</string>
   <string name="xCreatedTeamY">%1$s li pali e kulupu %2$s</string>
   <string name="averageElo">nanpa Elo kulupu</string>
@@ -177,7 +173,6 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="fromPosition">tan</string>
   <string name="continueFromHere">o tawa tan ni</string>
   <string name="importGame">o pana e musi</string>
-  <string name="thisIsAChessCaptcha">ilo li wile sona e ni: sina jan anu ilo.</string>
   <string name="clickOnTheBoardToMakeYourMove">o tawa lon lipu ni. sina pali e ni la sina jan</string>
   <string name="notACheckmate">mije lawa li moli ala</string>
   <string name="retry">o pali sin</string>
@@ -230,8 +225,6 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="lastName">nimi mama</string>
   <string name="biography">sona jan sina</string>
   <string name="country">ma</string>
-  <string name="watchLichessTV">lukin e musi pi jan ante</string>
-  <string name="previouslyOnLichessTV">musi pini pi jan ante</string>
   <string name="onlinePlayers">jan lon</string>
   <string name="activeToday">jan pi lape ala lon suno ni</string>
   <string name="activePlayers">jan pi lape ala</string>
@@ -249,7 +242,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="puzzleFailed">sina pakala e musi</string>
   <string name="butYouCanKeepTrying">taso la sina ken awen oko pali</string>
   <string name="wasThisPuzzleAnyGood">musi ni li pona ala pona?</string>
-  <string name="pleaseVotePuzzle">o pona e Lichess. o pana e pilin sina kepeken nena sewi anu nena anpa.</string>
+  <string name="pleaseVotePuzzle">o pona e Lishogi. o pana e pilin sina kepeken nena sewi anu nena anpa.</string>
   <string name="thankYou">pona tawa sina!</string>
   <string name="fromGameLink">tan musi nanpa %s</string>
   <string name="continueTraining">o awen kama sona</string>
@@ -332,7 +325,6 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="keyMoveBackwardOrForward">o tawa sinpin/monsi</string>
   <string name="keyGoToStartOrEnd">o tawa open/pini</string>
   <string name="newTournament">o open e musi pi musi mute</string>
-  <string name="tournamentHomeDescription">o musi e musi pi tenpo lili! musi mute li lon.</string>
   <string name="tournamentNotFound">musi pi musi mute li lon ala</string>
   <string name="tournamentDoesNotExist">musi pi musi mute li lon ala</string>
   <string name="tournamentMayHaveBeenCanceled">jan ale li lon, la ona li pini</string>
@@ -352,5 +344,4 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="weHadToTimeYouOutForAWhile">sina wile awen lon tenpo lili.</string>
   <string name="timeoutExpires">tenpo kama la sina ken %s lon sin.</string>
   <string name="why">tan seme?</string>
-  <string name="pleasantChessExperience">mi wile e musi pona tawa jan ale.</string>
-</resources>
+  </resources>

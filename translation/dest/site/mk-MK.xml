@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Играј со пријател</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Играј со пријател</string>
   <string name="playWithTheMachine">Играј со компјутерот</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Да поканиш некој да игра, прати му го овој линк</string>
   <string name="gameOver">Крај на играта</string>
@@ -237,7 +236,6 @@
   <string name="recipient">Примател</string>
   <string name="send">Испрати</string>
   <string name="incrementInSeconds">Зголемување во секунди</string>
-  <string name="freeOnlineChess">Бесплатен Онлајн Шах</string>
   <string name="spectators">Набљудувачи</string>
   <plurals name="nbRated">
     <item quantity="one">%s рангирани игри</item>
@@ -297,7 +295,6 @@
   <string name="mustBeInTeam">Мора да сте член на тимот %s</string>
   <string name="youAreNotInTeam">Не сте член на тимот %s</string>
   <string name="backToGame">Назад кон партијата</string>
-  <string name="siteDescription">Бесплатна онлајн шах игра. Играј шах во чист интерфејс. Без регистрација, без реклами, без додатни plugin-и. Играј шах со компјутер, пријатели или случајни противници.</string>
   <string name="xJoinedTeamY">%1$s се приклучи на тимот %2$s</string>
   <string name="xCreatedTeamY">%1$s го создаде тимот %2$s</string>
   <string name="averageElo">Просечно Elo</string>
@@ -316,7 +313,6 @@
     <item quantity="one">%s внесени игри</item>
     <item quantity="other">%s внесени игри</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Ова е шаховско CAPTCHA</string>
   <string name="clickOnTheBoardToMakeYourMove">Кликни на таблата за да го повлечеш својот потег и така докажи дека си човек.</string>
   <string name="notACheckmate">Не е шахмат.</string>
   <string name="retry">Обиди се повторно</string>
@@ -378,8 +374,6 @@
   <string name="lastName">Презиме</string>
   <string name="biography">Биографија</string>
   <string name="country">Држава</string>
-  <string name="watchLichessTV">Гледај Личес ТВ</string>
-  <string name="previouslyOnLichessTV">Предходно на Личес ТВ</string>
   <string name="onlinePlayers">Вклучени играчи (играчи на линија )</string>
   <string name="activeToday">Активни денес</string>
   <string name="activePlayers">Активни играчи</string>
@@ -398,7 +392,7 @@
   <string name="puzzleFailed">Вежба не успеа</string>
   <string name="butYouCanKeepTrying">Сеуште се обидуваш</string>
   <string name="wasThisPuzzleAnyGood">Е вежба добро?</string>
-  <string name="pleaseVotePuzzle">Помош lichess се подобри преку гласање, со користење нагоре или надолу стрелка:</string>
+  <string name="pleaseVotePuzzle">Помош lishogi се подобри преку гласање, со користење нагоре или надолу стрелка:</string>
   <string name="thankYou">Благодарам!</string>
   <string name="ratingX">Рејтинг: %s</string>
   <plurals name="playedXTimes">
@@ -447,7 +441,6 @@
   <string name="victory">Победа</string>
   <string name="unauthorizedError">Пристапот е неовластен.</string>
   <string name="noInternetConnection">Нема интернет конекција. Сеуште мошите да играте од менито.</string>
-  <string name="connectedToLichess">Сега сте поврзани на lichess.org</string>
   <string name="signedOut">Одјавени сте</string>
   <string name="loginSuccessful">Сега сте најавени</string>
   <string name="playOfflineComputer">Компјутер</string>
@@ -484,7 +477,6 @@
   <string name="simultaneousExhibitions">Симултанка</string>
   <string name="host">Хост</string>
   <string name="createdSimuls">Нови креирани симултанки</string>
-  <string name="timeToProcessAMoveOnLichessServer">Време за процесирање потег на сервер на lichess</string>
   <string name="downloadAnnotated">Симни со коментари</string>
   <string name="analysisShapesHowTo">Притисни shift+click или десен клик за да нацрташ кругови или стрелки на таблата.</string>
   <string name="letOtherPlayersMessageYou">Овозможи пораки од другите играчи</string>
@@ -495,14 +487,10 @@
   <string name="kidMode">Детска заштита</string>
   <string name="kidModeExplanation">Ова е заради безбедност. Во детска заштита, сите комуникации се оневозможени. Вклучете го овој начин за вашите деца, да ги заштитите од останатите интернет корисници.</string>
   <string name="security">Безбедност</string>
-  <string name="playChessEverywhere">Играј шах секаде</string>
-  <string name="asFreeAsLichess">Бесплатно како lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Направено од љубовта кон шахот, а не за пари</string>
   <string name="everybodyGetsAllFeaturesForFree">Секој ги добива сите функции бесплатно</string>
   <string name="zeroAdvertisement">Без реклами</string>
   <string name="phoneAndTablet">Телефон и таблет</string>
   <string name="bulletBlitzClassical">Bullet, blitz, classical</string>
-  <string name="correspondenceChess">Дописен шах</string>
   <string name="onlineAndOfflinePlay">Online и offline игра</string>
   <string name="viewTheSolution">Види го решението</string>
   <string name="followAndChallengeFriends">Следи и предизвикај пријатели</string>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="perfStats">%s-statistikk</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="perfStats">%s-statistikk</string>
   <string name="viewTheGames">Syn partia</string>
   <string name="provisional">mellombels</string>
   <string name="notEnoughRatedGames">For få rata parti til at ei stabil rating kan bereknas.</string>

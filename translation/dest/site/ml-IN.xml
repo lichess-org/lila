@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">സുഹൃത്തിനോടൊപ്പം കളിക്കുക</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">സുഹൃത്തിനോടൊപ്പം കളിക്കുക</string>
   <string name="playWithTheMachine">കമ്പ്യൂട്ടറിനെതിരെ മത്സരിക്കുക</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">മറ്റാരുടെയെങ്കിലും കൂടെ മത്സരിക്കുവാനായി ഈ ലിങ്ക് നല്കുക</string>
   <string name="gameOver">കളി അവസാനിച്ചിരിക്കുന്നു</string>
@@ -244,7 +243,6 @@
   <string name="recipient">സ്വീകര്‍ത്താവ്</string>
   <string name="send">അയക്കുക</string>
   <string name="incrementInSeconds">സെക്കന്‍ഡുകളുടെ വര്‍ദ്ധന</string>
-  <string name="freeOnlineChess">സൗജന്യ ഓണ്‍ലൈന്‍ ചെസ്സ്‌</string>
   <string name="spectators">വീക്ഷകര്‍</string>
   <plurals name="nbRated">
     <item quantity="one">%s റേറ്റഡ്</item>
@@ -318,7 +316,6 @@
   <string name="mustBeInTeam">ഇതിന് %s ടീമിലെ അംഗമാകണം</string>
   <string name="youAreNotInTeam">താങ്കള്‍ %s ടീമിലെ അംഗമല്ല</string>
   <string name="backToGame">മത്സരത്തിലേക്ക് തിരികെ പോവുക</string>
-  <string name="siteDescription">സൗജന്യ ഓണ്‍ലൈന്‍ ചെസ്സ്‌ സെര്‍വര്‍. ഇപ്പോള്‍ മികച്ച രീതിയില്‍ ചെസ്സ്‌ കളിക്കാം. രജിസ്റ്റര്‍ ചെയ്യണ്ട, പരസ്യങ്ങള്‍ ഇല്ല, പ്ലഗിനുകള്‍ വേണ്ട. കമ്പ്യൂട്ടറുമായോ സുഹൃത്തുക്കളുമായോ പുതിയ എതിരാളികളുമായോ ചെസ്സ്‌ കളിക്കാം.</string>
   <string name="xJoinedTeamY">%1$s സംഘത്തിൽ %2$s അംഗമായി</string>
   <string name="xCreatedTeamY">%1$s നിർമിച്ച %2$s സംഘം</string>
   <string name="averageElo">ശരാശരി നിലവാരം</string>
@@ -337,9 +334,7 @@
     <item quantity="one">ഇറക്കിയ കളികൾ %s</item>
     <item quantity="other">ഇറക്കിയ കളികൾ %s</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">ഇതാണ് ചതുരംഗ ക്യാപ്ച്യ</string>
   <string name="clickOnTheBoardToMakeYourMove">നിങ്ങളുടെ നീക്കം ചതുരംഗ പലകയിൽ ക്ലിക്ക് ചെയ്ത് മനുഷ്യൻ ആണെന്നു തെളിയിക്കൂ.</string>
-  <string name="captcha.fail">ദയവായി ചെസ്സ് captcha പരിഹരിക്കുക.</string>
   <string name="notACheckmate">അതൊരു അടിയറവ് അല്ല</string>
   <string name="whiteCheckmatesInOneMove">വെളുപ്പിന് ഒരു നീക്കത്തില്‍ ജയിക്കാം</string>
   <string name="blackCheckmatesInOneMove">കറുപ്പിന് ഒരു നീക്കത്തില്‍ ജയിക്കാം</string>
@@ -390,7 +385,6 @@
   <string name="advancedSettings">നൂതനമായ ക്രമീകരണം</string>
   <string name="safeTournamentName">ടൂർണമെന്റിന് വളരെ സുരക്ഷിതമായ പേര് കൊടുക്കുക.</string>
   <string name="inappropriateNameWarning">എന്തെങ്കിലും ചെറിയ ഔചിത്യപൂർണമല്ലാത്ത പ്രവൃത്തി മതി നിങ്ങളുടെ അക്കൗണ്ട് പൂട്ടാൻ.</string>
-  <string name="emptyTournamentName">ടൂർണമെന്റിന്റെ പേര് ഒഴിവാക്കി വിട്ടാൽ ഏതെങ്കിലും ഗ്രാൻഡ്മാസ്റ്ററുടെ പേരിലായിരിക്കും ടൂർണമെന്റ് നടത്തപ്പെടുക.</string>
   <string name="recommendNotTouching">ഇവ തൊടരുതെന്ന് ഞങ്ങൾ ശുപാർശ ചെയ്യുന്നു.</string>
   <string name="fewerPlayers">പ്രവേശനത്തിനുള്ള നിബന്ധനങ്ങൾ നിങ്ങൾ സെറ്റ് ചെയ്താൽ, അത് കുറച്ചു കളിക്കാർ മാത്രം നിങ്ങളുടെ ടൂർണമെന്റിൽ കളിക്കുന്നതിനു കാരണമാകും.</string>
   <string name="showAdvancedSettings">നൂതനമായ ക്രമീകരണം</string>
@@ -436,8 +430,6 @@
   <string name="biography">ജീവചരിത്രം</string>
   <string name="country">രാജ്യം</string>
   <string name="inlineNotation">ഇൻഫയൽ നോട്ടെഷൻ</string>
-  <string name="watchLichessTV">കാണാം Lichess TV</string>
-  <string name="previouslyOnLichessTV">Lichess TV യിൽ നേരെത്തെയുള്ളത്</string>
   <string name="onlinePlayers">ഓൺലൈൻ കളിക്കാർ</string>
   <string name="activeToday">ഇന്ന് സജീവമായ</string>
   <string name="activePlayers">സജീവ കളിക്കാർ</string>
@@ -457,7 +449,7 @@
   <string name="butYouCanKeepTrying">എന്നാലും നിങ്ങൾ ശ്രമിച്ചു നോക്കൂ.</string>
   <string name="success">വിജയകരം</string>
   <string name="wasThisPuzzleAnyGood">ഈ സമസ്യ നല്ലതായിരുന്നോ?</string>
-  <string name="pleaseVotePuzzle">Lichess മികവുറ്റതാക്കാൻ അപ്പ് അല്ലെങ്കിൽ ഡൗൺ ആരോ ഉപയോഗിച്ച് വോട്ട് ചെയ്തു സഹായിക്കൂ:</string>
+  <string name="pleaseVotePuzzle">Lishogi മികവുറ്റതാക്കാൻ അപ്പ് അല്ലെങ്കിൽ ഡൗൺ ആരോ ഉപയോഗിച്ച് വോട്ട് ചെയ്തു സഹായിക്കൂ:</string>
   <string name="thankYou">നന്ദി!</string>
   <string name="ratingX">നിലവാരം: %s</string>
   <string name="hidden">മറച്ചത്</string>
@@ -548,7 +540,6 @@
   <string name="starting">തുടങ്ങിയത്:</string>
   <string name="allInformationIsPublicAndOptional">എല്ലാ വിവരങ്ങളും പൊതുവായതും ഐച്ഛികവുമാണ്.</string>
   <string name="yourCityRegionOrDepartment">നിങ്ങളുടെ നഗരം, മേഖല, അല്ലെങ്കിൽ ദേശം</string>
-  <string name="biographyDescription">നിങ്ങളെ കുറിച്ച് പറയൂ, നിങ്ങൾക്ക് ചതുരംഗത്തിൽ എന്താണ് ഇഷ്ടo, നിങ്ങൾക്ക് ഇഷ്ടപ്പെട്ട തുടക്കങ്ങൾ, കളികൾ, കളിക്കാർ…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">പരമാവധി: %s അക്ഷരങ്ങള്‍</item>
     <item quantity="other">പരമാവധി: %s അക്ഷരങ്ങള്‍</item>
@@ -564,7 +555,6 @@
   <string name="clock">ഘടികാരം</string>
   <string name="unauthorizedError">പ്രവേശനം വിലക്കിയിരിക്കുന്നു.</string>
   <string name="noInternetConnection">ഇന്റർനെറ്റ് കണക്ഷൻ ഇല്ല. നിങ്ങൾക്ക് ഇപ്പോഴും പട്ടികയുടെ സഹായത്തോടെ ഓഫ്‌ലൈനായി കളിക്കാവുന്നതാണ്.</string>
-  <string name="connectedToLichess">നിങ്ങൾ ഇപ്പോൾ lichess.org ആയി ബന്ധപ്പെട്ടിരിക്കുന്നു</string>
   <string name="signedOut">നിങ്ങൾ സൈൻ ഔട്ട് ചെയ്തിരിക്കുന്നു</string>
   <string name="loginSuccessful">നിങ്ങൾ ഇപ്പോൾ സൈൻ ഇൻ ചെയ്തു</string>
   <string name="playOnTheBoardOffline">ചതുരംഗ പലകയിൽ</string>
@@ -605,7 +595,6 @@
   <string name="webmasters">വെബ് മാസ്റ്റേഴ്സ്</string>
   <string name="about">ഇതിനെ കുറിച്ച്</string>
   <string name="aboutX">%sനെക്കുറിച്ച്</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s സൗജന്യമായതും(%2$s) പരസ്യമില്ലാത്തതും ഓപ്പണ്‍‌സോഴ്സുമായ ഒരു ചെസ്സ്‌ സെര്‍വര്‍ ആണ്.</string>
   <string name="really">സത്യമായിട്ടും</string>
   <string name="contribute">സംഭാവന</string>
   <string name="termsOfService">സേവന വ്യവസ്ഥകൾ</string>
@@ -629,7 +618,6 @@
   <string name="simulClockHint">ഫിഷെറിന്റെ ക്ലോക്ക് ക്രമീകരണം. കൂടുതൽ കളിക്കാരെ നേരിടുമ്പോൾ കൂടുതൽ സമയം ആവശ്യമായി വരും.</string>
   <string name="simulAddExtraTime">Simul-മായി പൊരുത്തപ്പെടാൻ കുറച്ച് അധികം സമയം നിങ്ങൾക്ക് ചേർക്കാം.</string>
   <string name="simulHostExtraTime">ഹോസ്റ്റിന്റെ കൂടുതൽ ക്ലോക്ക് സമയം</string>
-  <string name="lichessTournaments">Lichess പരമ്പരകൾ</string>
   <string name="tournamentFAQ">അറീന പരമ്പര</string>
   <string name="tournamentOfficial">ഔദ്യോഗികമായ</string>
   <string name="timeBeforeTournamentStarts">പരമ്പര തുടങ്ങുന്നതിനു മുൻപുള്ള സമയം</string>
@@ -640,8 +628,6 @@
   <string name="keyShowOrHideComments">അഭിപ്രായ പ്രകടനം കാണിക്കുക/മറയ്ക്കുക</string>
   <string name="keyEnterOrExitVariation">വേരിയേഷനിലേക്ക് കടക്കുക / പുറത്തുപോകുക</string>
   <string name="newTournament">പുതിയ പരമ്പര</string>
-  <string name="tournamentHomeTitle">പല വിധം സമയപരിധികളും വേരിയന്റുകളും ഉള്ള ചെസ്സ് ടൂർണമെന്റ്</string>
-  <string name="tournamentHomeDescription">ദ്രുതഗതിയിലുള്ള ചെസ്സ് ടൂർണമെന്റുകൾ കളിക്കാം! ഒഫീഷ്യലായിട്ടുള്ള സമയബന്ധിത ടൂർണമെന്റുകളിൽ ചേരാം, അല്ലെങ്കിൽ സ്വന്തമായി ഒന്ന് ഉണ്ടാക്കാം. ബുള്ളറ്റ്, ബ്ലിറ്റ്സ്, ക്ലാസിക്കൽ, chess960, കുന്നിന്മുകളിലെ രാജാവ്, തുടങ്ങി അനന്തമായ ചെസ്സ് ആനന്ദത്തിന് നിങ്ങൾക്കായി കൂടുതൽ ഓപ്ഷൻസ് ഒരുക്കമാണ്.</string>
   <string name="tournamentNotFound">പരമ്പര കണ്ടെത്തിയില്ല</string>
   <string name="tournamentDoesNotExist">ഈ പരമ്പര നിലവിലില്ല</string>
   <string name="tournamentMayHaveBeenCanceled">ടൂർണമെന്റ് തുടങ്ങുന്നതിനു മുൻപ് എല്ലാവരും അവിടം വിട്ടു പോയെങ്കിൽ ടൂർണമെന്റ് ക്യാൻസൽ ചെയ്യപ്പെട്ടിട്ടുണ്ടാകും.</string>
@@ -662,8 +648,6 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">നിങ്ങൾക്ക്  ഇമെയിൽ കണ്ടെത്താനായില്ലെങ്കിൽ, junk, spam, social അല്ലെങ്കിൽ മറ്റുള്ള ഫോൾഡറുകളിൽ ഉണ്ടോയെന്ന് പരിശോധിക്കാവുന്നതാണ്.</string>
   <string name="weHaveSentYouAnEmailTo">%s ഞങ്ങൾ ഒരു ഇമെയിൽ അയച്ചിട്ടുണ്ട്. ഇമെയിൽ ലിങ്കിൽ ക്ലിക്ക് ചെയ്ത് നിങ്ങളുടെ പാസ്സ്‌വേർഡ് പുനഃക്രമീകരിക്കാവുന്നതാണ്.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">രജിസ്റ്റർ ചെയ്യുന്നത് വഴി നിങ്ങൾ ഞങ്ങളുടെ %s പിന്തുടരുമെന്നു സമ്മതിക്കുന്നു.</string>
-  <string name="networkLagBetweenYouAndLichess">നിങ്ങളും lichessഉം തമ്മിലുള്ള നെറ്റ്വർക്ക് കാലയളവ്</string>
-  <string name="timeToProcessAMoveOnLichessServer">Lichess സെർവറിൽ ഒരു നീക്കം വിശകലനം ചെയ്യാൻ എടുക്കുന്ന സമയം</string>
   <string name="downloadAnnotated">Annotated ആയി ഡൗൺലോഡ് ചെയ്യുക</string>
   <string name="downloadRaw">അസംസ്കൃതമായി ഡൗൺലോഡ് ചെയ്യുക</string>
   <string name="downloadImported">Import ചെയ്തത് ഡൌൺലോഡ് ചെയ്യുക</string>
@@ -672,29 +656,23 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">ചതുരംഗ പലകയിൽ സ്ക്രോൾ ചെയ്തും കളിയുടെ നീക്കം നടത്താവുന്നതാണ്.</string>
   <string name="analysisShapesHowTo">ചതുരംഗ പലകയിൽ വൃത്തങ്ങളും രേഖകളും വരക്കാൻ ഷിഫ്റ്റ്+ക്ലിക്ക് അല്ലെങ്കിൽ റൈറ്റ് ക്ലിക്ക് അമർത്തുക</string>
   <string name="letOtherPlayersMessageYou">മറ്റുള്ള കളിക്കാർ നിങ്ങൾക്ക് സന്ദേശമയക്കുന്നതിനുള്ള അനുവാദം</string>
-  <string name="shareYourInsightsData">നിങ്ങളെ കുറിച്ച് കൂടുതൽ വിവരം പങ്കു വെക്കൂ</string>
   <string name="withNobody">ആരോടും വേണ്ട</string>
   <string name="withFriends">കൂട്ടുകാരുമൊത്ത്‌</string>
   <string name="withEverybody">എല്ലാവർക്കുമൊപ്പം</string>
   <string name="youHaveAlreadyRegisteredTheEmail">നിങ്ങളുടെ ഇമെയിൽ  നേരത്തെ തന്നെ രജിസ്റ്റർ ചെയ്തിട്ടുണ്ട്: %s</string>
   <string name="kidMode">കുട്ടികൾക്ക് വേണ്ട വിധം</string>
   <string name="kidModeExplanation">ഇത് സുരക്ഷിതത്വത്തിനു വേണ്ടിയാണ്. കിഡ്-മോഡിൽ എല്ലാ വിധ സൈറ്റ് വർത്തമാനങ്ങളും തടസ്സപ്പെടുന്നു. ഈ സംവിധാനം ചെറിയ കുട്ടികൾക്കും വിദ്യാർത്ഥികൾക്കും മറ്റു ഇന്റർനെറ്റ് യൂസേറുകളിൽ നിന്നും സുരക്ഷിതത്വം നൽകുന്നു.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">കിഡ്-മോഡിൽ lichess ലോഗോയ്ക്ക് ഒരു %s ഐക്കൺ ലഭിക്കുന്നു. അത് നിങ്ങളുടെ കുട്ടികൾ സുരക്ഷിതരാണെന്ന് നിങ്ങൾക്ക് ബോധ്യപ്പെടുത്തുന്നു.</string>
   <string name="enableKidMode">കിഡ്-മോഡ് സജ്ജമാക്കുക</string>
   <string name="disableKidMode">കിഡ്-മോഡ് ഒഴിവാക്കുക</string>
   <string name="security">സുരക്ഷിതത്വം</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">ഇത് നിങ്ങളുടെ അക്കൗണ്ടിൽ ലോഗിൻ ചെയ്ത ഉപകരണങ്ങളാണ്. നിങ്ങൾ അറിയാത്ത വല്ല ഉപകരണങ്ങളും ഇതിൽ ഉണ്ടെങ്കിൽ ആ ഉപകരണം ഇതിൽ നിന്നും പിൻവലിക്കാൻ സാധിക്കുന്നതാണ്.</string>
   <string name="alternativelyYouCanX">ഇതിനുപുറമേ നിങ്ങൾക്ക് %s പറ്റും.</string>
   <string name="revokeAllSessions">എല്ലാ സെഷനും പിൻവലിക്കാൻ</string>
-  <string name="playChessEverywhere">എല്ലായിടത്തും ചതുരംഗം കളിക്കൂ</string>
-  <string name="asFreeAsLichess">Lichess തികച്ചും സ്വതന്ത്രമാണ്</string>
-  <string name="builtForTheLoveOfChessNotMoney">ചതുരംഗ പ്രേമികൾക്ക് മാത്രം രൂപപ്പെടുത്തിയതാണ്, പണത്തിനല്ല</string>
   <string name="everybodyGetsAllFeaturesForFree">എല്ലാ സൗകര്യവും എല്ലാവർക്കും സൗജന്യം</string>
   <string name="zeroAdvertisement">പരസ്യമുക്തം</string>
   <string name="fullFeatured">പൂർണ്ണ നിലവാരത്തിൽ</string>
   <string name="phoneAndTablet">ഫോണിലും ടാബ്‌ലെറ്റിലും</string>
   <string name="bulletBlitzClassical">ബുള്ളറ്റ്, ബ്ലിറ്റ്സ്, ക്ലാസിക്കൽ</string>
-  <string name="correspondenceChess">തത്തുല്യമായ ചതുരംഗം</string>
   <string name="onlineAndOfflinePlay">ഓൺലൈനും ഓഫ്‌ലൈനും കളികൾ</string>
   <string name="viewTheSolution">പരിഹാരം കാണുക</string>
   <string name="followAndChallengeFriends">പിന്തുടരൂ എന്നിട്ടു സുഹൃത്തുക്കളോട് വെല്ലുവിളിക്കൂ</string>
@@ -727,9 +705,6 @@
   <string name="usernameSuffixInvalid">അക്ഷരങ്ങൾ, സംഖ്യകൾ തുടങ്ങിയവയിൽ മാത്രമേ യൂസർനെയിം അവസാനിക്കാൻ പാടുള്ളൂ.</string>
   <string name="usernameCharsInvalid">സംഖ്യകൾ, അക്ഷരങ്ങൾ, അണ്ടർസ്കോർ, ഹൈഫൻ തുടങ്ങിയവ മാത്രമേ യൂസർനെയിമിൽ പാടുള്ളൂ.</string>
   <string name="usernameUnacceptable">ഈ ഇമെയിൽ വിലാസം സ്വീകാര്യമല്ല.</string>
-  <string name="directlySupportLichess">നേരിട്ട് lichess -നെ പിൻതങ്ങാം</string>
-  <string name="playChessInStyle">അടിപൊളി സ്റ്റൈലിൽ ചെസ്സ് കളിക്കൂ</string>
-  <string name="chessBasics">ചെസ്സിന്റെ അടിസ്ഥാനം</string>
   <string name="coaches">പരിശീലകർ</string>
   <string name="invalidPgn">അസാധുവായ PGN</string>
   <string name="invalidFen">അസാധുവായ FEN</string>
@@ -806,7 +781,6 @@
   <string name="weHadToTimeYouOutForAWhile">ഞങ്ങൾക്ക് നിങ്ങളെ കുറച്ചു സമയം പുറത്തു നിർത്തേണ്ടി വന്നു.</string>
   <string name="timeoutExpires">ടൈം ഔട്ട് %s ഉള്ളിൽ കഴിയും.</string>
   <string name="why">എന്തുകൊണ്ട്?</string>
-  <string name="pleasantChessExperience">ഞങ്ങൾ എല്ലാവര്ക്കും സുഗമമായ ചെസ്സ് അനുഭവം നൽകാൻ ലക്ഷ്യമിടുന്നു.</string>
   <string name="goodPractice">അതിനാൽ, എല്ലാ കളിക്കാരും നല്ല രീതിയിൽ പ്രവർത്തിക്കുന്നു എന്ന് ഞങ്ങൾക്ക് ഉറപ്പു വരുത്തണം.</string>
   <string name="potentialProblem">പ്രബലമായ പ്രശ്നം ദൃശ്യമായാൽ, ഞങ്ങൾ ഈ സന്ദേശം പ്രദർശിപ്പിക്കുന്നു.</string>
   <string name="howToAvoidThis">ഇത് എങ്ങനെ ഒഴിവാക്കാം?</string>
@@ -814,12 +788,11 @@
   <string name="tryToWin">നിങ്ങൾ കളിക്കുന്ന എല്ലാ കളികളും ജയിക്കാനോ (അല്ലെങ്കിൽ സമനിലയിലാക്കാനോ) ശ്രമിക്കുക.</string>
   <string name="resignLostGames">തോറ്റു എന്ന് ബോധ്യമായാൽ റിസൈന്‍ ചെയ്യുക (ക്ലോക്ക് തീരുന്ന വരെ കളി അവശേഷിപ്പിക്കാതിരിക്കുക).</string>
   <string name="temporaryInconvenience">താത്കാലികമായ ബുദ്ധിമുട്ടിനു ക്ഷമ ചോദിക്കുന്നു</string>
-  <string name="wishYouGreatGames">lichess.org-ൽ നല്ല കളികൾ ആശംസിക്കുന്നു.</string>
+  <string name="wishYouGreatGames">lishogi.org-ൽ നല്ല കളികൾ ആശംസിക്കുന്നു.</string>
   <string name="thankYouForReading">വായിച്ചതിനു നന്ദി!</string>
   <string name="lifetimeScore">ജീവിതകാല സ്കോർ</string>
   <string name="currentMatchScore">നിലവിലെ മത്സര സ്കോർ</string>
-  <string name="agreementAssistance">എന്റെ കളികളിൽ ഞാൻ ഒരിക്കൽ പോലും മറ്റൊരാളുടെ സഹായം ഉപയോഗിക്കില്ലെന്ന് സമ്മതിക്കുന്നു (ഒരു ചെസ്സ് കംപ്യൂട്ടറിന്റെയോ പുസ്തകത്തിന്റെയോ ഡാറ്റാബേസിന്റെയോ മറ്റൊരാളുടെയോ അടുക്കൽ നിന്ന്).</string>
   <string name="agreementNice">ഞാൻ എല്ലായ്പ്പോഴും മറ്റു കളിക്കാരോട് മാന്യമായി പെരുമാറുമെന്ന് സമ്മതിക്കുന്നു.</string>
   <string name="agreementAccount">ഞാൻ ഒന്നിലധികം അക്കൗണ്ടുകൾ നിർമിക്കില്ലെന്ന് സമ്മതിക്കുന്നു.</string>
-  <string name="agreementPolicy">ഞാൻ Lichess പോളിസികൾ അനുകൂലിക്കുന്നതായി സമ്മതിക്കുന്നു.</string>
+  <string name="agreementPolicy">ഞാൻ Lishogi പോളിസികൾ അനുകൂലിക്കുന്നതായി സമ്മതിക്കുന്നു.</string>
 </resources>

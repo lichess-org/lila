@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="isItRated">Is dit gegradeer?</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="isItRated">Is dit gegradeer?</string>
   <string name="willBeNotified">Jy sal in kennis gestel word wanneer die toernooi begin, so dit is veilig om op \'n ander blad te speel terwyl jy wag.</string>
   <string name="isRated">Hierdie toernooi is gegradeer en sal jou gradering beïnvloed.</string>
   <string name="isNotRated">Hierdie toernooi is *nie* gegradeer *nie* en sal *nie* jou gradering beïnvloed *nie*.</string>

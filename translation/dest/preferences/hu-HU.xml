@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">Testreszabás</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">Testreszabás</string>
   <string name="gameDisplay">Játék megjelenítése</string>
   <string name="pieceAnimation">Bábuk animációja</string>
   <string name="materialDifference">Bábuk közötti különbség</string>
@@ -9,13 +8,9 @@
   <string name="boardCoordinates">Tábla koordináták (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lépéslista játék közben</string>
   <string name="pgnPieceNotation">Lépés jelölése</string>
-  <string name="chessPieceSymbol">Sakkbábu ikonja</string>
-  <string name="pgnLetter">Betű (K, Q, R, B, N)</string>
   <string name="zenMode">Zen mód</string>
   <string name="displayBoardResizeHandle">Átméretező sarok mutatása</string>
   <string name="onlyOnInitialPosition">Csak kezdőállásnál</string>
-  <string name="blindfoldChess">Vakjátszma (láthatatlan bábuk)</string>
-  <string name="chessClock">Sakkóra</string>
   <string name="tenthsOfSeconds">Tizedmásodpercek</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Amikor a hátralévő idő &lt; 10 másodperc</string>
   <string name="horizontalGreenProgressBars">Vízszintes zöld folyamatjelző</string>

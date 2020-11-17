@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="private">Privāta</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="private">Privāta</string>
   <string name="myStudies">Manas izpētes</string>
   <string name="studiesIContributeTo">Izpētes, kurās piedalos</string>
   <string name="myPublicStudies">Manas publiskās izpētes</string>

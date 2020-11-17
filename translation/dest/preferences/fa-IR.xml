@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">تنظیمات عملکرد</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">تنظیمات عملکرد</string>
   <string name="gameDisplay">بازی نشان داده شد</string>
   <string name="pieceAnimation">حرکت مهره ها</string>
   <string name="materialDifference">تفاوت مهره ها</string>
@@ -9,11 +8,7 @@
   <string name="boardCoordinates">مختصات صفحه(A-H، 1-8)</string>
   <string name="moveListWhilePlaying">لیست حرکات هنگام بازی کردن</string>
   <string name="pgnPieceNotation">نمایش حرکات</string>
-  <string name="chessPieceSymbol">نماد مهره</string>
-  <string name="pgnLetter">حرف (K, Q, R, B, N)</string>
   <string name="zenMode">حالت ذن</string>
-  <string name="blindfoldChess">شطرنج با چشمان بسته / مهره های نامرئی</string>
-  <string name="chessClock">ساعت شطرنج</string>
   <string name="tenthsOfSeconds">دهم ثانیه</string>
   <string name="whenTimeRemainingLessThanTenSeconds">وقتی زمان باقی مانده کمتر از ده ثانیه می باشد</string>
   <string name="horizontalGreenProgressBars">نمودار زمان سبز رنگ افقی</string>

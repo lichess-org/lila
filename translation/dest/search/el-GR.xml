@@ -1,11 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search">Αναζήτηση</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="search">Αναζήτηση</string>
   <string name="advancedSearch">Προχωρημένη αναζήτηση</string>
-  <plurals name="searchInXGames">
-    <item quantity="one">Αναζήτηση σε %s παρτίδα</item>
-    <item quantity="other">Αναζήτησε σε %s παρτίδες</item>
-  </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">Μία παρτίδα βρέθηκε</item>
     <item quantity="other">%s παρτίδες βρέθηκαν</item>

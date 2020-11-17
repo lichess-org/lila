@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="isItRated">Igra li se za rejting bodove?</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="isItRated">Igra li se za rejting bodove?</string>
   <string name="willBeNotified">Bit ćete obaviješteni kada turnir počne, tako da slobodno možete igrati u drugom prozoru dok čekate.</string>
   <string name="isRated">Ovaj turnir se igra za bodove i utjecat će na Vaš rejting.</string>
   <string name="isNotRated">Ovaj turnir *nije* za bodove i *ne* utiče na Vaš rejting.</string>

@@ -1,14 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search">Klask</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="search">Klask</string>
   <string name="advancedSearch">Enklask araokaet</string>
-  <plurals name="searchInXGames">
-    <item quantity="one">Klask en %s c\'hrogad echedoù</item>
-    <item quantity="two">Klask e %s grogad echedoù</item>
-    <item quantity="few">Klask e %s krogad echedoù</item>
-    <item quantity="many">Klask e %s krogad echedoù</item>
-    <item quantity="other">Klask e %s krogad echedoù</item>
-  </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">Kaver zo bet ur c\'hrogad</item>
     <item quantity="two">%s grogad zo bet kavet</item>

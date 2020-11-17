@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="twoFactorAuth">दो-चरण प्रमाणीकरण</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="twoFactorAuth">दो-चरण प्रमाणीकरण</string>
   <string name="twoFactorHelp">दो-चरण प्रमाणीकरण आपके खाते में सुरक्षा की एक और परत जोड़ता है।</string>
   <string name="twoFactorApp">दो-चरण प्रमाणीकरण के लिए एक ऐप प्राप्त करें, उदाहरण के लिए %1$s या %2$s के लिए Google Authenticator।</string>
   <string name="scanTheCode">एप्लिकेशन से QR कोड स्कैन करें।</string>

@@ -1,11 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search">Lê bigere</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="search">Lê bigere</string>
   <string name="advancedSearch">Lêgerîna pêşketî</string>
-  <plurals name="searchInXGames">
-    <item quantity="one">Di %s lîstika kişikê de bigere</item>
-    <item quantity="other">Di %s lîstikên kişikê de bigere</item>
-  </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">Lîstikek hat dîtin</item>
     <item quantity="other">%s lîstik hat dîtin</item>

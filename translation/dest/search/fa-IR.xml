@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search">جستجو</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="search">جستجو</string>
   <string name="advancedSearch">جستجوی پیشرفته</string>
 </resources>

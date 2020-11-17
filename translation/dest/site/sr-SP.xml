@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Играј са пријатељем</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Играј са пријатељем</string>
   <string name="playWithTheMachine">Играј са рачунаром</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Да позовете некога да игра, проследите овaј УРЛ</string>
   <string name="gameOver">Крај партије</string>
@@ -258,7 +257,6 @@
   <string name="recipient">Прималац</string>
   <string name="send">Пошаљи</string>
   <string name="incrementInSeconds">Додавање у секундама</string>
-  <string name="freeOnlineChess">Бесплатан интернет шах</string>
   <string name="spectators">Посматрачи:</string>
   <plurals name="nbRated">
     <item quantity="one">%s рангирана</item>
@@ -347,7 +345,6 @@
   <string name="mustBeInTeam">Морате бити у тиму %s</string>
   <string name="youAreNotInTeam">Ви нисте члан тима %s</string>
   <string name="backToGame">Повратак у игру</string>
-  <string name="siteDescription">Бесплатни интернет шах. Играј сада у чистом окружењу. Без регистрације, реклама, захтеваних података. Играј шах ротив рачунара, пријатеља или насумичних противника.</string>
   <string name="xJoinedTeamY">%1$s придружио/ла се тиму %2$s</string>
   <string name="xCreatedTeamY">%1$s креирао/ла тим %2$s</string>
   <string name="xStartedStreaming">%s је почео са приказивањем</string>
@@ -371,9 +368,7 @@
     <item quantity="few">%s увезене игре</item>
     <item quantity="other">%s увезених игара</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Ово је шаховска CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Кликни на таблу и направи потез да би доказао да си човек.</string>
-  <string name="captcha.fail">Решите CAPTCHA шаховски проблем.</string>
   <string name="notACheckmate">Није шахмат</string>
   <string name="whiteCheckmatesInOneMove">Бели матирау једном потезу</string>
   <string name="blackCheckmatesInOneMove">Црни матирау једном потезу</string>
@@ -428,7 +423,6 @@
   <string name="advancedSettings">Напредна подешавања</string>
   <string name="safeTournamentName">Изаберите веома сигурно име за турнир.</string>
   <string name="inappropriateNameWarning">Било које име које је бар мало неприкладно може да вам затвори налог.</string>
-  <string name="emptyTournamentName">Оставите празно како би назвали турнир по насумично изабраном Велемајстору.</string>
   <string name="recommendNotTouching">Препоручујемо да немењате ове.</string>
   <string name="fewerPlayers">Ако ставите услове за улаз, ваш турнир ће имати мање играча.</string>
   <string name="showAdvancedSettings">Покажи напредна подешавања</string>
@@ -476,8 +470,6 @@
   <string name="country">Држава</string>
   <string name="socialMediaLinks">Линкови за социјалне медије</string>
   <string name="inlineNotation">Нотација у реду</string>
-  <string name="watchLichessTV">Гледајте Личес ТВ</string>
-  <string name="previouslyOnLichessTV">Претходно на Личес ТВ</string>
   <string name="onlinePlayers">Играчи на мрежи</string>
   <string name="activeToday">Активни данас</string>
   <string name="activePlayers">Активни играчи</string>
@@ -592,7 +584,6 @@
   <string name="starting">Почиње:</string>
   <string name="allInformationIsPublicAndOptional">Све информације су јавне и по избору</string>
   <string name="yourCityRegionOrDepartment">Ваш град, регион или провинција.</string>
-  <string name="biographyDescription">Кажи нешто о себи, зашто волиш шах, која су ти омиљена отварања, партије, играчи…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Највише: %s карактер</item>
     <item quantity="few">Највише: %s карактера</item>
@@ -610,7 +601,6 @@
   <string name="clock">Сат</string>
   <string name="unauthorizedError">Приступ није одобрен.</string>
   <string name="noInternetConnection">Нема интернет конекције. Можете играти офлајн са менија.</string>
-  <string name="connectedToLichess">Повезани сте на lichess.org</string>
   <string name="signedOut">Одјављени сте</string>
   <string name="loginSuccessful">Пријављени сте</string>
   <string name="playOnTheBoardOffline">Играј у двоје</string>
@@ -653,7 +643,6 @@
   <string name="webmasters">Вебмастери</string>
   <string name="about">О нама</string>
   <string name="aboutX">О %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s је бесплатан (%2$s), слободан, без реклама, шаховски сервер са отвореним изворним кодом.</string>
   <string name="really">стварно</string>
   <string name="contribute">Допринос</string>
   <string name="termsOfService">Услови коришћења услуге</string>
@@ -677,7 +666,6 @@
   <string name="simulClockHint">Фишерово подешавање сата. Што више играча примиш, више времена ће ти бити потребно.</string>
   <string name="simulAddExtraTime">Можеш додати додатно време на свој сат да ти помогне савладати симултанку.</string>
   <string name="simulHostExtraTime">Додатно време домаћина</string>
-  <string name="lichessTournaments">Личес турнири</string>
   <string name="tournamentFAQ">Најчешће постављена питања за арена турнире</string>
   <string name="tournamentOfficial">Службено</string>
   <string name="timeBeforeTournamentStarts">Време пре него турнир започне.</string>
@@ -688,8 +676,6 @@
   <string name="keyShowOrHideComments">покажи/сакриј коментаре</string>
   <string name="keyEnterOrExitVariation">отвори/затвори варијанту</string>
   <string name="newTournament">Нови турнир</string>
-  <string name="tournamentHomeTitle">Шаховски турнир који комбинује различита временска ограничења и варијанте</string>
-  <string name="tournamentHomeDescription">Играјте брзи турнир у шаху! Придружите се званичном организованом турниру или направите свој. Буллет, Блитз, Цлассицал, Цхесс960, Кинг оф тхе Хилл, Тхреецхецк и друге опције су доступне за неограничену шаховску забаву.</string>
   <string name="tournamentNotFound">Турнир није пронађен</string>
   <string name="tournamentDoesNotExist">Овај турнир не постоји.</string>
   <string name="tournamentMayHaveBeenCanceled">Можда је отказан зато што су играчи напустили турнир пре његовог почетка</string>
@@ -712,8 +698,6 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ако не видите е-пошту у пријемном сандучету, проверите је у другим местима (датотекама): Јунк, Социал.</string>
   <string name="weHaveSentYouAnEmailTo">Послали смо Вам е-поруку на %s. Кликните на дати линк да промените Вашу лозинку.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registracijom prihvatate ograničenja predviđe našim %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Мрежно кашњење између вас и Лицхесса</string>
-  <string name="timeToProcessAMoveOnLichessServer">Време потребно за процесирање на Лицхесс серверу</string>
   <string name="downloadAnnotated">Преузимање белешки.</string>
   <string name="downloadRaw">Преузмите игру ПГН без ноте за Лицхесс</string>
   <string name="downloadImported">Увезено преузимање</string>
@@ -722,29 +706,23 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Можете скроловати преко табле ради повлачења потеза у партији.</string>
   <string name="analysisShapesHowTo">Pитисните shif-click или десни клик за цртање кругова и стрелица на плочи.</string>
   <string name="letOtherPlayersMessageYou">Дозволите другим играчима да вам пошаљу поруку</string>
-  <string name="shareYourInsightsData">Поделите своје личне податке</string>
   <string name="withNobody">Нисаким</string>
   <string name="withFriends">Са пријатељима</string>
   <string name="withEverybody">Са свима</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Већ сте се регистровали са овом е-поштом: %s</string>
   <string name="kidMode">Дечји начин</string>
   <string name="kidModeExplanation">Ово је око сигурности. У дечијем моду, све комуникације на сајту су искључене. Укључите ово за вашу децу и ђаке, да их заштитите од других корисника интернета.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">У дечијем моду, логотип личеса добија %s икону, да би знали да су ваша деца сигурна.</string>
   <string name="enableKidMode">Омогућите Дечији режим рада</string>
   <string name="disableKidMode">Онемогућите Дечији режим рада</string>
   <string name="security">Сигурност</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ово је листа уређаја који су евидентирани у ваш налог. Опозовите све сесије које не препознајете.</string>
   <string name="alternativelyYouCanX">Алтернативно, можете %s.</string>
   <string name="revokeAllSessions">опозвати све сесије</string>
-  <string name="playChessEverywhere">Играј шах свуда</string>
-  <string name="asFreeAsLichess">Бесплатно као лицхесс</string>
-  <string name="builtForTheLoveOfChessNotMoney">Од љубави до шаха, а не од новца</string>
   <string name="everybodyGetsAllFeaturesForFree">Сви добијају све функције бесплатно</string>
   <string name="zeroAdvertisement">Без огласа</string>
   <string name="fullFeatured">Потпуно опремљен</string>
   <string name="phoneAndTablet">Телефон или таблет</string>
   <string name="bulletBlitzClassical">Булит, Блиц, Класична</string>
-  <string name="correspondenceChess">Дописни шах</string>
   <string name="onlineAndOfflinePlay">Играјте онлине и оффлине</string>
   <string name="viewTheSolution">Погледај решење</string>
   <string name="followAndChallengeFriends">Прати и изазови пријатеља</string>
@@ -778,9 +756,6 @@
   <string name="usernameSuffixInvalid">Корисничко име мора да заврши са словом или бројем.</string>
   <string name="usernameCharsInvalid">Корисничко име може само да садржи слова, бројеве, доње црте и цртице.</string>
   <string name="usernameUnacceptable">Ово корисничко име није прихватљиво.</string>
-  <string name="directlySupportLichess">Директно подржите Личес</string>
-  <string name="playChessInStyle">Играјте шах у стилу</string>
-  <string name="chessBasics">Основе шаха</string>
   <string name="coaches">Тренери</string>
   <string name="invalidPgn">Неважећи ПГН</string>
   <string name="invalidFen">Неважећи ФЕН</string>
@@ -860,7 +835,6 @@
   <string name="weHadToTimeYouOutForAWhile">Морали смо Вас привремено избацити.</string>
   <string name="timeoutExpires">Тајм аут истиче %s.</string>
   <string name="why">Зашто?</string>
-  <string name="pleasantChessExperience">Желимо да свима обезбедимо пријатно искуство у шаху.</string>
   <string name="goodPractice">Баш због тога, ми се морамо потрудити да се сви играчи држе добре праксе.</string>
   <string name="potentialProblem">Када је потенцијални проблем детектован, ми прикажемо ову поруку.</string>
   <string name="howToAvoidThis">Како ово избећи?</string>
@@ -868,11 +842,10 @@
   <string name="tryToWin">Пробај да победиш (или барем изједначиш) сваку партију коју одиграш.</string>
   <string name="resignLostGames">Предај изгубљене игре (немој пуштати да време истекне).</string>
   <string name="temporaryInconvenience">Извињавамо се на привременој нелагодности,</string>
-  <string name="wishYouGreatGames">и желимо вам одличне партије на lichess.org.</string>
+  <string name="wishYouGreatGames">и желимо вам одличне партије на lishogi.org.</string>
   <string name="thankYouForReading">Хвала на читању!</string>
   <string name="lifetimeScore">Животни скор</string>
   <string name="currentMatchScore">Скор тренутног меча</string>
-  <string name="agreementAssistance">Слажем се да никада нећу добијати помоћ током својих игара (од стране шаховског рачунара, књиге, базе података или неке друге особе).</string>
   <string name="agreementNice">Слажем се да ћу увек бити пун поштовања према другим играчима.</string>
   <string name="agreementAccount">Слажем се да нећу правити више налога.</string>
   <string name="agreementPolicy">Слажем се да ћу поштовати све Личес полисе.</string>
@@ -886,7 +859,6 @@
   <string name="rapidDesc">Убрзане партије: 8 до 25 минута</string>
   <string name="classicalDesc">Класичне партије: 25 минута и више</string>
   <string name="correspondenceDesc">Дописна парија: један или више дана по потезу</string>
-  <string name="puzzleDesc">Шаховски тренер тактике</string>
   <string name="important">Важно</string>
   <string name="yourQuestionMayHaveBeenAnswered">Ваше питање можда већ има одговор %1$s</string>
   <string name="inTheFAQ">у често постављеним питањима (F.A.Q.)</string>

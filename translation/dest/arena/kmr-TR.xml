@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="isItRated">Ew hatiye derecekirin?</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="isItRated">Ew hatiye derecekirin?</string>
   <string name="willBeNotified">Tu yê werî agahdarkirin gava pêşbirk dest pê kirin, lewma ewle ye ku di hilpekîneke din de bilîzî, gava libendesekinînê.</string>
   <string name="isRated">Ev pêşbirk derecekirî ye û wê tesîrê li reytînga te bike.</string>
   <string name="isNotRated">Ev pêşbirk *ne*derecekirî ye û wê tesîrê li reytînga te *ne*ke.</string>

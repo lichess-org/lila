@@ -1,10 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search">ค้นหา</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="search">ค้นหา</string>
   <string name="advancedSearch">ค้นหาเชิงลึก</string>
-  <plurals name="searchInXGames">
-    <item quantity="other">ค้นหาใน %s เกมหมากรุก</item>
-  </plurals>
   <plurals name="xGamesFound">
     <item quantity="other">พบ %s เกม</item>
   </plurals>

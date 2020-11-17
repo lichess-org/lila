@@ -1,10 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="lichessCoaches">Lichess trejnistoj</string>
-  <string name="lichessCoach">Lichess trejnisto</string>
-  <string name="areYouCoach">Ĉu vi estas bonega ŝaktrejnisto kun %s?</string>
-  <string name="nmOrFideTitle">NM aŭ FIDE titolo</string>
-  <string name="confirmTitle">Konfirmu vian titolon ĉi tie kaj ni revizios vian peton.</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="confirmTitle">Konfirmu vian titolon ĉi tie kaj ni revizios vian peton.</string>
   <string name="sendApplication">Sendu retpoŝton al ni per %s kaj ni revizios vian aplikon.</string>
   <string name="location">Loĝloko</string>
   <string name="languages">Lingvoj</string>
@@ -13,8 +8,7 @@
   <string name="availability">Havebleco</string>
   <string name="accepting">Akceptas lernantojn</string>
   <string name="notAccepting">Ne akceptas lernantojn nuntempe</string>
-  <string name="xCoachesStudents">%s trejnas ŝaklernantojn</string>
-  <string name="viewXProfile">Vidu la Lichess profilon de %s</string>
+  <string name="viewXProfile">Vidu la Lishogi profilon de %s</string>
   <string name="sendPM">Sendi privatan mesaĝon</string>
   <string name="aboutMe">Pri mi</string>
   <string name="playingExperience">Spertoj kiel ludanto</string>

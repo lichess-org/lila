@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="perfStats">%s statistikaları</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="perfStats">%s statistikaları</string>
   <string name="viewTheGames">Oyunlara bax</string>
   <string name="provisional">müvəqqəti</string>
   <string name="notEnoughRatedGames">Etibarlı xal yaratmaq üçün kifayəq qədər xallı oyun oynanılmayıb.</string>

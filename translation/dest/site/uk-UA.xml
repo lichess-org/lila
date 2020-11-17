@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Грати з другом</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Грати з другом</string>
   <string name="playWithTheMachine">Грати з комп’ютером</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Щоб запросити когось до гри, дайте це посилання</string>
   <string name="gameOver">Гру завершено</string>
@@ -269,7 +268,6 @@
   <string name="recipient">Одержувач</string>
   <string name="send">Відправити</string>
   <string name="incrementInSeconds">Додати секунд на хід</string>
-  <string name="freeOnlineChess">Дармові мережеві шахи</string>
   <string name="spectators">Глядачі:</string>
   <plurals name="nbRated">
     <item quantity="one">%s щабельна</item>
@@ -309,7 +307,7 @@
     <item quantity="many">Додай %s секунд</item>
     <item quantity="other">Додати %s секунд</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Ця обліківка порулиша умови користування Lichess</string>
+  <string name="thisAccountViolatedTos">Ця обліківка порулиша умови користування Lishogi</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Цей гравець штучно змінює свій щабель</string>
   <string name="openingExplorerAndTablebase">Збірка початків і кінцівок</string>
   <string name="takeback">Верни хід</string>
@@ -371,7 +369,6 @@
   <string name="mustBeInTeam">Треба бути в раті %s</string>
   <string name="youAreNotInTeam">Ти не в раті %s</string>
   <string name="backToGame">Назад до гри</string>
-  <string name="siteDescription">Безкоштовні Інтернет-шахи. Грайте в шахи зараз із чистим інтерфейсом. Без реєстрації, без реклами, без додаткових програм. Грайте в шахи з комп\'ютером, друзями або випадковими суперниками.</string>
   <string name="xJoinedTeamY">%1$s вступив до раті %2$s</string>
   <string name="xCreatedTeamY">%1$s створив рать %2$s</string>
   <string name="xStartedStreaming">%s почав трансляцію</string>
@@ -396,9 +393,7 @@
     <item quantity="many">%s пренесених ігор</item>
     <item quantity="other">%s пренесених ігор</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Це — шахова перевірка.</string>
   <string name="clickOnTheBoardToMakeYourMove">Натисніть на дошці, щоб зробити хід і довести, що ви людина.</string>
-  <string name="captcha.fail">Виріши шахову перевірку.</string>
   <string name="notACheckmate">Не мат</string>
   <string name="whiteCheckmatesInOneMove">Білі починають і матують в один хід</string>
   <string name="blackCheckmatesInOneMove">Чорні починають і матують в один хід</string>
@@ -457,7 +452,6 @@
   <string name="advancedSettings">Додаткові лашти</string>
   <string name="safeTournamentName">Назви́ змаг незлободенно.</string>
   <string name="inappropriateNameWarning">Будь-яка невідповідність спричине закрити твою обліківку.</string>
-  <string name="emptyTournamentName">Залиште пустим, аби назвати турнір на честь випадкового гросмейстера.</string>
   <string name="recommendNotTouching">Радимо не торкатися цього.</string>
   <string name="fewerPlayers">Якщо встановиш умови вступу, то змаг матиме менше гравців.</string>
   <string name="showAdvancedSettings">Покаж додаткові лашти</string>
@@ -505,8 +499,6 @@
   <string name="country">Країна</string>
   <string name="socialMediaLinks">Ланки суспільних мереж</string>
   <string name="inlineNotation">Рядковий запис</string>
-  <string name="watchLichessTV">Дивися Lichess ТБ</string>
-  <string name="previouslyOnLichessTV">Попередні на Lichess ТБ</string>
   <string name="onlinePlayers">Гравці онлайн</string>
   <string name="activeToday">Дієвість сьогодні</string>
   <string name="activePlayers">Дієві гравці</string>
@@ -526,7 +518,7 @@
   <string name="butYouCanKeepTrying">Але можеш пробувати.</string>
   <string name="success">Успіх</string>
   <string name="wasThisPuzzleAnyGood">Чи ця задача корисна?</string>
-  <string name="pleaseVotePuzzle">Поможи покращити Lichess стрілкою вниз чи вверх:</string>
+  <string name="pleaseVotePuzzle">Поможи покращити Lishogi стрілкою вниз чи вверх:</string>
   <string name="thankYou">Дякуємо!</string>
   <string name="ratingX">Рівень: %s</string>
   <string name="hidden">укритий</string>
@@ -623,7 +615,6 @@
   <string name="starting">Початок:</string>
   <string name="allInformationIsPublicAndOptional">Уся інформація публічна та необов\'язкова.</string>
   <string name="yourCityRegionOrDepartment">Твоє місто, місцина чи область.</string>
-  <string name="biographyDescription">Розкажіть про себе: що вам подобається в шахах, які ваші улюблені дебюти, ігри, гравці…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Щонайбільше: %s знак.</item>
     <item quantity="few">Максимум: %s символів.</item>
@@ -643,7 +634,6 @@
   <string name="clock">Годинник</string>
   <string name="unauthorizedError">Доступ не надано.</string>
   <string name="noInternetConnection">Немає звʼязку з міжмережжю. Можеш грати без мережи з переліку.</string>
-  <string name="connectedToLichess">Зʼєднано з lichess.org</string>
   <string name="signedOut">Вийдено</string>
   <string name="loginSuccessful">Зайдено</string>
   <string name="playOnTheBoardOffline">Над дошкою</string>
@@ -687,7 +677,6 @@
   <string name="webmasters">Розробники</string>
   <string name="about">Про сайт</string>
   <string name="aboutX">Про %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s є безкоштовним (%2$s), шаховим сервером з відкритим кодом без реклами.</string>
   <string name="really">справді</string>
   <string name="contribute">Внеси</string>
   <string name="termsOfService">Умови користування</string>
@@ -711,7 +700,6 @@
   <string name="simulClockHint">Лашти годинника Фішера. Чим більше гравців, тим більше часу тобі треба.</string>
   <string name="simulAddExtraTime">Ви можете додати собі час, щоб упоратися з сеансом.</string>
   <string name="simulHostExtraTime">Додатковий час для власника</string>
-  <string name="lichessTournaments">Турніри Lichess</string>
   <string name="tournamentFAQ">Часті запитання про змаги</string>
   <string name="tournamentOfficial">Затверджені</string>
   <string name="timeBeforeTournamentStarts">Час до початку змагу</string>
@@ -722,8 +710,6 @@
   <string name="keyShowOrHideComments">Показати/приховати коментарі</string>
   <string name="keyEnterOrExitVariation">зайти/вийти з варіанту</string>
   <string name="newTournament">Новий турнір</string>
-  <string name="tournamentHomeTitle">Шаховий турнір із різними контролями часу та варіантами</string>
-  <string name="tournamentHomeDescription">Грайте у швидких турнірах! Приєднуйтеся до запланованих офіційних турнірів або створіть власний. У нашому шаховому меню – куля, бліц, швидкі шахи, шахи Фішера, \"Цар гори\", \"Три шахи\" та інші різновиди.</string>
   <string name="tournamentNotFound">Турнір не знайдено</string>
   <string name="tournamentDoesNotExist">Цього турніру не існує.</string>
   <string name="tournamentMayHaveBeenCanceled">Він міг бути скасований, якщо всі гравці залишили його до початку.</string>
@@ -747,8 +733,6 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Якщо не знайшли листа, перевірте місця, де б він міг бути (наприклад, спам).</string>
   <string name="weHaveSentYouAnEmailTo">Ми надіслали повідомлення на %s. Для перевстановлення паролю перейдіть за посиланням у повідомленні.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ваша рєєстрація означає згоду з обмеженням нашими %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Мережева затримка між вами та Lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Час обробки ходу на сервері Lichess</string>
   <string name="downloadAnnotated">Завантажити з коментарями</string>
   <string name="downloadRaw">Завантажити без коментарів</string>
   <string name="downloadImported">Завантажити імпортоване</string>
@@ -757,29 +741,23 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Також ви можете використовувати прокрутку над шахівницею для перегляду ходів у грі.</string>
   <string name="analysisShapesHowTo">Натисніть shift+ЛКМ або ПКМ, щоби намалювати кола та стрілки на шахівниці.</string>
   <string name="letOtherPlayersMessageYou">Дозволити іншим гравцям надсилати вам повідомлення</string>
-  <string name="shareYourInsightsData">Надавати доступ до вашої особистої інформації</string>
   <string name="withNobody">Ні з ким</string>
   <string name="withFriends">З друзями</string>
   <string name="withEverybody">З будь-ким</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Ви вже маєте зареєстровану поштову адресу: %s</string>
   <string name="kidMode">Режим для дітей</string>
   <string name="kidModeExplanation">Це заради безпеки. У дитячому режимі усе спілкування на сайті вимкнено. Увімкніть цю функцію для ваших дітей та учнів, щоб захистити їх від інших користувачів Інтернету.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">В дитячому режимі логотип Lichess замінюється на %s, щоб ви знали, що ваші діти в безпеці.</string>
   <string name="enableKidMode">Увімкнути дитячий режим</string>
   <string name="disableKidMode">Вимкнути дитячий режим</string>
   <string name="security">Безпека</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Це список пристроїв, з котрих заходили в Ваш аккаунт. Завершіть будь-які підозрілі сеанси.</string>
   <string name="alternativelyYouCanX">Крім того, Ви можете %s.</string>
   <string name="revokeAllSessions">завершити усі сеанси</string>
-  <string name="playChessEverywhere">Грайте в шахи будь-де</string>
-  <string name="asFreeAsLichess">Безкоштовний, як і Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Створений з любов\'ю до шахів, не до грошей</string>
   <string name="everybodyGetsAllFeaturesForFree">Усі можливості безкоштовні для всіх</string>
   <string name="zeroAdvertisement">Без реклами</string>
   <string name="fullFeatured">Повнофункціональний</string>
   <string name="phoneAndTablet">Для смартфонів та планшетів</string>
   <string name="bulletBlitzClassical">Куля, бліц, класичний контроль</string>
-  <string name="correspondenceChess">За листуванням</string>
   <string name="onlineAndOfflinePlay">Гра онлайн та оффлайн</string>
   <string name="viewTheSolution">Дивитись рішення</string>
   <string name="followAndChallengeFriends">Стежте та викликайте друзів</string>
@@ -814,9 +792,6 @@
   <string name="usernameSuffixInvalid">Ім\'я користувача має закінчуватися буквою або цифрою.</string>
   <string name="usernameCharsInvalid">Ім\'я користувача має містити тільки літери, цифри, символи підкреслення і тире.</string>
   <string name="usernameUnacceptable">Неприйнятне ім\'я користувача.</string>
-  <string name="directlySupportLichess">Підтримує Lichess</string>
-  <string name="playChessInStyle">В шаховому стилі</string>
-  <string name="chessBasics">Шахові основи</string>
   <string name="coaches">Тренери</string>
   <string name="invalidPgn">Неприпустимий PGN</string>
   <string name="invalidFen">Неприпустимий FEN</string>
@@ -899,7 +874,6 @@
   <string name="weHadToTimeYouOutForAWhile">Нам довелося тебе деавторизувати на певний час.</string>
   <string name="timeoutExpires">Тайм-аут закінчується через %s.</string>
   <string name="why">Чому?</string>
-  <string name="pleasantChessExperience">Ми хочемо, щоб усім було приємно грати у нас в шахи.</string>
   <string name="goodPractice">Щоб домігтися цього ефекту, ми повинні впевнитися, що всі гравці дотримуються хорошої практики.</string>
   <string name="potentialProblem">Це повідомлення відображається якщо ми знайшли потенційну проблему.</string>
   <string name="howToAvoidThis">Як цього уникнути?</string>
@@ -907,14 +881,13 @@
   <string name="tryToWin">Грайте завжди на перемогу (чи принаймні на нічию).</string>
   <string name="resignLostGames">Здайтеся в програшних іграх (не чекайте кінця таймера).</string>
   <string name="temporaryInconvenience">Ми вибачаємося за тимчасові незручності,</string>
-  <string name="wishYouGreatGames">і бажаємо чудових ігор на lichess.org.</string>
+  <string name="wishYouGreatGames">і бажаємо чудових ігор на lishogi.org.</string>
   <string name="thankYouForReading">Дякуємо, що прочитали!</string>
   <string name="lifetimeScore">Загальний результат</string>
   <string name="currentMatchScore">Поточний рахунок матчу</string>
-  <string name="agreementAssistance">Я погоджуюся, що не буду отримувати допомогу під час моїх ігор (від шахового комп\'ютера, книги, бази даних або іншої особи).</string>
   <string name="agreementNice">Я погоджуюся, що я завжди буду ставитись чемно до інших гравців.</string>
   <string name="agreementAccount">Я погоджуюся, що я не буду створювати більше одного облікового запису.</string>
-  <string name="agreementPolicy">Я погоджуюся, що я буду слідувати усім правилам Lichess.</string>
+  <string name="agreementPolicy">Я погоджуюся, що я буду слідувати усім правилам Lishogi.</string>
   <string name="searchOrStartNewDiscussion">Шукати або розпочати бесіду</string>
   <string name="edit">Змінити</string>
   <string name="rapid">Швидкі</string>
@@ -925,7 +898,6 @@
   <string name="rapidDesc">Нетривалі ігри: від 8 до 25 хвилин</string>
   <string name="classicalDesc">Класичні гри: 25 хвилин і більше</string>
   <string name="correspondenceDesc">Заочні шахи: один чи декілька днів на хід</string>
-  <string name="puzzleDesc">Тренажер шахової тактики</string>
   <string name="important">Важливо</string>
   <string name="yourQuestionMayHaveBeenAnswered">Ваше запитання може мати відповідь %1$s</string>
   <string name="inTheFAQ">в ЧаПи.</string>

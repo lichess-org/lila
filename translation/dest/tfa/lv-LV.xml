@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="twoFactorAuth">Divfaktoru autentifikācija</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="twoFactorAuth">Divfaktoru autentifikācija</string>
   <string name="twoFactorHelp">Divfaktoru autentifikācija pievieno papildu drošības slāni jūsu kontam.</string>
   <string name="twoFactorApp">Iegūstiet lietojumprogrammu divfaktoru autentifikācijai, piemēram Google Autentifikatoru platformai %1$s vai %2$s.</string>
   <string name="scanTheCode">Skenējiet QR kodu ar lietojumprogrammu.</string>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">Налады</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">Налады</string>
   <string name="gameDisplay">Дызайн</string>
   <string name="pieceAnimation">Анімацыя фігур</string>
   <string name="materialDifference">Паказваць розніцу ў фігурах</string>
@@ -9,13 +8,9 @@
   <string name="boardCoordinates">Каардынаты дошкі</string>
   <string name="moveListWhilePlaying">Паказваць спіс хадоў</string>
   <string name="pgnPieceNotation">Пазнака фігуры ў натацыі</string>
-  <string name="chessPieceSymbol">Знак шахматнай фігуры</string>
-  <string name="pgnLetter">Літара (K, Q, R, B, N)</string>
   <string name="zenMode">Рэжым Дзэн</string>
   <string name="displayBoardResizeHandle">Паказваць ручку змены памеру дошкі</string>
   <string name="onlyOnInitialPosition">Толькі ў пачатковым становішчы</string>
-  <string name="blindfoldChess">Шахматы ўсляпую (фігуры схаваныя)</string>
-  <string name="chessClock">Шахматны гадзіннік</string>
   <string name="tenthsOfSeconds">Дзясятыя долі секунды</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Калі засталося менш за 10 с</string>
   <string name="horizontalGreenProgressBars">Індыкатар часу</string>

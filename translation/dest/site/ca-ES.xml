@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Juga amb un amic</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Juga amb un amic</string>
   <string name="playWithTheMachine">Juga amb la màquina</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per convidar algú a jugar, envia-li aquesta URL</string>
   <string name="gameOver">Partida finalitzada</string>
@@ -247,7 +246,6 @@
   <string name="recipient">Destinatari</string>
   <string name="send">Envia</string>
   <string name="incrementInSeconds">Increment en segons</string>
-  <string name="freeOnlineChess">Escacs en línia gratis</string>
   <string name="spectators">Espectadors</string>
   <plurals name="nbRated">
     <item quantity="one">%s per punts</item>
@@ -275,7 +273,7 @@
     <item quantity="one">Dóna %s segons</item>
     <item quantity="other">Dóna %s segons</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Aquest compte ha violat els Termes de Servei de Lichess</string>
+  <string name="thisAccountViolatedTos">Aquest compte ha violat els Termes de Servei de Lishogi</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Aquest jugador incrementa/disminueix artificialment el seu ràting</string>
   <string name="openingExplorerAndTablebase">Explorador d\'obertures &amp; taula de moviments</string>
   <string name="takeback">Desfés la jugada</string>
@@ -325,7 +323,6 @@
   <string name="mustBeInTeam">Heu de ser de l\'equip %s</string>
   <string name="youAreNotInTeam">No sou de l\'equip %s</string>
   <string name="backToGame">Torna a la partida</string>
-  <string name="siteDescription">Servidor d\'escacs gratuït online. Juga ara a escacs amb una interfície neta i elegant. No cal registrar-s\'hi, sense anuncis, no calen connectors. Juga a escacs amb l\'ordinador, amics o oponents a l\'atzar.</string>
   <string name="xJoinedTeamY">%1$s s\'ha unit a l\'equip %2$s</string>
   <string name="xCreatedTeamY">%1$s ha creat l\'equip %2$s</string>
   <string name="xStartedStreaming">%s transmissió començada</string>
@@ -347,9 +344,7 @@
     <item quantity="one">%s partides importades</item>
     <item quantity="other">%s partides importades</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Això és un CAPTCHA d\'escacs.</string>
   <string name="clickOnTheBoardToMakeYourMove">Clica al tauler per fer el teu moviment i demostrar que ets una persona.</string>
-  <string name="captcha.fail">Si us plau resol el captcha d\'escacs.</string>
   <string name="notACheckmate">No és escac i mat</string>
   <string name="whiteCheckmatesInOneMove">Les blanques fan escac i mat en un moviment</string>
   <string name="blackCheckmatesInOneMove">Les negres fan escac i mat en un moviment</string>
@@ -400,7 +395,6 @@
   <string name="advancedSettings">Configuració avançada</string>
   <string name="safeTournamentName">Trieu un nom segur per al torneig.</string>
   <string name="inappropriateNameWarning">Qualsevol comportament mínimament inadequat podria implicar el tancament del teu compte.</string>
-  <string name="emptyTournamentName">Deixar en blanc per nombrar el torneig amb un Gran Mestre a l\'atzar.</string>
   <string name="recommendNotTouching">No recomanem canviar aquestes preferències.</string>
   <string name="fewerPlayers">Si s\'estableixen les condicions d\'entrada, el torneig tindrà menys jugadors.</string>
   <string name="showAdvancedSettings">Configuració avançada</string>
@@ -448,8 +442,6 @@
   <string name="country">País</string>
   <string name="socialMediaLinks">Enllaços a xarxes social</string>
   <string name="inlineNotation">Notació Lineal</string>
-  <string name="watchLichessTV">Mira Lichess TV</string>
-  <string name="previouslyOnLichessTV">Prèviament a Lichess TV</string>
   <string name="onlinePlayers">Jugadors connectats</string>
   <string name="activeToday">Actius avui</string>
   <string name="activePlayers">Jugadors actius</string>
@@ -469,7 +461,7 @@
   <string name="butYouCanKeepTrying">Però pots seguir intentant-ho.</string>
   <string name="success">Èxit</string>
   <string name="wasThisPuzzleAnyGood">Ha valgut la pena aquest problema?</string>
-  <string name="pleaseVotePuzzle">Ajudeu lichess a millorar mitjançant el vostre vot amb les fletxes amunt o avall:</string>
+  <string name="pleaseVotePuzzle">Ajudeu lishogi a millorar mitjançant el vostre vot amb les fletxes amunt o avall:</string>
   <string name="thankYou">Gràcies!</string>
   <string name="ratingX">Puntuació: %s</string>
   <string name="hidden">ocult</string>
@@ -565,7 +557,6 @@ en %3$s</string>
   <string name="starting">Començant:</string>
   <string name="allInformationIsPublicAndOptional">Tota la informació és pública i opcional.</string>
   <string name="yourCityRegionOrDepartment">La teva ciutat, regió o província.</string>
-  <string name="biographyDescription">Parla sobre tu, què t\'agrada dels escacs, les teves obertures preferides, jocs, jugadors…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Màxim: %s caràcters.</item>
     <item quantity="other">Màxim: %s caràcters.</item>
@@ -581,7 +572,6 @@ en %3$s</string>
   <string name="clock">Rellotge</string>
   <string name="unauthorizedError">Accés no autoritzat.</string>
   <string name="noInternetConnection">Sense connexió a internet. Pots seguir jugar offline des del menú.</string>
-  <string name="connectedToLichess">Ara estàs connectat a lichess.org</string>
   <string name="signedOut">Has tancat la sessió</string>
   <string name="loginSuccessful">Ara ja estàs registrat</string>
   <string name="playOnTheBoardOffline">Juga offline, sobre el tauler</string>
@@ -623,7 +613,6 @@ en %3$s</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">En quant a</string>
   <string name="aboutX">En quant a %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s es un servidor d\'escacs totalment gratuit creat amb codi obert, lliure (%2$s), sense publicitat.</string>
   <string name="really">realment</string>
   <string name="contribute">Contribuïu-hi</string>
   <string name="termsOfService">Condicions del servei</string>
@@ -647,7 +636,6 @@ en %3$s</string>
   <string name="simulClockHint">Sistema de Rellotge Fischer. Com més oponents tinguis, més temps et pot caldre.</string>
   <string name="simulAddExtraTime">Pots afegir temps extra al rellotge per ajudar-te amb les simultànies.</string>
   <string name="simulHostExtraTime">Temps extra per a l\'amfitrió</string>
-  <string name="lichessTournaments">Tornejos de Lichess</string>
   <string name="tournamentFAQ">Torneig Arena: Preguntes Més Freqüents</string>
   <string name="tournamentOfficial">Oficial</string>
   <string name="timeBeforeTournamentStarts">Temps per a què comenci el torneig</string>
@@ -658,8 +646,6 @@ en %3$s</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentaris</string>
   <string name="keyEnterOrExitVariation">entrar/sortir variació</string>
   <string name="newTournament">Nou torneig</string>
-  <string name="tournamentHomeTitle">Torneig d\'escacs amb diversos controls de temps i variants</string>
-  <string name="tournamentHomeDescription">Juga tornejos d\'escacs ràpids! Uneix-te a un torneig programat o crea\'n un de propi. Bullet, Blitz, Classic, Chess960, King of the Hill, Threecheck i moltes més opcions perquè no s\'acabi la diversió dels escacs.</string>
   <string name="tournamentNotFound">No s\'ha trobat el torneig</string>
   <string name="tournamentDoesNotExist">Aquest torneig no existeix.</string>
   <string name="tournamentMayHaveBeenCanceled">Pot ser que s\'hagi cancel·lat, si tots els jugadors l\'han abandonat abans que comencés.</string>
@@ -681,8 +667,6 @@ en %3$s</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si no veus l\'email, comprova altres llocs on pugui ser, com el correu brossa, spam, o altres carpetes</string>
   <string name="weHaveSentYouAnEmailTo">Hem enviat un correu electrònic a %s. Clica a l\'enllaç per renovar la teva contrasenya.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">En registrar-te,dones la teva conformitat a estar legalment obligats per el nostre %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Retard de la xarxa entre tu i lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Temps per processar un moviment al servidor lichess</string>
   <string name="downloadAnnotated">Descàrrega anotada</string>
   <string name="downloadRaw">Descàrrega prima</string>
   <string name="downloadImported">Descàrrega importada</string>
@@ -691,29 +675,23 @@ en %3$s</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">També pots desplaçar-te sobre el tauler per moure en el joc.</string>
   <string name="analysisShapesHowTo">Pitja la tecla Shift + clic o feu clic dret per dibuixar cercles i fletxes al tauler.</string>
   <string name="letOtherPlayersMessageYou">Deixa que altres jugadors t\'envïin missatges</string>
-  <string name="shareYourInsightsData">Comparteix les teves dades d\'estadístiques</string>
   <string name="withNobody">Amb ningú</string>
   <string name="withFriends">Amb amics</string>
   <string name="withEverybody">Amb tothom</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Ja heu registrat el correu electrònic: %s</string>
   <string name="kidMode">Mode infantil</string>
   <string name="kidModeExplanation">Es tracta de seguretat. En el mode nen, totes les comunicacions de la pàgina estan inhabilitades. Permeta açò per als seus nens o alumnes, per protegir-los d\'altres usuaris d\'internet.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">En el mode nen, el logo de lichess té una icona de %s, per què sàpigues que els teus nens estan segurs.</string>
   <string name="enableKidMode">Activar el mode de nen</string>
   <string name="disableKidMode">Desactivar el mode de nen</string>
   <string name="security">Seguretat</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Aquesta és una llista de dispositius que han iniciat sessió al teu compte. Si us plau tanqui qualsevol session que no reconegui.</string>
   <string name="alternativelyYouCanX">Alternativament pots %s.</string>
   <string name="revokeAllSessions">tancar totes les sessions</string>
-  <string name="playChessEverywhere">Jugueu a escacs a qualsevol lloc</string>
-  <string name="asFreeAsLichess">Tan lliure com lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Fet per amor als escacs, no per diners</string>
   <string name="everybodyGetsAllFeaturesForFree">Tothom accedeix gratuïtament a totes les funcions</string>
   <string name="zeroAdvertisement">Cap anunci</string>
   <string name="fullFeatured">Amb totes les funcions</string>
   <string name="phoneAndTablet">Telèfon i tauleta</string>
   <string name="bulletBlitzClassical">Bullet, blitz, clàssic</string>
-  <string name="correspondenceChess">Escacs per correspondència</string>
   <string name="onlineAndOfflinePlay">Jugar en línia i desconectat</string>
   <string name="viewTheSolution">Veure la solució</string>
   <string name="followAndChallengeFriends">Seguiu i desafieu amics</string>
@@ -746,9 +724,6 @@ en %3$s</string>
   <string name="usernameSuffixInvalid">El nom d\'usuari ha d\'acabar amb una lletra o dígit.</string>
   <string name="usernameCharsInvalid">Els noms d\'usuari només poden contenir lletres, números, guions i guions baixos.</string>
   <string name="usernameUnacceptable">Aquest nom d\'usuari no és acceptable.</string>
-  <string name="directlySupportLichess">Suporta directament a Lichess</string>
-  <string name="playChessInStyle">Juga a escacs amb estil</string>
-  <string name="chessBasics">Fonaments d\'escacs</string>
   <string name="coaches">Entrenador</string>
   <string name="invalidPgn">PGN no vàlid</string>
   <string name="invalidFen">FEN no vàlid</string>
@@ -825,7 +800,6 @@ en %3$s</string>
   <string name="weHadToTimeYouOutForAWhile">Hem hagut de penalitzar-te una estona.</string>
   <string name="timeoutExpires">La penalització acaba en %s.</string>
   <string name="why">Perquè?</string>
-  <string name="pleasantChessExperience">Intentem donar una bona experiència d’escacs a tothom.</string>
   <string name="goodPractice">Per això, hem de garantir que tots els jugadors segueixin bones pràctiques.</string>
   <string name="potentialProblem">Quan un problema potancial es detecta, mostrem aquest missatge.</string>
   <string name="howToAvoidThis">Com evitar-ho?</string>
@@ -833,14 +807,13 @@ en %3$s</string>
   <string name="tryToWin">Prova de guanyar (o al menys fer taules) cada partida.</string>
   <string name="resignLostGames">Resigna els jocs perduts (no deixis córrer el temps).</string>
   <string name="temporaryInconvenience">Disculpes per aquest inconvenient temporal</string>
-  <string name="wishYouGreatGames">i et desitgem unes grans partides a lichess.org.</string>
+  <string name="wishYouGreatGames">i et desitgem unes grans partides a lishogi.org.</string>
   <string name="thankYouForReading">Gràcies per la teva lectura!</string>
   <string name="lifetimeScore">Valoració total de sempre</string>
   <string name="currentMatchScore">Valoració actual de partides</string>
-  <string name="agreementAssistance">Estic d’acord que mai rebré assistència durant les meves partides (ni d’ordinadors, llibres, base de dades o d’una altra persona).</string>
   <string name="agreementNice">Estic d’acord que sempre seré respectuós amb els altres jugadors.</string>
   <string name="agreementAccount">Estic d’acord que no crearé múltiples comptes.</string>
-  <string name="agreementPolicy">Estic d’acord que seguiré totes les polítiques de Lichess.</string>
+  <string name="agreementPolicy">Estic d’acord que seguiré totes les polítiques de Lishogi.</string>
   <string name="searchOrStartNewDiscussion">Cerca o inicia una nova discusió</string>
   <string name="edit">Edita</string>
   <string name="rapid">Ràpides</string>
@@ -851,7 +824,6 @@ en %3$s</string>
   <string name="rapidDesc">Pàrtides ràpides: de 8 a 25 minuts</string>
   <string name="classicalDesc">Partides a temps clàssic: més de 25 minuts</string>
   <string name="correspondenceDesc">Partides per correspondència: un o més dies per jugada</string>
-  <string name="puzzleDesc">Entrenador de tàctica</string>
   <string name="important">Important</string>
   <string name="yourQuestionMayHaveBeenAnswered">La teva pregunta ja pot estar resposta %1$s</string>
   <string name="inTheFAQ">en les P.M.F.</string>

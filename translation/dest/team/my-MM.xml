@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <plurals name="teamLeaders">
+<?xml version='1.0' encoding='utf-8'?>
+<resources><plurals name="teamLeaders">
     <item quantity="other">အသင်းခေါင်းဆောင်</item>
   </plurals>
   <string name="messageAllMembersLongDescription">အသင်းဝင် အားလုံးထံ လျှို့ဝှက် စာတို ပို့ရန်။

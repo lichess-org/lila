@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="arenaTournaments">Arena Txapelketak</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="arenaTournaments">Arena Txapelketak</string>
   <string name="isItRated">Sailkapenerako balio du?</string>
   <string name="willBeNotified">Txapelketa hasten denean jakinarazpen bat bidaliko dizugu, beraz beste fitxa baten beste partida bat jokatu dezakezu txapelketaren zain zauden artean.</string>
   <string name="isRated">Txapelketa honek sailkapenerako balio duenez, zuren sailkapenaren puntuazioa aldatuko du.</string>

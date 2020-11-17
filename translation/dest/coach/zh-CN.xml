@@ -1,10 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="lichessCoaches">Lichess 教练</string>
-  <string name="lichessCoach">Lichess 教练</string>
-  <string name="areYouCoach">您是持有%s称号的优秀国际象棋训练吗？</string>
-  <string name="nmOrFideTitle">NM 称号或 FIDE 称号</string>
-  <string name="confirmTitle">请在此证明您的称号，我们将会审查您的请求。</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="confirmTitle">请在此证明您的称号，我们将会审查您的请求。</string>
   <string name="sendApplication">向 %s 发送电邮，我们将会审查您的请求。</string>
   <string name="location">所在地</string>
   <string name="languages">语言</string>
@@ -13,7 +8,6 @@
   <string name="availability">是否接受新学生</string>
   <string name="accepting">接收学生</string>
   <string name="notAccepting">暂时不接受学生</string>
-  <string name="xCoachesStudents">%s 教导国际象棋学生</string>
   <string name="viewXProfile">%s 用户资料</string>
   <string name="sendPM">发送私信</string>
   <string name="aboutMe">自我介绍</string>

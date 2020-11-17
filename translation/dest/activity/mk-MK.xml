@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="activity">Активност</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="activity">Активност</string>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">Решен %s тактички проблем</item>
     <item quantity="other">Решен %s тактички проблем</item>
@@ -45,7 +44,7 @@
     <item quantity="one">Рангиран #%1$s (топ %2$s%%) со %3$s игра во %4$s</item>
     <item quantity="other">Рангиран #%1$s (топ %2$s%%) со %3$s игри во %4$s</item>
   </plurals>
-  <string name="signedUp">Се најавил на lichess.org</string>
+  <string name="signedUp">Се најавил на lishogi.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Се придружил во %s тимот</item>
     <item quantity="other">Се придружил во %s тимови</item>

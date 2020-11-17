@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="contact">Kontakt</string>
-  <string name="contactLichess">Lichess kontaktieren</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="contact">Kontakt</string>
   <string name="whatCanWeHelpYouWith">Wobei können wir dir behilflich sein?</string>
   <string name="visitThisPage">Besuche diese Seite, um das Problem zu lösen</string>
   <string name="iCantLogIn">Ich kann mich nicht einloggen</string>
@@ -12,8 +10,8 @@
   <string name="lost2FA">Ich habe den Zugriff auf meine Zwei-Faktor-Authentifizierungscodes verloren</string>
   <string name="doPasswordReset">Setze dein Passwort zurück, um deinen zweiten Faktor zu entfernen</string>
   <string name="accountSupport">Ich benötige Konto-Unterstützung</string>
-  <string name="wantTitle">Ich möchte, dass mein Titel auf Lichess angezeigt wird</string>
-  <string name="visitTitleConfirmation">Um deinen Titel in deinem Lichess-Profil zu zeigen und an den Titled-Arenas teilzunehmen, besuche die Titelbestätigungsseite</string>
+  <string name="wantTitle">Ich möchte, dass mein Titel auf Lishogi angezeigt wird</string>
+  <string name="visitTitleConfirmation">Um deinen Titel in deinem Lishogi-Profil zu zeigen und an den Titled-Arenas teilzunehmen, besuche die Titelbestätigungsseite</string>
   <string name="wantCloseAccount">Ich möchte mein Konto schließen</string>
   <string name="closeYourAccount">Du kannst dein Konto auf dieser Seite schließen</string>
   <string name="doNotAskByEmail">Bitte uns nicht per E-Mail ein Konto zu schließen, das kannst du selbst tun.</string>
@@ -39,10 +37,10 @@
   <string name="doNotMessageModerators">Sende den Moderatoren keine direkten Nachrichten.</string>
   <string name="onlyReports">Lediglich Spieler per Meldeformular zu melden ist effektiv.</string>
   <string name="wantReportBug">Ich möchte einen Fehler melden</string>
-  <string name="reportBugInForum">Im Lichess Feedbackforum</string>
-  <string name="reportWebsiteIssue">Als ein Lichess Seitenproblem auf GitHub</string>
-  <string name="reportMobileIssue">Als ein Lichess Handyapp Problem auf GitHub</string>
-  <string name="reportBugInDiscord">Im Lichess Discordserver</string>
+  <string name="reportBugInForum">Im Lishogi Feedbackforum</string>
+  <string name="reportWebsiteIssue">Als ein Lishogi Seitenproblem auf GitHub</string>
+  <string name="reportMobileIssue">Als ein Lishogi Handyapp Problem auf GitHub</string>
+  <string name="reportBugInDiscord">Im Lishogi Discordserver</string>
   <string name="howToReportBug">Bitte beschreibe wie der Fehler aussieht, was du stattdessen erwartet hättest, sowie die Schritte um den Fehler zu reproduzieren.</string>
   <string name="illegalPawnCapture">Unerlaubtes Bauern-Schlagen</string>
   <string name="calledEnPassant">Das wird \"en passant\" genannt und gehört zu den Schachregeln.</string>
@@ -68,13 +66,12 @@
   <string name="doNotDeny">Leugne nicht betrogen zu haben. Falls du die Erlaubnis willst ein neues Konto zu eröffnen, gib einfach zu was du getan hast und zeige, dass du eingesehen hast, dass das ein Fehler war.</string>
   <string name="otherRestriction">Andere Beschränkung</string>
   <string name="collaboration">Zusammenarbeit, Rechtliches, Kommerzielles</string>
-  <string name="monetizing">Lichess Monetarisierung</string>
-  <string name="buyingLichess">Lichess kaufen</string>
-  <string name="authorizationToUse">Genehmigung um Lichess zu nutzen</string>
-  <string name="welcomeToUse">Du bist eingeladen Lichess für deine Aktivitäten zu verwenden, sogar für kommerzielle Zwecke.</string>
-  <string name="videosAndBooks">Du kannst das in deinen Videos zeigen und du kannst Screenshots von Lichess in deinen Büchern drucken.</string>
+  <string name="monetizing">Lishogi Monetarisierung</string>
+  <string name="authorizationToUse">Genehmigung um Lishogi zu nutzen</string>
+  <string name="welcomeToUse">Du bist eingeladen Lishogi für deine Aktivitäten zu verwenden, sogar für kommerzielle Zwecke.</string>
+  <string name="videosAndBooks">Du kannst das in deinen Videos zeigen und du kannst Screenshots von Lishogi in deinen Büchern drucken.</string>
   <string name="creditAppreciated">Eine Erwähnung ist wünschenswert aber nicht notwendig.</string>
   <string name="noneOfTheAbove">Keines der oben genannten</string>
   <string name="sendEmailAt">Sende uns eine Mail an %s.</string>
-  <string name="explainYourRequest">Bitte beschreibe deine Anfrage klar und deutlich. Nenne deinen Lichess Nutzernamen und jegliche Information die uns helfen könnte Dir zu helfen.</string>
+  <string name="explainYourRequest">Bitte beschreibe deine Anfrage klar und deutlich. Nenne deinen Lishogi Nutzernamen und jegliche Information die uns helfen könnte Dir zu helfen.</string>
 </resources>

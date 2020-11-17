@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="hourlyRapidArena">हर घंटे होने वाला रैपिड एरिना</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="hourlyRapidArena">हर घंटे होने वाला रैपिड एरिना</string>
   <string name="hourlyRapid">हर घंटे होने वाला रैपिड</string>
   <string name="hourlyXArena">हर घंटे होने वाला %s एरिना</string>
   <string name="hourlyX">हर घंटे होने वाला %s</string>

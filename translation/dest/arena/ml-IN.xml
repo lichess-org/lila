@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="isItRated">ഇത് റേറ്റിംഗ് ഉള്ളതാണോ?</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="isItRated">ഇത് റേറ്റിംഗ് ഉള്ളതാണോ?</string>
   <string name="willBeNotified">ടൂർണമെന്റ് തുടങ്ങുമ്പോൾ നിങ്ങളെ അറിയിക്കാം, അതുകൊണ്ട് മറ്റൊരു ടാബിൽ കളിക്കുന്നതുകൊണ്ട് കുഴപ്പമില്ല.</string>
   <string name="isRated">ടൂർണമെന്റ് റേറ്റഡ് ആണ്. അത് നിങ്ങളുടെ റേറ്റിംഗിനെ ബാധിക്കും.</string>
   <string name="isNotRated">ടൂർണമെന്റ് റേറ്റഡ് അല്ല. അത് നിങ്ങളുടെ റേറ്റിംഗിനെ ബാധിക്കില്ല.</string>

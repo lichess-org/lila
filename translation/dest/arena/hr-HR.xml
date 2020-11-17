@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="arenaTournaments">Arena turniri</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="arenaTournaments">Arena turniri</string>
   <string name="isItRated">Igra li se za bodove?</string>
   <string name="willBeNotified">Bit ćeš obaviješten/a kada turnir počne, stoga slobodno možeš igrati u drugom prozoru dok čekaš.</string>
   <string name="isRated">Ovaj turnir se igra za bodove i utjecat će na tvoj rejting.</string>

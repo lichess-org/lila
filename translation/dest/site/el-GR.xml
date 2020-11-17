@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Παίξτε με έναν φίλο</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Παίξτε με έναν φίλο</string>
   <string name="playWithTheMachine">Παίξτε με τον υπολογιστή</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Για να προσκαλέσετε κάποιον σε ένα παιχνίδι, στείλτε του αυτήν τη διεύθυνση</string>
   <string name="gameOver">Τέλος παιχνιδιού</string>
@@ -143,7 +142,7 @@
   <string name="signIn">Είσοδος</string>
   <string name="youNeedAnAccountToDoThat">Χρειάζεστε λογαριασμό για να το κάνετε αυτό</string>
   <string name="signUp">Εγγραφή</string>
-  <string name="computersAreNotAllowedToPlay">Δεν επιτρέπουμε στους υπολογιστές και παίκτες με υποβοήθηση υπολογιστή να παίζουν στο Lichess. Παρακαλούμε μη δεχτείτε βοήθεια από σκακιστικούς υπολογιστές, βάσεις δεδομένων ή άλλους παίκτες όσο παίζετε εδώ. Επίσης σημειώστε πως αποθαρρύνουμε την δημιουργία πολλών λογαριασμών και υπερβολή σε αυτό θα καταλήξει σε αποκλεισμό.</string>
+  <string name="computersAreNotAllowedToPlay">Δεν επιτρέπουμε στους υπολογιστές και παίκτες με υποβοήθηση υπολογιστή να παίζουν στο Lishogi. Παρακαλούμε μη δεχτείτε βοήθεια από σκακιστικούς υπολογιστές, βάσεις δεδομένων ή άλλους παίκτες όσο παίζετε εδώ. Επίσης σημειώστε πως αποθαρρύνουμε την δημιουργία πολλών λογαριασμών και υπερβολή σε αυτό θα καταλήξει σε αποκλεισμό.</string>
   <string name="games">Παιχνίδια</string>
   <string name="forum">Φόρουμ</string>
   <string name="xPostedInForumY">Ο χρήστης %1$s έγραψε στη συζήτηση %2$s</string>
@@ -247,7 +246,6 @@
   <string name="recipient">Παραλήπτης</string>
   <string name="send">Αποστολή</string>
   <string name="incrementInSeconds">Προσαύξηση σε δευτερόλεπτα</string>
-  <string name="freeOnlineChess">Δωρεάν Διαδικτυακό Σκάκι</string>
   <string name="spectators">Θεατές:</string>
   <plurals name="nbRated">
     <item quantity="one">%s βαθμολογημένο</item>
@@ -275,7 +273,7 @@
     <item quantity="one">Προσθέστε %s δευτερόλεπτα</item>
     <item quantity="other">Προσθέστε %s δευτερόλεπτα</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Αυτός ο λογαριασμός παραβαίνει τους Όρους Χρήσης του Lichess</string>
+  <string name="thisAccountViolatedTos">Αυτός ο λογαριασμός παραβαίνει τους Όρους Χρήσης του Lishogi</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ο παίκτης αυξάνει/μειώνει τεχνητά την βαθμολογία</string>
   <string name="openingExplorerAndTablebase">Εξερευνητής ανοιγμάτων &amp; τελειωμάτων</string>
   <string name="takeback">Ανάκληση κίνησης</string>
@@ -325,7 +323,6 @@
   <string name="mustBeInTeam">Πρέπει να είστε στην ομάδα %s</string>
   <string name="youAreNotInTeam">Δεν είστε στην ομάδα %s</string>
   <string name="backToGame">Επιστρέψτε στο παιχνίδι</string>
-  <string name="siteDescription">Δωρεάν διαδικτυακό παιχνίδι Σκακιού. Παίξτε Σκάκι τώρα σε καθαρό γραφικό περιβάλλον. Χωρίς εγγραφές, χωρίς διαφημίσεις, χωρίς πρόσθετα. Παίξτε Σκάκι με τον υπολογιστή, με φίλους ή με τυχαίους αντιπάλους.</string>
   <string name="xJoinedTeamY">Ο %1$s έθεσε συμμετοχή στην ομάδα %2$s</string>
   <string name="xCreatedTeamY">Ο %1$s δημιούργησε την ομάδα %2$s</string>
   <string name="xStartedStreaming">%s ξεκίνησε να μεταδίδει</string>
@@ -348,9 +345,7 @@
     <item quantity="one">%s Εισαγόμενο παιχνίδι</item>
     <item quantity="other">%s Εισαγόμενα παιχνίδια</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Αυτό είναι CAPTCHA σκακιού.</string>
   <string name="clickOnTheBoardToMakeYourMove">Κάνετε κλικ στη σκακιέρα για να κινήσετε τα πιόνια και να αποδείξετε πως είστε άνθρωπος.</string>
-  <string name="captcha.fail">Παρακαλούμε λύστε το σκακιστικό captcha.</string>
   <string name="notACheckmate">Δεν είναι ματ</string>
   <string name="whiteCheckmatesInOneMove">Παίζουν τα λευκά, κάντε ματ με μια κίνηση</string>
   <string name="blackCheckmatesInOneMove">Παίζουν τα μαύρα, κάντε ματ με μια κίνηση</string>
@@ -401,7 +396,6 @@
   <string name="advancedSettings">Ρυθμίσεις για προχωρημένους</string>
   <string name="safeTournamentName">Διαλέξτε ένα πολύ ασφαλές όνομα για το τουρνουά.</string>
   <string name="inappropriateNameWarning">Οτιδήποτε ακόμα και ελάχιστα ακατάλληλο μπορεί να κλείσει τον λογαριασμό σας.</string>
-  <string name="emptyTournamentName">Αφήστε το κενό για να πάρει τ\' όνομά του από κάποιον τυχαίο Γραντ Μετρ.</string>
   <string name="recommendNotTouching">Σας συνιστούμε να μην τα αλλάξετε αυτά.</string>
   <string name="fewerPlayers">Εάν ορίσετε προϋποθέσεις εισόδου, το τουρνουά σας θα έχει λιγότερους παίκτες.</string>
   <string name="showAdvancedSettings">Εμφάνιση ρυθμίσεων για προχωρημένους</string>
@@ -449,8 +443,6 @@
   <string name="country">Χώρα</string>
   <string name="socialMediaLinks">Σύνδεσμοι κοινωνικών μέσων</string>
   <string name="inlineNotation">Ενσωματωμένη σημειογραφία</string>
-  <string name="watchLichessTV">Παρακολουθήστε Lichess TV</string>
-  <string name="previouslyOnLichessTV">Νωρίτερα στη Tηλεόραση Lichess</string>
   <string name="onlinePlayers">Συνδεδεμένοι παίκτες</string>
   <string name="activeToday">Ενεργοί σήμερα</string>
   <string name="activePlayers">Ενεργοί παίκτες</string>
@@ -470,7 +462,7 @@
   <string name="butYouCanKeepTrying">Αλλά μπορείτε να συνεχίσετε τη προσπάθεια.</string>
   <string name="success">Επιτυχία</string>
   <string name="wasThisPuzzleAnyGood">Πώς σας φάνηκε ο γρίφος;</string>
-  <string name="pleaseVotePuzzle">Βελτιώστε το lichess με την ψήφο σας, πατώντας το πάνω ή κάτω βελάκι:</string>
+  <string name="pleaseVotePuzzle">Βελτιώστε το lishogi με την ψήφο σας, πατώντας το πάνω ή κάτω βελάκι:</string>
   <string name="thankYou">Ευχαριστούμε!</string>
   <string name="ratingX">Βαθμολογία: %s</string>
   <string name="hidden">κρυμμένο</string>
@@ -563,7 +555,6 @@
   <string name="starting">Αρχίζει:</string>
   <string name="allInformationIsPublicAndOptional">Όλες οι πληροφορίες είναι δημόσιες και προαιρετικές.</string>
   <string name="yourCityRegionOrDepartment">Η πόλη, περιοχή ή ο νομός σας.</string>
-  <string name="biographyDescription">Γράψτε για τον εαυτό σας, τι σας αρέσει στο σκάκι, τα αγαπημένα σας ανοίγματα, παιχνίδια, παίκτες…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Όριο: %s χαρακτήρες.</item>
     <item quantity="other">Όριο: %s χαρακτήρες.</item>
@@ -579,7 +570,6 @@
   <string name="clock">Χρόνος</string>
   <string name="unauthorizedError">Άρνηση πρόσβασης.</string>
   <string name="noInternetConnection">Χωρίς σύνδεση. Για να παίξετε χωρίς σύνδεση, ανοίξτε το μενού.</string>
-  <string name="connectedToLichess">Έχετε συνδεθεί στο lichess.org</string>
   <string name="signedOut">Έχετε αποσυνδεθεί επιτυχώς</string>
   <string name="loginSuccessful">Είσοδος επιτυχής</string>
   <string name="playOnTheBoardOffline">Τοπικά</string>
@@ -621,7 +611,6 @@
   <string name="webmasters">Διαχειριστές</string>
   <string name="about">Σχετικά με</string>
   <string name="aboutX">Σχετικά με %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">Ο %1$s είναι (%2$s) δωρεάν, ελεύθερος, χωρίς διαφημίσεις, ανοικτού κώδικα διακομιστής για σκάκι.</string>
   <string name="really">πραγματικά</string>
   <string name="contribute">Συνεισφέρετε</string>
   <string name="termsOfService">Όροι χρήσης</string>
@@ -645,7 +634,6 @@
   <string name="simulClockHint">Ρολόι Φίσερ. Όσους περισσότερους παίκτες παίξετε, τόσο περισσότερο χρόνο ίσως χρειαστείτε.</string>
   <string name="simulAddExtraTime">Μπορείτε να προσθέσετε επιπλέον χρόνο στο ρολόι σας για να σας βοηθήσει στην έκθεση.</string>
   <string name="simulHostExtraTime">Παροχή επιπλέον χρόνου στο ρολόι</string>
-  <string name="lichessTournaments">Πρωταθλήματα lichess</string>
   <string name="tournamentFAQ">Τεκμηρίωση πρωταθλημάτων τύπου αρένας</string>
   <string name="tournamentOfficial">Επίσημο</string>
   <string name="timeBeforeTournamentStarts">Χρόνος προτού ξεκινήσει το πρωτάθλημα</string>
@@ -656,8 +644,6 @@
   <string name="keyShowOrHideComments">εμφάνιση / απόκρυψη σχολίων</string>
   <string name="keyEnterOrExitVariation">είσοδος / έξοδος εκδοχής</string>
   <string name="newTournament">Νέο πρωτάθλημα</string>
-  <string name="tournamentHomeTitle">Σκακιστικό πρωτάθλημα διαφόρων χρόνων και εκδοχών</string>
-  <string name="tournamentHomeDescription">Παίξτε στιγμιαία πρωταθλήματα. Συμμετάσχετε σε ένα επίσημο πρωτάθλημα ή δημιουργήστε δικά σας. Υπερταχέα, Ταχέα, Κλασσικά, 960, Βασιλιάς στο κέντρο, Τρία σαχ και πολλές άλλες επιλογές για ατελείωτη διασκέδαση.</string>
   <string name="tournamentNotFound">Πρωτάθλημα δεν ευρέθη</string>
   <string name="tournamentDoesNotExist">Αυτό το πρωτάθλημα δεν υπάρχει.</string>
   <string name="tournamentMayHaveBeenCanceled">Ίσως έχει ακυρωθεί, εάν όλοι οι παίκτες αποχώρησαν πριν το πρωτάθλημα ξεκινήσει.</string>
@@ -679,8 +665,6 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Εάν δεν μπορείτε να δείτε το μήνυμα ηλ. ταχυδρομείου, ελέγξτε άλλες θέσεις που θα μπορούσε να είναι, όπως στα διαγραμμένα, ανεπιθύμητη αλληλογραφία, κοινωνικά, ή σε άλλους φακέλους.</string>
   <string name="weHaveSentYouAnEmailTo">Έχουμε στείλει ένα μήνυμα ηλ. ταχυδρομείου στο %s. Κάντε κλικ τον σύνδεσμο στο ηλ. ταχυδρομείο για να επαναφέρετε τον κωδικό πρόσβασής σας.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Με την εγγραφή σας συμφωνείτε ότι δεσμεύεστε από τους %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Υστέρηση δικτύου ανάμεσα σε εσάς και το lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Χρόνος επεξεργασίας μίας κίνησης στον διακομιστή lichess</string>
   <string name="downloadAnnotated">Λήψη με υποσημειώσεις</string>
   <string name="downloadRaw">Λήψη ακατέργαστο</string>
   <string name="downloadImported">Λήψη εισαγόμενου</string>
@@ -689,29 +673,23 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Μπορείτε επίσης να κινηθείτε πάνω στην σκακιέρα για να πάτε στο παιχνίδι.</string>
   <string name="analysisShapesHowTo">Πατήστε Shift + κλικ ή δεξί κλικ για να σχεδιάσετε κύκλους και βέλη στην σκακιέρα.</string>
   <string name="letOtherPlayersMessageYou">Επιτρέψτε άλλους παίκτες να σας στέλνουν μηνύματα</string>
-  <string name="shareYourInsightsData">Κοινή χρήση των δεδομένων σας</string>
   <string name="withNobody">Με κανέναν</string>
   <string name="withFriends">Με φίλους</string>
   <string name="withEverybody">Με όλους</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Έχετε ήδη εγγραφεί με το ηλ.ταχυδρομείο: %s</string>
   <string name="kidMode">Λειτουργία παιδιού</string>
   <string name="kidModeExplanation">Αυτό έχει σχέση με την ασφάλεια. Στην λειτουργία για παιδιά, απενεργοποιούνται όλες οι επικοινωνίες της ιστοσελίδας. Ενεργοποιήστε το για τα παιδιά σας και τους μαθητές, για την προστασία τους από άλλους διαδικτυακούς χρήστες.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Στην λειτουργία για παιδιά, το λογότυπο του lichess παίρνει ένα εικονίδιο %s, έτσι ώστε να γνωρίζετε ότι τα παιδιά σας είναι ασφαλή.</string>
   <string name="enableKidMode">Ενεργοποίηση λειτουργίας παιδιού</string>
   <string name="disableKidMode">Απενεργοποίηση λειτουργίας παιδιού</string>
   <string name="security">Ασφάλεια</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Αυτή είναι η λίστα συσκευών συνδεδεμένες με τον λογαριασμό σας. Ανακαλέστε τις συνεδρίες που δεν αναγνωρίζετε.</string>
   <string name="alternativelyYouCanX">Εναλλακτικά, μπορείτε να %s.</string>
   <string name="revokeAllSessions">ανακαλέστε όλες τις συνεδρίες</string>
-  <string name="playChessEverywhere">Παίξτε σκάκι παντού</string>
-  <string name="asFreeAsLichess">Δωρεάν</string>
-  <string name="builtForTheLoveOfChessNotMoney">Φτιαγμένο από αγάπη για το σκάκι, όχι για τα χρήματα</string>
   <string name="everybodyGetsAllFeaturesForFree">Όλα τα στοιχεία είναι δωρεάν για όλους</string>
   <string name="zeroAdvertisement">Χωρίς διαφημίσεις</string>
   <string name="fullFeatured">Πλήρη χαρακτηριστικά</string>
   <string name="phoneAndTablet">Τηλέφωνο και τάμπλετ</string>
   <string name="bulletBlitzClassical">Υπερταχέα, ταχέα, κλασικά</string>
-  <string name="correspondenceChess">Σκάκι δι\' αλληλογραφίας</string>
   <string name="onlineAndOfflinePlay">Παιχνίδια διαδικτυακώς και εκτός σύνδεσης</string>
   <string name="viewTheSolution">Δείτε τη λύση</string>
   <string name="followAndChallengeFriends">Ακολουθήστε και προκαλέστε φίλους</string>
@@ -744,9 +722,6 @@
   <string name="usernameSuffixInvalid">Το όνομα χρήστη πρέπει να τελειώνει με ένα γράμμα ή έναν αριθμό.</string>
   <string name="usernameCharsInvalid">Το όνομα χρήστη πρέπει να περιέχει μόνο γράμματα, αριθμούς, κάτω παύλες και ενωτικά.</string>
   <string name="usernameUnacceptable">Αυτό το όνομα χρήστη δεν είναι αποδεκτό.</string>
-  <string name="directlySupportLichess">Υποστηρίξτε άμεσα το Lichess</string>
-  <string name="playChessInStyle">Παίξτε σκάκι με στυλ</string>
-  <string name="chessBasics">Τα βασικά στο σκάκι</string>
   <string name="coaches">Προπονητές</string>
   <string name="invalidPgn">Μη έγκυρο PGN</string>
   <string name="invalidFen">Μη έγκυρο FEN</string>
@@ -823,7 +798,6 @@
   <string name="weHadToTimeYouOutForAWhile">Πρέπει να σας αποκλείσουμε για λίγο.</string>
   <string name="timeoutExpires">Ο αποκλεισμός λήγει σε %s.</string>
   <string name="why">Γιατί;</string>
-  <string name="pleasantChessExperience">Ο σκοπός μας είναι να προσφέρουμε μια ευχάριστη σκακιστική ατμόσφαιρα για όλους.</string>
   <string name="goodPractice">Για να πραγματοποιηθεί αυτό, πρέπει να βεβαιωθούμε ότι όλοι οι παίκτες ακολουθούν τους κανόνες.</string>
   <string name="potentialProblem">Όταν ανιχνευτεί ένα πιθανό πρόβλημα, εμφανίζεται αυτό το μήνυμα.</string>
   <string name="howToAvoidThis">Πώς να το αποφύγετε αυτό;</string>
@@ -831,14 +805,13 @@
   <string name="tryToWin">Προσπαθήστε να νικήσετε (ή να φέρετε ισοπαλία) σε κάθε παιχνίδι που παίζετε.</string>
   <string name="resignLostGames">Παραιτηθείτε σε παιχνίδια που χάνετε (μην αφήνετε τον χρόνο σας να τελειώσει).</string>
   <string name="temporaryInconvenience">Συγχωρέστε μας για την προσωρινή δυσφορία,</string>
-  <string name="wishYouGreatGames">και σας ευχόμαστε καλές παρτίδες στο lichess.org.</string>
+  <string name="wishYouGreatGames">και σας ευχόμαστε καλές παρτίδες στο lishogi.org.</string>
   <string name="thankYouForReading">Ευχαριστούμε που αφιερώσατε χρόνο για να να τα διαβάσετε!</string>
   <string name="lifetimeScore">Συνολικό σκορ</string>
   <string name="currentMatchScore">Τρέχον σκορ</string>
-  <string name="agreementAssistance">Αποδέχομαι ότι ουδέποτε θα λάβω βοήθεια κατά τις παρτίδες μου (από υπολογιστή, βιβλίο, βάση δεδομένων ή άλλο πρόσωπο).</string>
   <string name="agreementNice">Αποδέχομαι ότι πάντα θα επιδεικνύω σεβασμό προς όλους του παίκτες.</string>
   <string name="agreementAccount">Αποδέχομαι ότι δεν θα δημιουργήσω πολλαπλούς λογαριασμούς.</string>
-  <string name="agreementPolicy">Αποδέχομαι ότι θα συμμορφωθώ με όλες τις πολιτικές του Lichess.</string>
+  <string name="agreementPolicy">Αποδέχομαι ότι θα συμμορφωθώ με όλες τις πολιτικές του Lishogi.</string>
   <string name="searchOrStartNewDiscussion">Αναζήτηση ή έναρξη νέας συνομιλίας</string>
   <string name="edit">Επεξεργασία</string>
   <string name="classical">Κλασικό</string>
@@ -848,7 +821,6 @@
   <string name="rapidDesc">Παρτίδες rapid: 8 έως 25 λεπτά</string>
   <string name="classicalDesc">Κλασικές παρτίδες: 25 λεπτά και άνω</string>
   <string name="correspondenceDesc">Παρτίδες αλληλογραφίας: μία ή περισσότερες μέρες για την κίνηση</string>
-  <string name="puzzleDesc">Εξάσκηση τακτικών</string>
   <string name="important">Σημαντικό</string>
   <string name="yourQuestionMayHaveBeenAnswered">Η ερώτησή σας μπορεί να έχει απαντηθεί ήδη %1$s</string>
   <string name="inTheFAQ">στις συχνές ερωτήσεις.</string>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Speel tegen een vriend</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Speel tegen een vriend</string>
   <string name="playWithTheMachine">Speel tegen de computer</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Deel deze link als u iemand wil uitnodigen om met u te spelen</string>
   <string name="gameOver">Partij afgelopen</string>
@@ -247,7 +246,6 @@
   <string name="recipient">Ontvanger</string>
   <string name="send">Verstuur</string>
   <string name="incrementInSeconds">Seconden extra per zet</string>
-  <string name="freeOnlineChess">Gratis online schaken</string>
   <string name="spectators">Toeschouwers:</string>
   <plurals name="nbRated">
     <item quantity="one">%s met rating</item>
@@ -275,7 +273,7 @@
     <item quantity="one">Geef %s seconde</item>
     <item quantity="other">Geef %s seconden</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Deze account heeft de Lichess Servicevoorwaarden geschonden</string>
+  <string name="thisAccountViolatedTos">Deze account heeft de Lishogi Servicevoorwaarden geschonden</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Deze speler verhoogt/verlaagt zijn rating kunstmatig</string>
   <string name="openingExplorerAndTablebase">Openingverkenner &amp; tablebase</string>
   <string name="takeback">Neem zet terug</string>
@@ -325,7 +323,6 @@
   <string name="mustBeInTeam">Je moet in team %s zitten</string>
   <string name="youAreNotInTeam">Je zit niet in het team %s</string>
   <string name="backToGame">Terug naar partij</string>
-  <string name="siteDescription">Gratis online schaken. Schaak nu met een heldere vormgeving. Geen registratie nodig, geen advertenties, geen plug-ins vereist. Schaak tegen de computer, vrienden of willekeurige tegenstanders.</string>
   <string name="xJoinedTeamY">%1$s sloot zich bij team %2$s aan</string>
   <string name="xCreatedTeamY">%1$s heeft team %2$s opgericht</string>
   <string name="xStartedStreaming">%s is begonnen met streamen</string>
@@ -347,9 +344,7 @@
     <item quantity="one">%s Geïmporteerde partij</item>
     <item quantity="other">%s Geïmporteerde partijen</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Dit is een schaak CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klik op het bord om je zet te spelen en te bewijzen dat je een mens bent.</string>
-  <string name="captcha.fail">Gelieve de schaak-captcha op te lossen.</string>
   <string name="notACheckmate">Dit is geen schaakmat</string>
   <string name="whiteCheckmatesInOneMove">Wit zet schaakmat in één zet</string>
   <string name="blackCheckmatesInOneMove">Zwart zet schaakmat in één zet</string>
@@ -400,7 +395,6 @@
   <string name="advancedSettings">Geavanceerde instellingen</string>
   <string name="safeTournamentName">Kies een zeer veilige naam voor het toernooi.</string>
   <string name="inappropriateNameWarning">Bij zelfs het minste vermoeden van een misplaatst gekozen naam, kan uw account gesloten worden.</string>
-  <string name="emptyTournamentName">Laat het veld leeg om het toernooi naar een willekeurige grootmeester te vernoemen.</string>
   <string name="recommendNotTouching">Wij raden aan om deze niet aan te raken.</string>
   <string name="fewerPlayers">Als u voorwaarden voor deelname instelt, zullen er minder spelers meedoen.</string>
   <string name="showAdvancedSettings">Toon uitgebreide instellingen &gt;&gt;</string>
@@ -448,8 +442,6 @@
   <string name="country">Land</string>
   <string name="socialMediaLinks">Links naar sociale media</string>
   <string name="inlineNotation">Geïntegreerde notatie</string>
-  <string name="watchLichessTV">Kijk Lichess TV</string>
-  <string name="previouslyOnLichessTV">Voorheen op Lichess TV</string>
   <string name="onlinePlayers">Online spelers</string>
   <string name="activeToday">Vandaag actief</string>
   <string name="activePlayers">Actieve spelers</string>
@@ -469,7 +461,7 @@
   <string name="butYouCanKeepTrying">Maar je kunt het blijven proberen.</string>
   <string name="success">Succes</string>
   <string name="wasThisPuzzleAnyGood">Was dit een goede puzzel?</string>
-  <string name="pleaseVotePuzzle">Verbeter lichess door te stemmen met de pijl naar boven of beneden.</string>
+  <string name="pleaseVotePuzzle">Verbeter lishogi door te stemmen met de pijl naar boven of beneden.</string>
   <string name="thankYou">Bedankt!</string>
   <string name="ratingX">Rating: %s</string>
   <string name="hidden">verborgen</string>
@@ -562,7 +554,6 @@
   <string name="starting">Startend:</string>
   <string name="allInformationIsPublicAndOptional">Alle informatie is publiek toegankelijk en optioneel.</string>
   <string name="yourCityRegionOrDepartment">Je stad, regio of provincie.</string>
-  <string name="biographyDescription">Vertel over jezelf, wat je aantrekt in schaken, je favoriete openingen, partijen, spelers…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maximaal: %s teken.</item>
     <item quantity="other">Maximaal: %s tekens.</item>
@@ -578,7 +569,6 @@
   <string name="clock">Klok</string>
   <string name="unauthorizedError">Toegang geweigerd</string>
   <string name="noInternetConnection">Geen internetverbinding. U kan nog wel offline spelen vanuit het menu.</string>
-  <string name="connectedToLichess">U bent nu verbonden met lichess.org</string>
   <string name="signedOut">U bent uitgelogd</string>
   <string name="loginSuccessful">Inloggen succesvol</string>
   <string name="playOnTheBoardOffline">Speel offline</string>
@@ -620,7 +610,6 @@
   <string name="webmasters">Webmasters</string>
   <string name="about">Over ons</string>
   <string name="aboutX">Over %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is een gratis (%2$s), vrije, advertentie-loze open source schaakserver.</string>
   <string name="really">echt waar</string>
   <string name="contribute">Draag bij</string>
   <string name="termsOfService">Algemene voorwaarden</string>
@@ -644,7 +633,6 @@
   <string name="simulClockHint">Fischer-speeltempo. Hoe meer tegenstanders er zijn, hoe meer tijd je nodig hebt.</string>
   <string name="simulAddExtraTime">Je mag extra tijd aan je eigen klok toevoegen om beter met de simultaan om te kunnen gaan.</string>
   <string name="simulHostExtraTime">Extra tijd voor de simultaangever</string>
-  <string name="lichessTournaments">Lichess toernooien</string>
   <string name="tournamentFAQ">Veelgestelde vragen over Arena toernooien</string>
   <string name="tournamentOfficial">Officieel</string>
   <string name="timeBeforeTournamentStarts">Tijd voordat het toernooi start</string>
@@ -655,8 +643,6 @@
   <string name="keyShowOrHideComments">toon/verberg opmerkingen</string>
   <string name="keyEnterOrExitVariation">vermeld/stop variant</string>
   <string name="newTournament">Nieuw toernooi</string>
-  <string name="tournamentHomeTitle">Schaaktoernooi met verschillende speelduur en varianten</string>
-  <string name="tournamentHomeDescription">Speel snelle schaaktoernooien! Neem deel aan een officieel gepland toernooi, of maak er zelf een. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, en meer opties verkrijgbaar voor eindeloos schaakplezier.</string>
   <string name="tournamentNotFound">Toernooi niet gevonden</string>
   <string name="tournamentDoesNotExist">Dit toernooi bestaat niet.</string>
   <string name="tournamentMayHaveBeenCanceled">Het is mogelijk afgelast, indien alle spelers zijn weggegaan voordat het toernooi gestart was.</string>
@@ -678,8 +664,6 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Als je de email niet ziet, kijk dan op andere plaatsen, zoals je spam of andere mappen.</string>
   <string name="weHaveSentYouAnEmailTo">We hebben een email verstuurd naar %s. Klik op de link in de email om je wachtwoord te resetten.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Door je registratie ben je gebonden aan onze %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Netwerkvertraging tussen u en Lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Tijd om een zet te verwerken op de lichess server</string>
   <string name="downloadAnnotated">Download de geannoteerde partij</string>
   <string name="downloadRaw">Download PGN</string>
   <string name="downloadImported">Download de geïmporteerde partij</string>
@@ -688,29 +672,23 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Je kunt ook over het bord scrollen om je zetten uit te voeren.</string>
   <string name="analysisShapesHowTo">Druk op shift+linkermuisknop of rechtermuisknop om cirkels en pijlen op het bord te tekenen.</string>
   <string name="letOtherPlayersMessageYou">Andere spelers mogen je berichten zenden</string>
-  <string name="shareYourInsightsData">Deel de data van je partijen</string>
   <string name="withNobody">Met niemand</string>
   <string name="withFriends">Met vrienden</string>
   <string name="withEverybody">Met iedereen</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Je hebt je al geregistreerd via deze email: %s</string>
   <string name="kidMode">Kindvriendelijke modus</string>
   <string name="kidModeExplanation">Dit gaat over veiligheid. In kindvriendelijke modus, worden alle communicatiemogelijkheden op de website uitgeschakeld. Activeer dit voor kinderen en scholieren, om hen te beschermen tegen andere internetgebruikers.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">In kindvriendelijke modus, krijgt het Lichess-logo een %s-icoontje, zodat je weet dat je kinderen veilig zijn.</string>
   <string name="enableKidMode">Activeer Kindermodus</string>
   <string name="disableKidMode">Deactiveer Kindermodus</string>
   <string name="security">Beveiliging</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Dit is een lijst van apparaten die zijn aangemeld op je account. Stop alle sessies die je niet herkent.</string>
   <string name="alternativelyYouCanX">Als alternatief kunt u %s.</string>
   <string name="revokeAllSessions">alle sessies intrekken</string>
-  <string name="playChessEverywhere">Schaak overal</string>
-  <string name="asFreeAsLichess">Zo gratis als lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Gemaakt met liefde voor het schaken, niet voor geld</string>
   <string name="everybodyGetsAllFeaturesForFree">Iedereen krijgt gratis alle mogelijkheden</string>
   <string name="zeroAdvertisement">Geen advertenties</string>
   <string name="fullFeatured">Volledig geïntegreerd</string>
   <string name="phoneAndTablet">Telefoon en tablet</string>
   <string name="bulletBlitzClassical">Bullet, blitz, klassiek</string>
-  <string name="correspondenceChess">Correspondentiepartijen</string>
   <string name="onlineAndOfflinePlay">Online en offline spelen</string>
   <string name="viewTheSolution">Bekijk de oplossing</string>
   <string name="followAndChallengeFriends">Volg vrienden en daag ze uit</string>
@@ -743,9 +721,6 @@
   <string name="usernameSuffixInvalid">De gebruikersnaam moet eindigen met een letter of een cijfer.</string>
   <string name="usernameCharsInvalid">De gebruikersnaam mag alleen letters, cijfers, underscores, en koppeltekens bevatten.</string>
   <string name="usernameUnacceptable">Deze gebruikersnaam is niet acceptabel.</string>
-  <string name="directlySupportLichess">Lichess direct ondersteunen</string>
-  <string name="playChessInStyle">Speel schaken in stijl</string>
-  <string name="chessBasics">Basis schaken</string>
   <string name="coaches">Coaches</string>
   <string name="invalidPgn">Ongeldige PGN</string>
   <string name="invalidFen">Ongeldige FEN</string>
@@ -822,7 +797,6 @@
   <string name="weHadToTimeYouOutForAWhile">We moesten je voor een korte tijd een time-out geven.</string>
   <string name="timeoutExpires">The time-out verloopt %s.</string>
   <string name="why">Waarom?</string>
-  <string name="pleasantChessExperience">Wij streven ernaar om iedereen een prettige schaakervaring te bieden.</string>
   <string name="goodPractice">Daarom moeten we ervoor zorgen dat alle spelers goede praktijken volgen.</string>
   <string name="potentialProblem">Wanneer een mogelijk probleem is gedetecteerd, tonen we dit bericht.</string>
   <string name="howToAvoidThis">Hoe kunnen we dit voorkomen?</string>
@@ -830,14 +804,13 @@
   <string name="tryToWin">Probeer elke partij die je speelt te winnen (of tenminste gelijk te spelen).</string>
   <string name="resignLostGames">Geef verloren partijen op (laat de klok niet tot 0 lopen).</string>
   <string name="temporaryInconvenience">Onze excuses voor het tijdelijke ongemak,</string>
-  <string name="wishYouGreatGames">en wij wensen u veel goede partijen op lichess.org.</string>
+  <string name="wishYouGreatGames">en wij wensen u veel goede partijen op lishogi.org.</string>
   <string name="thankYouForReading">Bedankt voor het lezen!</string>
   <string name="lifetimeScore">Levenslange score</string>
   <string name="currentMatchScore">Huidige wedstrijd score</string>
-  <string name="agreementAssistance">Ik ga ermee akkoord dat ik tijdens mijn partijen geen hulp krijg (van een schaakcomputer, -boek, -database of ander persoon).</string>
   <string name="agreementNice">Ik ga ermee akkoord dat ik altijd respectvol tegenover andere spelers zal zijn.</string>
   <string name="agreementAccount">Ik ga ermee akkoord dat ik niet meerdere accounts zal aanmaken.</string>
-  <string name="agreementPolicy">Ik ga ermee akkoord dat ik de Lichess-regels zal volgen.</string>
+  <string name="agreementPolicy">Ik ga ermee akkoord dat ik de Lishogi-regels zal volgen.</string>
   <string name="searchOrStartNewDiscussion">Zoek of start een nieuwe discussie</string>
   <string name="edit">Wijzigen</string>
   <string name="rapid">Rapid</string>
@@ -848,7 +821,6 @@
   <string name="rapidDesc">Korte partijen: 8 tot 25 minuten</string>
   <string name="classicalDesc">Klassieke partijen: 25 minuten en meer</string>
   <string name="correspondenceDesc">Correspondentiepartijen: een of meer dagen per zet</string>
-  <string name="puzzleDesc">Schaaktactieken trainer</string>
   <string name="important">Belangrijk</string>
   <string name="yourQuestionMayHaveBeenAnswered">Je vraag heeft mogelijk al een antwoord %1$s</string>
   <string name="inTheFAQ">in de veelgestelde vragen</string>

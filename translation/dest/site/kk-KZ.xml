@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Досынмен ойнау</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Досынмен ойнау</string>
   <string name="playWithTheMachine">Компьютермен ойын</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Танысыңызбен ойнау үшін бұл сілтемені жіберіңіз</string>
   <string name="gameOver">Ойынның соңы</string>
@@ -222,7 +221,6 @@
   <string name="recipient">Recipient</string>
   <string name="send">Jiberý</string>
   <string name="incrementInSeconds">Секунд қосылады</string>
-  <string name="freeOnlineChess">Тегін онлайн шахмат</string>
   <string name="spectators">Көрермен</string>
   <plurals name="nbRated">
     <item quantity="one">%s nomınaldy</item>
@@ -279,7 +277,6 @@
   <string name="mustBeInTeam">%s komandasynda bolý kerek</string>
   <string name="youAreNotInTeam">Siz komandada emes %s</string>
   <string name="backToGame">Ойынға оралу</string>
-  <string name="siteDescription">Тікелей желідегі тегін шахмат сервері. Еш тіркелмей-ақ, плагин қоймай-ақ, жарнама көрмей-ақ қарапайым интерфейс арқылы тап қазір шахмат ойнаңыз. Ойыныңызды компьютермен, досыңызбен әлде кездейсоқ қарсыласпен ойнаңыз.</string>
   <string name="xJoinedTeamY">%1$s, %2$s s командасына қосылды</string>
   <string name="xCreatedTeamY">%1$s, %2$s командасын жасады</string>
   <string name="xStartedStreaming">%s ағын бастады</string>
@@ -343,7 +340,6 @@
   <string name="advancedSettings">Qosymsha parametrler</string>
   <string name="safeTournamentName">Týrnır úshin óte qaýipsiz ataýdy tańdańyz.</string>
   <string name="inappropriateNameWarning">Barlyq, tipti sál orynsyz, múmkin jabý sizdiń shot.</string>
-  <string name="emptyTournamentName">Belgili shahmatshynyń qurmetine týrnırdi ataý úshin bos qaldyryńyz.</string>
   <string name="recommendNotTouching">Biz olardy ustamaýǵa keńes beremiz.</string>
   <string name="fewerPlayers">Eger siz kirý sharttaryn ornatsańyz, onda sizdiń týrnırińizde oıynshylar az bolady.</string>
   <string name="showAdvancedSettings">Qosymsha parametrlerdi kórsetý</string>
@@ -374,7 +370,6 @@
   <string name="setTheBoard">Taqtany ornatyńyz</string>
   <string name="popularOpenings">Qyzyqty nachalo</string>
   <string name="startPosition">Bastapqy pozichia</string>
-  <string name="watchLichessTV">Lichess TВ көріп отыру</string>
   <string name="learnMenu">Үйрену</string>
   <string name="community">Қоғамдастығы</string>
   <string name="tools">Құралдар</string>

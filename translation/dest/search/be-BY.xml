@@ -1,13 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search">Пошук</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="search">Пошук</string>
   <string name="advancedSearch">Пашыраны пошук</string>
-  <plurals name="searchInXGames">
-    <item quantity="one">Шукаць у %s гульне</item>
-    <item quantity="few">Шукаць у %s гульнях</item>
-    <item quantity="many">Шукаць у %s гульнях</item>
-    <item quantity="other">Шукаць у %s гульнях</item>
-  </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">Знойдзена %s гульня</item>
     <item quantity="few">Знойдзена %s гульні</item>

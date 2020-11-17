@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="isItRated">Чансаа тооцох уу?</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="isItRated">Чансаа тооцох уу?</string>
   <string name="willBeNotified">Тэмцээн эхлэхэд танд мэдэгдэх учир хүлээж байх зуураа өөр цонхонд тоглож байж болно.</string>
   <string name="isRated">Энэ тэмцээнд үнэлгээ тооцогдох ба тоглочдын чансаа бодогдоно.</string>
   <string name="isNotRated">Энэ тэмцээнд үнэлгээ тооцогдохгүй ба тоглогчдын чансаанд нөлөөлөхгүй.</string>

@@ -1,12 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="lichessStreamers">Streamers sur Lichess</string>
-  <string name="lichessStreamer">Lichess streamer</string>
-  <string name="live">EN DIRECT !</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="live">EN DIRECT !</string>
   <string name="offline">HORS LIGNE</string>
   <string name="currentlyStreaming">En cours de streaming %s</string>
   <string name="lastStream">Dernière diffusion %s</string>
-  <string name="becomeStreamer">Devenir un streamer sur Lichess</string>
+  <string name="becomeStreamer">Devenir un streamer sur Lishogi</string>
   <string name="doYouHaveStream">Avez-vous une chaîne Twitch ou YouTube ?</string>
   <string name="hereWeGo">Allons-y !</string>
   <string name="allStreamers">Tous les streamers</string>
@@ -15,27 +12,27 @@
   <string name="downloadKit">Téléchargez le kit streamer</string>
   <string name="xIsStreaming">%s est en train de streamer</string>
   <string name="rules">Règles de streaming</string>
-  <string name="rule1">Incluez \"lichess.org\" dans votre titre de streaming lorsque vous streamez sur Lichess.</string>
-  <string name="rule2">Retirez le mot-clé lorsque vous ne streamez pas à propos de Lichess.</string>
-  <string name="rule3">Lichess détectera automatiquement votre stream et activera les avantages suivants :</string>
+  <string name="rule1">Incluez \"lishogi.org\" dans votre titre de streaming lorsque vous streamez sur Lishogi.</string>
+  <string name="rule2">Retirez le mot-clé lorsque vous ne streamez pas à propos de Lishogi.</string>
+  <string name="rule3">Lishogi détectera automatiquement votre stream et activera les avantages suivants :</string>
   <string name="perks">Avantages du streaming avec le mot-clé</string>
-  <string name="perk1">Obtenez une flamboyante icône de streamer sur votre profil Lichess.</string>
+  <string name="perk1">Obtenez une flamboyante icône de streamer sur votre profil Lishogi.</string>
   <string name="perk2">Soyez remonté en haut de la liste des streamers.</string>
-  <string name="perk3">Notifier vos suiveurs sur Lichess.</string>
+  <string name="perk3">Notifier vos suiveurs sur Lishogi.</string>
   <string name="perk4">Montrez votre stream dans vos parties, tournois et études.</string>
   <string name="approved">Votre stream est approuvé.</string>
   <string name="pendingReview">Votre stream est en cours de révision par les modérateurs.</string>
   <string name="pleaseFillIn">Veuillez remplir vos informations de streamer et envoyer une photo.</string>
-  <string name="whenReady">Lorsque vous êtes prêt à être listé en tant que streamer Lichess, %s</string>
+  <string name="whenReady">Lorsque vous êtes prêt à être listé en tant que streamer Lishogi, %s</string>
   <string name="requestReview">demander une revue par un modérateur</string>
   <string name="anotherLanguage">Si votre stream est dans une autre langue que l\'anglais, incluez la bonne balise de langue (%s), entourée de crochets, au début de votre titre de flux.
 Par exemple, inclure \"[FR]\" pour le français, \"[DE]\" pour le allemand, \"[RU]\" pour le russe, etc.
-Mettez-le dans le titre du stream sur la page Twitch ou YouTube, pas dans les paramètres du stream Lichess.
+Mettez-le dans le titre du stream sur la page Twitch ou YouTube, pas dans les paramètres du stream Lishogi.
 Si votre stream est en anglais, il n\'est pas nécessaire d\'inclure un tag de langue.</string>
   <string name="twitchUsername">Votre nom d\'utilisateur Twitch ou votre URL</string>
   <string name="optionalOrEmpty">Optionnel. Laisser vide si aucun</string>
   <string name="youtubeChannel">Votre ID de chaîne YouTube ou votre URL</string>
-  <string name="streamerName">Votre nom de streamer sur Lichess</string>
+  <string name="streamerName">Votre nom de streamer sur Lishogi</string>
   <plurals name="keepItShort">
     <item quantity="one">Restez brief %s caractère max</item>
     <item quantity="other">Restez brief %s caractères max</item>

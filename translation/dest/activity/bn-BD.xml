@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="activity">কার্যকলাপ</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="activity">কার্যকলাপ</string>
   <string name="hostedALiveStream">একটি লাইভ স্ট্রিম হোষ্টেড করেছেন</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">সাপোর্ট করেছেন lichess.org সাইটকে %1$s মাসের জন্য %2$s হিসেবে</item>
-    <item quantity="other">সাপোর্ট করেছেন lichess.org সাইটকে %1$s মাসের জন্য %2$s হিসেবে</item>
+    <item quantity="one">সাপোর্ট করেছেন lishogi.org সাইটকে %1$s মাসের জন্য %2$s হিসেবে</item>
+    <item quantity="other">সাপোর্ট করেছেন lishogi.org সাইটকে %1$s মাসের জন্য %2$s হিসেবে</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">অভ্যস্ত %1$s অবস্থান করত %2$s</item>
@@ -62,7 +61,7 @@
     <item quantity="one">অনুপাত #%1$s (সর্বোচ্চ %2$s%%) সাথে %3$s খেলায় %4$s</item>
     <item quantity="other">অনুপাত #%1$s (সর্বোচ্চ %2$s%%) সাথে %3$s খেলায় %4$s</item>
   </plurals>
-  <string name="signedUp">Lichess.org সাইন আপ করুন</string>
+  <string name="signedUp">Lishogi.org সাইন আপ করুন</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">যুক্ত হয়েছে %s দল</item>
     <item quantity="other">যুক্ত হয়েছে %s দল</item>

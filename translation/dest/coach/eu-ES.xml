@@ -1,10 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="lichessCoaches">Lichess entrenatzaileak</string>
-  <string name="lichessCoach">Lichess entrenatzailea</string>
-  <string name="areYouCoach">%s tituludun xake entrenatzailea zara?</string>
-  <string name="nmOrFideTitle">NM edo FIDE titulua</string>
-  <string name="confirmTitle">Baieztatu hemen zure titulua eta zure eskaera gainbegiratuko dugu.</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="confirmTitle">Baieztatu hemen zure titulua eta zure eskaera gainbegiratuko dugu.</string>
   <string name="sendApplication">Bidali iezaguzu eposta bat %s helbidera eta zure eskaera berrikusiko dugu.</string>
   <string name="location">Herria</string>
   <string name="languages">Hizkuntzak</string>
@@ -13,7 +8,6 @@
   <string name="availability">Egoera</string>
   <string name="accepting">Ikasleak onartzen i</string>
   <string name="notAccepting">Orain ez du ikaslerik onartzen</string>
-  <string name="xCoachesStudents">%s erabiltzaileak ikaslean entrenatzen ditu</string>
   <string name="viewXProfile">Ikusi %s erabiltzailearen profila</string>
   <string name="sendPM">Mezu pribatua bidali</string>
   <string name="aboutMe">Niri buruz</string>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="private">Özəl</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="private">Özəl</string>
   <string name="myStudies">Çalışmalarım</string>
   <string name="studiesIContributeTo">Töhfə verdiyim çalışmalar</string>
   <string name="myPublicStudies">İctimai çalışmalarım</string>

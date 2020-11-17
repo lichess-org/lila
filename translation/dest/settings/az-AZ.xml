@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">Tənzimləmələr</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="settings">Tənzimləmələr</string>
   <string name="closeAccount">Hesabı bağla</string>
   <string name="closingIsDefinitive">Bu əməliyyatın geri dönüşü yoxdur. Əminsiniz?</string>
   <string name="cantOpenSimilarAccount">Böyük kiçik hərf dəyişiklikləri etsəniz belə eyni istifadəçi adı ilə yeni hesab açmağınıza icazə verilməyəcək.</string>

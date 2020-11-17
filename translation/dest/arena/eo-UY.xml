@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="arenaTournaments">Arena turniroj</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="arenaTournaments">Arena turniroj</string>
   <string name="isItRated">Ĉu ĝi estas taksita?</string>
   <string name="willBeNotified">Vi estos sciigita kiam la turniro komenciĝas, do ĝi estas sekura ludi en alia langeto dum ĝi atendas.</string>
   <string name="isRated">Ĉi tiu turniro rangas kaj influos vian rangon.</string>
   <string name="isNotRated">Ĉi tiu turniro estas *ne* rangita kaj volos *ne* influos vian rangon.</string>
   <string name="someRated">Luj turniroj rangas kaj influos vian rangon.</string>
-  <string name="howAreScoresCalculated">Kiel lichess kalkulas poentarojn?</string>
+  <string name="howAreScoresCalculated">Kiel lishogi kalkulas poentarojn?</string>
   <string name="howAreScoresCalculatedAnswer">Venko havas bazan poentaron de 2 poentoj, sorto: 1 punkto, kaj perdo valoras neniujn punktojn.
 Se vi gajnos du ludojn sinsekve vi komencos duoblan punkton, reprezentitan per flamo-ikono.
 La sekvaj ludoj daŭre valoras duoble punktojn ĝis vi ne gajnos ludon.

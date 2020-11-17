@@ -1,10 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="lichessCoaches">Lichess treneri</string>
-  <string name="lichessCoach">Lichess trener</string>
-  <string name="areYouCoach">Jesi li sjajni trener šaha sa %s?</string>
-  <string name="nmOrFideTitle">NM ili FIDE titulom</string>
-  <string name="confirmTitle">Potvrdi titulu ovdje pa ćemo pregledati tvoju prijavu.</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="confirmTitle">Potvrdi titulu ovdje pa ćemo pregledati tvoju prijavu.</string>
   <string name="sendApplication">Pošalji nam email na %s pa ćemo pregledati tvoju prijavu.</string>
   <string name="location">Lokacija</string>
   <string name="languages">Jezici</string>
@@ -13,8 +8,7 @@
   <string name="availability">Dostupnost</string>
   <string name="accepting">Prihvaća učenike</string>
   <string name="notAccepting">Trenutno ne prihvaća učenike</string>
-  <string name="xCoachesStudents">%s trenira šahovske studente</string>
-  <string name="viewXProfile">Pogledaj %s Lichess profil</string>
+  <string name="viewXProfile">Pogledaj %s Lishogi profil</string>
   <string name="sendPM">Pošalji privatnu poruku</string>
   <string name="aboutMe">O meni</string>
   <string name="playingExperience">Igračko iskustvo</string>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="twoFactorAuth">Dviejų lygių tapatumo nustatymas</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="twoFactorAuth">Dviejų lygių tapatumo nustatymas</string>
   <string name="twoFactorHelp">Dviejų lygių tapatumo nustatymas jūsų paskyrai suteikia papildomą saugumo sluoksnį.</string>
   <string name="twoFactorApp">Dviejų lygių tapatumo nustatymui reikalinga programa, pvz., „Google Authenticator“, skirta „%1$s“ arba „%2$s“.</string>
   <string name="scanTheCode">Nuskaitykite QR kodą su programa.</string>

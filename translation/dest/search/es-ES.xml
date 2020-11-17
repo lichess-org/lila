@@ -1,11 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search">Búsqueda</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="search">Búsqueda</string>
   <string name="advancedSearch">Búsqueda avanzada</string>
-  <plurals name="searchInXGames">
-    <item quantity="one">Busca en %s partida</item>
-    <item quantity="other">Busca en %s partidas</item>
-  </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">Se ha encontrado %s partida</item>
     <item quantity="other">Se han encontrado %s partidas</item>

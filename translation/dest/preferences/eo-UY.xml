@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">Preferoj</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">Preferoj</string>
   <string name="gameDisplay">Aspekto de ludoj</string>
   <string name="pieceAnimation">Animacio de ŝakpecoj</string>
   <string name="materialDifference">Materiala diferenco</string>
@@ -9,13 +8,9 @@
   <string name="boardCoordinates">Tabulaj koordinatoj (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Listo de movoj dum ludado</string>
   <string name="pgnPieceNotation">Mova notado</string>
-  <string name="chessPieceSymbol">Ŝakpecaj simboloj</string>
-  <string name="pgnLetter">Litero (R, D, T, K, Ĉ)</string>
   <string name="zenMode">Zen modo</string>
   <string name="displayBoardResizeHandle">Montri la grandecregilon de la ŝaktabulo</string>
   <string name="onlyOnInitialPosition">Nur sur komenca pozicio</string>
-  <string name="blindfoldChess">Blinda ŝako (nevideblaj ŝakpecoj)</string>
-  <string name="chessClock">Ŝakhorloĝo</string>
   <string name="tenthsOfSeconds">Dekonoj da sekundoj</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Kiam restas malpli ol 10 sekundoj</string>
   <string name="horizontalGreenProgressBars">Horizontalaj verdaj progreso-strioj</string>

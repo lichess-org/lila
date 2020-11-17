@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="contact">Επικοινωνία</string>
-  <string name="contactLichess">Επικοινωνήστε με Lichess</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="contact">Επικοινωνία</string>
   <string name="whatCanWeHelpYouWith">Πως μπορούμε να σας βοηθήσουμε;</string>
   <string name="visitThisPage">Επισκεφτείτε αυτή τη σελίδα για επίλυση του προβλήματος</string>
   <string name="iCantLogIn">Δεν μπορώ να συνδεθώ</string>
@@ -12,8 +10,8 @@
   <string name="lost2FA">Έχασα τους κωδικούς ταυτοποίησης δύο παραγόντων</string>
   <string name="doPasswordReset">Κάντε επαναφορά κωδικού για απενεργοποίηση του δεύτερου παράγοντα</string>
   <string name="accountSupport">Χρειάζομαι υποστήριξη για λογαριασμό</string>
-  <string name="wantTitle">Επιθυμώ ο τίτλος μου να εμφανίζεται στο Lichess</string>
-  <string name="visitTitleConfirmation">Για να εμφανίζεται ο τίτλος σας στο προφίλ του Lichess, και να συμμετέχετε στην Αρένα Τιτλούχων, επισκεφτείτε την σελίδα επιβεβαίωσης τίτλων</string>
+  <string name="wantTitle">Επιθυμώ ο τίτλος μου να εμφανίζεται στο Lishogi</string>
+  <string name="visitTitleConfirmation">Για να εμφανίζεται ο τίτλος σας στο προφίλ του Lishogi, και να συμμετέχετε στην Αρένα Τιτλούχων, επισκεφτείτε την σελίδα επιβεβαίωσης τίτλων</string>
   <string name="wantCloseAccount">Επιθυμώ το κλείσιμο του λογαριασμού μου</string>
   <string name="closeYourAccount">Μπορείτε να κλείσετε τον λογαριασμό σας σε αυτή τη σελίδα</string>
   <string name="doNotAskByEmail">Μην μας ζητάτε με email να κλείσουμε ένας λογαριασμό, διότι δεν θα το κάνουμε.</string>
@@ -38,10 +36,10 @@
   <string name="doNotMessageModerators">Μην στέλνετε απευθείας μηνύματα στους διαχειριστές.</string>
   <string name="onlyReports">Είναι εφικτή η αναφορά παικτών μόνο μέσω της φόρμας αναφοράς.</string>
   <string name="wantReportBug">Επιθυμώ να αναφέρω ένα σφάλμα</string>
-  <string name="reportBugInForum">Στο φόρουμ Lichess Feedback</string>
-  <string name="reportWebsiteIssue">Ως πρόβλημα της ιστοσελίδας του Lichess στο GitHub</string>
-  <string name="reportMobileIssue">Ως πρόβλημα στην εφαρμογή κινητών του Lichess στο GitHub</string>
-  <string name="reportBugInDiscord">Στο discord σερβερ του Lichess</string>
+  <string name="reportBugInForum">Στο φόρουμ Lishogi Feedback</string>
+  <string name="reportWebsiteIssue">Ως πρόβλημα της ιστοσελίδας του Lishogi στο GitHub</string>
+  <string name="reportMobileIssue">Ως πρόβλημα στην εφαρμογή κινητών του Lishogi στο GitHub</string>
+  <string name="reportBugInDiscord">Στο discord σερβερ του Lishogi</string>
   <string name="howToReportBug">Περιγράψτε το σφάλμα, τι περιμένατε να συμβεί κανονικά, και τα βήματα για αναπαραγωγή του σφάλματος.</string>
   <string name="illegalPawnCapture">Μη νόμιμο κόψιμο πιονιού</string>
   <string name="calledEnPassant">Ονομάζεται \"en passant\" και είναι ένας από τους κανόνες του σκακιού.</string>
@@ -65,12 +63,11 @@
   <string name="accountLost">Αν όμως πράγματι χρησιμοποιήσατε βοήθεια μηχανής, ακόμη και μία μόνο φορά, τότε δυστυχώς ο λογαριασμός σας θα διαγραφεί.</string>
   <string name="doNotDeny">Μην αρνείστε ότι εξαπατήσατε. Αν θέλετε να σας επιτραπεί η δημιουργία νέου λογαριασμού, απλά παραδεχθείτε τις πράξεις σας, και αποδείξτε ότι καταλάβατε ότι ήταν λάθος σας.</string>
   <string name="otherRestriction">Άλλος περιορισμός</string>
-  <string name="buyingLichess">Αγοράζοντας Lichess</string>
-  <string name="authorizationToUse">Έγκριση για χρησιμοποίηση του Lichess</string>
-  <string name="welcomeToUse">Είστε ευπρόσδεκτοι να χρησιμοποιήσετε το Lichess για τις δραστηριότητές σας, ακόμα και τις εμπορικές.</string>
-  <string name="videosAndBooks">Μπορείτε να το εμφανίσετε στα βίντεο σας, και μπορείτε να εκτυπώσετε στιγμιότυπα του Lichess στα βιβλία σας.</string>
+  <string name="authorizationToUse">Έγκριση για χρησιμοποίηση του Lishogi</string>
+  <string name="welcomeToUse">Είστε ευπρόσδεκτοι να χρησιμοποιήσετε το Lishogi για τις δραστηριότητές σας, ακόμα και τις εμπορικές.</string>
+  <string name="videosAndBooks">Μπορείτε να το εμφανίσετε στα βίντεο σας, και μπορείτε να εκτυπώσετε στιγμιότυπα του Lishogi στα βιβλία σας.</string>
   <string name="creditAppreciated">Η πληρωμή εκτιμάται αλλά δεν απαιτείται.</string>
   <string name="noneOfTheAbove">Κανένα απο τα παραπάνω</string>
   <string name="sendEmailAt">Στείλτε μας email στο %s.</string>
-  <string name="explainYourRequest">Παρακαλώ εξηγήστε το αίτημά σας με σαφή και λεπτομερή τρόπο. Δηλώστε το όνομα χρήστη σας στο Lichess, και κάθε πληροφορία που θα μπορούσε να μας βοηθήσει να σας βοηθήσουμε.</string>
+  <string name="explainYourRequest">Παρακαλώ εξηγήστε το αίτημά σας με σαφή και λεπτομερή τρόπο. Δηλώστε το όνομα χρήστη σας στο Lishogi, και κάθε πληροφορία που θα μπορούσε να μας βοηθήσει να σας βοηθήσουμε.</string>
 </resources>

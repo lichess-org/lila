@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="private">පෞද්ගලික</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="private">පෞද්ගලික</string>
   <string name="myStudies">මගේ අධ්‍යයන</string>
   <string name="studiesIContributeTo">මම දායක වන අධ්‍යයන</string>
   <string name="myPublicStudies">මගේ පොදු අධ්‍යයන</string>

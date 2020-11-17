@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="activity">Hereket</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="activity">Hereket</string>
   <plurals name="practicedNbPositions">
     <item quantity="one">%2$s kategoriýasynda %1$s pozisiýa türgenleşdi</item>
     <item quantity="other">%2$s kategoriýasynda %1$s pozisiýa türgenleşdi</item>
@@ -49,7 +48,7 @@
     <item quantity="one">%3$s oýun bilen %4$s bäsleşiginde %1$s. orun aldy (naýbaşy %2$s%%)</item>
     <item quantity="other">%3$s oýun bilen %4$s bäsleşiginde %1$s. orun aldy (naýbaşy %2$s%%)</item>
   </plurals>
-  <string name="signedUp">Lichess.org-a agza boldy</string>
+  <string name="signedUp">Lishogi.org-a agza boldy</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s topara agza boldy</item>
     <item quantity="other">%s topara agza boldy</item>

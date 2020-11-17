@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">Configuración</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="settings">Configuración</string>
   <string name="closeAccount">Pechar conta</string>
   <string name="closingIsDefinitive">A eliminación da conta é irreversible. Estás seguro de querer continuar?</string>
   <string name="cantOpenSimilarAccount">Non se che permitirá abrir outra conta co mesmo nome, nin sequera cambiando maiúsculas e minúsculas.</string>

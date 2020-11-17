@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="private">개인</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="private">개인</string>
   <string name="myStudies">나의 연구</string>
   <string name="myPublicStudies">내 공개 연구</string>
   <string name="myPrivateStudies">내 개인 연구</string>

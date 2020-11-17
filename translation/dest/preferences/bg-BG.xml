@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">Предпочитания</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">Предпочитания</string>
   <string name="gameDisplay">Проява</string>
   <string name="pieceAnimation">Движение на фигурите</string>
   <string name="materialDifference">Разлика в притежанието</string>
@@ -9,12 +8,8 @@
   <string name="boardCoordinates">Координати на дъската (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Списък на ходовете докато играя</string>
   <string name="pgnPieceNotation">Нотация</string>
-  <string name="chessPieceSymbol">Символ</string>
-  <string name="pgnLetter">Буква (K, Q, R, B, N)</string>
   <string name="zenMode">Режим Zen</string>
   <string name="onlyOnInitialPosition">Само в началната позиция</string>
-  <string name="blindfoldChess">Блинд (невидими фигури)</string>
-  <string name="chessClock">Шахматен часовник</string>
   <string name="tenthsOfSeconds">Десети от секундата</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Когато останалото време е &lt; 10 секунди</string>
   <string name="horizontalGreenProgressBars">Водоравен стълб на времето</string>

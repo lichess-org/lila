@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="contact">Контакти</string>
-  <string name="contactLichess">Зв\'язатися з Lichess</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="contact">Контакти</string>
   <string name="whatCanWeHelpYouWith">З чим ми можемо вам допомогти?</string>
   <string name="visitThisPage">Відвідайте цю сторінку, щоб вирішити проблему</string>
   <string name="iCantLogIn">Я не можу увійти</string>
@@ -12,8 +10,8 @@
   <string name="lost2FA">Я втратив доступ до моїх кодів двофакторної аутентифікації</string>
   <string name="doPasswordReset">Завершіть скидання пароля щоб видалити вашу двофакторну аутентифікацію</string>
   <string name="accountSupport">Мені потрібна підтримка з обліковим записом</string>
-  <string name="wantTitle">Я хочу, щоб мій титул був відображений на Lichess</string>
-  <string name="visitTitleConfirmation">Для показу Вашого титулу в профілі Lichess та участі в Титулованих Аренах, відвідайте сторінку підтвердження титулу</string>
+  <string name="wantTitle">Я хочу, щоб мій титул був відображений на Lishogi</string>
+  <string name="visitTitleConfirmation">Для показу Вашого титулу в профілі Lishogi та участі в Титулованих Аренах, відвідайте сторінку підтвердження титулу</string>
   <string name="wantCloseAccount">Я хочу закрити свій обліковий запис</string>
   <string name="closeYourAccount">Ви можете закрити обліковий запис на цій сторінці</string>
   <string name="doNotAskByEmail">Не просіть нас закрити обліковий запис по електронній пошті, ми цього не робитимемо.</string>
@@ -39,10 +37,10 @@
   <string name="doNotMessageModerators">Не надсилати особисті повідомлення модераторам.</string>
   <string name="onlyReports">Лише скарги на гравців через форму скарг є ефективними.</string>
   <string name="wantReportBug">Я хочу повідомити про помилку</string>
-  <string name="reportBugInForum">У розділі Зворотній зв\'язок на форумі Lichess</string>
-  <string name="reportWebsiteIssue">На сторінці проблем сайту Lichess на GitHub</string>
-  <string name="reportMobileIssue">На сторінці проблем мобільного додатку Lichess на GitHub</string>
-  <string name="reportBugInDiscord">На сервері Lichess в Discord</string>
+  <string name="reportBugInForum">У розділі Зворотній зв\'язок на форумі Lishogi</string>
+  <string name="reportWebsiteIssue">На сторінці проблем сайту Lishogi на GitHub</string>
+  <string name="reportMobileIssue">На сторінці проблем мобільного додатку Lishogi на GitHub</string>
+  <string name="reportBugInDiscord">На сервері Lishogi в Discord</string>
   <string name="howToReportBug">Будь ласка, опишіть як виглядає помилка, що Ви очікували замість неї і які кроки для відтворення помилки.</string>
   <string name="illegalPawnCapture">Нелегальне захоплення пішаком</string>
   <string name="calledEnPassant">Це називається \"en passant\" і є одним із правил шахів.</string>
@@ -68,13 +66,12 @@
   <string name="doNotDeny">Не заперечуйте обман. Якщо Ви хочете мати можливість створити новий обліковий запис, просто визнайте те, що Ви зробили, і покажіть, що Ви зрозуміли, що це була помилка.</string>
   <string name="otherRestriction">Інші обмеження</string>
   <string name="collaboration">Співправа, юридична, комерційна</string>
-  <string name="monetizing">Монетизація Lichess</string>
-  <string name="buyingLichess">Купівля Lichess</string>
-  <string name="authorizationToUse">Авторизація для використання Lichess</string>
-  <string name="welcomeToUse">Ви можете використовувати Lichess для своєї діяльності, навіть комерційної.</string>
-  <string name="videosAndBooks">Ви можете показати це в своїх відео, і друкувати скріншоти з Lichess у ваших книгах.</string>
+  <string name="monetizing">Монетизація Lishogi</string>
+  <string name="authorizationToUse">Авторизація для використання Lishogi</string>
+  <string name="welcomeToUse">Ви можете використовувати Lishogi для своєї діяльності, навіть комерційної.</string>
+  <string name="videosAndBooks">Ви можете показати це в своїх відео, і друкувати скріншоти з Lishogi у ваших книгах.</string>
   <string name="creditAppreciated">Припис про використання цінується, але не є обов\'язковим.</string>
   <string name="noneOfTheAbove">Жодне з перерахованих</string>
   <string name="sendEmailAt">Надішліть нам електронного листа за адресою %s.</string>
-  <string name="explainYourRequest">Будь ласка, поясніть ваш запит чітко і ретельно. Вкажіть Ваше ім\'я користувача Lichess та будь-яку інформацію, що допоможе нам допомогти Вам.</string>
+  <string name="explainYourRequest">Будь ласка, поясніть ваш запит чітко і ретельно. Вкажіть Ваше ім\'я користувача Lishogi та будь-яку інформацію, що допоможе нам допомогти Вам.</string>
 </resources>

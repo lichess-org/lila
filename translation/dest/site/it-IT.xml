@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Gioca contro un amico</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Gioca contro un amico</string>
   <string name="playWithTheMachine">Gioca contro il computer</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per invitare qualcuno a giocare, dagli questo URL</string>
   <string name="gameOver">Partita terminata</string>
@@ -247,7 +246,6 @@
   <string name="recipient">Destinatario</string>
   <string name="send">Invia</string>
   <string name="incrementInSeconds">Incremento in secondi</string>
-  <string name="freeOnlineChess">Scacchi Online Gratis</string>
   <string name="spectators">Spettatori:</string>
   <plurals name="nbRated">
     <item quantity="one">%s classificata</item>
@@ -275,7 +273,7 @@
     <item quantity="one">Concedi %s secondo</item>
     <item quantity="other">Concedi %s secondi</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Questo account ha violato i termini di servizio di Lichess</string>
+  <string name="thisAccountViolatedTos">Questo account ha violato i termini di servizio di Lishogi</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Questo giocatore modifica il proprio punteggio irregolarmente</string>
   <string name="openingExplorerAndTablebase">Esplora le aperture e finali</string>
   <string name="takeback">Ritira la mossa</string>
@@ -325,7 +323,6 @@
   <string name="mustBeInTeam">È necessario essere membri del gruppo %s</string>
   <string name="youAreNotInTeam">Non sei nel team %s</string>
   <string name="backToGame">Torna alla partita</string>
-  <string name="siteDescription">Scacchi online gratis. Gioca subito a scacchi con un\'interfaccia semplice. Niente registrazioni, annunci, plug-in. Gioca a scacchi contro computer, amici o avversari casuali.</string>
   <string name="xJoinedTeamY">%1$s si è unito al gruppo %2$s</string>
   <string name="xCreatedTeamY">%1$s ha creato il gruppo %2$s</string>
   <string name="xStartedStreaming">%s ha avviato lo streaming</string>
@@ -348,9 +345,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
     <item quantity="one">%s partita importata</item>
     <item quantity="other">%s partite importate</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Questo è un CAPTCHA di scacchi.</string>
   <string name="clickOnTheBoardToMakeYourMove">Clicca sulla scacchiera e fai la tua mossa, per provare che sei un umano.</string>
-  <string name="captcha.fail">Per favore risolvi il captcha di scacchi.</string>
   <string name="notACheckmate">Non è scacco matto</string>
   <string name="whiteCheckmatesInOneMove">Il Bianco dà matto in una mossa</string>
   <string name="blackCheckmatesInOneMove">Il Nero dà matto in una mossa</string>
@@ -401,7 +396,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="advancedSettings">Impostazioni Avanzate</string>
   <string name="safeTournamentName">Scegli un nome appropriato per il torneo.</string>
   <string name="inappropriateNameWarning">Qualsiasi cosa anche solo lievemente inappropriata potrebbe comportare l\'eliminazione del tuo account.</string>
-  <string name="emptyTournamentName">Lascia vuoto il nome del torneo per chiamarlo con il nome di un giocatore famoso casuale.</string>
   <string name="recommendNotTouching">Si consiglia di non toccare queste impostazioni.</string>
   <string name="fewerPlayers">Se imponi condizioni d\'accesso il torneo avrà un minor numero di giocatori.</string>
   <string name="showAdvancedSettings">Mostra impostazioni avanzate</string>
@@ -449,8 +443,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="country">Paese</string>
   <string name="socialMediaLinks">Collegamenti ai social media</string>
   <string name="inlineNotation">Notazione in linea</string>
-  <string name="watchLichessTV">Guarda la TV di Lichess</string>
-  <string name="previouslyOnLichessTV">Già visti sulla TV di Lichess</string>
   <string name="onlinePlayers">Giocatori online</string>
   <string name="activeToday">Attivi oggi</string>
   <string name="activePlayers">Giocatori attivi</string>
@@ -470,7 +462,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="butYouCanKeepTrying">Ma puoi riprovare.</string>
   <string name="success">Risolto</string>
   <string name="wasThisPuzzleAnyGood">Questa tattica era interessante?</string>
-  <string name="pleaseVotePuzzle">Aiuta lichess a migliorare, utilizza la freccia su o giù per votare:</string>
+  <string name="pleaseVotePuzzle">Aiuta lishogi a migliorare, utilizza la freccia su o giù per votare:</string>
   <string name="thankYou">Grazie!</string>
   <string name="ratingX">Punteggio: %s</string>
   <string name="hidden">nascosto</string>
@@ -563,7 +555,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="starting">Inizio:</string>
   <string name="allInformationIsPublicAndOptional">Tutte le informazioni sono pubbliche e facoltative.</string>
   <string name="yourCityRegionOrDepartment">La tua città, regione o provincia.</string>
-  <string name="biographyDescription">Parlaci di te, cosa ti piace degli scacchi, le tue aperture preferite, partite, giocatori preferiti…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Massimo: %s carattere.</item>
     <item quantity="other">Massimo: %s caratteri.</item>
@@ -579,7 +570,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="clock">Orologio</string>
   <string name="unauthorizedError">Accesso non autorizzato.</string>
   <string name="noInternetConnection">Nessuna connessione internet. Ma puoi sempre giocare offline dal menù.</string>
-  <string name="connectedToLichess">Sei ora connesso a lichess.org</string>
   <string name="signedOut">Disconnessione riuscita</string>
   <string name="loginSuccessful">Accesso riuscito</string>
   <string name="playOnTheBoardOffline">Gioca offline</string>
@@ -621,7 +611,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="webmasters">Webmasters</string>
   <string name="about">Info su</string>
   <string name="aboutX">Informazioni su %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s è un server di scacchi (%2$s), open source, privo di pubblicità e rilasciato sotto licenza libera.</string>
   <string name="really">completamente gratuito</string>
   <string name="contribute">Contribuisci</string>
   <string name="termsOfService">Termini di servizio</string>
@@ -645,7 +634,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="simulClockHint">Modello Fischer Clock. Più giocatori sfidi, più tempo ti potrebbe servire.</string>
   <string name="simulAddExtraTime">Puoi aggiungere più tempo al tuo orologio per far fronte alla simultanea.</string>
   <string name="simulHostExtraTime">Tempo aggiuntivo del simultaneista</string>
-  <string name="lichessTournaments">Tornei Lichess</string>
   <string name="tournamentFAQ">Domande frequenti sui tornei</string>
   <string name="tournamentOfficial">Ufficiale</string>
   <string name="timeBeforeTournamentStarts">Tempo prima dell\'inizio del torneo</string>
@@ -656,8 +644,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="keyShowOrHideComments">mostra/nascondi i commenti</string>
   <string name="keyEnterOrExitVariation">entra/esci dalla variante</string>
   <string name="newTournament">Nuovo torneo</string>
-  <string name="tournamentHomeTitle">Torneo con diversi controlli del tempo e varianti</string>
-  <string name="tournamentHomeDescription">Partecipa a frenetici tornei di scacchi! Unisciti a un torneo ufficiale programmato o creane uno. Bullet, Blitz, Classical, Chess960, King of the Hill, Three-check e altre opzioni per un divertimento scacchistico senza fine.</string>
   <string name="tournamentNotFound">Torneo non trovato</string>
   <string name="tournamentDoesNotExist">Questo torneo non esiste.</string>
   <string name="tournamentMayHaveBeenCanceled">Può essere stato annullato, se tutti i giocatori l\'hanno abbandonato prima che il torneo iniziasse.</string>
@@ -679,8 +665,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se non vedi l\'e-mail, controlla la cartella spam o altre cartelle.</string>
   <string name="weHaveSentYouAnEmailTo">Abbiamo inviato un\'email all\'indirizzo %s. Clicca sul link nell\'email per reimpostare la password.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registrandoti, accetti i nostri %s</string>
-  <string name="networkLagBetweenYouAndLichess">Ping tra te e Lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Tempo per elaborare una mossa sul server di Lichess</string>
   <string name="downloadAnnotated">Scarica PGN annotato</string>
   <string name="downloadRaw">Scarica PGN senza annotazioni</string>
   <string name="downloadImported">Download importato</string>
@@ -689,29 +673,23 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">È inoltre possibile scorrere sopra il bordo per entrare nel gioco.</string>
   <string name="analysisShapesHowTo">Premere MAIUSC+click o tasto destro del mouse per disegnare cerchi e frecce sulla scacchiera.</string>
   <string name="letOtherPlayersMessageYou">Lascia che gli altri giocatori ti inviino messaggi</string>
-  <string name="shareYourInsightsData">Condividi i tuoi dati Insights</string>
   <string name="withNobody">Con nessuno</string>
   <string name="withFriends">Con gli amici</string>
   <string name="withEverybody">Con tutti</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Hai già registrato l\'email: %s</string>
   <string name="kidMode">Modalità bambino</string>
   <string name="kidModeExplanation">Questa modalità riguarda la sicurezza: in modalità bambino tutte le comunicazioni sono disabilitate. Si consiglia di attivare questa modalità per bambini e studenti, in modo da proteggerli dagli altri utenti.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">In \"modalità bambino\", al logo di lichess viene aggiunto %s, in questo modo sai che il bambino è sicuro.</string>
   <string name="enableKidMode">Attiva \"modalità bambino\"</string>
   <string name="disableKidMode">Disattiva \"modalità bambino\"</string>
   <string name="security">Sicurezza</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Questa è la lista di dispositivi collegata al tuo account. Rimuovi ogni istanza che non riconosci.</string>
   <string name="alternativelyYouCanX">In alternativa è possibile %s.</string>
   <string name="revokeAllSessions">rimuovi tutte le sessioni</string>
-  <string name="playChessEverywhere">Gioca a scacchi ovunque</string>
-  <string name="asFreeAsLichess">Gratuita, proprio come Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Fatto per amore degli scacchi, non del denaro</string>
   <string name="everybodyGetsAllFeaturesForFree">Tutti hanno le stesse funzionalità gratis</string>
   <string name="zeroAdvertisement">Nessuna pubblicità</string>
   <string name="fullFeatured">Senza limitazioni</string>
   <string name="phoneAndTablet">Cellulare e tablet</string>
   <string name="bulletBlitzClassical">Bullet, blitz, classical</string>
-  <string name="correspondenceChess">Scacchi per corrispondenza</string>
   <string name="onlineAndOfflinePlay">Gioca online e offline</string>
   <string name="viewTheSolution">Visualizza la soluzione</string>
   <string name="followAndChallengeFriends">Segui e sfida gli amici</string>
@@ -744,9 +722,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="usernameSuffixInvalid">Il nome utente deve terminare con una lettera o un numero.</string>
   <string name="usernameCharsInvalid">Il nome utente deve contenere solo lettere, numeri, underscore e trattini.</string>
   <string name="usernameUnacceptable">Questo nome utente non è permesso.</string>
-  <string name="directlySupportLichess">Supporta direttamente Lichess</string>
-  <string name="playChessInStyle">Gioca a scacchi con stile</string>
-  <string name="chessBasics">Basi scacchistiche</string>
   <string name="coaches">Istruttori</string>
   <string name="invalidPgn">PGN non valido</string>
   <string name="invalidFen">FEN non valido</string>
@@ -823,7 +798,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="weHadToTimeYouOutForAWhile">Abbiamo dovuto bloccarti per un po\' di tempo.</string>
   <string name="timeoutExpires">Sarai sbloccato %s.</string>
   <string name="why">Perché?</string>
-  <string name="pleasantChessExperience">Vogliamo offrire a tutti una esperienza di scacchi piacevole.</string>
   <string name="goodPractice">A tal fine, dobbiamo assicurarci che tutti i giocatori si comportino bene.</string>
   <string name="potentialProblem">Quando notiamo un potenziale problema, mostriamo questo messaggio.</string>
   <string name="howToAvoidThis">Come evitare il blocco?</string>
@@ -831,14 +805,13 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="tryToWin">Impegnati a vincere (o almeno a pareggiare) ogni partita che giochi.</string>
   <string name="resignLostGames">Abbandona le partite perse (non far scorrere il tempo a vuoto).</string>
   <string name="temporaryInconvenience">Ci scusiamo per l\'inconveniente temporaneo,</string>
-  <string name="wishYouGreatGames">e ti auguriamo partite memorabili su lichess.org.</string>
+  <string name="wishYouGreatGames">e ti auguriamo partite memorabili su lishogi.org.</string>
   <string name="thankYouForReading">Grazie per l\'attenzione!</string>
   <string name="lifetimeScore">Scontri diretti</string>
   <string name="currentMatchScore">Punteggio della partita attuale</string>
-  <string name="agreementAssistance">Dichiaro di non farmi mai aiutare durante le mie partite (da computer, libri, database o altre persone).</string>
   <string name="agreementNice">Dichiaro di essere sempre rispettoso nei confronti degli altri giocatori.</string>
   <string name="agreementAccount">Dichiaro di non creare più di un account.</string>
-  <string name="agreementPolicy">Dichiaro di acconsentire a tutte le politiche di Lichess.</string>
+  <string name="agreementPolicy">Dichiaro di acconsentire a tutte le politiche di Lishogi.</string>
   <string name="searchOrStartNewDiscussion">Cerca o inizia una nuova conversazione</string>
   <string name="edit">Modifica</string>
   <string name="rapid">Rapid</string>
@@ -849,7 +822,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="rapidDesc">Partite rapide: da 8 a 25 minuti</string>
   <string name="classicalDesc">Partite classiche: 25 minuti e oltre</string>
   <string name="correspondenceDesc">Partite per corrispondenza: uno o più giorni per mossa</string>
-  <string name="puzzleDesc">Allenamento sulle tattiche scacchistiche</string>
   <string name="important">Importante</string>
   <string name="yourQuestionMayHaveBeenAnswered">La tua domanda potrebbe già avere una risposta %1$s</string>
   <string name="inTheFAQ">nelle F.A.Q.</string>

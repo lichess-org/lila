@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">Roghainnean</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">Roghainnean</string>
   <string name="gameDisplay">Dealbhachd na geama</string>
   <string name="pieceAnimation">Gluasachd nam pìosan</string>
   <string name="materialDifference">Eadar-dhealachadh de stuth</string>
@@ -8,7 +7,6 @@
   <string name="pieceDestinations">Ceann-uidhe nam pìosan (gluasachdan dligheach agus ro-ghluasachdan)</string>
   <string name="boardCoordinates">Co-chomharran na  bùird (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Liosta na gluasachdan fhad \'s a tha thu a\' cluich</string>
-  <string name="chessClock">Uaireadair tàileisg</string>
   <string name="tenthsOfSeconds">Deicheamhan de dhiogan</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Nuair a bhios &lt; 10 diogan a thìde air fhàgail</string>
   <string name="horizontalGreenProgressBars">Bàraichean adhartais air a\' chòmhnard</string>

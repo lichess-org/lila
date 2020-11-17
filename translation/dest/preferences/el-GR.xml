@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">Προτιμήσεις</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">Προτιμήσεις</string>
   <string name="gameDisplay">Εμφάνιση παιχνιδιών</string>
   <string name="pieceAnimation">Κίνηση πιονιών</string>
   <string name="materialDifference">Διαφορά υλικού</string>
@@ -9,13 +8,9 @@
   <string name="boardCoordinates">Συντεταγμένες σκακιέρας (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Λίστα κινήσεων κατά τη διάρκεια της παρτίδας</string>
   <string name="pgnPieceNotation">Εμφάνιση κινήσεων</string>
-  <string name="chessPieceSymbol">Σύμβολο πιονιού στο σκάκι</string>
-  <string name="pgnLetter">Χαρακτήρας (K, Q, R, B, N)</string>
   <string name="zenMode">Λειτουργία Zεν</string>
   <string name="displayBoardResizeHandle">Εμφάνιση χειριστηρίου αλλαγής μεγέθους σκακιέρας</string>
   <string name="onlyOnInitialPosition">Μόνο στην αρχική διάταξη</string>
-  <string name="blindfoldChess">Τυφλό σκάκι (αόρατα κομμάτια)</string>
-  <string name="chessClock">Σκακιστικό χρονόμετρο</string>
   <string name="tenthsOfSeconds">Δέκατα του δευτερολέπτου</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Όταν απομένουν &lt; 10 δευτερόλεπτα</string>
   <string name="horizontalGreenProgressBars">Οριζόντιες πράσινες γραμμές προόδου</string>

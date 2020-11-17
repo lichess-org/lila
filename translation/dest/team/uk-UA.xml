@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="team">Команда</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="team">Команда</string>
   <string name="teams">Команди</string>
   <plurals name="nbMembers">
     <item quantity="one">%s користувачів</item>

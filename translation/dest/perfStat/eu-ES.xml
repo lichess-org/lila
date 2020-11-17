@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="perfStats">%s estatistikak</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="perfStats">%s estatistikak</string>
   <string name="viewTheGames">Partidak ikusi</string>
   <string name="provisional">behin-behinekoa</string>
   <string name="notEnoughRatedGames">Ez duzu puntuaziorako balio duten behar adina partida jokatu.</string>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Bir arkadaşınla oyna</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Bir arkadaşınla oyna</string>
   <string name="playWithTheMachine">Bilgisayara karşı oyna</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Oyuna davet etmek için, bu linki gönderin</string>
   <string name="gameOver">Oyun bitti</string>
@@ -247,7 +246,6 @@
   <string name="recipient">Alıcı</string>
   <string name="send">Gönder</string>
   <string name="incrementInSeconds">Hamle başına eklenen saniye</string>
-  <string name="freeOnlineChess">Ücretsiz Çevrimiçi Satranç</string>
   <string name="spectators">İzleyiciler</string>
   <plurals name="nbRated">
     <item quantity="one">%s puanlı</item>
@@ -275,7 +273,7 @@
     <item quantity="one">%s saniye ver</item>
     <item quantity="other">%s saniye ver</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Bu hesap Lichess Kullanım Şartları\'nı ihlâl etti</string>
+  <string name="thisAccountViolatedTos">Bu hesap Lishogi Kullanım Şartları\'nı ihlâl etti</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Bu oyuncu puanını sahte bir şekilde artırıyor/azaltıyor</string>
   <string name="openingExplorerAndTablebase">Açılış kâşifi &amp; oyunsonu analizi</string>
   <string name="takeback">Hamleni geri al</string>
@@ -325,7 +323,6 @@
   <string name="mustBeInTeam">%s adlı takımda olmalısınız.</string>
   <string name="youAreNotInTeam">%s takımının üyesi değilsiniz.</string>
   <string name="backToGame">Oyuna dön</string>
-  <string name="siteDescription">Bedava çevrimiçi satranç sitesi. Olması gerektiği gibi satranç oyna. Kayıt gerekmez, reklam içermez, herhangi bir eklentiye ihtiyacınız yok. Bilgisayarla, arkadaşlarınızla ya da rastgele bir oyuncuya karşı oyna.</string>
   <string name="xJoinedTeamY">%1$s, %2$s takımına katıldı</string>
   <string name="xCreatedTeamY">%1$s, %2$s takımını kurdu</string>
   <string name="xStartedStreaming">%s canlı yayında</string>
@@ -347,9 +344,7 @@
     <item quantity="one">%s yüklenen oyun</item>
     <item quantity="other">%s yüklenen oyun</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Bu bir satranç doğrulama sistemidir.</string>
   <string name="clickOnTheBoardToMakeYourMove">İnsan olduğunuzu kanıtlamak için tahtaya tıklayın ve hamlenizi yapın.</string>
-  <string name="captcha.fail">Lütfen satranç doğrulamasını yapın.</string>
   <string name="notACheckmate">Mat değil</string>
   <string name="whiteCheckmatesInOneMove">Beyaz bir hamlede mat eder</string>
   <string name="blackCheckmatesInOneMove">Siyah bir hamlede mat eder</string>
@@ -400,7 +395,6 @@
   <string name="advancedSettings">Gelişmiş ayarlar</string>
   <string name="safeTournamentName">Turnuva için oldukça güvenli bir isim seçin.</string>
   <string name="inappropriateNameWarning">Herhangi bir uygunsuz isim, hesabınızın yasaklanmasına yol açabilir.</string>
-  <string name="emptyTournamentName">Kutuyu boş bırakarak turnuvaya rastgele bir Büyükusta\'nın ismini verebilirsiniz.</string>
   <string name="recommendNotTouching">Bu ayarlara dokunmamanızı öneririz.</string>
   <string name="fewerPlayers">Turnuvaya katılım şartı koyarsanız, daha az oyuncu katılacaktır.</string>
   <string name="showAdvancedSettings">Gelişmiş ayarları göster</string>
@@ -448,8 +442,6 @@
   <string name="country">Ülke</string>
   <string name="socialMediaLinks">Sosyal medya bağlantıları</string>
   <string name="inlineNotation">Notasyonu aynı satırda göster</string>
-  <string name="watchLichessTV">Lichess TV\'ye göz at</string>
-  <string name="previouslyOnLichessTV">Lichess TV\'de bunlar da vardı;</string>
   <string name="onlinePlayers">Çevrimiçi oyuncular</string>
   <string name="activeToday">Bugün aktif</string>
   <string name="activePlayers">Aktif oyuncular</string>
@@ -469,7 +461,7 @@
   <string name="butYouCanKeepTrying">ama denemeye devam edebilirsin.</string>
   <string name="success">Başarı</string>
   <string name="wasThisPuzzleAnyGood">Bu bulmacayı nasıl buldun?</string>
-  <string name="pleaseVotePuzzle">Okları kullanarak oylayın, lichess\'in gelişmesine yardımcı olun.</string>
+  <string name="pleaseVotePuzzle">Okları kullanarak oylayın, lishogi\'in gelişmesine yardımcı olun.</string>
   <string name="thankYou">Teşekkürler!</string>
   <string name="ratingX">Puan: %s</string>
   <string name="hidden">gizli</string>
@@ -562,7 +554,6 @@
   <string name="starting">Başlangıç:</string>
   <string name="allInformationIsPublicAndOptional">Tüm bilgiler herkese açık ve seçime bağlıdır.</string>
   <string name="yourCityRegionOrDepartment">Şehrin, ilçen ya da bölgen.</string>
-  <string name="biographyDescription">Kendinizden bahsedin, satrançta ne buluyorsunuz, favori açılışlarınız, oyunlarınız, hayranı olduğunuz satranç ustaları…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">En fazla: %s karakter.</item>
     <item quantity="other">En fazla: %s karakter.</item>
@@ -578,7 +569,6 @@
   <string name="clock">Saat</string>
   <string name="unauthorizedError">Yetkisiz erişim.</string>
   <string name="noInternetConnection">İnternet bağlantısı yok. Hâlâ menüden çevrimdışı oynayabilirsiniz.</string>
-  <string name="connectedToLichess">Şimdi lichess.org\'a bağlandınız</string>
   <string name="signedOut">Zaten başarıyla çıkış yapmışsınız.</string>
   <string name="loginSuccessful">Giriş başarılı</string>
   <string name="playOnTheBoardOffline">Tahta üzerinde çevrimdışı oyna</string>
@@ -620,7 +610,6 @@
   <string name="webmasters">Site Yöneticileri</string>
   <string name="about">Hakkında</string>
   <string name="aboutX">%s hakkında</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s; tamamen ücretsiz (%2$s), özgür, reklamsız, açık kaynak kodlu bir satranç sitesidir.</string>
   <string name="really">ciddiyiz</string>
   <string name="contribute">Katkıda bulun</string>
   <string name="termsOfService">Hizmet koşulları</string>
@@ -644,7 +633,6 @@
   <string name="simulClockHint">Fischer Saati formatı. Ne kadar fazla oyuncu ile yüzleşirseniz, o kadar fazla zamana ihtiyaç duyabilirsiniz.</string>
   <string name="simulAddExtraTime">Eş zamanlı gösteride süreyi idare edebilmek için kendi saatinize fazladan zaman ekleyebilirsiniz.</string>
   <string name="simulHostExtraTime">Ev sahibinin fazladan süresi</string>
-  <string name="lichessTournaments">Lichess turnuvaları</string>
   <string name="tournamentFAQ">Arena turnuvaları SSS</string>
   <string name="tournamentOfficial">Resmî</string>
   <string name="timeBeforeTournamentStarts">Turnuvanın başlama süresi</string>
@@ -655,8 +643,6 @@
   <string name="keyShowOrHideComments">yorumları gizle/göster</string>
   <string name="keyEnterOrExitVariation">varyasyona gir/çık</string>
   <string name="newTournament">Yeni turnuva</string>
-  <string name="tournamentHomeTitle">Çeşitli zaman kontrolleri ve varyantları içeren satranç turnuvası</string>
-  <string name="tournamentHomeDescription">Hızlı tempolu satranç turnuvalarında oynayın! Önceden planlanmış turnuvalara katılın, ya da kendi turnuvanızı oluşturun. Sınırsız satranç eğlenceniz için Kurşun, Yıldırım, Klasik, Satranç960, Tepenin Şahı, Üçşah ve daha fazla seçenek mevcuttur.</string>
   <string name="tournamentNotFound">Turnuva bulunamadı.</string>
   <string name="tournamentDoesNotExist">Böyle bir turnuva yok.</string>
   <string name="tournamentMayHaveBeenCanceled">Eğer bütün oyuncular turnuva başlamadan ayrıldıysa, iptal edilmiş olabilir.</string>
@@ -678,8 +664,6 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Eğer e-postayı görmüyorsanız, spam, sosyal veya diğer klasörlere göz atmayı deneyin.</string>
   <string name="weHaveSentYouAnEmailTo">%s adresine e-posta yolladık. Şifrenizi tekrar ayarlamak için e-postadaki linke tıklayın.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Kaydolarak, %s \'ı kabul etmiş sayılırsınız.</string>
-  <string name="networkLagBetweenYouAndLichess">Siz ve lichess.org arasındaki gecikme (ping)</string>
-  <string name="timeToProcessAMoveOnLichessServer">lichess.org üzerindeki hamle süreniz (ms)</string>
   <string name="downloadAnnotated">Açıklamalarıyla beraber indirin</string>
   <string name="downloadRaw">Açıklamasız indirin.</string>
   <string name="downloadImported">İçeri aktarılmış oyunu indir</string>
@@ -688,29 +672,23 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Ayrıca fare tekerini kullanarak da hamle yapabilirsiniz.</string>
   <string name="analysisShapesHowTo">Tahta üzerinde çember ya da ok çizmek için lütfen shift+click ya da right+click kullanın.</string>
   <string name="letOtherPlayersMessageYou">Diğer oyuncular size mesaj yollayabilsinler mi?</string>
-  <string name="shareYourInsightsData">Satranç oyun verilerinizi diğerleriyle paylaşın</string>
   <string name="withNobody">Hiçkimse ile</string>
   <string name="withFriends">Yalnızca arkadaşlarımla</string>
   <string name="withEverybody">Herkes ile</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Zaten kaydedilmiş e-posta adresiniz var: %s</string>
   <string name="kidMode">Çocuk modu</string>
   <string name="kidModeExplanation">Bu mod çocuğunuzun güvenliği ile ilgilidir. Tüm site bağlantıları devre dışı bırakılır. Eğer çocuklarınızı veya okul öğrencilerinizi diğer internet kullanıcılarına karşı korumak istiyorsanız, bu modu etkinleştirin.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Çocuk modunda, lichess.org logosu yerine %s belirir, bilin ki çocuğunuz güvendedir :)</string>
   <string name="enableKidMode">Çocuk modunu aktifleştir</string>
   <string name="disableKidMode">Çocuk modunu devre dışı bırak</string>
   <string name="security">Güvenlik</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Bu, hesabınıza giriş yaptığınız cihazların listesidir. Tanımadığınız veya bilmediğiniz tüm oturumları kapatın.</string>
   <string name="alternativelyYouCanX">Ayrıca %s de yapabilirsiniz.</string>
   <string name="revokeAllSessions">tüm oturumları kaldır</string>
-  <string name="playChessEverywhere">Her yerde satranç oyna</string>
-  <string name="asFreeAsLichess">lichess kadar özgür</string>
-  <string name="builtForTheLoveOfChessNotMoney">Para için değil satranç sevgisi için geliştirilmiştir</string>
   <string name="everybodyGetsAllFeaturesForFree">Bütün özellikler ücretsizdir</string>
   <string name="zeroAdvertisement">Sıfır reklam</string>
   <string name="fullFeatured">Tüm özellikler</string>
   <string name="phoneAndTablet">Telefon ve tablet</string>
   <string name="bulletBlitzClassical">Kurşun, yıldırım, klasik</string>
-  <string name="correspondenceChess">Yazışmalı satranç</string>
   <string name="onlineAndOfflinePlay">Çevrimiçi ve çevrimdışı oyna</string>
   <string name="viewTheSolution">Çözümü göster</string>
   <string name="followAndChallengeFriends">Takip edin ve arkadaşlarınıza meydan okuyun</string>
@@ -743,9 +721,6 @@
   <string name="usernameSuffixInvalid">Kullanıcı adınız bir harf veya sayı ile bitmelidir.</string>
   <string name="usernameCharsInvalid">Kullanıcı adı yalnızca harf, sayı, alt çizgi ve çizgi içerebilir.</string>
   <string name="usernameUnacceptable">Bu kullanıcı adı uygun değil.</string>
-  <string name="directlySupportLichess">Lichess\'i destekleyin</string>
-  <string name="playChessInStyle">Satrancı tarz ile oynayın</string>
-  <string name="chessBasics">Satrancın temel prensipleri</string>
   <string name="coaches">Eğitmenler</string>
   <string name="invalidPgn">Geçersiz PGN</string>
   <string name="invalidFen">Geçersiz FEN</string>
@@ -822,7 +797,6 @@
   <string name="weHadToTimeYouOutForAWhile">Sizi bir süreliğine oyunlardan men etmek zorunda kaldık.</string>
   <string name="timeoutExpires">Men süresi %s dolacak.</string>
   <string name="why">Neden?</string>
-  <string name="pleasantChessExperience">Herkese keyifli bir satranç deneyimi sunmayı amaçlıyoruz.</string>
   <string name="goodPractice">Bu nedenle, bütün oyuncuların doğru davranışlar sergilemesine özen gösteriyoruz.</string>
   <string name="potentialProblem">Potansiyel bir sorun tespit edildiğinde bu mesajı görüntülüyoruz.</string>
   <string name="howToAvoidThis">Tekrar olmaması için ne yapmalıyım?</string>
@@ -830,14 +804,13 @@
   <string name="tryToWin">Oynadığınız her oyunu kazanmaya çalışın (ya da en azından berabere kalmayı deneyin).</string>
   <string name="resignLostGames">Kaybettiğiniz oyunlardan çekilin (sürenin dolmasını beklemeyin).</string>
   <string name="temporaryInconvenience">Verdiğimiz geçici rahatsızlıktan dolayı özür dileriz,</string>
-  <string name="wishYouGreatGames">ve lichess.org\'da harika oyunlar dileriz.</string>
+  <string name="wishYouGreatGames">ve lishogi.org\'da harika oyunlar dileriz.</string>
   <string name="thankYouForReading">Okuduğunuz için teşekkür ederiz!</string>
   <string name="lifetimeScore">Toplam skor</string>
   <string name="currentMatchScore">Mevcut maç skoru</string>
-  <string name="agreementAssistance">Maçlar esnasında hiçbir zaman dışarıdan yardım almayacağım (bilgisayardan, kitaptan, veri tabanından veya başka bir insandan).</string>
   <string name="agreementNice">Diğer oyunculara karşı her zaman iyi bir tutum içinde olacağım.</string>
   <string name="agreementAccount">Birden fazla hesap açmayacağım.</string>
-  <string name="agreementPolicy">Lichess kurallarını takip edeceğim.</string>
+  <string name="agreementPolicy">Lishogi kurallarını takip edeceğim.</string>
   <string name="searchOrStartNewDiscussion">Tartışma ara veya yenisini başlat</string>
   <string name="edit">Düzenle</string>
   <string name="rapid">Rapid</string>
@@ -848,7 +821,6 @@
   <string name="rapidDesc">Hızlı oyunlar: 8 ile 25 dakika arası</string>
   <string name="classicalDesc">Klasik oyunlar: 25 dakika ve daha fazlası</string>
   <string name="correspondenceDesc">Yazışmalı oyunlar: Hamle başına bir veya birkaç gün</string>
-  <string name="puzzleDesc">Satranç taktik egzersizi</string>
   <string name="important">Önemli</string>
   <string name="yourQuestionMayHaveBeenAnswered">Sorunuzun yanıtı %1$s cevaplanmış olabilir.</string>
   <string name="inTheFAQ">Sıkça Sorulan Sorularda</string>

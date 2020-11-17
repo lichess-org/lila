@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">പരിഗണനകൾ</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">പരിഗണനകൾ</string>
   <string name="gameDisplay">കളി പ്രദർശനം</string>
   <string name="pieceAnimation">കരു ആനിമേഷൻ</string>
   <string name="materialDifference">രൂപ വ്യത്യാസം</string>
@@ -9,12 +8,8 @@
   <string name="boardCoordinates">പലകയിലെ സ്ഥാനാങ്കങ്ങൾ (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">കളിയുടെ നീക്ക-ശ്രേണി</string>
   <string name="pgnPieceNotation">നീക്കങ്ങൾ എങ്ങനെ രേഖപ്പെടുത്തണം</string>
-  <string name="chessPieceSymbol">ചെസ്സ് കരുവിന്റെ അടയാളം</string>
-  <string name="pgnLetter">അക്ഷരം (K, Q, R, B, N)</string>
   <string name="zenMode">സെൻ മോഡ്</string>
   <string name="onlyOnInitialPosition">തുടക്കത്തില്‍ മാത്രം</string>
-  <string name="blindfoldChess">കണ്ണു കെട്ടിയ ചതുരംഗം (അദൃശ്യമായ കരുക്കൾ)</string>
-  <string name="chessClock">ചതുരംഗ സമയം</string>
   <string name="tenthsOfSeconds">സെക്കന്റിന്റെ പത്തിലൊരംശം</string>
   <string name="whenTimeRemainingLessThanTenSeconds">ഇനി ശേഷിക്കുന്നത് 10 ഇൽ താഴെ സെക്കന്റുകൾ</string>
   <string name="horizontalGreenProgressBars">തിരശ്ചീന പച്ച നിലവാര രേഖകൾ</string>

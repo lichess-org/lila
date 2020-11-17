@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="activity">Jarduera</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="activity">Jarduera</string>
   <string name="hostedALiveStream">Zuzeneko emanaldi bat egin du</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Lichess.org-i laguntza eman zion hilabete %1$s-z %2$s gisa</item>
-    <item quantity="other">Lichess.org-i laguntza eman zion %1$s hilabetez %2$s gisa</item>
+    <item quantity="one">Lishogi.org-i laguntza eman zion hilabete %1$s-z %2$s gisa</item>
+    <item quantity="other">Lishogi.org-i laguntza eman zion %1$s hilabetez %2$s gisa</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">%2$s erako posizio %1$s praktikatu du</item>
@@ -62,7 +61,7 @@
     <item quantity="one">%1$s. postua (%% %2$s onenen artean) partida %3$s jokatuta %4$s txapelketan</item>
     <item quantity="other">%1$s. postua (%% %2$s onenen artean) %3$s partida jokatuta %4$s txapelketan</item>
   </plurals>
-  <string name="signedUp">Lichess.org-en izena eman du</string>
+  <string name="signedUp">Lishogi.org-en izena eman du</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Talde %sera sartu da</item>
     <item quantity="other">%s taldetara sartu da</item>

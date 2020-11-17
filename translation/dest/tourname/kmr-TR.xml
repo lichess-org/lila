@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="hourlyRapidArena">Qada Bilez Seeti</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="hourlyRapidArena">Qada Bilez Seeti</string>
   <string name="hourlyRapid">Seetî Bilez</string>
   <string name="hourlyXArena">Qada %s Seetî</string>
   <string name="hourlyX">%s Seetî</string>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="twoFactorAuth">การรับรองความถูกต้องแบบสองชั้น</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="twoFactorAuth">การรับรองความถูกต้องแบบสองชั้น</string>
   <string name="twoFactorHelp">การรับรองความถูกต้องแบบสองชั้น จะเพิ่มความปลอดภัยอีกชั้นให้กับบัญชีของคุณ</string>
   <string name="twoFactorApp">จัดหาแอปที่มีการรับรองความถูกต้องแบบสองชั้น เช่น Google Authenticator สำหรับ %1$s หรือ %2$s</string>
   <string name="scanTheCode">สแกน QR code ด้วยแอป</string>

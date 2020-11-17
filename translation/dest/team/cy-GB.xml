@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="teams">Tîmau</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="teams">Tîmau</string>
   <plurals name="nbMembers">
     <item quantity="zero">%s o aelodau</item>
     <item quantity="one">%s o aelodau</item>

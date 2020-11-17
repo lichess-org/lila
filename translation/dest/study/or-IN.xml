@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="private">ବ୍ୟକ୍ତିଗତ</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="private">ବ୍ୟକ୍ତିଗତ</string>
   <string name="myStudies">ମୋର ଅଧ୍ୟୟନ</string>
 </resources>

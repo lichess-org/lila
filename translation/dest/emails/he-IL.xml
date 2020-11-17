@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="emailConfirm_subject">אשר את חשבון הליצ\'ס שלך, %s</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="emailConfirm_subject">אשר את חשבון הליצ\'ס שלך, %s</string>
   <string name="emailConfirm_click">לחץ על הקישור על מנת להפעיל את חשבון הליצ\'ס שלך:</string>
   <string name="emailConfirm_ignore">אם אינך רשום כחבר בליצ\'ס, התעלם מהודעה זו.</string>
   <string name="passwordReset_subject">שנה את סיסמת חשבונך, %s</string>
@@ -10,10 +9,9 @@
   <string name="emailChange_intro">אתה מבקש לשנות את כתובתך.</string>
   <string name="emailChange_click">הקש על האתר המצורף לאישור נגישות לכתובת זו:</string>
   <string name="welcome_subject">ברוך הבא, %s</string>
-  <string name="welcome_text">השלמת בהצלחה את חשבונך באתר https://lichess.org.
+  <string name="welcome_text">השלמת בהצלחה את חשבונך באתר https://lishogi.org.
 עמוד הפרופיל שלך הוא %1$s.אתה יכול לשנותו ב- %2$s
 אחולי משחק נעים ונצחונות על כל יריביך!</string>
-  <string name="logInToLichess">%s, התחבר ל - lichess.org</string>
   <string name="common_orPaste">(אם הקלדה אינה עובדת, נסה הדבקה לתוך הדפדפן!)</string>
   <string name="common_note">זו הודעת שרות בקשר לשימושך ב-%s.</string>
   <string name="common_contact">לקשר איתנו השתמש ב-%s.</string>

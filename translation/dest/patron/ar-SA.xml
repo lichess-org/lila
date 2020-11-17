@@ -1,22 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="donate">تبرع</string>
-  <string name="lichessPatron">راعي Lichess</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="donate">تبرع</string>
   <string name="freeAccount">حساب مجاني</string>
-  <string name="becomePatron">كنّ راعياً في Lichess</string>
-  <string name="xBecamePatron">%s اصبح راعياً ل Lichess</string>
+  <string name="becomePatron">كنّ راعياً في Lishogi</string>
+  <string name="xBecamePatron">%s اصبح راعياً ل Lishogi</string>
   <string name="newPatrons">رعاة جدد</string>
-  <string name="freeChess">شطرنج مجاني للجميع، للأبد!</string>
   <string name="noAdsNoSubs">لا اعلانات، لا اشتراكات، ولكن مفتوح المصدر و شغف.</string>
   <string name="thankYou">شكرا لتبرعك!</string>
   <string name="youHaveLifetime">لديك حساب راعي مدى الحياة، هذا رائع جداً!</string>
   <string name="patronUntil">لديك حساب راعي حتى %s.</string>
   <string name="ifNotRenewed">اذا لم تجدد، سيتم تخفيضك لحساب مجاني.</string>
-  <string name="weAreNonProfit">نحن رابطة غير ربحية لأننا نؤمن ان الجميع يجب أن يكون لديه وصول مجاني لمنصة شطرنج من الطراز العالمي.</string>
-  <string name="weRelyOnSupport">نحن نعتمد على دعم من أُناس مثلك لجعل هذا ممكناً، اذا استمتعت على Lichess، يرجى النظر في دعمنا وأن تصبح راعي!</string>
+  <string name="weRelyOnSupport">نحن نعتمد على دعم من أُناس مثلك لجعل هذا ممكناً، اذا استمتعت على Lishogi، يرجى النظر في دعمنا وأن تصبح راعي!</string>
   <string name="lifetime">مدى الحياة</string>
-  <string name="payLifetimeOnce">ادفع %s مره، وكنّ راعي Lichess للأبد!</string>
-  <string name="lifetimePatron">راعي Lichess مدة الحياة</string>
+  <string name="payLifetimeOnce">ادفع %s مره، وكنّ راعي Lishogi للأبد!</string>
+  <string name="lifetimePatron">راعي Lishogi مدة الحياة</string>
   <string name="makeExtraDonation">تقديم تبرع اضافي؟</string>
   <string name="monthly">شهرياً</string>
   <string name="onetime">مرة واحدة</string>
@@ -27,11 +23,8 @@
   <string name="withPaypal">باي بال</string>
   <string name="weAreSmallTeam">نحن فريق صغير، لذلك دعمك يشكل فارقاً كبيراً!</string>
   <string name="whereMoneyGoes">أين يذهب المال؟</string>
-  <string name="serversAndDeveloper">أولاً وقبل كل شيء، خوادم قوية.
-ثم ندفع لمطور دائم : %s ، مؤسس Lichess
-.</string>
   <string name="costBreakdown">انظر للتكاليف مفصلة.</string>
-  <string name="officialNonProfit">هل Lichess رسمياً غير ربحي؟</string>
+  <string name="officialNonProfit">هل Lishogi رسمياً غير ربحي؟</string>
   <string name="actOfCreation">نعم، إليك عملية الإنشاء (باللغة الفرنسية)</string>
   <string name="changeMonthlySupport">هل يمكنني تغيير/الغاء دعمي الشهري؟</string>
 </resources>

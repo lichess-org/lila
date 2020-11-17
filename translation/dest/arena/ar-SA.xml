@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="isItRated">هل هي مقيمة؟</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="isItRated">هل هي مقيمة؟</string>
   <string name="willBeNotified">سيتم إعلامك عند بدء البطولة، لذا فإنه من الآمن اللعب في علامة تبويب أخرى أثناء الانتظار.</string>
   <string name="isRated">هذه البطولة مقيمة وسوف تؤثر على تقييمك.</string>
   <string name="isNotRated">هذه البطولة *ليست* مقيمة *ولن* تؤثر على تقييمك.</string>

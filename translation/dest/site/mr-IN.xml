@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">एका मित्रा बरोबर खेळा</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">एका मित्रा बरोबर खेळा</string>
   <string name="playWithTheMachine">संगणका बरोबर खेळा</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">कुणाला आपल्या बरोबर खेळण्याचे निमंत्रित करण्यासाठी हा युआरएल द्या</string>
   <string name="gameOver">डाव समाप्त</string>
@@ -184,7 +183,6 @@
   <string name="recipient">प्राप्तकर्ता</string>
   <string name="send">पाठवा</string>
   <string name="incrementInSeconds">सेकंदांमध्ये वाढ</string>
-  <string name="freeOnlineChess">विनामूल्य ऑनलाइन बुद्धिबळ</string>
   <string name="spectators">प्रेक्षक</string>
   <plurals name="nbWins">
     <item quantity="one">%s विजय</item>
@@ -230,7 +228,6 @@
   <string name="fromPosition">या जागे पासून चालू करा</string>
   <string name="continueFromHere">येथून खेळायला सुरवात करा</string>
   <string name="importGame">खेळ मागवा</string>
-  <string name="thisIsAChessCaptcha">हा बुद्धिबळाचा CAPTCHA आहे</string>
   <string name="clickOnTheBoardToMakeYourMove">तुम्ही मनुष्य आहात हे सिद्धा करण्यासाठी पटावर क्लिक करून आपली चाल खेळा</string>
   <string name="notACheckmate">ही शहमात नाही</string>
   <string name="retry">परत प्रयत्न करा</string>
@@ -270,8 +267,6 @@
   <string name="lastName">आडनाव</string>
   <string name="biography">चरित्र</string>
   <string name="country">देश</string>
-  <string name="watchLichessTV">Lichess दूरदर्शन पाहा</string>
-  <string name="previouslyOnLichessTV">यापूर्वी लिचेस चित्रफलकावर</string>
   <string name="onlinePlayers">उपलब्ध खेळाडू</string>
   <string name="activeToday">आज सक्रिय</string>
   <string name="activePlayers">सक्रिय बुद्धिबळपटू</string>

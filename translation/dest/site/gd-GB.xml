@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Cluich còmhla ri caraid</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Cluich còmhla ri caraid</string>
   <string name="playWithTheMachine">Cluich an aghaidh a\' choimpiutair</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Gus cuireadh a thoirt do chuideigin, thoir an url seo dha</string>
   <string name="gameOver">Crìoch a’ gheama</string>
@@ -132,7 +131,6 @@
   <string name="recipient">Faightear</string>
   <string name="send">Cuir</string>
   <string name="incrementInSeconds">Ioncramaid ann an diogan</string>
-  <string name="freeOnlineChess">Tàileasg air loidhne an-asgaidh</string>
   <string name="spectators">Luchd-amhairc:</string>
   <string name="exportGames">Às-phortaich geamannan</string>
   <string name="ratingRange">Rainse an rangachaidh</string>
@@ -151,7 +149,6 @@
   <string name="viewTournament">Seall an fhèill-chluich</string>
   <string name="backToTournament">Till dhan fhèill-chluich</string>
   <string name="backToGame">Till dhan gheama</string>
-  <string name="siteDescription">Tàileasg air loidhne an-asgaidh. Cluich tàileasg ann am prògram air a bheil dreach glan. Gun chlàradh, gun sanasachd, gun fheum air plugan. Cluich tàileasg an aghaidh a’ choimpiutair, charaidean no nàimhdean air thuaiream.</string>
   <string name="xJoinedTeamY">Ghabh %1$s ballrachd san sgioba %2$s</string>
   <string name="xCreatedTeamY">Chruthaich %1$s an sgioba %2$s</string>
   <string name="averageElo">Rangachadh cuibheasach</string>
@@ -165,7 +162,6 @@
   <string name="fromPosition">On t-suidheachadh</string>
   <string name="continueFromHere">Lean air adhart on a sheo</string>
   <string name="importGame">Ion-phortaich geama</string>
-  <string name="thisIsAChessCaptcha">Seo CAPTCHA tàileisg.</string>
   <string name="clickOnTheBoardToMakeYourMove">Briog air a’ bhòrd airson gluasad ’s dearbhaich gur e duine a th’ annad.</string>
   <string name="notACheckmate">Chan e tul-chasg a th’ ann</string>
   <string name="retry">Feuch ris a-rithist</string>
@@ -215,8 +211,6 @@
   <string name="lastName">Sloinneadh</string>
   <string name="biography">Eachdraidh-beatha</string>
   <string name="country">Dùthaich</string>
-  <string name="watchLichessTV">Coimhead air tbh Lichess</string>
-  <string name="previouslyOnLichessTV">Air tbh Lichess roimhe</string>
   <string name="onlinePlayers">Cluicheadairean air loidhne</string>
   <string name="activeToday">Gnìomhach an-diugh</string>
   <string name="activePlayers">Cluicheadairean gnìomhach</string>
@@ -235,7 +229,7 @@
   <string name="puzzleFailed">Cha deach leat</string>
   <string name="butYouCanKeepTrying">Ach faodaidh tu feuchainn a-rithist.</string>
   <string name="wasThisPuzzleAnyGood">An robh an tòimhseachan seo math?</string>
-  <string name="pleaseVotePuzzle">Cuidich lichess ’s cuir bhòt ann leis an t-saighead suas no sìos:</string>
+  <string name="pleaseVotePuzzle">Cuidich lishogi ’s cuir bhòt ann leis an t-saighead suas no sìos:</string>
   <string name="thankYou">Mòran taing!</string>
   <string name="ratingX">Rangachadh: %s</string>
   <string name="fromGameLink">On gheama %s</string>
@@ -310,7 +304,6 @@
   <string name="computer">Coimpiutair</string>
   <string name="side">Taobh</string>
   <string name="clock">Uaireadair</string>
-  <string name="connectedToLichess">Tha thu ceangailte ri lichess.org a-nis</string>
   <string name="signedOut">Chaidh do chlàradh a-mach</string>
   <string name="loginSuccessful">Chaidh do chlàradh a-steach</string>
   <string name="playOfflineComputer">Coimpiutair</string>
@@ -343,7 +336,6 @@
   <string name="sourceCode">Bun-tùs</string>
   <string name="host">Òstair</string>
   <string name="create">Cruthaich</string>
-  <string name="lichessTournaments">Féillean-chluich Lichess</string>
   <string name="tournamentOfficial">Oifigeil</string>
   <string name="timeBeforeTournamentStarts">Ùine mus tòisich an fhéill-chluich</string>
   <string name="keyboardShortcuts">Ath-ghoiridean a\' mheur-chlàir</string>
@@ -357,6 +349,4 @@
   <string name="weHaveSentYouAnEmailTo">Tha sinn air post-d a chur gu %s. Briog air a\' cheangal sa phost-d gus am facal-faire agad ath-shuidheachadh.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Nuair a chlàraicheas tu, aontaichidh tu gum bi thu fo bhuaidh %s.</string>
   <string name="kidMode">Modh cloinne</string>
-  <string name="playChessEverywhere">Cluich tàileasg àite sam bith</string>
-  <string name="asFreeAsLichess">Ch saor \'s a tha lichess</string>
-</resources>
+  </resources>

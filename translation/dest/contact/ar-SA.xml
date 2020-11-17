@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="contact">اتصل بنا</string>
-  <string name="contactLichess">تواصل مع Lichess</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="contact">اتصل بنا</string>
   <string name="whatCanWeHelpYouWith">كيف يمكن أن نساعدك؟</string>
   <string name="visitThisPage">قم بزيارة هذه الصفحة لحل المشكلة</string>
   <string name="iCantLogIn">لا يمكنني تسجيل الدخول</string>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="broadcasts">Prijenosi</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="broadcasts">Prijenosi</string>
   <string name="liveBroadcasts">Prijenosi turnira uživo</string>
   <string name="newBroadcast">Novi prijenos uživo</string>
   <string name="ongoing">U tijeku</string>
@@ -11,7 +10,7 @@
   <string name="fullDescription">Potpuni opis događaja</string>
   <string name="fullDescriptionHelp">Neobavezni dugi opis prijenosa. %1$s je dostupno. Duljina mora biti manja od %2$s znakova.</string>
   <string name="sourceUrl">Izvorni link</string>
-  <string name="sourceUrlHelp">Link koji će Lichess ispitavati kako bi dobio PGN ažuriranja. Mora biti javno dostupan s interneta.</string>
+  <string name="sourceUrlHelp">Link koji će Lishogi ispitavati kako bi dobio PGN ažuriranja. Mora biti javno dostupan s interneta.</string>
   <string name="roundNumber">Broj runde</string>
   <string name="startDate">Datum početka u vlastitoj vremenskoj zoni</string>
   <string name="startDateHelp">Neobavezno, ako znaš kada događaj počinje</string>

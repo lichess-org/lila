@@ -1,68 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="learnChess">बुद्धिबळ शिका</string>
-  <string name="byPlaying">खेळून!</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="byPlaying">खेळून!</string>
   <string name="menu">मेनू</string>
   <string name="progressX">प्रगती:%s</string>
   <string name="resetMyProgress">माझी प्रगती समायोजित करा</string>
   <string name="youWillLoseAllYourProgress">आपण आपली सर्व प्रगती गमावाल!</string>
   <string name="play">खेळा!</string>
-  <string name="chessPieces">बुद्धिबळातील सोंगट्या</string>
   <string name="theRook">हत्ती</string>
   <string name="itMovesInStraightLines">तो सरळ रेषेत फिरतो</string>
   <string name="rookIntro">हत्ती एक शक्तिशाली गोटी आहे. आपण त्याला आज्ञा करण्यास तयार आहात?</string>
-  <string name="rookGoal">हत्ती वर क्लिक करा
-त्याला ताऱ्यावर वर आणण्यासाठी!</string>
   <string name="grabAllTheStars">सर्व तारे पकडा!</string>
-  <string name="theFewerMoves">जितक्या कमी चाला
-तितके जास्त गुण तुम्ही जिंकाल!</string>
-  <string name="useTwoRooks">दोन हत्ती वापरून
-खेळाची गती वाढवा!</string>
   <string name="rookComplete">अभिनंदन! आपण हत्तीला यशस्वीरित्या प्रभुत्व केले.</string>
   <string name="theBishop">उंट</string>
   <string name="itMovesDiagonally">हे तिरपे चालते</string>
   <string name="bishopIntro">पुढे आपण उंट कसे चालवायचे ते शिकू!</string>
-  <string name="youNeedBothBishops">एक फिकट रंगाचे उंट,
-एक गडद रंगाचे उंट,
-आपल्याला दोघांची गरज आहे!</string>
   <string name="bishopComplete">अभिनंदन! आपण उंटाला यशस्वीरित्या प्रभुत्व केले.</string>
-  <string name="theQueen">वझीर(राणी)</string>
-  <string name="queenCombinesRookAndBishop">वझीर = हत्ती + उंट</string>
-  <string name="queenIntro">सर्वात शक्तिशाली बुद्धीबळ गोटी आत प्रवेश करते. राणी साहेबांचा विजय असो!</string>
-  <string name="queenComplete">अभिनंदन! तुला वझीरबद्दल सर्व काही माहित झालाय. </string>
   <string name="theKing">राजा</string>
   <string name="theMostImportantPiece">सर्वात महत्वाची गोटी</string>
   <string name="kingIntro">आपण राजे आहात. आपण लढाईत मारला गेल्यास खेळ हरवला आहे.</string>
-  <string name="theKingIsSlow">राजा हळू चालतो.</string>
-  <string name="lastOne">शेवटचा!</string>
   <string name="kingComplete">आपण आता राज्याला आज्ञा देऊ शकता!</string>
   <string name="theKnight">घोडा</string>
-  <string name="itMovesInAnLShape">हा L आकारात चालतो</string>
-  <string name="knightIntro">आपल्यासाठी हे एक आव्हान आहे. नाइट एक...अवघड मोहरा आहे.</string>
-  <string name="knightsHaveAFancyWay">घोडे विलक्षण पणे 
-उड्या मारतात!</string>
-  <string name="knightsCanJumpOverObstacles">घोडे अडथळ्यांवरून उडी मारू शकता! 
-तारे ओलांडून त्यांना जिंको शकतात!</string>
   <string name="knightComplete">अभिनंदन! आपण घोडा चालविण्यास यशस्वी झालात.</string>
   <string name="thePawn">प्यादा</string>
-  <string name="itMovesForwardOnly">हे फक्त पुढे जाते</string>
   <string name="pawnIntro">प्यादे कमकुवत आहेत, पण ते हि महत्वाचे कामं करू शकतात.</string>
-  <string name="pawnsMoveOneSquareOnly">प्यादे केवळ एक चौरस चालतात.
-पण जेव्हा ते बोर्डच्या दुसर्‍या बाजूला पोहोचतात तेव्हा ते अधिक मजबूत गोटी बनतात!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">बऱ्याच वेळा प्याद्याला राणी बनवणेच सर्वोत्तम आहे.
-पण कधीतरी प्याद्याला घोडा बनवण्यात फायदा असतो!</string>
-  <string name="pawnsMoveForward">प्यादे सरळ पुढे चालतात,
-पण तिरकं मारतात!</string>
-  <string name="captureThenPromote">मारा मग, उन्नती(Promote) करा! </string>
-  <string name="useAllThePawns">सर्व प्यादे वापरा!
-उन्नती करण्याची गरज नाही.</string>
-  <string name="aPawnOnTheSecondRank">दुसर्‍या क्रमांकावरील मोहरा एकाच वेळी 2 चौरस चालू शकतो!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">सर्व तारे पकडा!
-उन्नती करण्याची गरज नाही.</string>
   <string name="pawnComplete">अभिनंदन! तुला प्याद्याबद्दल सर्व काही माहित झालय.</string>
-  <string name="pawnPromotion">प्याद्याची उन्नती</string>
-  <string name="yourPawnReachedTheEndOfTheBoard">आपला प्यादा बोर्डाच्या शेवटी पोहोचला!</string>
-  <string name="itNowPromotesToAStrongerPiece">तुम्ही प्याद्याला कोणती हि दुसरी गोटी म्हणून उन्नत करू शकता.</string>
   <string name="selectThePieceYouWant">हवी ती गोटी निवडा!</string>
   <string name="fundamentals">मूलतत्त्वे</string>
   <string name="capture">मारा (पकडा)</string>
@@ -71,7 +31,6 @@
   <string name="takeTheBlackPieces">काळ्या गोट्या घ्या!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">काळ्या गोट्या घ्या!
 आणि आपल्या गोट्या गमावू नका.</string>
-  <string name="captureComplete">अभिनंदन! बुद्धीबळ गोट्यांसह कसे लढायचे हे आपल्याला माहित आहे!</string>
   <string name="protection">संरक्षण</string>
   <string name="keepYourPiecesSafe">आपल्या सोंगट्या सुरक्षित ठेवा</string>
   <string name="protectionIntro">आपल्या प्रतिस्पर्ध्याने हल्ला केलेल्या गोट्या ओळखा, आणि त्यांचे रक्षण करा!</string>
@@ -85,7 +44,6 @@
   <string name="combat">लढाई</string>
   <string name="captureAndDefendPieces">गोट्या मारा आणि त्यांचा रक्षण करा</string>
   <string name="combatIntro">एक चांगला योद्धा हल्ला आणि बचाव दोन्ही गोष्टी जाणतो!</string>
-  <string name="combatComplete">अभिनंदन! बुद्धीबळ गोट्यांसह कसे लढायचे हे आपल्याला माहित आहे!</string>
   <string name="checkInOne">एका डावात चेक द्या</string>
   <string name="attackTheOpponentsKing">प्रतिस्पर्धीच्या राजावर हल्ला करा</string>
   <string name="checkInOneIntro">शत्रूला चेक देण्या करिता, त्यांच्या राजा वर हल्ला करा. त्यांनी त्याचा बचाव केला पाहिजे!</string>
@@ -110,14 +68,10 @@
   <string name="mateInOneIntro">जेव्हा आपला विरोधक चेकविरूद्ध बचाव करू शकत नाही तेव्हा आपण जिंकता.</string>
   <string name="attackYourOpponentsKing">अशा मार्गाने आपल्या प्रतिस्पर्ध्याच्या राजावर हल्ला करा
 ज्याचा बचाव करता येणार नाही!</string>
-  <string name="mateInOneComplete">अभिनंदन! अशा प्रकारे आपण बुद्धिबळ खेळ जिंकता!</string>
   <string name="intermediate">मध्यवर्ती</string>
   <string name="boardSetup">बुध्दीबळाचा पटाची मांडणी</string>
   <string name="howTheGameStarts">खेळ कसा सुरू होतो</string>
   <string name="boardSetupIntro">दोन सैन्य एकमेकांना सामोरे जात आहेत, युद्धासाठी सज्ज आहेत.</string>
-  <string name="thisIsTheInitialPosition">ही प्रारंभिक स्थिती आहे
-बुद्धिबळातील प्रत्येक खेळाचा!
-खेळ सुरु करण्यासाठी कोणतेही गोटी हलवा.</string>
   <string name="firstPlaceTheRooks">सर्वात आधी हत्ती ठेवा!
 त्यांना कोपऱ्यात ठेवा.</string>
   <string name="thenPlaceTheKnights">मग घोडे ठेवा!
@@ -130,24 +84,4 @@
 त्याच्या राणीच्या शेजारी.</string>
   <string name="pawnsFormTheFrontLine">प्यादे समोरची ओळ बनवतात.
 सुरू करण्यासाठी कोणतीही हालचाल करा.</string>
-  <string name="boardSetupComplete">अभिनंदन! बुद्धीबळ बोर्ड कसे लावायचे ते आपल्याला माहित आहे.</string>
-  <string name="castling">कॅसलिंग</string>
-  <string name="theSpecialKingMove">राजाची विशेष चाल</string>
-  <string name="castlingIntro">आपल्या राजाला सुरक्षिततेत आणा, आणि हल्ल्यासाठी आपला हत्ती उपयोजित करा!</string>
-  <string name="castleKingSide">तुमच्या राजाला दोन घर चालवा
-राजाच्या दिशेने कॅसलिंग करण्यासाठी!</string>
-  <string name="castleQueenSide">तुमच्या राजाला दोन घर चालवा
-राणीच्या दिशेने कॅसलिंग करण्यासाठी!</string>
-  <string name="theKnightIsInTheWay">घोडा मध्ये येत आहे!
-त्याला हलवा, आणि राजाच्या दिशेने कॅसलिंग करा.</string>
-  <string name="castleKingSideMovePiecesFirst">राजाच्या दिशेने कॅसलिंग करा!
-आपल्याला प्रथम गोट्या बाहेर हलविणे आवश्यक आहे.</string>
-  <string name="castleQueenSideMovePiecesFirst">राणीच्या दिशेने कॅसलिंग करा!
-आपल्याला प्रथम गोट्या बाहेर हलविणे आवश्यक आहे.</string>
-  <string name="youCannotCastleIfMoved">जर राजा किव्हा हत्ती 
-हे आधीच चाललेले आहेत
-तर तुम्ही कॅसलिंग करू शकत नाही.</string>
-  <string name="youCannotCastleIfAttacked">तुम्ही कॅसलिंग करू शकत नाही जर 
-जर राज्याच्या मार्गात हल्ला झाला आहे.
-आधी हल्ला आडवा आणि मग कॅसलिंग करा!</string>
-</resources>
+  </resources>

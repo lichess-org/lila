@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="team">Joukkue</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="team">Joukkue</string>
   <string name="teams">Joukkueet</string>
   <plurals name="nbMembers">
     <item quantity="one">%s jäsentä</item>

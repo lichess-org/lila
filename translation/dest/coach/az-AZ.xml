@@ -1,10 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="lichessCoaches">Lichess məşqçiləri</string>
-  <string name="lichessCoach">Lichess məşçisi</string>
-  <string name="areYouCoach">%s sahibi istedadlı şahmat məşqçisisiniz?</string>
-  <string name="nmOrFideTitle">NM və ya FIDE titulu</string>
-  <string name="confirmTitle">Titulunuzu buradan təsdiqləyin və müraciətinizi nəzərdən keçirək.</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="confirmTitle">Titulunuzu buradan təsdiqləyin və müraciətinizi nəzərdən keçirək.</string>
   <string name="sendApplication">Bizə %s ünvanından e-poçt göndərin və müraciətinizi nəzərdən keçirək.</string>
   <string name="location">Yer</string>
   <string name="languages">Dillər</string>
@@ -13,8 +8,7 @@
   <string name="availability">Əlçatımlılıq</string>
   <string name="accepting">Tələbə qəbul edir</string>
   <string name="notAccepting">Hal-hazırda tələbə qəbul etmir</string>
-  <string name="xCoachesStudents">%s, şahmat tələbələrinə məşqçilik edir</string>
-  <string name="viewXProfile">%s müəllimin Lichess profilinə bax</string>
+  <string name="viewXProfile">%s müəllimin Lishogi profilinə bax</string>
   <string name="sendPM">Özəl bir mesaj göndər</string>
   <string name="aboutMe">Haqqımda</string>
   <string name="playingExperience">Oyun təcrübəsi</string>

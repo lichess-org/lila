@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">Preferències</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">Preferències</string>
   <string name="gameDisplay">Presentació del tauler</string>
   <string name="pieceAnimation">Animació de les peces</string>
   <string name="materialDifference">Diferència de material</string>
@@ -9,13 +8,9 @@
   <string name="boardCoordinates">Coordenades del tauler (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Llista de moviments durant la partida</string>
   <string name="pgnPieceNotation">Notació de les jugades</string>
-  <string name="chessPieceSymbol">Símbol de la peça</string>
-  <string name="pgnLetter">Lletres (K, Q, R, B, N)</string>
   <string name="zenMode">Mode Zen</string>
   <string name="displayBoardResizeHandle">Mostrar canvi de tamany</string>
   <string name="onlyOnInitialPosition">Només en posició inicial</string>
-  <string name="blindfoldChess">Escacs a cegues (peces invisibles)</string>
-  <string name="chessClock">Rellotge d\'escacs</string>
   <string name="tenthsOfSeconds">Dècimes de segon</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Quan restin menys de 10 segons</string>
   <string name="horizontalGreenProgressBars">Barres horitzontals verdes de temps</string>

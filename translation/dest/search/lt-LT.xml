@@ -1,13 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search">Ieškoti</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="search">Ieškoti</string>
   <string name="advancedSearch">Detali paieška</string>
-  <plurals name="searchInXGames">
-    <item quantity="one">Paieška tarp %s šachmatų partijos</item>
-    <item quantity="few">Paieška tarp %s šachmatų partijų</item>
-    <item quantity="many">Paieška tarp %s šachmatų partijų</item>
-    <item quantity="other">Paieška tarp %s šachmatų partijų</item>
-  </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">Rasta viena partija</item>
     <item quantity="few">Rastos %s partijos</item>

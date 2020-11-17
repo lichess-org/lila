@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">Innstillinger</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="settings">Innstillinger</string>
   <string name="closeAccount">Avslutt konto</string>
   <string name="closingIsDefinitive">Å lukke kontoen er en beslutning som ikke kan reverseres. Er du helt sikker?</string>
   <string name="cantOpenSimilarAccount">Du har ikke mulighet til å opprette en ny konto med samme brukernavn, selv om du endrer små bokstaver til STORE, eller STORE bokstaver til små.</string>

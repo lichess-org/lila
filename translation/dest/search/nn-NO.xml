@@ -1,11 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search">Søk</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="search">Søk</string>
   <string name="advancedSearch">Avansert søk</string>
-  <plurals name="searchInXGames">
-    <item quantity="one">Søk i %s parti</item>
-    <item quantity="other">Søk i %s parti</item>
-  </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">Fann eit parti</item>
     <item quantity="other">Fann %s parti</item>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="isItRated">Рейтингван ли е?</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="isItRated">Рейтингван ли е?</string>
   <string name="willBeNotified">Ще бъдете уведомени когато турнира започне, така че е безопасно да се играе в друг раздел докато чакате.</string>
   <string name="isRated">Този турнир е рейтингван и може да промени вашият рейтинг.</string>
   <string name="isNotRated">Този турнир *не* е рейтингван и *не* може да промени вашият рейтинг.</string>

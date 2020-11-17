@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="activity">പ്രവര്‍ത്തനം</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="activity">പ്രവര്‍ത്തനം</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">lichess.orgനെ %1$s മാസം %2$s ആയി പിന്തുണച്ചു</item>
-    <item quantity="other">lichess.orgനെ %1$s മാസം %2$s ആയി പിന്തുണച്ചു</item>
+    <item quantity="one">lishogi.orgനെ %1$s മാസം %2$s ആയി പിന്തുണച്ചു</item>
+    <item quantity="other">lishogi.orgനെ %1$s മാസം %2$s ആയി പിന്തുണച്ചു</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">%1$s position %2$s -ൽ അഭ്യസിച്ചു</item>
@@ -61,7 +60,7 @@
     <item quantity="one">%4$s -ൽ റാങ്ക് #%1$s (ആദ്യത്തെ %2$s%% -ൽ) നേടി. %3$s ഗെയിം കളിച്ചു</item>
     <item quantity="other">%4$s -ൽ റാങ്ക് #%1$s (ആദ്യത്തെ %2$s%% -ൽ) നേടി. %3$s ഗെയിമുകൾ കളിച്ചു</item>
   </plurals>
-  <string name="signedUp">Lichess.org -ൽ സൈൻ-അപ്പ് ചെയ്തു</string>
+  <string name="signedUp">Lishogi.org -ൽ സൈൻ-അപ്പ് ചെയ്തു</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s ടീമിൽ അംഗമായി</item>
     <item quantity="other">%s ടീമുകളിൽ അംഗമായി</item>

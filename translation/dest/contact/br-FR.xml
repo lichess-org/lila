@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="contact">Darempred</string>
-  <string name="contactLichess">Mont e darempred gant Lichess</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="contact">Darempred</string>
   <string name="whatCanWeHelpYouWith">Penaos e c\'hellomp ho sikour?</string>
   <string name="visitThisPage">Kit war ar pajenn-mañ da zirouestlañ ho kudenn</string>
   <string name="iCantLogIn">Ne c\'hallan ket kevreañ</string>
@@ -27,9 +25,8 @@
   <string name="trolling">trolling</string>
   <string name="insults">kunujennoù</string>
   <string name="otherReason">abegoù all</string>
-  <string name="reportBugInDiscord">War Lichess Discord server</string>
+  <string name="reportBugInDiscord">War Lishogi Discord server</string>
   <string name="illegalPawnCapture">Paket eo bet ur pezh gwerin en un doare direizh</string>
   <string name="calledEnPassant">\"En ur dremen\" a vez graet deus-se hag ur reolenn diazez eus ar c\'hoari an hini eo.</string>
   <string name="errorPage">Pajenn fazi</string>
-  <string name="buyingLichess">Prenañ Lichess</string>
-</resources>
+  </resources>

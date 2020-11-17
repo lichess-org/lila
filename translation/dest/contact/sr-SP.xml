@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="contact">Контакт</string>
-  <string name="contactLichess">Контактирајте Lichess</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="contact">Контакт</string>
   <string name="whatCanWeHelpYouWith">Како Вам можемо помоћи?</string>
   <string name="visitThisPage">Посетите ову страницу да решите проблем</string>
   <string name="iCantLogIn">Логовање није успело</string>
@@ -12,8 +10,8 @@
   <string name="lost2FA">Изгубио/ла сам приступ мојим кодовима за дво-степену аутентикацију</string>
   <string name="doPasswordReset">Приведите крају мењање шифре да бисте уклонили други корак</string>
   <string name="accountSupport">Потребна ми је подршка око налога</string>
-  <string name="wantTitle">Желим да се моје звање види на Lichess</string>
-  <string name="visitTitleConfirmation">Да би се Ваше звање видело на Lichess налогу, и да бисте учествовали на Titled Arenas (аренама са звањем), посетите страницу за потврђивање</string>
+  <string name="wantTitle">Желим да се моје звање види на Lishogi</string>
+  <string name="visitTitleConfirmation">Да би се Ваше звање видело на Lishogi налогу, и да бисте учествовали на Titled Arenas (аренама са звањем), посетите страницу за потврђивање</string>
   <string name="wantCloseAccount">Желим да затворим свој налог</string>
   <string name="closeYourAccount">Можете затворити ваш налог на овој страници</string>
   <string name="doNotAskByEmail">Не тражите да Вам затворимо налог путем е-поште, нећемо то урадити.</string>
@@ -39,10 +37,10 @@
   <string name="doNotMessageModerators">Не шаљите поруке модераторима директно.</string>
   <string name="onlyReports">Само пријаве путем форме за пријављивање ће бити узете у разматрање.</string>
   <string name="wantReportBug">Желим да пријавим грешку</string>
-  <string name="reportBugInForum">У делу форума Lichess Feedback</string>
-  <string name="reportWebsiteIssue">Као проблем Lichess сајта на GitHub-у</string>
-  <string name="reportMobileIssue">Као проблем Lichess мобилне апликације на GitHub-у</string>
-  <string name="reportBugInDiscord">На Lichess Discord серверу</string>
+  <string name="reportBugInForum">У делу форума Lishogi Feedback</string>
+  <string name="reportWebsiteIssue">Као проблем Lishogi сајта на GitHub-у</string>
+  <string name="reportMobileIssue">Као проблем Lishogi мобилне апликације на GitHub-у</string>
+  <string name="reportBugInDiscord">На Lishogi Discord серверу</string>
   <string name="howToReportBug">Молимо Вас да опишете како проблем изледа, шта сте очекивали да се деси, и кораке како да се проузрокује.</string>
   <string name="illegalPawnCapture">Недозвољено једење пешака</string>
 </resources>

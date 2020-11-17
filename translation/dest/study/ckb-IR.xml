@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="private">تایبەت</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="private">تایبەت</string>
   <string name="myStudies">لێکۆڵینەوەکم</string>
   <string name="studiesIContributeTo">ئەو لێکۆڵینەوانەی بەشداریم تێیاندا کرد</string>
   <string name="myPublicStudies">لێکۆڵینەوە گشتییەکانم</string>

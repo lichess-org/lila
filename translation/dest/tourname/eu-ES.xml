@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="hourlyRapidArena">Orduroko Txapelketa Aktiboa</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="hourlyRapidArena">Orduroko Txapelketa Aktiboa</string>
   <string name="hourlyRapid">Orduroko Aktiboa</string>
   <string name="hourlyXArena">Orduroko Txapelketa %s</string>
   <string name="hourlyX">Orduroko %s</string>

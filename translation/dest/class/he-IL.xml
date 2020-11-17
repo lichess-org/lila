@@ -1,13 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="lichessClasses">כיתות</string>
-  <string name="teachClassesOfChessStudents">למד כיתות של תלמידי שחמט עם התכונה ליצ\'ס כיתות.</string>
-  <string name="features">תכונות</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="features">תכונות</string>
   <string name="quicklyGenerateSafeUsernames">הפק במהירות שמות משתמשים וסיסמאות בטוחות לסטודנטים</string>
   <string name="trackStudentProgress">עקוב אחר ההתקדמות של התלמידים במשחקים ובחידות</string>
   <string name="messageAllStudents">שלח הודעה לכל התלמידים על חומר לימוד חדש בכיתה</string>
   <string name="freeForAllForever">100% חופשי לכולם, לנצח, בלי פרסומות או גששים</string>
-  <string name="applyToBeLichessTeacher">הגש בקשה להיות מורה בליצ\'ס</string>
   <string name="noClassesYet">אין עדיין כיתות.</string>
   <string name="teachersX">מורים: %s</string>
   <string name="newClass">כיתה חדשה</string>
@@ -23,7 +19,6 @@
   <string name="classDescription">תיאור הכיתה</string>
   <string name="visibleByBothStudentsAndTeachers">גלוי הן על ידי מורים ותלמידי הכיתה</string>
   <string name="teachersOfTheClass">מורי הכיתה</string>
-  <string name="addLichessUsernames">הוסף שמות משתמש של ליצ\'ס כדי להזמין אותם כמורים. אחד בכל שורה.</string>
   <string name="theyMustFirstApply">תחילה עליהם להגיש בקשה להיות מורים בליצ\'ס.</string>
   <string name="resetPassword">אפס סיסמה</string>
   <string name="makeSureToCopy">זכור להעתיק או לכתוב את הסיסמה עכשיו. אתה לא תוכל לראות אותה שוב!</string>
@@ -33,21 +28,17 @@
   <string name="realName">שם אמיתי</string>
   <string name="privateWillNeverBeShown">פרטי. אף פעם לא יראה מחוץ לכיתה. עוזר לזכור מי התלמיד.</string>
   <string name="addStudent">הוסף תלמיד</string>
-  <string name="lichessProfileXCreatedForY">פרופיל ליצ\'ס %1$s נוצר עבור %2$s.</string>
   <string name="studentCredentials">תלמיד: %1$s
 שם משתמש: %2$s
 סיסמה: %3$s</string>
-  <string name="inviteALichessAccount">הזמן חשבון ליצ\'ס</string>
   <string name="inviteDesc1">אם לתלמיד כבר יש חשבון ליצ\'ס, אתה יכול להזמין אותו לכיתה.</string>
   <string name="inviteDesc2">הם יקבלו הודעה בליצ\'ס עם לינק להצטרף לכיתה.</string>
   <string name="inviteDesc3">חשוב: הזמן רק תלמידים אשר אתה מכיר, ושרוצים להיות נוכחים בכיתה באופן אקטיבי.</string>
   <string name="inviteDesc4">לעולם אל תשלח הזמנות לא רצויות לשחקנים שרירותיים.</string>
-  <string name="createANewLichessAccount">צור חשבון ליצ\'ס חדש</string>
   <string name="createDesc1">אם לתלמיד עדיין אין חשבון בליצ\'ס, אתה יכול ליצור אחד בשבילו.</string>
   <string name="createDesc2">כתובת אימייל אינה דרושה. סיסמה תיווצר, ותצטרך להעביר זאת לתלמיד, כדי שיוכלו להתחבר.</string>
   <string name="createDesc3">חשוב: לתלמיד אסור שיהיו מספר חשבונות.</string>
   <string name="createDesc4">אם יש להם כבר אחד, השתמש במקום זאת בטופס ההזמנה.</string>
-  <string name="lichessUsername">שם משתמש בליצ\'ס</string>
   <string name="generateANewUsername">צור שם משתמש חדש</string>
   <string name="welcomeToClass">ברוך הבא לכיתתך: %s.
 הנה הלינק כדי לגשת לכיתה.</string>

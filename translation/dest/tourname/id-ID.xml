@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="hourlyRapidArena">Sejam Arena Rapid</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="hourlyRapidArena">Sejam Arena Rapid</string>
   <string name="hourlyRapid">Rapid Sejam</string>
   <string name="hourlyXArena">Arena %s setiap jam</string>
   <string name="hourlyX">%s Sejam</string>

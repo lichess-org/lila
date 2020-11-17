@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">ترجیحات</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">ترجیحات</string>
   <string name="gameDisplay">بساط کی وضع قطع</string>
   <string name="pieceAnimation">مہروں کی حرکت</string>
   <string name="materialDifference">مہروں کا فرق</string>
@@ -8,8 +7,6 @@
   <string name="pieceDestinations">مہروں کے ممکنہ گھر (صحیح اور خودکار چالوں کے لیے)۔</string>
   <string name="boardCoordinates">خانہ جات  (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">دوران کھیل چالوں کی فہرست</string>
-  <string name="blindfoldChess">نابینا شطرنج (مہرے نظر نہیں آئیں کے)۔</string>
-  <string name="chessClock">گھڑی سے متعلق</string>
   <string name="tenthsOfSeconds">سیکنڈ کا دسواں حصہ</string>
   <string name="whenTimeRemainingLessThanTenSeconds">جب بقیہ وقت ۱۰ سیکنڈ سے کم ہو</string>
   <string name="horizontalGreenProgressBars">افقی سبز پیشرفت نما</string>

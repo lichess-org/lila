@@ -1,24 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="faqAbbreviation">OSS</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="faqAbbreviation">OSS</string>
   <string name="frequentlyAskedQuestions">Spørsmål og svar</string>
-  <string name="whyIsLichessCalledLichess">Hvorfor navnet Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess er sammensatt av live/light/libre og chess. Uttalen er %1$s.</string>
-  <string name="leechess">li-tsjess</string>
   <string name="hearItPronouncedBySpecialist"> Hør hvordan en spesialist uttaler det.</string>
-  <string name="whyLiveLightLibre">Live, fordi partiene spilles og ses på i sanntid døgnet rundt; light og libre fordi Lichess er åpen kildekode og ikke nedtynget av slikt proprietært skrot som hjemsøker andre nettsteder.</string>
-  <string name="whyIsLilaCalledLila">Like ens står %1$s, kildekoden til Lichess, for li[chess in sca]la, ettersom det meste av Lichess er skrevet i %2$s, et intuitivt programmeringsspråk.</string>
-  <string name="howCanIContributeToLichess">Hvordan kan jeg bidra til Lichess?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess drives av pengegaver fra mesener og arbeidsinnsats fra frivillige.</string>
-  <string name="findMoreAndSeeHowHelp">Du kan lese mer om %1$s (inkludert en %2$s). Hvis du vil hjelpe Lichess med å tilby av tiden din og av ferdighetene dine, så finnes det mange %3$s.</string>
-  <string name="beingAPatron">å være mesen</string>
+  <string name="whyLiveLightLibre">Live, fordi partiene spilles og ses på i sanntid døgnet rundt; light og libre fordi Lishogi er åpen kildekode og ikke nedtynget av slikt proprietært skrot som hjemsøker andre nettsteder.</string>
   <string name="breakdownOfOurCosts">oversikt over kostnadene våre</string>
   <string name="otherWaysToHelp">andre sett å hjelpe til på</string>
-  <string name="areThereWebsitesBasedOnLichess">Finnes det nettsteder som er basert på Lichess?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess har så visst inspirert andre nettsteder med åpen kildekode som bruker vår %1$s, vårt %2$s eller vår %3$s.</string>
   <string name="fairPlay">Sportslig opptreden</string>
   <string name="whyFlaggedRatingManipulationOrCheater">Hvorfor har jeg fått anmerkning for kunstig ratingmanipulering (sandbagging og boosting) eller maskinhjelp?</string>
-  <string name="cheatDetectionMethods">Lichess rår over sterke deteksjonsmetoder og vi går grundig gjennom alle bevisene før avgjørelsen tas. Ofte er det mange moderatorer involvert i prosessen, som derfor kan ta lang tid. Sett bort fra selve anmerkningen går vi ikke inn på nærmere detaljer omkring beviser eller beslutningsprosessen i enkeltsaker. Hvis vi gjorde det, ville det bli lettere å unngå avsløringer i framtiden, og det ville være å invitere til uproduktive debatter. Vår tid og innsats kan brukes bedre på andre viktige saker. Brukere kan anke på e-post til %1$s, men avgjørelser blir sjelden omstøtt.</string>
+  <string name="cheatDetectionMethods">Lishogi rår over sterke deteksjonsmetoder og vi går grundig gjennom alle bevisene før avgjørelsen tas. Ofte er det mange moderatorer involvert i prosessen, som derfor kan ta lang tid. Sett bort fra selve anmerkningen går vi ikke inn på nærmere detaljer omkring beviser eller beslutningsprosessen i enkeltsaker. Hvis vi gjorde det, ville det bli lettere å unngå avsløringer i framtiden, og det ville være å invitere til uproduktive debatter. Vår tid og innsats kan brukes bedre på andre viktige saker. Brukere kan anke på e-post til %1$s, men avgjørelser blir sjelden omstøtt.</string>
   <string name="whenAmIEligibleRatinRefund">Når er jeg kvalifisert til automatisk ratingrefusjon fra juksemakere?</string>
   <string name="ratingRefundExplanation">Ett minutt etter at en spiller er markert, blir de 40 siste ratede partiene de siste 3 dagene betraktet. Hvis du var motstander i disse partiene, du mistet rating (på grunn av tap eller remis) og ratingen din ikke var provisorisk, får du refusjon. Refusjonen er begrenset oppad basert på toppratingen din og ratingprogresjonen din etter partiet.
   (Hvis for eksempel ratingen din økte sterkt etter disse partiene, kan det hende du ikke får refusjon eller bare delvis refusjon.) En refusjon vil aldri overstige 150 poeng.</string>
@@ -26,17 +15,14 @@
   <string name="leavingGameWithoutResigningExplanation">Dersom motspilleren din har som vane å avbryte/forlate partiet, får vedkommende \"spillenekt\", noe som innebærer et midlertidig forbud mot å spille. Dette blir ikke kunngjort på spillerprofilen. Dersom oppførselen ikke opphører, blir lengden av spillenekten lengre. En vedvarende oppførsel av dette slaget kan føre til at kontoen blir avsluttet.</string>
   <string name="howCanIBecomeModerator">Hvordan kan jeg bli moderator?</string>
   <string name="youCannotApply">Det er ikke mulig å søke om å bli moderator. Hvis vi ser noen som vi tror kan gjøre en god jobb som moderator, så kontakter vi vedkommende direkte.</string>
-  <string name="isCorrespondenceDifferent">Er fjernsjakk forskjellig fra vanlig sjakk?</string>
-  <string name="youCanUseOpeningBookNoEngine">Hos Lichess er den viktigste regelforskjellen for fjernsjakk at det er lov å bruke åpningsbøker. Maskinanalyse er fremdeles forbudt og vil føre til at man får anmerkning for maskinbistand. Selv om ICCF tillater bruk av maskinanalyse i fjernsjakk, så er ikke det tilfellet hos Lichess.</string>
   <string name="gameplay">Spillforløp</string>
   <string name="howBulletBlitzEtcDecided">Hvor går skillene mellom Bullet, Blitz og andre tidskontroller?</string>
-  <string name="basedOnGameDuration">Tidskontrollene hos Lichess er basert på estimert varighet av partiet = %1$s
+  <string name="basedOnGameDuration">Tidskontrollene hos Lishogi er basert på estimert varighet av partiet = %1$s
 For eksempel er den estimerte varigheten av et 5+3-parti 5 · 60 + 40 · 3 = 420 sekunder.</string>
   <string name="durationFormula">(starttid på sjakkuret) + 40 · (tilleggstid)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
-  <string name="whatVariantsCanIplay">Hvilke varianter kan jeg spille hos Lichess?</string>
-  <string name="lichessSupportChessAnd">Lichess støtter standardsjakk og %1$s.</string>
+  <string name="whatVariantsCanIplay">Hvilke varianter kan jeg spille hos Lishogi?</string>
   <string name="eightVariants">8 sjakkvarianter</string>
   <string name="whatIsACPL">Hva er gjennomsnittlig centibondetap (ACPL)?</string>
   <string name="acplExplanation">En centibonde er en målenhet i sjakk for fordelen en spiller har i en stilling. En centibonde er lik en hundredels bonde. Altså 100 centibønder = 1 bonde. Disse verdiene har ingen formell rolle i partiet, men de er nyttige for spillerne og vesentlige for maskinsjakk ved evaluering av stillinger.
@@ -45,13 +31,8 @@ Det beste maskintrekket taper null centibønder, mens svakere trekk vil medføre
 
 Denne verdien kan brukes til å indikere spillkvaliteten. Jo færre centibønder man taper pr. trekk, dess sterkere spill.
 
-Lichess bruker Stockfish til maskinanalyse.</string>
+Lishogi bruker Stockfish til maskinanalyse.</string>
   <string name="insufficientMaterial">Tap på tid, remis og utilstrekkelig materiell</string>
-  <string name="lichessFollowFIDErules">Hvis tiden løper ut for en spiller, vil vedkommende vanligvis tape partiet. Partiet er likevel remis hvis stillingen er slik at motstanderen ikke kan matte spillerens konge ved noen lovlig trekkrekkefølge (%1$s).
-
-Dette kan i sjeldne tilfeller være vanskelig å avgjøre automatisk (tvungne linjer, festninger). Da holder vi med spilleren der tiden ikke løp ut.
-
-Legg merke til at den kan være mulig å matte med en enkelt springer eller løper hvis motstanderen har en brikke som kan blokkere kongen.</string>
   <string name="linkToFIDErules">FIDE-håndbok §6.9, pdf</string>
   <string name="discoveringEnPassant">Hvorfor kan en bonde slå en annen bonde når den allerede er passert? (en passant)</string>
   <string name="explainingEnPassant">Dette er et lovlig trekk kjent som \"en passant\". Wikipedia-artikkelen gir en %1$s.
@@ -63,51 +44,39 @@ Trekket står omtalt i avsnitt 3.7 (d) i de %2$s:
 Se mer om dette trekket i %3$s for å få litt øvelse med det.</string>
   <string name="goodIntroduction">god innføring</string>
   <string name="officialRulesPDF">offisielle reglene (pdf)</string>
-  <string name="lichessTraining">Lichess-øvelsene</string>
   <string name="threefoldRepetition">Trekkgjentakelse</string>
-  <string name="threefoldRepetitionExplanation">Hvis en stilling oppstår tre ganger, kan spillerne kreve remis ved %1$s. Lichess implementerer de offisielle FIDE-reglene, som står omtalt i artikkel 9.2 (d) i %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Hvis en stilling oppstår tre ganger, kan spillerne kreve remis ved %1$s. Lishogi implementerer de offisielle FIDE-reglene, som står omtalt i artikkel 9.2 (d) i %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trekkgjentakelse</string>
   <string name="handBookPDF">håndboken (pdf)</string>
   <string name="notRepeatedMoves">Vi gjentok ikke trekk. Hvorfor ble partiet remis ved trekkgjentakelse?</string>
   <string name="repeatedPositionsThatMatters">Trekkgjentakelse dreier seg om gjentatte %1$s, ikke trekk. Gjentakelsene trenger ikke skje rett etter hverandre.</string>
   <string name="positions">stillinger</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Vi gjentok en stilling tre ganger. Hvorfor ble det ikke remis?</string>
-  <string name="threeFoldHasToBeClaimed">Trekkgjentakelse må kreves av en av spillerne. Du kan gjøre det ved å trykke på knappen som dukker opp, eller ved å tilby remis før du gjør det endelige gjentakende trekket. Du kan også %1$s Lichess til å automatisk kreve trekkgjentakelse for deg. I tillegg vil spillet avsluttes øyeblikkelig hvis samme stilling oppstår fem ganger.</string>
+  <string name="threeFoldHasToBeClaimed">Trekkgjentakelse må kreves av en av spillerne. Du kan gjøre det ved å trykke på knappen som dukker opp, eller ved å tilby remis før du gjør det endelige gjentakende trekket. Du kan også %1$s Lishogi til å automatisk kreve trekkgjentakelse for deg. I tillegg vil spillet avsluttes øyeblikkelig hvis samme stilling oppstår fem ganger.</string>
   <string name="configure">konfigurere</string>
   <string name="accounts">Kontoer</string>
-  <string name="titlesAvailableOnLichess">Hvilke titler finnes hos Lichess?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess anerkjenner alle FIDE-titler oppnådd ved OTB-spill (over brettet), så vel som %1$s. Her er en liste over FIDE-titler:</string>
   <string name="showYourTitle">Hvis du har en OTB-tittel, kan du søke om få vist den på kontoen din ved å fylle ut %1$s, inkludert et tydelig bilde av et identifikasjonsdokument/-kort og et bilde av deg der du holder ID-en.
 
-Spillere med verifiserte titler hos Lichess kan delta i tittelarenabegivenheter.
+Spillere med verifiserte titler hos Lishogi kan delta i tittelarenabegivenheter.
 
 Dessuten finnes ærestittelen %2$s.</string>
   <string name="asWellAsManyNMtitles">mange nasjonale mestertitler</string>
   <string name="verificationForm">verifiseringsskjemaet</string>
-  <string name="canIbecomeLM">Kan jeg få tittelen Lichess Master (LM)?</string>
+  <string name="canIbecomeLM">Kan jeg få tittelen Lishogi Master (LM)?</string>
   <string name="noUpperCaseDot">Nei.</string>
-  <string name="lMtitleComesToYouDoNotRequestIt">Denne ærestittelen er uoffisiell og finnes bare hos Lichess.
+  <string name="lMtitleComesToYouDoNotRequestIt">Denne ærestittelen er uoffisiell og finnes bare hos Lishogi.
 
-En sjelden gang deler vi den ut til bemerkelsesverdige spillere som etter vårt skjønn er gode medborgere hos Lichess. Du finner ikke veien til LM-tittelen, LM-tittelen finner veien til deg. Hvis du er kvalifisert, får du en melding fra oss, og det er da opp til deg å godta eller avslå tittelen.
+En sjelden gang deler vi den ut til bemerkelsesverdige spillere som etter vårt skjønn er gode medborgere hos Lishogi. Du finner ikke veien til LM-tittelen, LM-tittelen finner veien til deg. Hvis du er kvalifisert, får du en melding fra oss, og det er da opp til deg å godta eller avslå tittelen.
 
 Ikke be om LM-tittelen.</string>
   <string name="whatUsernameCanIchoose">Hva kan brukernavnet mitt være?</string>
   <string name="usernamesNotOffensive">Brukernavnet skal ikke være støtende, det skal ikke gi seg ut for å tilhøre en annen enn deg selv og det skal ikke inneholde reklame. Du kan lese mer om %1$s.</string>
   <string name="guidelines">retningslinjene</string>
   <string name="uniqueTrophies">Unike trofeer</string>
-  <string name="ownerUniqueTrophies">Det trofeet er unikt i Lichess-historien, ingen andre enn %1$s vil noensinne få det.</string>
+  <string name="ownerUniqueTrophies">Det trofeet er unikt i Lishogi-historien, ingen andre enn %1$s vil noensinne få det.</string>
   <string name="wayOfBerserkExplanation">For å få det utfordret hiimgosu seg selv til å gå berserk i og vinne 100%% av partiene i %s.</string>
   <string name="aHourlyBulletTournament">timens Bullet-arena</string>
   <string name="goldenZeeExplanation">ZugAddict drev og strømmet, og i to timer hadde han uten hell forsøkt å slå maskinen på nivå 8 i et 1+0-parti. Thibault sa at om han lyktes mens han strømmet, skulle han få et unikt trofé. En time senere moste han Stockfish, og løftet ble overholdt.</string>
-  <string name="lichessRatings">Lichess-ratinger</string>
-  <string name="whichRatingSystemUsedByLichess">Hvilket ratingsystem bruker Lichess?</string>
-  <string name="ratingSystemUsedByLichess">Ratingene beregnes ved Glicko-2-ratingmetoden, som er utviklet av Mark Glickman. Dette er en veldig populær ratingmetode og den brukes av et stort antall sjakkorganisasjoner (FIDE er et framstående moteksempel, siden de fremdeles bruker det utdaterte Elo-ratingsystemet).
-
-Glicko-ratingene bygger på \"konfidensintervaller\" når ratingen din skal beregnes og presenteres. Når du begynner å bruke nettstedet, starter ratingen din på 1500 ± 700. Tallet 1500 representerer ratingen din, og tallet 700 representerer konfidensintervallet.
-
-I bunn og grunn er systemet 90 % sikkert på at ratingen din ligger mellom 800 og 2200. Dette er utrolig usikkert. Det betyr at ratingen vil endre seg dramatisk for spillere i oppstarten, potensielt med flere hundre poeng om gangen. Etter noen partier mot etablerte spillere vil konfidensintervallet innsnevres, og antall poeng som oppnås/tapes etter hvert parti, vil avta.
-
-Et annet poeng å være oppmerksom på er at ettersom tiden går uten spille, så øker konfidensintervallet. Slik kan du oppnå/tape poeng hurtigere for å tilpasse ratingen til eventuelle endringer i ferdighetsnivået ditt i tiden uten å spille.</string>
   <string name="whatIsProvisionalRating">Hvorfor er det spørsmålstegn (?) ved siden av ratingen?</string>
   <string name="provisionalRatingExplanation">Spørsmålstegnet betyr at ratingen er provisorisk. Grunnen til dette kan være:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Spilleren har så langt ikke fullført mange nok ratede partier mot %1$s i ratingkategorien.</string>
@@ -119,7 +88,6 @@ Et annet poeng å være oppmerksom på er at ettersom tiden går uten spille, s�
   <string name="ratingLeaderboards">ratingledertabellene</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">ha spilt minst 30 ratede partier for en gitt ratingkategori,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">ha spilt et ratet parti siste uke for denne ratingkategorien,</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">ha et ratingavvik lavere enn %1$s i standardsjakk og lavere enn %2$s i varianter,</string>
   <string name="beInTopTen">være blant topp ti i denne ratingkategorien.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Det andre kravet er slik at spillere som ikke lenger bruker kontoen sin, faller ut av ledertabellene.</string>
   <string name="whyAreRatingHigher">Hvorfor er ratingene høyere sammenlignet med andre nettsteder og organisasjoner som FIDE, USCF og ICC?</string>
@@ -130,13 +98,8 @@ Det beste er å se på ratinger som \"relative\" tall (i motsetning til \"absolu
   <string name="enableZenMode">Aktiver zen-modus i %1$s eller trykk %2$s under partiet.</string>
   <string name="displayPreferences">visningsinnstillingene</string>
   <string name="connexionLostCanIGetMyRatingBack">Jeg tapte et parti på grunn av forsinket/mistet forbindelse. Kan jeg få tilbake ratingpoengene mine?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Vi kan dessverre ikke gi tilbake ratingpoeng for tapte partier etter forsinket eller tapt forbindelse, uansett om problemet var hos deg eller oss. Det siste er dog meget sjeldent. Legg også merke til at når Lichess starter på nytt og det fører til at du taper på tid, avbryter vi partiet for å avverge et urettferdig tap.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Vi kan dessverre ikke gi tilbake ratingpoeng for tapte partier etter forsinket eller tapt forbindelse, uansett om problemet var hos deg eller oss. Det siste er dog meget sjeldent. Legg også merke til at når Lishogi starter på nytt og det fører til at du taper på tid, avbryter vi partiet for å avverge et urettferdig tap.</string>
   <string name="howToThreeDots">Hvordan kan jeg...</string>
   <string name="enableDisableNotificationPopUps">Aktivere eller deaktivere varselforgrunnsvinduer?</string>
   <string name="viewSiteInformationPopUp">Vis nettstedsinformasjonsforgrunnsvindu</string>
-  <string name="lichessCanOptionnalySendPopUps">Lichess kan etter ønske sende varsler som forgrunnsvinduer, for eksempel når det er ditt trekk eller når du mottar private meldinger.
-
-Klikk på hengelåsikonet ved siden av lichess.org-adressen i nettleserens URL-felt.
-
-Avgjør så om du vil tillate eller blokkere varsler fra Lichess.</string>
-</resources>
+  </resources>

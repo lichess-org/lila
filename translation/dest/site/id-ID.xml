@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Bermain dengan teman</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Bermain dengan teman</string>
   <string name="playWithTheMachine">Bermain melawan komputer</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Undang yang lain dengan memberikan URL berikut</string>
   <string name="gameOver">Permainan Berakhir</string>
@@ -236,7 +235,6 @@
   <string name="recipient">Penerima</string>
   <string name="send">Kirim</string>
   <string name="incrementInSeconds">Kenaikan dalam detik</string>
-  <string name="freeOnlineChess">Catur online gratis!</string>
   <string name="spectators">Penonton:</string>
   <plurals name="nbRated">
     <item quantity="other">%s dengan rating</item>
@@ -258,7 +256,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">Berikan %s detik</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Akun ini melanggar Ketentuan Layanan Lichess</string>
+  <string name="thisAccountViolatedTos">Akun ini melanggar Ketentuan Layanan Lishogi</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Pemain ini bertambah/berkurang ratingnya</string>
   <string name="openingExplorerAndTablebase">Penjelajah pembukaan &amp; tablebase</string>
   <string name="takeback">Langkah Batal</string>
@@ -302,7 +300,6 @@
   <string name="mustBeInTeam">Harus dari dalam tim %s</string>
   <string name="youAreNotInTeam">Anda tidak masuk di tim %s</string>
   <string name="backToGame">Kembali ke permainan</string>
-  <string name="siteDescription">Permainan Catur gratis. Main Catur sekarang dengan antarmuka yang bersih. Tanpa registrasi, tanpa iklan, dan tanpa plugin tambahan. Bermain catur lawan komputer, teman atau lawan manusia secara acak.</string>
   <string name="xJoinedTeamY">%1$s bergabung tim %2$s</string>
   <string name="xCreatedTeamY">%1$s membuat tim %2$s</string>
   <string name="xStartedStreaming">%s memulai streaming</string>
@@ -323,9 +320,7 @@
   <plurals name="nbImportedGames">
     <item quantity="other">%s permainan telah dimasukkan</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Ini adalah CAPTCHA catur.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klik pada papan untuk melangkah  dan buktikan bahwa anda asli manusia.</string>
-  <string name="captcha.fail">Harap selesaikan captcha catur.</string>
   <string name="notACheckmate">Bukan skakmat</string>
   <string name="whiteCheckmatesInOneMove">Putih skakmat dalam satu langkah</string>
   <string name="blackCheckmatesInOneMove">Hitam skakmat dalam satu langkah</string>
@@ -372,7 +367,6 @@
   <string name="advancedSettings">Pengaturan lanjutan</string>
   <string name="safeTournamentName">Pilih nama yang paling aman untuk turnamen.</string>
   <string name="inappropriateNameWarning">Nama apapun yang bahkan sedikit tidak pantas akan mengakibatkan akun Anda ditutup.</string>
-  <string name="emptyTournamentName">Biarkan kosong untuk nama turnamen setelah pengacakan Grandmaster.</string>
   <string name="recommendNotTouching">Kita rekomendasikan jangan sentuh ini.</string>
   <string name="fewerPlayers">Jika Anda atur persyaratan masuk, turnamen yang Anda buat akan memiliki lebih sedikit pemain.</string>
   <string name="showAdvancedSettings">Tampilkan pengaturan lanjutan</string>
@@ -420,8 +414,6 @@
   <string name="country">Negara</string>
   <string name="socialMediaLinks">Tautan sosial media</string>
   <string name="inlineNotation">Notasi inline</string>
-  <string name="watchLichessTV">Nonton Lichess TV</string>
-  <string name="previouslyOnLichessTV">Sebelumnya di Lichess TV</string>
   <string name="onlinePlayers">Pemain online</string>
   <string name="activeToday">Aktif hari ini</string>
   <string name="activePlayers">Pemain aktif</string>
@@ -441,7 +433,7 @@
   <string name="butYouCanKeepTrying">Tetapi anda bisa mencoba terus.</string>
   <string name="success">Sukses</string>
   <string name="wasThisPuzzleAnyGood">Apakah taktik ini bagus?</string>
-  <string name="pleaseVotePuzzle">Bantu lichess berkembang dengan vote, gunakan tanda panah ke atas atau bawah:</string>
+  <string name="pleaseVotePuzzle">Bantu lishogi berkembang dengan vote, gunakan tanda panah ke atas atau bawah:</string>
   <string name="thankYou">Terima Kasih!</string>
   <string name="ratingX">Rating: %s</string>
   <string name="hidden">tersembunyi</string>
@@ -532,7 +524,6 @@
   <string name="starting">Mulai:</string>
   <string name="allInformationIsPublicAndOptional">Semua informasi bersifat publik jika dikehendaki.</string>
   <string name="yourCityRegionOrDepartment">Kota anda, daerah atau provinsi.</string>
-  <string name="biographyDescription">Ceritakan tentang anda, apa yang anda sukai dalam catur, pembukaan kesukaan, permainan, pemain…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="other">Maksimal: %s karakter</item>
   </plurals>
@@ -546,7 +537,6 @@
   <string name="clock">Jam</string>
   <string name="unauthorizedError">Akses tidak sah.</string>
   <string name="noInternetConnection">Tak ada koneksi internet. Anda masih bisa bermain offline dari menu.</string>
-  <string name="connectedToLichess">Anda telah terhubung ke lichess.org</string>
   <string name="signedOut">Anda baru saja keluar</string>
   <string name="loginSuccessful">Anda sudah masuk</string>
   <string name="playOnTheBoardOffline">Di atas papan</string>
@@ -587,7 +577,6 @@
   <string name="webmasters">Webmaster</string>
   <string name="about">Tentang</string>
   <string name="aboutX">Tentang %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s adalah server catur yang (%2$s) gratis, tanpa iklan, dan sumber terbuka.</string>
   <string name="really">benar-benar</string>
   <string name="contribute">Kontribusi</string>
   <string name="termsOfService">Ketentuan Layanan (ToS)</string>
@@ -611,7 +600,6 @@
   <string name="simulClockHint">Aturan Jam Fischer: Semakin banyak peserta yang ikut, semakin banyak waktu diperlukan.</string>
   <string name="simulAddExtraTime">Anda bisa menambah waktu pada jam anda untuk membantu simultan anda</string>
   <string name="simulHostExtraTime">Penyedia waktu tambahan</string>
-  <string name="lichessTournaments">Turnamen Lichess</string>
   <string name="tournamentFAQ">Arena Turnamen FAQ</string>
   <string name="tournamentOfficial">Resmi</string>
   <string name="timeBeforeTournamentStarts">Waktu sebelum turnamen dimulai</string>
@@ -622,8 +610,6 @@
   <string name="keyShowOrHideComments">Tampilkan/sembunyikan komentar</string>
   <string name="keyEnterOrExitVariation">masuk/keluar dari variasi</string>
   <string name="newTournament">Turnamen baru</string>
-  <string name="tournamentHomeTitle">Turnamen catur dengan menampilkan berbagai kontrol waktu dan beberapa varian</string>
-  <string name="tournamentHomeDescription">Turnamen catur cepat! ikuti jadwal pertandingan yang telah kami atur, atau buat sesuai keinginanmu.  bullet, blitz, classical, chess960, king of the hill, tiga langkah mati, dan banyak lagi pilihan yang tersedia untuk kesenangan bercatur yang tiada habisnya.</string>
   <string name="tournamentNotFound">Turnamen tidak ditemukan</string>
   <string name="tournamentDoesNotExist">Turnamen tidak ada</string>
   <string name="tournamentMayHaveBeenCanceled">turnamen harus dibatalkan, jika semua pemain meninggalkannya sebelum turnamen dimulai.</string>
@@ -644,8 +630,6 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jika anda tidak melihat surel, cek tempat-tempat lain; seperti junk, spam, sosial, atau berkas lainnya</string>
   <string name="weHaveSentYouAnEmailTo">Kami telah mengirim surel kepada %s. Klik tautan di dalam surel untuk mengubah kata sandi anda.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Dengan mendaftar, anda setuju untuk terikat dengan %s kita.</string>
-  <string name="networkLagBetweenYouAndLichess">Hambatan jaringan antara anda dan lichess.</string>
-  <string name="timeToProcessAMoveOnLichessServer">Waktu untuk memproses suatu langkah dalam server lichess</string>
   <string name="downloadAnnotated">Unduh versi anotasi</string>
   <string name="downloadRaw">Unduh mentah</string>
   <string name="downloadImported">Unduh permainan yang telah dimasukkan</string>
@@ -654,29 +638,23 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Anda juga bisa menggunakan tombol gulung untuk bergerak dalam permainan</string>
   <string name="analysisShapesHowTo">Tekan shift+klik atau klik-kanan untuk menggambar lingkaran dan panah di papan.</string>
   <string name="letOtherPlayersMessageYou">Memperbolehkan pemain lain mengirim pesan untuk Anda</string>
-  <string name="shareYourInsightsData">Berbagi data permainan anda</string>
   <string name="withNobody">Tidak dengan siapapun</string>
   <string name="withFriends">Dengan teman</string>
   <string name="withEverybody">Dengan semua orang</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Anda sudah mendaftarkan sebuah email: %s</string>
   <string name="kidMode">Mode anak</string>
   <string name="kidModeExplanation">Ini adalah tentang keselamatan. Dalam modus anak, semua situs komunikasi dinonaktifkan. Mengaktifkan ini untuk anak-anak Anda dan sekolah siswa, untuk melindungi mereka dari pengguna internet yang lain.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Dalam modus anak, lichess logo mendapat ikon %s, sehingga Anda tahu anak-anak Anda aman.</string>
   <string name="enableKidMode">Mengaktifkan mode anak</string>
   <string name="disableKidMode">Menonaktifkan modus anak</string>
   <string name="security">Keamanan</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ini adalah daftar perangkat yang memiliki login ke akun Anda. Batalkan setiap sesi yang Anda tidak mengenali.</string>
   <string name="alternativelyYouCanX">Atau Anda dapat %s.</string>
   <string name="revokeAllSessions">mencabut semua sesi</string>
-  <string name="playChessEverywhere">Bermain catur dimanapun</string>
-  <string name="asFreeAsLichess">Gratis seperti lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Dibuat atas dasar cinta terhadap catur, bukan uang</string>
   <string name="everybodyGetsAllFeaturesForFree">Semua pengguna mendapatkan seluruh fitur dengan gratis</string>
   <string name="zeroAdvertisement">Tanpa iklan</string>
   <string name="fullFeatured">Fitur lengkap</string>
   <string name="phoneAndTablet">Telefon genggam dan tablet</string>
   <string name="bulletBlitzClassical">Superkilat, kilat, klasik</string>
-  <string name="correspondenceChess">Catur korespondensi</string>
   <string name="onlineAndOfflinePlay">Permainan saat online dan offline</string>
   <string name="viewTheSolution">Lihat jawaban</string>
   <string name="followAndChallengeFriends">Mengikuti dan menantang teman</string>
@@ -708,9 +686,6 @@
   <string name="usernameSuffixInvalid">Nama pengguna harus berakhiran dengan huruf atau angka.</string>
   <string name="usernameCharsInvalid">Nama pengguna hanya boleh mengandung huruf, garisbawah, dan tanda hubung.</string>
   <string name="usernameUnacceptable">Nama pengguna ini tidak dapat diterima.</string>
-  <string name="directlySupportLichess">Mendukung Lichess secara langsung</string>
-  <string name="playChessInStyle">Bermain catur dengan gaya</string>
-  <string name="chessBasics">Dasar-dasar permainan catur</string>
   <string name="coaches">Pelatih</string>
   <string name="invalidPgn">PGN tidak valid</string>
   <string name="invalidFen">FEN tidak valid</string>
@@ -784,7 +759,6 @@
   <string name="weHadToTimeYouOutForAWhile">Kami harus mengatur waktu Anda untuk sementara waktu.</string>
   <string name="timeoutExpires">Batas waktu berakhir %s lagi.</string>
   <string name="why">Mengapa?</string>
-  <string name="pleasantChessExperience">Kami bertujuan dan menjaga untuk memberikan pengalaman catur yang menyenangkan bagi semua orang.</string>
   <string name="goodPractice">Untuk itu, kami harus memastikan bahwa semua pemain harus mengikuti perlakuan yang baik.</string>
   <string name="potentialProblem">Ketika potensi menimbulkan masalah terdeteksi, kami menampilkan pesan ini.</string>
   <string name="howToAvoidThis">Bagaimana cara untuk menghindari ini?</string>
@@ -792,14 +766,13 @@
   <string name="tryToWin">Usahakan untuk menang (atau setidaknya remis) disetiap permainan yang kau mainkan.</string>
   <string name="resignLostGames">Ajukan menyerah untuk permainan yang kalah (jangan sampai waktu habis).</string>
   <string name="temporaryInconvenience">Kami mohon maaf atas ketidaknyamanan ini,</string>
-  <string name="wishYouGreatGames">dan doakan Anda untuk mendapatkan pengalaman bermain yang hebat di lichess.org.</string>
+  <string name="wishYouGreatGames">dan doakan Anda untuk mendapatkan pengalaman bermain yang hebat di lishogi.org.</string>
   <string name="thankYouForReading">Terima kasih sudah membacanya!</string>
   <string name="lifetimeScore">Skor seumur hidup</string>
   <string name="currentMatchScore">Skor pertandingan saat ini</string>
-  <string name="agreementAssistance">Saya menyetujui bahwa saya tidak akan pernah menerima bantuan selama pertandingan (dari komputer catur, buku, database ataupun orang lain).</string>
   <string name="agreementNice">Saya menyetujui bahwa saya akan selalu bersikap baik kepada pemain lain.</string>
   <string name="agreementAccount">Saya menyetujui bahwa saya tidak akan pernah membuat banyak akun.</string>
-  <string name="agreementPolicy">Saya menyetujui bahwa saya akan mengikuti semua kebijakan yang ada di Lichess.</string>
+  <string name="agreementPolicy">Saya menyetujui bahwa saya akan mengikuti semua kebijakan yang ada di Lishogi.</string>
   <string name="searchOrStartNewDiscussion">Cari atau mulai diskusi baru</string>
   <string name="edit">Ubah</string>
   <string name="rapid">Cepat</string>
@@ -810,7 +783,6 @@
   <string name="rapidDesc">Permainan rapid: 8 hingga 25 menit</string>
   <string name="classicalDesc">Permainan klasikal: 25 menit atau lebih</string>
   <string name="correspondenceDesc">Permainan korespondensi: satu atau beberapa hari dalam satu langkah</string>
-  <string name="puzzleDesc">Pelatih taktik catur</string>
   <string name="important">Penting</string>
   <string name="yourQuestionMayHaveBeenAnswered">Pertanyaan anda mungkin sudah terjawab %1$s</string>
   <string name="inTheFAQ">di Pertanyaan umum</string>

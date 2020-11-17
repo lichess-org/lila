@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Žaisti su draugu</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Žaisti su draugu</string>
   <string name="playWithTheMachine">Žaisti su kompiuteriu</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Norėdami pakviesti varžovą, pasidalinkite šiuo adresu</string>
   <string name="gameOver">Partija baigta</string>
@@ -269,7 +268,6 @@
   <string name="recipient">Gavėjas</string>
   <string name="send">Siųsti</string>
   <string name="incrementInSeconds">Sekundžių prieaugis</string>
-  <string name="freeOnlineChess">Nemokami šachmatai internete</string>
   <string name="spectators">Žiūrovai:</string>
   <plurals name="nbRated">
     <item quantity="one">%s vertinama</item>
@@ -370,7 +368,6 @@
   <string name="mustBeInTeam">Turite būti komandos „%s“ nariu</string>
   <string name="youAreNotInTeam">Jūs nesate komandos „%s“ narys</string>
   <string name="backToGame">Grįžti į partiją</string>
-  <string name="siteDescription">Nemokamas šachmatų žaidimas internete. Žaiskite šachmatais patrauklioje sąsajoje. Nebūtina registracija, nėra reklamų, nereikia jokių priedų. Žaiskite šachmatais prieš kompiuterį, draugus arba atsitiktinius varžovus.</string>
   <string name="xJoinedTeamY">%1$s prisijungė prie „%2$s“ komandos</string>
   <string name="xCreatedTeamY">%1$s sukūrė „%2$s“ komandą</string>
   <string name="xStartedStreaming">%s pradėjo transliaciją</string>
@@ -395,9 +392,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
     <item quantity="many">%s importuotų žaidimų</item>
     <item quantity="other">%s importuotų žaidimų</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Tai yra šachmatinė „CAPTCHA“.</string>
   <string name="clickOnTheBoardToMakeYourMove">Spustelėkite ant lentos norėdami atlikti ėjimą ir įrodyti, kad esate žmogus.</string>
-  <string name="captcha.fail">Prašome išspręsti šachmatų galvosūkį.</string>
   <string name="notACheckmate">Tai ne šachas ir matas</string>
   <string name="whiteCheckmatesInOneMove">Baltųjų šachas ir matas vienu ėjimu</string>
   <string name="blackCheckmatesInOneMove">Juodųjų šachas ir matas vienu ėjimu</string>
@@ -456,7 +451,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="advancedSettings">Papildomos nuostatos</string>
   <string name="safeTournamentName">Pasirinkite labai saugų turnyro pavadinimą.</string>
   <string name="inappropriateNameWarning">Kas nors bent kiek netinkamo gali lemti jūsų paskyros uždarymą.</string>
-  <string name="emptyTournamentName">Palikus tuščią, turnyras bus pavadintas pagal atsitiktinį didmeistrį.</string>
   <string name="recommendNotTouching">Rekomenduojame šitų neliesti.</string>
   <string name="fewerPlayers">Jeigu pridėsite dalyvavimo sąlygų, jūsų turnyre bus mažiau žaidėjų.</string>
   <string name="showAdvancedSettings">Rodyti papildomas nuostatas</string>
@@ -504,8 +498,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="country">Šalis</string>
   <string name="socialMediaLinks">Socialinių tinklų nuorodos</string>
   <string name="inlineNotation">Įterptas žymėjimas</string>
-  <string name="watchLichessTV">Žiūrėti „lichess TV“</string>
-  <string name="previouslyOnLichessTV">Anksčiau per „lichess TV“</string>
   <string name="onlinePlayers">Prisijungę žaidėjai</string>
   <string name="activeToday">Šiandienos aktyvumas</string>
   <string name="activePlayers">Aktyvumas</string>
@@ -525,7 +517,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="butYouCanKeepTrying">Tačiau galite bandyti vėl.</string>
   <string name="success">Pavyko</string>
   <string name="wasThisPuzzleAnyGood">Ar užduotis buvo gera?</string>
-  <string name="pleaseVotePuzzle">Padėkite „lichess“ tobulėti įvertindami užduotį (spustelėkite rodyklę į viršų ar apačią):</string>
+  <string name="pleaseVotePuzzle">Padėkite „lishogi“ tobulėti įvertindami užduotį (spustelėkite rodyklę į viršų ar apačią):</string>
   <string name="thankYou">Ačiū!</string>
   <string name="ratingX">Reitingas: %s</string>
   <string name="hidden">paslėptas</string>
@@ -622,7 +614,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="starting">Prasideda:</string>
   <string name="allInformationIsPublicAndOptional">Visa informacija yra vieša ir neprivaloma.</string>
   <string name="yourCityRegionOrDepartment">Jūsų miestas, regionas ar provincija.</string>
-  <string name="biographyDescription">Papasakokite apie save, kodėl mėgstate šachmatus, kokie jūsų mėgstamiausi debiutai, žaidėjai…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Daugiausiai: %s simbolis.</item>
     <item quantity="few">Daugiausiai: %s simboliai.</item>
@@ -642,7 +633,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="clock">Laikrodis</string>
   <string name="unauthorizedError">Priėjimas neautorizuotas.</string>
   <string name="noInternetConnection">Nėra interneto ryšio. Pasirinkę per meniu galite žaisti be interneto.</string>
-  <string name="connectedToLichess">Prisijungėte prie lichess.org</string>
   <string name="signedOut">Atsijungėte</string>
   <string name="loginSuccessful">Prisijungėte</string>
   <string name="playOnTheBoardOffline">Dviese</string>
@@ -686,7 +676,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="webmasters">Svetainių kūrėjams</string>
   <string name="about">Apie</string>
   <string name="aboutX">Apie %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s yra nemokamas (%2$s), laisvas, neturintis reklamų, atviro kodo šachmatų serveris.</string>
   <string name="really">tikrai</string>
   <string name="contribute">Prisidėkite</string>
   <string name="termsOfService">Naudojimosi sąlygos</string>
@@ -710,7 +699,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="simulClockHint">Fišerio laikrodžio nustatymas. Prieš kuo daugiau žaidėjų rungsitės, tuo daugiau laiko jums gali prireikti.</string>
   <string name="simulAddExtraTime">Galite pridėti papildomo laiko savo laikrodžiui, kad būtų lengviau žaisti simule.</string>
   <string name="simulHostExtraTime">Papildomas laikas šeimininkui</string>
-  <string name="lichessTournaments">„lichess“ turnyrai</string>
   <string name="tournamentFAQ">Arenos turnyrų DUK</string>
   <string name="tournamentOfficial">Oficialūs</string>
   <string name="timeBeforeTournamentStarts">Laikas iki turnyro pradžios</string>
@@ -721,8 +709,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="keyShowOrHideComments">rodyti/slėpti komentarus</string>
   <string name="keyEnterOrExitVariation">įeiti/išeiti iš variacijos</string>
   <string name="newTournament">Naujas turnyras</string>
-  <string name="tournamentHomeTitle">Šachmatų turnyras su įvairiomis laiko kontrolėmis ir variantais</string>
-  <string name="tournamentHomeDescription">Žaiskite aukšto tempo šachmatų turnyruose! Prisijunkite prie oficialaus suplanuoto turnyro arba sukurkite savo.</string>
   <string name="tournamentNotFound">Turnyras nerastas</string>
   <string name="tournamentDoesNotExist">Turnyras neegzistuoja.</string>
   <string name="tournamentMayHaveBeenCanceled">Jis galėjo būti atšauktas, jeigu iki jo pradžios išėjo visi žaidėjai.</string>
@@ -746,8 +732,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jei nematote laiško, patikrinkite kitas galimas vietas: šlamšto, šiukšlių, socialinius ar kitus aplankus.</string>
   <string name="weHaveSentYouAnEmailTo">Išsiuntėme laišką į %s. Spustelėję jame esančią nurodą galėsite atstatyti savo slaptažodį.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registruodamiesi sutinkate su mūsų %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Tinklo delsa tarp jūsų ir „lichess“</string>
-  <string name="timeToProcessAMoveOnLichessServer">Laikas, per kurį „lichess“ serveris apdoroja ėjimą</string>
   <string name="downloadAnnotated">Siųstis anotuotą</string>
   <string name="downloadRaw">Siųstis neapdorotą</string>
   <string name="downloadImported">Siųstis importuotą</string>
@@ -756,29 +740,23 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Judėti žaidime taip pat galite slinkdami virš lentos.</string>
   <string name="analysisShapesHowTo">Spustelėkite Shift + kairįjį pelės klavišą arba dešinįjį pelės klavišą norėdami piešti ant lentos.</string>
   <string name="letOtherPlayersMessageYou">Leisti kitiems žaidėjams jums parašyti</string>
-  <string name="shareYourInsightsData">Bendrinti jūsų statistiką</string>
   <string name="withNobody">Su niekuo</string>
   <string name="withFriends">Su draugais</string>
   <string name="withEverybody">Su visais</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Jūs jau esate susieję šį el. pašto adresą: %s</string>
   <string name="kidMode">Vaiko veiksena</string>
   <string name="kidModeExplanation">Tai yra dėl saugumo. Vaiko veiksenoje išjungiamas visas bendravimas svetainėje. Įjunkite tai savo vaikams bei moksleiviams, norėdami juos apsaugoti nuo kitų interneto naudotojų.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Vaiko veiksenoje „lichess“ logotipas gauna %s piktogramą tam, kad žinotumėte, jog jūsų vaikai yra saugūs.</string>
   <string name="enableKidMode">Įjungti vaiko veikseną</string>
   <string name="disableKidMode">Išjungti vaiko veikseną</string>
   <string name="security">Saugumas</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Toliau pateikiamas sąrašas įrenginių, kurie yra prisijungę prie jūsų paskyros. Panaikinkite visus seansus, kurių neatpažįstate.</string>
   <string name="alternativelyYouCanX">Arba galite %s.</string>
   <string name="revokeAllSessions">atšaukti visus seansus</string>
-  <string name="playChessEverywhere">Žaiskite šachmatais visur</string>
-  <string name="asFreeAsLichess">Nemokama, kaip ir „lichess“</string>
-  <string name="builtForTheLoveOfChessNotMoney">Sukurta iš meilės šachmatams, ne dėl pinigų</string>
   <string name="everybodyGetsAllFeaturesForFree">Kiekvienas gauna visas galimybes už dyką</string>
   <string name="zeroAdvertisement">Jokių reklamų</string>
   <string name="fullFeatured">Visiškai parengta</string>
   <string name="phoneAndTablet">Telefonui ir planšetei</string>
   <string name="bulletBlitzClassical">Žaibo, blic, klasikiniai</string>
-  <string name="correspondenceChess">Korespondenciniai</string>
   <string name="onlineAndOfflinePlay">Žaidimas su ir be interneto</string>
   <string name="viewTheSolution">Parodyti sprendimą</string>
   <string name="followAndChallengeFriends">Sekti ir žaisti su draugais</string>
@@ -813,9 +791,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="usernameSuffixInvalid">Vartotojo vardas turi baigtis raide arba skaičiumi.</string>
   <string name="usernameCharsInvalid">Vartotojo vardui naudokite tik raides, skaičius, pabraukimo brūkšnius ir brūkšnelius.</string>
   <string name="usernameUnacceptable">Šis vartotojo vardas yra netinkamas.</string>
-  <string name="directlySupportLichess">Paremkite „lichess“ tiesiogiai</string>
-  <string name="playChessInStyle">Žaiskite šachmatais stilingai</string>
-  <string name="chessBasics">Šachmatų pagrindai</string>
   <string name="coaches">Treneriai</string>
   <string name="invalidPgn">Netinkamas PGN</string>
   <string name="invalidFen">Netinkamas FEN</string>
@@ -898,7 +873,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="weHadToTimeYouOutForAWhile">Turėjome jus laikinai apriboti.</string>
   <string name="timeoutExpires">Apribojimas baigiasi %s.</string>
   <string name="why">Kodėl?</string>
-  <string name="pleasantChessExperience">Mes stengiamės suteikti galimybę visiems patirti šachmatų malonumą.</string>
   <string name="goodPractice">Dėl to turime užtikrinti, kad visi žaidėjai laikytųsi gerųjų praktikų.</string>
   <string name="potentialProblem">Kai aptinkama galima problema, mes parodome šį pranešimą.</string>
   <string name="howToAvoidThis">Kaip to išvengti?</string>
@@ -906,14 +880,13 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="tryToWin">Stenkitės laimėti (ar bent sužaisti lygiosiomis) kiekvieną kartą.</string>
   <string name="resignLostGames">Pasiduokite pralaimėtose partijose (nelaukite kol pasibaigs laikas).</string>
   <string name="temporaryInconvenience">Atsiprašome dėl laikinų nepatogumų,</string>
-  <string name="wishYouGreatGames">ir linkime jums puikių partijų per lichess.org.</string>
+  <string name="wishYouGreatGames">ir linkime jums puikių partijų per lishogi.org.</string>
   <string name="thankYouForReading">Ačiū, kad perskaitėte!</string>
   <string name="lifetimeScore">Visų laikų rezultatas</string>
   <string name="currentMatchScore">Dabartinės partijos rezultatas</string>
-  <string name="agreementAssistance">Pasižadu niekada savo partijų metu nesinaudoti pagalba (ar tai būtų kompiuteris, knyga, duomenų bazė, ar kitas žmogus).</string>
   <string name="agreementNice">Pasižadu visada būti pagarbus kitiems žaidėjams.</string>
   <string name="agreementAccount">Pasižadu nesikurti keleto paskyrų.</string>
-  <string name="agreementPolicy">Pasižadu laikytis visų „Lichess“ nuostatų.</string>
+  <string name="agreementPolicy">Pasižadu laikytis visų „Lishogi“ nuostatų.</string>
   <string name="searchOrStartNewDiscussion">Ieškokite, arba pradėkite naują diskusiją</string>
   <string name="edit">Keisti</string>
   <string name="rapid">Greitieji</string>
@@ -924,7 +897,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="rapidDesc">Greitosios partijos: nuo 8 iki 25 minučių</string>
   <string name="classicalDesc">Klasikinės partijos: 25 minutės ir daugiau</string>
   <string name="correspondenceDesc">Korespondencinės partijos: viena ar kelios dienos ėjimui</string>
-  <string name="puzzleDesc">Šachmatų taktikų treniravimas</string>
   <string name="important">Dėmesio</string>
   <string name="yourQuestionMayHaveBeenAnswered">Jūsų klausimas jau gali būti atsakytas %1$s</string>
   <string name="inTheFAQ">per D.U.K.</string>

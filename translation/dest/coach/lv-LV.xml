@@ -1,10 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="lichessCoaches">Lichess treneri</string>
-  <string name="lichessCoach">Lichess treneris</string>
-  <string name="areYouCoach">Vai esat lielisks šaha treneris ar %s?</string>
-  <string name="nmOrFideTitle">NM vai FIDE titulu</string>
-  <string name="confirmTitle">Apstipriniet savu titulu šeit, un izskatīsim jūsu pieteikumu.</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="confirmTitle">Apstipriniet savu titulu šeit, un izskatīsim jūsu pieteikumu.</string>
   <string name="sendApplication">Nosūtiet mums epastu uz %s un mēs izskatīsim jūsu pieteikumu.</string>
   <string name="location">Atrašanās vieta</string>
   <string name="languages">Valodas</string>
@@ -13,8 +8,7 @@
   <string name="availability">Pieejamība</string>
   <string name="accepting">Pieņem skolēnus</string>
   <string name="notAccepting">Pašlaik nepieņem skolēnus</string>
-  <string name="xCoachesStudents">%s šaha trenera skolēni</string>
-  <string name="viewXProfile">Skatīt %s Lichess profilu</string>
+  <string name="viewXProfile">Skatīt %s Lishogi profilu</string>
   <string name="sendPM">Sūtīt privātu ziņu</string>
   <string name="aboutMe">Par mani</string>
   <string name="playingExperience">Spēlēšanas pieredze</string>

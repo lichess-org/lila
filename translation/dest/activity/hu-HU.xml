@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="activity">Aktivitás</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="activity">Aktivitás</string>
   <string name="hostedALiveStream">Élő közvetítést adott</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">A lichess.org támogatója %1$s hónapja %2$s-ként</item>
-    <item quantity="other">A lichess.org támogatója %1$s hónapja %2$s-ként</item>
+    <item quantity="one">A lishogi.org támogatója %1$s hónapja %2$s-ként</item>
+    <item quantity="other">A lishogi.org támogatója %1$s hónapja %2$s-ként</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">%1$s %2$s állást gyakorolt</item>
@@ -62,7 +61,7 @@
     <item quantity="one">%4$s #%1$s. helyezés (felső %2$s%%) %3$s játszmából</item>
     <item quantity="other">%4$s #%1$s. helyezés (felső %2$s%%) %3$s játszmából</item>
   </plurals>
-  <string name="signedUp">Regisztrált a lichess.org-ra</string>
+  <string name="signedUp">Regisztrált a lishogi.org-ra</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s csapathoz csatlakozott</item>
     <item quantity="other">%s csapathoz csatlakozott</item>

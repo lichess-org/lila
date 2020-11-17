@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">Postavke</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="settings">Postavke</string>
   <string name="closeAccount">Zatvori račun</string>
   <string name="closingIsDefinitive">Zatvaranje je konačno. Nema povratka. Jeste li sigurni?</string>
   <string name="cantOpenSimilarAccount">Neće Vam biti dopušteno otvaranje novog računa s istim imenom, čak i ako je kapitalizacija slova drugačija.</string>

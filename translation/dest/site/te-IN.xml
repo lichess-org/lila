@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">మిత్రులతో ఆడండి</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">మిత్రులతో ఆడండి</string>
   <string name="playWithTheMachine">కంప్యూటర్ తో ఆడండి</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ఆటకు ఆహ్వానించడానికి ఈ లింక్ ఇవ్వండి</string>
   <string name="gameOver">ఆట సమాప్తం</string>

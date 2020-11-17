@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="activity">Aktivnost</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="activity">Aktivnost</string>
   <string name="hostedALiveStream">Gostil prenos v živo</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">%1$s mesec podpira lichess.org kot %2$s</item>
-    <item quantity="two">%1$s meseca podpira lichess.org kot %2$s</item>
-    <item quantity="few">%1$s mesece podpira lichess.org kot %2$s</item>
-    <item quantity="other">%1$s mesecev podpira lichess.org kot %2$s</item>
+    <item quantity="one">%1$s mesec podpira lishogi.org kot %2$s</item>
+    <item quantity="two">%1$s meseca podpira lishogi.org kot %2$s</item>
+    <item quantity="few">%1$s mesece podpira lishogi.org kot %2$s</item>
+    <item quantity="other">%1$s mesecev podpira lishogi.org kot %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Treniral %1$s pozicijo na %2$s</item>
@@ -92,7 +91,7 @@
     <item quantity="few">#%1$s na lestvici (najboljših %2$s%%) v %3$s partijah tekmovanja %4$s</item>
     <item quantity="other">#%1$s na lestvici (najboljših %2$s%%) v %3$s partijah tekmovanja %4$s</item>
   </plurals>
-  <string name="signedUp">Prijavljen na lichess</string>
+  <string name="signedUp">Prijavljen na lishogi</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Pridružen %s ekipi</item>
     <item quantity="two">Pridružen %s ekipam</item>

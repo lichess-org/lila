@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <resources>
   <string name="activity">Activity</string>
   <string name="hostedALiveStream">Hosted a live stream</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Supported lichess.org for %1$s month as a %2$s</item>
-    <item quantity="other">Supported lichess.org for %1$s months as a %2$s</item>
+    <item quantity="one">Supported lishogi.org for %1$s month as a %2$s</item>
+    <item quantity="other">Supported lishogi.org for %1$s months as a %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="one">Practiced %1$s position on %2$s</item>
-    <item quantity="other">Practiced %1$s positions on %2$s</item>
+    <item quantity="one">Practised %1$s position on %2$s</item>
+    <item quantity="other">Practised %1$s positions on %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">Solved %s tactical puzzle</item>
@@ -62,7 +62,7 @@
     <item quantity="one">Ranked #%1$s (top %2$s%%) with %3$s game in %4$s</item>
     <item quantity="other">Ranked #%1$s (top %2$s%%) with %3$s games in %4$s</item>
   </plurals>
-  <string name="signedUp">Signed up to lichess.org</string>
+  <string name="signedUp">Signed up to lishogi.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Joined %s team</item>
     <item quantity="other">Joined %s teams</item>

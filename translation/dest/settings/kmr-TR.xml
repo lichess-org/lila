@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">Sazkarî</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="settings">Sazkarî</string>
   <string name="closeAccount">Hesabê bigire</string>
   <string name="closingIsDefinitive">Girtin Bêvegeri , Tu Pêbaweri ?</string>
   <string name="cantOpenSimilarAccount">Bi navê berê tu naye pejirandin bo rûpelek nuh, Ku tu guhertina tîpa mezin û biçûk bike jî.</string>

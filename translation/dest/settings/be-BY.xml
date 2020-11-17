@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">Налады</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="settings">Налады</string>
   <string name="closeAccount">Выдаліць уліковы запіс</string>
   <string name="closingIsDefinitive">Закрыццё немагчыма будзе адмяніць. Адвярнуць усё назад будзе таксама немагчыма. Вы ўпэўнены?</string>
   <string name="cantOpenSimilarAccount">Вам не будзе дазволена стварыць новы ўліковы запіс з тым жа імем, нават калі рэгістр сімвалаў адрозніваецца.</string>

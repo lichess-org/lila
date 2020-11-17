@@ -1,10 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="lichessCoaches">Lichess コーチ</string>
-  <string name="lichessCoach">Lichess コーチ</string>
-  <string name="areYouCoach">あなたは %s タイトルを持つ優秀なチェスコーチですか？</string>
-  <string name="nmOrFideTitle">NM または FIDE</string>
-  <string name="confirmTitle">タイトルをこちらで証明してくだされば申請を審査します。</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="confirmTitle">タイトルをこちらで証明してくだされば申請を審査します。</string>
   <string name="sendApplication">%s までメールをお送りくだされば登録のための審査を行ないます。</string>
   <string name="location">住所</string>
   <string name="languages">対応言語</string>
@@ -13,8 +8,7 @@
   <string name="availability">生徒募集</string>
   <string name="accepting">生徒を募集中です</string>
   <string name="notAccepting">現在、生徒を募集していません</string>
-  <string name="xCoachesStudents">%s が生徒を指導します</string>
-  <string name="viewXProfile">%s の Lichess プロフィールを見る</string>
+  <string name="viewXProfile">%s の Lishogi プロフィールを見る</string>
   <string name="sendPM">プライベートメッセージを送る</string>
   <string name="aboutMe">プロフィール</string>
   <string name="playingExperience">競技歴</string>

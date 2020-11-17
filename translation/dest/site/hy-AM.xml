@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Խաղալ ընկերոջ հետ</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Խաղալ ընկերոջ հետ</string>
   <string name="playWithTheMachine">Խաղալ համակարգչի հետ</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Որևէ մեկին խաղի հրավիրելու համար ուղարկեք ստորև տրված հղումը</string>
   <string name="gameOver">Խաղն ավարտված է</string>
@@ -188,7 +187,6 @@
   <string name="recipient">Ընդունող</string>
   <string name="send">Ուղարկել</string>
   <string name="incrementInSeconds">Ավելացումը ըստ վայրկյանների</string>
-  <string name="freeOnlineChess">Անվճար օնլայն շախմատ</string>
   <string name="spectators">հանդիսատեսներ</string>
   <plurals name="nbWins">
     <item quantity="one">%s հաղթեց</item>
@@ -223,7 +221,6 @@
   <string name="viewTournament">Դիտել մրցաշարը</string>
   <string name="backToTournament">Վերադարձ դեպի մրցաշարը</string>
   <string name="backToGame">Վերադառնալ պարտիային</string>
-  <string name="siteDescription">Անճար օնլայն շախմատ: Խաղացեք հաճելի ինտերֆեյսով, առանց գրանցման և գովազդի: Խաղացեք համակարգչի, ընկերների կամ անծանոթների հետ:</string>
   <string name="xJoinedTeamY">%1$s միացած թիմեր %2$s</string>
   <string name="xCreatedTeamY">%1$s ստեղծած թիմ %2$s</string>
   <string name="averageElo">Միջին ELO</string>
@@ -241,7 +238,6 @@
     <item quantity="one">%s ներմուծված խաղեր</item>
     <item quantity="other">%s ներմուծված խաղեր</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Սա շախմատային CAPTCHA է</string>
   <string name="clickOnTheBoardToMakeYourMove">Սեղմեք դաշտին, որ անեք ձեր քայլը և ապացուցեք, որ մարդ եք:</string>
   <string name="notACheckmate">Մատ չէ</string>
   <string name="retry">Կրկին փորձել</string>
@@ -305,8 +301,6 @@
   <string name="lastName">Ազգանուն</string>
   <string name="biography">Կենսագրություն</string>
   <string name="country">Երկիր</string>
-  <string name="watchLichessTV">Դիտել Lichess TV</string>
-  <string name="previouslyOnLichessTV">Նախորդները Lichess TV-ով</string>
   <string name="onlinePlayers">Online խաղացողներ</string>
   <string name="activeToday">Ակտիվ այսօր</string>
   <string name="activePlayers">Ակտիվ խաղացողներ</string>
@@ -325,7 +319,7 @@
   <string name="puzzleFailed">Խնդրի լուծումը ձախողվեց</string>
   <string name="butYouCanKeepTrying">Բայց կարող եք կրկին փորձել։</string>
   <string name="wasThisPuzzleAnyGood">Լա՞վն էր այս խնդիրը։</string>
-  <string name="pleaseVotePuzzle">Օգնեք lichess-ին բարելավվել` քվեարկելով վերև կամ ներքև սլաքի օգնությամբ․</string>
+  <string name="pleaseVotePuzzle">Օգնեք lishogi-ին բարելավվել` քվեարկելով վերև կամ ներքև սլաքի օգնությամբ․</string>
   <string name="thankYou">Շնորհակալությո՛ւն։</string>
   <string name="ratingX">Վարկանիշ՝ %s</string>
   <plurals name="playedXTimes">
@@ -402,7 +396,6 @@
   <string name="starting">Սկիզբ</string>
   <string name="allInformationIsPublicAndOptional">Բոլոր ինֆորմացիաները հասանելի են</string>
   <string name="yourCityRegionOrDepartment">Ձեր քաղաքը , մարզը կամ նահանգը</string>
-  <string name="biographyDescription">Պատմեք Ձեր մասին. թե ինչն եք սիրում շախմատում, որոնք են Ձեր սիրելի սկբնախաղերը, պարտիաները, շախմատիստները…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maximum: %s սիմվոլներ</item>
     <item quantity="other">Maximum: %s սիմվոլներ</item>
@@ -413,7 +406,6 @@
   <string name="clock">ժամացույց</string>
   <string name="unauthorizedError">Մուտքն արգելված է։</string>
   <string name="noInternetConnection">Չկա ինտերնետ կապ : Դուք կարող եք խաղալ օֆլայն</string>
-  <string name="connectedToLichess">Դուք նորից միացաք lichess.org կայքին</string>
   <string name="signedOut">Դուք հաջողությամբ դուրս եկաք ձեր էջից</string>
   <string name="loginSuccessful">Դուք հաջողությամբ մուտք գործեցիք ձեր էջ</string>
   <string name="playOfflineComputer">Համակարգիչ</string>
@@ -441,7 +433,6 @@
   <string name="termsOfService">Ծառայությունների մատուցման պայմաններ</string>
   <string name="host">Ընդունող</string>
   <string name="create">Ստեղծել</string>
-  <string name="lichessTournaments">Lichess մրցաշարեր</string>
   <string name="tournamentOfficial">Պաշտոնական</string>
   <string name="averageCentipawnLoss">Միջինուն հարյուրերորդական զինվորի կորուստ</string>
   <string name="newTournament">Նոր մրցաշար</string>

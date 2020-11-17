@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">Налаштування</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">Налаштування</string>
   <string name="gameDisplay">Вигляд шахівниці</string>
   <string name="pieceAnimation">Анімація ходів</string>
   <string name="materialDifference">Співвідношення матеріалу</string>
@@ -9,13 +8,9 @@
   <string name="boardCoordinates">Координати (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Список ходів під час гри</string>
   <string name="pgnPieceNotation">Нотація ходів</string>
-  <string name="chessPieceSymbol">Символ шахової фігури</string>
-  <string name="pgnLetter">Літера (K, Q, R, B, N)</string>
   <string name="zenMode">Режим Дзен</string>
   <string name="displayBoardResizeHandle">Показати інструмент для зміни розміру дошки</string>
   <string name="onlyOnInitialPosition">Тількі на початковій позиції</string>
-  <string name="blindfoldChess">Шахи наосліп (невидимі фігури)</string>
-  <string name="chessClock">Шаховий годинник</string>
   <string name="tenthsOfSeconds">Десяті частки секунди</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Коли часу залишається &lt; 10 секунд</string>
   <string name="horizontalGreenProgressBars">Горизонтальна зелена смуга поступу</string>

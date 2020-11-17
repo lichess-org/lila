@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="myStudies">Миний судалгаанууд</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="myStudies">Миний судалгаанууд</string>
   <string name="myPublicStudies">Миний олон нийтийн судалгаанууд</string>
   <string name="myFavoriteStudies">Миний хамгийн дуртай судалгаанууд</string>
   <string name="allStudies">Бүх судалгаанууд</string>

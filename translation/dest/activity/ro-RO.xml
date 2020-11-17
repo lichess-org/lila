@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="activity">Activitate</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="activity">Activitate</string>
   <string name="hostedALiveStream">A găzduit un live stream</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">A sprijinit lichess.org pentru %1$s lună ca și %2$s</item>
-    <item quantity="few">A sprijinit lichess.org pentru %1$s luni ca și %2$s</item>
-    <item quantity="other">A sprijinit lichess.org pentru %1$s luni ca și %2$s</item>
+    <item quantity="one">A sprijinit lishogi.org pentru %1$s lună ca și %2$s</item>
+    <item quantity="few">A sprijinit lishogi.org pentru %1$s luni ca și %2$s</item>
+    <item quantity="other">A sprijinit lishogi.org pentru %1$s luni ca și %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">A practicat %1$s poziție pe %2$s</item>
@@ -77,7 +76,7 @@
     <item quantity="few">Clasat #%1$s (top %2$s%%) cu %3$s meciuri în %4$s</item>
     <item quantity="other">Clasat #%1$s (top %2$s%%) cu %3$s meciuri în %4$s</item>
   </plurals>
-  <string name="signedUp">S-a înregistrat pe lichess.org</string>
+  <string name="signedUp">S-a înregistrat pe lishogi.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">S-a alăturat la %s echipă</item>
     <item quantity="few">S-a alăturat la %s echipe</item>

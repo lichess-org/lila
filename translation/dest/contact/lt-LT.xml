@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="contact">Susisiekite</string>
-  <string name="contactLichess">Susisiekite su „Lichess“</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="contact">Susisiekite</string>
   <string name="whatCanWeHelpYouWith">Kuo galime padėti?</string>
   <string name="visitThisPage">Apsilankę šiame tinklalapyje išspręsite problemą</string>
   <string name="iCantLogIn">Negaliu prisijungti</string>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="isItRated">Reýtinglimi?</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="isItRated">Reýtinglimi?</string>
   <string name="willBeNotified">Bäsleşik başlanda duýdurylarsyňyz, garaşýarkaňyz başga panelde oýnamak mümkin.</string>
   <string name="isRated">Bu bäsleşik reýtinglidir we reýtingiňize täsir eder.</string>
   <string name="isNotRated">Bu bäsleşik reýtingli *däl* we reýtingiňize täsir *etmez.*</string>

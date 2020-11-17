@@ -1,12 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search">Căutare</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="search">Căutare</string>
   <string name="advancedSearch">Căutare avansată</string>
-  <plurals name="searchInXGames">
-    <item quantity="one">Caută în %s meci de șah</item>
-    <item quantity="few">Caută în %s meciuri de șah</item>
-    <item quantity="other">Caută în %s meciuri de șah</item>
-  </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">Un meci găsit</item>
     <item quantity="few">%s meciuri găsite</item>

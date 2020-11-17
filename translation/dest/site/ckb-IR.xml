@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">یاریکردن لەگەڵ هاوڕێ</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">یاریکردن لەگەڵ هاوڕێ</string>
   <string name="playWithTheMachine">یاریکردن لەگەڵ کۆمپیوتەر</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">بۆ بانگێشتکردنی کەسیک بۆ یاریکردن, ئەم لینکەیان پێ بدە</string>
   <string name="gameOver">یاریەکە کۆتایی هات</string>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">Stillingar</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="settings">Stillingar</string>
   <string name="closeAccount">Loka reikningi</string>
   <string name="closingIsDefinitive">Að loka er endnanlegt. Ekki er afturheimt. Ertu viss?</string>
   <string name="cantOpenSimilarAccount">Þú munt ekki fá að skrá nýjan aðgang með sama nafni, jafnvel þó þú víxlir hástöfum.</string>

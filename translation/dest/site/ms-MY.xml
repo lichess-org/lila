@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Main bersama rakan</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Main bersama rakan</string>
   <string name="playWithTheMachine">Bermain dengan mesin</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Untuk menjemput seseorang bermain, beri URL ini</string>
   <string name="gameOver">Permainan Tamat</string>
@@ -233,7 +232,6 @@
   <string name="recipient">Penerima</string>
   <string name="send">Hantar</string>
   <string name="incrementInSeconds">Penaikan dalam saat</string>
-  <string name="freeOnlineChess">Catur Percuma Dalam Talian</string>
   <string name="spectators">Senarai penonton:</string>
   <plurals name="nbRated">
     <item quantity="other">%s rated</item>
@@ -302,7 +300,6 @@
   <string name="advancedSettings">Ketetapan lanjutan</string>
   <string name="safeTournamentName">Pilih nama yang selamat untuk pertandingan ini.</string>
   <string name="inappropriateNameWarning">Sebarang perkara yang tidak senonoh boleh menyebabkan akaun anda ditutup.</string>
-  <string name="emptyTournamentName">Biarkan kosong untuk menamakan pertandingan kepada pemain catur terkenal.</string>
   <string name="recommendNotTouching">Kami menasihat agar tidak menukar tetapan ini.</string>
   <string name="fewerPlayers">Jika anda tetapkan keperluan kemasukan, pertandingan anda akan ada lebih sedikit pemain.</string>
   <string name="showAdvancedSettings">Tunjukkan tetapan lanjutan</string>
@@ -414,7 +411,6 @@
   <string name="webmasters">Webmasters</string>
   <string name="about">Perihal</string>
   <string name="aboutX">Perihal %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s adalah percuma (%2$s), mudah, tiada iklan, server catur daripada open source.</string>
   <string name="really">benar</string>
   <string name="contribute">Sumbang</string>
   <string name="termsOfService">Terma servis</string>
@@ -436,22 +432,17 @@
   <string name="youHaveAlreadyRegisteredTheEmail">Anda telah mendaftarkan emel ini: %s</string>
   <string name="kidMode">Mod kanak-kanak</string>
   <string name="kidModeExplanation">Hal ini adalah untuk keselamatan. Dalam mod kanak-kanak, semua komunikasi ditutup. Pasang tetapan ini untuk kanak-kanak dan pelajar sekolah untuk melindungi mereka daripada pengguna siber yang lain.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Dalam mod kanak-kanak, logo Lichess akan mendapat %s icon, jadi anda tahu kanak-kanak anda selamat.</string>
   <string name="enableKidMode">Pasang mod kanak-kanak</string>
   <string name="disableKidMode">Lumpuhkan mod kanak-kanak</string>
   <string name="security">Keselamatan</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ini adalah senarai alat mudah alih yang sudah log dalam akaun anda. Batalkan sesi yang anda tidak kenal.</string>
   <string name="alternativelyYouCanX">Secara alternatif, anda boleh %s.</string>
   <string name="revokeAllSessions">batalkan semua sesi</string>
-  <string name="playChessEverywhere">Main catur dimana-mana</string>
-  <string name="asFreeAsLichess">Percuma seperti Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Dibina untuk semangat catur bukan duit</string>
   <string name="everybodyGetsAllFeaturesForFree">Semua orang boleh menggunakan semua ciri-ciri percuma</string>
   <string name="zeroAdvertisement">Sifar iklan</string>
   <string name="fullFeatured">Ciri-ciri premium</string>
   <string name="phoneAndTablet">Telefon bimbit dan tablet</string>
   <string name="bulletBlitzClassical">Bullet, blitz, klasik</string>
-  <string name="correspondenceChess">Catur jangka panjang</string>
   <string name="onlineAndOfflinePlay">Dalam talian dan luar talian permainan</string>
   <string name="viewTheSolution">Papar jawapan</string>
   <string name="followAndChallengeFriends">Ikut dan cabar rakan-rakan</string>
@@ -507,5 +498,4 @@
   <string name="weHadToTimeYouOutForAWhile">Kami terpaksa memberikan time out buat sementara.</string>
   <string name="timeoutExpires">Timeout berakhir %s.</string>
   <string name="why">Kenapa?</string>
-  <string name="pleasantChessExperience">Matlamat kami adalah untuk memberikan pengalaman catur yang baik untuk semua.</string>
-</resources>
+  </resources>

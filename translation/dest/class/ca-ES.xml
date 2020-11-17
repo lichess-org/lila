@@ -1,8 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="lichessClasses">Classes de Lichess</string>
-  <string name="realName">Nom real</string>
-  <string name="createANewLichessAccount">Crea un nou compte a Lichess</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="realName">Nom real</string>
   <string name="onlyVisibleToTeachers">Només visible pels mestres de la classe</string>
   <string name="managed">Gestionada</string>
   <string name="thisStudentAccountIsManaged">Aquest compte d\'estudiant està gestionat</string>

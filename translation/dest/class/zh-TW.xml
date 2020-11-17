@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="lichessClasses">課程</string>
-  <string name="features">功能</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="features">功能</string>
   <string name="noClassesYet">還沒有課程</string>
   <string name="teachersX">%s個教練</string>
   <string name="newClass">新的課程</string>
@@ -20,9 +18,6 @@
   <string name="generateANewPassword">重設學生的密碼</string>
   <string name="realName">真實名稱</string>
   <string name="addStudent">增加學生</string>
-  <string name="inviteALichessAccount">邀請一位玩家</string>
-  <string name="createANewLichessAccount">創建一個新的帳戶</string>
-  <string name="lichessUsername">Lichess上的使用者名稱</string>
   <string name="lastActiveDate">活動</string>
   <string name="managed">管理</string>
   <string name="release">正式版</string>

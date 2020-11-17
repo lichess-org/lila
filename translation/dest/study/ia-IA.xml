@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="private">Private</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="private">Private</string>
   <string name="myStudies">Mi studios</string>
   <string name="myPublicStudies">Mi studios public</string>
   <string name="myPrivateStudies">Mi studios private</string>

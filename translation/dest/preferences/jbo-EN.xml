@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">lo se nelrai</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">lo se nelrai</string>
   <string name="gameDisplay">kelfoi selvistai</string>
   <string name="pieceAnimation">keldai muvdu bo nilsutra</string>
   <string name="materialDifference">lo se marji cu pei cenba</string>
@@ -9,8 +8,6 @@
   <string name="boardCoordinates">keirta\'o judri</string>
   <string name="moveListWhilePlaying">liste be lo nunmu\'u ca\'o lo nu jvikei</string>
   <string name="zenMode">cuvytadji</string>
-  <string name="blindfoldChess">na jarco tu\'a lo caxmati</string>
-  <string name="chessClock">caxmati junla</string>
   <string name="tenthsOfSeconds">pa no si\'e be lo snidu</string>
   <string name="whenTimeRemainingLessThanTenSeconds">ca\'o lo nu lo se snidu be lo stali temci cu mleca li pa no</string>
   <string name="horizontalGreenProgressBars">pinta ke crino nilmulyuidje</string>

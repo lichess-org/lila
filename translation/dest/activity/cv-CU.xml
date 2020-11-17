@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="activity">Тимлӗх</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="activity">Тимлӗх</string>
   <plurals name="solvedNbPuzzles">
     <item quantity="other">%s тактикӑллӑ лартӑм татса панӑ</item>
   </plurals>

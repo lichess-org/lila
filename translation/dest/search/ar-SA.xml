@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search">بحث</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="search">بحث</string>
   <string name="advancedSearch">بحث متقدم</string>
   <string name="opponentName">اسم الخصم</string>
   <string name="loser">الخاسر</string>

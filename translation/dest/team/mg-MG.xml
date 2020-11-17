@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="teams">vondrona</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="teams">vondrona</string>
   <plurals name="nbMembers">
     <item quantity="one">mpiray vondrona %s</item>
     <item quantity="other">mpiray vondrona %s</item>

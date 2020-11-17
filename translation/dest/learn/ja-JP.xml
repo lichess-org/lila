@@ -1,68 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="learnChess">チェスを学ぶ</string>
-  <string name="byPlaying">遊びながら！</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="byPlaying">遊びながら！</string>
   <string name="menu">メニュー</string>
   <string name="progressX">修了: %s</string>
   <string name="resetMyProgress">学習履歴をリセット</string>
   <string name="youWillLoseAllYourProgress">修了の数字はゼロになります！</string>
   <string name="play">今ここ</string>
-  <string name="chessPieces">チェスの駒</string>
   <string name="theRook">ルーク</string>
   <string name="itMovesInStraightLines">タテヨコに動く</string>
   <string name="rookIntro">ルークは強力な駒です。用意はいいですか？</string>
-  <string name="rookGoal">ルークをクリックして
-星印まで動かす！</string>
   <string name="grabAllTheStars">星印を全部集めて！</string>
-  <string name="theFewerMoves">手数が少ないほど
-高ポイントです！</string>
-  <string name="useTwoRooks">2 つのルークで
-スピードアップ！</string>
   <string name="rookComplete">おめでとう！　ルークの動きをマスターしました。</string>
   <string name="theBishop">ビショップ</string>
   <string name="itMovesDiagonally">ナナメに動く</string>
   <string name="bishopIntro">次はビショップの動き方です！</string>
-  <string name="youNeedBothBishops">白マスのビショップ、
-黒マスのビショップ、
-両方を使って！</string>
   <string name="bishopComplete">おめでとう！　ビショップを使えるようになりました。</string>
-  <string name="theQueen">クイーン</string>
-  <string name="queenCombinesRookAndBishop">ルーク + ビショップ</string>
-  <string name="queenIntro">チェスでいちばん強力な駒、クイーンの登場です！</string>
-  <string name="queenComplete">おめでとう！　もうクイーンもだいじょうぶですね。</string>
   <string name="theKing">キング</string>
   <string name="theMostImportantPiece">いちばんだいじな駒</string>
   <string name="kingIntro">キングは王様です。キングがやられるとゲームは負けです。</string>
-  <string name="theKingIsSlow">キングの動きは一歩ずつ。</string>
-  <string name="lastOne">最後です！</string>
   <string name="kingComplete">キングの動きも覚えましたね！</string>
   <string name="theKnight">ナイト</string>
-  <string name="itMovesInAnLShape">「L」字に動く</string>
-  <string name="knightIntro">ちょっと難しくなります。ナイトは変わった駒です。</string>
-  <string name="knightsHaveAFancyWay">ナイトは面白い動きで
-盤上を跳ねまわります！</string>
-  <string name="knightsCanJumpOverObstacles">ナイトは他の駒を跳びこえられます！
-外に出て星印を消してください！</string>
   <string name="knightComplete">おめでとう！　ナイトもマスターしました。</string>
   <string name="thePawn">ポーン</string>
-  <string name="itMovesForwardOnly">前にだけ動く</string>
   <string name="pawnIntro">ポーンは弱い駒ですが大きな可能性を秘めています。</string>
-  <string name="pawnsMoveOneSquareOnly">ポーンは前に 1 マスしか動けません。
-しかしボードの向こう側まで行くと別の強い駒に成れるのです！</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">ほとんどの場合はクイーンに成るべきです。
-ただしナイトに成るのがいい時もあります！</string>
-  <string name="pawnsMoveForward">ポーンは動く時は前に進み、
-駒を取る時は斜めに進みます！</string>
-  <string name="captureThenPromote">星印を取ってから別の駒に成る！</string>
-  <string name="useAllThePawns">すべてのポーンを使って！
-成る必要はありません。</string>
-  <string name="aPawnOnTheSecondRank">2 段目にいるポーンは一度に 2 マス進めます！</string>
-  <string name="grabAllTheStarsNoNeedToPromote">星印を全部消す！
-成る必要はありません。</string>
   <string name="pawnComplete">おめでとう！　ポーンもよくわかったでしょう。</string>
-  <string name="pawnPromotion">ポーンの昇格</string>
-  <string name="yourPawnReachedTheEndOfTheBoard">ポーンが盤の端まで進みました！</string>
-  <string name="itNowPromotesToAStrongerPiece">もっと強い駒に成ることができます（昇格）。</string>
   <string name="selectThePieceYouWant">好きな駒を選んでください！</string>
   <string name="fundamentals">初級</string>
   <string name="capture">駒取り</string>
@@ -71,7 +31,6 @@
   <string name="takeTheBlackPieces">黒の駒を全部取ります！</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">黒の駒を全部取ります！
 自分の駒を取られないように。</string>
-  <string name="captureComplete">おめでとう！　相手の駒との戦い方を身につけました！</string>
   <string name="protection">守り</string>
   <string name="keepYourPiecesSafe">自分の駒を安全に</string>
   <string name="protectionIntro">相手に攻撃されている自分の駒を見つけ、守ってください！</string>
@@ -85,7 +44,6 @@
   <string name="combat">攻防</string>
   <string name="captureAndDefendPieces">駒を取り、駒を守る</string>
   <string name="combatIntro">すぐれた戦士は攻撃と防御、両方を使いこなす！</string>
-  <string name="combatComplete">おめでとう！　相手の駒との戦い方を身につけました！</string>
   <string name="checkInOne">1手でチェック</string>
   <string name="attackTheOpponentsKing">相手のキングを攻撃する</string>
   <string name="checkInOneIntro">チェックするには相手のキングを攻撃します。相手は何か防ぐしかない。</string>
@@ -110,14 +68,10 @@
   <string name="mateInOneIntro">相手がチェックを防げなくなれば、あなたの勝ちです。</string>
   <string name="attackYourOpponentsKing">防げないような
 チェックをかけて！</string>
-  <string name="mateInOneComplete">おめでとう！　これがチェスに勝つ方法です！</string>
   <string name="intermediate">中級</string>
   <string name="boardSetup">盤駒の用意</string>
   <string name="howTheGameStarts">ゲームの始め方</string>
   <string name="boardSetupIntro">両軍が向かい合い、戦いに備えます。</string>
-  <string name="thisIsTheInitialPosition">これがチェス対局の
-最初の局面です！
-好きな手を指して。</string>
   <string name="firstPlaceTheRooks">まずルークを
 両隅に置く。</string>
   <string name="thenPlaceTheKnights">次にナイトを
@@ -130,44 +84,6 @@
 クイーンのとなりに。</string>
   <string name="pawnsFormTheFrontLine">ポーンはその前に並びます。
 好きな手を指して。</string>
-  <string name="boardSetupComplete">おめでとう！　駒の並べ方を覚えました！</string>
-  <string name="castling">キャスリング</string>
-  <string name="theSpecialKingMove">キングの特殊な動き</string>
-  <string name="castlingIntro">キングを安全にし、ルークを攻撃に活用します！</string>
-  <string name="castleKingSide">キングを 2 マス動かして
-キングサイドにキャスリング！</string>
-  <string name="castleQueenSide">キングを 2 マス動かして
-クイーンサイドにキャスリング！</string>
-  <string name="theKnightIsInTheWay">ナイトがじゃまです！
-ナイトを動かし次にキャスリング。</string>
-  <string name="castleKingSideMovePiecesFirst">駒を外に出してから
-キングサイドにキャスリング。</string>
-  <string name="castleQueenSideMovePiecesFirst">駒を外に出してから
-クイーンサイドにキャスリング。</string>
-  <string name="youCannotCastleIfMoved">キングかルークが
-動いたことがあると
-キャスリングできません。</string>
-  <string name="youCannotCastleIfAttacked">途中に相手の駒が効いていると
-キャスリングできません。
-効きを止めてからキャスリング！</string>
-  <string name="findAWayToCastleKingSide">準備してから
-右にキャスリング</string>
-  <string name="findAWayToCastleQueenSide">準備してから
-左にキャスリング</string>
-  <string name="castlingComplete">おめでとう！　ほとんどの場合キャスリングはしておくべきです。</string>
-  <string name="enPassant">アンパッサン</string>
-  <string name="theSpecialPawnMove">ポーンの特殊な動き</string>
-  <string name="enPassantIntro">相手のポーンが 2 マス進んだら、1 マス進んだ時と同じように取ることができます。</string>
-  <string name="blackJustMovedThePawnByTwoSquares">黒は今ポーンを
-2 マス進めました！
-アンパッサンで取ります。</string>
-  <string name="enPassantOnlyWorksImmediately">アンパッサンできるのは
-相手がポーンを進めた
-直後の手だけです。</string>
-  <string name="enPassantOnlyWorksOnFifthRank">アンパッサンできるのは自分の
-ポーンが 5 段目にいる時だけです。</string>
-  <string name="takeAllThePawnsEnPassant">全部のポーンをアンパッサンで取る！</string>
-  <string name="enPassantComplete">おめでとう！　アンパッサンの取り方を覚えました。</string>
   <string name="stalemate">ステイルメイト</string>
   <string name="theGameIsADraw">引き分けになる</string>
   <string name="stalemateIntro">チェックされていないのに動かす手がない場合が「ステイルメイト」です。ゲームは引き分けで、勝ち負けなしになります。</string>
@@ -203,15 +119,11 @@
 狙ってください！</string>
   <string name="checkInTwoComplete">おめでとう！　相手のキングをチェックして、防ぐ手を指させました！</string>
   <string name="whatNext">その先は？</string>
-  <string name="youKnowHowToPlayChess">おめでとう、あなたはチェスのルールを覚えました。もっと強くなりたいですか？</string>
   <string name="register">登録</string>
-  <string name="getAFreeLichessAccount">Lichess の無料アカウントを作る</string>
   <string name="practice">練習</string>
-  <string name="learnCommonChessPositions">チェスのよくある局面を知る</string>
   <string name="puzzles">タクティクス</string>
   <string name="exerciseYourTacticalSkills">戦術の力をみがく</string>
   <string name="videos">動画</string>
-  <string name="watchInstructiveChessVideos">チェスの教材動画を見る</string>
   <string name="playPeople">人と対戦</string>
   <string name="opponentsFromAroundTheWorld">世界中に相手がいます</string>
   <string name="playMachine">マシンと対戦</string>

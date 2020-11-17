@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="isItRated">آیا رسمی است؟</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="isItRated">آیا رسمی است؟</string>
   <string name="willBeNotified">هنگام شروع تورنومنت به شما اطلاع داده خواهد شد، پس در زمان انتظار بازی کردن در تب های دیگر بلامانع است.</string>
   <string name="isRated">این تورنومنت رسمی است و بر روی ریتینگ شما تاثیر میگذارد.</string>
   <string name="isNotRated">این تورنومنت رسمی نیست و بر روی امتیاز شما تاثیر نمیگذارد.</string>

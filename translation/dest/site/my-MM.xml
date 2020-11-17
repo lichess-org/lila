@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">သူငယ်ချင်းဖြင့်ကစားမည်</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">သူငယ်ချင်းဖြင့်ကစားမည်</string>
   <string name="playWithTheMachine">ကွန်ပျူတာဖြင့်ကစားမည်</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">အခြားကစားမည့်သူအားဖိတ်ကြားးရန်</string>
   <string name="gameOver">ပွဲပြီးပြီ</string>
@@ -69,7 +68,7 @@
   <string name="username">ကစားသူအမည်</string>
   <string name="usernameOrEmail">ကစားသူအမည် သို့မဟုတ် email လိပ်စာ</string>
   <string name="play">ကစားမည်</string>
-  <string name="thisAccountViolatedTos">ဤအကောင့်က Lichess ၏ ဝန်ဆောင်မှု ဆိုင်ရာ စည်းကမ်းသတ်မှတ်ချက်များကို ဖောက်ဖျက်ခဲ့ပါသည်</string>
+  <string name="thisAccountViolatedTos">ဤအကောင့်က Lishogi ၏ ဝန်ဆောင်မှု ဆိုင်ရာ စည်းကမ်းသတ်မှတ်ချက်များကို ဖောက်ဖျက်ခဲ့ပါသည်</string>
   <string name="mustBeInTeam">Must be in team %s</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="other">Less than %s minute</item>

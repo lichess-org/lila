@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search">Axtar</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="search">Axtar</string>
   <string name="advancedSearch">Mütərəqqi axtarış</string>
   <string name="opponentName">Rəqibin adı</string>
   <string name="loser">Məğlub olan</string>

@@ -1,10 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="lichessCoaches">Lichess-tränare</string>
-  <string name="lichessCoach">Lichess-tränare</string>
-  <string name="areYouCoach">Är du en bra schacktränare med en %s?</string>
-  <string name="nmOrFideTitle">NM eller FIDE-titel</string>
-  <string name="confirmTitle">Bekräfta din titel här så granskar vi din ansökan.</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="confirmTitle">Bekräfta din titel här så granskar vi din ansökan.</string>
   <string name="sendApplication">Skicka ett mail till oss på %s så granskar vi din ansökan.</string>
   <string name="location">Plats</string>
   <string name="languages">Språk</string>
@@ -13,8 +8,7 @@
   <string name="availability">Tillgänglighet</string>
   <string name="accepting">Accepterar studenter</string>
   <string name="notAccepting">Tar inte emot studenter just nu</string>
-  <string name="xCoachesStudents">%s tränar schackstudenter</string>
-  <string name="viewXProfile">Visa %s Lichess-profil</string>
+  <string name="viewXProfile">Visa %s Lishogi-profil</string>
   <string name="sendPM">Skicka ett privat meddelande</string>
   <string name="aboutMe">Om mig</string>
   <string name="playingExperience">Schackerfarenhet</string>

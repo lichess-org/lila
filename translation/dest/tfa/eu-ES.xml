@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="twoFactorAuth">Bi faktoreko autentikazioa</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="twoFactorAuth">Bi faktoreko autentikazioa</string>
   <string name="twoFactorHelp">Bi faktoreko autentikazioak beste segurtasun kapa bat jartzen dio zure kontuari.</string>
   <string name="twoFactorApp">Lortu bi faktoreko autentikaziorako aplikazioa, adibidez Google Authenticator %1$s edo %2$s plataformarako.</string>
   <string name="scanTheCode">QR kodea aplikazioa erabiliz eskaneatu.</string>

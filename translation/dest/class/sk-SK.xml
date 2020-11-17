@@ -1,13 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="lichessClasses">Lichess výučba</string>
-  <string name="teachClassesOfChessStudents">Vyučuj šachových študentov so súpravou nástrojov na Lichess výučbu!</string>
-  <string name="features">Funkcie</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="features">Funkcie</string>
   <string name="quicklyGenerateSafeUsernames">Rýchlo vygenerovať bezpečné prihlasovacie mená a heslá pre študentov</string>
   <string name="trackStudentProgress">Sledovať napredovanie študenta v partiách a šachových úlohách</string>
   <string name="messageAllStudents">Poslať všetkým študentom správu o novom výučbovom materiáli</string>
   <string name="freeForAllForever">100% zadarmo pre všetkých, navždy, bez akýchkoľvek reklám alebo sledovaní aktivity</string>
-  <string name="applyToBeLichessTeacher">Uchádzať sa o post Lichess učiteľa</string>
   <string name="noClassesYet">Zatiaľ žiadne kurzy.</string>
   <string name="teachersX">Učitelia: %s</string>
   <string name="newClass">Nový kurz</string>
@@ -23,8 +19,7 @@
   <string name="classDescription">Popis kurzu</string>
   <string name="visibleByBothStudentsAndTeachers">Viditeľné aj pre učiteľov aj pre študentov kurzu</string>
   <string name="teachersOfTheClass">Učitelia kurzu</string>
-  <string name="addLichessUsernames">Pridať Lichess užívateľov za účelom ich pozvania ako učiteľov. Jeden na riadok.</string>
-  <string name="theyMustFirstApply">Najprv sa musia uchádzať o pozíciu Lichess učiteľa.</string>
+  <string name="theyMustFirstApply">Najprv sa musia uchádzať o pozíciu Lishogi učiteľa.</string>
   <string name="resetPassword">Obnoviť heslo</string>
   <string name="makeSureToCopy">Teraz si zkopírujte alebo zapíšte heslo! Nebude možné aby ste ho videli znovu.</string>
   <string name="passwordX">Heslo: %s</string>
@@ -33,21 +28,17 @@
   <string name="realName">Skutočné meno</string>
   <string name="privateWillNeverBeShown">Súkromné. Nikdy nebude zobrazené mimo kurzu. Pomôcka pre zapamätanie si študenta.</string>
   <string name="addStudent">Pridať študenta</string>
-  <string name="lichessProfileXCreatedForY">Lichess profile %1$s vytvorený pre %2$s.</string>
   <string name="studentCredentials">Študent: %1$s
 Prihlasovacie meno: %2$s
 Heslo: %3$s</string>
-  <string name="inviteALichessAccount">Pozvať Lichess užívateľa</string>
-  <string name="inviteDesc1">Ak už študent má Lichess účet, môžete ho pozvať do kurzu.</string>
-  <string name="inviteDesc2">Obdrží Lichess správu s odkazom na vstup do kurzu.</string>
+  <string name="inviteDesc1">Ak už študent má Lishogi účet, môžete ho pozvať do kurzu.</string>
+  <string name="inviteDesc2">Obdrží Lishogi správu s odkazom na vstup do kurzu.</string>
   <string name="inviteDesc3">Dôležité: pozývajte len študentov, ktorých poznáte a ktorí majú aktívny záujem o kurz.</string>
   <string name="inviteDesc4">Nikdy neposielajte nevyžiadané pozvánky náhodným hráčom!</string>
-  <string name="createANewLichessAccount">Vytvoriť nový Lichess účet</string>
-  <string name="createDesc1">Ak študent ešte nemá Lichess účet, môžete mu ho vytvoriť tu.</string>
+  <string name="createDesc1">Ak študent ešte nemá Lishogi účet, môžete mu ho vytvoriť tu.</string>
   <string name="createDesc2">Nevyžaduje sa e-mailová adresa. Heslo sa vygeneruje automaticky. Vy následne heslo zašlete študentovi aby sa mohol prihlásiť.</string>
   <string name="createDesc3">Dôležité: študent nesmie mať viacero účtov.</string>
   <string name="createDesc4">Ak už účet má, použite pozývací formulár.</string>
-  <string name="lichessUsername">Lichess užívateľské meno</string>
   <string name="generateANewUsername">Vygenerovať nové užívateľské meno</string>
   <string name="welcomeToClass">Vitaj na kurze: %s.
 Tu je link pre prístup ku kurzu.</string>

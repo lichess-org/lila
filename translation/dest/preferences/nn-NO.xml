@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">Preferansar</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">Preferansar</string>
   <string name="gameDisplay">Brettutsjånad</string>
   <string name="pieceAnimation">Farta på brikkerørslene</string>
   <string name="materialDifference">Materiellskilnad</string>
@@ -9,13 +8,9 @@
   <string name="boardCoordinates">Brettkoordinatar (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Vis liste over trekk medan partiet pågår</string>
   <string name="pgnPieceNotation">Notasjon</string>
-  <string name="chessPieceSymbol">Brikkesymbol</string>
-  <string name="pgnLetter">Bokstav (K, Q, R, B, N)</string>
   <string name="zenMode">Zen-modus</string>
   <string name="displayBoardResizeHandle">Vis handtak for brettstorleik</string>
   <string name="onlyOnInitialPosition">Berre for startstillinga</string>
-  <string name="blindfoldChess">Blindsjakk</string>
-  <string name="chessClock">Sjakklokke</string>
   <string name="tenthsOfSeconds">Tidels sekund</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Når det er mindre enn 10 sekundar igjen</string>
   <string name="horizontalGreenProgressBars">Horisontal grøn progresjonsline</string>

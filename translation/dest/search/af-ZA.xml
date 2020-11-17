@@ -1,11 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search">Soek</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="search">Soek</string>
   <string name="advancedSearch">Gevorderde soek</string>
-  <plurals name="searchInXGames">
-    <item quantity="one">Soek in %s skaakspel</item>
-    <item quantity="other">Soek in %s skaakspelle</item>
-  </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">Een wedstryd gevind</item>
     <item quantity="other">%s wedstryde gevind</item>

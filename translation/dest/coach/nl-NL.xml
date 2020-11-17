@@ -1,10 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="lichessCoaches">Lichess trainers</string>
-  <string name="lichessCoach">Lichess trainer</string>
-  <string name="areYouCoach">Ben jij een goede schaakcoach met een %s?</string>
-  <string name="nmOrFideTitle">NM of FIDE titel</string>
-  <string name="confirmTitle">Bevestig hier je titel en we zullen je aanvraag bekijken.</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="confirmTitle">Bevestig hier je titel en we zullen je aanvraag bekijken.</string>
   <string name="sendApplication">Mail ons via %s en we zullen je aanvraag bekijken.</string>
   <string name="location">Locatie</string>
   <string name="languages">Talen</string>
@@ -13,7 +8,6 @@
   <string name="availability">Toegankelijkheid</string>
   <string name="accepting">Neemt studenten aan</string>
   <string name="notAccepting">Neemt momenteel geen studenten aan</string>
-  <string name="xCoachesStudents">%s traint schaakleerlingen</string>
   <string name="viewXProfile">%s\'s profiel bekijken</string>
   <string name="sendPM">Privébericht sturen</string>
   <string name="aboutMe">Over mij</string>

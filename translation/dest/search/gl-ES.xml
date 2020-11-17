@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search">Buscar</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="search">Buscar</string>
   <string name="advancedSearch">Busca avanzada</string>
   <string name="opponentName">Nome do rival</string>
   <string name="loser">Perdedor</string>

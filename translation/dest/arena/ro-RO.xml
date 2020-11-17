@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="isItRated">Este evaluat?</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="isItRated">Este evaluat?</string>
   <string name="willBeNotified">Vei fi notificat când competiția începe, deci este în regulă să joci în altă filă în timp ce aștepți.</string>
   <string name="isRated">Această competiție este evaluată și-ți va afecta scorul.</string>
   <string name="isNotRated">Această competiție *nu* este evaluată și *nu* îți va afecta scorul.</string>

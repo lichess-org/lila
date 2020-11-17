@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="team">فريق</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="team">فريق</string>
   <string name="teams">الفِرق</string>
   <plurals name="nbMembers">
     <item quantity="zero">%s عضو</item>

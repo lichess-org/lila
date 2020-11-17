@@ -1,8 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="lichessCoaches">Lichess 的教練們</string>
-  <string name="lichessCoach">Lichess 的教練</string>
-  <string name="location">所在地</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="location">所在地</string>
   <string name="languages">語言</string>
   <string name="rating">評分</string>
   <string name="hourlyRate">每小時費用：</string>

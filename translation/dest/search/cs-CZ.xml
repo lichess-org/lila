@@ -1,13 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search">Hledat</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="search">Hledat</string>
   <string name="advancedSearch">Pokročilé vyhledávání</string>
-  <plurals name="searchInXGames">
-    <item quantity="one">Hledat v šachové hře %s</item>
-    <item quantity="few">Hledat ve %s šachových hrách</item>
-    <item quantity="many">Hledat v %s šachových hrách</item>
-    <item quantity="other">Hledat v %s šachových hrách</item>
-  </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">Nalezena jedna hra</item>
     <item quantity="few">Nalezeny %s hry</item>

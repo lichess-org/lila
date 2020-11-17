@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">ਦੋਸਤਾਂ ਨਾਲ ਖੇਡੋ</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">ਦੋਸਤਾਂ ਨਾਲ ਖੇਡੋ</string>
   <string name="playWithTheMachine">ਕੰਪਿਟਰ ਨਾਲ ਖੇਡੋ</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ਕਿਸੇ ਨਾਲ ਖੇਡਣ ਲਈ ਸੱਦਾ ਦੇਣ ਲਈ, ਇਹ ਲਿੰਕ ਦਿਓ</string>
   <string name="gameOver">ਖੇਡ ਖਤਮ</string>
@@ -80,7 +79,6 @@
   <string name="finishesX">ਮੁਕੰਮਲ %s</string>
   <string name="play">ਖੇਡੋ</string>
   <string name="send">ਭੇਜੋ</string>
-  <string name="freeOnlineChess">ਮੁਫਤ ਦਾ ਸ਼ਤਰੰਜ</string>
   <string name="spectators">ਦਰਸ਼ਕ:</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">ਇਹ ਖਿਡਾਰੀ ਨਕਲੀ ਤੌਰ \'ਤੇ ਉਨ੍ਹਾਂ ਦੀ ਰੇਟਿੰਗ ਨੂੰ ਵਧਾ / ਘਟਾਉਂਦਾ ਹੈ</string>
   <string name="openingExplorerAndTablebase">ਉਦਘਾਟਨੀ ਖੋਜੀ; ਟੇਬਲਬੇਸ</string>
@@ -99,14 +97,12 @@
   <string name="community">ਕਮਿਨਿਟੀ</string>
   <string name="tools">ਸੰਦ</string>
   <string name="watch">ਦੇਖੋ</string>
-  <string name="chessBasics">ਸ਼ਤਰੰਜ ਦੀ ਬੁਨਿਆਦ</string>
   <string name="howToAvoidThis">ਇਸ ਤੋਂ ਕਿਵੇਂ ਬਚਿਆ ਜਾਵੇ?</string>
   <string name="playEveryGame">ਹਰ ਖੇਡ ਖੇਡੋ ਜਿਸ ਨੂੰ ਤੁਸੀਂ ਸ਼ੁਰੂ ਕਰਦੇ ਹੋ.</string>
   <string name="tryToWin">ਹਰ ਖੇਡ ਜੋ ਤੁਸੀਂ ਖੇਡਦੇ ਹੋ ਜਿੱਤਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ (ਜਾਂ ਘੱਟੋ ਘੱਟ ਡਰਾਅ ਕਰੋ).</string>
   <string name="temporaryInconvenience">ਅਸਥਾਈ ਪ੍ਰੇਸ਼ਾਨੀ ਲਈ ਅਸੀਂ ਮੁਆਫੀ ਚਾਹੁੰਦੇ ਹਾਂ,</string>
-  <string name="wishYouGreatGames">ਅਤੇ ਤੁਸੀਂ lichess.org \'ਤੇ ਸ਼ਾਨਦਾਰ ਖੇਡਾਂ ਦੀ ਕਾਮਨਾ ਕਰਦੇ ਹੋ.</string>
+  <string name="wishYouGreatGames">ਅਤੇ ਤੁਸੀਂ lishogi.org \'ਤੇ ਸ਼ਾਨਦਾਰ ਖੇਡਾਂ ਦੀ ਕਾਮਨਾ ਕਰਦੇ ਹੋ.</string>
   <string name="thankYouForReading">ਪੜ੍ਹਨ ਲਈ ਤੁਹਾਡਾ ਧੰਨਵਾਦ!</string>
-  <string name="agreementAssistance">ਮੈਂ ਸਹਿਮਤ ਹਾਂ ਕਿ ਮੈਂ ਆਪਣੀਆਂ ਖੇਡਾਂ ਦੌਰਾਨ ਕਿਸੇ ਵੀ ਸਮੇਂ ਸਹਾਇਤਾ ਪ੍ਰਾਪਤ ਨਹੀਂ ਕਰਾਂਗਾ (ਸ਼ਤਰੰਜ ਕੰਪਿਟਰ, ਕਿਤਾਬ, ਡੇਟਾਬੇਸ ਜਾਂ ਕਿਸੇ ਹੋਰ ਵਿਅਕਤੀ ਤੋਂ).</string>
   <string name="agreementNice">ਮੈਂ ਸਹਿਮਤ ਹਾਂ ਕਿ ਮੈਂ ਹਮੇਸ਼ਾਂ ਦੂਜੇ ਖਿਡਾਰੀਆਂ ਦਾ ਸਤਿਕਾਰ ਕਰਾਂਗਾ.</string>
   <string name="agreementAccount">ਮੈਂ ਸਹਿਮਤ ਹਾਂ ਕਿ ਮੈਂ ਬਹੁਤੇ ਖਾਤੇ ਨਹੀਂ ਬਣਾਵਾਂਗਾ.</string>
 </resources>

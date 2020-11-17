@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">Pengaturan</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="settings">Pengaturan</string>
   <string name="closeAccount">Tutup akun</string>
   <string name="closingIsDefinitive">Menghapus akun tidak dapat dibatalkan. Apakah anda yakin?</string>
   <string name="cantOpenSimilarAccount">Anda tidak akan diizinkan untuk membuka akun baru dengan nama yang sama, meskipun besar-kecil hurufnya berbeda.</string>

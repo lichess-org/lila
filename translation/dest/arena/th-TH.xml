@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="isItRated">มันถูกคิดคะแนนหรือไม่?</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="isItRated">มันถูกคิดคะแนนหรือไม่?</string>
   <string name="willBeNotified">คุณจะได้รับการแจ้งเตือนเมื่อทัวร์นาเมนต์เริ่มต้น ดังนั้นจึงปลอดภัยหากจะเล่นในแท็บอื่นระหว่างรอ</string>
   <string name="isRated">ทัวร์นาเมนต์นี้ถูกคิดคะแนน และจะมีผลต่อระดับคะแนนของคุณ</string>
   <string name="isNotRated">ทัวร์นาเมนต์นี้ *ไม่* ถูกคิดคะแนน และจะ *ไม่* มีผลต่อระดับคะแนนของคุณ</string>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">Preferencias</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">Preferencias</string>
   <string name="gameDisplay">Aparencia do taboleiro</string>
   <string name="pieceAnimation">Animación de pezas</string>
   <string name="materialDifference">Diferenza de material</string>
@@ -9,12 +8,8 @@
   <string name="boardCoordinates">Coordenadas do taboleiro (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lista de xogadas mentres xogas</string>
   <string name="pgnPieceNotation">Notación das xogadas</string>
-  <string name="chessPieceSymbol">Símbolo da peza de xadrez</string>
-  <string name="pgnLetter">Inicial (en inglés) da peza (K, Q, R, B, N)</string>
   <string name="zenMode">Modo zen</string>
   <string name="onlyOnInitialPosition">Só na posición inicial</string>
-  <string name="blindfoldChess">Xadrez a cegas (pezas invisibles)</string>
-  <string name="chessClock">Reloxo de xadrez</string>
   <string name="tenthsOfSeconds">Décimas de segundo</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Cando o tempo restante &lt; 10 segundos</string>
   <string name="horizontalGreenProgressBars">Barras horizontais de progreso verdes</string>

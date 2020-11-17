@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">設定</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">設定</string>
   <string name="gameDisplay">表示設定</string>
   <string name="pieceAnimation">駒のアニメーション速度</string>
   <string name="materialDifference">駒の損得</string>
@@ -9,13 +8,9 @@
   <string name="boardCoordinates">マスの座標（A-H, 1-8）</string>
   <string name="moveListWhilePlaying">プレイ中の棋譜記録</string>
   <string name="pgnPieceNotation">PGN 駒表示方法</string>
-  <string name="chessPieceSymbol">チェス駒シンボル</string>
-  <string name="pgnLetter">文字（K, Q, R, B, N）</string>
   <string name="zenMode">集中モード</string>
   <string name="displayBoardResizeHandle">盤サイズ変更マークを表示</string>
   <string name="onlyOnInitialPosition">ゲーム開始時のみ</string>
-  <string name="blindfoldChess">目隠しチェス</string>
-  <string name="chessClock">時間表示</string>
   <string name="tenthsOfSeconds">0.1秒単位で時間表示</string>
   <string name="whenTimeRemainingLessThanTenSeconds">持時間が残り10秒以下の場合</string>
   <string name="horizontalGreenProgressBars">プログレスバー</string>

@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="activity">활동</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="activity">활동</string>
   <string name="hostedALiveStream">라이브 스트리밍을 함</string>
   <plurals name="supportedNbMonths">
-    <item quantity="other">%1$s 개월 동안 %2$s 에서 lichess.org 을 후원하였습니다.</item>
+    <item quantity="other">%1$s 개월 동안 %2$s 에서 lishogi.org 을 후원하였습니다.</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="other">%2$s 에서 총 %1$s 개의 포지션을 연습하였습니다.</item>
@@ -44,7 +43,7 @@
   <plurals name="rankedInTournament">
     <item quantity="other">%1$s 위 (상위 %2$s%%)  (%4$s 에서 %3$s 국)</item>
   </plurals>
-  <string name="signedUp">Lichess에 회원가입함</string>
+  <string name="signedUp">Lishogi에 회원가입함</string>
   <plurals name="joinedNbTeams">
     <item quantity="other">%s 팀에 참가함</item>
   </plurals>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Spēlēt ar draugu</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Spēlēt ar draugu</string>
   <string name="playWithTheMachine">Spēlēt ar datoru</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Lai uzaicinātu kādu spēlēt, iedod šo saiti</string>
   <string name="gameOver">Spēle galā</string>
@@ -258,7 +257,6 @@
   <string name="recipient">Adresāts</string>
   <string name="send">Sūtīt</string>
   <string name="incrementInSeconds">Pieaugums sekundēs</string>
-  <string name="freeOnlineChess">Bezmaksas šahs tiešsaistē</string>
   <string name="spectators">Skatītāji:</string>
   <plurals name="nbRated">
     <item quantity="zero">%s vērtētas</item>
@@ -347,7 +345,6 @@
   <string name="mustBeInTeam">Jābūt komandas \"%s\" dalībniekam</string>
   <string name="youAreNotInTeam">Tu neesi komandas \"%s\" dalībnieks</string>
   <string name="backToGame">Atgriezties spēlē</string>
-  <string name="siteDescription">Bezmaksas šahs tiešsaistē. Spēlē šahu lakoniskā saskarnē tagad: bez reģistrācijas, reklāmām, vai papildus programmatūras! Spēlē pret datoru, draugiem vai nejaušiem pretiniekiem.</string>
   <string name="xJoinedTeamY">%1$s pievienojās komandai \"%2$s\"</string>
   <string name="xCreatedTeamY">%1$s izveidoja komandu \"%2$s\"</string>
   <string name="xStartedStreaming">%s sāka straumēt</string>
@@ -370,9 +367,7 @@
     <item quantity="one">%s importēta spēles</item>
     <item quantity="other">%s importētas spēles</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Šis ir šaha CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Noklikšķiniet uz laukuma, lai izdarītu gājienu un pierādītu, ka esat cilvēks.</string>
-  <string name="captcha.fail">Lūdzu, atrisiniet šaha cilvēktestu.</string>
   <string name="notACheckmate">Nav šahs un mats</string>
   <string name="whiteCheckmatesInOneMove">Baltie pieteiks matu vienā gājienā</string>
   <string name="blackCheckmatesInOneMove">Melnie pieteiks matu vienā gājienā</string>
@@ -427,7 +422,6 @@
   <string name="advancedSettings">Uzstādījumi lietpratējiem</string>
   <string name="safeTournamentName">Izvēlieties drošu turnīra nosaukumu.</string>
   <string name="inappropriateNameWarning">Jebkas kaut nedaudz nepiedienīgs var novest pie jūsu konta slēgšanas.</string>
-  <string name="emptyTournamentName">Atstājiet neaizpildītu, lai nosauktu turnīru kāda ievērojama šahista vārdā.</string>
   <string name="recommendNotTouching">Iesakām šeit neko nemainīt.</string>
   <string name="fewerPlayers">Ja uzstādīsiet dalības noteikumus, jūsu turnīrā piedalīsies mazāk spēlētāju.</string>
   <string name="showAdvancedSettings">Rādīt lietpratēju uzstādījumus</string>
@@ -475,8 +469,6 @@
   <string name="country">Valsts</string>
   <string name="socialMediaLinks">Sociālo mediju saites</string>
   <string name="inlineNotation">Iekļautā notācija</string>
-  <string name="watchLichessTV">Skatīties Lichess TV</string>
-  <string name="previouslyOnLichessTV">Iepriekš pārraidīts Lichess TV</string>
   <string name="onlinePlayers">Spēlētāji tiešsaistē</string>
   <string name="activeToday">Dienas aktīvākie spēlētāji</string>
   <string name="activePlayers">Aktīvākie spēlētāji</string>
@@ -496,7 +488,7 @@
   <string name="butYouCanKeepTrying">Taču varat turpināt censties.</string>
   <string name="success">Izdevās</string>
   <string name="wasThisPuzzleAnyGood">Vai šis bija labs uzdevums?</string>
-  <string name="pleaseVotePuzzle">Palīdziet uzlabot Lichess, balsojot ar augšup vai lejup vērsto bultiņu:</string>
+  <string name="pleaseVotePuzzle">Palīdziet uzlabot Lishogi, balsojot ar augšup vai lejup vērsto bultiņu:</string>
   <string name="thankYou">Paldies!</string>
   <string name="ratingX">Reitings: %s</string>
   <string name="hidden">slēpts</string>
@@ -591,7 +583,6 @@
   <string name="starting">Sāksies:</string>
   <string name="allInformationIsPublicAndOptional">Visa informācija ir publiska un nav obligāta.</string>
   <string name="yourCityRegionOrDepartment">Jūsu pilsēta, novads vai province.</string>
-  <string name="biographyDescription">Pastāstiet par sevi un savām interesēm, mīļākajām atklātnēm, spēlētājiem, kāpēc jums patīk šahs...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="zero">Maksimums: %s simboli.</item>
     <item quantity="one">Maksimums: %s simbols.</item>
@@ -609,7 +600,6 @@
   <string name="clock">Pulkstenis</string>
   <string name="unauthorizedError">Neautorizēta piekļuve.</string>
   <string name="noInternetConnection">Nav interneta pieslēguma. Joprojām varat spēlēt bezsaistē no izvēlnes.</string>
-  <string name="connectedToLichess">Tagad esat pieslēdzies lichess.org</string>
   <string name="signedOut">Esat izrakstījies</string>
   <string name="loginSuccessful">Pieslēgšanās veiksmīga</string>
   <string name="playOnTheBoardOffline">Šaha galdiņš</string>
@@ -652,7 +642,6 @@
   <string name="webmasters">Tīmekļa pārziņi</string>
   <string name="about">Par</string>
   <string name="aboutX">Par %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ir bezmaksas (%2$s), bez reklāmu, brīva un atvērta koda šaha serveris.</string>
   <string name="really">patiešām</string>
   <string name="contribute">Dot ieguldījumu</string>
   <string name="termsOfService">Pakalpojuma noteikumi</string>
@@ -676,7 +665,6 @@
   <string name="simulClockHint">Fišera pulksteņa uzstādīšana. Jo vairāk pretinieku, jo vairāk laika jums varētu vajadzēt.</string>
   <string name="simulAddExtraTime">Varat pievienot papildus laiku savam pulkstenim, lai vieglāk tiktu galā ar simultānseansu.</string>
   <string name="simulHostExtraTime">Papildu laiks vadītājam</string>
-  <string name="lichessTournaments">Lichess turnīri</string>
   <string name="tournamentFAQ">Arena turnīru BUJ</string>
   <string name="tournamentOfficial">Oficiāls</string>
   <string name="timeBeforeTournamentStarts">Laiks līdz turnīra sākumam</string>
@@ -687,8 +675,6 @@
   <string name="keyShowOrHideComments">slēpt/rādīt komentārus</string>
   <string name="keyEnterOrExitVariation">ieiet/iziet variācijā</string>
   <string name="newTournament">Jauns turnīrs</string>
-  <string name="tournamentHomeTitle">Šaha turnīri ar dažādām laika kontrolēm un variantiem</string>
-  <string name="tournamentHomeDescription">Piedalieties ātra tempa šaha turnīros! Pievienojieties oficiāli organizētā turnīrā, vai izveidojiet savu turnīru. Pieejamas Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck un citas iespējas nebeidzamiem šaha priekiem.</string>
   <string name="tournamentNotFound">Turnīrs nav atrasts</string>
   <string name="tournamentDoesNotExist">Šāds turnīrs neeksistē.</string>
   <string name="tournamentMayHaveBeenCanceled">Iespējams, tas tika atcelts, ja visi spēlētāji pameta turnīru pirms tā sākuma.</string>
@@ -711,8 +697,6 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ja nevarat atrast e-pastu, pārbaudiet citas vietas, kur tas varētu būt, piemēram, mēstulēs, atkritnē, sociālo tīklu sadaļā vai citās mapēs.</string>
   <string name="weHaveSentYouAnEmailTo">Esam aizsūtījuši e-pastu uz %s. Klikšķiniet uz saites e-pastā, lai atjaunotu savu paroli.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Reģistrējoties, jums jāpiekrīt saistībām atbilstoši mūsu %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Tīkla aizture starp jums un Lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Gājiena apstrādei nepieciešamais laiks Lichess serverī</string>
   <string name="downloadAnnotated">Lejupielādēt anotētu</string>
   <string name="downloadRaw">Lejupielādēt neapstrādātu</string>
   <string name="downloadImported">Lejupielādēt importēto</string>
@@ -721,29 +705,23 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Varat arī ritināt virs galdiņa, lai pārvietotos spēlē.</string>
   <string name="analysisShapesHowTo">Klikšķiniet, turot pārslēgšanas taustiņu, vai klikšķiniet ar labo taustiņu uz galdiņa, lai zīmētu riņķus un bultas.</string>
   <string name="letOtherPlayersMessageYou">Ļaut citiem spēlētājiem jums sūtīt ziņas</string>
-  <string name="shareYourInsightsData">Dalīties ar saviem šaha ieskatu datiem</string>
   <string name="withNobody">Ar nevienu</string>
   <string name="withFriends">Ar draugiem</string>
   <string name="withEverybody">Ar visiem</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Tu jau esi reģistrējis e-pastu: %s</string>
   <string name="kidMode">Bērnu režīms</string>
   <string name="kidModeExplanation">Runa ir par drošību. Bērnu režīmā jebkāda saziņa ir atspējota. Ieslēdziet šo režīmu, lai pasargātu savus bērnus un skolēnus no citiem interneta lietotājiem.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Bērnu režīmā Lichess logo tiek pievienota %s ikona, lai jūs zinātu, ka jūsu bērni ir drošībā.</string>
   <string name="enableKidMode">Iespējot Bērnu režīmu</string>
   <string name="disableKidMode">Atspējot Bērnu režīmu</string>
   <string name="security">Drošība</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Šis ir saraksts ar visām ierīcēm, kuras pieslēgušās jūsu kontam. Dzēsiet jebkuru sesiju, kuru neatpazīstat.</string>
   <string name="alternativelyYouCanX">Varat arī %s.</string>
   <string name="revokeAllSessions">dzēst visas sesijas</string>
-  <string name="playChessEverywhere">Spēlējiet šahu jebkur</string>
-  <string name="asFreeAsLichess">Bezmaksas kā Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Radīts šaha mīlestības - ne naudas dēļ</string>
   <string name="everybodyGetsAllFeaturesForFree">Visas iespējas ir pieejamas jebkuram bez maksas</string>
   <string name="zeroAdvertisement">Nekādu reklāmu</string>
   <string name="fullFeatured">Pilnas iespējas</string>
   <string name="phoneAndTablet">Telefonam un planšetei</string>
   <string name="bulletBlitzClassical">Bullet, blics, klasiskais</string>
-  <string name="correspondenceChess">Korespondencšahs</string>
   <string name="onlineAndOfflinePlay">Spēles tiešsaistē un bezsaistē</string>
   <string name="viewTheSolution">Skatīt atrisinājumu</string>
   <string name="followAndChallengeFriends">Sekojiet draugiem un izaiciniet tos</string>
@@ -777,9 +755,6 @@
   <string name="usernameSuffixInvalid">Lietotājvārdam jābeidzas ar burtu vai ciparu.</string>
   <string name="usernameCharsInvalid">Lietotājvārds drīkst saturēt tikai burtus, ciparus, pasvītras un defises.</string>
   <string name="usernameUnacceptable">Šāds lietotājvārds nav pieņemams.</string>
-  <string name="directlySupportLichess">Tieši atbalstīt Lichess</string>
-  <string name="playChessInStyle">Spēlējiet šahu ar eleganci</string>
-  <string name="chessBasics">Šaha pamati</string>
   <string name="coaches">Treneri</string>
   <string name="invalidPgn">Nepareizs PGN</string>
   <string name="invalidFen">Nepareizs FEN</string>
@@ -859,7 +834,6 @@
   <string name="weHadToTimeYouOutForAWhile">Mums nācās jūs apturēt uz laiku.</string>
   <string name="timeoutExpires">Pārtraukums beigsies %s.</string>
   <string name="why">Kāpēc?</string>
-  <string name="pleasantChessExperience">Mēs cenšamies visiem piedāvāt patīkamu šaha pieredzi.</string>
   <string name="goodPractice">Līdz ar to, mums jānodrošina, lai visi spēlētāji pieturas pie labas prakses.</string>
   <string name="potentialProblem">Kad atklāta iespējama problēma, mēs rādām šo ziņojumu.</string>
   <string name="howToAvoidThis">Kā no šī izvairīties?</string>
@@ -867,14 +841,13 @@
   <string name="tryToWin">Mēģiniet uzvarēt (vai vismaz panākt neizšķirtu) katrā spēlē, ko spēlējat.</string>
   <string name="resignLostGames">Padodieties zaudētajās spēlēs (neļaujiet laikam beigties).</string>
   <string name="temporaryInconvenience">Mēs atvainojamies par īslaicīgajām neērtībām,</string>
-  <string name="wishYouGreatGames">un novēlam jums lieliskas spēles mājaslapā lichess.org.</string>
+  <string name="wishYouGreatGames">un novēlam jums lieliskas spēles mājaslapā lishogi.org.</string>
   <string name="thankYouForReading">Paldies, ka izlasījāt!</string>
   <string name="lifetimeScore">Visu laiku rezultāts</string>
   <string name="currentMatchScore">Pašreizējais spēļu reitings</string>
-  <string name="agreementAssistance">Piekrītu spēlējot nevienā brīdī nesaņemt palīdzību (no šaha programmas, grāmatas, datubāzes vai cita cilvēka).</string>
   <string name="agreementNice">Piekrītu vienmēr izturēties pieklājīgi pret citiem spēlētājiem.</string>
   <string name="agreementAccount">Piekrītu neizveidot vairākus kontus.</string>
-  <string name="agreementPolicy">Piekrītu ievērot visus Lichess noteikumus.</string>
+  <string name="agreementPolicy">Piekrītu ievērot visus Lishogi noteikumus.</string>
   <string name="searchOrStartNewDiscussion">Meklēt vai uzsākt sarunu</string>
   <string name="edit">Rediģēt</string>
   <string name="rapid">Ātrais</string>
@@ -885,7 +858,6 @@
   <string name="rapidDesc">Ātras spēles — 8 līdz 25 minūtes</string>
   <string name="classicalDesc">Klasiskas spēles — ne mazāk par 25 minūtēm</string>
   <string name="correspondenceDesc">Korespondencšaha spēles — viena vai vairākas dienas katram gājienam</string>
-  <string name="puzzleDesc">Šaha taktikas treneris</string>
   <string name="important">Svarīgi</string>
   <string name="yourQuestionMayHaveBeenAnswered">Jūsu jautājums, iespējams, jau ir atbildēts %1$s</string>
   <string name="inTheFAQ">bieži uzdoto jautājumu sadāļā.</string>

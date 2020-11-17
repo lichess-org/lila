@@ -1,59 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="learnChess">Вучыцеся,</string>
-  <string name="byPlaying">гуляючы!</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="byPlaying">гуляючы!</string>
   <string name="menu">Меню</string>
   <string name="progressX">Прагрэс: %s</string>
   <string name="resetMyProgress">Скінуць прагрэс</string>
   <string name="youWillLoseAllYourProgress">Увесь ваш прагрэс будзе скінуты!</string>
   <string name="play">гуляць!</string>
-  <string name="chessPieces">Шахматныя фігуры</string>
   <string name="theRook">Ладдзя</string>
   <string name="itMovesInStraightLines">Рухаецца па простых лініях</string>
   <string name="rookIntro">Ладдзя — гэта цяжкая фігура. Ці гатовы вы кіраваць ёй?</string>
-  <string name="rookGoal">Пстрыкніце на ладдзю і давядзіце яе да зоркі!</string>
   <string name="grabAllTheStars">Збярыце ўсе зоркі!</string>
-  <string name="theFewerMoves">Чым менш хадоў вы зробіце, тым больш ачкоў вы атрымаеце!</string>
-  <string name="useTwoRooks">Скарыстайце дзве ладдзі, каб паскорыць працэс!</string>
   <string name="rookComplete">Віншуем! Вы навучыліся хадзіць ладдзёй.</string>
   <string name="theBishop">Афіцэр</string>
   <string name="itMovesDiagonally">Перасоўваецца па дыяганалях</string>
   <string name="bishopIntro">Далей мы навучымся хадзіць афіцэрам!</string>
-  <string name="youNeedBothBishops">Палі белага колеру кантралюе адзін афіцэр, палі чорнага колеру — іншы. Вам патрэбныя абодва афіцэра!</string>
   <string name="bishopComplete">Віншуем! Вы навучыліся хадзіць афіцэрам.</string>
-  <string name="theQueen">Ферзь</string>
-  <string name="queenCombinesRookAndBishop">Ферзь = ладдзя + афіцэр</string>
-  <string name="queenIntro">Наймагутная фігура. Яго вялікасць — ферзь!</string>
-  <string name="queenComplete">Віншуем! Вы навучыліся хадзіць фярзём.</string>
   <string name="theKing">Кароль</string>
   <string name="theMostImportantPiece">Найважная фігура</string>
   <string name="kingIntro">Вы - кароль. Калі вы загінеце ў бітве - гульня прайграна.</string>
-  <string name="theKingIsSlow">Кароль павольна перасоўваецца.</string>
-  <string name="lastOne">І апошні!</string>
   <string name="kingComplete">Вы навучыліся хадзіць каралём!</string>
   <string name="theKnight">Конь</string>
-  <string name="itMovesInAnLShape">Ён ходзіць літарай \"Г\"</string>
-  <string name="knightIntro">Асвоіць каня не так проста, бо ён — хітрая фігура.</string>
-  <string name="knightsHaveAFancyWay">Коні маюць мудрагелісты спосаб пераскокваць!</string>
-  <string name="knightsCanJumpOverObstacles">Коні могуць скакаць праз перашкоды!
-Выберацеся і збярыце ўсе зоркі!</string>
   <string name="knightComplete">Віншуем! Вы навучыліся хадзіць канём!</string>
   <string name="thePawn">Пешка</string>
-  <string name="itMovesForwardOnly">Ходзіць толькі наперад</string>
   <string name="pawnIntro">Пешкі слабыя, але ў іх шмат патэнцыялу.</string>
-  <string name="pawnsMoveOneSquareOnly">Пешкі ходзяць толькі на адну клетку наперад. Але дасягнуўшы іншага канца дошкі, яны ператвараюцца ў моцную фігуру!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">У большасці выпадку пешку лепш ператварыць у фярзя. Але часам ператварэнне ў каня можа быць выгадней!</string>
-  <string name="pawnsMoveForward">Пешкі рухаюцца наперад, але б\'юць па дыяганалях!</string>
-  <string name="captureThenPromote">Пабіце, потым ператварыцеся!</string>
-  <string name="useAllThePawns">Скарыстайце ўсе пешкі!
-Неабавязкова іх ператвараць.</string>
-  <string name="aPawnOnTheSecondRank">Пешка на другім шэрагу можа хадзіць на два палі за ход!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">Збярыце ўсе зоркі!
-Неабавязкова ператвараць пешкі.</string>
   <string name="pawnComplete">Віншуем! У пешак няма сакрэтаў для вас.</string>
-  <string name="pawnPromotion">Ператварэнне пешкі</string>
-  <string name="yourPawnReachedTheEndOfTheBoard">Ваша пешка дасягнула краю дошкі!</string>
-  <string name="itNowPromotesToAStrongerPiece">Цяпер яна можа стаць любой іншай фігурай.</string>
   <string name="selectThePieceYouWant">Абірайце якую хочаце!</string>
   <string name="fundamentals">Асновы</string>
   <string name="capture">Узяцце</string>
@@ -61,7 +30,6 @@
   <string name="captureIntro">Знайдзіце неабароненыя фігуры суперніка і забярыце іх!</string>
   <string name="takeTheBlackPieces">Забярыце чорныя фігуры!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Забярыце ўсе чорныя фігуры! І не страцьце свае.</string>
-  <string name="captureComplete">Віншуем! Цяпер вы ведаеце, як браць фігуры!</string>
   <string name="protection">Абарона</string>
   <string name="keepYourPiecesSafe">Бараніце вашы фігуры</string>
   <string name="protectionIntro">Вызначыце, якія вашы фігуры атакуе супернік, і абараніце іх!</string>
@@ -74,7 +42,6 @@
   <string name="combat">Бой</string>
   <string name="captureAndDefendPieces">Узяцце і абарона фігур</string>
   <string name="combatIntro">Добры ваяр ведае і як нападаць, і як абараняцца!</string>
-  <string name="combatComplete">Віншуем! Цяпер вы ведаеце, як ідзе бой у шахматах!</string>
   <string name="checkInOne">Шах у адзін ход</string>
   <string name="attackTheOpponentsKing">Атакуйце караля суперніка</string>
   <string name="checkInOneIntro">Каб абвясціць шах, нападайце на караля суперніка. Ён вымушаны будзе бараніцца!</string>
@@ -96,12 +63,10 @@
   <string name="defeatTheOpponentsKing">Вазьміце верх над каралём суперніка</string>
   <string name="mateInOneIntro">Вы перамагаеце, калі ваш супернік не можа абараніць караля ад шаха.</string>
   <string name="attackYourOpponentsKing">Атакуйце караля вашага суперніка такім чынам, каб яго няможна было абараніць!</string>
-  <string name="mateInOneComplete">Віншуем! Вось так перамагаюць у шахматах!</string>
   <string name="intermediate">Прамежкавы этап</string>
   <string name="boardSetup">Пазіцыя на дошцы</string>
   <string name="howTheGameStarts">Пачатак шахматнай партыі</string>
   <string name="boardSetupIntro">Абодва войскі сустракаюцца адно з адным, гатовыя да бітвы.</string>
-  <string name="thisIsTheInitialPosition">Гэта - пачатковая пазіцыя ў шахматах! Зрабіце любы ход, каб працягнуць.</string>
   <string name="firstPlaceTheRooks">Спачатку расстаўце ладдзі!
 Яны знаходзяцца па кутах.</string>
   <string name="thenPlaceTheKnights">Потым расстаўце коней!
@@ -114,30 +79,6 @@
 Ён стаіць каля фярзя.</string>
   <string name="pawnsFormTheFrontLine">Пешкі стаяць на пярэдняй лініі.
 Зрабіце кожны ход, каб працягнуць.</string>
-  <string name="boardSetupComplete">Віншуем! Зараз вы ведаеце, як ставіць фігуры на шахматнай дошцы.</string>
-  <string name="castling">Ракіроўка</string>
-  <string name="theSpecialKingMove">Адмысловы ход караля</string>
-  <string name="castlingIntro">Абараніце свайго караля і выведзіце ў бой ладдзю!</string>
-  <string name="castleKingSide">Перасуньце свайго караля на дзве клеткі да ладдзі каралеўскага фланга!</string>
-  <string name="castleQueenSide">Перасуньце свайго караля на дзве клеткі да ладдзі ферзевага фланга!</string>
-  <string name="theKnightIsInTheWay">Конь у дарозе! Зрабіце ход канём, потым зрабіце ракіроўку.</string>
-  <string name="castleKingSideMovePiecesFirst">Кароткая ракіроўка! Спачатку вам трэба развіць фігуры.</string>
-  <string name="castleQueenSideMovePiecesFirst">Доўгая ракіроўка! Спачатку вам трэба развіць фігуры.</string>
-  <string name="youCannotCastleIfMoved">Вы не можаце рабіць ракіроўку, калі кароль ці тура, якія ўдзельнічаюць у ракіроўцы, рабілі ход.</string>
-  <string name="youCannotCastleIfAttacked">Вы не можаце ракіравацца,
-калі кароль знаходзіцца пад шахам.
-Спачатку абароніце караля!</string>
-  <string name="findAWayToCastleKingSide">Знайдзіце спосаб зрабіць кароткую ракіроўку!</string>
-  <string name="findAWayToCastleQueenSide">Знайдзіце спосаб зрабіць доўгую ракіроўку!</string>
-  <string name="castlingComplete">Віншуем! Вы павінны амаль заўсёды ракіравацца ў партыях.</string>
-  <string name="enPassant">Узяцце на праходзе</string>
-  <string name="theSpecialPawnMove">Адмысловы ход пешкай</string>
-  <string name="enPassantIntro">Калі пешка суперніка робіць ход на дзве клеткі, вы можаце ўзяць яе, як калі б яна зрабіла ход на адну.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">Чорныя толькі што схадзілі пешкай на два палі! Вазьміце яе.</string>
-  <string name="enPassantOnlyWorksImmediately">Пешка суперніка можа быць узята на праходзе толькі наўпростае пасля ходу.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">Узяцце на праходзе можна зрабіць, калі ваша пешка на пятым шэрагу.</string>
-  <string name="takeAllThePawnsEnPassant">Вазьміце ўсе пешкі на праходзе!</string>
-  <string name="enPassantComplete">Віншуем! Зараз вы можаце рабіць узяцце на праходзе.</string>
   <string name="stalemate">Пат</string>
   <string name="theGameIsADraw">Гульня з\'яўляецца нічыйнай</string>
   <string name="stalemateIntro">Калі гульцу не пастаўлены шах і няма магчымасці зрабіць ход, гэта пат. Гульня сканчаецца: без пераможцаў і пераможаных.</string>
@@ -170,15 +111,11 @@
   <string name="checkInTwoGoal">Стварыце пагрозу каралю суперніка ў два ходу!</string>
   <string name="checkInTwoComplete">Віншуем! Вы паставілі шах вашаму суперніку, вымусіўшы яго бараніць свайго караля!</string>
   <string name="whatNext">Што далей?</string>
-  <string name="youKnowHowToPlayChess">Вы ўмееце гуляць у шахматы, віншуем! Вы хочаце стаць мацнейшым гульцом?</string>
   <string name="register">Рэгістрацыя</string>
-  <string name="getAFreeLichessAccount">Стварыце бясплатны ўліковы запіс</string>
   <string name="practice">Практыка</string>
-  <string name="learnCommonChessPositions">Вучыце асноўныя пазіцыі</string>
   <string name="puzzles">Заданні</string>
   <string name="exerciseYourTacticalSkills">Ужыццяўляйце свае тактычныя навыкі</string>
   <string name="videos">Відэа</string>
-  <string name="watchInstructiveChessVideos">Глядзець навучальныя відэазапісы</string>
   <string name="playPeople">Гульня анлайн</string>
   <string name="opponentsFromAroundTheWorld">Супернікі з усяго свету</string>
   <string name="playMachine">Гульня з ботам</string>

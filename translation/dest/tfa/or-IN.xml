@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="twoFactorAuth">ଦୁଇ-ଫ୍ୟାକ୍ଟର୍ ପ୍ରାମାଣିକିକରଣ</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="twoFactorAuth">ଦୁଇ-ଫ୍ୟାକ୍ଟର୍ ପ୍ରାମାଣିକିକରଣ</string>
   <string name="twoFactorHelp">ଦୁଇ-ଫ୍ୟାକ୍ଟର୍ ପ୍ରାମାଣିକରଣ ଆପଣଙ୍କ ଆକାଉଣ୍ଟରେ ସୁରକ୍ଷାର ଅନ୍ୟ ଏକ ସ୍ତର ଯୋଗ କରେ |</string>
   <string name="twoFactorApp">ଦୁଇ-ଫ୍ୟାକ୍ଟର୍ ପ୍ରାମାଣିକିକରଣ ପାଇଁ ଏକ ଆପ୍ ପାଆନ୍ତୁ, ଉଦାହରଣ ସ୍ୱରୂପ% %1$s ଗୁଗୁଲ୍ ପ୍ରାମାଣିକିକରଣକାରୀ କିମ୍ବା  %2$s</string>
   <string name="scanTheCode">QR କୋଡ୍ରେ ଆପ୍ ରେ ସ୍କାନ୍ କରନ୍ତୁ</string>

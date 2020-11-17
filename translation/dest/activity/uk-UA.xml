@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="activity">Активність</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="activity">Активність</string>
   <string name="hostedALiveStream">Запустив стрім</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Підтримує lichess.org протягом %1$s місяця як %2$s</item>
-    <item quantity="few">Підтримує lichess.org протягом %1$s місяців як %2$s</item>
-    <item quantity="many">Підтримує lichess.org протягом %1$s місяців як %2$s</item>
-    <item quantity="other">Підтримує lichess.org протягом %1$s місяців як %2$s</item>
+    <item quantity="one">Підтримує lishogi.org протягом %1$s місяця як %2$s</item>
+    <item quantity="few">Підтримує lishogi.org протягом %1$s місяців як %2$s</item>
+    <item quantity="many">Підтримує lishogi.org протягом %1$s місяців як %2$s</item>
+    <item quantity="other">Підтримує lishogi.org протягом %1$s місяців як %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Практиковано позицію %1$s в %2$s</item>
@@ -92,7 +91,7 @@
     <item quantity="many">Досяг #%1$s місця (кращі %2$s%%), зіграна %3$s ігор, турнір: %4$s</item>
     <item quantity="other">Досяг #%1$s місця (кращі %2$s%%), зіграно %3$s ігор, турнір: %4$s</item>
   </plurals>
-  <string name="signedUp">Зареєструвався на lichess.org</string>
+  <string name="signedUp">Зареєструвався на lishogi.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Приєднався до %s команди</item>
     <item quantity="few">Приєднався до %s команд</item>

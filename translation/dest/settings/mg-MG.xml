@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">Kirakira ankapobeny</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="settings">Kirakira ankapobeny</string>
   <string name="thisAccountIsClosed">Mikatona io kaonty io.</string>
 </resources>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Urar yed umddakul</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Urar yed umddakul</string>
   <string name="playWithTheMachine">Urar mgal aselkim</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Blik ad-snnefteghed yiwen ad urar, fka-s tuqqna agi</string>
   <string name="gameOver">Tekfa tiremt</string>
@@ -154,7 +153,6 @@
   <string name="recipient">Anermas</string>
   <string name="send">Ceyyeε</string>
   <string name="incrementInSeconds">Tifest s tisinin</string>
-  <string name="freeOnlineChess">Icahen baṭel askar uqqin</string>
   <string name="spectators">Imeshanayen:</string>
   <plurals name="nbWins">
     <item quantity="one">%s tarennawt</item>
@@ -187,7 +185,6 @@
   <string name="tournamentPoints">Agemmuḍ n timenyugert</string>
   <string name="viewTournament">Wali timenyugert</string>
   <string name="backToTournament">Uɣal ɣer timenyugert</string>
-  <string name="siteDescription">Urar n yicahen baṭel s weskar uqqin. Urar yicahen dindin s agrudem aḥerfi. War assiggez bessif, war assussen, war plugin. Urar icahen mgal aselkim, imeddukkal neɣ afnaten s weskar uqqin.</string>
   <string name="xJoinedTeamY">%1$s i sdukel taɣlamt %2$s</string>
   <string name="xCreatedTeamY">%1$s i slal taɣlamt %2$s</string>
   <string name="averageElo">Abellez alemmas</string>
@@ -205,7 +202,6 @@
     <item quantity="one">%s timlilit tiktiren</item>
     <item quantity="other">%s timlilit tiktiren</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Ayagi d CAPTCHA n caq</string>
   <string name="clickOnTheBoardToMakeYourMove">Senned g talwaḥt akken a t-urared tiyita, d a t-sekneḍ imanik d amedan</string>
   <string name="notACheckmate">Macci d caqmat</string>
   <string name="retry">Ɛawed tikkelt niḍen</string>
@@ -267,8 +263,6 @@
   <string name="lastName">Isem n twacult</string>
   <string name="biography">Tameddurt</string>
   <string name="country">Tamurt</string>
-  <string name="watchLichessTV">Wali kan Lichess TV</string>
-  <string name="previouslyOnLichessTV">Yakan seg Lichess TV</string>
   <string name="onlinePlayers">Imariren s weskar uqqin</string>
   <string name="activeToday">Urmid ass-a</string>
   <string name="activePlayers">Imariren urmiden</string>
@@ -285,7 +279,7 @@
   <string name="puzzleFailed">Aεewwiq ixeṣren</string>
   <string name="butYouCanKeepTrying">Maca tzemṛed ad tɛawdeḍ tikkelt niḍen.</string>
   <string name="wasThisPuzzleAnyGood">I sɣa azal ugur agi</string>
-  <string name="pleaseVotePuzzle">All Lichess a d-i sileɣ s dɣeṛ s innecaben</string>
+  <string name="pleaseVotePuzzle">All Lishogi a d-i sileɣ s dɣeṛ s innecaben</string>
   <string name="thankYou">Tanemmirt!</string>
   <string name="ratingX">Abellez : %s</string>
   <plurals name="playedXTimes">

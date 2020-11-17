@@ -1,24 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="faqAbbreviation">Perguntas frequentes</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="faqAbbreviation">Perguntas frequentes</string>
   <string name="frequentlyAskedQuestions">Perguntas frequentes</string>
-  <string name="whyIsLichessCalledLichess">Por que é que o Lichess se chama Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess é uma combinação de \"live/light/libre\" (vida, direto/leve/livre). Pronuncia-se %1$s.</string>
-  <string name="leechess">li-tchéss</string>
   <string name="hearItPronouncedBySpecialist">Ouve-o pronunciado por um especialista.</string>
-  <string name="whyLiveLightLibre">\"Live\" (vida, direto), porque os jogos são jogados e vistos em tempo real 24/7; \"light\" (leve) e \"libre\" (livre) uma vez que o Lichess é open-source e está livre de lixo proprietário que infesta outros sites.</string>
-  <string name="whyIsLilaCalledLila">Do mesmo modo, o código fonte do Lichess, %1$s, significa li[chess em sca]la, mostrando que o Lichess é fundamentalmente escrito em %2$s, uma linguagem de programação intuitiva.</string>
-  <string name="howCanIContributeToLichess">Como posso contribuir para o Lichess?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">O Lichess depende totalmente de doações de patronos e dos esforços de uma equipa de voluntários.</string>
-  <string name="findMoreAndSeeHowHelp">Podes encontrar mais sobre %1$s (incluindo uma %2$s). Se quiseres ajudar o Lichess voluntariando o teu tempo e capacidades, há várias %3$s.</string>
-  <string name="beingAPatron">ser um patrono</string>
+  <string name="whyLiveLightLibre">\"Live\" (vida, direto), porque os jogos são jogados e vistos em tempo real 24/7; \"light\" (leve) e \"libre\" (livre) uma vez que o Lishogi é open-source e está livre de lixo proprietário que infesta outros sites.</string>
   <string name="breakdownOfOurCosts">repartição dos nossos custos</string>
   <string name="otherWaysToHelp">outras formas de ajudar</string>
-  <string name="areThereWebsitesBasedOnLichess">Existem sites baseados no Lichess?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Sim. De facto, o Lichess tem inspirado outros sites open-source que usam o nosso %1$s, %2$s ou %3$s.</string>
   <string name="fairPlay">Jogo justo</string>
   <string name="whyFlaggedRatingManipulationOrCheater">Por que é que estou marcado por manipulação artificial da pontuação (perder de propósito ou fazer batota) ou ajuda do computador?</string>
-  <string name="cheatDetectionMethods">O Lichess tem fortes métodos de detenção de batota e um um processo minucioso de rever todas as provas e tomar uma decisão. Frequentemente, este processo envolve vários moderadores e pode levar muito tempo. Para além de marcarmos o jogador, não nos alongamos em detalhes para cada caso individual. Fazê-lo só tornaria mais fácil evitar ser detetado no futuro e levaria a debates inúteis. Este tempo e esforço podem ser melhor espregues em outras situações importantes. Os utilizador podem enviar-nos um email para %1$s, mas as decisões raramente são alteradas.</string>
+  <string name="cheatDetectionMethods">O Lishogi tem fortes métodos de detenção de batota e um um processo minucioso de rever todas as provas e tomar uma decisão. Frequentemente, este processo envolve vários moderadores e pode levar muito tempo. Para além de marcarmos o jogador, não nos alongamos em detalhes para cada caso individual. Fazê-lo só tornaria mais fácil evitar ser detetado no futuro e levaria a debates inúteis. Este tempo e esforço podem ser melhor espregues em outras situações importantes. Os utilizador podem enviar-nos um email para %1$s, mas as decisões raramente são alteradas.</string>
   <string name="whenAmIEligibleRatinRefund">Quando é que recebo devoluções automáticas de pontuação por causa de batoteiros?</string>
   <string name="ratingRefundExplanation">Um minuto depois de um jogador ser marcador, os seus últimos 40 jogos a valer pontos nos últimos 3 dias são escolhidos. Se foste um dos seus adversários em algum(ns) destes jogos e perdeste pontuação (por derrota(s) ou empate(s)), e a tua pontuação não era provisória, recebes uma devolução de pontuação. A devolução é limitada com base na tua pontuação e no teu progresso após o(s) jogo(s).
  (Por exemplo, se a tua pontuação aumentou consideravelmente após aquele(s) jogo(s), podes não receber uma devolução ou receber apenas uma devolução parcial.) Uma devolução nunca excederá 150 pontos.</string>
@@ -26,17 +15,14 @@
   <string name="leavingGameWithoutResigningExplanation">Se algum dos teus adversários aborta ou sai de jogos frequentemente, este será \"banido de jogar\", o que significa que está banido de jogar jogos. Isto não é mostrado publicamente no seu perfil. Se este comportamento continuar, a duração do banimento aumentará - e prolongados comportamentos deste tipo podem levar ao encerramento da conta.</string>
   <string name="howCanIBecomeModerator">Como é que me posso tornar um moderador?</string>
   <string name="youCannotApply">Não é possível candidatar-se a moderador. Se virmos alguém que consideramos que seria um bom moderador, contactá-lo(a)-emos diretamente.</string>
-  <string name="isCorrespondenceDifferent">Os jogos por correspondência são diferentes do xadrez normal?</string>
-  <string name="youCanUseOpeningBookNoEngine">No Lichess, a principal diferença nas regras para jogos de correspondência é que é permitido utilizar um livro de aberturas. A utilização da ajuda de computadores continua a ser proibida e utilizá-la resultará em ser marcado por utilizar a ajuda de computador. Embora a ICCF permita a utilização de computadores, o Lichess não o permite.</string>
   <string name="gameplay">Jogabilidade</string>
   <string name="howBulletBlitzEtcDecided">Como é que bullet, blitz e outros ritmos de jogo são decididos?</string>
-  <string name="basedOnGameDuration">Os ritmos de jogo do Lichess baseiam-se na duração estimada do jogo = %1$s
+  <string name="basedOnGameDuration">Os ritmos de jogo do Lishogi baseiam-se na duração estimada do jogo = %1$s
 Por exemplo, a duração estimada de um jogo 5+3 é 5 × 60 + 40 × 3 = 420 segundos.</string>
   <string name="durationFormula">(tempo inicial no relógio) + 40 × (incremento no relógio)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$s s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
-  <string name="whatVariantsCanIplay">Que variantes posso jogar no Lichess?</string>
-  <string name="lichessSupportChessAnd">O Lichess suporta o xadrez normal e %1$s.</string>
+  <string name="whatVariantsCanIplay">Que variantes posso jogar no Lishogi?</string>
   <string name="eightVariants">8 variantes de xadrez</string>
   <string name="whatIsACPL">O que é a perda média de centésimas de peão (ACPL)?</string>
   <string name="acplExplanation">Uma centésima de peão é a unidade de medida usada no xadrez para a representação da vantagem. Uma centésima de peão é igual a 1/100 de um peão. Portanto, 100 centésimas de peão = 1 peão. Estes valores não têm um papel formal no jogo mas são úteis para os jogadores, e essenciais para muitos computadores de xadrez, para avaliar posições.
@@ -45,13 +31,8 @@ O lance considerado melhor pelo computador corresponde a uma perda de zero cent�
 
 Este valor pode ser utilizado como indicador da qualidade do jogo. Quando menos centésimas de peão alguém perder por jogada, mais forte o jogo.
 
-A análise de xadrez no Lichess é feita pelo Stockfish.</string>
+A análise de xadrez no Lishogi é feita pelo Stockfish.</string>
   <string name="insufficientMaterial">Perder por tempo, empatar e material insuficiente</string>
-  <string name="lichessFollowFIDErules">No caso de um jogador ficar sem tempo, geralmente, esse jogador perderá o jogo. Contudo, o jogo é empatado se a posição for uma tal que o adversário não consegue fazer xeque-mate por qualquer sequência legal de movimentos (%1$s).
-
-Em casos raros, isto pode ser difícil de detetar automaticamente (linhas forçadas, fortalezas). Por norma, ficamos sempre do lado do jogador que não ficou sem tempo.
-
-Nota que pode ser possível fazer xeque-mate somente com um cavalo ou bispo, se o adversário tiver uma peça que possa bloquear o seu rei.</string>
   <string name="linkToFIDErules">manual da FIDE §6.9, PDF</string>
   <string name="discoveringEnPassant">Por que é que um peão captura outro quando ele já passou? (en passant)</string>
   <string name="explainingEnPassant">Esta é uma jogada legal conhecida como \"en passant\". O artigo da Wikipédia dá uma %1$s.
@@ -63,33 +44,29 @@ Nota que pode ser possível fazer xeque-mate somente com um cavalo ou bispo, se 
 Vê o %3$s deste lance para o praticares.</string>
   <string name="goodIntroduction">boa introdução</string>
   <string name="officialRulesPDF">regras oficiais (PDF)</string>
-  <string name="lichessTraining">treino do Lichess</string>
   <string name="threefoldRepetition">Repetição tripla</string>
-  <string name="threefoldRepetitionExplanation">Se uma posição ocorrer três vezes, os jogadores podem reivindicar um empate por %1$s. O Lichess implementa as regras oficiais da FIDE, como estão descritas no Artigo 9.2 (d) do %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Se uma posição ocorrer três vezes, os jogadores podem reivindicar um empate por %1$s. O Lishogi implementa as regras oficiais da FIDE, como estão descritas no Artigo 9.2 (d) do %2$s.</string>
   <string name="threefoldRepetitionLowerCase">repetição tripla</string>
   <string name="handBookPDF">manual (PDF)</string>
   <string name="notRepeatedMoves">Nós não repetimos lances. Por que é que o jogo foi empatado por repetição?</string>
   <string name="repeatedPositionsThatMatters">A repetição tripla é sobre %1$s repetidas, não lances. A repetição não de ocorrer consecutivamente.</string>
   <string name="positions">posições</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Nós repetimos uma posição três vezes. Por que é que o jogo não foi empatado?</string>
-  <string name="threeFoldHasToBeClaimed">As repetições têm de ser reivindicadas por um dos jogadores. Podes fazê-lo clicando no botão que é mostrado, ou oferecendo empate antes do teu último lance que levaria à repetição tripla, não importa se o teu adversário não aceitar o empate, a repetição tripla será reivindicada. Também podes %1$s o Lichess para que as repetições sejam reivindicadas automaticamente. Para além disso, repetições quíntuplas acabam o jogo imediatamente, sempre.</string>
+  <string name="threeFoldHasToBeClaimed">As repetições têm de ser reivindicadas por um dos jogadores. Podes fazê-lo clicando no botão que é mostrado, ou oferecendo empate antes do teu último lance que levaria à repetição tripla, não importa se o teu adversário não aceitar o empate, a repetição tripla será reivindicada. Também podes %1$s o Lishogi para que as repetições sejam reivindicadas automaticamente. Para além disso, repetições quíntuplas acabam o jogo imediatamente, sempre.</string>
   <string name="configure">configurar</string>
   <string name="accounts">Contas</string>
-  <string name="titlesAvailableOnLichess">Que títulos existem no Lichess?</string>
-  <string name="lichessRecognizeAllOTBtitles">O Lichess reconhece todos os título FIDE obtidos OTB (\"over the board\", em jogos presenciais), assim como %1$s.
-Aqui está uma lista dos títulos FIDE:</string>
   <string name="showYourTitle">Se tiveres um título OTB, podes candidatar-te para que o tenhas mostrado na tua conta se completares este %1$s, incluindo uma imagem clara de uma documento/cartão identificativo e uma foto de ti a segurares nesse documento/cartão.
 
-Uma verificação como jogador com título no Lichess dá acesso a jogar em eventos de Arena de Título.
+Uma verificação como jogador com título no Lishogi dá acesso a jogar em eventos de Arena de Título.
 
 Finalmente, há um título honorário %2$s.</string>
   <string name="asWellAsManyNMtitles">muitos títulos de mestres nacionais</string>
   <string name="verificationForm">formulário de verificação</string>
-  <string name="canIbecomeLM">Posso obter o título de Mestre do Lichess (LM)?</string>
+  <string name="canIbecomeLM">Posso obter o título de Mestre do Lishogi (LM)?</string>
   <string name="noUpperCaseDot">Não.</string>
-  <string name="lMtitleComesToYouDoNotRequestIt">Este título honorífico não é oficial e só existe no Lichess.
+  <string name="lMtitleComesToYouDoNotRequestIt">Este título honorífico não é oficial e só existe no Lishogi.
 
-Raramente, premiamo-lo a jogadores altamente notáveis que são bons cidadãos do Lichess, a nosso critério. Tu não obténs o título de LM, o título LM obtém-te a ti. Se te qualificares, receberás uma mensagem nossa a respeito da nossa escolha e poderás aceitar ou recusar.
+Raramente, premiamo-lo a jogadores altamente notáveis que são bons cidadãos do Lishogi, a nosso critério. Tu não obténs o título de LM, o título LM obtém-te a ti. Se te qualificares, receberás uma mensagem nossa a respeito da nossa escolha e poderás aceitar ou recusar.
 
 Não perguntes pelo título LM.</string>
   <string name="whatUsernameCanIchoose">O que é que o meu nome de utilizador pode ser?</string>
@@ -98,19 +75,10 @@ Não perguntes pelo título LM.</string>
 Podes ler mais sobre as %1$s.</string>
   <string name="guidelines">orientações</string>
   <string name="uniqueTrophies">Troféus únicos</string>
-  <string name="ownerUniqueTrophies">Este troféu é único na história do Lichess, ninguém para além de %1$s o terá.</string>
+  <string name="ownerUniqueTrophies">Este troféu é único na história do Lishogi, ninguém para além de %1$s o terá.</string>
   <string name="wayOfBerserkExplanation">Para obtê-lo, hiimgosu desafiou-se a ganhar 100%% dos jogos de %s no modo frenético.</string>
   <string name="aHourlyBulletTournament">um torneio horário de Bullet</string>
   <string name="goldenZeeExplanation">ZugAddict estava fazer uma stream e nas últimas 2 horas tinha estado a tentar derrotar a I.A. nível 8 numa partida de 1+0, sem sucesso. Thibault disse-lhe que se ele o fizesse na stream, ele teria um troféu único. Uma hora depois, ele esmagou o Stockfish e a promessa foi honrada.</string>
-  <string name="lichessRatings">Pontuações no Lichess</string>
-  <string name="whichRatingSystemUsedByLichess">Qual é o sistema de pontuação que o Lichess utiliza?</string>
-  <string name="ratingSystemUsedByLichess">As pontuações são calculadas utilizando o sistema de pontuaçao Glicko-2 desenvolvido por Mark Glickman. Este é um sistema de pontuação muito popular e é utilizado por um número considerável de organizações de xadrez (a FIDE é um contraexemplo notável, já que eles ainda usam o sistema de pontuação ELO).
-
-Fundamentalmente, as pontuações do Glicko usam \"intervalos de confianças\" quando calculam e representam a tua pontuação. Quando começas a usar o site, a tua pontuação começa em 1500 ± 700. O \"1500\" representa a tua pontuação e o \"700\" representa o intervalo de confiança.
-
-Basicamente, o sistema tem 90% de certeza que a tua pontuação está algures entre 800 e 2200. É incrivelmente incerto. Consequentemente, quando um jogador está a começar, a sua pontuação vai mudar drasticamente, potencialmente várias centenas de pontos de uma vez. Mas depois de algumas partidas contra jogadores estabelecidos, o intervalo de confiança vai diminuir e o número de pontos ganhados/perdidos após cada jogo será menor
-
-Outro ponto a notar é que, à medida que o tempo passa, o intervalo de confiança aumenta. Isto permite-te ganhar/perder pontos mais rapidamente para corresponder às mudanças no teu nível ao longo do tempo.</string>
   <string name="whatIsProvisionalRating">Por que é que há um ponto de interrogação (?) depois da minha pontuação?</string>
   <string name="provisionalRatingExplanation">O ponto de interrogação significa que a pontuação é provisória. As razões incluem:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">O jogador ainda não terminou um número suficiente de jogos a valer pontos contra %1$s na categoria de pontuação em questão.</string>
@@ -122,7 +90,6 @@ Outro ponto a notar é que, à medida que o tempo passa, o intervalo de confian�
   <string name="ratingLeaderboards">tabela de liderança</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">ter jogado pelo menos 30 partidas a valer pontos num dado modo,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">ter jogado uma partida a valer pontos na última semana nesse modo,</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">ter um desvio de pontuação menor que %1$s no xadrez normal e menor que %2$s nas variantes,</string>
   <string name="beInTopTen">estar entre os 10 melhores (que satisfazem as condições acima) nesse modo.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">O segundo requisito é para que jogadores que já não usam as suas contas não estejam a preencher as tabelas de liderança.</string>
   <string name="whyAreRatingHigher">Por que é que as pontuações são maiores quando comparadas a outros sites e organizações como por exemplo, FIDE, USCF e ICC?</string>
@@ -133,13 +100,8 @@ Outro ponto a notar é que, à medida que o tempo passa, o intervalo de confian�
   <string name="enableZenMode">Ativando o modo zen nas %1$s ou clicando na tecla %2$s durante a partida.</string>
   <string name="displayPreferences">definições de apresentação</string>
   <string name="connexionLostCanIGetMyRatingBack">Perdi uma partida por atraso/desconexão. Posso ter a minha pontuação de volta?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Infelizmente, não podemos devolver a pontuação de partidas perdidas por atraso/desconexão, quer o problema tenha sido da tua parte ou da nossa parte. No entanto, o último é muito raro. Nota também que, quando o Lichess reinicia e perdes um jogo por tempo por causa disso, nós abortamos o jogo para evitar uma derrota injusta.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Infelizmente, não podemos devolver a pontuação de partidas perdidas por atraso/desconexão, quer o problema tenha sido da tua parte ou da nossa parte. No entanto, o último é muito raro. Nota também que, quando o Lishogi reinicia e perdes um jogo por tempo por causa disso, nós abortamos o jogo para evitar uma derrota injusta.</string>
   <string name="howToThreeDots">Como é que...</string>
   <string name="enableDisableNotificationPopUps">Ativo ou desativo as notificações pop-up?</string>
   <string name="viewSiteInformationPopUp">Vejo a informação pop-up do site</string>
-  <string name="lichessCanOptionnalySendPopUps">O Lichess pode enviar notificações pop-up opcionalmente, por exemplo, quando for tua vez ou quando tiveres recebido uma mensagem privada.
-
-Clica no ícone de cadeado ao lado do endereço lichess.org na barra de URL do teu navegador.
-
-De seguida, seleciona se quereres permitir ou bloquear as notificações do Lichess.</string>
-</resources>
+  </resources>

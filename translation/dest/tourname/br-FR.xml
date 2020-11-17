@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="dailyRapidArena">Aren Prim Pemdeziek</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="dailyRapidArena">Aren Prim Pemdeziek</string>
   <string name="dailyRapid">Prim Pemdeziek</string>
   <string name="dailyXArena">Aren %s Pemdeziek</string>
   <string name="dailyX">%s Pemdeziek</string>

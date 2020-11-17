@@ -1,10 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="lichessCoaches">Lichess-valmentajat</string>
-  <string name="lichessCoach">Lichess-valmentaja</string>
-  <string name="areYouCoach">Oletko hyvä shakkivalmentaja, jolla on %s?</string>
-  <string name="nmOrFideTitle">kansallinen tai FIDE-arvonimi</string>
-  <string name="confirmTitle">Vahvista tittelisi tästä niin tarkastamme hakemuksesi.</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="confirmTitle">Vahvista tittelisi tästä niin tarkastamme hakemuksesi.</string>
   <string name="sendApplication">Lähetä meille sähköpostia osoitteeseen %s niin tarkastamme hakemuksesi.</string>
   <string name="location">Sijainti</string>
   <string name="languages">Kielet</string>
@@ -13,8 +8,7 @@
   <string name="availability">Saatavuus</string>
   <string name="accepting">Hyväksyn oppilaita</string>
   <string name="notAccepting">En ota oppilaita tällä hetkellä</string>
-  <string name="xCoachesStudents">%s valmentaa shakkioppilaita</string>
-  <string name="viewXProfile">Katsele %s:n Lichess-profiilia</string>
+  <string name="viewXProfile">Katsele %s:n Lishogi-profiilia</string>
   <string name="sendPM">Lähetä yksityisviesti</string>
   <string name="aboutMe">Tietoa minusta</string>
   <string name="playingExperience">Pelikokemus</string>

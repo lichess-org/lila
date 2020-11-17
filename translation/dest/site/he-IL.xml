@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">שחק עם חבר</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">שחק עם חבר</string>
   <string name="playWithTheMachine">שחק עם המחשב</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">כדי להזמין מישהו לשחק, תן את הכתובת הזאת</string>
   <string name="gameOver">המשחק נגמר</string>
@@ -269,7 +268,6 @@
   <string name="recipient">נמען</string>
   <string name="send">שלח</string>
   <string name="incrementInSeconds">תוספת בשניות</string>
-  <string name="freeOnlineChess">שחמט חינמי ברשת</string>
   <string name="spectators">צופים:</string>
   <plurals name="nbRated">
     <item quantity="one">מדורג %s</item>
@@ -370,7 +368,6 @@
   <string name="mustBeInTeam">חובה להיות בקבוצה%s</string>
   <string name="youAreNotInTeam">אתה לא נמצא בקבוצה%s</string>
   <string name="backToGame">חזור למשחק</string>
-  <string name="siteDescription">משחק שחמט חינם ברשת.  שחק שחמט כעת בממשק נקי. בלי הרשמה, בלי פרסומות, בלי להתקין שום דבר. שחק שחמט עם המחשב, חברים או יריבים אקראיים.</string>
   <string name="xJoinedTeamY">%1$s הצטרף לקבוצה %2$s</string>
   <string name="xCreatedTeamY">%1$s יצר קבוצה %2$s</string>
   <string name="xStartedStreaming">%s התחיל שידור חי</string>
@@ -394,9 +391,7 @@
     <item quantity="many">%s משחקים מיובאים</item>
     <item quantity="other">%s משחקים מיובאים</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">זו קאפצ\'ה של שחמט.</string>
   <string name="clickOnTheBoardToMakeYourMove">לחץ על הלוח כדי לעשות מהלך, והוכח שאתה בן אנוש.</string>
-  <string name="captcha.fail">אנא בצע את המהלך הנכון בלוח, לצורך captcha.</string>
   <string name="notACheckmate">לא מט.</string>
   <string name="whiteCheckmatesInOneMove">הלבן כופה מט במסע אחד</string>
   <string name="blackCheckmatesInOneMove">השחור כופה מט במסע אחד</string>
@@ -455,7 +450,6 @@
   <string name="advancedSettings">הגדרות מתקדמות</string>
   <string name="safeTournamentName">בחר שם בטוח מאוד לטורניר.</string>
   <string name="inappropriateNameWarning">כל דבר לא הולם במקצת יכול לגרום לסגירת החשבון.</string>
-  <string name="emptyTournamentName">השאר ריק כדי לקרוא לטורניר על שם גראנד מאסטר רנדומלי.</string>
   <string name="recommendNotTouching">אנו ממליצים לא לגעת בזה.</string>
   <string name="fewerPlayers">אם אתה מגדיר תנאי כניסה, יהיו לטורניר פחות שחקנים.</string>
   <string name="showAdvancedSettings">הצג הגדרות מתקדמות</string>
@@ -503,8 +497,6 @@
   <string name="country">מדינה</string>
   <string name="socialMediaLinks">קישורי רשתות חברתיות</string>
   <string name="inlineNotation">תיאור מהלכים בשורה</string>
-  <string name="watchLichessTV">צפה בטלוויזיה של ליצ\'ס TV</string>
-  <string name="previouslyOnLichessTV">לאחרונה בטלוויזיה של ליצ\'ס</string>
   <string name="onlinePlayers">שחקנים מחוברים</string>
   <string name="activeToday">הכי פעילים היום</string>
   <string name="activePlayers">הכי פעילים</string>
@@ -624,7 +616,6 @@
   <string name="starting">מתחיל:</string>
   <string name="allInformationIsPublicAndOptional">כל המידע הוא פומבי ואופציונלי</string>
   <string name="yourCityRegionOrDepartment">העיר, האזור,המדינה, או המחוז שלך</string>
-  <string name="biographyDescription">ספר/י על עצמך, מה את/ה אוהב/ת בשחמט, הפתיחה המועדפת עליך, משחקים, שחקנים…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">מספר תווים מירבי: %s</item>
     <item quantity="two">מספר תווים מירבי: %s.</item>
@@ -644,7 +635,6 @@
   <string name="clock">שעון</string>
   <string name="unauthorizedError">גישה לא מורשה</string>
   <string name="noInternetConnection">אין חיבור לאינטרנט. ניתן עדיין לשחק דרך התפריט.</string>
-  <string name="connectedToLichess">התחברת ל-lichess.org</string>
   <string name="signedOut">יצאת</string>
   <string name="loginSuccessful">נכנסת</string>
   <string name="playOnTheBoardOffline">מעל הלוח</string>
@@ -688,7 +678,6 @@
   <string name="webmasters">מנהלי אתרים</string>
   <string name="about">אודות</string>
   <string name="aboutX">אודות%s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s הוא שרת שחמט חופשי (%2$s), קוד פתוח וללא מודעות.</string>
   <string name="really">באמת</string>
   <string name="contribute">לתרום</string>
   <string name="termsOfService">תנאים לשימוש באתר</string>
@@ -712,7 +701,6 @@
   <string name="simulClockHint">התקנת שעון של פישר. כאשר אתה משחק עם יותר שחקנים, ייתכן שיקח לך יותר זמן.</string>
   <string name="simulAddExtraTime">.באפשרותך להוסיף זמן נוסף לשעון שלך כדי לעזור לך להתמודד עם משחק בו-זמנית</string>
   <string name="simulHostExtraTime">זמן נוסף למארח</string>
-  <string name="lichessTournaments">טורנירים של ליצ\'ס</string>
   <string name="tournamentFAQ">שאלות נפוצות לגבי זירת הטורנירים</string>
   <string name="tournamentOfficial">רשמי</string>
   <string name="timeBeforeTournamentStarts">זמן לפני שהטורניר מתחיל</string>
@@ -723,8 +711,6 @@
   <string name="keyShowOrHideComments">הצג/הסתר הערות</string>
   <string name="keyEnterOrExitVariation">כנס לגרסה\ צא מגרסה</string>
   <string name="newTournament">טורניר חדש</string>
-  <string name="tournamentHomeTitle">טורניר שחמט הכולל משחקים עם גרסאות רבות הגבלות זמן וגרסאות שונות</string>
-  <string name="tournamentHomeDescription">תשחק בטורנירי השחמט המהיר! הצטרף לטורניר רשמי ומתוכנן, או תיצור אחד משלך. ברק, בליץ, קלאסי, שחמט 960, מלך הגבעה, שח משולש,  ואפשרויות נוספות של משחקי שחמט מהנים.</string>
   <string name="tournamentNotFound">הטורניר לא נמצא</string>
   <string name="tournamentDoesNotExist">הטורניר הזה אינו קיים.</string>
   <string name="tournamentMayHaveBeenCanceled">קיימת אפשרות שהטורניר בוטל, במקרה שכל השחקנים יצאו ממנו לפני התחלתו.</string>
@@ -748,8 +734,6 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">אם אתה לא מוצא את האימייל, חפש במקומות אחרים, כמו דואר זבל, ספם או תיקיות אחרות.</string>
   <string name="weHaveSentYouAnEmailTo">שלחנו אימייל ל%s. לחץ על הלינק באימייל על מנת לאפס את הסיסמא</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">.%s על ידי הרשמה, אתה מסכים ל</string>
-  <string name="networkLagBetweenYouAndLichess">עיכוב רשת בינך לבין ליצ\'ס</string>
-  <string name="timeToProcessAMoveOnLichessServer">זמן לעיבוד מהלך בשרת ליצ\'ס</string>
   <string name="downloadAnnotated">להוריד עם פרשנויות</string>
   <string name="downloadRaw">להוריד בלי פרשנויות</string>
   <string name="downloadImported">להוריד את המקור</string>
@@ -758,29 +742,23 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">ניתן גם לגלול בכדי להתקדם במשחק.</string>
   <string name="analysisShapesHowTo">הקש \"שיפט\" ולחץ מקש עכבר שמאלי או לחץ מקש עכבר ימני כדי לצייר חצים ועיגולים על הלוח.</string>
   <string name="letOtherPlayersMessageYou">אפשר לשחקנים אחרים לשלוח לך הודעות</string>
-  <string name="shareYourInsightsData">שתף את הנתונים הסטטיסטיים שלך</string>
   <string name="withNobody">עם אף אחד</string>
   <string name="withFriends">עם חברים</string>
   <string name="withEverybody">עם כולם</string>
   <string name="youHaveAlreadyRegisteredTheEmail">אתה כבר נרשמת עם הדוא\"ל: %s</string>
   <string name="kidMode">הגדרות ילדים</string>
   <string name="kidModeExplanation">זהו נושא בטיחותי, במצב ילדים, כל אמצעי התקשורת באתר מבוטלים. הפעל אופציה זו עבור ילדייך ותלמידי בית ספר, זאת על מנת להגן עליהם מפני משתמשים אחרים.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">במצב ילדים הסמל של ליצ\'אס מקבל אייקון %s, כדי שתדע שילדייך מוגנים.</string>
   <string name="enableKidMode">הפעל מצב ילדים</string>
   <string name="disableKidMode">בטל מצב ילדים</string>
   <string name="security">אבטחה</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">רשימת המכשירים שהתחברו לחשבונך, בטל את ההתחברויות שאתה לא מכיר.</string>
   <string name="alternativelyYouCanX">לחלופין, ניתן לעשות %s.</string>
   <string name="revokeAllSessions">בטל כל הפעלות</string>
-  <string name="playChessEverywhere">שחק בשחמט בכל מקום</string>
-  <string name="asFreeAsLichess">חופשי כמו ליצ\'ס</string>
-  <string name="builtForTheLoveOfChessNotMoney">נבנה בשביל אהבת משחק השחמט, לא כדי להרוויח כסף</string>
   <string name="everybodyGetsAllFeaturesForFree">כולם מקבלים את כל התוכן בחינם</string>
   <string name="zeroAdvertisement">אפס פרסומות</string>
   <string name="fullFeatured">מאפיינים</string>
   <string name="phoneAndTablet">טלפון וטאבלט</string>
   <string name="bulletBlitzClassical">קליע, בליץ, קלסי</string>
-  <string name="correspondenceChess">שחמט בהתכתבות</string>
   <string name="onlineAndOfflinePlay">תשחק עם או בלי חיבור לאינטרנט</string>
   <string name="viewTheSolution">הראה פתרון</string>
   <string name="followAndChallengeFriends">עקוב אחר חברים ואתגר אותם</string>
@@ -815,9 +793,6 @@
   <string name="usernameSuffixInvalid">שם המשתמש חייב להסתיים באות או מספר.</string>
   <string name="usernameCharsInvalid">שם המשתמש חייב להכיל רק אותיות, מספרים, מקפים תחתונים ומקפים.</string>
   <string name="usernameUnacceptable">שם המשתמש הזה לא מקובל.</string>
-  <string name="directlySupportLichess">תמוך ישירות ב-Lichess</string>
-  <string name="playChessInStyle">שחק שחמט בסגנון</string>
-  <string name="chessBasics">יסודות השחמט</string>
   <string name="coaches">מאמנים</string>
   <string name="invalidPgn">PGN לא חוקי</string>
   <string name="invalidFen">FEN לא חוקי</string>
@@ -900,7 +875,6 @@
   <string name="weHadToTimeYouOutForAWhile">נאלצנו להשהות אותך.</string>
   <string name="timeoutExpires">ההשהיה הסתיימה %s.</string>
   <string name="why">למה?</string>
-  <string name="pleasantChessExperience">אנחנו מנסים לספק חווית שח נעימה לכולם.</string>
   <string name="goodPractice">בעקבות זאת, אנחנו חייבים לוודא שכל השחקנים ינהגו בכבוד.</string>
   <string name="potentialProblem">כאשר בעיה מסויימת מתגלה, אנו מציגים הודעה זו.</string>
   <string name="howToAvoidThis">איך להימנע מכך?</string>
@@ -908,14 +882,13 @@
   <string name="tryToWin">נסה/י לנצח (או לפחות לסיים בתיקו) כל משחק שהתחלת.</string>
   <string name="resignLostGames">פרוש/י במצבים שאת/ה מפסיד/ה (אל תתן/י לשעון להיגמר).</string>
   <string name="temporaryInconvenience">אנו מצטערים על אי הנעימות הזמנית,</string>
-  <string name="wishYouGreatGames">ומאחלים לך חוויה נעימה ב-lichess.org.</string>
+  <string name="wishYouGreatGames">ומאחלים לך חוויה נעימה ב-lishogi.org.</string>
   <string name="thankYouForReading">תודה שקראת!</string>
   <string name="lifetimeScore">תוצאה כוללת</string>
   <string name="currentMatchScore">תוצאה במפגש הנוכחי</string>
-  <string name="agreementAssistance">אני מסכים שאף פעם לא אקבל עזרה תוך כדי משחק (ממנוע שח ממוחשב, ספר, מסד-נתונים, או אדם אחר).</string>
   <string name="agreementNice">אני מסכים שתמיד אהיה אדיב כלפי השחקנים האחרים.</string>
   <string name="agreementAccount">אני מסכים שלא אצור יותר מחשבון אחד.</string>
-  <string name="agreementPolicy">אני מסכים לעקוב אחרי כל תנאי השירות של Lichess.</string>
+  <string name="agreementPolicy">אני מסכים לעקוב אחרי כל תנאי השירות של Lishogi.</string>
   <string name="searchOrStartNewDiscussion">חפש את התחל שיחה חדשה</string>
   <string name="edit">ערוך</string>
   <string name="rapid">רפיד</string>
@@ -926,7 +899,6 @@
   <string name="rapidDesc">משחקים זריזים: בין 8 ל25 דקות</string>
   <string name="classicalDesc">משחקים קלאסיים: 25 דקות או יותר</string>
   <string name="correspondenceDesc">משחקים לפי תורות: יותר מיום עבור תור</string>
-  <string name="puzzleDesc">מאמן טקטיקות שחמט</string>
   <string name="important">חשוב</string>
   <string name="yourQuestionMayHaveBeenAnswered">כנראה שלשאלה שלך כבר יש %1$s</string>
   <string name="inTheFAQ">בשאלות הנפוצות</string>

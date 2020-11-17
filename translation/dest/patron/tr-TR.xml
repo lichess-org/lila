@@ -1,23 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="donate">Bağış yap</string>
-  <string name="lichessPatron">Lichess Destekçisi</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="donate">Bağış yap</string>
   <string name="freeAccount">Ücretsiz Hesap</string>
-  <string name="becomePatron">Lichess Destekçisi olun</string>
-  <string name="xBecamePatron">%s Lichess Destekçisi oldu</string>
+  <string name="becomePatron">Lishogi Destekçisi olun</string>
+  <string name="xBecamePatron">%s Lishogi Destekçisi oldu</string>
   <string name="newPatrons">Yeni Destekçiler</string>
-  <string name="freeChess">Herkes için ücretsiz satranç,
-sonsuza kadar!</string>
   <string name="noAdsNoSubs">Ne reklam var ne abonelik; kodumuz açık kaynaklı, tutkumuz epik.</string>
   <string name="thankYou">Yardımınız için teşekkür ederiz!</string>
   <string name="youHaveLifetime">Artık Ömür Boyu Destekçi hesabınız var. Bu müthiş bir şey!</string>
   <string name="patronUntil">Destekçi hesabınızın süresi %s tarihinde sona erecek.</string>
   <string name="ifNotRenewed">Yeniden bağış yapmadığınız takdirde hesabınız ücretsiz hesaba çevrilecektir.</string>
-  <string name="weAreNonProfit">Herkesin ücretsiz ve kaliteli bir satranç platformuna kolayca ulaşabilmesi gerektiğine gönülden inandığımız için hiçbir kâr amacı gütmüyoruz.</string>
-  <string name="weRelyOnSupport">Lichess sizler gibi insanların desteği sayesinde ayakta duruyor. Bu çorbada sizin de tuzunuz olsun istiyorsanız lütfen bizden desteğinizi esirgemeyin.</string>
+  <string name="weRelyOnSupport">Lishogi sizler gibi insanların desteği sayesinde ayakta duruyor. Bu çorbada sizin de tuzunuz olsun istiyorsanız lütfen bizden desteğinizi esirgemeyin.</string>
   <string name="lifetime">Ömür Boyu</string>
-  <string name="payLifetimeOnce">Tek seferde %s ödeyin ve sonsuza dek Lichess destekçisi olun!</string>
-  <string name="lifetimePatron">Bir Ömür Lichess Destekçisi</string>
+  <string name="payLifetimeOnce">Tek seferde %s ödeyin ve sonsuza dek Lishogi destekçisi olun!</string>
+  <string name="lifetimePatron">Bir Ömür Lishogi Destekçisi</string>
   <string name="makeExtraDonation">Fazladan ödeme yap?</string>
   <string name="monthly">Aylık</string>
   <string name="recurringBilling">Tekrarlayan ödeme, Destekçi kanatlarınız her ay yenilenecek.</string>
@@ -28,30 +23,28 @@ sonsuza kadar!</string>
   <string name="withCreditCard">Kredi Kartı</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Biz küçük bir ekibiz, dolayısıyla desteğiniz büyük bir fark yaratacak!</string>
-  <string name="celebratedPatrons">Lichess\'i mümkün kılan değerli destekçilerimiz</string>
+  <string name="celebratedPatrons">Lishogi\'i mümkün kılan değerli destekçilerimiz</string>
   <string name="whereMoneyGoes">Bağışlar nereye gidiyor?</string>
-  <string name="serversAndDeveloper">Asıl önceliğimiz güçlü sunuculara sahip olmak.
-Bununla birlikte, Lichess\'in kurucusu ve geliştiricisi olan %s\'a tam zamanlı ödeme yapıyoruz.</string>
   <string name="costBreakdown">Ayrıntılı maliyet dökümüne göz atın</string>
-  <string name="officialNonProfit">Lichess resmî olarak kâr amacı gütmeyen bir kuruluş mu?</string>
+  <string name="officialNonProfit">Lishogi resmî olarak kâr amacı gütmeyen bir kuruluş mu?</string>
   <string name="actOfCreation">Evet, kuruluş tüzüğünü okuyabilirsiniz (Fransızca).</string>
   <string name="changeMonthlySupport">Aylık desteğimi değiştirebilir veya iptal edebilir miyim?</string>
   <string name="changeOrContact">Evet, bu sayfadan istediğiniz işlemi yapabilirsiniz.
 Veya %s.</string>
-  <string name="contactSupport">Lichess destek masasıyla iletişime geçin</string>
+  <string name="contactSupport">Lishogi destek masasıyla iletişime geçin</string>
   <string name="otherMethods">Farklı bir bağış yapma yolu var mı?</string>
   <string name="bankTransfers">Banka havalesini de kabul ediyoruz</string>
   <string name="bitcoin">Bitcoin adresimiz: %s</string>
   <string name="patronFeatures">Destekçilere özel ayrıcalıklar var mı?</string>
-  <string name="noPatronFeatures">Hayır çünkü Lichess herkes için tamamen ve sonsuza kadar ücretsiz bir platform olarak kalacaktır. Buna söz veriyoruz.
+  <string name="noPatronFeatures">Hayır çünkü Lishogi herkes için tamamen ve sonsuza kadar ücretsiz bir platform olarak kalacaktır. Buna söz veriyoruz.
 
 Ancak Destekçilerimiz, müthiş profil simgeleriyle sonuna kadar övünme hakkına sahiptirler.</string>
   <string name="featuresComparison">Detaylı ayrıcalık karşılaştırmasına göz atın</string>
   <plurals name="patronForMonths">
-    <item quantity="one">Bir aydır Lichess Destekçisi</item>
-    <item quantity="other">%s aydır Lichess Destekçisi</item>
+    <item quantity="one">Bir aydır Lishogi Destekçisi</item>
+    <item quantity="other">%s aydır Lishogi Destekçisi</item>
   </plurals>
-  <string name="youSupportWith">Ayda %s ile lichess.org\'u destekliyorsunuz.</string>
+  <string name="youSupportWith">Ayda %s ile lishogi.org\'u destekliyorsunuz.</string>
   <string name="tyvm">Desteğin için çok teşekkür ederiz. Harikasın!</string>
   <string name="currentStatus">Mevcut durum</string>
   <string name="nextPayment">Sonraki ödeme</string>
@@ -61,18 +54,18 @@ Ancak Destekçilerimiz, müthiş profil simgeleriyle sonuna kadar övünme hakk�
   <string name="changeMonthlyAmount">Aylık ücreti değiştir (%s)</string>
   <string name="cancelSupport">desteğini iptal et</string>
   <string name="xOrY">%1$s veya %2$s</string>
-  <string name="decideHowMuch">Lichess\'in sizin için ne kadar değerli olduğuna karar verin:</string>
+  <string name="decideHowMuch">Lishogi\'in sizin için ne kadar değerli olduğuna karar verin:</string>
   <string name="stopPayments">Kredi kartınızı geri çekin ve ödemeleri durdurun:</string>
-  <string name="noLongerSupport">Artık Lichess\'i desteklemiyor</string>
+  <string name="noLongerSupport">Artık Lishogi\'i desteklemiyor</string>
   <string name="paymentHistory">Ödeme geçmişi</string>
   <string name="paid">Ödenen</string>
-  <string name="viewOthers">Diğer Lichess Destekçilerini gör</string>
+  <string name="viewOthers">Diğer Lishogi Destekçilerini gör</string>
   <string name="date">Tarih</string>
   <string name="amount">Tutar</string>
   <string name="transactionCompleted">İşleminiz tamamlandı ve yaptığınız bağışın makbuzu e-posta adresinize gönderildi.</string>
   <string name="permanentPatron">Artık daimî bir Destekçi hesabınız var.</string>
   <string name="checkOutProfile">Profil sayfanıza bir bakın derim!</string>
   <string name="nowLifetime">Bu desteğiniz bize bir ömür yeter!</string>
-  <string name="nowOneMonth">Bir aylığına Lichess Destekçisi oldunuz!</string>
-  <string name="downgradeNextMonth">Bir ay içinde sizden tekrar ücret talep edilmeyecek ve Lichess hesabınız ücretsiz hâline dönecek.</string>
+  <string name="nowOneMonth">Bir aylığına Lishogi Destekçisi oldunuz!</string>
+  <string name="downgradeNextMonth">Bir ay içinde sizden tekrar ücret talep edilmeyecek ve Lishogi hesabınız ücretsiz hâline dönecek.</string>
 </resources>

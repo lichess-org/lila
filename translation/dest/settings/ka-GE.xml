@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">პარამეტრები</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="settings">პარამეტრები</string>
   <string name="closeAccount">ანგარიშის დახურვა</string>
   <string name="closingIsDefinitive">დახურვა საბოლოოა. უკან დასახევი გზა არ არის. დარწმუნებული ხართ?</string>
   <string name="cantOpenSimilarAccount">დაუშვებელია ახალი ანგარიშის გახსნა იმავე სახელწოდებით, თუნდაც საქმე სხვაგვარად იყოს.</string>

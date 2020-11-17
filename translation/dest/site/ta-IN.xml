@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">ஒரு தோழரோடு விளையாடு</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">ஒரு தோழரோடு விளையாடு</string>
   <string name="playWithTheMachine">கணினியோடு விளையாடு</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">விளையாட்டுக்கு  அழைக்க இந்தச்சுட்டியை அனுப்பு</string>
   <string name="gameOver">ஆட்டம் முடிந்தது</string>
@@ -247,7 +246,6 @@
   <string name="recipient">பெறுநர்</string>
   <string name="send">அனுப்பு</string>
   <string name="incrementInSeconds">கூட்டளவு நொடிகள்</string>
-  <string name="freeOnlineChess">இலவச இணையச் சதுரங்கம்</string>
   <string name="spectators">பார்வையாளர்கள்</string>
   <plurals name="nbRated">
     <item quantity="one">%s முக்கியமான விளையாட்டுகள்</item>
@@ -305,7 +303,6 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">உங்கள் %s மதிப்பீடு தற்காலிகமானது</string>
   <string name="backToGame">ஆட்டத்துக்கு திரும்பிச்செல்</string>
-  <string name="siteDescription">இலவச இணையச் சதுரங்க ஆட்டம். தெளிவான முகப்பைக்கொண்டு சதுரங்கமாடுக. பதிவில்லை, விளம்பரமில்லை, எந்தச் செருகலும் தேவையல்ல. கணினியோடோ, ஒரு தோழரோடோ அல்லது நேர்ந்தபடி ஓர் எதிராளியோடுமோ விளையாடுக.</string>
   <string name="xJoinedTeamY">%1$s என்கிற அணியிலே %2$s சேர்ந்தார்</string>
   <string name="xCreatedTeamY">%1$s என்பவர் %2$s  என்ற அணியைப் படைத்தார்</string>
   <string name="averageElo">தோராய Elo</string>
@@ -323,9 +320,7 @@
     <item quantity="one">%s உள்ளேற்றின ஆட்டங்கள்</item>
     <item quantity="other">%s உள்ளேற்றின ஆட்டங்கள்</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">இது ஒரு சதுரங்கமுறை மாந்தத்தேர்வு (CAPTCHA)</string>
   <string name="clickOnTheBoardToMakeYourMove">பலகையிலே சொடுக்கி நகர்த்துங்கள், நீங்கள் மாந்தரென்று நிறுவுங்கள்</string>
-  <string name="captcha.fail">சதுரங்க புதிரை தீர்க்கவும்.</string>
   <string name="notACheckmate">முழுத்தடையன்று</string>
   <string name="retry">மீள்முயற்சி</string>
   <string name="reconnecting">மீண்டும் இணைகிறது</string>
@@ -396,8 +391,6 @@
   <string name="lastName">கடைசி பெயர்</string>
   <string name="biography">வாழ்க்கை சரித்திரம்</string>
   <string name="country">நாடு</string>
-  <string name="watchLichessTV">லிசெஸ் தொலைகாட்சியை பார்க்க</string>
-  <string name="previouslyOnLichessTV">முன்பு லிசெஸ் தொலைகாட்சியில்</string>
   <string name="onlinePlayers">இணைய விளையாட்டாளர்கள்</string>
   <string name="activeToday">இன்று பங்குபெற்றவர்கள்</string>
   <string name="activePlayers">பங்குபெற்ற விளையாட்டாளர்கள்</string>

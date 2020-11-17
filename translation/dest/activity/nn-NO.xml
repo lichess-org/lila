@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="activity">Aktivitet</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="activity">Aktivitet</string>
   <string name="hostedALiveStream">Starta en direktestraum</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Stødde lichess.org for %1$s i månaden som %2$s</item>
-    <item quantity="other">Stødde lichess.org i %1$s månader som %2$s</item>
+    <item quantity="one">Stødde lishogi.org for %1$s i månaden som %2$s</item>
+    <item quantity="other">Stødde lishogi.org i %1$s månader som %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Har øvd på %1$s stillingar i emnet %2$s</item>
@@ -62,7 +61,7 @@
     <item quantity="one">Kom på plass #%1$s (topp %2$s%%) med %3$s parti i %4$s</item>
     <item quantity="other">Kom på plass #%1$s (topp %2$s%%) med %3$s parti i %4$s</item>
   </plurals>
-  <string name="signedUp">Er registrert på Lichess</string>
+  <string name="signedUp">Er registrert på Lishogi</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Er medlem av %s lag</item>
     <item quantity="other">Er medlem av %s lag</item>

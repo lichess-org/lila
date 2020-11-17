@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="activity">Актыўнасць</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="activity">Актыўнасць</string>
   <string name="hostedALiveStream">Правялі прамую трансляцыю</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Падтрымаў lichess.org на %1$s месяц як %2$s</item>
-    <item quantity="few">Падтрымаў lichess.org на %1$s месяцы як %2$s</item>
-    <item quantity="many">Падтрымаў lichess.org на %1$s месяцаў як %2$s</item>
-    <item quantity="other">Падтрымаў lichess.org на %1$s месяцаў як %2$s</item>
+    <item quantity="one">Падтрымаў lishogi.org на %1$s месяц як %2$s</item>
+    <item quantity="few">Падтрымаў lishogi.org на %1$s месяцы як %2$s</item>
+    <item quantity="many">Падтрымаў lishogi.org на %1$s месяцаў як %2$s</item>
+    <item quantity="other">Падтрымаў lishogi.org на %1$s месяцаў як %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Практыкавана пазіцыя %1$s у %2$s</item>
@@ -92,7 +91,7 @@
     <item quantity="many">Заняў %1$s месца (лепшыя %2$s%%) турніру %4$s, узяўшы ўдзел у %3$s гульнях</item>
     <item quantity="other">Заняў %1$s месца (лепшыя %2$s%%) турніру %4$s, узяўшы ўдзел у %3$s гульнях</item>
   </plurals>
-  <string name="signedUp">Зарэгістраваўся на lichess</string>
+  <string name="signedUp">Зарэгістраваўся на lishogi</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Далучыўся да %s каманды</item>
     <item quantity="few">Далучыўся да %s каманд</item>

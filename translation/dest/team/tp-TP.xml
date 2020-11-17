@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="teams">kulupu</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="teams">kulupu</string>
   <string name="allTeams">kulupu ale</string>
   <string name="newTeam">kulupu sin</string>
   <string name="myTeams">kulupu mi</string>

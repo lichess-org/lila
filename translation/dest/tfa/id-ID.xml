@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="twoFactorAuth">Otentikasi dua-langkah</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="twoFactorAuth">Otentikasi dua-langkah</string>
   <string name="twoFactorHelp">Otentikasi dua-langkah menambahkan lapisan keamanan lain ke akun Anda.</string>
   <string name="twoFactorApp">Dapatkan aplikasi untuk otentikasi dua-langkah, misalnya Otentikator Google untuk %1$s atau %2$s.</string>
   <string name="scanTheCode">Pindai kode QR dengan aplikasi.</string>

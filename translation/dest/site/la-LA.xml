@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Cum amicō ludere</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Cum amicō ludere</string>
   <string name="playWithTheMachine">Cum ordinatrō ludere</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Hōc URL alicui dā ut ludatis</string>
   <string name="gameOver">Ludus conclusus est</string>
@@ -237,7 +236,6 @@
   <string name="recipient">Receptor</string>
   <string name="send">Mandare</string>
   <string name="incrementInSeconds">Incrementum (secundae)</string>
-  <string name="freeOnlineChess">Scacci gratis in rete</string>
   <string name="spectators">Spectatores</string>
   <plurals name="nbRated">
     <item quantity="one">%s ordinatus</item>
@@ -307,7 +305,6 @@
   <string name="mustBeInTeam">In %s quadrigis est</string>
   <string name="youAreNotInTeam">Non in quadrigis %s</string>
   <string name="backToGame">Referre ad ludo</string>
-  <string name="siteDescription">Liberi scacci in rete. Lude jam scaccos super clarissimas pagines. Nec conventum, nec praeconia mercatoria, nec plugin necesse sunt. Lude scaccos sive cum computatro, sive cum amicis, sive cum aleatoriis adversariis.</string>
   <string name="xJoinedTeamY">%1$s manu %2$s se iunxit</string>
   <string name="xCreatedTeamY">%1$s manum %2$s creavit</string>
   <string name="averageElo">Medius ordo</string>
@@ -327,9 +324,7 @@
     <item quantity="one">%s impositae lusiones</item>
     <item quantity="other">%s impositae lusiones</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Hic ludus CAPTCHA est</string>
   <string name="clickOnTheBoardToMakeYourMove">Age motum ut tuum esse humanum confirmem.</string>
-  <string name="captcha.fail">Solve hoc problematem scacorum, si vis.</string>
   <string name="notACheckmate">Non est mattus</string>
   <string name="retry">Adparare iterum</string>
   <string name="reconnecting">Reconectens</string>
@@ -408,8 +403,6 @@
   <string name="lastName">Nomen gentilicium</string>
   <string name="biography">Biographia</string>
   <string name="country">Patria</string>
-  <string name="watchLichessTV">Videre Lichess TV</string>
-  <string name="previouslyOnLichessTV">Prius in Lichess TV</string>
   <string name="onlinePlayers">Lusores presentes</string>
   <string name="activeToday">Frequentes hodie</string>
   <string name="activePlayers">Lusores frequentes</string>
@@ -429,7 +422,7 @@
   <string name="butYouCanKeepTrying">Tamen rursum contendere potes.</string>
   <string name="success">Victoria</string>
   <string name="wasThisPuzzleAnyGood">Fuitne bonum hoc problema?</string>
-  <string name="pleaseVotePuzzle">Meliora lichessem eligendo sorsum vel deorsum:</string>
+  <string name="pleaseVotePuzzle">Meliora lishogiem eligendo sorsum vel deorsum:</string>
   <string name="thankYou">Gratias tibi!</string>
   <string name="ratingX">Ordo: %s</string>
   <string name="hidden">occultus</string>
@@ -517,7 +510,6 @@
   <string name="starting">Initium:</string>
   <string name="allInformationIsPublicAndOptional">Omnes informationes publicae voluntariaeque sunt.</string>
   <string name="yourCityRegionOrDepartment">Tua urbs, regio, an provincia.</string>
-  <string name="biographyDescription">Scribere de te, dilectis initiis, ludis, lusoribus, et quae tibi in scaccis libent…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maximum: %s litterae.</item>
     <item quantity="other">Maximum: %s litterae.</item>
@@ -533,7 +525,6 @@
   <string name="clock">Horologium</string>
   <string name="unauthorizedError">Admissio non approbata est.</string>
   <string name="noInternetConnection">Nullus conexus. Extra systema ex apparato ludere potes.</string>
-  <string name="connectedToLichess">Conexus ad lichess.org nunc es</string>
   <string name="signedOut">Nunc existi</string>
   <string name="loginSuccessful">Nunc inisti</string>
   <string name="playOnTheBoardOffline">Trans tabulam</string>
@@ -596,7 +587,6 @@
   <string name="simulClockHint">Fischer Horologica fabrica. Tot lusores ludeabis ut plurem tempus requireas.</string>
   <string name="simulAddExtraTime">Plurem tempus in tuo horologio addeas ut exhibitio simultanea molliatur.</string>
   <string name="simulHostExtraTime">Praebe magis temporis</string>
-  <string name="lichessTournaments">Lichess certamina</string>
   <string name="tournamentFAQ">Certaminis FAQ</string>
   <string name="tournamentOfficial">Officialis</string>
   <string name="timeBeforeTournamentStarts">Tempus ante principio certaminis</string>
@@ -607,8 +597,6 @@
   <string name="keyShowOrHideComments">aperire/operire commentarios</string>
   <string name="keyEnterOrExitVariation">inire/exire variationem</string>
   <string name="newTournament">Certamen novum</string>
-  <string name="tournamentHomeTitle">Certamen latruncularium moderaminibus temporalibus et variationibus ornatum</string>
-  <string name="tournamentHomeDescription">Ludere certamina velocia latruncularia! Iungere certaminibus officialibus, aut unum tibi creare. Bullet, Blitz, Classical,   Scacci960, Rex Collis, Tres scacci, atque varationes plures sunt!</string>
   <string name="tournamentNotFound">Nullum certamen repertum est.</string>
   <string name="tournamentDoesNotExist">Nullum certamen est.</string>
   <string name="tournamentMayHaveBeenCanceled">Id sublatum esset, si ante principio certaminis omnes lusores abiti essent.</string>
@@ -627,8 +615,6 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si inscriptionem electronicam non invenias, inspecta alios locos, tales tuas quisquilias, saginationem, sociales, vel alteros indices.</string>
   <string name="weHaveSentYouAnEmailTo">Ad %s nuntium missum est. Quod in nuntio missum link perge ut tesseram tuam mutes.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Cum te inscribis, annuis vinculo %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Error retis inter te ac Lichessem.</string>
-  <string name="timeToProcessAMoveOnLichessServer">Tempus ad motum intellegendum in Lichessis servo.</string>
   <string name="downloadAnnotated">Extrahere annotata</string>
   <string name="downloadRaw">Extrahere mera</string>
   <string name="downloadImported">Descargare importari</string>
@@ -637,7 +623,6 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Quoque potes supra tabula volveri ad motum in ludo.</string>
   <string name="analysisShapesHowTo">Perge shift+click aut right+click ut circulos sagittasque in tabula pingas.</string>
   <string name="letOtherPlayersMessageYou">Sinire lusores alios tecum communicare.</string>
-  <string name="shareYourInsightsData">Data tua mentis partiri.</string>
   <string name="withNobody">Nullus est</string>
   <string name="withFriends">Cum amicis</string>
   <string name="withEverybody">In omnibus</string>
@@ -646,15 +631,11 @@
   <string name="enableKidMode">Modus puerilis face</string>
   <string name="disableKidMode">Modus non puerilis face</string>
   <string name="security">Cautionis</string>
-  <string name="playChessEverywhere">Ubique scaccos.</string>
-  <string name="asFreeAsLichess">Tam quam Lichess gratuito.</string>
-  <string name="builtForTheLoveOfChessNotMoney">Non divitiis, sed scaccorum amori creata.</string>
   <string name="everybodyGetsAllFeaturesForFree">Omnes omnia gratuito sunt.</string>
   <string name="zeroAdvertisement">Sine praeconiis mercatoriis.</string>
   <string name="fullFeatured">Omnia inclusa</string>
   <string name="phoneAndTablet">Sophonum et Tablet</string>
   <string name="bulletBlitzClassical">Bullet, fullgur, tarda</string>
-  <string name="correspondenceChess">per epistolam ludus</string>
   <string name="onlineAndOfflinePlay">Online ludus et offline</string>
   <string name="viewTheSolution">Solutionem videre</string>
   <string name="followAndChallengeFriends">Amicos sequi et provocare</string>
@@ -684,9 +665,6 @@
   <string name="usernameAlreadyUsed">Username hanc iam usus aliquam alia.</string>
   <string name="usernamePrefixInvalid">Nomen usoris cum littera coependum.</string>
   <string name="usernameUnacceptable">Hoc nomen usoris acceptabile non est.</string>
-  <string name="directlySupportLichess">Lichess directe auxilium</string>
-  <string name="playChessInStyle">Lude scacos moris</string>
-  <string name="chessBasics">Scacci fundamenta</string>
   <string name="coaches">Tutores</string>
   <string name="invalidPgn">Irritum ludum notatio</string>
   <string name="invalidFen">Invalida positio notatio</string>

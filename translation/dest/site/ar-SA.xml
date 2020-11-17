@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">اللعب مع صديق</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">اللعب مع صديق</string>
   <string name="playWithTheMachine">اللعب مع الحاسوب</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">لدعوة شخص ما للعب، أرسل له هذا الرابط</string>
   <string name="gameOver">انتهت المباراة</string>
@@ -291,7 +290,6 @@
   <string name="recipient">المستلم</string>
   <string name="send">إرسال</string>
   <string name="incrementInSeconds">الزيادة بالثواني</string>
-  <string name="freeOnlineChess">شطرنج مجاني على الإنترنت</string>
   <string name="spectators">المشاهدون</string>
   <plurals name="nbRated">
     <item quantity="zero">%s مقيمة</item>
@@ -416,7 +414,6 @@
   <string name="mustBeInTeam">يجب أن تكون في فريق %s</string>
   <string name="youAreNotInTeam">عذراََ, أنت لست عضو في فريق %s</string>
   <string name="backToGame">العودة للمباراة</string>
-  <string name="siteDescription">موقع شطرنج مجاني. العب الشطرنج الآن بتصميم نظيف، دون تسجيل او دعايات أو إضافات برمجية. العب الشطرنج مع الحاسب، الأصدقاء أو خصوما من حول الكرة الأرضية</string>
   <string name="xJoinedTeamY">%1$s انضم لفريق %2$s</string>
   <string name="xCreatedTeamY">%1$s أنشأ فريق %2$s</string>
   <string name="xStartedStreaming">%s بدأ يبث</string>
@@ -442,9 +439,7 @@
     <item quantity="many">مباراة مستوردة %s</item>
     <item quantity="other">مباراة مستوردة %s</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">هذا اختبار شطرنجي  للتمييز بين الحاسب والإنسان</string>
   <string name="clickOnTheBoardToMakeYourMove">اضغط على الرقعة لاختيارالنقلة وتأكيد إنسانيتك</string>
-  <string name="captcha.fail">الرجاء حل مسألة الشطرنج مات بنقلة واحدة.</string>
   <string name="notACheckmate">ليست كش مات</string>
   <string name="whiteCheckmatesInOneMove">كش مات للأبيض في نقلة واحدة</string>
   <string name="blackCheckmatesInOneMove">كش مات للأسود في نقلة واحدة</string>
@@ -511,7 +506,6 @@
   <string name="advancedSettings">إعدادات متقدمة</string>
   <string name="safeTournamentName">اختر اسماً ملائماً لهذه البطولة.</string>
   <string name="inappropriateNameWarning">أي شيء غير مناسب ولو حتى قليلاً يمكن أن يعرّض حسابك للإغلاق.</string>
-  <string name="emptyTournamentName">أترك الحقل فارغاً وسيتم تسمية البطولة باسم غراند ماستر عشوائي.</string>
   <string name="recommendNotTouching">نوصي بعدم تغيير هذه الخيارات.</string>
   <string name="fewerPlayers">إذا قمت بتعيين شروط دخول للبطولة فقد يكون لديك عدد لاعبين أقل.</string>
   <string name="showAdvancedSettings">إظهار الإعدادات المتقدمة</string>
@@ -559,8 +553,6 @@
   <string name="country">البلد</string>
   <string name="socialMediaLinks">روابط وسائل التواصل الاجتماعي</string>
   <string name="inlineNotation">تنسيق التدوين</string>
-  <string name="watchLichessTV">شاهد ليتشيس تي في</string>
-  <string name="previouslyOnLichessTV">سابقاً على تلفاز ليتشيس</string>
   <string name="onlinePlayers">لاعبين متصلين</string>
   <string name="activeToday">نشيط اليوم</string>
   <string name="activePlayers">لاعبين نشطين</string>
@@ -681,7 +673,6 @@
   <string name="starting">تبدأ في:</string>
   <string name="allInformationIsPublicAndOptional">كل المعلومات متاحة للجميع وهي اختيارية.</string>
   <string name="yourCityRegionOrDepartment">المدينة والمنطقة</string>
-  <string name="biographyDescription">عبر عن نفسك. ماذا تحب في الشطرنج، إفتتاحياتك المفضلة، المباريات، اللاعبين…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="zero">الحد الأقصى: %s حرف.</item>
     <item quantity="one">الحد الأقصى: %s حرف.</item>
@@ -705,7 +696,6 @@
   <string name="clock">الوقت</string>
   <string name="unauthorizedError">الوصول غير مصرح به.</string>
   <string name="noInternetConnection">لايوجد اتصال بالإنترنت. لا يزال يمكنك اللعب دون اتصال من القائمة.</string>
-  <string name="connectedToLichess">أنت الآن متصل بـ lichess.org</string>
   <string name="signedOut">تم تسجيل الخروج.</string>
   <string name="loginSuccessful">تم الدخول بنجاح</string>
   <string name="playOnTheBoardOffline">على الرقعة</string>
@@ -751,7 +741,6 @@
   <string name="webmasters">مدراء المواقع</string>
   <string name="about">عن</string>
   <string name="aboutX">عن %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s هو (%2$s) خادم شطرنج مجاني، حر، بدون إعلانات، مفتوح المصدر.</string>
   <string name="really">حقاً</string>
   <string name="contribute">ساهم</string>
   <string name="termsOfService">شروط الخدمة</string>
@@ -775,7 +764,6 @@
   <string name="simulClockHint">ضبط توقيت بالزيادة . كلما زاد عدد اللاعبين كلما احتجت لوقت أطول.</string>
   <string name="simulAddExtraTime">يمكنك زيادة الوقت لساعتك للمساعدة في التزامنية.</string>
   <string name="simulHostExtraTime">التوقيت الإضافي لساعة المضيف</string>
-  <string name="lichessTournaments">مسابقات الموقع</string>
   <string name="tournamentFAQ">مسابقة أرينا (سؤال وجواب)</string>
   <string name="tournamentOfficial">رسمية</string>
   <string name="timeBeforeTournamentStarts">الوقت حتى بداية المسابقة</string>
@@ -786,8 +774,6 @@
   <string name="keyShowOrHideComments">أظهر/أخفِ التعليقات</string>
   <string name="keyEnterOrExitVariation">متغير دخول/خروج</string>
   <string name="newTournament">مسابقة جديدة</string>
-  <string name="tournamentHomeTitle">مسابقات بانواع شطرنج مختلفة وساعات مختلفة</string>
-  <string name="tournamentHomeDescription">العب مسابقات شطرنج بكل السرعات. انضم للمسابقات الرسمية المجدولة، أو ابدأ مسابقاتك الخاصة.</string>
   <string name="tournamentNotFound">المسابقة غير موجودة</string>
   <string name="tournamentDoesNotExist">هذه المسابقة غير موجودة</string>
   <string name="tournamentMayHaveBeenCanceled">إذا غادر جميع اللاعبين قبل بداية المسابقة قإنها تُلغى</string>
@@ -813,8 +799,6 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">إذا لم تجد الرسالة، فابحث عنها في المهملات أو في مجلد spam</string>
   <string name="weHaveSentYouAnEmailTo">ارسلنا رسالة إلى %s. اضغط على الرابط فيها لإعادة تعيين كلمة المرور.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">بتسجيلك في الموقع فانت توافق على شروطنا %s</string>
-  <string name="networkLagBetweenYouAndLichess">تأخر الاتصال بينك وبيننا</string>
-  <string name="timeToProcessAMoveOnLichessServer">الوفت المطلوب لتنفيذ النقلة على الخادم</string>
   <string name="downloadAnnotated">تحميل مع الشرح</string>
   <string name="downloadRaw">تحميل بدون الشرح</string>
   <string name="downloadImported">تحميل المستورد</string>
@@ -823,29 +807,23 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">يمكنك استخدام الزر الاوسط للفأرة على الرقعة لتنفيذ حركة من الدور.</string>
   <string name="analysisShapesHowTo">استخدم ز الفأرة الأيمن لرسم دوائر وأسهم على الرقعة</string>
   <string name="letOtherPlayersMessageYou">السماح للاعبين بمراسلتك</string>
-  <string name="shareYourInsightsData">شارك بيانات طريقة لعبك</string>
   <string name="withNobody">وحدك</string>
   <string name="withFriends">مع الأصدقاء</string>
   <string name="withEverybody">مع الجميع</string>
   <string name="youHaveAlreadyRegisteredTheEmail">سبق لك تسجيل هذا البريد الإلكتروني %s</string>
   <string name="kidMode">موقع الأطفال</string>
   <string name="kidModeExplanation">هذا يتعلق بالأمان. في نمط الطفل، يتم تعطيل كافة اتصالات المواقع. تمكين هذا للأطفال والطلاب، لحمايتهم من مستخدمي الإنترنت الأخرين.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">في نمط الطفل، يكون لشعار ليتشيس رمز %s، لكي تعرف أن أطفالك آمنين.</string>
   <string name="enableKidMode">تمكين نمط الطفل</string>
   <string name="disableKidMode">تعطيل نمط الطفل</string>
   <string name="security">الأمان</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">هذه هي قائمة بالأجهزة التي قامت بتسجيل الدخول إلى حسابك. قم بإلغاء أي جلسات اعمل لا تعرفها.</string>
   <string name="alternativelyYouCanX">وبدلاً من ذلك يمكنك %s.</string>
   <string name="revokeAllSessions">إلغاء كافة جلسات العمل</string>
-  <string name="playChessEverywhere">العب الشطرنج فى كل مكان</string>
-  <string name="asFreeAsLichess">مجاني</string>
-  <string name="builtForTheLoveOfChessNotMoney">تم بناؤه حباً في الشطرنج, وليس المال :)</string>
   <string name="everybodyGetsAllFeaturesForFree">كل المميزات لكل الأعضاء مجاناً</string>
   <string name="zeroAdvertisement">لا دعايات</string>
   <string name="fullFeatured">كل المميزات</string>
   <string name="phoneAndTablet">للجوالات والأجهزة اللوحية</string>
   <string name="bulletBlitzClassical">بالتوقيت المفضل لك</string>
-  <string name="correspondenceChess">شطرنج بالمراسلة</string>
   <string name="onlineAndOfflinePlay">على الإنترنت أو بدون اتصال</string>
   <string name="viewTheSolution">الحل</string>
   <string name="followAndChallengeFriends">تابع وتحدى أصدقاءك</string>
@@ -882,9 +860,6 @@
   <string name="usernameSuffixInvalid">اسم المستخدم يجب أن ينتهي بحرف أو رقم.</string>
   <string name="usernameCharsInvalid">اسم المستخدم يجب أن يحتوي فقط على حروف وأرقام،خط سفلي ، والواصلات.</string>
   <string name="usernameUnacceptable">اسم المستخدم هذا غير مقبول.</string>
-  <string name="directlySupportLichess">دعم ليتشيس مباشرة</string>
-  <string name="playChessInStyle">لعب الشطرنج في نمط</string>
-  <string name="chessBasics">أساسيات الشطرنج</string>
   <string name="coaches">المدربين</string>
   <string name="invalidPgn">ملف بي جي ان غير صالح</string>
   <string name="invalidFen">FEN غير صالح</string>
@@ -973,7 +948,6 @@
   <string name="weHadToTimeYouOutForAWhile">اضطررنا إلى حظرك لفترة قصيرة.</string>
   <string name="timeoutExpires">ينتهي الحظر خلال %s.</string>
   <string name="why">لماذا ؟</string>
-  <string name="pleasantChessExperience">نحن نهدف الى توفير تجربة شطرنج ممتعة للجميع.</string>
   <string name="goodPractice">لهذا الغرض، يجب علينا التأكد ان جميع اللاعبين يتبعون سلوك جيد.</string>
   <string name="potentialProblem">عند اكتشاف مشكلة محتملة، نعرض هذه الرسالة.</string>
   <string name="howToAvoidThis">كيفية تجنب حدوث هذا ؟</string>
@@ -981,11 +955,10 @@
   <string name="tryToWin">حاول فوز (او تعادل على الأقل) كل دور تلعبه.</string>
   <string name="resignLostGames">انسحب اذا كنت على وشك الهزيمة (لا تدع الوقت ينتهي).</string>
   <string name="temporaryInconvenience">نعتذر عن الازعاج المؤقت</string>
-  <string name="wishYouGreatGames">ونتمنى لك ادوار جيدة على Lichess.org.</string>
+  <string name="wishYouGreatGames">ونتمنى لك ادوار جيدة على Lishogi.org.</string>
   <string name="thankYouForReading">نشكرك على القراءة!</string>
   <string name="lifetimeScore">النتيجة النهائية</string>
   <string name="currentMatchScore">نتيجة المباراة الحالية</string>
-  <string name="agreementAssistance">أوافق على أني لن أتلقى أي مساعدة خلال مبارياتي أبدا (من محرك شطرنج أو كتاب أو قاعدة بيانات أو شخص اخر).</string>
   <string name="agreementNice">أوافق على أني سأكون محترم تجاه اللاعبين الأخرين.</string>
   <string name="agreementAccount">أوافق على أني لن أنشئ حسابات متعددة.</string>
   <string name="agreementPolicy">أوافق على أني سأتبع سياسات الموقع.</string>

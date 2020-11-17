@@ -1,10 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search">搜尋</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="search">搜尋</string>
   <string name="advancedSearch">進階搜尋</string>
-  <plurals name="searchInXGames">
-    <item quantity="other">在%s場棋局中尋找</item>
-  </plurals>
   <plurals name="xGamesFound">
     <item quantity="other">找到了%s盤棋局</item>
   </plurals>

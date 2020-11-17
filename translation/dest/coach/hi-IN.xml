@@ -1,10 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="lichessCoaches">Lichess के कोच</string>
-  <string name="lichessCoach">Lichess के कोच</string>
-  <string name="areYouCoach">आप %s उपाधि के साथ एक महान शतरंज कोच हैं?</string>
-  <string name="nmOrFideTitle">NM या FIDE शीर्षक</string>
-  <string name="confirmTitle">यहां अपने शीर्षक की पुष्टि करें और हम आपके आवेदन की समीक्षा करेंगे।</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="confirmTitle">यहां अपने शीर्षक की पुष्टि करें और हम आपके आवेदन की समीक्षा करेंगे।</string>
   <string name="sendApplication">हमें %s पर एक ईमेल भेजें और हम आपके आवेदन की समीक्षा करेंगे।</string>
   <string name="location">स्थान</string>
   <string name="languages">भाषाएँ</string>
@@ -13,7 +8,6 @@
   <string name="availability">उपलब्धता</string>
   <string name="accepting">छात्रों को स्वीकार करना</string>
   <string name="notAccepting">फिलहाल छात्रों को स्वीकार नहीं कर रहे हैं</string>
-  <string name="xCoachesStudents">%s कोच के छात्र</string>
   <string name="viewXProfile">%s की लिचेस प्रोफ़ाइल देखें</string>
   <string name="sendPM">निजी संदेश भेजें</string>
   <string name="aboutMe">मेरे बारे में</string>

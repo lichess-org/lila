@@ -1,9 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="isLichessLagging">ଲିଚେସ୍ ଲାଗ୍ ଅଛି କି?</string>
-  <string name="measurementInProgressThreeDot">ମାପ ଚାଲିଛି ...</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="measurementInProgressThreeDot">ମାପ ଚାଲିଛି ...</string>
   <string name="noAndYourNetworkIsGood">ନା, ଏବଂ ଆପଣଙ୍କର ନେଟୱାର୍କ ଭଲ ଅଟେ</string>
   <string name="noAndYourNetworkIsBad">ନା, ଏବଂ ଆପଣଙ୍କର ନେଟୱାର୍କ ଖରାପ ଅଟେ</string>
   <string name="yesItWillBeFixedSoon">ହଁ ଏହା ଶୀଘ୍ର ସମାଧାନ ହେବ</string>
-  <string name="lichessServerLatency">ଲିଚେସ୍ ସର୍ଭର ବିଳମ୍ବତା</string>
-</resources>
+  </resources>

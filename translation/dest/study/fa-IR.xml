@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="private">خصوصی</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="private">خصوصی</string>
   <string name="myStudies">درس های من</string>
   <string name="myPublicStudies">درس های عمومی من</string>
   <string name="myPrivateStudies">درس های خصوصی من</string>

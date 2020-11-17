@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="private">Xisûsî</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="private">Xisûsî</string>
   <string name="myStudies">Xebatên min</string>
   <string name="studiesIContributeTo">Xebatên ku ez tevkarî kirime</string>
   <string name="myPublicStudies">Xebatên min ên giştî</string>

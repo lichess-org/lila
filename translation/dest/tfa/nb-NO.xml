@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="twoFactorAuth">Tofaktorautentisering</string>
-  <string name="twoFactorHelp">Tofaktorautentisering er et ekstra lag med sikkerhet for Lichess-kontoen din.</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="twoFactorAuth">Tofaktorautentisering</string>
+  <string name="twoFactorHelp">Tofaktorautentisering er et ekstra lag med sikkerhet for Lishogi-kontoen din.</string>
   <string name="twoFactorApp">Skaff deg en tofaktorautentiseringsapp, for eksempel Google Authenticator for %1$s eller %2$s.</string>
   <string name="scanTheCode">Skann QR-koden med appen.</string>
   <string name="enterPassword">Skriv inn passordet ditt og autentiseringskoden generert av appen for å fullføre oppsettet. Du må bruke en ny autentiseringskode hver gang du logger inn.</string>

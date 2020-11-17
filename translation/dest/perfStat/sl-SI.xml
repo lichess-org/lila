@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="perfStats">%s statistika</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="perfStats">%s statistika</string>
   <string name="viewTheGames">Ogled iger</string>
   <string name="provisional">začasen</string>
   <string name="notEnoughRatedGames">Za zanesljiv rejting je bilo odigranih premalo rangiranih iger.</string>

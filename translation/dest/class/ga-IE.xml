@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <plurals name="nbPendingInvitations">
+<?xml version='1.0' encoding='utf-8'?>
+<resources><plurals name="nbPendingInvitations">
     <item quantity="one">Cuireadh amháin ar feitheamh</item>
     <item quantity="two">%s chuireadh ar feitheamh</item>
     <item quantity="few">%s chuireadh ar feitheamh</item>

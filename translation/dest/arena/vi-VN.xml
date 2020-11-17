@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="isItRated">Có tính Elo?</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="isItRated">Có tính Elo?</string>
   <string name="willBeNotified">Bạn sẽ được thông báo khi giải đấu bắt đầu, vì vậy hãy yên tâm chơi trong tab khác trong lúc chờ.</string>
   <string name="isRated">Giải đấu này có tính Elo và sẽ ảnh hưởng Elo của bạn.</string>
   <string name="isNotRated">Giải đấu này *không* tính Elo và sẽ *không* ảnh hưởng Elo của bạn.</string>

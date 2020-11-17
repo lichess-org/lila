@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="hourlyRapidArena">Ikstundas ātrā arēna</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="hourlyRapidArena">Ikstundas ātrā arēna</string>
   <string name="hourlyRapid">Ikstundas ātrais</string>
   <string name="hourlyXArena">Ikstundas %s arēna</string>
   <string name="hourlyX">Ikstundas %s</string>

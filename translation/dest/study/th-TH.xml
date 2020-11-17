@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="private">ส่วนตัว</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="private">ส่วนตัว</string>
   <string name="myStudies">กรณีศึกษาของฉัน</string>
   <string name="studiesIContributeTo">กรณีศึกษาที่ฉันเอื้อเฟื้อให้</string>
   <string name="myPublicStudies">กรณีศึกษาสาธารณะของฉัน</string>

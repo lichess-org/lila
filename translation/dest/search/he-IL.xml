@@ -1,13 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search">חיפוש</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="search">חיפוש</string>
   <string name="advancedSearch">חיפוש מתקדם</string>
-  <plurals name="searchInXGames">
-    <item quantity="one">חפש ב%s משחק</item>
-    <item quantity="two">חפש ב%s משחקים</item>
-    <item quantity="many">חפש ב%s משחקים</item>
-    <item quantity="other">חפש ב%s משחקים</item>
-  </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">משחק אחד נמצא</item>
     <item quantity="two">%s משחקים נמצאו</item>

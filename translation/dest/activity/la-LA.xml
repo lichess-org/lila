@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="activity">Actionis</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="activity">Actionis</string>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">%s solvitur exercitium</item>
     <item quantity="other">%s solvitur exercitiis</item>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">Преференсе</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">Преференсе</string>
   <string name="gameDisplay">Приказ игре</string>
   <string name="pieceAnimation">Aнимација фигура</string>
   <string name="materialDifference">Разлика у материјалу</string>
@@ -9,12 +8,8 @@
   <string name="boardCoordinates">Прикажи координате табле (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Листа потеза током партије</string>
   <string name="pgnPieceNotation">Нотација</string>
-  <string name="chessPieceSymbol">симболи фигура</string>
-  <string name="pgnLetter">Cлова (К, Q, R, B, N)</string>
   <string name="zenMode">зен стање</string>
   <string name="onlyOnInitialPosition">Само на почетку партије</string>
-  <string name="blindfoldChess">Шах на слепо</string>
-  <string name="chessClock">Шаховски сат</string>
   <string name="tenthsOfSeconds">Десетинке</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Када имате &lt; 10 секунди</string>
   <string name="horizontalGreenProgressBars">Хоризонтални зелени индикатор</string>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="private">Pribatua</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="private">Pribatua</string>
   <string name="myStudies">Nire azterlanak</string>
   <string name="studiesIContributeTo">Nik parte hartzen dudan azterlanak</string>
   <string name="myPublicStudies">Nire azterlan publikoak</string>

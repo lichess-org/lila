@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">Izilungiselelo</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="settings">Izilungiselelo</string>
   <string name="closeAccount">Vala i-akhawunti</string>
   <string name="closingIsDefinitive">Ukuvala kucacile. Akukho ukubuyela emuva. Uqinisekile?</string>
   <string name="cantOpenSimilarAccount">Ngeke uvunyelwe ukuvula i-akhawunti entsha enegama elifanayo, noma ngabe icala lihlukile.</string>

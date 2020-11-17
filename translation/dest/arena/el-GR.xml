@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="isItRated">Είναι βαθμολογημένο;</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="isItRated">Είναι βαθμολογημένο;</string>
   <string name="willBeNotified">Θα ειδοποιηθείτε όταν ξεκινήσει το πρωτάθλημα, έτσι είναι ασφαλές να παίξετε σε άλλη καρτέλα όσο περιμένετε.</string>
   <string name="isRated">Αυτό το πρωτάθλημα είναι βαθμολογημένο και θα επηρεάσει την βαθμολογία σας.</string>
   <string name="isNotRated">Αυτό το πρωτάθλημα *δεν* είναι βαθμολογημένο και *δεν* θα επηρεάσει την βαθμολογία σας.</string>

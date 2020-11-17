@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="private">Prevez</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="private">Prevez</string>
   <string name="myStudies">Ma studiadennoù</string>
   <string name="studiesIContributeTo">Studiadennoù am eus kemeret perzh enne</string>
   <string name="myPublicStudies">Ma studiadennoù foran</string>

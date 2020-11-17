@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="isItRated">Kas see mõjutab reitingut?</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="isItRated">Kas see mõjutab reitingut?</string>
   <string name="willBeNotified">Teid teavitatakse, kui turniir algab, seega võite seni, kuni ootate, julgelt teisel vahelehel mängida.</string>
   <string name="isRated">See on reitinguga turniir ning mõjutab Teie reitingut.</string>
   <string name="isNotRated">See ei ole reitinguga turniir ja ei mõjuta Teie reitingut.</string>

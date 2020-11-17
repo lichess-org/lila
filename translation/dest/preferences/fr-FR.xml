@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">Préférences</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">Préférences</string>
   <string name="gameDisplay">Affichage de la partie</string>
   <string name="pieceAnimation">Animation des pièces</string>
   <string name="materialDifference">Différence de matériel</string>
@@ -9,13 +8,9 @@
   <string name="boardCoordinates">Coordonnées (a-h, 1-8)</string>
   <string name="moveListWhilePlaying">Liste des coups durant la partie</string>
   <string name="pgnPieceNotation">Notation des coups</string>
-  <string name="chessPieceSymbol">Figurine de la pièce</string>
-  <string name="pgnLetter">Lettre de la pièce (K, Q, R, B, N)</string>
   <string name="zenMode">Mode Zen</string>
   <string name="displayBoardResizeHandle">Afficher la poignée de redimensionnement de l\'échiquier</string>
   <string name="onlyOnInitialPosition">Seulement dans la position initiale</string>
-  <string name="blindfoldChess">Échecs à l\'aveugle (pièces invisibles)</string>
-  <string name="chessClock">Pendule</string>
   <string name="tenthsOfSeconds">Dixièmes de seconde</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Quand il reste moins de 10 secondes</string>
   <string name="horizontalGreenProgressBars">Barres de progression horizontales vertes</string>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="private">פרטי</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="private">פרטי</string>
   <string name="myStudies">הלימודים שלי</string>
   <string name="studiesIContributeTo">לימודים שתרמתי להם</string>
   <string name="myPublicStudies">הלימודים הפומביים שלי</string>

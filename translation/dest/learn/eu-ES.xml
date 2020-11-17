@@ -1,68 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="learnChess">Ikasi xakean</string>
-  <string name="byPlaying">jokatuz!</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="byPlaying">jokatuz!</string>
   <string name="menu">Menua</string>
   <string name="progressX">Garapena: %s</string>
   <string name="resetMyProgress">Nire garapena hasieratu</string>
   <string name="youWillLoseAllYourProgress">Zure garapen guztia galduko duzu!</string>
   <string name="play">jokatu!</string>
-  <string name="chessPieces">Xake piezak</string>
   <string name="theRook">Gaztelua edo Dorrea</string>
   <string name="itMovesInStraightLines">Lerro zuzenetan zehar mugitzen da</string>
   <string name="rookIntro">Gaztelua pieza indartsua da. Aurrera jarraitu nahi duzu?</string>
-  <string name="rookGoal">Egin klik gazteluan
-izarrera eramateko!</string>
   <string name="grabAllTheStars">Hartu izar guztiak!</string>
-  <string name="theFewerMoves">Zenbat eta jokaldi gutxiago egin,
-hainbat eta puntu gehiago lortuko duzu!</string>
-  <string name="useTwoRooks">Erabili bi gazteluak
-gauzak azkartzeko!</string>
   <string name="rookComplete">Zorionak! Gaztelua ondo menderatu duzu.</string>
   <string name="theBishop">Alfila edo Gudaria</string>
   <string name="itMovesDiagonally">Diagonalean mugitzen da</string>
   <string name="bishopIntro">Jarraian alfila nola mugitu ikasiko dugu!</string>
-  <string name="youNeedBothBishops">Lauki argietako alfil bat,
-lauki ilunetako alfil bat. 
-Biak behar dituzu!</string>
   <string name="bishopComplete">Zorionak! Alfila menderatzen duzu.</string>
-  <string name="theQueen">Dama edo Anderea</string>
-  <string name="queenCombinesRookAndBishop">Dama = gaztelua + alfila</string>
-  <string name="queenIntro">Pieza indartsuena dator jarraian. Dama!</string>
-  <string name="queenComplete">Zorionak! Damek ez dute zuretzat sekreturik.</string>
   <string name="theKing">Erregea</string>
   <string name="theMostImportantPiece">Pieza garrantzitsuena</string>
   <string name="kingIntro">Erregea zara. Gudan erortzen bazara, partida galdu egingo duzu.</string>
-  <string name="theKingIsSlow">Erregea geldoa da.</string>
-  <string name="lastOne">Azkena!</string>
   <string name="kingComplete">Agintaria menperatzen duzu orain!</string>
   <string name="theKnight">Zalduna</string>
-  <string name="itMovesInAnLShape">L eran mugitzen da</string>
-  <string name="knightIntro">Hemen zuretzako erronka. Zalduna... pieza zaila da.</string>
-  <string name="knightsHaveAFancyWay">Zaldunek hortik zehar
-salto egiteko joera dute!</string>
-  <string name="knightsCanJumpOverObstacles">Zaldunek oztopoen gainetik egin dezakete salto!
-Ihes egin eta lortu izarrak!</string>
   <string name="knightComplete">Zorionak! Zalduna menperatzen duzu.</string>
   <string name="thePawn">Peoia edo oinezkoa</string>
-  <string name="itMovesForwardOnly">Aurrerantz mugitzen da bakarrik</string>
   <string name="pawnIntro">Peoiak ahulak dira, baina potentzial handia dute.</string>
-  <string name="pawnsMoveOneSquareOnly">Peoiak lauki bat bakarrik mugitzen dira.
-Baina xake-taularen beste aldera heltzean, pieza indartsu bihurtzen dira!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">Gehienetan dama sustatzea izaten da onena.
-Baina batzuetan zaldua ere ona izan daiteke!</string>
-  <string name="pawnsMoveForward">Peoiak aurrerantz mugitzen dira,
-baina diagonalean harrapatzen dituzte piezak!</string>
-  <string name="captureThenPromote">Harrapatu, eta gero sustatu!</string>
-  <string name="useAllThePawns">Erabili peoi guztiak!
-Ez duzu sustatu beharrik.</string>
-  <string name="aPawnOnTheSecondRank">Bigarren lerroko peoiak 2 lauki mugitu ditzake batera!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">Harrapatu izar guztiak!
-Ez duzu sustatu beharrik.</string>
   <string name="pawnComplete">Zorionak! Peoiek ez dute zuretzat sekreturik.</string>
-  <string name="pawnPromotion">Peoia sustatzea</string>
-  <string name="yourPawnReachedTheEndOfTheBoard">Zure peoia xake-taularen bukaerara iritsi da!</string>
-  <string name="itNowPromotesToAStrongerPiece">Orain sustatu eta pieza indartsuago bihurtzen da.</string>
   <string name="selectThePieceYouWant">Aukeratu zuk nahi duzun pieza!</string>
   <string name="fundamentals">Oinarrizkoak</string>
   <string name="capture">Harrapaketa</string>
@@ -71,7 +31,6 @@ Ez duzu sustatu beharrik.</string>
   <string name="takeTheBlackPieces">Harrapatu pieza beltzak!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Harrapatu pieza beltzak!
 Eta ez galdu zureak.</string>
-  <string name="captureComplete">Zorionak! Orain badakizu nola borrokatu zure piezekin!</string>
   <string name="protection">Babesa</string>
   <string name="keepYourPiecesSafe">Babestu zure piezak</string>
   <string name="protectionIntro">Identifikatu zure aurkariak erasotzen dizkizun piezak eta defendatu itzazu!</string>
@@ -85,7 +44,6 @@ defendatu gabeko piezarik harrapatzen!</string>
   <string name="combat">Borroka</string>
   <string name="captureAndDefendPieces">Piezak harrapatu eta defendatu</string>
   <string name="combatIntro">Borrokalari on batek erasoa eta defentsa menperatzen ditu!</string>
-  <string name="combatComplete">Zorionak! Badakizu piezekin nola borrokatu!</string>
   <string name="checkInOne">Xake jokaldi baten</string>
   <string name="attackTheOpponentsKing">Aurkariaren erregea erasotu</string>
   <string name="checkInOneIntro">Aurkariari xake emateko, erasotu bere erregea. Defendatu egin beharko du!</string>
@@ -110,14 +68,10 @@ edo oztopatu erasoa!</string>
   <string name="mateInOneIntro">Zure aurkaria xaketik defendatu ezin denean irabazi egiten duzu.</string>
   <string name="attackYourOpponentsKing">Erasotu aurkariaren erregea
 bere burua defendatu ezin daitekeen eran!</string>
-  <string name="mateInOneComplete">Zorionak! Horrela irabazten dira xake partidak!</string>
   <string name="intermediate">Erdi-mailakoa</string>
   <string name="boardSetup">Xake-taularen ezarpenak</string>
   <string name="howTheGameStarts">Partida nola hasi</string>
   <string name="boardSetupIntro">Bi armadak elkarri begira hasten dira, gudarako prest.</string>
-  <string name="thisIsTheInitialPosition">Hauxe partida guztien
-hasierako posizioa!
-Egin edozein jokaldi jarraitzeko.</string>
   <string name="firstPlaceTheRooks">Kokatu lehenengo gazteluak!
 Bazterretan kokatzen dira.</string>
   <string name="thenPlaceTheKnights">Jarraian kokatu zaldunak!
@@ -130,44 +84,6 @@ Bere koloreko laukian jarri ezazu.</string>
 Bere damaren ondoan kokatu.</string>
   <string name="pawnsFormTheFrontLine">Peoiek aurreko lerroa betetzen dute.
 Egin edozein jokaldi jarraitzeko.</string>
-  <string name="boardSetupComplete">Zorionak! Badakizu xake-taula nola kokatu.</string>
-  <string name="castling">Endrokea</string>
-  <string name="theSpecialKingMove">Erregearen jokaldi berezia</string>
-  <string name="castlingIntro">Segurtasuna eman zure erregeari eta ekarri gaztelua erasora!</string>
-  <string name="castleKingSide">Mugitu zure erregea bi lauki
-erregearen aldean endrokatzeko!</string>
-  <string name="castleQueenSide">Mugitu zure erregea bi lauki
-damaren aldean endrokatzeko!</string>
-  <string name="theKnightIsInTheWay">Zalduna bidean dago!
-Mugitu, eta ondoren erregearen aldean endrokatu.</string>
-  <string name="castleKingSideMovePiecesFirst">Endrokatu erregearen aldean!
-Tarteko piezak mugitu behar dituzu lehenengo.</string>
-  <string name="castleQueenSideMovePiecesFirst">Endrokatu damaren aldean!
-Tarteko piezak mugitu behar dituzu lehenengo.</string>
-  <string name="youCannotCastleIfMoved">Ezin duzu endrokerik egin
-erregea aurrez mugitu baduzu
-edo gaztelua aurrez mugitu baduzu.</string>
-  <string name="youCannotCastleIfAttacked">Ezin duzu endrokerik egin
-erregea erasotuta badago.
-Oztopatu xakea eta ondoren endrokatu!</string>
-  <string name="findAWayToCastleKingSide">Aurkitu modua
-erregearen aldean endrokatzeko!</string>
-  <string name="findAWayToCastleQueenSide">Aurkitu modua
-erregearen aldean endrokatzeko!</string>
-  <string name="castlingComplete">Zorionak! Ia edozein partidatan endrokatu zaitezke.</string>
-  <string name="enPassant">Igarotzean harrapatzea</string>
-  <string name="theSpecialPawnMove">Peoiaren jokaldi berezia</string>
-  <string name="enPassantIntro">Aurkariak peoi bat bi lauki aurreratu duenean, bat mugitu balu bezala harrapatu dezakezu.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">Beltzak peoia bi laukiz
-mugitu du!
-Harrapatu igarotzean.</string>
-  <string name="enPassantOnlyWorksImmediately">Aurkariak peoia mugitu
-duen momentuan bakarrik
-harrapatu daiteke igarotzean.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">Peoia 5. lerroan badago bakarrik
-harrapatu daiteke igarotzean.</string>
-  <string name="takeAllThePawnsEnPassant">Harrapatu peoi guztiak igarotzean!</string>
-  <string name="enPassantComplete">Zorionak! Igarotzean harrapatzen dakizu.</string>
   <string name="stalemate">Erregea itota</string>
   <string name="theGameIsADraw">Partida berdinketarekin bukatu da</string>
   <string name="stalemateIntro">Jokalari bat xakean ez dagoenean eta legezko jokaldirik ez dagoenean, itota dago. Partida berdinketan bukatu da: inork ez du irabazi, inork ez du galdu.</string>
@@ -203,15 +119,11 @@ Peoia = 1</string>
 bi jokalditan!</string>
   <string name="checkInTwoComplete">Zorionak! Aurkariari xake eman diozu, bere erregea defendatzera behartuz!</string>
   <string name="whatNext">Eta orain zer?</string>
-  <string name="youKnowHowToPlayChess">Badakizu xakean jokatzen, zorionak! Jokalari hobe izan nahi duzu?</string>
   <string name="register">Izena eman</string>
-  <string name="getAFreeLichessAccount">Sortu Lichess kontu bat</string>
   <string name="practice">Praktikatu</string>
-  <string name="learnCommonChessPositions">Ikasi ohiko posizioak</string>
   <string name="puzzles">Ariketak</string>
   <string name="exerciseYourTacticalSkills">Entrenatu zure taktika</string>
   <string name="videos">Bideoak</string>
-  <string name="watchInstructiveChessVideos">Ikusi bideoak</string>
   <string name="playPeople">Jendearekin jokatu</string>
   <string name="opponentsFromAroundTheWorld">Munduan zeharreko aurkariak</string>
   <string name="playMachine">Ordenagailuarekin jokatu</string>

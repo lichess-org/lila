@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Spill mot en venn</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Spill mot en venn</string>
   <string name="playWithTheMachine">Spill mot maskinen</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">For å invitere noen til å spille, gi dem denne lenken</string>
   <string name="gameOver">Partiet er avsluttet</string>
@@ -247,7 +246,6 @@
   <string name="recipient">Mottaker</string>
   <string name="send">Send</string>
   <string name="incrementInSeconds">Tillegg i sekunder per trekk</string>
-  <string name="freeOnlineChess">Gratis nettsjakk</string>
   <string name="spectators">Tilskuere:</string>
   <plurals name="nbRated">
     <item quantity="one">%s ratet</item>
@@ -275,7 +273,7 @@
     <item quantity="one">Gi %s sekund</item>
     <item quantity="other">Gi %s sekunder</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Denne kontoen brøt vilkårene for å bruke Lichess</string>
+  <string name="thisAccountViolatedTos">Denne kontoen brøt vilkårene for å bruke Lishogi</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Denne spilleren øker/reduserer ratingen kunstig</string>
   <string name="openingExplorerAndTablebase">Åpningsutforsker &amp; tabellbase</string>
   <string name="takeback">Angre</string>
@@ -325,7 +323,6 @@
   <string name="mustBeInTeam">Du må være med i laget %s</string>
   <string name="youAreNotInTeam">Du er ikke med i teamet %s</string>
   <string name="backToGame">Tilbake til partiet</string>
-  <string name="siteDescription">Gratis nettsjakk. Spill sjakk nå, i et enkelt og rent format. Ingen registrering, ingen reklame, ingen programtillegg er nødvendig. Spill sjakk mot datamaskinen, venner, eller tilfeldige motstandere.</string>
   <string name="xJoinedTeamY">%1$s ble med på laget %2$s</string>
   <string name="xCreatedTeamY">%1$s opprettet laget %2$s</string>
   <string name="xStartedStreaming">%s begynte å strømme</string>
@@ -347,9 +344,7 @@
     <item quantity="one">%s importert parti</item>
     <item quantity="other">%s importerte partier</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Dette er en sjakk-CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klikk på brettet for å gjøre et trekk og bevise at du er et menneske.</string>
-  <string name="captcha.fail">Vennligst løs sjakk-captchaen.</string>
   <string name="notACheckmate">Ikke sjakk matt</string>
   <string name="whiteCheckmatesInOneMove">Hvit setter matt i ett trekk</string>
   <string name="blackCheckmatesInOneMove">Svart setter matt i ett trekk</string>
@@ -400,7 +395,6 @@
   <string name="advancedSettings">Avanserte innstillinger</string>
   <string name="safeTournamentName">Velge et svært trygt navn for turneringa.</string>
   <string name="inappropriateNameWarning">Upassende innhold kan føre til at brukerkontoen din blir stengt.</string>
-  <string name="emptyTournamentName">La stå tomt for at turneringa skal få navn etter en tilfeldig stormester.</string>
   <string name="recommendNotTouching">Vi anbefaler å ikke endre disse.</string>
   <string name="fewerPlayers">Om du stiller betingelser for å delta vil turneringa få færre deltakere.</string>
   <string name="showAdvancedSettings">Vis avanserte innstillinger</string>
@@ -448,8 +442,6 @@
   <string name="country">Land</string>
   <string name="socialMediaLinks">Linker til sosiale media</string>
   <string name="inlineNotation">Innebygd notasjon</string>
-  <string name="watchLichessTV">Se på Lichess TV</string>
-  <string name="previouslyOnLichessTV">Tidligere på Lichess TV</string>
   <string name="onlinePlayers">Påloggede spillere</string>
   <string name="activeToday">Aktive i dag</string>
   <string name="activePlayers">Aktive spillere</string>
@@ -469,7 +461,7 @@
   <string name="butYouCanKeepTrying">Men du kan fortsette å prøve.</string>
   <string name="success">Vellykket</string>
   <string name="wasThisPuzzleAnyGood">Likte du denne sjakknøtten?</string>
-  <string name="pleaseVotePuzzle">Forbedre lichess ved å stemme, med opp- eller ned-pilen:</string>
+  <string name="pleaseVotePuzzle">Forbedre lishogi ved å stemme, med opp- eller ned-pilen:</string>
   <string name="thankYou">Takk!</string>
   <string name="ratingX">Rating: %s</string>
   <string name="hidden">skjult</string>
@@ -562,7 +554,6 @@
   <string name="starting">Starter:</string>
   <string name="allInformationIsPublicAndOptional">All informasjon er offentlig og valgfri.</string>
   <string name="yourCityRegionOrDepartment">Din by, region eller sted.</string>
-  <string name="biographyDescription">Fortell litt om deg selv, hva du liker med sjakk, din favorittåpning, partier, spillere…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maksimum: %s bokstav.</item>
     <item quantity="other">Maksimum: %s bokstaver.</item>
@@ -578,7 +569,6 @@
   <string name="clock">Klokke</string>
   <string name="unauthorizedError">Uautorisert tilgang.</string>
   <string name="noInternetConnection">Ingen internettilkobling. Du kan fremdeles spille frakoblet fra menyen.</string>
-  <string name="connectedToLichess">Du er nå tilkoblet lichess.org</string>
   <string name="signedOut">Du har blitt logget ut.</string>
   <string name="loginSuccessful">Du er nå pålogget</string>
   <string name="playOnTheBoardOffline">Over brettet</string>
@@ -620,7 +610,6 @@
   <string name="webmasters">Webadministratorer</string>
   <string name="about">Om</string>
   <string name="aboutX">Om %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s er en fritt tilgjengelig (%2$s), libre, annonsefri, åpen kildekode sjakk-server.</string>
   <string name="really">virkelig</string>
   <string name="contribute">Bidra</string>
   <string name="termsOfService">Tjenestevilkår</string>
@@ -644,7 +633,6 @@
   <string name="simulClockHint">Fischeroppsett. Desto flere spillere som spiller mot deg, jo mer tid vil du antageligvis trenge.</string>
   <string name="simulAddExtraTime">Du kan legge til ekstra tid på klokken din for å håndtere simultanen.</string>
   <string name="simulHostExtraTime">Ekstra tid for simultanoppviseren</string>
-  <string name="lichessTournaments">Lichessturneringer</string>
   <string name="tournamentFAQ">Arenaturneringsspørsmål</string>
   <string name="tournamentOfficial">Offisiell</string>
   <string name="timeBeforeTournamentStarts">Tid før turnering starter</string>
@@ -655,8 +643,6 @@
   <string name="keyShowOrHideComments">Vis/skjul kommentarer</string>
   <string name="keyEnterOrExitVariation">Gå inn i/ut av variant</string>
   <string name="newTournament">Ny turnering</string>
-  <string name="tournamentHomeTitle">Sjakkturneringer med ulike tidskontroller og varianter</string>
-  <string name="tournamentHomeDescription">Spill fartsfylte sjakkturneringer! Delta i offisielle, faste turneringer eller lag din egen. Lynsjakk, hurtigsjakk, og andre varianter er tilgjengelig for endeløs sjakkunderholdning.</string>
   <string name="tournamentNotFound">Finner ikke turneringen</string>
   <string name="tournamentDoesNotExist">Turneringen eksisterer ikke.</string>
   <string name="tournamentMayHaveBeenCanceled">Den kan ha blitt avlyst fordi alle spillerne trakk seg før den startet.</string>
@@ -678,8 +664,6 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Om du ikke ser e-posten, sjekk andre steder den kan være, som søppel, spam, sosial, eller andre mapper.</string>
   <string name="weHaveSentYouAnEmailTo">Vi har sendt en e-post til %s. Klikk på linken i e-posten for å tilbakestille passordet ditt.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ved å registrere deg, godtar du å våre %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Nettverksforsinkelsen mellom deg og lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Tiden det tar å behandle et trekk på lichess-serveren</string>
   <string name="downloadAnnotated">Last ned kommentert</string>
   <string name="downloadRaw">Last ned rådata</string>
   <string name="downloadImported">Last ned importen</string>
@@ -688,29 +672,23 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan også skrolle over brettet for å flytte i partiet.</string>
   <string name="analysisShapesHowTo">Trykk shift+klikk eller høyreklikk for å tegne sirkler og piler på brettet.</string>
   <string name="letOtherPlayersMessageYou">La andre spillere kontakte deg.</string>
-  <string name="shareYourInsightsData">Del den personlige spillerstatistikken din</string>
   <string name="withNobody">Med ingen</string>
   <string name="withFriends">Med venner</string>
   <string name="withEverybody">Med alle</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Du har allerede registrert e-postadressen: %s</string>
   <string name="kidMode">Barnemodus</string>
   <string name="kidModeExplanation">Dette handler om sikkerhet. I barnemodus blir all kommunikasjon skrudd av. Bruk dette for å skjerme barn og skole-elever mot brukere på Internett.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">I barnemodus får lichess-logoen et %s symbol, så du vet at barna dine er trygge.</string>
   <string name="enableKidMode">Skru på barnemodus</string>
   <string name="disableKidMode">Skru av barnemodus</string>
   <string name="security">Sikkerhet</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Dette er en liste over enheter du har logget inn på med din konto. Lukk alle økter du ikke gjenkjenner.</string>
   <string name="alternativelyYouCanX">Ellers kan du %s.</string>
   <string name="revokeAllSessions">lukke alle økter</string>
-  <string name="playChessEverywhere">Spill sjakk overalt</string>
-  <string name="asFreeAsLichess">Like gratis som lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Bygget for kjærlighet til sjakk, ikke penger</string>
   <string name="everybodyGetsAllFeaturesForFree">Alle får alle funksjoner gratis</string>
   <string name="zeroAdvertisement">Ingen reklame</string>
   <string name="fullFeatured">Fullspekket</string>
   <string name="phoneAndTablet">Mobil og nettbrett</string>
   <string name="bulletBlitzClassical">Lyn, hurtig og klassisk</string>
-  <string name="correspondenceChess">Fjernsjakk</string>
   <string name="onlineAndOfflinePlay">Online og offline spill</string>
   <string name="viewTheSolution">Se løsning</string>
   <string name="followAndChallengeFriends">Følg og utfordre venner</string>
@@ -743,9 +721,6 @@
   <string name="usernameSuffixInvalid">Det siste tegnet i brukernavnet må være en bokstav eller et tall.</string>
   <string name="usernameCharsInvalid">Brukernavnet kan bare bestå av bokstaver, tall, understrekingstegn og bindestreker.</string>
   <string name="usernameUnacceptable">Dette brukernavnet er ikke akseptabelt.</string>
-  <string name="directlySupportLichess">Støtt Lichess direkte</string>
-  <string name="playChessInStyle">Spill sjakk med stil</string>
-  <string name="chessBasics">Grunnleggende sjakk</string>
   <string name="coaches">Trenere</string>
   <string name="invalidPgn">Ugyldig PGN</string>
   <string name="invalidFen">Ugyldig FEN</string>
@@ -822,7 +797,6 @@
   <string name="weHadToTimeYouOutForAWhile">Vi måtte gi deg en timeout.</string>
   <string name="timeoutExpires">Timeouten utløper %s.</string>
   <string name="why">Hvorfor?</string>
-  <string name="pleasantChessExperience">Vi forsøker å gi alle en god sjakkopplevelse.</string>
   <string name="goodPractice">For å oppnå det må vi sikre at alle spillere følger god praksis.</string>
   <string name="potentialProblem">Når et potensielt problem oppdages, viser vi denne meldingen.</string>
   <string name="howToAvoidThis">Hvordan unngå dette?</string>
@@ -830,14 +804,13 @@
   <string name="tryToWin">Forsøk å vinne (eller i det minste oppnå remis) i alle partier du spiller.</string>
   <string name="resignLostGames">Gi opp tapte stillinger (ikke la tiden løpe ut).</string>
   <string name="temporaryInconvenience">Vi beklager det midlertidige bryet,</string>
-  <string name="wishYouGreatGames">og håper du får gode partier på lichess.org.</string>
+  <string name="wishYouGreatGames">og håper du får gode partier på lishogi.org.</string>
   <string name="thankYouForReading">Takk for at du leste!</string>
   <string name="lifetimeScore">Livstidsscore</string>
   <string name="currentMatchScore">Gjeldende kampscore</string>
-  <string name="agreementAssistance">Jeg lover at jeg aldri vil motta hjelp under partiene mine, hverken fra maskiner, bøker, databaser eller andre personer.</string>
   <string name="agreementNice">Jeg lover å alltid være høflig mot andre spillere.</string>
   <string name="agreementAccount">Jeg lover å ikke opprette flere brukerkonti.</string>
-  <string name="agreementPolicy">Jeg lover å respektere alle Lichess\' retningslinjer.</string>
+  <string name="agreementPolicy">Jeg lover å respektere alle Lishogi\' retningslinjer.</string>
   <string name="searchOrStartNewDiscussion">Søk eller start en ny diskusjon</string>
   <string name="edit">Rediger</string>
   <string name="rapid">Hurtigsjakk</string>
@@ -848,7 +821,6 @@
   <string name="rapidDesc">Hurtige partier: 8 til 25 minutter</string>
   <string name="classicalDesc">Klassiske partier: 25 minutter eller mer</string>
   <string name="correspondenceDesc">Fjernsjakkpartier: ett eller flere døgn pr. trekk</string>
-  <string name="puzzleDesc">Sjakktaktikktrener</string>
   <string name="important">Viktig</string>
   <string name="yourQuestionMayHaveBeenAnswered">Spørsmålet ditt har kanskje allerede et svar %1$s</string>
   <string name="inTheFAQ">i FAQ-en.</string>

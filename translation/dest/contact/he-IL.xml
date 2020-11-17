@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="contact">צור קשר</string>
-  <string name="contactLichess">צור קשר עם ליצ\'ס</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="contact">צור קשר</string>
   <string name="whatCanWeHelpYouWith">עם מה נוכל לעזור לך?</string>
   <string name="visitThisPage">בקר עמוד זה כדי לפתור את הבעיה</string>
   <string name="iCantLogIn">אני לא מצליח להתחבר</string>
@@ -69,7 +67,6 @@
   <string name="otherRestriction">הגבלה אחרת</string>
   <string name="collaboration">שיתוף פעולה, משפטי, מסחרי</string>
   <string name="monetizing">מונטיזצית ליצ\'ס</string>
-  <string name="buyingLichess">קניית ליצ\'ס</string>
   <string name="authorizationToUse">הרשאה לשימוש בליצ\'ס</string>
   <string name="welcomeToUse">אתם מוזמנים להשתמש בליצ\'ס לצורך פעילותכם, גם מסחרית.</string>
   <string name="videosAndBooks">אתה יכול להציג את זה בסרטונים שלך, ואתה יכול להדפיס צילומי מסך של ליצ\'ס בספרים שלך.</string>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Luani me një shok/shoqe</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Luani me një shok/shoqe</string>
   <string name="playWithTheMachine">Luani me kompjuterin</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Për të ftuar dikë të luajë me ju, dërgojini këtë adresë</string>
   <string name="gameOver">Loja Mbaroi</string>
@@ -247,7 +246,6 @@
   <string name="recipient">Marrësi</string>
   <string name="send">Dërgo</string>
   <string name="incrementInSeconds">Koha shtesë në sekonda</string>
-  <string name="freeOnlineChess">Shah i drejtpërdrejtë pa pagesë</string>
   <string name="spectators">Shikues:</string>
   <plurals name="nbRated">
     <item quantity="one">%s të vlerësuara</item>
@@ -275,7 +273,7 @@
     <item quantity="one">Dhuro %s sekonda</item>
     <item quantity="other">Dhuro %s sekonda</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Kjo llogari ka shkelur Kushtet e Shërbimit të Lichess</string>
+  <string name="thisAccountViolatedTos">Kjo llogari ka shkelur Kushtet e Shërbimit të Lishogi</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ky lojtar e ka rritur vlerësimin e vet në mënyre artificiale</string>
   <string name="openingExplorerAndTablebase">Eksploruesi i hapjeve &amp; tabela e fundlojës</string>
   <string name="takeback">Anulo levizje</string>
@@ -325,7 +323,6 @@
   <string name="mustBeInTeam">Duhet të jesh në skuadër %s</string>
   <string name="youAreNotInTeam">Ti nuk je në skuadër %s</string>
   <string name="backToGame">Kthehu te loja</string>
-  <string name="siteDescription">Lojë shahu pa pagesë në-linjë. Luani shah përmes një ndërfaqeje të pastër. Pa regjistrim, pa reklama, pa u dashur shtojca. Luani shah me kompjuterin, miqtë ose kundërshtarë të rastësishëm.</string>
   <string name="xJoinedTeamY">%1$s u bashkua me skuadrën %2$s</string>
   <string name="xCreatedTeamY">%1$s krijoi skuadrën %2$s</string>
   <string name="xStartedStreaming">%s ka filluar transmetimin</string>
@@ -347,9 +344,7 @@
     <item quantity="one">%s Lojëra të importuara</item>
     <item quantity="other">%s Lojëra të importuara</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Ky është një CAPTCHA shahu.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klikoni mbi fushë për të bërë lëvizjen tuaj dhe të vërtetoni që jeni qenie njerëzore</string>
-  <string name="captcha.fail">Ju lutem zgjidheni ushtrimin.</string>
   <string name="notACheckmate">Nuk është shahmat</string>
   <string name="whiteCheckmatesInOneMove">Bardhë bej shahmat në një lëvizje</string>
   <string name="blackCheckmatesInOneMove">E zezë bej shahmat në një lëvizje</string>
@@ -400,7 +395,6 @@
   <string name="advancedSettings">Më shumë konfigurim</string>
   <string name="safeTournamentName">Zgjidh një emër shumë të sigurt për turneun.</string>
   <string name="inappropriateNameWarning">Çdo gjë edhe pak e papërshtatshme mund të mbyllë accountin tënde.</string>
-  <string name="emptyTournamentName">Lëreni bosh për të emëruar automatikisht turneun pas një grandmaster.</string>
   <string name="recommendNotTouching">Ne rekomandojmë që këto të mos ndryshohen.</string>
   <string name="fewerPlayers">Nëse vendosni konfiguruar kushtet e hyrjes, turneu juaj do të ketë më pak lojtarë.</string>
   <string name="showAdvancedSettings">Më shumë konfigurim</string>
@@ -448,8 +442,6 @@
   <string name="country">Shteti</string>
   <string name="socialMediaLinks">Lidhjet me llogaritë e mediat sociale</string>
   <string name="inlineNotation">Shenimet ne rresht</string>
-  <string name="watchLichessTV">Shiko Lichess TV</string>
-  <string name="previouslyOnLichessTV">Herën e fundit në Lichess TV</string>
   <string name="onlinePlayers">Lojtarët në linjë</string>
   <string name="activeToday">Aktiv sot</string>
   <string name="activePlayers">Lojëtarët aktivë</string>
@@ -469,7 +461,7 @@
   <string name="butYouCanKeepTrying">Por mundesh të provosh përsëri.</string>
   <string name="success">Sukses</string>
   <string name="wasThisPuzzleAnyGood">A ishte ky ushtrimi i mirë?</string>
-  <string name="pleaseVotePuzzle">Ndihmo lichess të përmirësohet duke votuar, me shigjetat poshtë ose lartë:</string>
+  <string name="pleaseVotePuzzle">Ndihmo lishogi të përmirësohet duke votuar, me shigjetat poshtë ose lartë:</string>
   <string name="thankYou">Faleminderit!</string>
   <string name="ratingX">Vlerësimi: %s</string>
   <string name="hidden">i fshehur</string>
@@ -562,7 +554,6 @@
   <string name="starting">Fillon:</string>
   <string name="allInformationIsPublicAndOptional">Të gjitha informacionet janë publike dhe jo të detyrueshme</string>
   <string name="yourCityRegionOrDepartment">Qyteti juaj, rajoni, ose komuna.</string>
-  <string name="biographyDescription">Tregoni për veten, çfarë ju pëlqen tek shahu, hapjet tuaja të preferuara, lojërat, lojtarët…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Më së shumti:%s karaktere.</item>
     <item quantity="other">Më së shumti:%s karaktere.</item>
@@ -578,7 +569,6 @@
   <string name="clock">Koha</string>
   <string name="unauthorizedError">Hyrje e paautorizuar.</string>
   <string name="noInternetConnection">Nuk ka lidhje interneti. Gjithsesi, ju mund të luani të shkëputur nga interneti nëpërmjet menusë.</string>
-  <string name="connectedToLichess">Tani jeni të lidhur me lichess.org</string>
   <string name="signedOut">Ju keni dalë nga faqja.</string>
   <string name="loginSuccessful">Hyrje me sukses</string>
   <string name="playOnTheBoardOffline">Luaj i shkëputur, në ekran.</string>
@@ -620,7 +610,6 @@
   <string name="webmasters">Webmaster</string>
   <string name="about">Info</string>
   <string name="aboutX">Përreth %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s është një falas (%2$s), falas, pa reklama, server shahu me burim i hapur.</string>
   <string name="really">për vërtetë</string>
   <string name="contribute">Ndihmo</string>
   <string name="termsOfService">Kushtet e përdorimit</string>
@@ -644,7 +633,6 @@
   <string name="simulClockHint">Koha Fisher. Kundër sa më shumë lojtarëve luani, aq më shumë kohë mund t\'ju nevojitet.</string>
   <string name="simulAddExtraTime">Ju mund të shtoni kohë shtesë për t\'i bërë ballë simultanes.</string>
   <string name="simulHostExtraTime">Kohë shtesë për pritësin</string>
-  <string name="lichessTournaments">Turnetë në Lichess</string>
   <string name="tournamentFAQ">Pyetjet e turneve</string>
   <string name="tournamentOfficial">Zyrtar</string>
   <string name="timeBeforeTournamentStarts">Koha deri sa të fillojë turneu</string>
@@ -655,8 +643,6 @@
   <string name="keyShowOrHideComments">shfaq/fshih komentet</string>
   <string name="keyEnterOrExitVariation">hyr/dil nga variacioni</string>
   <string name="newTournament">Turne i ri</string>
-  <string name="tournamentHomeTitle">Turne shahu me kontrolle kohore dhe variante të ndryshme.</string>
-  <string name="tournamentHomeDescription">Luaj turne me ritëm të  shpejtë! Bashkohu një turneu zyrtar të  planifikuar, ose krijo tëndin. Bullet, Blitz, Klasik, Shah960, Mbret i Kodrës, Treshah, dhe shumë mundësi të tjera për një argëtim të pafund në shah.</string>
   <string name="tournamentNotFound">Turneu nuk u gjend</string>
   <string name="tournamentDoesNotExist">Ky turne nuk ekziston</string>
   <string name="tournamentMayHaveBeenCanceled">Mund të jetë anuluar, nëse të gjithë lojtarët ikën para se të fillonte turneu.</string>
@@ -678,8 +664,6 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Nëse nuk e shini letrën elektronike, kontrolloni në vendet e tjera ku mund të jetë, si junk, spam, social ose dosje të tjera.</string>
   <string name="weHaveSentYouAnEmailTo">Kemi dërguar një e-letër te %s. Klikoni lidhjen brenda në e-letër për të rivendosur fjalëkalimin tuaj.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Duke u regjistruar, ju pranoni të jeni të lidhur me %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Vonesë rrjeti ndërmjet juve dhe lichess.</string>
-  <string name="timeToProcessAMoveOnLichessServer">Koha për të përpunuar një lëvizje në serverin e lichess</string>
   <string name="downloadAnnotated">Shkarko bashkë me shënimet.</string>
   <string name="downloadRaw">Shkarko pa shënimet.</string>
   <string name="downloadImported">Shkarko importin</string>
@@ -688,29 +672,23 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Ju mund edhe të rrotulloni rrotën mbi fushë për të lëvizur gjatë lojës.</string>
   <string name="analysisShapesHowTo">Shtypni shift+klikim ose klikoni me të djathtën për të vizatuar rrathë dhe shigjeta mbi fushë.</string>
   <string name="letOtherPlayersMessageYou">Lejo lojtarët e tjerë të të dërgojnë mesazh</string>
-  <string name="shareYourInsightsData">Shpërndani të dhënat tuaja të depërtuara.</string>
   <string name="withNobody">Me asnje</string>
   <string name="withFriends">Me shoket</string>
   <string name="withEverybody">Me te gjithe</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Ju e keni regjistruar tashmë postën elektronike: %s</string>
   <string name="kidMode">Formati për fëmijë</string>
   <string name="kidModeExplanation">Kjo eshte per sigurine. Ne modalitetin per femije, te gjitha komunikimet ne faqe jane te ndaluara. Aktivizoje ket per femijet dhe studentet e shkolles, ti mbrosh ata nga perdoruesit e tjere te internetit.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Ne modalitetin per femije, logoja e lichess merr nje ikone %s , qe ta dini se femijet tuaj jane te sigurte.</string>
   <string name="enableKidMode">Aktivizo modalitetin per femije</string>
   <string name="disableKidMode">Çaktivizo modalitetin per femije</string>
   <string name="security">Siguria</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Kjo eshte nje liste e pajisjeve qe kane hyre ne llogarine tuaj. Terhiq cdo seance qe nuk e njihni.</string>
   <string name="alternativelyYouCanX">Ose mund te %s.</string>
   <string name="revokeAllSessions">terhiq te gjitha seksionet</string>
-  <string name="playChessEverywhere">Luaj shah kudo</string>
-  <string name="asFreeAsLichess">Pa pagesë si vetë lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Ndërtuar nga dashuria për shahun, jo për parane</string>
   <string name="everybodyGetsAllFeaturesForFree">Gjithkush merr të gjitha karakteristikat pa pagesë</string>
   <string name="zeroAdvertisement">Zero reklama</string>
   <string name="fullFeatured">Me të gjitha karakteristikat</string>
   <string name="phoneAndTablet">Telefon dhe tablet</string>
   <string name="bulletBlitzClassical">Bullet, blitz, klasik</string>
-  <string name="correspondenceChess">Shah në korespodencë</string>
   <string name="onlineAndOfflinePlay">Luaj në linjë dhe jashtë linje</string>
   <string name="viewTheSolution">Shiko zgjidhjen</string>
   <string name="followAndChallengeFriends">Ndiq dhe sfido miqtë</string>
@@ -743,9 +721,6 @@
   <string name="usernameSuffixInvalid">Username duhet të përfundojë me një letër ose një numër.</string>
   <string name="usernameCharsInvalid">Username duhet të përmbajë vetëm letra, numra, nënvizime dhe hyfe.</string>
   <string name="usernameUnacceptable">Emri i perdoruesit nuk eshte i pranueshem.</string>
-  <string name="directlySupportLichess">Mbeshtet Lichess ne menyre te drejtperdrejte</string>
-  <string name="playChessInStyle">Luaj shah ne stil</string>
-  <string name="chessBasics">Bazat e shahut</string>
   <string name="coaches">Trajnerë</string>
   <string name="invalidPgn">PGN e gabuar</string>
   <string name="invalidFen">FEN e gabuar</string>
@@ -822,7 +797,6 @@
   <string name="weHadToTimeYouOutForAWhile">Ne na duhej të të ndalonim për një kohë.</string>
   <string name="timeoutExpires">Ndalesa skadon %s.</string>
   <string name="why">Psë?</string>
-  <string name="pleasantChessExperience">Ne synojmë të ofrojmë një përvojë të këndshme shahu për të gjithë.</string>
   <string name="goodPractice">Për këtë qëllim, duhet të sigurohemi që të gjithë lojtarët të ndjekin praktikat e mira.</string>
   <string name="potentialProblem">Kur zbulohet një problem i mundshëm, ne shfaqim këtë mesazh.</string>
   <string name="howToAvoidThis">Si ta shmangni këtë?</string>
@@ -830,14 +804,13 @@
   <string name="tryToWin">Mundohu të fitosh (ose të paktën të barazishësh) çdo lojë që luash.</string>
   <string name="resignLostGames">Dorezoni lojrat e humbura (mos lejoni qe ora te perpiqet).</string>
   <string name="temporaryInconvenience">Na vjen keq për bezdisjen e përkohshme,</string>
-  <string name="wishYouGreatGames">edhe të urojmë lojëra të shkëlqyera në lichess.org.</string>
+  <string name="wishYouGreatGames">edhe të urojmë lojëra të shkëlqyera në lishogi.org.</string>
   <string name="thankYouForReading">Faleminderit që lexove!</string>
   <string name="lifetimeScore">Rezultati i jetës</string>
   <string name="currentMatchScore">Rezultati aktual i ndeshjes</string>
-  <string name="agreementAssistance">Jam dakord që nuk do të marr asnjëherë ndihmë gjatë lojërave të mia (nga një kompjuter shahu, libër, baza e të dhënave ose një person tjetër).</string>
   <string name="agreementNice">Jam dakord që gjithmonë do të jem me respekt ndaj lojtarëve të tjerë.</string>
   <string name="agreementAccount">Jam dakord që nuk do krijoj shumë llogari.</string>
-  <string name="agreementPolicy">Jam dakord që do të ndjek të gjitha politikat e Lichess-it.</string>
+  <string name="agreementPolicy">Jam dakord që do të ndjek të gjitha politikat e Lishogi-it.</string>
   <string name="searchOrStartNewDiscussion">Kërkoni ose filloni muhabet e re</string>
   <string name="edit">Ndrysho</string>
   <string name="rapid">I shpejtë</string>
@@ -848,7 +821,6 @@
   <string name="rapidDesc">Lojëra të shpejta: 8 deri në 25 minuta</string>
   <string name="classicalDesc">Lojëra klasike: 25 minuta dhe më shumë</string>
   <string name="correspondenceDesc">Lojëra korrespondence: një ose disa ditë çdo lëvizje</string>
-  <string name="puzzleDesc">Trajner i taktikave të shahut</string>
   <string name="important">I Rëndësishëm</string>
   <string name="yourQuestionMayHaveBeenAnswered">Pyetja tënde mund të ketë tashmë një përgjigje %1$s</string>
   <string name="inTheFAQ">në Pyetjet e bëra më shpesh.</string>

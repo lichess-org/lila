@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">Hoffterau</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">Hoffterau</string>
   <string name="gameDisplay">Dangos y gêm</string>
   <string name="pieceAnimation">Animeiddiad darnau</string>
   <string name="materialDifference">Gwahaniaeth materol</string>
@@ -9,12 +8,8 @@
   <string name="boardCoordinates">Cyfesurynnau bwrdd (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Rhestr symudiadau wrth chwarae</string>
   <string name="pgnPieceNotation">Math o gofnod</string>
-  <string name="chessPieceSymbol">Nodiad symbolau</string>
-  <string name="pgnLetter">Llythyrau (T, B, C, E, M)</string>
   <string name="zenMode">Ffocysu</string>
   <string name="onlyOnInitialPosition">Dim ond yn y safle cychwynol</string>
-  <string name="blindfoldChess">Gwyddbwyll ar ddall (darnau anweladwy)</string>
-  <string name="chessClock">Cloc gwyddbwyll</string>
   <string name="tenthsOfSeconds">Degfedau eiliad</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Gyda llai na 10 eiliad ar ôl</string>
   <string name="horizontalGreenProgressBars">Bâr cynydd gwyrdd llorweddol</string>

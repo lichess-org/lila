@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">प्राथमिकताएं</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">प्राथमिकताएं</string>
   <string name="gameDisplay">खेल का प्रदर्शन</string>
   <string name="pieceAnimation">मोहरों का एनीमेशन</string>
   <string name="materialDifference">सामग्री का अंतर</string>
@@ -9,13 +8,9 @@
   <string name="boardCoordinates">बोर्ड का निर्देशांक (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">खेलते समय चालों की सूची</string>
   <string name="pgnPieceNotation">चाल नोटेशन</string>
-  <string name="chessPieceSymbol">शतरंज टुकड़ा प्रतीक</string>
-  <string name="pgnLetter">अक्षर (K, Q, R, B, N)</string>
   <string name="zenMode">ज़ेन मोड</string>
   <string name="displayBoardResizeHandle">बोर्ड आकार परिवर्तन करने वाली मूठ दिखाएं</string>
   <string name="onlyOnInitialPosition">केवल प्रारंभिक स्थिति पर</string>
-  <string name="blindfoldChess">अदृश्य शतरंज (अदृश्य मोहरे )</string>
-  <string name="chessClock">शतरंज की घड़ी</string>
   <string name="tenthsOfSeconds">सेकेंड का दसवाँ हिस्सा</string>
   <string name="whenTimeRemainingLessThanTenSeconds">जब बचा हुआ समय &lt; 10 सेकेंड</string>
   <string name="horizontalGreenProgressBars">क्षैतिज(horizontal) हरी प्रगति सलाखें(bars)</string>

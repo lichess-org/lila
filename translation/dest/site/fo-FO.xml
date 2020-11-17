@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">Spæl ímóti einum vini</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">Spæl ímóti einum vini</string>
   <string name="playWithTheMachine">Spæl ímóti telduni</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Bjóða einum til at telva við at geva hesa adressuna</string>
   <string name="gameOver">Talvið er liðugt</string>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">Indstillinger</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">Indstillinger</string>
   <string name="gameDisplay">Skakspillets udseende</string>
   <string name="pieceAnimation">Animation af brikkerne</string>
   <string name="materialDifference">Materialeforskel</string>
@@ -9,13 +8,9 @@
   <string name="boardCoordinates">Brætkoordinater (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Trækliste mens der spilles</string>
   <string name="pgnPieceNotation">Notation</string>
-  <string name="chessPieceSymbol">Skakbrik-symbol</string>
-  <string name="pgnLetter">Bogstaver (K, Q, R, B, N)</string>
   <string name="zenMode">Zentilstand</string>
   <string name="displayBoardResizeHandle">Vis indstilling af brætstørrelse</string>
   <string name="onlyOnInitialPosition">Kun ved indledende position</string>
-  <string name="blindfoldChess">Blindskak</string>
-  <string name="chessClock">Skakur</string>
   <string name="tenthsOfSeconds">Tiendedele sekunder</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Når resterende tid &lt; 10 sekunder</string>
   <string name="horizontalGreenProgressBars">Horisontale grønne statuslinjer</string>

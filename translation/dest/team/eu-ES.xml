@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="team">Taldea</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="team">Taldea</string>
   <string name="teams">Taldeak</string>
   <plurals name="nbMembers">
     <item quantity="one">%s kide</item>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="isItRated">के यो रेटेड हो?</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="isItRated">के यो रेटेड हो?</string>
   <string name="willBeNotified">प्रतियोगिता शुरु हुदा तपाइलाई सूचना प्राप्त हुनेछ, त्यसैले त्यतिन्जेल सम्म तपाई अर्को ट्याबमा खेल्न सक्नुहुनेछ|</string>
   <string name="isRated">प्रतियोगिता रेटेड हो र यसले तपाइको रटिंग परिवर्तन गर्नेछ|</string>
   <string name="isNotRated">प्रतियोगिता रेटेड होइन र यसले तपाइको रटिंग परिवर्तन गर्ने छैन|</string>

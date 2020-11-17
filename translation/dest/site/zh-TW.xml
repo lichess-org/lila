@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">和好友下棋</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">和好友下棋</string>
   <string name="playWithTheMachine">和電腦下棋</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">邀人下棋，請分享這個網址</string>
   <string name="gameOver">遊戲結束</string>
@@ -236,7 +235,6 @@
   <string name="recipient">收件人</string>
   <string name="send">發送</string>
   <string name="incrementInSeconds">增加秒數</string>
-  <string name="freeOnlineChess">免費線上國際象棋</string>
   <string name="spectators">旁觀者：</string>
   <plurals name="nbRated">
     <item quantity="other">%s 評分</item>
@@ -301,7 +299,6 @@
   <string name="mustBeInTeam">需要在%s團隊內</string>
   <string name="youAreNotInTeam">您不在%s團隊中</string>
   <string name="backToGame">返回棋局</string>
-  <string name="siteDescription">界面清新的免費線上國際象棋平台。不用註冊，沒有廣告，無需插件。快來與電腦、朋友和陌生人一起對戰吧！</string>
   <string name="xJoinedTeamY">%1$s加入%2$s隊</string>
   <string name="xCreatedTeamY">%1$s組建%2$s隊</string>
   <string name="xStartedStreaming">%s開始直播</string>
@@ -322,9 +319,7 @@
   <plurals name="nbImportedGames">
     <item quantity="other">已導入%s盤棋局</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">這是一個國際象棋驗證碼。</string>
   <string name="clickOnTheBoardToMakeYourMove">點擊棋盤走棋以證明您是人類。</string>
-  <string name="captcha.fail">請完成驗證。</string>
   <string name="notACheckmate">沒有將死</string>
   <string name="whiteCheckmatesInOneMove">白方一步將死</string>
   <string name="blackCheckmatesInOneMove">黑方一步棋將死對手</string>
@@ -371,7 +366,6 @@
   <string name="advancedSettings">高級設定</string>
   <string name="safeTournamentName">幫錦標賽挑選一個適合的名字</string>
   <string name="inappropriateNameWarning">即便只是一點點的違規都有可能導致您的帳號被封鎖。</string>
-  <string name="emptyTournamentName">若不填入錦標賽的名稱，將會用一位著名的棋手名字來做為錦標賽名稱。</string>
   <string name="recommendNotTouching">我們建議您不要調整這些數據</string>
   <string name="fewerPlayers">如果你設定入場限制，你的錦標賽選手會比較少。</string>
   <string name="showAdvancedSettings">顯示進階設定</string>
@@ -419,8 +413,6 @@
   <string name="country">國家</string>
   <string name="socialMediaLinks">官方社群連結</string>
   <string name="inlineNotation">棋譜集中顯示</string>
-  <string name="watchLichessTV">觀看Lichess TV</string>
-  <string name="previouslyOnLichessTV">過去的Lichess TV直播</string>
   <string name="onlinePlayers">在線棋手</string>
   <string name="activeToday">本日活躍棋手</string>
   <string name="activePlayers">活躍棋手</string>
@@ -440,7 +432,7 @@
   <string name="butYouCanKeepTrying">但您可以繼續嘗試。</string>
   <string name="success">大功告成！</string>
   <string name="wasThisPuzzleAnyGood">這道題目好不好？</string>
-  <string name="pleaseVotePuzzle">按向上鍵或向下鍵投票來幫助 Lichess 提高訓練題品質：</string>
+  <string name="pleaseVotePuzzle">按向上鍵或向下鍵投票來幫助 Lishogi 提高訓練題品質：</string>
   <string name="thankYou">謝謝！</string>
   <string name="ratingX">評級：%s</string>
   <string name="hidden">隱藏</string>
@@ -531,7 +523,6 @@
   <string name="starting">开始时间：</string>
   <string name="allInformationIsPublicAndOptional">所有資料是公開的，同時是可選的。</string>
   <string name="yourCityRegionOrDepartment">您的城市、区域或省份。</string>
-  <string name="biographyDescription">給我們一個您的自我介紹，像是您的興趣、您喜愛的選手等</string>
   <plurals name="maximumNbCharacters">
     <item quantity="other">最多%s个字符</item>
   </plurals>
@@ -545,7 +536,6 @@
   <string name="clock">鐘</string>
   <string name="unauthorizedError">无权访问。</string>
   <string name="noInternetConnection">无网络。您仍然可以从菜单栏离线对弈。</string>
-  <string name="connectedToLichess">您已接入lichess.org</string>
   <string name="signedOut">登出成功</string>
   <string name="loginSuccessful">登出成功</string>
   <string name="playOnTheBoardOffline">面對面</string>
@@ -578,7 +568,7 @@
   </plurals>
   <string name="tpTimeSpentPlaying">花在下棋上的时间：%s</string>
   <string name="watchGames">觀看對局直播</string>
-  <string name="tpTimeSpentOnTV">花在Lichess TV觀看直播的時間：%s</string>
+  <string name="tpTimeSpentOnTV">花在Lishogi TV觀看直播的時間：%s</string>
   <string name="watch">觀看</string>
   <string name="videoLibrary">影片庫</string>
   <string name="streamersMenu">實況主</string>
@@ -586,7 +576,6 @@
   <string name="webmasters">網站管理員</string>
   <string name="about">關於</string>
   <string name="aboutX">關於 %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s是一個免費的(%2$s)，開放性的，無廣告，開放資源的網站</string>
   <string name="really">真的</string>
   <string name="contribute">協助</string>
   <string name="termsOfService">服務條款</string>
@@ -610,7 +599,6 @@
   <string name="simulClockHint">菲舍爾時鐘設定。棋手越多，您需要的時間可能就越多。</string>
   <string name="simulAddExtraTime">您可以給您的時鍾多加點時間以幫助您應對車輪戰。</string>
   <string name="simulHostExtraTime">主持人的额外时间</string>
-  <string name="lichessTournaments">Lichess比赛</string>
   <string name="tournamentFAQ">比赛常见问题</string>
   <string name="tournamentOfficial">官方</string>
   <string name="timeBeforeTournamentStarts">比赛准备时间</string>
@@ -621,8 +609,6 @@
   <string name="keyShowOrHideComments">显示/隐藏评论</string>
   <string name="keyEnterOrExitVariation">进入/退出变体</string>
   <string name="newTournament">新比赛</string>
-  <string name="tournamentHomeTitle">国际象棋赛事均设有不同的时间控制和变体</string>
-  <string name="tournamentHomeDescription">加入快节奏的国际象棋比赛！ 加入定时赛事，或创建自己的。 子弹，闪电，经典，菲舍尔任意制，王到中心，三次将军，并提供更多的选择为无尽的国际象棋乐趣。</string>
   <string name="tournamentNotFound">找不到该比赛</string>
   <string name="tournamentDoesNotExist">这个比赛不存在。</string>
   <string name="tournamentMayHaveBeenCanceled">它可能已被取消，假如所有的对手在比赛开始之前离开。</string>
@@ -643,8 +629,6 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">若您沒收到郵件，請檢查您的其他收件箱，例如垃圾箱、促銷、社交等。</string>
   <string name="weHaveSentYouAnEmailTo">我們發送了一封郵件到 %s。點擊郵件中的連結來重置您的密碼。</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">您一登记，我们就假设您同意尊重我们的使用规则（%s）。</string>
-  <string name="networkLagBetweenYouAndLichess">您和 lichess 之間的網絡時滯</string>
-  <string name="timeToProcessAMoveOnLichessServer">lichess 伺服器上處理走棋的時間</string>
   <string name="downloadAnnotated">下载带笔记的记录</string>
   <string name="downloadRaw">下载无笔记的记录</string>
   <string name="downloadImported">下载已导入棋局</string>
@@ -653,29 +637,23 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">您也可以用滚动键在棋盘游戏中移动。</string>
   <string name="analysisShapesHowTo">按shift点击或右键棋盘上绘制圆圈和箭头。</string>
   <string name="letOtherPlayersMessageYou">允許其他人發送私訊給您</string>
-  <string name="shareYourInsightsData">分享您的慧眼数据</string>
   <string name="withNobody">不分享</string>
   <string name="withFriends">與好友分享</string>
   <string name="withEverybody">與所有人分享</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">您已經用過 %s 來註冊 Lichess 賬戶</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">您已經用過 %s 來註冊 Lishogi 賬戶</string>
   <string name="kidMode">兒童模式</string>
   <string name="kidModeExplanation">考量安全，在兒童模式中，網站上全部的文字交流將會被關閉。開啟此模式來保護你的孩子及學生不被網路上的人傷害。</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">在兒童模式下，Lichess的標誌會有一個%s圖示，讓你知道你的孩子是安全的。</string>
   <string name="enableKidMode">啟用兒童模式</string>
   <string name="disableKidMode">停用兒童模式</string>
   <string name="security">資訊安全相關設定</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">這是已登入到您帳戶的裝置列表，您可以登出任何您無法識別的裝置。</string>
   <string name="alternativelyYouCanX">或者，您可以%s</string>
   <string name="revokeAllSessions">登出所有裝置</string>
-  <string name="playChessEverywhere">随处下棋！</string>
-  <string name="asFreeAsLichess">完全又永遠的免費。</string>
-  <string name="builtForTheLoveOfChessNotMoney">不是為了錢，是為了國際象棋所創建。</string>
   <string name="everybodyGetsAllFeaturesForFree">每個人都能免費使用所有功能</string>
   <string name="zeroAdvertisement">沒有廣告</string>
   <string name="fullFeatured">功能全面</string>
   <string name="phoneAndTablet">手機和平板電腦</string>
   <string name="bulletBlitzClassical">快棋與慢棋</string>
-  <string name="correspondenceChess">通訊賽</string>
   <string name="onlineAndOfflinePlay">線上或離線下棋</string>
   <string name="viewTheSolution">看解答</string>
   <string name="followAndChallengeFriends">添加好友並與他們對戰</string>
@@ -707,9 +685,6 @@
   <string name="usernameSuffixInvalid">使用者名稱的結尾必須為字母或數字</string>
   <string name="usernameCharsInvalid">使用者名稱只能包含字母、 數字、 底線和短劃線。</string>
   <string name="usernameUnacceptable">此使用者名稱不可用</string>
-  <string name="directlySupportLichess">直接支持Lichess</string>
-  <string name="playChessInStyle">下棋也要穿得好看</string>
-  <string name="chessBasics">基本知識</string>
   <string name="coaches">教練</string>
   <string name="invalidPgn">無效的PGN</string>
   <string name="invalidFen">無效的FEN</string>
@@ -783,7 +758,6 @@
   <string name="weHadToTimeYouOutForAWhile">您被封鎖了，在一陣子的時間內將不能下棋</string>
   <string name="timeoutExpires">封鎖結束至%s</string>
   <string name="why">為什麼？</string>
-  <string name="pleasantChessExperience">我們的目的在於為所有人提供愉快的國際象棋體驗</string>
   <string name="goodPractice">為此，我們必須確保所有參與者都遵循良好做法</string>
   <string name="potentialProblem">當檢測到不良行為時，我們將顯示此消息</string>
   <string name="howToAvoidThis">如何避免這件事發生?</string>
@@ -791,14 +765,13 @@
   <string name="tryToWin">試著在每個棋局裡獲勝(或至少平手)</string>
   <string name="resignLostGames">棄權(不要讓時間耗盡)</string>
   <string name="temporaryInconvenience">對於給您帶來的不便，我們深表歉意</string>
-  <string name="wishYouGreatGames">並祝您在lichess.org上玩得開心。</string>
+  <string name="wishYouGreatGames">並祝您在lishogi.org上玩得開心。</string>
   <string name="thankYouForReading">感謝您的閱讀!</string>
   <string name="lifetimeScore">帳戶總分</string>
   <string name="currentMatchScore">最近的對局分數</string>
-  <string name="agreementAssistance">我同意我不會在比賽期間使用支援(從書籍、電腦運算、資料庫等等)</string>
   <string name="agreementNice">我會一直尊重其他的玩家</string>
   <string name="agreementAccount">我同意我不會創造許多副帳</string>
-  <string name="agreementPolicy">我同意我將會遵守Lichess的規則</string>
+  <string name="agreementPolicy">我同意我將會遵守Lishogi的規則</string>
   <string name="searchOrStartNewDiscussion">尋找或開始聊天</string>
   <string name="edit">編輯</string>
   <string name="rapid">快速模式</string>
@@ -809,7 +782,6 @@
   <string name="rapidDesc">一般模式:8到25分鐘</string>
   <string name="classicalDesc">經典模式:25分鐘以上</string>
   <string name="correspondenceDesc">長期模式:一天或好幾天一步</string>
-  <string name="puzzleDesc">西洋棋戰術教練</string>
   <string name="important">重要</string>
   <string name="yourQuestionMayHaveBeenAnswered">您的問題可能已經有答案了%1$s</string>
   <string name="inTheFAQ">在F.A.Q裡</string>

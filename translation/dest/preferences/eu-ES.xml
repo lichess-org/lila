@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">Lehentasunak</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">Lehentasunak</string>
   <string name="gameDisplay">Partiden itxura</string>
   <string name="pieceAnimation">Piezen animazioa</string>
   <string name="materialDifference">Material desoreka</string>
@@ -9,13 +8,9 @@
   <string name="boardCoordinates">Taularen koordinatutak (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Jokaldi-zerrenda partidan zehar</string>
   <string name="pgnPieceNotation">Jokaldien idazketa</string>
-  <string name="chessPieceSymbol">Xake piezen ikurra</string>
-  <string name="pgnLetter">Hizkiak (E, D, G, A, Z)</string>
   <string name="zenMode">Zen modua</string>
   <string name="displayBoardResizeHandle">Xake-taularen tamaina aldatzeko aukera erakutsi</string>
   <string name="onlyOnInitialPosition">Hasierako posizioan bakarrik</string>
-  <string name="blindfoldChess">Xakea itsu-itsuan (piezak ez dira ikusiko)</string>
-  <string name="chessClock">Xake-erlojua</string>
   <string name="tenthsOfSeconds">Segundo-hamarrenak erakutsi</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Denbora 10 segundotik behera dagoenean</string>
   <string name="horizontalGreenProgressBars">Aurrerabide-barra berdea horizontalki</string>

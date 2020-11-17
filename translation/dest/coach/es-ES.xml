@@ -1,10 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="lichessCoaches">Entrenadores de Lichess</string>
-  <string name="lichessCoach">Entrenador de Lichess</string>
-  <string name="areYouCoach">¿Eres un gran entrenador de ajedrez con un %s?</string>
-  <string name="nmOrFideTitle">Título MN o FIDE</string>
-  <string name="confirmTitle">Confirma tu título aquí y revisaremos tu solicitud.</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="confirmTitle">Confirma tu título aquí y revisaremos tu solicitud.</string>
   <string name="sendApplication">Envíanos un correo electrónico a %s y revisaremos tu solicitud.</string>
   <string name="location">Ubicación</string>
   <string name="languages">Idiomas</string>
@@ -13,8 +8,7 @@
   <string name="availability">Disponibilidad</string>
   <string name="accepting">Acepta estudiantes</string>
   <string name="notAccepting">Actualmente, no acepta estudiantes</string>
-  <string name="xCoachesStudents">%s entrena a estudiantes de ajedrez</string>
-  <string name="viewXProfile">Ver el perfil de Lichess de %s</string>
+  <string name="viewXProfile">Ver el perfil de Lishogi de %s</string>
   <string name="sendPM">Enviar un mensaje privado</string>
   <string name="aboutMe">Sobre mí</string>
   <string name="playingExperience">Experiencia como jugador</string>

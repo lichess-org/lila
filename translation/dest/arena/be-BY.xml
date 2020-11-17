@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="isItRated">Гэта рэйтынгавыя гульні?</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="isItRated">Гэта рэйтынгавыя гульні?</string>
   <string name="willBeNotified">Вас апавясцяць, калі пачнецца турнір, так што пакуль што можаце пагуляць, адкрыўшы іншую ўкладку.</string>
   <string name="isRated">Гэты турнір рэйтынгавы і паўплывае на ваш рэйтынг.</string>
   <string name="isNotRated">Гэты турнір *не* рэйтынгавы і *не* паўплывае на ваш рэйтынг.</string>

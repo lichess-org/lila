@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="activity">Գործունեություն</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="activity">Գործունեություն</string>
 </resources>

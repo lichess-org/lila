@@ -1,11 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search">Serĉi</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="search">Serĉi</string>
   <string name="advancedSearch">Pli detala serĉo</string>
-  <plurals name="searchInXGames">
-    <item quantity="one">Serĉi en %s ŝakludo</item>
-    <item quantity="other">Serĉi en %s ŝakludoj</item>
-  </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">Unu trovita ludo</item>
     <item quantity="other">%s trovitaj ludoj</item>

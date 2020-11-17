@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="activity">Veikla</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="activity">Veikla</string>
   <string name="hostedALiveStream">Organizavo transliaciją</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Remia lichess.org %1$s mėn. kaip „%2$s“</item>
-    <item quantity="few">Remia lichess.org %1$s mėn. kaip „%2$s“</item>
-    <item quantity="many">Remia lichess.org %1$s mėn. kaip „%2$s“</item>
-    <item quantity="other">Remia lichess.org %1$s mėn. kaip „%2$s“</item>
+    <item quantity="one">Remia lishogi.org %1$s mėn. kaip „%2$s“</item>
+    <item quantity="few">Remia lishogi.org %1$s mėn. kaip „%2$s“</item>
+    <item quantity="many">Remia lishogi.org %1$s mėn. kaip „%2$s“</item>
+    <item quantity="other">Remia lishogi.org %1$s mėn. kaip „%2$s“</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Praktikavosi %1$s poziciją per „%2$s“</item>
@@ -92,7 +91,7 @@
     <item quantity="many">Užėmė #%1$s (tarp %2$s%% geriausiųjų) su %3$s partijų, žaidžiant „%4$s“</item>
     <item quantity="other">Užėmė #%1$s (tarp %2$s%% geriausiųjų) su %3$s partijų, žaidžiant „%4$s“</item>
   </plurals>
-  <string name="signedUp">Užsiregistravo „Lichess“</string>
+  <string name="signedUp">Užsiregistravo „Lishogi“</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Prisijungė prie %s komandos</item>
     <item quantity="few">Prisijungė prie %s komandų</item>

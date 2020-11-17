@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">C\'hoari a-enep ur mignon</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">C\'hoari a-enep ur mignon</string>
   <string name="playWithTheMachine">C\'hoari a-enep an urzhiataer</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Evit pediñ unan bennak da c\'hoari, kasit dezhañ/dezhi an URL -mañ</string>
   <string name="gameOver">Krogad echu</string>
@@ -262,7 +261,6 @@
   <string name="recipient">Degemerer</string>
   <string name="send">Kas</string>
   <string name="incrementInSeconds">Inkremant e eilennoù</string>
-  <string name="freeOnlineChess">C\'hoari echedoù enlinenn digoust</string>
   <string name="spectators">Arvesterien:</string>
   <plurals name="nbRated">
     <item quantity="one">%s c\'hoari renket</item>
@@ -308,7 +306,7 @@
     <item quantity="many">Reiñ %s eilennoù</item>
     <item quantity="other">Reiñ %s eilennoù</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Perc\'henner ar gont-mañ en deus ket doujet ouzh Reolennoù Lichess</string>
+  <string name="thisAccountViolatedTos">Perc\'henner ar gont-mañ en deus ket doujet ouzh Reolennoù Lishogi</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Kresket/digresket e vez e live en un doare direizh gant ar c\'hoarier-mañ</string>
   <string name="takeback">Nullañ ar fiñvadenn ziwezhañ</string>
   <string name="proposeATakeback">Kinnig nullañ ar fiñvadenn ziwezhañ</string>
@@ -371,7 +369,6 @@
   <string name="mustBeInTeam">A rank bezañ e skipailh %s</string>
   <string name="youAreNotInTeam">N\'oc\'h ket e skipailh %s</string>
   <string name="backToGame">Distreiñ d\'ar c\'hrogad</string>
-  <string name="siteDescription">C\'hoari echedoù enlinenn evit netra gant un etrefas simpl. Enskrivadur ebet, bruderezh ebet ha lugant ebet. C\'hoarit a-enep an urzhiataer, a-enep ho mignoned pe a-enep enebourien dianav deus ar bed a-bezh.</string>
   <string name="xJoinedTeamY">%1$s zo deuet da vezañ ezel eus skipailh %2$s</string>
   <string name="xCreatedTeamY">Gant %1$s zo bet krouet ar skipailh %2$s</string>
   <string name="xStartedStreaming">%s zo krog da skignañ ur video dre froud</string>
@@ -394,9 +391,7 @@
     <item quantity="many">%s krogad enporzhiet</item>
     <item quantity="other">%s krogad enporzhiet</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Ur c\'hCAPTCHA echedoù an hini eo.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klikit war an dachenn emgann d\'ober ho fiñvadenn ha prouit oc\'h un den.</string>
-  <string name="captcha.fail">Diskoulmit ar c\'hCAPTCHA echedoù mar plij.</string>
   <string name="notACheckmate">N\'eo ket boud ar roue</string>
   <string name="whiteCheckmatesInOneMove">Ar re wenn a ray lamm d\'ar roue gant ur fiñvadenn</string>
   <string name="blackCheckmatesInOneMove">Ar re zu a ray lamm d\'ar roue gant ur fiñvadenn</string>
@@ -459,7 +454,6 @@
   <string name="advancedSettings">Arventennoù kempleshoc\'h</string>
   <string name="safeTournamentName">Choazit un anv dereat-tre evit an tournamant.</string>
   <string name="inappropriateNameWarning">Un draig ha ne vefe ket dereat a vefe trawalc\'h evit ma serrfemp ho kont.</string>
-  <string name="emptyTournamentName">Laoskit goullo evit envel an tournamant diouzh anv ur c\'hoarier echedoù brudet.</string>
   <string name="recommendNotTouching">Gwelloc\'h eo deoc\'h chom hep kemm anezhe.</string>
   <string name="fewerPlayers">Ma c\'houlennit strishadurioù evit mont-tre e vo nebeutoc\'h a c\'hoarierien o kemer perzh en ho tournamant.</string>
   <string name="showAdvancedSettings">Diskouez an arventennoù kempleshoc\'h</string>
@@ -499,8 +493,6 @@
   <string name="country">Bro</string>
   <string name="socialMediaLinks">Liammoù ar mediaoù sokial</string>
   <string name="inlineNotation">Notennoù en-linenn</string>
-  <string name="watchLichessTV">Sellet ouzh Lichess TV</string>
-  <string name="previouslyOnLichessTV">N\'eus ket pell zo war Lichess TV</string>
   <string name="onlinePlayers">C\'hoarierien enlinenn</string>
   <string name="activeToday">Oberiat hiziv</string>
   <string name="activePlayers">C\'hoarierien oberiat</string>
@@ -519,7 +511,7 @@
   <string name="butYouCanKeepTrying">Gallout a rit klask c\'hoazh.</string>
   <string name="success">Deuet oc\'h a-benn</string>
   <string name="wasThisPuzzleAnyGood">Mat e oa ar boelladenn?</string>
-  <string name="pleaseVotePuzzle">Skoazellit lichess da wellaat en ur votiñ gant ar bir war-zu an nec\'h pe an traoñ:</string>
+  <string name="pleaseVotePuzzle">Skoazellit lishogi da wellaat en ur votiñ gant ar bir war-zu an nec\'h pe an traoñ:</string>
   <string name="thankYou">Trugarez!</string>
   <string name="hidden">kuzhet</string>
   <plurals name="playedXTimes">
@@ -596,7 +588,6 @@
   <string name="starting">Kregiñ a ray da:</string>
   <string name="allInformationIsPublicAndOptional">An holl ditouroù a c\'hall bezañ foran ha da zibab.</string>
   <string name="yourCityRegionOrDepartment">Ho kêr, ho rannvro pe ho tepartamant.</string>
-  <string name="biographyDescription">Kaozeal diwar ho penn, ho tudioù, ar pezh a blij deoc\'h en echedoù, ho toare da gregiñ gant ur c\'hrogad, c\'hoarierien, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Hirder brasañ : %s arouezenn.</item>
     <item quantity="two">Hirder brasañ: %s arouezenn.</item>
@@ -618,7 +609,6 @@
   <string name="clock">Horolaj</string>
   <string name="unauthorizedError">Tremen berzet.</string>
   <string name="noInternetConnection">Internet ebet. Gallout a rit c\'hoari hep bezañ kevreet, kit da welet el lañser.</string>
-  <string name="connectedToLichess">Kevreet oc\'h ouzh lichess.org</string>
   <string name="signedOut">Digevreet oc\'h bet</string>
   <string name="loginSuccessful">Kevreet oc\'h</string>
   <string name="playOfflineComputer">Urzhiataer</string>
@@ -661,7 +651,6 @@
   <string name="webmasters">Mistri-gwiad</string>
   <string name="about">A-zivout</string>
   <string name="aboutX">A-zivout %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">Digoust (%2$s) eo %1$s, dieub, hep bruderezh ha digor he mammenn.</string>
   <string name="really">da vat</string>
   <string name="contribute">Kenoberiañ</string>
   <string name="termsOfService">Divizoù gwerzhañ hollek</string>
@@ -670,7 +659,6 @@
   <string name="hostColorX">Liv an ostiz: %s</string>
   <string name="aboutSimulImage">A-enep 50 enebour eo bet trec\'h Fischer 47 gwech, div wech rampo ha trec\'het ur wech nemetken.</string>
   <string name="create">Krouiñ</string>
-  <string name="lichessTournaments">Tournamantoù Lichess</string>
   <string name="tournamentFAQ">FAG aren an tournamant</string>
   <string name="tournamentOfficial">Ofisiel</string>
   <string name="timeBeforeTournamentStarts">Ar pezh a chom a-raok ma krogfe an tournamant</string>
@@ -714,15 +702,11 @@
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Setu roll an trobarzhelloù bet luget war ho kont. Skarzhit an dalc\'hoù dianav deoc\'h.</string>
   <string name="alternativelyYouCanX">A-hend-all e c\'hallit %s.</string>
   <string name="revokeAllSessions">skarzhañ an holl zalc\'hoù</string>
-  <string name="playChessEverywhere">C\'hoari echedoù e pep lec\'h</string>
-  <string name="asFreeAsLichess">Ken digoust ha lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Krouiñ evit an echedoù ha n\'eo ket evit an arc\'hant</string>
   <string name="everybodyGetsAllFeaturesForFree">Forzh piv a c\'hall kaout an holl arc\'hweladurioù, digoust eo</string>
   <string name="zeroAdvertisement">Tamm bruderezh ebet</string>
-  <string name="fullFeatured">Lichess ha muioc\'h c\'hoazh</string>
+  <string name="fullFeatured">Lishogi ha muioc\'h c\'hoazh</string>
   <string name="phoneAndTablet">Pellgomzer ha tabletenn</string>
   <string name="bulletBlitzClassical">Bullet, blitz, klasel</string>
-  <string name="correspondenceChess">Echedoù a-bell</string>
   <string name="onlineAndOfflinePlay">C\'hoari enlinenn pe get</string>
   <string name="viewTheSolution">Gwelet ar respont</string>
   <string name="followAndChallengeFriends">Heuliañ ha c\'hoari a-enep mignoned</string>
@@ -753,8 +737,6 @@
   <string name="usernamePrefixInvalid">Gant ul lizherenn e rank kregiñ an anv implijer.</string>
   <string name="usernameSuffixInvalid">Gant ul lizherenn pe ur sifr e echu an anv-implijer, dre ret.</string>
   <string name="usernameUnacceptable">Ne c\'haller degemer an anv-implijer-mañ.</string>
-  <string name="directlySupportLichess">Skoazell Lichess war-eeun</string>
-  <string name="chessBasics">Diazezoù an echedoù</string>
   <string name="coaches">Gourdonerien</string>
   <string name="invalidPgn">Ur gudenn zo gant ar PGN</string>
   <string name="invalidFen">Ur gudenn zo gant ar FEN</string>
@@ -826,13 +808,12 @@
   <string name="playEveryGame">Kit betek penn ho krogadoù.</string>
   <string name="tryToWin">Klaskit gounit pep krogad (pe bezañ rampo diantav).</string>
   <string name="temporaryInconvenience">Hon digarezit evit an diaezamant berrbad,</string>
-  <string name="wishYouGreatGames">hag e hetomp krogadoù mat deoc\'h war lichess.org.</string>
+  <string name="wishYouGreatGames">hag e hetomp krogadoù mat deoc\'h war lishogi.org.</string>
   <string name="thankYouForReading">Mersi da vezañ lennet!</string>
   <string name="currentMatchScore">Taolenn an disoc\'hoù etrezoc\'h</string>
-  <string name="agreementAssistance">Biken ne vin sikouret e-pad ma c\'hrogadoù (na gant un urzhiataer echedoù, na gant ul levr, un diaz roadennoù pe un den all).</string>
   <string name="agreementNice">Prometiñ a ran bezañ bepred hegarat ouzh ar c\'hoarierien all.</string>
   <string name="agreementAccount">Prometiñ a ran e chomin hep krouiñ meur a gont.</string>
-  <string name="agreementPolicy">Prometiñ a ran e heuilhin reolennoù Lichess.</string>
+  <string name="agreementPolicy">Prometiñ a ran e heuilhin reolennoù Lishogi.</string>
   <string name="searchOrStartNewDiscussion">Klask ur gaozeadenn pe krouiñ unan nevez</string>
   <string name="edit">Cheñch</string>
   <string name="rapid">Prim</string>
@@ -843,7 +824,6 @@
   <string name="rapidDesc">Krogadoù fonnus: etre 8 ha 25 munutenn</string>
   <string name="classicalDesc">Krogadoù klasel: 25 munutenn ha muioc\'h</string>
   <string name="correspondenceDesc">Krogadoù a-bell: un deiz pe meur a hini evit ur fiñvadenn</string>
-  <string name="puzzleDesc">Gourdoner poelladennoù echedoù</string>
   <string name="important">A-bouez</string>
   <string name="yourQuestionMayHaveBeenAnswered">Ur respont zo bet d\'ho koulenn dija marteze %1$s</string>
   <string name="inTheFAQ">er FAG.</string>

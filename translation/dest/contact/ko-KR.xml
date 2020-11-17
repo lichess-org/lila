@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="contact">연락처</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="contact">연락처</string>
   <string name="whatCanWeHelpYouWith">어떻게 도와드릴까요?</string>
   <string name="visitThisPage">이 페이지를 방문해 문제를 해결하십시오</string>
   <string name="iCantLogIn">로그인이 되지 않습니다</string>

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">বন্ধুর সাথে খেলো</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">বন্ধুর সাথে খেলো</string>
   <string name="playWithTheMachine">কম্পিউটারের সাথে খেলতে চান</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">কাউকে খেলার জন্য আমন্ত্রণ জানাতে চাইলে এই URL টি দিন</string>
   <string name="gameOver">খেলা সমাপ্ত</string>
@@ -247,7 +246,6 @@
   <string name="recipient">প্রাপক</string>
   <string name="send">পাঠান</string>
   <string name="incrementInSeconds">প্রতি সেকেন্ডে পর্যায়ক্রমিক বৃদ্ধি</string>
-  <string name="freeOnlineChess">ফ্রি অনলাইন দাবা</string>
   <string name="spectators">দর্শক</string>
   <plurals name="nbRated">
     <item quantity="one">%s অনুপাত</item>
@@ -325,7 +323,6 @@
   <string name="mustBeInTeam">অবশ্যই %s টিমে থাকতে হবে।</string>
   <string name="youAreNotInTeam">আপনি %s দলে নেই।</string>
   <string name="backToGame">খেলায় এ ফিরে যান</string>
-  <string name="siteDescription">ফ্রি অনলাইন দাবা খেলা। এখন থেকে পরিচ্ছন্ন ইন্টারফেসে দাবা খেলুন। কোন রেজিস্ট্রেশনের দরকার নেই, নেই কোন বিজ্ঞাপন, এমনকি কোনও প্লাগইন-এরও প্রয়োজন নেই। দাবা খেলুন কম্পিউটারের সাথে, অথবা বন্ধুর সাথে অথবা অজানা যে কোন প্রতিপক্ষের সাথে।</string>
   <string name="xJoinedTeamY">%1$s যোগ দিলেন %2$s দলে</string>
   <string name="xCreatedTeamY">%1$s বানালেন %2$s দল</string>
   <string name="xStartedStreaming">%s স্ট্রিমিং শুরু করেছেন</string>
@@ -344,7 +341,7 @@
 
 এমনটি নেভিগেশন বারে ব্যবহৃত হয় না - স্টাডিমেনু থেকে আপনি অনুসন্ধান করে স্ট্রিংটি খুঁজে পেতে পারেন।
 
-এই স্ট্রিংটি সেই সময়টার জন্যই যখন আপনি কোনও গেম বিশ্লেষণ করেন এবং সেই বিশ্লেষণকে লাইচেসের স্টাডিতে রেখে দিতে চান। \'স্টাডি\' লেবেলযুক্ত একটি বাটন রয়েছে যেই বাটনটির কাজই এটি । বোতামটি ব্যাবহার করে লাইচেস স্টাডিতে যুক্ত করতে পারবেন। এই সম্পর্কে যদি আপনি না জেনে থাকেন তবে https://lichess. org/study দেখুন।
+এই স্ট্রিংটি সেই সময়টার জন্যই যখন আপনি কোনও গেম বিশ্লেষণ করেন এবং সেই বিশ্লেষণকে লাইচেসের স্টাডিতে রেখে দিতে চান। \'স্টাডি\' লেবেলযুক্ত একটি বাটন রয়েছে যেই বাটনটির কাজই এটি । বোতামটি ব্যাবহার করে লাইচেস স্টাডিতে যুক্ত করতে পারবেন। এই সম্পর্কে যদি আপনি না জেনে থাকেন তবে https://lishogi. org/study দেখুন।
 
 সাধারণত আমরা অনুবাদ ক্রিয়াপদে করার পরামর্শ দিই, তবে এই ধরনের পরিস্থিতিতে ভাষায় নামপদ ব্যাবহারও গ্রহনযোগ্য।</string>
   <string name="importGame">খেলা আমদানী</string>
@@ -354,9 +351,7 @@
     <item quantity="one">%s টি আমদানীকৃত খেলা</item>
     <item quantity="other">%s টি আমদানীকৃত খেলা</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">এটি হল দাবা CAPTCHA</string>
   <string name="clickOnTheBoardToMakeYourMove">বোর্ডে ক্লিক করে চাল দিয়ে প্রমাণ করুন যে আপনি সত্যিই মানুষ, রোবট নন।</string>
-  <string name="captcha.fail">দয়া করে দাবার ক্যাপচা সমাধান করুন.</string>
   <string name="notACheckmate">এটি কিস্তিমাত নয়</string>
   <string name="whiteCheckmatesInOneMove">সাদা দলের একটি মুভে চেকমেট
 
@@ -411,7 +406,6 @@
   <string name="advancedSettings">এডভান্সড সেটিংস</string>
   <string name="safeTournamentName">টুর্নামেন্টের জন্য একটি নিরাপদ নাম পছন্দ করুন।</string>
   <string name="inappropriateNameWarning">এমনকি সামান্য অনুপযুক্ত কিছুও আপনার অ্যাকাউন্ট বন্ধ করতে পারে।</string>
-  <string name="emptyTournamentName">কোন গ্র্যান্ডমাস্টারের নামে টুর্নামেন্টের নাম দিতে চাইলে খালি রাখুন।</string>
   <string name="recommendNotTouching">এটা টাচ না করার জন্য পরামর্শ দেয়া হচ্ছে।</string>
   <string name="fewerPlayers">যদি আপনি এন্ট্রি করার শর্ত ঠিক করে দেন, তাহলে টুর্নামেন্টে তুলনামূলকভাবে কম খেলোয়ার পাওয়া যাবে।</string>
   <string name="showAdvancedSettings">এডভান্সড সেটিংসে যান</string>
@@ -459,8 +453,6 @@
   <string name="country">দেশ</string>
   <string name="socialMediaLinks">সোশ্যাল মিডিয়ার লিঙ্ক</string>
   <string name="inlineNotation">রেখা চিহ্ন</string>
-  <string name="watchLichessTV">Lichess TV দেখুন</string>
-  <string name="previouslyOnLichessTV">এর আগে Lichess TV- তে যা হয়েছে</string>
   <string name="onlinePlayers">যে সমস্ত  খেলোয়ার অনলাইন আছে</string>
   <string name="activeToday">যারা আজকে সক্রিয় রয়েছে</string>
   <string name="activePlayers">সক্রিয় খেলোয়াড়গণ</string>
@@ -480,7 +472,7 @@
   <string name="butYouCanKeepTrying">তবে চেষ্টা চালিয়ে যেতে পারেন</string>
   <string name="success">সফল্য হয়েছে</string>
   <string name="wasThisPuzzleAnyGood">এই ধাঁধাটি কেমন ছিল ?</string>
-  <string name="pleaseVotePuzzle">UP অথবা Down arrow তে ভোট করে lichess-কে সাহায্য করুন</string>
+  <string name="pleaseVotePuzzle">UP অথবা Down arrow তে ভোট করে lishogi-কে সাহায্য করুন</string>
   <string name="thankYou">ধন্যবাদ</string>
   <string name="ratingX">অনুপাত: %s</string>
   <string name="hidden">লুকায়িত</string>
@@ -573,7 +565,6 @@
   <string name="starting">শুরু হইতেছে:</string>
   <string name="allInformationIsPublicAndOptional">সব তথ্য হয় সরকারী এবং ঐচ্ছিক.</string>
   <string name="yourCityRegionOrDepartment">আপনার শহর, এলাকা, অথবা প্রদেশ.</string>
-  <string name="biographyDescription">আপনার সম্পর্কে বলুন, দাবায় আপনি কি পচ্ছন্দ করেন, আপনার প্রিয় সাইটগুলো, খেলা, খেলোয়াড়দের সম্পর্কে বলুন…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">সর্বোচ্চ: %s টি অক্ষর</item>
     <item quantity="other">সর্বোচ্চ: %s টি অক্ষর</item>
@@ -589,7 +580,6 @@
   <string name="clock">ঘড়ি</string>
   <string name="unauthorizedError">অধিগমন অননুমোদিত করা হয়েছে.</string>
   <string name="noInternetConnection">ইন্টারনেট সংযোগ নেই. অবশ্যই আপনি ইন্টারনেট সংযোগ ছাড়া মেনু থেকে খেলতে পারবেন.</string>
-  <string name="connectedToLichess">এখন আপনি সংযুক্ত হয়েছেন lichess.org</string>
   <string name="signedOut">আপনি সাইন আউট হয়েছেন</string>
   <string name="loginSuccessful">আপনি এখন সাইন ইন হয়েছেন</string>
   <string name="playOnTheBoardOffline">বোর্ডের উপরে</string>
@@ -631,7 +621,6 @@
   <string name="webmasters">ওয়েবমাস্টারগুলো</string>
   <string name="about">সম্পর্কে</string>
   <string name="aboutX">%s সম্পর্কে</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s বিনামুল্যে (%2$s), লাইব্রেরী, এড-মুক্ত, ওপেনসোর্স দাবার সার্ভার.</string>
   <string name="really">সত্যিকার অর্থেই</string>
   <string name="contribute">অবদান</string>
   <string name="termsOfService">পরিষেবার শর্তাদি</string>
@@ -655,7 +644,6 @@
   <string name="simulClockHint">ফিশার ঘড়ি বিন্যাস. একবারে অনেক খেলোয়াড় নিলে, হয়তো আপনার অনেক সময় প্রয়োজন হবে.</string>
   <string name="simulAddExtraTime">আপনি হয়তো অতিরিক্ত সময় যোগ করে আপনার ঘড়ি সিমুলের সাথে মোকাবেলা করতে পারবেন.</string>
   <string name="simulHostExtraTime">অতিরিক্ত ঘড়ির সময়ের স্বাগতিক</string>
-  <string name="lichessTournaments">দাবা ক্রীড়া-প্রতিযোগিতা</string>
   <string name="tournamentFAQ">কর্মক্ষেত্র প্রতিযোগিতার প্রশ্নবলী</string>
   <string name="tournamentOfficial">সরকারী</string>
   <string name="timeBeforeTournamentStarts">সময়ের পূর্বে প্রতিযোগিতা শুরু</string>
@@ -666,8 +654,6 @@
   <string name="keyShowOrHideComments">দেখুন/মন্তব্য লুকান</string>
   <string name="keyEnterOrExitVariation">প্রবেশ করান/বেরিয়ে যান</string>
   <string name="newTournament">নতুন ক্রীড়া-প্রতিযোগিতা</string>
-  <string name="tournamentHomeTitle">দাবা ক্রীড়া-প্রতিযোগিতা বিভিন্ন সময় নিয়ন্ত্রণ এবং বৈকল্পিক দেখানো হয়েছে</string>
-  <string name="tournamentHomeDescription">দ্রুত-গুরূত্বপূর্ণ দাবা প্রতিযোগিতা খেলুন! একটি অফিসিয়াল সময়সূচী প্রতিযোগিতায় যোগ দিন অথবা নিজের তৈরি করুন. বুল্লেট, বিলটজ, ক্লাসিক্যাল, দাবা960, পাহাড়ের রাজা, তিনরেখা, এবং আরো অপশন রয়েছে দাবা মজার জন্য.</string>
   <string name="tournamentNotFound">ক্রীড়া-প্রতিযোগিতা খুজে পাওয়া যাইনি</string>
   <string name="tournamentDoesNotExist">এই ক্রীড়া-প্রতিযোগিতার অস্তিত্ব নেই.</string>
   <string name="tournamentMayHaveBeenCanceled">ক্রীড়া-প্রতিযোগিতা শুরু হওয়ার পূর্বে যদি সব খেলোয়াড় বেড়িয়ে যায়, হয়তো এটা বাতিল করা হতে পারে.</string>
@@ -689,8 +675,6 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">যদি আপনি ই-মেইলটি না দেখতে পান, অন্যজাগায় থাকতে পারে, যেমন আপনার জুনক, স্প্যাম, সোসিয়াল, অথবা অন্য ফোল্ডার.</string>
   <string name="weHaveSentYouAnEmailTo">আমরা একটি ই-মেইল পাঠিয়েছি %s. ই-মেইলে দেওয়া লিংকে ক্লিক করুন পাসওয়ার্ড পরিবর্তন করতে.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">নিবন্ধন করে, আপনি সম্মত হন আমাদের দ্বারা আবদ্ধ হতে %s.</string>
-  <string name="networkLagBetweenYouAndLichess">আপনার এবং লিচেস এর মধ্যে নেটওয়ার্ক ব্যবধান</string>
-  <string name="timeToProcessAMoveOnLichessServer">লিচেস সার্ভারে স্থানান্তর প্রক্রিয়া করার সময়</string>
   <string name="downloadAnnotated">টীকাযুক্ত ডাউনলোড করুন</string>
   <string name="downloadRaw">কাঁচা ডাউনলোড করুন</string>
   <string name="downloadImported">আগমিত ডাউনলোড করুন</string>
@@ -699,30 +683,23 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">খেলা সরাতে আপনি বোর্ডের উপর স্ক্রল ও করতে পারবেন.</string>
   <string name="analysisShapesHowTo">সিফ্ট+ক্লিক চাপুন অথবা ডান-ক্লিক করুন বোর্ডের উপর বৃত্ত এবং তীর আঁকার জন্য.</string>
   <string name="letOtherPlayersMessageYou">অন্যান্য খেলোয়ারদের আপনাকে বার্তা করতে দিন</string>
-  <string name="shareYourInsightsData">আপনার দাবার অর্ন্তদৃষ্টি তথ্য শেয়ার করুন</string>
   <string name="withNobody">কারো সাথে না</string>
   <string name="withFriends">বন্ধুদের সাথে</string>
   <string name="withEverybody">সবার সাথে</string>
   <string name="youHaveAlreadyRegisteredTheEmail">আপনি ইতিমধ্যে এই ই-মেইলে নিবন্ধন করেছেন: %s</string>
   <string name="kidMode">বাচ্চা ধরন</string>
   <string name="kidModeExplanation">এটা হয় নিরাপত্তা সম্পর্কে. বাচ্চা ধরনের মধ্যে সব সাইটের যোগাযোগ নিষ্ক্রিয় করা হয়েছে. আপনার বাচ্চা এবং বিদ্যালয়ের ছাত্রদের, অন্য ইন্টারনেট ব্যবহারকারীদের থেকে রক্ষা করতে এটা সক্রিয় করুন.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">বাচ্চা ধরনের মধ্যে, লিচেস লোগো পায় একটি %s প্রতীক,
-তাই আপনি জানতে পারবেন আপনার বাচ্চা নিরাপদ.</string>
   <string name="enableKidMode">বাচ্চা ধরন সক্রিয় করুন</string>
   <string name="disableKidMode">বাচ্চা ধরন নিষ্ক্রিয় করুন</string>
   <string name="security">নিরাপত্তা</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">এটা হয় ডিভাইসগুলির একটি তালিকা যা আপনার একাউন্টের সাথে লগইন আছে. বাতিল করুন সেই সেশন গুলো যা আপনি চেনেন না.</string>
   <string name="alternativelyYouCanX">অন্যভাবে আপনি পারেন %s.</string>
   <string name="revokeAllSessions">সকল সেশন বাতিল করুন</string>
-  <string name="playChessEverywhere">দাবা খেলুন সব জায়গায়</string>
-  <string name="asFreeAsLichess">যেমন লিচাস মুক্ত হিসাবে</string>
-  <string name="builtForTheLoveOfChessNotMoney">দাবার ভালবাসার জন্য তৈরি, টাকা না</string>
   <string name="everybodyGetsAllFeaturesForFree">সকলেই পাবে বিনামূল্যে সব বৈশিষ্ট্য</string>
   <string name="zeroAdvertisement">শূন্য বিজ্ঞাপন</string>
   <string name="fullFeatured">সম্পূর্ণ বৈশিষ্ট্যযুক্ত</string>
   <string name="phoneAndTablet">ফোন এবং ট্যাবলেট</string>
   <string name="bulletBlitzClassical">গুলি, খুব দ্রুত আক্রমণ, ক্লাসিকাল</string>
-  <string name="correspondenceChess">সাদৃশ্য দাবা</string>
   <string name="onlineAndOfflinePlay">অনলাইন এবং অফলাইন খেলা</string>
   <string name="viewTheSolution">সমাধান দেখুন</string>
   <string name="followAndChallengeFriends">অনুসরন করুন এবং বন্ধুদের চ্যালেঞ্জ করুন</string>
@@ -754,9 +731,6 @@
   <string name="usernameSuffixInvalid">ইউজারনেম অবশ্যই কোন অক্ষর বা সংখ্যা দ্বারা শেষ হতে হবে।</string>
   <string name="usernameCharsInvalid">ইউজারনেমে শুধুমাত্র অক্ষর, নাম্বার, আন্ডারস্কোর এবং হাইফেন থাকতে পারবে।</string>
   <string name="usernameUnacceptable">এই ব্যবহারকারী নামটি গ্রহণযোগ্য নয়.</string>
-  <string name="directlySupportLichess">সরাসরি লিচাস সমার্থন</string>
-  <string name="playChessInStyle">দাবা খেলুন শৈলিতে</string>
-  <string name="chessBasics">দাবা মূলসূত্র</string>
   <string name="coaches">প্রশিক্ষক</string>
   <string name="invalidPgn">অকার্যকর PGN</string>
   <string name="invalidFen">অকার্যকর FEN</string>
@@ -836,9 +810,7 @@
   <string name="weHadToTimeYouOutForAWhile">আমাদের কিছুক্ষণের জন্য আপনাকে বিরতি হল।</string>
   <string name="timeoutExpires">সময়সীমা শেষ হবে</string>
   <string name="why">কেন</string>
-  <string name="pleasantChessExperience">আমাদের লক্ষ্য প্রত্যেকের জন্য একটি আনন্দদায়ক দাবা খেলার অভিজ্ঞতা দেয়া।</string>
   <string name="goodPractice">সেই লক্ষ্যে আমাদের অবশ্যই নিশ্চিত করতে হবে যে সমস্ত খেলোয়াড় ভাল অভ্যাস চর্চা করে।</string>
-  <string name="agreementAssistance">আমি সম্মতি এবং প্রতিশ্রুতি দিচ্ছি যে দাবা খেলার সময় কম্পিউটারের সহায়তা নিয়ে, কোনো প্রোগ্রাম বই, ডেটাবেজ বা অন্যকোনো ব্যাক্তির সহায়তা নিয়ে চিটিং করে খেলবো না).</string>
   <string name="agreementNice">আমি সম্মতি জানাচ্ছি সকল দাবাড়ু খেলোয়াড়দের সঙ্গে শ্রদ্ধাশীল আচরন করবো.</string>
   <string name="agreementAccount">আমি সম্মতি জানাচ্ছি যে নিজের জন্য একটিই একাউন্ট খুলে রাখবো পাশাপাশি অনেকগুলো একাউন্ট খুলে রাখবো না.</string>
   <string name="agreementPolicy">আমি সম্মতি জানাচ্ছি যে আমি লাইচেজের সকল নিয়মকানুন মেনে চলবো.</string>

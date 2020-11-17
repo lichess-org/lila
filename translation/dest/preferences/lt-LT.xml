@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="preferences">Nuostatos</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="preferences">Nuostatos</string>
   <string name="gameDisplay">Žaidimo vaizdas</string>
   <string name="pieceAnimation">Figūrų animacija</string>
   <string name="materialDifference">Figūrų vertės skirtumas</string>
@@ -9,13 +8,9 @@
   <string name="boardCoordinates">Lentos koordinatės (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Ėjimų sąrašas žaidžiant</string>
   <string name="pgnPieceNotation">Ėjimų žymėjimas</string>
-  <string name="chessPieceSymbol">Šachmatų figūrų simboliai</string>
-  <string name="pgnLetter">Raidės (K, Q, R, B, N)</string>
   <string name="zenMode">„Zen“ režimas</string>
   <string name="displayBoardResizeHandle">Rodyti lentos dydžio keitimo simbolį</string>
   <string name="onlyOnInitialPosition">Tik pradinėje padėtyje</string>
-  <string name="blindfoldChess">Aklieji šachmatai (nematomos figūros)</string>
-  <string name="chessClock">Žaidimo laikrodis</string>
   <string name="tenthsOfSeconds">Dešimtosios sekundės dalys</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Kai lieka mažiau nei 10 sekundžių</string>
   <string name="horizontalGreenProgressBars">Horizontalios, žalios eigos juostos</string>

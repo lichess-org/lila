@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="arenaTournaments">Arénové turnaje</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="arenaTournaments">Arénové turnaje</string>
   <string name="isItRated">Započítava sa turnaj do môjho ratingu?</string>
   <string name="willBeNotified">Dáme Vám vedieť keď turnaj začne, takže kým čakáte, môžete pokojne hrať na ďalšej karte prehliadača.</string>
   <string name="isRated">Tento turnaj sa bude počítať do Vášho ratingu.</string>

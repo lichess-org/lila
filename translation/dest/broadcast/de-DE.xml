@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="broadcasts">Übertragungen</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="broadcasts">Übertragungen</string>
   <string name="liveBroadcasts">Live-Turnierübertragungen</string>
   <string name="newBroadcast">Neue Liveübertragung</string>
   <string name="ongoing">Laufend</string>
@@ -11,7 +10,7 @@
   <string name="fullDescription">Vollständige Ereignisbeschreibung</string>
   <string name="fullDescriptionHelp">Optionale, ausführliche Beschreibung der Übertragung. %1$s ist verfügbar. Die Beschreibung muss kürzer als %2$s Zeichen sein.</string>
   <string name="sourceUrl">Quell-URL</string>
-  <string name="sourceUrlHelp">URL die Lichess abfragt um PGN Aktualisierungen zu erhalten. Sie muss öffentlich aus dem Internet zugänglich sein.</string>
+  <string name="sourceUrlHelp">URL die Lishogi abfragt um PGN Aktualisierungen zu erhalten. Sie muss öffentlich aus dem Internet zugänglich sein.</string>
   <string name="roundNumber">Rundennummer</string>
   <string name="startDate">Startdatum in deiner eigenen Zeitzone</string>
   <string name="startDateHelp">Optional, falls du weißt wann das Ereignis beginnt</string>

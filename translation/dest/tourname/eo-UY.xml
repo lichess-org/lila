@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="hourlyRapidArena">Ĉiuhora Rapida Areno</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="hourlyRapidArena">Ĉiuhora Rapida Areno</string>
   <string name="hourlyRapid">Ĉiuhora Areno</string>
   <string name="hourlyXArena">Ĉiuhora %s Areno</string>
   <string name="hourlyX">Ĉiuhora %s</string>

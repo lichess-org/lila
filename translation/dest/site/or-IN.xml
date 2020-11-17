@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="playWithAFriend">ସାଙ୍ଗଙ୍କ ସହ ଖେଳନ୍ତୁ</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources><string name="playWithAFriend">ସାଙ୍ଗଙ୍କ ସହ ଖେଳନ୍ତୁ</string>
   <string name="playWithTheMachine">କମ୍ପ୍ୟୁଟର ସହ ଖେଳନ୍ତୁ</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">କାହାକୁ ଖେଳିବାକୁ ଆମନ୍ତ୍ରଣ କରିବାକୁ, ଏହି URL ଦିଅ |</string>
   <string name="gameOver">ଖେଳ ସମାପ୍ତ</string>
