@@ -41,9 +41,9 @@ object Binary {
       bs match {
         case _ if pliesToGo <= 0 => Nil
         case Nil                 => Nil
-        case b1 :: b2 :: rest if moveType(b1) == MoveType.SimplePiece =>
+        case b1 :: b2 :: rest if (moveType(b1) == MoveType.SimplePiece) =>
           simplePiece(b1, b2) :: intMoves(rest, pliesToGo - 1)
-        case b1 :: b2 :: b3 :: rest if moveType(b1) == MoveType.FullPiece =>
+        case b1 :: b2 :: b3 :: rest if (moveType(b1) == MoveType.FullPiece) =>
           fullPiece(b1, b2, b3) :: intMoves(rest, pliesToGo - 1)
         case x => !!(x map showByte mkString ",")
       }
@@ -75,12 +75,15 @@ object Binary {
     }
 
     def fullPiece(b1: Int, b2: Int, b3: Int): String = {
-      val pos     = posString(right(b1, 7))
-      val piece   = pieceStrs(b2 >> 4)
-      val capture = if (bitAt(b2, 2)) "x" else ""
-      val check   = checkStrs(cut(b2, 4, 2))
-      val from    = posString(right(b3, 7))
-      s"$piece$from$capture$pos$check"
+      pieceStrs(b2 >> 4) match {
+        case piece => {
+          val pos     = posString(right(b1, 7))
+          val capture = if (bitAt(b2, 2)) "x" else ""
+          val check   = checkStrs(cut(b2, 4, 2))
+          val from    = posString(right(b3, 7))
+          s"$piece$from$capture$pos$check"
+        }
+      }
     }
 
     private def moveType(i: Int)  = i >> 7
