@@ -15,8 +15,8 @@
   <string name="resign">Dilezel</string>
   <string name="checkmate">Lamm d\'ar roue</string>
   <string name="stalemate">Gwalllamm</string>
-  <string name="white">Gwenn</string>
-  <string name="black">Du</string>
+  <string name="white">Ar re wenn</string>
+  <string name="black">Ar re zu</string>
   <string name="randomColor">Liv dre zegouezh</string>
   <string name="createAGame">Kregiñ gant ur c\'hrogad</string>
   <string name="whiteIsVictorious">Trec\'h eo ar re wenn</string>
@@ -26,7 +26,7 @@
   <string name="itsYourTurn">Deoc\'h c\'hwi!</string>
   <string name="kingInTheCenter">Roue e kreiz</string>
   <string name="threeChecks">Tri bec\'h d\'ar roue</string>
-  <string name="raceFinished">Redadeg echu</string>
+  <string name="raceFinished">Echu ar redadeg</string>
   <string name="variantEnding">Fin dre eilstumm</string>
   <string name="newOpponent">Enebour nevez</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Hoc\'h enebour en deus c\'hoant da c\'hoari enep deoc\'h adarre</string>
@@ -45,7 +45,7 @@
   <string name="forceResignation">Arc\'hañ an trec\'h</string>
   <string name="forceDraw">Diskleriañ ar rampo</string>
   <string name="talkInChat">Bezit hegarat pa flapit!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Un den kentañ a zeuy war an URL -mañ a c\'hoario enep deoc\'h.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">An den kentañ a zeuy war an URL -mañ a c\'hoario a-enep deoc\'h.</string>
   <string name="whiteResigned">Ar re wenn o deus dilezet</string>
   <string name="blackResigned">Ar re zu o deus dilezet</string>
   <string name="whiteLeftTheGame">Ar re wenn o deus kuitaet ar c\'hrogad</string>
@@ -746,6 +746,7 @@
   <string name="keyEnterOrExitVariation">mont ebarzh/kuitaat an eilstumm</string>
   <string name="newTournament">Tournamant nevez</string>
   <string name="tournamentHomeTitle">Tournamantoù echedoù o zizh hag o variantoù liesseurt</string>
+  <string name="tournamentHomeDescription">C\'hoariit tournamantoù echedoù fonnus! Kemerit perzh en un tournamant ofisiel raktreset, pe krouit hoc\'h hini. Bullet, Blitz, Klasel, Echedoù960, Roue d\'ar c\'hreiz, Tribec\'h, ha dibaboù all evit ur blijadur beurbadus gant an echedoù.</string>
   <string name="tournamentNotFound">N\'eo ket bet kavet an tournamant</string>
   <string name="tournamentDoesNotExist">N\'eus ket diouzh an tournamant-mañ.</string>
   <string name="tournamentMayHaveBeenCanceled">Marteze eo bet nullet an tournamant dre ma \'z eo aet kuit an holl c\'hoarerien a-raok ma krogfe.</string>
