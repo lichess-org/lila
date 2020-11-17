@@ -76,15 +76,15 @@
   <string name="pawnMove">Taol pezh-gwerin</string>
   <string name="capture">Tapadenn</string>
   <string name="close">Serriñ</string>
-  <string name="winning">O c\'hounit</string>
-  <string name="losing">O koll</string>
+  <string name="winning">A lakay trec\'hiñ</string>
+  <string name="losing">A lakay koll</string>
   <string name="drawn">Rampo</string>
   <string name="unknown">Dianav</string>
-  <string name="database">Diaz roadennoù</string>
+  <string name="database">Dataeg</string>
   <string name="whiteDrawBlack">Gwenn / Rampo / Du</string>
   <string name="averageRatingX">Renkadur keitat: %s</string>
   <string name="recentGames">Krogadoù diwezhañ</string>
-  <string name="topGames">Krogadoù eus ar c\'hentañ</string>
+  <string name="topGames">Partiennoù kreñvañ</string>
   <string name="masterDbExplanation">Daou vilion c\'hoari %1$s + FIDE gant c\'hoarerien etre %2$s ha %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Lamm d\'ar roue goude %s hanter-fiñvadenn</item>
@@ -95,8 +95,8 @@
   </plurals>
   <string name="noGameFound">Krogad ebet kavet</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Degemer muioc\'h a grogadoù o tont eus lañser an dibaboù?</string>
-  <string name="openingExplorer">Lañser an digoradurioù</string>
-  <string name="xOpeningExplorer">Lañser digoradurioù %s</string>
+  <string name="openingExplorer">Furcher an digoradurioù</string>
+  <string name="xOpeningExplorer">furcher an digoradurioù %s</string>
   <string name="winPreventedBy50MoveRule">Trec\'h harzet gant reolenn an 50 taol</string>
   <string name="lossSavedBy50MoveRule">Trec\'hidigezh harzet gant reolennoù an 50 taol</string>
   <string name="allSet">Prest eo!</string>
