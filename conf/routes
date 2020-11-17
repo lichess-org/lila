@@ -36,11 +36,11 @@ GET   /@/:username/followers           controllers.Relation.followers(username: 
 GET   /rel/blocks                      controllers.Relation.blocks(page: Int ?= 1)
 
 # Insight
-POST  /insights/refresh/:username      controllers.Insight.refresh(username: String)
-POST  /insights/data/:username         controllers.Insight.json(username: String)
-GET   /insights/:username              controllers.Insight.index(username: String)
-GET   /insights/:username/:metric/:dimension controllers.Insight.path(username: String, metric: String, dimension: String, filters: String = "")
-GET   /insights/:username/:metric/:dimension/*filters controllers.Insight.path(username: String, metric: String, dimension: String, filters: String)
+# POST  /insights/refresh/:username      controllers.Insight.refresh(username: String)
+# POST  /insights/data/:username         controllers.Insight.json(username: String)
+# GET   /insights/:username              controllers.Insight.index(username: String)
+# GET   /insights/:username/:metric/:dimension controllers.Insight.path(username: String, metric: String, dimension: String, filters: String = "")
+# GET   /insights/:username/:metric/:dimension/*filters controllers.Insight.path(username: String, metric: String, dimension: String, filters: String)
 
 # User subpages
 GET   /@/:username/tournaments/:path   controllers.UserTournament.path(username: String, path: String, page: Int ?= 1)
@@ -80,22 +80,23 @@ POST  /training/coordinate/score       controllers.Coordinate.score
 POST  /training/coordinate/color       controllers.Coordinate.color
 
 # Training - Puzzle
-GET   /training                        controllers.Puzzle.home
-GET   /training/new                    controllers.Puzzle.newPuzzle
-GET   /training/daily                  controllers.Puzzle.daily
-GET   /training/frame                  controllers.Puzzle.frame
-GET   /training/export/png/:id.png     controllers.Export.legacyPuzzleThumbnail(id: Int)
-GET   /training/export/gif/thumbnail/:id.gif controllers.Export.puzzleThumbnail(id: Int)
-GET   /training/batch                  controllers.Puzzle.batchSelect
-POST  /training/batch                  controllers.Puzzle.batchSolve
-GET   /training/:id                    controllers.Puzzle.show(id: Int)
-GET   /training/:id/load               controllers.Puzzle.load(id: Int)
-POST  /training/:id/vote               controllers.Puzzle.vote(id: Int)
-POST  /training/:id/round              controllers.Puzzle.round(id: Int)
+# Puzzle.home
+GET   /training                        controllers.Page.notSupported
+#GET   /training/new                    controllers.Puzzle.newPuzzle
+#GET   /training/daily                  controllers.Puzzle.daily
+#GET   /training/frame                  controllers.Puzzle.frame
+#GET   /training/export/png/:id.png     controllers.Export.legacyPuzzleThumbnail(id: Int)
+#GET   /training/export/gif/thumbnail/:id.gif controllers.Export.puzzleThumbnail(id: Int)
+#GET   /training/batch                  controllers.Puzzle.batchSelect
+#POST  /training/batch                  controllers.Puzzle.batchSolve
+#GET   /training/:id                    controllers.Puzzle.show(id: Int)
+#GET   /training/:id/load               controllers.Puzzle.load(id: Int)
+#POST  /training/:id/vote               controllers.Puzzle.vote(id: Int)
+#POST  /training/:id/round              controllers.Puzzle.round(id: Int)
 # new UI
-POST  /training/:id/round2             controllers.Puzzle.round2(id: Int)
+#POST  /training/:id/round2             controllers.Puzzle.round2(id: Int)
 # mobile app BC
-POST  /training/:id/attempt            controllers.Puzzle.round(id: Int)
+#POST  /training/:id/attempt            controllers.Puzzle.round(id: Int)
 
 # User Analysis
 GET   /analysis/help                   controllers.UserAnalysis.help
@@ -153,6 +154,7 @@ POST  /learn/score                     controllers.Learn.score
 POST  /learn/reset                     controllers.Learn.reset
 
 # Patron
+GET   /patreon                         controllers.Page.patron
 GET   /patron                          controllers.Plan.index
 GET   /patron/thanks                   controllers.Plan.thanks
 GET   /patron/list                     controllers.Plan.list
@@ -165,16 +167,16 @@ GET   /features                        controllers.Plan.features
 GET   /donate                          controllers.Main.movedPermanently(to: String = "/patron")
 
 # Practice
-GET   /practice                                   controllers.Practice.index
-GET   /practice/load/:studyId/:chapterId          controllers.Practice.chapter(studyId: String, chapterId: String)
-GET   /practice/config                            controllers.Practice.config
-POST  /practice/config                            controllers.Practice.configSave
-POST  /practice/reset                             controllers.Practice.reset
-GET   /practice/:sectionId                        controllers.Practice.showSection(sectionId: String)
-GET   /practice/:sectionId/:studySlug             controllers.Practice.showStudySlug(sectionId: String, studySlug: String)
-GET   /practice/:sectionId/:studySlug/:studyId    controllers.Practice.show(sectionId: String, studySlug: String, studyId: String)
-GET   /practice/:sectionId/:studySlug/:studyId/:chapterId controllers.Practice.showChapter(sectionId: String, studySlug: String, studyId: String, chapterId: String)
-POST  /practice/complete/:chapterId/:moves        controllers.Practice.complete(chapterId: String, moves: Int)
+GET   /practice                                   controllers.Page.notSupported
+#GET   /practice/load/:studyId/:chapterId          controllers.Practice.chapter(studyId: String, chapterId: String)
+#GET   /practice/config                            controllers.Practice.config
+#POST  /practice/config                            controllers.Practice.configSave
+#POST  /practice/reset                             controllers.Practice.reset
+#GET   /practice/:sectionId                        controllers.Practice.showSection(sectionId: String)
+#GET   /practice/:sectionId/:studySlug             controllers.Practice.showStudySlug(sectionId: String, studySlug: String)
+#GET   /practice/:sectionId/:studySlug/:studyId    controllers.Practice.show(sectionId: String, studySlug: String, studyId: String)
+#GET   /practice/:sectionId/:studySlug/:studyId/:chapterId controllers.Practice.showChapter(sectionId: String, studySlug: String, studyId: String, chapterId: String)
+#POST  /practice/complete/:chapterId/:moves        controllers.Practice.complete(chapterId: String, moves: Int)
 
 # Streamer
 GET   /streamer                        controllers.Streamer.index(page: Int ?= 1)
@@ -246,20 +248,20 @@ GET   /tournament/manager/new                 controllers.TournamentCrud.form
 POST  /tournament/manager                     controllers.TournamentCrud.create
 
 # Swiss
-GET   /swiss                                  controllers.Swiss.home
-GET   /swiss/new/:teamId                      controllers.Swiss.form(teamId: String)
-POST  /swiss/new/:teamId                      controllers.Swiss.create(teamId: String)
-GET   /swiss/$id<\w{8}>                       controllers.Swiss.show(id: String)
-GET   /swiss/$id<\w{8}>.trf                   controllers.Swiss.exportTrf(id: String)
-POST  /swiss/$id<\w{8}>/join                  controllers.Swiss.join(id: String)
-POST  /swiss/$id<\w{8}>/withdraw              controllers.Swiss.withdraw(id: String)
-GET   /swiss/$id<\w{8}>/edit                  controllers.Swiss.edit(id: String)
-POST  /swiss/$id<\w{8}>/edit                  controllers.Swiss.update(id: String)
-POST  /swiss/$id<\w{8}>/terminate             controllers.Swiss.terminate(id: String)
-GET   /swiss/$id<\w{8}>/standing/:page        controllers.Swiss.standing(id: String, page: Int)
-GET   /swiss/$id<\w{8}>/page-of/:user         controllers.Swiss.pageOf(id: String, user: String)
-GET   /swiss/$id<\w{8}>/player/:user          controllers.Swiss.player(id: String, user: String)
-POST  /swiss/$id<\w{8}>/schedule-next-round   controllers.Swiss.scheduleNextRound(id: String)
+# GET   /swiss                                  controllers.Swiss.home
+# GET   /swiss/new/:teamId                      controllers.Swiss.form(teamId: String)
+# POST  /swiss/new/:teamId                      controllers.Swiss.create(teamId: String)
+# GET   /swiss/$id<\w{8}>                       controllers.Swiss.show(id: String)
+# GET   /swiss/$id<\w{8}>.trf                   controllers.Swiss.exportTrf(id: String)
+# POST  /swiss/$id<\w{8}>/join                  controllers.Swiss.join(id: String)
+# POST  /swiss/$id<\w{8}>/withdraw              controllers.Swiss.withdraw(id: String)
+# GET   /swiss/$id<\w{8}>/edit                  controllers.Swiss.edit(id: String)
+# POST  /swiss/$id<\w{8}>/edit                  controllers.Swiss.update(id: String)
+# POST  /swiss/$id<\w{8}>/terminate             controllers.Swiss.terminate(id: String)
+# GET   /swiss/$id<\w{8}>/standing/:page        controllers.Swiss.standing(id: String, page: Int)
+# GET   /swiss/$id<\w{8}>/page-of/:user         controllers.Swiss.pageOf(id: String, user: String)
+# GET   /swiss/$id<\w{8}>/player/:user          controllers.Swiss.player(id: String, user: String)
+# POST  /swiss/$id<\w{8}>/schedule-next-round   controllers.Swiss.scheduleNextRound(id: String)
 
 # Simul
 GET   /simul                                  controllers.Simul.home
@@ -317,13 +319,14 @@ POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysi
 
 GET   /game/export/$gameId<\w{8}>                             controllers.Game.exportOne(gameId: String)
 GET   /game/export/$gameId<\w{8}>.pgn                         controllers.Game.exportOne(gameId: String)
-GET   /game/export/png/$gameId<\w{8}>.png                     controllers.Export.legacyGameThumbnail(gameId: String)
-GET   /game/export/gif/thumbnail/$gameId<\w{8}>.gif           controllers.Export.gameThumbnail(gameId: String)
-GET   /game/export/gif/$gameId<\w{8}>.gif                     controllers.Export.gif(gameId: String, color: String = "white")
-GET   /game/export/gif/$color<white|black>/$gameId<\w{8}>.gif controllers.Export.gif(gameId: String, color: String)
+# GET   /game/export/png/$gameId<\w{8}>.png                     controllers.Export.legacyGameThumbnail(gameId: String)
+# GET   /game/export/gif/thumbnail/$gameId<\w{8}>.gif           controllers.Export.gameThumbnail(gameId: String)
+# GET   /game/export/gif/$gameId<\w{8}>.gif                     controllers.Export.gif(gameId: String, color: String = "white")
+# GET   /game/export/gif/$color<white|black>/$gameId<\w{8}>.gif controllers.Export.gif(gameId: String, color: String)
 
 # Fishnet
 POST  /fishnet/acquire                        controllers.Fishnet.acquire(slow: Boolean ?= false)
+POST  /fishnet/move/$workId<\w{8}>            controllers.Fishnet.move(workId: String)
 POST  /fishnet/analysis/$workId<\w{8}>        controllers.Fishnet.analysis(workId: String, slow: Boolean ?= false, stop: Boolean ?= false)
 POST  /fishnet/abort/$workId<\w{8}>           controllers.Fishnet.abort(workId: String)
 GET   /fishnet/key/$key<\w{8}>                controllers.Fishnet.keyExists(key: String)
@@ -677,6 +680,7 @@ GET   /about                           controllers.Page.about
 GET   /faq                             controllers.Main.faq
 GET   /source                          controllers.Page.source
 GET   /qa                              controllers.Main.movedPermanently(to: String = "/faq")
+GET   /contribute                      controllers.Page.help
 GET   /help                            controllers.Main.movedPermanently(to: String = "/contact")
 GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug: String)
 GET   /how-to-cheat                    controllers.Page.howToCheat
@@ -687,8 +691,7 @@ GET   /variant                         controllers.Page.variantHome
 GET   /variant/:key                    controllers.Page.variant(key)
 
 # Help
-GET   /help/contribute                 controllers.Page.help
-GET   /help/master                     controllers.Page.master
+GET   /help/master                     controllers.Page.notSupported
 
 GET   /prismic-preview                 controllers.Blog.preview(token: String)
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id: String)
