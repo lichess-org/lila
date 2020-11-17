@@ -119,7 +119,6 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
   }
 
   function sendAnaDests(req) {
-    console.log("sendAnaDests: ", req);
     clearTimeout(anaDestsTimeout);
     if (anaDestsCache[req.path])
       setTimeout(function () {
@@ -137,7 +136,6 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
   }
 
   function sendAnaMove(req) {
-    console.log("SENDANAMOVE", req);
     clearTimeout(anaMoveTimeout);
     withoutStandardVariant(req);
     addStudyData(req, true);
@@ -155,7 +153,6 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
 
   return {
     receive(type: string, data: any): boolean {
-      console.log("receive", type, data);
       const handler = handlers[type];
       if (handler) handler(data);
       return !!ctrl.study && ctrl.study.socketHandler(type, data);

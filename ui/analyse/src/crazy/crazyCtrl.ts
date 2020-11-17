@@ -58,7 +58,6 @@ export function valid(
     let mfen = shogiground.getFen();
     mfen += " " + piece.color[0];
     const s = Shogi.drop(mfen, "Pawn", pos);
-    console.log(s);
     if (s.winner) {
       alert(
         "Checkmating with a pawn is an illegal move, illegal moves lose you the game when you play in real life."

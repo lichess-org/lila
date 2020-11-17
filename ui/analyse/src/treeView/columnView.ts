@@ -18,6 +18,7 @@ import {
 } from "./treeView";
 import { enrichText, innerHTML } from "../util";
 import { Ctx as BaseCtx, Opts as BaseOpts } from "./treeView";
+import { westernShogiNotation } from "shogiutil/util";
 
 interface Ctx extends BaseCtx {
   concealOf: ConcealOf;
@@ -184,7 +185,7 @@ function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
     path = opts.parentPath + node.id,
     content: MaybeVNodes = [
       withIndex ? moveView.renderIndex(node.ply, true) : null,
-      fixCrazySan(node.san!),
+      westernShogiNotation(fixCrazySan(node.san!)),
     ],
     classes = nodeClasses(ctx, path);
   if (opts.conceal) classes[opts.conceal as string] = true;

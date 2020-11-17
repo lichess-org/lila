@@ -49,7 +49,6 @@ export default class Protocol {
 
     const matches = text.match(EVAL_REGEX);
     if (!matches) {
-      console.log("Failed match");
       return;
     }
 
@@ -62,7 +61,6 @@ export default class Protocol {
       elapsedMs: number = parseInt(matches[7]),
       moves = matches[8].split(" ");
 
-    console.log(depth, multiPv, isMate, povEv, evalType, nodes);
     // Sometimes we get #0. Let's just skip it.
     if (isMate && !povEv) return;
 
@@ -135,7 +133,6 @@ export default class Protocol {
         ? splitted[0].substring(0, splitted[0].length - 1)
         : splitted[0];
     const oppositeColorSfen = fixSfen(boardFen) + " " + oppositeColor; // because white goes first in chess - lishogi
-    console.log(this.work.moves, this.work.moves.map(chessToShogiUsi));
     const usiMoves = this.work.moves.map(chessToShogiUsi);
     console.log(
       "sending this sfen: ",

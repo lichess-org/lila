@@ -135,7 +135,6 @@ export default class EditorCtrl {
 
   setTurn(turn: Color): void {
     turn = turn === "white" ? "black" : "white";
-    console.log("COLOR: ", turn);
     this.turn = turn;
     this.onChange();
   }

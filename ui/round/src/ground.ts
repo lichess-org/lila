@@ -90,9 +90,7 @@ export function reload(ctrl: RoundController) {
 export function promote(ground: CgApi, key: cg.Key) {
   const piece = ground.state.pieces.get(key);
   if (piece && !piece.promoted) {
-    console.log(piece);
     const prole = promotesTo(piece.role);
-    console.log(prole);
     ground.setPieces(
       new Map([
         [

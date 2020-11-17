@@ -5,9 +5,8 @@ import { defined } from "common";
 import { h } from "snabbdom";
 import { VNode } from "snabbdom/vnode";
 //import { opposite, parseUci } from 'shogiutil/util';
-import { GameSituation } from "shogiutil/types";
 // @ts-ignore
-import { Init } from "shogiutil/vendor/shogijs.js";
+import { Shogi } from "shogiutil/vendor/Shogi.js";
 
 let gaugeLast = 0;
 const gaugeTicks: VNode[] = [...Array(8).keys()].map((i) =>
@@ -306,8 +305,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   const instance = ctrl.getCeval();
   if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
   const multiPv = parseInt(instance.multiPv()),
-    node = ctrl.getNode(),
-    gs: GameSituation = Init.init(node.fen);
+    node = ctrl.getNode();
   let pvs: Tree.PvData[],
     threat = false;
   if (ctrl.threatMode() && node.threat) {
@@ -315,7 +313,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
     threat = true;
   } else if (node.ceval) pvs = node.ceval.pvs;
   else pvs = [];
-  if (threat) console.log("Threat", gs); //player = opposite(gs.player);
+  //if (threat) console.log("Threat", gs); //player = opposite(gs.player);
   return h(
     "div.pv_box",
     {
@@ -356,7 +354,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
                   : renderEval(pvs[i].cp!)
               )
             : null,
-          h("span", "--"),
+          h("span", pvs[i].moves.join(", ")),
         ]
       );
     })

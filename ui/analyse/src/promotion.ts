@@ -32,7 +32,6 @@ export function start(
 ): boolean {
   const s = ctrl.shogiground.state;
   const piece = s.pieces.get(dest);
-  console.log("promotion: ", piece);
   const role = piece ? piece.role : "pawn";
   if (
     piece &&

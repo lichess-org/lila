@@ -1,4 +1,4 @@
-@import 'board-2d';
+@import "board-2d";
 
 cg-board {
   @extend %box-shadow, %abs-100;
@@ -17,18 +17,32 @@ square {
   height: calc(100% / 9);
   pointer-events: none;
   &.move-dest {
-    background: radial-gradient(rgba(20, 85, 30, 0.5) 19%, rgba(0, 0, 0, 0) 20%);
+    background: radial-gradient(
+      rgba(20, 85, 30, 0.5) 19%,
+      rgba(0, 0, 0, 0) 20%
+    );
     pointer-events: auto;
   }
   &.premove-dest {
-    background: radial-gradient(rgba(20, 30, 85, 0.5) 19%, rgba(0, 0, 0, 0) 20%);
+    background: radial-gradient(
+      rgba(20, 30, 85, 0.5) 19%,
+      rgba(0, 0, 0, 0) 20%
+    );
     pointer-events: auto;
   }
   &.oc.move-dest {
-    background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 85, 0, 0.3) 80%);
+    background: radial-gradient(
+      transparent 0%,
+      transparent 80%,
+      rgba(20, 85, 0, 0.3) 80%
+    );
   }
   &.oc.premove-dest {
-    background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 30, 85, 0.2) 80%);
+    background: radial-gradient(
+      transparent 0%,
+      transparent 80%,
+      rgba(20, 30, 85, 0.2) 80%
+    );
   }
   body.green &.last-move,
   body.green-plastic &.last-move,
@@ -40,7 +54,13 @@ square {
     background-color: rgba(155, 199, 0, 0.41);
   }
   &.check {
-    background: radial-gradient(ellipse at center, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);
+    background: radial-gradient(
+      ellipse at center,
+      rgba(255, 0, 0, 1) 0%,
+      rgba(231, 0, 0, 1) 25%,
+      rgba(169, 0, 0, 0) 89%,
+      rgba(158, 0, 0, 0) 100%
+    );
   }
   &.selected {
     background-color: rgba(20, 85, 30, 0.5);
@@ -65,18 +85,18 @@ piece {
   width: calc(100% / 9);
   height: calc(100% / 9);
   background-size: cover;
-  z-index: z('cg__piece');
+  z-index: z("cg__piece");
   will-change: transform;
   pointer-events: none;
   &.dragging {
     cursor: move;
-    z-index: z('cg__piece.dragging');
+    z-index: z("cg__piece.dragging");
   }
   &.anim {
-    z-index: z('cg__piece.anim');
+    z-index: z("cg__piece.anim");
   }
   &.fading {
-    z-index: z('cg__piece.fading');
+    z-index: z("cg__piece.fading");
     opacity: 0.5;
   }
   &.ghost {
@@ -108,9 +128,13 @@ cg-container {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: z('cg__svg');
+  z-index: z("cg__svg");
   opacity: 0.6;
   image {
     opacity: 0.5;
   }
+}
+
+piece.fix-blur {
+  will-change: auto;
 }

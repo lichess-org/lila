@@ -21,7 +21,7 @@
     "ceval": "2.0.0",
     "chessops": "^0.6.0",
     "common": "2.0.0",
-    "shogiground": "file:/home/liskadan/lila/ui/shogiground",
+    "shogiground": "7.8.1",
     "snabbdom": "^0.7.4",
     "tree": "2.0.0"
   },

@@ -148,7 +148,12 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
         result = "½-½";
     }
   if (result || status.aborted(ctrl.data)) {
-    const winner = ctrl.data.game.winner === "white" ? "black" : "white"; // swapped
+    const winner =
+      ctrl.data.game.winner === "white"
+        ? "black"
+        : ctrl.data.game.winner === "black"
+        ? "white"
+        : ctrl.data.game.winner; // swapped
     return h("div.result-wrap", [
       h("p.result", result || ""),
       h(

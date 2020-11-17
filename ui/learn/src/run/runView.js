@@ -61,7 +61,6 @@ function renderInfo(ctrl) {
 module.exports = function (ctrl) {
   var stage = ctrl.stage;
   var level = ctrl.level;
-  console.log("CTRL:", ctrl);
 
   return m(
     "div",

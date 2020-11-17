@@ -17,10 +17,6 @@ import { sanIrreversible } from "./util";
 
 const li = window.lishogi;
 
-function officialStockfish(variant: VariantKey): boolean {
-  return variant === "standard" || variant === "crazyhouse";
-}
-
 function is64Bit(): boolean {
   const x64 = ["x86_64", "x86-64", "Win64", "x64", "amd64", "AMD64"];
   for (const substr of x64)
@@ -86,17 +82,15 @@ export default function (opts: CevalOpts): CevalCtrl {
     WebAssembly.validate(source)
   ) {
     technology = "wasm"; // WebAssembly 1.0
-    if (officialStockfish(opts.variant.key)) {
-      const sharedMem = sharedWasmMemory(8, 16);
-      if (sharedMem) {
-        technology = "wasmx";
-        if (!defined(window["crossOriginIsolated"]))
-          window["crossOriginIsolated"] = true; // polyfill
-        try {
-          sharedMem.grow(8);
-          growableSharedMem = true;
-        } catch (e) {}
-      }
+    const sharedMem = sharedWasmMemory(8, 16);
+    if (sharedMem) {
+      technology = "wasmx";
+      if (!defined(window["crossOriginIsolated"]))
+        window["crossOriginIsolated"] = true; // polyfill
+      try {
+        sharedMem.grow(8);
+        growableSharedMem = true;
+      } catch (e) {}
     }
   }
 
@@ -140,9 +134,7 @@ export default function (opts: CevalOpts): CevalCtrl {
       technology,
       asmjs: "vendor/stockfish.js/stockfish.js",
       wasm: "vendor/stockfish.js/stockfish.wasm.js",
-      wasmx: officialStockfish(opts.variant.key)
-        ? "vendor/stockfish.wasm/stockfish.js"
-        : "vendor/stockfish-mv.wasm/stockfish.js",
+      wasmx: "vendor/stockfish.wasm/stockfish.js",
     },
     {
       minDepth,

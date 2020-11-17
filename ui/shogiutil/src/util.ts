@@ -12,6 +12,49 @@ export function defined<A>(v: A | undefined): v is A {
   return v !== undefined;
 }
 
+export function westernShogiNotation(str: string | undefined): string | undefined {
+  if (!str) return;
+  if(str.length == 2 || (str.length == 3 && (str.includes("x") || str.includes("*")))){
+    str = "P" + str;
+  }
+  if (!str.includes("x") && !str.includes("*")) {
+    if (str.length >= 5) str = str.slice(0, 3) + "-" + str.slice(3);
+    else str = str.slice(0, 1) + "-" + str.slice(1);
+  }
+  let builder = "";
+  const index = {
+    "9": "a",
+    "8": "b",
+    "7": "c",
+    "6": "d",
+    "5": "e",
+    "4": "f",
+    "3": "g",
+    "2": "h",
+    "1": "i",
+    a: "9",
+    b: "8",
+    c: "7",
+    d: "6",
+    e: "5",
+    f: "4",
+    g: "3",
+    h: "2",
+    i: "1",
+    U: "+L",
+    M: "+N",
+    A: "+S",
+    T: "+P",
+    H: "+B",
+    D: "+R",
+  };
+  for (let c of str) {
+    builder += index[c] ? index[c] : c;
+  }
+
+  return builder;
+}
+
 export function opposite(color: Color): Color {
   return color === "white" ? "black" : "white";
 }
@@ -166,13 +209,6 @@ export function makeSquare(square: Square): SquareName {
 
 export function validFen(fen: string): boolean {
   const obj: GameSituation = Shogi.init(breakSfen(fen));
-  console.log(
-    breakSfen(fen),
-    "valid fen ",
-    obj.fen.split(" "),
-    " ~ ",
-    obj.validity
-  );
   if (!obj.validity) return false;
   return true;
 }
@@ -183,7 +219,6 @@ export function switchColorSfen(sfen: string): string {
 }
 
 export function shogiToChessUci(uci: Uci): Uci {
-  console.log("toChess", uci);
   const fileMap = {
     "9": "a",
     "8": "b",
@@ -224,7 +259,6 @@ export function shogiToChessUci(uci: Uci): Uci {
 }
 
 export function chessToShogiUsi(uci: Uci): Uci {
-  console.log("toShogi", uci);
   const fileMap = {
     a: "9",
     b: "8",
@@ -251,7 +285,9 @@ export function chessToShogiUsi(uci: Uci): Uci {
     return uci.slice(0, 2) + fileMap[uci[2]] + rankMap[uci[3]];
   } else {
     if (uci.length === 5) {
-      const prom = ["t", "u", "m", "a", "h", "d"].includes(uci[4]) ? "+" : "=";
+      const prom = ["t", "u", "m", "a", "h", "d", "+"].includes(uci[4])
+        ? "+"
+        : "=";
       return (
         fileMap[uci[0]] +
         rankMap[uci[1]] +

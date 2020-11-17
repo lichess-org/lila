@@ -1,8 +1,14 @@
 import { Outcome, isNormal } from "shogiutil/types";
-import { opposite, parseUci, makeSquare, roleToChar } from "shogiutil/util";
+import {
+  opposite,
+  parseUci,
+  shogiToChessUci,
+  makeSquare,
+  roleToChar,
+} from "shogiutil/util";
 import { GameSituation } from "shogiutil/types";
 // @ts-ignore
-import { Init } from "shogiutil/vendor/shogijs.js";
+import { Shogi } from "shogiutil/vendor/Shogi.js";
 
 import { Api as ShogigroundApi } from "shogiground/api";
 import { DrawShape } from "shogiground/draw";
@@ -299,7 +305,6 @@ export default class AnalyseCtrl {
   }
 
   private uciToLastMove(uci?: Uci): Key[] | undefined {
-    console.log("ucitolastmove", uci);
     if (!uci) return;
     if (uci[1] === "*") return [uci.substr(2, 2), uci.substr(2, 2)] as Key[];
     return [uci.substr(0, 2), uci.substr(2, 2)] as Key[];
@@ -316,7 +321,6 @@ export default class AnalyseCtrl {
   }
 
   getDests: () => void = throttle(800, () => {
-    console.log("GetDests", this.node.fen);
     if (!this.embed && !defined(this.node.dests))
       this.socket.sendAnaDests({
         variant: this.data.game.variant.key,
@@ -533,8 +537,7 @@ export default class AnalyseCtrl {
   userMove = (orig: Key, dest: Key, capture?: JustCaptured): void => {
     this.justPlayed = orig;
     this.justDropped = undefined;
-    const piece = this.shogiground.state.pieces.get(dest);
-    console.log("UserMove", piece);
+    //const piece = this.shogiground.state.pieces.get(dest);
     const isCapture = capture;
     this.sound[isCapture ? "capture" : "move"]();
     if (!promotion.start(this, orig, dest, capture, this.sendMove))
@@ -554,12 +557,10 @@ export default class AnalyseCtrl {
       fen: this.node.fen,
       path: this.path,
     };
-    console.log("sendMove", orig, dest, prom);
     if (capture) this.justCaptured = capture;
     if (prom) move.promotion = prom;
     else move.promotion = false;
     if (this.practice) this.practice.onUserMove();
-    console.log(move);
     this.socket.sendAnaMove(move);
     this.preparePremoving();
     this.redraw();
@@ -582,10 +583,8 @@ export default class AnalyseCtrl {
   };
 
   addNode(node: Tree.Node, path: Tree.Path) {
-    console.log("ADDING NODE");
     const newPath = this.tree.addNode(node, path);
     if (!newPath) {
-      console.log("Can't addNode", node, path);
       return this.redraw();
     }
     this.jump(newPath);
@@ -723,8 +722,7 @@ export default class AnalyseCtrl {
   }
 
   position(node: Tree.Node): GameSituation {
-    console.log("POSITION?");
-    return Init.init(node.fen);
+    return Shogi.init(node.fen);
   }
 
   canUseCeval(): boolean {
@@ -867,7 +865,7 @@ export default class AnalyseCtrl {
   }
 
   playUci(uci: Uci): void {
-    const move = parseUci(uci)!;
+    const move = parseUci(shogiToChessUci(uci))!;
     const to = makeSquare(move.to);
     if (isNormal(move)) {
       const piece = this.shogiground.state.pieces.get(makeSquare(move.from));

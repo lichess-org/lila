@@ -47,10 +47,6 @@ lishogi.StrongSocket = function (url, version, settings) {
   var storage = lishogi.storage.make("surl7");
 
   var connect = function () {
-    console.log(
-      "Connecting... ",
-      options.protocol + "//" + baseUrl() + url + "?" + params
-    );
     destroy();
     autoReconnect = true;
     var params = $.param(settings.params);
@@ -173,7 +169,6 @@ lishogi.StrongSocket = function (url, version, settings) {
   };
 
   var handle = function (m) {
-    console.log("handle", m, " - ", m.t);
     if (m.v) {
       if (m.v <= version) {
         debug("already has event " + m.v);
@@ -207,7 +202,6 @@ lishogi.StrongSocket = function (url, version, settings) {
   };
 
   var destroy = function () {
-    console.log("Destroy");
     clearTimeout(pingSchedule);
     clearTimeout(connectSchedule);
     disconnect();
@@ -219,7 +213,6 @@ lishogi.StrongSocket = function (url, version, settings) {
       debug("Disconnect");
       autoReconnect = false;
       ws.onerror = ws.onclose = ws.onopen = ws.onmessage = $.noop;
-      console.log("BYE");
       ws.close();
     }
   };

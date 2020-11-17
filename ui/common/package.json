@@ -20,6 +20,6 @@
     "typescript": "^3"
   },
   "dependencies": {
-    "shogiground": "file:/home/liskadan/lila/ui/shogiground"
+    "shogiground": "7.8.1"
   }
 }

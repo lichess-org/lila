@@ -189,7 +189,7 @@ module.exports = function (cfg) {
       },
       // drawable SVG pieces, used for crazyhouse drop
       pieces: {
-        baseUrl: "https://lishogi1.org/assets/piece/cburnett/",
+        baseUrl: "piece/cburnett/",
       },
     },
   };

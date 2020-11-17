@@ -330,7 +330,6 @@ export default class RoundController {
     prom: boolean,
     meta: cg.MoveMetadata
   ) => {
-    console.log("sending move ", dest, orig, prom);
     const move: SocketMove = {
       u: orig + dest,
     };
@@ -393,8 +392,6 @@ export default class RoundController {
   apiMove = (o: ApiMove): void => {
     const d = this.data,
       playing = this.isPlaying();
-
-    console.log(o);
 
     d.game.turns = o.ply;
     d.game.player = o.ply % 2 === 0 ? "white" : "black";

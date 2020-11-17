@@ -252,7 +252,7 @@
       var $this = $(this).removeClass("parse-fen");
       var lm = $this.data("lastmove");
       var lastMove =
-        lm && (lm[1] === "@" ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]);
+        lm && (lm[1] === "*" ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]);
       var color =
         $this.data("color") || lishogi.readServerFen($(this).data("y"));
       var ground = $this.data("shogiground");

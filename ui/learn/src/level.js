@@ -56,7 +56,6 @@ module.exports = function (blueprint, opts) {
   };
 
   var detectSuccess = function () {
-    console.log(blueprint, vm);
     if (blueprint.success) return blueprint.success(assertData());
     else return !items.hasItem("apple");
   };

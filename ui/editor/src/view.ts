@@ -114,7 +114,6 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             },
           },
           ["blackPlays", "whitePlays"].map(function (key) {
-            console.log(key);
             return h(
               "option",
               {
@@ -267,7 +266,6 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
           },
           blur(e) {
             const el = e.target as HTMLInputElement;
-            console.log("FEEN:", displaySfen(ctrl.getFen()));
             el.value = displaySfen(ctrl.getFen());
             el.setCustomValidity("");
           },

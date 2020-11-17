@@ -26,10 +26,11 @@ export function sendPromotion(
   role: cg.Role,
   meta: cg.MoveMetadata
 ): boolean {
-  ground.promote(ctrl.shogiground, dest);
   let promotion: boolean = false;
-  if (!["pawn", "lance", "knight", "silver", "bishop", "rook"].includes(role))
+  if (!["pawn", "lance", "knight", "silver", "bishop", "rook"].includes(role)) {
+    ground.promote(ctrl.shogiground, dest);
     promotion = true;
+  }
   ctrl.sendMove(orig, dest, promotion, meta);
   return true;
 }
@@ -81,13 +82,12 @@ export function start(
     ) {
       if (premovePiece)
         setPrePromotion(ctrl, dest, promotesTo(premovePiece.role));
-      else sendPromotion(ctrl, orig, dest, "lance", meta);
       return true;
     }
-    const promotionRole = piece
-      ? piece.role
-      : premovePiece
+    const promotionRole = premovePiece
       ? premovePiece.role
+      : piece
+      ? piece.role
       : "pawn";
     promoting = {
       move: [orig, dest],
@@ -152,7 +152,6 @@ function renderPromotion(
   color: Color,
   orientation: Color
 ): MaybeVNode {
-  console.log("dest promt: ", key2pos(dest));
   var left = (8 - key2pos(dest)[0]) * 11.11 - key2pos(dest)[0] * 0.04;
   if (orientation === "white")
     left = key2pos(dest)[0] * 11.11 - key2pos(dest)[0] * 0.04;
@@ -189,10 +188,6 @@ function renderPromotion(
     })
   );
 }
-
-//const promotedRole: cg.Role[] = ['p_pawn', 'p_silver', 'p_knight', 'p_bishop', 'p_rook', 'p_lance']
-//const roles: cg.Role[] = ['tokin', 'promotedSilver', 'promotedKnight', 'horse', 'dragon', 'promotedLance'];
-//const roles: cg.Role[] = [];
 
 function promotesTo(role: typeof prePromotionRole): cg.Role {
   switch (role) {

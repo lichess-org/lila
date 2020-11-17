@@ -76,24 +76,24 @@ function whatNext(ctrl) {
             "register",
             "getAFreeLishogiAccount"
           ),
-      makeStage(
-        "/practice",
-        "robot-golem",
-        "practice",
-        "learnCommonChessPositions"
-      ),
+      //makeStage(
+      //  "/practice",
+      //  "robot-golem",
+      //  "practice",
+      //  "learnCommonChessPositions"
+      //),
       makeStage(
         "/training",
         "bullseye",
         "puzzles",
         "exerciseYourTacticalSkills"
       ),
-      makeStage(
-        "/video",
-        "tied-scroll",
-        "videos",
-        "watchInstructiveChessVideos"
-      ),
+      //makeStage(
+      //  "/video",
+      //  "tied-scroll",
+      //  "videos",
+      //  "watchInstructiveChessVideos"
+      //),
       makeStage(
         "/#hook",
         "sword-clash",

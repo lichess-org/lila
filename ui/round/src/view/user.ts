@@ -27,7 +27,6 @@ export function userHtml(
         : undefined;
 
   if (user) {
-    console.log(player.user!.username, " - ", player.color, "\n\n", player);
     const connecting = !player.onGame && ctrl.firstSeconds && user.online;
     return h(
       `div.ruser-${position}.ruser.user-link`,
@@ -103,6 +102,15 @@ export function userHtml(
       },
     },
     [
+      h(
+        `div.player-color.${player.color}`,
+        {
+          attrs: {
+            title: player.color === "white" ? "Black" : "White",
+          },
+        },
+        []
+      ),
       h("i.line", {
         attrs: {
           title: connecting

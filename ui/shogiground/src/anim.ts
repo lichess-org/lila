@@ -1,6 +1,6 @@
-import { State } from './state'
-import * as util from './util'
-import * as cg from './types'
+import { State } from "./state";
+import * as util from "./util";
+import * as cg from "./types";
 
 export type Mutation<A> = (state: State) => A;
 
@@ -24,7 +24,9 @@ export interface AnimCurrent {
 }
 
 export function anim<A>(mutation: Mutation<A>, state: State): A {
-  return state.animation.enabled ? animate(mutation, state) : render(mutation, state);
+  return state.animation.enabled
+    ? animate(mutation, state)
+    : render(mutation, state);
 }
 
 export function render<A>(mutation: Mutation<A>, state: State): A {
@@ -44,13 +46,15 @@ function makePiece(key: cg.Key, piece: cg.Piece): AnimPiece {
   return {
     key: key,
     pos: util.key2pos(key),
-    piece: piece
+    piece: piece,
   };
 }
 
 function closer(piece: AnimPiece, pieces: AnimPiece[]): AnimPiece | undefined {
   return pieces.sort((p1, p2) => {
-    return util.distanceSq(piece.pos, p1.pos) - util.distanceSq(piece.pos, p2.pos);
+    return (
+      util.distanceSq(piece.pos, p1.pos) - util.distanceSq(piece.pos, p2.pos)
+    );
   })[0];
 }
 
@@ -61,7 +65,9 @@ function computePlan(prevPieces: cg.Pieces, current: State): AnimPlan {
     missings: AnimPiece[] = [],
     news: AnimPiece[] = [],
     prePieces: AnimPieces = new Map();
-  let curP: cg.Piece | undefined, preP: AnimPiece | undefined, vector: cg.NumberPair;
+  let curP: cg.Piece | undefined,
+    preP: AnimPiece | undefined,
+    vector: cg.NumberPair;
   for (const [k, p] of prevPieces) {
     prePieces.set(k, makePiece(k, p));
   }
@@ -78,7 +84,10 @@ function computePlan(prevPieces: cg.Pieces, current: State): AnimPlan {
     } else if (preP) missings.push(preP);
   }
   for (const newP of news) {
-    preP = closer(newP, missings.filter(p => util.samePiece(newP.piece, p.piece)));
+    preP = closer(
+      newP,
+      missings.filter((p) => util.samePiece(newP.piece, p.piece))
+    );
     if (preP) {
       vector = [preP.pos[0] - newP.pos[0], preP.pos[1] - newP.pos[1]];
       anims.set(newP.key, vector.concat(vector) as AnimVector);
@@ -91,13 +100,14 @@ function computePlan(prevPieces: cg.Pieces, current: State): AnimPlan {
 
   return {
     anims: anims,
-    fadings: fadings
+    fadings: fadings,
   };
 }
 
 function step(state: State, now: DOMHighResTimeStamp): void {
   const cur = state.animation.current;
-  if (cur === undefined) { // animation was canceled :(
+  if (cur === undefined) {
+    // animation was canceled :(
     if (!state.dom.destroyed) state.dom.redrawNow();
     return;
   }
@@ -123,11 +133,12 @@ function animate<A>(mutation: Mutation<A>, state: State): A {
   const result = mutation(state);
   const plan = computePlan(prevPieces, state);
   if (plan.anims.size || plan.fadings.size) {
-    const alreadyRunning = state.animation.current && state.animation.current.start;
+    const alreadyRunning =
+      state.animation.current && state.animation.current.start;
     state.animation.current = {
       start: performance.now(),
       frequency: 1 / state.animation.duration,
-      plan: plan
+      plan: plan,
     };
     if (!alreadyRunning) step(state, performance.now());
   } else {

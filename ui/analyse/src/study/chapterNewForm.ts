@@ -124,7 +124,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
       name
     );
   };
-  const gameOrPgn = activeTab === "game" || activeTab === "pgn";
+  //const gameOrPgn = activeTab === "game" || activeTab === "pgn";
   const currentChapter = ctrl.root.study!.data.chapter;
   const mode = currentChapter.practice
     ? "practice"
@@ -197,9 +197,9 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
           h("div.tabs-horiz", [
             makeTab("init", noarg("empty"), noarg("startFromInitialPosition")),
             makeTab("edit", noarg("editor"), noarg("startFromCustomPosition")),
-            makeTab("game", "URL", noarg("loadAGameByUrl")),
+            //makeTab("game", "URL", noarg("loadAGameByUrl")),
             makeTab("fen", "FEN", noarg("loadAPositionFromFen")),
-            makeTab("pgn", "PGN", noarg("loadAGameFromPgn")),
+            //makeTab("pgn", "PGN", noarg("loadAGameFromPgn")),
           ]),
           activeTab === "edit"
             ? h(
@@ -292,26 +292,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
               ])
             : null,
           h("div.form-split", [
-            h("div.form-group.form-half", [
-              h(
-                "label.form-label",
-                {
-                  attrs: { for: "chapter-variant" },
-                },
-                noarg("Variant")
-              ),
-              h(
-                "select#chapter-variant.form-control",
-                {
-                  attrs: { disabled: gameOrPgn },
-                },
-                gameOrPgn
-                  ? [h("option", noarg("automatic"))]
-                  : ctrl.vm.variants.map((v) =>
-                      option(v.key, currentChapter.setup.variant.key, v.name)
-                    )
-              ),
-            ]),
+            h("div.form-group.form-half", []),
             h("div.form-group.form-half", [
               h(
                 "label.form-label",

@@ -14,7 +14,9 @@ export default function pocket(
   position: Position
 ) {
   const step = round.plyStep(ctrl.data, ctrl.ply);
-  if (!step.crazy) return;
+  if (!step.crazy) {
+    return;
+  }
   const droppedRole = ctrl.justDropped,
     preDropRole = ctrl.preDrop,
     pocket = step.crazy.pockets[color === "white" ? 0 : 1],

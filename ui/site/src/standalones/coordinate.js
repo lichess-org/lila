@@ -180,8 +180,6 @@ $(function () {
           events: {
             select: function (key) {
               var hit = getShogiCoords(key) == $coords[0].text();
-              console.log(getShogiCoords(key));
-              console.log($coords[0].text());
               if (hit) {
                 score++;
                 $score.text(score);

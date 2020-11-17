@@ -11,7 +11,6 @@ var levelBonus = {
 };
 
 function getLevelBonus(l, nbMoves) {
-  console.log("score:", l, nbMoves);
   var late = nbMoves - l.nbMoves;
   if (late <= 0) return levelBonus[1];
   if (late <= Math.max(1, l.nbMoves / 8)) return levelBonus[2];

@@ -151,16 +151,9 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
           postpatch: (_, vnode) => {
             const el = vnode.elm as HTMLInputElement;
             if (!defined(ctrl.fenInput)) {
-              console.log("NOT DEFINED:", displaySfen(ctrl.node.fen));
               el.value = displaySfen(ctrl.node.fen);
               el.setCustomValidity("");
             } else if (el.value != displaySfen(ctrl.fenInput)) {
-              console.log(
-                "EL VALUE !+ FENIPUT",
-                el.value,
-                " ~ ",
-                displaySfen(ctrl.fenInput)
-              );
               el.value = displaySfen(ctrl.fenInput);
             }
           },
