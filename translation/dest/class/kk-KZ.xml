@@ -5,4 +5,22 @@
   <string name="features">Ерекшеліктері</string>
   <string name="quicklyGenerateSafeUsernames">Шәкірттердің қауіпсіз аккаунт аттары мен құпиясөздерін тез құру</string>
   <string name="trackStudentProgress">Шәкірттердің ойындарда, жұмбақ шешуде жетістіктерін қадағалау</string>
+  <string name="messageAllStudents">Барлық шәкірттерге жаңа оқу материал туралы хабар жіберу</string>
+  <string name="freeForAllForever">Барлығы үшін 100% тегін, мәңгі, жарнамасыз, трекерсіз</string>
+  <string name="applyToBeLichessTeacher">Личесте Ұстаз болуға сұраныс жіберіңіз</string>
+  <string name="noClassesYet">Мектеп әзір жоқ.</string>
+  <string name="teachersX">Ұстаздар: %s</string>
+  <string name="newClass">Жаңа мектеп</string>
+  <string name="closeClass">Мектепті жабу</string>
+  <string name="closedByX">Жапқан – %s</string>
+  <string name="reopen">Қайта ашу</string>
+  <string name="removeStudent">Шәкіртті шығару</string>
+  <string name="removedStudents">Шығарылды</string>
+  <string name="inviteTheStudentBack">Шәкіртті қайта шақыру</string>
+  <string name="sendAMessage">Барлық шәкірттерге хабар жіберу.</string>
+  <string name="aLinkToTheClassWillBeAdded">Мектепке апарар сілтемені өзіңіз қоспаңыз, ол автоматты түрде хабар аяғына қосылады.</string>
+  <string name="className">Мектеп атауы</string>
+  <string name="classDescription">Мектеп сипаттамасы</string>
+  <string name="visibleByBothStudentsAndTeachers">Мектептің ұстаздары мен шәкірттеріне бірдей көрінеді</string>
+  <string name="teachersOfTheClass">Мектеп ұстаздары</string>
 </resources>
