@@ -31,4 +31,14 @@
   <string name="generateANewPassword">Шәкіртке жаңа құпиясөз құру</string>
   <string name="invitedToXByY">%1$s-не %2$s шақырған</string>
   <string name="realName">Шын аты</string>
+  <string name="privateWillNeverBeShown">Жеке дара. Мектептен тыс көрсетілмейді. Шәкірттің кім екенін есте сақтауға көмектеседі.</string>
+  <string name="addStudent">Шәкірт қосу</string>
+  <string name="lichessProfileXCreatedForY">%1$s аккаунты %2$s үшін құрылды.</string>
+  <string name="studentCredentials">Шәкірт: %1$s
+Аккаунт аты: %2$s
+Құпиясөз: %3$s</string>
+  <string name="inviteALichessAccount">Аккаунт иесін шақыру</string>
+  <string name="inviteDesc1">Егер шәкірттің Личес аккаунты бар болса, сіз оны Мектепке шақыра аласыз.</string>
+  <string name="inviteDesc2">Ол Мектепке қостыратын сілтемені Личесте хабар түрінде алатын болады.</string>
+  <string name="inviteDesc3">Ескерту: тек өзіңізге таныс, Мектепке қосылуды шын ниет еткен шәкірттерді ғана шақырыңыз.</string>
 </resources>
