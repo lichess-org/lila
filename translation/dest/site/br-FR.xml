@@ -97,6 +97,7 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Degemer muioc\'h a grogadoù o tont eus lañser an dibaboù?</string>
   <string name="openingExplorer">Lañser an digoradurioù</string>
   <string name="xOpeningExplorer">Lañser digoradurioù %s</string>
+  <string name="winPreventedBy50MoveRule">Trec\'h harzet gant reolenn an 50 taol</string>
   <string name="allSet">Prest eo!</string>
   <string name="importPgn">Enporzhiañ PGN</string>
   <string name="delete">Dilemel</string>
@@ -934,7 +935,7 @@
   <string name="correspondenceDesc">Krogadoù a-bell: un deiz pe meur a hini evit ur fiñvadenn</string>
   <string name="puzzleDesc">Gourdoner poelladennoù echedoù</string>
   <string name="important">A-bouez</string>
-  <string name="yourQuestionMayHaveBeenAnswered">Ur respont zo bet d\'ho koulenn dija marteze %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">Ur respont zo bet d\'ho koulenn dija marteze %1$s</string>
   <string name="inTheFAQ">er FAG.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Ma faotañ deoc\'h mont e darempred ganeomp abalamour d\'un trucher pe d\'un den displijus, %1$s</string>
   <string name="useTheReportForm">grit gant ar furmskrid diskleriañ</string>
