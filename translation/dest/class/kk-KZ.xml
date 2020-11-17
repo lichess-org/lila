@@ -62,4 +62,9 @@
   <string name="lastActiveDate">Белсенді</string>
   <string name="managed">Басқарулы</string>
   <string name="thisStudentAccountIsManaged">Бұл шәкірт аккаунты – басқарулы</string>
+  <string name="upgradeFromManaged">Басқарулы күйден тәуелсіз күйге ауысу</string>
+  <string name="release">Босату</string>
+  <string name="releaseTheAccount">Аккаунтты босатыңыз, шәкірт оны дара өзі басқаратын болады.</string>
+  <string name="releaseDesc1">Босатылған аккаунт қайттан басқарулы күйге ауыса алмайды. Шәкірт Личестің балалық нұсқасын қосуға, құпиясөзді қайта орнатуға қабілетті болады.</string>
+  <string name="releaseDesc2">Шәкірт аккаунты босатылған соң Мектепте хабар келеді.</string>
 </resources>
