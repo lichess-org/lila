@@ -46,4 +46,20 @@
   <string name="createDesc1">Егер шәкірттің Личес аккаунты болмаса, оған осы жерде аккаунт құра аласыз.</string>
   <string name="createDesc2">Поштаның қажеті жоқ. Құпиясөз құрылған соң, оны шәкіртке жіберіңіз, ол аккаунтқа осылай кіретін болды.</string>
   <string name="createDesc3">Ескерту: шәкірттің тек бір аккаунты болуы керек.</string>
+  <string name="createDesc4">Егер аккаунты бар болса, оның орнына шақыру формасын қолданыңыз.</string>
+  <string name="lichessUsername">Личес аккаунт аты</string>
+  <string name="generateANewUsername">Жаңа аккаунт атын құру</string>
+  <string name="welcomeToClass">%s Мектепіне қош келдіңіз.
+Бұл мектепке кіру үшін сілтеме.</string>
+  <string name="invitationToClass">Сіз %s мектебіне шәкірт ретінде шақырылғансыз.</string>
+  <string name="clickToViewInvitation">Шақыруды қарау үшін сілтемеге басыңыз:</string>
+  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+    <item quantity="one">Бір жауапсыз шақыру</item>
+    <item quantity="other">%s жауапсыз шақыру</item>
+  </plurals>
+  <string name="noPendingInvitations">Жауапсыз шақырулар жоқ</string>
+  <string name="onlyVisibleToTeachers">Тек Мектеп ұстаздарына көрінеді</string>
+  <string name="lastActiveDate">Белсенді</string>
+  <string name="managed">Басқарулы</string>
+  <string name="thisStudentAccountIsManaged">Бұл шәкірт аккаунты – басқарулы</string>
 </resources>
