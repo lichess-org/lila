@@ -733,6 +733,7 @@
   <string name="whenCreateSimul">Pa grouit un abadenn gempred ho pez meur a c\'hoarier da enebiñ oute.</string>
   <string name="simulVariantsHint">Ma choazit meur a eilstumm en do pep c\'hoarier da zibab pehini c\'hoari.</string>
   <string name="simulClockHint">Aozet an horolaj e mod Fischer. Seul vuioc\'h a c\'hoarierien seul vuioc\'h a amzer ho po ezhomm da gaout.</string>
+  <string name="simulAddExtraTime">Gallout a rit lakaat amzer ouzhpenn d\'ho horolaj, evit ho sikour d\'ober war-dro ar bartienn gempred.</string>
   <string name="lichessTournaments">Tournamantoù Lichess</string>
   <string name="tournamentFAQ">FAG aren an tournamant</string>
   <string name="tournamentOfficial">Ofisiel</string>
@@ -744,6 +745,7 @@
   <string name="keyShowOrHideComments">diskouez/skoachañ an evezhiadennoù</string>
   <string name="keyEnterOrExitVariation">mont ebarzh/kuitaat an eilstumm</string>
   <string name="newTournament">Tournamant nevez</string>
+  <string name="tournamentHomeTitle">Tournamantoù echedoù o zizh hag o variantoù liesseurt</string>
   <string name="tournamentNotFound">N\'eo ket bet kavet an tournamant</string>
   <string name="tournamentDoesNotExist">N\'eus ket diouzh an tournamant-mañ.</string>
   <string name="tournamentMayHaveBeenCanceled">Marteze eo bet nullet an tournamant dre ma \'z eo aet kuit an holl c\'hoarerien a-raok ma krogfe.</string>
