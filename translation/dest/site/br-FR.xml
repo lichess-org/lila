@@ -14,7 +14,7 @@
   <string name="chat">Kaozeadenn</string>
   <string name="resign">Dilezel</string>
   <string name="checkmate">Lamm d\'ar roue</string>
-  <string name="stalemate">Rampo</string>
+  <string name="stalemate">Gwalllamm</string>
   <string name="white">Gwenn</string>
   <string name="black">Du</string>
   <string name="randomColor">Liv dre zegouezh</string>
@@ -98,6 +98,7 @@
   <string name="openingExplorer">Lañser an digoradurioù</string>
   <string name="xOpeningExplorer">Lañser digoradurioù %s</string>
   <string name="winPreventedBy50MoveRule">Trec\'h harzet gant reolenn an 50 taol</string>
+  <string name="lossSavedBy50MoveRule">Trec\'hidigezh harzet gant reolennoù an 50 taol</string>
   <string name="allSet">Prest eo!</string>
   <string name="importPgn">Enporzhiañ PGN</string>
   <string name="delete">Dilemel</string>
