@@ -2,4 +2,7 @@
 <resources>
   <string name="lichessClasses">Мектеп</string>
   <string name="teachClassesOfChessStudents">Личес Мектебі құралын пайдаланып, шәкірттерге шахмат сабағын оқытыңыз.</string>
+  <string name="features">Ерекшеліктері</string>
+  <string name="quicklyGenerateSafeUsernames">Шәкірттердің қауіпсіз аккаунт аттары мен құпиясөздерін тез құру</string>
+  <string name="trackStudentProgress">Шәкірттердің ойындарда, жұмбақ шешуде жетістіктерін қадағалау</string>
 </resources>
