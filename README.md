@@ -19,7 +19,7 @@ and relies on the [Play 2.8](https://www.playframework.com/) framework.
 [scalatags](http://www.lihaoyi.com/scalatags/) is used for templating.
 Pure chess logic is contained in the [scalashogi](https://github.com/WandererXII/scalashogi) submodule.
 The server is fully asynchronous, making heavy use of Scala Futures and [Akka streams](http://akka.io).
-WebSocket connections are handled by a [seperate server](https://github.com/ornicar/lila-ws) that communicates using [redis](https://redis.io/).
+WebSocket connections are handled by a [separate server](https://github.com/ornicar/lila-ws) that communicates using [redis](https://redis.io/).
 It uses [MongoDB](https://mongodb.org) to store games.
 HTTP requests and WebSocket connections can be proxied by [nginx](http://nginx.org).
 The web client is written in [TypeScript](https://www.typescriptlang.org/) and [snabbdom](https://github.com/snabbdom/snabbdom), using [Sass](https://sass-lang.com/) to generate CSS.
