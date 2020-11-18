@@ -59,4 +59,11 @@
   <string name="takeTheBlackPiecesAndDontLoseYours">Tak svørtu talvfólkini! Og ansa eftir, ikki at missa tíni egnu fólk.</string>
   <string name="captureComplete">Til lukku! Nú dugir tú at berjast við talvfólkum!</string>
   <string name="protection">At verja</string>
+  <string name="keepYourPiecesSafe">Ansa eftir tínum egnu talvfólkum</string>
+  <string name="protectionIntro">Finn útav, hvørji fólk eru undir álopi, og verj tey!</string>
+  <string name="protectionComplete">Til lukku! Ikki at missa eitt fólk er at vinna eitt fólk!</string>
+  <string name="escape">Tú ert undir álopi! Rým undan vandanum!</string>
+  <string name="noEscape">Tað ber ikki til at rýma, men tú kanst verja!</string>
+  <string name="enPassant">At taka í framlopi (en passant)</string>
+  <string name="theSpecialPawnMove">Serligi finnuleikurin</string>
 </resources>
