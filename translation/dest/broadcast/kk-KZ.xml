@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Көрсетілімдер</string>
+  <string name="liveBroadcasts">Тікелей жарыс көрсетілімдері</string>
+  <string name="newBroadcast">Жаңа тікелей көрсетілім</string>
 </resources>
