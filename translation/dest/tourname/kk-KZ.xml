@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hourlyRapidArena">Сағат сайынғы Рапид Алаңы</string>
-  <string name="hourlyRapid">Сағат сайынғы Рапид</string>
-  <string name="hourlyXArena">Сағат сайынғы %s Алаңы</string>
-  <string name="hourlyX">Сағат сайынғы %s</string>
-  <string name="dailyRapidArena">Күн сайынғы Рапид Алаңы</string>
-  <string name="dailyRapid">Күн сайынғы Рапид</string>
-  <string name="dailyClassicalArena">Күн сайынғы Классикалық Алаң</string>
-  <string name="dailyClassical">Күн сайынғы Классикалық</string>
-  <string name="dailyXArena">Күн сайынғы %s Алаңы</string>
-  <string name="dailyX">Күн сайынғы %s</string>
+  <string name="hourlyRapidArena">Әрсағаттық Рапид Алаңы</string>
+  <string name="hourlyRapid">Әрсағаттық Рапид</string>
+  <string name="hourlyXArena">Әрсағаттық %s Алаңы</string>
+  <string name="hourlyX">Әрсағаттық %s</string>
+  <string name="dailyRapidArena">Күнделікті Рапид Алаңы</string>
+  <string name="dailyRapid">Күнделікті Рапид</string>
+  <string name="dailyClassicalArena">Күнделікті Классикалық Алаң</string>
+  <string name="dailyClassical">Күнделікті Классикалық</string>
+  <string name="dailyXArena">Күнделікті %s Алаңы</string>
+  <string name="dailyX">Күнделікті %s</string>
   <string name="easternRapidArena">Шығыс Рапид Алаңы</string>
   <string name="easternRapid">Шығыс Рапид</string>
   <string name="easternClassicalArena">Шығыс Классикалық Алаң</string>
