@@ -734,6 +734,7 @@
   <string name="simulVariantsHint">Ma choazit meur a eilstumm en do pep c\'hoarier da zibab pehini c\'hoari.</string>
   <string name="simulClockHint">Aozet an horolaj e mod Fischer. Seul vuioc\'h a c\'hoarierien seul vuioc\'h a amzer ho po ezhomm da gaout.</string>
   <string name="simulAddExtraTime">Gallout a rit lakaat amzer ouzhpenn d\'ho horolaj, evit ho sikour d\'ober war-dro ar bartienn gempred.</string>
+  <string name="simulHostExtraTime">Lakaat amzer ouzhpenn d\'ho horolaj</string>
   <string name="lichessTournaments">Tournamantoù Lichess</string>
   <string name="tournamentFAQ">FAG aren an tournamant</string>
   <string name="tournamentOfficial">Ofisiel</string>
@@ -778,6 +779,7 @@
   <string name="downloadImported">Enkargañ enporzhiet</string>
   <string name="printFriendlyPDF">PDF da voullañ</string>
   <string name="crosstable">Roll-istor ar c\'hrogadoù</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Gallout a rit ivez treiñ rodell al logodenn evit mont eus an eil taolioù d\'ar re all.</string>
   <string name="analysisShapesHowTo">Pouezit war shift+klik pe klik-dehou da dresañ kelc\'hioù ha biroù war an tablez.</string>
   <string name="letOtherPlayersMessageYou">Aotreañ ar c\'hoarierien da gas kemennadennoù deoc\'h</string>
   <string name="shareYourInsightsData">Rannañ roadennoù hoc\'h anien echedoù</string>
@@ -913,6 +915,7 @@
   <string name="conditionalPremoves">Raktaolioù rekiz</string>
   <string name="addCurrentVariation">Ouzhpennañ an eilstumm o ren</string>
   <string name="playVariationToCreateConditionalPremoves">C\'hoariit ur variant evit krouiñ raktaolioù rekiz</string>
+  <string name="noConditionalPremoves">Raktaol rekiz ebet</string>
   <string name="playX">C\'hoari %s</string>
   <string name="sorry">Hon digarezit :(</string>
   <string name="weHadToTimeYouOutForAWhile">Ret e oa deomp ho skarzhañ e-pad ur prantad.</string>
