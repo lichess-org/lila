@@ -780,6 +780,7 @@
   <string name="crosstable">Roll-istor ar c\'hrogadoù</string>
   <string name="analysisShapesHowTo">Pouezit war shift+klik pe klik-dehou da dresañ kelc\'hioù ha biroù war an tablez.</string>
   <string name="letOtherPlayersMessageYou">Aotreañ ar c\'hoarierien da gas kemennadennoù deoc\'h</string>
+  <string name="shareYourInsightsData">Rannañ roadennoù hoc\'h anien echedoù</string>
   <string name="withNobody">Gant den ebet</string>
   <string name="withFriends">Gant ma mignoned</string>
   <string name="withEverybody">Gant an holl dud</string>
@@ -909,7 +910,9 @@
   <string name="yourXRatingIsTooFarFromY">Re vras an diforc\'h etre ho renkadur %1$s hag hini %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Ne c\'hallit ket daeañ abalamour d\'ho renkadur %s a zo da c\'hortoz.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">Ne vez ket degemeret daeoù nemet digant mignoned gant %s.</string>
+  <string name="conditionalPremoves">Raktaolioù rekiz</string>
   <string name="addCurrentVariation">Ouzhpennañ an eilstumm o ren</string>
+  <string name="playVariationToCreateConditionalPremoves">C\'hoariit ur variant evit krouiñ raktaolioù rekiz</string>
   <string name="playX">C\'hoari %s</string>
   <string name="sorry">Hon digarezit :(</string>
   <string name="weHadToTimeYouOutForAWhile">Ret e oa deomp ho skarzhañ e-pad ur prantad.</string>
