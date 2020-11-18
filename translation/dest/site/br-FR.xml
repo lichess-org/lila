@@ -580,15 +580,15 @@
   <string name="yes">Ya</string>
   <string name="help">Sikour:</string>
   <string name="createANewTopic">Krouiñ ur sujed nevez</string>
-  <string name="topics">Sujedoù</string>
+  <string name="topics">Temoù</string>
   <string name="posts">Kemennadennoù</string>
   <string name="lastPost">Kemennadenn ziwezhañ</string>
   <string name="views">Gwelet</string>
   <string name="replies">Respontoù</string>
-  <string name="replyToThisTopic">Respont d\'an danvez-mañ</string>
+  <string name="replyToThisTopic">Respont d\'ar sujed-mañ</string>
   <string name="reply">Respont</string>
   <string name="message">Kemennadenn</string>
-  <string name="createTheTopic">Krouiñ an danvez</string>
+  <string name="createTheTopic">Krouiñ ur sujed</string>
   <string name="reportAUser">Diskleriañ un implijer d\'an habaskaerien</string>
   <string name="user">Implijer</string>
   <string name="reason">Abeg</string>
@@ -716,7 +716,7 @@
   <string name="contribute">Kenoberiañ</string>
   <string name="termsOfService">Divizoù hollek an implij</string>
   <string name="sourceCode">Boneg Tarzh</string>
-  <string name="simultaneousExhibitions">Abadennoù kempred</string>
+  <string name="simultaneousExhibitions">Partiennoù kempred</string>
   <string name="host">Ostiz</string>
   <string name="hostColorX">Liv an ostiz: %s</string>
   <string name="createdSimuls">Abadennoù kempred nevez krouet</string>
