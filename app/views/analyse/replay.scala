@@ -136,7 +136,7 @@ object replay {
                 ),
                 div(cls := "fen-pgn")(
                   div(
-                    strong("FEN"),
+                    strong("SFEN"),
                     input(
                       readonly,
                       spellcheck := false,

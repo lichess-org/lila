@@ -7,6 +7,7 @@ import AnalyseCtrl from '../ctrl';
 import { MaybeVNodes } from '../interfaces';
 import { mainHook, nodeClasses, findCurrentPath, renderInlineCommentsOf, retroLine } from './treeView';
 import { Ctx, Opts } from './treeView';
+import {westernShogiNotation} from "shogiutil/util"
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {
   const cs = node.children,
@@ -94,7 +95,7 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   const path = opts.parentPath + node.id,
   content: MaybeVNodes = [
     opts.withIndex || node.ply & 1 ? moveView.renderIndex(node.ply, true) : null,
-    fixCrazySan(node.san!)
+    westernShogiNotation(fixCrazySan(node.san!))
   ];
   if (node.glyphs && ctx.showGlyphs) moveView.renderGlyphs(node.glyphs).forEach(g => content.push(g));
   return h('move', {

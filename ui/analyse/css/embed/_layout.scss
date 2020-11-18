@@ -29,6 +29,7 @@
   background: #888;
   border-radius: 0;
 }
+.analyse.variant-fromPosition,
 .analyse.variant-standard {
   grid-template-rows: 60px auto 2.5rem 60px;
   body.supports-max-content & {

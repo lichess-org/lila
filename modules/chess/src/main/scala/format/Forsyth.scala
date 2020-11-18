@@ -41,8 +41,8 @@ object Forsyth {
   def <<<@(variant: Variant, rawSource: String): Option[SituationPlus] =
     read(rawSource) { source =>
       <<@(variant, source) map { sit =>
-        val splitted       = source.split(' ').drop(4).dropWhile(_.contains('+'))
-        val fullMoveNumber = splitted lift 1 flatMap parseIntOption map (_ max 1 min 500)
+        val splitted       = source.split(' ').drop(3).dropWhile(_.contains('+'))
+        val fullMoveNumber = splitted lift 0 flatMap parseIntOption map (_ max 1 min 500)
         val halfMoveClock  = splitted lift 0 flatMap parseIntOption map (_ max 0 min 100)
         SituationPlus(
           halfMoveClock.map(sit.history.setHalfMoveClock).fold(sit)(sit.withHistory),
