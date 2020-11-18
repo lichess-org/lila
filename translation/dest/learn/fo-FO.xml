@@ -85,6 +85,17 @@
   <string name="escapeOrBlock">Rým við konginum ella set eitt fólk fyri!</string>
   <string name="outOfCheckComplete">Til lukku! Kongurin hjá tær kann ongantíð verða tikin. Ansa eftir, at tú fært vart móti skáki!</string>
   <string name="mateInOne">Mát í einum</string>
+  <string name="defeatTheOpponentsKing">Vinn á mótstøðukonginum</string>
+  <string name="mateInOneIntro">Tú vinnur, tá ið mótstøðufólkið ikki fær vart ímóti skáki.</string>
+  <string name="attackYourOpponentsKing">Leyp á mótstøðukongin, soleiðis at hann ikki fær vart seg!</string>
+  <string name="mateInOneComplete">Til lukku! Soleiðis vinnur tú í talvi!</string>
+  <string name="intermediate">Millumstig</string>
+  <string name="boardSetup">Talvborðið</string>
+  <string name="howTheGameStarts">Hvussu talvið byrjar</string>
+  <string name="boardSetupIntro">Herarnir standa yvirav hvørjum øðrum, klárir til bardaga.</string>
+  <string name="thisIsTheInitialPosition">Hetta er byrjanarstøðan í hvørjum talvi! Flyt okkurt fólk fyri at halda fram.</string>
+  <string name="firstPlaceTheRooks">Set fyrst rókarnar upp á pláss! Teir fara yvir í hornini.</string>
+  <string name="thenPlaceTheKnights">Set síðani riddararnar upp á pláss! Teir standa undir liðini á rókunum.</string>
   <string name="enPassant">At taka í framlopi (en passant)</string>
   <string name="theSpecialPawnMove">Serligi finnuleikurin</string>
   <string name="yourScore">Títt stigatal</string>
