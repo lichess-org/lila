@@ -63,4 +63,13 @@
   <string name="noLongerSupport">Личесті енді қолдамау</string>
   <string name="paymentHistory">Төлемдер тарихы</string>
   <string name="paid">Төленгені</string>
+  <string name="viewOthers">Басқа Личес Қамқоршыларын қарау</string>
+  <string name="date">Күні</string>
+  <string name="amount">Мөлшері</string>
+  <string name="transactionCompleted">Сіздің аударымыңыз аяқталды, ақшалай жәрдем түбіртегі поштаңызға жіберілді.</string>
+  <string name="permanentPatron">Енді сіз тұрақты Қамқоршы аккаунтына иесіз.</string>
+  <string name="checkOutProfile">Куәлік парақшасын қарап көріңіз!</string>
+  <string name="nowLifetime">Енді сіз өмір бойы Личес Қамқоршысысыз!</string>
+  <string name="nowOneMonth">Енді сіз бір айлық Личес Қамқоршысысыз!</string>
+  <string name="downgradeNextMonth">Айлардың бірінде төлем болмай қалса, Личес аккаунтыңыз қайттан қарапайым аккаунтқа ауысады.</string>
 </resources>
