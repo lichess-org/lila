@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Ақшалай жәрдем</string>
-  <string name="lichessPatron">Личес Қамқоршы</string>
+  <string name="lichessPatron">Личес Қамқоршысы</string>
   <string name="freeAccount">Тегін аккаунт</string>
-  <string name="becomePatron">Личес Қамқоршы болу</string>
+  <string name="becomePatron">Лическе Қамқоршы болу</string>
   <string name="xBecamePatron">%s Лическе Қамқоршы болды</string>
   <string name="newPatrons">Жаңа Қамқоршылар</string>
   <string name="freeChess">Баршылыққа арналған тегін шахмат, мәңгі!</string>
@@ -13,4 +13,8 @@
   <string name="patronUntil">Сіз Қамқоршы аккаунтқа %s дейін иесіз.</string>
   <string name="ifNotRenewed">Егер жаңартпасаңыз, аккаунт тегін деңгейіне түседі.</string>
   <string name="weAreNonProfit">Біз коммерциялық емес ұйымбыз, өйткені біз әрбір адам әлемдік деңгейдегі шахматқа тегін ойнауға құқылы деп сенеміз.</string>
+  <string name="weRelyOnSupport">Еңбегімізді қуаттап, қолдап жатқан халыққа үміт тұтамыз. Егер сізге Личес пайдасын тигізсе, Қамқоршы болып, бізге ақшалай жәрдем көрсетуді сұраймыз!</string>
+  <string name="lifetime">Өмір бойы</string>
+  <string name="payLifetimeOnce">%s бір мәрте төлеп, Лическе мәңгі Қамқоршы болыңыз!</string>
+  <string name="lifetimePatron">Лическе Өмір бойы Қамқоршы</string>
 </resources>
