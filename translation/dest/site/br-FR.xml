@@ -246,9 +246,9 @@
   <string name="standard">Normal</string>
   <string name="unlimited">Didermen</string>
   <string name="mode">Mod</string>
-  <string name="casual">Krogad a vignoniezh</string>
+  <string name="casual">Nann-renket</string>
   <string name="rated">Renket</string>
-  <string name="casualTournament">A vignoniezh</string>
+  <string name="casualTournament">Nann-renket</string>
   <string name="ratedTournament">Renket</string>
   <string name="thisGameIsRated">Renket eo ar c\'hrogad-mañ</string>
   <string name="rematch">C\'hoari en-dro</string>
@@ -728,7 +728,7 @@
   <string name="aboutSimulImage">A-enep 50 enebour eo bet trec\'h Fischer 47 gwech, div wech rampo ha trec\'het ur wech nemetken.</string>
   <string name="aboutSimulRealLife">Bezañ ez eus diouzh abadennoù e-giz-se evit gwir. D\'ar c\'hoarier da vont deus un daol d\'eben evit ober ur fiñvadenn bep tro.</string>
   <string name="aboutSimulRules">Pa grog an abadenn gempred e krog pep krogad gant an ostiz ivez. Gantañ e vez c\'hoariet ar re wenn. Ur wech echu an holl grogadoù e vo fin an abadenn gempred.</string>
-  <string name="aboutSimulSettings">Krogadoù a vignoniezh eo an abadennoù kempred bepred. Kinnigoù c\'hoari en-dro, nullañ ar fiñvadenn ziwezhañ pe ouzhpennañ amzer zo diweredekaet.</string>
+  <string name="aboutSimulSettings">Nann-renket eo ar partiennoù kempred bep tro. Ne c\'haller ket kemer e zial, mont war gil pe ouzhepannañ amzer.</string>
   <string name="create">Krouiñ</string>
   <string name="whenCreateSimul">Pa grouit un abadenn gempred ho pez meur a c\'hoarier da enebiñ oute.</string>
   <string name="simulVariantsHint">Ma choazit meur a eilstumm en do pep c\'hoarier da zibab pehini c\'hoari.</string>
