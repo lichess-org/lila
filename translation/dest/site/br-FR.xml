@@ -499,7 +499,7 @@
   <string name="tournamentComplete">Echu eo an tournamant</string>
   <string name="movesPlayed">Niver a fiñvadennoù</string>
   <string name="whiteWins">Ar re wenn zo trec\'h</string>
-  <string name="blackWins">Ar re zu zo trec\'h</string>
+  <string name="blackWins">Feur trec\'h ar re wenn</string>
   <string name="draws">Krogadoù rampo</string>
   <string name="nextXTournament">Tournamant %s war-lerc\'h:</string>
   <string name="averageOpponent">Keidenn live an enebour</string>
