@@ -15,6 +15,7 @@
   <string name="grabAllTheStars">Tak allar stjørnurnar!</string>
   <string name="theFewerMoves">Færri trekk tú brúkar, meira stig fært tú!</string>
   <string name="useTwoRooks">Nýt tveir rókar fyri at økjs um ferðina!</string>
+  <string name="rookComplete">Til lukku! Nú dugir tú at flyta við rókinum.</string>
   <string name="theBishop">Bispurin</string>
   <string name="itMovesDiagonally">Hann flytur á skák</string>
   <string name="bishopIntro">Nú læra vit, hvussu bispurin flytur!</string>
@@ -64,6 +65,13 @@
   <string name="protectionComplete">Til lukku! Ikki at missa eitt fólk er at vinna eitt fólk!</string>
   <string name="escape">Tú ert undir álopi! Rým undan vandanum!</string>
   <string name="noEscape">Tað ber ikki til at rýma, men tú kanst verja!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Ikki lata tey taka nøkur óvard fólk!</string>
+  <string name="combat">Bardagi</string>
+  <string name="captureAndDefendPieces">Tak og verj fólkini</string>
+  <string name="combatIntro">Ein góður stríðsmaður kennir bæði álop og verju!</string>
+  <string name="combatComplete">Til lukku! Nú dugir tú at berjast við talvfólkum!</string>
+  <string name="checkInOne">Skák í einum</string>
+  <string name="attackTheOpponentsKing">Leyp á kongin hjá mótstøðufólkinum</string>
   <string name="enPassant">At taka í framlopi (en passant)</string>
   <string name="theSpecialPawnMove">Serligi finnuleikurin</string>
   <string name="yourScore">Títt stigatal</string>
