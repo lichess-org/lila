@@ -116,6 +116,13 @@
   <string name="castlingComplete">Til lukku! Tú eigur næstan altíð at leypa í borg í einum talvi.</string>
   <string name="enPassant">At taka í framlopi (en passant)</string>
   <string name="theSpecialPawnMove">Serligi finnuleikurin</string>
+  <string name="enPassantIntro">Tá ið mótstøðufinnan loypur tveir puntar fram og kemur at standa undir liðini á einari finnu hjá tær, kanst tú drepa finnuna sum um, at hon bert flutti ein punt fram.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Svartur flutti eina finnu tveir puntar fram! Tak hana í framlopi.</string>
+  <string name="enPassantOnlyWorksImmediately">At drepa í framlopi ber bert til beint aftaná, at mótstøðufólkið flutti finnuna.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">At drepa í framlopi riggar bert, um finnan hjá tær er á fimtu røð.</string>
+  <string name="takeAllThePawnsEnPassant">Tak allar finnurnar í framlopi!</string>
+  <string name="enPassantComplete">Til lukku! Tú dugir nú at drepa í framlopi.</string>
+  <string name="stalemate">Patt</string>
   <string name="yourScore">Títt stigatal</string>
   <string name="next">Næst</string>
   <string name="backToMenu">Aftur til valmyndina</string>
