@@ -12,4 +12,5 @@
   <string name="youHaveLifetime">Сіз Өмір бойына Қамқоршы аккаунтына иесіз. Бұл керемет!</string>
   <string name="patronUntil">Сіз Қамқоршы аккаунтқа %s дейін иесіз.</string>
   <string name="ifNotRenewed">Егер жаңартпасаңыз, аккаунт тегін деңгейіне түседі.</string>
+  <string name="weAreNonProfit">Біз коммерциялық емес ұйымбыз, өйткені біз әрбір адам әлемдік деңгейдегі шахматқа тегін ойнауға құқылы деп сенеміз.</string>
 </resources>
