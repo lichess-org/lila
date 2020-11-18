@@ -1,3 +1,5 @@
+/// <reference types="../types/ab" />
+
 import * as ab from 'ab';
 import * as round from './round';
 import * as game from 'game';
