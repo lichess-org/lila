@@ -382,4 +382,8 @@
   <string name="withdraw">Уеннан чыгу</string>
   <string name="wins">Җиңүләр</string>
   <string name="losses">Җиңелүләр</string>
+  <string name="createdBy">Оештыручы</string>
+  <string name="tournamentIsStarting">Турнир башлана</string>
+  <string name="youArePlaying">Сез уйныйсыз!</string>
+  <string name="winRate">Җиңүләр</string>
 </resources>
