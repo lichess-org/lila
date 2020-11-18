@@ -64,6 +64,7 @@
   <string name="promoteVariation">Thay đổi biến</string>
   <string name="makeMainLine">Biến chính</string>
   <string name="deleteFromHere">Xoá từ đây</string>
+  <string name="forceVariation">Đổi biến</string>
   <string name="move">Các nước đi</string>
   <string name="variantLoss">Bước đi sai lầm dẫn đến chiếu hết</string>
   <string name="variantWin">Bước đi chiếu hết</string>
@@ -187,6 +188,8 @@
     <item quantity="other">%s những ván cờ với bạn</item>
   </plurals>
   <string name="cancel">Hủy bỏ</string>
+  <string name="whiteTimeOut">Trắng hết giờ</string>
+  <string name="blackTimeOut">Đen hết giờ</string>
   <string name="drawOfferSent">Đã gửi đề nghị hòa</string>
   <string name="drawOfferDeclined">Từ chối hoà</string>
   <string name="drawOfferAccepted">Đồng ý hoà</string>
@@ -417,6 +420,7 @@
   <string name="biography">Lý lịch</string>
   <string name="country">Quốc gia</string>
   <string name="socialMediaLinks">Kênh mạng xã hội</string>
+  <string name="inlineNotation">Ký hiệu bên trong bàn cờ</string>
   <string name="watchLichessTV">Xem ti vi Lichess</string>
   <string name="previouslyOnLichessTV">Kênh trước</string>
   <string name="onlinePlayers">Các kỳ thủ có mặt</string>
@@ -791,15 +795,23 @@
   <string name="temporaryInconvenience">Chúng tôi xin lỗi vì tạm thời gây ra những bất tiện,</string>
   <string name="wishYouGreatGames">và mong bạn có những trận chiến đỉnh cao trên lichess.org.</string>
   <string name="thankYouForReading">Cảm ơn bạn vì đã đọc!</string>
+  <string name="lifetimeScore">Tổng điểm đối đầu</string>
+  <string name="currentMatchScore">Tỷ số của lần đối đầu này</string>
   <string name="agreementAssistance">Tôi đồng ý rằng, tôi sẽ không nhận sự trợ giúp trong lúc chơi (từ máy tính, sách, các cơ sở dữ liệu, hoặc từ người khác).</string>
   <string name="agreementNice">Tôi đồng ý rằng, tôi luôn luôn tôn trọng người chơi khác.</string>
   <string name="agreementAccount">Tôi đồng ý rằng, tôi sẽ không tạo nhiều tài khoản.</string>
   <string name="agreementPolicy">Tôi đồng ý rằng, tôi sẽ luôn tuân thủ các chính sách của Lichess.</string>
   <string name="searchOrStartNewDiscussion">Tìm hoặc bắt đầu một cuộc trò chuyện</string>
   <string name="edit">Chỉnh sửa</string>
+  <string name="rapid">Cờ nhanh</string>
+  <string name="classical">Cờ chậm</string>
   <string name="ultraBulletDesc">Những ván cờ cực nhanh: ít hơn 30 giây</string>
   <string name="bulletDesc">Những ván cờ rất nhanh: ít hơn 3 phút</string>
   <string name="blitzDesc">Những ván cờ nhanh: 3 đến 8 phút</string>
+  <string name="rapidDesc">Cờ nhanh: 8 tới 25 phút</string>
+  <string name="classicalDesc">Cờ chậm: Nhiều hơn hoặc bằng 25 phút</string>
+  <string name="correspondenceDesc">Đánh cờ qua thư: Một hoặc vài ngày cho mỗi nước</string>
+  <string name="puzzleDesc">Huấn luyện viên cờ thế</string>
   <string name="important">Chú ý</string>
   <string name="useTheReportForm">dùng bảng tố cáo</string>
   <string name="toRequestSupport">Để yêu cầu trợ giúp, %1$s</string>
