@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">Ақшалай жәрдем</string>
+  <string name="lichessPatron">Личес Қамқоршы</string>
+  <string name="freeAccount">Тегін аккаунт</string>
+  <string name="becomePatron">Личес Қамқоршы болу</string>
+  <string name="xBecamePatron">%s Лическе Қамқоршы болды</string>
+  <string name="newPatrons">Жаңа Қамқоршылар</string>
+  <string name="freeChess">Баршылыққа арналған тегін шахмат, мәңгі!</string>
+</resources>
