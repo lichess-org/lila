@@ -151,8 +151,8 @@
   <string name="viewInFullSize">Brasaat</string>
   <string name="logOut">Digevreañ</string>
   <string name="signIn">Kevreañ</string>
-  <string name="youNeedAnAccountToDoThat">Ezhomm ho peus da gaout ur gont evit hen ober</string>
-  <string name="signUp">Koumanantiñ</string>
+  <string name="youNeedAnAccountToDoThat">Ezhomm ho peus kaout ur gont evit hen ober</string>
+  <string name="signUp">Lakaat e anv</string>
   <string name="computersAreNotAllowedToPlay">Urzhiataerioù ha c\'hoarierien sikouret gant un urzhiataer n\'int ket aotreet da c\'hoari. Na vezit ket skoazellet gant mekanikoù, diaz roadennoù pe c\'hoarierien all pa vezit o c\'hoari. Ne aliomp ket ac\'hanoc\'h da gaout kalz kontoù kennebeut. M\'ho peus re a gontoù e veoc\'h forbannet.</string>
   <string name="games">Krogadoù</string>
   <string name="forum">Forom</string>
@@ -164,9 +164,9 @@
   <string name="today">Hiziv</string>
   <string name="yesterday">Dec\'h</string>
   <string name="minutesPerSide">Munutennoù evit pep c\'hoarier</string>
-  <string name="variant">Eilstumm</string>
+  <string name="variant">Doare</string>
   <string name="variants">Eilstummoù</string>
-  <string name="timeControl">Merañ an amzer</string>
+  <string name="timeControl">Tizh</string>
   <string name="realTime">Amzer wirion</string>
   <string name="correspondence">A-bell</string>
   <string name="daysPerTurn">Deizioù dre fiñvadenn</string>
@@ -183,17 +183,17 @@
     <item quantity="two">%s eur</item>
     <item quantity="few">%s eur</item>
     <item quantity="many">%s eur</item>
-    <item quantity="other">%s eur</item>
+    <item quantity="other">%s eurvezhioù</item>
   </plurals>
   <string name="time">Amzer</string>
-  <string name="rating">Renkadur</string>
+  <string name="rating">Renkad</string>
   <string name="ratingStats">Stadegoù ar renkadur</string>
   <string name="username">Anv implijer</string>
   <string name="usernameOrEmail">Anv implijer pe chomlec\'h postel</string>
   <string name="changeUsername">Cheñch anv implijer</string>
   <string name="changeUsernameNotSame">Ment al lizherennoù a c\'hall cheñch hepken. Lakaomp \"yannc\'hoarier\" a ya da \"YannC\'hoarier\".</string>
   <string name="changeUsernameDescription">Cheñchit hoc\'h anv implijer. Gallout a rit hen ober ur wech hepken ha ne c\'hallit kemm nemet ment al lizherennoù.</string>
-  <string name="password">Ger-tremen</string>
+  <string name="password">Ger-kuzh</string>
   <string name="changePassword">Kemm ar ger-tremen</string>
   <string name="changeEmail">Kemm ar postel</string>
   <string name="email">Postel</string>
@@ -209,7 +209,7 @@
     <item quantity="other">Bep %s munutenn e vez hizivaet ar renkadur</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s poelladenn</item>
+    <item quantity="one">%s poelladenn taktik</item>
     <item quantity="two">%s boelladenn</item>
     <item quantity="few">%s poelladennoù</item>
     <item quantity="many">%s poelladennoù</item>
@@ -259,7 +259,7 @@
   <string name="rematchOfferCanceled">Kinnig c\'hoari en-dro nullet</string>
   <string name="rematchOfferDeclined">Kinnig c\'hoari en-dro nac\'het</string>
   <string name="cancelRematchOffer">Nullañ ar c\'hinnig c\'hoari en-dro</string>
-  <string name="viewRematch">Gwelet an digoll</string>
+  <string name="viewRematch">Gwelet an dial</string>
   <string name="confirmMove">Kadarnaat ar fiñvadenn</string>
   <string name="play">C\'hoari</string>
   <string name="inbox">Boest lizhiri</string>
@@ -319,9 +319,9 @@
     <item quantity="many">Reiñ %s eilennoù</item>
     <item quantity="other">Reiñ %s eilennoù</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Perc\'henner ar gont-mañ en deus ket doujet ouzh Reolennoù Lichess</string>
+  <string name="thisAccountViolatedTos">Perc\'henner ar gont-mañ n\'en deus ket doujet da Reolennoù Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Kresket/digresket e vez e live en un doare direizh gant ar c\'hoarier-mañ</string>
-  <string name="openingExplorerAndTablebase">Lañser digoradurioù &amp; taolennoù fin ar c\'hrogadoù</string>
+  <string name="openingExplorerAndTablebase">Furcher an digoradurioù &amp; tablebase</string>
   <string name="takeback">Nullañ ar fiñvadenn ziwezhañ</string>
   <string name="proposeATakeback">Kinnig nullañ ar fiñvadenn ziwezhañ</string>
   <string name="takebackPropositionSent">Kaset eo bet ar c\'hinnig nullañ ar fiñvadenn ziwezhañ</string>
