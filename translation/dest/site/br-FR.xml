@@ -490,8 +490,8 @@
   <string name="winStreak">Steudadoù trec\'hioù</string>
   <string name="createdBy">Krouet gant</string>
   <string name="tournamentIsStarting">Emañ an tournamant o kregiñ</string>
-  <string name="tournamentPairingsAreNowClosed">Ne vo ket mui krogadoù nevez en tournamant-mañ.</string>
-  <string name="standByX">Gortozit ur pennadig %s, kavet e vo un enebour deoc\'h. Bezit prest!</string>
+  <string name="tournamentPairingsAreNowClosed">Echu eo koubladegoù an tournamant.</string>
+  <string name="standByX">Gortozit %s, o koublañ ar c\'hoarierien, bezit prest!</string>
   <string name="youArePlaying">O c\'hoari emaoc\'h!</string>
   <string name="winRate">Feur trec\'hiñ</string>
   <string name="berserkRate">Feur berserk</string>
@@ -820,7 +820,7 @@
   <string name="xJoinsY">%1$s a gemer perzh e %2$s</string>
   <string name="xLikesY">Plijet eo %1$s gant %2$s</string>
   <string name="xCreatesStudyY">Ar studiadenn %2$s zo bet krouet gant %1$s</string>
-  <string name="quickPairing">Un enebour war ar prim</string>
+  <string name="quickPairing">Koubladeg war ar prim</string>
   <string name="lobby">Saloñs</string>
   <string name="anonymous">Dianav</string>
   <string name="yourScore">Ho tisoc\'h: %s</string>
