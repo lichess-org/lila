@@ -39,4 +39,14 @@
   <string name="contactSupport">Личес қолдау орталығына хабарлаңыз</string>
   <string name="otherMethods">Ақшалай жәрдем берудің басқа тәсілдері?</string>
   <string name="bankTransfers">Одан басқа банк аударымдарын қабылдаймыз</string>
+  <string name="bitcoin">Биткоин мекенжайымыз: %s</string>
+  <string name="patronFeatures">Қамқоршылар үшін бір артықшылықтар бар ма?</string>
+  <string name="noPatronFeatures">Жоқ, өйткені Личес бәріне бірдей мәңгі тегін. Бұл уәде.
+Дегенмен, Қамқоршылардың куәлігінде күшті таңба көрсетіледі.</string>
+  <string name="featuresComparison">Артықшылықтардың салыстырмалы кестесін қарап көріңіз</string>
+  <plurals name="patronForMonths">
+    <item quantity="one">Лическе бір айлық Қамқоршы</item>
+    <item quantity="other">Лическе %s айлық Қамқоршы</item>
+  </plurals>
+  <string name="youSupportWith">Сіз Личесті айына %s-мен қолдайсыз.</string>
 </resources>
