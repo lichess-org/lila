@@ -7,4 +7,9 @@
   <string name="yesItWillBeFixedSoon">Иә. Жақында жөндеп бітіреміз!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">Енді ұзақ жауап! Ойын кезінде байланыс екі тәуелсіз шамадан құралады (азы – жақсы):</string>
   <string name="lichessServerLatency">Личес сервер кідірісі</string>
+  <string name="lichessServerLatencyExplanation">Серверде жүрісті өңдеуге кететін уақыт. Ол барлық ойыншыларға бірдей, тек сервердің жүктелу дәрежесіне байланысты. Ойыншылар саны көп болған сайын, кідіріс те артады, бірақ Личес әзірлеушілері оны төмен деңгейде ұстап тұруға барынша тырмысып жүр. Көпшілік жағдайда 10 мс-тан аспайды.</string>
+  <string name="networkBetweenLichessAndYou">Сіз бен Личес араңыздағы желі</string>
+  <string name="networkBetweenLichessAndYouExplanation">Сіздің компьютеріңізден жүрісті Личес серверіне жіберу мен кері жауап алуға кететін уақыт. Ол сіз бен Личес сервердің (Франция) араңыздағы қашықтыққа, онымен қатар, сіздің интернет байланысыңыздың сапасына тәуелді. Личес әзірлеушілері сіздің WiFi байланысын жөндей алмайды, жарықты да тезірек ұшыра алмайды.</string>
+  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Осы екі шаманы кез-келген уақытта қарай аласыз. Ол үшін төбеде тұрған аккаунт атыңызға басыңыз.</string>
+  <string name="lagCompensation">Кідірісті өтеу</string>
 </resources>
