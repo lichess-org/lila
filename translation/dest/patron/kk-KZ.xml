@@ -19,4 +19,6 @@
   <string name="lifetimePatron">Лическе Өмір бойы Қамқоршы</string>
   <string name="makeExtraDonation">Ерекше ақшалай жәрдем жасайсыз ба?</string>
   <string name="monthly">Ай сайын</string>
+  <string name="recurringBilling">Жаңартпалы төлемдер, Қамқоршы мәртебесін ай сайын жаңартып тұру.</string>
+  <string name="onetime">Бір рет</string>
 </resources>
