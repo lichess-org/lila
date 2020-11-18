@@ -21,7 +21,7 @@ object top {
         .OpenGraph(
           title = s"Leaderboard of ${perfType.trans}",
           url = s"$netBaseUrl${routes.User.topNb(200, perfType.key).url}",
-          description = s"The 200 best chess players in ${perfType.trans}, sorted by rating"
+          description = s"The 200 best shogi players in ${perfType.trans}, sorted by rating"
         )
         .some
     )(

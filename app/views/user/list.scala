@@ -25,10 +25,10 @@ object list {
       wrapClass = "full-screen-force",
       openGraph = lila.app.ui
         .OpenGraph(
-          title = "Chess players and leaderboards",
+          title = "Shogi players and leaderboards",
           url = s"$netBaseUrl${routes.User.list().url}",
           description =
-            "Best chess players in bullet, blitz, rapid, classical, Chess960 and more chess variants"
+            "Best Shogi players in bullet, blitz, rapid and classical"
         )
         .some
     ) {
