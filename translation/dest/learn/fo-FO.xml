@@ -15,4 +15,33 @@
   <string name="grabAllTheStars">Tak allar stjørnurnar!</string>
   <string name="theFewerMoves">Færri trekk tú brúkar, meira stig fært tú!</string>
   <string name="useTwoRooks">Nýt tveir rókar fyri at økjs um ferðina!</string>
+  <string name="theBishop">Bispurin</string>
+  <string name="itMovesDiagonally">Hann flytur á skák</string>
+  <string name="bishopIntro">Nú læra vit, hvussu bispurin flytur!</string>
+  <string name="youNeedBothBishops">Ein bispur stendur á teimum hvítu puntunum, og ein stendur á teimum svørtu puntunum!</string>
+  <string name="bishopComplete">Til lukku! Nú dugir tú at flyta bisparnar.</string>
+  <string name="theQueen">Frúgvin</string>
+  <string name="queenCombinesRookAndBishop">Frúgv = rókur + bispur</string>
+  <string name="queenIntro">Sterkasta talvfólkið kemur upp í leikin. Hennara hátign Frúgvin!</string>
+  <string name="queenComplete">Til lukku! Tú skilir frýrnar.</string>
+  <string name="theKing">Kongurin</string>
+  <string name="theMostImportantPiece">Týdningarmesta talvfólkið</string>
+  <string name="kingIntro">Tú ert kongurin. Fellur tú í bardaga, tapir tú spælið.</string>
+  <string name="theKingIsSlow">Kongurin er seinførur.</string>
+  <string name="lastOne">Tann seinasta uppgávan!</string>
+  <string name="kingComplete">Nú dugir tú at flyta við konginum!</string>
+  <string name="theKnight">Riddarin</string>
+  <string name="itMovesInAnLShape">Riddarin flytur sum eitt L</string>
+  <string name="knightIntro">Her er ein avbjóðing til tín. Riddarin er... lumpisligur.</string>
+  <string name="knightsHaveAFancyWay">Riddarar kunnu hoppa!</string>
+  <string name="knightsCanJumpOverObstacles">Riddarar kunnu hoppa upp um forðingar! Rým og tak stjørnurnar!</string>
+  <string name="knightComplete">Til lukku! Nú dugir tú væl at flyta riddaran.</string>
+  <string name="thePawn">Finnan</string>
+  <string name="itMovesForwardOnly">Finnan gongur bert frameftir</string>
+  <string name="pawnIntro">Finnur eru veikar, men tær kunnu seinni hava stórt virði.</string>
+  <string name="pawnsMoveOneSquareOnly">Finnur flyta bert ein punt fram. Men tá ið tær koma yvirum talvborðið, umskapast tær til eitt sterkari fólk!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Sum oftast er best at fáa frúgv upp. Men viðhvørt kann ein riddari vera hentur!</string>
+  <string name="pawnsMoveForward">Finnur ganga frameftir, men tær taka á skák!</string>
+  <string name="captureThenPromote">Tak, og ger síðani finnu til mann (frúgv, riddara, rók ella bisp)!</string>
+  <string name="useAllThePawns">Nýt allar finnurnar! Tað er ikki neyðugt at gera finnu til mann.</string>
 </resources>
