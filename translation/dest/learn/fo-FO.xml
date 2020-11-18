@@ -5,9 +5,9 @@
   <string name="menu">Valmynd</string>
   <string name="progressX">Framgongd: %s</string>
   <string name="resetMyProgress">Nullstilla mína framgongd</string>
-  <string name="youWillLoseAllYourProgress">Tú missur alla tína framgongd!</string>
+  <string name="youWillLoseAllYourProgress">Tú missir alla tína framgongd!</string>
   <string name="play">spæl!</string>
-  <string name="chessPieces">Talv prikkar</string>
+  <string name="chessPieces">Talvfólk</string>
   <string name="theRook">Rókurin</string>
   <string name="itMovesInStraightLines">Flytur í beinum linjum</string>
   <string name="rookIntro">Rókurin er eitt sterkt talvfólk. Ert tú til reiðar at valda yvir honum?</string>
