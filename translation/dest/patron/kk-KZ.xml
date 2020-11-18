@@ -7,4 +7,9 @@
   <string name="xBecamePatron">%s Лическе Қамқоршы болды</string>
   <string name="newPatrons">Жаңа Қамқоршылар</string>
   <string name="freeChess">Баршылыққа арналған тегін шахмат, мәңгі!</string>
+  <string name="noAdsNoSubs">Жарнамасыз, жазылымсыз, коды ашық.</string>
+  <string name="thankYou">Ақшалай жәрдем үшін сізге рахмет!</string>
+  <string name="youHaveLifetime">Сіз Өмір бойына Қамқоршы аккаунтына иесіз. Бұл керемет!</string>
+  <string name="patronUntil">Сіз Қамқоршы аккаунтқа %s дейін иесіз.</string>
+  <string name="ifNotRenewed">Егер жаңартпасаңыз, аккаунт тегін деңгейіне түседі.</string>
 </resources>
