@@ -123,6 +123,13 @@
   <string name="takeAllThePawnsEnPassant">Tak allar finnurnar í framlopi!</string>
   <string name="enPassantComplete">Til lukku! Tú dugir nú at drepa í framlopi.</string>
   <string name="stalemate">Patt</string>
+  <string name="theGameIsADraw">Talvið endar við javnleiki</string>
+  <string name="stalemateIntro">Tá ið ein telvari ikki er skákaður, og ikki hevur nakran lógligan leik, er patt. Talvið endar við javnleiki: eingin vinnur, og eingin tapir.</string>
+  <string name="stalemateGoal">Set svartan í pattstøðu:
+- Svartur fær ikki flutt nakrastaðni
+- Hann er ikki skákaður.</string>
+  <string name="stalemateComplete">Til lukku! Betri er at vera settur patt enn at vera settur skák og mát!</string>
+  <string name="advanced">Framkomið stig</string>
   <string name="yourScore">Títt stigatal</string>
   <string name="next">Næst</string>
   <string name="backToMenu">Aftur til valmyndina</string>
