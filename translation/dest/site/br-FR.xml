@@ -31,8 +31,8 @@
   <string name="newOpponent">Enebour nevez</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Hoc\'h enebour en deus c\'hoant da c\'hoari enep deoc\'h adarre</string>
   <string name="joinTheGame">Kregiñ ganti</string>
-  <string name="whitePlays">D\'ar re wenn da c\'hoari</string>
-  <string name="blackPlays">D\'ar re zu da c\'hoari</string>
+  <string name="whitePlays">Tro ar re wenn</string>
+  <string name="blackPlays">Tro ar re zu</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">Hoc\'h enebour en deus kuitaet ar c\'hrogad. Gallout a reoc\'h goulenn bezañ trec\'h a-benn %s eilenn.</item>
     <item quantity="two">Hoc\'h enebour en deus kuitaet ar c\'hrogad. Gallout a reoc\'h goulenn bezañ trec\'h a-benn %s eilenn.</item>
@@ -168,7 +168,7 @@
   <string name="variants">Eilstummoù</string>
   <string name="timeControl">Tizh</string>
   <string name="realTime">Amzer wirion</string>
-  <string name="correspondence">A-bell</string>
+  <string name="correspondence">Partiennoù war hir dermen</string>
   <string name="daysPerTurn">Deizioù dre fiñvadenn</string>
   <string name="oneDay">Un deiz</string>
   <plurals name="nbDays">
@@ -804,7 +804,7 @@
   <string name="fullFeatured">Lichess ha muioc\'h c\'hoazh</string>
   <string name="phoneAndTablet">Pellgomzer ha tabletenn</string>
   <string name="bulletBlitzClassical">Bullet, blitz, klasel</string>
-  <string name="correspondenceChess">Echedoù a-bell</string>
+  <string name="correspondenceChess">Echedoù war hir dermen</string>
   <string name="onlineAndOfflinePlay">C\'hoari enlinenn pe get</string>
   <string name="viewTheSolution">Gwelet ar respont</string>
   <string name="followAndChallengeFriends">Heuliañ ha c\'hoari a-enep mignoned</string>
@@ -852,7 +852,7 @@
   <string name="error.max">Dleout a ra bezañ kevatal pe bihanoc\'h evit %s</string>
   <string name="error.unknown">Fazi</string>
   <string name="custom">Personelaet</string>
-  <string name="notifications">Rebuzadurioù</string>
+  <string name="notifications">Kemennoù</string>
   <string name="challenges">Daeoù</string>
   <string name="perfRatingX">Renk: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
@@ -946,7 +946,7 @@
   <string name="blitzDesc">Krogadoù prim: etre 3 ha 8 munutenn</string>
   <string name="rapidDesc">Krogadoù fonnus: etre 8 ha 25 munutenn</string>
   <string name="classicalDesc">Krogadoù klasel: 25 munutenn ha muioc\'h</string>
-  <string name="correspondenceDesc">Krogadoù a-bell: un deiz pe meur a hini evit ur fiñvadenn</string>
+  <string name="correspondenceDesc">Partiennoù war hir dermen: un deiz pe meur a hini evit bep taol</string>
   <string name="puzzleDesc">Gourdoner poelladennoù echedoù</string>
   <string name="important">A-bouez</string>
   <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">Ur respont zo bet d\'ho koulenn dija marteze %1$s</string>
