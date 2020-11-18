@@ -44,4 +44,19 @@
   <string name="pawnsMoveForward">Finnur ganga frameftir, men tær taka á skák!</string>
   <string name="captureThenPromote">Tak, og ger síðani finnu til mann (frúgv, riddara, rók ella bisp)!</string>
   <string name="useAllThePawns">Nýt allar finnurnar! Tað er ikki neyðugt at gera finnu til mann.</string>
+  <string name="aPawnOnTheSecondRank">Ein finna á øðrum rað kann flyta tveir puntar fram í einum!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Tak allar stjørnurnar! Tað er ikki neyðugt at gera finnu til mann.</string>
+  <string name="pawnComplete">Til lukku! Nú veitst tú alt um finnur.</string>
+  <string name="pawnPromotion">At gera finnu til mann</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Finnan hjá tær kom yvirum talvborðið!</string>
+  <string name="itNowPromotesToAStrongerPiece">Hon verður nú til eitt sterkari fólk.</string>
+  <string name="selectThePieceYouWant">Vel fólkið, tú vilt vera!</string>
+  <string name="fundamentals">Grundleggjandi</string>
+  <string name="capture">At taka</string>
+  <string name="takeTheEnemyPieces">Tak fólkini hjá hinum</string>
+  <string name="captureIntro">Finn útav, hvørji fólk standa óvard, og tak tey!</string>
+  <string name="takeTheBlackPieces">Tak svørtu talvfólkini!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Tak svørtu talvfólkini! Og ansa eftir, ikki at missa tíni egnu fólk.</string>
+  <string name="captureComplete">Til lukku! Nú dugir tú at berjast við talvfólkum!</string>
+  <string name="protection">At verja</string>
 </resources>
