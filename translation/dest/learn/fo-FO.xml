@@ -77,6 +77,14 @@
   <string name="checkInOneComplete">Til lukku! Tú skákaði mótstøðufólkið, og noyddi tað at verja kongin!</string>
   <string name="outOfCheck">Úr skáki</string>
   <string name="defendYourKing">Verj kongin hjá tær</string>
+  <string name="outOfCheckIntro">Tú ert skákaður! Tú mást rýma ella seta eitt fólk millum kongin og mótstøðufólkið, ið skákar.</string>
+  <string name="escapeWithTheKing">Rým við konginum!</string>
+  <string name="theKingCannotEscapeButBlock">Kongurin fær ikki rýmt, men tú kanst seta eitt fólk fyri!</string>
+  <string name="youCanGetOutOfCheckByTaking">Tú sleppur úr skákinum við at taka fólkið, ið skákar.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Hesin riddarin skákar gjøgnum tína verju!</string>
+  <string name="escapeOrBlock">Rým við konginum ella set eitt fólk fyri!</string>
+  <string name="outOfCheckComplete">Til lukku! Kongurin hjá tær kann ongantíð verða tikin. Ansa eftir, at tú fært vart móti skáki!</string>
+  <string name="mateInOne">Mát í einum</string>
   <string name="enPassant">At taka í framlopi (en passant)</string>
   <string name="theSpecialPawnMove">Serligi finnuleikurin</string>
   <string name="yourScore">Títt stigatal</string>
