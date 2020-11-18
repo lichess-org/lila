@@ -7,7 +7,7 @@
   <string name="xBecamePatron">%s Лическе Қамқоршы болды</string>
   <string name="newPatrons">Жаңа Қамқоршылар</string>
   <string name="freeChess">Баршылыққа арналған тегін шахмат, мәңгі!</string>
-  <string name="noAdsNoSubs">Жарнамасыз, жазылымсыз, коды ашық.</string>
+  <string name="noAdsNoSubs">Жарнамасыз, жазылымсыз, коды ашық, еркін.</string>
   <string name="thankYou">Ақшалай жәрдем үшін сізге рахмет!</string>
   <string name="youHaveLifetime">Сіз Өмір бойына Қамқоршы аккаунтына иесіз. Бұл керемет!</string>
   <string name="patronUntil">Сіз Қамқоршы аккаунтқа %s дейін иесіз.</string>
@@ -49,4 +49,18 @@
     <item quantity="other">Лическе %s айлық Қамқоршы</item>
   </plurals>
   <string name="youSupportWith">Сіз Личесті айына %s-мен қолдайсыз.</string>
+  <string name="tyvm">Жәрдеміңіз үшін сізге көп рахмет. Сіз күштісіз!</string>
+  <string name="currentStatus">Қазіргі мәртебе</string>
+  <string name="nextPayment">Келесі төлем</string>
+  <string name="youWillBeChargedXOnY">Сіз %2$s %1$s төлейтін боласыз.</string>
+  <string name="makeAdditionalDonation">Қосымша ақшалай жәрдем қазір жасаңыз</string>
+  <string name="update">Жаңарту</string>
+  <string name="changeMonthlyAmount">Айлық мөлшерін өзгерту (%s)</string>
+  <string name="cancelSupport">қолдауды тоқтату</string>
+  <string name="xOrY">%1$s немесе %2$s</string>
+  <string name="decideHowMuch">Личес сізге қаншалықты бағалы:</string>
+  <string name="stopPayments">Банк картасын ажыратып, төлемдерді тоқтату:</string>
+  <string name="noLongerSupport">Личесті енді қолдамау</string>
+  <string name="paymentHistory">Төлемдер тарихы</string>
+  <string name="paid">Төленгені</string>
 </resources>
