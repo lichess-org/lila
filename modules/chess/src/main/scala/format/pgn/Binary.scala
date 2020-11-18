@@ -139,7 +139,7 @@ object Binary {
     def fullPiece(piece: String, orig: String, pos: String, capture: String, check: String) =
       List(
         (1 << 7) + posInt(pos),
-        (pieceInts(piece) << 4) + (checkInts(check) << 3) + (boolInt(capture) << 2),
+        (pieceInts(piece) << 4) + (checkInts(check) << 2) + (boolInt(capture) << 1) + 1,
         posInt(orig)
       )
 
