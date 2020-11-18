@@ -130,6 +130,25 @@
 - Hann er ikki skákaður.</string>
   <string name="stalemateComplete">Til lukku! Betri er at vera settur patt enn at vera settur skák og mát!</string>
   <string name="advanced">Framkomið stig</string>
+  <string name="pieceValue">Virði á fólki</string>
+  <string name="evaluatePieceStrength">Rokna styrkina á talvfólki</string>
+  <string name="pieceValueIntro">Talvfólk, ið fáa flutt langt og lætt, hava hægri virði!
+Frúgv = 9
+Rókur = 5
+Bispur = 3
+Riddari = 3
+Finna = 1
+Til ber ikki at geva konginum eitt virði! Missir tú kongin, tapir tú talvið.</string>
+  <string name="queenOverBishop">Tak fólkið við hægsta virðinum! Frúgv &gt; Bispur</string>
+  <string name="takeThePieceWithTheHighestValue">Tak fólkið við hægsta virðinum!</string>
+  <string name="pieceValueComplete">Til lukku! Tú kennir virðið á fólkunum!
+Frúgv = 9
+Rókur = 5
+Bispur = 3
+Riddari = 3
+Finna = 1</string>
+  <string name="checkInTwo">Skák í tveimum</string>
+  <string name="twoMovesToGiveCheck">Tveir leikir, og so er skák</string>
   <string name="yourScore">Títt stigatal</string>
   <string name="next">Næst</string>
   <string name="backToMenu">Aftur til valmyndina</string>
