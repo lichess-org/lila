@@ -892,7 +892,7 @@
   <string name="doItAgain">Klask en-dro</string>
   <string name="reviewWhiteMistakes">Studiañ fazioù ar re wenn</string>
   <string name="reviewBlackMistakes">Studiañ fazioù ar re zu</string>
-  <string name="advantage">Gounid</string>
+  <string name="advantage">Splet</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s eilenn</item>
     <item quantity="two">%s eilenn</item>
@@ -900,9 +900,9 @@
     <item quantity="many">%s eilenn</item>
     <item quantity="other">%s eilenn</item>
   </plurals>
-  <string name="opening">Deroù ar c\'hrogad</string>
-  <string name="middlegame">Kreiz ar c\'hrogad</string>
-  <string name="endgame">Fin ar c\'hrogad</string>
+  <string name="opening">Digoradur</string>
+  <string name="middlegame">Kreiz ar bartienn</string>
+  <string name="endgame">Dibenn-partienn</string>
   <string name="registerToSendChallenges">Kevreit evit daeañ unan bennak mar plij.</string>
   <string name="youCannotChallengeX">Ne c\'hallit ket daeañ %s.</string>
   <string name="xDoesNotAcceptChallenges">%s n\'he/en deus ket c\'hant da vezañ daeet.</string>
