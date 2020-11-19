@@ -7,4 +7,7 @@
   <string name="breakdownOfOurCosts">ανάλυση των εξόδων μας</string>
   <string name="otherWaysToHelp">άλλοι τρόποι για να βοηθήσετε</string>
   <string name="areThereWebsitesBasedOnLichess">Υπάρχουν άλλες ιστοσελίδες που βασίζονται στο Lichess;</string>
+  <string name="threefoldRepetition">Τριπλή επανάληψη</string>
+  <string name="threefoldRepetitionLowerCase">τριπλή επανάληψη</string>
+  <string name="notRepeatedMoves">Δεν επαναλάβαμε κινήσεις. Γιατί το παιχνίδι έληξε ως ισόπαλο λόγω τριπλής επανάληψης;</string>
 </resources>
