@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessStreamers">Личес стримерлері</string>
+  <string name="lichessStreamer">Личес стримері</string>
+  <string name="live">Тікелей эфир!</string>
+  <string name="offline">Эфирден тыс</string>
+  <string name="currentlyStreaming">Қазіргі стрим: %s</string>
+  <string name="lastStream">Кейінгі стрим %s</string>
+  <string name="becomeStreamer">Личес стримері болу</string>
+  <string name="doYouHaveStream">Сізде YouTube не Twitch арнасы бар ма?</string>
+  <string name="hereWeGo">Кеттік!</string>
+  <string name="allStreamers">Барлық стримерлер</string>
+  <string name="editPage">Стример парақшасын өңдеу</string>
+  <string name="yourPage">Сіздің стример парақшаңыз</string>
+  <string name="downloadKit">Стример құралдарын жүктеп алу</string>
+  <string name="xIsStreaming">%s стрим жүргізіп отыр</string>
+</resources>
