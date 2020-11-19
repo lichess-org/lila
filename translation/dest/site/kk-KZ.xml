@@ -112,7 +112,7 @@
   <string name="cpus">Процессор</string>
   <string name="memory">Жад</string>
   <string name="infiniteAnalysis">Шектеусіз талдау</string>
-  <string name="removesTheDepthLimit">Тереңдік бойынша шектеулерді алуымен қатар компьютеріңізді қыздырады</string>
+  <string name="removesTheDepthLimit">Тереңдік шектеулерін жояды, әрі компьютеріңізді қыздырады</string>
   <string name="blunder">Өрескел қателік</string>
   <string name="blunders">Өрескел қателер</string>
   <string name="mistake">Қателік</string>
@@ -343,7 +343,7 @@
   <string name="continueFromHere">Осы жерден жалғастыру</string>
   <string name="toStudy">Зертхана</string>
   <string name="importGame">Ойынды жүктеп салу</string>
-  <string name="importGameExplanation">Ойынның PGN -ын салыңыз. Бұл ойынды қайта көруге, компьютерлік талдауға, чат және бөліспелі URL-ға жол ашады.</string>
+  <string name="importGameExplanation">Ойынның PGN-ын салыңыз. Бұл ойынды қайта көруге, компьютерлік талдауға, чат және бөліспелі URL-ға жол ашады.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s ойын алынды</item>
     <item quantity="other">%s ойын алынды</item>
@@ -481,7 +481,7 @@
   <string name="fromGameLink">Осы ойыннан %s</string>
   <string name="continueTraining">Ары қарай жаттығу</string>
   <string name="retryThisPuzzle">Осы жұмбақты қайта көріңіз</string>
-  <string name="thisPuzzleIsCorrect">Бұл жұмбақ дұрыс та қызықты</string>
+  <string name="thisPuzzleIsCorrect">Бұл жұмбақ дұрыс әрі қызықты</string>
   <string name="thisPuzzleIsWrong">Бұл жұмбақ қате де қызықсыз</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s ойын өтуде</item>
@@ -561,7 +561,7 @@
   <string name="drawVsYInZ">%3$s %2$s-ға қарсы %1$s</string>
   <string name="timeline">Уақыт тізбегі</string>
   <string name="starting">Басталуы:</string>
-  <string name="allInformationIsPublicAndOptional">Бүкіл мәлімет жалпыға ашық және оны көрсету – сіздің өз еркіңіз.</string>
+  <string name="allInformationIsPublicAndOptional">Бүкіл мәлімет – жалпыға ашық, әрі оны көрсету – сіздің өз еркіңіз.</string>
   <string name="yourCityRegionOrDepartment">Сіз тұратын қала, облыс немесе аймақ.</string>
   <string name="biographyDescription">Өзіңіз туралы айтып беріңізші: айналысатын істеріңіз, неге шахматпен шұғылданасыз, ұнайтын бастаулар, ойыншылар, ...</string>
   <plurals name="maximumNbCharacters">
@@ -638,7 +638,7 @@
   <string name="aboutSimulImage">Фишер 50 қарсыластың 47-сін жеңіп, 2-мен тең ойнап, 1-нен жеңілді.</string>
   <string name="aboutSimulRealLife">Бұл түсінік шынайы өмірден алынған: ойында бас ойыншы болады, ол тақталарды аралап, бір-бір жүрістен жасап отырады.</string>
   <string name="aboutSimulRules">Көпшілікке қарсы ойын басталысымен, әр ойыншы ақ тастар иесі – бас ойыншымен жарысады. Барлық ішкі ойындар аяқталғанда, жалпы ойын да аяқталады.</string>
-  <string name="aboutSimulSettings">Көпшілікке қарсы ойын – әрқашанда қалыпты. Қайта ойнау, жүрісті қайтару және уақыт қосу дегендер болмайды.</string>
+  <string name="aboutSimulSettings">Көпшілікке қарсы ойын – әрқашанда қалыпты. Қайта ойнау, жүрісті қайтару, уақыт қосу дегендер болмайды.</string>
   <string name="create">Құру</string>
   <string name="whenCreateSimul">Сіз көпшілікке қарсы ойынды құрғанда, бір мезгілде бірнеше қарсыласпен ойнайсыз.</string>
   <string name="simulVariantsHint">Егер сіз бірнеше нұсқа таңдасаңыз, әр ойыншы өзіне лайық бір нұсқасын таңдайды.</string>
