@@ -41,4 +41,14 @@
     <item quantity="other">Қысқа болсын: ең көбі %s таңба</item>
   </plurals>
   <string name="visibility">Стримерлер парақшасында көріну</string>
+  <string name="whenApproved">Модераторлар растаса</string>
+  <string name="headline">Басты тақырып</string>
+  <string name="tellUsAboutTheStream">Стрим туралы бір сөйлеммен айтып беріңіз</string>
+  <string name="longDescription">Ұзын сипаттама</string>
+  <string name="xStreamerPicture">%s стримердің суреті</string>
+  <string name="changePicture">Суретті өзгерту/жою</string>
+  <string name="uploadPicture">Суретті жүктеп салу</string>
+  <string name="deletePicture">Суретті жою</string>
+  <string name="maxSize">Өлшемнің шегі: %s</string>
+  <string name="installBlocker">Зиянкестен қорғаушыны орнатыңыз!</string>
 </resources>
