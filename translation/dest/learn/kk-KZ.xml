@@ -50,7 +50,7 @@
 Бірақ тақтаның қарсы тұсына жеткенде, олар күшті тасқа айналады!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Көп жағдайда уәзірге айналдырған жақсы,
 Бірақ кейде ат болғаны одан да пайдалы!</string>
-  <string name="pawnsMoveForward">Сарбаз тура жүреді, бірақ қиғаш жейді!</string>
+  <string name="pawnsMoveForward">Сарбаз тура жүреді, бірақ қиғаш басып алады!</string>
   <string name="captureThenPromote">Басып алыңыз, кейін айналдырыңыз!</string>
   <string name="useAllThePawns">Барлық сарбаздарды пайдаланыңыз!
 Айналдырудың қажеті жоқ.</string>
