@@ -30,6 +30,22 @@
     <item quantity="other">%s мүше</item>
   </plurals>
   <string name="inviteToTheStudy">Зерттеуге шақыру</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Тек таныстарды әрі зерттеуге қосылуға шын ниетті адамдарды ғана шықырыңыз.</string>
+  <string name="searchByUsername">Аккаунт аты бойынша іздеу</string>
+  <string name="spectator">Көрермен</string>
+  <string name="contributor">Қолдаушы</string>
+  <string name="kick">Шығару</string>
+  <string name="leaveTheStudy">Зерттеуден шығу</string>
+  <string name="youAreNowAContributor">Сіз енді қолдаушысыз</string>
+  <string name="youAreNowASpectator">Сіз енді көрерменсіз</string>
+  <string name="pgnTags">PGN тэгтері</string>
+  <string name="like">Ұнату</string>
+  <string name="newTag">Жаңа тэг</string>
+  <string name="commentThisPosition">Осы тақта күйі туралы пікір қалдыру</string>
+  <string name="commentThisMove">Осы жүріс туралы пікір қалдыру</string>
+  <string name="annotateWithGlyphs">Глифтермен түсіндірме жазуу</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Бөлім талдауға жарамды болу үшін тым қысқа.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Зерттеу қолдаушылары ғана компьютерлік талдауды сұрай алады.</string>
   <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Сіз бұны енгізу үшін форумға қоя аласыз</string>
   <string name="startAtInitialPosition">Бастапқы күйден бастаңыз</string>
   <string name="xBroughtToYouByY">%1$s, оны сізге %2$s ұсынды</string>
