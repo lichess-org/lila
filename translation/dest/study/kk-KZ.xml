@@ -91,4 +91,28 @@
   <string name="interactiveLesson">Интерактивті сабақ</string>
   <string name="chapterX">%s-ші бөлім</string>
   <string name="empty">Бос</string>
+  <string name="startFromInitialPosition">Басталуы: бастапқы күйден</string>
+  <string name="editor">Өңдеуші</string>
+  <string name="startFromCustomPosition">Басталуы: белгілі күйден</string>
+  <string name="loadAGameByUrl">Сілтеме арқылы ойындарды жүктеп салу</string>
+  <string name="loadAPositionFromFen">FEN арқылы ойындарды жүктеп салу</string>
+  <string name="loadAGameFromPgn">PGN арқылы ойындарды жүктеп салу</string>
+  <string name="automatic">Автоматты түрде</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">PGN мәтінін осында қойыңыз, %s ойын ғана</item>
+    <item quantity="other">PGN мәтінін осында қойыңыз, %s ойынға дейін</item>
+  </plurals>
+  <string name="urlOfTheGame">Ойындардың сілтемесі, әр жолға бір-бірден</string>
+  <string name="loadAGameFromXOrY">%1$s не %2$s ойындарын жүктеп салу</string>
+  <string name="createChapter">Бөлім құру</string>
+  <string name="configureLiveBroadcast">Тікелей көрсетілімді баптау</string>
+  <string name="createStudy">Зерттеуді құру</string>
+  <string name="editStudy">Зерттеуді өңдеу</string>
+  <string name="visibility">Көрінуі</string>
+  <string name="public">Жалпыға ашық</string>
+  <string name="unlisted">Жасырын</string>
+  <string name="inviteOnly">Шақырумен ғана</string>
+  <string name="allowCloning">Көшірмеге рұқсат беру</string>
+  <string name="nobody">Ешкім</string>
+  <string name="onlyMe">Мен ғана</string>
 </resources>
