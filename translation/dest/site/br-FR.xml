@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Evit pediñ unan bennak da c\'hoari, kasit dezhañ/dezhi an URL -mañ</string>
   <string name="gameOver">Krogad echu</string>
   <string name="waitingForOpponent">O c\'hortoz an enebour</string>
-  <string name="waiting">O c\'hortoz</string>
+  <string name="waiting">Gortozit</string>
   <string name="yourTurn">Deoc\'h-c\'hwi</string>
   <string name="aiNameLevelAiLevel">%1$s live %2$s</string>
   <string name="level">Live</string>
@@ -25,11 +25,11 @@
   <string name="youPlayTheBlackPieces">C\'hoari a rit gant ar re zu</string>
   <string name="itsYourTurn">Deoc\'h c\'hwi!</string>
   <string name="kingInTheCenter">Roue e kreiz</string>
-  <string name="threeChecks">Tri bec\'h d\'ar roue</string>
+  <string name="threeChecks">Tri bec\'h</string>
   <string name="raceFinished">Echu ar redadeg</string>
   <string name="variantEnding">Fin ar variant</string>
   <string name="newOpponent">Enebour nevez</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Hoc\'h enebour en deus c\'hoant da c\'hoari enep deoc\'h adarre</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Hoc\'h enebour en deus c\'hoant da c\'hoari a-enep deoc\'h adarre</string>
   <string name="joinTheGame">Kregiñ ganti</string>
   <string name="whitePlays">Tro ar re wenn</string>
   <string name="blackPlays">Tro ar re zu</string>
