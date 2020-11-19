@@ -114,5 +114,19 @@
   <string name="inviteOnly">Шақырумен ғана</string>
   <string name="allowCloning">Көшірмеге рұқсат беру</string>
   <string name="nobody">Ешкім</string>
-  <string name="onlyMe">Мен ғана</string>
+  <string name="onlyMe">Өзім ғана</string>
+  <string name="contributors">Қолдаушылар</string>
+  <string name="members">Мүшелер</string>
+  <string name="everyone">Барлығы</string>
+  <string name="enableSync">Үйлесуді қосу</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Иә: бәрі бірдей күйде болады</string>
+  <string name="noLetPeopleBrowseFreely">Жоқ: бәріне еркін шолуға рұқсат ету</string>
+  <string name="pinnedStudyComment">Қадаулы зерттеу пікірі</string>
+  <string name="start">Бастау</string>
+  <string name="save">Сақтау</string>
+  <string name="clearChat">Чатты өшіру</string>
+  <string name="deleteTheStudyChatHistory">Зерттеудің чат тарихын өшіресіз бе? Кері жол жоқ!</string>
+  <string name="deleteStudy">Зерттеуді жою</string>
+  <string name="deleteTheEntireStudy">Зерттеуді толықтай жоясыз ба? Кері жол жоқ!</string>
+  <string name="whereDoYouWantToStudyThat">Бұл күйдің зерттеуін қай жерде бастайсыз?</string>
 </resources>
