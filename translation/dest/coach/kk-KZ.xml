@@ -3,11 +3,14 @@
   <string name="lichessCoaches">Личес жаттықтырушылары</string>
   <string name="lichessCoach">Личес жаттықтырушысы</string>
   <string name="areYouCoach">Сіз %s атағына ие мықты жатықтырушысыз ба?</string>
-  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM не FIDE</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">Ұлттық шебер не FIDE</string>
   <string name="confirmTitle">Атағыңызды осы жерде растап, тапсырысты жіберіңіз, біз оны тексеретін боламыз.</string>
   <string name="sendApplication">Бізге %s поштасына жазыңыз, тапсырысыңызды тексеретін боламыз.</string>
   <string name="location">Мекен</string>
   <string name="languages">Тілдер</string>
   <string name="rating">Рейтинг</string>
   <string name="hourlyRate">Бір сағаттық ақы</string>
+  <string name="availability">Есігіңіз ашық</string>
+  <string name="accepting">Шәкірттерді қабылдау</string>
+  <string name="notAccepting">Әзірге шәкірттерді қабылдау жоқ</string>
 </resources>
