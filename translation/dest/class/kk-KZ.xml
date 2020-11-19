@@ -39,8 +39,8 @@
 Құпиясөз: %3$s</string>
   <string name="inviteALichessAccount">Аккаунт иесін шақыру</string>
   <string name="inviteDesc1">Егер шәкірттің Личес аккаунты бар болса, сіз оны үйірмеге шақыра аласыз.</string>
-  <string name="inviteDesc2">Ол Мектепке қостыратын сілтемені Личесте хабар түрінде алатын болады.</string>
-  <string name="inviteDesc3">Ескерту: тек өзіңізге таныс, Мектепке қосылуды шын ниет еткен шәкірттерді ғана шақырыңыз.</string>
+  <string name="inviteDesc2">Ол Личестен үйірмеге жаздыратын сілтемесі бар хабар алатын болады.</string>
+  <string name="inviteDesc3">Ескерту: тек өзіңізге таныс, үйірмеге қосылуды шын ниет еткен шәкірттерді ғана шақырыңыз.</string>
   <string name="inviteDesc4">Барша ойыншыларға сұраусыз шақыру жібере бермеңіз.</string>
   <string name="createANewLichessAccount">Жаңа Личес аккаунт құру</string>
   <string name="createDesc1">Егер шәкірттің Личес аккаунты болмаса, оған осы жерде аккаунт құра аласыз.</string>
@@ -58,7 +58,7 @@
     <item quantity="other">%s жауапсыз шақыру</item>
   </plurals>
   <string name="noPendingInvitations">Жауапсыз шақырулар жоқ</string>
-  <string name="onlyVisibleToTeachers">Тек Мектеп ұстаздарына көрінеді</string>
+  <string name="onlyVisibleToTeachers">Тек үйірме ұстаздарына көрінеді</string>
   <string name="lastActiveDate">Белсенді</string>
   <string name="managed">Басқарулы</string>
   <string name="thisStudentAccountIsManaged">Бұл шәкірт аккаунты – басқарулы</string>
