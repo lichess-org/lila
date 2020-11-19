@@ -9,4 +9,5 @@
   <string name="location">Мекен</string>
   <string name="languages">Тілдер</string>
   <string name="rating">Рейтинг</string>
+  <string name="hourlyRate">Бір сағаттық ақы</string>
 </resources>
