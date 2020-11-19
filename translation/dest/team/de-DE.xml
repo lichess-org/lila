@@ -17,7 +17,7 @@
   <string name="joiningPolicy">Beitrittsregeln</string>
   <plurals name="teamLeaders">
     <item quantity="one">Teamleiter</item>
-    <item quantity="other">Teamleiter</item>
+    <item quantity="other">Team leader</item>
   </plurals>
   <string name="teamBestPlayers">Beste Spieler</string>
   <string name="teamRecentMembers">Neueste Teammitglieder</string>
