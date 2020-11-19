@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="settings">Stillingar</string>
+  <string name="closeAccount">Lat kontu aftur</string>
+  <string name="closingIsDefinitive">At lata eina kontu aftur er endaligt. Til ber ikki at venda við. Ert tú vís/ur í hesum?</string>
+</resources>
