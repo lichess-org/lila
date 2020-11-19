@@ -747,7 +747,7 @@
   <string name="directlySupportLichess">Личесті тікелей қолдау</string>
   <string name="playChessInStyle">Сәнді бола ойнаңыз</string>
   <string name="chessBasics">Шахмат әліппесі</string>
-  <string name="coaches">Ұстаздар</string>
+  <string name="coaches">Бапкерлер</string>
   <string name="invalidPgn">Қате PGN</string>
   <string name="invalidFen">Қате FEN</string>
   <string name="error.minLength">Кем дегенде %s таңба керек</string>
