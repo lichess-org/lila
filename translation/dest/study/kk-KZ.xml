@@ -73,4 +73,22 @@
   <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Тек жалпыға ашық зерттеулер енгізуге жарамды!</string>
   <string name="open">Ашу</string>
   <string name="xBroughtToYouByY">%1$s, оны сізге %2$s ұсынды</string>
+  <string name="studyNotFound">Зерттеу табылмады</string>
+  <string name="editChapter">Бөлімді өңдеу</string>
+  <string name="newChapter">Жаңа бөлім</string>
+  <string name="orientation">Бағыты</string>
+  <string name="analysisMode">Талдау нұсқасы</string>
+  <string name="pinnedChapterComment">Қадаулы бөлім пікірі</string>
+  <string name="saveChapter">Бөлімді сақтау</string>
+  <string name="clearAnnotations">Түсіндірмені өшіру</string>
+  <string name="deleteChapter">Бөлімді жою</string>
+  <string name="deleteThisChapter">Бөлімді жоясыз ба? Кері жол жоқ!</string>
+  <string name="clearAllCommentsInThisChapter">Бөлімдегі бүкіл пікір, глиф пен сызбаларды өшіресіз бе?</string>
+  <string name="rightUnderTheBoard">Тура тақтаның астына</string>
+  <string name="noPinnedComment">Жоқ</string>
+  <string name="normalAnalysis">Қалыпты талдау</string>
+  <string name="hideNextMoves">Келесі жүрістерді жасыру</string>
+  <string name="interactiveLesson">Интерактивті сабақ</string>
+  <string name="chapterX">%s-ші бөлім</string>
+  <string name="empty">Бос</string>
 </resources>
