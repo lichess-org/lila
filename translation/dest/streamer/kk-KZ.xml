@@ -22,4 +22,10 @@
   <string name="perk1">Личес куәлігіңізде жалынды стример таңбашасы шығады.</string>
   <string name="perk2">Стримерлер тізімінің төбесіне шығасыз.</string>
   <string name="perk3">Личес серіктеріңізді ескертесіз.</string>
+  <string name="perk4">Стримді өз ойындарыңызда, жарыс пен зерттеуде көрсетесіз.</string>
+  <string name="approved">Сіздің стриміңіз расталды.</string>
+  <string name="pendingReview">Сіздің стриміңіз модераторлардың тексеруінде.</string>
+  <string name="pleaseFillIn">Стример мәліметтерін толтырып, суретіңізді жүктеп салыңыз.</string>
+  <string name="whenReady">Личес стримерлер қатарына қосылу үшін %s</string>
+  <string name="requestReview">модератор тексеруін сұраңыз</string>
 </resources>
