@@ -11,8 +11,8 @@
    height="177,17"
    version="1.1"
    id="svg29"
-   sodipodi:docname="wG.svg"
-   inkscape:version="1.0 (4035a4fb49, 2020-05-01)">
+   sodipodi:docname="0GY.svg"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
   <metadata
      id="metadata35">
     <rdf:RDF>
@@ -38,14 +38,14 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1366"
-     inkscape:window-height="711"
+     inkscape:window-height="746"
      id="namedview31"
      showgrid="false"
      inkscape:zoom="1.1375"
      inkscape:cx="-26.336679"
      inkscape:cy="222.19905"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg29" />
   <!--
@@ -57,14 +57,14 @@ Original file is available at: https://commons.wikimedia.org/wiki/File:Shogi_gyo
   <filter
      id="drop-shadow">
     <feGaussianBlur
-       in="SourceAlpha"
        result="blur"
        stdDeviation="2"
-       id="feGaussianBlur2" />
+       id="feGaussianBlur2"
+       in="SourceAlpha" />
     <feOffset
        result="offsetBlur"
-       dx="2"
-       dy="2"
+       dx="-2"
+       dy="-2"
        id="feOffset4" />
     <feBlend
        in="SourceGraphic"
