@@ -129,7 +129,7 @@
     <item quantity="one">%s ойыншы</item>
     <item quantity="other">%s ойыншы</item>
   </plurals>
-  <string name="currentGames">Ойналып жатқан ойындар</string>
+  <string name="currentGames">Қазір ойналуда</string>
   <plurals name="nbGames">
     <item quantity="one">%s ойын</item>
     <item quantity="other">%s ойын</item>
