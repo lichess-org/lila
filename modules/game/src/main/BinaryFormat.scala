@@ -92,7 +92,8 @@ object BinaryFormat {
       config.limit - legacyElapsed
 
     def write(clock: Clock): ByteArray = {
-      writeClockConfig(clock.config) ++
+      ByteArray(Array[Byte](-1, -1, 0, 1)) ++ // magic bytes to distinguish different versions
+        writeClockConfig(clock.config) ++
         writeClockConfig(clock.players(White).config) ++
         writeClockConfig(clock.players(Black).config) ++
         writeSignedInt24(legacyElapsed(clock, White).centis) ++
@@ -100,7 +101,15 @@ object BinaryFormat {
         clock.timer.fold(Array.empty[Byte])(writeTimer)
     }
 
-    def read(ba: ByteArray, whiteBerserk: Boolean, blackBerserk: Boolean): Color => Clock =
+    def read(ba: ByteArray, whiteBerserk: Boolean, blackBerserk: Boolean): Color => Clock = {
+      val version = ba.value.slice(0, 4)
+      val actual  = ba.value.drop(4)
+      if (version sameElements Array[Byte](-1, -1, 0, 1)) readVersion1(actual, whiteBerserk, blackBerserk)
+      else
+        readLegacy(ba, whiteBerserk, blackBerserk)
+    }
+
+    def readVersion1(ba: ByteArray, whiteBerserk: Boolean, blackBerserk: Boolean): Color => Clock =
       color => {
         val ia = ba.value map toInt
 
@@ -129,6 +138,41 @@ object BinaryFormat {
                   .setRemaining(computeRemaining(config, legacyWhite)),
                 ClockPlayer
                   .withConfig(configBlack)
+                  .copy(berserk = blackBerserk)
+                  .setRemaining(computeRemaining(config, legacyBlack))
+              ),
+              timer = timer
+            )
+          case _ => sys error s"BinaryFormat.clock.read invalid bytes: ${ba.showBytes}"
+        }
+      }
+    def readLegacy(ba: ByteArray, whiteBerserk: Boolean, blackBerserk: Boolean): Color => Clock =
+      color => {
+        val ia = ba.value map toInt
+
+        // ba.size might be greater than 12 with 5 bytes timers
+        // ba.size might be 8 if there was no timer.
+        // #TODO remove 5 byte timer case! But fix the DB first!
+        val timer = {
+          if (ia.lengthIs == 12) readTimer(readInt(ia(8), ia(9), ia(10), ia(11)))
+          else None
+        }
+
+        ia match {
+          case Array(b1, b2, b3, b4, b5, b6, b7, b8, _*) =>
+            val config      = Clock.Config(readClockLimit(b1), b2)
+            val legacyWhite = Centis(readSignedInt24(b3, b4, b5))
+            val legacyBlack = Centis(readSignedInt24(b6, b7, b8))
+            Clock(
+              config = config,
+              color = color,
+              players = Color.Map(
+                ClockPlayer
+                  .withConfig(config)
+                  .copy(berserk = whiteBerserk)
+                  .setRemaining(computeRemaining(config, legacyWhite)),
+                ClockPlayer
+                  .withConfig(config)
                   .copy(berserk = blackBerserk)
                   .setRemaining(computeRemaining(config, legacyBlack))
               ),

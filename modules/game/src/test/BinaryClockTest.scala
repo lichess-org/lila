@@ -19,8 +19,20 @@ class BinaryClockTest extends Specification {
   def read(bytes: List[String])     = readBytes(ByteArray.parseBytes(bytes))
 
   "binary Clock" should {
-    val clock  = Clock(120, 2)
-    val bits22 = List("00000010", "00000010")
+    val clock = Clock(120, 2)
+    val bits22 = List(
+      "11111111",
+      "11111111",
+      "00000000",
+      "00000001",
+      "00000010",
+      "00000010",
+      "00000010",
+      "00000010",
+      "00000010",
+      "00000010"
+    )
+    val bitsLegacy = List("00000010", "00000010")
     "write" in {
       write(clock) must_== {
         bits22 ::: List.fill(6)(_0_)
@@ -32,7 +44,24 @@ class BinaryClockTest extends Specification {
         bits22 ::: List("00000000", "00000000", "00000011") ::: List.fill(3)(_0_)
       }
       write(Clock(0, 3)) must_== {
-        List("00000000", "00000011", "10000000", "00000001", "00101100", "10000000", "00000001", "00101100")
+        List(
+          "11111111",
+          "11111111",
+          "00000000",
+          "00000001",
+          "00000000",
+          "00000011",
+          "00000000",
+          "00000011",
+          "00000000",
+          "00000011",
+          "10000000",
+          "00000001",
+          "00101100",
+          "10000000",
+          "00000001",
+          "00101100"
+        )
       }
     }
     "read" in {
@@ -47,6 +76,17 @@ class BinaryClockTest extends Specification {
           clock.giveTime(White, Centis(-3))
         }
       }
+      "with timer legacy" in {
+        read(bitsLegacy ::: List.fill(11)(_0_)) must_== {
+          clock
+        }
+        read(bitsLegacy ::: List("10000000", "00000000", "00000011") ::: List.fill(8)(_0_)) must_== {
+          clock.giveTime(White, Centis(3))
+        }
+        read(bitsLegacy ::: List("00000000", "00000000", "00000011") ::: List.fill(8)(_0_)) must_== {
+          clock.giveTime(White, Centis(-3))
+        }
+      }
       "without timer bytes" in {
         read(bits22 ::: List.fill(7)(_0_)) must_== {
           clock
@@ -55,6 +95,18 @@ class BinaryClockTest extends Specification {
           clock.giveTime(White, Centis(3))
         }
         read(bits22 ::: List("00000000", "00000000", "00000011") ::: List.fill(4)(_0_)) must_== {
+          clock.giveTime(White, Centis(-3))
+        }
+      }
+
+      "without timer bytes legacy" in {
+        read(bitsLegacy ::: List.fill(7)(_0_)) must_== {
+          clock
+        }
+        read(bitsLegacy ::: List("10000000", "00000000", "00000011") ::: List.fill(4)(_0_)) must_== {
+          clock.giveTime(White, Centis(3))
+        }
+        read(bitsLegacy ::: List("00000000", "00000000", "00000011") ::: List.fill(4)(_0_)) must_== {
           clock.giveTime(White, Centis(-3))
         }
       }
