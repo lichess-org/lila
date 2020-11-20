@@ -86,7 +86,7 @@ $(function () {
       var fileIndex = files.indexOf(prevCoord[0]);
       files = files.slice(0, fileIndex) + files.slice(fileIndex + 1, 9);
 
-      var rows = "abcdefghi";
+      var rows = "123456789";
       var rowIndex = rows.indexOf(prevCoord[1]);
       rows = rows.slice(0, rowIndex) + rows.slice(rowIndex + 1, 9);
 
@@ -152,15 +152,15 @@ $(function () {
         i: "1",
       };
       const rankMap = {
-        9: "a",
-        8: "b",
-        7: "c",
-        6: "d",
-        5: "e",
-        4: "f",
-        3: "g",
-        2: "h",
-        1: "i",
+        9: "1",
+        8: "2",
+        7: "3",
+        6: "4",
+        5: "5",
+        4: "6",
+        3: "7",
+        2: "8",
+        1: "9",
       };
       return fileMap[key[0]] + rankMap[key[1]];
     }

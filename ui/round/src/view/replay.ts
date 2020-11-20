@@ -9,6 +9,7 @@ import viewStatus from "game/view/status";
 import * as util from "../util";
 import RoundController from "../ctrl";
 import { Step, MaybeVNodes, RoundData } from "../interfaces";
+import { westernShogiNotation } from 'shogiutil/util'
 
 const scrollMax = 99999,
   moveTag = "m2";
@@ -80,45 +81,6 @@ const autoScroll = throttle(
 //  }
 //  return builder; //todo
 //}
-
-function westernShogiNotation(str: string): string {
-  let builder = "";
-  if (!str.includes("x") && !str.includes("*")) {
-    if (str.length >= 5) str = str.slice(0, 3) + "-" + str.slice(3);
-    else str = str.slice(0, 1) + "-" + str.slice(1);
-  }
-  const index = {
-    "9": "a",
-    "8": "b",
-    "7": "c",
-    "6": "d",
-    "5": "e",
-    "4": "f",
-    "3": "g",
-    "2": "h",
-    "1": "i",
-    a: "9",
-    b: "8",
-    c: "7",
-    d: "6",
-    e: "5",
-    f: "4",
-    g: "3",
-    h: "2",
-    i: "1",
-    U: "+L",
-    M: "+N",
-    A: "+S",
-    T: "+P",
-    H: "+B",
-    D: "+R",
-  };
-  for (let c of str) {
-    builder += index[c] ? index[c] : c;
-  }
-
-  return builder;
-}
 
 function renderMove(step: Step, curPly: number, orEmpty: boolean) {
   return step
