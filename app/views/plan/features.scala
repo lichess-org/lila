@@ -57,7 +57,7 @@ object features {
             //   )
             // ),
             tr(unlimited)(
-              a(href := "https://lishogi.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lishogi-way")(
+              a(href := "https://lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lishogi-way")(
                 "Studies (shared and persistent analysis)"
               )
             ),
