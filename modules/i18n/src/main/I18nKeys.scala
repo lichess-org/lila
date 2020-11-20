@@ -515,6 +515,12 @@ val `create` = new I18nKey("create")
 val `whenCreateSimul` = new I18nKey("whenCreateSimul")
 val `simulVariantsHint` = new I18nKey("simulVariantsHint")
 val `simulClockHint` = new I18nKey("simulClockHint")
+val `simulClockInitialParticipants` = new I18nKey("simulClockInitialParticipants")
+val `simulClockIncrementParticipants` = new I18nKey("simulClockIncrementParticipants")
+val `simulClockInitialHost` = new I18nKey("simulClockInitialHost")
+val `simulClockIncrementHost` = new I18nKey("simulClockIncrementHost")
+
+
 val `simulAddExtraTime` = new I18nKey("simulAddExtraTime")
 val `simulHostExtraTime` = new I18nKey("simulHostExtraTime")
 val `lichessTournaments` = new I18nKey("lichessTournaments")

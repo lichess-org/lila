@@ -87,22 +87,21 @@ object form {
       form3.split(
         form3.group(
           form("clockTime"),
-          raw("Clock initial time"),
-          help = trans.simulClockHint().some,
+          trans.simulClockInitialParticipants(),
           half = true
         )(form3.select(_, clockTimeChoices)),
-        form3.group(form("clockIncrement"), raw("Clock increment"), half = true)(
+        form3.group(form("clockIncrement"), trans.simulClockIncrementParticipants(), half = true)(
           form3.select(_, clockIncrementChoices)
         )
       ),
       form3.split(
         form3.group(
           form("clockTimeHost"),
-          raw("Clock initial time for host"),
+          trans.simulClockInitialHost(),
           help = trans.simulClockHint().some,
           half = true
         )(form3.select(_, clockTimeChoices)),
-        form3.group(form("clockIncrementHost"), raw("Clock increment for host"), half = true)(
+        form3.group(form("clockIncrementHost"), trans.simulClockIncrementHost(), half = true)(
           form3.select(_, clockIncrementChoices)
         )
       ),
