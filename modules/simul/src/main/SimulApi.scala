@@ -89,7 +89,7 @@ final class SimulApi(
               user,
               variant,
               PerfPicker.mainOrDefault(
-                speed = chess.Speed(simul.clock.config.some),
+                speed = chess.Speed(simul.clock.participantConfig.some),
                 variant = variant,
                 daysPerTurn = none
               )(user.perfs)

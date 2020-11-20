@@ -49,7 +49,8 @@ object show {
               div(cls := "header")(
                 iconTag("f"),
                 div(
-                  span(cls := "clock")(sim.clock.config.show),
+                  span(cls := "clock")(sim.clock.participantConfig.show),
+                  span(cls := "clock")(sim.clock.hostConfig.show),
                   div(cls := "setup")(
                     sim.variants.map(_.name).mkString(", "),
                     " • ",
@@ -61,10 +62,6 @@ object show {
                   )
                 )
               ),
-              trans.simulHostExtraTime(),
-              ": ",
-              pluralize("minute", sim.clock.hostExtraMinutes),
-              br,
               trans.hostColorX(sim.color match {
                 case Some("white") => trans.white()
                 case Some("black") => trans.black()

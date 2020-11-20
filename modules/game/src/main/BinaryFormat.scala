@@ -92,7 +92,9 @@ object BinaryFormat {
       config.limit - legacyElapsed
 
     def write(clock: Clock): ByteArray = {
-      Array(writeClockLimit(clock.limitSeconds), clock.incrementSeconds.toByte) ++
+      writeClockConfig(clock.config) ++
+        writeClockConfig(clock.players(White).config) ++
+        writeClockConfig(clock.players(Black).config) ++
         writeSignedInt24(legacyElapsed(clock, White).centis) ++
         writeSignedInt24(legacyElapsed(clock, Black).centis) ++
         clock.timer.fold(Array.empty[Byte])(writeTimer)
@@ -106,25 +108,27 @@ object BinaryFormat {
         // ba.size might be 8 if there was no timer.
         // #TODO remove 5 byte timer case! But fix the DB first!
         val timer = {
-          if (ia.lengthIs == 12) readTimer(readInt(ia(8), ia(9), ia(10), ia(11)))
+          if (ia.lengthIs == 16) readTimer(readInt(ia(12), ia(13), ia(14), ia(15)))
           else None
         }
 
         ia match {
-          case Array(b1, b2, b3, b4, b5, b6, b7, b8, _*) =>
+          case Array(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, _*) =>
             val config      = Clock.Config(readClockLimit(b1), b2)
-            val legacyWhite = Centis(readSignedInt24(b3, b4, b5))
-            val legacyBlack = Centis(readSignedInt24(b6, b7, b8))
+            val configWhite = Clock.Config(readClockLimit(b3), b4)
+            val configBlack = Clock.Config(readClockLimit(b5), b6)
+            val legacyWhite = Centis(readSignedInt24(b7, b8, b9))
+            val legacyBlack = Centis(readSignedInt24(b10, b11, b12))
             Clock(
               config = config,
               color = color,
               players = Color.Map(
                 ClockPlayer
-                  .withConfig(config)
+                  .withConfig(configWhite)
                   .copy(berserk = whiteBerserk)
                   .setRemaining(computeRemaining(config, legacyWhite)),
                 ClockPlayer
-                  .withConfig(config)
+                  .withConfig(configBlack)
                   .copy(berserk = blackBerserk)
                   .setRemaining(computeRemaining(config, legacyBlack))
               ),
@@ -158,6 +162,9 @@ object BinaryFormat {
       // So, for the limits where limit % 30 == 0, we can use the space
       // from 181-255, where 181 represents 0.25 and 182 represents 0.50...
       (if (limit % 60 == 0) limit / 60 else limit / 15 + 180).toByte
+    }
+    private def writeClockConfig(config: chess.Clock.Config): ByteArray = {
+      Array(writeClockLimit(config.limitSeconds), config.incrementSeconds.toByte)
     }
 
     private def readClockLimit(i: Int) = {

@@ -45,7 +45,8 @@ object bits {
         tr(
           td(cls := "name")(a(href := routes.Simul.show(simul.id))(simul.fullName)),
           td(userIdLink(simul.hostId.some)),
-          td(cls := "text", dataIcon := "p")(simul.clock.config.show),
+          td(cls := "text", dataIcon := "p")(simul.clock.participantConfig.show),
+          td(cls := "text", dataIcon := "p")(simul.clock.hostConfig.show),
           td(cls := "text", dataIcon := "r")(simul.applicants.size)
         )
       }
@@ -53,7 +54,8 @@ object bits {
 
   private[simul] def setup(sim: lila.simul.Simul) =
     span(cls := List("setup" -> true, "rich" -> sim.variantRich))(
-      sim.clock.config.show,
+      sim.clock.participantConfig.show,
+      sim.clock.hostConfig.show,
       " • ",
       sim.variants.map(_.name).mkString(", ")
     )

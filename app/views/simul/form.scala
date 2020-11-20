@@ -97,13 +97,16 @@ object form {
       ),
       form3.split(
         form3.group(
-          form("clockExtra"),
-          trans.simulHostExtraTime(),
-          help = trans.simulAddExtraTime().some,
+          form("clockTimeHost"),
+          raw("Clock initial time for host"),
+          help = trans.simulClockHint().some,
           half = true
-        )(
-          form3.select(_, clockExtraChoices)
-        ),
+        )(form3.select(_, clockTimeChoices)),
+        form3.group(form("clockIncrementHost"), raw("Clock increment for host"), half = true)(
+          form3.select(_, clockIncrementChoices)
+        )
+      ),
+      form3.split(
         form3.group(form("color"), raw("Host color for each game"), half = true)(
           form3.select(_, colorChoices)
         )

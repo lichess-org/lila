@@ -16,6 +16,8 @@ case class ByteArray(value: Array[Byte]) {
     } mkString ","
 
   override def toString = toHexStr
+
+  def ++(that: ByteArray) = ByteArray(this.value ++ that.value)
 }
 
 object ByteArray {

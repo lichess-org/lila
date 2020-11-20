@@ -86,7 +86,7 @@ final class JsonView(
       },
       "name"       -> simul.name,
       "fullName"   -> simul.fullName,
-      "variants"   -> simul.variants.map(variantJson(chess.Speed(simul.clock.config.some))),
+      "variants"   -> simul.variants.map(variantJson(chess.Speed(simul.clock.participantConfig.some))),
       "isCreated"  -> simul.isCreated,
       "isRunning"  -> simul.isRunning,
       "isFinished" -> simul.isFinished,

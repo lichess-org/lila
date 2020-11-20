@@ -21,10 +21,6 @@ object SimulForm {
   val clockIncrementDefault = 60
   val clockIncrementChoices = options(clockIncrements, "%d second{s}")
 
-  val clockExtras       = (0 to 15 by 5) ++ (20 to 60 by 10) ++ (90 to 120 by 30)
-  val clockExtraChoices = options(clockExtras, "%d minute{s}")
-  val clockExtraDefault = 0
-
   val colors = List("white", "random", "black")
   val colorChoices = List(
     "white"  -> "White",
@@ -60,7 +56,8 @@ object SimulForm {
       name = host.titleUsername,
       clockTime = clockTimeDefault,
       clockIncrement = clockIncrementDefault,
-      clockExtra = clockExtraDefault,
+      clockTimeHost = clockTimeDefault,
+      clockIncrementHost = clockIncrementDefault,
       variants = List(chess.variant.Standard.id),
       position = none,
       color = colorDefault,
@@ -72,9 +69,10 @@ object SimulForm {
   def edit(host: User, teams: List[LeaderTeam], simul: Simul) =
     baseForm(host, teams) fill Setup(
       name = simul.name,
-      clockTime = simul.clock.config.limitInMinutes.toInt,
-      clockIncrement = simul.clock.config.increment.roundSeconds,
-      clockExtra = simul.clock.hostExtraMinutes,
+      clockTime = simul.clock.participantConfig.limitInMinutes.toInt,
+      clockIncrement = simul.clock.participantConfig.increment.roundSeconds,
+      clockTimeHost = simul.clock.hostConfig.limitInMinutes.toInt,
+      clockIncrementHost = simul.clock.hostConfig.increment.roundSeconds,
       variants = simul.variants.map(_.id),
       position = simul.position,
       color = simul.color | "random",
@@ -86,10 +84,11 @@ object SimulForm {
   private def baseForm(host: User, teams: List[LeaderTeam]) =
     Form(
       mapping(
-        "name"           -> nameType(host),
-        "clockTime"      -> numberIn(clockTimeChoices),
-        "clockIncrement" -> numberIn(clockIncrementChoices),
-        "clockExtra"     -> numberIn(clockExtraChoices),
+        "name"               -> nameType(host),
+        "clockTime"          -> numberIn(clockTimeChoices),
+        "clockIncrement"     -> numberIn(clockIncrementChoices),
+        "clockTimeHost"      -> numberIn(clockTimeChoices),
+        "clockIncrementHost" -> numberIn(clockIncrementChoices),
         "variants" -> list {
           number.verifying(
             Set(
@@ -125,7 +124,8 @@ object SimulForm {
       name: String,
       clockTime: Int,
       clockIncrement: Int,
-      clockExtra: Int,
+      clockTimeHost: Int,
+      clockIncrementHost: Int,
       variants: List[Int],
       position: Option[FEN],
       color: String,
@@ -135,8 +135,8 @@ object SimulForm {
   ) {
     def clock =
       SimulClock(
-        config = chess.Clock.Config(clockTime * 60, clockIncrement),
-        hostExtraTime = clockExtra * 60
+        participantConfig = chess.Clock.Config(clockTime * 60, clockIncrement),
+        hostConfig = chess.Clock.Config(clockTimeHost * 60, clockIncrementHost)
       )
 
     def actualVariants = variants.flatMap { chess.variant.Variant(_) }
