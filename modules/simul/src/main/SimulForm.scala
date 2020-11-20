@@ -24,9 +24,9 @@ object SimulForm {
 
   val colors = List("white", "random", "black")
   val colorChoices = List(
-    "white"  -> "White",
+    "white"  -> "Black",
     "random" -> "Random",
-    "black"  -> "Black"
+    "black"  -> "White"
   )
   val colorDefault = "white"
 
@@ -36,7 +36,7 @@ object SimulForm {
       Constraints maxLength 40,
       Constraints.pattern(
         regex = """[\p{L}\p{N}-\s:,;]+""".r,
-        error = "error.unknown"
+        error = "Invalid characters"
       ),
       Constraint[String] { (t: String) =>
         if (t.toLowerCase contains "lishogi")
