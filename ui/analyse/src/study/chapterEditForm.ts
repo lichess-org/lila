@@ -138,8 +138,8 @@ function viewLoaded(ctrl: StudyChapterEditFormCtrl, data: StudyChapterConfig): V
         h('label.form-label', {
           attrs: { for: 'chapter-orientation' }
         }, ctrl.trans.noarg('orientation')),
-        h('select#chapter-orientation.form-control', ['white', 'black'].map(function(color) {
-          return option(color, data.orientation, ctrl.trans.noarg(color));
+        h('select#chapter-orientation.form-control', ['black', 'white'].map(function(color) {
+          return option(color == 'white' ? 'black' : 'white', data.orientation, ctrl.trans.noarg(color));
         }))
       ]),
       h('div.form-group.form-half', [
