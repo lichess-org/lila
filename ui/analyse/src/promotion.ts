@@ -147,7 +147,11 @@ function promotesTo(role: Role): Role {
 export function view(ctrl: AnalyseCtrl): MaybeVNode {
   if (!promoting) return;
 
-  const roles: Role[] = [promotesTo(promoting.role), promoting.role];
+  const roles: Role[] =
+    ctrl.shogiground.state.orientation === "black" ?
+    [promotesTo(promoting.role), promoting.role] :
+    [promoting.role, promotesTo(promoting.role)];
+  
   return renderPromotion(
     ctrl,
     promoting.dest,

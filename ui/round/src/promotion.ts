@@ -208,7 +208,10 @@ function promotesTo(role: typeof prePromotionRole): cg.Role {
 
 export function view(ctrl: RoundController): MaybeVNode {
   if (!promoting) return;
-  const roles: cg.Role[] = [promoting.role, promotesTo(promoting.role)];
+  const roles: cg.Role[] =
+    ctrl.shogiground.state.orientation === "black" ?
+    [promotesTo(promoting.role), promoting.role] :
+    [promoting.role, promotesTo(promoting.role)];
   return renderPromotion(
     ctrl,
     promoting.move[1],
