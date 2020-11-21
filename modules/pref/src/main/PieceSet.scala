@@ -32,7 +32,18 @@ object PieceSet extends PieceSetObject {
     "orangain",
     "international",
     "kanji_red_wood",
-    "doubutsu"
+    "doubutsu",
+    "1Kanji_3D",
+    "2Kanji_3D",
+    "Intl_Colored_2D",
+    "Intl_Colored_3D",
+    "Intl_Colored_Shadowed",
+    "Intl_Monochrome_2D",
+    "Intl_Wooden_3D",
+    "Kanji_Guide_Shadowed",
+    "simple_kanji",
+    "Valdivia",
+    "vald_opt"
   ) map { name =>
     new PieceSet(name)
   }
