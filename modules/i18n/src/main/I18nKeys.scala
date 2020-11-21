@@ -5,7 +5,6 @@ package lila.i18n
 object I18nKeys {
 
 val `playWithAFriend` = new I18nKey("playWithAFriend")
-val `playWithAFriend2` = new I18nKey("playWithAFriend2")
 val `playWithTheMachine` = new I18nKey("playWithTheMachine")
 val `toInviteSomeoneToPlayGiveThisUrl` = new I18nKey("toInviteSomeoneToPlayGiveThisUrl")
 val `gameOver` = new I18nKey("gameOver")
@@ -1681,8 +1680,7 @@ val `frequentlyAskedQuestions` = new I18nKey("faq:frequentlyAskedQuestions")
 val `whyIsLishogiCalledLishogi` = new I18nKey("faq:whyIsLishogiCalledLishogi")
 val `forkedFromLichess` = new I18nKey("faq:forkedFromLichess")
 val `lishogiCombinationLiveLightLibrePronounced` = new I18nKey("faq:lishogiCombinationLiveLightLibrePronounced")
-val `lichessCombinationLiveLightLibrePronounced` = new I18nKey("faq:lichessCombinationLiveLightLibrePronounced")
-val `leeshogi` = new I18nKey("faq:leeshogi")
+val `leechess` = new I18nKey("faq:leechess")
 val `hearItPronouncedBySpecialist` = new I18nKey("faq:hearItPronouncedBySpecialist")
 val `whyLiveLightLibre` = new I18nKey("faq:whyLiveLightLibre")
 val `whyIsLilaCalledLila` = new I18nKey("faq:whyIsLilaCalledLila")
