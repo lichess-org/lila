@@ -4,7 +4,7 @@ import * as winningChances from "./winningChances";
 import { defined } from "common";
 import { h } from "snabbdom";
 import { VNode } from "snabbdom/vnode";
-//import { opposite, parseUci } from 'shogiutil/util';
+import { switchUSI } from 'shogiutil/util';
 // @ts-ignore
 import { Shogi } from "shogiutil/vendor/Shogi.js";
 
@@ -313,7 +313,6 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
     threat = true;
   } else if (node.ceval) pvs = node.ceval.pvs;
   else pvs = [];
-  //if (threat) console.log("Threat", gs); //player = opposite(gs.player);
   return h(
     "div.pv_box",
     {
@@ -354,7 +353,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
                   : renderEval(pvs[i].cp!)
               )
             : null,
-          h("span", pvs[i].moves.join(", ")),
+          h("span", pvs[i].moves.map(switchUSI).join(", ")),
         ]
       );
     })

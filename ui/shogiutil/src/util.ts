@@ -12,6 +12,36 @@ export function defined<A>(v: A | undefined): v is A {
   return v !== undefined;
 }
 
+export function switchUSI(str: string): string {
+  const transMap = {
+    "9": "i",
+    "8": "h",
+    "7": "g",
+    "6": "f",
+    "5": "e",
+    "4": "d",
+    "3": "c",
+    "2": "b",
+    "1": "a",
+    a: "1",
+    b: "2",
+    c: "3",
+    d: "4",
+    e: "5",
+    f: "6",
+    g: "7",
+    h: "8",
+    i: "9"
+  };
+  if(str.length !== 4) return str;
+  else if(str.includes("*")){
+    return str[0] + str[1] + str[2] + transMap[str[3]];
+  }
+  else{
+    return str[0] + transMap[str[1]] + str[2] + transMap[str[3]];
+  }
+}
+
 export function westernShogiNotation(str: string | undefined): string | undefined {
   if (!str) return;
   if(str.length == 2 || (str.length == 3 && (str.includes("x") || str.includes("*")))){

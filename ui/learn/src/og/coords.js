@@ -16,8 +16,18 @@ module.exports = function (orientation, el) {
   util.requestAnimationFrame(function () {
     var coords = document.createDocumentFragment();
     var orientClass = orientation === "black" ? " black" : "";
-    coords.appendChild(renderCoords(util.ranks, "ranks" + orientClass));
-    coords.appendChild(renderCoords(util.files, "files" + orientClass));
+    coords.appendChild(
+      renderCoords(
+        ["9", "8", "7", "6", "5", "4", "3", "2", "1"],
+        "ranks" + orientClass
+      )
+    );
+    coords.appendChild(
+      renderCoords(
+        ["9", "8", "7", "6", "5", "4", "3", "2", "1"],
+        "files" + orientClass
+      )
+    );
     el.appendChild(coords);
   });
 
