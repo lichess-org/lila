@@ -109,7 +109,7 @@ piece.tokin.black {
   background-image: url("/assets/piece/international/0HI.svg");
 }
 .cg-wrap.orientation-white piece.king.white {
-  background-image: url("/assets/piece/international/0OU.svg");
+  background-image: url("/assets/piece/international/0GY.svg");
 }
 .cg-wrap.orientation-white piece.gold.white {
   background-image: url("/assets/piece/international/0KI.svg");
@@ -254,7 +254,7 @@ piece.tokin.black {
   background-image: url("/assets/piece/international/1HI.svg");
 }
 .cg-wrap.orientation-black piece.king.white {
-  background-image: url("/assets/piece/international/1OU.svg");
+  background-image: url("/assets/piece/international/1GY.svg");
 }
 .cg-wrap.orientation-black piece.gold.white {
   background-image: url("/assets/piece/international/1KI.svg");

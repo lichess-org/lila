@@ -25,7 +25,8 @@ object Binary {
     val promotionInts: Map[String, Int] = Map("" -> 0, "T" -> 1, "U" -> 2, "M" -> 3, "A" -> 4, "H" -> 6, "D" -> 7)
     val promotionStrs: Map[Int, String] = promotionInts map { case (k, v) => v -> k }
     val checkInts: Map[String, Int]     = Map("" -> 0, "+" -> 1, "=" -> 2)
-    val checkStrs: Map[Int, String]     = checkInts map { case (k, v) => v -> k }
+    // Dont's question this, mistakes were made
+    val checkStrs: Map[Int, String]     = (checkInts map { case (k, v) => v -> k }) ++ Map(3 -> "+")
   }
 
   private object Reader {
@@ -77,11 +78,18 @@ object Binary {
     def fullPiece(b1: Int, b2: Int, b3: Int): String = {
       pieceStrs(b2 >> 4) match {
         case piece => {
-          val pos     = posString(right(b1, 7))
-          val capture = if (bitAt(b2, 2)) "x" else ""
-          val check   = checkStrs(cut(b2, 4, 2))
           val from    = posString(right(b3, 7))
-          s"$piece$from$capture$pos$check"
+          val pos     = posString(right(b1, 7))
+          val check   = checkStrs(cut(b2, 4, 2))
+          // Dont's question this, mistakes were made
+          if(!bitAt(b2, 1)){
+            val capture = if (bitAt(b2, 3)) "x" else ""
+            s"$piece$from$capture$pos$check"
+          }
+          else{
+            val capture = if (bitAt(b2, 2)) "x" else ""
+            s"$piece$from$capture$pos$check"
+          }
         }
       }
     }

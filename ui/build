@@ -13,7 +13,8 @@ ls -l node_modules node_modules/@* ui/node_modules ui/*/node_modules | grep /yar
 
 mkdir -p public/compiled
 
-apps1="shogiground shogiutil common"
+apps0="shogiground shogiutil"
+apps1="common"
 apps2="chess ceval game tree chat nvui"
 apps3="site msg chat cli challenge notify learn editor round analyse lobby tournament tournamentSchedule tournamentCalendar simul dasher speech palantir serviceWorker"
 
@@ -50,6 +51,7 @@ else
       [ -n "$GITHUB_WORKFLOW" ] || P_OPTS+=" --bar"
     fi
     set -x
+    parallel --gnu $P_OPTS build ::: $apps0
     parallel --gnu $P_OPTS build ::: $apps1
     parallel --gnu $P_OPTS build ::: $apps2
     parallel --gnu $P_OPTS build ::: $apps3

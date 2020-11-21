@@ -311,9 +311,9 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                       );
                   }),
                 },
-                ["white", "black"].map(function (color) {
+                ["black", "white"].map(function (color) {
                   return option(
-                    color,
+                    color == 'white' ? 'black' : 'white',
                     currentChapter.setup.orientation,
                     noarg(color)
                   );

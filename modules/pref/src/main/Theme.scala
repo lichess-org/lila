@@ -46,7 +46,8 @@ object Theme extends ThemeObject {
     "blue",
     "dark-blue",
     "brown",
-    "space1"
+    "space1",
+    "doubutsu"
   ) map { name =>
     new Theme(name, colors.getOrElse(name, defaultHexColors))
   }

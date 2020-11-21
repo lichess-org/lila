@@ -107,7 +107,7 @@ lishogi.studyTour = function (study) {
         title: "Thanks for your time",
         text:
           "You can find your <a href='/study/mine/hot'>previous studies</a> from your profile page.<br>" +
-          "There is also a <a href='//lishogi.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lishogi-way'>blog post about studies</a>.<br>" +
+          "There is also a <a href='//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lishogi-way'>blog post about studies</a>.<br>" +
           'Power users might want to press "?" to see keyboard shortcuts.<br>' +
           "Have fun!",
         buttons: [

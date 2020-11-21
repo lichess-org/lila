@@ -9,6 +9,7 @@ $board-files: (
   "solid-wood1": "solid-wood1.png",
   "space1": "space1.png",
   "space2": "space2.png",
+  "doubutsu": "doubutsu.png",
 );
 
 @each $color, $file in $board-files {

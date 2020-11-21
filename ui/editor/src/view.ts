@@ -245,7 +245,7 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
   if (ctrl.cfg.embed) return;
   return h("div.copyables", [
     h("p", [
-      h("strong", "FEN"),
+      h("strong", "SFEN"),
       h("input.copyable", {
         attrs: {
           spellcheck: false,
@@ -262,7 +262,7 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
           input(e) {
             const el = e.target as HTMLInputElement;
             const gs = Shogi.init(undisplaySfen(el.value.trim()));
-            el.setCustomValidity(gs.validity ? "" : "Invalid FEN");
+            el.setCustomValidity(gs.validity ? "" : "Invalid SFEN");
           },
           blur(e) {
             const el = e.target as HTMLInputElement;

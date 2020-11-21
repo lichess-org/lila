@@ -1,7 +1,6 @@
 .sbtopts
 conf/application.conf
 conf/version.conf
-conf/base.conf
 .metals
 
 logs

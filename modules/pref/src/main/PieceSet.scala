@@ -31,7 +31,8 @@ object PieceSet extends PieceSetObject {
     "kanji_brown",
     "orangain",
     "international",
-    "kanji_red_wood"
+    "kanji_red_wood",
+    "doubutsu"
   ) map { name =>
     new PieceSet(name)
   }
