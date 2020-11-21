@@ -68,25 +68,25 @@ final class RecaptchaGoogle(
       case res if res.status == 200 =>
         res.body[JsValue].validate[GoodResponse] match {
           case JsSuccess(res, _) =>
-            lila.mon.security.recaptcha.hit(client, "success")
+            lila.mon.security.recaptcha.hit(client, "success").increment()
             fuccess(res.success && res.hostname == netDomain.value)
           case JsError(err) =>
             res.body[JsValue].validate[BadResponse].asOpt.pp match {
               case Some(err) if err.missingInput =>
                 logger.warn(s"recaptcha missing ${HTTPRequest printClient req}")
-                lila.mon.security.recaptcha.hit(client, "missing")
+                lila.mon.security.recaptcha.hit(client, "missing").increment()
                 fuccess(HTTPRequest.apiVersion(req).isDefined)
               case Some(err) =>
-                lila.mon.security.recaptcha.hit(client, err.toString)
+                lila.mon.security.recaptcha.hit(client, err.toString).increment()
                 fuccess(false)
               case _ =>
-                lila.mon.security.recaptcha.hit(client, "error")
+                lila.mon.security.recaptcha.hit(client, "error").increment()
                 logger.warn(s"recaptcha $err ${res.body}")
                 fuccess(false)
             }
         }
       case res =>
-        lila.mon.security.recaptcha.hit(client, res.status.toString)
+        lila.mon.security.recaptcha.hit(client, res.status.toString).increment()
         logger.warn(s"recaptcha ${res.status} ${res.body}")
         fuccess(false)
     }

@@ -1,29 +1,19 @@
 import modal from 'common/modal';
 
-export function app($wrap: Cash, toggle: () => void) {
-  const $input = $wrap.find('input');
-
+export function app(input: HTMLInputElement) {
   lichess.userComplete().then(uac => {
     uac({
-      input: $input[0] as HTMLInputElement,
+      input,
       friend: true,
       focus: true,
       onSelect: r => execute(r.name)
     });
-    const close = () => {
-      $input.val('');
-      $('body').hasClass('clinput') && toggle()
-    };
-    $input.on({
-      blur: () => setTimeout(close, 100),
-      keydown(e: KeyboardEvent) {
-        if (e.code == 'Enter') {
-          execute($input.val() as string);
-          $input.trigger('blur');
-          close();
-        }
+    $(input).on('keydown', (e: KeyboardEvent) => {
+      if (e.code == 'Enter') {
+        execute(input.value);
+        input.blur();
       }
-    })
+    });
   });
 }
 

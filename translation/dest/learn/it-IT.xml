@@ -48,8 +48,8 @@ Fuggi e conquista le stelle!</string>
 Ma quando raggiungono l\'altro lato della scacchiera si trasformano in un pezzo più forte!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">La maggior parte delle volte è opportuno promuovere in regina.
 Ma talvolta un cavallo può tornare utile!</string>
-  <string name="pawnsMoveForward">I pedono si muovono in avanti,
-ma catturano in diagonale!</string>
+  <string name="pawnsMoveForward">I pedoni si muovono in avanti,
+ma catturano diagonalmente!</string>
   <string name="captureThenPromote">Cattura, poi promuovi!</string>
   <string name="useAllThePawns">Usa tutti i pedoni!
 Non c\'è bisogno di promuovere.</string>

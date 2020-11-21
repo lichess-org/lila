@@ -405,7 +405,7 @@
   <string name="recommendNotTouching">Wir empfehlen, diese nicht zu ändern.</string>
   <string name="fewerPlayers">Falls du Teilnahmebedingungen setzt, wird das Turnier weniger Spieler haben.</string>
   <string name="showAdvancedSettings">Zeige erweiterte Einstellungen</string>
-  <string name="makePrivateTournament">Stelle das Turnier auf privat und schütze den Zugang durch ein Passwort</string>
+  <string name="makePrivateTournament">Stelle das Turnier auf privat und beschränke den Zugang durch ein Passwort</string>
   <string name="join">Teilnehmen</string>
   <string name="withdraw">Verlassen</string>
   <string name="points">Punkte</string>

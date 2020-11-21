@@ -90,7 +90,7 @@
   <string name="hideNextMoves">Cacher les coups suivants</string>
   <string name="interactiveLesson">Leçon interactive</string>
   <string name="chapterX">Chapitre : %s</string>
-  <string name="empty">Vider</string>
+  <string name="empty">Par défaut</string>
   <string name="startFromInitialPosition">Commencer à partir du début</string>
   <string name="editor">Editeur</string>
   <string name="startFromCustomPosition">Commencer à partir d\'une position personnalisée</string>
