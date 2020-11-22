@@ -16,6 +16,8 @@ export default function status(ctrl: Ctrl): string {
       ); // swapped
     case "stalemate":
       return noarg("stalemate");
+    case "impasse":
+      return "Impasse (Try Rule)";
     case "timeout":
       switch (d.game.winner) {
         case "black":

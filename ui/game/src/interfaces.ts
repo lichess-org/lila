@@ -43,6 +43,7 @@ export type StatusName =
   | "mate"
   | "resign"
   | "stalemate"
+  | "impasse"
   | "timeout"
   | "draw"
   | "outoftime"
