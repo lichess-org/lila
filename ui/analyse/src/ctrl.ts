@@ -42,6 +42,7 @@ import { storedProp, StoredBooleanProp } from 'common/storage';
 import { StudyCtrl } from './study/interfaces';
 import { StudyPracticeCtrl } from './study/practice/interfaces';
 import { valid as crazyValid } from './crazy/crazyCtrl';
+import {treeReconstruct} from './util';
 
 export default class AnalyseCtrl {
 
@@ -184,7 +185,7 @@ export default class AnalyseCtrl {
     this.ongoing = !this.synthetic && game.playable(data);
 
     const prevTree = merge && this.tree.root;
-    this.tree = makeTree(treeOps.reconstruct(this.data.treeParts));
+    this.tree = makeTree(treeReconstruct(this.data.treeParts));
     if (prevTree) this.tree.merge(prevTree);
 
     this.actionMenu = new ActionMenuCtrl();
