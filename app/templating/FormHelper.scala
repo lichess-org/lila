@@ -205,6 +205,11 @@ trait FormHelper { self: I18nHelper =>
         )
       )
 
+    def passwordConfirm(): Frag =
+      div(cls := "password-confirm")(
+        label(cls := "password-confirm-label")
+      )
+
     def globalError(form: Form[_])(implicit ctx: Context): Option[Frag] =
       form.globalError map { err =>
         div(cls := "form-group is-invalid")(error(err))

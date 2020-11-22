@@ -126,6 +126,11 @@ export default rollupProject({
     output: 'passwordComplexity',
     name: 'passwordComplexity'
   },
+  passwordConfirm: {
+    input: 'src/passwordConfirm.ts',
+    output: 'passwordConfirm',
+    name: 'passwordConfirm'
+  },
   coachForm: {
     input: 'src/coachForm.ts',
     output: 'coach.form',

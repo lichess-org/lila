@@ -17,6 +17,10 @@ object passwd {
         embedJsUnsafeLoadThen("""
           lichess.loadModule('passwordComplexity').then(() =>
             passwordComplexity.addPasswordChangeListener('form3-newPasswd1')
+          )"""),
+        embedJsUnsafeLoadThen("""
+          lichess.loadModule('passwordConfirm').then(() =>
+            passwordConfirm.addPasswordChangeListener('form3-newPasswd2', 'form3-newPasswd1')
           )""")
       )
     ) {
@@ -33,6 +37,7 @@ object passwd {
           form3.passwordModified(form("newPasswd2"), trans.newPasswordAgain())(
             autocomplete := "new-password"
           ),
+          form3.passwordConfirm(),
           form3.action(form3.submit(trans.apply()))
         )
       )
