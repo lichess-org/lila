@@ -246,14 +246,15 @@ final class Mod(
                 .mon(_.mod.comm.segment("inquiries")) map {
                 case chats ~ convos ~ publicLines ~ notes ~ history ~ inquiry =>
                   if (priv) {
-                    if (!inquiry.??(_.isRecentCommOf(Suspect(user))))
+                    if (!inquiry.??(_.isRecentCommOf(Suspect(user)))) {
                       env.slack.api.commlog(mod = me, user = user, inquiry.map(_.oldestAtom.by.value))
-                    if (isGranted(_.MonitoredMod))
-                      env.slack.api.monitorMod(
-                        me.id,
-                        "eyes",
-                        s"checked out @${user.username}'s private comms"
-                      )
+                      if (isGranted(_.MonitoredMod))
+                        env.slack.api.monitorMod(
+                          me.id,
+                          "eyes",
+                          s"spontaneously checked out @${user.username}'s private comms"
+                        )
+                    }
                   }
                   html.mod.communication(
                     user,
