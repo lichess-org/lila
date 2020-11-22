@@ -1,7 +1,7 @@
-import { PuzzleRound, PuzzleData } from './interfaces';
+import { PuzzleData, PuzzleResult } from './interfaces';
 import * as xhr from 'common/xhr';
 
-export function round(puzzleId: string, win: boolean): Promise<PuzzleRound> {
+export function round(puzzleId: string, win: boolean): Promise<PuzzleResult | undefined> {
   return xhr.json(`/training/${puzzleId}/round3`, {
     method: 'POST',
     body: xhr.form({ win: win ? 1 : 0 })

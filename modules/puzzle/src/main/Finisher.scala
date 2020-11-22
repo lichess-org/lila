@@ -2,12 +2,14 @@ package lila.puzzle
 
 import org.goochjs.glicko2.{ Rating, RatingCalculator, RatingPeriodResults }
 import org.joda.time.DateTime
+import scala.util.chaining._
 
 import lila.common.Bus
 import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.rating.{ Glicko, PerfType }
 import lila.user.{ User, UserRepo }
+import lila.rating.Perf
 
 final private[puzzle] class Finisher(
     api: PuzzleApi,
@@ -16,15 +18,32 @@ final private[puzzle] class Finisher(
     colls: PuzzleColls
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def apply(puzzle: Puzzle, user: User, result: Result, isStudent: Boolean): Fu[PuzzleRound] =
+  import BsonHandlers._
+
+  def apply(puzzle: Puzzle, user: User, result: Result, isStudent: Boolean): Fu[(PuzzleRound, Perf)] =
     api.round.find(user, puzzle) flatMap { prevRound =>
       val now              = DateTime.now
       val formerUserRating = user.perfs.puzzle.intRating
       val userRating       = user.perfs.puzzle.toRating
-      // val puzzleRating     = puzzle.perf.toRating
-      // updateRatings(userRating, puzzleRating, result.glicko)
-      // val puzzlePerf =
-      //   puzzle.perf.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id} user")(puzzleRating)
+      val puzzleRating = new Rating(
+        puzzle.glicko.rating atLeast Glicko.minRating,
+        puzzle.glicko.deviation,
+        puzzle.glicko.volatility,
+        puzzle.plays,
+        null
+      )
+      updateRatings(userRating, puzzleRating, result.glicko)
+      val newPuzzleGlicko = user.perfs.puzzle.established
+        .option {
+          Glicko(
+            rating = puzzleRating.getRating
+              .atMost(puzzle.glicko.rating + Glicko.maxRatingDelta)
+              .atLeast(puzzle.glicko.rating - Glicko.maxRatingDelta),
+            deviation = puzzleRating.getRatingDeviation,
+            volatility = puzzleRating.getVolatility
+          )
+        }
+        .filter(_.sanityCheck)
       val userPerf =
         user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, now)
       val round = prevRound
@@ -37,24 +56,25 @@ final private[puzzle] class Finisher(
             weight = none
           )
         )(_.copy(win = result.win))
-      // historyApi.addPuzzle(user = user, completedAt = date, perf = userPerf)
-      api.round.upsert(round) >> {
-        isStudent ?? api.round.addDenormalizedUser(round, user)
-        // } >> {
-        //   puzzleColl {
-        //     _.update.one(
-        //       $id(puzzle.id),
-        //       $inc(Puzzle.BSONFields.attempts -> $int(1)) ++
-        //         $set(Puzzle.BSONFields.perf   -> PuzzlePerf.puzzlePerfBSONHandler.write(puzzlePerf))
-        //     )
-        //   } zip userRepo.setPerf(user.id, PerfType.Puzzle, userPerf)
-      } inject {
+      api.round.upsert(round) zip
+        isStudent.??(api.round.addDenormalizedUser(round, user)) zip
+        prevRound.isEmpty.?? {
+          colls.puzzle {
+            _.update
+              .one(
+                $id(puzzle.id),
+                $inc(Puzzle.BSONFields.plays -> $int(1)) ++ newPuzzleGlicko ?? { glicko =>
+                  $set(Puzzle.BSONFields.glicko -> Glicko.glickoBSONHandler.write(glicko))
+                }
+              )
+              .void
+          }
+        } zip
+        userRepo.setPerf(user.id, PerfType.Puzzle, userPerf) >>-
         Bus.publish(
           Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating),
           "finishPuzzle"
-        )
-        round
-      }
+        ) inject (round -> userPerf)
     }
 
   private val VOLATILITY = Glicko.default.volatility
@@ -62,7 +82,7 @@ final private[puzzle] class Finisher(
   private val system     = new RatingCalculator(VOLATILITY, TAU)
 
   def incPuzzlePlays(puzzle: Puzzle): Funit =
-    colls.puzzle.map(_.incFieldUnchecked($id(puzzle.id.value), Puzzle.BSONFields.plays))
+    colls.puzzle.map(_.incFieldUnchecked($id(puzzle.id), Puzzle.BSONFields.plays))
 
   private def updateRatings(u1: Rating, u2: Rating, result: Glicko.Result): Unit = {
     val results = new RatingPeriodResults()

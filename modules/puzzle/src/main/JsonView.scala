@@ -35,10 +35,14 @@ final class JsonView(
   }
 
   def userJson(u: User) =
-    Json.obj(
-      "rating" -> u.perfs.puzzle.intRating,
-      "recent" -> JsArray()
-    )
+    Json
+      .obj(
+        "rating" -> u.perfs.puzzle.intRating,
+        "recent" -> JsArray()
+      )
+      .add(
+        "provisional" -> u.perfs.puzzle.provisional
+      )
 
   def pref(p: lila.pref.Pref) =
     Json.obj(
@@ -55,16 +59,14 @@ final class JsonView(
       "is3d"         -> p.is3d
     )
 
-  private def puzzleJson(puzzle: Puzzle): JsObject =
-    Json
-      .obj(
-        "id"         -> puzzle.id,
-        "rating"     -> puzzle.glicko.intRating,
-        "plays"      -> puzzle.plays,
-        "initialPly" -> puzzle.initialPly,
-        "solution"   -> puzzle.line.tail.map(_.uci),
-        "vote"       -> puzzle.vote
-      )
+  private def puzzleJson(puzzle: Puzzle): JsObject = Json.obj(
+    "id"         -> puzzle.id,
+    "rating"     -> puzzle.glicko.intRating,
+    "plays"      -> puzzle.plays,
+    "initialPly" -> puzzle.initialPly,
+    "solution"   -> puzzle.line.tail.map(_.uci),
+    "vote"       -> puzzle.vote
+  )
 
   private def makeSolution(puzzle: Puzzle): Option[tree.Branch] = {
     import chess.format._

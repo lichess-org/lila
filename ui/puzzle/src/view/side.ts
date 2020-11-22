@@ -16,9 +16,6 @@ function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
   return h('div.infos.puzzle', {
     attrs: dataIcon('-')
   }, [h('div', [
-    h('a.title', {
-      attrs: { href: '/training/' + puzzle.id }
-    }, ctrl.trans('puzzleId', puzzle.id)),
     h('p', ctrl.trans.vdom('ratingX', ctrl.vm.mode === 'play' ? h('span.hidden', ctrl.trans.noarg('hidden')) : h('strong', puzzle.rating))),
     h('p', ctrl.trans.vdom('playedXTimes', h('strong', numberFormat(puzzle.plays))))
   ])]);
@@ -49,12 +46,12 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
 export function userBox(ctrl: Controller): MaybeVNode {
   const data = ctrl.getData();
   if (!data.user) return;
-  const diff = ctrl.vm.round && ctrl.vm.round.ratingDiff;
+  const diff = ctrl.vm.round?.ratingDiff;
   return h('div.puzzle__side__user', [
     h('h2', ctrl.trans.vdom('yourPuzzleRatingX', h('strong', [
       data.user.rating,
-      ...(diff >= 0 ? [' ', h('good.rp', '+' + diff)] : []),
-      ...(diff < 0 ? [' ', h('bad.rp', '−' + (-diff))] : [])
+      ...(diff && diff > 0 ? [' ', h('good.rp', '+' + diff)] : []),
+      ...(diff && diff < 0 ? [' ', h('bad.rp', '−' + (-diff))] : [])
     ])))
   ]);
 }

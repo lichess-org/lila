@@ -97,7 +97,6 @@ final class Puzzle(
   def round3(id: String) =
     OpenBody { implicit ctx =>
       NoBot {
-        fuccess(Ok(Json.obj()))
         implicit val req = ctx.body
         OptionFuResult(env.puzzle.api.puzzle find Puz.Id(id)) { puzzle =>
           lila.mon.puzzle.round.attempt(ctx.isAuth).increment()
@@ -110,24 +109,28 @@ final class Puzzle(
                   case Some(me) =>
                     for {
                       isStudent <- env.clas.api.student.isStudent(me.id)
-                      round <- env.puzzle.finisher(
+                      (round, perf) <- env.puzzle.finisher(
                         puzzle = puzzle,
                         user = me,
                         result = Result(resultInt == 1),
                         isStudent = isStudent
                       )
-                      _ = env.puzzle.cursor.onRound(round)
-                      me2 <- env.user.repo.byId(me.id).dmap(_ | me)
-                      // infos <- env.puzzle userInfos me2
                     } yield Ok(
                       Json.obj(
-                        "user" -> env.puzzle.jsonView.userJson(me)
-                        // "round" -> lila.puzzle.JsonView.round(round)
+                        "perf" -> Json
+                          .obj("rating" -> perf.intRating)
+                          .add("provisional" -> perf.provisional),
+                        "round" -> Json
+                          .obj(
+                            "win"        -> round.win,
+                            "ratingDiff" -> (me.perfs.puzzle.intRating - perf.intRating)
+                          )
+                          .add("vote" -> round.vote)
                       )
                     )
                   case None =>
                     env.puzzle.finisher.incPuzzlePlays(puzzle)
-                    Ok(Json.obj("user" -> false)).fuccess
+                    fuccess(NoContent)
                 }
             )
             .dmap(_ as JSON)
@@ -138,21 +141,18 @@ final class Puzzle(
   def vote(id: String) =
     AuthBody { implicit ctx => me =>
       NoBot {
-        ???
-        // implicit val req = ctx.body
-        // env.puzzle.forms.vote
-        //   .bindFromRequest()
-        //   .fold(
-        //     jsonFormError,
-        //     vote =>
-        //       env.puzzle.api.vote.find(id, me) flatMap { v =>
-        //         env.puzzle.api.vote.update(id, me, v, vote == 1)
-        //       } map { case (p, a) =>
-        //         if (vote == 1) lila.mon.puzzle.vote.up.increment()
-        //         else lila.mon.puzzle.vote.down.increment()
-        //         Ok(Json.arr(a.value, p.vote.sum))
-        //       }
-        //   ) map (_ as JSON)
+        implicit val req = ctx.body
+        env.puzzle.forms.vote
+          .bindFromRequest()
+          .fold(
+            jsonFormError,
+            vote =>
+              env.puzzle.api.vote.update(Puz.Id(id), me, vote == 1) map { newVote =>
+                if (vote == 1) lila.mon.puzzle.vote.up.increment()
+                else lila.mon.puzzle.vote.down.increment()
+                jsonOkResult
+              }
+          )
       }
     }
 

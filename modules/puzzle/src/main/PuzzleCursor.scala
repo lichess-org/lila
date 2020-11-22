@@ -102,7 +102,7 @@ final class PuzzleCursorApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: Us
         )
       }.map { docOpt =>
         import NextPuzzleResult._
-        println(docOpt map lila.db.BSON.debug)
+        // println(docOpt map lila.db.BSON.debug)
         docOpt.fold[NextPuzzleResult](PathMissing) { doc =>
           doc.getAsOpt[Puzzle.Id]("puzzleId").fold[NextPuzzleResult](PathEnded) { puzzleId =>
             doc
