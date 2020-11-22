@@ -51,12 +51,14 @@ textarea.form-control {
 
 .form3 .error,
 .form-help,
-.password-complexity-label {
+.password-complexity-label,
+.password-confirm-label {
   font-size: 90%;
   margin-top: 0.25rem;
 }
 
-.form3 .error {
+.form3 .error,
+.password-confirm-label {
   color: $c-error;
 }
 
@@ -101,7 +103,8 @@ textarea.form-control {
   border-top: $border;
 }
 
-.password-complexity {
+.password-complexity,
+.password-confirm {
   margin-bottom: 2rem;
 }
 
