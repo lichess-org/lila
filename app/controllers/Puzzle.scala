@@ -123,7 +123,7 @@ final class Puzzle(
                         "round" -> Json
                           .obj(
                             "win"        -> round.win,
-                            "ratingDiff" -> (me.perfs.puzzle.intRating - perf.intRating)
+                            "ratingDiff" -> (perf.intRating - me.perfs.puzzle.intRating)
                           )
                           .add("vote" -> round.vote)
                       )

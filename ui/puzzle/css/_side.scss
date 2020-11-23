@@ -49,13 +49,18 @@
     background: $c-bg-box;
 
     // overflow: hidden;
-    h2 {
+    &__rating {
+      text-align: center;
       padding: 2vmin;
-      font-size: 1.2rem;
+      strong {
+        display: block;
+        font-size: 3em;
+      }
     }
 
     .rp {
-      /* font-size: 1.2em; */
+      display: block;
+      font-size: 1.5rem;
     }
 
     .rp.up {

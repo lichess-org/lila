@@ -4,9 +4,9 @@
   }
 
   .half-top {
-    @extend %flex-center;
+    @extend %flex-center-nowrap;
 
-    flex-flow: row nowrap;
+    padding: 1em;
   }
 
   .complete {
@@ -54,14 +54,14 @@
   }
 
   .continue {
-    @extend %flex-center;
+    @extend %flex-center-nowrap;
 
     justify-content: center;
     font-size: 1.3em;
     background: $c-primary;
     color: $c-primary-over;
     text-transform: uppercase;
-    padding: 0 10px;
+    padding: 2em;
     order: -1;
 
     @include breakpoint($mq-landscape) {

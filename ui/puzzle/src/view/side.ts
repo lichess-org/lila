@@ -33,13 +33,13 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
       game.perf.name, ' • ',
       ctrl.trans.noarg(game.rated ? 'rated' : 'casual')
     ]),
-    h('div.players', game.players.map(function(p) {
-      return h('div.player.color-icon.is.text.' + p.color,
+    h('div.players', game.players.map(p =>
+      h('div.player.color-icon.is.text.' + p.color,
         p.userId ? h('a.user-link.ulpt', {
           attrs: { href: '/@/' + p.userId }
         }, p.name) : p.name
-      );
-    }))
+      )
+    ))
   ])]);
 }
 
@@ -48,7 +48,7 @@ export function userBox(ctrl: Controller): MaybeVNode {
   if (!data.user) return;
   const diff = ctrl.vm.round?.ratingDiff;
   return h('div.puzzle__side__user', [
-    h('h2', ctrl.trans.vdom('yourPuzzleRatingX', h('strong', [
+    h('p.puzzle__side__user__rating', ctrl.trans.vdom('yourPuzzleRatingX', h('strong', [
       data.user.rating,
       ...(diff && diff > 0 ? [' ', h('good.rp', '+' + diff)] : []),
       ...(diff && diff < 0 ? [' ', h('bad.rp', '−' + (-diff))] : [])
