@@ -21,6 +21,8 @@
   <string name="createAGame">Crear unha partida</string>
   <string name="whiteIsVictorious">As brancas gañan</string>
   <string name="blackIsVictorious">As negras gañan</string>
+  <string name="youPlayTheWhitePieces">Xogas coas brancas</string>
+  <string name="youPlayTheBlackPieces">Xogas coas negras</string>
   <string name="kingInTheCenter">Rei no centro</string>
   <string name="threeChecks">Xaque triplo</string>
   <string name="raceFinished">Carreira finalizada</string>
