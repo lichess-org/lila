@@ -3,15 +3,18 @@
     @extend %box-radius-right, %box-shadow;
     background: $c-bg-box;
   }
-  .draw-yes::before,
-  .draw-yes span::before {
-    transform: translateY(-1px) rotate(-90deg);
-    display: inline-block; /* somehow that's required */
+  //.draw-yes::before,
+  //.draw-yes span::before {
+  //  transform: translateY(-1px) rotate(-90deg);
+  //  display: inline-block; /* somehow that's required */
+  //}
+  .draw-yes {
+    display: none;
   }
 }
 .expiration {
   @extend %flex-center;
-  font-size: .9rem;
+  font-size: 0.9rem;
   justify-content: center;
   line-height: 2;
   background: $c-good;
@@ -27,6 +30,6 @@
   }
   strong {
     font-size: 1rem;
-    margin-right: .3em;
+    margin-right: 0.3em;
   }
 }
