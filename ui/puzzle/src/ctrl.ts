@@ -400,9 +400,10 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
   const callToVote = () => parseInt(nbToVoteCall()) < 1;
 
-  const vote = throttle(1000, function(v) {
+  const vote = throttle(1000, v => {
     if (callToVote()) thanksUntil = Date.now() + 2000;
     nbToVoteCall(5);
+    v = vm.round?.vote === v ? undefined : v;
     vm.round!.vote = v;
     xhr.vote(data.puzzle.id, v);
     redraw();

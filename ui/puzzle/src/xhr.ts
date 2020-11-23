@@ -1,5 +1,6 @@
-import { PuzzleData, PuzzleResult } from './interfaces';
 import * as xhr from 'common/xhr';
+import { PuzzleData, PuzzleResult } from './interfaces';
+import {defined} from 'common';
 
 export function round(puzzleId: string, win: boolean): Promise<PuzzleResult | undefined> {
   return xhr.json(`/training/${puzzleId}/round3`, {
@@ -8,10 +9,10 @@ export function round(puzzleId: string, win: boolean): Promise<PuzzleResult | un
   });
 }
 
-export function vote(puzzleId: string, v: boolean): Promise<void> {
+export function vote(puzzleId: string, vote: boolean | undefined): Promise<void> {
   return xhr.json(`/training/${puzzleId}/vote`, {
     method: 'POST',
-    body: xhr.form({ vote: v ? 1 : 0 })
+    body: defined(vote) ? xhr.form({ vote }) : undefined
   });
 }
 

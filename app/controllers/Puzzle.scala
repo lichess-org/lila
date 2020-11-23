@@ -147,9 +147,9 @@ final class Puzzle(
           .fold(
             jsonFormError,
             vote =>
-              env.puzzle.api.vote.update(Puz.Id(id), me, vote == 1) map { newVote =>
-                if (vote == 1) lila.mon.puzzle.vote.up.increment()
-                else lila.mon.puzzle.vote.down.increment()
+              env.puzzle.api.vote.update(Puz.Id(id), me, vote) map { newVote =>
+                if (vote has true) lila.mon.puzzle.vote.up.increment()
+                else if (vote has false) lila.mon.puzzle.vote.down.increment()
                 jsonOkResult
               }
           )

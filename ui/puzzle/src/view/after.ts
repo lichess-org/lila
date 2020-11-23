@@ -9,7 +9,7 @@ function renderVote(ctrl: Controller): MaybeVNode {
         'data-icon': 'S',
         title: ctrl.trans.noarg('thisPuzzleIsCorrect')
       },
-      class: { active: ctrl.vm.voted === true },
+      class: { active: !!ctrl.vm.round?.vote },
       hook: bind('click', () => ctrl.vote(true))
     }),
     h('a', {
@@ -17,7 +17,7 @@ function renderVote(ctrl: Controller): MaybeVNode {
         'data-icon': 'R',
         title: ctrl.trans.noarg('thisPuzzleIsWrong')
       },
-      class: { active: ctrl.vm.voted === false },
+      class: { active: ctrl.vm.round?.vote === false },
       hook: bind('click', () => ctrl.vote(false))
     })
   ]);
