@@ -57,6 +57,6 @@ else
     parallel --gnu $P_OPTS build ::: $apps3
   else # sequential execution
     echo "For faster builds, install GNU parallel."
-    for app in $apps1 $apps2 $apps3; do (build $app); done
+    for app in $apps0 $apps1 $apps2 $apps3; do (build $app); done
   fi
 fi
