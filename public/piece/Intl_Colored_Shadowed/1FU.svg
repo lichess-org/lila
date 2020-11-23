@@ -1,1 +1,95 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"><defs><filter id="a"><feGaussianBlur in="SourceAlpha" result="blur" stdDeviation="2"/><feOffset result="offsetBlur" dx="2" dy="2"/><feBlend in="SourceGraphic" in2="offsetBlur"/></filter></defs><g transform="matrix(.82776 0 0 .82776 -80.214 -14.867)" filter="url(#a)"><path d="M141.865 74.375l6.837-44.334h-40.19l6.535 44.638 13.138 3.935z" fill="#feec99"/></g><g stroke-linejoin="round" stroke="#000" stroke-width="1.313" paint-order="stroke fill markers"><path d="M-23.356 37.944c-2.134 9.081-4.332 14.438-13.39 20.588 8.914 3.135 18.701 2.896 26.78 0-9.058-6.15-11.255-11.507-13.39-20.588z" transform="matrix(-.42483 0 0 -.5171 16.267 63.465)"/><path d="M-26.818 58.55c-.101 8.756-.37 15.837-11.545 21.428-5.232 2.786-6.963 4.476-7.615 9.333 6.785 1.493 14.837 2.21 22.883 2.179 8.046.031 16.097-.686 22.882-2.18-.651-4.856-2.382-6.546-7.615-9.332-11.174-5.591-11.443-12.672-11.545-21.428v0c-1.24.02-2.481.02-3.722.02s-2.482 0-3.723-.02z" transform="matrix(-.42483 0 0 -.5171 16.267 63.465)"/></g></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="60"
+   height="60"
+   version="1.1"
+   id="svg21"
+   sodipodi:docname="1FU.svg"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
+  <metadata
+     id="metadata25">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="711"
+     id="namedview23"
+     showgrid="false"
+     inkscape:zoom="9.1"
+     inkscape:cx="30"
+     inkscape:cy="30"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg21" />
+  <defs
+     id="defs9">
+    <filter
+       id="a">
+      <feGaussianBlur
+         in="SourceAlpha"
+         result="blur"
+         stdDeviation="2"
+         id="feGaussianBlur2" />
+      <feOffset
+         result="offsetBlur"
+         dx="2"
+         dy="2"
+         id="feOffset4" />
+      <feBlend
+         in="SourceGraphic"
+         in2="offsetBlur"
+         id="feBlend6" />
+    </filter>
+  </defs>
+  <g
+     id="g855"
+     transform="translate(3.7582695)">
+    <g
+       transform="matrix(0.82776,0,0,0.82776,-80.214,-14.867)"
+       filter="url(#a)"
+       id="g13">
+      <path
+         d="m 141.865,74.375 6.837,-44.334 h -40.19 l 6.535,44.638 13.138,3.935 z"
+         fill="#feec99"
+         id="path11" />
+    </g>
+    <g
+       stroke-linejoin="round"
+       stroke="#000000"
+       stroke-width="1.313"
+       paint-order="stroke fill markers"
+       id="g19">
+      <path
+         d="m -23.356,37.944 c -2.134,9.081 -4.332,14.438 -13.39,20.588 8.914,3.135 18.701,2.896 26.78,0 -9.058,-6.15 -11.255,-11.507 -13.39,-20.588 z"
+         transform="matrix(-0.42483,0,0,-0.5171,16.267,63.465)"
+         id="path15" />
+      <path
+         d="m -26.818,58.55 c -0.101,8.756 -0.37,15.837 -11.545,21.428 -5.232,2.786 -6.963,4.476 -7.615,9.333 6.785,1.493 14.837,2.21 22.883,2.179 8.046,0.031 16.097,-0.686 22.882,-2.18 C -0.864,84.454 -2.595,82.764 -7.828,79.978 -19.002,74.387 -19.271,67.306 -19.373,58.55 v 0 c -1.24,0.02 -2.481,0.02 -3.722,0.02 -1.241,0 -2.482,0 -3.723,-0.02 z"
+         transform="matrix(-0.42483,0,0,-0.5171,16.267,63.465)"
+         id="path17" />
+    </g>
+  </g>
+</svg>

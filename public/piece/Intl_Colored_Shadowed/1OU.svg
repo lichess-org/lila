@@ -1,1 +1,99 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"><defs><filter id="a"><feGaussianBlur in="SourceAlpha" result="blur" stdDeviation="2"/><feOffset result="offsetBlur" dx="2" dy="2"/><feBlend in="SourceGraphic" in2="offsetBlur"/></filter></defs><g transform="translate(-100.195 -23.219) scale(.98185)" fill="#fecb00" filter="url(#a)"><path d="M128.456 78.635l13.41-4.26 6.836-44.558h-40.19l6.535 44.862 13.138 3.935c.09.017.18.032.271.021z" fill="#fff"/></g><g style="line-height:1.25;-inkscape-font-specification:PMingLiU"><path d="M64.7 43.292v8.086h6.079v2.478H64.7v9.13h10.902v2.869H51.3v-2.87h10.788v-9.129h-6.237v-2.478h6.237v-8.086h-7.972v-2.87h18.597v2.87z" style="-inkscape-font-specification:MingLiU_HKSCS-ExtB" font-family="MingLiU_HKSCS-ExtB" fill="#1a1a1a" stroke="#1a1a1a" stroke-width=".453" transform="matrix(-1.13243 0 0 -1.0188 97.933 82.3)" aria-label="王" font-weight="400" font-size="29.072" letter-spacing="0" word-spacing="0"/></g></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="60"
+   height="60"
+   version="1.1"
+   id="svg19"
+   sodipodi:docname="1OU.svg"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
+  <metadata
+     id="metadata23">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="711"
+     id="namedview21"
+     showgrid="false"
+     inkscape:zoom="9.1"
+     inkscape:cx="30"
+     inkscape:cy="30"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg19" />
+  <defs
+     id="defs9">
+    <filter
+       id="a">
+      <feGaussianBlur
+         in="SourceAlpha"
+         result="blur"
+         stdDeviation="2"
+         id="feGaussianBlur2" />
+      <feOffset
+         result="offsetBlur"
+         dx="2"
+         dy="2"
+         id="feOffset4" />
+      <feBlend
+         in="SourceGraphic"
+         in2="offsetBlur"
+         id="feBlend6" />
+    </filter>
+  </defs>
+  <g
+     id="g852"
+     transform="translate(3.9222168)">
+    <g
+       transform="matrix(0.98185,0,0,0.98185,-100.195,-23.219)"
+       fill="#fecb00"
+       filter="url(#a)"
+       id="g13">
+      <path
+         d="m 128.456,78.635 13.41,-4.26 6.836,-44.558 h -40.19 l 6.535,44.862 13.138,3.935 c 0.09,0.017 0.18,0.032 0.271,0.021 z"
+         fill="#ffffff"
+         id="path11" />
+    </g>
+    <g
+       style="line-height:1.25;-inkscape-font-specification:PMingLiU"
+       id="g17">
+      <path
+         d="m 64.7,43.292 v 8.086 h 6.079 v 2.478 H 64.7 v 9.13 h 10.902 v 2.869 H 51.3 v -2.87 h 10.788 v -9.129 h -6.237 v -2.478 h 6.237 v -8.086 h -7.972 v -2.87 h 18.597 v 2.87 z"
+         style="-inkscape-font-specification:MingLiU_HKSCS-ExtB"
+         font-family="MingLiU_HKSCS-ExtB"
+         fill="#1a1a1a"
+         stroke="#1a1a1a"
+         stroke-width="0.453"
+         transform="matrix(-1.13243,0,0,-1.0188,97.933,82.3)"
+         aria-label="王"
+         font-weight="400"
+         font-size="29.072px"
+         letter-spacing="0"
+         word-spacing="0"
+         id="path15" />
+    </g>
+  </g>
+</svg>
