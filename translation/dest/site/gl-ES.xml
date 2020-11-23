@@ -580,6 +580,8 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="playOfflineComputer">Máquina</string>
   <string name="opponent">Rival</string>
   <string name="learnMenu">Aprender</string>
+  <string name="studyMenu">Estudar</string>
+  <string name="practice">Practicar</string>
   <string name="community">Comunidade</string>
   <string name="tools">Ferramentas</string>
   <string name="increment">Incremento</string>
@@ -608,6 +610,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="tpTimeSpentOnTV">Tempo en TV: %s</string>
   <string name="watch">Ver</string>
   <string name="videoLibrary">Videoteca</string>
+  <string name="streamersMenu">Presentadores</string>
   <string name="mobileApp">Aplicación Móbil</string>
   <string name="webmasters">Administradores web</string>
   <string name="about">Acerca de</string>
@@ -660,7 +663,10 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">A túa puntuación en %1$s é %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Es mellor que o %1$s de %2$s xogadores.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s é mellor que o %2$s dos xogadores de %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Non tes unha puntuación en %s establecida.</string>
+  <string name="yourRating">A túa puntuación</string>
+  <string name="glicko2Rating">Puntuación Glicko-2</string>
   <string name="checkYourEmail">Revisa o teu correo</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Enviámosche un correo electrónico. Fai clic na ligazón do correo para activar a súa conta.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se non ves o correo, revisa outras carpetas onde poda estar, coma a de spam ou correo basura.</string>
