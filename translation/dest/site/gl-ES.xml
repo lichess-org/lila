@@ -210,6 +210,7 @@
   <string name="playingRightNow">Xogando agora mesmo</string>
   <string name="eventInProgress">Xogando agora mesmo</string>
   <string name="finished">Finalizado</string>
+  <string name="finishesX">remata %s</string>
   <string name="abortGame">Abortar partida</string>
   <string name="gameAborted">Partida abortada</string>
   <string name="standard">Estándar</string>
@@ -229,6 +230,7 @@
   <string name="rematchOfferDeclined">Oferta de desquite rexeitada</string>
   <string name="cancelRematchOffer">Cancelar a oferta de desquite</string>
   <string name="viewRematch">Ver desquite</string>
+  <string name="confirmMove">Confirma o movemento</string>
   <string name="play">Xogar</string>
   <string name="inbox">Bandexa de entrada</string>
   <string name="chatRoom">Sala de chat</string>
@@ -269,6 +271,7 @@
     <item quantity="one">Dar %s segundos</item>
     <item quantity="other">Dar %s segundos</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Esta conta violou os Termos de Servizo de Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Este xogador varía artificialmente a súa puntuación</string>
   <string name="openingExplorerAndTablebase">Explorador de aperturas e base de datos de finais</string>
   <string name="takeback">Rectificar xogada</string>
@@ -285,6 +288,10 @@
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s punto de torneo</item>
     <item quantity="other">%s puntos de torneo</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s estudo</item>
+    <item quantity="other">%s estudos</item>
   </plurals>
   <string name="viewTournament">Ver torneo</string>
   <string name="backToTournament">Voltar ó torneo</string>
@@ -317,16 +324,19 @@
   <string name="siteDescription">Xadrez libre en liña. Xoga ó xadrez cunha interface limpa. Sen rexistrarse, sen anuncios, sen necesidade de plugins. Xoga ó xadrez contra o ordenador, amigos ou rivais aleatorios.</string>
   <string name="xJoinedTeamY">%1$s uniuse ó equipo %2$s</string>
   <string name="xCreatedTeamY">%1$s creou o equipo %2$s</string>
+  <string name="xStartedStreaming">%s comenzou a emitir</string>
   <string name="averageElo">Puntuación media</string>
   <string name="location">Lugar</string>
   <string name="filterGames">Filtrar partidas</string>
   <string name="reset">Por defecto</string>
   <string name="apply">Aplicar</string>
+  <string name="save">Gardar</string>
   <string name="leaderboard">Líder do cadro</string>
   <string name="pasteTheFenStringHere">Pega o texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Pega o texto PGN aquí</string>
   <string name="fromPosition">Dende posición</string>
   <string name="continueFromHere">Continuar dende aquí</string>
+  <string name="toStudy">Estudar</string>
   <string name="importGame">Importar partida</string>
   <string name="importGameExplanation">Ao pegar o PGN dunha partida, obténse unha repetición navegable,
 unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
