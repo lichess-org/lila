@@ -144,6 +144,10 @@
   <string name="xPostedInForumY">%1$s escribiu no fío %2$s</string>
   <string name="latestForumPosts">Últimas publicacions no foro</string>
   <string name="players">Xogadores</string>
+  <string name="friends">Amizades</string>
+  <string name="discussions">Conversas</string>
+  <string name="today">Hoxe</string>
+  <string name="yesterday">Onte</string>
   <string name="minutesPerSide">Minutos por bando</string>
   <string name="variant">Variante</string>
   <string name="variants">Variantes</string>
@@ -190,6 +194,8 @@
     <item quantity="other">%s partidas contigo</item>
   </plurals>
   <string name="cancel">Cancelar</string>
+  <string name="whiteTimeOut">Acabou o tempo das brancas</string>
+  <string name="blackTimeOut">Acabou o tempo das negras</string>
   <string name="drawOfferSent">Oferta de táboas enviada</string>
   <string name="drawOfferDeclined">Oferta de táboas rexeitada</string>
   <string name="drawOfferAccepted">Oferta de táboas aceptada</string>
