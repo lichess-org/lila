@@ -350,6 +350,10 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="notACheckmate">Non é xaque mate.</string>
   <string name="retry">Reintentar</string>
   <string name="reconnecting">Reconectando</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s amizade conectada</item>
+    <item quantity="other">%s amizades conectadas</item>
+  </plurals>
   <string name="noFriendsOnline">Ningún amigo conectado</string>
   <string name="findFriends">Atopar amigos</string>
   <string name="favoriteOpponents">Rivais preferidos</string>
@@ -395,6 +399,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="recommendNotTouching">Nós recomendamos que non toque nestas opcións.</string>
   <string name="fewerPlayers">Se estableces condicións de entrada, o teu torneo terá menos xogadores.</string>
   <string name="showAdvancedSettings">Amosar axustes avanzados</string>
+  <string name="makePrivateTournament">Convirte o torneo en privado e restrinxe o acceso cun contrasinal</string>
   <string name="join">Unirse</string>
   <string name="withdraw">Retirarse</string>
   <string name="points">Puntos</string>
@@ -436,6 +441,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="lastName">Apelido(s)</string>
   <string name="biography">Biografía</string>
   <string name="country">País</string>
+  <string name="socialMediaLinks">Enlaces ás redes sociais</string>
   <string name="inlineNotation">Notación compacta</string>
   <string name="watchLichessTV">Mirar Lichess TV</string>
   <string name="previouslyOnLichessTV">Previamente en Lichess TV</string>
@@ -461,6 +467,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="pleaseVotePuzzle">Axúdanos a mellorar Lichess votando, mediante as frechas arriba e abaixo:</string>
   <string name="thankYou">Grazas!</string>
   <string name="ratingX">Dificultade: %s</string>
+  <string name="hidden">oculta</string>
   <plurals name="playedXTimes">
     <item quantity="one">Xogado %s veces</item>
     <item quantity="other">Xogado %s veces</item>
@@ -518,6 +525,8 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="currentPassword">Contrasinal actual</string>
   <string name="newPassword">Novo contrasinal</string>
   <string name="newPasswordAgain">Novo contrasinal (de novo)</string>
+  <string name="clockInitialTime">Tempo inicial do reloxo</string>
+  <string name="clockIncrement">Incremento do reloxo</string>
   <string name="privacy">Privacidade</string>
   <string name="letOtherPlayersFollowYou">Permitir a outros xogadores seguirte</string>
   <string name="letOtherPlayersChallengeYou">Permitir a outros xogadores retarte</string>
@@ -541,6 +550,9 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="xCommentedY">%1$s comentou %2$s</string>
   <string name="victory">Vitoria</string>
   <string name="defeat">Derrota</string>
+  <string name="victoryVsYInZ">%1$s contra %2$s en %3$s</string>
+  <string name="defeatVsYInZ">%1$s contra %2$s en %3$s</string>
+  <string name="drawVsYInZ">%1$s contra %2$s en %3$s</string>
   <string name="timeline">Historial</string>
   <string name="starting">Comezo:</string>
   <string name="allInformationIsPublicAndOptional">Toda a información é pública e opcional.</string>
