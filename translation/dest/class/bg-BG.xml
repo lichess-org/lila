@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessClasses">Часове</string>
+  <string name="teachClassesOfChessStudents">Води часове с ученици на шахмат с инструмента Lichess Часове.</string>
+  <string name="features">Функционалности</string>
+  <string name="quicklyGenerateSafeUsernames">Бързо създаване на безопасни потребителски имена и пароли за ученици</string>
+</resources>
