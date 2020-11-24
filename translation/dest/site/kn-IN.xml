@@ -88,4 +88,21 @@
     <item quantity="other">%s ಅರ್ಧ-ಚಲನೆಗಳಲ್ಲಿ ಸಂಗಾತಿ</item>
   </plurals>
   <string name="noGameFound">ಯಾವುದೇ ಆಟ ಕಂಡುಬಂದಿಲ್ಲ</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ಆದ್ಯತೆಯ ಮೆನುವಿನಿಂದ ಹೆಚ್ಚಿನ ಆಟಗಳನ್ನು ಸೇರಿಸಬಹುದೇ?</string>
+  <string name="allSet">ಸಿದ್ಧವಾಗಿದೆ!</string>
+  <string name="delete">ಅಳಿಸಿ</string>
+  <string name="deleteThisImportedGame">ಈ ಪ್ರಮುಖ ಆಟವನ್ನು ಅಳಿಸುವುದೇ?</string>
+  <string name="replayMode">ಪ್ರತ್ಯುತ್ತರ ಮೋಡ್</string>
+  <string name="realtimeReplay">ನೈಜ ಸಮಯ</string>
+  <string name="openStudy">ಮುಕ್ತ ಅಧ್ಯಯನ</string>
+  <string name="enable">ಸಕ್ರಿಯಗೊಳಿಸಿ</string>
+  <string name="evaluationGauge">ಮೌಲ್ಯಮಾಪನ ಗೇಜ್</string>
+  <string name="multipleLines">ಬಹು ಸಾಲುಗಳು</string>
+  <string name="memory">ಮೆಮೊರಿ</string>
+  <string name="infiniteAnalysis">ಅನಂತ ವಿಶ್ಲೇಷಣೆ</string>
+  <string name="blunder">ಪ್ರಮಾದ</string>
+  <string name="blunders">ಪ್ರಮಾದಗಳು</string>
+  <string name="mistake">ತಪ್ಪು</string>
+  <string name="mistakes">ತಪ್ಪುಗಳು</string>
+  <string name="inaccuracy">ತಪ್ಪಾಗಿದೆ</string>
 </resources>
