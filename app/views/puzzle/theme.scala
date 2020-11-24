@@ -3,43 +3,30 @@ package html.puzzle
 
 import play.api.i18n.Lang
 
+import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.api.Context
+import controllers.routes
 
 object theme {
 
   def list(implicit ctx: Context) =
     views.html.base.layout(
       title = "Puzzle themes",
-      moreCss = cssTag("puzzle."),
-      openGraph = openGraph
+      moreCss = cssTag("puzzle.page")
     )(
-      main(cls := "page-menu")(
-        st.aside(cls := "page-menu__menu subnav")(
-          lila.rating.PerfType.variants map { pt =>
-            a(
-              cls := List("text" -> true, "active" -> active.has(pt)),
-              href := routes.Page.variant(pt.key),
-              dataIcon := pt.iconChar
-            )(pt.trans)
-          }
-        ),
-        div(cls := s"page-menu__content box $klass")(body)
-      )
-    )
-      h1("Lichess variants"),
-      div(cls := "body box__pad")(raw(~doc.getHtml("doc.content", resolver))),
-      div(cls := "variants")(
-        lila.rating.PerfType.variants map { pt =>
-          val variant = lila.rating.PerfType variantOf pt
-          a(cls := "variant text box__pad", href := routes.Page.variant(pt.key), dataIcon := pt.iconChar)(
-            span(
-              h2(variant.name),
-              h3(cls := "headline")(variant.title)
+      main(cls := "page-small box box-pad")(
+        h1("Puzzle themes"),
+        div(cls := "puzzle-themes")(
+          lila.puzzle.PuzzleTag.sorted map { pt =>
+            a(cls := "box__pad", href := routes.Puzzle.home())(
+              span(
+                h2(pt.trans()),
+                h3(cls := "headline")("Description")
+              )
             )
-          )
-        }
+          }
+        )
       )
     )
 }
