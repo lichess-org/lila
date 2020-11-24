@@ -95,8 +95,20 @@
   <string name="incrementInSeconds">Kreskajo en sekundi</string>
   <string name="freeOnlineChess">Libera Enlinea Shakoludo</string>
   <string name="spectators">Spekteri:</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s vinko</item>
+    <item quantity="other">%s vinki</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s desvinko</item>
+    <item quantity="other">%s desvinki</item>
+  </plurals>
   <string name="exportGames">Exportacar ludi</string>
   <string name="ratingRange">Elo-rango</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">Donar %s sekundo</item>
+    <item quantity="other">Donar %s sekundi</item>
+  </plurals>
   <string name="takeback">Ripreno</string>
   <string name="proposeATakeback">Propozar ripreno</string>
   <string name="takebackPropositionSent">Riprenopropozo sendita</string>
