@@ -38,4 +38,19 @@
 Потребителско име: %2$s
 Парола: %3$s</string>
   <string name="inviteALichessAccount">Поканете Lichess акаунт</string>
+  <string name="inviteDesc1">Ако ученикът вече има Lichess акаунт, може да го добавите в класа.</string>
+  <string name="inviteDesc2">Те ще получат съобщение в Lichess с линк, с който могат да влязат в класа.</string>
+  <string name="inviteDesc3">Важно: канете само ученици, които познавате и които активно ще се включват в час.</string>
+  <string name="inviteDesc4">Никога не изпращайте нежелани покани към други потребители.</string>
+  <string name="createANewLichessAccount">Създадете нов Lichess акаунт</string>
+  <string name="createDesc1">Ако ученикът няма Lichess акаунт, можете да създадете негов тук.</string>
+  <string name="createDesc2">Няма нужда от e-mail адрес. Паролата ще се генерира автоматично, а Вие трябва да я предадете на ученика, за да могат да влязат.</string>
+  <string name="createDesc3">Важно: учениците не трябва да имат няколко акаунта.</string>
+  <string name="createDesc4">Ако вече имат акаунт, използвайте тази форма.</string>
+  <string name="lichessUsername">Lichess потребителско име</string>
+  <string name="generateANewUsername">Генерирайте ново потребителско име</string>
+  <string name="welcomeToClass">Добре дошли във Вашият клас: %s.
+Ето линк за достъп към класа.</string>
+  <string name="invitationToClass">Вие сте поканен да влезете в класа \"%s\" като ученик.</string>
+  <string name="clickToViewInvitation">Натиснете тук, за да приемете поканата:</string>
 </resources>
