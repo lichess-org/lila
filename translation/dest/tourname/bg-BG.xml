@@ -2,4 +2,6 @@
 <resources>
   <string name="hourlyRapidArena">Почасова бърза арена</string>
   <string name="hourlyRapid">Почасово бързо</string>
+  <string name="hourlyXArena">Ежечасова %s арена</string>
+  <string name="hourlyX">Ежечасов %s</string>
 </resources>
