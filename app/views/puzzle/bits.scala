@@ -36,7 +36,6 @@ object bits {
     trans.wasThisPuzzleAnyGood,
     trans.pleaseVotePuzzle,
     trans.thankYou,
-    trans.puzzleId,
     trans.ratingX,
     trans.playedXTimes,
     trans.continueTraining,

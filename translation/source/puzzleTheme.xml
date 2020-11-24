@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-  <string name="puzzles">Puzzles</string>
   <string name="advancedPawn">Advanced pawn</string>
   <string name="attackingF2F7">Attacking f2 or f7</string>
   <string name="attraction">Attraction</string>
@@ -9,8 +8,8 @@
   <string name="clearance">Clearance</string>
   <string name="coercion">Coercion</string>
   <string name="defensiveMove">Defensive move</string>
-  <string name="discoveredAttack">Discovered attack</string>
   <string name="deflection">Deflection</string>
+  <string name="discoveredAttack">Discovered attack</string>
   <string name="doubleCheck">Double check</string>
   <string name="enPassant">En passant</string>
   <string name="exposedKing">Exposed king</string>
@@ -18,11 +17,11 @@
   <string name="hangingPiece">Hanging piece</string>
   <string name="interference">Interference</string>
   <string name="long">Long puzzle</string>
-  <string name="mateIn5+">Mate in 5 or more</string>
-  <string name="mateIn4">Mate in 4</string>
-  <string name="mateIn3">Mate in 3</string>
-  <string name="mateIn2">Mate in 2</string>
   <string name="mateIn1">Mate in 1</string>
+  <string name="mateIn2">Mate in 2</string>
+  <string name="mateIn3">Mate in 3</string>
+  <string name="mateIn4">Mate in 4</string>
+  <string name="mateIn5">Mate in 5 or more</string>
   <string name="oneMove">One-move puzzle</string>
   <string name="overloading">Overloading</string>
   <string name="pin">Pin</string>

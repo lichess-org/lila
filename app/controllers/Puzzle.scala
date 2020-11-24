@@ -200,6 +200,10 @@ final class Puzzle(
     //   )
     }
 
+  def themes = Open { implicit ctx =>
+    Ok(views.html.puzzle.theme.list).fuccess
+  }
+
   def frame =
     Action.async { implicit req =>
       env.puzzle.daily.get map {

@@ -351,7 +351,6 @@ val `yourPuzzleRatingX` = new I18nKey("yourPuzzleRatingX")
 val `findTheBestMoveForWhite` = new I18nKey("findTheBestMoveForWhite")
 val `findTheBestMoveForBlack` = new I18nKey("findTheBestMoveForBlack")
 val `toTrackYourProgress` = new I18nKey("toTrackYourProgress")
-val `puzzleId` = new I18nKey("puzzleId")
 val `puzzleOfTheDay` = new I18nKey("puzzleOfTheDay")
 val `clickToSolve` = new I18nKey("clickToSolve")
 val `goodMove` = new I18nKey("goodMove")
@@ -1791,6 +1790,47 @@ val `lagCompensationExplanation` = new I18nKey("lag:lagCompensationExplanation")
 
 object swiss {
 val `swissTournaments` = new I18nKey("swiss:swissTournaments")
+}
+
+object puzzle {
+val `puzzles` = new I18nKey("puzzle:puzzles")
+}
+
+object puzzleTheme {
+val `advancedPawn` = new I18nKey("puzzleTheme:advancedPawn")
+val `attackingF2F7` = new I18nKey("puzzleTheme:attackingF2F7")
+val `attraction` = new I18nKey("puzzleTheme:attraction")
+val `blocking` = new I18nKey("puzzleTheme:blocking")
+val `capturingDefender` = new I18nKey("puzzleTheme:capturingDefender")
+val `clearance` = new I18nKey("puzzleTheme:clearance")
+val `coercion` = new I18nKey("puzzleTheme:coercion")
+val `defensiveMove` = new I18nKey("puzzleTheme:defensiveMove")
+val `deflection` = new I18nKey("puzzleTheme:deflection")
+val `discoveredAttack` = new I18nKey("puzzleTheme:discoveredAttack")
+val `doubleCheck` = new I18nKey("puzzleTheme:doubleCheck")
+val `enPassant` = new I18nKey("puzzleTheme:enPassant")
+val `exposedKing` = new I18nKey("puzzleTheme:exposedKing")
+val `fork` = new I18nKey("puzzleTheme:fork")
+val `hangingPiece` = new I18nKey("puzzleTheme:hangingPiece")
+val `interference` = new I18nKey("puzzleTheme:interference")
+val `long` = new I18nKey("puzzleTheme:long")
+val `mateIn1` = new I18nKey("puzzleTheme:mateIn1")
+val `mateIn2` = new I18nKey("puzzleTheme:mateIn2")
+val `mateIn3` = new I18nKey("puzzleTheme:mateIn3")
+val `mateIn4` = new I18nKey("puzzleTheme:mateIn4")
+val `mateIn5` = new I18nKey("puzzleTheme:mateIn5")
+val `oneMove` = new I18nKey("puzzleTheme:oneMove")
+val `overloading` = new I18nKey("puzzleTheme:overloading")
+val `pin` = new I18nKey("puzzleTheme:pin")
+val `promotion` = new I18nKey("puzzleTheme:promotion")
+val `quietMove` = new I18nKey("puzzleTheme:quietMove")
+val `sacrifice` = new I18nKey("puzzleTheme:sacrifice")
+val `short` = new I18nKey("puzzleTheme:short")
+val `simplification` = new I18nKey("puzzleTheme:simplification")
+val `skewer` = new I18nKey("puzzleTheme:skewer")
+val `trappedPiece` = new I18nKey("puzzleTheme:trappedPiece")
+val `veryLong` = new I18nKey("puzzleTheme:veryLong")
+val `zugzwang` = new I18nKey("puzzleTheme:zugzwang")
 }
 
 }
