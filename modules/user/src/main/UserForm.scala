@@ -64,7 +64,7 @@ final class UserForm(authenticator: Authenticator) {
           "oldPasswd"  -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
           "newPasswd1" -> text(minLength = 2),
           "newPasswd2" -> text(minLength = 2)
-        )(Passwd.apply)(Passwd.unapply).verifying("the new passwords don't match", _.samePasswords)
+        )(Passwd.apply)(Passwd.unapply).verifying("newPasswordsDontMatch", _.samePasswords)
       )
     }
 }
