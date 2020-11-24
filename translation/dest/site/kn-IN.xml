@@ -105,4 +105,25 @@
   <string name="mistake">ತಪ್ಪು</string>
   <string name="mistakes">ತಪ್ಪುಗಳು</string>
   <string name="inaccuracy">ತಪ್ಪಾಗಿದೆ</string>
+  <string name="inaccuracies">ನಿಖರವಾಗಿಲ್ಲ</string>
+  <string name="flipBoard">ಫ್ಲಿಪ್ ಬೋರ್ಡ್</string>
+  <string name="threefoldRepetition">Threefold repetition</string>
+  <string name="draw">ಡ್ರಾ</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s ಆಟಗಾರ</item>
+    <item quantity="other">%s ಆಟಗಾರರು</item>
+  </plurals>
+  <string name="currentGames">ಪ್ರಸ್ತುತ ಆಟ</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s ಆಟ</item>
+    <item quantity="other">%s ಆಟಗಳು</item>
+  </plurals>
+  <string name="viewInFullSize">ಪೂರ್ಣ ಗಾತ್ರದಲ್ಲಿ ವೀಕ್ಷಿಸಿ</string>
+  <string name="logOut">ಸೈನ್ ಔಟ್</string>
+  <string name="signIn">ಸೈನ್ ಇನ್</string>
+  <string name="signUp">ನೋಂದಣಿ</string>
+  <string name="games">ಆಟಗಳು</string>
+  <string name="forum">ವೇದಿಕೆಗಳು</string>
+  <string name="players">ಆಟಗಾರರು</string>
+  <string name="gamesPlayed">ಆಡಿದ ಆಟಗಳು</string>
 </resources>
