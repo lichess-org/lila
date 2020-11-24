@@ -87,4 +87,5 @@
     <item quantity="one">%s ಅರ್ಧ-ಚಲನೆಯಲ್ಲಿ ಸಂಗಾತಿ</item>
     <item quantity="other">%s ಅರ್ಧ-ಚಲನೆಗಳಲ್ಲಿ ಸಂಗಾತಿ</item>
   </plurals>
+  <string name="noGameFound">ಯಾವುದೇ ಆಟ ಕಂಡುಬಂದಿಲ್ಲ</string>
 </resources>
