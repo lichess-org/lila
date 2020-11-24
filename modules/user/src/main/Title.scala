@@ -11,18 +11,27 @@ object Title {
   val LM  = Title("LM")
   val BOT = Title("BOT")
 
-  // important: names are as stated on FIDE profile pages
   val all = Seq(
-    Title("GM")  -> "Grandmaster",
-    Title("WGM") -> "Woman Grandmaster",
-    Title("IM")  -> "International Master",
-    Title("WIM") -> "Woman Intl. Master",
-    Title("FM")  -> "FIDE Master",
-    Title("WFM") -> "Woman FIDE Master",
-    Title("NM")  -> "National Master",
-    Title("CM")  -> "Candidate Master",
-    Title("WCM") -> "Woman Candidate Master",
-    Title("WNM") -> "Woman National Master",
+    Title("九段") -> "9th dan",
+    Title("八段") -> "8th dan",
+    Title("七段") -> "7th dan",
+    Title("六段") -> "6th dan",
+    Title("五段") -> "5th dan",
+    Title("四段") -> "4th dan",
+    Title("三段") -> "3rd dan",
+    Title("二段") -> "2nd dan",
+    Title("初段") -> "1st dan",
+    Title("１級") -> "1st kyu",
+    Title("２級") -> "2nd kyu",
+    Title("３級") -> "3rd kyu",
+    Title("女流五段") -> "ladies 5th dan",
+    Title("女流四段") -> "ladies 4th dan",
+    Title("女流三段") -> "ladies 3rd dan",
+    Title("女流二段") -> "ladies 2nd dan",
+    Title("女流初段") -> "ladies 1st dan",
+    Title("女流１級") -> "ladies 1st kyu",
+    Title("女流２級") -> "ladies 2nd kyu",
+    Title("女流３級") -> "ladies 3rd kyu",
     LM           -> "Lishogi Master",
     BOT          -> "Chess Robot"
   )
@@ -39,30 +48,42 @@ object Title {
 
   object fromUrl {
 
-    // https://ratings.fide.com/card.phtml?event=740411
-    private val FideProfileUrlRegex = """(?:https?://)?ratings\.fide\.com/card\.phtml\?event=(\d+)""".r
-    // >&nbsp;FIDE title</td><td colspan=3 bgcolor=#efefef>&nbsp;Grandmaster</td>
-    private val FideProfileTitleRegex =
-      """>&nbsp;FIDE title</td><td colspan=3 bgcolor=#efefef>&nbsp;([^<]+)</td>""".r.unanchored
+    // https://www.shogi.or.jp/player/pro/93.html
+    private val JSAProProfileUrlRegex = """(?:https?://)?www\.shogi\.or\.jp/player/pro/(\d+).html""".r
+    private val JSAProProfileTitleRegex = """(.[段級])""".r.unanchored
 
-    // https://ratings.fide.com/profile/740411
-    private val NewFideProfileUrlRegex = """(?:https?://)?ratings\.fide\.com/profile/(\d+)""".r
+    // https://www.shogi.or.jp/player/lady/59.html
+    private val JSALadyProfileUrlRegex = """(?:https?://)?www\.shogi\.or\.jp/player/lady/(\d+).html""".r
+    private val JSALadyProfileTitleRegex = """(女流.[段級])""".r.unanchored
 
     import play.api.libs.ws.WSClient
 
-    def toFideId(url: String): Option[Int] =
+    def toJSAId(url: String): Option[Int] =
       url.trim match {
-        case FideProfileUrlRegex(id)    => id.toIntOption
-        case NewFideProfileUrlRegex(id) => id.toIntOption
-        case _                          => none
+        case JSAProProfileUrlRegex(id) => id.toIntOption
+        case _                      => none
       }
 
-    def apply(url: String)(implicit ws: WSClient): Fu[Option[Title]] =
-      toFideId(url) ?? fromFideProfile
+    def toJSALadyId(url: String): Option[Int] =
+      url.trim match {
+        case JSALadyProfileUrlRegex(id) => id.toIntOption
+        case _                      => none
+      }
 
-    private def fromFideProfile(id: Int)(implicit ws: WSClient): Fu[Option[Title]] = {
-      ws.url(s"""http://ratings.fide.com/card.phtml?event=$id""").get().dmap(_.body) dmap {
-        case FideProfileTitleRegex(name) => Title.fromNames get name
+    def apply(url: String)(implicit ws: WSClient): Fu[Option[Title]] = {
+      toJSAId(url) ?? fromJSAProProfile
+      toJSALadyId(url) ?? fromJSALadyProfile
+    }
+
+    private def fromJSAProProfile(id: Int)(implicit ws: WSClient): Fu[Option[Title]] = {
+      ws.url(s"""https://www.shogi.or.jp/player/pro/$id.html""").get().dmap(_.body) dmap {
+        case JSAProProfileTitleRegex(name) => Title.fromNames get name
+      }
+    }
+
+    private def fromJSALadyProfile(id: Int)(implicit ws: WSClient): Fu[Option[Title]] = {
+      ws.url(s"""https://www.shogi.or.jp/player/lady/$id.html""").get().dmap(_.body) dmap {
+        case JSALadyProfileTitleRegex(name) => Title.fromNames get name
       }
     }
   }
