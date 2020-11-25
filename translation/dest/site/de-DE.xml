@@ -531,6 +531,7 @@
   <string name="currentPassword">Derzeitiges Passwort</string>
   <string name="newPassword">Neues Passwort</string>
   <string name="newPasswordAgain">Neues Passwort (wiederholen)</string>
+  <string name="newPasswordsDontMatch">Die neuen Passwörter stimmen nicht überein</string>
   <string name="clockInitialTime">Grundbedenkzeit</string>
   <string name="clockIncrement">Zeit-Inkrement</string>
   <string name="privacy">Privatsphäre</string>
