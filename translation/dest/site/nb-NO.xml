@@ -851,7 +851,7 @@
   <string name="correspondenceDesc">Fjernsjakkpartier: ett eller flere døgn pr. trekk</string>
   <string name="puzzleDesc">Sjakktaktikktrener</string>
   <string name="important">Viktig</string>
-  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">Spørsmålet ditt har kanskje allerede et svar %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Spørsmålet ditt har kanskje allerede et svar %1$s</string>
   <string name="inTheFAQ">i FAQ-en.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">For å rapportere en bruker for juks eller dårlig oppførsel, %1$s</string>
   <string name="useTheReportForm">bruk rapportskjemaet</string>
