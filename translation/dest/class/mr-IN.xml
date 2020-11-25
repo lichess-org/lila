@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">शिकवणी</string>
+  <string name="teachClassesOfChessStudents">Lichess Class साधनॆचा वापर करुन विद्यार्थ्यांना शिकवा.</string>
   <string name="features">वैशिष्ट्ये</string>
   <string name="teachersX">शिक्षक: %s</string>
   <string name="newClass">नविन शिकवणी</string>
