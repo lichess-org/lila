@@ -531,6 +531,7 @@
   <string name="currentPassword">Huidig wachtwoord</string>
   <string name="newPassword">Nieuw wachtwoord</string>
   <string name="newPasswordAgain">Nieuw wachtwoord (opnieuw)</string>
+  <string name="newPasswordsDontMatch">De nieuwe wachtwoorden komen niet overeen</string>
   <string name="clockInitialTime">Oorspronkelijke kloktijd</string>
   <string name="clockIncrement">Bijtelling</string>
   <string name="privacy">Privacy</string>
