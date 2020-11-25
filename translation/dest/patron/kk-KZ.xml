@@ -1,2 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">Ақшалай жәрдем</string>
+  <string name="lichessPatron">Личес Қамқоршысы</string>
+  <string name="freeAccount">Тегін аккаунт</string>
+  <string name="becomePatron">Лическе Қамқоршы болу</string>
+  <string name="xBecamePatron">%s Лическе Қамқоршы болды</string>
+  <string name="newPatrons">Жаңа Қамқоршылар</string>
+  <string name="freeChess">Баршылыққа арналған тегін шахмат, мәңгі!</string>
+  <string name="noAdsNoSubs">Жарнамасыз, жазылымсыз, коды ашық, еркін.</string>
+  <string name="thankYou">Ақшалай жәрдем үшін сізге рахмет!</string>
+  <string name="youHaveLifetime">Сіз Өмір бойына Қамқоршы аккаунтына иесіз. Бұл керемет!</string>
+  <string name="patronUntil">Сіз Қамқоршы аккаунтқа %s дейін иесіз.</string>
+  <string name="ifNotRenewed">Егер жаңартпасаңыз, аккаунт тегін деңгейіне түседі.</string>
+  <string name="weAreNonProfit">Біз коммерциялық емес ұйымбыз, өйткені біз әрбір адам әлемдік деңгейдегі шахматқа тегін ойнауға құқылы деп сенеміз.</string>
+  <string name="weRelyOnSupport">Еңбегімізді қуаттап, қолдап жатқан халыққа үміт тұтамыз. Егер сізге Личес пайдасын тигізсе, Қамқоршы болып, бізге ақшалай жәрдем көрсетуді сұраймыз!</string>
+  <string name="lifetime">Өмір бойы</string>
+  <string name="payLifetimeOnce">%s бір мәрте төлеп, Лическе мәңгі Қамқоршы болыңыз!</string>
+  <string name="lifetimePatron">Лическе Өмір бойы Қамқоршы</string>
+  <string name="makeExtraDonation">Ерекше ақшалай жәрдем жасайсыз ба?</string>
+  <string name="monthly">Ай сайын</string>
+  <string name="recurringBilling">Жаңартпалы төлемдер, Қамқоршы мәртебесін ай сайын жаңартып тұру.</string>
+  <string name="onetime">Бір рет</string>
+  <string name="singleDonation">Бір реттік жәрдем берсеңіз, бір ай бойы Қамқоршы боласыз.</string>
+  <string name="otherAmount">Басқа</string>
+  <string name="pleaseEnterAmount">Мөлшерді АҚШ доллармен жазыңыз</string>
+  <string name="withCreditCard">Банк картасы</string>
+  <string name="withPaypal">PayPal</string>
+  <string name="weAreSmallTeam">Біз шағын ғана топпыз, сондықтан сіздің жәрдеміңіз зор пайда болады!</string>
+  <string name="celebratedPatrons">Личесті жоқтан болдырған атақты Қамқоршыларымыз</string>
+  <string name="whereMoneyGoes">Ақша қайда жұмсалады?</string>
+  <string name="serversAndDeveloper">Біріншіден, мықты серверлерге.
+Кейін – толық күн жұмыс істейтін әзірлеушіге: Личесті қалаған %s.</string>
+  <string name="costBreakdown">Шығындар кестесін қараңыз</string>
+  <string name="officialNonProfit">Личес, шынымен, табыс табуға көзделмеген бе?</string>
+  <string name="actOfCreation">Иә. Міне – құру құжаты (француз тілінде)</string>
+  <string name="changeMonthlySupport">Айлық қолдауымды өзгертсем/тоқтатсам бола ма?</string>
+  <string name="changeOrContact">Иә, кез-келген уақытта, осы бетте.
+Немесе %s.</string>
+  <string name="contactSupport">Личес қолдау орталығына хабарлаңыз</string>
+  <string name="otherMethods">Ақшалай жәрдем берудің басқа тәсілдері?</string>
+  <string name="bankTransfers">Одан басқа банк аударымдарын қабылдаймыз</string>
+  <string name="bitcoin">Биткоин мекенжайымыз: %s</string>
+  <string name="patronFeatures">Қамқоршылар үшін бір артықшылықтар бар ма?</string>
+  <string name="noPatronFeatures">Жоқ, өйткені Личес бәріне бірдей мәңгі тегін. Бұл уәде.
+Дегенмен, Қамқоршылардың куәлігінде күшті таңба көрсетіледі.</string>
+  <string name="featuresComparison">Артықшылықтардың салыстырмалы кестесін қарап көріңіз</string>
+  <plurals name="patronForMonths">
+    <item quantity="one">Лическе бір айлық Қамқоршы</item>
+    <item quantity="other">Лическе %s айлық Қамқоршы</item>
+  </plurals>
+  <string name="youSupportWith">Сіз Личесті айына %s-мен қолдайсыз.</string>
+  <string name="tyvm">Жәрдеміңіз үшін сізге көп рахмет. Сіз күштісіз!</string>
+  <string name="currentStatus">Қазіргі мәртебе</string>
+  <string name="nextPayment">Келесі төлем</string>
+  <string name="youWillBeChargedXOnY">Сіз %2$s %1$s төлейтін боласыз.</string>
+  <string name="makeAdditionalDonation">Қосымша ақшалай жәрдем қазір жасаңыз</string>
+  <string name="update">Жаңарту</string>
+  <string name="changeMonthlyAmount">Айлық мөлшерін өзгерту (%s)</string>
+  <string name="cancelSupport">қолдауды тоқтату</string>
+  <string name="xOrY">%1$s немесе %2$s</string>
+  <string name="decideHowMuch">Личес сізге қаншалықты бағалы:</string>
+  <string name="stopPayments">Банк картасын ажыратып, төлемдерді тоқтату:</string>
+  <string name="noLongerSupport">Личесті енді қолдамау</string>
+  <string name="paymentHistory">Төлемдер тарихы</string>
+  <string name="paid">Төленгені</string>
+  <string name="viewOthers">Басқа Личес Қамқоршыларын қарау</string>
+  <string name="date">Күні</string>
+  <string name="amount">Мөлшері</string>
+  <string name="transactionCompleted">Сіздің аударымыңыз аяқталды, ақшалай жәрдем түбіртегі поштаңызға жіберілді.</string>
+  <string name="permanentPatron">Енді сіз тұрақты Қамқоршы аккаунтына иесіз.</string>
+  <string name="checkOutProfile">Куәлік парақшасын қарап көріңіз!</string>
+  <string name="nowLifetime">Енді сіз өмір бойы Личес Қамқоршысысыз!</string>
+  <string name="nowOneMonth">Енді сіз бір айлық Личес Қамқоршысысыз!</string>
+  <string name="downgradeNextMonth">Айлардың бірінде төлем болмай қалса, Личес аккаунтыңыз қайттан қарапайым аккаунтқа ауысады.</string>
+</resources>

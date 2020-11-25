@@ -90,7 +90,7 @@
   </plurals>
   <string name="noGameFound">ゲームが見つかりません</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">設定メニューからさらに広い範囲を指定しますか？</string>
-  <string name="openingExplorer">序盤探索</string>
+  <string name="openingExplorer">定跡検索</string>
   <string name="xOpeningExplorer">%s オープニング・エクスプローラー</string>
   <string name="winPreventedBy50MoveRule">勝勢ながら 50 手ルールでドロー</string>
   <string name="lossSavedBy50MoveRule">敗勢ながら 50 手ルールでドロー</string>
@@ -814,7 +814,7 @@
   <string name="correspondenceDesc">通信戦：1 手につき 1 日から数日</string>
   <string name="puzzleDesc">タクティクス問題</string>
   <string name="important">重要</string>
-  <string name="yourQuestionMayHaveBeenAnswered">ご質問の答えはすでに %1$s にあるかもしれません</string>
+  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">ご質問の答えはすでに %1$s にあるかもしれません</string>
   <string name="inTheFAQ">FAQ 内</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">不正行為や不適切な行動の通報には %1$s</string>
   <string name="useTheReportForm">通報フォームをお使いください</string>

@@ -604,6 +604,7 @@
   <string name="webmasters">Vefstjórar</string>
   <string name="about">Um</string>
   <string name="aboutX">Um %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s er ókeypis (%2$s) og frjáls skákþjónn sem er laus við auglýsingar og byggður á opnum hugbúnaði.</string>
   <string name="really">í alvörunni</string>
   <string name="contribute">Veita hjálparhönd</string>
   <string name="termsOfService">Skilmálar</string>

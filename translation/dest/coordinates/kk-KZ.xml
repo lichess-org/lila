@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="coordinates">Координат</string>
-  <string name="averageScoreAsBlackX">Қара жағының орташа ұпайы: %s</string>
+  <string name="coordinateTraining">Координат меңгеру</string>
+  <string name="averageScoreAsWhiteX">Ақтың орташа есебі: %s</string>
+  <string name="averageScoreAsBlackX">Қараның орташа есебі: %s</string>
+  <string name="knowingTheChessBoard">Шахмат координаттарын білу – шеберліктің бір бөлігі:</string>
+  <string name="mostChessCourses">Шахмат мектептердің көпшілігі алгебралық жазу тәртібін ұстанады.</string>
+  <string name="talkToYourChessFriends">\"Шахмат тілін\" біліп жүрсеңіз, шахмат білетін досыңызбен әңгіме құру оңай болады.</string>
+  <string name="youCanAnalyseAGameMoreEffectively">Координатты танитын болсаңыз, ойынды тиімді түрде талдауға қабілетті боласыз.</string>
+  <string name="aSquareNameAppears">Тақтада координат шыққанда, оған сәйкес шаршыны таңдауыңыз керек. 30 секунд ішінде шамаңыз келгенше көбірек шаршы табыңыз!</string>
+  <string name="startTraining">Жаттығуды бастау</string>
 </resources>

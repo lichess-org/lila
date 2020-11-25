@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="broadcasts">Көрсетілімдер</string>
+  <string name="liveBroadcasts">Тікелей жарыс көрсетілімдері</string>
+  <string name="newBroadcast">Жаңа тікелей көрсетілім</string>
+  <string name="ongoing">Болып жатқан</string>
+  <string name="upcoming">Келе жатқан</string>
+  <string name="completed">Аяқталған</string>
+  <string name="eventName">Оқиға атауы</string>
+  <string name="eventDescription">Оқиғаның қысқа сипаттамасы</string>
+  <string name="fullDescription">Оқиғаның толық сипаттамасы</string>
+  <string name="fullDescriptionHelp">Көрсетілімнің қосымша үлкен сипаттамасы. %1$s қолданысқа ашық. Ұзындығы %2$s таңбадан кем болуы керек.</string>
+  <string name="sourceUrl">URL сілтеме</string>
+  <string name="sourceUrlHelp">PGN жаңартуларын алу үшін Личес тексеретін сілтеме. Ол интернетте баршалыққа ашық болуы керек.</string>
+  <string name="roundNumber">Раунд нөмірі</string>
+  <string name="startDate">Басталу күні (өз уақыт белдеуіңізде)</string>
+  <string name="startDateHelp">Міндетті емес, егер күнін біліп тұрсаңыз</string>
+  <string name="credits">Қайнар көзіне сілтеңіз</string>
+  <string name="cloneBroadcast">Көрсетілімнің көшірмесін жасау</string>
+  <string name="resetBroadcast">Көрсетілімді қайта бастау</string>
+</resources>

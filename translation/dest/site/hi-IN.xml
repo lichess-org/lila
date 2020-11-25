@@ -199,6 +199,8 @@
     <item quantity="other">आपके साथ %s खेल</item>
   </plurals>
   <string name="cancel">रद्द करें</string>
+  <string name="whiteTimeOut">सफेद का समय समाप्त</string>
+  <string name="blackTimeOut">काला का समय समाप्त</string>
   <string name="drawOfferSent">बराबरी पे खेल समाप्त करने का प्रस्ताव भेजा गया</string>
   <string name="drawOfferDeclined">बराबरी पे खेल समाप्त करने का प्रस्ताव अस्वीकारित किया गया</string>
   <string name="drawOfferAccepted">बराबरी पे खेल समाप्त करने का प्रस्ताव स्वीकारित किया गया</string>
@@ -850,4 +852,6 @@
   <string name="classicalDesc">क्लॅसिकल खेल: 25 मिनट और अधिक</string>
   <string name="correspondenceDesc">पत्राचार खेल: एक या कई दिन प्रति चाल</string>
   <string name="puzzleDesc">शतरंज की रणनीति के प्रशिक्षक</string>
+  <string name="important">जरूरी</string>
+  <string name="inTheFAQ">F.A.Q. मे</string>
 </resources>

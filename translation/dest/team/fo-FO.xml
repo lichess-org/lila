@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">Toymi</string>
+  <string name="teams">Toymi</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s limur</item>
+    <item quantity="other">%s limir</item>
+  </plurals>
+  <string name="allTeams">Øll toymi</string>
+  <string name="newTeam">Nýtt toymi</string>
+  <string name="myTeams">Míni toymi</string>
+  <string name="noTeamFound">Einki toymi funnið</string>
+  <string name="joinTeam">Kom upp í eitt toymi</string>
+  <string name="quitTeam">Far úr toymi</string>
   <string name="teamBestPlayers">Bestu telvarar</string>
 </resources>

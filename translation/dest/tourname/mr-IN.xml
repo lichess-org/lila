@@ -6,8 +6,10 @@
   <string name="hourlyX">ताशी %s</string>
   <string name="dailyRapidArena">दैनिक जलद आखाडा</string>
   <string name="dailyRapid">दैनिक जलद</string>
+  <string name="dailyClassical">रॊजचा शास्त्रिय</string>
   <string name="dailyXArena">दैनिक %s आखाडा</string>
   <string name="dailyX">दैनिक %s</string>
+  <string name="easternClassical">पूर्व शास्त्रिय</string>
   <string name="weeklyRapidArena">साप्ताहिक जलद आखाडा</string>
   <string name="weeklyRapid">साप्ताहिक जलद</string>
   <string name="weeklyXArena">साप्ताहिक %s आखाडा</string>

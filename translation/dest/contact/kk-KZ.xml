@@ -13,7 +13,7 @@
   <string name="doPasswordReset">Екінші сатыны өшіру үшін құпиясөздің қайта орнатуын аяқтаңыз</string>
   <string name="accountSupport">Маған көмек керек</string>
   <string name="wantTitle">Личесте менің атауым көрсетілгенін қалаймын</string>
-  <string name="visitTitleConfirmation">Сіздің куәлік парақшаңызда атауды көрсету үшін, Атаулы Алаңға қатысу үшін растау парақшасына өтіңіз</string>
+  <string name="visitTitleConfirmation">Сіздің куәлік парақшаңызда атақты көрсету үшін, Атақтылар Алаңына қатысу үшін атақты растау парақшасына өтіңіз</string>
   <string name="wantCloseAccount">Мен аккаунтымды жабамын деп шештім</string>
   <string name="closeYourAccount">Аккаунтыңызды осы парақшаға өтіп, жаба аласыз</string>
   <string name="doNotAskByEmail">Поштамен аккаунт жабуды сұрамаңыз, біз оны орындамаймыз.</string>
@@ -44,7 +44,7 @@
   <string name="reportMobileIssue">GitHub-та Личес мобилді қолданбасының ақаулығы туралы</string>
   <string name="reportBugInDiscord">Личестің Discord серверінде</string>
   <string name="howToReportBug">Ақауды сипаттап беріңізші, ақаудың орнына не күткен едіңіз, осы ақауды қайталау үшін қандай қадамдар жасау керек.</string>
-  <string name="illegalPawnCapture">Сарбазды қате жолмен жеу</string>
+  <string name="illegalPawnCapture">Сарбазды қате жолмен басу</string>
   <string name="calledEnPassant">Бұл \"en passant\" деп аталады, шахматтағы ереженің бірі.</string>
   <string name="tryEnPassant">\"en passant\" туралы көбірек білу үшін осы шағын интерактивті ойынды ойнап көріңіз.</string>
   <string name="illegalCastling">Қате жасылынған не мүмкін емес бекіну</string>

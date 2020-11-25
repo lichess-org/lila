@@ -17,7 +17,7 @@
   <string name="joiningPolicy">Beitrittsregeln</string>
   <plurals name="teamLeaders">
     <item quantity="one">Teamleiter</item>
-    <item quantity="other">Teamleiter</item>
+    <item quantity="other">Team leader</item>
   </plurals>
   <string name="teamBestPlayers">Beste Spieler</string>
   <string name="teamRecentMembers">Neueste Teammitglieder</string>
@@ -27,7 +27,7 @@
     <item quantity="one">%s Beitrittsanfrage</item>
     <item quantity="other">%s Beitrittsanfragen</item>
   </plurals>
-  <string name="willBeReviewed">Deine Beitrittsanfrage wird von einem Teamleiter überprüft werden.</string>
+  <string name="willBeReviewed">Deine Beitrittsanfrage wird vom Teamleiter überprüft.</string>
   <string name="beingReviewed">Deine Beitrittsanfrage wird von einem Teamleiter überprüft.</string>
   <string name="teamBattle">Teamkampf</string>
   <string name="teamBattleOverview">Ein Kampf mehrerer Teams, jeder Spieler erzielt Punkte für sein Team</string>

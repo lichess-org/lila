@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hourlyRapidArena">Часовна рапид арена</string>
-  <string name="hourlyRapid">Часовни рапид</string>
+  <string name="hourlyRapidArena">Часовна Рапид Арена</string>
+  <string name="hourlyRapid">Часовни Рапид</string>
   <string name="hourlyXArena">Часовна %s арена</string>
   <string name="hourlyX">Часовни %s</string>
   <string name="dailyRapidArena">Дневна рапид арена</string>
