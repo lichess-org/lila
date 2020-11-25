@@ -799,7 +799,7 @@
   <string name="rapidDesc">Örar skákir: 8 til 25 mínútur</string>
   <string name="classicalDesc">Hefðbundnar skákir: 25 mínútur eða meira</string>
   <string name="important">Mikilvægt</string>
-  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">Spurningin þín gæti verið búin að fá svar %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Spurningin þín gæti verið búin að fá svar %1$s</string>
   <string name="inTheFAQ">í FAQ-ið</string>
   <string name="youCannotPostYetPlaySomeGames">Þú mátt ekki pósta enn. Spilaðu nokkra leiki!</string>
   <string name="subscribe">Gerast áskrifandi</string>
