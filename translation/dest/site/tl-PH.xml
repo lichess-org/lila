@@ -842,7 +842,7 @@
   <string name="correspondenceDesc">Pagsusulatang mga laro: isa o maramihang araw bawat tira</string>
   <string name="puzzleDesc">Tagahasa ng mga taktika sa ahedres</string>
   <string name="important">Mahalaga</string>
-  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">Ang iyong katanungan ay maaaring mayroon ng kasagutan %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Ang iyong katanungan ay maaaring mayroon ng kasagutan %1$s</string>
   <string name="inTheFAQ">nasa F.A.Q.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Para isumbong ang isang manlalaro sa pandaraya o kasamaan ng ugali, %1$s</string>
   <string name="useTheReportForm">gamitin ang form na pang-sumbong</string>
