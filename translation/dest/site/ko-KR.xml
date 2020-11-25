@@ -813,7 +813,7 @@
   <string name="correspondenceDesc">통신전: 한 수당 하루 또는 수 일</string>
   <string name="puzzleDesc">체스 전술 트레이너</string>
   <string name="important">중요!</string>
-  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">%1$s에 원하시는 답변이 있을 수 있습니다.</string>
+  <string name="yourQuestionMayHaveBeenAnswered">%1$s에 원하시는 답변이 있을 수 있습니다.</string>
   <string name="inTheFAQ">F.A.Q</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">%1$s에서 엔진 사용이나 부적절한 행동을 신고하십시오.</string>
   <string name="useTheReportForm">사용자 신고</string>
