@@ -100,12 +100,11 @@ final class Simul(env: Env) extends LilaController(env) {
     }
 
   def abort(simulId: String) =
-    Open { implicit ctx =>
+    Auth { implicit ctx => me =>
       AsHost(simulId) { simul =>
         env.simul.api abort simul.id inject {
-          if (!ctx.userId.contains(simul.hostId))
-            env.mod.logApi.terminateTournament(ctx.userId.getOrElse("unknown"), simul.fullName)
-          if (HTTPRequest isXhr ctx.req) Ok(Json.obj("ok" -> true)) as JSON
+          if (!simul.isHost(me)) env.mod.logApi.terminateTournament(me.id, simul.fullName)
+          if (HTTPRequest isXhr ctx.req) jsonOkResult
           else Redirect(routes.Simul.home())
         }
       }
