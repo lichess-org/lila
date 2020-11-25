@@ -211,9 +211,9 @@
   <string name="videos">Видеолар</string>
   <string name="watchInstructiveChessVideos">Шахмат үйрететін видео сабақтар</string>
   <string name="playPeople">Адаммен ойнаңыз</string>
-  <string name="opponentsFromAroundTheWorld">Дүние жүзінен қосылған ойыншылар</string>
+  <string name="opponentsFromAroundTheWorld">Дүние жүзінің ойыншылары</string>
   <string name="playMachine">Компьютермен ойнаңыз</string>
-  <string name="testYourSkillsWithTheComputer">Шамаңызды компьютер арқылы сынаңыз</string>
+  <string name="testYourSkillsWithTheComputer">Шамаңызды компьютермен сынаңыз</string>
   <string name="letsGo">Кеттік!</string>
   <string name="stageX">%s деңгей</string>
   <string name="awesome">Керемет!</string>

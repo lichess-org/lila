@@ -950,7 +950,7 @@
   <string name="correspondenceDesc">Partiennoù war hir dermen: un deiz pe meur a hini evit bep taol</string>
   <string name="puzzleDesc">Gourdoner poelladennoù echedoù</string>
   <string name="important">A-bouez</string>
-  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">Ur respont zo bet d\'ho koulenn dija marteze %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Ur respont zo bet d\'ho koulenn dija marteze %1$s</string>
   <string name="inTheFAQ">er FAG.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Ma faotañ deoc\'h mont e darempred ganeomp abalamour d\'un trucher pe d\'un den displijus, %1$s</string>
   <string name="useTheReportForm">grit gant ar furmskrid diskleriañ</string>

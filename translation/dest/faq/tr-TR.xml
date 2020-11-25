@@ -52,6 +52,10 @@ Lichess üzerindeki bilgisayar analizi Stockfish tarafından desteklenmektedir.<
 Nadir durumlarda bu karara otomatik olarak ulaşmak zor olabilir (zorla berabere, kaleler). Varsayılan olarak biz her zaman hangi oyuncunun zamanı bitmedi ise onun tarafını tutarız.
 
 Rakibin şahı kenara sıkıştırabilecek herhangi bir taşı varsa, tek bir at veya fil ile mat edebilmenin mümkün olabileceğini unutmayın.</string>
+  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">%s bölümdür. Bu dizi, SSS\'nin \'Zamandan kaybetme, beraberlik ve yetersiz taş\' bölümünde \'FIDE el kitabı §6.9\' olarak görünür.
+
+Https://handbook. fide. com/chapter/E012018 bağlantısı.
+Dosya: Sık Sorulan Sorular (SSS) sayfası</string>
   <string name="discoveringEnPassant">Bir piyon, yanından ilk hamlesinde 2 ilerlemiş bir piyonu neden yiyebilir? (geçerken alma)</string>
   <string name="explainingEnPassant">Bu \"geçerken alma\" olarak bilinen yasal bir hamledir. Wikipedia %1$s hakkında makale veriyor.
 

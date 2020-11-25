@@ -813,7 +813,7 @@
   <string name="correspondenceDesc">Đánh cờ qua thư: Một hoặc vài ngày cho mỗi nước</string>
   <string name="puzzleDesc">Huấn luyện viên cờ thế</string>
   <string name="important">Chú ý</string>
-  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">Vấn đề của bạn có thể được giải đáp %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Vấn đề của bạn có thể được giải đáp %1$s</string>
   <string name="inTheFAQ">tại F.A.Q.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Để báo cáo một người dùng vì gian lận hoặc hành vi xấu, %1$s</string>
   <string name="useTheReportForm">dùng bảng tố cáo</string>

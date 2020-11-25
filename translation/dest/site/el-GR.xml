@@ -851,7 +851,7 @@
   <string name="correspondenceDesc">Παρτίδες αλληλογραφίας: μία ή περισσότερες μέρες για την κίνηση</string>
   <string name="puzzleDesc">Εξάσκηση τακτικών</string>
   <string name="important">Σημαντικό</string>
-  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">Η ερώτησή σας μπορεί να έχει απαντηθεί ήδη %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Η ερώτησή σας μπορεί να έχει απαντηθεί ήδη %1$s</string>
   <string name="inTheFAQ">στις συχνές ερωτήσεις.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Για να αναφέρετε έναν χρήστη για κλέψιμο ή για κακή συμπεριφορά, %1$s</string>
   <string name="useTheReportForm">χρησιμοποιείστε τη φόρμα αναφορών</string>

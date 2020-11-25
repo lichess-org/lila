@@ -220,7 +220,7 @@
   <string name="gameAborted">Ойын тоқтатылды</string>
   <string name="standard">Классикалық</string>
   <string name="unlimited">Шектеусіз</string>
-  <string name="mode">Бағамы</string>
+  <string name="mode">Түрі</string>
   <string name="casual">Қалыпты</string>
   <string name="rated">Бағаланатын</string>
   <string name="casualTournament">Қалыпты</string>
@@ -383,7 +383,7 @@
   <string name="memberSince">Тіркелген күні</string>
   <string name="lastSeenActive">%s белсенді болды</string>
   <string name="challengeToPlay">Ойынға шақыру</string>
-  <string name="player">ойыншы</string>
+  <string name="player">Ойыншы</string>
   <string name="list">Тiзiм</string>
   <string name="graph">Диаграм</string>
   <plurals name="lessThanNbMinutes">
@@ -531,6 +531,7 @@
   <string name="currentPassword">Қазіргі құпиясөз</string>
   <string name="newPassword">Жаңа кұпиясөз</string>
   <string name="newPasswordAgain">Жаңа құпиясөз (қайтадан)</string>
+  <string name="newPasswordsDontMatch">Жаңа құпиясөздер бірдей емес</string>
   <string name="clockInitialTime">Сағаттың бастапқы уақыты</string>
   <string name="clockIncrement">Уақыт қосылғышы</string>
   <string name="privacy">Даралық</string>
@@ -851,7 +852,7 @@
   <string name="correspondenceDesc">Хат алмасып ойнау: бір жүріске бір не бірнеше күн</string>
   <string name="puzzleDesc">Шахмат тактикасын үйретуші</string>
   <string name="important">Ескерту</string>
-  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">Сіздің сұрағыңызға %1$s жауап табылар</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Сіздің сұрағыңызға %1$s жауап табылар</string>
   <string name="inTheFAQ">ЖҚС-да</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Бір қолданушының дөрекі қылығына не алдап ойнады деп шағымдану үшін %1$s</string>
   <string name="useTheReportForm">шағым үлгісін қолданыңыз</string>

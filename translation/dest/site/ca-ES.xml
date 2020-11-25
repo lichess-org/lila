@@ -854,7 +854,7 @@ en %3$s</string>
   <string name="correspondenceDesc">Partides per correspondència: un o més dies per jugada</string>
   <string name="puzzleDesc">Entrenador de tàctica</string>
   <string name="important">Important</string>
-  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">La teva pregunta ja pot estar resposta %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered">La teva pregunta ja pot estar resposta %1$s</string>
   <string name="inTheFAQ">en les P.M.F.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Per reportar a un usuari per trampes o mal comportament, %1$s</string>
   <string name="useTheReportForm">utilitza el formulari</string>

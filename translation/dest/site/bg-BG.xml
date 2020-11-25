@@ -840,7 +840,7 @@
   <string name="correspondenceDesc">Задочни игри: един или повече дни на ход</string>
   <string name="puzzleDesc">Инструктор шахматни тактики</string>
   <string name="important">Важно</string>
-  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">Вашият въпрос може вече да има отговор %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Вашият въпрос може вече да има отговор %1$s</string>
   <string name="inTheFAQ">в Ч.З.В.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">За да докладвате потребител за нечестна игра или лошо поведение, %1$s</string>
   <string name="useTheReportForm">използвайте формуляра за докладване</string>

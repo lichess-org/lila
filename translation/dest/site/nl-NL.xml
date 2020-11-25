@@ -59,7 +59,7 @@
   <string name="loadingEngine">Laden van computer...</string>
   <string name="cloudAnalysis">Cloud-analyse</string>
   <string name="goDeeper">Dieper gaan</string>
-  <string name="showThreat">Toon bedreiging</string>
+  <string name="showThreat">Toon dreiging</string>
   <string name="inLocalBrowser">in lokale browser</string>
   <string name="toggleLocalEvaluation">Lokale evaluatie aan-/uitzetten</string>
   <string name="promoteVariation">Promoveer variant</string>
@@ -278,7 +278,7 @@
   </plurals>
   <string name="thisAccountViolatedTos">Deze account heeft de Lichess Servicevoorwaarden geschonden</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Deze speler verhoogt/verlaagt zijn rating kunstmatig</string>
-  <string name="openingExplorerAndTablebase">Openingverkenner &amp; tablebase</string>
+  <string name="openingExplorerAndTablebase">Openingsverkenner &amp; tablebase</string>
   <string name="takeback">Neem zet terug</string>
   <string name="proposeATakeback">Stel zet terugnemen voor</string>
   <string name="takebackPropositionSent">Terugname-voorstel verstuurd</string>
@@ -531,6 +531,7 @@
   <string name="currentPassword">Huidig wachtwoord</string>
   <string name="newPassword">Nieuw wachtwoord</string>
   <string name="newPasswordAgain">Nieuw wachtwoord (opnieuw)</string>
+  <string name="newPasswordsDontMatch">De nieuwe wachtwoorden komen niet overeen</string>
   <string name="clockInitialTime">Oorspronkelijke kloktijd</string>
   <string name="clockIncrement">Bijtelling</string>
   <string name="privacy">Privacy</string>

@@ -890,7 +890,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="correspondenceDesc">Dopisne partije: do nekoliko dana po potezu</string>
   <string name="puzzleDesc">Trener šahovskih taktika</string>
   <string name="important">Važno</string>
-  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">Na tvoje pitanje možda već postoji odgovor %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Na tvoje pitanje možda već postoji odgovor %1$s</string>
   <string name="inTheFAQ">u F.A.Q.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Za prijavu korisnika zbog varanja ili lošeg ponašanja, %1$s</string>
   <string name="useTheReportForm">koristite obrazac za prijavu</string>

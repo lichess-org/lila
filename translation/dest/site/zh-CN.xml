@@ -813,7 +813,7 @@
   <string name="correspondenceDesc">非即时对战：每步一天或数天</string>
   <string name="puzzleDesc">国际象棋战术训练</string>
   <string name="important">重要</string>
-  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">您的问题可能已经%1$s有了答案</string>
+  <string name="yourQuestionMayHaveBeenAnswered">您的问题可能已经%1$s有了答案</string>
   <string name="inTheFAQ">在问答集中</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">要举报用户作弊或不良行为，%1$s</string>
   <string name="useTheReportForm">请使用举报表单</string>
