@@ -928,7 +928,7 @@
   <string name="correspondenceDesc">За листуванням: один чи декілька днів на хід</string>
   <string name="puzzleDesc">Тренажер шахової тактики</string>
   <string name="important">Важливо</string>
-  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">Ваше запитання може мати відповідь %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Ваше запитання може мати відповідь %1$s</string>
   <string name="inTheFAQ">в ЧаПах.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Щоб повідомити про нечесну гру чи погану поведінку, %1$s</string>
   <string name="useTheReportForm">використовуйте форму звіту</string>

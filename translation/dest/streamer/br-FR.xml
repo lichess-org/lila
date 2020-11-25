@@ -15,6 +15,7 @@
   <string name="downloadKit">Pellgargañ ar c\'hit streamer</string>
   <string name="xIsStreaming">Emañ %s o skignañ ur stream</string>
   <string name="rules">Reolennoù ar streaming</string>
+  <string name="rule1">Ensilit ar ger-alc\'hwez \"lichess.org\" en tilt ho stream ha grit gant ar rummad \"Echedoù\" pa streamit war Lichess.</string>
   <string name="twitchUsername">Hoc\'h anv-implijer Twitch pe URL</string>
   <string name="optionalOrEmpty">Diret. Laoskit goullo ma n\'eus ket</string>
   <string name="youtubeChannel">ID ho chadenn YouTube pe URL</string>

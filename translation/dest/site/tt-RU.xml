@@ -372,4 +372,19 @@
   <string name="conditionOfEntry">Керу тәлапләре:</string>
   <string name="advancedSettings">Кушылма көйләүләр</string>
   <string name="safeTournamentName">Турнир өчен куркынычсыз һәм имин исем сайлагыз.</string>
+  <string name="inappropriateNameWarning">Әз генә дә килешми торган исем аккаунтыгызның ябылуына китерә ала.</string>
+  <string name="emptyTournamentName">Турнирга берәр атаклы шахматчының исемен бирү өчен буш калдырыгыз.</string>
+  <string name="recommendNotTouching">Боларны тимәскә кинәш итәбез.</string>
+  <string name="fewerPlayers">Керү тәлапләрен куйсагыз, уенчылар саны әзрәк булыр.</string>
+  <string name="showAdvancedSettings">Кушылма көйләүләрне күрсәтү</string>
+  <string name="makePrivateTournament">Турнирга серсүз буенча гына керү куя аласыз</string>
+  <string name="join">Катнашу</string>
+  <string name="withdraw">Уеннан чыгу</string>
+  <string name="points">Баллар</string>
+  <string name="wins">Җиңүләр</string>
+  <string name="losses">Җиңелүләр</string>
+  <string name="createdBy">Оештыручы</string>
+  <string name="tournamentIsStarting">Турнир башлана</string>
+  <string name="youArePlaying">Сез уйныйсыз!</string>
+  <string name="winRate">Җиңүләр</string>
 </resources>

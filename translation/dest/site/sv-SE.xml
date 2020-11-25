@@ -851,7 +851,7 @@
   <string name="correspondenceDesc">Korrespondensschack: en eller flera dagar per drag</string>
   <string name="puzzleDesc">Schacktaktikträning</string>
   <string name="important">Viktigt</string>
-  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">Din fråga kan redan ha ett svar %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Din fråga kan redan ha ett svar %1$s</string>
   <string name="inTheFAQ">i Vanliga frågor.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">För att rapportera en användare för fusk eller dåligt beteende, %1$s</string>
   <string name="useTheReportForm">använd rapportformuläret</string>

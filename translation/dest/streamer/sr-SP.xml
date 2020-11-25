@@ -16,12 +16,15 @@
   <string name="rules">Правила стримовања</string>
   <string name="rule1">Када стримујеш на Личесу, користи категорију \"Chess\" и укључи реч \"lichess.org\" у наслову стрима.</string>
   <string name="rule2">Избаци ту реч када се на стриму не бавиш Личесом.</string>
+  <string name="perk3">Обавестите ваше Личес пратиоце.</string>
   <string name="approved">Твој стрим је одобрен.</string>
   <string name="pendingReview">Твој стрим проверавају модератори.</string>
   <string name="pleaseFillIn">Молимо попуните стримерске информације и поставите слику.</string>
   <string name="whenReady">Када будете спремни да постанете Личес стример, %s</string>
   <string name="requestReview">затражите проверу од стране модератора</string>
   <string name="twitchUsername">Твоје Твич корисничко име или УРЛ</string>
+  <string name="youtubeChannel">Твој Јутјуб канал ИД или УРЛ</string>
+  <string name="headline">Наслов</string>
   <string name="tellUsAboutTheStream">Реци нам нешто о свом стриму у једној реченици</string>
   <string name="longDescription">Дужи опис</string>
   <string name="changePicture">Измени/избриши своју слику</string>

@@ -531,6 +531,7 @@
   <string name="currentPassword">Geçerli şifre</string>
   <string name="newPassword">Yeni şifre</string>
   <string name="newPasswordAgain">Yeni şifre(tekrar)</string>
+  <string name="newPasswordsDontMatch">Yeni parolalar eşleşmiyor</string>
   <string name="clockInitialTime">Maç başlangıç süresi</string>
   <string name="clockIncrement">Hamle başına süre artışı</string>
   <string name="privacy">Gizlilik</string>

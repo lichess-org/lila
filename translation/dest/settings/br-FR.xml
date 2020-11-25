@@ -2,8 +2,8 @@
 <resources>
   <string name="settings">Arventennoù</string>
   <string name="closeAccount">Serriñ ar gont</string>
-  <string name="closingIsDefinitive">Ne c\'halloc\'h ket cheñch ho soñj. Sur oc\'h?</string>
-  <string name="cantOpenSimilarAccount">Ne veoc\'h ket aotreet da grouiñ ur gont nevez gant ar memes anv, zoken gant lizherennoù disheñvel.</string>
+  <string name="closingIsDefinitive">Serret e vo ho kont da viken. Ne c\'halloc\'h ket cheñch ho soñj. Sur oc\'h?</string>
+  <string name="cantOpenSimilarAccount">Ne voc\'h ket aotreet da grouiñ ur gont nevez gant ar memes anv, pa vije gant ur ment lizherennoù disheñvel.</string>
   <string name="changedMindDoNotCloseAccount">Cheñchet em eus ma soñj, na serrit ket ma c\'hont</string>
   <string name="closeAccountExplanation">Serret e vo ho kont, sur oc\'h? Un diviz-pad an hini eo. NE c\'halloc\'h KET adkavout anezhi ken, BIKEN.</string>
   <string name="thisAccountIsClosed">Serr eo ar gont-mañ.</string>

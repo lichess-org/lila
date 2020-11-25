@@ -195,6 +195,8 @@
     <item quantity="other">%s игри с вас</item>
   </plurals>
   <string name="cancel">Отказ</string>
+  <string name="whiteTimeOut">Времето на белите изтече</string>
+  <string name="blackTimeOut">Времето на черните изтече</string>
   <string name="drawOfferSent">Изпратено предложение за реми</string>
   <string name="drawOfferDeclined">Предложението за реми е отказано</string>
   <string name="drawOfferAccepted">Предложението за реми е прието</string>

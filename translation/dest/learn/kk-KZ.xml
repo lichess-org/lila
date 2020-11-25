@@ -50,7 +50,7 @@
 Бірақ тақтаның қарсы тұсына жеткенде, олар күшті тасқа айналады!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Көп жағдайда уәзірге айналдырған жақсы,
 Бірақ кейде ат болғаны одан да пайдалы!</string>
-  <string name="pawnsMoveForward">Сарбаз тура жүреді, бірақ қиғаш жейді!</string>
+  <string name="pawnsMoveForward">Сарбаз тура жүреді, бірақ қиғаш басып алады!</string>
   <string name="captureThenPromote">Басып алыңыз, кейін айналдырыңыз!</string>
   <string name="useAllThePawns">Барлық сарбаздарды пайдаланыңыз!
 Айналдырудың қажеті жоқ.</string>
@@ -211,9 +211,9 @@
   <string name="videos">Видеолар</string>
   <string name="watchInstructiveChessVideos">Шахмат үйрететін видео сабақтар</string>
   <string name="playPeople">Адаммен ойнаңыз</string>
-  <string name="opponentsFromAroundTheWorld">Дүние жүзінен қосылған ойыншылар</string>
+  <string name="opponentsFromAroundTheWorld">Дүние жүзінің ойыншылары</string>
   <string name="playMachine">Компьютермен ойнаңыз</string>
-  <string name="testYourSkillsWithTheComputer">Шамаңызды компьютер арқылы сынаңыз</string>
+  <string name="testYourSkillsWithTheComputer">Шамаңызды компьютермен сынаңыз</string>
   <string name="letsGo">Кеттік!</string>
   <string name="stageX">%s деңгей</string>
   <string name="awesome">Керемет!</string>

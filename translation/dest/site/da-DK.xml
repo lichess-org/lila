@@ -851,7 +851,7 @@
   <string name="correspondenceDesc">Korrespondancespil: en eller adskillige dage per træk</string>
   <string name="puzzleDesc">Skaktaktik-træner</string>
   <string name="important">Vigtigt</string>
-  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">Der findes måske allerede et svar på dit spørgsmål %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Der findes måske allerede et svar på dit spørgsmål %1$s</string>
   <string name="inTheFAQ">i vores F.A.Q.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">For at anmelde en bruger for snyd eller dårlig opførsel, %1$s</string>
   <string name="useTheReportForm">brug anmeldelsesformularen</string>

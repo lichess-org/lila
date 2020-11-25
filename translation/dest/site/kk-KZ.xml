@@ -112,7 +112,7 @@
   <string name="cpus">Процессор</string>
   <string name="memory">Жад</string>
   <string name="infiniteAnalysis">Шектеусіз талдау</string>
-  <string name="removesTheDepthLimit">Тереңдік бойынша шектеулерді алуымен қатар компьютеріңізді қыздырады</string>
+  <string name="removesTheDepthLimit">Тереңдік шектеулерін жояды, әрі компьютеріңізді қыздырады</string>
   <string name="blunder">Өрескел қателік</string>
   <string name="blunders">Өрескел қателер</string>
   <string name="mistake">Қателік</string>
@@ -121,7 +121,7 @@
   <string name="inaccuracies">Жеңіл қате</string>
   <string name="moveTimes">Жүріс ұзақтығы</string>
   <string name="flipBoard">Тақтаны аудару</string>
-  <string name="threefoldRepetition">Үш реттік қайталау</string>
+  <string name="threefoldRepetition">Үш реттік қайталану</string>
   <string name="claimADraw">Тепе-теңдікті сұрау</string>
   <string name="offerDraw">Тепе-теңдікке келісу</string>
   <string name="draw">Тепе-теңдік</string>
@@ -129,7 +129,7 @@
     <item quantity="one">%s ойыншы</item>
     <item quantity="other">%s ойыншы</item>
   </plurals>
-  <string name="currentGames">Ойналып жатқан ойындар</string>
+  <string name="currentGames">Қазір ойналуда</string>
   <plurals name="nbGames">
     <item quantity="one">%s ойын</item>
     <item quantity="other">%s ойын</item>
@@ -176,7 +176,7 @@
   <string name="usernameOrEmail">Атыңыз не поштаңыз</string>
   <string name="changeUsername">Атыңызды өзгерту</string>
   <string name="changeUsernameNotSame">Тек әріптер үлкендігін өзгерту рұқсат. Мысалы, \"mirasbala\" дегенді \"MirasBala\" деп.</string>
-  <string name="changeUsernameDescription">Пайдаланушы атын өзгертіңіз. Бұл тек бір мәрте жасауға рұқсат және тек әріптің үлкендігін ғана өзгерте аласыз.</string>
+  <string name="changeUsernameDescription">Пайдаланушы атын өзгертіңіз. Бұны бір мәрте ғана жасауға рұқсат. Тек әріптің үлкендігін ғана өзгерте аласыз.</string>
   <string name="password">Құпиясөз</string>
   <string name="changePassword">Құпиясөзді өзгерту</string>
   <string name="changeEmail">Поштаны ауыстыру</string>
@@ -220,7 +220,7 @@
   <string name="gameAborted">Ойын тоқтатылды</string>
   <string name="standard">Классикалық</string>
   <string name="unlimited">Шектеусіз</string>
-  <string name="mode">Бағамы</string>
+  <string name="mode">Түрі</string>
   <string name="casual">Қалыпты</string>
   <string name="rated">Бағаланатын</string>
   <string name="casualTournament">Қалыпты</string>
@@ -336,14 +336,14 @@
   <string name="reset">Қалпына келтіру</string>
   <string name="apply">Сақтау</string>
   <string name="save">Сақтау</string>
-  <string name="leaderboard">Мықтылар тақтасы</string>
+  <string name="leaderboard">Мықтылар қатары</string>
   <string name="pasteTheFenStringHere">FEN мәтінін осы жерге қойыңыз</string>
   <string name="pasteThePgnStringHere">PGN мәтінін осы жерге қойыңыз</string>
   <string name="fromPosition">Күйден бастап</string>
   <string name="continueFromHere">Осы жерден жалғастыру</string>
   <string name="toStudy">Зертхана</string>
   <string name="importGame">Ойынды жүктеп салу</string>
-  <string name="importGameExplanation">Ойынның PGN -ын салыңыз. Бұл ойынды қайта көруге, компьютерлік талдауға, чат және бөліспелі URL-ға жол ашады.</string>
+  <string name="importGameExplanation">Ойынның PGN-ын салыңыз. Бұл ойынды қайта көруге, компьютерлік талдауға, чат және бөліспелі URL-ға жол ашады.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s ойын алынды</item>
     <item quantity="other">%s ойын алынды</item>
@@ -383,7 +383,7 @@
   <string name="memberSince">Тіркелген күні</string>
   <string name="lastSeenActive">%s белсенді болды</string>
   <string name="challengeToPlay">Ойынға шақыру</string>
-  <string name="player">ойыншы</string>
+  <string name="player">Ойыншы</string>
   <string name="list">Тiзiм</string>
   <string name="graph">Диаграм</string>
   <plurals name="lessThanNbMinutes">
@@ -403,7 +403,7 @@
   <string name="inappropriateNameWarning">Кез-келген, тіпті шамалы орынсыз әрекет аккаунтыңызды жабылуға шалдықтыру мүмкін.</string>
   <string name="emptyTournamentName">Елеулі бір шахматшының атымен атау үшін бос қалдырыңыз.</string>
   <string name="recommendNotTouching">Бұны тиіспеуге кеңес береміз.</string>
-  <string name="fewerPlayers">Егер сіз кіру талаптарын қоятын болсаңыз, ойыншылар саны азырақ болар.</string>
+  <string name="fewerPlayers">Егер кіру талаптарын қойсаңыз, қатысатын ойыншылар саны аз болады.</string>
   <string name="showAdvancedSettings">Қосымша баптауларды көрсету</string>
   <string name="makePrivateTournament">Кіруді құпиясөз арқылы шектеп, жарысты оңашалаңыз</string>
   <string name="join">Қосылыңыз</string>
@@ -481,7 +481,7 @@
   <string name="fromGameLink">Осы ойыннан %s</string>
   <string name="continueTraining">Ары қарай жаттығу</string>
   <string name="retryThisPuzzle">Осы жұмбақты қайта көріңіз</string>
-  <string name="thisPuzzleIsCorrect">Бұл жұмбақ дұрыс та қызықты</string>
+  <string name="thisPuzzleIsCorrect">Бұл жұмбақ дұрыс әрі қызықты</string>
   <string name="thisPuzzleIsWrong">Бұл жұмбақ қате де қызықсыз</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s ойын өтуде</item>
@@ -531,6 +531,7 @@
   <string name="currentPassword">Қазіргі құпиясөз</string>
   <string name="newPassword">Жаңа кұпиясөз</string>
   <string name="newPasswordAgain">Жаңа құпиясөз (қайтадан)</string>
+  <string name="newPasswordsDontMatch">Жаңа құпиясөздер бірдей емес</string>
   <string name="clockInitialTime">Сағаттың бастапқы уақыты</string>
   <string name="clockIncrement">Уақыт қосылғышы</string>
   <string name="privacy">Даралық</string>
@@ -561,7 +562,7 @@
   <string name="drawVsYInZ">%3$s %2$s-ға қарсы %1$s</string>
   <string name="timeline">Уақыт тізбегі</string>
   <string name="starting">Басталуы:</string>
-  <string name="allInformationIsPublicAndOptional">Бүкіл мәлімет жалпыға ашық және оны көрсету – сіздің өз еркіңіз.</string>
+  <string name="allInformationIsPublicAndOptional">Бүкіл мәлімет – жалпыға ашық, әрі оны көрсету – сіздің өз еркіңіз.</string>
   <string name="yourCityRegionOrDepartment">Сіз тұратын қала, облыс немесе аймақ.</string>
   <string name="biographyDescription">Өзіңіз туралы айтып беріңізші: айналысатын істеріңіз, неге шахматпен шұғылданасыз, ұнайтын бастаулар, ойыншылар, ...</string>
   <plurals name="maximumNbCharacters">
@@ -638,7 +639,7 @@
   <string name="aboutSimulImage">Фишер 50 қарсыластың 47-сін жеңіп, 2-мен тең ойнап, 1-нен жеңілді.</string>
   <string name="aboutSimulRealLife">Бұл түсінік шынайы өмірден алынған: ойында бас ойыншы болады, ол тақталарды аралап, бір-бір жүрістен жасап отырады.</string>
   <string name="aboutSimulRules">Көпшілікке қарсы ойын басталысымен, әр ойыншы ақ тастар иесі – бас ойыншымен жарысады. Барлық ішкі ойындар аяқталғанда, жалпы ойын да аяқталады.</string>
-  <string name="aboutSimulSettings">Көпшілікке қарсы ойын – әрқашанда қалыпты. Қайта ойнау, жүрісті қайтару және уақыт қосу дегендер болмайды.</string>
+  <string name="aboutSimulSettings">Көпшілікке қарсы ойын – әрқашанда қалыпты. Қайта ойнау, жүрісті қайтару, уақыт қосу дегендер болмайды.</string>
   <string name="create">Құру</string>
   <string name="whenCreateSimul">Сіз көпшілікке қарсы ойынды құрғанда, бір мезгілде бірнеше қарсыласпен ойнайсыз.</string>
   <string name="simulVariantsHint">Егер сіз бірнеше нұсқа таңдасаңыз, әр ойыншы өзіне лайық бір нұсқасын таңдайды.</string>
@@ -687,7 +688,7 @@
   <string name="printFriendlyPDF">Қағазға бастыруға лайық PDF</string>
   <string name="crosstable">Қос дерек</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Сонымен қатар, сіз тақта үстінен тінтуір доңғалағын айналдырып, жүріс жасай аласыз.</string>
-  <string name="analysisShapesHowTo">Тақтада домалақ пен бағыт сызу үшін shift+шерту немесе оң шертуді (тінтуірмен) басыңыз.</string>
+  <string name="analysisShapesHowTo">Тақтада дөңгелек пен бағыт сызу үшін shift+шерту немесе тінтуірмен оң шертуді басыңыз.</string>
   <string name="letOtherPlayersMessageYou">Ойыншыларға сізге хабар жіберу рұқсат па?</string>
   <string name="shareYourInsightsData">Шахмат жайлы ойларыңызды бөлісу</string>
   <string name="withNobody">Ешкіммен</string>
@@ -712,7 +713,7 @@
   <string name="phoneAndTablet">Телепон мен планшет</string>
   <string name="bulletBlitzClassical">Буллит, блитц, классикалық</string>
   <string name="correspondenceChess">Пошталық шахмат</string>
-  <string name="onlineAndOfflinePlay">Онлайн және оффлайн ойнау</string>
+  <string name="onlineAndOfflinePlay">Онлайн мен оффлайн ойнау</string>
   <string name="viewTheSolution">Жауабты қарау</string>
   <string name="followAndChallengeFriends">Достарыңызға серік болып, ойынға шақыру</string>
   <plurals name="availableInNbLanguages">
@@ -747,7 +748,7 @@
   <string name="directlySupportLichess">Личесті тікелей қолдау</string>
   <string name="playChessInStyle">Сәнді бола ойнаңыз</string>
   <string name="chessBasics">Шахмат әліппесі</string>
-  <string name="coaches">Ұстаздар</string>
+  <string name="coaches">Бапкерлер</string>
   <string name="invalidPgn">Қате PGN</string>
   <string name="invalidFen">Қате FEN</string>
   <string name="error.minLength">Кем дегенде %s таңба керек</string>
@@ -851,7 +852,7 @@
   <string name="correspondenceDesc">Хат алмасып ойнау: бір жүріске бір не бірнеше күн</string>
   <string name="puzzleDesc">Шахмат тактикасын үйретуші</string>
   <string name="important">Ескерту</string>
-  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">Сіздің сұрағыңызға %1$s жауап табылар</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Сіздің сұрағыңызға %1$s жауап табылар</string>
   <string name="inTheFAQ">ЖҚС-да</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Бір қолданушының дөрекі қылығына не алдап ойнады деп шағымдану үшін %1$s</string>
   <string name="useTheReportForm">шағым үлгісін қолданыңыз</string>

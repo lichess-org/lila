@@ -1,2 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessClasses">Часове</string>
+  <string name="teachClassesOfChessStudents">Води часове с ученици на шахмат с инструмента Lichess Часове.</string>
+  <string name="features">Функционалности</string>
+  <string name="quicklyGenerateSafeUsernames">Бързо създаване на безопасни потребителски имена и пароли за ученици</string>
+  <string name="trackStudentProgress">Следи прогреса на учениците в игри и пъзели</string>
+  <string name="messageAllStudents">Изпрати съобщение на всички ученици за нов учебен материал</string>
+  <string name="freeForAllForever">100% безплатно, безкрайно, без реклами и следене</string>
+  <string name="applyToBeLichessTeacher">Кандидатствай за Lichess учител</string>
+  <string name="noClassesYet">Все още няма часове.</string>
+  <string name="teachersX">Учители: %s</string>
+  <string name="newClass">Нов клас</string>
+  <string name="closeClass">Затвори часа</string>
+  <string name="closedByX">Затворен от %s</string>
+  <string name="reopen">Повторно отваряне</string>
+  <string name="removeStudent">Премахни ученик</string>
+  <string name="removedStudents">Премахнат</string>
+  <string name="inviteTheStudentBack">Покани ученик отново</string>
+  <string name="sendAMessage">Изпрати съобщение до всички ученици.</string>
+  <string name="aLinkToTheClassWillBeAdded">Адресът на класа ще бъде добавен автоматично към края на съобщението и няма нужда да го добавяте ръчно.</string>
+  <string name="className">Име на час</string>
+  <string name="classDescription">Описание на часа</string>
+  <string name="visibleByBothStudentsAndTeachers">Видим от учители и ученици</string>
+  <string name="teachersOfTheClass">Учители на класа</string>
+  <string name="addLichessUsernames">Добавете Lichess потребителските имена, за да ги поканите като учители. Едно за всеки ред.</string>
+  <string name="theyMustFirstApply">Те трябва да кандидатстват за Lichess Учители.</string>
+  <string name="resetPassword">Възстанови парола</string>
+  <string name="makeSureToCopy">Копирайте генерираната парола. Няма да може да я видите след това!</string>
+  <string name="passwordX">Парола: %s</string>
+  <string name="generateANewPassword">Генерирайте нова парола за ученика</string>
+  <string name="invitedToXByY">Поканен в %1$s от %2$s</string>
+  <string name="realName">Истинско име</string>
+  <string name="privateWillNeverBeShown">Поверително. Това няма да бъде показано извън класа. Помага да запомните кой е ученикът.</string>
+  <string name="addStudent">Добави ученик</string>
+  <string name="lichessProfileXCreatedForY">Lichess профил %1$s създаден за %2$s.</string>
+  <string name="studentCredentials">Ученик: %1$s
+Потребителско име: %2$s
+Парола: %3$s</string>
+  <string name="inviteALichessAccount">Поканете Lichess акаунт</string>
+  <string name="inviteDesc1">Ако ученикът вече има Lichess акаунт, може да го добавите в класа.</string>
+  <string name="inviteDesc2">Те ще получат съобщение в Lichess с линк, с който могат да влязат в класа.</string>
+  <string name="inviteDesc3">Важно: канете само ученици, които познавате и които активно ще се включват в час.</string>
+  <string name="inviteDesc4">Никога не изпращайте нежелани покани към други потребители.</string>
+  <string name="createANewLichessAccount">Създадете нов Lichess акаунт</string>
+  <string name="createDesc1">Ако ученикът няма Lichess акаунт, можете да създадете негов тук.</string>
+  <string name="createDesc2">Няма нужда от e-mail адрес. Паролата ще се генерира автоматично, а Вие трябва да я предадете на ученика, за да могат да влязат.</string>
+  <string name="createDesc3">Важно: учениците не трябва да имат няколко акаунта.</string>
+  <string name="createDesc4">Ако вече имат акаунт, използвайте тази форма.</string>
+  <string name="lichessUsername">Lichess потребителско име</string>
+  <string name="generateANewUsername">Генерирайте ново потребителско име</string>
+  <string name="welcomeToClass">Добре дошли във Вашият клас: %s.
+Ето линк за достъп към класа.</string>
+  <string name="invitationToClass">Вие сте поканен да влезете в класа \"%s\" като ученик.</string>
+  <string name="clickToViewInvitation">Натиснете тук, за да приемете поканата:</string>
+</resources>

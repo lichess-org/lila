@@ -1,2 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessCoaches">Личес бапкерлері</string>
+  <string name="lichessCoach">Личес бапкері</string>
+  <string name="areYouCoach">Сіз %s атағына ие мықты бапкерсіз бе?</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">Ұлттық шебер не FIDE</string>
+  <string name="confirmTitle">Атағыңызды осы жерде растап, тапсырысты жіберіңіз, біз оны тексеретін боламыз.</string>
+  <string name="sendApplication">Бізге %s поштасына жазыңыз, тапсырысыңызды тексеретін боламыз.</string>
+  <string name="location">Мекен</string>
+  <string name="languages">Тілдер</string>
+  <string name="rating">Рейтинг</string>
+  <string name="hourlyRate">Бір сағаттық ақы</string>
+  <string name="availability">Есігіңіз ашық</string>
+  <string name="accepting">Шәкірттерді қабылдау</string>
+  <string name="notAccepting">Әзірге шәкірттерді қабылдау жоқ</string>
+  <string name="xCoachesStudents">%s шәкірттерді жаттықтырады</string>
+  <string name="viewXProfile">%s Личес куәлігін қарау</string>
+  <string name="sendPM">Жеке хабар жіберу</string>
+  <string name="aboutMe">Өзім туралы</string>
+  <string name="playingExperience">Шахмат тәжірибем</string>
+  <string name="teachingExperience">Жаттықтыру тәжірибем</string>
+  <string name="otherExperiences">Басқа тәжірибем</string>
+  <string name="bestSkills">Озық қабілеттерім</string>
+  <string name="teachingMethod">Жаттықтыру әдістемем</string>
+  <string name="publicStudies">Жалпыға ашық зерттеулер</string>
+  <string name="youtubeVideos">YouTube видеолар</string>
+  <plurals name="studentReviews">
+    <item quantity="one">Бір шәкірттің пікірі</item>
+    <item quantity="other">%s шәкірттің пікірі</item>
+  </plurals>
+  <string name="thankYouForReview">Пікіріңіз үшін рахмет!</string>
+  <string name="xWillApproveIt">%s жақын арада тексереді немесе модератор қарайтын болады.</string>
+  <string name="reviewCoach">Осы бапкер туралы пікір қалдыру</string>
+  <string name="describeExperienceWith">Сізді жаттықтырған %s бапкердің жұмысын сипаттап беріңіз</string>
+</resources>

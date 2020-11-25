@@ -52,7 +52,7 @@ Lichess bruker Stockfish til maskinanalyse.</string>
 Dette kan i sjeldne tilfeller være vanskelig å avgjøre automatisk (tvungne linjer, festninger). Da holder vi med spilleren der tiden ikke løp ut.
 
 Legg merke til at den kan være mulig å matte med en enkelt springer eller løper hvis motstanderen har en brikke som kan blokkere kongen.</string>
-  <string name="fideHandbookX">FIDEs håndbok %s</string>
+  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDEs håndbok %s</string>
   <string name="discoveringEnPassant">Hvorfor kan en bonde slå en annen bonde når den allerede er passert? (en passant)</string>
   <string name="explainingEnPassant">Dette er et lovlig trekk kjent som \"en passant\". Wikipedia-artikkelen gir en %1$s.
 

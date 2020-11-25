@@ -22,6 +22,8 @@
   <string name="eightVariants">An 8 eilstumm echedoù</string>
   <string name="discoveringEnPassant">Perak e c\'hall ur pezh gwerin pakañ unan all daoust ma \'z eo tremenet hebioù dija? (en ur dremen)</string>
   <string name="officialRulesPDF">reolennoù ofisiel (PDF)</string>
+  <string name="lichessTraining">Gourdonadur Lichess</string>
+  <string name="threefoldRepetition">Teir gwech an hevelep plegenn</string>
   <string name="positions">lec\'hiadurioù</string>
   <string name="accounts">Kontoù</string>
   <string name="titlesAvailableOnLichess">Peseurt titloù a vo kavet war Lichess?</string>

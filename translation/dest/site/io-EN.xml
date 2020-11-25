@@ -40,7 +40,15 @@
   <string name="offerDraw">Ofrar egaligo</string>
   <string name="draw">Egaligo</string>
   <string name="currentGames">Nuna Ludi</string>
-  <string name="viewInFullSize">Vidar plengrande</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s ludo</item>
+    <item quantity="other">%s ludi</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s paginomarko</item>
+    <item quantity="other">%s Paginomarki</item>
+  </plurals>
+  <string name="viewInFullSize">Vidar plengrandeso</string>
   <string name="logOut">Eksalutar</string>
   <string name="signIn">Ensalutar</string>
   <string name="signUp">Enrejistrar</string>
@@ -87,8 +95,20 @@
   <string name="incrementInSeconds">Kreskajo en sekundi</string>
   <string name="freeOnlineChess">Libera Enlinea Shakoludo</string>
   <string name="spectators">Spekteri:</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s vinko</item>
+    <item quantity="other">%s vinki</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s desvinko</item>
+    <item quantity="other">%s desvinki</item>
+  </plurals>
   <string name="exportGames">Exportacar ludi</string>
   <string name="ratingRange">Elo-rango</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">Donar %s sekundo</item>
+    <item quantity="other">Donar %s sekundi</item>
+  </plurals>
   <string name="takeback">Ripreno</string>
   <string name="proposeATakeback">Propozar ripreno</string>
   <string name="takebackPropositionSent">Riprenopropozo sendita</string>

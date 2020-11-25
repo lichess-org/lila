@@ -1,2 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="hourlyRapidArena">Đấu trường cờ nhanh hàng giờ</string>
+  <string name="hourlyRapid">Cờ nhanh hàng giờ</string>
+  <string name="hourlyXArena">Đấu trường %s hàng giờ</string>
+  <string name="hourlyX">%s hàng giờ</string>
+  <string name="dailyRapidArena">Đấu trường cờ nhanh hàng ngày</string>
+  <string name="dailyRapid">Cờ nhanh hàng ngày</string>
+  <string name="dailyClassicalArena">Đấu trường cờ chậm hàng ngày</string>
+  <string name="dailyClassical">Cờ chậm hàng ngày</string>
+  <string name="dailyXArena">Đấu trường %s hàng ngày</string>
+  <string name="dailyX">%s hàng ngày</string>
+  <string name="easternRapidArena">Đấu trường cờ nhanh phương Đông</string>
+  <string name="easternRapid">Cờ nhanh phương Đông</string>
+  <string name="easternClassicalArena">Đấu trường cờ chậm phương Đông</string>
+  <string name="easternClassical">Cờ chậm phương Đông</string>
+  <string name="easternXArena">Đấu trường %s phương Đông</string>
+  <string name="easternX">%s phương Đông</string>
+  <string name="weeklyRapidArena">Đấu trường cờ nhanh hàng tuần</string>
+  <string name="weeklyRapid">Cờ nhanh hàng tuần</string>
+  <string name="weeklyClassicalArena">Đấu trường cờ chậm hàng tuần</string>
+  <string name="weeklyClassical">Cờ chậm hàng tuần</string>
+  <string name="weeklyXArena">Đấu trường %s hàng tuần</string>
+  <string name="weeklyX">%s hàng tuần</string>
+  <string name="monthlyRapidArena">Đấu trường cờ nhanh hàng tháng</string>
+  <string name="monthlyRapid">Cờ nhanh hàng tháng</string>
+  <string name="monthlyClassicalArena">Đấu trường cờ chậm hàng tháng</string>
+  <string name="monthlyClassical">Cờ chậm hàng tháng</string>
+  <string name="monthlyXArena">Đấu trường %s hàng tháng</string>
+  <string name="monthlyX">%s hàng tháng</string>
+  <string name="yearlyRapidArena">Đấu trường cờ nhanh hàng năm</string>
+  <string name="yearlyRapid">Cờ nhanh hàng năm</string>
+  <string name="yearlyClassicalArena">Đấu trường cờ chậm hàng năm</string>
+  <string name="yearlyClassical">Cờ chậm hàng năm</string>
+  <string name="yearlyXArena">Đấu trường %s hàng năm</string>
+  <string name="yearlyX">%s hàng năm</string>
+  <string name="xArena">Đấu trường %s</string>
+</resources>

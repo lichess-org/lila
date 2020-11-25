@@ -4,5 +4,5 @@
   <string name="frequentlyAskedQuestions">အမေးးများသောမေးခွန်းများ</string>
   <string name="whyIsLichessCalledLichess">Lichess ကိုဘာလို့ Lichess လို့ခေါ်တာလဲ?</string>
   <string name="gameplay">ကစားခြင်း</string>
-  <string name="fideHandbookX">FIDE လက်စွဲစာအုပ် %s</string>
+  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDE လက်စွဲစာအုပ် %s</string>
 </resources>

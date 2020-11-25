@@ -11,7 +11,7 @@
   <string name="pgnPieceNotation">Жүрісті жазу тәртібі</string>
   <string name="chessPieceSymbol">Тас таңбасы</string>
   <string name="pgnLetter">Әріптер (K, Q, R, B, N)</string>
-  <string name="zenMode">Зен нұсқасы</string>
+  <string name="zenMode">Zen қалпы</string>
   <string name="displayBoardResizeHandle">Тақтаны үлкейту тұтқасын көрсету</string>
   <string name="onlyOnInitialPosition">Тек бастапқы күйде ғана</string>
   <string name="blindfoldChess">Бүркемелі шахмат (көрінбейтін тастар)</string>
@@ -31,7 +31,7 @@
   <string name="inCasualGamesOnly">Қалыпты ойындарда ғана</string>
   <string name="promoteToQueenAutomatically">Уәзірге автоматты түрде айналдыру</string>
   <string name="whenPremoving">Алдын-ала жүрісте</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Үш реттік қайталау болса, автоматты түрде тепе-теңдік жариялау</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Үш реттік қайталану болса, автоматты түрде тепе-теңдік жариялау</string>
   <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">30 секунд қалғанда</string>
   <string name="moveConfirmation">Жүрісті растау</string>
   <string name="inCorrespondenceGames">Хат алмасып ойнағанда</string>
