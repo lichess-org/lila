@@ -851,7 +851,7 @@
   <string name="correspondenceDesc">अतिशय संथ खेळ: एक किंवा अनेक दिवस एका चालीसाठी</string>
   <string name="puzzleDesc">बुद्धिबळाच्या डावपेचाचा प्रशिक्षक</string>
   <string name="important">महत्वाचे</string>
-  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">तुमच्या प्रश्नाचे उत्तर अगोदरच दिलेले आहे %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered">तुमच्या प्रश्नाचे उत्तर अगोदरच दिलेले आहे %1$s</string>
   <string name="inTheFAQ">सामान्य प्रश्न संचामध्ये.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">वापरकर्त्यास फसवणूक किंवा वाईट वर्तन नोंदवण्यासाठी, %1$s</string>
   <string name="useTheReportForm">अहवाल फॉर्म वापरा</string>
