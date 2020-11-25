@@ -44,6 +44,7 @@ export type StatusName =
   | "resign"
   | "stalemate"
   | "impasse"
+  | "perpetualCheck"
   | "timeout"
   | "draw"
   | "outoftime"

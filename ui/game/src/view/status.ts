@@ -18,6 +18,8 @@ export default function status(ctrl: Ctrl): string {
       return noarg("stalemate");
     case "impasse":
       return "Impasse (Try Rule)";
+    case "perpetualCheck":
+      return "Perpetual check (Illegal move)";
     case "timeout":
       switch (d.game.winner) {
         case "black":
