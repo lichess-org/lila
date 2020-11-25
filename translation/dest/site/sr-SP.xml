@@ -890,7 +890,7 @@
   <string name="correspondenceDesc">Дописна парија: један или више дана по потезу</string>
   <string name="puzzleDesc">Шаховски тренер тактике</string>
   <string name="important">Важно</string>
-  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">Ваше питање можда већ има одговор %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Ваше питање можда већ има одговор %1$s</string>
   <string name="inTheFAQ">у често постављеним питањима (F.A.Q.)</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Да бисте пријавили корисника због варања или лошег понашања, %1$s</string>
   <string name="useTheReportForm">користите образац за пријаву</string>
