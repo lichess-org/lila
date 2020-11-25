@@ -52,7 +52,7 @@ Esimerkiksi 5+3 pelin arvioitu kesto on 5 × 60 + 40 × 3 = 420 sekuntia.</strin
  Harvoissa tapauksissa (pakotetut siirtosarjat, puolustuslinnakkeet) tämän määrittäminen automaattisesti voi olla vaikeaa. Oletusarvoisesti pidämme sen pelaajan puolta, jolta ei loppunut aika.
 
  Huomaa, että matinteko yhdellä ratsulla tai lähetillä voi olla mahdollista, jos vastapelaajalla on nappula, joka voisi viedä hänen kuninkaaltaan pakoruudun.</string>
-  <string name="fideHandbookX">FIDEn käsikirja %s</string>
+  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDEn käsikirja %s</string>
   <string name="discoveringEnPassant">Miksi sotilas voi lyödä toisen sotilaan, kun se on jo kulkenut ohitse? (ohestalyönti)</string>
   <string name="explainingEnPassant">Tämä sallittu siirto tunnetaan ohestalyöntinä (\"en passant\"). Wikipediassa on %1$s ohestalyöntiin.
 
