@@ -17,6 +17,13 @@ final class AppLoader extends ApplicationLoader {
 
 final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInComponentsFromContext(ctx) {
 
+  // https://www.scala-lang.org/api/2.13.4/scala/concurrent/ExecutionContext%24.html#global:scala.concurrent.ExecutionContextExecutor
+  implicit val ec: scala.concurrent.ExecutionContext =
+    scala.concurrent.ExecutionContext.getClass
+      .getDeclaredMethod("opportunistic")
+      .invoke(scala.concurrent.ExecutionContext)
+      .asInstanceOf[scala.concurrent.ExecutionContext]
+
   LoggerConfigurator(ctx.environment.classLoader).foreach {
     _.configure(ctx.environment, ctx.initialConfiguration, Map.empty)
   }
