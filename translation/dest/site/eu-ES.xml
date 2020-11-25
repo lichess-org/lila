@@ -531,6 +531,7 @@
   <string name="currentPassword">Oraingo pasahitza</string>
   <string name="newPassword">Pasahitz berria</string>
   <string name="newPasswordAgain">Pasahitz berria (berriro)</string>
+  <string name="newPasswordsDontMatch">Pasahitz berriak ez datoz bat</string>
   <string name="clockInitialTime">Erlojuaren hasierako denbora</string>
   <string name="clockIncrement">Denbora gehigarria</string>
   <string name="privacy">Pribatutasuna</string>
