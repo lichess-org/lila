@@ -531,6 +531,7 @@
   <string name="currentPassword">Contraseña actual</string>
   <string name="newPassword">Nueva contraseña</string>
   <string name="newPasswordAgain">Nueva contraseña (otra vez)</string>
+  <string name="newPasswordsDontMatch">Las contraseñas nuevas no coinciden</string>
   <string name="clockInitialTime">Tiempo inicial del reloj</string>
   <string name="clockIncrement">Incremento</string>
   <string name="privacy">Privacidad</string>
