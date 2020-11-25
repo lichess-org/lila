@@ -135,7 +135,7 @@ final class SecurityForm(
       "newPasswd1" -> nonEmptyText(minLength = passwordMinLength),
       "newPasswd2" -> nonEmptyText(minLength = passwordMinLength)
     )(PasswordResetConfirm.apply)(PasswordResetConfirm.unapply).verifying(
-      "the new passwords don't match",
+      "newPasswordsDontMatch",
       _.samePasswords
     )
   )
