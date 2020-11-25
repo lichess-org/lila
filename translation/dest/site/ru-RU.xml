@@ -927,7 +927,7 @@
   <string name="correspondenceDesc">Игры по переписке: один или несколько дней на ход</string>
   <string name="puzzleDesc">Тактический тренажёр</string>
   <string name="important">Важно</string>
-  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">На ваш вопрос уже мог быть дан ответ %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered">На ваш вопрос уже мог быть дан ответ %1$s</string>
   <string name="inTheFAQ">в ЧаВо</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Чтобы сообщить о мошенничестве или недостойном поведении, %1$s</string>
   <string name="useTheReportForm">заполните форму обращения</string>
