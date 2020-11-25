@@ -591,6 +591,7 @@
   <string name="currentPassword">Aktuálne heslo</string>
   <string name="newPassword">Nové heslo</string>
   <string name="newPasswordAgain">Nové heslo (znovu)</string>
+  <string name="newPasswordsDontMatch">Zadané heslá sa nezhodujú</string>
   <string name="clockInitialTime">Počiatočný čas na hodinách</string>
   <string name="clockIncrement">Časový prírastok</string>
   <string name="privacy">Súkromie</string>
