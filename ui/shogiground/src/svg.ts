@@ -1,5 +1,5 @@
 import { State } from './state'
-import { key2pos } from './util'
+import { key2pos, createEl } from './util'
 import { Drawable, DrawShape, DrawShapePiece, DrawBrush, DrawBrushes, DrawModifiers } from './draw'
 import * as cg from './types'
 
@@ -117,7 +117,6 @@ function modifiersHash(m: DrawModifiers): Hash {
 function renderShape(state: State, { shape, current, hash }: Shape, brushes: DrawBrushes, arrowDests: ArrowDests, bounds: ClientRect): SVGElement {
   let el: SVGElement;
   if (shape.piece) el = renderPiece(
-    state.drawable.pieces.baseUrl,
     orient(key2pos(shape.orig), state.orientation),
     shape.piece,
     bounds);
@@ -177,18 +176,21 @@ function renderArrow(brush: DrawBrush, orig: cg.Pos, dest: cg.Pos, current: bool
   });
 }
 
-function renderPiece(baseUrl: string, pos: cg.Pos, piece: DrawShapePiece, bounds: ClientRect): SVGElement {
+function renderPiece(pos: cg.Pos, piece: DrawShapePiece, bounds: ClientRect): SVGElement {
   const o = pos2px(pos, bounds),
-    size = bounds.width / 9 * (piece.scale || 1),
-    name = piece.color[0] + (piece.role === 'knight' ? 'n' : piece.role[0]).toUpperCase();
-  return setAttributes(createElement('image'), {
+    size = bounds.width / 9 * (piece.scale || 1);
+  let el = setAttributes(createElement('foreignObject'), {
     className: `${piece.role} ${piece.color}`,
     x: o[0] - size / 2,
     y: o[1] - size / 2,
     width: size,
-    height: size,
-    href: baseUrl + name + '.svg'
+    height: size
   });
+  let pieceEl = createEl('piece', `${piece.color} ${piece.role}`);
+  pieceEl.style.width = "100%";
+  pieceEl.style.height = "100%";
+  el.append(pieceEl);
+  return el;
 }
 
 function renderMarker(brush: DrawBrush): SVGElement {
