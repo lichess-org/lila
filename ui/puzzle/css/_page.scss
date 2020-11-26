@@ -1,0 +1,23 @@
+.puzzle-themes {
+
+  &__link {
+    @extend %box-padding-horiz;
+    display: block;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    &:hover {
+      background: mix($c-bg-box, $c-link, 90%);
+    }
+
+    strong {
+      font-weight: normal;
+      font-size: 2.5em;
+      display: block;
+      em {
+        @extend %roboto;
+        color: $c-font-dimmer;
+        margin-left: 1ch;
+      }
+    }
+  }
+}

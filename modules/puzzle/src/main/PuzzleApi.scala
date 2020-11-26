@@ -9,7 +9,8 @@ import lila.memo.CacheApi
 import lila.user.{ User, UserRepo }
 
 final private[puzzle] class PuzzleApi(
-    colls: PuzzleColls
+    colls: PuzzleColls,
+    pathApi: PuzzlePathApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Puzzle.{ BSONFields => F }
@@ -22,6 +23,8 @@ final private[puzzle] class PuzzleApi(
 
     def delete(id: Puzzle.Id): Funit =
       colls.puzzle(_.delete.one($id(id.value))).void
+
+    def count = colls.puzzle(_.countAll).dmap(_.toInt)
   }
 
   object round {
@@ -55,6 +58,30 @@ final private[puzzle] class PuzzleApi(
             _.incField($id(id), F.vote, voteToInt(vote) - voteToInt(prevRound.vote)).void
           }
         case _ => funit
+      }
+  }
+
+  object theme {
+
+    def sortedWithCount: Fu[List[PuzzleTheme.WithCount]] =
+      colls.path {
+        _.aggregateList(Int.MaxValue) { framework =>
+          import framework._
+          Match($doc("tier" -> "all")) -> List(
+            GroupField("tag")(
+              "count" -> SumField("length")
+            )
+          )
+        }.map { objs =>
+          val byKey = objs.flatMap { obj =>
+            for {
+              key   <- obj string "_id" map PuzzleTheme.Key
+              count <- obj int "count"
+              theme <- PuzzleTheme.byKey get key
+            } yield key -> PuzzleTheme.WithCount(theme, count)
+          }.toMap
+          PuzzleTheme.sorted.flatMap(pt => byKey.get(pt.key))
+        }
       }
   }
 }

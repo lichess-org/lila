@@ -7,6 +7,7 @@ import views._
 import lila.api.Context
 import lila.app._
 import lila.common.config.MaxPerSecond
+import lila.puzzle.PuzzleTheme
 import lila.puzzle.{ Result, PuzzleRound, Puzzle => Puz }
 
 final class Puzzle(
@@ -54,7 +55,7 @@ final class Puzzle(
   def home =
     Open { implicit ctx =>
       NoBot {
-        nextPuzzleForMe flatMap {
+        nextPuzzleForMe() flatMap {
           renderShowWithRound(_, none)
         }
       }
@@ -82,17 +83,18 @@ final class Puzzle(
     Open { implicit ctx =>
       NoBot {
         XhrOnly {
-          nextPuzzleForMe flatMap { renderJson(_, none) } map { json =>
+          nextPuzzleForMe() flatMap { renderJson(_, none) } map { json =>
             Ok(json) as JSON
           }
         }
       }
     }
 
-  private def nextPuzzleForMe(implicit ctx: Context): Fu[Puz] = ctx.me match {
-    case None     => env.puzzle.anon.getOne orFail "Couldn't find a puzzle for anon!"
-    case Some(me) => env.puzzle.cursor.nextPuzzleFor(me)
-  }
+  private def nextPuzzleForMe(theme: Option[PuzzleTheme.Key] = None)(implicit ctx: Context): Fu[Puz] =
+    ctx.me match {
+      case _ => env.puzzle.anon.getOneFor(theme) orFail "Couldn't find a puzzle for anon!"
+      // case Some(me) => env.puzzle.cursor.nextPuzzleFor(me)
+    }
 
   def round3(id: String) =
     OpenBody { implicit ctx =>
@@ -201,7 +203,19 @@ final class Puzzle(
     }
 
   def themes = Open { implicit ctx =>
-    Ok(views.html.puzzle.theme.list).fuccess
+    env.puzzle.api.theme.sortedWithCount map { themes =>
+      Ok(views.html.puzzle.theme.list(themes))
+    }
+  }
+
+  def byTheme(theme: String) = Open { implicit ctx =>
+    lila.puzzle.PuzzleTheme.byKey.get(PuzzleTheme.Key(theme)) match {
+      case None => Redirect(routes.Puzzle.home()).fuccess
+      case Some(theme) =>
+        nextPuzzleForMe(theme.key.some) flatMap {
+          renderShowWithRound(_, none)
+        }
+    }
   }
 
   def frame =

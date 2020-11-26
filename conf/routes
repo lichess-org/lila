@@ -85,6 +85,7 @@ GET   /training/export/gif/thumbnail/:id.gif controllers.Export.puzzleThumbnail(
 GET   /training/batch                  controllers.Puzzle.batchSelect
 POST  /training/batch                  controllers.Puzzle.batchSolve
 GET   /training/themes                 controllers.Puzzle.themes
+GET   /training/:theme                 controllers.Puzzle.byTheme(theme: String)
 GET   /training/$id<\w{5}>             controllers.Puzzle.show(id: String)
 GET   /training/$id<\w{5}>/load        controllers.Puzzle.load(id: String)
 POST  /training/$id<\w{5}>/vote        controllers.Puzzle.vote(id: String)

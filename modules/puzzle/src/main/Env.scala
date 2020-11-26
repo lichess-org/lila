@@ -53,6 +53,8 @@ final class Env(
 
   lazy val jsonView = wire[JsonView]
 
+  private lazy val pathApi = wire[PuzzlePathApi]
+
   lazy val api: PuzzleApi = wire[PuzzleApi]
 
   lazy val cursor: PuzzleCursorApi = wire[PuzzleCursorApi]
