@@ -228,7 +228,7 @@ final class JsonView(
             "id"         -> gameId,
             "variant"    -> game.variant,
             "opening"    -> game.opening,
-            "initialFen" -> initialFen.fold(chess.format.Forsyth.initial)(_.value),
+            "initialFen" -> (initialFen | chess.format.Forsyth.initial),
             "fen"        -> fen,
             "turns"      -> game.turns,
             "player"     -> game.turnColor.name,

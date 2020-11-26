@@ -26,7 +26,7 @@
   <string name="leavingGameWithoutResigningExplanation">Если ваш соперник часто прерывает или покидает игру, он временно блокируется, при этом признак блокировки видит только он сам. Если после окончания блокировки он продолжает вести себя так же, он опять блокируется, но уже на более длительный срок. В дальнейшем его учётная запись может быть полностью заблокирована.</string>
   <string name="howCanIBecomeModerator">Могу ли я стать модератором?</string>
   <string name="youCannotApply">Мы не принимаем заявки на просьбу стать модератором. Если мы видим, что кто-то, по нашему мнению, может стать хорошим модератором, мы сами с ним связываемся напрямую.</string>
-  <string name="isCorrespondenceDifferent">Игра по переписке отличается от обычной игры?</string>
+  <string name="isCorrespondenceDifferent">отличается ли корреспонденция от обычной шахматы?</string>
   <string name="youCanUseOpeningBookNoEngine">В Lichess основное отличие в правилах для игры по переписке заключается в том, что доступна книга дебютов. Использование компьютерных программ запрещено и может привести к блокировке за жульничество. Несмотря на то, что международной ассоциацией игры по переписке ICCF помощь компьютерных программ разрешена, на Lichess это не так.</string>
   <string name="gameplay">Описание игры</string>
   <string name="howBulletBlitzEtcDecided">Как определяется тип игры: пуля, блиц и т. д., в зависимости от контроля времени?</string>
@@ -52,7 +52,7 @@
  В редких случаях бывает трудно вынести решение автоматически (серия вынужденных ходов, крепость). По умолчанию мы принимаем сторону того игрока, чьё время не вышло.
 
  Имейте в виду, что мат возможен и одним конём, и слоном, если у соперника есть фигура или пешка, способная заблокировать его короля.</string>
-  <string name="fideHandbookX">Правила ФИДЕ %s</string>
+  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">Правила ФИДЕ %s</string>
   <string name="discoveringEnPassant">Почему можно взять пешку, когда она уже прошла битое поле? (взятие на проходе)</string>
   <string name="explainingEnPassant">Это ход, известный как «взятие на проходе». Статья в Википедии даёт %1$s.
 

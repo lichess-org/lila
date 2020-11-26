@@ -146,19 +146,18 @@ final private class ExplorerIndexer(
             usernames.find(_.toLowerCase == id)
           } orElse game.player(color).userId getOrElse "?"
         val fenTags = initialFen.?? { fen =>
-          List(s"[FEN $fen]")
+          List(Tag(_.FEN, fen))
         }
-        val timeControl = Tag.timeControl(game.clock.map(_.config)).value
         val otherTags = List(
-          s"[LichessID ${game.id}]",
-          s"[Variant ${game.variant.name}]",
-          s"[TimeControl $timeControl]",
-          s"[White ${username(chess.White)}]",
-          s"[Black ${username(chess.Black)}]",
-          s"[WhiteElo $whiteRating]",
-          s"[BlackElo $blackRating]",
-          s"[Result ${PgnDump.result(game)}]",
-          s"[Date ${pgnDateFormat.print(game.createdAt)}]"
+          Tag("LichessID", game.id),
+          Tag(_.Variant, game.variant.name),
+          Tag.timeControl(game.clock.map(_.config)),
+          Tag(_.White, username(chess.White)),
+          Tag(_.Black, username(chess.Black)),
+          Tag(_.WhiteElo, whiteRating),
+          Tag(_.BlackElo, blackRating),
+          Tag(_.Result, PgnDump.result(game)),
+          Tag(_.Date, pgnDateFormat.print(game.createdAt))
         )
         val allTags = fenTags ::: otherTags
         s"${allTags.mkString("\n")}\n\n${game.pgnMoves.take(maxPlies).mkString(" ")}".some

@@ -26,9 +26,6 @@ object reopen {
         p(strong("This will only work once.")),
         p("If you close your account a second time, there will be no way of recovering it."),
         hr,
-        p(
-          "Solve the chess captcha below, and we will send you an email containing a link to reopen your account."
-        ),
         postForm(id := form.formId, cls := "form3", action := routes.Account.reopenApply())(
           error.map { err =>
             p(cls := "error")(strong(err))

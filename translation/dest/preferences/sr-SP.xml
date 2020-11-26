@@ -12,6 +12,7 @@
   <string name="chessPieceSymbol">симболи фигура</string>
   <string name="pgnLetter">Cлова (К, Q, R, B, N)</string>
   <string name="zenMode">зен стање</string>
+  <string name="displayBoardResizeHandle">Прикажи ручицу за мењање величине табле</string>
   <string name="onlyOnInitialPosition">Само на почетку партије</string>
   <string name="blindfoldChess">Шах на слепо</string>
   <string name="chessClock">Шаховски сат</string>
@@ -20,6 +21,7 @@
   <string name="horizontalGreenProgressBars">Хоризонтални зелени индикатор</string>
   <string name="soundWhenTimeGetsCritical">Звук када преостане мало времена</string>
   <string name="giveMoreTime">Додај још времена</string>
+  <string name="gameBehavior">Понашање игре</string>
   <string name="howDoYouMovePieces">Како померате фигуре?</string>
   <string name="clickTwoSquares">\"кликни\" два поља</string>
   <string name="dragPiece">вуци фигуру</string>

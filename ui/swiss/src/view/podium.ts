@@ -14,7 +14,11 @@ function podiumStats(p: PodiumPlayer, trans: Trans): VNode {
 }
 
 function podiumPosition(p: PodiumPlayer, pos: string, trans: Trans): VNode | undefined {
-  return p ? h('div.' + pos, [
+  return p ? h('div.' + pos, {
+    class: {
+      engine: !!p.engine
+    }
+  }, [
     h('div.trophy'),
     h('a.text.ulpt.user-link', {
       attrs: { href: '/@/' + p.user.name }

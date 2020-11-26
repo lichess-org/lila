@@ -18,7 +18,9 @@ case class Event(
     createdAt: DateTime,
     startsAt: DateTime,
     finishesAt: DateTime,
-    hostedBy: Option[User.ID] = None
+    hostedBy: Option[User.ID] = None,
+    icon: Option[String] = None,
+    countdown: Boolean
 ) {
 
   def willStartLater = startsAt.isAfterNow

@@ -1,2 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessStreamers">Retransmissors de Lichess</string>
+  <string name="lichessStreamer">Retransmissor de Lichess</string>
+  <string name="live">EN DIRECTE!</string>
+  <string name="offline">FORA DE LÍNIA</string>
+  <string name="currentlyStreaming">Retransmetent ara: %s</string>
+  <string name="lastStream">Última retransmissió %s</string>
+  <string name="becomeStreamer">Converteix-te en un retransmissor de Lichess</string>
+  <string name="doYouHaveStream">Tens un canal de Twitch o de YouTube?</string>
+  <string name="hereWeGo">Som-hi!</string>
+  <string name="allStreamers">Tots els retransmissors</string>
+  <string name="editPage">Editar pàgina del retransmissor</string>
+  <string name="yourPage">La teva pàgina de retransmissor</string>
+  <string name="downloadKit">Baixar l\'equip de retransmissor</string>
+  <string name="xIsStreaming">%s està retransmetent</string>
+  <string name="rules">Regles de retransmissió</string>
+  <string name="rule1">Inclou la paraula clau \"lichess.org\" en el títol de la teva retransmissió quan retransmetis a Lichess.</string>
+  <string name="rule2">Elimina la paraula clau quan retransmetis un contingut no relatiu a Lichess.</string>
+  <string name="rule3">Lichess detectarà la teva retransmissió automàticament i habilitarà els següents incentius:</string>
+  <string name="perks">Beneficis de retransmetre amb la paraula clau</string>
+  <string name="perk1">Obtingues una icona de retransmissor al teu perfil de Lichess.</string>
+  <string name="perk2">Sigues ascendit a la part alta de la llista de retransmissors.</string>
+  <string name="perk3">Notifica als teus seguidors de Lichess.</string>
+  <string name="perk4">Mostra la teva retransmissió en les teves partides, tornejos i estudis.</string>
+  <string name="approved">La teva retransmissió està aprovada.</string>
+  <string name="pendingReview">La teva retransmissió està sent revisada pels moderadors.</string>
+  <string name="pleaseFillIn">Si us plau, emplena la informació com a retransmissor i puja una foto.</string>
+  <string name="whenReady">Quan estiguis llest per ser enumerat com a retransmissor de Lichess, %s</string>
+  <string name="requestReview">sol·licita una revisió d\'un moderador</string>
+  <string name="anotherLanguage">Si la retransmissió és en un idioma diferent a l\'anglès, afegeix l\'etiqueta d\'idioma correcta (%s), tancada entre claudàtors, a l\'inici del títol de la retransmissió.
+Per exemple, afegeix \"[CA]\" pel català, \"[ES]\" pel castellà, \"[FR]\" per francès, etc.
+Col·loca-ho en el títol de la retransmissió a la pàgina de Twitch o de YouTube, no en la configuració de la retransmissió de Lichess.
+Si la retransmissió és en anglès, no hi ha necessitat d\'afegir l\'etiqueta d\'idioma.</string>
+  <string name="twitchUsername">El teu nom d\'usuari o URL de Twitch</string>
+  <string name="optionalOrEmpty">Opcional. Deixa-ho en blanc si no hi ha cap</string>
+  <string name="youtubeChannel">La teva ID o URL del teu canal de Youtube</string>
+  <string name="streamerName">El teu nom de retransmissor a Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Mantingues-ho breu: màxim %s caràcter</item>
+    <item quantity="other">Mantingues-ho breu: màxim %s caràcters</item>
+  </plurals>
+  <string name="visibility">Visible a la pàgina de retransmissors</string>
+  <string name="whenApproved">Quan ho aprovin els moderadors</string>
+  <string name="headline">Encapçalament</string>
+  <string name="tellUsAboutTheStream">En una frase, explica\'ns sobre la teva retransmissió</string>
+  <string name="longDescription">Descripció llarga</string>
+  <string name="xStreamerPicture">%s imatge de retransmissor</string>
+  <string name="changePicture">Canvia/elimina la teva imatge</string>
+  <string name="uploadPicture">Puja una imatge</string>
+  <string name="deletePicture">Elimina la imatge</string>
+  <string name="maxSize">Grandària màxima: %s</string>
+  <string name="installBlocker">Instal·la un bloquejador de programari maliciós!</string>
+  <string name="beSafe">Mantingues-te fora de perill d\'anuncis i rastrejadors 
+que infesten Twitch i YouTube.
+Lichess recomana uBlock Origina
+que és gratuït i de codi obert.</string>
+</resources>

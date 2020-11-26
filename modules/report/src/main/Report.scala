@@ -120,7 +120,7 @@ object Report {
     def urgency: Int =
       report.score.value.toInt +
         (isOnline ?? 1000) +
-        (report.closed ?? Int.MinValue)
+        (report.closed ?? -999999)
   }
 
   case class ByAndAbout(by: List[Report], about: List[Report]) {

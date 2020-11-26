@@ -1,6 +1,5 @@
 package lila.fishnet
 
-import chess.format.Forsyth
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
@@ -62,7 +61,7 @@ final class Analyser(
       case true => fuFalse
       case _ =>
         import req._
-        val sender = Work.Sender(req.userId.some, none, mod = false, system = false)
+        val sender = Work.Sender(req.userId, none, mod = false, system = false)
         limiter(sender, ignoreConcurrentCheck = true) flatMap { accepted =>
           if (!accepted) logger.info(s"Study request declined: ${req.studyId}/${req.chapterId} by $sender")
           accepted ?? {
@@ -75,7 +74,7 @@ final class Analyser(
                 moves = moves take maxPlies map (_.uci) mkString " "
               ),
               // if black moves first, use 1 as startPly so the analysis doesn't get reversed
-              startPly = initialFen.map(_.value).flatMap(Forsyth.getColor).fold(0)(_.fold(0, 1)),
+              startPly = initialFen.flatMap(_.color).??(_.fold(0, 1)),
               sender = sender
             )
             workQueue {

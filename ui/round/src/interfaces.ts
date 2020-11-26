@@ -20,6 +20,7 @@ export interface NvuiPlugin {
 }
 
 export interface SocketOpts {
+  sign: string;
   ackable: boolean;
   withLag?: boolean;
   millis?: number;

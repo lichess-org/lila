@@ -12,7 +12,7 @@
   <string name="chessPieceSymbol">Simbolo del pezzo</string>
   <string name="pgnLetter">Lettera (K, Q, R, B, N)</string>
   <string name="zenMode">Modalità Zen</string>
-  <string name="displayBoardResizeHandle">Mostra l\'icona di ridimensionamento della tastiera</string>
+  <string name="displayBoardResizeHandle">Mostra l\'icona di ridimensionamento della scacchiera</string>
   <string name="onlyOnInitialPosition">Solo sulla posizione iniziale</string>
   <string name="blindfoldChess">Scacchi alla cieca</string>
   <string name="chessClock">Orologio</string>
@@ -21,9 +21,9 @@
   <string name="horizontalGreenProgressBars">Barra verde orizzontale del tempo</string>
   <string name="soundWhenTimeGetsCritical">Suono quando sei a corto di tempo</string>
   <string name="giveMoreTime">Dai più tempo</string>
-  <string name="gameBehavior">Preferenze di gioco</string>
+  <string name="gameBehavior">Comportamento di gioco</string>
   <string name="howDoYouMovePieces">Come vuoi muovere i pezzi?</string>
-  <string name="clickTwoSquares">Click sulle caselle</string>
+  <string name="clickTwoSquares">Clicca su due caselle</string>
   <string name="dragPiece">Trascina il pezzo</string>
   <string name="bothClicksAndDrag">Entrambi</string>
   <string name="premovesPlayingDuringOpponentTurn">Pre-mosse (mentre tocca all\'avversario)</string>

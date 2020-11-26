@@ -1,8 +1,8 @@
 package lila.chat
 
-import lila.user.User
-
 import chess.Color
+
+import lila.user.{ Title, User }
 
 sealed trait Line {
   def text: String
@@ -16,7 +16,7 @@ sealed trait Line {
 
 case class UserLine(
     username: String,
-    title: Option[String],
+    title: Option[Title],
     text: String,
     troll: Boolean,
     deleted: Boolean
@@ -65,8 +65,9 @@ object Line {
         val troll   = sep == "!"
         val deleted = sep == "?"
         username split titleSep match {
-          case Array(title, name) => UserLine(name, Some(title), text, troll = troll, deleted = deleted).some
-          case _                  => UserLine(username, None, text, troll = troll, deleted = deleted).some
+          case Array(title, name) =>
+            UserLine(name, Title get title, text, troll = troll, deleted = deleted).some
+          case _ => UserLine(username, None, text, troll = troll, deleted = deleted).some
         }
       case _ => none
     }
@@ -75,7 +76,7 @@ object Line {
       if (x.troll) "!"
       else if (x.deleted) "?"
       else " "
-    val tit = x.title.??(_ + titleSep)
+    val tit = x.title.??(_.value + titleSep)
     s"$tit${x.username}$sep${x.text}"
   }
 

@@ -94,7 +94,10 @@ final class Env(
     Props(new Actor {
       def receive = {
         case lila.hub.actorApi.fishnet.AutoAnalyse(gameId) =>
-          analyser(gameId, Work.Sender(userId = none, ip = none, mod = false, system = true)).unit
+          analyser(
+            gameId,
+            Work.Sender(userId = lila.user.User.lichessId, ip = none, mod = false, system = true)
+          ).unit
         case req: lila.hub.actorApi.fishnet.StudyChapterRequest => analyser.study(req).unit
       }
     }),

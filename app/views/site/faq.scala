@@ -120,10 +120,10 @@ object faq {
             basedOnGameDuration(strong(durationFormula()))
           ),
           ul(
-            li(inferiorThanXsEqualYtimeControl(30, "UltraBullet")),
-            li(inferiorThanXsEqualYtimeControl(180, "Bullet")),
-            li(inferiorThanXsEqualYtimeControl(480, "Blitz")),
-            li(inferiorThanXsEqualYtimeControl(1500, trans.rapid())),
+            li(inferiorThanXsEqualYtimeControl(29, "UltraBullet")),
+            li(inferiorThanXsEqualYtimeControl(179, "Bullet")),
+            li(inferiorThanXsEqualYtimeControl(479, "Blitz")),
+            li(inferiorThanXsEqualYtimeControl(1499, trans.rapid())),
             li(superiorThanXsEqualYtimeControl(1500, trans.classical()))
           )
         ),

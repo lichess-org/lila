@@ -30,7 +30,8 @@ object topnav {
           ctx.noBot option frag(
             a(href := routes.Tournament.home())(trans.arena.arenaTournaments()),
             a(href := routes.Swiss.home())(trans.swiss.swissTournaments()),
-            a(href := routes.Simul.home())(trans.simultaneousExhibitions())
+            a(href := routes.Simul.home())(trans.simultaneousExhibitions()),
+            ctx.pref.hasDgt option a(href := routes.DgtCtrl.index())("DGT board")
           )
         )
       ),

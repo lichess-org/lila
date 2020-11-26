@@ -2,8 +2,7 @@ package lila.pref
 
 case class Pref(
     _id: String, // user id
-    dark: Boolean,
-    transp: Boolean,
+    bg: Int,
     bgImg: Option[String],
     is3d: Boolean,
     theme: String,
@@ -52,7 +51,7 @@ case class Pref(
   def realTheme3d    = Theme3d(theme3d)
   def realPieceSet3d = PieceSet3d(pieceSet3d)
 
-  def themeColor = if (transp || dark) "#2e2a24" else "#dbd7d1"
+  def themeColor = if (bg == Bg.LIGHT) "#dbd7d1" else "#2e2a24"
 
   def realSoundSet = SoundSet(soundSet)
 
@@ -60,12 +59,11 @@ case class Pref(
   def coordsClass    = Coords classOf coords
 
   def hasSeenVerifyTitle = tags contains Tag.verifyTitle
+  def hasDgt             = tags contains Tag.dgt
 
   def set(name: String, value: String): Option[Pref] =
     name match {
-      case "bg" =>
-        if (value == "transp") copy(dark = true, transp = true).some
-        else copy(dark = value == "dark", transp = false).some
+      case "bg"    => Pref.Bg.fromString.get(value).map { bg => copy(bg = bg) }
       case "bgImg" => copy(bgImg = value.some).some
       case "theme" =>
         Theme.allByName get value map { t =>
@@ -135,8 +133,32 @@ object Pref {
     val verify = (v: Int) => v == 0 || v == 1
   }
 
+  object Bg {
+    val LIGHT       = 100
+    val DARK        = 200
+    val DARKBOARD   = 300
+    val TRANSPARENT = 400
+
+    val choices = Seq(
+      LIGHT       -> "Light",
+      DARK        -> "Dark",
+      DARKBOARD   -> "Dark Board",
+      TRANSPARENT -> "Transparent"
+    )
+
+    val fromString = Map(
+      "light"     -> LIGHT,
+      "dark"      -> DARK,
+      "darkBoard" -> DARKBOARD,
+      "transp"    -> TRANSPARENT
+    )
+
+    val asString = fromString.map(_.swap)
+  }
+
   object Tag {
     val verifyTitle = "verifyTitle"
+    val dgt         = "dgt"
   }
 
   object Color {
@@ -383,8 +405,7 @@ object Pref {
 
   lazy val default = Pref(
     _id = "",
-    dark = false,
-    transp = false,
+    bg = Bg.LIGHT,
     bgImg = none,
     is3d = false,
     theme = Theme.default.name,

@@ -50,7 +50,7 @@ final class Cached(
       }
   }
 
-  val leaders = cacheApi[Team.ID, Set[User.ID]](32, "team.leaders") {
+  val leaders = cacheApi[Team.ID, Set[User.ID]](128, "team.leaders") {
     _.expireAfterWrite(1 minute)
       .buildAsyncFuture(teamRepo.leadersOf)
   }

@@ -3,7 +3,7 @@ package lila.study
 import cats.data.Validated
 import chess.Centis
 import chess.format.pgn.{ Dumper, Glyphs, ParsedPgn, San, Tags }
-import chess.format.{ FEN, Forsyth, Uci, UciCharPair }
+import chess.format.{ Forsyth, Uci, UciCharPair }
 
 import lila.common.LightUser
 import lila.importer.{ ImportData, Preprocessed }
@@ -33,7 +33,7 @@ object PgnImport {
           case (shapes, _, comments) =>
             val root = Node.Root(
               ply = replay.setup.turns,
-              fen = initialFen | FEN(game.variant.initialFen),
+              fen = initialFen | game.variant.initialFen,
               check = replay.setup.situation.check,
               shapes = shapes,
               comments = comments,
@@ -132,7 +132,7 @@ object PgnImport {
                     id = UciCharPair(uci),
                     ply = game.turns,
                     move = Uci.WithSan(uci, sanStr),
-                    fen = FEN(Forsyth >> game),
+                    fen = Forsyth >> game,
                     check = game.situation.check,
                     shapes = shapes,
                     comments = comments,

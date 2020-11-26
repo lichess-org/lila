@@ -1,16 +1,13 @@
 import StrongSocket from './socket';
 
-const li: any = window.lichess;
+const li: any = lichess;
 
 export default function moduleLaunchers() {
   if (li.userAnalysis) startUserAnalysis(li.userAnalysis);
-  else if (li.study) startAnalyse(li.study);
-  else if (li.practice) startAnalyse(li.practice);
-  else if (li.relay) startAnalyse(li.relay);
+  else if (li.study || li.practice || li.relay) startAnalyse(li.study || li.practice || li.relay);
 }
 
 function startUserAnalysis(cfg) {
-  cfg.initialPly = 'url';
   cfg.$side = $('.analyse__side').clone();
   startAnalyse(cfg);
 }

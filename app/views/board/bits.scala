@@ -28,11 +28,11 @@ object bits {
 
   def jsData(
       sit: chess.Situation,
-      fen: String,
+      fen: FEN,
       animationDuration: Duration
   )(implicit ctx: Context) =
     Json.obj(
-      "fen"     -> fen.split(" ").take(4).mkString(" "),
+      "fen"     -> fen.value.split(" ").take(4).mkString(" "),
       "baseUrl" -> s"$netBaseUrl${routes.Editor.load("")}",
       "color"   -> sit.color.letter.toString,
       "castles" -> Json.obj(

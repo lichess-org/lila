@@ -22,6 +22,8 @@ object Room {
     (v.key, v)
   } toMap
 
+  val allButXfiles: List[Room] = all.filter(Xfiles !=)
+
   implicit val roomIso = lila.common.Iso[String, Room](k => byKey.getOrElse(k, Other), _.key)
 
   def apply(key: String): Option[Room] = byKey get key
@@ -43,8 +45,8 @@ object Room {
       case Xfiles => Set.empty
     }
 
-  case class Counts(value: Map[Room, Int]) {
-    def get      = value.get _
-    lazy val sum = value.view.filterKeys(Xfiles !=).values.sum
+  case class Scores(value: Map[Room, Int]) {
+    def get     = value.get _
+    def highest = ~value.values.maxOption
   }
 }

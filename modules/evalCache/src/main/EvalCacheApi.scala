@@ -1,11 +1,11 @@
 package lila.evalCache
 
+import chess.format.FEN
+import chess.variant.Variant
 import org.joda.time.DateTime
 import play.api.libs.json.JsObject
 import scala.concurrent.duration._
 
-import chess.format.{ FEN, Forsyth }
-import chess.variant.Variant
 import lila.db.dsl._
 import lila.memo.CacheApi._
 import lila.socket.Socket
@@ -27,7 +27,7 @@ final class EvalCacheApi(
     ) map {
       _.map { JsonHandlers.writeEval(_, fen) }
     } addEffect { res =>
-      Forsyth getPly fen.value foreach { ply =>
+      fen.ply foreach { ply =>
         lila.mon.evalCache.request(ply, res.isDefined).increment()
       }
     }
@@ -95,5 +95,5 @@ final class EvalCacheApi(
     }
 
   private def destSize(fen: FEN): Int =
-    chess.Game(chess.variant.Standard.some, fen.value.some).situation.destinations.size
+    chess.Game(chess.variant.Standard.some, fen.some).situation.destinations.size
 }

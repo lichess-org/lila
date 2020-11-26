@@ -6,6 +6,8 @@
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess, live/light/libre yəni canlı/parlaq/libre ilə şahmatın kombinasiyasıdır. %1$s kimi tələffüz edilir.</string>
   <string name="leechess">lee-chess</string>
   <string name="hearItPronouncedBySpecialist">Bir mütəxəssisin tələffüzünə qulaq asın.</string>
+  <string name="whyLiveLightLibre">Canlı, çünki oyunlar real vaxt kəsiyində 24/7 oynanılır və izlənilir; Lichess açıq mənbəli bir sistem olduğu üçün ödənişsizdir, digər veb saytları narahat edən lazımsız tullantıları ehtiva etmədiyi üçün yüngüldür.</string>
+  <string name="whyIsLilaCalledLila">Oxşar olaraq, Lichess üçün mənbə kodu, %1$s, li[sca-da şahmat] mənasını verir, Lichess intuitiv proqramlaşdırma dili olan %2$s üzərində yazılmışdır.</string>
   <string name="howCanIContributeToLichess">Lichess-ə necə töhfə verə bilərəm?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess, himayədarların ianələri və bir könüllü komandanın səyləri ilə təchiz edilmişdir.</string>
   <string name="findMoreAndSeeHowHelp">%2$s da daxil olmaqla %1$s haqqında daha çox məlumat ala bilərsiniz. Əgər vaxtınız və bacarıqlarınızla Lichess-ə könüllü olaraq kömək etmək istəsəniz, burada çoxlu %3$s var.</string>
@@ -15,4 +17,9 @@
   <string name="areThereWebsitesBasedOnLichess">Lichess əsaslı veb saytlar var?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Bəli. Lichess əslində bizə məxsus %1$s, %2$s və ya %3$s istifadə edən digər açıq mənbəli saytlara ilham verdi.</string>
   <string name="fairPlay">Ədalətli Oyun</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">Niyə süni qiymətləndirmə manipulyasiyası üçün (başqalarından kömək alma və gücləndirmə) kompüterdən kömək almaq üzrə işarələndim?</string>
+  <string name="whenAmIEligibleRatinRefund">Hiyləyə qarşı itirdiyim xalları nə vaxt geri ala biləcəm?</string>
+  <string name="howCanIBecomeModerator">Necə moderator ola bilərəm?</string>
+  <string name="isCorrespondenceDifferent">Yazışmalı oyun normal şahmatdan fərqlidir?</string>
+  <string name="gameplay">Oynama</string>
 </resources>

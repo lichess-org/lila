@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="twoFactorAuth">Екі факторлы анықтау</string>
+  <string name="twoFactorHelp">Екі факторлы анықтау аккаунт қауіпсіздігіне қосымша тетік қосады.</string>
+  <string name="twoFactorApp">Екі факторлы анықтау үшін қолданба алыңыз, мысалы, %1$s не %2$s жүйелеріне арналған Google Authenticator.</string>
+  <string name="scanTheCode">QR кодты қолданбамен сканерлеңіз.</string>
+  <string name="enterPassword">Орнатуды аяқтау үшін құпиясөз бен қолданба шығарған анықтау кодын енгізіңіз. Аккаунтқа әр кірген сайын анықтау кодын енгізуіңіз керек.</string>
+  <string name="authenticationCode">Анықтау коды</string>
+  <string name="ifYouLoseAccess">Ескерту: Егер сіз екі факторлы анықтау кодтарын жоғалтып алсаңыз, құпиясөзді пошта арқылы қайта орнатуыңызға болады.</string>
+  <string name="enableTwoFactor">Екі факторлы анықтауды қосу</string>
+  <string name="disableTwoFactor">Екі факторлы анықтауды өшіру</string>
+  <string name="twoFactorEnabled">Екі факторлы анықтау қосылған</string>
+  <string name="twoFactorDisable">Екі факторлы анықтауды өшіру үшін сізге құпиясөз бен қолданба шығарған анықтау коды керек.
+Егер сіз екі факторлы анықтау кодтарын жоғалтып алсаңыз, құпиясөзді пошта арқылы қайта орнатуыңызға болады.</string>
+</resources>

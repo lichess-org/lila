@@ -35,7 +35,7 @@ final class SlackApi(
         val firsts    = Heapsort.topN(buffer, 10, amountOrdering).map(_.username).map(userAt).mkString(", ")
         val amountSum = buffer.map(_.amount).sum
         val patrons =
-          if (firsts.lengthIs > 10) s"$firsts and, like, ${firsts.lengthIs - 10} others,"
+          if (firsts.lengthIs > 10) s"$firsts and, like, ${firsts.length - 10} others,"
           else firsts
         displayMessage {
           s"$patrons donated ${amount(amountSum)}. Monthly progress: ${buffer.last.percent}%"

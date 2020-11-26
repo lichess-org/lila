@@ -1,2 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="team">Төркем</string>
+  <string name="teams">Төркемнәр</string>
+  <plurals name="nbMembers">
+    <item quantity="other">%s уенчы</item>
+  </plurals>
+  <string name="allTeams">Барлык төркемнәр</string>
+  <string name="newTeam">Яңа төркем</string>
+  <string name="myTeams">Төркемнәрем</string>
+  <string name="noTeamFound">Бер төркем дә табылмады</string>
+  <string name="joinTeam">Төркемгә кушылу</string>
+  <string name="quitTeam">Төркемнән чыгу</string>
+  <string name="anyoneCanJoin">Һәркем керә ала</string>
+  <string name="aConfirmationIsRequiredToJoin">Керү өчен раслау кирәк</string>
+  <string name="joiningPolicy">Кушылу кагыйдәләре</string>
+  <plurals name="teamLeaders">
+    <item quantity="other">Төркем җитәкчеләре</item>
+  </plurals>
+  <string name="teamBestPlayers">Иң яхшы уенчылар</string>
+  <string name="teamRecentMembers">Яңа кушылган уенчылар</string>
+  <string name="kickSomeone">Төркемнән куып чыгарырга</string>
+  <string name="whoToKick">Кемне куып чыгарырга телисез?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="other">%s кушылу соравы</item>
+  </plurals>
+  <string name="willBeReviewed">Сезнең кушылу соравыгызны төркем җитәкчесе карап чыгачак.</string>
+  <string name="beingReviewed">Сезнең кушылу соравыгызны төркем җитәкчесе карап чыга.</string>
+  <string name="teamBattle">Төркемнәр ярышы</string>
+  <string name="teamBattleOverview">Төрле төркемнәр ярышы, һәр уенче үзенең төркеме өчен баллар җыя</string>
+  <string name="teamTournament">Төркем турниры</string>
+  <string name="teamTournamentOverview">Сезнең төркем уенчылары гына кушыла алган Арена турниры</string>
+  <string name="messageAllMembers">Төркемнең бөтен уенчыларына хәбәр җибәрү</string>
+  <string name="messageAllMembersOverview">Төркемнең һәр уенчына шәхси хәбәр җибәрү</string>
+  <string name="messageAllMembersLongDescription">Төркемнең һәр уенчына шәхси хәбәр җибәрү.
+Сез моны уенчыларны турнирга я төркемнәр ярышына чакыру өчен итә аласыз.
+Сездән хәбәр алырга теләмәгән уенчылар төркемнән чыга ала.</string>
+  <string name="teamsIlead">Минем җитәкчелегемдә төркемнәр</string>
+</resources>

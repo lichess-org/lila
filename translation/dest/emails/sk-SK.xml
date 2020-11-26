@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Potvrďte svoj účet na lichess.org, %s</string>
-  <string name="emailConfirm_click">Kliknite na tento odkaz pre potvrdenie vášho účtu Lichess:</string>
+  <string name="emailConfirm_click">Kliknite na tento odkaz pre potvrdenie vášho Lichess účtu:</string>
   <string name="emailConfirm_ignore">Ak ste sa nezaregistrovali na Lichess, ignorujte tento e-mail.</string>
   <string name="passwordReset_subject">Obnovte si vaše lichess.org heslo, %s</string>
-  <string name="passwordReset_intro">Dostali sme žiadosť na obnovenie hesla k vášmu účtu.</string>
+  <string name="passwordReset_intro">Obdržali sme žiadosť na obnovenie hesla k Vášmu účtu.</string>
   <string name="passwordReset_clickOrIgnore">Ak ste vytvorili túto požiadavku, kliknite na odkaz nižšie. Ak nie, môžete ignorovať tento email.</string>
   <string name="emailChange_subject">Potvrďte novú emailovú adresu, %s</string>
-  <string name="emailChange_intro">Požiadali ste o zmenu vašej emailovej adresy.</string>
-  <string name="emailChange_click">Pre overenie prístupu k tomuto emailu, kliknite na odkaz nižšie:</string>
+  <string name="emailChange_intro">Požiadali ste o zmenu Vašej e-mailovej adresy k účtu.</string>
+  <string name="emailChange_click">Pre overenie prístupu k tomuto emailu, kliknite prosím na odkaz nižšie:</string>
   <string name="welcome_subject">Vitajte na lichess.org, %s</string>
   <string name="welcome_text">Úspešne ste si vytvorili účet na https://lichess.org.
 

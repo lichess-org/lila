@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">Тим</string>
   <string name="teams">Тимови</string>
   <plurals name="nbMembers">
     <item quantity="one">%s члан</item>
@@ -15,8 +16,28 @@
   <string name="anyoneCanJoin">Свако може да се прикључи</string>
   <string name="aConfirmationIsRequiredToJoin">Потврда је потребна за прикључење</string>
   <string name="joiningPolicy">Полиса прикључења</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Вођа тима</item>
+    <item quantity="few">Вође тима</item>
+    <item quantity="other">Вође тима</item>
+  </plurals>
   <string name="teamBestPlayers">Најбољи играчи тима</string>
   <string name="teamRecentMembers">Скорашњи чланови тима</string>
+  <string name="kickSomeone">Избаци некога из тима</string>
+  <string name="whoToKick">Кога желиш избацити из тима?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s захтев прикључивања</item>
+    <item quantity="few">%s захтева прикључивања</item>
+    <item quantity="other">%s Захтева прикључивања</item>
+  </plurals>
+  <string name="willBeReviewed">Твој захтев прикључивања ће проверити вођа тима.</string>
+  <string name="beingReviewed">Твој захтев прикључивања тренутно проверава вођа тима.</string>
+  <string name="teamBattle">Борба тимова</string>
+  <string name="teamBattleOverview">Борба више тимова, сваки играч свом тиму доноси бодове</string>
+  <string name="teamTournament">Турнир тимова</string>
+  <string name="teamTournamentOverview">Арена турнир којем се могу прикључити само чланови твог тима</string>
+  <string name="messageAllMembers">Пошаљи поруку свим члановима</string>
+  <string name="messageAllMembersOverview">Пошаљи приватну поруку сваком члану тима</string>
   <string name="messageAllMembersLongDescription">Пошаљите приватну поруку СВИМ члановима тима.
 Можете позвати све играче да учествују у турниру или тимској борби.
 Играчи који не желе да примају Ваше поруке могу напустити тим.</string>

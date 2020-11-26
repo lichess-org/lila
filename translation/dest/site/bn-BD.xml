@@ -199,6 +199,8 @@
     <item quantity="other">%s টি খেলা আপনার সঙ্গে</item>
   </plurals>
   <string name="cancel">বাতিল করুন</string>
+  <string name="whiteTimeOut">সাদার সময় শেষ</string>
+  <string name="blackTimeOut">কালোর সময় আপ</string>
   <string name="drawOfferSent">সমান অফার পাঠানো হয়েছে</string>
   <string name="drawOfferDeclined">সমান অফার প্রত্যাখ্যাত হয়েছে</string>
   <string name="drawOfferAccepted">সমান অফার গ্রহণ করা হয়েছে</string>

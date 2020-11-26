@@ -74,7 +74,7 @@ private object BSONHandlers {
     },
     x =>
       BSONString {
-        if (x.variant.standard || x.variant == chess.variant.FromPosition) x.smallFen.value
+        if (x.variant.standard || x.variant.fromPosition) x.smallFen.value
         else s"${x.variant.id}:${x.smallFen.value}"
       }
   )

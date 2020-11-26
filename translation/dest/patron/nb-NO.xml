@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Doner</string>
-  <string name="lichessPatron">Lichess-mesen</string>
+  <string name="lichessPatron">Lichess-beskytter</string>
   <string name="freeAccount">Gratis konto</string>
-  <string name="becomePatron">Bli Lichess-mesen</string>
-  <string name="xBecamePatron">%s ble Lichess-mesen</string>
-  <string name="newPatrons">Nye mesener</string>
+  <string name="becomePatron">Bli Lichess-beskytter</string>
+  <string name="xBecamePatron">%s ble Lichess-beskytter</string>
+  <string name="newPatrons">Nye lichess-beskyttere</string>
   <string name="freeChess">Gratis sjakk for alle, for alltid!</string>
   <string name="noAdsNoSubs">Ingen annonser, ingen abonnementer; men åpen kildekode og glødende engasjement.</string>
   <string name="thankYou">Takk for din donasjon!</string>
@@ -16,7 +16,7 @@
   <string name="weRelyOnSupport">Vi er avhengige av støtte fra folk som deg for å gjøre det mulig. Dersom du setter pris på å bruke Lichess, så vurder gjerne å støtte oss med et bidrag og bli mesen!</string>
   <string name="lifetime">Livstid</string>
   <string name="payLifetimeOnce">Betal %s én gang og vær Lichess-mesen for alltid!</string>
-  <string name="lifetimePatron">Lichess-mesen på livstid</string>
+  <string name="lifetimePatron">Lichess-beskytter på livstid</string>
   <string name="makeExtraDonation">Gi et ekstra bidrag?</string>
   <string name="monthly">Månedlig</string>
   <string name="recurringBilling">Tilbakevendende fakturering, forny mesenvingene dine hver måned.</string>
@@ -46,8 +46,8 @@ Eller du kan %s.</string>
 Men mesener kan briske seg med et tøft, nytt profil-ikon.</string>
   <string name="featuresComparison">Se en detaljert sammenligning av funksjoner</string>
   <plurals name="patronForMonths">
-    <item quantity="one">Lichess-mesen for én måned</item>
-    <item quantity="other">Lichess-mesen for %s måneder</item>
+    <item quantity="one">Lichess-beskytter for én måned</item>
+    <item quantity="other">Lichess-beskytter for %s måneder</item>
   </plurals>
   <string name="youSupportWith">Du støtter lichess.org med %s per måned.</string>
   <string name="tyvm">Tusen takk for støtten. Du er sjef!</string>
@@ -68,7 +68,7 @@ Men mesener kan briske seg med et tøft, nytt profil-ikon.</string>
   <string name="date">Dato</string>
   <string name="amount">Beløp</string>
   <string name="transactionCompleted">Transaksjonen er gjennomført og en kvittering har blitt sendt til din epostadresse.</string>
-  <string name="permanentPatron">Du har nå en permanent mesenkonto.</string>
+  <string name="permanentPatron">Du har nå en permanent beskytterkonto.</string>
   <string name="checkOutProfile">Sjekk profilen din!</string>
   <string name="nowLifetime">Du er nå Lichess-mesen på livstid!</string>
   <string name="nowOneMonth">Du er nå Lichess-mesen for en måned!</string>

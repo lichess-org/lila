@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arenaTournaments">प्रतियोगिता</string>
   <string name="isItRated">हे औपचारिक आहे का?</string>
+  <string name="willBeNotified">प्रतियोगिता चालू झाल्यावर तुम्हाला आम्ही सांगणार, म्हणून तुम्ही चालू होई पर्यंत अजून काहीतरी खेळू शकता.</string>
   <string name="isRated">ही प्रतियोगिता औपचारिक आहे आणि तुमच्या दर्जावर परिणाम करते.</string>
   <string name="isNotRated">ही प्रतियोगिता औपचारिक नाही आणि तुमच्या दर्जावर परिणाम होणार नाही.</string>
   <string name="someRated">काही प्रतियोगिता औपचारिक असतात आणि तुमच्या दर्जावर परिणाम करतात.</string>
+  <string name="berserk">वेड्या सारखं खेळा</string>
+  <string name="howIsTheWinnerDecided">जिंकणारा खेळाडू काण असतो?</string>
+  <string name="howDoesItEnd">हे कसं संपतं?</string>
+  <string name="otherRules">बाकि महत्वाचे नियम</string>
+  <string name="shareUrl">हे URL लोकांना पाठवा म्हणजे त्यांना भाग घेता येईल: %s</string>
 </resources>

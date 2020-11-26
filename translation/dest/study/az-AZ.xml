@@ -58,12 +58,19 @@
   <string name="shareAndExport">Paylaş və ixrac et</string>
   <string name="cloneStudy">Klonla</string>
   <string name="studyPgn">Çalışma PGN-i</string>
+  <string name="downloadAllGames">Bütün oyunları endir</string>
   <string name="chapterPgn">Fəsil PGN-i</string>
+  <string name="downloadGame">Oyunu endir</string>
   <string name="studyUrl">Çalışma URL-si</string>
+  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Yayım URL-si</string>
   <string name="currentChapterUrl">İndiki fəsil URL-si</string>
+  <string name="currentGameUrl">Hazırki oyun URL-si</string>
+  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Pərçimləmək üçün bunu forumda paylaşa bilərsiniz</string>
   <string name="startAtInitialPosition">İlk mövqedə başlasın</string>
   <string name="startAtX">%s mövqesində başlasın</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Yalnız ictimai işlər əlavə edilə bilər!</string>
+  <string name="embedInYourWebsite">Veb sayt və ya bloqunuzda pərçimləyin</string>
+  <string name="readMoreAboutEmbedding">Pərçimləmə haqqında daha ətraflı</string>
+  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Yalnız ictimai çalışmalar pərçimlənə bilər!</string>
   <string name="open">Aç</string>
   <string name="xBroughtToYouByY">%2$s sizə %1$s gətirdi</string>
   <string name="studyNotFound">Çalışma tapılmadı</string>

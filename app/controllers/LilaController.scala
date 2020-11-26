@@ -47,7 +47,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected val keyPages       = new KeyPages(env)
   protected val renderNotFound = keyPages.notFound _
-  protected val rateLimited    = Results.TooManyRequests
+  protected val rateLimited    = Results.TooManyRequests("Too many requests. Please retry in a moment.")
   protected val rateLimitedFu  = rateLimited.fuccess
 
   implicit protected def LilaFunitToResult(
@@ -282,7 +282,7 @@ abstract private[controllers] class LilaController(val env: Env)
     else keyPages.blacklisted.fuccess
 
   protected def NoTor(res: => Fu[Result])(implicit ctx: Context) =
-    if (env.security.tor isExitNode HTTPRequest.lastRemoteAddress(ctx.req))
+    if (env.security.tor isExitNode HTTPRequest.ipAddress(ctx.req))
       Unauthorized(views.html.auth.bits.tor()).fuccess
     else res
 

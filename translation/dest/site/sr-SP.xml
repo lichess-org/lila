@@ -210,6 +210,8 @@
     <item quantity="other">%s игара са вама</item>
   </plurals>
   <string name="cancel">Откажи</string>
+  <string name="whiteTimeOut">Време истекло белом</string>
+  <string name="blackTimeOut">Време истекло црном</string>
   <string name="drawOfferSent">Захтев за реми је послат</string>
   <string name="drawOfferDeclined">Предлог за реми је одбијен</string>
   <string name="drawOfferAccepted">Предлог за реми је прихваћен</string>
@@ -291,6 +293,7 @@
     <item quantity="few">Додај %s секунде</item>
     <item quantity="other">Додај %s секунди</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Овај налог није поштовао Lichess услове коришћења</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ови играчи вештачки увећавају свој рејтинг</string>
   <string name="openingExplorerAndTablebase">Претраживач отварања &amp; база података</string>
   <string name="takeback">Повлачење потеза</string>

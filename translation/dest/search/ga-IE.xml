@@ -1,4 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="search">Cuardaigh</string>
+  <string name="advancedSearch">Cuardach casta</string>
+  <plurals name="searchInXGames">
+    <item quantity="one">Cuardaigh i gcluiche fichille amháin</item>
+    <item quantity="two">Cuardaigh i %s chluiche fichille</item>
+    <item quantity="few">Cuardaigh i %s chluiche fichille</item>
+    <item quantity="many">Cuardaigh i %s chluiche fichille</item>
+    <item quantity="other">Cuardaigh i %s chluiche fichille</item>
+  </plurals>
+  <plurals name="xGamesFound">
+    <item quantity="one">Cluiche amháin aimsithe</item>
+    <item quantity="two">%s chluiche aimsithe</item>
+    <item quantity="few">%s chluiche aimsithe</item>
+    <item quantity="many">%s chluiche aimsithe</item>
+    <item quantity="other">%s chluiche aimsithe</item>
+  </plurals>
+  <string name="opponentName">Ainm céile comhraic</string>
+  <string name="loser">Caillteoir</string>
+  <string name="from">Ó</string>
+  <string name="to">Go</string>
+  <string name="humanOrComputer">An ríomhaire nó duine a bhí sa chéile comhraic</string>
+  <string name="aiLevel">Leibhéal A.I.</string>
+  <string name="source">Foinse</string>
+  <string name="result">Toradh</string>
+  <string name="winnerColor">Dath buaiteora</string>
+  <string name="date">Dáta</string>
+  <string name="sortBy">Sórtáil de réir</string>
+  <string name="analysis">Anailís</string>
+  <string name="onlyAnalysed">Cluichí le anailís ríomhaire ar fáil dóibh amháin</string>
 </resources>

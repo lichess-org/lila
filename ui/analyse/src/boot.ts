@@ -17,7 +17,6 @@ export default function(cfg: AnalyseOpts) {
     });
   cfg.$side = $('.analyse__side').clone();
   cfg.$underboard = $('.analyse__underboard').clone();
-  cfg.initialPly = 'url';
   cfg.socketSend = lichess.socket.send;
   analyse = start(cfg);
 };

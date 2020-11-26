@@ -573,6 +573,7 @@ GET   /api/tournament/:id/teams        controllers.Api.tournamentTeams(id: Strin
 POST  /api/tournament                  controllers.Tournament.apiCreate
 POST  /api/swiss/new/:teamId           controllers.Swiss.apiCreate(teamId: String)
 GET   /api/swiss/:id/games             controllers.Api.swissGames(id: String)
+GET   /api/swiss/:id/results           controllers.Api.swissResults(id: String)
 GET   /api/simul                       controllers.Simul.apiList
 GET   /api/status                      controllers.Api.status
 GET   /api/users/status                controllers.Api.usersStatus
@@ -695,6 +696,7 @@ GET   /faq                             controllers.Main.faq
 GET   /source                          controllers.Page.source
 GET   /qa                              controllers.Main.movedPermanently(to: String = "/faq")
 GET   /help                            controllers.Main.movedPermanently(to: String = "/contact")
+GET   /support                         controllers.Main.movedPermanently(to: String = "/contact")
 GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug: String)
 GET   /how-to-cheat                    controllers.Page.loneBookmark(bookmark = "how-to-cheat")
 GET   /page/:bookmark                  controllers.Page.loneBookmark(bookmark: String)

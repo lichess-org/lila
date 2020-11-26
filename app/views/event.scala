@@ -6,7 +6,7 @@ import play.api.data.Form
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.markdownLinksOrRichText
+import lila.event.EventForm
 
 object event {
 
@@ -29,7 +29,7 @@ object event {
             span("Created by ", usernameOrId(event.createdBy.value), " ", momentFromNow(event.createdAt))
           ),
           st.form(cls := "box__top__actions", action := routes.Event.cloneE(event.id), method := "get")(
-            form3.submit("Clone", "".some, klass = "button-green")
+            form3.submit("Clone", "".some, klass = "button-green button-empty")
           )
         ),
         standardFlash(),
@@ -44,10 +44,17 @@ object event {
       moreJs = jsTag("event-countdown.js")
     ) {
       main(cls := "page-small event box box-pad")(
-        h1(dataIcon := "", cls := "text")(e.title),
-        h2(cls := "headline")(e.headline),
+        div(cls := "box__top")(
+          e.icon map { i =>
+            img(cls := "img", src := assetUrl(s"images/$i"))
+          } getOrElse i(cls := "img", dataIcon := ""),
+          div(
+            h1(e.title),
+            strong(cls := "headline")(e.headline)
+          )
+        ),
         e.description.map { d =>
-          p(cls := "desc")(markdownLinksOrRichText(d))
+          div(cls := "desc")(views.html.base.markdown(d))
         },
         if (e.isFinished) p(cls := "desc")("The event is finished.")
         else if (e.isNow) a(href := e.url, cls := "button button-fat")(trans.eventInProgress())
@@ -115,25 +122,45 @@ object event {
           form3.flatpickr(_, utc = true)
         )
       ),
-      form3.group(
-        form("title"),
-        raw("Short title"),
-        help = raw("Keep it VERY short, so it fits on homepage").some
-      )(form3.input(_)),
+      form3.split(
+        form3.group(
+          form("title"),
+          raw("Short title"),
+          help = raw("Keep it VERY short, so it fits on homepage").some,
+          half = true
+        )(form3.input(_)),
+        form3.group(
+          form("icon"),
+          frag("Icon"),
+          half = true,
+          help = frag("Displayed on the homepage button").some
+        )(form3.select(_, EventForm.iconChoices))
+      ),
       form3.group(
         form("headline"),
         raw("Short headline"),
         help = raw("Keep it VERY short, so it fits on homepage").some
       )(form3.input(_)),
       form3
-        .group(form("description"), raw("Possibly long description"), help = raw("Link: [text](url)").some)(
-          form3.textarea(_)()
+        .group(form("description"), raw("Possibly long description"), help = raw("Markdown enabled").some)(
+          form3.textarea(_)(rows := 15)
         ),
-      form3.group(
-        form("url"),
-        raw("External URL"),
-        help = raw("What to redirect to when the event starts").some
-      )(form3.input(_)),
+      form3.split(
+        form3.group(
+          form("url"),
+          raw("External URL"),
+          help = raw("What to redirect to when the event starts").some,
+          half = true
+        )(form3.input(_)),
+        form3.checkbox(
+          form("countdown"),
+          frag("Show countdown"),
+          help = frag(
+            "Show a countdown on the event page before start. Unselect to redirect to the event URL immediately, even before the event has started."
+          ).some,
+          half = true
+        )
+      ),
       form3.split(
         form3.group(form("lang"), raw("Language"), half = true)(form3.select(_, lila.i18n.LangList.choices)),
         form3.group(
@@ -157,9 +184,9 @@ object event {
         form3.checkbox(form("enabled"), raw("Enabled"), help = raw("Display the event").some, half = true),
         form3.group(
           form("homepageHours"),
-          raw("Hours on homepage (0 to 24)"),
+          raw("Hours on homepage before the start (0 to 24)"),
           half = true,
-          help = raw("Ask on slack first!").some
+          help = raw("Go easy on this. The event will also remain on homepage while ongoing.").some
         )(form3.input(_, typ = "number"))
       ),
       form3.action(form3.submit(trans.apply()))

@@ -3,6 +3,7 @@
   "include": ["src/**/*.ts"],
   "compilerOptions": {
     "noImplicitAny": false,
-    "noImplicitReturns": false
+    "noImplicitReturns": false,
+    "esModuleInterop": true
   }
 }

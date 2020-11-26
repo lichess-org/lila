@@ -15,7 +15,6 @@ import lila.common.config.MaxPerPage
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.db.dsl._
 import lila.db.paginator.MapReduceAdapter
-import lila.game.BSONHandlers.FENBSONHandler
 
 final class StudyMultiBoard(
     runCommand: lila.db.RunCommand,

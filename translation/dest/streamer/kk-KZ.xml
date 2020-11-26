@@ -1,2 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessStreamers">Личес стримерлері</string>
+  <string name="lichessStreamer">Личес стримері</string>
+  <string name="live">Тікелей эфир!</string>
+  <string name="offline">Эфирден тыс</string>
+  <string name="currentlyStreaming">Қазіргі стрим: %s</string>
+  <string name="lastStream">Кейінгі стрим %s</string>
+  <string name="becomeStreamer">Личес стримері болу</string>
+  <string name="doYouHaveStream">Сізде YouTube не Twitch арнасы бар ма?</string>
+  <string name="hereWeGo">Кеттік!</string>
+  <string name="allStreamers">Барлық стримерлер</string>
+  <string name="editPage">Стример парақшасын өңдеу</string>
+  <string name="yourPage">Сіздің стример парақшаңыз</string>
+  <string name="downloadKit">Стример құралдарын жүктеп алу</string>
+  <string name="xIsStreaming">%s стрим жүргізіп отыр</string>
+  <string name="rules">Стрим жүргізудің ережелері</string>
+  <string name="rule1">Личестің стримін жүргізгенде, \"lichess.org\" кілтсөзін стрим тақырыбына қосып, \"Chess\" санатын таңдаңыз.</string>
+  <string name="rule2">Личестен басқа нәрсенің стримін жүргізсеңіз, кілтсөзді алып тастаңыз.</string>
+  <string name="rule3">Личес стриміңізді автоматты түрде анықтап, келесі жеңілдіктерге жол ашады:</string>
+  <string name="perks">Стримді кілтсөзбен жүргізудің артықшылығы</string>
+  <string name="perk1">Личес куәлігіңізде жалынды стример таңбашасы шығады.</string>
+  <string name="perk2">Стримерлер тізімінің төбесіне шығасыз.</string>
+  <string name="perk3">Личес серіктеріңізді ескертесіз.</string>
+  <string name="perk4">Стримді өз ойындарыңызда, жарыс пен зерттеуде көрсетесіз.</string>
+  <string name="approved">Сіздің стриміңіз расталды.</string>
+  <string name="pendingReview">Сіздің стриміңіз модераторлардың тексеруінде.</string>
+  <string name="pleaseFillIn">Стример мәліметтерін толтырып, суретіңізді жүктеп салыңыз.</string>
+  <string name="whenReady">Личес стримерлер қатарына қосылу үшін %s</string>
+  <string name="requestReview">модератор тексеруін сұраңыз</string>
+  <string name="anotherLanguage">Егер стримді ағылшын тілінен өзге тілде жүргізсеңіз, тақырыптың басына шаршы жақшаға алынған сәйкес тілдің тэгін (%s) қосыңыз.
+Мысалы, қазақ тілі үшін \"[KZ]\", түрік тілі үшін \"[TR]\", француз тілі үшін \"[FR]\", т. с. с.
+Бұны Личес сайтында емес, Twitch не YouTube бетінде стрим тақырыбының басына қосуыңыз керек.
+Егер стрим ағылшын тілінде өтетін болса, тіл тэгін қосуының керегі жоқ.</string>
+  <string name="twitchUsername">Twitch аккаунт атыңыз немесе URL</string>
+  <string name="optionalOrEmpty">Міндетті емес. Жоқ болса, бос қалдырыңыз</string>
+  <string name="youtubeChannel">YouTube арнаңыздағы ID не URL</string>
+  <string name="streamerName">Личестегі стример атыңыз</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Қысқа болсын: ең көбі %s таңба</item>
+    <item quantity="other">Қысқа болсын: ең көбі %s таңба</item>
+  </plurals>
+  <string name="visibility">Стримерлер парақшасында көріну</string>
+  <string name="whenApproved">Модераторлар растаса</string>
+  <string name="headline">Басты тақырып</string>
+  <string name="tellUsAboutTheStream">Стрим туралы бір сөйлеммен айтып беріңіз</string>
+  <string name="longDescription">Ұзын сипаттама</string>
+  <string name="xStreamerPicture">%s стримердің суреті</string>
+  <string name="changePicture">Суретті өзгерту/жою</string>
+  <string name="uploadPicture">Суретті жүктеп салу</string>
+  <string name="deletePicture">Суретті жою</string>
+  <string name="maxSize">Өлшемнің шегі: %s</string>
+  <string name="installBlocker">Зиянкестен қорғаушыны орнатыңыз!</string>
+  <string name="beSafe">Twitch пен YouTube-ті шарлап жүрген
+жарнама мен трекерлерден сақ болыңыз.
+Личес uBlock Origin програмын ұсынады,
+ол тегін әрі коды ашық.</string>
+</resources>

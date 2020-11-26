@@ -30,7 +30,7 @@ final class GarbageCollector(
   // User just signed up and doesn't have security data yet, so wait a bit
   def delay(user: User, email: EmailAddress, req: RequestHeader): Unit =
     if (user.createdAt.isAfter(DateTime.now minusDays 3)) {
-      val ip = HTTPRequest lastRemoteAddress req
+      val ip = HTTPRequest ipAddress req
       system.scheduler
         .scheduleOnce(6 seconds) {
           val applyData = ApplyData(user, ip, email, req)

@@ -10,6 +10,7 @@ import scala.concurrent.duration._
 import scala.util.chaining._
 
 import lila.chat.Chat
+import lila.common.config.MaxPerSecond
 import lila.common.{ Bus, GreatPlayer, LightUser }
 import lila.db.dsl._
 import lila.game.{ Game, Pov }
@@ -70,8 +71,9 @@ final class SwissApi(
       winnerId = none,
       settings = Swiss.Settings(
         nbRounds = data.nbRounds,
-        rated = data.rated | true,
+        rated = data.realPosition.isEmpty && (data.rated | true),
         description = data.description,
+        position = data.realPosition,
         chatFor = data.realChatFor,
         roundInterval = data.realRoundInterval,
         password = data.password,
@@ -84,6 +86,9 @@ final class SwissApi(
 
   def update(swiss: Swiss, data: SwissForm.SwissData): Funit =
     Sequencing(swiss.id)(byId) { old =>
+      val position =
+        if (old.isCreated || old.settings.position.isDefined) data.realVariant.standard ?? data.realPosition
+        else old.settings.position
       val swiss =
         old.copy(
           name = data.name | old.name,
@@ -95,8 +100,9 @@ final class SwissApi(
             else old.nextRoundAt,
           settings = old.settings.copy(
             nbRounds = data.nbRounds,
-            rated = data.rated | old.settings.rated,
+            rated = position.isEmpty && (data.rated | old.settings.rated),
             description = data.description orElse old.settings.description,
+            position = position,
             chatFor = data.chatFor | old.settings.chatFor,
             roundInterval =
               if (data.roundInterval.isDefined) data.realRoundInterval
@@ -601,6 +607,18 @@ final class SwissApi(
       .flatMap {
         _.map { withdraw(_, user.id) }.sequenceFu.void
       }
+
+  def resultStream(swiss: Swiss, perSecond: MaxPerSecond, nb: Int): Source[(SwissPlayer, Long), _] =
+    SwissPlayer.fields { f =>
+      colls.player
+        .find($doc(f.swissId -> swiss.id))
+        .sort($sort desc f.score)
+        .batchSize(perSecond.value)
+        .cursor[SwissPlayer](ReadPreference.secondaryPreferred)
+        .documentSource(nb)
+        .throttle(perSecond.value, 1 second)
+        .zipWithIndex
+    }
 
   private def Sequencing[A: Zero](
       id: Swiss.Id

@@ -44,6 +44,11 @@ final class TournamentShieldApi(
 
   private[tournament] def clear(): Unit = cache.invalidateUnit().unit
 
+  private[tournament] def clearAfterMarking(userId: User.ID): Funit = cache.getUnit map { hist =>
+    import cats.implicits._
+    if (hist.value.exists(_._2.exists(_.owner.value === userId))) clear()
+  }
+
   private val cache = cacheApi.unit[History] {
     _.refreshAfterWrite(1 day)
       .buildAsyncFuture { _ =>

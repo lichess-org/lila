@@ -74,7 +74,7 @@ object Event {
       orig: Pos,
       dest: Pos,
       san: String,
-      fen: String,
+      fen: String, // not a FEN, just a board fen
       check: Boolean,
       threefold: Boolean,
       promotion: Option[Promotion],

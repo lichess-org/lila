@@ -118,7 +118,7 @@ object bits {
   )(implicit ctx: Context) =
     views.html.game.side(
       pov,
-      (data \ "game" \ "initialFen").asOpt[String].map(chess.format.FEN),
+      (data \ "game" \ "initialFen").asOpt[String].map(chess.format.FEN.apply),
       tour,
       simul = simul,
       userTv = userTv,

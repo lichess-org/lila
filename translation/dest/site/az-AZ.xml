@@ -195,6 +195,8 @@
     <item quantity="other">%s sizinle oyunlar</item>
   </plurals>
   <string name="cancel">İmtina</string>
+  <string name="whiteTimeOut">Ağların vaxtı bitdi</string>
+  <string name="blackTimeOut">Qaraların vaxtı bitdi</string>
   <string name="drawOfferSent">Heç-heçə təklifi göndərildi</string>
   <string name="drawOfferDeclined">Heç-heçə təklifi rədd edildi</string>
   <string name="drawOfferAccepted">Heç-heçə təklifi qəbul edildi</string>
@@ -500,6 +502,7 @@
   <string name="newPassword">Yeni şifrə</string>
   <string name="newPasswordAgain">Yeni şifrə (təkrar)</string>
   <string name="clockInitialTime">Saat başlanğıc vaxtı</string>
+  <string name="clockIncrement">Vaxt artırma</string>
   <string name="privacy">Gizlilik</string>
   <string name="letOtherPlayersFollowYou">Digər oyunçular təqib edəbilə</string>
   <string name="letOtherPlayersChallengeYou">Digər oyunçular oyun təklif edəbilə</string>
@@ -579,6 +582,10 @@
   <string name="streamersMenu">Canlı Yayımlar</string>
   <string name="mobileApp">Mobil proqram</string>
   <string name="webmasters">Web-ustalar</string>
+  <string name="about">Haqqında</string>
+  <string name="aboutX">%s haqqında</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ödənişsizdir (%2$s), sərbəst, reklamsız, açıq mənbəli şahmat serveridir.</string>
+  <string name="really">həqiqətən</string>
   <string name="contribute">Yardım etmək</string>
   <string name="termsOfService">Xidmət şərtləri</string>
   <string name="sourceCode">Mənbə kodu</string>
@@ -621,6 +628,7 @@
   <string name="yourPerfTypeRatingIsRating">Sənin %1$s reytinqin %2$s-dir</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Sən %1$s oyunçularşn %2$s -dan daha yaxşısan</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sən müəyyən olunmuş %s reytinqə malik deyilsən.</string>
+  <string name="yourRating">Xalınız</string>
   <string name="checkYourEmail">E-poçtunu yoxla</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Biz sənə e-poçt göndərdik. Hesabını aktivləşdirmək üçün linkə kliklə</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Əgər e-poçtu görmürsünzsə, onun ola biləçəyi digər yerləri, məsələn, zibil qutusu, spam, sosial və digər qovluqları nəzərdən keçirin.</string>
@@ -637,8 +645,14 @@
   <string name="analysisShapesHowTo">Lövhədə çevrə və ya oxlar çəkmək üçün shift+click və ya right-click sıx</string>
   <string name="letOtherPlayersMessageYou">Digər oyunçunun sənə mesaj göndərməsinə izin ver</string>
   <string name="shareYourInsightsData">Qabiliyyət verilərini paylaş</string>
+  <string name="withNobody">Heç kim ilə</string>
+  <string name="withFriends">Dostlar ilə</string>
+  <string name="withEverybody">Hər kəs ilə</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Sən e-poçtu artıq qeydiyyatdan keçirmisən: %s</string>
   <string name="kidMode">Uşaq tərzi</string>
+  <string name="enableKidMode">Uşaq rejimini fəallaşdır</string>
+  <string name="disableKidMode">Uşaq rejimini sıradan çıxart</string>
+  <string name="security">Təhlükəsizlik</string>
   <string name="playChessEverywhere">Şahmatı hər yerdə oyna</string>
   <string name="asFreeAsLichess">Lichess kimi azad</string>
   <string name="builtForTheLoveOfChessNotMoney">Pula görə deyil, şahamat sevgisinə görə yarat</string>

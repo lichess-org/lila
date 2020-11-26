@@ -38,13 +38,17 @@ const spamRegex = new RegExp([
   'badoogirls.com',
   'hide.su',
   'wyon.de',
-  'sexdatingcz.club'
+  'sexdatingcz.club',
+  'qps.ru',
+  'tiny.cc/'
 ].map(url =>
   url.replace(/\./g, '\\.').replace(/\//g, '\\/')
 ).join('|'));
 
 const suspLink = (txt: string) => !!txt.match(spamRegex);
-const followMe = (txt: string) => txt.toLowerCase().includes('follow me');
+
+const followMeRegex = /follow me|join my team/i;
+const followMe = (txt: string) => !!txt.match(followMeRegex);
 
 const teamUrlRegex = /lichess\.org\/team\//i;
 export const hasTeamUrl = (txt: string) => !!txt.match(teamUrlRegex);

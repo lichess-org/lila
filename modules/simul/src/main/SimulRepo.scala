@@ -3,7 +3,7 @@ package lila.simul
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 
-import chess.{ StartingPosition, Status }
+import chess.Status
 import chess.variant.Variant
 import lila.db.BSON
 import lila.db.BSON.BSONJodaDateTimeHandler
@@ -44,10 +44,6 @@ final private[simul] class SimulRepo(val coll: Coll)(implicit ec: scala.concurre
         "hostColor" -> o.hostColor.name
       )
   }
-  implicit private val PositionHandler = tryHandler[StartingPosition](
-    { case BSONString(v) => Simul.fenIndex.get(v) toTry s"No such simul starting position: $v" },
-    p => BSONString(p.fen)
-  )
 
   implicit private val SimulBSONHandler = Macros.handler[Simul]
 

@@ -1,3 +1,5 @@
+/// <reference types="../types/ab" />
+
 import * as ab from 'ab';
 import * as round from './round';
 import * as game from 'game';
@@ -68,7 +70,7 @@ export default class RoundController {
   preDrop?: cg.Role;
   lastDrawOfferAtPly?: Ply;
   nvui?: NvuiPlugin;
-
+  sign: string = Math.random().toString(36);
   private music?: any;
 
   constructor(readonly opts: RoundOpts, readonly redraw: Redraw) {
@@ -253,6 +255,7 @@ export default class RoundController {
 
   actualSendMove = (tpe: string, data: any, meta: MoveMetadata = {}) => {
     const socketOpts: SocketOpts = {
+      sign: this.sign,
       ackable: true
     };
     if (this.clock) {

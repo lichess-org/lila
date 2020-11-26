@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="thereIsACountdown">Það er niðurtalning á fyrsta leikin þinn. Takist ekki að gera hreyfingu innan þessa tíma fær andstæðingurinn þinn sigurinn.</string>
+  <string name="thisIsPrivate">Þetta er einkamót</string>
+</resources>

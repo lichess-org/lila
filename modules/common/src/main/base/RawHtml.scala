@@ -7,6 +7,7 @@ import scala.annotation.{ switch, tailrec }
 import lila.common.base.StringUtils.escapeHtmlRaw
 
 final object RawHtml {
+
   def nl2br(s: String): String = {
     val sb      = new jStringBuilder(s.length)
     var counter = 0
@@ -60,6 +61,8 @@ final object RawHtml {
       buf.result()
     } else List(text)
   }
+
+  def hasLinks(text: String) = urlPattern.matcher(text).find
 
   def addLinks(text: String): String =
     expandAtUser(text).map { expanded =>

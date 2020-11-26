@@ -8,7 +8,7 @@ object Rewind {
 
   private def createTags(fen: Option[FEN], game: Game) = {
     val variantTag = Some(chessPgn.Tag(_.Variant, game.variant.name))
-    val fenTag     = fen map (f => chessPgn.Tag(_.FEN, f.value))
+    val fenTag     = fen.map(f => chessPgn.Tag(_.FEN, f.value))
 
     chessPgn.Tags(List(variantTag, fenTag).flatten)
   }

@@ -24,18 +24,15 @@ $c-report-high-over: white;
     a {
       @extend %roboto, %flex-column;
 
-      color: $c-font-dim;
+      color: $c-font;
       text-transform: uppercase;
       padding: .5rem 1.4rem;
       align-items: center;
       justify-content: center;
 
-      &.new {
-        color: $c-font-clear;
-      }
-
       &:hover {
         background: fade-out($c-report-high, 0.5);
+        color: $c-report-high-over;
       }
 
       &.active {
@@ -58,6 +55,7 @@ $c-report-high-over: white;
     font-size: 1.2em;
     padding: .3em .5em;
     border-radius: .3em;
+    margin-right: .5em;
   }
 
   .score.green {

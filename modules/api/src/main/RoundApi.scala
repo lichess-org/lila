@@ -203,7 +203,7 @@ final private[api] class RoundApi(
         pgnMoves = pov.game.pgnMoves,
         variant = pov.game.variant,
         analysis = analysis,
-        initialFen = initialFen | FEN(pov.game.variant.initialFen),
+        initialFen = initialFen | pov.game.variant.initialFen,
         withFlags = withFlags,
         clocks = withFlags.clocks ?? pov.game.bothClockStates
       )
@@ -214,7 +214,7 @@ final private[api] class RoundApi(
       id = pov.gameId,
       pgnMoves = pov.game.pgnMoves,
       variant = pov.game.variant,
-      initialFen = initialFen.fold(pov.game.variant.initialFen)(_.value)
+      initialFen = initialFen | pov.game.variant.initialFen
     ))
 
   private def withNote(note: String)(json: JsObject) =

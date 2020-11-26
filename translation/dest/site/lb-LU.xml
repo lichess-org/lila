@@ -1,2 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="playWithAFriend">Spill géint e Kolleg</string>
+  <string name="playWithTheMachine">Spill géint de Computer</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Fir een an dës Partie z\'invitéieren, gëff ëm dëse Link</string>
+  <string name="gameOver">Game Over</string>
+  <string name="waitingForOpponent">Waarden op de Géigner</string>
+  <string name="waiting">Waarden</string>
+  <string name="yourTurn">Du bass drun</string>
+  <string name="aiNameLevelAiLevel">%1$s Level %2$s</string>
+  <string name="level">Level</string>
+  <string name="toggleTheChat">Chat uweisen/ausblenden</string>
+  <string name="toggleSound">Toun umaachen/ausmaachen</string>
+  <string name="chat">So eppes</string>
+  <string name="resign">Opginn</string>
+  <string name="checkmate">Schachmatt</string>
+  <string name="stalemate">Remis</string>
+  <string name="white">Wäiss</string>
+  <string name="black">Schwaarz</string>
+  <string name="randomColor">Zoufälleg Säit</string>
+  <string name="createAGame">Erstell eng Partie</string>
+  <string name="whiteIsVictorious">Wäiss gewënnt</string>
+  <string name="blackIsVictorious">Schwaarz gewënnt</string>
+  <string name="youPlayTheWhitePieces">Du spills déi wäiss Figuren</string>
+  <string name="youPlayTheBlackPieces">Du spills déi schwaarz Figuren</string>
+  <string name="itsYourTurn">Et ass un dir!</string>
+  <string name="kingInTheCenter">Kinnek am Zentrum</string>
+  <string name="threeChecks">Drëtt Kéier Schach</string>
+  <string name="raceFinished">Course eriwwer</string>
+  <string name="variantEnding">Enn vun der Variant</string>
+  <string name="newOpponent">Neie Géigner</string>
+</resources>

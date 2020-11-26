@@ -104,7 +104,8 @@ object Permission {
           ReportBan,
           ModMessage,
           SeeReport,
-          ModLog
+          ModLog,
+          ModNote
         ),
         "Shusher"
       )

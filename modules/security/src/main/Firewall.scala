@@ -22,7 +22,7 @@ final class Firewall(
 
   def blocks(req: RequestHeader): Boolean = {
     val v = blocksIp {
-      lila.common.HTTPRequest lastRemoteAddress req
+      lila.common.HTTPRequest ipAddress req
     }
     if (v) lila.mon.security.firewall.block.increment()
     v

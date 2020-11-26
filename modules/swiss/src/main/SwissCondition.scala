@@ -190,13 +190,13 @@ object SwissCondition {
       perfAuto :: PerfType.nonPuzzle.map { pt =>
         pt.key -> pt.trans
       }
-    val nbRatedGames = Seq(0, 5, 10, 15, 20, 30, 40, 50, 75, 100, 150, 200)
+    val nbRatedGames = Vector(0, 5, 10, 15, 20, 30, 40, 50, 75, 100, 150, 200)
     val nbRatedGameChoices = options(nbRatedGames, "%d rated game{s}") map {
       case (0, _) => (0, "No restriction")
       case x      => x
     }
     val nbRatedGame = mapping(
-      "nb" -> numberIn(nbRatedGameChoices)
+      "nb" -> number(min = 0, max = ~nbRatedGames.lastOption)
     )(NbRatedGame.apply)(NbRatedGame.unapply)
     case class RatingSetup(rating: Option[Int]) {
       def actualRating = rating.filter(r => r > 600 && r < 3000)

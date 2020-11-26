@@ -18,10 +18,20 @@
         color: $c-brag;
         font-weight: bold;
       }
+    }
 
-      &.faq strong {
-        display: block;
-        margin-bottom: .4em;
+    #faq {
+      display: block;
+
+      .faq {
+        @extend %flex-center-nowrap;
+
+        margin-bottom: 4em;
+
+        strong {
+          display: block;
+          margin-bottom: .4em;
+        }
       }
     }
   }

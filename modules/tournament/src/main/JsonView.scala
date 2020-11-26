@@ -1,5 +1,6 @@
 package lila.tournament
 
+import chess.format.FEN
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import play.api.i18n.Lang
@@ -7,11 +8,11 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
+import lila.common.Json._
 import lila.common.{ GreatPlayer, LightUser, Uptime }
 import lila.game.{ Game, LightPov }
 import lila.hub.LightTeam.TeamID
 import lila.memo.CacheApi._
-import lila.quote.Quote.quoteWriter
 import lila.rating.PerfType
 import lila.socket.Socket.SocketVersion
 import lila.user.{ LightUserApi, User }
@@ -116,7 +117,7 @@ final class JsonView(
           )
           .add("spotlight" -> tour.spotlight)
           .add("berserkable" -> tour.berserkable)
-          .add("position" -> full.option(tour.position).filterNot(_.initial).map(positionJson))
+          .add("position" -> tour.position.ifTrue(full).map(positionJson))
           .add("verdicts" -> verdicts.map(Condition.JSONHandlers.verdictsFor(_, lang)))
           .add("schedule" -> tour.schedule.map(scheduleJson))
           .add("private" -> tour.isPrivate)
@@ -313,7 +314,8 @@ final class JsonView(
   }
 
   private val podiumJsonCache = cacheApi[Tournament.ID, Option[JsArray]](32, "tournament.podiumJson") {
-    _.expireAfterAccess(10 seconds)
+    _.expireAfterAccess(15 seconds)
+      .expireAfterWrite(1 minute)
       .maximumSize(256)
       .buildAsyncFuture { id =>
         tournamentRepo finishedById id flatMap {
@@ -520,13 +522,23 @@ object JsonView {
     )
   }
 
-  private[tournament] def positionJson(s: chess.StartingPosition) =
-    Json.obj(
-      "eco"      -> s.eco,
-      "name"     -> s.name,
-      "wikiPath" -> s.wikiPath,
-      "fen"      -> s.fen
-    )
+  private[tournament] def positionJson(fen: FEN): JsObject =
+    Thematic.byFen(fen) match {
+      case Some(pos) =>
+        Json
+          .obj(
+            "eco"      -> pos.eco,
+            "name"     -> pos.name,
+            "wikiPath" -> pos.wikiPath,
+            "fen"      -> pos.fen
+          )
+      case None =>
+        Json
+          .obj(
+            "name" -> "Custom position",
+            "fen"  -> fen
+          )
+    }
 
   implicit private[tournament] val spotlightWrites: OWrites[Spotlight] = OWrites { s =>
     Json

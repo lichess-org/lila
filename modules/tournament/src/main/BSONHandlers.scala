@@ -1,13 +1,15 @@
 package lila.tournament
 
 import chess.Clock.{ Config => ClockConfig }
+import chess.format.FEN
+import chess.Mode
 import chess.variant.Variant
-import chess.{ Mode, StartingPosition }
+import reactivemongo.api.bson._
+
 import lila.db.BSON
 import lila.db.dsl._
 import lila.rating.PerfType
 import lila.user.User.lichessId
-import reactivemongo.api.bson._
 
 object BSONHandlers {
 
@@ -62,9 +64,11 @@ object BSONHandlers {
   implicit val tournamentHandler = new BSON[Tournament] {
     def reads(r: BSON.Reader) = {
       val variant = r.intO("variant").fold[Variant](Variant.default)(Variant.orDefault)
-      val position: StartingPosition = r.strO("fen").flatMap(Thematic.byFen) orElse
-        r.strO("eco").flatMap(Thematic.byEco) getOrElse // for BC
-        StartingPosition.initial
+      val position: Option[FEN] = {
+        import cats.implicits._
+        r.getO[FEN]("fen").filterNot(_.initial) orElse
+          r.strO("eco").flatMap(Thematic.byEco).map(_.fen) // for BC
+      }
       val startsAt   = r date "startsAt"
       val conditions = r.getO[Condition.All]("conditions") getOrElse Condition.All.empty
       Tournament(
@@ -105,7 +109,7 @@ object BSONHandlers {
         "clock"       -> o.clock,
         "minutes"     -> o.minutes,
         "variant"     -> o.variant.some.filterNot(_.standard).map(_.id),
-        "fen"         -> o.position.some.filterNot(_.initial).map(_.fen),
+        "fen"         -> o.position.map(_.value),
         "mode"        -> o.mode.some.filterNot(_.rated).map(_.id),
         "password"    -> o.password,
         "conditions"  -> o.conditions.ifNonEmpty,

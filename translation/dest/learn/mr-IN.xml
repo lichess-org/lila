@@ -164,7 +164,9 @@
   <string name="practice">सराव</string>
   <string name="puzzles">कोडी</string>
   <string name="videos">व्हिडिओ</string>
+  <string name="watchInstructiveChessVideos">उपदेशात्मक बुद्धीबळ व्हिडिओ पहा</string>
   <string name="playPeople">लोकांसोबत खेळा</string>
+  <string name="opponentsFromAroundTheWorld">जगभरातील बुद्धिबळपटू</string>
   <string name="playMachine">मशीन सोबत खेळा</string>
   <string name="testYourSkillsWithTheComputer">तुमच्या कौशल्याची कॉम्प्युटर सोबत चाचणी करा</string>
   <string name="letsGo">चला!</string>
@@ -181,6 +183,7 @@
   <string name="stageXComplete">टप्पा %s पूर्ण</string>
   <string name="yourScore">तुमचे गुण</string>
   <string name="next">पुढे</string>
+  <string name="backToMenu">मेनूवर परत</string>
   <string name="puzzleFailed">कोड्याचे उत्तर चुकीचे आहे!</string>
   <string name="retry">पुन्हा प्रयत्न करा</string>
 </resources>

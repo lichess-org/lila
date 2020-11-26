@@ -6,4 +6,7 @@
   <string name="leechess">lie-chess</string>
   <string name="hearItPronouncedBySpecialist">Hoor hoe dit deur \'n spesialis uitgespreek word.</string>
   <string name="whyLiveLightLibre">Lewendig, want wedstryde word regstreeks gespeel en gekyk 24/7; lig en libre want Lichess is oop-bron en vry van eiendomsregtelike strooi wat ander webwerwe lastig val.</string>
+  <string name="preventLeavingGameWithoutResigning">Wat word gedoen daaraan dat spelers speletjies verlaat aonder om te bedank?</string>
+  <string name="gameplay">Spel</string>
+  <string name="eightVariants">Agt skaak variante</string>
 </resources>

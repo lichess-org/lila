@@ -1,2 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="search">Leita</string>
+  <string name="advancedSearch">Framkomin leiting</string>
+  <plurals name="searchInXGames">
+    <item quantity="one">Leita í %s talvi</item>
+    <item quantity="other">Leita í %s talvum</item>
+  </plurals>
+  <plurals name="xGamesFound">
+    <item quantity="one">Eitt talv funnið</item>
+    <item quantity="other">%s talv funnin</item>
+  </plurals>
+  <string name="opponentName">Navn á mótleikara</string>
+  <string name="loser">Tapari</string>
+  <string name="from">Frá</string>
+  <string name="to">til</string>
+  <string name="humanOrComputer">Hvørt mótleikarin hjá telvaranum var menniskja ella telda</string>
+  <string name="aiLevel">A.I. stig</string>
+  <string name="source">Kelda</string>
+  <string name="nbTurns">Tal á umførum</string>
+  <string name="result">Úrslit</string>
+  <string name="winnerColor">Vinnaralitur</string>
+  <string name="date">Dagfesting</string>
+  <string name="sortBy">Flokka eftir</string>
+  <string name="analysis">Greining</string>
+  <string name="onlyAnalysed">Bert talv, har teldugreining er tøk</string>
+</resources>

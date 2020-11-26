@@ -54,7 +54,7 @@ object show {
                     sim.variants.map(_.name).mkString(", "),
                     " • ",
                     trans.casual(),
-                    ctx.userId.has(sim.hostId) && sim.isCreated option frag(
+                    (isGranted(_.ManageSimul) || ctx.userId.has(sim.hostId)) && sim.isCreated option frag(
                       " • ",
                       a(href := routes.Simul.edit(sim.id), title := "Edit simul")(iconTag("%"))
                     )
@@ -70,14 +70,18 @@ object show {
                 case Some("black") => trans.black()
                 case _             => trans.randomColor()
               }),
-              sim.position map { pos =>
+              sim.position.flatMap(lila.tournament.Thematic.byFen) map { pos =>
                 frag(
                   br,
                   a(targetBlank, href := pos.url)(strong(pos.eco), " ", pos.name),
                   " • ",
-                  a(href := routes.UserAnalysis.parseArg(pos.fen.replace(" ", "_")))(
-                    trans.analysis()
-                  )
+                  views.html.base.bits.fenAnalysisLink(pos.fen)
+                )
+              } orElse sim.position.map { fen =>
+                frag(
+                  br,
+                  "Custom position • ",
+                  views.html.base.bits.fenAnalysisLink(fen)
                 )
               }
             ),

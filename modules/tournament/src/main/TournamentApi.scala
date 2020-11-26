@@ -73,8 +73,7 @@ final class TournamentApi(
       mode = setup.realMode,
       password = setup.password,
       variant = setup.realVariant,
-      position = TournamentForm
-        .startingPosition(setup.position | chess.StartingPosition.initial.fen, setup.realVariant),
+      position = setup.realPosition,
       berserkable = setup.berserkable | true,
       streakable = setup.streakable | true,
       teamBattle = setup.teamBattleByTeam map TeamBattle.init,
@@ -102,24 +101,26 @@ final class TournamentApi(
 
   def update(old: Tournament, data: TournamentSetup, leaderTeams: List[LeaderTeam]): Funit = {
     import data._
-    val tour = old.copy(
-      name = name | old.name,
-      clock = if (old.isCreated) clockConfig else old.clock,
-      minutes = minutes,
-      mode = realMode,
-      variant = if (old.isCreated) realVariant else old.variant,
-      startsAt = startDate | old.startsAt,
-      password = data.password,
-      position =
-        if (old.isCreated || !old.position.initial)
-          TournamentForm.startingPosition(position | chess.StartingPosition.initial.fen, realVariant)
-        else old.position,
-      noBerserk = !(~berserkable),
-      noStreak = !(~streakable),
-      teamBattle = old.teamBattle,
-      description = description,
-      hasChat = data.hasChat | true
-    ) pipe { tour =>
+    val variant = if (old.isCreated) realVariant else old.variant
+    val tour = old
+      .copy(
+        name = name | old.name,
+        clock = if (old.isCreated) clockConfig else old.clock,
+        minutes = minutes,
+        mode = realMode,
+        variant = variant,
+        startsAt = startDate | old.startsAt,
+        password = data.password,
+        position = variant.standard ?? {
+          if (old.isCreated || old.position.isDefined) data.realPosition
+          else old.position
+        },
+        noBerserk = !(~berserkable),
+        noStreak = !(~streakable),
+        teamBattle = old.teamBattle,
+        description = description,
+        hasChat = data.hasChat | true
+      ) pipe { tour =>
       tour.copy(conditions =
         conditions
           .convert(tour.perfType, leaderTeams.view.map(_.pair).toMap)
@@ -127,10 +128,6 @@ final class TournamentApi(
       )
     }
     tournamentRepo update tour void
-  }
-
-  private[tournament] def create(tournament: Tournament): Funit = {
-    tournamentRepo.insert(tournament).void
   }
 
   def teamBattleUpdate(
@@ -492,21 +489,11 @@ final class TournamentApi(
       }.sequenceFu.void
     }
 
-  def ejectLame(userId: User.ID, playedIds: List[Tournament.ID]): Funit =
-    tournamentRepo.withdrawableIds(userId) flatMap { tourIds =>
-      (tourIds ::: playedIds).distinct
-        .map {
-          ejectLame(_, userId)
-        }
-        .sequenceFu
-        .void
-    }
-
   // withdraws the player and forfeits all pairings in ongoing tournaments
-  private def ejectLame(tourId: Tournament.ID, userId: User.ID): Funit =
-    Sequencing(tourId)(tournamentRepo.byId) { tour =>
+  private[tournament] def ejectLameFromEnterable(tourId: Tournament.ID, userId: User.ID): Funit =
+    Sequencing(tourId)(tournamentRepo.enterableById) { tour =>
       playerRepo.withdraw(tourId, userId) >> {
-        if (tour.isStarted)
+        tour.isStarted ?? {
           pairingRepo.findPlaying(tour.id, userId).map {
             _ foreach { currentPairing =>
               tellRound(currentPairing.gameId, AbortForce)
@@ -515,16 +502,24 @@ final class TournamentApi(
             pairingRepo.forfeitByTourAndUserId(tour.id, userId) >>
               lila.common.Future.applySequentially(uids.toList)(updatePlayer(tour, none))
           }
-        else if (tour.isFinished && tour.winnerId.contains(userId))
+        }
+      } >>
+        updateNbPlayers(tour.id) >>-
+        socket.reload(tour.id) >>- publish()
+    }
+
+  // erases player from tournament and reassigns winner
+  private[tournament] def removePlayerAndRewriteHistory(tourId: Tournament.ID, userId: User.ID): Funit =
+    Sequencing(tourId)(tournamentRepo.finishedById) { tour =>
+      playerRepo.remove(tourId, userId) >> {
+        tour.winnerId.contains(userId) ?? {
           playerRepo winner tour.id flatMap {
             _ ?? { p =>
               tournamentRepo.setWinnerId(tour.id, p.userId)
             }
           }
-        else funit
-      } >>
-        updateNbPlayers(tour.id) >>-
-        socket.reload(tour.id) >>- publish()
+        }
+      }
     }
 
   private val tournamentTopNb = 20

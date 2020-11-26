@@ -50,6 +50,18 @@ object side {
           st.section(cls := "description")(markdownLinksOrRichText(d))
         },
         s.looksLikePrize option views.html.tournament.bits.userPrizeDisclaimer(s.createdBy),
+        s.settings.position.flatMap(lila.tournament.Thematic.byFen) map { pos =>
+          div(
+            a(targetBlank, href := pos.url)(strong(pos.eco), " ", pos.name),
+            " • ",
+            views.html.base.bits.fenAnalysisLink(pos.fen)
+          )
+        } orElse s.settings.position.map { fen =>
+          div(
+            "Custom position • ",
+            views.html.base.bits.fenAnalysisLink(fen)
+          )
+        },
         teamLink(s.teamId),
         if (verdicts.relevant)
           st.section(

@@ -38,7 +38,7 @@ object FriendConfig extends BaseHumanConfig {
       days = d,
       mode = m.fold(Mode.default)(Mode.orDefault),
       color = Color(c) err "Invalid color " + c,
-      fen = fen map FEN
+      fen = fen map FEN.apply
     )
 
   val default = FriendConfig(
@@ -53,7 +53,6 @@ object FriendConfig extends BaseHumanConfig {
 
   import lila.db.BSON
   import lila.db.dsl._
-  import lila.game.BSONHandlers.FENBSONHandler
 
   implicit private[setup] val friendConfigBSONHandler = new BSON[FriendConfig] {
 

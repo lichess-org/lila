@@ -22,6 +22,7 @@ export interface BackgroundData {
 interface Background {
   key: string;
   name: string;
+  title?: string;
 }
 
 export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: Close): BackgroundCtrl {
@@ -29,6 +30,7 @@ export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: 
   const list: Background[] = [
     { key: 'light', name: trans.noarg('light') },
     { key: 'dark', name: trans.noarg('dark') },
+    { key: 'darkBoard', name: 'Dark Board', title: 'Like Dark, but chess boards are also darker' },
     { key: 'transp', name: trans.noarg('transparent') }
   ];
 
@@ -72,7 +74,7 @@ export function view(ctrl: BackgroundCtrl): VNode {
     h('div.selector.large', ctrl.list.map(bg => {
       return h('a.text', {
         class: { active: cur === bg.key },
-        attrs: { 'data-icon': 'E' },
+        attrs: { 'data-icon': 'E', title: bg.title || '' },
         hook: bind('click', () => ctrl.set(bg.key))
       }, bg.name);
     })),
@@ -103,17 +105,21 @@ function imageInput(ctrl: BackgroundCtrl) {
 function applyBackground(data: BackgroundData, list: Background[]) {
 
   const key = data.current;
+  const cls = key == 'transp' ? 'dark transp' : (
+    key == 'darkBoard' ? 'dark dark-board' : key
+  )
 
   $('body')
-    .removeClass(list.map(b => b.key).join(' '))
-    .addClass(key === 'transp' ? 'transp dark' : key);
+    .removeClass([...list.map(b => b.key), 'dark-board'].join(' '))
+    .addClass(cls);
 
-  const prev = $('body').data('theme');
-  $('body').data('theme', key);
+  const prev = $('body').data('theme'),
+    sheet = key == 'darkBoard' ? 'dark' : key;
+  $('body').data('theme', sheet);
   $('link[href*=".' + prev + '."]').each(function(this: HTMLLinkElement) {
     var link = document.createElement('link') as HTMLLinkElement;
     link.rel = 'stylesheet';
-    link.href = this.href.replace('.' + prev + '.', '.' + key + '.');
+    link.href = this.href.replace('.' + prev + '.', '.' + sheet + '.');
     link.onload = () => setTimeout(() => this.remove(), 100);
     document.head.appendChild(link);
   });

@@ -841,7 +841,6 @@
   <string name="correspondenceDesc">بازی های مکاتبه ای : یک  یا چند روز برای هر حرکت</string>
   <string name="puzzleDesc">تمرین تاکتیک های شطرنج</string>
   <string name="important">مهم!</string>
-  <string name="yourQuestionMayHaveBeenAnswered">سوال شما ممکن است تکراری باشد .</string>
   <string name="subscribe">مشترک شدن</string>
   <string name="unsubscribe">لغو اشتراک</string>
 </resources>

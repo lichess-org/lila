@@ -353,7 +353,7 @@
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Ви маєте зіграти ще %1$s рейтингову гру в %2$s</item>
-    <item quantity="few">Ви маєте зіграти ще %1$s рейтингових ігри в %2$s</item>
+    <item quantity="few">Ви маєте зіграти ще %1$s рейтингових гри в %2$s</item>
     <item quantity="many">Ви маєте зіграти ще %1$s рейтингових ігор в %2$s</item>
     <item quantity="other">Ви маєте зіграти ще %1$s рейтингових ігор в %2$s</item>
   </plurals>

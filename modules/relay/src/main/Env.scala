@@ -28,7 +28,7 @@ final class Env(
 
   private lazy val withStudy = wire[RelayWithStudy]
 
-  lazy val jsonView = new JsonView(new RelayMarkup, baseUrl)
+  lazy val jsonView = wire[JsonView]
 
   lazy val api: RelayApi = wire[RelayApi]
 

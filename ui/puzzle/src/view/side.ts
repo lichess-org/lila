@@ -79,7 +79,7 @@ function drawRatingChart(ctrl: Controller, vnode: VNode): void {
     const $svg = $('<svg class="sparkline" height="80px" stroke-width="3">')
       .attr('width', Math.round($el.outerWidth()) + 'px')
       .prependTo($(vnode.elm).empty());
-    sparkline($svg[0], points.map(r => r - localPuzzleMin), {
+    sparkline($svg[0] as unknown as SVGSVGElement, points.map(r => r - localPuzzleMin), {
       interactive: true,
     })
   };

@@ -1,11 +1,13 @@
 package lila.simul
 
+import chess.Color
+import chess.format.FEN
 import chess.variant.Variant
-import chess.{ Speed, StartingPosition }
+import chess.{ Speed }
+import org.joda.time.DateTime
+
 import lila.rating.PerfType
 import lila.user.User
-import org.joda.time.DateTime
-import chess.Color
 
 case class Simul(
     _id: Simul.ID,
@@ -15,7 +17,7 @@ case class Simul(
     applicants: List[SimulApplicant],
     pairings: List[SimulPairing],
     variants: List[Variant],
-    position: Option[StartingPosition],
+    position: Option[FEN],
     createdAt: DateTime,
     hostId: User.ID,
     hostRating: Int,
@@ -147,7 +149,7 @@ object Simul {
       name: String,
       clock: SimulClock,
       variants: List[Variant],
-      position: Option[StartingPosition],
+      position: Option[FEN],
       color: String,
       text: String,
       team: Option[String]
@@ -180,8 +182,4 @@ object Simul {
       text = text,
       team = team
     )
-
-  private[simul] lazy val fenIndex: Map[String, StartingPosition] = StartingPosition.all.view.map { p =>
-    p.fen -> p
-  }.toMap
 }

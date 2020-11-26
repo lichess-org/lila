@@ -1,7 +1,7 @@
 package lila.setup
 
 import chess.Clock
-import chess.format.{ FEN, Forsyth }
+import chess.format.FEN
 import chess.variant.FromPosition
 
 import lila.game.PerfPicker
@@ -20,7 +20,7 @@ final case class OpenConfig(
   def validFen = ApiConfig.validFen(variant, position)
 
   def autoVariant =
-    if (variant.standard && position.exists(_.value != Forsyth.initial)) copy(variant = FromPosition)
+    if (variant.standard && position.exists(!_.initial)) copy(variant = FromPosition)
     else this
 }
 
@@ -30,6 +30,6 @@ object OpenConfig {
     new OpenConfig(
       variant = chess.variant.Variant.orDefault(~v),
       clock = cl,
-      position = pos map FEN
+      position = pos map FEN.apply
     ).autoVariant
 }

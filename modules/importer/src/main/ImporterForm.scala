@@ -49,8 +49,8 @@ case class ImportData(pgn: String, analyse: Option[String]) {
         sans => sans.copy(value = sans.value take maxPlies),
         Tags.empty
       ) map evenIncomplete map { case replay @ Replay(setup, _, state) =>
-        val initBoard    = parsed.tags.fen.map(_.value) flatMap Forsyth.<< map (_.board)
-        val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.contains(FEN(Forsyth.initial))
+        val initBoard    = parsed.tags.fen flatMap Forsyth.<< map (_.board)
+        val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.exists(_.initial)
         val variant = {
           parsed.tags.variant | {
             if (fromPosition) chess.variant.FromPosition
@@ -64,9 +64,9 @@ case class ImportData(pgn: String, analyse: Option[String]) {
           case v                                                     => v
         }
         val game = state.copy(situation = state.situation withVariant variant)
-        val initialFen = parsed.tags.fen.map(_.value) flatMap {
+        val initialFen = parsed.tags.fen flatMap {
           Forsyth.<<<@(variant, _)
-        } map Forsyth.>> map FEN.apply
+        } map Forsyth.>>
 
         val status = parsed.tags(_.Termination).map(_.toLowerCase) match {
           case Some("normal") | None    => Status.Resign

@@ -76,7 +76,7 @@
   <string name="close">Zatvori</string>
   <string name="winning">Pobjeđuje</string>
   <string name="losing">Gubi</string>
-  <string name="drawn">Remizira</string>
+  <string name="drawn">Remi</string>
   <string name="unknown">Nepoznat ishod</string>
   <string name="database">Baza podataka</string>
   <string name="whiteDrawBlack">Bijeli / Remi / Crni</string>

@@ -1,11 +1,13 @@
 package lila.common
 
+import chess.format.FEN
+import chess.format.Forsyth
 import org.joda.time.{ DateTime, DateTimeZone }
 import play.api.data.format.Formats._
 import play.api.data.format.{ Formatter, JodaFormats }
 import play.api.data.Forms._
 import play.api.data.JodaForms._
-import play.api.data.validation.Constraint
+import play.api.data.validation.{ Constraint, Constraints }
 import play.api.data.{ Field, FormError, Mapping }
 import scala.util.Try
 
@@ -46,6 +48,9 @@ object Form {
   def numberIn(choices: Options[Int]) =
     number.verifying(hasKey(choices, _))
 
+  def numberIn(choices: Set[Int]) =
+    number.verifying(choices.contains _)
+
   def numberIn(choices: Seq[Int]) =
     number.verifying(choices.contains _)
 
@@ -57,8 +62,21 @@ object Form {
     trim(m)
       .verifying("This text contains invalid chars", s => !String.hasZeroWidthChars(s))
 
+  def eventName(minLength: Int, maxLength: Int) =
+    clean(text).verifying(
+      Constraints minLength minLength,
+      Constraints maxLength maxLength,
+      Constraints.pattern(
+        regex = """[\p{L}\p{N}-\s:.,;'\+]+""".r,
+        error = "Invalid characters"
+      )
+    )
+
   def stringIn(choices: Options[String]) =
     text.verifying(hasKey(choices, _))
+
+  def stringIn(choices: Set[String]) =
+    text.verifying(choices.contains _)
 
   def tolerantBoolean = of[Boolean](formatter.tolerantBooleanFormatter)
 
@@ -101,6 +119,14 @@ object Form {
       Constraint[A]("constraint.maxLength", length) { o =>
         if (from(o).lengthIs <= length) V.Valid else V.Invalid(V.ValidationError("error.maxLength", length))
       }
+  }
+
+  object fen {
+    implicit private val fenFormat = formatter.stringFormatter[FEN](_.value, FEN.apply)
+    val playableStrict             = playable(strict = true)
+    def playable(strict: Boolean) = of[FEN](fenFormat)
+      .transform[FEN](f => FEN(f.value.trim), identity)
+      .verifying("Invalid position", fen => (Forsyth <<< fen).exists(_.situation playable strict))
   }
 
   def inTheFuture(m: Mapping[DateTime]) =

@@ -37,7 +37,10 @@ final class User(
       OptionFuResult(env.user.repo named username) { user =>
         currentlyPlaying(user) orElse lastPlayed(user) flatMap {
           _.fold(fuccess(Redirect(routes.User.show(username)))) { pov =>
-            roundC.watch(pov, userTv = user.some)
+            ctx.me ifFalse pov.game.bothPlayersHaveMoved flatMap { Pov(pov.game, _) } match {
+              case Some(mine) => Redirect(routes.Round.player(mine.fullId)).fuccess
+              case _          => roundC.watch(pov, userTv = user.some)
+            }
           }
         }
       }
@@ -221,7 +224,7 @@ final class User(
       filterName: String,
       page: Int
   )(implicit ctx: BodyContext[_]): Fu[Paginator[GameModel]] = {
-    UserGamesRateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = page, msg = s"on ${u.username}") {
+    UserGamesRateLimitPerIP(HTTPRequest ipAddress ctx.req, cost = page, msg = s"on ${u.username}") {
       lila.mon.http.userGamesCost.increment(page.toLong)
       for {
         pagFromDb <- env.gamePaginator(

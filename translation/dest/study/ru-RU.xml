@@ -2,7 +2,7 @@
 <resources>
   <string name="private">Частная</string>
   <string name="myStudies">Мои разборы</string>
-  <string name="studiesIContributeTo">Разборы с с моим участием</string>
+  <string name="studiesIContributeTo">Разборы с моим участием</string>
   <string name="myPublicStudies">Мои публичные разборы</string>
   <string name="myPrivateStudies">Мои частные разборы</string>
   <string name="myFavoriteStudies">Мои отмеченные разборы</string>

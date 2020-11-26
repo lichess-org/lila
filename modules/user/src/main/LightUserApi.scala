@@ -19,7 +19,8 @@ final class LightUserApi(
   val async = new LightUser.Getter(cache.async)
   val sync  = new LightUser.GetterSync(cache.sync)
 
-  def syncFallback(id: User.ID) = sync(id) | LightUser.fallback(id)
+  def syncFallback(id: User.ID)  = sync(id) | LightUser.fallback(id)
+  def asyncFallback(id: User.ID) = async(id) dmap (_ | LightUser.fallback(id))
 
   def asyncMany = cache.asyncMany _
 

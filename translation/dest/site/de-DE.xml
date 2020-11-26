@@ -37,7 +37,7 @@
     <item quantity="one">Dein Gegner hat die Partie verlassen. Du kannst in %s Sekunde den Sieg beanspruchen.</item>
     <item quantity="other">Dein Gegner hat die Partie verlassen. Du kannst in %s Sekunden den Sieg beanspruchen.</item>
   </plurals>
-  <string name="opponentLeftChoices">Dein Gegner hat die Partie möglicherweise verlassen. Du kannst den Sieg beanspruchen, das Spiel Remis erklären oder auf deinen Gegner warten.</string>
+  <string name="opponentLeftChoices">Dein Gegner hat die Partie verlassen. Du kannst den Sieg beanspruchen, das Spiel Remis erklären oder warten.</string>
   <string name="makeYourOpponentResign">Zwinge deinen Gegner zur Aufgabe</string>
   <string name="forceResignation">Sieg beanspruchen</string>
   <string name="forceDraw">Remis erklären</string>
@@ -405,7 +405,7 @@
   <string name="recommendNotTouching">Wir empfehlen, diese nicht zu ändern.</string>
   <string name="fewerPlayers">Falls du Teilnahmebedingungen setzt, wird das Turnier weniger Spieler haben.</string>
   <string name="showAdvancedSettings">Zeige erweiterte Einstellungen</string>
-  <string name="makePrivateTournament">Stelle das Turnier auf privat und schütze den Zugang durch ein Passwort</string>
+  <string name="makePrivateTournament">Stelle das Turnier auf privat und beschränke den Zugang durch ein Passwort</string>
   <string name="join">Teilnehmen</string>
   <string name="withdraw">Verlassen</string>
   <string name="points">Punkte</string>
@@ -531,6 +531,7 @@
   <string name="currentPassword">Derzeitiges Passwort</string>
   <string name="newPassword">Neues Passwort</string>
   <string name="newPasswordAgain">Neues Passwort (wiederholen)</string>
+  <string name="newPasswordsDontMatch">Die neuen Passwörter stimmen nicht überein</string>
   <string name="clockInitialTime">Grundbedenkzeit</string>
   <string name="clockIncrement">Zeit-Inkrement</string>
   <string name="privacy">Privatsphäre</string>

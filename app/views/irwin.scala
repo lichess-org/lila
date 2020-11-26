@@ -39,7 +39,7 @@ object irwin {
             ),
             div(cls := "box__top__actions")(
               a(
-                href := "https://monitor.lichess.ovh/dashboard/db/lichess-moderation",
+                href := "https://monitor.lichess.ovh/d/a5qOnu9Wz/mod-yield",
                 cls := "button button-empty"
               )("Monitoring")
             )

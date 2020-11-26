@@ -236,18 +236,17 @@ object inquiry {
     )
   }
 
-  private def thenInput(what: String) = input(tpe := "hidden", name := "then", value := what)
   private def thenForms(url: String, button: Tag) =
     div(
       postForm(
         action := url,
         button("And stay on this report"),
-        thenInput("back")
+        form3.hidden("next", "0")
       ),
       postForm(
         action := url,
         button("Then open profile"),
-        thenInput("profile")
+        form3.hidden("then", "profile")
       )
     )
 }

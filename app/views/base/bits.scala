@@ -1,5 +1,9 @@
 package views.html.base
 
+import chess.format.FEN
+import controllers.routes
+import play.api.i18n.Lang
+
 import lila.app.ui.ScalatagsTemplate._
 
 object bits {
@@ -10,7 +14,7 @@ object bits {
         tpe := "checkbox",
         cls := "mselect__toggle fullscreen-toggle",
         st.id := s"mselect-$id",
-        aria.label := "Other variants"
+        autocomplete := "off"
       ),
       label(`for` := s"mselect-$id", cls := "mselect__label")(current),
       label(`for` := s"mselect-$id", cls := "fullscreen-mask"),
@@ -40,4 +44,7 @@ z-index: 99;
       a(href := "https://www.youtube.com/channel/UCr6RfQga70yMM9-nuzAYTsA", rel := "nofollow")("YouTube"),
       a(href := "https://www.twitch.tv/lichessdotorg", rel := "nofollow")("Twitch")
     )
+
+  def fenAnalysisLink(fen: FEN)(implicit lang: Lang) =
+    a(href := routes.UserAnalysis.parseArg(fen.value.replace(" ", "_")))(trans.analysis())
 }

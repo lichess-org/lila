@@ -1,13 +1,14 @@
 package lila.tournament
 
+import cats.implicits._
+import chess.format.FEN
+import chess.{ Mode, StartingPosition }
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation
-import play.api.data.validation.{ Constraint, Constraints }
+import play.api.data.validation.Constraint
 
-import chess.Mode
-import chess.StartingPosition
 import lila.common.Form._
 import lila.hub.LeaderTeam
 import lila.hub.LightTeam._
@@ -26,7 +27,7 @@ final class TournamentForm {
       waitMinutes = waitMinuteDefault.some,
       startDate = none,
       variant = chess.variant.Standard.id.toString.some,
-      position = StartingPosition.initial.fen.some,
+      position = None,
       password = None,
       mode = none,
       rated = true.some,
@@ -47,7 +48,7 @@ final class TournamentForm {
       waitMinutes = none,
       startDate = tour.startsAt.some,
       variant = tour.variant.id.toString.some,
-      position = tour.position.fen.some,
+      position = tour.position,
       mode = none,
       rated = tour.mode.rated.some,
       password = tour.password,
@@ -59,15 +60,9 @@ final class TournamentForm {
       hasChat = tour.hasChat.some
     )
 
-  private val nameType = clean(text).verifying(
-    Constraints minLength 2,
-    Constraints maxLength 30,
-    Constraints.pattern(
-      regex = """[\p{L}\p{N}-\s:,;]+""".r,
-      error = "error.unknown"
-    ),
+  private def nameType(user: User) = eventName(2, 30).verifying(
     Constraint[String] { (t: String) =>
-      if (t.toLowerCase contains "lichess")
+      if (t.toLowerCase.contains("lichess") && !user.isVerified && !user.isAdmin)
         validation.Invalid(validation.ValidationError("Must not contain \"lichess\""))
       else validation.Valid
     }
@@ -76,7 +71,7 @@ final class TournamentForm {
   private def form(user: User, leaderTeams: List[LeaderTeam]) =
     Form(
       mapping(
-        "name"           -> optional(nameType),
+        "name"           -> optional(nameType(user)),
         "clockTime"      -> numberInDouble(clockTimeChoices),
         "clockIncrement" -> numberIn(clockIncrementChoices),
         "minutes" -> {
@@ -86,8 +81,8 @@ final class TournamentForm {
         "waitMinutes"      -> optional(numberIn(waitMinuteChoices)),
         "startDate"        -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
         "variant"          -> optional(text.verifying(v => guessVariant(v).isDefined)),
-        "position"         -> optional(nonEmptyText),
-        "mode"             -> optional(number.verifying(Mode.all map (_.id) contains _)), // deprecated, use rated
+        "position"         -> optional(lila.common.Form.fen.playableStrict),
+        "mode"             -> optional(number.verifying(Mode.all.map(_.id) contains _)), // deprecated, use rated
         "rated"            -> optional(boolean),
         "password"         -> optional(clean(nonEmptyText)),
         "conditions"       -> Condition.DataForm.all(leaderTeams),
@@ -143,9 +138,6 @@ object TournamentForm {
     validVariants.find { v =>
       v.key == from || from.toIntOption.exists(v.id ==)
     }
-
-  def startingPosition(fen: String, variant: Variant): StartingPosition =
-    Thematic.byFen(fen).ifTrue(variant.standard) | StartingPosition.initial
 }
 
 private[tournament] case class TournamentSetup(
@@ -156,7 +148,7 @@ private[tournament] case class TournamentSetup(
     waitMinutes: Option[Int],
     startDate: Option[DateTime],
     variant: Option[String],
-    position: Option[String],
+    position: Option[FEN],
     mode: Option[Int], // deprecated, use rated
     rated: Option[Boolean],
     password: Option[String],
@@ -170,9 +162,13 @@ private[tournament] case class TournamentSetup(
 
   def validClock = (clockTime + clockIncrement) > 0
 
-  def realMode = Mode(rated.orElse(mode.map(Mode.Rated.id ==)) | true)
+  def realMode =
+    if (realPosition.isDefined) Mode.Casual
+    else Mode(rated.orElse(mode.map(Mode.Rated.id ===)) | true)
 
   def realVariant = variant.flatMap(TournamentForm.guessVariant) | chess.variant.Standard
+
+  def realPosition = position ifTrue realVariant.standard
 
   def clockConfig = chess.Clock.Config((clockTime * 60).toInt, clockIncrement)
 

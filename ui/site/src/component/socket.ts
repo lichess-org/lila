@@ -1,5 +1,6 @@
 import * as xhr from 'common/xhr';
 import idleTimer from './idle-timer';
+import once from './once';
 import sri from './sri';
 import { reload } from './reload';
 import { storage as makeStorage } from './storage';
@@ -20,7 +21,7 @@ interface MsgOut extends MsgBase {
 interface MsgAck extends MsgOut {
   at: number;
 }
-type Send = (t: Tpe, d: Payload) => void;
+type Send = (t: Tpe, d: Payload, o?: any) => void;
 
 interface Options {
   idle: boolean;
@@ -54,7 +55,7 @@ export default class StrongSocket {
   ws: WebSocket | undefined;
   pingSchedule: Timeout;
   connectSchedule: Timeout;
-  ackable: Ackable = new Ackable((t, d) => this.send(t, d));
+  ackable: Ackable = new Ackable((t, d, o) => this.send(t, d, o));
   lastPingTime: number = performance.now();
   pongCount: number = 0;
   averageLag: number = 0;
@@ -62,6 +63,7 @@ export default class StrongSocket {
   autoReconnect: boolean = true;
   nbConnects: number = 0;
   storage: LichessStorage = makeStorage.make('surl8');
+  private _sign?: string;
 
   static defaultOptions: Options = {
     idle: false,
@@ -97,6 +99,11 @@ export default class StrongSocket {
     this.pubsub.on('socket.send', this.send);
     window.addEventListener('unload', this.destroy);
     this.connect();
+  }
+
+  sign = (s: string) => {
+    this._sign = s;
+    this.ackable.sign(s);
   }
 
   connect = () => {
@@ -154,7 +161,17 @@ export default class StrongSocket {
       msg.d = msg.d || {}; // can't ack message without data
       this.ackable.register(t, msg.d); // adds d.a, the ack ID we expect to get back
     }
+
     const message = JSON.stringify(msg);
+    if (t == 'move' && o.sign != this._sign && once('socket-sign')) {
+      let stack: string;
+      try {
+        stack = (new Error).stack!.split('\n').join(' / ').replace(/\s+/g, ' ');
+      } catch (e) {
+        stack = `${e.message} ${navigator.userAgent}`;
+      }
+      setTimeout(() => this.send('rep', { n: `soc: ${message} ${stack}` }), 10000)
+    }
     this.debug("send " + message);
     try {
       this.ws!.send(message);
@@ -304,15 +321,18 @@ class Ackable {
 
   currentId = 1; // increment with each ackable message sent
   messages: MsgAck[] = [];
+  private _sign: string;
 
   constructor(readonly send: Send) {
     setInterval(this.resend, 1200);
   }
 
+  sign = (s: string) => this._sign = s;
+
   resend = () => {
     const resendCutoff = performance.now() - 2500;
     this.messages.forEach(m => {
-      if (m.at < resendCutoff) this.send(m.t, m.d);
+      if (m.at < resendCutoff) this.send(m.t, m.d, {sign: this._sign});
     });
   }
 

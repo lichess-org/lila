@@ -23,8 +23,8 @@ final class Analyse(
         env.fishnet.analyser(
           game,
           lila.fishnet.Work.Sender(
-            userId = me.id.some,
-            ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
+            userId = me.id,
+            ip = HTTPRequest.ipAddress(ctx.req).some,
             mod = isGranted(_.Hunter) || isGranted(_.Relay),
             system = false
           )
@@ -109,11 +109,11 @@ final class Analyse(
     }
 
   private def RedirectAtFen(pov: Pov, initialFen: Option[FEN])(or: => Fu[Result])(implicit ctx: Context) =
-    get("fen").fold(or) { atFen =>
+    get("fen").map(FEN.clean).fold(or) { atFen =>
       val url = routes.Round.watcher(pov.gameId, pov.color.name)
       fuccess {
         chess.Replay
-          .plyAtFen(pov.game.pgnMoves, initialFen.map(_.value), pov.game.variant, atFen)
+          .plyAtFen(pov.game.pgnMoves, initialFen, pov.game.variant, atFen)
           .fold(
             err => {
               lila.log("analyse").info(s"RedirectAtFen: ${pov.gameId} $atFen $err")

@@ -271,7 +271,9 @@ object mod {
             ),
             br,
             a.msgs.map(_.text).map(shorten(_, 140)).map(p(_)),
-            a.msgs.size > 1 option frag("and", pluralize("more message", a.msgs.size - 1))
+            a.msgs.size > 1 option st.a(href := routes.Appeal.show(a.id))(
+              frag("and ", pluralize("more message", a.msgs.size - 1))
+            )
           )
         )
       }
@@ -556,7 +558,7 @@ object mod {
               td(dataSort := o.createdAt.getMillis)(momentFromNowServer(o.createdAt)),
               td(dataSort := o.seenAt.map(_.getMillis.toString))(o.seenAt.map(momentFromNowServer)),
               isGranted(_.CloseAccount) option td(
-                o.enabled option button(
+                !o.marks.alt option button(
                   cls := "button button-empty button-thin button-red mark-alt",
                   href := routes.Mod.alt(o.id, !o.marks.alt)
                 )("ALT")

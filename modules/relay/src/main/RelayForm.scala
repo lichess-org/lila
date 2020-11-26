@@ -43,23 +43,25 @@ object RelayForm {
       AbsoluteUrl
         .parse(url)
         .hostOption
-        .exists {
-          _.apexDomain.fold(true) { d =>
-            !blacklist.contains(d)
+        .exists { host =>
+          host.apexDomain.fold(true) { apex =>
+            !blocklist.contains(apex) && (
+              // only allow public API, not arbitrary URLs
+              apex != "chess.com" || url.startsWith("https://api.chess.com/pub")
+            )
           }
         }
     } catch {
       case _: io.lemonlabs.uri.parsing.UriParsingException => false
     }
 
-  private val blacklist = List(
+  private val blocklist = List(
     "twitch.tv",
     "twitch.com",
     "youtube.com",
     "youtu.be",
     "lichess.org",
     "google.com",
-    "chess.com",
     "vk.com",
     "localhost",
     "chess-results.com",

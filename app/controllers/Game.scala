@@ -121,7 +121,7 @@ final class Game(
         playerFile = get("players", req)
       )
       apiC
-        .GlobalConcurrencyLimitPerIP(HTTPRequest lastRemoteAddress req)(
+        .GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
           env.api.gameApiV2.exportByIds(config)
         ) { source =>
           Ok.chunked(source)

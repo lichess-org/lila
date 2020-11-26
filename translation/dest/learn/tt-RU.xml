@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="learnChess">Шахмат уйнап,</string>
+  <string name="byPlaying">өйрәнегез!</string>
+  <string name="menu">Меню</string>
+  <string name="progressX">Үтелгән: %s</string>
+  <string name="resetMyProgress">Яңадан башларга</string>
+  <string name="youWillLoseAllYourProgress">Сез бөтен прогрессыгызны югалтырсыз!</string>
+  <string name="play">уйна!</string>
+  <string name="chessPieces">Шахмат сыннары</string>
+  <string name="theRook">Тура</string>
+  <string name="itMovesInStraightLines">Туры юл буенча йөри</string>
+  <string name="rookIntro">Тура - көчле таш. Сез аның белән уйнарга әзерме?</string>
+  <string name="rookGoal">Турага басыгыз
+һәм аны йолдызга алып китерегез!</string>
+  <string name="grabAllTheStars">Бөтен йолдызларны җыеп алыгыз!</string>
+</resources>

@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="faqAbbreviation">Συχνές ερωτήσεις</string>
+  <string name="frequentlyAskedQuestions">Συχνές Ερωτήσεις</string>
+  <string name="whyIsLichessCalledLichess">Γιατί το Lichess ονομάζεται Lichess;</string>
+  <string name="howCanIContributeToLichess">Πώς μπορώ να συνεισφέρω στο Lichess;</string>
+  <string name="breakdownOfOurCosts">ανάλυση των εξόδων μας</string>
+  <string name="otherWaysToHelp">άλλοι τρόποι για να βοηθήσετε</string>
+  <string name="areThereWebsitesBasedOnLichess">Υπάρχουν άλλες ιστοσελίδες που βασίζονται στο Lichess;</string>
+  <string name="threefoldRepetition">Τριπλή επανάληψη</string>
+  <string name="threefoldRepetitionLowerCase">τριπλή επανάληψη</string>
+  <string name="notRepeatedMoves">Δεν επαναλάβαμε κινήσεις. Γιατί το παιχνίδι έληξε ως ισόπαλο λόγω τριπλής επανάληψης;</string>
+</resources>

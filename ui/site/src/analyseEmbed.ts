@@ -8,8 +8,7 @@ export default function(opts: any) {
 
   window.LichessAnalyse.start({
     ...opts,
-    socketSend: () => { },
-    initialPly: 'url'
+    socketSend: () => { }
   });
 
   window.addEventListener('resize', () =>

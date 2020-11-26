@@ -34,7 +34,7 @@ final case class ApiConfig(
   def mode = chess.Mode(rated)
 
   def autoVariant =
-    if (variant.standard && position.exists(_.value != Forsyth.initial)) copy(variant = FromPosition)
+    if (variant.standard && position.exists(!_.initial)) copy(variant = FromPosition)
     else this
 }
 
@@ -57,7 +57,7 @@ object ApiConfig extends BaseHumanConfig {
       days = d,
       rated = r,
       color = Color.orDefault(~c),
-      position = pos map FEN,
+      position = pos map FEN.apply,
       acceptByToken = tok
     ).autoVariant
 
@@ -65,7 +65,7 @@ object ApiConfig extends BaseHumanConfig {
     if (variant.chess960) fen.forall(f => Chess960.positionNumber(f).isDefined)
     else if (variant.fromPosition)
       fen exists { f =>
-        (Forsyth <<< f.value).exists(_.situation playable false)
+        (Forsyth <<< f).exists(_.situation playable false)
       }
     else true
 }

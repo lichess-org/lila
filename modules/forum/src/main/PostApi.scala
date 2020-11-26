@@ -2,14 +2,15 @@ package lila.forum
 
 import actorApi._
 import org.joda.time.DateTime
-import scala.util.chaining._
 import reactivemongo.api.ReadPreference
+import scala.util.chaining._
 
 import lila.common.Bus
 import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
+import lila.hub.LightTeam.TeamID
 import lila.mod.ModlogApi
 import lila.security.{ Granter => MasterGranter }
 import lila.user.User
@@ -254,4 +255,11 @@ final class PostApi(
         multi = true
       )
       .void
+
+  def teamIdOfPostId(postId: Post.ID): Fu[Option[TeamID]] =
+    env.postRepo.coll.byId[Post](postId) flatMap {
+      _ ?? { post =>
+        env.categRepo.coll.primitiveOne[TeamID]($id(post.categId), "team")
+      }
+    }
 }

@@ -221,7 +221,7 @@ object layout {
             rel := "alternate",
             st.title := trans.blog.txt()
           ),
-          ctx.transpBgImg map { img =>
+          ctx.currentBg == "transp" option ctx.pref.bgImgOrDefault map { img =>
             raw(
               s"""<style id="bg-data">body.transp::before{background-image:url('$img');}</style>"""
             )
@@ -233,6 +233,7 @@ object layout {
         st.body(
           cls := List(
             s"${ctx.currentBg} ${ctx.currentTheme.cssClass} ${ctx.currentTheme3d.cssClass} ${ctx.currentPieceSet3d.toString} coords-${ctx.pref.coordsClass}" -> true,
+            "dark-board"                                                                                                                                     -> (ctx.pref.bg == lila.pref.Pref.Bg.DARKBOARD),
             "piece-letter"                                                                                                                                   -> ctx.pref.pieceNotationIsLetter,
             "zen"                                                                                                                                            -> ctx.pref.isZen,
             "blind-mode"                                                                                                                                     -> ctx.blind,
@@ -256,7 +257,10 @@ object layout {
           ctx.pageData.inquiry map { views.html.mod.inquiry(_) },
           ctx.me ifTrue ctx.userContext.impersonatedBy.isDefined map { views.html.mod.impersonate(_) },
           netConfig.stageBanner option views.html.base.bits.stage,
-          lila.security.EmailConfirm.cookie.get(ctx.req).map(views.html.auth.bits.checkYourEmailBanner(_)),
+          lila.security.EmailConfirm.cookie
+            .get(ctx.req)
+            .ifTrue(ctx.isAnon)
+            .map(views.html.auth.bits.checkYourEmailBanner(_)),
           playing option zenToggle,
           siteHeader(playing),
           div(
@@ -286,20 +290,28 @@ object layout {
 
     private val topnavToggle = spaceless(
       """
-<input type="checkbox" id="tn-tg" class="topnav-toggle fullscreen-toggle" aria-label="Navigation">
+<input type="checkbox" id="tn-tg" class="topnav-toggle fullscreen-toggle" autocomplete="off" aria-label="Navigation">
 <label for="tn-tg" class="fullscreen-mask"></label>
 <label for="tn-tg" class="hbg"><span class="hbg__in"></span></label>"""
     )
 
     private def reports(implicit ctx: Context) =
-      isGranted(_.SeeReport) option
-        a(
-          cls := "link data-count link-center",
-          title := "Moderation",
-          href := routes.Report.list(),
-          dataCount := blockingReportNbOpen,
-          dataIcon := ""
-        )
+      isGranted(_.SeeReport) option {
+        blockingReportScores match {
+          case (score, mid, high) =>
+            a(
+              cls := List(
+                "link data-count report-score link-center" -> true,
+                "report-score--high"                       -> (score > high),
+                "report-score--low"                        -> (score <= mid)
+              ),
+              title := "Moderation",
+              href := routes.Report.list(),
+              dataCount := score,
+              dataIcon := ""
+            )
+        }
+      }
 
     private def teamRequests(implicit ctx: Context) =
       ctx.teamNbRequests > 0 option

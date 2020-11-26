@@ -1,14 +1,15 @@
 package lila.swiss
 
+import chess.Clock.{ Config => ClockConfig }
+import chess.Color
+import chess.format.FEN
+import chess.variant.Variant
+import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
-import chess.Clock.{ Config => ClockConfig }
-import chess.variant.Variant
-import chess.{ Color, StartingPosition }
 import lila.db.BSON
 import lila.db.dsl._
 import lila.user.User
-import reactivemongo.api.bson._
 
 private object BsonHandlers {
 
@@ -31,16 +32,6 @@ private object BsonHandlers {
       case _             => Variant.default
     },
     v => BSONString(v.key)
-  )
-  private lazy val fenIndex: Map[String, StartingPosition] = StartingPosition.all.view.map { p =>
-    p.fen -> p
-  }.toMap
-  implicit val startingPositionHandler = lila.db.dsl.quickHandler[StartingPosition](
-    {
-      case BSONString(v) => fenIndex.getOrElse(v, StartingPosition.initial)
-      case _             => StartingPosition.initial
-    },
-    v => BSONString(v.fen)
   )
   implicit val swissPointsHandler   = intAnyValHandler[Swiss.Points](_.double, Swiss.Points.apply)
   implicit val swissTieBreakHandler = doubleAnyValHandler[Swiss.TieBreak](_.value, Swiss.TieBreak.apply)
@@ -128,6 +119,7 @@ private object BsonHandlers {
         nbRounds = r.get[Int]("n"),
         rated = r.boolO("r") | true,
         description = r.strO("d"),
+        position = r.getO[FEN]("f"),
         chatFor = r.intO("c") | Swiss.ChatFor.default,
         roundInterval = (r.intO("i") | 60).seconds,
         password = r.strO("p"),
@@ -138,6 +130,7 @@ private object BsonHandlers {
         "n" -> s.nbRounds,
         "r" -> (!s.rated).option(false),
         "d" -> s.description,
+        "f" -> s.position,
         "c" -> (s.chatFor != Swiss.ChatFor.default).option(s.chatFor),
         "i" -> s.roundInterval.toSeconds.toInt,
         "p" -> s.password,

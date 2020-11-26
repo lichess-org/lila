@@ -210,6 +210,8 @@
     <item quantity="other">%s odigranih partija s tobom</item>
   </plurals>
   <string name="cancel">Odustani</string>
+  <string name="whiteTimeOut">Bijelome isteklo vrijeme</string>
+  <string name="blackTimeOut">Crnome isteklo vrijeme</string>
   <string name="drawOfferSent">Ponuda remija poslana</string>
   <string name="drawOfferDeclined">Ponuda remija odbijena</string>
   <string name="drawOfferAccepted">Ponuda remija prihvaćena</string>

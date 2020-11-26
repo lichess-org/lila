@@ -196,6 +196,15 @@ trait FormHelper { self: I18nHelper =>
     def passwordModified(field: Field, content: Frag)(modifiers: Modifier*)(implicit ctx: Context): Frag =
       group(field, content)(input(_, typ = "password")(required)(modifiers))
 
+    def passwordComplexityMeter(): Frag =
+      div(cls := "password-complexity")(
+        label(cls := "password-complexity-label"),
+        div(cls := "password-complexity-meter")(
+          for (_ <- 1 to 4)
+            yield span()
+        )
+      )
+
     def globalError(form: Form[_])(implicit ctx: Context): Option[Frag] =
       form.globalError map { err =>
         div(cls := "form-group is-invalid")(error(err))

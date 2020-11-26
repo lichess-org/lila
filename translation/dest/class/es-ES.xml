@@ -5,7 +5,7 @@
   <string name="features">Características</string>
   <string name="quicklyGenerateSafeUsernames">Generar rápidamente nombres de usuario y contraseñas seguras para estudiantes</string>
   <string name="trackStudentProgress">Seguir el progreso del estudiante en partidas y ejercicios de táctica</string>
-  <string name="messageAllStudents">Enviar un mensaje a todos los estudiantes sobre nuevo material de clase</string>
+  <string name="messageAllStudents">Notificar a todos los estudiantes sobre el nuevo material de clase</string>
   <string name="freeForAllForever">100% libre y gratuito para todos, para siempre, sin publicidad ni rastreadores</string>
   <string name="applyToBeLichessTeacher">Solicitar ser profesor de Lichess</string>
   <string name="noClassesYet">No hay clases todavía.</string>

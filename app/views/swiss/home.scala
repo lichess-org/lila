@@ -37,7 +37,7 @@ object home {
             )
           ),
           comparison,
-          faq
+          div(id := "faq")(faq)
         )
       )
     }

@@ -6,7 +6,6 @@
 %s се однесува за FIDE титула, како ИМ или ВМ.</string>
   <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">НМ или ФИДЕ титула</string>
   <string name="confirmTitle">Потврди ја твојата титула овде и ние ќе ја прегледаме твојата апликација.</string>
-  <string name="sendApplication">испрати апликација</string>
   <string name="location">локација</string>
   <string name="languages">јазици</string>
   <string name="rating">рејтинг</string>
@@ -15,7 +14,6 @@
   <string name="accepting">прифаќа студенти</string>
   <string name="notAccepting">не прифаќа студенти во моментот</string>
   <string name="sendPM">испрати приватна порака</string>
-  <string name="aboutMe">За мене %s</string>
   <string name="playingExperience">Играчко искуство</string>
   <string name="teachingExperience">Искуство во тренирање</string>
   <string name="otherExperiences">други искуства</string>

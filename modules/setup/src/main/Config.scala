@@ -62,14 +62,14 @@ trait Positional { self: Config =>
   def strictFen: Boolean
 
   lazy val validFen = variant != FromPosition || {
-    fen ?? { f =>
-      ~(Forsyth <<< f.value).map(_.situation playable strictFen)
+    fen exists { f =>
+      (Forsyth <<< f).exists(_.situation playable strictFen)
     }
   }
 
   def fenGame(builder: ChessGame => Game): Game = {
-    val baseState = fen ifTrue (variant.fromPosition) flatMap { f =>
-      Forsyth.<<<@(FromPosition, f.value)
+    val baseState = fen ifTrue (variant.fromPosition) flatMap {
+      Forsyth.<<<@(FromPosition, _)
     }
     val (chessGame, state) = baseState.fold(makeGame -> none[SituationPlus]) {
       case sit @ SituationPlus(s, _) =>
@@ -79,8 +79,8 @@ trait Positional { self: Config =>
           startedAtTurn = sit.turns,
           clock = makeClock.map(_.toClock)
         )
-        if (Forsyth.>>(game) == Forsyth.initial) makeGame(chess.variant.Standard) -> none
-        else game                                                                 -> baseState
+        if (Forsyth.>>(game).initial) makeGame(chess.variant.Standard) -> none
+        else game                                                      -> baseState
     }
     val game = builder(chessGame)
     state.fold(game) { case sit @ SituationPlus(Situation(board, _), _) =>

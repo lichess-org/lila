@@ -41,6 +41,6 @@ final class UciMemo(gameRepo: GameRepo)(implicit ec: scala.concurrent.ExecutionC
   private def compute(game: Game, max: Int): Fu[UciVector] =
     for {
       fen      <- gameRepo initialFen game
-      uciMoves <- UciDump(game.pgnMoves.take(max), fen.map(_.value), game.variant).toFuture
+      uciMoves <- UciDump(game.pgnMoves take max, fen, game.variant).toFuture
     } yield uciMoves.toVector
 }

@@ -239,7 +239,7 @@ object mon {
   }
   object mod {
     object report {
-      val unprocessed            = gauge("mod.report.unprocessed").withoutTags()
+      val highest                = gauge("mod.report.highest").withoutTags()
       val close                  = counter("mod.report.close").withoutTags()
       def create(reason: String) = counter("mod.report.create").withTag("reason", reason)
     }
@@ -315,6 +315,10 @@ object mon {
     }
     def usersAlikeTime(field: String)  = timer("security.usersAlike.time").withTag("field", field)
     def usersAlikeFound(field: String) = histogram("security.usersAlike.found").withTag("field", field)
+    object recaptcha {
+      def hit(client: String, result: String) =
+        counter("recaptcha.hit").withTags(Map("client" -> client, "result" -> result))
+    }
   }
   object tv {
     object streamer {

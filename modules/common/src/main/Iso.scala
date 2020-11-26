@@ -1,11 +1,17 @@
 package lila.common
 
-import play.api.i18n.Lang
 import chess.Centis
+import chess.format.FEN
+import play.api.i18n.Lang
 
 trait Iso[A, B] {
   val from: A => B
   val to: B => A
+
+  def map[BB](mapFrom: B => BB, mapTo: BB => B) = new Iso[A, BB] {
+    val from = a => mapFrom(Iso.this.from(a))
+    val to   = bb => Iso.this.to(mapTo(bb))
+  }
 }
 
 object Iso {
@@ -29,12 +35,17 @@ object Iso {
 
   def strings(sep: String): StringIso[Strings] =
     Iso[String, Strings](
-      str => Strings(str.split(sep).iterator.map(_.trim).to(List)),
+      str => Strings(str.split(sep).iterator.map(_.trim).toList),
       strs => strs.value mkString sep
     )
   def userIds(sep: String): StringIso[UserIds] =
     Iso[String, UserIds](
-      str => UserIds(str.split(sep).iterator.map(_.trim.toLowerCase).to(List)),
+      str => UserIds(str.split(sep).iterator.map(_.trim.toLowerCase).toList),
+      strs => strs.value mkString sep
+    )
+  def ints(sep: String): StringIso[Ints] =
+    Iso[String, Ints](
+      str => Ints(str.split(sep).iterator.map(_.trim).flatMap(_.toIntOption).toList),
       strs => strs.value mkString sep
     )
 
@@ -52,4 +63,6 @@ object Iso {
   implicit val centisIso = int[Centis](Centis.apply, _.centis)
 
   implicit val langIso = string[Lang](Lang.apply, _.toString)
+
+  implicit val fenIso = string[FEN](FEN.apply, _.value)
 }

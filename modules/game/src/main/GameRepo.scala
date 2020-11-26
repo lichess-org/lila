@@ -352,10 +352,10 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         g.copy(mode = chess.Mode.Casual)
       else g
     val userIds = g2.userIds.distinct
-    val fen = initialFen.map(_.value) orElse {
+    val fen: Option[FEN] = initialFen orElse {
       (!g2.variant.standardInitialPosition)
         .option(Forsyth >> g2.chess)
-        .filter(Forsyth.initial !=)
+        .filterNot(_.initial)
     }
     val checkInHours =
       if (g2.isPgnImport) none
@@ -396,7 +396,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def initialFen(game: Game): Fu[Option[FEN]] =
     if (game.imported || !game.variant.standardInitialPosition) initialFen(game.id) dmap {
-      case None if game.variant == chess.variant.Chess960 => FEN(Forsyth.initial).some
+      case None if game.variant == chess.variant.Chess960 => Forsyth.initial.some
       case fen                                            => fen
     }
     else fuccess(none)

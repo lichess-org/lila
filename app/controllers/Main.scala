@@ -90,7 +90,7 @@ final class Main(
     Open { ctx =>
       env.round.selfReport(
         userId = ctx.userId,
-        ip = HTTPRequest lastRemoteAddress ctx.req,
+        ip = HTTPRequest ipAddress ctx.req,
         fullId = lila.game.Game.FullId(id),
         name = get("n", ctx.req) | "?"
       )

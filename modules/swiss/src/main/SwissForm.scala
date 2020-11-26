@@ -1,11 +1,11 @@
 package lila.swiss
 
 import chess.Clock.{ Config => ClockConfig }
+import chess.format.FEN
 import chess.variant.Variant
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
-import play.api.data.validation.Constraints
 import play.api.Mode
 import scala.concurrent.duration._
 
@@ -18,16 +18,7 @@ final class SwissForm(implicit mode: Mode) {
   def form(minRounds: Int = 3) =
     Form(
       mapping(
-        "name" -> optional(
-          clean(text).verifying(
-            Constraints minLength 2,
-            Constraints maxLength 30,
-            Constraints.pattern(
-              regex = """[\p{L}\p{N}-\s:,;\+]+""".r,
-              error = "Invalid characters"
-            )
-          )
-        ),
+        "name" -> optional(eventName(2, 30)),
         "clock" -> mapping(
           "limit"     -> number.verifying(clockLimits.contains _),
           "increment" -> number(min = 0, max = 600)
@@ -38,6 +29,7 @@ final class SwissForm(implicit mode: Mode) {
         "rated"         -> optional(boolean),
         "nbRounds"      -> number(min = minRounds, max = 100),
         "description"   -> optional(clean(nonEmptyText)),
+        "position"      -> optional(lila.common.Form.fen.playableStrict),
         "chatFor"       -> optional(numberIn(chatForChoices.map(_._1))),
         "roundInterval" -> optional(numberIn(roundIntervals)),
         "password"      -> optional(clean(nonEmptyText)),
@@ -56,6 +48,7 @@ final class SwissForm(implicit mode: Mode) {
       rated = true.some,
       nbRounds = 7,
       description = none,
+      position = none,
       chatFor = Swiss.ChatFor.default.some,
       roundInterval = Swiss.RoundInterval.auto.some,
       password = None,
@@ -71,6 +64,7 @@ final class SwissForm(implicit mode: Mode) {
       rated = s.settings.rated.some,
       nbRounds = s.settings.nbRounds,
       description = s.settings.description,
+      position = s.settings.position,
       chatFor = s.settings.chatFor.some,
       roundInterval = s.settings.roundInterval.toSeconds.toInt.some,
       password = s.settings.password,
@@ -105,7 +99,6 @@ object SwissForm {
       30,
       45,
       60,
-      90,
       120,
       180,
       300,
@@ -147,6 +140,7 @@ object SwissForm {
       rated: Option[Boolean],
       nbRounds: Int,
       description: Option[String],
+      position: Option[FEN],
       chatFor: Option[Int],
       roundInterval: Option[Int],
       password: Option[String],
@@ -170,5 +164,6 @@ object SwissForm {
         case i => i
       }
     }.seconds
+    def realPosition = position ifTrue realVariant.standard
   }
 }

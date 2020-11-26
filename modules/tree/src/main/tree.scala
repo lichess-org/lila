@@ -1,18 +1,18 @@
 package lila.tree
 
-import play.api.libs.json._
-
+import chess.Centis
 import chess.format.pgn.{ Glyph, Glyphs }
-import chess.format.{ Uci, UciCharPair }
+import chess.format.{ FEN, Uci, UciCharPair }
 import chess.opening.FullOpening
 import chess.Pos
 import chess.variant.Crazyhouse
+import play.api.libs.json._
 
-import chess.Centis
+import lila.common.Json._
 
 sealed trait Node {
   def ply: Int
-  def fen: String
+  def fen: FEN
   def check: Boolean
   // None when not computed yet
   def dests: Option[Map[Pos, List[Pos]]]
@@ -44,7 +44,7 @@ sealed trait Node {
 
 case class Root(
     ply: Int,
-    fen: String,
+    fen: FEN,
     check: Boolean,
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]] = None,
@@ -74,7 +74,7 @@ case class Branch(
     id: UciCharPair,
     ply: Int,
     move: Uci.WithSan,
-    fen: String,
+    fen: FEN,
     check: Boolean,
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]] = None,

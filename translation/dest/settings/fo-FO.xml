@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="settings">Stillingar</string>
+  <string name="closeAccount">Lat kontu aftur</string>
+  <string name="closingIsDefinitive">At lata eina kontu aftur er endaligt. Til ber ikki at venda við. Ert tú vís/ur í hesum?</string>
+  <string name="cantOpenSimilarAccount">Tú fært ikki loyvi at lata eina nýggja kontu upp við sama navni. Ei heldur, um bókstavirnir eru við stórum ella lítlum.</string>
+  <string name="changedMindDoNotCloseAccount">Eg broytti meining. Lat ikki kontu mína aftur</string>
+  <string name="closeAccountExplanation">Ert tú vís/ur í, at tú vilt lata kontu tína aftur? Hetta er ein endalig avgerð. Tað fer ikki at bera til at logga á aftur.</string>
+  <string name="thisAccountIsClosed">Henda konta er afturlatin.</string>
+</resources>

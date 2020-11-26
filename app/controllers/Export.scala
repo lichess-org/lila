@@ -3,7 +3,6 @@ package controllers
 import akka.stream.scaladsl._
 import akka.util.ByteString
 import chess.Color
-import chess.format.FEN
 import play.api.mvc.Result
 import scala.concurrent.duration._
 
@@ -27,7 +26,7 @@ final class Export(env: Env) extends LilaController(env) {
   def gif(id: String, color: String) =
     Open { implicit ctx =>
       OnlyHumansAndFacebookOrTwitter {
-        ExportGifRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
+        ExportGifRateLimitGlobal("-", msg = HTTPRequest.ipAddress(ctx.req).value) {
           OptionFuResult(env.game.gameRepo gameWithInitialFen id) { case (game, initialFen) =>
             val pov = Pov(game, Color.fromName(color) | Color.white)
             env.game.gifExport.fromPov(pov, initialFen) map
@@ -45,7 +44,7 @@ final class Export(env: Env) extends LilaController(env) {
 
   def gameThumbnail(id: String) =
     Open { implicit ctx =>
-      ExportImageRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
+      ExportImageRateLimitGlobal("-", msg = HTTPRequest.ipAddress(ctx.req).value) {
         OptionFuResult(env.game.gameRepo game id) { game =>
           env.game.gifExport.gameThumbnail(game) map
             stream("image/gif") map
@@ -61,10 +60,10 @@ final class Export(env: Env) extends LilaController(env) {
 
   def puzzleThumbnail(id: Int) =
     Open { implicit ctx =>
-      ExportImageRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
+      ExportImageRateLimitGlobal("-", msg = HTTPRequest.ipAddress(ctx.req).value) {
         OptionFuResult(env.puzzle.api.puzzle find id) { puzzle =>
           env.game.gifExport.thumbnail(
-            fen = puzzle.fenAfterInitialMove | FEN(puzzle.fen),
+            fen = puzzle.fenAfterInitialMove | puzzle.fen,
             lastMove = puzzle.initialMove.uci.some,
             orientation = puzzle.color
           ) map stream("image/gif") map { res =>

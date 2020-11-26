@@ -1,6 +1,6 @@
 package lila.tournament
 
-import chess.StartingPosition
+import chess.format.FEN
 import chess.variant.Variant
 import org.joda.time.DateTime
 import play.api.i18n.Lang
@@ -11,7 +11,7 @@ case class Schedule(
     freq: Schedule.Freq,
     speed: Schedule.Speed,
     variant: Variant,
-    position: StartingPosition,
+    position: Option[FEN],
     at: DateTime,
     conditions: Condition.All = Condition.All.empty
 ) {
@@ -20,7 +20,7 @@ case class Schedule(
     import Schedule.Freq._
     import Schedule.Speed._
     import lila.i18n.I18nKeys.tourname._
-    if (variant.standard && position.initial)
+    if (variant.standard && position.isEmpty)
       (conditions.minRating, conditions.maxRating) match {
         case (None, None) =>
           (freq, speed) match {
@@ -73,7 +73,9 @@ case class Schedule(
         case (_, Some(max))         => s"<${max.rating} ${speed.name}"
       }
     else if (variant.standard) {
-      val n = s"${position.shortName} ${speed.name}"
+      val n = position.flatMap(Thematic.byFen).fold(speed.name) { pos =>
+        s"${pos.shortName} ${speed.name}"
+      }
       if (full) xArena.txt(n) else n
     } else
       freq match {

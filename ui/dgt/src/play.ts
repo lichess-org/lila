@@ -3,7 +3,7 @@ import { INITIAL_FEN, makeFen, parseFen } from 'chessops/fen';
 import { makeSan, parseSan } from 'chessops/san';
 import { NormalMove } from 'chessops/types';
 import { board } from 'chessops/debug';
-import { defaultSetup, makeUci, parseUci } from 'chessops';
+import { defaultSetup, fen, makeUci, parseUci } from 'chessops';
 
 export default function (token: string) {
 
@@ -41,10 +41,14 @@ export default function (token: string) {
     "move": "move"
   }
   try {
-    var tempString = localStorage.getItem('dgt-speech-keywords');
-    keywords = tempString && JSON.parse(tempString);
+    if (JSON.parse(localStorage.getItem('dgt-speech-keywords')!).K.length > 0) {
+      keywords = JSON.parse(localStorage.getItem('dgt-speech-keywords')!);
+    }
+    else {
+      console.warn("JSON Object for Speech Keywords seems incompelte. Using English default.");
+    }
   } catch (error) {
-    console.error("Invalid JSON Object for Speech Keywords. Using English default.");
+    console.error("Invalid JSON Object for Speech Keywords. Using English default. " + Error(error).message);
   }
 
   //Lichess Integration with Board API
@@ -61,7 +65,7 @@ export default function (token: string) {
   var gameConnectionMap = new Map<string, { connected: boolean, lastEvent: number }>(); //A collection of key values to store the network status of a game
   var gameChessBoardMap = new Map<string, Chess>(); //A collection of chessops Boads representing the current board of the games
   var eventSteamStatus = { connected: false, lastEvent: time.getTime() }; //An object to store network status of the main eventStream
-  const keywordsBase = ["K", "Q", "R", "B", "N", "P", "x", "+", "#", "(=)", "O-O-O", "O-O", "white", "black", "wins by", "timeout", "resignation"]
+  const keywordsBase = ["white", "black", "K", "Q", "R", "B", "N", "P", "x", "+", "#", "(=)", "O-O-O", "O-O","wins by", "timeout", "resignation", "illegal", "move"]
   var lastSanMove: { player: string, move: string, by: string }; //Track last move in SAN format . This is because there is no easy way to keep history of san moves
   /**
    * Global Variables for DGT Board Connection (JACM)
@@ -75,6 +79,7 @@ export default function (token: string) {
   //subscription stores the information about the board being connected, most importantly the serialnr
   var subscription = { "id": 2, "call": "subscribe", "param": { "feed": "eboardevent", "id": 1, "param": { "serialnr": "" } } };
   var lastLegalParam: { board: string, san: string[] }; //This can help prevent duplicate moves from LiveChess being detected as move from the other side, like a duplicate O-O
+  var lastLiveChessBoard: string //Store last Board received by LiveChess
   /***
    * Bind console output to HTML pre Element
    */
@@ -94,38 +99,42 @@ export default function (token: string) {
       console['old' + name] = console[name];
       //Rewire function
       console[name] = function () {
-        var output = "";
-        for (let i = 0; i < arguments.length; i++) {
-          let arg = arguments[i];
-          output += "<span class=\"log-" + (typeof arg) + " log-" + name + "\">";
-          if (
-            typeof arg === "object" &&
-            typeof JSON === "object" &&
-            typeof JSON.stringify === "function"
-          ) {
-            output += JSON.stringify(arg);
-          } else {
-            output += arg;
+        //Return a promise so execution is not delayed by string manipulation
+        return new Promise(resolve => {
+          var output = "";
+          for (let i = 0; i < arguments.length; i++) {
+            let arg = arguments[i];
+            if (arg == "*" || arg == ":") {
+              output += arg;
+            }
+            else {
+              output += "</br><span class=\"log-" + (typeof arg) + " log-" + name + "\">";
+              if (typeof arg === "object") {
+                output += JSON.stringify(arg);
+              } else {
+                output += arg;
+              }
+              output += "</span>&nbsp;";
+            }
           }
-          output += "</span>&nbsp;";
-        }
-        if (output != "*" && output != ":")
-          output += "<br>";
-        if (autoScroll) {
-          const isScrolledToBottom = eleOverflowLocator.scrollHeight - eleOverflowLocator.clientHeight <= eleOverflowLocator.scrollTop + 1;
-          eleLocator.innerHTML += output;
+          //Added to keep on-screen log small
+          let maxLogBytes = (verbose) ? -1048576 : -8192;
+          let isScrolledToBottom = false;
+          if (autoScroll) {
+            isScrolledToBottom = eleOverflowLocator.scrollHeight - eleOverflowLocator.clientHeight <= eleOverflowLocator.scrollTop + 1;
+          }
+          eleLocator.innerHTML = eleLocator.innerHTML.slice(maxLogBytes) + output;
           if (isScrolledToBottom) {
             eleOverflowLocator.scrollTop = eleOverflowLocator.scrollHeight - eleOverflowLocator.clientHeight;
           }
-        } else {
-          eleLocator.innerHTML += output;
-        }
-        //Call original function
-        try {
-          console['old' + name].apply(undefined, arguments);
-        } catch {
-          console['olderror'].apply(undefined, ['Error when loggin']);
-        }
+          //Call original function
+          try {
+            console['old' + name].apply(undefined, arguments);
+          } catch {
+            console['olderror'].apply(undefined, ['Error when loggin']);
+          }
+          resolve();
+        });
       };
     }
   }
@@ -157,6 +166,8 @@ export default function (token: string) {
       headers: { 'Authorization': 'Bearer ' + token }
     }).then(r => r.json()).then(
       data => {
+        //Store my profile
+        me = data;
         //Log raw data received
         if (verbose) console.log('/api/account Response:' + JSON.stringify(data));
         //Diplay Title + UserName . Title may be undefined
@@ -164,8 +175,6 @@ export default function (token: string) {
         console.log("│ " + (typeof (data.title) == "undefined" ? '' : data.title) + ' ' + data.username);
         //Display performance ratings
         console.table(data.perfs);
-        //Store my profile
-        me = data;
       })
       .catch(
         err => { console.error('getProfile - Error. ' + err.message) }
@@ -196,15 +205,18 @@ export default function (token: string) {
     const response = await fetch('/api/stream/event', {
       headers: { 'Authorization': 'Bearer ' + token }
     });
-    const reader = response.body!.pipeThrough(new TextDecoderStream()).getReader();
+    //Sadly TextDecoderStream is not supported on FireFox so a decoder is needed
+    //const reader = response.body!.pipeThrough(new TextDecoderStream()).getReader();
+    const reader = response.body!.getReader();
+    const decoder = new TextDecoder();
     while (true) {
       const { value, done } = await reader.read();
       if (done) break;
-      if (verbose) console.log('connectToEventStream - Chunk received', value);
+      if (verbose && value!.length > 1) console.log('connectToEventStream - Chunk received', decoder.decode(value));
       //Update connection status
       eventSteamStatus = { connected: true, lastEvent: time.getTime() };
       //Response may contain several JSON objects on the same chunk separated by \n . This may create an empty element at the end.
-      var jsonArray = (value) ? value.split('\n') : [];
+      var jsonArray = (value) ? decoder.decode(value).split('\n') : [];
       for (let i = 0; i < jsonArray.length; i++) {
         //Skip empty elements that may have happened witht the .split('\n')
         if (jsonArray[i].length > 2) {
@@ -294,16 +306,19 @@ export default function (token: string) {
     const response = await fetch('/api/board/game/stream/' + gameId, {
       headers: { 'Authorization': 'Bearer ' + token }
     });
-    const reader = response.body?.pipeThrough(new TextDecoderStream()).getReader();
+    //Again, TextDecoderStream is not supported on FireFox
+    //const reader = response.body?.pipeThrough(new TextDecoderStream()).getReader();
+    const reader = response.body!.getReader();
+    const decoder = new TextDecoder();
     while (reader) { //while (true)
       const { value, done } = await reader.read();
       if (done) break;
       //Log raw data received
-      if (verbose) console.log('connectToGameStream - board game stream recevied:', value);
+      if (verbose && value!.length > 1) console.log('connectToGameStream - board game stream recevied:', decoder.decode(value));
       //Update connection status
       gameConnectionMap.set(gameId, { connected: true, lastEvent: time.getTime() });
       //Response may contain several JSON objects on the same chunk separated by \n . This may create an empty element at the end.
-      var jsonArray = value!.split('\n');
+      var jsonArray = decoder.decode(value)!.split('\n');
       for (let i = 0; i < jsonArray.length; i++) {
         //Skip empty elements that may have happened witht the .split('\n')
         if (jsonArray[i].length > 2) {
@@ -332,7 +347,13 @@ export default function (token: string) {
               //Update game state with most recent state
               gameStateMap.set(gameId, data);
               //Log the state. Note that we are doing this after storing the state and updating the chessops board
-              logGameState(gameId);
+              //Update for Multiple Game Support. Log only current game
+              if (gameId == currentGameId) {
+                logGameState(gameId);
+              }
+              else {
+                if (verbose) console.log('connectToGameStream - State received was not for current game.');
+              }
             }
             else if (data.type == "chatLine") {
               //Received chat line
@@ -412,26 +433,67 @@ export default function (token: string) {
     //So then there is none or more than one started game
     var playableGames = playableGamesArray();
     //If there is only one started game, then its easy
+    /*
     if (playableGames.length == 1) {
       currentGameId = playableGames[0].gameId;
       attachCurrentGameIdToDGTBoard(); //Let the board know which color the player is actually playing and setup the position
       console.log('Active game updated. currentGameId: ' + currentGameId);
     }
-    else if (playableGames.length == 0) {
+    else 
+    */
+    if (playableGames.length == 0) {
       console.log('No started playable games, challenges or games are disconnected. Please start a new game or fix connection.');
       //TODO What happens if the games reconnect and this move is not sent?
     }
     else {
-      console.table(playableGames);
-      //TODO
-      //If more than one game is playable player must pick one.
-      //for now alert user
-      console.warn('Currently only one game is supported. Ability to select game coming soon. Defaulting to latest.')
-      let index = playableGames.length - 1;
-      currentGameId = playableGames[Number(index)].gameId;
-      //Command looks good for currentGameId 
-      attachCurrentGameIdToDGTBoard(); //Let the board know which color the player is actually playing and setup the position
-      console.log('Active game updated. currentGameId: ' + currentGameId);
+      if (playableGames.length > 1) {
+        console.warn('Multiple active games detected. Current game will be selected based on board position.')
+        console.table(playableGames);
+      }
+      //Wait a few seconds until board position is received from LiveChess. Max 10 seconds.
+      for (let w = 0; w < 10; w++) {
+        if (lastLiveChessBoard !== undefined) break;
+        await sleep(1000);
+      }
+      if (verbose) console.log(`LiveChess FEN:        ${lastLiveChessBoard}`);
+      //Don't default to any game until position matches
+      let index = -1;
+      for (let i = 0; i < playableGames.length; i++) {
+        //makeBoardFen return only the board, ideal for comparison
+        let tmpFEN = fen.makeBoardFen(gameChessBoardMap.get(playableGames[i].gameId)!.board);
+        if (verbose) console.log(`GameId: ${playableGames[i].gameId} FEN: ${tmpFEN}`);
+        if (tmpFEN == lastLiveChessBoard) {
+          index = i;
+        }
+      }
+      if (index == -1) {
+        console.error('Position on board does not match any ongoing game.');
+        //No position match found
+        if (gameStateMap.has(currentGameId) && gameConnectionMap.get(currentGameId)!.connected && gameStateMap.get(currentGameId).status == "started") {
+          //No match found but there is a valid currentGameId , so keep it
+          if (verbose) console.log('chooseCurrentGame - Board will remain attached to current game. currentGameId: ' + currentGameId);
+        }
+        else {
+          //No match and No valid current game but there are active games
+          console.warn('Fix position and reload or start a new game. Automatically retrying in 5 seconds...');
+          await sleep(5000);
+          chooseCurrentGame();
+        }
+      }
+      else {
+        //Position match found
+        if (currentGameId != playableGames[Number(index)].gameId) {
+          //This is the happy path, board matches and game needs to be updated
+          if (verbose) console.log('chooseCurrentGame - Position matched to gameId: ' + playableGames[Number(index)].gameId);
+          currentGameId = playableGames[Number(index)].gameId;
+          attachCurrentGameIdToDGTBoard(); //Let the board know which color the player is actually playing and setup the position
+          console.log('Active game updated. currentGameId: ' + currentGameId);
+        }
+        else {
+          //The board matches currentGameId . No need to do anything.
+          if (verbose) console.log('chooseCurrentGame - Board will remain attached to current game. currentGameId: ' + currentGameId);
+        }
+      }
     }
   }
 
@@ -596,7 +658,7 @@ export default function (token: string) {
         'Last Move': { white: (lastMove.player == 'white' ? lastMove.move : '?'), black: (lastMove.player == 'black' ? lastMove.move : '?'), game: lastMove.player },
       });
       */
-      var innerTable = `<table class="dgt-table"><tr><th> - </th><th>Title</th><th>Username</th><th>Rating</th><th>Timer</th><th>Last Move</th><th>gameId: ${gameInfo.id}}</th></tr>` +
+      var innerTable = `<table class="dgt-table"><tr><th> - </th><th>Title</th><th>Username</th><th>Rating</th><th>Timer</th><th>Last Move</th><th>gameId: ${gameInfo.id}</th></tr>` +
         `<tr><td>White</td><td>${(gameInfo.white.title !== null) ? gameInfo.white.title : '@'}</td><td>${gameInfo.white.name}</td><td>${gameInfo.white.rating}</td><td>${formattedTimer(gameState.wtime)}</td><td>${(lastMove.player == 'white' ? lastMove.move : '?')}</td><td>${gameInfo.speed + ' ' + ((gameInfo.clock !== null) ? (String(gameInfo.clock.initial / 60000) + "'+" + String(gameInfo.clock.increment / 1000) + "''") : '∞')}</td></tr>` +
         `<tr><td>Black</td><td>${(gameInfo.black.title !== null) ? gameInfo.black.title : '@'}</td><td>${gameInfo.black.name}</td><td>${gameInfo.black.rating}</td><td>${formattedTimer(gameState.btime)}</td><td>${(lastMove.player == 'black' ? lastMove.move : '?')}</td><td>Status: ${gameState.status}</td></tr>`
       console.log(innerTable);
@@ -665,11 +727,11 @@ export default function (token: string) {
     var moveText: string;
     if (announceMoveFormat && announceMoveFormat.toLowerCase() == "san" && lastSanMove) {
       moveText = lastSanMove.move;
-      ttsSay(raplaceKeywords(lastSanMove.move));
+      ttsSay(replaceKeywords(padBeforeNumbers(lastSanMove.move)));
     }
     else {
       moveText = lastMove.move;
-      ttsSay(lastMove.move);
+      ttsSay(padBeforeNumbers(lastMove.move));
     }
     if (lastMove.player == 'white') {
       console.log('<span class="dgt-white-move">' + moveText + ' by White' + '</span>');
@@ -689,7 +751,7 @@ export default function (token: string) {
       console.log('  ' + status + '  -  ' + message);
     }
     //Now play message using text to speech library
-    ttsSay(message);
+    ttsSay(replaceKeywords(message.toLowerCase()));
   }
 
   function announceInvalidMove() {
@@ -700,7 +762,7 @@ export default function (token: string) {
       console.warn('  [ X X ]  - Illegal move by black.')
     }
     //Now play it using text to speech library
-    ttsSay('Illegal Move');
+    ttsSay(replaceKeywords('illegal move'));
   }
 
 
@@ -732,6 +794,10 @@ export default function (token: string) {
     liveChessConnection.onmessage = async e => {
       if (verbose) console.info('Websocket onmessage with data:' + e.data);
       var message = JSON.parse(e.data);
+      //Store last board if received
+      if (message.response == 'feed' && !(!message.param.board)) {
+        lastLiveChessBoard = message.param.board;
+      }
       if (message.response == 'call' && message.id == '1') {
         //Get the list of availble boards on LiveChess
         boards = message.param;
@@ -1003,12 +1069,14 @@ export default function (token: string) {
   /**
    * Replaces letters with full name of the pieces or move name
    * @param sanMove The move in san format
+   * 
+   * @returns {String} - The San move with words instead of letters
    */
-  function raplaceKeywords(sanMove) {
+  function replaceKeywords(sanMove) {
     var extendedSanMove = sanMove;
     for (let i = 0; i < keywordsBase.length; i++) {
       try {
-        extendedSanMove = extendedSanMove.replace(keywordsBase[i], ' ' + keywords[keywordsBase[i]] + ' ');
+        extendedSanMove = extendedSanMove.replace(keywordsBase[i], ' ' + keywords[keywordsBase[i]].toLowerCase() + ' ');
       } catch (error) {
         console.error(`raplaceKeywords - Error replacing keyword. ${keywordsBase[i]} . ${Error(error).message}`);
       }
@@ -1016,14 +1084,27 @@ export default function (token: string) {
     return extendedSanMove;
   }
 
+  /**
+   * 
+   * @param moveString The move in SAN or UCI
+   * 
+   * @returns {String} - The move with spaces before the numbers for better TTS
+   */
+  function padBeforeNumbers(moveString: string) {
+    var paddedMoveString = "";
+    for (let c of moveString) {
+      (Number.isInteger(+c)) ? paddedMoveString += ` ${c} ` : paddedMoveString += c;
+    }
+    return paddedMoveString;
+  }
 
   /**
    * GLOBAL VATIABLES
    */
   async function ttsSay(text: string) {
     //Check Voice is disables
-    if (!speechSynthesisOn) return;
     if (verbose) console.log('TTS - for text: ' + text);
+    if (!speechSynthesisOn) return;
     var utterThis = new SpeechSynthesisUtterance(text);
     var selectedOption = voice;
     var availableVoices = speechSynthesis.getVoices();
@@ -1103,7 +1184,7 @@ export default function (token: string) {
     console.log("    '|_.=`   __\\                                                               ");
     console.log("    `\\_..==`` /                 Lichess.org - DGT Electronic Board Connector   ");
     console.log("     .'.___.-'.                Developed by Andres Cavallin and Juan Cavallin  ");
-    console.log("    /          \\                                  v1.0.4                       ");
+    console.log("    /          \\                                  v1.0.7                       ");
     console.log("jgs('--......--')                                                             ");
     console.log("   /'--......--'\\                                                              ");
     console.log("   `\"--......--\"`                                                             ");

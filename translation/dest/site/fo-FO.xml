@@ -21,6 +21,9 @@
   <string name="createAGame">Byrja eitt talv</string>
   <string name="whiteIsVictorious">Hvítur hevur vunnið</string>
   <string name="blackIsVictorious">Svartur hevur vunnið</string>
+  <string name="youPlayTheWhitePieces">Tú telvar við hvítum</string>
+  <string name="youPlayTheBlackPieces">Tú telvar við svørtum</string>
+  <string name="itsYourTurn">Tú eigur leik!</string>
   <string name="kingInTheCenter">Kongur í miðjuni</string>
   <string name="threeChecks">Trý skák</string>
   <string name="raceFinished">Kapprenning liðug</string>
@@ -30,6 +33,10 @@
   <string name="joinTheGame">Byrja talvið</string>
   <string name="whitePlays">Hvítur leikar</string>
   <string name="blackPlays">Svartur leikar</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Títt mótstøðufólk fór frá talvinum. Tú kanst siga teg hava vunnið um %s sekund.</item>
+    <item quantity="other">Títt mótstøðufólk fór frá talvinum. Tú kanst siga teg hava vunnið um %s sekund.</item>
+  </plurals>
   <string name="opponentLeftChoices">Tín móttelvari er farin frá talvinum. Tú kanst antin krevja sigur, siga tað vera remis ella bíða.</string>
   <string name="makeYourOpponentResign">Noyð tín móttelvara til at geva upp</string>
   <string name="forceResignation">Krev sigur</string>
@@ -54,6 +61,7 @@
   <string name="goDeeper">Greina djúpari</string>
   <string name="showThreat">Vís hóttan</string>
   <string name="inLocalBrowser">í tínum egna kaga</string>
+  <string name="toggleLocalEvaluation">Slá meting til</string>
   <string name="move">Leik</string>
   <string name="pawnMove">Finnu leikur</string>
   <string name="close">Lat aftur</string>
@@ -65,6 +73,7 @@
   <string name="whiteDrawBlack">Hvítur / Remis / Svartur</string>
   <string name="averageRatingX">Miðal Styrkimeting: %s</string>
   <string name="recentGames">Nýliga spæld spøl</string>
+  <string name="blunder">Mistak</string>
   <string name="blunders">Brølari</string>
   <string name="mistake">Feilur</string>
   <string name="mistakes">Feilir</string>
