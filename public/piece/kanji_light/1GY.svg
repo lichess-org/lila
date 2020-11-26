@@ -59,12 +59,12 @@
      transform="translate(0,-261.01665)">
     <g
        id="g4990"
-       transform="matrix(-0.79052814,0,0,-0.7919622,26.209627,497.25148)"
+       transform="matrix(-0.79052814,0,0,-0.7919622,25.584415,497.25148)"
        style="stroke-width:1.26383">
       <polygon
          transform="matrix(-0.94419614,0,0,-0.94419614,28.706223,296.22099)"
          style="fill:#fff7b7;fill-opacity:1;stroke:#000000;stroke-width:0.668778;stroke-miterlimit:4;stroke-dasharray:none"
-         points="0,0 27.7,0 23.855018,27.358471 13.85,31 3.844982,27.358471 "
+         points="3.844982,27.358471 0,0 27.7,0 23.855018,27.358471 13.85,31 "
          id="shogi_trapezoid" />
       <path
          style="fill:#000000;stroke-width:0.304104"
