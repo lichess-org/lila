@@ -95,7 +95,9 @@ Lichess上的电脑分析是基于Stockfish的。</string>
   <string name="guidelines">指南</string>
   <string name="uniqueTrophies">独一无二的奖杯</string>
   <string name="ownerUniqueTrophies">这个奖杯在Lichess历史上是独一无二的，除了%1$s，任何人都不会有。</string>
+  <string name="wayOfBerserkExplanation">为了获得它，hiimgosu疯狂挑战他自己并赢得100%%的%s。</string>
   <string name="aHourlyBulletTournament">一小时子弹快棋锦标赛</string>
+  <string name="goldenZeeExplanation">ZugAddict当时在直播，他两个小时里一直试图在1+0的棋局中打败第八级的A.I.，但没有成功。Thibault告诉他，如果他直播时成功地做到这个，他就会得到一个独一无二的奖杯。一个小时后，他打败了鳕鱼，承诺得到兑现。</string>
   <string name="lichessRatings">Lichess 排名</string>
   <string name="whichRatingSystemUsedByLichess">Lichess 使用什么排名系统？</string>
   <string name="whatIsProvisionalRating">为什么在分数旁边有一个问号 (?) ？</string>
