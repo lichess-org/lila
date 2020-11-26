@@ -111,7 +111,8 @@ object String {
         case JsNull         => "null"
         case JsString(s)    => safeJsonString(s)
         case JsNumber(n)    => n.toString
-        case JsBoolean(b)   => if (b) "true" else "false"
+        case JsFalse        => "false"
+        case JsTrue         => "true"
         case JsArray(items) => items.map(safeJsonValue).mkString("[", ",", "]")
         case JsObject(fields) =>
           fields

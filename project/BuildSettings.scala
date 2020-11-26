@@ -7,7 +7,7 @@ object BuildSettings {
   import Dependencies._
 
   val lilaVersion        = "3.2"
-  val globalScalaVersion = "2.13.3"
+  val globalScalaVersion = "2.13.4"
 
   val useEpoll = sys.props.get("epoll").fold(false)(_.toBoolean)
   if (useEpoll) println("--- epoll build ---")

@@ -120,8 +120,9 @@ object BSON extends Handlers {
     }
   def debugArr(doc: Barr): String = doc.values.toList.map(debug).mkString("[", ", ", "]")
   def debugDoc(doc: Bdoc): String =
-    (doc.elements.toList map { case BSONElement(k, v) =>
-      s"$k: ${debug(v)}"
+    (doc.elements.toList map {
+      case BSONElement(k, v) => s"$k: ${debug(v)}"
+      case x                 => x.toString
     }).mkString("{", ", ", "}")
 
   def print(v: BSONValue): Unit = println(debug(v))
