@@ -28,7 +28,7 @@ final class CrosstableApi(
     justFetch(u1, u2) getOrElse create(u1, u2)
 
   def withMatchup(u1: User.ID, u2: User.ID): Fu[Crosstable.WithMatchup] =
-    apply(u1, u2) zip getMatchup(u1, u2) dmap { case crosstable ~ matchup =>
+    apply(u1, u2) zip getMatchup(u1, u2) dmap { case (crosstable, matchup) =>
       Crosstable.WithMatchup(crosstable, matchup)
     }
 
