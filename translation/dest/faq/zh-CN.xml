@@ -105,6 +105,7 @@ Lichess上的电脑分析是基于Stockfish的。</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">该用户还没有在评分对局中与%1$s完成足够多的评分棋局。</string>
   <string name="similarOpponents">相近实力的对手</string>
   <string name="notPlayedRecently">用户最近没有下足够多的棋局。根据你下过的对局数量，你的等级分可能需要一年左右的不活跃状态才会再次变成暂时性的。</string>
+  <string name="ratingDeviationMorethanOneHundredTen">具体地说，这表示Glicko-2标准差大于110。标准差是等级分的可靠性，标准差越低，等级分就越稳定。</string>
   <string name="howDoLeaderoardsWork">排名及排行榜是如何运作的呢？</string>
   <string name="inOrderToAppearsYouMust">为了登上%1$s您必须：</string>
   <string name="ratingLeaderboards">排行榜：</string>
@@ -113,6 +114,7 @@ Lichess上的电脑分析是基于Stockfish的。</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">标准国际象棋棋局的排名偏差小于 %1$s，变体棋局的排名偏差小于 %2$s，</string>
   <string name="beInTopTen">在此排名中获得前十。</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">第二项要求是为了让不再使用它们的帐号的棋手停止占用排行榜。</string>
+  <string name="whyAreRatingHigher">为什么等级分相比其他网站和组织要更高，比如国际棋联、美国棋联和国际象棋俱乐部？</string>
   <string name="howToHideRatingWhilePlaying">如何在对局时隐藏分数？</string>
   <string name="enableZenMode">在 %1$s或在游戏中按 %2$s 开启贤者模式。</string>
   <string name="displayPreferences">显示偏好</string>
