@@ -101,6 +101,10 @@ Lichess上的电脑分析是基于Stockfish的。</string>
   <string name="lichessRatings">Lichess 排名</string>
   <string name="whichRatingSystemUsedByLichess">Lichess 使用什么排名系统？</string>
   <string name="whatIsProvisionalRating">为什么在分数旁边有一个问号 (?) ？</string>
+  <string name="provisionalRatingExplanation">问号标记表示等级分是暂时的。原因包括：</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">该用户还没有在评分对局中与%1$s完成足够多的评分棋局。</string>
+  <string name="similarOpponents">相近实力的对手</string>
+  <string name="notPlayedRecently">用户最近没有下足够多的棋局。根据你下过的对局数量，你的等级分可能需要一年左右的不活跃状态才会再次变成暂时性的。</string>
   <string name="howDoLeaderoardsWork">排名及排行榜是如何运作的呢？</string>
   <string name="inOrderToAppearsYouMust">为了登上%1$s您必须：</string>
   <string name="ratingLeaderboards">排行榜：</string>
