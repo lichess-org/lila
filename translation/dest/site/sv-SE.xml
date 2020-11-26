@@ -531,6 +531,7 @@
   <string name="currentPassword">Nuvarande lösenord</string>
   <string name="newPassword">Nytt lösenord</string>
   <string name="newPasswordAgain">Nytt lösenord (igen)</string>
+  <string name="newPasswordsDontMatch">De nya lösenorden är olika</string>
   <string name="clockInitialTime">Starttid</string>
   <string name="clockIncrement">Tidstillägg</string>
   <string name="privacy">Sekretess</string>
