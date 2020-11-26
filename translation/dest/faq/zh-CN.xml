@@ -75,6 +75,7 @@ Lichess上的电脑分析是基于Stockfish的。</string>
   <string name="configure">配置</string>
   <string name="accounts">帐号</string>
   <string name="titlesAvailableOnLichess">Lichess 上有什么头衔？</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess承认所有OTB (在棋盘上) 对局得到的国际棋联称号，以及%1$s。以下列出这些国际棋联称号：</string>
   <string name="asWellAsManyNMtitles">许多国家级大师头衔</string>
   <string name="verificationForm">验证表格</string>
   <string name="canIbecomeLM">我可以获得 Lichess 大师 (LM) 头衔吗？</string>
