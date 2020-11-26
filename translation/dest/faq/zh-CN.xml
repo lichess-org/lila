@@ -76,13 +76,25 @@ Lichess上的电脑分析是基于Stockfish的。</string>
   <string name="accounts">帐号</string>
   <string name="titlesAvailableOnLichess">Lichess 上有什么头衔？</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess承认所有OTB (在棋盘上) 对局得到的国际棋联称号，以及%1$s。以下列出这些国际棋联称号：</string>
+  <string name="showYourTitle">如果你有国际象棋称号，可以填写%1$s来申请将其显示在你的帐户上，需要一张你手持清晰身份证件/卡片的自拍照。
+
+在Lichess上验证国际象棋称号的用户可以在国际象棋称号专用竞技场中下棋。
+
+最后，网站有一个%2$s荣誉称号。</string>
   <string name="asWellAsManyNMtitles">许多国家级大师头衔</string>
   <string name="verificationForm">验证表格</string>
   <string name="canIbecomeLM">我可以获得 Lichess 大师 (LM) 头衔吗？</string>
   <string name="noUpperCaseDot">不能。</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">这个荣誉称号是非正式的，只存在于Lichess上。
+
+极少数情况下我们会决定把它授予那些优秀的著名Lichess公民。不是你去获取LM称号，而是LM称号找上你。如果你有资格，会收到我们的消息，并选择接受或拒绝。
+
+不要主动要求LM称号。</string>
   <string name="whatUsernameCanIchoose">我的用户名可以是什么？</string>
+  <string name="usernamesNotOffensive">一般而言，用户名不应该是攻击性、冒用他人或广告。你可以阅读更多关于%1$s 的信息。</string>
   <string name="guidelines">指南</string>
   <string name="uniqueTrophies">独一无二的奖杯</string>
+  <string name="ownerUniqueTrophies">这个奖杯在Lichess历史上是独一无二的，除了%1$s，任何人都不会有。</string>
   <string name="aHourlyBulletTournament">一小时子弹快棋锦标赛</string>
   <string name="lichessRatings">Lichess 排名</string>
   <string name="whichRatingSystemUsedByLichess">Lichess 使用什么排名系统？</string>
