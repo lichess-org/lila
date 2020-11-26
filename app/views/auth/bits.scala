@@ -73,7 +73,13 @@ object bits {
   ) =
     views.html.base.layout(
       title = s"${u.username} - ${trans.changePassword.txt()}",
-      moreCss = cssTag("form3")
+      moreCss = cssTag("form3"),
+      moreJs = frag(
+        embedJsUnsafeLoadThen("""
+          lichess.loadModule('passwordComplexity').then(() =>
+            passwordComplexity.addPasswordChangeListener('form3-newPasswd1')
+          )""")
+      )
     ) {
       main(cls := "page-small box box-pad")(
         (ok match {
@@ -91,6 +97,7 @@ object bits {
             autofocus,
             autocomplete := "new-password"
           ),
+          form3.passwordComplexityMeter(trans.newPasswordStrength()),
           form3.passwordModified(form("newPasswd2"), trans.newPasswordAgain())(
             autocomplete := "new-password"
           ),
