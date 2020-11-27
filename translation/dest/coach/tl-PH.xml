@@ -10,4 +10,18 @@
   <string name="languages">Mga Wika</string>
   <string name="rating">Marka</string>
   <string name="hourlyRate">Markang Pang-oras-oras</string>
+  <string name="availability">Petsa na ikaw ay maaari</string>
+  <string name="accepting">Tumatanggap ng estudyante</string>
+  <string name="notAccepting">Hindi tumatanggap ng estudyante sa ngayon</string>
+  <string name="xCoachesStudents">%snagtuturo ng mga estudyante</string>
+  <string name="viewXProfile">Tingnan%s Lichess profile</string>
+  <string name="sendPM">Magpadala ng pribadong mensahe</string>
+  <string name="aboutMe">Tungkol sa akin</string>
+  <string name="playingExperience">Karanasan sa paglalaro</string>
+  <string name="teachingExperience">Karanasan sa pagtuturo</string>
+  <string name="otherExperiences">Iba pang karanasan</string>
+  <string name="bestSkills">Pinakamahusay na kakayahan</string>
+  <string name="teachingMethod">Paraan ng pagtuturo</string>
+  <string name="publicStudies">Mga pampublikong pag-aaral</string>
+  <string name="youtubeVideos">Mga bidyo sa YouTube</string>
 </resources>
