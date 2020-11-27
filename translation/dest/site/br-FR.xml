@@ -108,7 +108,7 @@
   <string name="byCPL">Dre CPL</string>
   <string name="openStudy">Digeriñ ar studi</string>
   <string name="enable">Enaouiñ</string>
-  <string name="bestMoveArrow">Bir an taol gwellañ</string>
+  <string name="bestMoveArrow">Bir ar gwellañ fiñvadenn</string>
   <string name="evaluationGauge">Jaoj priziañ</string>
   <string name="multipleLines">Meur a linenn</string>
   <string name="cpus">CPUs</string>
@@ -120,7 +120,7 @@
   <string name="mistakes">Fazioù</string>
   <string name="inaccuracy">Diresisted</string>
   <string name="inaccuracies">Diresistedoù</string>
-  <string name="moveTimes">Amzer pep taol</string>
+  <string name="moveTimes">Amzer dre fiñvadenn</string>
   <string name="flipBoard">Cheñch tu an dablez c\'hoari</string>
   <string name="threefoldRepetition">Teir gwech ar memestra</string>
   <string name="claimADraw">Goulenn bezañ rampo</string>
@@ -168,7 +168,7 @@
   <string name="variants">Eilstummoù</string>
   <string name="timeControl">Tizh</string>
   <string name="realTime">Amzer wirion</string>
-  <string name="correspondence">Partiennoù war hir dermen</string>
+  <string name="correspondence">Krogadoù war hir dermen</string>
   <string name="daysPerTurn">Deizioù dre fiñvadenn</string>
   <string name="oneDay">Un deiz</string>
   <plurals name="nbDays">
@@ -718,7 +718,7 @@
   <string name="contribute">Kenoberiañ</string>
   <string name="termsOfService">Divizoù hollek an implij</string>
   <string name="sourceCode">Boneg Tarzh</string>
-  <string name="simultaneousExhibitions">Partiennoù kempred</string>
+  <string name="simultaneousExhibitions">Abadennoù kempred</string>
   <string name="host">Ostiz</string>
   <string name="hostColorX">Liv an ostiz: %s</string>
   <string name="createdSimuls">Abadennoù kempred nevez krouet</string>
@@ -730,7 +730,7 @@
   <string name="aboutSimulImage">A-enep 50 enebour eo bet trec\'h Fischer 47 gwech, div wech rampo ha trec\'het ur wech nemetken.</string>
   <string name="aboutSimulRealLife">Bezañ ez eus diouzh abadennoù e-giz-se evit gwir. D\'ar c\'hoarier da vont deus un daol d\'eben evit ober ur fiñvadenn bep tro.</string>
   <string name="aboutSimulRules">Pa grog an abadenn gempred e krog pep krogad gant an ostiz ivez. Gantañ e vez c\'hoariet ar re wenn. Ur wech echu an holl grogadoù e vo fin an abadenn gempred.</string>
-  <string name="aboutSimulSettings">Nann-renket eo ar partiennoù kempred bep tro. Ne c\'haller ket kemer e zial, mont war gil pe ouzhepannañ amzer.</string>
+  <string name="aboutSimulSettings">Krogadoù a vignoniezh eo an abadennoù kempred bepred. Kinnigoù c\'hoari en-dro, nullañ ar fiñvadenn ziwezhañ pe ouzhpennañ amzer zo diweredekaet.</string>
   <string name="create">Krouiñ</string>
   <string name="whenCreateSimul">Pa grouit un abadenn gempred ho pez meur a c\'hoarier da enebiñ oute.</string>
   <string name="simulVariantsHint">Ma choazit meur a eilstumm en do pep c\'hoarier da zibab pehini c\'hoari.</string>
@@ -907,7 +907,7 @@
   </plurals>
   <string name="opening">Digoradur</string>
   <string name="middlegame">Kreiz ar bartienn</string>
-  <string name="endgame">Dibenn-partienn</string>
+  <string name="endgame">Fin ar c\'hrogad</string>
   <string name="registerToSendChallenges">Kevreit evit daeañ unan bennak mar plij.</string>
   <string name="youCannotChallengeX">Ne c\'hallit ket daeañ %s.</string>
   <string name="xDoesNotAcceptChallenges">%s n\'he/en deus ket c\'hant da vezañ daeet.</string>
@@ -955,7 +955,7 @@
   <string name="blitzDesc">Krogadoù prim: etre 3 ha 8 munutenn</string>
   <string name="rapidDesc">Krogadoù fonnus: etre 8 ha 25 munutenn</string>
   <string name="classicalDesc">Krogadoù klasel: 25 munutenn ha muioc\'h</string>
-  <string name="correspondenceDesc">Partiennoù war hir dermen: un deiz pe meur a hini evit bep taol</string>
+  <string name="correspondenceDesc">Krogadoù a-bell: un deiz pe meur a hini evit ur fiñvadenn</string>
   <string name="puzzleDesc">Gourdoner poelladennoù echedoù</string>
   <string name="important">A-bouez</string>
   <string name="yourQuestionMayHaveBeenAnswered">Ur respont zo bet d\'ho koulenn dija marteze %1$s</string>
