@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="faqAbbreviation">MMT%s</string>
+  <string name="frequentlyAskedQuestions">Mga Madalas na Itinatanong%s</string>
+  <string name="whyIsLichessCalledLichess">Bakit tinawag na Lichess ang Lichess?%s?</string>
+</resources>
