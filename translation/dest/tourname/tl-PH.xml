@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hourlyXArena">Paligsahang Pang-oras-oras%s</string>
+  <string name="hourlyRapidArena">Paligsahang Pangmabilisang Pang-oras-orasan%s</string>
+  <string name="hourlyRapid">Pang-oras-orasang Pangmabilisan%s</string>
+  <string name="hourlyXArena">Pang-oras-oras%sPaligsahan</string>
   <string name="hourlyX">Pang-oras-oras%s</string>
-  <string name="dailyRapidArena">Pang-araw-araw na Paligsahang Pangmabilisan%s</string>
-  <string name="dailyRapid">Arawang Paligsahang Pangmabilisan%s</string>
+  <string name="dailyRapidArena">Paligsahang Pangmabilisang Pang-araw-araw%s</string>
+  <string name="dailyRapid">Pangmabilisang Pang-araw-araw%s</string>
   <string name="dailyClassicalArena">Arawang Paligsahang Klasikal%s</string>
+  <string name="dailyClassical">Arawang Klasikal%s</string>
+  <string name="dailyXArena">%sPaligsahang Pang-araw-araw</string>
   <string name="rapidShieldArena">Paligsahang Pangmabilisang Kalasag%s</string>
   <string name="rapidShield">Pangmabilisang Kalasag</string>
   <string name="classicalShieldArena">Pangmabilisang Kalasag%s</string>
@@ -14,6 +18,7 @@
   <string name="openingRapidArena">Paligsahang Pangmabilisan%s</string>
   <string name="openingRapid">Pangmabilisan %s</string>
   <string name="xTeamBattle">Labanan ng Koponan%s</string>
-  <string name="eliteXArena">Paligsahang Pang-maharlika%s</string>
+  <string name="eliteXArena">Maharlika%sPaligsahan</string>
+  <string name="eliteX">Maharlika%s</string>
   <string name="xArena">Paligsahan%s</string>
 </resources>
