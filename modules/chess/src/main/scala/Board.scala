@@ -172,9 +172,21 @@ case class Board(
   def count(p: Piece): Int = pieces.values count (_ == p)
   def count(c: Color): Int = pieces.values count (_.color == c)
 
-  def impasse: Boolean = {
+  def kingsEntered: Boolean = {
     ((kingPosOf(Black) exists (pos => Black.promotableZone contains pos.y)) &&
     (kingPosOf(White) exists (pos => White.promotableZone contains pos.y)))
+  }
+
+  def tryRule: Boolean = {
+    kingsEntered && ((kingPosOf(White) == posAt(5, 9)) || (kingPosOf(Black) == posAt(5, 1)))
+  }
+
+  def tryRuleColor(color: Color): Option[Color] = {
+    color match {
+      case White if (kingPosOf(White) == posAt(5, 9)) => Some(White)
+      case Black if (kingPosOf(Black) == posAt(5, 1)) => Some(Black)
+      case _ => None
+    }
   }
 
   def perpetualCheckColor: Option[Color] = {
@@ -182,9 +194,9 @@ case class Board(
     if(checks.white >= 4 && checks.black >=4)
       return None
     else if(checks.white >= 4)
-      return Some(Black)
-    else if(checks.black >= 4)
       return Some(White)
+    else if(checks.black >= 4)
+      return Some(Black)
     else
       return None
   }

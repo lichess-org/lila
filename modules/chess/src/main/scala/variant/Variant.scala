@@ -169,17 +169,16 @@ abstract class Variant private[variant] (
   // checkmate or a variant end condition
   def winner(situation: Situation): Option[Color] = {
     val lastMove = situation.board.history.lastMove
-    if(situation.checkMate && lastMove.isDefined && lastMove.get.uci(0) == 'P'){
-      Some(situation.color)
-    }
+    if(situation.checkMate && lastMove.isDefined && lastMove.get.uci(0) == 'P') Some(situation.color)
     else if (situation.checkMate) Some(!situation.color)
     else if (situation.staleMate) Some(!situation.color)
-    else if(specialEnd(situation)) situation.board.perpetualCheckColor
+    else if(situation.board.tryRule) situation.board.tryRuleColor(!situation.color)
+    else if(situation.board.perpetualCheck) situation.board.perpetualCheckColor
     else None
   }
 
-  def specialEnd(situation: Situation) : Boolean =
-    situation.board.perpetualCheck
+  @nowarn
+  def specialEnd(situation: Situation) : Boolean = false
 
   @nowarn def specialDraw(situation: Situation) = false
 

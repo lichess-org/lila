@@ -58,6 +58,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case (_, Some(l), Outoftime)                          => s"${playerText(l)} forfeits by time"
       case (Some(w), _, UnknownFinish)                      => s"${playerText(w)} won"
       case (Some(w), _, Stalemate)                          => s"${playerText(w)} won by stalemate"
+      case (Some(w), _, Impasse)                            => s"${playerText(w)} won by impasse"
+      case (_, Some(l), PerpetualCheck)                     => s"${playerText(l)} lost due to perpetual check"
       case (_, _, Draw | UnknownFinish)                     => "Game is a draw"
       case (_, _, Aborted)                                  => "Game has been aborted"
       case (_, _, VariantEnd) =>
@@ -180,6 +182,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         }
       case S.UnknownFinish => trans.finished.txt()
       case S.Stalemate     => trans.stalemate.txt()
+      case S.Impasse       => "Impasse"
+      case S.PerpetualCheck=> "Perpetual Check"
       case S.Timeout =>
         game.loser match {
           case Some(p) if p.color.white => trans.blackLeftTheGame.txt() // swapped

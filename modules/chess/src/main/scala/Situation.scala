@@ -34,13 +34,15 @@ case class Situation(board: Board, color: Color) {
 
   def opponentHasInsufficientMaterial: Boolean = board.variant.opponentHasInsufficientMaterial(this)
 
-  lazy val threefoldRepetition: Boolean = board.history.threefoldRepetition
-
-  lazy val impasse: Boolean = board.impasse
+  lazy val threefoldRepetition: Boolean = false
 
   def variantEnd = board.variant specialEnd this
 
-  def end: Boolean = checkMate || staleMate || autoDraw || variantEnd
+  def tryRule = board.tryRule
+
+  def perpetualCheck = board.perpetualCheck
+
+  def end: Boolean = checkMate || staleMate || autoDraw || variantEnd || tryRule || perpetualCheck
 
   def winner: Option[Color] = board.variant.winner(this)
 
@@ -51,6 +53,8 @@ case class Situation(board: Board, color: Color) {
     if (checkMate) Status.Mate.some
     else if (variantEnd) Status.VariantEnd.some
     else if (staleMate) Status.Stalemate.some
+    else if (tryRule) Status.Impasse.some
+    else if (perpetualCheck) Status.PerpetualCheck.some
     else if (autoDraw) Status.Draw.some
     else none
 
