@@ -20,6 +20,8 @@ object SoundSet {
     new SoundSet("futuristic", "Futuristic"),
     new SoundSet("robot", "Robot"),
     new SoundSet("music", "Pentatonic"),
+    new SoundSet("shogi1", "Shogi1"),
+    new SoundSet("shogi2", "Shogi2"),
     new SoundSet("speech", "Speech")
   )
 
