@@ -43,7 +43,7 @@ object PieceSet extends PieceSetObject {
     "Kanji_Guide_Shadowed",
     "simple_kanji",
     "Valdivia",
-    "vald_opt"
+    "Vald_opt"
   ) map { name =>
     new PieceSet(name)
   }
