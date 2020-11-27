@@ -75,11 +75,9 @@ export const samePiece = (p1: cg.Piece, p2: cg.Piece): boolean =>
   p1.role === p2.role && p1.color === p2.color;
 
 export const validProm = (p1: cg.Piece, p2: cg.Piece): boolean => {
-  console.log(p1, p2);
   let r =
     p1.color === p2.color &&
     (promotions[p1.role] == p2.role || promotions[p2.role] == p1.role);
-  console.log(r);
   return r;
 };
 
