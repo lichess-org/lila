@@ -14,11 +14,10 @@ object I18nLangPicker {
       .getOrElse(defaultLang)
 
   def bestFromRequestHeaders(req: RequestHeader): Option[Lang] = {
-    Some(defaultLang)
-    //req.acceptLanguages.foldLeft(none[Lang]) { // todo languages
-    //  case (None, lang) => findCloser(lang)
-    //  case (found, _)   => found
-    //}
+    req.acceptLanguages.foldLeft(none[Lang]) {
+      case (None, lang) => findCloser(lang)
+      case (found, _)   => found
+    }
   }
 
   def allFromRequestHeaders(req: RequestHeader): List[Lang] =
