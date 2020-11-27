@@ -9,7 +9,7 @@ case object Standard
       key = "standard",
       name = "Standard",
       shortName = "Std",
-      title = "Standard rules of chess (FIDE)",
+      title = "Standard rules of shogi",
       standardInitialPosition = false
     ) {
   

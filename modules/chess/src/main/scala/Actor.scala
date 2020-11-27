@@ -75,16 +75,6 @@ final case class Actor(
         case _ => true
       }
     }
-    def perpetualCheck(m: Move): Boolean = {
-      val checks = m.after.history.checkCount
-      if(m.piece.color.fold(checks.black, checks.white) >= 3 && m.after.check(!m.piece.color)){
-        val situation2 = Situation(m.after, !m.piece.color)
-        if(situation2.checkMate)
-          return true
-        return false
-      }
-      return true
-    }
 
     val promotedMoves = moves flatMap maybePromote
 
