@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="emailConfirm_subject">Kumpirmahin ang iyong Lichess account,%s</string>
+  <string name="emailConfirm_click">Pindutin ang link upang paganahin ang iyong Lichess account:%s:</string>
+</resources>
