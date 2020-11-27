@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xShield">%s Kalasag</string>
+  <string name="openingRapidArena">Paligsahang Pangmabilisan%s</string>
+  <string name="openingRapid">Pangmabilisan %s</string>
+  <string name="xTeamBattle">Labanan ng Koponan%s</string>
+  <string name="xArena">Paligsahan%s</string>
+</resources>
