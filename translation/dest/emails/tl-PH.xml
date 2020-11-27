@@ -13,4 +13,8 @@
   <string name="welcome_text">Ito ang iyong profile page:%1$s. Maaari mo itong i-personalize sa %2$s.
 
 Maging masaya, at nawa’y mahanap ng iyong mga piyesa ang daan tungo sa kalabang hari!</string>
+  <string name="logInToLichess">Mag-login sa Lichess org, %s</string>
+  <string name="common_orPaste">(Hindi gumagana ang pagpindot? Subukang i-paste sa iyong browser!)</string>
+  <string name="common_note">Ito ay isang service email na may kaugnayan sa iyong paggamit ng %s.</string>
+  <string name="common_contact">Upang kami ay ma-contact, gamitin %s.</string>
 </resources>
