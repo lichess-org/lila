@@ -24,4 +24,8 @@
   <string name="teachingMethod">Paraan ng pagtuturo</string>
   <string name="publicStudies">Mga pampublikong pag-aaral</string>
   <string name="youtubeVideos">Mga bidyo sa YouTube</string>
+  <string name="thankYouForReview">Salamat sa iyong pagsusuri!</string>
+  <string name="xWillApproveIt">%s ay magiging aprubado sa lalong madaling panahon, o isang moderator ang titingin dito.</string>
+  <string name="reviewCoach">Suriin ang coach na ito</string>
+  <string name="describeExperienceWith">Ilarawan ang iyong karanasan sa coaching kasama si%s</string>
 </resources>
