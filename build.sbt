@@ -29,7 +29,7 @@ resourceDirectory in Assets := baseDirectory.value / "public-nothanks"
 PlayKeys.generateAssetsJar := false
 // who needs JS routes right?
 routesGenerator := LilaRoutesGenerator
-maintainer := "contact@lichess.org"
+maintainer := "contact@lishogi.org"
 
 // format: off
 libraryDependencies ++= akka.bundle ++ Seq(
