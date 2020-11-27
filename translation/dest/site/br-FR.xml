@@ -69,11 +69,11 @@
   <string name="makeMainLine">Lakaat da bennlinenn</string>
   <string name="deleteFromHere">Dilemel adalek amañ</string>
   <string name="forceVariation">Troiñ en ur variant</string>
-  <string name="move">Taol</string>
+  <string name="move">Fiñvadenn</string>
   <string name="variantLoss">Variant a lak koll</string>
   <string name="variantWin">Variant a lak trec\'h</string>
   <string name="insufficientMaterial">N\'eus ket trawalc\'h a bezhioù</string>
-  <string name="pawnMove">Taol pezh-gwerin</string>
+  <string name="pawnMove">Fiñvadenn ar pezh gwerin</string>
   <string name="capture">Tapadenn</string>
   <string name="close">Serriñ</string>
   <string name="winning">A lakay trec\'hiñ</string>
@@ -115,7 +115,7 @@
   <string name="memory">Memor</string>
   <string name="infiniteAnalysis">Dielfennañ didermen</string>
   <string name="blunder">Bourd</string>
-  <string name="blunders">Bourd</string>
+  <string name="blunders">Bourdoù</string>
   <string name="mistake">Fazi</string>
   <string name="mistakes">Fazioù</string>
   <string name="inaccuracy">Diresisted</string>
@@ -151,7 +151,7 @@
   <string name="viewInFullSize">Brasaat</string>
   <string name="logOut">Digevreañ</string>
   <string name="signIn">Kevreañ</string>
-  <string name="youNeedAnAccountToDoThat">Ezhomm ho peus kaout ur gont evit hen ober</string>
+  <string name="youNeedAnAccountToDoThat">Ezhomm ho peus da gaout ur gont evit hen ober</string>
   <string name="signUp">Lakaat e anv</string>
   <string name="computersAreNotAllowedToPlay">Urzhiataerioù ha c\'hoarierien sikouret gant un urzhiataer n\'int ket aotreet da c\'hoari. Na vezit ket skoazellet gant mekanikoù, diaz roadennoù pe c\'hoarierien all pa vezit o c\'hoari. Ne aliomp ket ac\'hanoc\'h da gaout kalz kontoù kennebeut. M\'ho peus re a gontoù e veoc\'h forbannet.</string>
   <string name="games">Krogadoù</string>
@@ -613,6 +613,7 @@
   <string name="currentPassword">Ger-tremen evit poent</string>
   <string name="newPassword">Ger-tremen nevez</string>
   <string name="newPasswordAgain">Ger-tremen nevez (c\'hoazh)</string>
+  <string name="newPasswordsDontMatch">Ne glot ket an daou cher-tremen</string>
   <string name="clockInitialTime">An amzer ho po e penn kentañ</string>
   <string name="clockIncrement">Inkrement an horolaj</string>
   <string name="privacy">Buhez prevez</string>
@@ -918,6 +919,13 @@
   <string name="playVariationToCreateConditionalPremoves">C\'hoariit ur variant evit krouiñ raktaolioù rekiz</string>
   <string name="noConditionalPremoves">Raktaol rekiz ebet</string>
   <string name="playX">C\'hoari %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">hag enrollit %s linenn raktaolioù</item>
+    <item quantity="two">hag enrollit %s linenn raktaolioù</item>
+    <item quantity="few">hag enrollit %s linennoù raktaolioù</item>
+    <item quantity="many">hag enrollit %s linennoù raktaolioù</item>
+    <item quantity="other">hag enrollit %s linennoù raktaolioù</item>
+  </plurals>
   <string name="sorry">Hon digarezit :(</string>
   <string name="weHadToTimeYouOutForAWhile">Ret e oa deomp ho skarzhañ e-pad ur prantad.</string>
   <string name="timeoutExpires">Ne veoc\'h ket mui forbannet a-benn %s.</string>
