@@ -299,7 +299,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         c.destUser.fold(s"Challenge from $challenger") { dest =>
           s"$challenger challenges ${usernameOrId(dest.id)} (${dest.rating.show})"
         }
-    s"$speed$variant ${c.mode.name} Chess • $players"
+    s"$speed$variant ${c.mode.name} Shogi • $players"
   }
 
   def challengeOpenGraph(c: lila.challenge.Challenge) =

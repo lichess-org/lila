@@ -50,6 +50,7 @@ LishogiLearn(document.getElementById('learn-app'), ${safeJsonValue(
       trans.learn.play,
       shogiPieces,
       theIntoduction,
+      introIntro,
       introBasics,
       theIntoduction,
       choosePieceDesign,
