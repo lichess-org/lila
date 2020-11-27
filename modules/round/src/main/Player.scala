@@ -183,6 +183,8 @@ final private class Player(
     game.status match {
       case Status.Mate                               => finisher.other(game, _.Mate, game.situation.winner)
       case Status.Stalemate                          => finisher.other(game, _.Stalemate, game.situation.winner)
+      case Status.Impasse                            => finisher.other(game, _.Impasse, game.situation.winner)
+      case Status.PerpetualCheck                     => finisher.other(game, _.PerpetualCheck, game.situation.winner)
       case Status.VariantEnd                         => finisher.other(game, _.VariantEnd, game.situation.winner)
       case Status.Draw                               => finisher.other(game, _.Draw, None)
       case _                                         => fuccess(Nil)
