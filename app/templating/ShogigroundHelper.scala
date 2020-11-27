@@ -16,13 +16,13 @@ trait ShogigroundHelper {
   val cgWrapContent       = cgHelper(cgContainer(cgBoard))
 
   def shogiground(board: Board, orient: Color, lastMove: List[Pos] = Nil)(implicit ctx: Context): Frag =
-    wrap {
+    div(cls := s"cg-wrap orientation-${orient.name}") {
       cgBoard {
         raw {
           if (ctx.pref.is3d) ""
           else {
-            def top(p: Pos)  = orient.fold(9 - p.y, p.y - 1) * 12.5
-            def left(p: Pos) = orient.fold(p.x - 1, 9 - p.x) * 12.5
+            def top(p: Pos)  = orient.fold(9 - p.y, p.y - 1) * 11.11
+            def left(p: Pos) = orient.fold(p.x - 1, 9 - p.x) * 11.11
             val highlights = ctx.pref.highlight ?? lastMove.distinct.map { pos =>
               s"""<square class="last-move" style="top:${top(pos)}%;left:${left(pos)}%"></square>"""
             } mkString ""
