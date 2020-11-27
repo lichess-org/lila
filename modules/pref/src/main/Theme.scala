@@ -59,7 +59,7 @@ object Theme extends ThemeObject {
     new Theme(name, colors.getOrElse(name, defaultHexColors))
   }
 
-  lazy val default = allByName get "solid-brown1" err "Can't find default theme D:"
+  lazy val default = allByName get "solid-natural" err "Can't find default theme D:"
 }
 
 object Theme3d extends ThemeObject {
