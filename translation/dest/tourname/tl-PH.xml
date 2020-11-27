@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="hourlyXArena">Paligsahang Pang-oras-oras%s</string>
+  <string name="dailyRapidArena">Pang-araw-araw na Paligsahang Pangmabilisan%s</string>
+  <string name="dailyRapid">Arawang Paligsahang Pangmabilisan%s</string>
+  <string name="dailyClassicalArena">Arawang Paligsahang Klasikal%s</string>
   <string name="xShield">%s Kalasag</string>
   <string name="openingRapidArena">Paligsahang Pangmabilisan%s</string>
   <string name="openingRapid">Pangmabilisan %s</string>
