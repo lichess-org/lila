@@ -429,7 +429,8 @@ object mon {
       val solve = counter("puzzle.batch.solve").withoutTags()
     }
     object round {
-      def attempt(user: Boolean) = counter("puzzle.attempt.count").withTags(Map("user" -> user))
+      def attempt(user: Boolean, theme: String) =
+        counter("puzzle.attempt.count").withTags(Map("user" -> user, "theme" -> theme))
     }
     object vote {
       val up   = counter("puzzle.vote.count").withTag("dir", "up")

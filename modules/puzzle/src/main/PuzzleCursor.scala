@@ -2,6 +2,7 @@ package lila.puzzle
 
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
+import scala.util.chaining._
 
 import lila.db.dsl._
 import lila.memo.CacheApi
@@ -9,6 +10,7 @@ import lila.rating.{ Perf, PerfType }
 import lila.user.{ User, UserRepo }
 
 private case class PuzzleCursor(
+    theme: Option[PuzzleTheme.Key],
     path: Puzzle.PathId,
     previousPaths: Set[Puzzle.PathId],
     positionInPath: Int
@@ -22,14 +24,13 @@ private case class PuzzleCursor(
 }
 
 final class PuzzleCursorApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: UserRepo)(implicit
-    ec: ExecutionContext
+    ec: ExecutionContext,
+    system: akka.actor.ActorSystem,
+    mode: play.api.Mode
 ) {
 
   import BsonHandlers._
   import Puzzle.PathId
-
-  private[puzzle] def cursorOf(user: User): Fu[PuzzleCursor] =
-    cursors.get(user.id)
 
   sealed private trait NextPuzzleResult
   private object NextPuzzleResult {
@@ -40,26 +41,26 @@ final class PuzzleCursorApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: Us
     case class PuzzleFound(puzzle: Puzzle)         extends NextPuzzleResult
   }
 
-  def nextPuzzleFor(user: User, isRetry: Boolean = false): Fu[Puzzle] =
-    cursorOf(user) flatMap { cursor =>
+  def nextPuzzleFor(user: User, theme: Option[PuzzleTheme.Key], isRetry: Boolean = false): Fu[Puzzle] =
+    continueOrCreateCursorFor(user, theme) flatMap { cursor =>
       import NextPuzzleResult._
       nextPuzzleResult(user, cursor.pp) flatMap {
         case PathMissing | PathEnded if !isRetry =>
-          nextPathIdFor(user.id, cursor.previousPaths) flatMap {
+          nextPathIdFor(user.id, theme, cursor.previousPaths) flatMap {
             case None => fufail(s"No remaining puzzle path for ${user.id}")
             case Some(pathId) =>
               val newCursor = cursor switchTo pathId
               cursors.put(user.id, fuccess(newCursor))
-              nextPuzzleFor(user, isRetry = true)
+              nextPuzzleFor(user, theme, isRetry = true)
           }
         case PathMissing | PathEnded => fufail(s"Puzzle patth missing or ended for ${user.id}")
         case PuzzleMissing(id) =>
           logger.warn(s"Puzzle missing: $id")
           cursors.put(user.id, fuccess(cursor.next))
-          nextPuzzleFor(user, isRetry = isRetry)
+          nextPuzzleFor(user, theme, isRetry = isRetry)
         case PuzzleAlreadyPlayed(_) =>
           cursors.put(user.id, fuccess(cursor.next))
-          nextPuzzleFor(user, isRetry = isRetry)
+          nextPuzzleFor(user, theme, isRetry = isRetry)
         case PuzzleFound(puzzle) => fuccess(puzzle)
       }
     }
@@ -126,16 +127,32 @@ final class PuzzleCursorApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: Us
       }
     }
 
-  private val cursors = cacheApi[User.ID, PuzzleCursor](32768, "puzzle.cursor")(
-    _.expireAfterWrite(1 hour)
-      .buildAsyncFuture { userId =>
-        nextPathIdFor(userId, Set.empty)
-          .orFail(s"No puzzle path found for $userId")
-          .dmap(pathId => PuzzleCursor(pathId, Set.empty, 0))
-      }
+  private val cursors = cacheApi.notLoading[User.ID, PuzzleCursor](32768, "puzzle.cursor")(
+    _.expireAfterWrite(1 hour).buildAsync()
   )
 
-  private def nextPathIdFor(userId: User.ID, previousPaths: Set[PathId]): Fu[Option[PathId]] =
+  private[puzzle] def currentCursorOf(user: User, theme: Option[PuzzleTheme.Key]): Fu[PuzzleCursor] =
+    cursors.getFuture(user.id, _ => createCursorFor(user, theme))
+
+  private[puzzle] def continueOrCreateCursorFor(
+      user: User,
+      theme: Option[PuzzleTheme.Key]
+  ): Fu[PuzzleCursor] =
+    currentCursorOf(user, theme) flatMap { current =>
+      if (current.theme == theme) fuccess(current)
+      else createCursorFor(user, theme) tap { cursors.put(user.id, _) }
+    }
+
+  private def createCursorFor(user: User, theme: Option[PuzzleTheme.Key]): Fu[PuzzleCursor] =
+    nextPathIdFor(user.id, theme, Set.empty)
+      .orFail(s"No puzzle path found for ${user.id}, theme: $theme")
+      .dmap(pathId => PuzzleCursor(theme, pathId, Set.empty, 0))
+
+  private def nextPathIdFor(
+      userId: User.ID,
+      theme: Option[PuzzleTheme.Key],
+      previousPaths: Set[PathId]
+  ): Fu[Option[PathId]] =
     userRepo.perfOf(userId, PerfType.Puzzle).dmap(_ | Perf.default) flatMap { perf =>
       colls.path {
         _.aggregateOne() { framework =>

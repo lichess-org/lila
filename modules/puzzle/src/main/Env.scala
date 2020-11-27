@@ -1,6 +1,5 @@
 package lila.puzzle
 
-import akka.actor.ActorSystem
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
@@ -36,7 +35,8 @@ final class Env(
     mongo: lila.db.Env
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    system: akka.actor.ActorSystem,
+    mode: play.api.Mode
 ) {
 
   private val config = appConfig.get[PuzzleConfig]("puzzle")(AutoConfig.loader)
@@ -61,7 +61,7 @@ final class Env(
 
   lazy val anon: PuzzleAnon = wire[PuzzleAnon]
 
-  lazy val finisher = wire[Finisher]
+  lazy val finisher = wire[PuzzleFinisher]
 
   lazy val forms = PuzzleForm
 

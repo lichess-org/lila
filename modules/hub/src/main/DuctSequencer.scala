@@ -9,7 +9,8 @@ import lila.base.LilaTimeout
 final class DuctSequencer(maxSize: Int, timeout: FiniteDuration, name: String, logging: Boolean = true)(
     implicit
     system: akka.actor.ActorSystem,
-    ec: ExecutionContext
+    ec: ExecutionContext,
+    mode: play.api.Mode
 ) {
 
   import DuctSequencer._

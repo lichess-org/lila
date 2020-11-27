@@ -11,7 +11,7 @@ import lila.rating.{ Glicko, PerfType }
 import lila.user.{ User, UserRepo }
 import lila.rating.Perf
 
-final private[puzzle] class Finisher(
+final private[puzzle] class PuzzleFinisher(
     api: PuzzleApi,
     userRepo: UserRepo,
     historyApi: lila.history.HistoryApi,

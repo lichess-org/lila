@@ -64,23 +64,12 @@ final private[puzzle] class PuzzleApi(
   object theme {
 
     def sortedWithCount: Fu[List[PuzzleTheme.WithCount]] =
-      colls.path {
-        _.aggregateList(Int.MaxValue) { framework =>
-          import framework._
-          Match($doc("tier" -> "all")) -> List(
-            GroupField("tag")(
-              "count" -> SumField("length")
-            )
-          )
-        }.map { objs =>
-          val byKey = objs.flatMap { obj =>
-            for {
-              key   <- obj string "_id" map PuzzleTheme.Key
-              count <- obj int "count"
-              theme <- PuzzleTheme.byKey get key
-            } yield key -> PuzzleTheme.WithCount(theme, count)
-          }.toMap
-          PuzzleTheme.sorted.flatMap(pt => byKey.get(pt.key))
+      pathApi.countsByTheme map { counts =>
+        PuzzleTheme.sorted flatMap { pt =>
+          counts.getOrElse(pt.key, 0) match {
+            case 0     => Nil
+            case count => List(PuzzleTheme.WithCount(pt, count))
+          }
         }
       }
   }

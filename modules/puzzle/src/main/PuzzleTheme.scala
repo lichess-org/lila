@@ -53,4 +53,6 @@ object PuzzleTheme {
   val byKey: Map[Key, PuzzleTheme] = sorted.view.map { t =>
     t.key -> t
   }.toMap
+
+  def find(key: String) = byKey get Key(key)
 }

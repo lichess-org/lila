@@ -22,6 +22,8 @@ export interface KeyboardController {
   playBestMove(): void;
 }
 
+export type ThemeKey = string;
+
 export interface Controller extends KeyboardController {
   nextNodeBest(): string | undefined;
   disableThreatMode?: Prop<boolean>;

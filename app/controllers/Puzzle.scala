@@ -96,12 +96,13 @@ final class Puzzle(
       // case Some(me) => env.puzzle.cursor.nextPuzzleFor(me)
     }
 
-  def round3(id: String) =
+  def round3(theme: String, id: String) =
     OpenBody { implicit ctx =>
       NoBot {
         implicit val req = ctx.body
         OptionFuResult(env.puzzle.api.puzzle find Puz.Id(id)) { puzzle =>
-          lila.mon.puzzle.round.attempt(ctx.isAuth).increment()
+          val theme = PuzzleTheme.find(theme)
+          lila.mon.puzzle.round.attempt(ctx.isAuth, theme.fold("any")(_.key.value)).increment()
           env.puzzle.forms.round
             .bindFromRequest()
             .fold(
@@ -209,7 +210,7 @@ final class Puzzle(
   }
 
   def byTheme(theme: String) = Open { implicit ctx =>
-    lila.puzzle.PuzzleTheme.byKey.get(PuzzleTheme.Key(theme)) match {
+    PuzzleTheme.find(theme) match {
       case None => Redirect(routes.Puzzle.home()).fuccess
       case Some(theme) =>
         nextPuzzleForMe(theme.key.some) flatMap {

@@ -89,7 +89,7 @@ GET   /training/:theme                 controllers.Puzzle.byTheme(theme: String)
 GET   /training/$id<\w{5}>             controllers.Puzzle.show(id: String)
 GET   /training/$id<\w{5}>/load        controllers.Puzzle.load(id: String)
 POST  /training/$id<\w{5}>/vote        controllers.Puzzle.vote(id: String)
-POST  /training/$id<\w{5}>/round3      controllers.Puzzle.round3(id: String)
+POST  /training/complete/:theme/$id<\w{5}>  controllers.Puzzle.complete(theme: String, id: String)
 
 # User Analysis
 GET   /analysis/help                   controllers.UserAnalysis.help

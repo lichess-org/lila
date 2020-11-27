@@ -18,8 +18,11 @@ final private class PuzzlePathApi(
     cacheApi: CacheApi
 )(implicit ec: ExecutionContext) {
 
+  def countsByTheme: Fu[Map[PuzzleTheme.Key, Int]] =
+    countByThemeCache get {}
+
   def countPuzzlesByTheme(theme: PuzzleTheme.Key): Fu[Int] =
-    countByThemeCache get {} dmap { _.getOrElse(theme, 0) }
+    countsByTheme dmap { _.getOrElse(theme, 0) }
 
   private val countByThemeCache =
     cacheApi.unit[Map[PuzzleTheme.Key, Int]] {
@@ -29,7 +32,7 @@ final private class PuzzlePathApi(
             _.aggregateList(Int.MaxValue) { framework =>
               import framework._
               Match($doc("tier" -> "all")) -> List(
-                GroupField("tag")(
+                GroupField("theme")(
                   "count" -> SumField("length")
                 )
               )

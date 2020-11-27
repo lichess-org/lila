@@ -16,7 +16,7 @@ final class PuzzleAnon(colls: PuzzleColls, cacheApi: CacheApi, pathApi: PuzzlePa
   import BsonHandlers._
 
   def getOneFor(theme: Option[PuzzleTheme.Key]): Fu[Option[Puzzle]] =
-    pool get theme pp "pool" map ThreadLocalRandom.oneOf
+    pool get theme map ThreadLocalRandom.oneOf
 
   private val poolSize = 50
 
@@ -32,17 +32,18 @@ final class PuzzleAnon(colls: PuzzleColls, cacheApi: CacheApi, pathApi: PuzzlePa
               if (count > 9000) 1200 to 1600
               else if (count > 5000) 1000 to 1800
               else 0 to 9999
+            val selector =
+              $doc(
+                "_id" $startsWith s"${theme | PuzzleTheme.anyKey}_${tier}_",
+                "min" $gte ratingRange.min,
+                "max" $lte ratingRange.max
+              )
+            println(count)
+            println(lila.db.BSON.debug(selector))
             colls.path {
               _.aggregateList(poolSize) { framework =>
                 import framework._
-                Match(
-                  $doc(
-                    "tier"  -> tier,
-                    "theme" -> (theme | PuzzleTheme.anyKey).value,
-                    "min" $gte ratingRange.min,
-                    "max" $lte ratingRange.max
-                  )
-                ) -> List(
+                Match(selector) -> List(
                   Sample(1),
                   Project($doc("puzzleId" -> "$ids", "_id" -> false)),
                   Unwind("puzzleId"),
