@@ -7,4 +7,6 @@
   <string name="yesItWillBeFixedSoon">Oo. Ito ay maaayos sa lalong madaling panahon!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">At ngayon, ang mahabang sagot! Ang game lag ay binubuo ng dalawang walang kaugnayang halaga (mas mababa, mas mabuti):</string>
   <string name="lichessServerLatency">Lichess server latency</string>
+  <string name="lichessServerLatencyExplanation">Ang oras na kinakailangan upang maproseso ang paggalaw sa server. Ito ay pareho sa lahat, at nakadepende sa server load. Mas maraming manlalaro, mas mataas, ngunit ginagawa ng Lichess developers ang kanilang makakaya upang mapanatili itong mababa. Ito ay bihirang lumalampas sa 10ms.</string>
+  <string name="networkBetweenLichessAndYou">Network sa pagitan ng Lichess at sa’yo</string>
 </resources>
