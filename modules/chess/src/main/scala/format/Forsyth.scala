@@ -53,11 +53,14 @@ object Forsyth {
 
   def <<<(rawSource: String): Option[SituationPlus] = <<<@(Standard, rawSource)
 
+  def fixSfen(sfen: String): String =
+    sfen.replaceAll("\\+S", "A").replaceAll("\\+s", "a").replaceAll("\\+N", "M").replaceAll("\\+n", "m").replaceAll("\\+L", "U").replaceAll("\\+l", "u").replaceAll("\\+P", "T").replaceAll("\\+p", "t").replaceAll("\\+R", "D").replaceAll("\\+r", "d").replaceAll("\\+B", "H").replaceAll("\\+b", "h")
+
   // only cares about pieces positions on the board (first part of FEN string)
   def makeBoard(variant: Variant, rawSource: String): Option[Board] =
     read(rawSource) { fen =>
       val splitted  = fen.split(' ')
-      val positions = splitted.lift(0).get
+      val positions = fixSfen(splitted.lift(0).get)
       if (positions.count('/' ==) != 8) {
         return None
       }
