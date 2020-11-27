@@ -40,7 +40,7 @@ final class Gamify(
         case Some(m) if m._id == lastId => fuccess(months)
         case _ if !orCompute            => fuccess(months)
         case Some(m)                    => buildHistoryAfter(m.year, m.month, until) >> history(false)
-        case _                          => buildHistoryAfter(2017, 6, until) >> history(false)
+        case _                          => buildHistoryAfter(2020, 9, until) >> history(false)
       }
     }
   }
