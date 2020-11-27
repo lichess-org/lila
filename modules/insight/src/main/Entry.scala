@@ -80,8 +80,10 @@ object Termination {
   case object Draw        extends Termination(4, "Draw")
   case object Stalemate   extends Termination(5, "Stalemate")
   case object Checkmate   extends Termination(6, "Checkmate")
+  case object Impasse     extends Termination(7, "Impasse")
+  case object PerpetualCheck extends Termination(8, "Perpetual Check")
 
-  val all = List(ClockFlag, Disconnect, Resignation, Draw, Stalemate, Checkmate)
+  val all = List(ClockFlag, Disconnect, Resignation, Draw, Stalemate, Checkmate, Impasse, PerpetualCheck)
   val byId = all map { p =>
     (p.id, p)
   } toMap
@@ -96,6 +98,8 @@ object Termination {
       case S.Draw                => Draw
       case S.Stalemate           => Stalemate
       case S.Mate | S.VariantEnd => Checkmate
+      case S.Impasse             => Impasse
+      case S.PerpetualCheck      => PerpetualCheck
       case S.Cheat               => Resignation
       case S.Created | S.Started | S.Aborted | S.NoStart | S.UnknownFinish =>
         logger.error(s"Unfinished game in the insight indexer: $s")
