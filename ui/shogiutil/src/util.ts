@@ -44,7 +44,7 @@ export function switchUSI(str: string): string {
 
 export function westernShogiNotation(str: string | undefined): string | undefined {
   if (!str) return;
-  if(str.length == 2 || (str.length == 3 && (str.includes("x") || str.includes("*")))){
+  if(str.length == 2 || (str.length == 3 && (str.includes("x") || str.includes("*"))) || (str.length == 4 && str.includes("x") && str.includes("+"))){
     str = "P" + str;
   }
   if (!str.includes("x") && !str.includes("*")) {
