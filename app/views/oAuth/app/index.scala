@@ -55,11 +55,11 @@ object index {
             br,
             br,
             "Here's a ",
-            a(href := "https://github.com/lishogi-org/api/tree/master/example/oauth-authorization-code")(
-              "Lishogi OAuth app example"
+            a(href := "https://github.com/lichess-org/api/tree/master/example/oauth-authorization-code")(
+              "Lichess OAuth app example"
             ),
             ", and the ",
-            a(href := routes.Api.index())("API documentation"),
+            a(href := routes.Page.notSupported())("API documentation"),
             "."
           ),
           table(cls := "slist slist-pad")(

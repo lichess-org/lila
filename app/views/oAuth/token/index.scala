@@ -36,11 +36,11 @@ object index {
           br,
           br,
           "Here's a ",
-          a(href := "https://github.com/lishogi-org/api/tree/master/example/oauth-personal-token")(
+          a(href := "https://github.com/lichess-org/api/tree/master/example/oauth-personal-token")(
             "personal token app example"
           ),
           " and the ",
-          a(href := routes.Api.index())("API documentation"),
+          a(href := routes.Page.notSupported())("API documentation"),
           "."
         ),
         tokens.headOption.filter(_.isBrandNew).map { token =>

@@ -541,7 +541,7 @@ GET   /report/:username/cheat-inquiry  controllers.Report.currentCheatInquiry(us
 GET    /stat/rating/distribution/:perf controllers.Stat.ratingDistribution(perf: String)
 
 # API
-GET   /api                             controllers.Api.index
+#GET   /api                             controllers.Api.index
 POST  /api/users                       controllers.Api.usersByIds
 GET   /api/user/puzzle-activity        controllers.Puzzle.activity
 GET   /api/user/:name/tournament/created controllers.Api.tournamentsByOwner(name: String)
