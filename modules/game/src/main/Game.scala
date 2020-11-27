@@ -312,13 +312,13 @@ case class Game(
       blackPlayer = f(blackPlayer)
     )
 
-  def playerCanOfferDraw(color: Color) =
-    started && playable &&
-      turns >= 8 &&
-      chess.situation.impasse &&
-      !player(color).isOfferingDraw &&
-      !opponent(color).isAi &&
-      !playerHasOfferedDraw(color)
+  def playerCanOfferDraw(color: Color) = false
+    //started && playable &&
+    //  turns >= 8 &&
+    //  chess.situation.impasse &&
+    //  !player(color).isOfferingDraw &&
+    //  !opponent(color).isAi &&
+    //  !playerHasOfferedDraw(color)
 
   def playerHasOfferedDraw(color: Color) =
     player(color).lastDrawOffer ?? (_ >= turns - 20)
