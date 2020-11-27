@@ -126,12 +126,12 @@ final class PgnDump(
               _.Termination, {
                 import chess.Status._
                 game.status match {
-                  case Created | Started                             => "Unterminated"
-                  case Aborted | NoStart                             => "Abandoned"
-                  case Timeout | Outoftime                           => "Time forfeit"
-                  case Resign | Draw | Stalemate | Mate | VariantEnd => "Normal"
-                  case Cheat                                         => "Rules infraction"
-                  case UnknownFinish                                 => "Unknown"
+                  case Created | Started                                          => "Unterminated"
+                  case Aborted | NoStart                                          => "Abandoned"
+                  case Timeout | Outoftime                                        => "Time forfeit"
+                  case Resign | Draw | Stalemate | Mate | VariantEnd | Impasse | PerpetualCheck   => "Normal"
+                  case Cheat                                                      => "Rules infraction"
+                  case UnknownFinish                                              => "Unknown"
                 }
               }
             ).some
