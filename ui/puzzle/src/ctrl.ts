@@ -86,8 +86,6 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     });
 
     instanciateCeval();
-
-    history.replaceState(null, '', '/training/' + data.puzzle.id);
   }
 
   function position(): Chess {
@@ -235,11 +233,12 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     if (vm.resultSent) return;
     vm.resultSent = true;
     nbToVoteCall(Math.max(0, parseInt(nbToVoteCall()) - 1));
-    xhr.round(data.puzzle.id, win).then((res: PuzzleResult | undefined) => {
-      if (res && data.user) {
-        data.user.rating = res.perf.rating;
-        data.user.provisional = res.perf.provisional;
+    xhr.complete(data.puzzle.id, data.theme, win).then((res: PuzzleResult | undefined) => {
+      if (res?.next.user && data.user) {
+        data.user.rating = res.next.user.rating;
+        data.user.provisional = res.next.user.provisional;
         vm.round = res.round;
+        vm.next = res.next;
       }
       if (win) speech.success();
       redraw();
@@ -247,15 +246,11 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function nextPuzzle(): void {
+    if (!vm.next) return location.reload();
     ceval.stop();
-    vm.loading = true;
+    vm.round = undefined;
+    initiate(vm.next);
     redraw();
-    xhr.nextPuzzle().then((d: PuzzleData) => {
-      vm.round = undefined;
-      vm.loading = false;
-      initiate(d);
-      redraw();
-    });
   }
 
   function instanciateCeval(): void {

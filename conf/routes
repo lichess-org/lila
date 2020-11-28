@@ -78,7 +78,6 @@ POST  /training/coordinate/color       controllers.Coordinate.color
 
 # Training - Puzzle
 GET   /training                        controllers.Puzzle.home
-GET   /training/new                    controllers.Puzzle.newPuzzle
 GET   /training/daily                  controllers.Puzzle.daily
 GET   /training/frame                  controllers.Puzzle.frame
 GET   /training/export/gif/thumbnail/:id.gif controllers.Export.puzzleThumbnail(id: String)

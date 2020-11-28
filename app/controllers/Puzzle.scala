@@ -15,23 +15,23 @@ final class Puzzle(
     apiC: => Api
 ) extends LilaController(env) {
 
-  private def renderJson(puzzle: Puz, round: Option[PuzzleRound] = None)(implicit
+  private type ThemeOrAny = Option[PuzzleTheme.Key]
+
+  private def renderJson(puzzle: Puz, theme: ThemeOrAny, round: Option[PuzzleRound] = None)(implicit
       ctx: Context
   ): Fu[JsObject] =
-    env.puzzle.jsonView(
-      puzzle = puzzle,
-      user = ctx.me,
-      round = round
-    )
+    env.puzzle.jsonView(puzzle = puzzle, theme = theme, user = ctx.me, round = round)
 
-  private def renderShow(puzzle: Puz)(implicit ctx: Context) =
+  private def renderShow(puzzle: Puz, theme: ThemeOrAny)(implicit ctx: Context) =
     ctx.me.?? { env.puzzle.api.round.find(_, puzzle) } flatMap {
-      renderShowWithRound(puzzle, _)
+      renderShowWithRound(puzzle, theme, _)
     }
 
-  private def renderShowWithRound(puzzle: Puz, round: Option[PuzzleRound])(implicit ctx: Context) =
+  private def renderShowWithRound(puzzle: Puz, theme: ThemeOrAny, round: Option[PuzzleRound])(implicit
+      ctx: Context
+  ) =
     ctx.me.?? { env.puzzle.api.round.find(_, puzzle) } flatMap { round =>
-      renderJson(puzzle, round) map { json =>
+      renderJson(puzzle, theme, round) map { json =>
         EnableSharedArrayBuffer(
           Ok(views.html.puzzle.show(puzzle, data = json, pref = env.puzzle.jsonView.pref(ctx.pref)))
         )
@@ -45,7 +45,7 @@ final class Puzzle(
           _.map(_.id) ?? env.puzzle.api.puzzle.find
         }) { puzzle =>
           negotiate(
-            html = renderShow(puzzle),
+            html = renderShow(puzzle, none),
             api = _ => renderJson(puzzle, none) map { Ok(_) }
           ) map NoCache
         }
@@ -56,7 +56,7 @@ final class Puzzle(
     Open { implicit ctx =>
       NoBot {
         nextPuzzleForMe() flatMap {
-          renderShowWithRound(_, none)
+          renderShowWithRound(_, none, none)
         }
       }
     }
@@ -64,7 +64,7 @@ final class Puzzle(
   def show(id: String) =
     Open { implicit ctx =>
       NoBot {
-        OptionFuResult(env.puzzle.api.puzzle find Puz.Id(id))(renderShow)
+        OptionFuResult(env.puzzle.api.puzzle find Puz.Id(id)) { renderShow(_, none) }
       }
     }
 
@@ -78,30 +78,18 @@ final class Puzzle(
       }
     }
 
-  // XHR load next play puzzle
-  def newPuzzle =
-    Open { implicit ctx =>
-      NoBot {
-        XhrOnly {
-          nextPuzzleForMe() flatMap { renderJson(_, none) } map { json =>
-            Ok(json) as JSON
-          }
-        }
-      }
-    }
-
   private def nextPuzzleForMe(theme: Option[PuzzleTheme.Key] = None)(implicit ctx: Context): Fu[Puz] =
     ctx.me match {
       case _ => env.puzzle.anon.getOneFor(theme) orFail "Couldn't find a puzzle for anon!"
       // case Some(me) => env.puzzle.cursor.nextPuzzleFor(me)
     }
 
-  def round3(theme: String, id: String) =
+  def complete(themeStr: String, id: String) =
     OpenBody { implicit ctx =>
       NoBot {
         implicit val req = ctx.body
         OptionFuResult(env.puzzle.api.puzzle find Puz.Id(id)) { puzzle =>
-          val theme = PuzzleTheme.find(theme)
+          val theme = PuzzleTheme.find(themeStr)
           lila.mon.puzzle.round.attempt(ctx.isAuth, theme.fold("any")(_.key.value)).increment()
           env.puzzle.forms.round
             .bindFromRequest()
@@ -118,17 +106,18 @@ final class Puzzle(
                         result = Result(resultInt == 1),
                         isStudent = isStudent
                       )
+                      _ = env.puzzle.cursor.onComplete(round, theme.map(_.key))
+                      next     <- nextPuzzleForMe(theme.map(_.key))
+                      nextJson <- renderJson(next, none)
                     } yield Ok(
                       Json.obj(
-                        "perf" -> Json
-                          .obj("rating" -> perf.intRating)
-                          .add("provisional" -> perf.provisional),
                         "round" -> Json
                           .obj(
                             "win"        -> round.win,
                             "ratingDiff" -> (perf.intRating - me.perfs.puzzle.intRating)
                           )
-                          .add("vote" -> round.vote)
+                          .add("vote" -> round.vote),
+                        "next" -> nextJson
                       )
                     )
                   case None =>
@@ -214,7 +203,7 @@ final class Puzzle(
       case None => Redirect(routes.Puzzle.home()).fuccess
       case Some(theme) =>
         nextPuzzleForMe(theme.key.some) flatMap {
-          renderShowWithRound(_, none)
+          renderShowWithRound(_, theme.key.some, none)
         }
     }
   }

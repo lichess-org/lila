@@ -38,8 +38,6 @@ final class PuzzleAnon(colls: PuzzleColls, cacheApi: CacheApi, pathApi: PuzzlePa
                 "min" $gte ratingRange.min,
                 "max" $lte ratingRange.max
               )
-            println(count)
-            println(lila.db.BSON.debug(selector))
             colls.path {
               _.aggregateList(poolSize) { framework =>
                 import framework._

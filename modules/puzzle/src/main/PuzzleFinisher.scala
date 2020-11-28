@@ -7,9 +7,9 @@ import scala.util.chaining._
 import lila.common.Bus
 import lila.db.AsyncColl
 import lila.db.dsl._
+import lila.rating.Perf
 import lila.rating.{ Glicko, PerfType }
 import lila.user.{ User, UserRepo }
-import lila.rating.Perf
 
 final private[puzzle] class PuzzleFinisher(
     api: PuzzleApi,
@@ -24,53 +24,59 @@ final private[puzzle] class PuzzleFinisher(
     api.round.find(user, puzzle) flatMap { prevRound =>
       val now              = DateTime.now
       val formerUserRating = user.perfs.puzzle.intRating
-      val userRating       = user.perfs.puzzle.toRating
-      val puzzleRating = new Rating(
-        puzzle.glicko.rating atLeast Glicko.minRating,
-        puzzle.glicko.deviation,
-        puzzle.glicko.volatility,
-        puzzle.plays,
-        null
-      )
-      updateRatings(userRating, puzzleRating, result.glicko)
-      val newPuzzleGlicko = user.perfs.puzzle.established
-        .option {
-          Glicko(
-            rating = puzzleRating.getRating
-              .atMost(puzzle.glicko.rating + Glicko.maxRatingDelta)
-              .atLeast(puzzle.glicko.rating - Glicko.maxRatingDelta),
-            deviation = puzzleRating.getRatingDeviation,
-            volatility = puzzleRating.getVolatility
+
+      val (round, newPuzzleGlicko, userPerf) = prevRound match {
+        case Some(prev) =>
+          (
+            prev.copy(win = result.win),
+            none,
+            user.perfs.puzzle
           )
-        }
-        .filter(_.sanityCheck)
-      val userPerf =
-        user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, now)
-      val round = prevRound
-        .fold(
-          PuzzleRound(
+        case None =>
+          val userRating = user.perfs.puzzle.toRating
+          val puzzleRating = new Rating(
+            puzzle.glicko.rating atLeast Glicko.minRating,
+            puzzle.glicko.deviation,
+            puzzle.glicko.volatility,
+            puzzle.plays,
+            null
+          )
+          updateRatings(userRating, puzzleRating, result.glicko)
+          val newPuzzleGlicko = user.perfs.puzzle.established
+            .option {
+              Glicko(
+                rating = puzzleRating.getRating
+                  .atMost(puzzle.glicko.rating + Glicko.maxRatingDelta)
+                  .atLeast(puzzle.glicko.rating - Glicko.maxRatingDelta),
+                deviation = puzzleRating.getRatingDeviation,
+                volatility = puzzleRating.getVolatility
+              )
+            }
+            .filter(_.sanityCheck)
+          val round = PuzzleRound(
             id = PuzzleRound.Id(user.id, puzzle.id),
             date = now,
             win = result.win,
             vote = none,
             weight = none
           )
-        )(_.copy(win = result.win))
+          val userPerf =
+            user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, now)
+          (round, newPuzzleGlicko, userPerf)
+      }
       api.round.upsert(round) zip
         isStudent.??(api.round.addDenormalizedUser(round, user)) zip
-        prevRound.isEmpty.?? {
-          colls.puzzle {
-            _.update
-              .one(
-                $id(puzzle.id),
-                $inc(Puzzle.BSONFields.plays -> $int(1)) ++ newPuzzleGlicko ?? { glicko =>
-                  $set(Puzzle.BSONFields.glicko -> Glicko.glickoBSONHandler.write(glicko))
-                }
-              )
-              .void
-          }
+        colls.puzzle {
+          _.update
+            .one(
+              $id(puzzle.id),
+              $inc(Puzzle.BSONFields.plays -> $int(1)) ++ newPuzzleGlicko ?? { glicko =>
+                $set(Puzzle.BSONFields.glicko -> Glicko.glickoBSONHandler.write(glicko))
+              }
+            )
+            .void
         } zip
-        userRepo.setPerf(user.id, PerfType.Puzzle, userPerf) >>-
+        (userPerf != user.perfs.puzzle).?? { userRepo.setPerf(user.id, PerfType.Puzzle, userPerf) } >>-
         Bus.publish(
           Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating),
           "finishPuzzle"

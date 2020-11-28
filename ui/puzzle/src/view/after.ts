@@ -25,7 +25,7 @@ function renderVote(ctrl: Controller): MaybeVNode {
 
 export default function(ctrl: Controller): MaybeVNode {
   const data = ctrl.getData();
-  const voteCall = !!data.user && ctrl.callToVote() && data.voted === undefined;
+  const voteCall = !!data.user && ctrl.callToVote() && ctrl.vm.round?.vote === undefined;
   return h('div.puzzle__feedback.after' + (voteCall ? '.call' : ''), [
     voteCall ? h('div.vote_call', [
       h('strong', ctrl.trans('wasThisPuzzleAnyGood')),

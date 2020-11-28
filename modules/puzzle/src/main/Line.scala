@@ -14,7 +14,6 @@ object Line {
     @scala.annotation.tailrec
     def walk(subs: Vector[(Lines, Int)]): Option[Int] =
       subs match {
-        case Vector() => none
         case (lines, depth) +: rest =>
           lines match {
             case Nil                  => walk(rest)
@@ -23,6 +22,7 @@ object Line {
             case Node(_, children) :: siblings =>
               walk(rest :+ (siblings -> depth) :+ (children -> (depth + 1)))
           }
+        case _ => none
       }
     (1 + ~walk(Vector(lines -> 1))) / 2
   }

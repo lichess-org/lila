@@ -18,6 +18,7 @@ final class JsonView(
 
   def apply(
       puzzle: Puzzle,
+      theme: Option[PuzzleTheme.Key],
       user: Option[User],
       round: Option[PuzzleRound] = None
   ): Fu[JsObject] = {
@@ -30,6 +31,7 @@ final class JsonView(
           "game"   -> gameJson,
           "puzzle" -> puzzleJson(puzzle)
         )
+        .add("theme" -> theme)
         .add("user" -> user.map(userJson))
     }
   }
@@ -95,4 +97,6 @@ final class JsonView(
 object JsonView {
 
   implicit val puzzleIdWrites: Writes[Puzzle.Id] = stringIsoWriter(Puzzle.idIso)
+
+  implicit val puzzleThemeKeyWrites: Writes[PuzzleTheme.Key] = stringIsoWriter(PuzzleTheme.keyIso)
 }

@@ -55,4 +55,6 @@ object PuzzleTheme {
   }.toMap
 
   def find(key: String) = byKey get Key(key)
+
+  implicit val keyIso = lila.common.Iso.string[Key](Key.apply, _.value)
 }

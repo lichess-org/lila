@@ -118,9 +118,9 @@ final class PuzzleCursorApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: Us
       }
     }
 
-  def onRound(round: PuzzleRound): Unit =
+  def onComplete(round: PuzzleRound, theme: Option[PuzzleTheme.Key]): Unit =
     cursors.getIfPresent(round.userId) foreach {
-      _ foreach { cursor =>
+      _.filter(_.theme == theme) foreach { cursor =>
         // yes, even if the completed puzzle was not the current cursor puzzle
         // in that case we just skip a puzzle on the path, which doesn't matter
         cursors.put(round.userId, fuccess(cursor.next))
