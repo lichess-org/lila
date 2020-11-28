@@ -191,7 +191,7 @@
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s problème</item>
-    <item quantity="other">%s puzzles</item>
+    <item quantity="other">%s problèmes</item>
   </plurals>
   <string name="gamesPlayed">Parties jouées</string>
   <plurals name="nbGamesWithYou">
@@ -268,7 +268,7 @@
   </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s en cours</item>
-    <item quantity="other">%s parties en cours</item>
+    <item quantity="other">%s en cours</item>
   </plurals>
   <string name="exportGames">Exporter les parties</string>
   <string name="ratingRange">Classement de vos adversaires</string>
