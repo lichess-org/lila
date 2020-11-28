@@ -70,7 +70,7 @@ function pieceImage(t: Piece, is3d: boolean) {
     const preview = t == "Staunton" ? "-Preview" : "";
     return `images/staunton/piece/${t}/White-Knight${preview}.png`;
   }
-  return `piece/${t}/0KE.svg`;
+  return `piece/${t}/0KI.svg`;
 }
 
 function pieceView(current: Piece, set: (t: Piece) => void, is3d: boolean) {
