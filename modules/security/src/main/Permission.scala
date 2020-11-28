@@ -19,6 +19,7 @@ object Permission {
   case object ChatTimeout           extends Permission("CHAT_TIMEOUT", "Chat timeout")
   case object UserSpy               extends Permission("USER_SPY", "User profile mod view")
   case object UserEvaluate          extends Permission("USER_EVALUATE", "Request evaluation")
+  case object NotifySlack           extends Permission("NOTIFY_SLACK", List(UserSpy), "Notify #tavern")
   case object ViewPrivateComms      extends Permission("VIEW_PRIVATE_COMS", "View private comms")
   case object Shadowban             extends Permission("SHADOWBAN", List(UserSpy, ChatTimeout), "Shadowban")
   case object MarkEngine            extends Permission("ADJUST_CHEATER", List(UserSpy), "Mark as cheater")
@@ -136,6 +137,7 @@ object Permission {
           ManageTournament,
           ManageSimul,
           ManageEvent,
+          NotifySlack,
           PracticeConfig,
           Presets,
           RemoveRanking,
