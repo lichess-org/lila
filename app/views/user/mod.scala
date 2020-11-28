@@ -26,17 +26,21 @@ object mod {
 
   def actions(u: User, emails: User.Emails, erased: User.Erased)(implicit ctx: Context): Frag =
     mzSection("actions")(
-      isGranted(_.UserEvaluate) option div(cls := "btn-rack")(
-        postForm(action := routes.Mod.spontaneousInquiry(u.username), title := "Start an inquiry")(
-          submitButton(cls := "btn-rack__btn inquiry", title := "Hotkey: i")(i)
-        ),
-        postForm(
-          action := routes.Mod.refreshUserAssess(u.username),
-          title := "Collect data and ask irwin",
-          cls := "xhr"
-        )(
-          submitButton(cls := "btn-rack__btn")("Evaluate")
-        ),
+      div(cls := "btn-rack")(
+        isGranted(_.ModMessage) option {
+          postForm(action := routes.Mod.spontaneousInquiry(u.username), title := "Start an inquiry")(
+            submitButton(cls := "btn-rack__btn inquiry", title := "Hotkey: i")(i)
+          )
+        },
+        isGranted(_.UserEvaluate) option {
+          postForm(
+            action := routes.Mod.refreshUserAssess(u.username),
+            title := "Collect data and ask irwin",
+            cls := "xhr"
+          )(
+            submitButton(cls := "btn-rack__btn")("Evaluate")
+          )
+        },
         isGranted(_.Shadowban) option {
           a(
             cls := "btn-rack__btn",
@@ -44,9 +48,11 @@ object mod {
             title := "View communications"
           )("Comms")
         },
-        postForm(action := routes.Mod.notifySlack(u.id), title := "Notify #tavern", cls := "xhr")(
-          submitButton(cls := "btn-rack__btn")("Slack")
-        )
+        isGranted(_.NotifySlack) option {
+          postForm(action := routes.Mod.notifySlack(u.id), title := "Notify #tavern", cls := "xhr")(
+            submitButton(cls := "btn-rack__btn")("Slack")
+          )
+        }
       ),
       div(cls := "btn-rack")(
         isGranted(_.CloseAccount) option {
