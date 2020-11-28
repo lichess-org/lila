@@ -2,7 +2,7 @@ import AnalyseCtrl from "./ctrl";
 import { defined } from "common";
 import { baseUrl } from "./util";
 import { AnalyseData } from "./interfaces";
-import {westernShogiNotation} from "shogiutil/util";
+import {westernShogiNotation, displaySfen} from "shogiutil/util";
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   const li = window.lishogi;
@@ -39,7 +39,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         point,
         $chart = $("#acpl-chart");
       if (fen && fen !== lastFen) {
-        inputFen.value = fen;
+        inputFen.value = displaySfen(fen);
         lastFen = fen;
       }
       if ($chart.length) {
