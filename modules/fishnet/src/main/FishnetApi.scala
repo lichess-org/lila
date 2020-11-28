@@ -20,8 +20,7 @@ final class FishnetApi(
     config: FishnetApi.Config
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem,
-    mode: play.api.Mode
+    system: akka.actor.ActorSystem
 ) {
 
   import FishnetApi._
