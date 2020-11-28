@@ -2,6 +2,7 @@ import AnalyseCtrl from "./ctrl";
 import { defined } from "common";
 import { baseUrl } from "./util";
 import { AnalyseData } from "./interfaces";
+import {westernShogiNotation} from "shogiutil/util";
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   const li = window.lishogi;
@@ -117,7 +118,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     if ((panel == "move-times" || ctrl.opts.hunter) && !li.movetimeChart)
       try {
         li.loadScript("javascripts/chart/movetime.js").then(function () {
-          li.movetimeChart(data, ctrl.trans);
+          li.movetimeChart(data, ctrl.trans, westernShogiNotation);
         });
       } catch (e) {}
     if (
