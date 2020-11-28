@@ -16,7 +16,7 @@
   <string name="aConfirmationIsRequiredToJoin">Se requiere una confirmación para unirse</string>
   <string name="joiningPolicy">Política para unirse</string>
   <plurals name="teamLeaders">
-    <item quantity="one">representante del equipo</item>
+    <item quantity="one">Líder del equipo</item>
     <item quantity="other">Líderes del equipo</item>
   </plurals>
   <string name="teamBestPlayers">Mejores jugadores</string>
