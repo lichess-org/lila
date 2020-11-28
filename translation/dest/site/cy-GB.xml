@@ -401,6 +401,7 @@
   <string name="currentPassword">Cyfrinair ar hyn o bryd</string>
   <string name="newPassword">Cyfrinair newydd</string>
   <string name="newPasswordAgain">Cyfrinair newydd (eto)</string>
+  <string name="newPasswordStrength">Cryfder y cyfrinair</string>
   <string name="privacy">Preifatrwydd</string>
   <string name="letOtherPlayersFollowYou">Caniatáu i chwaraewyr eraill dy ddilyn</string>
   <string name="letOtherPlayersChallengeYou">Caniatáu i chwaraewyr eraill dy herio</string>
