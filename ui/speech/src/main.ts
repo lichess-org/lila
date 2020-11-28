@@ -1,3 +1,5 @@
+import {westernShogiNotation} from 'shogiutil/util';
+
 const roles: { [letter: string]: string } = {
   B: "bishop",
   D: "dragon",
@@ -13,14 +15,17 @@ const roles: { [letter: string]: string } = {
 };
 
 function renderSan(san: San) {
+  let move: string = westernShogiNotation(san)!;
+  if(move[0] === "+") move = "$" + move.substring(1);
   return san
       .split("")
       .map((c) => {
+        if (c == "$") return "promoted";
         if (c == "*") return "drop";
         if (c == "x") return "takes";
-        if (c == "+") return "promote";
+        if (c == "+") return "promotes";
         if (c == "#") return "checkmate";
-        if (c == "=") return "unpromote";
+        if (c == "=") return "underpromotes";
         const code = c.charCodeAt(0);
         if (code > 48 && code < 59) return c; // 1-9
         if (code > 96 && code < 105) return c.toUpperCase();
