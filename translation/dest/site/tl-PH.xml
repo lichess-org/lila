@@ -558,6 +558,8 @@
   <string name="victory">Tagumpay</string>
   <string name="defeat">Natalo</string>
   <string name="victoryVsYInZ">%1$s vs %2$s sa %3$s</string>
+  <string name="defeatVsYInZ">%1$s vs %2$s sa %3$s</string>
+  <string name="drawVsYInZ">%1$s vs %2$s sa %3$s</string>
   <string name="timeline">Timeline</string>
   <string name="starting">Nagsisimula:</string>
   <string name="allInformationIsPublicAndOptional">Ang lahat ng impormasyon ay nasa publiko at opsyonal.</string>
@@ -620,6 +622,7 @@
   <string name="webmasters">Webmasters</string>
   <string name="about">Patungkol</string>
   <string name="aboutX">Tungkol sa %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ay isang malaya(%2$s), libre, walang ads, open source chess server.</string>
   <string name="really">talaga</string>
   <string name="contribute">Mag-ambag</string>
   <string name="termsOfService">Termino ng Serbisyo</string>
