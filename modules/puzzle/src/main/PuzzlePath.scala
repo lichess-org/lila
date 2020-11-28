@@ -1,7 +1,7 @@
 package lila.puzzle
 
-import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext
 
 import lila.db.dsl._
 import lila.memo.CacheApi
@@ -43,6 +43,10 @@ final private class PuzzlePathApi(
                   count <- obj int "count"
                 } yield PuzzleTheme.Key(key) -> count
               }.toMap
+            }.flatMap { themed =>
+              colls.puzzle(_.countAll) map { all =>
+                themed + (PuzzleTheme.any.key -> all.toInt)
+              }
             }
           }
         }

@@ -11,9 +11,10 @@ object PuzzleTheme {
 
   case class WithCount(theme: PuzzleTheme, count: Int)
 
-  val anyKey = Key("any")
+  val any = PuzzleTheme(Key("any"), i.healthyMix, i.healthyMixDescription)
 
   val sorted: List[PuzzleTheme] = List(
+    any,
     PuzzleTheme(Key("advancedPawn"), i.advancedPawn, i.advancedPawnDescription),
     PuzzleTheme(Key("attackingF2F7"), i.attackingF2F7, i.attackingF2F7Description),
     PuzzleTheme(Key("attraction"), i.attraction, i.attractionDescription),
@@ -55,6 +56,8 @@ object PuzzleTheme {
   }.toMap
 
   def find(key: String) = byKey get Key(key)
+
+  def findOrAny(key: String) = find(key) | any
 
   implicit val keyIso = lila.common.Iso.string[Key](Key.apply, _.value)
 }

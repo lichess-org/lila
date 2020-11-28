@@ -87,7 +87,8 @@ export default function(ctrl: Controller): VNode {
   }, [
     h('aside.puzzle__side', [
       side.puzzleBox(ctrl),
-      side.userBox(ctrl)
+      side.userBox(ctrl),
+      side.config(ctrl)
     ]),
     h('div.puzzle__board.main-board' + (ctrl.pref.blindfold ? '.blindfold' : ''), {
       hook: 'ontouchstart' in window ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent))

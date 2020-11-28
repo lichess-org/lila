@@ -460,6 +460,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="findTheBestMoveForWhite">Find the best move for white.</string>
   <string name="findTheBestMoveForBlack">Find the best move for black.</string>
   <string name="toTrackYourProgress">To track your progress:</string>
+  <string name="puzzleId">Puzzle %s</string>
   <string name="puzzleOfTheDay">Puzzle of the day</string>
   <string name="clickToSolve">Click to solve</string>
   <string name="goodMove">Good move</string>

@@ -20,12 +20,17 @@ object theme {
         h1("Puzzle themes"),
         div(cls := "puzzle-themes")(
           themes map { pt =>
-            a(cls := "puzzle-themes__link", href := routes.Puzzle.byTheme(pt.theme.key.value))(
-              strong(
-                pt.theme.name(),
-                em(pt.count.localize)
-              ),
-              span(pt.theme.description())
+            val url =
+              if (pt.theme == PuzzleTheme.any) routes.Puzzle.home()
+              else routes.Puzzle.show(pt.theme.key.value)
+            a(cls := "puzzle-themes__link", href := url)(
+              span(
+                strong(
+                  pt.theme.name(),
+                  em(pt.count.localize)
+                ),
+                span(pt.theme.description())
+              )
             )
           }
         )

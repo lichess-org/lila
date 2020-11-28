@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 import afterView from './after';
-import { bind, spinner } from '../util';
+import { bind } from '../util';
 import { Controller, MaybeVNode } from '../interfaces';
 
 function viewSolution(ctrl: Controller): VNode {
@@ -66,12 +66,7 @@ function fail(ctrl: Controller): VNode {
   ]);
 }
 
-function loading(): VNode {
-  return h('div.puzzle__feedback.loading', spinner());
-}
-
 export default function(ctrl: Controller): MaybeVNode {
-  if (ctrl.vm.loading) return loading();
   if (ctrl.vm.mode === 'view') return afterView(ctrl);
   if (ctrl.vm.lastFeedback === 'init') return initial(ctrl);
   if (ctrl.vm.lastFeedback === 'good') return good(ctrl);

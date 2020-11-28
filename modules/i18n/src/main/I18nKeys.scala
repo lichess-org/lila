@@ -351,6 +351,7 @@ val `yourPuzzleRatingX` = new I18nKey("yourPuzzleRatingX")
 val `findTheBestMoveForWhite` = new I18nKey("findTheBestMoveForWhite")
 val `findTheBestMoveForBlack` = new I18nKey("findTheBestMoveForBlack")
 val `toTrackYourProgress` = new I18nKey("toTrackYourProgress")
+val `puzzleId` = new I18nKey("puzzleId")
 val `puzzleOfTheDay` = new I18nKey("puzzleOfTheDay")
 val `clickToSolve` = new I18nKey("clickToSolve")
 val `goodMove` = new I18nKey("goodMove")
@@ -1867,6 +1868,8 @@ val `veryLong` = new I18nKey("puzzleTheme:veryLong")
 val `veryLongDescription` = new I18nKey("puzzleTheme:veryLongDescription")
 val `zugzwang` = new I18nKey("puzzleTheme:zugzwang")
 val `zugzwangDescription` = new I18nKey("puzzleTheme:zugzwangDescription")
+val `healthyMix` = new I18nKey("puzzleTheme:healthyMix")
+val `healthyMixDescription` = new I18nKey("puzzleTheme:healthyMixDescription")
 }
 
 }

@@ -16,6 +16,9 @@ function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
   return h('div.infos.puzzle', {
     attrs: dataIcon('-')
   }, [h('div', [
+    h('p', ctrl.trans.vdom('puzzleId', h('a', {
+      attrs: { href: `/training/${puzzle.id}` }
+    }, '#' + puzzle.id))),
     h('p', ctrl.trans.vdom('ratingX', ctrl.vm.mode === 'play' ? h('span.hidden', ctrl.trans.noarg('hidden')) : h('strong', puzzle.rating))),
     h('p', ctrl.trans.vdom('playedXTimes', h('strong', numberFormat(puzzle.plays))))
   ])]);
@@ -25,7 +28,7 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
   return h('div.infos', {
     attrs: dataIcon(game.perf.icon)
   }, [h('div', [
-    h('p', ctrl.trans.vdom('fromGameLink', h('a', {
+    h('p', ctrl.trans.vdom('fromGameLink', ctrl.vm.mode == 'play' ? h('span.hidden', ctrl.trans.noarg('hidden')) : h('a', {
       attrs: { href: `/${game.id}/${ctrl.vm.pov}#${puzzle.initialPly}` }
     }, '#' + game.id))),
     h('p', [
@@ -53,5 +56,27 @@ export function userBox(ctrl: Controller): MaybeVNode {
       ...(diff && diff > 0 ? [' ', h('good.rp', '+' + diff)] : []),
       ...(diff && diff < 0 ? [' ', h('bad.rp', '−' + (-diff))] : [])
     ])))
+  ]);
+}
+
+export function config(ctrl: Controller): MaybeVNode {
+  const id = 'puzzle-toggle-autonext';
+  return h('div.puzzle__side__config', [
+    h('div.puzzle__side__config__setting', [
+      h('div.switch', [
+        h(`input#${id}.cmn-toggle.cmn-toggle--subtle`, {
+          attrs: {
+            type: 'checkbox',
+            checked: ctrl.autoNext()
+          },
+          hook: {
+            insert: vnode => (vnode.elm as HTMLElement).addEventListener('change', () =>
+              ctrl.autoNext(!ctrl.autoNext()))
+          }
+        }),
+        h('label', { attrs: { 'for': id } })
+      ]),
+      h('label', { attrs: { 'for': id } }, 'Jump to next puzzle immediately')
+    ])
   ]);
 }

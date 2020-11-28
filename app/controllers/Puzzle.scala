@@ -15,19 +15,17 @@ final class Puzzle(
     apiC: => Api
 ) extends LilaController(env) {
 
-  private type ThemeOrAny = Option[PuzzleTheme.Key]
-
-  private def renderJson(puzzle: Puz, theme: ThemeOrAny, round: Option[PuzzleRound] = None)(implicit
+  private def renderJson(puzzle: Puz, theme: PuzzleTheme, round: Option[PuzzleRound] = None)(implicit
       ctx: Context
   ): Fu[JsObject] =
-    env.puzzle.jsonView(puzzle = puzzle, theme = theme, user = ctx.me, round = round)
+    env.puzzle.jsonView(puzzle = puzzle, theme = theme.key, user = ctx.me, round = round)
 
-  private def renderShow(puzzle: Puz, theme: ThemeOrAny)(implicit ctx: Context) =
+  private def renderShow(puzzle: Puz, theme: PuzzleTheme)(implicit ctx: Context) =
     ctx.me.?? { env.puzzle.api.round.find(_, puzzle) } flatMap {
       renderShowWithRound(puzzle, theme, _)
     }
 
-  private def renderShowWithRound(puzzle: Puz, theme: ThemeOrAny, round: Option[PuzzleRound])(implicit
+  private def renderShowWithRound(puzzle: Puz, theme: PuzzleTheme, round: Option[PuzzleRound])(implicit
       ctx: Context
   ) =
     ctx.me.?? { env.puzzle.api.round.find(_, puzzle) } flatMap { round =>
@@ -45,8 +43,8 @@ final class Puzzle(
           _.map(_.id) ?? env.puzzle.api.puzzle.find
         }) { puzzle =>
           negotiate(
-            html = renderShow(puzzle, none),
-            api = _ => renderJson(puzzle, none) map { Ok(_) }
+            html = renderShow(puzzle, PuzzleTheme.any),
+            api = _ => renderJson(puzzle, PuzzleTheme.any) map { Ok(_) }
           ) map NoCache
         }
       }
@@ -55,16 +53,10 @@ final class Puzzle(
   def home =
     Open { implicit ctx =>
       NoBot {
-        nextPuzzleForMe() flatMap {
-          renderShowWithRound(_, none, none)
+        val theme = PuzzleTheme.any
+        nextPuzzleForMe(theme.key) flatMap {
+          renderShowWithRound(_, theme, none)
         }
-      }
-    }
-
-  def show(id: String) =
-    Open { implicit ctx =>
-      NoBot {
-        OptionFuResult(env.puzzle.api.puzzle find Puz.Id(id)) { renderShow(_, none) }
       }
     }
 
@@ -78,10 +70,10 @@ final class Puzzle(
       }
     }
 
-  private def nextPuzzleForMe(theme: Option[PuzzleTheme.Key] = None)(implicit ctx: Context): Fu[Puz] =
+  private def nextPuzzleForMe(theme: PuzzleTheme.Key)(implicit ctx: Context): Fu[Puz] =
     ctx.me match {
-      case _ => env.puzzle.anon.getOneFor(theme) orFail "Couldn't find a puzzle for anon!"
-      // case Some(me) => env.puzzle.cursor.nextPuzzleFor(me)
+      case Some(me) => env.puzzle.cursor.nextPuzzleFor(me, theme)
+      case None     => env.puzzle.anon.getOneFor(theme) orFail "Couldn't find a puzzle for anon!"
     }
 
   def complete(themeStr: String, id: String) =
@@ -89,8 +81,8 @@ final class Puzzle(
       NoBot {
         implicit val req = ctx.body
         OptionFuResult(env.puzzle.api.puzzle find Puz.Id(id)) { puzzle =>
-          val theme = PuzzleTheme.find(themeStr)
-          lila.mon.puzzle.round.attempt(ctx.isAuth, theme.fold("any")(_.key.value)).increment()
+          val theme = PuzzleTheme findOrAny themeStr
+          lila.mon.puzzle.round.attempt(ctx.isAuth, theme.key.value).increment()
           env.puzzle.forms.round
             .bindFromRequest()
             .fold(
@@ -102,13 +94,14 @@ final class Puzzle(
                       isStudent <- env.clas.api.student.isStudent(me.id)
                       (round, perf) <- env.puzzle.finisher(
                         puzzle = puzzle,
+                        theme = theme.key,
                         user = me,
                         result = Result(resultInt == 1),
                         isStudent = isStudent
                       )
-                      _ = env.puzzle.cursor.onComplete(round, theme.map(_.key))
-                      next     <- nextPuzzleForMe(theme.map(_.key))
-                      nextJson <- renderJson(next, none)
+                      _ = env.puzzle.cursor.onComplete(round, theme.key)
+                      next     <- nextPuzzleForMe(theme.key)
+                      nextJson <- renderJson(next, theme)
                     } yield Ok(
                       Json.obj(
                         "round" -> Json
@@ -198,12 +191,16 @@ final class Puzzle(
     }
   }
 
-  def byTheme(theme: String) = Open { implicit ctx =>
-    PuzzleTheme.find(theme) match {
+  def show(themeOrId: String) = Open { implicit ctx =>
+    PuzzleTheme.find(themeOrId) match {
+      case None if themeOrId.size == 5 =>
+        NoBot {
+          OptionFuResult(env.puzzle.api.puzzle find Puz.Id(themeOrId)) { renderShow(_, PuzzleTheme.any) }
+        }
       case None => Redirect(routes.Puzzle.home()).fuccess
       case Some(theme) =>
-        nextPuzzleForMe(theme.key.some) flatMap {
-          renderShowWithRound(_, theme.key.some, none)
+        nextPuzzleForMe(theme.key) flatMap {
+          renderShowWithRound(_, theme, none)
         }
     }
   }

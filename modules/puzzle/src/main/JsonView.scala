@@ -18,7 +18,7 @@ final class JsonView(
 
   def apply(
       puzzle: Puzzle,
-      theme: Option[PuzzleTheme.Key],
+      theme: PuzzleTheme.Key,
       user: Option[User],
       round: Option[PuzzleRound] = None
   ): Fu[JsObject] = {
@@ -29,9 +29,9 @@ final class JsonView(
       Json
         .obj(
           "game"   -> gameJson,
-          "puzzle" -> puzzleJson(puzzle)
+          "puzzle" -> puzzleJson(puzzle),
+          "theme"  -> theme
         )
-        .add("theme" -> theme)
         .add("user" -> user.map(userJson))
     }
   }

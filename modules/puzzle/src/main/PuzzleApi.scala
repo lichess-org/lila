@@ -66,10 +66,7 @@ final private[puzzle] class PuzzleApi(
     def sortedWithCount: Fu[List[PuzzleTheme.WithCount]] =
       pathApi.countsByTheme map { counts =>
         PuzzleTheme.sorted flatMap { pt =>
-          counts.getOrElse(pt.key, 0) match {
-            case 0     => Nil
-            case count => List(PuzzleTheme.WithCount(pt, count))
-          }
+          counts.get(pt.key) ?? { count => List(PuzzleTheme.WithCount(pt, count)) }
         }
       }
   }

@@ -24,6 +24,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
   let vm: Vm = {} as Vm;
   let data: PuzzleData, tree: TreeWrapper, ceval: CevalCtrl, moveTest: MoveTestFn;
+  const autoNext = storedProp('puzzle.autoNext', false)
   const ground = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
   const threatMode = prop(false);
 
@@ -55,7 +56,6 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     tree = treeBuild(pgnToTree(data.game.pgn));
     const initialPath = treePath.fromNodeList(treeOps.mainlineNodeList(tree.root));
     vm.mode = 'play';
-    vm.loading = false;
     vm.round = undefined;
     vm.justPlayed = undefined;
     vm.resultSent = false;
@@ -229,19 +229,20 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     }
   }
 
-  function sendResult(win: boolean): void {
+  function sendResult(win: boolean, andPause: boolean = false): void {
     if (vm.resultSent) return;
     vm.resultSent = true;
     nbToVoteCall(Math.max(0, parseInt(nbToVoteCall()) - 1));
-    xhr.complete(data.puzzle.id, data.theme, win).then((res: PuzzleResult | undefined) => {
+    xhr.complete(data.puzzle.id, data.theme, win).then((res: PuzzleResult) => {
       if (res?.next.user && data.user) {
         data.user.rating = res.next.user.rating;
         data.user.provisional = res.next.user.provisional;
         vm.round = res.round;
-        vm.next = res.next;
       }
       if (win) speech.success();
-      redraw();
+      vm.next = res.next;
+      if (!andPause && autoNext()) nextPuzzle();
+      else redraw();
     });
   }
 
@@ -371,8 +372,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function viewSolution(): void {
-    if (!vm.canViewSolution) return;
-    sendResult(false);
+    sendResult(false, true);
     vm.mode = 'view';
     mergeSolution(tree, vm.initialPath, data.puzzle.solution, vm.pov);
     reorderChildren(vm.initialPath, true);
@@ -453,6 +453,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     getCeval,
     pref: opts.pref,
     trans: lichess.trans(opts.i18n),
+    autoNext,
     outcome,
     toggleCeval,
     toggleThreatMode,

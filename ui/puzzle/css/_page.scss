@@ -1,12 +1,29 @@
 .puzzle-themes {
 
   &__link {
-    @extend %box-padding-horiz;
-    display: block;
+    @extend %flex-center-nowrap, %box-padding-horiz;
     padding-top: 2em;
     padding-bottom: 2em;
+
+    &::before {
+      @extend %data-icon;
+      content: '-';
+      color: $c-font-dimmer;
+      flex: 0 0 2em;
+      margin-right: 1vw;
+      text-align: center;
+      font-size: 4.5em;
+    }
     &:hover {
       background: mix($c-bg-box, $c-link, 90%);
+      &::before {
+        color: $c-primary;
+      }
+    }
+
+    > span {
+      flex: 1 1 100%;
+      margin: 0;
     }
 
     strong {

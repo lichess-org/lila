@@ -5,15 +5,15 @@
     align-self: start;
     background: $c-bg-box;
 
-    .spinner {
-      margin: 4rem auto;
-    }
-
     p {
       margin: 0;
     }
 
     padding: 2vmin;
+
+    .hidden {
+      color: $c-font-dimmer;
+    }
 
     .infos {
       @extend %flex-center;
@@ -29,10 +29,6 @@
         padding-bottom: 2vh;
         border-bottom: $border;
         margin-bottom: 2vh;
-
-        .hidden {
-          opacity: 0.7;
-        }
       }
 
       .players {
@@ -70,17 +66,22 @@
     .rp.down {
       color: $c-bad;
     }
+  }
 
-    canvas {
-      width: 100%;
+  &__config {
+    @extend %box-neat;
+    align-self: start;
+    background: $c-bg-box;
+    padding: 2vmin;
 
-      @if $theme == "transp" {
-        opacity: .5;
+    &__setting {
+      display: flex;
+      .switch {
+        margin-right: 1em;
+      }
+      label {
+        cursor: pointer;
       }
     }
   }
-}
-
-#jqstooltip {
-  box-sizing: content-box;
 }

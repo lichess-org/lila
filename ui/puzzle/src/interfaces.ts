@@ -1,11 +1,12 @@
-import { Outcome } from 'chessops/types';
+import { Api as CgApi } from 'chessground/api';
 import { CevalCtrl, NodeEvals } from 'ceval';
+import { Config as CgConfig } from 'chessground/config';
+import { Outcome } from 'chessops/types';
 import { Prop } from 'common';
+import { Role, Move } from 'chessops/types';
 import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom/vnode';
-import { Api as CgApi } from 'chessground/api';
-import { Config as CgConfig } from 'chessground/config';
-import { Role, Move } from 'chessops/types';
+import {StoredBooleanProp} from 'common/storage';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -50,6 +51,7 @@ export interface Controller extends KeyboardController {
   pref: PuzzlePrefs;
   userMove(orig: Key, dest: Key): void;
   promotion: any;
+  autoNext: StoredBooleanProp;
 
   path?: Tree.Path;
   autoScrollRequested?: boolean;
@@ -62,7 +64,6 @@ export interface Vm {
   mainline: Tree.Node[];
   pov: Color;
   mode: 'play' | 'view' | 'try';
-  loading: boolean;
   round?: PuzzleRound;
   next?: PuzzleData;
   justPlayed?: Key;
@@ -100,7 +101,7 @@ export interface PuzzlePrefs {
 
 export interface PuzzleData {
   puzzle: Puzzle;
-  theme?: ThemeKey;
+  theme: ThemeKey;
   game: PuzzleGame;
   user: PuzzleUser | undefined;
 }

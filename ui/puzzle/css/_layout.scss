@@ -60,19 +60,19 @@
 
   &__side {
     display: grid;
-    grid-template-areas: 'metas' 'user';
+    grid-template-areas: 'metas' 'user' 'config';
     grid-gap: $block-gap;
 
     @include breakpoint($mq-x-small) {
-      grid-template-columns: 1fr 1fr;
-      grid-template-areas: 'metas user';
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-areas: 'metas user' 'config';
     }
 
 
     @include breakpoint($mq-x-large) {
       grid-template-columns: 1fr;
-      grid-template-rows: min-content;
-      grid-template-areas: 'metas' 'user';
+      grid-template-rows: min-content min-content;
+      grid-template-areas: 'metas' 'user' 'config';
       justify-self: end;
       min-width: 250px;
       max-width: 350px;
@@ -85,6 +85,10 @@
 
     &__user {
       grid-area: user;
+    }
+
+    &__config {
+      grid-area: config;
     }
   }
 }

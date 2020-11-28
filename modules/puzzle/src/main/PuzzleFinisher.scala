@@ -3,6 +3,7 @@ package lila.puzzle
 import org.goochjs.glicko2.{ Rating, RatingCalculator, RatingPeriodResults }
 import org.joda.time.DateTime
 import scala.util.chaining._
+import cats.implicits._
 
 import lila.common.Bus
 import lila.db.AsyncColl
@@ -20,7 +21,13 @@ final private[puzzle] class PuzzleFinisher(
 
   import BsonHandlers._
 
-  def apply(puzzle: Puzzle, user: User, result: Result, isStudent: Boolean): Fu[(PuzzleRound, Perf)] =
+  def apply(
+      puzzle: Puzzle,
+      theme: PuzzleTheme.Key,
+      user: User,
+      result: Result,
+      isStudent: Boolean
+  ): Fu[(PuzzleRound, Perf)] =
     api.round.find(user, puzzle) flatMap { prevRound =>
       val now              = DateTime.now
       val formerUserRating = user.perfs.puzzle.intRating
@@ -44,13 +51,14 @@ final private[puzzle] class PuzzleFinisher(
           updateRatings(userRating, puzzleRating, result.glicko)
           val newPuzzleGlicko = user.perfs.puzzle.established
             .option {
-              Glicko(
+              val g = Glicko(
                 rating = puzzleRating.getRating
                   .atMost(puzzle.glicko.rating + Glicko.maxRatingDelta)
                   .atLeast(puzzle.glicko.rating - Glicko.maxRatingDelta),
                 deviation = puzzleRating.getRatingDeviation,
                 volatility = puzzleRating.getVolatility
               )
+              if (theme == PuzzleTheme.any.key) g else g.average(puzzle.glicko)
             }
             .filter(_.sanityCheck)
           val round = PuzzleRound(
@@ -61,7 +69,10 @@ final private[puzzle] class PuzzleFinisher(
             weight = none
           )
           val userPerf =
-            user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, now)
+            user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, now) pipe {
+              p =>
+                if (theme == PuzzleTheme.any.key) p else p.averageGlicko(user.perfs.puzzle)
+            }
           (round, newPuzzleGlicko, userPerf)
       }
       api.round.upsert(round) zip

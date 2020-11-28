@@ -15,16 +15,16 @@ final class PuzzleAnon(colls: PuzzleColls, cacheApi: CacheApi, pathApi: PuzzlePa
 
   import BsonHandlers._
 
-  def getOneFor(theme: Option[PuzzleTheme.Key]): Fu[Option[Puzzle]] =
+  def getOneFor(theme: PuzzleTheme.Key): Fu[Option[Puzzle]] =
     pool get theme map ThreadLocalRandom.oneOf
 
   private val poolSize = 50
 
   private val pool =
-    cacheApi[Option[PuzzleTheme.Key], Vector[Puzzle]](initialCapacity = 32, name = "puzzle.byTheme.anon") {
+    cacheApi[PuzzleTheme.Key, Vector[Puzzle]](initialCapacity = 32, name = "puzzle.byTheme.anon") {
       _.refreshAfterWrite(2 minutes)
         .buildAsyncFuture { theme =>
-          theme.fold(fuccess(Int.MaxValue))(pathApi.countPuzzlesByTheme) flatMap { count =>
+          pathApi countPuzzlesByTheme theme flatMap { count =>
             val tier =
               if (count > 3000) PuzzlePath.tier.top
               else PuzzlePath.tier.all
@@ -34,7 +34,7 @@ final class PuzzleAnon(colls: PuzzleColls, cacheApi: CacheApi, pathApi: PuzzlePa
               else 0 to 9999
             val selector =
               $doc(
-                "_id" $startsWith s"${theme | PuzzleTheme.anyKey}_${tier}_",
+                "_id" $startsWith s"${theme}_${tier}_",
                 "min" $gte ratingRange.min,
                 "max" $lte ratingRange.max
               )

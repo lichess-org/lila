@@ -1,5 +1,6 @@
 package lila.puzzle
 
+import reactivemongo.api.bson.BSONRegex
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 import scala.util.chaining._
@@ -10,7 +11,7 @@ import lila.rating.{ Perf, PerfType }
 import lila.user.{ User, UserRepo }
 
 private case class PuzzleCursor(
-    theme: Option[PuzzleTheme.Key],
+    theme: PuzzleTheme.Key,
     path: Puzzle.PathId,
     previousPaths: Set[Puzzle.PathId],
     positionInPath: Int
@@ -41,7 +42,7 @@ final class PuzzleCursorApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: Us
     case class PuzzleFound(puzzle: Puzzle)         extends NextPuzzleResult
   }
 
-  def nextPuzzleFor(user: User, theme: Option[PuzzleTheme.Key], isRetry: Boolean = false): Fu[Puzzle] =
+  def nextPuzzleFor(user: User, theme: PuzzleTheme.Key, isRetry: Boolean = false): Fu[Puzzle] =
     continueOrCreateCursorFor(user, theme) flatMap { cursor =>
       import NextPuzzleResult._
       nextPuzzleResult(user, cursor.pp) flatMap {
@@ -118,7 +119,7 @@ final class PuzzleCursorApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: Us
       }
     }
 
-  def onComplete(round: PuzzleRound, theme: Option[PuzzleTheme.Key]): Unit =
+  def onComplete(round: PuzzleRound, theme: PuzzleTheme.Key): Unit =
     cursors.getIfPresent(round.userId) foreach {
       _.filter(_.theme == theme) foreach { cursor =>
         // yes, even if the completed puzzle was not the current cursor puzzle
@@ -131,38 +132,42 @@ final class PuzzleCursorApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: Us
     _.expireAfterWrite(1 hour).buildAsync()
   )
 
-  private[puzzle] def currentCursorOf(user: User, theme: Option[PuzzleTheme.Key]): Fu[PuzzleCursor] =
+  private[puzzle] def currentCursorOf(user: User, theme: PuzzleTheme.Key): Fu[PuzzleCursor] =
     cursors.getFuture(user.id, _ => createCursorFor(user, theme))
 
   private[puzzle] def continueOrCreateCursorFor(
       user: User,
-      theme: Option[PuzzleTheme.Key]
+      theme: PuzzleTheme.Key
   ): Fu[PuzzleCursor] =
     currentCursorOf(user, theme) flatMap { current =>
       if (current.theme == theme) fuccess(current)
       else createCursorFor(user, theme) tap { cursors.put(user.id, _) }
     }
 
-  private def createCursorFor(user: User, theme: Option[PuzzleTheme.Key]): Fu[PuzzleCursor] =
+  private def createCursorFor(user: User, theme: PuzzleTheme.Key): Fu[PuzzleCursor] =
     nextPathIdFor(user.id, theme, Set.empty)
       .orFail(s"No puzzle path found for ${user.id}, theme: $theme")
       .dmap(pathId => PuzzleCursor(theme, pathId, Set.empty, 0))
 
   private def nextPathIdFor(
       userId: User.ID,
-      theme: Option[PuzzleTheme.Key],
+      theme: PuzzleTheme.Key,
       previousPaths: Set[PathId]
   ): Fu[Option[PathId]] =
     userRepo.perfOf(userId, PerfType.Puzzle).dmap(_ | Perf.default) flatMap { perf =>
       colls.path {
         _.aggregateOne() { framework =>
           import framework._
+          val tier = "top"
           Match(
             $doc(
-              "tier" -> "top",
+              "_id" ->
+                $doc(
+                  "$regex" -> BSONRegex(s"^${theme}_$tier", ""),
+                  $nin(previousPaths)
+                ),
               "min" $lte perf.glicko.rating,
-              "max" $gt perf.glicko.rating,
-              "_id" $nin previousPaths
+              "max" $gt perf.glicko.rating
             )
           ) -> List(
             Project($id(true)),

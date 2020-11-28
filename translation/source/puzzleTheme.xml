@@ -68,4 +68,6 @@
   <string name="veryLongDescription">Four moves or more to win.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">The opponent is limited in the moves they can make, and all moves worsen their position.</string>
+  <string name="healthyMix">Healthy mix</string>
+  <string name="healthyMixDescription">A bit of everything. You don't know what you expect, so you remain ready for everything!</string>
 </resources>
