@@ -532,6 +532,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="currentPassword">Password attuale</string>
   <string name="newPassword">Nuova password</string>
   <string name="newPasswordAgain">Nuova password (ripeti)</string>
+  <string name="newPasswordsDontMatch">Le nuove password non coincidono</string>
+  <string name="newPasswordStrength">Sicurezza della password</string>
   <string name="clockInitialTime">Tempo iniziale</string>
   <string name="clockIncrement">Incremento orologio</string>
   <string name="privacy">Privacy</string>
