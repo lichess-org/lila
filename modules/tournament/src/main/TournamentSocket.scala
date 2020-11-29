@@ -51,7 +51,7 @@ final private class TournamentSocket(
       (_: Tournament.ID, cur: WaitingUsers.WithNext) =>
         Option(cur).getOrElse(WaitingUsers emptyWithNext tour.clock).copy(next = promise.some)
     )
-    promise.future.withTimeout(2.seconds, lila.base.LilaException("getWaitingUsers timeout"))
+    promise.future.withTimeout(5.seconds, lila.base.LilaException("getWaitingUsers timeout"))
   }
 
   def hasUser(tourId: Tournament.ID, userId: User.ID): Boolean =
