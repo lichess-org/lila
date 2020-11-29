@@ -43,10 +43,10 @@ object features {
               a(href := routes.Page.variantHome())("8 chess variants (Crazyhouse, Chess960, Horde, ...)")
             ),
             tr(custom("30 per day"))(
-              s"Deep $engineName server analysis"
+              "Deep Stockfish 12+ server analysis"
             ),
             tr(unlimited)(
-              s"Instant local $engineName analysis"
+              "Instant local Stockfish 11+ analysis"
             ),
             tr(unlimited)(
               a(href := "https://lichess.org/blog/WN-gLzAAAKlI89Xn/thousands-of-stockfish-analysers")(
@@ -125,7 +125,7 @@ object features {
               a(href := routes.Tournament.home())("Arena tournaments")
             ),
             tr(check)(
-              s"Board editor and analysis board with $engineName"
+              "Board editor and analysis board with Stockfish 11+"
             ),
             tr(unlimited)(
               a(href := routes.Puzzle.home())("Tactics puzzles")
@@ -196,6 +196,4 @@ object features {
   private def tr(value: Frag)(text: Frag*) = st.tr(th(text), all(value))
 
   private val title = "Lichess features"
-
-  private val engineName = "Stockfish 11+"
 }

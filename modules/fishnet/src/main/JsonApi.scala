@@ -47,8 +47,12 @@ object JsonApi {
 
     case class FullEngine(
         name: String,
-        options: EngineOptions
-    ) extends Engine
+        options: EngineOptions,
+        flavor: Option[String]
+    ) extends Engine {
+      // TODO: Monitor only nodes/nps from NNUE analysis
+      def isNnue = flavor.has("nnue")
+    }
 
     case class EngineOptions(
         threads: Option[String],
@@ -90,7 +94,9 @@ object JsonApi {
             .flatMap(_.nodes)
         }
 
-      def strong = medianNodes.fold(true)(_ > Evaluation.acceptableNodes)
+      // fishnet 2.x analysis is never weak in this sense. It is either exactly
+      // the same as analysis provided by any other instance, or failed.
+      def strong = stockfish.flavor.isDefined || medianNodes.fold(true)(_ > Evaluation.legacyAcceptableNodes)
       def weak   = !strong
     }
 
@@ -128,10 +134,10 @@ object JsonApi {
         def invertIf(cond: Boolean) = if (cond) invert else this
       }
 
-      val npsCeil = 10 * 1000 * 1000
+      val npsCeil = 10_000_000
 
-      val desiredNodes    = 3 * 1000 * 1000
-      val acceptableNodes = desiredNodes * 0.9
+      private val legacyDesiredNodes = 3_000_000
+      val legacyAcceptableNodes      = legacyDesiredNodes * 0.9
     }
   }
 
@@ -216,9 +222,13 @@ object JsonApi {
           Json.obj(
             "work" -> Json.obj(
               "type" -> "analysis",
-              "id"   -> a.id
+              "id"   -> a.id,
+              "nodes" -> Json.obj(
+                "nnue"      -> a.nodes,
+                "classical" -> a.nodes * 18 / 10
+              )
             ),
-            "nodes"         -> a.nodes,
+            "nodes"         -> a.nodes * 18 / 10, // bc for fishnet 1.x clients without nnue
             "skipPositions" -> a.skipPositions
           )
       }) ++ Json.toJson(work.game).as[JsObject]
