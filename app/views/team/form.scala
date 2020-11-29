@@ -83,10 +83,10 @@ object form {
             hr,
             t.enabled option postForm(cls := "inline", action := routes.Team.disable(t.id))(
               submitButton(
-                dataIcon := "L",
-                cls := "text button button-empty button-red confirm",
-                st.title := "Closes the team forever." // can actually be reverted
-              )(trans.close())
+                dataIcon := "j",
+                cls := "submit button text confirm button-red",
+                st.title := trans.team.closeTeamDescription.txt() // can actually be reverted
+              )(closeTeam())
             ),
             isGranted(_.ManageTeam) option
               postForm(cls := "inline", action := routes.Team.close(t.id))(
