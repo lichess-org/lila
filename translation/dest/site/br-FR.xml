@@ -614,6 +614,7 @@
   <string name="newPassword">Ger-tremen nevez</string>
   <string name="newPasswordAgain">Ger-tremen nevez (c\'hoazh)</string>
   <string name="newPasswordsDontMatch">Ne glot ket an daou cher-tremen</string>
+  <string name="newPasswordStrength">Surentez ar ger-tremen</string>
   <string name="clockInitialTime">An amzer ho po e penn kentañ</string>
   <string name="clockIncrement">Inkrement an horolaj</string>
   <string name="privacy">Buhez prevez</string>
