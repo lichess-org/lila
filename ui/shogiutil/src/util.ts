@@ -12,6 +12,7 @@ export function defined<A>(v: A | undefined): v is A {
   return v !== undefined;
 }
 
+// 7g7f -> 7776
 export function switchUSI(str: string): string {
   const transMap = {
     "9": "i",
@@ -33,12 +34,12 @@ export function switchUSI(str: string): string {
     h: "8",
     i: "9"
   };
-  if(str.length !== 4) return str;
+  if(str.length !== 4 && str.length !== 5) return str;
   else if(str.includes("*")){
     return str[0] + str[1] + str[2] + transMap[str[3]];
   }
   else{
-    return str[0] + transMap[str[1]] + str[2] + transMap[str[3]];
+    return str[0] + transMap[str[1]] + str[2] + transMap[str[3]] + (str.length == 5 ? str[4] : "");
   }
 }
 

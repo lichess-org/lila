@@ -15,9 +15,9 @@ const roles: { [letter: string]: string } = {
 };
 
 function renderSan(san: San) {
-  let move: string = westernShogiNotation(san)!;
+  let move = westernShogiNotation(san)!;
   if(move[0] === "+") move = "$" + move.substring(1);
-  return san
+  return move
       .split("")
       .map((c) => {
         if (c == "$") return "promoted";
