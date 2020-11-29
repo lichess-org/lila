@@ -527,7 +527,7 @@
   <string name="currentPassword">رمز جاری</string>
   <string name="newPassword">رمز جدید</string>
   <string name="newPasswordAgain">(رمز جدید(برای دومین بار</string>
-  <string name="newPasswordsDontMatch">رمز های جدید مطابق نیستند</string>
+  <string name="newPasswordsDontMatch">کلمه‌های عبور وارد شده مطابقت ندارند</string>
   <string name="newPasswordStrength">استحکام کلمه عبور</string>
   <string name="clockInitialTime">مقدار زمان اولیه</string>
   <string name="clockIncrement">مقدار زمان اضافی به ازای هر حرکت</string>
