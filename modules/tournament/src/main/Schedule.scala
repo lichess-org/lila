@@ -344,13 +344,13 @@ object Schedule {
 
       val nbRatedGame = (s.freq, s.speed) match {
 
-        case (Hourly | Daily | Eastern, HyperBullet | Bullet)             => 20
-        case (Hourly | Daily | Eastern, HippoBullet | SuperBlitz | Blitz) => 15
-        case (Hourly | Daily | Eastern, Rapid)                            => 10
+        case (Hourly | Daily | Eastern, HyperBullet | Bullet)             => 0
+        case (Hourly | Daily | Eastern, HippoBullet | SuperBlitz | Blitz) => 0
+        case (Hourly | Daily | Eastern, Rapid)                            => 0
 
-        case (Weekly | Weekend | Monthly | Shield, HyperBullet | Bullet)             => 30
-        case (Weekly | Weekend | Monthly | Shield, HippoBullet | SuperBlitz | Blitz) => 20
-        case (Weekly | Weekend | Monthly | Shield, Rapid)                            => 15
+        case (Weekly | Weekend | Monthly | Shield, HyperBullet | Bullet)             => 1
+        case (Weekly | Weekend | Monthly | Shield, HippoBullet | SuperBlitz | Blitz) => 1
+        case (Weekly | Weekend | Monthly | Shield, Rapid)                            => 1
 
         case _ => 0
       }
