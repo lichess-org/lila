@@ -2,7 +2,7 @@ package lila.round
 
 import chess.format.Forsyth
 import chess.variant._
-import chess.{ Game => ChessGame, Board, Color => ChessColor, Castles, Clock, Situation }
+import chess.{ Game => ChessGame, Board, Color => ChessColor, Clock, Situation, Data }
 import ChessColor.{ Black, White }
 import com.github.blemale.scaffeine.Cache
 import lila.memo.CacheApi
@@ -102,9 +102,6 @@ final private class Rematcher(
         Forsyth <<< fen.value
       }
       pieces = pov.game.variant match {
-        case Chess960 =>
-          if (chess960 get pov.gameId) Chess960.pieces
-          else situation.fold(Chess960.pieces)(_.situation.board.pieces)
         case FromPosition => situation.fold(Standard.pieces)(_.situation.board.pieces)
         case variant      => variant.pieces
       }
@@ -112,8 +109,8 @@ final private class Rematcher(
       game <- Game.make(
         chess = ChessGame(
           situation = Situation(
-            board = Board(pieces, variant = pov.game.variant).withCastles {
-              situation.fold(Castles.init)(_.situation.board.history.castles)
+            board = Board(pieces, variant = pov.game.variant).withCrazyData {
+              situation.fold[Option[chess.Data]](Some(Data.init))(_.situation.board.crazyData)
             },
             color = situation.fold[chess.Color](White)(_.situation.color)
           ),
