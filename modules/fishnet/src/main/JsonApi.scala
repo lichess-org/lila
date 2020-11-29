@@ -50,7 +50,6 @@ object JsonApi {
         options: EngineOptions,
         flavor: Option[String]
     ) extends Engine {
-      // TODO: Monitor only nodes/nps from NNUE analysis
       def isNnue = flavor.has("nnue")
     }
 
