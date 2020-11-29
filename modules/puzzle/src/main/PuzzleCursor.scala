@@ -12,11 +12,13 @@ import lila.user.{ User, UserRepo }
 
 private case class PuzzleCursor(
     theme: PuzzleTheme.Key,
+    tier: PuzzleTier,
     path: Puzzle.PathId,
     previousPaths: Set[Puzzle.PathId],
     positionInPath: Int
 ) {
-  def switchTo(pathId: Puzzle.PathId) = copy(
+  def switchTo(tier: PuzzleTier, pathId: Puzzle.PathId) = copy(
+    tier = tier,
     path = pathId,
     previousPaths = previousPaths + pathId,
     positionInPath = 0
@@ -42,27 +44,31 @@ final class PuzzleCursorApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: Us
     case class PuzzleFound(puzzle: Puzzle)         extends NextPuzzleResult
   }
 
-  def nextPuzzleFor(user: User, theme: PuzzleTheme.Key, isRetry: Boolean = false): Fu[Puzzle] =
+  def nextPuzzleFor(user: User, theme: PuzzleTheme.Key, retries: Int = 0): Fu[Puzzle] =
     continueOrCreateCursorFor(user, theme) flatMap { cursor =>
       import NextPuzzleResult._
-      nextPuzzleResult(user, cursor.pp) flatMap {
-        case PathMissing | PathEnded if !isRetry =>
-          nextPathIdFor(user.id, theme, cursor.previousPaths) flatMap {
-            case None => fufail(s"No remaining puzzle path for ${user.id}")
-            case Some(pathId) =>
-              val newCursor = cursor switchTo pathId
-              cursors.put(user.id, fuccess(newCursor))
-              nextPuzzleFor(user, theme, isRetry = true)
-          }
-        case PathMissing | PathEnded => fufail(s"Puzzle patth missing or ended for ${user.id}")
+      def switchPath(tier: PuzzleTier) =
+        nextPathIdFor(user.id, theme, tier, cursor.previousPaths) flatMap {
+          case None => fufail(s"No remaining puzzle path for ${user.id}")
+          case Some(pathId) =>
+            val newCursor = cursor.switchTo(tier, pathId) pp "newCursor"
+            cursors.put(user.id, fuccess(newCursor))
+            nextPuzzleFor(user, theme, retries = retries + 1)
+        }
+
+      nextPuzzleResult(user, cursor.pp(retries.toString)).thenPp flatMap {
+        case PathMissing | PathEnded if retries < 10 => switchPath(cursor.tier)
+        case PathMissing | PathEnded                 => fufail(s"Puzzle path missing or ended for ${user.id}")
         case PuzzleMissing(id) =>
           logger.warn(s"Puzzle missing: $id")
           cursors.put(user.id, fuccess(cursor.next))
-          nextPuzzleFor(user, theme, isRetry = isRetry)
-        case PuzzleAlreadyPlayed(_) =>
+          nextPuzzleFor(user, theme, retries)
+        case PuzzleAlreadyPlayed(_) if retries < 3 =>
           cursors.put(user.id, fuccess(cursor.next))
-          nextPuzzleFor(user, theme, isRetry = isRetry)
-        case PuzzleFound(puzzle) => fuccess(puzzle)
+          nextPuzzleFor(user, theme, retries = retries + 1)
+        case PuzzleAlreadyPlayed(_) if cursor.tier == PuzzleTier.Top => switchPath(PuzzleTier.All)
+        case PuzzleAlreadyPlayed(puzzle)                             => fuccess(puzzle)
+        case PuzzleFound(puzzle)                                     => fuccess(puzzle)
       }
     }
 
@@ -119,12 +125,13 @@ final class PuzzleCursorApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: Us
       }
     }
 
-  def onComplete(round: PuzzleRound, theme: PuzzleTheme.Key): Unit =
-    cursors.getIfPresent(round.userId) foreach {
-      _.filter(_.theme == theme) foreach { cursor =>
+  def onComplete(round: PuzzleRound, theme: PuzzleTheme.Key): Funit =
+    cursors.getIfPresent(round.userId) ?? {
+      _ map { cursor =>
         // yes, even if the completed puzzle was not the current cursor puzzle
         // in that case we just skip a puzzle on the path, which doesn't matter
-        cursors.put(round.userId, fuccess(cursor.next))
+        if (cursor.theme == theme)
+          cursors.put(round.userId, fuccess(cursor.next))
       }
     }
 
@@ -145,25 +152,25 @@ final class PuzzleCursorApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: Us
     }
 
   private def createCursorFor(user: User, theme: PuzzleTheme.Key): Fu[PuzzleCursor] =
-    nextPathIdFor(user.id, theme, Set.empty)
+    nextPathIdFor(user.id, theme, PuzzleTier.Top, Set.empty)
       .orFail(s"No puzzle path found for ${user.id}, theme: $theme")
-      .dmap(pathId => PuzzleCursor(theme, pathId, Set.empty, 0))
+      .dmap(pathId => PuzzleCursor(theme, PuzzleTier.Top, pathId, Set.empty, 0))
 
   private def nextPathIdFor(
       userId: User.ID,
       theme: PuzzleTheme.Key,
+      tier: PuzzleTier,
       previousPaths: Set[PathId]
   ): Fu[Option[PathId]] =
     userRepo.perfOf(userId, PerfType.Puzzle).dmap(_ | Perf.default) flatMap { perf =>
       colls.path {
         _.aggregateOne() { framework =>
           import framework._
-          val tier = "top"
           Match(
             $doc(
               "_id" ->
                 $doc(
-                  "$regex" -> BSONRegex(s"^${theme}_$tier", ""),
+                  "$regex" -> BSONRegex(s"^${theme}_${tier}", ""),
                   $nin(previousPaths)
                 ),
               "min" $lte perf.glicko.rating,
