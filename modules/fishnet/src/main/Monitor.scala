@@ -38,11 +38,13 @@ final private class Monitor(
     result.stockfish.options.threadsInt foreach { monBy.threads(userId).update(_) }
 
     monBy.totalSecond(userId).increment(sumOf(result.evaluations)(_.time) * threads.|(1) / 1000)
-    monBy
-      .totalMeganode(userId)
-      .increment(sumOf(result.evaluations) { eval =>
-        eval.nodes ifFalse eval.mateFound
-      } / 1000000)
+
+    if (result.stockfish.isNnue)
+      monBy
+        .totalMeganode(userId)
+        .increment(sumOf(result.evaluations) { eval =>
+          eval.nodes ifFalse eval.mateFound
+        } / 1000000)
 
     val metaMovesSample = sample(result.evaluations.drop(6).filterNot(_.mateFound), 100)
     def avgOf(f: JsonApi.Request.Evaluation => Option[Int]): Option[Int] = {
@@ -54,8 +56,10 @@ final private class Monitor(
       (nb > 0) option (sum / nb)
     }
     avgOf(_.time) foreach { monBy.movetime(userId).record(_) }
-    avgOf(_.nodes) foreach { monBy.node(userId).record(_) }
-    avgOf(_.cappedNps) foreach { monBy.nps(userId).record(_) }
+    if (result.stockfish.isNnue) {
+      avgOf(_.nodes) foreach { monBy.node(userId).record(_) }
+      avgOf(_.cappedNps) foreach { monBy.nps(userId).record(_) }
+    }
     avgOf(_.depth) foreach { monBy.depth(userId).record(_) }
     avgOf(_.pv.size.some) foreach { monBy.pvSize(userId).record(_) }
 
