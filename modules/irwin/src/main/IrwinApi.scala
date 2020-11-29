@@ -73,7 +73,7 @@ final class IrwinApi(
             reason = lila.report.Reason.Cheat,
             text = s"${report.activation}% over ${report.games.size} games"
           ),
-          (x: Report.Score) => Report.Score(20)
+          (x: Report.Score) => Report.Score(60)
         )
       } yield lila.mon.mod.irwin.report.increment().unit
       else funit
