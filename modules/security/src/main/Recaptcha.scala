@@ -73,7 +73,7 @@ final class RecaptchaGoogle(
           case JsError(err) =>
             res.body[JsValue].validate[BadResponse].asOpt.pp match {
               case Some(err) if err.missingInput =>
-                logger.warn(s"recaptcha missing ${HTTPRequest printClient req}")
+                logger.info(s"recaptcha missing ${HTTPRequest printClient req}")
                 lila.mon.security.recaptcha.hit(client, "missing").increment()
                 fuccess(HTTPRequest.apiVersion(req).isDefined)
               case Some(err) =>
@@ -81,13 +81,13 @@ final class RecaptchaGoogle(
                 fuccess(false)
               case _ =>
                 lila.mon.security.recaptcha.hit(client, "error").increment()
-                logger.warn(s"recaptcha $err ${res.body}")
+                logger.info(s"recaptcha $err ${res.body}")
                 fuccess(false)
             }
         }
       case res =>
         lila.mon.security.recaptcha.hit(client, res.status.toString).increment()
-        logger.warn(s"recaptcha ${res.status} ${res.body}")
+        logger.info(s"recaptcha ${res.status} ${res.body}")
         fuccess(false)
     }
   }
