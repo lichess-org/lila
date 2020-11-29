@@ -6,7 +6,7 @@ import { Prop } from 'common';
 import { Role, Move } from 'chessops/types';
 import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom/vnode';
-import {StoredBooleanProp} from 'common/storage';
+import { StoredProp } from 'common/storage';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -24,6 +24,7 @@ export interface KeyboardController {
 }
 
 export type ThemeKey = string;
+export type OnComplete = 'pause' | 'next' | 'nextIfWin';
 
 export interface Controller extends KeyboardController {
   nextNodeBest(): string | undefined;
@@ -51,7 +52,7 @@ export interface Controller extends KeyboardController {
   pref: PuzzlePrefs;
   userMove(orig: Key, dest: Key): void;
   promotion: any;
-  autoNext: StoredBooleanProp;
+  onComplete: StoredProp<OnComplete>;
 
   path?: Tree.Path;
   autoScrollRequested?: boolean;
@@ -113,7 +114,7 @@ export interface PuzzleGame {
     name: string;
   };
   rated: boolean;
-  players: Array<{userId: string, name: string, color: Color}>;
+  players: Array<{ userId: string, name: string, color: Color }>;
   pgn: San[];
   clock: string;
 }

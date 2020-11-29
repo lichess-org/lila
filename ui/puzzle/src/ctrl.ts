@@ -3,6 +3,7 @@ import * as xhr from './xhr';
 import computeAutoShapes from './autoShape';
 import keyboard from './keyboard';
 import makePromotion from './promotion';
+import moveTest from './moveTest';
 import throttle from 'common/throttle';
 import { Api as CgApi } from 'chessground/api';
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
@@ -12,7 +13,6 @@ import { Config as CgConfig } from 'chessground/config';
 import { ctrl as cevalCtrl, CevalCtrl } from 'ceval';
 import { defined, prop, Prop } from 'common';
 import { makeSanAndPlay } from 'chessops/san';
-import { moveTestBuild, MoveTestFn } from './moveTest';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseSquare, parseUci, makeSquare, makeUci } from 'chessops/util';
 import { pgnToTree, mergeSolution } from './moveTree';
@@ -23,8 +23,8 @@ import { storedProp } from 'common/storage';
 export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
   let vm: Vm = {} as Vm;
-  let data: PuzzleData, tree: TreeWrapper, ceval: CevalCtrl, moveTest: MoveTestFn;
-  const autoNext = storedProp('puzzle.autoNext', false)
+  let data: PuzzleData, tree: TreeWrapper, ceval: CevalCtrl;
+  const onComplete = storedProp('puzzle.onComplete', 'next')
   const ground = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
   const threatMode = prop(false);
 
@@ -76,8 +76,6 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
       vm.canViewSolution = true;
       redraw();
     }, 500 /* 0 */);
-
-    moveTest = moveTestBuild(vm, data.puzzle);
 
     withGround(g => {
       g.setAutoShapes([]);
@@ -175,7 +173,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     jump(newPath);
     withGround(g => g.playPremove());
 
-    const progress = moveTest();
+    const progress = moveTest(vm, data.puzzle);
     if (progress) applyProgress(progress);
     reorderChildren(path);
     redraw();
@@ -206,19 +204,24 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   function applyProgress(progress: undefined | 'fail' | 'win' | MoveTest): void {
     if (progress === 'fail') {
       vm.lastFeedback = 'fail';
-      revertUserMove();
       if (vm.mode === 'play') {
         vm.canViewSolution = true;
         vm.mode = 'try';
-        sendResult(false);
-      }
-    } else if (progress === 'win') {
-      if (vm.mode !== 'view') {
-        if (vm.mode === 'play') sendResult(true);
-        vm.lastFeedback = 'win';
-        vm.mode = 'view';
+        if (!wouldAutoNextOn(false)) revertUserMove();
+        sendResult(false).then(_ => {
+          if (wouldAutoNextOn(false)) nextPuzzle();
+        });
+      } else revertUserMove();
+    } else if (progress == 'win') {
+      vm.lastFeedback = 'win';
+      if (vm.mode != 'view') {
         withGround(showGround); // to disable premoves
-        startCeval();
+        const sent = vm.mode == 'play' ? sendResult(true) : Promise.resolve();
+        vm.mode = 'view';
+        sent.then(_ => {
+          if (wouldAutoNextOn(true)) nextPuzzle();
+          else startCeval();
+        });
       }
     } else if (progress) {
       vm.lastFeedback = 'good';
@@ -229,11 +232,11 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     }
   }
 
-  function sendResult(win: boolean, andPause: boolean = false): void {
-    if (vm.resultSent) return;
+  function sendResult(win: boolean): Promise<void> {
+    if (vm.resultSent) Promise.resolve();
     vm.resultSent = true;
     nbToVoteCall(Math.max(0, parseInt(nbToVoteCall()) - 1));
-    xhr.complete(data.puzzle.id, data.theme, win).then((res: PuzzleResult) => {
+    return xhr.complete(data.puzzle.id, data.theme, win).then((res: PuzzleResult) => {
       if (res?.next.user && data.user) {
         data.user.rating = res.next.user.rating;
         data.user.provisional = res.next.user.provisional;
@@ -241,10 +244,12 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
       }
       if (win) speech.success();
       vm.next = res.next;
-      if (!andPause && autoNext()) nextPuzzle();
-      else redraw();
+      redraw();
     });
   }
+
+  const wouldAutoNextOn = (win: boolean): boolean =>
+    onComplete() == 'next' || (win && onComplete() == 'nextIfWin');
 
   function nextPuzzle(): void {
     if (!vm.next) return location.reload();
@@ -372,7 +377,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function viewSolution(): void {
-    sendResult(false, true);
+    sendResult(false);
     vm.mode = 'view';
     mergeSolution(tree, vm.initialPath, data.puzzle.solution, vm.pov);
     reorderChildren(vm.initialPath, true);
@@ -453,7 +458,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     getCeval,
     pref: opts.pref,
     trans: lichess.trans(opts.i18n),
-    autoNext,
+    onComplete,
     outcome,
     toggleCeval,
     toggleThreatMode,
