@@ -57,7 +57,7 @@ final class Env(
 
   lazy val api: PuzzleApi = wire[PuzzleApi]
 
-  lazy val cursor: PuzzleCursorApi = wire[PuzzleCursorApi]
+  lazy val session: PuzzleSessionApi = wire[PuzzleSessionApi]
 
   lazy val anon: PuzzleAnon = wire[PuzzleAnon]
 

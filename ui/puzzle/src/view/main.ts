@@ -1,14 +1,14 @@
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
+import * as control from '../control';
+import * as side from './side';
 import changeColorHandle from 'common/coordsColor';
 import chessground from './chessground';
+import feedbackView from './feedback';
+import { Controller } from '../interfaces';
+import { h } from 'snabbdom'
+import { onInsert, bind, bindMobileMousedown } from '../util';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
-import * as control from '../control';
-import feedbackView from './feedback';
-import * as side from './side';
-import { onInsert, bind, bindMobileMousedown } from '../util';
-import { Controller } from '../interfaces';
+import { VNode } from 'snabbdom/vnode'
 
 function renderAnalyse(ctrl: Controller): VNode {
   return h('div.puzzle__moves.areplay', [
@@ -71,11 +71,11 @@ export default function(ctrl: Controller): VNode {
     cevalShown = showCeval;
   }
   return h('main.puzzle', {
-    class: {'gauge-on': gaugeOn},
+    class: { 'gauge-on': gaugeOn },
     hook: {
       postpatch(old, vnode) {
         if (old.data!.gaugeOn !== gaugeOn) {
-          if (ctrl.pref.coords == 2){
+          if (ctrl.pref.coords == 2) {
             $('body').toggleClass('coords-in', gaugeOn).toggleClass('coords-out', !gaugeOn);
             changeColorHandle();
           }
@@ -110,5 +110,20 @@ export default function(ctrl: Controller): VNode {
       feedbackView(ctrl)
     ]),
     controls(ctrl),
+    session(ctrl)
   ]);
+}
+
+function session(ctrl: Controller) {
+  const current = ctrl.getData().puzzle.id;
+  return h('div.puzzle__session',
+    ctrl.session.get().rounds.map(round =>
+      h(`a.result-${round.result}.round-puzzle-${round.puzzleId}`, {
+        class: {
+          current: current == round.puzzleId
+        },
+        attrs: {
+          href: `/training/${ctrl.getData().theme}/${round.puzzleId}`
+        }
+      })));
 }

@@ -1,0 +1,20 @@
+.puzzle__session {
+  display: flex;
+  flex-direction: row-reverse;
+  a {
+    @extend %box-radius;
+    @include transition;
+    flex: 0 0 2em;
+    height: 1em;
+    margin: .5em .5em 0 0;
+    &.result-true {
+      background: $c-good;
+    }
+    &.result-false {
+      background: $c-bad;
+    }
+    &.current {
+      background: $c-brag;
+    }
+  }
+}

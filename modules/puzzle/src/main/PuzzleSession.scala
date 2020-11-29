@@ -10,7 +10,7 @@ import lila.memo.CacheApi
 import lila.rating.{ Perf, PerfType }
 import lila.user.{ User, UserRepo }
 
-private case class PuzzleCursor(
+private case class PuzzleSession(
     theme: PuzzleTheme.Key,
     tier: PuzzleTier,
     path: Puzzle.PathId,
@@ -26,7 +26,7 @@ private case class PuzzleCursor(
   def next = copy(positionInPath = positionInPath + 1)
 }
 
-final class PuzzleCursorApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: UserRepo)(implicit
+final class PuzzleSessionApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: UserRepo)(implicit
     ec: ExecutionContext,
     system: akka.actor.ActorSystem,
     mode: play.api.Mode
@@ -56,7 +56,7 @@ final class PuzzleCursorApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: Us
             nextPuzzleFor(user, theme, retries = retries + 1)
         }
 
-      nextPuzzleResult(user, cursor.pp(retries.toString)).thenPp flatMap {
+      nextPuzzleResult(user, cursor) flatMap {
         case PathMissing | PathEnded if retries < 10 => switchPath(cursor.tier)
         case PathMissing | PathEnded                 => fufail(s"Puzzle path missing or ended for ${user.id}")
         case PuzzleMissing(id) =>
@@ -72,7 +72,7 @@ final class PuzzleCursorApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: Us
       }
     }
 
-  private def nextPuzzleResult(user: User, cursor: PuzzleCursor): Fu[NextPuzzleResult] =
+  private def nextPuzzleResult(user: User, cursor: PuzzleSession): Fu[NextPuzzleResult] =
     colls.path {
       _.aggregateOne() { framework =>
         import framework._
@@ -135,26 +135,26 @@ final class PuzzleCursorApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: Us
       }
     }
 
-  private val cursors = cacheApi.notLoading[User.ID, PuzzleCursor](32768, "puzzle.cursor")(
+  private val cursors = cacheApi.notLoading[User.ID, PuzzleSession](32768, "puzzle.cursor")(
     _.expireAfterWrite(1 hour).buildAsync()
   )
 
-  private[puzzle] def currentCursorOf(user: User, theme: PuzzleTheme.Key): Fu[PuzzleCursor] =
+  private[puzzle] def currentCursorOf(user: User, theme: PuzzleTheme.Key): Fu[PuzzleSession] =
     cursors.getFuture(user.id, _ => createCursorFor(user, theme))
 
   private[puzzle] def continueOrCreateCursorFor(
       user: User,
       theme: PuzzleTheme.Key
-  ): Fu[PuzzleCursor] =
+  ): Fu[PuzzleSession] =
     currentCursorOf(user, theme) flatMap { current =>
       if (current.theme == theme) fuccess(current)
       else createCursorFor(user, theme) tap { cursors.put(user.id, _) }
     }
 
-  private def createCursorFor(user: User, theme: PuzzleTheme.Key): Fu[PuzzleCursor] =
+  private def createCursorFor(user: User, theme: PuzzleTheme.Key): Fu[PuzzleSession] =
     nextPathIdFor(user.id, theme, PuzzleTier.Top, Set.empty)
       .orFail(s"No puzzle path found for ${user.id}, theme: $theme")
-      .dmap(pathId => PuzzleCursor(theme, PuzzleTier.Top, pathId, Set.empty, 0))
+      .dmap(pathId => PuzzleSession(theme, PuzzleTier.Top, pathId, Set.empty, 0))
 
   private def nextPathIdFor(
       userId: User.ID,

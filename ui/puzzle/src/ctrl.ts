@@ -19,6 +19,7 @@ import { pgnToTree, mergeSolution } from './moveTree';
 import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleResult, MoveTest } from './interfaces';
 import { Role, Move, Outcome } from 'chessops/types';
 import { storedProp } from 'common/storage';
+import PuzzleSession from './session';
 
 export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
@@ -27,6 +28,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   const onComplete = storedProp('puzzle.onComplete', 'next')
   const ground = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
   const threatMode = prop(false);
+  const session = new PuzzleSession(opts.data.theme);
 
   // required by ceval
   vm.showComputer = () => vm.mode === 'view';
@@ -63,6 +65,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.initialPath = initialPath;
     vm.initialNode = tree.nodeAtPath(initialPath);
     vm.pov = vm.initialNode.ply % 2 == 1 ? 'black' : 'white';
+    session.start(data.puzzle.id);
 
     setPath(treePath.init(initialPath));
     setTimeout(function() {
@@ -236,6 +239,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     if (vm.resultSent) Promise.resolve();
     vm.resultSent = true;
     nbToVoteCall(Math.max(0, parseInt(nbToVoteCall()) - 1));
+    session.complete(data.puzzle.id, win);
     return xhr.complete(data.puzzle.id, data.theme, win).then((res: PuzzleResult) => {
       if (res?.next.user && data.user) {
         data.user.rating = res.next.user.rating;
@@ -482,6 +486,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     promotion,
     redraw,
     ongoing: false,
-    playBestMove
+    playBestMove,
+    session
   };
 }

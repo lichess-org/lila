@@ -26,15 +26,15 @@
     grid-area: controls;
   }
 
-  &__history {
-    grid-area: history;
+  &__session {
+    grid-area: session;
   }
 
   .eval-gauge {
     grid-area: gauge;
   }
 
-  grid-template-areas: 'board' 'controls' 'tools' 'history' 'side';
+  grid-template-areas: 'board' 'controls' 'tools' 'session' 'side';
   grid-row-gap: $block-gap;
 
   &__moves {
@@ -44,7 +44,7 @@
   @include breakpoint($mq-col2) {
     grid-template-columns: $col2-uniboard-width var(--gauge-gap) $col2-uniboard-table;
     grid-template-rows: fit-content(0);
-    grid-template-areas: 'board   gauge tools' 'history .     controls' 'side    side  side';
+    grid-template-areas: 'board   gauge tools' 'session .     controls' 'side    side  side';
 
     &__moves {
       display: block;
@@ -53,7 +53,7 @@
 
 
   @include breakpoint($mq-col3) {
-    grid-template-areas: 'side    . board   gauge tools' '.       . history .     controls';
+    grid-template-areas: 'side    . board   gauge tools' '.       . session .     controls';
     grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width var(--gauge-gap) $col3-uniboard-table;
   }
 

@@ -72,7 +72,7 @@ final class Puzzle(
 
   private def nextPuzzleForMe(theme: PuzzleTheme.Key)(implicit ctx: Context): Fu[Puz] =
     ctx.me match {
-      case Some(me) => env.puzzle.cursor.nextPuzzleFor(me, theme)
+      case Some(me) => env.puzzle.session.nextPuzzleFor(me, theme)
       case None     => env.puzzle.anon.getOneFor(theme) orFail "Couldn't find a puzzle for anon!"
     }
 
@@ -99,7 +99,7 @@ final class Puzzle(
                         result = Result(resultInt == 1),
                         isStudent = isStudent
                       )
-                      _ = env.puzzle.cursor.onComplete(round, theme.key)
+                      _ = env.puzzle.session.onComplete(round, theme.key)
                       next     <- nextPuzzleForMe(theme.key)
                       nextJson <- renderJson(next, theme)
                     } yield Ok(
@@ -192,16 +192,23 @@ final class Puzzle(
   }
 
   def show(themeOrId: String) = Open { implicit ctx =>
-    PuzzleTheme.find(themeOrId) match {
-      case None if themeOrId.size == 5 =>
-        NoBot {
+    NoBot {
+      PuzzleTheme.find(themeOrId) match {
+        case None if themeOrId.size == 5 =>
           OptionFuResult(env.puzzle.api.puzzle find Puz.Id(themeOrId)) { renderShow(_, PuzzleTheme.any) }
-        }
-      case None => Redirect(routes.Puzzle.home()).fuccess
-      case Some(theme) =>
-        nextPuzzleForMe(theme.key) flatMap {
-          renderShowWithRound(_, theme, none)
-        }
+        case None => Redirect(routes.Puzzle.home()).fuccess
+        case Some(theme) =>
+          nextPuzzleForMe(theme.key) flatMap {
+            renderShowWithRound(_, theme, none)
+          }
+      }
+    }
+  }
+
+  def showWithTheme(themeKey: String, id: String) = Open { implicit ctx =>
+    NoBot {
+      val theme = PuzzleTheme.findOrAny(themeKey)
+      OptionFuResult(env.puzzle.api.puzzle find Puz.Id(id)) { renderShow(_, theme) }
     }
   }
 

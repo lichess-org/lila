@@ -7,6 +7,7 @@ import { Role, Move } from 'chessops/types';
 import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom/vnode';
 import { StoredProp } from 'common/storage';
+import PuzzleSession from './session';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -53,6 +54,7 @@ export interface Controller extends KeyboardController {
   userMove(orig: Key, dest: Key): void;
   promotion: any;
   onComplete: StoredProp<OnComplete>;
+  session: PuzzleSession;
 
   path?: Tree.Path;
   autoScrollRequested?: boolean;
