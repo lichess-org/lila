@@ -73,10 +73,10 @@ final class ChallengeApi(
       case _                    => fuccess(socketReload(id))
     }
 
-  def decline(c: Challenge) =
-    repo.decline(c) >>- {
+  def decline(c: Challenge, reason: Option[String]) =
+    repo.decline(c, reason) >>- {
       uncacheAndNotify(c)
-      Bus.publish(Event.Decline(c), "challenge")
+      Bus.publish(Event.Decline(c, reason), "challenge")
     }
 
   private val acceptQueue = new lila.hub.DuctSequencer(maxSize = 64, timeout = 5 seconds, "challengeAccept")

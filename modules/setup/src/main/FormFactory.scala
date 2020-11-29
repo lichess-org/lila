@@ -150,5 +150,11 @@ final class FormFactory {
         "fen" -> fenField
       )(OpenConfig.from)(_.>>).verifying("invalidFen", _.validFen)
     )
+
+    lazy val declineChallenge = Form(
+      mapping(
+        "reason" -> optional(nonEmptyText)
+      )(ChallengeDeclineConfig.from)(_.>>)
+    )
   }
 }

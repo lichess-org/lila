@@ -13,6 +13,6 @@ object Direction {
 object Event {
   case class Create(c: Challenge)
   case class Accept(c: Challenge, joinerId: Option[String])
-  case class Decline(c: Challenge)
+  case class Decline(c: Challenge, reason: Option[String])
   case class Cancel(c: Challenge)
 }

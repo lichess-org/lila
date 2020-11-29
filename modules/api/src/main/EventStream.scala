@@ -103,8 +103,11 @@ final class EventStream(
         case lila.challenge.Event.Create(c) if isMyChallenge(c) =>
           queue.offer(challengeJson("challenge")(c).some).unit
 
-        case lila.challenge.Event.Decline(c) if isMyChallenge(c) =>
-          queue.offer(challengeJson("challengeDeclined")(c).some).unit
+        case lila.challenge.Event.Decline(c, r) if isMyChallenge(c) =>
+          queue.offer((
+              challengeJson("challengeDeclined")(c) + ("reason" -> r.map(JsString(_)).getOrElse(JsNull) )
+            ).some
+          ).unit
 
         case lila.challenge.Event.Cancel(c) if isMyChallenge(c) =>
           queue.offer(challengeJson("challengeCanceled")(c).some).unit

@@ -119,7 +119,7 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
 
   def offline(challenge: Challenge) = setStatus(challenge, Status.Offline, Some(_ plusHours 3))
   def cancel(challenge: Challenge)  = setStatus(challenge, Status.Canceled, Some(_ plusHours 3))
-  def decline(challenge: Challenge) = setStatus(challenge, Status.Declined, Some(_ plusHours 3))
+  def decline(challenge: Challenge, reason: Option[String]) = setStatus(challenge, Status.Declined, reason, Some(_ plusHours 3))
   def accept(challenge: Challenge)  = setStatus(challenge, Status.Accepted, Some(_ plusHours 3))
 
   def statusById(id: Challenge.ID) =
@@ -135,13 +135,21 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
       challenge: Challenge,
       status: Status,
       expiresAt: Option[DateTime => DateTime]
-  ) =
+  ): Fu[Unit] = setStatus(challenge, status, None, expiresAt)
+
+  private def setStatus(
+      challenge: Challenge,
+      status: Status,
+      reason: Option[String],
+      expiresAt: Option[DateTime => DateTime]
+  ): Fu[Unit] =
     coll.update
       .one(
         selectCreated ++ $id(challenge.id),
         $doc(
           "$set" -> $doc(
             "status"    -> status.id,
+            "reason"    -> reason,
             "expiresAt" -> expiresAt.fold(inTwoWeeks) { _(DateTime.now) }
           )
         )
