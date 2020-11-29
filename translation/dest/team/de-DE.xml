@@ -40,4 +40,6 @@
   <string name="youWayWantToLinkOneOfTheseTournaments">Möchtest du eines der kommenden Turniere verlinken?</string>
   <string name="usersWhoCanManageThisTeam">Benutzer, die dieses Team verwalten können</string>
   <string name="leadersChat">Teamleiter-Chat</string>
+  <string name="closeTeam">Team auflösen</string>
+  <string name="closeTeamDescription">Löst das Team für immer auf.</string>
 </resources>
