@@ -86,9 +86,8 @@ object widgets {
                 strong(opening.opening.ecoName)
               },
               div(cls := "pgn")(
-                pgnMoves.take(6).grouped(2).zipWithIndex map {
-                  case (Vector(w, b), i) => s"${i + 1}. $w $b"
-                  case (Vector(w), i)    => s"${i + 1}. $w"
+                pgnMoves.take(6).zipWithIndex map {
+                  case (w, i) => s"${i + 1}. ${w}"
                   case _                 => ""
                 } mkString " ",
                 g.turns > 6 option s" ... ${1 + (g.turns - 1) / 2} moves "

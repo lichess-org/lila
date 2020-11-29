@@ -46,8 +46,8 @@ object captcha {
           ),
           div(cls := "captcha-explanation")(
             label(cls := "form-label")(
-              if (captcha.white) trans.whiteCheckmatesInOneMove()
-              else trans.blackCheckmatesInOneMove()
+              if (captcha.white) trans.blackCheckmatesInOneMove() // swapped
+              else trans.whiteCheckmatesInOneMove()
             ),
             br,
             br,
