@@ -125,16 +125,6 @@ object show {
                   )
                 ),
                 a(
-                  href := s"${routes.Page.notSupported()}",
-                  cls := "button button-empty text",
-                  dataIcon := "g"
-                )(
-                  span(
-                    strong("Swiss tournament"),
-                    em("A Swiss tournament that only members of your team can join")
-                  )
-                ),
-                a(
                   href := routes.Team.pmAll(t.id),
                   cls := "button button-empty text",
                   dataIcon := "e"
