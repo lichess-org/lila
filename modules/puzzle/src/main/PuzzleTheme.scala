@@ -51,6 +51,10 @@ object PuzzleTheme {
     PuzzleTheme(Key("zugzwang"), i.zugzwang, i.zugzwangDescription)
   )
 
+  lazy val allTranslationKeys = sorted.flatMap { t =>
+    List(t.name, t.description)
+  }
+
   val byKey: Map[Key, PuzzleTheme] = sorted.view.map { t =>
     t.key -> t
   }.toMap
