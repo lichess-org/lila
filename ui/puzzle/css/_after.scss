@@ -10,10 +10,8 @@
   }
 
   .complete {
+    @extend %flex-center;
     flex: 1 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     font-size: 1.3em;
     border: none;
     white-space: nowrap;
@@ -21,36 +19,6 @@
 
   .complete.win {
     align-items: flex-start;
-  }
-
-  .vote {
-    display: flex;
-    flex-flow: column;
-    margin: 0 1em;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .vote a {
-    cursor: default;
-    cursor: pointer;
-    opacity: 0.7;
-  }
-
-  .vote a::before {
-    font-size: 26px;
-    line-height: 22px;
-  }
-
-  .vote a:hover,
-  .vote a.active {
-    opacity: 1;
-    color: $c-accent;
-  }
-
-  .vote span.count {
-    font-size: 15px;
-    line-height: 1;
   }
 
   .continue {
@@ -76,20 +44,5 @@
   .continue i::before {
     font-size: 2.5em;
     margin-right: 10px;
-  }
-
-  &.call {
-    flex: 17rem 1 0;
-  }
-
-  .vote_call {
-    text-align: right;
-    background: $c-good;
-    color: #fff;
-    padding: 8px 10px;
-
-    // display: none;
-    // @include breakpoint($
- 
   }
 }

@@ -232,7 +232,6 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   function sendResult(win: boolean): Promise<void> {
     if (vm.resultSent) Promise.resolve();
     vm.resultSent = true;
-    nbToVoteCall(Math.max(0, parseInt(nbToVoteCall()) - 1));
     session.complete(data.puzzle.id, win);
     return xhr.complete(data.puzzle.id, data.theme.key, win).then((res: PuzzleResult) => {
       if (res?.next.user && data.user) {
@@ -390,18 +389,9 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     startCeval();
   }
 
-  const nbToVoteCall = storedProp('puzzle.vote-call', 3);
-  let thanksUntil: number | undefined;
-
-  const callToVote = () => parseInt(nbToVoteCall()) < 1;
-
   const vote = throttle(1000, v => {
-    if (callToVote()) thanksUntil = Date.now() + 2000;
-    nbToVoteCall(5);
-    v = vm.round?.vote === v ? undefined : v;
-    vm.round!.vote = v;
     xhr.vote(data.puzzle.id, v);
-    redraw();
+    nextPuzzle();
   });
 
   initiate(opts.data);
@@ -445,10 +435,6 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     userJump,
     viewSolution,
     nextPuzzle,
-    callToVote,
-    thanks() {
-      return !!thanksUntil && Date.now() < thanksUntil;
-    },
     vote,
     getCeval,
     pref: opts.pref,

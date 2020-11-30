@@ -1,51 +1,40 @@
-import { h } from 'snabbdom';
 import { bind, dataIcon } from '../util';
-import { Controller, MaybeVNode } from '../interfaces';
+import { Controller } from '../interfaces';
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
 
-function renderVote(ctrl: Controller): MaybeVNode {
-  return h('div.vote', [
-    h('a', {
-      attrs: {
-        'data-icon': 'S',
-        title: ctrl.trans.noarg('thisPuzzleIsCorrect')
-      },
-      class: { active: !!ctrl.vm.round?.vote },
+const renderVote = (ctrl: Controller): VNode => h('div.puzzle__vote', [
+  h('div.puzzle__vote__help', [
+    h('p', ctrl.trans.noarg('didYouLikeThisPuzzle')),
+    ctrl.trans.noarg('voteToLoadNextOne'),
+  ]),
+  h('div.puzzle__vote__buttons', [
+    h('div.vote.vote-up', {
       hook: bind('click', () => ctrl.vote(true))
     }),
-    h('a', {
-      attrs: {
-        'data-icon': 'R',
-        title: ctrl.trans.noarg('thisPuzzleIsWrong')
-      },
-      class: { active: ctrl.vm.round?.vote === false },
+    h('div.vote.vote-down', {
       hook: bind('click', () => ctrl.vote(false))
     })
-  ]);
-}
+  ])
+]);
 
-export default function(ctrl: Controller): MaybeVNode {
+const renderContinue = (ctrl: Controller) =>
+  h('a.half.continue', {
+    hook: bind('click', ctrl.nextPuzzle)
+  }, [
+    h('i', { attrs: dataIcon('G') }),
+    ctrl.trans.noarg('continueTraining')
+  ]);
+
+export default function(ctrl: Controller): VNode {
   const data = ctrl.getData();
-  const voteCall = !!data.user && ctrl.callToVote() && ctrl.vm.round?.vote === undefined;
-  return h('div.puzzle__feedback.after' + (voteCall ? '.call' : ''), [
-    voteCall ? h('div.vote_call', [
-      h('strong', ctrl.trans('wasThisPuzzleAnyGood')),
-      h('br'),
-      h('span', ctrl.trans('pleaseVotePuzzle'))
-    ]) : (ctrl.thanks() ? h('div.vote_call',
-      h('strong', ctrl.trans('thankYou'))
-    ) : null),
+  return h('div.puzzle__feedback.after', [
     h('div.half.half-top', [
       ctrl.vm.lastFeedback === 'win' ? h('div.complete.feedback.win', h('div.player', [
         h('div.icon', '✓'),
         h('div.instruction', ctrl.trans.noarg('success'))
-      ])) : h('div.complete', 'Puzzle complete!'),
-      data.user ? renderVote(ctrl) : null
+      ])) : h('div.complete', 'Puzzle complete!')
     ]),
-    h('a.half.continue', {
-      hook: bind('click', ctrl.nextPuzzle)
-    }, [
-      h('i', { attrs: dataIcon('G') }),
-      ctrl.trans.noarg('continueTraining')
-    ])
+    data.user ? renderVote(ctrl) : renderContinue(ctrl)
   ]);
 }

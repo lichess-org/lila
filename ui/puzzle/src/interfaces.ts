@@ -46,8 +46,6 @@ export interface Controller extends KeyboardController {
   makeCgOpts(): CgConfig;
   viewSolution(): void;
   nextPuzzle(): void;
-  callToVote(): boolean;
-  thanks(): boolean;
   vote(v: boolean): void;
   pref: PuzzlePrefs;
   userMove(orig: Key, dest: Key): void;

@@ -5,4 +5,6 @@
   <string name="motifs">Motifs</string>
   <string name="lengths">Lengths</string>
   <string name="mates">Mates</string>
+  <string name="didYouLikeThisPuzzle">Did you like this puzzle?</string>
+  <string name="voteToLoadNextOne">Vote to load the next one</string>
 </resources>

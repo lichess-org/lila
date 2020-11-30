@@ -69,5 +69,5 @@
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">The opponent is limited in the moves they can make, and all moves worsen their position.</string>
   <string name="healthyMix">Healthy mix</string>
-  <string name="healthyMixDescription">A bit of everything. You don't know what to expect, so you remain ready for anything!</string>
+  <string name="healthyMixDescription">A bit of everything. You don't know what to expect, so you remain ready for anything! Just like in real games.</string>
 </resources>
