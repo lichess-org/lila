@@ -39,4 +39,6 @@
   <string name="youWayWantToLinkOneOfTheseTournaments">您可能想要链接这些即将到来的锦标赛中的一个？</string>
   <string name="usersWhoCanManageThisTeam">可以管理此团队的用户</string>
   <string name="leadersChat">领队聊天</string>
+  <string name="closeTeam">关闭团队</string>
+  <string name="closeTeamDescription" comment="closeTeamDescription&#10;&#10;If you click this, your team will be closed forever.">永远关闭团队。</string>
 </resources>
