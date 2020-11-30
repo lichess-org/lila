@@ -18,7 +18,7 @@
   <string name="aConfirmationIsRequiredToJoin">Dołączenie wymaga zatwierdzenia</string>
   <string name="joiningPolicy">Warunki dołączenia</string>
   <plurals name="teamLeaders">
-    <item quantity="one">Kapitan</item>
+    <item quantity="one">Lider klubu</item>
     <item quantity="few">Liderzy klubu</item>
     <item quantity="many">Liderzy klubu</item>
     <item quantity="other">Liderzy klubu</item>
@@ -48,6 +48,6 @@ Gracze, którzy nie chcą otrzymywać Twoich wiadomości, mogą opuścić klub.<
   <string name="youWayWantToLinkOneOfTheseTournaments">A może chcesz połączyć jeden z tych nadchodzących turniejów?</string>
   <string name="usersWhoCanManageThisTeam">Gracze, którzy mogą zarządzać tym klubem</string>
   <string name="leadersChat">Czat liderów</string>
-  <string name="closeTeam">Zamknij zespół</string>
-  <string name="closeTeamDescription">Zamyka zespół na zawsze.</string>
+  <string name="closeTeam">Zamknij klub</string>
+  <string name="closeTeamDescription">Zamyka klub na zawsze.</string>
 </resources>
