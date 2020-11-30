@@ -401,6 +401,7 @@
   <string name="currentPassword">Cyfrinair ar hyn o bryd</string>
   <string name="newPassword">Cyfrinair newydd</string>
   <string name="newPasswordAgain">Cyfrinair newydd (eto)</string>
+  <string name="newPasswordStrength">Cryfder y cyfrinair</string>
   <string name="privacy">Preifatrwydd</string>
   <string name="letOtherPlayersFollowYou">Caniatáu i chwaraewyr eraill dy ddilyn</string>
   <string name="letOtherPlayersChallengeYou">Caniatáu i chwaraewyr eraill dy herio</string>
@@ -517,6 +518,7 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Rwyt ti\'n well na %1$s o chwaraewyr %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Rwyt ti heb raddfa sefydledig %s.</string>
   <string name="yourRating">Eich gradd</string>
+  <string name="glicko2Rating">Gradd Glicko-2</string>
   <string name="checkYourEmail">Gwiria dy e-bost</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Anfonwyd e-bost atoch. Cliciwch y dolen yn y neges e-bost i ysgogi eich cyfrif.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Os nad ydych yn gweld y neges, gwiriwch llefydd arall fel y sbwriel, spam ac ati.</string>
@@ -640,6 +642,8 @@
   <string name="playX">Chwarae %s</string>
   <string name="sorry">Sori :(</string>
   <string name="why">Pam?</string>
+  <string name="thankYouForReading">Diolch am darllen!</string>
+  <string name="lifetimeScore">Sgôr hyd oes</string>
   <string name="edit">Addasu</string>
   <string name="rapid">Chwim</string>
   <string name="classical">Clasurol</string>

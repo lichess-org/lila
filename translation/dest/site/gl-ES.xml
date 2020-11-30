@@ -23,6 +23,7 @@
   <string name="blackIsVictorious">As negras gañan</string>
   <string name="youPlayTheWhitePieces">Xogas coas brancas</string>
   <string name="youPlayTheBlackPieces">Xogas coas negras</string>
+  <string name="itsYourTurn">Tócache!</string>
   <string name="kingInTheCenter">Rei no centro</string>
   <string name="threeChecks">Xaque triplo</string>
   <string name="raceFinished">Carreira finalizada</string>
@@ -348,6 +349,8 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="clickOnTheBoardToMakeYourMove">Fai clic no tableiro para facer a túa xogada, e probar que es humano.</string>
   <string name="captcha.fail">Por favor resolve o captcha de xadrez.</string>
   <string name="notACheckmate">Non é xaque mate.</string>
+  <string name="whiteCheckmatesInOneMove">Xogas brancas e dan mate nunha</string>
+  <string name="blackCheckmatesInOneMove">Xogas negras e dan mate nunha</string>
   <string name="retry">Reintentar</string>
   <string name="reconnecting">Reconectando</string>
   <plurals name="nbFriendsOnline">
@@ -525,6 +528,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="currentPassword">Contrasinal actual</string>
   <string name="newPassword">Novo contrasinal</string>
   <string name="newPasswordAgain">Novo contrasinal (de novo)</string>
+  <string name="newPasswordsDontMatch">Os contrasinais novos non coinciden</string>
   <string name="clockInitialTime">Tempo inicial do reloxo</string>
   <string name="clockIncrement">Incremento do reloxo</string>
   <string name="privacy">Privacidade</string>
@@ -813,6 +817,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
     <item quantity="other">e garda %s variantes de premovementos</item>
   </plurals>
   <string name="sorry">Sentímolo :(</string>
+  <string name="why">Por que?</string>
   <string name="howToAvoidThis">Como evitar isto?</string>
   <string name="playEveryGame">Xoga todas as partidas que comeces.</string>
   <string name="tryToWin">Intenta gañar (ou polo menos empatar) todas as partidas que xogues.</string>
@@ -832,4 +837,12 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="puzzleDesc">Entrenador de tácticas de xadrez</string>
   <string name="important">Importante</string>
   <string name="yourQuestionMayHaveBeenAnswered">Pode que a túa pregunta xa teña resposta %1$s</string>
+  <string name="inTheFAQ">nas preguntas frecuentes.</string>
+  <string name="useTheReportForm">usa o formulario correspondente</string>
+  <string name="toRequestSupport">Para solicitar axuda, %1$s</string>
+  <string name="tryTheContactPage">proba a páxina de contacto</string>
+  <string name="thisTopicIsArchived">Este tema foi arquivado e non admite respostas.</string>
+  <string name="joinTheTeamXToPost">Únete a %1$s para publicar neste foro</string>
+  <string name="teamNamedX">equipo %1$s</string>
+  <string name="youCannotPostYetPlaySomeGames">Aínda non podes publicar nos foros. Xoga algunhas partidas!</string>
 </resources>

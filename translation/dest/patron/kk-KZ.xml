@@ -6,19 +6,19 @@
   <string name="becomePatron">Лическе Қамқоршы болу</string>
   <string name="xBecamePatron">%s Лическе Қамқоршы болды</string>
   <string name="newPatrons">Жаңа Қамқоршылар</string>
-  <string name="freeChess">Баршылыққа арналған тегін шахмат, мәңгі!</string>
+  <string name="freeChess">Баршаға арналған тегін шахмат! Мәңгіге!</string>
   <string name="noAdsNoSubs">Жарнамасыз, жазылымсыз, коды ашық, еркін.</string>
   <string name="thankYou">Ақшалай жәрдем үшін сізге рахмет!</string>
   <string name="youHaveLifetime">Сіз Өмір бойына Қамқоршы аккаунтына иесіз. Бұл керемет!</string>
   <string name="patronUntil">Сіз Қамқоршы аккаунтқа %s дейін иесіз.</string>
   <string name="ifNotRenewed">Егер жаңартпасаңыз, аккаунт тегін деңгейіне түседі.</string>
-  <string name="weAreNonProfit">Біз коммерциялық емес ұйымбыз, өйткені біз әрбір адам әлемдік деңгейдегі шахматқа тегін ойнауға құқылы деп сенеміз.</string>
+  <string name="weAreNonProfit">Біз коммерциялық емес ұйымбыз, өйткені біз әрбір адам әлемдік деңгейдегі шахматты тегін ойнауға құқылы деп сенеміз.</string>
   <string name="weRelyOnSupport">Еңбегімізді қуаттап, қолдап жатқан халыққа үміт тұтамыз. Егер сізге Личес пайдасын тигізсе, Қамқоршы болып, бізге ақшалай жәрдем көрсетуді сұраймыз!</string>
   <string name="lifetime">Өмір бойы</string>
   <string name="payLifetimeOnce">%s бір мәрте төлеп, Лическе мәңгі Қамқоршы болыңыз!</string>
   <string name="lifetimePatron">Лическе Өмір бойы Қамқоршы</string>
   <string name="makeExtraDonation">Ерекше ақшалай жәрдем жасайсыз ба?</string>
-  <string name="monthly">Ай сайын</string>
+  <string name="monthly">Айлық</string>
   <string name="recurringBilling">Жаңартпалы төлемдер, Қамқоршы мәртебесін ай сайын жаңартып тұру.</string>
   <string name="onetime">Бір рет</string>
   <string name="singleDonation">Бір реттік жәрдем берсеңіз, бір ай бойы Қамқоршы боласыз.</string>
@@ -42,8 +42,8 @@
   <string name="bankTransfers">Одан басқа банк аударымдарын қабылдаймыз</string>
   <string name="bitcoin">Биткоин мекенжайымыз: %s</string>
   <string name="patronFeatures">Қамқоршылар үшін бір артықшылықтар бар ма?</string>
-  <string name="noPatronFeatures">Жоқ, өйткені Личес бәріне бірдей мәңгі тегін. Бұл уәде.
-Дегенмен, Қамқоршылардың куәлігінде күшті таңба көрсетіледі.</string>
+  <string name="noPatronFeatures">Жоқ, өйткені Личес бәріне бірдей мәңгі тегін. Уәде етеміз!.
+Дегенмен, Қамқоршылардың куәлігінде күшті таңбаша көрсетіледі.</string>
   <string name="featuresComparison">Артықшылықтардың салыстырмалы кестесін қарап көріңіз</string>
   <plurals name="patronForMonths">
     <item quantity="one">Лическе бір айлық Қамқоршы</item>

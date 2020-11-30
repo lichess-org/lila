@@ -562,6 +562,8 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="currentPassword">Trenutna lozinka</string>
   <string name="newPassword">Nova lozinka</string>
   <string name="newPasswordAgain">Ponovi novu lozinku</string>
+  <string name="newPasswordsDontMatch">Nove se lozinke ne podudaraju</string>
+  <string name="newPasswordStrength">Jačina lozinke</string>
   <string name="clockInitialTime">Početno vrijeme sata</string>
   <string name="clockIncrement">Dodatak satu</string>
   <string name="privacy">Privatnost</string>

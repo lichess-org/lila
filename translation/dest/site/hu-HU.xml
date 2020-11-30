@@ -531,6 +531,8 @@
   <string name="currentPassword">Jelenlegi jelszó</string>
   <string name="newPassword">Új jelszó</string>
   <string name="newPasswordAgain">Új jelszó (ismét)</string>
+  <string name="newPasswordsDontMatch">A megadott jelszavak nem egyeznek</string>
+  <string name="newPasswordStrength">Jelszó erőssége</string>
   <string name="clockInitialTime">Kiindulási idő</string>
   <string name="clockIncrement">Növekmény</string>
   <string name="privacy">Adatvédelem</string>

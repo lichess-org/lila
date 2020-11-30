@@ -11,4 +11,5 @@
   <string name="emailChange_click">Որպեսզի հաստատեք այս էլ. փոստը, անցեք ստորև բերված հղումով:</string>
   <string name="welcome_subject">Բարի գալուստ lichess.org, %s</string>
   <string name="common_orPaste">Քլիքը չի աշխատում? Փորձում ենք նորից դնել այն քո բրաուզերում:</string>
+  <string name="common_contact">Օգտվեք մեզ հետ կապվելու համար</string>
 </resources>

@@ -592,6 +592,7 @@
   <string name="newPassword">Nowe hasło</string>
   <string name="newPasswordAgain">Powtórz nowe hasło</string>
   <string name="newPasswordsDontMatch">Nowe hasła nie są takie same</string>
+  <string name="newPasswordStrength">Siła hasła</string>
   <string name="clockInitialTime">Początkowy czas zegara</string>
   <string name="clockIncrement">Przyrost czasu</string>
   <string name="privacy">Prywatność</string>

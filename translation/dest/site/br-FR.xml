@@ -69,11 +69,11 @@
   <string name="makeMainLine">Lakaat da bennlinenn</string>
   <string name="deleteFromHere">Dilemel adalek amañ</string>
   <string name="forceVariation">Troiñ en ur variant</string>
-  <string name="move">Taol</string>
+  <string name="move">Fiñvadenn</string>
   <string name="variantLoss">Variant a lak koll</string>
   <string name="variantWin">Variant a lak trec\'h</string>
   <string name="insufficientMaterial">N\'eus ket trawalc\'h a bezhioù</string>
-  <string name="pawnMove">Taol pezh-gwerin</string>
+  <string name="pawnMove">Fiñvadenn ar pezh gwerin</string>
   <string name="capture">Tapadenn</string>
   <string name="close">Serriñ</string>
   <string name="winning">A lakay trec\'hiñ</string>
@@ -108,19 +108,19 @@
   <string name="byCPL">Dre CPL</string>
   <string name="openStudy">Digeriñ ar studi</string>
   <string name="enable">Enaouiñ</string>
-  <string name="bestMoveArrow">Bir an taol gwellañ</string>
+  <string name="bestMoveArrow">Bir ar gwellañ fiñvadenn</string>
   <string name="evaluationGauge">Jaoj priziañ</string>
   <string name="multipleLines">Meur a linenn</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Memor</string>
   <string name="infiniteAnalysis">Dielfennañ didermen</string>
   <string name="blunder">Bourd</string>
-  <string name="blunders">Bourd</string>
+  <string name="blunders">Bourdoù</string>
   <string name="mistake">Fazi</string>
   <string name="mistakes">Fazioù</string>
   <string name="inaccuracy">Diresisted</string>
   <string name="inaccuracies">Diresistedoù</string>
-  <string name="moveTimes">Amzer pep taol</string>
+  <string name="moveTimes">Amzer dre fiñvadenn</string>
   <string name="flipBoard">Cheñch tu an dablez c\'hoari</string>
   <string name="threefoldRepetition">Teir gwech ar memestra</string>
   <string name="claimADraw">Goulenn bezañ rampo</string>
@@ -151,7 +151,7 @@
   <string name="viewInFullSize">Brasaat</string>
   <string name="logOut">Digevreañ</string>
   <string name="signIn">Kevreañ</string>
-  <string name="youNeedAnAccountToDoThat">Ezhomm ho peus kaout ur gont evit hen ober</string>
+  <string name="youNeedAnAccountToDoThat">Ezhomm ho peus da gaout ur gont evit hen ober</string>
   <string name="signUp">Lakaat e anv</string>
   <string name="computersAreNotAllowedToPlay">Urzhiataerioù ha c\'hoarierien sikouret gant un urzhiataer n\'int ket aotreet da c\'hoari. Na vezit ket skoazellet gant mekanikoù, diaz roadennoù pe c\'hoarierien all pa vezit o c\'hoari. Ne aliomp ket ac\'hanoc\'h da gaout kalz kontoù kennebeut. M\'ho peus re a gontoù e veoc\'h forbannet.</string>
   <string name="games">Krogadoù</string>
@@ -168,7 +168,7 @@
   <string name="variants">Eilstummoù</string>
   <string name="timeControl">Tizh</string>
   <string name="realTime">Amzer wirion</string>
-  <string name="correspondence">Partiennoù war hir dermen</string>
+  <string name="correspondence">Krogadoù war hir dermen</string>
   <string name="daysPerTurn">Deizioù dre fiñvadenn</string>
   <string name="oneDay">Un deiz</string>
   <plurals name="nbDays">
@@ -613,6 +613,8 @@
   <string name="currentPassword">Ger-tremen evit poent</string>
   <string name="newPassword">Ger-tremen nevez</string>
   <string name="newPasswordAgain">Ger-tremen nevez (c\'hoazh)</string>
+  <string name="newPasswordsDontMatch">Ne glot ket an daou cher-tremen</string>
+  <string name="newPasswordStrength">Surentez ar ger-tremen</string>
   <string name="clockInitialTime">An amzer ho po e penn kentañ</string>
   <string name="clockIncrement">Inkrement an horolaj</string>
   <string name="privacy">Buhez prevez</string>
@@ -717,7 +719,7 @@
   <string name="contribute">Kenoberiañ</string>
   <string name="termsOfService">Divizoù hollek an implij</string>
   <string name="sourceCode">Boneg Tarzh</string>
-  <string name="simultaneousExhibitions">Partiennoù kempred</string>
+  <string name="simultaneousExhibitions">Abadennoù kempred</string>
   <string name="host">Ostiz</string>
   <string name="hostColorX">Liv an ostiz: %s</string>
   <string name="createdSimuls">Abadennoù kempred nevez krouet</string>
@@ -729,7 +731,7 @@
   <string name="aboutSimulImage">A-enep 50 enebour eo bet trec\'h Fischer 47 gwech, div wech rampo ha trec\'het ur wech nemetken.</string>
   <string name="aboutSimulRealLife">Bezañ ez eus diouzh abadennoù e-giz-se evit gwir. D\'ar c\'hoarier da vont deus un daol d\'eben evit ober ur fiñvadenn bep tro.</string>
   <string name="aboutSimulRules">Pa grog an abadenn gempred e krog pep krogad gant an ostiz ivez. Gantañ e vez c\'hoariet ar re wenn. Ur wech echu an holl grogadoù e vo fin an abadenn gempred.</string>
-  <string name="aboutSimulSettings">Nann-renket eo ar partiennoù kempred bep tro. Ne c\'haller ket kemer e zial, mont war gil pe ouzhepannañ amzer.</string>
+  <string name="aboutSimulSettings">Krogadoù a vignoniezh eo an abadennoù kempred bepred. Kinnigoù c\'hoari en-dro, nullañ ar fiñvadenn ziwezhañ pe ouzhpennañ amzer zo diweredekaet.</string>
   <string name="create">Krouiñ</string>
   <string name="whenCreateSimul">Pa grouit un abadenn gempred ho pez meur a c\'hoarier da enebiñ oute.</string>
   <string name="simulVariantsHint">Ma choazit meur a eilstumm en do pep c\'hoarier da zibab pehini c\'hoari.</string>
@@ -906,7 +908,7 @@
   </plurals>
   <string name="opening">Digoradur</string>
   <string name="middlegame">Kreiz ar bartienn</string>
-  <string name="endgame">Dibenn-partienn</string>
+  <string name="endgame">Fin ar c\'hrogad</string>
   <string name="registerToSendChallenges">Kevreit evit daeañ unan bennak mar plij.</string>
   <string name="youCannotChallengeX">Ne c\'hallit ket daeañ %s.</string>
   <string name="xDoesNotAcceptChallenges">%s n\'he/en deus ket c\'hant da vezañ daeet.</string>
@@ -918,6 +920,13 @@
   <string name="playVariationToCreateConditionalPremoves">C\'hoariit ur variant evit krouiñ raktaolioù rekiz</string>
   <string name="noConditionalPremoves">Raktaol rekiz ebet</string>
   <string name="playX">C\'hoari %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">hag enrollit %s linenn raktaolioù</item>
+    <item quantity="two">hag enrollit %s linenn raktaolioù</item>
+    <item quantity="few">hag enrollit %s linennoù raktaolioù</item>
+    <item quantity="many">hag enrollit %s linennoù raktaolioù</item>
+    <item quantity="other">hag enrollit %s linennoù raktaolioù</item>
+  </plurals>
   <string name="sorry">Hon digarezit :(</string>
   <string name="weHadToTimeYouOutForAWhile">Ret e oa deomp ho skarzhañ e-pad ur prantad.</string>
   <string name="timeoutExpires">Ne veoc\'h ket mui forbannet a-benn %s.</string>
@@ -947,7 +956,7 @@
   <string name="blitzDesc">Krogadoù prim: etre 3 ha 8 munutenn</string>
   <string name="rapidDesc">Krogadoù fonnus: etre 8 ha 25 munutenn</string>
   <string name="classicalDesc">Krogadoù klasel: 25 munutenn ha muioc\'h</string>
-  <string name="correspondenceDesc">Partiennoù war hir dermen: un deiz pe meur a hini evit bep taol</string>
+  <string name="correspondenceDesc">Krogadoù a-bell: un deiz pe meur a hini evit ur fiñvadenn</string>
   <string name="puzzleDesc">Gourdoner poelladennoù echedoù</string>
   <string name="important">A-bouez</string>
   <string name="yourQuestionMayHaveBeenAnswered">Ur respont zo bet d\'ho koulenn dija marteze %1$s</string>

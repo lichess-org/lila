@@ -10,7 +10,7 @@
   <string name="forgotUsername">Olvidé mi nombre de usuario</string>
   <string name="youCanLoginWithEmail">Puedes iniciar sesión con la dirección de correo electrónico con la que te registraste</string>
   <string name="lost2FA">Perdí mis códigos de autenticación en dos pasos</string>
-  <string name="doPasswordReset">Reinicia tu contraseña para eliminar tu segundo factor</string>
+  <string name="doPasswordReset">Complete un restablecimiento de contraseña para eliminar tu segundo factor</string>
   <string name="accountSupport">Necesito soporte de cuenta</string>
   <string name="wantTitle">Quiero que mi título se muestre en Lichess</string>
   <string name="visitTitleConfirmation">Para mostrar tu título en tu perfil de Lichess y participar en los torneos que lo exijan, visita la página de verificación de títulos</string>

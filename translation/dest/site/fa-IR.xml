@@ -527,6 +527,8 @@
   <string name="currentPassword">رمز جاری</string>
   <string name="newPassword">رمز جدید</string>
   <string name="newPasswordAgain">(رمز جدید(برای دومین بار</string>
+  <string name="newPasswordsDontMatch">کلمه‌های عبور وارد شده مطابقت ندارند</string>
+  <string name="newPasswordStrength">استحکام کلمه عبور</string>
   <string name="clockInitialTime">مقدار زمان اولیه</string>
   <string name="clockIncrement">مقدار زمان اضافی به ازای هر حرکت</string>
   <string name="privacy">حریم شخصی</string>
@@ -812,6 +814,7 @@
     <item quantity="other">و پیش حرکت های %s را حفظ کنید</item>
   </plurals>
   <string name="sorry">متاسفم :(</string>
+  <string name="weHadToTimeYouOutForAWhile">شما برای مدتی مسدود شدید.</string>
   <string name="why">چرا؟</string>
   <string name="pleasantChessExperience">هدف ما مهیا ساختن تجربه لذت بخش شطرنج به همه افراد است.</string>
   <string name="goodPractice">به همین منظور، ما باید اطمینان حاصل کنیم که تمام بازیکنان تمرین خوب را دنبال میکنند.</string>
@@ -841,6 +844,12 @@
   <string name="correspondenceDesc">بازی های مکاتبه ای : یک  یا چند روز برای هر حرکت</string>
   <string name="puzzleDesc">تمرین تاکتیک های شطرنج</string>
   <string name="important">مهم!</string>
+  <string name="yourQuestionMayHaveBeenAnswered">ممکن است پاسخ سوال شما در سوالات متداول باشد</string>
+  <string name="inTheFAQ">در سوالات متداول باشد.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior"> برای گزارش دادن یک کاربر برای تقلب یا رفتار بد</string>
+  <string name="useTheReportForm">از فرم گزارش استفاده کنید.</string>
+  <string name="toRequestSupport">برای پشتیبانی</string>
+  <string name="tryTheContactPage">با این صفحه ارتباط بگیرید.</string>
   <string name="subscribe">مشترک شدن</string>
   <string name="unsubscribe">لغو اشتراک</string>
 </resources>

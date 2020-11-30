@@ -561,6 +561,8 @@
   <string name="currentPassword">Parola curentă</string>
   <string name="newPassword">Noua parolă</string>
   <string name="newPasswordAgain">Noua parolă (repetă)</string>
+  <string name="newPasswordsDontMatch">Parolele introduse nu se potrivesc</string>
+  <string name="newPasswordStrength">Dificultatea parolei</string>
   <string name="clockInitialTime">Timpul inițial al ceasului</string>
   <string name="clockIncrement">Incrementarea ceasului</string>
   <string name="privacy">Confidențialitate</string>

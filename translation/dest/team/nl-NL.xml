@@ -42,4 +42,6 @@ Spelers die je berichten niet willen ontvangen kunnen het team verlaten.</string
   <string name="youWayWantToLinkOneOfTheseTournaments">Misschien wil je de link van een van deze komende toernooien delen?</string>
   <string name="usersWhoCanManageThisTeam">Gebruikers die dit team beheren</string>
   <string name="leadersChat">Teamleiderschat</string>
+  <string name="closeTeam">Team sluiten</string>
+  <string name="closeTeamDescription">Sluit het team voor altijd.</string>
 </resources>
