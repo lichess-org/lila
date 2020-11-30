@@ -42,4 +42,6 @@ Kontuz, agian mezurik jaso nahi ez duten erabiltzaileek taldea utziko dute-eta.<
   <string name="youWayWantToLinkOneOfTheseTournaments">Jokatuko diren txapelketa hauetakoren baten lotura bidali nahi duzu?</string>
   <string name="usersWhoCanManageThisTeam">Talde hau kudeatzen duten erabiltzaileak</string>
   <string name="leadersChat">Kapitainen txata</string>
+  <string name="closeTeam">Taldea itxi</string>
+  <string name="closeTeamDescription">Taldea betiko itxi.</string>
 </resources>
