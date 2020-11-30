@@ -9,10 +9,13 @@
   <string name="eventName">Sündmuse nimi</string>
   <string name="eventDescription">Lühike sündmuse kirjeldus</string>
   <string name="fullDescription">Sündmuse täielik kirjeldus</string>
+  <string name="fullDescriptionHelp">Valikuliselt otseülekande pikk kirjeldus. %1$s märgistus on saadaval. Pikkus peab olema väiksem kui %2$s sümbolit.</string>
   <string name="sourceUrl">Allika URL</string>
+  <string name="sourceUrlHelp">URL, kust Lichess saab PGN-i värskenduse. See peab olema Internetist kättesaadav.</string>
   <string name="roundNumber">Raundi number</string>
   <string name="startDate">Alguskuupäev teie ajavööndis</string>
   <string name="startDateHelp">Valikuline, kui teate, millal sündmus algab</string>
   <string name="credits">Krediteeri allikat</string>
   <string name="cloneBroadcast">Kloonige otseülekanne</string>
+  <string name="resetBroadcast">Lähtestage otseülekanne</string>
 </resources>
