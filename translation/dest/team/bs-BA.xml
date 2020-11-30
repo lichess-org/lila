@@ -45,4 +45,6 @@ Igrači koji ne vole primati Vaše poruke mogli bi napustiti tim.</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Želite li postaviti link na jedan od nadolazećih turnira?</string>
   <string name="usersWhoCanManageThisTeam">Korisnici koji mogu upravljati ovim timom</string>
   <string name="leadersChat">Razgovor vođa</string>
+  <string name="closeTeam">Raspustite ekipu</string>
+  <string name="closeTeamDescription">Raspustite ekipu zauvijek.</string>
 </resources>
