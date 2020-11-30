@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="hourlyRapidArena">Igatunnine Rapid Arena</string>
+  <string name="hourlyRapid">Igatunnine Rapid</string>
+  <string name="hourlyXArena">Igatunnine %s Arena</string>
+  <string name="hourlyX">Igatunnine %s</string>
+  <string name="dailyRapidArena">Igapäevane Rapid Arena</string>
+  <string name="dailyRapid">Igapäevane Rapid</string>
+  <string name="dailyClassicalArena">Igapäevane klassikaline Arena</string>
+  <string name="dailyClassical">Igapäevane klassikaline</string>
+  <string name="dailyXArena">Igapäevane %s Arena</string>
+  <string name="dailyX">Igapäevane %s</string>
+  <string name="xArena">%s Arena</string>
+</resources>
