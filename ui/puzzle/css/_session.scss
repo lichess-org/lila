@@ -5,7 +5,7 @@
     @extend %box-radius;
     flex: 0 0 2em;
     height: 1em;
-    margin: .5em .5em 0 0;
+    margin: .4em .5em 0 0;
     opacity: .7;
     &.result-true {
       background: $c-good;

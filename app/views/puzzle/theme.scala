@@ -24,9 +24,8 @@ object theme {
               h2(cat()),
               div(
                 cls := List(
-                  "puzzle-themes__list"        -> true,
-                  "puzzle-themes__list-single" -> (themes.sizeIs < 2),
-                  cat.key.replace(":", "-")    -> true
+                  "puzzle-themes__list"     -> true,
+                  cat.key.replace(":", "-") -> true
                 )
               )(
                 themes.map { pt =>

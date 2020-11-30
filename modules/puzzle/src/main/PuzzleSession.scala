@@ -45,40 +45,40 @@ final class PuzzleSessionApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: U
   }
 
   def nextPuzzleFor(user: User, theme: PuzzleTheme.Key, retries: Int = 0): Fu[Puzzle] =
-    continueOrCreateCursorFor(user, theme) flatMap { cursor =>
+    continueOrCreateSessionFor(user, theme) flatMap { session =>
       import NextPuzzleResult._
       def switchPath(tier: PuzzleTier) =
-        nextPathIdFor(user.id, theme, tier, cursor.previousPaths) flatMap {
+        nextPathIdFor(user.id, theme, tier, session.previousPaths) flatMap {
           case None => fufail(s"No remaining puzzle path for ${user.id}")
           case Some(pathId) =>
-            val newCursor = cursor.switchTo(tier, pathId) pp "newCursor"
-            cursors.put(user.id, fuccess(newCursor))
+            val newSession = session.switchTo(tier, pathId)
+            sessions.put(user.id, fuccess(newSession))
             nextPuzzleFor(user, theme, retries = retries + 1)
         }
 
-      nextPuzzleResult(user, cursor) flatMap {
-        case PathMissing | PathEnded if retries < 10 => switchPath(cursor.tier)
+      nextPuzzleResult(user, session).thenPp(session.path.value) flatMap {
+        case PathMissing | PathEnded if retries < 10 => switchPath(session.tier)
         case PathMissing | PathEnded                 => fufail(s"Puzzle path missing or ended for ${user.id}")
         case PuzzleMissing(id) =>
           logger.warn(s"Puzzle missing: $id")
-          cursors.put(user.id, fuccess(cursor.next))
+          sessions.put(user.id, fuccess(session.next))
           nextPuzzleFor(user, theme, retries)
         case PuzzleAlreadyPlayed(_) if retries < 3 =>
-          cursors.put(user.id, fuccess(cursor.next))
+          sessions.put(user.id, fuccess(session.next))
           nextPuzzleFor(user, theme, retries = retries + 1)
-        case PuzzleAlreadyPlayed(_) if cursor.tier == PuzzleTier.Top => switchPath(PuzzleTier.All)
-        case PuzzleAlreadyPlayed(puzzle)                             => fuccess(puzzle)
-        case PuzzleFound(puzzle)                                     => fuccess(puzzle)
+        case PuzzleAlreadyPlayed(_) if session.tier == PuzzleTier.Top => switchPath(PuzzleTier.All)
+        case PuzzleAlreadyPlayed(puzzle)                              => fuccess(puzzle)
+        case PuzzleFound(puzzle)                                      => fuccess(puzzle)
       }
     }
 
-  private def nextPuzzleResult(user: User, cursor: PuzzleSession): Fu[NextPuzzleResult] =
+  private def nextPuzzleResult(user: User, session: PuzzleSession): Fu[NextPuzzleResult] =
     colls.path {
       _.aggregateOne() { framework =>
         import framework._
-        Match($id(cursor.path)) -> List(
-          // get the puzzle ID from cursor position
-          Project($doc("puzzleId" -> $doc("$arrayElemAt" -> $arr("$ids", cursor.positionInPath)))),
+        Match($id(session.path)) -> List(
+          // get the puzzle ID from session position
+          Project($doc("puzzleId" -> $doc("$arrayElemAt" -> $arr("$ids", session.positionInPath)))),
           Project(
             $doc(
               "puzzleId" -> true,
@@ -126,32 +126,32 @@ final class PuzzleSessionApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: U
     }
 
   def onComplete(round: PuzzleRound, theme: PuzzleTheme.Key): Funit =
-    cursors.getIfPresent(round.userId) ?? {
-      _ map { cursor =>
-        // yes, even if the completed puzzle was not the current cursor puzzle
+    sessions.getIfPresent(round.userId) ?? {
+      _ map { session =>
+        // yes, even if the completed puzzle was not the current session puzzle
         // in that case we just skip a puzzle on the path, which doesn't matter
-        if (cursor.theme == theme)
-          cursors.put(round.userId, fuccess(cursor.next))
+        if (session.theme == theme)
+          sessions.put(round.userId, fuccess(session.next))
       }
     }
 
-  private val cursors = cacheApi.notLoading[User.ID, PuzzleSession](32768, "puzzle.cursor")(
+  private val sessions = cacheApi.notLoading[User.ID, PuzzleSession](32768, "puzzle.session")(
     _.expireAfterWrite(1 hour).buildAsync()
   )
 
-  private[puzzle] def currentCursorOf(user: User, theme: PuzzleTheme.Key): Fu[PuzzleSession] =
-    cursors.getFuture(user.id, _ => createCursorFor(user, theme))
+  private[puzzle] def currentSessionOf(user: User, theme: PuzzleTheme.Key): Fu[PuzzleSession] =
+    sessions.getFuture(user.id, _ => createSessionFor(user, theme))
 
-  private[puzzle] def continueOrCreateCursorFor(
+  private[puzzle] def continueOrCreateSessionFor(
       user: User,
       theme: PuzzleTheme.Key
   ): Fu[PuzzleSession] =
-    currentCursorOf(user, theme) flatMap { current =>
+    currentSessionOf(user, theme) flatMap { current =>
       if (current.theme == theme) fuccess(current)
-      else createCursorFor(user, theme) tap { cursors.put(user.id, _) }
+      else createSessionFor(user, theme) tap { sessions.put(user.id, _) }
     }
 
-  private def createCursorFor(user: User, theme: PuzzleTheme.Key): Fu[PuzzleSession] =
+  private def createSessionFor(user: User, theme: PuzzleTheme.Key): Fu[PuzzleSession] =
     nextPathIdFor(user.id, theme, PuzzleTier.Top, Set.empty)
       .orFail(s"No puzzle path found for ${user.id}, theme: $theme")
       .dmap(pathId => PuzzleSession(theme, PuzzleTier.Top, pathId, Set.empty, 0))

@@ -18,7 +18,7 @@ final class Puzzle(
   private def renderJson(puzzle: Puz, theme: PuzzleTheme, round: Option[PuzzleRound] = None)(implicit
       ctx: Context
   ): Fu[JsObject] =
-    env.puzzle.jsonView(puzzle = puzzle, theme = theme.key, user = ctx.me, round = round)
+    env.puzzle.jsonView(puzzle = puzzle, theme = theme, user = ctx.me, round = round)
 
   private def renderShow(puzzle: Puz, theme: PuzzleTheme)(implicit ctx: Context) =
     ctx.me.?? { env.puzzle.api.round.find(_, puzzle) } flatMap {

@@ -7,6 +7,7 @@ import lila.game.GameRepo
 import lila.tree
 import lila.tree.Node.defaultNodeJsonWriter
 import lila.user.User
+import play.api.i18n.Lang
 
 final class JsonView(
     gameJson: GameJson,
@@ -18,10 +19,10 @@ final class JsonView(
 
   def apply(
       puzzle: Puzzle,
-      theme: PuzzleTheme.Key,
+      theme: PuzzleTheme,
       user: Option[User],
       round: Option[PuzzleRound] = None
-  ): Fu[JsObject] = {
+  )(implicit lang: Lang): Fu[JsObject] = {
     gameJson(
       gameId = puzzle.gameId,
       plies = puzzle.initialPly
@@ -30,7 +31,11 @@ final class JsonView(
         .obj(
           "game"   -> gameJson,
           "puzzle" -> puzzleJson(puzzle),
-          "theme"  -> theme
+          "theme" -> Json.obj(
+            "key"  -> theme.key,
+            "name" -> theme.name.txt(),
+            "desc" -> theme.description.txt()
+          )
         )
         .add("user" -> user.map(userJson))
     }

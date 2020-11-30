@@ -75,13 +75,30 @@
     padding: 2vmin;
 
     &__setting {
-      display: flex;
+      @extend %flex-center-nowrap;
       .switch {
         margin-right: 1em;
       }
       label {
         cursor: pointer;
       }
+    }
+  }
+
+  &__theme {
+    @extend %box-neat, %roboto;
+    align-self: start;
+    background: $c-bg-box;
+    padding: 2vmin;
+    font-size: .9em;
+    
+    h2 {
+      font-size: 1.5em;
+      margin-bottom: .6rem;
+      text-transform: uppercase;
+    }
+    a {
+      float: right;
     }
   }
 }

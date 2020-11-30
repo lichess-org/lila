@@ -1,4 +1,3 @@
-import {defined} from 'common';
 import { storedJsonProp } from 'common/storage';
 
 interface SessionRound {
@@ -13,7 +12,7 @@ interface Store {
 
 export default class PuzzleSession {
 
-  maxSize = 50;
+  maxSize = 100;
   maxAge = 1000 * 3600;
 
   constructor(readonly theme: string) {
@@ -39,7 +38,10 @@ export default class PuzzleSession {
   complete = (id: string, result: boolean) =>
     this.update(s => {
       const i = this.indexOf(s.rounds, id);
-      if (i == -1) s.rounds.push({ id, result });
+      if (i == -1) {
+        s.rounds.push({ id, result });
+        if (s.rounds.length > this.maxSize) s.rounds.shift();
+      }
       else s.rounds[i].result = result;
       s.at = Date.now();
       return s;

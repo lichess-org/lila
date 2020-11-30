@@ -101,9 +101,15 @@ export interface PuzzlePrefs {
   blindfold: boolean;
 }
 
+export interface Theme {
+  key: ThemeKey;
+  name: string;
+  desc: string;
+}
+
 export interface PuzzleData {
   puzzle: Puzzle;
-  theme: ThemeKey;
+  theme: Theme;
   game: PuzzleGame;
   user: PuzzleUser | undefined;
 }

@@ -28,7 +28,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   const autoNext = storedProp('puzzle.autoNext', false)
   const ground = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
   const threatMode = prop(false);
-  const session = new PuzzleSession(opts.data.theme);
+  const session = new PuzzleSession(opts.data.theme.key);
 
   // required by ceval
   vm.showComputer = () => vm.mode === 'view';
@@ -234,7 +234,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.resultSent = true;
     nbToVoteCall(Math.max(0, parseInt(nbToVoteCall()) - 1));
     session.complete(data.puzzle.id, win);
-    return xhr.complete(data.puzzle.id, data.theme, win).then((res: PuzzleResult) => {
+    return xhr.complete(data.puzzle.id, data.theme.key, win).then((res: PuzzleResult) => {
       if (res?.next.user && data.user) {
         data.user.rating = res.next.user.rating;
         data.user.provisional = res.next.user.provisional;

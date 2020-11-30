@@ -46,6 +46,14 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
   ])]);
 }
 
+export function theme(ctrl: Controller): VNode {
+  return h('div.puzzle__side__theme', [
+    h('h2', ctrl.getData().theme.name),
+    h('p', ctrl.getData().theme.desc),
+    h('a', { attrs: { href: '/training/themes' } }, 'Other themes »')
+  ])
+}
+
 export function userBox(ctrl: Controller): MaybeVNode {
   const data = ctrl.getData();
   if (!data.user) return;

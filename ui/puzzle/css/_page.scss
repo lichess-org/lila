@@ -12,20 +12,21 @@
     @include breakpoint($mq-not-xx-small) {
       grid-template-columns: repeat(auto-fill, minmax(40ch, 1fr));
     }
-    &-single {
+    &.puzzle-recommended {
       display: block;
     }
   }
 
   &__link {
-    @extend %flex-center-nowrap, %box-padding-horiz;
+    @extend %box-radius;
+    display: flex;
     padding: 1.5em 1em 1.5em 0;
 
     &::before {
       @extend %data-icon;
       content: '-';
       color: $c-font-dimmer;
-      flex: 0 0 1.8em;
+      flex: 0 0 1.6em;
       text-align: center;
       font-size: 4.5em;
     }
@@ -53,6 +54,7 @@
       font-size: 1.7em;
       display: block;
       white-space: nowrap;
+      line-height: 1.5em;
       em {
         @extend %roboto;
         color: $c-font-dimmer;
@@ -74,6 +76,9 @@
       }
       &:hover {
         background: mix($c-bg-box, $c-good, 74%);
+      }
+      @include breakpoint($mq-not-small) {
+        margin: 2em var(--box-padding) 2em 0;
       }
     }
   }
