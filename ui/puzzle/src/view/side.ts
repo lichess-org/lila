@@ -1,6 +1,6 @@
-import { bind, dataIcon } from '../util';
-import { Controller, Puzzle, PuzzleGame, MaybeVNode, OnComplete } from '../interfaces';
-import { h, thunk } from 'snabbdom';
+import { Controller, Puzzle, PuzzleGame, MaybeVNode } from '../interfaces';
+import { dataIcon } from '../util';
+import { h } from 'snabbdom';
 import { numberFormat } from 'common/number';
 import { VNode } from 'snabbdom/vnode';
 
@@ -59,29 +59,25 @@ export function userBox(ctrl: Controller): MaybeVNode {
   ]);
 }
 
-const onCompleteOptions = [
-  ['pause', 'Pause after each puzzle'],
-  ['nextIfWin', 'Only pause when I get it wrong'],
-  ['next', 'Always jump to next puzzle']
-];
-
-const completeSelector = (ctrl: Controller) => {
-  const current = ctrl.onComplete();
-  return h('select', {
-    hook: bind('change', e => ctrl.onComplete((e.target as HTMLInputElement).value as OnComplete))
-  }, onCompleteOptions.map(v =>
-    h('option', {
-      attrs: {
-        value: v[0],
-        selected: v[0] == current
-      },
-    }, v[1])
-  )
-  );
-}
-
 export function config(ctrl: Controller): MaybeVNode {
+
+  const id = 'puzzle-toggle-autonext';
   return h('div.puzzle__side__config', [
-    thunk('select.puzzle__side__config__selector', completeSelector, [ctrl])
+    h('div.puzzle__side__config__setting', [
+      h('div.switch', [
+        h(`input#${id}.cmn-toggle.cmn-toggle--subtle`, {
+          attrs: {
+            type: 'checkbox',
+            checked: ctrl.autoNext()
+          },
+          hook: {
+            insert: vnode => (vnode.elm as HTMLElement).addEventListener('change', () =>
+              ctrl.autoNext(!ctrl.autoNext()))
+          }
+        }),
+        h('label', { attrs: { 'for': id } })
+      ]),
+      h('label', { attrs: { 'for': id } }, 'Jump to next puzzle immediately')
+    ])
   ]);
 }

@@ -6,7 +6,7 @@ import { Prop } from 'common';
 import { Role, Move } from 'chessops/types';
 import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom/vnode';
-import { StoredProp } from 'common/storage';
+import { StoredBooleanProp } from 'common/storage';
 import PuzzleSession from './session';
 
 export type MaybeVNode = VNode | string | null | undefined;
@@ -25,7 +25,6 @@ export interface KeyboardController {
 }
 
 export type ThemeKey = string;
-export type OnComplete = 'pause' | 'next' | 'nextIfWin';
 
 export interface Controller extends KeyboardController {
   nextNodeBest(): string | undefined;
@@ -53,7 +52,7 @@ export interface Controller extends KeyboardController {
   pref: PuzzlePrefs;
   userMove(orig: Key, dest: Key): void;
   promotion: any;
-  onComplete: StoredProp<OnComplete>;
+  autoNext: StoredBooleanProp;
   session: PuzzleSession;
 
   path?: Tree.Path;

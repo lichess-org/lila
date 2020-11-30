@@ -25,7 +25,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
   let vm: Vm = {} as Vm;
   let data: PuzzleData, tree: TreeWrapper, ceval: CevalCtrl;
-  const onComplete = storedProp('puzzle.onComplete', 'next')
+  const autoNext = storedProp('puzzle.autoNext', false)
   const ground = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
   const threatMode = prop(false);
   const session = new PuzzleSession(opts.data.theme);
@@ -206,24 +206,19 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   function applyProgress(progress: undefined | 'fail' | 'win' | MoveTest): void {
     if (progress === 'fail') {
       vm.lastFeedback = 'fail';
+      revertUserMove();
       if (vm.mode === 'play') {
         vm.canViewSolution = true;
         vm.mode = 'try';
-        if (!wouldAutoNextOn(false)) revertUserMove();
-        sendResult(false).then(_ => {
-          if (wouldAutoNextOn(false)) nextPuzzle();
-        });
-      } else revertUserMove();
+        sendResult(false);
+      }
     } else if (progress == 'win') {
       vm.lastFeedback = 'win';
       if (vm.mode != 'view') {
         withGround(showGround); // to disable premoves
         const sent = vm.mode == 'play' ? sendResult(true) : Promise.resolve();
         vm.mode = 'view';
-        sent.then(_ => {
-          if (wouldAutoNextOn(true)) nextPuzzle();
-          else startCeval();
-        });
+        sent.then(_ => autoNext() ? nextPuzzle() : startCeval());
       }
     } else if (progress) {
       vm.lastFeedback = 'good';
@@ -250,9 +245,6 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
       redraw();
     });
   }
-
-  const wouldAutoNextOn = (win: boolean): boolean =>
-    onComplete() == 'next' || (win && onComplete() == 'nextIfWin');
 
   function nextPuzzle(): void {
     if (!vm.next) return location.reload();
@@ -461,7 +453,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     getCeval,
     pref: opts.pref,
     trans: lichess.trans(opts.i18n),
-    onComplete,
+    autoNext,
     outcome,
     toggleCeval,
     toggleThreatMode,

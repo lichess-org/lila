@@ -60,12 +60,12 @@
 
   &__side {
     display: grid;
-    grid-template-areas: 'metas' 'user' 'config';
+    grid-template-areas: 'user' 'metas' 'config';
     grid-gap: $block-gap;
 
     @include breakpoint($mq-x-small) {
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-template-areas: 'metas user' 'config';
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas: 'metas user' 'metas config';
     }
 
 
