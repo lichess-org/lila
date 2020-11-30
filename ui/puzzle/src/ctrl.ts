@@ -65,7 +65,6 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.initialPath = initialPath;
     vm.initialNode = tree.nodeAtPath(initialPath);
     vm.pov = vm.initialNode.ply % 2 == 1 ? 'black' : 'white';
-    session.start(data.puzzle.id);
 
     setPath(treePath.init(initialPath));
     setTimeout(function() {

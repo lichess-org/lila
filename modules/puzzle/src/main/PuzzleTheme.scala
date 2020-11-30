@@ -1,7 +1,7 @@
 package lila.puzzle
 
-import lila.i18n.I18nKey
 import lila.i18n.I18nKeys.{ puzzleTheme => i }
+import lila.i18n.{ I18nKey, I18nKeys => trans }
 
 case class PuzzleTheme(key: PuzzleTheme.Key, name: I18nKey, description: I18nKey)
 
@@ -11,51 +11,133 @@ object PuzzleTheme {
 
   case class WithCount(theme: PuzzleTheme, count: Int)
 
-  val any = PuzzleTheme(Key("any"), i.healthyMix, i.healthyMixDescription)
+  val any           = PuzzleTheme(Key("any"), i.healthyMix, i.healthyMixDescription)
+  val advancedPawn  = PuzzleTheme(Key("advancedPawn"), i.advancedPawn, i.advancedPawnDescription)
+  val attackingF2F7 = PuzzleTheme(Key("attackingF2F7"), i.attackingF2F7, i.attackingF2F7Description)
+  val attraction    = PuzzleTheme(Key("attraction"), i.attraction, i.attractionDescription)
+  val blocking      = PuzzleTheme(Key("blocking"), i.blocking, i.blockingDescription)
+  val capturingDefender =
+    PuzzleTheme(Key("capturingDefender"), i.capturingDefender, i.capturingDefenderDescription)
+  val clearance     = PuzzleTheme(Key("clearance"), i.clearance, i.clearanceDescription)
+  val coercion      = PuzzleTheme(Key("coercion"), i.coercion, i.coercionDescription)
+  val defensiveMove = PuzzleTheme(Key("defensiveMove"), i.defensiveMove, i.defensiveMoveDescription)
+  val deflection    = PuzzleTheme(Key("deflection"), i.deflection, i.deflectionDescription)
+  val discoveredAttack =
+    PuzzleTheme(Key("discoveredAttack"), i.discoveredAttack, i.discoveredAttackDescription)
+  val doubleCheck    = PuzzleTheme(Key("doubleCheck"), i.doubleCheck, i.doubleCheckDescription)
+  val enPassant      = PuzzleTheme(Key("enPassant"), i.enPassant, i.enPassantDescription)
+  val exposedKing    = PuzzleTheme(Key("exposedKing"), i.exposedKing, i.exposedKingDescription)
+  val fork           = PuzzleTheme(Key("fork"), i.fork, i.forkDescription)
+  val hangingPiece   = PuzzleTheme(Key("hangingPiece"), i.hangingPiece, i.hangingPieceDescription)
+  val interference   = PuzzleTheme(Key("interference"), i.interference, i.interferenceDescription)
+  val long           = PuzzleTheme(Key("long"), i.long, i.longDescription)
+  val mateIn1        = PuzzleTheme(Key("mateIn1"), i.mateIn1, i.mateIn1Description)
+  val mateIn2        = PuzzleTheme(Key("mateIn2"), i.mateIn2, i.mateIn2Description)
+  val mateIn3        = PuzzleTheme(Key("mateIn3"), i.mateIn3, i.mateIn3Description)
+  val mateIn4        = PuzzleTheme(Key("mateIn4"), i.mateIn4, i.mateIn4Description)
+  val mateIn5        = PuzzleTheme(Key("mateIn5"), i.mateIn5, i.mateIn5Description)
+  val oneMove        = PuzzleTheme(Key("oneMove"), i.oneMove, i.oneMoveDescription)
+  val overloading    = PuzzleTheme(Key("overloading"), i.overloading, i.overloadingDescription)
+  val pin            = PuzzleTheme(Key("pin"), i.pin, i.pinDescription)
+  val promotion      = PuzzleTheme(Key("promotion"), i.promotion, i.promotionDescription)
+  val quietMove      = PuzzleTheme(Key("quietMove"), i.quietMove, i.quietMoveDescription)
+  val sacrifice      = PuzzleTheme(Key("sacrifice"), i.sacrifice, i.sacrificeDescription)
+  val short          = PuzzleTheme(Key("short"), i.short, i.shortDescription)
+  val simplification = PuzzleTheme(Key("simplification"), i.simplification, i.simplificationDescription)
+  val skewer         = PuzzleTheme(Key("skewer"), i.skewer, i.skewerDescription)
+  val trappedPiece   = PuzzleTheme(Key("trappedPiece"), i.trappedPiece, i.trappedPieceDescription)
+  val veryLong       = PuzzleTheme(Key("veryLong"), i.veryLong, i.veryLongDescription)
+  val zugzwang       = PuzzleTheme(Key("zugzwang"), i.zugzwang, i.zugzwangDescription)
 
-  val sorted: List[PuzzleTheme] = List(
-    any,
-    PuzzleTheme(Key("advancedPawn"), i.advancedPawn, i.advancedPawnDescription),
-    PuzzleTheme(Key("attackingF2F7"), i.attackingF2F7, i.attackingF2F7Description),
-    PuzzleTheme(Key("attraction"), i.attraction, i.attractionDescription),
-    PuzzleTheme(Key("blocking"), i.blocking, i.blockingDescription),
-    PuzzleTheme(Key("capturingDefender"), i.capturingDefender, i.capturingDefenderDescription),
-    PuzzleTheme(Key("clearance"), i.clearance, i.clearanceDescription),
-    PuzzleTheme(Key("coercion"), i.coercion, i.coercionDescription),
-    PuzzleTheme(Key("defensiveMove"), i.defensiveMove, i.defensiveMoveDescription),
-    PuzzleTheme(Key("deflection"), i.deflection, i.deflectionDescription),
-    PuzzleTheme(Key("discoveredAttack"), i.discoveredAttack, i.discoveredAttackDescription),
-    PuzzleTheme(Key("doubleCheck"), i.doubleCheck, i.doubleCheckDescription),
-    PuzzleTheme(Key("enPassant"), i.enPassant, i.enPassantDescription),
-    PuzzleTheme(Key("exposedKing"), i.exposedKing, i.exposedKingDescription),
-    PuzzleTheme(Key("fork"), i.fork, i.forkDescription),
-    PuzzleTheme(Key("hangingPiece"), i.hangingPiece, i.hangingPieceDescription),
-    PuzzleTheme(Key("interference"), i.interference, i.interferenceDescription),
-    PuzzleTheme(Key("long"), i.long, i.longDescription),
-    PuzzleTheme(Key("mateIn1"), i.mateIn1, i.mateIn1Description),
-    PuzzleTheme(Key("mateIn2"), i.mateIn2, i.mateIn2Description),
-    PuzzleTheme(Key("mateIn3"), i.mateIn3, i.mateIn3Description),
-    PuzzleTheme(Key("mateIn4"), i.mateIn4, i.mateIn4Description),
-    PuzzleTheme(Key("mateIn5"), i.mateIn5, i.mateIn5Description),
-    PuzzleTheme(Key("oneMove"), i.oneMove, i.oneMoveDescription),
-    PuzzleTheme(Key("overloading"), i.overloading, i.overloadingDescription),
-    PuzzleTheme(Key("pin"), i.pin, i.pinDescription),
-    PuzzleTheme(Key("promotion"), i.promotion, i.promotionDescription),
-    PuzzleTheme(Key("quietMove"), i.quietMove, i.quietMoveDescription),
-    PuzzleTheme(Key("sacrifice"), i.sacrifice, i.sacrificeDescription),
-    PuzzleTheme(Key("short"), i.short, i.shortDescription),
-    PuzzleTheme(Key("simplification"), i.simplification, i.simplificationDescription),
-    PuzzleTheme(Key("skewer"), i.skewer, i.skewerDescription),
-    PuzzleTheme(Key("trappedPiece"), i.trappedPiece, i.trappedPieceDescription),
-    PuzzleTheme(Key("veryLong"), i.veryLong, i.veryLongDescription),
-    PuzzleTheme(Key("zugzwang"), i.zugzwang, i.zugzwangDescription)
+  val categorized = List[(I18nKey, List[PuzzleTheme])](
+    trans.puzzle.recommended -> List(
+      any
+    ),
+    trans.puzzle.motifs -> List(
+      advancedPawn,
+      attackingF2F7,
+      attraction,
+      blocking,
+      capturingDefender,
+      clearance,
+      coercion,
+      defensiveMove,
+      deflection,
+      discoveredAttack,
+      doubleCheck,
+      enPassant,
+      exposedKing,
+      fork,
+      hangingPiece,
+      interference,
+      overloading,
+      pin,
+      promotion,
+      quietMove,
+      sacrifice,
+      simplification,
+      skewer,
+      trappedPiece,
+      zugzwang
+    ),
+    trans.puzzle.mates -> List(
+      mateIn1,
+      mateIn2,
+      mateIn3,
+      mateIn4,
+      mateIn5
+    ),
+    trans.puzzle.lengths -> List(
+      oneMove,
+      short,
+      long,
+      veryLong
+    )
   )
 
-  lazy val allTranslationKeys = sorted.flatMap { t =>
+  val all: List[PuzzleTheme] = List(
+    any,
+    advancedPawn,
+    attackingF2F7,
+    attraction,
+    blocking,
+    capturingDefender,
+    clearance,
+    coercion,
+    defensiveMove,
+    deflection,
+    discoveredAttack,
+    doubleCheck,
+    enPassant,
+    exposedKing,
+    fork,
+    hangingPiece,
+    interference,
+    long,
+    mateIn1,
+    mateIn2,
+    mateIn3,
+    mateIn4,
+    mateIn5,
+    oneMove,
+    overloading,
+    pin,
+    promotion,
+    quietMove,
+    sacrifice,
+    short,
+    simplification,
+    skewer,
+    trappedPiece,
+    veryLong,
+    zugzwang
+  )
+
+  lazy val allTranslationKeys = all.flatMap { t =>
     List(t.name, t.description)
   }
 
-  val byKey: Map[Key, PuzzleTheme] = sorted.view.map { t =>
+  val byKey: Map[Key, PuzzleTheme] = all.view.map { t =>
     t.key -> t
   }.toMap
 

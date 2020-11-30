@@ -115,15 +115,32 @@ export default function(ctrl: Controller): VNode {
 }
 
 function session(ctrl: Controller) {
-  const current = ctrl.getData().puzzle.id;
-  return h('div.puzzle__session',
-    ctrl.session.get().rounds.map(round =>
-      h(`a.result-${round.result}.round-puzzle-${round.puzzleId}`, {
+  const rounds = ctrl.session.get().rounds,
+    current = ctrl.getData().puzzle.id;
+  return h('div.puzzle__session', [
+    ...rounds.map(round =>
+      h(`a.result-${round.result}`, {
+        key: round.id,
         class: {
-          current: current == round.puzzleId
+          current: current == round.id
         },
         attrs: {
-          href: `/training/${ctrl.getData().theme}/${round.puzzleId}`
+          href: `/training/${ctrl.session.theme}/${round.id}`
         }
-      })));
+      })
+    ),
+    rounds.find(r => r.id == current) ? 
+      h('a.session-new', {
+        key: 'new',
+        attrs: {
+          href: `/training/${ctrl.session.theme}`
+        },
+      }) :
+      h('a.result-cursor.current', {
+        key: current,
+        attrs: {
+          href: `/training/${ctrl.session.theme}/${current}`
+        }
+      })
+  ]);
 }

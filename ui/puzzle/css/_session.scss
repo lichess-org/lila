@@ -1,12 +1,12 @@
 .puzzle__session {
   display: flex;
-  flex-direction: row-reverse;
+  flex-flow: row wrap-reverse;
   a {
     @extend %box-radius;
-    @include transition;
     flex: 0 0 2em;
     height: 1em;
     margin: .5em .5em 0 0;
+    opacity: .7;
     &.result-true {
       background: $c-good;
     }
@@ -15,6 +15,12 @@
     }
     &.current {
       background: $c-brag;
+    }
+    &.session-new {
+      background: $c-link;
+    }
+    &:hover {
+      opacity: 1;
     }
   }
 }

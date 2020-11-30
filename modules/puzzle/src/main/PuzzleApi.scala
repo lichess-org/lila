@@ -63,10 +63,12 @@ final private[puzzle] class PuzzleApi(
 
   object theme {
 
-    def sortedWithCount: Fu[List[PuzzleTheme.WithCount]] =
+    def categorizedWithCount: Fu[List[(lila.i18n.I18nKey, List[PuzzleTheme.WithCount])]] =
       pathApi.countsByTheme map { counts =>
-        PuzzleTheme.sorted flatMap { pt =>
-          counts.get(pt.key) ?? { count => List(PuzzleTheme.WithCount(pt, count)) }
+        PuzzleTheme.categorized.map { case (cat, puzzles) =>
+          cat -> puzzles.flatMap { pt =>
+            counts.get(pt.key) ?? { count => List(PuzzleTheme.WithCount(pt, count)) }
+          }
         }
       }
   }

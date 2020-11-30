@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
   <string name="puzzles">Puzzles</string>
+  <string name="recommended">Recommended</string>
+  <string name="motifs">Motifs</string>
+  <string name="lengths">Lengths</string>
+  <string name="mates">Mates</string>
 </resources>

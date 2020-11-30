@@ -2,7 +2,7 @@ import {defined} from 'common';
 import { storedJsonProp } from 'common/storage';
 
 interface SessionRound {
-  puzzleId: string;
+  id: string;
   result?: boolean;
 }
 interface Store {
@@ -36,27 +36,15 @@ export default class PuzzleSession {
 
   update = (f: (s: Store) => Store): Store => this.store(f(this.get()));
 
-  start = (id: string) =>
+  complete = (id: string, result: boolean) =>
     this.update(s => {
-      s.rounds = this.addRound(s.rounds, id);
+      const i = this.indexOf(s.rounds, id);
+      if (i == -1) s.rounds.push({ id, result });
+      else s.rounds[i].result = result;
       s.at = Date.now();
       return s;
     });
 
-  complete = (id: string, win: boolean) =>
-    this.update(s => {
-      s.rounds = this.addRound(s.rounds, id);
-      s.rounds[0].result = win;
-      s.at = Date.now();
-      return s;
-    });
-
-  addRound = (rounds: SessionRound[], id: string) => {
-    if (rounds[0]?.puzzleId != id) {
-      if (rounds[0] && !defined(rounds[0].result)) rounds.shift();
-      rounds.unshift({ puzzleId: id });
-      if (rounds.length > this.maxSize) rounds.pop();
-    }
-    return rounds;
-  }
+  indexOf = (rounds: SessionRound[], id: string): number => 
+    rounds.findIndex(r => r.id == id);
 }

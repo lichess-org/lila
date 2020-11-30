@@ -186,7 +186,7 @@ final class Puzzle(
     }
 
   def themes = Open { implicit ctx =>
-    env.puzzle.api.theme.sortedWithCount map { themes =>
+    env.puzzle.api.theme.categorizedWithCount map { themes =>
       Ok(views.html.puzzle.theme.list(themes))
     }
   }
