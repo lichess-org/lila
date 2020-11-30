@@ -7,7 +7,7 @@
   <string name="waitingForOpponent">Đang chờ đối thủ</string>
   <string name="waiting">Đang chờ</string>
   <string name="yourTurn">Lượt của bạn</string>
-  <string name="aiNameLevelAiLevel">%1$s cấp độ  %2$s</string>
+  <string name="aiNameLevelAiLevel">%1$s cấp độ %2$s</string>
   <string name="level">Cấp độ</string>
   <string name="toggleTheChat">Bật/tắt chat</string>
   <string name="toggleSound">Bật/Tắt âm thanh</string>
@@ -501,6 +501,7 @@
   <string name="currentPassword">Nhập mật mã hiện tại</string>
   <string name="newPassword">Nhập mật mã mới</string>
   <string name="newPasswordAgain">Nhập lại mật mã mới</string>
+  <string name="newPasswordsDontMatch">Mật khẩu mới không khớp nhau</string>
   <string name="clockInitialTime">Thời gian đồng hồ ban đầu</string>
   <string name="clockIncrement">Thời gian được thêm vào</string>
   <string name="privacy">Riêng tư</string>

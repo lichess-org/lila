@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="contact">Контакти</string>
+  <string name="contactLichess">Свържи се с нас</string>
+  <string name="whatCanWeHelpYouWith">Как можем да бъдем полезни?</string>
+  <string name="visitThisPage">Посетете тази страница за разрешаване на проблема</string>
+  <string name="iCantLogIn">Не мога да вляза в профила си</string>
+  <string name="noConfirmationEmail">Не получих email за потвърждение</string>
+  <string name="forgotPassword">Забравих паролата си</string>
+  <string name="forgotUsername">Забравих потребителското си име</string>
+  <string name="youCanLoginWithEmail">Можете да влезе с email адреса, с който сте регистрирани</string>
+  <string name="lost2FA">Нямам достъп до 2-стъпковите кодове за аутентикация</string>
+</resources>

@@ -48,4 +48,6 @@ Gracze, którzy nie chcą otrzymywać Twoich wiadomości, mogą opuścić klub.<
   <string name="youWayWantToLinkOneOfTheseTournaments">A może chcesz połączyć jeden z tych nadchodzących turniejów?</string>
   <string name="usersWhoCanManageThisTeam">Gracze, którzy mogą zarządzać tym klubem</string>
   <string name="leadersChat">Czat liderów</string>
+  <string name="closeTeam">Zamknij zespół</string>
+  <string name="closeTeamDescription">Zamyka zespół na zawsze.</string>
 </resources>

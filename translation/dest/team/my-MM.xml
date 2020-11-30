@@ -10,4 +10,6 @@
   <string name="youWayWantToLinkOneOfTheseTournaments">ကျင်းပရန် စီစဉ်ထားသော ဤပြိုင်ပွဲတို့သို့ ချိတ်ဆက်လိုပါသလား။</string>
   <string name="usersWhoCanManageThisTeam">ဤအသင်းအား စီမံခန့်ခွဲနိုင်သည့် ယူဇာများ</string>
   <string name="leadersChat">ခေါင်းဆောင်တို့ စကားပြောရန်</string>
+  <string name="closeTeam">အသင်းကို ဖျက်ပါ</string>
+  <string name="closeTeamDescription">အသင်းကို ထာဝရ ဖျက်သည်။</string>
 </resources>

@@ -592,6 +592,8 @@
   <string name="currentPassword">Поточний пароль</string>
   <string name="newPassword">Новий пароль</string>
   <string name="newPasswordAgain">Новий пароль (ще раз)</string>
+  <string name="newPasswordsDontMatch">Нові паролі не однакові</string>
+  <string name="newPasswordStrength">Надійність пароля</string>
   <string name="clockInitialTime">Початковий час годинника</string>
   <string name="clockIncrement">Приріст часу</string>
   <string name="privacy">Конфіденційність</string>

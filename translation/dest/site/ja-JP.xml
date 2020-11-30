@@ -502,6 +502,8 @@
   <string name="currentPassword">現在のパスワード</string>
   <string name="newPassword">新しいパスワード</string>
   <string name="newPasswordAgain">新しいパスワード（確認）</string>
+  <string name="newPasswordsDontMatch">新しいパスワードが一致しません</string>
+  <string name="newPasswordStrength">パスワードの強度</string>
   <string name="clockInitialTime">持時間</string>
   <string name="clockIncrement">追加時間</string>
   <string name="privacy">プライバシー（英文）</string>

@@ -532,6 +532,7 @@
   <string name="currentPassword">Κωδικός σε ισχύ</string>
   <string name="newPassword">Νέος κωδικός</string>
   <string name="newPasswordAgain">Νέος κωδικός (επαλήθευση)</string>
+  <string name="newPasswordStrength">Ισχύς Κωδικού Πρόσβασης</string>
   <string name="clockInitialTime">Ρολόι αρχικός χρόνος</string>
   <string name="clockIncrement">Ρολόι προσαύξηση</string>
   <string name="privacy">Απόρρητο</string>
