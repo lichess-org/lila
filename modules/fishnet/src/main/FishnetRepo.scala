@@ -1,8 +1,8 @@
 package lila.fishnet
 
+import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
-import org.joda.time.DateTime
 
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
@@ -25,13 +25,12 @@ final private class FishnetRepo(
 
   def getClient(key: Client.Key)        = clientCache get key
   def getEnabledClient(key: Client.Key) = getClient(key).map { _.filter(_.enabled) }
-  def getOfflineClient: Fu[Client]      = getEnabledClient(Client.offline.key) getOrElse fuccess(Client.offline)
-  def updateClient(client: Client): Funit =
-    clientColl.update.one(selectClient(client.key), client, upsert = true).void >>-
-      clientCache.invalidate(client.key)
+  def getOfflineClient: Fu[Client] =
+    getEnabledClient(Client.offline.key) getOrElse fuccess(Client.offline)
   def updateClientInstance(client: Client, instance: Client.Instance): Fu[Client] =
     client.updateInstance(instance).fold(fuccess(client)) { updated =>
-      updateClient(updated) inject updated
+      clientColl.update.one(selectClient(client.key), $set("instance" -> updated.instance)) >>-
+        clientCache.invalidate(client.key) inject updated
     }
   def addClient(client: Client)     = clientColl.insert.one(client)
   def deleteClient(key: Client.Key) = clientColl.delete.one(selectClient(key)) >>- clientCache.invalidate(key)
