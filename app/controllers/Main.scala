@@ -191,6 +191,7 @@ Allow: /
       Redirect("https://docs.google.com/spreadsheets/d/1CGgu-7aNxlZkjLl9l-OlL00fch06xp0Q7eCVDDakYEE/preview")
     }
 
+  // Lichess.org Title Verification
   def verifyTitle =
     Action { req =>
       pageHit(req)

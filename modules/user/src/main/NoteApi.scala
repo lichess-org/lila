@@ -65,7 +65,7 @@ final class NoteApi(
       to = to.id,
       text = text,
       mod = modOnly,
-      dox = modOnly && (dox || Title.fromUrl.toFideId(text).isDefined),
+      dox = modOnly && (dox || Title.fromUrl.toJSAId(text).isDefined),
       date = DateTime.now
     )
 

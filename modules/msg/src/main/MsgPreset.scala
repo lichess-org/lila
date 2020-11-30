@@ -72,7 +72,7 @@ Please also remember that, over the long run, ratings tend to gravitate towards 
 
 Warning: Username or profile that implies you are a titled player
 
-The username policy (https://github.com/ornicar/lila/wiki/Username-policy) for Lishogi states that you can't have a username that implies that you have a FIDE title or the Lishogi Master title, or impersonating a specific titled player. Actual titled players can verify using the form here (https://lishogi.org/verify-title) with evidence that documents their identity, e.g. a scanned ID card, driving license, passport or similar. We will then verify your identity and title, and your title will be shown in front of your username and on your Lishogi user profile. Since your username or profile implies that you have a title, we reserve the right to close your account within two weeks, if you have not verified your title within that time.
+The username policy (https://github.com/ornicar/lila/wiki/Username-policy) for Lishogi states that you can't have a username that implies that you have a JSA title or the Lishogi Master title, or impersonating a specific titled player. Actual titled players can verify using the form here (https://lishogi.org/verify-title) with evidence that documents their identity, e.g. a scanned ID card, driving license, passport or similar. We will then verify your identity and title, and your title will be shown in front of your username and on your Lishogi user profile. Since your username or profile implies that you have a title, we reserve the right to close your account within two weeks, if you have not verified your title within that time.
 
 """, /* ---------------------------------------------------------------*/ """
 
