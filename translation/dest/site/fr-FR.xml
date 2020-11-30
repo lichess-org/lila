@@ -191,7 +191,7 @@
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s problème</item>
-    <item quantity="other">%s puzzles</item>
+    <item quantity="other">%s problèmes</item>
   </plurals>
   <string name="gamesPlayed">Parties jouées</string>
   <plurals name="nbGamesWithYou">
@@ -228,7 +228,7 @@
   <string name="thisGameIsRated">Cette partie est classée</string>
   <string name="rematch">Revanche</string>
   <string name="rematchOfferSent">Proposition de revanche envoyée</string>
-  <string name="rematchOfferSentWhite">Les Blancs proposent de rejouer</string>
+  <string name="rematchOfferSentWhite">Les Blancs proposent une revanche</string>
   <string name="rematchOfferSentBlack">Les Noirs proposent de rejouer</string>
   <string name="rematchOfferAccepted">Proposition de revanche acceptée</string>
   <string name="rematchOfferCanceled">Proposition de revanche annulée</string>
@@ -268,7 +268,7 @@
   </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s en cours</item>
-    <item quantity="other">%s parties en cours</item>
+    <item quantity="other">%s en cours</item>
   </plurals>
   <string name="exportGames">Exporter les parties</string>
   <string name="ratingRange">Classement de vos adversaires</string>
@@ -291,7 +291,7 @@
   <string name="tournaments">Tournois</string>
   <string name="tournamentPoints">Score de tournoi</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="one">%s point en tournoi</item>
+    <item quantity="one">%s point de tournoi</item>
     <item quantity="other">%s points de tournoi</item>
   </plurals>
   <plurals name="nbStudies">
@@ -531,6 +531,8 @@
   <string name="currentPassword">Mot de passe actuel</string>
   <string name="newPassword">Nouveau mot de passe</string>
   <string name="newPasswordAgain">Nouveau mot de passe (encore)</string>
+  <string name="newPasswordsDontMatch">Les nouveaux mots de passe ne correspondent pas</string>
+  <string name="newPasswordStrength">Robustesse du mot de passe</string>
   <string name="clockInitialTime">Capital temps initial à la pendule</string>
   <string name="clockIncrement">Incrément de la pendule</string>
   <string name="privacy">Confidentialité</string>

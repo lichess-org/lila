@@ -532,6 +532,8 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="currentPassword">Gjeldande passord</string>
   <string name="newPassword">Nytt passord</string>
   <string name="newPasswordAgain">Nytt passord (igjen)</string>
+  <string name="newPasswordsDontMatch">Dei nye passorda stemmer ikkje overreins</string>
+  <string name="newPasswordStrength">Passordstyrke</string>
   <string name="clockInitialTime">Starttid på klokka</string>
   <string name="clockIncrement">Inkrement</string>
   <string name="privacy">Privatsfære</string>

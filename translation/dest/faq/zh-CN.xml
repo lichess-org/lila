@@ -20,6 +20,8 @@
   <string name="whyFlaggedRatingManipulationOrCheater">为什么我被标记为人为操纵分数 (伪装和欺骗) 或开外挂？</string>
   <string name="cheatDetectionMethods">Lichess具有一套强有力的侦查方法和非常彻底的审查所有证据和作出决定的程序。 这套程序往往涉及许多仲裁人，而且可能需要很长时间。 除了标记本身外，我们将不详细了解个别案件的证据或决策过程。 这样做将使今后更容易避免被发现，并且是邀请进行毫无结果的辩论。 这个时间和精力最好花在其他重要案件上。用户可以通过电子邮件 %1$s进行上诉，但是裁决很少被推翻。</string>
   <string name="whenAmIEligibleRatinRefund">我何时有资格从作弊者自动退还积分？</string>
+  <string name="ratingRefundExplanation">在棋手被标记1分钟后，他们在过去3天的40个最新评分对局被标记。 如果你下了这些对局并丢分 (因为输棋或者平局) ，而且你的评分不是暂时的，那么你所丢分数会返还。返还分数限制在不超过你的最高分和该对局应得分数。
+  (例如，如果你的评分在这些游戏后大幅增加，你可能得不到所有或部分返还分数) 。返回分数不会超过150分。</string>
   <string name="preventLeavingGameWithoutResigning">对没有认输就离开的玩家怎么处理？</string>
   <string name="leavingGameWithoutResigningExplanation">如果你的对手经常中止/离开游戏，他们会得到“游戏禁令”，这意味着他们被暂时禁止玩游戏。 这一点在他们的简介中没有公开说明。 如果这种行为继续下去，游戏禁令的期限就会延长――长期这种行为可能会导致帐户的关闭。</string>
   <string name="howCanIBecomeModerator">如何成为仲裁人？</string>
@@ -73,17 +75,37 @@ Lichess上的电脑分析是基于Stockfish的。</string>
   <string name="configure">配置</string>
   <string name="accounts">帐号</string>
   <string name="titlesAvailableOnLichess">Lichess 上有什么头衔？</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess承认所有OTB (在棋盘上) 对局得到的国际棋联称号，以及%1$s。以下列出这些国际棋联称号：</string>
+  <string name="showYourTitle">如果你有国际象棋称号，可以填写%1$s来申请将其显示在你的帐户上，需要一张你手持清晰身份证件/卡片的自拍照。
+
+在Lichess上验证国际象棋称号的用户可以在国际象棋称号专用竞技场中下棋。
+
+最后，网站有一个%2$s荣誉称号。</string>
   <string name="asWellAsManyNMtitles">许多国家级大师头衔</string>
   <string name="verificationForm">验证表格</string>
   <string name="canIbecomeLM">我可以获得 Lichess 大师 (LM) 头衔吗？</string>
   <string name="noUpperCaseDot">不能。</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">这个荣誉称号是非正式的，只存在于Lichess上。
+
+极少数情况下我们会决定把它授予那些优秀的著名Lichess公民。不是你去获取LM称号，而是LM称号找上你。如果你有资格，会收到我们的消息，并选择接受或拒绝。
+
+不要主动要求LM称号。</string>
   <string name="whatUsernameCanIchoose">我的用户名可以是什么？</string>
+  <string name="usernamesNotOffensive">一般而言，用户名不应该是攻击性、冒用他人或广告。你可以阅读更多关于%1$s 的信息。</string>
   <string name="guidelines">指南</string>
   <string name="uniqueTrophies">独一无二的奖杯</string>
+  <string name="ownerUniqueTrophies">这个奖杯在Lichess历史上是独一无二的，除了%1$s，任何人都不会有。</string>
+  <string name="wayOfBerserkExplanation">为了获得它，hiimgosu疯狂挑战他自己并赢得100%%的%s。</string>
   <string name="aHourlyBulletTournament">一小时子弹快棋锦标赛</string>
+  <string name="goldenZeeExplanation">ZugAddict当时在直播，他两个小时里一直试图在1+0的棋局中打败第八级的A.I.，但没有成功。Thibault告诉他，如果他直播时成功地做到这个，他就会得到一个独一无二的奖杯。一个小时后，他打败了鳕鱼，承诺得到兑现。</string>
   <string name="lichessRatings">Lichess 排名</string>
   <string name="whichRatingSystemUsedByLichess">Lichess 使用什么排名系统？</string>
   <string name="whatIsProvisionalRating">为什么在分数旁边有一个问号 (?) ？</string>
+  <string name="provisionalRatingExplanation">问号标记表示等级分是暂时的。原因包括：</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">该用户还没有在评分对局中与%1$s完成足够多的评分棋局。</string>
+  <string name="similarOpponents">相近实力的对手</string>
+  <string name="notPlayedRecently">用户最近没有下足够多的棋局。根据你下过的对局数量，你的等级分可能需要一年左右的不活跃状态才会再次变成暂时性的。</string>
+  <string name="ratingDeviationMorethanOneHundredTen">具体地说，这表示Glicko-2标准差大于110。标准差是等级分的可靠性，标准差越低，等级分就越稳定。</string>
   <string name="howDoLeaderoardsWork">排名及排行榜是如何运作的呢？</string>
   <string name="inOrderToAppearsYouMust">为了登上%1$s您必须：</string>
   <string name="ratingLeaderboards">排行榜：</string>
@@ -92,6 +114,7 @@ Lichess上的电脑分析是基于Stockfish的。</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">标准国际象棋棋局的排名偏差小于 %1$s，变体棋局的排名偏差小于 %2$s，</string>
   <string name="beInTopTen">在此排名中获得前十。</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">第二项要求是为了让不再使用它们的帐号的棋手停止占用排行榜。</string>
+  <string name="whyAreRatingHigher">为什么等级分相比其他网站和组织要更高，比如国际棋联、美国棋联和国际象棋俱乐部？</string>
   <string name="howToHideRatingWhilePlaying">如何在对局时隐藏分数？</string>
   <string name="enableZenMode">在 %1$s或在游戏中按 %2$s 开启贤者模式。</string>
   <string name="displayPreferences">显示偏好</string>

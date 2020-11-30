@@ -411,6 +411,7 @@
   <string name="currentPassword">Pasfhocal reatha</string>
   <string name="newPassword">Pasfhocal nua</string>
   <string name="newPasswordAgain">Pasfhocal nua (arís)</string>
+  <string name="newPasswordStrength">Neart pasfhocail</string>
   <string name="clockInitialTime">Am tosaithe ar an gclog</string>
   <string name="clockIncrement">Am le cur leis an gclog</string>
   <string name="privacy">Príobháideachas</string>

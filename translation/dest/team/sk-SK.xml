@@ -48,4 +48,6 @@ Hráči, ktorí nemajú radi prijímanie vašich správ, môžu opustiť váš t
   <string name="youWayWantToLinkOneOfTheseTournaments">Možno by ste chceli prepojiť jeden z týchto nadchádzajúcich turnajov?</string>
   <string name="usersWhoCanManageThisTeam">Užívatelia, ktorí môžu spravovať tento tím</string>
   <string name="leadersChat">Čet lídrov</string>
+  <string name="closeTeam">Rozpustiť tím</string>
+  <string name="closeTeamDescription">Nevratne rozpustí tím.</string>
 </resources>

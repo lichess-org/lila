@@ -42,4 +42,6 @@ I giocatori a cui non piace ricevere i tuoi messaggi potrebbero lasciare la squa
   <string name="youWayWantToLinkOneOfTheseTournaments">Potresti voler collegare uno di questi prossimi tornei?</string>
   <string name="usersWhoCanManageThisTeam">Utenti che possono gestire questo team</string>
   <string name="leadersChat">Chat dei leader</string>
+  <string name="closeTeam">Chiudi la squadra</string>
+  <string name="closeTeamDescription">Chiude la squadra per sempre.</string>
 </resources>

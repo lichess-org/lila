@@ -11,6 +11,7 @@
   <string name="howCanIContributeToLichess">Ako môžem prispieť stránke Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess je poháňaný darmi od patrónov a úsilím tímu dobrovoľníkov.</string>
   <string name="findMoreAndSeeHowHelp">Viac informácii o %1$s (vrátane %2$s). Ak chcete pomôcť stránke Lichess, tým že ponúknete váš čas a zručnosti, existuje veľa %3$s.</string>
+  <string name="beingAPatron">byť patrónom</string>
   <string name="otherWaysToHelp">iIné možnosti ako pomôcť</string>
   <string name="areThereWebsitesBasedOnLichess">Sú nejaké webstránky založené na Lichessi?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Áno. Lichess vskutku inšpiroval iné open-source stránky, ktoré používajú náš %1$s, %2$s, alebo %3$s.</string>
@@ -52,6 +53,8 @@ Napríklad, odhadované trvanie 5+3 partie je 5 × 60 + 40 × 3 = 420 sekúnd.</
   <string name="lichessRatings">Lichess ratingy</string>
   <string name="whichRatingSystemUsedByLichess">Aký ratingový systém používa Lichess?</string>
   <string name="whatIsProvisionalRating">Prečo má niekto otáznik (?) vedľa ratingu?</string>
+  <string name="provisionalRatingExplanation">Otáznik znamená, že rating je provizórny. Je to spôsobené:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Hráč ešte nedokončil dostatočný počet hodnotených hier proti %1$s v kategórii ratingu.</string>
   <string name="similarOpponents">súperi podobnej sily</string>
   <string name="howDoLeaderoardsWork">Ako fungujú umiestnenia a rebríčky?</string>
   <string name="inOrderToAppearsYouMust">Aby ste sa dostali do %1$s, musíte:</string>

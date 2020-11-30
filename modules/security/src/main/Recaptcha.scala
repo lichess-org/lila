@@ -71,7 +71,7 @@ final class RecaptchaGoogle(
             lila.mon.security.recaptcha.hit(client, "success").increment()
             fuccess(res.success && res.hostname == netDomain.value)
           case JsError(err) =>
-            res.body[JsValue].validate[BadResponse].asOpt.pp match {
+            res.body[JsValue].validate[BadResponse].asOpt match {
               case Some(err) if err.missingInput =>
                 logger.info(s"recaptcha missing ${HTTPRequest printClient req}")
                 lila.mon.security.recaptcha.hit(client, "missing").increment()

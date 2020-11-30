@@ -561,6 +561,8 @@
   <string name="currentPassword">Esošā parole</string>
   <string name="newPassword">Jaunā parole</string>
   <string name="newPasswordAgain">Jaunā parole (atkārtoti)</string>
+  <string name="newPasswordsDontMatch">Jaunās paroles nesaskan</string>
+  <string name="newPasswordStrength">Paroles stiprums</string>
   <string name="clockInitialTime">Sākotnējais pulksteņa laiks</string>
   <string name="clockIncrement">Laika pieaugums</string>
   <string name="privacy">Privātums</string>

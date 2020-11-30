@@ -455,7 +455,7 @@
   <string name="activeToday">Бүгінгі белсенділер</string>
   <string name="activePlayers">Белсенділер</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Ескерту - ойын бағаланады, бірақ сағатсыз өтеді!</string>
-  <string name="yourPuzzleRatingX">Жұмбақ шешудегі рейтингіңіз: %s</string>
+  <string name="yourPuzzleRatingX">Жұмбақ шешу рейтингіңіз: %s</string>
   <string name="findTheBestMoveForWhite">Ақтар пайдасына ең дұрыс жүрісті табыңыз.</string>
   <string name="findTheBestMoveForBlack">Қаралар пайдасына ең дұрыс жүрісті табыңыз.</string>
   <string name="toTrackYourProgress">Даму жолын қадағалау үшін:</string>
@@ -532,6 +532,7 @@
   <string name="newPassword">Жаңа кұпиясөз</string>
   <string name="newPasswordAgain">Жаңа құпиясөз (қайтадан)</string>
   <string name="newPasswordsDontMatch">Жаңа құпиясөздер бірдей емес</string>
+  <string name="newPasswordStrength">Құпиясөздің беріктігі</string>
   <string name="clockInitialTime">Сағаттың бастапқы уақыты</string>
   <string name="clockIncrement">Уақыт қосылғышы</string>
   <string name="privacy">Даралық</string>
