@@ -199,6 +199,8 @@
     <item quantity="other">%s mängu sinuga</item>
   </plurals>
   <string name="cancel">Katkesta</string>
+  <string name="whiteTimeOut">Valgete aeg on läbi</string>
+  <string name="blackTimeOut">Mustade aeg on läbi</string>
   <string name="drawOfferSent">Viigi pakkumine saadetud</string>
   <string name="drawOfferDeclined">Viigi pakkumine tagasi lükatud</string>
   <string name="drawOfferAccepted">Viigi pakkumine vastu võetud</string>
