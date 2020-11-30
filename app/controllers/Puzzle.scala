@@ -131,12 +131,10 @@ final class Puzzle(
           .bindFromRequest()
           .fold(
             jsonFormError,
-            vote =>
-              env.puzzle.api.vote.update(Puz.Id(id), me, vote) map { newVote =>
-                if (vote has true) lila.mon.puzzle.vote.up.increment()
-                else if (vote has false) lila.mon.puzzle.vote.down.increment()
-                jsonOkResult
-              }
+            vote => {
+              lila.mon.puzzle.vote(vote).increment()
+              env.puzzle.api.vote.update(Puz.Id(id), me, vote) inject jsonOkResult
+            }
           )
       }
     }

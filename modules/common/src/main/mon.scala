@@ -432,11 +432,8 @@ object mon {
       def attempt(user: Boolean, theme: String) =
         counter("puzzle.attempt.count").withTags(Map("user" -> user, "theme" -> theme))
     }
-    object vote {
-      val up   = counter("puzzle.vote.count").withTag("dir", "up")
-      val down = counter("puzzle.vote.count").withTag("dir", "down")
-    }
-    val crazyGlicko = counter("puzzle.crazyGlicko").withoutTags()
+    def vote(up: Boolean) = counter("puzzle.vote.count").withTag("dir", if (up) "up" else "down")
+    val crazyGlicko       = counter("puzzle.crazyGlicko").withoutTags()
   }
   object game {
     def finish(variant: String, speed: String, source: String, mode: String, status: String) =

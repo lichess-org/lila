@@ -41,23 +41,20 @@ final private[puzzle] class PuzzleApi(
 
   object vote {
 
-    def update(id: Puzzle.Id, user: User, vote: Option[Boolean]): Funit =
+    def update(id: Puzzle.Id, user: User, vote: Boolean): Funit =
       colls.round {
         _.ext
           .findAndUpdate[PuzzleRound](
             $id(PuzzleRound.Id(user.id, id)),
-            vote match {
-              case None    => $unset(PuzzleRound.BSONFields.vote)
-              case Some(v) => $set($doc(PuzzleRound.BSONFields.vote -> v))
-            }
+            $set($doc(PuzzleRound.BSONFields.vote -> vote))
           )
-      } flatMap {
-        case Some(prevRound) if prevRound.vote != vote =>
+      } flatMap { prevRound =>
+        prevRound.map(_.vote).filter(vote !=) ?? { prevVote =>
           def voteToInt(v: Option[Boolean]) = v ?? { w => if (w) 1 else -1 }
           colls.puzzle {
-            _.incField($id(id), F.vote, voteToInt(vote) - voteToInt(prevRound.vote)).void
+            _.incField($id(id), F.vote, voteToInt(vote.some) - voteToInt(prevVote)).void
           }
-        case _ => funit
+        }
       }
   }
 

@@ -5,20 +5,16 @@
 
   .half-top {
     @extend %flex-center-nowrap;
-
-    padding: 1em;
+    padding: 1em 0;
   }
 
   .complete {
     @extend %flex-center;
+    justify-content: center;
     flex: 1 0;
     font-size: 1.3em;
     border: none;
     white-space: nowrap;
-  }
-
-  .complete.win {
-    align-items: flex-start;
   }
 
   .continue {
@@ -44,5 +40,51 @@
   .continue i::before {
     font-size: 2.5em;
     margin-right: 10px;
+  }
+}
+
+.puzzle__vote {
+  @extend %flex-column;
+
+  &__help {
+    margin: 0 1em 1em 1em;
+  }
+
+  &__buttons {
+    @extend %flex-center;
+    text-align: center;
+  }
+
+  .vote {
+    flex: 0 0 50%;
+    cursor: pointer;
+
+    color: $c-good;
+    &.vote-down {
+      color: $c-bad;
+      transform: rotate(0.5turn);
+    }
+
+    &::before {
+      @extend %data-icon;
+      content: 'h';
+      font-size: 6em;
+      line-height: 1.5em;
+    }
+
+    &.vote-down::before {
+      transform: rotate(45deg);
+    }
+
+    &:hover,
+    &.active {
+      background: $c-good;
+      color: $c-good-over;
+    }
+
+    &.vote-down:hover,
+    &.vote-down.active {
+      background: $c-bad;
+    }
   }
 }

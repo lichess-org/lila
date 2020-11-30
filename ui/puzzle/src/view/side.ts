@@ -48,9 +48,9 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
 
 export function theme(ctrl: Controller): VNode {
   return h('div.puzzle__side__theme', [
-    h('h2', ctrl.getData().theme.name),
+    h('a', { attrs: { href: '/training/themes' } }, h('h2', ctrl.getData().theme.name)),
     h('p', ctrl.getData().theme.desc),
-    h('a', { attrs: { href: '/training/themes' } }, 'Other themes »')
+    h('a.more', { attrs: { href: '/training/themes' } }, 'Other themes »')
   ])
 }
 
@@ -58,9 +58,7 @@ export function userBox(ctrl: Controller): VNode {
   const data = ctrl.getData();
   if (!data.user) return h('div.puzzle__side__user', [
     h('p', ctrl.trans.noarg('toTrackYourProgress')),
-    h('button.button', {
-      attrs: { href: '/signup' }
-    }, ctrl.trans.noarg('signUp'))
+    h('button.button', { attrs: { href: '/signup' } }, ctrl.trans.noarg('signUp'))
   ]);
   const diff = ctrl.vm.round?.ratingDiff;
   return h('div.puzzle__side__user', [

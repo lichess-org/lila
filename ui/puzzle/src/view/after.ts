@@ -4,8 +4,9 @@ import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 
 const renderVote = (ctrl: Controller): VNode => h('div.puzzle__vote', [
-  h('div.puzzle__vote__help', [
-    h('p', ctrl.trans.noarg('didYouLikeThisPuzzle')),
+  ctrl.session.store().rounds.length ? null : h('div.puzzle__vote__help', [
+    ctrl.trans.noarg('didYouLikeThisPuzzle'),
+    h('br'),
     ctrl.trans.noarg('voteToLoadNextOne'),
   ]),
   h('div.puzzle__vote__buttons', [
