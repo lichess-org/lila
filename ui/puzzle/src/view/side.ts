@@ -54,9 +54,14 @@ export function theme(ctrl: Controller): VNode {
   ])
 }
 
-export function userBox(ctrl: Controller): MaybeVNode {
+export function userBox(ctrl: Controller): VNode {
   const data = ctrl.getData();
-  if (!data.user) return;
+  if (!data.user) return h('div.puzzle__side__user', [
+    h('p', ctrl.trans.noarg('toTrackYourProgress')),
+    h('button.button', {
+      attrs: { href: '/signup' }
+    }, ctrl.trans.noarg('signUp'))
+  ]);
   const diff = ctrl.vm.round?.ratingDiff;
   return h('div.puzzle__side__user', [
     h('p.puzzle__side__user__rating', ctrl.trans.vdom('yourPuzzleRatingX', h('strong', [

@@ -41,7 +41,7 @@ object coordinate {
             }
             else
               div(cls := "register")(
-                p(trans.toTrackYourProgress()),
+                p(trans.puzzle.toTrackYourProgress()),
                 p(cls := "signup")(
                   a(cls := "button", href := routes.Auth.signup())(trans.signUp())
                 )

@@ -6,5 +6,25 @@
   <string name="lengths">Lengths</string>
   <string name="mates">Mates</string>
   <string name="didYouLikeThisPuzzle">Did you like this puzzle?</string>
-  <string name="voteToLoadNextOne">Vote to load the next one</string>
+  <string name="voteToLoadNextOne">Vote to load the next one!</string>
+  <string name="yourPuzzleRatingX">Your puzzle rating: %s</string>
+  <string name="findTheBestMoveForWhite">Find the best move for white.</string>
+  <string name="findTheBestMoveForBlack">Find the best move for black.</string>
+  <string name="toTrackYourProgress">To track your progress:</string>
+  <string name="puzzleId">Puzzle %s</string>
+  <string name="puzzleOfTheDay">Puzzle of the day</string>
+  <string name="clickToSolve">Click to solve</string>
+  <string name="goodMove">Good move</string>
+  <string name="bestMove">Best move!</string>
+  <string name="keepGoing">Keep going…</string>
+  <string name="puzzleFailed">Puzzle failed</string>
+  <string name="butYouCanKeepTrying">But you can keep trying.</string>
+  <string name="ratingX">Rating: %s</string>
+  <string name="hidden">hidden</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Played %s time</item>
+    <item quantity="other">Played %s times</item>
+  </plurals>
+  <string name="fromGameLink">From game %s</string>
+  <string name="continueTraining">Continue training</string>
 </resources>

@@ -34,8 +34,8 @@ object show {
           url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id.value).url}",
           description = s"Lichess tactic trainer: " + puzzle.color
             .fold(
-              trans.findTheBestMoveForWhite,
-              trans.findTheBestMoveForBlack
+              trans.puzzle.findTheBestMoveForWhite,
+              trans.puzzle.findTheBestMoveForBlack
             )
             .txt() + s" Played by ${puzzle.plays} players."
         )
