@@ -42,4 +42,6 @@ Spelarar som ikkje er interesserte i å få meldingar kan kome til å forlate gr
   <string name="youWayWantToLinkOneOfTheseTournaments">Du vil kan hende lage ei lenke til ei av desse kommande turneringane?</string>
   <string name="usersWhoCanManageThisTeam">Brukarar som kan administrere denne gruppa</string>
   <string name="leadersChat">Chatt for gruppeleiarar</string>
+  <string name="closeTeam">Steng ned laget</string>
+  <string name="closeTeamDescription">Steng laget for all framtid.</string>
 </resources>
