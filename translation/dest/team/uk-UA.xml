@@ -48,4 +48,6 @@
   <string name="youWayWantToLinkOneOfTheseTournaments">Можливо, Ви захочете приєднати посилання на один з цих турнірів?</string>
   <string name="usersWhoCanManageThisTeam">Користувачі, які можуть керувати цією командою</string>
   <string name="leadersChat">Чат лідерів</string>
+  <string name="closeTeam">Закрити команду</string>
+  <string name="closeTeamDescription">Закриває команду назавжди.</string>
 </resources>
