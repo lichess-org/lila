@@ -27,4 +27,12 @@
     <item quantity="one">%s luttøkuumbøn</item>
     <item quantity="other">%s luttøkuumbønir</item>
   </plurals>
+  <string name="willBeReviewed">Liðleiðarin metir um luttøkuumbøn tína.</string>
+  <string name="beingReviewed">Liðleiðarin metir í løtuni um luttøkuumbøn tína.</string>
+  <string name="teamBattle">Fleiri lið berjast</string>
+  <string name="teamBattleOverview">Fleiri lið stríðast, hvør leikari vinnur sínum liði stig</string>
+  <string name="teamTournament">Innanhýsis kapping</string>
+  <string name="teamTournamentOverview">Arena kapping, ið bert limir á tínum liði kunnu taka lut í</string>
+  <string name="messageAllMembers">Gev øllum limum boð</string>
+  <string name="messageAllMembersOverview">Send eini boð til hvønn lim á liðnum</string>
 </resources>
