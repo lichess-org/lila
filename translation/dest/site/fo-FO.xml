@@ -185,6 +185,10 @@
   <string name="eventInProgress">Telvað beint nú</string>
   <string name="finished">Liðugt</string>
   <string name="finishesX">endar %s</string>
+  <string name="abortGame">Enda talvið</string>
+  <string name="gameAborted">Talvið er endað</string>
+  <string name="standard">Vanligt</string>
+  <string name="unlimited">Óavmarkað</string>
   <string name="thisGameIsRated">Hetta talv verður styrkimett</string>
   <string name="rematch">Umaftur</string>
   <string name="rematchOfferSent">Tilboð um nýtt talv sent</string>
@@ -331,6 +335,10 @@
   <string name="human">Menniskja</string>
   <string name="computer">Telda</string>
   <string name="clock">Klokka</string>
+  <string name="noInternetConnection">Einki internetsamband. Tú kanst enn telva offline.</string>
+  <string name="connectedToLichess">Tú hevur nú samband við lichess.org</string>
+  <string name="signedOut">Tú ert útritaður</string>
+  <string name="loginSuccessful">Tú ert nú innritað/ur</string>
   <string name="playOfflineComputer">Telda</string>
   <string name="opponent">Mótleikari</string>
   <string name="learnMenu">Lær</string>
@@ -362,6 +370,17 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Um tú ikki sært teldupostin, kanna onnur støð, hann kann vera. Eitt nú í junk, spam, social ella øðrum faldarum.</string>
   <string name="weHaveSentYouAnEmailTo">Vit hava sent %s ein teldupost. Klikk á leinkið í teldupostinum at endurseta títt loyniorð.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Við at skráseta teg, samtykkir tú í at vera bundin av okkara %s.</string>
+  <string name="playChessEverywhere">Telva allastaðni</string>
+  <string name="asFreeAsLichess">Ókeypis sum Lichess</string>
+  <string name="viewTheSolution">Síggj svarið</string>
+  <string name="followAndChallengeFriends">Fylg vinum og bjóða teimum av</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">Tøkt á %s máli!</item>
+    <item quantity="other">Tøkt á %s málum!</item>
+  </plurals>
+  <string name="gameAnalysis">Talvgreining</string>
+  <string name="anonymous">Dulnevnt</string>
+  <string name="yourScore">Títt stigatal: %s</string>
   <string name="language">Mál</string>
   <string name="background">Bakgrund</string>
   <string name="light">Ljóst</string>
@@ -436,6 +455,7 @@
   <string name="yourXRatingIsTooFarFromY">Títt %1$s styrkital er ov langt frá %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Fær ikki bjóðað av vegna fyribils %s styrkital.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s tekur bert við avbjóðingum frá vinum.</string>
+  <string name="playX">Telva %s</string>
   <string name="sorry">Orsaka :(</string>
   <string name="weHadToTimeYouOutForAWhile">Vit noyddust at geva tær leikbrá eina tíð.</string>
   <string name="timeoutExpires">Leikbráin gongur út %s.</string>
@@ -450,4 +470,6 @@
   <string name="temporaryInconvenience">Vit biðja teg halda okkum til góðar fyri fyribils órógvanina</string>
   <string name="wishYouGreatGames">og ynskja tær nógv góð talv á lichess.org.</string>
   <string name="thankYouForReading">Takk fyri, at tú las hetta!</string>
+  <string name="important">Umráðandi</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Spurningur tín hevur kanska longu eitt svar %1$s</string>
 </resources>
