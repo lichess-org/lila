@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Spæl ímóti einum vini</string>
-  <string name="playWithTheMachine">Spæl ímóti telduni</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Bjóða einum til at telva við at geva hesa adressuna</string>
+  <string name="playWithAFriend">Telva móti einum vini</string>
+  <string name="playWithTheMachine">Telva móti telduni</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Bjóða einum at telva við at geva honum hesa adressuna</string>
   <string name="gameOver">Talvið er liðugt</string>
   <string name="waitingForOpponent">Bíði eftir móttelvara</string>
   <string name="waiting">Bíða</string>
-  <string name="yourTurn">Títt tørn</string>
-  <string name="aiNameLevelAiLevel">%1$s støði %2$s</string>
+  <string name="yourTurn">Tú eigur leik</string>
+  <string name="aiNameLevelAiLevel">%1$s stig %2$s</string>
   <string name="level">Støði</string>
   <string name="toggleTheChat">Goym/Vís kjatt</string>
   <string name="toggleSound">Slá ljóð til/frá</string>
