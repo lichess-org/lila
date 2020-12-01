@@ -5,4 +5,6 @@
   <string name="averageScoreAsWhiteX">Miðal stigatal við hvítum: %s</string>
   <string name="averageScoreAsBlackX">Miðal stigatal við svørtum: %s</string>
   <string name="knowingTheChessBoard">At kenna krosstølini á talvborðinum er ein týdningarmikil telvingarførleiki:</string>
+  <string name="mostChessCourses">Flestu talvskeið og talvuppgávur nýta bókstavarokningarskriviháttin (algebra).</string>
+  <string name="talkToYourChessFriends">Tað ger tað lættari at práta við talvvinir, at tit øll kenna \'talvmálið\'.</string>
 </resources>
