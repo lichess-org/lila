@@ -16,4 +16,10 @@
   <string name="xCoachesStudents">%s venur talvnæmingar</string>
   <string name="viewXProfile">Hygg at %s Lichess vangamynd</string>
   <string name="sendPM">Send eini boð í trúnaði</string>
+  <string name="aboutMe">Um meg</string>
+  <string name="playingExperience">Royndir sum telvari</string>
+  <string name="teachingExperience">Royndir sum undirvísari</string>
+  <string name="otherExperiences">Aðrar royndir</string>
+  <string name="bestSkills">Bestu førleikar</string>
+  <string name="teachingMethod">Frálæruháttur</string>
 </resources>
