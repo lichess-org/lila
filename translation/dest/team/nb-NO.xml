@@ -42,4 +42,6 @@ Spillere som ikke liker å motta meldinger fra deg, kan komme til å forlate lag
   <string name="youWayWantToLinkOneOfTheseTournaments">Du vil kanskje lage en lenke til en av disse kommende turneringene?</string>
   <string name="usersWhoCanManageThisTeam">Brukere som kan administrere dette laget</string>
   <string name="leadersChat">Ledersamtale</string>
+  <string name="closeTeam">Legg ned laget</string>
+  <string name="closeTeamDescription" comment="closeTeamDescription&#10;&#10;If you click this, your team will be closed forever.">Legger ned laget for alltid.</string>
 </resources>
