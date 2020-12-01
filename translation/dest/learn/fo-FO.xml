@@ -13,13 +13,13 @@
   <string name="rookIntro">Rókurin er eitt sterkt talvfólk. Ert tú til reiðar at valda yvir honum?</string>
   <string name="rookGoal">Trýst á rókin fyri at fáa hann til stjørnuna!</string>
   <string name="grabAllTheStars">Tak allar stjørnurnar!</string>
-  <string name="theFewerMoves">Færri trekk tú brúkar, meira stig fært tú!</string>
-  <string name="useTwoRooks">Nýt tveir rókar fyri at økjs um ferðina!</string>
+  <string name="theFewerMoves">Færri leikir, tú gert, fleiri stig fært tú!</string>
+  <string name="useTwoRooks">Nýt tveir rókar at økja um ferðina!</string>
   <string name="rookComplete">Til lukku! Nú dugir tú at flyta við rókinum.</string>
   <string name="theBishop">Bispurin</string>
   <string name="itMovesDiagonally">Hann flytur á skák</string>
   <string name="bishopIntro">Nú læra vit, hvussu bispurin flytur!</string>
-  <string name="youNeedBothBishops">Ein bispur stendur á teimum hvítu puntunum, og ein stendur á teimum svørtu puntunum!</string>
+  <string name="youNeedBothBishops">Ein hvítpuntaður bispur og ein svartpuntaður bispur. Tær tørvar báðar!</string>
   <string name="bishopComplete">Til lukku! Nú dugir tú at flyta bisparnar.</string>
   <string name="theQueen">Frúgvin</string>
   <string name="queenCombinesRookAndBishop">Frúgv = rókur + bispur</string>
