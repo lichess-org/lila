@@ -146,6 +146,27 @@
   <string name="changeEmail">Broyt teldupost</string>
   <string name="email">teldupost</string>
   <string name="forgotPassword">Gloymt loyniorð?</string>
+  <string name="rank">Tign (støða)</string>
+  <string name="rankX">Tign (støða): %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Tign/støða verður dagførd hvønn minutt</item>
+    <item quantity="other">Tign/støða verður dagførd %s minuttir ímillum</item>
+  </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s uppgáva</item>
+    <item quantity="other">%s uppgávur</item>
+  </plurals>
+  <string name="gamesPlayed">Talv telvað</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s talv móti tær</item>
+    <item quantity="other">%s talv móti tær</item>
+  </plurals>
+  <string name="cancel">Ógilda</string>
+  <string name="whiteTimeOut">Tíð uppi hjá hvítum</string>
+  <string name="blackTimeOut">Tíð uppi hjá svørtum</string>
+  <string name="drawOfferSent">Tilboð um javnleik sent</string>
+  <string name="drawOfferDeclined">Tilboð um javnleik noktað</string>
+  <string name="drawOfferAccepted">Tilboð um javnleik góðtikið</string>
   <string name="blackOffersDraw">Svartur bjóðar javnt</string>
   <string name="finished">Liðugt</string>
   <string name="rematch">Umaftur</string>
