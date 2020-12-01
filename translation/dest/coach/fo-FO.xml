@@ -22,4 +22,14 @@
   <string name="otherExperiences">Aðrar royndir</string>
   <string name="bestSkills">Bestu førleikar</string>
   <string name="teachingMethod">Frálæruháttur</string>
+  <string name="publicStudies">Almennar kanningar</string>
+  <string name="youtubeVideos">You Tube sjónfílur</string>
+  <plurals name="studentReviews">
+    <item quantity="one">Eitt næmingaummæli</item>
+    <item quantity="other">%s næmingaummæli</item>
+  </plurals>
+  <string name="thankYouForReview">Takk fyri ummælið!</string>
+  <string name="xWillApproveIt">%s góðtekur hetta sum skjótast, ella ein fyriskipari metir um tað.</string>
+  <string name="reviewCoach">Ummæl henda venjaran</string>
+  <string name="describeExperienceWith">Lýs tínar venjingarupplivingar við %s</string>
 </resources>
