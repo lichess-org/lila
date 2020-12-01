@@ -1,20 +1,21 @@
 .puzzle__feedback.after {
-  .half {
-    flex: 1 1 50%;
-  }
-
-  .half-top {
-    @extend %flex-center-nowrap;
-    padding: 1em 0;
+  flex-flow: row nowrap;
+  @include breakpoint($mq-col2) {
+    flex-flow: column;
   }
 
   .complete {
     @extend %flex-center;
+
     justify-content: center;
-    flex: 1 0;
+    flex: 1 1 50%;
     font-size: 1.3em;
     border: none;
     white-space: nowrap;
+
+    @include breakpoint($mq-col2) {
+      margin: 1.2em 0 1em 0;
+    }
   }
 
   .continue {
@@ -31,49 +32,64 @@
     @include breakpoint($mq-landscape) {
       order: 0;
     }
-  }
 
-  .continue:hover {
-    background: lighten($c-primary, 10%);
-  }
+    &:hover {
+      background: lighten($c-primary, 10%);
+    }
 
-  .continue i::before {
-    font-size: 2.5em;
-    margin-right: 10px;
+    i::before {
+      font-size: 2.5em;
+      margin-right: 10px;
+    }
   }
 }
 
 .puzzle__vote {
   @extend %flex-column;
 
+  flex: 1 1 50%;
+
   &__help {
-    margin: 0 1em 1em 1em;
+    margin: 1em;
+    p {
+      display: inline;
+      &:last-child {
+        margin-left: 1ch;
+      }
+    }
+    @include breakpoint($mq-col2) {
+      display: block;
+    }
   }
 
   &__buttons {
-    @extend %flex-center;
+    @extend %flex-center-nowrap;
+
+    flex: 1 1 100%;
+    align-items: stretch;
     text-align: center;
   }
 
   .vote {
+    @extend %flex-center;
+    justify-content: center;
     flex: 0 0 50%;
     cursor: pointer;
-
     color: $c-good;
+
     &.vote-down {
       color: $c-bad;
-      transform: rotate(0.5turn);
     }
 
     &::before {
       @extend %data-icon;
+
       content: 'h';
-      font-size: 6em;
-      line-height: 1.5em;
+      font-size: 5em;
     }
 
     &.vote-down::before {
-      transform: rotate(45deg);
+      transform: rotate(0.5turn);
     }
 
     &:hover,

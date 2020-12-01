@@ -4,11 +4,10 @@ import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 
 const renderVote = (ctrl: Controller): VNode => h('div.puzzle__vote', [
-  ctrl.session.store().rounds.length ? null : h('div.puzzle__vote__help', [
-    ctrl.trans.noarg('didYouLikeThisPuzzle'),
-    h('br'),
-    ctrl.trans.noarg('voteToLoadNextOne'),
-  ]),
+  ctrl.session.isNew() ? h('div.puzzle__vote__help', [
+    h('p', ctrl.trans.noarg('didYouLikeThisPuzzle')),
+    h('p', ctrl.trans.noarg('voteToLoadNextOne'))
+  ]) : null,
   h('div.puzzle__vote__buttons', [
     h('div.vote.vote-up', {
       hook: bind('click', () => ctrl.vote(true))
@@ -20,7 +19,7 @@ const renderVote = (ctrl: Controller): VNode => h('div.puzzle__vote', [
 ]);
 
 const renderContinue = (ctrl: Controller) =>
-  h('a.half.continue', {
+  h('a.continue', {
     hook: bind('click', ctrl.nextPuzzle)
   }, [
     h('i', { attrs: dataIcon('G') }),
@@ -30,12 +29,10 @@ const renderContinue = (ctrl: Controller) =>
 export default function(ctrl: Controller): VNode {
   const data = ctrl.getData();
   return h('div.puzzle__feedback.after', [
-    h('div.half.half-top', [
-      ctrl.vm.lastFeedback === 'win' ? h('div.complete.feedback.win', h('div.player', [
-        h('div.icon', '✓'),
-        h('div.instruction', ctrl.trans.noarg('success'))
-      ])) : h('div.complete', 'Puzzle complete!')
-    ]),
+    ctrl.vm.lastFeedback === 'win' ? h('div.complete.feedback.win', h('div.player', [
+      h('div.icon', '✓'),
+      h('div.instruction', ctrl.trans.noarg('success'))
+    ])) : h('div.complete', 'Puzzle complete!'),
     data.user ? renderVote(ctrl) : renderContinue(ctrl)
   ]);
 }

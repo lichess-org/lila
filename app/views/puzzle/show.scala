@@ -44,12 +44,11 @@ object show {
     ) {
       main(cls := "puzzle")(
         st.aside(cls := "puzzle__side")(
-          div(cls := "puzzle__side__metas")(spinner)
+          div(cls := "puzzle__side__metas")
         ),
         div(cls := "puzzle__board main-board")(chessgroundBoard),
         div(cls := "puzzle__tools"),
-        div(cls := "puzzle__controls"),
-        div(cls := "puzzle__history")
+        div(cls := "puzzle__controls")
       )
     }
 }

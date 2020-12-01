@@ -57,10 +57,11 @@
 
   flex: 1 0 9rem;
 
-  @include breakpoint($mq-tall) {
-    flex: 1 0 11rem;
+  @include breakpoint($mq-col2) {
+    @include breakpoint($mq-tall) {
+      flex: 1 0 11rem;
+    }
   }
-
 
   background: $c-bg-high;
   justify-content: center;

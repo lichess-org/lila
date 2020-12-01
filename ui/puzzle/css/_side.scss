@@ -2,7 +2,6 @@
   &__metas {
     @extend %box-neat-force;
 
-    align-self: start;
     background: $c-bg-box;
 
     p {
@@ -41,44 +40,44 @@
   &__user {
     @extend %box-neat;
 
-    align-self: start;
     background: $c-bg-box;
 
-    // overflow: hidden;
     &__rating {
-      text-align: center;
-      padding: 2vmin;
+      margin: 2vmin;
+
       strong {
-        display: block;
+        @extend %flex-center;
         font-size: 3em;
       }
     }
 
     .rp {
-      display: block;
-      font-size: 1.5rem;
-    }
+      font-size: 1.3rem;
 
-    .rp.up {
-      color: $c-good;
-    }
+      &.up {
+        color: $c-good;
+      }
 
-    .rp.down {
-      color: $c-bad;
+      &.down {
+        color: $c-bad;
+      }
     }
   }
 
   &__config {
     @extend %box-neat;
     align-self: start;
+
     background: $c-bg-box;
     padding: 2vmin;
 
     &__setting {
       @extend %flex-center-nowrap;
+
       .switch {
         margin-right: 1em;
       }
+
       label {
         cursor: pointer;
       }
@@ -87,16 +86,17 @@
 
   &__theme {
     @extend %box-neat, %roboto;
-    align-self: start;
+
     background: $c-bg-box;
     padding: 2vmin;
     font-size: .9em;
-    
+
     h2 {
       font-size: 1.5em;
       margin-bottom: .6rem;
       text-transform: uppercase;
     }
+
     .more {
       float: right;
     }

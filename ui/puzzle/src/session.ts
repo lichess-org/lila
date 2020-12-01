@@ -37,7 +37,7 @@ export default class PuzzleSession {
 
   complete = (id: string, result: boolean) =>
     this.update(s => {
-      const i = this.indexOf(s.rounds, id);
+      const i = s.rounds.findIndex(r => r.id == id);
       if (i == -1) {
         s.rounds.push({ id, result });
         if (s.rounds.length > this.maxSize) s.rounds.shift();
@@ -47,6 +47,5 @@ export default class PuzzleSession {
       return s;
     });
 
-  indexOf = (rounds: SessionRound[], id: string): number => 
-    rounds.findIndex(r => r.id == id);
+  isNew = (): boolean => this.store().rounds.length < 2;
 }
