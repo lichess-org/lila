@@ -299,7 +299,8 @@
   <string name="opponent">Mótleikari</string>
   <string name="learnMenu">Lær</string>
   <string name="studyMenu">Nám</string>
-  <string name="practice">Ven</string>
+  <string name="practice">Venjing</string>
+  <string name="community">Felagsskapur</string>
   <string name="playOnline">Spæl online</string>
   <string name="playOffline">Spæl offline</string>
   <string name="onlyFriends">Bert vinir</string>
