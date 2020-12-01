@@ -138,6 +138,7 @@
   <string name="ratingStats">Styrkitalastøða</string>
   <string name="username">Brúkaranavn</string>
   <string name="usernameOrEmail">Brúkaranavn ella teldupostbústaður</string>
+  <string name="changeUsername">Broyt brúkaranavn</string>
   <string name="password">Loyniorð</string>
   <string name="changePassword">Broyt loyniorð</string>
   <string name="changeEmail">Broyt teldupost</string>
