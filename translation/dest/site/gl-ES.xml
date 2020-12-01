@@ -529,6 +529,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="newPassword">Novo contrasinal</string>
   <string name="newPasswordAgain">Novo contrasinal (de novo)</string>
   <string name="newPasswordsDontMatch">Os contrasinais novos non coinciden</string>
+  <string name="newPasswordStrength">Seguridade do contrasinal</string>
   <string name="clockInitialTime">Tempo inicial do reloxo</string>
   <string name="clockIncrement">Incremento do reloxo</string>
   <string name="privacy">Privacidade</string>
