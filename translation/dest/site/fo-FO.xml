@@ -374,6 +374,14 @@
   <string name="error.min">Má vera størri enn ella tað sum %s</string>
   <string name="error.max">Má vera minni enn ella tað sama sum %s</string>
   <string name="error.unknown">Feilur</string>
+  <string name="custom">Tillagað</string>
+  <string name="notifications">Fráboðanir</string>
+  <string name="challenges">Avbjóðingar</string>
+  <string name="perfRatingX">Styrkital: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s sekund at flyta fyrsta leik</item>
+    <item quantity="other">%s sekundir at flyta fyrsta leik</item>
+  </plurals>
   <string name="practiceWithComputer">Ven við telduni</string>
   <string name="anotherWasX">Annar leikur var %s</string>
   <string name="bestWasX">Besti leikur var %s</string>
@@ -388,4 +396,12 @@
   <string name="whiteWinsGame">Hvítur vinnur</string>
   <string name="blackWinsGame">Svartur vinnur</string>
   <string name="learnFromYourMistakes">Lær av tínum mistøkum</string>
+  <string name="learnFromThisMistake">Lær av hesum mistaki</string>
+  <string name="skipThisMove">Loyp henda leikin um</string>
+  <string name="next">Næsti</string>
+  <string name="xWasPlayed">%s varð telvað</string>
+  <string name="findBetterMoveForWhite">Finn ein betri leik fyri hvítan</string>
+  <string name="findBetterMoveForBlack">Finn ein betri leik fyri svartan</string>
+  <string name="resumeLearning">Halt fram við at læra</string>
+  <string name="youCanDoBetter">Tú fært leikað betur</string>
 </resources>
