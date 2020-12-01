@@ -224,6 +224,9 @@
     <item quantity="other">%s fylgja</item>
   </plurals>
   <string name="more">Meira</string>
+  <string name="memberSince">Limur síðani</string>
+  <string name="lastSeenActive">Virkin %s</string>
+  <string name="challengeToPlay">Bjóða av at telva</string>
   <string name="player">Telvari</string>
   <string name="list">Listi</string>
   <string name="duration">Longd</string>
@@ -327,9 +330,15 @@
   <string name="studyMenu">Nám</string>
   <string name="practice">Venjing</string>
   <string name="community">Felagsskapur</string>
-  <string name="playOnline">Spæl online</string>
-  <string name="playOffline">Spæl offline</string>
+  <string name="tools">Amboð</string>
+  <string name="increment">Hækking</string>
+  <string name="sharePGN">Deil PGN</string>
+  <string name="playOnline">Telva á netinum</string>
+  <string name="playOffline">Telva offline</string>
+  <string name="allowAnalytics">Loyv ónavngivnum hagtølum</string>
+  <string name="shareGameURL">Deil talv URL</string>
   <string name="onlyFriends">Bert vinir</string>
-  <string name="castling">Leyp umborg</string>
+  <string name="menu">Valmynd</string>
+  <string name="castling">Loypur í borg</string>
   <string name="checkYourEmail">Kannað tín teldupost</string>
 </resources>
