@@ -87,6 +87,7 @@
     <item quantity="one">Skák og mát í %s hálvum leiki</item>
     <item quantity="other">Skák og mát í %s hálvum leikum</item>
   </plurals>
+  <string name="noGameFound">Einki talv funnið</string>
   <string name="cpus">CPUir</string>
   <string name="memory">Minni</string>
   <string name="infiniteAnalysis">Óendalig greining</string>
@@ -458,7 +459,7 @@
   <string name="playX">Telva %s</string>
   <string name="sorry">Orsaka :(</string>
   <string name="weHadToTimeYouOutForAWhile">Vit noyddust at geva tær leikbrá eina tíð.</string>
-  <string name="timeoutExpires">Leikbráin gongur út %s.</string>
+  <string name="timeoutExpires">Leikbráið gongur út %s.</string>
   <string name="why">Hví?</string>
   <string name="pleasantChessExperience">Vit miða ímóti at veita øllum eina góða talvuppliving.</string>
   <string name="goodPractice">Tískil mugu vit vissa okkum, at allir telvarar sýna góðan atburð.</string>
