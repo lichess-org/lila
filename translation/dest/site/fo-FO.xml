@@ -370,6 +370,10 @@
   <string name="invalidPgn">Ógildugt PGN</string>
   <string name="invalidFen">Ógildugt FEN</string>
   <string name="error.minLength">Minsta longd er %s</string>
+  <string name="error.maxLength">Mesta longd er %s</string>
+  <string name="error.min">Má vera størri enn ella tað sum %s</string>
+  <string name="error.max">Má vera minni enn ella tað sama sum %s</string>
+  <string name="error.unknown">Feilur</string>
   <string name="practiceWithComputer">Ven við telduni</string>
   <string name="anotherWasX">Annar leikur var %s</string>
   <string name="bestWasX">Besti leikur var %s</string>
