@@ -118,12 +118,26 @@
   <string name="games">Talv</string>
   <string name="forum">Talvtos</string>
   <string name="players">Spælarar</string>
-  <string name="variant">Variantur</string>
-  <string name="variants">Variantar</string>
+  <string name="variant">Avbrigdi (variantur)</string>
+  <string name="variants">Fleiri avbrigdi (variantar)</string>
+  <string name="timeControl">Tíðaravmarking</string>
+  <string name="realTime">Uttan tíðaravmarking</string>
+  <string name="correspondence">Brævtalv</string>
+  <string name="daysPerTurn">Dagar fyri hvønn leik</string>
   <string name="oneDay">Ein dag</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s dag</item>
+    <item quantity="other">%s dagar</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s tími</item>
+    <item quantity="other">%s tímar</item>
+  </plurals>
   <string name="time">Tíð</string>
-  <string name="rating">Rating</string>
-  <string name="username">Brúkara navn</string>
+  <string name="rating">Styrkital</string>
+  <string name="ratingStats">Styrkitalastøða</string>
+  <string name="username">Brúkaranavn</string>
+  <string name="usernameOrEmail">Brúkaranavn ella teldupostbústaður</string>
   <string name="password">Loyniorð</string>
   <string name="changePassword">Broyt loyniorð</string>
   <string name="changeEmail">Broyt teldupost</string>
