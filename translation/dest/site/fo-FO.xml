@@ -404,4 +404,10 @@
   <string name="findBetterMoveForBlack">Finn ein betri leik fyri svartan</string>
   <string name="resumeLearning">Halt fram við at læra</string>
   <string name="youCanDoBetter">Tú fært leikað betur</string>
+  <string name="tryAnotherMoveForWhite">Royn ein annan leik við hvítum</string>
+  <string name="tryAnotherMoveForBlack">Royn ein annan leik við svørtum</string>
+  <string name="solution">Svar</string>
+  <string name="waitingForAnalysis">Bíðar eftir greining</string>
+  <string name="noMistakesFoundForWhite">Eingi mistøk funnin hjá hvítum</string>
+  <string name="noMistakesFoundForBlack">Eingi mistøk funnin hjá svørtum</string>
 </resources>
