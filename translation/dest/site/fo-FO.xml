@@ -87,14 +87,18 @@
     <item quantity="one">Skák og mát í %s hálvum leiki</item>
     <item quantity="other">Skák og mát í %s hálvum leikum</item>
   </plurals>
+  <string name="cpus">CPUir</string>
+  <string name="memory">Minni</string>
+  <string name="infiniteAnalysis">Óendalig greining</string>
+  <string name="removesTheDepthLimit">Tekur dýpdaravmarkingar burtur, og heldur telduna hjá tær heita</string>
   <string name="blunder">Mistak</string>
-  <string name="blunders">Brølari</string>
-  <string name="mistake">Feilur</string>
-  <string name="mistakes">Feilir</string>
+  <string name="blunders">Mistøk</string>
+  <string name="mistake">Mistak</string>
+  <string name="mistakes">Mistøk</string>
   <string name="inaccuracy">Óneyvleiki</string>
   <string name="inaccuracies">Óneyvleikar</string>
-  <string name="moveTimes">Leik tíðir</string>
-  <string name="flipBoard">Vend borð</string>
+  <string name="moveTimes">Leiktíðir</string>
+  <string name="flipBoard">Vend borði við</string>
   <string name="claimADraw">Krev remis</string>
   <string name="offerDraw">Eg bjóði remis</string>
   <string name="draw">Remi</string>
