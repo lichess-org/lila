@@ -7,6 +7,14 @@
 .site-buttons {
   @extend %flex-center-nowrap;
 
+  .header-langs {
+    button {
+      padding: 0 .3rem;
+      border: none;
+      background: none;
+    }
+  }
+
   .link {
     @extend %top-icon;
     /* we don't want a lighter dark font in the top gradient */

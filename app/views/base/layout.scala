@@ -124,6 +124,12 @@ object layout {
       )
     )
 
+  private def switchLanguage(implicit ctx: Context) =
+    spaceless(s"""<form method="post" action="/translation/select" class="header-langs">
+    ${ if (ctx.lang.language == "en") """<button type="submit" name="lang" value="ja-JP" title="ja-JP">日本語</button>"""
+        else """<button type="submit" name="lang" value="en-US" title="en-US">English</button>""" }
+    </form>""")
+
   private lazy val botImage = img(
     src := staticUrl("images/icons/bot.png"),
     title := "Robot chess",
@@ -309,6 +315,7 @@ object layout {
           topnav()
         ),
         div(cls := "site-buttons")(
+          if (ctx.req.path == "/") switchLanguage else "",
           clinput,
           reports,
           teamRequests,
