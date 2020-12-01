@@ -178,6 +178,7 @@
   <string name="playingRightNow">Telvað beint nú</string>
   <string name="eventInProgress">Telvað beint nú</string>
   <string name="finished">Liðugt</string>
+  <string name="thisGameIsRated">Hetta talv verður styrkimett</string>
   <string name="rematch">Umaftur</string>
   <string name="play">Telva</string>
   <string name="send">Sent</string>
