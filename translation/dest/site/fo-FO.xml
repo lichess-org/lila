@@ -412,4 +412,21 @@
   <string name="noMistakesFoundForBlack">Eingi mistøk funnin hjá svørtum</string>
   <string name="doneReviewingWhiteMistakes">Liðugt at viðgera mistøk hjá hvítum</string>
   <string name="doneReviewingBlackMistakes">Liðugt at viðgera mistøk hjá svørtum</string>
+  <string name="doItAgain">Ger tað aftur</string>
+  <string name="reviewWhiteMistakes">Met um hvít mistøk</string>
+  <string name="reviewBlackMistakes">Met um svørt mistøk</string>
+  <string name="advantage">Fyrimunur</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s sekund</item>
+    <item quantity="other">%s sekundir</item>
+  </plurals>
+  <string name="opening">Byrjanartalv</string>
+  <string name="middlegame">Miðtalv</string>
+  <string name="endgame">Endatalv</string>
+  <string name="registerToSendChallenges">Skráset teg vinaliga at senda avbjóðingar.</string>
+  <string name="youCannotChallengeX">Tú kanst ikki bjóða %s av.</string>
+  <string name="xDoesNotAcceptChallenges">%s tekur ikki av avbjóðingum.</string>
+  <string name="yourXRatingIsTooFarFromY">Títt %1$s styrkital er ov langt frá %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Fær ikki bjóðað av vegna fyribils %s styrkital.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s tekur bert við avbjóðingum frá vinum.</string>
 </resources>
