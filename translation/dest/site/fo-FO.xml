@@ -99,9 +99,19 @@
   <string name="inaccuracies">Óneyvleikar</string>
   <string name="moveTimes">Leiktíðir</string>
   <string name="flipBoard">Vend borði við</string>
-  <string name="claimADraw">Krev remis</string>
-  <string name="offerDraw">Eg bjóði remis</string>
-  <string name="draw">Remi</string>
+  <string name="threefoldRepetition">Endurtøka tríggjar ferðir</string>
+  <string name="claimADraw">Krev javnleik (remis)</string>
+  <string name="offerDraw">Eg bjóði javnleik (remis)</string>
+  <string name="draw">Javnleikur</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s telvari</item>
+    <item quantity="other">%s telvarar</item>
+  </plurals>
+  <string name="currentGames">Talv, ið verða telvað nú</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s talv</item>
+    <item quantity="other">%s talv</item>
+  </plurals>
   <string name="logOut">Logga út</string>
   <string name="signIn">Logga inn</string>
   <string name="signUp">Skráset</string>
