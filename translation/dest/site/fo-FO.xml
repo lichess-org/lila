@@ -180,8 +180,17 @@
   <string name="finished">Liðugt</string>
   <string name="thisGameIsRated">Hetta talv verður styrkimett</string>
   <string name="rematch">Umaftur</string>
+  <string name="rematchOfferSent">Tilboð um nýtt talv sent</string>
+  <string name="rematchOfferSentWhite">Hvítur bjóðar nýtt talv</string>
+  <string name="rematchOfferSentBlack">Svartur bjóðar nýtt talv</string>
+  <string name="rematchOfferAccepted">Tilboð um nýtt talv góðtikið</string>
+  <string name="rematchOfferCanceled">Tilboð um nýtt talv avlýst</string>
+  <string name="rematchOfferDeclined">Tilboð um nýtt talv afturvíst</string>
+  <string name="cancelRematchOffer">Avlýs tilboð um nýtt talv</string>
+  <string name="viewRematch">Hygg at nýggjum talvi</string>
   <string name="play">Telva</string>
   <string name="send">Sent</string>
+  <string name="freeOnlineChess">Ókeypis talv á netinum</string>
   <string name="spectators">Áskoðarar:</string>
   <string name="takeback">Tak aftur</string>
   <string name="bookmarkThisGame">Set bókamerki við hetta talvið</string>
@@ -192,12 +201,28 @@
     <item quantity="one">%s kappingarstig</item>
     <item quantity="other">%s kappingarstig</item>
   </plurals>
+  <string name="toStudy">Nám</string>
+  <string name="importGame">Les inn talv</string>
+  <string name="notACheckmate">Ikki skák og mát</string>
+  <string name="whiteCheckmatesInOneMove">Hvítur setir skák og mát í einum leiki</string>
+  <string name="blackCheckmatesInOneMove">Svartur setir skák og mát í einum leiki</string>
   <string name="retry">Royn aftur</string>
   <string name="follow">Fylg</string>
   <string name="following">Fylgja</string>
-  <string name="block">Blokerað</string>
-  <string name="blocked">Blokerað</string>
-  <string name="followsYou">Fylgjur tær</string>
+  <string name="unfollow">Fylg ikki</string>
+  <string name="block">Forða</string>
+  <string name="blocked">Forðað</string>
+  <string name="unblock">Forða ikki</string>
+  <string name="followsYou">Fylgir tær</string>
+  <string name="xStartedFollowingY">%1$s byrjaði at fylgja %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s fylgjari</item>
+    <item quantity="other">%s fylgjarar</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="one">%s fylgir</item>
+    <item quantity="other">%s fylgja</item>
+  </plurals>
   <string name="more">Meira</string>
   <string name="player">Telvari</string>
   <string name="list">Listi</string>
