@@ -365,4 +365,8 @@
   <string name="seeBestMove">Síggj besta leikin</string>
   <string name="hideBestMove">Fjal besta leikin</string>
   <string name="getAHint">Fá eina ábending</string>
+  <string name="evaluatingYourMove">Leikurin verður greinaður ...</string>
+  <string name="whiteWinsGame">Hvítur vinnur</string>
+  <string name="blackWinsGame">Svartur vinnur</string>
+  <string name="learnFromYourMistakes">Lær av tínum mistøkum</string>
 </resources>
