@@ -410,4 +410,6 @@
   <string name="waitingForAnalysis">Bíðar eftir greining</string>
   <string name="noMistakesFoundForWhite">Eingi mistøk funnin hjá hvítum</string>
   <string name="noMistakesFoundForBlack">Eingi mistøk funnin hjá svørtum</string>
+  <string name="doneReviewingWhiteMistakes">Liðugt at viðgera mistøk hjá hvítum</string>
+  <string name="doneReviewingBlackMistakes">Liðugt at viðgera mistøk hjá svørtum</string>
 </resources>
