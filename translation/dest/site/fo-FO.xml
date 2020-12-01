@@ -118,6 +118,11 @@
   <string name="games">Talv</string>
   <string name="forum">Talvtos</string>
   <string name="players">Spælarar</string>
+  <string name="friends">Vinir</string>
+  <string name="discussions">Samrøður</string>
+  <string name="today">Í dag</string>
+  <string name="yesterday">Í gjár</string>
+  <string name="minutesPerSide">Minuttir í part</string>
   <string name="variant">Avbrigdi (variantur)</string>
   <string name="variants">Fleiri avbrigdi (variantar)</string>
   <string name="timeControl">Tíðaravmarking</string>
@@ -145,6 +150,7 @@
   <string name="changePassword">Broyt loyniorð</string>
   <string name="changeEmail">Broyt teldupost</string>
   <string name="email">teldupost</string>
+  <string name="passwordReset">Endurset loyniorð</string>
   <string name="forgotPassword">Gloymt loyniorð?</string>
   <string name="rank">Tign (støða)</string>
   <string name="rankX">Tign (støða): %s</string>
@@ -178,6 +184,7 @@
   <string name="playingRightNow">Telvað beint nú</string>
   <string name="eventInProgress">Telvað beint nú</string>
   <string name="finished">Liðugt</string>
+  <string name="finishesX">endar %s</string>
   <string name="thisGameIsRated">Hetta talv verður styrkimett</string>
   <string name="rematch">Umaftur</string>
   <string name="rematchOfferSent">Tilboð um nýtt talv sent</string>
