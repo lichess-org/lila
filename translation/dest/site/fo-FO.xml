@@ -429,4 +429,13 @@
   <string name="yourXRatingIsTooFarFromY">Títt %1$s styrkital er ov langt frá %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Fær ikki bjóðað av vegna fyribils %s styrkital.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s tekur bert við avbjóðingum frá vinum.</string>
+  <string name="sorry">Orsaka :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Vit noyddust at geva tær leikbrá eina tíð.</string>
+  <string name="timeoutExpires">Leikbráin gongur út %s.</string>
+  <string name="why">Hví?</string>
+  <string name="pleasantChessExperience">Vit miða ímóti at veita øllum eina góða talvuppliving.</string>
+  <string name="goodPractice">Tískil mugu vit vissa okkum, at allir telvarar sýna góðan atburð.</string>
+  <string name="potentialProblem">Tá ið ein møguligur trupulleiki verður staðfestur, vísa vit hesi boðini.</string>
+  <string name="howToAvoidThis">Hvussu slepst undan hesum?</string>
+  <string name="playEveryGame">Telva hvørt talv, tú byrjar.</string>
 </resources>
