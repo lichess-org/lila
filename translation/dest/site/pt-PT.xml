@@ -861,7 +861,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
 	<string name="youCannotPostYetPlaySomeGames">Ainda não podes publicar nos fóruns. Joga alguns jogos!</string>
 	<string name="subscribe">Subscrever-se</string>
 	<string name="unsubscribe">Cancelar a subscrição</string>
-	<string name="blackDeclinesImpasse" comment="blackDeclinesImpasse">Sente declines impasse</string>
+	<string name="blackDeclinesImpasse">Sente declines impasse</string>
 	<string name="blackOffersImpasse">Sente offers impasse</string>
 	<string name="notationType">Notation</string>
 	<string name="whiteDeclinesImpasse">Gote declines impasse</string>
