@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="isLishogiLagging">Is Lishogi lagging?</string>
+  <string name="isLishogiLagging">Lishogiにラグ発生？</string>
   <string name="measurementInProgressThreeDot">測定中です…</string>
   <string name="noAndYourNetworkIsGood">いいえ。あなたの接続も良好です。</string>
   <string name="noAndYourNetworkIsBad">いいえ。あなたの接続が悪いようです。</string>
   <string name="yesItWillBeFixedSoon">そうです。間もなく直します！</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">では詳しい説明を。対局時の通信ラグは 2 つの数値で決まります（小さいほどよい）：</string>
-  <string name="lishogiServerLatency">Lishogi server latency</string>
-  <string name="lishogiServerLatencyExplanation">The time it takes to process a move on the server. It\'s the same for everybody, and only depends on the server load. The more players and the higher it gets, but Lishogi developers do their best to keep it low. It rarely exceeds 10ms.</string>
-  <string name="networkBetweenLishogiAndYou">Network between Lishogi and you</string>
-  <string name="networkBetweenLishogiAndYouExplanation">The time it takes to send a move from your computer to Lishogi server, and get the response back. It\'s specific to your distance to Lishogi (France), and to the quality of your Internet connection. Lishogi developers cannot fix your wifi or make light go faster.</string>
+  <string name="lishogiServerLatency">Lishogiサーバの処理時間</string>
+  <string name="lishogiServerLatencyExplanation">サーバ上で指し手を処理するのにかかる時間です。これはどの人でも同じで、サーバの負荷だけで決まります。対局者が増えるほど大きくなりますが、なるべく小さくなるように開発陣は努力しています。10msを超えることはまれです。</string>
+  <string name="networkBetweenLishogiAndYou">Lishogiとあなたの通信時間</string>
+  <string name="networkBetweenLishogiAndYouExplanation">あなたの機器からLishogiのサーバまで手の情報が往復するのに要する時間です。これはLishogiのサーバ（フランス国内）までの距離と、あなたの接続の質で決まります。あなたのWi-Fiや光回線の問題は、Lishogiの開発者にはどうしようもありません。</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">これらの値は右上の自分のユーザー名をクリックするといちばん下に表示されます。</string>
   <string name="lagCompensation">ラグ補償</string>
   <string name="lagCompensationExplanation">Lishogi ではラグ補償（lag compensation）による消費時間調整を行なっています。その対象は継続的なラグと突発的なラグ・スパイクの両方です。補償には上限があり、また両対局者が納得できるよう持時間とそれまでの補償分によって決まります。ですのでラグが相手より大きくとも時間で不利になることはありません。</string>
