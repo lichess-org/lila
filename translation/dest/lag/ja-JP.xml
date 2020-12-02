@@ -12,5 +12,5 @@
   <string name="networkBetweenLishogiAndYouExplanation">あなたの機器からLishogiのサーバまで手の情報が往復するのに要する時間です。これはLishogiのサーバ（フランス国内）までの距離と、あなたの接続の質で決まります。あなたのWi-Fiや光回線の問題は、Lishogiの開発者にはどうしようもありません。</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">これらの値は右上の自分のユーザー名をクリックするといちばん下に表示されます。</string>
   <string name="lagCompensation">ラグ補償</string>
-  <string name="lagCompensationExplanation">Lishogi ではラグ補償（lag compensation）による消費時間調整を行なっています。その対象は継続的なラグと突発的なラグ・スパイクの両方です。補償には上限があり、また両対局者が納得できるよう持時間とそれまでの補償分によって決まります。ですのでラグが相手より大きくとも時間で不利になることはありません。</string>
+  <string name="lagCompensationExplanation">Lishogi ではラグ補償（lag compensation）による消費時間調整を行なっています。その対象は継続的なラグと突発的なラグ・スパイクの両方です。時間設定と補正されたラグに基づく限界と経験則があるので、その結果は両対局者が納得と感じるはずのものです。ですのでラグが相手より大きくとも時間で不利になることはありません。</string>
 </resources>
