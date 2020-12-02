@@ -9,9 +9,9 @@
 	<string name="hearItPronouncedBySpecialist">Écoutez-le prononcé par un spécialiste.</string>
 	<string name="whyLiveLightLibre">Live, parce que les jeux sont joués et regardés en temps réel 24 heures sur 24 et 7 jours sur 7 ; light et libre, parce que Lishogi est un logiciel libre et non encombré par des logiciels malveillants qui affligent d\'autres sites web.</string>
 	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
-	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
-	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi is powered by donations from patrons and the efforts of a team of volunteers.</string>
-	<string name="findMoreAndSeeHowHelp">You can find out more about %1$s. If you want to help Lishogi by volunteering your time and skills, there are many %2$s.</string>
+	<string name="howCanIContributeToLishogi">Comment puis-je contribuer à Lishogi ?</string>
+	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi est alimenté par les dons de mécènes et les efforts d\'une équipe de bénévoles.</string>
+	<string name="findMoreAndSeeHowHelp">Vous pouvez en savoir plus sur les %1$s. Si vous souhaitez aider Lishogi en offrant votre temps et vos compétences, il existe de nombreux %2$s.</string>
 	<string name="beingAPatron">Devenir mécène</string>
 	<string name="breakdownOfOurCosts">répartition de nos coûts</string>
 	<string name="otherWaysToHelp">autres façons d\'aider</string>
@@ -27,7 +27,7 @@
 	<string name="leavingGameWithoutResigningExplanation">Si votre adversaire interrompt ou abandonne fréquemment les parties, il se voit interdire de jouer, ce qui signifie qu\'il est temporairement interdit de jouer. Cela n\'est pas indiqué publiquement sur leur profil. Si ce comportement se poursuit, la durée du bannissement augmente - et un comportement prolongé de cette nature peut entraîner la fermeture du compte.</string>
 	<string name="howCanIBecomeModerator">Comment puis-je devenir modérateur ?</string>
 	<string name="youCannotApply">Il n\'est pas possible de postuler pour devenir modérateur. Si nous rencontrons quelqu\'un qui nous semble être efficace comme modérateur, nous le contacterons directement.</string>
-	<string name="isCorrespondenceDifferent">Is correspondence different from normal shogi?</string>
+	<string name="isCorrespondenceDifferent">Les parties par correspondance sont-elle différentes de celles du shogi normales ?</string>
 	<string name="youCanUseOpeningBookNoEngine">On Lishogi, the main difference in rules for correspondence shogi is that an opening book is allowed. The use of engines is still prohibited and will result in being flagged for engine assistance. Although ICCF allows engine use in correspondence, Lishogi does not.</string>
 	<string name="gameplay">Règles du jeu et jouabilité</string>
 	<string name="howBulletBlitzEtcDecided">Comment sont décidés les bullet, blitz et autres cadences ?</string>
@@ -37,7 +37,7 @@ Par exemple, la durée estimée d\'un jeu 5+3 est de 5 × 60 + 40 × 3 = 420 sec
 	<string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
 	<string name="whatVariantsCanIplay">Quelles variantes puis-je jouer sur Lishogi ?</string>
-	<string name="lishogiSupportChessAnd">Lishogi supports standard shogi and %1$s.</string>
+	<string name="lishogiSupportChessAnd">Lishogi propose le shogi standard et %1$s.</string>
 	<string name="eightVariants">8 variantes d\'échecs</string>
 	<string name="whatIsACPL">Quelle est la perte moyenne de centipions (ACPL) ?</string>
 	<string name="acplExplanation">Le centipion est l\'unité de mesure utilisée aux échecs comme représentation de l\'avantage. Un centipion est égal à 1/100ème d\'un pion. Donc 100 centipions = 1 pion. Ces valeurs ne jouent aucun rôle formel dans le jeu mais sont utiles aux joueurs, et essentielles aux échecs informatiques, pour évaluer les positions.
@@ -48,11 +48,11 @@ Cette valeur peut être utilisée comme un indicateur de la qualité du jeu. Moi
 
 L\'analyse informatique sur Lishogi est réalisée par Stockfish.</string>
 	<string name="insufficientMaterial">Perte de temps, nulle et matériel insuffisant</string>
-	<string name="lishogiFollowFIDErules">In the event of one player running out of time, that player will usually lose the game. However, the game is drawn if the position is such that the opponent cannot checkmate the player\'s king by any possible series of legal moves (%1$s).
+	<string name="lishogiFollowFIDErules">Si un joueur manque de temps, il perd généralement la partie. Toutefois, la partie est nulle si la position est telle que l\'adversaire ne peut pas mettre en échec le roi du joueur par une éventuelle série de coups légaux (%1$s).
 
-In rare cases this can be difficult to decide automatically (forced lines, fortresses). By default we always side with the player who did not run out of time.
+Dans de rares cas, il peut être difficile de prendre une décision automatique (lignes forcées, forteresses). Par défaut, nous nous rangeons toujours du côté du joueur qui n\'a pas manqué de temps.
 
-Note that it can be possible to mate with a single knight or bishop if the opponent has a piece that could block the king.</string>
+Notez qu\'il peut être possible de mettre échec et mat avec un seul chevalier ou fou si l\'adversaire a une pièce qui pourrait bloquer le roi.</string>
 	<string name="linkToFIDErules">Manuel de la FIDE §6.9, PDF</string>
 	<string name="discoveringEnPassant">Pourquoi un pion peut-il capturer un autre pion alors qu\'il est déjà passé ? (en passant)</string>
 	<string name="explainingEnPassant">Il s\'agit d\'un mouvement légal appelé \"en passant\". L\'article de Wikipedia donne un %1$s.
@@ -64,7 +64,7 @@ Il est décrit dans la section 3.7 (d) des %2$s :
 Voir les %3$s sur ce coup pour vous entraîner.</string>
 	<string name="goodIntroduction">bonne introduction</string>
 	<string name="officialRulesPDF">règles officielles (pdf)</string>
-	<string name="lishogiTraining">Lishogi training</string>
+	<string name="lishogiTraining">Entraînement Lishogi</string>
 	<string name="threefoldRepetition">Triple répétition</string>
 	<string name="threefoldRepetitionExplanation">Si une position se produit trois fois, les joueurs peuvent prétendre à un pat par %1$s. Lishogi applique les règles officielles de la FIDE, telles que décrites dans l\'article 9.2 (d) des %2$s.</string>
 	<string name="threefoldRepetitionLowerCase">triple répétition</string>
@@ -76,7 +76,7 @@ Voir les %3$s sur ce coup pour vous entraîner.</string>
 	<string name="threeFoldHasToBeClaimed">La répétition doit être réclamée par l\'un des joueurs. Vous pouvez le faire en appuyant sur le bouton qui s\'affiche, ou en proposant un match nul avant votre dernier coup de répétition. Peu importe si votre adversaire rejette la proposition de match nul, le triple coup de répétition sera quand même réclamé. Vous pouvez également utiliser %1$s Lishogi pour réclamer automatiquement les répétitions pour vous. En outre, la répétition quintuple met toujours immédiatement fin à la partie.</string>
 	<string name="configure">configurer</string>
 	<string name="accounts">Comptes</string>
-	<string name="titlesAvailableOnLishogi">What titles are there on Lishogi?</string>
+	<string name="titlesAvailableOnLishogi">Quels titres y a-t-il sur Lishogi ?</string>
 	<string name="lishogiRecognizeAllOTBtitles">Lishogi recognises all FIDE titles gained from OTB (over the board) play, as well as %1$s. Here is a list of FIDE titles:</string>
 	<string name="showYourTitle">Si vous avez un titre du BSF, vous pouvez demander qu\'il soit affiché sur votre compte en remplissant les %1$s, y compris une image claire d\'un document ou d\'une carte d\'identification et un selfie de vous tenant le document ou la carte.
 
@@ -100,15 +100,15 @@ Ne demandez pas le titre de LM.</string>
 	<string name="wayOfBerserkExplanation">Pour l\'obtenir, hiimgosu s\'est mis au défi de gagner en berserk 100%% des parties d\'%s.</string>
 	<string name="aHourlyBulletTournament">un tournoi Bullet horaire</string>
 	<string name="goldenZeeExplanation">ZugAddict était en train de streamer et cela depuis deux heures il essayait de vaincre l\'Ia de niveau 8 en partie 1+0, sans succès. Thibault lui dit qu\'en cas de victoire, il lui attribuerait un trophée unique. Une heure plus tard, il démolissait Stockfish, et la promesse fut tenue.</string>
-	<string name="lishogiRatings">Lishogi ratings</string>
+	<string name="lishogiRatings">Classements sur Lishogi</string>
 	<string name="whichRatingSystemUsedByLishogi">Quel système de classement utilise Lishogi ?</string>
-	<string name="ratingSystemUsedByLishogi">Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant number of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system).
+	<string name="ratingSystemUsedByLishogi">Les notations sont calculées selon la méthode de notation Glicko-2 développée par Mark Glickman. Il s\'agit d\'une méthode de notation très populaire, utilisée par un nombre important d\'organisations d\'échecs (la FIDE en est un contre-exemple notable, car elle utilise toujours le système de notation Elo, qui est dépassé).
 
-Fundamentally, Glicko ratings use \"confidence intervals\" when calculating and representing your rating. When you first start using the site, your rating starts at 1500 ± 700. The 1500 represents your rating, and the 700 represents the confidence interval.
+Fondamentalement, les notations Glicko utilisent des \"intervalles de confiance\" pour calculer et représenter votre notation. Lorsque vous commencez à utiliser le site, votre cote commence à 1500 ± 700. Le 1500 représente votre note, et le 700 représente l\'intervalle de confiance.
 
-Basically, the system is 90% sure that your rating is somewhere between 800 and 2200. It is incredibly uncertain. Because of this, when a player is just starting out, their rating will change very dramatically, potentially several hundred points at a time. But after some games against established players the confidence interval will narrow, and the amount of points gained/lost after each game will decrease.
+Fondamentalement, le système est sûr à 90 % que votre note se situe entre 800 et 2200. Il est incroyablement incertain. C\'est pourquoi, lorsqu\'un joueur débute, sa cote change de façon très importante, potentiellement de plusieurs centaines de points à la fois. Mais après quelques matchs contre des joueurs établis, l\'intervalle de confiance se réduit et le nombre de points gagnés/perdus après chaque match diminue.
 
-Another point to note is that, as time passes, the confidence interval will increase. This allows you to gain/lose points points more rapidly to match any changes in your skill level over that time.</string>
+Il faut également noter que l\'intervalle de confiance augmente avec le temps. Cela vous permet de gagner/perdre des points plus rapidement pour correspondre à tout changement de votre niveau de compétence au cours de cette période.</string>
 	<string name="whatIsProvisionalRating">Pourquoi y a-t-il un point d\'interrogation (?) à côté d\'un de mes classements ?</string>
 	<string name="provisionalRatingExplanation">Le point d\'interrogation indique que le classement est provisoire. Les raisons comprennent :</string>
 	<string name="notPlayedEnoughRatedGamesAgainstX">Le joueur n\'a pas encore terminé suffisamment de parties notées contre des %1$s dans la catégorie de notation.</string>
@@ -120,7 +120,7 @@ Another point to note is that, as time passes, the confidence interval will incr
 	<string name="ratingLeaderboards">classement des leaders</string>
 	<string name="havePlayedMoreThanThirtyGamesInThatRating">avoir joué à au moins 30 parties classées dans un jeu donné,</string>
 	<string name="havePlayedARatedGameAtLeastOneWeekAgo">avoir à un jeu classé au cours de la dernière semaine pour cette classification</string>
-	<string name="ratingDeviationLowerThanXinChessYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
+	<string name="ratingDeviationLowerThanXinChessYinVariants">avoir un écart de notation inférieur à %1$s, au shogi standard, et inférieur à %2$s dans les variantes,</string>
 	<string name="beInTopTen">être dans le top 10 de ce classement.</string>
 	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">La deuxième exigence est pour que les joueurs qui n\'utilisent plus leur compte cessent de remplir les classements.</string>
 	<string name="whyAreRatingHigher">Pourquoi les notes sont-elles plus élevées que celles d\'autres sites et organisations tels que la FIDE, l\'USCF et la CPI ?</string>
@@ -135,9 +135,9 @@ Il est préférable de considérer les notations comme des chiffres \"relatifs\"
 	<string name="howToThreeDots">Comment...</string>
 	<string name="enableDisableNotificationPopUps">Activer ou désactiver les popups de notification ?</string>
 	<string name="viewSiteInformationPopUp">Voir les informations sur les popups du site</string>
-	<string name="lishogiCanOptionnalySendPopUps">Lishogi can optionally send popup notifications, for example when it is your turn or you received a private message.
+	<string name="lishogiCanOptionnalySendPopUps">Lishogi peut facultativement envoyer des notifications popup, par exemple lorsque c\'est votre tour ou que vous avez reçu un message privé.
 
-Click the lock icon next to the lishogi.org address in the URL bar of your browser.
+Cliquez sur l\'icône du cadenas à côté de l\'adresse lishogi.org dans la barre URL de votre navigateur.
 
-Then select whether to allow or block notifications from Lishogi.</string>
+Choisissez ensuite si vous souhaitez autoriser ou bloquer les notifications de Lishogi.</string>
 </resources>
