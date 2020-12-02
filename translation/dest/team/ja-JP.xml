@@ -6,7 +6,7 @@
     <item quantity="other">%s 人のメンバー</item>
   </plurals>
   <string name="allTeams">すべてのチーム</string>
-  <string name="newTeam">チームを作る</string>
+  <string name="newTeam">新規チーム</string>
   <string name="myTeams">自分の所属チーム</string>
   <string name="noTeamFound">チームが見つかりませんでした</string>
   <string name="joinTeam">チームに参加</string>
@@ -18,7 +18,7 @@
     <item quantity="other">チームリーダー</item>
   </plurals>
   <string name="teamBestPlayers">チームのベストプレイヤー</string>
-  <string name="teamRecentMembers">最新チームメンバー</string>
+  <string name="teamRecentMembers">最新のチームメンバー</string>
   <string name="kickSomeone">チームから追放</string>
   <string name="whoToKick">誰をチームから追放しますか？</string>
   <plurals name="xJoinRequests">
