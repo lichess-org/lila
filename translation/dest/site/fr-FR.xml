@@ -400,7 +400,7 @@
 	<string name="advancedSettings">Paramètres avancés</string>
 	<string name="safeTournamentName">Choisissez un sage nom pour le tournoi.</string>
 	<string name="inappropriateNameWarning">Toute conduite inappropriée aboutira à la fermeture de votre compte.</string>
-	<string name="emptyTournamentName">Leave empty to name the tournament after a notable shogi player.</string>
+	<string name="emptyTournamentName">Laissez vide pour que le tournoi soit nommé d\'après le nom d\'un joueur professionnel.</string>
 	<string name="recommendNotTouching">Nous recommandons de ne pas modifier cela.</string>
 	<string name="fewerPlayers">Si vous définissez des conditions d\'admission, votre tournoi aura moins de joueurs.</string>
 	<string name="showAdvancedSettings">Afficher les paramètres avancés</string>
@@ -846,7 +846,7 @@
 	<string name="rapidDesc">Parties rapides : de 8 à 25 minutes</string>
 	<string name="classicalDesc">Parties lentes : 25 minutes ou plus</string>
 	<string name="correspondenceDesc">Parties par correspondance : un jour ou plus par coup</string>
-	<string name="puzzleDesc">Shogi tactics trainer</string>
+	<string name="puzzleDesc">Entraînement tactique</string>
 	<string name="important">Attention</string>
 	<string name="yourQuestionMayHaveBeenAnswered">Votre question a peut-être déjà une réponse %1$s</string>
 	<string name="inTheFAQ">dans la F.A.Q.</string>
