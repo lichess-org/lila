@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="faqAbbreviation">FAQ</string>
+	<string name="faqAbbreviation">よくある質問</string>
 	<string name="frequentlyAskedQuestions">よくある質問（FAQ）</string>
 	<string name="whyIsLishogiCalledLishogi">Why is Lishogi called Lishogi?</string>
 	<string name="forkedFromLichess">Lishogi is open source project forked from liсhess, but since it\'s for playing shogi, it\'s called lishogi.</string>
