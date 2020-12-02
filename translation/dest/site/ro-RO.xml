@@ -898,7 +898,7 @@
 	<string name="youCannotPostYetPlaySomeGames">Încă nu puteți posta în forumuri. Jucați câteva partide!</string>
 	<string name="subscribe">Abonați-vă</string>
 	<string name="unsubscribe">Dezabonați-vă</string>
-	<string name="blackDeclinesImpasse" comment="blackDeclinesImpasse">Sente declines impasse</string>
+	<string name="blackDeclinesImpasse">Sente declines impasse</string>
 	<string name="blackOffersImpasse">Sente offers impasse</string>
 	<string name="notationType">Notation</string>
 	<string name="whiteDeclinesImpasse">Gote declines impasse</string>
