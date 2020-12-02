@@ -84,15 +84,15 @@ Lishogi上的电脑分析是基于Stockfish的。</string>
 
 不要主动寻求LM称号。</string>
 	<string name="whatUsernameCanIchoose">我的用户名可以是什么？</string>
-	<string name="usernamesNotOffensive">In general, usernames should not be: offensive, impersonating someone else, or advertising. You can read more about the %1$s.</string>
+	<string name="usernamesNotOffensive">作为基本，用户名不应该是冒犯、冒用他人或广告。您可以阅读更多关于%1$s的信息。</string>
 	<string name="guidelines">指南</string>
 	<string name="uniqueTrophies">独一无二的奖杯</string>
-	<string name="ownerUniqueTrophies">That trophy is unique in the history of Lishogi, nobody other than %1$s will ever have it.</string>
-	<string name="wayOfBerserkExplanation">To get it, hiimgosu challenged himself to berserk and win 100%% games of %s.</string>
+	<string name="ownerUniqueTrophies">这个奖杯在 Lishogi 上是独一无二的，除了%1$s，任何人都不会得到。</string>
+	<string name="wayOfBerserkExplanation">为了获得它，hiimgosu 挑战自己 berserk 并赢得100%%的%s。</string>
 	<string name="aHourlyBulletTournament">一小时子弹快棋锦标赛</string>
 	<string name="goldenZeeExplanation">ZugAddict was streaming and for the last 2 hours he had been trying to defeat A.I. level 8 in a 1+0 game, without success. Thibault told him that if he successfully did it on stream, he\'d get a unique trophy. One hour later, he smashed Stockfish, and the promise was honoured.</string>
-	<string name="lishogiRatings">Lishogi ratings</string>
-	<string name="whichRatingSystemUsedByLishogi">What rating system does Lishogi use?</string>
+	<string name="lishogiRatings">Lishogi 评分</string>
+	<string name="whichRatingSystemUsedByLishogi">Lishogi 使用什么积分系统？</string>
 	<string name="ratingSystemUsedByLishogi">Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant number of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system).
 
 Fundamentally, Glicko ratings use \"confidence intervals\" when calculating and representing your rating. When you first start using the site, your rating starts at 1500 ± 700. The 1500 represents your rating, and the 700 represents the confidence interval.
