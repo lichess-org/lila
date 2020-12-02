@@ -822,7 +822,7 @@
 	<string name="youCannotPostYetPlaySomeGames">您目前不能發表文章在論壇裡，先下幾盤棋吧!</string>
 	<string name="subscribe">訂閱</string>
 	<string name="unsubscribe">取消訂閱</string>
-	<string name="blackDeclinesImpasse" comment="blackDeclinesImpasse">Sente declines impasse</string>
+	<string name="blackDeclinesImpasse">Sente declines impasse</string>
 	<string name="blackOffersImpasse">Sente offers impasse</string>
 	<string name="notationType">Notation</string>
 	<string name="whiteDeclinesImpasse">Gote declines impasse</string>
