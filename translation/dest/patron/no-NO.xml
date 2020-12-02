@@ -29,8 +29,8 @@
 	<string name="weAreSmallTeam">We are a small team, so your support makes a huge difference!</string>
 	<string name="celebratedPatrons">The celebrated Patrons who make Lishogi possible</string>
 	<string name="whereMoneyGoes">Where does the money go?</string>
-	<string name="serversAndDeveloper">First of all, powerful servers.
-Then we pay a full-time developer: %s, the founder of Lishogi.</string>
+	<string name="serversAndDeveloper">Først og fremst til kraftige servere.
+Dernest betaler vi en fulltidsutvikler: %s, grunnleggeren av Lichess.</string>
 	<string name="costBreakdown">See the detailed cost breakdown</string>
 	<string name="officialNonProfit">Is Lishogi an official non-profit?</string>
 	<string name="actOfCreation">Yes, here\'s the act of creation (in French)</string>
