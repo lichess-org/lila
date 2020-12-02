@@ -33,7 +33,7 @@
   <string name="contributor">投稿参加者</string>
   <string name="kick">追放</string>
   <string name="leaveTheStudy">この研究から出る</string>
-  <string name="youAreNowAContributor">投稿参加者になりました</string>
+  <string name="youAreNowAContributor">参加者になりました</string>
   <string name="youAreNowASpectator">観戦者になりました</string>
   <string name="pgnTags">PGN タグ</string>
   <string name="like">いいね</string>
@@ -55,7 +55,7 @@
   <string name="shareAndExport">共有とエクスポート</string>
   <string name="cloneStudy">研究をコピー</string>
   <string name="studyPgn">研究の PGN</string>
-  <string name="downloadAllGames">全局をダウンロード</string>
+  <string name="downloadAllGames">全対局をダウンロード</string>
   <string name="chapterPgn">章の PGN</string>
   <string name="downloadGame">1 局をダウンロード</string>
   <string name="studyUrl">研究の URL</string>
