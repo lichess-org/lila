@@ -860,7 +860,7 @@
 	<string name="youCannotPostYetPlaySomeGames">Você não pode postar nos fóruns ainda. Jogue algumas partidas!</string>
 	<string name="subscribe">Inscreva-se</string>
 	<string name="unsubscribe">Cancelar inscrição</string>
-	<string name="blackDeclinesImpasse" comment="blackDeclinesImpasse">Sente declines impasse</string>
+	<string name="blackDeclinesImpasse">Sente declines impasse</string>
 	<string name="blackOffersImpasse">Sente offers impasse</string>
 	<string name="notationType">Notation</string>
 	<string name="whiteDeclinesImpasse">Gote declines impasse</string>
