@@ -10,12 +10,12 @@
 	<string name="moveListWhilePlaying">Lista de movimientos durante la partida</string>
 	<string name="pgnPieceNotation">Notación de los movimientos</string>
 	<string name="chessPieceSymbol">Shogi piece symbol</string>
-	<string name="pgnLetter">Letter (K, R, B, G, S, N, L)</string>
+	<string name="pgnLetter">Inicial (en inglés) de la pieza (K, R, B, G, S, N, L)</string>
 	<string name="zenMode">Modo Zen</string>
 	<string name="displayBoardResizeHandle">Mostrar el control de tamaño del tablero</string>
 	<string name="onlyOnInitialPosition">Sólo en posición inicial</string>
 	<string name="blindfoldChess">Blindfold shogi (invisible pieces)</string>
-	<string name="chessClock">Shogi clock</string>
+	<string name="chessClock">Reloj de shogi</string>
 	<string name="tenthsOfSeconds">Décimas de segundo</string>
 	<string name="whenTimeRemainingLessThanTenSeconds">Cuando queden menos de 10 segundos</string>
 	<string name="horizontalGreenProgressBars">Barras de progreso horizontales verdes</string>
