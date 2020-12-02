@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="isLishogiLagging">Is Lishogi lagging?</string>
+  <string name="isLishogiLagging">¿Lishogi está tardando en responder?</string>
   <string name="measurementInProgressThreeDot">Midiendo latencias...</string>
   <string name="noAndYourNetworkIsGood">No, y tu conexión es buena.</string>
   <string name="noAndYourNetworkIsBad">No, pero tu conexión no es buena.</string>
   <string name="yesItWillBeFixedSoon">Sí. ¡Se arreglará pronto!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">¡Y ahora, la respuesta completa! La latencia del juego depende de dos valores no relacionados (cuanto más bajos, mejor):</string>
-  <string name="lishogiServerLatency">Lishogi server latency</string>
-  <string name="lishogiServerLatencyExplanation">The time it takes to process a move on the server. It\'s the same for everybody, and only depends on the server load. The more players and the higher it gets, but Lishogi developers do their best to keep it low. It rarely exceeds 10ms.</string>
-  <string name="networkBetweenLishogiAndYou">Network between Lishogi and you</string>
-  <string name="networkBetweenLishogiAndYouExplanation">The time it takes to send a move from your computer to Lishogi server, and get the response back. It\'s specific to your distance to Lishogi (France), and to the quality of your Internet connection. Lishogi developers cannot fix your wifi or make light go faster.</string>
+  <string name="lishogiServerLatency">Latencia del servidor Lishogi</string>
+  <string name="lishogiServerLatencyExplanation">El tiempo que se tarda en procesar un movimiento en el servidor. Es el mismo para todos los jugadores, y sólo depende de la carga del servidor. Cuantos más jugadores haya en ese momento, más crece este tiempo, pero los desarrolladores de Lishogi hacen todo lo posible para mantenerlo bajo. Rara vez excede los 10 ms.</string>
+  <string name="networkBetweenLishogiAndYou">Conexión entre Lishogi y tú</string>
+  <string name="networkBetweenLishogiAndYouExplanation">El tiempo que se tarda en enviar un movimiento desde tu ordenador al servidor Lishogi, y obtener una respuesta. Depende de lo lejos que estés de Lishogi (Francia) y de la calidad de tu conexión a Internet. Los desarrolladores de Lishogi no pueden arreglarte la wifi o hacer que la luz vaya más rápido.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Puedes consultar ambos valores en cualquier momento, haciendo clic en tu nombre de usuario en la barra superior.</string>
   <string name="lagCompensation">Compensación por retraso</string>
   <string name="lagCompensationExplanation">Lishogi compensa el retraso de la red, lo que incluye retraso sostenido u ocasional. Hay límites y heurísticas basados en el control de tiempo y en el retraso compensado hasta ahora, de modo que el resultado debería sentirse razonable para ambos jugadores. Como resultado, tener un mayor retraso en la red que el oponente no es una desventaja.</string>
