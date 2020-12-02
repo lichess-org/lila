@@ -939,7 +939,7 @@
 	<string name="youCannotPostYetPlaySomeGames">אתה עדיין לא יכול לפרסם בפורום זה. שחק כמה משחקים!</string>
 	<string name="subscribe">עקוב</string>
 	<string name="unsubscribe">בטל את המעקב</string>
-	<string name="blackDeclinesImpasse" comment="blackDeclinesImpasse">Sente declines impasse</string>
+	<string name="blackDeclinesImpasse">Sente declines impasse</string>
 	<string name="blackOffersImpasse">Sente offers impasse</string>
 	<string name="notationType">Notation</string>
 	<string name="whiteDeclinesImpasse">Gote declines impasse</string>
