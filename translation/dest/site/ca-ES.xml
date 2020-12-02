@@ -863,7 +863,7 @@ en %3$s</string>
 	<string name="youCannotPostYetPlaySomeGames">Encara no pots publicar en els fòrums. Juga algunes partides!</string>
 	<string name="subscribe">Subscriure’s</string>
 	<string name="unsubscribe">Anul·la subscripció</string>
-	<string name="blackDeclinesImpasse" comment="blackDeclinesImpasse">Sente declines impasse</string>
+	<string name="blackDeclinesImpasse">Sente declines impasse</string>
 	<string name="blackOffersImpasse">Sente offers impasse</string>
 	<string name="notationType">Notation</string>
 	<string name="whiteDeclinesImpasse">Gote declines impasse</string>
