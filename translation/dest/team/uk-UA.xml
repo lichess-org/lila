@@ -28,7 +28,7 @@
   <string name="kickSomeone">Виключити когось з команди</string>
   <string name="whoToKick">Кого ти хочеш виключити з команди?</string>
   <plurals name="xJoinRequests">
-    <item quantity="one">Запит на приєднання</item>
+    <item quantity="one">%s Запит на приєднання</item>
     <item quantity="few">Запити на приєднання</item>
     <item quantity="many">Запити на приєднання</item>
     <item quantity="other">Запит на приєнання</item>
