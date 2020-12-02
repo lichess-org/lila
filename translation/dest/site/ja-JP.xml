@@ -236,7 +236,7 @@
 	<string name="recipient">受信者</string>
 	<string name="send">送信する</string>
 	<string name="incrementInSeconds">１手ごとに増える秒数</string>
-	<string name="freeOnlineChess">Free Online Shogi</string>
+	<string name="freeOnlineChess">無料オンライン将棋</string>
 	<string name="spectators">観覧者:</string>
 	<plurals name="nbRated">
 		<item quantity="other">%s 局レート戦</item>
@@ -302,7 +302,7 @@
 	<string name="mustBeInTeam">チーム %s のメンバー限定</string>
 	<string name="youAreNotInTeam">チーム %s に入っていません</string>
 	<string name="backToGame">ゲームに戻る</string>
-	<string name="siteDescription">Free online shogi server. Play shogi in a clean interface. No registration, no ads, no plugin required. Play shogi with the computer, friends or random opponents.</string>
+	<string name="siteDescription">無料オンライン将棋。簡素なインターフェースですぐに対局を。登録不要、広告なし、プラグイン不要。AIと、友達と、知らない相手とも対局できます。</string>
 	<string name="xJoinedTeamY">%1$s がチーム %2$s に参加しました</string>
 	<string name="xCreatedTeamY">%1$s がチーム %2$s を作成しました</string>
 	<string name="xStartedStreaming">%s が配信を開始</string>
@@ -324,9 +324,9 @@
 	<plurals name="nbImportedGames">
 		<item quantity="other">%s 局をインポート</item>
 	</plurals>
-	<string name="thisIsAChessCaptcha">This is a shogi CAPTCHA.</string>
+	<string name="thisIsAChessCaptcha">これはロボットよけの認証です。</string>
 	<string name="clickOnTheBoardToMakeYourMove">駒を動かしてあなたが人間である事を証明して下さい。</string>
-	<string name="captcha.fail">Please solve the shogi captcha.</string>
+	<string name="captcha.fail">問題を解いて人間だと証明してください。</string>
 	<string name="notACheckmate">チェックメイトではありません</string>
 	<string name="whiteCheckmatesInOneMove">白 1 手でチェックメイト</string>
 	<string name="blackCheckmatesInOneMove">黒 1 手でチェックメイト</string>
@@ -421,8 +421,8 @@
 	<string name="country">国</string>
 	<string name="socialMediaLinks">ソーシャルメディアへのリンク</string>
 	<string name="inlineNotation">棋譜を行書き</string>
-	<string name="watchLishogiTV">Watch Lishogi TV</string>
-	<string name="previouslyOnLishogiTV">Previously on Lishogi TV</string>
+	<string name="watchLishogiTV">Lishogi TVを観戦</string>
+	<string name="previouslyOnLishogiTV">過去のLishogi TV対局</string>
 	<string name="onlinePlayers">接続中のプレイヤー</string>
 	<string name="activeToday">今日の対局数上位</string>
 	<string name="activePlayers">総対局数上位</string>
@@ -610,7 +610,7 @@
 	<string name="simulClockHint">フィッシャーモードの設定。相手が多いほど追加時間は長めに。</string>
 	<string name="simulAddExtraTime">同時対局の手間を考え、自分に持時間をさらに追加できます。</string>
 	<string name="simulHostExtraTime">ホスト延長時間</string>
-	<string name="lishogiTournaments">Lishogi tournaments</string>
+	<string name="lishogiTournaments">Lishogiトーナメント</string>
 	<string name="tournamentFAQ">アリーナ・トーナメントFAQ</string>
 	<string name="tournamentOfficial">公式</string>
 	<string name="timeBeforeTournamentStarts">開始までの時間</string>
@@ -621,7 +621,7 @@
 	<string name="keyShowOrHideComments">コメントを表示する/隠す</string>
 	<string name="keyEnterOrExitVariation">変化に入る/出る</string>
 	<string name="newTournament">新しいトーナメント</string>
-	<string name="tournamentHomeTitle">Shogi tournaments featuring various time controls and variants</string>
+	<string name="tournamentHomeTitle">さまざまな持ち時間とルールの将棋トーナメント</string>
 	<string name="tournamentHomeDescription">Play fast-paced shogi tournaments! Join an official scheduled tournament, or create your own. Bullet, Blitz, Classical and more options available for endless shogi fun.</string>
 	<string name="tournamentNotFound">トーナメントが見つかりません</string>
 	<string name="tournamentDoesNotExist">このトーナメントは存在しません</string>
@@ -823,7 +823,7 @@
 	<string name="youCannotPostYetPlaySomeGames">何局か指し終えるまで投稿はできません。</string>
 	<string name="subscribe">投稿をフォロー</string>
 	<string name="unsubscribe">投稿のフォローをはずす</string>
-	<string name="blackDeclinesImpasse" comment="blackDeclinesImpasse">Sente declines impasse</string>
+	<string name="blackDeclinesImpasse">Sente declines impasse</string>
 	<string name="blackOffersImpasse">Sente offers impasse</string>
 	<string name="notationType">Notation</string>
 	<string name="whiteDeclinesImpasse">Gote declines impasse</string>
