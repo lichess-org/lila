@@ -47,12 +47,12 @@
 	<string name="knightPromotion">Le cavalier se promeut aussi. Son déplacement change beaucoup après, donc soyez attentif.</string>
 	<string name="knightComplete">Félicitations ! Vous maîtrisez les déplacements du Cavalier.</string>
 	<string name="thePawn">Le Pion</string>
-	<string name="itMovesForwardOnly">March forward!</string>
+	<string name="itMovesForwardOnly">En avant, marche !</string>
 	<string name="pawnIntro">Les Pions sont faibles, mais ils ont beaucoup de potentiel.</string>
-	<string name="pawnsMoveOneSquareOnly">Pawns can move to the square directly in front of them, they capture the same way.</string>
-	<string name="pawnPromotion">The pawn can also be promoted, the moves are once again the same as the gold general.</string>
+	<string name="pawnsMoveOneSquareOnly">Le pion se déplace d\'une case vers l\'avant, et la prise se fait de même façon.</string>
+	<string name="pawnPromotion">Le pion se promeut également, et encore une fois son déplacement deviendra celui du général d\'or.</string>
 	<string name="pawnComplete">Félicitations ! Les pions n\'ont plus de secret pour vous.</string>
-	<string name="pawnSummary">The pawn is a rather straightforward piece to understand.</string>
+	<string name="pawnSummary">Le pion est une pièce assez simple à comprendre.</string>
 	<string name="tokinSummary">You should already be familiar with this pattern by now.</string>
 	<string name="theLance">La lance</string>
 	<string name="itMovesStraightForward">La lance ne peut qu\'avancer devant elle.</string>
