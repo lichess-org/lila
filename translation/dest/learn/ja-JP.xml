@@ -3,43 +3,44 @@
 	<string name="learnShogi">将棋を学ぶ</string>
 	<string name="byPlaying">遊びながら！</string>
 	<string name="menu">メニュー</string>
-	<string name="progressX">修了: %s</string>
+	<string name="progressX">進捗: %s</string>
 	<string name="resetMyProgress">学習履歴をリセット</string>
-	<string name="youWillLoseAllYourProgress">修了の数字はゼロになります！</string>
-	<string name="play">今ここ</string>
+	<string name="youWillLoseAllYourProgress">すべての進捗数字がゼロになります！</string>
+	<string name="play">ここ！</string>
 	<string name="shogiPieces">将棋の駒</string>
 	<string name="theIntoduction">はじめに</string>
-	<string name="introBasics">基本を学びましょう</string>
+	<string name="introBasics">基本を学びましょう。</string>
 	<string name="introIntro">あなたの旅はここから始まります。</string>
-	<string name="choosePieceDesign">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set. \nTo do that click on the cog wheel or your username (top right corner) and then click on \"piece set\".</string>
-	<string name="promotionZone">一部の駒が相手の陣地3列に入り、又は出たときは、成ることを選択し強くすることができます。</string>
+	<string name="choosePieceDesign">伝えておくべき大事なことは、駒の区別がつくことですので正しい駒のセットを選びましょう。\n
+そうするためには歯車か（右上にある）ユーザー名をクリックし、そこから「駒のセット」をクリックします。</string>
+	<string name="promotionZone">いくつかの駒は相手の陣地3列内に入り、または出たときに、成ることを選択して強くすることができます。</string>
 	<string name="introComplete">これで基本的なことは分かったと思いますが、チュートリアルのこの部分はまだ作成中です。今のところは、個々の駒がどのように動くかを学んでください。</string>
-	<string name="theRook">ルーク</string>
+	<string name="theRook">飛車</string>
 	<string name="itMovesInStraightLines">タテヨコに動く</string>
-	<string name="rookIntro">ルークは強力な駒です。用意はいいですか？</string>
+	<string name="rookIntro">飛車は強力な駒です。用意はいいですか？</string>
 	<string name="rookGoal">飛車をクリックして星印まで動かしましょう！</string>
 	<string name="rookPromotion">飛車は強力な竜王に成ることができます。相手の陣地から出るときも駒が成れることを忘れないでください。</string>
 	<string name="rookSummary">飛車は、上下、左右、自由に動くことができます。</string>
 	<string name="dragonSummary">成っていない飛車と同じように動けるだけでなく、どの斜め方向にも1マス移動できるので、かなり強力になります。</string>
 	<string name="grabAllTheStars">星印を全部集めて！</string>
 	<string name="theFewerMoves">手数が少ないほど高ポイントです！</string>
-	<string name="rookComplete">おめでとう！　ルークの動きをマスターしました。</string>
-	<string name="theBishop">ビショップ</string>
+	<string name="rookComplete">おめでとうございます！飛車の動きをマスターしました。</string>
+	<string name="theBishop">角行</string>
 	<string name="itMovesDiagonally">ナナメに動く</string>
 	<string name="bishopIntro">次はビショップの動き方です！</string>
 	<string name="bishopPromotion">角行が成ると、竜馬と呼ばれるより強い駒に変化します。</string>
-	<string name="bishopSummary">角行はどの斜め方向にも動きます。</string>
+	<string name="bishopSummary">角行は斜めへどの方向にも動きます。</string>
 	<string name="horseSummary">成った角行は斜めにも動きますが、上下、左右に1マス進むこともできます。</string>
-	<string name="bishopComplete">おめでとう！　ビショップを使えるようになりました。</string>
-	<string name="theKing">キング</string>
-	<string name="theMostImportantPiece">いちばんだいじな駒</string>
-	<string name="kingIntro">キングは王様です。キングがやられるとゲームは負けです。</string>
-	<string name="theKingIsSlow">王将・玉将の動きは少しゆっくりです。</string>
-	<string name="kingSummary">王将・玉将はどの方向にも動けますが、1マス分しか移動できません。</string>
-	<string name="kingComplete">キングの動きも覚えましたね！</string>
-	<string name="theKnight">ナイト</string>
+	<string name="bishopComplete">おめでとう！角を使えるようになりました。</string>
+	<string name="theKing">王将/玉将</string>
+	<string name="theMostImportantPiece">一番大事な駒</string>
+	<string name="kingIntro">あなたは王将/玉将です。王将/玉将がやられると対局は負けです。</string>
+	<string name="theKingIsSlow">王将/玉将動きは少しゆっくりです。</string>
+	<string name="kingSummary">王将/玉将はどの方向にも動けますが、たったの1マスしか移動できません。</string>
+	<string name="kingComplete">王将/玉将の動きも覚えましたね！</string>
+	<string name="theKnight">桂馬</string>
 	<string name="itMovesInAnLShape">L字型に動きますが、前方のみです！</string>
-	<string name="knightIntro">ここでもう1つの課題があります。桂馬は...、扱いにくい駒です。</string>
+	<string name="knightIntro">ここでもう1つの課題があります。桂馬は......扱いにくい駒です。</string>
 	<string name="knightsHaveAFancyWay">桂馬は面白い動きで盤上を跳ね回ります！</string>
 	<string name="knightsCanJumpOverObstacles">桂馬は障害物を飛び越えることができます！</string>
 	<string name="knightSummary">桂馬は前方にL字型にジャンプすることができますが、前方に2マス、横に1マスしかジャンプできません。桂馬の動きは他の駒に制限されず、ただ飛び越えるだけです。</string>
@@ -48,10 +49,10 @@
 	<string name="knightComplete">おめでとう！　ナイトもマスターしました。</string>
 	<string name="thePawn">ポーン</string>
 	<string name="itMovesForwardOnly">前に進め！</string>
-	<string name="pawnIntro">ポーンは弱い駒ですが大きな可能性を秘めています。</string>
+	<string name="pawnIntro">歩兵は弱い駒ですが大きな可能性を秘めています。</string>
 	<string name="pawnsMoveOneSquareOnly">歩兵は目の前のマスに動くことができ、同じ動きで相手の駒を取ります。</string>
 	<string name="pawnPromotion">歩兵も成ることができ、動きは金将と同じです。</string>
-	<string name="pawnComplete">おめでとう！　ポーンもよくわかったでしょう。</string>
+	<string name="pawnComplete">おめでとう！歩兵の動きも覚えたでしょう。</string>
 	<string name="pawnSummary">歩兵はかなり分かりやすい駒です。</string>
 	<string name="tokinSummary">このパターンはもう慣れているはずです。</string>
 	<string name="theLance">香車</string>
@@ -70,14 +71,14 @@
 	<string name="goldComplete">おめでとうございます！よくできました。</string>
 	<string name="theSilver">銀将</string>
 	<string name="itMovesEitherForwardOrDiagonallyBack">前とナナメ前後に動く</string>
-	<string name="silverIntro">Another piece with unusual movements, but this is the last one. Promise!</string>
+	<string name="silverIntro">もう一つ通常と異なる動きの駒がありますけれど、これが最後です。約束します！</string>
 	<string name="silverPromotion">銀将が成るとき、動きは金将と同じです。</string>
 	<string name="silverSummary">これらの動きは、ある程度の練習をすれば必ず覚えられるはずです。</string>
 	<string name="psilverSummary">金将と同じように、よく見かけるようになります。</string>
 	<string name="silverComplete">おめでとうございます！いい調子です。</string>
 	<string name="promotion">この駒は成ることができます。</string>
 	<string name="yourPieceReachedThePromotionZone">駒が成れるところに来ました！</string>
-	<string name="itNowPromotesToAStrongerPiece">It can now be promoted to a stronger piece.</string>
+	<string name="itNowPromotesToAStrongerPiece">その駒は今や成ることによってより強い駒になることができます。</string>
 	<string name="selectThePieceYouWant">好きな駒を選んでください！</string>
 	<string name="fundamentals">初級</string>
 	<string name="capture">駒取り</string>
@@ -86,7 +87,7 @@
 	<string name="takeTheBlackPieces">黒の駒を全部取ります！</string>
 	<string name="takeTheBlackPiecesAndDontLoseYours">黒の駒を全部取ります！
 自分の駒を取られないように。</string>
-	<string name="captureComplete">Congratulations! You know how to fight with shogi pieces!</string>
+	<string name="captureComplete">おめでとうございます！どうやって将棋の駒を取るかを覚えました！</string>
 	<string name="protection">守り</string>
 	<string name="keepYourPiecesSafe">自分の駒を安全に</string>
 	<string name="protectionIntro">相手に攻撃されている自分の駒を見つけ、守ってください！</string>
@@ -100,7 +101,7 @@
 	<string name="combat">攻防</string>
 	<string name="captureAndDefendPieces">駒を取り、駒を守る</string>
 	<string name="combatIntro">すぐれた戦士は攻撃と防御、両方を使いこなす！</string>
-	<string name="combatComplete">Congratulations! You know how to fight with shogi pieces!</string>
+	<string name="combatComplete">おめでとうございます！どうやって将棋の駒を戦わせるかを覚えました！</string>
 	<string name="checkInOne">1手でチェック</string>
 	<string name="attackTheOpponentsKing">相手のキングを攻撃する</string>
 	<string name="checkInOneIntro">チェックするには相手のキングを攻撃します。相手は何か防ぐしかない。</string>
@@ -125,14 +126,13 @@
 	<string name="mateInOneIntro">相手がチェックを防げなくなれば、あなたの勝ちです。</string>
 	<string name="attackYourOpponentsKing">防げないような
 チェックをかけて！</string>
-	<string name="mateInOneComplete">Congratulations! That is how you win shogi games!</string>
+	<string name="mateInOneComplete">おめでとうございます！これが将棋で勝つ方法です！</string>
 	<string name="intermediate">中級</string>
 	<string name="boardSetup">盤駒の用意</string>
 	<string name="howTheGameStarts">ゲームの始め方</string>
 	<string name="boardSetupIntro">両軍が向かい合い、戦いに備えます。</string>
-	<string name="thisIsTheInitialPosition">This is the initial position
-of every game of shogi!
-Make any move to continue.</string>
+	<string name="thisIsTheInitialPosition">これが将棋の初期盤面です。
+続けるには好きな次の手をどうぞ。</string>
 	<string name="firstPlaceTheRooks">まずルークを
 両隅に置く。</string>
 	<string name="thenPlaceTheKnights">次にナイトを
@@ -145,7 +145,7 @@ Make any move to continue.</string>
 クイーンのとなりに。</string>
 	<string name="pawnsFormTheFrontLine">ポーンはその前に並びます。
 好きな手を指して。</string>
-	<string name="boardSetupComplete">Congratulations! You know how to set up the shogi board.</string>
+	<string name="boardSetupComplete">おめでとう！駒の並べ方を覚えました！</string>
 	<string name="stalemate">ステイルメイト</string>
 	<string name="theGameIsADraw">引き分けになる</string>
 	<string name="stalemateIntro">チェックされていないのに動かす手がない場合が「ステイルメイト」です。ゲームは引き分けで、勝ち負けなしになります。</string>
@@ -189,7 +189,7 @@ Make any move to continue.</string>
 	<string name="puzzles">タクティクス</string>
 	<string name="exerciseYourTacticalSkills">戦術の力をみがく</string>
 	<string name="videos">動画</string>
-	<string name="watchInstructiveChessVideos">Watch instructive shogi videos</string>
+	<string name="watchInstructiveChessVideos">将棋の教材動画を見る</string>
 	<string name="playPeople">人と対戦</string>
 	<string name="opponentsFromAroundTheWorld">世界中に相手がいます</string>
 	<string name="playMachine">マシンと対戦</string>
