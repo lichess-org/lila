@@ -41,7 +41,7 @@
 	<string name="itMovesInAnLShape">Se mueve en forma de L, pero solo hacia ADELANTE!</string>
 	<string name="knightIntro">A ver cómo se te da éste. El Caballo es... una pieza complicada.</string>
 	<string name="knightsHaveAFancyWay">¡Los caballos tienen una forma curiosa de saltar!</string>
-	<string name="knightsCanJumpOverObstacles">Knights can jump over obstacles!</string>
+	<string name="knightsCanJumpOverObstacles">¡Los caballos pueden saltar obstáculos!</string>
 	<string name="knightSummary">The knight can jump in an L shape forward, but only by two squares forward and one square sideways. Its movement also isn\'t restricted by other pieces - it will just jump over them.</string>
 	<string name="pknightSummary">Promoted knight moves are completely different from the unpromoted knight, but you can notice it moves the same as the gold general, so make sure to study that one thoroughly.</string>
 	<string name="knightPromotion">The knight can also be promoted. His movements change a lot after that, so pay attention.</string>
