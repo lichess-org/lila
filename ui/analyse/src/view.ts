@@ -125,7 +125,7 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
   if (ctrl.redirecting) return spinner();
   return h("div.copyables", [
     h("div.pair", [
-      h("label.name", "FEN"),
+      h("label.name", "SFEN"),
       h("input.copyable.autoselect.analyse__underboard__fen", {
         attrs: { spellCheck: false },
         hook: {
@@ -144,7 +144,7 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
             el.addEventListener("input", (_) => {
               ctrl.fenInput = el.value;
               el.setCustomValidity(
-                validFen(undisplaySfen(el.value.trim())) ? "" : "Invalid FEN"
+                validFen(undisplaySfen(el.value.trim())) ? "" : "Invalid SFEN"
               );
             });
           },
