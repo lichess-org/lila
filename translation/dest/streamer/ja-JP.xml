@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lishogiStreamers">Lishogi streamers</string>
-  <string name="lishogiStreamer">Lishogi streamer</string>
+  <string name="lishogiStreamers">Lishogi配信者</string>
+  <string name="lishogiStreamer">Lishogi配信者</string>
   <string name="live">ライブ配信中</string>
   <string name="offline">オフライン</string>
   <string name="currentlyStreaming">現在配信中：%s</string>
