@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="lishogiCoaches">Lishogi coaches</string>
-	<string name="lishogiCoach">Lishogi coach</string>
-	<string name="areYouCoach">Are you a great shogi coach with a %s?</string>
-	<string name="nmOrFideTitle">title</string>
+	<string name="lishogiCoaches">Coaches sur Lishogi</string>
+	<string name="lishogiCoach">Coach sur Lishogi</string>
+	<string name="areYouCoach">Êtes-vous entraîneur de shogi avec un %s ?</string>
+	<string name="nmOrFideTitle">titre</string>
 	<string name="confirmTitle">Confirmez votre titre ici, nous le passerons en revue votre demande.</string>
 	<string name="sendApplication">Envoyez-nous un courriel à %s et nous examinerons votre demande.</string>
 	<string name="location">Localisation</string>
@@ -13,7 +13,7 @@
 	<string name="availability">Disponibilité</string>
 	<string name="accepting">Accepte des élèves</string>
 	<string name="notAccepting">N\'accepte plus d\'élèves pour le moment</string>
-	<string name="xCoachesStudents">%s coaches shogi students</string>
+	<string name="xCoachesStudents">%s entraine des joueurs de shogi</string>
 	<string name="viewXProfile">Voir le profil Lishogi de %s</string>
 	<string name="sendPM">Envoyer un message privé</string>
 	<string name="aboutMe">À propos de moi</string>
