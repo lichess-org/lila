@@ -2,7 +2,7 @@
 <resources>
 	<string name="playWithAFriend">友達と対局する</string>
 	<string name="playWithTheMachine">AIと対局する</string>
-	<string name="toInviteSomeoneToPlayGiveThisUrl">対局に招待するときこのURLを知らせてください</string>
+	<string name="toInviteSomeoneToPlayGiveThisUrl">対局に招待するとき、このURLを知らせてください</string>
 	<string name="gameOver">終局</string>
 	<string name="waitingForOpponent">相手を待っています</string>
 	<string name="waiting">待機中</string>
@@ -373,7 +373,7 @@
 	<string name="advancedSettings">高度な設定</string>
 	<string name="safeTournamentName">トーナメントの名前は無難なものにしてください。</string>
 	<string name="inappropriateNameWarning">少しでも不適切な名前の場合、あなたのアカウントを停止することがあります。</string>
-	<string name="emptyTournamentName">Leave empty to name the tournament after a notable shogi player.</string>
+	<string name="emptyTournamentName">トーナメントを空白のままにしておくと、自動でランダムな有名プレーヤーの名前がつきます。</string>
 	<string name="recommendNotTouching">ここは触らないことを推奨します。</string>
 	<string name="fewerPlayers">参加条件を決めると、当然参加者は少なくなります。</string>
 	<string name="showAdvancedSettings">「高度な設定」を表示</string>
@@ -533,7 +533,7 @@
 	<string name="starting">開始時刻：</string>
 	<string name="allInformationIsPublicAndOptional">情報の記入はすべて任意で、すべて公開されます。</string>
 	<string name="yourCityRegionOrDepartment">居住地の市、地域、または県</string>
-	<string name="biographyDescription">Talk about yourself, your interests, what you like in shogi, your favourite openings, players, ...</string>
+	<string name="biographyDescription">自分自身、興味のあること、将棋のどこが好きか、好きな序盤の形、棋士など...を語ってください。</string>
 	<plurals name="maximumNbCharacters">
 		<item quantity="other">最大: %s 文字</item>
 	</plurals>
