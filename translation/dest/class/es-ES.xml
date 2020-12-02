@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="lishogiClasses">Classes</string>
-	<string name="teachClassesOfChessStudents">Teach classes of shogi students with the Lishogi Classes tool suite.</string>
+	<string name="lishogiClasses">Clases</string>
+	<string name="teachClassesOfChessStudents">Enseñar clases de shogi con el conjunto de herramientos de clases de Lishogi.</string>
 	<string name="features">Características</string>
 	<string name="quicklyGenerateSafeUsernames">Generar rápidamente nombres de usuario y contraseñas seguras para estudiantes</string>
 	<string name="trackStudentProgress">Seguir el progreso del estudiante en partidas y ejercicios de táctica</string>
 	<string name="messageAllStudents">Enviar un mensaje a todos los estudiantes sobre nuevo material de clase</string>
 	<string name="freeForAllForever">100% libre y gratuito para todos, por siempre, sin publicidad ni rastreadores</string>
-	<string name="applyToBeLishogiTeacher">Apply to be a Lishogi Teacher</string>
+	<string name="applyToBeLishogiTeacher">Solicitar ser profesor de Lishogi</string>
 	<string name="noClassesYet">No hay clases todavía.</string>
 	<string name="teachersX">Profesores: %s</string>
 	<string name="newClass">Nueva clase</string>
@@ -23,7 +23,7 @@
 	<string name="classDescription">Descripción de la clase</string>
 	<string name="visibleByBothStudentsAndTeachers">Visible para profesores y estudiantes de la clase</string>
 	<string name="teachersOfTheClass">Profesores de la clase</string>
-	<string name="addLishogiUsernames">Add Lishogi usernames to invite them as teachers. One per line.</string>
+	<string name="addLishogiUsernames">Añadir nombres de usuarios de Lishogi para invitarlos como profesores. Uno por línea.</string>
 	<string name="theyMustFirstApply">Primero deben aplicar a ser Profesores de Lishogi.</string>
 	<string name="resetPassword">Restablecer contraseña</string>
 	<string name="makeSureToCopy">Asegúrate de copiar o escribir la contraseña ahora. ¡No podrás verla de nuevo!</string>
@@ -33,21 +33,21 @@
 	<string name="realName">Nombre real</string>
 	<string name="privateWillNeverBeShown">Privado. Nunca se mostrará fuera de la clase. Ayuda a recordar quién es el estudiante.</string>
 	<string name="addStudent">Añadir estudiante</string>
-	<string name="lishogiProfileXCreatedForY">Lishogi profile %1$s created for %2$s.</string>
+	<string name="lishogiProfileXCreatedForY">Perfil de Lishogi %1$s creado por %2$s.</string>
 	<string name="studentCredentials">Estudiante:  %1$s
 Nombre de usuario: %2$s
 Contraseña: %3$s</string>
-	<string name="inviteALishogiAccount">Invite a Lishogi account</string>
+	<string name="inviteALishogiAccount">Invita una cuenta de Lishogi</string>
 	<string name="inviteDesc1">Si el estudiante ya posee una cuenta de Lishogi, puede invitarle a la clase.</string>
 	<string name="inviteDesc2">Recibirán un mensaje en Lishogi con un enlace para unirse a la clase.</string>
 	<string name="inviteDesc3">Importante: invita solamente a estudiantes que conozcas, y que deseen unirse a la clase.</string>
 	<string name="inviteDesc4">Nunca envíes invitaciones no solicitadas a jugadores arbitrarios.</string>
-	<string name="createANewLishogiAccount">Create a new Lishogi account</string>
+	<string name="createANewLishogiAccount">Crear una nueva cuenta de Lishogi</string>
 	<string name="createDesc1">Si los estudiantes todavía no poseen una cuenta de Lishogi, puede crear una para ellos aquí.</string>
 	<string name="createDesc2">No se requiere dirección de correo electrónico. Se generará una contraseña. Debe dársela a los estudiantes, así podrán iniciar sesión.</string>
 	<string name="createDesc3">Importante: un estudiante no debe tener múltiples cuentas.</string>
 	<string name="createDesc4">Si ya poseen una, usa el formulario de invitación.</string>
-	<string name="lishogiUsername">Lishogi username</string>
+	<string name="lishogiUsername">Nombre de usuario de Lishogi</string>
 	<string name="generateANewUsername">Generar un nuevo nombre de usuario</string>
 	<string name="welcomeToClass">Bienvenido a tu clase: %s.
 Aquí está el enlace de acceso.</string>
