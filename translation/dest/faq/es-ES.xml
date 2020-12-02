@@ -11,8 +11,8 @@
 	<string name="whyIsLilaCalledLila">Del mismo modo, el código fuente de Lishogi, %1$s, significa li[shogi en sca]la, dado que la mayor parte de Lishogi está escrito en %2$s, un intuitivo lenguaje de programación.</string>
 	<string name="howCanIContributeToLishogi">¿Cómo puedo contribuir a Lishogi?</string>
 	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi se mantiene mediante donaciones de patrocinadores y los esfuerzos de un equipo de voluntarios.</string>
-	<string name="findMoreAndSeeHowHelp">You can find out more about %1$s. If you want to help Lishogi by volunteering your time and skills, there are many %2$s.</string>
-	<string name="beingAPatron">Become a patron</string>
+	<string name="findMoreAndSeeHowHelp">Puedes aprender más sobre %1$s. Si quieres ayudar a Lishogi voluntariamente con tu tiempo y habilidades, hay muchas %2$s.</string>
+	<string name="beingAPatron">Conviértete en un mecenas</string>
 	<string name="breakdownOfOurCosts">desglose de nuestros gastos</string>
 	<string name="otherWaysToHelp">otras formas de ayudar</string>
 	<string name="areThereWebsitesBasedOnLishogi">¿Hay páginas web basadas en Lishogi?</string>
@@ -27,17 +27,17 @@
 	<string name="leavingGameWithoutResigningExplanation">Si tu oponente abandona habitualmente partidas se le marca como \"prohibido jugar\", lo que significa que está temporalmente suspendido para jugar. Esto no se indica públicamente en su perfil. Si persiste en este comportamiento, la duración de la suspensión aumenta y puede conllevar el cierre de su cuenta.</string>
 	<string name="howCanIBecomeModerator">¿Cómo puedo convertirme en moderador?</string>
 	<string name="youCannotApply">No se puede solicitar ser moderador. Si vemos a alguien que pensamos que sería un buen moderador, nos ponemos en contacto con él directamente.</string>
-	<string name="isCorrespondenceDifferent">Is correspondence different from normal shogi?</string>
-	<string name="youCanUseOpeningBookNoEngine">On Lishogi, the main difference in rules for correspondence shogi is that an opening book is allowed. The use of engines is still prohibited and will result in being flagged for engine assistance. Although ICCF allows engine use in correspondence, Lishogi does not.</string>
+	<string name="isCorrespondenceDifferent">¿El ajedrez por correspondencia es diferente del shogi normal?</string>
+	<string name="youCanUseOpeningBookNoEngine">En Lishogi, la principal diferencia en las reglas del shogi por correspondencia es que se permite un libro de aperturas. El uso de motores sigue estando prohibido y dará lugar a que se etiquete al usuario como tramposo. Aunque la ICCF permite el uso del motor en partidas por correspondencia, Lishogi no lo permite.</string>
 	<string name="gameplay">Mecánica de juego</string>
 	<string name="howBulletBlitzEtcDecided">¿Cómo se deciden los controles de tiempo en Bullet, Blitz y otros?</string>
 	<string name="basedOnGameDuration">Los controles de tiempo de Lishogi se basan en la duración estimada de una partida = %1$s
  Por ejemplo, la duración estimada de una partida de 5+3 es 5 * 60 + 40 * 3 = 420 segundos.</string>
 	<string name="durationFormula">(hora inicial del reloj) + 40 * (aumento del reloj)</string>
-	<string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
-	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+	<string name="inferiorThanXsEqualYtimeControl">&lt; %1$s s = %2$s</string>
+	<string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
 	<string name="whatVariantsCanIplay">¿Qué variantes puedo jugar en Lishogi?</string>
-	<string name="lishogiSupportChessAnd">Lishogi supports standard shogi and %1$s.</string>
+	<string name="lishogiSupportChessAnd">Lishogi soporta shogi estándar y %1$s.</string>
 	<string name="eightVariants">8 variantes de ajedrez</string>
 	<string name="whatIsACPL">¿Qué es la \"pérdida media de centipeón\"?</string>
 	<string name="acplExplanation">El centipeón es la unidad de medida utilizada en el ajedrez como representación de la ventaja. Un centipeón es igual a 1/100 de un peón. Por lo tanto 100 centipeones = 1 peón. Estos valores no juegan ningún papel formal en el juego, pero son útiles para los jugadores y esenciales en el ajedrez por computadora para evaluar las posiciones.
@@ -48,11 +48,11 @@
 
   El análisis informático en Lishogi es proporcionado por Stockfish.</string>
 	<string name="insufficientMaterial">Perdiendo por tiempo, empate y material insuficiente</string>
-	<string name="lishogiFollowFIDErules">In the event of one player running out of time, that player will usually lose the game. However, the game is drawn if the position is such that the opponent cannot checkmate the player\'s king by any possible series of legal moves (%1$s).
+	<string name="lishogiFollowFIDErules">En el caso de que un jugador se quede sin tiempo, ese jugador normalmente perderá la partida. Sin embargo, el juego se considera empate si la posición es tal que el oponente no puede dar mate al rey del jugador por cualquier posible serie de movimientos legales (%1$s).
 
-In rare cases this can be difficult to decide automatically (forced lines, fortresses). By default we always side with the player who did not run out of time.
+ En raras ocasiones esto puede ser difícil de decidir automáticamente (líneas forzadas, fortalezas). Por defecto, siempre estamos de parte del jugador que no se quedó sin tiempo.
 
-Note that it can be possible to mate with a single knight or bishop if the opponent has a piece that could block the king.</string>
+ Ten en cuenta que es posible dar mate con un sólo caballo o alfil, siempre que el oponente tenga una pieza que pueda bloquear al rey.</string>
 	<string name="linkToFIDErules">Manual FIDE §6.9, pdf</string>
 	<string name="discoveringEnPassant">¿Por qué un peón puede capturar otro peón cuando ya está pasado? (en passant)</string>
 	<string name="explainingEnPassant">Este movimiento es legal, y se llama \"captura al paso\". El artículo de Wikipedia da una %1$s al mismo.
@@ -65,7 +65,7 @@ Note that it can be possible to mate with a single knight or bishop if the oppon
   </string>
 	<string name="goodIntroduction">buena introducción</string>
 	<string name="officialRulesPDF">reglas oficiales (pdf)</string>
-	<string name="lishogiTraining">Lishogi training</string>
+	<string name="lishogiTraining">Entrenamiento en Lishogi</string>
 	<string name="threefoldRepetition">Triple repetición</string>
 	<string name="threefoldRepetitionExplanation">Si una posición ocurre tres veces, los jugadores pueden reclamar un empate por %1$s. Lishogi implementa las reglas oficiales de la FIDE, de acuerdo con el Artículo 9.2 (d) del %2$s.</string>
 	<string name="threefoldRepetitionLowerCase">triple repetición</string>
