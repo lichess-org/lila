@@ -860,7 +860,7 @@
 	<string name="youCannotPostYetPlaySomeGames">Még nem írhatsz a fórumokba. Játssz néhány partit!</string>
 	<string name="subscribe">Feliratkozás</string>
 	<string name="unsubscribe">Leiratkozás</string>
-	<string name="blackDeclinesImpasse" comment="blackDeclinesImpasse">Sente declines impasse</string>
+	<string name="blackDeclinesImpasse">Sente declines impasse</string>
 	<string name="blackOffersImpasse">Sente offers impasse</string>
 	<string name="notationType">Notation</string>
 	<string name="whiteDeclinesImpasse">Gote declines impasse</string>
