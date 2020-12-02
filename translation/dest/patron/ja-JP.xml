@@ -15,7 +15,7 @@
 	<string name="weAreNonProfit">Lishogiは非営利団体です。世界規模の将棋サイトを誰もが無料で使えるべきだと考えているからです。</string>
 	<string name="weRelyOnSupport">そのためにはあなたのような方からのサポートが必要です。Lishogi を楽しんでいるのなら、寄付をしてパトロンになることを考えてみてください！</string>
 	<string name="lifetime">永久</string>
-	<string name="payLifetimeOnce">%s を一度寄付すれば永久パトロンです。</string>
+	<string name="payLifetimeOnce">%s を一度に寄付すれば、永久に Lihosig パトロンです！</string>
 	<string name="lifetimePatron">永久 Lishogi パトロン</string>
 	<string name="makeExtraDonation">さらに寄付しますか？</string>
 	<string name="monthly">毎月</string>
@@ -26,15 +26,15 @@
 	<string name="pleaseEnterAmount">金額（米ドル）を入力してください</string>
 	<string name="withCreditCard">クレジットカード</string>
 	<string name="withPaypal">PayPal</string>
-	<string name="weAreSmallTeam">小さな団体なのであなたのサポートはほんとうに助けになります！</string>
+	<string name="weAreSmallTeam">小さな団体なので、あなたのサポートは本当に大きな助けになります！</string>
 	<string name="celebratedPatrons">Lishogi の実現に貢献しているパトロンのみなさん</string>
 	<string name="whereMoneyGoes">このお金は何に使われますか？</string>
-	<string name="serversAndDeveloper">First of all, powerful servers.
-Then we pay a full-time developer: %s, the founder of Lishogi.</string>
+	<string name="serversAndDeveloper">まず第一に、より強力なサーバーです。
+そして Lishogi の創設者であり常勤の開発者でもある %s に支払われます。</string>
 	<string name="costBreakdown">費用の内訳を見る</string>
-	<string name="officialNonProfit">Lishogi は公認の非営利団体ですか？</string>
-	<string name="actOfCreation">そうです。設立のための公文書（フランス語）はこちら</string>
-	<string name="changeMonthlySupport">月ぎめの寄付を変更／キャンセルできますか？</string>
+	<string name="officialNonProfit">Lishogi は公式の非営利団体ですか？</string>
+	<string name="actOfCreation">そうです。設立文書（フランス語）はこちら</string>
+	<string name="changeMonthlySupport">毎月の寄付を変更／キャンセルできますか？</string>
 	<string name="changeOrContact">はい、このページでいつでも。
 あるいは %s を。</string>
 	<string name="contactSupport">Lishogi サポートに連絡</string>
@@ -55,7 +55,7 @@ Then we pay a full-time developer: %s, the founder of Lishogi.</string>
 	<string name="youWillBeChargedXOnY">%1$s が %2$s に請求されます。</string>
 	<string name="makeAdditionalDonation">今すぐ追加の寄付を</string>
 	<string name="update">更新</string>
-	<string name="changeMonthlyAmount">月ぎめ額の変更（%s）</string>
+	<string name="changeMonthlyAmount">毎月支払い額の変更（%s）</string>
 	<string name="cancelSupport">サポートをキャンセル</string>
 	<string name="xOrY">%1$s または %2$s</string>
 	<string name="decideHowMuch">Lishogi の値打ちをご自分で決めてください：</string>
