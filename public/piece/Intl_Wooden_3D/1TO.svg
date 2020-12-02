@@ -38,13 +38,14 @@
      inkscape:window-height="711"
      id="namedview85"
      showgrid="false"
-     inkscape:zoom="4.55"
-     inkscape:cx="73.189056"
-     inkscape:cy="46.557347"
+     inkscape:zoom="3.2173359"
+     inkscape:cx="-13.499929"
+     inkscape:cy="29.700884"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg83" />
+     inkscape:current-layer="svg83"
+     inkscape:document-rotation="0" />
   <defs
      id="defs59">
     <filter
@@ -206,10 +207,9 @@
        spreadMethod="repeat" />
   </defs>
   <g
-     id="g923"
-     transform="translate(3.0159416,0.43911106)">
+     id="g896">
     <g
-       transform="matrix(0.82776,0,0,0.82776,-80.214,-14.867)"
+       transform="matrix(0.82776,0,0,0.82776,-77.198058,-14.427889)"
        filter="url(#d)"
        fill="url(#c)"
        id="g67"
@@ -230,7 +230,7 @@
          style="fill:url(#e)" />
     </g>
     <path
-       d="m 25.892,50.207 0.573,1 11.322,-3.62 -0.571,-0.89 z"
+       d="m 28.907942,50.646111 0.573,1 11.322,-3.62 -0.571,-0.89 z"
        fill="#a5780f"
        id="path69" />
     <g
@@ -239,7 +239,8 @@
        stroke-linejoin="round"
        stroke-width="1.313"
        paint-order="stroke fill markers"
-       id="g75">
+       id="g75"
+       transform="translate(3.0159416,0.43911106)">
       <path
          d="m -23.356,44.733 c -4.132,8.932 -4.332,7.65 -13.39,13.799 8.914,3.135 18.701,2.896 26.78,0 -9.058,-6.15 -9.44,-5.165 -13.39,-13.8 z"
          transform="matrix(-0.42483,0,0,-0.5171,16.621,62.763)"
@@ -250,7 +251,7 @@
          id="path73" />
     </g>
     <g
-       transform="matrix(0.60133,0,0,0.60133,391.983,112.975)"
+       transform="matrix(0.60133,0,0,-0.60133,-335.84947,113.04855)"
        stroke="#c80000"
        id="g81">
       <path
