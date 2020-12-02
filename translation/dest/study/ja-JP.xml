@@ -67,7 +67,7 @@
   <string name="startAtX">%s に開始</string>
   <string name="embedInYourWebsite">自分のウェブサイト／ブログに埋め込む</string>
   <string name="readMoreAboutEmbedding">埋め込み（embedding）の説明</string>
-  <string name="onlyPublicStudiesCanBeEmbedded">Only public studies can be embedded!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">埋め込みできるのは公開研究だけです！</string>
   <string name="open">開く</string>
   <string name="xBroughtToYouByY">%1$s を %2$s がお届けします</string>
   <string name="studyNotFound">研究が見つかりません</string>
