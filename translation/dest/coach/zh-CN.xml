@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="lishogiCoaches">Lishogi coaches</string>
-	<string name="lishogiCoach">Lishogi coach</string>
+	<string name="lishogiCoaches">Lishogi 教手</string>
+	<string name="lishogiCoach">Lishogi 教手</string>
 	<string name="areYouCoach">Are you a great shogi coach with a %s?</string>
-	<string name="nmOrFideTitle">title</string>
+	<string name="nmOrFideTitle">标题</string>
 	<string name="confirmTitle">请在此证明您的称号，我们将会审查您的请求。</string>
 	<string name="sendApplication">向 %s 发送电邮，我们将会审查您的请求。</string>
 	<string name="location">所在地</string>
@@ -13,7 +13,7 @@
 	<string name="availability">是否接受新学生</string>
 	<string name="accepting">接收学生</string>
 	<string name="notAccepting">暂时不接受学生</string>
-	<string name="xCoachesStudents">%s coaches shogi students</string>
+	<string name="xCoachesStudents">%s 教导将棋学生</string>
 	<string name="viewXProfile">%s 用户资料</string>
 	<string name="sendPM">发送私信</string>
 	<string name="aboutMe">自我介绍</string>
