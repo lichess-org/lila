@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailConfirm_subject">%s さん lishogi.org のアカウントご確認を</string>
-  <string name="emailConfirm_click">リンクをクリックして Lishogi のアカウントを有効化してください。</string>
-  <string name="emailConfirm_ignore">もし Lishogi に登録した覚えがなければ、無視して大丈夫です。</string>
-  <string name="passwordReset_subject">%s さん、lishogi.org のパスワードをリセットして</string>
-  <string name="passwordReset_intro">あなたの Lishogi アカウントのパスワード変更申請を受信しました。</string>
-  <string name="passwordReset_clickOrIgnore">申請した覚えがあれば下のリンクをクリックしてください。そうでないなら無視して大丈夫です。</string>
-  <string name="emailChange_subject">%s さん、新しいメールアドレスの確認を</string>
-  <string name="emailChange_intro">あなたはメールアドレスの変更を申請しました。</string>
-  <string name="emailChange_click">このメールアドレスが利用できると確認するため、下のリンクをクリックしてください。</string>
+  <string name="emailConfirm_subject">%s さん lishogi.org アカウントを認証してください</string>
+  <string name="emailConfirm_click">リンクをクリックして Lishogi のアカウントを有効化してください：</string>
+  <string name="emailConfirm_ignore">もし Lishogi に登録した覚えがなければ、このメッセージは無視して大丈夫です。</string>
+  <string name="passwordReset_subject">%s さんの lishogi.org パスワードをリセットする</string>
+  <string name="passwordReset_intro">あなたの Lishogi アカウントのパスワード変更申請を受け付けました。</string>
+  <string name="passwordReset_clickOrIgnore">申請した覚えがあれば、下のリンクをクリックしてください。そうでないなら無視して大丈夫です。</string>
+  <string name="emailChange_subject">%s さん 新しいメールアドレスの認証をしてください</string>
+  <string name="emailChange_intro">メールアドレスの変更を申請しました。</string>
+  <string name="emailChange_click">このメールアドレスが利用できることを確認するため、下のリンクをクリックしてください。</string>
   <string name="welcome_subject">%s さん Lishogi.org へようこそ</string>
   <string name="welcome_text">https://lishogi.org にアカウントを作成しました。
 プロフィールページは %1$s です。%2$s でさまざまな設定ができます。
-お楽しみください、そしてあなたの駒が相手のキングに迫れますように！</string>
+お楽しみください、そしてあなたの駒が相手の玉に迫れますように！</string>
   <string name="logInToLishogi">%s でlishogi.orgにログインする</string>
   <string name="common_orPaste">（クリックでうまくいかない場合、URLをブラウザにペーストしてください）</string>
   <string name="common_note">これは %s のご利用に関するメールです。</string>
