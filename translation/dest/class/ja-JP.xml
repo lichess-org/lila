@@ -47,7 +47,7 @@
 	<string name="createDesc2">メールアドレスは不要です。パスワードが自動生成されるので生徒に送信してください。生徒はそれを使ってログインします。</string>
 	<string name="createDesc3">注意：1 人の生徒が複数のアカウントを持つことはできません。</string>
 	<string name="createDesc4">アカウントを持っている生徒には招待用フォームを使います。</string>
-	<string name="lishogiUsername">Lishogi username</string>
+	<string name="lishogiUsername">Lishogiユーザー名</string>
 	<string name="generateANewUsername">新しいユーザー名を作る</string>
 	<string name="welcomeToClass">教室「%s」にあなたを歓迎します。
 教室に参加するためのリンクです。</string>
