@@ -32,6 +32,10 @@ export interface EditorState {
   playable: boolean;
 }
 
+export interface Pocket {
+  [role: string]: number;
+}
+
 export type Redraw = () => void;
 
 export type Selected = 'pointer' | 'trash' | [Color, Role];

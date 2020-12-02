@@ -5,14 +5,16 @@ import {
   Selected,
   Redraw,
   OpeningPosition,
+  Pocket,
 } from "./interfaces";
 import { Api as CgApi } from "shogiground/api";
+import {Role} from "shogiground/types";
 
 //import { Setup, Material, RemainingChecks } from 'shogiops/setup';
 //import { setupPosition } from 'shogiops/variant';
 
 import { prop, Prop } from "common";
-import { initialFen, breakSfen } from "shogiutil/util";
+import { initialFen, breakSfen, roleToChar, charToRole } from "shogiutil/util";
 import { GameSituation } from "shogiutil/types";
 // @ts-ignore
 import { Shogi } from "shogiutil/vendor/Shogi.js";
@@ -30,6 +32,26 @@ export default class EditorCtrl {
   turn: Color;
   gs: GameSituation | undefined;
 
+  pocketWhite: Pocket = {
+    "pawn": 0,
+    "lance": 0,
+    "knight": 0,
+    "silver": 0,
+    "gold": 0,
+    "bishop": 0,
+    "rook": 0,
+  };
+  pocketBlack: Pocket = {
+    "pawn": 0,
+    "lance": 0,
+    "knight": 0,
+    "silver": 0,
+    "gold": 0,
+    "bishop": 0,
+    "rook": 0,
+  };
+  pockets = [this.pocketWhite, this.pocketBlack];
+
   constructor(cfg: EditorConfig, redraw: Redraw) {
     this.cfg = cfg;
     this.options = cfg.options || {};
@@ -37,7 +59,6 @@ export default class EditorCtrl {
     this.trans = window.lishogi.trans(this.cfg.i18n);
 
     this.selected = prop("pointer");
-
     this.extraPositions = [
       {
         fen: initialFen,
@@ -82,12 +103,19 @@ export default class EditorCtrl {
       ? this.shogiground.getFen()
       : this.cfg.fen.split(" ")[0];
     const turn = this.turn ? this.turn : "white";
+    const pocketWhite = Object.keys(this.pockets[0]).map(r => {
+      return roleToChar(r as Role).toUpperCase().repeat(this.pockets[0][r]);
+    });
+    const pocketBlack = Object.keys(this.pockets[1]).map(r => {
+      return roleToChar(r as Role).repeat(this.pockets[1][r]);
+    });
     if (
       !this.gs ||
       boardFen != this.gs.fen.split(" ")[0] ||
-      this.gs.player != this.turn
+      this.gs.player != this.turn ||
+      this.gs.crazyhouse?.pockets
     ) {
-      this.gs = Shogi.init(breakSfen(boardFen) + " " + turn[0]);
+      this.gs = Shogi.init(breakSfen(boardFen) + " " + turn[0] + " " + pocketWhite + pocketBlack + " 1");
     }
     this.turn = this.gs!.player;
     return this.gs!;
@@ -159,6 +187,15 @@ export default class EditorCtrl {
 
   setFen(fen: string): boolean {
     if (this.shogiground) this.shogiground.set({ fen });
+    const splitted = fen.split(' ');
+    console.log(splitted);
+    if(splitted.length >= 3){
+      splitted[2].split('').map(p => {
+        const role = charToRole(p);
+        if(role)
+          this.addToPocket(p.toUpperCase() === p ? 'white' : 'black', role);
+      });
+    }
     this.onChange();
     return true;
   }
@@ -168,5 +205,16 @@ export default class EditorCtrl {
     if (this.shogiground!.state.orientation !== o)
       this.shogiground!.toggleOrientation();
     this.redraw();
+  }
+
+  addToPocket(c: Color, r: Role): void {
+    if(["pawn", "lance", "knight", "silver", "gold", "bishop", "rook"].includes(r))
+      this.pockets[c === "white" ? 0 : 1][r]++;
+    this.onChange();
+  }
+  removeFromPocket(c: Color, r: Role): void {
+    if(this.pockets[c === "white" ? 0 : 1][r] > 0)
+      this.pockets[c === "white" ? 0 : 1][r]--;
+    this.onChange();
   }
 }

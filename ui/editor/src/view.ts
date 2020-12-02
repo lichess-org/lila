@@ -1,20 +1,53 @@
 import { h } from "snabbdom";
 import { VNode } from "snabbdom/vnode";
-import { MouchEvent, NumberPair } from "shogiground/types";
+import { MouchEvent, NumberPair, Role } from "shogiground/types";
 import { dragNewPiece } from "shogiground/drag";
 import { eventPosition, opposite } from "shogiground/util";
 
 import EditorCtrl from "./ctrl";
 import shogiground from "./shogiground";
 import { displaySfen, undisplaySfen } from "shogiutil/util";
-//import { OpeningPosition, Selected, EditorState } from "./interfaces";
 import { Selected, EditorState } from "./interfaces";
 // @ts-ignore
 import { Shogi } from "shogiutil/vendor/Shogi.js";
 
-//function optgroup(name: string, opts: VNode[]): VNode {
-//  return h("optgroup", { attrs: { label: name } }, opts);
-//}
+
+function pocket(ctrl: EditorCtrl, c: Color): VNode {
+  return h(
+    "div.editorPocket",
+    {
+    },
+    Object.keys(ctrl.pockets[c === "white" ? 0 : 1]).map(
+        (r) => {
+          const nb = ctrl.pockets[c === "white" ? 0 : 1][r];
+          return h(
+            "div.no-square",
+            {
+              on: {
+                click: () => {ctrl.removeFromPocket(c, r as Role)}
+              },
+            },
+            [
+              h("div",
+                h(
+                "piece",
+                {
+                  attrs: {
+                    class: c + " " + r,
+                    "data-role": r,
+                    "data-color": c,
+                    "data-nb": nb,
+                  },
+                },
+                []
+            ),
+            )
+            ]
+          );
+        }
+      )
+  );
+}
 
 function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
   return h(
@@ -59,48 +92,8 @@ function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
 }
 
 function controls(ctrl: EditorCtrl, state: EditorState): VNode {
-  //const position2option = function (pos: OpeningPosition): VNode {
-  //  return h(
-  //    "option",
-  //    {
-  //      attrs: {
-  //        value: pos.epd || pos.fen,
-  //        "data-fen": pos.fen,
-  //      },
-  //    },
-  //    pos.eco ? `${pos.eco} ${pos.name}` : pos.name
-  //  );
-  //};
   return h("div.board-editor__tools", [
-    ...(ctrl.cfg.embed || !ctrl.cfg.positions
-      ? []
-      : [
-          h("div", [
-            //h('select.positions', {
-            //  props: {
-            //    value: state.fen.split(' ').slice(0, 4).join(' ')
-            //  },
-            //  on: {
-            //    change(e) {
-            //      const el = e.target as HTMLSelectElement;
-            //      let value = el.selectedOptions[0].getAttribute('data-fen');
-            //      if (value == 'prompt') value = (prompt('Paste FEN') || '').trim();
-            //      if (!value || !ctrl.setFen(value)) el.value = '';
-            //    }
-            //  }
-            //}, [
-            //  optgroup(ctrl.trans.noarg('setTheBoard'), [
-            //    h('option', {
-            //      attrs: {
-            //        selected: true
-            //      }
-            //    }, `- ${ctrl.trans.noarg('boardEditor')}  -`),
-            //    ...ctrl.extraPositions.map(position2option)
-            //  ]),
-            //  optgroup(ctrl.trans.noarg('popularOpenings'), ctrl.cfg.positions.map(position2option))
-            //])
-          ]),
-        ]),
+    pocket(ctrl, "black"),
     h("div.metadata", [
       h(
         "div.color",
@@ -200,19 +193,19 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               },
               ctrl.trans.noarg("analysis")
             ),
-            //h('a', {
-            //  class: {
-            //    button: true,
-            //    'button-empty': true,
-            //    disabled: !state.playable,
-            //  },
-            //  on: {
-            //    click: () => {
-            //      if (state.playable) $.modal($('.continue-with'));
-            //    }
-            //  }
-            //},
-            //[h('span.text', { attrs: { 'data-icon': 'U' } }, ctrl.trans.noarg('continueFromHere'))]),
+            h('a', {
+              class: {
+                button: true,
+                'button-empty': true,
+                disabled: !state.playable,
+              },
+              on: {
+                click: () => {
+                  if (state.playable) $.modal($('.continue-with'));
+                }
+              }
+            },
+            [h('span.text', { attrs: { 'data-icon': 'U' } }, ctrl.trans.noarg('continueFromHere'))]),
             studyButton(ctrl, state),
           ]),
           //h("div.continue-with.none", [
@@ -238,6 +231,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           //  ),
           //]),
         ]),
+        pocket(ctrl, "white")
   ]);
 }
 
@@ -392,8 +386,12 @@ function onSelectSparePiece(
         upEvent,
         (e: MouchEvent) => {
           const eventPos = eventPosition(e) || lastTouchMovePos;
+          const eventTarget = e.target as HTMLElement;
           if (eventPos && ctrl.shogiground!.getKeyAtDomPos(eventPos))
             ctrl.selected("pointer");
+          // todo, this is ugly
+          else if(eventTarget && (eventTarget.parentElement?.classList.contains("editorPocket") || eventTarget.parentElement?.parentElement?.classList.contains("editorPocket")))
+            ctrl.addToPocket(s[0], s[1]);
           else ctrl.selected(s);
           ctrl.redraw();
         },
@@ -403,26 +401,12 @@ function onSelectSparePiece(
   };
 }
 
-function makeCursor(selected: Selected): string {
-  if (selected === "pointer") return "pointer";
-
-  const name = selected === "trash" ? "trash" : selected.join("-");
-  const url = window.lishogi.assetUrl("cursors/" + name + ".cur");
-
-  return `url('${url}'), default !important`;
-}
-
 export default function (ctrl: EditorCtrl): VNode {
   const state = ctrl.getState();
   const color = ctrl.bottomColor();
 
   return h(
     "div.board-editor",
-    {
-      attrs: {
-        style: `cursor: ${makeCursor(ctrl.selected())}`,
-      },
-    },
     [
       sparePieces(ctrl, opposite(color), color, "top"),
       h("div.main-board", [shogiground(ctrl)]),

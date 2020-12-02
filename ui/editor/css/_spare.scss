@@ -1,9 +1,44 @@
-.board-editor .spare {
+.editorPocket {
+  width: 100%;
+  .no-square {
+    flex: 0 0 calc(100% / 7) !important;
+  }
+  piece {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    @include transition();
+    &::after {
+      @extend %active, %box-radius;
+      content: attr(data-nb);
+      bottom: 0;
+      right: 0;
+      position: absolute;
+      line-height: 0.9em;
+      padding: 3px 0.3em;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+    &[data-nb="0"] {
+      cursor: auto;
+      opacity: 0.1;
+      &::after {
+        content: none;
+      }
+    }
+    &.premove {
+      background-color: #555;
+    }
+  }
+}
+
+.board-editor .spare,
+.editorPocket {
   @extend %box-radius;
   display: flex;
   flex-wrap: wrap;
   background: $c-font-dimmer;
-  box-shadow: 0 3px 5px rgba(0,0,0,0.3) inset;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3) inset;
   &-top {
     grid-area: spare-top;
     margin-bottom: 2vh;
@@ -16,10 +51,10 @@
     flex: 0 0 calc(100% / 9);
     @include transition();
     &:hover {
-      background: fade-out($c-primary, .8);
+      background: fade-out($c-primary, 0.8);
     }
     &.selected-square {
-      background: fade-out($c-primary, .5);
+      background: fade-out($c-primary, 0.5);
     }
     div {
       @extend %square;
@@ -27,25 +62,25 @@
     &.pointer {
       @extend %box-radius-left;
       &:hover {
-        background: fade-out($c-good, .8);
+        background: fade-out($c-good, 0.8);
       }
       &.selected-square {
-        background: fade-out($c-good, .4);
+        background: fade-out($c-good, 0.4);
       }
       piece {
-        background-image: img-url('icons/pointer.svg');
+        background-image: img-url("icons/pointer.svg");
       }
     }
     &.trash {
       @extend %box-radius-right;
       &:hover {
-        background: fade-out($c-bad, .8);
+        background: fade-out($c-bad, 0.8);
       }
       &.selected-square {
-        background: fade-out($c-bad, .4);
+        background: fade-out($c-bad, 0.4);
       }
       piece {
-        background-image: img-url('icons/trash.svg');
+        background-image: img-url("icons/trash.svg");
       }
     }
   }
