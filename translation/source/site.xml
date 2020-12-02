@@ -787,8 +787,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="tryAnotherMoveForBlack">Try another move for sente</string>
 	<string name="solution">Solution</string>
 	<string name="waitingForAnalysis">Waiting for analysis</string>
-	<string name="noMistakesFoundForWhite">No mistakes found for white</string>
-	<string name="noMistakesFoundForBlack">No mistakes found for black</string>
+	<string name="noMistakesFoundForWhite">No mistakes found for gote</string>
+	<string name="noMistakesFoundForBlack">No mistakes found for sente</string>
 	<string name="doneReviewingWhiteMistakes">Done reviewing gote mistakes</string>
 	<string name="doneReviewingBlackMistakes">Done reviewing sente mistakes</string>
 	<string name="doItAgain">Do it again</string>
