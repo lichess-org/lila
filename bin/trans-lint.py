@@ -60,7 +60,7 @@ class ReportContext:
         elif level == "warning":
             self.report.warnings += 1
         lang = short_lang(self.lang())
-        url = f"https://crowdin.com/translate/lichess/all/en-{lang}#q={crowdin_q(self.text)}"
+        url = f"https://crowdin.com/translate/lishogi/all/en-{lang}#q={crowdin_q(self.text)}"
         print(f"::{level} file={self.path},line={self.el.line},col={self.el.col}::{message} ({self.name}): {self.text!r} @ {url}")
 
     def error(self, message):
