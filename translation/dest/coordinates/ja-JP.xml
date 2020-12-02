@@ -4,9 +4,9 @@
 	<string name="coordinateTraining">座標を読むトレーニング</string>
 	<string name="averageScoreAsWhiteX">白番での平均スコア: %s</string>
 	<string name="averageScoreAsBlackX">黒番での平均スコア: %s</string>
-	<string name="knowingTheShogiBoard">Knowing the shogiboard coordinates is a very important shogi skill:</string>
-	<string name="mostShogiCourses">All shogi courses and exercises use some kind of a shogi notation. You can pick between the Japanese one and the western one.</string>
-	<string name="talkToYourShogiFriends">It makes it easier to talk to your shogi friends, since you both understand the \'language of shogi\'.</string>
+	<string name="knowingTheShogiBoard">将棋盤の座標を知ることは、とても重要なスキルです。</string>
+	<string name="mostShogiCourses">すべての将棋講座、問題では、何らかの表記法が用いられています。日本式と西洋式のいずれかを選ぶことができます。</string>
+	<string name="talkToYourShogiFriends">また将棋の友人と話をするのも簡単になります。双方がいわば「将棋語」を理解しているからです。</string>
 	<string name="youCanAnalyseAGameMoreEffectively">このマスはどこか、いちいち探すことがなくなれば、ゲームの検討も効率よくできます。</string>
 	<string name="aSquareNameAppears">ボード上にマスの名前が表示されるので、そのマスをクリックしてください。30 秒間でできるだけ多くのマスをクリックします。</string>
 	<string name="startTraining">トレーニングを開始</string>
