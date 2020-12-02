@@ -13,7 +13,7 @@
   <string name="welcome_text">https://lishogi.org にアカウントを作成しました。
 プロフィールページは %1$s です。%2$s でさまざまな設定ができます。
 お楽しみください、そしてあなたの駒が相手のキングに迫れますように！</string>
-  <string name="logInToLishogi">Log in to lishogi.org, %s</string>
+  <string name="logInToLishogi">%s でlishogi.orgにログインする</string>
   <string name="common_orPaste">（クリックでうまくいかない場合、URLをブラウザにペーストしてください）</string>
   <string name="common_note">これは %s のご利用に関するメールです。</string>
   <string name="common_contact">当方へのご連絡には %s をお使いください。</string>
