@@ -400,7 +400,7 @@
 	<string name="advancedSettings">Configuración avanzada</string>
 	<string name="safeTournamentName">Escoge un nombre muy seguro para el torneo.</string>
 	<string name="inappropriateNameWarning">Cualquier comportamiento mínimamente inapropiado podría conllevar al cierre de tu cuenta.</string>
-	<string name="emptyTournamentName">Leave empty to name the tournament after a notable shogi player.</string>
+	<string name="emptyTournamentName">Déjalo en blanco para poner al torneo el nombre honor de un profesional jugador.</string>
 	<string name="recommendNotTouching">Se recomienda dejar como está.</string>
 	<string name="fewerPlayers">Si impones condiciones de entrada, el torneo tendrá menos jugadores.</string>
 	<string name="showAdvancedSettings">Mostrar configuración avanzada</string>
