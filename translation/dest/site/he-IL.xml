@@ -929,9 +929,9 @@
 	<string name="important">חשוב</string>
 	<string name="yourQuestionMayHaveBeenAnswered">כנראה שלשאלה שלך כבר יש %1$s</string>
 	<string name="inTheFAQ">בשאלות הנפוצות</string>
-	<string name="toReportSomeoneForCheatingOrBadBehavior">דיווח משתמש על רמאות או התנהגות לא נאותה</string>
+	<string name="toReportSomeoneForCheatingOrBadBehavior">על מנת לדווח על רמאות או על התנהגות עוינת, %1$s</string>
 	<string name="useTheReportForm">השתמש בטופס הדוח</string>
-	<string name="toRequestSupport">לבקשת תמיכה</string>
+	<string name="toRequestSupport">לבקשת תמיכה, %1$s</string>
 	<string name="tryTheContactPage">תנסה את עמוד אנשי הקשר</string>
 	<string name="thisTopicIsArchived">נושא זה עבר לארכיון ולא ניתן עוד להשיב עליו.</string>
 	<string name="joinTheTeamXToPost">Join the %1$s, to post in this forum</string>
