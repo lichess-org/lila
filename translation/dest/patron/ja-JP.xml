@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="donate">寄付</string>
-	<string name="lishogiPatron">Lishogi Patron</string>
+	<string name="lishogiPatron">Lishogiパトロン</string>
 	<string name="freeAccount">無料アカウント</string>
 	<string name="becomePatron">Lishogi のパトロンになる</string>
 	<string name="xBecamePatron">%s は Lishogi パトロンになりました</string>
@@ -12,7 +12,7 @@
 	<string name="youHaveLifetime">あなたに永久パトロン・アカウントを贈ります。すばらしい！</string>
 	<string name="patronUntil">%s までのパトロン・アカウントを贈ります。</string>
 	<string name="ifNotRenewed">更新しないと無料アカウントに戻ります。</string>
-	<string name="weAreNonProfit">We are a non‑profit association because we believe everyone should have access to a free, world-class shogi platform.</string>
+	<string name="weAreNonProfit">Lishogiは非営利団体です。世界規模の将棋サイトを誰もが無料で使えるべきだと考えているからです。</string>
 	<string name="weRelyOnSupport">そのためにはあなたのような方からのサポートが必要です。Lishogi を楽しんでいるのなら、寄付をしてパトロンになってみるのはどうでしょう。</string>
 	<string name="lifetime">永久</string>
 	<string name="payLifetimeOnce">%s を一度寄付すれば永久パトロンです。</string>
