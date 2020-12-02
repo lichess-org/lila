@@ -85,7 +85,7 @@
 	<string name="captureIntro">Identifiez les pièces non défendues de l\'adversaire, et capturez-les !</string>
 	<string name="takeTheBlackPieces">Prenez les pièces noires !</string>
 	<string name="takeTheBlackPiecesAndDontLoseYours">Prenez les pièces noires ! Et ne perdez pas les vôtres.</string>
-	<string name="captureComplete">Félicitations ! Vous connaissez maintenant le déplacement des pièces !</string>
+	<string name="captureComplete">Félicitations ! Vous savez maintenant comment vous battre avec les pièces de shogi !</string>
 	<string name="protection">Protéger</string>
 	<string name="keepYourPiecesSafe">Assurez la sécurité de vos pièces</string>
 	<string name="protectionIntro">Identifiez vos pièces attaquées par l\'adversaire, et défendez-les !</string>
@@ -96,7 +96,7 @@
 	<string name="combat">Combat</string>
 	<string name="captureAndDefendPieces">Capturez et défendez les pièces</string>
 	<string name="combatIntro">Un bon guerrier sait à la fois attaquer et défendre !</string>
-	<string name="combatComplete">Congratulations! You know how to fight with shogi pieces!</string>
+	<string name="combatComplete">Félicitations ! Vous savez maintenant comment vous battre avec les pièces de shogi !</string>
 	<string name="checkInOne">Échec en un coup</string>
 	<string name="attackTheOpponentsKing">Attaquez le Roi adverse</string>
 	<string name="checkInOneIntro">Pour mettre en échec votre adversaire, attaquez son Roi. Il doit le défendre !</string>
@@ -116,14 +116,14 @@ ou bloquez l\'attaque !</string>
 	<string name="defeatTheOpponentsKing">Matez le Roi adverse</string>
 	<string name="mateInOneIntro">Vous gagnez lorsque votre adversaire ne peut pas parer un échec.</string>
 	<string name="attackYourOpponentsKing">Attaquez le Roi de votre adversaire de manière qu\'il ne puisse pas être défendu !</string>
-	<string name="mateInOneComplete">Congratulations! That is how you win shogi games!</string>
+	<string name="mateInOneComplete">Félicitations ! Vous savez comment gagner des parties de shogi !</string>
 	<string name="intermediate">Intermédiaire</string>
 	<string name="boardSetup">Position de départ</string>
 	<string name="howTheGameStarts">Comment une partie débute</string>
 	<string name="boardSetupIntro">Les deux armées se font face, prêtes pour la bataille.</string>
-	<string name="thisIsTheInitialPosition">This is the initial position
-of every game of shogi!
-Make any move to continue.</string>
+	<string name="thisIsTheInitialPosition">Voici la position initiale
+de toute partie de shogi!
+Faites un coup pour continuer.</string>
 	<string name="firstPlaceTheRooks">Placez tout d\'abord les Tours !
 Elles se placent dans les coins.</string>
 	<string name="thenPlaceTheKnights">Placez ensuite les Cavaliers !
@@ -135,7 +135,7 @@ Elle se place sur sa propre couleur.</string>
 	<string name="placeTheKing">Placez le Roi !
 Il se place à côté de sa Dame.</string>
 	<string name="pawnsFormTheFrontLine">Les pions forment la ligne de front. Jouez un coup pour continuer.</string>
-	<string name="boardSetupComplete">Congratulations! You know how to set up the shogi board.</string>
+	<string name="boardSetupComplete">Félicitations ! Vous savez maintenant la mise en place du jeu de shogi.</string>
 	<string name="stalemate">Pat</string>
 	<string name="theGameIsADraw">La partie est nulle</string>
 	<string name="stalemateIntro">Lorsqu\'un joueur n\'est pas en échec et n\'a pas de coup légal, il est en situation de pat. La partie est alors déclarée nulle.</string>
