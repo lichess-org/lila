@@ -2,13 +2,13 @@
 <resources>
 	<string name="faqAbbreviation">常见问题</string>
 	<string name="frequentlyAskedQuestions">常见问题解答</string>
-	<string name="whyIsLishogiCalledLishogi">Why is Lishogi called Lishogi?</string>
-	<string name="forkedFromLichess">Lishogi is open source project forked from liсhess, but since it\'s for playing shogi, it\'s called lishogi.</string>
-	<string name="lishogiCombinationLiveLightLibrePronounced">Because it\'s derived from Liсhess. And Liсhess is called Liсhess because it\'s a combination of live/light/libre and chess. Lishogi is pronounced %1$s.</string>
-	<string name="leechess">lee-shogi</string>
+	<string name="whyIsLishogiCalledLishogi">为什么 Lishogi 叫 Lishogi？</string>
+	<string name="forkedFromLichess">Lishogi 是从 lichess 来的开源网站，但因为是玩将棋，叫lishogi。</string>
+	<string name="lishogiCombinationLiveLightLibrePronounced">因为从 Lichess 来源。Lichess 叫 Lichess 因为它是现时/轻/自由 (live/light/libre) 和象棋(chess)。%1$s 发音 Lishogi。</string>
+	<string name="leechess">lishogi</string>
 	<string name="hearItPronouncedBySpecialist"> 听一位专家发音。</string>
 	<string name="whyLiveLightLibre">Live ，因为游戏全年无休实时的游玩与观看。 Light 和 Libre 代表 Lishogi 开源且不被纠缠其它网站的专利垃圾打扰。</string>
-	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
+	<string name="whyIsLilaCalledLila">同样，Lishogi 源代码 %1$s，表示 li[chess in sca]la，查看 Lishogi 的主体是用 %2$s 写的，一种直观的编程语言。</string>
 	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
 	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi is powered by donations from patrons and the efforts of a team of volunteers.</string>
 	<string name="findMoreAndSeeHowHelp">You can find out more about %1$s. If you want to help Lishogi by volunteering your time and skills, there are many %2$s.</string>
