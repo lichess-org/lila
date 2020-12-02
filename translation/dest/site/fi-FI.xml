@@ -860,7 +860,7 @@
 	<string name="youCannotPostYetPlaySomeGames">Et voi vielä lähettää viestejä foorumeihin. Pelaa ensin muutama peli!</string>
 	<string name="subscribe">Tilaa</string>
 	<string name="unsubscribe">Peruuta tilaus</string>
-	<string name="blackDeclinesImpasse" comment="blackDeclinesImpasse">Sente declines impasse</string>
+	<string name="blackDeclinesImpasse">Sente declines impasse</string>
 	<string name="blackOffersImpasse">Sente offers impasse</string>
 	<string name="notationType">Notation</string>
 	<string name="whiteDeclinesImpasse">Gote declines impasse</string>
