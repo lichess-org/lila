@@ -14,7 +14,7 @@
   <string name="sourceUrlHelp">PGN アップデートを取得するために Lishogi が確認するURL。インターネットから誰でもアクセスできる必要があります。</string>
   <string name="roundNumber">ラウンド数</string>
   <string name="startDate">（あなたのタイムゾーンでの）開始日時</string>
-  <string name="startDateHelp">イベント開始時刻（オプション）</string>
+  <string name="startDateHelp">オプション：イベント開始時に通知するかどうか</string>
   <string name="credits">ソースを表示する</string>
   <string name="cloneBroadcast">中継をクローン</string>
   <string name="resetBroadcast">中継をリセット</string>
