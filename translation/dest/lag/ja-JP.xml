@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="isLishogiLagging">Lishogiにラグ発生？</string>
+  <string name="isLishogiLagging">Lishogi にラグが発生？</string>
   <string name="measurementInProgressThreeDot">測定中です…</string>
   <string name="noAndYourNetworkIsGood">いいえ。あなたの接続も良好です。</string>
   <string name="noAndYourNetworkIsBad">いいえ。あなたの接続が悪いようです。</string>
   <string name="yesItWillBeFixedSoon">そうです。間もなく直します！</string>
-  <string name="andNowTheLongAnswerLagComposedOfTwoValues">では詳しい説明を。対局時の通信ラグは 2 つの数値で決まります（小さいほどよい）：</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">では詳しい説明を。対局時の通信ラグは 2 つの関係のない数値で決まります（小さいほどよい）：</string>
   <string name="lishogiServerLatency">Lishogiサーバの処理時間</string>
-  <string name="lishogiServerLatencyExplanation">サーバ上で指し手を処理するのにかかる時間です。これはどの人でも同じで、サーバの負荷だけで決まります。対局者が増えるほど大きくなりますが、なるべく小さくなるように開発陣は努力しています。10msを超えることはまれです。</string>
+  <string name="lishogiServerLatencyExplanation">サーバ上で指し手を処理するのにかかる時間です。これはどの人でも同じで、サーバ読み込みの負荷だけで決まります。対局者が増えるほど大きくなりますが、なるべく小さくなるように開発陣は努力しています。10msを超えることはまれです。</string>
   <string name="networkBetweenLishogiAndYou">Lishogiとあなたの通信時間</string>
   <string name="networkBetweenLishogiAndYouExplanation">あなたの機器からLishogiのサーバまで手の情報が往復するのに要する時間です。これはLishogiのサーバ（フランス国内）までの距離と、あなたの接続の質で決まります。あなたのWi-Fiや光回線の問題は、Lishogiの開発者にはどうしようもありません。</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">これらの値は右上の自分のユーザー名をクリックするといちばん下に表示されます。</string>
