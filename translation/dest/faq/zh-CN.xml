@@ -47,11 +47,7 @@
 
 Lishogi上的电脑分析是基于Stockfish的。</string>
 	<string name="insufficientMaterial">超时判负，和棋以及子力不足</string>
-	<string name="lishogiFollowFIDErules">In the event of one player running out of time, that player will usually lose the game. However, the game is drawn if the position is such that the opponent cannot checkmate the player\'s king by any possible series of legal moves (%1$s).
-
-In rare cases this can be difficult to decide automatically (forced lines, fortresses). By default we always side with the player who did not run out of time.
-
-Note that it can be possible to mate with a single knight or bishop if the opponent has a piece that could block the king.</string>
+	<string name="lishogiFollowFIDErules">如果玩家消尽了时间，该玩家通常会被判负。</string>
 	<string name="linkToFIDErules">FIDE（世界国际象棋联合会）手册PDF章节§6.9</string>
 	<string name="discoveringEnPassant">为什么兵能够吃掉另外一只已经经过了它控制格子的兵？（吃过路兵）</string>
 	<string name="explainingEnPassant">这是一个叫做“吃过路兵”的合法着法。维基百科文章给出了一个%1$s。
@@ -63,7 +59,7 @@ Note that it can be possible to mate with a single knight or bishop if the oppon
 请查看 %3$s 以练习这个着法。</string>
 	<string name="goodIntroduction">不错的介绍</string>
 	<string name="officialRulesPDF">官方规则 (pdf)</string>
-	<string name="lishogiTraining">Lishogi training</string>
+	<string name="lishogiTraining">Lishogi 训练</string>
 	<string name="threefoldRepetition">三次重复局面</string>
 	<string name="threefoldRepetitionExplanation">如果一个局面出现了三次，玩家可以根据%1$s提和。Lishogi执行FIDE官方规则，这些规则在 %2$s第9.2(d)条中已有规定。</string>
 	<string name="threefoldRepetitionLowerCase">三次重复局面</string>
@@ -75,22 +71,18 @@ Note that it can be possible to mate with a single knight or bishop if the oppon
 	<string name="threeFoldHasToBeClaimed">三次重复局面和棋需要由其中一个选手提出。您可以通过按下显示的按钮，或者在您最后一次重复移动之前提出和棋。您也可以%1$sLishogi为您自动提和重复局面。此外，五次重复局面总是立即结束游戏。Lishogi</string>
 	<string name="configure">配置</string>
 	<string name="accounts">帐号</string>
-	<string name="titlesAvailableOnLishogi">What titles are there on Lishogi?</string>
+	<string name="titlesAvailableOnLishogi">Lishogi 上有什么称号？</string>
 	<string name="lishogiRecognizeAllOTBtitles">Lishogi recognises all FIDE titles gained from OTB (over the board) play, as well as %1$s. Here is a list of FIDE titles:</string>
-	<string name="showYourTitle">If you have an OTB title, you can apply to have this displayed on your account by completing the %1$s, including a clear image of an identifying document/card and a selfie of you holding the document/card.
-
-Verifying as a titled player on Lishogi gives access to play in the Titled Arena events.
-
-Finally there is an honorary %2$s title.</string>
+	<string name="showYourTitle">有一个%2$s荣誉称号。</string>
 	<string name="asWellAsManyNMtitles">许多国家级大师头衔</string>
 	<string name="verificationForm">验证表格</string>
 	<string name="canIbecomeLM">我可以获得 Lishogi 大师 (LM) 头衔吗？</string>
 	<string name="noUpperCaseDot">不能。</string>
-	<string name="lMtitleComesToYouDoNotRequestIt">This honorific title is unofficial and only exists on Lishogi.
+	<string name="lMtitleComesToYouDoNotRequestIt">这个荣誉称号是非正式的，只存在于 Lishogi 上。
 
-We rarely award it to highly notable players who are good citizens of Lishogi, at our discretion. You don\'t get the LM title, the LM title gets to you. If you qualify, you will get a message from us regarding it and the choice to accept or decline.
+极少数情况下我们会决定把它授予优秀的 Lishogi 著名者。您不去获取 LM 称号，而是 LM 赐给您。如果您有资格，会收到我们的通信，并选择接受不接受。
 
-Do not ask for the LM title.</string>
+不要主动寻求LM称号。</string>
 	<string name="whatUsernameCanIchoose">我的用户名可以是什么？</string>
 	<string name="usernamesNotOffensive">In general, usernames should not be: offensive, impersonating someone else, or advertising. You can read more about the %1$s.</string>
 	<string name="guidelines">指南</string>
