@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="coordinates">坐标</string>
+	<string name="coordinateTraining">坐标训练</string>
+	<string name="averageScoreAsWhiteX">白方平均得分：%s</string>
+	<string name="averageScoreAsBlackX">黑方平均得分：%s</string>
+	<string name="knowingTheShogiBoard">Knowing the shogiboard coordinates is a very important shogi skill:</string>
+	<string name="mostShogiCourses">All shogi courses and exercises use some kind of a shogi notation. You can pick between the Japanese one and the western one.</string>
+	<string name="talkToYourShogiFriends">It makes it easier to talk to your shogi friends, since you both understand the \'language of shogi\'.</string>
+	<string name="youCanAnalyseAGameMoreEffectively">快速识别格子可以高效的分析对局。</string>
+	<string name="aSquareNameAppears">棋盘中间出现格子的名称之后，您必须点击正确的格子。在30秒内认出尽可能多的格子！</string>
+	<string name="startTraining">开始训练</string>
+</resources>

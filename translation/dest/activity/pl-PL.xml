@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="activity">Aktywność</string>
+  <string name="hostedALiveStream">Udostępnił stream na żywo</string>
+  <plurals name="supportedNbMonths">
+    <item quantity="one">Wsparcie lishogi.org przez miesiąc jako %2$s</item>
+    <item quantity="few">Wsparcie lishogi.org przez %1$s miesiące jako %2$s</item>
+    <item quantity="many">Wsparcie lishogi.org przez %1$s miesięcy jako %2$s</item>
+    <item quantity="other">Wsparcie lishogi.org przez %1$s miesięcy jako %2$s</item>
+  </plurals>
+  <plurals name="practicedNbPositions">
+    <item quantity="one">Przerobione ćwiczenie w %2$s</item>
+    <item quantity="few">Przerobione %1$s ćwiczenia w %2$s</item>
+    <item quantity="many">Przerobione %1$s ćwiczeń w %2$s</item>
+    <item quantity="other">Przerobione %1$s ćwiczeń w %2$s</item>
+  </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">Rozwiązanie zadania szachowego</item>
+    <item quantity="few">Rozwiązanie %s zadań szachowych</item>
+    <item quantity="many">Rozwiązanie %s zadań szachowych</item>
+    <item quantity="other">Rozwiązanie %s zadań szachowych</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">Rozegranie partii (%2$s)</item>
+    <item quantity="few">Rozegranie %1$s partii (%2$s)</item>
+    <item quantity="many">Rozegranie %1$s partii (%2$s)</item>
+    <item quantity="other">Rozegranie %1$s partii (%2$s)</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">Opublikowanie wpisu w %2$s</item>
+    <item quantity="few">Opublikowanie %1$s wpisów w %2$s</item>
+    <item quantity="many">Opublikowanie %1$s wpisów w %2$s</item>
+    <item quantity="other">Opublikowanie %1$s wpisów w %2$s</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">Wykonanie ruchu</item>
+    <item quantity="few">Wykonanie %1$s ruchów</item>
+    <item quantity="many">Wykonanie %1$s ruchów</item>
+    <item quantity="other">Wykonanie %1$s ruchów</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">w partii korespondencyjnej</item>
+    <item quantity="few">w %1$s partiach korespondencyjnych</item>
+    <item quantity="many">w %1$s partiach korespondencyjnych</item>
+    <item quantity="other">w %1$s partiach korespondencyjnych</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">Zakończenie partii korespondencyjnej</item>
+    <item quantity="few">Zakończenie %s partii korespondencyjnych</item>
+    <item quantity="many">Zakończenie %s partii korespondencyjnych</item>
+    <item quantity="other">Zakończenie %s partii korespondencyjnych</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">Rozpoczęcie obserwowania gracza</item>
+    <item quantity="few">Rozpoczęcie obserwowania %s graczy</item>
+    <item quantity="many">Rozpoczęcie obserwowania %s graczy</item>
+    <item quantity="other">Rozpoczęcie obserwowania %s graczy</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">Zyskanie nowego obserwującego</item>
+    <item quantity="few">Zyskanie %s nowych obserwujących</item>
+    <item quantity="many">Zyskanie %s nowych obserwujących</item>
+    <item quantity="other">Zyskanie %s nowych obserwujących</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">Rozegranie symultany</item>
+    <item quantity="few">Rozegranie %s symultan</item>
+    <item quantity="many">Rozegranie %s symultan</item>
+    <item quantity="other">Rozegranie %s symultan</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Udział w %s symultanie</item>
+    <item quantity="few">Udział w %s symultanach</item>
+    <item quantity="many">Udział w %s symultanach</item>
+    <item quantity="other">Udział w %s symultanach</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Utworzenie nowego opracowania</item>
+    <item quantity="few">Utworzenie %s nowych opracowań</item>
+    <item quantity="many">Utworzenie %s nowych opracowań</item>
+    <item quantity="other">Utworzenie %s nowych opracowań</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">Uczestnictwo w turnieju</item>
+    <item quantity="few">Uczestnictwo w %s turniejach</item>
+    <item quantity="many">Uczestnictwo w %s turniejach</item>
+    <item quantity="other">Uczestnictwo w %s turniejach</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">%1$s miejsce w klasyfikacji (top %2$s%%) z %3$s partią w %4$s</item>
+    <item quantity="few">%1$s miejsce w klasyfikacji (top %2$s%%) z %3$s partiami w %4$s</item>
+    <item quantity="many">%1$s miejsce w klasyfikacji (top %2$s%%) z %3$s partiami w %4$s</item>
+    <item quantity="other">%1$s miejsce w klasyfikacji (top %2$s%%) z %3$s partiami w %4$s</item>
+  </plurals>
+  <string name="signedUp">Rejestracja na lishogi.org</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Dołączenie do klubu</item>
+    <item quantity="few">Dołączenie do %s klubów</item>
+    <item quantity="many">Dołączenie do %s klubów</item>
+    <item quantity="other">Dołączenie do %s klubów</item>
+  </plurals>
+</resources>

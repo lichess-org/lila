@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="broadcasts">Trasmissioni</string>
+  <string name="liveBroadcasts">Trasmissione in diretta del torneo</string>
+  <string name="newBroadcast">Nuova diretta</string>
+  <string name="ongoing">In corso</string>
+  <string name="upcoming">Prossimamente</string>
+  <string name="completed">Completato</string>
+  <string name="eventName">Nome dell\'evento</string>
+  <string name="eventDescription">Breve descrizione dell\'evento</string>
+  <string name="fullDescription">Descrizione completa dell\'evento</string>
+  <string name="fullDescriptionHelp">La descrizione lunga della trasmissione è facoltativa. %1$s è disponibile. La lunghezza deve essere inferiore a %2$s caratteri.</string>
+  <string name="sourceUrl">URL di origine</string>
+  <string name="sourceUrlHelp">L\'URL che Lishogi utilizzerà per ottenere gli aggiornamenti dei PGN. Deve essere accessibile pubblicamente su Internet.</string>
+  <string name="roundNumber">Turno numero</string>
+  <string name="startDate">Data di inizio nel tuo fuso orario</string>
+  <string name="startDateHelp">Facoltativo, se sai quando l\'evento inizia</string>
+  <string name="credits">Cita la fonte</string>
+  <string name="cloneBroadcast">Clona la trasmissione</string>
+  <string name="resetBroadcast">Resetta la trasmissione</string>
+</resources>

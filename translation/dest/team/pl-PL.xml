@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="team">Klub</string>
+  <string name="teams">Kluby</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s gracz</item>
+    <item quantity="few">%s graczy</item>
+    <item quantity="many">%s graczy</item>
+    <item quantity="other">%s graczy</item>
+  </plurals>
+  <string name="allTeams">Wszystkie kluby</string>
+  <string name="newTeam">Załóż klub</string>
+  <string name="myTeams">Moje kluby</string>
+  <string name="noTeamFound">Nie znaleziono klubu</string>
+  <string name="joinTeam">Dołącz do klubu</string>
+  <string name="quitTeam">Opuść klub</string>
+  <string name="anyoneCanJoin">Każdy może dołączyć</string>
+  <string name="aConfirmationIsRequiredToJoin">Dołączenie wymaga zatwierdzenia</string>
+  <string name="joiningPolicy">Warunki dołączenia</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Kapitan</item>
+    <item quantity="few">Liderzy klubu</item>
+    <item quantity="many">Liderzy klubu</item>
+    <item quantity="other">Liderzy klubu</item>
+  </plurals>
+  <string name="teamBestPlayers">Najlepsi gracze</string>
+  <string name="teamRecentMembers">Ostatnio dołączyli</string>
+  <string name="kickSomeone">Wyrzuć kogoś z klubu</string>
+  <string name="whoToKick">Kogo chcesz wyrzucić z klubu?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">Prośba o dołączenie od %s</item>
+    <item quantity="few">Prośby o dołączenie od %s</item>
+    <item quantity="many">Prośby o dołączenie od %s</item>
+    <item quantity="other">Prośby o dołączenie od %s</item>
+  </plurals>
+  <string name="willBeReviewed">Twoja prośba o dołączenie zostanie sprawdzona przez kapitana klubu.</string>
+  <string name="beingReviewed">Twoja prośba o dołączenie jest sprawdzana przez kapitana klubu.</string>
+  <string name="teamBattle">Bitwa klubów</string>
+  <string name="teamBattleOverview">Bitwa klubów, każdy gracz zdobywa punkty dla swojego klubu</string>
+  <string name="teamTournament">Turniej klubowy</string>
+  <string name="teamTournamentOverview">Turniej Arena do którego mogą dołączyć tylko członkowie twojego klubu</string>
+  <string name="messageAllMembers">Powiadom wszystkich członków klubu</string>
+  <string name="messageAllMembersOverview">Wyślij prywatną wiadomość do każdego członka klubu</string>
+  <string name="messageAllMembersLongDescription">Wyślij prywatną wiadomość do WSZYSTKICH członków klubu.
+Możesz w ten sposób wezwać graczy, aby dołączyli do turnieju lub potyczki klubowej.
+Gracze, którzy nie chcą otrzymywać Twoich wiadomości, mogą opuścić klub.</string>
+  <string name="teamsIlead">Kluby, w których jestem liderem</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">A może chcesz połączyć jeden z tych nadchodzących turniejów?</string>
+  <string name="usersWhoCanManageThisTeam">Gracze, którzy mogą zarządzać tym klubem</string>
+  <string name="leadersChat">Czat liderów</string>
+</resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="team">Команда</string>
+  <string name="teams">Команди</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s користувачів</item>
+    <item quantity="few">%s учасників</item>
+    <item quantity="many">%s учасників</item>
+    <item quantity="other">%s учасників</item>
+  </plurals>
+  <string name="allTeams">Усі команди</string>
+  <string name="newTeam">Нова команда</string>
+  <string name="myTeams">Мої команди</string>
+  <string name="noTeamFound">Не знайдено команди</string>
+  <string name="joinTeam">Приєднатися до команди</string>
+  <string name="quitTeam">Залишити команду</string>
+  <string name="anyoneCanJoin">Кожен може приєднатися</string>
+  <string name="aConfirmationIsRequiredToJoin">Потрібен дозвіл на приєднання</string>
+  <string name="joiningPolicy">Правила приєднання</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Лідер команди</item>
+    <item quantity="few">Лідери команд</item>
+    <item quantity="many">Лідери команд</item>
+    <item quantity="other">Лідер команди</item>
+  </plurals>
+  <string name="teamBestPlayers">Найліпші гравці команди</string>
+  <string name="teamRecentMembers">Нові гравці команди</string>
+  <string name="kickSomeone">Виключити когось з команди</string>
+  <string name="whoToKick">Кого ти хочеш виключити з команди?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">Запит на приєднання</item>
+    <item quantity="few">Запити на приєднання</item>
+    <item quantity="many">Запити на приєднання</item>
+    <item quantity="other">Запит на приєнання</item>
+  </plurals>
+  <string name="willBeReviewed">Ваш запит на приєднання буде розглянуто лідером команди.</string>
+  <string name="beingReviewed">Ваш запит на приєднання розглядається лідером команди.</string>
+  <string name="teamBattle">Битва команд</string>
+  <string name="teamBattleOverview">Битва кількох команд, кожен гравець заробляє очки своїй команді</string>
+  <string name="teamTournament">Командний турнір</string>
+  <string name="teamTournamentOverview">Турнір у форматі Арени, до якого можуть приєднатися лише члени вашої команди</string>
+  <string name="messageAllMembers">Повідомити усіх учасників</string>
+  <string name="messageAllMembersOverview">Надіслати особисте повідомлення кожному членові команди</string>
+  <string name="messageAllMembersLongDescription">Надіслати особисте повідомлення всім членам команди.
+Ви можете використати це, щоб зателефонувати гравцям для приєднання до турніру або командного бою.
+Гравці, які не люблять отримувати повідомлення, можуть полишити команду.</string>
+  <string name="teamsIlead">Команди, лідером яких я є</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Можливо, ви захочете приєднати посилання на один з цих турнірів?</string>
+  <string name="usersWhoCanManageThisTeam">Користувачі, які можуть керувати цією командою</string>
+  <string name="leadersChat">Чат лідерів</string>
+</resources>

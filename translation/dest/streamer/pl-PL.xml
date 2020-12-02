@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lishogiStreamers">Lishogi streamers</string>
+  <string name="lishogiStreamer">Lishogi streamer</string>
+  <string name="live">NA ŻYWO!</string>
+  <string name="offline">NIEAKTYWNY</string>
+  <string name="currentlyStreaming">Aktualny stream: %s</string>
+  <string name="lastStream">Ostatni stream %s</string>
+  <string name="becomeStreamer">Zostań streamerem Lishogi</string>
+  <string name="doYouHaveStream">Czy masz stream na Twitch lub YouTube?</string>
+  <string name="hereWeGo">No to zaczynamy!</string>
+  <string name="allStreamers">Wszyscy streamerzy</string>
+  <string name="editPage">Edytuj stronę streamera</string>
+  <string name="yourPage">Twoja strona streamera</string>
+  <string name="downloadKit">Pobierz zestaw streamera</string>
+  <string name="xIsStreaming">%s streamuje</string>
+  <string name="rules">Zasady streamowania</string>
+  <string name="rule1">Dołącz słowo kluczowe \"lishogi.org\" w tytule streamu podczas streamowania na Lishogi.</string>
+  <string name="rule2">Usuń słowo kluczowe, gdy nie streamujesz Lishogi.</string>
+  <string name="rule3">Lishogi automatycznie wykryje Twój stream i aktywuje poniższe korzyści</string>
+  <string name="perks">Korzyści streamowania ze słowem kluczowym</string>
+  <string name="perk1">Ikona płomienia na profilu Lishogi.</string>
+  <string name="perk2">Awans na górę listy streamerów.</string>
+  <string name="perk3">Powiadomienie obserwujących Cię.</string>
+  <string name="perk4">Informacja o streamie w Twoich partiach, turniejach i opracowaniach.</string>
+  <string name="approved">Twój stream został zatwierdzony.</string>
+  <string name="pendingReview">Twój stream jest sprawdzany przez moderatorów.</string>
+  <string name="pleaseFillIn">Wypełnij proszę informacje o sobie i prześlij nam swoje zdjęcie.</string>
+  <string name="whenReady">Gdy jesteś gotowy do pojawienia się na liście streamerów Lishogi, %s</string>
+  <string name="requestReview">poproś o recenzję moderatora</string>
+  <string name="anotherLanguage">Jeśli Twój stream jest w innym języku niż angielski, dodaj na początku jego tytułu poprawny znacznik języka w nawiasach kwadratowych (%s).
+Przykładowo: dołącz [PL] dla języka polskiego, [DE] dla niemiecki, [FR] dla francuskiego itd.
+Umieść go w tytule streama na stronie Twitch lub YouTube, a nie w ustawieniach streama Lishogi.
+Jeśli Twój stream jest w języku angielskim, nie ma potrzeby dołączania znacznika.</string>
+  <string name="twitchUsername">Twoja nazwa użytkownika lub adres URL na Twitch</string>
+  <string name="optionalOrEmpty">Opcjonalne. Pozostaw puste, jeśli nie ma</string>
+  <string name="youtubeChannel">ID lub adres URL Twojego kanału YouTube</string>
+  <string name="streamerName">Twoja nazwa streamera na Lishogi</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Zachowaj zwięzłość: maksymalnie %s znak</item>
+    <item quantity="few">Zachowaj zwięzłość: maksymalnie %s znaki</item>
+    <item quantity="many">Zachowaj zwięzłość: maksymalnie %s znaków</item>
+    <item quantity="other">Zachowaj zwięzłość: maksymalnie %s znaków</item>
+  </plurals>
+  <string name="visibility">Widoczne na stronie streamerów</string>
+  <string name="whenApproved">Po zatwierdzeniu przez moderatorów</string>
+  <string name="headline">Nagłówek</string>
+  <string name="tellUsAboutTheStream">W jednym zdaniu powiedz nam o Twoim streamie</string>
+  <string name="longDescription">Szczegółowy opis</string>
+  <string name="xStreamerPicture">%s - zdjęcie streamera</string>
+  <string name="changePicture">Zmień/usuń swoje zdjęcie</string>
+  <string name="uploadPicture">Prześlij zdjęcie</string>
+  <string name="deletePicture">Usuń zdjęcie</string>
+  <string name="maxSize">Maksymalny rozmiar: %s</string>
+  <string name="installBlocker">Zainstaluj blokadę złośliwego oprogramowania!</string>
+  <string name="beSafe">Uwolnij się od reklam i śledzenia przez Twitch i YouTube.
+Lishogi rekomenduje zainstalowanie darmowego uBlock Origin.</string>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="isLishogiLagging">Is Lishogi lagging?</string>
+  <string name="measurementInProgressThreeDot">Измерение выполняется...</string>
+  <string name="noAndYourNetworkIsGood">Нет, и ваша сеть в порядке.</string>
+  <string name="noAndYourNetworkIsBad">Нет, но ваша сеть не в порядке.</string>
+  <string name="yesItWillBeFixedSoon">Да. Но мы это уже чиним!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">А сейчас подробное объяснение. Задержки складываются из двух независимых величин (чем значение меньше, тем лучше):</string>
+  <string name="lishogiServerLatency">Lishogi server latency</string>
+  <string name="lishogiServerLatencyExplanation">The time it takes to process a move on the server. It\'s the same for everybody, and only depends on the server load. The more players and the higher it gets, but Lishogi developers do their best to keep it low. It rarely exceeds 10ms.</string>
+  <string name="networkBetweenLishogiAndYou">Network between Lishogi and you</string>
+  <string name="networkBetweenLishogiAndYouExplanation">The time it takes to send a move from your computer to Lishogi server, and get the response back. It\'s specific to your distance to Lishogi (France), and to the quality of your Internet connection. Lishogi developers cannot fix your wifi or make light go faster.</string>
+  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Вы можете вычислить оба этих значения в любое время, открыв меню вашего профиля в верхней панели.</string>
+  <string name="lagCompensation">Компенсация задержки</string>
+  <string name="lagCompensationExplanation">Lishogi компенсирует на часах время задержки в сети. Сюда входят как постоянное отставание, так и временные пики. Существуют определённые лимиты и некий эвристический анализ, зависимость от контроля времени в игре и предыдущих компенсаций, поэтому результат должен быть приемлемым для обоих игроков. Поэтому не стоит расслабляться, если у соперника плохой Интернет!</string>
+</resources>

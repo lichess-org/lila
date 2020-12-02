@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="activity">Toiminta</string>
+  <string name="hostedALiveStream">Piti livestreamin</string>
+  <plurals name="supportedNbMonths">
+    <item quantity="one">On tukenut lishogi.orgia %1$s:n kuukauden ajan %2$s:ina</item>
+    <item quantity="other">On tukenut lishogi.orgia %1$s:n kuukauden ajan %2$s:ina</item>
+  </plurals>
+  <plurals name="practicedNbPositions">
+    <item quantity="one">Harjoitteli %1$s %2$s -tilannetta</item>
+    <item quantity="other">Harjoitteli %1$s %2$s -tilannetta</item>
+  </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">Harjoitteli %s taktiikkatehtävää</item>
+    <item quantity="other">Harjoitteli %s taktiikkatehtävää</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">Pelasi %1$s %2$s-pelin</item>
+    <item quantity="other">Pelasi %1$s %2$s-peliä</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">Lähetti %1$s viestin alueelle %2$s</item>
+    <item quantity="other">Lähetti %1$s viestiä alueelle %2$s</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">Pelasi %1$s siirtoa</item>
+    <item quantity="other">Pelasi %1$s siirtoa</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">%1$s: ssa kirjeshakkipelissä</item>
+    <item quantity="other">%1$s: ssa kirjeshakkipeleissä</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">Pelasi %s kirjeshakkipelin</item>
+    <item quantity="other">Pelasi %s kirjeshakkipeliä</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">Alkoi seuraamaan %s pelaajaa</item>
+    <item quantity="other">Alkoi seuraamaan %s pelaajaa</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">Sai %s uuden seuraajan</item>
+    <item quantity="other">Sai %s uutta seuraajaa</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">Isännöi %s yhtäaikaista näytösottelua</item>
+    <item quantity="other">Isännöi %s yhtäaikaista näytösottelua</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Osallistui %s yhtäaikaiseen näytösotteluun</item>
+    <item quantity="other">Osallistui %s yhtäaikaiseen näytösotteluun</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Teki %s uuden tutkielman</item>
+    <item quantity="other">Teki %s uutta tutkielmaa</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">Kilpaili %s turnauksessa</item>
+    <item quantity="other">Kilpaili %s turnauksessa</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">Sijoittui %1$s. sijalle (parhaaseen %2$s%%) pelattuaan %3$s pelin turnauksessa %4$s</item>
+    <item quantity="other">Sijoittui %1$s. sijalle (parhaaseen %2$s%%) pelattuaan %3$s peliä turnauksessa %4$s</item>
+  </plurals>
+  <string name="signedUp">Liittyi lishogi.orgiin</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Liittyi %s joukkueeseen</item>
+    <item quantity="other">Liittyi %s joukkueeseen</item>
+  </plurals>
+</resources>

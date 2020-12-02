@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="activity">פעילות</string>
+  <string name="hostedALiveStream">רץ בשידור ישיר</string>
+  <plurals name="supportedNbMonths">
+    <item quantity="one">תמך בליצ\'ס במשך %1$s חודש כ%2$s</item>
+    <item quantity="two">תמך בליצ\'ס במשך %1$s חודשים כ%2$s</item>
+    <item quantity="many">תמך בליצ\'ס במשך %1$s חודשים כ%2$s</item>
+    <item quantity="other">תמך בליצ\'ס במשך %1$s חודשים כ%2$s</item>
+  </plurals>
+  <plurals name="practicedNbPositions">
+    <item quantity="one">התאמן על עמדה %1$s ב%2$s</item>
+    <item quantity="two">התאמן על %1$s עמדות ב%2$s</item>
+    <item quantity="many">התאמן על %1$s עמדות ב%2$s</item>
+    <item quantity="other">התאמן על %1$s עמדות ב%2$s</item>
+  </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">פתר פאזל טקטי %s</item>
+    <item quantity="two">פתר %s פאזלים טקטיים</item>
+    <item quantity="many">פתר %s פאזלים טקטיים</item>
+    <item quantity="other">פתר %s פאזלים טקטיים</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">שיחק משחק %2$s %1$s</item>
+    <item quantity="two">שיחק %1$s משחקי %2$s</item>
+    <item quantity="many">שיחק %1$s משחקי %2$s</item>
+    <item quantity="other">שיחק %1$s משחקי %2$s</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">פרסם %1$s הודעה ב%2$s</item>
+    <item quantity="two">פרסם %1$s הודעות ב%2$s</item>
+    <item quantity="many">פרסם %1$s הודעות ב%2$s</item>
+    <item quantity="other">פרסם %1$s הודעות ב%2$s</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">שיחק %1$s מהלך</item>
+    <item quantity="two">שיחק %1$s מהלכים</item>
+    <item quantity="many">שיחק %1$s מהלכים</item>
+    <item quantity="other">שיחק %1$s מהלכים</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">ב%1$s משחק התכתבות</item>
+    <item quantity="two">ב%1$s משחקי התכתבות</item>
+    <item quantity="many">ב%1$s משחקי התכתבות</item>
+    <item quantity="other">ב%1$s משחקי התכתבות</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">הסתיים %s משחק התכתבות</item>
+    <item quantity="two">הסתיימו %s משחקי התכתבות</item>
+    <item quantity="many">הסתיימו %s משחקי התכתבות</item>
+    <item quantity="other">הסתיימו %s משחקי התכתבות</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">התחיל לעקוב אחר %s שחקן</item>
+    <item quantity="two">התחיל לעקוב אחר %s שחקנים</item>
+    <item quantity="many">התחיל לעקוב אחר %s שחקנים</item>
+    <item quantity="other">התחיל לעקוב אחר %s שחקנים</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">השיג %s עוקב חדש</item>
+    <item quantity="two">השיג %s עוקבים חדשים</item>
+    <item quantity="many">השיג %s עוקבים חדשים</item>
+    <item quantity="other">השיג %s עוקבים חדשים</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">אירח %s סבב סימולטני</item>
+    <item quantity="two">אירח %s סבבים סימולטניים</item>
+    <item quantity="many">אירח %s סבבים סימולטניים</item>
+    <item quantity="other">אירח %s סבבים סימולטניים</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">השתתף ב%s משחק ידידות</item>
+    <item quantity="two">השתתף ב%s משחק ידידות</item>
+    <item quantity="many">השתתף ב%s משחק ידידות</item>
+    <item quantity="other">השתתף ב%s משחק ידידות</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">יצר %s ניתוח חדש</item>
+    <item quantity="two">יצר %s ניתוחים חדשים</item>
+    <item quantity="many">יצר %s ניתוחים חדשים</item>
+    <item quantity="other">יצר %s ניתוחים חדשים</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">התחרה בטורניר אחד</item>
+    <item quantity="two">התחרה בשני טורנירים</item>
+    <item quantity="many">התחרה ב-%s טורנירים</item>
+    <item quantity="other">התחרה ב-%s טורנירים</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">מדורג במקום #%1$s (מעל %%%2$s) עם %3$s משחקים ב%4$s</item>
+    <item quantity="two">מדורג במקום #%1$s (מעל %%%2$s) עם %3$s משחקים ב%4$s</item>
+    <item quantity="many">מדורג במקום #%1$s (מעל %%%2$s) עם %3$s משחקים ב%4$s</item>
+    <item quantity="other">מדורג במקום #%1$s (מעל %%%2$s) עם %3$s משחקים ב%4$s</item>
+  </plurals>
+  <string name="signedUp">נרשם לlishogi.org</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">הצטרף לקבוצה אחת</item>
+    <item quantity="two">הצטרף לשתי קבוצות</item>
+    <item quantity="many">הצטרף ל-%s קבוצות</item>
+    <item quantity="other">הצטרף ל-%s קבוצות</item>
+  </plurals>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="coordinates">Coordenadas</string>
+	<string name="coordinateTraining">Entrenar coordenadas</string>
+	<string name="averageScoreAsWhiteX">Puntuación media con blancas: %s</string>
+	<string name="averageScoreAsBlackX">Puntuación media con negras: %s</string>
+	<string name="knowingTheShogiBoard">Knowing the shogiboard coordinates is a very important shogi skill:</string>
+	<string name="mostShogiCourses">All shogi courses and exercises use some kind of a shogi notation. You can pick between the Japanese one and the western one.</string>
+	<string name="talkToYourShogiFriends">It makes it easier to talk to your shogi friends, since you both understand the \'language of shogi\'.</string>
+	<string name="youCanAnalyseAGameMoreEffectively">Puedes analizar partidas de forma más eficiente si no tienes que andar buscando los nombres de los escaques.</string>
+	<string name="aSquareNameAppears">El nombre de un escaque aparece en la pantalla y debes hacer clic en el escaque correcto. ¡Tienes 30 segundos para identificar tantos escaques como puedas!</string>
+	<string name="startTraining">Comenzar entrenamiento</string>
+</resources>

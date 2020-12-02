@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="coordinates">Tọa độ</string>
+	<string name="coordinateTraining">Luyện tập tọa độ</string>
+	<string name="averageScoreAsWhiteX">Điểm trung bình quân trắng: %s</string>
+	<string name="averageScoreAsBlackX">Điểm trung bình quân đen: %s</string>
+	<string name="knowingTheShogiBoard">Knowing the shogiboard coordinates is a very important shogi skill:</string>
+	<string name="mostShogiCourses">All shogi courses and exercises use some kind of a shogi notation. You can pick between the Japanese one and the western one.</string>
+	<string name="talkToYourShogiFriends">It makes it easier to talk to your shogi friends, since you both understand the \'language of shogi\'.</string>
+	<string name="youCanAnalyseAGameMoreEffectively">Bạn sẽ phân tích ván cờ hiệu quả hơn nếu bạn có thể tìm ra ngay ô cờ từ tọa độ.</string>
+	<string name="aSquareNameAppears">Từng tọa độ sẽ xuất hiện trên bàn cờ và bạn phải chọn đúng ô cờ. Bạn có 30 giây để xác định nhiều ô cờ nhất có thể!</string>
+	<string name="startTraining">Bắt đầu luyện</string>
+</resources>

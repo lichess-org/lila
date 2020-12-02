@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="learnShogi">Learn shogi</string>
+	<string name="byPlaying">граючи!</string>
+	<string name="menu">Меню</string>
+	<string name="progressX">Поступ: %s</string>
+	<string name="resetMyProgress">Скинути прогрес</string>
+	<string name="youWillLoseAllYourProgress">Весь ваш прогрес буде втрачено!</string>
+	<string name="play">грати!</string>
+	<string name="shogiPieces">Shogi pieces</string>
+	<string name="theIntoduction">Introduction</string>
+	<string name="introBasics">Let\'s learn some basics.</string>
+	<string name="introIntro">Your journey begins here.</string>
+	<string name="choosePieceDesign">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set. \nTo do that click on the cog wheel or your username (top right corner) and then click on \"piece set\".</string>
+	<string name="promotionZone">When some of your pieces reach or leave the first three ranks in your opponent\'s territory you can choose to promote your piece and make it stronger.</string>
+	<string name="introComplete">You now know some basics, but this part of tutorial is still under construction. For now learn how individual pieces move.</string>
+	<string name="theRook">Тура</string>
+	<string name="itMovesInStraightLines">Рухається прямими лініями</string>
+	<string name="rookIntro">Тура — це важка фігура. Чи готові ви керувати нею?</string>
+	<string name="rookGoal">Click on the rook to bring it to the star!</string>
+	<string name="rookPromotion">The rook promotes to the powerful dragon. Don\'t forget that you can also promote your piece when you leave the promotion zone.</string>
+	<string name="rookSummary">The rook can go up, down, left or right as much as it wants.</string>
+	<string name="dragonSummary">It can move just like the unpromoted rook, but also one square in any diagonal direction, making it much stronger.</string>
+	<string name="grabAllTheStars">Зберіть всі зірки!</string>
+	<string name="theFewerMoves">The fewer moves you make, the more points you win!</string>
+	<string name="rookComplete">Вітаємо! Ви навчилися ходити турою.</string>
+	<string name="theBishop">Слон</string>
+	<string name="itMovesDiagonally">Переміщається діагоналями</string>
+	<string name="bishopIntro">Далі ми навчимося ходити слоном!</string>
+	<string name="bishopPromotion">Promoting your bishop will make it stronger, it will turn into a piece called \"the horse\".</string>
+	<string name="bishopSummary">The bishop moves in any diagonal direction.</string>
+	<string name="horseSummary">The promoted bishop moves also diagonally, but it can also go one square up, down, left or right as well.</string>
+	<string name="bishopComplete">Вітаємо! Ви навчилися ходити слоном.</string>
+	<string name="theKing">Король</string>
+	<string name="theMostImportantPiece">Найважливіша фігура</string>
+	<string name="kingIntro">Ви - король. Якщо ви загинете в битві - гра програна.</string>
+	<string name="theKingIsSlow">The king is rather slow.</string>
+	<string name="kingSummary">King can move in any direction, but only by one sqaure.</string>
+	<string name="kingComplete">Ви навчилися ходити королем!</string>
+	<string name="theKnight">Кінь</string>
+	<string name="itMovesInAnLShape">It moves in an L shape, but only FORWARD!</string>
+	<string name="knightIntro">Here\'s another challenge for you. The knight is... a tricky piece.</string>
+	<string name="knightsHaveAFancyWay">Knights have a fancy way of jumping around!</string>
+	<string name="knightsCanJumpOverObstacles">Knights can jump over obstacles!</string>
+	<string name="knightSummary">The knight can jump in an L shape forward, but only by two squares forward and one square sideways. Its movement also isn\'t restricted by other pieces - it will just jump over them.</string>
+	<string name="pknightSummary">Promoted knight moves are completely different from the unpromoted knight, but you can notice it moves the same as the gold general, so make sure to study that one thoroughly.</string>
+	<string name="knightPromotion">The knight can also be promoted. His movements change a lot after that, so pay attention.</string>
+	<string name="knightComplete">Вітаємо! Ви освоїли фігуру \"Кінь\".</string>
+	<string name="thePawn">Пішак</string>
+	<string name="itMovesForwardOnly">March forward!</string>
+	<string name="pawnIntro">Пішаки слабкі, але мають великий потенціал.</string>
+	<string name="pawnsMoveOneSquareOnly">Pawns can move to the square directly in front of them, they capture the same way.</string>
+	<string name="pawnPromotion">The pawn can also be promoted, the moves are once again the same as the gold general.</string>
+	<string name="pawnComplete">Вітаємо! У пішаків немає секретів для вас.</string>
+	<string name="pawnSummary">The pawn is a rather straightforward piece to understand.</string>
+	<string name="tokinSummary">You should already be familiar with this pattern by now.</string>
+	<string name="theLance">The lance</string>
+	<string name="itMovesStraightForward">It can go only forward.</string>
+	<string name="lanceIntro">Use it wisely.</string>
+	<string name="lancesAreStraighforward">Just move forward as much as you can, this should be easy for you.</string>
+	<string name="lancePromotion">After the lance is promoted, it moves differently, but you\'ve already seen this somewhere - same as the gold general.</string>
+	<string name="lanceSummary">Moves forward, this is really easy.</string>
+	<string name="planceSummary">It\'s the same as the gold general.</string>
+	<string name="lanceComplete">Great job!</string>
+	<string name="theGold">The gold general</string>
+	<string name="itMovesInAnyDirectionExceptDiagonallyBack">The gold general moves in any direction EXCEPT diagonally back.</string>
+	<string name="goldIntro">The gold general movements might be a bit harder to remember at first, but you can surely do it.</string>
+	<string name="goldDoesntPromote">The gold general together with the king is the only piece you CAN\'T promote.</string>
+	<string name="goldSummary">Try to remember these moves, many pieces move the same after they are promoted.</string>
+	<string name="goldComplete">Congratulations! You got this.</string>
+	<string name="theSilver">The silver general</string>
+	<string name="itMovesEitherForwardOrDiagonallyBack">The silver general moves either forward or diagonally back.</string>
+	<string name="silverIntro">Another piece with unusual movements, but this is the last one. Promise!</string>
+	<string name="silverPromotion">When you promote the silver general his movements are the same as the gold general.</string>
+	<string name="silverSummary">You will surely remember these moves with some practice.</string>
+	<string name="psilverSummary">Same as the gold general, you will see this a lot.</string>
+	<string name="silverComplete">Congratulations! You are on a roll.</string>
+	<string name="promotion">This piece can be promoted.</string>
+	<string name="yourPieceReachedThePromotionZone">Your piece reached the promotion zone!</string>
+	<string name="itNowPromotesToAStrongerPiece">It can now be promoted to a stronger piece.</string>
+	<string name="selectThePieceYouWant">Оберіть фігуру, яку захочете!</string>
+	<string name="fundamentals">Основи</string>
+	<string name="capture">Взяття</string>
+	<string name="takeTheEnemyPieces">З\'їжте фігури противника</string>
+	<string name="captureIntro">Визначте незахищені фігури противника й з\'їжте їх!</string>
+	<string name="takeTheBlackPieces">З\'їжте чорні фігури!</string>
+	<string name="takeTheBlackPiecesAndDontLoseYours">З\'їжте всі чорні фігури! І не втратьте свої.</string>
+	<string name="captureComplete">Congratulations! You know how to fight with shogi pieces!</string>
+	<string name="protection">Захист</string>
+	<string name="keepYourPiecesSafe">Захищайте ваші фігури</string>
+	<string name="protectionIntro">Визначте, які ваші фігури атакує противник, і захистіть їх!</string>
+	<string name="protectionComplete">Вітаємо! Фігура, яку ви не втратили, це виграна фігура!</string>
+	<string name="escape">Вас атакують! Усуньте загрозу!</string>
+	<string name="noEscape">Це не вихід,
+Але ви можете захистити!</string>
+	<string name="dontLetThemTakeAnyUndefendedPiece">Не дозвольте їм з\'їсти
+будь-яку незахищену фігуру!</string>
+	<string name="combat">Битва</string>
+	<string name="captureAndDefendPieces">Взяття та захист фігур</string>
+	<string name="combatIntro">Хороший воїн знає як атаку, так і захист!</string>
+	<string name="combatComplete">Congratulations! You know how to fight with shogi pieces!</string>
+	<string name="checkInOne">Шах</string>
+	<string name="attackTheOpponentsKing">Атака на короля</string>
+	<string name="checkInOneIntro">Щоб оголосити шах, атакуйте короля суперника. Він має захищатися!</string>
+	<string name="checkInOneGoal">Нападіть на короля суперника
+за один хід!</string>
+	<string name="checkInOneComplete">Вітаємо! Ви поставили шах своєму супернику, змусивши захищати свого короля!</string>
+	<string name="outOfCheck">Відхід з-під шаха</string>
+	<string name="defendYourKing">Захистіть свого короля</string>
+	<string name="outOfCheckIntro">Вам шах! Ви маєте рятуватись або блокувати атаку.</string>
+	<string name="escapeWithTheKing">Втеча королем!</string>
+	<string name="theKingCannotEscapeButBlock">Король не може врятуватись, але ви можете блокувати атаку!</string>
+	<string name="youCanGetOutOfCheckByTaking">Ви можете піти від шаха,
+з\'ївши атакуючу фігуру.</string>
+	<string name="thisKnightIsCheckingThroughYourDefenses">Цей кінь ставить шах,
+минаючи твій захист!</string>
+	<string name="escapeOrBlock">Виведіть короля
+або закрийтеся!</string>
+	<string name="outOfCheckComplete">Вітаємо! Ваш король не зможе бути взято, переконайтеся, що ви можете захистити його від шаха!</string>
+	<string name="mateInOne">Мат в один хід</string>
+	<string name="defeatTheOpponentsKing">Поразка короля противника</string>
+	<string name="mateInOneIntro">Ви виграєте, коли ваш опонент не може захищатися від шаха.</string>
+	<string name="attackYourOpponentsKing">Атакуйте короля вашого противника таким чином, аби його не можна було захистити!</string>
+	<string name="mateInOneComplete">Congratulations! That is how you win shogi games!</string>
+	<string name="intermediate">Проміжний етап</string>
+	<string name="boardSetup">Позиція на дошці</string>
+	<string name="howTheGameStarts">Початок шахової партії</string>
+	<string name="boardSetupIntro">Обидві армії стикаються одна з одною, готові до битви.</string>
+	<string name="thisIsTheInitialPosition">This is the initial position
+of every game of shogi!
+Make any move to continue.</string>
+	<string name="firstPlaceTheRooks">Спочатку розставте тури!
+Вони знаходяться по кутах.</string>
+	<string name="thenPlaceTheKnights">Потім розставте коней!
+Вони стоять поряд з турами.</string>
+	<string name="placeTheBishops">Розставте слонів!
+Вони йдуть поруч з кіньми.</string>
+	<string name="placeTheQueen">Поставте ферзя!
+Ферзь любить свій колір.</string>
+	<string name="placeTheKing">Поставте короля!
+Він стоїть поруч з ферзем.</string>
+	<string name="pawnsFormTheFrontLine">Пішаки стоять на передній лінії.
+Зробіть будь-який хід, щоб продовжити.</string>
+	<string name="boardSetupComplete">Congratulations! You know how to set up the shogi board.</string>
+	<string name="stalemate">Пат</string>
+	<string name="theGameIsADraw">Гра є нічийною</string>
+	<string name="stalemateIntro">Коли гравцеві не поставлено шах і немає можливості зробити хід, це пат. Гра закінчується: без переможців та переможених.</string>
+	<string name="stalemateGoal">Пат чорним: 
+- Чорні не можуть сходити.
+- Король не під шахом.</string>
+	<string name="stalemateComplete">Вітаємо! Краще отримати пат, ніж мат!</string>
+	<string name="advanced">Просунутий етап</string>
+	<string name="pieceValue">Цінність фігур</string>
+	<string name="evaluatePieceStrength">Оцініть силу фігури</string>
+	<string name="pieceValueIntro">Фігури з високою рухливістю мають більш високу цінність!
+Ферзь = 9 пішаків
+Тура = 5 пішаків
+Слон = 3 пішаки
+Кінь = 3 пішаки
+Пішка = 1 пішак
+Король безцінний! Його втрата означає, що гру програно.</string>
+	<string name="queenOverBishop">Атакуйте фігури з найбільшою цінністю!
+Ферзь &gt; Слон</string>
+	<string name="takeThePieceWithTheHighestValue">Атакуйте фігури з найбільшою цінністю!</string>
+	<string name="pieceValueComplete">Вітаємо! Ви знаєте цінність фігур!
+Ферзь = 9 пішаків
+Тура = 5 пішаків
+Слон = 3 пішаки
+Кінь = 3 пішаки
+Пішак = 1 пішак</string>
+	<string name="checkInTwo">Шах в 2 ходи</string>
+	<string name="twoMovesToGiveCheck">Два ходи на те, щоб зробити шах</string>
+	<string name="checkInTwoIntro">Знайдіть комбінацію в два ходи, щоб поставити шах королю супротивника!</string>
+	<string name="checkInTwoGoal">Створіть загрозу королю противника в два ходи!</string>
+	<string name="checkInTwoComplete">Вітаємо! Ви поставили шах вашому противникові, змусивши його захищати свого короля!</string>
+	<string name="whatNext">Що далі?</string>
+	<string name="youKnowHowToPlayChess">You know how to play shogi, congratulations! Do you want to become a stronger player?</string>
+	<string name="register">Реєстрація</string>
+	<string name="getAFreeLishogiAccount">Get a free Lishogi account</string>
+	<string name="practice">Практика</string>
+	<string name="learnCommonChessPositions">Learn common shogi positions</string>
+	<string name="puzzles">Завдання</string>
+	<string name="exerciseYourTacticalSkills">Тренуйте свої тактичні навички</string>
+	<string name="videos">Відео</string>
+	<string name="watchInstructiveChessVideos">Watch instructive shogi videos</string>
+	<string name="playPeople">Гра онлайн</string>
+	<string name="opponentsFromAroundTheWorld">Противники зі всього світу</string>
+	<string name="playMachine">Гра з ботом</string>
+	<string name="testYourSkillsWithTheComputer">Перевірте свої навички з ботом</string>
+	<string name="letsGo">Поїхали!</string>
+	<string name="stageX">Етап %s</string>
+	<string name="awesome">Чудово!</string>
+	<string name="excellent">Прекрасно!</string>
+	<string name="greatJob">Відмінна робота!</string>
+	<string name="perfect">Ідеально!</string>
+	<string name="outstanding">Добре!</string>
+	<string name="wayToGo">Вперед!</string>
+	<string name="yesYesYes">Так, так, так!</string>
+	<string name="youreGoodAtThis">Ви молодець!</string>
+	<string name="nailedIt">Успіх.</string>
+	<string name="rightOn">Правильно!</string>
+	<string name="stageXComplete">Етап %s завершено</string>
+	<string name="yourScore">Ваш результат</string>
+	<string name="next">Далі</string>
+	<string name="backToMenu">Повернутися до меню</string>
+	<string name="puzzleFailed">Задачу не вирішено!</string>
+	<string name="retry">Ще раз</string>
+</resources>

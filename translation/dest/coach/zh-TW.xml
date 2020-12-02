@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="lishogiCoaches">Lishogi coaches</string>
+	<string name="lishogiCoach">Lishogi coach</string>
+	<string name="areYouCoach">Are you a great shogi coach with a %s?</string>
+	<string name="nmOrFideTitle">title</string>
+	<string name="confirmTitle">Confirm your title here and we will review your application.</string>
+	<string name="sendApplication">Send us an email at %s and we will review your application.</string>
+	<string name="location">所在地</string>
+	<string name="languages">語言</string>
+	<string name="rating">評分</string>
+	<string name="hourlyRate">每小時費用：</string>
+	<string name="availability">Availability</string>
+	<string name="accepting">Accepting students</string>
+	<string name="notAccepting">Not accepting students at the moment</string>
+	<string name="xCoachesStudents">%s coaches shogi students</string>
+	<string name="viewXProfile">View %s Lishogi profile</string>
+	<string name="sendPM">Send a private message</string>
+	<string name="aboutMe">關於我</string>
+	<string name="playingExperience">奕棋經驗</string>
+	<string name="teachingExperience">教學經驗</string>
+	<string name="otherExperiences">其他經驗</string>
+	<string name="bestSkills">Best skills</string>
+	<string name="teachingMethod">Teaching methodology</string>
+	<string name="publicStudies">公開研究</string>
+	<string name="youtubeVideos">在 Youtube 上的影片</string>
+	<plurals name="studentReviews">
+		<item quantity="other">%s student reviews</item>
+	</plurals>
+	<string name="thankYouForReview">Thank you for the review!</string>
+	<string name="xWillApproveIt">%s will approve it very soon, or a moderator will have a look at it.</string>
+	<string name="reviewCoach">Review this coach</string>
+	<string name="describeExperienceWith">Describe your coaching experience with %s</string>
+</resources>

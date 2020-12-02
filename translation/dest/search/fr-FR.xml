@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="search">Recherche</string>
+	<string name="advancedSearch">Recherche avancée</string>
+	<plurals name="searchInXGames">
+		<item quantity="one">Search in %s shogi game</item>
+		<item quantity="other">Search in %s shogi games</item>
+	</plurals>
+	<plurals name="xGamesFound">
+		<item quantity="one">Une partie trouvée</item>
+		<item quantity="other">%s parties trouvées</item>
+	</plurals>
+	<string name="opponentName">Nom de l\'adversaire</string>
+	<string name="loser">Perdant</string>
+	<string name="from">De</string>
+	<string name="to">À</string>
+	<string name="humanOrComputer">Si l\'adversaire du joueur était humain ou ordinateur</string>
+	<string name="aiLevel">Niveau de l\'IA</string>
+	<string name="source">Source</string>
+	<string name="nbTurns">Nombre de coups</string>
+	<string name="result">Résultat</string>
+	<string name="winnerColor">Couleur du vainqueur</string>
+	<string name="date">Date</string>
+	<string name="sortBy">Trier par</string>
+	<string name="analysis">Analyse</string>
+	<string name="onlyAnalysed">N\'afficher que les parties où l\'analyse de l\'ordinateur est disponible</string>
+</resources>

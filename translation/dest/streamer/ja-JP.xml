@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lishogiStreamers">Lishogi streamers</string>
+  <string name="lishogiStreamer">Lishogi streamer</string>
+  <string name="live">ライブ配信中</string>
+  <string name="offline">オフライン</string>
+  <string name="currentlyStreaming">現在配信中：%s</string>
+  <string name="lastStream">最後の配信 %s</string>
+  <string name="becomeStreamer">Lishogi の配信者になるには</string>
+  <string name="doYouHaveStream">Twitch や YouTube の配信動画をお持ちですか？</string>
+  <string name="hereWeGo">やります！</string>
+  <string name="allStreamers">すべての配信者</string>
+  <string name="editPage">配信者ページを編集</string>
+  <string name="yourPage">自分の配信者ページ</string>
+  <string name="downloadKit">配信者用キットをダウンロード</string>
+  <string name="xIsStreaming">%s が現在配信中</string>
+  <string name="rules">配信のルール</string>
+  <string name="rule1">Lishogi について配信する際にはタイトルにキーワード「lishogi.org」を入れてください。</string>
+  <string name="rule2">Lishogi 以外について配信する際にはキーワードを入れないように。</string>
+  <string name="rule3">Lishogi はあなたの配信動画を自動的に検知して以下の特典を与えます。</string>
+  <string name="perks">キーワードを入れた配信に対する特典</string>
+  <string name="perk1">Lishogi のプロフィール・ページに配信者として表示。</string>
+  <string name="perk2">配信者リストのトップに上がる。</string>
+  <string name="perk3">Lishogi でのフォロワーに通知が行く。</string>
+  <string name="perk4">対局・トーナメント・研究の中に配信動画を表示できる。</string>
+  <string name="approved">配信動画が承認されました。</string>
+  <string name="pendingReview">あなたの配信動画はモデレーターが審査中です。</string>
+  <string name="pleaseFillIn">配信者としての情報を入力し、写真をアップロードしてください。</string>
+  <string name="whenReady">Lishogi 配信者登録の用意ができたら、%s</string>
+  <string name="requestReview">モデレーターによる審査を求めます</string>
+  <string name="anotherLanguage">配信動画が英語でない場合は、動画タイトルの最初に角カッコでくくった適切な言語タグ（%s）をつけてください。日本語なら [JA] です。Lishogi の配信設定ではなく、Twitch や YouTube のページの動画タイトルに入れます。英語の場合は言語タグはいりません。</string>
+  <string name="twitchUsername">あなたの Twitch ユーザー名または URL</string>
+  <string name="optionalOrEmpty">任意。なければ空白</string>
+  <string name="youtubeChannel">あなたの YouTube チャンネル ID または URL</string>
+  <string name="streamerName">Lishogi での配信者名</string>
+  <plurals name="keepItShort">
+    <item quantity="other">短めに、最大 %s 字まで</item>
+  </plurals>
+  <string name="visibility">配信者ページに表示</string>
+  <string name="whenApproved">（モデレーターに承認されれば）</string>
+  <string name="headline">見出し</string>
+  <string name="tellUsAboutTheStream">動画の内容を一行で説明してください</string>
+  <string name="longDescription">詳しい説明</string>
+  <string name="xStreamerPicture">%s 配信者画像</string>
+  <string name="changePicture">写真の変更／削除</string>
+  <string name="uploadPicture">写真をアップロード</string>
+  <string name="deletePicture">写真を削除</string>
+  <string name="maxSize">最大サイズ：%s</string>
+  <string name="installBlocker">マルウェア対策ソフトをインストールして！</string>
+  <string name="beSafe">Twitch、YouTube に蔓延する広告やトラッカーを防ぎましょう。Lishogi では無料でオープンソースの「uBlock Origin」を推奨しています。</string>
+</resources>

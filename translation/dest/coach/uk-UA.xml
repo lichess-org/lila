@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="lishogiCoaches">Lishogi coaches</string>
+	<string name="lishogiCoach">Lishogi coach</string>
+	<string name="areYouCoach">Are you a great shogi coach with a %s?</string>
+	<string name="nmOrFideTitle">title</string>
+	<string name="confirmTitle">Підтвердіть свій заголовок і ми розглянемо вашу заявку.</string>
+	<string name="sendApplication">Надішліть нам лист на адресу %s, і ми розглянемо вашу заявку.</string>
+	<string name="location">Місцезнаходження</string>
+	<string name="languages">Мови</string>
+	<string name="rating">Рейтинг</string>
+	<string name="hourlyRate">Погодинна оплата</string>
+	<string name="availability">Доступність</string>
+	<string name="accepting">Прийняття учнів</string>
+	<string name="notAccepting">Не приймаю студентів на даний момент</string>
+	<string name="xCoachesStudents">%s coaches shogi students</string>
+	<string name="viewXProfile">Переглянути профіль %s Lishogi</string>
+	<string name="sendPM">Надіслати приватне повідомлення</string>
+	<string name="aboutMe">Про себе</string>
+	<string name="playingExperience">Досвід гри</string>
+	<string name="teachingExperience">Досвід викладання</string>
+	<string name="otherExperiences">Інший досвід</string>
+	<string name="bestSkills">Найкращі навички</string>
+	<string name="teachingMethod">Методологія викладання</string>
+	<string name="publicStudies">Публічні дослідження</string>
+	<string name="youtubeVideos">Відео на YouTube</string>
+	<plurals name="studentReviews">
+		<item quantity="one">Відгук учня</item>
+		<item quantity="few">%s відгуки учнів</item>
+		<item quantity="many">%s відгуки учнів</item>
+		<item quantity="other">%s відгуки учнів</item>
+	</plurals>
+	<string name="thankYouForReview">Дякуємо за відгук!</string>
+	<string name="xWillApproveIt">%s дуже скоро це підтвердить, або модератор згодом подивиться.</string>
+	<string name="reviewCoach">Написати відгук про цього тренера</string>
+	<string name="describeExperienceWith">Опишіть свій досвід тренувань з %s</string>
+</resources>

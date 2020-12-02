@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="coordinates">Координати</string>
+	<string name="coordinateTraining">Координатне тренування</string>
+	<string name="averageScoreAsWhiteX">Середній рахунок за білих: %s</string>
+	<string name="averageScoreAsBlackX">Середній рахунок за чорних: %s</string>
+	<string name="knowingTheShogiBoard">Knowing the shogiboard coordinates is a very important shogi skill:</string>
+	<string name="mostShogiCourses">All shogi courses and exercises use some kind of a shogi notation. You can pick between the Japanese one and the western one.</string>
+	<string name="talkToYourShogiFriends">It makes it easier to talk to your shogi friends, since you both understand the \'language of shogi\'.</string>
+	<string name="youCanAnalyseAGameMoreEffectively">Ви можете більш ефективно аналізувати ігри, якщо вам не потрібно шукати назви квадратів.</string>
+	<string name="aSquareNameAppears">Назви квадратів з\'являються на дошці, де Ви повинні натиснути конкретний квадрат. У вас є 30 секунд, щоб визначити якомога більше квадратів!</string>
+	<string name="startTraining">Розпочати тренування</string>
+</resources>

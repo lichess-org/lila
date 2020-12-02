@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lishogiStreamers">Lishogi streamers</string>
+  <string name="lishogiStreamer">Lishogi streamer</string>
+  <string name="live">CANLI!</string>
+  <string name="offline">ÇEVRİMDIŞI</string>
+  <string name="currentlyStreaming">Canlı yayında: %s</string>
+  <string name="lastStream">Son yayın: %s</string>
+  <string name="becomeStreamer">Lishogi yayıncısı ol</string>
+  <string name="doYouHaveStream">Twitch veya YouTube yayınınız mı var?</string>
+  <string name="hereWeGo">Başlayalım!</string>
+  <string name="allStreamers">Bütün yayıncılar</string>
+  <string name="editPage">Yayıncı sayfasını düzenle</string>
+  <string name="yourPage">Yayın sayfanız</string>
+  <string name="downloadKit">Yayıncı ekipmanlarını indir</string>
+  <string name="xIsStreaming">%s canlı yayında</string>
+  <string name="rules">Yayın kuralları</string>
+  <string name="rule1">Lishogi üzerinden yayın yaparken, yayın başlığınıza \"lishogi.org\" anahtar kelimesini ekleyin.</string>
+  <string name="rule2">Lishogi ile ilgisi olmayan bir yayın yaparken bu anahtar kelimeyi silin.</string>
+  <string name="rule3">Lishogi, yayınınızı otomatik olarak bulacak ve size şu avantajları sağlayacaktır:</string>
+  <string name="perks">Anahtar kelime ile yayın yapmanın avantajları</string>
+  <string name="perk1">Lishogi profilinizde, yayına başladığınız zaman yanan bir yayıncı simgesine sahip olursunuz.</string>
+  <string name="perk2">Yayıncılar listesinde en üst sırada görünürsünüz.</string>
+  <string name="perk3">Lishogi takipçilerinizi haberdar edersiniz.</string>
+  <string name="perk4">Maç, turnuva ve çalışmalarınızda yayınınızı gösterebilirsiniz.</string>
+  <string name="approved">Yayın başvurunuz onaylandı.</string>
+  <string name="pendingReview">Yayın başvurunuz moderatörler tarafından gözden geçiriliyor.</string>
+  <string name="pleaseFillIn">Lütfen yayıncı bilgilerini doldurun ve bir fotoğraf yükleyin.</string>
+  <string name="whenReady">Lishogi yayıncısı olarak listelenmeye hazırsanız, %s</string>
+  <string name="requestReview">moderatör incelemesi talep edin</string>
+  <string name="anotherLanguage">Canlı yayınınız İngilizceden farklı bir dilde olabilir.
+Bu durumda yayın başlığınızın en başına, uygun olan dil etiketini (%s) köşeli parantez içine alarak ekleyin.
+
+Örneğin; Türkçe için \"[TR]\", Rusça için \"[RU]\" ve Fransızca için \"[FR]\" vb.
+
+Yayın başlığınıza dil etiketini Twitch ve YouTube sayfanız üzerinden ekleyin, Lishogi yayın ayarlarından değil.
+
+Yayınınız İngilizce dilinde olacaksa dil etiketi eklemenize gerek yoktur.</string>
+  <string name="twitchUsername">Twitch kullanıcı adınız veya kanal bağlantınız</string>
+  <string name="optionalOrEmpty">İsteğe bağlı. Yoksa boş bırakın</string>
+  <string name="youtubeChannel">YouTube kanal kimliğiniz veya kanal bağlantınız</string>
+  <string name="streamerName">Lishogi üzerindeki yayıncı isminiz</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Kısa tutun: En fazla %s karakter</item>
+    <item quantity="other">Kısa tutun: En fazla %s karakter</item>
+  </plurals>
+  <string name="visibility">Yayıncılar sayfasına görünsün</string>
+  <string name="whenApproved">Moderatörler tarafından onaylandığı zaman</string>
+  <string name="headline">Başlık</string>
+  <string name="tellUsAboutTheStream">Bir cümle ile bize yayınınızı tarif edin</string>
+  <string name="longDescription">Ayrıntılı açıklama</string>
+  <string name="xStreamerPicture">%s yayıncı resmi</string>
+  <string name="changePicture">Resmi değiştirin/silin</string>
+  <string name="uploadPicture">Resim yükle</string>
+  <string name="deletePicture">Resmi Sil</string>
+  <string name="maxSize">Azami boyut: %s</string>
+  <string name="installBlocker">Kötü amaçlı yazılımlara karşı bir virüs programı yükleyin!</string>
+  <string name="beSafe">YouTube ve Twitch\'e kök salmış
+reklam ve iz sürücülerden sakının
+uBlock Origin diye bir uzantı varmış
+ücretsiz indirin ve rahatlıkla takılın</string>
+</resources>

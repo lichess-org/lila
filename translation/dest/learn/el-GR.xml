@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="learnShogi">Learn shogi</string>
+	<string name="byPlaying">παίζοντας!</string>
+	<string name="menu">Μενού</string>
+	<string name="progressX">Πρόοδος: %s</string>
+	<string name="resetMyProgress">Μηδενισμός προόδου</string>
+	<string name="youWillLoseAllYourProgress">Θα χάσετε όλη την πρόοδο σας!</string>
+	<string name="play">παίξτε!</string>
+	<string name="shogiPieces">Shogi pieces</string>
+	<string name="theIntoduction">Introduction</string>
+	<string name="introBasics">Let\'s learn some basics.</string>
+	<string name="introIntro">Your journey begins here.</string>
+	<string name="choosePieceDesign">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set. \nTo do that click on the cog wheel or your username (top right corner) and then click on \"piece set\".</string>
+	<string name="promotionZone">When some of your pieces reach or leave the first three ranks in your opponent\'s territory you can choose to promote your piece and make it stronger.</string>
+	<string name="introComplete">You now know some basics, but this part of tutorial is still under construction. For now learn how individual pieces move.</string>
+	<string name="theRook">Ο πύργος</string>
+	<string name="itMovesInStraightLines">Κινείται σε ευθείες γραμμές</string>
+	<string name="rookIntro">Ο πύργος είναι ένα ισχυρό κομμάτι. Είστε έτοιμοι να το χρησιμοποιήσετε;</string>
+	<string name="rookGoal">Click on the rook to bring it to the star!</string>
+	<string name="rookPromotion">The rook promotes to the powerful dragon. Don\'t forget that you can also promote your piece when you leave the promotion zone.</string>
+	<string name="rookSummary">The rook can go up, down, left or right as much as it wants.</string>
+	<string name="dragonSummary">It can move just like the unpromoted rook, but also one square in any diagonal direction, making it much stronger.</string>
+	<string name="grabAllTheStars">Πιάστε όλα τα αστέρια!</string>
+	<string name="theFewerMoves">The fewer moves you make, the more points you win!</string>
+	<string name="rookComplete">Συγχαρητήρια! Χειριστήκατε επιτυχώς τον πύργο.</string>
+	<string name="theBishop">Ο αξιωματικός</string>
+	<string name="itMovesDiagonally">Κινείται διαγώνια</string>
+	<string name="bishopIntro">Στη συνέχεια θα μάθουμε πως να χειριζόμαστε τον αξιωματικό!</string>
+	<string name="bishopPromotion">Promoting your bishop will make it stronger, it will turn into a piece called \"the horse\".</string>
+	<string name="bishopSummary">The bishop moves in any diagonal direction.</string>
+	<string name="horseSummary">The promoted bishop moves also diagonally, but it can also go one square up, down, left or right as well.</string>
+	<string name="bishopComplete">Συγχαρητήρια! Μπορείτε να χειριστείτε τον αξιωματικό.</string>
+	<string name="theKing">Ο βασιλιάς</string>
+	<string name="theMostImportantPiece">Το πιο σημαντικό κομμάτι</string>
+	<string name="kingIntro">Είστε ο βασιλιάς. Αν πέσετε στη μάχη, το παιχνίδι είναι χαμένο.</string>
+	<string name="theKingIsSlow">The king is rather slow.</string>
+	<string name="kingSummary">King can move in any direction, but only by one sqaure.</string>
+	<string name="kingComplete">Τώρα, μπορείτε να χειρίζεστε τον αρχηγό!</string>
+	<string name="theKnight">Ο ίππος</string>
+	<string name="itMovesInAnLShape">It moves in an L shape, but only FORWARD!</string>
+	<string name="knightIntro">Here\'s another challenge for you. The knight is... a tricky piece.</string>
+	<string name="knightsHaveAFancyWay">Knights have a fancy way of jumping around!</string>
+	<string name="knightsCanJumpOverObstacles">Knights can jump over obstacles!</string>
+	<string name="knightSummary">The knight can jump in an L shape forward, but only by two squares forward and one square sideways. Its movement also isn\'t restricted by other pieces - it will just jump over them.</string>
+	<string name="pknightSummary">Promoted knight moves are completely different from the unpromoted knight, but you can notice it moves the same as the gold general, so make sure to study that one thoroughly.</string>
+	<string name="knightPromotion">The knight can also be promoted. His movements change a lot after that, so pay attention.</string>
+	<string name="knightComplete">Συγχαρητήρια! Έχετε μάθει να χειρίζεστε τον ίππο.</string>
+	<string name="thePawn">Το πιόνι</string>
+	<string name="itMovesForwardOnly">March forward!</string>
+	<string name="pawnIntro">Τα πιόνια είναι αδύναμα, αλλά έχουν αρκετές δυνατότητες.</string>
+	<string name="pawnsMoveOneSquareOnly">Pawns can move to the square directly in front of them, they capture the same way.</string>
+	<string name="pawnPromotion">The pawn can also be promoted, the moves are once again the same as the gold general.</string>
+	<string name="pawnComplete">Συγχαρητήρια! Τα πιόνια δεν έχουν άλλα μυστικά για εσάς.</string>
+	<string name="pawnSummary">The pawn is a rather straightforward piece to understand.</string>
+	<string name="tokinSummary">You should already be familiar with this pattern by now.</string>
+	<string name="theLance">The lance</string>
+	<string name="itMovesStraightForward">It can go only forward.</string>
+	<string name="lanceIntro">Use it wisely.</string>
+	<string name="lancesAreStraighforward">Just move forward as much as you can, this should be easy for you.</string>
+	<string name="lancePromotion">After the lance is promoted, it moves differently, but you\'ve already seen this somewhere - same as the gold general.</string>
+	<string name="lanceSummary">Moves forward, this is really easy.</string>
+	<string name="planceSummary">It\'s the same as the gold general.</string>
+	<string name="lanceComplete">Great job!</string>
+	<string name="theGold">The gold general</string>
+	<string name="itMovesInAnyDirectionExceptDiagonallyBack">The gold general moves in any direction EXCEPT diagonally back.</string>
+	<string name="goldIntro">The gold general movements might be a bit harder to remember at first, but you can surely do it.</string>
+	<string name="goldDoesntPromote">The gold general together with the king is the only piece you CAN\'T promote.</string>
+	<string name="goldSummary">Try to remember these moves, many pieces move the same after they are promoted.</string>
+	<string name="goldComplete">Congratulations! You got this.</string>
+	<string name="theSilver">The silver general</string>
+	<string name="itMovesEitherForwardOrDiagonallyBack">The silver general moves either forward or diagonally back.</string>
+	<string name="silverIntro">Another piece with unusual movements, but this is the last one. Promise!</string>
+	<string name="silverPromotion">When you promote the silver general his movements are the same as the gold general.</string>
+	<string name="silverSummary">You will surely remember these moves with some practice.</string>
+	<string name="psilverSummary">Same as the gold general, you will see this a lot.</string>
+	<string name="silverComplete">Congratulations! You are on a roll.</string>
+	<string name="promotion">This piece can be promoted.</string>
+	<string name="yourPieceReachedThePromotionZone">Your piece reached the promotion zone!</string>
+	<string name="itNowPromotesToAStrongerPiece">It can now be promoted to a stronger piece.</string>
+	<string name="selectThePieceYouWant">Επιλέξτε το κομμάτι που θέλετε!</string>
+	<string name="fundamentals">Βασικές αρχές</string>
+	<string name="capture">Αιχμαλώτιση</string>
+	<string name="takeTheEnemyPieces">Πάρτε τα πιόνια του αντιπάλου</string>
+	<string name="captureIntro">Βρείτε τα ανυπεράσπιστα πιόνια του αντιπάλου, και πάρτε τα!</string>
+	<string name="takeTheBlackPieces">Πάρτε τα μαύρα πιόνια!</string>
+	<string name="takeTheBlackPiecesAndDontLoseYours">Πάρτε τα μαύρα πιόνια!
+Και προστατεύστε τα δικά σας.</string>
+	<string name="captureComplete">Congratulations! You know how to fight with shogi pieces!</string>
+	<string name="protection">Προστασία</string>
+	<string name="keepYourPiecesSafe">Κρατήστε τα πιόνια σας ασφαλή</string>
+	<string name="protectionIntro">Βρείτε τα πιόνια που επιτίθεται ο αντίπαλος και προστατεύστε τα!</string>
+	<string name="protectionComplete">Συγχαρητήρια! Ένα πιόνι που δεν χάνεται είναι ένα πιόνι που κερδίζεται!</string>
+	<string name="escape">Δέχεστε επίθεση!
+Ξεφύγετε από την απειλή!</string>
+	<string name="noEscape">Δεν υπάρχει διαφυγή,
+αλλά υπάρχει άμυνα!</string>
+	<string name="dontLetThemTakeAnyUndefendedPiece">Αποτρέψτε το χάσιμο
+ανυπερασπίστων κομματιών!</string>
+	<string name="combat">Μάχη</string>
+	<string name="captureAndDefendPieces">Αιχμαλωτίστε και υπερασπιστείτε πιόνια</string>
+	<string name="combatIntro">Ο καλός παίκτης γνωρίζει τόσο την επίθεση όσο και την άμυνα!</string>
+	<string name="combatComplete">Congratulations! You know how to fight with shogi pieces!</string>
+	<string name="checkInOne">Σαχ σε μία κίνηση</string>
+	<string name="attackTheOpponentsKing">Επίθεση στον βασιλιά του αντιπάλου</string>
+	<string name="checkInOneIntro">Για να κάνετε σαχ στον αντίπαλο σας, επιτεθείτε στον βασιλιά του. Πρέπει να τον υπερασπιστεί!</string>
+	<string name="checkInOneGoal">Απειλήστε τον βασιλιά του αντιπάλου με μία κίνηση!</string>
+	<string name="checkInOneComplete">Συγχαρητήρια! Κάνατε σαχ στον αντίπαλο, αναγκάζοντάς τον να προστατεύσει τον βασιλιά του!</string>
+	<string name="outOfCheck">Ξεφεύγοντας από σαχ</string>
+	<string name="defendYourKing">Υπερασπιστείτε τον βασιλιά σας</string>
+	<string name="outOfCheckIntro">Είστε σε σαχ! Πρέπει να ξεφύγετε ή να εμποδίσετε την επίθεση.</string>
+	<string name="escapeWithTheKing">Ξεφύγετε με τον βασιλιά!</string>
+	<string name="theKingCannotEscapeButBlock">Ο βασιλιάς δεν μπορεί να ξεφύγει, αλλά μπορείτε να εμποδίσετε την επίθεση!</string>
+	<string name="youCanGetOutOfCheckByTaking">Μπορείτε να ξεφύγετε από το σαχ παίρνοντας το επιτιθέμενο πιόνι.</string>
+	<string name="thisKnightIsCheckingThroughYourDefenses">Αυτός ο ίππος κάνει σαχ μέσω της άμυνας σας!</string>
+	<string name="escapeOrBlock">Ξεφύγετε με τον βασιλιά ή εμποδίστε την επίθεση!</string>
+	<string name="outOfCheckComplete">Συγχαρητήρια! Ο βασιλιάς πρέπει να είναι πάντα ασφαλής, βεβαιωθείτε ότι θα τον προστατεύετε ενάντια σε ένα σαχ!</string>
+	<string name="mateInOne">Ματ σε μία</string>
+	<string name="defeatTheOpponentsKing">Νικήστε τον βασιλιά του αντιπάλου</string>
+	<string name="mateInOneIntro">Κερδίζετε όταν ο αντίπαλος σας δεν μπορεί να υπερασπιστεί ενάντια σε σαχ.</string>
+	<string name="attackYourOpponentsKing">Επιτεθείτε στον βασιλιά του αντιπάλου σας με έναν τρόπο που δεν θα μπορεί να τον υπερασπιστεί!</string>
+	<string name="mateInOneComplete">Congratulations! That is how you win shogi games!</string>
+	<string name="intermediate">Ενδιάμεσο στάδιο</string>
+	<string name="boardSetup">Στήσιμο σκακιέρας</string>
+	<string name="howTheGameStarts">Πώς αρχίζει το παιχνίδι</string>
+	<string name="boardSetupIntro">Οι δύο στρατοί αντιμετωπίζουν ο ένας τον άλλον, έτοιμοι για τη μάχη.</string>
+	<string name="thisIsTheInitialPosition">This is the initial position
+of every game of shogi!
+Make any move to continue.</string>
+	<string name="firstPlaceTheRooks">Πρώτα τοποθετήστε τους πύργους!
+Μπαίνουν στις γωνίες.</string>
+	<string name="thenPlaceTheKnights">Μετά τοποθετήστε τους ίππους!
+Μπαίνουν δίπλα στους πύργους.</string>
+	<string name="placeTheBishops">Τοποθετήστε τους αξιωματικούς!
+Μπαίνουν δίπλα στους ίππους.</string>
+	<string name="placeTheQueen">Τοποθετήστε την βασίλισσα!
+Μπαίνει στο χρώμα της.</string>
+	<string name="placeTheKing">Τοποθετήστε τον βασιλιά!
+Ακριβώς δίπλα στη βασίλισσά του.</string>
+	<string name="pawnsFormTheFrontLine">Τα πιόνια αποτελούν την πρώτη γραμμή.
+Κάντε οποιαδήποτε κίνηση για συνέχεια.</string>
+	<string name="boardSetupComplete">Congratulations! You know how to set up the shogi board.</string>
+	<string name="stalemate">Πατ</string>
+	<string name="theGameIsADraw">Η παρτίδα είναι ισόπαλη</string>
+	<string name="stalemateIntro">Όταν ένας παίκτης δεν είναι σε σαχ και δεν μπορεί να κάνει κάποια νόμιμη κίνηση, τότε είναι πατ. Το παιχνίδι λήγει ισόπαλο: κανείς δεν κερδίζει, κανείς δε χάνει.</string>
+	<string name="stalemateGoal">Πατ στα μαύρα:
+- Ο μαύρος δεν μπορεί να κινηθεί πουθενά
+- Δεν υπάρχει σαχ.</string>
+	<string name="stalemateComplete">Συγχαρητήρια! Καλύτερα πατ παρά σαχ-ματ!</string>
+	<string name="advanced">Προχωρημένο στάδιο</string>
+	<string name="pieceValue">Αξία πιονιού</string>
+	<string name="evaluatePieceStrength">Αξιολογήστε τη δύναμη κάθε πιονιού</string>
+	<string name="pieceValueIntro">Τα κομμάτια με υψηλή κινητικότητα έχουν υψηλότερη αξία!
+Βασίλισσα = 9
+Πύργος = 5
+Αξιωματικός = 3
+Ίππος = 3
+Πιόνι = 1
+Ο βασιλιάς είναι ανεκτίμητος! Η απώλεια του σημαίνει ήττα στο παιχνίδι.</string>
+	<string name="queenOverBishop">Πάρτε το κομμάτι
+με την υψηλότερη αξία!
+Βασίλισσα &gt; Αξιωματικός</string>
+	<string name="takeThePieceWithTheHighestValue">Πάρτε το κομμάτι
+με την υψηλότερη αξία!</string>
+	<string name="pieceValueComplete">Συγχαρητήρια! Γνωρίζετε την αξία του υλικού! 
+Βασίλισσα = 9 
+Πύργος = 5 
+Αξιωματικός = 3 
+Ίππος = 3
+Πιόνι = 1</string>
+	<string name="checkInTwo">Σαχ σε δύο</string>
+	<string name="twoMovesToGiveCheck">Δύο κινήσεις για να κάνετε σαχ</string>
+	<string name="checkInTwoIntro">Βρείτε το σωστό συνδυασμό δύο κινήσεων που κάνει σαχ στον βασιλιά του αντιπάλου!</string>
+	<string name="checkInTwoGoal">Απειλήστε τον αντίπαλο βασιλιά
+σε δύο κινήσεις!</string>
+	<string name="checkInTwoComplete">Συγχαρητήρια! Κάνατε σαχ στον αντίπαλο, αναγκάζοντας τον να προστατεύσει τον βασιλιά του!</string>
+	<string name="whatNext">Τι υπάρχει στη συνέχεια;</string>
+	<string name="youKnowHowToPlayChess">You know how to play shogi, congratulations! Do you want to become a stronger player?</string>
+	<string name="register">Εγγραφείτε</string>
+	<string name="getAFreeLishogiAccount">Get a free Lishogi account</string>
+	<string name="practice">Εξάσκηση</string>
+	<string name="learnCommonChessPositions">Learn common shogi positions</string>
+	<string name="puzzles">Γρίφοι</string>
+	<string name="exerciseYourTacticalSkills">Εξασκήστε τις τακτικές σας ικανότητες</string>
+	<string name="videos">Βίντεο</string>
+	<string name="watchInstructiveChessVideos">Watch instructive shogi videos</string>
+	<string name="playPeople">Παίξτε με ανθρώπους</string>
+	<string name="opponentsFromAroundTheWorld">Αντίπαλοι από όλο τον κόσμο</string>
+	<string name="playMachine">Παίξτε με τον υπολογιστή</string>
+	<string name="testYourSkillsWithTheComputer">Δοκιμάστε τις δεξιότητες σας με τον υπολογιστή</string>
+	<string name="letsGo">Πάμε!</string>
+	<string name="stageX">Στάδιο %s</string>
+	<string name="awesome">Τέλεια!</string>
+	<string name="excellent">Εξαιρετικά!</string>
+	<string name="greatJob">Πολύ καλή δουλειά!</string>
+	<string name="perfect">Τέλεια!</string>
+	<string name="outstanding">Έξοχος!</string>
+	<string name="wayToGo">Εύγε!</string>
+	<string name="yesYesYes">Ναι, ναι, ναι!</string>
+	<string name="youreGoodAtThis">Είσαι καλός σε αυτό!</string>
+	<string name="nailedIt">To βρήκες.</string>
+	<string name="rightOn">Μπράβο!</string>
+	<string name="stageXComplete">Στάδιο %s ολοκληρώθηκε</string>
+	<string name="yourScore">Οι βαθμοί σας</string>
+	<string name="next">Επόμενο</string>
+	<string name="backToMenu">Επιστροφή στο μενού</string>
+	<string name="puzzleFailed">Αποτύχατε τον γρίφο!</string>
+	<string name="retry">Ξαναδοκιμάστε</string>
+</resources>

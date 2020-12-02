@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="lishogiCoaches">Lishogi coaches</string>
+	<string name="lishogiCoach">Lishogi coach</string>
+	<string name="areYouCoach">Are you a great shogi coach with a %s?</string>
+	<string name="nmOrFideTitle">title</string>
+	<string name="confirmTitle">Potwierdź swój tytuł tutaj, a my rozpatrzymy Twój wniosek.</string>
+	<string name="sendApplication">Wyślij nam e-mail pod adres %s, a rozpatrzymy Twoje zgłoszenie.</string>
+	<string name="location">Lokalizacja</string>
+	<string name="languages">Języki</string>
+	<string name="rating">Ranking</string>
+	<string name="hourlyRate">Stawka godzinowa</string>
+	<string name="availability">Dostępność</string>
+	<string name="accepting">Przyjmuje uczniów</string>
+	<string name="notAccepting">Nie przyjmuje uczniów w tej chwili</string>
+	<string name="xCoachesStudents">%s coaches shogi students</string>
+	<string name="viewXProfile">Zobacz profil Lishogi %s</string>
+	<string name="sendPM">Wyślij prywatną wiadomość</string>
+	<string name="aboutMe">O mnie</string>
+	<string name="playingExperience">Osiągnięcia w grze w szachy</string>
+	<string name="teachingExperience">Doświadczenie dydaktyczne</string>
+	<string name="otherExperiences">Inne kompetencje</string>
+	<string name="bestSkills">Mocne strony</string>
+	<string name="teachingMethod">Metodologia nauczania</string>
+	<string name="publicStudies">Publiczne opracowania</string>
+	<string name="youtubeVideos">Filmy z YouTube</string>
+	<plurals name="studentReviews">
+		<item quantity="one">Jedna opinia ucznia</item>
+		<item quantity="few">%s opinie uczniów</item>
+		<item quantity="many">%s opinii uczniów</item>
+		<item quantity="other">%s opinii uczniów</item>
+	</plurals>
+	<string name="thankYouForReview">Dziękujemy za opinię!</string>
+	<string name="xWillApproveIt">%s wkrótce ją zatwierdzi, lub zajmie się nią moderator.</string>
+	<string name="reviewCoach">Oceń tego trenera</string>
+	<string name="describeExperienceWith">Opisz swoje doświadczenie trenerskie z %s</string>
+</resources>

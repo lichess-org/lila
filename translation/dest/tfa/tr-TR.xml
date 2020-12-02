@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="twoFactorAuth">İki aşamalı kimlik doğrulama</string>
+  <string name="twoFactorHelp">İki aşamalı kimlik doğrulama, hesabınıza bir güvenlik katmanı daha ekler.</string>
+  <string name="twoFactorApp">İki aşamalı kimlik doğrulama için bir uygulama indirin. Örneğin %1$s ve %2$s için Google Authenticator yükleyebilirsiniz.</string>
+  <string name="scanTheCode">QR kodunu uygulamaya okutun.</string>
+  <string name="enterPassword">İşlemi tamamlamak için şifrenizi ve uygulama tarafından oluşturulan kimlik doğrulama kodunu girin. Her giriş yaptığınızda bir doğrulama kodu girmeniz gerekecek.</string>
+  <string name="authenticationCode">Kimlik doğrulama kodu</string>
+  <string name="ifYouLoseAccess">Not: İki aşamalı kimlik doğrulama koduna erişiminizi kaybederseniz e-posta aracılığıyla şifrenizi sıfırlayabilirsiniz.</string>
+  <string name="enableTwoFactor">İki aşamalı doğrulamayı etkinleştir</string>
+  <string name="disableTwoFactor">İki aşamalı doğrulamayı devre dışı bırak</string>
+  <string name="twoFactorEnabled">İki aşamalı kimlik doğrulama etkin</string>
+  <string name="twoFactorDisable">İki aşamalı kimlik doğrulamayı devre dışı bırakmak için şifrenize ve kimlik belirleme programınızdaki doğrulama koduna ihtiyacınız olacak.
+
+Kimlik doğrulama kodlarına erişimi kaybettiyseniz e-posta aracılığıyla şifrenizi sıfırlayabilirsiniz.</string>
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">Arena toernooien</string>
+  <string name="isItRated">Is dit met rating?</string>
+  <string name="willBeNotified">Je krijgt een melding wanneer dit toernooi start, dus het is veilig om in een ander tabblad te spelen terwijl je wacht.</string>
+  <string name="isRated">Dit toernooi is met rating en zal je rating beïnvloeden.</string>
+  <string name="isNotRated">Dit toernooi is *niet* met rating en zal je rating *niet* beïnvloeden.</string>
+  <string name="someRated">Sommige toernooien zijn met rating en zullen je rating beïnvloeden.</string>
+  <string name="howAreScoresCalculated">Hoe worden scores berekend?</string>
+  <string name="howAreScoresCalculatedAnswer">Een overwinning heeft een basisscore van 2 punten, een gelijkspel van één punt. Een verlies is geen punten waard.
+Als je twee partijen na elkaar wint, start je een \"dubbele-punten-reeks\", voorgesteld door een icoontje van een vlam.
+De volgende partijen zullen steeds het dubbele aantal punten waard zijn totdat je er niet in slaagt een spel te winnen.
+Dus, een overwinning zal 4 punten waard zijn, een gelijkspel 2, en een verlies is nog steeds 0 punten waard.
+
+Bijvoorbeeld, twee overwinningen gevolgd door een gelijkspel zullen 6 punten waard zijn: 2 + 2 + (2 x 1)</string>
+  <string name="berserk">Arena Berserk</string>
+  <string name="berserkAnswer">Wanneer een speler op de Berserk-knop klikt aan het begin van het spel, verliest hij/zij de helft van de tijd op de klok, maar de overwinning is één extra toernooipunt waard.
+
+Berserk gaan in partijen met een klok met extra seconden per zet, zorgt ervoor dat je ook die extra seconden kwijt bent. Bijvoorbeeld 2+1 wordt 1+0. (1+2 is een uitzondering, dat geeft 1+0)
+
+Berserk is niet beschikbaar voor partijen met nul begintijd (0+1, 0+2).
+
+Berserk geeft je enkel een extra punt als je minstens 7 zetten speelt in de partij.</string>
+  <string name="howIsTheWinnerDecided">Hoe wordt de winnaar bepaald?</string>
+  <string name="howIsTheWinnerDecidedAnswer">De speler(s) met de meeste punten op het einde van de tijdslimiet van het toernooi zal (zullen) aangeduid worden als winnaar(s).</string>
+  <string name="howDoesPairingWork">Hoe werkt de indeling?</string>
+  <string name="howDoesPairingWorkAnswer">Aan het begin van het toernooi worden spelers ingedeeld op basis van hun rating.
+Wanneer je een partij eindigt, keer terug naar de toernooilobby: je zult dan gekoppeld worden met een speler dicht bij uw rang in het toernooi. Dit zorgt voor zo min mogelijk wachttijd, maar het is mogelijk dat je niet tegen iedereen in het toernooi speelt.
+Speel snel en ga terug naar de toernooilobby om meer partijen te spelen en meer punten te winnen.</string>
+  <string name="howDoesItEnd">Hoe eindigt het?</string>
+  <string name="howDoesItEndAnswer">Het toernooi heeft een klok die aftelt. Wanneer die klok de nul bereikt, wordt het klassement van het toernooi bevroren en wordt de winnaar aangekondigd.
+Partijen die nog aan de gang zijn moeten uitgespeeld worden, maar tellen niet meer mee voor de rangschikking in het toernooi.</string>
+  <string name="otherRules">Andere belangrijke regels</string>
+  <string name="thereIsACountdown">Er wordt afgeteld tot je je eerste zet doet. Als je binnen deze tijd geen zet doet, verlies je de partij.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">Als een partij binnen %s zetten in remise eindigt, levert dit voor geen van beide spelers punten op.</item>
+    <item quantity="other">Als een partij binnen %s zetten in remise eindigt, levert dit voor geen van beide spelers punten op.</item>
+  </plurals>
+  <string name="thisIsPrivate">Dit is een privétoernooi</string>
+  <string name="shareUrl">Deel deze URL om mensen deel te laten nemen: %s</string>
+  <string name="drawStreak">Remise-serie: als een speler in een arena of een teamcompetitie achtereenvolgende partijen remise speelt, resulteert alleen de eerste remise in een punt, of remise-partijen die meer dan %s zetten duren. De remise-serie kan alleen onderbroken worden door een overwinning, niet door verlies of remise.</string>
+</resources>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="faqAbbreviation">FAQ</string>
+	<string name="frequentlyAskedQuestions">よくある質問（FAQ）</string>
+	<string name="whyIsLishogiCalledLishogi">Why is Lishogi called Lishogi?</string>
+	<string name="forkedFromLichess">Lishogi is open source project forked from liсhess, but since it\'s for playing shogi, it\'s called lishogi.</string>
+	<string name="lishogiCombinationLiveLightLibrePronounced">Because it\'s derived from Liсhess. And Liсhess is called Liсhess because it\'s a combination of live/light/libre and chess. Lishogi is pronounced %1$s.</string>
+	<string name="leechess">lee-shogi</string>
+	<string name="hearItPronouncedBySpecialist"> 実際の発音をお聞きください。</string>
+	<string name="whyLiveLightLibre">「ライブ」それは24時間無休で対戦・観戦できるから。「軽い」「自由」は Lishogi がオープンソースで、他のサイトにありがちな誰かの権利とかにわずらわされないから。</string>
+	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
+	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
+	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi is powered by donations from patrons and the efforts of a team of volunteers.</string>
+	<string name="findMoreAndSeeHowHelp">You can find out more about %1$s. If you want to help Lishogi by volunteering your time and skills, there are many %2$s.</string>
+	<string name="beingAPatron">Become a patron</string>
+	<string name="breakdownOfOurCosts">運営費用の内訳</string>
+	<string name="otherWaysToHelp">いろんな方法</string>
+	<string name="areThereWebsitesBasedOnLishogi">Are there websites based on Lishogi?</string>
+	<string name="yesLishogiInspiredOtherOpenSourceWebsites">Yes. Lishogi has indeed inspired other open-source sites that use our %1$s, %2$s, or %3$s.</string>
+	<string name="fairPlay">フェアプレイについて</string>
+	<string name="whyFlaggedRatingManipulationOrCheater">なぜ私にレーティング不正操作／コンピュータ不正使用のマークが付いたのですか？</string>
+	<string name="cheatDetectionMethods">Lishogi には強力な検知手段と、すべての証拠を検討した上で判断を下す念入りなプロセスがあります。このプロセスにはたいてい複数のモデレーターが関与し、長時間かかることもあります。マークを付ける以外、個々のケースについて証拠や判断プロセスの詳細は開示しません。開示すれば今後の検知が難しくなるし、実りのない議論を招くだけでしょう。その時間と努力は他のだいじなケースに向けるべきです。ユーザーは%1$sに電子メールを送って不服申し立てを行なえますが、判断がくつがえることはめったにありません。</string>
+	<string name="whenAmIEligibleRatinRefund">不正な相手に奪われたレーティングが回復するのはいつですか？</string>
+	<string name="ratingRefundExplanation">あるプレイヤーに不正行為のマークが付いたら、1 分後に、その人の最近 3 日間の最新の勝局 40 局について回復が行われます。あなたがこれらの対局の相手で、レーティングが暫定でない場合、数字が回復します。ただしあなたの最高レーティングとその後の変動によって回復の幅には上限があります。
+  （たとえばその人との対局後にあなたのレーティングが大きく上がっていれば、回復は部分的かゼロになることもあります。）また回復は 150 点が上限です。</string>
+	<string name="preventLeavingGameWithoutResigning">投了せずに対局からいなくなる人にはどう対処していますか？</string>
+	<string name="leavingGameWithoutResigningExplanation">何度も対局を中止／放置する人は対戦禁止 (play ban) になります。つまり対局が一時的にできなくなります。このことはプロフィールには表示されません。同じ行為がさらに続くと対戦禁止の期間は長くなっていき、最後にはアカウントが停止されることがあります。</string>
+	<string name="howCanIBecomeModerator">どうすればモデレーターになれますか？</string>
+	<string name="youCannotApply">自分から申請してモデレーターになることはできません。当方から、適任だと思った人にコンタクトを取ります。</string>
+	<string name="isCorrespondenceDifferent">Is correspondence different from normal shogi?</string>
+	<string name="youCanUseOpeningBookNoEngine">On Lishogi, the main difference in rules for correspondence shogi is that an opening book is allowed. The use of engines is still prohibited and will result in being flagged for engine assistance. Although ICCF allows engine use in correspondence, Lishogi does not.</string>
+	<string name="gameplay">対局について</string>
+	<string name="howBulletBlitzEtcDecided">ブレット、ブリッツなど持時間の区分の基準は？</string>
+	<string name="basedOnGameDuration">Lishogi の持時間は推定所要時間（%1$s）で分類されています。
+  たとえば 5+3 （5分＋1手3秒）の対局の推定所要時間は 5 x 60 + 40 x 3 = 420秒です。</string>
+	<string name="durationFormula">(初期持時間) + 40 x (1 手ごとの追加時間)</string>
+	<string name="inferiorThanXsEqualYtimeControl">＜ %1$ss = %2$s</string>
+	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+	<string name="whatVariantsCanIplay">Lishogi にはどんなバリアント（変則ルール）がありますか？</string>
+	<string name="lishogiSupportChessAnd">Lishogi supports standard shogi and %1$s.</string>
+	<string name="eightVariants">8種類のバリアント</string>
+	<string name="whatIsACPL">「平均センチポーン差（ACPL: average centipawn loss）」とは？</string>
+	<string name="acplExplanation">「センチポーン」とはチェスで局面の有利さを表現するために使われる単位です。1 センチポーンは 1/100 ポーン、つまり 100 センチポーン＝1 ポーンです。この数字は対局には関係ありませんが、局面を評価する際に便利であり、コンピュータチェスでは欠かせないものとなっています。
+  コンピュータの示す最善手をゼロとして、他の手で生じる局面を評価し、その差をセンチポーン単位で表現します。
+ この数値はプレイの質の指標としても使えます。1 手あたりの平均センチポーン差が小さいほどしっかり指せたということです。
+ Lishogi ではコンピュータ解析に Stockfish を使っています。</string>
+	<string name="insufficientMaterial">時間切れと戦力不足について</string>
+	<string name="lishogiFollowFIDErules">In the event of one player running out of time, that player will usually lose the game. However, the game is drawn if the position is such that the opponent cannot checkmate the player\'s king by any possible series of legal moves (%1$s).
+
+In rare cases this can be difficult to decide automatically (forced lines, fortresses). By default we always side with the player who did not run out of time.
+
+Note that it can be possible to mate with a single knight or bishop if the opponent has a piece that could block the king.</string>
+	<string name="linkToFIDErules">FIDE ハンドブック §6.9 (pdf)</string>
+	<string name="discoveringEnPassant">ポーンがすでに通過したマスで取られてしまうのですが…？（アンパッサンについて）</string>
+	<string name="explainingEnPassant">それは「アンパッサン (en passant)」というルールです。ウィキペディアの記事がまず%1$sになるでしょう。
+  これは%2$sの第 3.7 (d) 項にあります。
+  「相手のポーンが元のマスから 1 手で 2 マス進んだ時、この相手のポーンと同じランクで隣のファイルにいるポーンは、相手のポーンが 1 マス進んだ時と同じように相手のポーンを取ることができる。これは相手のポーンが進んだ直後の手でしか行えず、『アンパッサン』と呼ばれる」
+  %3$sでアンパッサンを練習することができます。
+  </string>
+	<string name="goodIntroduction">参考</string>
+	<string name="officialRulesPDF">公式ルール (pdf)</string>
+	<string name="lishogiTraining">Lishogi training</string>
+	<string name="threefoldRepetition">同形三復について</string>
+	<string name="threefoldRepetitionExplanation">同じ局面が 3 回起きたら、申し立てをすることで%1$sのドローになります。Lishogi は FIDE の公式ルール、%2$sの第 9.2 (d) 項を実装しています。</string>
+	<string name="threefoldRepetitionLowerCase">同形三復</string>
+	<string name="handBookPDF">ハンドブック (pdf)</string>
+	<string name="notRepeatedMoves">同じ手は指していないのに、なぜ同形三復（repetition）でドローなのですか？</string>
+	<string name="repeatedPositionsThatMatters">同形三復は同じ%1$sの繰り返しを言うのであって、同じ手ではありません。繰り返しが連続で起きる必要はないのです。</string>
+	<string name="positions">局面</string>
+	<string name="weRepeatedthreeTimesPosButNoDraw">同じ局面が 3 回起きました。なぜドローにならないのですか？</string>
+	<string name="threeFoldHasToBeClaimed">同形三復によるドローはどちらかが申し立てする必要があります。「相手の手で 3 回目になった時にドローのボタンを押す」か、「ドローのボタンを押してから 3 回目になる手を指す」か、です。また%1$sによって 3 回目に自動的にドローにすることもできます。さらに同じ局面が 5 回起きたら自動的にドローになります。</string>
+	<string name="configure">設定</string>
+	<string name="accounts">アカウントについて</string>
+	<string name="titlesAvailableOnLishogi">What titles are there on Lishogi?</string>
+	<string name="lishogiRecognizeAllOTBtitles">Lishogi recognises all FIDE titles gained from OTB (over the board) play, as well as %1$s. Here is a list of FIDE titles:</string>
+	<string name="showYourTitle">実戦の公式称号を持っていれば、%1$sに記入することでアカウントに称号を表示できます。本人を確認できる文書／カードの鮮明な画像と、その文書／カードを手に持ったあなた自身の画像が必要です。
+  称号保持者であることを証明すれば、タイトルド・アリーナに参加できます。
+  最後に、名誉称号の %2$s があります。</string>
+	<string name="asWellAsManyNMtitles">各国のナショナル・マスター称号</string>
+	<string name="verificationForm">確認フォーム</string>
+	<string name="canIbecomeLM">私も Lishogi Master (LM) になれますか？</string>
+	<string name="noUpperCaseDot">原則としてできません。</string>
+	<string name="lMtitleComesToYouDoNotRequestIt">この名誉称号は非公式で、Lishogi にしかないものです。
+ Lishogi では非常に注目すべきプレイヤーで本サイトでの行動に問題のない人にこの称号を贈ります。LM はあなたが勝って得るものではなく、タイトルがあなたを選ぶのです。条件にかなった人に Lishogi からメッセージが送られ、受けるかどうかはその人しだいです。
+ LM がほしいというメールは送らないでください。</string>
+	<string name="whatUsernameCanIchoose">ユーザー名にはどんなものが使えますか？</string>
+	<string name="usernamesNotOffensive">ユーザー名として攻撃的なもの、別人になりすますもの、宣伝的なものは禁止です。詳しくは%1$sをお読みください。</string>
+	<string name="guidelines">ガイドライン</string>
+	<string name="uniqueTrophies">独特なトロフィー</string>
+	<string name="ownerUniqueTrophies">このトロフィーは Lishogi 史上唯一のもので、与えられたのは今後を含めて %1$s だけです。</string>
+	<string name="wayOfBerserkExplanation">ユーザー hiimgosu は %s で全局バーサークして100%%の勝率を上げたのです。</string>
+	<string name="aHourlyBulletTournament">毎時のブレット・トーナメント</string>
+	<string name="goldenZeeExplanation">ユーザー ZugAddict はストリーム配信をしながら 1+0 の持時間でレベル 8 の AI に勝とうと 2 時間奮闘しましたがうまくいきませんでした。Thibault は彼に、配信中に勝ったら特製のトロフィーをあげると言いました。1 時間後、彼はみごと Stockfish を破り、約束が守られたというわけです。</string>
+	<string name="lishogiRatings">Lishogi ratings</string>
+	<string name="whichRatingSystemUsedByLishogi">What rating system does Lishogi use?</string>
+	<string name="ratingSystemUsedByLishogi">Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant number of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system).
+
+Fundamentally, Glicko ratings use \"confidence intervals\" when calculating and representing your rating. When you first start using the site, your rating starts at 1500 ± 700. The 1500 represents your rating, and the 700 represents the confidence interval.
+
+Basically, the system is 90% sure that your rating is somewhere between 800 and 2200. It is incredibly uncertain. Because of this, when a player is just starting out, their rating will change very dramatically, potentially several hundred points at a time. But after some games against established players the confidence interval will narrow, and the amount of points gained/lost after each game will decrease.
+
+Another point to note is that, as time passes, the confidence interval will increase. This allows you to gain/lose points points more rapidly to match any changes in your skill level over that time.</string>
+	<string name="whatIsProvisionalRating">レーティングに「?」が付いているのは？</string>
+	<string name="provisionalRatingExplanation">「?」はレーティングが暫定であることを示します。理由はいろいろです。</string>
+	<string name="notPlayedEnoughRatedGamesAgainstX">まだそのカテゴリーで%1$sと十分な数のレート戦を指していないから。</string>
+	<string name="similarOpponents">同レベルの相手</string>
+	<string name="notPlayedRecently">最近に十分な数のレート戦を指していないから。対戦数にもよりますが、指さずにいてもレーティングが再び暫定になるには一年近くかかることもあります。</string>
+	<string name="ratingDeviationMorethanOneHundredTen">具体的には、Glicko-2 での偏差 (deviation) が 110 を超えているということです。ここで言う偏差とはレーティングの信頼区間です。偏差が小さいほどレーティングは安定しています。</string>
+	<string name="howDoLeaderoardsWork">レーティング順位やランキングの仕組みは？</string>
+	<string name="inOrderToAppearsYouMust">%1$sに入るための条件は：</string>
+	<string name="ratingLeaderboards">レーティングのランキング</string>
+	<string name="havePlayedMoreThanThirtyGamesInThatRating">そのカテゴリーでレート戦 30 局以上を終え、</string>
+	<string name="havePlayedARatedGameAtLeastOneWeekAgo">そのカテゴリーで過去 1 週間以内にレート戦を指し、</string>
+	<string name="ratingDeviationLowerThanXinChessYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
+	<string name="beInTopTen">そのカテゴリーで上位 10 人に入っていることです。</string>
+	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">2 番目の要件は、アカウントを使わなくなった人がランキングの中に残らないようにするためです。</string>
+	<string name="whyAreRatingHigher">レーティングの数字が他のチェスサイトや団体 (FIDE, USCFなど) より高いのはなぜ？</string>
+	<string name="whyAreRatingHigherExplanation">レーティングは絶対的な評価と考えてはいけませんし、他の団体のレーティングとそのまま比べるのも間違いです。プレイヤーのレベルは団体によって違うし、レーティング方式も違います（Elo、Glicko、Glicko-2、これらの修正版など）。こういった要因はレーティングの数値を大きく左右します。
+ レーティングは相対的な数字と見るべきです。同じ集団の中でなら、プレイヤーのレーティングはどちらが何％くらいの勝率を上げるかの手がかりになります。「自分のレーティングは X 点だ」と言っても、比較対象となる他のプレイヤーがいなければ意味はないのです。</string>
+	<string name="howToHideRatingWhilePlaying">対局の際にレーティングを隠すには？</string>
+	<string name="enableZenMode">%1$sで集中モード (Zen-mode) を「はい」にするか、対局中に「%2$s」キーを押します。</string>
+	<string name="displayPreferences">表示設定</string>
+	<string name="connexionLostCanIGetMyRatingBack">ラグ／接続切れのせいで負けました。レーティングは戻ってきますか？</string>
+	<string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">あいにくですがラグや接続切れで負けてもレーティングは戻せません。接続上の問題があなたの方にあったか当方にあったかを問わずです（Lishogi に問題があることはまれですが）。なお Lishogi の再起動の際に時間切れで負けたゲームは、不当な負けを防ぐために中止扱いになります。</string>
+	<string name="howToThreeDots">さまざまな操作</string>
+	<string name="enableDisableNotificationPopUps">通知ポップアップの有無を設定するには？</string>
+	<string name="viewSiteInformationPopUp">サイト情報を表示</string>
+	<string name="lishogiCanOptionnalySendPopUps">Lishogi can optionally send popup notifications, for example when it is your turn or you received a private message.
+
+Click the lock icon next to the lishogi.org address in the URL bar of your browser.
+
+Then select whether to allow or block notifications from Lishogi.</string>
+</resources>

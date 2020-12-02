@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="preferences">偏好设置</string>
+	<string name="gameDisplay">棋局显示</string>
+	<string name="pieceAnimation">棋子动画</string>
+	<string name="materialDifference">子力差距</string>
+	<string name="boardHighlights">棋盘高亮（最后一步与将军）</string>
+	<string name="pieceDestinations">棋子走到位置（有效着与预先走棋）</string>
+	<string name="boardCoordinates">棋盘坐标（A-H, 1-8）</string>
+	<string name="moveListWhilePlaying">对局进行时显示可走着</string>
+	<string name="pgnPieceNotation">使用PGN字母(K,Q,R,B,N)或棋子图标来显示PGN棋谱</string>
+	<string name="chessPieceSymbol">Shogi piece symbol</string>
+	<string name="pgnLetter">Letter (K, R, B, G, S, N, L)</string>
+	<string name="zenMode">禅意模式</string>
+	<string name="displayBoardResizeHandle">展示棋盘大小调整柄</string>
+	<string name="onlyOnInitialPosition">仅初始局面</string>
+	<string name="blindfoldChess">Blindfold shogi (invisible pieces)</string>
+	<string name="chessClock">Shogi clock</string>
+	<string name="tenthsOfSeconds">显示十分之一秒</string>
+	<string name="whenTimeRemainingLessThanTenSeconds">当剩余时间小于10秒</string>
+	<string name="horizontalGreenProgressBars">显示绿色横进度条</string>
+	<string name="soundWhenTimeGetsCritical">时间不足时声音提醒</string>
+	<string name="giveMoreTime">给对方更多时间</string>
+	<string name="gameBehavior">对局行为</string>
+	<string name="howDoYouMovePieces">您想通过什么方式走棋？</string>
+	<string name="clickTwoSquares">点起始位置和终止位置</string>
+	<string name="dragPiece">拖棋子</string>
+	<string name="bothClicksAndDrag">两者都行</string>
+	<string name="premovesPlayingDuringOpponentTurn">预先走棋（在对手的回合走棋）</string>
+	<string name="takebacksWithOpponentApproval">悔棋（需要对手同意）</string>
+	<string name="inCasualGamesOnly">仅限于无积分对局</string>
+	<string name="promoteToQueenAutomatically">兵自动升为后</string>
+	<string name="whenPremoving">预先走棋時</string>
+	<string name="claimDrawOnThreefoldRepetitionAutomatically">在三次重复局面时自动要求和局</string>
+	<string name="whenTimeRemainingLessThanThirtySeconds">当剩余时间小于30秒时</string>
+	<string name="moveConfirmation">确认走棋</string>
+	<string name="inCorrespondenceGames">通信棋局</string>
+	<string name="correspondenceAndUnlimited">通信和无限</string>
+	<string name="confirmResignationAndDrawOffers">认输以及提出和棋需要确认</string>
+	<string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">王车易位方法</string>
+	<string name="castleByMovingTwoSquares">将王移动两格</string>
+	<string name="castleByMovingOntoTheRook">将王移到车上</string>
+	<string name="inputMovesWithTheKeyboard">用键盘输入棋步</string>
+	<string name="yourPreferencesHaveBeenSaved">您的设置已保存。</string>
+</resources>

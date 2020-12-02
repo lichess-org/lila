@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="search">Tìm kiếm</string>
+	<string name="advancedSearch">Tìm kiến nâng cao</string>
+	<plurals name="searchInXGames">
+		<item quantity="other">Search in %s shogi games</item>
+	</plurals>
+	<plurals name="xGamesFound">
+		<item quantity="other">%s ván đã thấy</item>
+	</plurals>
+	<string name="opponentName">Tên đối thủ</string>
+	<string name="loser">Người thua cuộc</string>
+	<string name="from">Từ</string>
+	<string name="to">Đến</string>
+	<string name="humanOrComputer">Khi mà đối thủ người chơi là người hoặc máy tính</string>
+	<string name="aiLevel">Trình độ máy tính</string>
+	<string name="source">Nguồn</string>
+	<string name="nbTurns">Số nước đi</string>
+	<string name="result">Kết quả</string>
+	<string name="winnerColor">Màu người thắng</string>
+	<string name="date">Ngày</string>
+	<string name="sortBy">Sắp xếp theo</string>
+	<string name="analysis">Phân tích</string>
+	<string name="onlyAnalysed">Chỉ những game mà máy tính phân tích sẵn sàng</string>
+</resources>

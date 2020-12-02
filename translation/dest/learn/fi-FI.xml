@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="learnShogi">Learn shogi</string>
+	<string name="byPlaying">pelaamalla!</string>
+	<string name="menu">Valikko</string>
+	<string name="progressX">Edistyminen: %s</string>
+	<string name="resetMyProgress">Nollaa edistymiseni</string>
+	<string name="youWillLoseAllYourProgress">Menetät kaiken edistymisesi!</string>
+	<string name="play">pelaa!</string>
+	<string name="shogiPieces">Shogi pieces</string>
+	<string name="theIntoduction">Introduction</string>
+	<string name="introBasics">Let\'s learn some basics.</string>
+	<string name="introIntro">Your journey begins here.</string>
+	<string name="choosePieceDesign">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set. \nTo do that click on the cog wheel or your username (top right corner) and then click on \"piece set\".</string>
+	<string name="promotionZone">When some of your pieces reach or leave the first three ranks in your opponent\'s territory you can choose to promote your piece and make it stronger.</string>
+	<string name="introComplete">You now know some basics, but this part of tutorial is still under construction. For now learn how individual pieces move.</string>
+	<string name="theRook">Torni</string>
+	<string name="itMovesInStraightLines">Liikkuu suoria linjoja pitkin</string>
+	<string name="rookIntro">Torni on vahva nappula. Oletko valmis käskyttämään sitä?</string>
+	<string name="rookGoal">Click on the rook to bring it to the star!</string>
+	<string name="rookPromotion">The rook promotes to the powerful dragon. Don\'t forget that you can also promote your piece when you leave the promotion zone.</string>
+	<string name="rookSummary">The rook can go up, down, left or right as much as it wants.</string>
+	<string name="dragonSummary">It can move just like the unpromoted rook, but also one square in any diagonal direction, making it much stronger.</string>
+	<string name="grabAllTheStars">Kerää kaikki tähdet!</string>
+	<string name="theFewerMoves">The fewer moves you make, the more points you win!</string>
+	<string name="rookComplete">Onneksi olkoon! Kesytit tornin onnistuneesti.</string>
+	<string name="theBishop">Lähetti</string>
+	<string name="itMovesDiagonally">Se liikkuu viistoon</string>
+	<string name="bishopIntro">Nyt opettelemme liikkumaan lähetillä!</string>
+	<string name="bishopPromotion">Promoting your bishop will make it stronger, it will turn into a piece called \"the horse\".</string>
+	<string name="bishopSummary">The bishop moves in any diagonal direction.</string>
+	<string name="horseSummary">The promoted bishop moves also diagonally, but it can also go one square up, down, left or right as well.</string>
+	<string name="bishopComplete">Onneksi olkoon! Osaat nyt käskyttää lähettiä.</string>
+	<string name="theKing">Kuningas</string>
+	<string name="theMostImportantPiece">Tärkein nappula</string>
+	<string name="kingIntro">Olet kuningas. Jos kaadut taistelussa, häviät pelin.</string>
+	<string name="theKingIsSlow">The king is rather slow.</string>
+	<string name="kingSummary">King can move in any direction, but only by one sqaure.</string>
+	<string name="kingComplete">Hallitset nyt myös hallitsijaa!</string>
+	<string name="theKnight">Ratsu</string>
+	<string name="itMovesInAnLShape">It moves in an L shape, but only FORWARD!</string>
+	<string name="knightIntro">Here\'s another challenge for you. The knight is... a tricky piece.</string>
+	<string name="knightsHaveAFancyWay">Knights have a fancy way of jumping around!</string>
+	<string name="knightsCanJumpOverObstacles">Knights can jump over obstacles!</string>
+	<string name="knightSummary">The knight can jump in an L shape forward, but only by two squares forward and one square sideways. Its movement also isn\'t restricted by other pieces - it will just jump over them.</string>
+	<string name="pknightSummary">Promoted knight moves are completely different from the unpromoted knight, but you can notice it moves the same as the gold general, so make sure to study that one thoroughly.</string>
+	<string name="knightPromotion">The knight can also be promoted. His movements change a lot after that, so pay attention.</string>
+	<string name="knightComplete">Onneksi olkoon! Kesytit ratsun.</string>
+	<string name="thePawn">Sotilas</string>
+	<string name="itMovesForwardOnly">March forward!</string>
+	<string name="pawnIntro">Sotilaat ovat heikkoja, mutta niihin on kätketty paljon potentiaalia.</string>
+	<string name="pawnsMoveOneSquareOnly">Pawns can move to the square directly in front of them, they capture the same way.</string>
+	<string name="pawnPromotion">The pawn can also be promoted, the moves are once again the same as the gold general.</string>
+	<string name="pawnComplete">Onnittelut! Tunnet kaikki sotilaiden tavat.</string>
+	<string name="pawnSummary">The pawn is a rather straightforward piece to understand.</string>
+	<string name="tokinSummary">You should already be familiar with this pattern by now.</string>
+	<string name="theLance">The lance</string>
+	<string name="itMovesStraightForward">It can go only forward.</string>
+	<string name="lanceIntro">Use it wisely.</string>
+	<string name="lancesAreStraighforward">Just move forward as much as you can, this should be easy for you.</string>
+	<string name="lancePromotion">After the lance is promoted, it moves differently, but you\'ve already seen this somewhere - same as the gold general.</string>
+	<string name="lanceSummary">Moves forward, this is really easy.</string>
+	<string name="planceSummary">It\'s the same as the gold general.</string>
+	<string name="lanceComplete">Great job!</string>
+	<string name="theGold">The gold general</string>
+	<string name="itMovesInAnyDirectionExceptDiagonallyBack">The gold general moves in any direction EXCEPT diagonally back.</string>
+	<string name="goldIntro">The gold general movements might be a bit harder to remember at first, but you can surely do it.</string>
+	<string name="goldDoesntPromote">The gold general together with the king is the only piece you CAN\'T promote.</string>
+	<string name="goldSummary">Try to remember these moves, many pieces move the same after they are promoted.</string>
+	<string name="goldComplete">Congratulations! You got this.</string>
+	<string name="theSilver">The silver general</string>
+	<string name="itMovesEitherForwardOrDiagonallyBack">The silver general moves either forward or diagonally back.</string>
+	<string name="silverIntro">Another piece with unusual movements, but this is the last one. Promise!</string>
+	<string name="silverPromotion">When you promote the silver general his movements are the same as the gold general.</string>
+	<string name="silverSummary">You will surely remember these moves with some practice.</string>
+	<string name="psilverSummary">Same as the gold general, you will see this a lot.</string>
+	<string name="silverComplete">Congratulations! You are on a roll.</string>
+	<string name="promotion">This piece can be promoted.</string>
+	<string name="yourPieceReachedThePromotionZone">Your piece reached the promotion zone!</string>
+	<string name="itNowPromotesToAStrongerPiece">It can now be promoted to a stronger piece.</string>
+	<string name="selectThePieceYouWant">Valitse haluamasi nappula!</string>
+	<string name="fundamentals">Alkeet</string>
+	<string name="capture">Lyöminen</string>
+	<string name="takeTheEnemyPieces">Poista vastustajan nappulat</string>
+	<string name="captureIntro">Tunnista vastustajan suojaamattomat nappulat ja lyö ne!</string>
+	<string name="takeTheBlackPieces">Lyö mustat nappulat!</string>
+	<string name="takeTheBlackPiecesAndDontLoseYours">Lyö mustat nappulat!
+Äläkä menetä omiasi.</string>
+	<string name="captureComplete">Congratulations! You know how to fight with shogi pieces!</string>
+	<string name="protection">Suojaaminen</string>
+	<string name="keepYourPiecesSafe">Pidä nappulasi turvassa</string>
+	<string name="protectionIntro">Tunnista nappulat joita vastustaja uhkaa ja puolusta niitä!</string>
+	<string name="protectionComplete">Onnittelut! Nappula jota et menetä on voitettu nappula!</string>
+	<string name="escape">Vastustaja hyökkää!
+Pakene uhkaa!</string>
+	<string name="noEscape">Et voi paeta,
+mutta voit puolustaa!</string>
+	<string name="dontLetThemTakeAnyUndefendedPiece">Älä anna hänen lyödä
+suojaamatonta nappulaa!</string>
+	<string name="combat">Taisteleminen</string>
+	<string name="captureAndDefendPieces">Lyö ja puolusta nappuloita</string>
+	<string name="combatIntro">Hyvä soturi hallitsee sekä hyökkäyksen että puolustuksen!</string>
+	<string name="combatComplete">Congratulations! You know how to fight with shogi pieces!</string>
+	<string name="checkInOne">Yhden siirron shakki</string>
+	<string name="attackTheOpponentsKing">Hyökkää vastustajan kuningasta vastaan</string>
+	<string name="checkInOneIntro">Shakkaa vastustajaasi uhkaamalla hänen kuningastaan. Hänen on pakko puolustaa sitä!</string>
+	<string name="checkInOneGoal">Saata kuningas uhatuksi
+yhdellä siirrolla!</string>
+	<string name="checkInOneComplete">Onnittelut! Shakkasit vastustajaasi ja pakotit hänet puolustamaan kuningastaan!</string>
+	<string name="outOfCheck">Shakin purkaminen</string>
+	<string name="defendYourKing">Puolusta kuningastasi</string>
+	<string name="outOfCheckIntro">Olet shakissa! Sinun täytyy paeta tai torjua hyökkäys.</string>
+	<string name="escapeWithTheKing">Pakene kuninkaalla!</string>
+	<string name="theKingCannotEscapeButBlock">Kuningas ei voi paeta,
+mutta voit torjua hyökkäyksen!</string>
+	<string name="youCanGetOutOfCheckByTaking">Voit purkaa shakin
+lyömällä hyökkäävän nappulan.</string>
+	<string name="thisKnightIsCheckingThroughYourDefenses">Ratsu hyökkää
+yli puolustuksesi!</string>
+	<string name="escapeOrBlock">Pakene kuninkaalla
+tai torju hyökkäys!</string>
+	<string name="outOfCheckComplete">Onnittelut! Kuningastasi ei voi lyödä. Varmista että voit puolustaa sitä shakeilta!</string>
+	<string name="mateInOne">Yhden siirron matti</string>
+	<string name="defeatTheOpponentsKing">Kukista vastustajan kuningas</string>
+	<string name="mateInOneIntro">Voitat jos vastustaja ei voi puolustaa shakattua kuningastaan.</string>
+	<string name="attackYourOpponentsKing">Uhkaa vastustajan kuningasta niin
+ettei sitä voi puolustaa!</string>
+	<string name="mateInOneComplete">Congratulations! That is how you win shogi games!</string>
+	<string name="intermediate">Keskitaso</string>
+	<string name="boardSetup">Laudan asettaminen</string>
+	<string name="howTheGameStarts">Kuinka peli alkaa</string>
+	<string name="boardSetupIntro">Kaksi armeijaa on vastakkain, valmiina taistoon.</string>
+	<string name="thisIsTheInitialPosition">This is the initial position
+of every game of shogi!
+Make any move to continue.</string>
+	<string name="firstPlaceTheRooks">Ensin sijoita tornit!
+Ne kuuluvat kulmiin.</string>
+	<string name="thenPlaceTheKnights">Sitten ratsut!
+Ne kuuluvat tornien viereen.</string>
+	<string name="placeTheBishops">Sijoita lähetit!
+Ne kuuluvat ratsujen viereen.</string>
+	<string name="placeTheQueen">Sijoita daami!
+Hän kuuluu itsensä väriseen ruutuun.</string>
+	<string name="placeTheKing">Sijoita kuningas!
+Daaminsa rinnalle.</string>
+	<string name="pawnsFormTheFrontLine">Sotilaat muodostavat etulinjan.
+Jatka tekemällä mikä tahansa siirto.</string>
+	<string name="boardSetupComplete">Congratulations! You know how to set up the shogi board.</string>
+	<string name="stalemate">Patti</string>
+	<string name="theGameIsADraw">Peli päättyy tasan</string>
+	<string name="stalemateIntro">Kun pelaaja ei ole shakissa mutta hänellä ei ole laillista siirtoa, tilanne on patti. Peli päätty tasan, kumpikaan ei voita, kumpikaan ei häviä.</string>
+	<string name="stalemateGoal">Mustan patittaminen:
+- Musta ei voi liikkua minnekään
+- Musta ei ole shakissa.</string>
+	<string name="stalemateComplete">Onneksi olkoon! Parempi patissa kuin matissa!</string>
+	<string name="advanced">Edistynyt</string>
+	<string name="pieceValue">Nappuloiden arvot</string>
+	<string name="evaluatePieceStrength">Arvioi nappuloiden vahvuudet</string>
+	<string name="pieceValueIntro">Nappulat joilla on parempi liikkuvuus ovat arvokkaampia!
+Daami = 9
+Torni = 5
+Lähetti = 3
+Ratsu = 3
+Sotilas = 1
+Kuningas on mittaamattoman arvokas! Sen menettäminen tietää sitä, että hävisit pelin.</string>
+	<string name="queenOverBishop">Lyö nappula
+joka on arvokkain!
+Daami &gt; Lähetti</string>
+	<string name="takeThePieceWithTheHighestValue">Lyö nappula
+joka on arvokkain!</string>
+	<string name="pieceValueComplete">Onnittelut! Tunnet nyt materiaalin arvon!
+Daami = 9
+Torni = 5
+Lähetti = 3
+Ratsu = 3
+Sotilas = 1</string>
+	<string name="checkInTwo">Kahden siirron shakki</string>
+	<string name="twoMovesToGiveCheck">Shakkaa kahdella siirrolla</string>
+	<string name="checkInTwoIntro">Löydä sopiva kahden siirron kombinaatio, jolla voit shakata vastustajan kuningasta!</string>
+	<string name="checkInTwoGoal">Uhkaa vastustajan kuningasta
+kahdella siirrolla!</string>
+	<string name="checkInTwoComplete">Onneksi olkoon! Shakkasit vastustajaa ja pakotit hänet puolustamaan kuningastaan!</string>
+	<string name="whatNext">Mitä seuraavaksi?</string>
+	<string name="youKnowHowToPlayChess">You know how to play shogi, congratulations! Do you want to become a stronger player?</string>
+	<string name="register">Rekisteröidy</string>
+	<string name="getAFreeLishogiAccount">Get a free Lishogi account</string>
+	<string name="practice">Harjoittele</string>
+	<string name="learnCommonChessPositions">Learn common shogi positions</string>
+	<string name="puzzles">Tehtävät</string>
+	<string name="exerciseYourTacticalSkills">Harjoita taktisia kykyjäsi</string>
+	<string name="videos">Videot</string>
+	<string name="watchInstructiveChessVideos">Watch instructive shogi videos</string>
+	<string name="playPeople">Pelaa toisia vastaan</string>
+	<string name="opponentsFromAroundTheWorld">Vastustajia kaikkialta maailmasta</string>
+	<string name="playMachine">Pelaa konetta vastaan</string>
+	<string name="testYourSkillsWithTheComputer">Mittaa taitosi tietokonetta vastaan</string>
+	<string name="letsGo">Aloitetaan!</string>
+	<string name="stageX">Taso %s</string>
+	<string name="awesome">Mahtavaa!</string>
+	<string name="excellent">Erinomaista!</string>
+	<string name="greatJob">Hyvin tehty!</string>
+	<string name="perfect">Täydellistä!</string>
+	<string name="outstanding">Loistavaa!</string>
+	<string name="wayToGo">Niin sitä pitää!</string>
+	<string name="yesYesYes">Kyllä!</string>
+	<string name="youreGoodAtThis">Olet hyvä tässä!</string>
+	<string name="nailedIt">Naulan kantaan.</string>
+	<string name="rightOn">Naulan kantaan!</string>
+	<string name="stageXComplete">Taso %s valmis</string>
+	<string name="yourScore">Tuloksesi</string>
+	<string name="next">Seuraava</string>
+	<string name="backToMenu">Valikkoon</string>
+	<string name="puzzleFailed">Tehtävä epäonnistui!</string>
+	<string name="retry">Yritä uudelleen</string>
+</resources>

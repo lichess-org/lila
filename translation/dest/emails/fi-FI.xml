@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="emailConfirm_subject">Vahvista lishogi.org -tunnuksesi %s</string>
+  <string name="emailConfirm_click">Vahvista Lishogi-tunnuksesi klikkaamalla linkkiä:</string>
+  <string name="emailConfirm_ignore">Jos et rekisteröitynyt Lishogiiin, voit jättää tämän viestin huomiotta.</string>
+  <string name="passwordReset_subject">Nollaa lishogi.org-salasanasi %s</string>
+  <string name="passwordReset_intro">Olemme saaneet pyynnön nollata tunnuksesi salasana.</string>
+  <string name="passwordReset_clickOrIgnore">Jos pyyntö tuli sinulta, klikkaa alla olevaa linkkiä. Jos ei, voit jättää tämän viestin huomiotta.</string>
+  <string name="emailChange_subject">Vahvista uusi sähköpostiosoite, %s</string>
+  <string name="emailChange_intro">Olet pyytänyt sähköpostiosoitteen vaihtoa.</string>
+  <string name="emailChange_click">Klikkaa tätä linkkiä vahvistaaksesi, että sinulla on pääsy tähän sähköpostiosoitteeseen:</string>
+  <string name="welcome_subject">Tervetuloa lishogi.orgiin, %s</string>
+  <string name="welcome_text">Olet luonut itsellesi käyttäjätilin sivustolle https://lishogi.org.
+
+Tässä on profiilisivusi: %1$s. Voit muokata sitä täällä: %2$s.
+
+Pidä hauskaa. Löytäköön nappulasi aina tien vastustajan kuninkaan luo!</string>
+  <string name="logInToLishogi">Log in to lishogi.org, %s</string>
+  <string name="common_orPaste">(Eikö klikkaaminen onnistunut? Kokeile liittää osoite selaimeesi!)</string>
+  <string name="common_note">Tämä sähköposti liittyy sivuston %s käyttöön.</string>
+  <string name="common_contact">Meihin saa yhteyden täältä: %s.</string>
+</resources>

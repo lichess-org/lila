@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="team">Team</string>
+  <string name="teams">Lag</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s medlem</item>
+    <item quantity="other">%s medlemmar</item>
+  </plurals>
+  <string name="allTeams">Alla lag</string>
+  <string name="newTeam">Nytt lag</string>
+  <string name="myTeams">Mina lag</string>
+  <string name="noTeamFound">Inget lag hittat</string>
+  <string name="joinTeam">Gå med i lag</string>
+  <string name="quitTeam">Lämna lag</string>
+  <string name="anyoneCanJoin">Vem som helst kan gå med</string>
+  <string name="aConfirmationIsRequiredToJoin">Bekräftelse nödvändig för att gå med</string>
+  <string name="joiningPolicy">Deltagningspolicy</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Lagledare</item>
+    <item quantity="other">Lagledare</item>
+  </plurals>
+  <string name="teamBestPlayers">Topplista</string>
+  <string name="teamRecentMembers">Nya medlemmar</string>
+  <string name="kickSomeone">Uteslut någon ur laget</string>
+  <string name="whoToKick">Vem vill du utesluta ur laget?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s förfrågan att gå med</item>
+    <item quantity="other">%s förfrågan att gå med</item>
+  </plurals>
+  <string name="willBeReviewed">Din förfrågan om medlemskap kommer att granskas av lagledaren.</string>
+  <string name="beingReviewed">Din förfrågan om medlemskap granskas av lagledaren.</string>
+  <string name="teamBattle">Lagmatch</string>
+  <string name="teamBattleOverview">En kamp mellan flera lag, varje spelare plockar poäng för sitt lag</string>
+  <string name="teamTournament">Turnering inom laget</string>
+  <string name="teamTournamentOverview">En arena-turnering som endast medlemmar i ditt lag kan delta i</string>
+  <string name="messageAllMembers">Meddela alla medlemmar</string>
+  <string name="messageAllMembersOverview">Skicka ett privat meddelande till varje medlem i laget</string>
+  <string name="messageAllMembersLongDescription">Skicka ett privat meddelande till ALLA medlemmar i teamet.
+Du kan använda detta för att tillkalla spelare att delta i en turnering eller en lagstrid.
+Spelare som inte gillar att ta emot dina meddelanden kan komma att lämna laget.</string>
+  <string name="teamsIlead">Lag jag leder</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Du kanske vill länka en av dessa kommande turneringar?</string>
+  <string name="usersWhoCanManageThisTeam">Användare som kan managera detta team</string>
+  <string name="leadersChat">Lagledarchatt</string>
+</resources>

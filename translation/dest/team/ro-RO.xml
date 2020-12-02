@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="team">Echipă</string>
+  <string name="teams">Echipe</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s membru</item>
+    <item quantity="few">%s membri</item>
+    <item quantity="other">%s membri</item>
+  </plurals>
+  <string name="allTeams">Toate echipele</string>
+  <string name="newTeam">Echipă nouă</string>
+  <string name="myTeams">Echipele mele</string>
+  <string name="noTeamFound">Nu s-a găsit nicio echipă</string>
+  <string name="joinTeam">Intră în echipă</string>
+  <string name="quitTeam">Ieşi din echipă</string>
+  <string name="anyoneCanJoin">Gratuit pentru toți</string>
+  <string name="aConfirmationIsRequiredToJoin">Este necesară o confirmare pentru a intra</string>
+  <string name="joiningPolicy">Politică de intrare</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Team leader</item>
+    <item quantity="few">Team leaders</item>
+    <item quantity="other">Team leaders</item>
+  </plurals>
+  <string name="teamBestPlayers">Cei mai buni jucători</string>
+  <string name="teamRecentMembers">Cei mai recenţi membri</string>
+  <string name="kickSomeone">Dă afară pe cineva din echipă</string>
+  <string name="whoToKick">Pe cine vrei să dai afară din echipă?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s cerere de alăturare</item>
+    <item quantity="few">%s cereri de alăturare</item>
+    <item quantity="other">%s cereri de alăturare</item>
+  </plurals>
+  <string name="willBeReviewed">Cererea ta va fi revizuită de către liderul echipei.</string>
+  <string name="beingReviewed">Cererea ta este revizuită de către liderul echipei.</string>
+  <string name="teamBattle">Luptă în echipă</string>
+  <string name="teamBattleOverview">A battle of multiple teams, each player scores points for their team</string>
+  <string name="teamTournament">Team tournament</string>
+  <string name="teamTournamentOverview">An Arena tournament that only members of your team can join</string>
+  <string name="messageAllMembers">Message all members</string>
+  <string name="messageAllMembersOverview">Send a private message to every member of the team</string>
+  <string name="messageAllMembersLongDescription">Send a private message to ALL members of the team.
+You can use this to call players to join a tournament or a team battle.
+Players who don\'t like receiving your messages might leave the team.</string>
+  <string name="teamsIlead">Teams I lead</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">You may want to link one of these upcoming tournaments?</string>
+  <string name="usersWhoCanManageThisTeam">Users who can manage this team</string>
+  <string name="leadersChat">Leaders chat</string>
+</resources>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="team">Csapat</string>
+  <string name="teams">Csapatok</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s tag</item>
+    <item quantity="other">%s tagok</item>
+  </plurals>
+  <string name="allTeams">Összes csapat</string>
+  <string name="newTeam">Új csapat</string>
+  <string name="myTeams">Csapataim</string>
+  <string name="noTeamFound">Nem található ilyen csapat</string>
+  <string name="joinTeam">Csapathoz csatlakozás</string>
+  <string name="quitTeam">Kilépés a csapatból</string>
+  <string name="anyoneCanJoin">Bárki csatlakozhat</string>
+  <string name="aConfirmationIsRequiredToJoin">A csatlakozáshoz visszaigazolás szükséges</string>
+  <string name="joiningPolicy">Csatlakozási irányelvek</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Csapatvezető</item>
+    <item quantity="other">Csapatvezetők</item>
+  </plurals>
+  <string name="teamBestPlayers">Legjobb játékosok</string>
+  <string name="teamRecentMembers">Új tagok</string>
+  <string name="kickSomeone">Valamelyik csapattag kizárása</string>
+  <string name="whoToKick">Kit akarsz kizárni a csapatból?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s csatlakozási kérelem</item>
+    <item quantity="other">%s csatlakozási kérelmek</item>
+  </plurals>
+  <string name="willBeReviewed">A csatlakozási kérelmet a csapatvezető fogja elbírálni.</string>
+  <string name="beingReviewed">A csatlakozási kérelem elbírálás alatt van a csapatvezetőnél.</string>
+  <string name="teamBattle">Csapatverseny</string>
+  <string name="teamBattleOverview">Csapatok közötti verseny, minden játékos a saját csapatának szerez pontokat</string>
+  <string name="teamTournament">Csapaton belüli verseny</string>
+  <string name="teamTournamentOverview">Olyan verseny, amiben csak a csapattagok vehetnek részt</string>
+  <string name="messageAllMembers">Üzenet minden tagnak</string>
+  <string name="messageAllMembersOverview">Privát üzenet küldése minden csapattag részére</string>
+  <string name="messageAllMembersLongDescription">Privát üzenet küldése MINDEN csapattag részére.
+Használhatod a tagok csapatversenyre vagy belső versenyre hívásához.
+Azok a játékosok akik nem szeretnek üzeneteket kapni akár ki is léphetnek.</string>
+  <string name="teamsIlead">Általam vezetett csapatok</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">You may want to link one of these upcoming tournaments?</string>
+  <string name="usersWhoCanManageThisTeam">Felhasználók akik a csapatot irányítják</string>
+  <string name="leadersChat">Leaders chat</string>
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="team">團隊</string>
+  <string name="teams">團隊</string>
+  <plurals name="nbMembers">
+    <item quantity="other">%s位成員</item>
+  </plurals>
+  <string name="allTeams">所有團隊</string>
+  <string name="newTeam">組建團隊</string>
+  <string name="myTeams">我的團隊</string>
+  <string name="noTeamFound">您不在任何團隊中</string>
+  <string name="joinTeam">加入團隊</string>
+  <string name="quitTeam">退出團隊</string>
+  <string name="anyoneCanJoin">對所有人開放</string>
+  <string name="aConfirmationIsRequiredToJoin">申請批准後方可加入</string>
+  <string name="joiningPolicy">加入政策</string>
+  <plurals name="teamLeaders">
+    <item quantity="other">隊長</item>
+  </plurals>
+  <string name="teamBestPlayers">最佳棋手</string>
+  <string name="teamRecentMembers">新成員</string>
+  <string name="kickSomeone">踢除團隊裡的指定玩家</string>
+  <string name="whoToKick">您想要踢除在團隊裡的哪一位玩家?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="other">%s個加入申請</item>
+  </plurals>
+  <string name="willBeReviewed">您的加入申請將會被此團隊的隊長審核</string>
+  <string name="beingReviewed">您的加入申請正在被審核</string>
+  <string name="teamBattle">團隊戰鬥</string>
+  <string name="teamBattleOverview">一場多個團體的戰鬥，每位玩家為自己的團隊爭取積分</string>
+  <string name="teamTournament">團隊錦標賽</string>
+  <string name="teamTournamentOverview">一個只有在團隊裡的成員才能加入的錦標賽</string>
+  <string name="messageAllMembers">發出公告給所有團隊裡的玩家</string>
+  <string name="messageAllMembersOverview">發出私訊給所有團隊裡的玩家</string>
+  <string name="messageAllMembersLongDescription">Send a private message to ALL members of the team.
+You can use this to call players to join a tournament or a team battle.
+Players who don\'t like receiving your messages might leave the team.</string>
+  <string name="teamsIlead">我領導的團隊</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">You may want to link one of these upcoming tournaments?</string>
+  <string name="usersWhoCanManageThisTeam">可以管理這個團隊的使用者</string>
+  <string name="leadersChat">Leaders chat</string>
+</resources>

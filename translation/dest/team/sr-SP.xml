@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="team">Team</string>
+  <string name="teams">Тимови</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s члан</item>
+    <item quantity="few">%s чланова</item>
+    <item quantity="other">%s чланова</item>
+  </plurals>
+  <string name="allTeams">Сви тимови</string>
+  <string name="newTeam">Нови тим</string>
+  <string name="myTeams">Моји тимови</string>
+  <string name="noTeamFound">Ниједан тим није пронађен</string>
+  <string name="joinTeam">Прикључи се тиму</string>
+  <string name="quitTeam">Изађи из тима</string>
+  <string name="anyoneCanJoin">Свако може да се прикључи</string>
+  <string name="aConfirmationIsRequiredToJoin">Потврда је потребна за прикључење</string>
+  <string name="joiningPolicy">Полиса прикључења</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Team leader</item>
+    <item quantity="few">Team leaders</item>
+    <item quantity="other">Team leaders</item>
+  </plurals>
+  <string name="teamBestPlayers">Најбољи играчи тима</string>
+  <string name="teamRecentMembers">Скорашњи чланови тима</string>
+  <string name="kickSomeone">Kick someone out of the team</string>
+  <string name="whoToKick">Who do you want to kick out of the team?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s join request</item>
+    <item quantity="few">%s join requests</item>
+    <item quantity="other">%s join requests</item>
+  </plurals>
+  <string name="willBeReviewed">Your join request will be reviewed by the team leader.</string>
+  <string name="beingReviewed">Your join request is being reviewed by the team leader.</string>
+  <string name="teamBattle">Team Battle</string>
+  <string name="teamBattleOverview">A battle of multiple teams, each player scores points for their team</string>
+  <string name="teamTournament">Team tournament</string>
+  <string name="teamTournamentOverview">An Arena tournament that only members of your team can join</string>
+  <string name="messageAllMembers">Message all members</string>
+  <string name="messageAllMembersOverview">Send a private message to every member of the team</string>
+  <string name="messageAllMembersLongDescription">Пошаљите приватну поруку СВИМ члановима тима.
+Можете позвати све играче да учествују у турниру или тимској борби.
+Играчи који не желе да примају Ваше поруке могу напустити тим.</string>
+  <string name="teamsIlead">Тимови које ја водим</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Можда желите да проследите један од ових надолазеђих турнира?</string>
+  <string name="usersWhoCanManageThisTeam">Корисници који могу управљати овим тимом</string>
+  <string name="leadersChat">Чет за вође</string>
+</resources>

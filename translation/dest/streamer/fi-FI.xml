@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lishogiStreamers">Lishogi streamers</string>
+  <string name="lishogiStreamer">Lishogi streamer</string>
+  <string name="live">JUURI NYT!</string>
+  <string name="offline">POISSA</string>
+  <string name="currentlyStreaming">Parhaillaan striimaavat: %s</string>
+  <string name="lastStream">Viimeisin striimi %s</string>
+  <string name="becomeStreamer">Ryhdy Lishogi-striimaajaksi</string>
+  <string name="doYouHaveStream">Onko sinulla Twitch- tai YouTube-kanava?</string>
+  <string name="hereWeGo">Menoksi!</string>
+  <string name="allStreamers">Kaikki striimaajat</string>
+  <string name="editPage">Muokkaa striimaajasivuasi</string>
+  <string name="yourPage">Striimaajasivusi</string>
+  <string name="downloadKit">Lataa striimaajan tarvikkeet</string>
+  <string name="xIsStreaming">%s striimaa</string>
+  <string name="rules">Striimaussäännöt</string>
+  <string name="rule1">Sisällytä avainsana \"lishogi.org\" striimisi otsikkoon kun striimaat Lishogi-sisältöä.</string>
+  <string name="rule2">Poista avainsana, kun striimaat Lishogiiin liittymätöntä sisältöä.</string>
+  <string name="rule3">Lishogi havaitsee striimisi automaattisesti ja tarjoaa etuja:</string>
+  <string name="perks">Avainsanalla striimaamisen hyödyt</string>
+  <string name="perk1">Lishogi-profiiliisi ilmestyy liekehtivä striimausikoni.</string>
+  <string name="perk2">Nouset striimaajalistauksen keulille.</string>
+  <string name="perk3">Lishogi-seuraajasi saavat ilmoituksen.</string>
+  <string name="perk4">Striimi näkyy peleissäsi, turnauksissasi ja tutkielmissasi.</string>
+  <string name="approved">Striimisi hyväksyttiin.</string>
+  <string name="pendingReview">Striimisi on moderaattorien arvioitavana.</string>
+  <string name="pleaseFillIn">Syötä striimaajatiedot ja lataa kuva.</string>
+  <string name="whenReady">Kun haluat Lishogi-striimaajien listalle, %s</string>
+  <string name="requestReview">pyydä moderaattorin arviointia</string>
+  <string name="anotherLanguage">Jos striimisi ei ole englanninkielinen, laita striimisi otsikon alkuun oikea kielitunniste (%s) hakasulkujen sisään.
+Esimerkiksi \"[FI]\" on suomen kielen, \"[SV]\" ruotsin kielen ja \"[DE]\" saksan kielen tunniste jne. Laita tämä striimin otsikkoon Twitch- tai Youtube-sivulla, älä Lishogiin striimiasetuksissa. Jos striimaat englanniksi, ei ole tarpeen sisällyttää kielitunnistetta.</string>
+  <string name="twitchUsername">Twitch-käyttäjänimesi tai URL</string>
+  <string name="optionalOrEmpty">Ei-pakollinen. Jätä tyhjäksi jollei sinulla ole</string>
+  <string name="youtubeChannel">YouTube-kanavasi kanava-ID tai URL</string>
+  <string name="streamerName">Striimaajanimesi Lishogiissä</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Pidä se lyhyenä: %s merkki enintään</item>
+    <item quantity="other">Pidä se lyhyenä: %s merkkiä enintään</item>
+  </plurals>
+  <string name="visibility">Näkyy striimaajat-sivulla</string>
+  <string name="whenApproved">Kun moderaattori hyväksyy</string>
+  <string name="headline">Otsikko</string>
+  <string name="tellUsAboutTheStream">Kerro striimistäsi yhdellä lauseella</string>
+  <string name="longDescription">Pitkä kuvaus</string>
+  <string name="xStreamerPicture">%s striimaajakuva</string>
+  <string name="changePicture">Vaihda/poista kuva</string>
+  <string name="uploadPicture">Lataa kuva</string>
+  <string name="deletePicture">Poista kuva</string>
+  <string name="maxSize">Enimmäiskoko: %s</string>
+  <string name="installBlocker">Asenna virustorjuntaohjelma!</string>
+  <string name="beSafe">Välty mainoksilta ja seurantaohjelmilta
+jotka Twitchiä ja Youtubea vaivaavat.
+Lishogi suosittaa uBlock Originia
+joka on ilmainen ja avointa lähdekoodia.</string>
+</resources>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="lishogiClasses">Classes</string>
+	<string name="teachClassesOfChessStudents">Teach classes of shogi students with the Lishogi Classes tool suite.</string>
+	<string name="features">Одлике</string>
+	<string name="quicklyGenerateSafeUsernames">Брзо генериши безбедно корисничко име и шифру за ученике</string>
+	<string name="trackStudentProgress">Прати развој ученика у партијама и проблемима</string>
+	<string name="messageAllStudents">Обавести све ученике о новим садржајима</string>
+	<string name="freeForAllForever">100% бесплатно за све, заувек, без реклама и праћења</string>
+	<string name="applyToBeLishogiTeacher">Apply to be a Lishogi Teacher</string>
+	<string name="noClassesYet">Још увек нема часова.</string>
+	<string name="teachersX">Учитељи: %s</string>
+	<string name="newClass">Нови час</string>
+	<string name="closeClass">Затвори час</string>
+	<string name="closedByX">Затворено од стране %s</string>
+	<string name="reopen">Поново отвори</string>
+	<string name="removeStudent">Уклони ученика</string>
+	<string name="removedStudents">Уклоњен</string>
+	<string name="inviteTheStudentBack">Позови ученика назад</string>
+	<string name="sendAMessage">Пошаљи поруку свим ученицима.</string>
+	<string name="aLinkToTheClassWillBeAdded">Линк за час ће бити аутоматски додат на крају поруке, нема потребе да га сами укључите.</string>
+	<string name="className">Назив часа</string>
+	<string name="classDescription">Опис часа</string>
+	<string name="visibleByBothStudentsAndTeachers">Видљиво и учитељима и ученицима овога часа</string>
+	<string name="teachersOfTheClass">Учитељи</string>
+	<string name="addLishogiUsernames">Add Lishogi usernames to invite them as teachers. One per line.</string>
+	<string name="theyMustFirstApply">Прво се морају пријавити као Lishogi учитељи.</string>
+	<string name="resetPassword">Обнови лозинку</string>
+	<string name="makeSureToCopy">Копирајте или запиђите лозинку. Нећете моћи да је поново видите!</string>
+	<string name="passwordX">Лозинка: %s</string>
+	<string name="generateANewPassword">Направите нову лозинку за ученика</string>
+	<string name="invitedToXByY">Позван на %1$s од стране %2$s</string>
+	<string name="realName">Право име</string>
+	<string name="privateWillNeverBeShown">Приватно. Никада неће бити приказано изван учионице. Помаже да се присетите ко је ученик.</string>
+	<string name="addStudent">Додајте ученика</string>
+	<string name="lishogiProfileXCreatedForY">Lishogi profile %1$s created for %2$s.</string>
+	<string name="studentCredentials">Ученик: %1$s
+Корисничко име: %2$s
+Лозинка: %3$s</string>
+	<string name="inviteALishogiAccount">Invite a Lishogi account</string>
+	<string name="inviteDesc1">Ако ученик већ има Lishogi налог, можете их позвати на час.</string>
+	<string name="inviteDesc2">Примиће поруку на Lishogi са везом да приступе часу.</string>
+	<string name="inviteDesc3">Важно: позовите само ученике које познајете и који активно желе да се придруже часу.</string>
+	<string name="inviteDesc4">Никада не шаљите позивнице насумичним играчима.</string>
+	<string name="createANewLishogiAccount">Create a new Lishogi account</string>
+	<string name="createDesc1">Ако ученик још увек нема Lishogi налог, овде можете направити јдан за њих.</string>
+	<string name="createDesc2">Е-пошта није обавезна. Лозинка ће бити направљена и Ви ћете морати да је проследите ученику, да би они могли да се укључе.</string>
+	<string name="createDesc3">Важно: ученик не сме имате више налога.</string>
+	<string name="createDesc4">Ако они већ имају један, користите образац за позив.</string>
+	<string name="lishogiUsername">Lishogi username</string>
+	<string name="generateANewUsername">Направите ново корисничко име</string>
+	<string name="welcomeToClass">Добродошли на час: %s.
+Овде је веза за приступ часу.</string>
+	<string name="invitationToClass">You are invited to join the class \"%s\" as a student.</string>
+	<string name="clickToViewInvitation">Click the link to view the invitation:</string>
+	<plurals name="nbPendingInvitations">
+		<item quantity="one">Један позив на чекању</item>
+		<item quantity="few">%s позива на чекању</item>
+		<item quantity="other">%s позива на чекању</item>
+	</plurals>
+	<string name="noPendingInvitations">Без позива на чекању</string>
+	<string name="onlyVisibleToTeachers">Видљиво само за учитеље</string>
+	<string name="lastActiveDate">Активан</string>
+	<string name="managed">Под туђом управом</string>
+	<string name="thisStudentAccountIsManaged">Овај ученички налог је под туђом управом</string>
+	<string name="upgradeFromManaged">Унапреди са \"под туђом управом\" на \"аутономан\"</string>
+	<string name="release">Ослободи</string>
+	<string name="releaseTheAccount">Ослободи налог тако да студент може преузети управу.</string>
+	<string name="releaseDesc1">Ослобођени налог не може се вратити под управу. Ученици ће сами моћи да угасе \"дете мод\" и да обнове лозинку.</string>
+	<string name="releaseDesc2">Ученик ће и даље остати на часу након што им је налог ослобођен.</string>
+	<string name="realUniqueEmail">Стварна, јединствена е-пошта ученика. Послаћемо поруку потврде на њу, са везом за ослобађање налога.</string>
+	<string name="teachers">Учитељи</string>
+	<plurals name="nbTeachers">
+		<item quantity="one">Учитељ</item>
+		<item quantity="few">%s учитеља</item>
+		<item quantity="other">%s учитеља</item>
+	</plurals>
+	<plurals name="nbStudents">
+		<item quantity="one">Ученик</item>
+		<item quantity="few">%s ученика</item>
+		<item quantity="other">%s ученика</item>
+	</plurals>
+	<string name="students">Ученици</string>
+	<string name="progress">Напредак</string>
+	<string name="noStudents">Још увек нема ученика на часу.</string>
+	<string name="noRemovedStudents">Нема уклоњених ученика.</string>
+	<string name="overDays">Прекорачени дани</string>
+	<string name="timePlaying">Време играња</string>
+	<string name="variantXOverLastY">%1$s током претходних %2$s</string>
+	<string name="winrate">Проценат победа</string>
+	<string name="na">Није применљиво</string>
+	<string name="news">Вести са часа</string>
+	<string name="editNews">Промени вести</string>
+	<string name="notifyAllStudents">Обавести све ученике</string>
+	<string name="nothingHere">Овде нема ничега, још увек.</string>
+	<string name="newsEdit1">Све вести о часовима на једном месту.</string>
+	<string name="newsEdit2">Додајте нове вести на врх. Не бришите претходне вести.</string>
+	<string name="newsEdit3">Одвојите вести са ---
+Биће приказано као хоризонтална линија.</string>
+	<string name="markdownAvailable">%s је доступно за напреднију синтаксу.</string>
+</resources>

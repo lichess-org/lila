@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="faqAbbreviation">Perguntas frequentes</string>
+	<string name="frequentlyAskedQuestions">Perguntas frequentes</string>
+	<string name="whyIsLishogiCalledLishogi">Why is Lishogi called Lishogi?</string>
+	<string name="forkedFromLichess">Lishogi is open source project forked from liсhess, but since it\'s for playing shogi, it\'s called lishogi.</string>
+	<string name="lishogiCombinationLiveLightLibrePronounced">Because it\'s derived from Liсhess. And Liсhess is called Liсhess because it\'s a combination of live/light/libre and chess. Lishogi is pronounced %1$s.</string>
+	<string name="leechess">lee-shogi</string>
+	<string name="hearItPronouncedBySpecialist">Ouve-o pronunciado por um especialista.</string>
+	<string name="whyLiveLightLibre">\"Live\" (vida, direto), porque os jogos são jogados e vistos em tempo real 24/7; \"light\" (leve) e \"libre\" (livre) uma vez que o Lishogi é open-source e está livre de lixo proprietário que infesta outros sites.</string>
+	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
+	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
+	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi is powered by donations from patrons and the efforts of a team of volunteers.</string>
+	<string name="findMoreAndSeeHowHelp">You can find out more about %1$s. If you want to help Lishogi by volunteering your time and skills, there are many %2$s.</string>
+	<string name="beingAPatron">Become a patron</string>
+	<string name="breakdownOfOurCosts">repartição dos nossos custos</string>
+	<string name="otherWaysToHelp">outras formas de ajudar</string>
+	<string name="areThereWebsitesBasedOnLishogi">Are there websites based on Lishogi?</string>
+	<string name="yesLishogiInspiredOtherOpenSourceWebsites">Yes. Lishogi has indeed inspired other open-source sites that use our %1$s, %2$s, or %3$s.</string>
+	<string name="fairPlay">Jogo justo</string>
+	<string name="whyFlaggedRatingManipulationOrCheater">Por que é que estou marcado por manipulação artificial da pontuação (perder de propósito ou fazer batota) ou ajuda do computador?</string>
+	<string name="cheatDetectionMethods">O Lishogi tem fortes métodos de detenção de batota e um um processo minucioso de rever todas as provas e tomar uma decisão. Frequentemente, este processo envolve vários moderadores e pode levar muito tempo. Para além de marcarmos o jogador, não nos alongamos em detalhes para cada caso individual. Fazê-lo só tornaria mais fácil evitar ser detetado no futuro e levaria a debates inúteis. Este tempo e esforço podem ser melhor espregues em outras situações importantes. Os utilizador podem enviar-nos um email para %1$s, mas as decisões raramente são alteradas.</string>
+	<string name="whenAmIEligibleRatinRefund">Quando é que recebo devoluções automáticas de pontuação por causa de batoteiros?</string>
+	<string name="ratingRefundExplanation">Um minuto depois de um jogador ser marcador, os seus últimos 40 jogos a valer pontos nos últimos 3 dias são escolhidos. Se foste um dos seus adversários em algum(ns) destes jogos e perdeste pontuação (por derrota(s) ou empate(s)), e a tua pontuação não era provisória, recebes uma devolução de pontuação. A devolução é limitada com base na tua pontuação e no teu progresso após o(s) jogo(s).
+ (Por exemplo, se a tua pontuação aumentou consideravelmente após aquele(s) jogo(s), podes não receber uma devolução ou receber apenas uma devolução parcial.) Uma devolução nunca excederá 150 pontos.</string>
+	<string name="preventLeavingGameWithoutResigning">O que é que acontece com os jogadores que saem de jogos sem desistir?</string>
+	<string name="leavingGameWithoutResigningExplanation">Se algum dos teus adversários aborta ou sai de jogos frequentemente, este será \"banido de jogar\", o que significa que está banido de jogar jogos. Isto não é mostrado publicamente no seu perfil. Se este comportamento continuar, a duração do banimento aumentará - e prolongados comportamentos deste tipo podem levar ao encerramento da conta.</string>
+	<string name="howCanIBecomeModerator">Como é que me posso tornar um moderador?</string>
+	<string name="youCannotApply">Não é possível candidatar-se a moderador. Se virmos alguém que consideramos que seria um bom moderador, contactá-lo(a)-emos diretamente.</string>
+	<string name="isCorrespondenceDifferent">Is correspondence different from normal shogi?</string>
+	<string name="youCanUseOpeningBookNoEngine">On Lishogi, the main difference in rules for correspondence shogi is that an opening book is allowed. The use of engines is still prohibited and will result in being flagged for engine assistance. Although ICCF allows engine use in correspondence, Lishogi does not.</string>
+	<string name="gameplay">Jogabilidade</string>
+	<string name="howBulletBlitzEtcDecided">Como é que bullet, blitz e outros ritmos de jogo são decididos?</string>
+	<string name="basedOnGameDuration">Os ritmos de jogo do Lishogi baseiam-se na duração estimada do jogo = %1$s
+Por exemplo, a duração estimada de um jogo 5+3 é 5 × 60 + 40 × 3 = 420 segundos.</string>
+	<string name="durationFormula">(tempo inicial no relógio) + 40 × (incremento no relógio)</string>
+	<string name="inferiorThanXsEqualYtimeControl">≤ %1$s s = %2$s</string>
+	<string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
+	<string name="whatVariantsCanIplay">Que variantes posso jogar no Lishogi?</string>
+	<string name="lishogiSupportChessAnd">Lishogi supports standard shogi and %1$s.</string>
+	<string name="eightVariants">8 variantes de xadrez</string>
+	<string name="whatIsACPL">O que é a perda média de centésimas de peão (ACPL)?</string>
+	<string name="acplExplanation">Uma centésima de peão é a unidade de medida usada no xadrez para a representação da vantagem. Uma centésima de peão é igual a 1/100 de um peão. Portanto, 100 centésimas de peão = 1 peão. Estes valores não têm um papel formal no jogo mas são úteis para os jogadores, e essenciais para muitos computadores de xadrez, para avaliar posições.
+
+O lance considerado melhor pelo computador corresponde a uma perda de zero centésimas de peão, mas lances mais \"fracos\" resultarão numa deterioração da posição, medida em centésimas de peão.
+
+Este valor pode ser utilizado como indicador da qualidade do jogo. Quando menos centésimas de peão alguém perder por jogada, mais forte o jogo.
+
+A análise de xadrez no Lishogi é feita pelo Stockfish.</string>
+	<string name="insufficientMaterial">Perder por tempo, empatar e material insuficiente</string>
+	<string name="lishogiFollowFIDErules">In the event of one player running out of time, that player will usually lose the game. However, the game is drawn if the position is such that the opponent cannot checkmate the player\'s king by any possible series of legal moves (%1$s).
+
+In rare cases this can be difficult to decide automatically (forced lines, fortresses). By default we always side with the player who did not run out of time.
+
+Note that it can be possible to mate with a single knight or bishop if the opponent has a piece that could block the king.</string>
+	<string name="linkToFIDErules">manual da FIDE §6.9, PDF</string>
+	<string name="discoveringEnPassant">Por que é que um peão captura outro quando ele já passou? (en passant)</string>
+	<string name="explainingEnPassant">Esta é uma jogada legal conhecida como \"en passant\". O artigo da Wikipédia dá uma %1$s.
+
+É descrita na secção 3.7 (d) das %2$s:
+
+\"Um peão ocupando uma casa na mesma coluna adjacente ao peão do adversário que acaba de avançar duas casas num único lance vindo de sua casa original pode capturar este peão adversário como se aquele se tivesse movido apenas uma casa. Esta captura somente é legal no lance seguinte deste avanço e é chamada de captura \'na passagem\' ou \'en passant\';\"
+
+Vê o %3$s deste lance para o praticares.</string>
+	<string name="goodIntroduction">boa introdução</string>
+	<string name="officialRulesPDF">regras oficiais (PDF)</string>
+	<string name="lishogiTraining">Lishogi training</string>
+	<string name="threefoldRepetition">Repetição tripla</string>
+	<string name="threefoldRepetitionExplanation">Se uma posição ocorrer três vezes, os jogadores podem reivindicar um empate por %1$s. O Lishogi implementa as regras oficiais da FIDE, como estão descritas no Artigo 9.2 (d) do %2$s.</string>
+	<string name="threefoldRepetitionLowerCase">repetição tripla</string>
+	<string name="handBookPDF">manual (PDF)</string>
+	<string name="notRepeatedMoves">Nós não repetimos lances. Por que é que o jogo foi empatado por repetição?</string>
+	<string name="repeatedPositionsThatMatters">A repetição tripla é sobre %1$s repetidas, não lances. A repetição não de ocorrer consecutivamente.</string>
+	<string name="positions">posições</string>
+	<string name="weRepeatedthreeTimesPosButNoDraw">Nós repetimos uma posição três vezes. Por que é que o jogo não foi empatado?</string>
+	<string name="threeFoldHasToBeClaimed">As repetições têm de ser reivindicadas por um dos jogadores. Podes fazê-lo clicando no botão que é mostrado, ou oferecendo empate antes do teu último lance que levaria à repetição tripla, não importa se o teu adversário não aceitar o empate, a repetição tripla será reivindicada. Também podes %1$s o Lishogi para que as repetições sejam reivindicadas automaticamente. Para além disso, repetições quíntuplas acabam o jogo imediatamente, sempre.</string>
+	<string name="configure">configurar</string>
+	<string name="accounts">Contas</string>
+	<string name="titlesAvailableOnLishogi">What titles are there on Lishogi?</string>
+	<string name="lishogiRecognizeAllOTBtitles">Lishogi recognises all FIDE titles gained from OTB (over the board) play, as well as %1$s. Here is a list of FIDE titles:</string>
+	<string name="showYourTitle">Se tiveres um título OTB, podes candidatar-te para que o tenhas mostrado na tua conta se completares este %1$s, incluindo uma imagem clara de uma documento/cartão identificativo e uma foto de ti a segurares nesse documento/cartão.
+
+Uma verificação como jogador com título no Lishogi dá acesso a jogar em eventos de Arena de Título.
+
+Finalmente, há um título honorário %2$s.</string>
+	<string name="asWellAsManyNMtitles">muitos títulos de mestres nacionais</string>
+	<string name="verificationForm">formulário de verificação</string>
+	<string name="canIbecomeLM">Posso obter o título de Mestre do Lishogi (LM)?</string>
+	<string name="noUpperCaseDot">Não.</string>
+	<string name="lMtitleComesToYouDoNotRequestIt">Este título honorífico não é oficial e só existe no Lishogi.
+
+Raramente, premiamo-lo a jogadores altamente notáveis que são bons cidadãos do Lishogi, a nosso critério. Tu não obténs o título de LM, o título LM obtém-te a ti. Se te qualificares, receberás uma mensagem nossa a respeito da nossa escolha e poderás aceitar ou recusar.
+
+Não perguntes pelo título LM.</string>
+	<string name="whatUsernameCanIchoose">O que é que o meu nome de utilizador pode ser?</string>
+	<string name="usernamesNotOffensive">Geralmente, os nomes de utilizador não devem ser: ofensivos, imitações de alguém ou publicitários.
+
+Podes ler mais sobre as %1$s.</string>
+	<string name="guidelines">orientações</string>
+	<string name="uniqueTrophies">Troféus únicos</string>
+	<string name="ownerUniqueTrophies">Este troféu é único na história do Lishogi, ninguém para além de %1$s o terá.</string>
+	<string name="wayOfBerserkExplanation">Para obtê-lo, hiimgosu desafiou-se a ganhar 100%% dos jogos de %s no modo frenético.</string>
+	<string name="aHourlyBulletTournament">um torneio horário de Bullet</string>
+	<string name="goldenZeeExplanation">ZugAddict estava fazer uma stream e nas últimas 2 horas tinha estado a tentar derrotar a I.A. nível 8 numa partida de 1+0, sem sucesso. Thibault disse-lhe que se ele o fizesse na stream, ele teria um troféu único. Uma hora depois, ele esmagou o Stockfish e a promessa foi honrada.</string>
+	<string name="lishogiRatings">Lishogi ratings</string>
+	<string name="whichRatingSystemUsedByLishogi">What rating system does Lishogi use?</string>
+	<string name="ratingSystemUsedByLishogi">Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant number of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system).
+
+Fundamentally, Glicko ratings use \"confidence intervals\" when calculating and representing your rating. When you first start using the site, your rating starts at 1500 ± 700. The 1500 represents your rating, and the 700 represents the confidence interval.
+
+Basically, the system is 90% sure that your rating is somewhere between 800 and 2200. It is incredibly uncertain. Because of this, when a player is just starting out, their rating will change very dramatically, potentially several hundred points at a time. But after some games against established players the confidence interval will narrow, and the amount of points gained/lost after each game will decrease.
+
+Another point to note is that, as time passes, the confidence interval will increase. This allows you to gain/lose points points more rapidly to match any changes in your skill level over that time.</string>
+	<string name="whatIsProvisionalRating">Por que é que há um ponto de interrogação (?) depois da minha pontuação?</string>
+	<string name="provisionalRatingExplanation">O ponto de interrogação significa que a pontuação é provisória. As razões incluem:</string>
+	<string name="notPlayedEnoughRatedGamesAgainstX">O jogador ainda não terminou um número suficiente de jogos a valer pontos contra %1$s na categoria de pontuação em questão.</string>
+	<string name="similarOpponents">adversários de nível semelhante</string>
+	<string name="notPlayedRecently">O jogador não jogou um número suficiente de partidas recentes. Dependendo do número de jogos que já jogaste, pode demorar cerca de um ano de inatividade para que a tua pontuação se torne provisória novamente.</string>
+	<string name="ratingDeviationMorethanOneHundredTen">Concretamente, significa que o desvio do Glicko-2 é maior do que 110. O desvio é o nível de confiança que o sistema tem na pontuação. Quando mais baixo for o desvio, mais estável é a pontuação.</string>
+	<string name="howDoLeaderoardsWork">Como é que funcionam as posições e as tabelas de liderança?</string>
+	<string name="inOrderToAppearsYouMust">Para entrares na %1$s, tens de:</string>
+	<string name="ratingLeaderboards">tabela de liderança</string>
+	<string name="havePlayedMoreThanThirtyGamesInThatRating">ter jogado pelo menos 30 partidas a valer pontos num dado modo,</string>
+	<string name="havePlayedARatedGameAtLeastOneWeekAgo">ter jogado uma partida a valer pontos na última semana nesse modo,</string>
+	<string name="ratingDeviationLowerThanXinChessYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
+	<string name="beInTopTen">estar entre os 10 melhores (que satisfazem as condições acima) nesse modo.</string>
+	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">O segundo requisito é para que jogadores que já não usam as suas contas não estejam a preencher as tabelas de liderança.</string>
+	<string name="whyAreRatingHigher">Por que é que as pontuações são maiores quando comparadas a outros sites e organizações como por exemplo, FIDE, USCF e ICC?</string>
+	<string name="whyAreRatingHigherExplanation">É melhor não pensar nas pontuações como números absolutos, ou compará-las com outras organizações. Organizações diferentes tem níveis diferentes de jogadores, diferentes sistemas de pontuação (Elo, Glicko, Glicko-2, ou uma versão modificada dos supracitados). Estes fatores afetam os número absolutos (pontuações).
+
+É melhor pensar nas pontuações como valores \"relativos\" (em vez de valores \"absolutos\"): numa amostra de jogadores, as suas diferenças de pontuações ajudam a estimar quem vai ganhar/empatar/perder, e com que frequência. Dizer \"Eu tenho uma pontuação de X.\" não tem significado a não ser que existam outros jogadores com os quais possamos comparar as pontuações.</string>
+	<string name="howToHideRatingWhilePlaying">Como é que posso esconder as pontuações enquanto jogo?</string>
+	<string name="enableZenMode">Ativando o modo zen nas %1$s ou clicando na tecla %2$s durante a partida.</string>
+	<string name="displayPreferences">definições de apresentação</string>
+	<string name="connexionLostCanIGetMyRatingBack">Perdi uma partida por atraso/desconexão. Posso ter a minha pontuação de volta?</string>
+	<string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Infelizmente, não podemos devolver a pontuação de partidas perdidas por atraso/desconexão, quer o problema tenha sido da tua parte ou da nossa parte. No entanto, o último é muito raro. Nota também que, quando o Lishogi reinicia e perdes um jogo por tempo por causa disso, nós abortamos o jogo para evitar uma derrota injusta.</string>
+	<string name="howToThreeDots">Como é que...</string>
+	<string name="enableDisableNotificationPopUps">Ativo ou desativo as notificações pop-up?</string>
+	<string name="viewSiteInformationPopUp">Vejo a informação pop-up do site</string>
+	<string name="lishogiCanOptionnalySendPopUps">Lishogi can optionally send popup notifications, for example when it is your turn or you received a private message.
+
+Click the lock icon next to the lishogi.org address in the URL bar of your browser.
+
+Then select whether to allow or block notifications from Lishogi.</string>
+</resources>

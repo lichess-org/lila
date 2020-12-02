@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="perfStats">%s statestiek</string>
+  <string name="viewTheGames">Bekyk die spelle</string>
+  <string name="provisional">voorlopig</string>
+  <string name="notEnoughRatedGames">Nie genoeg gegradeerde spelle is gespeel om \'n betroubare gradering te vestig nie.</string>
+  <string name="progressOverLastXGames">Vordering oor die laaste %s spelle:</string>
+  <string name="ratingDeviation">Gradering afwyking: %s.</string>
+  <string name="ratingDeviationHelp">Laer waarde beteken die gradering is meer stabiel. Hoër as %s beteken dat die gradering steeds voorlopig geag word.</string>
+  <string name="totalGames">Totale spelle</string>
+  <string name="ratedGames">Gegradeerde spelle</string>
+  <string name="tournamentGames">Toernooi spelle</string>
+  <string name="berserkedGames">Gebeserkte spelle</string>
+  <string name="timeSpentPlaying">Tyd gespeel</string>
+  <string name="averageOpponent">Gemiddelde opponent</string>
+  <string name="victories">Oorwinnings</string>
+  <string name="defeats">Nederlae</string>
+  <string name="disconnections">Diskonneksies</string>
+  <string name="notEnoughGames">Nie genoeg spelle gespeel</string>
+  <string name="highestRating">Hoogste gradering: %s</string>
+  <string name="lowestRating">Laagste gradering: %s</string>
+  <string name="fromXToY">vanaf %1$s tot %2$s</string>
+  <string name="winningStreak">Weghol-wen reeks</string>
+  <string name="losingStreak">Verloor reeks</string>
+  <string name="longestStreak">Langste reeks: %s</string>
+  <string name="currentStreak">Huidige reeks: %s</string>
+  <string name="bestRated">Hoogste gegradeerde oorwinnings</string>
+  <string name="worstRated">Laagste gegradeerde nederlaag</string>
+  <string name="gamesInARow">Spelle gespeel in \'n ry</string>
+  <string name="lessThanOneHour">Minder as een uur tussen spelle</string>
+  <string name="maxTimePlaying">Maks tyd spandeer op speel</string>
+  <string name="now">nou</string>
+</resources>

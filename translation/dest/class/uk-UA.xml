@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="lishogiClasses">Classes</string>
+	<string name="teachClassesOfChessStudents">Teach classes of shogi students with the Lishogi Classes tool suite.</string>
+	<string name="features">Можливості</string>
+	<string name="quicklyGenerateSafeUsernames">Швидко створюйте безпечні імена користувачів та паролі для учнів</string>
+	<string name="trackStudentProgress">Відстежуйте прогрес учнів у іграх та задачах</string>
+	<string name="messageAllStudents">Повідомляйте усіх учнів про нові навчальні матеріали</string>
+	<string name="freeForAllForever">Безкоштовно на 100% для всіх, назавжди, без реклам та стеження</string>
+	<string name="applyToBeLishogiTeacher">Apply to be a Lishogi Teacher</string>
+	<string name="noClassesYet">Ще немає уроків.</string>
+	<string name="teachersX">Викладачі: %s</string>
+	<string name="newClass">Новий урок</string>
+	<string name="closeClass">Завершити урок</string>
+	<string name="closedByX">Закрито %s</string>
+	<string name="reopen">Відкрити знову</string>
+	<string name="removeStudent">Видалити учня</string>
+	<string name="removedStudents">Видалено</string>
+	<string name="inviteTheStudentBack">Повторно запросити учня</string>
+	<string name="sendAMessage">Надіслати повідомлення усім учням.</string>
+	<string name="aLinkToTheClassWillBeAdded">Посилання на клас буде автоматично додано в кінець повідомлення, тому вам не потрібно додавати його самостійно.</string>
+	<string name="className">Назва класу</string>
+	<string name="classDescription">Опис класу</string>
+	<string name="visibleByBothStudentsAndTeachers">Видимий як вчителям, так і учнями класу</string>
+	<string name="teachersOfTheClass">Вчителі класу</string>
+	<string name="addLishogiUsernames">Add Lishogi usernames to invite them as teachers. One per line.</string>
+	<string name="theyMustFirstApply">Спочатку вони мають стати вчителями Lishogi.</string>
+	<string name="resetPassword">Скинути пароль</string>
+	<string name="makeSureToCopy">Переконайтеся, що ви скопіювали або записали пароль. Ви не зможете побачити його знову!</string>
+	<string name="passwordX">Пароль: %s</string>
+	<string name="generateANewPassword">Згенерувати новий пароль для учня</string>
+	<string name="invitedToXByY">Запрошено до %1$s користувачем %2$s</string>
+	<string name="realName">Справжнє ім\'я</string>
+	<string name="privateWillNeverBeShown">Приватний. Ніколи не буде показуватися за межами класу. Допомагає згадати, хто цей учень.</string>
+	<string name="addStudent">Додати учня</string>
+	<string name="lishogiProfileXCreatedForY">Lishogi profile %1$s created for %2$s.</string>
+	<string name="studentCredentials">Учень:  %1$s
+Ім\'я користувача: %2$s
+Пароль: %3$s</string>
+	<string name="inviteALishogiAccount">Invite a Lishogi account</string>
+	<string name="inviteDesc1">Якщо у учня вже є обліковий запис Lishogi, ви можете запросити його до класу.</string>
+	<string name="inviteDesc2">Вони отримають повідомлення на Lishogi з посиланням, щоб приєднатися до класу.</string>
+	<string name="inviteDesc3">Важливо: запрошуйте лише учнів, яких ви знаєте і які активно хочуть приєднатися до класу.</string>
+	<string name="inviteDesc4">Ніколи не надсилати небажані запрошення довільним гравцям.</string>
+	<string name="createANewLishogiAccount">Create a new Lishogi account</string>
+	<string name="createDesc1">Якщо учень ще не має облікового запису Lishogi, його можна створити тут.</string>
+	<string name="createDesc2">Не потрібна електронна адреса. Пароль буде згенерований і Вам доведеться відправити його учневі, так що вони можуть увійти в систему.</string>
+	<string name="createDesc3">Важливо: учень не повинен мати кілька облікових записів.</string>
+	<string name="createDesc4">Якщо у них вже є такий, натомість використовуйте форму запрошення.</string>
+	<string name="lishogiUsername">Lishogi username</string>
+	<string name="generateANewUsername">Створити нове ім\'я користувача</string>
+	<string name="welcomeToClass">Ласкаво просимо до вашого класу: %s.
+Ось посилання для доступу до класу.</string>
+	<string name="invitationToClass">Вас запросили приєднатися до класу \"%s\" в якості студента.</string>
+	<string name="clickToViewInvitation">Натисніть на посилання, щоб переглянути запрошення:</string>
+	<plurals name="nbPendingInvitations">
+		<item quantity="one">Одне запрошення в очікуванні</item>
+		<item quantity="few">%s запрошення в очікуванні</item>
+		<item quantity="many">%s запрошень в очікуванні</item>
+		<item quantity="other">%s запрошень в очікуванні</item>
+	</plurals>
+	<string name="noPendingInvitations">Немає очікуваних запрошень</string>
+	<string name="onlyVisibleToTeachers">Видимий лише вчителям класу</string>
+	<string name="lastActiveDate">Активний</string>
+	<string name="managed">Керований</string>
+	<string name="thisStudentAccountIsManaged">Обліковий запис цього учня є керованим</string>
+	<string name="upgradeFromManaged">Покращення від керованого до автономного</string>
+	<string name="release">Випустити</string>
+	<string name="releaseTheAccount">Випуск облікового запису, щоб учень зміг самостійно керувати ним.</string>
+	<string name="releaseDesc1">Випущений обліковий запис не може бути керований знову. Учні зможуть перемикати дитячий режим і самостійно скинути пароль.</string>
+	<string name="releaseDesc2">Учень залишиться в класі після випуску облікового запису.</string>
+	<string name="realUniqueEmail">Справжня, унікальна електронна адреса студента. Ми надішлемо на неї листа для підтвердження з посиланням на отримання облікового запису.</string>
+	<string name="teachers">Вчителі</string>
+	<plurals name="nbTeachers">
+		<item quantity="one">Вчитель</item>
+		<item quantity="few">%s вчителів</item>
+		<item quantity="many">%s вчителів</item>
+		<item quantity="other">%s вчителів</item>
+	</plurals>
+	<plurals name="nbStudents">
+		<item quantity="one">Учень</item>
+		<item quantity="few">%s учня</item>
+		<item quantity="many">%s учнів</item>
+		<item quantity="other">%s учня</item>
+	</plurals>
+	<string name="students">Учні</string>
+	<string name="progress">Прогрес</string>
+	<string name="noStudents">Поки що в класі немає учнів.</string>
+	<string name="noRemovedStudents">Немає видалених учнів.</string>
+	<string name="overDays">За кілька днів</string>
+	<string name="timePlaying">Часу в грі</string>
+	<string name="variantXOverLastY">%1$s за останні %2$s</string>
+	<string name="winrate">Відсоток перемог</string>
+	<string name="na">Недоступно</string>
+	<string name="news">Новини класу</string>
+	<string name="editNews">Редагувати новини</string>
+	<string name="notifyAllStudents">Сповістити всіх учнів</string>
+	<string name="nothingHere">Тут нічого, поки що.</string>
+	<string name="newsEdit1">Всі новини класу в одному полі.</string>
+	<string name="newsEdit2">Додати останні новини зверху. Не видаляйте попередні новини.</string>
+	<string name="newsEdit3">Відокремте новини через ---
+Вони будуть відображені в горизонтальну лінію.</string>
+	<string name="markdownAvailable">%s доступний для більш детального форматування.</string>
+</resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">Arena tournaments</string>
+  <string name="isItRated">هل هي مقيمة؟</string>
+  <string name="willBeNotified">سيتم إعلامك عند بدء البطولة، لذا فإنه من الآمن اللعب في علامة تبويب أخرى أثناء الانتظار.</string>
+  <string name="isRated">هذه البطولة مقيمة وسوف تؤثر على تقييمك.</string>
+  <string name="isNotRated">هذه البطولة *ليست* مقيمة *ولن* تؤثر على تقييمك.</string>
+  <string name="someRated">بعض البطولات تكون مقيمة وسوف تؤثر على تقييمك.</string>
+  <string name="howAreScoresCalculated">كيف يتم احتساب النقاط؟</string>
+  <string name="howAreScoresCalculatedAnswer">الفوز نتيجته الأساسية  2 نقطة، التعادل: 1 نقطة، والخسارة 0 نقطة.
+إذا ربحت مباراتين على التوالي سوف تبدأ مرحلة مضاعفة النقاط، ويمثلها رمز الشعلة.
+وسوف تستمر المباريات التالية مضاعفة النقاط حتى تفشل في الفوز في مباراة.
+بمعنى أن، الفوز سيستحق 4 نقاط، التعادل: 2 نقطة، وستبقى الخسارة تستحق 0 نقطة.
+كمثال، انتصاران يليهما تعادل سيساوي 6 نقاط: 2 + 2 + (2 × 1)</string>
+  <string name="berserk">مخاطرة أرينا</string>
+  <string name="berserkAnswer">عندما يضغط اللاعب زر المخاطرة في بداية المباراة سيفقد اللاعب نصف وقته لكنه في حال الفوز يحصل على نقطة إضافية.
+المخاطرة في حالة الوقت المتزايد يلغي الزيادة مع كل نقلة (يستثنى من ذلك نمط دقيقة +2 ث زيادة/نقلة ، ستلغى الزيادة لكن الوقت سيكون دقيقة فقط)
+المخاطرة غير متاحة للمباريات ذات التوقيت صفر +زيادة بالثواني (0+1ث/نقلة, 0+2ث).
+المخاطرة تضمن النقطة الإضافية إذا لعبت على الأقل 7 نقلات.</string>
+  <string name="howIsTheWinnerDecided">كيف يحدد الفائز؟</string>
+  <string name="howIsTheWinnerDecidedAnswer">اللاعب (اللاعبون) ذو النقاط الأعلى في نهاية الوقت المحدد للبطولة يتم إعلانه/م فائز/ين.</string>
+  <string name="howDoesPairingWork">كيف يتم التزويج؟</string>
+  <string name="howDoesPairingWorkAnswer">في بداية البطولة، يتم إزواج اللاعبين على أساس تقييمهم. بمجرد الانتهاء من مباراتك، والعودة إلى بهو البطولة: سيتم ازواجك مع لاعب قريب من ترتيبك. وهذا ما يضمن وقت إنتظار أقل،بأي حال قد لا تواجه سائر اللاعبين في هذه البطولة. العب سريعًا وعد إلى المسابقة للعب مباريات أكثر واكسب المزيد من النقاط.</string>
+  <string name="howDoesItEnd">كيف تنتهي البطولة؟</string>
+  <string name="howDoesItEndAnswer">للبطولة ساعة عد تنازلي. عندما تصل إلى الصفر، يتم تجميد ترتيب مراكز البطولة، ويتم الإعلان عن الفائز. يجب أن يتم الانتهاء من المباريات قيد اللعب، ومع ذلك فإنها لا تحتسب نتائجها في البطولة.</string>
+  <string name="otherRules">قواعد أخرى هامة</string>
+  <string name="thereIsACountdown">هناك عد تنازلي لخطوتك الأولى. الفشل في اتخاذ خطوة خلال هذا الوقت ستخسر اللعبة لصالح خصمك.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="zero">اعلان التعادل في النقلات ال%s الاولى لن يكسب اللاعبين اي نقطه.</item>
+    <item quantity="one">اعلان التعادل خلال النقلة الاولى لن يكسب أي لاعب أي نقطة.</item>
+    <item quantity="two">إعلان التعادل خلال النقلتين الاولتين لن يكسب أي لاعب أي نقطة.</item>
+    <item quantity="few">إعلان التعادل خلال ال%s نقلات الأولى لن يكسب أي لاعب أي نقطة.</item>
+    <item quantity="many">إعلان التعادل خلال ال%s نقلة الأولى لن يكسب أي لاعب أي نقطة.</item>
+    <item quantity="other">اعلان التعادل خلال النقلات ال%s الأولى لن يكسب أي لاعب أي نقطة.</item>
+  </plurals>
+  <string name="thisIsPrivate">هذه بطولة خاصة</string>
+  <string name="shareUrl">شارك الرابط لتسمح للناس بالإنضمام: %s</string>
+  <string name="drawStreak">Draw streaks: When a player has consecutive draws in an arena, only the first draw will result in a point, or draws lasting more than %s moves. The draw streak can only be broken by a win, not a loss or a draw.</string>
+</resources>

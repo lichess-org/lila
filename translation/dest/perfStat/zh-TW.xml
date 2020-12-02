@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="perfStats">%s戰績</string>
+  <string name="viewTheGames">查看遊戲紀錄</string>
+  <string name="provisional">臨時</string>
+  <string name="notEnoughRatedGames">積分賽場次太少，無法計算準確積分。</string>
+  <string name="progressOverLastXGames">最近%s場棋局之積分變化：</string>
+  <string name="ratingDeviation">Rating deviation: %s.</string>
+  <string name="ratingDeviationHelp">此數目越低，代表積分越不容易變動。若此數目高於%s，此積分即為暫時性積分。</string>
+  <string name="totalGames">總計棋局</string>
+  <string name="ratedGames">積分棋局</string>
+  <string name="tournamentGames">聯賽棋局</string>
+  <string name="berserkedGames">狂暴模式棋局</string>
+  <string name="timeSpentPlaying">奕棋時間</string>
+  <string name="averageOpponent">對手平均積分</string>
+  <string name="victories">勝場</string>
+  <string name="defeats">敗場</string>
+  <string name="disconnections">斷線場次</string>
+  <string name="notEnoughGames">棋局數不夠多</string>
+  <string name="highestRating">最高積分：%s</string>
+  <string name="lowestRating">最低積分：%s</string>
+  <string name="fromXToY">從%1$s到%2$s</string>
+  <string name="winningStreak">連勝場數</string>
+  <string name="losingStreak">連敗場數</string>
+  <string name="longestStreak">最高連勝或連敗場數：%s</string>
+  <string name="currentStreak">目前連勝或連敗場數：%s</string>
+  <string name="bestRated">積分賽勝場之最強對手</string>
+  <string name="worstRated">積分賽敗場之最弱對手</string>
+  <string name="gamesInARow">連續奕棋場數</string>
+  <string name="lessThanOneHour">兩場間距不到一小時</string>
+  <string name="maxTimePlaying">最高奕棋時間</string>
+  <string name="now">現在</string>
+</resources>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="search">Поиск</string>
+	<string name="advancedSearch">Расширенный поиск</string>
+	<plurals name="searchInXGames">
+		<item quantity="one">Search in %s shogi game</item>
+		<item quantity="few">Search in %s shogi games</item>
+		<item quantity="many">Search in %s shogi games</item>
+		<item quantity="other">Search in %s shogi games</item>
+	</plurals>
+	<plurals name="xGamesFound">
+		<item quantity="one">Найдена %s партия</item>
+		<item quantity="few">Найдены %s партии</item>
+		<item quantity="many">Найдено %s партий</item>
+		<item quantity="other">Найдено %s партий</item>
+	</plurals>
+	<string name="opponentName">Имя соперника</string>
+	<string name="loser">Проигравший</string>
+	<string name="from">С</string>
+	<string name="to">До</string>
+	<string name="humanOrComputer">Соперник был человеком или компьютером</string>
+	<string name="aiLevel">Уровень ИИ</string>
+	<string name="source">Источник</string>
+	<string name="nbTurns">Количество ходов</string>
+	<string name="result">Результат</string>
+	<string name="winnerColor">Цвет победителя</string>
+	<string name="date">Дата</string>
+	<string name="sortBy">Сортировать по</string>
+	<string name="analysis">Анализ</string>
+	<string name="onlyAnalysed">Только партии, для которых выполнен компьютерный анализ</string>
+</resources>

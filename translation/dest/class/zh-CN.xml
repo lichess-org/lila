@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="lishogiClasses">Classes</string>
+	<string name="teachClassesOfChessStudents">Teach classes of shogi students with the Lishogi Classes tool suite.</string>
+	<string name="features">特性</string>
+	<string name="quicklyGenerateSafeUsernames">快速为学生生成安全的用户名和密码</string>
+	<string name="trackStudentProgress">跟踪学生在棋局和棋题中的进度</string>
+	<string name="messageAllStudents">向所有学生发送关于新班级材料的消息</string>
+	<string name="freeForAllForever">对所有人100%免费，永远没有广告或跟踪者</string>
+	<string name="applyToBeLishogiTeacher">Apply to be a Lishogi Teacher</string>
+	<string name="noClassesYet">尚无班级。</string>
+	<string name="teachersX">教师： %s</string>
+	<string name="newClass">创建班级</string>
+	<string name="closeClass">关闭班级</string>
+	<string name="closedByX">被 %s 关闭</string>
+	<string name="reopen">重新开启</string>
+	<string name="removeStudent">移除学生</string>
+	<string name="removedStudents">已移除</string>
+	<string name="inviteTheStudentBack">邀请学生返回</string>
+	<string name="sendAMessage">给所有学生发消息</string>
+	<string name="aLinkToTheClassWillBeAdded">班级的超链接将会自动添加到消息尾部，所以您不需要自己添加它。</string>
+	<string name="className">班级名称</string>
+	<string name="classDescription">班级描述</string>
+	<string name="visibleByBothStudentsAndTeachers">仅本班教师和学生可见</string>
+	<string name="teachersOfTheClass">班级的教师</string>
+	<string name="addLishogiUsernames">Add Lishogi usernames to invite them as teachers. One per line.</string>
+	<string name="theyMustFirstApply">他们必须首先申请成为Lishogi教师</string>
+	<string name="resetPassword">重置密码</string>
+	<string name="makeSureToCopy">请确保您已牢记密码。密码不会再显示！</string>
+	<string name="passwordX">密码： %s</string>
+	<string name="generateANewPassword">为学生生成一个新密码</string>
+	<string name="invitedToXByY">%1$s 被 %2$s 邀请</string>
+	<string name="realName">真实姓名</string>
+	<string name="privateWillNeverBeShown">隐私。永远不会在课外显示。有助回忆学生是谁。</string>
+	<string name="addStudent">添加学生</string>
+	<string name="lishogiProfileXCreatedForY">Lishogi profile %1$s created for %2$s.</string>
+	<string name="studentCredentials">学生：%1$s
+用户名：%2$s
+密码：%3$s</string>
+	<string name="inviteALishogiAccount">Invite a Lishogi account</string>
+	<string name="inviteDesc1">如果学生已有 Lishogi 帐户，您可以邀请他们到本课堂。</string>
+	<string name="inviteDesc2">他们将在 Lishogi 上收到一条带有加入课堂链接的消息。</string>
+	<string name="inviteDesc3">请仅邀请你认识的或者积极地想要加入课堂的学生。</string>
+	<string name="inviteDesc4">从不向任意玩家发送未经请求的邀请。</string>
+	<string name="createANewLishogiAccount">Create a new Lishogi account</string>
+	<string name="createDesc1">如果学生还没有 Lishogi 帐户，您可以在此为他们创建一个。</string>
+	<string name="createDesc2">无需邮箱地址。密码将自动生成，您必须将其发给学生方便他们登录。</string>
+	<string name="createDesc3">重要：学生不得拥有多个帐户。</string>
+	<string name="createDesc4">如果他们已经拥有账号，请使用邀请。</string>
+	<string name="lishogiUsername">Lishogi username</string>
+	<string name="generateANewUsername">生成一个新用户名</string>
+	<string name="welcomeToClass">欢迎来到你的班级：%s。
+这里是访问班级的链接。</string>
+	<string name="invitationToClass">您被邀请以学生身份加入班级“%s”。</string>
+	<string name="clickToViewInvitation">点击链接查看邀请：</string>
+	<plurals name="nbPendingInvitations">
+		<item quantity="other">%s 个待处理的邀请</item>
+	</plurals>
+	<string name="noPendingInvitations">没有待处理的邀请</string>
+	<string name="onlyVisibleToTeachers">仅对班级老师可见</string>
+	<string name="lastActiveDate">最近登录</string>
+	<string name="managed">管理</string>
+	<string name="thisStudentAccountIsManaged">这个学生帐户被处理</string>
+	<string name="upgradeFromManaged">从处理的升级为自主的</string>
+	<string name="release">释放</string>
+	<string name="releaseTheAccount">释放帐户，以便学生能够自主管理。</string>
+	<string name="releaseDesc1">已释放的账户不能再次被管理。学生将能切换幼儿模式开关和重置密码。</string>
+	<string name="releaseDesc2">该学生在账户激活后将留在课堂。</string>
+	<string name="realUniqueEmail">真实且唯一的学生邮箱。我们将向该邮箱发送一个带有激活账号链接的确认邮件。</string>
+	<string name="teachers">教师</string>
+	<plurals name="nbTeachers">
+		<item quantity="other">%s 位教师</item>
+	</plurals>
+	<plurals name="nbStudents">
+		<item quantity="other">%s 名学生</item>
+	</plurals>
+	<string name="students">学生</string>
+	<string name="progress">进度</string>
+	<string name="noStudents">本课堂中暂无学生。</string>
+	<string name="noRemovedStudents">没有被移除的学生。</string>
+	<string name="overDays">几天后</string>
+	<string name="timePlaying">游戏时间</string>
+	<string name="variantXOverLastY">%1$s 超过了最近的 %2$s</string>
+	<string name="winrate">胜率</string>
+	<string name="na">N/A</string>
+	<string name="news">班级新闻</string>
+	<string name="editNews">编辑新闻</string>
+	<string name="notifyAllStudents">通知全部学生</string>
+	<string name="nothingHere">还没有任何内容</string>
+	<string name="newsEdit1">所有新闻一个字段中。</string>
+	<string name="newsEdit2">在顶部添加最近的新闻。不要删除以前的新闻。</string>
+	<string name="newsEdit3">用----分离新闻
+它将显示一条横线。</string>
+	<string name="markdownAvailable">%s 可用于更高级的语法。</string>
+</resources>

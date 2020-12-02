@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="preferences">Préférences</string>
+	<string name="gameDisplay">Affichage de la partie</string>
+	<string name="pieceAnimation">Animation des pièces</string>
+	<string name="materialDifference">Différence de matériel</string>
+	<string name="boardHighlights">Mettre en évidence les cases (dernier coup et échec)</string>
+	<string name="pieceDestinations">Cases de destination (coups et pré-coups légaux)</string>
+	<string name="boardCoordinates">Coordonnées (a-h, 1-8)</string>
+	<string name="moveListWhilePlaying">Liste des coups durant la partie</string>
+	<string name="pgnPieceNotation">Notation des coups</string>
+	<string name="chessPieceSymbol">Shogi piece symbol</string>
+	<string name="pgnLetter">Letter (K, R, B, G, S, N, L)</string>
+	<string name="zenMode">Mode Zen</string>
+	<string name="displayBoardResizeHandle">Afficher la poignée de redimensionnement de l\'échiquier</string>
+	<string name="onlyOnInitialPosition">Seulement dans la position initiale</string>
+	<string name="blindfoldChess">Blindfold shogi (invisible pieces)</string>
+	<string name="chessClock">Shogi clock</string>
+	<string name="tenthsOfSeconds">Dixièmes de seconde</string>
+	<string name="whenTimeRemainingLessThanTenSeconds">Quand il reste moins de 10 secondes</string>
+	<string name="horizontalGreenProgressBars">Barres de progression horizontales vertes</string>
+	<string name="soundWhenTimeGetsCritical">Alerte quand le temps restant devient critique</string>
+	<string name="giveMoreTime">Donner plus de temps</string>
+	<string name="gameBehavior">Conduite de la partie</string>
+	<string name="howDoYouMovePieces">Comment voulez-vous déplacer les pièces ?</string>
+	<string name="clickTwoSquares">Clic et clic</string>
+	<string name="dragPiece">Faire glisser la pièce</string>
+	<string name="bothClicksAndDrag">Les deux</string>
+	<string name="premovesPlayingDuringOpponentTurn">Pré-coups</string>
+	<string name="takebacksWithOpponentApproval">Annulations de coups (avec accord de l\'adversaire)</string>
+	<string name="inCasualGamesOnly">Durant les parties amicales seulement</string>
+	<string name="promoteToQueenAutomatically">Promouvoir en dame automatiquement</string>
+	<string name="whenPremoving">Lors d\'un pré-coup</string>
+	<string name="claimDrawOnThreefoldRepetitionAutomatically">Déclarer la nulle par répétition automatiquement</string>
+	<string name="whenTimeRemainingLessThanThirtySeconds">Quand il reste moins de 30 secondes</string>
+	<string name="moveConfirmation">Confirmation de coup</string>
+	<string name="inCorrespondenceGames">Dans les parties par correspondance</string>
+	<string name="correspondenceAndUnlimited">Correspondance et illimité</string>
+	<string name="confirmResignationAndDrawOffers">Confirmer l\'abandon et la proposition de nulle</string>
+	<string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Manière de roquer</string>
+	<string name="castleByMovingTwoSquares">En déplaçant le Roi de 2 cases</string>
+	<string name="castleByMovingOntoTheRook">En déplaçant le Roi sur la Tour</string>
+	<string name="inputMovesWithTheKeyboard">Saisir les coups au clavier</string>
+	<string name="yourPreferencesHaveBeenSaved">Vos préférences ont été sauvegardées.</string>
+</resources>

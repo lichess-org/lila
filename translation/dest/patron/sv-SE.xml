@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="donate">Donera</string>
+	<string name="lishogiPatron">Lishogi Patron</string>
+	<string name="freeAccount">Gratis konto</string>
+	<string name="becomePatron">Bli en Lishogi beskyddare</string>
+	<string name="xBecamePatron">%s blev en Lishogi beskyddare</string>
+	<string name="newPatrons">Nya beskyddare (Patrons)</string>
+	<string name="freeChess">Free shogi for everyone, forever!</string>
+	<string name="noAdsNoSubs">Inga annonser, inga prenumerationer; men öppen källkod och passion.</string>
+	<string name="thankYou">Tack för din gåva!</string>
+	<string name="youHaveLifetime">Du har ett livstids beskyddare konto. Det är respekt!</string>
+	<string name="patronUntil">Du har ett beskyddarkonto till %s.</string>
+	<string name="ifNotRenewed">Om det inte förnyas kommer du sedan nedgraderas till fri.</string>
+	<string name="weAreNonProfit">We are a non‑profit association because we believe everyone should have access to a free, world-class shogi platform.</string>
+	<string name="weRelyOnSupport">Vi förlitar oss på stöd från personer som du för att göra detta möjligt. Om du tycker om att använda Lishogi, vänligen överväg att stödja oss genom att donera och bli beskyddare!</string>
+	<string name="lifetime">Livstid</string>
+	<string name="payLifetimeOnce">Betala %s en gång. Var en Lishogi beskyddare för evigt!</string>
+	<string name="lifetimePatron">Livstids Lishogi beskyddare</string>
+	<string name="makeExtraDonation">Gör en extra donation?</string>
+	<string name="monthly">Månadsvis</string>
+	<string name="recurringBilling">Återkommande fakturering, förnya dina beskyddare vingar varje månad.</string>
+	<string name="onetime">En gång</string>
+	<string name="singleDonation">En enda donation som ger dig Beskyddar-vingar i en månad.</string>
+	<string name="otherAmount">Annat</string>
+	<string name="pleaseEnterAmount">Vänligen, ange ett belopp i USA-dollar (USD)</string>
+	<string name="withCreditCard">Kreditkort</string>
+	<string name="withPaypal">PayPal</string>
+	<string name="weAreSmallTeam">Vi är ett litet team, så ditt stöd gör en enorm skillnad!</string>
+	<string name="celebratedPatrons">Dessa hyllade beskyddare som gör Lishogi möjligt</string>
+	<string name="whereMoneyGoes">Vart går pengarna?</string>
+	<string name="serversAndDeveloper">First of all, powerful servers.
+Then we pay a full-time developer: %s, the founder of Lishogi.</string>
+	<string name="costBreakdown">Se den detaljerade kostnadsfördelningen</string>
+	<string name="officialNonProfit">Är Lishogi en officiell ideell organisation?</string>
+	<string name="actOfCreation">Ja, här är den skapande handlingen (på franska)</string>
+	<string name="changeMonthlySupport">Kan jag ändra/avbryta mitt månatliga bidrag?</string>
+	<string name="changeOrContact">Ja, när som helst, från den här sidan.
+Eller så kan du %s.</string>
+	<string name="contactSupport">kontakta Lishogi support</string>
+	<string name="otherMethods">Andra metoder för donation?</string>
+	<string name="bankTransfers">Vi godtar även banköverföringar</string>
+	<string name="bitcoin">Och här är vår bitcoin-adress: %s</string>
+	<string name="patronFeatures">Är vissa funktioner reserverade för Beskyddare (Patroner)?</string>
+	<string name="noPatronFeatures">Nej, eftersom Lishogi är helt gratis, för alltid och för alla. Det är ett löfte.
+Men beskyddare får skryta med rätten till en cool ny profilikon.</string>
+	<string name="featuresComparison">Se den detaljerade jämförelsen av funktioner</string>
+	<plurals name="patronForMonths">
+		<item quantity="one">Lishogi beskyddare i en månad</item>
+		<item quantity="other">Lishogi beskyddare i %s månader</item>
+	</plurals>
+	<string name="youSupportWith">Du stödjer lishogi.org med %s per månad.</string>
+	<string name="tyvm">Tack så mycket för din hjälp. Du äger!</string>
+	<string name="currentStatus">Nuvarande status</string>
+	<string name="nextPayment">Nästa betalning</string>
+	<string name="youWillBeChargedXOnY">Du kommer att debiteras %1$s den %2$s.</string>
+	<string name="makeAdditionalDonation">Gör ytterligare en donation nu</string>
+	<string name="update">Uppdatera</string>
+	<string name="changeMonthlyAmount">Ändra månadsbeloppet (%s)</string>
+	<string name="cancelSupport">avbryt ditt stöd</string>
+	<string name="xOrY">%1$s eller %2$s</string>
+	<string name="decideHowMuch">Bestäm hur mycket Lishogi är värt för dig:</string>
+	<string name="stopPayments">Dra tillbaka ditt kreditkort och stoppa betalningar:</string>
+	<string name="noLongerSupport">Stöder inte längre Lishogi</string>
+	<string name="paymentHistory">Betalningshistorik</string>
+	<string name="paid">Betald</string>
+	<string name="viewOthers">Visa andra Lishogi-beskyddare</string>
+	<string name="date">Datum</string>
+	<string name="amount">Belopp</string>
+	<string name="transactionCompleted">Din transaktion har slutförts och ett kvitto på din donation har skickats till din e-postadress.</string>
+	<string name="permanentPatron">Du har nu ett permanent beskyddarkonto.</string>
+	<string name="checkOutProfile">Kolla in din profilsida!</string>
+	<string name="nowLifetime">Du är nu en livstid Lishogi-beskyddare!</string>
+	<string name="nowOneMonth">Du är Lishogi-beskyddare i en månad!</string>
+	<string name="downgradeNextMonth">Om en månad kommer du INTE att debiteras igen, och ditt Lishogi-konto kommer att nedgraderas till gratis.</string>
+</resources>

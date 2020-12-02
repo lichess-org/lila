@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="donate">寄付</string>
+	<string name="lishogiPatron">Lishogi Patron</string>
+	<string name="freeAccount">無料アカウント</string>
+	<string name="becomePatron">Lishogi のパトロンになる</string>
+	<string name="xBecamePatron">%s は Lishogi パトロンになりました</string>
+	<string name="newPatrons">新しいパトロン</string>
+	<string name="freeChess">Free shogi for everyone, forever!</string>
+	<string name="noAdsNoSubs">広告なし、課金なし。オープンソースと情熱あり。</string>
+	<string name="thankYou">ご寄付ありがとう！</string>
+	<string name="youHaveLifetime">あなたに永久パトロン・アカウントを贈ります。すばらしい！</string>
+	<string name="patronUntil">%s までのパトロン・アカウントを贈ります。</string>
+	<string name="ifNotRenewed">更新しないと無料アカウントに戻ります。</string>
+	<string name="weAreNonProfit">We are a non‑profit association because we believe everyone should have access to a free, world-class shogi platform.</string>
+	<string name="weRelyOnSupport">そのためにはあなたのような方からのサポートが必要です。Lishogi を楽しんでいるのなら、寄付をしてパトロンになってみるのはどうでしょう。</string>
+	<string name="lifetime">永久</string>
+	<string name="payLifetimeOnce">%s を一度寄付すれば永久パトロンです。</string>
+	<string name="lifetimePatron">永久 Lishogi パトロン</string>
+	<string name="makeExtraDonation">さらに寄付しますか？</string>
+	<string name="monthly">毎月</string>
+	<string name="recurringBilling">月ぎめの請求で毎月パトロンの翼マークを更新します。</string>
+	<string name="onetime">1 回限り</string>
+	<string name="singleDonation">1 回の寄付でパトロンの翼マークを 1 か月間表示します。</string>
+	<string name="otherAmount">その他</string>
+	<string name="pleaseEnterAmount">金額（米ドル）を入力してください</string>
+	<string name="withCreditCard">クレジットカード</string>
+	<string name="withPaypal">PayPal</string>
+	<string name="weAreSmallTeam">小さな団体なのであなたのサポートはほんとうに助けになります！</string>
+	<string name="celebratedPatrons">Lishogi の実現に貢献しているパトロンのみなさん</string>
+	<string name="whereMoneyGoes">このお金は何に使われますか？</string>
+	<string name="serversAndDeveloper">First of all, powerful servers.
+Then we pay a full-time developer: %s, the founder of Lishogi.</string>
+	<string name="costBreakdown">費用の内訳を見る</string>
+	<string name="officialNonProfit">Lishogi は公認の非営利団体ですか？</string>
+	<string name="actOfCreation">そうです。設立のための公文書（フランス語）はこちら</string>
+	<string name="changeMonthlySupport">月ぎめの寄付を変更／キャンセルできますか？</string>
+	<string name="changeOrContact">はい、このページでいつでも。
+あるいは %s を。</string>
+	<string name="contactSupport">Lishogi サポートに連絡</string>
+	<string name="otherMethods">寄付するのにほかの方法は？</string>
+	<string name="bankTransfers">銀行振込もできます</string>
+	<string name="bitcoin">Lishogi のビットコインアドレスでも：%s</string>
+	<string name="patronFeatures">パトロン限定の機能はありますか？</string>
+	<string name="noPatronFeatures">いいえ、Lishogi は誰に対しても永久に無料です。これは約束です。
+ただパトロンになるとプロフィールに翼マークがついて自慢できます。</string>
+	<string name="featuresComparison">詳しい機能比較はこちら</string>
+	<plurals name="patronForMonths">
+		<item quantity="other">Lishogi パトロン %s か月</item>
+	</plurals>
+	<string name="youSupportWith">lishogi.org に毎月 %s の寄付をします。</string>
+	<string name="tyvm">ご支援ほんとうにありがとう。すごいよ！</string>
+	<string name="currentStatus">現在の状態</string>
+	<string name="nextPayment">次の支払い</string>
+	<string name="youWillBeChargedXOnY">%1$s が %2$s に請求されます。</string>
+	<string name="makeAdditionalDonation">今すぐ追加の寄付を</string>
+	<string name="update">更新</string>
+	<string name="changeMonthlyAmount">月ぎめ額の変更（%s）</string>
+	<string name="cancelSupport">サポートをキャンセル</string>
+	<string name="xOrY">%1$s または %2$s</string>
+	<string name="decideHowMuch">Lishogi の値打ちをご自分で決めてください：</string>
+	<string name="stopPayments">クレジットカードでの支払いを止める：</string>
+	<string name="noLongerSupport">Lishogi への寄付をやめました</string>
+	<string name="paymentHistory">支払い履歴</string>
+	<string name="paid">支払い完了</string>
+	<string name="viewOthers">他の Lishogi パトロンを表示</string>
+	<string name="date">日付</string>
+	<string name="amount">金額</string>
+	<string name="transactionCompleted">トランザクション完了、寄付の領収書があなたにメール送信されました。</string>
+	<string name="permanentPatron">アカウントが永久パトロン・アカウントになります。</string>
+	<string name="checkOutProfile">自分のプロフィールのページを見て！</string>
+	<string name="nowLifetime">あなたは Lishogi の永久パトロンです！</string>
+	<string name="nowOneMonth">あなたはこれから 1 か月の間 Lishogi パトロンです！</string>
+	<string name="downgradeNextMonth">1 か月後にまた請求されることはなく、無料アカウントに戻ります。</string>
+</resources>

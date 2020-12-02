@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="search">搜尋</string>
+	<string name="advancedSearch">進階搜尋</string>
+	<plurals name="searchInXGames">
+		<item quantity="other">Search in %s shogi games</item>
+	</plurals>
+	<plurals name="xGamesFound">
+		<item quantity="other">找到了%s盤棋局</item>
+	</plurals>
+	<string name="opponentName">對手名稱</string>
+	<string name="loser">輸家</string>
+	<string name="from">從</string>
+	<string name="to">到</string>
+	<string name="humanOrComputer">不管您的對手是電腦或是其他玩家</string>
+	<string name="aiLevel">A.I等級</string>
+	<string name="source">來源</string>
+	<string name="nbTurns">回和數</string>
+	<string name="result">結果</string>
+	<string name="winnerColor">獲勝方棋子顏色</string>
+	<string name="date">日期</string>
+	<string name="sortBy">排序條件</string>
+	<string name="analysis">分析</string>
+	<string name="onlyAnalysed">僅可進行有電腦分析的遊戲</string>
+</resources>

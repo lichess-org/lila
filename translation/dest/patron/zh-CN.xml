@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="donate">捐赠</string>
+	<string name="lishogiPatron">Lishogi Patron</string>
+	<string name="freeAccount">免费账户</string>
+	<string name="becomePatron">成为 Lishogi 赞助者</string>
+	<string name="xBecamePatron">%s 成为了 Lishogi 的赞助者</string>
+	<string name="newPatrons">新赞助者</string>
+	<string name="freeChess">Free shogi for everyone, forever!</string>
+	<string name="noAdsNoSubs">没有广告，无需订阅；保持开源和热情。</string>
+	<string name="thankYou">感谢您的捐赠！</string>
+	<string name="youHaveLifetime">你有一个终身赞助者帐户。这太棒了！</string>
+	<string name="patronUntil">您的赞助帐户直到 %s。</string>
+	<string name="ifNotRenewed">如果没有续订，你将被降级为免费账户。</string>
+	<string name="weAreNonProfit">We are a non‑profit association because we believe everyone should have access to a free, world-class shogi platform.</string>
+	<string name="weRelyOnSupport">我们能做到现在，就是依靠像您这样的人的支持。 如果您喜欢使用 Lishogi，请考虑捐赠并成为赞助者来支持我们！</string>
+	<string name="lifetime">终生</string>
+	<string name="payLifetimeOnce">支付 %s 一次。永远成为 Lishogi 赞助者！</string>
+	<string name="lifetimePatron">永久 Lishogi 赞助者</string>
+	<string name="makeExtraDonation">提供额外捐赠吗？</string>
+	<string name="monthly">按月</string>
+	<string name="recurringBilling">定期账单，每月续订您的捐助者之翼。</string>
+	<string name="onetime">单次</string>
+	<string name="singleDonation">单次捐赠会赠予您一个月的赞助者之翼。</string>
+	<string name="otherAmount">其他</string>
+	<string name="pleaseEnterAmount">请输入金额（美金）</string>
+	<string name="withCreditCard">信用卡</string>
+	<string name="withPaypal">贝宝（PayPal）</string>
+	<string name="weAreSmallTeam">我们作为一个小团队，有你的支持将带来巨大的变化！</string>
+	<string name="celebratedPatrons">著名的赞助者让 Lishogi 成为可能。</string>
+	<string name="whereMoneyGoes">捐助都会去哪儿？</string>
+	<string name="serversAndDeveloper">First of all, powerful servers.
+Then we pay a full-time developer: %s, the founder of Lishogi.</string>
+	<string name="costBreakdown">查看详细的费用明细</string>
+	<string name="officialNonProfit">Lishogi 是官方的非营利组织吗？</string>
+	<string name="actOfCreation">是的。参考法人成立公务文书（法语）</string>
+	<string name="changeMonthlySupport">我可以更改或取消我的每月捐赠吗？</string>
+	<string name="changeOrContact">当然，任何时候在本页。
+或者可以 %s。</string>
+	<string name="contactSupport">联系 Lishogi 获取帮助</string>
+	<string name="otherMethods">其他捐赠方法？</string>
+	<string name="bankTransfers">我们还接受银行转帐</string>
+	<string name="bitcoin">还有我们的比特币地址：%s</string>
+	<string name="patronFeatures">赞助者会有特殊功能吗？</string>
+	<string name="noPatronFeatures">没有，Lishogi 是完全免费的。这是我们的承诺。
+当然，赞助者都说他们有一个很酷的个人资料图标。</string>
+	<string name="featuresComparison">查看详细的功能比较</string>
+	<plurals name="patronForMonths">
+		<item quantity="other">已成为 Lishogi 赞助者 %s 个月</item>
+	</plurals>
+	<string name="youSupportWith">您每月赞助 lishogi.org %s 。</string>
+	<string name="tyvm">非常感谢您的帮助。酷毙了！</string>
+	<string name="currentStatus">当前状态</string>
+	<string name="nextPayment">下次付款</string>
+	<string name="youWillBeChargedXOnY">您将于 %2$s 为 %1$s 充值</string>
+	<string name="makeAdditionalDonation">立即捐款</string>
+	<string name="update">更新</string>
+	<string name="changeMonthlyAmount">更改每月数量 (%s)</string>
+	<string name="cancelSupport">取消您的赞助</string>
+	<string name="xOrY">%1$s 或 %2$s</string>
+	<string name="decideHowMuch">决定什么 Lishogi 对您来说是值得的：</string>
+	<string name="stopPayments">撤销您的信用卡并停止支付：</string>
+	<string name="noLongerSupport">不再赞助 Lishogi</string>
+	<string name="paymentHistory">付款记录</string>
+	<string name="paid">已支付</string>
+	<string name="viewOthers">查看其他Lishogi赞助者</string>
+	<string name="date">日期</string>
+	<string name="amount">数量</string>
+	<string name="transactionCompleted">您的交易已完成，您的捐款收据已通过电子邮件发送给您。</string>
+	<string name="permanentPatron">您现在拥有一个永久赞助者账号。</string>
+	<string name="checkOutProfile">查看您的个人资料页面！</string>
+	<string name="nowLifetime">您现在是Lishogi终身会员</string>
+	<string name="nowOneMonth">从现在起为期一个月，您是 Lishogi 的赞助者！</string>
+	<string name="downgradeNextMonth">在一个月内，您将不会再次被收取费用，且您的 Lishogi 账户将被降级为免费。</string>
+</resources>

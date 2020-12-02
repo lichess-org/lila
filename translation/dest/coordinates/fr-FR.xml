@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="coordinates">Coordonnées</string>
+	<string name="coordinateTraining">Entrainement des coordonnées</string>
+	<string name="averageScoreAsWhiteX">Moyenne blanc : %s</string>
+	<string name="averageScoreAsBlackX">Moyenne noir : %s</string>
+	<string name="knowingTheShogiBoard">Connaître les coordonnées des cases du shogiban est une compétence clé :</string>
+	<string name="mostShogiCourses">Tous les cours et les exercices de shogi utilisent un système de notation. Vous pouvez choisir entre le système japonais et le système occidental.</string>
+	<string name="talkToYourShogiFriends">Cela facilite la communication avec vos amis, puisque vous comprenez tous les deux \"la langue du shogi\".</string>
+	<string name="youCanAnalyseAGameMoreEffectively">L\'analyse des parties est facilité si vous visualisez l\'emplacement des cases.</string>
+	<string name="aSquareNameAppears">Les coordonnées d\'une case apparaissent sur l\'échiquier, à vous de cliquer sur son emplacement correct. Vous avez 30 secondes pour trouver un maximum de cases possibles !</string>
+	<string name="startTraining">Démarrer l\'entrainement</string>
+</resources>

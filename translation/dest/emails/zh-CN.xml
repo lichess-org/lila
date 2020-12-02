@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="emailConfirm_subject">%s，请确认您的 lishogi.org 帐户。</string>
+  <string name="emailConfirm_click">单击下列链接以激活您的 Lishogi 帐户：</string>
+  <string name="emailConfirm_ignore">如果您没有在 Lishogi 上注册账号请忽略本邮件。</string>
+  <string name="passwordReset_subject">%s，请重置您在 lishogi.org 上的密码。</string>
+  <string name="passwordReset_intro">我们收到了重置您帐户密码的请求。</string>
+  <string name="passwordReset_clickOrIgnore">如果是您发出了这个请求，请点击下面的链接。如果不是，请您忽略本邮件。</string>
+  <string name="emailChange_subject">%s，请确认您的新邮箱地址。</string>
+  <string name="emailChange_intro">您已请求更改邮箱地址。</string>
+  <string name="emailChange_click">为确认您有此邮箱的访问权，请单击下面的链接：</string>
+  <string name="welcome_subject">%s，欢迎来到 lishogi.org。</string>
+  <string name="welcome_text">您已在 https://lishogi.org 上成功创建帐户。 
+这里是您的个人资料页：%1$s。可在 %2$s 上修改其内容。
+祝您玩得开心，希望您棋开得胜！</string>
+  <string name="logInToLishogi">Log in to lishogi.org, %s</string>
+  <string name="common_orPaste">（无法点击链接？试着将它粘贴到您的浏览器域名栏！）</string>
+  <string name="common_note">这是有关您使用 %s 的服务邮箱。</string>
+  <string name="common_contact">点击 %s 联系我们。</string>
+</resources>

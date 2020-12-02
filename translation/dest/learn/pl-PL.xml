@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="learnShogi">Learn shogi</string>
+	<string name="byPlaying">przez zabawę!</string>
+	<string name="menu">Menu</string>
+	<string name="progressX">Postęp: %s</string>
+	<string name="resetMyProgress">Zapomnij moje postępy</string>
+	<string name="youWillLoseAllYourProgress">Stracisz cały swój postęp!</string>
+	<string name="play">graj!</string>
+	<string name="shogiPieces">Shogi pieces</string>
+	<string name="theIntoduction">Introduction</string>
+	<string name="introBasics">Let\'s learn some basics.</string>
+	<string name="introIntro">Your journey begins here.</string>
+	<string name="choosePieceDesign">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set. \nTo do that click on the cog wheel or your username (top right corner) and then click on \"piece set\".</string>
+	<string name="promotionZone">When some of your pieces reach or leave the first three ranks in your opponent\'s territory you can choose to promote your piece and make it stronger.</string>
+	<string name="introComplete">You now know some basics, but this part of tutorial is still under construction. For now learn how individual pieces move.</string>
+	<string name="theRook">Wieża</string>
+	<string name="itMovesInStraightLines">Porusza się po liniach prostych</string>
+	<string name="rookIntro">Wieża to silna figura. Czy jesteś gotów aby nauczyć się nią poruszać?</string>
+	<string name="rookGoal">Click on the rook to bring it to the star!</string>
+	<string name="rookPromotion">The rook promotes to the powerful dragon. Don\'t forget that you can also promote your piece when you leave the promotion zone.</string>
+	<string name="rookSummary">The rook can go up, down, left or right as much as it wants.</string>
+	<string name="dragonSummary">It can move just like the unpromoted rook, but also one square in any diagonal direction, making it much stronger.</string>
+	<string name="grabAllTheStars">Zbierz wszystkie gwiazdki!</string>
+	<string name="theFewerMoves">The fewer moves you make, the more points you win!</string>
+	<string name="rookComplete">Gratulacje! Właśnie nauczyłeś się jak poruszać się wieżą.</string>
+	<string name="theBishop">Goniec</string>
+	<string name="itMovesDiagonally">Porusza się po skosach</string>
+	<string name="bishopIntro">Teraz dowiesz się jak manewrować gońcem!</string>
+	<string name="bishopPromotion">Promoting your bishop will make it stronger, it will turn into a piece called \"the horse\".</string>
+	<string name="bishopSummary">The bishop moves in any diagonal direction.</string>
+	<string name="horseSummary">The promoted bishop moves also diagonally, but it can also go one square up, down, left or right as well.</string>
+	<string name="bishopComplete">Gratulacje! Potrafisz poruszać się gońcem.</string>
+	<string name="theKing">Król</string>
+	<string name="theMostImportantPiece">Najważniejsza figura</string>
+	<string name="kingIntro">To Ty jesteś królem. Jeśli polegniesz w bitwie, przegrasz.</string>
+	<string name="theKingIsSlow">The king is rather slow.</string>
+	<string name="kingSummary">King can move in any direction, but only by one sqaure.</string>
+	<string name="kingComplete">Możesz teraz rządzić królem!</string>
+	<string name="theKnight">Skoczek</string>
+	<string name="itMovesInAnLShape">It moves in an L shape, but only FORWARD!</string>
+	<string name="knightIntro">Here\'s another challenge for you. The knight is... a tricky piece.</string>
+	<string name="knightsHaveAFancyWay">Knights have a fancy way of jumping around!</string>
+	<string name="knightsCanJumpOverObstacles">Knights can jump over obstacles!</string>
+	<string name="knightSummary">The knight can jump in an L shape forward, but only by two squares forward and one square sideways. Its movement also isn\'t restricted by other pieces - it will just jump over them.</string>
+	<string name="pknightSummary">Promoted knight moves are completely different from the unpromoted knight, but you can notice it moves the same as the gold general, so make sure to study that one thoroughly.</string>
+	<string name="knightPromotion">The knight can also be promoted. His movements change a lot after that, so pay attention.</string>
+	<string name="knightComplete">Gratulacje! Opanowałeś poruszanie się skoczkiem.</string>
+	<string name="thePawn">Pion</string>
+	<string name="itMovesForwardOnly">March forward!</string>
+	<string name="pawnIntro">Piony są słabe, ale mają w sobie duży potencjał.</string>
+	<string name="pawnsMoveOneSquareOnly">Pawns can move to the square directly in front of them, they capture the same way.</string>
+	<string name="pawnPromotion">The pawn can also be promoted, the moves are once again the same as the gold general.</string>
+	<string name="pawnComplete">Gratulacje! Piony nie mają przed Tobą tajemnic.</string>
+	<string name="pawnSummary">The pawn is a rather straightforward piece to understand.</string>
+	<string name="tokinSummary">You should already be familiar with this pattern by now.</string>
+	<string name="theLance">The lance</string>
+	<string name="itMovesStraightForward">It can go only forward.</string>
+	<string name="lanceIntro">Use it wisely.</string>
+	<string name="lancesAreStraighforward">Just move forward as much as you can, this should be easy for you.</string>
+	<string name="lancePromotion">After the lance is promoted, it moves differently, but you\'ve already seen this somewhere - same as the gold general.</string>
+	<string name="lanceSummary">Moves forward, this is really easy.</string>
+	<string name="planceSummary">It\'s the same as the gold general.</string>
+	<string name="lanceComplete">Great job!</string>
+	<string name="theGold">The gold general</string>
+	<string name="itMovesInAnyDirectionExceptDiagonallyBack">The gold general moves in any direction EXCEPT diagonally back.</string>
+	<string name="goldIntro">The gold general movements might be a bit harder to remember at first, but you can surely do it.</string>
+	<string name="goldDoesntPromote">The gold general together with the king is the only piece you CAN\'T promote.</string>
+	<string name="goldSummary">Try to remember these moves, many pieces move the same after they are promoted.</string>
+	<string name="goldComplete">Congratulations! You got this.</string>
+	<string name="theSilver">The silver general</string>
+	<string name="itMovesEitherForwardOrDiagonallyBack">The silver general moves either forward or diagonally back.</string>
+	<string name="silverIntro">Another piece with unusual movements, but this is the last one. Promise!</string>
+	<string name="silverPromotion">When you promote the silver general his movements are the same as the gold general.</string>
+	<string name="silverSummary">You will surely remember these moves with some practice.</string>
+	<string name="psilverSummary">Same as the gold general, you will see this a lot.</string>
+	<string name="silverComplete">Congratulations! You are on a roll.</string>
+	<string name="promotion">This piece can be promoted.</string>
+	<string name="yourPieceReachedThePromotionZone">Your piece reached the promotion zone!</string>
+	<string name="itNowPromotesToAStrongerPiece">It can now be promoted to a stronger piece.</string>
+	<string name="selectThePieceYouWant">Wybierz figurę, którą chcesz!</string>
+	<string name="fundamentals">Podstawy</string>
+	<string name="capture">Bicie</string>
+	<string name="takeTheEnemyPieces">Zbij bierki przeciwnika</string>
+	<string name="captureIntro">Znajdź niebronione bierki przeciwnika i zbij je!</string>
+	<string name="takeTheBlackPieces">Zbij czarne bierki!</string>
+	<string name="takeTheBlackPiecesAndDontLoseYours">Zbij czarne bierki! Nie strać swojej.</string>
+	<string name="captureComplete">Congratulations! You know how to fight with shogi pieces!</string>
+	<string name="protection">Obrona</string>
+	<string name="keepYourPiecesSafe">Zabezpiecz swoje figury</string>
+	<string name="protectionIntro">Znajdź figury które przeciwnik atakuje i obroń je!</string>
+	<string name="protectionComplete">Gratulacje! Figura nie stracona to figura wygrana!</string>
+	<string name="escape">Jesteś atakowany! Uciekaj przed zagrożeniem!</string>
+	<string name="noEscape">Nie ma możliwości ucieczki ale można się obronić!</string>
+	<string name="dontLetThemTakeAnyUndefendedPiece">Nie pozwól, aby zbito niebronione figury!</string>
+	<string name="combat">Walka</string>
+	<string name="captureAndDefendPieces">Bicie i obrona figur</string>
+	<string name="combatIntro">Dobry wojownik wie jak atakować i jak bronić!</string>
+	<string name="combatComplete">Congratulations! You know how to fight with shogi pieces!</string>
+	<string name="checkInOne">Szach w 1 ruchu</string>
+	<string name="attackTheOpponentsKing">Zaatakuj króla przeciwnika</string>
+	<string name="checkInOneIntro">Aby zaszachować swojego przeciwnika, zaatakuj jego króla. Będzie musiał go obronić!</string>
+	<string name="checkInOneGoal">Zaatakuj króla przeciwnika w jednym ruchu!</string>
+	<string name="checkInOneComplete">Gratulacje! Zaszachowałeś przeciwnika, zmuszając go do obrony króla!</string>
+	<string name="outOfCheck">Obrona przed szachem</string>
+	<string name="defendYourKing">Chroń swojego króla</string>
+	<string name="outOfCheckIntro">Zostałeś zaszachowany! Musisz uciec lub odeprzeć atak.</string>
+	<string name="escapeWithTheKing">Uciekaj królem!</string>
+	<string name="theKingCannotEscapeButBlock">Król nie może uciec, ale możesz zablokować atak!</string>
+	<string name="youCanGetOutOfCheckByTaking">Możesz obronić się przed szachem zbijając bierkę atakującą króla.</string>
+	<string name="thisKnightIsCheckingThroughYourDefenses">Ten skoczek szachuje króla poprzez Twoją obronę!</string>
+	<string name="escapeOrBlock">Ucieknij królem lub odeprzyj atak!</string>
+	<string name="outOfCheckComplete">Gratulacje! Twój król jest niepokonany, sprawdź czy potrafisz bronić się przed szachem!</string>
+	<string name="mateInOne">Mat w 1 ruchu</string>
+	<string name="defeatTheOpponentsKing">Pokonaj króla przeciwnika</string>
+	<string name="mateInOneIntro">Wygrasz kiedy Twój przeciwnik nie może obronić się przed szachem.</string>
+	<string name="attackYourOpponentsKing">Zaatakuj króla przeciwnika w taki sposób aby nie mógł się obronić!</string>
+	<string name="mateInOneComplete">Congratulations! That is how you win shogi games!</string>
+	<string name="intermediate">Średnio zaawansowane</string>
+	<string name="boardSetup">Ustawienie początkowe</string>
+	<string name="howTheGameStarts">Od czego zacząć</string>
+	<string name="boardSetupIntro">Dwie armie stają naprzeciwko siebie, gotowe na bitwę.</string>
+	<string name="thisIsTheInitialPosition">This is the initial position
+of every game of shogi!
+Make any move to continue.</string>
+	<string name="firstPlaceTheRooks">Najpierw ustaw wieże! Umieść je w rogach.</string>
+	<string name="thenPlaceTheKnights">Następnie ustaw skoczki! Umieść je obok wież.</string>
+	<string name="placeTheBishops">Ustaw gońce! Umieść je obok skoczków.</string>
+	<string name="placeTheQueen">Ustaw hetmana! Umieść go na polu jego własnego koloru.</string>
+	<string name="placeTheKing">Ustaw króla! Umieść go obok hetmana.</string>
+	<string name="pawnsFormTheFrontLine">Piony tworzą linię frontu. Wykonaj dowolny ruch, aby kontynuować.</string>
+	<string name="boardSetupComplete">Congratulations! You know how to set up the shogi board.</string>
+	<string name="stalemate">Pat</string>
+	<string name="theGameIsADraw">Partia zakończona remisem</string>
+	<string name="stalemateIntro">Kiedy gracz nie jest szachowany i nie może zrobić żadnego prawidłowego ruchu to jest to pat. Partia jest zakończona remisem: nikt nie wygrywa, nikt nie przegrywa.</string>
+	<string name="stalemateGoal">Czarne zostały zapatowane, gdy:
+– nie będą mogły się ruszyć,
+– nie będą szachowane.</string>
+	<string name="stalemateComplete">Gratulacje! Lepiej dostać pata niż mata!</string>
+	<string name="advanced">Zaawansowane</string>
+	<string name="pieceValue">Wartości bierek</string>
+	<string name="evaluatePieceStrength">Oceń siłę bierek</string>
+	<string name="pieceValueIntro">Bierki o wyższej mobilności są warte więcej!
+Hetman – 9
+Wieża – 5
+Goniec – 3
+Skoczek – 3
+Pion – 1
+Król jest bezcenny! Tracąc go przegrywasz partię.</string>
+	<string name="queenOverBishop">Zbij figurę o największej wartości!
+hetman &gt; goniec</string>
+	<string name="takeThePieceWithTheHighestValue">Zbij figurę o najwyższej wartości!</string>
+	<string name="pieceValueComplete">Gratulacje! Znasz wartość materiału!
+Hetman – 9
+Wieża – 5
+Goniec – 3
+Skoczek – 3
+Pionek – 1</string>
+	<string name="checkInTwo">Szach w 2 ruchach</string>
+	<string name="twoMovesToGiveCheck">Dwa ruchy aby dać szacha</string>
+	<string name="checkInTwoIntro">Znajdź właściwą kombinację dwóch ruchów, tak aby zaszachować króla przeciwnika!</string>
+	<string name="checkInTwoGoal">Zaatakuj króla przeciwnika w dwóch ruchach!</string>
+	<string name="checkInTwoComplete">Gratulacje! Zaszachowałeś przeciwnika zmuszając go do obrony króla!</string>
+	<string name="whatNext">Co dalej?</string>
+	<string name="youKnowHowToPlayChess">You know how to play shogi, congratulations! Do you want to become a stronger player?</string>
+	<string name="register">Rejestracja</string>
+	<string name="getAFreeLishogiAccount">Get a free Lishogi account</string>
+	<string name="practice">Ćwiczenia</string>
+	<string name="learnCommonChessPositions">Learn common shogi positions</string>
+	<string name="puzzles">Zadania szachowe</string>
+	<string name="exerciseYourTacticalSkills">Ćwicz umiejętności taktyczne</string>
+	<string name="videos">Filmy</string>
+	<string name="watchInstructiveChessVideos">Watch instructive shogi videos</string>
+	<string name="playPeople">Graj z innymi</string>
+	<string name="opponentsFromAroundTheWorld">Przeciwnicy z całego świata</string>
+	<string name="playMachine">Graj z maszyną</string>
+	<string name="testYourSkillsWithTheComputer">Sprawdź się z komputerem</string>
+	<string name="letsGo">Zaczynajmy!</string>
+	<string name="stageX">Etap %s</string>
+	<string name="awesome">Niesamowite!</string>
+	<string name="excellent">Doskonale!</string>
+	<string name="greatJob">Dobra robota!</string>
+	<string name="perfect">Perfekcyjnie!</string>
+	<string name="outstanding">Znakomicie!</string>
+	<string name="wayToGo">Oby tak dalej!</string>
+	<string name="yesYesYes">Tak, tak, tak!</string>
+	<string name="youreGoodAtThis">Jesteś w tym dobry!</string>
+	<string name="nailedIt">Brawo.</string>
+	<string name="rightOn">Tak jest!</string>
+	<string name="stageXComplete">Etap %s kompletny</string>
+	<string name="yourScore">Twój wynik</string>
+	<string name="next">Następne</string>
+	<string name="backToMenu">Powrót do menu</string>
+	<string name="puzzleFailed">To zły ruch!</string>
+	<string name="retry">Spróbuj jeszcze raz</string>
+</resources>

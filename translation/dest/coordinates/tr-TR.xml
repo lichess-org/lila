@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="coordinates">Koordinatlar</string>
+	<string name="coordinateTraining">Koordinat Antrenmanı</string>
+	<string name="averageScoreAsWhiteX">Beyaz olarak ortalama skor: %s</string>
+	<string name="averageScoreAsBlackX">Siyah olarak ortalama skor: %s</string>
+	<string name="knowingTheShogiBoard">Knowing the shogiboard coordinates is a very important shogi skill:</string>
+	<string name="mostShogiCourses">All shogi courses and exercises use some kind of a shogi notation. You can pick between the Japanese one and the western one.</string>
+	<string name="talkToYourShogiFriends">It makes it easier to talk to your shogi friends, since you both understand the \'language of shogi\'.</string>
+	<string name="youCanAnalyseAGameMoreEffectively">Eğer karelerin adlarını aramak zorunda kalmazsanız, oyunu daha etkili bir şekilde analiz edebilirsiniz.</string>
+	<string name="aSquareNameAppears">Bu alıştırma için tahta üzerinde adı görünen karelere tıklaman gerekiyor. 30 saniye içinde mümkün olduğunca çok kareyi bulmaya çalış!</string>
+	<string name="startTraining">Antrenmana başla</string>
+</resources>
