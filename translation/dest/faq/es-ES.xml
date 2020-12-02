@@ -3,7 +3,7 @@
 	<string name="faqAbbreviation">Preguntas frecuentes</string>
 	<string name="frequentlyAskedQuestions">Preguntas frecuentes</string>
 	<string name="whyIsLishogiCalledLishogi">¿Por qué Lishogi se llama así?</string>
-	<string name="forkedFromLichess">Lishogi is open source project forked from liсhess, but since it\'s for playing shogi, it\'s called lishogi.</string>
+	<string name="forkedFromLichess">Lishpgo es un proyecto de código abierto bifurcado de liсhess, pero ya que es para jugar shogi, se llama lishogi.</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">Porque se deriva de Liсhess. Y Liсhess se llama Liсhess porque es una combinación de liviano/luz/libre y ajedrez. Se pronouncia %1$s.</string>
 	<string name="leechess">lee-shogi</string>
 	<string name="hearItPronouncedBySpecialist">Así es como lo pronuncia un especialista.</string>
@@ -77,8 +77,8 @@
 	<string name="threeFoldHasToBeClaimed">Las tablas por triple repetición deben ser reclamadas por uno de los jugadores. Puedes hacerlo pulsando el botón que se muestra, u ofreciendo tablas antes de hacer el movimiento que cause la tercera repetición, no importará que tu oponente rechace la oferta de tablas, las tablas por triple repetición serán reclamadas de todas maneras. También puedes %1$s Lishogi para que reclame automáticamente las repeticiones por ti. Además, la quinta repetición siempre termina la partida inmediatamente.</string>
 	<string name="configure">configurar</string>
 	<string name="accounts">Cuentas</string>
-	<string name="titlesAvailableOnLishogi">What titles are there on Lishogi?</string>
-	<string name="lishogiRecognizeAllOTBtitles">Lishogi recognises all FIDE titles gained from OTB (over the board) play, as well as %1$s. Here is a list of FIDE titles:</string>
+	<string name="titlesAvailableOnLishogi">¿Qué títulos hay en Lishogi?</string>
+	<string name="lishogiRecognizeAllOTBtitles">Lishogi reconoce todos los títulos FIDE obtenidos OTB (sobre el tablero), así como %1$s. Aquí hay una lista de títulos FIDE:</string>
 	<string name="showYourTitle">Si tienes un título OTB, puedes solicitar que se muestre en tu cuenta completando el %1$s, incluyendo una imagen clara de un documento/tarjeta de identificación y una foto tuya portando dicho documento/tarjeta.
 
   La verificación como jugador titulado en Lishogi da acceso a jugar en los eventos de Arena para titulados.
@@ -101,15 +101,15 @@
 	<string name="wayOfBerserkExplanation">Para obtenerlo, hiimgosu se desafió a sí mismo a berserk y ganó 100%% partidas de %s.</string>
 	<string name="aHourlyBulletTournament">un torneo Bullet por hora</string>
 	<string name="goldenZeeExplanation">ZugAddict estaba transmitiendo y durante las dos últimas horas había estado tratando de derrotar a la I.A. nivel 8 en una partida 1+0, sin éxito. Thibault le dijo que si lo hacía con éxito durante la transmisión, obtendría un trofeo único. Una hora después, venció a Stockfish y se cumplió la promesa.</string>
-	<string name="lishogiRatings">Lishogi ratings</string>
-	<string name="whichRatingSystemUsedByLishogi">What rating system does Lishogi use?</string>
-	<string name="ratingSystemUsedByLishogi">Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant number of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system).
+	<string name="lishogiRatings">Puntuaciones de Lishogi</string>
+	<string name="whichRatingSystemUsedByLishogi">¿Qué sistema de puntuación utiliza Lishogi?</string>
+	<string name="ratingSystemUsedByLishogi">Las puntuaciones se calculan utilizando el método de clasificación Glicko-2 desarrollado por Mark Glickman. Es un método de puntuación muy popular y que utilizan muchas organizaciones de ajedrez (la FIDE es un contraejemplo notable, ya que todavía utilizan el sistema de puntuación Elo).
 
-Fundamentally, Glicko ratings use \"confidence intervals\" when calculating and representing your rating. When you first start using the site, your rating starts at 1500 ± 700. The 1500 represents your rating, and the 700 represents the confidence interval.
+En síntesis, las puntuaciones de Glicko usan \"intervalos de confianza\" al calcular y representar tu puntuación. Cuando comienzas a utilizar por primera vez el la página, tu puntuación es de 1500 ± 700. El 1500 representa tu puntuación, y el 700 representa el intervalo de confianza, que es una medida de la incertidumbre que el sistema tiene sobre tu puntuación real.
 
-Basically, the system is 90% sure that your rating is somewhere between 800 and 2200. It is incredibly uncertain. Because of this, when a player is just starting out, their rating will change very dramatically, potentially several hundred points at a time. But after some games against established players the confidence interval will narrow, and the amount of points gained/lost after each game will decrease.
+Básicamente, el sistema tiene un 90% de seguridad de que tu puntuación está entre 800 y 2200. Es un intervalo muy amplio y poco preciso (hay mucha incertidumbre). Por eso, cuando un jugador acaba de empezar, su puntuación cambiará de forma muy brusca, incluso puede que varios cientos de puntos cada vez. Pero después de algunas partidas contra jugadores más veteranos, el intervalo de confianza se irá reduciendo (el sistema tendrá cada vez más clara cuál es su puntuación exacta), y la cantidad de puntos ganados o perdidos después de cada partida disminuirá.
 
-Another point to note is that, as time passes, the confidence interval will increase. This allows you to gain/lose points points more rapidly to match any changes in your skill level over that time.</string>
+Otro punto que cabe señalar es que, si pasa un tiempo sin jugar, el intervalo de confianza volverá aumentar. Esto te permite ganar o perder puntos más rápidamente para igualar cualquier cambio en tu fuerza de juego durante ese tiempo que has pasado sin jugar.</string>
 	<string name="whatIsProvisionalRating">¿Por qué hay un signo de interrogación (?) junto a una puntuación?</string>
 	<string name="provisionalRatingExplanation">El signo de interrogación significa que la puntuación es provisional. Las razones incluyen:</string>
 	<string name="notPlayedEnoughRatedGamesAgainstX">El jugador aún no ha finalizado suficientes partidas por puntos contra %1$s en la categoría de puntuación.</string>
@@ -121,7 +121,7 @@ Another point to note is that, as time passes, the confidence interval will incr
 	<string name="ratingLeaderboards">tablero de liderazgo</string>
 	<string name="havePlayedMoreThanThirtyGamesInThatRating">haber jugado al menos 30 partidas por puntos en una puntuación dada,</string>
 	<string name="havePlayedARatedGameAtLeastOneWeekAgo">haber jugado una partida por puntos en la última semana para esta puntuación,</string>
-	<string name="ratingDeviationLowerThanXinChessYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
+	<string name="ratingDeviationLowerThanXinChessYinVariants">tener una desviación de puntuación menor que %1$s, en shogi estándar, y menor que %2$s en variantes,</string>
 	<string name="beInTopTen">estar entre los 10 primeros de esta clasificación.</string>
 	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">El segundo requisito es que los jugadores que ya no usan sus cuentas dejen de poblar los tableros de liderazgo.</string>
 	<string name="whyAreRatingHigher">¿Por qué son más altas las puntuaciones en comparación con otros sitios y organizaciones como FIDE, USCF y el CIC?</string>
@@ -136,9 +136,9 @@ Another point to note is that, as time passes, the confidence interval will incr
 	<string name="howToThreeDots">Cómo...</string>
 	<string name="enableDisableNotificationPopUps">¿Activar o desactivar ventanas emergentes de notificación?</string>
 	<string name="viewSiteInformationPopUp">Ver ventana emergente de información del sitio</string>
-	<string name="lishogiCanOptionnalySendPopUps">Lishogi can optionally send popup notifications, for example when it is your turn or you received a private message.
+	<string name="lishogiCanOptionnalySendPopUps">Opcionalmente, Lichess puede enviar notificaciones emergentes, por ejemplo cuando sea tu turno o hayas recibido un mensaje privado.
 
-Click the lock icon next to the lishogi.org address in the URL bar of your browser.
+ Haz clic en el icono de bloqueo junto a la dirección de lichess.org, en la barra de URL de tu navegador.
 
-Then select whether to allow or block notifications from Lishogi.</string>
+ Luego selecciona si permitir o bloquear notificaciones de Lichess.</string>
 </resources>
