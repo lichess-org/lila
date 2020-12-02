@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Koordináták</string>
-  <string name="coordinateTraining">Koordináta gyakorló</string>
-  <string name="averageScoreAsWhiteX">Átlagos pontszám világosként: %s</string>
-  <string name="averageScoreAsBlackX">Átlagos pontszám sötétként: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">A játszmák hatékonyabban elemezhetőek, ha nem kell keresgetni a mezőket.</string>
-  <string name="aSquareNameAppears">Mindig arra a mezőre kell kattintani, amelyiknek a neve megjelenik a tábla előtt. A cél, minél több találat elérése 30 másodperc alatt.</string>
-  <string name="startTraining">Gyakorlás kezdése</string>
-</resources>

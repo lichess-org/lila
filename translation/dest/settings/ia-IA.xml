@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Configuration</string>
-  <string name="closeAccount">Terminar conto</string>
-  <string name="changedMindDoNotCloseAccount">Io cambiava de idea, non termina mi conto</string>
-  <string name="thisAccountIsClosed">Iste conto ha essite claudite.</string>
-</resources>

@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="measurementInProgressThreeDot">ମାପ ଚାଲିଛି ...</string>
-  <string name="noAndYourNetworkIsGood">ନା, ଏବଂ ଆପଣଙ୍କର ନେଟୱାର୍କ ଭଲ ଅଟେ</string>
-  <string name="noAndYourNetworkIsBad">ନା, ଏବଂ ଆପଣଙ୍କର ନେଟୱାର୍କ ଖରାପ ଅଟେ</string>
-  <string name="yesItWillBeFixedSoon">ହଁ ଏହା ଶୀଘ୍ର ସମାଧାନ ହେବ</string>
-  </resources>

@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="features">امکانات</string>
-  <string name="freeForAllForever">صد درصد رایگان برای همه و بدون تبلیغات</string>
-  <string name="newClass">کلاس جدید</string>
-  <string name="reopen">بازگشایی</string>
-  <string name="removedStudents">حذف شده</string>
-  <string name="className">نام کلاس</string>
-  <string name="realName">نام واقعی</string>
-</resources>

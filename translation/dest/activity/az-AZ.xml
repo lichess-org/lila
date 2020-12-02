@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="activity">Aktivlik</string>
-  <string name="hostedALiveStream">Canlı yayım etdi</string>
-  <string name="signedUp">lishogi.org\'a üzv oldu</string>
-  <plurals name="joinedNbTeams">
-    <item quantity="one">%s komandasına qatıldı</item>
-    <item quantity="other">%s komandasına qatıldı</item>
-  </plurals>
-</resources>

@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">કો ઓર્ડીનેટ</string>
-  <string name="coordinateTraining">કો ઓર્ડીનેટ ની ટ્રેનિંગ</string>
-  <string name="averageScoreAsWhiteX">સરેરાશ સ્કોર સફેદ તરફથી:%s</string>
-  <string name="averageScoreAsBlackX">સરેરાશ સ્કોર કાળા તરફથી:%s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">જો તમને સ્ક્વેર નામોની શોધ કરવાની જરૂર ન હોય તો તમે વધુ અસરકારક રીતે રમતનું વિશ્લેષણ કરી શકો છો.</string>
-  <string name="aSquareNameAppears">બોર્ડ પર એક ચોરસનું નામ દેખાય છે અને તમારે સાચા ચોરસ પર ક્લિક કરવું આવશ્યક છે. તમારી પાસે શક્ય એટલા ચોરસ તરીકે ઓળખવા માટે 30 સેકંડ છે!</string>
-  <string name="startTraining">તાલીમ શરૂ કરો</string>
-</resources>

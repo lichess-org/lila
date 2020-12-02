@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Instellingen</string>
-  <string name="closeAccount">Verwijder account</string>
-  <string name="closingIsDefinitive">Verwijderen is definitief. Er is geen weg terug. Weet je het zeker?</string>
-  <string name="cantOpenSimilarAccount">Het is niet toegestaan om een nieuw account met dezelfde naam aan te maken, ook al is het hoofdlettergebruik anders.</string>
-  <string name="changedMindDoNotCloseAccount">Ik ben van gedachten veranderd; sluit mijn account niet</string>
-  <string name="closeAccountExplanation">Weet je zeker dat je het account wilt verwijderen? Het verwijderen van je account is een permanente beslissing. Je kunt NOOIT meer op dit account inloggen.</string>
-  <string name="thisAccountIsClosed">Dit account is gesloten.</string>
-</resources>

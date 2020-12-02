@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">マスの位置</string>
-  <string name="coordinateTraining">座標を読むトレーニング</string>
-  <string name="averageScoreAsWhiteX">白番での平均スコア: %s</string>
-  <string name="averageScoreAsBlackX">黒番での平均スコア: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">このマスはどこか、いちいち探すことがなくなれば、ゲームの検討も効率よくできます。</string>
-  <string name="aSquareNameAppears">ボード上にマスの名前が表示されるので、そのマスをクリックしてください。30 秒間でできるだけ多くのマスをクリックします。</string>
-  <string name="startTraining">トレーニングを開始</string>
-</resources>

@@ -1,4 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="twoFactorAuth">אימות דו-גורמי</string>
-  <string name="twoFactorHelp">אימות דו-גורמי מוסיף עוד שכבה של אבטחה לחשבון שלך.</string>
-</resources>

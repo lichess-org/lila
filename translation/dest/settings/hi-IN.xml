@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">व्यवस्था (सेटिंग्स)</string>
-  <string name="closeAccount">खातें को बंद करें</string>
-  <string name="closingIsDefinitive">समापन निश्चित है। वहां से कोई वापसी नहीं है। क्या आपने सुनिश्चित कर लिया है?</string>
-  <string name="cantOpenSimilarAccount">आपको एक ही नाम से एक नया खाता खोलने की अनुमति नहीं दी जाएगी, भले ही मामला अलग हो।</string>
-  <string name="changedMindDoNotCloseAccount">मैंने अपना मन बदल लिया, मेरे खाता को बंद न करें</string>
-  <string name="closeAccountExplanation">क्या आप वाकई अपना खाता बंद करना चाहते हैं? अपना खाता बंद करना एक स्थायी निर्णय है। आप कभी भी लॉग इन नहीं कर पाएंगे।</string>
-  <string name="thisAccountIsClosed">यह ख़ाता बंद है|</string>
-</resources>

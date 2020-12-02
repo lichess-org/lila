@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Koordinater</string>
-  <string name="coordinateTraining">Koordinattræning</string>
-  <string name="averageScoreAsWhiteX">Gennemsnitlig score som hvid: %s</string>
-  <string name="averageScoreAsBlackX">Gennemsnitlig score som sort: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Du kan analysere et parti mere effektivt, hvis du ikke skal lede efter feltnavne.</string>
-  <string name="aSquareNameAppears">Der vises et feltnavn på brættet, og du skal så klikke på det rigtige felt. Du har 30 sekunder til at genkende så mange felter som muligt!</string>
-  <string name="startTraining">Start træning</string>
-</resources>

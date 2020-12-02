@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">קוארדינטות (נקודות ציון)</string>
-  <string name="coordinateTraining">אימון קוארדינטות (נקודות ציון)</string>
-  <string name="averageScoreAsWhiteX">הציון הממוצע כלבן: %s</string>
-  <string name="averageScoreAsBlackX">הציון הממוצע כשחור: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">האנליזה של משחקים היא יותר אפקטיבית כאשר איננו זקוקים לתת שמות למשבצות השונות.</string>
-  <string name="aSquareNameAppears">בהנתן קואורדינטות משבצת, יש להקיש על המשבצת הנכונה. בוא נראה כמה משבצות תצליח להקיש ב-30 שניות!</string>
-  <string name="startTraining">התחל להתאמן</string>
-</resources>

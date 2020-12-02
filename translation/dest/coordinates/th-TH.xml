@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">พิกัด</string>
-  <string name="coordinateTraining">การฝึกฝนพิกัด</string>
-  <string name="averageScoreAsWhiteX">คะแนนเฉลี่ยเมื่อเป็นขาว: %s</string>
-  <string name="averageScoreAsBlackX">คะแนนเฉลี่ยเมื่อเป็นดำ: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">คุณสามารถวิเคราะห์เกมเพิ่มเติมได้อย่างมีประสิทธิภาพถ้าคุณไม่ต้องค้นหาชื่อช่องตาราง</string>
-  <string name="aSquareNameAppears">ชื่อช่องตารางจะปรากฏบนกระดาน และคุณต้องคลิกที่ช่องสี่เหลี่ยมที่ถูกต้อง คุณมีเวลา 30 วินาทีเพื่อหาช่องสี่เหลี่ยมให้ได้มากที่สุด!</string>
-  <string name="startTraining">เริ่มฝึกฝน</string>
-</resources>

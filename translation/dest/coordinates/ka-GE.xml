@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">კოორდინატები</string>
-  <string name="coordinateTraining">კოორდინატების ვარჯიში</string>
-  <string name="averageScoreAsWhiteX">საშუალო ქულა თეთრების მხრიდან: %s</string>
-  <string name="averageScoreAsBlackX">საშუალო ქულა შავების მხრიდან: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">თქვენ შეგეძლებათ გააანალიზოთ პარტიები უფრო ეფექტურად, რადგან არ მოგიწევთ ყოველ ჯერზე უჯრის სახელის ძიება.</string>
-  <string name="aSquareNameAppears">დაფაზე გამოჩნდება უჯრის სახელი, თქვენ კი უნდა დააკლიკოთ შესაბამის უჯრას. გაქვთ 30 წამი რათა მოასწროთ რაც შეიძლება მეტის გამოცნობა!</string>
-  <string name="startTraining">დაიწყე ვარჯიში</string>
-</resources>

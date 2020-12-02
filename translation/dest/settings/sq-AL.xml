@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Cilësimet</string>
-  <string name="closeAccount">Mbyll llogarinë</string>
-  <string name="changedMindDoNotCloseAccount">Ndryshova mendje, mos e mbyll llogarinë time</string>
-  <string name="thisAccountIsClosed">Kjo llogari është e mbyllur</string>
-</resources>

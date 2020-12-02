@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">निर्देशांक</string>
-  <string name="coordinateTraining">निर्देशांक प्रशिक्षण</string>
-  <string name="averageScoreAsWhiteX">सफेद के साथ में औसत अंक: %s</string>
-  <string name="averageScoreAsBlackX">काले के साथ में औसत अंक: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">यदि आप वर्ग के नामों की खोज करने की आवश्यकता नहीं है, तो आप एक गेम को और अधिक प्रभावी ढंग से विश्लेषण कर सकते हैं।</string>
-  <string name="aSquareNameAppears">बोर्ड पर एक स्क्वायर नाम दिखाई देता है और आपको सही वर्ग पर क्लिक करना होगा। आपके पास जितना संभव हो उतने वर्गों को पहचानने में 30 सेकंड हैं!</string>
-  <string name="startTraining">प्रशिक्षण शुरू करो</string>
-</resources>

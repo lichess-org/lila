@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">विकल्पहरु</string>
-  <string name="closeAccount">खाता बन्द गरौँ</string>
-  <string name="changedMindDoNotCloseAccount">मैले विचार बदले, खाता बन्द नगरौं</string>
-  <string name="closeAccountExplanation">के तपाइ साच्चै आफ्नो खाता बन्द गर्न चाहनुहुन्छ? खाता बन्द गर्नु एउटा स्थायी निर्णय हो। तपाइले फेरी कहिल्यै पनि लग इन गर्न सक्नुहुने छैन।</string>
-  <string name="thisAccountIsClosed">यो खाता बन्द गरिएको छ।</string>
-</resources>

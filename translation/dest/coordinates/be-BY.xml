@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Каардынаты</string>
-  <string name="coordinateTraining">Трэніроўка па каардынатах</string>
-  <string name="averageScoreAsWhiteX">Сярэдні лік за белых: %s</string>
-  <string name="averageScoreAsBlackX">Сярэдні лік за чорных: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Вы можаце больш эфектыўна аналізаваць гульні, калі вам не трэба шукаць назвы квадратаў.</string>
-  <string name="aSquareNameAppears">Назвы квадратаў з\'яўляюцца на дошцы, і вы павінны клікнуць на пэўны квадрат. У вас ёсць 30 секундаў, каб вызначыць як мага больш квадратаў!</string>
-  <string name="startTraining">Пачаць трэніроўку</string>
-</resources>

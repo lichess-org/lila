@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Coordenadas</string>
-  <string name="coordinateTraining">Treino de coordenadas</string>
-  <string name="averageScoreAsWhiteX">Pontuação média com as brancas: %s</string>
-  <string name="averageScoreAsBlackX">Pontuação média com as pretas: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Podes analisar um jogo com maior eficiência se conseguires reconhecer as coordenadas rapidamente.</string>
-  <string name="aSquareNameAppears">O nome da casa aparece no tabuleiro e tens de clicar na casa correspondente. Tenta reconhecer o maior número de casas em 30 segundos!</string>
-  <string name="startTraining">Começar o treino</string>
-</resources>

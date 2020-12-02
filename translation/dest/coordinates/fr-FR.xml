@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Coordonnées</string>
-  <string name="coordinateTraining">Entrainement des coordonnées</string>
-  <string name="averageScoreAsWhiteX">Moyenne blanc : %s</string>
-  <string name="averageScoreAsBlackX">Moyenne noir : %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">L\'analyse des parties est facilité si vous visualisez l\'emplacement des cases.</string>
-  <string name="aSquareNameAppears">Les coordonnées d\'une case apparaissent sur l\'échiquier, à vous de cliquer sur son emplacement correct. Vous avez 30 secondes pour trouver un maximum de cases possibles !</string>
-  <string name="startTraining">Démarrer l\'entrainement</string>
-</resources>

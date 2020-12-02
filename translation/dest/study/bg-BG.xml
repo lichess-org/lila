@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="addNewChapter">Добавяне на нов раздел</string>
-  <plurals name="nbGames">
-    <item quantity="one">%s Игра</item>
-    <item quantity="other">%s Игри</item>
-  </plurals>
-</resources>

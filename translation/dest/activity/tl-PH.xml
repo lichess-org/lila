@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="activity">Aktibidad</string>
-  <plurals name="solvedNbPuzzles">
-    <item quantity="one">Nalutas %s taktikal na palaisipan</item>
-    <item quantity="other">Nalutas %s taktikal na mga palaisipan</item>
-  </plurals>
-</resources>

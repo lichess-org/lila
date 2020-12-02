@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Ezarpenak</string>
-  <string name="closeAccount">Kontua itxi</string>
-  <string name="closingIsDefinitive">Ixteak ez du atzera egiterik. Ziur zaude?</string>
-  <string name="cantOpenSimilarAccount">Ezingo duzu beste kontu bat ireki izen berdinarekin, naiz eta hizki larriak eta xeheak aldatu.</string>
-  <string name="changedMindDoNotCloseAccount">Ez dut nire kontua itxi nahi</string>
-  <string name="closeAccountExplanation">Benetan zure kontua itxi egin nahi duzu? Erabaki hau betiko hartuko duzu eta ezingo zara berriz inoiz webgunera sartu.</string>
-  <string name="thisAccountIsClosed">Kontu hau itxita dago.</string>
-</resources>

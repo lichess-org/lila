@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="xTeamBattle">%s 팀 배틀</string>
-  <string name="eliteXArena">엘리트 %s 아레나</string>
-  <string name="eliteX">엘리트 %s</string>
-  <string name="xArena">%s 아레나</string>
-</resources>

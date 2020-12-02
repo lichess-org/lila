@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="passwordX">비밀번호: %s</string>
-  <string name="realName">실명</string>
-  <string name="addStudent">학생 추가</string>
-  <string name="lastActiveDate">활성화</string>
-</resources>

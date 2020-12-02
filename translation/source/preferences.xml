@@ -1,13 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="preferences">Preferences</string>
-
 	<string name="gameDisplay">Game display</string>
 	<string name="pieceAnimation">Piece animation</string>
 	<string name="materialDifference">Material difference</string>
 	<string name="boardHighlights">Board highlights (last move and check)</string>
 	<string name="pieceDestinations">Piece destinations (valid moves and premoves)</string>
-	<string name="boardCoordinates">Board coordinates (A-H, 1-8)</string>
+	<string name="boardCoordinates">Board coordinates</string>
 	<string name="moveListWhilePlaying">Move list while playing</string>
 	<string name="pgnPieceNotation">Move notation</string>
 	<string name="chessPieceSymbol">Shogi piece symbol</string>
@@ -16,14 +15,12 @@
 	<string name="displayBoardResizeHandle">Show board resize handle</string>
 	<string name="onlyOnInitialPosition">Only on initial position</string>
 	<string name="blindfoldChess">Blindfold shogi (invisible pieces)</string>
-
 	<string name="chessClock">Shogi clock</string>
 	<string name="tenthsOfSeconds">Tenths of seconds</string>
 	<string name="whenTimeRemainingLessThanTenSeconds">When time remaining &lt; 10 seconds</string>
 	<string name="horizontalGreenProgressBars">Horizontal green progress bars</string>
 	<string name="soundWhenTimeGetsCritical">Sound when time gets critical</string>
 	<string name="giveMoreTime">Give more time</string>
-
 	<string name="gameBehavior">Game behaviour</string>
 	<string name="howDoYouMovePieces">How do you move pieces?</string>
 	<string name="clickTwoSquares">Click two squares</string>
@@ -44,6 +41,5 @@
 	<string name="castleByMovingTwoSquares">Move king two squares</string>
 	<string name="castleByMovingOntoTheRook">Move king onto rook</string>
 	<string name="inputMovesWithTheKeyboard">Input moves with the keyboard</string>
-
 	<string name="yourPreferencesHaveBeenSaved">Your preferences have been saved.</string>
 </resources>

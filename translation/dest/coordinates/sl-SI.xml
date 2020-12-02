@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Polja</string>
-  <string name="coordinateTraining">Trening šahovskih polj</string>
-  <string name="averageScoreAsWhiteX">Povprečno število točk kot beli: %s</string>
-  <string name="averageScoreAsBlackX">Povprečno število točk kot črni: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Lažje je analizirati partijo če ni potrebno iskati imena polj.</string>
-  <string name="aSquareNameAppears">Ime polja se pojavi na šahovnici in morate klikniti nanj. Na voljo imate 30 sekund, da prepoznate čim več polj!</string>
-  <string name="startTraining">Začnite trening</string>
-</resources>

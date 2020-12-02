@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Souřadnice</string>
-  <string name="coordinateTraining">Trénink souřadnic</string>
-  <string name="averageScoreAsWhiteX">Průměrné skóre jako bílý: %s</string>
-  <string name="averageScoreAsBlackX">Průměrné skóre jako černý: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Můžete efektivněji analyzovat partie, pokud nebudete muset neustále hledat jména polí.</string>
-  <string name="aSquareNameAppears">Označení pole se objeví na šachovnici a Vy musíte kliknout na správné pole. Kolik polí stihnete správně určit během 30 vteřin?</string>
-  <string name="startTraining">Začít trénink</string>
-</resources>

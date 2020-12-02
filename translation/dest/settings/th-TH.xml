@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">การตั้งค่า</string>
-  <string name="closeAccount">ปิดบัญชี</string>
-  <string name="closingIsDefinitive">การปิดจะย้อนกลับมาไม่ได้ คุณแน่ใจหรือไม่?</string>
-  <string name="cantOpenSimilarAccount">คุณไม่ได้รับอนุญาตให้เปิดบัญชีใหม่ด้วยที่ชื่อเหมือนกัน แม้อักษรจะต่างขนาดตัวพิมพ์</string>
-  <string name="changedMindDoNotCloseAccount">ฉันเปลี่ยนใจแล้ว, อย่าปิดบัญชีของฉัน</string>
-  <string name="closeAccountExplanation">คุณแน่ใจว่าต้องการปิดบัญชีของคุณ? การปิดบัญชีเป็นการตัดสินใจที่ถาวร คุณจะไม่สามารถเข้าสู่ระบบได้อีก</string>
-  <string name="thisAccountIsClosed">บัญชีนี้ถูกปิดแล้ว</string>
-</resources>

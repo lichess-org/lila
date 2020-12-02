@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Koordinaatit</string>
-  <string name="coordinateTraining">Koordinaattiharjoittelu</string>
-  <string name="averageScoreAsWhiteX">Keskimääräinen tulos valkeana: %s</string>
-  <string name="averageScoreAsBlackX">Keskimääräinen tulos mustana: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Peliä voi analysoida tehokkaammin, kun ei tarvitse haeskella ruutujen nimiä.</string>
-  <string name="aSquareNameAppears">Ruudun nimi ilmestyy laudalle ja sinun on klikattava oikeaa ruutua. Sinulla on 30 sekuntia aikaa tunnistaa niin monta ruutua kuin ehdit!</string>
-  <string name="startTraining">Aloita harjoitus</string>
-</resources>

@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Налаштування</string>
-  <string name="closeAccount">Закрити обліковий запис</string>
-  <string name="closingIsDefinitive">Закриття запису остаточне. Шляху назад немає. Ви точно впевнені?</string>
-  <string name="cantOpenSimilarAccount">Ви не зможете створити новий обліковий запис з такою ж назвою, навіть зі зміною регістру.</string>
-  <string name="changedMindDoNotCloseAccount">Я передумав, не закривайте мій обліковий запис</string>
-  <string name="closeAccountExplanation">Ви впевнені, що хочете закрити свій обліковий запис? Закриття вашого облікового запису є незмінним рішенням. Ви НІКОЛИ не зможете знову увійти в цей обліковий запис.</string>
-  <string name="thisAccountIsClosed">Цей обліковий запис закрито.</string>
-</resources>

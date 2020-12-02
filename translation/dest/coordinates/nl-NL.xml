@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Coördinaten</string>
-  <string name="coordinateTraining">Coördinatentraining</string>
-  <string name="averageScoreAsWhiteX">Gemiddelde score als wit: %s</string>
-  <string name="averageScoreAsBlackX">Gemiddelde score als zwart: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Je kunt een spel effectiever analyseren als je niet hoeft te zoeken naar de namen van de velden.</string>
-  <string name="aSquareNameAppears">Zodra de naam van een veld verschijnt klik je op het juiste vakje. Je hebt 30 seconden om zoveel mogelijk velden te herkennen!</string>
-  <string name="startTraining">Start de training</string>
-</resources>

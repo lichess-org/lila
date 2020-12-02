@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="measurementInProgressThreeDot">Probíhá měření...</string>
-  <string name="noAndYourNetworkIsGood">Ne. Vaše připojení je dostatečné.</string>
-  <string name="noAndYourNetworkIsBad">Ne. Vaše připojení není dostatečné.</string>
-  <string name="yesItWillBeFixedSoon">Ano. Brzy bude opraveno!</string>
-  <string name="andNowTheLongAnswerLagComposedOfTwoValues">A nyní dlouhá odpověď! Zpožďování hry se skládá ze dvou spolu nesouvisejících hodnot (nižší je lepší):</string>
-  </resources>

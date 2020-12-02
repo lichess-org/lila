@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="noAndYourNetworkIsGood">Όχι. Η σύνδεση σας είναι καλή.</string>
-  <string name="noAndYourNetworkIsBad">Όχι. Η σύνδεση σας είναι κακή.</string>
-  <string name="yesItWillBeFixedSoon">Ναι. Θα διορθωθεί σύντομα!</string>
-  <string name="andNowTheLongAnswerLagComposedOfTwoValues">Και τώρα, η μεγαλύτερη απάντηση! Η καθυστέρηση του παιχνιδιού εξαρτάται από δύο ανεξάρτητες τιμές ( χαμηλότερη τιμή είναι καλύτερη):</string>
-</resources>

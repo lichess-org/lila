@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Συντεταγμένες</string>
-  <string name="coordinateTraining">Εξάσκηση στις συντεταγμένες</string>
-  <string name="averageScoreAsWhiteX">Μέση βαθμολογία ως λευκά: %s</string>
-  <string name="averageScoreAsBlackX">Μέση βαθμολογία ως μαύρα: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Μπορείτε να αναλύσετε ένα παιχνίδι αποτελεσματικότερα εάν δεν χρειάζεται να αναζητάτε τα ονόματα των τετραγώνων.</string>
-  <string name="aSquareNameAppears">Ένα όνομα τετραγώνου εμφανίζεται στη σκακιέρα και πρέπει να πατήσετε το σωστό τετράγωνο. Έχετε 30 δευτερόλεπτα για να αναγνωρίσετε όσο το δυνατόν περισσότερα τετράγωνα!</string>
-  <string name="startTraining">Έναρξη εξάσκησης</string>
-</resources>

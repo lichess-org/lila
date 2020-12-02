@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Koordinat</string>
-  <string name="coordinateTraining">Latihan koordinat</string>
-  <string name="averageScoreAsWhiteX">Skor rata-rata putih: %s</string>
-  <string name="averageScoreAsBlackX">Skor rata-rata hitam: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Anda dapat menganalisis permainan lebih efektif jika Anda tidak perlu untuk mencari nama-nama kotak.</string>
-  <string name="aSquareNameAppears">Nama kotak muncul di papan dan Anda harus klik di kotak yang benar. Anda memiliki waktu 30 detik untuk mengenali kotak sebanyak mungkin!</string>
-  <string name="startTraining">Mulai latihan</string>
-</resources>

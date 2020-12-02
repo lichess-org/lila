@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">مختصات</string>
-  <string name="coordinateTraining">تمرین مختصات</string>
-  <string name="averageScoreAsWhiteX">میانگین امتیاز به عنوان سفید: %s</string>
-  <string name="averageScoreAsBlackX">میانگین امتیاز به عنوان سیاه: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">شما می توانید به خوبی بازی های خود را بررسی کنید اگر نیازی برای جست و جو برای خانه ها نداشته باشید.</string>
-  <string name="aSquareNameAppears">نام یک خانه بر روی صحفه ضاهر می شود و شما باید بر روی ان کلیک کنید. شما 30 ثانیه وقت دارید تا هر چه می توانید امتیاز بگیرید!</string>
-  <string name="startTraining">شروع تمرین</string>
-</resources>

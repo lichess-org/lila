@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Pengaturan</string>
-  <string name="closeAccount">Tutup akun</string>
-  <string name="closingIsDefinitive">Menghapus akun tidak dapat dibatalkan. Apakah anda yakin?</string>
-  <string name="cantOpenSimilarAccount">Anda tidak akan diizinkan untuk membuka akun baru dengan nama yang sama, meskipun besar-kecil hurufnya berbeda.</string>
-  <string name="changedMindDoNotCloseAccount">Saya akan berubah, jangan tutup akun saya</string>
-  <string name="closeAccountExplanation">Apakah Anda yakin ingin menutup akun Anda? Menutup akun Anda adalah keputusan permanen. Anda tidak akan PERNAH bisa MASUK lagi.</string>
-  <string name="thisAccountIsClosed">Akun ini telah ditutup.</string>
-</resources>

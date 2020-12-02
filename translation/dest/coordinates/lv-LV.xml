@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Koordinātas</string>
-  <string name="coordinateTraining">Koordinātu treniņš</string>
-  <string name="averageScoreAsWhiteX">Vidējais rezultāts ar baltajām: %s</string>
-  <string name="averageScoreAsBlackX">Vidējais rezultāts ar melnajām: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Varēsi efektīvāk analizēt spēli, ja nevajadzēs ik reizi meklēt lauciņa nosaukumu.</string>
-  <string name="aSquareNameAppears">Uz galdiņa parādās koordinātes, un jums jāklikšķina uz attiecīgā lauciņa. 30 sekundēs jums pareizi jāatrod pēc iespējas vairāk lauciņu!</string>
-  <string name="startTraining">Sākt treniņu</string>
-</resources>

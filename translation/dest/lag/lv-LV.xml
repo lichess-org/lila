@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="measurementInProgressThreeDot">Notiek mērijumi...</string>
-  <string name="noAndYourNetworkIsGood">Nē. Turklāt jums ir labs savienojums.</string>
-  <string name="noAndYourNetworkIsBad">Nē, taču jums ir slikts savienojums.</string>
-  <string name="yesItWillBeFixedSoon">Jā. Tas drīz tiks labots!</string>
-  <string name="andNowTheLongAnswerLagComposedOfTwoValues">Un tagad, pilnā atbilde! Spēļu kavēšanās ir atkarīga no divām nesaistītām vērtībām (jo tās mazākas, jo labāk):</string>
-  </resources>

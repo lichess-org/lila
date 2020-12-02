@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Impostazioni</string>
-  <string name="closeAccount">Elimina account</string>
-  <string name="closingIsDefinitive">L\'eliminazione dell\'account è definitiva. Una volta cancellato non è più possibile tornare indietro. Sei sicuro?</string>
-  <string name="cantOpenSimilarAccount">Non potrai creare un nuovo account con lo stesso nome, nemmeno con diverse maiuscole/minuscole.</string>
-  <string name="changedMindDoNotCloseAccount">Ci ho ripensato, non eliminare il mio account</string>
-  <string name="closeAccountExplanation">Sei sicuro di voler eliminare il tuo account? L\'eliminazione del tuo account è un\'azione irreversibile. Non ti sarà più possibile effettuare il login, e la pagina del tuo profilo non sarà più accessibile.</string>
-  <string name="thisAccountIsClosed">Questo account è stato eliminato.</string>
-</resources>

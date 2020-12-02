@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="byPlaying">کھیل کر!</string>
-  <string name="menu">مشمولات</string>
-  <string name="progressX">ترقی: %s</string>
-  <string name="resetMyProgress">Shuru se taraki karien</string>
-  <string name="youWillLoseAllYourProgress">App ki sari pesharab mithai jaye gi!</string>
-</resources>

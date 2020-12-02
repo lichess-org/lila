@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Координате</string>
-  <string name="coordinateTraining">Тренинг координата</string>
-  <string name="averageScoreAsWhiteX">Просечан резултат као бели играч: %s</string>
-  <string name="averageScoreAsBlackX">Просечан резултат као црни играч: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Можете да анализирате игре ефикасније ако не морате тражити имена поља.</string>
-  <string name="aSquareNameAppears">Име поља се појави на табли и морате кликнути на исправан квадрат. Имате 30 секунди да препознате што више поља!</string>
-  <string name="startTraining">Почните тренинг</string>
-</resources>

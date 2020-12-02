@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="emailConfirm_subject">Deimhnigh do chuntas Lishogi.org, %s</string>
-  <string name="emailConfirm_click">Cliceáil an nasc chun do chuntas Lishogi a chumasú:</string>
-  <string name="emailConfirm_ignore">Munar chláraigh tú le lishogi, is féidir neamhaird a thabhairt ar an teachtaireacht seo.</string>
-  <string name="passwordReset_subject">Athshocraigh do phasfhocal lishogi, %s</string>
-  <string name="passwordReset_intro">Fuair muid iarratas chun do phasfhocal a athshocrú.</string>
-  <string name="passwordReset_clickOrIgnore">Más rud é go ndearna tú an iarratas seo, Déan an nasc faoi bhun a chliceáil. Muna ndearna, tabhair neamhaird ar an ríomhphost seo.</string>
-  <string name="emailChange_subject">Deimhnigh an seoladh ríomhphost nua, %s</string>
-</resources>
