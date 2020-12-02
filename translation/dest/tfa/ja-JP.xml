@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="twoFactorAuth">2 要素認証</string>
-  <string name="twoFactorHelp">2 要素認証はアカウントのセキュリティを高めます。</string>
-  <string name="twoFactorApp">2 要素認証のためのアプリ（たとえば%1$s、%2$s 用の Google Authenticator）を手に入れてください。</string>
+  <string name="twoFactorAuth">２段階認証</string>
+  <string name="twoFactorHelp">２段階認証はアカウントのセキュリティを高めます。</string>
+  <string name="twoFactorApp">２段階認証のためのアプリ（たとえば%1$s、%2$s 用の Google Authenticator）を手に入れてください。</string>
   <string name="scanTheCode">そのアプリで QR コードをスキャンします。</string>
   <string name="enterPassword">パスワードと、アプリが生成した認証コードを入力すれば準備完了です。認証コードはログインするたびに必要になります。</string>
   <string name="authenticationCode">認証コード</string>
