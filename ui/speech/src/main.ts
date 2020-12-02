@@ -25,7 +25,7 @@ function renderSan(san: San) {
         if (c == "x") return "takes";
         if (c == "+") return "promotes";
         if (c == "#") return "checkmate";
-        if (c == "=") return "underpromotes";
+        if (c == "=") return "unpromotes";
         const code = c.charCodeAt(0);
         if (code > 48 && code < 59) return c; // 1-9
         if (code > 96 && code < 105) return c.toUpperCase();
