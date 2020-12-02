@@ -15,6 +15,7 @@ object PuzzleTheme {
   val advancedPawn  = PuzzleTheme(Key("advancedPawn"), i.advancedPawn, i.advancedPawnDescription)
   val attackingF2F7 = PuzzleTheme(Key("attackingF2F7"), i.attackingF2F7, i.attackingF2F7Description)
   val attraction    = PuzzleTheme(Key("attraction"), i.attraction, i.attractionDescription)
+  val bishopEndgame = PuzzleTheme(Key("bishopEndgame"), i.bishopEndgame, i.bishopEndgameDescription)
   val blocking      = PuzzleTheme(Key("blocking"), i.blocking, i.blockingDescription)
   val capturingDefender =
     PuzzleTheme(Key("capturingDefender"), i.capturingDefender, i.capturingDefenderDescription)
@@ -38,9 +39,11 @@ object PuzzleTheme {
   val mateIn5        = PuzzleTheme(Key("mateIn5"), i.mateIn5, i.mateIn5Description)
   val oneMove        = PuzzleTheme(Key("oneMove"), i.oneMove, i.oneMoveDescription)
   val overloading    = PuzzleTheme(Key("overloading"), i.overloading, i.overloadingDescription)
+  val pawnEndgame    = PuzzleTheme(Key("pawnEndgame"), i.pawnEndgame, i.pawnEndgameDescription)
   val pin            = PuzzleTheme(Key("pin"), i.pin, i.pinDescription)
   val promotion      = PuzzleTheme(Key("promotion"), i.promotion, i.promotionDescription)
   val quietMove      = PuzzleTheme(Key("quietMove"), i.quietMove, i.quietMoveDescription)
+  val rookEndgame    = PuzzleTheme(Key("rookEndgame"), i.rookEndgame, i.rookEndgameDescription)
   val sacrifice      = PuzzleTheme(Key("sacrifice"), i.sacrifice, i.sacrificeDescription)
   val short          = PuzzleTheme(Key("short"), i.short, i.shortDescription)
   val simplification = PuzzleTheme(Key("simplification"), i.simplification, i.simplificationDescription)
@@ -57,6 +60,7 @@ object PuzzleTheme {
       advancedPawn,
       attackingF2F7,
       attraction,
+      bishopEndgame,
       blocking,
       capturingDefender,
       clearance,
@@ -71,9 +75,11 @@ object PuzzleTheme {
       hangingPiece,
       interference,
       overloading,
+      pawnEndgame,
       pin,
       promotion,
       quietMove,
+      rookEndgame,
       sacrifice,
       simplification,
       skewer,
@@ -95,49 +101,13 @@ object PuzzleTheme {
     )
   )
 
-  val all: List[PuzzleTheme] = List(
-    any,
-    advancedPawn,
-    attackingF2F7,
-    attraction,
-    blocking,
-    capturingDefender,
-    clearance,
-    coercion,
-    defensiveMove,
-    deflection,
-    discoveredAttack,
-    doubleCheck,
-    enPassant,
-    exposedKing,
-    fork,
-    hangingPiece,
-    interference,
-    long,
-    mateIn1,
-    mateIn2,
-    mateIn3,
-    mateIn4,
-    mateIn5,
-    oneMove,
-    overloading,
-    pin,
-    promotion,
-    quietMove,
-    sacrifice,
-    short,
-    simplification,
-    skewer,
-    trappedPiece,
-    veryLong,
-    zugzwang
-  )
+  lazy val all: List[PuzzleTheme] = categorized.flatMap(_._2)
 
   lazy val allTranslationKeys = all.flatMap { t =>
     List(t.name, t.description)
   }
 
-  val byKey: Map[Key, PuzzleTheme] = all.view.map { t =>
+  lazy val byKey: Map[Key, PuzzleTheme] = all.view.map { t =>
     t.key -> t
   }.toMap
 
