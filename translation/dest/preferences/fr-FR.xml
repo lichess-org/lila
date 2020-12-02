@@ -14,8 +14,8 @@
 	<string name="zenMode">Mode Zen</string>
 	<string name="displayBoardResizeHandle">Afficher la poignée de redimensionnement de l\'échiquier</string>
 	<string name="onlyOnInitialPosition">Seulement dans la position initiale</string>
-	<string name="blindfoldChess">Blindfold shogi (invisible pieces)</string>
-	<string name="chessClock">Shogi clock</string>
+	<string name="blindfoldChess">Shogi aveugle (pièces invisibles)</string>
+	<string name="chessClock">Pendule</string>
 	<string name="tenthsOfSeconds">Dixièmes de seconde</string>
 	<string name="whenTimeRemainingLessThanTenSeconds">Quand il reste moins de 10 secondes</string>
 	<string name="horizontalGreenProgressBars">Barres de progression horizontales vertes</string>

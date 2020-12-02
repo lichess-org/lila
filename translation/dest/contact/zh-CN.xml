@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">联系</string>
-  <string name="contactLishogi">Contact Lishogi</string>
+  <string name="contactLishogi">联系 Lishogi</string>
   <string name="whatCanWeHelpYouWith">您需要什么帮助?</string>
   <string name="visitThisPage">请向往该页面解决问题</string>
   <string name="iCantLogIn">我无法登录</string>

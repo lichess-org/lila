@@ -847,7 +847,7 @@
 	<string name="classicalDesc">Parties lentes : 25 minutes ou plus</string>
 	<string name="correspondenceDesc">Parties par correspondance : un jour ou plus par coup</string>
 	<string name="puzzleDesc">Shogi tactics trainer</string>
-	<string name="important">Important</string>
+	<string name="important">Attention</string>
 	<string name="yourQuestionMayHaveBeenAnswered">Votre question a peut-être déjà une réponse %1$s</string>
 	<string name="inTheFAQ">dans la F.A.Q.</string>
 	<string name="toReportSomeoneForCheatingOrBadBehavior">Pour signaler un utilisateur pour triche ou mauvais comportement, %1$s</string>

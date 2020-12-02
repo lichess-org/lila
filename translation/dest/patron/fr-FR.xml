@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="donate">Faire un don</string>
-	<string name="lishogiPatron">Lishogi Patron</string>
+	<string name="lishogiPatron">Mécène Lishogi</string>
 	<string name="freeAccount">Compte gratuit</string>
 	<string name="becomePatron">Devenir un mécène de Lishogi</string>
 	<string name="xBecamePatron">%s est devenu un mécène de Lishogi</string>
 	<string name="newPatrons">Nouveaux mécènes</string>
-	<string name="freeChess">Free shogi for everyone, forever!</string>
+	<string name="freeChess">Le shogi gratuit pour tous, pour toujours !</string>
 	<string name="noAdsNoSubs">Pas de publicité, pas d\'abonnement, mais du code source ouvert et de la passion.</string>
 	<string name="thankYou">Merci pour votre don !</string>
 	<string name="youHaveLifetime">Vous avez un compte mécène à vie ! C\'est génial !</string>
 	<string name="patronUntil">Vous avez un compte mécène jusqu\'au %s.</string>
 	<string name="ifNotRenewed">Si non renouvelé, votre compte ne sera plus un mécène.</string>
-	<string name="weAreNonProfit">We are a non‑profit association because we believe everyone should have access to a free, world-class shogi platform.</string>
+	<string name="weAreNonProfit">Nous sommes une association à but non lucratif parce que nous pensons que tout le monde devrait avoir accès à une plateforme gratuite d\'envergure mondiale.</string>
 	<string name="weRelyOnSupport">Nous comptons sur le soutien de personnes comme vous pour rendre cela possible. Si vous aimez utiliser Lishogi, pensez à nous soutenir en faisant un don et en devenant un mécène !</string>
 	<string name="lifetime">À vie</string>
 	<string name="payLifetimeOnce">Payez %s une fois. Devenez un mécène de Lishogi pour toujours !</string>
