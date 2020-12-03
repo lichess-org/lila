@@ -208,7 +208,7 @@ export default class EditorCtrl {
   }
 
   addToPocket(c: Color, r: Role): void {
-    if(["pawn", "lance", "knight", "silver", "gold", "bishop", "rook"].includes(r))
+    if(["pawn", "lance", "knight", "silver", "gold", "bishop", "rook"].includes(r) && this.pockets[c === "white" ? 0 : 1][r] < 10)
       this.pockets[c === "white" ? 0 : 1][r]++;
     this.onChange();
   }

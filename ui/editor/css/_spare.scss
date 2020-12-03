@@ -3,6 +3,7 @@
   .no-square {
     flex: 0 0 calc(100% / 7) !important;
   }
+  min-height: 50px;
   piece {
     display: block;
     width: 100% !important;
