@@ -860,9 +860,9 @@
 	<string name="youCannotPostYetPlaySomeGames">Aún no puedes publicar en los foros. ¡Juega algunas partidas!</string>
 	<string name="subscribe">Suscribirse</string>
 	<string name="unsubscribe">Cancelar la suscripción</string>
-	<string name="blackDeclinesImpasse">Sente rechazan impasse</string>
-	<string name="blackOffersImpasse">Sente ofrecen un impasse</string>
+	<string name="blackDeclinesImpasse">Sente rechazan impase</string>
+	<string name="blackOffersImpasse">Sente ofrecen impase</string>
 	<string name="notationType">Notación</string>
-	<string name="whiteDeclinesImpasse">Gote rechezan impasse</string>
-	<string name="whiteOffersImpasse">Gote ofrecen un impasse</string>
+	<string name="whiteDeclinesImpasse">Gote rechezan impase</string>
+	<string name="whiteOffersImpasse">Gote ofrecen impase</string>
 </resources>
