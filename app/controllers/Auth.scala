@@ -179,25 +179,29 @@ final class Auth(
                       lila.security.EmailConfirm.cookie
                         .make(env.lilaCookie, user, email)(ctx.req)
                   }
-                case Signup.AllSet(user, email) => welcome(user, email) >> redirectNewUser(user)
+                case Signup.AllSet(user, email) =>
+                  welcome(user, email, sendWelcomeEmail = true) >> redirectNewUser(user)
               },
             api = apiVersion =>
               env.security.signup
                 .mobile(apiVersion)
                 .flatMap {
-                  case Signup.RateLimited         => limitedDefault.zero.fuccess
-                  case Signup.Bad(err)            => jsonFormError(err)
-                  case Signup.ConfirmEmail(_, _)  => Ok(Json.obj("email_confirm" -> true)).fuccess
-                  case Signup.AllSet(user, email) => welcome(user, email) >> authenticateUser(user)
+                  case Signup.RateLimited        => limitedDefault.zero.fuccess
+                  case Signup.Bad(err)           => jsonFormError(err)
+                  case Signup.ConfirmEmail(_, _) => Ok(Json.obj("email_confirm" -> true)).fuccess
+                  case Signup.AllSet(user, email) =>
+                    welcome(user, email, sendWelcomeEmail = true) >> authenticateUser(user)
                 }
           )
         }
       }
     }
 
-  private def welcome(user: UserModel, email: EmailAddress)(implicit ctx: Context): Funit = {
+  private def welcome(user: UserModel, email: EmailAddress, sendWelcomeEmail: Boolean)(implicit
+      ctx: Context
+  ): Funit = {
     garbageCollect(user, email)
-    env.security.automaticEmail.welcome(user, email)
+    if (sendWelcomeEmail) env.security.automaticEmail.welcome(user, email)
     env.pref.api.saveNewUserPrefs(user, ctx.req)
   }
 
@@ -267,7 +271,7 @@ final class Auth(
           env.user.repo.email(user.id).flatMap {
             _.?? { email =>
               authLog(user.username, email.value, s"Confirmed email ${email.value}")
-              welcome(user, email)
+              welcome(user, email, sendWelcomeEmail = false)
             }
           } >> redirectNewUser(user)
       }
@@ -365,7 +369,7 @@ final class Auth(
             HasherRateLimit(user.username, ctx.req) { _ =>
               env.user.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1)) >>
                 env.user.repo.setEmailConfirmed(user.id).flatMap {
-                  _ ?? { welcome(user, _) }
+                  _ ?? { welcome(user, _, sendWelcomeEmail = false) }
                 } >>
                 env.user.repo.disableTwoFactor(user.id) >>
                 env.security.store.closeAllSessionsOf(user.id) >>
