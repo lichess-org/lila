@@ -1,5 +1,8 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="live">EN DIRECT !</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lishogiStreamers">Streamers sur Lishogi</string>
+  <string name="lishogiStreamer">Lishogi streamer</string>
+  <string name="live">EN DIRECT !</string>
   <string name="offline">HORS LIGNE</string>
   <string name="currentlyStreaming">En cours de streaming %s</string>
   <string name="lastStream">Dernière diffusion %s</string>

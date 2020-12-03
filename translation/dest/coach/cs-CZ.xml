@@ -1,31 +1,37 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="confirmTitle">Zde potvrďte svůj titul a my zkontrolujeme Vaši žádost.</string>
-  <string name="sendApplication">Pošlete nám e-mail na %s a my Vaši žádost zkontrolujeme.</string>
-  <string name="location">Poloha</string>
-  <string name="languages">Jazyky</string>
-  <string name="rating">Rating</string>
-  <string name="hourlyRate">Hodinová sazba</string>
-  <string name="availability">Dostupnost</string>
-  <string name="accepting">Přijímá studenty</string>
-  <string name="notAccepting">Momentálně nepřijímá studenty</string>
-  <string name="viewXProfile">Zobrazit Lishogi profil %s</string>
-  <string name="sendPM">Odeslat soukromou zprávu</string>
-  <string name="aboutMe">O mně</string>
-  <string name="playingExperience">Hráčské zkušenosti</string>
-  <string name="teachingExperience">Zkušenost s výukou</string>
-  <string name="otherExperiences">Jiné zkušenosti</string>
-  <string name="bestSkills">Nejlepší dovednosti</string>
-  <string name="teachingMethod">Metodika výuky</string>
-  <string name="publicStudies">Veřejné studie</string>
-  <string name="youtubeVideos">YouTube videa</string>
-  <plurals name="studentReviews">
-    <item quantity="one">Jedno hodnocení studenta</item>
-    <item quantity="few">%s hodnocení studentů</item>
-    <item quantity="many">%s hodnocení studentů</item>
-    <item quantity="other">%s hodnocení studentů</item>
-  </plurals>
-  <string name="thankYouForReview">Děkujeme za hodnocení!</string>
-  <string name="xWillApproveIt">%s to schválí velmi brzy, nebo se na to podívá moderátor.</string>
-  <string name="reviewCoach">Zkontrolovat tohoto trenéra</string>
-  <string name="describeExperienceWith">Popište svůj zážitek z koučování s %s</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="lishogiCoaches">Lishogi coaches</string>
+	<string name="lishogiCoach">Lishogi coach</string>
+	<string name="areYouCoach">Are you a great shogi coach with a %s?</string>
+	<string name="nmOrFideTitle">title</string>
+	<string name="confirmTitle">Zde potvrďte svůj titul a my zkontrolujeme Vaši žádost.</string>
+	<string name="sendApplication">Pošlete nám e-mail na %s a my Vaši žádost zkontrolujeme.</string>
+	<string name="location">Poloha</string>
+	<string name="languages">Jazyky</string>
+	<string name="rating">Rating</string>
+	<string name="hourlyRate">Hodinová sazba</string>
+	<string name="availability">Dostupnost</string>
+	<string name="accepting">Přijímá studenty</string>
+	<string name="notAccepting">Momentálně nepřijímá studenty</string>
+	<string name="xCoachesStudents">%s coaches shogi students</string>
+	<string name="viewXProfile">Zobrazit Lishogi profil %s</string>
+	<string name="sendPM">Odeslat soukromou zprávu</string>
+	<string name="aboutMe">O mně</string>
+	<string name="playingExperience">Hráčské zkušenosti</string>
+	<string name="teachingExperience">Zkušenost s výukou</string>
+	<string name="otherExperiences">Jiné zkušenosti</string>
+	<string name="bestSkills">Nejlepší dovednosti</string>
+	<string name="teachingMethod">Metodika výuky</string>
+	<string name="publicStudies">Veřejné studie</string>
+	<string name="youtubeVideos">YouTube videa</string>
+	<plurals name="studentReviews">
+		<item quantity="one">Jedno hodnocení studenta</item>
+		<item quantity="few">%s hodnocení studentů</item>
+		<item quantity="many">%s hodnocení studentů</item>
+		<item quantity="other">%s hodnocení studentů</item>
+	</plurals>
+	<string name="thankYouForReview">Děkujeme za hodnocení!</string>
+	<string name="xWillApproveIt">%s to schválí velmi brzy, nebo se na to podívá moderátor.</string>
+	<string name="reviewCoach">Zkontrolovat tohoto trenéra</string>
+	<string name="describeExperienceWith">Popište svůj zážitek z koučování s %s</string>
 </resources>

@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="hourlyRapidArena">小時制快速模式錦標賽賽區</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="hourlyRapidArena">小時制快速模式錦標賽賽區</string>
   <string name="hourlyRapid">小時制快速模式錦標賽</string>
   <string name="hourlyXArena">小時制%s模式錦標賽賽區</string>
   <string name="hourlyX">小時制%s錦標賽</string>

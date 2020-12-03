@@ -1,9 +1,13 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">الإحداثيات</string>
-  <string name="coordinateTraining">التدريب على الاحداثيات</string>
-  <string name="averageScoreAsWhiteX">متوسط الدرجات كأبيض: %s</string>
-  <string name="averageScoreAsBlackX">متوسط الدرجات كأسود: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">يمكنك تحليل المباراة بفعالية أكبر إذا كنت تتعرف بسرعة على الاحداثيات.</string>
-  <string name="aSquareNameAppears">اسم المربع يظهر على الرقعة، ويجب عليك النقر فوق المربع الصحيح. لديك 30 ثانية للتعرف على أكبر عدد ممكن من المربعات!</string>
-  <string name="startTraining">إبدأ التدريب</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="coordinates">الإحداثيات</string>
+	<string name="coordinateTraining">التدريب على الاحداثيات</string>
+	<string name="averageScoreAsWhiteX">متوسط الدرجات كأبيض: %s</string>
+	<string name="averageScoreAsBlackX">متوسط الدرجات كأسود: %s</string>
+	<string name="knowingTheShogiBoard">Knowing the shogiboard coordinates is a very important shogi skill:</string>
+	<string name="mostShogiCourses">All shogi courses and exercises use some kind of a shogi notation. You can pick between the Japanese one and the western one.</string>
+	<string name="talkToYourShogiFriends">It makes it easier to talk to your shogi friends, since you both understand the \'language of shogi\'.</string>
+	<string name="youCanAnalyseAGameMoreEffectively">يمكنك تحليل المباراة بفعالية أكبر إذا كنت تتعرف بسرعة على الاحداثيات.</string>
+	<string name="aSquareNameAppears">اسم المربع يظهر على الرقعة، ويجب عليك النقر فوق المربع الصحيح. لديك 30 ثانية للتعرف على أكبر عدد ممكن من المربعات!</string>
+	<string name="startTraining">إبدأ التدريب</string>
 </resources>

@@ -1,29 +1,35 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="confirmTitle">Vahvista tittelisi tästä niin tarkastamme hakemuksesi.</string>
-  <string name="sendApplication">Lähetä meille sähköpostia osoitteeseen %s niin tarkastamme hakemuksesi.</string>
-  <string name="location">Sijainti</string>
-  <string name="languages">Kielet</string>
-  <string name="rating">Vahvuusluku</string>
-  <string name="hourlyRate">Tuntitaksa</string>
-  <string name="availability">Saatavuus</string>
-  <string name="accepting">Hyväksyn oppilaita</string>
-  <string name="notAccepting">En ota oppilaita tällä hetkellä</string>
-  <string name="viewXProfile">Katsele %s:n Lishogi-profiilia</string>
-  <string name="sendPM">Lähetä yksityisviesti</string>
-  <string name="aboutMe">Tietoa minusta</string>
-  <string name="playingExperience">Pelikokemus</string>
-  <string name="teachingExperience">Opetuskokemus</string>
-  <string name="otherExperiences">Muu kokemus</string>
-  <string name="bestSkills">Parhaat kyvyt</string>
-  <string name="teachingMethod">Opetusmetodit</string>
-  <string name="publicStudies">Julkiset tutkielmat</string>
-  <string name="youtubeVideos">YouTube-videot</string>
-  <plurals name="studentReviews">
-    <item quantity="one">Yksi oppilasarvio</item>
-    <item quantity="other">%s oppilasarviota</item>
-  </plurals>
-  <string name="thankYouForReview">Kiitos arviostasi!</string>
-  <string name="xWillApproveIt">%s hyväksyy sen pian, tai moderaattori tarkastaa sen.</string>
-  <string name="reviewCoach">Arvioi tämä valmentaja</string>
-  <string name="describeExperienceWith">Kuvaile valmennuskokemustasi %s kanssa</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="lishogiCoaches">Lishogi coaches</string>
+	<string name="lishogiCoach">Lishogi coach</string>
+	<string name="areYouCoach">Are you a great shogi coach with a %s?</string>
+	<string name="nmOrFideTitle">title</string>
+	<string name="confirmTitle">Vahvista tittelisi tästä niin tarkastamme hakemuksesi.</string>
+	<string name="sendApplication">Lähetä meille sähköpostia osoitteeseen %s niin tarkastamme hakemuksesi.</string>
+	<string name="location">Sijainti</string>
+	<string name="languages">Kielet</string>
+	<string name="rating">Vahvuusluku</string>
+	<string name="hourlyRate">Tuntitaksa</string>
+	<string name="availability">Saatavuus</string>
+	<string name="accepting">Hyväksyn oppilaita</string>
+	<string name="notAccepting">En ota oppilaita tällä hetkellä</string>
+	<string name="xCoachesStudents">%s coaches shogi students</string>
+	<string name="viewXProfile">Katsele %s:n Lishogi-profiilia</string>
+	<string name="sendPM">Lähetä yksityisviesti</string>
+	<string name="aboutMe">Tietoa minusta</string>
+	<string name="playingExperience">Pelikokemus</string>
+	<string name="teachingExperience">Opetuskokemus</string>
+	<string name="otherExperiences">Muu kokemus</string>
+	<string name="bestSkills">Parhaat kyvyt</string>
+	<string name="teachingMethod">Opetusmetodit</string>
+	<string name="publicStudies">Julkiset tutkielmat</string>
+	<string name="youtubeVideos">YouTube-videot</string>
+	<plurals name="studentReviews">
+		<item quantity="one">Yksi oppilasarvio</item>
+		<item quantity="other">%s oppilasarviota</item>
+	</plurals>
+	<string name="thankYouForReview">Kiitos arviostasi!</string>
+	<string name="xWillApproveIt">%s hyväksyy sen pian, tai moderaattori tarkastaa sen.</string>
+	<string name="reviewCoach">Arvioi tämä valmentaja</string>
+	<string name="describeExperienceWith">Kuvaile valmennuskokemustasi %s kanssa</string>
 </resources>

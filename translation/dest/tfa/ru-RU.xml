@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="twoFactorAuth">Двухфакторная аутентификация</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="twoFactorAuth">Двухфакторная аутентификация</string>
   <string name="twoFactorHelp">Двухфакторная аутентификация добавляет еще один уровень безопасности вашей учетной записи.</string>
   <string name="twoFactorApp">Используйте приложение для двухфакторной аутентификации, например Google Authenticator для %1$s или %2$s.</string>
   <string name="scanTheCode">Сканируйте QR-код в приложении.</string>

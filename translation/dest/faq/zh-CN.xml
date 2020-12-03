@@ -1,80 +1,136 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="faqAbbreviation">常见问题</string>
-  <string name="frequentlyAskedQuestions">常见问题解答</string>
-  <string name="hearItPronouncedBySpecialist"> 听一位专家发音。</string>
-  <string name="whyLiveLightLibre">Live ，因为游戏全年无休实时的游玩与观看。 Light 和 Libre 代表 Lishogi 开源且不被纠缠其它网站的专利垃圾打扰。</string>
-  <string name="breakdownOfOurCosts">我们的费用明细表</string>
-  <string name="otherWaysToHelp">其它的帮助方式</string>
-  <string name="fairPlay">公平竞争</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">为什么我被标记为人为操纵分数 (伪装和欺骗) 或开外挂？</string>
-  <string name="cheatDetectionMethods">Lishogi具有一套强有力的侦查方法和非常彻底的审查所有证据和作出决定的程序。 这套程序往往涉及许多仲裁人，而且可能需要很长时间。 除了标记本身外，我们将不详细了解个别案件的证据或决策过程。 这样做将使今后更容易避免被发现，并且是邀请进行毫无结果的辩论。 这个时间和精力最好花在其他重要案件上。用户可以通过电子邮件 %1$s进行上诉，但是裁决很少被推翻。</string>
-  <string name="whenAmIEligibleRatinRefund">我何时有资格从作弊者自动退还积分？</string>
-  <string name="preventLeavingGameWithoutResigning">对没有认输就离开的玩家怎么处理？</string>
-  <string name="leavingGameWithoutResigningExplanation">如果你的对手经常中止/离开游戏，他们会得到“游戏禁令”，这意味着他们被暂时禁止玩游戏。 这一点在他们的简介中没有公开说明。 如果这种行为继续下去，游戏禁令的期限就会延长――长期这种行为可能会导致帐户的关闭。</string>
-  <string name="howCanIBecomeModerator">如何成为仲裁人？</string>
-  <string name="youCannotApply">无法申请成为仲裁人。 如果我们看到我们认为会成为很好的仲裁人的人，我们将直接与他们联系。</string>
-  <string name="gameplay">对弈</string>
-  <string name="howBulletBlitzEtcDecided">超快棋、快棋以及其他时限的时间是如何决定的？</string>
-  <string name="basedOnGameDuration">Lishogi时限基于预计的游戏持续时间 = %1$s
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="faqAbbreviation">常见问题</string>
+	<string name="frequentlyAskedQuestions">常见问题解答</string>
+	<string name="whyIsLishogiCalledLishogi">为什么 Lishogi 叫 Lishogi？</string>
+	<string name="forkedFromLichess">Lishogi 是从 lichess 来的开源网站，但因为是玩将棋，叫lishogi。</string>
+	<string name="lishogiCombinationLiveLightLibrePronounced">因为从 Lichess 来源。Lichess 叫 Lichess 因为它是现时/轻/自由 (live/light/libre) 和象棋(chess)。%1$s 发音 Lishogi。</string>
+	<string name="leechess">lishogi</string>
+	<string name="hearItPronouncedBySpecialist">听一位专家发音。</string>
+	<string name="whyLiveLightLibre">Live ，因为游戏全年无休实时的游玩与观看。 Light 和 Libre 代表 Lishogi 开源且不被纠缠其它网站的专利垃圾打扰。</string>
+	<string name="whyIsLilaCalledLila">同样，Lishogi 源代码 %1$s，表示 li[chess in sca]la，查看 Lishogi 的主体是用 %2$s 写的，一种直观的编程语言。</string>
+	<string name="howCanIContributeToLishogi">我可以如何为 Lishogi 做出贡献？</string>
+	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi 由赞助者的捐赠和志愿者团队的努力驱动。</string>
+	<string name="findMoreAndSeeHowHelp">您可以找到更多关于 %1$s 的信息。如果您想通过您的贡献和时间来帮助 Lishig ，这里有许多%2$s。</string>
+	<string name="beingAPatron">成为赞助者</string>
+	<string name="breakdownOfOurCosts">我们的费用明细表</string>
+	<string name="otherWaysToHelp">其它的帮助方式</string>
+	<string name="areThereWebsitesBasedOnLishogi">是否有基于 Lishogi 的网站？</string>
+	<string name="yesLishogiInspiredOtherOpenSourceWebsites">是的。Lishogi 确实启发了其他开源站点，用我们的%1$s、%2$s或%3$s。</string>
+	<string name="fairPlay">公平竞争</string>
+	<string name="whyFlaggedRatingManipulationOrCheater">为什么我被标记为人为操纵分数 (伪装和欺骗) 或开外挂？</string>
+	<string name="cheatDetectionMethods">Lishogi具有一套强有力的侦查方法和非常彻底的审查所有证据和作出决定的程序。 这套程序往往涉及许多仲裁人，而且可能需要很长时间。 除了标记本身外，我们将不详细了解个别案件的证据或决策过程。 这样做将使今后更容易避免被发现，并且是邀请进行毫无结果的辩论。 这个时间和精力最好花在其他重要案件上。用户可以通过电子邮件 %1$s进行上诉，但是裁决很少被推翻。</string>
+	<string name="whenAmIEligibleRatinRefund">我何时有资格从作弊者自动退还积分？</string>
+	<string name="ratingRefundExplanation">在棋手被标记1分钟后，他们在过去3天内的40最新评分对局被标记。 如果你下了这些对局并丢分 (因为输棋或平局) ，而且你的评分不是暂时评分，那么你所丢分数会返还。返还分数限制在不超过你的最高分和该对局应得分数。(例如，如果你的评分在这些对局后大幅增加，你可能得不到所有或部分返还分数。）返回分数不会超过150分。</string>
+	<string name="preventLeavingGameWithoutResigning">对没有认输就离开的玩家怎么处理？</string>
+	<string name="leavingGameWithoutResigningExplanation">如果你的对手经常中止/离开游戏，他们会得到“游戏禁令”，这意味着他们被暂时禁止玩游戏。 这一点在他们的简介中没有公开说明。 如果这种行为继续下去，游戏禁令的期限就会延长――长期这种行为可能会导致帐户的关闭。</string>
+	<string name="howCanIBecomeModerator">如何成为仲裁人？</string>
+	<string name="youCannotApply">无法申请成为仲裁人。 如果我们看到我们认为会成为很好的仲裁人的人，我们将直接与他们联系。</string>
+	<string name="isCorrespondenceDifferent">非即时棋是否不同于常规棋？</string>
+	<string name="youCanUseOpeningBookNoEngine">在 Lishogi，通信棋的主要区别是允许使用开局普，但仍然禁止使用引擎，否则结果将被标记为引擎援助。 尽管 ICCF 允许在通信棋中使用引擎，但 Lishogi 不允许。</string>
+	<string name="gameplay">对弈</string>
+	<string name="howBulletBlitzEtcDecided">超快棋、快棋以及其他时限的时间是如何决定的？</string>
+	<string name="basedOnGameDuration">Lishogi时限基于预计的游戏持续时间 = %1$s
 。 例如，5+3的估计持续时间是 5 × 60 + 40 × 3 = 420 秒。</string>
-  <string name="durationFormula">(时钟初始时间) + 40 × (加时)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$s秒 = %2$s</string>
-  <string name="superiorThanXsEqualYtimeControl">≥ %1$s秒 = %2$s</string>
-  <string name="whatVariantsCanIplay">我可以在 Lishogi上玩哪些变体？</string>
-  <string name="eightVariants">8 种国际象棋变体</string>
-  <string name="whatIsACPL">平均兵厘损失 (ACPL) 是什么？</string>
-  <string name="acplExplanation">兵厘是国际象棋计算优势所用的计量单位。1兵厘等于兵价值的1/100。也就是说，100兵厘=1兵。这些价值在游戏中不起正式作用，但对玩家有用，对电脑来评估局面也很重要。
+	<string name="durationFormula">(时钟初始时间) + 40 × (加时)</string>
+	<string name="inferiorThanXsEqualYtimeControl">≤ %1$s秒 = %2$s</string>
+	<string name="superiorThanXsEqualYtimeControl">≥ %1$s秒 = %2$s</string>
+	<string name="whatVariantsCanIplay">我可以在 Lishogi上玩哪些变体？</string>
+	<string name="lishogiSupportChessAnd">Lichess支持标准将棋和 %1$s。</string>
+	<string name="eightVariants">8 种国际象棋变体</string>
+	<string name="whatIsACPL">平均兵厘损失 (ACPL) 是什么？</string>
+	<string name="acplExplanation">兵厘是国际象棋计算优势所用的计量单位。1兵厘等于兵价值的1/100。也就是说，100兵厘=1兵。这些价值在游戏中不起正式作用，但对玩家有用，对电脑来评估局面也很重要。
 
 最佳的电脑着法将会损失0兵厘，但较少的着法将导致兵厘计量下局面的恶化。
 
 该值可以用作着法质量的一个指标。每次失去的兵厘越少，着法就越强。
 
 Lishogi上的电脑分析是基于Stockfish的。</string>
-  <string name="insufficientMaterial">超时判负，和棋以及子力不足</string>
-  <string name="linkToFIDErules">FIDE（世界国际象棋联合会）手册PDF章节§6.9</string>
-  <string name="discoveringEnPassant">为什么兵能够吃掉另外一只已经经过了它控制格子的兵？（吃过路兵）</string>
-  <string name="explainingEnPassant">这是一个叫做“吃过路兵”的合法着法。维基百科文章给出了一个%1$s。
+	<string name="insufficientMaterial">超时判负，和棋以及子力不足</string>
+	<string name="lishogiFollowFIDErules">如果玩家消尽了时间，该玩家通常会被判负（%1$s)。</string>
+	<string name="linkToFIDErules">FIDE（世界国际象棋联合会）手册PDF章节§6.9</string>
+	<string name="discoveringEnPassant">为什么兵能够吃掉另外一只已经经过了它控制格子的兵？（吃过路兵）</string>
+	<string name="explainingEnPassant">这是一个叫做“吃过路兵”的合法着法。维基百科文章给出了一个%1$s。
 
 在3.7 (d)节中作了描述在%2$s。
 
 “对方一只兵刚刚从初始位置起步走两格，与本方的兵处在相邻横线时，本方的兵可以吃掉它，就如同它只走了一格一样。这种吃法称为‘吃过路兵’，只能在对方兵走两格之后立即进行。“
 
 请查看 %3$s 以练习这个着法。</string>
-  <string name="goodIntroduction">不错的介绍</string>
-  <string name="officialRulesPDF">官方规则 (pdf)</string>
-  <string name="threefoldRepetition">三次重复局面</string>
-  <string name="threefoldRepetitionExplanation">如果一个局面出现了三次，玩家可以根据%1$s提和。Lishogi执行FIDE官方规则，这些规则在 %2$s第9.2(d)条中已有规定。</string>
-  <string name="threefoldRepetitionLowerCase">三次重复局面</string>
-  <string name="handBookPDF">手册 (pdf)</string>
-  <string name="notRepeatedMoves">我们没有重复着法。为什么对局仍然被判和？</string>
-  <string name="repeatedPositionsThatMatters">三次重复局面是关于局面的%1$s重复，而不是着法。重复局面不一定会连续发生。</string>
-  <string name="positions">位置</string>
-  <string name="weRepeatedthreeTimesPosButNoDraw">我们重复了三次的局面。为什么对局没有判和？</string>
-  <string name="threeFoldHasToBeClaimed">三次重复局面和棋需要由其中一个选手提出。您可以通过按下显示的按钮，或者在您最后一次重复移动之前提出和棋。您也可以%1$sLishogi为您自动提和重复局面。此外，五次重复局面总是立即结束游戏。Lishogi</string>
-  <string name="configure">配置</string>
-  <string name="accounts">帐号</string>
-  <string name="asWellAsManyNMtitles">许多国家级大师头衔</string>
-  <string name="verificationForm">验证表格</string>
-  <string name="canIbecomeLM">我可以获得 Lishogi 大师 (LM) 头衔吗？</string>
-  <string name="noUpperCaseDot">不能。</string>
-  <string name="whatUsernameCanIchoose">我的用户名可以是什么？</string>
-  <string name="guidelines">指南</string>
-  <string name="uniqueTrophies">独一无二的奖杯</string>
-  <string name="aHourlyBulletTournament">一小时子弹快棋锦标赛</string>
-  <string name="whatIsProvisionalRating">为什么在分数旁边有一个问号 (?) ？</string>
-  <string name="howDoLeaderoardsWork">排名及排行榜是如何运作的呢？</string>
-  <string name="inOrderToAppearsYouMust">为了登上%1$s您必须：</string>
-  <string name="ratingLeaderboards">排行榜：</string>
-  <string name="havePlayedMoreThanThirtyGamesInThatRating">在给定的评级中进行过至少30场排位赛，</string>
-  <string name="havePlayedARatedGameAtLeastOneWeekAgo">过去一周内，在此评级中进行过至少一场排位赛，</string>
-  <string name="beInTopTen">在此排名中获得前十。</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">第二项要求是为了让不再使用它们的帐号的棋手停止占用排行榜。</string>
-  <string name="howToHideRatingWhilePlaying">如何在对局时隐藏分数？</string>
-  <string name="enableZenMode">在 %1$s或在游戏中按 %2$s 开启贤者模式。</string>
-  <string name="displayPreferences">显示偏好</string>
-  <string name="connexionLostCanIGetMyRatingBack">由于延迟/断线，我输了游戏。我可以要回我的排名积分吗？</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">不幸的是，我们不能归还由于延迟或断线而输了游戏的排名积分，不管是您的问题或是我们的。尽管后者非常少见。也请注意，当 Lishogi 重启且您因为此原因而错过了时间的时候，我们会终止游戏以避免不公平的失败。</string>
-  <string name="howToThreeDots">说明</string>
-  <string name="enableDisableNotificationPopUps">启用或禁用通知弹窗？</string>
-  <string name="viewSiteInformationPopUp">查看网站信息弹窗</string>
-  </resources>
+	<string name="goodIntroduction">不错的介绍</string>
+	<string name="officialRulesPDF">官方规则 (pdf)</string>
+	<string name="lishogiTraining">Lishogi 训练</string>
+	<string name="threefoldRepetition">三次重复局面</string>
+	<string name="threefoldRepetitionExplanation">如果一个局面出现了三次，玩家可以根据%1$s提和。Lishogi执行FIDE官方规则，这些规则在 %2$s第9.2(d)条中已有规定。</string>
+	<string name="threefoldRepetitionLowerCase">三次重复局面</string>
+	<string name="handBookPDF">手册 (pdf)</string>
+	<string name="notRepeatedMoves">我们没有重复着法。为什么对局仍然被判和？</string>
+	<string name="repeatedPositionsThatMatters">三次重复局面是关于局面的%1$s重复，而不是着法。重复局面不一定会连续发生。</string>
+	<string name="positions">位置</string>
+	<string name="weRepeatedthreeTimesPosButNoDraw">我们重复了三次的局面。为什么对局没有判和？</string>
+	<string name="threeFoldHasToBeClaimed">三次重复局面和棋需要由其中一个选手提出。您可以通过按下显示的按钮，或者在您最后一次重复移动之前提出和棋。您也可以%1$sLishogi为您自动提和重复局面。此外，五次重复局面总是立即结束游戏。Lishogi</string>
+	<string name="configure">配置</string>
+	<string name="accounts">帐号</string>
+	<string name="titlesAvailableOnLishogi">Lishogi 上有什么称号？</string>
+	<string name="lishogiRecognizeAllOTBtitles">Lishogi recognises all FIDE titles gained from OTB (over the board) play, as well as %1$s. Here is a list of FIDE titles:</string>
+	<string name="showYourTitle">如果您有称号，可以完成%1$s将账户下表贴。
+
+最后，有一个%2$s荣誉称号。</string>
+	<string name="asWellAsManyNMtitles">许多国家级大师头衔</string>
+	<string name="verificationForm">验证表格</string>
+	<string name="canIbecomeLM">我可以获得 Lishogi 大师 (LM) 头衔吗？</string>
+	<string name="noUpperCaseDot">不能。</string>
+	<string name="lMtitleComesToYouDoNotRequestIt">这个荣誉称号是非正式的，只存在于 Lishogi 上。
+
+极少数情况下我们会决定把它授予优秀的 Lishogi 著名者。您不去获取 LM 称号，而是 LM 赐给您。如果您有资格，会收到我们的通信，并选择接受不接受。
+
+不要主动寻求LM称号。</string>
+	<string name="whatUsernameCanIchoose">我的用户名可以是什么？</string>
+	<string name="usernamesNotOffensive">作为基本，用户名不应该是冒犯、冒用他人或广告。您可以阅读更多关于%1$s的信息。</string>
+	<string name="guidelines">指南</string>
+	<string name="uniqueTrophies">独一无二的奖杯</string>
+	<string name="ownerUniqueTrophies">这个奖杯在 Lishogi 上是独一无二的，除了%1$s，任何人都不会得到。</string>
+	<string name="wayOfBerserkExplanation">为了获得它，hiimgosu 挑战自己 berserk 并赢得100%%的%s。</string>
+	<string name="aHourlyBulletTournament">一小时子弹快棋锦标赛</string>
+	<string name="goldenZeeExplanation">ZugAddict was streaming and for the last 2 hours he had been trying to defeat A.I. level 8 in a 1+0 game, without success. Thibault told him that if he successfully did it on stream, he\'d get a unique trophy. One hour later, he smashed Stockfish, and the promise was honoured.</string>
+	<string name="lishogiRatings">Lishogi 评分</string>
+	<string name="whichRatingSystemUsedByLishogi">Lishogi 使用什么评分系统？</string>
+	<string name="ratingSystemUsedByLishogi">评分是使用 Mark Glickman 的 Glicko-2 评分方法计算得。 这是一种非常普及的评分算法，许多国际象棋组织都使用了这算法。 
+
+基本上，Glicko评分在计算和表示您的评分时使用置信区间。 当您首次开始使用该站点时，您的评分将从1500 ± 700开始。 1500表示您的评分，700表示评分的置信区间。 
+
+基本上，评分系统对您的评分在800至2200之间有90%的置信。置信低。 由于这种情况，当一位用户刚刚开始时，他们的评分将有大变化，每次可能会有几百个点。 但在一些对已经确定评分的用户的对局后，置信区间将缩小，每对局后获得/丢失的评分将减少。
+
+另一点是，随着时间过，置信区间将会增加。 这使您能够更快地获得/丢失点数，确保评分和您技能水平的任何变化一直。</string>
+	<string name="whatIsProvisionalRating">为什么在分数旁边有一个问号 (?) ？</string>
+	<string name="provisionalRatingExplanation">问号标记表示评分是暂时的。原因包括：</string>
+	<string name="notPlayedEnoughRatedGamesAgainstX">该用户还没有在评分对局中对%1$s完成足够多的评分对局。</string>
+	<string name="similarOpponents">相近实力的对手</string>
+	<string name="notPlayedRecently">用户最近没有下足够多的棋局。根据你下过的对局数量，您的评分可能需要一年左右的不活跃状态才会再次变成暂时性的。</string>
+	<string name="ratingDeviationMorethanOneHundredTen">具体地说，这表示 Glicko-2 的偏差大于110。偏差是评分的可靠性。偏差越低，评分越稳定。</string>
+	<string name="howDoLeaderoardsWork">排名及排行榜是如何运作的呢？</string>
+	<string name="inOrderToAppearsYouMust">为了登上%1$s您必须：</string>
+	<string name="ratingLeaderboards">排行榜：</string>
+	<string name="havePlayedMoreThanThirtyGamesInThatRating">在给定的评级中进行过至少30场排位赛，</string>
+	<string name="havePlayedARatedGameAtLeastOneWeekAgo">过去一周内，在此评级中进行过至少一场排位赛，</string>
+	<string name="ratingDeviationLowerThanXinChessYinVariants">标准将棋对局的排名偏差小于 %1$s，变体棋局的排名偏差小于 %2$s，</string>
+	<string name="beInTopTen">在此排名中获得前十。</string>
+	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">第二项要求是为了让不再使用它们的帐号的棋手停止占用排行榜。</string>
+	<string name="whyAreRatingHigher">为什么等级分相比其他网站和组织要更高，比如 FIDE、USCF 和 ICC？</string>
+	<string name="whyAreRatingHigherExplanation">最好不要将评分视为绝对数字，或将其他组织相比较。 不同的组织有不同的参与者级别、不同的评级制度（Elo、Glicko、Glicko-2 或上述改变过版）。这些因素可能会对绝对数字（评分）产生影响。
+
+最好将评级视为“相对”数字（而不是“绝对”数字）：在一组玩家中， 他们在评分中的相对差异将帮助您估计谁会胜/平/败以多常。 说“我有 X 评分”没意义，除非有其他对手可以比较评分。</string>
+	<string name="howToHideRatingWhilePlaying">如何在对局时隐藏分数？</string>
+	<string name="enableZenMode">在 %1$s或在游戏中按 %2$s 开启贤者模式。</string>
+	<string name="displayPreferences">显示偏好</string>
+	<string name="connexionLostCanIGetMyRatingBack">由于延迟/断线，我输了游戏。我可以要回我的排名积分吗？</string>
+	<string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">不幸的是，我们不能归还由于延迟或断线而输了游戏的排名积分，不管是您的问题或是我们的。尽管后者非常少见。也请注意，当 Lishogi 重启且您因为此原因而错过了时间的时候，我们会终止游戏以避免不公平的失败。</string>
+	<string name="howToThreeDots">说明</string>
+	<string name="enableDisableNotificationPopUps">启用或禁用通知弹窗？</string>
+	<string name="viewSiteInformationPopUp">查看网站信息弹窗</string>
+	<string name="lishogiCanOptionnalySendPopUps">Lishogi 可以选择性的发送弹窗提醒，比如当到您的会合时，或您收到了一条私信时。
+
+点击您的浏览器网址栏中 lishogi.org 地址旁的锁形图标。
+
+然后选择是否允许或拦截来自 Lishogi 的提醒。</string>
+</resources>

@@ -1,105 +1,143 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="faqAbbreviation">Veelgestelde vragen (FAQ)</string>
-  <string name="frequentlyAskedQuestions">Veelgestelde vragen</string>
-  <string name="hearItPronouncedBySpecialist"> Hoor het uitgesproken door een specialist.</string>
-  <string name="whyLiveLightLibre">Live, omdat voortdurend partijen worden gespeeld en bekeken; licht en vrij omdat Lishogi open source is en niet gebukt gaat onder allerhande ballast die andere websites plaagt.</string>
-  <string name="breakdownOfOurCosts">uitsplitsing van onze kosten</string>
-  <string name="otherWaysToHelp">andere manieren om te helpen</string>
-  <string name="fairPlay">Eerlijk spel</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">Waarom ben ik gemarkeerd als een speler die zich schuldig maakt aan kunstmatige ratingmanipulatie (sandbagging en boosten) of computerhulp?</string>
-  <string name="cheatDetectionMethods">Lishogi heeft sterke detectiemethoden en een zeer grondig proces voor het beoordelen van al het bewijsmateriaal en het nemen van een besluit. Het proces omvat vaak veel moderators en kan lang duren. Behalve het merkteken zelf zullen we niet in details treden over het bewijs of de besluitvormingsprocedure voor individuele gevallen. Dit zou het gemakkelijker maken om detectie in de toekomst te voorkomen en een uitnodiging zijn voor onproductieve discussies. Die tijd en inspanning kunnen worden beter besteed aan andere belangrijke gevallen. Gebruikers kunnen in beroep gaan door %1$s te e-mailen, maar besluiten worden zelden ongedaan gemaakt.</string>
-  <string name="whenAmIEligibleRatinRefund">Wanneer kom ik in aanmerking voor de automatische ratingcompensatie van valsspelers?</string>
-  <string name="ratingRefundExplanation">Een minuut nadat een speler gemarkeerd is, worden diens laatste veertig met rating gespeelde en in de laatste drie dagen gewonnen partijen in aanmerking genomen. Als je zijn tegenstander was in een van deze partijen en je rating was niet voorlopig, krijg je een ratingcompensatie. Deze compensatie wordt beperkt op basis van je hoogste rating en je ratingvoortgang na de desbetreffende partij.
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="faqAbbreviation">Veelgestelde vragen (FAQ)</string>
+	<string name="frequentlyAskedQuestions">Veelgestelde vragen</string>
+	<string name="whyIsLishogiCalledLishogi">Why is Lishogi called Lishogi?</string>
+	<string name="forkedFromLichess">Lishogi is open source project forked from liсhess, but since it\'s for playing shogi, it\'s called lishogi.</string>
+	<string name="lishogiCombinationLiveLightLibrePronounced">Because it\'s derived from Liсhess. And Liсhess is called Liсhess because it\'s a combination of live/light/libre and chess. Lishogi is pronounced %1$s.</string>
+	<string name="leechess">lee-shogi</string>
+	<string name="hearItPronouncedBySpecialist"> Hoor het uitgesproken door een specialist.</string>
+	<string name="whyLiveLightLibre">Live, omdat voortdurend partijen worden gespeeld en bekeken; licht en vrij omdat Lishogi open source is en niet gebukt gaat onder allerhande ballast die andere websites plaagt.</string>
+	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
+	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
+	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi is powered by donations from patrons and the efforts of a team of volunteers.</string>
+	<string name="findMoreAndSeeHowHelp">You can find out more about %1$s. If you want to help Lishogi by volunteering your time and skills, there are many %2$s.</string>
+	<string name="beingAPatron">Become a patron</string>
+	<string name="breakdownOfOurCosts">uitsplitsing van onze kosten</string>
+	<string name="otherWaysToHelp">andere manieren om te helpen</string>
+	<string name="areThereWebsitesBasedOnLishogi">Are there websites based on Lishogi?</string>
+	<string name="yesLishogiInspiredOtherOpenSourceWebsites">Yes. Lishogi has indeed inspired other open-source sites that use our %1$s, %2$s, or %3$s.</string>
+	<string name="fairPlay">Eerlijk spel</string>
+	<string name="whyFlaggedRatingManipulationOrCheater">Waarom ben ik gemarkeerd als een speler die zich schuldig maakt aan kunstmatige ratingmanipulatie (sandbagging en boosten) of computerhulp?</string>
+	<string name="cheatDetectionMethods">Lishogi heeft sterke detectiemethoden en een zeer grondig proces voor het beoordelen van al het bewijsmateriaal en het nemen van een besluit. Het proces omvat vaak veel moderators en kan lang duren. Behalve het merkteken zelf zullen we niet in details treden over het bewijs of de besluitvormingsprocedure voor individuele gevallen. Dit zou het gemakkelijker maken om detectie in de toekomst te voorkomen en een uitnodiging zijn voor onproductieve discussies. Die tijd en inspanning kunnen worden beter besteed aan andere belangrijke gevallen. Gebruikers kunnen in beroep gaan door %1$s te e-mailen, maar besluiten worden zelden ongedaan gemaakt.</string>
+	<string name="whenAmIEligibleRatinRefund">Wanneer kom ik in aanmerking voor de automatische ratingcompensatie van valsspelers?</string>
+	<string name="ratingRefundExplanation">Een minuut nadat een speler gemarkeerd is, worden diens laatste veertig met rating gespeelde en in de laatste drie dagen gewonnen partijen in aanmerking genomen. Als je zijn tegenstander was in een van deze partijen en je rating was niet voorlopig, krijg je een ratingcompensatie. Deze compensatie wordt beperkt op basis van je hoogste rating en je ratingvoortgang na de desbetreffende partij.
   (Als je rating bijvoorbeeld sterk gestegen is na deze partijen, zou je geen compensatie of alleen een gedeeltelijke compensatie kunnen krijgen.) Een compensatie zal nooit meer bedragen dan 150 punten.</string>
-  <string name="preventLeavingGameWithoutResigning">Wat gebeurt er met spelers die partijen laten voor wat ze zijn zonder op te geven?</string>
-  <string name="leavingGameWithoutResigningExplanation">Als je tegenstander vaak partijen afbreekt of laat voor wat ze zijn, krijgt hij een \"speelverbod\", wat betekent dat hij tijdelijk geen partijen meer mag spelen. Dit wordt niet publiekelijk op hun profiel aangegeven. Als dit gedrag zich voortzet, neemt de duur van het speelverbod toe - en dergelijk langdurig gedrag kan leiden tot sluiting van de account.</string>
-  <string name="howCanIBecomeModerator">Hoe kan ik moderator worden?</string>
-  <string name="youCannotApply">Solliciteren om moderator te worden is niet mogelijk. Als we iemand zien van wie we denken dat hij geschikt zou zijn als moderator, zullen we direct contact met hem opnemen.</string>
-  <string name="gameplay">Spelregels</string>
-  <string name="howBulletBlitzEtcDecided">Hoe worden bullet, blitz en andere speeltempo\'s bepaald?</string>
-  <string name="basedOnGameDuration">Lishogi speeltempo\'s zijn gebaseerd op de geschatte partijduur = %1$s
+	<string name="preventLeavingGameWithoutResigning">Wat gebeurt er met spelers die partijen laten voor wat ze zijn zonder op te geven?</string>
+	<string name="leavingGameWithoutResigningExplanation">Als je tegenstander vaak partijen afbreekt of laat voor wat ze zijn, krijgt hij een \"speelverbod\", wat betekent dat hij tijdelijk geen partijen meer mag spelen. Dit wordt niet publiekelijk op hun profiel aangegeven. Als dit gedrag zich voortzet, neemt de duur van het speelverbod toe - en dergelijk langdurig gedrag kan leiden tot sluiting van de account.</string>
+	<string name="howCanIBecomeModerator">Hoe kan ik moderator worden?</string>
+	<string name="youCannotApply">Solliciteren om moderator te worden is niet mogelijk. Als we iemand zien van wie we denken dat hij geschikt zou zijn als moderator, zullen we direct contact met hem opnemen.</string>
+	<string name="isCorrespondenceDifferent">Is correspondence different from normal shogi?</string>
+	<string name="youCanUseOpeningBookNoEngine">On Lishogi, the main difference in rules for correspondence shogi is that an opening book is allowed. The use of engines is still prohibited and will result in being flagged for engine assistance. Although ICCF allows engine use in correspondence, Lishogi does not.</string>
+	<string name="gameplay">Spelregels</string>
+	<string name="howBulletBlitzEtcDecided">Hoe worden bullet, blitz en andere speeltempo\'s bepaald?</string>
+	<string name="basedOnGameDuration">Lishogi speeltempo\'s zijn gebaseerd op de geschatte partijduur = %1$s
   Bijvoorbeeld, de geschatte duur van een 5+3 partij is 5 * 60 + 40 * 3 = 420 seconden.</string>
-  <string name="durationFormula">(initiële kloktijd) + 40 * (increment)</string>
-  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
-  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
-  <string name="whatVariantsCanIplay">Welke varianten kan ik spelen op Lishogi?</string>
-  <string name="eightVariants">acht schaakvarianten</string>
-  <string name="whatIsACPL">Wat is het gemiddelde centipion verlies (ACPL)?</string>
-  <string name="acplExplanation">De centipion is de maateenheid die in schaken wordt gebruikt als een voordeel. Eén centipion is gelijk aan 1/100 van een pion. Dus 100 centipionnen = 1 pion. Deze waarden spelen formeel geen rol in het spel, maar zijn nuttig voor spelers en essentieel voor computerschaak om posities te beoordelen.
+	<string name="durationFormula">(initiële kloktijd) + 40 * (increment)</string>
+	<string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
+	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+	<string name="whatVariantsCanIplay">Welke varianten kan ik spelen op Lishogi?</string>
+	<string name="lishogiSupportChessAnd">Lishogi supports standard shogi and %1$s.</string>
+	<string name="eightVariants">acht schaakvarianten</string>
+	<string name="whatIsACPL">Wat is het gemiddelde centipion verlies (ACPL)?</string>
+	<string name="acplExplanation">De centipion is de maateenheid die in schaken wordt gebruikt als een voordeel. Eén centipion is gelijk aan 1/100 van een pion. Dus 100 centipionnen = 1 pion. Deze waarden spelen formeel geen rol in het spel, maar zijn nuttig voor spelers en essentieel voor computerschaak om posities te beoordelen.
 
 De beste computerzet verliest nul centipionnen, maar mindere zetten zullen resulteren in een verslechtering van de stelling, gemeten in centipionnen.
 
 Deze waarde kan worden gebruikt als een indicator van de kwaliteit van het spel. Hoe minder centipionnen je per zet verliest, des te sterker je spel.
 
 De computeranalyse op Lishogi wordt aangedreven door Stockfish.</string>
-  <string name="insufficientMaterial">Verliezen op tijd, remise en onvoldoende materiaal</string>
-  <string name="linkToFIDErules">FIDE-handboek §6.9, pdf</string>
-  <string name="discoveringEnPassant">Waarom kan een pion een andere pion slaan als hij die al gepasseerd is? (en passant)</string>
-  <string name="explainingEnPassant">Dit is een geldige zet die bekend staat als \"en passant\" slaan. Het Wikipedia-artikel geeft een %1$s.
+	<string name="insufficientMaterial">Verliezen op tijd, remise en onvoldoende materiaal</string>
+	<string name="lishogiFollowFIDErules">In the event of one player running out of time, that player will usually lose the game. However, the game is drawn if the position is such that the opponent cannot checkmate the player\'s king by any possible series of legal moves (%1$s).
+
+In rare cases this can be difficult to decide automatically (forced lines, fortresses). By default we always side with the player who did not run out of time.
+
+Note that it can be possible to mate with a single knight or bishop if the opponent has a piece that could block the king.</string>
+	<string name="linkToFIDErules">FIDE-handboek §6.9, pdf</string>
+	<string name="discoveringEnPassant">Waarom kan een pion een andere pion slaan als hij die al gepasseerd is? (en passant)</string>
+	<string name="explainingEnPassant">Dit is een geldige zet die bekend staat als \"en passant\" slaan. Het Wikipedia-artikel geeft een %1$s.
 
 Het wordt beschreven in sectie 3. (d) van de %2$s:
 	
 \"Een pion op een veld op dezelfde rij als een pion van een tegenstander op een naastgelegen rij die net twee velden van zijn beginpositie vooruit is gezet, kan de pion van de tegenstander slaan alsof die laatste slechts één veld is verplaatst. Deze manier van slaan is alleen geldig na deze voorgang en dit wordt \"en passant\" slaan genoemd.
     
   Zie de %3$s over deze zet om er wat mee te oefenen.</string>
-  <string name="goodIntroduction">goede inleiding</string>
-  <string name="officialRulesPDF">officiële regels (pdf)</string>
-  <string name="threefoldRepetition">Driemaal dezelfde stelling</string>
-  <string name="threefoldRepetitionExplanation">Als een stelling driemaal tot stand komt, kunnen spelers remise claimen door %1$s. Lishogi volgt de officiële FIDE-regels, zoals beschreven in artikel 9.2 (d) van de %2$s.</string>
-  <string name="threefoldRepetitionLowerCase">Driemaal dezelfde stelling</string>
-  <string name="handBookPDF">handboek (pdf)</string>
-  <string name="notRepeatedMoves">We hebben geen zetten herhaald. Waarom werd de partij toch remise door zetherhaling?</string>
-  <string name="repeatedPositionsThatMatters">Bij deze regel gaat het om herhaling van %1$s, niet zetten. De herhaling hoeft niet aaneengesloten te gebeuren.</string>
-  <string name="positions">stellingen</string>
-  <string name="weRepeatedthreeTimesPosButNoDraw">We hebben driemaal dezelfde stelling gehad. Waarom is de partij niet in remise geëindigd?</string>
-  <string name="threeFoldHasToBeClaimed">Herhaling moet worden geclaimd door een van de spelers. Je kunt dit doen door op de getoonde knop te drukken, of door remise aan te bieden voordat je de laatste zet doet. Je kunt ook Lishogi %1$s om automatisch herhalingen voor je op te eisen. Daarnaast eindigt de partij altijd onmiddellijk als dezelfde stelling zich voor de vijfde maal voordoet.</string>
-  <string name="configure">configureren</string>
-  <string name="accounts">Accounts</string>
-  <string name="showYourTitle">Als u een meestertitel heeft, kunt u een aanvraag doen om dit bij account te laten weergeven door het %1$s in te vullen, vergezeld van een duidelijke foto van een geldig identiteitsbewijs en een foto van u met dat identiteitsbewijs.
+	<string name="goodIntroduction">goede inleiding</string>
+	<string name="officialRulesPDF">officiële regels (pdf)</string>
+	<string name="lishogiTraining">Lishogi training</string>
+	<string name="threefoldRepetition">Driemaal dezelfde stelling</string>
+	<string name="threefoldRepetitionExplanation">Als een stelling driemaal tot stand komt, kunnen spelers remise claimen door %1$s. Lishogi volgt de officiële FIDE-regels, zoals beschreven in artikel 9.2 (d) van de %2$s.</string>
+	<string name="threefoldRepetitionLowerCase">Driemaal dezelfde stelling</string>
+	<string name="handBookPDF">handboek (pdf)</string>
+	<string name="notRepeatedMoves">We hebben geen zetten herhaald. Waarom werd de partij toch remise door zetherhaling?</string>
+	<string name="repeatedPositionsThatMatters">Bij deze regel gaat het om herhaling van %1$s, niet zetten. De herhaling hoeft niet aaneengesloten te gebeuren.</string>
+	<string name="positions">stellingen</string>
+	<string name="weRepeatedthreeTimesPosButNoDraw">We hebben driemaal dezelfde stelling gehad. Waarom is de partij niet in remise geëindigd?</string>
+	<string name="threeFoldHasToBeClaimed">Herhaling moet worden geclaimd door een van de spelers. Je kunt dit doen door op de getoonde knop te drukken, of door remise aan te bieden voordat je de laatste zet doet. Je kunt ook Lishogi %1$s om automatisch herhalingen voor je op te eisen. Daarnaast eindigt de partij altijd onmiddellijk als dezelfde stelling zich voor de vijfde maal voordoet.</string>
+	<string name="configure">configureren</string>
+	<string name="accounts">Accounts</string>
+	<string name="titlesAvailableOnLishogi">What titles are there on Lishogi?</string>
+	<string name="lishogiRecognizeAllOTBtitles">Lishogi recognises all FIDE titles gained from OTB (over the board) play, as well as %1$s. Here is a list of FIDE titles:</string>
+	<string name="showYourTitle">Als u een meestertitel heeft, kunt u een aanvraag doen om dit bij account te laten weergeven door het %1$s in te vullen, vergezeld van een duidelijke foto van een geldig identiteitsbewijs en een foto van u met dat identiteitsbewijs.
 
 Verificatie als titelhouder op Lishogi maakt deelname mogelijk aan Titelhouder Arena-evenementen.
 
 Ten slotte is er een %2$s eretitel.</string>
-  <string name="asWellAsManyNMtitles">veel nationale meestertitels</string>
-  <string name="verificationForm">verificatieformulier</string>
-  <string name="canIbecomeLM">Kan ik de Lishogi Meester (LM) titel krijgen?</string>
-  <string name="noUpperCaseDot">Nee.</string>
-  <string name="lMtitleComesToYouDoNotRequestIt">Deze eretitel is onofficieel en bestaat alleen op Lishogi.
+	<string name="asWellAsManyNMtitles">veel nationale meestertitels</string>
+	<string name="verificationForm">verificatieformulier</string>
+	<string name="canIbecomeLM">Kan ik de Lishogi Meester (LM) titel krijgen?</string>
+	<string name="noUpperCaseDot">Nee.</string>
+	<string name="lMtitleComesToYouDoNotRequestIt">Deze eretitel is onofficieel en bestaat alleen op Lishogi.
 
 We reiken deze uit aan zeer opvallende spelers die goede burgers van Lishogi zijn, zelden en naar eigen goeddunken. Je krijgt de LM-titel niet, de LM-titel krijgt jou. Als je in aanmerking komt, ontvang je een bericht van ons erover en de keuze om te accepteren of weigeren.
 
 Vraag niet om de LM-titel.</string>
-  <string name="whatUsernameCanIchoose">Wat kan mijn gebruikersnaam zijn?</string>
-  <string name="usernamesNotOffensive">In het algemeen geldt voor gebruikersnamen: ze mogen niet aanstootgevend zijn of reclame zijn en bovendien mag je niet doen alsof je iemand anders bent. Je kunt er meer over lezen in de %1$s.</string>
-  <string name="guidelines">richtlijnen</string>
-  <string name="uniqueTrophies">Unieke trofeeën</string>
-  <string name="ownerUniqueTrophies">Die trofee is uniek in de geschiedenis van Lishogi, niemand anders dan %1$s zal die ooit bezitten.</string>
-  <string name="wayOfBerserkExplanation">Om de troffee te verkrijgen, had hiimgosu zichzelf uitgedaagd om tijdens een %s alle partijen berserk te gaan en 100%% van de potjes te winnen.</string>
-  <string name="aHourlyBulletTournament">elk uur een bullet-toernooi</string>
-  <string name="goldenZeeExplanation">ZugAddict was aan het streamen en probeerde 2 uur lang A.I. niveau 8 te verslaan in een 1+0 partij, zonder succes. Thibault zei hem dat als hij dit voor elkaar kreeg op stream, hij een unieke trofee zou krijgen. Een uur later maakte hij Stockfish in en werd deze belofte nagekomen.</string>
-  <string name="whatIsProvisionalRating">Waarom staat er een vraagteken naast een beoordeling?</string>
-  <string name="provisionalRatingExplanation">Het vraagteken betekent dat de beoordeling voorlopig is. Redenen zijn:</string>
-  <string name="notPlayedEnoughRatedGamesAgainstX">De speler heeft nog niet genoeg partijen met rating gespeeld tegen %1$s in de ratingcategorie.</string>
-  <string name="similarOpponents">tegenstanders van gelijke sterkte</string>
-  <string name="notPlayedRecently">De speler heeft niet genoeg recente partijen gespeeld. Afhankelijk van het aantal partijen dat je hebt gespeeld, kan het ongeveer een jaar duren voordat je rating weer voorlopig wordt.</string>
-  <string name="ratingDeviationMorethanOneHundredTen">Concreet betekent dit dat de afwijking van Glicko-2 groter is dan 110. De afwijking is het niveau van vertrouwen dat het systeem heeft in de rating. Hoe kleiner de afwijking, hoe stabieler een rating.</string>
-  <string name="howDoLeaderoardsWork">Hoe werken ranglijsten en scoreborden?</string>
-  <string name="inOrderToAppearsYouMust">Om op de %1$s te komen moet je:</string>
-  <string name="ratingLeaderboards">ranglijst</string>
-  <string name="havePlayedMoreThanThirtyGamesInThatRating">minstens 30 partijen hebben gespeeld met een gegeven rating,</string>
-  <string name="havePlayedARatedGameAtLeastOneWeekAgo">de afgelopen week een partij met rating gespeeld voor deze beoordeling,</string>
-  <string name="beInTopTen">deel uitmaken van de top 10 van deze rating.</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">De tweede vereiste is dat spelers die hun accounts niet meer gebruiken, niet langer in de scoreborden worden vermeld.</string>
-  <string name="whyAreRatingHigher">Waarom zijn de ratings hoger dan bij andere sites en organisaties zoals FIDE, USCF en het ICC?</string>
-  <string name="whyAreRatingHigherExplanation">Het beste is om ratings niet als absolute getallen te beschouwen of ze te vergelijken met die van andere organisaties. Verschillende organisaties hebben verschillende niveaus van spelers, verschillende ratingsystemen (Elo, Glicko, Glicko-2, of een aangepaste versie van voornoemde systemen). Deze factoren kunnen de absolute getallen (ratings) drastisch beïnvloeden.
+	<string name="whatUsernameCanIchoose">Wat kan mijn gebruikersnaam zijn?</string>
+	<string name="usernamesNotOffensive">In het algemeen geldt voor gebruikersnamen: ze mogen niet aanstootgevend zijn of reclame zijn en bovendien mag je niet doen alsof je iemand anders bent. Je kunt er meer over lezen in de %1$s.</string>
+	<string name="guidelines">richtlijnen</string>
+	<string name="uniqueTrophies">Unieke trofeeën</string>
+	<string name="ownerUniqueTrophies">Die trofee is uniek in de geschiedenis van Lishogi, niemand anders dan %1$s zal die ooit bezitten.</string>
+	<string name="wayOfBerserkExplanation">Om de troffee te verkrijgen, had hiimgosu zichzelf uitgedaagd om tijdens een %s alle partijen berserk te gaan en 100%% van de potjes te winnen.</string>
+	<string name="aHourlyBulletTournament">elk uur een bullet-toernooi</string>
+	<string name="goldenZeeExplanation">ZugAddict was aan het streamen en probeerde 2 uur lang A.I. niveau 8 te verslaan in een 1+0 partij, zonder succes. Thibault zei hem dat als hij dit voor elkaar kreeg op stream, hij een unieke trofee zou krijgen. Een uur later maakte hij Stockfish in en werd deze belofte nagekomen.</string>
+	<string name="lishogiRatings">Lishogi ratings</string>
+	<string name="whichRatingSystemUsedByLishogi">What rating system does Lishogi use?</string>
+	<string name="ratingSystemUsedByLishogi">Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant number of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system).
+
+Fundamentally, Glicko ratings use \"confidence intervals\" when calculating and representing your rating. When you first start using the site, your rating starts at 1500 ± 700. The 1500 represents your rating, and the 700 represents the confidence interval.
+
+Basically, the system is 90% sure that your rating is somewhere between 800 and 2200. It is incredibly uncertain. Because of this, when a player is just starting out, their rating will change very dramatically, potentially several hundred points at a time. But after some games against established players the confidence interval will narrow, and the amount of points gained/lost after each game will decrease.
+
+Another point to note is that, as time passes, the confidence interval will increase. This allows you to gain/lose points points more rapidly to match any changes in your skill level over that time.</string>
+	<string name="whatIsProvisionalRating">Waarom staat er een vraagteken naast een beoordeling?</string>
+	<string name="provisionalRatingExplanation">Het vraagteken betekent dat de beoordeling voorlopig is. Redenen zijn:</string>
+	<string name="notPlayedEnoughRatedGamesAgainstX">De speler heeft nog niet genoeg partijen met rating gespeeld tegen %1$s in de ratingcategorie.</string>
+	<string name="similarOpponents">tegenstanders van gelijke sterkte</string>
+	<string name="notPlayedRecently">De speler heeft niet genoeg recente partijen gespeeld. Afhankelijk van het aantal partijen dat je hebt gespeeld, kan het ongeveer een jaar duren voordat je rating weer voorlopig wordt.</string>
+	<string name="ratingDeviationMorethanOneHundredTen">Concreet betekent dit dat de afwijking van Glicko-2 groter is dan 110. De afwijking is het niveau van vertrouwen dat het systeem heeft in de rating. Hoe kleiner de afwijking, hoe stabieler een rating.</string>
+	<string name="howDoLeaderoardsWork">Hoe werken ranglijsten en scoreborden?</string>
+	<string name="inOrderToAppearsYouMust">Om op de %1$s te komen moet je:</string>
+	<string name="ratingLeaderboards">ranglijst</string>
+	<string name="havePlayedMoreThanThirtyGamesInThatRating">minstens 30 partijen hebben gespeeld met een gegeven rating,</string>
+	<string name="havePlayedARatedGameAtLeastOneWeekAgo">de afgelopen week een partij met rating gespeeld voor deze beoordeling,</string>
+	<string name="ratingDeviationLowerThanXinChessYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
+	<string name="beInTopTen">deel uitmaken van de top 10 van deze rating.</string>
+	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">De tweede vereiste is dat spelers die hun accounts niet meer gebruiken, niet langer in de scoreborden worden vermeld.</string>
+	<string name="whyAreRatingHigher">Waarom zijn de ratings hoger dan bij andere sites en organisaties zoals FIDE, USCF en het ICC?</string>
+	<string name="whyAreRatingHigherExplanation">Het beste is om ratings niet als absolute getallen te beschouwen of ze te vergelijken met die van andere organisaties. Verschillende organisaties hebben verschillende niveaus van spelers, verschillende ratingsystemen (Elo, Glicko, Glicko-2, of een aangepaste versie van voornoemde systemen). Deze factoren kunnen de absolute getallen (ratings) drastisch beïnvloeden.
 
 Het is het beste om ratings te zien als \"relatieve\" getallen (in tegenstelling tot \"absolute\" cijfers): binnen een groep spelers, zullen hun relatieve verschillen u helpen in te schatten wie zal winnen /remiseren/verliezen en hoe vaak. Zeggen \"Ik heb rating van X\" betekent niets, tenzij er andere spelers zijn om die rating mee te vergelijken.</string>
-  <string name="howToHideRatingWhilePlaying">Hoe kan ik ratings verbergen tijdens het spelen?</string>
-  <string name="enableZenMode">Zet Zen-modus aan in de %1$s, of door %2$s in te drukken tijdens een partij.</string>
-  <string name="displayPreferences">weergavevoorkeuren</string>
-  <string name="connexionLostCanIGetMyRatingBack">Ik heb een partij verloren als gevolg van een trage of een verbroken verbinding. Kan ik mijn ratingpunten terugkrijgen?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Helaas kunnen we de ratingpunten van partijen die verloren gaan door een trage of verbroken verbinding niet teruggeven, ongeacht of het probleem zich aan uw kant of aan onze kant voordeed. Dat laatste is echter zeer zeldzaam. Merk ook op dat wanneer Lishogi herstart en je daardoor op tijd verliest, we de partij afbreken om oneerlijk verlies te voorkomen.</string>
-  <string name="howToThreeDots">Hoe kan ik...</string>
-  <string name="enableDisableNotificationPopUps">Pop-upmeldingen in- of uitschakelen?</string>
-  <string name="viewSiteInformationPopUp">Toon site informatie pop-up</string>
-  </resources>
+	<string name="howToHideRatingWhilePlaying">Hoe kan ik ratings verbergen tijdens het spelen?</string>
+	<string name="enableZenMode">Zet Zen-modus aan in de %1$s, of door %2$s in te drukken tijdens een partij.</string>
+	<string name="displayPreferences">weergavevoorkeuren</string>
+	<string name="connexionLostCanIGetMyRatingBack">Ik heb een partij verloren als gevolg van een trage of een verbroken verbinding. Kan ik mijn ratingpunten terugkrijgen?</string>
+	<string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Helaas kunnen we de ratingpunten van partijen die verloren gaan door een trage of verbroken verbinding niet teruggeven, ongeacht of het probleem zich aan uw kant of aan onze kant voordeed. Dat laatste is echter zeer zeldzaam. Merk ook op dat wanneer Lishogi herstart en je daardoor op tijd verliest, we de partij afbreken om oneerlijk verlies te voorkomen.</string>
+	<string name="howToThreeDots">Hoe kan ik...</string>
+	<string name="enableDisableNotificationPopUps">Pop-upmeldingen in- of uitschakelen?</string>
+	<string name="viewSiteInformationPopUp">Toon site informatie pop-up</string>
+	<string name="lishogiCanOptionnalySendPopUps">Lishogi can optionally send popup notifications, for example when it is your turn or you received a private message.
+
+Click the lock icon next to the lishogi.org address in the URL bar of your browser.
+
+Then select whether to allow or block notifications from Lishogi.</string>
+</resources>

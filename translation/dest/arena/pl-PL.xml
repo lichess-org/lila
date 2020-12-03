@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="arenaTournaments">Areny</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">Areny</string>
   <string name="isItRated">Czy turniej jest rankingowy?</string>
   <string name="willBeNotified">Zostaniesz powiadomiony o rozpoczęciu turnieju, możesz więc bez przeszkód rozgrywać inne partie w innej karcie.</string>
   <string name="isRated">Ten turniej jest rankingowy i wpłynie na Twój ranking.</string>

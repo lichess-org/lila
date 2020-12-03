@@ -1,18 +1,35 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="search">بحث</string>
-  <string name="advancedSearch">بحث متقدم</string>
-  <string name="opponentName">اسم الخصم</string>
-  <string name="loser">الخاسر</string>
-  <string name="from">من</string>
-  <string name="to">الى</string>
-  <string name="humanOrComputer">سواء كان اللاعب الخصم بشرياً او جهاز كمبيوتر</string>
-  <string name="aiLevel">مستوى الذكاء الاصطناعي</string>
-  <string name="source">المصدر</string>
-  <string name="nbTurns">عدد الادوار</string>
-  <string name="result">نتيجة</string>
-  <string name="winnerColor">لون الفائز</string>
-  <string name="date">تاريخ</string>
-  <string name="sortBy">ترتيب حسب</string>
-  <string name="analysis">تحليل</string>
-  <string name="onlyAnalysed">فقط الادوار حيث يتوفر تحليل الكمبيوتر</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="search">بحث</string>
+	<string name="advancedSearch">بحث متقدم</string>
+	<plurals name="searchInXGames">
+		<item quantity="zero">Search in %s shogi games</item>
+		<item quantity="one">Search in %s shogi game</item>
+		<item quantity="two">Search in %s shogi games</item>
+		<item quantity="few">Search in %s shogi games</item>
+		<item quantity="many">Search in %s shogi games</item>
+		<item quantity="other">Search in %s shogi games</item>
+	</plurals>
+	<plurals name="xGamesFound">
+		<item quantity="zero">%s games found</item>
+		<item quantity="one">One game found</item>
+		<item quantity="two">%s games found</item>
+		<item quantity="few">%s games found</item>
+		<item quantity="many">%s games found</item>
+		<item quantity="other">%s games found</item>
+	</plurals>
+	<string name="opponentName">اسم الخصم</string>
+	<string name="loser">الخاسر</string>
+	<string name="from">من</string>
+	<string name="to">الى</string>
+	<string name="humanOrComputer">سواء كان اللاعب الخصم بشرياً او جهاز كمبيوتر</string>
+	<string name="aiLevel">مستوى الذكاء الاصطناعي</string>
+	<string name="source">المصدر</string>
+	<string name="nbTurns">عدد الادوار</string>
+	<string name="result">نتيجة</string>
+	<string name="winnerColor">لون الفائز</string>
+	<string name="date">تاريخ</string>
+	<string name="sortBy">ترتيب حسب</string>
+	<string name="analysis">تحليل</string>
+	<string name="onlyAnalysed">فقط الادوار حيث يتوفر تحليل الكمبيوتر</string>
 </resources>

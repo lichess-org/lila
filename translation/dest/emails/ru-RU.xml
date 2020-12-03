@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="emailConfirm_subject">%s, пожалуйста, подтвердите вашу учётную запись на lishogi.org</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="emailConfirm_subject">%s, пожалуйста, подтвердите вашу учётную запись на lishogi.org</string>
   <string name="emailConfirm_click">Нажмите на ссылку, чтоб активировать учётную запись Lishogi:</string>
   <string name="emailConfirm_ignore">Если вы не регистрировались на Lishogi, просто проигнорируйте это сообщение.</string>
   <string name="passwordReset_subject">Сброс пароля %s на lishogi.org</string>
@@ -14,6 +15,7 @@
 Вот ссылка на ваш профиль: %1$s. Вы можете настроить его здесь: %2$s.
 
 Удачи, и да найдут ваши фигуры путь к королю соперника!</string>
+  <string name="logInToLishogi">Log in to lishogi.org, %s</string>
   <string name="common_orPaste">(Ссылка в письме не работает? Попробуйте скопировать её и вставить в адресную строку браузера!)</string>
   <string name="common_note">Это служебное письмо, связанное с вашим использованием %s.</string>
   <string name="common_contact">Воспользуйтесь %s для связи с нами.</string>

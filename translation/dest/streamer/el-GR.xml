@@ -1,5 +1,8 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="live">ΖΩΝΤΑΝΑ!</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lishogiStreamers">Lishogi streamers</string>
+  <string name="lishogiStreamer">Lishogi streamer</string>
+  <string name="live">ΖΩΝΤΑΝΑ!</string>
   <string name="offline">ΕΚΤΟΣ ΣΥΝΔΕΣΗΣ</string>
   <string name="currentlyStreaming">Αυτή τη στιγμή μεταδίδουν: %s</string>
   <string name="lastStream">Τελευταία μετάδοση %s</string>

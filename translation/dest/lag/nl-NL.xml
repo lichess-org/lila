@@ -1,9 +1,15 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="measurementInProgressThreeDot">Meting is bezig...</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="isLishogiLagging">Is Lishogi lagging?</string>
+  <string name="measurementInProgressThreeDot">Meting is bezig...</string>
   <string name="noAndYourNetworkIsGood">Nee. En jouw verbinding is goed.</string>
   <string name="noAndYourNetworkIsBad">Nee. En jouw verbinding is slecht.</string>
   <string name="yesItWillBeFixedSoon">Ja. Het zal binnenkort worden opgelost!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">En nu het lange antwoord! De spelvertraging bestaat uit twee ongerelateerde waarden (lager is beter):</string>
+  <string name="lishogiServerLatency">Lishogi server latency</string>
+  <string name="lishogiServerLatencyExplanation">The time it takes to process a move on the server. It\'s the same for everybody, and only depends on the server load. The more players and the higher it gets, but Lishogi developers do their best to keep it low. It rarely exceeds 10ms.</string>
+  <string name="networkBetweenLishogiAndYou">Network between Lishogi and you</string>
+  <string name="networkBetweenLishogiAndYouExplanation">The time it takes to send a move from your computer to Lishogi server, and get the response back. It\'s specific to your distance to Lishogi (France), and to the quality of your Internet connection. Lishogi developers cannot fix your wifi or make light go faster.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Beide waarden kun je op elk gewenst moment bekijken door in de bovenste balk op je gebruikersnaam te klikken.</string>
   <string name="lagCompensation">Vertragingscompensatie</string>
   <string name="lagCompensationExplanation">Lishogi compenseert voor de vertraging tussen Lishogi en jou. Dit kan zowel aanhoudende als incidentele vertraging zijn. De compensatie hangt af van het speeltempo en de tot dan toe gecompenseerde vertraging, zodat het resultaat door beide spelers als eerlijk wordt ervaren. Hierdoor is een grotere vertraging dan die van je tegenstander geen handicap!</string>

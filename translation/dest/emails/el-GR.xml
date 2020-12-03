@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="emailConfirm_subject">Επιβεβαιώστε τον λογαριασμό σας στο lishogi.org,%s</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="emailConfirm_subject">Επιβεβαιώστε τον λογαριασμό σας στο lishogi.org,%s</string>
   <string name="emailConfirm_click">Κάντε κλικ στον σύνδεσμο για να ενεργοποιήσετε τον λογαριασμό σας στο Lishogi:</string>
   <string name="emailConfirm_ignore">Αν δεν έχετε κάνει εγγραφή με το Lishogi μπορείτε να αγνοήσετε αυτό το μήνυμα.</string>
   <string name="passwordReset_subject">Επαναφέρετε τον κωδικό πρόσβασης του lishogi.org, %s</string>
@@ -14,6 +15,7 @@
 Εδώ είναι η σελίδα προφίλ σας: %1$s. Μπορείτε να την εξατομικεύσετε σε %2$s.
 
 Διασκεδάστε και ελπίζουμε να βρίσκουν πάντα τα κομμάτια σας το δρόμο τους για τον βασιλιά του αντιπάλου σας!</string>
+  <string name="logInToLishogi">Log in to lishogi.org, %s</string>
   <string name="common_orPaste">(Δεν λειτουργεί το κλικ; Δοκιμάστε να επικόλληση στο πρόγραμμα περιήγησής σας!)</string>
   <string name="common_note">Αυτή είναι μια υπηρεσία ηλεκτρονικού ταχυδρομείου που σχετίζεται με τη χρήση του %s.</string>
   <string name="common_contact">Για να επικοινωνήσετε μαζί μας, επισκεφθείτε το %s.</string>

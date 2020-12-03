@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="emailConfirm_subject">Bevestig uw lishogi.org account, %s</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="emailConfirm_subject">Bevestig uw lishogi.org account, %s</string>
   <string name="emailConfirm_click">Klik op de link om uw Lishogi-account te bevestigen:</string>
   <string name="emailConfirm_ignore">Als u zich niet heeft aangemeld bij Lishogi kunt u deze e-mail veilig negeren.</string>
   <string name="passwordReset_subject">Herstel uw lishogi.org wachtwoord, %s</string>
@@ -14,6 +15,7 @@
 Hier is je profielpagina: %1$s. Je kunt het personaliseren op %2$s.
 
 Veel plezier, en mogen je stukken altijd hun weg vinden naar de koning van je tegenstander!</string>
+  <string name="logInToLishogi">Log in to lishogi.org, %s</string>
   <string name="common_orPaste">(Werkt klikken niet? Probeer de link in uw browser te plakken!)</string>
   <string name="common_note">Dit is een service e-mail gekoppeld aan uw gebruik van %s.</string>
   <string name="common_contact">Contact opnemen kan via: %s.</string>

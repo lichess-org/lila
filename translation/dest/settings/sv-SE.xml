@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Inställningar</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Inställningar</string>
   <string name="closeAccount">Avsluta konto</string>
   <string name="closingIsDefinitive">Stängningen är definitiv, det finns ingen återvändo. Är du säker?</string>
   <string name="cantOpenSimilarAccount">Du får inte öppna ett nytt konto med samma namn, även om du byter gemener till versaler eller tvärtom.</string>

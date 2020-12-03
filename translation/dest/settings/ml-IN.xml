@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">ക്രമീകരണങ്ങള്‍</string>
-  <string name="closeAccount">അക്കൗണ്ട് അവസാനിപ്പിക്കാം</string>
-  <string name="changedMindDoNotCloseAccount">മനംമാറ്റം, അക്കൗണ്ട് അവസാനിപ്പിക്കേണ്ടതില്ല</string>
-  <string name="thisAccountIsClosed">ഈ അക്കൗണ്ട് അവസാനിപ്പിച്ചിരിക്കുന്നു.</string>
-</resources>

@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="private">Soukromé</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="private">Soukromé</string>
   <string name="myStudies">Moje studie</string>
   <string name="studiesIContributeTo">Studie, ke kterým přispívám</string>
   <string name="myPublicStudies">Moje veřejné studie</string>
@@ -70,6 +71,7 @@
   <string name="broadcastUrl">Adresa vysílání</string>
   <string name="currentChapterUrl">URL aktuální kapitoly</string>
   <string name="currentGameUrl">Adresa právě probíhající hry</string>
+  <string name="youCanPasteThisInTheForumToEmbed">You can paste this in the forum to embed</string>
   <string name="startAtInitialPosition">Začít ve výchozí pozici</string>
   <string name="startAtX">Začít u tahu %s</string>
   <string name="embedInYourWebsite">Vložte vaší stránku nebo blog</string>

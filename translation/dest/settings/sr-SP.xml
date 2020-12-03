@@ -1,6 +1,9 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Подешавања</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Подешавања</string>
   <string name="closeAccount">Затворите налог</string>
+  <string name="closingIsDefinitive">Closing is definitive. There is no going back. Are you sure?</string>
+  <string name="cantOpenSimilarAccount">You will not be allowed to open a new account with the same name, even if the case is different.</string>
   <string name="changedMindDoNotCloseAccount">Предомислио сам се. Не мој затвор рачун</string>
   <string name="closeAccountExplanation">Јесте ли сигурни? Затварање рачуна је трајна одлука. Више нећете моћи да се пријавите на свој рачун и ваша страница профила више неће бити доступна.</string>
   <string name="thisAccountIsClosed">Овај налог је затворен</string>

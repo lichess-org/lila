@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="hourlyRapidArena">每小时快棋竞技场</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="hourlyRapidArena">每小时快棋竞技场</string>
   <string name="hourlyRapid">每小时快棋赛</string>
   <string name="hourlyXArena">每小时 %s 竞技场</string>
   <string name="hourlyX">每小时 %s 赛</string>

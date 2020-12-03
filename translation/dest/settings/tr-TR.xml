@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Ayarlar</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Ayarlar</string>
   <string name="closeAccount">Hesabı kapat</string>
   <string name="closingIsDefinitive">Hesabı kapatma işleminin geri dönüşü yoktur. Bundan emin misiniz?</string>
   <string name="cantOpenSimilarAccount">Büyük-küçük harf değişiklikleri yapsanız dahi aynı kullanıcı adıyla yeni bir hesap açamazsınız.</string>

@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="perfStats">Statistici %s</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="perfStats">Statistici %s</string>
   <string name="viewTheGames">Vezi jocurile</string>
   <string name="provisional">provizoriu</string>
   <string name="notEnoughRatedGames">Nu au fost jucate destule meciuri oficiale pentru a stabili un rating solid.</string>

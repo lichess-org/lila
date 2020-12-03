@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="private">Privaat</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="private">Privaat</string>
   <string name="myStudies">My studies</string>
   <string name="studiesIContributeTo">Studies waartoe ek bydra</string>
   <string name="myPublicStudies">My publieke studies</string>
@@ -57,11 +58,19 @@
   <string name="shareAndExport">Deel &amp; voer uit</string>
   <string name="cloneStudy">Kloneer</string>
   <string name="studyPgn">Studie PGN</string>
+  <string name="downloadAllGames">Download all games</string>
   <string name="chapterPgn">Hoofstuk PGN</string>
+  <string name="downloadGame">Download game</string>
   <string name="studyUrl">Bestudeer URL</string>
+  <string name="broadcastUrl">Broadcast URL</string>
   <string name="currentChapterUrl">Huidige hoofstuk URL</string>
+  <string name="currentGameUrl">Current game URL</string>
+  <string name="youCanPasteThisInTheForumToEmbed">You can paste this in the forum to embed</string>
   <string name="startAtInitialPosition">Begin by die oorspronklike posisie</string>
   <string name="startAtX">Begin by %s</string>
+  <string name="embedInYourWebsite">Embed in your website or blog</string>
+  <string name="readMoreAboutEmbedding">Read more about embedding</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Only public studies can be embedded!</string>
   <string name="open">Maak oop</string>
   <string name="xBroughtToYouByY">%1$s, aan jou beskikbaar gestel deur %2$s</string>
   <string name="studyNotFound">Studie kon nie gevind word nie</string>

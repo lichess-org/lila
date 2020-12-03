@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="learnShogi">Learn shogi</string>
 	<string name="byPlaying">by playing!</string>
@@ -11,14 +11,14 @@
 	<string name="theIntoduction">Introduction</string>
 	<string name="introBasics">Let's learn some basics.</string>
 	<string name="introIntro">Your journey begins here.</string>
-	<string name="choosePieceDesign">It's important that you can tell your pieces apart, so make sure you choose the right piece set. To do that click on the cog wheel or your username (top right corner) and then click on &quot;piece set&quot;.</string>
+	<string name="choosePieceDesign">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set. \nTo do that click on the cog wheel or your username (top right corner) and then click on \"piece set\".</string>
 	<string name="promotionZone">When some of your pieces reach or leave the first three ranks in your opponent's territory you can choose to promote your piece and make it stronger.</string>
 	<string name="introComplete">You now know some basics, but this part of tutorial is still under construction. For now learn how individual pieces move.</string>
 	<string name="theRook">The rook</string>
 	<string name="itMovesInStraightLines">It moves in straight lines</string>
 	<string name="rookIntro">The rook is a powerful piece. Are you ready to command it?</string>
 	<string name="rookGoal">Click on the rook to bring it to the star!</string>
-	<string name="rookPromotion">The rook promotes to a stronger - the dragon. Don't forget that you can also promote your piece when you leave the promotio zone.</string>
+	<string name="rookPromotion">The rook promotes to the powerful dragon. Don\'t forget that you can also promote your piece when you leave the promotion zone.</string>
 	<string name="rookSummary">The rook can go up, down, left or right as much as it wants.</string>
 	<string name="dragonSummary">It can move just like the unpromoted rook, but also one square in any diagonal direction, making it much stronger.</string>
 	<string name="grabAllTheStars">Grab all the stars!</string>
@@ -44,7 +44,7 @@
 	<string name="knightsCanJumpOverObstacles">Knights can jump over obstacles!</string>
 	<string name="knightSummary">The knight can jump in an L shape forward, but only by two squares forward and one square sideways. Its movement also isn't restricted by other pieces - it will just jump over them.</string>
 	<string name="pknightSummary">Promoted knight moves are completely different from the unpromoted knight, but you can notice it moves the same as the gold general, so make sure to study that one thoroughly.</string>
-	<string name="knightPromotion">The knight can also be promoted. Its' movements change a lot after that, so pay attention.</string>
+	<string name="knightPromotion">The knight can also be promoted. His movements change a lot after that, so pay attention.</string>
 	<string name="knightComplete">Congratulations! You have mastered the knight.</string>
 	<string name="thePawn">The pawn</string>
 	<string name="itMovesForwardOnly">March forward!</string>
@@ -53,20 +53,20 @@
 	<string name="pawnPromotion">The pawn can also be promoted, the moves are once again the same as the gold general.</string>
 	<string name="pawnComplete">Congratulations! Pawns have no secrets for you.</string>
 	<string name="pawnSummary">The pawn is a rather straightforward piece to understand.</string>
-	<string name="tokinSummary">You should already be familirat with this pattern by now.</string>
+	<string name="tokinSummary">You should already be familiar with this pattern by now.</string>
 	<string name="theLance">The lance</string>
 	<string name="itMovesStraightForward">It can go only forward.</string>
 	<string name="lanceIntro">Use it wisely.</string>
 	<string name="lancesAreStraighforward">Just move forward as much as you can, this should be easy for you.</string>
-	<string name="lancePromotion">After the lance is promoted, it moves differently, but you've already seen this somewhere - sam as the gold general.</string>
+	<string name="lancePromotion">After the lance is promoted, it moves differently, but you\'ve already seen this somewhere - same as the gold general.</string>
 	<string name="lanceSummary">Moves forward, this is really easy.</string>
-	<string name="planceSummary">It't the same as the gold general.</string>
+	<string name="planceSummary">It\'s the same as the gold general.</string>
 	<string name="lanceComplete">Great job!</string>
 	<string name="theGold">The gold general</string>
 	<string name="itMovesInAnyDirectionExceptDiagonallyBack">The gold general moves in any direction EXCEPT diagonally back.</string>
 	<string name="goldIntro">The gold general movements might be a bit harder to remember at first, but you can surely do it.</string>
 	<string name="goldDoesntPromote">The gold general together with the king is the only piece you CAN'T promote.</string>
-	<string name="goldSummary">Try and remeber these moves, many pieces move the same after they are promoted.</string>
+	<string name="goldSummary">Try to remember these moves, many pieces move the same after they are promoted.</string>
 	<string name="goldComplete">Congratulations! You got this.</string>
 	<string name="theSilver">The silver general</string>
 	<string name="itMovesEitherForwardOrDiagonallyBack">The silver general moves either forward or diagonally back.</string>
@@ -165,7 +165,7 @@ Pawn = 1
 The king is priceless! Losing it means losing the game.</string>
 	<string name="queenOverBishop">Take the piece
 with the highest value!
-Queen > Bishop</string>
+Queen &gt; Bishop</string>
 	<string name="takeThePieceWithTheHighestValue">Take the piece
 with the highest value!</string>
 	<string name="pieceValueComplete">Congratulations! You know the value of material!

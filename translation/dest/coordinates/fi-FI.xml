@@ -1,9 +1,13 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Koordinaatit</string>
-  <string name="coordinateTraining">Koordinaattiharjoittelu</string>
-  <string name="averageScoreAsWhiteX">Keskimääräinen tulos valkeana: %s</string>
-  <string name="averageScoreAsBlackX">Keskimääräinen tulos mustana: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Peliä voi analysoida tehokkaammin, kun ei tarvitse haeskella ruutujen nimiä.</string>
-  <string name="aSquareNameAppears">Ruudun nimi ilmestyy laudalle ja sinun on klikattava oikeaa ruutua. Sinulla on 30 sekuntia aikaa tunnistaa niin monta ruutua kuin ehdit!</string>
-  <string name="startTraining">Aloita harjoitus</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="coordinates">Koordinaatit</string>
+	<string name="coordinateTraining">Koordinaattiharjoittelu</string>
+	<string name="averageScoreAsWhiteX">Keskimääräinen tulos valkeana: %s</string>
+	<string name="averageScoreAsBlackX">Keskimääräinen tulos mustana: %s</string>
+	<string name="knowingTheShogiBoard">Knowing the shogiboard coordinates is a very important shogi skill:</string>
+	<string name="mostShogiCourses">All shogi courses and exercises use some kind of a shogi notation. You can pick between the Japanese one and the western one.</string>
+	<string name="talkToYourShogiFriends">It makes it easier to talk to your shogi friends, since you both understand the \'language of shogi\'.</string>
+	<string name="youCanAnalyseAGameMoreEffectively">Peliä voi analysoida tehokkaammin, kun ei tarvitse haeskella ruutujen nimiä.</string>
+	<string name="aSquareNameAppears">Ruudun nimi ilmestyy laudalle ja sinun on klikattava oikeaa ruutua. Sinulla on 30 sekuntia aikaa tunnistaa niin monta ruutua kuin ehdit!</string>
+	<string name="startTraining">Aloita harjoitus</string>
 </resources>

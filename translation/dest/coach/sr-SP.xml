@@ -1,2 +1,36 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources></resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="lishogiCoaches">Lishogi coaches</string>
+	<string name="lishogiCoach">Lishogi coach</string>
+	<string name="areYouCoach">Are you a great shogi coach with a %s?</string>
+	<string name="nmOrFideTitle">title</string>
+	<string name="confirmTitle">Confirm your title here and we will review your application.</string>
+	<string name="sendApplication">Send us an email at %s and we will review your application.</string>
+	<string name="location">Location</string>
+	<string name="languages">Languages</string>
+	<string name="rating">Rating</string>
+	<string name="hourlyRate">Hourly rate</string>
+	<string name="availability">Availability</string>
+	<string name="accepting">Accepting students</string>
+	<string name="notAccepting">Not accepting students at the moment</string>
+	<string name="xCoachesStudents">%s coaches shogi students</string>
+	<string name="viewXProfile">View %s Lishogi profile</string>
+	<string name="sendPM">Send a private message</string>
+	<string name="aboutMe">About me</string>
+	<string name="playingExperience">Playing experience</string>
+	<string name="teachingExperience">Teaching experience</string>
+	<string name="otherExperiences">Other experiences</string>
+	<string name="bestSkills">Best skills</string>
+	<string name="teachingMethod">Teaching methodology</string>
+	<string name="publicStudies">Public studies</string>
+	<string name="youtubeVideos">YouTube videos</string>
+	<plurals name="studentReviews">
+		<item quantity="one">One student review</item>
+		<item quantity="few">%s student reviews</item>
+		<item quantity="other">%s student reviews</item>
+	</plurals>
+	<string name="thankYouForReview">Thank you for the review!</string>
+	<string name="xWillApproveIt">%s will approve it very soon, or a moderator will have a look at it.</string>
+	<string name="reviewCoach">Review this coach</string>
+	<string name="describeExperienceWith">Describe your coaching experience with %s</string>
+</resources>

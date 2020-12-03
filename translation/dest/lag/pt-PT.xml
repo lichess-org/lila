@@ -1,9 +1,15 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="measurementInProgressThreeDot">Medições em progresso...</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="isLishogiLagging">Is Lishogi lagging?</string>
+  <string name="measurementInProgressThreeDot">Medições em progresso...</string>
   <string name="noAndYourNetworkIsGood">Não. E a tua rede está boa.</string>
   <string name="noAndYourNetworkIsBad">Não. E a tua rede está má.</string>
   <string name="yesItWillBeFixedSoon">Sim. Será corrigido em breve!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">E agora, a resposta longa. O atraso de jogo é composto por dois valores não relacionados (quanto mais baixos melhor):</string>
+  <string name="lishogiServerLatency">Lishogi server latency</string>
+  <string name="lishogiServerLatencyExplanation">The time it takes to process a move on the server. It\'s the same for everybody, and only depends on the server load. The more players and the higher it gets, but Lishogi developers do their best to keep it low. It rarely exceeds 10ms.</string>
+  <string name="networkBetweenLishogiAndYou">Network between Lishogi and you</string>
+  <string name="networkBetweenLishogiAndYouExplanation">The time it takes to send a move from your computer to Lishogi server, and get the response back. It\'s specific to your distance to Lishogi (France), and to the quality of your Internet connection. Lishogi developers cannot fix your wifi or make light go faster.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Podes encontrar ambos estes valores a qualquer momento, clicando no teu nome de utilizador na barra superior.</string>
   <string name="lagCompensation">Compensação do atraso</string>
   <string name="lagCompensationExplanation">O Lishogi compensa os atrasos da rede. Isto inclui atrasos constantes e ocasionais. Existem limites baseados nos ritmos de jogo e no atraso compensado até agora, para que o resultado seja razoável para ambos os jogadores. Assim, teres mais atraso de rede do que o teu adversário não é uma desvantagem!</string>

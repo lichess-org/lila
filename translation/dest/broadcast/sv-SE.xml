@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="broadcasts">Sändningar</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="broadcasts">Sändningar</string>
   <string name="liveBroadcasts">Direktsända turneringar</string>
   <string name="newBroadcast">Ny direktsändning</string>
   <string name="ongoing">Pågående</string>

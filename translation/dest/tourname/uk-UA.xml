@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="hourlyRapidArena">Щогодинна Рапід Арена</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="hourlyRapidArena">Щогодинна Рапід Арена</string>
   <string name="hourlyRapid">Щогодинна Рапід</string>
   <string name="hourlyXArena">Щогодинна %s Арена</string>
   <string name="hourlyX">Щогодинно %s</string>

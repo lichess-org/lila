@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="perfStats">Estadísticas de %s</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="perfStats">Estadísticas de %s</string>
   <string name="viewTheGames">Ver las partidas</string>
   <string name="provisional">provisional</string>
   <string name="notEnoughRatedGames">No se han jugado suficientes partidas para establecer una puntuación fiable.</string>

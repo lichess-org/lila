@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Iestatījumi</string>
-  <string name="closeAccount">Slēgt kontu</string>
-  <string name="closingIsDefinitive">Aizvēršana ir galīga. Atpakaļ ceļa nav. Vai esat pārliecināts?</string>
-  <string name="cantOpenSimilarAccount">Nevarēsiet atvērt jaunu kontu ar to pašu vārdu, pat ja burtu lielumi atšķirsies.</string>
-  <string name="changedMindDoNotCloseAccount">Es pārdomāju, neslēdziet manu kontu</string>
-  <string name="closeAccountExplanation">Vai esat pārliecināts, ka vēlaties slēgt kontu? Konta slēgšanu nevar atsaukt. Jūs vairs nekad nevarēsiet ierakstīties.</string>
-  <string name="thisAccountIsClosed">Šis konts ir slēgts.</string>
-</resources>

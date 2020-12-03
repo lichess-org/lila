@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">设置</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">设置</string>
   <string name="closeAccount">删除帐户</string>
   <string name="closingIsDefinitive">删除账号是不可回退的决定。您真的确定吗？</string>
   <string name="cantOpenSimilarAccount">注册一个新账号与目前账号只有大小写差别是不允许。</string>

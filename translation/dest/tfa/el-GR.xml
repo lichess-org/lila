@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="twoFactorAuth">Ταυτοποίηση δύο παραγόντων</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="twoFactorAuth">Ταυτοποίηση δύο παραγόντων</string>
   <string name="twoFactorHelp">Η ταυτοποίηση δύο παραγόντων προσθέτει επιπλέον επίπεδο ασφάλειας στο λογαριασμό σας.</string>
   <string name="twoFactorApp">Κάντε λήψη ενός app ταυτοποίησης δύο παραγόντων, για παράδειγμα Google Authenticator για %1$s ή %2$s.</string>
   <string name="scanTheCode">Σαρώστε το κωδικό QR με την εφαρμογή.</string>

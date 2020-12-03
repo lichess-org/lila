@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><plurals name="nbMembers">
-    <item quantity="one">%s සාමාජික</item>
-    <item quantity="other">%s සාමාජිකයන්</item>
-  </plurals>
-</resources>

@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Sazlamalar</string>
-  <string name="closeAccount">Hasaby ýap</string>
-  <string name="changedMindDoNotCloseAccount">Pikirimi üýtgetdim, hasabymy ýapma</string>
-  <string name="thisAccountIsClosed">Bu hasap ýapyldy.</string>
-</resources>

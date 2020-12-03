@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Kordinatat</string>
-  <string name="coordinateTraining">Trajnimin Kordinatat</string>
-  <string name="averageScoreAsWhiteX">Rezultati mesatar si i bardhë: %s</string>
-  <string name="averageScoreAsBlackX">Rezultati mesatar si i ziun: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Ju mund të analizoni një lojë më efektive nëse nuk keni nevojë të kërkoni emra katrorë.</string>
-  <string name="aSquareNameAppears">Një emër katror shfaqet në tabelë dhe ju duhet të klikoni në sheshin e saktë. Ju keni 30 sekonda për të njohur sa më shumë sheshe të jetë e mundur!</string>
-  <string name="startTraining">Fillo trajnimin</string>
-</resources>

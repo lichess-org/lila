@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Hnit</string>
-  <string name="coordinateTraining">Hnitaþjálfun</string>
-  <string name="averageScoreAsWhiteX">Meðalskor sem hvítur: %s</string>
-  <string name="averageScoreAsBlackX">Meðalskor sem svartur: %s</string>
-  </resources>

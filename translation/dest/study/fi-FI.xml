@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="private">Yksityinen</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="private">Yksityinen</string>
   <string name="myStudies">Tutkielmani</string>
   <string name="studiesIContributeTo">Tutkielmat joihin olen osallisena</string>
   <string name="myPublicStudies">Julkiset tutkielmani</string>
@@ -69,6 +70,7 @@
   <string name="startAtX">Aloita siirrosta %s</string>
   <string name="embedInYourWebsite">Upota sivustoosi tai blogiisi</string>
   <string name="readMoreAboutEmbedding">Lue lisää upottamisesta</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Only public studies can be embedded!</string>
   <string name="open">Avaa</string>
   <string name="xBroughtToYouByY">%1$s, sivustolta %2$s</string>
   <string name="studyNotFound">Tutkielmaa ei löydy</string>

@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="perfStats">%s statistiky</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="perfStats">%s statistiky</string>
   <string name="viewTheGames">Zobrazit hry</string>
   <string name="provisional">prozatímní</string>
   <string name="notEnoughRatedGames">Nebyl odebrán dostatečný počet hodnocených her pro odhad spolehlivého ratingu.</string>

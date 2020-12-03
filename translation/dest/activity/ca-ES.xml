@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="activity">Activitat</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="activity">Activitat</string>
   <string name="hostedALiveStream">Has fet una retransmissió en directe</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">Ha col.laborat amb lishogi.org durant %1$s mes com %2$s</item>

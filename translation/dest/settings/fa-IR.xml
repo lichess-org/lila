@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">تنظیمات</string>
-  <string name="closeAccount">بستن حساب</string>
-  <string name="changedMindDoNotCloseAccount">نظرم را عوض کردم اکانتم را نمی بندم</string>
-  <string name="thisAccountIsClosed">این حساب بسته شده است</string>
-</resources>

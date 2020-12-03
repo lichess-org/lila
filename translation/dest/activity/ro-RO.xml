@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="activity">Activitate</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="activity">Activitate</string>
   <string name="hostedALiveStream">A găzduit un live stream</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">A sprijinit lishogi.org pentru %1$s lună ca și %2$s</item>

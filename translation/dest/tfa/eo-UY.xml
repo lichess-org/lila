@@ -1,8 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="twoFactorAuth">Dufaza aŭtentigo</string>
-  <string name="scanTheCode">Skanu la QR-kodo per la app.</string>
-  <string name="authenticationCode">Aŭtentiga kodo</string>
-  <string name="enableTwoFactor">Ebligi dufazan aŭtentigon</string>
-  <string name="disableTwoFactor">Malebligi dufazan aŭtentigon</string>
-  <string name="twoFactorEnabled">Dufaza aŭtentigo ebligita</string>
-</resources>

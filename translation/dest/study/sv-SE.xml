@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="private">Privat</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="private">Privat</string>
   <string name="myStudies">Mina studier</string>
   <string name="studiesIContributeTo">Studium jag bidrar till</string>
   <string name="myPublicStudies">Mina offentliga studier</string>
@@ -69,6 +70,7 @@
   <string name="startAtX">Börja på %s</string>
   <string name="embedInYourWebsite">Infoga på din hemsida eller blogg</string>
   <string name="readMoreAboutEmbedding">Läs mer om att infoga</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Only public studies can be embedded!</string>
   <string name="open">Öppna</string>
   <string name="xBroughtToYouByY">%1$s gjord av %2$s</string>
   <string name="studyNotFound">Studien kan inte hittas</string>

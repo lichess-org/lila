@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="twoFactorAuth">双重认证</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="twoFactorAuth">双重认证</string>
   <string name="twoFactorHelp">双重认证能增加您的账号的安全性。</string>
   <string name="twoFactorApp">下载一个双重认证 app，例如谷歌身份验证器 (%1$s 或 %2$s)。</string>
   <string name="scanTheCode">用 app 扫描 QR 码。</string>

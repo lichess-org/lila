@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="hourlyRapidArena">Torneo Rápido por Hora</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="hourlyRapidArena">Torneo Rápido por Hora</string>
   <string name="hourlyRapid">Rápido por Hora</string>
   <string name="hourlyXArena">Torneo %s por Hora</string>
   <string name="hourlyX">%s por Hora</string>

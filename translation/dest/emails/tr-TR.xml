@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="emailConfirm_subject">Lishogi.org hesabınızı doğrulayın, %s</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="emailConfirm_subject">Lishogi.org hesabınızı doğrulayın, %s</string>
   <string name="emailConfirm_click">Lishogi hesabınızı etkinleştirmek için bu bağlantıya tıklayın:</string>
   <string name="emailConfirm_ignore">Eğer Lishogi\'e üye olmadıysanız bu mesajı görmezden gelebilirsiniz.</string>
   <string name="passwordReset_subject">Lishogi.org şifrenizi sıfırlayın, %s</string>
@@ -14,6 +15,7 @@
 Profil sayfanız: %1$s. Profilinizi şuradan kişiselleştirebilirsiniz: %2$s.
 
 İyi eğlenceler, ve taşlarınız her zaman rakip şaha doğru yollarını bulabilsin!</string>
+  <string name="logInToLishogi">Log in to lishogi.org, %s</string>
   <string name="common_orPaste">(Tıklamak işe yaramadı mı? Tarayıcıya yapıştırmayı dene!)</string>
   <string name="common_note">Bu, %s kullanımınızla ilgili otomatik bir e-postadır.</string>
   <string name="common_contact">Bizimle iletişime geçmek için burayı kullanın: %s.</string>

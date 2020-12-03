@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="activity">활동</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="activity">활동</string>
   <string name="hostedALiveStream">라이브 스트리밍을 함</string>
   <plurals name="supportedNbMonths">
     <item quantity="other">%1$s 개월 동안 %2$s 에서 lishogi.org 을 후원하였습니다.</item>
@@ -18,6 +19,9 @@
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="other">%1$s 수를 둠</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="other">in %1$s correspondence games</item>
   </plurals>
   <plurals name="completedNbGames">
     <item quantity="other">%s 번의 통신전을 완료하셨습니다.</item>

@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="activity">Aktivitet</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="activity">Aktivitet</string>
   <string name="hostedALiveStream">Värd för en direktsänd videosändning</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">Har stött lishogi.org i %1$s månad som en %2$s</item>

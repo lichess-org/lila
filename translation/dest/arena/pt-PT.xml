@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="arenaTournaments">Torneios em arena</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">Torneios em arena</string>
   <string name="isItRated">É por pontos?</string>
   <string name="willBeNotified">Serás notificado quando o torneio começar, por isso é seguro jogares noutro separador enquanto esperas.</string>
   <string name="isRated">Este torneio é por pontos e afetará a tua pontuação.</string>

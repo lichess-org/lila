@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="measurementInProgressThreeDot">Mezuroj en progreso...</string>
-  <string name="noAndYourNetworkIsGood">Ne. Kaj via retkonekto estas bona.</string>
-  <string name="noAndYourNetworkIsBad">Ne. Kaj via retkonekto estas malbona.</string>
-  <string name="yesItWillBeFixedSoon">Jes. Ĝi estos baldaŭ riparita!</string>
-  <string name="lagCompensation">Prokrasta kompenso</string>
-</resources>

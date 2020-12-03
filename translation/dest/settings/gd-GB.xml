@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Roghainnean</string>
-  <string name="closeAccount">Dùin an cunntas</string>
-  <string name="changedMindDoNotCloseAccount">Chuir mi an caochladh romhamh, na dùinibh an cunntas agam</string>
-  <string name="thisAccountIsClosed">Chaidh an cunntas a dhùnadh.</string>
-</resources>

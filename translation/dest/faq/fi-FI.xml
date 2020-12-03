@@ -1,41 +1,61 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="faqAbbreviation">FAQ</string>
-  <string name="frequentlyAskedQuestions">Usein kysyttyjä kysymyksiä</string>
-  <string name="hearItPronouncedBySpecialist"> Kuuntele se asiantuntijan lausumana.</string>
-  <string name="whyLiveLightLibre">Live, koska pelejä pelataan ja katsellaan reaaliajassa 24 tuntia päivässä; light (kevyt) ja libre (vapaa) siksi, että Lishogi perustuu avoimelle lähdekoodille, eikä sitä rasita toisia nettisivuja turmeleva omisteinen roina.</string>
-  <string name="breakdownOfOurCosts">juoksevista kuluistamme</string>
-  <string name="otherWaysToHelp">muitakin tapoja auttaa</string>
-  <string name="fairPlay">Reilu peli</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">Miksi minulla on merkintä vahvuusluvun keinotekoisesta manipuloinnista (löysäilystä ja boostaamisesta) tai tietokoneavusta?</string>
-  <string name="cheatDetectionMethods">Lishogiillä on vahvat paljastusmenetelmät ja hyvin kattava prosessi todisteiden tarkastamiseen ja päätöksen tekoon. Prosessiin osallistuu usein monta moderaattoria, ja se voi kestää kauan. Merkintää lukuun ottamatta emme lähde yksittäistapauksissa erittelemään todisteita emmekä päätöksentekoprosessia. Jos tekisimme niin, paljastumisen välttäminen helpottuisi tulevaisuudessa, ja hyödyttömiä keskusteluja voisi herätä. Niihin kuluva aika ja vaiva on parasta käyttää muihin tärkeisiin asioihin. Käyttäjät voivat vedota meihin lähettämällä sähköpostin osoitteeseen %1$s, mutta päätöksiä muutetaan hyvin harvoin.</string>
-  <string name="whenAmIEligibleRatinRefund">Milloin voin saada huijaajilta automaattisen vahvuusluvun hyvityksen?</string>
-  <string name="ratingRefundExplanation">Minuutti siitä, kun pelaaja on merkitty, hänen viimeiset 40 pisteytettyä peliään viimeiseltä 3 päivältä otetaan käsittelyyn. Jos olit hänen vastustajansa noissa peleissä, vahvuuslukusi heikkeni (tappion tai tasapelin takia) eikä se ole väliaikainen, saat vahvuuslukuusi hyvityksen. Hyvityksen yläraja määräytyy huippuvahvuuslukusi sekä pelin jälkeisen vahvuuslukusi kehittymisen perusteella. 
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="faqAbbreviation">FAQ</string>
+	<string name="frequentlyAskedQuestions">Usein kysyttyjä kysymyksiä</string>
+	<string name="whyIsLishogiCalledLishogi">Why is Lishogi called Lishogi?</string>
+	<string name="forkedFromLichess">Lishogi is open source project forked from liсhess, but since it\'s for playing shogi, it\'s called lishogi.</string>
+	<string name="lishogiCombinationLiveLightLibrePronounced">Because it\'s derived from Liсhess. And Liсhess is called Liсhess because it\'s a combination of live/light/libre and chess. Lishogi is pronounced %1$s.</string>
+	<string name="leechess">lee-shogi</string>
+	<string name="hearItPronouncedBySpecialist"> Kuuntele se asiantuntijan lausumana.</string>
+	<string name="whyLiveLightLibre">Live, koska pelejä pelataan ja katsellaan reaaliajassa 24 tuntia päivässä; light (kevyt) ja libre (vapaa) siksi, että Lishogi perustuu avoimelle lähdekoodille, eikä sitä rasita toisia nettisivuja turmeleva omisteinen roina.</string>
+	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
+	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
+	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi is powered by donations from patrons and the efforts of a team of volunteers.</string>
+	<string name="findMoreAndSeeHowHelp">You can find out more about %1$s. If you want to help Lishogi by volunteering your time and skills, there are many %2$s.</string>
+	<string name="beingAPatron">Become a patron</string>
+	<string name="breakdownOfOurCosts">juoksevista kuluistamme</string>
+	<string name="otherWaysToHelp">muitakin tapoja auttaa</string>
+	<string name="areThereWebsitesBasedOnLishogi">Are there websites based on Lishogi?</string>
+	<string name="yesLishogiInspiredOtherOpenSourceWebsites">Yes. Lishogi has indeed inspired other open-source sites that use our %1$s, %2$s, or %3$s.</string>
+	<string name="fairPlay">Reilu peli</string>
+	<string name="whyFlaggedRatingManipulationOrCheater">Miksi minulla on merkintä vahvuusluvun keinotekoisesta manipuloinnista (löysäilystä ja boostaamisesta) tai tietokoneavusta?</string>
+	<string name="cheatDetectionMethods">Lishogiillä on vahvat paljastusmenetelmät ja hyvin kattava prosessi todisteiden tarkastamiseen ja päätöksen tekoon. Prosessiin osallistuu usein monta moderaattoria, ja se voi kestää kauan. Merkintää lukuun ottamatta emme lähde yksittäistapauksissa erittelemään todisteita emmekä päätöksentekoprosessia. Jos tekisimme niin, paljastumisen välttäminen helpottuisi tulevaisuudessa, ja hyödyttömiä keskusteluja voisi herätä. Niihin kuluva aika ja vaiva on parasta käyttää muihin tärkeisiin asioihin. Käyttäjät voivat vedota meihin lähettämällä sähköpostin osoitteeseen %1$s, mutta päätöksiä muutetaan hyvin harvoin.</string>
+	<string name="whenAmIEligibleRatinRefund">Milloin voin saada huijaajilta automaattisen vahvuusluvun hyvityksen?</string>
+	<string name="ratingRefundExplanation">Minuutti siitä, kun pelaaja on merkitty, hänen viimeiset 40 pisteytettyä peliään viimeiseltä 3 päivältä otetaan käsittelyyn. Jos olit hänen vastustajansa noissa peleissä, vahvuuslukusi heikkeni (tappion tai tasapelin takia) eikä se ole väliaikainen, saat vahvuuslukuusi hyvityksen. Hyvityksen yläraja määräytyy huippuvahvuuslukusi sekä pelin jälkeisen vahvuuslukusi kehittymisen perusteella. 
   (Jos esimerkiksi vahvuuslukusi on noussut kovasti noiden pelien jälkeen, et ehkä saa hyvitystä lainkaan tai vain osittaisen hyvityksen.) Hyvitys ei koskaan voi olla 150 pistettä enempää.</string>
-  <string name="preventLeavingGameWithoutResigning">Mitä tehdään pelaajille, jotka jättävät pelejä kesken luovuttamatta?</string>
-  <string name="leavingGameWithoutResigningExplanation">Jos vastustajasi lähtee usein peleistä tai jättää niitä kesken, he saavat pelikiellon, eli he eivät väliaikaisesti voi pelata pelejä. Tämä näkyy julkisesti heidän käyttäjäprofiilissaan. Jos tämä käytös jatkuu, pelikiellon pituus kasvaa – ja pitkittynyt tällainen käytös voi johtaa tunnuksen sulkemiseen.</string>
-  <string name="howCanIBecomeModerator">Kuinka voin päästä moderaattoriksi?</string>
-  <string name="youCannotApply">Moderaattoriksi ei voi hakea. Jos me huomaamme jonkun, joka meidän mielestämme olisi hyvä moderaattori, me otamme häneen suoraan yhteyttä.</string>
-  <string name="gameplay">Pelaaminen</string>
-  <string name="howBulletBlitzEtcDecided">Kuinka Bullet, Blitz ja muut aikakontrollit on määritelty?</string>
-  <string name="basedOnGameDuration">Lishogiin aikakontrollit perustuvat pelin arvioituun kestoon = %1$s
+	<string name="preventLeavingGameWithoutResigning">Mitä tehdään pelaajille, jotka jättävät pelejä kesken luovuttamatta?</string>
+	<string name="leavingGameWithoutResigningExplanation">Jos vastustajasi lähtee usein peleistä tai jättää niitä kesken, he saavat pelikiellon, eli he eivät väliaikaisesti voi pelata pelejä. Tämä näkyy julkisesti heidän käyttäjäprofiilissaan. Jos tämä käytös jatkuu, pelikiellon pituus kasvaa – ja pitkittynyt tällainen käytös voi johtaa tunnuksen sulkemiseen.</string>
+	<string name="howCanIBecomeModerator">Kuinka voin päästä moderaattoriksi?</string>
+	<string name="youCannotApply">Moderaattoriksi ei voi hakea. Jos me huomaamme jonkun, joka meidän mielestämme olisi hyvä moderaattori, me otamme häneen suoraan yhteyttä.</string>
+	<string name="isCorrespondenceDifferent">Is correspondence different from normal shogi?</string>
+	<string name="youCanUseOpeningBookNoEngine">On Lishogi, the main difference in rules for correspondence shogi is that an opening book is allowed. The use of engines is still prohibited and will result in being flagged for engine assistance. Although ICCF allows engine use in correspondence, Lishogi does not.</string>
+	<string name="gameplay">Pelaaminen</string>
+	<string name="howBulletBlitzEtcDecided">Kuinka Bullet, Blitz ja muut aikakontrollit on määritelty?</string>
+	<string name="basedOnGameDuration">Lishogiin aikakontrollit perustuvat pelin arvioituun kestoon = %1$s
 Esimerkiksi 5+3 pelin arvioitu kesto on 5 × 60 + 40 × 3 = 420 sekuntia.</string>
-  <string name="durationFormula">(aloitusaika minuutteina) + 40 × (lisäaika sekunteina)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$s s = %2$s</string>
-  <string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
-  <string name="whatVariantsCanIplay">Mitä variantteja voin pelata Lishogiissä?</string>
-  <string name="eightVariants">8 shakkivarianttia</string>
-  <string name="whatIsACPL">Mikä on keskimääräinen sadasosasotilaan menetys (ACPL)?</string>
-  <string name="acplExplanation">Sadasosasotilas on shakissa käytettävä mittayksikkö, jolla kuvataan pelaajan etua. Sadasosasotilas on 1/100 sotilaan arvosta. Näin ollen 100 sadasosasotilasta = 1 sotilas. Näillä arvoilla ei ole pelissä mitään muodollista virkaa, mutta asemien arvioinnin kannalta ne ovat pelaajille hyödyksi ja tietokoneshakissa olennaisia.
+	<string name="durationFormula">(aloitusaika minuutteina) + 40 × (lisäaika sekunteina)</string>
+	<string name="inferiorThanXsEqualYtimeControl">≤ %1$s s = %2$s</string>
+	<string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
+	<string name="whatVariantsCanIplay">Mitä variantteja voin pelata Lishogiissä?</string>
+	<string name="lishogiSupportChessAnd">Lishogi supports standard shogi and %1$s.</string>
+	<string name="eightVariants">8 shakkivarianttia</string>
+	<string name="whatIsACPL">Mikä on keskimääräinen sadasosasotilaan menetys (ACPL)?</string>
+	<string name="acplExplanation">Sadasosasotilas on shakissa käytettävä mittayksikkö, jolla kuvataan pelaajan etua. Sadasosasotilas on 1/100 sotilaan arvosta. Näin ollen 100 sadasosasotilasta = 1 sotilas. Näillä arvoilla ei ole pelissä mitään muodollista virkaa, mutta asemien arvioinnin kannalta ne ovat pelaajille hyödyksi ja tietokoneshakissa olennaisia.
 
  Tietokoneen mielestä paras siirto ei menetä yhtään sadasosasotilasta, mutta heikommat siirrot johtavat aseman heikkenemiseen sadasosasotilaissa mitattuna.
 
  Tätä arvoa voidaan käyttää ilmaisemaan pelin laatua. Mitä vähemmän sadasosasotilaita pelaaja menettää siirtoa kohden, sitä vahvemmin hän pelaa.
 
  Lishogiin tietokoneanalyysi pohjautuu Stockfish-ohjelmaan.</string>
-  <string name="insufficientMaterial">Ajalla häviäminen, tasapeli ja riittämätön materiaali</string>
-  <string name="linkToFIDErules">FIDE:n käsikirja §6.9, PDF</string>
-  <string name="discoveringEnPassant">Miksi sotilas voi lyödä toisen sotilaan, kun se on jo kulkenut ohitse? (ohestalyönti)</string>
-  <string name="explainingEnPassant">Tämä sallittu siirto tunnetaan ohestalyöntinä (\"en passant\"). Wikipediassa on %1$s ohestalyöntiin.
+	<string name="insufficientMaterial">Ajalla häviäminen, tasapeli ja riittämätön materiaali</string>
+	<string name="lishogiFollowFIDErules">In the event of one player running out of time, that player will usually lose the game. However, the game is drawn if the position is such that the opponent cannot checkmate the player\'s king by any possible series of legal moves (%1$s).
+
+In rare cases this can be difficult to decide automatically (forced lines, fortresses). By default we always side with the player who did not run out of time.
+
+Note that it can be possible to mate with a single knight or bishop if the opponent has a piece that could block the king.</string>
+	<string name="linkToFIDErules">FIDE:n käsikirja §6.9, PDF</string>
+	<string name="discoveringEnPassant">Miksi sotilas voi lyödä toisen sotilaan, kun se on jo kulkenut ohitse? (ohestalyönti)</string>
+	<string name="explainingEnPassant">Tämä sallittu siirto tunnetaan ohestalyöntinä (\"en passant\"). Wikipediassa on %1$s ohestalyöntiin.
  
  Siirto on kuvattu %2$s kohdassa 3.7 (d):
 
@@ -43,64 +63,82 @@ Esimerkiksi 5+3 pelin arvioitu kesto on 5 × 60 + 40 × 3 = 420 sekuntia.</strin
 
   Katso %3$ssta tämä siirto ja harjoittele sen käyttöä.
   </string>
-  <string name="goodIntroduction">hyvä johdanto</string>
-  <string name="officialRulesPDF">virallisten sääntöjen (PDF)</string>
-  <string name="threefoldRepetition">Aseman toisto kolmesti</string>
-  <string name="threefoldRepetitionExplanation">Jos asema toistuu kolmesti, pelaaja voi vaatia tasapelin %1$s perusteella. Lishogi noudattaa FIDE:n virallisia sääntöjä, jotka on kuvattu %2$s kohdassa 9.2 (d).</string>
-  <string name="threefoldRepetitionLowerCase">kolminkertaisen toiston</string>
-  <string name="handBookPDF">käsikirjan (PDF)</string>
-  <string name="notRepeatedMoves">Me emme toistaneet siirtoja. Miksi peli silti päättyi tasapeliin toiston perusteella?</string>
-  <string name="repeatedPositionsThatMatters">Kolminkertaisessa toistossa on kysymys %1$s toistumisesta, ei siirtojen. Toistumisen ei tarvitse tapahtua peräkkäin.</string>
-  <string name="positions">aseman</string>
-  <string name="weRepeatedthreeTimesPosButNoDraw">Asema toistui meillä kolme kertaa. Miksi peli ei päättynyt tasapeliin?</string>
-  <string name="threeFoldHasToBeClaimed">Jonkun pelaajista pitää vaatia tasapeliä aseman toistuessa. Voit tehdä sen painamalla näkyviin tulevaa nappia tai tarjoamalla tasapeliä ennen viimeistä toistuvaa siirtoasi. Voit myös %1$s Lishogiin vaatimaan sinulle automaattisesti tasapelin toiston perusteella. Lisäksi aseman viisinkertainen toistuminen lopettaa pelin välittömästi.</string>
-  <string name="configure">konfiguroida</string>
-  <string name="accounts">Käyttäjätunnukset</string>
-  <string name="showYourTitle">Jos sinulla on lähishakin arvonimi, voit hakea sen näyttämistä käyttäjätunnuksessasi täyttämällä %1$s ja liittämällä oheen selvän kuvan henkilöllisyystodistuksesta tai selfien, jossa pidät sitä kädessäsi.
+	<string name="goodIntroduction">hyvä johdanto</string>
+	<string name="officialRulesPDF">virallisten sääntöjen (PDF)</string>
+	<string name="lishogiTraining">Lishogi training</string>
+	<string name="threefoldRepetition">Aseman toisto kolmesti</string>
+	<string name="threefoldRepetitionExplanation">Jos asema toistuu kolmesti, pelaaja voi vaatia tasapelin %1$s perusteella. Lishogi noudattaa FIDE:n virallisia sääntöjä, jotka on kuvattu %2$s kohdassa 9.2 (d).</string>
+	<string name="threefoldRepetitionLowerCase">kolminkertaisen toiston</string>
+	<string name="handBookPDF">käsikirjan (PDF)</string>
+	<string name="notRepeatedMoves">Me emme toistaneet siirtoja. Miksi peli silti päättyi tasapeliin toiston perusteella?</string>
+	<string name="repeatedPositionsThatMatters">Kolminkertaisessa toistossa on kysymys %1$s toistumisesta, ei siirtojen. Toistumisen ei tarvitse tapahtua peräkkäin.</string>
+	<string name="positions">aseman</string>
+	<string name="weRepeatedthreeTimesPosButNoDraw">Asema toistui meillä kolme kertaa. Miksi peli ei päättynyt tasapeliin?</string>
+	<string name="threeFoldHasToBeClaimed">Jonkun pelaajista pitää vaatia tasapeliä aseman toistuessa. Voit tehdä sen painamalla näkyviin tulevaa nappia tai tarjoamalla tasapeliä ennen viimeistä toistuvaa siirtoasi. Voit myös %1$s Lishogiin vaatimaan sinulle automaattisesti tasapelin toiston perusteella. Lisäksi aseman viisinkertainen toistuminen lopettaa pelin välittömästi.</string>
+	<string name="configure">konfiguroida</string>
+	<string name="accounts">Käyttäjätunnukset</string>
+	<string name="titlesAvailableOnLishogi">What titles are there on Lishogi?</string>
+	<string name="lishogiRecognizeAllOTBtitles">Lishogi recognises all FIDE titles gained from OTB (over the board) play, as well as %1$s. Here is a list of FIDE titles:</string>
+	<string name="showYourTitle">Jos sinulla on lähishakin arvonimi, voit hakea sen näyttämistä käyttäjätunnuksessasi täyttämällä %1$s ja liittämällä oheen selvän kuvan henkilöllisyystodistuksesta tai selfien, jossa pidät sitä kädessäsi.
 
  Kun arvonimesi on varmennettu Lishogiissä, pääset pelaamaan Arvonimiareena-tapahtumissa.
 
  Lisäksi on olemassa kunnianimi %2$s.</string>
-  <string name="asWellAsManyNMtitles">monia kansallisia mestarititteleitä</string>
-  <string name="verificationForm">varmennuslomakkeen</string>
-  <string name="canIbecomeLM">Voinko saada Lishogi-mestarin (LM) arvonimen?</string>
-  <string name="noUpperCaseDot">Et.</string>
-  <string name="lMtitleComesToYouDoNotRequestIt">Tämä kunnianimi on epävirallinen ja olemassa vain Lishogiissä.
+	<string name="asWellAsManyNMtitles">monia kansallisia mestarititteleitä</string>
+	<string name="verificationForm">varmennuslomakkeen</string>
+	<string name="canIbecomeLM">Voinko saada Lishogi-mestarin (LM) arvonimen?</string>
+	<string name="noUpperCaseDot">Et.</string>
+	<string name="lMtitleComesToYouDoNotRequestIt">Tämä kunnianimi on epävirallinen ja olemassa vain Lishogiissä.
 
   Me myönnämme sen harvoin oman harkintamme mukaan erityisen merkittäville pelaajille, jotka ovat hyviä Lishogi-kansalaisia. Sinä et voi hankkia LM-arvonimeä, vaan LM-arvonimi saapuu luoksesi. Jos täytät vaatimukset, saat meiltä sitä koskevan viestin, ja voit joko hyväksyä tai hylätä arvonimen.
 
   Älä pyydä meiltä LM-arvonimeä.</string>
-  <string name="whatUsernameCanIchoose">Mikä minun käyttäjänimeni voi olla?</string>
-  <string name="usernamesNotOffensive">Yleisesti ottaen käyttäjänimien ei pidä olla loukkaavia, eikä niillä saa esittää toista ihmistä eikä mainostaa. Voit lukea lisää %1$s.</string>
-  <string name="guidelines">ohjeista</string>
-  <string name="uniqueTrophies">Ainutlaatuiset palkinnot</string>
-  <string name="ownerUniqueTrophies">Tämä palkinto on Lishogiin historiassa ainutlaatuinen, eikä sitä voi koskaan saada kukaan muu kuin %1$s.</string>
-  <string name="wayOfBerserkExplanation">hiimgosu sai sen haastettuaan itsensä voittamaan berserkkitilassa 100%% %s peleistä.</string>
-  <string name="aHourlyBulletTournament">tunnittaisen Bullet-turnauksen</string>
-  <string name="goldenZeeExplanation">ZugAddict striimasi ja oli viimeiset 2 tuntia yrittänyt voittaa tason 8 tekoälyn 1+0-pelissä onnistumatta siinä. Thibault sanoi hänelle, että jos hän striimatessaan onnistuisi siinä, hän saisi ainutlaatuisen palkinnon. Tuntia myöhemmin ZugAddict löi Stockfishin, ja lupaus pidettiin.</string>
-  <string name="whatIsProvisionalRating">Miksi joidenkin vahvuuslukujen vieressä on kysymysmerkki?</string>
-  <string name="provisionalRatingExplanation">Kysymysmerkki tarkoittaa, että vahvuusluku on tilapäinen. Syynä voi olla:</string>
-  <string name="notPlayedEnoughRatedGamesAgainstX">Pelaaja ei ole vielä pelannut kyseisessä vahvuuslukukategoriassa tarpeeksi pisteytettyjä pelejä %1$s vastaan.</string>
-  <string name="similarOpponents">vahvuudeltaan samankaltaisia pelaajia</string>
-  <string name="notPlayedRecently">Pelaaja ei ole pelannut viime aikoina tarpeeksi pelejä. Pelattujen pelien määrästä riippuen noin vuoden mittainen tauko peleistä johtaa siihen, että vahvuusluvusta tulee jälleen tilapäinen.</string>
-  <string name="ratingDeviationMorethanOneHundredTen">Käytännössä se tarkoittaa, että Glicko-2-poikkeama on suurempi kuin 110. Poikkeama kuvaa järjestelmän luottamuksen tasoa vahvuuslukua kohtaan. Mitä alhaisempi poikkeama, sitä vakaampi vahvuusluku on.</string>
-  <string name="howDoLeaderoardsWork">Miten sijoitukset ja pistetaulukot toimivat?</string>
-  <string name="inOrderToAppearsYouMust">Päästäksesi %1$s:</string>
-  <string name="ratingLeaderboards">pistetaulukkoihin</string>
-  <string name="havePlayedMoreThanThirtyGamesInThatRating">sinulla tulee olla vähintään 30 pisteytettyä peliä pelattuna kyseisessä kategoriassa,</string>
-  <string name="havePlayedARatedGameAtLeastOneWeekAgo">sinulla tulee olla vähintään yksi pisteytetty peli viime viikon ajalta kyseisessä kategoriassa,</string>
-  <string name="beInTopTen">sinun tulee kuulua kyseisen kategorian kärkikymmenikköön.</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Toinen ehdoista on asetettu sitä varten, etteivät ne pelaajat, jotka eivät enää käytä tunnuksiaan, jäisi kansoittamaan pistetaulukkoja.</string>
-  <string name="whyAreRatingHigher">Miksi vahvuusluvut ovat korkeampia kuin toisilla sivustoilla ja sellaisilla organisaatioilla kuin FIDE, USCF ja ICC?</string>
-  <string name="whyAreRatingHigherExplanation">On parasta olla ajattelematta vahvuuslukuja absoluuttisina lukuina ja olla vertaamatta niitä toisiin organisaatioihin. Eri organisaatioilla on eri tasoiset pelaajat ja erilaiset vahvuuslukujärjestelmät (ELO, Glicko, Glicko-2 tai niiden muunneltu versio). Nämä tekijät voivat vaikuttaa absoluuttisiin (vahvuus)lukuihin voimakkaasti.
+	<string name="whatUsernameCanIchoose">Mikä minun käyttäjänimeni voi olla?</string>
+	<string name="usernamesNotOffensive">Yleisesti ottaen käyttäjänimien ei pidä olla loukkaavia, eikä niillä saa esittää toista ihmistä eikä mainostaa. Voit lukea lisää %1$s.</string>
+	<string name="guidelines">ohjeista</string>
+	<string name="uniqueTrophies">Ainutlaatuiset palkinnot</string>
+	<string name="ownerUniqueTrophies">Tämä palkinto on Lishogiin historiassa ainutlaatuinen, eikä sitä voi koskaan saada kukaan muu kuin %1$s.</string>
+	<string name="wayOfBerserkExplanation">hiimgosu sai sen haastettuaan itsensä voittamaan berserkkitilassa 100%% %s peleistä.</string>
+	<string name="aHourlyBulletTournament">tunnittaisen Bullet-turnauksen</string>
+	<string name="goldenZeeExplanation">ZugAddict striimasi ja oli viimeiset 2 tuntia yrittänyt voittaa tason 8 tekoälyn 1+0-pelissä onnistumatta siinä. Thibault sanoi hänelle, että jos hän striimatessaan onnistuisi siinä, hän saisi ainutlaatuisen palkinnon. Tuntia myöhemmin ZugAddict löi Stockfishin, ja lupaus pidettiin.</string>
+	<string name="lishogiRatings">Lishogi ratings</string>
+	<string name="whichRatingSystemUsedByLishogi">What rating system does Lishogi use?</string>
+	<string name="ratingSystemUsedByLishogi">Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant number of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system).
+
+Fundamentally, Glicko ratings use \"confidence intervals\" when calculating and representing your rating. When you first start using the site, your rating starts at 1500 ± 700. The 1500 represents your rating, and the 700 represents the confidence interval.
+
+Basically, the system is 90% sure that your rating is somewhere between 800 and 2200. It is incredibly uncertain. Because of this, when a player is just starting out, their rating will change very dramatically, potentially several hundred points at a time. But after some games against established players the confidence interval will narrow, and the amount of points gained/lost after each game will decrease.
+
+Another point to note is that, as time passes, the confidence interval will increase. This allows you to gain/lose points points more rapidly to match any changes in your skill level over that time.</string>
+	<string name="whatIsProvisionalRating">Miksi joidenkin vahvuuslukujen vieressä on kysymysmerkki?</string>
+	<string name="provisionalRatingExplanation">Kysymysmerkki tarkoittaa, että vahvuusluku on tilapäinen. Syynä voi olla:</string>
+	<string name="notPlayedEnoughRatedGamesAgainstX">Pelaaja ei ole vielä pelannut kyseisessä vahvuuslukukategoriassa tarpeeksi pisteytettyjä pelejä %1$s vastaan.</string>
+	<string name="similarOpponents">vahvuudeltaan samankaltaisia pelaajia</string>
+	<string name="notPlayedRecently">Pelaaja ei ole pelannut viime aikoina tarpeeksi pelejä. Pelattujen pelien määrästä riippuen noin vuoden mittainen tauko peleistä johtaa siihen, että vahvuusluvusta tulee jälleen tilapäinen.</string>
+	<string name="ratingDeviationMorethanOneHundredTen">Käytännössä se tarkoittaa, että Glicko-2-poikkeama on suurempi kuin 110. Poikkeama kuvaa järjestelmän luottamuksen tasoa vahvuuslukua kohtaan. Mitä alhaisempi poikkeama, sitä vakaampi vahvuusluku on.</string>
+	<string name="howDoLeaderoardsWork">Miten sijoitukset ja pistetaulukot toimivat?</string>
+	<string name="inOrderToAppearsYouMust">Päästäksesi %1$s:</string>
+	<string name="ratingLeaderboards">pistetaulukkoihin</string>
+	<string name="havePlayedMoreThanThirtyGamesInThatRating">sinulla tulee olla vähintään 30 pisteytettyä peliä pelattuna kyseisessä kategoriassa,</string>
+	<string name="havePlayedARatedGameAtLeastOneWeekAgo">sinulla tulee olla vähintään yksi pisteytetty peli viime viikon ajalta kyseisessä kategoriassa,</string>
+	<string name="ratingDeviationLowerThanXinChessYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
+	<string name="beInTopTen">sinun tulee kuulua kyseisen kategorian kärkikymmenikköön.</string>
+	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Toinen ehdoista on asetettu sitä varten, etteivät ne pelaajat, jotka eivät enää käytä tunnuksiaan, jäisi kansoittamaan pistetaulukkoja.</string>
+	<string name="whyAreRatingHigher">Miksi vahvuusluvut ovat korkeampia kuin toisilla sivustoilla ja sellaisilla organisaatioilla kuin FIDE, USCF ja ICC?</string>
+	<string name="whyAreRatingHigherExplanation">On parasta olla ajattelematta vahvuuslukuja absoluuttisina lukuina ja olla vertaamatta niitä toisiin organisaatioihin. Eri organisaatioilla on eri tasoiset pelaajat ja erilaiset vahvuuslukujärjestelmät (ELO, Glicko, Glicko-2 tai niiden muunneltu versio). Nämä tekijät voivat vaikuttaa absoluuttisiin (vahvuus)lukuihin voimakkaasti.
 
  Vahvuusluvut on parasta nähdä \"suhteellisina\" lukuina (eikä \"absoluuttisina\" lukuina): pelaajajoukon keskuudessa vahvuuslukujen suhteelliset erot auttavat arvioimaan, kuka voittaa, pelaa tasapelin tai häviää, ja kuinka usein. \"Minun vahvuuslukuni on X\" ei tarkoita mitään, ellei ole toisia pelaajia, joihin sitä vahvuuslukua voidaan verrata.</string>
-  <string name="howToHideRatingWhilePlaying">Kuinka vahvuusluvut voi piilottaa pelatessa?</string>
-  <string name="enableZenMode">Aktivoi Zen-moodi %1$s, tai paina pelin aikana kirjainta %2$s.</string>
-  <string name="displayPreferences">ulkoasuasetuksista</string>
-  <string name="connexionLostCanIGetMyRatingBack">Hävisin pelin viiveen tai katkenneen yhteyden takia. Voinko saada vahvuuslukupisteeni takaisin?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Valitettavasti emme voi antaa takaisin vahvuuslukupisteitä viiveen tai katkenneen yhteyden takia hävityistä peleistä riippumatta siitä, oliko ongelma sinun vai meidän päässä. Jälkimmäinen on kuitenkin erittäin harvinaista. Huomaa myös, että kun Lishogi käynnistyy uudelleen, ja häviät pelin ajalla sen takia, me keskeytämme pelin välttääksemme epäreilun tappion.</string>
-  <string name="howToThreeDots">Kuinka voin...</string>
-  <string name="enableDisableNotificationPopUps">Ottaa käyttöön tai poistaa käytöstä ponnahdusikkunat?</string>
-  <string name="viewSiteInformationPopUp">Näytä sivuston informaatio-ponnahdusikkuna</string>
-  </resources>
+	<string name="howToHideRatingWhilePlaying">Kuinka vahvuusluvut voi piilottaa pelatessa?</string>
+	<string name="enableZenMode">Aktivoi Zen-moodi %1$s, tai paina pelin aikana kirjainta %2$s.</string>
+	<string name="displayPreferences">ulkoasuasetuksista</string>
+	<string name="connexionLostCanIGetMyRatingBack">Hävisin pelin viiveen tai katkenneen yhteyden takia. Voinko saada vahvuuslukupisteeni takaisin?</string>
+	<string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Valitettavasti emme voi antaa takaisin vahvuuslukupisteitä viiveen tai katkenneen yhteyden takia hävityistä peleistä riippumatta siitä, oliko ongelma sinun vai meidän päässä. Jälkimmäinen on kuitenkin erittäin harvinaista. Huomaa myös, että kun Lishogi käynnistyy uudelleen, ja häviät pelin ajalla sen takia, me keskeytämme pelin välttääksemme epäreilun tappion.</string>
+	<string name="howToThreeDots">Kuinka voin...</string>
+	<string name="enableDisableNotificationPopUps">Ottaa käyttöön tai poistaa käytöstä ponnahdusikkunat?</string>
+	<string name="viewSiteInformationPopUp">Näytä sivuston informaatio-ponnahdusikkuna</string>
+	<string name="lishogiCanOptionnalySendPopUps">Lishogi can optionally send popup notifications, for example when it is your turn or you received a private message.
+
+Click the lock icon next to the lishogi.org address in the URL bar of your browser.
+
+Then select whether to allow or block notifications from Lishogi.</string>
+</resources>

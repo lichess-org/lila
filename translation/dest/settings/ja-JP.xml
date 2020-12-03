@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">設定</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">設定</string>
   <string name="closeAccount">アカウント停止</string>
   <string name="closingIsDefinitive">アカウント停止は不可逆で、元には戻せません。ほんとうに停止しますか？</string>
   <string name="cantOpenSimilarAccount">同じ名前（大文字・小文字が違っていても）で別のアカウントを作ることもできません。</string>

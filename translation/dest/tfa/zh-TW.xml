@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="twoFactorAuth">兩步驟驗證</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="twoFactorAuth">兩步驟驗證</string>
   <string name="twoFactorHelp">兩步驟驗證為您的帳戶多增加了一道防線</string>
   <string name="twoFactorApp">得到用於兩步驟驗證的 App，例如適用於 %1$s或 %2$s 的Google Authenticator</string>
   <string name="scanTheCode">使用App掃描QR code</string>

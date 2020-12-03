@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="private">私人</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="private">私人</string>
   <string name="myStudies">我的研究</string>
   <string name="studiesIContributeTo">我贡献的研究</string>
   <string name="myPublicStudies">我的公开研究</string>

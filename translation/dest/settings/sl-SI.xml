@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Nastavitve</string>
-  <string name="closeAccount">Zapri račun</string>
-  <string name="closingIsDefinitive">Zapora je dokončna. Ni poti nazaj. Ali ste prepričani?</string>
-  <string name="cantOpenSimilarAccount">Računa z enakim imenom ne boste mogli odpreti, tudi če z drugačnimi velikostmi črk.</string>
-  <string name="changedMindDoNotCloseAccount">Premislil sem si, ne želim zapreti računa</string>
-  <string name="closeAccountExplanation">Ali ste prepričani da želti zapreti svoj račun? Zaprtje računa je trajna odločitev. NIKOLI se ne boste mogli prijaviti VEČ.</string>
-  <string name="thisAccountIsClosed">Račun je zaprt.</string>
-</resources>

@@ -1,22 +1,27 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="search">Suche</string>
-  <string name="advancedSearch">Erweiterte Suche</string>
-  <plurals name="xGamesFound">
-    <item quantity="one">Eine Partie gefunden</item>
-    <item quantity="other">%s Partien gefunden</item>
-  </plurals>
-  <string name="opponentName">Name des Gegners</string>
-  <string name="loser">Verlierer</string>
-  <string name="from">Von</string>
-  <string name="to">Bis</string>
-  <string name="humanOrComputer">Ob der Gegenspieler menschlich oder ein Computer war</string>
-  <string name="aiLevel">KI-Stärke</string>
-  <string name="source">Quelle</string>
-  <string name="nbTurns">Zuganzahl</string>
-  <string name="result">Ergebnis</string>
-  <string name="winnerColor">Siegerfarbe</string>
-  <string name="date">Datum</string>
-  <string name="sortBy">Sortieren nach</string>
-  <string name="analysis">Analyse</string>
-  <string name="onlyAnalysed">Nur Partien, für die eine Computeranalyse verfügbar ist</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="search">Suche</string>
+	<string name="advancedSearch">Erweiterte Suche</string>
+	<plurals name="searchInXGames">
+		<item quantity="one">Search in %s shogi game</item>
+		<item quantity="other">Search in %s shogi games</item>
+	</plurals>
+	<plurals name="xGamesFound">
+		<item quantity="one">Eine Partie gefunden</item>
+		<item quantity="other">%s Partien gefunden</item>
+	</plurals>
+	<string name="opponentName">Name des Gegners</string>
+	<string name="loser">Verlierer</string>
+	<string name="from">Von</string>
+	<string name="to">Bis</string>
+	<string name="humanOrComputer">Ob der Gegenspieler menschlich oder ein Computer war</string>
+	<string name="aiLevel">KI-Stärke</string>
+	<string name="source">Quelle</string>
+	<string name="nbTurns">Zuganzahl</string>
+	<string name="result">Ergebnis</string>
+	<string name="winnerColor">Siegerfarbe</string>
+	<string name="date">Datum</string>
+	<string name="sortBy">Sortieren nach</string>
+	<string name="analysis">Analyse</string>
+	<string name="onlyAnalysed">Nur Partien, für die eine Computeranalyse verfügbar ist</string>
 </resources>

@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Setări</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Setări</string>
   <string name="closeAccount">Închide contul</string>
   <string name="closingIsDefinitive">Închiderea este definitivă. Nu există cale de întoarcere. Ești sigur?</string>
   <string name="cantOpenSimilarAccount">Nu îți va fi permis să creezi un cont nou cu același nume, indiferent dacă literele sunt minuscule sau majuscule.</string>

@@ -1,9 +1,13 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Współrzędne pól</string>
-  <string name="coordinateTraining">Trening współrzędnych pól</string>
-  <string name="averageScoreAsWhiteX">Średni wynik białymi: %s</string>
-  <string name="averageScoreAsBlackX">Średni wynik czarnymi: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Analiza partii przebiega sprawniej, jeśli nie musisz szukać pól mając ich współrzędne.</string>
-  <string name="aSquareNameAppears">Gdy pojawią się współrzędne musisz jak najszybciej kliknąć we właściwe pole. Masz 30 sekund aby wskazać tak wiele pól jak to możliwe!</string>
-  <string name="startTraining">Rozpocznij trening</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="coordinates">Współrzędne pól</string>
+	<string name="coordinateTraining">Trening współrzędnych pól</string>
+	<string name="averageScoreAsWhiteX">Średni wynik białymi: %s</string>
+	<string name="averageScoreAsBlackX">Średni wynik czarnymi: %s</string>
+	<string name="knowingTheShogiBoard">Knowing the shogiboard coordinates is a very important shogi skill:</string>
+	<string name="mostShogiCourses">All shogi courses and exercises use some kind of a shogi notation. You can pick between the Japanese one and the western one.</string>
+	<string name="talkToYourShogiFriends">It makes it easier to talk to your shogi friends, since you both understand the \'language of shogi\'.</string>
+	<string name="youCanAnalyseAGameMoreEffectively">Analiza partii przebiega sprawniej, jeśli nie musisz szukać pól mając ich współrzędne.</string>
+	<string name="aSquareNameAppears">Gdy pojawią się współrzędne musisz jak najszybciej kliknąć we właściwe pole. Masz 30 sekund aby wskazać tak wiele pól jak to możliwe!</string>
+	<string name="startTraining">Rozpocznij trening</string>
 </resources>

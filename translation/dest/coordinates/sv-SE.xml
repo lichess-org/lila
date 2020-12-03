@@ -1,9 +1,13 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Koordinater</string>
-  <string name="coordinateTraining">Träna på koordinaterna</string>
-  <string name="averageScoreAsWhiteX">Genomsnittlig poäng som vit: %s</string>
-  <string name="averageScoreAsBlackX">Genomsnittlig poäng som svart: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Ett parti analyseras ännu effektivare om du inte behöver söka efter rutornas koordinater.</string>
-  <string name="aSquareNameAppears">Rutornas namn visas på brädet och du måste klicka på rätt ruta. Du har 30 sekunder att identifiera så många rutor som möjligt!</string>
-  <string name="startTraining">Starta träningen</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="coordinates">Koordinater</string>
+	<string name="coordinateTraining">Träna på koordinaterna</string>
+	<string name="averageScoreAsWhiteX">Genomsnittlig poäng som vit: %s</string>
+	<string name="averageScoreAsBlackX">Genomsnittlig poäng som svart: %s</string>
+	<string name="knowingTheShogiBoard">Knowing the shogiboard coordinates is a very important shogi skill:</string>
+	<string name="mostShogiCourses">All shogi courses and exercises use some kind of a shogi notation. You can pick between the Japanese one and the western one.</string>
+	<string name="talkToYourShogiFriends">It makes it easier to talk to your shogi friends, since you both understand the \'language of shogi\'.</string>
+	<string name="youCanAnalyseAGameMoreEffectively">Ett parti analyseras ännu effektivare om du inte behöver söka efter rutornas koordinater.</string>
+	<string name="aSquareNameAppears">Rutornas namn visas på brädet och du måste klicka på rätt ruta. Du har 30 sekunder att identifiera så många rutor som möjligt!</string>
+	<string name="startTraining">Starta träningen</string>
 </resources>

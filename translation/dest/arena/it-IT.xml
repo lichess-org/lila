@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="arenaTournaments">Tornei arena</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">Tornei arena</string>
   <string name="isItRated">Questo torneo è classificato?</string>
   <string name="willBeNotified">Riceverai una notifica quando il torneo inizierà. Durante l\'attesa puoi tranquillamente giocare in un\'altra scheda.</string>
   <string name="isRated">Questo torneo è classificato e influenzerà il tuo punteggio.</string>

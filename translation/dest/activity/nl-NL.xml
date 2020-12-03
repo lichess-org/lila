@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="activity">Activiteit</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="activity">Activiteit</string>
   <string name="hostedALiveStream">Organiseerde een live stream</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">Steunde lishogi.org voor %1$s maand als %2$s</item>

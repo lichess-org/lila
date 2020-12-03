@@ -1,5 +1,8 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="live">В ЭФИРЕ!</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lishogiStreamers">Lishogi streamers</string>
+  <string name="lishogiStreamer">Lishogi streamer</string>
+  <string name="live">В ЭФИРЕ!</string>
   <string name="offline">ОФЛАЙН</string>
   <string name="currentlyStreaming">Сейчас транслируют: %s</string>
   <string name="lastStream">Последний стрим %s</string>

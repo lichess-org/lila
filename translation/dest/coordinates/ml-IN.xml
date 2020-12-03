@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">കോർഡിനേറ്റ്സ്</string>
-  <string name="coordinateTraining">കോർഡിനേറ്റ് ട്രെയിനിങ്</string>
-  <string name="averageScoreAsWhiteX">വെള്ള കരുക്കൾ കൊണ്ട് നേടിയ ശരാശരി score: %s</string>
-  <string name="averageScoreAsBlackX">കറുത്ത കരുക്കൾ കൊണ്ട് നേടിയ ശരാശരി score: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">ചെസ്സ് കളങ്ങളുടെ പേര് നിങ്ങൾക്കറിയുമെങ്കിൽ ഒരു ഗെയിം വിശകലനം ചെയ്യുമ്പോൾ ആ കളം പരാതി നടക്കേണ്ട ആവശ്യം വരില്ല.</string>
-  <string name="aSquareNameAppears">ഒരു കളത്തിന്റെ പേര് സ്‌ക്രീനിൽ തെളിയും. അപ്പോൾ നിങ്ങൾ ആ കളം അമർത്തണം. 30 സെക്കന്റിനുള്ളിൽ ആവുന്നത്ര കളങ്ങൾ തിരിച്ചറിയുക!</string>
-  <string name="startTraining">പരിശീലനം തുടങ്ങാം</string>
-</resources>

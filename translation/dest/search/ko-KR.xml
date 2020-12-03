@@ -1,13 +1,25 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="search">검색</string>
-  <string name="advancedSearch">고급 검색</string>
-  <plurals name="xGamesFound">
-    <item quantity="other">%s개의 게임을 찾았습니다</item>
-  </plurals>
-  <string name="opponentName">상대 이름</string>
-  <string name="aiLevel">인공지능 레벨</string>
-  <string name="source">출처</string>
-  <string name="result">결과</string>
-  <string name="date">날짜</string>
-  <string name="analysis">분석</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="search">검색</string>
+	<string name="advancedSearch">고급 검색</string>
+	<plurals name="searchInXGames">
+		<item quantity="other">Search in %s shogi games</item>
+	</plurals>
+	<plurals name="xGamesFound">
+		<item quantity="other">%s개의 게임을 찾았습니다</item>
+	</plurals>
+	<string name="opponentName">상대 이름</string>
+	<string name="loser">Loser</string>
+	<string name="from">From</string>
+	<string name="to">To</string>
+	<string name="humanOrComputer">Whether the player\'s opponent was human or a computer</string>
+	<string name="aiLevel">인공지능 레벨</string>
+	<string name="source">출처</string>
+	<string name="nbTurns">Number of turns</string>
+	<string name="result">결과</string>
+	<string name="winnerColor">Winner color</string>
+	<string name="date">날짜</string>
+	<string name="sortBy">Sort by</string>
+	<string name="analysis">분석</string>
+	<string name="onlyAnalysed">Only games where a computer analysis is available</string>
 </resources>

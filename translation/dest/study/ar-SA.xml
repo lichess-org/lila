@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="private">خاص</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="private">خاص</string>
   <string name="myStudies">دراستي</string>
   <string name="studiesIContributeTo">الدراسات المساهم بها</string>
   <string name="myPublicStudies">دراسات العامة</string>
@@ -15,7 +16,31 @@
   <string name="recentlyUpdated">تم تحديثه مؤخرا</string>
   <string name="mostPopular">الاكثر شعبية</string>
   <string name="addNewChapter">أضف فصلاً جديدا</string>
+  <plurals name="nbChapters">
+    <item quantity="zero">%s Chapters</item>
+    <item quantity="one">%s Chapter</item>
+    <item quantity="two">%s Chapters</item>
+    <item quantity="few">%s Chapters</item>
+    <item quantity="many">%s Chapters</item>
+    <item quantity="other">%s Chapters</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="zero">%s Games</item>
+    <item quantity="one">%s Game</item>
+    <item quantity="two">%s Games</item>
+    <item quantity="few">%s Games</item>
+    <item quantity="many">%s Games</item>
+    <item quantity="other">%s Games</item>
+  </plurals>
   <string name="addMembers">إضافة أعضاء</string>
+  <plurals name="nbMembers">
+    <item quantity="zero">%s Members</item>
+    <item quantity="one">%s Member</item>
+    <item quantity="two">%s Members</item>
+    <item quantity="few">%s Members</item>
+    <item quantity="many">%s Members</item>
+    <item quantity="other">%s Members</item>
+  </plurals>
   <string name="inviteToTheStudy">دعوة الى دراسة</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">يرجى فقط إضافة اشخاص تعرفهم، ويريدون المشاركة في هذه الدراسة</string>
   <string name="searchByUsername">البحث بواسطة اسم المستخدم</string>
@@ -45,11 +70,19 @@
   <string name="shareAndExport">مشاركة و تصدير</string>
   <string name="cloneStudy">استنساخ</string>
   <string name="studyPgn">PGN الدراسة</string>
+  <string name="downloadAllGames">Download all games</string>
   <string name="chapterPgn">PGN الفصل</string>
+  <string name="downloadGame">Download game</string>
   <string name="studyUrl">رابط الدراسة</string>
+  <string name="broadcastUrl">Broadcast URL</string>
   <string name="currentChapterUrl">رابط الفصل الحالي</string>
+  <string name="currentGameUrl">Current game URL</string>
+  <string name="youCanPasteThisInTheForumToEmbed">You can paste this in the forum to embed</string>
   <string name="startAtInitialPosition">البدء من وضع البداية</string>
   <string name="startAtX">البدء من %s</string>
+  <string name="embedInYourWebsite">Embed in your website or blog</string>
+  <string name="readMoreAboutEmbedding">Read more about embedding</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Only public studies can be embedded!</string>
   <string name="open">فتح</string>
   <string name="xBroughtToYouByY">%1$s مقدمة من %2$s</string>
   <string name="studyNotFound">لم يتم العثور على الدراسة</string>
@@ -59,26 +92,57 @@
   <string name="analysisMode">وضع التحليل</string>
   <string name="pinnedChapterComment">التعليق المثبت على الفصل</string>
   <string name="saveChapter">حفظ الفصل</string>
+  <string name="clearAnnotations">Clear annotations</string>
   <string name="deleteChapter">حذف الفصل</string>
   <string name="deleteThisChapter">هل تريد حذف الفصل ؟ لايمكنك التراجع عن ذلك لاحقاً!</string>
+  <string name="clearAllCommentsInThisChapter">Clear all comments, glyphs and drawn shapes in this chapter?</string>
   <string name="rightUnderTheBoard">تحت الرقعة مباشرة</string>
+  <string name="noPinnedComment">None</string>
+  <string name="normalAnalysis">Normal analysis</string>
+  <string name="hideNextMoves">Hide next moves</string>
+  <string name="interactiveLesson">Interactive lesson</string>
   <string name="chapterX">الفصل %s</string>
+  <string name="empty">Empty</string>
+  <string name="startFromInitialPosition">Start from initial position</string>
+  <string name="editor">Editor</string>
   <string name="startFromCustomPosition">البدء من وضع مخصص</string>
   <string name="loadAGameByUrl">تحميل لعبة من رابط</string>
   <string name="loadAPositionFromFen">تحميل موقف من FEN</string>
+  <string name="loadAGameFromPgn">Load games from PGN</string>
   <string name="automatic">تلقائي</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="zero">Paste your PGN text here, up to %s games</item>
+    <item quantity="one">Paste your PGN text here, up to %s game</item>
+    <item quantity="two">Paste your PGN text here, up to %s games</item>
+    <item quantity="few">Paste your PGN text here, up to %s games</item>
+    <item quantity="many">Paste your PGN text here, up to %s games</item>
+    <item quantity="other">Paste your PGN text here, up to %s games</item>
+  </plurals>
   <string name="urlOfTheGame">رابط اللعبة</string>
   <string name="loadAGameFromXOrY">استيراد لعبة من %1$s او %2$s</string>
   <string name="createChapter">أنشئ الفصل</string>
   <string name="configureLiveBroadcast">تهيئة بث مباشر</string>
   <string name="createStudy">أنشى الدراسة</string>
   <string name="editStudy">حرر الدراسة</string>
+  <string name="visibility">Visibility</string>
   <string name="public">عامة</string>
   <string name="unlisted">غير مدرجة</string>
   <string name="inviteOnly">دعوة فقط</string>
+  <string name="allowCloning">Allow cloning</string>
+  <string name="nobody">Nobody</string>
   <string name="onlyMe">أنا فقط</string>
   <string name="contributors">المساهمون</string>
   <string name="members">اعضاء</string>
+  <string name="everyone">Everyone</string>
+  <string name="enableSync">Enable sync</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Yes: keep everyone on the same position</string>
+  <string name="noLetPeopleBrowseFreely">No: let people browse freely</string>
+  <string name="pinnedStudyComment">Pinned study comment</string>
+  <string name="start">Start</string>
   <string name="save">حفظ</string>
   <string name="clearChat">مسح المحادثة</string>
+  <string name="deleteTheStudyChatHistory">Delete the study chat history? There is no going back!</string>
+  <string name="deleteStudy">Delete study</string>
+  <string name="deleteTheEntireStudy">Delete the entire study? There is no going back!</string>
+  <string name="whereDoYouWantToStudyThat">Where do you want to study that?</string>
 </resources>

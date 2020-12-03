@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lishogiStreamers">Lishogi streamers</string>
   <string name="lishogiStreamer">Lishogi streamer</string>
@@ -29,7 +29,7 @@
   <string name="whenReady">When you are ready to be listed as a Lishogi streamer, %s</string>
   <string name="requestReview">request a moderator review</string>
   <string name="anotherLanguage">If your stream is in a language other than English, include the correct language tag (%s), enclosed in square brackets, at the start of your stream title.
-As examples, you can include "[RU]" for Russian, "[TR]" for Turkish, "[FR]" for French, etc.
+As examples, you can include \"[RU]\" for Russian, \"[TR]\" for Turkish, \"[FR]\" for French, etc.
 Put this in the stream title in the Twitch or YouTube page, not in the Lishogi stream settings.
 If your stream is in English, there is no need to include a language tag.</string>
   <string name="twitchUsername">Your Twitch username or URL</string>

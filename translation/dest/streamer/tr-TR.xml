@@ -1,5 +1,8 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="live">CANLI!</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lishogiStreamers">Lishogi streamers</string>
+  <string name="lishogiStreamer">Lishogi streamer</string>
+  <string name="live">CANLI!</string>
   <string name="offline">ÇEVRİMDIŞI</string>
   <string name="currentlyStreaming">Canlı yayında: %s</string>
   <string name="lastStream">Son yayın: %s</string>

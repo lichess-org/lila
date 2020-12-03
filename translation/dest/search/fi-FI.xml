@@ -1,22 +1,27 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="search">Etsi</string>
-  <string name="advancedSearch">Tarkennettu haku</string>
-  <plurals name="xGamesFound">
-    <item quantity="one">Yksi peli löytyi</item>
-    <item quantity="other">%s peliä löytyi</item>
-  </plurals>
-  <string name="opponentName">Vastustajan nimi</string>
-  <string name="loser">Häviäjä</string>
-  <string name="from">Mistä</string>
-  <string name="to">Mihin</string>
-  <string name="humanOrComputer">Oliko pelaajan vastustaja ihminen vai tietokone</string>
-  <string name="aiLevel">Tekoälyn taso</string>
-  <string name="source">Hakukohde</string>
-  <string name="nbTurns">Kuinka monta vuoroa</string>
-  <string name="result">Tulos</string>
-  <string name="winnerColor">Voittajan väri</string>
-  <string name="date">Pvm</string>
-  <string name="sortBy">Lajittelutapa</string>
-  <string name="analysis">Analyysi</string>
-  <string name="onlyAnalysed">Vain pelit, joihin on saatavilla tietokoneanalyysi</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="search">Etsi</string>
+	<string name="advancedSearch">Tarkennettu haku</string>
+	<plurals name="searchInXGames">
+		<item quantity="one">Search in %s shogi game</item>
+		<item quantity="other">Search in %s shogi games</item>
+	</plurals>
+	<plurals name="xGamesFound">
+		<item quantity="one">Yksi peli löytyi</item>
+		<item quantity="other">%s peliä löytyi</item>
+	</plurals>
+	<string name="opponentName">Vastustajan nimi</string>
+	<string name="loser">Häviäjä</string>
+	<string name="from">Mistä</string>
+	<string name="to">Mihin</string>
+	<string name="humanOrComputer">Oliko pelaajan vastustaja ihminen vai tietokone</string>
+	<string name="aiLevel">Tekoälyn taso</string>
+	<string name="source">Hakukohde</string>
+	<string name="nbTurns">Kuinka monta vuoroa</string>
+	<string name="result">Tulos</string>
+	<string name="winnerColor">Voittajan väri</string>
+	<string name="date">Pvm</string>
+	<string name="sortBy">Lajittelutapa</string>
+	<string name="analysis">Analyysi</string>
+	<string name="onlyAnalysed">Vain pelit, joihin on saatavilla tietokoneanalyysi</string>
 </resources>

@@ -1,29 +1,35 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="confirmTitle">Conferma il titolo qui e revisioneremo la tua richiesta.</string>
-  <string name="sendApplication">Inviaci una email a %s e visioneremo la tua domanda.</string>
-  <string name="location">Località</string>
-  <string name="languages">Lingue</string>
-  <string name="rating">Punteggio</string>
-  <string name="hourlyRate">Tariffa oraria</string>
-  <string name="availability">Disponibilità</string>
-  <string name="accepting">Si accettano studenti</string>
-  <string name="notAccepting">Al momento non si accettano studenti</string>
-  <string name="viewXProfile">Vedi il profilo Lishogi di %s</string>
-  <string name="sendPM">Invia un messaggio privato</string>
-  <string name="aboutMe">Chi sono</string>
-  <string name="playingExperience">Esperienza di gioco</string>
-  <string name="teachingExperience">Esperienza di insegnamento</string>
-  <string name="otherExperiences">Altre esperienze</string>
-  <string name="bestSkills">Migliori abilità</string>
-  <string name="teachingMethod">Metodo di insegnamento</string>
-  <string name="publicStudies">I miei studi</string>
-  <string name="youtubeVideos">Video di YouTube</string>
-  <plurals name="studentReviews">
-    <item quantity="one">Recensione di uno studente</item>
-    <item quantity="other">Recensioni di %s studenti</item>
-  </plurals>
-  <string name="thankYouForReview">Grazie per la tua recensione!</string>
-  <string name="xWillApproveIt">%s lo approverà presto, o un amministratore gli darà un\'occhiata.</string>
-  <string name="reviewCoach">Recensisci questo allenatore</string>
-  <string name="describeExperienceWith">Descrivi la tua esperienza di allenamento con %s</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="lishogiCoaches">Lishogi coaches</string>
+	<string name="lishogiCoach">Lishogi coach</string>
+	<string name="areYouCoach">Are you a great shogi coach with a %s?</string>
+	<string name="nmOrFideTitle">title</string>
+	<string name="confirmTitle">Conferma il titolo qui e revisioneremo la tua richiesta.</string>
+	<string name="sendApplication">Inviaci una email a %s e visioneremo la tua domanda.</string>
+	<string name="location">Località</string>
+	<string name="languages">Lingue</string>
+	<string name="rating">Punteggio</string>
+	<string name="hourlyRate">Tariffa oraria</string>
+	<string name="availability">Disponibilità</string>
+	<string name="accepting">Si accettano studenti</string>
+	<string name="notAccepting">Al momento non si accettano studenti</string>
+	<string name="xCoachesStudents">%s coaches shogi students</string>
+	<string name="viewXProfile">Vedi il profilo Lishogi di %s</string>
+	<string name="sendPM">Invia un messaggio privato</string>
+	<string name="aboutMe">Chi sono</string>
+	<string name="playingExperience">Esperienza di gioco</string>
+	<string name="teachingExperience">Esperienza di insegnamento</string>
+	<string name="otherExperiences">Altre esperienze</string>
+	<string name="bestSkills">Migliori abilità</string>
+	<string name="teachingMethod">Metodo di insegnamento</string>
+	<string name="publicStudies">I miei studi</string>
+	<string name="youtubeVideos">Video di YouTube</string>
+	<plurals name="studentReviews">
+		<item quantity="one">Recensione di uno studente</item>
+		<item quantity="other">Recensioni di %s studenti</item>
+	</plurals>
+	<string name="thankYouForReview">Grazie per la tua recensione!</string>
+	<string name="xWillApproveIt">%s lo approverà presto, o un amministratore gli darà un\'occhiata.</string>
+	<string name="reviewCoach">Recensisci questo allenatore</string>
+	<string name="describeExperienceWith">Descrivi la tua esperienza di allenamento con %s</string>
 </resources>

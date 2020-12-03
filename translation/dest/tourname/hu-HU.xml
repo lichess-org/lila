@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="hourlyRapidArena">Óránkénti Rapid Aréna</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="hourlyRapidArena">Óránkénti Rapid Aréna</string>
   <string name="hourlyRapid">Óránkénti Rapid</string>
   <string name="hourlyXArena">Óránkénti %s Aréna</string>
   <string name="hourlyX">Óránkénti %s</string>

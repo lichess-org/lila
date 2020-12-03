@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="emailConfirm_subject">確認您的 lishogi.org 帳戶，%s</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="emailConfirm_subject">確認您的 lishogi.org 帳戶，%s</string>
   <string name="emailConfirm_click">按一下連結以啟用您的 lishogi 帳戶:</string>
   <string name="emailConfirm_ignore">如果您沒有向 lishogi 註冊，則可以安全地忽略此消息。</string>
   <string name="passwordReset_subject">重設您的 lishogi.org 密碼，%s</string>
@@ -14,6 +15,7 @@
 這是您的個人資料頁面: %1$s。您可以在 %2$s 上進行個人化設定。
 
 祝您玩得開心，希望您旗開得勝！</string>
+  <string name="logInToLishogi">Log in to lishogi.org, %s</string>
   <string name="common_orPaste">(點擊無效？嘗試將連結貼上到您的瀏覽器！)</string>
   <string name="common_note">這是一封與您使用 %s 相關的服務電子郵件。</string>
   <string name="common_contact">如需聯繫我們，請使用 %s。</string>

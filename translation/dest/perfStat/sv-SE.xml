@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="perfStats">%s-statistik</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="perfStats">%s-statistik</string>
   <string name="viewTheGames">Visa partierna</string>
   <string name="provisional">provisorisk</string>
   <string name="notEnoughRatedGames">Inte tillräckligt många rankade partier har spelats för att fastställa en tillförlitlig rating.</string>

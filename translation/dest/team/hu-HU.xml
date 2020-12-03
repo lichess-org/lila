@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="team">Csapat</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="team">Csapat</string>
   <string name="teams">Csapatok</string>
   <plurals name="nbMembers">
     <item quantity="one">%s tag</item>
@@ -38,5 +39,7 @@
 Használhatod a tagok csapatversenyre vagy belső versenyre hívásához.
 Azok a játékosok akik nem szeretnek üzeneteket kapni akár ki is léphetnek.</string>
   <string name="teamsIlead">Általam vezetett csapatok</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">You may want to link one of these upcoming tournaments?</string>
   <string name="usersWhoCanManageThisTeam">Felhasználók akik a csapatot irányítják</string>
+  <string name="leadersChat">Leaders chat</string>
 </resources>

@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="emailConfirm_subject">Bestätige dein Benutzerkonto auf lishogi.org, %s</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="emailConfirm_subject">Bestätige dein Benutzerkonto auf lishogi.org, %s</string>
   <string name="emailConfirm_click">Klicke auf den Link, um dein Benutzerkonto bei Lishogi zu aktivieren:</string>
   <string name="emailConfirm_ignore">Wenn Du dich nicht bei Lishogi registriert hast, kannst Du diese Nachricht ignorieren.</string>
   <string name="passwordReset_subject">Setze dein Passwort für lishogi.org zurück, %s</string>
@@ -14,6 +15,7 @@
 Hier geht es zu deiner Profil-Seite: %1$s. Du kannst sie auf %2$s personalisieren.
 
 Viel Spaß und mögen deine Figuren immer den Weg zum gegnerischen König finden!</string>
+  <string name="logInToLishogi">Log in to lishogi.org, %s</string>
   <string name="common_orPaste">(Klicken funktioniert nicht? Versuche den Link in deinen Browser einzufügen!)</string>
   <string name="common_note">Dies ist eine Service-E-Mail im Zusammenhang mit deiner Nutzung von %s.</string>
   <string name="common_contact">Um uns zu kontaktieren, benutze bitte %s.</string>

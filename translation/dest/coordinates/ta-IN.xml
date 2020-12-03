@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">ஆள்கூறுகள்</string>
-  <string name="averageScoreAsWhiteX">சராசரி மதிப்பெண் வெள்ளை: %s</string>
-  <string name="averageScoreAsBlackX">சராசரி மதிப்பெண் கருப்பு: %s</string>
-  <string name="startTraining">பயிற்சியை துவங்கு</string>
-</resources>

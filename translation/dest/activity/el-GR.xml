@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="activity">Δραστηριότητα</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="activity">Δραστηριότητα</string>
   <string name="hostedALiveStream">Μεταδίδει ζωντανά</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">Υποστήριξε το lishogi για %1$s μήνα ως %2$s</item>

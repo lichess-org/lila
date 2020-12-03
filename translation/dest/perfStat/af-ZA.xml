@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="perfStats">%s statestiek</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="perfStats">%s statestiek</string>
   <string name="viewTheGames">Bekyk die spelle</string>
   <string name="provisional">voorlopig</string>
   <string name="notEnoughRatedGames">Nie genoeg gegradeerde spelle is gespeel om \'n betroubare gradering te vestig nie.</string>

@@ -1,29 +1,35 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="confirmTitle">Bekräfta din titel här så granskar vi din ansökan.</string>
-  <string name="sendApplication">Skicka ett mail till oss på %s så granskar vi din ansökan.</string>
-  <string name="location">Plats</string>
-  <string name="languages">Språk</string>
-  <string name="rating">Rating</string>
-  <string name="hourlyRate">Timtaxa</string>
-  <string name="availability">Tillgänglighet</string>
-  <string name="accepting">Accepterar studenter</string>
-  <string name="notAccepting">Tar inte emot studenter just nu</string>
-  <string name="viewXProfile">Visa %s Lishogi-profil</string>
-  <string name="sendPM">Skicka ett privat meddelande</string>
-  <string name="aboutMe">Om mig</string>
-  <string name="playingExperience">Schackerfarenhet</string>
-  <string name="teachingExperience">Erfarenhet av undervisning</string>
-  <string name="otherExperiences">Andra erfarenheter</string>
-  <string name="bestSkills">Främsta färdigheter</string>
-  <string name="teachingMethod">Metod för undervisning</string>
-  <string name="publicStudies">Offentliga studier</string>
-  <string name="youtubeVideos">YouTube-videor</string>
-  <plurals name="studentReviews">
-    <item quantity="one">En studentrecension</item>
-    <item quantity="other">%s studentrecensioner</item>
-  </plurals>
-  <string name="thankYouForReview">Tack för din recension!</string>
-  <string name="xWillApproveIt">%s kommer att godkänna det mycket snart, annars kommer en moderator att ta en titt på det.</string>
-  <string name="reviewCoach">Recensera den här tränaren</string>
-  <string name="describeExperienceWith">Beskriv din träningserfarenhet med %s</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="lishogiCoaches">Lishogi coaches</string>
+	<string name="lishogiCoach">Lishogi coach</string>
+	<string name="areYouCoach">Are you a great shogi coach with a %s?</string>
+	<string name="nmOrFideTitle">title</string>
+	<string name="confirmTitle">Bekräfta din titel här så granskar vi din ansökan.</string>
+	<string name="sendApplication">Skicka ett mail till oss på %s så granskar vi din ansökan.</string>
+	<string name="location">Plats</string>
+	<string name="languages">Språk</string>
+	<string name="rating">Rating</string>
+	<string name="hourlyRate">Timtaxa</string>
+	<string name="availability">Tillgänglighet</string>
+	<string name="accepting">Accepterar studenter</string>
+	<string name="notAccepting">Tar inte emot studenter just nu</string>
+	<string name="xCoachesStudents">%s coaches shogi students</string>
+	<string name="viewXProfile">Visa %s Lishogi-profil</string>
+	<string name="sendPM">Skicka ett privat meddelande</string>
+	<string name="aboutMe">Om mig</string>
+	<string name="playingExperience">Schackerfarenhet</string>
+	<string name="teachingExperience">Erfarenhet av undervisning</string>
+	<string name="otherExperiences">Andra erfarenheter</string>
+	<string name="bestSkills">Främsta färdigheter</string>
+	<string name="teachingMethod">Metod för undervisning</string>
+	<string name="publicStudies">Offentliga studier</string>
+	<string name="youtubeVideos">YouTube-videor</string>
+	<plurals name="studentReviews">
+		<item quantity="one">En studentrecension</item>
+		<item quantity="other">%s studentrecensioner</item>
+	</plurals>
+	<string name="thankYouForReview">Tack för din recension!</string>
+	<string name="xWillApproveIt">%s kommer att godkänna det mycket snart, annars kommer en moderator att ta en titt på det.</string>
+	<string name="reviewCoach">Recensera den här tränaren</string>
+	<string name="describeExperienceWith">Beskriv din träningserfarenhet med %s</string>
 </resources>

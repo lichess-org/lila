@@ -1,22 +1,27 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="search">Keresés</string>
-  <string name="advancedSearch">Bővített keresés</string>
-  <plurals name="xGamesFound">
-    <item quantity="one">Egy talált játszma</item>
-    <item quantity="other">%s talált játszma</item>
-  </plurals>
-  <string name="opponentName">Ellenfél neve</string>
-  <string name="loser">Vesztes</string>
-  <string name="from">Ettől</string>
-  <string name="to">Idáig</string>
-  <string name="humanOrComputer">A játékos ellenfele ember volt vagy számítógép</string>
-  <string name="aiLevel">A.I. szint</string>
-  <string name="source">Forrás</string>
-  <string name="nbTurns">Lépések száma</string>
-  <string name="result">Eredmény</string>
-  <string name="winnerColor">Nyertes szín</string>
-  <string name="date">Dátum</string>
-  <string name="sortBy">Rendezés</string>
-  <string name="analysis">Elemzés</string>
-  <string name="onlyAnalysed">Csak azok a játszmák, ahol számítógépes elemzés elérhető</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="search">Keresés</string>
+	<string name="advancedSearch">Bővített keresés</string>
+	<plurals name="searchInXGames">
+		<item quantity="one">Search in %s shogi game</item>
+		<item quantity="other">Search in %s shogi games</item>
+	</plurals>
+	<plurals name="xGamesFound">
+		<item quantity="one">Egy talált játszma</item>
+		<item quantity="other">%s talált játszma</item>
+	</plurals>
+	<string name="opponentName">Ellenfél neve</string>
+	<string name="loser">Vesztes</string>
+	<string name="from">Ettől</string>
+	<string name="to">Idáig</string>
+	<string name="humanOrComputer">A játékos ellenfele ember volt vagy számítógép</string>
+	<string name="aiLevel">A.I. szint</string>
+	<string name="source">Forrás</string>
+	<string name="nbTurns">Lépések száma</string>
+	<string name="result">Eredmény</string>
+	<string name="winnerColor">Nyertes szín</string>
+	<string name="date">Dátum</string>
+	<string name="sortBy">Rendezés</string>
+	<string name="analysis">Elemzés</string>
+	<string name="onlyAnalysed">Csak azok a játszmák, ahol számítógépes elemzés elérhető</string>
 </resources>

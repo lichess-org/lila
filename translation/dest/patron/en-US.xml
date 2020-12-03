@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="donate">Donate</string>
 	<string name="lishogiPatron">Lishogi Patron</string>
@@ -9,7 +9,7 @@
 	<string name="freeChess">Free shogi for everyone, forever!</string>
 	<string name="noAdsNoSubs">No ads, no subscriptions; but open-source and passion.</string>
 	<string name="thankYou">Thank you for your donation!</string>
-	<string name="youHaveLifetime">You have a Lifetime Patron account. That's pretty awesome!</string>
+	<string name="youHaveLifetime">You have a Lifetime Patron account. That\'s pretty awesome!</string>
 	<string name="patronUntil">You have a Patron account until %s.</string>
 	<string name="ifNotRenewed">If not renewed, you will then be downgraded to free.</string>
 	<string name="weAreNonProfit">We are a non‑profit association because we believe everyone should have access to a free, world-class shogi platform.</string>
@@ -30,20 +30,19 @@
 	<string name="celebratedPatrons">The celebrated Patrons who make Lishogi possible</string>
 	<string name="whereMoneyGoes">Where does the money go?</string>
 	<string name="serversAndDeveloper">First of all, powerful servers.
-Then we pay a full-time developer: %s, the founder of Lishogi.
-	</string>
+Then we pay a full-time developer: %s, the founder of Lishogi.</string>
 	<string name="costBreakdown">See the detailed cost breakdown</string>
 	<string name="officialNonProfit">Is Lishogi an official non-profit?</string>
-	<string name="actOfCreation">Yes, here's the act of creation (in French)</string>
+	<string name="actOfCreation">Yes, here\'s the act of creation (in French)</string>
 	<string name="changeMonthlySupport">Can I change/cancel my monthly support?</string>
 	<string name="changeOrContact">Yes, at any time, from this page.
 Or you can %s.</string>
 	<string name="contactSupport">contact Lishogi support</string>
 	<string name="otherMethods">Other methods of donation?</string>
 	<string name="bankTransfers">We also accept bank transfers</string>
-	<string name="bitcoin">And here's our bitcoin address: %s</string>
+	<string name="bitcoin">And here\'s our bitcoin address: %s</string>
 	<string name="patronFeatures">Are some features reserved to Patrons?</string>
-	<string name="noPatronFeatures">No, because Lishogi is entirely free, forever, and for everyone. That's a promise.
+	<string name="noPatronFeatures">No, because Lishogi is entirely free, forever, and for everyone. That\'s a promise.
 However, Patrons get bragging rights with a cool new profile icon.</string>
 	<string name="featuresComparison">See the detailed feature comparison</string>
 	<plurals name="patronForMonths">

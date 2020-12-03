@@ -1,5 +1,8 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="live">DIRETTA!</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lishogiStreamers">Lishogi streamers</string>
+  <string name="lishogiStreamer">Lishogi streamer</string>
+  <string name="live">DIRETTA!</string>
   <string name="offline">OFFLINE</string>
   <string name="currentlyStreaming">In streaming ora: %s</string>
   <string name="lastStream">Ultimo stream %s</string>

@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Beállítások</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Beállítások</string>
   <string name="closeAccount">Fiók zárolása</string>
   <string name="closingIsDefinitive">A fiók törlése végleges. Nem lehet visszavonni. Biztos benne?</string>
   <string name="cantOpenSimilarAccount">Nem fog tudni új fiókot nyitni ugyanezzel a névvel, még eltérő kis- és nagybetűkkel sem.</string>

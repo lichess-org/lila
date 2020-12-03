@@ -1,9 +1,13 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Coördinaten</string>
-  <string name="coordinateTraining">Coördinatentraining</string>
-  <string name="averageScoreAsWhiteX">Gemiddelde score als wit: %s</string>
-  <string name="averageScoreAsBlackX">Gemiddelde score als zwart: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Je kunt een spel effectiever analyseren als je niet hoeft te zoeken naar de namen van de velden.</string>
-  <string name="aSquareNameAppears">Zodra de naam van een veld verschijnt klik je op het juiste vakje. Je hebt 30 seconden om zoveel mogelijk velden te herkennen!</string>
-  <string name="startTraining">Start de training</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="coordinates">Coördinaten</string>
+	<string name="coordinateTraining">Coördinatentraining</string>
+	<string name="averageScoreAsWhiteX">Gemiddelde score als wit: %s</string>
+	<string name="averageScoreAsBlackX">Gemiddelde score als zwart: %s</string>
+	<string name="knowingTheShogiBoard">Knowing the shogiboard coordinates is a very important shogi skill:</string>
+	<string name="mostShogiCourses">All shogi courses and exercises use some kind of a shogi notation. You can pick between the Japanese one and the western one.</string>
+	<string name="talkToYourShogiFriends">It makes it easier to talk to your shogi friends, since you both understand the \'language of shogi\'.</string>
+	<string name="youCanAnalyseAGameMoreEffectively">Je kunt een spel effectiever analyseren als je niet hoeft te zoeken naar de namen van de velden.</string>
+	<string name="aSquareNameAppears">Zodra de naam van een veld verschijnt klik je op het juiste vakje. Je hebt 30 seconden om zoveel mogelijk velden te herkennen!</string>
+	<string name="startTraining">Start de training</string>
 </resources>

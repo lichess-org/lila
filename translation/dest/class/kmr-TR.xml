@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="newClass">Waneya nû</string>
-  <string name="closeClass">Waneyê bigir</string>
-  <string name="closedByX">Ji aliyê %s ve hat girtin</string>
-  <string name="reopen">Ji nû ve veke</string>
-  <string name="removeStudent">Şargirt derxîne</string>
-  <string name="inviteTheStudentBack">Şagirtê dîsa vexwîne</string>
-  <string name="sendAMessage">Ji hemû şagirtan ra peyaş bişeyne.</string>
-</resources>

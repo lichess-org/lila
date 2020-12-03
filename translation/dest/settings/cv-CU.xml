@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Ӗнерлев</string>
-  <string name="closeAccount">Аккаунта хуп</string>
-  <string name="changedMindDoNotCloseAccount">Шухӑшӑма улӑштартӑм, аккаунтӑма хупас ҫук</string>
-  <string name="thisAccountIsClosed">Ку аккаунт хупӑ.</string>
-</resources>

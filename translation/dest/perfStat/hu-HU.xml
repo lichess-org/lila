@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="perfStats">%s statisztika</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="perfStats">%s statisztika</string>
   <string name="viewTheGames">Mutasd a játszmákat</string>
   <string name="provisional">becsült</string>
   <string name="notEnoughRatedGames">Nincs elegendő értékelt játszmád megbízható értékszám meghatározásához.</string>

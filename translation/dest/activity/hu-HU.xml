@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="activity">Aktivitás</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="activity">Aktivitás</string>
   <string name="hostedALiveStream">Élő közvetítést adott</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">A lishogi.org támogatója %1$s hónapja %2$s-ként</item>

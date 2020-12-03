@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="downloadAllGames">ပွဲအားလုံး ဒေါင်းလုပ်ဆွဲပါ</string>
-  <string name="downloadGame">ပွဲကို ဒေါင်းလုပ်ဆွဲပါ</string>
-  <string name="broadcastUrl">ထုတ်လွှင့်သည့် URL</string>
-  <string name="currentGameUrl">လက်ရှိပွဲ အတွက် URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Embed လုပ်ရန် အတွက် ဤစာများကို ဖိရမ်တွင် ကူးထည့်နိုင်ပါသည်</string>
-  <string name="embedInYourWebsite">မိမိ ဝက်ဗ်ဆိုက် သို့မဟုတ် ဘလော့ဂ်တွင် embed လုပ်ပါ</string>
-  <string name="readMoreAboutEmbedding">Embed လုပ်ခြင်းနှင့် ပတ်သက်၍ နောက်ထပ် ဖတ်ရှုမည်</string>
-</resources>

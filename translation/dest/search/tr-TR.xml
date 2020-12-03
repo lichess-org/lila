@@ -1,22 +1,27 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="search">Ara</string>
-  <string name="advancedSearch">Detaylı Arama</string>
-  <plurals name="xGamesFound">
-    <item quantity="one">Bir maç bulundu</item>
-    <item quantity="other">%s maç bulundu</item>
-  </plurals>
-  <string name="opponentName">Rakibin ismi</string>
-  <string name="loser">Kaybeden</string>
-  <string name="from">Bu değerden:</string>
-  <string name="to">Bu değere kadar:</string>
-  <string name="humanOrComputer">Oyuncunun rakibi insan mı yoksa bilgisayar mı</string>
-  <string name="aiLevel">Zorluk seviyesi</string>
-  <string name="source">Kaynak</string>
-  <string name="nbTurns">Hamle sayısı</string>
-  <string name="result">Sonuç</string>
-  <string name="winnerColor">Kazanının rengi</string>
-  <string name="date">Tarih</string>
-  <string name="sortBy">Sıralama ölçütü</string>
-  <string name="analysis">Analiz</string>
-  <string name="onlyAnalysed">Sadece bilgisayar analizi yapılmış oyunları göster</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="search">Ara</string>
+	<string name="advancedSearch">Detaylı Arama</string>
+	<plurals name="searchInXGames">
+		<item quantity="one">Search in %s shogi game</item>
+		<item quantity="other">Search in %s shogi games</item>
+	</plurals>
+	<plurals name="xGamesFound">
+		<item quantity="one">Bir maç bulundu</item>
+		<item quantity="other">%s maç bulundu</item>
+	</plurals>
+	<string name="opponentName">Rakibin ismi</string>
+	<string name="loser">Kaybeden</string>
+	<string name="from">Bu değerden:</string>
+	<string name="to">Bu değere kadar:</string>
+	<string name="humanOrComputer">Oyuncunun rakibi insan mı yoksa bilgisayar mı</string>
+	<string name="aiLevel">Zorluk seviyesi</string>
+	<string name="source">Kaynak</string>
+	<string name="nbTurns">Hamle sayısı</string>
+	<string name="result">Sonuç</string>
+	<string name="winnerColor">Kazanının rengi</string>
+	<string name="date">Tarih</string>
+	<string name="sortBy">Sıralama ölçütü</string>
+	<string name="analysis">Analiz</string>
+	<string name="onlyAnalysed">Sadece bilgisayar analizi yapılmış oyunları göster</string>
 </resources>

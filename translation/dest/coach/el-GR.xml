@@ -1,29 +1,35 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="confirmTitle">Επιβεβαιώστε εδώ τον τίτλο σας και θα εξετάσουμε την αίτησή σας.</string>
-  <string name="sendApplication">Στείλτε μας ένα email στο %s και θα εξετάσουμε την αίτησή σας.</string>
-  <string name="location">Τοποθεσία</string>
-  <string name="languages">Γλώσσες</string>
-  <string name="rating">Αξιολόγηση</string>
-  <string name="hourlyRate">Ωριαία αμοιβή</string>
-  <string name="availability">Διαθεσιμότητα</string>
-  <string name="accepting">Αποδέχομαι μαθητές</string>
-  <string name="notAccepting">Δεν δέχομαι μαθητές προς το παρόν</string>
-  <string name="viewXProfile">Προβολή προφίλ του %s</string>
-  <string name="sendPM">Αποστολή προσωπικού μηνύματος</string>
-  <string name="aboutMe">Σχετικά με μένα</string>
-  <string name="playingExperience">Εμπειρία παιχνιδιού</string>
-  <string name="teachingExperience">Εμπειρία διδασκαλίας</string>
-  <string name="otherExperiences">Άλλες εμπειρίες</string>
-  <string name="bestSkills">Βέλτιστες ικανότητες</string>
-  <string name="teachingMethod">Μεθοδολογία διδασκαλίας</string>
-  <string name="publicStudies">Δημόσιες σπουδές</string>
-  <string name="youtubeVideos">Βίντεο Youtube</string>
-  <plurals name="studentReviews">
-    <item quantity="one">Κριτική μαθητή</item>
-    <item quantity="other">%s κριτικές μαθητών</item>
-  </plurals>
-  <string name="thankYouForReview">Σας ευχαριστώ για την κριτική!</string>
-  <string name="xWillApproveIt">%s θα εγκριθεί σύντομα, ή ένας διαχειριστής θα το εξετάσει.</string>
-  <string name="reviewCoach">Κριτική για προπονητή</string>
-  <string name="describeExperienceWith">Περιγράψτε την προπονητική σας εμπειρία με %s</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="lishogiCoaches">Lishogi coaches</string>
+	<string name="lishogiCoach">Lishogi coach</string>
+	<string name="areYouCoach">Are you a great shogi coach with a %s?</string>
+	<string name="nmOrFideTitle">title</string>
+	<string name="confirmTitle">Επιβεβαιώστε εδώ τον τίτλο σας και θα εξετάσουμε την αίτησή σας.</string>
+	<string name="sendApplication">Στείλτε μας ένα email στο %s και θα εξετάσουμε την αίτησή σας.</string>
+	<string name="location">Τοποθεσία</string>
+	<string name="languages">Γλώσσες</string>
+	<string name="rating">Αξιολόγηση</string>
+	<string name="hourlyRate">Ωριαία αμοιβή</string>
+	<string name="availability">Διαθεσιμότητα</string>
+	<string name="accepting">Αποδέχομαι μαθητές</string>
+	<string name="notAccepting">Δεν δέχομαι μαθητές προς το παρόν</string>
+	<string name="xCoachesStudents">%s coaches shogi students</string>
+	<string name="viewXProfile">Προβολή προφίλ του %s</string>
+	<string name="sendPM">Αποστολή προσωπικού μηνύματος</string>
+	<string name="aboutMe">Σχετικά με μένα</string>
+	<string name="playingExperience">Εμπειρία παιχνιδιού</string>
+	<string name="teachingExperience">Εμπειρία διδασκαλίας</string>
+	<string name="otherExperiences">Άλλες εμπειρίες</string>
+	<string name="bestSkills">Βέλτιστες ικανότητες</string>
+	<string name="teachingMethod">Μεθοδολογία διδασκαλίας</string>
+	<string name="publicStudies">Δημόσιες σπουδές</string>
+	<string name="youtubeVideos">Βίντεο Youtube</string>
+	<plurals name="studentReviews">
+		<item quantity="one">Κριτική μαθητή</item>
+		<item quantity="other">%s κριτικές μαθητών</item>
+	</plurals>
+	<string name="thankYouForReview">Σας ευχαριστώ για την κριτική!</string>
+	<string name="xWillApproveIt">%s θα εγκριθεί σύντομα, ή ένας διαχειριστής θα το εξετάσει.</string>
+	<string name="reviewCoach">Κριτική για προπονητή</string>
+	<string name="describeExperienceWith">Περιγράψτε την προπονητική σας εμπειρία με %s</string>
 </resources>

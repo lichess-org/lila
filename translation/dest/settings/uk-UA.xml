@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Налаштування</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Налаштування</string>
   <string name="closeAccount">Закрити обліковий запис</string>
   <string name="closingIsDefinitive">Закриття запису остаточне. Шляху назад немає. Ви точно впевнені?</string>
   <string name="cantOpenSimilarAccount">Ви не зможете створити новий обліковий запис з такою ж назвою, навіть зі зміною регістру.</string>

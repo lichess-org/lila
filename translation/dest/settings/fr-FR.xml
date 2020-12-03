@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Paramètres</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Paramètres</string>
   <string name="closeAccount">Fermer votre compte</string>
   <string name="closingIsDefinitive">La fermeture est définitive. Il n\'y a aucun retour possible. Êtes-vous sûr(e) ?</string>
   <string name="cantOpenSimilarAccount">Vous ne serez pas autorisé à ouvrir un nouveau compte avec le même nom, même si la casse est différente.</string>

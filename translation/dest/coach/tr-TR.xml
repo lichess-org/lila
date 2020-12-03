@@ -1,29 +1,35 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="confirmTitle">Unvanınızı buradan onaylayın ve başvurunuzu inceleyelim.</string>
-  <string name="sendApplication">%s adresine bir e-posta gönderin ve başvurunuzu onaylayalım.</string>
-  <string name="location">Konum</string>
-  <string name="languages">Diller</string>
-  <string name="rating">Puan</string>
-  <string name="hourlyRate">Saatlik ücret</string>
-  <string name="availability">Uygunluk durumu</string>
-  <string name="accepting">Öğrenci kabul ediyor</string>
-  <string name="notAccepting">Şu anda öğrenci kabul etmiyor</string>
-  <string name="viewXProfile">%s adlı eğitmenin Lishogi profilini ziyaret et</string>
-  <string name="sendPM">Özel mesaj gönder</string>
-  <string name="aboutMe">Hakkımda</string>
-  <string name="playingExperience">Oyun tecrübesi</string>
-  <string name="teachingExperience">Eğitim tecrübesi</string>
-  <string name="otherExperiences">Diğer deneyimler</string>
-  <string name="bestSkills">Güçlü yönleri</string>
-  <string name="teachingMethod">Eğitim yöntemi</string>
-  <string name="publicStudies">Herkese açık çalışmalar</string>
-  <string name="youtubeVideos">YouTube videoları</string>
-  <plurals name="studentReviews">
-    <item quantity="one">Bir öğrenci değerlendirmesi</item>
-    <item quantity="other">%s öğrenci değerlendirmesi</item>
-  </plurals>
-  <string name="thankYouForReview">Değerlendirmeniz için teşekkür ederiz!</string>
-  <string name="xWillApproveIt">En kısa sürede %s veya bir moderatör tarafından onaylanacak.</string>
-  <string name="reviewCoach">Bu eğitmeni değerlendir</string>
-  <string name="describeExperienceWith">%s ile yaşadığınız tecrübeleri tarif edin</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="lishogiCoaches">Lishogi coaches</string>
+	<string name="lishogiCoach">Lishogi coach</string>
+	<string name="areYouCoach">Are you a great shogi coach with a %s?</string>
+	<string name="nmOrFideTitle">title</string>
+	<string name="confirmTitle">Unvanınızı buradan onaylayın ve başvurunuzu inceleyelim.</string>
+	<string name="sendApplication">%s adresine bir e-posta gönderin ve başvurunuzu onaylayalım.</string>
+	<string name="location">Konum</string>
+	<string name="languages">Diller</string>
+	<string name="rating">Puan</string>
+	<string name="hourlyRate">Saatlik ücret</string>
+	<string name="availability">Uygunluk durumu</string>
+	<string name="accepting">Öğrenci kabul ediyor</string>
+	<string name="notAccepting">Şu anda öğrenci kabul etmiyor</string>
+	<string name="xCoachesStudents">%s coaches shogi students</string>
+	<string name="viewXProfile">%s adlı eğitmenin Lishogi profilini ziyaret et</string>
+	<string name="sendPM">Özel mesaj gönder</string>
+	<string name="aboutMe">Hakkımda</string>
+	<string name="playingExperience">Oyun tecrübesi</string>
+	<string name="teachingExperience">Eğitim tecrübesi</string>
+	<string name="otherExperiences">Diğer deneyimler</string>
+	<string name="bestSkills">Güçlü yönleri</string>
+	<string name="teachingMethod">Eğitim yöntemi</string>
+	<string name="publicStudies">Herkese açık çalışmalar</string>
+	<string name="youtubeVideos">YouTube videoları</string>
+	<plurals name="studentReviews">
+		<item quantity="one">Bir öğrenci değerlendirmesi</item>
+		<item quantity="other">%s öğrenci değerlendirmesi</item>
+	</plurals>
+	<string name="thankYouForReview">Değerlendirmeniz için teşekkür ederiz!</string>
+	<string name="xWillApproveIt">En kısa sürede %s veya bir moderatör tarafından onaylanacak.</string>
+	<string name="reviewCoach">Bu eğitmeni değerlendir</string>
+	<string name="describeExperienceWith">%s ile yaşadığınız tecrübeleri tarif edin</string>
 </resources>

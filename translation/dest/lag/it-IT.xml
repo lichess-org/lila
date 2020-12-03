@@ -1,9 +1,15 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="measurementInProgressThreeDot">Misure in corso...</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="isLishogiLagging">Is Lishogi lagging?</string>
+  <string name="measurementInProgressThreeDot">Misure in corso...</string>
   <string name="noAndYourNetworkIsGood">No. E la tua connessione è buona.</string>
   <string name="noAndYourNetworkIsBad">No. E la tua connessione non è buona.</string>
   <string name="yesItWillBeFixedSoon">Sì. Sarà risolto presto!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">E ora la risposta lunga! Il lag (ritardo di rete) è formato da due valori tra loro non correlati (valore basso = migliore):</string>
+  <string name="lishogiServerLatency">Lishogi server latency</string>
+  <string name="lishogiServerLatencyExplanation">The time it takes to process a move on the server. It\'s the same for everybody, and only depends on the server load. The more players and the higher it gets, but Lishogi developers do their best to keep it low. It rarely exceeds 10ms.</string>
+  <string name="networkBetweenLishogiAndYou">Network between Lishogi and you</string>
+  <string name="networkBetweenLishogiAndYouExplanation">The time it takes to send a move from your computer to Lishogi server, and get the response back. It\'s specific to your distance to Lishogi (France), and to the quality of your Internet connection. Lishogi developers cannot fix your wifi or make light go faster.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Puoi trovare entrambi questi valori in qualsiasi momento, cliccando sul tuo nome utente nella barra in alto.</string>
   <string name="lagCompensation">Compensazione del lag</string>
   <string name="lagCompensationExplanation">Lishogi compensa il lag (ritardo) della rete. Questo include sia un lag prolungato che picchi occasionali. Vi sono limiti ed euristica basati sulla durata della partita e sul ritardo compensato in precedenza che dovrebbe risultare ragionevole per entrambe le parti. Di conseguenza, avere un lag (ritardo della rete) maggiore rispetto al tuo avversario non è un handicap!</string>

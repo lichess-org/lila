@@ -1,9 +1,13 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Координаты</string>
-  <string name="coordinateTraining">Запоминание координат полей</string>
-  <string name="averageScoreAsWhiteX">Средний счёт за белых: %s</string>
-  <string name="averageScoreAsBlackX">Средний счёт за чёрных: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Анализировать игры гораздо проще, когда не тратится время на поиск полей по их координатам.</string>
-  <string name="aSquareNameAppears">Когда появится название поля, вы должны кликнуть по нужному полю на доске. У вас есть 30 секунд, чтобы правильно указать как можно больше полей!</string>
-  <string name="startTraining">Начать тренировку</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="coordinates">Координаты</string>
+	<string name="coordinateTraining">Запоминание координат полей</string>
+	<string name="averageScoreAsWhiteX">Средний счёт за белых: %s</string>
+	<string name="averageScoreAsBlackX">Средний счёт за чёрных: %s</string>
+	<string name="knowingTheShogiBoard">Knowing the shogiboard coordinates is a very important shogi skill:</string>
+	<string name="mostShogiCourses">All shogi courses and exercises use some kind of a shogi notation. You can pick between the Japanese one and the western one.</string>
+	<string name="talkToYourShogiFriends">It makes it easier to talk to your shogi friends, since you both understand the \'language of shogi\'.</string>
+	<string name="youCanAnalyseAGameMoreEffectively">Анализировать игры гораздо проще, когда не тратится время на поиск полей по их координатам.</string>
+	<string name="aSquareNameAppears">Когда появится название поля, вы должны кликнуть по нужному полю на доске. У вас есть 30 секунд, чтобы правильно указать как можно больше полей!</string>
+	<string name="startTraining">Начать тренировку</string>
 </resources>

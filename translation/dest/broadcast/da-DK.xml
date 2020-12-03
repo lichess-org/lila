@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="broadcasts">Transmissioner</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="broadcasts">Transmissioner</string>
   <string name="liveBroadcasts">Live turnerings-transmissioner</string>
   <string name="newBroadcast">Ny live-transmission</string>
   <string name="ongoing">I gang</string>

@@ -1,5 +1,7 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="isItRated">Este evaluat?</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">Arena tournaments</string>
+  <string name="isItRated">Este evaluat?</string>
   <string name="willBeNotified">Vei fi notificat când competiția începe, deci este în regulă să joci în altă filă în timp ce aștepți.</string>
   <string name="isRated">Această competiție este evaluată și-ți va afecta scorul.</string>
   <string name="isNotRated">Această competiție *nu* este evaluată și *nu* îți va afecta scorul.</string>
@@ -36,4 +38,5 @@ Joacă rapid și întoarce-te la lobby pentru a juca mai multe meciuri și pentr
   </plurals>
   <string name="thisIsPrivate">Acesta este o competiție privată</string>
   <string name="shareUrl">Pentru a distribui, folosiți acest URL: %s</string>
+  <string name="drawStreak">Draw streaks: When a player has consecutive draws in an arena, only the first draw will result in a point, or draws lasting more than %s moves. The draw streak can only be broken by a win, not a loss or a draw.</string>
 </resources>

@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="broadcasts">比賽直播</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="broadcasts">比賽直播</string>
   <string name="liveBroadcasts">錦標賽直播</string>
   <string name="newBroadcast">新的現場直播</string>
   <string name="ongoing">進行中</string>
@@ -10,4 +11,11 @@
   <string name="fullDescription">完整比賽說明</string>
   <string name="fullDescriptionHelp">直播內容的詳細描述 。可以利用 %1$s。字數限於%2$s個字。</string>
   <string name="sourceUrl">來源網址</string>
+  <string name="sourceUrlHelp">URL that Lishogi will check to get PGN updates. It must be publicly accessible from the Internet.</string>
+  <string name="roundNumber">Round number</string>
+  <string name="startDate">Start date in your own timezone</string>
+  <string name="startDateHelp">Optional, if you know when the event starts</string>
+  <string name="credits">Credit the source</string>
+  <string name="cloneBroadcast">Clone the broadcast</string>
+  <string name="resetBroadcast">Reset the broadcast</string>
 </resources>

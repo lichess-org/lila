@@ -1,105 +1,143 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="faqAbbreviation">ЧаВо</string>
-  <string name="frequentlyAskedQuestions">Часто задаваемые вопросы</string>
-  <string name="hearItPronouncedBySpecialist"> Прослушайте это в исполнении диктора.</string>
-  <string name="whyLiveLightLibre">Живые, потому что можно играть партии и смотреть игры в реальном времени 24/7. Легковесные и свободные, потому что разрабатываются на принципах свободного программного обеспечения и не завалены проприетарным хламом, как коммерческие проекты.</string>
-  <string name="breakdownOfOurCosts">отчёт о тратах</string>
-  <string name="otherWaysToHelp">другие способы помочь</string>
-  <string name="fairPlay">Честная игра</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">Почему меня подозревают в жульничестве? Как то: использование помощи других игроков, договорные игры или подсказки компьютерных программ?</string>
-  <string name="cheatDetectionMethods">Lishogi использует очень надёжные способы и тщательно проработанный процесс для изучения доказательств и принятия решений. В этот процесс вовлечено множество модераторов и он может занять довольно продолжительное время. В результате выносится только решение о том, был ли игрок нечестен, но никакие подробности не разглашаются, иначе это могло бы облегчить нечестным игрокам возможность обходить способы их обнаружения. Кроме того, чем больше деталей, тем больше пустопорожних споров, а это время лучше потратить на что-то более стоящее. Игроки могут обжаловать решение по электронной почте %1$s, но надо иметь в виду, что ответ на него не гарантируется, и решения отменяются крайне редко.</string>
-  <string name="whenAmIEligibleRatinRefund">Если оказалось, что я проиграл жулику, мне вернут рейтинг?</string>
-  <string name="ratingRefundExplanation">Через минуту после того, как жулик был обнаружен, 40 рейтинговых игр, в которых он одержал победу за последние 3 дня, подлежат рассмотрению. Если вы были его соперником в этих играх, и ваш собственный рейтинг считается надёжным, вы можете рассчитывать на возмещение рейтинга. Возмещение может быть ограничено различными условиями, такими как ваш максимальный рейтинг и изменение рейтинга после нечестных игр.
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="faqAbbreviation">ЧаВо</string>
+	<string name="frequentlyAskedQuestions">Часто задаваемые вопросы</string>
+	<string name="whyIsLishogiCalledLishogi">Why is Lishogi called Lishogi?</string>
+	<string name="forkedFromLichess">Lishogi is open source project forked from liсhess, but since it\'s for playing shogi, it\'s called lishogi.</string>
+	<string name="lishogiCombinationLiveLightLibrePronounced">Because it\'s derived from Liсhess. And Liсhess is called Liсhess because it\'s a combination of live/light/libre and chess. Lishogi is pronounced %1$s.</string>
+	<string name="leechess">lee-shogi</string>
+	<string name="hearItPronouncedBySpecialist"> Прослушайте это в исполнении диктора.</string>
+	<string name="whyLiveLightLibre">Живые, потому что можно играть партии и смотреть игры в реальном времени 24/7. Легковесные и свободные, потому что разрабатываются на принципах свободного программного обеспечения и не завалены проприетарным хламом, как коммерческие проекты.</string>
+	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
+	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
+	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi is powered by donations from patrons and the efforts of a team of volunteers.</string>
+	<string name="findMoreAndSeeHowHelp">You can find out more about %1$s. If you want to help Lishogi by volunteering your time and skills, there are many %2$s.</string>
+	<string name="beingAPatron">Become a patron</string>
+	<string name="breakdownOfOurCosts">отчёт о тратах</string>
+	<string name="otherWaysToHelp">другие способы помочь</string>
+	<string name="areThereWebsitesBasedOnLishogi">Are there websites based on Lishogi?</string>
+	<string name="yesLishogiInspiredOtherOpenSourceWebsites">Yes. Lishogi has indeed inspired other open-source sites that use our %1$s, %2$s, or %3$s.</string>
+	<string name="fairPlay">Честная игра</string>
+	<string name="whyFlaggedRatingManipulationOrCheater">Почему меня подозревают в жульничестве? Как то: использование помощи других игроков, договорные игры или подсказки компьютерных программ?</string>
+	<string name="cheatDetectionMethods">Lishogi использует очень надёжные способы и тщательно проработанный процесс для изучения доказательств и принятия решений. В этот процесс вовлечено множество модераторов и он может занять довольно продолжительное время. В результате выносится только решение о том, был ли игрок нечестен, но никакие подробности не разглашаются, иначе это могло бы облегчить нечестным игрокам возможность обходить способы их обнаружения. Кроме того, чем больше деталей, тем больше пустопорожних споров, а это время лучше потратить на что-то более стоящее. Игроки могут обжаловать решение по электронной почте %1$s, но надо иметь в виду, что ответ на него не гарантируется, и решения отменяются крайне редко.</string>
+	<string name="whenAmIEligibleRatinRefund">Если оказалось, что я проиграл жулику, мне вернут рейтинг?</string>
+	<string name="ratingRefundExplanation">Через минуту после того, как жулик был обнаружен, 40 рейтинговых игр, в которых он одержал победу за последние 3 дня, подлежат рассмотрению. Если вы были его соперником в этих играх, и ваш собственный рейтинг считается надёжным, вы можете рассчитывать на возмещение рейтинга. Возмещение может быть ограничено различными условиями, такими как ваш максимальный рейтинг и изменение рейтинга после нечестных игр.
  Например, если ваш рейтинг значительно вырос после таких игр, вы можете не получить возмещения, или получить лишь часть. В любом случае, возмещение не может превышать 150 очков рейтинга.</string>
-  <string name="preventLeavingGameWithoutResigning">Что происходит с игроками, который выходят из игры, не сдаваясь при этом?</string>
-  <string name="leavingGameWithoutResigningExplanation">Если ваш соперник часто прерывает или покидает игру, он временно блокируется, при этом признак блокировки видит только он сам. Если после окончания блокировки он продолжает вести себя так же, он опять блокируется, но уже на более длительный срок. В дальнейшем его учётная запись может быть полностью заблокирована.</string>
-  <string name="howCanIBecomeModerator">Могу ли я стать модератором?</string>
-  <string name="youCannotApply">Мы не принимаем заявки на просьбу стать модератором. Если мы видим, что кто-то, по нашему мнению, может стать хорошим модератором, мы сами с ним связываемся напрямую.</string>
-  <string name="gameplay">Описание игры</string>
-  <string name="howBulletBlitzEtcDecided">Как определяется тип игры: пуля, блиц и т. д., в зависимости от контроля времени?</string>
-  <string name="basedOnGameDuration">Контроль времени влияет на общее ожидаемое время на партию, равное %1$s
+	<string name="preventLeavingGameWithoutResigning">Что происходит с игроками, который выходят из игры, не сдаваясь при этом?</string>
+	<string name="leavingGameWithoutResigningExplanation">Если ваш соперник часто прерывает или покидает игру, он временно блокируется, при этом признак блокировки видит только он сам. Если после окончания блокировки он продолжает вести себя так же, он опять блокируется, но уже на более длительный срок. В дальнейшем его учётная запись может быть полностью заблокирована.</string>
+	<string name="howCanIBecomeModerator">Могу ли я стать модератором?</string>
+	<string name="youCannotApply">Мы не принимаем заявки на просьбу стать модератором. Если мы видим, что кто-то, по нашему мнению, может стать хорошим модератором, мы сами с ним связываемся напрямую.</string>
+	<string name="isCorrespondenceDifferent">Is correspondence different from normal shogi?</string>
+	<string name="youCanUseOpeningBookNoEngine">On Lishogi, the main difference in rules for correspondence shogi is that an opening book is allowed. The use of engines is still prohibited and will result in being flagged for engine assistance. Although ICCF allows engine use in correspondence, Lishogi does not.</string>
+	<string name="gameplay">Описание игры</string>
+	<string name="howBulletBlitzEtcDecided">Как определяется тип игры: пуля, блиц и т. д., в зависимости от контроля времени?</string>
+	<string name="basedOnGameDuration">Контроль времени влияет на общее ожидаемое время на партию, равное %1$s
  Например, время партии с контролем 5+3 равно 5 × 60 + 40 × 3 = 420 секунд.</string>
-  <string name="durationFormula">(начальное время) + 40 × (добавка)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$s с = %2$s</string>
-  <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
-  <string name="whatVariantsCanIplay">В какие виды шахмат я могу играть на Lishogi?</string>
-  <string name="eightVariants">8 видов шахмат</string>
-  <string name="whatIsACPL">Что такое «потеря сантипешек в среднем» (ACPL)?</string>
-  <string name="acplExplanation">Сантипешка — это единица измерения, которую используют в шахматах в качестве представления преимущества. Сантипешка равна ¹/₁₀₀ стоимости пешки. 100 сантипешек равны 1 пешке. Эти значения не играют никакой роли в игре, но полезны в компьютерных шахматах и для компьютерного анализа при оценке позиций.
+	<string name="durationFormula">(начальное время) + 40 × (добавка)</string>
+	<string name="inferiorThanXsEqualYtimeControl">≤ %1$s с = %2$s</string>
+	<string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
+	<string name="whatVariantsCanIplay">В какие виды шахмат я могу играть на Lishogi?</string>
+	<string name="lishogiSupportChessAnd">Lishogi supports standard shogi and %1$s.</string>
+	<string name="eightVariants">8 видов шахмат</string>
+	<string name="whatIsACPL">Что такое «потеря сантипешек в среднем» (ACPL)?</string>
+	<string name="acplExplanation">Сантипешка — это единица измерения, которую используют в шахматах в качестве представления преимущества. Сантипешка равна ¹/₁₀₀ стоимости пешки. 100 сантипешек равны 1 пешке. Эти значения не играют никакой роли в игре, но полезны в компьютерных шахматах и для компьютерного анализа при оценке позиций.
 
   Ход по первой линии компьютера означает нулевую потерю сантипешек, а любой другой ход ведёт к ухудшению позиции, которое выражается в потере сантипешек. Чем хуже ход, тем больше значение потери.
 
   Это значение может использоваться как индикатор качества игры. Чем меньше потеря сантипешек на ход в среднем, тем сильнее игра.
 
   Для компьютерного анализа на Lishogi используется Stockfish.</string>
-  <string name="insufficientMaterial">Проигрыш по времени, ничья и недостаток материала</string>
-  <string name="linkToFIDErules">§6.9 правил ФИДЕ, формат pdf</string>
-  <string name="discoveringEnPassant">Почему можно взять пешку, когда она уже прошла битое поле? (взятие на проходе)</string>
-  <string name="explainingEnPassant">Это ход, известный как «взятие на проходе». Статья в Википедии даёт %1$s.
+	<string name="insufficientMaterial">Проигрыш по времени, ничья и недостаток материала</string>
+	<string name="lishogiFollowFIDErules">In the event of one player running out of time, that player will usually lose the game. However, the game is drawn if the position is such that the opponent cannot checkmate the player\'s king by any possible series of legal moves (%1$s).
+
+In rare cases this can be difficult to decide automatically (forced lines, fortresses). By default we always side with the player who did not run out of time.
+
+Note that it can be possible to mate with a single knight or bishop if the opponent has a piece that could block the king.</string>
+	<string name="linkToFIDErules">§6.9 правил ФИДЕ, формат pdf</string>
+	<string name="discoveringEnPassant">Почему можно взять пешку, когда она уже прошла битое поле? (взятие на проходе)</string>
+	<string name="explainingEnPassant">Это ход, известный как «взятие на проходе». Статья в Википедии даёт %1$s.
 
 Он описан в разделе 3.7 (d), %2$s:
 
 «Пешка, занимающая поле на той же горизонтали и на соседней вертикали с пешкой соперника, которая только что продвинулась на два поля в один ход от своей первоначальной позиции, может взять эту продвинутую пешку соперника, как если бы последний ее ход был только на одно поле. Это взятие возможно только ходом, следующим за этим продвижением, и называется взятием «на проходе».»
 
  Посмотрите %3$s и попрактикуйтесь.</string>
-  <string name="goodIntroduction">хорошее объяснение</string>
-  <string name="officialRulesPDF">официальные правила (pdf)</string>
-  <string name="threefoldRepetition">Троекратное повторение позиции</string>
-  <string name="threefoldRepetitionExplanation">Если позиция на доске повторилась три раза, любой из игроков может объявить ничью %1$s. В Lishogi реализованы официальные правила ФИДЕ, как описано в статье 9.2 (d) of the %2$s.</string>
-  <string name="threefoldRepetitionLowerCase">повторением позиции</string>
-  <string name="handBookPDF">правил (pdf)</string>
-  <string name="notRepeatedMoves">Наши ходы не повторялись. Почему игра закончилась повторением?</string>
-  <string name="repeatedPositionsThatMatters">Троекратное повторение связано с повторением %1$s на доске, а не сделанных ходов. К повторению позиции могут приводить разные ходы, не обязательно одинаковые.</string>
-  <string name="positions">позиции</string>
-  <string name="weRepeatedthreeTimesPosButNoDraw">У нас трижды повторилась позиция. Почему игра не закончилась вничью?</string>
-  <string name="threeFoldHasToBeClaimed">Повторение необходимо для объявления ничьей любым из игроков. Вы можете сделать это нажав кнопку, которая появляется в этот момент, или предложив обычную ничью. Вы также можете %1$s Lishogi для автоматического объявления ничьей в этом случае. Пятикратное повторение позиции принудительно завершит игру вничью.</string>
-  <string name="configure">настроить</string>
-  <string name="accounts">Учётные записи</string>
-  <string name="showYourTitle">Если у вас есть звание ФИДЕ или национального мастера, и вы хотите, чтобы оно отображалось на Lishogi, вы можете заполнить %1$s, приложив чёткое фото документа, подтверждающего ваше звание, и селфи с этим документом в руках.
+	<string name="goodIntroduction">хорошее объяснение</string>
+	<string name="officialRulesPDF">официальные правила (pdf)</string>
+	<string name="lishogiTraining">Lishogi training</string>
+	<string name="threefoldRepetition">Троекратное повторение позиции</string>
+	<string name="threefoldRepetitionExplanation">Если позиция на доске повторилась три раза, любой из игроков может объявить ничью %1$s. В Lishogi реализованы официальные правила ФИДЕ, как описано в статье 9.2 (d) of the %2$s.</string>
+	<string name="threefoldRepetitionLowerCase">повторением позиции</string>
+	<string name="handBookPDF">правил (pdf)</string>
+	<string name="notRepeatedMoves">Наши ходы не повторялись. Почему игра закончилась повторением?</string>
+	<string name="repeatedPositionsThatMatters">Троекратное повторение связано с повторением %1$s на доске, а не сделанных ходов. К повторению позиции могут приводить разные ходы, не обязательно одинаковые.</string>
+	<string name="positions">позиции</string>
+	<string name="weRepeatedthreeTimesPosButNoDraw">У нас трижды повторилась позиция. Почему игра не закончилась вничью?</string>
+	<string name="threeFoldHasToBeClaimed">Повторение необходимо для объявления ничьей любым из игроков. Вы можете сделать это нажав кнопку, которая появляется в этот момент, или предложив обычную ничью. Вы также можете %1$s Lishogi для автоматического объявления ничьей в этом случае. Пятикратное повторение позиции принудительно завершит игру вничью.</string>
+	<string name="configure">настроить</string>
+	<string name="accounts">Учётные записи</string>
+	<string name="titlesAvailableOnLishogi">What titles are there on Lishogi?</string>
+	<string name="lishogiRecognizeAllOTBtitles">Lishogi recognises all FIDE titles gained from OTB (over the board) play, as well as %1$s. Here is a list of FIDE titles:</string>
+	<string name="showYourTitle">Если у вас есть звание ФИДЕ или национального мастера, и вы хотите, чтобы оно отображалось на Lishogi, вы можете заполнить %1$s, приложив чёткое фото документа, подтверждающего ваше звание, и селфи с этим документом в руках.
 
  Подтверждённое звание позволит вам участвовать в Титульных Аренах.
 
  И ещё у нас есть почётное звание %2$s.</string>
-  <string name="asWellAsManyNMtitles">множество званий национального мастера</string>
-  <string name="verificationForm">форму подтверждения</string>
-  <string name="canIbecomeLM">Могу ли я получить звание Lishogi Мастера (LM)?</string>
-  <string name="noUpperCaseDot">Нет.</string>
-  <string name="lMtitleComesToYouDoNotRequestIt">Это почётное звание, оно неофициальное и существует только на Lishogi.
+	<string name="asWellAsManyNMtitles">множество званий национального мастера</string>
+	<string name="verificationForm">форму подтверждения</string>
+	<string name="canIbecomeLM">Могу ли я получить звание Lishogi Мастера (LM)?</string>
+	<string name="noUpperCaseDot">Нет.</string>
+	<string name="lMtitleComesToYouDoNotRequestIt">Это почётное звание, оно неофициальное и существует только на Lishogi.
 
  Изредка мы награждаем самых значимых игроков, имеющих заслуги перед Lishogi, по нашему выбору. Не вы получаете звание LM, звание само находит вас. Если вы его заслуживаете, вы получите сообщение об этом, и сможете принять новое звание или отказаться.
 
  Не выпрашивайте у нас звание LM.</string>
-  <string name="whatUsernameCanIchoose">Каким может быть моё имя пользователя?</string>
-  <string name="usernamesNotOffensive">В целом, имя пользователя не должно быть оскорбительным, выдающим вас за кого-то другого и рекламирующем что-то. Узнайте больше в наших %1$s.</string>
-  <string name="guidelines">рекомендациях</string>
-  <string name="uniqueTrophies">Уникальные трофеи</string>
-  <string name="ownerUniqueTrophies">Это уникальные трофеи за всю историю Lishogi, и ни у кого, кроме %1$s их не было.</string>
-  <string name="wayOfBerserkExplanation">Чтобы его получить, hiimgosu бросил вызов самому себе выиграть с Берсерком 100%% игр в %s.</string>
-  <string name="aHourlyBulletTournament">ежечасном турнире в Пулю</string>
-  <string name="goldenZeeExplanation">ZugAddict во время стрима два часа безуспешно пытался обыграть компьютер на 8-м уровне в игре 1+0. Тибо пообещал наградить его уникальным трофеем, если он всё же сделает это во время стрима. Спустя час он разгромил Стокфиш, и обещание было исполнено.</string>
-  <string name="whatIsProvisionalRating">Что означает вопросительный знак (?) рядом с рейтингом?</string>
-  <string name="provisionalRatingExplanation">Вопросительный знак означает, что рейтинг «предварительный». Причины могут быть следующими:</string>
-  <string name="notPlayedEnoughRatedGamesAgainstX">Игрок ещё не сыграл достаточное число рейтинговых игр против %1$s в соответствующей категории игр.</string>
-  <string name="similarOpponents">соперников равной силы</string>
-  <string name="notPlayedRecently">Игрок не сыграл достаточное количество партий за последнее время. В зависимости от числа сыгранных партий, может пройти около года, и рейтинг опять станет «предварительным».</string>
-  <string name="ratingDeviationMorethanOneHundredTen">Говоря конкретно, в Glicko-2 рейтинг отклонение в 110 очков и больше считается «предварительным». Отклонение — это уровень доверительности. Чем меньше отклонение, тем более стабильным считается рейтинг.</string>
-  <string name="howDoLeaderoardsWork">Как распределяются места в списках лидеров?</string>
-  <string name="inOrderToAppearsYouMust">Чтобы попасть в %1$s, вы должны:</string>
-  <string name="ratingLeaderboards">список лидеров:</string>
-  <string name="havePlayedMoreThanThirtyGamesInThatRating">сыграть как минимум 30 рейтинговых игр в этом виде,</string>
-  <string name="havePlayedARatedGameAtLeastOneWeekAgo">сыграть рейтинговую партию в течение последней недели в этом виде,</string>
-  <string name="beInTopTen">быть в числе 10 лучших в этом списке.</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Второе условие заключается в том, что игроки с закрытыми учётными записями пропадают из списков лидеров.</string>
-  <string name="whyAreRatingHigher">Почему рейтинги игроков выше, чем на других сайтах и в других организациях, как, например, ФИДЕ или РШФ?</string>
-  <string name="whyAreRatingHigherExplanation">Лучше всего не думать о рейтинге в абсолютных числах и не сравнивать их с другими организациями. Разные организации имеют разный уровень игроков, разные системы подсчёта рейтинга (Elo, Glicko, Glicko-2, и их модификации). Всё это очень сильно влияет на конкретные значения.
+	<string name="whatUsernameCanIchoose">Каким может быть моё имя пользователя?</string>
+	<string name="usernamesNotOffensive">В целом, имя пользователя не должно быть оскорбительным, выдающим вас за кого-то другого и рекламирующем что-то. Узнайте больше в наших %1$s.</string>
+	<string name="guidelines">рекомендациях</string>
+	<string name="uniqueTrophies">Уникальные трофеи</string>
+	<string name="ownerUniqueTrophies">Это уникальные трофеи за всю историю Lishogi, и ни у кого, кроме %1$s их не было.</string>
+	<string name="wayOfBerserkExplanation">Чтобы его получить, hiimgosu бросил вызов самому себе выиграть с Берсерком 100%% игр в %s.</string>
+	<string name="aHourlyBulletTournament">ежечасном турнире в Пулю</string>
+	<string name="goldenZeeExplanation">ZugAddict во время стрима два часа безуспешно пытался обыграть компьютер на 8-м уровне в игре 1+0. Тибо пообещал наградить его уникальным трофеем, если он всё же сделает это во время стрима. Спустя час он разгромил Стокфиш, и обещание было исполнено.</string>
+	<string name="lishogiRatings">Lishogi ratings</string>
+	<string name="whichRatingSystemUsedByLishogi">What rating system does Lishogi use?</string>
+	<string name="ratingSystemUsedByLishogi">Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant number of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system).
+
+Fundamentally, Glicko ratings use \"confidence intervals\" when calculating and representing your rating. When you first start using the site, your rating starts at 1500 ± 700. The 1500 represents your rating, and the 700 represents the confidence interval.
+
+Basically, the system is 90% sure that your rating is somewhere between 800 and 2200. It is incredibly uncertain. Because of this, when a player is just starting out, their rating will change very dramatically, potentially several hundred points at a time. But after some games against established players the confidence interval will narrow, and the amount of points gained/lost after each game will decrease.
+
+Another point to note is that, as time passes, the confidence interval will increase. This allows you to gain/lose points points more rapidly to match any changes in your skill level over that time.</string>
+	<string name="whatIsProvisionalRating">Что означает вопросительный знак (?) рядом с рейтингом?</string>
+	<string name="provisionalRatingExplanation">Вопросительный знак означает, что рейтинг «предварительный». Причины могут быть следующими:</string>
+	<string name="notPlayedEnoughRatedGamesAgainstX">Игрок ещё не сыграл достаточное число рейтинговых игр против %1$s в соответствующей категории игр.</string>
+	<string name="similarOpponents">соперников равной силы</string>
+	<string name="notPlayedRecently">Игрок не сыграл достаточное количество партий за последнее время. В зависимости от числа сыгранных партий, может пройти около года, и рейтинг опять станет «предварительным».</string>
+	<string name="ratingDeviationMorethanOneHundredTen">Говоря конкретно, в Glicko-2 рейтинг отклонение в 110 очков и больше считается «предварительным». Отклонение — это уровень доверительности. Чем меньше отклонение, тем более стабильным считается рейтинг.</string>
+	<string name="howDoLeaderoardsWork">Как распределяются места в списках лидеров?</string>
+	<string name="inOrderToAppearsYouMust">Чтобы попасть в %1$s, вы должны:</string>
+	<string name="ratingLeaderboards">список лидеров:</string>
+	<string name="havePlayedMoreThanThirtyGamesInThatRating">сыграть как минимум 30 рейтинговых игр в этом виде,</string>
+	<string name="havePlayedARatedGameAtLeastOneWeekAgo">сыграть рейтинговую партию в течение последней недели в этом виде,</string>
+	<string name="ratingDeviationLowerThanXinChessYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
+	<string name="beInTopTen">быть в числе 10 лучших в этом списке.</string>
+	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Второе условие заключается в том, что игроки с закрытыми учётными записями пропадают из списков лидеров.</string>
+	<string name="whyAreRatingHigher">Почему рейтинги игроков выше, чем на других сайтах и в других организациях, как, например, ФИДЕ или РШФ?</string>
+	<string name="whyAreRatingHigherExplanation">Лучше всего не думать о рейтинге в абсолютных числах и не сравнивать их с другими организациями. Разные организации имеют разный уровень игроков, разные системы подсчёта рейтинга (Elo, Glicko, Glicko-2, и их модификации). Всё это очень сильно влияет на конкретные значения.
 
  Лучше всего думать о рейтинге как относительной величине. Сравнивая рейтинги игроков в одной организации, вы сможете предположить, кто выиграет, проиграет или сыграет вничью и как часто это будет случаться. Утверждение «Мой рейтинг равен X» ничего не значит до тех пор, пока не станет известен рейтинг вашего соперника или другого игрока, с которым вы сможете сравнить ваш.</string>
-  <string name="howToHideRatingWhilePlaying">Как скрыть рейтинги во время игры?</string>
-  <string name="enableZenMode">Включите режим «Дзен» в %1$s, или нажмите %2$s во время игры.</string>
-  <string name="displayPreferences">настройках отображения</string>
-  <string name="connexionLostCanIGetMyRatingBack">Я проиграл из-за пропадания сети. Могу ли я вернуть очки рейтинга?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">К сожалению, мы не можем возвращать очки рейтинга из-за проблем сети или компьютера, и не важно, на чьей стороне возникла проблема, на вашей или на нашей. Второе, однако, случается крайне редко. Также следует заметить, что если мы перезагружаем серверы, мы прерываем игры, чтобы игроки могли избежать незаслуженного поражения.</string>
-  <string name="howToThreeDots">Узнайте, как...</string>
-  <string name="enableDisableNotificationPopUps">Включить или отключить всплывающие окна уведомлений?</string>
-  <string name="viewSiteInformationPopUp">Посмотреть всплывающее окно информации о сайте</string>
-  </resources>
+	<string name="howToHideRatingWhilePlaying">Как скрыть рейтинги во время игры?</string>
+	<string name="enableZenMode">Включите режим «Дзен» в %1$s, или нажмите %2$s во время игры.</string>
+	<string name="displayPreferences">настройках отображения</string>
+	<string name="connexionLostCanIGetMyRatingBack">Я проиграл из-за пропадания сети. Могу ли я вернуть очки рейтинга?</string>
+	<string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">К сожалению, мы не можем возвращать очки рейтинга из-за проблем сети или компьютера, и не важно, на чьей стороне возникла проблема, на вашей или на нашей. Второе, однако, случается крайне редко. Также следует заметить, что если мы перезагружаем серверы, мы прерываем игры, чтобы игроки могли избежать незаслуженного поражения.</string>
+	<string name="howToThreeDots">Узнайте, как...</string>
+	<string name="enableDisableNotificationPopUps">Включить или отключить всплывающие окна уведомлений?</string>
+	<string name="viewSiteInformationPopUp">Посмотреть всплывающее окно информации о сайте</string>
+	<string name="lishogiCanOptionnalySendPopUps">Lishogi can optionally send popup notifications, for example when it is your turn or you received a private message.
+
+Click the lock icon next to the lishogi.org address in the URL bar of your browser.
+
+Then select whether to allow or block notifications from Lishogi.</string>
+</resources>

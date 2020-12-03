@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="measurementInProgressThreeDot">Ölçmələr davam edir...</string>
-  <string name="noAndYourNetworkIsGood">Xeyr. Şəbəkəniz yaxşıdır.</string>
-  <string name="noAndYourNetworkIsBad">Xeyr. Şəbəkəniz zəifdir.</string>
-  <string name="yesItWillBeFixedSoon">Bəli. Tezliklə düzəldiləcək!</string>
-  <string name="andNowTheLongAnswerLagComposedOfTwoValues">Və uzun cavab! Oyun gecikməsi 2 əlaqəsiz dəyərdən ibarətdir (daha aşağı daha yaxşıdır):</string>
-  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Üst sətirddəki istifadəçi adınıza klikləyərək istənilən vaxt bu dəyərləri tapa bilərsiniz.</string>
-  <string name="lagCompensation">Gecikmə kompensasiyası</string>
-</resources>

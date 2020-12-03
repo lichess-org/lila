@@ -1,22 +1,27 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="search">Zoek</string>
-  <string name="advancedSearch">Geavanceerd zoeken</string>
-  <plurals name="xGamesFound">
-    <item quantity="one">Eén partij gevonden</item>
-    <item quantity="other">%s partijen gevonden</item>
-  </plurals>
-  <string name="opponentName">Naam tegenstander</string>
-  <string name="loser">Verliezer</string>
-  <string name="from">Van</string>
-  <string name="to">Tot</string>
-  <string name="humanOrComputer">Was de tegenstander een persoon of een computer</string>
-  <string name="aiLevel">AI niveau</string>
-  <string name="source">Bron</string>
-  <string name="nbTurns">Aantal zetten</string>
-  <string name="result">Uitslag</string>
-  <string name="winnerColor">Kleur winnaar</string>
-  <string name="date">Datum</string>
-  <string name="sortBy">Sorteren op</string>
-  <string name="analysis">Analyse</string>
-  <string name="onlyAnalysed">Alleen partijen waarvan een computeranalyse beschikbaar is</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="search">Zoek</string>
+	<string name="advancedSearch">Geavanceerd zoeken</string>
+	<plurals name="searchInXGames">
+		<item quantity="one">Search in %s shogi game</item>
+		<item quantity="other">Search in %s shogi games</item>
+	</plurals>
+	<plurals name="xGamesFound">
+		<item quantity="one">Eén partij gevonden</item>
+		<item quantity="other">%s partijen gevonden</item>
+	</plurals>
+	<string name="opponentName">Naam tegenstander</string>
+	<string name="loser">Verliezer</string>
+	<string name="from">Van</string>
+	<string name="to">Tot</string>
+	<string name="humanOrComputer">Was de tegenstander een persoon of een computer</string>
+	<string name="aiLevel">AI niveau</string>
+	<string name="source">Bron</string>
+	<string name="nbTurns">Aantal zetten</string>
+	<string name="result">Uitslag</string>
+	<string name="winnerColor">Kleur winnaar</string>
+	<string name="date">Datum</string>
+	<string name="sortBy">Sorteren op</string>
+	<string name="analysis">Analyse</string>
+	<string name="onlyAnalysed">Alleen partijen waarvan een computeranalyse beschikbaar is</string>
 </resources>

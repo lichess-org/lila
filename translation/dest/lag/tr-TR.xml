@@ -1,9 +1,15 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="measurementInProgressThreeDot">Ölçümler yapılıyor...</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="isLishogiLagging">Is Lishogi lagging?</string>
+  <string name="measurementInProgressThreeDot">Ölçümler yapılıyor...</string>
   <string name="noAndYourNetworkIsGood">Hayır. Ve ağınız gayet iyi.</string>
   <string name="noAndYourNetworkIsBad">Hayır. Ve ağınız kötü.</string>
   <string name="yesItWillBeFixedSoon">Evet. Yakında düzeltilecek!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">Ve şimdi, uzun cevap! Oyun gecikmesi iki ilişkisiz değerden oluşur (Daha düşük değerler daha iyidir):</string>
+  <string name="lishogiServerLatency">Lishogi server latency</string>
+  <string name="lishogiServerLatencyExplanation">The time it takes to process a move on the server. It\'s the same for everybody, and only depends on the server load. The more players and the higher it gets, but Lishogi developers do their best to keep it low. It rarely exceeds 10ms.</string>
+  <string name="networkBetweenLishogiAndYou">Network between Lishogi and you</string>
+  <string name="networkBetweenLishogiAndYouExplanation">The time it takes to send a move from your computer to Lishogi server, and get the response back. It\'s specific to your distance to Lishogi (France), and to the quality of your Internet connection. Lishogi developers cannot fix your wifi or make light go faster.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Sağ üst köşedeki kullanıcı adınıza tıklayarak bu iki değeri de istediğiniz zaman bulabilirsiniz.</string>
   <string name="lagCompensation">Gecikme Tazminatı</string>
   <string name="lagCompensationExplanation">Lishogi ağ gecikmesini telafi eder. Bu, sürekli gecikmeyi ve nadiren gecikme artışlarını içerir. Zaman kontrolüne ve telafi gecikmesine dayanan sınırlar ve sezgisel taramalar vardır, böylece sonuç her iki oyuncu için de makul olmalıdır. Sonuç olarak, rakibinizden daha yüksek bir ağ gecikmesine sahip olmak bir handikap değildir!</string>

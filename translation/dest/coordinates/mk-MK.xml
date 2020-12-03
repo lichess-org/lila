@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Координати</string>
-  <string name="coordinateTraining">Обука на координати</string>
-  <string name="averageScoreAsWhiteX">Просечен резултат како бел: %s</string>
-  <string name="averageScoreAsBlackX">Просечен резултат како црн: %s</string>
-  </resources>

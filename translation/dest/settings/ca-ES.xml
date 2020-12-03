@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Configuració</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Configuració</string>
   <string name="closeAccount">Tancar el compte</string>
   <string name="closingIsDefinitive">El tancament és definitiu. No es pot tornar enrere. N\'esteu segurs?</string>
   <string name="cantOpenSimilarAccount">No està permès crear un nou comte amb el mateix nom, ni tan sols si hi ha diferents majúscules i minúscules.</string>

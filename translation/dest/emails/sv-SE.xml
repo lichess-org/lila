@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="emailConfirm_subject">%s, bekräfta ditt lishogi.org-konto</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="emailConfirm_subject">%s, bekräfta ditt lishogi.org-konto</string>
   <string name="emailConfirm_click">Klicka på länken för att aktivera ditt Lishogikonto:</string>
   <string name="emailConfirm_ignore">Om du inte har registrerat dig på Lishogi, så kan du bortse från detta meddelande.</string>
   <string name="passwordReset_subject">%s - återställ ditt lishogi.org-lösenord</string>
@@ -14,6 +15,7 @@
 Här är din profilsida: %1$s. Du kan anpassa den på %2$s. 
 
 Ha kul, och må dina pjäser alltid leta sig fram till motståndarens kung!</string>
+  <string name="logInToLishogi">Log in to lishogi.org, %s</string>
   <string name="common_orPaste">(Fungerar det inte att klicka? Prova att klistra in länken i din webbläsare!)</string>
   <string name="common_note">Detta är ett servicemejl relaterat till din användning av %s.</string>
   <string name="common_contact">För att kontakta oss, vänligen använd %s.</string>

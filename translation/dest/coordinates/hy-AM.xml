@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Կոորդինատներ</string>
-  <string name="coordinateTraining">Շարունակել մարզվել</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Դուք կարող եք ավելի արդյունավետ վերլուծել պարտիաները, եթե դրա համար պետք չի ման գալ նոր անուններ:</string>
-  <string name="aSquareNameAppears">Տախտակի վրա կհայտնվի քառակուսի, որի վրա գրված կլինի դաշտի անունը և Դուք պետք է ճիշտ սեղմեք տվյալ դաշտի վրա: Դրա համար Դուք ունեք 30 վայրկյան, որպեսզի գտնեք շատ դաշտեր:</string>
-  <string name="startTraining">Սկսել ուսուցումը</string>
-</resources>

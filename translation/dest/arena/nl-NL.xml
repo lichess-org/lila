@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="arenaTournaments">Arena toernooien</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">Arena toernooien</string>
   <string name="isItRated">Is dit met rating?</string>
   <string name="willBeNotified">Je krijgt een melding wanneer dit toernooi start, dus het is veilig om in een ander tabblad te spelen terwijl je wacht.</string>
   <string name="isRated">Dit toernooi is met rating en zal je rating beïnvloeden.</string>

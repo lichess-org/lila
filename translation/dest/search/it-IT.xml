@@ -1,22 +1,27 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="search">Cerca</string>
-  <string name="advancedSearch">Ricerca avanzata</string>
-  <plurals name="xGamesFound">
-    <item quantity="one">Una partita trovata</item>
-    <item quantity="other">%s partite trovate</item>
-  </plurals>
-  <string name="opponentName">Nome dell\'avversario</string>
-  <string name="loser">Perdente</string>
-  <string name="from">Da</string>
-  <string name="to">A</string>
-  <string name="humanOrComputer">Indica se l\'avversario del giocatore era umano o un computer</string>
-  <string name="aiLevel">Livello I.A.</string>
-  <string name="source">Fonti</string>
-  <string name="nbTurns">Numero di turni</string>
-  <string name="result">Risultato</string>
-  <string name="winnerColor">Colore del vincitore</string>
-  <string name="date">Data</string>
-  <string name="sortBy">Ordina per</string>
-  <string name="analysis">Analisi</string>
-  <string name="onlyAnalysed">Solo partite in cui è disponibile l\'analisi del computer</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="search">Cerca</string>
+	<string name="advancedSearch">Ricerca avanzata</string>
+	<plurals name="searchInXGames">
+		<item quantity="one">Search in %s shogi game</item>
+		<item quantity="other">Search in %s shogi games</item>
+	</plurals>
+	<plurals name="xGamesFound">
+		<item quantity="one">Una partita trovata</item>
+		<item quantity="other">%s partite trovate</item>
+	</plurals>
+	<string name="opponentName">Nome dell\'avversario</string>
+	<string name="loser">Perdente</string>
+	<string name="from">Da</string>
+	<string name="to">A</string>
+	<string name="humanOrComputer">Indica se l\'avversario del giocatore era umano o un computer</string>
+	<string name="aiLevel">Livello I.A.</string>
+	<string name="source">Fonti</string>
+	<string name="nbTurns">Numero di turni</string>
+	<string name="result">Risultato</string>
+	<string name="winnerColor">Colore del vincitore</string>
+	<string name="date">Data</string>
+	<string name="sortBy">Ordina per</string>
+	<string name="analysis">Analisi</string>
+	<string name="onlyAnalysed">Solo partite in cui è disponibile l\'analisi del computer</string>
 </resources>

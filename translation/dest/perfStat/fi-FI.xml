@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="perfStats">%s-tilastot</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="perfStats">%s-tilastot</string>
   <string name="viewTheGames">Katso pelit</string>
   <string name="provisional">tilapäinen</string>
   <string name="notEnoughRatedGames">Ei ole pelattu riittävän montaa pisteytettyä peliä, jotta voitaisiin muodostaa luotettava vahvuusluku.</string>
@@ -18,6 +19,7 @@
   <string name="notEnoughGames">Ei tarpeeksi pelattuja pelejä</string>
   <string name="highestRating">Korkein vahvuusluku: %s</string>
   <string name="lowestRating">Alin vahvuusluku: %s</string>
+  <string name="fromXToY">from %1$s to %2$s</string>
   <string name="winningStreak">Voittoputki</string>
   <string name="losingStreak">Tappioputki</string>
   <string name="longestStreak">Pisin putki: %s</string>

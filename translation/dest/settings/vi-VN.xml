@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Cài đặt</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Cài đặt</string>
   <string name="closeAccount">Đóng tài khoản</string>
   <string name="closingIsDefinitive">Việc đóng là dứt điểm. Không có cách nào có thể quay lại. Bạn có chắc không?</string>
   <string name="cantOpenSimilarAccount">Bạn không được phép tạo tài khoản trùng tên, kể cả trường hợp khác chữ cái.</string>

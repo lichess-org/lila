@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Koordinatalar</string>
-  <string name="coordinateTraining">Kordinatalar bilan shug\'ullanish</string>
-  <string name="averageScoreAsWhiteX">Oqlarda o\'rtacha baho: %s</string>
-  <string name="averageScoreAsBlackX">Qorada o\'rtacha baho: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Agar sizga kataklar nomlarini bilsangiz, ularni qidirmasdan o\'yinni yanada chuqurroq tahlil qilishingiz mumkin.</string>
-  <string name="aSquareNameAppears">Kataklar nomi bitta-bitta sizga ko\'rinadi va siz 30 sekund ichida imkon qadar ko\'proq nomga mos kataklarni bosishingiz kerak bo\'ladi!</string>
-  <string name="startTraining">Shug\'ullanishni boshlash</string>
-</resources>

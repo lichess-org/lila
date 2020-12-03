@@ -1,24 +1,31 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="search">חיפוש</string>
-  <string name="advancedSearch">חיפוש מתקדם</string>
-  <plurals name="xGamesFound">
-    <item quantity="one">משחק אחד נמצא</item>
-    <item quantity="two">%s משחקים נמצאו</item>
-    <item quantity="many">%s משחקים נמצאו</item>
-    <item quantity="other">%s משחקים נמצאו</item>
-  </plurals>
-  <string name="opponentName">שם היריב</string>
-  <string name="loser">מפסיד</string>
-  <string name="from">מ</string>
-  <string name="to">ל</string>
-  <string name="humanOrComputer">אם היריב של השחקן היה אנושי או מחשב</string>
-  <string name="aiLevel">רמת המנוע</string>
-  <string name="source">מקור</string>
-  <string name="nbTurns">מספר התורות</string>
-  <string name="result">תוצאה</string>
-  <string name="winnerColor">הצבע המנצח</string>
-  <string name="date">תאריך</string>
-  <string name="sortBy">מיין לפי</string>
-  <string name="analysis">ניתוח</string>
-  <string name="onlyAnalysed">רק משחקים בהם ניתוח המחשב זמין</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="search">חיפוש</string>
+	<string name="advancedSearch">חיפוש מתקדם</string>
+	<plurals name="searchInXGames">
+		<item quantity="one">Search in %s shogi game</item>
+		<item quantity="two">Search in %s shogi games</item>
+		<item quantity="many">Search in %s shogi games</item>
+		<item quantity="other">Search in %s shogi games</item>
+	</plurals>
+	<plurals name="xGamesFound">
+		<item quantity="one">משחק אחד נמצא</item>
+		<item quantity="two">%s משחקים נמצאו</item>
+		<item quantity="many">%s משחקים נמצאו</item>
+		<item quantity="other">%s משחקים נמצאו</item>
+	</plurals>
+	<string name="opponentName">שם היריב</string>
+	<string name="loser">מפסיד</string>
+	<string name="from">מ</string>
+	<string name="to">ל</string>
+	<string name="humanOrComputer">אם היריב של השחקן היה אנושי או מחשב</string>
+	<string name="aiLevel">רמת המנוע</string>
+	<string name="source">מקור</string>
+	<string name="nbTurns">מספר התורות</string>
+	<string name="result">תוצאה</string>
+	<string name="winnerColor">הצבע המנצח</string>
+	<string name="date">תאריך</string>
+	<string name="sortBy">מיין לפי</string>
+	<string name="analysis">ניתוח</string>
+	<string name="onlyAnalysed">רק משחקים בהם ניתוח המחשב זמין</string>
 </resources>

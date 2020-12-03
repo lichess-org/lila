@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="broadcasts">Uitzendingen</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="broadcasts">Uitzendingen</string>
   <string name="liveBroadcasts">Live toernooi uitzendingen</string>
   <string name="newBroadcast">Nieuwe live uitzending</string>
   <string name="ongoing">Lopend</string>

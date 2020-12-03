@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="broadcasts">Phát sóng</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="broadcasts">Phát sóng</string>
   <string name="liveBroadcasts">Giải đấu phát trực tuyến</string>
   <string name="newBroadcast">Phát sóng trực tiếp mới</string>
   <string name="ongoing">Đang diễn ra</string>

@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="private">Приватно</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="private">Приватно</string>
   <string name="myStudies">Моје студије</string>
   <string name="studiesIContributeTo">Студије којима доприносим</string>
   <string name="myPublicStudies">Јавне студије</string>

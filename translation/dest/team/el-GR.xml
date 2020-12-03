@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="team">Ομάδα</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="team">Ομάδα</string>
   <string name="teams">Ομάδες</string>
   <plurals name="nbMembers">
     <item quantity="one">%s μέλος</item>

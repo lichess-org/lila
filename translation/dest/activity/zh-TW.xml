@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="activity">活動</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="activity">活動</string>
   <string name="hostedALiveStream">主持一個現場直播</string>
   <plurals name="supportedNbMonths">
     <item quantity="other">以%2$s的身分支持lishogi.org%1$s個月</item>

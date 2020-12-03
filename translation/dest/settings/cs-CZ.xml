@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Nastavení</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Nastavení</string>
   <string name="closeAccount">Zrušit účet</string>
   <string name="closingIsDefinitive">Zrušení účtu je trvalé. Tato akce je nevratná. Jste si jisti?</string>
   <string name="cantOpenSimilarAccount">Nebudete moci založit nový účet se stejným jménem a to ani když se bude lišit velikost písmen.</string>

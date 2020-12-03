@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">को‍-अर्डिनेटहरु</string>
-  <string name="coordinateTraining">समकक्षको अभ्यास</string>
-  <string name="averageScoreAsWhiteX">सेतो लिएर औसत अंक: %s</string>
-  <string name="averageScoreAsBlackX">कालो लिएर औसत अंक: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">तपाइले खेलहरु प्रभावकारी रुपमा विश्लेषण गर्न सक्नुहुन्छ किनकि तपाइलाई कोठाको नामहरु खोजिरहनु पर्दैन।</string>
-  <string name="aSquareNameAppears">कोठाको नाम बोर्डमा आउछ अनि तपाइले सहि कोठामा क्लिक गर्नुपर्ने हुन्छ| तपाइसंग तपाइले सकेजति कोठा चिन्न ३० सेकेन्ड हुनेछ!</string>
-  <string name="startTraining">अभ्यास सुरु गर्नुहोस्</string>
-</resources>

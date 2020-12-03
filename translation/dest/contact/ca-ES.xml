@@ -1,5 +1,7 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="contact">Contacte</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="contact">Contacte</string>
+  <string name="contactLishogi">Contact Lishogi</string>
   <string name="whatCanWeHelpYouWith">En que et podem ajudar?</string>
   <string name="visitThisPage">Visita aquesta pàgina per resoldre el problema</string>
   <string name="iCantLogIn">No em puc connectar</string>
@@ -41,12 +43,22 @@
   <string name="reportWebsiteIssue">Com un problema del lloc web de Lishogi a Github</string>
   <string name="reportMobileIssue">Com un problema de l\'aplicació mòbil a Github</string>
   <string name="reportBugInDiscord">Al servidor Discord de Lishogi</string>
+  <string name="howToReportBug">Please describe what the bug looks like, what you expected to happen instead, and the steps to reproduce the bug.</string>
   <string name="illegalPawnCapture">Captura de peo il·legal</string>
+  <string name="calledEnPassant">It is called \"en passant\" and is one of the rules of chess.</string>
+  <string name="tryEnPassant">Try this little interactive game to learn more about \"en passant\".</string>
   <string name="illegalCastling">Enroc il·legal o impossible</string>
   <string name="castlingPrevented">L\'enroc només s\'evita si el rei passa per una plaça controlada.</string>
   <string name="castlingRules">Assegureu-vos d’entendre les regles de l’enroc</string>
   <string name="tryCastling">Proveu aquest petit joc interactiu per practicar l\'enroc en els escacs</string>
+  <string name="castlingImported">If you imported the game, or started it from a position, make sure you correctly set the castling rights.</string>
+  <string name="insufficientMaterial">Insufficient mating material</string>
+  <string name="fideMate">According to the FIDE Laws of Chess §6.9, if a checkmate is possible with any legal sequence of moves, then the game is not a draw</string>
+  <string name="knightMate">It is possible to checkmate with only a knight or a bishop, if the opponent has more than a king on the board.</string>
+  <string name="noRatingPoints">No rating points were awarded</string>
+  <string name="ratedGame">Make sure you played a rated game. Casual games do not affect the players ratings.</string>
   <string name="errorPage">Pàgina d\'error</string>
+  <string name="reportErrorPage">If you faced an error page, you may report it:</string>
   <string name="banAppeal">Apel·lació per prohibició o restricció de IP</string>
   <string name="engineAppeal">Motor o marca de trampa</string>
   <string name="sendAppealTo">Pots enviar una apel·lació a %s.</string>
@@ -57,6 +69,7 @@
   <string name="otherRestriction">Una altra restricció</string>
   <string name="collaboration">Col·laboració, legal, comercial</string>
   <string name="monetizing">Monetitzar Lishogi</string>
+  <string name="buyingLishogi">Buying Lishogi</string>
   <string name="authorizationToUse">Autorització per fer servir Lishogi</string>
   <string name="welcomeToUse">Pots utilitzar Lishogi per a la vostra activitat, fins i tot comercial.</string>
   <string name="videosAndBooks">Podeu mostrar-lo als vostres vídeos i podeu imprimir captures de pantalla de Lishogi als vostres llibres.</string>

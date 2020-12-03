@@ -1,9 +1,13 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Koördinate</string>
-  <string name="coordinateTraining">Koördinaat oefening</string>
-  <string name="averageScoreAsWhiteX">Gemiddelde telling as wit: %s</string>
-  <string name="averageScoreAsBlackX">Gemiddelde telling as swart: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Jy kan \'n spel meer effektief analiseer as jy vinnig koördinate kan herken.</string>
-  <string name="aSquareNameAppears">As \'n Koördinaat op die bord verskyn moet jy op die ooreenstemmende blokkie klik. Jy het 30 sekondes om soveel as moontlik blokkies aan te dui!</string>
-  <string name="startTraining">Begin die oefening</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="coordinates">Koördinate</string>
+	<string name="coordinateTraining">Koördinaat oefening</string>
+	<string name="averageScoreAsWhiteX">Gemiddelde telling as wit: %s</string>
+	<string name="averageScoreAsBlackX">Gemiddelde telling as swart: %s</string>
+	<string name="knowingTheShogiBoard">Knowing the shogiboard coordinates is a very important shogi skill:</string>
+	<string name="mostShogiCourses">All shogi courses and exercises use some kind of a shogi notation. You can pick between the Japanese one and the western one.</string>
+	<string name="talkToYourShogiFriends">It makes it easier to talk to your shogi friends, since you both understand the \'language of shogi\'.</string>
+	<string name="youCanAnalyseAGameMoreEffectively">Jy kan \'n spel meer effektief analiseer as jy vinnig koördinate kan herken.</string>
+	<string name="aSquareNameAppears">As \'n Koördinaat op die bord verskyn moet jy op die ooreenstemmende blokkie klik. Jy het 30 sekondes om soveel as moontlik blokkies aan te dui!</string>
+	<string name="startTraining">Begin die oefening</string>
 </resources>

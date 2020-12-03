@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="emailConfirm_subject">Potvrďte svůj účet na lishogi.org, %s</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="emailConfirm_subject">Potvrďte svůj účet na lishogi.org, %s</string>
   <string name="emailConfirm_click">Klikněte na tento link pro potvrzení vašeho Lishogi účtu:</string>
   <string name="emailConfirm_ignore">Pokud jste se neregistroval/a na Lishogi, ignorujte tento e-mail.</string>
   <string name="passwordReset_subject">Obnovení hesla lishogi.org, %s</string>
@@ -14,6 +15,7 @@
 Zde naleznete stránku s Vašim profilem: %1$s. Přizpůsobit si jej můžete zde - %2$s.
 
 Hodně zábavy a ať si Vaše figury vždy najdou cestu k soupeřovu králi!</string>
+  <string name="logInToLishogi">Log in to lishogi.org, %s</string>
   <string name="common_orPaste">(Odkaz nefunguje? Zkuste jej zkopírovat do vašeho prohlížeče!)</string>
   <string name="common_note">Tohle je automatický e-mail související s vaším používáním %s.</string>
   <string name="common_contact">Použij %s k tomu, aby jsi nás kontaktoval.</string>

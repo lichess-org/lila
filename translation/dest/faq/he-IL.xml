@@ -1,51 +1,143 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="faqAbbreviation">שאלות נפוצות</string>
-  <string name="frequentlyAskedQuestions">שאלות נפוצות</string>
-  <string name="hearItPronouncedBySpecialist">שמע אותו מבוטא על ידי מומחה.</string>
-  <string name="whyLiveLightLibre">בשידור חי, מכיוון שמשחקים משוחקים ונצפים בזמן אמת 24/7; קל וחומר על כך שליצ\'ס היא קוד פתוח ובלתי פוסק על ידי זבל קנייני שמצוי באתרים אחרים.</string>
-  <string name="breakdownOfOurCosts">פירוט העלויות שלנו</string>
-  <string name="otherWaysToHelp">דרכים אחרות לעזור</string>
-  <string name="fairPlay">שחק הגון</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">מדוע אני מסומן לצורך מניפולציה של דירוג מלאכותי (אי רצון לנצח וסיוע) או סיוע ממחשב?</string>
-  <string name="cheatDetectionMethods">לליצ\'ס שיטות איתור חזקות ותהליך יסודי מאוד לבחינת כל הראיות ולקבלת החלטה. התהליך כרוך לעתים קרובות במנחים רבים ויכול לקחת זמן רב. מלבד הסימן עצמו, לא נעבור לפרטים אודות ראיות או תהליך קבלת ההחלטות למקרים בודדים. פעולה זו תקל על הימנעות מגילוי בעתיד, ותהווה הזמנה לוויכוחים בלתי פרודוקטיביים. כי זמן ומאמץ מבלים יותר טוב על מקרים חשובים אחרים. משתמשים יכולים לערער באמצעות שליחת אימייל %1$s, אך לעיתים נדירות משתנות ההחלטות.</string>
-  <string name="whenAmIEligibleRatinRefund">מתי אני זכאי להחזר הדירוג האוטומטי מהפסד לרמאים?</string>
-  <string name="ratingRefundExplanation">דקה לאחר סימון שחקן, 40 המשחקים האחרונים שדורגו ב -3 הימים האחרונים נלקחים. אם אתה היריב שלהם במשחקים ההם, איבדת דירוג (בגלל הפסד או תיקו), והדירוג שלך לא היה זמני, תקבל החזר דירוג. ההחזר מושבת על סמך דירוג השיא שלך והתקדמות הדירוג שלך לאחר המשחק.
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="faqAbbreviation">שאלות נפוצות</string>
+	<string name="frequentlyAskedQuestions">שאלות נפוצות</string>
+	<string name="whyIsLishogiCalledLishogi">Why is Lishogi called Lishogi?</string>
+	<string name="forkedFromLichess">Lishogi is open source project forked from liсhess, but since it\'s for playing shogi, it\'s called lishogi.</string>
+	<string name="lishogiCombinationLiveLightLibrePronounced">Because it\'s derived from Liсhess. And Liсhess is called Liсhess because it\'s a combination of live/light/libre and chess. Lishogi is pronounced %1$s.</string>
+	<string name="leechess">lee-shogi</string>
+	<string name="hearItPronouncedBySpecialist">שמע אותו מבוטא על ידי מומחה.</string>
+	<string name="whyLiveLightLibre">בשידור חי, מכיוון שמשחקים משוחקים ונצפים בזמן אמת 24/7; קל וחומר על כך שליצ\'ס היא קוד פתוח ובלתי פוסק על ידי זבל קנייני שמצוי באתרים אחרים.</string>
+	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
+	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
+	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi is powered by donations from patrons and the efforts of a team of volunteers.</string>
+	<string name="findMoreAndSeeHowHelp">You can find out more about %1$s. If you want to help Lishogi by volunteering your time and skills, there are many %2$s.</string>
+	<string name="beingAPatron">Become a patron</string>
+	<string name="breakdownOfOurCosts">פירוט העלויות שלנו</string>
+	<string name="otherWaysToHelp">דרכים אחרות לעזור</string>
+	<string name="areThereWebsitesBasedOnLishogi">Are there websites based on Lishogi?</string>
+	<string name="yesLishogiInspiredOtherOpenSourceWebsites">Yes. Lishogi has indeed inspired other open-source sites that use our %1$s, %2$s, or %3$s.</string>
+	<string name="fairPlay">שחק הגון</string>
+	<string name="whyFlaggedRatingManipulationOrCheater">מדוע אני מסומן לצורך מניפולציה של דירוג מלאכותי (אי רצון לנצח וסיוע) או סיוע ממחשב?</string>
+	<string name="cheatDetectionMethods">לליצ\'ס שיטות איתור חזקות ותהליך יסודי מאוד לבחינת כל הראיות ולקבלת החלטה. התהליך כרוך לעתים קרובות במנחים רבים ויכול לקחת זמן רב. מלבד הסימן עצמו, לא נעבור לפרטים אודות ראיות או תהליך קבלת ההחלטות למקרים בודדים. פעולה זו תקל על הימנעות מגילוי בעתיד, ותהווה הזמנה לוויכוחים בלתי פרודוקטיביים. כי זמן ומאמץ מבלים יותר טוב על מקרים חשובים אחרים. משתמשים יכולים לערער באמצעות שליחת אימייל %1$s, אך לעיתים נדירות משתנות ההחלטות.</string>
+	<string name="whenAmIEligibleRatinRefund">מתי אני זכאי להחזר הדירוג האוטומטי מהפסד לרמאים?</string>
+	<string name="ratingRefundExplanation">דקה לאחר סימון שחקן, 40 המשחקים האחרונים שדורגו ב -3 הימים האחרונים נלקחים. אם אתה היריב שלהם במשחקים ההם, איבדת דירוג (בגלל הפסד או תיקו), והדירוג שלך לא היה זמני, תקבל החזר דירוג. ההחזר מושבת על סמך דירוג השיא שלך והתקדמות הדירוג שלך לאחר המשחק.
    (לדוגמה, אם הדירוג שלך עלה מאוד לאחר המשחקים האלה, יתכן שלא תקבל החזר או רק החזר חלקי.) ההחזר לעולם לא יעלה על 150 נקודות.</string>
-  <string name="preventLeavingGameWithoutResigning">מה נעשה לשחקנים שעוזבים משחקים מבלי להיכנע?</string>
-  <string name="leavingGameWithoutResigningExplanation">אם היריב שלך מבטל/עוזב משחקים לעתים קרובות, הם מקבלים \"השעייה ממשחקים\", מה שאומר שהם נאסרים באופן זמני לשחק משחקים. זה לא מצוין באופן ציבורי בפרופיל שלהם. אם התנהגות זו ממשיכה, אורך ההשעייה עולה- והתנהגות ממושכת מסוג זה עלולה להוביל לסגירת החשבון שלהם.</string>
-  <string name="howCanIBecomeModerator">איך אני יכול להיות עורך?</string>
-  <string name="youCannotApply">לא ניתן להגיש בקשה להיות עורך. אם אנו רואים מישהו שלדעתנו יהיה טוב כעורך, אנו ניצור עימו קשר ישירות.</string>
-  <string name="gameplay">משחק</string>
-  <string name="howBulletBlitzEtcDecided">איך בולט, בליץ, וזמני משחק אחרים מוחלטים?</string>
-  <string name="basedOnGameDuration">בקרות זמן ליצ\'ס מבוססות על משך המשחק המשוער =%1$s
+	<string name="preventLeavingGameWithoutResigning">מה נעשה לשחקנים שעוזבים משחקים מבלי להיכנע?</string>
+	<string name="leavingGameWithoutResigningExplanation">אם היריב שלך מבטל/עוזב משחקים לעתים קרובות, הם מקבלים \"השעייה ממשחקים\", מה שאומר שהם נאסרים באופן זמני לשחק משחקים. זה לא מצוין באופן ציבורי בפרופיל שלהם. אם התנהגות זו ממשיכה, אורך ההשעייה עולה- והתנהגות ממושכת מסוג זה עלולה להוביל לסגירת החשבון שלהם.</string>
+	<string name="howCanIBecomeModerator">איך אני יכול להיות עורך?</string>
+	<string name="youCannotApply">לא ניתן להגיש בקשה להיות עורך. אם אנו רואים מישהו שלדעתנו יהיה טוב כעורך, אנו ניצור עימו קשר ישירות.</string>
+	<string name="isCorrespondenceDifferent">Is correspondence different from normal shogi?</string>
+	<string name="youCanUseOpeningBookNoEngine">On Lishogi, the main difference in rules for correspondence shogi is that an opening book is allowed. The use of engines is still prohibited and will result in being flagged for engine assistance. Although ICCF allows engine use in correspondence, Lishogi does not.</string>
+	<string name="gameplay">משחק</string>
+	<string name="howBulletBlitzEtcDecided">איך בולט, בליץ, וזמני משחק אחרים מוחלטים?</string>
+	<string name="basedOnGameDuration">בקרות זמן ליצ\'ס מבוססות על משך המשחק המשוער =%1$s
 למשל, משך הזמן המשוער של משחק 5+3 הוא 5 × 60 + 40 × 3 = 420 שניות.</string>
-  <string name="durationFormula">(זמן התחלתי בשעון) + 40 × (תוספת שעון)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
-  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
-  <string name="whatVariantsCanIplay">אילו סוגי שחמט אני יכול לשחק בליצ\'ס?</string>
-  <string name="eightVariants">8 סוגי שחמט</string>
-  <string name="whatIsACPL">מהו ההפסד הממוצע של הפסד מאית החייל (ACPL)?</string>
-  <string name="acplExplanation">הפסד מאית חייל היא יחידת מידה המשמשת בשחמט את היתרון. מאית חייל שווה ל -1 / 100 מחייל. לכן 100 מאית חייל = 1 חייל. ערכים אלה אינם ממלאים תפקיד רשמי במשחק אך הם מועילים לשחקנים, וחיוניים בשחמט מחשבים, לצורך הערכת עמדות.
+	<string name="durationFormula">(זמן התחלתי בשעון) + 40 × (תוספת שעון)</string>
+	<string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+	<string name="whatVariantsCanIplay">אילו סוגי שחמט אני יכול לשחק בליצ\'ס?</string>
+	<string name="lishogiSupportChessAnd">Lishogi supports standard shogi and %1$s.</string>
+	<string name="eightVariants">8 סוגי שחמט</string>
+	<string name="whatIsACPL">מהו ההפסד הממוצע של הפסד מאית החייל (ACPL)?</string>
+	<string name="acplExplanation">הפסד מאית חייל היא יחידת מידה המשמשת בשחמט את היתרון. מאית חייל שווה ל -1 / 100 מחייל. לכן 100 מאית חייל = 1 חייל. ערכים אלה אינם ממלאים תפקיד רשמי במשחק אך הם מועילים לשחקנים, וחיוניים בשחמט מחשבים, לצורך הערכת עמדות.
 
 מהלך המחשבים העליון יאבד אפס מאית חייל, אך מהלכים פחותים יביאו להידרדרותו של המדד, שנמדד במאית חייל.
 
 ניתן להשתמש בערך זה כאינדיקטור לאיכות המשחק. ככל שפחות מאית חייל מופסדים בכל מהלך, כך המשחק יותר מדויק.
 
 ניתוח המחשבים בליצ\'ס מופעל על ידי סטוקפיש.</string>
-  <string name="insufficientMaterial">הפסד בזמן, מוביל לתיקו אם אין מספיק חומר</string>
-  <string name="linkToFIDErules">ספר החוקים של פיד\"ה סעיף 6.9, PDF</string>
-  <string name="discoveringEnPassant">למה רגלי יכול לאכול רגלי אחר כאשר הוא כבר עבר? (אגב הילוכו)</string>
-  <string name="explainingEnPassant">זהו מסע חוקי הידוע בכינויו \"דרך/אגב הילוכו. הערך הויקיפדי נותן %1$s. 
+	<string name="insufficientMaterial">הפסד בזמן, מוביל לתיקו אם אין מספיק חומר</string>
+	<string name="lishogiFollowFIDErules">In the event of one player running out of time, that player will usually lose the game. However, the game is drawn if the position is such that the opponent cannot checkmate the player\'s king by any possible series of legal moves (%1$s).
+
+In rare cases this can be difficult to decide automatically (forced lines, fortresses). By default we always side with the player who did not run out of time.
+
+Note that it can be possible to mate with a single knight or bishop if the opponent has a piece that could block the king.</string>
+	<string name="linkToFIDErules">ספר החוקים של פיד\"ה סעיף 6.9, PDF</string>
+	<string name="discoveringEnPassant">למה רגלי יכול לאכול רגלי אחר כאשר הוא כבר עבר? (אגב הילוכו)</string>
+	<string name="explainingEnPassant">זהו מסע חוקי הידוע בכינויו \"דרך/אגב הילוכו. הערך הויקיפדי נותן %1$s. 
 
 זה מוסבר בסעיף 3.7 ד\' של ה%2$s:
 
 \"רגלי, התופס ערוגה באותה שורה ובטור סמוך שעליהם עומד רגלי יריב  שזה עתה התקדם שתי ערוגות במסע אחד מערוגתו המקורית, יכול להכות רגלי יריב זה כאילו זה האחרון נסע ערוגה אחת בלבד. הכאה זו הינה חוקית רק במסע הבא לאחר התקדמות זו והיא מכונה \"אגב הילוכו\".\"
 
 ראה את ה%3$s במהלך זה בשביל קצת אימון.</string>
-  <string name="goodIntroduction">הקדמה טובה</string>
-  <string name="officialRulesPDF">חוקים רשמיים (PDF)</string>
-  <string name="threefoldRepetition">חזרה משולשת</string>
-  <string name="threefoldRepetitionExplanation">אם עמדה כלשהי מופיעה שלוש פעמים, שחקן יכול לדרוש תיקו ע\"י %1$s. ליצ\'ס מיישם את החוקים הרשמיים של פיד\"ה, שתוארו במאמר 9.2 ד\' של ה%2$s.</string>
-  <string name="threefoldRepetitionLowerCase">חזרה משולשת</string>
-  <string name="handBookPDF">ספר החוקים (PDF)</string>
-  </resources>
+	<string name="goodIntroduction">הקדמה טובה</string>
+	<string name="officialRulesPDF">חוקים רשמיים (PDF)</string>
+	<string name="lishogiTraining">Lishogi training</string>
+	<string name="threefoldRepetition">חזרה משולשת</string>
+	<string name="threefoldRepetitionExplanation">אם עמדה כלשהי מופיעה שלוש פעמים, שחקן יכול לדרוש תיקו ע\"י %1$s. ליצ\'ס מיישם את החוקים הרשמיים של פיד\"ה, שתוארו במאמר 9.2 ד\' של ה%2$s.</string>
+	<string name="threefoldRepetitionLowerCase">חזרה משולשת</string>
+	<string name="handBookPDF">ספר החוקים (PDF)</string>
+	<string name="notRepeatedMoves">We did not repeat moves. Why was the game still drawn by repetition?</string>
+	<string name="repeatedPositionsThatMatters">Threefold repetition is about repeated %1$s, not moves. Repetition does not have to occur consecutively.</string>
+	<string name="positions">positions</string>
+	<string name="weRepeatedthreeTimesPosButNoDraw">We repeated a position three times. Why was the game not drawn?</string>
+	<string name="threeFoldHasToBeClaimed">Repetition needs to be claimed by one of the players. You can do so by pressing the button that is shown, or by offering a draw before your final repeating move, it won\'t matter if your opponent rejects the draw offer, the threefold repetition draw will be claimed anyway. You can also %1$s Lishogi to automatically claim repetitions for you. Additionally, fivefold repetition always immediately ends the game.</string>
+	<string name="configure">configure</string>
+	<string name="accounts">Accounts</string>
+	<string name="titlesAvailableOnLishogi">What titles are there on Lishogi?</string>
+	<string name="lishogiRecognizeAllOTBtitles">Lishogi recognises all FIDE titles gained from OTB (over the board) play, as well as %1$s. Here is a list of FIDE titles:</string>
+	<string name="showYourTitle">If you have an OTB title, you can apply to have this displayed on your account by completing the %1$s, including a clear image of an identifying document/card and a selfie of you holding the document/card.
+
+Verifying as a titled player on Lishogi gives access to play in the Titled Arena events.
+
+Finally there is an honorary %2$s title.</string>
+	<string name="asWellAsManyNMtitles">many national master titles</string>
+	<string name="verificationForm">verification form</string>
+	<string name="canIbecomeLM">Can I get the Lishogi Master (LM) title?</string>
+	<string name="noUpperCaseDot">No.</string>
+	<string name="lMtitleComesToYouDoNotRequestIt">This honorific title is unofficial and only exists on Lishogi.
+
+We rarely award it to highly notable players who are good citizens of Lishogi, at our discretion. You don\'t get the LM title, the LM title gets to you. If you qualify, you will get a message from us regarding it and the choice to accept or decline.
+
+Do not ask for the LM title.</string>
+	<string name="whatUsernameCanIchoose">What can my username be?</string>
+	<string name="usernamesNotOffensive">In general, usernames should not be: offensive, impersonating someone else, or advertising. You can read more about the %1$s.</string>
+	<string name="guidelines">guidelines</string>
+	<string name="uniqueTrophies">Unique trophies</string>
+	<string name="ownerUniqueTrophies">That trophy is unique in the history of Lishogi, nobody other than %1$s will ever have it.</string>
+	<string name="wayOfBerserkExplanation">To get it, hiimgosu challenged himself to berserk and win 100%% games of %s.</string>
+	<string name="aHourlyBulletTournament">a hourly Bullet tournament</string>
+	<string name="goldenZeeExplanation">ZugAddict was streaming and for the last 2 hours he had been trying to defeat A.I. level 8 in a 1+0 game, without success. Thibault told him that if he successfully did it on stream, he\'d get a unique trophy. One hour later, he smashed Stockfish, and the promise was honoured.</string>
+	<string name="lishogiRatings">Lishogi ratings</string>
+	<string name="whichRatingSystemUsedByLishogi">What rating system does Lishogi use?</string>
+	<string name="ratingSystemUsedByLishogi">Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant number of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system).
+
+Fundamentally, Glicko ratings use \"confidence intervals\" when calculating and representing your rating. When you first start using the site, your rating starts at 1500 ± 700. The 1500 represents your rating, and the 700 represents the confidence interval.
+
+Basically, the system is 90% sure that your rating is somewhere between 800 and 2200. It is incredibly uncertain. Because of this, when a player is just starting out, their rating will change very dramatically, potentially several hundred points at a time. But after some games against established players the confidence interval will narrow, and the amount of points gained/lost after each game will decrease.
+
+Another point to note is that, as time passes, the confidence interval will increase. This allows you to gain/lose points points more rapidly to match any changes in your skill level over that time.</string>
+	<string name="whatIsProvisionalRating">Why is there a question mark (?) next to a rating?</string>
+	<string name="provisionalRatingExplanation">The question mark means the rating is provisional. Reasons include:</string>
+	<string name="notPlayedEnoughRatedGamesAgainstX">The player has not yet finished enough rated games against %1$s in the rating category.</string>
+	<string name="similarOpponents">opponents of similar strength</string>
+	<string name="notPlayedRecently">The player hasn\'t played enough recent games. Depending on the number of games you\'ve played, it might take around a year of inactivity for your rating to become provisional again.</string>
+	<string name="ratingDeviationMorethanOneHundredTen">Concretely, it means that the Glicko-2 deviation is greater than 110. The deviation is the level of confidence the system has in the rating. The lower the deviation, the more stable is a rating.</string>
+	<string name="howDoLeaderoardsWork">How do ranks and leaderboards work?</string>
+	<string name="inOrderToAppearsYouMust">In order to get on the %1$s you must:</string>
+	<string name="ratingLeaderboards">rating leaderboard</string>
+	<string name="havePlayedMoreThanThirtyGamesInThatRating">have played at least 30 rated games in a given rating,</string>
+	<string name="havePlayedARatedGameAtLeastOneWeekAgo">have played a rated game within the last week for this rating,</string>
+	<string name="ratingDeviationLowerThanXinChessYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
+	<string name="beInTopTen">be in the top 10 in this rating.</string>
+	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">The 2nd requirement is so that players who no longer use their accounts stop populating leaderboards.</string>
+	<string name="whyAreRatingHigher">Why are ratings higher compared to other sites and organisations such as FIDE, USCF and the ICC?</string>
+	<string name="whyAreRatingHigherExplanation">It is best not to think of ratings as absolute numbers, or compare them against other organisations. Different organisations have different levels of players, different rating systems (Elo, Glicko, Glicko-2, or a modified version of the aforementioned). These factors can drastically affect the absolute numbers (ratings).
+
+It\'s best to think of ratings as \"relative\" figures (as opposed to \"absolute\" figures): Within a pool of players, their relative differences in ratings will help you estimate who will win/draw/lose, and how often. Saying \"I have X rating\" means nothing unless there are other players to compare that rating to.</string>
+	<string name="howToHideRatingWhilePlaying">How to hide ratings while playing?</string>
+	<string name="enableZenMode">Enable Zen-mode in the %1$s, or by pressing %2$s during a game.</string>
+	<string name="displayPreferences">display preferences</string>
+	<string name="connexionLostCanIGetMyRatingBack">I lost a game due to lag/disconnection. Can I get my rating points back?</string>
+	<string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Unfortunately, we cannot give back rating points for games lost due to lag or disconnection, regardless of whether the problem was at your end or our end. The latter is very rare though. Also note that when Lishogi restarts and you lose on time because of that, we abort the game to prevent an unfair loss.</string>
+	<string name="howToThreeDots">How to...</string>
+	<string name="enableDisableNotificationPopUps">Enable or disable notification popups?</string>
+	<string name="viewSiteInformationPopUp">View site information popup</string>
+	<string name="lishogiCanOptionnalySendPopUps">Lishogi can optionally send popup notifications, for example when it is your turn or you received a private message.
+
+Click the lock icon next to the lishogi.org address in the URL bar of your browser.
+
+Then select whether to allow or block notifications from Lishogi.</string>
+</resources>

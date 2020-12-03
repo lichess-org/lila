@@ -1,22 +1,27 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="search">Soek</string>
-  <string name="advancedSearch">Gevorderde soek</string>
-  <plurals name="xGamesFound">
-    <item quantity="one">Een wedstryd gevind</item>
-    <item quantity="other">%s wedstryde gevind</item>
-  </plurals>
-  <string name="opponentName">Opponent se naam</string>
-  <string name="loser">Verloorder</string>
-  <string name="from">Vanaf</string>
-  <string name="to">Tot</string>
-  <string name="humanOrComputer">Of die speler se opponent \'n mens of \'n rekenaar was</string>
-  <string name="aiLevel">A.I. vlak</string>
-  <string name="source">Bron</string>
-  <string name="nbTurns">Hoeveelheid beurte</string>
-  <string name="result">Uitslag</string>
-  <string name="winnerColor">Wenner se kleur</string>
-  <string name="date">Datum</string>
-  <string name="sortBy">Sorteer volgens</string>
-  <string name="analysis">Analise</string>
-  <string name="onlyAnalysed">Slegs wedstryde waarvan daar rekenaar analise beskikbaar is</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="search">Soek</string>
+	<string name="advancedSearch">Gevorderde soek</string>
+	<plurals name="searchInXGames">
+		<item quantity="one">Search in %s shogi game</item>
+		<item quantity="other">Search in %s shogi games</item>
+	</plurals>
+	<plurals name="xGamesFound">
+		<item quantity="one">Een wedstryd gevind</item>
+		<item quantity="other">%s wedstryde gevind</item>
+	</plurals>
+	<string name="opponentName">Opponent se naam</string>
+	<string name="loser">Verloorder</string>
+	<string name="from">Vanaf</string>
+	<string name="to">Tot</string>
+	<string name="humanOrComputer">Of die speler se opponent \'n mens of \'n rekenaar was</string>
+	<string name="aiLevel">A.I. vlak</string>
+	<string name="source">Bron</string>
+	<string name="nbTurns">Hoeveelheid beurte</string>
+	<string name="result">Uitslag</string>
+	<string name="winnerColor">Wenner se kleur</string>
+	<string name="date">Datum</string>
+	<string name="sortBy">Sorteer volgens</string>
+	<string name="analysis">Analise</string>
+	<string name="onlyAnalysed">Slegs wedstryde waarvan daar rekenaar analise beskikbaar is</string>
 </resources>

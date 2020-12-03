@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Daveennoù</string>
-  <string name="coordinateTraining">Pleustriñ war an daveennoù</string>
-  <string name="averageScoreAsWhiteX">Disoc\'h keitat eus tu ar re wenn: %s</string>
-  <string name="averageScoreAsBlackX">Disoc\'h keitat eus tu ar re zu: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Efedusoc\'h eo an dielfennañ pa ouzer diouzhtu pelec\'h emaomp war an dachenn emgann.</string>
-  <string name="aSquareNameAppears">Un daveenn a zeuy war wel ha deoc\'h-c\'hwi da glikañ war ar garrezenn a glot ganti. 30 eilenn ho po evit adkavout ar muiañ a garrezennoù ma c\'hallit!</string>
-  <string name="startTraining">Kregiñ ganti</string>
-</resources>

@@ -1,5 +1,7 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="isItRated">Có tính Elo?</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">Arena tournaments</string>
+  <string name="isItRated">Có tính Elo?</string>
   <string name="willBeNotified">Bạn sẽ được thông báo khi giải đấu bắt đầu, vì vậy hãy yên tâm chơi trong tab khác trong lúc chờ.</string>
   <string name="isRated">Giải đấu này có tính Elo và sẽ ảnh hưởng Elo của bạn.</string>
   <string name="isNotRated">Giải đấu này *không* tính Elo và sẽ *không* ảnh hưởng Elo của bạn.</string>
@@ -35,4 +37,5 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   </plurals>
   <string name="thisIsPrivate">Đây là giải đấu riêng tư</string>
   <string name="shareUrl">Chia sẻ URL này để mọi người tham dự: %s</string>
+  <string name="drawStreak">Draw streaks: When a player has consecutive draws in an arena, only the first draw will result in a point, or draws lasting more than %s moves. The draw streak can only be broken by a win, not a loss or a draw.</string>
 </resources>

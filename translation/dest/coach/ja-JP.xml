@@ -1,28 +1,34 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="confirmTitle">タイトルをこちらで証明してくだされば申請を審査します。</string>
-  <string name="sendApplication">%s までメールをお送りくだされば登録のための審査を行ないます。</string>
-  <string name="location">住所</string>
-  <string name="languages">対応言語</string>
-  <string name="rating">レーティング</string>
-  <string name="hourlyRate">報酬／時</string>
-  <string name="availability">生徒募集</string>
-  <string name="accepting">生徒を募集中です</string>
-  <string name="notAccepting">現在、生徒を募集していません</string>
-  <string name="viewXProfile">%s の Lishogi プロフィールを見る</string>
-  <string name="sendPM">プライベートメッセージを送る</string>
-  <string name="aboutMe">プロフィール</string>
-  <string name="playingExperience">競技歴</string>
-  <string name="teachingExperience">指導歴</string>
-  <string name="otherExperiences">その他の経歴</string>
-  <string name="bestSkills">得意分野</string>
-  <string name="teachingMethod">指導方法</string>
-  <string name="publicStudies">公開研究</string>
-  <string name="youtubeVideos">YouTube 動画</string>
-  <plurals name="studentReviews">
-    <item quantity="other">%s 生徒によるレビュー</item>
-  </plurals>
-  <string name="thankYouForReview">レビュー投稿ありがとう！</string>
-  <string name="xWillApproveIt">間もなく %s が承認するか、モデレーターが審査します。</string>
-  <string name="reviewCoach">このコーチをレビューする</string>
-  <string name="describeExperienceWith">%s の指導を受けた感想をどうぞ</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="lishogiCoaches">Lishogi 指導者陣</string>
+	<string name="lishogiCoach">Lishogi 指導者</string>
+	<string name="areYouCoach">あなたは%s を持つ優秀な将棋の指導者ですか？</string>
+	<string name="nmOrFideTitle">タイトル</string>
+	<string name="confirmTitle">タイトルをこちらで証明してくだされば申請を審査します。</string>
+	<string name="sendApplication">%s までメールをお送りくだされば登録のための審査を行ないます。</string>
+	<string name="location">住所</string>
+	<string name="languages">対応言語</string>
+	<string name="rating">レーティング</string>
+	<string name="hourlyRate">報酬／時</string>
+	<string name="availability">生徒募集</string>
+	<string name="accepting">生徒を募集中です</string>
+	<string name="notAccepting">現在、生徒を募集していません</string>
+	<string name="xCoachesStudents">%s が将棋の生徒に指導します</string>
+	<string name="viewXProfile">%s の Lishogi プロフィールを見る</string>
+	<string name="sendPM">プライベートメッセージを送る</string>
+	<string name="aboutMe">プロフィール</string>
+	<string name="playingExperience">競技歴</string>
+	<string name="teachingExperience">指導歴</string>
+	<string name="otherExperiences">その他の経歴</string>
+	<string name="bestSkills">得意分野</string>
+	<string name="teachingMethod">指導方法</string>
+	<string name="publicStudies">公開研究</string>
+	<string name="youtubeVideos">YouTube 動画</string>
+	<plurals name="studentReviews">
+		<item quantity="other">%s 生徒によるレビュー</item>
+	</plurals>
+	<string name="thankYouForReview">レビュー投稿ありがとう！</string>
+	<string name="xWillApproveIt">間もなく %s が承認するか、モデレーターが審査します。</string>
+	<string name="reviewCoach">この指導者をレビューする</string>
+	<string name="describeExperienceWith">%s の指導を受けた感想をどうぞ</string>
 </resources>

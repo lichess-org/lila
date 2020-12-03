@@ -1,6 +1,7 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="activity">活動</string>
-  <string name="hostedALiveStream">ライブ配信</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="activity">活動</string>
+  <string name="hostedALiveStream">主催したライブ配信</string>
   <plurals name="supportedNbMonths">
     <item quantity="other">%2$s として lishogi.org を %1$s か月間支援</item>
   </plurals>
@@ -46,7 +47,7 @@
   <plurals name="rankedInTournament">
     <item quantity="other">%1$s 位（上位 %2$s %%）（%4$s %3$s 局で）</item>
   </plurals>
-  <string name="signedUp">Lishogi に登録</string>
+  <string name="signedUp">Lishogi.org に登録</string>
   <plurals name="joinedNbTeams">
     <item quantity="other">%s チームに参加</item>
   </plurals>

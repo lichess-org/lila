@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="broadcasts">Трансляція</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="broadcasts">Трансляція</string>
   <string name="liveBroadcasts">Онлайн трансляції турнірів</string>
   <string name="newBroadcast">Нова пряма трансляція</string>
   <string name="ongoing">Поточні</string>

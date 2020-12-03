@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">პარამეტრები</string>
-  <string name="closeAccount">ანგარიშის დახურვა</string>
-  <string name="closingIsDefinitive">დახურვა საბოლოოა. უკან დასახევი გზა არ არის. დარწმუნებული ხართ?</string>
-  <string name="cantOpenSimilarAccount">დაუშვებელია ახალი ანგარიშის გახსნა იმავე სახელწოდებით, თუნდაც საქმე სხვაგვარად იყოს.</string>
-  <string name="changedMindDoNotCloseAccount">გადავიფიქრე, არ დახუროთ ჩემი ანგარიში</string>
-  <string name="closeAccountExplanation">დარწმუნებული ხართ, რომ გსურთ დახუროთ თქვენი ანგარიში? თქვენი გადაწყვეტილება დახუროთ ანგარიში სამოდამოა. თქვენ ვერასდროს შეძლებთ მასში შესვლას.</string>
-  <string name="thisAccountIsClosed">აღნიშნული ანგარიში დახურულია.</string>
-</resources>

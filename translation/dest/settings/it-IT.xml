@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Impostazioni</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Impostazioni</string>
   <string name="closeAccount">Elimina account</string>
   <string name="closingIsDefinitive">L\'eliminazione dell\'account è definitiva. Una volta cancellato non è più possibile tornare indietro. Sei sicuro?</string>
   <string name="cantOpenSimilarAccount">Non potrai creare un nuovo account con lo stesso nome, nemmeno con diverse maiuscole/minuscole.</string>

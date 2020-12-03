@@ -1,9 +1,15 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="measurementInProgressThreeDot">Målinger i gang...</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="isLishogiLagging">Is Lishogi lagging?</string>
+  <string name="measurementInProgressThreeDot">Målinger i gang...</string>
   <string name="noAndYourNetworkIsGood">Nej. Og dit netværk er godt.</string>
   <string name="noAndYourNetworkIsBad">Nej. Og dit netværk er dårligt.</string>
   <string name="yesItWillBeFixedSoon">Ja. Det vil blive ordnet snart!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">Og nu, det lange svar! Spil-lag består af to ubeslægtede værdier (jo lavere desto bedre):</string>
+  <string name="lishogiServerLatency">Lishogi server latency</string>
+  <string name="lishogiServerLatencyExplanation">The time it takes to process a move on the server. It\'s the same for everybody, and only depends on the server load. The more players and the higher it gets, but Lishogi developers do their best to keep it low. It rarely exceeds 10ms.</string>
+  <string name="networkBetweenLishogiAndYou">Network between Lishogi and you</string>
+  <string name="networkBetweenLishogiAndYouExplanation">The time it takes to send a move from your computer to Lishogi server, and get the response back. It\'s specific to your distance to Lishogi (France), and to the quality of your Internet connection. Lishogi developers cannot fix your wifi or make light go faster.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Du kan til enhver tid tjekke disse værdier ved at klikke på dit brugernavn i topbjælken.</string>
   <string name="lagCompensation">Lag-kompensation</string>
   <string name="lagCompensationExplanation">Lishogi kompenserer netværks-lag. Det inkluderer vedvarende lag og lejlighedsvise lag-toppe. Der er begrænsninger og heuristikker baseret på tidskontrol og det hidtidige kompenseret lag, således at resultatet bør føles rimeligt for begge spillere. Resultatet er, at et højere netværks-lag end din modstander ikke er et handicap!</string>

@@ -1,5 +1,8 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="live">JUURI NYT!</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lishogiStreamers">Lishogi streamers</string>
+  <string name="lishogiStreamer">Lishogi streamer</string>
+  <string name="live">JUURI NYT!</string>
   <string name="offline">POISSA</string>
   <string name="currentlyStreaming">Parhaillaan striimaavat: %s</string>
   <string name="lastStream">Viimeisin striimi %s</string>

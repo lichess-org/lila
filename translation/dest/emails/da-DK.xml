@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="emailConfirm_subject">Bekræft din lishogi.org konto, %s</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="emailConfirm_subject">Bekræft din lishogi.org konto, %s</string>
   <string name="emailConfirm_click">Klik på linket for at aktivere din Lishogi-konto:</string>
   <string name="emailConfirm_ignore">Hvis du ikke har registreret dig hos Lishogi, kan du roligt ignorere denne meddelelse.</string>
   <string name="passwordReset_subject">Nulstil din adgangskode til lishogi.org, %s</string>
@@ -14,6 +15,7 @@
 Her er din profilside: %1$s. Du kan tilpasse den på %2$s.
 
 God fornøjelse, og må din brikker altid finde vej til din modstanders konge!</string>
+  <string name="logInToLishogi">Log in to lishogi.org, %s</string>
   <string name="common_orPaste">(Fungerer det ikke at klikke? Prøv at indsætte linket i din browser!)</string>
   <string name="common_note">Dette er en service e-mail vedrørende din brug af %s.</string>
   <string name="common_contact">Vil du kontakte os, bedes du bruge %s.</string>

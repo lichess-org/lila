@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="emailConfirm_subject">Confirmați-vă contul lishogi.org, %s</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="emailConfirm_subject">Confirmați-vă contul lishogi.org, %s</string>
   <string name="emailConfirm_click">Dați clic pe link pentru a activa contul Lishogi:</string>
   <string name="emailConfirm_ignore">Dacă nu v-ați înregistrat la Lishogi, puteți ignora liniștit acest mesaj.</string>
   <string name="passwordReset_subject">Resetați-vă parola pe lishogi.org, %s</string>
@@ -14,6 +15,7 @@
 Aici este pagina dvs. de profil: %1$s. O puteți personaliza aici: %2$s.
 
 Distracție plăcută, iar piesele dvs. să-și găsească calea spre regele oponentului dvs!</string>
+  <string name="logInToLishogi">Log in to lishogi.org, %s</string>
   <string name="common_orPaste">(Nu funcționează să dați click? Încercați să inserați link-ul în browser-ul dvs.!)</string>
   <string name="common_note">Acesta este un serviciu de email relatat la utilizarea dvs. de %s.</string>
   <string name="common_contact">Pentru a ne contacta, vă rugăm să utilizați %s.</string>

@@ -1,5 +1,7 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="isItRated">Είναι βαθμολογημένο;</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">Arena tournaments</string>
+  <string name="isItRated">Είναι βαθμολογημένο;</string>
   <string name="willBeNotified">Θα ειδοποιηθείτε όταν ξεκινήσει το πρωτάθλημα, έτσι είναι ασφαλές να παίξετε σε άλλη καρτέλα όσο περιμένετε.</string>
   <string name="isRated">Αυτό το πρωτάθλημα είναι βαθμολογημένο και θα επηρεάσει την βαθμολογία σας.</string>
   <string name="isNotRated">Αυτό το πρωτάθλημα *δεν* είναι βαθμολογημένο και *δεν* θα επηρεάσει την βαθμολογία σας.</string>
@@ -36,4 +38,5 @@ To Berserk δεν ισχύει για παρτίδες με μηδενικό α�
   </plurals>
   <string name="thisIsPrivate">Αυτό είναι ιδιωτικό πρωτάθλημα</string>
   <string name="shareUrl">Μοιραστείτε αυτήν την διεύθυνση URL για να συμμετάσχουν άλλα άτομα: %s</string>
+  <string name="drawStreak">Draw streaks: When a player has consecutive draws in an arena, only the first draw will result in a point, or draws lasting more than %s moves. The draw streak can only be broken by a win, not a loss or a draw.</string>
 </resources>

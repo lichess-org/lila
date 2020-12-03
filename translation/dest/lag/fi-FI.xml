@@ -1,9 +1,15 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="measurementInProgressThreeDot">Tehdään mittauksia...</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="isLishogiLagging">Is Lishogi lagging?</string>
+  <string name="measurementInProgressThreeDot">Tehdään mittauksia...</string>
   <string name="noAndYourNetworkIsGood">Ei ole, ja sinun yhteytesi on kunnossa.</string>
   <string name="noAndYourNetworkIsBad">Ei ole. Sinun yhteytesi on hidas.</string>
   <string name="yesItWillBeFixedSoon">On. Se korjataan mitä pikimmiten!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">Ja nyt seuraa pitkä vastaus! Pelin viive koostuu kahdesta toisistaan riippumattomasta arvosta (matalampi on parempi):</string>
+  <string name="lishogiServerLatency">Lishogi server latency</string>
+  <string name="lishogiServerLatencyExplanation">The time it takes to process a move on the server. It\'s the same for everybody, and only depends on the server load. The more players and the higher it gets, but Lishogi developers do their best to keep it low. It rarely exceeds 10ms.</string>
+  <string name="networkBetweenLishogiAndYou">Network between Lishogi and you</string>
+  <string name="networkBetweenLishogiAndYouExplanation">The time it takes to send a move from your computer to Lishogi server, and get the response back. It\'s specific to your distance to Lishogi (France), and to the quality of your Internet connection. Lishogi developers cannot fix your wifi or make light go faster.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Voit tarkistaa molemmat arvot milloin tahansa napsauttamalla yläpalkissa käyttäjänimeäsi.</string>
   <string name="lagCompensation">Viiveen hyvitys</string>
   <string name="lagCompensationExplanation">Lishogiissä verkkoviive hyvitetään. Tämä kattaa sekä jatkuvan viiveen että ajoittaiset viivepiikit. Käytössä on aikakontrolliin ja aiemmin hyvitettyyn viiveeseen perustuvia rajoja ja heuristiikkaa, joiden ansiosta lopputuloksen pitäisi tuntua molemmille pelaajille järkevältä. Näin ollen vastustajaasi korkeampi verkkoviive ei tarkoita, että antaisit hänelle tasoitusta!</string>

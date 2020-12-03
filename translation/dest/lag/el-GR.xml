@@ -1,6 +1,16 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="noAndYourNetworkIsGood">Όχι. Η σύνδεση σας είναι καλή.</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="isLishogiLagging">Is Lishogi lagging?</string>
+  <string name="measurementInProgressThreeDot">Measurements in progress...</string>
+  <string name="noAndYourNetworkIsGood">Όχι. Η σύνδεση σας είναι καλή.</string>
   <string name="noAndYourNetworkIsBad">Όχι. Η σύνδεση σας είναι κακή.</string>
   <string name="yesItWillBeFixedSoon">Ναι. Θα διορθωθεί σύντομα!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">Και τώρα, η μεγαλύτερη απάντηση! Η καθυστέρηση του παιχνιδιού εξαρτάται από δύο ανεξάρτητες τιμές ( χαμηλότερη τιμή είναι καλύτερη):</string>
+  <string name="lishogiServerLatency">Lishogi server latency</string>
+  <string name="lishogiServerLatencyExplanation">The time it takes to process a move on the server. It\'s the same for everybody, and only depends on the server load. The more players and the higher it gets, but Lishogi developers do their best to keep it low. It rarely exceeds 10ms.</string>
+  <string name="networkBetweenLishogiAndYou">Network between Lishogi and you</string>
+  <string name="networkBetweenLishogiAndYouExplanation">The time it takes to send a move from your computer to Lishogi server, and get the response back. It\'s specific to your distance to Lishogi (France), and to the quality of your Internet connection. Lishogi developers cannot fix your wifi or make light go faster.</string>
+  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">You can find both these values at any time, by clicking your username in the top bar.</string>
+  <string name="lagCompensation">Lag compensation</string>
+  <string name="lagCompensationExplanation">Lishogi compensates network lag. This includes sustained lag and occasional lag spikes. There are limits and heuristics based on time control and the compensated lag so far, so that the result should feel reasonable for both players. As a result, having a higher network lag than your opponent is not a handicap!</string>
 </resources>

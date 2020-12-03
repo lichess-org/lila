@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="hourlyRapidArena">Ежечасная Арена по Рапиду</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="hourlyRapidArena">Ежечасная Арена по Рапиду</string>
   <string name="hourlyRapid">Ежечасный Рапид</string>
   <string name="hourlyXArena">Ежечасная %s Арена</string>
   <string name="hourlyX">Ежечасный %s</string>

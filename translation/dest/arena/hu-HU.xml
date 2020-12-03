@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="arenaTournaments">Nyílt versenyek</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">Nyílt versenyek</string>
   <string name="isItRated">Rangsorolt?</string>
   <string name="willBeNotified">Értesítünk amikor a verseny elkezdődik, ezért várakozás alatt nyugodtan játszhatsz másik fülön.</string>
   <string name="isRated">Ez egy rangsorolt verseny, ami befolyásolja a pontszámodat.</string>

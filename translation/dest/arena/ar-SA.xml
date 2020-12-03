@@ -1,5 +1,7 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="isItRated">هل هي مقيمة؟</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">Arena tournaments</string>
+  <string name="isItRated">هل هي مقيمة؟</string>
   <string name="willBeNotified">سيتم إعلامك عند بدء البطولة، لذا فإنه من الآمن اللعب في علامة تبويب أخرى أثناء الانتظار.</string>
   <string name="isRated">هذه البطولة مقيمة وسوف تؤثر على تقييمك.</string>
   <string name="isNotRated">هذه البطولة *ليست* مقيمة *ولن* تؤثر على تقييمك.</string>
@@ -33,4 +35,5 @@
   </plurals>
   <string name="thisIsPrivate">هذه بطولة خاصة</string>
   <string name="shareUrl">شارك الرابط لتسمح للناس بالإنضمام: %s</string>
+  <string name="drawStreak">Draw streaks: When a player has consecutive draws in an arena, only the first draw will result in a point, or draws lasting more than %s moves. The draw streak can only be broken by a win, not a loss or a draw.</string>
 </resources>

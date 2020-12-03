@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="team">Equip</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="team">Equip</string>
   <string name="teams">Equips</string>
   <plurals name="nbMembers">
     <item quantity="one">%s membres</item>

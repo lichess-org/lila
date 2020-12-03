@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="arenaTournaments">錦標賽</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">錦標賽</string>
   <string name="isItRated">這一局棋會被評分嗎?</string>
   <string name="willBeNotified">您將會在錦標賽開始時收到通知，所以您可以放心的在錦標賽開始前下其他的棋局</string>
   <string name="isRated">這場錦標賽將會評分，並且影響到您的評分</string>

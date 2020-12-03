@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="perfStats">%s מדדים</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="perfStats">%s מדדים</string>
   <string name="viewTheGames">צפה במשחקים</string>
   <string name="provisional">זמני</string>
   <string name="notEnoughRatedGames">לא ניתן לקבוע דירוג אמין, מפני שלא שוחקו מספיק משחקים מדורגים.</string>

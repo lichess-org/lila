@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Instellings</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Instellings</string>
   <string name="closeAccount">Sluit rekening</string>
   <string name="closingIsDefinitive">Sluiting is finaal. Daar is geen omdraaikans nie. Is jy seker?</string>
   <string name="cantOpenSimilarAccount">Jy sal nie toegelaat word om \'n nuwe rekening met dieselfde naam te open nie, selfs al is die hoof- en kleinletters verskillend.</string>

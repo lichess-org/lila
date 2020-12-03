@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="private">Частная</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="private">Частная</string>
   <string name="myStudies">Мои разборы</string>
   <string name="studiesIContributeTo">Разборы с с моим участием</string>
   <string name="myPublicStudies">Мои публичные разборы</string>

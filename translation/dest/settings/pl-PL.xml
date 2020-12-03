@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Ustawienia</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Ustawienia</string>
   <string name="closeAccount">Zamknij konto</string>
   <string name="closingIsDefinitive">Zamknięcie jest ostateczne. Nie ma odwrotu. Czy jesteś pewien?</string>
   <string name="cantOpenSimilarAccount">Nie będziesz mógł otworzyć nowego konta z tą samą nazwą, nawet jeśli wielkość liter jest inna.</string>

@@ -1,31 +1,37 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="confirmTitle">Подтвердите ваше звание, и мы рассмотрим вашу заявку.</string>
-  <string name="sendApplication">Отправьте нам письмо на %s и мы рассмотрим вашу заявку.</string>
-  <string name="location">Местоположение</string>
-  <string name="languages">Языки</string>
-  <string name="rating">Рейтинг</string>
-  <string name="hourlyRate">Оплата за час</string>
-  <string name="availability">Доступность</string>
-  <string name="accepting">Принимаю учеников</string>
-  <string name="notAccepting">Временно не принимаю учеников</string>
-  <string name="viewXProfile">Посмотреть Lishogi профиль %s</string>
-  <string name="sendPM">Отправить личное сообщение</string>
-  <string name="aboutMe">Обо мне</string>
-  <string name="playingExperience">Игровой стаж</string>
-  <string name="teachingExperience">Тренерский стаж</string>
-  <string name="otherExperiences">Другие достижения</string>
-  <string name="bestSkills">Лучшие навыки</string>
-  <string name="teachingMethod">Методика преподавания</string>
-  <string name="publicStudies">Открытые уроки</string>
-  <string name="youtubeVideos">Видео на YouTube</string>
-  <plurals name="studentReviews">
-    <item quantity="one">Отзыв ученика</item>
-    <item quantity="few">%s отзыва учеников</item>
-    <item quantity="many">%s отзывов учеников</item>
-    <item quantity="other">%s отзывов учеников</item>
-  </plurals>
-  <string name="thankYouForReview">Спасибо за ваш отзыв!</string>
-  <string name="xWillApproveIt">%s утвердит его довольно скоро, или модератор взглянет на него.</string>
-  <string name="reviewCoach">Оставить отзыв об этом тренере</string>
-  <string name="describeExperienceWith">Опишите ваш опыт преподавания в %s</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="lishogiCoaches">Lishogi coaches</string>
+	<string name="lishogiCoach">Lishogi coach</string>
+	<string name="areYouCoach">Are you a great shogi coach with a %s?</string>
+	<string name="nmOrFideTitle">title</string>
+	<string name="confirmTitle">Подтвердите ваше звание, и мы рассмотрим вашу заявку.</string>
+	<string name="sendApplication">Отправьте нам письмо на %s и мы рассмотрим вашу заявку.</string>
+	<string name="location">Местоположение</string>
+	<string name="languages">Языки</string>
+	<string name="rating">Рейтинг</string>
+	<string name="hourlyRate">Оплата за час</string>
+	<string name="availability">Доступность</string>
+	<string name="accepting">Принимаю учеников</string>
+	<string name="notAccepting">Временно не принимаю учеников</string>
+	<string name="xCoachesStudents">%s coaches shogi students</string>
+	<string name="viewXProfile">Посмотреть Lishogi профиль %s</string>
+	<string name="sendPM">Отправить личное сообщение</string>
+	<string name="aboutMe">Обо мне</string>
+	<string name="playingExperience">Игровой стаж</string>
+	<string name="teachingExperience">Тренерский стаж</string>
+	<string name="otherExperiences">Другие достижения</string>
+	<string name="bestSkills">Лучшие навыки</string>
+	<string name="teachingMethod">Методика преподавания</string>
+	<string name="publicStudies">Открытые уроки</string>
+	<string name="youtubeVideos">Видео на YouTube</string>
+	<plurals name="studentReviews">
+		<item quantity="one">Отзыв ученика</item>
+		<item quantity="few">%s отзыва учеников</item>
+		<item quantity="many">%s отзывов учеников</item>
+		<item quantity="other">%s отзывов учеников</item>
+	</plurals>
+	<string name="thankYouForReview">Спасибо за ваш отзыв!</string>
+	<string name="xWillApproveIt">%s утвердит его довольно скоро, или модератор взглянет на него.</string>
+	<string name="reviewCoach">Оставить отзыв об этом тренере</string>
+	<string name="describeExperienceWith">Опишите ваш опыт преподавания в %s</string>
 </resources>

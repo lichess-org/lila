@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="arenaTournaments">アリーナ トーナメント</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">アリーナ トーナメント</string>
   <string name="isItRated">レート戦ですか？</string>
   <string name="willBeNotified">トーナメントが始まると通知が来るので、それまで別のタブでプレイしていても大丈夫です。</string>
   <string name="isRated">このトーナメントはレート戦で、レーティングが変動します。</string>
@@ -10,24 +11,25 @@
 2 連勝すると次のゲームから「2倍ボーナス」となり、炎のアイコンが表示されます。
 連勝後のゲームは、連勝が途切れるまで基本の点が 2 倍になります。つまり勝ちが 4 点、ドローが 2 点です。
 たとえば 2 連勝の後ドローなら合計は 2 + 2 + (2 x 1) = 6 点になります。</string>
-  <string name="berserk">バーサーク（Berserk）</string>
+  <string name="berserk">アリーナ バーサーク（Berserk）</string>
   <string name="berserkAnswer">ゲーム開始時に時計の横の「バーサーク (berserk) 」ボタンをクリックすると、持時間が半分に減る代わりに勝った時に 1 点のボーナス点がもらえます。
 追加秒のある場合は追加秒もなくなります（ただし 1+2 は例外で 1+0 になります）。
 持時間が「0分+追加秒」の場合（0+1、0+2）はバーサークできません。
 バーサーク勝ちのボーナス点を得るには少なくとも 7 手指す必要があります。</string>
-  <string name="howIsTheWinnerDecided">優勝者の決め方は？</string>
-  <string name="howIsTheWinnerDecidedAnswer">トーナメントの予定終了時刻の時点でもっともポイント数の多いプレイヤーが優勝です。</string>
+  <string name="howIsTheWinnerDecided">優勝者の決定方法は？</string>
+  <string name="howIsTheWinnerDecidedAnswer">トーナメントの予定終了時刻の時点でもっともポイント数の多いプレイヤーが優勝です。
+複数のプレイヤーが同じポイントの場合、トーナメントの成績はタイブレークになります。</string>
   <string name="howDoesPairingWork">対戦組み合わせはどう決まりますか？</string>
-  <string name="howDoesPairingWorkAnswer">トーナメントの最初はレーティングによって組み合わせが決まります。ゲームが終わったらすぐにトーナメント・ロビーに戻ってください。間もなく順位の近い相手と対戦組み合わせが決まります。これによって待ち時間は少なくなりますが、ただし他のすべての参加者とは対戦しないかもしれません。
-早く指して早くロビーに戻れば、それだけ対戦数が増えてポイントも増えるでしょう。</string>
-  <string name="howDoesItEnd">終了のしかたは？</string>
-  <string name="howDoesItEndAnswer">トーナメントには時間制限があります。残り時間がゼロになるとその時点で順位が確定し、優勝者が発表されます。この時に進行中のゲームは完了する必要がありますが、トーナメントの結果には算入しません。</string>
-  <string name="otherRules">その他のルール</string>
+  <string name="howDoesPairingWorkAnswer">トーナメントの最初はレーティングによって組み合わせが決まります。対局が終わったらすぐにトーナメント・ロビーに戻ってください。間もなく順位の近い相手と対戦組み合わせが決まります。これによって待ち時間は少なくなりますが、ただし他のすべての参加者とは対戦しないかもしれません。
+早く指して早くロビーに戻れば、それだけ対局数が増えてポイントも増えるでしょう。</string>
+  <string name="howDoesItEnd">どのようになると終わりますか？</string>
+  <string name="howDoesItEndAnswer">トーナメントには時間制限があります。残り時間がゼロになるとその時点で順位が確定し、優勝者が発表されます。この時に進行中の対局は完了する必要がありますが、トーナメントの結果には算入しません。</string>
+  <string name="otherRules">その他の重要なルール</string>
   <string name="thereIsACountdown">初手にはカウントダウン・タイマーがあります。制限時間内に初手を指さないと不戦敗になります。</string>
   <plurals name="drawingWithinNbMoves">
     <item quantity="other">%s 手以内のドローでは双方ともポイントが得られません。</item>
   </plurals>
   <string name="thisIsPrivate">これはプライベートのトーナメントです</string>
-  <string name="shareUrl">誰もが参加できるようにシェアして: %s</string>
-  <string name="drawStreak">連続ドロー：ドローが連続した場合、手数が%s手を超えたゲームしかポイントが得られません（最初のドローは手数を問わない）。連続ドローが途切れるのは勝った時だけで、負けでは途切れたことになりません。</string>
+  <string name="shareUrl">誰もが参加できるようにこのURLを共有しましょう: %s</string>
+  <string name="drawStreak">連続引き分け：引き分けが連続した場合、手数が %s 手を超えた対局しかポイントが得られません（最初の引き分けは手数を問わない）。連続引き分けが途切れるのは勝った時だけで、負けや引き分けでは途切れたことになりません。</string>
 </resources>

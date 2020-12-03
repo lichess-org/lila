@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="broadcasts">Emisiones</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="broadcasts">Emisiones</string>
   <string name="liveBroadcasts">Emisiones de torneos en directo</string>
   <string name="newBroadcast">Nueva emisión en directo</string>
   <string name="ongoing">En curso</string>

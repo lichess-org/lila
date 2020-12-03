@@ -1,23 +1,29 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="search">Căutare</string>
-  <string name="advancedSearch">Căutare avansată</string>
-  <plurals name="xGamesFound">
-    <item quantity="one">Un meci găsit</item>
-    <item quantity="few">%s meciuri găsite</item>
-    <item quantity="other">%s meciuri găsite</item>
-  </plurals>
-  <string name="opponentName">Numele adversarului</string>
-  <string name="loser">Învins</string>
-  <string name="from">De la</string>
-  <string name="to">La</string>
-  <string name="humanOrComputer">Fie că adversarul jucătorului a fost un om sau un computer</string>
-  <string name="aiLevel">Nivelul computerului</string>
-  <string name="source">Sursă</string>
-  <string name="nbTurns">Numărul de mutări</string>
-  <string name="result">Rezultat</string>
-  <string name="winnerColor">Culoarea pieselor câștigătorului</string>
-  <string name="date">Data</string>
-  <string name="sortBy">Sortare după</string>
-  <string name="analysis">Analiză</string>
-  <string name="onlyAnalysed">Doar meciuri în care analiza computerului este disponibilă</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="search">Căutare</string>
+	<string name="advancedSearch">Căutare avansată</string>
+	<plurals name="searchInXGames">
+		<item quantity="one">Search in %s shogi game</item>
+		<item quantity="few">Search in %s shogi games</item>
+		<item quantity="other">Search in %s shogi games</item>
+	</plurals>
+	<plurals name="xGamesFound">
+		<item quantity="one">Un meci găsit</item>
+		<item quantity="few">%s meciuri găsite</item>
+		<item quantity="other">%s meciuri găsite</item>
+	</plurals>
+	<string name="opponentName">Numele adversarului</string>
+	<string name="loser">Învins</string>
+	<string name="from">De la</string>
+	<string name="to">La</string>
+	<string name="humanOrComputer">Fie că adversarul jucătorului a fost un om sau un computer</string>
+	<string name="aiLevel">Nivelul computerului</string>
+	<string name="source">Sursă</string>
+	<string name="nbTurns">Numărul de mutări</string>
+	<string name="result">Rezultat</string>
+	<string name="winnerColor">Culoarea pieselor câștigătorului</string>
+	<string name="date">Data</string>
+	<string name="sortBy">Sortare după</string>
+	<string name="analysis">Analiză</string>
+	<string name="onlyAnalysed">Doar meciuri în care analiza computerului este disponibilă</string>
 </resources>

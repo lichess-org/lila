@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="broadcasts">Přenosy</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="broadcasts">Přenosy</string>
   <string name="liveBroadcasts">Živé přenosy turnajů</string>
   <string name="newBroadcast">Nový živý přenos</string>
   <string name="ongoing">Probíhající</string>

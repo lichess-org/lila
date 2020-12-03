@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="perfStats">Статистика %s</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="perfStats">Статистика %s</string>
   <string name="viewTheGames">Переглянути партії</string>
   <string name="provisional">умовний</string>
   <string name="notEnoughRatedGames">Недостатньо рейтингових ігор було зіграно для встановлення надійного рейтингу.</string>

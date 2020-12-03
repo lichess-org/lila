@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">설정</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">설정</string>
   <string name="closeAccount">계정 폐쇄</string>
   <string name="closingIsDefinitive">폐쇄 결정은 바꾸거나, 되돌릴 수 없습니다. 정말로 하실 건가요?</string>
   <string name="cantOpenSimilarAccount">대소문자가 다르더라도, 똑같은 이름으로 계정을 다시 열 수 없습니다.</string>

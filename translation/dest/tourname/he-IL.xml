@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="hourlyRapidArena">ארנת רפיד שעתית</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="hourlyRapidArena">ארנת רפיד שעתית</string>
   <string name="hourlyRapid">רפיד שעתי</string>
   <string name="hourlyXArena">ארנת %s שעתית</string>
   <string name="hourlyX">%s שעתית</string>

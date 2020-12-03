@@ -1,28 +1,34 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="confirmTitle">请在此证明您的称号，我们将会审查您的请求。</string>
-  <string name="sendApplication">向 %s 发送电邮，我们将会审查您的请求。</string>
-  <string name="location">所在地</string>
-  <string name="languages">语言</string>
-  <string name="rating">评级</string>
-  <string name="hourlyRate">小时费率</string>
-  <string name="availability">是否接受新学生</string>
-  <string name="accepting">接收学生</string>
-  <string name="notAccepting">暂时不接受学生</string>
-  <string name="viewXProfile">%s 用户资料</string>
-  <string name="sendPM">发送私信</string>
-  <string name="aboutMe">自我介绍</string>
-  <string name="playingExperience">弈棋经验</string>
-  <string name="teachingExperience">教棋经验</string>
-  <string name="otherExperiences">其他经验</string>
-  <string name="bestSkills">最佳技能</string>
-  <string name="teachingMethod">教练方式</string>
-  <string name="publicStudies">公开研究</string>
-  <string name="youtubeVideos">Youtube 视频</string>
-  <plurals name="studentReviews">
-    <item quantity="other">%s 学生评论</item>
-  </plurals>
-  <string name="thankYouForReview">感谢你的评论 ！</string>
-  <string name="xWillApproveIt">%s 将在近日批准，或者版主将会查看。</string>
-  <string name="reviewCoach">评论此教练</string>
-  <string name="describeExperienceWith">描述你和 %s 的教练经验</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="lishogiCoaches">Lishogi 老师</string>
+	<string name="lishogiCoach">Lishogi 教手</string>
+	<string name="areYouCoach">你是一位%s的伟大将棋老师吗？</string>
+	<string name="nmOrFideTitle">称号</string>
+	<string name="confirmTitle">请在此证明您的称号，我们将会审查您的请求。</string>
+	<string name="sendApplication">向 %s 发送电邮，我们将会审查您的请求。</string>
+	<string name="location">所在地</string>
+	<string name="languages">语言</string>
+	<string name="rating">评级</string>
+	<string name="hourlyRate">小时费率</string>
+	<string name="availability">是否接受新学生</string>
+	<string name="accepting">接收学生</string>
+	<string name="notAccepting">暂时不接受学生</string>
+	<string name="xCoachesStudents">%s 教导将棋学生</string>
+	<string name="viewXProfile">%s 用户资料</string>
+	<string name="sendPM">发送私信</string>
+	<string name="aboutMe">自我介绍</string>
+	<string name="playingExperience">弈棋经验</string>
+	<string name="teachingExperience">教棋经验</string>
+	<string name="otherExperiences">其他经验</string>
+	<string name="bestSkills">最佳技能</string>
+	<string name="teachingMethod">教练方式</string>
+	<string name="publicStudies">公开研究</string>
+	<string name="youtubeVideos">Youtube 视频</string>
+	<plurals name="studentReviews">
+		<item quantity="other">%s 学生评论</item>
+	</plurals>
+	<string name="thankYouForReview">感谢你的评论 ！</string>
+	<string name="xWillApproveIt">%s 将在近日批准，或者版主将会查看。</string>
+	<string name="reviewCoach">评论此教练</string>
+	<string name="describeExperienceWith">描述你和 %s 的教练经验</string>
 </resources>

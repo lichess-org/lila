@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Koordenatuak</string>
-  <string name="coordinateTraining">Koordenatuen entrenamendua</string>
-  <string name="averageScoreAsWhiteX">Zuri gisa egindako puntuen batazbestekoa: %s</string>
-  <string name="averageScoreAsBlackX">Beltz gisa egindako puntuen batazbestekoa: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Partida errazago aztertu dezakezu ez badituzu laukien izenak aurkitu behar.</string>
-  <string name="aSquareNameAppears">Xake-taulan lauki baten izena agertuko da eta lauki zuzena sakatu beharko duzu. 30 segundu dituzu ahalik eta lauki gehien asmatzeko!</string>
-  <string name="startTraining">Entrenatzen hasi</string>
-</resources>

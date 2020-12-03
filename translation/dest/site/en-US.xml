@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="playWithAFriend">Play with a friend</string>
 	<string name="playWithTheMachine">Play with the computer</string>
@@ -23,7 +23,7 @@
 	<string name="blackIsVictorious">Black is victorious</string>
 	<string name="youPlayTheWhitePieces">You play the white pieces</string>
 	<string name="youPlayTheBlackPieces">You play the black pieces</string>
-	<string name="itsYourTurn">It's your turn!</string>
+	<string name="itsYourTurn">It\'s your turn!</string>
 	<string name="kingInTheCenter">King in the centre</string>
 	<string name="threeChecks">Three checks</string>
 	<string name="raceFinished">Race finished</string>
@@ -175,7 +175,7 @@
 	<string name="username">User name</string>
 	<string name="usernameOrEmail">User name or email</string>
 	<string name="changeUsername">Change username</string>
-	<string name="changeUsernameNotSame">Only the case of the letters can change. For example "johndoe" to "JohnDoe".</string>
+	<string name="changeUsernameNotSame">Only the case of the letters can change. For example \"johndoe\" to \"JohnDoe\".</string>
 	<string name="changeUsernameDescription">Change your username. This can only be done once and you are only allowed to change the case of the letters in your username.</string>
 	<string name="password">Password</string>
 	<string name="changePassword">Change password</string>
@@ -510,12 +510,12 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="reportAUser">Report a user</string>
 	<string name="user">User</string>
 	<string name="reason">Reason</string>
-	<string name="whatIsIheMatter">What's the matter?</string>
+	<string name="whatIsIheMatter">What\'s the matter?</string>
 	<string name="cheat">Cheat</string>
 	<string name="insult">Insult</string>
 	<string name="troll">Troll</string>
 	<string name="other">Other</string>
-	<string name="reportDescriptionHelp">Paste the link to the game(s) and explain what is wrong about this user's behaviour. Don't just say "they cheat", but tell us how you came to this conclusion. Your report will be processed faster if written in English.</string>
+	<string name="reportDescriptionHelp">Paste the link to the game(s) and explain what is wrong about this user\'s behaviour. Don\'t just say \"they cheat\", but tell us how you came to this conclusion. Your report will be processed faster if written in English.</string>
 	<string name="error.provideOneCheatedGameLink">Please provide at least one link to a cheated game.</string>
 	<string name="by">by %s</string>
 	<string name="thisTopicIsNowClosed">This topic is now closed.</string>
@@ -605,8 +605,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="onlyFriends">Only friends</string>
 	<string name="menu">Menu</string>
 	<string name="castling">Castling</string>
-	<string name="whiteCastlingKingside">White O-O</string>
-	<string name="blackCastlingKingside">Black O-O</string>
 	<plurals name="nbForumPosts">
 		<item quantity="one">%s forum post</item>
 		<item quantity="other">%s forum posts</item>
@@ -675,12 +673,12 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="cumulative">Cumulative</string>
 	<string name="glicko2Rating">Glicko-2 rating</string>
 	<string name="checkYourEmail">Check your Email</string>
-	<string name="weHaveSentYouAnEmailClickTheLink">We've sent you an email. Click the link in the email to activate your account.</string>
-	<string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">If you don't see the email, check other places it might be, like your junk, spam, social, or other folders.</string>
-	<string name="weHaveSentYouAnEmailTo">We've sent an email to %s. Click the link in the email to reset your password.</string>
+	<string name="weHaveSentYouAnEmailClickTheLink">We\'ve sent you an email. Click the link in the email to activate your account.</string>
+	<string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">If you don\'t see the email, check other places it might be, like your junk, spam, social, or other folders.</string>
+	<string name="weHaveSentYouAnEmailTo">We\'ve sent an email to %s. Click the link in the email to reset your password.</string>
 	<string name="byRegisteringYouAgreeToBeBoundByOur">By registering, you agree to be bound by our %s.</string>
 	<string name="networkLagBetweenYouAndLishogi">Network lag between you and Lishogi</string>
-	<string name="timeToProcessAMoveOnLishogiServer">Time to process a move on Lishogi's server</string>
+	<string name="timeToProcessAMoveOnLishogiServer">Time to process a move on Lishogi\'s server</string>
 	<string name="downloadAnnotated">Download annotated</string>
 	<string name="downloadRaw">Download raw</string>
 	<string name="downloadImported">Download imported</string>
@@ -829,7 +827,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="howToAvoidThis">How to avoid this?</string>
 	<string name="playEveryGame">Play every game you start.</string>
 	<string name="tryToWin">Try to win (or at least draw) every game you play.</string>
-	<string name="resignLostGames">Resign lost games (don't let the clock run down).</string>
+	<string name="resignLostGames">Resign lost games (don\'t let the clock run down).</string>
 	<string name="temporaryInconvenience">We apologise for the temporary inconvenience,</string>
 	<string name="wishYouGreatGames">and wish you great games on lishogi.org.</string>
 	<string name="thankYouForReading">Thank you for reading!</string>
@@ -860,7 +858,12 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="thisTopicIsArchived">This topic has been archived and can no longer be replied to.</string>
 	<string name="joinTheTeamXToPost">Join the %1$s, to post in this forum</string>
 	<string name="teamNamedX">%1$s team</string>
-	<string name="youCannotPostYetPlaySomeGames">You can't post in the forums yet. Play some games!</string>
+	<string name="youCannotPostYetPlaySomeGames">You can\'t post in the forums yet. Play some games!</string>
 	<string name="subscribe">Subscribe</string>
 	<string name="unsubscribe">Unsubscribe</string>
+	<string name="blackDeclinesImpasse">Sente declines impasse</string>
+	<string name="blackOffersImpasse">Sente offers impasse</string>
+	<string name="notationType">Notation</string>
+	<string name="whiteDeclinesImpasse">Gote declines impasse</string>
+	<string name="whiteOffersImpasse">Gote offers impasse</string>
 </resources>

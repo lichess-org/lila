@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="arenaTournaments">Arena turnuvaları</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">Arena turnuvaları</string>
   <string name="isItRated">Bu turnuva puanlı mı?</string>
   <string name="willBeNotified">Turnuva başladığında sana haber vereceğiz, bu süre zarfında başka bir sekmede oynamanın bir sakıncası yok.</string>
   <string name="isRated">Evet, bu turnuva puanlıdır ve oyun puanınızı etkileyecektir.</string>

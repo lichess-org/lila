@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="arenaTournaments">Areenaturnaukset</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">Areenaturnaukset</string>
   <string name="isItRated">Vaikuttavatko vahvuuslukuun?</string>
   <string name="willBeNotified">Saat ilmoituksen kun turnaus alkaa, joten voit huoletta pelata toisessa välilehdessä odotellessa.</string>
   <string name="isRated">Turnaus on rankattu ja siten vaikuttaa vahvuuslukuusi.</string>

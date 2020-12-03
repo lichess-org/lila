@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="emailConfirm_subject">Erősítsd meg a lishogi.org fiókod, %s</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="emailConfirm_subject">Erősítsd meg a lishogi.org fiókod, %s</string>
   <string name="emailConfirm_click">Kattints a linkre a Lishogi fiókod megerősítéséhez:</string>
   <string name="emailConfirm_ignore">Ha nem te regisztráltál a Lishogi-re, nyugodtan hagyd figyelmen kívül ezt az üzenetet.</string>
   <string name="passwordReset_subject">%s a lishogi.org jelszód átállítása</string>
@@ -14,6 +15,7 @@
 A profil oldalad itt van: %1$s. Itt állíthatod be tetszésed szerint: %2$s.
 
 Jó szórakozást kívánunk, és mindig találd meg az útat az ellenfél királyához!</string>
+  <string name="logInToLishogi">Log in to lishogi.org, %s</string>
   <string name="common_orPaste">(Nem működik a kattintás? Próbáld beilleszteni a böngésződ címsorába!)</string>
   <string name="common_note">Ez egy szolgálati e-mail, ami ezzel kapcsolatos: %s.</string>
   <string name="common_contact">Lépjen velünk kapcsolatba: %s.</string>

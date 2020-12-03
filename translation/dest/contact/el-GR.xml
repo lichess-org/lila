@@ -1,5 +1,7 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="contact">Επικοινωνία</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="contact">Επικοινωνία</string>
+  <string name="contactLishogi">Contact Lishogi</string>
   <string name="whatCanWeHelpYouWith">Πως μπορούμε να σας βοηθήσουμε;</string>
   <string name="visitThisPage">Επισκεφτείτε αυτή τη σελίδα για επίλυση του προβλήματος</string>
   <string name="iCantLogIn">Δεν μπορώ να συνδεθώ</string>
@@ -26,6 +28,7 @@
   <string name="cantClearHistory">Δεν είναι δυνατόν να διαγράψετε το ιστορικό παιχνιδιών σας, ιστορικό γρίφων, ή ratings.</string>
   <string name="wantReport">Επιθυμώ να αναφέρω έναν παίχτη</string>
   <string name="cheating">απάτη</string>
+  <string name="sandbagging">sandbagging</string>
   <string name="trolling">τρολάρισμα</string>
   <string name="insults">προσβολές</string>
   <string name="otherReason">διαφορετικός λόγος</string>
@@ -59,10 +62,14 @@
   <string name="banAppeal">Ένσταση για αποκλεισμό ή περιορισμό σε IP</string>
   <string name="engineAppeal">Μηχανή ή σημάδι απάτης</string>
   <string name="sendAppealTo">Μπορείτε να ασκήσετε ένσταση στο %s.</string>
+  <string name="falsePositives">False positives do happen sometimes, and we\'re sorry about that.</string>
   <string name="ifLegit">Αν η ένστασή σας είναι νόμιμη, θα αποσύρουμε τον αποκλεισμό το συντομότερο δυνατόν.</string>
   <string name="accountLost">Αν όμως πράγματι χρησιμοποιήσατε βοήθεια μηχανής, ακόμη και μία μόνο φορά, τότε δυστυχώς ο λογαριασμός σας θα διαγραφεί.</string>
   <string name="doNotDeny">Μην αρνείστε ότι εξαπατήσατε. Αν θέλετε να σας επιτραπεί η δημιουργία νέου λογαριασμού, απλά παραδεχθείτε τις πράξεις σας, και αποδείξτε ότι καταλάβατε ότι ήταν λάθος σας.</string>
   <string name="otherRestriction">Άλλος περιορισμός</string>
+  <string name="collaboration">Collaboration, legal, commercial</string>
+  <string name="monetizing">Monetising Lishogi</string>
+  <string name="buyingLishogi">Buying Lishogi</string>
   <string name="authorizationToUse">Έγκριση για χρησιμοποίηση του Lishogi</string>
   <string name="welcomeToUse">Είστε ευπρόσδεκτοι να χρησιμοποιήσετε το Lishogi για τις δραστηριότητές σας, ακόμα και τις εμπορικές.</string>
   <string name="videosAndBooks">Μπορείτε να το εμφανίσετε στα βίντεο σας, και μπορείτε να εκτυπώσετε στιγμιότυπα του Lishogi στα βιβλία σας.</string>

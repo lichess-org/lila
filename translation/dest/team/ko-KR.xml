@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="team">팀</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="team">팀</string>
   <string name="teams">팀</string>
   <plurals name="nbMembers">
     <item quantity="other">멤버 %s명</item>
@@ -18,6 +19,8 @@
   </plurals>
   <string name="teamBestPlayers">팀 내 최고 플레이어</string>
   <string name="teamRecentMembers">최근 가입 멤버</string>
+  <string name="kickSomeone">Kick someone out of the team</string>
+  <string name="whoToKick">Who do you want to kick out of the team?</string>
   <plurals name="xJoinRequests">
     <item quantity="other">%s개의 가입 요청</item>
   </plurals>
@@ -30,5 +33,8 @@
   <string name="messageAllMembers">팀원 전원에게 메시지 보내기</string>
   <string name="messageAllMembersOverview">팀원 전원에게 메시지 보내기</string>
   <string name="messageAllMembersLongDescription">팀원 전원에게 메시지 보내기. 팀 내 대회나 팀 배틀에 참가를 독려하기 위해 사용할 수 있습니다. 메시지를 받기 싫어하는 팀원이 팀을 탈퇴할 수 있습니다.</string>
+  <string name="teamsIlead">Teams I lead</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">You may want to link one of these upcoming tournaments?</string>
   <string name="usersWhoCanManageThisTeam">팀 관리자</string>
+  <string name="leadersChat">Leaders chat</string>
 </resources>

@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="broadcasts">Canlı Turnuvalar</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="broadcasts">Canlı Turnuvalar</string>
   <string name="liveBroadcasts">Canlı Turnuva Yayınları</string>
   <string name="newBroadcast">Canlı Turnuva Ekle</string>
   <string name="ongoing">Devam eden turnuvalar</string>

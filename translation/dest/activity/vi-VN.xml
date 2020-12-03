@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="activity">Hoạt động</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="activity">Hoạt động</string>
   <string name="hostedALiveStream">Chủ trì một luồng trực tuyến</string>
   <plurals name="supportedNbMonths">
     <item quantity="other">Đã hỗ trợ lishogi.org %1$s tháng như một %2$s</item>

@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="arenaTournaments">Турниры «Арена»</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">Турниры «Арена»</string>
   <string name="isItRated">Что будет с рейтингом?</string>
   <string name="willBeNotified">О начале турнира известит всплывающее уведомление, так что вы не пропустите его, если будете играть на другой вкладке.</string>
   <string name="isRated">Это рейтинговый турнир, каждая игра в нём повлияет на ваш рейтинг.</string>

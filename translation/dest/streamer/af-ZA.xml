@@ -1,5 +1,8 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="live">Regstreeks!</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lishogiStreamers">Lishogi streamers</string>
+  <string name="lishogiStreamer">Lishogi streamer</string>
+  <string name="live">Regstreeks!</string>
   <string name="offline">AFLYN</string>
   <string name="currentlyStreaming">Saai tans uit: %s</string>
   <string name="lastStream">Laaste uitsending %s</string>

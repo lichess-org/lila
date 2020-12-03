@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="arenaTournaments">Arena-turneringer</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">Arena-turneringer</string>
   <string name="isItRated">Er det ratet?</string>
   <string name="willBeNotified">Du får besked, når turneringen starter, så det er sikkert at spille i en anden fane mens du venter.</string>
   <string name="isRated">Denne turnering rates og vil påvirke din rating.</string>

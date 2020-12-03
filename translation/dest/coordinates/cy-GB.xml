@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Sgwariau</string>
-  <string name="coordinateTraining">Hyfforddi sgwariau</string>
-  <string name="averageScoreAsWhiteX">Sgôr cyfartalog fel gwyn: %s</string>
-  <string name="averageScoreAsBlackX">Sgôr cyfartalog fel du: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Gellir dadansoddi gêm fwy effeithiol os nad oes angen chwilio am enwau sgwâr.</string>
-  <string name="aSquareNameAppears">Daw enw sgwâr ar y sgrin ac fydd angen i chi glicio ar y sgwâr cywir. Mae gofyn i chi adnabod cymaint a fedrwch chi mewn 30 eiliad!</string>
-  <string name="startTraining">Dechrau hyfforddiant</string>
-</resources>

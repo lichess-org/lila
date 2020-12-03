@@ -1,29 +1,35 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="confirmTitle">Bevestig hier je titel en we zullen je aanvraag bekijken.</string>
-  <string name="sendApplication">Mail ons via %s en we zullen je aanvraag bekijken.</string>
-  <string name="location">Locatie</string>
-  <string name="languages">Talen</string>
-  <string name="rating">Waardering</string>
-  <string name="hourlyRate">Uurtarief</string>
-  <string name="availability">Toegankelijkheid</string>
-  <string name="accepting">Neemt studenten aan</string>
-  <string name="notAccepting">Neemt momenteel geen studenten aan</string>
-  <string name="viewXProfile">%s\'s profiel bekijken</string>
-  <string name="sendPM">Privébericht sturen</string>
-  <string name="aboutMe">Over mij</string>
-  <string name="playingExperience">Speelervaring</string>
-  <string name="teachingExperience">Onderwijservaring</string>
-  <string name="otherExperiences">Andere ervaring</string>
-  <string name="bestSkills">Sterkste vaardigheden</string>
-  <string name="teachingMethod">Leermethode</string>
-  <string name="publicStudies">Openbare studies</string>
-  <string name="youtubeVideos">YouTube-video\'s</string>
-  <plurals name="studentReviews">
-    <item quantity="one">Beoordeling door één student</item>
-    <item quantity="other">Beoordeling door %s studenten</item>
-  </plurals>
-  <string name="thankYouForReview">Bedankt voor je beoordeling!</string>
-  <string name="xWillApproveIt">%s zal dit zeer binnenkort goedkeuren, anders bekijkt een toezichthouder het.</string>
-  <string name="reviewCoach">Beoordeel deze trainer</string>
-  <string name="describeExperienceWith">Beschrijf je ervaringen met %s</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="lishogiCoaches">Lishogi coaches</string>
+	<string name="lishogiCoach">Lishogi coach</string>
+	<string name="areYouCoach">Are you a great shogi coach with a %s?</string>
+	<string name="nmOrFideTitle">title</string>
+	<string name="confirmTitle">Bevestig hier je titel en we zullen je aanvraag bekijken.</string>
+	<string name="sendApplication">Mail ons via %s en we zullen je aanvraag bekijken.</string>
+	<string name="location">Locatie</string>
+	<string name="languages">Talen</string>
+	<string name="rating">Waardering</string>
+	<string name="hourlyRate">Uurtarief</string>
+	<string name="availability">Toegankelijkheid</string>
+	<string name="accepting">Neemt studenten aan</string>
+	<string name="notAccepting">Neemt momenteel geen studenten aan</string>
+	<string name="xCoachesStudents">%s coaches shogi students</string>
+	<string name="viewXProfile">%s\'s profiel bekijken</string>
+	<string name="sendPM">Privébericht sturen</string>
+	<string name="aboutMe">Over mij</string>
+	<string name="playingExperience">Speelervaring</string>
+	<string name="teachingExperience">Onderwijservaring</string>
+	<string name="otherExperiences">Andere ervaring</string>
+	<string name="bestSkills">Sterkste vaardigheden</string>
+	<string name="teachingMethod">Leermethode</string>
+	<string name="publicStudies">Openbare studies</string>
+	<string name="youtubeVideos">YouTube-video\'s</string>
+	<plurals name="studentReviews">
+		<item quantity="one">Beoordeling door één student</item>
+		<item quantity="other">Beoordeling door %s studenten</item>
+	</plurals>
+	<string name="thankYouForReview">Bedankt voor je beoordeling!</string>
+	<string name="xWillApproveIt">%s zal dit zeer binnenkort goedkeuren, anders bekijkt een toezichthouder het.</string>
+	<string name="reviewCoach">Beoordeel deze trainer</string>
+	<string name="describeExperienceWith">Beschrijf je ervaringen met %s</string>
 </resources>

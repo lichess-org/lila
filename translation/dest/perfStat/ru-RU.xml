@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="perfStats">Статистика %s</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="perfStats">Статистика %s</string>
   <string name="viewTheGames">Посмотреть партии</string>
   <string name="provisional">предварительный</string>
   <string name="notEnoughRatedGames">Недостаточно рейтинговых игр, чтобы узнать точный рейтинг.</string>

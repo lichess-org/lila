@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="hourlyRapidArena">毎時のラピッド アリーナ</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="hourlyRapidArena">毎時のラピッド アリーナ</string>
   <string name="hourlyRapid">毎時のラピッド</string>
   <string name="hourlyXArena">毎時の %s アリーナ</string>
   <string name="hourlyX">毎時の %s</string>

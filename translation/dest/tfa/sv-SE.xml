@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="twoFactorAuth">Tvåfaktorsautentisering</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="twoFactorAuth">Tvåfaktorsautentisering</string>
   <string name="twoFactorHelp">Tvåfaktorsautentisering lägger till ytterligare ett säkerhetslager till ditt konto.</string>
   <string name="twoFactorApp">Skaffa en app för tvåfaktorsautentisering, till exempel Google Authenticator för %1$s eller %2$s.</string>
   <string name="scanTheCode">Skanna QR-koden med appen.</string>

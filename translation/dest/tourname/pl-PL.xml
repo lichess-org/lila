@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="hourlyRapidArena">Cogodzinny turniej Rapid Arena</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="hourlyRapidArena">Cogodzinny turniej Rapid Arena</string>
   <string name="hourlyRapid">Cogodzinny turniej Rapid</string>
   <string name="hourlyXArena">Cogodzinny turniej %s Arena</string>
   <string name="hourlyX">Cogodzinny turniej %s</string>

@@ -1,5 +1,7 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="isItRated">레이팅이 적용되나요?</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">Arena tournaments</string>
+  <string name="isItRated">레이팅이 적용되나요?</string>
   <string name="willBeNotified">토너먼트가 시작할 때 당신에게 알림이 발송되니 다른 탭에서 플레이하셔도 안전합니다.</string>
   <string name="isRated">이 토너먼트는 레이팅이 적용되며 당신의 레이팅에 영향을 끼칠 것입니다.</string>
   <string name="isNotRated">이 토너먼트는 레이팅이 적용되지 않으며 당신의 레이팅에 영향을 끼치지 않을 것입니다.</string>
@@ -36,4 +38,5 @@
   </plurals>
   <string name="thisIsPrivate">이 토너먼트는 사설 토너먼트 입니다.</string>
   <string name="shareUrl">모두가 참여할 수 있게 이 URL을 공유해 주세요: %s</string>
+  <string name="drawStreak">Draw streaks: When a player has consecutive draws in an arena, only the first draw will result in a point, or draws lasting more than %s moves. The draw streak can only be broken by a win, not a loss or a draw.</string>
 </resources>

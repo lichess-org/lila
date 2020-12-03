@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">اختیارات</string>
-  <string name="closeAccount">اکاؤنٹ بند کریں</string>
-  <string name="changedMindDoNotCloseAccount">میرا ارادہ بدل گیا ہے، ‎اکاؤنٹ بند نہ کریں</string>
-  <string name="closeAccountExplanation">کیا آپ واقعی اکاؤنٹ بند کرنا چاہتے ہیں؟ اکاؤنٹ ہمیشہ کیلیے بند کیے جاتے ہیں، آپ دوبارہ استعمال نہیں کر سکیں گے  اور آپکی معلومات بھی ضایع کر دی جائیں گی۔</string>
-  <string name="thisAccountIsClosed">اکاؤنٹ بند کردیا گیا ہے</string>
-</resources>

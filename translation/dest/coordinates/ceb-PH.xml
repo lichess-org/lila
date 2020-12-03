@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Ang pagbalo sa mga posisyon</string>
-  <string name="coordinateTraining">Coordinate nga pagbansay</string>
-  <string name="averageScoreAsWhiteX">Average nga puntos ingon puti: %s</string>
-  <string name="averageScoreAsBlackX">Average nga iskor ingon itom: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Mahimo nimo nga ma-analisar ang usa ka dula nga mas epektibo kung dali ka makaila sa mga koordinar.</string>
-  <string name="aSquareNameAppears">Ang usa ka koordinasyon makita sa pisara ug kinahanglan nimo nga i-klik ang katugbang nga square. Adunay ka 30 segundo aron husto nga mapa ang daghang mga square kutob sa mahimo!</string>
-  <string name="startTraining">pagsugod sa pagbansay</string>
-</resources>

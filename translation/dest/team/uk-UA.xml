@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="team">Команда</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="team">Команда</string>
   <string name="teams">Команди</string>
   <plurals name="nbMembers">
     <item quantity="one">%s користувачів</item>
@@ -27,10 +28,10 @@
   <string name="kickSomeone">Виключити когось з команди</string>
   <string name="whoToKick">Кого ти хочеш виключити з команди?</string>
   <plurals name="xJoinRequests">
-    <item quantity="one">Запит на приєднання</item>
-    <item quantity="few">Запити на приєднання</item>
-    <item quantity="many">Запити на приєднання</item>
-    <item quantity="other">Запит на приєнання</item>
+    <item quantity="one">%s Запит на приєднання</item>
+    <item quantity="few">%s Запити на приєднання</item>
+    <item quantity="many">%s Запити на приєднання</item>
+    <item quantity="other">%s Запит на приєнання</item>
   </plurals>
   <string name="willBeReviewed">Ваш запит на приєднання буде розглянуто лідером команди.</string>
   <string name="beingReviewed">Ваш запит на приєднання розглядається лідером команди.</string>

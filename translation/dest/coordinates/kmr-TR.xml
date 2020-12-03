@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Kordînat</string>
-  <string name="coordinateTraining">Perwerdeya kordînatê</string>
-  <string name="averageScoreAsWhiteX">Skora navîn wek spî: %s</string>
-  <string name="averageScoreAsBlackX">Skora navîn wek reş: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Tu yê karibî lîstikek karîgertir analîz bikî, ger koordînatan zû binasî.</string>
-  <string name="aSquareNameAppears">Koordînatekê dixuye li ser texteyê û divê tu bitikînî ser wê çarçikê. 30 saniyeyên te hene ji bo peydakirina çendîn çarçikan, bi qasî ku karibî!</string>
-  <string name="startTraining">Dest bi perwerdeyê bike</string>
-</resources>

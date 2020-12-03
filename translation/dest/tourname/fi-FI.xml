@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="hourlyRapidArena">Tunnittainen nopea areena</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="hourlyRapidArena">Tunnittainen nopea areena</string>
   <string name="hourlyRapid">Tunnittainen nopea</string>
   <string name="hourlyXArena">Tunnittainen %s-areena</string>
   <string name="hourlyX">Tunnittainen ­%s</string>

@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="team">Span</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="team">Span</string>
   <string name="teams">Spanne</string>
   <plurals name="nbMembers">
     <item quantity="one">%s lede</item>
@@ -14,6 +15,10 @@
   <string name="anyoneCanJoin">Enige persoon mag aansluit</string>
   <string name="aConfirmationIsRequiredToJoin">\'n Bevestiging is nodig om aan te sluit</string>
   <string name="joiningPolicy">Voorwaardes vir aansluiting</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Team leader</item>
+    <item quantity="other">Team leaders</item>
+  </plurals>
   <string name="teamBestPlayers">Beste spanlede</string>
   <string name="teamRecentMembers">Onlangse spanlede</string>
   <string name="kickSomeone">Skop iemand uit die span uit</string>
@@ -30,4 +35,11 @@
   <string name="teamTournamentOverview">\'n Arena toernooi waarby net mense van jou span kan aansluit</string>
   <string name="messageAllMembers">Stuur \'n boodskap aan alle lede</string>
   <string name="messageAllMembersOverview">Stuur \'n private boodskap na elke lid van die span</string>
+  <string name="messageAllMembersLongDescription">Send a private message to ALL members of the team.
+You can use this to call players to join a tournament or a team battle.
+Players who don\'t like receiving your messages might leave the team.</string>
+  <string name="teamsIlead">Teams I lead</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">You may want to link one of these upcoming tournaments?</string>
+  <string name="usersWhoCanManageThisTeam">Users who can manage this team</string>
+  <string name="leadersChat">Leaders chat</string>
 </resources>

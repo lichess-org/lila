@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Επιλογές</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Επιλογές</string>
   <string name="closeAccount">Κλείσιμο λογαριασμού</string>
   <string name="closingIsDefinitive">Η Απενεργοποίηση είναι οριστική. Δεν υπάρχει τρόπος ανάκλησης. Είστε σίγουρος;</string>
   <string name="cantOpenSimilarAccount">Δεν θα σας επιτραπεί η δημιουργία νέου λογαριασμού με το ίδιο όνομα, ακόμα και αν οι χαρακτήρες σε κεφαλαία-μικρά είναι διαφορετικοί.</string>

@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="twoFactorAuth">Autentificare în doi pași</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="twoFactorAuth">Autentificare în doi pași</string>
   <string name="twoFactorHelp">Autentificarea în doi pași adaugă un alt strat de protecție pentru contul dvs.</string>
   <string name="twoFactorApp">Obține o aplicație pentru autentificarea în doi pași, de exemplu Google Authenticator pentru %1$s sau %2$s.</string>
   <string name="scanTheCode">Scanează codul QR cu aplicația.</string>

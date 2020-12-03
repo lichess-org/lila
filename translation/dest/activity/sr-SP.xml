@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="activity">Активност</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="activity">Активност</string>
   <string name="hostedALiveStream">Приказује се уживо</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">Подржали lishogi.org на %1$s месец као %2$s</item>

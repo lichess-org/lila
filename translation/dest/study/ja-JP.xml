@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="private">非公開</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="private">非公開</string>
   <string name="myStudies">自分の研究</string>
   <string name="studiesIContributeTo">参加した研究</string>
   <string name="myPublicStudies">自分の公開研究</string>
@@ -32,7 +33,7 @@
   <string name="contributor">投稿参加者</string>
   <string name="kick">追放</string>
   <string name="leaveTheStudy">この研究から出る</string>
-  <string name="youAreNowAContributor">投稿参加者になりました</string>
+  <string name="youAreNowAContributor">参加者になりました</string>
   <string name="youAreNowASpectator">観戦者になりました</string>
   <string name="pgnTags">PGN タグ</string>
   <string name="like">いいね</string>
@@ -54,18 +55,19 @@
   <string name="shareAndExport">共有とエクスポート</string>
   <string name="cloneStudy">研究をコピー</string>
   <string name="studyPgn">研究の PGN</string>
-  <string name="downloadAllGames">全局をダウンロード</string>
+  <string name="downloadAllGames">全対局をダウンロード</string>
   <string name="chapterPgn">章の PGN</string>
   <string name="downloadGame">1 局をダウンロード</string>
   <string name="studyUrl">研究の URL</string>
   <string name="broadcastUrl">ブロードキャスト URL</string>
   <string name="currentChapterUrl">現在の章の URL</string>
-  <string name="currentGameUrl">現在のゲームの URL</string>
+  <string name="currentGameUrl">現在の対局の URL</string>
   <string name="youCanPasteThisInTheForumToEmbed">これをフォーラムにペーストすれば埋め込み表示できます</string>
   <string name="startAtInitialPosition">開始局面から</string>
   <string name="startAtX">%s に開始</string>
   <string name="embedInYourWebsite">自分のウェブサイト／ブログに埋め込む</string>
-  <string name="readMoreAboutEmbedding">埋め込み（embedding）の説明</string>
+  <string name="readMoreAboutEmbedding">埋め込み（embedding）の説明を読む</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">埋め込みできるのは公開研究だけです！</string>
   <string name="open">開く</string>
   <string name="xBroughtToYouByY">%1$s を %2$s がお届けします</string>
   <string name="studyNotFound">研究が見つかりません</string>
@@ -96,7 +98,7 @@
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="other">ここに PGN をペースト（%s 局まで）</item>
   </plurals>
-  <string name="urlOfTheGame">棋譜の URL</string>
+  <string name="urlOfTheGame">対局棋譜の URL、１行に一つ</string>
   <string name="loadAGameFromXOrY">%1$s か %2$s から棋譜を読み込み</string>
   <string name="createChapter">章を作成</string>
   <string name="configureLiveBroadcast">ライブ放送の設定</string>

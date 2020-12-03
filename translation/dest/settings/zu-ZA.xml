@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Izilungiselelo</string>
-  <string name="closeAccount">Vala i-akhawunti</string>
-  <string name="closingIsDefinitive">Ukuvala kucacile. Akukho ukubuyela emuva. Uqinisekile?</string>
-  <string name="cantOpenSimilarAccount">Ngeke uvunyelwe ukuvula i-akhawunti entsha enegama elifanayo, noma ngabe icala lihlukile.</string>
-  <string name="changedMindDoNotCloseAccount">Ngishintshe umqondo wami, ungavali i-akhawunti yami</string>
-  <string name="closeAccountExplanation">Uqinisekile ukuthi ufuna ukuvala i-akhawunti yakho? Ukuvala i-akhawunti yakho kuyisinqumo saphakade. AKUFANELE ukwazi ukungena ku-NJALO YONKE.</string>
-  <string name="thisAccountIsClosed">Le akhawunti ivaliwe.</string>
-</resources>

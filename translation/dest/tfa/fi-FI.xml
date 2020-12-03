@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="twoFactorAuth">Kaksivaiheinen tunnistautuminen</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="twoFactorAuth">Kaksivaiheinen tunnistautuminen</string>
   <string name="twoFactorHelp">Kaksivaiheinen tunnistautuminen lisää tiliisi uuden tietoturvatason.</string>
   <string name="twoFactorApp">Lataa sovellus kaksivaiheiseen tunnistautumiseen, esimerkiksi Google Authenticator %1$s tai %2$s -laitteeseen.</string>
   <string name="scanTheCode">Skannaa sovelluksella tämä QR-koodi.</string>

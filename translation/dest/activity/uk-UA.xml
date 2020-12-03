@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="activity">Активність</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="activity">Активність</string>
   <string name="hostedALiveStream">Запустив стрім</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">Підтримує lishogi.org протягом %1$s місяця як %2$s</item>

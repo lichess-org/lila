@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Configuración</string>
-  <string name="closeAccount">Pechar conta</string>
-  <string name="closingIsDefinitive">A eliminación da conta é irreversible. Estás seguro de querer continuar?</string>
-  <string name="cantOpenSimilarAccount">Non se che permitirá abrir outra conta co mesmo nome, nin sequera cambiando maiúsculas e minúsculas.</string>
-  <string name="changedMindDoNotCloseAccount">Cambiei de opinión, non pechedes a miña conta</string>
-  <string name="closeAccountExplanation">Estás seguro de que queres eliminar a túa conta? Esta decisión é irreversible. NUNCA poderás volver acceder a ela.</string>
-  <string name="thisAccountIsClosed">Esta conta está pechada.</string>
-</resources>

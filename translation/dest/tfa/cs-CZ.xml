@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="twoFactorAuth">Dvoufázové ověření</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="twoFactorAuth">Dvoufázové ověření</string>
   <string name="twoFactorHelp">Dvoufázové ověření do vašeho účtu přidává další vrstvu zabezpečení.</string>
   <string name="twoFactorApp">Stáhněte si aplikaci pro dvoufázové ověřování, například Google Authenticator pro %1$s nebo %2$s.</string>
   <string name="scanTheCode">Naskenujte QR kód pomocí aplikace.</string>

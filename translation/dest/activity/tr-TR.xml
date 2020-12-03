@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="activity">Son Etkinlikler</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="activity">Son Etkinlikler</string>
   <string name="hostedALiveStream">Canlı yayın yaptı</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">lishogi.org\'u %1$s aylığına %2$s olarak destekledi</item>

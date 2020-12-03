@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="emailConfirm_subject">Потврдите ваш налог на lishogi.org, %s</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="emailConfirm_subject">Потврдите ваш налог на lishogi.org, %s</string>
   <string name="emailConfirm_click">Кликните на линк да активирате ваш Lishogi налог:</string>
   <string name="emailConfirm_ignore">Уколико се нисте регистровали за Lishogi, можете безбедно занемарити ову поруку.</string>
   <string name="passwordReset_subject">Измените вашу лозинку за lishogi.org, %s</string>
@@ -14,6 +15,7 @@
 Ово је ваш профил: %1$s. Можете га персонализовати овде: %2$s.
 
 Забавите се, и нека ваше фигуре увек нађу пут ка противничком краљу!</string>
+  <string name="logInToLishogi">Log in to lishogi.org, %s</string>
   <string name="common_orPaste">(Кликање не ради? Пробајте то налепити у ваш прегледач!)</string>
   <string name="common_note">Ово је сервисна е-адреса везана за сајт који користите %s.</string>
   <string name="common_contact">Како би сте нас контактирали, молимо вас да користите %s.</string>

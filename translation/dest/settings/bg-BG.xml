@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Настройки</string>
-  <string name="closeAccount">Закриване на регистрацията</string>
-  <string name="changedMindDoNotCloseAccount">Промених намерението си, не закривайте моята регистрация</string>
-  <string name="thisAccountIsClosed">Тази регистрация е закрита.</string>
-</resources>

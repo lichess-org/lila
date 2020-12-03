@@ -1,22 +1,27 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="search">Sök</string>
-  <string name="advancedSearch">Avancerad sökning</string>
-  <plurals name="xGamesFound">
-    <item quantity="one">Ett parti hittades</item>
-    <item quantity="other">%s partier hittade</item>
-  </plurals>
-  <string name="opponentName">Motståndarens namn</string>
-  <string name="loser">Förlorare</string>
-  <string name="from">Från</string>
-  <string name="to">Till</string>
-  <string name="humanOrComputer">Om spelarens motståndare var människa eller dator</string>
-  <string name="aiLevel">AI-nivå</string>
-  <string name="source">Källa</string>
-  <string name="nbTurns">Antal omgångar</string>
-  <string name="result">Resultat</string>
-  <string name="winnerColor">Vinnarens färg</string>
-  <string name="date">Datum</string>
-  <string name="sortBy">Sortera efter</string>
-  <string name="analysis">Analys</string>
-  <string name="onlyAnalysed">Endast partier där en datoranalys finns tillgänglig</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="search">Sök</string>
+	<string name="advancedSearch">Avancerad sökning</string>
+	<plurals name="searchInXGames">
+		<item quantity="one">Search in %s shogi game</item>
+		<item quantity="other">Search in %s shogi games</item>
+	</plurals>
+	<plurals name="xGamesFound">
+		<item quantity="one">Ett parti hittades</item>
+		<item quantity="other">%s partier hittade</item>
+	</plurals>
+	<string name="opponentName">Motståndarens namn</string>
+	<string name="loser">Förlorare</string>
+	<string name="from">Från</string>
+	<string name="to">Till</string>
+	<string name="humanOrComputer">Om spelarens motståndare var människa eller dator</string>
+	<string name="aiLevel">AI-nivå</string>
+	<string name="source">Källa</string>
+	<string name="nbTurns">Antal omgångar</string>
+	<string name="result">Resultat</string>
+	<string name="winnerColor">Vinnarens färg</string>
+	<string name="date">Datum</string>
+	<string name="sortBy">Sortera efter</string>
+	<string name="analysis">Analys</string>
+	<string name="onlyAnalysed">Endast partier där en datoranalys finns tillgänglig</string>
 </resources>

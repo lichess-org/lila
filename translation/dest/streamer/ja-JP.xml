@@ -1,11 +1,14 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="live">ライブ配信中</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lishogiStreamers">Lishogi 配信者</string>
+  <string name="lishogiStreamer">Lishogi 配信者</string>
+  <string name="live">ライブ配信中</string>
   <string name="offline">オフライン</string>
   <string name="currentlyStreaming">現在配信中：%s</string>
   <string name="lastStream">最後の配信 %s</string>
   <string name="becomeStreamer">Lishogi の配信者になるには</string>
-  <string name="doYouHaveStream">Twitch や YouTube の配信動画をお持ちですか？</string>
-  <string name="hereWeGo">やります！</string>
+  <string name="doYouHaveStream">Twitch や YouTube のチャンネルをお持ちですか？</string>
+  <string name="hereWeGo">やりましょう！</string>
   <string name="allStreamers">すべての配信者</string>
   <string name="editPage">配信者ページを編集</string>
   <string name="yourPage">自分の配信者ページ</string>
@@ -18,7 +21,7 @@
   <string name="perks">キーワードを入れた配信に対する特典</string>
   <string name="perk1">Lishogi のプロフィール・ページに配信者として表示。</string>
   <string name="perk2">配信者リストのトップに上がる。</string>
-  <string name="perk3">Lishogi でのフォロワーに通知が行く。</string>
+  <string name="perk3">Lishogi 内のフォロワーに通知が行く。</string>
   <string name="perk4">対局・トーナメント・研究の中に配信動画を表示できる。</string>
   <string name="approved">配信動画が承認されました。</string>
   <string name="pendingReview">あなたの配信動画はモデレーターが審査中です。</string>

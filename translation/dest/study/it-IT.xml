@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="private">Privato</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="private">Privato</string>
   <string name="myStudies">I miei studi</string>
   <string name="studiesIContributeTo">Studi a cui collaboro</string>
   <string name="myPublicStudies">I miei studi pubblici</string>

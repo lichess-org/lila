@@ -1,5 +1,7 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="isItRated">Is dit gegradeer?</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">Arena tournaments</string>
+  <string name="isItRated">Is dit gegradeer?</string>
   <string name="willBeNotified">Jy sal in kennis gestel word wanneer die toernooi begin, so dit is veilig om op \'n ander blad te speel terwyl jy wag.</string>
   <string name="isRated">Hierdie toernooi is gegradeer en sal jou gradering beïnvloed.</string>
   <string name="isNotRated">Hierdie toernooi is *nie* gegradeer *nie* en sal *nie* jou gradering beïnvloed *nie*.</string>
@@ -37,4 +39,5 @@ Speel vinnig en keer terug na die ontvangs om meer te speel en meer punte te kry
   </plurals>
   <string name="thisIsPrivate">Hierdie is \'n privaat toernooi</string>
   <string name="shareUrl">Deel hierdie URL om mense te laat aansluit: %s</string>
+  <string name="drawStreak">Draw streaks: When a player has consecutive draws in an arena, only the first draw will result in a point, or draws lasting more than %s moves. The draw streak can only be broken by a win, not a loss or a draw.</string>
 </resources>

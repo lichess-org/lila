@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="activity">动态</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="activity">动态</string>
   <string name="hostedALiveStream">主持了直播</string>
   <plurals name="supportedNbMonths">
     <item quantity="other">该用户作为%2$s已赞助lishogi.org%1$s个月</item>

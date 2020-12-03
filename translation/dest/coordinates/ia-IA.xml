@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Coordinatas</string>
-  <string name="coordinateTraining">Trainamento de coordinatas</string>
-  <string name="averageScoreAsWhiteX">Punctos medie como blanco: %s</string>
-  <string name="averageScoreAsBlackX">Punctos medie como nigro: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Tu pote analysar un partita plus effectivemente si tu non ha besonio de cercar le nomines del quadratos.</string>
-  <string name="aSquareNameAppears">Un coordinata appare sur le tabuliero e tu debe cliccar super le quadrato correcte. Tu ha 30 secundas pro recognoscer le major numero de quadratos possibile!</string>
-  <string name="startTraining">Comenciar a exercitar</string>
-</resources>

@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="arenaTournaments">Tournois Arène</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">Tournois Arène</string>
   <string name="isItRated">Est-ce classé ?</string>
   <string name="willBeNotified">Vous serez notifié lorsque le tournoi commencera, vous pouvez donc jouer dans un autre onglet en attendant.</string>
   <string name="isRated">Ce tournoi est classé et aura une incidence sur votre cote.</string>

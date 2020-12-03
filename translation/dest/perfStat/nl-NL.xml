@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="perfStats">%s-statistieken</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="perfStats">%s-statistieken</string>
   <string name="viewTheGames">Bekijk de partijen</string>
   <string name="provisional">voorlopig</string>
   <string name="notEnoughRatedGames">Er zijn niet genoeg partijen met rating gespeeld om een betrouwbare rating vast te stellen.</string>

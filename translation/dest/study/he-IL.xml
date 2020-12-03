@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="private">פרטי</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="private">פרטי</string>
   <string name="myStudies">הלימודים שלי</string>
   <string name="studiesIContributeTo">לימודים שתרמתי להם</string>
   <string name="myPublicStudies">הלימודים הפומביים שלי</string>
@@ -63,11 +64,19 @@
   <string name="shareAndExport">שתף &amp; ייצא</string>
   <string name="cloneStudy">שכפול</string>
   <string name="studyPgn">הPGN של המחקר</string>
+  <string name="downloadAllGames">Download all games</string>
   <string name="chapterPgn">הPGN של הפרק</string>
+  <string name="downloadGame">Download game</string>
   <string name="studyUrl">כתובת האינטרנט של המחקר</string>
+  <string name="broadcastUrl">Broadcast URL</string>
   <string name="currentChapterUrl">כתובת האינטרנט של הפרק הנוכחי</string>
+  <string name="currentGameUrl">Current game URL</string>
+  <string name="youCanPasteThisInTheForumToEmbed">You can paste this in the forum to embed</string>
   <string name="startAtInitialPosition">התחל/י במצב התחלתי</string>
   <string name="startAtX">מתחיל ב%s</string>
+  <string name="embedInYourWebsite">Embed in your website or blog</string>
+  <string name="readMoreAboutEmbedding">Read more about embedding</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Only public studies can be embedded!</string>
   <string name="open">פתח</string>
   <string name="xBroughtToYouByY">%1$s מוגש על ידי %2$s</string>
   <string name="studyNotFound">המחקר לא נמצא</string>

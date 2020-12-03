@@ -1,5 +1,7 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="contact">Contato</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="contact">Contato</string>
+  <string name="contactLishogi">Contact Lishogi</string>
   <string name="whatCanWeHelpYouWith">Como podemos ajudar?</string>
   <string name="visitThisPage">Visite esta página para resolver o problema</string>
   <string name="iCantLogIn">Eu não consigo entrar</string>
@@ -67,6 +69,7 @@
   <string name="otherRestriction">Outra restrição</string>
   <string name="collaboration">Colaboração, legal, comercial</string>
   <string name="monetizing">Monetizar Lishogi</string>
+  <string name="buyingLishogi">Buying Lishogi</string>
   <string name="authorizationToUse">Autorização para usar Lishogi</string>
   <string name="welcomeToUse">Você é bem-vindo a usar Lishogi para sua atividade, inclusive comercialmente.</string>
   <string name="videosAndBooks">Você pode mostrá-lo em seus vídeos e pode imprimir capturas de tela do Lishogi em seus livros.</string>

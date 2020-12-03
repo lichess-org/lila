@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="private">Gizli</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="private">Gizli</string>
   <string name="myStudies">Benim çalışmalarım</string>
   <string name="studiesIContributeTo">Katkıda bulunduğum çalışmalar</string>
   <string name="myPublicStudies">Paylaştığım çalışmalar</string>
@@ -64,6 +65,7 @@
   <string name="broadcastUrl">Yayın URL’si</string>
   <string name="currentChapterUrl">Mevcut Bölümün Adresi</string>
   <string name="currentGameUrl">Şu anki oyunun adresi</string>
+  <string name="youCanPasteThisInTheForumToEmbed">You can paste this in the forum to embed</string>
   <string name="startAtInitialPosition">İlk pozisyondan başlasın</string>
   <string name="startAtX">%s pozisyonundan başlasın</string>
   <string name="embedInYourWebsite">İnternet sitenizde ya da blogunuzda gömülü olarak paylaşın</string>

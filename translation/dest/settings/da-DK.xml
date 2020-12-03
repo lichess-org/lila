@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Indstillinger</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Indstillinger</string>
   <string name="closeAccount">Luk konto</string>
   <string name="closingIsDefinitive">Lukning er uigenkaldelig. Der er ingen fortrydelsesret. Er du sikker?</string>
   <string name="cantOpenSimilarAccount">Du vil ikke få lov til at åbne en ny konto med det samme navn, selv hvis skriftstørrelsen er anderledes.</string>

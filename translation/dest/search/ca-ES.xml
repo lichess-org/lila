@@ -1,22 +1,27 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="search">Cerca</string>
-  <string name="advancedSearch">Cerca avançada</string>
-  <plurals name="xGamesFound">
-    <item quantity="one">S\'ha trobat una partida</item>
-    <item quantity="other">S\'han trobat %s partides</item>
-  </plurals>
-  <string name="opponentName">Nom de l\'adversari</string>
-  <string name="loser">Perdedor</string>
-  <string name="from">Des de</string>
-  <string name="to">a</string>
-  <string name="humanOrComputer">Si l\'oponent era humà o un ordinador</string>
-  <string name="aiLevel">Nivell I.A.</string>
-  <string name="source">Origen</string>
-  <string name="nbTurns">Nombre de torns</string>
-  <string name="result">Resultat</string>
-  <string name="winnerColor">Color guanyador</string>
-  <string name="date">Data</string>
-  <string name="sortBy">Ordena per</string>
-  <string name="analysis">Anàlisi</string>
-  <string name="onlyAnalysed">Només partides on hi ha disponible l\'anàlisi computeritzat</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="search">Cerca</string>
+	<string name="advancedSearch">Cerca avançada</string>
+	<plurals name="searchInXGames">
+		<item quantity="one">Search in %s shogi game</item>
+		<item quantity="other">Search in %s shogi games</item>
+	</plurals>
+	<plurals name="xGamesFound">
+		<item quantity="one">S\'ha trobat una partida</item>
+		<item quantity="other">S\'han trobat %s partides</item>
+	</plurals>
+	<string name="opponentName">Nom de l\'adversari</string>
+	<string name="loser">Perdedor</string>
+	<string name="from">Des de</string>
+	<string name="to">a</string>
+	<string name="humanOrComputer">Si l\'oponent era humà o un ordinador</string>
+	<string name="aiLevel">Nivell I.A.</string>
+	<string name="source">Origen</string>
+	<string name="nbTurns">Nombre de torns</string>
+	<string name="result">Resultat</string>
+	<string name="winnerColor">Color guanyador</string>
+	<string name="date">Data</string>
+	<string name="sortBy">Ordena per</string>
+	<string name="analysis">Anàlisi</string>
+	<string name="onlyAnalysed">Només partides on hi ha disponible l\'anàlisi computeritzat</string>
 </resources>

@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="emailConfirm_subject">Xác nhận tài khoản lishogi.org của bạn, %s</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="emailConfirm_subject">Xác nhận tài khoản lishogi.org của bạn, %s</string>
   <string name="emailConfirm_click">Nhấn vào liên kết để kích hoạt tài khoản Lishogi của bạn:</string>
   <string name="emailConfirm_ignore">Nếu bạn chưa đăng ký tài khoản Lishogi, bạn có thể bỏ qua thông báo này.</string>
   <string name="passwordReset_subject">Đặt lại mật khẩu lishogi.org, %s</string>
@@ -14,6 +15,7 @@
 Đây là trang cá nhân của bạn: %1$s. Bạn có thể cá nhân hóa nó trên %2$s.
 
 Chúc bạn chơi vui, và quân cờ của bạn luôn tìm đến quân vua đối thủ!</string>
+  <string name="logInToLishogi">Log in to lishogi.org, %s</string>
   <string name="common_orPaste">(Không nhấn được? Hãy thử dán vào trình duyệt của bạn!)</string>
   <string name="common_note">Đây là email dịch vụ liên quan đến việc bạn dùng %s.</string>
   <string name="common_contact">Để liên hệ chúng tôi, hãy dùng %s.</string>

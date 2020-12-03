@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="twoFactorAuth">Kétlépcsős azonosítás</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="twoFactorAuth">Kétlépcsős azonosítás</string>
   <string name="twoFactorHelp">Kétlépcsős azonosítás használatával a fiók biztonsága tovább növelhető.</string>
   <string name="twoFactorApp">Tölts le egy alkalmazást a kétlépcsős azonosításhoz, például Google Authenticator-t %1$s vagy %2$s-hoz.</string>
   <string name="scanTheCode">Olvasd be a QR kódot az app-al.</string>

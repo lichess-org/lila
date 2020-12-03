@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="twoFactorAuth">Autenticação de dois fatores</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="twoFactorAuth">Autenticação de dois fatores</string>
   <string name="twoFactorHelp">A autenticação de dois fatores adiciona outra camada de segurança à sua conta.</string>
   <string name="twoFactorApp">Obtenha um aplicativo para autenticação de dois fatores, por exemplo, o Google Authenticator para %1$s ou %2$s.</string>
   <string name="scanTheCode">Escaneie o código QR com o aplicativo.</string>

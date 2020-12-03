@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="broadcasts">Difuzări</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="broadcasts">Difuzări</string>
   <string name="liveBroadcasts">Difuzări de turnee în direct</string>
   <string name="newBroadcast">O nouă difuzare în direct</string>
   <string name="ongoing">În desfășurare</string>

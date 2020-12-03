@@ -1,9 +1,13 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Coordenadas</string>
-  <string name="coordinateTraining">Treino de coordenadas</string>
-  <string name="averageScoreAsWhiteX">Pontuação média com as brancas: %s</string>
-  <string name="averageScoreAsBlackX">Pontuação média com as pretas: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Podes analisar um jogo com maior eficiência se conseguires reconhecer as coordenadas rapidamente.</string>
-  <string name="aSquareNameAppears">O nome da casa aparece no tabuleiro e tens de clicar na casa correspondente. Tenta reconhecer o maior número de casas em 30 segundos!</string>
-  <string name="startTraining">Começar o treino</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="coordinates">Coordenadas</string>
+	<string name="coordinateTraining">Treino de coordenadas</string>
+	<string name="averageScoreAsWhiteX">Pontuação média com as brancas: %s</string>
+	<string name="averageScoreAsBlackX">Pontuação média com as pretas: %s</string>
+	<string name="knowingTheShogiBoard">Knowing the shogiboard coordinates is a very important shogi skill:</string>
+	<string name="mostShogiCourses">All shogi courses and exercises use some kind of a shogi notation. You can pick between the Japanese one and the western one.</string>
+	<string name="talkToYourShogiFriends">It makes it easier to talk to your shogi friends, since you both understand the \'language of shogi\'.</string>
+	<string name="youCanAnalyseAGameMoreEffectively">Podes analisar um jogo com maior eficiência se conseguires reconhecer as coordenadas rapidamente.</string>
+	<string name="aSquareNameAppears">O nome da casa aparece no tabuleiro e tens de clicar na casa correspondente. Tenta reconhecer o maior número de casas em 30 segundos!</string>
+	<string name="startTraining">Começar o treino</string>
 </resources>

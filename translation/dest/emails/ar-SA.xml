@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="emailConfirm_subject">أكد حسابك على lishogi.org ، %s</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="emailConfirm_subject">أكد حسابك على lishogi.org ، %s</string>
   <string name="emailConfirm_click">انقر على الرابط لتفعيل الحساب الخاص بك على Lishogi:</string>
   <string name="emailConfirm_ignore">إذا لم تسجل في Lishogi بامكانك تجاهل هذه الرسالة.</string>
   <string name="passwordReset_subject">إعادة تعيين كلمة المرور الخاصة بك على lishogi، %s</string>
@@ -12,6 +13,7 @@
   <string name="welcome_text">قمت بإنشاء الحساب الخاص بك بنجاح على https://lishogi.org.
  وإليك الصفحة الشخصية الخاصة بك: %1$s. حيث يمكنك تخصيصها في %2$s.
  فلتستمتع، ولتجد قطعك دائماً طريقها إلى ملك خصمك!</string>
+  <string name="logInToLishogi">Log in to lishogi.org, %s</string>
   <string name="common_orPaste">(النقر لا يعمل؟ جرب لصق الرابط في متصفحك!)</string>
   <string name="common_note">هذا هو خدمة البريد الإلكتروني الخاص باستخدام %s.</string>
   <string name="common_contact">للتواصل معنا, يرجى استعمال %s.</string>

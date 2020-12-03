@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="twoFactorAuth">المصادقة الثنائية</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="twoFactorAuth">المصادقة الثنائية</string>
   <string name="twoFactorHelp">المصادقة الثنائية تضيف طبقة أمان أخرى الى حسابك.</string>
   <string name="twoFactorApp">احصل على تطبيق للمصادقة الثنائية ، على سبيل المثال Google Authenticator لـ %1$s أو %2$s.</string>
   <string name="scanTheCode">أمسح رمز ال QR باستخدام التطبيق.</string>

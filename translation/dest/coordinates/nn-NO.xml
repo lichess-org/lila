@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Koordinatar</string>
-  <string name="coordinateTraining">Koordinatøving</string>
-  <string name="averageScoreAsWhiteX">Gjennomsnittleg poengtall som kvit: %s</string>
-  <string name="averageScoreAsBlackX">Gjennomsnittleg poengtall som svart: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Det er lettare å analysere partia om du ikkje må leite for å finne feltnavna.</string>
-  <string name="aSquareNameAppears">Navnet på eit felt kjem opp på brettet. Du har 30 sekund på deg til å identifisere så mange felt du berre klarar!</string>
-  <string name="startTraining">Start øvinga</string>
-</resources>

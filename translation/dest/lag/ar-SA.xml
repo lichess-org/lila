@@ -1,9 +1,15 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="measurementInProgressThreeDot">القياسات جارية...</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="isLishogiLagging">Is Lishogi lagging?</string>
+  <string name="measurementInProgressThreeDot">القياسات جارية...</string>
   <string name="noAndYourNetworkIsGood">لا. والشبكة الخاصة بك جيدة.</string>
   <string name="noAndYourNetworkIsBad">لا. والشبكة الخاصة بك سيئة.</string>
   <string name="yesItWillBeFixedSoon">نعم. سيتم إصلاحها قريباً!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">والآن، الجواب الطويل! يتألّف تأخر اللعبة من قيمتين غير متصلتين (الأسفل أفضل):</string>
+  <string name="lishogiServerLatency">Lishogi server latency</string>
+  <string name="lishogiServerLatencyExplanation">The time it takes to process a move on the server. It\'s the same for everybody, and only depends on the server load. The more players and the higher it gets, but Lishogi developers do their best to keep it low. It rarely exceeds 10ms.</string>
+  <string name="networkBetweenLishogiAndYou">Network between Lishogi and you</string>
+  <string name="networkBetweenLishogiAndYouExplanation">The time it takes to send a move from your computer to Lishogi server, and get the response back. It\'s specific to your distance to Lishogi (France), and to the quality of your Internet connection. Lishogi developers cannot fix your wifi or make light go faster.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">يمكنك العثور على هاتين القيمتين في أي وقت، بالنقر على اسم المستخدم الخاص بك في الشريط العلوي.</string>
   <string name="lagCompensation">تعويض الخسارة</string>
   <string name="lagCompensationExplanation">تعوض Lishogi عن تأخر الشبكة. ويشمل ذلك التخلف المستمر والتأخير العرضي. وهناك حدود وأوامر تستند إلى تحديد الوقت والتخلف التعويضي حتى الآن، بحيث ينبغي أن تشعر النتيجة بأنها معقولة لكلا الفاعلين. ونتيجة لذلك، فإن وجود تخلف شبكة أعلى من خصمك ليس عائقاً!</string>

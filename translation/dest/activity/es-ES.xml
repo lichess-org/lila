@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="activity">Actividad</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="activity">Actividad</string>
   <string name="hostedALiveStream">Emitió en directo</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">Ha colaborado con lishogi.org durante %1$s mes como %2$s</item>

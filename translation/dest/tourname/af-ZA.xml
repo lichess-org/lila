@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="hourlyRapidArena">Uurlikse Rapid Arena</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="hourlyRapidArena">Uurlikse Rapid Arena</string>
   <string name="hourlyRapid">Uurlikse Rapid</string>
   <string name="hourlyXArena">Uurlikse %s Arena</string>
   <string name="hourlyX">Uurlikse %s</string>

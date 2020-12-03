@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="emailConfirm_subject">Potwierdź swoje konto na lishogi.org, %s</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="emailConfirm_subject">Potwierdź swoje konto na lishogi.org, %s</string>
   <string name="emailConfirm_click">Użyj tego odnośnika, aby aktywować swoje konto na lishogi.org:</string>
   <string name="emailConfirm_ignore">Zignoruj tę wiadomość, jeśli nie rejestrowałeś/-aś się na lishogi.org.</string>
   <string name="passwordReset_subject">Prośba użytkownika %s o zmianę hasła na lishogi.org</string>
@@ -14,6 +15,7 @@
 Oto strona Twojego profilu: %1$s. Możesz ją spersonalizować na %2$s.
 
 Baw się dobrze i niech Twoje figury zawsze znajdą drogę do króla przeciwnika!</string>
+  <string name="logInToLishogi">Log in to lishogi.org, %s</string>
   <string name="common_orPaste">(Odnośnik jest nieaktywny? Spróbuj wkleić go do paska adresu przeglądarki)</string>
   <string name="common_note">To jest e-mail serwisowy związany z Twoim kontem na %s.</string>
   <string name="common_contact">Możesz skontaktować się z nami pisząc na adres %s.</string>

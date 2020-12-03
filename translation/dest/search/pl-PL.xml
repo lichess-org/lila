@@ -1,24 +1,31 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="search">Szukaj</string>
-  <string name="advancedSearch">Wyszukiwanie zaawansowane</string>
-  <plurals name="xGamesFound">
-    <item quantity="one">Znaleziono jedną partię</item>
-    <item quantity="few">Znaleziono %s partie</item>
-    <item quantity="many">Znaleziono %s partii</item>
-    <item quantity="other">Znaleziono %s partii</item>
-  </plurals>
-  <string name="opponentName">Nazwa przeciwnika</string>
-  <string name="loser">Przegrany</string>
-  <string name="from">Od</string>
-  <string name="to">Do</string>
-  <string name="humanOrComputer">Przeciwnik był człowiekiem czy komputerem</string>
-  <string name="aiLevel">Poziom A.I.</string>
-  <string name="source">Źródło</string>
-  <string name="nbTurns">Liczba ruchów</string>
-  <string name="result">Wynik</string>
-  <string name="winnerColor">Kolor zwycięzcy</string>
-  <string name="date">Data</string>
-  <string name="sortBy">Sortuj według</string>
-  <string name="analysis">Analiza</string>
-  <string name="onlyAnalysed">Tylko partie z dostępną analizą komputerową</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="search">Szukaj</string>
+	<string name="advancedSearch">Wyszukiwanie zaawansowane</string>
+	<plurals name="searchInXGames">
+		<item quantity="one">Search in %s shogi game</item>
+		<item quantity="few">Search in %s shogi games</item>
+		<item quantity="many">Search in %s shogi games</item>
+		<item quantity="other">Search in %s shogi games</item>
+	</plurals>
+	<plurals name="xGamesFound">
+		<item quantity="one">Znaleziono jedną partię</item>
+		<item quantity="few">Znaleziono %s partie</item>
+		<item quantity="many">Znaleziono %s partii</item>
+		<item quantity="other">Znaleziono %s partii</item>
+	</plurals>
+	<string name="opponentName">Nazwa przeciwnika</string>
+	<string name="loser">Przegrany</string>
+	<string name="from">Od</string>
+	<string name="to">Do</string>
+	<string name="humanOrComputer">Przeciwnik był człowiekiem czy komputerem</string>
+	<string name="aiLevel">Poziom A.I.</string>
+	<string name="source">Źródło</string>
+	<string name="nbTurns">Liczba ruchów</string>
+	<string name="result">Wynik</string>
+	<string name="winnerColor">Kolor zwycięzcy</string>
+	<string name="date">Data</string>
+	<string name="sortBy">Sortuj według</string>
+	<string name="analysis">Analiza</string>
+	<string name="onlyAnalysed">Tylko partie z dostępną analizą komputerową</string>
 </resources>

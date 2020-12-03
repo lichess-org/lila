@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="private">Privé</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="private">Privé</string>
   <string name="myStudies">Mijn Studies</string>
   <string name="studiesIContributeTo">Studies waaraan ik bijdraag</string>
   <string name="myPublicStudies">Mijn openbare studies</string>

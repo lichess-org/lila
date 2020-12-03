@@ -1,149 +1,215 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="byPlaying">遊びながら！</string>
-  <string name="menu">メニュー</string>
-  <string name="progressX">修了: %s</string>
-  <string name="resetMyProgress">学習履歴をリセット</string>
-  <string name="youWillLoseAllYourProgress">修了の数字はゼロになります！</string>
-  <string name="play">今ここ</string>
-  <string name="theRook">ルーク</string>
-  <string name="itMovesInStraightLines">タテヨコに動く</string>
-  <string name="rookIntro">ルークは強力な駒です。用意はいいですか？</string>
-  <string name="grabAllTheStars">星印を全部集めて！</string>
-  <string name="rookComplete">おめでとう！　ルークの動きをマスターしました。</string>
-  <string name="theBishop">ビショップ</string>
-  <string name="itMovesDiagonally">ナナメに動く</string>
-  <string name="bishopIntro">次はビショップの動き方です！</string>
-  <string name="bishopComplete">おめでとう！　ビショップを使えるようになりました。</string>
-  <string name="theKing">キング</string>
-  <string name="theMostImportantPiece">いちばんだいじな駒</string>
-  <string name="kingIntro">キングは王様です。キングがやられるとゲームは負けです。</string>
-  <string name="kingComplete">キングの動きも覚えましたね！</string>
-  <string name="theKnight">ナイト</string>
-  <string name="knightComplete">おめでとう！　ナイトもマスターしました。</string>
-  <string name="thePawn">ポーン</string>
-  <string name="pawnIntro">ポーンは弱い駒ですが大きな可能性を秘めています。</string>
-  <string name="pawnComplete">おめでとう！　ポーンもよくわかったでしょう。</string>
-  <string name="selectThePieceYouWant">好きな駒を選んでください！</string>
-  <string name="fundamentals">初級</string>
-  <string name="capture">駒取り</string>
-  <string name="takeTheEnemyPieces">相手の駒を取る</string>
-  <string name="captureIntro">守られていない相手の駒を見つけて、取ってください！</string>
-  <string name="takeTheBlackPieces">黒の駒を全部取ります！</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">黒の駒を全部取ります！
-自分の駒を取られないように。</string>
-  <string name="protection">守り</string>
-  <string name="keepYourPiecesSafe">自分の駒を安全に</string>
-  <string name="protectionIntro">相手に攻撃されている自分の駒を見つけ、守ってください！</string>
-  <string name="protectionComplete">おめでとう！　駒を取られないことは取るのと同じ値打ちです！</string>
-  <string name="escape">攻撃を受けている！
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="learnShogi">将棋を学ぶ</string>
+	<string name="byPlaying">遊びながら！</string>
+	<string name="menu">メニュー</string>
+	<string name="progressX">進捗: %s</string>
+	<string name="resetMyProgress">学習履歴をリセット</string>
+	<string name="youWillLoseAllYourProgress">すべての進捗数字がゼロになります！</string>
+	<string name="play">ここ！</string>
+	<string name="shogiPieces">将棋の駒</string>
+	<string name="theIntoduction">はじめに</string>
+	<string name="introBasics">基本を学びましょう。</string>
+	<string name="introIntro">あなたの旅はここから始まります。</string>
+	<string name="choosePieceDesign">伝えておくべき大事なことは、駒の区別がつくことですので正しい駒のセットを選びましょう。\n
+そうするためには歯車か（右上にある）ユーザー名をクリックし、そこから「駒のセット」をクリックします。</string>
+	<string name="promotionZone">いくつかの駒は相手の陣地3列内に入り、または出たときに、成ることを選択して強くすることができます。</string>
+	<string name="introComplete">これで基本的なことは分かったと思いますが、チュートリアルのこの部分はまだ作成中です。今のところは、個々の駒がどのように動くかを学んでください。</string>
+	<string name="theRook">飛車</string>
+	<string name="itMovesInStraightLines">タテヨコに動く</string>
+	<string name="rookIntro">飛車は強力な駒です。用意はいいですか？</string>
+	<string name="rookGoal">飛車をクリックして星印まで動かしましょう！</string>
+	<string name="rookPromotion">飛車は強力な竜王に成ることができます。相手の陣地から出るときも駒が成れることを忘れないでください。</string>
+	<string name="rookSummary">飛車は、上下、左右、自由に動くことができます。</string>
+	<string name="dragonSummary">成っていない飛車と同じように動けるだけでなく、どの斜め方向にも1マス移動できるので、かなり強力になります。</string>
+	<string name="grabAllTheStars">星印を全部集めて！</string>
+	<string name="theFewerMoves">手数が少ないほど高ポイントです！</string>
+	<string name="rookComplete">おめでとうございます！飛車の動きをマスターしました。</string>
+	<string name="theBishop">角行</string>
+	<string name="itMovesDiagonally">ナナメに動く</string>
+	<string name="bishopIntro">次は角行の動き方です！</string>
+	<string name="bishopPromotion">角行が成ると、竜馬と呼ばれるより強い駒に変化します。</string>
+	<string name="bishopSummary">角行は斜めへどの方向にも動きます。</string>
+	<string name="horseSummary">竜馬は斜めにも動きますが、上下、左右に1マス進むこともできます。</string>
+	<string name="bishopComplete">おめでとう！角行を使えるようになりました。</string>
+	<string name="theKing">王将/玉将</string>
+	<string name="theMostImportantPiece">一番大事な駒</string>
+	<string name="kingIntro">あなたは王将/玉将です。王将/玉将がやられると対局は負けです。</string>
+	<string name="theKingIsSlow">王将/玉将の動きは少しゆっくりです。</string>
+	<string name="kingSummary">王将/玉将はどの方向にも動けますが、たったの1マスしか移動できません。</string>
+	<string name="kingComplete">王将/玉将の動きも覚えましたね！</string>
+	<string name="theKnight">桂馬</string>
+	<string name="itMovesInAnLShape">L字型に動きますが、前方のみです！</string>
+	<string name="knightIntro">ここでもう1つの課題があります。桂馬は......扱いにくい駒です。</string>
+	<string name="knightsHaveAFancyWay">桂馬は面白い動きで盤上を跳ね回ります！</string>
+	<string name="knightsCanJumpOverObstacles">桂馬は障害物を飛び越えることができます！</string>
+	<string name="knightSummary">桂馬は前方にL字型にジャンプすることができますが、前方に2マス、横に1マスしかジャンプできません。桂馬の動きは他の駒に制限されず、ただ飛び越えるだけです。</string>
+	<string name="pknightSummary">成桂の動きは桂馬とは全く異なります。しかし、金将と同じ動きをするのが分かると思いますので、そちらをしっかりと確認してください。</string>
+	<string name="knightPromotion">桂馬は成ることもできます。その後、動きが大きく変化するので注意してください。</string>
+	<string name="knightComplete">おめでとうございます！桂馬もマスターしました。</string>
+	<string name="thePawn">歩兵</string>
+	<string name="itMovesForwardOnly">前に進め！</string>
+	<string name="pawnIntro">歩兵は弱い駒ですが大きな可能性を秘めています。</string>
+	<string name="pawnsMoveOneSquareOnly">歩兵は目の前のマスに動くことができ、同じ動きで相手の駒を取ります。</string>
+	<string name="pawnPromotion">歩兵も成ることができ、動きは金将と同じです。</string>
+	<string name="pawnComplete">おめでとう！歩兵の動きも覚えたでしょう。</string>
+	<string name="pawnSummary">歩兵は理解するにはむしろ分かりやすい駒です。</string>
+	<string name="tokinSummary">このパターンは今やもう慣れているはずです。</string>
+	<string name="theLance">香車</string>
+	<string name="itMovesStraightForward">前に進むことしかできません。</string>
+	<string name="lanceIntro">賢く使ってください。</string>
+	<string name="lancesAreStraighforward">動けるだけ好きに前へ動くだけです。簡単なはずです。</string>
+	<string name="lancePromotion">香車が成った後、異なる動きをします。しかし、どこかで既に見たことがあります。金将と同じです。</string>
+	<string name="lanceSummary">前に進む、本当に簡単です。</string>
+	<string name="planceSummary">金将と同じです。</string>
+	<string name="lanceComplete">よくできました！</string>
+	<string name="theGold">金将</string>
+	<string name="itMovesInAnyDirectionExceptDiagonallyBack">ナナメ後ろ以外に動く</string>
+	<string name="goldIntro">金将の動きは最初は覚えるのが少し難しいかもしれませんが、きっとできるようになります。</string>
+	<string name="goldDoesntPromote">金将は王将/玉将と共に成ることができない唯一の駒です。</string>
+	<string name="goldSummary">これらの動きを覚えておいてください。多くの駒は、成った後に同じ動きをします。</string>
+	<string name="goldComplete">おめでとうございます！よくできました。</string>
+	<string name="theSilver">銀将</string>
+	<string name="itMovesEitherForwardOrDiagonallyBack">前とナナメ前後に動く</string>
+	<string name="silverIntro">もう一つ通常と異なる動きの駒がありますけれど、これが最後です。約束します！</string>
+	<string name="silverPromotion">銀将が成るとき、動きは金将と同じです。</string>
+	<string name="silverSummary">これらの動きは、ある程度の練習をすれば必ず覚えられるはずです。</string>
+	<string name="psilverSummary">金将と同じように、よく見かけるようになります。</string>
+	<string name="silverComplete">おめでとうございます！いい調子です。</string>
+	<string name="promotion">この駒は成ることができます。</string>
+	<string name="yourPieceReachedThePromotionZone">駒が成れるところに来ました！</string>
+	<string name="itNowPromotesToAStrongerPiece">その駒は今や成ることによってより強い駒になることができます。</string>
+	<string name="selectThePieceYouWant">好きな駒を選んでください！</string>
+	<string name="fundamentals">基本</string>
+	<string name="capture">つかまえる</string>
+	<string name="takeTheEnemyPieces">相手の駒を取る</string>
+	<string name="captureIntro">守られていない相手の駒を見つけて、取ってください！</string>
+	<string name="takeTheBlackPieces">後手の駒を取ってください！</string>
+	<string name="takeTheBlackPiecesAndDontLoseYours">後手の駒を全部取ります！
+自分の駒を取られないようにしよう。</string>
+	<string name="captureComplete">おめでとうございます！どうやって将棋で相手の駒を取るかを覚えました！</string>
+	<string name="protection">守り</string>
+	<string name="keepYourPiecesSafe">自分の駒を安全に</string>
+	<string name="protectionIntro">相手に攻撃されている自分の駒を見つけ、守ってください！</string>
+	<string name="protectionComplete">おめでとうございます！駒を取られないことは取るのと同じ価値があります！</string>
+	<string name="escape">攻撃を受けている！
 駒を逃がして！</string>
-  <string name="noEscape">逃げ道はない。
-別の駒で守って！</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">どの駒もただで
+	<string name="noEscape">逃げ道はない、
+でも守ることができる！</string>
+	<string name="dontLetThemTakeAnyUndefendedPiece">どの駒もただで
 取られないように！</string>
-  <string name="combat">攻防</string>
-  <string name="captureAndDefendPieces">駒を取り、駒を守る</string>
-  <string name="combatIntro">すぐれた戦士は攻撃と防御、両方を使いこなす！</string>
-  <string name="checkInOne">1手でチェック</string>
-  <string name="attackTheOpponentsKing">相手のキングを攻撃する</string>
-  <string name="checkInOneIntro">チェックするには相手のキングを攻撃します。相手は何か防ぐしかない。</string>
-  <string name="checkInOneGoal">1 手で相手のキングを
+	<string name="combat">攻防</string>
+	<string name="captureAndDefendPieces">駒を取り、駒を守る</string>
+	<string name="combatIntro">すぐれた戦士は攻撃と防御、両方を使いこなす！</string>
+	<string name="combatComplete">おめでとうございます！どうやって将棋の駒を戦わせるかを覚えました！</string>
+	<string name="checkInOne">1手で王手</string>
+	<string name="attackTheOpponentsKing">相手の王将/玉将を攻撃する</string>
+	<string name="checkInOneIntro">王手するには相手の王将/玉将を攻撃します。相手は防がなければならない！</string>
+	<string name="checkInOneGoal">1 手で相手の王将/玉将を
 狙ってください！</string>
-  <string name="checkInOneComplete">おめでとう！　相手のキングをチェックして、防ぐ手を指させました！</string>
-  <string name="outOfCheck">チェックを防ぐ</string>
-  <string name="defendYourKing">キングを守る</string>
-  <string name="outOfCheckIntro">チェックされました！　逃げるか合い駒で防ぎます。</string>
-  <string name="escapeWithTheKing">キングを逃がして！</string>
-  <string name="theKingCannotEscapeButBlock">逃げ道はないが、
-途中に合い駒はできる！</string>
-  <string name="youCanGetOutOfCheckByTaking">相手の駒を取るのでも
-チェックを防げる。</string>
-  <string name="thisKnightIsCheckingThroughYourDefenses">ナイトは駒を跳びこえて
-チェックしてくる！</string>
-  <string name="escapeOrBlock">キングを逃がすか
-合い駒で防ぐか</string>
-  <string name="outOfCheckComplete">おめでとう！　キングを取られたらおしまいなので、チェックが来たら必ず防ぐこと！</string>
-  <string name="mateInOne">1手でメイト</string>
-  <string name="defeatTheOpponentsKing">相手のキングをメイトする</string>
-  <string name="mateInOneIntro">相手がチェックを防げなくなれば、あなたの勝ちです。</string>
-  <string name="attackYourOpponentsKing">防げないような
-チェックをかけて！</string>
-  <string name="intermediate">中級</string>
-  <string name="boardSetup">盤駒の用意</string>
-  <string name="howTheGameStarts">ゲームの始め方</string>
-  <string name="boardSetupIntro">両軍が向かい合い、戦いに備えます。</string>
-  <string name="firstPlaceTheRooks">まずルークを
+	<string name="checkInOneComplete">おめでとうございます！相手の王将/玉将を王手して、防ぐ手を指させました！</string>
+	<string name="outOfCheck">王手を防ぐ</string>
+	<string name="defendYourKing">王将/玉将を守る</string>
+	<string name="outOfCheckIntro">王手されました！逃げるか合駒で防がなければなりません。</string>
+	<string name="escapeWithTheKing">王将/玉将を逃がして！</string>
+	<string name="theKingCannotEscapeButBlock">逃げ道はないが、
+途中に合駒はできる！</string>
+	<string name="youCanGetOutOfCheckByTaking">相手の駒を取ることでも
+王手から逃れられる。</string>
+	<string name="thisKnightIsCheckingThroughYourDefenses">桂馬は守りの駒を跳びこえて
+王手してくる！</string>
+	<string name="escapeOrBlock">王将/玉将を逃がすか
+合駒で防いでください！</string>
+	<string name="outOfCheckComplete">おめでとうございます！王将/玉将を取られたらおしまいなので、王手が来たら必ず防ぐこと！</string>
+	<string name="mateInOne">1手で詰み</string>
+	<string name="defeatTheOpponentsKing">相手の王将/玉将を詰ませる</string>
+	<string name="mateInOneIntro">相手が王手を防げなくなれば、あなたの勝ちです。</string>
+	<string name="attackYourOpponentsKing">防げないような
+王手をかけて！</string>
+	<string name="mateInOneComplete">おめでとうございます！これが将棋で勝つ方法です！</string>
+	<string name="intermediate">中級</string>
+	<string name="boardSetup">盤と駒の用意</string>
+	<string name="howTheGameStarts">ゲームの始め方</string>
+	<string name="boardSetupIntro">両軍が向かい合い、戦いに備えます。</string>
+	<string name="thisIsTheInitialPosition">これが将棋の初期盤面です。
+続けるには好きな次の手をどうぞ。</string>
+	<string name="firstPlaceTheRooks">まずルークを
 両隅に置く。</string>
-  <string name="thenPlaceTheKnights">次にナイトを
+	<string name="thenPlaceTheKnights">次にナイトを
 ルークのとなりに。</string>
-  <string name="placeTheBishops">ビショップを
+	<string name="placeTheBishops">ビショップを
 ナイトのとなりに。</string>
-  <string name="placeTheQueen">クイーンは
+	<string name="placeTheQueen">クイーンは
 自分と同じ色のマスに。</string>
-  <string name="placeTheKing">キングは
+	<string name="placeTheKing">キングは
 クイーンのとなりに。</string>
-  <string name="pawnsFormTheFrontLine">ポーンはその前に並びます。
+	<string name="pawnsFormTheFrontLine">ポーンはその前に並びます。
 好きな手を指して。</string>
-  <string name="stalemate">ステイルメイト</string>
-  <string name="theGameIsADraw">引き分けになる</string>
-  <string name="stalemateIntro">チェックされていないのに動かす手がない場合が「ステイルメイト」です。ゲームは引き分けで、勝ち負けなしになります。</string>
-  <string name="stalemateGoal">黒をステイルメイトするには：
+	<string name="boardSetupComplete">おめでとう！駒の並べ方を覚えました！</string>
+	<string name="stalemate">ステイルメイト</string>
+	<string name="theGameIsADraw">引き分けになります</string>
+	<string name="stalemateIntro">チェックされていないのに動かす手がない場合が「ステイルメイト」です。ゲームは引き分けで、勝ち負けなしになります。</string>
+	<string name="stalemateGoal">黒をステイルメイトするには：
 - 黒に動かす手がない。
 - チェックがかかっていない。</string>
-  <string name="stalemateComplete">おめでとう！　ステイルメイトはメイトされるよりましです！</string>
-  <string name="advanced">上級</string>
-  <string name="pieceValue">駒の価値</string>
-  <string name="evaluatePieceStrength">駒の値打ちを数字で</string>
-  <string name="pieceValueIntro">動きの大きい駒ほど価値があります。
+	<string name="stalemateComplete">おめでとう！　ステイルメイトはメイトされるよりましです！</string>
+	<string name="advanced">上級</string>
+	<string name="pieceValue">駒の価値</string>
+	<string name="evaluatePieceStrength">駒の価値を数字で</string>
+	<string name="pieceValueIntro">動きの大きい駒ほど価値があります。
 クイーン = 9
 ルーク = 5
 ビショップ = 3
 ナイト = 3
 ポーン = 1
 キングは無限大です！　キングを失えば負けですから。</string>
-  <string name="queenOverBishop">いちばん価値の大きい
+	<string name="queenOverBishop">いちばん価値の大きい
 駒を取ってください。
 クイーン ＞ ビショップ</string>
-  <string name="takeThePieceWithTheHighestValue">いちばん価値の大きい
+	<string name="takeThePieceWithTheHighestValue">いちばん価値の大きい
 駒を取ってください。</string>
-  <string name="pieceValueComplete">おめでとう！　駒の価値を覚えました！
+	<string name="pieceValueComplete">おめでとう！　駒の価値を覚えました！
 クイーン = 9
 ルーク = 5
 ビショップ = 3
 ナイト = 3
 ポーン = 1</string>
-  <string name="checkInTwo">2手でチェック</string>
-  <string name="twoMovesToGiveCheck">2 手動かしてチェックする</string>
-  <string name="checkInTwoIntro">相手のキングをチェックする 2 手の組み合わせを考えてください。</string>
-  <string name="checkInTwoGoal">2 手で相手のキングを
+	<string name="checkInTwo">３手で王手する</string>
+	<string name="twoMovesToGiveCheck">２手動かして王手する</string>
+	<string name="checkInTwoIntro">相手の王将/玉将を王手する３手の組み合わせを考えてください。</string>
+	<string name="checkInTwoGoal">２手動かして相手の王将/玉将を
 狙ってください！</string>
-  <string name="checkInTwoComplete">おめでとう！　相手のキングをチェックして、防ぐ手を指させました！</string>
-  <string name="whatNext">その先は？</string>
-  <string name="register">登録</string>
-  <string name="practice">練習</string>
-  <string name="puzzles">タクティクス</string>
-  <string name="exerciseYourTacticalSkills">戦術の力をみがく</string>
-  <string name="videos">動画</string>
-  <string name="playPeople">人と対戦</string>
-  <string name="opponentsFromAroundTheWorld">世界中に相手がいます</string>
-  <string name="playMachine">マシンと対戦</string>
-  <string name="testYourSkillsWithTheComputer">コンピュータで腕前をテスト</string>
-  <string name="letsGo">どうぞ！</string>
-  <string name="stageX">ステージ %s</string>
-  <string name="awesome">やったね！</string>
-  <string name="excellent">すばらしい！</string>
-  <string name="greatJob">よくやった！</string>
-  <string name="perfect">おみごと！</string>
-  <string name="outstanding">すごいね！</string>
-  <string name="wayToGo">その調子！</string>
-  <string name="yesYesYes">そう、そう！</string>
-  <string name="youreGoodAtThis">うまくできた！</string>
-  <string name="nailedIt">正解！</string>
-  <string name="rightOn">そのとおり！</string>
-  <string name="stageXComplete">ステージ %s 完了</string>
-  <string name="yourScore">あなたの得点</string>
-  <string name="next">次</string>
-  <string name="backToMenu">メニューに戻る</string>
-  <string name="puzzleFailed">失敗！</string>
-  <string name="retry">もう一度</string>
+	<string name="checkInTwoComplete">おめでとうございます！相手の王将/玉将を王手して、防ぐ手を指させました！</string>
+	<string name="whatNext">その次は？</string>
+	<string name="youKnowHowToPlayChess">おめでとうございます。あなたは将棋のルールを覚えました。もっと強くなりたいですか？</string>
+	<string name="register">登録</string>
+	<string name="getAFreeLishogiAccount">Lishogi の無料アカウントを作る</string>
+	<string name="practice">練習</string>
+	<string name="learnCommonChessPositions">将棋のよくある局面を知る</string>
+	<string name="puzzles">タクティクス</string>
+	<string name="exerciseYourTacticalSkills">戦術の技を磨く</string>
+	<string name="videos">動画</string>
+	<string name="watchInstructiveChessVideos">将棋の教材動画を見る</string>
+	<string name="playPeople">対人戦</string>
+	<string name="opponentsFromAroundTheWorld">世界中に相手がいます</string>
+	<string name="playMachine">コンピュータと対局</string>
+	<string name="testYourSkillsWithTheComputer">コンピュータ相手に技術を試そう</string>
+	<string name="letsGo">行こう！</string>
+	<string name="stageX">ステージ %s</string>
+	<string name="awesome">やったね！</string>
+	<string name="excellent">すばらしい！</string>
+	<string name="greatJob">よくやった！</string>
+	<string name="perfect">かんぺき！</string>
+	<string name="outstanding">すごいね！</string>
+	<string name="wayToGo">その調子！</string>
+	<string name="yesYesYes">そう、そう、そう！</string>
+	<string name="youreGoodAtThis">うまくできた！</string>
+	<string name="nailedIt">正解！</string>
+	<string name="rightOn">そのとおり！</string>
+	<string name="stageXComplete">ステージ %s 完了</string>
+	<string name="yourScore">あなたの得点</string>
+	<string name="next">次</string>
+	<string name="backToMenu">メニューに戻る</string>
+	<string name="puzzleFailed">失敗！</string>
+	<string name="retry">もう一度</string>
 </resources>

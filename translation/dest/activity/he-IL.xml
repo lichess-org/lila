@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="activity">פעילות</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="activity">פעילות</string>
   <string name="hostedALiveStream">רץ בשידור ישיר</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">תמך בליצ\'ס במשך %1$s חודש כ%2$s</item>

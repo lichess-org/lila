@@ -1,2 +1,75 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources></resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="donate">Donate</string>
+	<string name="lishogiPatron">Lishogi Patron</string>
+	<string name="freeAccount">Free account</string>
+	<string name="becomePatron">Become a Lishogi Patron</string>
+	<string name="xBecamePatron">%s became a Lishogi Patron</string>
+	<string name="newPatrons">New Patrons</string>
+	<string name="freeChess">Free shogi for everyone, forever!</string>
+	<string name="noAdsNoSubs">No ads, no subscriptions; but open-source and passion.</string>
+	<string name="thankYou">Thank you for your donation!</string>
+	<string name="youHaveLifetime">You have a Lifetime Patron account. That\'s pretty awesome!</string>
+	<string name="patronUntil">You have a Patron account until %s.</string>
+	<string name="ifNotRenewed">If not renewed, you will then be downgraded to free.</string>
+	<string name="weAreNonProfit">We are a non‑profit association because we believe everyone should have access to a free, world-class shogi platform.</string>
+	<string name="weRelyOnSupport">We rely on support from people like you to make it possible. If you enjoy using Lishogi, please consider supporting us by donating and becoming a Patron!</string>
+	<string name="lifetime">Lifetime</string>
+	<string name="payLifetimeOnce">Pay %s once. Be a Lishogi Patron forever!</string>
+	<string name="lifetimePatron">Lifetime Lishogi Patron</string>
+	<string name="makeExtraDonation">Make an extra donation?</string>
+	<string name="monthly">Monthly</string>
+	<string name="recurringBilling">Recurring billing, renewing your Patron wings every month.</string>
+	<string name="onetime">One-time</string>
+	<string name="singleDonation">A single donation that grants you the Patron wings for one month.</string>
+	<string name="otherAmount">Other</string>
+	<string name="pleaseEnterAmount">Please enter an amount in USD</string>
+	<string name="withCreditCard">Credit Card</string>
+	<string name="withPaypal">PayPal</string>
+	<string name="weAreSmallTeam">We are a small team, so your support makes a huge difference!</string>
+	<string name="celebratedPatrons">The celebrated Patrons who make Lishogi possible</string>
+	<string name="whereMoneyGoes">Where does the money go?</string>
+	<string name="serversAndDeveloper">First of all, powerful servers.
+Then we pay a full-time developer: %s, the founder of Lishogi.</string>
+	<string name="costBreakdown">See the detailed cost breakdown</string>
+	<string name="officialNonProfit">Is Lishogi an official non-profit?</string>
+	<string name="actOfCreation">Yes, here\'s the act of creation (in French)</string>
+	<string name="changeMonthlySupport">Can I change/cancel my monthly support?</string>
+	<string name="changeOrContact">Yes, at any time, from this page.
+Or you can %s.</string>
+	<string name="contactSupport">contact Lishogi support</string>
+	<string name="otherMethods">Other methods of donation?</string>
+	<string name="bankTransfers">We also accept bank transfers</string>
+	<string name="bitcoin">And here\'s our bitcoin address: %s</string>
+	<string name="patronFeatures">Are some features reserved to Patrons?</string>
+	<string name="noPatronFeatures">No, because Lishogi is entirely free, forever, and for everyone. That\'s a promise.
+However, Patrons get bragging rights with a cool new profile icon.</string>
+	<string name="featuresComparison">See the detailed feature comparison</string>
+	<plurals name="patronForMonths">
+		<item quantity="other">Lishogi Patron for %s months</item>
+	</plurals>
+	<string name="youSupportWith">You support lishogi.org with %s per month.</string>
+	<string name="tyvm">Thank you very much for your help. You rock!</string>
+	<string name="currentStatus">Current status</string>
+	<string name="nextPayment">Next payment</string>
+	<string name="youWillBeChargedXOnY">You will be charged %1$s on %2$s.</string>
+	<string name="makeAdditionalDonation">Make an additional donation now</string>
+	<string name="update">Update</string>
+	<string name="changeMonthlyAmount">Change the monthly amount (%s)</string>
+	<string name="cancelSupport">cancel your support</string>
+	<string name="xOrY">%1$s or %2$s</string>
+	<string name="decideHowMuch">Decide what Lishogi is worth to you:</string>
+	<string name="stopPayments">Withdraw your credit card and stop payments:</string>
+	<string name="noLongerSupport">No longer support Lishogi</string>
+	<string name="paymentHistory">Payment history</string>
+	<string name="paid">Paid</string>
+	<string name="viewOthers">View other Lishogi Patrons</string>
+	<string name="date">Date</string>
+	<string name="amount">Amount</string>
+	<string name="transactionCompleted">Your transaction has been completed, and a receipt for your donation has been emailed to you.</string>
+	<string name="permanentPatron">You now have a permanent Patron account.</string>
+	<string name="checkOutProfile">Check out your profile page!</string>
+	<string name="nowLifetime">You are now a lifetime Lishogi Patron!</string>
+	<string name="nowOneMonth">You are now a Lishogi Patron for one month!</string>
+	<string name="downgradeNextMonth">In one month, you will NOT be charged again, and your Lishogi account will revert to a regular account.</string>
+</resources>

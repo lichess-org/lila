@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Stillingar</string>
-  <string name="closeAccount">Loka reikningi</string>
-  <string name="closingIsDefinitive">Að loka er endnanlegt. Ekki er afturheimt. Ertu viss?</string>
-  <string name="cantOpenSimilarAccount">Þú munt ekki fá að skrá nýjan aðgang með sama nafni, jafnvel þó þú víxlir hástöfum.</string>
-  <string name="changedMindDoNotCloseAccount">Ég skipti um skoðun, ekki loka aðgangnum</string>
-  <string name="closeAccountExplanation">Ertu viss um að þú viljir loka aðganginum þínum? Þetta er endanleg ákvörðun. Þú munt ALDREI geta skráð þig inn aftur.</string>
-  <string name="thisAccountIsClosed">Þessi aðgangur er lokaður</string>
-</resources>

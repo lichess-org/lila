@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="hourlyRapidArena">ساحة اللعب السريع المستمر</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="hourlyRapidArena">ساحة اللعب السريع المستمر</string>
   <string name="hourlyRapid">ساعة سريعة</string>
   <string name="hourlyXArena">الساحة %s المستمرة بالساعة</string>
   <string name="hourlyX">بأستمرار %s</string>
@@ -27,4 +28,22 @@
   <string name="monthlyClassical">الكلاسيكية الشهرية</string>
   <string name="monthlyXArena">الساحة %s الشهرية</string>
   <string name="monthlyX">شهرياً %s</string>
+  <string name="yearlyRapidArena">Yearly Rapid Arena</string>
+  <string name="yearlyRapid">Yearly Rapid</string>
+  <string name="yearlyClassicalArena">Yearly Classical Arena</string>
+  <string name="yearlyClassical">Yearly Classical</string>
+  <string name="yearlyXArena">Yearly %s Arena</string>
+  <string name="yearlyX">Yearly %s</string>
+  <string name="rapidShieldArena">Rapid Shield Arena</string>
+  <string name="rapidShield">Rapid Shield</string>
+  <string name="classicalShieldArena">Classical Shield Arena</string>
+  <string name="classicalShield">Classical Shield</string>
+  <string name="xShieldArena">%s Shield Arena</string>
+  <string name="xShield">%s Shield</string>
+  <string name="openingRapidArena">%s Rapid Arena</string>
+  <string name="openingRapid">%s Rapid</string>
+  <string name="xTeamBattle">%s Team Battle</string>
+  <string name="eliteXArena">Elite %s Arena</string>
+  <string name="eliteX">Elite %s</string>
+  <string name="xArena">%s Arena</string>
 </resources>

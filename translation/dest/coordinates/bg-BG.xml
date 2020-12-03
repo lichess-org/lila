@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Координати</string>
-  <string name="coordinateTraining">Упражнение по kоординати</string>
-  <string name="averageScoreAsWhiteX">Среден резултат с белите: %s</string>
-  <string name="averageScoreAsBlackX">Среден резултат с черните: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Можете да анализирате една игра по-ефективно ако бързо можете да намерите изображението на всеки координат.</string>
-  <string name="aSquareNameAppears">Един координат се поевява на дъската и вие трябва да кликнете на съответното поле. Имате 30 секунди да намерите правилното изображение на колкото се може повече координати!</string>
-  <string name="startTraining">Започни упражнението</string>
-</resources>

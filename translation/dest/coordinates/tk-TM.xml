@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Kordinatlar</string>
-  <string name="coordinateTraining">Kordinat türgenleşigi</string>
-  <string name="averageScoreAsWhiteX">Aklar hökmünde ortaça hasap: %s</string>
-  <string name="averageScoreAsBlackX">Garalar hökmünde ortaça hasap: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Öýjük atlaryny agtarmaly bolmasaňyz oýunlary has täsirli ýagdaýda derňäp bilersiňiz.</string>
-  <string name="aSquareNameAppears">Ekranda öýjük ady peýda bolar we siz dogry öýjüge tyklamalysypyz. Mümkin boldukça köp öýjügi dogry bilmek üçin 30 sekundyňyz bar!</string>
-  <string name="startTraining">Türgenleşige başla</string>
-</resources>

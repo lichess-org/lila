@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="twoFactorAuth">Totrinsbekræftelse</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="twoFactorAuth">Totrinsbekræftelse</string>
   <string name="twoFactorHelp">Totrinsbekræftelse tilføjer et ekstra sikkerhedslag til din konto.</string>
   <string name="twoFactorApp">Skaf en app til totrinsbekræftelse, for eksempel Google Authenticator til %1$s eller %2$s.</string>
   <string name="scanTheCode">Skan QR-koden med appen.</string>

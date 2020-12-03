@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="private">Privat</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="private">Privat</string>
   <string name="myStudies">Studiile mele</string>
   <string name="studiesIContributeTo">Studiile la care contribui</string>
   <string name="myPublicStudies">Studiile mele publice</string>
@@ -60,11 +61,19 @@
   <string name="shareAndExport">Împărtășește &amp; exportă</string>
   <string name="cloneStudy">Clonează</string>
   <string name="studyPgn">PGN-ul studiului</string>
+  <string name="downloadAllGames">Download all games</string>
   <string name="chapterPgn">PGN-ul capitolului</string>
+  <string name="downloadGame">Download game</string>
   <string name="studyUrl">URL-ul studiului</string>
+  <string name="broadcastUrl">Broadcast URL</string>
   <string name="currentChapterUrl">URL-ul capitolului curent</string>
+  <string name="currentGameUrl">Current game URL</string>
+  <string name="youCanPasteThisInTheForumToEmbed">You can paste this in the forum to embed</string>
   <string name="startAtInitialPosition">Începeți de la poziția inițială</string>
   <string name="startAtX">Începeți la %s</string>
+  <string name="embedInYourWebsite">Embed in your website or blog</string>
+  <string name="readMoreAboutEmbedding">Read more about embedding</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Only public studies can be embedded!</string>
   <string name="open">Deschideți</string>
   <string name="xBroughtToYouByY">%1$s, oferit pentru dvs. de %2$s</string>
   <string name="studyNotFound">Studiul nu a fost găsit</string>

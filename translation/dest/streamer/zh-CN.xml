@@ -1,5 +1,8 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="live">直播</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lishogiStreamers">Lishogi主播</string>
+  <string name="lishogiStreamer">Lishogi主播</string>
+  <string name="live">直播</string>
   <string name="offline">离线</string>
   <string name="currentlyStreaming">正在直播：%s</string>
   <string name="lastStream">上次直播：%s</string>

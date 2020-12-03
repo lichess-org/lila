@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">ସେଟିଂସମୂହ</string>
-  <string name="closeAccount">ଆକାଉଣ୍ଟ ବନ୍ଦ କରନ୍ତୁ</string>
-  <string name="closingIsDefinitive">ବନ୍ଦ କରିବା ନିଶ୍ଚିତ ଅଟେ | ପଛକୁ ଫେରିବା ନାହିଁ | ଆପଣ ନିଶ୍ଚିତ କି?</string>
-  <string name="cantOpenSimilarAccount">ସମାନ ନାମ ସହିତ ଏକ ନୂତନ ଖାତା ଖୋଲିବାକୁ ଆପଣଙ୍କୁ ଅନୁମତି ଦିଆଯିବ ନାହିଁ, ଯଦିଓ ମାମଲା ଭିନ୍ନ ଅଟେ</string>
-  <string name="changedMindDoNotCloseAccount">ମୁଁ ମୋର ମତ ବଦଳାଇଲି, ମୋ ଆକାଉଣ୍ଟ ବନ୍ଦ କର ନାହିଁ</string>
-  <string name="closeAccountExplanation">ଆପଣ ନିଶ୍ଚିତ କି ଆପଣ ଆପଣଙ୍କର ଆକାଉଣ୍ଟ ବନ୍ଦ କରିବାକୁ ଚାହୁଁଛନ୍ତି? ତୁମର ଆକାଉଣ୍ଟ ବନ୍ଦ କରିବା ଏକ ସ୍ଥାୟୀ ନିଷ୍ପତ୍ତି | ଆପଣ କଦାପି ଆଉଥରେ ଲଗ୍ ଇନ୍ କରିବାକୁ ସମର୍ଥ ହେବେ ନାହିଁ |</string>
-  <string name="thisAccountIsClosed">ଏହି ଖାତା ବନ୍ଦ ଅଛି</string>
-</resources>

@@ -1,9 +1,13 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Koordinaten</string>
-  <string name="coordinateTraining">Koordinatentraining</string>
-  <string name="averageScoreAsWhiteX">Durchschnittliche Punktzahl als Weiß: %s</string>
-  <string name="averageScoreAsBlackX">Durchschnittliche Punktzahl als Schwarz: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Du kannst ein Spiel effektiver analysieren, wenn du nicht immer nach den Feldbezeichnungen suchen musst.</string>
-  <string name="aSquareNameAppears">Der Feldname wird auf dem Brett angezeigt und du musst auf das zugehörige Feld klicken. Du hast 30 Sekunden, um möglichst viele Felder zu erkennen!</string>
-  <string name="startTraining">Training beginnen</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="coordinates">Koordinaten</string>
+	<string name="coordinateTraining">Koordinatentraining</string>
+	<string name="averageScoreAsWhiteX">Durchschnittliche Punktzahl als Weiß: %s</string>
+	<string name="averageScoreAsBlackX">Durchschnittliche Punktzahl als Schwarz: %s</string>
+	<string name="knowingTheShogiBoard">Das Shogibrett Koordinatensystem zu beherrschen ist eine wichtige Fähigkeit:</string>
+	<string name="mostShogiCourses">Alle Shogi-Kurse und Übungen verwenden eine Art Shogi-Notation. Du kannst dich zwischen die Japanische und Westliche Version Entscheiden.</string>
+	<string name="talkToYourShogiFriends">Es macht es einfacher, dich mit deinen Shogifreunden zu unterhalten, da ihr beide die \"Shogisprache\" versteht.</string>
+	<string name="youCanAnalyseAGameMoreEffectively">Du kannst ein Spiel effektiver analysieren, wenn du nicht immer nach den Feldbezeichnungen suchen musst.</string>
+	<string name="aSquareNameAppears">Der Feldname wird auf dem Brett angezeigt und du musst auf das zugehörige Feld klicken. Du hast 30 Sekunden, um möglichst viele Felder zu erkennen!</string>
+	<string name="startTraining">Training beginnen</string>
 </resources>

@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Поставки</string>
-  <string name="closeAccount">Затвори го профилот</string>
-  <string name="changedMindDoNotCloseAccount">Се предомислив, не го затварај мојот профил</string>
-  <string name="thisAccountIsClosed">Овој профил е затворен.</string>
-</resources>

@@ -1,9 +1,13 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">좌표</string>
-  <string name="coordinateTraining">좌표 훈련</string>
-  <string name="averageScoreAsWhiteX">흰색으로 평균 점수: %s</string>
-  <string name="averageScoreAsBlackX">검정색으로 평균 점수: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">당신이 좌표만 보고도 체스 상황을 상상할 수 있다면 더 효과적으로 게임을 분석하는데 도움이 됩니다.</string>
-  <string name="aSquareNameAppears">보드 위에 좌표의 이름이 나타납니다. 30초 내에 최대한 많은 좌표에 맞는 사각형을 클릭하십시오!</string>
-  <string name="startTraining">훈련 시작</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="coordinates">좌표</string>
+	<string name="coordinateTraining">좌표 훈련</string>
+	<string name="averageScoreAsWhiteX">흰색으로 평균 점수: %s</string>
+	<string name="averageScoreAsBlackX">검정색으로 평균 점수: %s</string>
+	<string name="knowingTheShogiBoard">Knowing the shogiboard coordinates is a very important shogi skill:</string>
+	<string name="mostShogiCourses">All shogi courses and exercises use some kind of a shogi notation. You can pick between the Japanese one and the western one.</string>
+	<string name="talkToYourShogiFriends">It makes it easier to talk to your shogi friends, since you both understand the \'language of shogi\'.</string>
+	<string name="youCanAnalyseAGameMoreEffectively">당신이 좌표만 보고도 체스 상황을 상상할 수 있다면 더 효과적으로 게임을 분석하는데 도움이 됩니다.</string>
+	<string name="aSquareNameAppears">보드 위에 좌표의 이름이 나타납니다. 30초 내에 최대한 많은 좌표에 맞는 사각형을 클릭하십시오!</string>
+	<string name="startTraining">훈련 시작</string>
 </resources>

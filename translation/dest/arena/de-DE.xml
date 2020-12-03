@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="arenaTournaments">Arena-Turniere</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">Arena-Turniere</string>
   <string name="isItRated">Sind die Partien gewertet?</string>
   <string name="willBeNotified">Du wirst benachrichtigt, wenn das Turnier beginnt. Es ist somit möglich, während der Wartezeit in einem anderen Tab zu spielen.</string>
   <string name="isRated">Dieses Turnier ist gewertet und wird deine Wertungszahl beeinflussen.</string>

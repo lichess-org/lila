@@ -1,5 +1,7 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="contact">Ota yhteyttä</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="contact">Ota yhteyttä</string>
+  <string name="contactLishogi">Contact Lishogi</string>
   <string name="whatCanWeHelpYouWith">Kuinka voimme olla avuksi?</string>
   <string name="visitThisPage">Ongelman ratkaisemiseksi käy tällä sivulla</string>
   <string name="iCantLogIn">En pääse kirjautumaan sisään</string>
@@ -67,6 +69,7 @@
   <string name="otherRestriction">Muu rajoitus</string>
   <string name="collaboration">Yhteistyö, lakiasiat, kaupallisuus</string>
   <string name="monetizing">Lishogiin kaupallistaminen</string>
+  <string name="buyingLishogi">Buying Lishogi</string>
   <string name="authorizationToUse">Lishogiin käyttöluvat</string>
   <string name="welcomeToUse">Saat vapaasti käyttää Lishogiiä omiin tarkoituksiisi, jopa kaupallisiin.</string>
   <string name="videosAndBooks">Se voi näkyä videoillasi, ja voit painaa kuvankaappauksia Lishogiistä kirjoihisi.</string>

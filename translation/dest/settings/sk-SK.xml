@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Nastavenia</string>
-  <string name="closeAccount">Zrušiť účet</string>
-  <string name="closingIsDefinitive">Zrušenie je definitívne. Nedá sa vrátiť naspäť. Ste si istí?</string>
-  <string name="cantOpenSimilarAccount">Nebudete si môcť založiť nový účet s rovnakým menom, ani keď sa bude líšiť veľkosť písmen.</string>
-  <string name="changedMindDoNotCloseAccount">Rozmyslel som si to, nerušte môj účet</string>
-  <string name="closeAccountExplanation">Ste si istí, že chcete zrušiť váš účet? Zrušenie vášho účtu je trvalé rozhodnutie. Už sa NIKDY ZNOVU nebudete môcť prihlásiť.</string>
-  <string name="thisAccountIsClosed">Účet zrušený.</string>
-</resources>

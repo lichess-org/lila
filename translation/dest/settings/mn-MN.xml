@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Тохиргоо</string>
-  <string name="closeAccount">Гишүүний данс хаах</string>
-  <string name="changedMindDoNotCloseAccount">Би бодлоо өөрчиллөө. Миний гишүүнчлэлийн дансыг битгий хаа</string>
-  <string name="thisAccountIsClosed">Энэ гишүүний данс хаагдсан байна.</string>
-</resources>

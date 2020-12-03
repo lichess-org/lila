@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="activity">Toiminta</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="activity">Toiminta</string>
   <string name="hostedALiveStream">Piti livestreamin</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">On tukenut lishogi.orgia %1$s:n kuukauden ajan %2$s:ina</item>

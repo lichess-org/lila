@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Dewisiadau</string>
-  <string name="closeAccount">Cau cyfrif</string>
-  <string name="changedMindDoNotCloseAccount">Dw i wedi ailystyried, paid â chau fy nghyfrif</string>
-  <string name="thisAccountIsClosed">Mae\'r cyfrif ma wedi\'i gau.</string>
-</resources>

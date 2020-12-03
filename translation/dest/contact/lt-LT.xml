@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="contact">Susisiekite</string>
-  <string name="whatCanWeHelpYouWith">Kuo galime padėti?</string>
-  <string name="visitThisPage">Apsilankę šiame tinklalapyje išspręsite problemą</string>
-  <string name="iCantLogIn">Negaliu prisijungti</string>
-  <string name="noConfirmationEmail">Negaunu patvirtinimo laiško</string>
-  <string name="forgotPassword">Pamiršau slaptažodį</string>
-  <string name="forgotUsername">Pamiršau prisijungimo vardą</string>
-</resources>

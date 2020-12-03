@@ -1,9 +1,13 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">Coordenades</string>
-  <string name="coordinateTraining">Entrenament de coordenades</string>
-  <string name="averageScoreAsWhiteX">Puntuació mitja amb blanques: %s</string>
-  <string name="averageScoreAsBlackX">Puntuació mitja amb negres: %s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Pots analitzar un joc de forma més eficient si en pots reconèixer ràpidament les coordenades.</string>
-  <string name="aSquareNameAppears">Una coordenada apareix en el tauler i has de clicar-nenla casella corresponent. Tens 30 segons per mapejar correctament el màxim de caselles possible!</string>
-  <string name="startTraining">Comença l\'entrenament</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="coordinates">Coordenades</string>
+	<string name="coordinateTraining">Entrenament de coordenades</string>
+	<string name="averageScoreAsWhiteX">Puntuació mitja amb blanques: %s</string>
+	<string name="averageScoreAsBlackX">Puntuació mitja amb negres: %s</string>
+	<string name="knowingTheShogiBoard">Knowing the shogiboard coordinates is a very important shogi skill:</string>
+	<string name="mostShogiCourses">All shogi courses and exercises use some kind of a shogi notation. You can pick between the Japanese one and the western one.</string>
+	<string name="talkToYourShogiFriends">It makes it easier to talk to your shogi friends, since you both understand the \'language of shogi\'.</string>
+	<string name="youCanAnalyseAGameMoreEffectively">Pots analitzar un joc de forma més eficient si en pots reconèixer ràpidament les coordenades.</string>
+	<string name="aSquareNameAppears">Una coordenada apareix en el tauler i has de clicar-nenla casella corresponent. Tens 30 segons per mapejar correctament el màxim de caselles possible!</string>
+	<string name="startTraining">Comença l\'entrenament</string>
 </resources>

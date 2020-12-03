@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="arenaTournaments">Torneig Arena</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">Torneig Arena</string>
   <string name="isItRated">És puntuat?</string>
   <string name="willBeNotified">Seràs notificat quan comenci el torneig, per tant és segur jugar en una altra pestanya mentre esperes.</string>
   <string name="isRated">Aquest és un torneig valorat i per tant afectarà a la teva puntuació.</string>

@@ -1,24 +1,31 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="search">Hledat</string>
-  <string name="advancedSearch">Pokročilé vyhledávání</string>
-  <plurals name="xGamesFound">
-    <item quantity="one">Nalezena jedna hra</item>
-    <item quantity="few">Nalezeny %s hry</item>
-    <item quantity="many">Nalezeno %s her</item>
-    <item quantity="other">Nalezeno %s her</item>
-  </plurals>
-  <string name="opponentName">Jméno soupeře</string>
-  <string name="loser">Poražený</string>
-  <string name="from">Od</string>
-  <string name="to">Pro</string>
-  <string name="humanOrComputer">Zda je soupeř lidský hráč nebo počítač</string>
-  <string name="aiLevel">A.I. úroveň</string>
-  <string name="source">Zdroj</string>
-  <string name="nbTurns">Počet tahů</string>
-  <string name="result">Výsledek</string>
-  <string name="winnerColor">Barva vítěze</string>
-  <string name="date">Datum</string>
-  <string name="sortBy">Seřadit podle</string>
-  <string name="analysis">Analýza</string>
-  <string name="onlyAnalysed">Pouze hry, kde je k dispozici počítačová analýza</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="search">Hledat</string>
+	<string name="advancedSearch">Pokročilé vyhledávání</string>
+	<plurals name="searchInXGames">
+		<item quantity="one">Search in %s shogi game</item>
+		<item quantity="few">Search in %s shogi games</item>
+		<item quantity="many">Search in %s shogi games</item>
+		<item quantity="other">Search in %s shogi games</item>
+	</plurals>
+	<plurals name="xGamesFound">
+		<item quantity="one">Nalezena jedna hra</item>
+		<item quantity="few">Nalezeny %s hry</item>
+		<item quantity="many">Nalezeno %s her</item>
+		<item quantity="other">Nalezeno %s her</item>
+	</plurals>
+	<string name="opponentName">Jméno soupeře</string>
+	<string name="loser">Poražený</string>
+	<string name="from">Od</string>
+	<string name="to">Pro</string>
+	<string name="humanOrComputer">Zda je soupeř lidský hráč nebo počítač</string>
+	<string name="aiLevel">A.I. úroveň</string>
+	<string name="source">Zdroj</string>
+	<string name="nbTurns">Počet tahů</string>
+	<string name="result">Výsledek</string>
+	<string name="winnerColor">Barva vítěze</string>
+	<string name="date">Datum</string>
+	<string name="sortBy">Seřadit podle</string>
+	<string name="analysis">Analýza</string>
+	<string name="onlyAnalysed">Pouze hry, kde je k dispozici počítačová analýza</string>
 </resources>

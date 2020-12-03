@@ -1,9 +1,13 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="coordinates">坐标</string>
-  <string name="coordinateTraining">坐标训练</string>
-  <string name="averageScoreAsWhiteX">白方平均得分：%s</string>
-  <string name="averageScoreAsBlackX">黑方平均得分：%s</string>
-  <string name="youCanAnalyseAGameMoreEffectively">快速识别格子可以高效的分析对局。</string>
-  <string name="aSquareNameAppears">棋盘中间出现格子的名称之后，您必须点击正确的格子。在30秒内认出尽可能多的格子！</string>
-  <string name="startTraining">开始训练</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="coordinates">坐标</string>
+	<string name="coordinateTraining">坐标训练</string>
+	<string name="averageScoreAsWhiteX">白方平均得分：%s</string>
+	<string name="averageScoreAsBlackX">黑方平均得分：%s</string>
+	<string name="knowingTheShogiBoard">了解棋盘坐标是一门很重要的将棋技能：</string>
+	<string name="mostShogiCourses">所有将棋课程和练习都使用某种将棋符号。你可以从日语课程和西方课程之间挑选。</string>
+	<string name="talkToYourShogiFriends">这能让你更便捷地与棋友交谈，因为你们都懂这门“将棋语言”。</string>
+	<string name="youCanAnalyseAGameMoreEffectively">快速识别格子可以高效的分析对局。</string>
+	<string name="aSquareNameAppears">棋盘中间出现格子的名称之后，您必须点击正确的格子。在30秒内认出尽可能多的格子！</string>
+	<string name="startTraining">开始训练</string>
 </resources>

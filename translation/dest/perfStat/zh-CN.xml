@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="perfStats">%s 战绩</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="perfStats">%s 战绩</string>
   <string name="viewTheGames">查看棋局</string>
   <string name="provisional">暂定</string>
   <string name="notEnoughRatedGames">因计分局不足而无法测定可靠的评级</string>

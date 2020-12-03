@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="twoFactorAuth">Tweeledige verifikasie</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="twoFactorAuth">Tweeledige verifikasie</string>
   <string name="twoFactorHelp">Tweeledige verifikasie voeg nog \'n laag sekuriteit tot jou rekening by.</string>
   <string name="twoFactorApp">Kry \'n toep vir tweeledige verifikasie, byvoorbeeld Google Authenticator vir %1$s of %2$s.</string>
   <string name="scanTheCode">Skandeer die QR kode met die toep.</string>

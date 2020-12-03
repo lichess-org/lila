@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="settings">Sozlashlar</string>
-  <string name="closeAccount">Hisobni yopish</string>
-  <string name="closingIsDefinitive">Yopish qati\'y. Ortga qayta olmaysiz. Siz shuni xohlaysizmi?</string>
-  <string name="cantOpenSimilarAccount">Siz boshqa bunday nomli akkount yarata olmaysiz, hatto harflar katta-kichigi bilan farq qilsa ham.</string>
-  <string name="changedMindDoNotCloseAccount">Men fikrimni o\'zgartirdim, hisobni yopmang</string>
-  <string name="closeAccountExplanation">Ishonchingiz komilmi hisobingizni yopishga? Hisobingizni yopish doimiyga bo\'ladi. Siz boshqatdan tizimga KIRA OLMAYSIZ.</string>
-  <string name="thisAccountIsClosed">Bu hisob yopilgan.</string>
-</resources>

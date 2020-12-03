@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources><string name="twoFactorAuth">Uwierzytelnienie dwuetapowe</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="twoFactorAuth">Uwierzytelnienie dwuetapowe</string>
   <string name="twoFactorHelp">Uwierzytelnianie dwuetapowe dodaje kolejną warstwę zabezpieczeń do Twojego konta.</string>
   <string name="twoFactorApp">Pobierz aplikację do uwierzytelniania dwuetapowego, na przykład Google Authenticator dla %1$s lub %2$s.</string>
   <string name="scanTheCode">Zeskanuj kod QR za pomocą aplikacji.</string>
