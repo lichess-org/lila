@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="learnShogi">Learn shogi</string>
+	<string name="learnShogi">学习将棋</string>
 	<string name="byPlaying">边学边玩！</string>
 	<string name="menu">菜单</string>
 	<string name="progressX">进度：%s</string>
 	<string name="resetMyProgress">重置我的进度</string>
 	<string name="youWillLoseAllYourProgress">您的进度将被清空！</string>
 	<string name="play">玩吧！</string>
-	<string name="shogiPieces">Shogi pieces</string>
-	<string name="theIntoduction">Introduction</string>
-	<string name="introBasics">Let\'s learn some basics.</string>
-	<string name="introIntro">Your journey begins here.</string>
+	<string name="shogiPieces">将棋棋子</string>
+	<string name="theIntoduction">简介</string>
+	<string name="introBasics">让我们学习基础知识。</string>
+	<string name="introIntro">您的路程从这里在开始</string>
 	<string name="choosePieceDesign">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set. \nTo do that click on the cog wheel or your username (top right corner) and then click on \"piece set\".</string>
 	<string name="promotionZone">When some of your pieces reach or leave the first three ranks in your opponent\'s territory you can choose to promote your piece and make it stronger.</string>
 	<string name="introComplete">You now know some basics, but this part of tutorial is still under construction. For now learn how individual pieces move.</string>
