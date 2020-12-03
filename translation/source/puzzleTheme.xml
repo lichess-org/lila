@@ -12,6 +12,8 @@
   <string name="blockingDescription"></string>
   <string name="capturingDefender">Capture the defender</string>
   <string name="capturingDefenderDescription">Removing a piece that is critical to defence of another piece, allowing the now undefended piece to be captured on a following move.</string>
+  <string name="kingsideAttack">Kingside attack</string>
+  <string name="kingsideAttackDescription">An attack of the opponent's king, after they castled on the king side.</string>
   <string name="clearance">Clearance</string>
   <string name="clearanceDescription">A move, often with tempo, that clears a square, file or diagonal for a follow-up tactical idea.</string>
   <string name="coercion">Coercion</string>
@@ -24,6 +26,8 @@
   <string name="discoveredAttackDescription">Moving a piece that previously blocked an attack by another long range piece, such as a knight out of the way of a rook.</string>
   <string name="doubleCheck">Double check</string>
   <string name="doubleCheckDescription">Checking with two pieces at once, as a result of a discovered attack where both the moving piece and the unveiled piece attack the opponent's king.</string>
+  <string name="endgame">Endgame</string>
+  <string name="endgameDescription">A tactic during the last phase of the game.</string>
   <string name="enPassant">En passant</string>
   <string name="enPassantDescription">A tactic involving the en passant rule, where a pawn can capture an opponent pawn that has bypassed it using its initial two-square move.</string>
   <string name="exposedKing">Exposed king</string>
@@ -34,6 +38,8 @@
   <string name="hangingPieceDescription">A tactic involving an opponent piece being undefended and free to capture.</string>
   <string name="interference">Interference</string>
   <string name="interferenceDescription">Moving a piece between two opponent pieces to leave one or both opponent pieces undefended, such as a knight on a defended square between two rooks.</string>
+  <string name="knightEndgame">Knight endgame</string>
+  <string name="knightEndgameDescription">An endgame with only knights and pawns.</string>
   <string name="long">Long puzzle</string>
   <string name="longDescription">Three moves to win.</string>
   <string name="mateIn1">Mate in 1</string>
@@ -46,8 +52,12 @@
   <string name="mateIn4Description">Deliver checkmate in four moves.</string>
   <string name="mateIn5">Mate in 5 or more</string>
   <string name="mateIn5Description">Figure out a long mating sequence.</string>
+  <string name="middlegame">Middlegame</string>
+  <string name="middlegameDescription">A tactic during the second phase of the game.</string>
   <string name="oneMove">One-move puzzle</string>
   <string name="oneMoveDescription">A puzzle that is only one move long.</string>
+  <string name="opening">Opening</string>
+  <string name="openingDescription">A tactic during the first phase of the game.</string>
   <string name="overloading">Overloading</string>
   <string name="overloadingDescription">Where a piece is performing multiple functions, such as defending two pieces. Capture of one of the defended pieces will leave an opportunity as the defender moves, similar to deflection.</string>
   <string name="pawnEndgame">Pawn endgame</string>
@@ -56,6 +66,10 @@
   <string name="pinDescription">A tactic involving pins, where a piece is unable to move without revealing an attack on a higher valued piece.</string>
   <string name="promotion">Promotion</string>
   <string name="promotionDescription">A pawn promoting or threatening to promote is key to the tactic.</string>
+  <string name="queenEndgame">Queen endgame</string>
+  <string name="queenEndgameDescription">An endgame with only queens and pawns.</string>
+  <string name="queensideAttack">Queenside attack</string>
+  <string name="queensideAttackDescription">An attack of the opponent's king, after they castled on the queen side.</string>
   <string name="quietMove">Quiet move</string>
   <string name="quietMoveDescription">A move that does not make a check or capture, but does prepare an unavoidable threat for a later move.</string>
   <string name="rookEndgame">Rook endgame</string>
