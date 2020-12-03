@@ -1,15 +1,16 @@
-@import 'coords-colors';
+@import "coords-colors";
 
 coords {
-
   /* handle hidden coords */
-  .coords-no & { display: none }
+  .coords-no & {
+    display: none;
+  }
 
   /* handle inner coords */
   position: absolute;
   display: flex;
   pointer-events: none;
-  @include fluid-size('font-size', 8px, 12px);
+  @include fluid-size("font-size", 8px, 12px);
   user-select: none;
   color: #fff;
   text-shadow: 0 1px 2px #000;
@@ -20,7 +21,7 @@ coords {
     top: 1px;
     right: 0; // a negative value creates empty space on the right side in mobile browsers
     height: 100%;
-    width: .8em;
+    width: 0.8em;
     &.black {
       flex-flow: column;
     }
@@ -47,8 +48,8 @@ coords {
 
   /* negate inner coords colors */
   .is3d .cg-wrap coords coord {
-    color: #fff!important;
-    text-shadow: 0 1px 2px #000!important;
+    color: #fff !important;
+    text-shadow: 0 1px 2px #000 !important;
   }
   .is3d .cg-wrap coords.files {
     bottom: calc(1px - 2.5%);
@@ -73,7 +74,7 @@ coords {
       }
     }
     &.files {
-      bottom: -15px;
+      top: -15px;
       left: 0;
       text-align: center;
     }
