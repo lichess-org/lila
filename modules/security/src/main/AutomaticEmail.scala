@@ -1,13 +1,14 @@
 package lila.security
 
-import play.api.i18n.Lang
 import cats.implicits._
+import play.api.i18n.Lang
+import scala.util.chaining._
 
-import lila.common.EmailAddress
 import lila.common.config.BaseUrl
+import lila.common.EmailAddress
+import lila.hub.actorApi.msg.SystemMsg
 import lila.i18n.I18nKeys.{ emails => trans }
 import lila.user.{ User, UserRepo }
-import lila.hub.actorApi.msg.SystemMsg
 
 final class AutomaticEmail(
     userRepo: UserRepo,
@@ -42,19 +43,18 @@ ${Mailgun.txt.serviceNote}
     for {
       user        <- userRepo named username orFail s"No such user $username"
       emailOption <- userRepo email user.id
-      _ <- ~(user.title, emailOption).mapN { case (title, email) =>
-        implicit val lang = userLang(user)
-
-        val body = s"""Hello,
+      title       <- fuccess(user.title) orFail "User doesn't have a title!"
+      body = alsoSendAsPrivateMessage(user) { implicit lang =>
+        s"""Hello,
 
 Thank you for confirming your $title title on Lichess.
 It is now visible on your profile page: $baseUrl/@/${user.username}.
 
 $regards
 """
-
-        lila.common.Bus.publish(SystemMsg(user.id, body), "msgSystemSend")
-
+      }
+      _ <- emailOption ?? { email =>
+        implicit val lang = userLang(user)
         mailgun send Mailgun.Message(
           to = email,
           subject = s"$title title confirmed on lichess.org",
@@ -68,20 +68,19 @@ ${Mailgun.txt.serviceNote}
       }
     } yield ()
 
-  def onBecomeCoach(user: User): Funit =
-    userRepo email user.id flatMap {
-      _ ?? { email =>
-        implicit val lang = userLang(user)
-        val body          = s"""Hello,
+  def onBecomeCoach(user: User): Funit = {
+    val body = alsoSendAsPrivateMessage(user) { implicit lang =>
+      s"""Hello,
 
 It is our pleasure to welcome you as a Lichess coach.
 Your coach profile awaits you on $baseUrl/coach/edit.
 
 $regards
 """
-
-        lila.common.Bus.publish(SystemMsg(user.id, body), "msgSystemSend")
-
+    }
+    userRepo email user.id flatMap {
+      _ ?? { email =>
+        implicit val lang = userLang(user)
         mailgun send Mailgun.Message(
           to = email,
           subject = "Coach profile unlocked on lichess.org",
@@ -94,14 +93,14 @@ ${Mailgun.txt.serviceNote}
         )
       }
     }
+  }
 
   def onFishnetKey(userId: User.ID, key: String): Funit =
     for {
       user        <- userRepo named userId orFail s"No such user $userId"
       emailOption <- userRepo email user.id
-      _ <- emailOption.?? { email =>
-        implicit val lang = userLang(user)
-        val body          = s"""Hello,
+      body = alsoSendAsPrivateMessage(user) { implicit lang =>
+        s"""Hello,
 
 This message contains your private fishnet key. Please treat it like a password. You can use the same key on multiple machines (even at the same time), but you should not share it with anyone.
 
@@ -113,9 +112,9 @@ $key
 
 $regards
 """
-
-        lila.common.Bus.publish(SystemMsg(user.id, body), "msgSystemSend")
-
+      }
+      _ <- emailOption.?? { email =>
+        implicit val lang = userLang(user)
         mailgun send Mailgun.Message(
           to = email,
           subject = "Your private fishnet key",
@@ -130,16 +129,23 @@ ${Mailgun.txt.serviceNote}
     } yield ()
 
   def onAppealReply(user: User): Funit = {
-    val body = s"""Hello,
+    alsoSendAsPrivateMessage(user) { implicit lang =>
+      s"""Hello,
 
       Your appeal has received a response from the moderation team: ${baseUrl}/appeal
 
 $regards
 """
-
-    lila.common.Bus.publish(SystemMsg(user.id, body), "msgSystemSend")
+    }
     funit
   }
 
-  private def userLang(user: User) = user.realLang | lila.i18n.defaultLang
+  private def alsoSendAsPrivateMessage(user: User)(body: Lang => String): String = {
+    implicit val lang = userLang(user)
+    body(userLang(user)) tap { txt =>
+      lila.common.Bus.publish(SystemMsg(user.id, txt), "msgSystemSend")
+    }
+  }
+
+  private def userLang(user: User): Lang = user.realLang | lila.i18n.defaultLang
 }
