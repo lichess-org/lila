@@ -105,13 +105,13 @@ Lishogi上的电脑分析是基于Stockfish的。</string>
 	<string name="notPlayedEnoughRatedGamesAgainstX">该用户还没有在评分对局中对%1$s完成足够多的评分对局。</string>
 	<string name="similarOpponents">相近实力的对手</string>
 	<string name="notPlayedRecently">用户最近没有下足够多的棋局。根据你下过的对局数量，您的评分可能需要一年左右的不活跃状态才会再次变成暂时性的。</string>
-	<string name="ratingDeviationMorethanOneHundredTen">Concretely, it means that the Glicko-2 deviation is greater than 110. The deviation is the level of confidence the system has in the rating. The lower the deviation, the more stable is a rating.</string>
+	<string name="ratingDeviationMorethanOneHundredTen">具体地说，这表示 Glicko-2 的偏差大于110。偏差是评分的可靠性。偏差越低，评分越稳定。</string>
 	<string name="howDoLeaderoardsWork">排名及排行榜是如何运作的呢？</string>
 	<string name="inOrderToAppearsYouMust">为了登上%1$s您必须：</string>
 	<string name="ratingLeaderboards">排行榜：</string>
 	<string name="havePlayedMoreThanThirtyGamesInThatRating">在给定的评级中进行过至少30场排位赛，</string>
 	<string name="havePlayedARatedGameAtLeastOneWeekAgo">过去一周内，在此评级中进行过至少一场排位赛，</string>
-	<string name="ratingDeviationLowerThanXinChessYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
+	<string name="ratingDeviationLowerThanXinChessYinVariants">标准将棋对局的排名偏差小于 %1$s，变体棋局的排名偏差小于 %2$s，</string>
 	<string name="beInTopTen">在此排名中获得前十。</string>
 	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">第二项要求是为了让不再使用它们的帐号的棋手停止占用排行榜。</string>
 	<string name="whyAreRatingHigher">为什么等级分相比其他网站和组织要更高，比如 FIDE、USCF 和 ICC？</string>
