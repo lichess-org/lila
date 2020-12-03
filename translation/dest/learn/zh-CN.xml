@@ -40,9 +40,9 @@
 	<string name="theKnight">马</string>
 	<string name="itMovesInAnLShape">他向 L 形走，但只向前！</string>
 	<string name="knightIntro">给您一个挑战。桂馬是个。。。棘手的子。</string>
-	<string name="knightsHaveAFancyWay">Knights have a fancy way of jumping around!</string>
-	<string name="knightsCanJumpOverObstacles">Knights can jump over obstacles!</string>
-	<string name="knightSummary">The knight can jump in an L shape forward, but only by two squares forward and one square sideways. Its movement also isn\'t restricted by other pieces - it will just jump over them.</string>
+	<string name="knightsHaveAFancyWay">桂馬的跳动方是华丽的。</string>
+	<string name="knightsCanJumpOverObstacles">桂馬可以跳过障碍！</string>
+	<string name="knightSummary">桂馬可以像 L 形向前跳，但只能向两格后一格左右。它的移动也不被其它子限制——它就会跳过它们。</string>
 	<string name="pknightSummary">Promoted knight moves are completely different from the unpromoted knight, but you can notice it moves the same as the gold general, so make sure to study that one thoroughly.</string>
 	<string name="knightPromotion">The knight can also be promoted. His movements change a lot after that, so pay attention.</string>
 	<string name="knightComplete">恭喜！您已掌握了马。</string>
