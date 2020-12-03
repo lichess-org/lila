@@ -13,7 +13,7 @@
 	<string name="introIntro">您的路程从这里在开始</string>
 	<string name="choosePieceDesign">重要的是您可以分别棋子，所以清确保您选择正确的棋子。\n为了这一点，请点齿轮或您的用户名（右上角），之后点棋子设定。</string>
 	<string name="promotionZone">当您的一些棋子进入或退出靠进您对手的三路，您可以选择升变您的棋子。</string>
-	<string name="introComplete">You now know some basics, but this part of tutorial is still under construction. For now learn how individual pieces move.</string>
+	<string name="introComplete">你现在知道基本知识，但这教程的一部分正还没有完成。暂时学习个别棋子的移动方法。</string>
 	<string name="theRook">车</string>
 	<string name="itMovesInStraightLines">它以直线移动</string>
 	<string name="rookIntro">车是强大的棋子。您准备好指挥它了吗？</string>
@@ -165,13 +165,13 @@
 	<string name="whatNext">下一步</string>
 	<string name="youKnowHowToPlayChess">您已经学会怎么下将棋了，恭喜！您想成为一位更强的棋手吗？</string>
 	<string name="register">注册</string>
-	<string name="getAFreeLishogiAccount">Get a free Lishogi account</string>
+	<string name="getAFreeLishogiAccount">创建一个免费的 Lishogi 账户</string>
 	<string name="practice">练习</string>
-	<string name="learnCommonChessPositions">Learn common shogi positions</string>
+	<string name="learnCommonChessPositions">学习常见的将棋局面</string>
 	<string name="puzzles">训练题</string>
 	<string name="exerciseYourTacticalSkills">练习您的国际象棋战术</string>
 	<string name="videos">观看视频</string>
-	<string name="watchInstructiveChessVideos">Watch instructive shogi videos</string>
+	<string name="watchInstructiveChessVideos">收看将棋教学视频</string>
 	<string name="playPeople">和人类下棋</string>
 	<string name="opponentsFromAroundTheWorld">世界各地的对手</string>
 	<string name="playMachine">跟电脑玩</string>
