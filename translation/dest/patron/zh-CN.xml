@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="donate">捐赠</string>
-	<string name="lishogiPatron">Lishogi Patron</string>
+	<string name="lishogiPatron">Lishogi 赞助者</string>
 	<string name="freeAccount">免费账户</string>
 	<string name="becomePatron">成为 Lishogi 赞助者</string>
 	<string name="xBecamePatron">%s 成为了 Lishogi 的赞助者</string>
 	<string name="newPatrons">新赞助者</string>
-	<string name="freeChess">Free shogi for everyone, forever!</string>
+	<string name="freeChess">永远让大家免费下棋！</string>
 	<string name="noAdsNoSubs">没有广告，无需订阅；保持开源和热情。</string>
 	<string name="thankYou">感谢您的捐赠！</string>
 	<string name="youHaveLifetime">你有一个终身赞助者帐户。这太棒了！</string>
 	<string name="patronUntil">您的赞助帐户直到 %s。</string>
 	<string name="ifNotRenewed">如果没有续订，你将被降级为免费账户。</string>
-	<string name="weAreNonProfit">We are a non‑profit association because we believe everyone should have access to a free, world-class shogi platform.</string>
+	<string name="weAreNonProfit">我们是一个非营利协会，因为我们相信每个人都应享有一个免费的、世界级的将棋平台。</string>
 	<string name="weRelyOnSupport">我们能做到现在，就是依靠像您这样的人的支持。 如果您喜欢使用 Lishogi，请考虑捐赠并成为赞助者来支持我们！</string>
 	<string name="lifetime">终生</string>
 	<string name="payLifetimeOnce">支付 %s 一次。永远成为 Lishogi 赞助者！</string>
@@ -29,8 +29,8 @@
 	<string name="weAreSmallTeam">我们作为一个小团队，有你的支持将带来巨大的变化！</string>
 	<string name="celebratedPatrons">著名的赞助者让 Lishogi 成为可能。</string>
 	<string name="whereMoneyGoes">捐助都会去哪儿？</string>
-	<string name="serversAndDeveloper">First of all, powerful servers.
-Then we pay a full-time developer: %s, the founder of Lishogi.</string>
+	<string name="serversAndDeveloper">首先是快速的服务器。
+然后我们将聘请一个全职程序员：%s，Lishogi 的创始者。</string>
 	<string name="costBreakdown">查看详细的费用明细</string>
 	<string name="officialNonProfit">Lishogi 是官方的非营利组织吗？</string>
 	<string name="actOfCreation">是的。参考法人成立公务文书（法语）</string>
