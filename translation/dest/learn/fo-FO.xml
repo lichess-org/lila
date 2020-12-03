@@ -130,7 +130,7 @@
 - Hann er ikki skákaður.</string>
   <string name="stalemateComplete">Til lukku! Betri er at vera settur patt enn at vera settur skák og mát!</string>
   <string name="advanced">Framkomið stig</string>
-  <string name="pieceValue">Virði á fólki</string>
+  <string name="pieceValue">Talvfólkavirði</string>
   <string name="evaluatePieceStrength">Rokna styrkina á talvfólki</string>
   <string name="pieceValueIntro">Talvfólk, ið fáa flutt langt og lætt, hava hægri virði!
 Frúgv = 9
@@ -173,15 +173,15 @@ Finna = 1</string>
   <string name="greatJob">Væl gjørt!</string>
   <string name="perfect">Lýtaleyst!</string>
   <string name="outstanding">Avbera gott!</string>
-  <string name="wayToGo">Soleiðis skal gerast!</string>
+  <string name="wayToGo">Soleiðis!</string>
   <string name="yesYesYes">Ja, ja, ja!</string>
   <string name="youreGoodAtThis">Tú dugir hetta her!</string>
   <string name="nailedIt">Rakti seymin beint á høvdið.</string>
-  <string name="rightOn">Soleiðis!</string>
+  <string name="rightOn">Júst so!</string>
   <string name="stageXComplete">Stig %s fullført</string>
   <string name="yourScore">Títt stigatal</string>
   <string name="next">Næst</string>
   <string name="backToMenu">Aftur til valmyndina</string>
-  <string name="puzzleFailed">Avbjóðingin miseydnaðist!</string>
+  <string name="puzzleFailed">Uppgávan miseydnaðist!</string>
   <string name="retry">Royn aftur</string>
 </resources>
