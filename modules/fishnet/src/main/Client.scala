@@ -54,7 +54,6 @@ object Client {
 
   case class Instance(
       version: Version,
-      python: Python,
       engines: Engines,
       ip: IpAddress,
       seenAt: DateTime
@@ -62,7 +61,6 @@ object Client {
 
     def update(i: Instance): Option[Instance] =
       if (i.version != version) i.some
-      else if (i.python != python) i.some
       else if (i.engines != engines) i.some
       else if (i.ip != ip) i.some
       else if (i.seenAt isAfter seenAt.plusMinutes(5)) i.some
