@@ -546,7 +546,7 @@
 	<string name="clock">时钟</string>
 	<string name="unauthorizedError">您无权访问。</string>
 	<string name="noInternetConnection">您没有网络连接。您仍然可以从菜单选择离线下棋。</string>
-	<string name="connectedToLishogi">You are now connected to lishogi.org</string>
+	<string name="connectedToLishogi">您已连接到 lishogi.org</string>
 	<string name="signedOut">您已登出</string>
 	<string name="loginSuccessful">您已登录</string>
 	<string name="playOnTheBoardOffline">面对面</string>
@@ -585,7 +585,7 @@
 	<string name="webmasters">网站管理员</string>
 	<string name="about">关于</string>
 	<string name="aboutX">关于 %s</string>
-	<string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
+	<string name="xIsAFreeYLibreOpenSourceChessServer">%1$s 是一个免费 (%2$s)，自由，无广告的开源将棋服务器。</string>
 	<string name="really">不信？</string>
 	<string name="contribute">协助我们</string>
 	<string name="termsOfService">服务条款</string>
@@ -609,7 +609,7 @@
 	<string name="simulClockHint">菲舍尔时钟设置。挑战者越多，您所需时间就可能相应越多。</string>
 	<string name="simulAddExtraTime">您可以为自己附加时间应对车轮战。</string>
 	<string name="simulHostExtraTime">主持的额外时间</string>
-	<string name="lishogiTournaments">Lishogi tournaments</string>
+	<string name="lishogiTournaments">Lishogi 锦标赛</string>
 	<string name="tournamentFAQ">锦标赛常见问题</string>
 	<string name="tournamentOfficial">官方比赛</string>
 	<string name="timeBeforeTournamentStarts">锦标赛开始前的时间</string>
@@ -620,7 +620,7 @@
 	<string name="keyShowOrHideComments">显示／隐藏评论</string>
 	<string name="keyEnterOrExitVariation">进入／退出变着</string>
 	<string name="newTournament">新锦标赛</string>
-	<string name="tournamentHomeTitle">Shogi tournaments featuring various time controls and variants</string>
+	<string name="tournamentHomeTitle">设有不同时间限制和变体的将棋锦标赛</string>
 	<string name="tournamentHomeDescription">Play fast-paced shogi tournaments! Join an official scheduled tournament, or create your own. Bullet, Blitz, Classical and more options available for endless shogi fun.</string>
 	<string name="tournamentNotFound">找不到该锦标赛</string>
 	<string name="tournamentDoesNotExist">该锦标赛不存在。</string>
@@ -666,7 +666,7 @@
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">以下是通过您的帐户登录的设备列表。请注销所有您不认为是您本人开启的会话。</string>
 	<string name="alternativelyYouCanX">或者你可以 %s。</string>
 	<string name="revokeAllSessions">注销所有会话</string>
-	<string name="playChessEverywhere">Play shogi everywhere</string>
+	<string name="playChessEverywhere">随处下将棋</string>
 	<string name="asFreeAsLishogi">As free as Lishogi</string>
 	<string name="builtForTheLoveOfChessNotMoney">Built for the love of shogi, not money</string>
 	<string name="everybodyGetsAllFeaturesForFree">每个人都可以免费使用所有功能</string>
@@ -706,9 +706,9 @@
 	<string name="usernameSuffixInvalid">用户名必须以字母或数字结尾。</string>
 	<string name="usernameCharsInvalid">用户名必须只包含字母、数字、下划线和连字符。</string>
 	<string name="usernameUnacceptable">该用户名不被接受。</string>
-	<string name="directlySupportLishogi">Directly support Lishogi</string>
+	<string name="directlySupportLishogi">支持 Lishogi</string>
 	<string name="playChessInStyle">Play shogi in style</string>
-	<string name="chessBasics">Shogi basics</string>
+	<string name="chessBasics">将棋基础知识</string>
 	<string name="coaches">教练</string>
 	<string name="invalidPgn">PGN无法识别</string>
 	<string name="invalidFen">FEN无法识别</string>
@@ -824,7 +824,7 @@
 	<string name="unsubscribe">取消订阅</string>
 	<string name="blackDeclinesImpasse">Sente declines impasse</string>
 	<string name="blackOffersImpasse">Sente offers impasse</string>
-	<string name="notationType">Notation</string>
+	<string name="notationType">棋谱记法</string>
 	<string name="whiteDeclinesImpasse">Gote declines impasse</string>
 	<string name="whiteOffersImpasse">Gote offers impasse</string>
 </resources>
