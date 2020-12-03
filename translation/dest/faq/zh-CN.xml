@@ -47,7 +47,7 @@
 
 Lishogi上的电脑分析是基于Stockfish的。</string>
 	<string name="insufficientMaterial">超时判负，和棋以及子力不足</string>
-	<string name="lishogiFollowFIDErules">如果玩家消尽了时间，该玩家通常会被判负。</string>
+	<string name="lishogiFollowFIDErules">如果玩家消尽了时间，该玩家通常会被判负（%1$s)。</string>
 	<string name="linkToFIDErules">FIDE（世界国际象棋联合会）手册PDF章节§6.9</string>
 	<string name="discoveringEnPassant">为什么兵能够吃掉另外一只已经经过了它控制格子的兵？（吃过路兵）</string>
 	<string name="explainingEnPassant">这是一个叫做“吃过路兵”的合法着法。维基百科文章给出了一个%1$s。
@@ -73,7 +73,9 @@ Lishogi上的电脑分析是基于Stockfish的。</string>
 	<string name="accounts">帐号</string>
 	<string name="titlesAvailableOnLishogi">Lishogi 上有什么称号？</string>
 	<string name="lishogiRecognizeAllOTBtitles">Lishogi recognises all FIDE titles gained from OTB (over the board) play, as well as %1$s. Here is a list of FIDE titles:</string>
-	<string name="showYourTitle">有一个%2$s荣誉称号。</string>
+	<string name="showYourTitle">如果您有称号，可以完成%1$s将账户下表贴。
+
+最后，有一个%2$s荣誉称号。</string>
 	<string name="asWellAsManyNMtitles">许多国家级大师头衔</string>
 	<string name="verificationForm">验证表格</string>
 	<string name="canIbecomeLM">我可以获得 Lishogi 大师 (LM) 头衔吗？</string>
