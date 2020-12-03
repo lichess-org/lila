@@ -87,6 +87,7 @@ GET   /training/themes                 controllers.Puzzle.themes
 GET   /training/:themeOrId             controllers.Puzzle.show(themeOrId: String)
 GET   /training/:theme/$id<\w{5}>      controllers.Puzzle.showWithTheme(theme: String, id: String)
 POST  /training/$id<\w{5}>/vote        controllers.Puzzle.vote(id: String)
+POST  /training/$id<\w{5}>/vote/:theme controllers.Puzzle.voteTheme(id: String, theme: String)
 POST  /training/complete/:theme/$id<\w{5}>  controllers.Puzzle.complete(theme: String, id: String)
 
 # User Analysis

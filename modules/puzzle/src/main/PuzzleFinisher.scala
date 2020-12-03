@@ -61,13 +61,7 @@ final private[puzzle] class PuzzleFinisher(
               if (theme == PuzzleTheme.any.key) g else g.average(puzzle.glicko)
             }
             .filter(_.sanityCheck)
-          val round = PuzzleRound(
-            id = PuzzleRound.Id(user.id, puzzle.id),
-            date = now,
-            win = result.win,
-            vote = none,
-            weight = none
-          )
+          val round = PuzzleRound(id = PuzzleRound.Id(user.id, puzzle.id), date = now, win = result.win)
           val userPerf =
             user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, now) pipe {
               p =>

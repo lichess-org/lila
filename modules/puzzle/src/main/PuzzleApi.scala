@@ -29,8 +29,8 @@ final private[puzzle] class PuzzleApi(
 
   object round {
 
-    def find(user: User, puzzle: Puzzle): Fu[Option[PuzzleRound]] =
-      colls.round(_.byId[PuzzleRound](PuzzleRound.Id(user.id, puzzle.id).toString))
+    def find(user: User, puzzleId: Puzzle.Id): Fu[Option[PuzzleRound]] =
+      colls.round(_.byId[PuzzleRound](PuzzleRound.Id(user.id, puzzleId).toString))
 
     def upsert(a: PuzzleRound) = colls.round(_.update.one($id(a.id), a, upsert = true))
 
@@ -68,5 +68,18 @@ final private[puzzle] class PuzzleApi(
           }
         }
       }
+
+    def vote(user: User, id: Puzzle.Id, theme: PuzzleTheme, vote: Option[Boolean]): Funit =
+      round.find(user, id) flatMap {
+        _ ?? { round =>
+          ???
+        }
+      }
+    // colls.round {
+    //   _.byId[
+    //     .findAndUpdate[PuzzleRound](
+    //       $id(PuzzleRound.Id(user.id, id)),
+    //       $set($doc(PuzzleRound.BSONFields.vote -> vote))
+
   }
 }

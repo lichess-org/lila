@@ -12,4 +12,8 @@ object PuzzleForm {
   val vote = Form(
     single("vote" -> boolean)
   )
+
+  val themeVote = Form(
+    single("vote" -> optional(boolean))
+  )
 }

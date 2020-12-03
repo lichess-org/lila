@@ -420,7 +420,6 @@ object mon {
   object puzzle {
     object selector {
       val time = timer("puzzle.selector.time").withoutTags()
-      val vote = histogram("puzzle.selector.vote").withoutTags()
     }
     object batch {
       object selector {
@@ -433,8 +432,14 @@ object mon {
       def attempt(user: Boolean, theme: String) =
         counter("puzzle.attempt.count").withTags(Map("user" -> user, "theme" -> theme))
     }
-    def vote(up: Boolean) = counter("puzzle.vote.count").withTag("dir", if (up) "up" else "down")
-    val crazyGlicko       = counter("puzzle.crazyGlicko").withoutTags()
+    def vote(up: Boolean) = counter("puzzle.vote.count").withTag("up", up)
+    def voteTheme(key: String, up: Boolean) = counter("puzzle.selector.voteTheme").withTags(
+      Map(
+        "up"    -> up,
+        "theme" -> key
+      )
+    )
+    val crazyGlicko = counter("puzzle.crazyGlicko").withoutTags()
   }
   object game {
     def finish(variant: String, speed: String, source: String, mode: String, status: String) =

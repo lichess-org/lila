@@ -139,6 +139,24 @@ final class Puzzle(
       }
     }
 
+  def voteTheme(id: String, themeStr: String) =
+    AuthBody { implicit ctx => me =>
+      NoBot {
+        PuzzleTheme.find(themeStr) ?? { theme =>
+          implicit val req = ctx.body
+          env.puzzle.forms.themeVote
+            .bindFromRequest()
+            .fold(
+              jsonFormError,
+              vote => {
+                vote foreach { v => lila.mon.puzzle.voteTheme(theme.key.value, v).increment() }
+                env.puzzle.api.theme.vote(Puz.Id(id), me, theme, vote) inject jsonOkResult
+              }
+            )
+        }
+      }
+    }
+
   /* Mobile API: select a bunch of puzzles for offline use */
   def batchSelect =
     Auth { implicit ctx => me =>
