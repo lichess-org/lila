@@ -21,7 +21,7 @@
 	<string name="whyFlaggedRatingManipulationOrCheater">为什么我被标记为人为操纵分数 (伪装和欺骗) 或开外挂？</string>
 	<string name="cheatDetectionMethods">Lishogi具有一套强有力的侦查方法和非常彻底的审查所有证据和作出决定的程序。 这套程序往往涉及许多仲裁人，而且可能需要很长时间。 除了标记本身外，我们将不详细了解个别案件的证据或决策过程。 这样做将使今后更容易避免被发现，并且是邀请进行毫无结果的辩论。 这个时间和精力最好花在其他重要案件上。用户可以通过电子邮件 %1$s进行上诉，但是裁决很少被推翻。</string>
 	<string name="whenAmIEligibleRatinRefund">我何时有资格从作弊者自动退还积分？</string>
-	<string name="ratingRefundExplanation">在棋手被标记1分钟后，他们在过去3天内的40最新评分对局被标记。 如果你下了这些对局并丢分 (因为输棋或平局) ，而且你的评分不是暂时评分，那么你所丢分数会返还。返还分数限制在不超过你的最高分和该对局应得分数。(例如，如果你的评分在这些对局后大幅增加，你可能得不到所有或部分返还分数）返回分数不会超过150分。</string>
+	<string name="ratingRefundExplanation">在棋手被标记1分钟后，他们在过去3天内的40最新评分对局被标记。 如果你下了这些对局并丢分 (因为输棋或平局) ，而且你的评分不是暂时评分，那么你所丢分数会返还。返还分数限制在不超过你的最高分和该对局应得分数。(例如，如果你的评分在这些对局后大幅增加，你可能得不到所有或部分返还分数。）返回分数不会超过150分。</string>
 	<string name="preventLeavingGameWithoutResigning">对没有认输就离开的玩家怎么处理？</string>
 	<string name="leavingGameWithoutResigningExplanation">如果你的对手经常中止/离开游戏，他们会得到“游戏禁令”，这意味着他们被暂时禁止玩游戏。 这一点在他们的简介中没有公开说明。 如果这种行为继续下去，游戏禁令的期限就会延长――长期这种行为可能会导致帐户的关闭。</string>
 	<string name="howCanIBecomeModerator">如何成为仲裁人？</string>
