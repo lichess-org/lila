@@ -59,7 +59,7 @@
 
   @include breakpoint($mq-col2) {
     @include breakpoint($mq-tall) {
-      flex: 1 0 11rem;
+      flex: 1 0 13rem;
     }
   }
 

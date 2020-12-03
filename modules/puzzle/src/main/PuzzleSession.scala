@@ -14,8 +14,9 @@ private case class PuzzleSession(
     theme: PuzzleTheme.Key,
     tier: PuzzleTier,
     path: Puzzle.PathId,
-    previousPaths: Set[Puzzle.PathId],
-    positionInPath: Int
+    positionInPath: Int,
+    previousPaths: Set[Puzzle.PathId] = Set.empty,
+    previousVotes: List[Boolean] = List.empty // most recent first
 ) {
   def switchTo(tier: PuzzleTier, pathId: Puzzle.PathId) = copy(
     tier = tier,
@@ -154,7 +155,7 @@ final class PuzzleSessionApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: U
   private def createSessionFor(user: User, theme: PuzzleTheme.Key): Fu[PuzzleSession] =
     nextPathIdFor(user.id, theme, PuzzleTier.Top, Set.empty)
       .orFail(s"No puzzle path found for ${user.id}, theme: $theme")
-      .dmap(pathId => PuzzleSession(theme, PuzzleTier.Top, pathId, Set.empty, 0))
+      .dmap(pathId => PuzzleSession(theme, PuzzleTier.Top, pathId, 0))
 
   private def nextPathIdFor(
       userId: User.ID,

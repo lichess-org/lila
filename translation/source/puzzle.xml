@@ -17,8 +17,10 @@
   <string name="goodMove">Good move</string>
   <string name="bestMove">Best move!</string>
   <string name="keepGoing">Keep going…</string>
-  <string name="puzzleFailed">Puzzle failed</string>
-  <string name="butYouCanKeepTrying">But you can keep trying.</string>
+  <string name="puzzleSuccess">Success!</string>
+  <string name="puzzleComplete">Puzzle complete!</string>
+  <string name="notTheMove">That's not the move!</string>
+  <string name="trySomethingElse">Try something else.</string>
   <string name="ratingX">Rating: %s</string>
   <string name="hidden">hidden</string>
   <plurals name="playedXTimes">

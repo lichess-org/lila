@@ -1,8 +1,8 @@
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode';
 import afterView from './after';
 import { bind } from '../util';
 import { Controller, MaybeVNode } from '../interfaces';
+import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode';
 
 function viewSolution(ctrl: Controller): VNode {
   return h('div.view_solution', {
@@ -40,26 +40,13 @@ function good(ctrl: Controller): VNode {
   ]);
 }
 
-function retry(ctrl: Controller): VNode {
-  return h('div.puzzle__feedback.retry', [
-    h('div.player', [
-      h('div.icon', '!'),
-      h('div.instruction', [
-        h('strong', ctrl.trans.noarg('goodMove')),
-        h('em', ctrl.trans.noarg('butYouCanDoBetter'))
-      ])
-    ]),
-    viewSolution(ctrl)
-  ]);
-}
-
 function fail(ctrl: Controller): VNode {
   return h('div.puzzle__feedback.fail', [
     h('div.player', [
       h('div.icon', '✗'),
       h('div.instruction', [
-        h('strong', ctrl.trans.noarg('puzzleFailed')),
-        h('em', ctrl.trans.noarg('butYouCanKeepTrying'))
+        h('strong', ctrl.trans.noarg('notTheMove')),
+        h('em', ctrl.trans.noarg('trySomethingElse'))
       ])
     ]),
     viewSolution(ctrl)
@@ -68,9 +55,10 @@ function fail(ctrl: Controller): VNode {
 
 export default function(ctrl: Controller): MaybeVNode {
   if (ctrl.vm.mode === 'view') return afterView(ctrl);
-  if (ctrl.vm.lastFeedback === 'init') return initial(ctrl);
-  if (ctrl.vm.lastFeedback === 'good') return good(ctrl);
-  if (ctrl.vm.lastFeedback === 'retry') return retry(ctrl);
-  if (ctrl.vm.lastFeedback === 'fail') return fail(ctrl);
+  switch (ctrl.vm.lastFeedback) {
+    case 'init': return initial(ctrl);
+    case 'good': return good(ctrl);
+    case 'fail': return fail(ctrl);
+  }
   return;
 }

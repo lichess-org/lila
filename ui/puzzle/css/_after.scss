@@ -1,5 +1,6 @@
 .puzzle__feedback.after {
   flex-flow: row nowrap;
+
   @include breakpoint($mq-col2) {
     flex-flow: column;
   }
@@ -10,12 +11,7 @@
     justify-content: center;
     flex: 1 1 50%;
     font-size: 1.3em;
-    border: none;
     white-space: nowrap;
-
-    @include breakpoint($mq-col2) {
-      margin: 1.2em 0 1em 0;
-    }
   }
 
   .continue {
@@ -47,10 +43,10 @@
 .puzzle__vote {
   @extend %flex-column;
 
-  flex: 1 1 50%;
+  flex: 1 1 70%;
 
   &__help {
-    margin: 1em;
+    margin: .5em 1em 0 0;
     p {
       display: inline;
       &:last-child {
@@ -59,6 +55,7 @@
     }
     @include breakpoint($mq-col2) {
       display: block;
+      margin: 0 1em;
     }
   }
 

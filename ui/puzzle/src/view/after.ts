@@ -29,10 +29,7 @@ const renderContinue = (ctrl: Controller) =>
 export default function(ctrl: Controller): VNode {
   const data = ctrl.getData();
   return h('div.puzzle__feedback.after', [
-    ctrl.vm.lastFeedback === 'win' ? h('div.complete.feedback.win', h('div.player', [
-      h('div.icon', '✓'),
-      h('div.instruction', ctrl.trans.noarg('success'))
-    ])) : h('div.complete', 'Puzzle complete!'),
+    h('div.complete', ctrl.trans.noarg(ctrl.vm.lastFeedback == 'win' ? 'puzzleSuccess' : 'puzzleComplete')),
     data.user ? renderVote(ctrl) : renderContinue(ctrl)
   ]);
 }

@@ -1,6 +1,7 @@
 .puzzle__session {
   display: flex;
   flex-flow: row wrap-reverse;
+  margin-top: -.4em;
   a {
     @extend %box-radius;
     flex: 0 0 2em;
