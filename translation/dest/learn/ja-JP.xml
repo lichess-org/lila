@@ -30,7 +30,7 @@
 	<string name="bishopIntro">次は角行の動き方です！</string>
 	<string name="bishopPromotion">角行が成ると、竜馬と呼ばれるより強い駒に変化します。</string>
 	<string name="bishopSummary">角行は斜めへどの方向にも動きます。</string>
-	<string name="horseSummary">成った角行は斜めにも動きますが、上下、左右に1マス進むこともできます。</string>
+	<string name="horseSummary">竜馬は斜めにも動きますが、上下、左右に1マス進むこともできます。</string>
 	<string name="bishopComplete">おめでとう！角行を使えるようになりました。</string>
 	<string name="theKing">王将/玉将</string>
 	<string name="theMostImportantPiece">一番大事な駒</string>
