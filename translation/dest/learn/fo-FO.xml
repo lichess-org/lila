@@ -71,7 +71,7 @@
   <string name="combatIntro">Ein góður stríðsmaður kennir bæði álop og verju!</string>
   <string name="combatComplete">Til lukku! Nú dugir tú at berjast við talvfólkum!</string>
   <string name="checkInOne">Skák í einum</string>
-  <string name="attackTheOpponentsKing">Leyp á kongin hjá mótstøðufólkinum</string>
+  <string name="attackTheOpponentsKing">Leyp á kongin hjá mótleikaranum</string>
   <string name="checkInOneIntro">Til tess at skáka mótpartin, mást tú leypa á kongin. Mótparturin má verja hann!</string>
   <string name="checkInOneGoal">Hótt mótstøðukongin í einum leiki!</string>
   <string name="checkInOneComplete">Til lukku! Tú skákaði mótpartin, og noyddi hann at verja kongin!</string>
@@ -82,7 +82,7 @@
   <string name="theKingCannotEscapeButBlock">Kongurin fær ikki rýmt, men tú kanst seta eitt fólk fyri!</string>
   <string name="youCanGetOutOfCheckByTaking">Tú sleppur úr skákinum við at taka fólkið, ið skákar.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Hesin riddarin skákar gjøgnum tína verju!</string>
-  <string name="escapeOrBlock">Rým við konginum ella set eitt fólk fyri!</string>
+  <string name="escapeOrBlock">Rým við konginum, ella set eitt fólk fyri!</string>
   <string name="outOfCheckComplete">Til lukku! Kongurin hjá tær verður ikki tikin. Ansa eftir, at tú fært vart móti skáki!</string>
   <string name="mateInOne">Skák og mát í einum</string>
   <string name="defeatTheOpponentsKing">Vinn á mótstøðukonginum</string>
@@ -90,7 +90,7 @@
   <string name="attackYourOpponentsKing">Leyp á mótstøðukongin, soleiðis at hann ikki fær vart seg!</string>
   <string name="mateInOneComplete">Til lukku! Soleiðis vinnur tú í talvi!</string>
   <string name="intermediate">Millumstig</string>
-  <string name="boardSetup">Talvborðið</string>
+  <string name="boardSetup">At seta talvið upp</string>
   <string name="howTheGameStarts">Hvussu talvið byrjar</string>
   <string name="boardSetupIntro">Herliðini standa yvirav hvørjum øðrum, til reiðar til bardaga.</string>
   <string name="thisIsTheInitialPosition">Hetta er byrjanarstøðan í hvørjum talvi! Flyt okkurt fólk fyri at halda fram.</string>
@@ -99,7 +99,7 @@
   <string name="placeTheBishops">Set bisparnar upp á pláss! Teir standa undir liðini á riddarunum.</string>
   <string name="placeTheQueen">Set frúnna, har hon eigur at standa! Hon stendur á sínum egna liti.</string>
   <string name="placeTheKing">Set kongin, har hann eigur at standa! Beint undir liðini á frúnni.</string>
-  <string name="pawnsFormTheFrontLine">Finnurnar standa fremst. Flyt okkurt fólk fyri at halda fram.</string>
+  <string name="pawnsFormTheFrontLine">Finnurnar standa fremst. Flyt okkurt fólk til tess at halda fram.</string>
   <string name="boardSetupComplete">Til lukku! Tú dugir at seta fólkini, har tey eiga at standa.</string>
   <string name="castling">At leypa í borg</string>
   <string name="theSpecialKingMove">Serligi leikurin hjá kongi</string>
@@ -112,7 +112,7 @@
   <string name="youCannotCastleIfMoved">Tú fært ikki lopið í borg, um kongurin longu er fluttur, ella um rókurin longu er fluttur.</string>
   <string name="youCannotCastleIfAttacked">Tú sleppur ikki at leypa í borg, um kongurin verður álopin á vegnum. Flyt eitt fólk fyri, og leyp so í borg!</string>
   <string name="findAWayToCastleKingSide">Finn útav einum máta at leypa í borg kongamegin (stuttu borg)!</string>
-  <string name="findAWayToCastleQueenSide">Finn ein máta at leypa í borg frúgvamegin (longu borg)!</string>
+  <string name="findAWayToCastleQueenSide">Finn ein hátt at leypa í borg frúgvamegin (longu borg)!</string>
   <string name="castlingComplete">Til lukku! Tú eigur næstan altíð at leypa í borg í einum talvi.</string>
   <string name="enPassant">At taka í framlopi (en passant)</string>
   <string name="theSpecialPawnMove">Serligi finnuleikurin</string>
