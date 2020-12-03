@@ -288,6 +288,7 @@ object mon {
       val fix                 = c.withTag("type", "fix")
       val change              = c.withTag("type", "change")
       val confirmation        = c.withTag("type", "confirmation")
+      val welcome             = c.withTag("type", "welcome")
       val time                = timer("email.send.time").withoutTags()
       def error(name: String) = counter("email.error").withTag("name", name)
     }

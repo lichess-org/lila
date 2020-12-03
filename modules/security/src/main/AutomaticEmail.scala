@@ -23,6 +23,7 @@ final class AutomaticEmail(
 The Lichess team"""
 
   def welcome(user: User, email: EmailAddress)(implicit lang: Lang): Funit = {
+    lila.mon.email.send.welcome.increment()
     val profileUrl = s"$baseUrl/@/${user.username}"
     val editUrl    = s"$baseUrl/account/profile"
     mailgun send Mailgun.Message(
