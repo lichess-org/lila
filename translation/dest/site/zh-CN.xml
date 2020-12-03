@@ -323,9 +323,9 @@
 	<plurals name="nbImportedGames">
 		<item quantity="other">%s盘导入的棋局</item>
 	</plurals>
-	<string name="thisIsAChessCaptcha">This is a shogi CAPTCHA.</string>
+	<string name="thisIsAChessCaptcha">这是一个将棋验证码。</string>
 	<string name="clickOnTheBoardToMakeYourMove">点击棋盘走棋来证明你是人类。</string>
-	<string name="captcha.fail">Please solve the shogi captcha.</string>
+	<string name="captcha.fail">请解答将棋验证码。</string>
 	<string name="notACheckmate">沒有将死</string>
 	<string name="whiteCheckmatesInOneMove">白方一步将死</string>
 	<string name="blackCheckmatesInOneMove">黑方一步将死</string>
@@ -420,8 +420,8 @@
 	<string name="country">国家与地区</string>
 	<string name="socialMediaLinks">社交媒体链接</string>
 	<string name="inlineNotation">棋谱上的步数代号</string>
-	<string name="watchLishogiTV">Watch Lishogi TV</string>
-	<string name="previouslyOnLishogiTV">Previously on Lishogi TV</string>
+	<string name="watchLishogiTV">观看 Lishogi 直播</string>
+	<string name="previouslyOnLishogiTV">过去的 Lishogi 直播</string>
 	<string name="onlinePlayers">在线棋手</string>
 	<string name="activeToday">本日活跃棋手</string>
 	<string name="activePlayers">活跃棋手</string>
@@ -532,7 +532,7 @@
 	<string name="starting">开始时间：</string>
 	<string name="allInformationIsPublicAndOptional">所有资料是公开且可选填的。</string>
 	<string name="yourCityRegionOrDepartment">您的城市、地区或省份。</string>
-	<string name="biographyDescription">Talk about yourself, your interests, what you like in shogi, your favourite openings, players, ...</string>
+	<string name="biographyDescription">说说你自己，你的兴趣，你喜欢的开局，棋局，棋手。。。</string>
 	<plurals name="maximumNbCharacters">
 		<item quantity="other">最多%s个字符</item>
 	</plurals>
