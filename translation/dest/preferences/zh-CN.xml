@@ -9,13 +9,13 @@
 	<string name="boardCoordinates">棋盘坐标（A-H, 1-8）</string>
 	<string name="moveListWhilePlaying">对局进行时显示可走着</string>
 	<string name="pgnPieceNotation">使用PGN字母(K,Q,R,B,N)或棋子图标来显示PGN棋谱</string>
-	<string name="chessPieceSymbol">Shogi piece symbol</string>
-	<string name="pgnLetter">Letter (K, R, B, G, S, N, L)</string>
+	<string name="chessPieceSymbol">将棋子符号</string>
+	<string name="pgnLetter">字母（K，R，B，G，S，N，L）</string>
 	<string name="zenMode">禅意模式</string>
 	<string name="displayBoardResizeHandle">展示棋盘大小调整柄</string>
 	<string name="onlyOnInitialPosition">仅初始局面</string>
-	<string name="blindfoldChess">Blindfold shogi (invisible pieces)</string>
-	<string name="chessClock">Shogi clock</string>
+	<string name="blindfoldChess">盲将棋（看不见棋子）</string>
+	<string name="chessClock">棋种</string>
 	<string name="tenthsOfSeconds">显示十分之一秒</string>
 	<string name="whenTimeRemainingLessThanTenSeconds">当剩余时间小于10秒</string>
 	<string name="horizontalGreenProgressBars">显示绿色横进度条</string>
