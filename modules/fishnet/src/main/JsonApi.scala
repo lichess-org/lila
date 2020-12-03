@@ -20,7 +20,6 @@ object JsonApi {
     def instance(ip: IpAddress) =
       Client.Instance(
         fishnet.version,
-        fishnet.python | Client.Python(""),
         Client.Engines(
           stockfish = Client.Engine(stockfish.name)
         ),

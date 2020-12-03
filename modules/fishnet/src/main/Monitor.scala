@@ -88,9 +88,6 @@ final private class Monitor(
       instances.groupMapReduce(_.engines.stockfish.name)(_ => 1)(_ + _) foreach { case (s, nb) =>
         stockfish(s).update(nb)
       }
-      instances.groupMapReduce(_.python.value)(_ => 1)(_ + _) foreach { case (s, nb) =>
-        python(s).update(nb)
-      }
     }
 
   private def monitorStatus(): Funit =
