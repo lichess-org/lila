@@ -63,21 +63,21 @@
 	<string name="planceSummary">它与金将不相同。</string>
 	<string name="lanceComplete">太棒了！</string>
 	<string name="theGold">金将</string>
-	<string name="itMovesInAnyDirectionExceptDiagonallyBack">The gold general moves in any direction EXCEPT diagonally back.</string>
-	<string name="goldIntro">The gold general movements might be a bit harder to remember at first, but you can surely do it.</string>
-	<string name="goldDoesntPromote">The gold general together with the king is the only piece you CAN\'T promote.</string>
-	<string name="goldSummary">Try to remember these moves, many pieces move the same after they are promoted.</string>
-	<string name="goldComplete">Congratulations! You got this.</string>
-	<string name="theSilver">The silver general</string>
-	<string name="itMovesEitherForwardOrDiagonallyBack">The silver general moves either forward or diagonally back.</string>
-	<string name="silverIntro">Another piece with unusual movements, but this is the last one. Promise!</string>
-	<string name="silverPromotion">When you promote the silver general his movements are the same as the gold general.</string>
-	<string name="silverSummary">You will surely remember these moves with some practice.</string>
-	<string name="psilverSummary">Same as the gold general, you will see this a lot.</string>
-	<string name="silverComplete">Congratulations! You are on a roll.</string>
-	<string name="promotion">This piece can be promoted.</string>
-	<string name="yourPieceReachedThePromotionZone">Your piece reached the promotion zone!</string>
-	<string name="itNowPromotesToAStrongerPiece">It can now be promoted to a stronger piece.</string>
+	<string name="itMovesInAnyDirectionExceptDiagonallyBack">金将可以向任何方向除了斜后方。</string>
+	<string name="goldIntro">金将移动可能一开始难记住，但您肯定可以做到！</string>
+	<string name="goldDoesntPromote">金将和玉将是您不可升变的棋子。</string>
+	<string name="goldSummary">试着记住这些移动方法，许多移动方法在升变后有相同的移动方法。</string>
+	<string name="goldComplete">恭喜！您做到了。</string>
+	<string name="theSilver">銀将</string>
+	<string name="itMovesEitherForwardOrDiagonallyBack">銀将向前或向斜后走。</string>
+	<string name="silverIntro">另一个异常移动的棋子，但这是最后一个。相信我！</string>
+	<string name="silverPromotion">銀将生变后它的移动方法与金将相同。</string>
+	<string name="silverSummary">您一定会以练习记住这些移动方法。</string>
+	<string name="psilverSummary">与金将一样，以后常见这。</string>
+	<string name="silverComplete">恭喜！</string>
+	<string name="promotion">这子可升变。</string>
+	<string name="yourPieceReachedThePromotionZone">您的棋子到达了升变区！</string>
+	<string name="itNowPromotesToAStrongerPiece">现在它可以升变成一个更强的子。</string>
 	<string name="selectThePieceYouWant">请选择您要的棋子。</string>
 	<string name="fundamentals">基础</string>
 	<string name="capture">吃子</string>
@@ -86,7 +86,7 @@
 	<string name="takeTheBlackPieces">吃掉黑棋！</string>
 	<string name="takeTheBlackPiecesAndDontLoseYours">吃掉黑棋！
 请不要失去您的。</string>
-	<string name="captureComplete">Congratulations! You know how to fight with shogi pieces!</string>
+	<string name="captureComplete">恭喜！您已经了解如何用将棋子！</string>
 	<string name="protection">保护</string>
 	<string name="keepYourPiecesSafe">确保您的棋子安全</string>
 	<string name="protectionIntro">请找到被对手威胁的棋子并保护它们。</string>
@@ -99,7 +99,7 @@
 	<string name="combat">攻防</string>
 	<string name="captureAndDefendPieces">吃子与保护</string>
 	<string name="combatIntro">一个优秀的战士同时懂得进攻和防御。</string>
-	<string name="combatComplete">Congratulations! You know how to fight with shogi pieces!</string>
+	<string name="combatComplete">恭喜！您已经了解如何用将棋子！</string>
 	<string name="checkInOne">一步将</string>
 	<string name="attackTheOpponentsKing">攻击对手的王</string>
 	<string name="checkInOneIntro">攻击对手的王是将军。对方必须应将。</string>
@@ -119,21 +119,20 @@
 	<string name="defeatTheOpponentsKing">将死敌王</string>
 	<string name="mateInOneIntro">当您的对手无法应将时您赢得了一局。</string>
 	<string name="attackYourOpponentsKing">请对敌王进行将军使得对方无法应将。</string>
-	<string name="mateInOneComplete">Congratulations! That is how you win shogi games!</string>
+	<string name="mateInOneComplete">恭喜！这就是将棋赢局的方法！</string>
 	<string name="intermediate">中级</string>
 	<string name="boardSetup">开局时摆法</string>
 	<string name="howTheGameStarts">棋局是怎么开始的</string>
 	<string name="boardSetupIntro">两军对峙，准备战斗。</string>
-	<string name="thisIsTheInitialPosition">This is the initial position
-of every game of shogi!
-Make any move to continue.</string>
+	<string name="thisIsTheInitialPosition">这是每一盘将棋开局时的棋子摆法。
+请走任何棋子继续。</string>
 	<string name="firstPlaceTheRooks">首先请把车放在棋盘角落里。</string>
 	<string name="thenPlaceTheKnights">然后请把马放在车的内侧。</string>
 	<string name="placeTheBishops">现在请把象放在马的内侧。</string>
 	<string name="placeTheQueen">请把后放在棋盘上。它格子的颜色和它棋子的颜色相同。</string>
 	<string name="placeTheKing">最后请把王放在后的旁边。</string>
 	<string name="pawnsFormTheFrontLine">兵排在前面。请走任意棋子继续。</string>
-	<string name="boardSetupComplete">Congratulations! You know how to set up the shogi board.</string>
+	<string name="boardSetupComplete">恭喜！您已经了解如何摆棋子。</string>
 	<string name="stalemate">逼和</string>
 	<string name="theGameIsADraw">本局和棋</string>
 	<string name="stalemateIntro">当一位棋手并没有被将军但无法着棋时逼和发生了：没有人赢棋，也没有人输棋。</string>
@@ -164,7 +163,7 @@ Make any move to continue.</string>
 	<string name="checkInTwoGoal">二步将</string>
 	<string name="checkInTwoComplete">恭喜！您成功地将对手将军，迫使对方保护王。</string>
 	<string name="whatNext">下一步</string>
-	<string name="youKnowHowToPlayChess">You know how to play shogi, congratulations! Do you want to become a stronger player?</string>
+	<string name="youKnowHowToPlayChess">您已经学会怎么下将棋了，恭喜！您想成为一位更强的棋手吗？</string>
 	<string name="register">注册</string>
 	<string name="getAFreeLishogiAccount">Get a free Lishogi account</string>
 	<string name="practice">练习</string>
