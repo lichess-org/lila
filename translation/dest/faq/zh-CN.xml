@@ -92,19 +92,19 @@ Lishogi上的电脑分析是基于Stockfish的。</string>
 	<string name="aHourlyBulletTournament">一小时子弹快棋锦标赛</string>
 	<string name="goldenZeeExplanation">ZugAddict was streaming and for the last 2 hours he had been trying to defeat A.I. level 8 in a 1+0 game, without success. Thibault told him that if he successfully did it on stream, he\'d get a unique trophy. One hour later, he smashed Stockfish, and the promise was honoured.</string>
 	<string name="lishogiRatings">Lishogi 评分</string>
-	<string name="whichRatingSystemUsedByLishogi">Lishogi 使用什么积分系统？</string>
-	<string name="ratingSystemUsedByLishogi">Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant number of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system).
+	<string name="whichRatingSystemUsedByLishogi">Lishogi 使用什么评分系统？</string>
+	<string name="ratingSystemUsedByLishogi">评分是使用 Mark Glickman 的 Glicko-2 评分方法计算得。 这是一种非常普及的评分算法，许多国际象棋组织都使用了这算法。 
 
-Fundamentally, Glicko ratings use \"confidence intervals\" when calculating and representing your rating. When you first start using the site, your rating starts at 1500 ± 700. The 1500 represents your rating, and the 700 represents the confidence interval.
+基本上，Glicko评分在计算和表示您的评分时使用置信区间。 当您首次开始使用该站点时，您的评分将从1500 ± 700开始。 1500表示您的评分，700表示评分的置信区间。 
 
-Basically, the system is 90% sure that your rating is somewhere between 800 and 2200. It is incredibly uncertain. Because of this, when a player is just starting out, their rating will change very dramatically, potentially several hundred points at a time. But after some games against established players the confidence interval will narrow, and the amount of points gained/lost after each game will decrease.
+基本上，评分系统对您的评分在800至2200之间有90%的置信。置信低。 由于这种情况，当一位用户刚刚开始时，他们的评分将有大变化，每次可能会有几百个点。 但在一些对已经确定评分的用户的对局后，置信区间将缩小，每对局后获得/丢失的评分将减少。
 
-Another point to note is that, as time passes, the confidence interval will increase. This allows you to gain/lose points points more rapidly to match any changes in your skill level over that time.</string>
+另一点是，随着时间过，置信区间将会增加。 这使您能够更快地获得/丢失点数，确保评分和您技能水平的任何变化一直。</string>
 	<string name="whatIsProvisionalRating">为什么在分数旁边有一个问号 (?) ？</string>
-	<string name="provisionalRatingExplanation">The question mark means the rating is provisional. Reasons include:</string>
-	<string name="notPlayedEnoughRatedGamesAgainstX">The player has not yet finished enough rated games against %1$s in the rating category.</string>
-	<string name="similarOpponents">opponents of similar strength</string>
-	<string name="notPlayedRecently">The player hasn\'t played enough recent games. Depending on the number of games you\'ve played, it might take around a year of inactivity for your rating to become provisional again.</string>
+	<string name="provisionalRatingExplanation">问号标记表示评分是暂时的。原因包括：</string>
+	<string name="notPlayedEnoughRatedGamesAgainstX">该用户还没有在评分对局中对%1$s完成足够多的评分对局。</string>
+	<string name="similarOpponents">相近实力的对手</string>
+	<string name="notPlayedRecently">用户最近没有下足够多的棋局。根据你下过的对局数量，您的评分可能需要一年左右的不活跃状态才会再次变成暂时性的。</string>
 	<string name="ratingDeviationMorethanOneHundredTen">Concretely, it means that the Glicko-2 deviation is greater than 110. The deviation is the level of confidence the system has in the rating. The lower the deviation, the more stable is a rating.</string>
 	<string name="howDoLeaderoardsWork">排名及排行榜是如何运作的呢？</string>
 	<string name="inOrderToAppearsYouMust">为了登上%1$s您必须：</string>
@@ -114,10 +114,10 @@ Another point to note is that, as time passes, the confidence interval will incr
 	<string name="ratingDeviationLowerThanXinChessYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
 	<string name="beInTopTen">在此排名中获得前十。</string>
 	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">第二项要求是为了让不再使用它们的帐号的棋手停止占用排行榜。</string>
-	<string name="whyAreRatingHigher">Why are ratings higher compared to other sites and organisations such as FIDE, USCF and the ICC?</string>
-	<string name="whyAreRatingHigherExplanation">It is best not to think of ratings as absolute numbers, or compare them against other organisations. Different organisations have different levels of players, different rating systems (Elo, Glicko, Glicko-2, or a modified version of the aforementioned). These factors can drastically affect the absolute numbers (ratings).
+	<string name="whyAreRatingHigher">为什么等级分相比其他网站和组织要更高，比如 FIDE、USCF 和 ICC？</string>
+	<string name="whyAreRatingHigherExplanation">最好不要将评分视为绝对数字，或将其他组织相比较。 不同的组织有不同的参与者级别、不同的评级制度（Elo、Glicko、Glicko-2 或上述改变过版）。这些因素可能会对绝对数字（评分）产生影响。
 
-It\'s best to think of ratings as \"relative\" figures (as opposed to \"absolute\" figures): Within a pool of players, their relative differences in ratings will help you estimate who will win/draw/lose, and how often. Saying \"I have X rating\" means nothing unless there are other players to compare that rating to.</string>
+最好将评级视为“相对”数字（而不是“绝对”数字）：在一组玩家中， 他们在评分中的相对差异将帮助您估计谁会胜/平/败以多常。 说“我有 X 评分”没意义，除非有其他对手可以比较评分。</string>
 	<string name="howToHideRatingWhilePlaying">如何在对局时隐藏分数？</string>
 	<string name="enableZenMode">在 %1$s或在游戏中按 %2$s 开启贤者模式。</string>
 	<string name="displayPreferences">显示偏好</string>
@@ -126,9 +126,9 @@ It\'s best to think of ratings as \"relative\" figures (as opposed to \"absolute
 	<string name="howToThreeDots">说明</string>
 	<string name="enableDisableNotificationPopUps">启用或禁用通知弹窗？</string>
 	<string name="viewSiteInformationPopUp">查看网站信息弹窗</string>
-	<string name="lishogiCanOptionnalySendPopUps">Lishogi can optionally send popup notifications, for example when it is your turn or you received a private message.
+	<string name="lishogiCanOptionnalySendPopUps">Lishogi 可以选择性的发送弹窗提醒，比如当到您的会合时，或您收到了一条私信时。
 
-Click the lock icon next to the lishogi.org address in the URL bar of your browser.
+点击您的浏览器网址栏中 lishogi.org 地址旁的锁形图标。
 
-Then select whether to allow or block notifications from Lishogi.</string>
+然后选择是否允许或拦截来自 Lishogi 的提醒。</string>
 </resources>
