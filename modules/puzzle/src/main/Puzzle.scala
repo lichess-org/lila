@@ -12,7 +12,8 @@ case class Puzzle(
     line: NonEmptyList[Uci.Move],
     glicko: Glicko,
     vote: Int,
-    plays: Int
+    plays: Int,
+    themes: Set[PuzzleTheme.Key]
 ) {
 
   def color = fen.color | chess.White
@@ -51,8 +52,9 @@ object Puzzle {
     val line   = "line"
     val glicko = "glicko"
     val vote   = "vote"
-    val day    = "day"
     val plays  = "plays"
+    val themes = "themes"
+    val day    = "day"
   }
 
   implicit val idIso     = lila.common.Iso.string[Id](Id.apply, _.value)

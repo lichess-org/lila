@@ -135,6 +135,7 @@ export interface Puzzle {
   rating: number;
   plays: number;
   initialPly: number;
+  themes: ThemeKey[];
 }
 
 export interface PuzzleResult {

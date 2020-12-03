@@ -25,6 +25,7 @@ private[puzzle] object BsonHandlers {
       glicko  <- r.getAsTry[Glicko](glicko)
       vote    <- r.getAsTry[Int](vote)
       plays   <- r.getAsTry[Int](plays)
+      themes  <- r.getAsTry[Set[PuzzleTheme.Key]](themes)
     } yield Puzzle(
       id = id,
       gameId = gameId,
@@ -32,7 +33,8 @@ private[puzzle] object BsonHandlers {
       line = line,
       glicko = glicko,
       vote = vote,
-      plays = plays
+      plays = plays,
+      themes = themes
     )
   }
 
@@ -66,4 +68,6 @@ private[puzzle] object BsonHandlers {
   }
 
   implicit val PathIdBSONHandler: BSONHandler[Puzzle.PathId] = stringIsoHandler(Puzzle.pathIdIso)
+
+  implicit val ThemeKeyBSONHandler: BSONHandler[PuzzleTheme.Key] = stringIsoHandler(PuzzleTheme.keyIso)
 }

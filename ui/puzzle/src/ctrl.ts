@@ -25,7 +25,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
   let vm: Vm = {} as Vm;
   let data: PuzzleData, tree: TreeWrapper, ceval: CevalCtrl;
-  const autoNext = storedProp('puzzle.autoNext', false)
+  const autoNext = storedProp('puzzle.autoNext', false);
   const ground = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
   const threatMode = prop(false);
   const session = new PuzzleSession(opts.data.theme.key);

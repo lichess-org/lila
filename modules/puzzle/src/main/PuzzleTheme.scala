@@ -40,6 +40,7 @@ object PuzzleTheme {
   val mateIn3         = PuzzleTheme(Key("mateIn3"), i.mateIn3, i.mateIn3Description)
   val mateIn4         = PuzzleTheme(Key("mateIn4"), i.mateIn4, i.mateIn4Description)
   val mateIn5         = PuzzleTheme(Key("mateIn5"), i.mateIn5, i.mateIn5Description)
+  val matingNet       = PuzzleTheme(Key("matingNet"), i.matingNet, i.matingNetDescription)
   val middlegame      = PuzzleTheme(Key("middlegame"), i.middlegame, i.middlegameDescription)
   val oneMove         = PuzzleTheme(Key("oneMove"), i.oneMove, i.oneMoveDescription)
   val opening         = PuzzleTheme(Key("opening"), i.opening, i.openingDescription)
@@ -109,7 +110,8 @@ object PuzzleTheme {
       mateIn2,
       mateIn3,
       mateIn4,
-      mateIn5
+      mateIn5,
+      matingNet
     ),
     trans.puzzle.lengths -> List(
       oneMove,

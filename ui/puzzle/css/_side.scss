@@ -47,12 +47,14 @@
 
       strong {
         @extend %flex-center;
+
         font-size: 3em;
       }
     }
 
     .rp {
       font-size: 1.3rem;
+      margin-left: 1ch;
 
       &.up {
         color: $c-good;
@@ -66,8 +68,8 @@
 
   &__config {
     @extend %box-neat;
-    align-self: start;
 
+    align-self: start;
     background: $c-bg-box;
     padding: 2vmin;
 
@@ -96,9 +98,78 @@
       margin-bottom: .6rem;
       text-transform: uppercase;
     }
+  }
+}
 
-    .more {
-      float: right;
+.puzzle__themes {
+  padding-top: 1.2vh;
+  border-top: $border;
+  margin-top: 1.2vh;
+
+  &__list {
+    &__entry {
+      @extend %flex-between;
+
+      align-items: stretch;
+
+      margin-left: -.5rem;
+
+      a {
+        margin-left: .5rem;
+        line-height: 2em;
+      }
+
+      &:hover {
+        background: mix($c-bg-box, $c-link, 90%);
+      }
+    }
+  }
+
+  &__votes {
+    @extend %flex-center-nowrap;
+    flex: 0 1 5em;
+
+    align-items: stretch;
+    text-align: center;
+  }
+
+  &__vote {
+    @extend %flex-center;
+
+    justify-content: center;
+    flex: 0 0 50%;
+    cursor: pointer;
+
+    color: $c-font-dimmer;
+
+    .puzzle__themes:hover & {
+      color: $c-good;
+    }
+
+    .puzzle__themes:hover &.vote-down {
+      color: $c-bad;
+    }
+
+    &::before {
+      @extend %data-icon;
+
+      content: 'h';
+      font-size: 1.2em;
+    }
+
+    &.vote-down::before {
+      transform: rotate(0.5turn);
+    }
+
+    &:hover,
+    &.active {
+      background: $c-good;
+      color: $c-good-over!important;
+    }
+
+    &.vote-down:hover,
+    &.vote-down.active {
+      background: $c-bad;
     }
   }
 }

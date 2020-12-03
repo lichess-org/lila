@@ -2,6 +2,7 @@ package views
 package html.puzzle
 
 import play.api.i18n.Lang
+import play.api.libs.json.{ JsObject, Json }
 
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -15,45 +16,53 @@ object bits {
   def daily(p: lila.puzzle.Puzzle, fen: chess.format.FEN, lastMove: String) =
     views.html.board.bits.mini(fen, p.color, lastMove)(span)
 
-  def jsI18n()(implicit lang: Lang) = i18nJsObject(i18nKeys)
+  def jsI18n(implicit lang: Lang) = i18nJsObject(i18nKeys)
 
-  private val i18nKeys: List[MessageKey] = List(
-    trans.puzzle.yourPuzzleRatingX,
-    trans.puzzle.bestMove,
-    trans.puzzle.keepGoing,
-    trans.puzzle.notTheMove,
-    trans.puzzle.trySomethingElse,
-    trans.yourTurn,
-    trans.puzzle.findTheBestMoveForBlack,
-    trans.puzzle.findTheBestMoveForWhite,
-    trans.viewTheSolution,
-    trans.puzzle.puzzleSuccess,
-    trans.puzzle.puzzleComplete,
-    trans.puzzle.fromGameLink,
-    trans.boardEditor,
-    trans.continueFromHere,
-    trans.playWithTheMachine,
-    trans.playWithAFriend,
-    trans.puzzle.didYouLikeThisPuzzle,
-    trans.puzzle.voteToLoadNextOne,
-    trans.puzzle.puzzleId,
-    trans.puzzle.ratingX,
-    trans.puzzle.playedXTimes,
-    trans.puzzle.continueTraining,
-    trans.puzzle.toTrackYourProgress,
-    trans.signUp,
-    trans.analysis,
-    trans.rated,
-    trans.casual,
-    // ceval
-    trans.depthX,
-    trans.usingServerAnalysis,
-    trans.loadingEngine,
-    trans.cloudAnalysis,
-    trans.goDeeper,
-    trans.showThreat,
-    trans.gameOver,
-    trans.inLocalBrowser,
-    trans.toggleLocalEvaluation
-  ).map(_.key)
+  lazy val jsonThemes = JsObject(
+    PuzzleTheme.categorized.map { case (name, themes) =>
+      name.key -> Json.arr(themes.map(_.name.key))
+    }
+  )
+
+  private val i18nKeys: List[MessageKey] = {
+    List(
+      trans.puzzle.yourPuzzleRatingX,
+      trans.puzzle.bestMove,
+      trans.puzzle.keepGoing,
+      trans.puzzle.notTheMove,
+      trans.puzzle.trySomethingElse,
+      trans.yourTurn,
+      trans.puzzle.findTheBestMoveForBlack,
+      trans.puzzle.findTheBestMoveForWhite,
+      trans.viewTheSolution,
+      trans.puzzle.puzzleSuccess,
+      trans.puzzle.puzzleComplete,
+      trans.puzzle.fromGameLink,
+      trans.boardEditor,
+      trans.continueFromHere,
+      trans.playWithTheMachine,
+      trans.playWithAFriend,
+      trans.puzzle.didYouLikeThisPuzzle,
+      trans.puzzle.voteToLoadNextOne,
+      trans.puzzle.puzzleId,
+      trans.puzzle.ratingX,
+      trans.puzzle.playedXTimes,
+      trans.puzzle.continueTraining,
+      trans.puzzle.toTrackYourProgress,
+      trans.signUp,
+      trans.analysis,
+      trans.rated,
+      trans.casual,
+      // ceval
+      trans.depthX,
+      trans.usingServerAnalysis,
+      trans.loadingEngine,
+      trans.cloudAnalysis,
+      trans.goDeeper,
+      trans.showThreat,
+      trans.gameOver,
+      trans.inLocalBrowser,
+      trans.toggleLocalEvaluation
+    ) ::: PuzzleTheme.all.map(_.name) ::: PuzzleTheme.all.map(_.description)
+  }.map(_.key)
 }

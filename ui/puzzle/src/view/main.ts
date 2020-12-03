@@ -1,5 +1,6 @@
 import * as control from '../control';
 import * as side from './side';
+import theme from './theme';
 import changeColorHandle from 'common/coordsColor';
 import chessground from './chessground';
 import feedbackView from './feedback';
@@ -89,7 +90,7 @@ export default function(ctrl: Controller): VNode {
       side.puzzleBox(ctrl),
       side.userBox(ctrl),
       side.config(ctrl),
-      side.theme(ctrl)
+      theme(ctrl)
     ]),
     h('div.puzzle__board.main-board' + (ctrl.pref.blindfold ? '.blindfold' : ''), {
       hook: 'ontouchstart' in window ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent))

@@ -52,6 +52,8 @@
   <string name="mateIn4Description">Deliver checkmate in four moves.</string>
   <string name="mateIn5">Mate in 5 or more</string>
   <string name="mateIn5Description">Figure out a long mating sequence.</string>
+  <string name="matingNet">Mating net</string>
+  <string name="matingNetDescription"></string>
   <string name="middlegame">Middlegame</string>
   <string name="middlegameDescription">A tactic during the second phase of the game.</string>
   <string name="oneMove">One-move puzzle</string>

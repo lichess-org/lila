@@ -19,9 +19,10 @@ object show {
         jsModule("puzzle"),
         embedJsUnsafeLoadThen(s"""LichessPuzzle(${safeJsonValue(
           Json.obj(
-            "data" -> data,
-            "pref" -> pref,
-            "i18n" -> bits.jsI18n()
+            "data"   -> data,
+            "pref"   -> pref,
+            "i18n"   -> bits.jsI18n,
+            "themes" -> bits.jsonThemes
           )
         )})""")
       ),

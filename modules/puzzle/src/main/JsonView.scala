@@ -72,7 +72,8 @@ final class JsonView(
     "plays"      -> puzzle.plays,
     "initialPly" -> puzzle.initialPly,
     "solution"   -> puzzle.line.tail.map(_.uci),
-    "vote"       -> puzzle.vote
+    "vote"       -> puzzle.vote,
+    "themes"     -> puzzle.themes
   )
 
   private def makeSolution(puzzle: Puzzle): Option[tree.Branch] = {
