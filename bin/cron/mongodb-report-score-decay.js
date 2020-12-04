@@ -1,12 +1,14 @@
-// Makes report scores decay with time.
-// This script is meant to run once per day.
-// It's ok to run it more than that once a day.
-// It's ok to run it less than that once a day.
-// It's ok to run it several times in a row.
-// The script is expected to complete within a couple seconds.
-//
-// Run it with:
-// mongo <IP>:27017/lichess mongodb-report-score-decay.js
+/* Makes report scores decay with time.
+ *
+ * mongo <IP>:<PORT>/<DB> mongodb-report-score-decay.js
+ *
+ * Must run on the main lila database.
+ * Should run once a day, preferably at night.
+ * Should complete within 1 minute.
+ * OK to run many times in a row.
+ * OK to skip runs.
+ * NOT OK to run concurrently.
+ */
 
 const atomMinScore = 5;
 
