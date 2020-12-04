@@ -399,7 +399,7 @@
   <string name="tournamentCalendar">Жарыс күнтізбесі</string>
   <string name="conditionOfEntry">Кіру талаптары:</string>
   <string name="advancedSettings">Қосымша баптаулар</string>
-  <string name="safeTournamentName">Жарысты түзу, жөнді сөз таңдап атаңыз.</string>
+  <string name="safeTournamentName">Жарысты түзу, жөнді сөзбен атаңыз.</string>
   <string name="inappropriateNameWarning">Кез-келген, тіпті шамалы орынсыз әрекет аккаунтыңызды жабылуға шалдықтыру мүмкін.</string>
   <string name="emptyTournamentName">Елеулі бір шахматшының атымен атау үшін бос қалдырыңыз.</string>
   <string name="recommendNotTouching">Бұны тиіспеуге кеңес береміз.</string>
