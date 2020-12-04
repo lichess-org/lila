@@ -15,8 +15,25 @@ case class PuzzleRound(
 
   def userId = id.userId
 
-  def themeVote(theme: PuzzleTheme.Key, vote: Option[Boolean]): Option[Boolean] =
-    themes.find(_.theme == theme)
+  def themeVote(theme: PuzzleTheme.Key, vote: Option[Boolean]): Option[List[PuzzleRound.Theme]] =
+    themes.find(_.theme == theme) match {
+      case None =>
+        vote map { v =>
+          PuzzleRound.Theme(theme, v) :: themes
+        }
+      case Some(prev) =>
+        vote match {
+          case None                      => themes.filter(_.theme != theme).some
+          case Some(v) if v == prev.vote => none
+          case Some(v) =>
+            themes.map {
+              case t if t.theme == theme => t.copy(vote = v)
+              case t                     => t
+            }.some
+        }
+    }
+
+  def nonEmptyThemes = themes.nonEmpty option themes
 }
 
 object PuzzleRound {
@@ -36,6 +53,7 @@ object PuzzleRound {
     val win    = "w"
     val vote   = "v"
     val themes = "t"
+    val puzzle = "p" // only if themes is set!
     val weight = "w"
     val user   = "u" // student denormalization
   }

@@ -47,7 +47,7 @@ playColl.find({ dirty: true }, { themes: true }).forEach(p => {
     oldThemes.find(t => !newThemes.has(t))
   ) {
     const arr = Array.from(newThemes);
-    print(`Update ${p._id} themes: ${oldThemes.join(', ')} -> ${arr.join(', ')}`);
+    // print(`Update ${p._id} themes: ${oldThemes.join(', ')} -> ${arr.join(', ')}`);
     update['$set'] = {themes:arr};
   }
   playColl.update({_id:p._id},update);

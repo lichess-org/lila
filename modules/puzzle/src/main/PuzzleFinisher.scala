@@ -28,7 +28,7 @@ final private[puzzle] class PuzzleFinisher(
       result: Result,
       isStudent: Boolean
   ): Fu[(PuzzleRound, Perf)] =
-    api.round.find(user, puzzle) flatMap { prevRound =>
+    api.round.find(user, puzzle.id) flatMap { prevRound =>
       val now              = DateTime.now
       val formerUserRating = user.perfs.puzzle.intRating
 

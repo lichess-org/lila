@@ -55,6 +55,7 @@ object Puzzle {
     val plays  = "plays"
     val themes = "themes"
     val day    = "day"
+    val dirty  = "dirty" // themes need to be denormalized
   }
 
   implicit val idIso     = lila.common.Iso.string[Id](Id.apply, _.value)

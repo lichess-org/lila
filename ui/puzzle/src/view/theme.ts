@@ -1,6 +1,7 @@
 import { Controller } from '../interfaces';
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
+import { bind } from '../util';
 
 const staticThemes = new Set([
   "enPassant",
@@ -25,9 +26,16 @@ export default function theme(ctrl: Controller): VNode {
 
 const editor = (ctrl: Controller): VNode => {
   const data = ctrl.getData(),
-    user = data.user;
+    user = data.user,
+    themes = ctrl.vm.round?.themes || {};
   return h('div.puzzle__themes', [
-    h('div.puzzle__themes_list', data.puzzle.themes.map(key =>
+    h('div.puzzle__themes_list', {
+      hook: bind('click', e => {
+        const target = e.target as HTMLElement;
+        const theme = target.getAttribute('data-theme');
+        if (theme) ctrl.voteTheme(theme, target.classList.contains('vote-up'));
+      }, ctrl.redraw)
+    }, data.puzzle.themes.map(key =>
       h('div.puzzle__themes__list__entry', [
         h('a', {
           attrs: {
@@ -36,8 +44,14 @@ const editor = (ctrl: Controller): VNode => {
           }
         }, ctrl.trans.noarg(key)),
         !user || staticThemes.has(key) ? null : h('div.puzzle__themes__votes', [
-          h('span.puzzle__themes__vote.vote-up'),
-          h('span.puzzle__themes__vote.vote-down')
+          h('span.puzzle__themes__vote.vote-up', {
+            class: { active: themes[key] },
+            attrs: { 'data-theme': key }
+          }),
+          h('span.puzzle__themes__vote.vote-down', {
+            class: { active: themes[key] === false },
+            attrs: { 'data-theme': key }
+          })
         ])
       ])
     ))

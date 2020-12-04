@@ -47,6 +47,7 @@ export interface Controller extends KeyboardController {
   viewSolution(): void;
   nextPuzzle(): void;
   vote(v: boolean): void;
+  voteTheme(theme: ThemeKey, v: boolean): void;
   pref: PuzzlePrefs;
   userMove(orig: Key, dest: Key): void;
   promotion: any;
@@ -143,10 +144,14 @@ export interface PuzzleResult {
   next: PuzzleData;
 }
 
+export interface RoundThemes {
+  [key: string]: boolean;
+}
+
 export interface PuzzleRound {
   win: boolean;
   ratingDiff: number;
-  vote?: boolean;
+  themes?: RoundThemes;
 }
 
 export interface Promotion {

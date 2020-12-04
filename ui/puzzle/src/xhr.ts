@@ -15,3 +15,10 @@ export function vote(puzzleId: string, vote: boolean | undefined): Promise<void>
     body: defined(vote) ? xhr.form({ vote }) : undefined
   });
 }
+
+export function voteTheme(puzzleId: string, theme: ThemeKey, vote: boolean | undefined): Promise<void> {
+  return xhr.json(`/training/${puzzleId}/vote/${theme}`, {
+    method: 'POST',
+    body: defined(vote) ? xhr.form({ vote }) : undefined
+  });
+}

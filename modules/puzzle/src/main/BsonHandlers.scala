@@ -67,7 +67,7 @@ private[puzzle] object BsonHandlers {
       date = r.date(date),
       win = r.bool(win),
       vote = r.boolO(vote),
-      themes = r.get[List[PuzzleRound.Theme]](themes),
+      themes = r.getsD[PuzzleRound.Theme](themes),
       weight = r.intO(weight)
     )
     def writes(w: BSON.Writer, r: PuzzleRound) =
@@ -76,6 +76,7 @@ private[puzzle] object BsonHandlers {
         date   -> r.date,
         win    -> r.win,
         vote   -> r.vote,
+        themes -> w.listO(r.themes),
         weight -> r.weight
       )
   }

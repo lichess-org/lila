@@ -1,13 +1,14 @@
 package lila.puzzle
 
+import play.api.i18n.Lang
 import play.api.libs.json._
 
 import lila.common.Json._
 import lila.game.GameRepo
+import lila.rating.Perf
 import lila.tree
 import lila.tree.Node.defaultNodeJsonWriter
 import lila.user.User
-import play.api.i18n.Lang
 
 final class JsonView(
     gameJson: GameJson,
@@ -17,12 +18,7 @@ final class JsonView(
 
   import JsonView._
 
-  def apply(
-      puzzle: Puzzle,
-      theme: PuzzleTheme,
-      user: Option[User],
-      round: Option[PuzzleRound] = None
-  )(implicit lang: Lang): Fu[JsObject] = {
+  def apply(puzzle: Puzzle, theme: PuzzleTheme, user: Option[User])(implicit lang: Lang): Fu[JsObject] = {
     gameJson(
       gameId = puzzle.gameId,
       plies = puzzle.initialPly
@@ -50,6 +46,19 @@ final class JsonView(
       .add(
         "provisional" -> u.perfs.puzzle.provisional
       )
+
+  def roundJson(u: User, round: PuzzleRound, perf: Perf) =
+    Json
+      .obj(
+        "win"        -> round.win,
+        "ratingDiff" -> (perf.intRating - u.perfs.puzzle.intRating)
+      )
+      .add("vote" -> round.vote)
+      .add("themes" -> round.nonEmptyThemes.map { rt =>
+        JsObject(rt.map { t =>
+          t.theme.value -> JsBoolean(t.vote)
+        })
+      })
 
   def pref(p: lila.pref.Pref) =
     Json.obj(

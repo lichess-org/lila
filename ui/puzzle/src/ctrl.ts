@@ -394,6 +394,14 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     nextPuzzle();
   });
 
+  const voteTheme = throttle(500, (theme, v) => {
+    if (vm.round) {
+      vm.round.themes = vm.round.themes || {};
+      vm.round.themes[theme] = v;
+      xhr.voteTheme(data.puzzle.id, theme, v);
+    }
+  });
+
   initiate(opts.data);
 
   const promotion = makePromotion(vm, ground, redraw);
@@ -436,6 +444,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     viewSolution,
     nextPuzzle,
     vote,
+    voteTheme,
     getCeval,
     pref: opts.pref,
     trans: lichess.trans(opts.i18n),
