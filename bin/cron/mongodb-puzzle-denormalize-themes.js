@@ -23,9 +23,9 @@ playColl.find({ dirty: true }, { themes: true }).forEach(p => {
 
   roundColl.aggregate([
     {$match:{p:p._id,t:{$exists:true}}},
-    {$project:{_id:0,t:1,w:1}},
+    {$project:{_id:0,t:1,e:1}},
     {$unwind:'$t'},
-    {$group:{_id:'$t',v:{$sum:'$w'}}}
+    {$group:{_id:'$t',v:{$sum:'$e'}}}
   ]).forEach(x => {
     const signum = x._id[0] == '+' ? 1 : -1;
     const theme = x._id.substring(1);
