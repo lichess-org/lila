@@ -4,8 +4,8 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import lila.game.{ Game, GameRepo, PerfPicker }
-import lila.tree.Node.{ minimalNodeJsonWriter, partitionTreeJsonWriter }
 import lila.i18n.defaultLang
+import lila.tree.Node.{ minimalNodeJsonWriter, partitionTreeJsonWriter }
 
 final private class GameJson(
     gameRepo: GameRepo,
@@ -38,7 +38,7 @@ final private class GameJson(
   private def generate(game: Game, plies: Int): Fu[JsObject] =
     lightUserApi preloadMany game.userIds map { _ =>
       val perfType = lila.rating.PerfType orDefault PerfPicker.key(game)
-      val tree     = TreeBuilder(game, plies)
+      val tree     = treeBuilder(game, plies)
       Json
         .obj(
           "id" -> game.id,
@@ -58,4 +58,41 @@ final private class GameJson(
         )
         .add("clock", game.clock.map(_.config.show))
     }
+
+  private def treeBuilder(game: Game, plies: Int): lila.tree.Root = {
+    import chess.format.{ Forsyth, Uci, UciCharPair }
+    chess.Replay.gameMoveWhileValid(game.pgnMoves take plies, Forsyth.initial, game.variant) match {
+      case (init, games, error) =>
+        error foreach logChessError(game.id)
+        val fen = Forsyth >> init
+        val root = lila.tree.Root(
+          ply = init.turns,
+          fen = fen,
+          check = init.situation.check,
+          crazyData = None
+        )
+        def makeBranch(g: chess.Game, m: Uci.WithSan) = {
+          val fen = Forsyth >> g
+          lila.tree.Branch(
+            id = UciCharPair(m.uci),
+            ply = g.turns,
+            move = m,
+            fen = fen,
+            check = g.situation.check,
+            crazyData = None
+          )
+        }
+        games.reverse match {
+          case Nil => root
+          case (g, m) :: rest =>
+            root prependChild rest.foldLeft(makeBranch(g, m)) { case (node, (g, m)) =>
+              makeBranch(g, m) prependChild node
+            }
+        }
+    }
+  }
+
+  private val logChessError = (id: Game.ID) =>
+    (err: String) =>
+      logger.warn(s"TreeBuilder https://lichess.org/$id ${err.linesIterator.toList.headOption}")
 }
