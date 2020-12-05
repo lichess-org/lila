@@ -55,6 +55,8 @@ final class Env(
 
   private lazy val pathApi = wire[PuzzlePathApi]
 
+  private lazy val trustApi = wire[PuzzleTrustApi]
+
   lazy val api: PuzzleApi = wire[PuzzleApi]
 
   lazy val session: PuzzleSessionApi = wire[PuzzleSessionApi]

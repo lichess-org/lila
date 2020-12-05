@@ -10,7 +10,8 @@ import lila.user.{ User, UserRepo }
 
 final private[puzzle] class PuzzleApi(
     colls: PuzzleColls,
-    pathApi: PuzzlePathApi
+    pathApi: PuzzlePathApi,
+    trustApi: PuzzleTrustApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Puzzle.{ BSONFields => F }
@@ -48,11 +49,17 @@ final private[puzzle] class PuzzleApi(
             $id(PuzzleRound.Id(user.id, id)),
             $set($doc(PuzzleRound.BSONFields.vote -> vote))
           )
-      } flatMap { prevRound =>
-        prevRound.map(_.vote).filter(vote !=) ?? { prevVote =>
-          def voteToInt(v: Option[Boolean]) = v ?? { w => if (w) 1 else -1 }
-          colls.puzzle {
-            _.incField($id(id), F.vote, voteToInt(vote.some) - voteToInt(prevVote)).void
+      } flatMap {
+        _ ?? { prevRound =>
+          prevRound.vote.some.filter(vote !=) ?? { prevVote =>
+            trustApi.vote(user, prevRound, vote) flatMap { weight =>
+              (weight > 0) ?? {
+                def voteToInt(v: Option[Boolean]) = v.map { w => if (w) 1 else -1 }.??(weight *)
+                colls.puzzle {
+                  _.incField($id(id), F.vote, voteToInt(vote.some) - voteToInt(prevVote)).void
+                }.void
+              }
+            }
           }
         }
       }
@@ -75,10 +82,21 @@ final private[puzzle] class PuzzleApi(
           round.themeVote(theme, vote) ?? { newThemes =>
             import PuzzleRound.{ BSONFields => F }
             val update =
-              if (newThemes.isEmpty) $unset(F.themes, F.puzzle)
-              else $set(F.themes -> newThemes, F.puzzle -> id, F.weight -> 1)
-            colls.round(_.update.one($id(round.id), update)) zip
-              colls.puzzle(_.updateField($id(round.id.puzzleId), Puzzle.BSONFields.dirty, true)) void
+              if (newThemes.isEmpty) fuccess($unset(F.themes, F.puzzle))
+              else
+                vote.?? {
+                  trustApi.theme(user, round, theme, _)
+                } map { weight =>
+                  $set(
+                    F.themes -> newThemes,
+                    F.puzzle -> id,
+                    F.weight -> weight
+                  )
+                }
+            update flatMap { up =>
+              colls.round(_.update.one($id(round.id), up)) zip
+                colls.puzzle(_.updateField($id(round.id.puzzleId), Puzzle.BSONFields.dirty, true)) void
+            }
           }
         }
       }
