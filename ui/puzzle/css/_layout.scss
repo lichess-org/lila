@@ -28,6 +28,7 @@
 
   &__session {
     grid-area: session;
+    align-self: start;
   }
 
   .eval-gauge {
@@ -53,8 +54,11 @@
 
 
   @include breakpoint($mq-col3) {
-    grid-template-areas: 'side    . board   gauge tools' '.       . session .     controls';
+    grid-template-areas: 
+    'side    . board   gauge tools' 
+    'side    . session .     controls';
     grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width var(--gauge-gap) $col3-uniboard-table;
+    grid-template-rows: $col3-uniboard-width;
   }
 
 
@@ -65,13 +69,14 @@
 
     @include breakpoint($mq-xx-small) {
       grid-template-columns: 1fr 1fr;
-      grid-template-areas: 'metas user' 'metas theme' 'config theme';
+      grid-template-areas: 'metas user' 'metas theme' 'config theme' '. theme';
+      grid-template-rows: min-content min-content min-content;
     }
 
     @include breakpoint($mq-x-large) {
       grid-template-columns: 1fr;
-      grid-template-rows: min-content min-content min-content;
       grid-template-areas: 'metas' 'user' 'theme' 'config';
+      grid-template-rows: min-content min-content min-content;
       justify-self: end;
       min-width: 250px;
       max-width: 350px;

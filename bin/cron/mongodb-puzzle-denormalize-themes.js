@@ -2,7 +2,7 @@
  * Only looks for puzzles with the `dirty` flag, and removes it.
  *
  * mongo <IP>:<PORT>/<DB> mongodb-puzzle-denormalize-themes.js
- * 
+ *
  * Must run on the puzzle database.
  * Should run every 5 minutes.
  * Should complete within 10 seconds.
@@ -15,9 +15,24 @@ const playColl = db.puzzle2_puzzle;
 const roundColl = db.puzzle2_round;
 
 const staticThemes = new Set([
-  "oneMove", "short", "long", "veryLong",
-  "mateIn1", "mateIn2", "mateIn3", "mateIn4", "mateIn5",
-  "enPassant"
+    'bishopEndgame',
+    'enPassant',
+    'endgame',
+    'knightEndgame',
+    'long',
+    'mateIn1',
+    'mateIn2',
+    'mateIn3',
+    'mateIn4',
+    'mateIn5',
+    'middlegame',
+    'oneMove',
+    'opening',
+    'pawnEndgame',
+    'queenEndgame',
+    'rookEndgame',
+    'short',
+    'veryLong'
 ]);
 
 playColl.find({ dirty: true }, { themes: true }).forEach(p => {
@@ -36,7 +51,7 @@ playColl.find({ dirty: true }, { themes: true }).forEach(p => {
     themeMap[theme] = x.v * signum + (themeMap[theme] || 0);
   });
 
-  const newThemes = new Set();
+  const newThemes = new Set(oldThemes.filter(t => staticThemes.has(t)));
   Object.keys(themeMap).forEach(theme => {
     if (themeMap[theme] > 0) newThemes.add(theme);
   });

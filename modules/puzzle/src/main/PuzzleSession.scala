@@ -25,6 +25,8 @@ private case class PuzzleSession(
     positionInPath = 0
   )
   def next = copy(positionInPath = positionInPath + 1)
+
+  override def toString = s"$path:$positionInPath"
 }
 
 final class PuzzleSessionApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: UserRepo)(implicit
@@ -49,15 +51,15 @@ final class PuzzleSessionApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: U
     continueOrCreateSessionFor(user, theme) flatMap { session =>
       import NextPuzzleResult._
       def switchPath(tier: PuzzleTier) =
-        nextPathIdFor(user.id, theme, tier, session.previousPaths) flatMap {
-          case None => fufail(s"No remaining puzzle path for ${user.id}")
-          case Some(pathId) =>
-            val newSession = session.switchTo(tier, pathId)
-            sessions.put(user.id, fuccess(newSession))
-            nextPuzzleFor(user, theme, retries = retries + 1)
+        nextPathIdFor(user, theme, tier, session.previousPaths) orElse {
+          session.previousPaths.nonEmpty ?? nextPathIdFor(user, theme, tier, Set.empty)
+        } orFail s"No puzzle path for ${user.id}" flatMap { pathId =>
+          val newSession = session.switchTo(tier, pathId)
+          sessions.put(user.id, fuccess(newSession))
+          nextPuzzleFor(user, theme, retries = retries + 1)
         }
 
-      nextPuzzleResult(user, session).thenPp(session.path.value) flatMap {
+      nextPuzzleResult(user, session).thenPp(session.toString) flatMap {
         case PathMissing | PathEnded if retries < 10 => switchPath(session.tier)
         case PathMissing | PathEnded                 => fufail(s"Puzzle path missing or ended for ${user.id}")
         case PuzzleMissing(id) =>
@@ -111,7 +113,6 @@ final class PuzzleSessionApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: U
         )
       }.map { docOpt =>
         import NextPuzzleResult._
-        // println(docOpt map lila.db.BSON.debug)
         docOpt.fold[NextPuzzleResult](PathMissing) { doc =>
           doc.getAsOpt[Puzzle.Id]("puzzleId").fold[NextPuzzleResult](PathEnded) { puzzleId =>
             doc
@@ -153,35 +154,33 @@ final class PuzzleSessionApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: U
     }
 
   private def createSessionFor(user: User, theme: PuzzleTheme.Key): Fu[PuzzleSession] =
-    nextPathIdFor(user.id, theme, PuzzleTier.Top, Set.empty)
+    nextPathIdFor(user, theme, PuzzleTier.Top, Set.empty)
       .orFail(s"No puzzle path found for ${user.id}, theme: $theme")
       .dmap(pathId => PuzzleSession(theme, PuzzleTier.Top, pathId, 0))
 
   private def nextPathIdFor(
-      userId: User.ID,
+      user: User,
       theme: PuzzleTheme.Key,
       tier: PuzzleTier,
       previousPaths: Set[PathId]
   ): Fu[Option[PathId]] =
-    userRepo.perfOf(userId, PerfType.Puzzle).dmap(_ | Perf.default) flatMap { perf =>
-      colls.path {
-        _.aggregateOne() { framework =>
-          import framework._
-          Match(
-            $doc(
-              "_id" ->
-                $doc(
-                  "$regex" -> BSONRegex(s"^${theme}_${tier}", ""),
-                  $nin(previousPaths)
-                ),
-              "min" $lte perf.glicko.rating,
-              "max" $gt perf.glicko.rating
-            )
-          ) -> List(
-            Project($id(true)),
-            Sample(1)
+    colls.path {
+      _.aggregateOne() { framework =>
+        import framework._
+        Match(
+          $doc(
+            "_id" ->
+              $doc(
+                "$regex" -> BSONRegex(s"^${theme}_${tier}", ""),
+                $nin(previousPaths)
+              ),
+            "min" $lte user.perfs.puzzle.glicko.rating,
+            "max" $gt user.perfs.puzzle.glicko.rating
           )
-        }.dmap(_.flatMap(_.getAsOpt[PathId]("_id")))
-      }
+        ) -> List(
+          Project($id(true)),
+          Sample(1)
+        )
+      }.dmap(_.flatMap(_.getAsOpt[PathId]("_id")))
     }
 }

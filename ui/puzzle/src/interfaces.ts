@@ -1,13 +1,13 @@
+import PuzzleSession from './session';
 import { Api as CgApi } from 'chessground/api';
 import { CevalCtrl, NodeEvals } from 'ceval';
 import { Config as CgConfig } from 'chessground/config';
 import { Outcome } from 'chessops/types';
 import { Prop } from 'common';
 import { Role, Move } from 'chessops/types';
+import { StoredBooleanProp } from 'common/storage';
 import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom/vnode';
-import { StoredBooleanProp } from 'common/storage';
-import PuzzleSession from './session';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -25,6 +25,10 @@ export interface KeyboardController {
 }
 
 export type ThemeKey = string;
+export interface AllThemes {
+  dynamic: ThemeKey[];
+  static: Set<ThemeKey>;
+}
 
 export interface Controller extends KeyboardController {
   nextNodeBest(): string | undefined;
@@ -53,6 +57,7 @@ export interface Controller extends KeyboardController {
   promotion: any;
   autoNext: StoredBooleanProp;
   session: PuzzleSession;
+  allThemes?: AllThemes;
 
   path?: Tree.Path;
   autoScrollRequested?: boolean;
@@ -84,6 +89,10 @@ export interface PuzzleOpts {
   pref: PuzzlePrefs;
   data: PuzzleData;
   i18n: { [key: string]: string | undefined };
+  themes?: {
+    dynamic: string;
+    static: string;
+  }
 }
 
 export interface PuzzlePrefs {

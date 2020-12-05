@@ -2,10 +2,11 @@ package views
 package html.puzzle
 
 import play.api.i18n.Lang
-import play.api.libs.json.{ JsObject, Json }
+import play.api.libs.json.{ JsArray, JsObject, JsString, Json }
 
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.i18n.JsDump
 import lila.i18n.MessageKey
 import lila.puzzle.PuzzleTheme
 
@@ -18,11 +19,17 @@ object bits {
 
   def jsI18n(implicit lang: Lang) = i18nJsObject(i18nKeys)
 
-  lazy val jsonThemes = JsObject(
-    PuzzleTheme.categorized.map { case (name, themes) =>
-      name.key -> Json.arr(themes.map(_.name.key))
+  lazy val jsonThemes = PuzzleTheme.all
+    .collect {
+      case t if t != PuzzleTheme.any => t.key
     }
-  )
+    .partition(PuzzleTheme.staticThemes.contains) match {
+    case (static, dynamic) =>
+      Json.obj(
+        "dynamic" -> dynamic.map(_.value).sorted.mkString(" "),
+        "static"  -> static.map(_.value).mkString(" ")
+      )
+  }
 
   private val i18nKeys: List[MessageKey] = {
     List(

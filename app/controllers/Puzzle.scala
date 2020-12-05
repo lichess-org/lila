@@ -126,7 +126,7 @@ final class Puzzle(
   def voteTheme(id: String, themeStr: String) =
     AuthBody { implicit ctx => me =>
       NoBot {
-        PuzzleTheme.find(themeStr) ?? { theme =>
+        PuzzleTheme.findDynamic(themeStr) ?? { theme =>
           implicit val req = ctx.body
           env.puzzle.forms.themeVote
             .bindFromRequest()
@@ -208,7 +208,10 @@ final class Puzzle(
   def showWithTheme(themeKey: String, id: String) = Open { implicit ctx =>
     NoBot {
       val theme = PuzzleTheme.findOrAny(themeKey)
-      OptionFuResult(env.puzzle.api.puzzle find Puz.Id(id)) { renderShow(_, theme) }
+      OptionFuResult(env.puzzle.api.puzzle find Puz.Id(id)) { puzzle =>
+        if (puzzle.themes contains theme.key) renderShow(puzzle, theme)
+        else Redirect(routes.Puzzle.show(puzzle.id.value)).fuccess
+      }
     }
   }
 

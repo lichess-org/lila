@@ -54,7 +54,7 @@ object PuzzleRound {
     val vote   = "v"
     val themes = "t"
     val puzzle = "p" // only if themes is set!
-    val weight = "w"
+    val weight = "e"
     val user   = "u" // student denormalization
   }
 }

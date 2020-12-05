@@ -131,9 +131,33 @@ object PuzzleTheme {
     t.key -> t
   }.toMap
 
+  // themes that can't be voted by players
+  val staticThemes: Set[Key] = Set(
+    bishopEndgame,
+    enPassant,
+    endgame,
+    knightEndgame,
+    long,
+    mateIn1,
+    mateIn2,
+    mateIn3,
+    mateIn4,
+    mateIn5,
+    middlegame,
+    oneMove,
+    opening,
+    pawnEndgame,
+    queenEndgame,
+    rookEndgame,
+    short,
+    veryLong
+  ).map(_.key)
+
   def find(key: String) = byKey get Key(key)
 
   def findOrAny(key: String) = find(key) | any
+
+  def findDynamic(key: String) = find(key).filterNot(t => staticThemes(t.key))
 
   implicit val keyIso = lila.common.Iso.string[Key](Key.apply, _.value)
 }

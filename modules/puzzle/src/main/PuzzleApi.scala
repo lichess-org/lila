@@ -72,11 +72,11 @@ final private[puzzle] class PuzzleApi(
     def vote(user: User, id: Puzzle.Id, theme: PuzzleTheme.Key, vote: Option[Boolean]): Funit =
       round.find(user, id).thenPp flatMap {
         _ ?? { round =>
-          round.themeVote(theme, vote.pp("vote")).pp ?? { newThemes =>
+          round.themeVote(theme, vote) ?? { newThemes =>
             import PuzzleRound.{ BSONFields => F }
             val update =
               if (newThemes.isEmpty) $unset(F.themes, F.puzzle)
-              else $set(F.themes -> newThemes, F.puzzle -> id)
+              else $set(F.themes -> newThemes, F.puzzle -> id, F.weight -> 1)
             colls.round(_.update.one($id(round.id), update)) zip
               colls.puzzle(_.updateField($id(round.id.puzzleId), Puzzle.BSONFields.dirty, true)) void
           }

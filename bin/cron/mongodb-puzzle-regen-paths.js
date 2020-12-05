@@ -23,7 +23,7 @@ const tiers = [
 
 const acceptableVoteSelect = {
   vote: {
-    $gt: -150
+    $gt: -9150
   }
 };
 

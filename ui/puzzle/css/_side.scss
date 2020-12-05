@@ -122,12 +122,16 @@
       &:hover {
         background: mix($c-bg-box, $c-link, 90%);
       }
+      
+      &.strike a {
+        text-decoration: line-through;
+      }
     }
   }
 
   &__votes {
     @extend %flex-center-nowrap;
-    flex: 0 1 5em;
+    flex: 0 1 7em;
 
     align-items: stretch;
     text-align: center;
@@ -154,7 +158,7 @@
       @extend %data-icon;
 
       content: 'h';
-      font-size: 1.2em;
+      font-size: 1.3em;
     }
 
     &.vote-down::before {
@@ -171,5 +175,9 @@
     &.vote-down.active {
       background: $c-bad;
     }
+  }
+
+  &__selector {
+    margin-top: 1em;
   }
 }

@@ -16,7 +16,7 @@ import { makeSanAndPlay } from 'chessops/san';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseSquare, parseUci, makeSquare, makeUci } from 'chessops/util';
 import { pgnToTree, mergeSolution } from './moveTree';
-import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleResult, MoveTest } from './interfaces';
+import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleResult, MoveTest, ThemeKey } from './interfaces';
 import { Role, Move, Outcome } from 'chessops/types';
 import { storedProp } from 'common/storage';
 import PuzzleSession from './session';
@@ -389,18 +389,22 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     startCeval();
   }
 
-  const vote = throttle(1000, v => {
+  const vote = throttle(1000, (v: boolean) => {
     xhr.vote(data.puzzle.id, v);
     nextPuzzle();
   });
 
-  const voteTheme = throttle(500, (theme, v) => {
+  const voteTheme = (theme: ThemeKey, v: boolean) => {
     if (vm.round) {
       vm.round.themes = vm.round.themes || {};
-      vm.round.themes[theme] = v;
+      if (v || data.puzzle.themes.includes(theme))
+        vm.round.themes[theme] = v;
+      else
+        delete vm.round.themes[theme];
       xhr.voteTheme(data.puzzle.id, theme, v);
+      redraw();
     }
-  });
+  }
 
   initiate(opts.data);
 
@@ -473,6 +477,10 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     redraw,
     ongoing: false,
     playBestMove,
-    session
+    session,
+    allThemes: opts.themes && {
+      dynamic: opts.themes.dynamic.split(' '),
+      static: new Set(opts.themes.static.split(' '))
+    }
   };
 }

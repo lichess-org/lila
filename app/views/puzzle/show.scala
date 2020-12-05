@@ -18,12 +18,13 @@ object show {
       moreJs = frag(
         jsModule("puzzle"),
         embedJsUnsafeLoadThen(s"""LichessPuzzle(${safeJsonValue(
-          Json.obj(
-            "data"   -> data,
-            "pref"   -> pref,
-            "i18n"   -> bits.jsI18n,
-            "themes" -> bits.jsonThemes
-          )
+          Json
+            .obj(
+              "data" -> data,
+              "pref" -> pref,
+              "i18n" -> bits.jsI18n
+            )
+            .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
         )})""")
       ),
       csp = defaultCsp.withWebAssembly.some,
