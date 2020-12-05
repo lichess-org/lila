@@ -70,7 +70,7 @@ final private[puzzle] class PuzzleApi(
       }
 
     def vote(user: User, id: Puzzle.Id, theme: PuzzleTheme.Key, vote: Option[Boolean]): Funit =
-      round.find(user, id).thenPp flatMap {
+      round.find(user, id) flatMap {
         _ ?? { round =>
           round.themeVote(theme, vote) ?? { newThemes =>
             import PuzzleRound.{ BSONFields => F }

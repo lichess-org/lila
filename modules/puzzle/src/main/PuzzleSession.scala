@@ -53,13 +53,13 @@ final class PuzzleSessionApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: U
       def switchPath(tier: PuzzleTier) =
         nextPathIdFor(user, theme, tier, session.previousPaths) orElse {
           session.previousPaths.nonEmpty ?? nextPathIdFor(user, theme, tier, Set.empty)
-        } orFail s"No puzzle path for ${user.id}" flatMap { pathId =>
+        } orFail s"No puzzle path for ${user.id} $theme $tier" flatMap { pathId =>
           val newSession = session.switchTo(tier, pathId)
           sessions.put(user.id, fuccess(newSession))
           nextPuzzleFor(user, theme, retries = retries + 1)
         }
 
-      nextPuzzleResult(user, session).thenPp(session.toString) flatMap {
+      nextPuzzleResult(user, session) flatMap {
         case PathMissing | PathEnded if retries < 10 => switchPath(session.tier)
         case PathMissing | PathEnded                 => fufail(s"Puzzle path missing or ended for ${user.id}")
         case PuzzleMissing(id) =>
