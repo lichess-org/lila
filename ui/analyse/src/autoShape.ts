@@ -4,7 +4,7 @@ import {
   shogiToChessUci,
   promotesTo,
 } from "shogiutil/util";
-import { isDrop, Role } from "shogiutil/types";
+import { isDrop } from "shogiutil/types";
 
 import { winningChances } from "ceval";
 import * as cg from "shogiground/types";
@@ -28,10 +28,11 @@ export function makeShapesFromUci(
   color: Color,
   uci: Uci,
   brush: string,
-  modifiers?: any,
-  role?: Role
+  pieces?: cg.Pieces,
+  modifiers?: any
 ): DrawShape[] {
-  const move = parseUci(shogiToChessUci(uci))!;
+  uci = shogiToChessUci(uci);
+  const move = parseUci(uci)!;
   const to = makeSquare(move.to);
   if (isDrop(move))
     return [{ orig: to, brush }, pieceDrop(to, move.role, color)];
@@ -44,27 +45,30 @@ export function makeShapesFromUci(
       modifiers,
     },
   ];
-  if (move.promotion) shapes.push(pieceDrop(to, promotesTo(role!), color));
+  if (move.promotion && pieces)
+    shapes.push(pieceDrop(to, promotesTo((pieces.get(uci.slice(0, 2) as Key)!.role)), color));
   return shapes;
 }
 
 export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   const color = ctrl.node.fen.includes(" w ") ? "white" : "black"; //todo
   const rcolor = opposite(color);
+  const pieces = ctrl.shogiground.state.pieces;
+
   if (ctrl.practice) {
     if (ctrl.practice.hovering())
-      return makeShapesFromUci(color, ctrl.practice.hovering().uci, "green");
+      return makeShapesFromUci(color, ctrl.practice.hovering().uci, "green", pieces);
     const hint = ctrl.practice.hinting();
-    const piece = ctrl.shogiground.state.pieces.get(hint.uci.slice(0, 2));
+
     if (hint) {
       if (hint.mode === "move")
-        return makeShapesFromUci(color, hint.uci, "paleBlue", piece!.role);
+        return makeShapesFromUci(color, hint.uci, "paleGreen", pieces);
       else
         return [
           {
             orig:
               hint.uci[1] === "*" ? hint.uci.slice(2, 4) : hint.uci.slice(0, 2),
-            brush: "paleBlue",
+            brush: "paleGreen",
           },
         ];
     }
@@ -81,23 +85,23 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
 
   let shapes: DrawShape[] = [];
   if (ctrl.retro && ctrl.retro.showBadNode()) {
-    return makeShapesFromUci(color, ctrl.retro.showBadNode().uci, "paleRed", {
+    return makeShapesFromUci(color, ctrl.retro.showBadNode().uci, "paleRed", pieces, {
       lineWidth: 8,
     });
   }
   if (hovering && hovering.fen === nFen)
-    shapes = shapes.concat(makeShapesFromUci(color, hovering.uci, "paleBlue"));
+    shapes = shapes.concat(makeShapesFromUci(color, hovering.uci, "paleGreen", pieces), );
   if (ctrl.showAutoShapes() && ctrl.showComputer()) {
     if (nEval.best)
       shapes = shapes.concat(
-        makeShapesFromUci(rcolor, nEval.best, "paleGreen")
+        makeShapesFromUci(rcolor, nEval.best, "paleGreen", pieces)
       );
     if (!hovering) {
       let nextBest = ctrl.nextNodeBest();
       if (!nextBest && instance.enabled() && nCeval)
         nextBest = nCeval.pvs[0].moves[0];
       if (nextBest)
-        shapes = shapes.concat(makeShapesFromUci(color, nextBest, "paleBlue"));
+        shapes = shapes.concat(makeShapesFromUci(color, nextBest, "paleGreen", pieces));
       if (
         instance.enabled() &&
         nCeval &&
@@ -109,7 +113,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
           const shift = winningChances.povDiff(color, nCeval.pvs[0], pv);
           if (shift >= 0 && shift < 0.2) {
             shapes = shapes.concat(
-              makeShapesFromUci(color, pv.moves[0], "paleGrey", {
+              makeShapesFromUci(color, pv.moves[0], "paleGrey", pieces, {
                 lineWidth: Math.round(12 - shift * 50), // 12 to 2
               })
             );
@@ -125,7 +129,8 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       makeShapesFromUci(
         rcolor,
         pv0.moves[0],
-        pv1s.length > 0 ? "paleRed" : "red"
+        pv1s.length > 0 ? "paleRed" : "red",
+        pieces
       )
     );
 
@@ -133,7 +138,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       const shift = winningChances.povDiff(rcolor, pv, pv0);
       if (shift >= 0 && shift < 0.2) {
         shapes = shapes.concat(
-          makeShapesFromUci(rcolor, pv.moves[0], "paleRed", {
+          makeShapesFromUci(rcolor, pv.moves[0], "paleRed", pieces, {
             lineWidth: Math.round(11 - shift * 45), // 11 to 2
           })
         );
