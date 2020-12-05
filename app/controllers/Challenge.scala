@@ -42,12 +42,13 @@ final class Challenge(
 
   protected[controllers] def showChallenge(
       c: ChallengeModel,
-      error: Option[String] = None
+      error: Option[String] = None,
+      justCreated: Boolean = false
   )(implicit
       ctx: Context
   ): Fu[Result] =
     env.challenge version c.id flatMap { version =>
-      val mine = isMine(c)
+      val mine = justCreated || isMine(c)
       import lila.challenge.Direction
       val direction: Option[Direction] =
         if (mine) Direction.Out.some
