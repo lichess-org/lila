@@ -10,31 +10,39 @@ final private class PuzzleTrustApi(colls: PuzzleColls)(implicit ec: scala.concur
 
   import BsonHandlers._
 
-  def vote(user: User, round: PuzzleRound, vote: Boolean): Fu[Int] = base(user, round) map {
-    _ + {
+  def vote(user: User, round: PuzzleRound, vote: Boolean): Fu[Option[Int]] = {
+    val w = base(user, round) + {
+      // more trust when vote != win
       if (vote == round.win) -2 else 2
     }
-  }
-
-  def theme(user: User, round: PuzzleRound, theme: PuzzleTheme.Key, vote: Boolean): Fu[Int] =
-    base(user, round)
-
-  private def base(user: User, round: PuzzleRound): Fu[Int] =
-    colls
-      .puzzle(_.byId[Puzzle](round.id.puzzleId.value))
-      .map {
-        _ ?? { puzzle =>
-          seniorityBonus(user) +
-            ratingBonus(user) +
-            titleBonus(user) +
-            patronBonus(user) +
-            nbGamesBonus(user) +
-            nbPuzzlesBonus(user) +
-            modBonus(user) +
-            lameBonus(user)
-        }
+    // distrust provisional ratings and distant ratings
+    (w > 0) ?? {
+      user.perfs.puzzle.glicko.establishedIntRating.fold(fuccess(-2)) { userRating =>
+        colls
+          .puzzle(_.primitiveOne[Float]($id(round.id.puzzleId.value), s"${Puzzle.BSONFields.glicko}.r"))
+          .map {
+            _.fold(-2) { puzzleRating =>
+              (math.abs(puzzleRating - userRating) > 300) ?? -4
+            }
+          }
       }
-      .dmap(_.toInt)
+    }.dmap(w +)
+  }.dmap(_.some.filter(0 <))
+
+  def theme(user: User, round: PuzzleRound, theme: PuzzleTheme.Key, vote: Boolean): Fu[Option[Int]] =
+    fuccess(base(user, round))
+      .dmap(_.some.filter(0 <))
+
+  private def base(user: User, round: PuzzleRound): Int = {
+    seniorityBonus(user) +
+      ratingBonus(user) +
+      titleBonus(user) +
+      patronBonus(user) +
+      nbGamesBonus(user) +
+      nbPuzzlesBonus(user) +
+      modBonus(user) +
+      lameBonus(user)
+  }.toInt
 
   // 0 days = 0
   // 1 month = 1
