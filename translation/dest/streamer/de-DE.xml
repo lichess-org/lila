@@ -42,7 +42,7 @@ Falls dein Stream in Englisch ist, musst du kein Sprach-Tag einfügen.</string>
   <string name="visibility">Sichtbar auf der Streamerseite</string>
   <string name="whenApproved">Sobald von den Moderatoren genehmigt</string>
   <string name="headline">Titel</string>
-  <string name="tellUsAboutTheStream">Erzähle uns in einem Satz etwas über deinen Stream</string>
+  <string name="tellUsAboutTheStream">Beschreibe deinen Stream in einem Satz</string>
   <string name="longDescription">Ausführliche Beschreibung</string>
   <string name="xStreamerPicture">%s Streamerbild</string>
   <string name="changePicture">Ändere/Lösche dein Bild</string>
