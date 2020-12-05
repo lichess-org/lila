@@ -5,9 +5,6 @@ import RoundController from "../ctrl";
 import * as cg from "shogiground/types";
 import { RoundData } from "../interfaces";
 
-// @ts-ignore
-import { Shogi } from "shogiutil/vendor/Shogi.js";
-
 const li = window.lishogi;
 
 export const pieceRoles: cg.Role[] = [
@@ -78,18 +75,6 @@ export function valid(
       ((key[1] === "9" || key[1] === "8") && color === "white"))
   )
     return false;
-  if (role === "pawn") {
-    let mfen = ctrl.shogiground.getFen();
-    mfen += " " + color[0];
-    const s = Shogi.drop(mfen, "Pawn", key);
-    console.log(s);
-    if (s.winner) {
-      alert(
-        "Checkmating with a pawn is an illegal move, illegal moves lose you the game when you play in real life."
-      );
-      return false;
-    }
-  }
   const dropStr = data.possibleDrops;
 
   if (typeof dropStr === "undefined" || dropStr === null) return true;
