@@ -81,7 +81,7 @@ private[puzzle] object BsonHandlers {
       )
   }
 
-  implicit val PathIdBSONHandler: BSONHandler[Puzzle.PathId] = stringIsoHandler(Puzzle.pathIdIso)
+  implicit val PathIdBSONHandler: BSONHandler[PuzzlePath.Id] = stringIsoHandler(PuzzlePath.pathIdIso)
 
   implicit val ThemeKeyBSONHandler: BSONHandler[PuzzleTheme.Key] = stringIsoHandler(PuzzleTheme.keyIso)
 }

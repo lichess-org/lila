@@ -25,9 +25,7 @@ final class PuzzleAnon(colls: PuzzleColls, cacheApi: CacheApi, pathApi: PuzzlePa
       _.refreshAfterWrite(2 minutes)
         .buildAsyncFuture { theme =>
           pathApi countPuzzlesByTheme theme flatMap { count =>
-            val tier =
-              if (count > 3000) PuzzlePath.tier.top
-              else PuzzlePath.tier.all
+            val tier = if (count > 3000) PuzzleTier.Top else PuzzleTier.All
             val ratingRange: Range =
               if (count > 9000) 1200 to 1600
               else if (count > 5000) 1000 to 1800

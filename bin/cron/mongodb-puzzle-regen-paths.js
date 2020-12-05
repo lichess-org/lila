@@ -108,7 +108,6 @@ function makeTier(theme, tierName, thresholdRatio) {
 const docs = [];
 
 themes.concat([null]).forEach(theme =>
-// ['exposedKing'].forEach(theme =>
   tiers.forEach(([name, threshold]) => makeTier(theme, name, threshold).forEach(p => docs.push(p)))
 );
 

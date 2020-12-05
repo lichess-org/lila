@@ -14,26 +14,7 @@
 const playColl = db.puzzle2_puzzle;
 const roundColl = db.puzzle2_round;
 
-const staticThemes = new Set([
-    'bishopEndgame',
-    'enPassant',
-    'endgame',
-    'knightEndgame',
-    'long',
-    'mateIn1',
-    'mateIn2',
-    'mateIn3',
-    'mateIn4',
-    'mateIn5',
-    'middlegame',
-    'oneMove',
-    'opening',
-    'pawnEndgame',
-    'queenEndgame',
-    'rookEndgame',
-    'short',
-    'veryLong'
-]);
+const phases = new Set([ 'opening', 'middlegame', 'endgame' ]);
 
 playColl.find({ dirty: true }, { themes: true }).forEach(p => {
 
@@ -51,7 +32,7 @@ playColl.find({ dirty: true }, { themes: true }).forEach(p => {
     themeMap[theme] = x.v * signum + (themeMap[theme] || 0);
   });
 
-  const newThemes = new Set(oldThemes.filter(t => staticThemes.has(t)));
+  const newThemes = new Set(oldThemes.filter(t => phases.has(t)));
   Object.keys(themeMap).forEach(theme => {
     if (themeMap[theme] > 0) newThemes.add(theme);
   });
@@ -61,9 +42,7 @@ playColl.find({ dirty: true }, { themes: true }).forEach(p => {
     oldThemes.length !== newThemes.size ||
     oldThemes.find(t => !newThemes.has(t))
   ) {
-    const arr = Array.from(newThemes);
-    // print(`Update ${p._id} themes: ${oldThemes.join(', ')} -> ${arr.join(', ')}`);
-    update['$set'] = {themes:arr};
+    update['$set'] = {themes: Array.from(newThemes)};
   }
   playColl.update({_id:p._id},update);
 });

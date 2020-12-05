@@ -7,10 +7,17 @@ import lila.db.dsl._
 import lila.memo.CacheApi
 
 private object PuzzlePath {
-  object tier {
-    val top = "top"
-    val all = "all"
+
+  case class Id(value: String) {
+
+    val parts = value split '_'
+
+    def tier = PuzzleTier.from(~parts.lift(1))
+
+    def theme = PuzzleTheme.findOrAny(~parts.headOption).key
   }
+
+  implicit val pathIdIso = lila.common.Iso.string[Id](Id.apply, _.value)
 }
 
 final private class PuzzlePathApi(

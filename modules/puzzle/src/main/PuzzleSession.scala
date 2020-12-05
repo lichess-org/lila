@@ -11,15 +11,12 @@ import lila.rating.{ Perf, PerfType }
 import lila.user.{ User, UserRepo }
 
 private case class PuzzleSession(
-    theme: PuzzleTheme.Key,
-    tier: PuzzleTier,
-    path: Puzzle.PathId,
+    path: PuzzlePath.Id,
     positionInPath: Int,
-    previousPaths: Set[Puzzle.PathId] = Set.empty,
+    previousPaths: Set[PuzzlePath.Id] = Set.empty,
     previousVotes: List[Boolean] = List.empty // most recent first
 ) {
-  def switchTo(tier: PuzzleTier, pathId: Puzzle.PathId) = copy(
-    tier = tier,
+  def switchTo(pathId: PuzzlePath.Id) = copy(
     path = pathId,
     previousPaths = previousPaths + pathId,
     positionInPath = 0
@@ -36,7 +33,6 @@ final class PuzzleSessionApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: U
 ) {
 
   import BsonHandlers._
-  import Puzzle.PathId
 
   sealed private trait NextPuzzleResult
   private object NextPuzzleResult {
@@ -51,16 +47,15 @@ final class PuzzleSessionApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: U
     continueOrCreateSessionFor(user, theme) flatMap { session =>
       import NextPuzzleResult._
       def switchPath(tier: PuzzleTier) =
-        nextPathIdFor(user, theme, tier, session.previousPaths) orElse {
-          session.previousPaths.nonEmpty ?? nextPathIdFor(user, theme, tier, Set.empty)
-        } orFail s"No puzzle path for ${user.id} $theme $tier" flatMap { pathId =>
-          val newSession = session.switchTo(tier, pathId)
-          sessions.put(user.id, fuccess(newSession))
-          nextPuzzleFor(user, theme, retries = retries + 1)
-        }
+        nextPathIdFor(user, theme, tier, session.previousPaths) orFail
+          s"No puzzle path for ${user.id} $theme $tier" flatMap { pathId =>
+            val newSession = session.switchTo(pathId)
+            sessions.put(user.id, fuccess(newSession))
+            nextPuzzleFor(user, theme, retries = retries + 1)
+          }
 
       nextPuzzleResult(user, session) flatMap {
-        case PathMissing | PathEnded if retries < 10 => switchPath(session.tier)
+        case PathMissing | PathEnded if retries < 10 => switchPath(session.path.tier)
         case PathMissing | PathEnded                 => fufail(s"Puzzle path missing or ended for ${user.id}")
         case PuzzleMissing(id) =>
           logger.warn(s"Puzzle missing: $id")
@@ -69,9 +64,9 @@ final class PuzzleSessionApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: U
         case PuzzleAlreadyPlayed(_) if retries < 3 =>
           sessions.put(user.id, fuccess(session.next))
           nextPuzzleFor(user, theme, retries = retries + 1)
-        case PuzzleAlreadyPlayed(_) if session.tier == PuzzleTier.Top => switchPath(PuzzleTier.All)
-        case PuzzleAlreadyPlayed(puzzle)                              => fuccess(puzzle)
-        case PuzzleFound(puzzle)                                      => fuccess(puzzle)
+        case PuzzleAlreadyPlayed(_) if session.path.tier == PuzzleTier.Top => switchPath(PuzzleTier.All)
+        case PuzzleAlreadyPlayed(puzzle)                                   => fuccess(puzzle)
+        case PuzzleFound(puzzle)                                           => fuccess(puzzle)
       }
     }
 
@@ -132,7 +127,7 @@ final class PuzzleSessionApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: U
       _ map { session =>
         // yes, even if the completed puzzle was not the current session puzzle
         // in that case we just skip a puzzle on the path, which doesn't matter
-        if (session.theme == theme)
+        if (session.path.theme == theme)
           sessions.put(round.userId, fuccess(session.next))
       }
     }
@@ -141,46 +136,56 @@ final class PuzzleSessionApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: U
     _.expireAfterWrite(1 hour).buildAsync()
   )
 
-  private[puzzle] def currentSessionOf(user: User, theme: PuzzleTheme.Key): Fu[PuzzleSession] =
-    sessions.getFuture(user.id, _ => createSessionFor(user, theme))
-
   private[puzzle] def continueOrCreateSessionFor(
       user: User,
       theme: PuzzleTheme.Key
   ): Fu[PuzzleSession] =
-    currentSessionOf(user, theme) flatMap { current =>
-      if (current.theme == theme) fuccess(current)
+    sessions.getFuture(user.id, _ => createSessionFor(user, theme)) flatMap { current =>
+      if (current.path.theme == theme) fuccess(current)
       else createSessionFor(user, theme) tap { sessions.put(user.id, _) }
     }
 
   private def createSessionFor(user: User, theme: PuzzleTheme.Key): Fu[PuzzleSession] =
     nextPathIdFor(user, theme, PuzzleTier.Top, Set.empty)
       .orFail(s"No puzzle path found for ${user.id}, theme: $theme")
-      .dmap(pathId => PuzzleSession(theme, PuzzleTier.Top, pathId, 0))
+      .dmap(pathId => PuzzleSession(pathId, 0))
 
   private def nextPathIdFor(
       user: User,
       theme: PuzzleTheme.Key,
       tier: PuzzleTier,
-      previousPaths: Set[PathId]
-  ): Fu[Option[PathId]] =
+      previousPaths: Set[PuzzlePath.Id],
+      compromise: Int = 0
+  ): Fu[Option[PuzzlePath.Id]] =
     colls.path {
       _.aggregateOne() { framework =>
         import framework._
+        val rating = user.perfs.puzzle.glicko.rating
+        val ratingDelta = compromise match {
+          case 0 => 0
+          case 1 => 300
+          case 2 => 800
+          case _ => 2000
+        }
         Match(
           $doc(
             "_id" ->
               $doc(
                 "$regex" -> BSONRegex(s"^${theme}_${tier}", ""),
-                $nin(previousPaths)
+                if (compromise < 4) $nin(previousPaths) else $empty
               ),
-            "min" $lte user.perfs.puzzle.glicko.rating,
-            "max" $gt user.perfs.puzzle.glicko.rating
+            "min" $lte (rating + ratingDelta),
+            "max" $gt (rating - ratingDelta)
           )
         ) -> List(
           Project($id(true)),
           Sample(1)
         )
-      }.dmap(_.flatMap(_.getAsOpt[PathId]("_id")))
+      }.dmap(_.flatMap(_.getAsOpt[PuzzlePath.Id]("_id")))
+    } flatMap {
+      case Some(path)                  => fuccess(path.some)
+      case _ if tier == PuzzleTier.Top => nextPathIdFor(user, theme, PuzzleTier.All, previousPaths)
+      case _ if compromise < 4         => nextPathIdFor(user, theme, tier, previousPaths, compromise + 1)
+      case _                           => fuccess(none)
     }
 }

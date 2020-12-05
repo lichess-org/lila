@@ -36,8 +36,6 @@ object Puzzle {
 
   case class Id(value: String) extends AnyVal with StringValue
 
-  case class PathId(value: String) extends AnyVal with StringValue
-
   case class UserResult(
       puzzleId: Id,
       userId: lila.user.User.ID,
@@ -58,6 +56,5 @@ object Puzzle {
     val dirty  = "dirty" // themes need to be denormalized
   }
 
-  implicit val idIso     = lila.common.Iso.string[Id](Id.apply, _.value)
-  implicit val pathIdIso = lila.common.Iso.string[PathId](PathId.apply, _.value)
+  implicit val idIso = lila.common.Iso.string[Id](Id.apply, _.value)
 }
