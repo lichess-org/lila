@@ -4,6 +4,7 @@ import computeAutoShapes from './autoShape';
 import keyboard from './keyboard';
 import makePromotion from './promotion';
 import moveTest from './moveTest';
+import PuzzleSession from './session';
 import throttle from 'common/throttle';
 import { Api as CgApi } from 'chessground/api';
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
@@ -19,7 +20,6 @@ import { pgnToTree, mergeSolution } from './moveTree';
 import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleResult, MoveTest, ThemeKey } from './interfaces';
 import { Role, Move, Outcome } from 'chessops/types';
 import { storedProp } from 'common/storage';
-import PuzzleSession from './session';
 
 export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
@@ -397,11 +397,14 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   const voteTheme = (theme: ThemeKey, v: boolean) => {
     if (vm.round) {
       vm.round.themes = vm.round.themes || {};
-      if (v || data.puzzle.themes.includes(theme))
-        vm.round.themes[theme] = v;
-      else
+      if (v === vm.round.themes[theme]) {
         delete vm.round.themes[theme];
-      xhr.voteTheme(data.puzzle.id, theme, v);
+        xhr.voteTheme(data.puzzle.id, theme, undefined);
+      } else {
+        if (v || data.puzzle.themes.includes(theme)) vm.round.themes[theme] = v;
+        else delete vm.round.themes[theme];
+        xhr.voteTheme(data.puzzle.id, theme, v);
+      }
       redraw();
     }
   }

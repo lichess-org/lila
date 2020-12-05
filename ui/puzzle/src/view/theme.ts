@@ -22,9 +22,7 @@ const editor = (ctrl: Controller): VNode => {
       hook: bind('click', e => {
         const target = e.target as HTMLElement;
         const theme = target.getAttribute('data-theme');
-        const vote = target.classList.contains('vote-up');
-        const votedThemes = ctrl.vm.round?.themes || {};
-        if (theme && votedThemes[theme] !== vote) ctrl.voteTheme(theme, vote);
+        if (theme) ctrl.voteTheme(theme, target.classList.contains('vote-up'));
       })
     }, visibleThemes.map(key =>
       h('div.puzzle__themes__list__entry', {

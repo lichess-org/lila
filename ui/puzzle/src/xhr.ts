@@ -9,10 +9,10 @@ export function complete(puzzleId: string, theme: ThemeKey | undefined, win: boo
   });
 }
 
-export function vote(puzzleId: string, vote: boolean | undefined): Promise<void> {
+export function vote(puzzleId: string, vote: boolean): Promise<void> {
   return xhr.json(`/training/${puzzleId}/vote`, {
     method: 'POST',
-    body: defined(vote) ? xhr.form({ vote }) : undefined
+    body: xhr.form({ vote })
   });
 }
 
