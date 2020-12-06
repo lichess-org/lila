@@ -103,7 +103,11 @@ final class Puzzle(
                     }
                   case None =>
                     env.puzzle.finisher.incPuzzlePlays(puzzle)
-                    fuccess(NoContent)
+                    nextPuzzleForMe(theme.key) flatMap {
+                      renderJson(_, theme)
+                    } map { json =>
+                      Ok(Json.obj("next" -> json))
+                    }
                 }
             )
             .dmap(_ as JSON)
