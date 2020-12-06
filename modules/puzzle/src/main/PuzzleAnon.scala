@@ -18,11 +18,11 @@ final class PuzzleAnon(colls: PuzzleColls, cacheApi: CacheApi, pathApi: PuzzlePa
   def getOneFor(theme: PuzzleTheme.Key): Fu[Option[Puzzle]] =
     pool get theme map ThreadLocalRandom.oneOf
 
-  private val poolSize = 50
+  private val poolSize = 60
 
   private val pool =
     cacheApi[PuzzleTheme.Key, Vector[Puzzle]](initialCapacity = 32, name = "puzzle.byTheme.anon") {
-      _.refreshAfterWrite(2 minutes)
+      _.refreshAfterWrite(3 minutes)
         .buildAsyncFuture { theme =>
           pathApi countPuzzlesByTheme theme flatMap { count =>
             val tier =
@@ -37,7 +37,7 @@ final class PuzzleAnon(colls: PuzzleColls, cacheApi: CacheApi, pathApi: PuzzlePa
               _.aggregateList(poolSize) { framework =>
                 import framework._
                 Match(pathApi.select(theme, tier, ratingRange)) -> List(
-                  Sample(1),
+                  Sample(3),
                   Project($doc("puzzleId" -> "$ids", "_id" -> false)),
                   Unwind("puzzleId"),
                   Sample(poolSize),
