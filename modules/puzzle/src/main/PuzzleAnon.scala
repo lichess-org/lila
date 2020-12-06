@@ -25,21 +25,18 @@ final class PuzzleAnon(colls: PuzzleColls, cacheApi: CacheApi, pathApi: PuzzlePa
       _.refreshAfterWrite(2 minutes)
         .buildAsyncFuture { theme =>
           pathApi countPuzzlesByTheme theme flatMap { count =>
-            val tier = if (count > 3000) PuzzleTier.Top else PuzzleTier.All
+            val tier =
+              if (count > 4000) PuzzleTier.Top
+              else if (count > 1500) PuzzleTier.Good
+              else PuzzleTier.All
             val ratingRange: Range =
               if (count > 9000) 1200 to 1600
               else if (count > 5000) 1000 to 1800
               else 0 to 9999
-            val selector =
-              $doc(
-                "_id" $startsWith s"${theme}_${tier}_",
-                "min" $gte ratingRange.min,
-                "max" $lte ratingRange.max
-              )
             colls.path {
               _.aggregateList(poolSize) { framework =>
                 import framework._
-                Match(selector) -> List(
+                Match(pathApi.select(theme, tier, ratingRange)) -> List(
                   Sample(1),
                   Project($doc("puzzleId" -> "$ids", "_id" -> false)),
                   Unwind("puzzleId"),

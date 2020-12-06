@@ -49,19 +49,14 @@ final private class PuzzlePathApi(
       .path {
         _.aggregateOne() { framework =>
           import framework._
-          val rating = user.perfs.puzzle.glicko.intRating
+          val rating = user.perfs.puzzle.glicko.intRating + difficulty.ratingDelta
           val ratingDelta = compromise match {
             case 0 => 0
             case 1 => 300
             case 2 => 800
             case _ => 2000
           }
-          Match(
-            $doc(
-              "min" $lte f"${theme}_${actualTier}_${rating + difficulty.ratingDelta + ratingDelta}%04d",
-              "max" $gt f"${theme}_${actualTier}_${rating + difficulty.ratingDelta - ratingDelta}%04d"
-            )
-          ) -> List(
+          Match(select(theme, actualTier, (rating - ratingDelta) to (rating + ratingDelta))) -> List(
             Sample(1),
             Project($id(true))
           )
@@ -78,6 +73,11 @@ final private class PuzzlePathApi(
         case _ => fuccess(none)
       }
   }
+
+  def select(theme: PuzzleTheme.Key, tier: PuzzleTier, rating: Range) = $doc(
+    "min" $lte f"${theme}_${tier}_${rating.max}%04d",
+    "max" $gt f"${theme}_${tier}_${rating.min}%04d"
+  )
 
   private val countByThemeCache =
     cacheApi.unit[Map[PuzzleTheme.Key, Int]] {
