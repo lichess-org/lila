@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 import lila.db.dsl._
 import lila.memo.CacheApi._
 
-final private[puzzle] class Daily(
+final private[puzzle] class DailyPuzzle(
     colls: PuzzleColls,
     renderer: lila.hub.actors.Renderer,
     cacheApi: lila.memo.CacheApi
@@ -17,14 +17,14 @@ final private[puzzle] class Daily(
   import BsonHandlers._
 
   private val cache =
-    cacheApi.unit[Option[DailyPuzzle]] {
+    cacheApi.unit[Option[DailyPuzzle.Html]] {
       _.refreshAfterWrite(30 minutes)
         .buildAsyncFuture(_ => find)
     }
 
-  def get: Fu[Option[DailyPuzzle]] = cache.getUnit
+  def get: Fu[Option[DailyPuzzle.Html]] = cache.getUnit
 
-  private def find: Fu[Option[DailyPuzzle]] =
+  private def find: Fu[Option[DailyPuzzle.Html]] =
     (findCurrent orElse findNew) recover { case e: Exception =>
       logger.error("find daily", e)
       none
@@ -33,10 +33,10 @@ final private[puzzle] class Daily(
       case None         => fuccess(none)
     }
 
-  private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle]] = {
+  private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle.Html]] = {
     import makeTimeout.short
-    renderer.actor ? RenderDaily(puzzle, puzzle.fenAfterInitialMove, puzzle.line.head.uci) map {
-      case html: String => DailyPuzzle(html, puzzle.color, puzzle.id).some
+    renderer.actor ? DailyPuzzle.Render(puzzle, puzzle.fenAfterInitialMove, puzzle.line.head.uci) map {
+      case html: String => DailyPuzzle.Html(html, puzzle.color, puzzle.id).some
     }
   } recover { case e: Exception =>
     logger.warn("make daily", e)
@@ -66,10 +66,10 @@ final private[puzzle] class Daily(
     }
 }
 
-object Daily {
-  type Try = () => Fu[Option[DailyPuzzle]]
+object DailyPuzzle {
+  type Try = () => Fu[Option[DailyPuzzle.Html]]
+
+  case class Html(html: String, color: chess.Color, id: Puzzle.Id)
+
+  case class Render(puzzle: Puzzle, fen: chess.format.FEN, lastMove: String)
 }
-
-case class DailyPuzzle(html: String, color: chess.Color, id: Puzzle.Id)
-
-case class RenderDaily(puzzle: Puzzle, fen: chess.format.FEN, lastMove: String)

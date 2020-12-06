@@ -67,7 +67,7 @@ final class Env(
 
   lazy val forms = PuzzleForm
 
-  lazy val daily = wire[Daily]
+  lazy val daily = wire[DailyPuzzle]
 
   lazy val activity = wire[PuzzleActivity]
 

@@ -1,11 +1,12 @@
 import { storedJsonProp } from 'common/storage';
+import { ThemeKey } from './interfaces';
 
 interface SessionRound {
   id: string;
   result?: boolean;
 }
 interface Store {
-  theme: string;
+  theme: ThemeKey;
   rounds: SessionRound[];
   at: number;
 }
@@ -15,7 +16,7 @@ export default class PuzzleSession {
   maxSize = 100;
   maxAge = 1000 * 3600;
 
-  constructor(readonly theme: string) {
+  constructor(readonly theme: ThemeKey) {
   }
 
   default = () => ({
@@ -25,7 +26,7 @@ export default class PuzzleSession {
   });
 
   store = storedJsonProp<Store>('puzzle.session', this.default);
-  
+
   clear = () => this.update(s => ({ ...s, rounds: [] }));
 
   get = () => {
