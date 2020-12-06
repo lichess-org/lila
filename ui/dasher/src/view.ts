@@ -9,6 +9,7 @@ import { view as backgroundView } from './background'
 import { view as boardView } from './board'
 import { view as themeView } from './theme'
 import { view as pieceView } from './piece'
+import { view as notationView } from './notation'
 import { spinner } from './util'
 
 export function loading(): VNode {
@@ -35,6 +36,9 @@ export function loaded(ctrl: DasherCtrl): VNode {
       break;
     case 'piece':
       content = pieceView(ctrl.subs.piece);
+      break;
+    case 'notation':
+      content = notationView(ctrl.subs.notation);
       break;
     default:
       content = links(ctrl);

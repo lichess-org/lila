@@ -79,6 +79,8 @@ export default function (ctrl: DasherCtrl): VNode {
   const theme = h("a.sub", modeCfg(ctrl, "theme"), noarg("boardTheme"));
 
   const piece = h("a.sub", modeCfg(ctrl, "piece"), noarg("pieceSet"));
+  
+  const notation = h("a.sub", modeCfg(ctrl, "notation"), noarg("Nottation"));
 
   const zenToggle = ctrl.opts.playing
     ? h("div.zen.selector", [
@@ -105,6 +107,7 @@ export default function (ctrl: DasherCtrl): VNode {
       //board,
       theme,
       piece,
+      notation,
       zenToggle,
     ]),
     pingView(ctrl.ping),

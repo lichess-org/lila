@@ -10,10 +10,12 @@ import { BoardCtrl, BoardData, ctrl as boardCtrl } from "./board";
 import { ThemeCtrl, ThemeData, ctrl as themeCtrl } from "./theme";
 import { PieceCtrl, PieceData, ctrl as pieceCtrl } from "./piece";
 import { Redraw, Prop, prop } from "./util";
+import { NotationCtrl, ctrl as notationCtrl, NotationData } from "./notation";
 
 export interface DasherData {
   user?: LightUser;
   lang: LangsData;
+  pieceNotation: NotationData;
   sound: {
     list: string[];
   };
@@ -33,6 +35,7 @@ export type Mode =
   | "sound"
   | "background"
   | "board"
+  | "notation"
   | "theme"
   | "piece";
 
@@ -49,6 +52,7 @@ export interface DasherCtrl {
     sound: SoundCtrl;
     background: BackgroundCtrl;
     board: BoardCtrl;
+    notation: NotationCtrl;
     theme: ThemeCtrl;
     piece: PieceCtrl;
   };
@@ -89,6 +93,12 @@ export function makeCtrl(
       () => (data.board.is3d ? "d3" : "d2"),
       redraw,
       setMode
+    ),
+    notation: notationCtrl(
+      data.pieceNotation,
+      trans,
+      redraw,
+      close
     ),
     piece: pieceCtrl(
       data.piece,
