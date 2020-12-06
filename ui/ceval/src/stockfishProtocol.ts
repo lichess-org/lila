@@ -132,7 +132,8 @@ export default class Protocol {
       splitted[0].slice(-1) == "/"
         ? splitted[0].substring(0, splitted[0].length - 1)
         : splitted[0];
-    const oppositeColorSfen = fixSfen(boardFen) + " " + oppositeColor; // because white goes first in chess - lishogi
+    const piecesInHand = splitted[2] ? splitted[2] : "-";
+    const oppositeColorSfen = fixSfen(boardFen) + " " + oppositeColor + " " + piecesInHand;
     const usiMoves = this.work.moves.map(chessToShogiUsi);
     console.log(
       "sending this sfen: ",
