@@ -26,7 +26,12 @@ private case class PuzzleSession(
   override def toString = s"$path:$positionInPath"
 }
 
-final class PuzzleSessionApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: UserRepo)(implicit
+final class PuzzleSessionApi(
+    colls: PuzzleColls,
+    pathApi: PuzzlePathApi,
+    cacheApi: CacheApi,
+    userRepo: UserRepo
+)(implicit
     ec: ExecutionContext,
     system: akka.actor.ActorSystem,
     mode: play.api.Mode
@@ -47,7 +52,7 @@ final class PuzzleSessionApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: U
     continueOrCreateSessionFor(user, theme) flatMap { session =>
       import NextPuzzleResult._
       def switchPath(tier: PuzzleTier) =
-        nextPathIdFor(user, theme, tier, session.previousPaths) orFail
+        pathApi.nextFor(user, theme, tier, session.previousPaths) orFail
           s"No puzzle path for ${user.id} $theme $tier" flatMap { pathId =>
             val newSession = session.switchTo(pathId)
             sessions.put(user.id, fuccess(newSession))
@@ -146,46 +151,8 @@ final class PuzzleSessionApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: U
     }
 
   private def createSessionFor(user: User, theme: PuzzleTheme.Key): Fu[PuzzleSession] =
-    nextPathIdFor(user, theme, PuzzleTier.Top, Set.empty)
+    pathApi
+      .nextFor(user, theme, PuzzleTier.Top, Set.empty)
       .orFail(s"No puzzle path found for ${user.id}, theme: $theme")
       .dmap(pathId => PuzzleSession(pathId, 0))
-
-  private def nextPathIdFor(
-      user: User,
-      theme: PuzzleTheme.Key,
-      tier: PuzzleTier,
-      previousPaths: Set[PuzzlePath.Id],
-      compromise: Int = 0
-  ): Fu[Option[PuzzlePath.Id]] =
-    colls.path {
-      _.aggregateOne() { framework =>
-        import framework._
-        val rating = user.perfs.puzzle.glicko.rating
-        val ratingDelta = compromise match {
-          case 0 => 0
-          case 1 => 300
-          case 2 => 800
-          case _ => 2000
-        }
-        Match(
-          $doc(
-            "_id" ->
-              $doc(
-                "$regex" -> BSONRegex(s"^${theme}_${tier}", ""),
-                if (compromise < 4) $nin(previousPaths) else $empty
-              ),
-            "min" $lte (rating + ratingDelta),
-            "max" $gt (rating - ratingDelta)
-          )
-        ) -> List(
-          Project($id(true)),
-          Sample(1)
-        )
-      }.dmap(_.flatMap(_.getAsOpt[PuzzlePath.Id]("_id")))
-    } flatMap {
-      case Some(path)                  => fuccess(path.some)
-      case _ if tier == PuzzleTier.Top => nextPathIdFor(user, theme, PuzzleTier.All, previousPaths)
-      case _ if compromise < 4         => nextPathIdFor(user, theme, tier, previousPaths, compromise + 1)
-      case _                           => fuccess(none)
-    }
 }

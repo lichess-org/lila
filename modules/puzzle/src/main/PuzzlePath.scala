@@ -5,6 +5,7 @@ import scala.concurrent.ExecutionContext
 
 import lila.db.dsl._
 import lila.memo.CacheApi
+import lila.user.User
 
 private object PuzzlePath {
 
@@ -25,11 +26,49 @@ final private class PuzzlePathApi(
     cacheApi: CacheApi
 )(implicit ec: ExecutionContext) {
 
+  import BsonHandlers._
+
   def countsByTheme: Fu[Map[PuzzleTheme.Key, Int]] =
     countByThemeCache get {}
 
   def countPuzzlesByTheme(theme: PuzzleTheme.Key): Fu[Int] =
     countsByTheme dmap { _.getOrElse(theme, 0) }
+
+  def nextFor(
+      user: User,
+      theme: PuzzleTheme.Key,
+      tier: PuzzleTier,
+      previousPaths: Set[PuzzlePath.Id],
+      compromise: Int = 0
+  ): Fu[Option[PuzzlePath.Id]] =
+    colls.path {
+      _.aggregateOne() { framework =>
+        import framework._
+        val rating = user.perfs.puzzle.glicko.intRating
+        val ratingDelta = compromise match {
+          case 0 => 0
+          case 1 => 300
+          case 2 => 800
+          case _ => 2000
+        }
+        Match(
+          $doc(
+            "min" $lte f"${theme}_${tier}_${rating + ratingDelta}%04d",
+            "max" $gt f"${theme}_${tier}_${rating - ratingDelta}%04d"
+          )
+        ) -> List(
+          Sample(1),
+          Project($id(true))
+        )
+      }.dmap(_.flatMap(_.getAsOpt[PuzzlePath.Id]("_id")))
+    } flatMap {
+      case Some(path)                  => fuccess(path.some)
+      case _ if tier == PuzzleTier.Top => nextFor(user, theme, PuzzleTier.Good, previousPaths)
+      case _ if tier == PuzzleTier.Good && compromise == 2 =>
+        nextFor(user, theme, PuzzleTier.All, previousPaths, compromise = 1)
+      case _ if compromise < 4 => nextFor(user, theme, tier, previousPaths, compromise + 1)
+      case _                   => fuccess(none)
+    }
 
   private val countByThemeCache =
     cacheApi.unit[Map[PuzzleTheme.Key, Int]] {
