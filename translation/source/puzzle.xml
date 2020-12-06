@@ -12,7 +12,7 @@
   <string name="yourPuzzleRatingX">Your puzzle rating: %s</string>
   <string name="findTheBestMoveForWhite">Find the best move for white.</string>
   <string name="findTheBestMoveForBlack">Find the best move for black.</string>
-  <string name="toTrackYourProgress">To track your progress:</string>
+  <string name="toGetPersonalizedPuzzles">To get personalized puzzles:</string>
   <string name="puzzleId">Puzzle %s</string>
   <string name="puzzleOfTheDay">Puzzle of the day</string>
   <string name="clickToSolve">Click to solve</string>

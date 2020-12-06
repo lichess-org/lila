@@ -55,7 +55,7 @@ object bits {
       trans.puzzle.playedXTimes,
       trans.puzzle.continueTraining,
       trans.puzzle.difficultyLevel,
-      trans.puzzle.toTrackYourProgress,
+      trans.puzzle.toGetPersonalizedPuzzles,
       trans.signUp,
       trans.analysis,
       trans.rated,

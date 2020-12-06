@@ -42,10 +42,9 @@
     @extend %box-neat;
 
     background: $c-bg-box;
+    padding: 2vmin;
 
     &__rating {
-      margin: 2vmin;
-
       strong {
         @extend %flex-center;
 
@@ -88,9 +87,11 @@
 
     &__difficulty {
       margin-top: 2vmin;
+
       label {
         margin-right: 1em;
       }
+
       select {
         border: none;
       }
@@ -122,7 +123,6 @@
       @extend %flex-between;
 
       align-items: stretch;
-
       margin-left: -.5rem;
 
       a {
@@ -133,7 +133,7 @@
       &:hover {
         background: mix($c-bg-box, $c-link, 90%);
       }
-      
+
       &.strike a {
         text-decoration: line-through;
       }
@@ -142,8 +142,8 @@
 
   &__votes {
     @extend %flex-center-nowrap;
-    flex: 0 1 7em;
 
+    flex: 0 1 7em;
     align-items: stretch;
     text-align: center;
   }
@@ -154,7 +154,6 @@
     justify-content: center;
     flex: 0 0 50%;
     cursor: pointer;
-
     color: $c-font-dimmer;
 
     .puzzle__themes:hover & {
@@ -179,7 +178,7 @@
     &:hover,
     &.active {
       background: $c-good;
-      color: $c-good-over!important;
+      color: $c-good-over !important;
     }
 
     &.vote-down:hover,
