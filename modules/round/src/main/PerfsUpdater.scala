@@ -145,7 +145,8 @@ final class PerfsUpdater(
         def addRatingIf(cond: Boolean, perf: Perf, rating: Rating) =
           if (cond) {
             val p = perf.addOrReset(_.round.error.glicko, s"game ${game.id}")(rating, game.movedAt)
-            if (isHumanVsMachine) p averageGlicko perf // halve rating diffs for human
+            if (isHumanVsMachine)
+              p.copy(glicko = p.glicko average perf.glicko) // halve rating diffs for human
             else p
           } else perf
         val perfs1 = perfs.copy(

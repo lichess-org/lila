@@ -1,9 +1,9 @@
 package lila.puzzle
 
+import cats.implicits._
 import org.goochjs.glicko2.{ Rating, RatingCalculator, RatingPeriodResults }
 import org.joda.time.DateTime
 import scala.util.chaining._
-import cats.implicits._
 
 import lila.common.Bus
 import lila.db.AsyncColl
@@ -51,21 +51,21 @@ final private[puzzle] class PuzzleFinisher(
           updateRatings(userRating, puzzleRating, result.glicko)
           val newPuzzleGlicko = user.perfs.puzzle.established
             .option {
-              val g = Glicko(
+              val after = Glicko(
                 rating = puzzleRating.getRating
                   .atMost(puzzle.glicko.rating + Glicko.maxRatingDelta)
                   .atLeast(puzzle.glicko.rating - Glicko.maxRatingDelta),
                 deviation = puzzleRating.getRatingDeviation,
                 volatility = puzzleRating.getVolatility
               )
-              if (theme == PuzzleTheme.any.key) g else g.average(puzzle.glicko)
+              ponder(theme, result, puzzle.glicko, after)
             }
             .filter(_.sanityCheck)
           val round = PuzzleRound(id = PuzzleRound.Id(user.id, puzzle.id), date = now, win = result.win)
           val userPerf =
             user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, now) pipe {
               p =>
-                if (theme == PuzzleTheme.any.key) p else p.averageGlicko(user.perfs.puzzle)
+                p.copy(glicko = ponder(theme, result, user.perfs.puzzle.glicko, p.glicko))
             }
           (round, newPuzzleGlicko, userPerf)
       }
@@ -87,6 +87,11 @@ final private[puzzle] class PuzzleFinisher(
           "finishPuzzle"
         ) inject (round -> userPerf)
     }
+
+  private def ponder(theme: PuzzleTheme.Key, result: Result, prev: Glicko, after: Glicko) =
+    if (theme == PuzzleTheme.any.key) after
+    else if (PuzzleTheme.obviousThemes(theme)) after.average(prev, if (result.win) 0.85f else 0.5f)
+    else after.average(prev, if (result.win) 0.6f else 0.4f)
 
   private val VOLATILITY = Glicko.default.volatility
   private val TAU        = 0.75d

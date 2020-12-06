@@ -153,6 +153,14 @@ object PuzzleTheme {
     veryLong
   ).map(_.key)
 
+  // themes that make the solution obvious
+  val obviousThemes: Set[Key] = Set(
+    enPassant,
+    attackingF2F7,
+    doubleCheck,
+    mateIn1
+  ).map(_.key)
+
   def find(key: String) = byKey get Key(key)
 
   def findOrAny(key: String) = find(key) | any
