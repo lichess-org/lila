@@ -15,9 +15,10 @@
     }
 
     .infos {
-      @extend %flex-center;
+      @extend %flex-center-nowrap;
 
       overflow: hidden;
+      white-space: nowrap;
 
       &::before {
         font-size: 3rem;
