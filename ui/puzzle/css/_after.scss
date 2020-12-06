@@ -24,12 +24,6 @@
     color: $c-primary-over;
     text-transform: uppercase;
     padding: 2em;
-    order: -1;
-
-    @include breakpoint($mq-landscape) {
-      order: 0;
-    }
-
 
     &:hover {
       background: lighten($c-primary, 10%);
