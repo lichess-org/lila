@@ -15,8 +15,10 @@ final class Puzzle(
     apiC: => Api
 ) extends LilaController(env) {
 
-  private def renderJson(puzzle: Puz, theme: PuzzleTheme)(implicit ctx: Context): Fu[JsObject] =
-    env.puzzle.jsonView(puzzle = puzzle, theme = theme, user = ctx.me)
+  private def renderJson(puzzle: Puz, theme: PuzzleTheme, newUser: Option[lila.user.User] = None)(implicit
+      ctx: Context
+  ): Fu[JsObject] =
+    env.puzzle.jsonView(puzzle = puzzle, theme = theme, user = newUser orElse ctx.me)
 
   private def renderShow(puzzle: Puz, theme: PuzzleTheme)(implicit ctx: Context) =
     renderJson(puzzle, theme) zip
@@ -89,9 +91,10 @@ final class Puzzle(
                         result = Result(resultInt == 1),
                         isStudent = isStudent
                       )
-                      _ = env.puzzle.session.onComplete(round, theme.key)
+                      newUser = me.copy(perfs = me.perfs.copy(puzzle = perf))
+                      _       = env.puzzle.session.onComplete(round, theme.key)
                       next     <- nextPuzzleForMe(theme.key)
-                      nextJson <- renderJson(next, theme)
+                      nextJson <- renderJson(next, theme, newUser.some)
                     } yield Ok {
                       Json.obj(
                         "round" -> env.puzzle.jsonView.roundJson(me, round, perf),
