@@ -73,7 +73,7 @@
     background: $c-bg-box;
     padding: 2vmin;
 
-    &__setting {
+    &__jump {
       @extend %flex-center-nowrap;
 
       .switch {
@@ -82,6 +82,16 @@
 
       label {
         cursor: pointer;
+      }
+    }
+
+    &__difficulty {
+      margin-top: 2vmin;
+      label {
+        margin-right: 1em;
+      }
+      select {
+        border: none;
       }
     }
   }

@@ -8,7 +8,7 @@ import lila.api.Context
 import lila.app._
 import lila.common.config.MaxPerSecond
 import lila.puzzle.PuzzleTheme
-import lila.puzzle.{ Result, PuzzleRound, Puzzle => Puz }
+import lila.puzzle.{ Result, PuzzleRound, PuzzleDifficulty, Puzzle => Puz }
 
 final class Puzzle(
     env: Env,
@@ -19,11 +19,12 @@ final class Puzzle(
     env.puzzle.jsonView(puzzle = puzzle, theme = theme, user = ctx.me)
 
   private def renderShow(puzzle: Puz, theme: PuzzleTheme)(implicit ctx: Context) =
-    renderJson(puzzle, theme) map { json =>
-      EnableSharedArrayBuffer(
-        Ok(views.html.puzzle.show(puzzle, data = json, pref = env.puzzle.jsonView.pref(ctx.pref)))
-      )
-    }
+    renderJson(puzzle, theme) zip
+      ctx.me.??(u => env.puzzle.session.getDifficulty(u) dmap some) map { case (json, difficulty) =>
+        EnableSharedArrayBuffer(
+          Ok(views.html.puzzle.show(puzzle, json, env.puzzle.jsonView.pref(ctx.pref), difficulty))
+        )
+      }
 
   def daily =
     Open { implicit ctx =>
@@ -138,6 +139,21 @@ final class Puzzle(
               }
             )
         }
+      }
+    }
+
+  def setDifficulty(theme: String) =
+    AuthBody { implicit ctx => me =>
+      NoBot {
+        implicit val req = ctx.body
+        env.puzzle.forms.difficulty
+          .bindFromRequest()
+          .fold(
+            jsonFormError,
+            diff =>
+              PuzzleDifficulty.find(diff) ?? { env.puzzle.session.setDifficulty(me, _) } inject
+                Redirect(routes.Puzzle.show(theme))
+          )
       }
     }
 

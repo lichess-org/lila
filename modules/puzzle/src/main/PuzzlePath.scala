@@ -7,13 +7,13 @@ import lila.db.dsl._
 import lila.memo.CacheApi
 import lila.user.User
 
-private object PuzzlePath {
+object PuzzlePath {
 
   case class Id(value: String) {
 
     val parts = value split '_'
 
-    def tier = PuzzleTier.from(~parts.lift(1))
+    private[puzzle] def tier = PuzzleTier.from(~parts.lift(1))
 
     def theme = PuzzleTheme.findOrAny(~parts.headOption).key
   }
@@ -38,37 +38,46 @@ final private class PuzzlePathApi(
       user: User,
       theme: PuzzleTheme.Key,
       tier: PuzzleTier,
+      difficulty: PuzzleDifficulty,
       previousPaths: Set[PuzzlePath.Id],
       compromise: Int = 0
-  ): Fu[Option[PuzzlePath.Id]] =
-    colls.path {
-      _.aggregateOne() { framework =>
-        import framework._
-        val rating = user.perfs.puzzle.glicko.intRating
-        val ratingDelta = compromise match {
-          case 0 => 0
-          case 1 => 300
-          case 2 => 800
-          case _ => 2000
-        }
-        Match(
-          $doc(
-            "min" $lte f"${theme}_${tier}_${rating + ratingDelta}%04d",
-            "max" $gt f"${theme}_${tier}_${rating - ratingDelta}%04d"
+  ): Fu[Option[PuzzlePath.Id]] = {
+    val actualTier =
+      if (tier == PuzzleTier.Top && PuzzleDifficulty.isExtreme(difficulty)) PuzzleTier.Good
+      else tier
+    colls
+      .path {
+        _.aggregateOne() { framework =>
+          import framework._
+          val rating = user.perfs.puzzle.glicko.intRating
+          val ratingDelta = compromise match {
+            case 0 => 0
+            case 1 => 300
+            case 2 => 800
+            case _ => 2000
+          }
+          Match(
+            $doc(
+              "min" $lte f"${theme}_${actualTier}_${rating + difficulty.ratingDelta + ratingDelta}%04d",
+              "max" $gt f"${theme}_${actualTier}_${rating + difficulty.ratingDelta - ratingDelta}%04d"
+            )
+          ) -> List(
+            Sample(1),
+            Project($id(true))
           )
-        ) -> List(
-          Sample(1),
-          Project($id(true))
-        )
-      }.dmap(_.flatMap(_.getAsOpt[PuzzlePath.Id]("_id")))
-    } flatMap {
-      case Some(path)                  => fuccess(path.some)
-      case _ if tier == PuzzleTier.Top => nextFor(user, theme, PuzzleTier.Good, previousPaths)
-      case _ if tier == PuzzleTier.Good && compromise == 2 =>
-        nextFor(user, theme, PuzzleTier.All, previousPaths, compromise = 1)
-      case _ if compromise < 4 => nextFor(user, theme, tier, previousPaths, compromise + 1)
-      case _                   => fuccess(none)
-    }
+        }.dmap(_.flatMap(_.getAsOpt[PuzzlePath.Id]("_id")))
+      }
+      .flatMap {
+        case Some(path) => fuccess(path.some)
+        case _ if actualTier == PuzzleTier.Top =>
+          nextFor(user, theme, PuzzleTier.Good, difficulty, previousPaths)
+        case _ if actualTier == PuzzleTier.Good && compromise == 2 =>
+          nextFor(user, theme, PuzzleTier.All, difficulty, previousPaths, compromise = 1)
+        case _ if compromise < 4 =>
+          nextFor(user, theme, actualTier, difficulty, previousPaths, compromise + 1)
+        case _ => fuccess(none)
+      }
+  }
 
   private val countByThemeCache =
     cacheApi.unit[Map[PuzzleTheme.Key, Int]] {
@@ -77,9 +86,9 @@ final private class PuzzlePathApi(
           colls.path {
             _.aggregateList(Int.MaxValue) { framework =>
               import framework._
-              Match($doc("tier" -> "all")) -> List(
+              Match($doc("tier" -> "all", "theme" $ne PuzzleTheme.any.key)) -> List(
                 GroupField("theme")(
-                  "count" -> SumField("length")
+                  "count" -> SumField("size")
                 )
               )
             }.map {

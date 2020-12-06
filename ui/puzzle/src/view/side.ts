@@ -1,5 +1,5 @@
-import { Controller, Puzzle, PuzzleGame, MaybeVNode } from '../interfaces';
-import { dataIcon } from '../util';
+import { Controller, Puzzle, PuzzleGame, MaybeVNode, PuzzleDifficulty } from '../interfaces';
+import { dataIcon, onInsert } from '../util';
 import { h } from 'snabbdom';
 import { numberFormat } from 'common/number';
 import { VNode } from 'snabbdom/vnode';
@@ -62,11 +62,13 @@ export function userBox(ctrl: Controller): VNode {
   ]);
 }
 
+const difficulties: PuzzleDifficulty[] = ['easiest', 'easier', 'normal', 'harder', 'hardest'];
+
 export function config(ctrl: Controller): MaybeVNode {
 
   const id = 'puzzle-toggle-autonext';
   return h('div.puzzle__side__config', [
-    h('div.puzzle__side__config__setting', [
+    h('div.puzzle__side__config__jump', [
       h('div.switch', [
         h(`input#${id}.cmn-toggle.cmn-toggle--subtle`, {
           attrs: {
@@ -81,6 +83,27 @@ export function config(ctrl: Controller): MaybeVNode {
         h('label', { attrs: { 'for': id } })
       ]),
       h('label', { attrs: { 'for': id } }, 'Jump to next puzzle immediately')
-    ])
+    ]),
+    ctrl.difficulty ? h('form.puzzle__side__config__difficulty', {
+      attrs: {
+        action: `/training/difficulty/${ctrl.getData().theme.key}`,
+        method: 'post'
+      }
+    }, [
+      h('label', {
+        attrs: { for: 'puzzle-difficulty' },
+      }, ctrl.trans.noarg('difficultyLevel')),
+      h('select#puzzle-difficulty.puzzle__difficulty__selector', {
+        attrs: { name: 'difficulty' },
+        hook: onInsert(elm => elm.addEventListener('change', () => (elm.parentNode as HTMLFormElement).submit()))
+      }, difficulties.map(diff =>
+        h('option', {
+          attrs: {
+            value: diff,
+            selected: diff == ctrl.difficulty
+          },
+        }, ctrl.trans.noarg(diff))
+      ))
+    ]) : null
   ]);
 }

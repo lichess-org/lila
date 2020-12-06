@@ -6,9 +6,8 @@ import play.api.libs.json.{ JsArray, JsObject, JsString, Json }
 
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.i18n.JsDump
-import lila.i18n.MessageKey
-import lila.puzzle.PuzzleTheme
+import lila.i18n.{ JsDump, MessageKey }
+import lila.puzzle.{ PuzzleDifficulty, PuzzleTheme }
 
 object bits {
 
@@ -55,6 +54,7 @@ object bits {
       trans.puzzle.ratingX,
       trans.puzzle.playedXTimes,
       trans.puzzle.continueTraining,
+      trans.puzzle.difficultyLevel,
       trans.puzzle.toTrackYourProgress,
       trans.signUp,
       trans.analysis,
@@ -70,6 +70,8 @@ object bits {
       trans.gameOver,
       trans.inLocalBrowser,
       trans.toggleLocalEvaluation
-    ) ::: PuzzleTheme.all.map(_.name) ::: PuzzleTheme.all.map(_.description)
+    ) ::: PuzzleTheme.all.map(_.name) :::
+      PuzzleTheme.all.map(_.description) :::
+      PuzzleDifficulty.all.map(_.name)
   }.map(_.key)
 }

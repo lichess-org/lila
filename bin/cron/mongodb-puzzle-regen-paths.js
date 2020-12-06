@@ -89,7 +89,9 @@ function makeTier(theme, tierName, thresholdRatio) {
         min: `${themeName}_${tierName}_${padRating(ratingMin)}`,
         max: `${themeName}_${tierName}_${padRating(ratingMax)}`,
         ids,
-        // length: ids.length,
+        tier: tierName,
+        theme: themeName,
+        size: ids.length,
         gen: generation
       });
     });

@@ -11,7 +11,14 @@ import controllers.routes
 
 object show {
 
-  def apply(puzzle: lila.puzzle.Puzzle, data: JsObject, pref: JsObject)(implicit ctx: Context) =
+  def apply(
+      puzzle: lila.puzzle.Puzzle,
+      data: JsObject,
+      pref: JsObject,
+      difficulty: Option[lila.puzzle.PuzzleDifficulty] = None
+  )(implicit
+      ctx: Context
+  ) =
     views.html.base.layout(
       title = trans.puzzles.txt(),
       moreCss = cssTag("puzzle"),
@@ -25,6 +32,7 @@ object show {
               "i18n" -> bits.jsI18n
             )
             .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
+            .add("difficulty" -> difficulty.map(_.key))
         )})""")
       ),
       csp = defaultCsp.withWebAssembly.some,

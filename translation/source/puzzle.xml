@@ -31,4 +31,10 @@
   </plurals>
   <string name="fromGameLink">From game %s</string>
   <string name="continueTraining">Continue training</string>
+  <string name="difficultyLevel">Difficulty level</string>
+  <string name="normal">Normal</string>
+  <string name="easier">Easier</string>
+  <string name="easiest">Easiest</string>
+  <string name="harder">Harder</string>
+  <string name="hardest">Hardest</string>
 </resources>

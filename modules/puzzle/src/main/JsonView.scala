@@ -18,7 +18,9 @@ final class JsonView(
 
   import JsonView._
 
-  def apply(puzzle: Puzzle, theme: PuzzleTheme, user: Option[User])(implicit lang: Lang): Fu[JsObject] = {
+  def apply(puzzle: Puzzle, theme: PuzzleTheme, user: Option[User])(implicit
+      lang: Lang
+  ): Fu[JsObject] = {
     gameJson(
       gameId = puzzle.gameId,
       plies = puzzle.initialPly

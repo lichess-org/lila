@@ -1802,6 +1802,12 @@ val `ratingX` = new I18nKey("puzzle:ratingX")
 val `hidden` = new I18nKey("puzzle:hidden")
 val `fromGameLink` = new I18nKey("puzzle:fromGameLink")
 val `continueTraining` = new I18nKey("puzzle:continueTraining")
+val `difficultyLevel` = new I18nKey("puzzle:difficultyLevel")
+val `normal` = new I18nKey("puzzle:normal")
+val `easier` = new I18nKey("puzzle:easier")
+val `easiest` = new I18nKey("puzzle:easiest")
+val `harder` = new I18nKey("puzzle:harder")
+val `hardest` = new I18nKey("puzzle:hardest")
 val `playedXTimes` = new I18nKey("puzzle:playedXTimes")
 }
 

@@ -3,6 +3,8 @@ package lila.puzzle
 import play.api.data._
 import play.api.data.Forms._
 
+import lila.common.Form.stringIn
+
 object PuzzleForm {
 
   val round = Form(
@@ -15,5 +17,9 @@ object PuzzleForm {
 
   val themeVote = Form(
     single("vote" -> optional(boolean))
+  )
+
+  val difficulty = Form(
+    single("difficulty" -> stringIn(PuzzleDifficulty.all.map(_.key).toSet))
   )
 }
