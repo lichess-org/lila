@@ -215,9 +215,9 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     } else if (progress == 'win') {
       vm.lastFeedback = 'win';
       if (vm.mode != 'view') {
-        withGround(showGround); // to disable premoves
         const sent = vm.mode == 'play' ? sendResult(true) : Promise.resolve();
         vm.mode = 'view';
+        withGround(showGround);
         sent.then(_ => autoNext() ? nextPuzzle() : startCeval());
       }
     } else if (progress) {
