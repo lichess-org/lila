@@ -83,6 +83,7 @@ export interface Vm {
   canViewSolution: boolean;
   autoScrollRequested: boolean;
   autoScrollNow: boolean;
+  voteDisabled?: boolean;
   cgConfig: CgConfig;
   showComputer(): boolean;
   showAutoShapes(): boolean;

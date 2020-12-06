@@ -118,25 +118,17 @@
     font-size: 1.5em;
   }
 
-  @keyframes reveal {
-    0% {
-      opacity: 0;
-    }
-
-    100% {
-      opacity: 0.8;
-    }
-  }
-
   .view_solution {
     margin-top: 1.5em;
     text-align: center;
     visibility: hidden;
+    opacity: 0;
   }
 
   .view_solution.show {
     visibility: visible;
-    animation: reveal 1.5s;
+    opacity: 0.8;
+    @include transition(opacity, 1.5s);
   }
 }
 

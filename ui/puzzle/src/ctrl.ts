@@ -67,17 +67,17 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.pov = vm.initialNode.ply % 2 == 1 ? 'black' : 'white';
 
     setPath(treePath.init(initialPath));
-    setTimeout(function() {
+    setTimeout(() => {
       jump(initialPath);
       redraw();
     }, 500);
 
     // just to delay button display
     vm.canViewSolution = false;
-    setTimeout(function() {
+    setTimeout(() => {
       vm.canViewSolution = true;
       redraw();
-    }, 500 /* 0 */);
+    }, 4000);
 
     withGround(g => {
       g.setAutoShapes([]);
@@ -385,14 +385,21 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     }
 
     vm.autoScrollRequested = true;
+    vm.voteDisabled = true;
     redraw();
     startCeval();
+    setTimeout(() => {
+      vm.voteDisabled = false;
+      redraw();
+    }, 500);
   }
 
-  const vote = throttle(1000, (v: boolean) => {
-    xhr.vote(data.puzzle.id, v);
-    nextPuzzle();
-  });
+  const vote = (v: boolean) => {
+    if (!vm.voteDisabled) {
+      xhr.vote(data.puzzle.id, v);
+      nextPuzzle();
+    }
+  };
 
   const voteTheme = (theme: ThemeKey, v: boolean) => {
     if (vm.round) {

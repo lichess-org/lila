@@ -5,6 +5,7 @@
     flex-flow: column;
   }
 
+
   .complete {
     @extend %flex-center;
 
@@ -29,6 +30,7 @@
       order: 0;
     }
 
+
     &:hover {
       background: lighten($c-primary, 10%);
     }
@@ -47,12 +49,15 @@
 
   &__help {
     margin: .5em 1em 0 0;
+
     p {
       display: inline;
+
       &:last-child {
         margin-left: 1ch;
       }
     }
+
     @include breakpoint($mq-col2) {
       display: block;
       margin: 0 1em;
@@ -62,6 +67,13 @@
   &__buttons {
     @extend %flex-center-nowrap;
 
+    opacity: .1;
+
+    &.enabled {
+      opacity: 1;
+      @include transition(opacity, .5s);
+    }
+
     flex: 1 1 100%;
     align-items: stretch;
     text-align: center;
@@ -69,6 +81,7 @@
 
   .vote {
     @extend %flex-center;
+
     justify-content: center;
     flex: 0 0 50%;
     cursor: pointer;

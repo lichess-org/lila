@@ -8,7 +8,11 @@ const renderVote = (ctrl: Controller): VNode => h('div.puzzle__vote', [
     h('p', ctrl.trans.noarg('didYouLikeThisPuzzle')),
     h('p', ctrl.trans.noarg('voteToLoadNextOne'))
   ]) : null,
-  h('div.puzzle__vote__buttons', [
+  h('div.puzzle__vote__buttons', {
+    class: {
+      enabled: !ctrl.vm.voteDisabled
+    }
+  }, [
     h('div.vote.vote-up', {
       hook: bind('click', () => ctrl.vote(true))
     }),
