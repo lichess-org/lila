@@ -63,7 +63,7 @@
   <string name="overloading">Overloading</string>
   <string name="overloadingDescription">Where a piece is performing multiple functions, such as defending two pieces. Capture of one of the defended pieces will leave an opportunity as the defender moves, similar to deflection.</string>
   <string name="pawnEndgame">Pawn endgame</string>
-  <string name="pawnEndgameDescription">An endgame with only kings and pawns.</string>
+  <string name="pawnEndgameDescription">An endgame with only pawns.</string>
   <string name="pin">Pin</string>
   <string name="pinDescription">A tactic involving pins, where a piece is unable to move without revealing an attack on a higher valued piece.</string>
   <string name="promotion">Promotion</string>
