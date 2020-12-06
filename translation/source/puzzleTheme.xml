@@ -9,7 +9,7 @@
   <string name="bishopEndgame">Bishop endgame</string>
   <string name="bishopEndgameDescription">An endgame with only bishops and pawns.</string>
   <string name="blocking">Blocking</string>
-  <string name="blockingDescription"></string>
+  <string name="blockingDescription">A defensive move where a check or attack is blocked by interposing another piece.</string>
   <string name="capturingDefender">Capture the defender</string>
   <string name="capturingDefenderDescription">Removing a piece that is critical to defence of another piece, allowing the now undefended piece to be captured on a following move.</string>
   <string name="kingsideAttack">Kingside attack</string>
@@ -17,7 +17,7 @@
   <string name="clearance">Clearance</string>
   <string name="clearanceDescription">A move, often with tempo, that clears a square, file or diagonal for a follow-up tactical idea.</string>
   <string name="coercion">Coercion</string>
-  <string name="coercionDescription"></string>
+  <string name="coercionDescription">A move, often a check, that forces the opponent's piece to a square that allows a follow-up tactic.</string>
   <string name="defensiveMove">Defensive move</string>
   <string name="defensiveMoveDescription">A precise move or sequence of moves that is needed to avoid losing material or another advantage.</string>
   <string name="deflection">Deflection</string>
