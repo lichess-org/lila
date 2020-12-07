@@ -69,8 +69,7 @@ final private[puzzle] class PuzzleFinisher(
             }
           (round, newPuzzleGlicko, userPerf)
       }
-      api.round.upsert(round) zip
-        isStudent.??(api.round.addDenormalizedUser(round, user)) zip
+      api.round.upsert(round, isStudent option user.id) zip
         colls.puzzle {
           _.update
             .one(

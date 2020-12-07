@@ -33,11 +33,12 @@ final private[puzzle] class PuzzleApi(
     def find(user: User, puzzleId: Puzzle.Id): Fu[Option[PuzzleRound]] =
       colls.round(_.byId[PuzzleRound](PuzzleRound.Id(user.id, puzzleId).toString))
 
-    def upsert(a: PuzzleRound) = colls.round(_.update.one($id(a.id), a, upsert = true))
-
-    def addDenormalizedUser(a: PuzzleRound, user: User): Funit = colls.round(
-      _.updateField($id(a.id), PuzzleRound.BSONFields.user, user.id).void
-    )
+    def upsert(r: PuzzleRound, studentUserId: Option[User.ID]): Funit = {
+      val roundDoc = RoundHandler.write(r) ++ studentUserId.?? { userId =>
+        $doc(PuzzleRound.BSONFields.user -> userId)
+      }
+      colls.round(_.update.one($id(r.id), roundDoc, upsert = true)).void
+    }
   }
 
   object vote {
