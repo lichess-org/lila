@@ -16,9 +16,12 @@ function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
   return h('div.infos.puzzle', {
     attrs: dataIcon('-')
   }, [h('div', [
-    h('p', ctrl.trans.vdom('puzzleId', h('a', {
-      attrs: { href: `/training/${puzzle.id}` }
-    }, '#' + puzzle.id))),
+    h('p', [
+      ...ctrl.trans.vdom('puzzleId', h('a', {
+        attrs: { href: `/training/${puzzle.id}` }
+      }, '#' + puzzle.id)),
+      h('strong', ' V2 BETA')
+    ]),
     h('p', ctrl.trans.vdom('ratingX', ctrl.vm.mode === 'play' ? h('span.hidden', ctrl.trans.noarg('hidden')) : h('strong', puzzle.rating))),
     h('p', ctrl.trans.vdom('playedXTimes', h('strong', numberFormat(puzzle.plays))))
   ])]);

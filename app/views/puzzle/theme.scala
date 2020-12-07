@@ -17,7 +17,7 @@ object theme {
       moreCss = cssTag("puzzle.page")
     )(
       main(cls := "page box")(
-        h1("Puzzle themes"),
+        h1("Puzzle themes (V2 BETA)"),
         div(cls := "puzzle-themes")(
           themes map { case (cat, themes) =>
             frag(
