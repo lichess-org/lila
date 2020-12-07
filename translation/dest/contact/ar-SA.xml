@@ -74,4 +74,6 @@
   <string name="videosAndBooks">بإمكانك اظهاره في مقاطع الفيديو الخاصة بك، بإمكانك طباعة لقطات شاشة من Lichess في الكتب الخاصة بك.</string>
   <string name="creditAppreciated">ذكر الإسم مشكور ولكن ليست مطلوب.</string>
   <string name="noneOfTheAbove">لا شيء مما سبق</string>
+  <string name="sendEmailAt">راسلنا عبر البريد الإلكتروني %s.</string>
+  <string name="explainYourRequest">يرجى شرح طلبك بوضوح ودقة. حدد اسم المستخدم الخاص بك في Lichess، وأي معلومات يمكن أن تساعدنا في مساعدتك.</string>
 </resources>
