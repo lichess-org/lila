@@ -11,12 +11,13 @@ object PuzzleTheme {
 
   case class WithCount(theme: PuzzleTheme, count: Int)
 
-  val any           = PuzzleTheme(Key("any"), i.healthyMix, i.healthyMixDescription)
-  val advancedPawn  = PuzzleTheme(Key("advancedPawn"), i.advancedPawn, i.advancedPawnDescription)
-  val attackingF2F7 = PuzzleTheme(Key("attackingF2F7"), i.attackingF2F7, i.attackingF2F7Description)
-  val attraction    = PuzzleTheme(Key("attraction"), i.attraction, i.attractionDescription)
-  val bishopEndgame = PuzzleTheme(Key("bishopEndgame"), i.bishopEndgame, i.bishopEndgameDescription)
-  val blocking      = PuzzleTheme(Key("blocking"), i.blocking, i.blockingDescription)
+  val any            = PuzzleTheme(Key("any"), i.healthyMix, i.healthyMixDescription)
+  val advancedPawn   = PuzzleTheme(Key("advancedPawn"), i.advancedPawn, i.advancedPawnDescription)
+  val attackingF2F7  = PuzzleTheme(Key("attackingF2F7"), i.attackingF2F7, i.attackingF2F7Description)
+  val attraction     = PuzzleTheme(Key("attraction"), i.attraction, i.attractionDescription)
+  val backRankThreat = PuzzleTheme(Key("backRankThreat"), i.backRankThreat, i.backRankThreatDescription)
+  val bishopEndgame  = PuzzleTheme(Key("bishopEndgame"), i.bishopEndgame, i.bishopEndgameDescription)
+  val blocking       = PuzzleTheme(Key("blocking"), i.blocking, i.blockingDescription)
   val capturingDefender =
     PuzzleTheme(Key("capturingDefender"), i.capturingDefender, i.capturingDefenderDescription)
   val clearance     = PuzzleTheme(Key("clearance"), i.clearance, i.clearanceDescription)
@@ -77,6 +78,7 @@ object PuzzleTheme {
     trans.puzzle.motifs -> List(
       advancedPawn,
       attackingF2F7,
+      backRankThreat,
       capturingDefender,
       discoveredAttack,
       doubleCheck,
