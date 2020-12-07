@@ -29,10 +29,7 @@ final private[puzzle] class DailyPuzzle(
     (findCurrent orElse findNew) recover { case e: Exception =>
       logger.error("find daily", e)
       none
-    } flatMap {
-      case Some(puzzle) => makeDaily(puzzle)
-      case None         => fuccess(none)
-    }
+    } flatMap { _ ?? makeDaily }
 
   private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle.Html]] = {
     import makeTimeout.short
@@ -46,23 +43,32 @@ final private[puzzle] class DailyPuzzle(
 
   private def findCurrent =
     colls.puzzle {
-      _.find(
-        $doc(F.day $gt DateTime.now.minusMinutes(24 * 60 - 15))
-      )
+      _.find($doc(F.day $gt DateTime.now.minusMinutes(24 * 60 - 15)))
         .one[Puzzle]
     }
 
   private def findNew =
-    colls.puzzle { c =>
-      c.find($doc(F.day $exists false))
-        .sort($doc(F.vote -> -1))
-        .one[Puzzle] flatMap {
-        case Some(puzzle) =>
-          c.update.one(
-            $id(puzzle.id),
-            $set(F.day -> DateTime.now)
-          ) inject puzzle.some
-        case None => fuccess(none)
+    colls
+      .path {
+        _.aggregateOne() { framework =>
+          import framework._
+          Match(pathApi.select(PuzzleTheme.any.key, PuzzleTier.Top, 1200 to 2200)) -> List(
+            Sample(1),
+            Project($doc("ids" -> true))
+          )
+        }.dmap(~_.flatMap(_.getAsOpt[List[Puzzle.Id]]("ids")))
+      } flatMap { ids =>
+      colls.puzzle { c =>
+        c.find($doc(F.id $in ids, F.day $exists false))
+          .sort($doc(F.vote -> -1))
+          .one[Puzzle] flatMap {
+          case Some(puzzle) =>
+            c.update.one(
+              $id(puzzle.id),
+              $set(F.day -> DateTime.now)
+            ) inject puzzle.some
+          case None => fuccess(none)
+        }
       }
     }
 }
