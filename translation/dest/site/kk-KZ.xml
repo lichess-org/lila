@@ -259,8 +259,8 @@
     <item quantity="other">%s жеңіс</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s ұтылыс</item>
-    <item quantity="other">%s ұтылыс</item>
+    <item quantity="one">%s жеңіліс</item>
+    <item quantity="other">%s жеңіліс</item>
   </plurals>
   <plurals name="nbDraws">
     <item quantity="one">%s тепе-тең</item>
