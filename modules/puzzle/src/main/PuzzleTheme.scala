@@ -135,10 +135,8 @@ object PuzzleTheme {
 
   // themes that can't be voted by players
   val staticThemes: Set[Key] = Set(
-    bishopEndgame,
     enPassant,
     endgame,
-    knightEndgame,
     long,
     mateIn1,
     mateIn2,
@@ -148,9 +146,6 @@ object PuzzleTheme {
     middlegame,
     oneMove,
     opening,
-    pawnEndgame,
-    queenEndgame,
-    rookEndgame,
     short,
     veryLong
   ).map(_.key)
