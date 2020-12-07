@@ -73,7 +73,7 @@
   <string name="pawnMove">Ер жүрісі</string>
   <string name="capture">Басып алу</string>
   <string name="close">Жабу</string>
-  <string name="winning">Ұтыс</string>
+  <string name="winning">Жеңіс</string>
   <string name="losing">Ұтылыс</string>
   <string name="drawn">Тең</string>
   <string name="unknown">Беймәлім</string>
@@ -95,7 +95,7 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Баптаулар мәзірінен тағы ойындар қосайық па?</string>
   <string name="openingExplorer">Бастаулар қазынасы</string>
   <string name="xOpeningExplorer">%s бастаулар қазынасы</string>
-  <string name="winPreventedBy50MoveRule">50 жүрістік ережесі бойынша жол берілмеген ұтыс</string>
+  <string name="winPreventedBy50MoveRule">50 жүрістік ереже болдыртпаған жеңіс</string>
   <string name="lossSavedBy50MoveRule">50 жүрістік ережесі бойынша жол құтқарылған ұтылыс</string>
   <string name="allSet">Барлығы дайын!</string>
   <string name="importPgn">PGN импорты</string>
@@ -255,8 +255,8 @@
     <item quantity="other">бағаланатын %s</item>
   </plurals>
   <plurals name="nbWins">
-    <item quantity="one">%s ұтыс</item>
-    <item quantity="other">%s ұтыс</item>
+    <item quantity="one">%s жеңіс</item>
+    <item quantity="other">%s жеңіс</item>
   </plurals>
   <plurals name="nbLosses">
     <item quantity="one">%s ұтылыс</item>
