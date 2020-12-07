@@ -56,8 +56,6 @@
   <string name="mateIn4Description">Deliver checkmate in four moves.</string>
   <string name="mateIn5">Mate in 5 or more</string>
   <string name="mateIn5Description">Figure out a long mating sequence.</string>
-  <string name="matingNet">Mating net</string>
-  <string name="matingNetDescription"></string>
   <string name="middlegame">Middlegame</string>
   <string name="middlegameDescription">A tactic during the second phase of the game.</string>
   <string name="oneMove">One-move puzzle</string>
@@ -88,6 +86,8 @@
   <string name="simplificationDescription">A series of forcing moves resulting in fewer pieces on the board</string>
   <string name="skewer">Skewer</string>
   <string name="skewerDescription">A motif involving a high value piece being attacked, moving out the way, and allowing a lower value piece behind it to be captured or attacked, the inverse of a pin.</string>
+  <string name="smotheredMate">Smothered mate</string>
+  <string name="smotheredMateDescription">A checkmate delivered by a knight in which the mated king is unable to move because he is surrounded (or smothered) by his own pieces.</string>
   <string name="trappedPiece">Trapped piece</string>
   <string name="trappedPieceDescription">A piece is unable to escape capture as it has limited moves.</string>
   <string name="veryLong">Very long puzzle</string>
