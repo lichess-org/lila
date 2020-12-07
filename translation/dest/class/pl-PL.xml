@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="lishogiClasses">Classes</string>
-	<string name="teachClassesOfChessStudents">Teach classes of shogi students with the Lishogi Classes tool suite.</string>
+	<string name="lishogiClasses">Klasy Lishogi</string>
+	<string name="teachClassesOfChessStudents">Nauczaj swoją klasę korzystając z zestawu narzędzi dostępnych na Lishogi.</string>
 	<string name="features">Funkcje</string>
 	<string name="quicklyGenerateSafeUsernames">Szybkie generowanie bezpiecznych nazw użytkowników i haseł dla uczniów</string>
-	<string name="trackStudentProgress">Śledź postępy uczniów w rozwiązywaniu zadań szachowych</string>
+	<string name="trackStudentProgress">Śledź postępy uczniów w rozwiązywaniu zadań shogi</string>
 	<string name="messageAllStudents">Wyślij wiadomość do wszystkich uczniów o nowym materiale</string>
 	<string name="freeForAllForever">Całkowicie za darmo – dla wszystkich, na zawsze, bez reklam i śledzenia</string>
-	<string name="applyToBeLishogiTeacher">Apply to be a Lishogi Teacher</string>
+	<string name="applyToBeLishogiTeacher">Aplikuj na nauczyciela Lishogi</string>
 	<string name="noClassesYet">Brak klas.</string>
 	<string name="teachersX">Nauczyciele: %s</string>
 	<string name="newClass">Nowa klasa</string>
@@ -23,7 +23,7 @@
 	<string name="classDescription">Opis klasy</string>
 	<string name="visibleByBothStudentsAndTeachers">Widoczne zarówno dla nauczycieli, jak i uczniów klasy</string>
 	<string name="teachersOfTheClass">Nauczyciele</string>
-	<string name="addLishogiUsernames">Add Lishogi usernames to invite them as teachers. One per line.</string>
+	<string name="addLishogiUsernames">Dodaj nazwy użytkowników Lishogi, aby zaprosić ich jako nauczycieli. Wpisz każdego użytkownika w osobnej linii.</string>
 	<string name="theyMustFirstApply">Muszą najpierw starać się o status nauczycieli Lishogi.</string>
 	<string name="resetPassword">Zresetuj hasło</string>
 	<string name="makeSureToCopy">Zapamiętaj lub zapisz hasło. Nie będziesz mógł go zobaczyć ponownie!</string>
@@ -33,21 +33,21 @@
 	<string name="realName">Prawdziwe nazwisko</string>
 	<string name="privateWillNeverBeShown">Informacja prywatna. Nigdy nie będzie pokazywana poza klasą. Pozwala pamiętać kim jest uczeń.</string>
 	<string name="addStudent">Dodaj ucznia</string>
-	<string name="lishogiProfileXCreatedForY">Lishogi profile %1$s created for %2$s.</string>
+	<string name="lishogiProfileXCreatedForY">Profil Lishogi %1$s stworzony dla %2$s.</string>
 	<string name="studentCredentials">Uczeń:  %1$s
 Nazwa użytkownika: %2$s
 Hasło: %3$s</string>
-	<string name="inviteALishogiAccount">Invite a Lishogi account</string>
+	<string name="inviteALishogiAccount">Zaproś konto Lishogi</string>
 	<string name="inviteDesc1">Jeśli uczeń ma już konto Lishogi, możesz zaprosić go do klasy.</string>
 	<string name="inviteDesc2">Otrzymają wiadomość na Lishogi z linkiem pozwalającym dołączyć do klasy.</string>
 	<string name="inviteDesc3">Ważne: zapraszaj tylko osoby, które znasz i które chcą dołączyć do klasy.</string>
 	<string name="inviteDesc4">Nigdy nie wysyłaj niechcianych zaproszeń do przypadkowych osób.</string>
-	<string name="createANewLishogiAccount">Create a new Lishogi account</string>
+	<string name="createANewLishogiAccount">Utwórz nowe konto Lishogi</string>
 	<string name="createDesc1">Jeśli uczeń nie ma jeszcze konta Lishogi, możesz utworzyć je dla niego.</string>
 	<string name="createDesc2">Adres e-mail nie jest wymagany. Hasło zostanie wygenerowane i będziesz musiał przesłać je uczniowi, aby mógł się zalogować.</string>
 	<string name="createDesc3">Ważne: uczeń nie może mieć wielu kont.</string>
 	<string name="createDesc4">Jeśli mają już konta, użyj formularza zaproszenia.</string>
-	<string name="lishogiUsername">Lishogi username</string>
+	<string name="lishogiUsername">Nazwa użytkownika Lishogi</string>
 	<string name="generateANewUsername">Wygeneruj nową nazwę użytkownika</string>
 	<string name="welcomeToClass">Witaj w swojej klasie: %s.
 Oto link do klasy.</string>

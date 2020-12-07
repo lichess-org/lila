@@ -236,7 +236,7 @@
 	<string name="recipient">收件人</string>
 	<string name="send">发送</string>
 	<string name="incrementInSeconds">步时</string>
-	<string name="freeOnlineChess">Free Online Shogi</string>
+	<string name="freeOnlineChess">免税线上将棋</string>
 	<string name="spectators">观众：</string>
 	<plurals name="nbRated">
 		<item quantity="other">%s排位赛</item>
@@ -302,7 +302,7 @@
 	<string name="mustBeInTeam">您必须属于 %s 队</string>
 	<string name="youAreNotInTeam">您不属于 %s 队</string>
 	<string name="backToGame">返回棋局</string>
-	<string name="siteDescription">Free online shogi server. Play shogi in a clean interface. No registration, no ads, no plugin required. Play shogi with the computer, friends or random opponents.</string>
+	<string name="siteDescription">免费在线将棋平台。简洁界面上下棋。免注册，无广告，无需插件。与电脑，朋友或随机对一局。</string>
 	<string name="xJoinedTeamY">%1$s加入%2$s队</string>
 	<string name="xCreatedTeamY">%1$s组建%2$s队</string>
 	<string name="xStartedStreaming">%s 开始直播</string>
@@ -372,7 +372,7 @@
 	<string name="advancedSettings">高级设置</string>
 	<string name="safeTournamentName">为锦标赛提出一个无争议的名称。</string>
 	<string name="inappropriateNameWarning">即使只有一点点违规的内容都可能导致您的帐号被封禁。</string>
-	<string name="emptyTournamentName">Leave empty to name the tournament after a notable shogi player.</string>
+	<string name="emptyTournamentName">这一栏留空，将会用随机的将棋大师的名字命名这比赛。</string>
 	<string name="recommendNotTouching">我们建议您不要碰这些设置。</string>
 	<string name="fewerPlayers">如果您设置参赛条件，您的锦标赛的玩家将会更少。</string>
 	<string name="showAdvancedSettings">显示高级设置</string>
@@ -621,7 +621,7 @@
 	<string name="keyEnterOrExitVariation">进入／退出变着</string>
 	<string name="newTournament">新锦标赛</string>
 	<string name="tournamentHomeTitle">设有不同时间限制和变体的将棋锦标赛</string>
-	<string name="tournamentHomeDescription">Play fast-paced shogi tournaments! Join an official scheduled tournament, or create your own. Bullet, Blitz, Classical and more options available for endless shogi fun.</string>
+	<string name="tournamentHomeDescription">加入快节奏的将棋比赛！加入定时赛，或开始自己的。子弹棋，闪电棋，经典棋，和更多的选择为无尽的将棋快乐。</string>
 	<string name="tournamentNotFound">找不到该锦标赛</string>
 	<string name="tournamentDoesNotExist">该锦标赛不存在。</string>
 	<string name="tournamentMayHaveBeenCanceled">该锦标赛可能已被取消，假如所有的选手在比赛开始之前退赛。</string>
@@ -642,8 +642,8 @@
 	<string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">如果您没有收到我们的邮件, 请检查您的其他收件箱, 例如垃圾箱, 广告, 社交等.</string>
 	<string name="weHaveSentYouAnEmailTo">我们给您的邮箱（%s）发了重置密码的链接。请点击链接来重置您的密码。</string>
 	<string name="byRegisteringYouAgreeToBeBoundByOur">注册代表您同意我们的 %s 。</string>
-	<string name="networkLagBetweenYouAndLishogi">Network lag between you and Lishogi</string>
-	<string name="timeToProcessAMoveOnLishogiServer">Time to process a move on Lishogi\'s server</string>
+	<string name="networkLagBetweenYouAndLishogi">您和 Lishogi 之间的网络滞后</string>
+	<string name="timeToProcessAMoveOnLishogiServer">Lishogi 服务器的处理棋步时间</string>
 	<string name="downloadAnnotated">下载有注释的PGN</string>
 	<string name="downloadRaw">下载无注释的PGN</string>
 	<string name="downloadImported">下载导入的棋局</string>
@@ -652,14 +652,14 @@
 	<string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">您也可以用鼠标滚轮浏览棋局。</string>
 	<string name="analysisShapesHowTo">按shift+左键单击或右键单击在棋盘上绘制圆圈和箭头。</string>
 	<string name="letOtherPlayersMessageYou">允许其他人给您发私信</string>
-	<string name="shareYourInsightsData">Share your shogi insights data</string>
+	<string name="shareYourInsightsData">分享您的将棋数据</string>
 	<string name="withNobody">不分享</string>
 	<string name="withFriends">和朋友分享</string>
 	<string name="withEverybody">和每个人分享</string>
 	<string name="youHaveAlreadyRegisteredTheEmail">您已经用 %s 电子邮箱注册过 Lishogi 帐号</string>
 	<string name="kidMode">儿童模式</string>
 	<string name="kidModeExplanation">安全第一。在儿童模式下，站内信无法使用。为了保护您的孩子和学生免受其他用户伤害，请启用儿童模式。</string>
-	<string name="inKidModeTheLishogiLogoGetsIconX">In kid mode, the Lishogi logo gets a %s icon, so you know your kids are safe.</string>
+	<string name="inKidModeTheLishogiLogoGetsIconX">在儿童模式下，Lishogi 标志前会得到%s图标，保证您孩子的安全。</string>
 	<string name="enableKidMode">打开儿童模式</string>
 	<string name="disableKidMode">关闭儿童模式</string>
 	<string name="security">安全</string>
@@ -667,14 +667,14 @@
 	<string name="alternativelyYouCanX">或者你可以 %s。</string>
 	<string name="revokeAllSessions">注销所有会话</string>
 	<string name="playChessEverywhere">随处下将棋</string>
-	<string name="asFreeAsLishogi">As free as Lishogi</string>
-	<string name="builtForTheLoveOfChessNotMoney">Built for the love of shogi, not money</string>
+	<string name="asFreeAsLishogi">永远免费 Lishogi</string>
+	<string name="builtForTheLoveOfChessNotMoney">为了将棋爱好创造，而不是为了钱</string>
 	<string name="everybodyGetsAllFeaturesForFree">每个人都可以免费使用所有功能</string>
 	<string name="zeroAdvertisement">没有广告</string>
 	<string name="fullFeatured">功能全面</string>
 	<string name="phoneAndTablet">手机和平板电脑</string>
-	<string name="bulletBlitzClassical">Bullet, blitz, classical</string>
-	<string name="correspondenceChess">Correspondence shogi</string>
+	<string name="bulletBlitzClassical">子弹棋，闪电棋，经典棋</string>
+	<string name="correspondenceChess">通信棋</string>
 	<string name="onlineAndOfflinePlay">在线和离线下棋</string>
 	<string name="viewTheSolution">看解答</string>
 	<string name="followAndChallengeFriends">关注并挑战朋友</string>
@@ -707,7 +707,7 @@
 	<string name="usernameCharsInvalid">用户名必须只包含字母、数字、下划线和连字符。</string>
 	<string name="usernameUnacceptable">该用户名不被接受。</string>
 	<string name="directlySupportLishogi">支持 Lishogi</string>
-	<string name="playChessInStyle">Play shogi in style</string>
+	<string name="playChessInStyle">有型地下棋</string>
 	<string name="chessBasics">将棋基础知识</string>
 	<string name="coaches">教练</string>
 	<string name="invalidPgn">PGN无法识别</string>
@@ -782,7 +782,7 @@
 	<string name="weHadToTimeYouOutForAWhile">我们必须将您停止一段时间。</string>
 	<string name="timeoutExpires">剩余时间：%s</string>
 	<string name="why">为什么？</string>
-	<string name="pleasantChessExperience">We aim to provide a pleasant shogi experience for everyone.</string>
+	<string name="pleasantChessExperience">我们为所有人提供一个愉快的将棋体验。</string>
 	<string name="goodPractice">因此，我们必须确保每个玩家都要遵循规范。</string>
 	<string name="potentialProblem">我们会在检测到潜在问题时显示本信息。</string>
 	<string name="howToAvoidThis">如何避免这种情况？</string>
@@ -794,7 +794,7 @@
 	<string name="thankYouForReading">感谢你的阅读！</string>
 	<string name="lifetimeScore">生涯得分</string>
 	<string name="currentMatchScore">当前比赛分数</string>
-	<string name="agreementAssistance">I agree that I will at no time receive assistance during my games (from a shogi computer, book, database or another person).</string>
+	<string name="agreementAssistance">我同意在对局中不会接受帮助（包括程序、图书、数据库或其他人）</string>
 	<string name="agreementNice">本人将尊重所有棋手。</string>
 	<string name="agreementAccount">本人不会创建多个账户。</string>
 	<string name="agreementPolicy">本人将遵守所有 Lishogi 规范。</string>
@@ -808,7 +808,7 @@
 	<string name="rapidDesc">普速对战：8 到 25 分钟</string>
 	<string name="classicalDesc">经典对战：25 分钟及以上</string>
 	<string name="correspondenceDesc">非即时对战：每步一天或数天</string>
-	<string name="puzzleDesc">Shogi tactics trainer</string>
+	<string name="puzzleDesc">将棋战术练习</string>
 	<string name="important">重要</string>
 	<string name="yourQuestionMayHaveBeenAnswered">您的问题可能已经%1$s有了答案</string>
 	<string name="inTheFAQ">在问答集中</string>
@@ -822,9 +822,9 @@
 	<string name="youCannotPostYetPlaySomeGames">您还不能在论坛发表意见。再下几局棋吧！</string>
 	<string name="subscribe">订阅</string>
 	<string name="unsubscribe">取消订阅</string>
-	<string name="blackDeclinesImpasse">Sente declines impasse</string>
-	<string name="blackOffersImpasse">Sente offers impasse</string>
+	<string name="blackDeclinesImpasse">先手拒绝持棋</string>
+	<string name="blackOffersImpasse">先手提出持棋</string>
 	<string name="notationType">棋谱记法</string>
-	<string name="whiteDeclinesImpasse">Gote declines impasse</string>
-	<string name="whiteOffersImpasse">Gote offers impasse</string>
+	<string name="whiteDeclinesImpasse">后手拒绝持棋</string>
+	<string name="whiteOffersImpasse">后手提出持棋</string>
 </resources>

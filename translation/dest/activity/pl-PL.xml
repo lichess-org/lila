@@ -15,10 +15,10 @@
     <item quantity="other">Przerobione %1$s ćwiczeń w %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Rozwiązanie zadania szachowego</item>
-    <item quantity="few">Rozwiązanie %s zadań szachowych</item>
-    <item quantity="many">Rozwiązanie %s zadań szachowych</item>
-    <item quantity="other">Rozwiązanie %s zadań szachowych</item>
+    <item quantity="one">Rozwiązanie zadania shogi</item>
+    <item quantity="few">Rozwiązanie %s zadań shogi</item>
+    <item quantity="many">Rozwiązanie %s zadań shogi</item>
+    <item quantity="other">Rozwiązanie %s zadań shogi</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Rozegranie partii (%2$s)</item>

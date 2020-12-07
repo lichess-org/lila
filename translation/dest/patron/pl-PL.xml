@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="donate">Przekaż datek</string>
-	<string name="lishogiPatron">Lishogi Patron</string>
+	<string name="lishogiPatron">Patron Lishogi</string>
 	<string name="freeAccount">Darmowe konto</string>
 	<string name="becomePatron">Zostań patronem Lishogi</string>
 	<string name="xBecamePatron">%s został patronem Lishogi</string>
 	<string name="newPatrons">Nowi patroni</string>
-	<string name="freeChess">Free shogi for everyone, forever!</string>
+	<string name="freeChess">Darmowe shogi dla wszystkich i na zawsze!</string>
 	<string name="noAdsNoSubs">Bez reklam, bez abonamentu, za to z otwartym kodem i pełne pasji.</string>
 	<string name="thankYou">Dziękuję za darowiznę!</string>
 	<string name="youHaveLifetime">Masz konto Dożywotnego Patrona. To całkiem niesamowite!</string>
 	<string name="patronUntil">Masz konto patrona do %s.</string>
 	<string name="ifNotRenewed">Jeśli nie zostanie odnowione, stanie się ponownie zwykłym kontem.</string>
-	<string name="weAreNonProfit">We are a non‑profit association because we believe everyone should have access to a free, world-class shogi platform.</string>
+	<string name="weAreNonProfit">Jesteśmy stowarzyszeniem non-profit, ponieważ uważamy, że każdy powinien mieć dostęp do darmowej, światowej klasy platformy umożliwiającej grę w shogi.</string>
 	<string name="weRelyOnSupport">Żeby było to możliwe, liczymy na wsparcie ze strony osób takich jak Ty. Jeśli lubisz korzystać z Lishogi, rozważ wsparcie nas poprzez darowizny i stań się naszym patronem!</string>
 	<string name="lifetime">Dożywotnie</string>
 	<string name="payLifetimeOnce">Wpłać %s raz. Bądź patronem Lishogi na zawsze!</string>

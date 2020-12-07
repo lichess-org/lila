@@ -3,10 +3,10 @@
 	<string name="search">Поиск</string>
 	<string name="advancedSearch">Расширенный поиск</string>
 	<plurals name="searchInXGames">
-		<item quantity="one">Search in %s shogi game</item>
-		<item quantity="few">Search in %s shogi games</item>
-		<item quantity="many">Search in %s shogi games</item>
-		<item quantity="other">Search in %s shogi games</item>
+		<item quantity="one">Поиск в %s партии</item>
+		<item quantity="few">Поиск в %s партиях</item>
+		<item quantity="many">Поиск в %s партиях</item>
+		<item quantity="other">Поиск в %s партиях</item>
 	</plurals>
 	<plurals name="xGamesFound">
 		<item quantity="one">Найдена %s партия</item>

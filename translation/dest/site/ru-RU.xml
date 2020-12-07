@@ -269,7 +269,7 @@
 	<string name="recipient">Получатель</string>
 	<string name="send">Отправить</string>
 	<string name="incrementInSeconds">Добавление секунд на ход</string>
-	<string name="freeOnlineChess">Free Online Shogi</string>
+	<string name="freeOnlineChess">Бесплатное онлайн-сёги</string>
 	<string name="spectators">Зрители:</string>
 	<plurals name="nbRated">
 		<item quantity="one">%s рейтинговая</item>
@@ -371,7 +371,7 @@
 	<string name="mustBeInTeam">Вы должны быть членом клуба %s</string>
 	<string name="youAreNotInTeam">Вы не член клуба %s</string>
 	<string name="backToGame">Вернуться к игре</string>
-	<string name="siteDescription">Free online shogi server. Play shogi in a clean interface. No registration, no ads, no plugin required. Play shogi with the computer, friends or random opponents.</string>
+	<string name="siteDescription">Бесплатный сервер сёги. Сыграйте в сёги прямо сейчас в простом интерфейсе без рекламы. Не требует регистрации и скачивания программы. Играйте в сёги с компьютером, друзьями или случайными соперниками.</string>
 	<string name="xJoinedTeamY">%1$s вступил в клуб %2$s</string>
 	<string name="xCreatedTeamY">%1$s организовал клуб %2$s</string>
 	<string name="xStartedStreaming">%s запустил стрим</string>
@@ -504,8 +504,8 @@
 	<string name="country">Страна</string>
 	<string name="socialMediaLinks">Ссылки на соцсети</string>
 	<string name="inlineNotation">Строчная нотация</string>
-	<string name="watchLishogiTV">Watch Lishogi TV</string>
-	<string name="previouslyOnLishogiTV">Previously on Lishogi TV</string>
+	<string name="watchLishogiTV">Смотреть Lishogi TV</string>
+	<string name="previouslyOnLishogiTV">Ранее на Lishogi TV</string>
 	<string name="onlinePlayers">Игроки в сети</string>
 	<string name="activeToday">Активные сегодня</string>
 	<string name="activePlayers">Активные игроки</string>
@@ -642,7 +642,7 @@
 	<string name="clock">Часы</string>
 	<string name="unauthorizedError">Неавторизованный доступ.</string>
 	<string name="noInternetConnection">Нет интернет соединения. Вы можете пока играть офлайн из меню.</string>
-	<string name="connectedToLishogi">You are now connected to lishogi.org</string>
+	<string name="connectedToLishogi">Сейчас вы подключены к lishogi.org</string>
 	<string name="signedOut">Вы вышли</string>
 	<string name="loginSuccessful">Вы вошли</string>
 	<string name="playOnTheBoardOffline">Вдвоём за доской</string>
@@ -684,7 +684,7 @@
 	<string name="webmasters">Разработчикам</string>
 	<string name="about">О сайте</string>
 	<string name="aboutX">О %s</string>
-	<string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
+	<string name="xIsAFreeYLibreOpenSourceChessServer">%1$s — бесплатный (%2$s) сервер сёги с открытым исходным кодом без рекламы.</string>
 	<string name="really">именно так</string>
 	<string name="contribute">Внести вклад в развитие</string>
 	<string name="termsOfService">Пользовательское соглашение</string>
@@ -813,7 +813,7 @@
 	<string name="usernameUnacceptable">Это имя пользователя уже занято или недопустимо.</string>
 	<string name="directlySupportLishogi">Directly support Lishogi</string>
 	<string name="playChessInStyle">Play shogi in style</string>
-	<string name="chessBasics">Shogi basics</string>
+	<string name="chessBasics">Основы сёги</string>
 	<string name="coaches">Тренеры</string>
 	<string name="invalidPgn">Некорректный PGN</string>
 	<string name="invalidFen">Некорректный FEN</string>
@@ -896,7 +896,7 @@
 	<string name="weHadToTimeYouOutForAWhile">Мы вынуждены отключить вас на время.</string>
 	<string name="timeoutExpires">Вы можете вернуться через %s.</string>
 	<string name="why">Почему?</string>
-	<string name="pleasantChessExperience">We aim to provide a pleasant shogi experience for everyone.</string>
+	<string name="pleasantChessExperience">Наша цель — сделать сёги интересным для всех.</string>
 	<string name="goodPractice">Чтобы этого добиться, мы должны сделать так, чтобы все игроки следовали правилам хорошего тона.</string>
 	<string name="potentialProblem">Когда мы обнаруживаем потенциальную проблему, мы показываем это сообщение.</string>
 	<string name="howToAvoidThis">Как избежать этого?</string>
@@ -908,7 +908,7 @@
 	<string name="thankYouForReading">Спасибо за внимание!</string>
 	<string name="lifetimeScore">Счёт за всё время</string>
 	<string name="currentMatchScore">Счёт в текущем матче</string>
-	<string name="agreementAssistance">I agree that I will at no time receive assistance during my games (from a shogi computer, book, database or another person).</string>
+	<string name="agreementAssistance">Подтверждаю, что я никогда не воспользуюсь посторонней помощью в своих играх (из программ сёги, книг, баз данных и от других игроков).</string>
 	<string name="agreementNice">Подтверждаю, что я буду с уважением относиться к другим игрокам.</string>
 	<string name="agreementAccount">Подтверждаю, что я не буду создавать дополнительные аккаунты.</string>
 	<string name="agreementPolicy">Подтверждаю, что я буду следовать всем правилам Lishogi.</string>
@@ -922,7 +922,7 @@
 	<string name="rapidDesc">Быстрые игры: от 8 до 25 минут</string>
 	<string name="classicalDesc">Классические игры: 25 минут и больше</string>
 	<string name="correspondenceDesc">Игры по переписке: один или несколько дней на ход</string>
-	<string name="puzzleDesc">Shogi tactics trainer</string>
+	<string name="puzzleDesc">Тактический тренажёр</string>
 	<string name="important">Важно</string>
 	<string name="yourQuestionMayHaveBeenAnswered">На ваш вопрос уже мог быть дан ответ %1$s</string>
 	<string name="inTheFAQ">в ЧаВо</string>
