@@ -651,6 +651,8 @@
   <string name="currentPassword">كلمة المرور الحالية</string>
   <string name="newPassword">كلمة المرور الجديدة</string>
   <string name="newPasswordAgain">كلمة المرور الجديدة (مرة أخرى)</string>
+  <string name="newPasswordsDontMatch">كلمتا المرور الجديدتين غير متطابقتين</string>
+  <string name="newPasswordStrength">قوة كلمة المرور</string>
   <string name="clockInitialTime">الوقت الأولي للساعة</string>
   <string name="clockIncrement">زيادة الساعة</string>
   <string name="privacy">الخصوصية</string>
