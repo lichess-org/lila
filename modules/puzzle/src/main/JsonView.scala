@@ -83,7 +83,6 @@ final class JsonView(
     "plays"      -> puzzle.plays,
     "initialPly" -> puzzle.initialPly,
     "solution"   -> puzzle.line.tail.map(_.uci),
-    "vote"       -> puzzle.vote,
     "themes"     -> puzzle.themes
   )
 

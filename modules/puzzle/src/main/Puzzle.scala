@@ -11,7 +11,6 @@ case class Puzzle(
     fen: FEN,
     line: NonEmptyList[Uci.Move],
     glicko: Glicko,
-    vote: Int,
     plays: Int,
     themes: Set[PuzzleTheme.Key]
 ) {
