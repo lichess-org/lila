@@ -10,6 +10,7 @@ import lila.memo.CacheApi._
 
 final private[puzzle] class DailyPuzzle(
     colls: PuzzleColls,
+    pathApi: PuzzlePathApi,
     renderer: lila.hub.actors.Renderer,
     cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {

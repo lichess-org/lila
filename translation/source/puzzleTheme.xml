@@ -40,6 +40,8 @@
   <string name="hangingPieceDescription">A tactic involving an opponent piece being undefended and free to capture.</string>
   <string name="interference">Interference</string>
   <string name="interferenceDescription">Moving a piece between two opponent pieces to leave one or both opponent pieces undefended, such as a knight on a defended square between two rooks.</string>
+  <string name="intermezzo">Intermezzo</string>
+  <string name="intermezzoDescription">Instead of playing the expected move, first interpose another move posing an immediate threat that the opponent must answer. Also known as "Zwischenzug" or "In between".</string>
   <string name="knightEndgame">Knight endgame</string>
   <string name="knightEndgameDescription">An endgame with only knights and pawns.</string>
   <string name="long">Long puzzle</string>

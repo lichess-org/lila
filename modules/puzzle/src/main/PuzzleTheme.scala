@@ -33,6 +33,7 @@ object PuzzleTheme {
   val fork            = PuzzleTheme(Key("fork"), i.fork, i.forkDescription)
   val hangingPiece    = PuzzleTheme(Key("hangingPiece"), i.hangingPiece, i.hangingPieceDescription)
   val interference    = PuzzleTheme(Key("interference"), i.interference, i.interferenceDescription)
+  val intermezzo      = PuzzleTheme(Key("intermezzo"), i.intermezzo, i.intermezzoDescription)
   val kingsideAttack  = PuzzleTheme(Key("kingsideAttack"), i.kingsideAttack, i.kingsideAttackDescription)
   val knightEndgame   = PuzzleTheme(Key("knightEndgame"), i.knightEndgame, i.knightEndgameDescription)
   val long            = PuzzleTheme(Key("long"), i.long, i.longDescription)
@@ -102,6 +103,7 @@ object PuzzleTheme {
       defensiveMove,
       deflection,
       interference,
+      intermezzo,
       overloading,
       quietMove,
       simplification,
