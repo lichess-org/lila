@@ -33,7 +33,7 @@ export default function (opts: Opts): DrawShape[] {
     if (!hovering) {
       let nextBest: Uci | undefined = opts.nextNodeBest;
       if (!nextBest && opts.ceval.enabled() && n.ceval) nextBest = n.ceval.pvs[0].moves[0];
-      if (nextBest) shapes = shapes.concat(makeAutoShapesFromUci(nextBest, 'paleBlue'));
+      if (nextBest) shapes = shapes.concat(makeAutoShapesFromUci(nextBest, 'paleGreen'));
       if (opts.ceval.enabled() && n.ceval && n.ceval.pvs && n.ceval.pvs[1] && !(opts.threatMode && n.threat && n.threat.pvs[2])) {
         n.ceval.pvs.forEach(function (pv) {
           if (pv.moves[0] === nextBest) return;
