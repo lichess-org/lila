@@ -57,7 +57,7 @@ final class Cached(
         loader { _ =>
           PerfType.leaderboardable
             .map { perf =>
-              rankingApi.topPerf(perf.id, 1)
+              rankingApi.topPerf(perf.id, 2)
             }
             .sequenceFu
             .dmap(_.flatten)
