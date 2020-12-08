@@ -5,7 +5,7 @@
   <string name="emailConfirm_ignore">Егер сіз Личес-те тіркелмеген болсаңыз, осы хатқа көңіл бөлмесеңіз де болады.</string>
   <string name="passwordReset_subject">%s, lichess.org құпиясөзін қайта орнатыңыз</string>
   <string name="passwordReset_intro">Бізге аккаунтыңыздың кұпиясөзін қайта орнату туралы тапсырыс келді.</string>
-  <string name="passwordReset_clickOrIgnore">Егер бұл тапсырысты сіз жіберген болсаңыз, төмендегі сілтемеге басыңыз. Кері жағдайда, осы хатты назарсыз қалдырсаңыз болады.</string>
+  <string name="passwordReset_clickOrIgnore">Егер бұл тапсырысты жіберген сіз болсаңыз, төмендегі сілтемеге басыңыз. Кері жағдайда осы хатты назарсыз қалдыра салыңыз.</string>
   <string name="emailChange_subject">%s, жаңа поштаңызды растаңыз</string>
   <string name="emailChange_intro">Сіз поштаңызды ауыстыруға тапсырыс жіберген едіңіз.</string>
   <string name="emailChange_click">Сол поштаға кіруге рұқсатыңыз бар екенін растау үшін төмендегі сілтемеге басыңыз:</string>
