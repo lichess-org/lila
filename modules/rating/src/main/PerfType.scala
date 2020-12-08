@@ -138,6 +138,7 @@ object PerfType {
     Rapid,
     Classical,
     UltraBullet,
+    Correspondence,
   )
   val variants: List[PerfType] = Nil
   val standard: List[PerfType] = List(Bullet, Blitz, Rapid, Classical, Correspondence)
