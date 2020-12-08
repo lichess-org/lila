@@ -75,6 +75,7 @@ export function valid(
       ((key[1] === "9" || key[1] === "8") && color === "white"))
   )
     return false;
+  
   const dropStr = data.possibleDrops;
 
   if (typeof dropStr === "undefined" || dropStr === null) return true;

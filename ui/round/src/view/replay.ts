@@ -9,7 +9,7 @@ import viewStatus from "game/view/status";
 import * as util from "../util";
 import RoundController from "../ctrl";
 import { Step, MaybeVNodes, RoundData } from "../interfaces";
-import { westernShogiNotation } from 'shogiutil/util'
+import { notationStyle } from 'shogiutil/notation';
 
 const scrollMax = 99999,
   moveTag = "m2";
@@ -41,55 +41,21 @@ const autoScroll = throttle(
     })
 );
 
-//function japaneseShogiNotation(str: string): string {
-//  let builder = "";
-//  const index = {
-//    "9": "一",
-//    "8": "二",
-//    "7": "三",
-//    "6": "四",
-//    "5": "五",
-//    "4": "六",
-//    "3": "七",
-//    "2": "八",
-//    "1": "九",
-//    a: "9",
-//    b: "8",
-//    c: "7",
-//    d: "6",
-//    e: "5",
-//    f: "4",
-//    g: "3",
-//    h: "2",
-//    i: "1",
-//    P: "歩",
-//    L: "香",
-//    N: "桂",
-//    S: "銀",
-//    B: "角",
-//    R: "飛",
-//    G: "金",
-//    U: "成香",
-//    M: "成桂",
-//    A: "成銀",
-//    T: "と",
-//    H: "馬",
-//    D: "龍",
-//  };
-//  for (let c of str) {
-//    builder += index[c] ? index[c] : c;
-//  }
-//  return builder; //todo
-//}
-
-function renderMove(step: Step, curPly: number, orEmpty: boolean) {
+function renderMove(step: Step, curPly: number, orEmpty: boolean, orientation: string, notation: number) {
   return step
     ? h(
         moveTag,
         {
           class: { active: step.ply === curPly },
         },
-        westernShogiNotation(step.san)
+        notationStyle(notation)(
+          {
+            san: step.san,
+            uci: step.uci,
+            orientation: orientation,
+            fen: step.fen
+          }
+        )
       )
     : orEmpty
     ? h(moveTag, "…")
@@ -154,9 +120,9 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
   const els: MaybeVNodes = [],
     curPly = ctrl.ply;
   for (let i = 0; i < pairs.length; i++) {
-    els.push(h("index", i + 1 + ""));
-    els.push(renderMove(pairs[i][0], curPly, true));
-    els.push(renderMove(pairs[i][1], curPly, false));
+    els.push(h("index", (i + 1) * 2 - 1 + ""));
+    els.push(renderMove(pairs[i][0], curPly, true, (ctrl.shogiground  && ctrl.shogiground.state) ? ctrl.shogiground.state.orientation : "white", ctrl.data.pref.pieceNotation));
+    els.push(renderMove(pairs[i][1], curPly, false, (ctrl.shogiground && ctrl.shogiground.state) ? ctrl.shogiground.state.orientation : "white", ctrl.data.pref.pieceNotation));
   }
   els.push(renderResult(ctrl));
 

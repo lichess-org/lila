@@ -80,6 +80,7 @@ export function makeConfig(ctrl: RoundController): Config {
       enabled: true,
     },
     disableContextMenu: true,
+    notation: data.pref.pieceNotation
   };
 }
 

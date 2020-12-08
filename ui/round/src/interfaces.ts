@@ -177,6 +177,7 @@ export interface Pref {
   showCaptured: boolean;
   submitMove: boolean;
   resizeHandle: 0 | 1 | 2;
+  pieceNotation: number;
 }
 
 export interface MoveMetadata {
