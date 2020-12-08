@@ -14,8 +14,7 @@ case class PuzzleSession(
     difficulty: PuzzleDifficulty,
     path: PuzzlePath.Id,
     positionInPath: Int,
-    previousPaths: Set[PuzzlePath.Id] = Set.empty,
-    previousVotes: List[Boolean] = List.empty // most recent first
+    previousPaths: Set[PuzzlePath.Id] = Set.empty
 ) {
   def switchTo(pathId: PuzzlePath.Id) = copy(
     path = pathId,
