@@ -191,6 +191,7 @@ module.exports = function (cfg) {
       pieces: {
         baseUrl: "piece/cburnett/",
       },
+      notation: 0,
     },
   };
 

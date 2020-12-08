@@ -12,13 +12,25 @@ function renderCoords(elems, klass, orient) {
   return el;
 }
 
-module.exports = function (orientation, el) {
+module.exports = function (data, el) {
   util.requestAnimationFrame(function () {
     var coords = document.createDocumentFragment();
-    var orientClass = orientation === "black" ? " black" : "";
+    var orientClass = data.orientation === "black" ? " black" : "";
+    const westernNotation = ["9", "8", "7", "6", "5", "4", "3", "2", "1"];
+    const japaneseNotation = [
+      "九",
+      "八",
+      "七",
+      "六",
+      "五",
+      "四",
+      "三",
+      "二",
+      "一",
+    ];
     coords.appendChild(
       renderCoords(
-        ["9", "8", "7", "6", "5", "4", "3", "2", "1"],
+        data.notation === 0 ? westernNotation : japaneseNotation,
         "ranks" + orientClass
       )
     );
@@ -37,7 +49,7 @@ module.exports = function (orientation, el) {
     if (o === orientation) return;
     orientation = o;
     var coords = el.querySelectorAll("coords");
-    for (i = 0; i < coords.length; ++i)
+    for (var i = 0; i < coords.length; ++i)
       coords[i].classList.toggle("black", o === "black");
   };
 };

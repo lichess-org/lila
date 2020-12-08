@@ -46,6 +46,7 @@ module.exports = {
         duration: 200,
       },
       disableContextMenu: true,
+      notation: document.getElementsByClassName("notation-0")[0] ? 0 : 1,
     });
     setTimeout(function () {
       cg.set({

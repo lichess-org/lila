@@ -169,6 +169,7 @@ module.exports = function (blueprint, opts) {
     shapes: blueprint.shapes,
     events: blueprint.events,
     lastMoves: blueprint.lastMoves,
+    notation: document.getElementsByClassName("notation-0")[0] ? 0 : 1,
   });
 
   return {

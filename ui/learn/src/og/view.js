@@ -290,7 +290,7 @@ module.exports = function (ctrl) {
           if (d.redrawCoords) d.redrawCoords(d.orientation);
           return;
         }
-        if (d.coordinates) d.redrawCoords = makeCoords(d.orientation, el);
+        if (d.coordinates) d.redrawCoords = makeCoords(d, el);
         el.addEventListener("contextmenu", function (e) {
           if (d.disableContextMenu || d.drawable.enabled) {
             e.preventDefault();
