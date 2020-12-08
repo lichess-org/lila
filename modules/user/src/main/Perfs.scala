@@ -224,8 +224,9 @@ case object Perfs {
       bullet: List[User.LightPerf],
       blitz: List[User.LightPerf],
       rapid: List[User.LightPerf],
-      classical: List[User.LightPerf]
+      classical: List[User.LightPerf],
+      correspondence: List[User.LightPerf]
   )
 
-  val emptyLeaderboards = Leaderboards(Nil, Nil, Nil, Nil, Nil)
+  val emptyLeaderboards = Leaderboards(Nil, Nil, Nil, Nil, Nil, Nil)
 }

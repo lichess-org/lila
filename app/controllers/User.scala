@@ -267,7 +267,8 @@ final class User(
                   "blitz"         -> leaderboards.blitz,
                   "rapid"         -> leaderboards.rapid,
                   "classical"     -> leaderboards.classical,
-                  "ultraBullet"   -> leaderboards.ultraBullet // todo variant
+                  "ultraBullet"   -> leaderboards.ultraBullet,
+                  "correspondence"-> leaderboards.correspondence // todo variant
                 )
               )
             }
