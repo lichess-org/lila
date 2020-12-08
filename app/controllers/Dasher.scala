@@ -97,7 +97,13 @@ final class Dasher(env: Env) extends LilaController(env) {
                 "inbox"    -> ctx.hasInbox,
                 "coach"    -> isGranted(_.Coach),
                 "streamer" -> isStreamer,
-                "i18n"     -> translations
+                "i18n"     -> translations,
+                "pieceNotation" -> Json.obj(
+                  "current"  -> ctx.pref.pieceNotation,
+                  "list"     -> lila.pref.Notations.list.map { n =>
+                    s"${n.key} ${n.name}"
+                  }
+                )
               )
             }
           }
