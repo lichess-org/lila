@@ -47,11 +47,7 @@ object layout {
     raw {
       s"""<link rel="preload" href="${assetUrl(
         s"font/lishogi.woff2"
-      )}" as="font" type="font/woff2" crossorigin>""" +
-        !ctx.pref.pieceNotationIsLetter ??
-          s"""<link rel="preload" href="${assetUrl(
-            s"font/lishogi.chess.woff2"
-          )}" as="font" type="font/woff2" crossorigin>"""
+      )}" as="font" type="font/woff2" crossorigin>"""
     }
   private val manifests = raw(
     """<link rel="manifest" href="/manifest.json"><meta name="twitter:site" content="@lishogi">"""
@@ -209,8 +205,7 @@ object layout {
         ),
         st.body(
           cls := List(
-            s"${ctx.currentBg} ${ctx.currentTheme.cssClass} ${ctx.currentTheme3d.cssClass} ${ctx.currentPieceSet3d.toString} coords-${ctx.pref.coordsClass}" -> true,
-            "piece-letter"                                                                                                                                   -> ctx.pref.pieceNotationIsLetter,
+            s"${ctx.currentBg} ${ctx.currentTheme.cssClass} ${ctx.currentTheme3d.cssClass} ${ctx.currentPieceSet3d.toString} coords-${ctx.pref.coordsClass} notation-${ctx.pref.pieceNotation}" -> true,
             "zen"                                                                                                                                            -> ctx.pref.isZen,
             "blind-mode"                                                                                                                                     -> ctx.blind,
             "kid"                                                                                                                                            -> ctx.kid,
