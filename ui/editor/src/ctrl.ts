@@ -188,7 +188,6 @@ export default class EditorCtrl {
   setFen(fen: string): boolean {
     if (this.shogiground) this.shogiground.set({ fen });
     const splitted = fen.split(' ');
-    console.log(splitted);
     if(splitted.length >= 3){
       splitted[2].split('').map(p => {
         const role = charToRole(p);

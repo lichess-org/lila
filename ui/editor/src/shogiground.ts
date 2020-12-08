@@ -144,6 +144,7 @@ function makeConfig(ctrl: EditorCtrl): CgConfig {
     events: {
       change: ctrl.onChange.bind(ctrl),
       insert: changeColorHandle
-    }
+    },
+    notation: ctrl.cfg.pieceNotation
   };
 }
