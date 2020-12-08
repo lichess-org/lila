@@ -372,12 +372,12 @@
   <string name="followsYou">Сізге серік</string>
   <string name="xStartedFollowingY">%1$s %2$s серігі болды</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s серік</item>
-    <item quantity="other">%s серік</item>
+    <item quantity="one">%s серігі бар</item>
+    <item quantity="other">%s серігі бар</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">%s серік</item>
-    <item quantity="other">%s серік</item>
+    <item quantity="one">%s ойыншыға серік</item>
+    <item quantity="other">%s ойыншыға серік</item>
   </plurals>
   <string name="more">Жаю</string>
   <string name="memberSince">Тіркелген күні</string>
