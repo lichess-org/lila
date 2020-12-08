@@ -17,7 +17,7 @@ case class Puzzle(
   // ply after "initial move" when we start solving
   def initialPly: Int =
     fen.fullMove ?? { fm =>
-      fm * 2 - color.fold(2, 1)
+      fm * 2 - color.fold(1, 2)
     }
 
   lazy val fenAfterInitialMove: FEN = {
