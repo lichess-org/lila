@@ -9,9 +9,11 @@
 
   .header-langs {
     button {
-      padding: 0 .3rem;
+      padding: 0.3rem;
       border: none;
+      border-radius: 0;
       background: none;
+      -webkit-appearance: none;
     }
   }
 
