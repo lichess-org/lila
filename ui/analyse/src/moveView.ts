@@ -40,7 +40,7 @@ export function renderMove(ctx: Ctx, node: Tree.Node): VNode[] {
       defined(ev.cp) ? [renderEval(normalizeEval(ev.cp))] : (
         defined(ev.mate) ? [renderEval('#' + ev.mate)] : []
       )
-    ) : []);
+    ).replace("-", "−") : []);
 }
 
 export function renderIndexAndMove(ctx: Ctx, node: Tree.Node): VNode[] | undefined {
