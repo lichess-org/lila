@@ -12,6 +12,7 @@
   <string name="chessPieceSymbol">نماد مهره</string>
   <string name="pgnLetter">حرف (K, Q, R, B, N)</string>
   <string name="zenMode">حالت ذن</string>
+  <string name="onlyOnInitialPosition">فقط در آغاز بازی </string>
   <string name="blindfoldChess">شطرنج با چشمان بسته / مهره های نامرئی</string>
   <string name="chessClock">ساعت شطرنج</string>
   <string name="tenthsOfSeconds">دهم ثانیه</string>
@@ -19,6 +20,7 @@
   <string name="horizontalGreenProgressBars">نمودار زمان سبز رنگ افقی</string>
   <string name="soundWhenTimeGetsCritical">صدا در هنگام زمان بحرانی زده می شود</string>
   <string name="giveMoreTime">افزایش زمان حریف</string>
+  <string name="gameBehavior">تنظیمات بازی</string>
   <string name="howDoYouMovePieces">تمایل دارید که چگونه مهره ها را حرکت دهید؟</string>
   <string name="clickTwoSquares">انتخاب دو مربع مبدا و مقصد</string>
   <string name="dragPiece">کشیدن یک مهره</string>
