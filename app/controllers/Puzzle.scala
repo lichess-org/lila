@@ -199,61 +199,6 @@ final class Puzzle(
       }
     }
 
-  def mobileBcLoad(nid: Long) =
-    Open { implicit ctx =>
-      negotiate(
-        html = notFound,
-        _ =>
-          OptionFuOk(env.puzzle.api.puzzle find Puz.numericalId(nid)) { puz =>
-            env.puzzle.jsonView.bc(puzzle = puz, theme = PuzzleTheme.any, user = ctx.me)
-          }.dmap(_ as JSON)
-      )
-    }
-
-  /* Mobile API: select a bunch of puzzles for offline use */
-  def batchSelect =
-    Auth { implicit ctx => me =>
-      negotiate(
-        html = notFound,
-        api = _ => ???
-        // for {
-        //   puzzles <- env.puzzle.batch.select(
-        //     me,
-        //     nb = getInt("nb") getOrElse 50 atLeast 1 atMost 100,
-        //     after = getInt("after")
-        //   )
-        //   userInfo <- env.puzzle userInfos me
-        //   json     <- env.puzzle.jsonView.batch(puzzles, userInfo)
-        // } yield Ok(json) as JSON
-      )
-    }
-
-  /* Mobile API: tell the server about puzzles solved while offline */
-  def batchSolve =
-    AuthBody(parse.json) { implicit ctx => me =>
-      ???
-    // import lila.puzzle.PuzzleBatch._
-    // ctx.body.body
-    //   .validate[SolveData]
-    //   .fold(
-    //     err => BadRequest(err.toString).fuccess,
-    //     data =>
-    //       negotiate(
-    //         html = notFound,
-    //         api = _ =>
-    //           for {
-    //             _     <- env.puzzle.batch.solve(me, data)
-    //             me2   <- env.user.repo byId me.id map (_ | me)
-    //             infos <- env.puzzle userInfos me2
-    //           } yield Ok(
-    //             Json.obj(
-    //               "user" -> lila.puzzle.JsonView.infos(isOldMobile = false)(infos)
-    //             )
-    //           )
-    //       )
-    //   )
-    }
-
   def themes = Open { implicit ctx =>
     env.puzzle.api.theme.categorizedWithCount map { themes =>
       Ok(views.html.puzzle.theme.list(themes))
@@ -307,4 +252,74 @@ final class Puzzle(
         .fuccess
     }
 
+  def mobileBcLoad(nid: Long) =
+    Open { implicit ctx =>
+      negotiate(
+        html = notFound,
+        _ =>
+          OptionFuOk(env.puzzle.api.puzzle find Puz.numericalId(nid)) { puz =>
+            env.puzzle.jsonView.bc(puzzle = puz, theme = PuzzleTheme.any, user = ctx.me)
+          }.dmap(_ as JSON)
+      )
+    }
+
+  // XHR load next play puzzle
+  def mobileBcNew =
+    Open { implicit ctx =>
+      NoBot {
+        negotiate(
+          html = notFound,
+          api = v => {
+            val theme = PuzzleTheme.any
+            nextPuzzleForMe(theme.key) flatMap { puzzle =>
+              renderJson(puzzle, theme, apiVersion = v.some)
+            } dmap { Ok(_) }
+          }
+        )
+      }
+    }
+
+  /* Mobile API: select a bunch of puzzles for offline use */
+  def mobileBcBatchSelect =
+    Auth { implicit ctx => me =>
+      negotiate(
+        html = notFound,
+        api = _ => ???
+        // for {
+        //   puzzles <- env.puzzle.batch.select(
+        //     me,
+        //     nb = getInt("nb") getOrElse 50 atLeast 1 atMost 100,
+        //     after = getInt("after")
+        //   )
+        //   userInfo <- env.puzzle userInfos me
+        //   json     <- env.puzzle.jsonView.batch(puzzles, userInfo)
+        // } yield Ok(json) as JSON
+      )
+    }
+
+  /* Mobile API: tell the server about puzzles solved while offline */
+  def mobileBcBatchSolve =
+    AuthBody(parse.json) { implicit ctx => me =>
+      ???
+    // import lila.puzzle.PuzzleBatch._
+    // ctx.body.body
+    //   .validate[SolveData]
+    //   .fold(
+    //     err => BadRequest(err.toString).fuccess,
+    //     data =>
+    //       negotiate(
+    //         html = notFound,
+    //         api = _ =>
+    //           for {
+    //             _     <- env.puzzle.batch.solve(me, data)
+    //             me2   <- env.user.repo byId me.id map (_ | me)
+    //             infos <- env.puzzle userInfos me2
+    //           } yield Ok(
+    //             Json.obj(
+    //               "user" -> lila.puzzle.JsonView.infos(isOldMobile = false)(infos)
+    //             )
+    //           )
+    //       )
+    //   )
+    }
 }
