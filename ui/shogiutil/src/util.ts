@@ -12,6 +12,10 @@ export function defined<A>(v: A | undefined): v is A {
   return v !== undefined;
 }
 
+export function getColorFromSfen(sfen: string): Color {
+  return sfen.split(" ")[1] === "w" ? "white" : "black";
+}
+
 // 7g7f -> 7776
 export function switchUSI(str: string): string {
   const transMap = {
@@ -246,7 +250,7 @@ export function validFen(fen: string): boolean {
 
 export function switchColorSfen(sfen: string): string {
   const oppositeColor = sfen.split(" ")[1] === "w" ? "b" : "w";
-  return sfen.replace(/ (w|b) /, " " + oppositeColor + " ");
+  return sfen.replace(/ (w|b)/, " " + oppositeColor);
 }
 
 export function shogiToChessUci(uci: Uci): Uci {
@@ -260,6 +264,15 @@ export function shogiToChessUci(uci: Uci): Uci {
     "3": "g",
     "2": "h",
     "1": "i",
+    "a": "a",
+    "b": "b",
+    "c": "c",
+    "d": "d",
+    "e": "e",
+    "f": "f",
+    "g": "g",
+    "h": "h",
+    "i": "i"
   };
   const rankMap = {
     a: "9",
@@ -271,6 +284,15 @@ export function shogiToChessUci(uci: Uci): Uci {
     g: "3",
     h: "2",
     i: "1",
+    "1": "1", 
+    "2": "2", 
+    "3": "3", 
+    "4": "4", 
+    "5": "5", 
+    "6": "6", 
+    "7": "7", 
+    "8": "8", 
+    "9": "9" 
   };
   if (uci.includes("*")) {
     return uci.slice(0, 2) + fileMap[uci[2]] + rankMap[uci[3]];
@@ -300,6 +322,15 @@ export function chessToShogiUsi(uci: Uci): Uci {
     g: "3",
     h: "2",
     i: "1",
+    "9": "9",
+    "8": "8",
+    "7": "7",
+    "6": "6",
+    "5": "5",
+    "4": "4",
+    "3": "3",
+    "2": "2",
+    "1": "1"
   };
   const rankMap = {
     "9": "a",
@@ -311,6 +342,15 @@ export function chessToShogiUsi(uci: Uci): Uci {
     "3": "g",
     "2": "h",
     "1": "i",
+    "a": "a",
+    "b": "b",
+    "c": "c",
+    "d": "d",
+    "e": "e",
+    "f": "f",
+    "g": "g",
+    "h": "h",
+    "i": "i"
   };
   if (uci.includes("*")) {
     return uci.slice(0, 2) + fileMap[uci[2]] + rankMap[uci[3]];
