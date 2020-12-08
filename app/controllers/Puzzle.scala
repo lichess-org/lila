@@ -6,6 +6,7 @@ import views._
 
 import lila.api.Context
 import lila.app._
+import lila.common.ApiVersion
 import lila.common.config.MaxPerSecond
 import lila.puzzle.PuzzleTheme
 import lila.puzzle.{ Result, PuzzleRound, PuzzleDifficulty, Puzzle => Puz }
@@ -15,10 +16,18 @@ final class Puzzle(
     apiC: => Api
 ) extends LilaController(env) {
 
-  private def renderJson(puzzle: Puz, theme: PuzzleTheme, newUser: Option[lila.user.User] = None)(implicit
+  private def renderJson(
+      puzzle: Puz,
+      theme: PuzzleTheme,
+      newUser: Option[lila.user.User] = None,
+      apiVersion: Option[ApiVersion] = None
+  )(implicit
       ctx: Context
   ): Fu[JsObject] =
-    env.puzzle.jsonView(puzzle = puzzle, theme = theme, user = newUser orElse ctx.me)
+    if (apiVersion.exists(!_.puzzleV2))
+      env.puzzle.jsonView.bc(puzzle = puzzle, theme = theme, user = newUser orElse ctx.me)
+    else
+      env.puzzle.jsonView(puzzle = puzzle, theme = theme, user = newUser orElse ctx.me)
 
   private def renderShow(puzzle: Puz, theme: PuzzleTheme)(implicit ctx: Context) =
     renderJson(puzzle, theme) zip
@@ -36,7 +45,7 @@ final class Puzzle(
         }) { puzzle =>
           negotiate(
             html = renderShow(puzzle, PuzzleTheme.any),
-            api = _ => renderJson(puzzle, PuzzleTheme.any) map { Ok(_) }
+            api = v => renderJson(puzzle, PuzzleTheme.any, apiVersion = v.some) dmap { Ok(_) }
           ) map NoCache
         }
       }

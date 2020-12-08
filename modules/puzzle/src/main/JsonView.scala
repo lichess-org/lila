@@ -23,7 +23,8 @@ final class JsonView(
   ): Fu[JsObject] = {
     gameJson(
       gameId = puzzle.gameId,
-      plies = puzzle.initialPly
+      plies = puzzle.initialPly,
+      bc = false
     ) map { gameJson =>
       Json
         .obj(
@@ -86,26 +87,61 @@ final class JsonView(
     "themes"     -> puzzle.themes
   )
 
-  private def makeSolution(puzzle: Puzzle): Option[tree.Branch] = {
-    import chess.format._
-    val init = chess.Game(none, puzzle.fenAfterInitialMove.some).withTurns(puzzle.initialPly)
-    val (_, branchList) = puzzle.line.tail.foldLeft[(chess.Game, List[tree.Branch])]((init, Nil)) {
-      case ((prev, branches), uci) =>
-        val (game, move) =
-          prev(uci.orig, uci.dest, uci.promotion).fold(err => sys error s"puzzle ${puzzle.id} $err", identity)
-        val branch = tree.Branch(
-          id = UciCharPair(move.toUci),
-          ply = game.turns,
-          move = Uci.WithSan(move.toUci, game.pgnMoves.last),
-          fen = chess.format.Forsyth >> game,
-          check = game.situation.check,
-          crazyData = none
-        )
-        (game, branch :: branches)
+  object bc {
+
+    def apply(puzzle: Puzzle, theme: PuzzleTheme, user: Option[User])(implicit
+        lang: Lang
+    ): Fu[JsObject] = {
+      gameJson(
+        gameId = puzzle.gameId,
+        plies = puzzle.initialPly,
+        bc = true
+      ) map { gameJson =>
+        Json
+          .obj(
+            "game" -> gameJson,
+            "puzzle" -> Json.obj(
+              "id"          -> puzzle.id,
+              "rating"      -> puzzle.glicko.intRating,
+              "attempts"    -> puzzle.plays,
+              "fen"         -> puzzle.fenAfterInitialMove,
+              "color"       -> puzzle.color.name,
+              "initialMove" -> puzzle.line.head.uci,
+              "initialPly"  -> puzzle.initialPly,
+              "gameId"      -> puzzle.gameId,
+              "lines" -> puzzle.line.tail.reverse.foldLeft[JsValue](JsString("win")) { case (acc, move) =>
+                Json.obj(move.uci -> acc)
+              },
+              "vote"   -> 0,
+              "branch" -> makeBranch(puzzle).map(defaultNodeJsonWriter.writes)
+            )
+          )
+          .add("user" -> user.map(userJson))
+      }
     }
-    branchList.foldLeft[Option[tree.Branch]](None) {
-      case (None, branch)        => branch.some
-      case (Some(child), branch) => Some(branch addChild child)
+
+    private def makeBranch(puzzle: Puzzle): Option[tree.Branch] = {
+      import chess.format._
+      val init = chess.Game(none, puzzle.fenAfterInitialMove.some).withTurns(puzzle.initialPly)
+      val (_, branchList) = puzzle.line.tail.foldLeft[(chess.Game, List[tree.Branch])]((init, Nil)) {
+        case ((prev, branches), uci) =>
+          val (game, move) =
+            prev(uci.orig, uci.dest, uci.promotion)
+              .fold(err => sys error s"puzzle ${puzzle.id} $err", identity)
+          val branch = tree.Branch(
+            id = UciCharPair(move.toUci),
+            ply = game.turns,
+            move = Uci.WithSan(move.toUci, game.pgnMoves.last),
+            fen = chess.format.Forsyth >> game,
+            check = game.situation.check,
+            crazyData = none
+          )
+          (game, branch :: branches)
+      }
+      branchList.foldLeft[Option[tree.Branch]](None) {
+        case (None, branch)        => branch.some
+        case (Some(child), branch) => Some(branch addChild child)
+      }
     }
   }
 }

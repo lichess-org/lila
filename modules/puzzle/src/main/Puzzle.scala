@@ -14,21 +14,20 @@ case class Puzzle(
     plays: Int,
     themes: Set[PuzzleTheme.Key]
 ) {
-
-  def color = fen.color | chess.White
-
   // ply after "initial move" when we start solving
   def initialPly: Int =
     fen.fullMove ?? { fm =>
       fm * 2 - color.fold(2, 1)
     }
 
-  def fenAfterInitialMove: FEN = {
+  lazy val fenAfterInitialMove: FEN = {
     for {
       sit1 <- Forsyth << fen
       sit2 <- sit1.move(line.head).toOption.map(_.situationAfter)
     } yield Forsyth >> sit2
   } err s"Can't apply puzzle $id first move"
+
+  def color = fenAfterInitialMove.color | chess.White
 }
 
 object Puzzle {
