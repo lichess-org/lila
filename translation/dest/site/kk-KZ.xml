@@ -604,7 +604,7 @@
   <string name="error.email_unique">Бұл пошта тіркелген</string>
   <string name="error.email_different">Бұл сіздің поштаңыз</string>
   <string name="ifRatingIsPlusMinusX">Егер рейтингі ± %s болса</string>
-  <string name="onlyFriends">Тек қана достар</string>
+  <string name="onlyFriends">Достар ғана</string>
   <string name="menu">Мәзір</string>
   <string name="castling">Бекіну</string>
   <string name="whiteCastlingKingside">Ақтар O-O</string>
