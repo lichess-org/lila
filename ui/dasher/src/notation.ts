@@ -60,7 +60,7 @@ export function view(ctrl: NotationCtrl): VNode {
     {
     },
     [
-      header(ctrl.trans("Notation"), ctrl.close),
+      header(ctrl.trans("notationSystem"), ctrl.close),
       h("div.content", [
         h("div.selector", ctrl.makeList().map(notationView(ctrl, ctrl.data().current.toString()))),
       ]),

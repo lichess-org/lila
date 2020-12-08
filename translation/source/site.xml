@@ -866,4 +866,5 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="notationType">Notation</string>
 	<string name="whiteDeclinesImpasse">Gote declines impasse</string>
 	<string name="whiteOffersImpasse">Gote offers impasse</string>
+	<string name="notationSystem">Notation</string>
 </resources>

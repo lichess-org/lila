@@ -22,7 +22,8 @@ final class Dasher(env: Env) extends LilaController(env) {
     trans.boardTheme,
     trans.boardSize,
     trans.pieceSet,
-    trans.preferences.zenMode
+    trans.preferences.zenMode,
+    trans.notationSystem
   ).map(_.key)
 
   private val translationsAnon = List(
