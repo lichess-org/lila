@@ -50,6 +50,7 @@ object Theme extends ThemeObject {
     "dark-blue",
     "Painting1",
     "Painting2",
+    "Kinkaku",
     "space1",
     "space2",
     "whiteBoard",
