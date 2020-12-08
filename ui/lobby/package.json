@@ -20,6 +20,7 @@
   "dependencies": {
     "common": "2.0.0",
     "shogiground": "7.8.1",
+    "shogiutil": "1.0.0",
     "snabbdom": "^0.7.4"
   },
   "scripts": {

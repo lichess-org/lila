@@ -1,5 +1,6 @@
 import { FormStore, toFormLines, makeStore } from "./form";
 import LobbyController from "./ctrl";
+import {switchColorSfen} from 'shogiutil/util';
 
 const li = window.lishogi;
 
@@ -187,6 +188,10 @@ export default class Setup {
         self.save($form[0] as HTMLFormElement);
       };
 
+    // This switches the color in sfen that is being sent to the server, make it better if you can
+    $submits.click(() => {
+      $fenInput.val(switchColorSfen($fenInput.val()));
+    })
     const c = this.stores[typ].get();
     if (c) {
       Object.keys(c).forEach((k) => {

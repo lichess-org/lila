@@ -37,8 +37,7 @@ export default function (ctrl: LobbyController) {
                   drawable: { enabled: false, visible: false },
                   resizable: false,
                   viewOnly: true,
-                  orientation:
-                    pov.variant.key === "racingKings" ? "white" : pov.color,
+                  orientation: pov.color,
                   fen: pov.fen,
                   lastMove: lm && [lm[0] + lm[1], lm[2] + lm[3]],
                 });
