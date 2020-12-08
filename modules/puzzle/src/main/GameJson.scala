@@ -7,6 +7,7 @@ import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.i18n.defaultLang
 import lila.tree.Node.{ minimalNodeJsonWriter, partitionTreeJsonWriter }
 import chess.format.Forsyth
+import chess.format.UciCharPair
 
 final private class GameJson(
     gameRepo: GameRepo,
@@ -46,7 +47,7 @@ final private class GameJson(
         "perf"    -> perfJson(game),
         "rated"   -> game.rated,
         "players" -> playersJson(game),
-        "pgn"     -> game.chess.pgnMoves.take(plies + 1)
+        "pgn"     -> game.chess.pgnMoves.take(plies + 1).mkString(" ")
       )
       .add("clock", game.clock.map(_.config.show))
 
@@ -74,7 +75,7 @@ final private class GameJson(
         "players" -> playersJson(game),
         "rated"   -> game.rated,
         "treeParts" -> {
-          val pgnMoves = game.pgnMoves take plies
+          val pgnMoves = game.pgnMoves.take(plies + 1)
           for {
             pgnMove <- pgnMoves.lastOption
             situation <- chess.Replay
@@ -86,8 +87,9 @@ final private class GameJson(
             uciMove <- situation.board.history.lastMove
           } yield Json.obj(
             "fen" -> Forsyth.>>(situation).value,
-            "ply" -> plies,
+            "ply" -> (plies + 1),
             "san" -> pgnMove,
+            "id"  -> UciCharPair(uciMove).toString,
             "uci" -> uciMove.uci
           )
         }

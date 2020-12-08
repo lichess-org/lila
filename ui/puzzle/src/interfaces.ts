@@ -135,7 +135,7 @@ export interface PuzzleGame {
   };
   rated: boolean;
   players: Array<{ userId: string, name: string, color: Color }>;
-  pgn: San[];
+  pgn: string;
   clock: string;
 }
 
