@@ -61,16 +61,6 @@ final class Puzzle(
       }
     }
 
-  def load(id: String) =
-    Open { implicit ctx =>
-      NoBot {
-        XhrOnly {
-          ???
-          // OptionFuOk(env.puzzle.api.puzzle find Puz.Id(id))(puzzleJson _).dmap(_ as JSON)
-        }
-      }
-    }
-
   private def nextPuzzleForMe(theme: PuzzleTheme.Key)(implicit ctx: Context): Fu[Puz] =
     ctx.me match {
       case Some(me) => env.puzzle.session.nextPuzzleFor(me, theme)
@@ -171,6 +161,17 @@ final class Puzzle(
                 Redirect(routes.Puzzle.show(theme))
           )
       }
+    }
+
+  def mobileBcLoad(nid: Long) =
+    Open { implicit ctx =>
+      negotiate(
+        html = notFound,
+        _ =>
+          OptionFuOk(env.puzzle.api.puzzle find Puz.numericalId(nid)) { puz =>
+            env.puzzle.jsonView.bc(puzzle = puz, theme = PuzzleTheme.any, user = ctx.me)
+          }.dmap(_ as JSON)
+      )
     }
 
   /* Mobile API: select a bunch of puzzles for offline use */

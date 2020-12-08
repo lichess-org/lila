@@ -101,7 +101,7 @@ final class JsonView(
           .obj(
             "game" -> gameJson,
             "puzzle" -> Json.obj(
-              "id"          -> puzzle.id,
+              "id"          -> Puzzle.numericalId(puzzle.id),
               "rating"      -> puzzle.glicko.intRating,
               "attempts"    -> puzzle.plays,
               "fen"         -> puzzle.fenAfterInitialMove,

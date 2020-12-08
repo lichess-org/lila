@@ -32,7 +32,46 @@ case class Puzzle(
 
 object Puzzle {
 
+  val idSize = 5
+
   case class Id(value: String) extends AnyVal with StringValue
+
+  /* The mobile app requires numerical IDs.
+   * We convert string ids from and to Longs using base 62
+   */
+  object numericalId {
+
+    private val powers: List[Long] =
+      (0 until idSize).toList.map(m => Math.pow(62, m).toLong)
+
+    def apply(id: Id): Long = id.value.toList
+      .zip(powers)
+      .foldLeft(0L) { case (l, (char, pow)) =>
+        l + charToInt(char) * pow
+      }
+
+    def apply(l: Long): Id = Id {
+      powers.reverse
+        .foldLeft(("", l)) { case ((id, rest), pow) =>
+          val frac = rest / pow
+          (s"${intToChar(frac.toInt)}$id", rest - frac * pow)
+        }
+        ._1
+    }
+
+    private def charToInt(c: Char) = {
+      val i = c.toInt
+      if (i > 96) i - 71
+      else if (i > 64) i - 65
+      else i + 4
+    }
+
+    private def intToChar(i: Int): Char = {
+      if (i < 26) i + 65
+      else if (i < 52) i + 71
+      else i - 4
+    }.toChar
+  }
 
   case class UserResult(
       puzzleId: Id,
