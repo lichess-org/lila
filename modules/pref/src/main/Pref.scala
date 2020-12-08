@@ -89,6 +89,10 @@ case class Pref(
           copy(soundSet = s.key)
         }
       case "zen" => copy(zen = if (value == "1") 1 else 0).some
+      case "pieceNotation" => 
+        Notations.allByKey get value map { n =>
+          copy(pieceNotation = n.key.toInt)
+        }
       case _     => none
     }
 
@@ -104,8 +108,6 @@ case class Pref(
   def isBlindfold = blindfold == Pref.Blindfold.YES
 
   def bgImgOrDefault = bgImg | Pref.defaultBgImg
-
-  def pieceNotationIsLetter = pieceNotation == PieceNotation.LETTER
 
   def isZen = zen == Zen.YES
 
@@ -216,12 +218,14 @@ object Pref {
   }
 
   object PieceNotation {
-    val SYMBOL = 0
-    val LETTER = 1
+    val WESTERN = 0
+    val KAWASAKI = 1
+    val JAPANESE = 2
 
     val choices = Seq(
-      SYMBOL -> "Chess piece symbol",
-      LETTER -> "PGN letter (K, Q, R, B, N)"
+      WESTERN -> "0",
+      KAWASAKI -> "1",
+      JAPANESE -> "2"
     )
   }
 
@@ -419,7 +423,7 @@ object Pref {
     zen = Zen.NO,
     rookCastle = RookCastle.YES,
     moveEvent = MoveEvent.BOTH,
-    pieceNotation = PieceNotation.SYMBOL,
+    pieceNotation = PieceNotation.WESTERN,
     resizeHandle = ResizeHandle.INITIAL,
     tags = Map.empty
   )

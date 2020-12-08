@@ -190,8 +190,9 @@ trait SetupHelper { self: I18nHelper =>
 
   def translatedPieceNotationChoices(implicit lang: Lang) =
     List(
-      (Pref.PieceNotation.SYMBOL, trans.preferences.chessPieceSymbol.txt()),
-      (Pref.PieceNotation.LETTER, trans.preferences.pgnLetter.txt())
+      (Pref.PieceNotation.WESTERN, "Western notation"),
+      (Pref.PieceNotation.JAPANESE, "Japanese notation"),
+      (Pref.PieceNotation.KAWASAKI, "Kawasaki notation"), // trans.preferences.pgnLetter.txt()
     )
 
   def translatedClockTenthsChoices(implicit lang: Lang) =

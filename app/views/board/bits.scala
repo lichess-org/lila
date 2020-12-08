@@ -30,6 +30,7 @@ object bits {
         "duration" -> ctx.pref.animationFactor * animationDuration.toMillis
       ),
       "is3d" -> ctx.pref.is3d,
+      "pieceNotation" -> ctx.pref.pieceNotation,
       "i18n" -> i18nJsObject(i18nKeyes)
     )
 
@@ -41,9 +42,6 @@ object bits {
     trans.flipBoard,
     trans.loadPosition,
     trans.popularOpenings,
-    trans.castling,
-    trans.whiteCastlingKingside,
-    trans.blackCastlingKingside,
     trans.whitePlays,
     trans.blackPlays,
     trans.variant,

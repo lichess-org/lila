@@ -23,7 +23,7 @@ object DataForm {
         "destination"   -> booleanNumber,
         "coords"        -> checkedNumber(Pref.Coords.choices),
         "replay"        -> checkedNumber(Pref.Replay.choices),
-        "pieceNotation" -> optional(booleanNumber),
+        "pieceNotation" -> optional(checkedNumber(Pref.PieceNotation.choices)),
         "zen"           -> optional(booleanNumber),
         "resizeHandle"  -> optional(checkedNumber(Pref.ResizeHandle.choices)),
         "blindfold"     -> checkedNumber(Pref.Blindfold.choices)
@@ -222,6 +222,12 @@ object DataForm {
   val zen = Form(
     single(
       "zen" -> text.verifying(Set("0", "1") contains _)
+    )
+  )
+
+  val pieceNotation = Form(
+    single(
+      "pieceNotation" -> text.verifying(Set("0", "1", "2") contains _)
     )
   )
 }

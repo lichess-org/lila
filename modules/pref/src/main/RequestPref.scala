@@ -30,7 +30,8 @@ object RequestPref {
       pieceSet3d = req.session.data.getOrElse("pieceSet3d", default.pieceSet3d),
       soundSet = req.session.data.getOrElse("soundSet", default.soundSet),
       bgImg = req.session.data.get("bgImg"),
-      is3d = req.session.data.get("is3d") has "true"
+      is3d = req.session.data.get("is3d") has "true",
+      pieceNotation = (req.session.data.get("pieceNotation").getOrElse("0")).toInt
     )
   }
 

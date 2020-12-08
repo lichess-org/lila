@@ -96,7 +96,8 @@ final class JsonView(
                 "autoQueen" -> (if (pov.game.variant == chess.variant.Antichess) Pref.AutoQueen.NEVER
                                 else pref.autoQueen),
                 "clockTenths" -> pref.clockTenths,
-                "moveEvent"   -> pref.moveEvent
+                "moveEvent"   -> pref.moveEvent,
+                "pieceNotation" -> pref.pieceNotation
               )
               .add("is3d" -> pref.is3d)
               .add("clockBar" -> pref.clockBar)
@@ -192,7 +193,8 @@ final class JsonView(
                 "coords"            -> pref.coords,
                 "resizeHandle"      -> pref.resizeHandle,
                 "replay"            -> pref.replay,
-                "clockTenths"       -> pref.clockTenths
+                "clockTenths"       -> pref.clockTenths,
+                "pieceNotation" -> pref.pieceNotation
               )
               .add("is3d" -> pref.is3d)
               .add("clockBar" -> pref.clockBar)
@@ -252,7 +254,8 @@ final class JsonView(
             "animationDuration" -> animationDuration(pov, pref),
             "coords"            -> pref.coords,
             "moveEvent"         -> pref.moveEvent,
-            "resizeHandle"      -> pref.resizeHandle
+            "resizeHandle"      -> pref.resizeHandle,
+            "pieceNotation" -> pref.pieceNotation
           )
           .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
           .add("is3d" -> pref.is3d)
