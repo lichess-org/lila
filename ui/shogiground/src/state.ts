@@ -104,6 +104,7 @@ export interface State {
   drawable: Drawable;
   dom: cg.Dom;
   hold: cg.Timer;
+  notation: cg.Notation;
 }
 
 export function defaults(): Partial<State> {

@@ -1,7 +1,7 @@
 import { State } from "./state";
 import { setVisible, createEl } from "./util";
 //import { colors, files, ranks } from "./types";
-import { colors } from "./types";
+import { colors, Notation } from "./types";
 import { createElement as createSVG } from "./svg";
 import { Elements } from "./types";
 
@@ -48,12 +48,22 @@ export function renderWrap(
 
   if (s.coordinates) {
     const orientClass = s.orientation === "black" ? " black" : "";
-    container.appendChild(
-      renderCoords(
-        ["9", "8", "7", "6", "5", "4", "3", "2", "1"],
-        "ranks" + orientClass
-      )
-    );
+    if(s.notation === Notation.WESTERN){
+      container.appendChild(
+        renderCoords(
+          ["9", "8", "7", "6", "5", "4", "3", "2", "1"],
+          "ranks" + orientClass
+        )
+      );
+    }
+    else{
+      container.appendChild(
+        renderCoords(
+          ["九", "八", "七", "六", "五", "四", "三", "二", "一"],
+          "ranks" + orientClass
+        )
+      );
+    }
     container.appendChild(
       renderCoords(
         ["9", "8", "7", "6", "5", "4", "3", "2", "1"],

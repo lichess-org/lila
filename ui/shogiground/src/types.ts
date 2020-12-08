@@ -210,3 +210,5 @@ export const ranks: readonly Rank[] = [
   "8",
   "9",
 ];
+
+export const enum Notation {WESTERN, JAPANESE};

@@ -86,6 +86,7 @@ export interface Config {
     };
     onChange?: (shapes: DrawShape[]) => void; // called after drawable shapes change
   };
+  notation?: cg.Notation;
 }
 
 export function configure(state: State, config: Config): void {
