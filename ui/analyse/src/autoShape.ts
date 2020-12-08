@@ -57,7 +57,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
 
   if (ctrl.practice) {
     if (ctrl.practice.hovering())
-      return makeShapesFromUci(color, ctrl.practice.hovering().uci, "green", pieces);
+      return makeShapesFromUci(color, ctrl.practice.hovering().uci, "paleGreen", pieces);
     const hint = ctrl.practice.hinting();
 
     if (hint) {
@@ -113,7 +113,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
           const shift = winningChances.povDiff(color, nCeval.pvs[0], pv);
           if (shift >= 0 && shift < 0.2) {
             shapes = shapes.concat(
-              makeShapesFromUci(color, pv.moves[0], "paleGrey", pieces, {
+              makeShapesFromUci(color, pv.moves[0], "paleGreen", pieces, {
                 lineWidth: Math.round(12 - shift * 50), // 12 to 2
               })
             );
