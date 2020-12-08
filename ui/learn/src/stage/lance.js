@@ -45,5 +45,5 @@ module.exports = {
       ],
     },
   ].map(util.toLevel),
-  complete: "knightComplete",
+  complete: "lanceComplete",
 };

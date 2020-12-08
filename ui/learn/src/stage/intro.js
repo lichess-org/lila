@@ -11,8 +11,7 @@ module.exports = {
   illustration: util.pieceImg("dragon"),
   levels: [
     {
-      goal:
-        "It's important that you can tell your pieces apart, so make sure you choose the right piece set. To do that click on your username or the cog wheel(top right corner) and then click on 'piece set'.",
+      goal: "choosePieceDesign",
       fen: "9/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -",
       nbMoves: 0,
       text: "Click here after you've chosen the piece design you like.",
