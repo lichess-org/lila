@@ -2,7 +2,7 @@ import { h } from "snabbdom";
 import { VNode } from "snabbdom/vnode";
 import { defined } from "common";
 import { view as cevalView, renderEval as normalizeEval } from "ceval";
-import {westernShogiNotation} from "shogiutil/util"
+import { notationStyle } from "shogiutil/notation";
 
 export interface Ctx {
   withDots?: boolean;
@@ -31,17 +31,22 @@ function renderEval(e): VNode {
 }
 
 export function renderIndexText(ply: Ply, withDots?: boolean): string {
-  return plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? "." : "...") : "");
+  return ply + (withDots ? "." : "");
 }
 
 export function renderIndex(ply: Ply, withDots?: boolean): VNode {
   return h("index", renderIndexText(ply, withDots));
 }
 
-export function renderMove(ctx: Ctx, node: Tree.Node): VNode[] {
+export function renderMove(ctx: Ctx, node: Tree.Node, notation: number, orientation: Color): VNode[] {
   const ev: any =
     cevalView.getBestEval({ client: node.ceval, server: node.eval }) || {};
-  return [h("san", westernShogiNotation(node.san)!)]
+  return [h("san", notationStyle(notation)({
+    san: node.san!,
+    uci: node.uci!,
+    orientation: orientation,
+    fen: node.fen
+  }))]
     .concat(node.glyphs && ctx.showGlyphs ? renderGlyphs(node.glyphs) : [])
     .concat(
       ctx.showEval
@@ -56,8 +61,10 @@ export function renderMove(ctx: Ctx, node: Tree.Node): VNode[] {
 
 export function renderIndexAndMove(
   ctx: Ctx,
-  node: Tree.Node
+  node: Tree.Node,
+  notation: number,
+  orientation: Color
 ): VNode[] | undefined {
   if (!node.san) return; // initial position
-  return [renderIndex(node.ply, ctx.withDots), ...renderMove(ctx, node)];
+  return [renderIndex(node.ply, ctx.withDots), ...renderMove(ctx, node, notation, orientation)];
 }

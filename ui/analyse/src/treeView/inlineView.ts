@@ -1,13 +1,12 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { fixCrazySan } from 'chess';
 import { path as treePath, ops as treeOps } from 'tree';
 import * as moveView from '../moveView';
 import AnalyseCtrl from '../ctrl';
 import { MaybeVNodes } from '../interfaces';
 import { mainHook, nodeClasses, findCurrentPath, renderInlineCommentsOf, retroLine } from './treeView';
 import { Ctx, Opts } from './treeView';
-import {westernShogiNotation} from "shogiutil/util"
+import {notationStyle} from "shogiutil/notation";
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {
   const cs = node.children,
@@ -94,8 +93,13 @@ function renderInline(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   const path = opts.parentPath + node.id,
   content: MaybeVNodes = [
-    opts.withIndex || node.ply & 1 ? moveView.renderIndex(node.ply, true) : null,
-    westernShogiNotation(fixCrazySan(node.san!))
+    opts.withIndex || node.ply ? moveView.renderIndex(node.ply, true) : null,
+    notationStyle(ctx.ctrl.data.pref.pieceNotation)({
+      san: node.san!,
+      uci: node.uci!,
+      orientation: ctx.ctrl.bottomIsWhite() ? "white" : "black",
+      fen: node.fen
+    })
   ];
   if (node.glyphs && ctx.showGlyphs) moveView.renderGlyphs(node.glyphs).forEach(g => content.push(g));
   return h('move', {

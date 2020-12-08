@@ -10,6 +10,7 @@ export interface RetroCtrl {
   isSolving(): boolean
   trans: Trans
   [key: string]: any
+  notation: number
 }
 
 type Feedback = 'find' | 'eval' | 'win' | 'fail' | 'view';
@@ -205,6 +206,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     trans: root.trans,
     noarg: root.trans.noarg,
     node: () => root.node,
-    redraw
+    redraw,
+    notation: root.data.pref.pieceNotation
   };
 };

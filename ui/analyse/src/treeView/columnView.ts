@@ -1,7 +1,6 @@
 import { h } from "snabbdom";
 import { VNode } from "snabbdom/vnode";
 import { empty } from "common";
-import { fixCrazySan } from "chess";
 import { path as treePath, ops as treeOps } from "tree";
 import * as moveView from "../moveView";
 import { authorText as commentAuthorText } from "../study/studyComments";
@@ -18,7 +17,7 @@ import {
 } from "./treeView";
 import { enrichText, innerHTML } from "../util";
 import { Ctx as BaseCtx, Opts as BaseOpts } from "./treeView";
-import { westernShogiNotation } from "shogiutil/util";
+import { notationStyle } from "shogiutil/notation";
 
 interface Ctx extends BaseCtx {
   concealOf: ConcealOf;
@@ -176,7 +175,7 @@ function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
       attrs: { p: path },
       class: classes,
     },
-    moveView.renderMove(ctx, node)
+    moveView.renderMove(ctx, node, ctx.ctrl.data.pref.pieceNotation, ctx.ctrl.bottomIsWhite() ? "white" : "black")
   );
 }
 
@@ -185,7 +184,12 @@ function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
     path = opts.parentPath + node.id,
     content: MaybeVNodes = [
       withIndex ? moveView.renderIndex(node.ply, true) : null,
-      westernShogiNotation(fixCrazySan(node.san!)),
+      notationStyle(ctx.ctrl.data.pref.pieceNotation)({
+        san: node.san!,
+        uci: node.uci!,
+        orientation: ctx.ctrl.bottomIsWhite() ? "white" : "black",
+        fen: node.fen
+      }),
     ],
     classes = nodeClasses(ctx, path);
   if (opts.conceal) classes[opts.conceal as string] = true;

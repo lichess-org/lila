@@ -2,7 +2,8 @@ import AnalyseCtrl from "./ctrl";
 import { defined } from "common";
 import { baseUrl } from "./util";
 import { AnalyseData } from "./interfaces";
-import {westernShogiNotation, displaySfen} from "shogiutil/util";
+import {displaySfen} from "shogiutil/util";
+import {westernShogiNotation} from "shogiutil/util";
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   const li = window.lishogi;

@@ -87,7 +87,7 @@ export function view(root: AnalyseCtrl, concealOf?: ConcealOf) {
         withDots: true,
         showEval: root.showComputer(),
         showGlyphs: root.showComputer()
-      }, node)!);
+      }, node, root.data.pref.pieceNotation, root.bottomIsWhite() ? "white" : "black")!);
       return undefined;
     })
   );
