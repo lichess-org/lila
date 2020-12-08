@@ -49,35 +49,35 @@
 	<string name="thePawn">El peó</string>
 	<string name="itMovesForwardOnly">Camina endevant!</string>
 	<string name="pawnIntro">Els peons són febles, però amaguen un munt de potencial.</string>
-	<string name="pawnsMoveOneSquareOnly">Pawns can move to the square directly in front of them, they capture the same way.</string>
-	<string name="pawnPromotion">The pawn can also be promoted, the moves are once again the same as the gold general.</string>
+	<string name="pawnsMoveOneSquareOnly">Els peons es poden moure directament davant seu, i capturen de la mateixa forma.</string>
+	<string name="pawnPromotion">El peó també es pot promoure, els moviments altre cop són iguals als del general d\'or.</string>
 	<string name="pawnComplete">Felicitats! Els peons no tenen secrets per tu.</string>
-	<string name="pawnSummary">The pawn is a rather straightforward piece to understand.</string>
-	<string name="tokinSummary">You should already be familiar with this pattern by now.</string>
-	<string name="theLance">The lance</string>
-	<string name="itMovesStraightForward">It can go only forward.</string>
-	<string name="lanceIntro">Use it wisely.</string>
-	<string name="lancesAreStraighforward">Just move forward as much as you can, this should be easy for you.</string>
-	<string name="lancePromotion">After the lance is promoted, it moves differently, but you\'ve already seen this somewhere - same as the gold general.</string>
-	<string name="lanceSummary">Moves forward, this is really easy.</string>
-	<string name="planceSummary">It\'s the same as the gold general.</string>
-	<string name="lanceComplete">Great job!</string>
-	<string name="theGold">The gold general</string>
-	<string name="itMovesInAnyDirectionExceptDiagonallyBack">The gold general moves in any direction EXCEPT diagonally back.</string>
-	<string name="goldIntro">The gold general movements might be a bit harder to remember at first, but you can surely do it.</string>
-	<string name="goldDoesntPromote">The gold general together with the king is the only piece you CAN\'T promote.</string>
-	<string name="goldSummary">Try to remember these moves, many pieces move the same after they are promoted.</string>
-	<string name="goldComplete">Congratulations! You got this.</string>
-	<string name="theSilver">The silver general</string>
-	<string name="itMovesEitherForwardOrDiagonallyBack">The silver general moves either forward or diagonally back.</string>
-	<string name="silverIntro">Another piece with unusual movements, but this is the last one. Promise!</string>
-	<string name="silverPromotion">When you promote the silver general his movements are the same as the gold general.</string>
-	<string name="silverSummary">You will surely remember these moves with some practice.</string>
-	<string name="psilverSummary">Same as the gold general, you will see this a lot.</string>
-	<string name="silverComplete">Congratulations! You are on a roll.</string>
-	<string name="promotion">This piece can be promoted.</string>
-	<string name="yourPieceReachedThePromotionZone">Your piece reached the promotion zone!</string>
-	<string name="itNowPromotesToAStrongerPiece">It can now be promoted to a stronger piece.</string>
+	<string name="pawnSummary">El peó és una peça senzilla d\'entendre.</string>
+	<string name="tokinSummary">Ja hauries d\'estar familiaritzat amb aquest patró ara.</string>
+	<string name="theLance">La llança</string>
+	<string name="itMovesStraightForward">Pot moure\'s sols endevant.</string>
+	<string name="lanceIntro">Utilitza\'l sàbiament.</string>
+	<string name="lancesAreStraighforward">Sol mou-la endevant tot el que puguis, hauria de ser fàcil per tu.</string>
+	<string name="lancePromotion">Després de promocionar la llança, es mou diferent, però ja has vist això en un altre lloc - igual que el general d\'or.</string>
+	<string name="lanceSummary">Es mou endevant, és força fàcil.</string>
+	<string name="planceSummary">Igual que el general d\'or.</string>
+	<string name="lanceComplete">Bona feina!</string>
+	<string name="theGold">El general d\'or</string>
+	<string name="itMovesInAnyDirectionExceptDiagonallyBack">El general d\'or es mou en totes direccions EXCEPTE diagonalment enrere.</string>
+	<string name="goldIntro">Els moviments del general d\'or poden ser més difícils de recordar a la primera, però segur que ho pots fer.</string>
+	<string name="goldDoesntPromote">El general d\'or amb el rei és la única peça que NO pots promoure.</string>
+	<string name="goldSummary">Intenta recordar aquests moviments, moltes peces tenen els mateixos després de ser promoguts.</string>
+	<string name="goldComplete">Felicitats! Ja ho saps.</string>
+	<string name="theSilver">El general de plata</string>
+	<string name="itMovesEitherForwardOrDiagonallyBack">El general de plata es mou endevant o diagonalment enrere.</string>
+	<string name="silverIntro">Una altre peça amb moviments inusuals, però aquesta és la última. Promès!</string>
+	<string name="silverPromotion">Quan promous el general de plata, els seus moviments són iguals que del general d\'or.</string>
+	<string name="silverSummary">Segur que recordaràs aquests moviments amb pràctica.</string>
+	<string name="psilverSummary">Igual que el general d\'or, veuràs això força.</string>
+	<string name="silverComplete">Felicitats! Estàs en ratxa.</string>
+	<string name="promotion">Aquesta peça pot ser promoguda.</string>
+	<string name="yourPieceReachedThePromotionZone">La teva peça ha arribat a la zona de promoció!</string>
+	<string name="itNowPromotesToAStrongerPiece">Ara es pot promoure a una peça més forta.</string>
 	<string name="selectThePieceYouWant">Selecciona la peça que vulguis!</string>
 	<string name="fundamentals">Fonaments</string>
 	<string name="capture">Captura</string>
@@ -86,7 +86,7 @@
 	<string name="takeTheBlackPieces">Captura les peces negres!</string>
 	<string name="takeTheBlackPiecesAndDontLoseYours">Captura les peces negres!
 I no perdis les teves.</string>
-	<string name="captureComplete">Congratulations! You know how to fight with shogi pieces!</string>
+	<string name="captureComplete">Feliçitats! Saps com capturar amb les peces de shogi!</string>
 	<string name="protection">Protecció</string>
 	<string name="keepYourPiecesSafe">Manté les teves peces segures</string>
 	<string name="protectionIntro">Identifica les peces que atacades pel teu oponent, i defen-les!</string>
@@ -99,7 +99,7 @@ cap peça no defesa!</string>
 	<string name="combat">Combat</string>
 	<string name="captureAndDefendPieces">Captura i defensa peces</string>
 	<string name="combatIntro">Un bon guerrer sap tant en atac com en defensa!</string>
-	<string name="combatComplete">Congratulations! You know how to fight with shogi pieces!</string>
+	<string name="combatComplete">Feliçitats! Saps com capturar amb les peces de shogi!</string>
 	<string name="checkInOne">Escac en un</string>
 	<string name="attackTheOpponentsKing">Atacar el rei de l\'oponent</string>
 	<string name="checkInOneIntro">Per posar en escac a l\'oponent, ataca el seu rei. L\'ha de defendre!</string>
@@ -124,14 +124,14 @@ o bloqueja l\'atac!</string>
 	<string name="mateInOneIntro">Guanyes quan el teu oponent no es pot defendre contra un escac.</string>
 	<string name="attackYourOpponentsKing">Ataca el rei del teu oponent 
 de forma que no es pugui defendre!</string>
-	<string name="mateInOneComplete">Congratulations! That is how you win shogi games!</string>
+	<string name="mateInOneComplete">Felicitats! Així és com es guanya al shogi!</string>
 	<string name="intermediate">Intermedi</string>
 	<string name="boardSetup">Configuració del tauler</string>
 	<string name="howTheGameStarts">Com s\'inicia el joc</string>
 	<string name="boardSetupIntro">Els dos exèrcits s\'enfronten mútuament, preparat per a la batalla.</string>
-	<string name="thisIsTheInitialPosition">This is the initial position
-of every game of shogi!
-Make any move to continue.</string>
+	<string name="thisIsTheInitialPosition">Aquesta és la posició inicial
+de cada partida de shogi!
+Fes un moviment per continuar.</string>
 	<string name="firstPlaceTheRooks">Primer posa les torres!
 Van a les cantonades.</string>
 	<string name="thenPlaceTheKnights">Llavors posa els cavalls!
@@ -144,7 +144,7 @@ va al seu propi color.</string>
 Va al costat de la seva reina.</string>
 	<string name="pawnsFormTheFrontLine">Els peons formen la primera línia.
 fer un moviment per continuar.</string>
-	<string name="boardSetupComplete">Congratulations! You know how to set up the shogi board.</string>
+	<string name="boardSetupComplete">Feliçitats! Saps com col·locar les peces de shogi.</string>
 	<string name="stalemate">Taules</string>
 	<string name="theGameIsADraw">El joc és un empat</string>
 	<string name="stalemateIntro">Quan un jugador no està en escac i no té un moviment legal, està ofegat. La partida és taules: ningú guanya ni perd.</string>
@@ -179,15 +179,15 @@ Peó = 1</string>
 en dos moviments!</string>
 	<string name="checkInTwoComplete">Felicitats! Has posat en escac a l\'oponent, obligant-lo a defensar el seu rei!</string>
 	<string name="whatNext">I ara què ve?</string>
-	<string name="youKnowHowToPlayChess">You know how to play shogi, congratulations! Do you want to become a stronger player?</string>
+	<string name="youKnowHowToPlayChess">Ja saps com jugar al shogi, enhorabona! Vols convertir-te en un jugador més fort?</string>
 	<string name="register">Registra\'t</string>
-	<string name="getAFreeLishogiAccount">Get a free Lishogi account</string>
+	<string name="getAFreeLishogiAccount">Crea un nou compte a Lishogi</string>
 	<string name="practice">Pràctica</string>
-	<string name="learnCommonChessPositions">Learn common shogi positions</string>
+	<string name="learnCommonChessPositions">Aprèn posicions comunes de shogi</string>
 	<string name="puzzles">Problemes</string>
 	<string name="exerciseYourTacticalSkills">Exercitar les teves habilitats tàctiques</string>
 	<string name="videos">Vídeos</string>
-	<string name="watchInstructiveChessVideos">Watch instructive shogi videos</string>
+	<string name="watchInstructiveChessVideos">Mira vídeos educatius de shogi</string>
 	<string name="playPeople">Jugar amb gent</string>
 	<string name="opponentsFromAroundTheWorld">Oponents de tot el món</string>
 	<string name="playMachine">Juga amb l\'ordinador</string>

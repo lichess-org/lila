@@ -6,7 +6,7 @@
 	<string name="materialDifference">Material difference</string>
 	<string name="boardHighlights">Board highlights (last move and check)</string>
 	<string name="pieceDestinations">Piece destinations (valid moves and premoves)</string>
-	<string name="boardCoordinates">Board coordinates (A-H, 1-8)</string>
+	<string name="boardCoordinates">Board coordinates</string>
 	<string name="moveListWhilePlaying">Move list while playing</string>
 	<string name="pgnPieceNotation">Move notation</string>
 	<string name="chessPieceSymbol">Shogi piece symbol</string>
