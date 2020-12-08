@@ -256,6 +256,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">ให้ %s วินาที</item>
   </plurals>
+  <string name="thisAccountViolatedTos">This account violated the Lichess Terms of Service</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">ผู้เล่นรายนี้เพิ่ม/ลดระดับคะแนนตัวเองโดยทุจริต</string>
   <string name="openingExplorerAndTablebase">ตัวสำรวจการเปิด &amp; ฐานตาราง</string>
   <string name="takeback">เดินใหม่</string>
@@ -308,6 +309,7 @@
   <string name="filterGames">กรองเกม</string>
   <string name="reset">คืนค่าเดิม</string>
   <string name="apply">ใช้งาน</string>
+  <string name="save">Save</string>
   <string name="leaderboard">กระดานผู้นำ</string>
   <string name="pasteTheFenStringHere">วางสตริง FEN ที่นี่</string>
   <string name="pasteThePgnStringHere">วางสตริง PGN ที่นี่</string>
@@ -496,6 +498,7 @@
   <string name="currentPassword">รหัสผ่านปัจจุบัน</string>
   <string name="newPassword">รหัสผ่านใหม่</string>
   <string name="newPasswordAgain">รหัสผ่านใหม่ (อีกครั้ง)</string>
+  <string name="newPasswordsDontMatch">รหัสผ่านที่ระบุไม่ตรงกัน</string>
   <string name="clockInitialTime">เวลาเริ่มต้นนาฬิกา</string>
   <string name="clockIncrement">การเพิ่มเวลานาฬิกา</string>
   <string name="privacy">ความเป็นส่วนตัว</string>
