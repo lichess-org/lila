@@ -98,26 +98,44 @@ final class JsonView(
       ) map { gameJson =>
         Json
           .obj(
-            "game" -> gameJson,
-            "puzzle" -> Json.obj(
-              "id"         -> Puzzle.numericalId(puzzle.id),
-              "realId"     -> puzzle.id,
-              "rating"     -> puzzle.glicko.intRating,
-              "attempts"   -> puzzle.plays,
-              "fen"        -> puzzle.fen,
-              "color"      -> puzzle.color.name,
-              "initialPly" -> (puzzle.initialPly + 1),
-              "gameId"     -> puzzle.gameId,
-              "lines" -> puzzle.line.tail.reverse.foldLeft[JsValue](JsString("win")) { case (acc, move) =>
-                Json.obj(move.uci -> acc)
-              },
-              "vote"   -> 0,
-              "branch" -> makeBranch(puzzle).map(defaultNodeJsonWriter.writes)
-            )
+            "game"   -> gameJson,
+            "puzzle" -> puzzleJson(puzzle)
           )
           .add("user" -> user.map(userJson))
       }
     }
+
+    def batch(puzzles: Seq[Puzzle], user: Option[User])(implicit
+        lang: Lang
+    ): Fu[JsObject] = for {
+      games <- gameRepo.gameOptionsFromSecondary(puzzles.map(_.gameId))
+      jsons <- (puzzles zip games).collect { case (puzzle, Some(game)) =>
+        gameJson.noCacheBc(game, puzzle.initialPly) map { gameJson =>
+          Json.obj(
+            "game"   -> gameJson,
+            "puzzle" -> puzzleJson(puzzle)
+          )
+        }
+      }.sequenceFu
+    } yield Json
+      .obj("puzzles" -> jsons)
+      .add("user" -> user.map(userJson))
+
+    private def puzzleJson(puzzle: Puzzle) = Json.obj(
+      "id"         -> Puzzle.numericalId(puzzle.id),
+      "realId"     -> puzzle.id,
+      "rating"     -> puzzle.glicko.intRating,
+      "attempts"   -> puzzle.plays,
+      "fen"        -> puzzle.fen,
+      "color"      -> puzzle.color.name,
+      "initialPly" -> (puzzle.initialPly + 1),
+      "gameId"     -> puzzle.gameId,
+      "lines" -> puzzle.line.tail.reverse.foldLeft[JsValue](JsString("win")) { case (acc, move) =>
+        Json.obj(move.uci -> acc)
+      },
+      "vote"   -> 0,
+      "branch" -> makeBranch(puzzle).map(defaultNodeJsonWriter.writes)
+    )
 
     private def makeBranch(puzzle: Puzzle): Option[tree.Branch] = {
       import chess.format._
