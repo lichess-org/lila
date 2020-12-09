@@ -95,7 +95,7 @@ final private[puzzle] class PuzzleFinisher(
       opponent: Glicko
   ) = {
     val base =
-      if (theme == PuzzleTheme.any.key) 1
+      if (theme == PuzzleTheme.mix.key) 1
       else if (PuzzleTheme.obviousThemes(theme)) {
         if (result.win) 0.2f else 0.6f
       } else {

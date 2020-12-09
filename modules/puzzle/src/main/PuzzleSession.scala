@@ -78,7 +78,7 @@ final class PuzzleSessionApi(
   def nextPuzzleBatchFor(user: User, nb: Int): Fu[List[Puzzle]] =
     if (nb == 0) fuccess(Nil)
     else
-      nextPuzzleFor(user, PuzzleTheme.any.key) flatMap { p =>
+      nextPuzzleFor(user, PuzzleTheme.mix.key) flatMap { p =>
         nextPuzzleBatchFor(user, nb - 1).dmap(p :: _)
       } nevermind
 
@@ -150,7 +150,7 @@ final class PuzzleSessionApi(
       .fold[Fu[PuzzleDifficulty]](fuccess(PuzzleDifficulty.default))(_.dmap(_.difficulty))
 
   def setDifficulty(user: User, difficulty: PuzzleDifficulty): Funit =
-    sessions.getIfPresent(user.id).fold(fuccess(PuzzleTheme.any.key))(_.dmap(_.path.theme)) flatMap { theme =>
+    sessions.getIfPresent(user.id).fold(fuccess(PuzzleTheme.mix.key))(_.dmap(_.path.theme)) flatMap { theme =>
       createSessionFor(user, theme, difficulty).tap { sessions.put(user.id, _) }.void
     }
 

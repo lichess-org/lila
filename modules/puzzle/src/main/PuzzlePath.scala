@@ -86,7 +86,7 @@ final private class PuzzlePathApi(
           colls.path {
             _.aggregateList(Int.MaxValue) { framework =>
               import framework._
-              Match($doc("tier" -> "all", "theme" $ne PuzzleTheme.any.key)) -> List(
+              Match($doc("tier" -> "all", "theme" $ne PuzzleTheme.mix.key)) -> List(
                 GroupField("theme")(
                   "count" -> SumField("size")
                 )
@@ -100,7 +100,7 @@ final private class PuzzlePathApi(
               }.toMap
             }.flatMap { themed =>
               colls.puzzle(_.countAll) map { all =>
-                themed + (PuzzleTheme.any.key -> all.toInt)
+                themed + (PuzzleTheme.mix.key -> all.toInt)
               }
             }
           }
