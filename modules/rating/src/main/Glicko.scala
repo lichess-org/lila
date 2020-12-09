@@ -57,7 +57,7 @@ case class Glicko(
 
   def display = s"$intRating${provisional ?? "?"}"
 
-  override def toString = s"$intRating $intDeviation"
+  override def toString = f"$intRating/$intDeviation/${volatility}%.3f"
 }
 
 case object Glicko {
