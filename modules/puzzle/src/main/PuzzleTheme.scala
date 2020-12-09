@@ -59,6 +59,7 @@ object PuzzleTheme {
   val trappedPiece    = PuzzleTheme(Key("trappedPiece"), i.trappedPiece, i.trappedPieceDescription)
   val underPromotion  = PuzzleTheme(Key("underPromotion"), i.underPromotion, i.underPromotionDescription)
   val veryLong        = PuzzleTheme(Key("veryLong"), i.veryLong, i.veryLongDescription)
+  val xRayAttack      = PuzzleTheme(Key("xRayAttack"), i.xRayAttack, i.xRayAttackDescription)
   val zugzwang        = PuzzleTheme(Key("zugzwang"), i.zugzwang, i.zugzwangDescription)
 
   val categorized = List[(I18nKey, List[PuzzleTheme])](
@@ -104,6 +105,7 @@ object PuzzleTheme {
       overloading,
       quietMove,
       underPromotion,
+      xRayAttack,
       zugzwang
     ),
     trans.puzzle.mates -> List(
