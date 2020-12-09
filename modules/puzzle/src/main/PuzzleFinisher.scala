@@ -58,9 +58,12 @@ final private[puzzle] class PuzzleFinisher(
                 deviation = puzzleRating.getRatingDeviation,
                 volatility = puzzleRating.getVolatility
               )
-              ponder(theme, result, puzzle.glicko, after, user.perfs.puzzle.glicko)
+              ponder(theme, result, puzzle.glicko, after, user.perfs.puzzle.glicko).pp(
+                s"ponder after ${puzzle.glicko} -> $after"
+              )
             }
-            .filter(_.sanityCheck)
+            .pp("newPuzzleGlicko")
+            .filter(_.sanityCheck.pp("sanityCheck"))
           val round = PuzzleRound(id = PuzzleRound.Id(user.id, puzzle.id), date = now, win = result.win)
           val userPerf =
             user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, now) pipe {
@@ -74,10 +77,11 @@ final private[puzzle] class PuzzleFinisher(
           _.update
             .one(
               $id(puzzle.id),
-              $inc(Puzzle.BSONFields.plays -> $int(1)) ++ newPuzzleGlicko ?? { glicko =>
+              $inc(Puzzle.BSONFields.plays -> $int(1)) ++ newPuzzleGlicko.?? { glicko =>
                 $set(Puzzle.BSONFields.glicko -> Glicko.glickoBSONHandler.write(glicko))
               }
             )
+            .thenPp(puzzle.id.value)
             .void
         } zip
         (userPerf != user.perfs.puzzle).?? { userRepo.setPerf(user.id, PerfType.Puzzle, userPerf) } >>-
@@ -103,7 +107,8 @@ final private[puzzle] class PuzzleFinisher(
       }
     val extra  = opponent.clueless ?? -0.5f
     val weight = base + extra
-    if (weight > 0) prev.average(after, weight)
+    if (weight >= 1) after
+    else if (weight > 0) prev.average(after, weight)
     else prev
   }
 
