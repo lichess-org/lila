@@ -11,13 +11,13 @@ object PuzzleTheme {
 
   case class WithCount(theme: PuzzleTheme, count: Int)
 
-  val any            = PuzzleTheme(Key("any"), i.healthyMix, i.healthyMixDescription)
-  val advancedPawn   = PuzzleTheme(Key("advancedPawn"), i.advancedPawn, i.advancedPawnDescription)
-  val attackingF2F7  = PuzzleTheme(Key("attackingF2F7"), i.attackingF2F7, i.attackingF2F7Description)
-  val attraction     = PuzzleTheme(Key("attraction"), i.attraction, i.attractionDescription)
-  val backRankThreat = PuzzleTheme(Key("backRankThreat"), i.backRankThreat, i.backRankThreatDescription)
-  val bishopEndgame  = PuzzleTheme(Key("bishopEndgame"), i.bishopEndgame, i.bishopEndgameDescription)
-  val blocking       = PuzzleTheme(Key("blocking"), i.blocking, i.blockingDescription)
+  val any           = PuzzleTheme(Key("any"), i.healthyMix, i.healthyMixDescription)
+  val advancedPawn  = PuzzleTheme(Key("advancedPawn"), i.advancedPawn, i.advancedPawnDescription)
+  val attackingF2F7 = PuzzleTheme(Key("attackingF2F7"), i.attackingF2F7, i.attackingF2F7Description)
+  val attraction    = PuzzleTheme(Key("attraction"), i.attraction, i.attractionDescription)
+  val backRankMate  = PuzzleTheme(Key("backRankMate"), i.backRankMate, i.backRankMateDescription)
+  val bishopEndgame = PuzzleTheme(Key("bishopEndgame"), i.bishopEndgame, i.bishopEndgameDescription)
+  val blocking      = PuzzleTheme(Key("blocking"), i.blocking, i.blockingDescription)
   val capturingDefender =
     PuzzleTheme(Key("capturingDefender"), i.capturingDefender, i.capturingDefenderDescription)
   val clearance     = PuzzleTheme(Key("clearance"), i.clearance, i.clearanceDescription)
@@ -79,7 +79,6 @@ object PuzzleTheme {
     trans.puzzle.motifs -> List(
       advancedPawn,
       attackingF2F7,
-      backRankThreat,
       capturingDefender,
       discoveredAttack,
       doubleCheck,
@@ -115,7 +114,8 @@ object PuzzleTheme {
       mateIn3,
       mateIn4,
       mateIn5,
-      smotheredMate
+      smotheredMate,
+      backRankMate
     ),
     trans.puzzle.lengths -> List(
       oneMove,
@@ -137,6 +137,7 @@ object PuzzleTheme {
 
   // themes that can't be voted by players
   val staticThemes: Set[Key] = Set(
+    backRankMate,
     enPassant,
     endgame,
     long,
@@ -149,6 +150,7 @@ object PuzzleTheme {
     oneMove,
     opening,
     short,
+    smotheredMate,
     veryLong
   ).map(_.key)
 

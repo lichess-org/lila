@@ -6,8 +6,8 @@
   <string name="attackingF2F7Description">An attack focusing on the f2 or f7 pawn, such as in the fried liver opening.</string>
   <string name="attraction">Attraction</string>
   <string name="attractionDescription">An exchange or sacrifice encouraging or forcing an opponent piece to a square that allows a follow-up tactic.</string>
-  <string name="backRankThreat">Back rank threat</string>
-  <string name="backRankThreatDescription">Threatening to checkmate the king on its home rank, when it is trapped there by its own pieces.</string>
+  <string name="backRankMate">Back rank mate</string>
+  <string name="backRankMateDescription">Checkmate the king on the home rank, when it is trapped there by its own pieces.</string>
   <string name="bishopEndgame">Bishop endgame</string>
   <string name="bishopEndgameDescription">An endgame with only bishops and pawns.</string>
   <string name="blocking">Blocking</string>
