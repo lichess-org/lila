@@ -383,6 +383,7 @@
   <string name="points">Баллар</string>
   <string name="wins">Җиңүләр</string>
   <string name="losses">Җиңелүләр</string>
+  <string name="winStreak">Җиңүләр сериясе</string>
   <string name="createdBy">Оештыручы</string>
   <string name="tournamentIsStarting">Турнир башлана</string>
   <string name="youArePlaying">Сез уйныйсыз!</string>
