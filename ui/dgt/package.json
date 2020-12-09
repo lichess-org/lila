@@ -10,7 +10,7 @@
     "@types/lichess": "2.0.0"
   },
   "dependencies": {
-    "chessops": "^0.7.3"
+    "chessops": "^0.7.4"
   },
   "scripts": {
     "dev": "rollup --config",
