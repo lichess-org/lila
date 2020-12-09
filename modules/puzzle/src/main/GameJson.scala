@@ -1,13 +1,13 @@
 package lila.puzzle
 
+import chess.format.Forsyth
+import chess.format.UciCharPair
 import play.api.libs.json._
 import scala.concurrent.duration._
 
 import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.i18n.defaultLang
 import lila.tree.Node.{ minimalNodeJsonWriter, partitionTreeJsonWriter }
-import chess.format.Forsyth
-import chess.format.UciCharPair
 
 final private class GameJson(
     gameRepo: GameRepo,
@@ -18,8 +18,10 @@ final private class GameJson(
   def apply(gameId: Game.ID, plies: Int, bc: Boolean): Fu[JsObject] =
     cache get CacheKey(gameId, plies, bc)
 
-  // def noCache(game: Game, plies: Int): Fu[JsObject] =
-  //   generate(game, plies)
+  def noCacheBc(game: Game, plies: Int): Fu[JsObject] =
+    lightUserApi preloadMany game.userIds map { _ =>
+      generateBc(game, plies)
+    }
 
   private case class CacheKey(gameId: Game.ID, plies: Int, bc: Boolean)
 

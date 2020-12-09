@@ -75,6 +75,13 @@ final class PuzzleSessionApi(
       }
     }
 
+  def nextPuzzleBatchFor(user: User, nb: Int): Fu[List[Puzzle]] =
+    if (nb == 0) fuccess(Nil)
+    else
+      nextPuzzleFor(user, PuzzleTheme.any.key) flatMap { p =>
+        nextPuzzleBatchFor(user, nb - 1).dmap(p :: _)
+      } nevermind
+
   private def nextPuzzleResult(user: User, session: PuzzleSession): Fu[NextPuzzleResult] =
     colls.path {
       _.aggregateOne() { framework =>

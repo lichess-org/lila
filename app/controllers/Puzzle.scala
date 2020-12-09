@@ -284,16 +284,16 @@ final class Puzzle(
     Auth { implicit ctx => me =>
       negotiate(
         html = notFound,
-        api = _ => ???
-        // for {
-        //   puzzles <- env.puzzle.batch.select(
-        //     me,
-        //     nb = getInt("nb") getOrElse 50 atLeast 1 atMost 100,
-        //     after = getInt("after")
-        //   )
-        //   userInfo <- env.puzzle userInfos me
-        //   json     <- env.puzzle.jsonView.batch(puzzles, userInfo)
-        // } yield Ok(json) as JSON
+        api = v => {
+          val nb = getInt("nb") getOrElse 15 atLeast 1 atMost 30
+          val loadPuzzles = ctx.me match {
+            case Some(me) => env.puzzle.session.nextPuzzleBatchFor(me, nb)
+            case None     => env.puzzle.anon.getBatchFor(nb)
+          }
+          loadPuzzles flatMap { puzzles =>
+            env.puzzle.jsonView.bc.batch(puzzles, ctx.me)
+          } dmap { Ok(_) }
+        }
       )
     }
 

@@ -82,6 +82,8 @@ GET   /training/daily                  controllers.Puzzle.daily
 GET   /training/frame                  controllers.Puzzle.frame
 GET   /training/export/gif/thumbnail/:id.gif controllers.Export.puzzleThumbnail(id: String)
 GET   /training/themes                 controllers.Puzzle.themes
+GET   /training/batch                  controllers.Puzzle.mobileBcBatchSelect
+POST  /training/batch                  controllers.Puzzle.mobileBcBatchSolve
 GET   /training/:numericalId/load      controllers.Puzzle.mobileBcLoad(numericalId: Long)
 GET   /training/:themeOrId             controllers.Puzzle.show(themeOrId: String)
 GET   /training/:theme/$id<\w{5}>      controllers.Puzzle.showWithTheme(theme: String, id: String)
@@ -91,8 +93,6 @@ POST  /training/$id<\w{5}>/vote/:theme controllers.Puzzle.voteTheme(id: String, 
 POST  /training/complete/:theme/$id<\w{5}>  controllers.Puzzle.complete(theme: String, id: String)
 POST  /training/difficulty/:theme      controllers.Puzzle.setDifficulty(theme: String)
 GET   /training/new                    controllers.Puzzle.mobileBcNew
-GET   /training/batch                  controllers.Puzzle.mobileBcBatchSelect
-POST  /training/batch                  controllers.Puzzle.mobileBcBatchSolve
 
 # User Analysis
 GET   /analysis/help                   controllers.UserAnalysis.help
