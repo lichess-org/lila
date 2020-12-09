@@ -187,6 +187,15 @@
     }
   }
 
+  &__lock {
+    @extend %flex-center;
+    justify-content: center;
+
+    flex: 0 0 100%;
+    color: $c-font-dimmer;
+    opacity: .5;
+  }
+
   &__selector {
     margin-top: 1em;
   }

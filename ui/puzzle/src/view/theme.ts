@@ -1,4 +1,4 @@
-import { bind } from '../util';
+import { bind, dataIcon } from '../util';
 import { Controller } from '../interfaces';
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
@@ -36,16 +36,21 @@ const editor = (ctrl: Controller): VNode => {
             title: ctrl.trans.noarg(`${key}Description`)
           }
         }, ctrl.trans.noarg(key)),
-        !ctrl.allThemes || ctrl.allThemes.static.has(key) ? null : h('div.puzzle__themes__votes', [
-          h('span.puzzle__themes__vote.vote-up', {
-            class: { active: votedThemes[key] },
-            attrs: { 'data-theme': key }
-          }),
-          h('span.puzzle__themes__vote.vote-down', {
-            class: { active: votedThemes[key] === false },
-            attrs: { 'data-theme': key }
-          })
-        ])
+        !ctrl.allThemes ? null : h('div.puzzle__themes__votes',
+          ctrl.allThemes.static.has(key) ? [
+            h('div.puzzle__themes__lock', h('i', {
+              attrs: dataIcon('a')
+            }))
+          ] : [
+              h('span.puzzle__themes__vote.vote-up', {
+                class: { active: votedThemes[key] },
+                attrs: { 'data-theme': key }
+              }),
+              h('span.puzzle__themes__vote.vote-down', {
+                class: { active: votedThemes[key] === false },
+                attrs: { 'data-theme': key }
+              })
+            ])
       ])
     )),
     ctrl.allThemes ? h('select.puzzle__themes__selector', {
@@ -67,7 +72,7 @@ const editor = (ctrl: Controller): VNode => {
       }, 'Add another theme'),
       ...ctrl.allThemes.dynamic.filter(t => !votedThemes[t]).map(theme =>
         h('option', {
-          attrs: { 
+          attrs: {
             value: theme,
             title: ctrl.trans.noarg(`${theme}Description`)
           },
