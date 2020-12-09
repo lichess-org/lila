@@ -827,4 +827,5 @@
 	<string name="notationType">棋谱记法</string>
 	<string name="whiteDeclinesImpasse">后手拒绝持棋</string>
 	<string name="whiteOffersImpasse">后手提出持棋</string>
+	<string name="notationSystem">Notation</string>
 </resources>

@@ -3,8 +3,8 @@
   <string name="settings">設定</string>
   <string name="closeAccount">アカウント停止</string>
   <string name="closingIsDefinitive">アカウント停止は不可逆で、元には戻せません。ほんとうに停止しますか？</string>
-  <string name="cantOpenSimilarAccount">同じ名前（大文字・小文字が違っていても）で別のアカウントを作ることもできません。</string>
+  <string name="cantOpenSimilarAccount">同じ名前（大文字・小文字を区別せず）でアカウントを再作成することもできません。</string>
   <string name="changedMindDoNotCloseAccount">気が変わったのでアカウントを停止しない</string>
-  <string name="closeAccountExplanation">ほんとうにアカウントを停止しますか？　これは永久的な決定です。このアカウントには二度とログインできなくなります。</string>
+  <string name="closeAccountExplanation">本当にアカウントを停止しますか？　一度削除されたアカウントは復元できません。</string>
   <string name="thisAccountIsClosed">このアカウントは停止されました</string>
 </resources>

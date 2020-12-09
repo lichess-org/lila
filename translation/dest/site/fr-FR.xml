@@ -865,4 +865,5 @@
 	<string name="notationType">Notation</string>
 	<string name="whiteDeclinesImpasse">Gote refuse le jishogi</string>
 	<string name="whiteOffersImpasse">Gote propose le jishogi</string>
+	<string name="notationSystem">Notation</string>
 </resources>

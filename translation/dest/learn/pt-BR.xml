@@ -11,7 +11,8 @@
 	<string name="theIntoduction">Introduction</string>
 	<string name="introBasics">Let\'s learn some basics.</string>
 	<string name="introIntro">Your journey begins here.</string>
-	<string name="choosePieceDesign">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set. \nTo do that click on the cog wheel or your username (top right corner) and then click on \"piece set\".</string>
+	<string name="choosePieceDesign">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set.
+To do that click on the cog wheel or your username(top right corner) and then click on \'piece set\'.</string>
 	<string name="promotionZone">When some of your pieces reach or leave the first three ranks in your opponent\'s territory you can choose to promote your piece and make it stronger.</string>
 	<string name="introComplete">You now know some basics, but this part of tutorial is still under construction. For now learn how individual pieces move.</string>
 	<string name="theRook">A torre</string>

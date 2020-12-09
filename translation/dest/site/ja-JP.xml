@@ -2,7 +2,7 @@
 <resources>
 	<string name="playWithAFriend">友達と対局する</string>
 	<string name="playWithTheMachine">AIと対局する</string>
-	<string name="toInviteSomeoneToPlayGiveThisUrl">対局に招待するとき、このURLを知らせてください</string>
+	<string name="toInviteSomeoneToPlayGiveThisUrl">対局に招待するとき、下記のリンク先を知らせてください</string>
 	<string name="gameOver">終局</string>
 	<string name="waitingForOpponent">相手を待っています</string>
 	<string name="waiting">待機中</string>
@@ -29,12 +29,12 @@
 	<string name="raceFinished">大会は終了しました</string>
 	<string name="variantEnding">バリアントエンディング</string>
 	<string name="newOpponent">新しい相手</string>
-	<string name="yourOpponentWantsToPlayANewGameWithYou">相手がもう一度対戦したいと言っています</string>
+	<string name="yourOpponentWantsToPlayANewGameWithYou">相手が再対局を申し込みました。</string>
 	<string name="joinTheGame">対局に参加する</string>
 	<string name="whitePlays">後手番です</string>
 	<string name="blackPlays">先手番です</string>
 	<plurals name="opponentLeftCounter">
-		<item quantity="other">相手がいなくなりました。後 %s 秒で勝ちにできます。</item>
+		<item quantity="other">相手が退席したようです。%s 秒後に勝ちを宣言できます。</item>
 	</plurals>
 	<string name="opponentLeftChoices">相手が退席したようです。投了させる、引き分けにする、相手を待つ、のどれかを選んでください。</string>
 	<string name="makeYourOpponentResign">相手を投了させる</string>
@@ -50,7 +50,7 @@
 	<string name="theComputerAnalysisHasFailed">コンピューター解析に失敗しました</string>
 	<string name="viewTheComputerAnalysis">コンピューター解析を見る</string>
 	<string name="requestAComputerAnalysis">コンピューター解析をリクエスト</string>
-	<string name="computerAnalysis">コンピューター分析</string>
+	<string name="computerAnalysis">コンピューター解析</string>
 	<string name="computerAnalysisAvailable">コンピュータ解析がされています</string>
 	<string name="analysis">棋譜解析</string>
 	<string name="depthX">深度 %s</string>
@@ -59,7 +59,7 @@
 	<string name="cloudAnalysis">クラウド解析</string>
 	<string name="goDeeper">もっと深く</string>
 	<string name="showThreat">狙いを表示</string>
-	<string name="inLocalBrowser">ローカル ブラウザ内で</string>
+	<string name="inLocalBrowser">ブラウザ内で</string>
 	<string name="toggleLocalEvaluation">ローカル評価値のオン/オフ</string>
 	<string name="promoteVariation">変化を主手順にする</string>
 	<string name="makeMainLine">主手順にする</string>
@@ -828,4 +828,5 @@
 	<string name="notationType">表記方法</string>
 	<string name="whiteDeclinesImpasse">後手が引き分けを拒否しました</string>
 	<string name="whiteOffersImpasse">後手が引き分けを申し込んでいます</string>
+	<string name="notationSystem">表記方法</string>
 </resources>

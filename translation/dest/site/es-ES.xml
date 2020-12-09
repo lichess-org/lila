@@ -865,4 +865,5 @@
 	<string name="notationType">Notación</string>
 	<string name="whiteDeclinesImpasse">Gote rechezan impase</string>
 	<string name="whiteOffersImpasse">Gote ofrecen impase</string>
+	<string name="notationSystem">Notation</string>
 </resources>

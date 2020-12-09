@@ -21,7 +21,7 @@
   <string name="perks">キーワードを入れた配信に対する特典</string>
   <string name="perk1">Lishogi のプロフィール・ページに配信者として表示。</string>
   <string name="perk2">配信者リストのトップに上がる。</string>
-  <string name="perk3">Lishogi 内のフォロワーに通知が行く。</string>
+  <string name="perk3">Lishogi 内のフォロワーに知らせる。</string>
   <string name="perk4">対局・トーナメント・研究の中に配信動画を表示できる。</string>
   <string name="approved">配信動画が承認されました。</string>
   <string name="pendingReview">あなたの配信動画はモデレーターが審査中です。</string>

@@ -3,13 +3,13 @@
 	<string name="donate">寄付</string>
 	<string name="lishogiPatron">Lishogi パトロン</string>
 	<string name="freeAccount">無料アカウント</string>
-	<string name="becomePatron">Lishogi のパトロンになる</string>
+	<string name="becomePatron">Lishogi パトロンになる</string>
 	<string name="xBecamePatron">%s は Lishogi パトロンになりました</string>
 	<string name="newPatrons">新しいパトロン</string>
 	<string name="freeChess">みんなのために無料の将棋を、永久に！</string>
 	<string name="noAdsNoSubs">広告なし、課金なし。オープンソースと情熱あり。</string>
 	<string name="thankYou">寄付をありがとう！</string>
-	<string name="youHaveLifetime">あなたに永久パトロン・アカウントを贈ります。すばらしい！</string>
+	<string name="youHaveLifetime">あなたに永久パトロンアカウントを所持しています。すばらしい！</string>
 	<string name="patronUntil">%s までのパトロン・アカウントを贈ります。</string>
 	<string name="ifNotRenewed">更新しないと無料アカウントに戻ります。</string>
 	<string name="weAreNonProfit">Lishogiは非営利団体です。世界規模の将棋サイトを誰もが無料で使えるべきだと考えているからです。</string>

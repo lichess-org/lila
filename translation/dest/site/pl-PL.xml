@@ -941,4 +941,5 @@
 	<string name="notationType">Notacja</string>
 	<string name="whiteDeclinesImpasse">Gote odrzuca propozycję impasu</string>
 	<string name="whiteOffersImpasse">Gote proponuje impas</string>
+	<string name="notationSystem">Notation</string>
 </resources>

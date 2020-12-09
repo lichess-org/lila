@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="coordinates">座標</string>
-	<string name="coordinateTraining">座標を読むトレーニング</string>
+	<string name="coordinateTraining">座標トレーニング</string>
 	<string name="averageScoreAsWhiteX">後手での平均スコア: %s</string>
 	<string name="averageScoreAsBlackX">先手での平均スコア: %s</string>
 	<string name="knowingTheShogiBoard">将棋盤の座標を知ることは、とても重要なスキルです。</string>
