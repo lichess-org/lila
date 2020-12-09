@@ -62,7 +62,7 @@ final private[puzzle] class PuzzleFinisher(
                 s"ponder after ${puzzle.glicko} -> $after"
               )
             }
-            .pp("newPuzzleGlicko")
+            .pp(s"newPuzzleGlicko ${user.id}:${user.perfs.puzzle.glicko}")
             .filter(_.sanityCheck.pp("sanityCheck"))
           val round = PuzzleRound(id = PuzzleRound.Id(user.id, puzzle.id), date = now, win = result.win)
           val userPerf =
