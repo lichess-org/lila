@@ -32,8 +32,9 @@ function dataAct(e: Event): string | null {
   return target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
 }
 
-function jumpButton(icon: string, effect: string): VNode {
+function jumpButton(icon: string, effect: string, disabled: boolean): VNode {
   return h('button.fbt', {
+    class: { disabled },
     attrs: {
       'data-act': effect,
       'data-icon': icon
@@ -42,6 +43,7 @@ function jumpButton(icon: string, effect: string): VNode {
 }
 
 function controls(ctrl: Controller): VNode {
+  const node = ctrl.vm.node;
   return h('div.puzzle__controls.analyse-controls', {
     hook: onInsert(el => {
       bindMobileMousedown(el, e => {
@@ -54,10 +56,10 @@ function controls(ctrl: Controller): VNode {
     })
   }, [
     h('div.jumps', [
-      jumpButton('W', 'first'),
-      jumpButton('Y', 'prev'),
-      jumpButton('X', 'next'),
-      jumpButton('V', 'last')
+      jumpButton('W', 'first', !node.ply),
+      jumpButton('Y', 'prev', !node.ply),
+      jumpButton('X', 'next', !node.children[0]),
+      jumpButton('V', 'last', !node.children[0])
     ])
   ]);
 }
