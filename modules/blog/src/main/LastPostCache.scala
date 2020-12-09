@@ -1,6 +1,7 @@
 package lila.blog
 
 import lila.memo.{ CacheApi, Syncache }
+import scala.concurrent.Future
 
 final class LastPostCache(
     api: BlogApi,
@@ -19,14 +20,18 @@ final class LastPostCache(
   )
 
   private def fetch: Fu[List[MiniPost]] = {
-    api.prismicApi flatMap { prismic =>
-      api.recent(prismic, page = 1, lila.common.config.MaxPerPage(3), none) map {
-        _ ?? {
-          _.currentPageResults.toList flatMap MiniPost.fromDocument(config.collection)
+    Future.sequence(
+      List("ja-JP", "en-US") map { lang =>
+        api.prismicApi flatMap { prismic =>
+          api.recent(prismic, page = 1, lila.common.config.MaxPerPage(3), none, lang) map {
+            _ ?? {
+              _.currentPageResults.toList flatMap MiniPost.fromDocument(config.collection, lang=lang)
+            }
+          }
         }
       }
-    }
-  } addEffect maybeNotifyLastPost
+    )
+  }.map { _.flatten } addEffect maybeNotifyLastPost
 
   private var lastNotifiedId = none[String]
 
