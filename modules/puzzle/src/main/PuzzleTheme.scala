@@ -56,7 +56,6 @@ object PuzzleTheme {
   val rookEndgame     = PuzzleTheme(Key("rookEndgame"), i.rookEndgame, i.rookEndgameDescription)
   val sacrifice       = PuzzleTheme(Key("sacrifice"), i.sacrifice, i.sacrificeDescription)
   val short           = PuzzleTheme(Key("short"), i.short, i.shortDescription)
-  val simplification  = PuzzleTheme(Key("simplification"), i.simplification, i.simplificationDescription)
   val skewer          = PuzzleTheme(Key("skewer"), i.skewer, i.skewerDescription)
   val trappedPiece    = PuzzleTheme(Key("trappedPiece"), i.trappedPiece, i.trappedPieceDescription)
   val veryLong        = PuzzleTheme(Key("veryLong"), i.veryLong, i.veryLongDescription)
@@ -105,7 +104,6 @@ object PuzzleTheme {
       intermezzo,
       overloading,
       quietMove,
-      simplification,
       zugzwang
     ),
     trans.puzzle.mates -> List(

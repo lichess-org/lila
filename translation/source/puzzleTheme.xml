@@ -82,8 +82,6 @@
   <string name="sacrificeDescription">A tactic involving giving up material in the short-term, to gain an advantage again after a forced sequence of moves.</string>
   <string name="short">Short puzzle</string>
   <string name="shortDescription">Two moves to win.</string>
-  <string name="simplification">Simplification</string>
-  <string name="simplificationDescription">A series of forcing moves resulting in fewer pieces on the board</string>
   <string name="skewer">Skewer</string>
   <string name="skewerDescription">A motif involving a high value piece being attacked, moving out the way, and allowing a lower value piece behind it to be captured or attacked, the inverse of a pin.</string>
   <string name="smotheredMate">Smothered mate</string>
