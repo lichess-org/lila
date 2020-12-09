@@ -33,9 +33,9 @@
   <string name="exposedKing">Exposed king</string>
   <string name="exposedKingDescription">A tactic involving a king with few defenders around it, often leading to checkmate.</string>
   <string name="fork">Fork</string>
-  <string name="forkDescription">A move where the moved piece attacks two opponent pieces at once. All pieces except the king are capable of this motif.</string>
+  <string name="forkDescription">A move where the moved piece attacks two opponent pieces at once.</string>
   <string name="hangingPiece">Hanging piece</string>
-  <string name="hangingPieceDescription">A tactic involving an opponent piece being undefended and free to capture.</string>
+  <string name="hangingPieceDescription">A tactic involving an opponent piece being undefended or insufficiently defended and free to capture.</string>
   <string name="interference">Interference</string>
   <string name="interferenceDescription">Moving a piece between two opponent pieces to leave one or both opponent pieces undefended, such as a knight on a defended square between two rooks.</string>
   <string name="intermezzo">Intermezzo</string>
@@ -65,7 +65,7 @@
   <string name="pawnEndgame">Pawn endgame</string>
   <string name="pawnEndgameDescription">An endgame with only pawns.</string>
   <string name="pin">Pin</string>
-  <string name="pinDescription">A tactic involving pins, where a piece is unable to move without revealing an attack on a higher valued piece.</string>
+  <string name="pinDescription">A tactic involving pins, where a piece is unable to move without revealing an attack on a higher value piece.</string>
   <string name="promotion">Promotion</string>
   <string name="promotionDescription">A pawn promoting or threatening to promote is key to the tactic.</string>
   <string name="queenEndgame">Queen endgame</string>
@@ -83,7 +83,7 @@
   <string name="skewer">Skewer</string>
   <string name="skewerDescription">A motif involving a high value piece being attacked, moving out the way, and allowing a lower value piece behind it to be captured or attacked, the inverse of a pin.</string>
   <string name="smotheredMate">Smothered mate</string>
-  <string name="smotheredMateDescription">A checkmate delivered by a knight in which the mated king is unable to move because he is surrounded (or smothered) by his own pieces.</string>
+  <string name="smotheredMateDescription">A checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.</string>
   <string name="trappedPiece">Trapped piece</string>
   <string name="trappedPieceDescription">A piece is unable to escape capture as it has limited moves.</string>
   <string name="underPromotion">Underpromotion</string>
@@ -91,7 +91,7 @@
   <string name="veryLong">Very long puzzle</string>
   <string name="veryLongDescription">Four moves or more to win.</string>
   <string name="xRayAttack">X-Ray attack</string>
-  <string name="xRayAttackDescription"></string>
+  <string name="xRayAttackDescription">A tactic where multiple friendly pieces attack a square or opponent piece, where at least one piece is attacking through an enemy piece.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">The opponent is limited in the moves they can make, and all moves worsen their position.</string>
   <string name="healthyMix">Healthy mix</string>
