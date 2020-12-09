@@ -91,7 +91,7 @@
   <string name="veryLong">Very long puzzle</string>
   <string name="veryLongDescription">Four moves or more to win.</string>
   <string name="xRayAttack">X-Ray attack</string>
-  <string name="xRayAttackDescription"></string>
+  <string name="xRayAttackDescription">A piece attacks or defends a square, through an enemy piece.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">The opponent is limited in the moves they can make, and all moves worsen their position.</string>
   <string name="healthyMix">Healthy mix</string>
