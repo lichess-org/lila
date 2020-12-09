@@ -17,7 +17,6 @@ object PuzzleTheme {
   val attraction    = PuzzleTheme(Key("attraction"), i.attraction, i.attractionDescription)
   val backRankMate  = PuzzleTheme(Key("backRankMate"), i.backRankMate, i.backRankMateDescription)
   val bishopEndgame = PuzzleTheme(Key("bishopEndgame"), i.bishopEndgame, i.bishopEndgameDescription)
-  val blocking      = PuzzleTheme(Key("blocking"), i.blocking, i.blockingDescription)
   val capturingDefender =
     PuzzleTheme(Key("capturingDefender"), i.capturingDefender, i.capturingDefenderDescription)
   val clearance     = PuzzleTheme(Key("clearance"), i.clearance, i.clearanceDescription)
@@ -58,6 +57,7 @@ object PuzzleTheme {
   val short           = PuzzleTheme(Key("short"), i.short, i.shortDescription)
   val skewer          = PuzzleTheme(Key("skewer"), i.skewer, i.skewerDescription)
   val trappedPiece    = PuzzleTheme(Key("trappedPiece"), i.trappedPiece, i.trappedPieceDescription)
+  val underPromotion  = PuzzleTheme(Key("underPromotion"), i.underPromotion, i.underPromotionDescription)
   val veryLong        = PuzzleTheme(Key("veryLong"), i.veryLong, i.veryLongDescription)
   val zugzwang        = PuzzleTheme(Key("zugzwang"), i.zugzwang, i.zugzwangDescription)
 
@@ -95,7 +95,6 @@ object PuzzleTheme {
     ),
     trans.puzzle.advanced -> List(
       attraction,
-      blocking,
       clearance,
       coercion,
       defensiveMove,
@@ -104,6 +103,7 @@ object PuzzleTheme {
       intermezzo,
       overloading,
       quietMove,
+      underPromotion,
       zugzwang
     ),
     trans.puzzle.mates -> List(

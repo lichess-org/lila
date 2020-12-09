@@ -10,8 +10,6 @@
   <string name="backRankMateDescription">Checkmate the king on the home rank, when it is trapped there by its own pieces.</string>
   <string name="bishopEndgame">Bishop endgame</string>
   <string name="bishopEndgameDescription">An endgame with only bishops and pawns.</string>
-  <string name="blocking">Blocking</string>
-  <string name="blockingDescription">A defensive move where a check or attack is blocked by interposing another piece.</string>
   <string name="capturingDefender">Capture the defender</string>
   <string name="capturingDefenderDescription">Removing a piece that is critical to defence of another piece, allowing the now undefended piece to be captured on a following move.</string>
   <string name="kingsideAttack">Kingside attack</string>
@@ -88,6 +86,8 @@
   <string name="smotheredMateDescription">A checkmate delivered by a knight in which the mated king is unable to move because he is surrounded (or smothered) by his own pieces.</string>
   <string name="trappedPiece">Trapped piece</string>
   <string name="trappedPieceDescription">A piece is unable to escape capture as it has limited moves.</string>
+  <string name="underPromotion">Underpromotion</string>
+  <string name="underPromotionDescription">Promotion to a knight, bishop, or rook.</string>
   <string name="veryLong">Very long puzzle</string>
   <string name="veryLongDescription">Four moves or more to win.</string>
   <string name="zugzwang">Zugzwang</string>
