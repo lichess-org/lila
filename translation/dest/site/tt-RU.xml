@@ -411,4 +411,8 @@
   <string name="reportXToModerators">%s турында модераторларга белдерү</string>
   <string name="profileCompletion">Профиль тәмамлыгы: %s</string>
   <string name="xRating">%s рейтингы</string>
+  <string name="ifNoneLeaveEmpty">Булмаса, буш калдырыгыз</string>
+  <string name="gameCompletionRate">Тәмамланган уеннар: %s</string>
+  <string name="profile">Профиль</string>
+  <string name="editProfile">Профильны үзгәртү</string>
 </resources>
