@@ -392,7 +392,7 @@ export default class Setup {
 
     var validateFen = li.debounce(function () {
       $fenInput.removeClass("success failure");
-      var fen = $fenInput.val();
+      var fen = switchColorSfen($fenInput.val());
       if (fen) {
         $.ajax({
           url: $fenInput.parent().data("validate-url"),
