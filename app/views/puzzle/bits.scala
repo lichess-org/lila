@@ -20,7 +20,7 @@ object bits {
 
   lazy val jsonThemes = PuzzleTheme.all
     .collect {
-      case t if t != PuzzleTheme.any => t.key
+      case t if t != PuzzleTheme.mix => t.key
     }
     .partition(PuzzleTheme.staticThemes.contains) match {
     case (static, dynamic) =>

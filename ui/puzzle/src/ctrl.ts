@@ -251,6 +251,9 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.round = undefined;
     initiate(vm.next);
     redraw();
+
+    const path = `/training/${data.theme.key}`;
+    if (location.pathname != path) history.replaceState(null, '', path);
   }
 
   function instanciateCeval(): void {

@@ -19,7 +19,7 @@ final class PuzzleAnon(colls: PuzzleColls, cacheApi: CacheApi, pathApi: PuzzlePa
     pool get theme map ThreadLocalRandom.oneOf
 
   def getBatchFor(nb: Int): Fu[Vector[Puzzle]] =
-    pool get PuzzleTheme.any.key map (_ take nb)
+    pool get PuzzleTheme.mix.key map (_ take nb)
 
   private val poolSize = 60
 

@@ -81,26 +81,26 @@ final private class PuzzlePathApi(
 
   private val countByThemeCache =
     cacheApi.unit[Map[PuzzleTheme.Key, Int]] {
-      _.refreshAfterWrite(10 minutes)
+      _.refreshAfterWrite(20 minutes)
         .buildAsyncFuture { _ =>
-          colls.path {
+          import Puzzle.BSONFields._
+          colls.puzzle {
             _.aggregateList(Int.MaxValue) { framework =>
               import framework._
-              Match($doc("tier" -> "all", "theme" $ne PuzzleTheme.any.key)) -> List(
-                GroupField("theme")(
-                  "count" -> SumField("size")
-                )
+              Project($doc(themes -> true)) -> List(
+                Unwind(themes),
+                GroupField(themes)("nb" -> SumAll)
               )
             }.map {
               _.flatMap { obj =>
                 for {
                   key   <- obj string "_id"
-                  count <- obj int "count"
+                  count <- obj int "nb"
                 } yield PuzzleTheme.Key(key) -> count
               }.toMap
             }.flatMap { themed =>
               colls.puzzle(_.countAll) map { all =>
-                themed + (PuzzleTheme.any.key -> all.toInt)
+                themed + (PuzzleTheme.mix.key -> all.toInt)
               }
             }
           }

@@ -45,8 +45,8 @@ final class Puzzle(
           _.map(_.id) ?? env.puzzle.api.puzzle.find
         }) { puzzle =>
           negotiate(
-            html = renderShow(puzzle, PuzzleTheme.any),
-            api = v => renderJson(puzzle, PuzzleTheme.any, apiVersion = v.some) dmap { Ok(_) }
+            html = renderShow(puzzle, PuzzleTheme.mix),
+            api = v => renderJson(puzzle, PuzzleTheme.mix, apiVersion = v.some) dmap { Ok(_) }
           ) map NoCache
         }
       }
@@ -55,7 +55,7 @@ final class Puzzle(
   def home =
     Open { implicit ctx =>
       NoBot {
-        val theme = PuzzleTheme.any
+        val theme = PuzzleTheme.mix
         nextPuzzleForMe(theme.key) flatMap {
           renderShow(_, theme)
         }
@@ -77,7 +77,7 @@ final class Puzzle(
 
   def mobileBcRound(nid: Long) =
     OpenBody { implicit ctx =>
-      onComplete(Puz.numericalId(nid), PuzzleTheme.any, mobileBc = true)
+      onComplete(Puz.numericalId(nid), PuzzleTheme.mix, mobileBc = true)
     }
 
   private def onComplete[A](id: Puz.Id, theme: PuzzleTheme, mobileBc: Boolean)(implicit
@@ -209,7 +209,7 @@ final class Puzzle(
     NoBot {
       PuzzleTheme.find(themeOrId) match {
         case None if themeOrId.size == 5 =>
-          OptionFuResult(env.puzzle.api.puzzle find Puz.Id(themeOrId)) { renderShow(_, PuzzleTheme.any) }
+          OptionFuResult(env.puzzle.api.puzzle find Puz.Id(themeOrId)) { renderShow(_, PuzzleTheme.mix) }
         case None => Redirect(routes.Puzzle.home()).fuccess
         case Some(theme) =>
           nextPuzzleForMe(theme.key) flatMap {
@@ -258,7 +258,7 @@ final class Puzzle(
         html = notFound,
         _ =>
           OptionFuOk(env.puzzle.api.puzzle find Puz.numericalId(nid)) { puz =>
-            env.puzzle.jsonView.bc(puzzle = puz, theme = PuzzleTheme.any, user = ctx.me)
+            env.puzzle.jsonView.bc(puzzle = puz, theme = PuzzleTheme.mix, user = ctx.me)
           }.dmap(_ as JSON)
       )
     }
@@ -270,7 +270,7 @@ final class Puzzle(
         negotiate(
           html = notFound,
           api = v => {
-            val theme = PuzzleTheme.any
+            val theme = PuzzleTheme.mix
             nextPuzzleForMe(theme.key) flatMap { puzzle =>
               renderJson(puzzle, theme, apiVersion = v.some)
             } dmap { Ok(_) }

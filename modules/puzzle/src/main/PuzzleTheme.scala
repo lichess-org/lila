@@ -11,7 +11,7 @@ object PuzzleTheme {
 
   case class WithCount(theme: PuzzleTheme, count: Int)
 
-  val any           = PuzzleTheme(Key("any"), i.healthyMix, i.healthyMixDescription)
+  val mix           = PuzzleTheme(Key("mix"), i.healthyMix, i.healthyMixDescription)
   val advancedPawn  = PuzzleTheme(Key("advancedPawn"), i.advancedPawn, i.advancedPawnDescription)
   val attackingF2F7 = PuzzleTheme(Key("attackingF2F7"), i.attackingF2F7, i.attackingF2F7Description)
   val attraction    = PuzzleTheme(Key("attraction"), i.attraction, i.attractionDescription)
@@ -19,6 +19,7 @@ object PuzzleTheme {
   val bishopEndgame = PuzzleTheme(Key("bishopEndgame"), i.bishopEndgame, i.bishopEndgameDescription)
   val capturingDefender =
     PuzzleTheme(Key("capturingDefender"), i.capturingDefender, i.capturingDefenderDescription)
+  val castling      = PuzzleTheme(Key("castling"), i.castling, i.castlingDescription)
   val clearance     = PuzzleTheme(Key("clearance"), i.clearance, i.clearanceDescription)
   val coercion      = PuzzleTheme(Key("coercion"), i.coercion, i.coercionDescription)
   val defensiveMove = PuzzleTheme(Key("defensiveMove"), i.defensiveMove, i.defensiveMoveDescription)
@@ -64,7 +65,7 @@ object PuzzleTheme {
 
   val categorized = List[(I18nKey, List[PuzzleTheme])](
     trans.puzzle.recommended -> List(
-      any
+      mix
     ),
     trans.puzzle.phases -> List(
       opening,
@@ -80,6 +81,7 @@ object PuzzleTheme {
       advancedPawn,
       attackingF2F7,
       capturingDefender,
+      castling,
       discoveredAttack,
       doubleCheck,
       enPassant,
@@ -131,13 +133,13 @@ object PuzzleTheme {
     List(t.name, t.description)
   }
 
-  lazy val byKey: Map[Key, PuzzleTheme] = all.view.map { t =>
-    t.key -> t
+  private lazy val byLowerKey: Map[String, PuzzleTheme] = all.view.map { t =>
+    t.key.value.toLowerCase -> t
   }.toMap
 
   // themes that can't be voted by players
   val staticThemes: Set[Key] = Set(
-    backRankMate,
+    castling,
     enPassant,
     endgame,
     long,
@@ -162,9 +164,9 @@ object PuzzleTheme {
     mateIn1
   ).map(_.key)
 
-  def find(key: String) = byKey get Key(key)
+  def find(key: String) = byLowerKey get key.toLowerCase
 
-  def findOrAny(key: String) = find(key) | any
+  def findOrAny(key: String) = find(key) | mix
 
   def findDynamic(key: String) = find(key).filterNot(t => staticThemes(t.key))
 
