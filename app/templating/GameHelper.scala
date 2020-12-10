@@ -48,9 +48,9 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         }
     val mode = game.mode.name
     val variant =
-      if (game.variant == chess.variant.FromPosition) "position setup chess"
+      if (game.variant == chess.variant.FromPosition) "position setup shogi"
       else if (game.variant.exotic) game.variant.name
-      else "chess"
+      else "shogi"
     import chess.Status._
     val result = (game.winner, game.loser, game.status) match {
       case (Some(w), _, Mate)                               => s"${playerText(w)} won by checkmate"
@@ -193,7 +193,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case S.Draw      => trans.draw.txt()
       case S.Outoftime => trans.timeOut.txt()
       case S.NoStart => {
-        val color = game.loser.fold(Color.black)(_.color).name.capitalize // swapped
+        val color = if(game.loser.fold(Color.black)(_.color).name.capitalize == "White") "Sente" else "Gote" // swapped   
         s"$color didn't move"
       }
       case S.Cheat => "Cheat detected"
