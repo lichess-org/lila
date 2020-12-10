@@ -19,6 +19,7 @@ object PuzzleTheme {
   val bishopEndgame = PuzzleTheme(Key("bishopEndgame"), i.bishopEndgame, i.bishopEndgameDescription)
   val capturingDefender =
     PuzzleTheme(Key("capturingDefender"), i.capturingDefender, i.capturingDefenderDescription)
+  val castling      = PuzzleTheme(Key("castling"), i.castling, i.castlingDescription)
   val clearance     = PuzzleTheme(Key("clearance"), i.clearance, i.clearanceDescription)
   val coercion      = PuzzleTheme(Key("coercion"), i.coercion, i.coercionDescription)
   val defensiveMove = PuzzleTheme(Key("defensiveMove"), i.defensiveMove, i.defensiveMoveDescription)
@@ -80,6 +81,7 @@ object PuzzleTheme {
       advancedPawn,
       attackingF2F7,
       capturingDefender,
+      castling,
       discoveredAttack,
       doubleCheck,
       enPassant,
@@ -137,6 +139,7 @@ object PuzzleTheme {
 
   // themes that can't be voted by players
   val staticThemes: Set[Key] = Set(
+    castling,
     enPassant,
     endgame,
     long,
