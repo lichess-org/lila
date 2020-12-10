@@ -41,7 +41,7 @@ const autoScroll = throttle(
     })
 );
 
-function renderMove(step: Step, curPly: number, orEmpty: boolean, orientation: string, notation: number) {
+function renderMove(step: Step, curPly: number, orEmpty: boolean, orientation: string, color: Color, notation: number) {
   return step
     ? h(
         moveTag,
@@ -53,7 +53,7 @@ function renderMove(step: Step, curPly: number, orEmpty: boolean, orientation: s
             san: step.san,
             uci: step.uci,
             orientation: orientation,
-            fen: step.fen
+            fen: step.fen.split(' ').length > 1 ? step.fen : step.fen + " " + color[0]
           }
         )
       )
@@ -107,7 +107,8 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
     firstPly = round.firstPly(ctrl.data),
     lastPly = round.lastPly(ctrl.data);
   if (typeof lastPly === "undefined") return [];
-
+  const color = ctrl.data.game.initialFen?.split(' ')[1] == "w" ? "white" : "black";
+  const oppositeColor = color === "white" ? "black" : "white";
   const pairs: Array<Array<any>> = [];
   let startAt = 1;
   if (firstPly % 2 === 1) {
@@ -121,8 +122,8 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
     curPly = ctrl.ply;
   for (let i = 0; i < pairs.length; i++) {
     els.push(h("index", (i + 1) * 2 - 1 + ""));
-    els.push(renderMove(pairs[i][0], curPly, true, (ctrl.shogiground  && ctrl.shogiground.state) ? ctrl.shogiground.state.orientation : "white", ctrl.data.pref.pieceNotation));
-    els.push(renderMove(pairs[i][1], curPly, false, (ctrl.shogiground && ctrl.shogiground.state) ? ctrl.shogiground.state.orientation : "white", ctrl.data.pref.pieceNotation));
+    els.push(renderMove(pairs[i][0], curPly, true, (ctrl.shogiground  && ctrl.shogiground.state) ? ctrl.shogiground.state.orientation : "white", (i * 2) % 2 ? color : oppositeColor, ctrl.data.pref.pieceNotation));
+    els.push(renderMove(pairs[i][1], curPly, false, (ctrl.shogiground && ctrl.shogiground.state) ? ctrl.shogiground.state.orientation : "white", (i * 2) % 2 ? oppositeColor : color, ctrl.data.pref.pieceNotation));
   }
   els.push(renderResult(ctrl));
 

@@ -180,10 +180,9 @@ function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 }
 
 function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
-  const withIndex = opts.withIndex || node.ply % 2 === 1,
-    path = opts.parentPath + node.id,
+  const path = opts.parentPath + node.id,
     content: MaybeVNodes = [
-      withIndex ? moveView.renderIndex(node.ply, true) : null,
+      moveView.renderIndex(node.ply, true),
       notationStyle(ctx.ctrl.data.pref.pieceNotation)({
         san: node.san!,
         uci: node.uci!,
