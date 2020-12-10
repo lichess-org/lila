@@ -137,7 +137,6 @@ object PuzzleTheme {
 
   // themes that can't be voted by players
   val staticThemes: Set[Key] = Set(
-    backRankMate,
     enPassant,
     endgame,
     long,
