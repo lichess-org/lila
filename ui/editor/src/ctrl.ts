@@ -187,9 +187,17 @@ export default class EditorCtrl {
 
   setFen(fen: string): boolean {
     if (this.shogiground) this.shogiground.set({ fen });
+    this.clearPocket();
     const splitted = fen.split(' ');
     if(splitted.length >= 3){
-      splitted[2].split('').map(p => {
+      let pocket = "";
+      for(var i = 0; i < splitted[2].length; i++){
+        const l = splitted[2][i];
+        if(parseInt(l))
+          pocket += splitted[2][++i].repeat(parseInt(l));
+        else pocket += l;
+      }
+      pocket.split('').map(p => {
         const role = charToRole(p);
         if(role)
           this.addToPocket(p.toUpperCase() === p ? 'white' : 'black', role);
@@ -215,5 +223,11 @@ export default class EditorCtrl {
     if(this.pockets[c === "white" ? 0 : 1][r] > 0)
       this.pockets[c === "white" ? 0 : 1][r]--;
     this.onChange();
+  }
+  clearPocket(){
+    ["pawn", "lance", "knight", "silver", "gold", "bishop", "rook"].map(p => {
+      this.pockets[0][p] = 0;
+      this.pockets[1][p] = 0;
+    })
   }
 }

@@ -6,7 +6,7 @@ import { eventPosition, opposite } from "shogiground/util";
 
 import EditorCtrl from "./ctrl";
 import shogiground from "./shogiground";
-import { displaySfen, undisplaySfen } from "shogiutil/util";
+import { displaySfen, undisplaySfen, switchColorSfen } from "shogiutil/util";
 import { Selected, EditorState } from "./interfaces";
 // @ts-ignore
 import { Shogi } from "shogiutil/vendor/Shogi.js";
@@ -254,7 +254,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               "a.button",
               {
                 attrs: {
-                  href: "/?fen=" + state.legalFen + "#ai",
+                  href: "/?fen=" + switchColorSfen(state.legalFen || "") + "#ai",
                   rel: "nofollow",
                 },
               },
@@ -264,7 +264,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               "a.button",
               {
                 attrs: {
-                  href: "/?fen=" + state.legalFen + "#friend",
+                  href: "/?fen=" + switchColorSfen(state.legalFen || "") + "#friend",
                   rel: "nofollow",
                 },
               },

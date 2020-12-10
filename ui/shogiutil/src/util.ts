@@ -405,8 +405,29 @@ export function breakSfen(fen: string) {
     .replace(/\+B/g, "H");
 }
 
+export function fixPocket(sfen: string) {
+  const splitted = sfen.split(' ');
+  const pocket = splitted[2];
+  let newPocket = "";
+  if(pocket){
+    ["R", "B", "G", "S", "N", "L", "P"].forEach((p) => {
+      const re = new RegExp(p, 'g');
+      const nPieces = (pocket.match(re) || []).length;
+      newPocket += (nPieces > 1 ? nPieces : "") + (nPieces > 0 ? p : ""); 
+    });
+    ["r", "b", "g", "s", "n", "l", "p"].forEach((p) => {
+      const re = new RegExp(p, 'g');
+      const nPieces = (pocket.match(re) || []).length;
+      newPocket += (nPieces > 1 ? nPieces : "") + (nPieces > 0 ? p : ""); 
+    });
+    splitted[2] = newPocket ? newPocket : "-";
+    return splitted.join(' ');
+  }
+  return sfen;
+}
+
 export function displaySfen(fen: string) {
-  return fixSfen(switchColorSfen(fen));
+  return fixSfen(switchColorSfen(fixPocket(fen)));
 }
 
 export function undisplaySfen(fen: string) {
