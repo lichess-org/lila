@@ -33,7 +33,7 @@ export default function status(ctrl: Ctrl): string {
     case "outoftime":
       return noarg("timeOut");
     case "noStart":
-      return (d.game.winner == "white" ? "White" : "Black") + " didn't move"; // swapped
+      return (d.game.winner == "white" ? "Gote" : "Sente") + " didn't move"; // swapped
     case "cheat":
       return "Cheat detected";
     case "variantEnd":

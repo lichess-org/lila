@@ -4,7 +4,7 @@ export const initialFen: Fen =
   "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w KQkq - 0 1";
 
 export function fixCrazySan(san: San): San {
-  return san[0] === "P" ? san.slice(1) : san;
+  return san;
 }
 
 export type Dests = Map<Key, Key[]>;
