@@ -1,3 +1,4 @@
+import { getColorFromSfen } from './util';
 
 export interface MoveInfo {
     san: string;
@@ -91,9 +92,15 @@ function kawasakiShogiNotation(move: MoveInfo): string {
     const connector = parsed.capture ? "x" : (parsed.drop ? "*" : "-")
     const dest = `${index[parsed.dest[0]]}${index[parsed.dest[1]]}`;
     const promotion = parsed.promotion ? parsed.promotion : ""
-    //const color = move.color ? (move.color == "white" ? "" : "") : ""; // todo
+    const color = move.fen ? getColorFromSfen(move.fen) : "white";
+    // hackish solution, requires refresh if you change dark/light theme
+    let colorSymbol;
+    if (document.getElementsByClassName("dark")[0])
+        colorSymbol = color === "white" ? "☗" : "☖";
+    else
+        colorSymbol = color === "white" ? "☖" : "☗";
 
-    return `${piece}${origin}${connector}${dest}${promotion}`;
+    return `${colorSymbol}${piece}${origin}${connector}${dest}${promotion}`;
 }
 
 
@@ -171,9 +178,10 @@ function japaneseShogiNotation(move: MoveInfo): string {
     };
     const parsed = parseMove(move.san);
     const piece = index[parsed.piece];
+    const dropped = parsed.drop ? "打" : "";
     const ambiguity = parsed.origin ? (`${index[parsed.origin[0]]}${index[parsed.origin[1]]}`) : ""; // todo
     const dest = `${index[parsed.dest[0]]}${index[parsed.dest[1]]}`;
     const promotion = parsed.promotion ? (parsed.promotion === "+" ? "成" : "不成") : "";
 
-    return `${dest}${ambiguity}${piece}${promotion}`;
+    return `${dest}${ambiguity}${piece}${dropped}${promotion}`;
 }
