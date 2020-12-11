@@ -467,6 +467,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     difficulty: opts.difficulty,
     trans: lichess.trans(opts.i18n),
     autoNext,
+    autoNexting: () => vm.lastFeedback == 'win' && autoNext(),
     outcome,
     toggleCeval,
     toggleThreatMode,

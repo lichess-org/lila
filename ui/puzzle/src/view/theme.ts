@@ -7,7 +7,7 @@ export default function theme(ctrl: Controller): VNode {
   return h('div.puzzle__side__theme', [
     h('a', { attrs: { href: '/training/themes' } }, h('h2', ['« ', ctrl.getData().theme.name])),
     h('p', ctrl.getData().theme.desc),
-    ctrl.vm.mode != 'view' ? null : editor(ctrl)
+    ctrl.vm.mode != 'view' || ctrl.autoNexting() ? null : editor(ctrl)
   ]);
 }
 

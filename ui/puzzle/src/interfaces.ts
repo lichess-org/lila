@@ -59,6 +59,7 @@ export interface Controller extends KeyboardController {
   userMove(orig: Key, dest: Key): void;
   promotion: any;
   autoNext: StoredBooleanProp;
+  autoNexting: () => boolean;
   session: PuzzleSession;
   allThemes?: AllThemes;
 
