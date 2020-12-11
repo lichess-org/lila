@@ -34,8 +34,8 @@
   <string name="whitePlays">Παίζουν τα λευκά</string>
   <string name="blackPlays">Παίζουν τα μαύρα</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Ο αντίπαλος έφυγε. Διεκδίκηση νίκης σε %s δευτερόλεπτο.</item>
-    <item quantity="other">Ο αντίπαλος έφυγε. Διεκδίκηση νίκης σε %s δευτερόλεπτα.</item>
+    <item quantity="one">Ο αντίπαλος έφυγε από το παιχνίδι. Διεκδίκηση νίκης σε %s δευτερόλεπτο.</item>
+    <item quantity="other">Ο αντίπαλος έφυγε από το παιχνίδι. Διεκδίκηση νίκης σε %s δευτερόλεπτα.</item>
   </plurals>
   <string name="opponentLeftChoices">Ο αντίπαλος σας έφυγε από το παιχνίδι. Μπορείτε να ισχυρισθείτε νίκη, ισοπαλία, ή να περιμένετε.</string>
   <string name="makeYourOpponentResign">Αναγκάστε τον αντίπαλό σας να παραιτηθεί</string>
@@ -532,6 +532,7 @@
   <string name="currentPassword">Κωδικός σε ισχύ</string>
   <string name="newPassword">Νέος κωδικός</string>
   <string name="newPasswordAgain">Νέος κωδικός (επαλήθευση)</string>
+  <string name="newPasswordsDontMatch">Οι νέοι κωδικοί πρόσβασης δεν ταιριάζουν</string>
   <string name="newPasswordStrength">Ισχύς Κωδικού Πρόσβασης</string>
   <string name="clockInitialTime">Ρολόι αρχικός χρόνος</string>
   <string name="clockIncrement">Ρολόι προσαύξηση</string>

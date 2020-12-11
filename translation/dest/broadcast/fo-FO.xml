@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="broadcasts">Sendingar</string>
+  <string name="liveBroadcasts">Beinleiðis sendingar frá kappingum</string>
+  <string name="newBroadcast">Nýggj beinleiðis sending</string>
+</resources>

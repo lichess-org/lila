@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Apstipriniet savu lichess.org kontu, %s</string>
-  <string name="emailConfirm_click">Noklikšķiniet uz saites lai aktivizētu savu Lichess kontu:</string>
+  <string name="emailConfirm_click">Noklikšķiniet uz saites, lai aktivizētu savu Lichess kontu:</string>
   <string name="emailConfirm_ignore">Ja nereģistrējāties Lichess, varat droši neņemt šo vēstuli vērā.</string>
   <string name="passwordReset_subject">Atjaunojiet savu lichess.org paroli, %s</string>
   <string name="passwordReset_intro">Mēs saņēmām pieprasījumu atjaunot jūsu konta paroli.</string>
   <string name="passwordReset_clickOrIgnore">Ja veicāt šo pieprasījumu, noklikšķiniet uz zemāk esošās saites. Pretējā gadījumā jūs varat neņemt vērā šo e-pastu.</string>
   <string name="emailChange_subject">Apstipriniet jauno e-pasta adresi, %s</string>
-  <string name="emailChange_intro">Jūs pieprasījāt nomainīt savu e-pasta adresi.</string>
-  <string name="emailChange_click">Lai pārliecinātos, ka jums ir pieeja šim e-pastam, lūdzu, noklikšķiniet uz šīs saites:</string>
+  <string name="emailChange_intro">Jūs esat pieprasījis nomainīt savu e-pasta adresi.</string>
+  <string name="emailChange_click">Lai apstiprinātu, ka jums ir pieeja šim e-pastam, lūdzu, noklikšķiniet uz šīs saites:</string>
   <string name="welcome_subject">Laipni lūdzam lichess.org, %s</string>
   <string name="welcome_text">Esat veiksmīgi izveidojis savu kontu https://lichess.org.
 Jūsu profila lapa ir atrodama šeit: %1$s. Varat to pielāgot šeit: %2$s.

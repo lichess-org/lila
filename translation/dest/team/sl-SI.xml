@@ -46,4 +46,6 @@
   <string name="youWayWantToLinkOneOfTheseTournaments">Želiš morda povezavo do katerega od teh prihajajočih turnirjev?</string>
   <string name="usersWhoCanManageThisTeam">Uporabniki, ki lahko upravljajo s to ekipo</string>
   <string name="leadersChat">Klepet voditeljev</string>
+  <string name="closeTeam">Zapri ekipo</string>
+  <string name="closeTeamDescription">Trajno zapre vse ekipe.</string>
 </resources>

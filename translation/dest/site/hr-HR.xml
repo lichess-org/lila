@@ -562,6 +562,8 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="currentPassword">Trenutna lozinka</string>
   <string name="newPassword">Nova lozinka</string>
   <string name="newPasswordAgain">Ponovi novu lozinku</string>
+  <string name="newPasswordsDontMatch">Nova zaporke se ne podudaru</string>
+  <string name="newPasswordStrength">Snaga zaporke</string>
   <string name="clockInitialTime">Početno vrijeme</string>
   <string name="clockIncrement">Vremenski dodatak</string>
   <string name="privacy">Privatnost</string>

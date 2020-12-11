@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="normalAnalysis">Vanlig greining</string>
+  <string name="hideNextMoves">Fjal næstu leikirnar</string>
+  <string name="start">Byrja</string>
+  <string name="save">Goym</string>
+</resources>

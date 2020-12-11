@@ -404,7 +404,7 @@
   <plurals name="nbFollowing">
     <item quantity="one">%s urmăritor</item>
     <item quantity="few">%s urmăritori</item>
-    <item quantity="other">%s urmăritori</item>
+    <item quantity="other">%s urmăriți</item>
   </plurals>
   <string name="more">Mai mult</string>
   <string name="memberSince">Membru din</string>

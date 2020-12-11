@@ -42,4 +42,6 @@ Spillere som ikke bryder sig om at modtage dine beskeder forlader måske holdet.
   <string name="youWayWantToLinkOneOfTheseTournaments">Måske du bør linke til en af disse kommende turneringer?</string>
   <string name="usersWhoCanManageThisTeam">Brugere som kan administrere dette hold</string>
   <string name="leadersChat">Holdleder-chat</string>
+  <string name="closeTeam">Luk hold</string>
+  <string name="closeTeamDescription">Luk holdet for evigt.</string>
 </resources>

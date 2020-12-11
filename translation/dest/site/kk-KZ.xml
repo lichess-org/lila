@@ -25,7 +25,7 @@
   <string name="youPlayTheBlackPieces">Сіз қара таспен ойнайсыз</string>
   <string name="itsYourTurn">Кезек сізде!</string>
   <string name="kingInTheCenter">Патша тақтаның ортасында</string>
-  <string name="threeChecks">Үш рет шах жариялануы тіркелді</string>
+  <string name="threeChecks">Шах үш рет қойылды</string>
   <string name="raceFinished">Бәйге аяқталды</string>
   <string name="variantEnding">Нұсқа аяқталды</string>
   <string name="newOpponent">Жаңа қарсылас</string>
@@ -73,7 +73,7 @@
   <string name="pawnMove">Ер жүрісі</string>
   <string name="capture">Басып алу</string>
   <string name="close">Жабу</string>
-  <string name="winning">Ұтыс</string>
+  <string name="winning">Жеңіс</string>
   <string name="losing">Ұтылыс</string>
   <string name="drawn">Тең</string>
   <string name="unknown">Беймәлім</string>
@@ -95,20 +95,20 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Баптаулар мәзірінен тағы ойындар қосайық па?</string>
   <string name="openingExplorer">Бастаулар қазынасы</string>
   <string name="xOpeningExplorer">%s бастаулар қазынасы</string>
-  <string name="winPreventedBy50MoveRule">50 жүрістік ережесі бойынша жол берілмеген ұтыс</string>
-  <string name="lossSavedBy50MoveRule">50 жүрістік ережесі бойынша жол құтқарылған ұтылыс</string>
+  <string name="winPreventedBy50MoveRule">50 жүрістік ережемен жеңіске жеткізбеу</string>
+  <string name="lossSavedBy50MoveRule">50 жүрістік ережемен жеңілістен құтылу</string>
   <string name="allSet">Барлығы дайын!</string>
   <string name="importPgn">PGN импорты</string>
   <string name="delete">Жою</string>
-  <string name="deleteThisImportedGame">Бұл импортталған ойын жойылсын ба?</string>
-  <string name="replayMode">Қайталап көру тәртіптемесі</string>
+  <string name="deleteThisImportedGame">Бұл импортталған ойынды жоясыз ба?</string>
+  <string name="replayMode">Ойнату тәртібі</string>
   <string name="realtimeReplay">Өз қарқыны</string>
   <string name="byCPL">CPL тілі арқылы</string>
   <string name="openStudy">Зерттеуді ашу</string>
   <string name="enable">Қол жетімді</string>
   <string name="bestMoveArrow">Ең үздік жүріс жебесі</string>
   <string name="evaluationGauge">Бағалау мөлшері</string>
-  <string name="multipleLines">Көп жолдық нұсқажолдар</string>
+  <string name="multipleLines">Бірнеше жол</string>
   <string name="cpus">Процессор</string>
   <string name="memory">Жад</string>
   <string name="infiniteAnalysis">Шектеусіз талдау</string>
@@ -249,18 +249,18 @@
   <string name="send">Жіберу</string>
   <string name="incrementInSeconds">Секунд қосылады</string>
   <string name="freeOnlineChess">Тегін онлайн шахмат</string>
-  <string name="spectators">Көрермен</string>
+  <string name="spectators">Көрермендер:</string>
   <plurals name="nbRated">
     <item quantity="one">бағаланатын %s</item>
     <item quantity="other">бағаланатын %s</item>
   </plurals>
   <plurals name="nbWins">
-    <item quantity="one">%s ұтыс</item>
-    <item quantity="other">%s ұтыс</item>
+    <item quantity="one">%s жеңіс</item>
+    <item quantity="other">%s жеңіс</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s ұтылыс</item>
-    <item quantity="other">%s ұтылыс</item>
+    <item quantity="one">%s жеңіліс</item>
+    <item quantity="other">%s жеңіліс</item>
   </plurals>
   <plurals name="nbDraws">
     <item quantity="one">%s тепе-тең</item>
@@ -361,23 +361,23 @@
     <item quantity="other">%s дос желіде</item>
   </plurals>
   <string name="noFriendsOnline">Желіде достар жоқ</string>
-  <string name="findFriends">Дос іздестіру</string>
+  <string name="findFriends">Дос табу</string>
   <string name="favoriteOpponents">Қалаулы қарсыластар</string>
   <string name="follow">Серік болу</string>
   <string name="following">Серіксіз</string>
   <string name="unfollow">Серік болмау</string>
   <string name="block">Бұғаттау</string>
-  <string name="blocked">Блоктар</string>
+  <string name="blocked">Бұғатталған</string>
   <string name="unblock">Бұғаттан шығару</string>
   <string name="followsYou">Сізге серік</string>
   <string name="xStartedFollowingY">%1$s %2$s серігі болды</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s серік</item>
-    <item quantity="other">%s серік</item>
+    <item quantity="one">%s серігі бар</item>
+    <item quantity="other">%s серігі бар</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">%s серік</item>
-    <item quantity="other">%s серік</item>
+    <item quantity="one">%s ойыншыға серік</item>
+    <item quantity="other">%s ойыншыға серік</item>
   </plurals>
   <string name="more">Жаю</string>
   <string name="memberSince">Тіркелген күні</string>
@@ -399,7 +399,7 @@
   <string name="tournamentCalendar">Жарыс күнтізбесі</string>
   <string name="conditionOfEntry">Кіру талаптары:</string>
   <string name="advancedSettings">Қосымша баптаулар</string>
-  <string name="safeTournamentName">Жарысты түзу, жөнді сөз таңдап атаңыз.</string>
+  <string name="safeTournamentName">Жарысты түзу, жөнді сөзбен атаңыз.</string>
   <string name="inappropriateNameWarning">Кез-келген, тіпті шамалы орынсыз әрекет аккаунтыңызды жабылуға шалдықтыру мүмкін.</string>
   <string name="emptyTournamentName">Елеулі бір шахматшының атымен атау үшін бос қалдырыңыз.</string>
   <string name="recommendNotTouching">Бұны тиіспеуге кеңес береміз.</string>
@@ -604,7 +604,7 @@
   <string name="error.email_unique">Бұл пошта тіркелген</string>
   <string name="error.email_different">Бұл сіздің поштаңыз</string>
   <string name="ifRatingIsPlusMinusX">Егер рейтингі ± %s болса</string>
-  <string name="onlyFriends">Тек қана достар</string>
+  <string name="onlyFriends">Достар ғана</string>
   <string name="menu">Мәзір</string>
   <string name="castling">Бекіну</string>
   <string name="whiteCastlingKingside">Ақтар O-O</string>

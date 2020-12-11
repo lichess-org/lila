@@ -22,12 +22,14 @@
   <string name="doNotAskByEmailToReopen">لا تطلب إعادة فتح الحساب عن طريق البريد الإلكتروني، فنحن لن نقوم بذلك.</string>
   <string name="wantChangeUsername">أريد تغير اسم المستخدم الخاص بي</string>
   <string name="changeUsernameCase">قم بزيارة هذه الصفحة لتغيير اسم المستخدم الخاص بك</string>
+  <string name="cantChangeMore">لايمكن تغيير اكثر من حجم الأحرف، لأسباب تقنية، إنه مستحيل.</string>
   <string name="orCloseAccount">على الرغم من ذلك، يمكنك إغلاق حسابك الحالي، وإنشاء حساب جديد.</string>
   <string name="wantClearHistory">أريد مسح تاريخي أو تقييمي</string>
   <string name="cantClearHistory">لا يمكن مسح تاريخ المباريات أو تاريخ الألغاز أو التقييم.</string>
   <string name="wantReport">أريد أن أبلغ عن لاعب</string>
   <string name="cheating">الغش</string>
   <string name="sandbagging">تعمد تقديم أداء ضعيف</string>
+  <string name="trolling">التلاعب</string>
   <string name="insults">إهانة</string>
   <string name="otherReason">سبب آخر</string>
   <string name="toReportAPlayer">للإبلاغ عن لاعب لـ %s، استخدم نموذج التبليغ</string>
@@ -35,7 +37,10 @@
   <string name="doNotReportInForum">لا تبلغ عن اللاعبين في المنتدى.</string>
   <string name="doNotSendReportEmails">لا ترسل بالتبليغ عبر البريد الإلكتروني.</string>
   <string name="doNotMessageModerators">لا ترسل رسائل مباشرة للمشرفين.</string>
+  <string name="onlyReports">الإبلاغ عن اللاعبين عن طريق الاستمارة هو الطريقة الوحيدة الفعّالة.</string>
   <string name="wantReportBug">أريد أن أبلغ عن خطأ برمجي</string>
+  <string name="reportWebsiteIssue">كمشكلة في موقع Lichess على Github</string>
+  <string name="reportMobileIssue">كمشكلة في تطبيق Lichess المحمول على GitHub</string>
   <string name="reportBugInDiscord">في خادم ديسكورد Lichess</string>
   <string name="howToReportBug">يرجى وصف الخطأ البرمجي بدقة، ماذا كنت تتوقع أن يحدث بدلاً من ذلك، والخطوات التي أدت إلى حدوث الخطأ.</string>
   <string name="illegalPawnCapture">أخذ غير قانوني للبيدق</string>
@@ -53,4 +58,22 @@
   <string name="ratedGame">تأكد من أنك لعبت لعبة مقيمة. الألعاب الاستعراضية لا تؤثر على تقييم اللاعبين.</string>
   <string name="errorPage">صفحة خطأ</string>
   <string name="reportErrorPage">إذا واجهت صفحة خطأ، فيمكنك الإبلاغ عنها:</string>
+  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">طلب لرفع حظر او تقييد على IP</string>
+  <string name="engineAppeal">علامة الغش او استخدام محرك</string>
+  <string name="sendAppealTo">يمكنك ارسال طلب الى %s.</string>
+  <string name="falsePositives">قد تحدث قرارات خاطئة في بعض الأحيان، ونحن نعتذر على ذلك.</string>
+  <string name="ifLegit">اذا كان طلبك مشروعاً، فإننا سنرفع الحظر بأقرب وقت ممكن.</string>
+  <string name="accountLost">مع ذلك، اذا كنت استخدمت مساعدة محرك بالفعل، ولو لمرة واحدة، فإن حسابك سيظل مغلق للأسف.</string>
+  <string name="doNotDeny">لاتنكر الغش، إذا اردت ان يسمح لك إنشاء حساب جديد، اعترف بما فعلته، وأظهر انك فهمت ان ما فعلته كان خطأ.</string>
+  <string name="otherRestriction">قيود أخرى</string>
+  <string name="collaboration">التعاون، قانونيا، تجارياً</string>
+  <string name="monetizing">تحويل Lichess الى مشروع ربحي</string>
+  <string name="buyingLichess">شراء Lichess</string>
+  <string name="authorizationToUse">الإذن لإستخدام Lichess</string>
+  <string name="welcomeToUse">انت مرحب بإستخدام Lichess في نشاطاتك، بما في ذلك النشاطات التجارية.</string>
+  <string name="videosAndBooks">بإمكانك اظهاره في مقاطع الفيديو الخاصة بك، بإمكانك طباعة لقطات شاشة من Lichess في الكتب الخاصة بك.</string>
+  <string name="creditAppreciated">ذكر الإسم مشكور ولكن ليست مطلوب.</string>
+  <string name="noneOfTheAbove">لا شيء مما سبق</string>
+  <string name="sendEmailAt">راسلنا عبر البريد الإلكتروني %s.</string>
+  <string name="explainYourRequest">يرجى شرح طلبك بوضوح ودقة. حدد اسم المستخدم الخاص بك في Lichess، وأي معلومات يمكن أن تساعدنا في مساعدتك.</string>
 </resources>

@@ -199,6 +199,8 @@
     <item quantity="other">%s mängu sinuga</item>
   </plurals>
   <string name="cancel">Katkesta</string>
+  <string name="whiteTimeOut">Valgete aeg on läbi</string>
+  <string name="blackTimeOut">Mustade aeg on läbi</string>
   <string name="drawOfferSent">Viigi pakkumine saadetud</string>
   <string name="drawOfferDeclined">Viigi pakkumine tagasi lükatud</string>
   <string name="drawOfferAccepted">Viigi pakkumine vastu võetud</string>
@@ -530,6 +532,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="currentPassword">Praegune salasõna</string>
   <string name="newPassword">Uus salasõna</string>
   <string name="newPasswordAgain">Uus salasõna (uuesti)</string>
+  <string name="newPasswordsDontMatch">Uued paroolid ei ühti</string>
+  <string name="newPasswordStrength">Salasõna tugevus</string>
   <string name="clockInitialTime">Kella algne aeg</string>
   <string name="clockIncrement">Kella juurdekasv</string>
   <string name="privacy">Privaatsus</string>

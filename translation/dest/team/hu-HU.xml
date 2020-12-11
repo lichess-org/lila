@@ -42,4 +42,6 @@ Azok a játékosok akik nem szeretnek üzeneteket kapni akár ki is léphetnek.<
   <string name="youWayWantToLinkOneOfTheseTournaments">Akarsz linket létrehozni a közelgő események egyikére?</string>
   <string name="usersWhoCanManageThisTeam">Felhasználók akik a csapatot irányítják</string>
   <string name="leadersChat">Vezetői csevegő</string>
+  <string name="closeTeam">Csapat megszüntetése</string>
+  <string name="closeTeamDescription">Véglegesen megszünteti a csapatot.</string>
 </resources>
