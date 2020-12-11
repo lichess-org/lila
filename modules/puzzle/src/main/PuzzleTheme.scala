@@ -168,14 +168,6 @@ object PuzzleTheme {
     veryLong
   ).map(_.key)
 
-  // themes that make the solution obvious
-  val obviousThemes: Set[Key] = Set(
-    enPassant,
-    attackingF2F7,
-    doubleCheck,
-    mateIn1
-  ).map(_.key)
-
   def find(key: String) = byLowerKey get key.toLowerCase
 
   def findOrAny(key: String) = find(key) | mix

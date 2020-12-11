@@ -49,23 +49,30 @@ final private[puzzle] class PuzzleFinisher(
             null
           )
           updateRatings(userRating, puzzleRating, result.glicko)
-          val newPuzzleGlicko = user.perfs.puzzle.established
-            .option {
-              val after = Glicko(
+          val newPuzzleGlicko = ponder
+            .puzzle(
+              theme,
+              result,
+              puzzle.glicko,
+              after = Glicko(
                 rating = puzzleRating.getRating
                   .atMost(puzzle.glicko.rating + Glicko.maxRatingDelta)
                   .atLeast(puzzle.glicko.rating - Glicko.maxRatingDelta),
                 deviation = puzzleRating.getRatingDeviation,
                 volatility = puzzleRating.getVolatility
-              )
-              ponder(theme, result, puzzle.glicko, after, user.perfs.puzzle.glicko)
-            }
+              ),
+              player = user.perfs.puzzle.glicko
+            )
+            .some
+            .filter(puzzle.glicko !=)
             .filter(_.sanityCheck)
           val round = PuzzleRound(id = PuzzleRound.Id(user.id, puzzle.id), date = now, win = result.win)
           val userPerf =
             user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, now) pipe {
               p =>
-                p.copy(glicko = ponder(theme, result, user.perfs.puzzle.glicko, p.glicko, puzzle.glicko))
+                p.copy(glicko =
+                  ponder.player(theme, result, user.perfs.puzzle.glicko, p.glicko, puzzle.glicko)
+                )
             }
           (round, newPuzzleGlicko, userPerf)
       }
@@ -87,25 +94,52 @@ final private[puzzle] class PuzzleFinisher(
         ) inject (round -> userPerf)
     }
 
-  private def ponder(
-      theme: PuzzleTheme.Key,
-      result: Result,
-      prev: Glicko,
-      after: Glicko,
-      opponent: Glicko
-  ) = {
-    val base =
+  private object ponder {
+
+    // themes that don't hint at the solution
+    private val nonHintingThemes: Set[PuzzleTheme.Key] = Set(
+      PuzzleTheme.opening,
+      PuzzleTheme.middlegame,
+      PuzzleTheme.endgame,
+      PuzzleTheme.rookEndgame,
+      PuzzleTheme.bishopEndgame,
+      PuzzleTheme.pawnEndgame,
+      PuzzleTheme.knightEndgame,
+      PuzzleTheme.queenEndgame,
+      PuzzleTheme.rookEndgame
+    ).map(_.key)
+
+    private def isHinting(theme: PuzzleTheme.Key) = !nonHintingThemes(theme)
+
+    // themes that make the solution very obvious
+    private val isObvious: Set[PuzzleTheme.Key] = Set(
+      PuzzleTheme.enPassant,
+      PuzzleTheme.attackingF2F7,
+      PuzzleTheme.doubleCheck,
+      PuzzleTheme.mateIn1,
+      PuzzleTheme.castling
+    ).map(_.key)
+
+    private def weightOf(theme: PuzzleTheme.Key, result: Result) =
       if (theme == PuzzleTheme.mix.key) 1
-      else if (PuzzleTheme.obviousThemes(theme)) {
+      else if (isObvious(theme)) {
         if (result.win) 0.2f else 0.6f
+      } else if (isHinting(theme)) {
+        if (result.win) 0.3f else 0.7f
       } else {
-        if (result.win) 0.4f else 0.7f
+        if (result.win) 0.7f else 0.8f
       }
-    val extra  = opponent.clueless ?? -0.5f
-    val weight = base + extra
-    if (weight >= 1) after
-    else if (weight > 0) prev.average(after, weight)
-    else prev
+
+    def player(theme: PuzzleTheme.Key, result: Result, glicko: (Glicko, Glicko), puzzle: Glicko) = {
+      val provisionalPuzzle = puzzle.provisional ?? {
+        if (result.win) -0.2f else -0.7f
+      }
+      glicko._1.average(glicko._2, (weightOf(theme, result) + provisionalPuzzle) atLeast 0.1f)
+    }
+
+    def puzzle(theme: PuzzleTheme.Key, result: Result, glicko: (Glicko, Glicko), player: Glicko) =
+      if (player.clueless) glicko._1
+      else glicko._1.average(glicko._2, weightOf(theme, result))
   }
 
   private val VOLATILITY = Glicko.default.volatility

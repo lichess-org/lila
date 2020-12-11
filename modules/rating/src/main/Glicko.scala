@@ -49,11 +49,14 @@ case class Glicko(
     )
 
   def average(other: Glicko, weight: Float = 0.5f) =
-    Glicko(
-      rating = rating * (1 - weight) + other.rating * weight,
-      deviation = deviation * (1 - weight) + other.deviation * weight,
-      volatility = volatility * (1 - weight) + other.volatility * weight
-    )
+    if (weight >= 1) other
+    else if (weight <= 0) this
+    else
+      Glicko(
+        rating = rating * (1 - weight) + other.rating * weight,
+        deviation = deviation * (1 - weight) + other.deviation * weight,
+        volatility = volatility * (1 - weight) + other.volatility * weight
+      )
 
   def display = s"$intRating${provisional ?? "?"}"
 
