@@ -58,7 +58,7 @@ export function userBox(ctrl: Controller): VNode {
   const diff = ctrl.vm.round?.ratingDiff;
   return h('div.puzzle__side__user', [
     h('p.puzzle__side__user__rating', ctrl.trans.vdom('yourPuzzleRatingX', h('strong', [
-      data.user.rating,
+      data.user.rating - (diff || 0),
       ...(diff && diff > 0 ? [' ', h('good.rp', '+' + diff)] : []),
       ...(diff && diff < 0 ? [' ', h('bad.rp', '−' + (-diff))] : [])
     ])))
