@@ -21,6 +21,7 @@
   <string name="createAGame">Ստեղծել նոր խաղ</string>
   <string name="whiteIsVictorious">Սպիտակները հաղթեցին</string>
   <string name="blackIsVictorious">Սևերը հաղթեցին</string>
+  <string name="itsYourTurn">Ձեր Քայլն է!</string>
   <string name="kingInTheCenter">Արքան կենտրոնում է</string>
   <string name="threeChecks">Երեք շախ</string>
   <string name="raceFinished">Մրցավազքը ավարտվեց</string>
@@ -79,6 +80,7 @@
     <item quantity="one">Մատ %s հատ կիսաքայլից</item>
     <item quantity="other">Մատ %s հատ կիսաքայլից</item>
   </plurals>
+  <string name="memory">Հիշողություն</string>
   <string name="blunders">Կոպիտ սխալներ</string>
   <string name="mistake">Սխալ</string>
   <string name="mistakes">Սխալներ</string>
