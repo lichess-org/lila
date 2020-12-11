@@ -2,7 +2,7 @@
 <resources>
   <string name="arenaTournaments">アリーナ トーナメント</string>
   <string name="isItRated">レート戦ですか？</string>
-  <string name="willBeNotified">トーナメントが始まると通知が来るので、それまで別のタブでプレイしていても大丈夫です。</string>
+  <string name="willBeNotified">トーナメントが始まると通知が来るので、それまで別のタブで対局していても大丈夫です。</string>
   <string name="isRated">このトーナメントはレート戦で、レーティングが変動します。</string>
   <string name="isNotRated">このトーナメントはレート戦ではなく、レーティングは変動しません。</string>
   <string name="someRated">一部のトーナメントはレート戦で、レーティングが変動します。</string>
