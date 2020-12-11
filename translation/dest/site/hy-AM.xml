@@ -21,6 +21,7 @@
   <string name="createAGame">Ստեղծել նոր խաղ</string>
   <string name="whiteIsVictorious">Սպիտակները հաղթեցին</string>
   <string name="blackIsVictorious">Սևերը հաղթեցին</string>
+  <string name="youPlayTheWhitePieces">Դուք խաղում եք սպիտակ խաղաքարերով։</string>
   <string name="itsYourTurn">Ձեր Քայլն է!</string>
   <string name="kingInTheCenter">Արքան կենտրոնում է</string>
   <string name="threeChecks">Երեք շախ</string>
