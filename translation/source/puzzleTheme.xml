@@ -24,8 +24,6 @@
   <string name="kingsideAttackDescription">An attack of the opponent's king, after they castled on the king side.</string>
   <string name="clearance">Clearance</string>
   <string name="clearanceDescription">A move, often with tempo, that clears a square, file or diagonal for a follow-up tactical idea.</string>
-  <string name="coercion">Coercion</string>
-  <string name="coercionDescription">A move, often a check, that forces the opponent's piece to a square that allows a follow-up tactic.</string>
   <string name="defensiveMove">Defensive move</string>
   <string name="defensiveMoveDescription">A precise move or sequence of moves that is needed to avoid losing material or another advantage.</string>
   <string name="deflection">Deflection</string>
