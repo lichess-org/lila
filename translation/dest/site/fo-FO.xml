@@ -305,6 +305,7 @@
   <string name="losses">Tapt</string>
   <string name="winStreak">Vunnin á rað</string>
   <string name="youArePlaying">Tú telvar!</string>
+  <string name="movesPlayed">Telvdir leikir</string>
   <string name="whiteWins">Hvítur vinnur</string>
   <string name="blackWins">Svartur vinnur</string>
   <string name="draws">Javnleikur</string>
