@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="emailConfirm_subject">Vátta tína lichess.org-kontu, %s</string>
+  <string name="emailConfirm_click">Klikk á leinkið til tess at virkja tína Lichess kontu:</string>
+  <string name="emailConfirm_ignore">Um tú ikki hevur skrásett teg hjá Lichess, kanst tú síggja burtur frá hesum boðunum.</string>
+  <string name="passwordReset_subject">Set títt lichess.org-loyniorð av nýggjum, %s</string>
+  <string name="passwordReset_intro">Vit fingu eina umbøn um at endurseta loyniorðið til kontu tína.</string>
+  <string name="passwordReset_clickOrIgnore">Um tað var tú, ið kom við hesi umbøn, klikk á leinkið niðanfyri. Um tað ikki var tú, kanst tú síggja burtur frá hesum telduposti.</string>
+  <string name="emailChange_subject">Vátta nýggjan teldupostbústað, %s</string>
+</resources>
