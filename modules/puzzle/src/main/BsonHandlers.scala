@@ -64,7 +64,7 @@ private[puzzle] object BsonHandlers {
       id = r.get[PuzzleRound.Id](id),
       date = r.date(date),
       win = r.bool(win),
-      vote = r.boolO(vote),
+      vote = r.intO(vote),
       themes = r.getsD[PuzzleRound.Theme](themes),
       weight = r.intO(weight)
     )

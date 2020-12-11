@@ -8,7 +8,7 @@ case class PuzzleRound(
     id: PuzzleRound.Id,
     date: DateTime,
     win: Boolean,
-    vote: Option[Boolean] = None,
+    vote: Option[Int] = None,
     themes: List[PuzzleRound.Theme] = Nil,
     weight: Option[Int] = None
 ) {

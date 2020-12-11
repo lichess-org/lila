@@ -44,22 +44,17 @@ final private[puzzle] class PuzzleApi(
   object vote {
 
     def update(id: Puzzle.Id, user: User, vote: Boolean): Funit =
-      colls.round {
-        _.ext
-          .findAndUpdate[PuzzleRound](
-            $id(PuzzleRound.Id(user.id, id)),
-            $set($doc(PuzzleRound.BSONFields.vote -> vote))
-          )
-      } flatMap {
+      round.find(user, id) flatMap {
         _ ?? { prevRound =>
-          prevRound.vote.some.filter(vote !=) ?? { prevVote =>
-            trustApi.vote(user, prevRound, vote) flatMap {
-              _ ?? { weight =>
-                def voteToInt(v: Option[Boolean]) = v.map { w => if (w) 1 else -1 }.??(weight *)
-                colls.puzzle {
-                  _.incField($id(id), F.vote, voteToInt(vote.some) - voteToInt(prevVote)).void
-                }.void
-              }
+          trustApi.vote(user, prevRound, vote) flatMap {
+            _ ?? { weight =>
+              val voteValue = (if (vote) 1 else -1) * weight
+              colls.puzzle {
+                _.incField($id(id), F.vote, voteValue - ~prevRound.vote).void
+              }.void zip
+                colls.round {
+                  _.updateField($id(prevRound.id), PuzzleRound.BSONFields.vote, voteValue)
+                } void
             }
           }
         }
