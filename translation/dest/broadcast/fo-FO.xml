@@ -3,4 +3,6 @@
   <string name="broadcasts">Sendingar</string>
   <string name="liveBroadcasts">Beinleiðis sendingar frá kappingum</string>
   <string name="newBroadcast">Nýggj beinleiðis sending</string>
+  <string name="ongoing">Í gongd</string>
+  <string name="upcoming">Komandi</string>
 </resources>
