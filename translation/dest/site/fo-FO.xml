@@ -241,6 +241,12 @@
     <item quantity="one">%s í gongd</item>
     <item quantity="other">%s í gongd</item>
   </plurals>
+  <string name="exportGames">Flyt út talv</string>
+  <string name="ratingRange">Styrkitalaspenni</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">Gev %s sekund</item>
+    <item quantity="other">Gev %s sekund</item>
+  </plurals>
   <string name="takeback">Tak aftur</string>
   <string name="bookmarkThisGame">Set bókamerki við hetta talvið</string>
   <string name="tournament">Kapping</string>
@@ -250,6 +256,10 @@
     <item quantity="one">%s kappingarstig</item>
     <item quantity="other">%s kappingarstig</item>
   </plurals>
+  <string name="leaderboard">Stigatalva</string>
+  <string name="pasteTheFenStringHere">Flyt FEN tekstin higar</string>
+  <string name="pasteThePgnStringHere">Flyt PGN tekstin higar</string>
+  <string name="fromPosition">Frá støðuni</string>
   <string name="toStudy">Nám</string>
   <string name="importGame">Les inn talv</string>
   <string name="notACheckmate">Ikki skák og mát</string>
