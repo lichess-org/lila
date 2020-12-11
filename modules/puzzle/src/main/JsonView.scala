@@ -83,8 +83,11 @@ final class JsonView(
     "plays"      -> puzzle.plays,
     "initialPly" -> puzzle.initialPly,
     "solution"   -> puzzle.line.tail.map(_.uci),
-    "themes"     -> puzzle.themes
+    "themes"     -> simplifyThemes(puzzle.themes)
   )
+
+  private def simplifyThemes(themes: Set[PuzzleTheme.Key]) =
+    themes.filterNot(_ == PuzzleTheme.mate.key)
 
   object bc {
 
