@@ -37,4 +37,6 @@
   <string name="teamsIlead">تیم هایی که رهبری می کنم</string>
   <string name="usersWhoCanManageThisTeam">کاربرانی که می توانند این تیم را مدیریت کنند</string>
   <string name="leadersChat">چت رهبران</string>
+  <string name="closeTeam"> بستن گروه</string>
+  <string name="closeTeamDescription" comment="closeTeamDescription&#10;&#10;If you click this, your team will be closed forever.">بستن گروه برای همیشه</string>
 </resources>

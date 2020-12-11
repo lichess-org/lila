@@ -542,7 +542,7 @@
   <string name="sound">Volume</string>
   <string name="none">Aucune</string>
   <string name="fast">Rapide</string>
-  <string name="normal">Normal</string>
+  <string name="normal">Normale</string>
   <string name="slow">Lente</string>
   <string name="insideTheBoard">Sur l\'échiquier</string>
   <string name="outsideTheBoard">En dehors de l\'échiquier</string>

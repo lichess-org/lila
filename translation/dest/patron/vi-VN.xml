@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">Ủng hộ</string>
+  <string name="lichessPatron">Lichess Patron</string>
+  <string name="becomePatron">Trở thành Lichess Patron</string>
+  <string name="newPatrons">Patrons mới</string>
+  <string name="lifetime">Vĩnh viễn</string>
+  <string name="withCreditCard">Thẻ tín dụng</string>
+</resources>

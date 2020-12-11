@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailConfirm_subject">שלום %s, האם זה הוא חשבון הליצ\'ס החדש שלך?</string>
+  <string name="emailConfirm_subject">אשר את חשבון ה-lichess.org שלך, %s</string>
   <string name="emailConfirm_click">לחץ על הקישור על מנת להפעיל את חשבון הליצ\'ס שלך:</string>
-  <string name="emailConfirm_ignore">אם אינך רשום כחבר בליצ\'ס, התעלם מהודעה זו.</string>
-  <string name="passwordReset_subject">שנה את סיסמת חשבונך, %s</string>
-  <string name="passwordReset_intro">קיבלנו בקשה לשינוי סיסמת חשבונך.</string>
+  <string name="emailConfirm_ignore">אם לא נרשמת ב Lichess אתה יכול להתעלם מהודעה זו.</string>
+  <string name="passwordReset_subject">אפס את סיסמת חשבונך, %s</string>
+  <string name="passwordReset_intro">קיבלנו בקשה לאפס את סיסמת חשבונך.</string>
   <string name="passwordReset_clickOrIgnore">אם אכן זאת היא בקשתך, לחץ על הלינק מתחת. אם לא, אתה יכול להתעלם מהאימייל.</string>
   <string name="emailChange_subject">אשר את כתובתך החדשה, %s</string>
   <string name="emailChange_intro">אתה מבקש לשנות את כתובתך.</string>

@@ -3,8 +3,13 @@
   <string name="learnChess">o kama sona</string>
   <string name="byPlaying">o musi!</string>
   <string name="menu">lipu open</string>
+  <string name="progressX">pali: %s</string>
+  <string name="resetMyProgress">o ala e pali mi</string>
+  <string name="youWillLoseAllYourProgress">tenpo kama poka la pali sina li kama ala!</string>
   <string name="play">o musi!</string>
+  <string name="chessPieces">ijo musi</string>
   <string name="theRook">tomo utala</string>
+  <string name="itMovesInStraightLines">ona li tawa kepeken nasin weka linja</string>
   <string name="rookIntro">tomo utala li wawa. sina ken ala ken lawa e ona?</string>
   <string name="rookGoal">o luka e tomo utala! o pana e ona lon mun!</string>
   <string name="grabAllTheStars">o kama jo e mun ale!</string>
@@ -12,6 +17,7 @@
   <string name="useTwoRooks">o tawa wawa kepeken tomo utala tu!</string>
   <string name="rookComplete">pona tawa sina! sina sona ale e tomo utala.</string>
   <string name="theBishop">lawa sewi</string>
+  <string name="itMovesDiagonally">ona li tawa kepeken nasin pi poka lili</string>
   <string name="bishopIntro">tenpo ni la mi kama sona tawa e lawa sewi!</string>
   <string name="youNeedBothBishops">lawa sewi wan pi poki pimeja en lawa sewi wan pi poki walo li lon. sina wile e ona tu!</string>
   <string name="bishopComplete">pona tawa sina! sina ken lawa e lawa sewi.</string>
@@ -20,15 +26,24 @@
   <string name="queenIntro">ijo pi wawa suli li kama. ona sewi li lawa meli!</string>
   <string name="queenComplete">pona tawa sina! sina sona sama lawa meli.</string>
   <string name="theKing">lawa mije</string>
+  <string name="theMostImportantPiece">ijo ni li suli nanpa wan</string>
   <string name="kingIntro">sina lawa mije. sina moli la ale li pini.</string>
+  <string name="theKingIsSlow">lawa mije li tawa pi weka ala.</string>
   <string name="lastOne">pini a!</string>
   <string name="kingComplete">sina ken lawa e lawa!</string>
   <string name="theKnight">soweli tawa</string>
+  <string name="itMovesInAnLShape">ona li tawa kepeken nasin pi sitelen L</string>
+  <string name="knightIntro">ni li pali kiwen tawa sina. sina kepeken e soweli tawa... kepeken pali mute.</string>
+  <string name="knightsHaveAFancyWay">soweli tawa li tawa
+kepeken nasin nasa!</string>
   <string name="knightsCanJumpOverObstacles">soweli tawa li ken tawa lon sewi ijo! o weka tan insa! o kama sewi!</string>
   <string name="knightComplete">pona tawa sina! sina sona ale e soweli tawa.</string>
   <string name="thePawn">jan utala</string>
+  <string name="itMovesForwardOnly">ona li tawa kepeken nasin sewi taso</string>
   <string name="pawnIntro">jan utala li wawa ala. taso ona li ken mute.</string>
   <string name="pawnsMoveOneSquareOnly">jan utala li tawa lili. taso ona li kama lon poka ante la ona li kama wawa!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">tenpo mute la ni li pona la jan li pali e ijo musi tawa lawa meli.
+tenpo lili la soweli tawa li kepeken mute!</string>
   <string name="useAllThePawns">o kepeken jan utala ale! sina wile ala tawa poka ante.</string>
   <string name="aPawnOnTheSecondRank">jan utala lon linja nanpa tu li ken tawa lon poki tu!</string>
   <string name="grabAllTheStarsNoNeedToPromote">o kama jo e mun ale! sina wile ala tawa poka ante.</string>

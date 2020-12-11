@@ -2,7 +2,7 @@
 <resources>
   <string name="arenaTournaments">アリーナ トーナメント</string>
   <string name="isItRated">レート戦ですか？</string>
-  <string name="willBeNotified">トーナメントが始まると通知が来るので、それまで別のタブでプレイしていても大丈夫です。</string>
+  <string name="willBeNotified">トーナメントが始まると通知が来るので、それまで別のタブで対局していても大丈夫です。</string>
   <string name="isRated">このトーナメントはレート戦で、レーティングが変動します。</string>
   <string name="isNotRated">このトーナメントはレート戦ではなく、レーティングは変動しません。</string>
   <string name="someRated">一部のトーナメントはレート戦で、レーティングが変動します。</string>
@@ -18,9 +18,9 @@
 バーサーク勝ちのボーナス点を得るには少なくとも 7 手指す必要があります。</string>
   <string name="howIsTheWinnerDecided">優勝者の決め方は？</string>
   <string name="howIsTheWinnerDecidedAnswer">トーナメントの予定終了時刻の時点でもっともポイント数の多いプレイヤーが優勝です。</string>
-  <string name="howDoesPairingWork">対戦組み合わせはどう決まりますか？</string>
-  <string name="howDoesPairingWorkAnswer">トーナメントの最初はレーティングによって組み合わせが決まります。ゲームが終わったらすぐにトーナメント・ロビーに戻ってください。間もなく順位の近い相手と対戦組み合わせが決まります。これによって待ち時間は少なくなりますが、ただし他のすべての参加者とは対戦しないかもしれません。
-早く指して早くロビーに戻れば、それだけ対戦数が増えてポイントも増えるでしょう。</string>
+  <string name="howDoesPairingWork">対局の組み合わせはどう決まりますか？</string>
+  <string name="howDoesPairingWorkAnswer">トーナメントの最初はレーティングによって組み合わせが決まります。対局が終わったらすぐにトーナメント・ロビーに戻ってください。間もなく順位の近い相手と対局の組み合わせが決まります。これによって待ち時間は少なくなりますが、ただし他のすべての参加者とは対局しないかもしれません。
+早く指して早くロビーに戻れば、それだけ対局数が増えてポイントも増えるでしょう。</string>
   <string name="howDoesItEnd">終了のしかたは？</string>
   <string name="howDoesItEndAnswer">トーナメントには時間制限があります。残り時間がゼロになるとその時点で順位が確定し、優勝者が発表されます。この時に進行中のゲームは完了する必要がありますが、トーナメントの結果には算入しません。</string>
   <string name="otherRules">その他のルール</string>

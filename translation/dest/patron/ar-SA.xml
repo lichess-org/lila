@@ -34,5 +34,28 @@
   <string name="officialNonProfit">هل Lichess رسمياً غير ربحي؟</string>
   <string name="actOfCreation">نعم، إليك عملية الإنشاء (باللغة الفرنسية)</string>
   <string name="changeMonthlySupport">هل يمكنني تغيير/الغاء دعمي الشهري؟</string>
+  <string name="changeOrContact">نعم، في أي وقت، من هذه الصفحة.
+أو يمكنك %s.</string>
+  <string name="contactSupport">التواصل مع فريق الدعم في Lichess</string>
+  <string name="otherMethods">طرق أخرى للتبرع؟</string>
+  <string name="bankTransfers">نقبل ايضاً التحويلات المصرفية</string>
+  <string name="bitcoin">وهنا عنوان البيتكوين الخاص بنا: %s</string>
+  <string name="patronFeatures">هل هناك بعض الميزات المخصصة للداعمين؟</string>
+  <string name="noPatronFeatures">لا، لأن ليشيس مجاني، وإلى الأبد، ولكل شخص. هذا وعد.
+ومع ذلك، يحصل الداعمون على أيقونة جديدة رائعة.</string>
+  <string name="featuresComparison">راجع مقارنة الميزات المفصلة</string>
+  <string name="youSupportWith">انت تدعم lichess.org ب%s شهرياً.</string>
+  <string name="tyvm">شكرا جزيلاً على مساعدتك. أنت رائع!</string>
+  <string name="currentStatus">الوضع الحالي</string>
+  <string name="nextPayment">الدفعة القادمة</string>
+  <string name="youWillBeChargedXOnY">سيتم خصم %1$s في %2$s.</string>
+  <string name="makeAdditionalDonation">قم بتبرع إضافي الآن</string>
   <string name="update">تحديث</string>
+  <string name="changeMonthlyAmount">تغيير المبلغ الشهري (%s)</string>
+  <string name="cancelSupport">إلغاء دعمك</string>
+  <string name="xOrY">%1$s أو %2$s</string>
+  <string name="decideHowMuch">قرر ماذا يعني Lichess بالنسبة لك:</string>
+  <string name="stopPayments">سحب بطاقة الائتمان الخاصة بك وإيقاف الدفع:</string>
+  <string name="noLongerSupport">التوقف عن دعم Lichess</string>
+  <string name="paymentHistory">سجل الدفع</string>
 </resources>

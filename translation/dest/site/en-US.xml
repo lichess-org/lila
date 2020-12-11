@@ -532,6 +532,8 @@ computer analysis, game chat and shareable URL.</string>
   <string name="currentPassword">Current password</string>
   <string name="newPassword">New password</string>
   <string name="newPasswordAgain">New password (again)</string>
+  <string name="newPasswordsDontMatch">nlnazmul 1</string>
+  <string name="newPasswordStrength">Password reset</string>
   <string name="clockInitialTime">Clock initial time</string>
   <string name="clockIncrement">Clock increment</string>
   <string name="privacy">Privacy</string>
