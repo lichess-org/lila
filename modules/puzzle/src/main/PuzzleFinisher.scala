@@ -53,8 +53,7 @@ final private[puzzle] class PuzzleFinisher(
             .puzzle(
               theme,
               result,
-              puzzle.glicko,
-              after = Glicko(
+              puzzle.glicko -> Glicko(
                 rating = puzzleRating.getRating
                   .atMost(puzzle.glicko.rating + Glicko.maxRatingDelta)
                   .atLeast(puzzle.glicko.rating - Glicko.maxRatingDelta),
@@ -71,7 +70,7 @@ final private[puzzle] class PuzzleFinisher(
             user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, now) pipe {
               p =>
                 p.copy(glicko =
-                  ponder.player(theme, result, user.perfs.puzzle.glicko, p.glicko, puzzle.glicko)
+                  ponder.player(theme, result, user.perfs.puzzle.glicko -> p.glicko, puzzle.glicko)
                 )
             }
           (round, newPuzzleGlicko, userPerf)
