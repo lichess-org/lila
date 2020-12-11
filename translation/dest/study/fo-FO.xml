@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="private">Innanhýsis</string>
+  <string name="downloadGame">Tak talv niður</string>
+  <string name="studyUrl">URL rannsókn</string>
+  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Varpa URL út</string>
+  <string name="currentChapterUrl">Núverandi URL partur</string>
+  <string name="currentGameUrl">Núverandi talv URL</string>
   <string name="normalAnalysis">Vanlig greining</string>
   <string name="hideNextMoves">Fjal næstu leikirnar</string>
   <string name="start">Byrja</string>
