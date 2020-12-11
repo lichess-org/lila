@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="faqAbbreviation">lipu pi wile sona</string>
+  <string name="frequentlyAskedQuestions">lipu pi wile sona</string>
+  <string name="whyIsLichessCalledLichess">nimi pi lipu ni li \"Lichess\" tan seme?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">nimi Lichess li kulupu pi nimi ni: \"live/light/libre\" en \"chess\". o toki %1$s e ni.</string>
   <string name="leechess">\"litesi\" </string>
+  <string name="hearItPronouncedBySpecialist">o kute e jan sona. ona li toki e nimi ni.</string>
   <string name="fairPlay">musi pona</string>
   <string name="gameplay">musi</string>
   <string name="positions">lon</string>
