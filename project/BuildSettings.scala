@@ -24,7 +24,8 @@ object BuildSettings {
       // disable publishing doc and sources
       sources in (Compile, doc) := Seq.empty,
       publishArtifact in (Compile, packageDoc) := false,
-      publishArtifact in (Compile, packageSrc) := false
+      publishArtifact in (Compile, packageSrc) := false,
+      javaOptions ++= Seq("-Xms64m", "-Xmx256m")
     )
 
   lazy val defaultLibs: Seq[ModuleID] =
