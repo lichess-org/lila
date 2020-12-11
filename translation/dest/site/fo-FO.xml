@@ -121,6 +121,7 @@
   </plurals>
   <string name="logOut">Logga út</string>
   <string name="signIn">Logga inn</string>
+  <string name="youNeedAnAccountToDoThat">Tær tørvar eina konto at gera hatta</string>
   <string name="signUp">Skráset</string>
   <string name="games">Talv</string>
   <string name="forum">Talvtos</string>
@@ -207,6 +208,9 @@
   <string name="cancelRematchOffer">Avlýs tilboð um nýtt talv</string>
   <string name="viewRematch">Hygg at nýggjum talvi</string>
   <string name="play">Telva</string>
+  <string name="inbox">Innbakki</string>
+  <string name="chatRoom">Kjattrúm</string>
+  <string name="loginToChat">Rita inn at kjatta</string>
   <string name="youHaveBeenTimedOut">Tú hevur fingið leikbrá.</string>
   <string name="spectatorRoom">Áskoðararúm</string>
   <string name="composeMessage">Skriva eini boð</string>
@@ -217,6 +221,26 @@
   <string name="incrementInSeconds">Vøkstur í sekundum</string>
   <string name="freeOnlineChess">Ókeypis talv á netinum</string>
   <string name="spectators">Áskoðarar:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s styrkimett</item>
+    <item quantity="other">%s styrkimett</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s vunnið</item>
+    <item quantity="other">%s vunnin</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s tapt</item>
+    <item quantity="other">%s tapt</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s javnt</item>
+    <item quantity="other">%s jøvn</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s í gongd</item>
+    <item quantity="other">%s í gongd</item>
+  </plurals>
   <string name="takeback">Tak aftur</string>
   <string name="bookmarkThisGame">Set bókamerki við hetta talvið</string>
   <string name="tournament">Kapping</string>
