@@ -260,8 +260,17 @@
   <string name="pasteTheFenStringHere">Flyt FEN tekstin higar</string>
   <string name="pasteThePgnStringHere">Flyt PGN tekstin higar</string>
   <string name="fromPosition">Frá støðuni</string>
+  <string name="continueFromHere">Halt fram hiðani</string>
   <string name="toStudy">Nám</string>
   <string name="importGame">Les inn talv</string>
+  <string name="importGameExplanation">Flyt PGN úr einum talvi higar. Fá eitt endurspæl, tú kanst kaga í, teldugreining, talvkjatt og PGN, sum til ber at deila við onnur.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s innflutt talv</item>
+    <item quantity="other">%s innflutt talv</item>
+  </plurals>
+  <string name="thisIsAChessCaptcha">Hetta er eitt talv-CAPTCHA.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Klikk á borðið at leika, og prógva, tú ert eitt menniskja.</string>
+  <string name="captcha.fail">Loys vinaliga talv-CAPTCHA\'ið.</string>
   <string name="notACheckmate">Ikki skák og mát</string>
   <string name="whiteCheckmatesInOneMove">Hvítur setir skák og mát í einum leiki</string>
   <string name="blackCheckmatesInOneMove">Svartur setir skák og mát í einum leiki</string>
