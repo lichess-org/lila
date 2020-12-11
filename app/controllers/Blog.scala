@@ -22,7 +22,7 @@ final class Blog(
   def index(page: Int) =
     WithPrismic { implicit ctx => implicit prismic =>
       pageHit
-      blogApi.recent(prismic, page, MaxPerPage(12), ctx.lang.code) flatMap {
+      blogApi.recent(prismic, page, MaxPerPage(12)) flatMap {
         case Some(response) => fuccess(Ok(views.html.blog.index(response)))
         case _              => notFound
       }
@@ -63,7 +63,7 @@ final class Blog(
     _.refreshAfterWrite(30.minutes)
       .buildAsyncFuture { _ =>
         blogApi.masterContext flatMap { implicit prismic =>
-          blogApi.recent(prismic.api, 1, MaxPerPage(50), none, "*") map {
+          blogApi.recent(prismic.api, 1, MaxPerPage(50), none) map {
             _ ?? { docs =>
               views.html.blog.atom(docs, env.net.baseUrl).render
             }
@@ -83,7 +83,7 @@ final class Blog(
     _.refreshAfterWrite(3.hours)
       .buildAsyncFuture { _ =>
         blogApi.masterContext flatMap { implicit prismic =>
-          blogApi.all(lang="*") map {
+          blogApi.all() map {
             _.map { doc =>
               s"${env.net.baseUrl}${routes.Blog.show(doc.id, doc.slug)}"
             } mkString "\n"
@@ -101,7 +101,7 @@ final class Blog(
 
   def all =
     WithPrismic { implicit ctx => implicit prismic =>
-      blogApi.byYear(prismic, lila.blog.thisYear, ctx.lang.code) map { posts =>
+      blogApi.byYear(prismic, lila.blog.thisYear) map { posts =>
         Ok(views.html.blog.index.byYear(lila.blog.thisYear, posts))
       }
     }
@@ -109,7 +109,7 @@ final class Blog(
   def year(year: Int) =
     WithPrismic { implicit ctx => implicit prismic =>
       if (lila.blog.allYears contains year)
-        blogApi.byYear(prismic, year, ctx.lang.code) map { posts =>
+        blogApi.byYear(prismic, year) map { posts =>
           Ok(views.html.blog.index.byYear(year, posts))
         }
       else notFound

@@ -84,14 +84,14 @@ object bits {
     )
 
   def lastPosts(posts: List[lila.blog.MiniPost])(implicit ctx: Context): Option[Frag] ={
-    posts.pp.nonEmpty option
+    posts.nonEmpty option
       div(cls := "lobby__blog lobby__box")(
         a(cls := "lobby__box__top", href := routes.Blog.index())(
           h2(cls := "title text", dataIcon := "6")(trans.latestUpdates()),
           span(cls := "more")(trans.more(), " »")
         ),
         div(cls := "lobby__box__content")(
-          posts filter { post => post.lang == ctx.lang.code } map { post =>
+          posts map { post =>
             a(cls := "post", href := routes.Blog.show(post.id, post.slug))(
               img(src := post.image),
               span(cls := "text")(

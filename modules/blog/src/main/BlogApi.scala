@@ -13,20 +13,14 @@ final class BlogApi(
 
   private def collection = config.collection
 
-  private def parseLang(lang: String): String = {
-    val langs = List("ja-JP", "*")
-    if (langs contains lang) lang else "en-US"
-  }
-
   def recent(
       api: Api,
       page: Int,
       maxPerPage: MaxPerPage,
-      ref: Option[String],
-      lang: String): Fu[Option[Paginator[Document]]] = {
+      ref: Option[String]
+  ): Fu[Option[Paginator[Document]]] = {
     api
       .forms(collection)
-      .set("lang", parseLang(lang))
       .ref(ref | api.master.ref)
       .orderings(s"[my.$collection.date desc]")
       .pageSize(maxPerPage.value)
@@ -34,29 +28,26 @@ final class BlogApi(
       .submit()
       .fold(_ => none, some _)
       .dmap2 { PrismicPaginator(_, page, maxPerPage) }
-      .thenPp
   }
   def recent(
       prismic: BlogApi.Context,
       page: Int,
-      maxPerPage: MaxPerPage,
-      lang: String): Fu[Option[Paginator[Document]]] =
-    recent(prismic.api, page, maxPerPage, prismic.ref.some, lang)
+      maxPerPage: MaxPerPage
+  ): Fu[Option[Paginator[Document]]] =
+    recent(prismic.api, page, maxPerPage, prismic.ref.some)
 
   def one(api: Api, ref: Option[String], id: String): Fu[Option[Document]] =
     api
       .forms(collection)
       .query(s"""[[:d = at(document.id, "$id")]]""")
-      .set("lang", "*")
       .ref(ref | api.master.ref)
       .submit() map (_.results.headOption)
 
   def one(prismic: BlogApi.Context, id: String): Fu[Option[Document]] = one(prismic.api, prismic.ref.some, id)
 
-  def byYear(prismic: BlogApi.Context, year: Int, lang: String): Fu[List[MiniPost]] = {
+  def byYear(prismic: BlogApi.Context, year: Int): Fu[List[MiniPost]] = {
     prismic.api
       .forms(collection)
-      .set("lang", parseLang(lang))
       .ref(prismic.ref)
       .query(s"[[date.year(my.$collection.date, $year)]]")
       .orderings(s"[my.$collection.date desc]")
@@ -87,10 +78,10 @@ final class BlogApi(
     }
   }
 
-  def all(page: Int = 1, lang: String)(implicit prismic: BlogApi.Context): Fu[List[Document]] =
-    recent(prismic.api, page, MaxPerPage(50), none, lang) flatMap { res =>
+  def all(page: Int = 1)(implicit prismic: BlogApi.Context): Fu[List[Document]] =
+    recent(prismic.api, page, MaxPerPage(50), none) flatMap { res =>
       val docs = res.??(_.currentPageResults).toList
-      (docs.nonEmpty ?? all(page + 1, lang)) map (docs ::: _)
+      (docs.nonEmpty ?? all(page + 1)) map (docs ::: _)
     }
 
   private def resolveRef(api: Api)(ref: Option[String]) =
