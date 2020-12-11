@@ -17,6 +17,7 @@ const editor = (ctrl: Controller): VNode => {
   const visibleThemes: string[] = data.puzzle.themes.concat(
     Object.keys(votedThemes).filter(t => votedThemes[t] && !data.puzzle.themes.includes(t))
   ).sort()
+  const availableThemes = ctrl.allThemes ? ctrl.allThemes.dynamic.filter(t => !votedThemes[t]) : null;
   return h('div.puzzle__themes', [
     h('div.puzzle__themes_list', {
       hook: bind('click', e => {
@@ -53,14 +54,11 @@ const editor = (ctrl: Controller): VNode => {
             ])
       ])
     )),
-    ctrl.allThemes ? h('select.puzzle__themes__selector', {
+    availableThemes ? h(`select.puzzle__themes__selector.cache-bust-${availableThemes.length}`, {
       hook: {
         ...bind('change', e => {
           const theme = (e.target as HTMLInputElement).value;
           if (theme) ctrl.voteTheme(theme, true);
-          setTimeout(() => {
-            ((e.target as HTMLInputElement).parentNode as HTMLSelectElement).value = '';
-          }, 500);
         }),
         postpatch(_, vnode) {
           (vnode.elm as HTMLSelectElement).value = '';
@@ -70,7 +68,7 @@ const editor = (ctrl: Controller): VNode => {
       h('option', {
         attrs: { value: '', selected: true }
       }, 'Add another theme'),
-      ...ctrl.allThemes.dynamic.filter(t => !votedThemes[t]).map(theme =>
+      ...availableThemes.map(theme =>
         h('option', {
           attrs: {
             value: theme,
