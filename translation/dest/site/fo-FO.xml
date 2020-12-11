@@ -51,8 +51,8 @@
   <string name="theComputerAnalysisHasFailed">Teldugreiningin miseydnaðist</string>
   <string name="viewTheComputerAnalysis">Síggj teldugreiningina</string>
   <string name="requestAComputerAnalysis">Bið um eina teldugreining</string>
-  <string name="computerAnalysis">Greina talvið</string>
-  <string name="computerAnalysisAvailable">Teldugreining klár</string>
+  <string name="computerAnalysis">Teldugreining</string>
+  <string name="computerAnalysisAvailable">Teldugreining tøk</string>
   <string name="analysis">Greiningarborð</string>
   <string name="depthX">Dýpd %s</string>
   <string name="usingServerAnalysis">Nýtandi ambætaragreining</string>
@@ -75,10 +75,10 @@
   <string name="close">Lat aftur</string>
   <string name="winning">Vinnur</string>
   <string name="losing">Tapir</string>
-  <string name="drawn">Javnleikur (remis)</string>
+  <string name="drawn">Javnt</string>
   <string name="unknown">Ókent</string>
   <string name="database">Dátugrunnur</string>
-  <string name="whiteDrawBlack">Hvítur / Javnleikur / Svartur</string>
+  <string name="whiteDrawBlack">Hvítur / Javnt / Svartur</string>
   <string name="averageRatingX">Miðal styrkimeting: %s</string>
   <string name="recentGames">Nýliga telvað talv</string>
   <string name="topGames">Bestu talv</string>
@@ -98,8 +98,8 @@
   <string name="memory">Minni</string>
   <string name="infiniteAnalysis">Óendalig greining</string>
   <string name="removesTheDepthLimit">Tekur dýpdaravmarkingar burtur, og heldur telduna hjá tær heita</string>
-  <string name="blunder">Mistak</string>
-  <string name="blunders">Mistøk</string>
+  <string name="blunder">Bummari</string>
+  <string name="blunders">Bummarar</string>
   <string name="mistake">Mistak</string>
   <string name="mistakes">Mistøk</string>
   <string name="inaccuracy">Óneyvleiki</string>
