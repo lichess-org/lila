@@ -323,22 +323,23 @@ final class Puzzle(
     //   )
     }
 
-  def mobileBcVote(id: Long) =
+  def mobileBcVote(nid: Long) =
     AuthBody { implicit ctx => me =>
-      ???
-    // negotiate(
-    //   html = notFound,
-    //   api = v => {
-    //   implicit val req = ctx.body
-    //   env.puzzle.forms.vote
-    //     .bindFromRequest()
-    //     .fold(
-    //       jsonFormError,
-    //       vote => {
-    //         lila.mon.puzzle.vote(vote).increment()
-    //         env.puzzle.api.vote.update(Puz.Id(id), me, vote) inject jsonOkResult
-    //       }
-    //     )
-    // }
+      negotiate(
+        html = notFound,
+        api = v => {
+          implicit val req = ctx.body
+          env.puzzle.forms.mobileBcVote
+            .bindFromRequest()
+            .fold(
+              jsonFormError,
+              intVote => {
+                val vote = intVote == 1
+                lila.mon.puzzle.vote(vote).increment()
+                env.puzzle.api.vote.update(Puz.numericalId(nid), me, vote) inject jsonOkResult
+              }
+            )
+        }
+      )
     }
 }

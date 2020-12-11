@@ -3,7 +3,7 @@ package lila.puzzle
 import play.api.data._
 import play.api.data.Forms._
 
-import lila.common.Form.stringIn
+import lila.common.Form.{ numberIn, stringIn }
 
 object PuzzleForm {
 
@@ -13,6 +13,10 @@ object PuzzleForm {
 
   val vote = Form(
     single("vote" -> boolean)
+  )
+
+  val mobileBcVote = Form(
+    single("vote" -> numberIn(Set(0, 1)))
   )
 
   val themeVote = Form(
