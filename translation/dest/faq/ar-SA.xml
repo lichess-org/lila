@@ -25,6 +25,7 @@
   <string name="howCanIBecomeModerator">كيف يمكنني أن أصبح مشرفاً؟</string>
   <string name="youCannotApply">ليس من الممكن التقدّم بطلب ان تكون مشرف. اذا رأينا شخصاً نعتقد انه سيكون جيداً كمشرف، سنقوم بالتواصل معهم مباشرة.</string>
   <string name="gameplay">أسلوب اللعب</string>
+  <string name="lichessTraining">التدريب في Lichess</string>
   <string name="notRepeatedMoves">لماذا انتهت المباراة بالتعادل على الرغم من أننا لم نقم بتكرير النقلات؟</string>
   <string name="repeatedPositionsThatMatters">تكرار الوضعية ثلاثا عبارة عن تكرار %1$s وليس النقلات. لا تتطلب هذه القاعدة ظهور الوضعية ثلاثا بإعادة النقلات بشكل متتالي.</string>
   <string name="positions">الوضعية</string>
