@@ -500,11 +500,11 @@
   <string name="emailMeALink">Gửi cho tôi một liên kết trong Email</string>
   <string name="currentPassword">Nhập mật khẩu hiện tại</string>
   <string name="newPassword">Nhập mật khẩu mới</string>
-  <string name="newPasswordAgain">Nhập lại mật mã mới</string>
+  <string name="newPasswordAgain">Nhập (lại) mật khẩu mới</string>
   <string name="newPasswordsDontMatch">Mật khẩu mới không khớp nhau</string>
   <string name="newPasswordStrength">Độ mạnh của mật khẩu</string>
-  <string name="clockInitialTime">Thời gian đồng hồ ban đầu</string>
-  <string name="clockIncrement">Thời gian được thêm vào</string>
+  <string name="clockInitialTime">Thời gian ban đầu</string>
+  <string name="clockIncrement">Thời gian được cho thêm</string>
   <string name="privacy">Riêng tư</string>
   <string name="letOtherPlayersFollowYou">Cho phép người khác theo dõi bạn</string>
   <string name="letOtherPlayersChallengeYou">Cho phép người khác thách đấu bạn</string>
@@ -522,7 +522,7 @@
   <string name="difficultyEasy">Dễ</string>
   <string name="difficultyNormal">Bình thường</string>
   <string name="difficultyHard">Khó</string>
-  <string name="xCompetesInY">%1$s cạnh tranh %2$s</string>
+  <string name="xCompetesInY">%1$s hoàn thành trong %2$s</string>
   <string name="xAskedY">%1$s đã yêu cầu %2$s</string>
   <string name="xAnsweredY">%1$s đã trả lời %2$s</string>
   <string name="xCommentedY">%1$s đã bình luận %2$s</string>
@@ -532,10 +532,10 @@
   <string name="defeatVsYInZ">%1$s với %2$s trong %3$s</string>
   <string name="drawVsYInZ">%1$s với %2$s trong %3$s</string>
   <string name="timeline">Dòng thời gian</string>
-  <string name="starting">Bắt dầu đấu:</string>
-  <string name="allInformationIsPublicAndOptional">Tất cả thông tin thì công khai và không bắt buộc.</string>
+  <string name="starting">Bắt đầu đấu:</string>
+  <string name="allInformationIsPublicAndOptional">Tất cả thông tin đều được công khai và không bắt buộc.</string>
   <string name="yourCityRegionOrDepartment">Thành phố, tôn giáo hoặc nơi cư trú của bạn.</string>
-  <string name="biographyDescription">Hãy nói về bạn, bạn thích gì ở cờ, khai cuộc yêu thích, ván cờ yêu thích, thần tượng…</string>
+  <string name="biographyDescription">Giới thiệu gì đó về bạn như sở thích, bạn thích gì ở cờ, khai cuộc yêu thích, ván cờ yêu thích, thần tượng, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="other">Tối đa: %s chữ.</item>
   </plurals>
@@ -548,12 +548,12 @@
   <string name="side">Bên</string>
   <string name="clock">Đồng hồ</string>
   <string name="unauthorizedError">Không được quyền truy cập</string>
-  <string name="noInternetConnection">Không có nối mạng. Bạn vẫn có thể chơi ngoại tuyến từ bảng chọn.</string>
+  <string name="noInternetConnection">Không có kết nối mạng. Bạn vẫn có thể chơi ngoại tuyến từ menu.</string>
   <string name="connectedToLichess">Bây giờ bạn đã kết nối với lichess.org</string>
   <string name="signedOut">Bạn đã đăng xuất.</string>
-  <string name="loginSuccessful">Bây gió bạn đã đăng nhập thành công</string>
+  <string name="loginSuccessful">Đăng nhập thành công</string>
   <string name="playOnTheBoardOffline">Chơi ngoại tuyến, trên bàn cờ.</string>
-  <string name="playOfflineComputer">Chơi ngoiaj tuyến với máy tính</string>
+  <string name="playOfflineComputer">Chơi ngoại tuyến với máy tính</string>
   <string name="opponent">Đối thủ</string>
   <string name="learnMenu">Học</string>
   <string name="studyMenu">Học chơi</string>
@@ -568,7 +568,7 @@
   <string name="shareGameURL">Chia sẻ liên kết game</string>
   <string name="error.required">Mục bắt buộc</string>
   <string name="error.email">Địa chỉ email này không hợp lệ</string>
-  <string name="error.email_acceptable">Địa chỉ email này không được chấp nhận.</string>
+  <string name="error.email_acceptable">Địa chỉ email này không được chấp nhận. Vui lòng kiểm tra và thử lại.</string>
   <string name="error.email_unique">Địa chỉ email này đã được sử dụng</string>
   <string name="error.email_different">Đây đã là địa chỉ email hiện tại của bạn</string>
   <string name="ifRatingIsPlusMinusX">Nếu điểm hệ số thứ hạng trong phạm vi ± %s</string>
@@ -587,11 +587,11 @@
   <string name="videoLibrary">Thư viện video</string>
   <string name="streamersMenu">Các streamer</string>
   <string name="mobileApp">Ứng dụng Điện thoại</string>
-  <string name="webmasters">Các quản trị</string>
+  <string name="webmasters">Các quản trị viên</string>
   <string name="about">Giới thiệu</string>
-  <string name="aboutX">Về %s</string>
+  <string name="aboutX">Giới thiệu về %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s là một máy chủ đánh cờ (%2$s) miễn phí, không quảng cáo, mã nguồn mở.</string>
-  <string name="really">thật sự</string>
+  <string name="really">là thật</string>
   <string name="contribute">Đóng góp</string>
   <string name="termsOfService">Điều khoản dịch vụ</string>
   <string name="sourceCode">Mã Nguồn</string>
