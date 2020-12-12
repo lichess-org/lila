@@ -58,6 +58,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     tree = treeBuild(pgnToTree(data.game.pgn.split(' ')));
     const initialPath = treePath.fromNodeList(treeOps.mainlineNodeList(tree.root));
     vm.mode = 'play';
+    vm.next = undefined;
     vm.round = undefined;
     vm.justPlayed = undefined;
     vm.resultSent = false;
@@ -248,7 +249,6 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   function nextPuzzle(): void {
     if (!vm.next) return location.reload();
     ceval.stop();
-    vm.round = undefined;
     initiate(vm.next);
     redraw();
 
