@@ -11,14 +11,14 @@
   <string name="level">Cấp độ</string>
   <string name="toggleTheChat">Bật/tắt chat</string>
   <string name="toggleSound">Bật/Tắt âm thanh</string>
-  <string name="chat">Tán gẫu</string>
+  <string name="chat">Trò chuyện</string>
   <string name="resign">Bỏ cuộc</string>
   <string name="checkmate">Chiếu hết</string>
   <string name="stalemate">Hòa pat</string>
   <string name="white">Trắng</string>
   <string name="black">Đen</string>
   <string name="randomColor">Chọn màu quân ngẫu nhiên</string>
-  <string name="createAGame">Khởi tạo ván cờ</string>
+  <string name="createAGame">Tạo ván cờ mới</string>
   <string name="whiteIsVictorious">Bên Trắng thắng</string>
   <string name="blackIsVictorious">Bên Đen thắng</string>
   <string name="youPlayTheWhitePieces">Bạn chơi quân trắng</string>
