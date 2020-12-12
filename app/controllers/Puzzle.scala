@@ -286,11 +286,7 @@ final class Puzzle(
         html = notFound,
         api = v => {
           val nb = getInt("nb") getOrElse 15 atLeast 1 atMost 30
-          val loadPuzzles = ctx.me match {
-            case Some(me) => env.puzzle.session.nextPuzzleBatchFor(me, nb)
-            case None     => env.puzzle.anon.getBatchFor(nb)
-          }
-          loadPuzzles flatMap { puzzles =>
+          env.puzzle.batch.nextFor(ctx.me, nb) flatMap { puzzles =>
             env.puzzle.jsonView.bc.batch(puzzles, ctx.me)
           } dmap { Ok(_) }
         }
@@ -302,17 +298,43 @@ final class Puzzle(
     AuthBody(parse.json) { implicit ctx => me =>
       negotiate(
         html = notFound,
-        api = _ =>
-          Ok(
-            Json
-              .obj(
-                "user" -> Json
-                  .obj(
-                    "rating" -> me.perfs.puzzle.intRating,
-                    "recent" -> Json.arr()
-                  )
-              )
-          ).fuccess
+        api = v => {
+          import lila.puzzle.PuzzleForm.bc._
+          ctx.body.body
+            .validate[SolveData]
+            .fold(
+              err => BadRequest(err.toString).fuccess,
+              data =>
+                data.solutions.lastOption
+                  .?? { solution =>
+                    env.puzzle.api.puzzle.find(Puz.numericalId(solution.id)).map2(_ -> Result(solution.win))
+                  }
+                  .flatMap {
+                    case None =>
+                      Ok(
+                        Json.obj(
+                          "user" -> Json.obj("rating" -> me.perfs.puzzle.intRating, "recent" -> Json.arr())
+                        )
+                      ).fuccess
+                    case Some((puzzle, result)) =>
+                      for {
+                        isStudent <- env.clas.api.student.isStudent(me.id)
+                        (round, perf) <- env.puzzle.finisher(
+                          puzzle = puzzle,
+                          theme = PuzzleTheme.mix.key,
+                          user = me,
+                          result = result,
+                          isStudent = isStudent
+                        )
+                        _ = env.puzzle.session.onComplete(round, PuzzleTheme.mix.key)
+                      } yield Ok(
+                        Json.obj(
+                          "user" -> Json.obj("rating" -> perf.intRating, "recent" -> Json.arr())
+                        )
+                      )
+                  }
+            )
+        }
       )
     }
 

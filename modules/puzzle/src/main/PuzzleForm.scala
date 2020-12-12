@@ -28,5 +28,13 @@ object PuzzleForm {
     val vote = Form(
       single("vote" -> numberIn(Set(0, 1)))
     )
+
+    import play.api.libs.json._
+
+    case class Solution(id: Long, win: Boolean)
+    case class SolveData(solutions: List[Solution])
+
+    implicit val SolutionReads  = Json.reads[Solution]
+    implicit val SolveDataReads = Json.reads[SolveData]
   }
 }

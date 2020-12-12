@@ -75,13 +75,6 @@ final class PuzzleSessionApi(
       }
     }
 
-  def nextPuzzleBatchFor(user: User, nb: Int): Fu[List[Puzzle]] =
-    if (nb == 0) fuccess(Nil)
-    else
-      nextPuzzleFor(user, PuzzleTheme.mix.key) flatMap { p =>
-        nextPuzzleBatchFor(user, nb - 1).dmap(p :: _)
-      } nevermind
-
   private def nextPuzzleResult(user: User, session: PuzzleSession): Fu[NextPuzzleResult] =
     colls.path {
       _.aggregateOne() { framework =>
@@ -176,5 +169,4 @@ final class PuzzleSessionApi(
       .nextFor(user, theme, PuzzleTier.Top, difficulty, Set.empty)
       .orFail(s"No puzzle path found for ${user.id}, theme: $theme")
       .dmap(pathId => PuzzleSession(difficulty, pathId, 0))
-
 }

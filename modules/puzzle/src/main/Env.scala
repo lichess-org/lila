@@ -63,6 +63,8 @@ final class Env(
 
   lazy val anon: PuzzleAnon = wire[PuzzleAnon]
 
+  lazy val batch: PuzzleBatch = wire[PuzzleBatch]
+
   lazy val finisher = wire[PuzzleFinisher]
 
   lazy val forms = PuzzleForm
