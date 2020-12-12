@@ -3,6 +3,7 @@ conf/application.conf
 conf/version.conf
 
 logs
+project/metals.sbt
 project/project
 project/target
 public/compiled

@@ -300,27 +300,20 @@ final class Puzzle(
   /* Mobile API: tell the server about puzzles solved while offline */
   def mobileBcBatchSolve =
     AuthBody(parse.json) { implicit ctx => me =>
-      ???
-    // import lila.puzzle.PuzzleBatch._
-    // ctx.body.body
-    //   .validate[SolveData]
-    //   .fold(
-    //     err => BadRequest(err.toString).fuccess,
-    //     data =>
-    //       negotiate(
-    //         html = notFound,
-    //         api = _ =>
-    //           for {
-    //             _     <- env.puzzle.batch.solve(me, data)
-    //             me2   <- env.user.repo byId me.id map (_ | me)
-    //             infos <- env.puzzle userInfos me2
-    //           } yield Ok(
-    //             Json.obj(
-    //               "user" -> lila.puzzle.JsonView.infos(isOldMobile = false)(infos)
-    //             )
-    //           )
-    //       )
-    //   )
+      negotiate(
+        html = notFound,
+        api = _ =>
+          Ok(
+            Json
+              .obj(
+                "user" -> Json
+                  .obj(
+                    "rating" -> me.perfs.puzzle.intRating,
+                    "recent" -> Json.arr()
+                  )
+              )
+          ).fuccess
+      )
     }
 
   def mobileBcVote(nid: Long) =
@@ -329,7 +322,7 @@ final class Puzzle(
         html = notFound,
         api = v => {
           implicit val req = ctx.body
-          env.puzzle.forms.mobileBcVote
+          env.puzzle.forms.bc.vote
             .bindFromRequest()
             .fold(
               jsonFormError,

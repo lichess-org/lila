@@ -167,4 +167,5 @@ final private[puzzle] class PuzzleFinisher(
       case e: Exception => logger.error("finisher", e)
     }
   }
+
 }

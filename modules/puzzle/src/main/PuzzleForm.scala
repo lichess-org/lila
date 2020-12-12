@@ -15,10 +15,6 @@ object PuzzleForm {
     single("vote" -> boolean)
   )
 
-  val mobileBcVote = Form(
-    single("vote" -> numberIn(Set(0, 1)))
-  )
-
   val themeVote = Form(
     single("vote" -> optional(boolean))
   )
@@ -26,4 +22,11 @@ object PuzzleForm {
   val difficulty = Form(
     single("difficulty" -> stringIn(PuzzleDifficulty.all.map(_.key).toSet))
   )
+
+  object bc {
+
+    val vote = Form(
+      single("vote" -> numberIn(Set(0, 1)))
+    )
+  }
 }
