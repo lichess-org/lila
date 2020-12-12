@@ -51,7 +51,7 @@
   <string name="long">Long puzzle</string>
   <string name="longDescription">Three moves to win.</string>
   <string name="mate">Mate</string>
-  <string name="mateDescription">Capture the opponent king and win the game.</string>
+  <string name="mateDescription">Win the game with style.</string>
   <string name="mateIn1">Mate in 1</string>
   <string name="mateIn1Description">Deliver checkmate in one move.</string>
   <string name="mateIn2">Mate in 2</string>
