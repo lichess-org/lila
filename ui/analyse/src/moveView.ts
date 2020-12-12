@@ -21,7 +21,7 @@ export function renderGlyphs(glyphs: Tree.Glyph[]): VNode[] {
 }
 
 function renderEval(e): VNode {
-  return h('eval', e);
+  return h('eval', e.replace("-", "−"));
 }
 
 export function renderIndexText(ply: Ply, withDots?: boolean): string {
