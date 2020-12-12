@@ -13,6 +13,7 @@ import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
 import { ctrl as cevalCtrl, CevalCtrl } from 'ceval';
 import { defined, prop, Prop } from 'common';
+import { defer } from 'common/defer';
 import { makeSanAndPlay } from 'chessops/san';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseSquare, parseUci, makeSquare, makeUci } from 'chessops/util';
@@ -23,7 +24,9 @@ import { storedProp } from 'common/storage';
 
 export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
-  let vm: Vm = {} as Vm;
+  let vm: Vm = {
+    next: defer<PuzzleData>()
+  } as Vm;
   let data: PuzzleData, tree: TreeWrapper, ceval: CevalCtrl;
   const autoNext = storedProp('puzzle.autoNext', false);
   const ground = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
@@ -58,7 +61,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     tree = treeBuild(pgnToTree(data.game.pgn.split(' ')));
     const initialPath = treePath.fromNodeList(treeOps.mainlineNodeList(tree.root));
     vm.mode = 'play';
-    vm.next = undefined;
+    vm.next = defer();
     vm.round = undefined;
     vm.justPlayed = undefined;
     vm.resultSent = false;
@@ -241,15 +244,14 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
         vm.round = res.round;
       }
       if (win) speech.success();
-      vm.next = res.next;
+      vm.next.resolve(res.next);
       redraw();
     });
   }
 
   function nextPuzzle(): void {
-    if (!vm.next) return location.reload();
     ceval.stop();
-    initiate(vm.next);
+    vm.next.promise.then(initiate);
     redraw();
 
     const path = `/training/${data.theme.key}`;
