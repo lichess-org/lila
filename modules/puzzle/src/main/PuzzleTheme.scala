@@ -168,6 +168,31 @@ object PuzzleTheme {
     veryLong
   ).map(_.key)
 
+  val studyChapterIds: Map[PuzzleTheme.Key, String] = List(
+    advancedPawn      -> "sw8VyTe1",
+    attackingF2F7     -> "r1ZAcrjZ",
+    attraction        -> "3arGcr8n",
+    backRankMate      -> "VVzwe5vV",
+    capturingDefender -> "2s7CaC2h",
+    castling          -> "edXPYM70",
+    discoveredAttack  -> "DYcrqEPt",
+    doubleCheck       -> "EXAQJVNm",
+    enPassant         -> "G7ILIqhG",
+    exposedKing       -> "K882yZgm",
+    fork              -> "AUQW7PKS",
+    hangingPiece      -> "y65GVqXf",
+    kingsideAttack    -> "f62Rz8Qb",
+    pin               -> "WCTmpBFb",
+    promotion         -> "aCGe2oRZ",
+    skewer            -> "iF38PGid",
+    clearance         -> "ZZsl7iCi",
+    trappedPiece      -> "ZJQkwFP6",
+    sacrifice         -> "ezFdOVtv",
+    interference      -> "nAojbDwV"
+  ).view.map { case (theme, id) =>
+    theme.key -> id
+  }.toMap
+
   def find(key: String) = byLowerKey get key.toLowerCase
 
   def findOrAny(key: String) = find(key) | mix

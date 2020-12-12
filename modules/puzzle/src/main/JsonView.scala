@@ -30,11 +30,13 @@ final class JsonView(
         .obj(
           "game"   -> gameJson,
           "puzzle" -> puzzleJson(puzzle),
-          "theme" -> Json.obj(
-            "key"  -> theme.key,
-            "name" -> theme.name.txt(),
-            "desc" -> theme.description.txt()
-          )
+          "theme" -> Json
+            .obj(
+              "key"  -> theme.key,
+              "name" -> theme.name.txt(),
+              "desc" -> theme.description.txt()
+            )
+            .add("chapter" -> PuzzleTheme.studyChapterIds.get(theme.key))
         )
         .add("user" -> user.map(userJson))
     }

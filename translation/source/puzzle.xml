@@ -38,4 +38,5 @@
   <string name="easiest">Easiest</string>
   <string name="harder">Harder</string>
   <string name="hardest">Hardest</string>
+  <string name="example">Example</string>
 </resources>

@@ -119,6 +119,7 @@ export interface Theme {
   key: ThemeKey;
   name: string;
   desc: string;
+  chapter?: string;
 }
 
 export interface PuzzleData {
