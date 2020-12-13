@@ -284,6 +284,14 @@
   <string name="whiteCheckmatesInOneMove">Hvítur setir skák og mát í einum leiki</string>
   <string name="blackCheckmatesInOneMove">Svartur setir skák og mát í einum leiki</string>
   <string name="retry">Royn aftur</string>
+  <string name="reconnecting">Bindur saman aftur</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s vinur á alnetinum</item>
+    <item quantity="other">%s vinir á alnetinum</item>
+  </plurals>
+  <string name="noFriendsOnline">Eingir vinir á netinum</string>
+  <string name="findFriends">Finn vinir</string>
+  <string name="favoriteOpponents">Yndismótleikarar</string>
   <string name="follow">Fylg</string>
   <string name="following">Fylgja</string>
   <string name="unfollow">Fylg ikki</string>
@@ -306,9 +314,18 @@
   <string name="challengeToPlay">Bjóða av at telva</string>
   <string name="player">Telvari</string>
   <string name="list">Listi</string>
+  <string name="graph">Strikumynd</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">Minni enn %s minuttur</item>
+    <item quantity="other">Minni enn %s minuttir</item>
+  </plurals>
+  <string name="required">Kravt.</string>
+  <string name="openTournaments">Opnar kappingar</string>
   <string name="duration">Longd</string>
   <string name="winner">Vinnari</string>
   <string name="standing">Støðan</string>
+  <string name="createANewTournament">Stovna eina nýggja kapping</string>
+  <string name="tournamentCalendar">Kappingarkalendari</string>
   <string name="points">Stig</string>
   <string name="wins">Vunnin</string>
   <string name="losses">Tapt</string>
