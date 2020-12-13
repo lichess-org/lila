@@ -101,7 +101,9 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     const node = vm.node;
     const color: Color = node.ply % 2 === 0 ? 'white' : 'black';
     const dests = chessgroundDests(position());
-    const movable = (vm.mode === 'view' || color === vm.pov) ? {
+    const canMove = vm.mode === 'view' || 
+      (color === vm.pov && (!vm.node.children[0] || vm.node.children[0].puzzle == 'fail'));
+    const movable = canMove ? {
       color: dests.size > 0 ? color : undefined,
       dests
     } : {
