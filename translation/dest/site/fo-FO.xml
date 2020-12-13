@@ -330,6 +330,11 @@
   <string name="advancedSettings">Framkomnar stillingar</string>
   <string name="safeTournamentName">Vel eitt trygt og hóskiligt navn til kappingina.</string>
   <string name="inappropriateNameWarning">Er navnið á nakran hátt ósømiligt, kann konta tín verða stongd.</string>
+  <string name="emptyTournamentName">Lat teigin vera tóman, um tú vilt, at kappingin verður nevnd eftir gitnum telvara.</string>
+  <string name="recommendNotTouching">Vit viðmæla ikki at nerta hesar.</string>
+  <string name="fewerPlayers">Um tú setir luttøkufortreytir, verða færri telvarar í kappingini.</string>
+  <string name="showAdvancedSettings">Vís framkomnar stillingar</string>
+  <string name="makePrivateTournament">Ger so kappingin ikki er almen, og avmarka atgongdina við einum loyniorði</string>
   <string name="points">Stig</string>
   <string name="wins">Vunnin</string>
   <string name="losses">Tapt</string>
