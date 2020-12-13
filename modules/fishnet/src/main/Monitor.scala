@@ -31,13 +31,9 @@ final private class Monitor(
   ) = {
     Monitor.success(work, client)
 
-    val threads = result.stockfish.options.threadsInt
-    val userId  = client.userId.value
+    val userId = client.userId.value
 
-    result.stockfish.options.hashInt foreach { monBy.hash(userId).update(_) }
-    result.stockfish.options.threadsInt foreach { monBy.threads(userId).update(_) }
-
-    monBy.totalSecond(userId).increment(sumOf(result.evaluations)(_.time) * threads.|(1) / 1000)
+    monBy.totalSecond(userId).increment(sumOf(result.evaluations)(_.time) / 1000)
 
     if (result.stockfish.isNnue)
       monBy
@@ -84,9 +80,6 @@ final private class Monitor(
 
       instances.groupMapReduce(_.version.value)(_ => 1)(_ + _) foreach { case (v, nb) =>
         version(v).update(nb)
-      }
-      instances.groupMapReduce(_.engines.stockfish.name)(_ => 1)(_ + _) foreach { case (s, nb) =>
-        stockfish(s).update(nb)
       }
     }
 
