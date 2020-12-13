@@ -256,6 +256,7 @@
     <item quantity="one">%s kappingarstig</item>
     <item quantity="other">%s kappingarstig</item>
   </plurals>
+  <string name="backToGame">Aftur til talvið</string>
   <string name="leaderboard">Stigatalva</string>
   <string name="pasteTheFenStringHere">Flyt FEN tekstin higar</string>
   <string name="pasteThePgnStringHere">Flyt PGN tekstin higar</string>
