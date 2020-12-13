@@ -365,6 +365,12 @@
   <string name="savePosition">Goym støðuna</string>
   <string name="loadPosition">Les støðuna inn</string>
   <string name="isPrivate">Innanhýsis</string>
+  <string name="reportXToModerators">Sig fyriskipara frá um %s</string>
+  <string name="profileCompletion">Vangamynd útfylt: %s</string>
+  <string name="xRating">%s styrkital</string>
+  <string name="ifNoneLeaveEmpty">Um einki, lat teig vera tóman</string>
+  <string name="gameCompletionRate">Talv telvd at enda:: %s</string>
+  <string name="profile">Vangamynd</string>
   <string name="firstName">Fornavn</string>
   <string name="lastName">Eftirnavn</string>
   <string name="watchLichessTV">Hygg at Lichess sjónvarpi</string>
