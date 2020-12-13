@@ -349,10 +349,13 @@
   <string name="winRate">Sigrar</string>
   <string name="berserkRate">Berserksstig</string>
   <string name="performance">Avrik</string>
+  <string name="tournamentComplete">Kappingin fullfíggjað</string>
   <string name="movesPlayed">Telvdir leikir</string>
   <string name="whiteWins">Hvítur vinnur</string>
   <string name="blackWins">Svartur vinnur</string>
   <string name="draws">Javnleikur</string>
+  <string name="nextXTournament">Næsta %s kapping:</string>
+  <string name="averageOpponent">Miðalmótleikari</string>
   <string name="membersOnly">Bert brúkarar</string>
   <string name="boardEditor">Talvborðsritil</string>
   <string name="setTheBoard">Set talvborðið upp</string>
