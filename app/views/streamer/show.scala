@@ -17,7 +17,7 @@ object show {
       following: Boolean
   )(implicit ctx: Context) =
     views.html.base.layout(
-      title = xStreamsShogi.text(s.titleName),
+      title = xStreamsShogi.txt(s.titleName),
       moreCss = cssTag("streamer.show"),
       moreJs = frag(
         jsTag("ads.js"),
@@ -37,7 +37,7 @@ method:'post'
       ),
       openGraph = lila.app.ui
         .OpenGraph(
-          title = xStreamsShogi.text(s.titleName),
+          title = xStreamsShogi.txt(s.titleName),
           description =
             shorten(~(s.streamer.headline.map(_.value) orElse s.streamer.description.map(_.value)), 152),
           url = s"$netBaseUrl${routes.Streamer.show(s.user.username)}",
@@ -55,14 +55,14 @@ method:'post'
                 iframe(
                   st.frameborder := "0",
                   frame.scrolling := "no",
-                  src := s"https://www.youtube.com/live_chat?v=$videoId&embed_domain=localhost"
+                  src := s"https://www.youtube.com/live_chat?v=$videoId&embed_domain=$netDomain"
                 )
               case _ =>
                 s.streamer.twitch.map { twitch =>
                   iframe(
                     st.frameborder := "0",
                     frame.scrolling := "yes",
-                    src := s"https://twitch.tv/embed/${twitch.userId}/chat?${(ctx.currentBg != "light") ?? "darkpopout&"}parent=localhost"
+                    src := s"https://twitch.tv/embed/${twitch.userId}/chat?${(ctx.currentBg != "light") ?? "darkpopout&"}parent=$netDomain"
                   )
                 }
             }
@@ -88,7 +88,7 @@ method:'post'
               s.streamer.twitch.map { twitch =>
                 div(cls := "box embed twitch")(
                   iframe(
-                    src := s"https://player.twitch.tv/?channel=${twitch.userId}&parent=localhost",
+                    src := s"https://player.twitch.tv/?channel=${twitch.userId}&parent=$netDomain",
                     frame.allowfullscreen
                   )
                 )

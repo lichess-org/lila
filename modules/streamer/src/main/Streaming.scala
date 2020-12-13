@@ -97,7 +97,7 @@ final private class Streaming(
     val (clientId, secret) = twitchCredentials()
     if (clientId.nonEmpty && secret.nonEmpty && page < 10) {
       val query = List(
-        "game_id" -> "743", // chess
+        "game_id" -> "368914", // shogi
         "first"   -> "100" // max results per page
       ) ::: List(
         pagination.flatMap(_.cursor).map { "after" -> _ }
