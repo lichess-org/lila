@@ -69,9 +69,11 @@ object bits extends Context.ToLang {
         cls := active.active("requests"),
         href := s"${routes.Streamer.index()}?requests=1"
       )("Approval requests"),
+    /*
       a(dataIcon := "", cls := "text", href := "/blog/Wk5z0R8AACMf6ZwN/join-the-lishogi-streamer-community")(
         "Streamer community"
       ),
+    */
       a(href := "/about")(downloadKit())
     )
 
