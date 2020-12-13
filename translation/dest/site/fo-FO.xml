@@ -326,6 +326,10 @@
   <string name="standing">Støðan</string>
   <string name="createANewTournament">Stovna eina nýggja kapping</string>
   <string name="tournamentCalendar">Kappingarkalendari</string>
+  <string name="conditionOfEntry">Luttøkufortreytir:</string>
+  <string name="advancedSettings">Framkomnar stillingar</string>
+  <string name="safeTournamentName">Vel eitt trygt og hóskiligt navn til kappingina.</string>
+  <string name="inappropriateNameWarning">Er navnið á nakran hátt ósømiligt, kann konta tín verða stongd.</string>
   <string name="points">Stig</string>
   <string name="wins">Vunnin</string>
   <string name="losses">Tapt</string>
