@@ -371,8 +371,12 @@
   <string name="ifNoneLeaveEmpty">Um einki, lat teig vera tóman</string>
   <string name="gameCompletionRate">Talv telvd at enda:: %s</string>
   <string name="profile">Vangamynd</string>
+  <string name="editProfile">Broyt vangamynd</string>
   <string name="firstName">Fornavn</string>
   <string name="lastName">Eftirnavn</string>
+  <string name="biography">Ævilýsing</string>
+  <string name="country">Land</string>
+  <string name="socialMediaLinks">Leinki til sosialar miðlar</string>
   <string name="watchLichessTV">Hygg at Lichess sjónvarpi</string>
   <string name="previouslyOnLichessTV">Áður sýnt á Lichess sjónvarpi</string>
   <string name="onlinePlayers">Telvarar á netinum nú</string>
@@ -387,6 +391,7 @@
   <string name="puzzleOfTheDay">Dagsins talvuppgáva</string>
   <string name="clickToSolve">Klikk á at loysa</string>
   <string name="goodMove">Góður leikur</string>
+  <string name="butYouCanDoBetter">Ein betri leikur er.</string>
   <string name="bestMove">Besti leikur</string>
   <string name="keepGoing">Blív við</string>
   <string name="puzzleFailed">Uppgávan miseydnaðist</string>
@@ -430,7 +435,14 @@
   <string name="reply">Svara</string>
   <string name="message">Boð</string>
   <string name="createTheTopic">Stovnað evnið</string>
+  <string name="reportAUser">Sig frá um ein brúkara</string>
+  <string name="user">Brúkari</string>
+  <string name="reason">Orsøk</string>
+  <string name="whatIsIheMatter">Hvat bagir?</string>
   <string name="cheat">Snýt</string>
+  <string name="insult">Háðar</string>
+  <string name="troll">Argar</string>
+  <string name="other">Annað</string>
   <string name="sound">Ljóð</string>
   <string name="none">Einki</string>
   <string name="fast">Skjótt</string>
