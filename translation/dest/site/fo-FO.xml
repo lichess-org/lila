@@ -257,6 +257,14 @@
     <item quantity="other">%s kappingarstig</item>
   </plurals>
   <string name="backToGame">Aftur til talvið</string>
+  <string name="siteDescription">Ókeypis netborin talvambætari. Neyðugt er ikki við skráseting ella ískoytisforriti, og ongar lýsingar eru. Telva móti telduni, vinum ella tilvildarligum mótleikarum.</string>
+  <string name="xStartedStreaming">%s byrjaði at stroyma</string>
+  <string name="averageElo">Miðalstyrkital</string>
+  <string name="location">Staður</string>
+  <string name="filterGames">Síla talv frá</string>
+  <string name="reset">Endurset</string>
+  <string name="apply">Vátta</string>
+  <string name="save">Goym</string>
   <string name="leaderboard">Stigatalva</string>
   <string name="pasteTheFenStringHere">Flyt FEN tekstin higar</string>
   <string name="pasteThePgnStringHere">Flyt PGN tekstin higar</string>
