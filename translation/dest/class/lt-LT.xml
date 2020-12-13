@@ -48,4 +48,8 @@ Slaptažodis: %3$s</string>
   <string name="createDesc4">Jei jis jau turi paskyrą, naudokite pakvietimo formą.</string>
   <string name="lichessUsername">Lichess vartotojo vardas</string>
   <string name="generateANewUsername">Sugeneruoti naują vartotojo vardą</string>
+  <string name="welcomeToClass">Sveiki atvykę į klasę: %s
+Štai nuoroda patekti į klasę.</string>
+  <string name="invitationToClass">Jūs buvote pakviestas prisijungti prie klasės \"%s\" kaip mokinys.</string>
+  <string name="clickToViewInvitation">Spustelėkite nuorodą norėdami peržiūrėti pakvietimą:</string>
 </resources>
