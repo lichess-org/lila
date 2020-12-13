@@ -101,8 +101,9 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     const node = vm.node;
     const color: Color = node.ply % 2 === 0 ? 'white' : 'black';
     const dests = chessgroundDests(position());
+    const nextNode = vm.node.children[0];
     const canMove = vm.mode === 'view' || 
-      (color === vm.pov && (!vm.node.children[0] || vm.node.children[0].puzzle == 'fail'));
+      (color === vm.pov && (!nextNode || nextNode.puzzle == 'fail'));
     const movable = canMove ? {
       color: dests.size > 0 ? color : undefined,
       dests
@@ -122,7 +123,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
       lastMove: uciToLastMove(node.uci)
     };
     if (node.ply >= vm.initialNode.ply) {
-      if (vm.mode !== 'view' && color !== vm.pov) {
+      if (vm.mode !== 'view' && color !== vm.pov && !nextNode) {
         config.movable.color = vm.pov;
         config.premovable.enabled = true;
       }

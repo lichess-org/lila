@@ -32,9 +32,9 @@ function dataAct(e: Event): string | null {
   return target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
 }
 
-function jumpButton(icon: string, effect: string, disabled: boolean): VNode {
+function jumpButton(icon: string, effect: string, disabled: boolean, glowing: boolean = false): VNode {
   return h('button.fbt', {
-    class: { disabled },
+    class: { disabled, glowing },
     attrs: {
       'data-act': effect,
       'data-icon': icon
@@ -44,6 +44,8 @@ function jumpButton(icon: string, effect: string, disabled: boolean): VNode {
 
 function controls(ctrl: Controller): VNode {
   const node = ctrl.vm.node;
+  const nextNode = node.children[0];
+  const goNext = nextNode && nextNode.puzzle != 'fail';
   return h('div.puzzle__controls.analyse-controls', {
     hook: onInsert(el => {
       bindMobileMousedown(el, e => {
@@ -58,8 +60,8 @@ function controls(ctrl: Controller): VNode {
     h('div.jumps', [
       jumpButton('W', 'first', !node.ply),
       jumpButton('Y', 'prev', !node.ply),
-      jumpButton('X', 'next', !node.children[0]),
-      jumpButton('V', 'last', !node.children[0])
+      jumpButton('X', 'next', !nextNode, goNext),
+      jumpButton('V', 'last', !nextNode, goNext)
     ])
   ]);
 }

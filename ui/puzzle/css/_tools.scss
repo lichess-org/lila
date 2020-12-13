@@ -146,4 +146,8 @@
   .fbt {
     @extend %page-text;
   }
+
+  .glowing {
+    color: $c-font-clearer;
+  }
 }
