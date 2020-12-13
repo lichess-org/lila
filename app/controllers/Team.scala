@@ -308,7 +308,7 @@ final class Team(
   def requestForm(id: String) =
     Auth { implicit ctx => me =>
       OptionFuOk(api.requestable(id, me)) { team =>
-        forms.anyCaptcha map { html.team.request.requestForm(team, forms.request, _) }
+        fuccess(html.team.request.requestForm(team, forms.request))
       }
     }
 
@@ -319,10 +319,7 @@ final class Team(
         forms.request
           .bindFromRequest()
           .fold(
-            err =>
-              forms.anyCaptcha map { captcha =>
-                BadRequest(html.team.request.requestForm(team, err, captcha))
-              },
+            err => BadRequest(html.team.request.requestForm(team, err)).fuccess,
             setup =>
               api.createRequest(team, me, setup.message) inject Redirect(
                 routes.Team.show(team.id)
