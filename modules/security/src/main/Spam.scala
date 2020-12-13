@@ -11,13 +11,14 @@ final class Spam(spamKeywords: () => lila.common.Strings) {
   private def referBlacklist =
     List(
       /* While links to other chess websites are welcome,
-       * refer links grant the referrer money,
+       * refer links grant the referrer money or advantages,
        * effectively inducing spam */
       "chess24.com?ref=",
       "chess.com/register?refId=",
       "chess.com/register?ref_id=",
       "chess.com/membership?ref_id=",
-      "decodechess.com/ref/"
+      "decodechess.com/ref/",
+      "aimchess.com/i/"
     )
 
   private lazy val staticBlacklist = List(
