@@ -8,6 +8,7 @@
   <string name="currentGameUrl">Núverandi talv URL</string>
   <string name="normalAnalysis">Vanlig greining</string>
   <string name="hideNextMoves">Fjal næstu leikirnar</string>
+  <string name="noLetPeopleBrowseFreely">Nei: lat fólk kaga frítt</string>
   <string name="start">Byrja</string>
   <string name="save">Goym</string>
 </resources>
