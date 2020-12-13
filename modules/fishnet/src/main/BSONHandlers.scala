@@ -17,10 +17,6 @@ private object BSONHandlers {
     x => BSONString(x.key)
   )
 
-  import Client.{ Engine, Engines }
-  implicit val EngineBSONHandler  = Macros.handler[Engine]
-  implicit val EnginesBSONHandler = Macros.handler[Engines]
-
   import Client.Instance
   implicit val InstanceBSONHandler = Macros.handler[Instance]
 

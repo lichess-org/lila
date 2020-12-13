@@ -15,17 +15,8 @@ object JsonApi {
 
   sealed trait Request {
     val fishnet: Request.Fishnet
-    val stockfish: Request.Engine
 
-    def instance(ip: IpAddress) =
-      Client.Instance(
-        fishnet.version,
-        Client.Engines(
-          stockfish = Client.Engine(stockfish.name)
-        ),
-        ip,
-        DateTime.now
-      )
+    def instance(ip: IpAddress) = Client.Instance(fishnet.version, ip, DateTime.now)
   }
 
   object Request {
@@ -38,36 +29,19 @@ object JsonApi {
         apikey: Client.Key
     )
 
-    sealed trait Engine {
-      def name: String
-    }
-
-    case class BaseEngine(name: String) extends Engine
-
-    case class FullEngine(
-        name: String,
-        options: EngineOptions,
+    case class Stockfish(
         flavor: Option[String]
-    ) extends Engine {
+    ) {
       def isNnue = flavor.has("nnue")
     }
 
-    case class EngineOptions(
-        threads: Option[String],
-        hash: Option[String]
-    ) {
-      def threadsInt = threads flatMap (_.toIntOption)
-      def hashInt    = hash flatMap (_.toIntOption)
-    }
-
     case class Acquire(
-        fishnet: Fishnet,
-        stockfish: BaseEngine
+        fishnet: Fishnet
     ) extends Request
 
     case class PostAnalysis(
         fishnet: Fishnet,
-        stockfish: FullEngine,
+        stockfish: Stockfish,
         analysis: List[Option[Evaluation.OrSkipped]]
     ) extends Request
         with Result {
@@ -79,7 +53,7 @@ object JsonApi {
 
     case class CompleteAnalysis(
         fishnet: Fishnet,
-        stockfish: FullEngine,
+        stockfish: Stockfish,
         analysis: List[Evaluation.OrSkipped]
     ) {
 
@@ -100,7 +74,7 @@ object JsonApi {
 
     case class PartialAnalysis(
         fishnet: Fishnet,
-        stockfish: FullEngine,
+        stockfish: Stockfish,
         analysis: List[Option[Evaluation.OrSkipped]]
     )
 
@@ -179,9 +153,7 @@ object JsonApi {
     implicit val ClientVersionReads = Reads.of[String].map(Client.Version(_))
     implicit val ClientPythonReads  = Reads.of[String].map(Client.Python(_))
     implicit val ClientKeyReads     = Reads.of[String].map(Client.Key(_))
-    implicit val EngineOptionsReads = Json.reads[Request.EngineOptions]
-    implicit val BaseEngineReads    = Json.reads[Request.BaseEngine]
-    implicit val FullEngineReads    = Json.reads[Request.FullEngine]
+    implicit val StockfishReads     = Json.reads[Request.Stockfish]
     implicit val FishnetReads       = Json.reads[Request.Fishnet]
     implicit val AcquireReads       = Json.reads[Request.Acquire]
     implicit val ScoreReads         = Json.reads[Request.Evaluation.Score]
