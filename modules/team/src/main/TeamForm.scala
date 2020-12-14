@@ -35,7 +35,7 @@ final private[team] class TeamForm(
       Fields.gameId,
       Fields.move
     )(TeamSetup.apply)(TeamSetup.unapply)
-      .verifying("This team already exists", d => !teamExists(d).await(2 seconds, "teamExists"))
+      .verifying("team:teamAlreadyExists", d => !teamExists(d).await(2 seconds, "teamExists"))
       .verifying(captchaFailMessage, validateCaptcha _)
   )
 
@@ -61,7 +61,7 @@ final private[team] class TeamForm(
       "message"  -> clean(text(minLength = 30, maxLength = 2000)),
       "password" -> text()
     )(RequestSetup.apply)(RequestSetup.unapply).verifying(
-      "Wrong team password",
+      "team:incorrectTeamPassword",
       d => passwordMatches(d, team.password).await(2 seconds, "passwordMatches")
     )
   ) fill RequestSetup(
