@@ -128,6 +128,7 @@
   <string name="signIn">Rita inn</string>
   <string name="youNeedAnAccountToDoThat">Tær tørvar eina konto at gera hatta</string>
   <string name="signUp">Skráset teg</string>
+  <string name="computersAreNotAllowedToPlay">Teldur og telvarar, ið fáa hjálp frá teldum, hava ikki loyvi at telva. Bannað er at leita sær hjálp frá talvtólum (chess engines), dátugrunnum ella øðrum telvarum, meðan telvað verður. Gev eisini gætur, at tað verður staðiliga frámælt at fáa sær fleiri kontur, og telvarar við nógvum kontum, kunnu verða útihýstir.</string>
   <string name="games">Talv</string>
   <string name="forum">Talvtos</string>
   <string name="players">Telvarar</string>
