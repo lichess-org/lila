@@ -14,6 +14,7 @@ import lila.game.{ AnonCookie, Pov }
 import lila.oauth.{ AccessToken, OAuthScope }
 import lila.socket.Socket.SocketVersion
 import lila.user.{ User => UserModel }
+import lila.setup.ApiConfig
 
 final class Challenge(
     env: Env
@@ -269,23 +270,7 @@ final class Challenge(
             ChallengeIpRateLimit(HTTPRequest ipAddress req, cost = cost) {
               ChallengeUserRateLimit(me.id, cost = cost) {
                 env.user.repo enabledById userId.toLowerCase flatMap { destUser =>
-                  import lila.challenge.Challenge._
-                  val timeControl = config.clock map {
-                    TimeControl.Clock.apply
-                  } orElse config.days.map {
-                    TimeControl.Correspondence.apply
-                  } getOrElse TimeControl.Unlimited
-                  val challenge = lila.challenge.Challenge
-                    .make(
-                      variant = config.variant,
-                      initialFen = config.position,
-                      timeControl = timeControl,
-                      mode = config.mode,
-                      color = config.color.name,
-                      challenger = ChallengeModel.toRegistered(config.variant, timeControl)(me),
-                      destUser = destUser,
-                      rematchOf = none
-                    )
+                  val challenge = makeOauthChallenge(config, me, destUser)
                   (destUser, config.acceptByToken) match {
                     case (Some(dest), Some(strToken)) => apiChallengeAccept(dest, challenge, strToken)
                     case _ =>
@@ -311,6 +296,57 @@ final class Challenge(
         )
     }
 
+  def apiCreateAdmin(origName: String, destName: String) =
+    ScopedBody(_.Challenge.Write) { implicit req => admin =>
+      IfGranted(_.ApiChallengeAdmin, req, admin) {
+        env.user.repo.namePair(origName, destName) flatMap {
+          _ ?? { case (orig, dest) =>
+            env.setup.forms.api.admin
+              .bindFromRequest()
+              .fold(
+                err => BadRequest(apiFormError(err)).fuccess,
+                config => acceptOauthChallenge(dest, makeOauthChallenge(config, orig, dest.some))
+              )
+          }
+        }
+      }
+    }
+
+  private def makeOauthChallenge(config: ApiConfig, orig: UserModel, dest: Option[UserModel]) = {
+    import lila.challenge.Challenge._
+    val timeControl = config.clock map {
+      TimeControl.Clock.apply
+    } orElse config.days.map {
+      TimeControl.Correspondence.apply
+    } getOrElse TimeControl.Unlimited
+    lila.challenge.Challenge
+      .make(
+        variant = config.variant,
+        initialFen = config.position,
+        timeControl = timeControl,
+        mode = config.mode,
+        color = config.color.name,
+        challenger = ChallengeModel.toRegistered(config.variant, timeControl)(orig),
+        destUser = dest,
+        rematchOf = none
+      )
+  }
+
+  private def acceptOauthChallenge(dest: UserModel, challenge: ChallengeModel) =
+    env.challenge.api.oauthAccept(dest, challenge) map {
+      case None => BadRequest(jsonError("Couldn't create game"))
+      case Some(g) =>
+        Ok(
+          Json.obj(
+            "game" -> {
+              env.game.jsonView(g, challenge.initialFen) ++ Json.obj(
+                "url" -> s"${env.net.baseUrl}${routes.Round.watcher(g.id, "white")}"
+              )
+            }
+          )
+        )
+    }
+
   private def apiChallengeAccept(
       dest: UserModel,
       challenge: lila.challenge.Challenge,
@@ -323,16 +359,7 @@ final class Challenge(
       _.fold(
         err => BadRequest(jsonError(err.message)).fuccess,
         scoped =>
-          if (scoped.user is dest)
-            env.challenge.api.oauthAccept(dest, challenge) map {
-              case None => BadRequest(jsonError("Couldn't create game"))
-              case Some(g) =>
-                Ok(
-                  Json.obj(
-                    "game" -> env.game.jsonView(g, challenge.initialFen)
-                  )
-                )
-            }
+          if (scoped.user is dest) acceptOauthChallenge(dest, challenge)
           else BadRequest(jsonError("dest and accept user don't match")).fuccess
       )
     }

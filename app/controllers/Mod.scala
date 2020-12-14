@@ -1,6 +1,11 @@
 package controllers
 
+import ornicar.scalalib.Zero
+import play.api.data._
+import play.api.data.Forms._
+import play.api.mvc._
 import scala.annotation.nowarn
+import views._
 
 import lila.api.{ BodyContext, Context }
 import lila.app._
@@ -10,11 +15,6 @@ import lila.mod.UserSearch
 import lila.report.{ Suspect, Mod => AsMod }
 import lila.security.{ FingerHash, Permission }
 import lila.user.{ User => UserModel, Title }
-import ornicar.scalalib.Zero
-import play.api.data._
-import play.api.data.Forms._
-import play.api.mvc._
-import views._
 
 final class Mod(
     env: Env,
@@ -480,8 +480,10 @@ final class Mod(
     }
 
   def eventStream =
-    OAuthSecure(_.Admin) { _ => _ =>
-      noProxyBuffer(Ok.chunked(env.mod.stream())).fuccess
+    Scoped() { req => me =>
+      IfGranted(_.Admin, req, me) {
+        noProxyBuffer(Ok.chunked(env.mod.stream())).fuccess
+      }
     }
 
   private def withSuspect[A](username: String)(f: Suspect => Fu[A])(implicit zero: Zero[A]): Fu[A] =

@@ -517,7 +517,7 @@
   <string name="other">Diğer</string>
   <string name="reportDescriptionHelp">Raporlamak istediğiniz oyunun linkini yapıştırın ve sorununuzu açıklayın. Lütfen sadece \"hile yapıyor\" gibisinden açıklama yazmayın, hile olduğunu nasıl anladığınızı açıklayın. Rapor edeceğiniz kişiyi ya da oyunu \"İngilizce\" açıklarsanız, daha hızlı sonuca ulaşırsınız.</string>
   <string name="error.provideOneCheatedGameLink">Lütfen hileli gördüğünüz en az 1 adet oyun linki verin.</string>
-  <string name="by">%s yazdı</string>
+  <string name="by">%s oluşturdu</string>
   <string name="thisTopicIsNowClosed">Bu konu kapanmıştır.</string>
   <string name="theming">Ortam</string>
   <string name="blog">Blog</string>
@@ -532,6 +532,7 @@
   <string name="newPassword">Yeni şifre</string>
   <string name="newPasswordAgain">Yeni şifre(tekrar)</string>
   <string name="newPasswordsDontMatch">Yeni parolalar eşleşmiyor</string>
+  <string name="newPasswordStrength">Şifrenin zorluğu</string>
   <string name="clockInitialTime">Maç başlangıç süresi</string>
   <string name="clockIncrement">Hamle başına süre artışı</string>
   <string name="privacy">Gizlilik</string>

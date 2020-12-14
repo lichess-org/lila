@@ -517,8 +517,6 @@ object mon {
       }
       def status(enabled: Boolean) = gauge("fishnet.client.status").withTag("enabled", enabled)
       def version(v: String)       = gauge("fishnet.client.version").withTag("version", v)
-      def stockfish(v: String)     = gauge("fishnet.client.engine.stockfish").withTag("version", v)
-      def python(v: String)        = gauge("fishnet.client.python").withTag("version", v)
     }
     def queueTime(sender: String)     = timer("fishnet.queue.db").withTag("sender", sender)
     val acquire                       = future("fishnet.acquire")
@@ -526,8 +524,6 @@ object mon {
     def oldest(as: String)            = gauge("fishnet.oldest").withTag("for", as)
     object analysis {
       object by {
-        def hash(client: String)     = gauge("fishnet.analysis.hash").withTag("client", client)
-        def threads(client: String)  = gauge("fishnet.analysis.threads").withTag("client", client)
         def movetime(client: String) = histogram("fishnet.analysis.movetime").withTag("client", client)
         def node(client: String)     = histogram("fishnet.analysis.node").withTag("client", client)
         def nps(client: String)      = histogram("fishnet.analysis.nps").withTag("client", client)

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arenaTournaments">Arenos turnyrai</string>
   <string name="isItRated">Ar jis vertinamas?</string>
   <string name="willBeNotified">Jums bus pranešta apie turnyro pradžią, tad laukdami galite saugiai žaisti kitoje kortelėje.</string>
   <string name="isRated">Šis turnyras yra vertinamas ir turės įtakos jūsų reitingui.</string>
@@ -38,4 +39,6 @@ Kai tik baigiate partiją, grįžkite į turnyro laukiamąjį: tuomet būsite su
   </plurals>
   <string name="thisIsPrivate">Tai yra privatus turnyras</string>
   <string name="shareUrl">Pasidalinkite šiuo adresu su žaidėjais: %s</string>
+  <string name="drawStreak">Lygiųjų sekos: kai žaidėjas turi vienas po kitos sekančias lygiąsias arenoje, tik pirmosios, arba trunkančios ilgiau negu %s ėjimų, lygiosios suteiks tašką. Lygiųjų seka gali būti nutraukta tik laimėjimu, ne pralaimėjimu ar lygiosiomis.</string>
+  <string name="history">Arenų istorija</string>
 </resources>

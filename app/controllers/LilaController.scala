@@ -246,14 +246,6 @@ abstract private[controllers] class LilaController(val env: Env)
       OAuthServer.responseHeaders(scopes, Nil) { Unauthorized(jsonError(e.message)) }.fuccess
   }
 
-  protected def OAuthSecure(
-      perm: Permission.Selector
-  )(f: RequestHeader => UserModel => Fu[Result]): Action[Unit] =
-    Scoped() { req => me =>
-      if (isGranted(perm, me)) f(req)(me)
-      else fuccess(forbiddenJsonResult)
-    }
-
   protected def SecureOrScoped(perm: Permission.Selector)(
       secure: Context => UserModel => Fu[Result],
       scoped: RequestHeader => UserModel => Fu[Result]
@@ -274,8 +266,14 @@ abstract private[controllers] class LilaController(val env: Env)
       f: RequestHeader => UserModel => Fu[Result]
   ) =
     Scoped() { req => me =>
-      if (isGranted(perm, me)) f(req)(me) else fuccess(forbiddenJsonResult)
+      IfGranted(perm, req, me)(f(req)(me))
     }(req)
+
+  def IfGranted(perm: Permission.Selector)(f: => Fu[Result])(implicit ctx: Context): Fu[Result] =
+    if (isGranted(perm)) f else authorizationFailed
+
+  def IfGranted(perm: Permission.Selector, req: RequestHeader, me: UserModel)(f: => Fu[Result]): Fu[Result] =
+    if (isGranted(perm, me)) f else authorizationFailed(req)
 
   protected def Firewall[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     if (env.security.firewall accepts ctx.req) a
@@ -475,6 +473,11 @@ abstract private[controllers] class LilaController(val env: Env)
       else fuccess(Results.Forbidden("Authorization failed")),
       api = _ => fuccess(forbiddenJsonResult)
     )
+  protected def authorizationFailed(req: RequestHeader): Fu[Result] =
+    negotiate(
+      html = fuccess(Results.Forbidden("Authorization failed")),
+      api = _ => fuccess(forbiddenJsonResult)
+    )(req)
 
   protected def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(implicit
       req: RequestHeader

@@ -21,6 +21,9 @@
   <string name="createAGame">Ստեղծել նոր խաղ</string>
   <string name="whiteIsVictorious">Սպիտակները հաղթեցին</string>
   <string name="blackIsVictorious">Սևերը հաղթեցին</string>
+  <string name="youPlayTheWhitePieces">Դուք խաղում եք սպիտակ խաղաքարերով։</string>
+  <string name="youPlayTheBlackPieces">Դուք խաղում եք սև խաղաքարերով։</string>
+  <string name="itsYourTurn">Ձեր Քայլն է!</string>
   <string name="kingInTheCenter">Արքան կենտրոնում է</string>
   <string name="threeChecks">Երեք շախ</string>
   <string name="raceFinished">Մրցավազքը ավարտվեց</string>
@@ -58,6 +61,7 @@
   <string name="promoteVariation">Փոխել տարբերակը</string>
   <string name="makeMainLine">Դարձնել հիմնական տարբերակ</string>
   <string name="deleteFromHere">Ջնջել այստեղից</string>
+  <string name="forceVariation">Պարտադրել վարիացիան</string>
   <string name="move">Քայլ</string>
   <string name="variantLoss">Տարբերակը պարտվում է</string>
   <string name="variantWin">Տարբերակը հաղթում է</string>
@@ -79,6 +83,13 @@
     <item quantity="one">Մատ %s հատ կիսաքայլից</item>
     <item quantity="other">Մատ %s հատ կիսաքայլից</item>
   </plurals>
+  <string name="noGameFound">Ոչ մի խաղ չի գտնվել</string>
+  <string name="allSet">Ամեն ինչ պատրաստ է։</string>
+  <string name="importPgn">Ներմուծել PGN</string>
+  <string name="delete">Ջնջել</string>
+  <string name="enable">Միացնել</string>
+  <string name="bestMoveArrow">Լավագույն քայլի սլաքը</string>
+  <string name="memory">Հիշողություն</string>
   <string name="blunders">Կոպիտ սխալներ</string>
   <string name="mistake">Սխալ</string>
   <string name="mistakes">Սխալներ</string>
@@ -114,6 +125,9 @@
   <string name="xPostedInForumY">%1$s գրառել է %2$s ֆորումում</string>
   <string name="latestForumPosts">Վերջին գրառումները ֆորումում</string>
   <string name="players">Խաղացողները</string>
+  <string name="friends">Ընկերներ</string>
+  <string name="today">Այսօր</string>
+  <string name="yesterday">Երեկ</string>
   <string name="minutesPerSide">Րոպեներ ամեն կողմի համար</string>
   <string name="variant">Տարբերակ</string>
   <string name="variants">Տարբերակներ</string>
@@ -162,6 +176,7 @@
   <string name="decline">Մերժել</string>
   <string name="playingRightNow">Այս պահին խաղում են</string>
   <string name="finished">Ավարտվել է</string>
+  <string name="finishesX">ավարտվում է %s</string>
   <string name="abortGame">Կասեցնել խաղը</string>
   <string name="gameAborted">Խաղը կասեցված է</string>
   <string name="standard">Ստանդարտ</string>
@@ -169,14 +184,19 @@
   <string name="mode">Տեսակը</string>
   <string name="casual">Առանց վարկանիշի</string>
   <string name="rated">Վարկանիշային</string>
+  <string name="casualTournament">Առանց վարկանիշի</string>
+  <string name="ratedTournament">Վարկանիշային</string>
   <string name="thisGameIsRated">Խաղը Վարկանիշային է</string>
   <string name="rematch">Կրկին խաղալ</string>
   <string name="rematchOfferSent">Ռևանշի առաջարկը ուղարկված է</string>
+  <string name="rematchOfferSentWhite">Սպիտակներն առաջարկում են ոչ-ոքի</string>
+  <string name="rematchOfferSentBlack">Սևերն առաջարկում են ոչ-ոքի</string>
   <string name="rematchOfferAccepted">Ռևանշի առաջարկը ընդունված է</string>
   <string name="rematchOfferCanceled">Ռևանշի առաջարկը կասեցված է</string>
   <string name="rematchOfferDeclined">Ռևանշի առաջարկը մերժված է</string>
   <string name="cancelRematchOffer">Կասեցնել ռևանշի առաջարկը</string>
   <string name="viewRematch">Ցույց տալ ռեւանշը</string>
+  <string name="confirmMove">Հաստատել քայլը</string>
   <string name="play">Խաղալ</string>
   <string name="inbox">Փոստարկղ</string>
   <string name="chatRoom">Չատի պատուհան</string>
