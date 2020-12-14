@@ -18,6 +18,35 @@ object replay {
     s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}: ${pov.game.opening
       .fold(trans.analysis.txt())(_.opening.ecoName)}"
 
+  // Returns an updated pgn with the rating stripped from the "White"/"Black" fields
+  // and added to the "WhiteElo"/"BlackElo" fields, or just the given pgn if a rating isn't found
+  private[this] def addPgnElo(pgn: String, color: String): String = {
+    if (color != "White" && color != "Black") {
+      return pgn
+    }
+
+    val nameStart: Int      = pgn.indexOf("\n[" + color + " ")
+    val nameEnd: Int        = pgn.indexOf("]\n", nameStart)
+    val nameOpenParen: Int  = pgn.lastIndexOf("(", nameEnd)
+    val nameCloseParen: Int = pgn.lastIndexOf(")", nameEnd)
+    // Checks if either there are no parentheses in the field or if they're in the wrong order
+    if (nameOpenParen == -1 || nameCloseParen == -1 || nameOpenParen >= nameCloseParen) {
+      return pgn
+    }
+
+    val elo: String = pgn.substring(nameOpenParen + 1, nameCloseParen)
+    // Checks that the value in the parentheses is an int
+    if (elo.toIntOption.getOrElse(-1) == -1) {
+      return pgn
+    }
+    // Removes the rating from the "White"/"Black" name field
+    val trimNamePgn: String = pgn.substring(0, nameOpenParen - 1) + pgn.substring(nameCloseParen + 1)
+
+    // Adds the rating to the "WhiteElo"/"BlackElo" field
+    val eloQMark: Int = trimNamePgn.indexOf("?", trimNamePgn.indexOf("\n[" + color + "Elo "))
+    return trimNamePgn.substring(0, eloQMark) + elo + trimNamePgn.substring(eloQMark + 1)
+  }
+
   def apply(
       pov: Pov,
       data: play.api.libs.json.JsObject,
@@ -145,7 +174,10 @@ object replay {
                     strong("PGN"),
                     pgnLinks
                   ),
-                  div(cls := "pgn")(pgn)
+                  div(cls := "pgn")(
+                    if (game.isPgnImport) addPgnElo(addPgnElo(pgn, "White"), "Black")
+                    else pgn
+                  )
                 ),
                 cross.map { c =>
                   div(cls := "ctable")(
