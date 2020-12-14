@@ -45,7 +45,7 @@ function jumpButton(icon: string, effect: string, disabled: boolean, glowing: bo
 function controls(ctrl: Controller): VNode {
   const node = ctrl.vm.node;
   const nextNode = node.children[0];
-  const goNext = nextNode && nextNode.puzzle != 'fail';
+  const goNext = ctrl.vm.mode == 'play' && nextNode && nextNode.puzzle != 'fail';
   return h('div.puzzle__controls.analyse-controls', {
     hook: onInsert(el => {
       bindMobileMousedown(el, e => {
