@@ -9,6 +9,7 @@ case class Team(
     _id: Team.ID, // also the url slug
     name: String,
     location: Option[String],
+    password: Option[String],
     description: String,
     nbMembers: Int,
     enabled: Boolean,
@@ -70,6 +71,7 @@ object Team {
       id: String,
       name: String,
       location: Option[String],
+      password: Option[String],
       description: String,
       open: Boolean,
       createdBy: User
@@ -78,6 +80,7 @@ object Team {
       _id = id,
       name = name,
       location = location,
+      password = password,
       description = description,
       nbMembers = 1,
       enabled = true,

@@ -17,6 +17,7 @@ final private[team] class TeamForm(
   private object Fields {
     val name        = "name"        -> clean(text(minLength = 3, maxLength = 60))
     val location    = "location"    -> optional(clean(text(minLength = 3, maxLength = 80)))
+    val password    = "password"    -> optional(clean(text(maxLength = 60)))
     val description = "description" -> clean(text(minLength = 30, maxLength = 2000))
     val open        = "open"        -> number
     val gameId      = "gameId"      -> text
@@ -28,6 +29,7 @@ final private[team] class TeamForm(
     mapping(
       Fields.name,
       Fields.location,
+      Fields.password,
       Fields.description,
       Fields.open,
       Fields.gameId,
@@ -41,12 +43,14 @@ final private[team] class TeamForm(
     Form(
       mapping(
         Fields.location,
+        Fields.password,
         Fields.description,
         Fields.open,
         Fields.chat
       )(TeamEdit.apply)(TeamEdit.unapply)
     ) fill TeamEdit(
       location = team.location,
+      password = team.password,
       description = team.description,
       open = if (team.open) 1 else 0,
       chat = team.chat
@@ -94,6 +98,7 @@ final private[team] class TeamForm(
 private[team] case class TeamSetup(
     name: String,
     location: Option[String],
+    password: Option[String],
     description: String,
     open: Int,
     gameId: String,
@@ -112,6 +117,7 @@ private[team] case class TeamSetup(
 
 private[team] case class TeamEdit(
     location: Option[String],
+    password: Option[String],
     description: String,
     open: Int,
     chat: Team.ChatFor

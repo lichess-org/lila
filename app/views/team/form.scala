@@ -32,6 +32,7 @@ object form {
                 Seq(0 -> aConfirmationIsRequiredToJoin.txt(), 1 -> anyoneCanJoin.txt())
               )
             },
+            form3.group(form("password"), trans.password(), help = teamPasswordDescriptionForLeader().some)(form3.input(_)),
             form3.group(form("location"), trans.location())(form3.input(_)),
             form3.group(form("description"), trans.description())(form3.textarea(_)(rows := 10)),
             views.html.base.captcha(form, captcha),
@@ -62,6 +63,7 @@ object form {
                 Seq(0 -> aConfirmationIsRequiredToJoin.txt(), 1 -> anyoneCanJoin.txt())
               )
             },
+            form3.group(form("password"), trans.password(), help = teamPasswordDescriptionForLeader().some)(form3.input(_)),
             form3.group(form("location"), trans.location())(form3.input(_)),
             form3.group(form("description"), trans.description())(form3.textarea(_)(rows := 10)),
             form3.group(form("chat"), frag("Team chat")) { f =>

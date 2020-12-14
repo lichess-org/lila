@@ -51,6 +51,7 @@ final class TeamApi(
         id = id,
         name = s.name,
         location = s.location,
+        password = s.password,
         description = s.description,
         open = s.isOpen,
         createdBy = me
@@ -71,6 +72,7 @@ final class TeamApi(
     edit.trim pipe { e =>
       team.copy(
         location = e.location,
+        password = e.password,
         description = e.description,
         open = e.isOpen,
         chat = e.chat
