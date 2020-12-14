@@ -99,6 +99,7 @@
   <string name="openStudy">Lat kanning upp</string>
   <string name="enable">Loyv</string>
   <string name="bestMoveArrow">Pílur fyri besta leik</string>
+  <string name="evaluationGauge">Eftirmetingarmát</string>
   <string name="cpus">CPUir</string>
   <string name="memory">Minni</string>
   <string name="infiniteAnalysis">Óendalig greining</string>
@@ -499,7 +500,9 @@
   <string name="defeat">Tap</string>
   <string name="human">Menniskja</string>
   <string name="computer">Telda</string>
+  <string name="side">Síða</string>
   <string name="clock">Klokka</string>
+  <string name="unauthorizedError">Atgongd er ikki heimilað.</string>
   <string name="noInternetConnection">Einki internetsamband. Tú kanst enn telva offline.</string>
   <string name="connectedToLichess">Tú hevur nú samband við lichess.org</string>
   <string name="signedOut">Tú ert útritaður</string>
@@ -538,6 +541,7 @@
   <string name="aboutX">Um %s</string>
   <string name="lichessTournaments">Lichess kappingar</string>
   <string name="timeBeforeTournamentStarts">Tíð áðrenn kapping byrjar</string>
+  <string name="newTournament">Nýggj kapping</string>
   <string name="returnToTournamentsHomepage">Far aftur til heimasíðu við kappingum</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s %2$s telvari hesa vikuna.</item>
@@ -556,6 +560,8 @@
   <string name="weHaveSentYouAnEmailTo">Vit hava sent %s ein teldupost. Klikk á leinkið í teldupostinum at endurseta títt loyniorð.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Við at skráseta teg, samtykkir tú í at vera bundin av okkara %s.</string>
   <string name="networkLagBetweenYouAndLichess">Netseinkan millum teg og Lichess</string>
+  <string name="shareYourInsightsData">Deil tínar talvinnlitsdátur</string>
+  <string name="withNobody">Við ongan</string>
   <string name="playChessEverywhere">Telva allastaðni</string>
   <string name="asFreeAsLichess">Ókeypis sum Lichess</string>
   <string name="viewTheSolution">Síggj svarið</string>
