@@ -131,6 +131,8 @@
   <string name="computersAreNotAllowedToPlay">Teldur og telvarar, ið fáa hjálp frá teldum, hava ikki loyvi at telva. Bannað er at leita sær hjálp frá talvtólum (chess engines), dátugrunnum ella øðrum telvarum, meðan telvað verður. Gev eisini gætur, at tað verður staðiliga frámælt at fáa sær fleiri kontur, og telvarar við nógvum kontum, kunnu verða útihýstir.</string>
   <string name="games">Talv</string>
   <string name="forum">Talvtos</string>
+  <string name="xPostedInForumY">%1$s legði út á evninum %2$s</string>
+  <string name="latestForumPosts">Seinastu uppsløg</string>
   <string name="players">Telvarar</string>
   <string name="friends">Vinir</string>
   <string name="discussions">Samrøður</string>
@@ -262,6 +264,12 @@
     <item quantity="one">%s kappingarstig</item>
     <item quantity="other">%s kappingarstig</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s kanning</item>
+    <item quantity="other">%s kanningar</item>
+  </plurals>
+  <string name="viewTournament">Hygg at kapping</string>
+  <string name="backToTournament">Aftur til kapping</string>
   <string name="backToGame">Aftur til talvið</string>
   <string name="siteDescription">Ókeypis netborin talvambætari. Neyðugt er ikki við skráseting ella ískoytisforriti, og ongar lýsingar eru. Telva móti telduni, vinum ella tilvildarligum mótleikarum.</string>
   <string name="xStartedStreaming">%s byrjaði at stroyma</string>
@@ -447,7 +455,7 @@
   <string name="whatIsIheMatter">Hvat bagir?</string>
   <string name="cheat">Snýt</string>
   <string name="insult">Háðar</string>
-  <string name="troll">Argar</string>
+  <string name="troll">Trøll</string>
   <string name="other">Annað</string>
   <string name="reportDescriptionHelp">Flyt leinkið til talvið ella talvini higar, og greið frá, hvat bagir atburðinum hjá brúkaranum. Skriva ikki bert \"hann snýtir\", men sig okkum, hvussu tú komst til hesa niðurstøðu. Fráboðan tín verður skjótari viðgjørd, um hon verður skrivað á enskum.</string>
   <string name="error.provideOneCheatedGameLink">Útvega leinki til í minsta lagi eitt talv, har snýtt varð.</string>
@@ -456,6 +464,7 @@
   <string name="blog">Bloggur</string>
   <string name="questionsAndAnswers">Spurningar &amp; Svør</string>
   <string name="notes">Upprit</string>
+  <string name="typePrivateNotesHere">Skriva tíni egnu upprit her</string>
   <string name="sound">Ljóð</string>
   <string name="none">Einki</string>
   <string name="fast">Skjótt</string>
