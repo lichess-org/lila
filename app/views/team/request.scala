@@ -17,6 +17,14 @@ object request {
 
     val title = s"${joinTeam.txt()} ${t.name}"
 
+    val passwordFrag = {
+      if (t.password == None || t.password.get == "") emptyFrag
+      else
+        form3.group(form("password"), teamPassword(), help = teamPasswordDescriptionForRequester().some)(
+          form3.input(_)
+        )
+    }
+
     views.html.base.layout(
       title = title,
       moreCss = cssTag("team")
@@ -28,9 +36,7 @@ object request {
           p(style := "margin:2em 0")(richText(t.description)),
           postForm(cls := "form3", action := routes.Team.requestCreate(t.id))(
             form3.group(form("message"), trans.message())(form3.textarea(_)()),
-            form3.group(form("password"), teamPassword(), help = teamPasswordDescriptionForRequester().some)(
-              form3.input(_)
-            ),
+            passwordFrag,
             form3.globalError(form),
             p(willBeReviewed()),
             form3.actions(
