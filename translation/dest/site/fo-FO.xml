@@ -94,6 +94,9 @@
   <string name="importPgn">Les inn PGN</string>
   <string name="delete">Strika</string>
   <string name="deleteThisImportedGame">Strika hetta innlisna talvið?</string>
+  <string name="replayMode">Endurspælsháttur</string>
+  <string name="realtimeReplay">Vanlig tíð</string>
+  <string name="openStudy">Lat kanning upp</string>
   <string name="cpus">CPUir</string>
   <string name="memory">Minni</string>
   <string name="infiniteAnalysis">Óendalig greining</string>
