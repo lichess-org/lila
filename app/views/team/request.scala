@@ -31,6 +31,7 @@ object request {
             form3.group(form("password"), teamPassword(), help = teamPasswordDescriptionForRequester().some)(
               form3.input(_)
             ),
+            form3.globalError(form),
             p(willBeReviewed()),
             form3.actions(
               a(href := routes.Team.show(t.slug))(trans.cancel()),

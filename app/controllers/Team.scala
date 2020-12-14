@@ -308,7 +308,7 @@ final class Team(
   def requestForm(id: String) =
     Auth { implicit ctx => me =>
       OptionFuOk(api.requestable(id, me)) { team =>
-        fuccess(html.team.request.requestForm(team, forms.request))
+        fuccess(html.team.request.requestForm(team, forms.request(team)))
       }
     }
 
@@ -316,7 +316,8 @@ final class Team(
     AuthBody { implicit ctx => me =>
       OptionFuResult(api.requestable(id, me)) { team =>
         implicit val req = ctx.body
-        forms.request
+        forms
+          .request(team)
           .bindFromRequest()
           .fold(
             err => BadRequest(html.team.request.requestForm(team, err)).fuccess,

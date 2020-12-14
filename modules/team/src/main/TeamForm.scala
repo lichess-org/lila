@@ -56,12 +56,17 @@ final private[team] class TeamForm(
       chat = team.chat
     )
 
-  val request = Form(
+  def request(team: Team) = Form(
     mapping(
-      "message" -> clean(text(minLength = 30, maxLength = 2000))
-    )(RequestSetup.apply)(RequestSetup.unapply)
+      "message"  -> clean(text(minLength = 30, maxLength = 2000)),
+      "password" -> text()
+    )(RequestSetup.apply)(RequestSetup.unapply).verifying(
+      "Wrong team password",
+      d => passwordMatches(d, team.password).await(2 seconds, "passwordMatches")
+    )
   ) fill RequestSetup(
-    message = "Hello, I would like to join the team!"
+    message = "Hello, I would like to join the team!",
+    password = ""
   )
 
   val apiRequest = Form(single("message" -> optional(clean(text(minLength = 30, maxLength = 2000)))))
@@ -93,6 +98,13 @@ final private[team] class TeamForm(
 
   private def teamExists(setup: TeamSetup) =
     teamRepo.coll.exists($id(Team nameToId setup.trim.name))
+
+  private def passwordMatches(setup: RequestSetup, password: Option[String]) = {
+    if (password == None) fuTrue
+    else if (password.get == setup.password) fuTrue
+    else
+      fuFalse
+  }
 }
 
 private[team] case class TeamSetup(
@@ -133,5 +145,6 @@ private[team] case class TeamEdit(
 }
 
 private[team] case class RequestSetup(
-    message: String
+    message: String,
+    password: String
 )
