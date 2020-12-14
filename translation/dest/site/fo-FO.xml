@@ -533,17 +533,24 @@
   <string name="aboutX">Um %s</string>
   <string name="lichessTournaments">Lichess kappingar</string>
   <string name="timeBeforeTournamentStarts">Tíð áðrenn kapping byrjar</string>
+  <string name="returnToTournamentsHomepage">Far aftur til heimasíðu við kappingum</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s %2$s telvari hesa vikuna.</item>
     <item quantity="other">%1$s %2$s telvarar hesa vikuna.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Títt %1$s styrkital er %2$s.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Tú ert betri enn %1$s av %2$s telvarum.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s er betri enn %2$s av %3$s telvarum.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Tú hevur ikki eitt grundfest %s styrkital.</string>
   <string name="yourRating">Títt styrkital</string>
+  <string name="cumulative">Vøkstur</string>
+  <string name="glicko2Rating">Glicko-2 styrkital</string>
   <string name="checkYourEmail">Kanna tín teldupost</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Vit hava sent tær teldupost. Klikk á leinkið í teldupostinum at virkja tína kontu.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Um tú ikki sært teldupostin, kanna onnur støð, hann kann vera. Eitt nú í junk, spam, social ella øðrum faldarum.</string>
   <string name="weHaveSentYouAnEmailTo">Vit hava sent %s ein teldupost. Klikk á leinkið í teldupostinum at endurseta títt loyniorð.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Við at skráseta teg, samtykkir tú í at vera bundin av okkara %s.</string>
+  <string name="networkLagBetweenYouAndLichess">Netseinkan millum teg og Lichess</string>
   <string name="playChessEverywhere">Telva allastaðni</string>
   <string name="asFreeAsLichess">Ókeypis sum Lichess</string>
   <string name="viewTheSolution">Síggj svarið</string>
