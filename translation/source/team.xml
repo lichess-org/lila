@@ -44,4 +44,6 @@ Players who don't like receiving your messages might leave the team.</string>
   <string name="leadersChat">Leaders chat</string>
   <string name="closeTeam">Close team</string>
   <string name="closeTeamDescription">Closes the team forever.</string>
+  <string name="teamPasswordDescriptionForLeader">You can set a password and send it to your guests to avoid spams.</string>
+  <string name="teamPasswordDescriptionForRequester">You cannot request access unless you know the team password.</string>
 </resources>
