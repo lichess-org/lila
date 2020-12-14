@@ -90,6 +90,7 @@
   <string name="enable">Միացնել</string>
   <string name="bestMoveArrow">Լավագույն քայլի սլաքը</string>
   <string name="memory">Հիշողություն</string>
+  <string name="infiniteAnalysis">Անվերջ վերլուծություն</string>
   <string name="blunders">Կոպիտ սխալներ</string>
   <string name="mistake">Սխալ</string>
   <string name="mistakes">Սխալներ</string>
@@ -200,6 +201,7 @@
   <string name="play">Խաղալ</string>
   <string name="inbox">Փոստարկղ</string>
   <string name="chatRoom">Չատի պատուհան</string>
+  <string name="loginToChat">Մուտք գործել չատ</string>
   <string name="spectatorRoom">Հանդիսատեսների սենյակ</string>
   <string name="composeMessage">Գրել հաղորդագրություն</string>
   <string name="noNewMessages">Դեռևս նամակներ չունեք</string>
@@ -250,11 +252,13 @@
   <string name="filterGames">Զտել խաղերը</string>
   <string name="reset">Վերսկսել</string>
   <string name="apply">Կիրառել</string>
+  <string name="save">Պահպանել</string>
   <string name="leaderboard">Առաջատարներ</string>
   <string name="pasteTheFenStringHere">տեղադրել FEN տեքստը այստեղ</string>
   <string name="pasteThePgnStringHere">տեղադրել PGN-տողը այստեղ</string>
   <string name="fromPosition">Դիրքից</string>
   <string name="continueFromHere">Շարունակել այստեղից</string>
+  <string name="toStudy">Սովորել</string>
   <string name="importGame">Խաղ ներմուծել</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s ներմուծված խաղեր</item>
