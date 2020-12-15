@@ -13,5 +13,4 @@
   <string name="logInToLichess">Մուտք գործել lichess.org, %s</string>
   <string name="common_orPaste">Քլիքը չի աշխատում? Փորձում ենք նորից դնել այն քո բրաուզերում:</string>
   <string name="common_note">Սա ծառայության էլփոստ է, որը վերաբերում է ձեր կողմից %sի օգտագործմանը.</string>
-  <string name="common_contact">Օգտվեք մեզ հետ կապվելու համար</string>
 </resources>
