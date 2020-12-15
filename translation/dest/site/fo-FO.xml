@@ -590,6 +590,8 @@
   <string name="returnToSimulHomepage">Far aftur til fjøltelvingarheimasíðu</string>
   <string name="aboutSimul">Í fjøltalvum telvar einstakur telvari móti fleiri telvarum samstundis.</string>
   <string name="aboutSimulImage">Móti 50 mótleikarum vann Fischer 47 talv, telvaði 2 jøvn og tapti 1.</string>
+  <string name="aboutSimulRealLife">Hugskotið er tikið úr veruliga heiminum, har verturin fyri fjøltalvum gongur frá einum borði til tað næsta at flyta ein einstakan leik.</string>
+  <string name="aboutSimulRules">Tá ið fjøltalvið byrjar, fer hvør leikari undir eitt talv móti vertinum, ið sleppur at telva við hvíta fólkinum. Fjøltalvið endar, tá ið øll talv eru liðug.</string>
   <string name="lichessTournaments">Lichess kappingar</string>
   <string name="timeBeforeTournamentStarts">Tíð áðrenn kapping byrjar</string>
   <string name="newTournament">Nýggj kapping</string>
