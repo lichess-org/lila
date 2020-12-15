@@ -38,6 +38,7 @@
   <string name="castlingRules">請確定后的移動的規則</string>
   <string name="noRatingPoints">不會得到評分</string>
   <string name="errorPage">錯誤頁面</string>
+  <string name="reportErrorPage">如果你遇到了錯誤頁面，你可以回報它:</string>
   <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">懲處上訴</string>
   <string name="engineAppeal">作弊或電腦操作記號</string>
   <string name="sendAppealTo">您可以將上訴寄到%s</string>
