@@ -15,7 +15,7 @@ import * as game from 'game';
 import { renderSan, renderPieces, renderBoard, styleSetting, pieceSetting, prefixSetting } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
-import { castlingFlavours, supportedVariant, Style } from 'nvui/chess';
+import { castlingFlavours, supportedVariant, Style, PieceStyle, PrefixStyle } from 'nvui/chess';
 import { commands } from 'nvui/command';
 import * as sound from '../sound';
 
@@ -121,7 +121,7 @@ lichess.RoundNVUI = function(redraw: Redraw) {
             // unsure if a bad thing?
             const $buttons = $board.find('button');
             $buttons.on('click', onPieceSelect());
-            console.log($buttons);
+            $buttons.on('keydown', arrowKeyHandler());
           })
         }, renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color, pieceStyle.get(), prefixStyle.get())),
         h('h2', 'Settings'),
@@ -162,6 +162,46 @@ lichess.RoundNVUI = function(redraw: Redraw) {
 }
 
 const promotionRegex = /^([a-h]x?)?[a-h](1|8)=\w$/;
+
+function arrowKeyHandler() {
+  return (ev: KeyboardEvent) => {
+    const $currBtn = $(ev.target as HTMLButtonElement);
+    switch(ev.key) {
+      case 'ArrowUp':
+        ev.preventDefault();
+        const $bottomCol = $currBtn.parent().index();
+        const $upSq = $($currBtn.closest('tr').prev().children().get($bottomCol)).children().get(0);
+        if ($upSq) {
+          $upSq.focus();
+        }
+        break;
+      case 'ArrowDown':
+        ev.preventDefault();
+        const $topCol = $currBtn.parent().index();
+        const $downSq = $($currBtn.closest('tr').next().children().get($topCol)).children().get(0);
+        if ($downSq) {
+          $downSq.focus();
+        }
+        break;
+      case 'ArrowLeft':
+        ev.preventDefault();
+        const $leftSq = $currBtn.parent().prev().children().get(0);
+        if ($leftSq) {
+          $leftSq.focus();
+        }
+        break;
+      case 'ArrowRight':
+        ev.preventDefault();
+        const $rightSq = $currBtn.parent().next().children().get(0);
+        if ($rightSq) {
+          $rightSq.focus();
+          ev.preventDefault();
+        }
+        break;
+    }
+    
+  };
+}
 
 function onPieceSelect() {
   return (ev: MouseEvent) => {
