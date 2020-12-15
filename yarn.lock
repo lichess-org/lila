@@ -4128,20 +4128,20 @@ stdout-stream@^1.4.0:
   dependencies:
     readable-stream "^2.0.1"
 
-stockfish-mv.wasm@=0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/stockfish-mv.wasm/-/stockfish-mv.wasm-0.4.0.tgz#0a33aeb4e7f2c3c6abfec10b84fbba5b8cddaa5b"
-  integrity sha512-ZgW8T4iYP90Z2PZOJ3IdzmO5bW92IR3kjvX+287ZxdZq3FgBGWjmbg/rfbcNgme9n3IRx2qlVnhiMEgZE66DEw==
+stockfish-mv.wasm@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/stockfish-mv.wasm/-/stockfish-mv.wasm-0.5.0.tgz#79a700850267296fce4af4363072f37db173360b"
+  integrity sha512-MKDCakp6vVvvf5FlLoM6gNUI4o8UoN/c8smAoc8N7bb26cmRtNqrsEG5YExDkiGy/B6dRouZBkZIR96vjbmkMg==
 
 stockfish.js@^10.0.2:
   version "10.0.2"
   resolved "https://registry.yarnpkg.com/stockfish.js/-/stockfish.js-10.0.2.tgz#c8206aa3b0290171ace52b463a74112ea1f83989"
   integrity sha512-treB3AYcdvRJ9SDPOyL0R2NcEAtQgG432nStfRzR4wzVELGQ6iVoeBHwvirHTfocNOTims7XNkK3SADaocsJmQ==
 
-stockfish.wasm@=0.8.0:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/stockfish.wasm/-/stockfish.wasm-0.8.0.tgz#99efc6eb7e47f3c14b03dfef1aa7991115a16650"
-  integrity sha512-vcvOZY86ifxnNn5NivG1PoG2JvLaa8T8y2ERa5WvzdDr5HC2UGs8ty7gzZd0aHVtPJEfl2+S6Vm0ycRioKDOUA==
+stockfish.wasm@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/stockfish.wasm/-/stockfish.wasm-0.9.0.tgz#b3b6b420216d3f07f3b9d39a8aa40cc4562b58c1"
+  integrity sha512-Y5nqyi+RgV1VCEfHpK1iryK9NlKXCaNku5rvr6JIM8LHHWw2tnDAPldShysmtvRl9FBFKCchtlLR6ciCDgBAyw==
 
 stream-combiner@~0.0.4:
   version "0.0.4"
