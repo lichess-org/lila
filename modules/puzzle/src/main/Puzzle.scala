@@ -27,7 +27,7 @@ case class Puzzle(
     } yield Forsyth >> sit2
   } err s"Can't apply puzzle $id first move"
 
-  def color = fenAfterInitialMove.color | chess.White
+  def color = fen.color.fold[chess.Color](chess.White)(!_)
 }
 
 object Puzzle {
