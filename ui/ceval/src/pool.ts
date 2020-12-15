@@ -72,32 +72,31 @@ class WebWorker extends AbstractWorker {
 }
 
 class ThreadedWasmWorker extends AbstractWorker {
-  static instances: {Stockfish?: any, StockfishMv?: any} = {};
-
-  private sf?: any;
+  private static protocols: {Stockfish?: Promise<Protocol>, StockfishMv?: Promise<Protocol>} = {};
+  private static sf: {Stockfish?: any, StockfishMv?: any} = {};
+  private name: 'Stockfish' | 'StockfishMv';
 
   boot(): Promise<Protocol> {
-    const name = officialStockfish(this.workerOpts.variant) ? 'Stockfish' : 'StockfishMv';
-    ThreadedWasmWorker.instances[name] ||= lichess.loadScript(this.url, {sameDomain: true}).then(_ => window[name]());
-    return ThreadedWasmWorker.instances[name].then((sf: any) => {
-      this.sf = sf;
+    this.name = officialStockfish(this.workerOpts.variant) ? 'Stockfish' : 'StockfishMv';
+    ThreadedWasmWorker.protocols[this.name] ||= lichess.loadScript(this.url, {sameDomain: true}).then(_ => window[this.name]()).then((sf: any) => {
+      ThreadedWasmWorker.sf[this.name] = sf;
       const protocol = new Protocol(this.send.bind(this), this.workerOpts);
       sf.addMessageListener(protocol.received.bind(protocol));
       protocol.init();
       return protocol;
     });
+    return ThreadedWasmWorker.protocols[this.name]!;
   }
 
   destroy() {
     // Terminated instances to not get freed reliably
     // (https://github.com/ornicar/lila/issues/7334). So instead of
     // destroying, just stop instances and keep them around for reuse.
-    this.send('stop');
-    this.sf = undefined;
+    this.protocol.sync?.stop();
   }
 
   send(cmd: string) {
-    this.sf?.postMessage(cmd);
+    ThreadedWasmWorker.sf[this.name]?.postMessage(cmd);
   }
 }
 
