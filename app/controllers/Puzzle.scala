@@ -104,7 +104,7 @@ final class Puzzle(
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
       OptionFuResult(env.puzzle.api.puzzle find id) { puzzle =>
-        lila.mon.puzzle.round.attempt(puzzle.mate, ctx.isAuth, "old")
+        lila.mon.puzzle.round.attempt(puzzle.mate, ctx.isAuth, "old").increment()
         env.puzzle.forms.round
           .bindFromRequest()
           .fold(
@@ -143,7 +143,7 @@ final class Puzzle(
       NoBot {
         implicit val req = ctx.body
         OptionFuResult(env.puzzle.api.puzzle find id) { puzzle =>
-          lila.mon.puzzle.round.attempt(puzzle.mate, ctx.isAuth, "new")
+          lila.mon.puzzle.round.attempt(puzzle.mate, ctx.isAuth, "new").increment()
           env.puzzle.forms.round
             .bindFromRequest()
             .fold(
