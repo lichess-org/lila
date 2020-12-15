@@ -511,6 +511,22 @@
   <string name="xCommentedY">%1$s viðmerkti %2$s</string>
   <string name="victory">Sigur</string>
   <string name="defeat">Tap</string>
+  <string name="victoryVsYInZ">%1$s móti %2$s í %3$s</string>
+  <string name="defeatVsYInZ">%1$s móti %2$s í %3$s</string>
+  <string name="drawVsYInZ">%1$s móti %2$s í %3$s</string>
+  <string name="timeline">Tíðarlinja</string>
+  <string name="starting">Byrjar:</string>
+  <string name="allInformationIsPublicAndOptional">Allar upplýsingar eru almennar og valfríar.</string>
+  <string name="yourCityRegionOrDepartment">Tín bygd, býur ella títt øki.</string>
+  <string name="biographyDescription">Greið frá um teg sjálva/n, og um tíni áhugamál, hvat tær dámar við talvi, hvørji yndisbyrjanartalv tíni eru, telvarar o.s.fr.</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="one">Í mesta lagi: %s bókstavur.</item>
+    <item quantity="other">Í mesta lagi: %s bókstavir.</item>
+  </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s forðaður</item>
+    <item quantity="other">%s forðaðir</item>
+  </plurals>
   <string name="human">Menniskja</string>
   <string name="computer">Telda</string>
   <string name="side">Síða</string>
