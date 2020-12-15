@@ -820,6 +820,9 @@
   <string name="thankYouForReading">Takk fyri, at tú las hetta!</string>
   <string name="searchOrStartNewDiscussion">Leita eftir samrøðu ella byrja eina nýggja</string>
   <string name="edit">Broyt</string>
+  <string name="ultraBulletDesc">Vitleyst skjót talv: styttri enn 30 sekund</string>
+  <string name="bulletDesc">Ógvuliga skjót talv: styttri enn 3 minuttir</string>
+  <string name="blitzDesc">Skjót talv: 3 til 8 minuttir</string>
   <string name="important">Umráðandi</string>
   <string name="yourQuestionMayHaveBeenAnswered">Spurningur tín hevur kanska longu eitt svar %1$s</string>
 </resources>
