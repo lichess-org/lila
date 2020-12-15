@@ -219,6 +219,11 @@
   <string name="gameAborted">Talvið er endað</string>
   <string name="standard">Vanligt</string>
   <string name="unlimited">Óavmarkað</string>
+  <string name="mode">Støða</string>
+  <string name="casual">Óformelt</string>
+  <string name="rated">Styrkismett</string>
+  <string name="casualTournament">Óformelt</string>
+  <string name="ratedTournament">Styrkismett</string>
   <string name="thisGameIsRated">Hetta talv verður styrkimett</string>
   <string name="rematch">Umaftur</string>
   <string name="rematchOfferSent">Tilboð um nýtt talv sent</string>
@@ -696,6 +701,10 @@
   <string name="revokeAllSessions">strika allar setur (sessions)</string>
   <string name="playChessEverywhere">Telva allastaðni</string>
   <string name="asFreeAsLichess">Ókeypis sum Lichess</string>
+  <string name="builtForTheLoveOfChessNotMoney">Bygt við alski til telving, ikki pengar</string>
+  <string name="everybodyGetsAllFeaturesForFree">Øll fáa allar hentleikar ókeypis</string>
+  <string name="zeroAdvertisement">Ongar lýsingar</string>
+  <string name="fullFeatured">Við øllum hentleikum</string>
   <string name="viewTheSolution">Síggj svarið</string>
   <string name="followAndChallengeFriends">Fylg vinum og bjóða teimum av</string>
   <plurals name="availableInNbLanguages">
