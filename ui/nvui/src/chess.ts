@@ -6,7 +6,7 @@ import { invRanks, allKeys } from 'chessground/util';
 import { Setting, makeSetting } from './setting';
 import { files } from 'chessground/types';
 
-export type Style = 'uci' | 'san' | 'literate' | 'literate_verbose' | 'nato' | 'anna';
+export type Style = 'uci' | 'san' | 'literate' | 'nato' | 'anna';
 export type PieceStyle = 'letter' | 'white uppercase letter' | 'name' | 'white uppercase name';
 export type PrefixStyle = 'letter' | 'name' | 'none';
 export type PositionStyle = 'before' | 'after' | 'none';
@@ -37,7 +37,6 @@ export function styleSetting(): Setting<Style> {
       ['san', 'SAN: Nxf3'],
       ['uci', 'UCI: g1f3'],
       ['literate', 'Literate: knight takes f 3'],
-      ['literate verbose', 'Verbose Literate: knight g 1 takes queen f 3'],
       ['anna', 'Anna: knight takes felix 3'],
       ['nato', 'Nato: knight takes foxtrot 3'],
     ],
