@@ -115,7 +115,7 @@ lichess.RoundNVUI = function(redraw: Redraw) {
           game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
         )),
         h('h2', 'Board'),
-        h('table.board', {
+        h('div.board', {
           hook: onInsert(el => {
             const $board = $(el as HTMLTableElement);
             // looking for specific elements tightly couples this file and nvui/chess.ts
@@ -175,7 +175,7 @@ function arrowKeyHandler() {
       case 'ArrowUp':
         ev.preventDefault();
         const $bottomCol = $currBtn.parent().index();
-        const $upSq = $($currBtn.closest('tr').prev().children().get($bottomCol)).children().get(0);
+        const $upSq = $($currBtn.parent().parent().prev().children().get($bottomCol)).children().get(0);
         if ($upSq) {
           $upSq.focus();
         }
@@ -183,7 +183,7 @@ function arrowKeyHandler() {
       case 'ArrowDown':
         ev.preventDefault();
         const $topCol = $currBtn.parent().index();
-        const $downSq = $($currBtn.closest('tr').next().children().get($topCol)).children().get(0);
+        const $downSq = $($currBtn.parent().parent().next().children().get($topCol)).children().get(0);
         if ($downSq) {
           $downSq.focus();
         }

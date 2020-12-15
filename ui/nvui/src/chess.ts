@@ -6,7 +6,7 @@ import { invRanks, allKeys } from 'chessground/util';
 import { Setting, makeSetting } from './setting';
 import { files } from 'chessground/types';
 
-export type Style = 'uci' | 'san' | 'literate' | 'nato' | 'anna';
+export type Style = 'uci' | 'san' | 'literate' | 'literate_verbose' | 'nato' | 'anna';
 export type PieceStyle = 'letter' | 'white uppercase letter' | 'name' | 'white uppercase name';
 export type PrefixStyle = 'letter' | 'name' | 'none';
 export type PositionStyle = 'before' | 'after' | 'none';
@@ -37,8 +37,9 @@ export function styleSetting(): Setting<Style> {
       ['san', 'SAN: Nxf3'],
       ['uci', 'UCI: g1f3'],
       ['literate', 'Literate: knight takes f 3'],
+      ['literate verbose', 'Verbose Literate: knight g 1 takes queen f 3'],
       ['anna', 'Anna: knight takes felix 3'],
-      ['nato', 'Nato: knight takes foxtrot 3']
+      ['nato', 'Nato: knight takes foxtrot 3'],
     ],
     default: 'anna', // all the rage in OTB blind chess tournaments
     storage: lichess.storage.make('nvui.moveNotation')
@@ -178,6 +179,7 @@ export function renderBoard(pieces: Pieces, pov: Color, pieceStyle: PieceStyle, 
         return orig;
     }
   }
+  /*
   const doFileHeaders = (pov: Color): VNode => {
     let fileHeaders = [
       h('th'),
@@ -189,7 +191,7 @@ export function renderBoard(pieces: Pieces, pov: Color, pieceStyle: PieceStyle, 
   }
   const doRankHeader = (rank: Rank): VNode => {
     return h('th', {attrs: {scope: 'row'}}, rank);
-  }
+  }*/
   const doPieceButton = (rank: Rank, file: File, text: string): VNode => {
     return h('button', {
       attrs: { rank: rank, file: file }
@@ -202,28 +204,28 @@ export function renderBoard(pieces: Pieces, pov: Color, pieceStyle: PieceStyle, 
       const letter = renderPieceStyle(piece.color === 'white' ? letters[piece.role].toUpperCase() : letters[piece.role]);
       const prefix = renderPrefixStyle(piece.color);
       const text = renderPositionStyle(rank, file, prefix + letter);
-      return h('td', doPieceButton(rank, file, text));
+      return h('span', doPieceButton(rank, file, text));
     } else {
       const letter = (key.charCodeAt(0) + key.charCodeAt(1)) % 2 ? '-' : '+';
       const text = renderPositionStyle(rank, file, letter);
-      return h('td', doPieceButton(rank, file, text));
+      return h('span', doPieceButton(rank, file, text));
     }
   }
   const doRank = (pov: Color, rank: Rank): VNode => {      
     let rankElements = [
-      doRankHeader(rank),
+      //doRankHeader(rank),
       ...files.map(file => doPiece(rank, file)),
-      doRankHeader(rank)
+      //doRankHeader(rank)
     ];
     if (pov === 'black') rankElements.reverse();
-    return h('tr', rankElements);
+    return h('div', rankElements);
   }
   let ranks = invRanks.map(rank => doRank(pov, rank));
   if (pov === 'black') ranks.reverse();
-  return h('tbody', [
-    doFileHeaders(pov),
+  return h('spam', [
+    //doFileHeaders(pov),
     ...ranks,
-    doFileHeaders(pov)
+    //doFileHeaders(pov)
   ]);
 }
 
