@@ -106,6 +106,9 @@ export function renderBoard(pieces: Pieces, pov: Color): VNode {
     if (pov === 'black') fileHeaders.reverse();
     return h('tr', fileHeaders);
   }
+  const doRankHeader = (rank: Rank): VNode => {
+    return h('th', {attrs: {scope: 'row'}}, rank);
+  }
   const doPieceButton = (rank: Rank, file: File, text: string): VNode => {
     return h('button', {
       attrs: { rank: rank, file: file }
@@ -126,9 +129,9 @@ export function renderBoard(pieces: Pieces, pov: Color): VNode {
   }
   const doRank = (pov: Color, rank: Rank): VNode => {      
     let rankElements = [
-      h('th', {attrs: {scope: 'row'}}, rank),
+      doRankHeader(rank),
       ...files.map(file => doPiece(rank, file)),
-      h('th', {attrs: {scope: 'row'}}, rank)
+      doRankHeader(rank)
     ];
     if (pov === 'black') rankElements.reverse();
     return h('tr', rankElements);
