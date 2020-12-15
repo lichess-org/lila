@@ -17,6 +17,7 @@ import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { castlingFlavours, supportedVariant, Style } from 'nvui/chess';
 import { commands } from 'nvui/command';
+import * as sound from '../sound';
 
 lichess.RoundNVUI = function(redraw: Redraw) {
 
@@ -155,8 +156,12 @@ function onPieceSelect(): (vnode: VNode) => void {
 
       // if no move in box yet
       if ($moveBox.value === '') {
-        $moveBox.value = $pos;
-        // TODO: Play a select sound
+        // as long as the user is selecting a piece and not a blank tile
+        if ($evBtn.innerText.match(/[^\-\+]/g)) {
+          $moveBox.value = $pos;
+          // TODO: I notice sound is not usually handled here. Perhaps find a way to hand over to control.
+          sound.select();
+        }
       } else {
         $moveBox.value += $pos;
         // this section in particular depends on the form being the granparent of the input box.
