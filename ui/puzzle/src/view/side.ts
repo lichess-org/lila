@@ -107,6 +107,11 @@ export function config(ctrl: Controller): MaybeVNode {
           },
         }, ctrl.trans.noarg(diff))
       ))
+    ]) : null,
+    ctrl.difficulty ? h('div.puzzle__side__config__beta', [
+      h('strong', "Puzzles v2 are brand new!"),
+      "They don't have stable ratings yet, so you may find them too hard or too easy.", h('br'),
+      "Please bear with us, it should only last a few days!"
     ]) : null
   ]);
 }
