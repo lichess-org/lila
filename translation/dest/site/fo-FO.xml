@@ -307,8 +307,16 @@
     <item quantity="one">Tær nýtist at telva %s styrkismett talv aftrat</item>
     <item quantity="other">Tær nýtist at telva %s styrkismett talv aftrat</item>
   </plurals>
+  <string name="yourPerfRatingIsProvisional">Títt %s styrkital er fyribils</string>
+  <string name="yourPerfRatingIsTooHigh">Títt %1$s styrkital (%2$s) er ov høgt</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Títt \"top weekly\" %1$s styrkital (%2$s) er ov høgt</string>
+  <string name="yourPerfRatingIsTooLow">Títt %1$s styrkital (%2$s) er ov lágt</string>
+  <string name="ratedMoreThanInPerf">Styrkismettur ≥ %1$s í %2$s</string>
+  <string name="ratedLessThanInPerf">Styrkismettur ≤ %1$s í %2$s</string>
   <string name="backToGame">Aftur til talvið</string>
   <string name="siteDescription">Ókeypis netborin talvambætari. Neyðugt er ikki við skráseting ella ískoytisforriti, og ongar lýsingar eru. Telva móti telduni, vinum ella tilvildarligum mótleikarum.</string>
+  <string name="xJoinedTeamY">%1$s kom upp í liðið %2$s</string>
+  <string name="xCreatedTeamY">%1$s stovnaði liðið %2$s</string>
   <string name="xStartedStreaming">%s byrjaði at stroyma</string>
   <string name="averageElo">Miðalstyrkital</string>
   <string name="location">Staður</string>
