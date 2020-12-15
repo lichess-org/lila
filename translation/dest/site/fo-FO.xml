@@ -562,6 +562,8 @@
   <string name="networkLagBetweenYouAndLichess">Netseinkan millum teg og Lichess</string>
   <string name="shareYourInsightsData">Deil tínar talvinnlitsdátur</string>
   <string name="withNobody">Við ongan</string>
+  <string name="withFriends">Við vinir</string>
+  <string name="withEverybody">Við øll</string>
   <string name="playChessEverywhere">Telva allastaðni</string>
   <string name="asFreeAsLichess">Ókeypis sum Lichess</string>
   <string name="viewTheSolution">Síggj svarið</string>
@@ -583,6 +585,8 @@
   <string name="boardTheme">Talvborðssnið</string>
   <string name="boardSize">Borðstødd</string>
   <string name="pieceSet">Snið á talvfólki</string>
+  <string name="directlySupportLichess">Stuðla Lichess beinleiðis</string>
+  <string name="playChessInStyle">Telva við stíli</string>
   <string name="chessBasics">Grundleggjandi talv</string>
   <string name="coaches">Venjarar</string>
   <string name="invalidPgn">Ógildugt PGN</string>
