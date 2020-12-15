@@ -823,6 +823,16 @@
   <string name="ultraBulletDesc">Vitleyst skjót talv: styttri enn 30 sekund</string>
   <string name="bulletDesc">Ógvuliga skjót talv: styttri enn 3 minuttir</string>
   <string name="blitzDesc">Skjót talv: 3 til 8 minuttir</string>
+  <string name="correspondenceDesc">Brævtalv: ein ella fleiri dagar fyri hvønn leik</string>
   <string name="important">Umráðandi</string>
   <string name="yourQuestionMayHaveBeenAnswered">Spurningur tín hevur kanska longu eitt svar %1$s</string>
+  <string name="inTheFAQ">í F.A.Q.-inum.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Til tess at melda brúkara fyri at snýta ella sýna ringan atburð, %1$s</string>
+  <string name="useTheReportForm">nýt útfyllingarskjalið</string>
+  <string name="toRequestSupport">Til tess at biðja um stuðul, %1$s</string>
+  <string name="tryTheContactPage">royn síðuna við sambondum</string>
+  <string name="teamNamedX">%1$s lið</string>
+  <string name="youCannotPostYetPlaySomeGames">Tú kanst ikki seta uppsløg upp á torgunum enn. Telva nøkur talv!</string>
+  <string name="subscribe">Melda til</string>
+  <string name="unsubscribe">Melda teg úr</string>
 </resources>
