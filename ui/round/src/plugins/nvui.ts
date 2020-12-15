@@ -171,7 +171,7 @@ function onPieceSelect() {
       }
     } else {
       $moveBox.val($moveBox.val() + $pos);
-      // this section in particular depends on the form being the granparent of the input box.
+      // this section depends on the form being the granparent of the input box.
       const $form = $moveBox.parent().parent();
       const $event = new Event('submit', {
         cancelable: true,
