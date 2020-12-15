@@ -111,7 +111,7 @@ lichess.RoundNVUI = function(redraw: Redraw) {
           game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
         )),
         h('h2', 'Board'),
-        h('pre.board', renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color)),
+        h('table.board', renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color)),
         h('h2', 'Settings'),
         h('label', [
           'Move notation',
