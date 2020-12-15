@@ -527,6 +527,7 @@
     <item quantity="one">%s forðaður</item>
     <item quantity="other">%s forðaðir</item>
   </plurals>
+  <string name="listBlockedPlayers">Ger lista yvir telvarar, tú hevur forðað</string>
   <string name="human">Menniskja</string>
   <string name="computer">Telda</string>
   <string name="side">Síða</string>
@@ -560,14 +561,25 @@
   <string name="castling">Loypur í borg</string>
   <string name="whiteCastlingKingside">Hvítur 0-0</string>
   <string name="blackCastlingKingside">Svartur 0-0</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s uppslag á torgi</item>
+    <item quantity="other">%s uppsløg á torgi</item>
+  </plurals>
+  <string name="tpTimeSpentPlaying">Tíð nýtt at telva: %s</string>
   <string name="watchGames">Hygg at talvum</string>
   <string name="tpTimeSpentOnTV">Tíð í sjónvarpi (TV): %s</string>
   <string name="watch">Hygg</string>
   <string name="videoLibrary">Sjónfílusavn</string>
   <string name="streamersMenu">Stroymarar</string>
   <string name="mobileApp">Snildfonaapp</string>
+  <string name="webmasters">Vevstjórar</string>
   <string name="about">Um</string>
   <string name="aboutX">Um %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s er ein ókeypis (%2$s), óhandilsligur talvkagi uttan lýsingar.</string>
+  <string name="really">satt!</string>
+  <string name="contribute">Hjálp til</string>
+  <string name="termsOfService">Tænastutreytir</string>
+  <string name="sourceCode">Keldukota</string>
   <string name="lichessTournaments">Lichess kappingar</string>
   <string name="timeBeforeTournamentStarts">Tíð áðrenn kapping byrjar</string>
   <string name="newTournament">Nýggj kapping</string>
