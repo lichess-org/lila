@@ -112,7 +112,16 @@ lichess.RoundNVUI = function(redraw: Redraw) {
           game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
         )),
         h('h2', 'Board'),
-        h('table.board', renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color, onPieceSelect())),
+        h('table.board', {
+          hook: onInsert(el => {
+            const $board = $(el as HTMLTableElement);
+            // looking for specific elements tightly couples this file and nvui/chess.ts
+            // unsure if a bad thing?
+            const $buttons = $board.find('button');
+            $buttons.on('click', onPieceSelect());
+            console.log($buttons);
+          })
+        }, renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color)),
         h('h2', 'Settings'),
         h('label', [
           'Move notation',
@@ -144,37 +153,33 @@ lichess.RoundNVUI = function(redraw: Redraw) {
 
 const promotionRegex = /^([a-h]x?)?[a-h](1|8)=\w$/;
 
-function onPieceSelect(): (vnode: VNode) => void {
-  return (vnode: VNode): void => {
-    const $btn = $(vnode.elm as HTMLButtonElement);
-    $btn.on('click', (ev) => {
-      // this depends on the current document structure. This may not be advisable in case the structure wil change.
-      const $evBtn = ev.target;
-      const $pos = $evBtn.getAttribute('file') + $evBtn.getAttribute('rank');
-      const $moveBox = document.querySelector('.move') as HTMLInputElement;
-      if (!$moveBox) return;
+function onPieceSelect() {
+  return (ev: MouseEvent) => {
+    // this depends on the current document structure. This may not be advisable in case the structure wil change.
+    const $evBtn = $(ev.target as HTMLButtonElement);
+    const $pos = ($evBtn.attr('file') ?? "") + $evBtn.attr('rank');
+    const $moveBox = $(document.querySelector('.move') as HTMLInputElement);
+    if (!$moveBox) return;
 
-      // if no move in box yet
-      if ($moveBox.value === '') {
-        // as long as the user is selecting a piece and not a blank tile
-        if ($evBtn.innerText.match(/[^\-\+]/g)) {
-          $moveBox.value = $pos;
-          // TODO: I notice sound is not usually handled here. Perhaps find a way to hand over to control.
-          sound.select();
-        }
-      } else {
-        $moveBox.value += $pos;
-        // this section in particular depends on the form being the granparent of the input box.
-        const $label = $moveBox.parentElement;
-        if (!$label || !$label.parentElement) return;
-        ($label.parentElement as HTMLFormElement).dispatchEvent(new Event('submit', {
-          // important to allow the event to be handled ONLY be the listener instead of propagating and thereby reloading the page
-          cancelable: true,
-          bubbles: true
-        })); 
+    // if no move in box yet
+    if ($moveBox.val() === '') {
+      // as long as the user is selecting a piece and not a blank tile
+      if ($evBtn.text().match(/^[^\-+]+/g)) {
+        $moveBox.val($pos);
+        // TODO: I notice sound is not usually handled here. Perhaps find a way to hand over to control.
+        sound.select();
       }
-    });
-  }
+    } else {
+      $moveBox.val($moveBox.val() + $pos);
+      // this section in particular depends on the form being the granparent of the input box.
+      const $form = $moveBox.parent().parent();
+      const $event = new Event('submit', {
+        cancelable: true,
+        bubbles: true
+      })
+      $form.trigger($event);
+    }
+  };
 }
 
 function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: () => Style, $input: Cash) {

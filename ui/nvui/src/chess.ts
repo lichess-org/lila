@@ -96,8 +96,7 @@ export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: Style)
   return res.length ? res.join(', ') : 'blank';
 }
 
-export function renderBoard(pieces: Pieces, pov: Color, buttonCalback: (vnode: VNode) => void): VNode {
-  /* NEW CODE */
+export function renderBoard(pieces: Pieces, pov: Color): VNode {
   const doFileHeaders = (pov: Color): VNode => {
     let fileHeaders = [
       h('th'),
@@ -109,8 +108,7 @@ export function renderBoard(pieces: Pieces, pov: Color, buttonCalback: (vnode: V
   }
   const doPieceButton = (rank: Rank, file: File, text: string): VNode => {
     return h('button', {
-      attrs: { rank: rank, file: file },
-      hook: { insert: buttonCalback }
+      attrs: { rank: rank, file: file }
     }, text);
   }
   const doPiece = (rank: Rank, file: File): VNode => {
@@ -142,7 +140,6 @@ export function renderBoard(pieces: Pieces, pov: Color, buttonCalback: (vnode: V
     ...ranks,
     doFileHeaders(pov)
   ]);
-  /* END OF NEW CODE */
 }
 
 export function renderFile(f: string, style: Style): string {
