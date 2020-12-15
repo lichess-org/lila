@@ -521,6 +521,8 @@
   <string name="newPasswordAgain">Nýtt loyniorð (aftur)</string>
   <string name="newPasswordsDontMatch">Nýggju loyniorðini eru ikki eins</string>
   <string name="newPasswordStrength">Loyniorðsstyrki</string>
+  <string name="clockInitialTime">Byrjanartíð á klokku</string>
+  <string name="clockIncrement">Øking á klokku</string>
   <string name="privacy">Privatlív</string>
   <string name="letOtherPlayersFollowYou">Lat aðrar telvarar fylgja tær</string>
   <string name="letOtherPlayersChallengeYou">Lat aðrar telvarar bjóða tær av</string>
@@ -570,6 +572,7 @@
   <string name="connectedToLichess">Tú hevur nú samband við lichess.org</string>
   <string name="signedOut">Tú ert útritaður</string>
   <string name="loginSuccessful">Tú ert nú innritað/ur</string>
+  <string name="playOnTheBoardOffline">Uttan net, nýt sum talvborð</string>
   <string name="playOfflineComputer">Telda</string>
   <string name="opponent">Mótleikari</string>
   <string name="learnMenu">Lær</string>
