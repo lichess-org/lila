@@ -32,7 +32,7 @@ object index {
           primaryPost map { post =>
             frag(
               latestPost(post),
-              h2(previousBlogPosts())
+              h2(trans.previousBlogPosts())
             )
           },
           div(cls := "blog-cards list infinitescroll")(
