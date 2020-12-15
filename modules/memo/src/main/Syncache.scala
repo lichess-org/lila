@@ -62,8 +62,7 @@ final private[memo] class Syncache[K, V](
       case _ =>
         incMiss()
         strategy match {
-          case NeverWait            => default(k)
-          case AlwaysWait(duration) => waitForResult(k, future, duration)
+          case NeverWait => default(k)
           case WaitAfterUptime(duration, uptime) =>
             if (Uptime startedSinceSeconds uptime) waitForResult(k, future, duration)
             else default(k)
@@ -105,7 +104,6 @@ object Syncache {
 
   sealed trait Strategy
   case object NeverWait                                                         extends Strategy
-  case class AlwaysWait(duration: FiniteDuration)                               extends Strategy
   case class WaitAfterUptime(duration: FiniteDuration, uptimeSeconds: Int = 20) extends Strategy
 
   sealed trait ExpireAfter
