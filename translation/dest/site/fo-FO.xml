@@ -644,9 +644,12 @@
   <string name="keyShowOrHideComments">vís/fjal viðmerkingar</string>
   <string name="keyEnterOrExitVariation">lat upp/lat aftur avbrigdi</string>
   <string name="newTournament">Nýggj kapping</string>
+  <string name="tournamentHomeTitle">Talvkappingar við ymiskum tíðaravmarkingum og avbrigdum</string>
   <string name="tournamentNotFound">Kapping ikki funnin</string>
   <string name="tournamentDoesNotExist">Kappingin er ikki til.</string>
+  <string name="tournamentMayHaveBeenCanceled">Kappingin er møguliga avlýst, um allir telvarar fóru burturúr, áðrenn hon byrjaði.</string>
   <string name="returnToTournamentsHomepage">Far aftur til heimasíðu við kappingum</string>
+  <string name="weeklyPerfTypeRatingDistribution">Styrkital fyri %s hesa vikuna</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s %2$s telvari hesa vikuna.</item>
     <item quantity="other">%1$s %2$s telvarar hesa vikuna.</item>
@@ -667,6 +670,12 @@
   <string name="timeToProcessAMoveOnLichessServer">Tíð at viðgera ein leik í Lichess-ambætaranum</string>
   <string name="downloadAnnotated">Tak viðmerkingar niður</string>
   <string name="downloadRaw">Tak niður rátt</string>
+  <string name="downloadImported">Niðurtøka innflutt</string>
+  <string name="printFriendlyPDF">Prentvinarligt PDF</string>
+  <string name="crosstable">Krossborð</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Til ber eisini at skrulla yvirum borðið at flyta leikir í talvinum.</string>
+  <string name="analysisShapesHowTo">Trýst shift+click ella right-click at tekna rundingar og pílar á talvborðinum.</string>
+  <string name="letOtherPlayersMessageYou">Lat aðrar telvarar senda tær boð</string>
   <string name="shareYourInsightsData">Deil tínar talvinnlitsdátur</string>
   <string name="withNobody">Við ongan</string>
   <string name="withFriends">Við vinir</string>
@@ -679,6 +688,7 @@
   <string name="disableKidMode">Sløkk barnastøðu</string>
   <string name="security">Trygd</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Hetta er ein listi yvir tól, ið hava ritað er inn á tína kontu. Strika tær hendingar, tú ikki kennir aftur.</string>
+  <string name="alternativelyYouCanX">Í øðrum lagi kanst tú %s.</string>
   <string name="playChessEverywhere">Telva allastaðni</string>
   <string name="asFreeAsLichess">Ókeypis sum Lichess</string>
   <string name="viewTheSolution">Síggj svarið</string>
