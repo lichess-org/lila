@@ -313,6 +313,8 @@
   <string name="yourPerfRatingIsTooLow">Títt %1$s styrkital (%2$s) er ov lágt</string>
   <string name="ratedMoreThanInPerf">Styrkismettur ≥ %1$s í %2$s</string>
   <string name="ratedLessThanInPerf">Styrkismettur ≤ %1$s í %2$s</string>
+  <string name="mustBeInTeam">Tær nýtist at vera á %s liðnum</string>
+  <string name="youAreNotInTeam">Tú ert ikki á liðnum %s</string>
   <string name="backToGame">Aftur til talvið</string>
   <string name="siteDescription">Ókeypis netborin talvambætari. Neyðugt er ikki við skráseting ella ískoytisforriti, og ongar lýsingar eru. Telva móti telduni, vinum ella tilvildarligum mótleikarum.</string>
   <string name="xJoinedTeamY">%1$s kom upp í liðið %2$s</string>
@@ -519,6 +521,7 @@
   <string name="newPasswordAgain">Nýtt loyniorð (aftur)</string>
   <string name="newPasswordsDontMatch">Nýggju loyniorðini eru ikki eins</string>
   <string name="newPasswordStrength">Loyniorðsstyrki</string>
+  <string name="privacy">Privatlív</string>
   <string name="letOtherPlayersFollowYou">Lat aðrar telvarar fylgja tær</string>
   <string name="letOtherPlayersChallengeYou">Lat aðrar telvarar bjóða tær av</string>
   <string name="letOtherPlayersInviteYouToStudy">Lat aðrar telvarar bjóða tær at kanna</string>
