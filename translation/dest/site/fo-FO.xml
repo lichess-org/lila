@@ -291,6 +291,14 @@
   <string name="viewTournament">Hygg at kapping</string>
   <string name="backToTournament">Aftur til kapping</string>
   <string name="thematic">Evnislýsandi</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s styrkismett talv</item>
+    <item quantity="other">≥ %s styrkismett talv</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s styrkismett talv</item>
+    <item quantity="other">≥ %1$s %2$s styrkismett talv</item>
+  </plurals>
   <string name="backToGame">Aftur til talvið</string>
   <string name="siteDescription">Ókeypis netborin talvambætari. Neyðugt er ikki við skráseting ella ískoytisforriti, og ongar lýsingar eru. Telva móti telduni, vinum ella tilvildarligum mótleikarum.</string>
   <string name="xStartedStreaming">%s byrjaði at stroyma</string>
