@@ -18,8 +18,8 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
   }, tds([
     h('span.is.is2.color-icon.' + (hook.c || 'random')),
     (hook.rating ? h('span.ulink.ulpt', {
-      attrs: { 'data-href': '/@/' + hook.u }
-    }, hook.u) : 'Anonymous'),
+       attrs: { 'data-href': '/@/' + hook.u }
+    }, hook.u) : noarg('anonymous')),
     (hook.rating ? hook.rating : '') + (hook.prov ? '?' : ''),
     hook.clock,
     h('span', {

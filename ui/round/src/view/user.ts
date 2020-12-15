@@ -69,7 +69,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
         title: connecting ? 'Connecting to the game' : (player.onGame ? 'Joined the game' : 'Left the game')
       }
     }),
-    h('name', player.name || 'Anonymous')
+    h('name', player.name || ctrl.noarg('anonymous'))
   ]);
 }
 
@@ -77,5 +77,5 @@ export function userTxt(ctrl: RoundController, player: Player) {
   if (player.user) {
     return (player.user.title ? player.user.title + ' ' : '') + player.user.username;
   } else if (player.ai) return aiName(ctrl, player.ai)
-  else return 'Anonymous';
+  else return ctrl.noarg('anonymous');
 }
