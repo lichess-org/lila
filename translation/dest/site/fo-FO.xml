@@ -718,6 +718,8 @@
   <string name="xHostsY">%1$s er vertur fyri %2$s</string>
   <string name="xJoinsY">%1$s fer upp í %2$s</string>
   <string name="xLikesY">%1$s dámar %2$s</string>
+  <string name="xCreatesStudyY">%1$s stovnar rannsókn %2$s</string>
+  <string name="quickPairing">Skjót greiping</string>
   <string name="anonymous">Dulnevnt</string>
   <string name="yourScore">Títt stigatal: %s</string>
   <string name="language">Mál</string>
@@ -730,6 +732,11 @@
   <string name="boardTheme">Talvborðssnið</string>
   <string name="boardSize">Borðstødd</string>
   <string name="pieceSet">Snið á talvfólki</string>
+  <string name="usernameAlreadyUsed">Hetta brúkaranavnið verður longu nýtt. Royn vinaliga eitt annað.</string>
+  <string name="usernamePrefixInvalid">Brúkaranavnið má byrja við einum bókstavi.</string>
+  <string name="usernameSuffixInvalid">Brúkaranavnið má enda við einum bókstavi ella tali.</string>
+  <string name="usernameCharsInvalid">Í brúkaranavninum mugu bert vera bókstavir, tøl, undirstrikur og sambindingarstrikur.</string>
+  <string name="usernameUnacceptable">Brúkaranavnið verður ikki góðtikið.</string>
   <string name="directlySupportLichess">Stuðla Lichess beinleiðis</string>
   <string name="playChessInStyle">Telva við stíli</string>
   <string name="chessBasics">Grundleggjandi talv</string>
@@ -811,6 +818,8 @@
   <string name="temporaryInconvenience">Vit biðja teg halda okkum til góðar fyri fyribils órógvanina</string>
   <string name="wishYouGreatGames">og ynskja tær nógv góð talv á lichess.org.</string>
   <string name="thankYouForReading">Takk fyri, at tú las hetta!</string>
+  <string name="searchOrStartNewDiscussion">Leita eftir samrøðu ella byrja eina nýggja</string>
+  <string name="edit">Broyt</string>
   <string name="important">Umráðandi</string>
   <string name="yourQuestionMayHaveBeenAnswered">Spurningur tín hevur kanska longu eitt svar %1$s</string>
 </resources>
