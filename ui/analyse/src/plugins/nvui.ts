@@ -89,7 +89,7 @@ lichess.AnalyseNVUI = function(redraw: Redraw) {
           h('h2', 'Computer analysis'),
           ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)]),
           h('h2', 'Board'),
-          h('pre.board', renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color)),
+          h('table.board', renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color, (vnode: VNode): void => {console.log(vnode)})),
           h('div.content', {
             hook: {
               insert: vnode => {
