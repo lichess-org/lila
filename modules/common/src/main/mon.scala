@@ -1,8 +1,8 @@
 package lila
 
 import com.github.benmanes.caffeine.cache.{ Cache => CaffeineCache }
-import kamon.tag.TagSet
 import kamon.metric.{ Counter, Timer }
+import kamon.tag.TagSet
 
 import lila.common.ApiVersion
 
@@ -419,7 +419,15 @@ object mon {
   }
   object puzzle {
     object selector {
-      val time = timer("puzzle.selector.time").withoutTags()
+      object user {
+        def puzzle(theme: String, retries: Int) =
+          timer("puzzle.selector.user.puzzle").withTags(Map("theme" -> theme, "retries" -> retries))
+        def batch(nb: Int) = timer("puzzle.selector.user.batch").withTag("nb", nb)
+      }
+      object anon {
+        val puzzle         = timer("puzzle.selector.anon.puzzle").withoutTags()
+        def batch(nb: Int) = timer("puzzle.selector.anon.batch").withTag("nb", nb)
+      }
     }
     object batch {
       object selector {

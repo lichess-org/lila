@@ -1,13 +1,11 @@
 package lila.puzzle
 
-import reactivemongo.api.bson.BSONRegex
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 import scala.util.chaining._
 
 import lila.db.dsl._
 import lila.memo.CacheApi
-import lila.rating.{ Perf, PerfType }
 import lila.user.{ User, UserRepo }
 
 case class PuzzleSession(
@@ -49,31 +47,33 @@ final class PuzzleSessionApi(
   }
 
   def nextPuzzleFor(user: User, theme: PuzzleTheme.Key, retries: Int = 0): Fu[Puzzle] =
-    continueOrCreateSessionFor(user, theme) flatMap { session =>
-      import NextPuzzleResult._
-      def switchPath(tier: PuzzleTier) =
-        pathApi.nextFor(user, theme, tier, session.difficulty, session.previousPaths) orFail
-          s"No puzzle path for ${user.id} $theme $tier" flatMap { pathId =>
-            val newSession = session.switchTo(pathId)
-            sessions.put(user.id, fuccess(newSession))
-            nextPuzzleFor(user, theme, retries = retries + 1)
-          }
+    continueOrCreateSessionFor(user, theme)
+      .flatMap { session =>
+        import NextPuzzleResult._
+        def switchPath(tier: PuzzleTier) =
+          pathApi.nextFor(user, theme, tier, session.difficulty, session.previousPaths) orFail
+            s"No puzzle path for ${user.id} $theme $tier" flatMap { pathId =>
+              val newSession = session.switchTo(pathId)
+              sessions.put(user.id, fuccess(newSession))
+              nextPuzzleFor(user, theme, retries = retries + 1)
+            }
 
-      nextPuzzleResult(user, session) flatMap {
-        case PathMissing | PathEnded if retries < 10 => switchPath(session.path.tier)
-        case PathMissing | PathEnded                 => fufail(s"Puzzle path missing or ended for ${user.id}")
-        case PuzzleMissing(id) =>
-          logger.warn(s"Puzzle missing: $id")
-          sessions.put(user.id, fuccess(session.next))
-          nextPuzzleFor(user, theme, retries)
-        case PuzzleAlreadyPlayed(_) if retries < 3 =>
-          sessions.put(user.id, fuccess(session.next))
-          nextPuzzleFor(user, theme, retries = retries + 1)
-        case PuzzleAlreadyPlayed(_) if session.path.tier == PuzzleTier.Top => switchPath(PuzzleTier.All)
-        case PuzzleAlreadyPlayed(puzzle)                                   => fuccess(puzzle)
-        case PuzzleFound(puzzle)                                           => fuccess(puzzle)
+        nextPuzzleResult(user, session) flatMap {
+          case PathMissing | PathEnded if retries < 10 => switchPath(session.path.tier)
+          case PathMissing | PathEnded                 => fufail(s"Puzzle path missing or ended for ${user.id}")
+          case PuzzleMissing(id) =>
+            logger.warn(s"Puzzle missing: $id")
+            sessions.put(user.id, fuccess(session.next))
+            nextPuzzleFor(user, theme, retries)
+          case PuzzleAlreadyPlayed(_) if retries < 3 =>
+            sessions.put(user.id, fuccess(session.next))
+            nextPuzzleFor(user, theme, retries = retries + 1)
+          case PuzzleAlreadyPlayed(_) if session.path.tier == PuzzleTier.Top => switchPath(PuzzleTier.All)
+          case PuzzleAlreadyPlayed(puzzle)                                   => fuccess(puzzle)
+          case PuzzleFound(puzzle)                                           => fuccess(puzzle)
+        }
       }
-    }
+      .mon(_.puzzle.selector.user.puzzle(theme = theme.value, retries = retries))
 
   private def nextPuzzleResult(user: User, session: PuzzleSession): Fu[NextPuzzleResult] =
     colls.path {

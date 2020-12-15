@@ -6,8 +6,6 @@ import scala.concurrent.ExecutionContext
 import lila.common.ThreadLocalRandom
 import lila.db.dsl._
 import lila.memo.CacheApi
-import lila.rating.{ Perf, PerfType }
-import lila.user.{ User, UserRepo }
 
 final class PuzzleAnon(colls: PuzzleColls, cacheApi: CacheApi, pathApi: PuzzlePathApi)(implicit
     ec: ExecutionContext
@@ -15,11 +13,13 @@ final class PuzzleAnon(colls: PuzzleColls, cacheApi: CacheApi, pathApi: PuzzlePa
 
   import BsonHandlers._
 
-  def getOneFor(theme: PuzzleTheme.Key): Fu[Option[Puzzle]] =
+  def getOneFor(theme: PuzzleTheme.Key): Fu[Option[Puzzle]] = {
     pool get theme map ThreadLocalRandom.oneOf
+  }.mon(_.puzzle.selector.anon.puzzle)
 
-  def getBatchFor(nb: Int): Fu[Vector[Puzzle]] =
+  def getBatchFor(nb: Int): Fu[Vector[Puzzle]] = {
     pool get PuzzleTheme.mix.key map (_ take nb)
+  }.mon(_.puzzle.selector.anon.batch(nb))
 
   private val poolSize = 60
 
