@@ -12,10 +12,10 @@ import { plyStep } from '../round';
 import { onInsert } from '../util';
 import { Step, Dests, Position, Redraw } from '../interfaces';
 import * as game from 'game';
-import { renderSan, renderPieces, renderBoard, styleSetting, pieceSetting, prefixSetting } from 'nvui/chess';
+import { renderSan, renderPieces, renderBoard, styleSetting, pieceSetting, prefixSetting, positionSetting } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
-import { castlingFlavours, supportedVariant, Style, PieceStyle, PrefixStyle } from 'nvui/chess';
+import { castlingFlavours, supportedVariant, Style } from 'nvui/chess';
 import { commands } from 'nvui/command';
 import * as sound from '../sound';
 
@@ -24,7 +24,8 @@ lichess.RoundNVUI = function(redraw: Redraw) {
   const notify = new Notify(redraw),
     moveStyle = styleSetting(),
     prefixStyle = prefixSetting(),
-    pieceStyle = pieceSetting();
+    pieceStyle = pieceSetting(),
+    positionStyle = positionSetting();
 
   lichess.pubsub.on('socket.in.message', line => {
     if (line.u === 'lichess') notify.set(line.t);
@@ -123,7 +124,7 @@ lichess.RoundNVUI = function(redraw: Redraw) {
             $buttons.on('click', onPieceSelect());
             $buttons.on('keydown', arrowKeyHandler());
           })
-        }, renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color, pieceStyle.get(), prefixStyle.get())),
+        }, renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color, pieceStyle.get(), prefixStyle.get(), positionStyle.get())),
         h('h2', 'Settings'),
         h('label', [
           'Move notation',
@@ -136,6 +137,10 @@ lichess.RoundNVUI = function(redraw: Redraw) {
         h('label', [
           'Piece prefix style',
           renderSetting(prefixStyle, ctrl.redraw)
+        ]),
+        h('label', [
+          'Show position',
+          renderSetting(positionStyle, ctrl.redraw)
         ]),
         h('h2', 'Commands'),
         h('p', [

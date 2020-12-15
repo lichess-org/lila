@@ -9,6 +9,7 @@ import { files } from 'chessground/types';
 export type Style = 'uci' | 'san' | 'literate' | 'nato' | 'anna';
 export type PieceStyle = 'letter' | 'white uppercase letter' | 'name' | 'white uppercase name';
 export type PrefixStyle = 'letter' | 'name' | 'none';
+export type PositionStyle = 'before' | 'after' | 'none';
 
 const nato: { [letter: string]: string } = { a: 'alpha', b: 'bravo', c: 'charlie', d: 'delta', e: 'echo', f: 'foxtrot', g: 'golf', h: 'hotel' };
 const anna: { [letter: string]: string } = { a: 'anna', b: 'bella', c: 'cesar', d: 'david', e: 'eva', f: 'felix', g: 'gustav', h: 'hector' };
@@ -66,6 +67,18 @@ export function prefixSetting(): Setting<PrefixStyle> {
     ],
     default: 'letter',
     storage: lichess.storage.make('nvui.prefixStyle')
+  });
+}
+
+export function positionSetting(): Setting<PositionStyle> {
+  return makeSetting<PositionStyle>({
+    choices: [
+      ['before', 'before: c2: wp'],
+      ['after', 'after: wp: c2'],
+      ['none', 'none']
+    ],
+    default: 'before',
+    storage: lichess.storage.make('nvui.positionStyle')
   });
 }
 
@@ -132,7 +145,7 @@ export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: Style)
   return res.length ? res.join(', ') : 'blank';
 }
 
-export function renderBoard(pieces: Pieces, pov: Color, pieceStyle: PieceStyle, prefixStyle: PrefixStyle): VNode {
+export function renderBoard(pieces: Pieces, pov: Color, pieceStyle: PieceStyle, prefixStyle: PrefixStyle, positionStyle: PositionStyle): VNode {
   const renderPieceStyle = (piece: string) => {
     switch(pieceStyle) {
       case 'letter':
@@ -153,6 +166,16 @@ export function renderBoard(pieces: Pieces, pov: Color, pieceStyle: PieceStyle, 
         return color + " ";
       case 'none':
         return '';
+    }
+  }
+  const renderPositionStyle = (rank: Rank, file: File, orig: string) => {
+    switch(positionStyle) {
+      case 'before':
+        return file.toUpperCase() + rank + ' ' + orig;
+      case 'after':
+        return orig + ' ' + file.toUpperCase() + rank;
+      case 'none':
+        return orig;
     }
   }
   const doFileHeaders = (pov: Color): VNode => {
@@ -178,10 +201,12 @@ export function renderBoard(pieces: Pieces, pov: Color, pieceStyle: PieceStyle, 
     if (piece) {        
       const letter = renderPieceStyle(piece.color === 'white' ? letters[piece.role].toUpperCase() : letters[piece.role]);
       const prefix = renderPrefixStyle(piece.color);
-      return h('td', doPieceButton(rank, file, prefix + letter));
+      const text = renderPositionStyle(rank, file, prefix + letter);
+      return h('td', doPieceButton(rank, file, text));
     } else {
       const letter = (key.charCodeAt(0) + key.charCodeAt(1)) % 2 ? '-' : '+';
-      return h('td', doPieceButton(rank, file, letter));
+      const text = renderPositionStyle(rank, file, letter);
+      return h('td', doPieceButton(rank, file, text));
     }
   }
   const doRank = (pov: Color, rank: Rank): VNode => {      
