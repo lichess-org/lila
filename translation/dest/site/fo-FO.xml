@@ -4,7 +4,7 @@
   <string name="playWithTheMachine">Telva móti telduni</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Bjóða einum at telva við at geva honum hesa adressuna</string>
   <string name="gameOver">Talvið er liðugt</string>
-  <string name="waitingForOpponent">Bíði eftir móttelvara</string>
+  <string name="waitingForOpponent">Bíða eftir móttelvara</string>
   <string name="waiting">Bíða</string>
   <string name="yourTurn">Tú eigur leik</string>
   <string name="aiNameLevelAiLevel">%1$s stig %2$s</string>
@@ -261,9 +261,16 @@
     <item quantity="one">Gev %s sekund</item>
     <item quantity="other">Gev %s sekund</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Ánarin av hesari konto breyt Lichess tænastutreytirnar</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Hesin telvarin økir ella minkar tilgjørt um styrkitalið</string>
+  <string name="openingExplorerAndTablebase">Lat dátugrunn við byrjanar- og endatalvum upp</string>
   <string name="takeback">Tak aftur</string>
-  <string name="proposeATakeback">Skjót upp afturtøku</string>
+  <string name="proposeATakeback">Ber fram ynski um afturtøku</string>
   <string name="takebackPropositionSent">Afturtøka send</string>
+  <string name="takebackPropositionDeclined">Afturtøka havnað</string>
+  <string name="takebackPropositionAccepted">Afturtøka góðtikin</string>
+  <string name="takebackPropositionCanceled">Afturtøka avlýst</string>
+  <string name="yourOpponentProposesATakeback">Mótleikarin ber fram ynski um afturtøku</string>
   <string name="bookmarkThisGame">Set bókamerki við hetta talvið</string>
   <string name="tournament">Kapping</string>
   <string name="tournaments">Kappingar</string>
@@ -498,6 +505,10 @@
   <string name="difficultyEasy">Lætt</string>
   <string name="difficultyNormal">Vanligt</string>
   <string name="difficultyHard">Torført</string>
+  <string name="xCompetesInY">%1$s kappast í %2$s</string>
+  <string name="xAskedY">%1$s spurdi %2$s</string>
+  <string name="xAnsweredY">%1$s svaraði %2$s</string>
+  <string name="xCommentedY">%1$s viðmerkti %2$s</string>
   <string name="victory">Sigur</string>
   <string name="defeat">Tap</string>
   <string name="human">Menniskja</string>
