@@ -7,7 +7,7 @@ import { makeConfig as makeCgConfig } from '../ground';
 import { Chessground } from 'chessground';
 import { Redraw, AnalyseData, MaybeVNodes } from '../interfaces';
 import { Player } from 'game';
-import { renderSan, renderPieces, renderBoard, styleSetting } from 'nvui/chess';
+import { renderSan, renderPieces, renderBoard, styleSetting, pieceSetting, prefixSetting } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { Style } from 'nvui/chess';
@@ -19,6 +19,8 @@ lichess.AnalyseNVUI = function(redraw: Redraw) {
 
   const notify = new Notify(redraw),
     moveStyle = styleSetting(),
+    pieceStyle = pieceSetting(),
+    prefixStyle = prefixSetting(),
     analysisInProgress = prop(false);
 
   lichess.pubsub.on('analysis.server.progress', (data: AnalyseData) => {
@@ -89,7 +91,7 @@ lichess.AnalyseNVUI = function(redraw: Redraw) {
           h('h2', 'Computer analysis'),
           ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)]),
           h('h2', 'Board'),
-          h('table.board', renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color)),
+          h('table.board', renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color, pieceSetting.get(), prefixStyle.get())),
           h('div.content', {
             hook: {
               insert: vnode => {

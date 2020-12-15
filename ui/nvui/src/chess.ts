@@ -7,11 +7,22 @@ import { Setting, makeSetting } from './setting';
 import { files } from 'chessground/types';
 
 export type Style = 'uci' | 'san' | 'literate' | 'nato' | 'anna';
+export type PieceStyle = 'letter' | 'white uppercase letter' | 'name' | 'white uppercase name';
+export type PrefixStyle = 'letter' | 'name' | 'none';
 
 const nato: { [letter: string]: string } = { a: 'alpha', b: 'bravo', c: 'charlie', d: 'delta', e: 'echo', f: 'foxtrot', g: 'golf', h: 'hotel' };
 const anna: { [letter: string]: string } = { a: 'anna', b: 'bella', c: 'cesar', d: 'david', e: 'eva', f: 'felix', g: 'gustav', h: 'hector' };
 const roles: { [letter: string]: string } = { P: 'pawn', R: 'rook', N: 'knight', B: 'bishop', Q: 'queen', K: 'king' };
 const letters = { pawn: 'p', rook: 'r', knight: 'n', bishop: 'b', queen: 'q', king: 'k' };
+
+const letterPiece: { [letter: string]: string} = { p: 'p', r: 'r', n: 'n', b: 'b', q: 'q', k: 'k',
+                                                   P: 'p', R: 'r', N: 'n', B: 'b', Q: 'q', K: 'k'};
+const whiteUpperLetterPiece: { [letter: string]: string} = { p: 'p', r: 'r', n: 'n', b: 'b', q: 'q', k: 'k',
+                                                   P: 'P', R: 'R', N: 'N', B: 'B', Q: 'Q', K: 'K'};
+const namePiece: { [letter: string]: string} = { p: 'pawn', r: 'rook', n: 'knight', b: 'bishop', q: 'queen', k: 'king',
+                                                   P: 'pawn', R: 'rook', N: 'knight', B: 'bishop', Q: 'queen', K: 'king'};
+const whiteUpperNamePiece: { [letter: string]: string} = { p: 'pawn', r: 'rook', n: 'knight', b: 'bishop', q: 'queen', k: 'king',
+                                                   P: 'Pawn', R: 'Rook', N: 'Knight', B: 'Bishop', Q: 'Queen', K: 'King'};
 
 export function supportedVariant(key: string) {
   return [
@@ -30,6 +41,31 @@ export function styleSetting(): Setting<Style> {
     ],
     default: 'anna', // all the rage in OTB blind chess tournaments
     storage: lichess.storage.make('nvui.moveNotation')
+  });
+}
+
+export function pieceSetting(): Setting<PieceStyle> {
+  return makeSetting<PieceStyle>({
+    choices: [
+      ['letter', 'Letter: p, p'],
+      ['white uppercase letter', 'White uppecase letter: P, p'],
+      ['name', 'Name: pawn, pawn'],
+      ['white uppercase name', 'White uppercase name: Pawn, pawn']
+    ],
+    default: 'letter',
+    storage: lichess.storage.make('nvui.pieceStyle')
+  });
+}
+
+export function prefixSetting(): Setting<PrefixStyle> {
+  return makeSetting<PrefixStyle>({
+    choices: [
+      ['letter', 'Letter: w/b'],
+      ['name', 'Name: white/black'],
+      ['none', 'None']
+    ],
+    default: 'letter',
+    storage: lichess.storage.make('nvui.prefixStyle')
   });
 }
 
@@ -96,7 +132,29 @@ export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: Style)
   return res.length ? res.join(', ') : 'blank';
 }
 
-export function renderBoard(pieces: Pieces, pov: Color): VNode {
+export function renderBoard(pieces: Pieces, pov: Color, pieceStyle: PieceStyle, prefixStyle: PrefixStyle): VNode {
+  const renderPieceStyle = (piece: string) => {
+    switch(pieceStyle) {
+      case 'letter':
+        return letterPiece[piece];
+      case 'white uppercase letter':
+        return whiteUpperLetterPiece[piece];
+      case 'name':
+        return namePiece[piece];
+      case 'white uppercase name':
+        return whiteUpperNamePiece[piece];
+    }
+  }
+  const renderPrefixStyle = (color: Color) => {
+    switch(prefixStyle) {
+      case 'letter':
+        return color.charAt(0);
+      case 'name':
+        return color + " ";
+      case 'none':
+        return '';
+    }
+  }
   const doFileHeaders = (pov: Color): VNode => {
     let fileHeaders = [
       h('th'),
@@ -118,10 +176,9 @@ export function renderBoard(pieces: Pieces, pov: Color): VNode {
     const key = file + rank as Key;
     const piece = pieces.get(key);
     if (piece) {        
-      const letter = letters[piece.role];
-      let pieceLetters = piece.color === 'white' ? letter.toUpperCase() : letter;
-      pieceLetters = (pieceLetters === pieceLetters.toUpperCase() ? 'w' : 'b') + pieceLetters;
-      return h('td', doPieceButton(rank, file, pieceLetters));
+      const letter = renderPieceStyle(piece.color === 'white' ? letters[piece.role].toUpperCase() : letters[piece.role]);
+      const prefix = renderPrefixStyle(piece.color);
+      return h('td', doPieceButton(rank, file, prefix + letter));
     } else {
       const letter = (key.charCodeAt(0) + key.charCodeAt(1)) % 2 ? '-' : '+';
       return h('td', doPieceButton(rank, file, letter));
