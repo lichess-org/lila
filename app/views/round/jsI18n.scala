@@ -47,6 +47,7 @@ object jsI18n {
   ).map(_.key)
 
   private val baseTranslations = Vector(
+    trans.anonymous,
     trans.flipBoard,
     trans.aiNameLevelAiLevel,
     trans.yourTurn,
