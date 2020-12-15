@@ -104,7 +104,7 @@
   <string name="replayMode">Endurspælsháttur</string>
   <string name="realtimeReplay">Vanlig tíð</string>
   <string name="byCPL">Við CPL</string>
-  <string name="openStudy">Lat kanning upp</string>
+  <string name="openStudy">Lat rannsókn upp</string>
   <string name="enable">Loyv</string>
   <string name="bestMoveArrow">Pílur fyri besta leik</string>
   <string name="evaluationGauge">Eftirmetingarmát</string>
@@ -294,8 +294,8 @@
     <item quantity="other">%s kappingarstig</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">%s kanning</item>
-    <item quantity="other">%s kanningar</item>
+    <item quantity="one">%s rannsókn</item>
+    <item quantity="other">%s rannsóknir</item>
   </plurals>
   <string name="viewTournament">Hygg at kapping</string>
   <string name="backToTournament">Aftur til kapping</string>
@@ -340,7 +340,7 @@
   <string name="pasteThePgnStringHere">Flyt PGN tekstin higar</string>
   <string name="fromPosition">Frá støðuni</string>
   <string name="continueFromHere">Halt fram hiðani</string>
-  <string name="toStudy">Nám</string>
+  <string name="toStudy">Rannsókn</string>
   <string name="importGame">Les inn talv</string>
   <string name="importGameExplanation">Flyt PGN úr einum talvi higar. Fá eitt endurspæl, tú kanst kaga í, teldugreining, talvkjatt og PGN, sum til ber at deila við onnur.</string>
   <plurals name="nbImportedGames">
@@ -535,7 +535,7 @@
   <string name="privacy">Privatlív</string>
   <string name="letOtherPlayersFollowYou">Lat aðrar telvarar fylgja tær</string>
   <string name="letOtherPlayersChallengeYou">Lat aðrar telvarar bjóða tær av</string>
-  <string name="letOtherPlayersInviteYouToStudy">Lat aðrar telvarar bjóða tær at kanna</string>
+  <string name="letOtherPlayersInviteYouToStudy">Lat aðrar telvarar bjóða tær at rannsaka</string>
   <string name="sound">Ljóð</string>
   <string name="none">Einki</string>
   <string name="fast">Skjótt</string>
@@ -585,7 +585,7 @@
   <string name="playOfflineComputer">Telda</string>
   <string name="opponent">Mótleikari</string>
   <string name="learnMenu">Lær</string>
-  <string name="studyMenu">Nám</string>
+  <string name="studyMenu">Rannsókn</string>
   <string name="practice">Venjing</string>
   <string name="community">Felagsskapur</string>
   <string name="tools">Amboð</string>
@@ -705,6 +705,9 @@
   <string name="everybodyGetsAllFeaturesForFree">Øll fáa allar hentleikar ókeypis</string>
   <string name="zeroAdvertisement">Ongar lýsingar</string>
   <string name="fullFeatured">Við øllum hentleikum</string>
+  <string name="phoneAndTablet">Snildfon og teldil</string>
+  <string name="correspondenceChess">Brævtalv</string>
+  <string name="onlineAndOfflinePlay">Telva á netinum og uttan net</string>
   <string name="viewTheSolution">Síggj svarið</string>
   <string name="followAndChallengeFriends">Fylg vinum og bjóða teimum av</string>
   <plurals name="availableInNbLanguages">
@@ -712,6 +715,9 @@
     <item quantity="other">Tøkt á %s málum!</item>
   </plurals>
   <string name="gameAnalysis">Talvgreining</string>
+  <string name="xHostsY">%1$s er vertur fyri %2$s</string>
+  <string name="xJoinsY">%1$s fer upp í %2$s</string>
+  <string name="xLikesY">%1$s dámar %2$s</string>
   <string name="anonymous">Dulnevnt</string>
   <string name="yourScore">Títt stigatal: %s</string>
   <string name="language">Mál</string>
