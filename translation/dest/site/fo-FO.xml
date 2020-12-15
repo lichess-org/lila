@@ -628,6 +628,13 @@
   <string name="aboutSimulImage">Móti 50 mótleikarum vann Fischer 47 talv, telvaði 2 jøvn og tapti 1.</string>
   <string name="aboutSimulRealLife">Hugskotið er tikið úr veruliga heiminum, har verturin fyri fjøltalvum gongur frá einum borði til tað næsta at flyta ein einstakan leik.</string>
   <string name="aboutSimulRules">Tá ið fjøltalvið byrjar, fer hvør leikari undir eitt talv móti vertinum, ið sleppur at telva við hvíta fólkinum. Fjøltalvið endar, tá ið øll talv eru liðug.</string>
+  <string name="aboutSimulSettings">Fjøltalv eru altíð uttan styrkismetingar. Til ber ikki at leggja tíð aftrat, telva nýggj talv ella telva við afturtøkum.</string>
+  <string name="create">Stovna</string>
+  <string name="whenCreateSimul">Tá ið tú stovnar eitt fjøltalv, sleppur tú at telva móti fleiri telvarum í senn.</string>
+  <string name="simulVariantsHint">Velur tú fleiri avbrigdi, sleppur hvør telvari at gera av, hvat avbrigdi telvað verður.</string>
+  <string name="simulClockHint">Fischerklokku-uppseting. Fleiri telvarum, tú telvar móti, meiri tíð tørvar tær.</string>
+  <string name="simulAddExtraTime">Tú hevur loyvi at leggja tíð aftrat tínari klokku til tess at hjálpa tær at megna at telva fjøltalvið.</string>
+  <string name="simulHostExtraTime">Vertur fær eyka klokkutíð</string>
   <string name="lichessTournaments">Lichess kappingar</string>
   <string name="tournamentOfficial">Almennar</string>
   <string name="timeBeforeTournamentStarts">Tíð áðrenn kapping byrjar</string>
@@ -637,6 +644,8 @@
   <string name="keyShowOrHideComments">vís/fjal viðmerkingar</string>
   <string name="keyEnterOrExitVariation">lat upp/lat aftur avbrigdi</string>
   <string name="newTournament">Nýggj kapping</string>
+  <string name="tournamentNotFound">Kapping ikki funnin</string>
+  <string name="tournamentDoesNotExist">Kappingin er ikki til.</string>
   <string name="returnToTournamentsHomepage">Far aftur til heimasíðu við kappingum</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s %2$s telvari hesa vikuna.</item>
