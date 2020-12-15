@@ -580,6 +580,16 @@
   <string name="contribute">Hjálp til</string>
   <string name="termsOfService">Tænastutreytir</string>
   <string name="sourceCode">Keldukota</string>
+  <string name="simultaneousExhibitions">Fjøltelvingar</string>
+  <string name="host">Vertur</string>
+  <string name="hostColorX">Litur hjá verti: %s</string>
+  <string name="createdSimuls">Nýliga stovnað fjøltalv</string>
+  <string name="hostANewSimul">Stovna nýtt fjøltalv</string>
+  <string name="noSimulFound">Fjøltalv ikki funnið</string>
+  <string name="noSimulExplanation">Henda sýning við fjøltalvi er ikki til.</string>
+  <string name="returnToSimulHomepage">Far aftur til fjøltelvingarheimasíðu</string>
+  <string name="aboutSimul">Í fjøltalvum telvar einstakur telvari móti fleiri telvarum samstundis.</string>
+  <string name="aboutSimulImage">Móti 50 mótleikarum vann Fischer 47 talv, telvaði 2 jøvn og tapti 1.</string>
   <string name="lichessTournaments">Lichess kappingar</string>
   <string name="timeBeforeTournamentStarts">Tíð áðrenn kapping byrjar</string>
   <string name="newTournament">Nýggj kapping</string>
