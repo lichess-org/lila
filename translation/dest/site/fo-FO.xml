@@ -262,6 +262,8 @@
     <item quantity="other">Gev %s sekund</item>
   </plurals>
   <string name="takeback">Tak aftur</string>
+  <string name="proposeATakeback">Skjót upp afturtøku</string>
+  <string name="takebackPropositionSent">Afturtøka send</string>
   <string name="bookmarkThisGame">Set bókamerki við hetta talvið</string>
   <string name="tournament">Kapping</string>
   <string name="tournaments">Kappingar</string>
