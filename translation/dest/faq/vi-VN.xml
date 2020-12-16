@@ -47,4 +47,9 @@ Giá trị này có thể được sử dụng như một chỉ báo về chất
 
 Phân tích máy tính trên Lichess do Stockfish cung cấp.</string>
   <string name="insufficientMaterial">Thua về thời gian, hòa và không đủ quân chiếu hết</string>
+  <string name="lichessFollowFIDErules">Trong trường hợp một người chơi hết thời gian, người chơi đó thường sẽ bị xử thua. Tuy nhiên, ván đấu sẽ được xử hòa nếu ở thế trận đó mà đối phương không thể chiếu hết vua của họ bằng bất kỳ chuỗi nước đi hợp lệ nào có thể xảy ra (%1$s).
+
+Trong một số trường hợp hiếm hoi, điều này có thể khó được quyết định một cách tự động (đường bắt buộc, pháo đài). Mặc định chúng tôi luôn sát cánh với người chơi không hết thời gian.
+
+Lưu ý rằng có thể chiếu hết với một quân mã hoặc một quân tượng nếu đối phương có quân cờ có thể chặn được vua.</string>
 </resources>
