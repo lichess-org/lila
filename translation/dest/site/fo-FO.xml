@@ -211,7 +211,7 @@
   <string name="yourOpponentOffersADraw">Mótleikarin bjóðar tær javnt</string>
   <string name="accept">Góðtak</string>
   <string name="decline">Nokta</string>
-  <string name="playingRightNow">Telvað beint nú</string>
+  <string name="playingRightNow">Verður telvað beint nú</string>
   <string name="eventInProgress">Telvað beint nú</string>
   <string name="finished">Liðugt</string>
   <string name="finishesX">endar %s</string>
@@ -250,8 +250,8 @@
   <string name="freeOnlineChess">Ókeypis talv á netinum</string>
   <string name="spectators">Áskoðarar:</string>
   <plurals name="nbRated">
-    <item quantity="one">%s styrkimett</item>
-    <item quantity="other">%s styrkimett</item>
+    <item quantity="one">%s styrkismett</item>
+    <item quantity="other">%s styrkismett</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s vunnið</item>
@@ -288,10 +288,10 @@
   <string name="bookmarkThisGame">Set bókamerki við hetta talvið</string>
   <string name="tournament">Kapping</string>
   <string name="tournaments">Kappingar</string>
-  <string name="tournamentPoints">Kappingarstig</string>
+  <string name="tournamentPoints">Kappingastig</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s kappingarstig</item>
-    <item quantity="other">%s kappingarstig</item>
+    <item quantity="other">%s kappingastig</item>
   </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s rannsókn</item>
