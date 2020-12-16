@@ -39,4 +39,12 @@ Ví dụ: thời lượng ước tính của một ván cờ 5+3 là 5 × 60 + 4
   <string name="lichessSupportChessAnd">Lichess hỗ trợ cờ vua tiêu chuẩn và %1$s.</string>
   <string name="eightVariants">8 biến thể cờ vua khác</string>
   <string name="whatIsACPL">Phần trăm tốt mất trung bình (ACPL) là gì?</string>
+  <string name="acplExplanation">Phần trăm tốt là đơn vị đo lường được sử dụng trong cờ vua để đại diện cho lợi thế. Một phần trăm tốt bằng 1/100 tốt. Do đó 100 phần trăm tốt = 1 tốt. Những giá trị này không đóng vai trò chính thức trong ván đấu nhưng hữu ích cho người chơi, và rất cần thiết trong cờ vua trên máy tính, để đánh giá các vị trí.
+
+Đẩy tốt lên cao sẽ có thể không làm mất phần trăm tốt, nhưng để tốt thấp sẽ làm giảm vị trí, được đo bằng phần trăm tốt.
+
+Giá trị này có thể được sử dụng như một chỉ báo về chất lượng chơi. Càng ít phần trăm tốt mất mỗi nước đi, càng có ưu thế.
+
+Phân tích máy tính trên Lichess do Stockfish cung cấp.</string>
+  <string name="insufficientMaterial">Thua về thời gian, hòa và không đủ quân chiếu hết</string>
 </resources>
