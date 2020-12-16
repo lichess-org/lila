@@ -10,5 +10,9 @@
   <string name="whyIsLilaCalledLila">Tương tự vậy, mã nguồn của Lichess,%1$s, li là viết tắt của cờ vua trong sca, la vì phần lớn Lichess được viết bằng %2$s, một ngôn ngữ lập trình trực quan.</string>
   <string name="howCanIContributeToLichess">Làm thế nào để tôi có thể đóng góp cho Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess được hỗ trợ bởi sự đóng góp từ những người bảo trợ và nỗ lực của một nhóm tình nguyện viên.</string>
-  <string name="findMoreAndSeeHowHelp">Bạn có thể xem thêm thông tin về %1$s ( hoặc cả một %2$s). Nếu bạn muốn giúp Lichess bằng việc tình nguyện dành thời gian và kỹ năng của bạn, có rất nhiều %3$s.</string>
+  <string name="findMoreAndSeeHowHelp">Bạn có thể xem thêm thông tin về %1$s ( hoặc %2$s). Nếu bạn muốn giúp Lichess bằng việc tình nguyện dành thời gian và kỹ năng của bạn, có rất nhiều %3$s.</string>
+  <string name="beingAPatron">trở thành một người bảo trợ</string>
+  <string name="breakdownOfOurCosts">xem bảng chi tiết về chi phí của chúng tôi</string>
+  <string name="otherWaysToHelp">nhiều cách khác để giúp đỡ chúng tôi</string>
+  <string name="areThereWebsitesBasedOnLichess">Có trang web nào tương tự, dựa trên cấu trúc của Lichess không?</string>
 </resources>
