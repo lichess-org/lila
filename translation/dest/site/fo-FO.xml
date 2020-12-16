@@ -79,7 +79,7 @@
   <string name="unknown">Ókent</string>
   <string name="database">Dátugrunnur</string>
   <string name="whiteDrawBlack">Hvítur / Javnt / Svartur</string>
-  <string name="averageRatingX">Miðal styrkimeting: %s</string>
+  <string name="averageRatingX">Miðal styrkismeting: %s</string>
   <string name="recentGames">Nýliga telvað talv</string>
   <string name="topGames">Bestu talv</string>
   <string name="masterDbExplanation">Tvær milliónir OTB talv hjá %1$s+ FIDE-styrkismettum telvarum frá %2$s til %3$s</string>
@@ -121,8 +121,8 @@
   <string name="moveTimes">Leiktíðir</string>
   <string name="flipBoard">Vend borði við</string>
   <string name="threefoldRepetition">Endurtøka tríggjar ferðir</string>
-  <string name="claimADraw">Krev javnleik (remis)</string>
-  <string name="offerDraw">Eg bjóði javnleik (remis)</string>
+  <string name="claimADraw">Krev remis (javnleik)</string>
+  <string name="offerDraw">Eg bjóði remis</string>
   <string name="draw">Javnleikur</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s telvari</item>
