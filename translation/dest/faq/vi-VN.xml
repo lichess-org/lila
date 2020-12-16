@@ -15,4 +15,6 @@
   <string name="breakdownOfOurCosts">xem bảng chi tiết về chi phí của chúng tôi</string>
   <string name="otherWaysToHelp">nhiều cách khác để giúp đỡ chúng tôi</string>
   <string name="areThereWebsitesBasedOnLichess">Có trang web nào tương tự, dựa trên cấu trúc của Lichess không?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Đúng vậy, Lichess thực sự đã truyền cảm hứng cho các trang web mã nguồn mở khác sử dụng %1$s, %2$s, hay là %3$s của chúng tôi.</string>
+  <string name="fairPlay">Chơi Đẹp</string>
 </resources>
