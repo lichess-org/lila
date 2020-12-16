@@ -34,7 +34,7 @@
   <string name="whitePlays">Hvítur eigur leik</string>
   <string name="blackPlays">Svartur eigur leik</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Títt mótstøðufólk fór frá talvinum. Tú kanst siga teg hava vunnið um %s sekund.</item>
+    <item quantity="one">Mótleikarin fór frá talvinum. Tú kanst siga teg hava vunnið um %s sekund.</item>
     <item quantity="other">Títt mótstøðufólk fór frá talvinum. Tú kanst siga teg hava vunnið um %s sekund.</item>
   </plurals>
   <string name="opponentLeftChoices">Tín móttelvari er farin frá talvinum. Tú kanst antin krevja sigur, siga tað vera remis ella bíða.</string>
