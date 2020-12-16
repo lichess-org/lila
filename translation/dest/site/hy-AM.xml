@@ -11,7 +11,7 @@
   <string name="level">Մակարդակ</string>
   <string name="toggleTheChat">Թաքցնել/ցուցադրել զրուցարանը</string>
   <string name="toggleSound">Անջատել/Միացնել ձայնը</string>
-  <string name="chat">Զրուցել</string>
+  <string name="chat">Չաթ</string>
   <string name="resign">Հանձնվել</string>
   <string name="checkmate">Շախ և մատ</string>
   <string name="stalemate">Պատ</string>
@@ -512,4 +512,8 @@
   <string name="sorry">Ներողություն :(</string>
   <string name="why">Ինչու՞</string>
   <string name="howToAvoidThis">Ինչպե՞ս խուսափել սրանից</string>
+  <string name="thankYouForReading">Շնորհակալություն կարդալու համար:</string>
+  <string name="classical">Դասական</string>
+  <string name="important">Կարևոր</string>
+  <string name="subscribe">Բաժանորդագրվել</string>
 </resources>
