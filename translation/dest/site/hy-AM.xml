@@ -91,6 +91,7 @@
   <string name="bestMoveArrow">Լավագույն քայլի սլաքը</string>
   <string name="memory">Հիշողություն</string>
   <string name="infiniteAnalysis">Անվերջ վերլուծություն</string>
+  <string name="blunder">Վրիպում</string>
   <string name="blunders">Կոպիտ սխալներ</string>
   <string name="mistake">Սխալ</string>
   <string name="mistakes">Սխալներ</string>
@@ -125,7 +126,7 @@
   <string name="forum">Ֆորում</string>
   <string name="xPostedInForumY">%1$s գրառել է %2$s ֆորումում</string>
   <string name="latestForumPosts">Վերջին գրառումները ֆորումում</string>
-  <string name="players">Խաղացողները</string>
+  <string name="players">Խաղացողներ</string>
   <string name="friends">Ընկերներ</string>
   <string name="today">Այսօր</string>
   <string name="yesterday">Երեկ</string>
@@ -158,12 +159,18 @@
   <string name="forgotPassword">Մոռացել ե՞ք գաղտնաբառը</string>
   <string name="rank">Դասակարգում</string>
   <string name="rankX">Դասակարգում %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Վարկանիշը թարմացվում է ամեն րոպե</item>
+    <item quantity="other">Վարկանիշը թարմացվում է ամեն %s րոպե</item>
+  </plurals>
   <string name="gamesPlayed">Խաղացած խաղեր</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s Խաղեր՝ ձեր հետ</item>
     <item quantity="other">%s Խաղեր՝ ձեր հետ</item>
   </plurals>
   <string name="cancel">Հերքել</string>
+  <string name="whiteTimeOut">Սպաիտակների ժամանակը սպառվեց</string>
+  <string name="blackTimeOut">Սևերի ժամանակը սպառվեց</string>
   <string name="drawOfferSent">Ոչ-ոքի առաջարկը ուղարկված է</string>
   <string name="drawOfferDeclined">Ոչ-ոքի առաջարկը մերժվել է</string>
   <string name="drawOfferAccepted">Ոչ-ոքի առաջարկը ընդունվել է</string>
