@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Հաստատեք Ձեր lichess.org-ի հաշիվը, %s</string>
-  <string name="emailConfirm_click">Lichess-i հաշիվը ակտիվացնելու համար սեղմեկ հղման վրա:</string>
+  <string name="emailConfirm_click">Lichess-ի հաշիվը ակտիվացնելու համար սեղմեք հղման վրա:</string>
   <string name="emailConfirm_ignore">Եթե Դուք չեք գրանցվել lichess-ում, կարող եք հանգիստ անտեսել այս հաղորդագրությունը:</string>
   <string name="passwordReset_subject">Զրոյացրեք lichess.org-ի Ձեր գաղտնաբառը, %s</string>
   <string name="passwordReset_intro">Մենք ստացել ենք Ձեր հաշվի գաղտնաբառը վերականգնելու հարցում:</string>
-  <string name="passwordReset_clickOrIgnore">Եթե հարցում կատարել եք, սեղմեք ստորև բերված հղման վրա: Եթե ոչ՝ ուղղակի անտեսեք այն:</string>
+  <string name="passwordReset_clickOrIgnore">Եթե կատարել եք հարցում, սեղմեք ստորև բերված հղման վրա: Եթե ոչ՝ ուղղակի անտեսեք այն:</string>
   <string name="emailChange_subject">Հաստատեք Ձեր նոր էլեկտրոնային հասցեն, %s</string>
   <string name="emailChange_intro">Դուք ցանկացել եք փոխել Ձեր էլեկտրոնային հասցեն:</string>
   <string name="emailChange_click">Որպեսզի հաստատեք այս էլ. փոստը, անցեք ստորև բերված հղումով:</string>
