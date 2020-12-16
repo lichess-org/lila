@@ -81,4 +81,14 @@ Xem%3$s về nước này để biết một cách thực hiện nó.</string>
 Việc xác minh là người chơi có danh hiệu trên Lichess sẽ cho phép bạn chơi trong các sự kiện Đấu trường kỳ thủ có danh hiệu.
 
 Cuối cùng là danh hiệu danh dự %2$s.</string>
+  <string name="asWellAsManyNMtitles">nhiều danh hiệu quốc gia</string>
+  <string name="verificationForm">biểu mẫu xác minh</string>
+  <string name="canIbecomeLM">Tôi có thể nhận được danh hiệu Lichess Master (LM) không?</string>
+  <string name="noUpperCaseDot">Không.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Danh hiệu danh dự này không chính thức và chỉ tồn tại trên Lichess.
+
+Theo quyết định của chúng tôi, chúng tôi hiếm khi trao giải cho những người chơi đáng chú ý là thành viên tốt của Lichess. Bạn không nhận được danh hiệu LM, danh hiệu LM sẽ tự đến với bạn. Nếu bạn đủ điều kiện, bạn sẽ nhận được thông báo từ chúng tôi về điều đó và lựa chọn chấp nhận hoặc từ chối.
+
+Vui lòng không yêu cầu được nhận danh hiệu LM.</string>
+  <string name="whatUsernameCanIchoose">Tôi có thể đặt tên người dùng là gì?</string>
 </resources>
