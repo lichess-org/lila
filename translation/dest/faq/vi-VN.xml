@@ -99,4 +99,21 @@ Vui lòng không yêu cầu được nhận danh hiệu LM.</string>
   <string name="aHourlyBulletTournament">một giải đấu Cờ Siêu Chớp hàng giờ</string>
   <string name="goldenZeeExplanation">ZugAddict đã phát trực tiếp và trong 2 giờ đó anh ấy đã cố gắng đánh bại A.I. cấp độ 8 trong thể loại 1+0, nhưng không thành công. Thibault nói với anh ấy rằng nếu anh ấy làm điều đó thành công trên luồng, anh ấy sẽ nhận được một chiếc cúp độc nhất vô nhị. Một giờ sau, anh ta đập vỡ Stockfish, và lời hứa đã được tôn vinh.</string>
   <string name="lichessRatings">Xếp hạng Lichess</string>
+  <string name="whichRatingSystemUsedByLichess">Lichess sử dụng hệ thống xếp hạng nào?</string>
+  <string name="ratingSystemUsedByLichess">Xếp hạng được tính bằng phương pháp xếp hạng Glicko-2 do Mark Glickman phát triển. Đây là một phương pháp đánh giá rất phổ biến và được sử dụng bởi một số lượng lớn các tổ chức cờ vua (FIDE là một ví dụ ngược lại đáng chú ý, vì họ vẫn sử dụng hệ thống đánh giá Elo ngày tháng).
+
+Về cơ bản, xếp hạng Glicko sử dụng \"khoảng tin cậy\" khi tính toán và cho ra xếp hạng của bạn. Khi bạn lần đầu tiên bắt đầu sử dụng trang web, xếp hạng của bạn bắt đầu ở 1500 ± 700. 1500 thể hiện xếp hạng của bạn và 700 thể hiện khoảng tin cậy.
+
+Về cơ bản, hệ thống chắc chắn 90% rằng xếp hạng của bạn nằm trong khoảng 800 đến 2200. Điều này cực kỳ không chắc chắn. Do đó, khi một người chơi mới bắt đầu, xếp hạng của họ sẽ thay đổi rất đáng kể, có thể vài trăm điểm một lúc. Nhưng sau một số trận đấu với những người chơi đã thành danh, khoảng tin cậy sẽ thu hẹp và số điểm đạt được/mất đi sau mỗi trận đấu sẽ giảm xuống.
+
+Một điểm cần lưu ý nữa là, khi thời gian trôi qua, khoảng tin cậy sẽ tăng lên. Điều này cho phép bạn tăng/giảm điểm nhanh hơn để phù hợp với bất kỳ thay đổi nào trong cấp độ kỹ năng của bạn trong thời gian đó.</string>
+  <string name="whatIsProvisionalRating">Tại sao lại có dấu chấm hỏi (?) bên cạnh xếp hạng?</string>
+  <string name="provisionalRatingExplanation">Dấu chấm hỏi có nghĩa là xếp hạng là tạm thời. Các lý do bao gồm:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Người chơi vẫn chưa hoàn thành đủ các ván đấu được xếp hạng so với %1$s trong danh mục xếp hạng.</string>
+  <string name="similarOpponents">đối thủ có năng lực tương đương</string>
+  <string name="notPlayedRecently">Người chơi không chơi đủ các ván đấu gần đây. Tùy thuộc vào số lượng ván đấu bạn đã chơi, có thể mất khoảng một năm không hoạt động để xếp hạng của bạn trở lại tạm thời.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Cụ thể, điều đó có nghĩa là độ lệch Glicko-2 lớn hơn 110. Độ lệch là mức độ tin cậy của hệ thống trong xếp hạng. Độ lệch càng thấp, xếp hạng càng ổn định.</string>
+  <string name="howDoLeaderoardsWork">Thứ hạng và bảng thành tích hoạt động như thế nào?</string>
+  <string name="inOrderToAppearsYouMust">Để nhận được %1$s, bạn phải:</string>
+  <string name="ratingLeaderboards">có thứ hạng trên bảng xếp hạng</string>
 </resources>
