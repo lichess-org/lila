@@ -252,8 +252,8 @@ final class Team(
                     .bindFromRequest()
                     .fold(
                       newJsonFormError,
-                      msg =>
-                        api.join(id, me, msg) flatMap {
+                      setup =>
+                        api.join(id, me, Some(setup.message)) flatMap {
                           case Some(Joined(_)) => jsonOkResult.fuccess
                           case Some(Motivate(_)) =>
                             BadRequest(
@@ -272,9 +272,9 @@ final class Team(
             .bindFromRequest()
             .fold(
               newJsonFormError,
-              msg =>
+              setup =>
                 env.oAuth.server.fetchAppAuthor(req) flatMap {
-                  api.joinApi(id, me, _, msg)
+                  api.joinApi(id, me, _, Some(setup.message), setup.password)
                 } flatMap {
                   case Some(Joined(_)) => jsonOkResult.fuccess
                   case Some(Motivate(_)) =>

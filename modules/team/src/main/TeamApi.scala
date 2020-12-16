@@ -132,11 +132,14 @@ final class TeamApi(
       teamId: Team.ID,
       me: User,
       oAuthAppOwner: Option[User.ID],
-      msg: Option[String]
+      msg: Option[String],
+      password: Option[String]
   ): Fu[Option[Requesting]] =
     teamRepo.coll.byId[Team](teamId) flatMap {
       _ ?? { team =>
         if (team.open || oAuthAppOwner.contains(team.createdBy)) doJoin(team, me) inject Joined(team).some
+        else if (team.password != None && team.password.get != "" && team.password != password)
+          fuccess[Option[Requesting]](Motivate(team).some)
         else
           msg.fold(fuccess[Option[Requesting]](Motivate(team).some)) { txt =>
             createRequest(team, me, txt) inject Joined(team).some

@@ -58,18 +58,23 @@ final private[team] class TeamForm(
 
   def request(team: Team) = Form(
     mapping(
-      "message"  -> clean(text(minLength = 30, maxLength = 2000)),
-      "password" -> text()
+      "message" -> clean(text(minLength = 30, maxLength = 2000)),
+      Fields.password
     )(RequestSetup.apply)(RequestSetup.unapply).verifying(
       "team:incorrectTeamPassword",
       d => passwordMatches(d, team.password).await(2 seconds, "passwordMatches")
     )
   ) fill RequestSetup(
     message = "Hello, I would like to join the team!",
-    password = ""
+    password = None
   )
 
-  val apiRequest = Form(single("message" -> optional(clean(text(minLength = 30, maxLength = 2000)))))
+  val apiRequest = Form(
+    mapping(
+      "message" -> clean(text(minLength = 30, maxLength = 2000)),
+      Fields.password
+    )(RequestSetup.apply)(RequestSetup.unapply)
+  )
 
   val processRequest = Form(
     tuple(
@@ -146,5 +151,5 @@ private[team] case class TeamEdit(
 
 private[team] case class RequestSetup(
     message: String,
-    password: String
+    password: Option[String]
 )
