@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="faqAbbreviation">Những câu hỏi thường gặp</string>
+  <string name="frequentlyAskedQuestions">Những Câu Hỏi Thường Gặp</string>
+  <string name="whyIsLichessCalledLichess">Tại sao Lichess lại có tên là Lichess?</string>
+</resources>
