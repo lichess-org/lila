@@ -105,7 +105,7 @@ final private[team] class TeamForm(
     teamRepo.coll.exists($id(Team nameToId setup.trim.name))
 
   private def passwordMatches(setup: RequestSetup, password: Option[String]) = {
-    if (password == None) fuTrue
+    if (password == None || password.get == "") fuTrue
     else if (password.get == setup.password) fuTrue
     else
       fuFalse
