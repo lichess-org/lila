@@ -91,4 +91,12 @@ Theo quyết định của chúng tôi, chúng tôi hiếm khi trao giải cho n
 
 Vui lòng không yêu cầu được nhận danh hiệu LM.</string>
   <string name="whatUsernameCanIchoose">Tôi có thể đặt tên người dùng là gì?</string>
+  <string name="usernamesNotOffensive">Nói chung, tên người dùng không được: xúc phạm, mạo danh người khác hoặc quảng cáo. Bạn có thể đọc thêm về %1$s.</string>
+  <string name="guidelines">hướng dẫn</string>
+  <string name="uniqueTrophies">Những chiếc cúp độc nhất</string>
+  <string name="ownerUniqueTrophies">Chiếc cúp đó là duy nhất trong lịch sử của Lichess, không ai khác ngoài %1$s sẽ có được nó.</string>
+  <string name="wayOfBerserkExplanation">Để có được nó, hiimgosu đã tự thử thách bản thân bằng cách chia đôi thời gian mỗi ván và giành chiến thắng 100%% tất cả các ván trong một %s.</string>
+  <string name="aHourlyBulletTournament">một giải đấu Cờ Siêu Chớp hàng giờ</string>
+  <string name="goldenZeeExplanation">ZugAddict đã phát trực tiếp và trong 2 giờ đó anh ấy đã cố gắng đánh bại A.I. cấp độ 8 trong thể loại 1+0, nhưng không thành công. Thibault nói với anh ấy rằng nếu anh ấy làm điều đó thành công trên luồng, anh ấy sẽ nhận được một chiếc cúp độc nhất vô nhị. Một giờ sau, anh ta đập vỡ Stockfish, và lời hứa đã được tôn vinh.</string>
+  <string name="lichessRatings">Xếp hạng Lichess</string>
 </resources>
