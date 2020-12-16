@@ -187,6 +187,8 @@ function pieceJumpingHandler() {
       const $piece = $prevNextPieces.get($prevNextPieces.length -1);
       if ($piece) {
         $piece.focus();
+      } else {
+        sound.error();
       }
       return false;
     } else {
@@ -196,6 +198,8 @@ function pieceJumpingHandler() {
       const $piece = $prevNextPieces.get(0);
       if ($piece) {
         $piece.focus();
+      } else {
+        sound.error();
       }
       return false;
     }
@@ -212,6 +216,8 @@ function arrowKeyHandler() {
         const $upSq = $($currBtn.parent().parent().prev().children().get($bottomCol)).children().get(0);
         if ($upSq) {
           $upSq.focus();
+        } else {
+          sound.error();
         }
         break;
       case 'ArrowDown':
@@ -220,6 +226,8 @@ function arrowKeyHandler() {
         const $downSq = $($currBtn.parent().parent().next().children().get($topCol)).children().get(0);
         if ($downSq) {
           $downSq.focus();
+        } else {
+          sound.error();
         }
         break;
       case 'ArrowLeft':
@@ -227,6 +235,8 @@ function arrowKeyHandler() {
         const $leftSq = $currBtn.parent().prev().children().get(0);
         if ($leftSq) {
           $leftSq.focus();
+        } else {
+          sound.error();
         }
         break;
       case 'ArrowRight':
@@ -235,6 +245,8 @@ function arrowKeyHandler() {
         if ($rightSq) {
           $rightSq.focus();
           ev.preventDefault();
+        } else {
+          sound.error();
         }
         break;
     }

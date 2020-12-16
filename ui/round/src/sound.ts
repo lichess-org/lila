@@ -7,3 +7,4 @@ export const capture = throttled('capture');
 export const check = throttled('check');
 export const explode = throttled('explosion');
 export const select = throttled('select');
+export const error = throttled('error');
