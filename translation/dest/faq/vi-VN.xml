@@ -24,4 +24,8 @@
    (Ví dụ: nếu xếp hạng của bạn tăng lên đáng kể sau các ván đấu đó, bạn có thể không được hoàn điểm hoặc chỉ được hoàn lại một phần.) Khoản hoàn trả sẽ không bao giờ vượt quá 150 điểm.</string>
   <string name="preventLeavingGameWithoutResigning">Chuyện gì sẽ xảy ra đối với những người chơi rời khỏi ván đấu thay vì đầu hàng?</string>
   <string name="leavingGameWithoutResigningExplanation">Nếu đối thủ của bạn thường xuyên hủy / rời trò chơi, họ sẽ bị \"cấm chơi\", có nghĩa là họ tạm thời bị cấm chơi. Điều này không được công khai trên hồ sơ của họ. Nếu hành vi vẫn tiếp tục, độ dài của thời gian cấm sẽ tăng lên - và hành vi này kéo dài có thể dẫn đến việc đóng tài khoản.</string>
+  <string name="howCanIBecomeModerator">Làm sao để tôi có thể trở thành một người điều hành?</string>
+  <string name="youCannotApply">Rất tiếc là bạn không thể đăng ký để trở thành một người kiểm duyệt. Nếu chúng tôi thấy ai đó mà chúng tôi nghĩ rằng sẽ là người kiểm duyệt tốt, chúng tôi sẽ liên hệ trực tiếp với họ.</string>
+  <string name="isCorrespondenceDifferent">Đánh cờ qua thư có khác với cờ vua bình thường?</string>
+  <string name="youCanUseOpeningBookNoEngine">Trên Lichess, sự khác biệt chính trong các quy tắc cho cờ vua tương ứng là một cuốn sách mở được cho phép. Việc sử dụng máy tính phân tích vẫn bị cấm và sẽ bị gắn cờ vì sử dụng máy tính phân tích hỗ trợ. Mặc dù ICCF cho phép sử dụng máy tính phân tích trong đánh cờ qua thư, nhưng Lichess thì không.</string>
 </resources>
