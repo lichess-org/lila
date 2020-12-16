@@ -448,7 +448,7 @@
   <string name="country">Land</string>
   <string name="socialMediaLinks">Leinki til sosialar miðlar</string>
   <string name="watchLichessTV">Hygg at Lichess sjónvarpi</string>
-  <string name="previouslyOnLichessTV">Áður sýnt á Lichess sjónvarpi</string>
+  <string name="previouslyOnLichessTV">Áður víst í Lichess-sjónvarpi</string>
   <string name="onlinePlayers">Telvarar á netinum nú</string>
   <string name="activeToday">Virknir í dag</string>
   <string name="activePlayers">Virknir telvarar</string>
@@ -461,8 +461,8 @@
   <string name="puzzleOfTheDay">Dagsins talvuppgáva</string>
   <string name="clickToSolve">Klikk á at loysa</string>
   <string name="goodMove">Góður leikur</string>
-  <string name="butYouCanDoBetter">Ein betri leikur er.</string>
-  <string name="bestMove">Besti leikur</string>
+  <string name="butYouCanDoBetter">Men ein betri leikur er.</string>
+  <string name="bestMove">Besti leikur!</string>
   <string name="keepGoing">Blív við</string>
   <string name="puzzleFailed">Uppgávan miseydnaðist</string>
   <string name="butYouCanKeepTrying">Men til ber at halda fram at royna.</string>
