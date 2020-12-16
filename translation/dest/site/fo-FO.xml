@@ -818,6 +818,7 @@
   <string name="temporaryInconvenience">Vit biðja teg halda okkum til góðar fyri fyribils órógvanina</string>
   <string name="wishYouGreatGames">og ynskja tær nógv góð talv á lichess.org.</string>
   <string name="thankYouForReading">Takk fyri, at tú las hetta!</string>
+  <string name="agreementPolicy">Eg samtykki, at eg fari at fylgja øllum Lichess-reglugerðum.</string>
   <string name="searchOrStartNewDiscussion">Leita eftir samrøðu ella byrja eina nýggja</string>
   <string name="edit">Broyt</string>
   <string name="ultraBulletDesc">Vitleyst skjót talv: styttri enn 30 sekund</string>
@@ -831,6 +832,7 @@
   <string name="useTheReportForm">nýt útfyllingarskjalið</string>
   <string name="toRequestSupport">Til tess at biðja um stuðul, %1$s</string>
   <string name="tryTheContactPage">royn síðuna við sambondum</string>
+  <string name="joinTheTeamXToPost">Far upp í %1$s, at gera uppsløg á hesum torgi</string>
   <string name="teamNamedX">%1$s lið</string>
   <string name="youCannotPostYetPlaySomeGames">Tú kanst ikki seta uppsløg upp á torgunum enn. Telva nøkur talv!</string>
   <string name="subscribe">Melda til</string>
