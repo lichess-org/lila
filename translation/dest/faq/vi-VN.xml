@@ -63,4 +63,12 @@ Nó được mô tả trong phần 3.7 (d) của %2$s:
 Xem%3$s về nước này để biết một cách thực hiện nó.</string>
   <string name="goodIntroduction">thông tin hữu ích</string>
   <string name="officialRulesPDF">luật chính thức (PDF)</string>
+  <string name="lichessTraining">huấn luyện của Lichess</string>
+  <string name="threefoldRepetition">Lặp cờ ba lần</string>
+  <string name="threefoldRepetitionExplanation">Nếu thế cờ được lặp lại 3 lần, hai người chơi có thể được xử hòa bởi %1$s. Lichess áp dụng các quy tắc chính thức của FIDE, như được mô tả trong Điều 9.2 (d) của %2$s.</string>
+  <string name="threefoldRepetitionLowerCase">luật lặp cờ ba lần</string>
+  <string name="notRepeatedMoves">Chúng tôi không lặp lại các nước đi. Tại sao ván đấu vẫn bị xử hòa bởi luật lặp cờ?</string>
+  <string name="repeatedPositionsThatMatters">Lặp lại ba lần là về %1$s bị lặp lại, không phải các nước đi. Sự lặp lại không nhất thiết phải xảy ra liên tiếp.</string>
+  <string name="positions">những thế cờ</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Chúng tôi lặp cờ ba lần. Tại sao vẫn không được xử hòa?</string>
 </resources>
