@@ -28,4 +28,9 @@
   <string name="youCannotApply">Rất tiếc là bạn không thể đăng ký để trở thành một người kiểm duyệt. Nếu chúng tôi thấy ai đó mà chúng tôi nghĩ rằng sẽ là người kiểm duyệt tốt, chúng tôi sẽ liên hệ trực tiếp với họ.</string>
   <string name="isCorrespondenceDifferent">Đánh cờ qua thư có khác với cờ vua bình thường?</string>
   <string name="youCanUseOpeningBookNoEngine">Trên Lichess, sự khác biệt chính trong các quy tắc cho cờ vua tương ứng là một cuốn sách mở được cho phép. Việc sử dụng máy tính phân tích vẫn bị cấm và sẽ bị gắn cờ vì sử dụng máy tính phân tích hỗ trợ. Mặc dù ICCF cho phép sử dụng máy tính phân tích trong đánh cờ qua thư, nhưng Lichess thì không.</string>
+  <string name="gameplay">Lối Chơi</string>
+  <string name="howBulletBlitzEtcDecided">Cờ Siêu Chớp, Cờ Chớp và các loại cờ khác được quyết định như thế nào?</string>
+  <string name="basedOnGameDuration">Việc xác định loại cờ của Lichess dựa trên thời lượng ván đấu ước tính =%1$s
+Ví dụ: thời lượng ước tính của một ván cờ 5+3 là 5 × 60 + 40 × 3 = 420 giây.</string>
+  <string name="durationFormula">(thời gian ban đầu của đồng hồ) + 40 × (gia số đồng hồ)</string>
 </resources>
