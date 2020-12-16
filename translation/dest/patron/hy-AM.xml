@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">Նվիրաբերել</string>
+  <string name="newPatrons">Նոր Պատրոններ</string>
+  <string name="freeChess">Անվճար շախմատ բոլորի համար, ընդմի՛շտ</string>
+  <string name="monthly">Ամսեկան</string>
+  <string name="onetime">Մեկանգամյա</string>
+  <string name="otherAmount">Այլ</string>
+  <string name="withCreditCard">Բանկային քարտ</string>
+  <string name="withPaypal">Փեյփալ</string>
+</resources>
