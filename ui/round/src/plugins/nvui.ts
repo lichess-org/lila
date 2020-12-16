@@ -123,6 +123,7 @@ lichess.RoundNVUI = function(redraw: Redraw) {
             const $buttons = $board.find('button');
             $buttons.on('click', onPieceSelect());
             $buttons.on('keydown', arrowKeyHandler());
+            $buttons.on('keypress', pieceJumpingHandler());
           })
         }, renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color, pieceStyle.get(), prefixStyle.get(), positionStyle.get())),
         h('h2', 'Settings'),
@@ -168,6 +169,39 @@ lichess.RoundNVUI = function(redraw: Redraw) {
 
 const promotionRegex = /^([a-h]x?)?[a-h](1|8)=\w$/;
 
+function pieceJumpingHandler() {
+  return (ev: KeyboardEvent) => {
+    if (!ev.key.match(/^[kqrbnp]$/i)) return true;
+    const $key = ev.key.toLocaleLowerCase();
+    const $currBtn = $(ev.target as HTMLButtonElement);
+    const $myBtnAttrs = 'button[rank="' + $currBtn.attr('rank') + '"][file="' + $currBtn.attr('file') + '"]';
+    const $searchString = 'button[piece="' + $key + '"], ' + $myBtnAttrs;
+    const $allPieces = $($searchString);
+    const $myPieceIndex = $allPieces.index($myBtnAttrs);
+    console.log($allPieces);
+    let $prevNextPieces = $([]);
+    if (ev.key.toUpperCase() === ev.key) {
+      console.log("prev");
+      $prevNextPieces = $allPieces.slice(0, $myPieceIndex);
+      console.log($prevNextPieces);
+      const $piece = $prevNextPieces.get($prevNextPieces.length -1);
+      if ($piece) {
+        $piece.focus();
+      }
+      return false;
+    } else {
+      console.log("next");
+      $prevNextPieces = $allPieces.slice($myPieceIndex+1);
+      console.log($prevNextPieces);
+      const $piece = $prevNextPieces.get(0);
+      if ($piece) {
+        $piece.focus();
+      }
+      return false;
+    }
+  };
+}
+
 function arrowKeyHandler() {
   return (ev: KeyboardEvent) => {
     const $currBtn = $(ev.target as HTMLButtonElement);
@@ -204,7 +238,6 @@ function arrowKeyHandler() {
         }
         break;
     }
-    
   };
 }
 

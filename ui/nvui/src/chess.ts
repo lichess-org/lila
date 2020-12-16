@@ -191,9 +191,9 @@ export function renderBoard(pieces: Pieces, pov: Color, pieceStyle: PieceStyle, 
   const doRankHeader = (rank: Rank): VNode => {
     return h('th', {attrs: {scope: 'row'}}, rank);
   }*/
-  const doPieceButton = (rank: Rank, file: File, text: string): VNode => {
+  const doPieceButton = (rank: Rank, file: File, letter: string, text: string): VNode => {
     return h('button', {
-      attrs: { rank: rank, file: file }
+      attrs: { rank: rank, file: file, piece: letter.toLowerCase()}
     }, text);
   }
   const doPiece = (rank: Rank, file: File): VNode => {
@@ -203,11 +203,11 @@ export function renderBoard(pieces: Pieces, pov: Color, pieceStyle: PieceStyle, 
       const letter = renderPieceStyle(piece.color === 'white' ? letters[piece.role].toUpperCase() : letters[piece.role]);
       const prefix = renderPrefixStyle(piece.color);
       const text = renderPositionStyle(rank, file, prefix + letter);
-      return h('span', doPieceButton(rank, file, text));
+      return h('span', doPieceButton(rank, file, letter, text));
     } else {
       const letter = (key.charCodeAt(0) + key.charCodeAt(1)) % 2 ? '-' : '+';
       const text = renderPositionStyle(rank, file, letter);
-      return h('span', doPieceButton(rank, file, text));
+      return h('span', doPieceButton(rank, file, letter, text));
     }
   }
   const doRank = (pov: Color, rank: Rank): VNode => {      
