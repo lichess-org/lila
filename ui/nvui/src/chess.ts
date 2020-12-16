@@ -178,19 +178,6 @@ export function renderBoard(pieces: Pieces, pov: Color, pieceStyle: PieceStyle, 
         return orig;
     }
   }
-  /*
-  const doFileHeaders = (pov: Color): VNode => {
-    let fileHeaders = [
-      h('th'),
-      ...files.map(file => h('th', {attrs: {scope: 'col'}}, file)),
-      h('th')
-    ]
-    if (pov === 'black') fileHeaders.reverse();
-    return h('tr', fileHeaders);
-  }
-  const doRankHeader = (rank: Rank): VNode => {
-    return h('th', {attrs: {scope: 'row'}}, rank);
-  }*/
   const doPieceButton = (rank: Rank, file: File, letter: string, text: string): VNode => {
     return h('button', {
       attrs: { rank: rank, file: file, piece: letter.toLowerCase()}

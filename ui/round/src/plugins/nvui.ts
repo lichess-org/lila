@@ -118,10 +118,11 @@ lichess.RoundNVUI = function(redraw: Redraw) {
         h('div.board', {
           hook: onInsert(el => {
             const $board = $(el as HTMLTableElement);
+            $board.on('keypress', boardHandler());
             // looking for specific elements tightly couples this file and nvui/chess.ts
             // unsure if a bad thing?
             const $buttons = $board.find('button');
-            $buttons.on('click', onPieceSelect());
+            $buttons.on('click', selectionHandler());
             $buttons.on('keydown', arrowKeyHandler());
             $buttons.on('keypress', pieceJumpingHandler());
           })
@@ -169,6 +170,14 @@ lichess.RoundNVUI = function(redraw: Redraw) {
 }
 
 const promotionRegex = /^([a-h]x?)?[a-h](1|8)=\w$/;
+
+function boardHandler() {
+  return (ev: KeyboardEvent) => {
+    if (!ev.key.match(/^[1-8!@#$%^&*]$/)) return true;
+    console.log(ev.key);
+    return false;
+  }
+}
 
 function pieceJumpingHandler() {
   return (ev: KeyboardEvent) => {
@@ -241,7 +250,7 @@ function arrowKeyHandler() {
   };
 }
 
-function onPieceSelect() {
+function selectionHandler() {
   return (ev: MouseEvent) => {
     // this depends on the current document structure. This may not be advisable in case the structure wil change.
     const $evBtn = $(ev.target as HTMLButtonElement);
