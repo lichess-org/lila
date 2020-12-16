@@ -131,6 +131,7 @@ lichess.RoundNVUI = function(redraw: Redraw) {
           'Move notation',
           renderSetting(moveStyle, ctrl.redraw)
         ]),
+        h('h3', 'Board Settings'),
         h('label', [
           'Piece style',
           renderSetting(pieceStyle, ctrl.redraw)
@@ -172,37 +173,25 @@ const promotionRegex = /^([a-h]x?)?[a-h](1|8)=\w$/;
 function pieceJumpingHandler() {
   return (ev: KeyboardEvent) => {
     if (!ev.key.match(/^[kqrbnp]$/i)) return true;
-    const $key = ev.key.toLocaleLowerCase();
     const $currBtn = $(ev.target as HTMLButtonElement);
     const $myBtnAttrs = 'button[rank="' + $currBtn.attr('rank') + '"][file="' + $currBtn.attr('file') + '"]';
-    const $searchString = 'button[piece="' + $key + '"], ' + $myBtnAttrs;
-    const $allPieces = $($searchString);
+    const $allPieces = $($myBtnAttrs + ', ' +
+                         'button[piece="' + ev.key.toLowerCase() + '"]');
     const $myPieceIndex = $allPieces.index($myBtnAttrs);
-    console.log($allPieces);
-    let $prevNextPieces = $([]);
-    if (ev.key.toUpperCase() === ev.key) {
-      console.log("prev");
-      $prevNextPieces = $allPieces.slice(0, $myPieceIndex);
-      console.log($prevNextPieces);
-      const $piece = $prevNextPieces.get($prevNextPieces.length -1);
-      if ($piece) {
-        $piece.focus();
-      } else {
-        sound.error();
-      }
-      return false;
+    const $next = ev.key.toLowerCase() === ev.key;
+    const $prevNextPieces = $next ? $allPieces.slice($myPieceIndex+1) : $allPieces.slice(0, $myPieceIndex);
+    const $piece = $next ? $prevNextPieces.get(0) : $prevNextPieces.get($prevNextPieces.length-1);
+    if ($piece) {
+      $piece.focus();
+    // if detected any matching piece; one is the pice being clicked on,
+    } else if ($allPieces.length >= 2) {
+      const $wrapPiece = $next ? $allPieces.get(0): $allPieces.get($allPieces.length-1);
+      $wrapPiece?.focus();
+      sound.wrap();
     } else {
-      console.log("next");
-      $prevNextPieces = $allPieces.slice($myPieceIndex+1);
-      console.log($prevNextPieces);
-      const $piece = $prevNextPieces.get(0);
-      if ($piece) {
-        $piece.focus();
-      } else {
-        sound.error();
-      }
-      return false;
+      sound.error();
     }
+    return false;
   };
 }
 
@@ -217,7 +206,7 @@ function arrowKeyHandler() {
         if ($upSq) {
           $upSq.focus();
         } else {
-          sound.error();
+          sound.border();
         }
         break;
       case 'ArrowDown':
@@ -227,7 +216,7 @@ function arrowKeyHandler() {
         if ($downSq) {
           $downSq.focus();
         } else {
-          sound.error();
+          sound.border();
         }
         break;
       case 'ArrowLeft':
@@ -236,7 +225,7 @@ function arrowKeyHandler() {
         if ($leftSq) {
           $leftSq.focus();
         } else {
-          sound.error();
+          sound.border();
         }
         break;
       case 'ArrowRight':
@@ -244,9 +233,8 @@ function arrowKeyHandler() {
         const $rightSq = $currBtn.parent().next().children().get(0);
         if ($rightSq) {
           $rightSq.focus();
-          ev.preventDefault();
         } else {
-          sound.error();
+          sound.border();
         }
         break;
     }
