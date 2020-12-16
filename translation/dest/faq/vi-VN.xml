@@ -129,4 +129,13 @@ Tốt nhất bạn nên coi xếp hạng là số liệu \"tương đối\" (tr�
   <string name="enableZenMode">Bật chế độ Zen trong %1$s hoặc bằng cách nhấn %2$s trong khi chơi.</string>
   <string name="displayPreferences">tùy chọn hiển thị</string>
   <string name="connexionLostCanIGetMyRatingBack">Tôi đã thua một ván đấu do lag/mất kết nối. Tôi có thể lấy lại điểm xếp hạng của mình không?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Rất tiếc, chúng tôi không thể trả lại điểm xếp hạng cho các ván đấu bị thua do lag hoặc mất kết nối, bất kể vấn đề là do bạn hay do chúng tôi. Tuy nhiên, trường hợp thứ hai là rất hiếm. Cũng lưu ý rằng khi Lichess khởi động lại và bạn thua do hết giờ vì điều đó, chúng tôi sẽ hủy trò chơi để tránh bị mất oan.</string>
+  <string name="howToThreeDots">Làm thế nào để...</string>
+  <string name="enableDisableNotificationPopUps">Bật hoặc tắt cửa sổ thông báo?</string>
+  <string name="viewSiteInformationPopUp">Xem cửa sổ thông tin trang web</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess có thể tùy chọn gửi thông báo hiện lên, chẳng hạn như khi đến lượt bạn hoặc bạn nhận được tin nhắn riêng.
+
+Nhấp vào biểu tượng ổ khóa bên cạnh địa chỉ lichess.org trong thanh URL của trình duyệt của bạn.
+
+Sau đó, chọn cho phép hoặc chặn thông báo từ Lichess.</string>
 </resources>
