@@ -71,4 +71,14 @@ Xem%3$s về nước này để biết một cách thực hiện nó.</string>
   <string name="repeatedPositionsThatMatters">Lặp lại ba lần là về %1$s bị lặp lại, không phải các nước đi. Sự lặp lại không nhất thiết phải xảy ra liên tiếp.</string>
   <string name="positions">những thế cờ</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Chúng tôi lặp cờ ba lần. Tại sao vẫn không được xử hòa?</string>
+  <string name="threeFoldHasToBeClaimed">Sự lặp lại cần được xác nhận bởi một trong hai người chơi. Bạn có thể làm như vậy bằng cách nhấn vào nút được hiển thị hoặc bằng cách đề nghị hòa trước nước đi lặp lại cuối cùng của bạn, sẽ không thành vấn đề nếu đối thủ của bạn từ chối hòa, ván đấu vẫn sẽ được xử hòa theo luật lặp cờ ba lần. Bạn cũng có thể %1$s Lichess để tự động yêu cầu các lần lặp lại cho bạn. Ngoài ra, việc lặp lại năm lần luôn ngay lập tức kết thúc ván đấu.</string>
+  <string name="configure">thiết lập</string>
+  <string name="accounts">Tài Khoản</string>
+  <string name="titlesAvailableOnLichess">Có những danh hiệu nào trên Lichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess công nhận tất cả các danh hiệu do FIDE ghi nhận từ OTB (thi đấu bên ngoài), cũng như %1$s. Đây là danh sách các danh hiệu được FIDE công nhận:</string>
+  <string name="showYourTitle">Nếu bạn có danh hiệu OTB, bạn có thể đăng ký để hiển thị tiêu đề này trên tài khoản của mình bằng cách hoàn thành %1$s, bao gồm hình ảnh rõ ràng của tài liệu/thẻ nhận dạng và ảnh tự chụp của bạn đang cầm tài liệu/thẻ.
+
+Việc xác minh là người chơi có danh hiệu trên Lichess sẽ cho phép bạn chơi trong các sự kiện Đấu trường kỳ thủ có danh hiệu.
+
+Cuối cùng là danh hiệu danh dự %2$s.</string>
 </resources>
