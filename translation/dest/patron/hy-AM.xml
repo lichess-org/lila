@@ -8,4 +8,8 @@
   <string name="otherAmount">Այլ</string>
   <string name="withCreditCard">Բանկային քարտ</string>
   <string name="withPaypal">Փեյփալ</string>
+  <string name="whereMoneyGoes">Ինչի՞ն է ուղվում գումարը</string>
+  <string name="currentStatus">Ընթացիկ կարգավիճակ</string>
+  <string name="nextPayment">Հաջորդ վճարում</string>
+  <string name="update">Թարմացնել</string>
 </resources>
