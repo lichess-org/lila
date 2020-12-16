@@ -15,7 +15,7 @@ import * as game from 'game';
 import { renderSan, renderPieces, renderBoard, styleSetting, pieceSetting, prefixSetting, positionSetting } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
-import { castlingFlavours, supportedVariant, Style } from 'nvui/chess';
+import { castlingFlavours, supportedVariant, Style, symbolToFile } from 'nvui/chess';
 import { commands } from 'nvui/command';
 import * as sound from '../sound';
 
@@ -118,15 +118,21 @@ lichess.RoundNVUI = function(redraw: Redraw) {
         h('div.board', {
           hook: onInsert(el => {
             const $board = $(el as HTMLTableElement);
-            $board.on('keypress', boardHandler());
+            $board.on('keypress', boardCommandsHandler());
             // looking for specific elements tightly couples this file and nvui/chess.ts
             // unsure if a bad thing?
             const $buttons = $board.find('button');
             $buttons.on('click', selectionHandler());
             $buttons.on('keydown', arrowKeyHandler());
+            $buttons.on('keypress', positionJumpHandler());
             $buttons.on('keypress', pieceJumpingHandler());
           })
         }, renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color, pieceStyle.get(), prefixStyle.get(), positionStyle.get())),
+        h('div.boardstatus', {
+          attrs: {
+            'aria-live': 'polite',
+          }
+        }, ''),
         h('h2', 'Settings'),
         h('label', [
           'Move notation',
@@ -171,11 +177,53 @@ lichess.RoundNVUI = function(redraw: Redraw) {
 
 const promotionRegex = /^([a-h]x?)?[a-h](1|8)=\w$/;
 
-function boardHandler() {
+function boardCommandsHandler() {
   return (ev: KeyboardEvent) => {
-    if (!ev.key.match(/^[1-8!@#$%^&*]$/)) return true;
-    console.log(ev.key);
-    return false;
+    const $currBtn = $(ev.target as HTMLButtonElement);
+    const $position = ($currBtn.attr('file') ?? "") + ($currBtn.attr('rank') ?? "")
+    const $boardLive = $('.boardstatus');
+    const $lastMove = $('p.lastMove').text();
+    if (ev.key === 'c') {
+      $boardLive.text()
+      $boardLive.text($position);
+      return false;
+    } else if (ev.key === 'l') {
+      $boardLive.text();
+      $boardLive.text($lastMove);
+      return false;
+    } else {
+      return true;
+    }
+  };
+}
+
+function positionJumpHandler() {
+  return (ev: KeyboardEvent) => {
+    const $btn = $(ev.target as HTMLButtonElement);
+    const $file = $btn.attr('file') ?? "";
+    const $rank = $btn.attr('rank') ?? "";
+    let $newRank = "";
+    let $newFile = "";
+    if (ev.key.match(/^[1-8]$/)) {
+      $newRank = ev.key;
+      $newFile = $file;
+    } else if (ev.key.match(/^[!@#$%^&*]$/)) {
+      $newRank = $rank;
+      $newFile = symbolToFile(ev.key);
+    // if not a valid key for this 
+    } else {
+      return true;
+    }
+    console.log("OF: " + $file + " OR: " + $rank);
+    console.log("NF: " + $newFile + " NR: " + $newRank);
+
+    const newBtn = document.querySelector('.board button[rank="' + $newRank + '"][file="' + $newFile + '"]') as HTMLElement;
+    console.log(newBtn);
+    if (newBtn) {
+      newBtn.focus();
+      return false;
+    }
+    return true;
   }
 }
 

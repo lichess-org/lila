@@ -24,6 +24,11 @@ const namePiece: { [letter: string]: string} = { p: 'pawn', r: 'rook', n: 'knigh
                                                    P: 'pawn', R: 'rook', N: 'knight', B: 'bishop', Q: 'queen', K: 'king'};
 const whiteUpperNamePiece: { [letter: string]: string} = { p: 'pawn', r: 'rook', n: 'knight', b: 'bishop', q: 'queen', k: 'king',
                                                    P: 'Pawn', R: 'Rook', N: 'Knight', B: 'Bishop', Q: 'Queen', K: 'King'};
+const skipToFile: { [letter: string]: string} = {'!': 'a', '@': 'b', '#': 'c', '$': 'd', '%': 'e', '^': 'f', '&': 'g', '*': 'h'};
+
+export function symbolToFile(char: string)  {
+  return skipToFile[char] ?? "";
+}
 
 export function supportedVariant(key: string) {
   return [
