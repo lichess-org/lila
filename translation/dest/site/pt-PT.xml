@@ -532,6 +532,8 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="currentPassword">Palavra-passe atual</string>
   <string name="newPassword">Nova palavra-chave</string>
   <string name="newPasswordAgain">Nova palavra-passe (novamente)</string>
+  <string name="newPasswordsDontMatch">As novas palavras-passe não coincidem</string>
+  <string name="newPasswordStrength">Força da palavra-passe</string>
   <string name="clockInitialTime">Tempo inicial no relógio</string>
   <string name="clockIncrement">Incremento no relógio</string>
   <string name="privacy">Privacidade</string>
