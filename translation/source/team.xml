@@ -45,7 +45,7 @@ Players who don't like receiving your messages might leave the team.</string>
   <string name="closeTeam">Close team</string>
   <string name="closeTeamDescription">Closes the team forever.</string>
   <string name="teamPassword">Team password</string>
-  <string name="teamPasswordDescriptionForLeader">If your team is not open to everyone, you can set a password and send it to your guests. This will prevent spammers from requesting access.</string>
+  <string name="teamPasswordDescriptionForLeader">(Optional) If your team is not open to everyone, you can set a password and send it to your guests. This will prevent spammers from requesting access.</string>
   <string name="teamPasswordDescriptionForRequester">You cannot request access unless you know the team password.</string>
   <string name="incorrectTeamPassword">Incorrect team password.</string>
   <string name="teamAlreadyExists">This team already exists.</string>
