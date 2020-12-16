@@ -106,7 +106,7 @@ final private[team] class TeamForm(
 
   private def passwordMatches(setup: RequestSetup, password: Option[String]) = {
     if (password == None || password.get == "") fuTrue
-    else if (password.get == setup.password) fuTrue
+    else if (setup.password != None && password.get == setup.password.get) fuTrue
     else
       fuFalse
   }
