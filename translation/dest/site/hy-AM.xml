@@ -218,6 +218,10 @@
   <string name="incrementInSeconds">Ավելացումը ըստ վայրկյանների</string>
   <string name="freeOnlineChess">Անվճար օնլայն շախմատ</string>
   <string name="spectators">հանդիսատեսներ</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s վարկանիշային</item>
+    <item quantity="other">%s վարկանիշային</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s հաղթեց</item>
     <item quantity="other">%s հաղթանակներ</item>
@@ -320,6 +324,8 @@
   <string name="winStreak">Անընդմեջ հաղթանակներ</string>
   <string name="createdBy">Ստեղծող՝</string>
   <string name="tournamentIsStarting">Մրցաշարը սկսվում է</string>
+  <string name="draws">Ոչ-ոքիներ</string>
+  <string name="nextXTournament">Մյուս %s մրցաշարը՝</string>
   <string name="membersOnly">Միայն անդամները</string>
   <string name="boardEditor">Խաղախտակի խմբագրիչ</string>
   <string name="startPosition">Սկզբնական դիրք</string>
@@ -358,6 +364,7 @@
   <string name="pleaseVotePuzzle">Օգնեք lichess-ին բարելավվել` քվեարկելով վերև կամ ներքև սլաքի օգնությամբ․</string>
   <string name="thankYou">Շնորհակալությո՛ւն։</string>
   <string name="ratingX">Վարկանիշ՝ %s</string>
+  <string name="hidden">թաքցված</string>
   <plurals name="playedXTimes">
     <item quantity="one">Փորձել են լուծել %s անգամ</item>
     <item quantity="other">Փորձել են լուծել %s անգամ</item>
@@ -428,6 +435,7 @@
   <string name="difficultyHard">Բարդ</string>
   <string name="xCommentedY">%1$s մեկնաբանել %2$s</string>
   <string name="victory">Հաղթանակ</string>
+  <string name="defeat">Պարտություն</string>
   <string name="timeline">Ժամանակացույց</string>
   <string name="starting">Սկիզբ</string>
   <string name="allInformationIsPublicAndOptional">Բոլոր ինֆորմացիաները հասանելի են</string>
@@ -448,6 +456,8 @@
   <string name="loginSuccessful">Դուք հաջողությամբ մուտք գործեցիք ձեր էջ</string>
   <string name="playOfflineComputer">Համակարգիչ</string>
   <string name="opponent">Մրցակից</string>
+  <string name="learnMenu">Սովորել</string>
+  <string name="studyMenu">Սովորել</string>
   <string name="community">Համայնք</string>
   <string name="tools">Գործիքներ</string>
   <string name="sharePGN">Տարածել PGN -ն</string>
@@ -475,9 +485,31 @@
   <string name="tournamentOfficial">Պաշտոնական</string>
   <string name="averageCentipawnLoss">Միջինուն հարյուրերորդական զինվորի կորուստ</string>
   <string name="newTournament">Նոր մրցաշար</string>
+  <string name="checkYourEmail">Ստուգեք ձեր էլ. փոստը</string>
   <string name="withFriends">Ընկերների հետ</string>
   <string name="withEverybody">Բոլորի հետ</string>
+  <string name="security">Անվտանգություն</string>
   <string name="bulletBlitzClassical">Կայծակնային, բլից, դասական</string>
   <string name="viewTheSolution">Դիտել լուծումը</string>
   <string name="gameAnalysis">Խաղի վերլուծություն</string>
+  <string name="lobby">Լոբբի</string>
+  <string name="anonymous">Անանուն</string>
+  <string name="language">Լեզու</string>
+  <string name="light">Բաց</string>
+  <string name="dark">Մուգ</string>
+  <string name="transparent">Թափանցիկ</string>
+  <string name="chessBasics">Շախմատի հիմունքներ</string>
+  <string name="error.unknown">Սխալ</string>
+  <string name="whiteWinsGame">Սպիտակները հաղթեցին</string>
+  <string name="blackWinsGame">Սևերն հաղթեցին</string>
+  <string name="learnFromYourMistakes">Սովորիր սխալներից</string>
+  <string name="learnFromThisMistake">Սովորիր այս սխալից</string>
+  <string name="skipThisMove">Բաց թողնել այս քայլը</string>
+  <string name="next">Հաջորդ</string>
+  <string name="resumeLearning">Շարունակել սովորել</string>
+  <string name="solution">Լուծում</string>
+  <string name="advantage">Առավելություն</string>
+  <string name="sorry">Ներողություն :(</string>
+  <string name="why">Ինչու՞</string>
+  <string name="howToAvoidThis">Ինչպե՞ս խուսափել սրանից</string>
 </resources>
