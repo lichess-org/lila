@@ -7,4 +7,8 @@
   <string name="leechess">lee-chess</string>
   <string name="hearItPronouncedBySpecialist">Nghe cách phát âm chuẩn.</string>
   <string name="whyLiveLightLibre">Trực tiếp, bởi vì bạn có thể chơi và xem 24/7, nghĩa là mọi lúc; nhẹ và miễn phí vì trên thực tế, Lichess có mã nguồn mở và không có các vấn đề về độc quyền làm ảnh hưởng đến các trang web khác.</string>
+  <string name="whyIsLilaCalledLila">Tương tự vậy, mã nguồn của Lichess,%1$s, li là viết tắt của cờ vua trong sca, la vì phần lớn Lichess được viết bằng %2$s, một ngôn ngữ lập trình trực quan.</string>
+  <string name="howCanIContributeToLichess">Làm thế nào để tôi có thể đóng góp cho Lichess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess được hỗ trợ bởi sự đóng góp từ những người bảo trợ và nỗ lực của một nhóm tình nguyện viên.</string>
+  <string name="findMoreAndSeeHowHelp">Bạn có thể xem thêm thông tin về %1$s ( hoặc cả một %2$s). Nếu bạn muốn giúp Lichess bằng việc tình nguyện dành thời gian và kỹ năng của bạn, có rất nhiều %3$s.</string>
 </resources>
