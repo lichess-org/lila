@@ -17,10 +17,12 @@ final class BlogApi(
       api: Api,
       page: Int,
       maxPerPage: MaxPerPage,
-      ref: Option[String]
+      ref: Option[String],
+      langCode: String
   ): Fu[Option[Paginator[Document]]] = {
     api
       .forms(collection)
+      .set("lang", Langs.parse(langCode))
       .ref(ref | api.master.ref)
       .orderings(s"[my.$collection.date desc]")
       .pageSize(maxPerPage.value)
@@ -32,22 +34,25 @@ final class BlogApi(
   def recent(
       prismic: BlogApi.Context,
       page: Int,
-      maxPerPage: MaxPerPage
+      maxPerPage: MaxPerPage,
+      langCode: String
   ): Fu[Option[Paginator[Document]]] =
-    recent(prismic.api, page, maxPerPage, prismic.ref.some)
+    recent(prismic.api, page, maxPerPage, prismic.ref.some, langCode)
 
   def one(api: Api, ref: Option[String], id: String): Fu[Option[Document]] =
     api
       .forms(collection)
+      .set("lang", "*")
       .query(s"""[[:d = at(document.id, "$id")]]""")
       .ref(ref | api.master.ref)
       .submit() map (_.results.headOption)
 
   def one(prismic: BlogApi.Context, id: String): Fu[Option[Document]] = one(prismic.api, prismic.ref.some, id)
 
-  def byYear(prismic: BlogApi.Context, year: Int): Fu[List[MiniPost]] = {
+  def byYear(prismic: BlogApi.Context, year: Int, langCode: String): Fu[List[MiniPost]] = {
     prismic.api
       .forms(collection)
+      .set("lang", Langs.parse(langCode))
       .ref(prismic.ref)
       .query(s"[[date.year(my.$collection.date, $year)]]")
       .orderings(s"[my.$collection.date desc]")
@@ -78,10 +83,10 @@ final class BlogApi(
     }
   }
 
-  def all(page: Int = 1)(implicit prismic: BlogApi.Context): Fu[List[Document]] =
-    recent(prismic.api, page, MaxPerPage(50), none) flatMap { res =>
+  def all(langCode: String, page: Int = 1)(implicit prismic: BlogApi.Context): Fu[List[Document]] =
+    recent(prismic.api, page, MaxPerPage(50), none, langCode) flatMap { res =>
       val docs = res.??(_.currentPageResults).toList
-      (docs.nonEmpty ?? all(page + 1)) map (docs ::: _)
+      (docs.nonEmpty ?? all(langCode, page + 1)) map (docs ::: _)
     }
 
   private def resolveRef(api: Api)(ref: Option[String]) =
