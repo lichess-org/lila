@@ -158,10 +158,7 @@ final class Puzzle(
           .bindFromRequest()
           .fold(
             jsonFormError,
-            vote => {
-              lila.mon.puzzle.vote(vote).increment()
-              env.puzzle.api.vote.update(Puz.Id(id), me, vote) inject jsonOkResult
-            }
+            vote => env.puzzle.api.vote.update(Puz.Id(id), me, vote) inject jsonOkResult
           )
       }
     }
@@ -175,10 +172,7 @@ final class Puzzle(
             .bindFromRequest()
             .fold(
               jsonFormError,
-              vote => {
-                vote foreach { v => lila.mon.puzzle.voteTheme(theme.key.value, v).increment() }
-                env.puzzle.api.theme.vote(me, Puz.Id(id), theme.key, vote) inject jsonOkResult
-              }
+              vote => env.puzzle.api.theme.vote(me, Puz.Id(id), theme.key, vote) inject jsonOkResult
             )
         }
       }
@@ -350,7 +344,6 @@ final class Puzzle(
               jsonFormError,
               intVote => {
                 val vote = intVote == 1
-                lila.mon.puzzle.vote(vote).increment()
                 env.puzzle.api.vote.update(Puz.numericalId(nid), me, vote) inject jsonOkResult
               }
             )

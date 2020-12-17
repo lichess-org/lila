@@ -428,7 +428,24 @@ object mon {
         val puzzle         = timer("puzzle.selector.anon.puzzle").withoutTags()
         def batch(nb: Int) = timer("puzzle.selector.anon.batch").withTag("nb", nb)
       }
+      def nextPuzzleResult(theme: String, difficulty: String, position: Int, result: String) =
+        timer("puzzle.selector.user.puzzle").withTags(
+          Map("theme" -> theme, "difficulty" -> difficulty, "position" -> position, "result" -> result)
+        )
     }
+    object path {
+      def nextFor(theme: String, tier: String, difficulty: String, previousPaths: Int, compromise: Int) =
+        timer("puzzle.path.nextFor").withTags(
+          Map(
+            "theme"         -> theme,
+            "tier"          -> tier,
+            "difficulty"    -> difficulty,
+            "previousPaths" -> previousPaths,
+            "compromise"    -> compromise
+          )
+        )
+    }
+
     object batch {
       object selector {
         val count = counter("puzzle.batch.selector.count").withoutTags()
@@ -440,13 +457,15 @@ object mon {
       def attempt(user: Boolean, theme: String) =
         counter("puzzle.attempt.count").withTags(Map("user" -> user, "theme" -> theme))
     }
-    def vote(up: Boolean) = counter("puzzle.vote.count").withTag("up", up)
-    def voteTheme(key: String, up: Boolean) = counter("puzzle.selector.voteTheme").withTags(
-      Map(
-        "up"    -> up,
-        "theme" -> key
+    def vote(up: Boolean, win: Boolean) = counter("puzzle.vote.count").withTag("up", up)
+    def voteTheme(key: String, up: Option[Boolean], win: Boolean) =
+      counter("puzzle.selector.voteTheme").withTags(
+        Map(
+          "up"    -> up.fold("cancel")(_.toString),
+          "theme" -> key,
+          "win"   -> win
+        )
       )
-    )
     val crazyGlicko = counter("puzzle.crazyGlicko").withoutTags()
   }
   object game {

@@ -72,7 +72,7 @@ final private class PuzzlePathApi(
           nextFor(user, theme, actualTier, difficulty, previousPaths, compromise + 1)
         case _ => fuccess(none)
       }
-  }
+  }.mon(_.puzzle.path.nextFor(theme.value, tier.key, difficulty.key, previousPaths.size, compromise))
 
   def select(theme: PuzzleTheme.Key, tier: PuzzleTier, rating: Range) = $doc(
     "min" $lte f"${theme}_${tier}_${rating.max}%04d",

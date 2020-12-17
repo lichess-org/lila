@@ -37,13 +37,13 @@ final class PuzzleSessionApi(
 
   import BsonHandlers._
 
-  sealed private trait NextPuzzleResult
+  sealed abstract private class NextPuzzleResult(val name: String)
   private object NextPuzzleResult {
-    case object PathMissing                        extends NextPuzzleResult
-    case object PathEnded                          extends NextPuzzleResult
-    case class PuzzleMissing(id: Puzzle.Id)        extends NextPuzzleResult
-    case class PuzzleAlreadyPlayed(puzzle: Puzzle) extends NextPuzzleResult
-    case class PuzzleFound(puzzle: Puzzle)         extends NextPuzzleResult
+    case object PathMissing                        extends NextPuzzleResult("pathMissing")
+    case object PathEnded                          extends NextPuzzleResult("pathEnded")
+    case class PuzzleMissing(id: Puzzle.Id)        extends NextPuzzleResult("puzzleMissing")
+    case class PuzzleAlreadyPlayed(puzzle: Puzzle) extends NextPuzzleResult("puzzlePlayed")
+    case class PuzzleFound(puzzle: Puzzle)         extends NextPuzzleResult("puzzleFound")
   }
 
   def nextPuzzleFor(user: User, theme: PuzzleTheme.Key, retries: Int = 0): Fu[Puzzle] =
@@ -76,42 +76,45 @@ final class PuzzleSessionApi(
       .mon(_.puzzle.selector.user.puzzle(theme = theme.value, retries = retries))
 
   private def nextPuzzleResult(user: User, session: PuzzleSession): Fu[NextPuzzleResult] =
-    colls.path {
-      _.aggregateOne() { framework =>
-        import framework._
-        Match($id(session.path)) -> List(
-          // get the puzzle ID from session position
-          Project($doc("puzzleId" -> $doc("$arrayElemAt" -> $arr("$ids", session.positionInPath)))),
-          Project(
-            $doc(
-              "puzzleId" -> true,
-              "roundId"  -> $doc("$concat" -> $arr(s"${user.id}${PuzzleRound.idSep}", "$puzzleId"))
-            )
-          ),
-          // fetch the puzzle
-          PipelineOperator(
-            $doc(
-              "$lookup" -> $doc(
-                "from"         -> colls.puzzle.name.value,
-                "localField"   -> "puzzleId",
-                "foreignField" -> "_id",
-                "as"           -> "puzzle"
+    colls
+      .path {
+        _.aggregateOne() { framework =>
+          import framework._
+          Match($id(session.path)) -> List(
+            // get the puzzle ID from session position
+            Project($doc("puzzleId" -> $doc("$arrayElemAt" -> $arr("$ids", session.positionInPath)))),
+            Project(
+              $doc(
+                "puzzleId" -> true,
+                "roundId"  -> $doc("$concat" -> $arr(s"${user.id}${PuzzleRound.idSep}", "$puzzleId"))
               )
-            )
-          ),
-          // look for existing round
-          PipelineOperator(
-            $doc(
-              "$lookup" -> $doc(
-                "from"         -> colls.round.name.value,
-                "localField"   -> "roundId",
-                "foreignField" -> "_id",
-                "as"           -> "round"
+            ),
+            // fetch the puzzle
+            PipelineOperator(
+              $doc(
+                "$lookup" -> $doc(
+                  "from"         -> colls.puzzle.name.value,
+                  "localField"   -> "puzzleId",
+                  "foreignField" -> "_id",
+                  "as"           -> "puzzle"
+                )
+              )
+            ),
+            // look for existing round
+            PipelineOperator(
+              $doc(
+                "$lookup" -> $doc(
+                  "from"         -> colls.round.name.value,
+                  "localField"   -> "roundId",
+                  "foreignField" -> "_id",
+                  "as"           -> "round"
+                )
               )
             )
           )
-        )
-      }.map { docOpt =>
+        }
+      }
+      .map { docOpt =>
         import NextPuzzleResult._
         docOpt.fold[NextPuzzleResult](PathMissing) { doc =>
           doc.getAsOpt[Puzzle.Id]("puzzleId").fold[NextPuzzleResult](PathEnded) { puzzleId =>
@@ -125,7 +128,14 @@ final class PuzzleSessionApi(
           }
         }
       }
-    }
+      .monValue { result =>
+        _.puzzle.selector.nextPuzzleResult(
+          theme = session.path.theme.value,
+          difficulty = session.difficulty.key,
+          position = session.positionInPath,
+          result = result.name
+        )
+      }
 
   def onComplete(round: PuzzleRound, theme: PuzzleTheme.Key): Funit =
     sessions.getIfPresent(round.userId) ?? {

@@ -51,6 +51,13 @@ object Chronometer {
       this
     }
 
+    def monValue(path: A => lila.mon.TimerPath) = {
+      lap dforeach { l =>
+        path(l.result)(lila.mon).record(l.nanos).unit
+      }
+      this
+    }
+
     def log(logger: lila.log.Logger)(msg: A => String) = {
       lap.dforeach(_.log(logger)(msg).unit)
       this
