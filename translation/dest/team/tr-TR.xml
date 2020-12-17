@@ -43,5 +43,5 @@ Mesajlarınızı almayı sevmeyen oyuncular takımdan ayrılabilir.</string>
   <string name="usersWhoCanManageThisTeam">Bu takımı yönetebilen kullanıcılar</string>
   <string name="leadersChat">Liderler arası sohbet</string>
   <string name="closeTeam">Takımı kapat</string>
-  <string name="closeTeamDescription" comment="closeTeamDescription&#10;&#10;If you click this, your team will be closed forever.">Takımı sonsuza dek kapat.</string>
+  <string name="closeTeamDescription" comment="closeTeamDescription&#10;&#10;If you click this, your team will be closed forever.">Takımı sonsuza dek kapatır.</string>
 </resources>
