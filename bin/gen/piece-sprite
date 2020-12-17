@@ -6,42 +6,96 @@ include FileUtils
 
 lila_dir = pwd()
 source_dir = lila_dir + '/public/piece/'
-dest_dir = lila_dir + '/public/piece-css/'
+dest_dir = lila_dir + '/public/piece-css/test/'
 
 themes = [
-  ['alpha', 'svg'],
-  ['cburnett', 'svg'],
-  ['merida', 'svg'],
-  ['pirouetti', 'svg'],
-  ['spatial', 'svg'],
-  ['chess7', 'svg'],
-  ['reillycraig', 'svg'],
-  ['fantasy', 'svg'],
-  ['shapes', 'svg'],
-  ['chessnut', 'svg'],
-  ['companion', 'svg'],
-  ['letter', 'svg'],
-  ['riohacha', 'svg'],
-  ['leipzig', 'svg'],
-  ['kosal', 'svg'],
-  ['pixel', 'svg'],
-  ['california', 'svg'],
-  ['maestro', 'svg'],
-  ['fresca', 'svg'],
-  ['cardinal', 'svg'],
-  ['gioco', 'svg'],
-  ['tatiana', 'svg'],
-  ['staunty', 'svg'],
-  ['libra', 'svg'],
-  ['dubrovny', 'svg'],
-  ['icpieces', 'svg']
+  ['1Kanji_3D', 'svg'],
+  ['2Kanji_3D', 'svg'],
+  ['doubutsu', 'svg'],
+  ['international', 'svg'],
+  ['Intl_Colored_2D', 'svg'],
+  ['Intl_Colored_3D', 'svg'],
+  ['Intl_Colored_Shadowed', 'svg'],
+  ['Intl_Monochrome_2D', 'svg'],
+  ['Intl_Wooden_3D', 'svg'],
+  ['kanji_brown', 'svg'],
+  ['kanji_light', 'svg'],
+  ['Kanji_Guide_Shadowed', 'svg'],
+  ['kanji_red_wood', 'svg'],
+  ['orangain', 'svg'],
+  ['simple_kanji', 'svg'],
+  ['Vald_opt', 'svg'],
+  ['Valdivia', 'svg']
 ]
 types = {
   'svg' => 'svg+xml;base64,',
   'png' => 'png;base64,'
 }
-roles = ['pawn', 'knight', 'bishop', 'rook', 'silver', 'king']
+roles = ['FU', 'GI', 'GY', 'HI', 'KA', 'KE', 'KI', 'KY', 'NG', 'NK', 'NY', 'OU', 'RY', 'TO', 'UM']
 colors = ['white', 'black']
+
+stanRoles = {
+  'FU' => 'pawn',
+  'GI' => 'silver',
+  'GY' => 'tama',
+  'HI' => 'rook',
+  'KA' => 'bishop',
+  'KE' => 'knight',
+  'KI' => 'gold',
+  'KY' => 'lance',
+  'NG' => 'promotedSilver',
+  'NK' => 'promotedKnight',
+  'NY' => 'promotedLance',
+  'OU' => 'king',
+  'RY' => 'dragon',
+  'TO' => 'tokin',
+  'UM' => 'horse'
+}
+
+def classes(color, role)
+  if color == 'white'
+    if ['promotedSilver', 'promotedKnight', 'promotedLance'].include?(role)
+      "piece.#{role.downcase}.white,
+      piece.#{role}.white,
+      .cg-wrap.orientation-white piece.#{role.downcase}.white,
+      .cg-wrap.orientation-white piece.#{role}.white,
+      .cg-wrap.orientation-black piece.#{role.downcase}.black,
+      .cg-wrap.orientation-black piece.#{role}.black,
+      #promotion-choice piece.#{role.downcase},
+      #promotion-choice piece.#{role}"
+    elsif role == 'king'
+      "piece.king.white,
+      .cg-wrap.orientation-black piece.king.black"
+    elsif role == 'tama'
+      '.cg-wrap.orientation-white piece.king.white'
+    else
+      "piece.#{role}.white,
+      .cg-wrap.orientation-white piece.#{role}.white,
+      .cg-wrap.orientation-black piece.#{role}.black,
+      .pocket-bottom piece.#{role},
+      #promotion-choice piece.#{role}"
+    end
+  else
+    if ['promotedSilver', 'promotedKnight', 'promotedLance'].include?(role)
+      "piece.#{role.downcase}.black,
+      piece.#{role}.black,
+      .cg-wrap.orientation-white piece.#{role.downcase}.black,
+      .cg-wrap.orientation-white piece.#{role}.black,
+      .cg-wrap.orientation-black piece.#{role.downcase}.white,
+      .cg-wrap.orientation-black piece.#{role}.white"
+    elsif role == 'king'
+      "piece.king.black,
+      .cg-wrap.orientation-white piece.king.black"
+    elsif role == 'tama'
+      '.cg-wrap.orientation-black piece.king.white'
+    else
+      "piece.#{role}.black,
+      .cg-wrap.orientation-white piece.#{role}.black,
+      .cg-wrap.orientation-black piece.#{role}.white,
+      .pocket-top piece.#{role}"
+    end
+  end
+end
 
 # inline SVG
 themes.map { |theme|
@@ -49,29 +103,15 @@ themes.map { |theme|
   ext = theme[1]
   classes = colors.map { |color|
     roles.map { |role|
-      piece = color[0] + (role == 'knight' ? 'N' : role.upcase[0])
+      piece = (color == 'white' ? '0' : '1') + role
       file = source_dir + name + '/' + piece + '.' + ext
       File.open(file, 'r') do|image_file|
         image = image_file.read
         base64 = Base64.strict_encode64(image)
-        '.is2d .' + role + '.' + color + ' {' +
+        classes(color, stanRoles[role]) + ' {' +
           "background-image:url('data:image/" + types[ext] + base64 + "')}"
       end
     }
   }.flatten
   File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
-}
-
-# external SVG
-themes.map { |theme|
-  name = theme[0]
-  ext = theme[1]
-  classes = colors.map { |color|
-    roles.map { |role|
-      piece = color[0] + (role == 'knight' ? 'N' : role.upcase[0])
-      '.is2d .' + role + '.' + color + ' {' +
-        "background-image:url('/assets/piece/" + name + "/" + piece + "." + ext + "')}"
-    }
-  }.flatten
-  File.open(dest_dir + name + '.external.css', 'w') { |f| f.puts classes.join("\n") }
 }
