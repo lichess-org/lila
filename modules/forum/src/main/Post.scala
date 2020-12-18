@@ -75,7 +75,7 @@ object Post {
 
   val idSize = 8
 
-  val reactionsList = List("+1", "-1", "laugh", "thinking", "heart", "horsey")
+  val reactionsList = List("+1", "-1", "laugh", "thinking", "heart", "bigsby")
   val reactions     = reactionsList.toSet
 
   def reactionsOf(reactions: Reactions, me: User): Set[String] =
