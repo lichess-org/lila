@@ -53,6 +53,12 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
       rookCastle: pref.rookCastle
     },
     events: {
+      select: (s) => {
+        if(ctrl.selected){
+          ctrl.userNewPiece({color: ctrl.selected[0], role: ctrl.selected[1]}, s);
+          ctrl.selected = undefined;
+        }
+      },
       move: ctrl.userMove,
       dropNewPiece: ctrl.userNewPiece,
       insert(elements) {

@@ -1,4 +1,4 @@
-import { drag } from "./crazyCtrl";
+import { drag, selectToDrop } from "./crazyCtrl";
 import { h } from "snabbdom";
 import { MouchEvent } from "shogiground/types";
 import { onInsert } from "../util";
@@ -43,10 +43,14 @@ export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
         eventNames.forEach((name) => {
           el.addEventListener(name, (e) => drag(ctrl, color, e as MouchEvent));
         });
+        el.addEventListener("click", (e) => {
+          selectToDrop(ctrl, color, e as MouchEvent);
+        });
       }),
     },
     oKeys.map((role) => {
       let nb = pocket[role] || 0;
+      const selectedSquare : boolean = (!!ctrl.selected && ctrl.selected[0] === color && ctrl.selected[1] === role && ctrl.shogiground.state.movable.color == color);
       if (activeColor) {
         if (dropped === role) nb--;
         if (captured && captured.role === role) nb++;
@@ -56,6 +60,9 @@ export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
         h(
           "div.pocket-c2",
           h("piece." + role + "." + color, {
+            class: {
+              "selected-square": selectedSquare,
+            },
             attrs: {
               "data-role": role,
               "data-color": color,

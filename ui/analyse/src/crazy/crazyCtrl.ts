@@ -19,6 +19,22 @@ export function drag(ctrl: AnalyseCtrl, color: Color, e: cg.MouchEvent): void {
   dragNewPiece(ctrl.shogiground.state, { color, role }, e);
 }
 
+export function selectToDrop(ctrl: AnalyseCtrl, color: Color, e: cg.MouchEvent) : void {
+  if (e.button !== undefined && e.button !== 0) return;
+  if (ctrl.shogiground.state.movable.color !== color) return;
+  const el = e.target as HTMLElement;
+  const role = el.getAttribute("data-role") as cg.Role,
+    number = el.getAttribute("data-nb");
+  if (!role || !color || number === "0") return;
+  if(!ctrl.selected || ctrl.selected[1] !== role){
+    ctrl.selected = [color, role];
+  }
+  else{
+    ctrl.selected = undefined;
+  }
+  ctrl.redraw();
+}
+
 export function valid(
   shogiground: ShogigroundApi,
   possibleDrops: string | undefined | null,
@@ -53,18 +69,6 @@ export function valid(
       ((pos[1] === "9" || pos[1] === "8") && piece.color === "white"))
   )
     return false;
-
-  if (piece.role === "pawn") {
-    let mfen = shogiground.getFen();
-    mfen += " " + piece.color[0];
-    const s = Shogi.drop(mfen, "Pawn", pos);
-    if (s.winner) {
-      alert(
-        "Checkmating with a pawn is an illegal move, illegal moves lose you the game when you play in real life."
-      );
-      return false;
-    }
-  }
 
   const drops = readDrops(possibleDrops);
 

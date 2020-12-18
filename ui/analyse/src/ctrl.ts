@@ -62,6 +62,7 @@ import {
   JustCaptured,
   NvuiPlugin,
   Redraw,
+  Selected,
 } from "./interfaces";
 import GamebookPlayCtrl from "./study/gamebook/gamebookPlayCtrl";
 import { ctrl as treeViewCtrl, TreeView } from "./treeView/treeView";
@@ -130,6 +131,8 @@ export default class AnalyseCtrl {
   initialPath: Tree.Path;
   contextMenuPath?: Tree.Path;
   gamePath?: Tree.Path;
+
+  selected: Selected = undefined;
 
   // misc
   cgConfig: any; // latest shogiground config (useful for revert)
@@ -530,8 +533,9 @@ export default class AnalyseCtrl {
       };
       this.socket.sendAnaDrop(drop);
       this.preparePremoving();
-      this.redraw();
     } else this.jump(this.path);
+    this.selected = undefined;
+    this.redraw();
   };
 
   userMove = (orig: Key, dest: Key, capture?: JustCaptured): void => {
