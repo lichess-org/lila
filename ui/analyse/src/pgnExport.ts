@@ -2,6 +2,8 @@ import AnalyseCtrl from './ctrl';
 import { h } from 'snabbdom'
 import { initialFen } from 'chess';
 import { MaybeVNodes } from './interfaces';
+import { notationStyle } from 'shogiutil/notation';
+import { ForecastStep } from './forecast/interfaces';
 
 interface PgnNode {
   ply: Ply;
@@ -37,16 +39,19 @@ export function renderFullTxt(ctrl: AnalyseCtrl): string {
   return txt;
 }
 
-export function renderNodesHtml(nodes: PgnNode[]): MaybeVNodes {
+export function renderNodesHtml(nodes: ForecastStep[], notation: number): MaybeVNodes {
   if (!nodes[0]) return [];
   if (!nodes[0].san) nodes = nodes.slice(1);
   if (!nodes[0]) return [];
   const tags: MaybeVNodes = [];
-  if (nodes[0].ply % 2 === 0) tags.push(h('index', Math.floor((nodes[0].ply + 1) / 2) + '...'));
   nodes.forEach(node => {
     if (node.ply === 0) return;
-    if (node.ply % 2 === 1) tags.push(h('index', ((node.ply + 1) / 2) + '.'));
-    tags.push(h('san', node.san!));
+    tags.push(h('index', node.ply + '.'));
+    tags.push(h('san', notationStyle(notation)({
+      san: node.san!,
+      uci: node.uci!,
+      fen: node.fen
+    })));
   });
   return tags;
 }

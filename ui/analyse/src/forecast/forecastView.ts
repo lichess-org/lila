@@ -56,7 +56,7 @@ export default function(ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
               e.stopPropagation();
             }, ctrl.redraw)
           }, 'x'),
-          h('sans', renderNodesHtml(nodes))
+          h('sans', renderNodesHtml(nodes, ctrl.data.pref.notation))
         ])
       })),
       h('button.add.text', {
@@ -66,7 +66,7 @@ export default function(ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
       }, [
         isCandidate ? h('span', [
           h('span', ctrl.trans.noarg('addCurrentVariation')),
-          h('sans', renderNodesHtml(cNodes))
+          h('sans', renderNodesHtml(cNodes, ctrl.data.pref.notation))
         ]) :
         h('span', ctrl.trans.noarg('playVariationToCreateConditionalPremoves'))
       ])
