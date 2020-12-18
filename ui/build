@@ -13,7 +13,8 @@ ls -l node_modules node_modules/@* ui/node_modules ui/*/node_modules | grep /yar
 
 mkdir -p public/compiled
 
-apps0="shogiground shogiutil"
+shogiground="shogiground"
+shogiutil="shogiutil"
 apps1="common"
 apps2="chess ceval game tree chat nvui"
 apps3="site msg chat cli challenge notify learn editor round analyse lobby tournament tournamentSchedule tournamentCalendar simul dasher speech palantir serviceWorker"
@@ -51,12 +52,13 @@ else
       [ -n "$GITHUB_WORKFLOW" ] || P_OPTS+=" --bar"
     fi
     set -x
-    parallel --gnu $P_OPTS build ::: $apps0
+    parallel --gnu $P_OPTS build ::: $shogiground
+    parallel --gnu $P_OPTS build ::: $shogiutil
     parallel --gnu $P_OPTS build ::: $apps1
     parallel --gnu $P_OPTS build ::: $apps2
     parallel --gnu $P_OPTS build ::: $apps3
   else # sequential execution
     echo "For faster builds, install GNU parallel."
-    for app in $apps0 $apps1 $apps2 $apps3; do (build $app); done
+    for app in $shogiground $shogiutil $apps1 $apps2 $apps3; do (build $app); done
   fi
 fi
