@@ -9,6 +9,7 @@ import { chapter as chapterTour } from "./studyTour";
 import { StudyChapterMeta } from "./interfaces";
 import { Redraw } from "../interfaces";
 import AnalyseCtrl from "../ctrl";
+import { switchColorSfen } from "shogiutil/util";
 
 export const modeChoices = [
   ["normal", "normalAnalysis"],
@@ -198,7 +199,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
             makeTab("init", noarg("empty"), noarg("startFromInitialPosition")),
             makeTab("edit", noarg("editor"), noarg("startFromCustomPosition")),
             //makeTab("game", "URL", noarg("loadAGameByUrl")),
-            makeTab("fen", "FEN", noarg("loadAPositionFromFen")),
+            makeTab("fen", "SFEN", noarg("loadAPositionFromFen")),
             //makeTab("pgn", "PGN", noarg("loadAGameFromPgn")),
           ]),
           activeTab === "edit"
@@ -252,8 +253,18 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
             : null,
           activeTab === "fen"
             ? h("div.form-group", [
+                h("input#chapter-hiddenFen.form-control", {
+                  attrs: {
+                    value: switchColorSfen(ctrl.root.node.fen),
+                    placeholder: noarg("loadAPositionFromFen"),
+                  },
+                  hook: bind("keyup", () => {
+                    $("#chapter-fen").val(switchColorSfen($("#chapter-hiddenFen").val()))
+                  }),
+                }),
                 h("input#chapter-fen.form-control", {
                   attrs: {
+                    type: "hidden",
                     value: ctrl.root.node.fen,
                     placeholder: noarg("loadAPositionFromFen"),
                   },
