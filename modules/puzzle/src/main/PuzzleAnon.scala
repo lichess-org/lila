@@ -15,13 +15,18 @@ final class PuzzleAnon(colls: PuzzleColls, cacheApi: CacheApi, pathApi: PuzzlePa
 
   def getOneFor(theme: PuzzleTheme.Key): Fu[Option[Puzzle]] = {
     pool get theme map ThreadLocalRandom.oneOf
-  }.mon(_.puzzle.selector.anon.puzzle)
+  }.chronometer.tap { lap =>
+    lap.result.foreach { puzzle =>
+      lap.mon(_.puzzle.selector.anon.puzzle(puzzle.vote))
+    }
+  }.result
 
   def getBatchFor(nb: Int): Fu[Vector[Puzzle]] = {
     pool get PuzzleTheme.mix.key map (_ take nb)
   }.mon(_.puzzle.selector.anon.batch(nb))
 
-  private val poolSize = 60
+  private val poolSize      = 80
+  private val minPathLength = 10
 
   private val pool =
     cacheApi[PuzzleTheme.Key, Vector[Puzzle]](initialCapacity = 64, name = "puzzle.byTheme.anon") {
@@ -29,18 +34,18 @@ final class PuzzleAnon(colls: PuzzleColls, cacheApi: CacheApi, pathApi: PuzzlePa
         .buildAsyncFuture { theme =>
           pathApi countPuzzlesByTheme theme flatMap { count =>
             val tier =
-              if (count > 4000) PuzzleTier.Top
-              else if (count > 1500) PuzzleTier.Good
+              if (count > 5000) PuzzleTier.Top
+              else if (count > 2000) PuzzleTier.Good
               else PuzzleTier.All
             val ratingRange: Range =
-              if (count > 9000) 1200 to 1600
-              else if (count > 5000) 1000 to 1800
+              if (count > 9000) 1300 to 1600
+              else if (count > 5000) 1100 to 1800
               else 0 to 9999
             colls.path {
               _.aggregateList(poolSize) { framework =>
                 import framework._
                 Match(pathApi.select(theme, tier, ratingRange)) -> List(
-                  Sample(3),
+                  Sample(poolSize / minPathLength),
                   Project($doc("puzzleId" -> "$ids", "_id" -> false)),
                   Unwind("puzzleId"),
                   Sample(poolSize),

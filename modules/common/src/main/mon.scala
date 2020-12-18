@@ -420,13 +420,15 @@ object mon {
   object puzzle {
     object selector {
       object user {
-        def puzzle(theme: String, retries: Int) =
-          timer("puzzle.selector.user.puzzle").withTags(Map("theme" -> theme, "retries" -> retries))
+        def puzzle(theme: String, retries: Int, vote: Int) =
+          timer("puzzle.selector.user.puzzle").withTags(
+            Map("theme" -> theme, "retries" -> retries, "vote" -> vote)
+          )
         def batch(nb: Int) = timer("puzzle.selector.user.batch").withTag("nb", nb)
       }
       object anon {
-        val puzzle         = timer("puzzle.selector.anon.puzzle").withoutTags()
-        def batch(nb: Int) = timer("puzzle.selector.anon.batch").withTag("nb", nb)
+        def puzzle(vote: Int) = timer("puzzle.selector.anon.puzzle").withTag("vote", vote)
+        def batch(nb: Int)    = timer("puzzle.selector.anon.batch").withTag("nb", nb)
       }
       def nextPuzzleResult(theme: String, difficulty: String, position: Int, result: String) =
         timer("puzzle.selector.user.puzzle").withTags(

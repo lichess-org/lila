@@ -73,7 +73,9 @@ final class PuzzleSessionApi(
           case PuzzleFound(puzzle)                                           => fuccess(puzzle)
         }
       }
-      .mon(_.puzzle.selector.user.puzzle(theme = theme.value, retries = retries))
+      .monValue { puzzle =>
+        _.puzzle.selector.user.puzzle(theme = theme.value, retries = retries, vote = puzzle.vote)
+      }
 
   private def nextPuzzleResult(user: User, session: PuzzleSession): Fu[NextPuzzleResult] =
     colls

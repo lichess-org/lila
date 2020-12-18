@@ -12,6 +12,7 @@ case class Puzzle(
     line: NonEmptyList[Uci.Move],
     glicko: Glicko,
     plays: Int,
+    vote: Int,
     themes: Set[PuzzleTheme.Key]
 ) {
   // ply after "initial move" when we start solving
