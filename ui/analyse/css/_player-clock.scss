@@ -15,11 +15,11 @@ $clock-height: 20px;
   &.top {
     @extend %box-radius-top;
     top: #{-$clock-height};
+    z-index: 1; // over the board coords
   }
   &.bottom {
     @extend %box-radius-bottom;
     bottom: #{-$clock-height};
-    z-index: 1; // over the board coords
   }
   &.active {
     background: mix($c-primary, $c-bg-box, 30%);
