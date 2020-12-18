@@ -58,7 +58,7 @@ final class LastPostCache(
         // println("newBlogWasPosted: " + newBlogWasPosted)
         if (last.langCode == "en-US") {
           // if english, notify if new blog id was detected
-          if (newBlogWasPosted) notifier(last.id)
+          if (newBlogWasPosted) notifier(last.id, last.langCode)
         } else {
           val newEnBlogWasPosted = lastNotifiedId("en-US").??(last.id !=)
           if (newEnBlogWasPosted) {
@@ -77,7 +77,7 @@ final class LastPostCache(
           // println(titleWasChanged, titleDifferentFromEn, notYetTranslated)
 
           if (titleWasChanged && titleDifferentFromEn && notYetTranslated) {
-            notifier(last.id)
+            notifier(last.id, last.langCode)
             wasTranslated += (last.langCode -> Some(true))
           }
         }
