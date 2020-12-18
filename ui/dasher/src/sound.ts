@@ -44,7 +44,11 @@ export function ctrl(
       if (api.speech()) api.say("Speech synthesis ready");
       else {
         api.changeSet(k);
-        api.genericNotify();
+        // If we want to play move for all sets we need to get move sound for pentatonic
+        if(k.includes("shogi"))
+          api.move();
+        else
+          api.genericNotify();
         $.post("/pref/soundSet", { set: k }).fail(() =>
           window.lishogi.announce({ msg: "Failed to save sound preference" })
         );
