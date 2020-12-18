@@ -104,26 +104,21 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
 
 function renderMoves(ctrl: RoundController): MaybeVNodes {
   const steps = ctrl.data.steps,
-    firstPly = round.firstPly(ctrl.data),
     lastPly = round.lastPly(ctrl.data);
   if (typeof lastPly === "undefined") return [];
   const color = ctrl.data.game.initialFen?.split(' ')[1] == "w" ? "white" : "black";
   const oppositeColor = color === "white" ? "black" : "white";
-  const pairs: Array<Array<any>> = [];
-  let startAt = 1;
-  if (firstPly % 2 === 1) {
-    pairs.push([null, steps[1]]);
-    startAt = 2;
-  }
-  for (let i = startAt; i < steps.length; i += 2)
-    pairs.push([steps[i], steps[i + 1]]);
 
+  const move: Array<any> = [];
   const els: MaybeVNodes = [],
     curPly = ctrl.ply;
-  for (let i = 0; i < pairs.length; i++) {
-    els.push(h("index", (i + 1) * 2 - 1 + ""));
-    els.push(renderMove(pairs[i][0], curPly, true, (ctrl.shogiground  && ctrl.shogiground.state) ? ctrl.shogiground.state.orientation : "white", (i * 2) % 2 ? color : oppositeColor, ctrl.data.pref.pieceNotation));
-    els.push(renderMove(pairs[i][1], curPly, false, (ctrl.shogiground && ctrl.shogiground.state) ? ctrl.shogiground.state.orientation : "white", (i * 2) % 2 ? oppositeColor : color, ctrl.data.pref.pieceNotation));
+
+  for (let i = 1; i < steps.length; i++)
+    move.push(steps[i]);
+
+  for (let i = 0; i < move.length; i++) {
+    els.push(h("index", i + 1 + ""));
+    els.push(renderMove(move[i], curPly, true, (ctrl.shogiground  && ctrl.shogiground.state) ? ctrl.shogiground.state.orientation : "white", (i * 2) % 2 ? color : oppositeColor, ctrl.data.pref.pieceNotation));
   }
   els.push(renderResult(ctrl));
 
@@ -263,13 +258,11 @@ export function render(ctrl: RoundController): VNode | undefined {
         {
           hook: util.onInsert((el) => {
             el.addEventListener("mousedown", (e) => {
-              let node = e.target as HTMLElement,
-                offset = -2;
+              let node = e.target as HTMLElement;
               if (node.tagName !== moveTag.toUpperCase()) return;
               while ((node = node.previousSibling as HTMLElement)) {
-                offset++;
                 if (node.tagName === "INDEX") {
-                  ctrl.userJump(2 * parseInt(node.textContent || "") + offset);
+                  ctrl.userJump(parseInt(node.textContent || ""));
                   ctrl.redraw();
                   break;
                 }
