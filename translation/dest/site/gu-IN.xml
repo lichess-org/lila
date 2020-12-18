@@ -21,6 +21,8 @@
   <string name="createAGame">રમત બનાવો</string>
   <string name="whiteIsVictorious">સફેદ વિજય રહ્યો</string>
   <string name="blackIsVictorious">કાળો વિજય રહ્યો</string>
+  <string name="youPlayTheWhitePieces">તમે સફેદ મહોરા સાથે રમસો</string>
+  <string name="youPlayTheBlackPieces">તમે કાળા મહોરા સાથે રમસો</string>
   <string name="kingInTheCenter">મધ્યમાં રાજા</string>
   <string name="threeChecks">ત્રણ શે</string>
   <string name="raceFinished">રેસ પુરી થઇ ગઇ</string>
