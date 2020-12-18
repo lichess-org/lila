@@ -146,7 +146,7 @@
   <string name="computersAreNotAllowedToPlay">Компьютер көмегін пайдалану - тыйым. Ойын кезінде әр түрлі шахмат програмдарын, дерекқорларын не басқа бір ойыншының көмегін қолданбаңыз. Сонымен қатар, бірнеше аккаунт жасауды құптамаймыз, тым көп аккаунт жасауыңыз сізді шектеуге әкеліп соқтырады.</string>
   <string name="games">Ойындар</string>
   <string name="forum">Форум</string>
-  <string name="xPostedInForumY">%1$s %2$s мақаласында жазды</string>
+  <string name="xPostedInForumY">%1$s %2$s тақырыбын жария етті</string>
   <string name="latestForumPosts">Форумдағы кейінгі жазбалар</string>
   <string name="players">Ойыншылар</string>
   <string name="friends">Достарыңыз</string>
@@ -503,10 +503,10 @@
   <string name="lastPost">Кейінгі хабар</string>
   <string name="views">Қаралған</string>
   <string name="replies">Жауаптар</string>
-  <string name="replyToThisTopic">Осы мақалаға жауап беру</string>
+  <string name="replyToThisTopic">Осы тақырыпта жауап беру</string>
   <string name="reply">Жауап беру</string>
   <string name="message">Мәтіні</string>
-  <string name="createTheTopic">Мақала жасау</string>
+  <string name="createTheTopic">Тақырып құру</string>
   <string name="reportAUser">Ойыншы туралы шағым</string>
   <string name="user">Ойыншы</string>
   <string name="reason">Түйіні</string>
@@ -518,7 +518,7 @@
   <string name="reportDescriptionHelp">Ойынның (-дардың) сілтемесін қойып, осы ойыншының қай әрекеті орынсыз болғанын түсіндіріп беріңіз. Жай ғана \"ол алдап ойнады\" деп жаза салмай, осы ойға қалай келгеніңізді айтып беріңіз. Сіздің шағымыңыз ағылшын тілінде жазылса, тезірек тексеруден өтеді.</string>
   <string name="error.provideOneCheatedGameLink">Кемі бір ойынның сілтемесін беруіңізді сұраймыз.</string>
   <string name="by">жасаған – %s</string>
-  <string name="thisTopicIsNowClosed">Бұл мақала жабылды.</string>
+  <string name="thisTopicIsNowClosed">Бұл тақырып жабылды.</string>
   <string name="theming">Тақырып қою</string>
   <string name="blog">Блог</string>
   <string name="questionsAndAnswers">Сұрақ пен Жауап</string>
@@ -859,7 +859,7 @@
   <string name="useTheReportForm">шағым үлгісін қолданыңыз</string>
   <string name="toRequestSupport">Жәрдем іздесеңіз %1$s</string>
   <string name="tryTheContactPage">байланыс туралы бетке өтіңіз</string>
-  <string name="thisTopicIsArchived">Бұл мақала мұрағатталған, сондықтан жауап жазу шектелді.</string>
+  <string name="thisTopicIsArchived">Бұл тақырып мұрағатталды, енді жауап жазуға болмайды.</string>
   <string name="joinTheTeamXToPost">Осы форумда хабар қалдыру үшін %1$s тобына қосылыңыз</string>
   <string name="teamNamedX">%1$s тобы</string>
   <string name="youCannotPostYetPlaySomeGames">Сіз форумда әлі хабар қалдыра алмайсыз. Ойнаңыз!</string>
