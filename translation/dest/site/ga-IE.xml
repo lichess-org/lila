@@ -62,7 +62,7 @@
   <string name="makeMainLine">Déan príomhlíne</string>
   <string name="deleteFromHere">Scrios as seo amach</string>
   <string name="forceVariation">Athrú fórsa</string>
-  <string name="move">Bog</string>
+  <string name="move">Beart</string>
   <string name="variantLoss">Teip malairte</string>
   <string name="variantWin">Bua malartach</string>
   <string name="insufficientMaterial">Easpa maoine</string>
@@ -195,6 +195,7 @@
   <string name="rematchOfferDeclined">Diúltaíodh an tairiscint athimeartha</string>
   <string name="cancelRematchOffer">Cealaigh an tairiscint athimeartha</string>
   <string name="viewRematch">Féach ar an athimirt</string>
+  <string name="confirmMove">Deimhnigh an beart</string>
   <string name="play">Imir</string>
   <string name="inbox">Bhosca</string>
   <string name="chatRoom">Seomra comhrá</string>
