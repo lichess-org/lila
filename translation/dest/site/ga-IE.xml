@@ -184,6 +184,8 @@
   <string name="mode">Modh</string>
   <string name="casual">Neamhfhoirmiúil</string>
   <string name="rated">Rátáil</string>
+  <string name="casualTournament">Neamhfhoirmiúil</string>
+  <string name="ratedTournament">Rátáil</string>
   <string name="rematch">Athimirt</string>
   <string name="rematchOfferSent">Tairiscint athimeartha seolta</string>
   <string name="rematchOfferSentWhite">Tairgíonn Bán athimirt</string>
@@ -366,9 +368,13 @@
   <string name="membersOnly">Baill amháin</string>
   <string name="isPrivate">Príobháideach</string>
   <string name="ifNoneLeaveEmpty">Mura bhfuil ann do, fág an bosca folamh</string>
+  <string name="profile">Próifíl</string>
+  <string name="editProfile">Cuir próifíl in eagar</string>
   <string name="firstName">Céadainm</string>
   <string name="lastName">Sloinne</string>
+  <string name="biography">Féinaisnéis</string>
   <string name="country">Tír</string>
+  <string name="inlineNotation">Nodaireacht inlíne</string>
   <string name="watchLichessTV">Féach ar Lichess TV</string>
   <string name="previouslyOnLichessTV">Níos luaithe ar Lichess TV</string>
   <string name="onlinePlayers">Imreoirí ar-líne</string>
