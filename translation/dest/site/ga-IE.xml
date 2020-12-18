@@ -134,6 +134,7 @@
   <string name="timeControl">Smacht ama</string>
   <string name="realTime">Fíor-am</string>
   <string name="correspondence">Comhfhreagras</string>
+  <string name="daysPerTurn">Laethanta san beart</string>
   <string name="oneDay">Lá amháin</string>
   <plurals name="nbDays">
     <item quantity="one">Lá amháin</item>
