@@ -10,6 +10,7 @@ export type Style = 'uci' | 'san' | 'literate' | 'nato' | 'anna';
 export type PieceStyle = 'letter' | 'white uppercase letter' | 'name' | 'white uppercase name';
 export type PrefixStyle = 'letter' | 'name' | 'none';
 export type PositionStyle = 'before' | 'after' | 'none';
+export type BoardStyle = 'plain' | 'table'
 
 const nato: { [letter: string]: string } = { a: 'alpha', b: 'bravo', c: 'charlie', d: 'delta', e: 'echo', f: 'foxtrot', g: 'golf', h: 'hotel' };
 const anna: { [letter: string]: string } = { a: 'anna', b: 'bella', c: 'cesar', d: 'david', e: 'eva', f: 'felix', g: 'gustav', h: 'hector' };
@@ -34,6 +35,17 @@ export function supportedVariant(key: string) {
   return [
     'standard', 'chess960', 'kingOfTheHill', 'threeCheck', 'fromPosition'
   ].includes(key);
+}
+
+export function boardSetting(): Setting<BoardStyle> {
+  return makeSetting<BoardStyle>({
+    choices: [
+      ['plain', 'plain: layout with no semantic rows or columns'],
+      ['table', 'table: layout using a table with rank and file columns and row headers']
+    ],
+    default: 'plain',
+    storage: lichess.storage.make('nvui.boardLayout')
+  });
 }
 
 export function styleSetting(): Setting<Style> {
@@ -108,6 +120,7 @@ const renderPrefixStyle = (color: Color, prefixStyle: PrefixStyle) => {
       return '';
   }
 }
+
 
 export function takes(moves: string[], pieceStyle: PieceStyle, prefixStyle: PrefixStyle) {
   const oldFen = moves[moves.length-2].split(' ')[0];

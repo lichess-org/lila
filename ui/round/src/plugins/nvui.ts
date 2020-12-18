@@ -135,7 +135,7 @@ lichess.RoundNVUI = function(redraw: Redraw) {
             'aria-live': 'polite',
           }
         }, ''),
-        h('p', takes(ctrl.data.steps.map(data => data.fen))),
+       // h('p', takes(ctrl.data.steps.map(data => data.fen))),
         h('h2', 'Settings'),
         h('label', [
           'Move notation',
@@ -232,11 +232,8 @@ function positionJumpHandler() {
     } else {
       return true;
     }
-    console.log("OF: " + $file + " OR: " + $rank);
-    console.log("NF: " + $newFile + " NR: " + $newRank);
 
     const newBtn = document.querySelector('.board button[rank="' + $newRank + '"][file="' + $newFile + '"]') as HTMLElement;
-    console.log(newBtn);
     if (newBtn) {
       newBtn.focus();
       return false;
@@ -288,45 +285,21 @@ function pieceJumpingHandler() {
 function arrowKeyHandler() {
   return (ev: KeyboardEvent) => {
     const $currBtn = $(ev.target as HTMLButtonElement);
-    switch(ev.key) {
-      case 'ArrowUp':
-        ev.preventDefault();
-        const $bottomCol = $currBtn.parent().index();
-        const $upSq = $($currBtn.parent().parent().prev().children().get($bottomCol)).children().get(0);
-        if ($upSq) {
-          $upSq.focus();
-        } else {
-          sound.border();
-        }
-        break;
-      case 'ArrowDown':
-        ev.preventDefault();
-        const $topCol = $currBtn.parent().index();
-        const $downSq = $($currBtn.parent().parent().next().children().get($topCol)).children().get(0);
-        if ($downSq) {
-          $downSq.focus();
-        } else {
-          sound.border();
-        }
-        break;
-      case 'ArrowLeft':
-        ev.preventDefault();
-        const $leftSq = $currBtn.parent().prev().children().get(0);
-        if ($leftSq) {
-          $leftSq.focus();
-        } else {
-          sound.border();
-        }
-        break;
-      case 'ArrowRight':
-        ev.preventDefault();
-        const $rightSq = $currBtn.parent().next().children().get(0);
-        if ($rightSq) {
-          $rightSq.focus();
-        } else {
-          sound.border();
-        }
-        break;
+    let $newSq;
+    if (ev.key === 'ArrowUp') {
+      $newSq = $($currBtn.parent().parent().prev().children().get($currBtn.parent().index())).children().get(0);
+    } else if (ev.key === 'ArrowDown') {
+      $newSq = $($currBtn.parent().parent().next().children().get($currBtn.parent().index())).children().get(0);
+    } else if (ev.key === 'ArrowLeft') {
+      $newSq = $currBtn.parent().prev().children().get(0);
+    } else if (ev.key === 'ArrowRight') {
+      $newSq = $currBtn.parent().next().children().get(0);
+    }
+    if ($newSq) {
+      ev.preventDefault();
+      $newSq.focus();
+    } else {
+      sound.border();
     }
   };
 }
