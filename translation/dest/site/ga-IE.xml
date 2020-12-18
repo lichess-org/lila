@@ -188,6 +188,7 @@
   <string name="rated">Rátáil</string>
   <string name="casualTournament">Neamhfhoirmiúil</string>
   <string name="ratedTournament">Rátáil</string>
+  <string name="thisGameIsRated">Is cluiche rátáilte an cluiche sin</string>
   <string name="rematch">Athimirt</string>
   <string name="rematchOfferSent">Tairiscint athimeartha seolta</string>
   <string name="rematchOfferSentWhite">Tairgíonn Bán athimirt</string>
@@ -207,6 +208,7 @@
   <string name="composeMessage">Cruthaigh teachtaireacht</string>
   <string name="noNewMessages">Níl aon teachtaireacht nua</string>
   <string name="subject">Ábhar</string>
+  <string name="recipient">Faighteoir</string>
   <string name="send">Seol</string>
   <string name="freeOnlineChess">Ficheall Shaor in Aisce Ar Líne</string>
   <string name="spectators">Lucht féachana:</string>
