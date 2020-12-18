@@ -8,11 +8,10 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    viewBox="0 0 8 8"
-   shape-rendering="crispEdges"
    version="1.1"
    id="svg20"
    sodipodi:docname="whitePiece.svg"
-   inkscape:version="1.0 (4035a4fb49, 2020-05-01)">
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
   <metadata
      id="metadata26">
     <rdf:RDF>
@@ -37,40 +36,81 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1366"
-     inkscape:window-height="711"
+     inkscape:window-width="3360"
+     inkscape:window-height="1780"
      id="namedview22"
      showgrid="false"
-     inkscape:zoom="45.254834"
-     inkscape:cx="4.549976"
-     inkscape:cy="4.1327061"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:zoom="90.509668"
+     inkscape:cx="2.5386495"
+     inkscape:cy="3.1775025"
+     inkscape:window-x="6708"
+     inkscape:window-y="1085"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg20" />
+     inkscape:current-layer="svg20"
+     inkscape:pagecheckerboard="true" />
   <g
      transform="matrix(0,0.8888875,-0.8888875,0,7.1111,0.88636807)"
      id="g40-3-9" />
-  <text
-     xml:space="preserve"
-     style="font-style:normal;font-weight:normal;font-size:8.97689px;font-family:sans-serif;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1;"
-     x="0.10648802"
-     y="7.4396429"
-     id="text927"><tspan
-       sodipodi:role="line"
-       id="tspan925"
-       x="0.10648802"
-       y="7.4396429"
-       style="stroke-width:1;fill:#ffffff;">☗</tspan></text>
-  <text
-     xml:space="preserve"
-     style="font-style:normal;font-weight:normal;font-size:9.75158px;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.999997"
-     x="-0.29582787"
-     y="7.6168561"
-     id="text931"><tspan
-       sodipodi:role="line"
-       id="tspan929"
-       x="-0.29582787"
-       y="7.6168561"
-       style="fill:#000000;fill-opacity:1;stroke-width:0.999997">☖</tspan></text>
+  <g
+     id="g4312"
+     style="opacity:1"
+     transform="matrix(0.15711639,0,0,0.15711639,0.35539474,-8.0999148)">
+    <g
+       transform="matrix(0.6,0,0,0.6,-0.24566948,-1.6351379)"
+       id="g4070">
+      <g
+         style="opacity:1"
+         transform="matrix(1.05,0,0,1.05,-3.2268455,-10.469804)"
+         id="g1884">
+        <g
+           id="g1883"
+           transform="matrix(1.0514736,0,0,0.97416793,-0.45230815,4.4444287)"
+           style="stroke-width:0.988061">
+          <g
+             style="fill:#75581b;fill-opacity:1;stroke-width:0.988061"
+             id="g55026"
+             transform="matrix(1.55,0,0,1.55,57.578673,87.893089)" />
+          <g
+             id="g1874"
+             style="stroke-width:0.988061">
+            <g
+               id="g1867"
+               style="stroke-width:0.988061">
+              <g
+                 transform="matrix(1.55,0,0,1.55,56.603405,86.081862)"
+                 id="g5765-1"
+                 style="fill:#ffd5e5;fill-opacity:1;stroke-width:0.988061">
+                <path
+                   sodipodi:nodetypes="cccccc"
+                   d="M -11.5235,7.3620312 -24.701773,12.025434 -30.848998,54.295677 7.801598,54.295504 1.6543774,12.025293 Z"
+                   id="path5763-5"
+                   inkscape:connector-curvature="0"
+                   style="fill:#ffffff;fill-opacity:0.992157;stroke:#000000;stroke-width:1.93202;stroke-miterlimit:4;stroke-dasharray:none" />
+              </g>
+            </g>
+          </g>
+        </g>
+        <g
+           aria-label="王"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:KaiTi;-inkscape-font-specification:KaiTi;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
+           id="text5169-4"
+           transform="matrix(1.6059542,0,0,1.6059542,-2.6274921,77.218224)">
+          <g
+             id="g1888" />
+        </g>
+      </g>
+    </g>
+    <g
+       aria-label="王"
+       transform="matrix(1.1958245,0,0,1.075834,-24.773593,23.589578)"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:29.072px;line-height:1.25;font-family:PMingLiU;-inkscape-font-specification:PMingLiU;letter-spacing:0px;word-spacing:0px;display:inline;fill:#efbf00;fill-opacity:1;stroke:#efbf00;stroke-width:0.423169;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="text2298-4-4">
+      <path
+         d="m 41.364137,42.418759 v 8.086113 h 6.078562 v 2.478001 h -6.078562 v 9.129483 h 10.901985 v 2.869265 H 27.96378 v -2.869265 h 10.788423 v -9.129483 h -6.237311 v -2.478001 h 6.237311 V 42.418759 H 30.77997 v -2.869265 h 18.596713 v 2.869265 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MingLiU_HKSCS-ExtB;-inkscape-font-specification:MingLiU_HKSCS-ExtB;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.453493;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path4617-5"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccccccccccccccccccccc" />
+    </g>
+  </g>
 </svg>

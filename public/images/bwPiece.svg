@@ -7,12 +7,75 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
-   sodipodi:docname="wbK.svg"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
+   sodipodi:docname="bwPiece.svg"
    id="svg38"
    version="1.1"
    height="35.141"
    width="34.68">
+  <g
+     id="g5655"
+     transform="matrix(0.97031645,0,0,0.97031645,0.51471272,0.47384889)">
+    <g
+       id="g4312"
+       style="opacity:1"
+       transform="matrix(0.67146891,0,0,0.67146891,1.7640369,-34.091787)">
+      <g
+         transform="matrix(0.6,0,0,0.6,-0.24566948,-1.6351379)"
+         id="g4070">
+        <g
+           style="opacity:1"
+           transform="matrix(1.05,0,0,1.05,-3.2268455,-10.469804)"
+           id="g1884">
+          <g
+             id="g1883"
+             transform="matrix(1.0514736,0,0,0.97416793,-0.45230815,4.4444287)"
+             style="stroke-width:0.988061">
+            <g
+               style="fill:#75581b;fill-opacity:1;stroke-width:0.988061"
+               id="g55026"
+               transform="matrix(1.55,0,0,1.55,57.578673,87.893089)" />
+            <g
+               id="g1874"
+               style="stroke-width:0.988061">
+              <g
+                 id="g1867"
+                 style="stroke-width:0.988061">
+                <g
+                   transform="matrix(1.55,0,0,1.55,56.603405,86.081862)"
+                   id="g5765-1"
+                   style="fill:#ffd5e5;fill-opacity:1;stroke-width:0.988061">
+                  <path
+                     sodipodi:nodetypes="cccccc"
+                     d="M -11.5235,7.3620312 -24.701773,12.025434 -30.848998,54.295677 7.801598,54.295504 1.6543774,12.025293 Z"
+                     id="path5763-5"
+                     inkscape:connector-curvature="0"
+                     style="fill:#ffffff;fill-opacity:0.992157;stroke:#000000;stroke-width:1.93202;stroke-miterlimit:4;stroke-dasharray:none" />
+                </g>
+              </g>
+            </g>
+          </g>
+          <g
+             aria-label="王"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:KaiTi;-inkscape-font-specification:KaiTi;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
+             id="text5169-4"
+             transform="matrix(1.6059542,0,0,1.6059542,-2.6274921,77.218224)">
+            <g
+               id="g1888" />
+          </g>
+        </g>
+      </g>
+      <g
+         aria-label="王"
+         transform="matrix(1.1958245,0,0,1.075834,-24.773593,23.589578)"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:29.072px;line-height:1.25;font-family:PMingLiU;-inkscape-font-specification:PMingLiU;letter-spacing:0px;word-spacing:0px;display:inline;fill:#efbf00;fill-opacity:1;stroke:#efbf00;stroke-width:0.423169;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="text2298-4-4" />
+    </g>
+    <path
+       style="fill:#000000;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 17.340139,2.6489405 V 32.727469 l 13.323497,-0.0997 -4.238141,-27.0001636 z"
+       id="path5640" />
+  </g>
   <metadata
      id="metadata42">
     <rdf:RDF>
@@ -21,21 +84,22 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <sodipodi:namedview
      inkscape:current-layer="svg38"
      inkscape:window-maximized="1"
-     inkscape:window-y="0"
-     inkscape:window-x="0"
-     inkscape:cy="24.056703"
-     inkscape:cx="5.9136139"
-     inkscape:zoom="7.7687035"
+     inkscape:window-y="1085"
+     inkscape:window-x="6708"
+     inkscape:cy="9.5541011"
+     inkscape:cx="35.341387"
+     inkscape:zoom="15.537407"
      showgrid="false"
      id="namedview40"
-     inkscape:window-height="711"
-     inkscape:window-width="1366"
+     inkscape:window-height="1780"
+     inkscape:window-width="3360"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0"
      guidetolerance="10"
@@ -43,7 +107,8 @@
      objecttolerance="10"
      borderopacity="1"
      bordercolor="#666666"
-     pagecolor="#ffffff" />
+     pagecolor="#ffffff"
+     inkscape:document-rotation="0" />
   <defs
      id="defs8">
     <clipPath
@@ -79,28 +144,4 @@
          values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 -0.21 -0.72 -0.07 2 0 " />
     </filter>
   </defs>
-  <g
-     style="stroke-width:0.234873;filter:url(#filter903)"
-     transform="matrix(-4.2582842,0,0,4.2569452,34.458562,0.30127434)"
-     id="g856-7">
-    <g
-       style="font-style:normal;font-weight:normal;font-size:8.97689px;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.234873"
-       id="text927-5"
-       aria-label="☗">
-      <path
-         id="path917"
-         style="stroke-width:0.234873"
-         d="m 4.1522249,0.91737155 2.857877,1.72261605 0.3813424,4.7733558 0.01315,0.01315 -0.01315,0.01315 H 0.88670596 L 0.86040648,7.4133434 1.2548987,2.6268378 Q 4.0514102,0.94367103 4.1390751,0.91737155 Z" />
-    </g>
-    <g
-       style="font-style:normal;font-weight:normal;font-size:9.75158px;font-family:sans-serif;fill:#f9f9f9;fill-opacity:1;stroke:none;stroke-width:0.234873"
-       id="text931-5"
-       aria-label="☖">
-      <path
-         sodipodi:nodetypes="ccccccccccccccc"
-         id="path920"
-         style="fill:#f9f9f9;stroke-width:0.234873"
-         d="m 4.1173761,0.470115 3.1187916,1.8712749 0.3999671,5.2376652 -0.014284,0.014285 H 0.55576383 L 0.52719474,7.5647705 0.94620796,2.3271054 4.1030916,0.470115 Z M 4.164662,7.1195749 1.0652453,7.0790961 h 6.032838 L 6.7600163,2.6556498 4.0888071,1.0795888 Z" />
-    </g>
-  </g>
 </svg>
