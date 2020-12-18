@@ -27,18 +27,6 @@ interface Opts extends BaseOpts {
   noConceal?: boolean;
 }
 
-function emptyMove(conceal?: Conceal): VNode {
-  const c = {};
-  if (conceal) c[conceal as string] = true;
-  return h(
-    "move.empty",
-    {
-      class: c,
-    },
-    "..."
-  );
-}
-
 function renderChildrenOf(
   ctx: Ctx,
   node: Tree.Node,
@@ -52,14 +40,11 @@ function renderChildrenOf(
     : opts.conceal || ctx.concealOf(true)(opts.parentPath + main.id, main);
   if (conceal === "hide") return;
   if (opts.isMainline) {
-    const isWhite = main.ply % 2 === 1,
-      commentTags = renderMainlineCommentsOf(ctx, main, conceal, true).filter(
+    const commentTags = renderMainlineCommentsOf(ctx, main, conceal, true).filter(
         nonEmpty
       );
     if (!cs[1] && empty(commentTags) && !main.forceVariation)
-      return ((isWhite
-        ? [moveView.renderIndex(main.ply, false)]
-        : []) as MaybeVNodes).concat(
+      return (([moveView.renderIndex(main.ply, false)]) as MaybeVNodes).concat(
         renderMoveAndChildrenOf(ctx, main, {
           parentPath: opts.parentPath,
           isMainline: true,
@@ -78,16 +63,12 @@ function renderChildrenOf(
       isMainline: !main.forceVariation,
       conceal,
     };
-    return (isWhite
-      ? [moveView.renderIndex(main.ply, false)]
-      : ([] as MaybeVNodes)
-    )
+    return ([moveView.renderIndex(main.ply, false)] as MaybeVNodes)
       .concat(
         main.forceVariation
           ? []
           : [
               renderMoveOf(ctx, main, passOpts),
-              isWhite ? emptyMove(passOpts.conceal) : null,
             ]
       )
       .concat([
@@ -104,8 +85,8 @@ function renderChildrenOf(
         ),
       ] as MaybeVNodes)
       .concat(
-        isWhite && mainChildren
-          ? [moveView.renderIndex(main.ply, false), emptyMove(passOpts.conceal)]
+        mainChildren
+          ? []
           : []
       )
       .concat(mainChildren || []);
@@ -302,8 +283,6 @@ export default function (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
     },
     ([
       empty(commentTags) ? null : h("interrupt", commentTags),
-      root.ply & 1 ? moveView.renderIndex(root.ply, false) : null,
-      root.ply & 1 ? emptyMove() : null,
     ] as MaybeVNodes).concat(
       renderChildrenOf(ctx, root, {
         parentPath: "",
