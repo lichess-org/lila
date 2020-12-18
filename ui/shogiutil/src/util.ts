@@ -249,8 +249,13 @@ export function validFen(fen: string): boolean {
 }
 
 export function switchColorSfen(sfen: string): string {
-  const oppositeColor = sfen.split(" ")[1] === "w" ? "b" : "w";
-  return sfen.replace(/ (w|b)/, " " + oppositeColor);
+  const sep = (sfen && sfen.split(" ").length > 1) ? " " : "_";
+  if(sfen && sfen.split(sep).length > 1){
+    const oppositeColor = sfen.split(sep)[1] === "w" ? "b" : "w";
+    const re = new RegExp(`${sep}(w|b)`);
+    return sfen.replace(re, sep + oppositeColor);
+  }
+  return sfen;
 }
 
 export function shogiToChessUci(uci: Uci): Uci {
