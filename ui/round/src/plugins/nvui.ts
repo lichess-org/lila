@@ -10,15 +10,15 @@ import renderCorresClock from '../corresClock/corresClockView';
 import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
 import { onInsert } from '../util';
-import { Step, Dests, Position, Redraw, Pref } from '../interfaces';
+import { Step, Dests, Position, Redraw } from '../interfaces';
 import * as game from 'game';
-import { renderSan, renderPieces, renderBoard, styleSetting, pieceSetting, prefixSetting, positionSetting, takes, PieceStyle, PrefixStyle} from 'nvui/chess';
+import { renderSan, renderPieces, renderBoard, styleSetting, pieceSetting, prefixSetting, positionSetting, boardSetting, lastCaptured, PieceStyle, PrefixStyle} from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { castlingFlavours, supportedVariant, Style, symbolToFile } from 'nvui/chess';
 import { commands } from 'nvui/command';
 import * as sound from '../sound';
-import { Piece } from 'chessground/types';
+import { TourStandingCtrl } from '../tourStanding';
 
 lichess.RoundNVUI = function(redraw: Redraw) {
 
@@ -26,7 +26,8 @@ lichess.RoundNVUI = function(redraw: Redraw) {
     moveStyle = styleSetting(),
     prefixStyle = prefixSetting(),
     pieceStyle = pieceSetting(),
-    positionStyle = positionSetting();
+    positionStyle = positionSetting(),
+    boardStyle = boardSetting();
 
   lichess.pubsub.on('socket.in.message', line => {
     if (line.u === 'lichess') notify.set(line.t);
@@ -118,21 +119,22 @@ lichess.RoundNVUI = function(redraw: Redraw) {
         h('h2', 'Board'),
         h('div.board', {
           hook: onInsert(el => {
-            const $board = $(el as HTMLTableElement);
-            $board.on('keypress', boardCommandsHandler((): string[] => ctrl.data.steps.map(step => step.fen), pieceStyle, prefixStyle));
+            const $board = $(el as HTMLElement);
+            $board.on('keypress', boardCommandsHandler((): string[] => ctrl.data.steps.map(step => step.fen), () => ctrl.data.possibleMoves, pieceStyle.get(), prefixStyle.get()));
             $board.on('keypress', showctrl(ctrl));
             // looking for specific elements tightly couples this file and nvui/chess.ts
             // unsure if a bad thing?
             const $buttons = $board.find('button');
-            $buttons.on('click', selectionHandler());
-            $buttons.on('keydown', arrowKeyHandler());
+            $buttons.on('click', selectionHandler((): Color => ctrl.data.opponent.color));
+            $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color));
             $buttons.on('keypress', positionJumpHandler());
             $buttons.on('keypress', pieceJumpingHandler());
           })
-        }, renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color, pieceStyle.get(), prefixStyle.get(), positionStyle.get())),
+        }, renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color, pieceStyle.get(), prefixStyle.get(), positionStyle.get(), boardStyle.get())),
         h('div.boardstatus', {
           attrs: {
             'aria-live': 'polite',
+            'aria-atomic': true
           }
         }, ''),
        // h('p', takes(ctrl.data.steps.map(data => data.fen))),
@@ -154,6 +156,10 @@ lichess.RoundNVUI = function(redraw: Redraw) {
           'Show position',
           renderSetting(positionStyle, ctrl.redraw)
         ]),
+        h('label', [
+          'Board layout',
+          renderSetting(boardStyle, ctrl.redraw)
+        ]),
         h('h2', 'Commands'),
         h('p', [
           'Type these commands in the move input.', h('br'),
@@ -169,8 +175,15 @@ lichess.RoundNVUI = function(redraw: Redraw) {
         ]),
         h('h2', 'Board Mode commands'),
         h('p', [
-          'Use these commands when focused on the physical board.', h('br'),
-          '', 
+          'Use these commands when focused on the board itself.', h('br'),
+          'o: announce current position.', h('br'),
+          'c: announce last move\'s captured piece.', h('br'),
+          'l: display last move.', h('br'),
+          'arrow keys: move left, right, up or down.', h('br'),
+          'kqrbnp/KQRBNP: move forward/backward to a piece.', h('br'),
+          '1-8: move to rank 1-8.', h('br'),
+          'Shift+1-8: move to file a-h.', h('br'),
+          '', h('br')
         ]),
         h('h2', 'Promotion'),
         h('p', [
@@ -188,15 +201,16 @@ const promotionRegex = /^([a-h]x?)?[a-h](1|8)=\w$/;
 function showctrl(ctrl: RoundController) {
   return () => {
     console.log(ctrl);
+    return true;
   }
 }
 
 function boardCommandsHandler(steps: () => string[], pieceStyle: PieceStyle, prefixStyle: PrefixStyle) {
   return (ev: KeyboardEvent) => {
-    const $currBtn = $(ev.target as HTMLButtonElement);
+    const $currBtn = $(ev.target as HTMLElement);
     const $boardLive = $('.boardstatus');
+    const $position = ($currBtn.attr('file') ?? "") + ($currBtn.attr('rank') ?? "")
     if (ev.key === 'o') {
-      const $position = ($currBtn.attr('file') ?? "") + ($currBtn.attr('rank') ?? "")
       $boardLive.text()
       $boardLive.text($position);
       return false;
@@ -207,7 +221,7 @@ function boardCommandsHandler(steps: () => string[], pieceStyle: PieceStyle, pre
       return false;
     } else if (ev.key === 'c') {
       $boardLive.text();
-      $boardLive.text(takes(steps(), pieceStyle, prefixStyle));
+      $boardLive.text(lastCaptured(steps(), pieceStyle, prefixStyle));
       return false;
     } else {
       return true;
@@ -217,7 +231,7 @@ function boardCommandsHandler(steps: () => string[], pieceStyle: PieceStyle, pre
 
 function positionJumpHandler() {
   return (ev: KeyboardEvent) => {
-    const $btn = $(ev.target as HTMLButtonElement);
+    const $btn = $(ev.target as HTMLElement);
     const $file = $btn.attr('file') ?? "";
     const $rank = $btn.attr('rank') ?? "";
     let $newRank = "";
@@ -228,11 +242,10 @@ function positionJumpHandler() {
     } else if (ev.key.match(/^[!@#$%^&*]$/)) {
       $newRank = $rank;
       $newFile = symbolToFile(ev.key);
-    // if not a valid key for this 
+    // if not a valid key for jumping
     } else {
       return true;
     }
-
     const newBtn = document.querySelector('.board button[rank="' + $newRank + '"][file="' + $newFile + '"]') as HTMLElement;
     if (newBtn) {
       newBtn.focus();
@@ -244,26 +257,10 @@ function positionJumpHandler() {
 
 function pieceJumpingHandler() {
   return (ev: KeyboardEvent) => {
-    function getAllPieces(pieceType: string, myRank: string, myFile: string){
-      var matchingElements = [];
-      var allElements = document.getElementsByTagName('*');
-      for (var i = 0, n = allElements.length; i < n; i++)
-      {
-        if ((allElements[i].getAttribute('piece') !== null &&
-        allElements[i].getAttribute('piece') === pieceType) || (
-        allElements[i].getAttribute('rank') === myRank &&
-        allElements[i].getAttribute('file') === myFile))
-        {
-          // Element exists with attribute. Add to array.
-          matchingElements.push(allElements[i]);
-        }
-      }
-      return matchingElements;
-    }
     if (!ev.key.match(/^[kqrbnp]$/i)) return true;
-    const $currBtn = $(ev.target as HTMLButtonElement);
-    const $myBtnAttrs = 'button[rank="' + $currBtn.attr('rank') + '"][file="' + $currBtn.attr('file') + '"]';
-    const $allPieces = $(getAllPieces(ev.key.toLowerCase(), $currBtn.attr('rank') ?? "", $currBtn.attr('file') ?? ""));
+    const $currBtn = $(ev.target as HTMLElement);
+    const $myBtnAttrs = '.board [rank="' + $currBtn.attr('rank') + '"][file="' + $currBtn.attr('file') + '"]';
+    const $allPieces = $('.board [piece="' + ev.key.toLowerCase() + '"], ' + $myBtnAttrs);
     const $myPieceIndex = $allPieces.index($myBtnAttrs);
     const $next = ev.key.toLowerCase() === ev.key;
     const $prevNextPieces = $next ? $allPieces.slice($myPieceIndex+1) : $allPieces.slice(0, $myPieceIndex);
@@ -282,47 +279,57 @@ function pieceJumpingHandler() {
   };
 }
 
-function arrowKeyHandler() {
+function arrowKeyHandler(pov: Color) {
   return (ev: KeyboardEvent) => {
-    const $currBtn = $(ev.target as HTMLButtonElement);
-    let $newSq;
+    const $currBtn = $(ev.target as HTMLElement);
+    const $isWhite = pov === 'white';
+    let $file = $currBtn.attr('file') ?? " ";
+    let $rank = Number($currBtn.attr('rank'));
     if (ev.key === 'ArrowUp') {
-      $newSq = $($currBtn.parent().parent().prev().children().get($currBtn.parent().index())).children().get(0);
+      $rank = $isWhite ? $rank += 1 : $rank -= 1;
     } else if (ev.key === 'ArrowDown') {
-      $newSq = $($currBtn.parent().parent().next().children().get($currBtn.parent().index())).children().get(0);
+      $rank = $isWhite ? $rank -= 1 : $rank += 1;
     } else if (ev.key === 'ArrowLeft') {
-      $newSq = $currBtn.parent().prev().children().get(0);
+      $file = String.fromCharCode($isWhite ? $file.charCodeAt(0) - 1 : $file.charCodeAt(0) + 1);
     } else if (ev.key === 'ArrowRight') {
-      $newSq = $currBtn.parent().next().children().get(0);
+      $file = String.fromCharCode($isWhite ? $file.charCodeAt(0) + 1 : $file.charCodeAt(0) - 1);
+    } else {
+      return true;
     }
+    const $newSq = document.querySelector('.board [file="' + $file + '"][rank="' + $rank + '"]') as HTMLElement;
     if ($newSq) {
-      ev.preventDefault();
       $newSq.focus();
     } else {
       sound.border();
     }
+    ev.preventDefault();
+    return false;
   };
 }
 
-function selectionHandler() {
+function selectionHandler(opponentColor: () => Color) {
   return (ev: MouseEvent) => {
     // this depends on the current document structure. This may not be advisable in case the structure wil change.
-    const $evBtn = $(ev.target as HTMLButtonElement);
+    const $evBtn = $(ev.target as HTMLElement);
     const $pos = ($evBtn.attr('file') ?? "") + $evBtn.attr('rank');
-    const $moveBox = $(document.querySelector('.move') as HTMLInputElement);
-    if (!$moveBox) return;
+    const $moveBox = $(document.querySelector('input.move') as HTMLInputElement);
+    if (!$moveBox) return false;
 
     // if no move in box yet
     if ($moveBox.val() === '') {
+      // if user selects anothers' piece first
+      if ($evBtn.attr('color') === opponentColor()) return false;
       // as long as the user is selecting a piece and not a blank tile
       if ($evBtn.text().match(/^[^\-+]+/g)) {
         $moveBox.val($pos);
-        // TODO: I notice sound is not usually handled here. Perhaps find a way to hand over to control.
         sound.select();
       }
     } else {
+      // if user selects their own piece second
+      if ($evBtn.attr('color') === (opponentColor() === 'black' ? 'white' : 'black')) return false;
+
       $moveBox.val($moveBox.val() + $pos);
-      // this section depends on the form being the granparent of the input box.
+      // this section depends on the form being the granparent of the input.move box.
       const $form = $moveBox.parent().parent();
       const $event = new Event('submit', {
         cancelable: true,
@@ -330,6 +337,7 @@ function selectionHandler() {
       })
       $form.trigger($event);
     }
+    return false;
   };
 }
 

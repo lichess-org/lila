@@ -99,6 +99,7 @@ export function positionSetting(): Setting<PositionStyle> {
   });
 }
 const renderPieceStyle = (piece: string, pieceStyle: PieceStyle) => {
+  console.log(piece, pieceStyle);
   switch(pieceStyle) {
     case 'letter':
       return letterPiece[piece];
@@ -111,6 +112,7 @@ const renderPieceStyle = (piece: string, pieceStyle: PieceStyle) => {
   }
 }
 const renderPrefixStyle = (color: Color, prefixStyle: PrefixStyle) => {
+  console.log(color, prefixStyle);
   switch(prefixStyle) {
     case 'letter':
       return color.charAt(0);
@@ -122,16 +124,22 @@ const renderPrefixStyle = (color: Color, prefixStyle: PrefixStyle) => {
 }
 
 
-export function takes(moves: string[], pieceStyle: PieceStyle, prefixStyle: PrefixStyle) {
+export function lastCaptured(moves: string[], pieceStyle: PieceStyle, prefixStyle: PrefixStyle): string {
   const oldFen = moves[moves.length-2].split(' ')[0];
   const newFen = moves[moves.length-1].split(' ')[0];
+  if (!oldFen || !newFen) {
+    return 'none';
+  }
   for (var p of 'kKqQrRbBnNpP') {
     const diff = (oldFen.split(p).length - 1) - (newFen.split(p).length -1);
-    if (diff == 1) {
-      console.log(renderPrefixStyle(p.toUpperCase() === p ? "white" : "black", prefixStyle) +
-      renderPieceStyle(p, pieceStyle));
-    }
+    const pcolor = p.toUpperCase() === p ? 'white' : 'black';
+    if (diff === 1) {
+      const prefix = renderPrefixStyle(pcolor, prefixStyle);
+      const piece = renderPieceStyle(p, pieceStyle);
+      return prefix + piece;
+    } 
   }
+  return 'none';
 }
 
 export function renderSan(san: San, uci: Uci | undefined, style: Style) {
@@ -197,7 +205,19 @@ export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: Style)
   return res.length ? res.join(', ') : 'blank';
 }
 
-export function renderBoard(pieces: Pieces, pov: Color, pieceStyle: PieceStyle, prefixStyle: PrefixStyle, positionStyle: PositionStyle): VNode {
+export function renderBoard(pieces: Pieces, pov: Color, pieceStyle: PieceStyle, prefixStyle: PrefixStyle, positionStyle: PositionStyle, boardStyle: BoardStyle): VNode {
+  const doRankHeader = (rank: Rank): VNode => {
+    return h('th', {attrs: {scope: 'row'}}, rank);
+  }
+  const doFileHeaders = (): VNode => {
+    let ths = files.map(file => h('th', {attrs: {scope: 'col'}}, file));
+    if (pov === 'black') ths.reverse();
+    return h('tr', [
+      h('td'),
+      ...ths,
+      h('td')
+    ]);
+  }
   const renderPositionStyle = (rank: Rank, file: File, orig: string) => {
     switch(positionStyle) {
       case 'before':
@@ -208,41 +228,40 @@ export function renderBoard(pieces: Pieces, pov: Color, pieceStyle: PieceStyle, 
         return orig;
     }
   }
-  const doPieceButton = (rank: Rank, file: File, letter: string, text: string): VNode => {
+  const doPieceButton = (rank: Rank, file: File, letter: string, color: Color | 'none', text: string): VNode => {
     return h('button', {
-      attrs: { rank: rank, file: file, piece: letter.toLowerCase()}
+      attrs: { rank: rank, file: file, piece: letter.toLowerCase(), color: color}
     }, text);
   }
   const doPiece = (rank: Rank, file: File): VNode => {
     const key = file + rank as Key;
     const piece = pieces.get(key);
+    const pieceWrapper = boardStyle === 'table' ? 'td' : 'span';
     if (piece) {        
       const letter = renderPieceStyle(piece.color === 'white' ? letters[piece.role].toUpperCase() : letters[piece.role], pieceStyle);
       const prefix = renderPrefixStyle(piece.color, prefixStyle);
       const text = renderPositionStyle(rank, file, prefix + letter);
-      return h('span', doPieceButton(rank, file, letter, text));
+      return h(pieceWrapper, doPieceButton(rank, file, letter, piece.color, text));
     } else {
       const letter = (key.charCodeAt(0) + key.charCodeAt(1)) % 2 ? '-' : '+';
       const text = renderPositionStyle(rank, file, letter);
-      return h('span', doPieceButton(rank, file, letter, text));
+      return h(pieceWrapper, doPieceButton(rank, file, letter, 'none', text));
     }
   }
   const doRank = (pov: Color, rank: Rank): VNode => {      
-    let rankElements = [
-      //doRankHeader(rank),
-      ...files.map(file => doPiece(rank, file)),
-      //doRankHeader(rank)
-    ];
+    let rankElements = [];
+    if (boardStyle === 'table') rankElements.push(doRankHeader(rank));
+    rankElements.push(...files.map(file => doPiece(rank, file)));
+    if (boardStyle === 'table') rankElements.push(doRankHeader(rank));
     if (pov === 'black') rankElements.reverse();
-    return h('div', rankElements);
+    return h((boardStyle === 'table' ? 'tr' : 'div'), rankElements);
   }
-  let ranks = invRanks.map(rank => doRank(pov, rank));
+  let ranks: VNode[] = [];
+  if (boardStyle === 'table') ranks.push(doFileHeaders());
+  ranks.push(...invRanks.map(rank => doRank(pov, rank)));
+  if (boardStyle === 'table') ranks.push(doFileHeaders());
   if (pov === 'black') ranks.reverse();
-  return h('spam', [
-    //doFileHeaders(pov),
-    ...ranks,
-    //doFileHeaders(pov)
-  ]);
+  return h((boardStyle === 'table' ? 'table' : 'div'), ranks);
 }
 
 export function renderFile(f: string, style: Style): string {
