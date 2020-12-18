@@ -123,6 +123,7 @@
   <string name="games">Cluichí</string>
   <string name="forum">Fóram</string>
   <string name="xPostedInForumY">Scríobh %1$s teachtaireacht sa topaic %2$s</string>
+  <string name="latestForumPosts">Postálacha fóraim níos déanaí</string>
   <string name="players">Imreoirí</string>
   <string name="friends">Cairde</string>
   <string name="discussions">Comhráite</string>
