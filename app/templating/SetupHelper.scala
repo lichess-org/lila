@@ -161,9 +161,9 @@ trait SetupHelper { self: I18nHelper =>
 
   def translatedSideChoices(implicit lang: Lang) =
     List(
-      ("black", trans.black.txt(), none),
+      ("white", trans.black.txt(), none),
       ("random", trans.randomColor.txt(), none),
-      ("white", trans.white.txt(), none)
+      ("black", trans.white.txt(), none)
     )
 
   def translatedAnimationChoices(implicit lang: Lang) =

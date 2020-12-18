@@ -140,10 +140,9 @@ object forms {
               div(cls := "color-submits")(
                 translatedSideChoices.map {
                   case (key, name, _) => {
-                    val oppositeColor = if(name == "White") "Black" else "White" // swapped
                     submitButton(
                       (typ == "hook") option disabled,
-                      title := oppositeColor,
+                      title := name,
                       cls := s"color-submits__button button button-metal $key",
                       st.name := "color",
                       value := key
