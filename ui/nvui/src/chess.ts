@@ -86,6 +86,40 @@ export function positionSetting(): Setting<PositionStyle> {
     storage: lichess.storage.make('nvui.positionStyle')
   });
 }
+const renderPieceStyle = (piece: string, pieceStyle: PieceStyle) => {
+  switch(pieceStyle) {
+    case 'letter':
+      return letterPiece[piece];
+    case 'white uppercase letter':
+      return whiteUpperLetterPiece[piece];
+    case 'name':
+      return namePiece[piece];
+    case 'white uppercase name':
+      return whiteUpperNamePiece[piece];
+  }
+}
+const renderPrefixStyle = (color: Color, prefixStyle: PrefixStyle) => {
+  switch(prefixStyle) {
+    case 'letter':
+      return color.charAt(0);
+    case 'name':
+      return color + " ";
+    case 'none':
+      return '';
+  }
+}
+
+export function takes(moves: string[], pieceStyle: PieceStyle, prefixStyle: PrefixStyle) {
+  const oldFen = moves[moves.length-2].split(' ')[0];
+  const newFen = moves[moves.length-1].split(' ')[0];
+  for (var p of 'kKqQrRbBnNpP') {
+    const diff = (oldFen.split(p).length - 1) - (newFen.split(p).length -1);
+    if (diff == 1) {
+      console.log(renderPrefixStyle(p.toUpperCase() === p ? "white" : "black", prefixStyle) +
+      renderPieceStyle(p, pieceStyle));
+    }
+  }
+}
 
 export function renderSan(san: San, uci: Uci | undefined, style: Style) {
   if (!san) return '';
@@ -151,28 +185,6 @@ export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: Style)
 }
 
 export function renderBoard(pieces: Pieces, pov: Color, pieceStyle: PieceStyle, prefixStyle: PrefixStyle, positionStyle: PositionStyle): VNode {
-  const renderPieceStyle = (piece: string) => {
-    switch(pieceStyle) {
-      case 'letter':
-        return letterPiece[piece];
-      case 'white uppercase letter':
-        return whiteUpperLetterPiece[piece];
-      case 'name':
-        return namePiece[piece];
-      case 'white uppercase name':
-        return whiteUpperNamePiece[piece];
-    }
-  }
-  const renderPrefixStyle = (color: Color) => {
-    switch(prefixStyle) {
-      case 'letter':
-        return color.charAt(0);
-      case 'name':
-        return color + " ";
-      case 'none':
-        return '';
-    }
-  }
   const renderPositionStyle = (rank: Rank, file: File, orig: string) => {
     switch(positionStyle) {
       case 'before':
@@ -192,8 +204,8 @@ export function renderBoard(pieces: Pieces, pov: Color, pieceStyle: PieceStyle, 
     const key = file + rank as Key;
     const piece = pieces.get(key);
     if (piece) {        
-      const letter = renderPieceStyle(piece.color === 'white' ? letters[piece.role].toUpperCase() : letters[piece.role]);
-      const prefix = renderPrefixStyle(piece.color);
+      const letter = renderPieceStyle(piece.color === 'white' ? letters[piece.role].toUpperCase() : letters[piece.role], pieceStyle);
+      const prefix = renderPrefixStyle(piece.color, prefixStyle);
       const text = renderPositionStyle(rank, file, prefix + letter);
       return h('span', doPieceButton(rank, file, letter, text));
     } else {

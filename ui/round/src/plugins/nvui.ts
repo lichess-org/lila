@@ -10,14 +10,15 @@ import renderCorresClock from '../corresClock/corresClockView';
 import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
 import { onInsert } from '../util';
-import { Step, Dests, Position, Redraw } from '../interfaces';
+import { Step, Dests, Position, Redraw, Pref } from '../interfaces';
 import * as game from 'game';
-import { renderSan, renderPieces, renderBoard, styleSetting, pieceSetting, prefixSetting, positionSetting } from 'nvui/chess';
+import { renderSan, renderPieces, renderBoard, styleSetting, pieceSetting, prefixSetting, positionSetting, takes, PieceStyle, PrefixStyle} from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { castlingFlavours, supportedVariant, Style, symbolToFile } from 'nvui/chess';
 import { commands } from 'nvui/command';
 import * as sound from '../sound';
+import { Piece } from 'chessground/types';
 
 lichess.RoundNVUI = function(redraw: Redraw) {
 
@@ -118,7 +119,8 @@ lichess.RoundNVUI = function(redraw: Redraw) {
         h('div.board', {
           hook: onInsert(el => {
             const $board = $(el as HTMLTableElement);
-            $board.on('keypress', boardCommandsHandler());
+            $board.on('keypress', boardCommandsHandler((): string[] => ctrl.data.steps.map(step => step.fen), pieceStyle, prefixStyle));
+            $board.on('keypress', showctrl(ctrl));
             // looking for specific elements tightly couples this file and nvui/chess.ts
             // unsure if a bad thing?
             const $buttons = $board.find('button');
@@ -133,6 +135,7 @@ lichess.RoundNVUI = function(redraw: Redraw) {
             'aria-live': 'polite',
           }
         }, ''),
+        h('p', takes(ctrl.data.steps.map(data => data.fen))),
         h('h2', 'Settings'),
         h('label', [
           'Move notation',
@@ -164,6 +167,11 @@ lichess.RoundNVUI = function(redraw: Redraw) {
           'draw: Offer or accept draw.', h('br'),
           'takeback: Offer or accept take back.', h('br')
         ]),
+        h('h2', 'Board Mode commands'),
+        h('p', [
+          'Use these commands when focused on the physical board.', h('br'),
+          '', 
+        ]),
         h('h2', 'Promotion'),
         h('p', [
           'Standard PGN notation selects the piece to promote to. Example: a8=n promotes to a knight.',
@@ -177,19 +185,29 @@ lichess.RoundNVUI = function(redraw: Redraw) {
 
 const promotionRegex = /^([a-h]x?)?[a-h](1|8)=\w$/;
 
-function boardCommandsHandler() {
+function showctrl(ctrl: RoundController) {
+  return () => {
+    console.log(ctrl);
+  }
+}
+
+function boardCommandsHandler(steps: () => string[], pieceStyle: PieceStyle, prefixStyle: PrefixStyle) {
   return (ev: KeyboardEvent) => {
     const $currBtn = $(ev.target as HTMLButtonElement);
-    const $position = ($currBtn.attr('file') ?? "") + ($currBtn.attr('rank') ?? "")
     const $boardLive = $('.boardstatus');
-    const $lastMove = $('p.lastMove').text();
-    if (ev.key === 'c') {
+    if (ev.key === 'o') {
+      const $position = ($currBtn.attr('file') ?? "") + ($currBtn.attr('rank') ?? "")
       $boardLive.text()
       $boardLive.text($position);
       return false;
     } else if (ev.key === 'l') {
+      const $lastMove = $('p.lastMove').text();
       $boardLive.text();
       $boardLive.text($lastMove);
+      return false;
+    } else if (ev.key === 'c') {
+      $boardLive.text();
+      $boardLive.text(takes(steps(), pieceStyle, prefixStyle));
       return false;
     } else {
       return true;
@@ -229,11 +247,26 @@ function positionJumpHandler() {
 
 function pieceJumpingHandler() {
   return (ev: KeyboardEvent) => {
+    function getAllPieces(pieceType: string, myRank: string, myFile: string){
+      var matchingElements = [];
+      var allElements = document.getElementsByTagName('*');
+      for (var i = 0, n = allElements.length; i < n; i++)
+      {
+        if ((allElements[i].getAttribute('piece') !== null &&
+        allElements[i].getAttribute('piece') === pieceType) || (
+        allElements[i].getAttribute('rank') === myRank &&
+        allElements[i].getAttribute('file') === myFile))
+        {
+          // Element exists with attribute. Add to array.
+          matchingElements.push(allElements[i]);
+        }
+      }
+      return matchingElements;
+    }
     if (!ev.key.match(/^[kqrbnp]$/i)) return true;
     const $currBtn = $(ev.target as HTMLButtonElement);
     const $myBtnAttrs = 'button[rank="' + $currBtn.attr('rank') + '"][file="' + $currBtn.attr('file') + '"]';
-    const $allPieces = $($myBtnAttrs + ', ' +
-                         'button[piece="' + ev.key.toLowerCase() + '"]');
+    const $allPieces = $(getAllPieces(ev.key.toLowerCase(), $currBtn.attr('rank') ?? "", $currBtn.attr('file') ?? ""));
     const $myPieceIndex = $allPieces.index($myBtnAttrs);
     const $next = ev.key.toLowerCase() === ev.key;
     const $prevNextPieces = $next ? $allPieces.slice($myPieceIndex+1) : $allPieces.slice(0, $myPieceIndex);
