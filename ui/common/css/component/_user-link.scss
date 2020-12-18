@@ -15,17 +15,21 @@
     font-size: 1.2em;
     @if $theme-light {
       &.white::before {
-        content: "\2617"; // ☗
+        font-family: monospace;
+        content: "\2617\fe0e"; // ☗
       }
       &.black::before {
-        content: "\2616"; // ☖
+        font-family: monospace;
+        content: "\2616\fe0e"; // ☖
       }
     } @else {
       &.white::before {
-        content: "\2616";
+        font-family: monospace;
+        content: "\2616\fe0e";
       }
       &.black::before {
-        content: "\2617";
+        font-family: monospace;
+        content: "\2617\fe0e";
       }
     }
   }
