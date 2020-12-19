@@ -20,4 +20,5 @@
   <string name="intermediate">Meanleibhéal</string>
   <string name="enPassant">En passant</string>
   <string name="stalemate">Leamhsháinn</string>
+  <string name="advanced">Ardeolas</string>
 </resources>
