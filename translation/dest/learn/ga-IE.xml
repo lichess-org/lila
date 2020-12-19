@@ -4,4 +4,13 @@
   <string name="byPlaying">trí imirt!</string>
   <string name="menu">Roghchlár</string>
   <string name="progressX">Forás%s</string>
+  <string name="play">imir!</string>
+  <string name="chessPieces">Píosanna fichille</string>
+  <string name="theRook">An caiseal</string>
+  <string name="theBishop">An t-easpag</string>
+  <string name="theQueen">An bhanríon</string>
+  <string name="queenCombinesRookAndBishop">Banríon = caiseal + easpag</string>
+  <string name="theKing">An rí</string>
+  <string name="theMostImportantPiece">An píosa is tábhachtach</string>
+  <string name="theKnight">An ridire</string>
 </resources>
