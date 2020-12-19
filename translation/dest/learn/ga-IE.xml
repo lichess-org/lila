@@ -3,7 +3,7 @@
   <string name="learnChess">Foghlaim ficheall</string>
   <string name="byPlaying">trí imirt!</string>
   <string name="menu">Roghchlár</string>
-  <string name="progressX">Forás%s</string>
+  <string name="progressX">Forás: %s</string>
   <string name="play">imir!</string>
   <string name="chessPieces">Píosanna fichille</string>
   <string name="theRook">An caiseal</string>
@@ -13,4 +13,11 @@
   <string name="theKing">An rí</string>
   <string name="theMostImportantPiece">An píosa is tábhachtach</string>
   <string name="theKnight">An ridire</string>
+  <string name="thePawn">An ceithearnach</string>
+  <string name="pawnPromotion">Ardú ceithearnaigh</string>
+  <string name="fundamentals">Buneolas</string>
+  <string name="capture">Gabháil</string>
+  <string name="intermediate">Meanleibhéal</string>
+  <string name="enPassant">En passant</string>
+  <string name="stalemate">Leamhsháinn</string>
 </resources>
