@@ -61,7 +61,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(implicit ec: scala.con
       }
 
   def loadForDisplay(pov: Pov): Fu[Option[Forecast]] =
-    pov.forecastable ?? coll.find($id(pov.fullId)).one[Forecast] flatMap {
+    pov.forecastable ?? coll.byId[Forecast](pov.fullId) flatMap {
       case None => fuccess(none)
       case Some(fc) =>
         if (firstStep(fc.steps).exists(_.ply != pov.game.turns + 1)) clearPov(pov) inject none
@@ -69,7 +69,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(implicit ec: scala.con
     }
 
   def loadForPlay(pov: Pov): Fu[Option[Forecast]] =
-    pov.game.forecastable ?? coll.find($id(pov.fullId)).one[Forecast] flatMap {
+    pov.game.forecastable ?? coll.byId[Forecast](pov.fullId) flatMap {
       case None => fuccess(none)
       case Some(fc) =>
         if (firstStep(fc.steps).exists(_.ply != pov.game.turns)) clearPov(pov) inject none
