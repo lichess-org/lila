@@ -114,7 +114,7 @@ final class ModApi(
     withUser(username) { user =>
       userRepo.isKid(user.id) flatMap {
         !_ ?? {
-          (userRepo.setKid(user, true)) >> logApi.reopenAccount(mod, user.id)
+          (userRepo.setKid(user, true))
         }
       }
     }  
