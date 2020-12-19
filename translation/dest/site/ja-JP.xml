@@ -435,7 +435,7 @@
   <string name="puzzleId">問題番号 %s</string>
   <string name="puzzleOfTheDay">今日の問題</string>
   <string name="clickToSolve">問題を解く</string>
-  <string name="goodMove">次善手</string>
+  <string name="goodMove">好手</string>
   <string name="butYouCanDoBetter">もっといい手があります。</string>
   <string name="bestMove">最善手！</string>
   <string name="keepGoing">続ける</string>
