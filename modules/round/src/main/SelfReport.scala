@@ -56,7 +56,8 @@ final class SelfReport(
               if (
                 Set("ceval", "rcb", "cma", "lga")(name) ||
                 (name.startsWith("soc") && (
-                  name.contains("stockfish") || name.contains("userscript")
+                  name.contains("stockfish") || name.contains("userscript") ||
+                    name.contains("__puppeteer_evaluation_script__")
                 ))
               ) fuccess {
                 tellRound(
