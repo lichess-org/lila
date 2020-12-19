@@ -397,7 +397,10 @@
   <string name="butYouCanDoBetter">Ach tá beart níos fearr ann.</string>
   <string name="bestMove">Bogadh is fearr!</string>
   <string name="keepGoing">Lean ar aghaidh…</string>
+  <string name="puzzleFailed">Theip ar an bhfadhb</string>
+  <string name="butYouCanKeepTrying">Ach is féidir leat triail arís.</string>
   <string name="success">D\'éirigh leat</string>
+  <string name="wasThisPuzzleAnyGood">An raibh an fadbh sin go maith?</string>
   <string name="thankYou">Go raibh maith agat!</string>
   <string name="ratingX">Rátáil: %s</string>
   <string name="hidden">folaithe</string>
