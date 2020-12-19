@@ -138,8 +138,8 @@
   <string name="daysPerTurn">Laethanta san beart</string>
   <string name="oneDay">Lá amháin</string>
   <plurals name="nbDays">
-    <item quantity="one">Lá amháin</item>
-    <item quantity="two">Dhá lá</item>
+    <item quantity="one">%s lá</item>
+    <item quantity="two">%s lá</item>
     <item quantity="few">%s lá</item>
     <item quantity="many">%s lá</item>
     <item quantity="other">%s lá</item>
@@ -514,6 +514,8 @@
   <string name="challenges">Dushláin</string>
   <string name="perfRatingX">Rátáil: %s</string>
   <string name="computerThinking">An ríomhaire ag machnamh ...</string>
+  <string name="whiteWinsGame">Bhuaigh bán</string>
+  <string name="blackWinsGame">Bhuaigh dubh</string>
   <string name="waitingForAnalysis">Ag fanacht ar anailís</string>
   <string name="doItAgain">Déan arís é</string>
   <string name="advantage">Buntáiste</string>
