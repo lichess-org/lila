@@ -22,6 +22,7 @@ object Permission {
   case object NotifySlack           extends Permission("NOTIFY_SLACK", List(UserSpy), "Notify #tavern")
   case object ViewPrivateComms      extends Permission("VIEW_PRIVATE_COMS", "View private comms")
   case object Shadowban             extends Permission("SHADOWBAN", List(UserSpy, ChatTimeout), "Shadowban")
+  case object ForceKid              extends Permission("FORCE_KID", List(UserSpy), "Force Kid Mode")
   case object MarkEngine            extends Permission("ADJUST_CHEATER", List(UserSpy), "Mark as cheater")
   case object MarkBooster           extends Permission("ADJUST_BOOSTER", List(UserSpy), "Mark as booster")
   case object IpBan                 extends Permission("IP_BAN", List(UserSpy), "IP ban")
@@ -101,6 +102,7 @@ object Permission {
         List(
           ViewPrivateComms,
           Shadowban,
+          ForceKid,
           ChatTimeout,
           ModerateForum,
           ReportBan,
@@ -169,6 +171,7 @@ object Permission {
     "Comm mod" -> List(
       ViewPrivateComms,
       Shadowban,
+      ForceKid,
       ChatTimeout,
       ModerateForum,
       ReportBan,
