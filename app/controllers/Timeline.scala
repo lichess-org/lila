@@ -17,16 +17,16 @@ final class Timeline(env: Env) extends LilaController(env) {
         html =
           if (HTTPRequest.isXhr(ctx.req))
             env.timeline.entryApi
-              .userEntries(me.id)
+              .userEntries(me.id, ctx.lang.code)
               .logTimeIfGt(s"timeline site entries for ${me.id}", 10.seconds)
               .map { html.timeline.entries(_) }
           else
             env.timeline.entryApi
-              .moreUserEntries(me.id, Max(30))
+              .moreUserEntries(me.id, Max(30), ctx.lang.code)
               .map { html.timeline.more(_) },
         _ =>
           env.timeline.entryApi
-            .moreUserEntries(me.id, Max(getInt("nb") | 10) atMost env.apiTimelineSetting.get())
+            .moreUserEntries(me.id, Max(getInt("nb") | 10) atMost env.apiTimelineSetting.get(), ctx.lang.code)
             .map { es =>
               Ok(Json.obj("entries" -> es))
             }

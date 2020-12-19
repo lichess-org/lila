@@ -55,7 +55,7 @@ final class Lobby(
 
   def timeline =
     Auth { implicit ctx => me =>
-      env.timeline.entryApi.userEntries(me.id) map { entries =>
+      env.timeline.entryApi.userEntries(me.id, ctx.lang.code) map { entries =>
         Ok(html.timeline.entries(entries)).withHeaders(CACHE_CONTROL -> s"max-age=20")
       }
     }

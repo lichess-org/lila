@@ -15,8 +15,7 @@ final private[blog] class Notifier(
       blogApi.one(prismicApi, none, id) orFail
         s"No such document: $id" flatMap doSendWithLang(langCode)
     }
-  private def doSendWithLang(langCode: String): Document => Funit = doSend(_, langCode)
-
+  private def doSendWithLang(langCode: String)(post: Document) = doSend(post, langCode) 
 
   private def doSend(post: Document, langCode: String): Funit =
     post.getText("blog.title") ?? { title =>
