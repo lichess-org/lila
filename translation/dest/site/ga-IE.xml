@@ -282,11 +282,16 @@
   <string name="xStartedStreaming">Thosaigh %s ag streamáil</string>
   <string name="averageElo">Meánrátáil</string>
   <string name="location">Láthair</string>
+  <string name="reset">Athshocraigh</string>
   <string name="apply">Deimhnigh</string>
   <string name="save">Sábháil</string>
+  <string name="leaderboard">Clár ceann riain</string>
   <string name="toStudy">Staidéar</string>
   <string name="importGame">Déan cluiche a iompórtáil</string>
   <string name="thisIsAChessCaptcha">Seo CAPCHTA fichille.</string>
+  <string name="notACheckmate">Ní marbhsháinn é sin</string>
+  <string name="whiteCheckmatesInOneMove">Marbhsháinn ag bán le beart amháin</string>
+  <string name="blackCheckmatesInOneMove">Marbhsháinn ag dubh le beart amháin</string>
   <string name="retry">Bain triail as arís</string>
   <string name="reconnecting">Ag athcheangal</string>
   <plurals name="nbFriendsOnline">
@@ -336,6 +341,7 @@
     <item quantity="other">Níos lú ná %s nóiméad</item>
   </plurals>
   <string name="required">Riachtanach.</string>
+  <string name="openTournaments">Comórtais Oscailte</string>
   <string name="duration">Fad</string>
   <string name="winner">Buaiteoir</string>
   <string name="standing">Seasamh</string>
@@ -390,6 +396,7 @@
   <string name="goodMove">Beart maith</string>
   <string name="butYouCanDoBetter">Ach tá beart níos fearr ann.</string>
   <string name="bestMove">Bogadh is fearr!</string>
+  <string name="keepGoing">Lean ar aghaidh…</string>
   <string name="success">D\'éirigh leat</string>
   <string name="thankYou">Go raibh maith agat!</string>
   <string name="ratingX">Rátáil: %s</string>
@@ -486,12 +493,15 @@
   <string name="watchGames">Féach ar chluichí</string>
   <string name="tpTimeSpentOnTV">Am ar TV: %s</string>
   <string name="watch">Féach</string>
+  <string name="mobileApp">Aip Móibíleach</string>
   <string name="about">Faoi</string>
   <string name="aboutX">Faoi %s</string>
   <string name="create">Cruthaigh</string>
   <string name="lichessTournaments">Comórtais Lichess</string>
+  <string name="tournamentFAQ">CCanna Comórtas Airéine</string>
   <string name="tournamentOfficial">Oifigiúil</string>
   <string name="timeBeforeTournamentStarts">Am fágtha sula thosnaíonn an comórtas</string>
+  <string name="newTournament">Comórtas Nua</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Chláraigh tú an ríomhphost cheana féin: %s</string>
   <string name="kidModeExplanation">Is saincheist sábháilteacht é seo. I mód páistí, díchumasaítear gach modh cumarsáide. Úsáid é seo do do pháistí agus scoláirí, chun iad a chosaint ó úsáideoirí idirlíne eile.</string>
   <string name="security">Slándáil</string>
