@@ -4,9 +4,6 @@ import lila.rating.Glicko
 
 package object puzzle extends PackageObject {
 
-  type RoundId = Int
-  type Lines   = List[Line]
-
   private[puzzle] def logger = lila.log("puzzle")
 }
 
