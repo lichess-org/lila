@@ -109,4 +109,33 @@
 एक और ध्यान देने वाली बात यह है कि जैसे-जैसे समय बीतता जाएगा, आत्मविश्वास का अंतराल बढ़ता जाएगा। यह आपको उस समय अपने कौशल स्तर में किसी भी बदलाव से मेल खाने के लिए अधिक तेजी से अंक प्राप्त / खोने देता है।</string>
   <string name="whatIsProvisionalRating">रेटिंग के आगे प्रश्न चिह्न (?) क्यों है?</string>
   <string name="provisionalRatingExplanation">प्रश्न चिह्न का मतलब है कि रेटिंग अनंतिम है। कारणों में शामिल हैं:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">खिलाड़ी ने अभी तक रेटिंग श्रेणी में%1$s के खिलाफ पर्याप्त रेटेड गेम समाप्त नहीं किए हैं।</string>
+  <string name="similarOpponents">समान ताकत के विरोधी</string>
+  <string name="notPlayedRecently">खिलाड़ी ने हाल के खेल नहीं खेले हैं। आपके द्वारा खेले जाने वाले खेलों की संख्या के आधार पर, आपकी रेटिंग के फिर से अनंतिम बनने में लगभग एक वर्ष लग सकता है।</string>
+  <string name="ratingDeviationMorethanOneHundredTen">अफसोस, इसका मतलब है कि ग्लिको -2 विचलन 110 से अधिक है। विचलन रेटिंग में सिस्टम के विश्वास का स्तर है। कम विचलन, अधिक स्थिर एक रेटिंग है।</string>
+  <string name="howDoLeaderoardsWork">रैंक और लीडरबोर्ड कैसे काम करते हैं?</string>
+  <string name="inOrderToAppearsYouMust">%1$s पर पाने के लिए आपको चाहिए:</string>
+  <string name="ratingLeaderboards">रेटिंग लीडरबोर्ड</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">किसी रेटिंग में कम से कम 30 रेटेड गेम खेले हैं,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">इस रेटिंग के लिए पिछले सप्ताह के भीतर एक रेटेड गेम खेला है,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">मानक शतरंज में%1$s से कम रेटिंग विचलन है, और वेरिएंट में%2$s से कम है,</string>
+  <string name="beInTopTen">इस रेटिंग में शीर्ष 10 में रहें।</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">दूसरी आवश्यकता इतनी है कि जो खिलाड़ी अब अपने खातों का उपयोग नहीं करते हैं वे लीडरबोर्ड को आबाद करना बंद कर देते हैं।</string>
+  <string name="whyAreRatingHigher">FIDE, USCF और ICC जैसी अन्य साइटों और संगठनों की तुलना में रेटिंग अधिक क्यों हैं?</string>
+  <string name="whyAreRatingHigherExplanation">रेटिंग को निरपेक्ष संख्या के रूप में नहीं सोचना, या अन्य संगठनों के खिलाफ उनकी तुलना करना सबसे अच्छा है। विभिन्न संगठनों में खिलाड़ियों के विभिन्न स्तर, अलग रेटिंग सिस्टम (एलो, ग्लिको, ग्लिको -2, या पूर्वोक्त संस्करण का एक संशोधित संस्करण) है। ये कारक पूर्ण संख्याओं (रेटिंग्स) को अत्यधिक प्रभावित कर सकते हैं।
+
+रेटिंग्स को \"सापेक्ष\" आंकड़े (\"पूर्ण\" आंकड़े के विपरीत) के रूप में सोचना सबसे अच्छा है: खिलाड़ियों के एक पूल के भीतर, रेटिंग में उनके सापेक्ष अंतर आपको अनुमान लगाने में मदद करेंगे कि कौन जीतेगा / ड्रा / हार जाएगा, और कितनी बार। यह कहना कि \"मेरे पास एक्स रेटिंग है\" का अर्थ कुछ भी नहीं है जब तक कि उस रेटिंग की तुलना करने के लिए अन्य खिलाड़ी न हों।</string>
+  <string name="howToHideRatingWhilePlaying">खेलते समय रेटिंग कैसे छिपाएं?</string>
+  <string name="enableZenMode">गेम के दौरान%1$s में ज़ेन-मोड सक्षम करें, या%2$s दबाकर।</string>
+  <string name="displayPreferences">प्रदर्शन वरीयताएँ</string>
+  <string name="connexionLostCanIGetMyRatingBack">मैंने अंतराल / वियोग के कारण एक खेल खो दिया। क्या मुझे अपने रेटिंग अंक वापस मिल सकते हैं?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">दुर्भाग्य से, हम लैग या वियोग के कारण खोए गए खेलों के लिए रेटिंग रेट वापस नहीं दे सकते, फिर चाहे समस्या आपके अंत में हो या हमारे अंत में। उत्तरार्द्ध हालांकि बहुत दुर्लभ है। यह भी ध्यान दें कि जब Lichess पुनरारंभ होता है और आप उस वजह से समय पर हार जाते हैं, तो हम एक अनुचित नुकसान को रोकने के लिए खेल को रद्द कर देते हैं।</string>
+  <string name="howToThreeDots">कैसे...</string>
+  <string name="enableDisableNotificationPopUps">अधिसूचना पॉपअप को अक्षम या अक्षम कैसे करें?...</string>
+  <string name="viewSiteInformationPopUp">साइट की जानकारी पॉपअप देखें</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess वैकल्पिक रूप से पॉपअप सूचनाएं भेज सकता है, उदाहरण के लिए जब आपकी बारी हो या आपको एक निजी संदेश प्राप्त हो।
+
+अपने ब्राउज़र के URL बार में lichess.org पते के आगे लॉक आइकन पर क्लिक करें।
+
+फिर चयन करें कि क्या Lichess से नोटिफिकेशन या ब्लॉक करना है।</string>
 </resources>
