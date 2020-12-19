@@ -806,7 +806,7 @@
   <string name="agreementPolicy">私は Lichess のすべてのポリシーに従うことに同意します。</string>
   <string name="searchOrStartNewDiscussion">検索または新しいトピックを始める</string>
   <string name="edit">編集</string>
-  <string name="rapid">ラピッド</string>
+  <string name="rapid">Rapid</string>
   <string name="classical">クラシカル</string>
   <string name="ultraBulletDesc">極早指し戦：30 秒未満</string>
   <string name="bulletDesc">超早指し戦：3 分未満</string>
