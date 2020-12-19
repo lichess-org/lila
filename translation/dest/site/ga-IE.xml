@@ -509,6 +509,7 @@
   <string name="kidModeExplanation">Is saincheist sábháilteacht é seo. I mód páistí, díchumasaítear gach modh cumarsáide. Úsáid é seo do do pháistí agus scoláirí, chun iad a chosaint ó úsáideoirí idirlíne eile.</string>
   <string name="security">Slándáil</string>
   <string name="asFreeAsLichess">Chomh saor le Lichess</string>
+  <string name="zeroAdvertisement">Gan fógraíocht</string>
   <string name="lobby">Forsheomra</string>
   <string name="anonymous">Gan ainm</string>
   <string name="yourScore">Do scór: %s</string>
