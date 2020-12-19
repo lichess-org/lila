@@ -385,11 +385,15 @@
   <string name="onlinePlayers">Imreoirí ar-líne</string>
   <string name="activeToday">Gniomhach inniu</string>
   <string name="activePlayers">Imreoirí gníomhach</string>
+  <string name="puzzleId">Fadhb %s</string>
+  <string name="puzzleOfTheDay">Fadhb an lae</string>
   <string name="goodMove">Beart maith</string>
   <string name="butYouCanDoBetter">Ach tá beart níos fearr ann.</string>
   <string name="bestMove">Bogadh is fearr!</string>
   <string name="success">D\'éirigh leat</string>
   <string name="thankYou">Go raibh maith agat!</string>
+  <string name="hidden">folaithe</string>
+  <string name="puzzles">Fadbhbanna</string>
   <string name="tournamentWinners">Buaiteoirí comórtais</string>
   <string name="name">Ainm</string>
   <string name="description">Cur síos</string>
