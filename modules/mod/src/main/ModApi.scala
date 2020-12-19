@@ -110,6 +110,15 @@ final class ModApi(
       }
     }
 
+  def setKid(mod: String, username: String): Funit =
+    withUser(username) { user =>
+      userRepo.isKid(user.id) flatMap {
+        !_ ?? {
+          (userRepo.setKid(user, true)) >> logApi.reopenAccount(mod, user.id)
+        }
+      }
+    }  
+
   def setTitle(mod: String, username: String, title: Option[Title]): Funit =
     withUser(username) { user =>
       title match {

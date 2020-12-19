@@ -399,6 +399,7 @@ POST  /mod/:username/booster/:v        controllers.Mod.booster(username: String,
 POST  /mod/:username/troll/:v          controllers.Mod.troll(username: String, v: Boolean)
 POST  /mod/:username/delete-pms-and-chats controllers.Mod.deletePmsAndChats(username: String)
 POST  /mod/:username/warn              controllers.Mod.warn(username: String, subject: String)
+POST  /mod/:username/kid               controllers.Mod.kid(username: String)
 POST  /mod/:username/disable-2fa       controllers.Mod.disableTwoFactor(username: String)
 POST  /mod/:username/close             controllers.Mod.closeAccount(username: String)
 POST  /mod/:username/reopen            controllers.Mod.reopenAccount(username: String)
