@@ -511,15 +511,22 @@
   <string name="asFreeAsLichess">Chomh saor le Lichess</string>
   <string name="anonymous">Gan ainm</string>
   <string name="language">Teanga</string>
+  <string name="error.unknown">Earráid</string>
   <string name="challenges">Dushláin</string>
   <string name="perfRatingX">Rátáil: %s</string>
+  <string name="practiceWithComputer">Cleachtaigh leis an ríomhaire</string>
   <string name="computerThinking">An ríomhaire ag machnamh ...</string>
   <string name="whiteWinsGame">Bhuaigh bán</string>
   <string name="blackWinsGame">Bhuaigh dubh</string>
+  <string name="youCanDoBetter">Tá beart níos fearr ann</string>
+  <string name="solution">Réiteach</string>
   <string name="waitingForAnalysis">Ag fanacht ar anailís</string>
   <string name="doItAgain">Déan arís é</string>
   <string name="advantage">Buntáiste</string>
   <string name="opening">Oscailt</string>
+  <string name="middlegame">Lár an chluiche</string>
+  <string name="endgame">Cor deiridh</string>
+  <string name="playX">Imir %s</string>
   <string name="sorry">Tá brón orainn :(</string>
   <string name="weHadToTimeYouOutForAWhile">Bhí orainn thú a chur ar fionraí ar feadh tréimhse.</string>
   <string name="timeoutExpires">Beidh an tréimhse fionraithe thart %s.</string>
@@ -529,6 +536,9 @@
   <string name="playEveryGame">Imir gach cluiche a chuireann tú tús leis.</string>
   <string name="tryToWin">Déan iarracht gach cluiche a imríonn tú a bhuachaint (nó comhscór a fháil ar a laghad).</string>
   <string name="resignLostGames">Éirigh as cluichí caillte (ná lig don clog rith amach).</string>
+  <string name="edit">Athraigh</string>
   <string name="classical">Clasaiceach</string>
   <string name="ultraBulletDesc">Cluichí ar luas gan chiall; níos lú ná 30 soicind</string>
+  <string name="important">Tábhachtach</string>
+  <string name="inTheFAQ">sna CCana</string>
 </resources>
