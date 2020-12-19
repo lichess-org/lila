@@ -93,7 +93,7 @@ final class ClasProgressApi(
             "nb" -> SumAll,
             "win" -> Sum(
               $doc(
-                "$cond" -> $arr($doc("$lt" -> $arr("$m", 0)), 1, 0)
+                "$cond" -> $arr("$w", 1, 0)
               )
             )
           )
