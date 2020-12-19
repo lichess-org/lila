@@ -72,7 +72,7 @@ def classes(color, role)
       "piece.#{role}.white,
       .cg-wrap.orientation-white piece.#{role}.white,
       .cg-wrap.orientation-black piece.#{role}.black,
-      .pocket-bottom piece.#{role},
+      .pocket-bottom piece.#{role}.black,
       #promotion-choice piece.#{role}"
     end
   else

@@ -47,7 +47,10 @@ object layout {
     raw {
       s"""<link rel="preload" href="${assetUrl(
         s"font/lishogi.woff2"
-      )}" as="font" type="font/woff2" crossorigin>"""
+      )}" as="font" type="font/woff2" crossorigin>""" + 
+      s"""<link rel="preload" href="${assetUrl(
+          s"font/lishogi.shogi.woff2"
+        )}" as="font" type="font/woff2" crossorigin>"""
     }
   private val manifests = raw(
     """<link rel="manifest" href="/manifest.json"><meta name="twitter:site" content="@lishogi">"""
