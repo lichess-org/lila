@@ -4,6 +4,7 @@ import io.prismic._
 import play.api.mvc.RequestHeader
 import play.api.libs.ws.WSClient
 
+import lila.common.BlogLangs
 import lila.common.config.MaxPerPage
 import lila.common.paginator._
 
@@ -22,7 +23,7 @@ final class BlogApi(
   ): Fu[Option[Paginator[Document]]] = {
     api
       .forms(collection)
-      .set("lang", Langs.parse(langCode))
+      .set("lang", BlogLangs.parse(langCode))
       .ref(ref | api.master.ref)
       .orderings(s"[my.$collection.date desc]")
       .pageSize(maxPerPage.value)
@@ -52,7 +53,7 @@ final class BlogApi(
   def byYear(prismic: BlogApi.Context, year: Int, langCode: String): Fu[List[MiniPost]] = {
     prismic.api
       .forms(collection)
-      .set("lang", Langs.parse(langCode))
+      .set("lang", BlogLangs.parse(langCode))
       .ref(prismic.ref)
       .query(s"[[date.year(my.$collection.date, $year)]]")
       .orderings(s"[my.$collection.date desc]")

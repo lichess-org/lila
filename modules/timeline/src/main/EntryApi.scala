@@ -5,13 +5,13 @@ import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
+import lila.common.BlogLangs
 import lila.common.config.Max
 import lila.db.dsl._
 import lila.hub.actorApi.timeline.Atom
 import lila.hub.actorApi.timeline.BlogPost
 import lila.memo.CacheApi._
 import lila.user.User
-// import lila.blog.BlogApi doesnt work
 
 final class EntryApi(
     coll: Coll,
@@ -94,12 +94,12 @@ final class EntryApi(
           )
         )
         .sort($sort desc "date")
-        .vector[Entry](3 * Langs.langs.size, ReadPreference.primary) // must be on primary for cache refresh to work
+        .vector[Entry](3 * BlogLangs.langs.size, ReadPreference.primary) // must be on primary for cache refresh to work
 
     private[EntryApi] def interleaveWithLang(langCode: String)(entries: Vector[Entry]) = interleave(entries, langCode)
 
     private def interleave(entries: Vector[Entry], langCode: String): Fu[Vector[Entry]] = {
-      val langsToExclude = Langs.langs.filter(Langs.parse(langCode) !=).toList
+      val langsToExclude = BlogLangs.langs.filter(BlogLangs.parse(langCode) !=).toList
       cache.getUnit map { bcs =>
         val bcsFiltered = bcs filter {
           _.decode.map {
@@ -123,15 +123,5 @@ final class EntryApi(
     }
 
     def insert(atom: Atom): Funit = coll.insert.one(Entry make atom).void >>- cache.invalidateUnit()
-  }
-}
-
-object Langs {
-  val langs = Set("en-US", "ja-JP") // en-US has to be first
-  val enIndex = 0
-
-  def parse(langCode: String): String = {
-    val langsNotEng = langs - "en-US" + "*"
-    if (langsNotEng contains langCode) langCode else "en-US"
   }
 }

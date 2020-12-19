@@ -3,7 +3,7 @@ package views.html.lobby
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.blog.Langs
+import lila.common.BlogLangs
 
 import controllers.routes
 
@@ -92,7 +92,7 @@ object bits {
           span(cls := "more")(trans.more(), " »")
         ),
         div(cls := "lobby__box__content")(
-          posts filter { post => post.langCode == Langs.parse(ctx.lang.code)} map { post =>
+          posts filter { post => post.langCode == BlogLangs.parse(ctx.lang.code)} map { post =>
             a(cls := "post", href := routes.Blog.show(post.id, post.slug))(
               img(src := post.image),
               span(cls := "text")(

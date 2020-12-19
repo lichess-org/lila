@@ -1,5 +1,6 @@
 package lila.blog
 
+import lila.common.BlogLangs
 import lila.memo.{ CacheApi, Syncache }
 import scala.concurrent.Future
 
@@ -22,7 +23,7 @@ final class LastPostCache(
 
   private def fetch: Fu[List[MiniPost]] = {
     val miniPosts = {
-      Future.sequence(Langs.langs.toList map { langCode =>
+      Future.sequence(BlogLangs.langs.toList map { langCode =>
         api.prismicApi flatMap { prismic =>
           api.recent(prismic, page = 1, lila.common.config.MaxPerPage(3), none, langCode) map {
             _ ?? {
@@ -66,7 +67,7 @@ final class LastPostCache(
           }
           // if japanese, notify if new blog title was detected and the japanese title is different from english title (meaning the blog was already translated)
 
-          val enTitle = posts(Langs.enIndex)(0).title
+          val enTitle = posts(BlogLangs.enIndex)(0).title
           // println("enTitle: " + enTitle)
           val titleDifferentFromEn = last.title != enTitle
           val titleSameWithEn = !titleDifferentFromEn

@@ -1,6 +1,6 @@
-package lila.blog
+package lila.common
 
-object Langs {
+object BlogLangs {
   val langs = Set("en-US", "ja-JP") // en-US has to be first
   val enIndex = 0
 
