@@ -95,13 +95,11 @@ final class Puzzle(
               ctx.me match {
                 case Some(me) =>
                   for {
-                    isStudent <- env.clas.api.student.isStudent(me.id)
                     (round, perf) <- env.puzzle.finisher(
                       puzzle = puzzle,
                       theme = theme.key,
                       user = me,
-                      result = Result(resultInt == 1),
-                      isStudent = isStudent
+                      result = Result(resultInt == 1)
                     )
                     newUser = me.copy(perfs = me.perfs.copy(puzzle = perf))
                     _       = env.puzzle.session.onComplete(round, theme.key)
@@ -312,13 +310,11 @@ final class Puzzle(
                       ).fuccess
                     case Some((puzzle, result)) =>
                       for {
-                        isStudent <- env.clas.api.student.isStudent(me.id)
                         (round, perf) <- env.puzzle.finisher(
                           puzzle = puzzle,
                           theme = PuzzleTheme.mix.key,
                           user = me,
-                          result = result,
-                          isStudent = isStudent
+                          result = result
                         )
                         _ = env.puzzle.session.onComplete(round, PuzzleTheme.mix.key)
                       } yield Ok(

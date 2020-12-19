@@ -26,8 +26,8 @@ final class PuzzleActivity(
   def stream(config: Config): Source[String, _] =
     Source futureSource {
       colls.round.map {
-        _.find($doc("_id" $startsWith s"${config.user.id}${PuzzleRound.idSep}"))
-          .sort($sort desc "_id")
+        _.find($doc(PuzzleRound.BSONFields.user -> config.user.id))
+          .sort($sort desc PuzzleRound.BSONFields.date)
           .batchSize(config.perSecond.value)
           .cursor[PuzzleRound](ReadPreference.secondaryPreferred)
           .documentSource()
@@ -46,13 +46,8 @@ final class PuzzleActivity(
     colls.puzzle {
       _.primitiveMap[Puzzle.Id, Double](
         ids = rounds.map(_.id.puzzleId),
-        field = "perf.gl.r",
-        fieldExtractor = obj =>
-          for {
-            perf   <- obj.child("perf")
-            gl     <- perf.child("gl")
-            rating <- gl.double("r")
-          } yield rating
+        field = s"${Puzzle.BSONFields.glicko}.r",
+        fieldExtractor = _.child("glicko").flatMap(_ double "r")
       ) map { ratings =>
         rounds flatMap { round =>
           ratings get round.id.puzzleId map { puzzleRating =>

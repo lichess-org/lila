@@ -3,12 +3,12 @@ package lila.puzzle
 import chess.format.{ FEN, Uci }
 import reactivemongo.api.bson._
 import scala.util.Success
+import scala.util.Try
 
 import lila.db.BSON
 import lila.db.dsl._
 import lila.game.Game
 import lila.rating.Glicko
-import scala.util.Try
 
 private[puzzle] object BsonHandlers {
 
@@ -64,20 +64,18 @@ private[puzzle] object BsonHandlers {
     import PuzzleRound.BSONFields._
     def reads(r: BSON.Reader) = PuzzleRound(
       id = r.get[PuzzleRound.Id](id),
-      date = r.date(date),
       win = r.bool(win),
+      date = r.date(date),
       vote = r.intO(vote),
-      themes = r.getsD[PuzzleRound.Theme](themes),
-      weight = r.intO(weight)
+      themes = r.getsD[PuzzleRound.Theme](themes)
     )
     def writes(w: BSON.Writer, r: PuzzleRound) =
       $doc(
         id     -> r.id,
-        date   -> r.date,
         win    -> r.win,
+        date   -> r.date,
         vote   -> r.vote,
-        themes -> w.listO(r.themes),
-        weight -> r.weight
+        themes -> w.listO(r.themes)
       )
   }
 

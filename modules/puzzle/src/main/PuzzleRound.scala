@@ -2,15 +2,15 @@ package lila.puzzle
 
 import org.joda.time.DateTime
 
+import lila.common.Day
 import lila.user.User
 
 case class PuzzleRound(
     id: PuzzleRound.Id,
-    date: DateTime,
     win: Boolean,
+    date: DateTime,
     vote: Option[Int] = None,
-    themes: List[PuzzleRound.Theme] = Nil,
-    weight: Option[Int] = None
+    themes: List[PuzzleRound.Theme] = Nil
 ) {
 
   def userId = id.userId
@@ -49,12 +49,13 @@ object PuzzleRound {
 
   object BSONFields {
     val id     = "_id"
-    val date   = "d"
     val win    = "w"
     val vote   = "v"
     val themes = "t"
     val puzzle = "p" // only if themes is set!
     val weight = "e"
-    val user   = "u" // student denormalization
+    val user   = "u"
+    val date   = "d"
+    val theme  = "t"
   }
 }

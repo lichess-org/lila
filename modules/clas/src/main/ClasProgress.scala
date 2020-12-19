@@ -1,13 +1,14 @@
 package lila.clas
 
 import org.joda.time.{ DateTime, Period }
-
-import lila.rating.PerfType
-import lila.game.{ Game, GameRepo }
-import lila.user.User
-import lila.db.dsl._
 import reactivemongo.api._
 import reactivemongo.api.bson._
+
+import lila.db.dsl._
+import lila.game.{ Game, GameRepo }
+import lila.puzzle.PuzzleRound
+import lila.rating.PerfType
+import lila.user.User
 
 case class ClasProgress(
     perfType: PerfType,
@@ -84,8 +85,8 @@ final class ClasProgressApi(
         import framework._
         Match(
           $doc(
-            "u" $in userIds,
-            "a" $gt (DateTime.now minusDays days)
+            PuzzleRound.BSONFields.user $in userIds,
+            PuzzleRound.BSONFields.date $gt DateTime.now.minusDays(days)
           )
         ) -> List(
           GroupField("u")(

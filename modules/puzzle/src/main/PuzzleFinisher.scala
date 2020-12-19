@@ -25,8 +25,7 @@ final private[puzzle] class PuzzleFinisher(
       puzzle: Puzzle,
       theme: PuzzleTheme.Key,
       user: User,
-      result: Result,
-      isStudent: Boolean
+      result: Result
   ): Fu[(PuzzleRound, Perf)] =
     api.round.find(user, puzzle.id) flatMap { prevRound =>
       val now              = DateTime.now
@@ -65,7 +64,8 @@ final private[puzzle] class PuzzleFinisher(
             .some
             .filter(puzzle.glicko !=)
             .filter(_.sanityCheck)
-          val round = PuzzleRound(id = PuzzleRound.Id(user.id, puzzle.id), date = now, win = result.win)
+          val round =
+            PuzzleRound(id = PuzzleRound.Id(user.id, puzzle.id), win = result.win, date = DateTime.now)
           val userPerf =
             user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, now) pipe {
               p =>
@@ -75,7 +75,7 @@ final private[puzzle] class PuzzleFinisher(
             }
           (round, newPuzzleGlicko, userPerf)
       }
-      api.round.upsert(round, isStudent option user.id) zip
+      api.round.upsert(round, theme) zip
         colls.puzzle {
           _.update
             .one(

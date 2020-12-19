@@ -1,6 +1,7 @@
 package lila.puzzle
 
 import cats.implicits._
+import org.joda.time.DateTime
 import scala.concurrent.duration._
 
 import lila.db.AsyncColl
@@ -33,10 +34,12 @@ final private[puzzle] class PuzzleApi(
     def find(user: User, puzzleId: Puzzle.Id): Fu[Option[PuzzleRound]] =
       colls.round(_.byId[PuzzleRound](PuzzleRound.Id(user.id, puzzleId).toString))
 
-    def upsert(r: PuzzleRound, studentUserId: Option[User.ID]): Funit = {
-      val roundDoc = RoundHandler.write(r) ++ studentUserId.?? { userId =>
-        $doc(PuzzleRound.BSONFields.user -> userId)
-      }
+    def upsert(r: PuzzleRound, theme: PuzzleTheme.Key): Funit = {
+      val roundDoc = RoundHandler.write(r) ++
+        $doc(
+          PuzzleRound.BSONFields.user  -> r.id.userId,
+          PuzzleRound.BSONFields.theme -> theme.some.filter(_ != PuzzleTheme.mix.key)
+        )
       colls.round(_.update.one($id(r.id), roundDoc, upsert = true)).void
     }
   }
