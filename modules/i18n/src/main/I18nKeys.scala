@@ -1424,6 +1424,7 @@ val `resetBroadcast` = new I18nKey("broadcast:resetBroadcast")
 }
 
 object streamer {
+val `xStreamsShogi` = new I18nKey("streamer:xStreamsShogi")
 val `lishogiStreamers` = new I18nKey("streamer:lishogiStreamers")
 val `lishogiStreamer` = new I18nKey("streamer:lishogiStreamer")
 val `live` = new I18nKey("streamer:live")

@@ -17,7 +17,7 @@ object show {
       following: Boolean
   )(implicit ctx: Context) =
     views.html.base.layout(
-      title = s"${s.titleName} streams chess",
+      title = xStreamsShogi.txt(s.titleName),
       moreCss = cssTag("streamer.show"),
       moreJs = frag(
         jsTag("ads.js"),
@@ -37,7 +37,7 @@ method:'post'
       ),
       openGraph = lila.app.ui
         .OpenGraph(
-          title = s"${s.titleName} streams chess",
+          title = xStreamsShogi.txt(s.titleName),
           description =
             shorten(~(s.streamer.headline.map(_.value) orElse s.streamer.description.map(_.value)), 152),
           url = s"$netBaseUrl${routes.Streamer.show(s.user.username)}",
@@ -62,7 +62,7 @@ method:'post'
                   iframe(
                     st.frameborder := "0",
                     frame.scrolling := "yes",
-                    src := s"https://twitch.tv/embed/${twitch.userId}/chat?${(ctx.currentBg != "light") ?? "darkpopout&"}parent=${netDomain}"
+                    src := s"https://twitch.tv/embed/${twitch.userId}/chat?${(ctx.currentBg != "light") ?? "darkpopout&"}parent=$netDomain"
                   )
                 }
             }

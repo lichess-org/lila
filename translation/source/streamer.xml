@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+  <string name="xStreamsShogi">%s streams shogi</string>
   <string name="lishogiStreamers">Lishogi streamers</string>
   <string name="lishogiStreamer">Lishogi streamer</string>
   <string name="live">LIVE!</string>
@@ -15,7 +16,7 @@
   <string name="downloadKit">Download streamer kit</string>
   <string name="xIsStreaming">%s is streaming</string>
   <string name="rules">Streaming rules</string>
-  <string name="rule1">Include the keyword \"lishogi.org\" in your stream title and use the category \"Chess\" when you stream on Lishogi.</string>
+  <string name="rule1">Include the keyword \"lishogi.org\" in your stream title and use the category \"Shogi\" when you stream on Lishogi.</string>
   <string name="rule2">Remove the keyword when you stream non-Lishogi stuff.</string>
   <string name="rule3">Lishogi will detect your stream automatically and enable the following perks:</string>
   <string name="perks">Benefits of streaming with the keyword</string>

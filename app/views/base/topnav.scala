@@ -52,7 +52,7 @@ object topnav {
         div(role := "group")(
           a(href := routes.Tv.index())("Lishogi TV"),
           a(href := routes.Tv.games())(trans.currentGames()),
-          //ctx.noKid option a(href := routes.Streamer.index())(trans.streamersMenu()),
+          ctx.noKid option a(href := routes.Streamer.index())(trans.streamersMenu()),
           //a(href := routes.Relay.index())(trans.broadcast.broadcasts()),
           //.noBot option a(href := routes.Video.index())(trans.videoLibrary())
         )
