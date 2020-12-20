@@ -134,4 +134,7 @@
   <string name="save">Išsaugoti</string>
   <string name="clearChat">Išvalyti pokalbį</string>
   <string name="deleteTheStudyChatHistory">Ištrinti studijos pokalbių istoriją? Nėra kelio atgal!</string>
+  <string name="deleteStudy">Ištrinti studiją</string>
+  <string name="deleteTheEntireStudy">Ištrinti visą studiją? Nėra kelio atgal!</string>
+  <string name="whereDoYouWantToStudyThat">Kur norite tai studijuoti?</string>
 </resources>
