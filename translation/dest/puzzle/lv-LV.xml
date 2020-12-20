@@ -8,6 +8,7 @@
   <string name="lengths">Garumi</string>
   <string name="mates">Mati</string>
   <string name="goals">Mērķi</string>
+  <string name="specialMoves">Īpaši gājieni</string>
   <string name="didYouLikeThisPuzzle">Vai patika šī puzle?</string>
   <string name="voteToLoadNextOne">Balsojiet, lai ielādētu nākamo!</string>
   <string name="yourPuzzleRatingX">Jūsu pužļu reitings: %s</string>
