@@ -378,6 +378,7 @@
   <string name="averageOpponent">Meanghrádú na gcéilí imeartha</string>
   <string name="membersOnly">Baill amháin</string>
   <string name="isPrivate">Príobháideach</string>
+  <string name="xRating">rátáil %s</string>
   <string name="ifNoneLeaveEmpty">Mura bhfuil ann do, fág an bosca folamh</string>
   <string name="profile">Próifíl</string>
   <string name="editProfile">Cuir próifíl in eagar</string>
@@ -392,6 +393,7 @@
   <string name="onlinePlayers">Imreoirí ar-líne</string>
   <string name="activeToday">Gniomhach inniu</string>
   <string name="activePlayers">Imreoirí gníomhach</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Aire duit, tá an cluiche seo rátáilte ach níl clog ann!</string>
   <string name="success">D\'éirigh leat</string>
   <string name="puzzles">Fadbhbanna</string>
   <string name="tournamentWinners">Buaiteoirí comórtais</string>
@@ -474,6 +476,7 @@
   <string name="practice">Cleachtadh</string>
   <string name="community">Pobal</string>
   <string name="tools">Uirlisí</string>
+  <string name="sharePGN">Roinn an PGN</string>
   <string name="playOnline">Imir ar líne</string>
   <string name="playOffline">Imir as líne</string>
   <string name="onlyFriends">Cairde amháin</string>
@@ -488,17 +491,21 @@
   <string name="mobileApp">Aip Móibíleach</string>
   <string name="about">Faoi</string>
   <string name="aboutX">Faoi %s</string>
+  <string name="really">i ndáiríre</string>
   <string name="create">Cruthaigh</string>
   <string name="lichessTournaments">Comórtais Lichess</string>
   <string name="tournamentFAQ">CCanna Comórtas Airéine</string>
   <string name="tournamentOfficial">Oifigiúil</string>
   <string name="timeBeforeTournamentStarts">Am fágtha sula thosnaíonn an comórtas</string>
   <string name="newTournament">Comórtas Nua</string>
+  <string name="yourRating">Do rátáil</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Chláraigh tú an ríomhphost cheana féin: %s</string>
   <string name="kidModeExplanation">Is saincheist sábháilteacht é seo. I mód páistí, díchumasaítear gach modh cumarsáide. Úsáid é seo do do pháistí agus scoláirí, chun iad a chosaint ó úsáideoirí idirlíne eile.</string>
   <string name="security">Slándáil</string>
+  <string name="playChessEverywhere">Imir ficheall i ngach áit</string>
   <string name="asFreeAsLichess">Chomh saor le Lichess</string>
   <string name="zeroAdvertisement">Gan fógraíocht</string>
+  <string name="gameAnalysis">Anailís cluiche</string>
   <string name="lobby">Forsheomra</string>
   <string name="anonymous">Gan ainm</string>
   <string name="yourScore">Do scór: %s</string>
@@ -520,6 +527,8 @@
   <string name="computerThinking">An ríomhaire ag machnamh ...</string>
   <string name="whiteWinsGame">Bhuaigh bán</string>
   <string name="blackWinsGame">Bhuaigh dubh</string>
+  <string name="skipThisMove">Léim thar an beart seo</string>
+  <string name="next">Ar Aghaidh</string>
   <string name="youCanDoBetter">Tá beart níos fearr ann</string>
   <string name="solution">Réiteach</string>
   <string name="waitingForAnalysis">Ag fanacht ar anailís</string>
