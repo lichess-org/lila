@@ -16,6 +16,7 @@
   <string name="endgame">Эндшпиль</string>
   <string name="endgameDescription">Тактика на последней фазе игры.</string>
   <string name="enPassant">Взятие на проходе</string>
+  <string name="enPassantDescription">Тактика с применением правила \"взятие на проходе\", где пешка может взять пешку противника, сделавшую первоначальный ход с перемещением на два поля, при котором пересекаемое поле находится под боем пешки, которая может взять пешку противника.</string>
   <string name="exposedKingDescription">Тактика, подразумевающая короля и нескольких защитников вокруг него, часто приводящая к мату.</string>
   <string name="fork">Вилка</string>
   <string name="hangingPiece">Незащищённая фигура</string>
