@@ -26,6 +26,7 @@
   <string name="endgame">Végjáték</string>
   <string name="endgameDescription">Taktikák a játszma utolsó fázisában.</string>
   <string name="exposedKing">Kiszolgáltatott király</string>
+  <string name="exposedKingDescription">Olyan taktikák, amik kihasználják a király körüli kevés védőt, gyakran matthoz vezetnek.</string>
   <string name="fork">Villa</string>
   <string name="forkDescription">Olyan lépés ahol mozgatott figura egyszerre két ellenséges figurát támad.</string>
   <string name="hangingPiece">Lógó figura</string>
