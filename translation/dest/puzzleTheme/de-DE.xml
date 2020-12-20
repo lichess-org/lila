@@ -17,10 +17,10 @@
   <string name="capturingDefender">Schlage den Verteidiger</string>
   <string name="capturingDefenderDescription">Eine Figur entfernen, die zur Verteidigung einer anderen Figur gebraucht wird um die nun ungedeckte Figur in einem darauffolgenden Zug zu schlagen.</string>
   <string name="crushing">Vernichtend</string>
-  <string name="crushingDescription">Erkenne den Patzer des Gegners, um einen vernichtenden Vorteil zu erhalten. (Bewertung &gt; 600 Hunderstel-Bauern)</string>
+  <string name="crushingDescription">Finde den gegnerischen Patzer, um einen vernichtenden Vorteil zu erhalten. (Bewertung ≥ 600 Hundertstel-Bauern)</string>
   <string name="equality">Ausgleich</string>
   <string name="equalityDescription">Komme aus einer verlorenen Stellung zurück und sichere dir ein Remis oder eine ausgeglichene Stellung. (Bewertung &lt; 200 Hundertstel-Bauern)</string>
-  <string name="kingsideAttack">Angriff auf dem Königsflügel</string>
+  <string name="kingsideAttack">Angriff auf den Königsflügel</string>
   <string name="kingsideAttackDescription">Ein Angriff auf den gegnerischen König nachdem dieser auf den Königsflügel rochiert ist.</string>
   <string name="clearance">Öffnung</string>
   <string name="clearanceDescription">Ein Zug, oft mit Tempo, der ein Feld, eine Linie oder Diagonale für eine nachfolgende taktische Idee öffnet.</string>
@@ -44,7 +44,7 @@
   <string name="interference">Unterbrechung</string>
   <string name="interferenceDescription">Eine Figur zwischen zwei gegnerischen Figuren ziehen, um eine oder beide gegnerische Figuren ungedeckt zu lassen, wie etwa einen Springer auf einem gedeckten Feld zwischen zwei Türmen.</string>
   <string name="intermezzo">Zwischenzug</string>
-  <string name="intermezzoDescription">Anstatt den erwarteten Zug zu spielen, schiebe einen anderen Zug dazwischen, der eine sofortige Drohung aufstellt, welche der Gegner beantworten muss. Auch bekannt als \"Intermezzo\".</string>
+  <string name="intermezzoDescription">Anstatt den erwarteten Zug zu spielen, schiebe einen anderen Zug dazwischen, der eine sofortige Drohung aufstellt, welche der Gegner beantworten muss.</string>
   <string name="knightEndgame">Springerendspiel</string>
   <string name="knightEndgameDescription">Ein Endspiel nur mit Springern und Bauern.</string>
   <string name="long">Mehrzügige Aufgabe</string>
