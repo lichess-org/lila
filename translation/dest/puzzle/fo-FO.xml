@@ -2,6 +2,8 @@
 <resources>
   <string name="puzzles">Uppgávur</string>
   <string name="recommended">Viðmæld</string>
+  <string name="phases">Skifti</string>
+  <string name="motifs">Ætlanir</string>
   <string name="advanced">Framkomið stig</string>
   <string name="lengths">Longdir</string>
   <string name="mates">Mát</string>
