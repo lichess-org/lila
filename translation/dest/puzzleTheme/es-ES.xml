@@ -8,7 +8,7 @@
   <string name="attackingF2F7Description">Un ataque centrado en el peón f2 o f7, como en la apertura Fried Liver.</string>
   <string name="attraction">Atracción</string>
   <string name="backRankMate">Mate del pasillo</string>
-  <string name="backRankMateDescription">Jaque mate al rey en la última fila, donde se encuentra atrapado por sus propias piezas.</string>
+  <string name="backRankMateDescription">Jaque mate en la última fila, donde el rey se encuentra atrapado por sus propias piezas.</string>
   <string name="bishopEndgame">Final de alfiles</string>
   <string name="bishopEndgameDescription">Un final solo con alfiles y peones.</string>
   <string name="castling">Enroque</string>
