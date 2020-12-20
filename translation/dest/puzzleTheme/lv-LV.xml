@@ -34,7 +34,6 @@
   <string name="doubleCheckDescription">Atklāta uzbrukuma rezultātā pieteikts šahs ar abām figūrām vienlaikus: gan ar atklāto figūru, gan ar izkustināto figūru.</string>
   <string name="endgame">Beigu spēle</string>
   <string name="endgameDescription">Sēles noslēdzošā posma taktika.</string>
-  <string name="enPassant">Sitiens garāmejot</string>
   <string name="enPassantDescription">Stratēģija, kas iesaista garāmejošā sitiena noteikumu, kurš nosaka, ka bandinieks var nosist pretinieka bandinieku, ja tas tikko nostājies blakus ar sākotnējo divu lauciņu gājienu.</string>
   <string name="exposedKing">Atklāts karalis</string>
   <string name="exposedKingDescription">Uzbrukums karalim, kam ir maz aizsargājošu figūru; šis bieži noved pie mata.</string>
@@ -57,4 +56,12 @@
   <string name="mateIn4">Mats 4 gājienos</string>
   <string name="mateIn4Description">Piesakiet matu četros gājienos.</string>
   <string name="mateIn5">Mats 5 vai vairāk gājienos</string>
+  <string name="mateIn5Description">Izdomājiet garu gājienu virkni, kas beidzas ar matu.</string>
+  <string name="middlegame">Vidusspēle</string>
+  <string name="middlegameDescription">Spēles otrā posma taktika.</string>
+  <string name="oneMove">Viena gājiena puzle</string>
+  <string name="oneMoveDescription">Puzle, kas ilgst tikai vienu gājienu.</string>
+  <string name="opening">Atklātne</string>
+  <string name="openingDescription">Atklātnes posma taktika.</string>
+  <string name="overloading">Pārslogošana</string>
 </resources>
