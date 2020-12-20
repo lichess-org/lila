@@ -39,4 +39,7 @@
   <string name="exposedKing">Atklāts karalis</string>
   <string name="exposedKingDescription">Uzbrukums karalim, kam ir maz aizsargājošu figūru; šis bieži noved pie mata.</string>
   <string name="fork">Dakša</string>
+  <string name="forkDescription">Gājiens, pēc kura kustinātā figūra uzbrūk diviem pretiniekiem reizē.</string>
+  <string name="hangingPiece">Neapsargāta figūra</string>
+  <string name="hangingPieceDescription">Taktika, ar kuru var par brīvu nosist pretinieka figūru, kas ir neapsargāta vai nepietiekami apsargāta.</string>
 </resources>
