@@ -72,6 +72,7 @@
   <string name="queenEndgame">Finale de dames</string>
   <string name="queenEndgameDescription">Une finale avec seulement des dames et des pions.</string>
   <string name="queensideAttack">Attaque à l\'aile dame</string>
+  <string name="queensideAttackDescription">Une attaque du roi adverse, après qu\'il ait fait le grand roque.</string>
   <string name="quietMove">Coup silencieux</string>
   <string name="quietMoveDescription">Un mouvement qui ne fait pas échec ni n\'est une capture, mais qui prépare une menace inévitable.</string>
   <string name="rookEndgame">Finale de tours</string>
@@ -82,4 +83,11 @@
   <string name="shortDescription">Victoire en deux coups.</string>
   <string name="skewer">Enfilade</string>
   <string name="smotheredMate">Mat à l\'étouffée</string>
+  <string name="smotheredMateDescription">Un mat délivré par un cavalier dans lequel le roi est incapable de s\'échapper parce qu\'il est entouré (ou étouffé) par ses propres pièces.</string>
+  <string name="trappedPiece">Pièce enfermée</string>
+  <string name="underPromotion">Sous-promotion</string>
+  <string name="underPromotionDescription">Promotion en cavalier, fou ou tour.</string>
+  <string name="veryLong">Très long problème</string>
+  <string name="veryLongDescription">Quatre coups ou plus pour gagner.</string>
+  <string name="zugzwang">Zugzwang</string>
 </resources>
