@@ -21,4 +21,13 @@
     <item quantity="one">Spillet %s gang</item>
     <item quantity="other">Spillet %s gange</item>
   </plurals>
+  <string name="fromGameLink">Fra parti %s</string>
+  <string name="continueTraining">Fortsæt træning</string>
+  <string name="difficultyLevel">Sværhedsgrad</string>
+  <string name="normal">Normal</string>
+  <string name="easier">Nemmere</string>
+  <string name="easiest">Nemmest</string>
+  <string name="harder">Sværere</string>
+  <string name="hardest">Sværest</string>
+  <string name="example">Eksempel</string>
 </resources>
