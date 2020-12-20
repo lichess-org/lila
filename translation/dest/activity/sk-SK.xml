@@ -88,11 +88,11 @@
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="one">Umiestnil sa na %1$s mieste (top %2$s%%) s %3$s partiou v %4$s</item>
-    <item quantity="few">Umiestnenie na %1$s mieste (top %2$s%%) s %3$s partiami v %4$s</item>
-    <item quantity="many">Umiestnenie na %1$s mieste (top %2$s%%) s %3$s partiami v %4$s</item>
-    <item quantity="other">Umiestnenie na %1$s mieste (top %2$s%%) s %3$s partiami v %4$s</item>
+    <item quantity="few">Umiestnil sa na %1$s mieste (top %2$s%%) s %3$s partiami v %4$s</item>
+    <item quantity="many">Umiestnil sa na %1$s mieste (top %2$s%%) s %3$s partiami v %4$s</item>
+    <item quantity="other">Umiestnil sa na %1$s mieste (top %2$s%%) s %3$s partiami v %4$s</item>
   </plurals>
-  <string name="signedUp">Registrácia na lichess.org</string>
+  <string name="signedUp">Registroval sa na Lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Pripojenie sa k %s tímu</item>
     <item quantity="few">Pripojenie sa k %s tímom</item>
