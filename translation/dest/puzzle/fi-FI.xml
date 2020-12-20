@@ -27,4 +27,9 @@
   <string name="continueTraining">Jatka harjoittelua</string>
   <string name="difficultyLevel">Vaikeustaso</string>
   <string name="normal">Keskitaso</string>
+  <string name="easier">Helpompi</string>
+  <string name="easiest">Helpoin</string>
+  <string name="harder">Vaikeampi</string>
+  <string name="hardest">Vaikein</string>
+  <string name="example">Esimerkki</string>
 </resources>
