@@ -14,6 +14,9 @@
   <string name="bishopEndgameDescription">Endaspæl við bispum og finnum.</string>
   <string name="castling">At leypa í borg</string>
   <string name="castlingDescription">Flyt kongin í tryggleika, og tak rókin í nýtslu, so hann fær lopið á.</string>
+  <string name="capturingDefender">Tak tann, ið verjir</string>
+  <string name="capturingDefenderDescription">At beina eitt fólk burtur, ið hevur týdning í verjuni av einum øðrum fólki. Hetta ger tað møguligt at taka fólkið, ið nú er óvart, í einum seinni leiki.</string>
+  <string name="crushing">At knúsa</string>
   <string name="middlegameDescription">Taktisk atgerð í seinna skeiði av talvinum.</string>
   <string name="oneMove">Uppgáva við einum leiki</string>
   <string name="oneMoveDescription">Uppgáva, ið bert krevur ein leik.</string>
