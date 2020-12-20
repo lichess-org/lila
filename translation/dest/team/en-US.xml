@@ -43,5 +43,5 @@ Players who don\'t like receiving your messages might leave the team.</string>
   <string name="usersWhoCanManageThisTeam">Users who can manage this team</string>
   <string name="leadersChat">Leaders chat</string>
   <string name="closeTeam">Close team</string>
-  <string name="closeTeamDescription" comment="closeTeamDescription&#10;&#10;If you click this, your team will be closed forever.">Closes the team forever.</string>
+  <string name="closeTeamDescription">Closes the team forever.</string>
 </resources>
