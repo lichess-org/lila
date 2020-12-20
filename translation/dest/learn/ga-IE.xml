@@ -22,10 +22,12 @@
   <string name="itMovesInAnLShape">Bogann sé chomh an litir L</string>
   <string name="thePawn">An ceithearnach</string>
   <string name="itMovesForwardOnly">Ní bogann sé ach díreach</string>
+  <string name="pawnsMoveOneSquareOnly">Ní bogann sé ach céarnóg amhain. Ach nuair a sroicheann sé an taobh eile, beidh sé mar píosa níos láidir!</string>
   <string name="pawnPromotion">Ardú ceithearnaigh</string>
   <string name="fundamentals">Buneolas</string>
   <string name="capture">Gabháil</string>
   <string name="intermediate">Meanleibhéal</string>
+  <string name="castling">Caisliú</string>
   <string name="enPassant">En passant</string>
   <string name="stalemate">Leamhsháinn</string>
   <string name="advanced">Ardeolas</string>
