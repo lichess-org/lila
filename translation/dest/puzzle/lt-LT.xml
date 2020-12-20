@@ -8,6 +8,7 @@
   <string name="lengths">Ilgiai</string>
   <string name="mates">Matai</string>
   <string name="goals">Tikslai</string>
+  <string name="specialMoves">Ypatingi ėjimai</string>
   <string name="didYouLikeThisPuzzle">Ar jums patiko šis galvosūkis?</string>
   <string name="voteToLoadNextOne">Nubalsuokite norėdami pakrauti kitą!</string>
   <string name="yourPuzzleRatingX">Jūsų galvosūkių reitingas: %s</string>
