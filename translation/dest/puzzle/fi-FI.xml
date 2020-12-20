@@ -5,4 +5,8 @@
   <string name="motifs">Motiivit</string>
   <string name="didYouLikeThisPuzzle">Piditkö tästä tehtävästä?</string>
   <string name="yourPuzzleRatingX">Tehtävävahvuuslukusi: %s</string>
+  <string name="puzzleId">Tehtävä %s</string>
+  <string name="puzzleOfTheDay">Päivän tehtävä</string>
+  <string name="puzzleSuccess">Onnistui!</string>
+  <string name="puzzleComplete">Tehtävä ratkaistu!</string>
 </resources>
