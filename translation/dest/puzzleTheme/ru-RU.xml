@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="advancedPawn">Продвинутая пешка</string>
+  <string name="advancedPawnDescription">Пешка,создающая тактику или угрожающая ее применению, имеет ключевое значение.</string>
+  <string name="advantage">Преимущество</string>
+  <string name="advantageDescription">Используйте свой шанс получить решающее преимущество. (200cp ≥ eval ≤ 600cp)</string>
+  <string name="attackingF2F7">Атака f2 или f7</string>
+  <string name="attackingF2F7Description">Атака, фокусирующаяся на пешки f2 или f7, например, в дебюте жареной печени.</string>
+  <string name="attractionDescription">Обменять или пожертвовать, поощряя или принуждая фигуру противника на поле, которое позволяет следующую тактику.</string>
+  <string name="bishopEndgame">Слоновый эндшипль </string>
+  <string name="bishopEndgameDescription">Эндшпиль только со слонами и пешками</string>
+  <string name="castling">Рокировка</string>
+  <string name="defensiveMove">Защитный ход</string>
+  <string name="endgame">Эндшпиль</string>
+  <string name="exposedKingDescription">Тактика, подразумевающая короля и нескольких защитников вокруг него, часто приводящая к мату.</string>
+  <string name="fork">Вилка</string>
+  <string name="mateDescription">Выиграйте игру красиво.</string>
+  <string name="mateIn1">Мат в 1 ход</string>
+  <string name="mateIn3">Мат в 3 хода</string>
+  <string name="mateIn4">Мат в 4 хода</string>
+  <string name="mateIn5">Мат в 5 или более</string>
+  <string name="middlegame">Миттельшпиль</string>
+  <string name="pawnEndgameDescription">Эндшпиль только с пешками</string>
+  <string name="pin">Связка</string>
+  <string name="promotion">Провождение</string>
+  <string name="queenEndgame">Ферзевый эндшпиль</string>
+  <string name="underPromotionDescription">Проведите до коня,слона или ладьи</string>
+  <string name="veryLongDescription">Четыре хода или более для победы.</string>
+  <string name="healthyMix">Здоровая смесь</string>
+  <string name="healthyMixDescription">Немного всё. Ты не знаешь, что ожидать, так что ты готов ко всему! Так же, как в настоящих партиях</string>
+</resources>
