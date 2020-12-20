@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="advancedPawnDescription">Ключовим для тактики є пішак просування або загроза просуванню.</string>
+  <string name="advantage">Перевага</string>
+  <string name="advantageDescription">Схопіть ваш шанс отримати вирішальну перевагу. (200cp ≥ eval ≤ 600cp)</string>
+  <string name="attackingF2F7">Атакуємо 2 або f7</string>
+  <string name="attackingF2F7Description">Напад, який зосереджується на ф2 або F7, наприклад як у дебюті смаженої печінки.</string>
+  <string name="attraction">Заманювання</string>
+  <string name="attractionDescription">Обмін або жертва, що заманює або примушує суперника зробити хід, що дозволяє проводити подальшу тактику.</string>
+  <string name="backRankMate">Лінійний мат</string>
+  <string name="bishopEndgame">Слоновий ендшпіль</string>
+  <string name="bishopEndgameDescription">Закінчення гри лише зі слонами та пішаками.</string>
+  <string name="castling">Рокіровка</string>
+  <string name="castlingDescription">Захистіть свого короля й виведіть у бій туру.</string>
+  <string name="capturingDefender">Захоплення захисника</string>
+  <string name="crushing">Руйнування</string>
+  <string name="equality">Рівність</string>
+  <string name="kingsideAttack">Атака на королівський фланг</string>
+  <string name="mateIn1">Мат в 1 хід</string>
+  <string name="mateIn2">Мат в 2 ходи</string>
+  <string name="mateIn3">Мат в 3 ходи</string>
+  <string name="mateIn4">Мат в 4 ходи</string>
+  <string name="mateIn5">Мат в 5 або більше</string>
+  <string name="middlegame">Міттельшпіль</string>
+  <string name="middlegameDescription">Тактика на другому етапі гри.</string>
+  <string name="oneMove">Завдання в один хід</string>
+  <string name="oneMoveDescription">Загадка, яка є лише складається з одного ходу.</string>
+  <string name="opening">Дебют</string>
+  <string name="openingDescription">Тактика на другому етапі гри.</string>
+  <string name="pawnEndgame">Пішаковий ендшпіль</string>
+  <string name="pin">Зв\'язування</string>
+  <string name="promotion">Проведення</string>
+  <string name="queenEndgame">Ферзевий ендшпіль</string>
+  <string name="queenEndgameDescription">Ендшпіль лише зі слонами та пішаками.</string>
+  <string name="queensideAttack"> Атака на ферзевому фланзі</string>
+  <string name="queensideAttackDescription">Напад на короля противника, після того як вони зробили рокіровку на ферзевий фланг.</string>
+  <string name="quietMove">Тихий хід</string>
+  <string name="quietMoveDescription">Цей крок не робить шах чи захоплення, але готує неминучу загрозу для подальшого ходу.</string>
+  <string name="rookEndgame">Туровий ендшпіль</string>
+  <string name="rookEndgameDescription">Ендшпіль лише зі слонами та пішаками.</string>
+  <string name="sacrifice">Жертва</string>
+  <string name="short">Коротка задача</string>
+  <string name="shortDescription">Два ходи для перемоги</string>
+</resources>
