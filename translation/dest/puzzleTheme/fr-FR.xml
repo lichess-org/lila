@@ -26,6 +26,7 @@
   <string name="fork">Fourchette</string>
   <string name="forkDescription">Un coup où la pièce déplacée attaque deux pièces de l\'adversaire à la fois.</string>
   <string name="hangingPiece">Pièce en prise</string>
+  <string name="intermezzo">Coup intermédiaire</string>
   <string name="knightEndgame">Finale de cavaliers</string>
   <string name="knightEndgameDescription">Une finale avec seulement des cavaliers et des pions.</string>
   <string name="long">Long problème</string>
