@@ -16,6 +16,8 @@
   <string name="crushing">Руйнування</string>
   <string name="equality">Рівність</string>
   <string name="kingsideAttack">Атака на королівський фланг</string>
+  <string name="defensiveMove">Захисний хід</string>
+  <string name="enPassant">Взяття на проході</string>
   <string name="mateIn1">Мат в 1 хід</string>
   <string name="mateIn2">Мат в 2 ходи</string>
   <string name="mateIn3">Мат в 3 ходи</string>
@@ -41,4 +43,8 @@
   <string name="sacrifice">Жертва</string>
   <string name="short">Коротка задача</string>
   <string name="shortDescription">Два ходи для перемоги</string>
+  <string name="smotheredMate">Спертий мат</string>
+  <string name="trappedPiece">Фігура у пастці</string>
+  <string name="veryLong">Дуже довга задача</string>
+  <string name="zugzwang">Цугцванг</string>
 </resources>
