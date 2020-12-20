@@ -529,6 +529,7 @@
   <string name="blackWinsGame">Bhuaigh dubh</string>
   <string name="skipThisMove">Léim thar an beart seo</string>
   <string name="next">Ar Aghaidh</string>
+  <string name="xWasPlayed">Imríodh %s</string>
   <string name="youCanDoBetter">Tá beart níos fearr ann</string>
   <string name="solution">Réiteach</string>
   <string name="waitingForAnalysis">Ag fanacht ar anailís</string>
