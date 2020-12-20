@@ -17,6 +17,12 @@
   <string name="capturingDefender">Tak tann, ið verjir</string>
   <string name="capturingDefenderDescription">At beina eitt fólk burtur, ið hevur týdning í verjuni av einum øðrum fólki. Hetta ger tað møguligt at taka fólkið, ið nú er óvart, í einum seinni leiki.</string>
   <string name="crushing">At knúsa</string>
+  <string name="crushingDescription">Finn bummaran hjá mótleikaranum til tess at ogna tær knúsandi fyrimun. (eval ≥ 600cp)</string>
+  <string name="equality">Javnstøða</string>
+  <string name="equalityDescription">Kom afturíaftur úr eini tapandi støðu, og tryggja tær remis ella eina javna støðu. (eval ≤ 200cp)</string>
+  <string name="kingsideAttack">Álop kongamegin</string>
+  <string name="kingsideAttackDescription">Álop á mótstøðukongin, aftaná at hann er lopin í borg kongamegin.</string>
+  <string name="clearance">Rudding</string>
   <string name="middlegameDescription">Taktisk atgerð í seinna skeiði av talvinum.</string>
   <string name="oneMove">Uppgáva við einum leiki</string>
   <string name="oneMoveDescription">Uppgáva, ið bert krevur ein leik.</string>
