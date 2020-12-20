@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="faqAbbreviation">DUK</string>
+  <string name="frequentlyAskedQuestions">Dažniausia užduodami klausimai</string>
   <string name="whyIsLichessCalledLichess">Kodėl Lichess pavadintas Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess yra gyvų (live), lengvų (light) ir laisvų (libre) šachmatų kombinacija. Jis tariamas %1$s.</string>
+  <string name="leechess">ly-čes</string>
+  <string name="hearItPronouncedBySpecialist">Išgirskite, kaip jį taria specialistas.</string>
+  <string name="whyLiveLightLibre">Gyvų, nes žaidimai žaidžiami ir peržiūrimi gyvai 24/7; lengvų ir laisvų, nes Lichess yra atviro kodo projektas ir nėra apkrautas komercinio kodo, kuris persekioja kitas svetaines.</string>
+  <string name="whyIsLilaCalledLila">Taip pat, Lichess kodas, %1$s, reiškia \"li[chess in sca]la\". Didžioji Lichess dalis parašyta %2$s, intuityvia programavimo kalba.</string>
+  <string name="howCanIContributeToLichess">Kaip galiu prisidėti prie Lichess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess įgalinamas paramos iš rėmėjų ir savanorių komandos pastangų.</string>
+  <string name="findMoreAndSeeHowHelp">Apie %1$s (įskaitant %2$s) galite sužinoti daugiau. Jei norite padėti Lichess paaukodami savo laiką ir įgūdžius, yra daug %3$s.</string>
   <string name="otherWaysToHelp">kiti būdai padėti</string>
 </resources>
