@@ -24,4 +24,17 @@
   <string name="trySomethingElse">Royn okkurt annað.</string>
   <string name="ratingX">Styrkital: %s</string>
   <string name="hidden">fjalt</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Telvað %s ferð</item>
+    <item quantity="other">Telvað %s ferðir</item>
+  </plurals>
+  <string name="fromGameLink">Úr talvi %s</string>
+  <string name="continueTraining">Halt fram við venjing</string>
+  <string name="difficultyLevel">Torleikastig</string>
+  <string name="normal">Vanligt</string>
+  <string name="easier">Lættari</string>
+  <string name="easiest">Einfaldasta</string>
+  <string name="harder">Truplari</string>
+  <string name="hardest">Truplasta</string>
+  <string name="example">Dømi</string>
 </resources>
