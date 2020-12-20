@@ -70,7 +70,9 @@
   <string name="pawnEndgame">Gyalogvégjáték</string>
   <string name="pawnEndgameDescription">Végjáték csak gyalogokkal.</string>
   <string name="pin">Kötés</string>
+  <string name="pinDescription">A kötés, mikor egy figura nem tud ellépni anélkül, hogy felfedné az ellenfél támadását egy értékesebb figura felé.</string>
   <string name="promotion">Átváltozás</string>
+  <string name="promotionDescription">Átváltozó vagy átváltozással fenyegető gyalog kulcsfontosságú taktika.</string>
   <string name="queenEndgame">Vezér végjáték</string>
   <string name="queenEndgameDescription">Végjáték csak vezérekkel és gyalogokkal.</string>
   <string name="queensideAttack">Vezérszárnytámadás</string>
@@ -87,6 +89,8 @@
   <string name="skewerDescription">Az a motívum mikor egy magasabb értékű figurát támadva az kénytelen ellépni szabaddá téve így az utat a kisebb értékű figura leütéséhez. A kötés fordítottja.</string>
   <string name="smotheredMate">Fojtott matt</string>
   <string name="smotheredMateDescription">Olyan huszárral adott matt, ahol a sakkot kapó király nem tud lépni, mert saját figurái veszik körül (fojtják meg).</string>
+  <string name="trappedPiece">Csapda</string>
+  <string name="trappedPieceDescription">Egy figura leütése nem elkerülhető, ha nincs menekülési útja.</string>
   <string name="underPromotion">Minor-átváltozás</string>
   <string name="underPromotionDescription">Gyalog átváltozása huszár, futó vagy bástyára.</string>
   <string name="veryLong">Hosszú feladvány</string>
