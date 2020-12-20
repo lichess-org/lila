@@ -36,4 +36,7 @@
   <string name="endgameDescription">Sēles noslēdzošā posma taktika.</string>
   <string name="enPassant">Sitiens garāmejot</string>
   <string name="enPassantDescription">Stratēģija, kas iesaista garāmejošā sitiena noteikumu, kurš nosaka, ka bandinieks var nosist pretinieka bandinieku, ja tas tikko nostājies blakus ar sākotnējo divu lauciņu gājienu.</string>
+  <string name="exposedKing">Atklāts karalis</string>
+  <string name="exposedKingDescription">Uzbrukums karalim, kam ir maz aizsargājošu figūru; šis bieži noved pie mata.</string>
+  <string name="fork">Dakša</string>
 </resources>
