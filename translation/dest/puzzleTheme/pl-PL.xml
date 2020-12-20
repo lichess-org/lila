@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advantage">Przewaga</string>
   <string name="bishopEndgame">Końcówka gońcowa</string>
   <string name="bishopEndgameDescription">Gra końcowa wyłącznie z gońcami i pionami.</string>
   <string name="castling">Roszada</string>
@@ -16,12 +17,20 @@
   <string name="mateIn3">Mat w 3 ruchach</string>
   <string name="mateIn4">Mat w 4 ruchach</string>
   <string name="mateIn5">Mąka w 5 lub więcej ruchach</string>
+  <string name="middlegame">Gra środkowa</string>
+  <string name="opening">Otwarcie</string>
+  <string name="overloading">Przeciążenie</string>
   <string name="pawnEndgame">Końcówka pionkowa</string>
   <string name="pawnEndgameDescription">Gra końcowa wyłącznie z pionami.</string>
+  <string name="pin">Związanie</string>
   <string name="promotion">Promocja</string>
   <string name="rookEndgame">Końcówka wieżowa</string>
   <string name="rookEndgameDescription">Gra końcowa wyłącznie z wieżami i pionami.</string>
   <string name="sacrifice">Poświęcenie</string>
   <string name="short">Krótkie zadanie</string>
+  <string name="shortDescription">Dwa ruchy by wygrać.</string>
+  <string name="trappedPiece">Uwięziona figura</string>
   <string name="underPromotionDescription">Promocja na skoczka, gońca lub wieżę.</string>
+  <string name="veryLong">Bardzo długie zadanie</string>
+  <string name="veryLongDescription">Cztery ruchy lub więcej, aby wygrać.</string>
 </resources>
