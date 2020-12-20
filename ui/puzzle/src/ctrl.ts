@@ -254,8 +254,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function nextPuzzle(): void {
     ceval.stop();
-    vm.next.promise.then(initiate);
-    redraw();
+    vm.next.promise.then(initiate).then(redraw);
 
     const path = `/training/${data.theme.key}`;
     if (location.pathname != path) history.replaceState(null, '', path);
