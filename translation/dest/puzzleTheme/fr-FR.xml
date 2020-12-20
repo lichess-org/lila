@@ -5,7 +5,7 @@
   <string name="advantage">Avantage</string>
   <string name="advantageDescription">Saisissez votre chance d\'obtenir un avantage décisif. (200cp ≤ évaluation ≤ 600cp)</string>
   <string name="attackingF2F7">Attaque en f2 ou f7</string>
-  <string name="attackingF2F7Description">Une attaque sur le pion f2 ou f7, comme dans l\'attaque Fried Liver.</string>
+  <string name="attackingF2F7Description">Une attaque sur le pion f2 ou f7, comme dans l\'attaque fegatello/Fried Liver.</string>
   <string name="attraction">Attraction</string>
   <string name="attractionDescription">Un échange ou un sacrifice encourageant ou forçant une pièce adverse à bouger sur une case, permettant une tactique.</string>
   <string name="backRankMate">Mat du couloir</string>
@@ -72,4 +72,8 @@
   <string name="queenEndgame">Finale de dames</string>
   <string name="queenEndgameDescription">Une finale avec seulement des dames et des pions.</string>
   <string name="queensideAttack">Attaque à l\'aile dame</string>
+  <string name="sacrifice">Sacrifice</string>
+  <string name="short">Court problème</string>
+  <string name="skewer">Enfilade</string>
+  <string name="smotheredMate">Mat à l\'étouffée</string>
 </resources>
