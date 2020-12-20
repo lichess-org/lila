@@ -11,5 +11,32 @@
   <string name="howCanIContributeToLichess">Kaip galiu prisidėti prie Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess įgalinamas paramos iš rėmėjų ir savanorių komandos pastangų.</string>
   <string name="findMoreAndSeeHowHelp">Apie %1$s (įskaitant %2$s) galite sužinoti daugiau. Jei norite padėti Lichess paaukodami savo laiką ir įgūdžius, yra daug %3$s.</string>
+  <string name="beingAPatron">buvimą rėmėju</string>
   <string name="otherWaysToHelp">kiti būdai padėti</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Šis garbės titulas nėra oficialus ir egzistuoja tik Lichess.
+
+Jis mūsų nuožiūra suteikiamas išskirtinai pasižymėjusiems žaidėjams, kurie yra puikūs Lichess piliečiai. Jūs negaunate LM titulo, LM titulas susiranda jus. Jei jūs esate tinkamas jam, iš mūsų gausite žinutę apie jį ir būdus jį priimti ar jo atsisakyti.
+
+Neprašykite LM titulo.</string>
+  <string name="whatUsernameCanIchoose">Koks gali būti mano vartotojo vardas?</string>
+  <string name="usernamesNotOffensive">Bendrai, vartotojo vardai negali būti: įžeidūs, mėgdžiojantys ką nors kitą, ar reklamuojantys. Daugiau apie tai galite skaityti %1$s.</string>
+  <string name="guidelines">taisyklėse</string>
+  <string name="uniqueTrophies">Unikalūs trofėjai</string>
+  <string name="ownerUniqueTrophies">Šis trofėjus yra unikalus Lichess istorijoje, jo neturės niekas daugiau be %1$s.</string>
+  <string name="wayOfBerserkExplanation">Norėdamas jį gauti, hiimgosu iškėlė tau iššūkį laimėti tūžiu 100%% žaidimų %s.</string>
+  <string name="aHourlyBulletTournament">valandiniame kukos turnyre</string>
+  <string name="goldenZeeExplanation">ZugAddict transliavo savo žaidimą ir per paskutines dvi valandas nesėkmingai stengėsi įveikti 8 lygio kompiuterį 1+0 žaidime. Thibault jam paskė, kad jei jis tai sėkmingai padarys transliacijoje, jis gaus unikalų trofėjų. Po valandos ZugAddict įveikė Stockfish ir pažadas buvo ištęsėtas.</string>
+  <string name="lichessRatings">Lichess reitingai</string>
+  <string name="whichRatingSystemUsedByLichess">Kokią reitingavimo sistemą naudoja Lichess?</string>
+  <string name="ratingSystemUsedByLichess">Reitingai skaičiuojami Glicko-2 reitingavimo metodu, sukurtu Marko Glickmano. Tai itin populiarus reitingavimo metodas, kuris naudojamas dideliame šachmatų organizacijų skaičiuje (FIDE čia yra priešingas pavyzdys, nes jie vis dar naudoja pasenusią Elo reitingavimo sistemą).
+
+Iš esmės Glicko algoritmas skaičiuojant ir atvaizduojant jūsų reitingą naudoja \"pasitikėjimo intervalus\". Kai tik pradedate naudotis svetaine, jūsų reitingas prasideda ties 1500 ± 700. 1500 - jūsų reitingas, 700 - pasitikėjimo intervalas.
+
+Sistema 90% užtikrinta, kad jūsų reitingas kažkur tarp 800 ir 2200. Tai yra labai netiklu. Dėl šios priežasties, kai žaidėjas dar tik pradeda žaisti, jų reitingas keisis labai stipriai, galimai net per kelis šimtus taškų už vieną žaidimą. Po kelių žaidimų pagal dažnus žaidėjus, pasitikėjimo intervalas susitrauks ir gautų ar prarastų taškų už kiekvieną žaidimą skaičius mažės.
+
+Dar verta įsidėmėti, kad bėgant laikui pasitikėjimo intervalas plečiasi. Tai leidžia jums gauti/prarasti taškus greičiau, kad greičiau būtų pasivytas jūsų įgūdžių pokytis žaidime.</string>
+  <string name="whatIsProvisionalRating">Kodėl šalia mano reitingo yra klaustukas?</string>
+  <string name="provisionalRatingExplanation">Šis klaustukas reiškia, kad jūsų reitingas laikinas. Galimos priežastys:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Šis žaidėjas sužaidė nepakankamai reitinguotų žaidimų prieš %1$s reitingo kategorijoje.</string>
+  <string name="similarOpponents">panašaus stiprumo priešininkus</string>
 </resources>
