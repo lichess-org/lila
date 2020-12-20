@@ -96,7 +96,8 @@
   <string name="underPromotionDescription">Gyalog átváltozása huszár, futó vagy bástyára.</string>
   <string name="veryLong">Hosszú feladvány</string>
   <string name="veryLongDescription">Négy vagy több lépés a megoldáshoz.</string>
-  <string name="xRayAttackDescription">Figura ami egy ellenséges figurán keresztül véd vagy támad egy mezőt.</string>
+  <string name="xRayAttack">Röntgen támadás</string>
+  <string name="xRayAttackDescription">Figura ami egy ellenséges figurán áthatolva véd vagy támad egy mezőt.</string>
   <string name="zugzwang">Lépéskényszer</string>
   <string name="zugzwangDescription">Az ellenfélnek kevés lehetséges lépése van, és mind csak tovább rontja a pozícióját.</string>
   <string name="healthyMix">Vegyes mix</string>
