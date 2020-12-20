@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advancedPawn">Zaawansowany pion</string>
   <string name="advantage">Przewaga</string>
   <string name="bishopEndgame">Końcówka gońcowa</string>
   <string name="bishopEndgameDescription">Gra końcowa wyłącznie z gońcami i pionami.</string>
   <string name="castling">Roszada</string>
   <string name="doubleCheck">Podwójny szach</string>
   <string name="endgame">Końcówka</string>
+  <string name="exposedKing">Odsłonięty król</string>
   <string name="fork">Widełki</string>
   <string name="knightEndgame">Końcówka skoczkowa</string>
   <string name="knightEndgameDescription">Gra końcowa wyłącznie ze skoczkami i pionami.</string>
