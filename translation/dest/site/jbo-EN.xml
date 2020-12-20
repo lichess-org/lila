@@ -403,6 +403,7 @@
   <string name="lastName">lo lazme\'e</string>
   <string name="biography">velski do fo do</string>
   <string name="country">lo gugde</string>
+  <string name="thankYou">ki\'e</string>
   <string name="socialMediaLinks">.urli lo kibro jikca predatni pesai do</string>
   <string name="watchLichessTV">mencti la\'o gy. Lichess TV .gy</string>
   <string name="previouslyOnLichessTV">lo purci nunkei pe lo la .litces. se tivni</string>
@@ -410,33 +411,7 @@
   <string name="activeToday">keicfu ca lo cabdei</string>
   <string name="activePlayers">keicfu</string>
   <string name="bewareTheGameIsRatedButHasNoClock">.o\'i lo selkei cu jai galfi lo nilcre gi\'e ku\'i na jai nu temjimte</string>
-  <string name="yourPuzzleRatingX">li %s nilcre do la kelseldanfu</string>
-  <string name="findTheBestMoveForWhite">ko visfa\'i lo xagrai se zukte be lo se caxmati</string>
-  <string name="findTheBestMoveForBlack">ko visfa\'i lo xagrai se zukte be lo te caxmati</string>
-  <string name="toTrackYourProgress">te zu\'e lo nu rejgau fo lo selzu\'e zo\'u</string>
-  <string name="puzzleId">%s moi se namkei</string>
-  <string name="puzzleOfTheDay">lo se namkei pe lo cabdei</string>
-  <string name="clickToSolve">dafyja\'o djica na gi\'a .iklki</string>
-  <string name="goodMove">pa xamgu se zukte</string>
-  <string name="butYouCanDoBetter">.i ku\'i do ka\'e xauzma zukte</string>
-  <string name="bestMove">.ui xagrai se zukte</string>
-  <string name="keepGoing">.i ko ranji</string>
-  <string name="puzzleFailed">lo se namkei cu jai se fliba</string>
-  <string name="butYouCanKeepTrying">.i ku\'i do ka\'e za\'u re\'u troci</string>
   <string name="success">nunsnada</string>
-  <string name="wasThisPuzzleAnyGood">xu le se namkei xamgu</string>
-  <string name="pleaseVotePuzzle">ko sidju mi\'a se zu\'e lo nu nilnei cuxna se pi\'o lo re strelka</string>
-  <string name="thankYou">ki\'e</string>
-  <string name="ratingX">nilcre fa li %s</string>
-  <string name="hidden">selmipri</string>
-  <plurals name="playedXTimes">
-    <item quantity="other">%s roi se kelci</item>
-  </plurals>
-  <string name="fromGameLink">ra\'i lo %s moi nunjvi</string>
-  <string name="continueTraining">lo nu crezenzu\'e kei ranji</string>
-  <string name="retryThisPuzzle">za\'ure\'u troci lo se namkei</string>
-  <string name="thisPuzzleIsCorrect">le se namkei cu drani je cinri</string>
-  <string name="thisPuzzleIsWrong">le se namkei cu toldra je tolzdi</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s cabna nunjvi</item>
   </plurals>
