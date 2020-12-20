@@ -3,7 +3,7 @@
   <string name="advancedPawn">Vorgerückter Bauer</string>
   <string name="advancedPawnDescription">Ein Bauer, der umwandelt oder umzuwandeln droht, ist Schlüssel zur Taktik.</string>
   <string name="advantage">Vorteil</string>
-  <string name="advantageDescription">Nutze deine Chance um einen entscheidenden Vorteil zu erlangen. (200cp ≥ Bewertung ≤ 600cp)</string>
+  <string name="advantageDescription">Nutze deine Chance um einen entscheidenden Vorteil zu erlangen. (200cp ≤ Bewertung ≤ 600cp)</string>
   <string name="attackingF2F7">Angriff auf f2 oder f7</string>
   <string name="attackingF2F7Description">Ein Angriff, der sich auf den Bauern auf f2 oder f7 konzentriert, wie zum Beispiel bei der Eröffnung \"Zweispringerspiel im Nachzug, 4. Sg5\".</string>
   <string name="attraction">Hinzuziehung</string>
@@ -84,4 +84,10 @@
   <string name="rookEndgame">Turmendspiel</string>
   <string name="rookEndgameDescription">Ein Endspiel nur mit Türmen und Bauern.</string>
   <string name="sacrifice">Opfer</string>
+  <string name="sacrificeDescription">Eine Taktik der kurzfristigen Materialeinbuße, um nach einer erzwungenen Zugfolge wieder einen Vorteil zu erlangen.</string>
+  <string name="short">Aufgabe mit kurzer Zugfolge</string>
+  <string name="shortDescription">Zwei Züge zum Sieg.</string>
+  <string name="skewer">Spieß (Hinterstellung)</string>
+  <string name="skewerDescription">Ein Motiv mit einer angegriffenen hochwertigen Schachfigur, deren Wegziehen erlaubt, dass eine niedriger wertige Schachfigur hinter ihr geschlagen oder angegriffen werden kann, die Umgekehrung einer Fesselung.</string>
+  <string name="smotheredMate">Ersticktes Matt / Erstickungsmatt</string>
 </resources>
