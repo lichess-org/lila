@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advancedPawn">Fremskudt bonde</string>
+  <string name="advancedPawnDescription">En bonde, der forfremmes eller truer med at forfremme, er nøglen til taktikken.</string>
+  <string name="advantage">Fordel</string>
+  <string name="attackingF2F7">Angriber f2 eller f7</string>
+</resources>
