@@ -38,6 +38,12 @@
   <string name="exposedKing">Kongur í andgletti</string>
   <string name="exposedKingDescription">Taktisk atgerð móti kongi, ið bert hevur fá verndarfólk um seg. Ber ofta skák og mát við sær.</string>
   <string name="fork">Gaffil</string>
+  <string name="forkDescription">Leikur, har flutta fólkið loypur á tvey mótstøðufólk í senn.</string>
+  <string name="hangingPiece">Hangandi fólk</string>
+  <string name="hangingPieceDescription">Taktisk atgerð móti einum mótstøðufólki, ið ikki er vart ella ikki nóg væl vart, og tí lætt at taka.</string>
+  <string name="interference">Uppílegging</string>
+  <string name="interferenceDescription">Flyt eitt fólk millum tvey mótstøðufólk, so annað mótstøðufólkið stendur óvart ella bæði standa óvard; flyt t.d. ein riddara á ein vardan punt millum tveir rókar.</string>
+  <string name="intermezzo">Millumleikur</string>
   <string name="middlegameDescription">Taktisk atgerð í seinna skeiði av talvinum.</string>
   <string name="oneMove">Uppgáva við einum leiki</string>
   <string name="oneMoveDescription">Uppgáva, ið bert krevur ein leik.</string>
