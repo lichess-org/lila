@@ -69,10 +69,10 @@
     <item quantity="other">Usporiadanie a odohranie %s simultánok</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="one">Zúčastnenie sa v %s simultánke</item>
-    <item quantity="few">Zúčastnenie sa v %s simultánkach</item>
-    <item quantity="many">Zúčastnenie sa v %s simultánkach</item>
-    <item quantity="other">Zúčastnenie sa v %s simultánkach</item>
+    <item quantity="one">Zúčastnil sa v %s simultánke</item>
+    <item quantity="few">Zúčastnil sa v %s simultánkach</item>
+    <item quantity="many">Zúčastnil sa v %s simultánkach</item>
+    <item quantity="other">Zúčastnil sa v %s simultánkach</item>
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Vytvorenie %s novej štúdie</item>
@@ -81,10 +81,10 @@
     <item quantity="other">Vytvorenie %s nových štúdií</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">Zúčastnenie sa v %s turnaji</item>
-    <item quantity="few">Zúčastnenie sa v %s turnajoch</item>
-    <item quantity="many">Zúčastnenie sa v %s turnajoch</item>
-    <item quantity="other">Zúčastnenie sa v %s turnajoch</item>
+    <item quantity="one">Zúčastnil sa v %s turnaji</item>
+    <item quantity="few">Zúčastnil sa v %s turnajoch</item>
+    <item quantity="many">Zúčastnil sa v %s turnajoch</item>
+    <item quantity="other">Zúčastnil sa v %s turnajoch</item>
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="one">Umiestnenie na %1$s mieste (top %2$s%%) s %3$s partiou v %4$s</item>
