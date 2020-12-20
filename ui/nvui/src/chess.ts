@@ -99,7 +99,6 @@ export function positionSetting(): Setting<PositionStyle> {
   });
 }
 const renderPieceStyle = (piece: string, pieceStyle: PieceStyle) => {
-  console.log(piece, pieceStyle);
   switch(pieceStyle) {
     case 'letter':
       return letterPiece[piece];
@@ -112,7 +111,6 @@ const renderPieceStyle = (piece: string, pieceStyle: PieceStyle) => {
   }
 }
 const renderPrefixStyle = (color: Color, prefixStyle: PrefixStyle) => {
-  console.log(color, prefixStyle);
   switch(prefixStyle) {
     case 'letter':
       return color.charAt(0);

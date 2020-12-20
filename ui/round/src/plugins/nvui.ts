@@ -120,7 +120,7 @@ lichess.RoundNVUI = function(redraw: Redraw) {
         h('div.board', {
           hook: onInsert(el => {
             const $board = $(el as HTMLElement);
-            $board.on('keypress', boardCommandsHandler((): string[] => ctrl.data.steps.map(step => step.fen), () => ctrl.data.possibleMoves, pieceStyle.get(), prefixStyle.get()));
+            $board.on('keypress', boardCommandsHandler((): string[] => ctrl.data.steps.map(step => step.fen), pieceStyle.get(), prefixStyle.get()));
             $board.on('keypress', showctrl(ctrl));
             // looking for specific elements tightly couples this file and nvui/chess.ts
             // unsure if a bad thing?
