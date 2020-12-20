@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="advancedPawn">Vorgerückter Bauer</string>
+  <string name="advancedPawnDescription">Ein Bauer, der umwandelt oder oder zu umwandeln droht, ist Schlüssel zur Taktik.</string>
+  <string name="advantage">Vorteil</string>
+  <string name="backRankMate">Grundreihenmatt</string>
+</resources>
