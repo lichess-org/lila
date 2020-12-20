@@ -97,4 +97,6 @@
   <string name="veryLongDescription">Négy vagy több lépés a megoldáshoz.</string>
   <string name="zugzwang">Lépéskényszer</string>
   <string name="zugzwangDescription">Az ellenfélnek kevés lehetséges lépése van, és mind csak tovább rontja a pozícióját.</string>
+  <string name="healthyMix">Vegyes mix</string>
+  <string name="healthyMixDescription">Egy kicsit mindenből. Nem tudod mire számíthatsz, ezért állj készen bármire! Akár egy valódi játszmában.</string>
 </resources>
