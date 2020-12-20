@@ -37,7 +37,7 @@
   <string name="normal">Normal</string>
   <string name="easier">Einfacher</string>
   <string name="easiest">Am einfachsten</string>
-  <string name="harder">Schwerer</string>
-  <string name="hardest">Am schwersten</string>
+  <string name="harder">Schwieriger</string>
+  <string name="hardest">Am schwierigsten</string>
   <string name="example">Beispiel</string>
 </resources>
