@@ -49,6 +49,8 @@
   <string name="oneMoveDescription">Un problème qui ne dure qu\'un coup.</string>
   <string name="opening">Ouverture</string>
   <string name="overloading">Surcharge</string>
+  <string name="pawnEndgame">Finale de pions</string>
+  <string name="pawnEndgameDescription">Une finale avec seulement des pions.</string>
   <string name="pin">Clouage</string>
   <string name="promotion">Promotion</string>
   <string name="queenEndgame">Finale de dames</string>
