@@ -20,7 +20,7 @@
   <string name="clickToSolve">Zum Lösen klicken</string>
   <string name="goodMove">Guter Zug</string>
   <string name="bestMove">Bester Zug!</string>
-  <string name="keepGoing">Mach weiter...</string>
+  <string name="keepGoing">Mach weiter…</string>
   <string name="puzzleSuccess">Korrekt!</string>
   <string name="puzzleComplete">Aufgabe abgeschlossen!</string>
   <string name="notTheMove">Das ist nicht der Zug!</string>
