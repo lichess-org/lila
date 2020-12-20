@@ -42,6 +42,12 @@
   <string name="oneMove">Egy lépéses feladvány</string>
   <string name="oneMoveDescription">Csupán egy lépésből álló feladványok.</string>
   <string name="opening">Megnyitás</string>
+  <string name="openingDescription">Taktikák a játszma kezdeti fázisában.</string>
+  <string name="overloading">Túlterhelés</string>
+  <string name="pawnEndgame">Gyalogvégjáték</string>
+  <string name="pawnEndgameDescription">Végjáték csak gyalogokkal.</string>
+  <string name="pin">Kötés</string>
+  <string name="promotion">Átváltozás</string>
   <string name="queenEndgame">Vezér végjáték</string>
   <string name="queenEndgameDescription">Végjáték csak vezérekkel és gyalogokkal.</string>
   <string name="queensideAttack">Vezérszárnytámadás</string>
