@@ -30,7 +30,7 @@ object PuzzleTheme {
   val doubleCheck     = PuzzleTheme(Key("doubleCheck"), i.doubleCheck, i.doubleCheckDescription)
   val equality        = PuzzleTheme(Key("equality"), i.equality, i.equalityDescription)
   val endgame         = PuzzleTheme(Key("endgame"), i.endgame, i.endgameDescription)
-  val enPassant       = PuzzleTheme(Key("enPassant"), i.enPassant, i.enPassantDescription)
+  val enPassant       = PuzzleTheme(Key("enPassant"), new I18nKey("En passant"), i.enPassantDescription)
   val exposedKing     = PuzzleTheme(Key("exposedKing"), i.exposedKing, i.exposedKingDescription)
   val fork            = PuzzleTheme(Key("fork"), i.fork, i.forkDescription)
   val hangingPiece    = PuzzleTheme(Key("hangingPiece"), i.hangingPiece, i.hangingPieceDescription)
