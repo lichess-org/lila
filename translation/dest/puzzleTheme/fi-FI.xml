@@ -10,6 +10,7 @@
   <string name="capturingDefender">Lyö puolustava nappula</string>
   <string name="capturingDefenderDescription">Lyö toisen nappulan suojelemiseen käytetty nappula, jotta voit seuraavilla siirroilla lyödä toisen nappulan, joka ei ole enää suojeltu.</string>
   <string name="long">Pitkä tehtävä</string>
+  <string name="mate">Matti</string>
   <string name="mateDescription">Voita peli tyylillä.</string>
   <string name="mateIn1">1 siirron matti</string>
   <string name="mateIn1Description">Tee matti yhdessä siirrossa.</string>
@@ -29,7 +30,20 @@
   <string name="openingDescription">Taktiikka pelin ensimmäisessä vaiheessa.</string>
   <string name="overloading">Ylikuormitus</string>
   <string name="pawnEndgame">Sotilasloppupeli</string>
+  <string name="pawnEndgameDescription">Loppupeli, jossa on vain sotilaita.</string>
   <string name="pin">Kiinnitys</string>
+  <string name="promotion">Korotus</string>
+  <string name="queenEndgame">Daamiloppupeli</string>
+  <string name="queensideAttack">Hyökkäys daamisivustalla</string>
+  <string name="quietMove">Hiljainen siirto</string>
+  <string name="rookEndgame">Torniloppupeli</string>
+  <string name="rookEndgameDescription">Loppupeli, jossa on vain torneja ja sotilaita.</string>
+  <string name="sacrifice">Uhraus</string>
+  <string name="sacrificeDescription">Taktiikka, jossa luovutaan väliaikaisesti materiaalista, jotta pakottavan sommitelman päätteeksi saavutetaan jälleen etu.</string>
   <string name="short">Lyhyt tehtävä</string>
+  <string name="skewer">Varrastus</string>
+  <string name="smotheredMate">Pussimatti</string>
+  <string name="underPromotion">Alikorotus</string>
   <string name="veryLong">Erittäin pitkä tehtävä</string>
+  <string name="zugzwang">Siirtopakko</string>
 </resources>
