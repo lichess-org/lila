@@ -24,4 +24,16 @@
   <string name="kingsideAttackDescription">Uzbrukums pretinieka karalim pēc rokādes karaļa pusē.</string>
   <string name="clearance">Atbrīvošana</string>
   <string name="clearanceDescription">Gājiens, kas atbrīvo lauciņu, rindu vai diagonāli un bieži iegūst tempu, ļaujot turpināt taktisko ideju.</string>
+  <string name="defensiveMove">Aizsargājošs gājiens</string>
+  <string name="defensiveMoveDescription">Precīzs gājiens vai gājienu virkne, kas nepieciešama, lai nezaudētu materiālu vai citu priekšrocību.</string>
+  <string name="deflection">Novirze</string>
+  <string name="deflectionDescription">Gājiens, kas novērš pretinieka figūras uzmanību no kāda lauciņa sargāšanas vai cita uzdevuma.</string>
+  <string name="discoveredAttack">Atklāts uzbrukums</string>
+  <string name="discoveredAttackDescription">Figūras, kas iepriekš bloķēja slīdošas figūras uzbrukumu, izkustināšana — piemēram zirdziņa aizkustināšana no torņa ceļa.</string>
+  <string name="doubleCheck">Dubultais šahs</string>
+  <string name="doubleCheckDescription">Atklāta uzbrukuma rezultātā pieteikts šahs ar abām figūrām vienlaikus: gan ar atklāto figūru, gan ar izkustināto figūru.</string>
+  <string name="endgame">Beigu spēle</string>
+  <string name="endgameDescription">Sēles noslēdzošā posma taktika.</string>
+  <string name="enPassant">Sitiens garāmejot</string>
+  <string name="enPassantDescription">Stratēģija, kas iesaista garāmejošā sitiena noteikumu, kurš nosaka, ka bandinieks var nosist pretinieka bandinieku, ja tas tikko nostājies blakus ar sākotnējo divu lauciņu gājienu.</string>
 </resources>
