@@ -19,7 +19,15 @@
   <string name="crushing">Vernichtend</string>
   <string name="crushingDescription">Erkenne den Patzer des Gegners, um einen vernichtenden Vorteil zu erhalten. (Bewertung &gt; 600 Hunderstel-Bauern)</string>
   <string name="equality">Ausgleich</string>
-  <string name="kingsideAttack">Angriff auf der Königsseite</string>
-  <string name="kingsideAttackDescription">Ein Angriff auf den gegnerischen König nachdem dieser auf die Königsseite rochiert ist.</string>
+  <string name="equalityDescription">Komme aus einer verlorenen Stellung zurück und sichere dir ein Remis oder eine ausgeglichene Position. (Bewertung &lt; 200 Hunderstel-Bauern)</string>
+  <string name="kingsideAttack">Angriff auf dem Königsflügel</string>
+  <string name="kingsideAttackDescription">Ein Angriff auf den gegnerischen König nachdem dieser auf den Königsflügel rochiert hat.</string>
+  <string name="clearance">Öffnung</string>
+  <string name="clearanceDescription">Ein Zug, oft mit einem Tempo, der ein Feld, eine Linie oder Diagonale für eine nachfolgende taktische Idee öffnet.</string>
   <string name="defensiveMove">Verteidigungszug</string>
+  <string name="defensiveMoveDescription">Ein präziser Zug oder eine Zugfolge, die benötigt wird, um kein Material oder einen anderen Vorteil einzustellen.</string>
+  <string name="deflection">Ablenkung</string>
+  <string name="deflectionDescription">Ein Zug, der eine gegnerische Schachfigur von einer anderen Aufgabe ablenkt, wie zum Beispiel den Schutz eines wichtigen Felds.</string>
+  <string name="discoveredAttack">Abzugsangriff</string>
+  <string name="doubleCheck">Doppelschach</string>
 </resources>
