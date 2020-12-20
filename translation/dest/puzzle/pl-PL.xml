@@ -5,6 +5,7 @@
   <string name="advanced">Zaawansowane</string>
   <string name="mates">Maty</string>
   <string name="goals">Cele</string>
+  <string name="specialMoves">Ruchy specjalne</string>
   <string name="didYouLikeThisPuzzle">Czy podobało Ci się to zadanie?</string>
   <string name="yourPuzzleRatingX">Twój ranking treningowy: %s</string>
   <string name="findTheBestMoveForWhite">Znajdź najlepszy ruch dla białych.</string>
