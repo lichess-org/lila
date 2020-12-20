@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Šahovski problemi</string>
+  <string name="recommended">Priporočeno</string>
+  <string name="phases">Faze</string>
+  <string name="motifs">Motivi</string>
+  <string name="advanced">Napredno</string>
+  <string name="lengths">Dolžine</string>
+  <string name="mates">Mati</string>
+  <string name="goals">Cilji</string>
+  <string name="didYouLikeThisPuzzle">Ali ti je všeč šahovski problem?</string>
+  <string name="voteToLoadNextOne">Glasujte za nalaganje naslednjega!</string>
+  <string name="yourPuzzleRatingX">Tvoj rating pri reševanju šahovskih problemov: %s</string>
+  <string name="findTheBestMoveForWhite">Poišči najboljšo potezo za belega.</string>
+  <string name="findTheBestMoveForBlack">Poišči najboljšo potezo za črnega.</string>
+</resources>
