@@ -27,11 +27,13 @@
   <string name="forkDescription">Un coup où la pièce déplacée attaque deux pièces de l\'adversaire à la fois.</string>
   <string name="hangingPiece">Pièce en prise</string>
   <string name="intermezzo">Coup intermédiaire</string>
+  <string name="intermezzoDescription">Au lieu de jouer le coup attendu, jouez d\'abord un autre coup posant une menace immédiate à laquelle l\'adversaire doit répondre. Aussi connu sous le nom de \"Zwischenzug\" ou \"coup a tempo\".</string>
   <string name="knightEndgame">Finale de cavaliers</string>
   <string name="knightEndgameDescription">Une finale avec seulement des cavaliers et des pions.</string>
   <string name="long">Long problème</string>
   <string name="longDescription">Victoire en trois coups.</string>
   <string name="mate">Mat</string>
+  <string name="mateDescription">Gagnez la partie avec classe.</string>
   <string name="mateIn1">Mat en 1</string>
   <string name="mateIn1Description">Matez en un coup.</string>
   <string name="mateIn2">Mat en 2</string>
@@ -43,7 +45,10 @@
   <string name="mateIn5">Mat en 5 ou plus</string>
   <string name="middlegame">Milieu de jeu</string>
   <string name="middlegameDescription">Une tactique pendant la seconde phase de jeu.</string>
+  <string name="oneMove">Problème à un coup</string>
+  <string name="oneMoveDescription">Un problème qui ne dure qu\'un coup.</string>
   <string name="opening">Ouverture</string>
+  <string name="overloading">Surcharge</string>
   <string name="pin">Clouage</string>
   <string name="promotion">Promotion</string>
   <string name="queenEndgame">Finale de dames</string>
