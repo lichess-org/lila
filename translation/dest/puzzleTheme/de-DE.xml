@@ -84,7 +84,7 @@
   <string name="rookEndgame">Turmendspiel</string>
   <string name="rookEndgameDescription">Ein Endspiel nur mit Türmen und Bauern.</string>
   <string name="sacrifice">Opfer</string>
-  <string name="sacrificeDescription">Eine Taktik die kurzfristigen Materialverlust beinhaltet, um nach einer erzwungenen Zugfolge wieder einen Vorteil zu erlangen.</string>
+  <string name="sacrificeDescription">Eine Taktik, die kurzfristigen Materialverlust beinhaltet, um nach einer erzwungenen Zugfolge wieder einen Vorteil zu erlangen.</string>
   <string name="short">Kurze Aufgabe</string>
   <string name="shortDescription">Zwei Züge zum Sieg.</string>
   <string name="skewer">Spieß (Hinterstellung)</string>
