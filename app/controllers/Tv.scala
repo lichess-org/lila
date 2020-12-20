@@ -2,11 +2,11 @@ package controllers
 
 import play.api.http.ContentTypes
 import scala.util.chaining._
+import views._
 
 import lila.api.Context
 import lila.app._
 import lila.game.Pov
-import views._
 
 final class Tv(
     env: Env,
@@ -77,10 +77,11 @@ final class Tv(
       import akka.pattern.ask
       import lila.round.TvBroadcast
       import play.api.libs.EventSource
-      val fromLichess = getBool("bc", req)
-      env.round.tvBroadcast ? TvBroadcast.Connect(fromLichess) mapTo
+      val bc = getBool("bc", req)
+      env.round.tvBroadcast ? TvBroadcast.Connect(bc) mapTo
         manifest[TvBroadcast.SourceType] map { source =>
-          Ok.chunked(source via EventSource.flow).as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
+          if (bc) Ok.chunked(source via EventSource.flow).as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
+          else apiC.sourceToNdJson(source)
         }
     }
 
