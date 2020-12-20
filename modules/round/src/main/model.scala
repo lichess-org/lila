@@ -4,6 +4,7 @@ import scala.concurrent.duration.FiniteDuration
 
 import lila.game.{ Game, Pov }
 import lila.user.User
+import play.api.libs.json.JsObject
 
 private case class MoretimeDuration(value: FiniteDuration)  extends AnyVal
 private case class AnimationDuration(value: FiniteDuration) extends AnyVal
@@ -27,3 +28,5 @@ final private class ScheduleExpiration(f: Game => Unit) extends (Game => Unit) {
 final class IsOfferingRematch(f: Pov => Boolean) extends (Pov => Boolean) {
   def apply(p: Pov) = f(p)
 }
+
+case class ChangeFeatured(pov: Pov, mgs: JsObject)

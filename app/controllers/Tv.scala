@@ -72,12 +72,13 @@ final class Tv(
     }
 
   def feed =
-    Action.async {
+    Action.async { req =>
       import makeTimeout.short
       import akka.pattern.ask
       import lila.round.TvBroadcast
       import play.api.libs.EventSource
-      env.round.tvBroadcast ? TvBroadcast.Connect mapTo
+      val fromLichess = getBool("bc", req)
+      env.round.tvBroadcast ? TvBroadcast.Connect(fromLichess) mapTo
         manifest[TvBroadcast.SourceType] map { source =>
           Ok.chunked(source via EventSource.flow).as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
         }

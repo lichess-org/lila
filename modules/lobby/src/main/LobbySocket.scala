@@ -6,7 +6,6 @@ import scala.concurrent.duration._
 import scala.concurrent.Promise
 
 import lila.game.Pov
-import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.timeline._
 import lila.hub.Trouper
 import lila.i18n.defaultLang
@@ -15,6 +14,7 @@ import lila.rating.RatingRange
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.{ makeMessage, Sri, Sris }
 import lila.user.User
+import lila.round.ChangeFeatured
 
 case class LobbyCounters(members: Int, rounds: Int)
 
