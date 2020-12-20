@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advancedPawn">Frífinna</string>
+  <string name="advancedPawnDescription">Ein finna, ið umskapast ella hóttir við at umskapast, er lykilin til taktikkin.</string>
+  <string name="advantage">Fyrimunur</string>
+  <string name="advantageDescription">Tak av møguleikanum at fáa avgerandi fyrimun. (200cp ≥ eval ≤ 600cp)</string>
+  <string name="attackingF2F7">Álop á f2 ella f7</string>
+  <string name="attackingF2F7Description">Eitt álop, ið savnar seg um f2 ella f7-finnuna, eins og í livrasteiks-byrjanini.</string>
+  <string name="attraction">Atdráttur</string>
+  <string name="attractionDescription">Eitt umbýti ella offur, ið eggjar ella noyðir eitt mótleikarafólk til ein punt, ið síðani letur upp fyri eini taktiskari atgerð.</string>
+  <string name="backRankMate">Mát á aftasta rað</string>
+  <string name="backRankMateDescription">Set kongin skák og mát á aftasta rað, har egnu fólk hansara byrgja hann inni.</string>
+  <string name="bishopEndgame">Bispaendaspæl</string>
+  <string name="bishopEndgameDescription">Endaspæl við bispum og finnum.</string>
+  <string name="castling">At leypa í borg</string>
+  <string name="castlingDescription">Flyt kongin í tryggleika, og tak rókin í nýtslu, so hann fær lopið á.</string>
+  <string name="middlegameDescription">Taktisk atgerð í seinna skeiði av talvinum.</string>
+  <string name="oneMove">Uppgáva við einum leiki</string>
+  <string name="oneMoveDescription">Uppgáva, ið bert krevur ein leik.</string>
+  <string name="opening">Byrjanartalv</string>
+</resources>
