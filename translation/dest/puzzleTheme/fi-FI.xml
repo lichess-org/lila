@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advancedPawn">Pitkälle edennyt sotilas</string>
+  <string name="advancedPawnDescription">Taktiikassa keskeistä on sotilas, joka korottuu tai uhkaa korottua.</string>
+  <string name="advantage">Etu</string>
+  <string name="backRankMate">Takarivin matti</string>
   <string name="long">Pitkä tehtävä</string>
   <string name="oneMove">Yhden siirron tehtävä</string>
   <string name="oneMoveDescription">Tehtävä, jossa vaaditaan vain yksi siirto.</string>
