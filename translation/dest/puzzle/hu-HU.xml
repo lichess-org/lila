@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Feladványok</string>
+  <string name="recommended">Ajánlott</string>
+  <string name="advanced">Haladó</string>
+  <string name="didYouLikeThisPuzzle">Tetszett ez a feladvány?</string>
+  <string name="yourPuzzleRatingX">Feladvány pontszámod: %s</string>
+  <string name="findTheBestMoveForWhite">Találd meg világos legjobb lépését!</string>
+  <string name="findTheBestMoveForBlack">Találd meg sötét legjobb lépését!</string>
+  <string name="puzzleId">%s. feladvány</string>
+  <string name="puzzleOfTheDay">Napi feladvány</string>
+  <string name="clickToSolve">Katt a megoldáshoz</string>
+  <string name="goodMove">Jó lépés</string>
+  <string name="bestMove">A legjobb lépés!</string>
+  <string name="keepGoing">Folytasd…</string>
+  <string name="puzzleSuccess">Siker!</string>
+  <string name="puzzleComplete">Kész a feladvány!</string>
+  <string name="notTheMove">Nem a legjobb lépés!</string>
+  <string name="hidden">rejtett</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">%s beküldött megfejtés</item>
+    <item quantity="other">%s beküldött megfejtés</item>
+  </plurals>
+  <string name="fromGameLink">%s játszmából</string>
+  <string name="continueTraining">Gyakorlás folytatása</string>
+  <string name="example">Példa</string>
+</resources>
