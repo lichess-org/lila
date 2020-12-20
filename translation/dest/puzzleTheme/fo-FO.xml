@@ -28,4 +28,12 @@
   <string name="promotion">Umskapan</string>
   <string name="promotionDescription">Ein finna, ið umskapast ella hóttir við at umskapast, er lykilin til taktikkin.</string>
   <string name="queenEndgame">Frúgvaendatalv</string>
+  <string name="queenEndgameDescription">Endatalv við frúgvum og finnum burturav.</string>
+  <string name="queensideAttack">Álop frúgvamegin</string>
+  <string name="queensideAttackDescription">Álop á mótstøðukongin, aftaná at hann er lopin í borg frúgvamegin.</string>
+  <string name="quietMove">Stillførur leikur</string>
+  <string name="quietMoveDescription">Leikur, ið hvørki skákar ella tekur, men slóðar fyri eini hóttan, ið ikki slepst undan, í einum seinni leiki.</string>
+  <string name="rookEndgame">Rókaendatalv</string>
+  <string name="rookEndgameDescription">Endatalv við rókum og finnum burturav.</string>
+  <string name="sacrifice">Offur</string>
 </resources>
