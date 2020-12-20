@@ -20,8 +20,16 @@
   <string name="mateIn4">4 siirron matti</string>
   <string name="mateIn4Description">Tee matti neljässä siirrossa.</string>
   <string name="mateIn5">5 tai useamman siirron matti</string>
+  <string name="mateIn5Description">Löydä pitkä mattisommitelma.</string>
+  <string name="middlegame">Keskipeli</string>
+  <string name="middlegameDescription">Taktiikka pelin toisessa vaiheessa.</string>
   <string name="oneMove">Yhden siirron tehtävä</string>
   <string name="oneMoveDescription">Tehtävä, jossa vaaditaan vain yksi siirto.</string>
+  <string name="opening">Avaus</string>
+  <string name="openingDescription">Taktiikka pelin ensimmäisessä vaiheessa.</string>
+  <string name="overloading">Ylikuormitus</string>
+  <string name="pawnEndgame">Sotilasloppupeli</string>
+  <string name="pin">Kiinnitys</string>
   <string name="short">Lyhyt tehtävä</string>
   <string name="veryLong">Erittäin pitkä tehtävä</string>
 </resources>
