@@ -34,9 +34,9 @@
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">Urobil %1$s ťah</item>
-    <item quantity="few">Urobil %1$s ťahy</item>
-    <item quantity="many">Urobil %1$s ťahov</item>
-    <item quantity="other">Urobil %1$s ťahov</item>
+    <item quantity="few">Zahral %1$s ťahy</item>
+    <item quantity="many">Zharal %1$s ťahov</item>
+    <item quantity="other">Zahral %1$s ťahov</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
     <item quantity="one">v %1$s korešpondenčnej hre</item>
