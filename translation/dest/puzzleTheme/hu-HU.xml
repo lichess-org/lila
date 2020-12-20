@@ -8,11 +8,17 @@
   <string name="attraction">Ráterelés</string>
   <string name="attractionDescription">Csere vagy áldozat ami elmozdítja az ellenfél figuráját egy olyan mezőre ahol újabb taktika alkalmazható.</string>
   <string name="backRankMate">Matt a hátsó soron</string>
+  <string name="backRankMateDescription">Adj mattot az alapsoron ragadt királynak, mikor a saját figurái ejtik csapdába.</string>
   <string name="bishopEndgame">Futó végjáték</string>
   <string name="bishopEndgameDescription">Végjáték csak futókkal és gyalogokkal.</string>
   <string name="castling">Sáncolás</string>
+  <string name="castlingDescription">Helyezd a királyt biztonságba és mozgósítsd a bástyát.</string>
   <string name="crushing">Megsemmisítés</string>
   <string name="crushingDescription">Az ellenfél sakkvakságának kihasználása elsöprő előnnyé fordítható. (&gt; 600cp)</string>
+  <string name="kingsideAttack">Királyszárnytámadás</string>
+  <string name="discoveredAttack">Felfedés</string>
+  <string name="discoveredAttackDescription">Egy figura mozgatása ami előzőleg egy másik figura tűzvonalában állt, például huszár elléptetése a bástya útjából.</string>
+  <string name="doubleCheck">Kettős sakk</string>
   <string name="hangingPiece">Lógó figura</string>
   <string name="mateIn5">Matt 5 vagy több lépésben</string>
   <string name="queenEndgame">Vezér végjáték</string>
