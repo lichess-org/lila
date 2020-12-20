@@ -39,4 +39,31 @@ Dar verta įsidėmėti, kad bėgant laikui pasitikėjimo intervalas plečiasi. T
   <string name="provisionalRatingExplanation">Šis klaustukas reiškia, kad jūsų reitingas laikinas. Galimos priežastys:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Šis žaidėjas sužaidė nepakankamai reitinguotų žaidimų prieš %1$s reitingo kategorijoje.</string>
   <string name="similarOpponents">panašaus stiprumo priešininkus</string>
+  <string name="notPlayedRecently">Šis žaidėjas ilgai nežaidė žaidimų. Priklausomai nuo to, kiek žaidėte žaidimų, gali trukti apie metus, kol dėl neaktyvumo jūsų reitingas vėl taps laikinu.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Tiksliau, tai reiškia, kad Glicko-2 nuokrypis didesnis nei 110. Šis nuokrypis yra sistemos pasitikėjimo reitingu lygis. Kuo mažesnis nuokrypis, tuo stabilesnis reitingas.</string>
+  <string name="howDoLeaderoardsWork">Kaip veikia rangai ir lyderių lentos?</string>
+  <string name="inOrderToAppearsYouMust">Norėdami patekti į %1$s turite:</string>
+  <string name="ratingLeaderboards">reitingo lyderių lentą</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">būti sužaidę bent 30 reitinguotų partijų duotame reitinge,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">būti sužaidę reitinguotą žaidimą šiame reitinge per paskutinę savaitę,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">turėti mažesnį nei %1$s reitingo nuokrypį standartiniuose šachmatuose, ir mažesnį nei %2$s variantuose,</string>
+  <string name="beInTopTen">būti top 10 šiame reitinge.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Antras reikalavimas reikalingas tam, kad žaidėjai, kurie daugiau nebežaidžia nebeužimtų vietų lyderių lentelėse.</string>
+  <string name="whyAreRatingHigher">Kodėl reitingai aukštesni palyginus su kitomis organizacijomis, kaip FIDE, USCF ir ICC?</string>
+  <string name="whyAreRatingHigherExplanation">Geriausia negalvoti apie reitingus kaip apie absoliučius skaičius ar lyginti juos su kitomis organizacijomis. Skirtingos organizacijos turi žaidėjus su skirtingais žaidimo lygiais, skirtingas reitingavimo sistemas (Elo, Glicko, Glicko-2 ar jų modifikuotas versijas). Šie faktoriai gali stipriai pakeisti absoliučius skaičius (reitingus).
+
+Geriausia galvoti apie reitingus kaip apie \"reliatyvius\" skaičius (priešingai nei \"absoliučius skaičius\"). Tam tikrame žaidėjų būryje reliatyvūs skirtumai tarp reitingų padės įvertinti, kas laimės/sužais lygiosiomis/pralaimės, ir kaip dažnai. Sakyti, jog \"turite X reitingą\" nesako nieko, jeigu nėra kitų žaidėjų, su kuriais būtų galima palyginti tą reitingą.</string>
+  <string name="howToHideRatingWhilePlaying">Kaip žaidžiant paslėpti reitingus?</string>
+  <string name="enableZenMode">Įgalinkite Zen režimą %1$s, arba spusteldami %2$s žaidimo metu.</string>
+  <string name="displayPreferences">nustatymuose</string>
+  <string name="connexionLostCanIGetMyRatingBack">Pralaimėjau žaidimą dėl delsos/atsijungimo. Ar galiu atgauti reitingo taškus?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Gaila, tačiau negalime grąžinti taškų, prarastų dėl delsos ar atsijungimo, nepriklausomai nuo to, ar problema buvo mūsų pusėje. Antras variantas yra labai retas. Taip pat verta paminėti, kad kai Lichess persikrauna ir jūs pralaimite žaidimą dėl to, mes atšaukiame tą žaidimą ir užkertame kelią nesąžiningam pralaimėjimui.</string>
+  <string name="howToThreeDots">Kaip...</string>
+  <string name="enableDisableNotificationPopUps">Įgalinti arišjungti iššokančius pranešimus?</string>
+  <string name="viewSiteInformationPopUp">Peržiūrėti iššokančią svetainės informaciją</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess pasirinktinai gali siųsti iššokančius pranešimus, pavyzdžiui kai yra jūsų eilė daryti ėjimą ar kai gavote asmeninę žinutę.
+
+Spustelėkite spynelės ikoną šalia lichess.org adreso savo naršyklės adreso laukelyje.
+
+Tada pasirinkite, ar norite gauti, ar blokuoti pranešimus iš Lichess.</string>
 </resources>
