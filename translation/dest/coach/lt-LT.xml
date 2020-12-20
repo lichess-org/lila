@@ -13,4 +13,24 @@
   <string name="availability">Prieinamumas</string>
   <string name="accepting">Priimami mokiniai</string>
   <string name="notAccepting">Kol kas mokiniai nepriimami</string>
+  <string name="xCoachesStudents">%s apmoko šachmatų mokinius</string>
+  <string name="viewXProfile">Peržiūrėti %s profilį</string>
+  <string name="sendPM">Siųsti asmeninę žinutę</string>
+  <string name="aboutMe">Apie mane</string>
+  <string name="playingExperience">Žaidimo patirtis</string>
+  <string name="teachingExperience">Mokymo patirtis</string>
+  <string name="otherExperiences">Kitos patirtys</string>
+  <string name="bestSkills">Geriausi įgūdžiai</string>
+  <string name="teachingMethod">Mokymo metodologija</string>
+  <string name="publicStudies">Viešos studijos</string>
+  <string name="youtubeVideos">YouTube vaizdo įrašai</string>
+  <plurals name="studentReviews">
+    <item quantity="one">Vieno mokinio apžvalga</item>
+    <item quantity="few">%s mokinių apžvalga</item>
+    <item quantity="many">%s mokinio apžvalga</item>
+    <item quantity="other">%s mokinių apžvalga</item>
+  </plurals>
+  <string name="thankYouForReview">Dėkojame už apžvalgą!</string>
+  <string name="xWillApproveIt">%s ją jau greitai patvirtins, arba ją peržiūrės moderatorius.</string>
+  <string name="reviewCoach">Apžvelgti šį trenerį</string>
 </resources>
