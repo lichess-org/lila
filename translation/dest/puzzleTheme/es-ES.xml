@@ -13,6 +13,18 @@
   <string name="bishopEndgameDescription">Un final solo con alfiles y peones.</string>
   <string name="castling">Enroque</string>
   <string name="castlingDescription">Coloca el rey a salvo y pone a la torre en juego.</string>
+  <string name="capturingDefender">Capturar al defensor</string>
+  <string name="equality">Igualdad</string>
+  <string name="kingsideAttack">Ataque en el flanco de rey</string>
+  <string name="defensiveMove">Movimiento defensivo</string>
+  <string name="deflection">Desviación</string>
+  <string name="discoveredAttack">Ataque a la descubierta</string>
+  <string name="doubleCheck">Jaque doble</string>
+  <string name="endgame">Final</string>
+  <string name="exposedKing">Rey expuesto</string>
+  <string name="hangingPiece">Pieza colgante</string>
+  <string name="interference">Interferencia</string>
+  <string name="knightEndgame">Final de caballos</string>
   <string name="mate">Mate</string>
   <string name="mateDescription">Gana el juego con estilo.</string>
   <string name="mateIn1">Mate en 1</string>
@@ -38,9 +50,11 @@
   <string name="queenEndgameDescription">Un final solo con damas y peones.</string>
   <string name="queensideAttack">Ataque en el flanco de dama</string>
   <string name="queensideAttackDescription">Un ataque al rey del oponente, luego de haber realizado el enroque largo.</string>
+  <string name="rookEndgame">Final de torres</string>
+  <string name="sacrifice">Sacrificio</string>
+  <string name="shortDescription">Dos movimientos para ganar.</string>
   <string name="smotheredMate">Mate del ahogado</string>
   <string name="trappedPiece">Pieza atrapada</string>
-  <string name="underPromotion">Subpromoción</string>
   <string name="xRayAttack">Ataque de rayos X</string>
   <string name="zugzwang">Zugzwang</string>
 </resources>
