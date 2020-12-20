@@ -17,9 +17,9 @@
   <string name="capturingDefender">Capture the defender</string>
   <string name="capturingDefenderDescription">Removing a piece that is critical to defence of another piece, allowing the now undefended piece to be captured on a following move.</string>
   <string name="crushing">Crushing</string>
-  <string name="crushingDescription">Spot the opponent blunder to obtain a crushing advantage. (eval &gt; 600cp)</string>
+  <string name="crushingDescription">Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)</string>
   <string name="equality">Equality</string>
-  <string name="equalityDescription">Come back from a losing position, and secure a draw or a balanced position. (eval &lt; 200cp)</string>
+  <string name="equalityDescription">Come back from a losing position, and secure a draw or a balanced position. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Kingside attack</string>
   <string name="kingsideAttackDescription">An attack of the opponent's king, after they castled on the king side.</string>
   <string name="clearance">Clearance</string>
