@@ -40,4 +40,7 @@
   <string name="short">Stutt uppgáva</string>
   <string name="shortDescription">Tveir leikir, so er vunnið.</string>
   <string name="skewer">Spjót</string>
+  <string name="skewerDescription">Ein hugsan, ið inniber at eitt fólk við høgum virði, ið verður álopið, flytur burtur, soleiðis at eitt fólk við lægri virði kann verða tikið ella vera fyri álopi. Tað øvuta av eini binding.</string>
+  <string name="smotheredMate">Kvalt mát</string>
+  <string name="smotheredMateDescription">Skák og mát, framt av einum riddara, har mátaði kongurin ikki er førur fyri at flyta, tí at hann er umgyrdur (ella kvaldur) av egnum fólki.</string>
 </resources>
