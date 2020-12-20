@@ -72,8 +72,14 @@
   <string name="queenEndgame">Finale de dames</string>
   <string name="queenEndgameDescription">Une finale avec seulement des dames et des pions.</string>
   <string name="queensideAttack">Attaque à l\'aile dame</string>
+  <string name="quietMove">Coup silencieux</string>
+  <string name="quietMoveDescription">Un mouvement qui ne fait pas échec ni n\'est une capture, mais qui prépare une menace inévitable.</string>
+  <string name="rookEndgame">Finale de tours</string>
+  <string name="rookEndgameDescription">Une finale avec seulement des tours et des pions.</string>
   <string name="sacrifice">Sacrifice</string>
+  <string name="sacrificeDescription">Une tactique constant à donner du matériel à court terme, pour gagner un avantage après une séquence de coups forcés.</string>
   <string name="short">Court problème</string>
+  <string name="shortDescription">Victoire en deux coups.</string>
   <string name="skewer">Enfilade</string>
   <string name="smotheredMate">Mat à l\'étouffée</string>
 </resources>
