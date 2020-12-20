@@ -22,17 +22,10 @@ object PuzzlePath {
 }
 
 final private class PuzzlePathApi(
-    colls: PuzzleColls,
-    cacheApi: CacheApi
+    colls: PuzzleColls
 )(implicit ec: ExecutionContext) {
 
   import BsonHandlers._
-
-  def countsByTheme: Fu[Map[PuzzleTheme.Key, Int]] =
-    countByThemeCache get {}
-
-  def countPuzzlesByTheme(theme: PuzzleTheme.Key): Fu[Int] =
-    countsByTheme dmap { _.getOrElse(theme, 0) }
 
   def nextFor(
       user: User,
@@ -78,32 +71,4 @@ final private class PuzzlePathApi(
     "min" $lte f"${theme}_${tier}_${rating.max}%04d",
     "max" $gt f"${theme}_${tier}_${rating.min}%04d"
   )
-
-  private val countByThemeCache =
-    cacheApi.unit[Map[PuzzleTheme.Key, Int]] {
-      _.refreshAfterWrite(20 minutes)
-        .buildAsyncFuture { _ =>
-          import Puzzle.BSONFields._
-          colls.puzzle {
-            _.aggregateList(Int.MaxValue) { framework =>
-              import framework._
-              Project($doc(themes -> true)) -> List(
-                Unwind(themes),
-                GroupField(themes)("nb" -> SumAll)
-              )
-            }.map {
-              _.flatMap { obj =>
-                for {
-                  key   <- obj string "_id"
-                  count <- obj int "nb"
-                } yield PuzzleTheme.Key(key) -> count
-              }.toMap
-            }.flatMap { themed =>
-              colls.puzzle(_.countAll) map { all =>
-                themed + (PuzzleTheme.mix.key -> all.toInt)
-              }
-            }
-          }
-        }
-    }
 }

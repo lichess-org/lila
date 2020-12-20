@@ -9,10 +9,10 @@ import lila.db.dsl._
 import lila.memo.CacheApi
 import lila.user.{ User, UserRepo }
 
-final private[puzzle] class PuzzleApi(
+final class PuzzleApi(
     colls: PuzzleColls,
-    pathApi: PuzzlePathApi,
-    trustApi: PuzzleTrustApi
+    trustApi: PuzzleTrustApi,
+    countApi: PuzzleCountApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Puzzle.{ BSONFields => F }
@@ -70,7 +70,7 @@ final private[puzzle] class PuzzleApi(
   object theme {
 
     def categorizedWithCount: Fu[List[(lila.i18n.I18nKey, List[PuzzleTheme.WithCount])]] =
-      pathApi.countsByTheme map { counts =>
+      countApi.countsByTheme map { counts =>
         PuzzleTheme.categorized.map { case (cat, puzzles) =>
           cat -> puzzles.map { pt =>
             PuzzleTheme.WithCount(pt, counts.getOrElse(pt.key, 0))

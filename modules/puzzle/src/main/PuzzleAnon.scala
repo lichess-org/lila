@@ -8,9 +8,12 @@ import lila.common.ThreadLocalRandom
 import lila.db.dsl._
 import lila.memo.CacheApi
 
-final class PuzzleAnon(colls: PuzzleColls, cacheApi: CacheApi, pathApi: PuzzlePathApi)(implicit
-    ec: ExecutionContext
-) {
+final class PuzzleAnon(
+    colls: PuzzleColls,
+    cacheApi: CacheApi,
+    pathApi: PuzzlePathApi,
+    countApi: PuzzleCountApi
+)(implicit ec: ExecutionContext) {
 
   import BsonHandlers._
 
@@ -32,7 +35,7 @@ final class PuzzleAnon(colls: PuzzleColls, cacheApi: CacheApi, pathApi: PuzzlePa
     cacheApi[PuzzleTheme.Key, Vector[Puzzle]](initialCapacity = 64, name = "puzzle.byTheme.anon") {
       _.refreshAfterWrite(2 minutes)
         .buildAsyncFuture { theme =>
-          pathApi countPuzzlesByTheme theme flatMap { count =>
+          countApi byTheme theme flatMap { count =>
             val tier =
               if (count > 5000) PuzzleTier.Top
               else if (count > 2000) PuzzleTier.Good
