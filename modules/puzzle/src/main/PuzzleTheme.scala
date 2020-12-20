@@ -84,16 +84,13 @@ object PuzzleTheme {
       advancedPawn,
       attackingF2F7,
       capturingDefender,
-      castling,
       discoveredAttack,
       doubleCheck,
-      enPassant,
       exposedKing,
       fork,
       hangingPiece,
       kingsideAttack,
       pin,
-      promotion,
       queensideAttack,
       sacrifice,
       skewer,
@@ -108,7 +105,6 @@ object PuzzleTheme {
       intermezzo,
       overloading,
       quietMove,
-      underPromotion,
       xRayAttack,
       zugzwang
     ),
@@ -120,6 +116,12 @@ object PuzzleTheme {
       mateIn5,
       smotheredMate,
       backRankMate
+    ),
+    trans.puzzle.specialMoves -> List(
+      castling,
+      enPassant,
+      promotion,
+      underPromotion
     ),
     trans.puzzle.goals -> List(
       equality,
