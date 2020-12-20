@@ -3,5 +3,6 @@
   <string name="advancedPawn">Vorgerückter Bauer</string>
   <string name="advancedPawnDescription">Ein Bauer, der umwandelt oder oder zu umwandeln droht, ist Schlüssel zur Taktik.</string>
   <string name="advantage">Vorteil</string>
+  <string name="attackingF2F7">Angriff f2 oder f7</string>
   <string name="backRankMate">Grundreihenmatt</string>
 </resources>
