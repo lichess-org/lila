@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessCoaches">Lichess treneriai</string>
+  <string name="lichessCoach">Lichess treneris</string>
+  <string name="areYouCoach">Ar esate geras šachmatų treneris su %s?</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM ar FIDE titulu</string>
+  <string name="confirmTitle">Patvirtinkite savo titulą čia ir mes peržiūrėsime jūsų aplikaciją.</string>
+  <string name="sendApplication">Išsiųskite mums el. paštą adresu %s ir mes peržiūrėsime jūsų aplikaciją.</string>
+  <string name="location">Vieta</string>
+  <string name="languages">Kalbos</string>
+  <string name="rating">Reitingas</string>
+  <string name="hourlyRate">Valandinis mokestis</string>
+  <string name="availability">Prieinamumas</string>
+  <string name="accepting">Priimami mokiniai</string>
+  <string name="notAccepting">Kol kas mokiniai nepriimami</string>
+</resources>
