@@ -5,8 +5,10 @@
   <string name="phases">Szakaszok</string>
   <string name="motifs">Motívumok</string>
   <string name="advanced">Haladó</string>
+  <string name="lengths">Hossz</string>
   <string name="mates">Matt</string>
   <string name="goals">Célok</string>
+  <string name="specialMoves">Különleges lépések</string>
   <string name="didYouLikeThisPuzzle">Tetszett ez a feladvány?</string>
   <string name="voteToLoadNextOne">Szavazz a következő feladványhoz!</string>
   <string name="yourPuzzleRatingX">Feladvány pontszámod: %s</string>
