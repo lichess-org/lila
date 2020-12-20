@@ -2,6 +2,7 @@ package lila.puzzle
 
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
+import scala.util.chaining._
 
 import lila.common.ThreadLocalRandom
 import lila.db.dsl._
@@ -25,8 +26,7 @@ final class PuzzleAnon(colls: PuzzleColls, cacheApi: CacheApi, pathApi: PuzzlePa
     pool get PuzzleTheme.mix.key map (_ take nb)
   }.mon(_.puzzle.selector.anon.batch(nb))
 
-  private val poolSize      = 150
-  private val minPathLength = 10
+  private val poolSize = 150
 
   private val pool =
     cacheApi[PuzzleTheme.Key, Vector[Puzzle]](initialCapacity = 64, name = "puzzle.byTheme.anon") {
@@ -41,11 +41,16 @@ final class PuzzleAnon(colls: PuzzleColls, cacheApi: CacheApi, pathApi: PuzzlePa
               if (count > 9000) 1300 to 1600
               else if (count > 5000) 1100 to 1800
               else 0 to 9999
+            val pathSampleSize =
+              if (count > 9000) 3
+              else if (count > 5000) 5
+              else if (count > 2000) 8
+              else 15
             colls.path {
               _.aggregateList(poolSize) { framework =>
                 import framework._
                 Match(pathApi.select(theme, tier, ratingRange)) -> List(
-                  Sample(poolSize / minPathLength),
+                  Sample(pathSampleSize),
                   Project($doc("puzzleId" -> "$ids", "_id" -> false)),
                   Unwind("puzzleId"),
                   Sample(poolSize),
