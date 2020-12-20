@@ -53,9 +53,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
       Modlog.make(mod, sus, if (sus.user.marks.troll) Modlog.troll else Modlog.untroll)
     }
 
-  def forceKid(mod: User.ID, kid: User.ID, success: Boolean) =
+  def forceKid(mod: User.ID, kid: User.ID) =
     add {
-      Modlog(mod, kid.some, if (success) Modlog.forceKidSuccess else Modlog.forceKidFailure)
+      Modlog(mod, kid.some, Modlog.forceKid)
     }
 
   def disableTwoFactor(mod: User.ID, user: User.ID) =

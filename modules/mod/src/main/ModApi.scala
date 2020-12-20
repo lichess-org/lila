@@ -113,8 +113,7 @@ final class ModApi(
   def setKid(mod: String, username: String): Funit =
     withUser(username) { user =>
       userRepo.isKid(user.id) flatMap {
-        case false => (userRepo.setKid(user, true)) >> logApi.forceKid(mod, user.id, true)
-        case true => logApi.forceKid(mod, user.id, false)
+        !_ ?? {(userRepo.setKid(user, true))} >> logApi.forceKid(mod, user.id)
         }
     }  
 
