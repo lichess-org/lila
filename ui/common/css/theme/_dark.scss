@@ -1,0 +1,108 @@
+@import "default";
+
+$theme: "dark";
+$theme-light: false;
+$theme-dark: true;
+
+@function c-dimmer($color, $weight: 20%) {
+  @return mix(#000, $color, $weight);
+}
+
+@function c-clearer($color, $weight: 20%) {
+  @return mix(#fff, $color, $weight);
+}
+
+$c-bg-page: hsl($c-site-hue, 10%, 8%);
+$c-bg-high: hsl($c-site-hue, 7%, 14%);
+$c-bg-low: hsl($c-site-hue, 7%, 22%);
+
+/* even rows in list or tables, subtle shade of $c-bg-high */
+$c-bg-zebra: hsl($c-site-hue, 5%, 18%);
+$c-bg-zebra2: hsl($c-site-hue, 5%, 23%);
+
+$c-body-gradient: hsl($c-site-hue, 12%, 16%);
+
+$c-font: hsl(0, 0%, 73%);
+$c-font-dim: c-light($c-font, 60%);
+$c-font-dimmer: c-light($c-font, 42%);
+$c-font-clear: c-light($c-font, 80%);
+$c-font-clearer: c-light($c-font, 89%);
+$c-shade: c-light($c-font, 30%);
+$c-font-page: $c-font-dim;
+
+/* Primary: blue */
+$c-primary: hsl(209, 79%, 56%);
+$c-primary-dim: c-dimmer($c-primary, 15%);
+$c-primary-clear: c-clearer($c-primary);
+
+/* Secondary: green */
+$c-secondary: hsl(88, 62%, 37%);
+$c-secondary-dim: c-dimmer($c-secondary);
+$c-secondary-dimmer: c-dimmer($c-secondary, 40%);
+
+/* Brag: gold */
+$c-brag: hsl(37, 74%, 43%);
+
+/* Fancy: pink */
+$c-fancy: hsl(294, 62%, 48%);
+
+/* Good: green */
+$c-good: $c-secondary;
+$c-good-over: $c-secondary-over;
+
+/* Warn: orange */
+$c-warn: $c-brag;
+$c-warn-over: $c-brag-over;
+
+/* Bad: red */
+$c-bad: $c-error;
+$c-bad-over: $c-error-over;
+
+$c-link: $c-primary;
+$c-link-dim: $c-primary-dim;
+$c-link-clear: $c-primary-clear;
+$c-link-hover: c-clearer(saturate($c-primary, 100%), 25%);
+
+$c-bg-box: $c-bg-high;
+$c-bg-box-opaque: $c-bg-box;
+$c-bg-input: c-light($c-bg-page, 13%);
+
+$c-bg-popup: $c-bg-low;
+$c-popup: $c-font-clear;
+
+$c-bg-header-dropdown: $c-bg-popup;
+$c-header-dropdown: $c-popup;
+
+$c-bot: $c-fancy;
+
+$c-page-input: $c-bg-box;
+
+$c-border: hsl(0, 0%, 25%);
+$c-border-page: hsl(0, 0%, 22%);
+$border: $border-width $border-style $c-border;
+
+$c-font-shadow: black;
+$text-shadow: none;
+
+@mixin metal-bg {
+  background: linear-gradient(to bottom, hsl($c-site-hue, 7%, 22), hsl($c-site-hue, 5%, 19) 100%);
+}
+
+@mixin metal {
+  @include metal-bg;
+}
+
+@mixin metal-hover {
+  background: linear-gradient(to bottom, hsl($c-site-hue, 7%, 25), hsl($c-site-hue, 5%, 22) 100%);
+  color: $c-font-clear;
+}
+
+@mixin page-metal {
+  @include metal;
+}
+
+@mixin page-metal-hover {
+  @include metal-hover;
+}
+
+@mixin theme-style {}

@@ -1,0 +1,127 @@
+.action-menu {
+  @extend %border-bottom-active;
+
+  flex: 1 1 0;
+
+  // 0 size forces vertical scrollbar
+  display: flex;
+  flex-flow: column;
+  overflow: auto;
+  padding: $block-gap;
+
+  h2 {
+    font-size: 1em;
+    text-transform: uppercase;
+    text-align: center;
+    white-space: nowrap;
+    margin: $block-gap 0 3px 0;
+    display: table;
+    padding: 0 10px;
+
+    &:before,
+    &:after {
+      border-top: $border;
+      content: '';
+      display: table-cell;
+      position: relative;
+      top: .5em;
+      width: 45%;
+    }
+
+    &:before {
+      right: 8px;
+    }
+
+    &:after {
+      left: 8px;
+    }
+  }
+
+  &__tools {
+    flex: 0 0 auto;
+    display: flex;
+    flex-flow: row wrap;
+
+    > * {
+      @extend %flex-column;
+
+      flex: 0 0 50%;
+      text-align: center;
+      padding: 0;
+      height: 75px;
+      justify-content: center;
+    }
+
+    .button {
+      color: $c-font;
+      text-transform: none;
+      white-space: normal;
+
+      &::before {
+        display: block;
+        font-size: 2em;
+        line-height: 1em;
+        margin-bottom: 5px;
+      }
+    }
+  }
+
+  .autoplay {
+    display: flex;
+
+    a {
+      color: $c-font-dim;
+      font-size: .9em;
+      flex: 1 1 auto;
+      padding: 7px 0;
+      text-align: center;
+    }
+  }
+
+  form.delete {
+    text-align: right;
+    margin-top: 6px;
+
+    .button {
+      display: inline-block;
+      padding: 0 8px;
+    }
+
+    .button::before {
+      font-size: 1.2em;
+    }
+  }
+
+  .setting {
+    flex: 0 0 auto;
+    margin-top: $block-gap;
+    display: flex;
+
+    label {
+      flex: 4 1 auto;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    input[type=range] {
+      flex: 1 4 auto;
+      padding: 0 1em;
+      height: 1.6em;
+      width: 100%;
+    }
+
+    .range_value {
+      flex: 0 0 auto;
+      display: block;
+      text-align: right;
+    }
+  }
+
+  @include breakpoint($mq-col1) {
+    .abset-inline {
+      display: none;
+    }
+
+    // force inline on mobile
+  }
+}

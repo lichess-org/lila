@@ -1,0 +1,173 @@
+$c-setup: $c-secondary;
+$c-slider: $c-setup;
+
+.game-setup {
+  display: block;
+
+  #modal-wrap {
+    width: 30em;
+    padding: 0;
+  }
+
+  text-align: center;
+
+  h2 {
+    margin: 1.5rem 0;
+  }
+
+  form > div {
+    padding: .5em 1em;
+  }
+
+  group.radio {
+    margin: 0 auto 1em auto;
+    width: 70%;
+
+    .disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    input:checked + label {
+      background: $c-setup;
+    }
+  }
+
+  .optional_config {
+    border-bottom: $border;
+  }
+
+  .mode_choice {
+    margin-top: 1em;
+  }
+
+  .optional_config,
+  .ratings {
+    background: $c-bg-zebra;
+    border-top: $border;
+  }
+
+  .label_select {
+    @extend %flex-center;
+
+    text-align: left;
+
+    &.variant {
+      margin-bottom: .5em;
+    }
+
+    label {
+      flex: 0 0 33%;
+      text-align: right;
+    }
+
+    select {
+      margin-left: .8em;
+      font-weight: bold;
+    }
+  }
+
+  .fen_position {
+    display: none;
+
+    .board_editor {
+      display: block;
+      width: 50%;
+      margin: .5em auto 0 auto;
+    }
+
+    .fen_form {
+      @extend %flex-center-nowrap;
+    }
+
+    .fen_form input {
+      flex: 1 1 100%;
+    }
+  }
+
+  #form3-fen.failure {
+    background: mix($c-bg-box, $c-bad, 80%);
+    box-shadow: 0 0 13px $c-bad;
+  }
+
+  .ui-slider {
+    margin: .5em 1em;
+  }
+
+  .slider {
+    padding-top: 5px;
+    text-align: left;
+
+    span {
+      font-weight: bold;
+    }
+  }
+
+  .ratings {
+    padding: 1em;
+    width: 100%;
+    text-align: center;
+  }
+
+  .ratings div {
+    display: none;
+  }
+
+  .color-submits {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin: 1em auto;
+    text-align: center;
+
+    &__button {
+      margin: 0 .5em;
+      width: 64px;
+      height: 64px;
+      padding: 7px;
+
+      i {
+        display: block;
+        padding: 0;
+        width: 50px;
+        height: 50px;
+        background-size: 50px 50px;
+      }
+
+      &.white i {
+        background-image: img-url("../piece/cburnett/wK.svg");
+      }
+
+      &.black i {
+        background-image: img-url("../piece/cburnett/bK.svg");
+      }
+
+      &.random {
+        width: 85px;
+        height: 85px;
+        padding: 10px;
+
+        i {
+          background-image: img-url("wbK.svg");
+          background-size: 65px 65px;
+          width: 65px;
+          height: 65px;
+        }
+      }
+
+      &.nope {
+        visibility: hidden;
+      }
+
+      &:disabled {
+        opacity: 0.3;
+      }
+    }
+
+    .spinner {
+      width: 85px;
+      height: 85px;
+      margin: 10px auto 20px auto;
+    }
+  }
+}

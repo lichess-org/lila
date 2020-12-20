@@ -1,0 +1,32 @@
+{
+  "name": "puzzle",
+  "version": "2.0.0",
+  "private": true,
+  "description": "lichess.org puzzle solver",
+  "main": "src/main.js",
+  "keywords": [
+    "chess",
+    "lichess",
+    "puzzle",
+    "training"
+  ],
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0-or-later",
+  "devDependencies": {
+    "@build/rollupProject": "2.0.0",
+    "@types/jquery": "^2.0",
+    "@types/lichess": "2.0.0"
+  },
+  "dependencies": {
+    "ceval": "2.0.0",
+    "chessground": "^7.9.2",
+    "chessops": "^0.6.0",
+    "common": "2.0.0",
+    "snabbdom": "^0.7.4",
+    "tree": "2.0.0"
+  },
+  "scripts": {
+    "dev": "rollup --config",
+    "prod": "rollup --config --config-prod"
+  }
+}

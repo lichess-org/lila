@@ -1,0 +1,50 @@
+.mobile {
+  .sides {
+    @extend %flex-wrap;
+  }
+
+  .left-side {
+    flex: 1 1 auto;
+
+    .stores {
+      display: flex;
+
+      a {
+        @extend %flex-center;
+      }
+    }
+
+    h2 {
+      margin-top: 2rem;
+    }
+
+    .block {
+      margin: 10px 0 20px 0;
+    }
+
+    li {
+      list-style-type: none;
+      font-size: 1.2em;
+      line-height: 1.5em;
+      padding-left: 2em;
+    }
+
+    li:before {
+      vertical-align: middle;
+      content: '\2713';
+      display: inline-block;
+      color: $c-good;
+      font-weight: bold;
+      padding: 0 6px 0 0;
+    }
+  }
+
+  .right-side {
+    flex: 0 0 264px;
+    text-align: center;
+
+    .qrcode {
+      margin-top: 20px;
+    }
+  }
+}

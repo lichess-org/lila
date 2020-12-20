@@ -1,0 +1,29 @@
+.lobby__about {
+  display: flex;
+  align-content: flex-start;
+  flex-flow: row wrap;
+  font-size: .85em;
+  font-weight: bold;
+
+  a {
+    @extend %page-text;
+
+    margin-right: 1.2em;
+    white-space: nowrap;
+
+    @include transition(color);
+
+    &:hover {
+      color: $c-link;
+    }
+  }
+}
+
+.connect-links {
+  flex: 0 0 100%;
+  margin-top: .5em;
+
+  a {
+    font-weight: normal;
+  }
+}

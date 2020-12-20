@@ -1,0 +1,166 @@
+.swiss__standing {
+  border: none;
+
+  .player {
+    padding-left: 0px;
+    padding-right: 0px;
+
+    .name {
+      @extend %nowrap-ellipsis;
+
+      display: inline-block;
+      vertical-align: middle;
+      padding-right: 5px;
+      max-width: 140px;
+    }
+  }
+
+  .user-link.long {
+    letter-spacing: -0.7px;
+  }
+
+  .user-link .rating {
+    font-style: italic;
+    font-size: .8em;
+  }
+
+  tr {
+    @include transition;
+
+    user-select: none;
+  }
+
+  .loading tbody {
+    opacity: 0.6;
+
+    @include transition(opacity, 0.3s);
+  }
+
+  &:not(.created):not(.loading) tbody tr:hover {
+    background: mix($c-primary, $c-bg-box, 15%);
+    cursor: pointer;
+  }
+
+  tr.me td:first-child {
+    $c-me-border: mix($c-secondary, $c-bg-box, 70%);
+
+    background: linear-gradient(to right, $c-me-border 0px, $c-me-border 5px, rgba(0, 0, 0, 0) 5px, rgba(0, 0, 0, 0) 100%);
+  }
+
+  tr.active td:last-child {
+    $c-active-border: mix($c-primary, $c-bg-box, 70%);
+
+    background: linear-gradient(to left, $c-active-border 0px, $c-active-border 5px, rgba(0, 0, 0, 0) 5px, rgba(0, 0, 0, 0) 100%);
+  }
+
+  td.rank {
+    @extend %roboto;
+
+    padding: 1em .5em 1em 10px;
+    width: 1px;
+
+    /* helps keeping it as small as possible */
+    i {
+      opacity: .4;
+      font-size: .8em;
+    }
+  }
+
+  .pairings {
+    padding: 0;
+    font-weight: bold;
+    width: 100%;
+
+    div {
+      @extend %flex-center;
+
+      justify-content: flex-end;
+      align-items: stretch;
+      min-height: 3.5em;
+
+      & > * {
+        @extend %flex-center;
+
+        justify-content: center;
+        flex: 0 0 2em;
+        text-align: center;
+      }
+    }
+
+    .ongoing {
+      color: $c-link;
+
+      // background: mix($c-link, $c-bg-box, 15%);
+      &:hover {
+        background: mix($c-link, $c-bg-box, 35%);
+      }
+    }
+
+    .win {
+      color: $c-good;
+
+      // background: mix($c-good, $c-bg-box, 15%);
+      &:hover {
+        background: mix($c-good, $c-bg-box, 35%);
+      }
+    }
+
+    .loss {
+      color: mix($c-bad, $c-bg-box, 60%);
+
+      // background: mix($c-bad, $c-bg-box, 10%);
+      &:hover {
+        background: mix($c-bad, $c-bg-box, 20%);
+      }
+    }
+
+    .draw {
+      color: mix($c-brag, $c-bg-box, 70);
+    }
+
+    bye {
+      color: $c-font-dim;
+    }
+
+    late {
+      color: $c-font-dim;
+    }
+
+    absent {
+      color: mix($c-bad, $c-bg-box, 60%);
+    }
+
+    r {
+      border-left: 1px dotted $c-border;
+    }
+  }
+
+  .points {
+    text-align: right;
+    font-weight: bold;
+  }
+
+  .tieBreak {
+    @extend %roboto;
+
+    text-align: right;
+    padding-right: $block-gap;
+  }
+
+  &.long {
+    .user-link .rating {
+      display: block;
+      padding-left: 0px;
+    }
+
+    .pairings div > * {
+      flex: 0 0 1.5em;
+    }
+  }
+
+  &.xlong & {
+    .pairings div > * {
+      flex: 0 0 1.3em;
+    }
+  }
+}

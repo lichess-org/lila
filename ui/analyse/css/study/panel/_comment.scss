@@ -1,0 +1,48 @@
+.study__comments {
+  form p {
+    margin: 1em 0;
+  }
+
+  #comment-text {
+    @extend %box-shadow;
+
+    height: 12em;
+  }
+}
+
+.study__comment {
+  @extend %box-neat;
+
+  background: $c-bg-box;
+  padding: .8em 1em;
+  margin-bottom: .8em;
+
+  .text {
+    @extend %break-word;
+
+    margin-top: .3em;
+    width: 100%;
+    overflow: hidden;
+    display: inline-block;
+  }
+
+  .edit {
+    float: right;
+    margin-left: 8px;
+    opacity: 0.7;
+    display: none;
+  }
+
+  &:hover .edit {
+    display: block;
+  }
+
+  .edit:hover {
+    opacity: 1;
+  }
+
+  .user-link,
+  .node {
+    font-weight: bold;
+  }
+}

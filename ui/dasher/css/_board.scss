@@ -1,0 +1,154 @@
+#dasher_app .theme {
+  .list {
+    @extend %flex-wrap;
+
+    margin: 5px 0;
+  }
+
+  .list a {
+    flex: 0 0 50%;
+    height: 44px;
+
+    @extend %flex-center;
+
+    justify-content: center;
+  }
+
+  .list span {
+    display: block;
+    width: 64px;
+    height: 32px;
+  }
+
+  &.d3 .list span {
+    width: 66px;
+    height: 30px;
+
+    @include transition(transform);
+  }
+
+  .list a:hover {
+    filter: brightness(1.05);
+  }
+
+  .list a:hover span {
+    transform: scale(1.05);
+  }
+
+  .list a.active {
+    background-color: $c-shade;
+  }
+
+  &.d2 {
+    .blue {
+      background-image: url(../images/board/svg/blue.svg);
+      background-size: 256px;
+    }
+
+    .blue2 {
+      background-image: url(../images/board/blue2.thumbnail.jpg);
+    }
+
+    .blue-marble {
+      background-image: url(../images/board/blue-marble.thumbnail.jpg);
+    }
+
+    .wood2 {
+      background-image: url(../images/board/wood2.thumbnail.jpg);
+    }
+
+    .wood3 {
+      background-image: url(../images/board/wood3.thumbnail.jpg);
+    }
+
+    .wood4 {
+      background-image: url(../images/board/wood4.thumbnail.jpg);
+    }
+
+    .blue3 {
+      background-image: url(../images/board/blue3.thumbnail.jpg);
+    }
+
+    .marble {
+      background-image: url(../images/board/marble.thumbnail.jpg);
+    }
+
+    .brown {
+      background-image: url(../images/board/svg/brown.svg);
+      background-size: 256px;
+    }
+
+    .green {
+      background-image: url(../images/board/svg/green.svg);
+      background-size: 256px;
+    }
+
+    .olive {
+      background-image: url(../images/board/olive.thumbnail.jpg);
+    }
+
+    .purple {
+      background-image: url(../images/board/svg/purple.svg);
+      background-size: 256px;
+    }
+
+    .grey {
+      background-image: url(../images/board/grey.thumbnail.jpg);
+    }
+
+    .wood {
+      background-image: url(../images/board/wood.thumbnail.jpg);
+    }
+
+    .canvas {
+      background-image: url(../images/board/canvas2.thumbnail.jpg);
+    }
+
+    .leather {
+      background-image: url(../images/board/leather.thumbnail.jpg);
+    }
+
+    .metal {
+      background-image: url(../images/board/metal.thumbnail.jpg);
+    }
+
+    .maple {
+      background-image: url(../images/board/maple.thumbnail.jpg);
+    }
+
+    .maple2 {
+      background-image: url(../images/board/maple2.thumbnail.jpg);
+    }
+
+    .newspaper {
+      background-image: url(../images/board/newspaper.thumbnail.png);
+    }
+
+    .green-plastic {
+      background-image: url(../images/board/green-plastic.thumbnail.png);
+    }
+
+    .purple-diag {
+      background-image: url(../images/board/purple-diag.thumbnail.png);
+    }
+
+    .pink {
+      background-image: url(../images/board/pink-pyramid.thumbnail.png);
+    }
+
+    .ic {
+      background-image: url(../images/board/svg/ic.svg);
+      background-size: 256px;
+    }
+  }
+
+  &.d3 {
+    $board-files: "Black-White-Aluminium", "Brushed-Aluminium", "China-Blue", "China-Green", "China-Grey", "China-Scarlet", "China-Yellow", "Classic-Blue", "Transparent-Glass", "Gold-Silver", "Green-Glass", "Light-Wood", "Power-Coated", "Purple-Black", "Rosewood", "Wood-Glass", "Wax", "Jade", "Marble", "Woodi";
+
+    @each $name in $board-files {
+      .#{$name} {
+        background-image: img-url("staunton/board/#{$name}.thumbnail.png");
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+body {
+  background: none;
+  overflow: hidden;
+}
+
+.embedded {
+  display: block;
+  background: $c-bg-page;
+  padding: .3em;
+  color: $c-font !important;
+
+  cg-board {
+    box-shadow: none;
+  }
+
+  .text {
+    display: block;
+    text-align: center;
+    margin: .3em 0;
+  }
+}

@@ -1,0 +1,52 @@
+.forum-topic {
+  &.topic-form {
+    .warning {
+      @extend %box-radius;
+
+      border-radius: 20px;
+      padding: 1rem;
+      background: mix($c-error, $c-bg-box, 15%);
+      border: 1px solid $c-error;
+      text-align: center;
+      font-size: 1.3em;
+      margin-bottom: 2rem;
+
+      h2 {
+        font-weight: bold;
+        color: $c-error;
+      }
+
+      h2,
+      p {
+        margin: 1.5rem;
+      }
+    }
+  }
+
+  &__posts {
+    margin-top: 2rem;
+  }
+
+  &__actions {
+    @extend %flex-between;
+
+    margin-bottom: 3rem;
+
+    div {
+      @extend %flex-wrap;
+
+      .button {
+        margin-left: 1rem;
+      }
+
+      .unsub.on .off,
+      .unsub.off .on {
+        display: none;
+      }
+    }
+  }
+
+  .reply label[for=form3-text] {
+    display: none;
+  }
+}

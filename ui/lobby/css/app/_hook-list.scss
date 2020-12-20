@@ -1,0 +1,99 @@
+.hooks__list {
+  width: 100%;
+
+  tr {
+    &.disabled {
+      opacity: 0.4;
+
+      td {
+        cursor: default;
+        background: transparent;
+        border-color: transparent;
+      }
+    }
+
+    &.cancel td {
+      background: fade-out($c-secondary, 0.6);
+    }
+
+    &.join:hover td {
+      background: fade-out($c-accent, 0.5);
+      color: #fff;
+    }
+
+    &:not(.disabled):hover ::before {
+      opacity: 1;
+    }
+
+    &.variants td {
+      text-align: center;
+      padding: 3px 0;
+      background: none;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      cursor: default;
+    }
+  }
+
+  th {
+    @extend %roboto;
+
+    padding: 1em;
+
+    &.sortable {
+      cursor: pointer;
+    }
+
+    &.sortable:hover,
+    &.sort {
+      font-weight: normal;
+    }
+
+    &.sort .is:before {
+      opacity: 0.7;
+      margin-right: 3px;
+      content: "R";
+    }
+
+    &.player {
+      width: 110px;
+    }
+  }
+
+  td {
+    @extend %nowrap-hidden;
+
+    padding: .5em .7em;
+    border-bottom: $border;
+    cursor: pointer;
+    background: fade-out($c-bg-box, 0.5);
+
+    &:first-child {
+      width: 16px;
+    }
+
+    &:first-child ::before {
+      font-size: 1.2em;
+      line-height: 1.3;
+    }
+
+    &:last-child ::before {
+      margin-right: 8px;
+      line-height: 0.9;
+      font-size: 1.6em;
+    }
+
+    ::before {
+      opacity: 0.6;
+    }
+  }
+
+  tbody.stepping {
+    opacity: 0.7;
+  }
+}
+
+.lseeks .create {
+  margin-top: 20px;
+  text-align: center;
+}

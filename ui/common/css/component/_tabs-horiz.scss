@@ -1,0 +1,63 @@
+$c-tabs-active: $c-accent !default;
+
+.tabs-horiz {
+  @extend %flex-center-nowrap, %page-text;
+
+  justify-content: center;
+  align-items: flex-end;
+  border-bottom: 2px solid $c-border;
+
+  @include breakpoint($mq-not-xx-small) {
+    font-size: .9em;
+  }
+
+
+  span {
+    @extend %roboto;
+
+    flex: 1 1 auto;
+    text-align: center;
+    padding: .5em .2em;
+    cursor: pointer;
+    position: relative;
+
+    @include transition(color, 0.25s);
+
+    min-width: 15%;
+    letter-spacing: -.5px;
+
+    @include breakpoint($mq-xx-small) {
+      letter-spacing: inherit;
+    }
+
+
+    &::after {
+      content: '';
+      background: fade-out($c-tabs-active, 0.3);
+      height: 2px;
+      position: absolute;
+      width: 96%;
+      left: 2%;
+      bottom: -2px;
+
+      @include transition(all, 0.25s);
+
+      transform: scale(0);
+    }
+
+    &.active,
+    &:hover {
+      &::after {
+        transform: scale(1);
+      }
+    }
+
+    &.active {
+      color: $c-tabs-active;
+    }
+  }
+
+  .unread {
+    margin-left: .3em;
+  }
+}

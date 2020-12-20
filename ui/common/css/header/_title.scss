@@ -1,0 +1,56 @@
+.site-title {
+  @extend %base-font;
+
+  font-size: 25px;
+  line-height: #{$site-header-short-height - 3};
+  text-shadow: $text-shadow;
+  white-space: nowrap;
+  margin: 0 .5rem;
+  display: none;
+
+  @include breakpoint($mq-xx-small) {
+    display: block;
+  }
+
+
+  @include breakpoint($mq-topnav-hidden) {
+    /* move away from hamburger */
+    margin-left: calc(.5rem + #{$site-header-height});
+  }
+
+
+  @include breakpoint($mq-site-header-tall) {
+    font-size: 30px;
+    line-height: #{$site-header-tall-height - 3};
+  }
+
+
+  @include breakpoint($mq-topnav-visible $mq-site-header-tall) {
+    line-height: #{$site-header-tall-height - 5};
+    margin: 0 1rem;
+  }
+
+
+  a {
+    color: $c-font;
+    text-decoration: none;
+
+    &:hover {
+      color: $c-primary;
+
+      span {
+        color: $c-primary-dim;
+      }
+    }
+  }
+
+  span {
+    color: $c-font-dim;
+  }
+
+  .kiddo {
+    color: $c-font-dimmer;
+    font-weight: bold;
+    margin-right: .5em;
+  }
+}

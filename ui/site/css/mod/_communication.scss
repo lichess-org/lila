@@ -1,0 +1,148 @@
+#communication {
+  h1 {
+    @extend %flex-between;
+
+    font-size: 1.5em;
+  }
+
+  .user-link {
+    margin-left: -.5em;
+  }
+
+  .actions {
+    @extend %flex-center;
+
+    .priv {
+      margin-left: 1em;
+      font-weight: normal;
+    }
+  }
+
+  h2 {
+    font-size: 1.6em;
+    margin-top: 1.6em;
+    border-bottom: 1px solid $border;
+    text-transform: capitalize;
+    letter-spacing: 2px;
+  }
+
+  .user-link {
+    font-weight: bold;
+  }
+
+  .public_chats,
+  .notes,
+  .history {
+    margin-top: .5em;
+    max-height: 150px;
+    overflow-y: auto;
+    padding-bottom: .5em;
+    border-bottom: 1px solid $border;
+  }
+
+  .player_chats {
+    @extend %break-word;
+
+    overflow: hidden;
+  }
+
+  .public_chats li {
+    list-style: inside disc;
+  }
+
+  .player_chats .game {
+    display: block;
+    float: left;
+    width: 33.33%;
+  }
+
+  .player_chats .game:nth-child(odd) {
+    background: $c-bg-zebra;
+  }
+
+  .player_chats .game .title,
+  .player_chats .game .chat {
+    display: block;
+    padding: 6px;
+  }
+
+  .player_chats .game .friend_title {
+    color: green;
+    font-style: italic;
+  }
+
+  .player_chats .game .title {
+    text-align: center;
+    border-bottom: $border;
+  }
+
+  .player_chats .game .chat {
+    padding-top: 0;
+    height: 120px;
+    overflow: hidden;
+  }
+
+  .player_chats .game:hover .chat {
+    overflow-y: auto;
+  }
+
+  .player_chats .line,
+  .threads .post {
+    opacity: 0.5;
+    padding: 0 .5em;
+  }
+
+  .player_chats .line.author,
+  .threads .post.author {
+    opacity: 1;
+  }
+
+  .thread {
+    padding: 20px;
+    overflow-y: auto;
+    max-height: 400px;
+  }
+
+  .thread .title {
+    margin-bottom: 20px;
+  }
+
+  .thread .title strong {
+    font-size: 1.2em;
+    display: block;
+  }
+
+  .thread:nth-child(even) {
+    background: $c-bg-zebra;
+  }
+
+  .post {
+    margin: 1em 0;
+  }
+}
+
+/* for public-chat */
+#communication.public_chat {
+  position: relative;
+}
+
+.public_chat #auto_refresh {
+  position: absolute;
+  top: 30px;
+  right: 20px;
+
+  @include transition;
+}
+
+.public_chat #auto_refresh.active.hold {
+  opacity: 0.4;
+}
+
+#communication.public_chat .player_chats .line,
+#communication.public_chat .threads .post {
+  opacity: 1;
+}
+
+#communication.public_chat .chat {
+  overflow-y: auto !important;
+}

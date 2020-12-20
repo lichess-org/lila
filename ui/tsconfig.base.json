@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noEmitOnError": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedParameters": true,
+    "moduleResolution": "node",
+    "target": "ES2016",
+    "module": "commonjs",
+    "lib": ["DOM", "ES2016", "DOM.iterable"],
+    "types": ["lichess", "jquery", "defer-promise"]
+  }
+}

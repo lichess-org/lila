@@ -1,0 +1,29 @@
+$debug: false;
+
+$font-path: "../font";
+$img-path: "../images";
+
+$viewport-min-width: 320px;
+
+$block-gap: 2vmin;
+$block-gap-half: 1vmin;
+
+$block-gap-h: 2vh;
+$block-gap-w: 2vw;
+$block-gap-w-half: 1vw;
+
+$box-radius-size: 3px;
+
+$site-header-tall-height: 60px;
+$site-header-short-height: 40px;
+
+$transition-duration: 150ms;
+
+$main-max-width: 1300px !default;
+
+$main-margin: var(--main-margin);
+$site-header-height: var(--site-header-height);
+
+$site-header-margin: var(--site-header-margin);
+
+$site-header-outer-height: calc(#{$site-header-height} + #{$site-header-margin});

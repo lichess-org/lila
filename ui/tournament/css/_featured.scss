@@ -1,0 +1,32 @@
+.tour__featured {
+  @extend %flex-column;
+
+  .mini-game__player {
+    @extend %flex-center-nowrap;
+
+    & i {
+      flex: 0 0 auto;
+
+      &::before {
+        color: $c-accent;
+        margin-right: 5px;
+      }
+    }
+  }
+
+  .mini-game__user {
+    display: flex;
+
+    strong {
+      text-align: center;
+      margin-right: 1ch;
+    }
+
+    .user-link {
+      @extend %flex-between;
+
+      flex: 1 1 100%;
+      margin-right: 1em;
+    }
+  }
+}

@@ -1,0 +1,93 @@
+.lobby {
+  &__box {
+    @extend %flex-column, %box-neat-force;
+
+    &__top {
+      @extend %metal, %flex-between;
+
+      flex: 0 0 auto;
+      padding: .3em .5em;
+
+      .more {
+        color: $c-font-dim;
+
+        @include transition;
+
+        &:hover {
+          color: $c-link;
+        }
+      }
+
+      .title {
+        @extend %base-font;
+
+        font-size: 1em;
+        font-weight: bold;
+        color: $c-font-dim;
+        padding: .3em;
+      }
+    }
+
+    &__content {
+      background: $c-bg-box;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .user-link {
+      padding-left: -1em;
+      font-weight: bold;
+      color: $c-font-dim;
+    }
+
+    table {
+      width: 100%;
+      height: 100%;
+    }
+
+    td {
+      @extend %nowrap-ellipsis;
+
+      padding: .5em .4em;
+      border-top: $border;
+      max-width: 21ch;
+
+      /* prevent leaderboard overflow due to long usernames */
+      &:first-child {
+        padding-left: .7em;
+      }
+
+      &.name a {
+        font-weight: bold;
+        color: $c-font-dim;
+
+        @include transition;
+
+        &:hover {
+          color: $c-link;
+        }
+      }
+    }
+
+    tr:nth-child(even) {
+      background: $c-bg-zebra;
+    }
+  }
+
+  &__leaderboard,
+  &__winners {
+    td:first-child {
+      @extend %ellipsis;
+    }
+
+    td:last-child {
+      text-align: right;
+      padding-right: .7em;
+    }
+  }
+
+  &__forum .lobby__box__top,
+  &__blog .lobby__box__top {
+    border-bottom: $border;
+  }
+}

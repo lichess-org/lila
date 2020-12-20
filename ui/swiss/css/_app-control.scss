@@ -1,0 +1,92 @@
+.swiss__controls {
+  @extend %metal, %flex-between, %box-shadow;
+
+  padding: 0 0px;
+  position: relative;
+
+  .fbt {
+    padding: .6em .8em;
+
+    @include breakpoint($mq-xx-small) {
+      padding: .6em 1em;
+    }
+
+
+    text-transform: uppercase;
+    line-height: 1.3;
+  }
+
+  .highlight {
+    position: absolute;
+    right: 5px;
+    top: -3px;
+    padding: 8px 20px;
+    border-radius: 8px;
+    color: #FFF;
+    text-decoration: none;
+    background: #82BF56;
+    border-bottom: 5px solid #759900;
+    text-shadow: 0 -1px #759900;
+    transition: all 0.1s;
+    transform: translate(0px, 0px);
+
+    &:hover {
+      filter: brightness(1.06);
+    }
+
+    &:active {
+      transform: translate(0px, 5px);
+      border-bottom-width: 1px;
+      text-shadow: 0 0 #759900;
+      filter: brightness(1);
+    }
+  }
+
+  .spinner {
+    margin: 0;
+    width: 1.5em;
+    height: 1.5em;
+    margin-right: .7em;
+  }
+
+  .pager {
+    @extend %flex-center;
+
+    user-select: none;
+
+    .page {
+      margin: 0 3px;
+      white-space: nowrap;
+    }
+
+    input {
+      border: none;
+      background: fade-out($c-secondary, 0.8);
+    }
+
+    .search,
+    input,
+    .twitter-typeahead {
+      height: 100%;
+    }
+  }
+
+  .search .tt-menu .spinner {
+    float: none;
+    margin: 10px auto;
+  }
+}
+
+.schedule-next-round {
+  @extend %flex-center;
+
+  padding: 1em 0;
+
+  &.required {
+    background: $c-accent;
+  }
+
+  input {
+    margin: auto;
+  }
+}

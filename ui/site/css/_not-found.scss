@@ -1,0 +1,45 @@
+.not-found {
+  @extend %flex-column;
+
+  align-items: center;
+
+  header {
+    @extend %flex-center;
+
+    h1 {
+      font-size: 7em;
+      color: $c-font-dimmer;
+      margin: 0 2rem 0 0;
+    }
+
+    strong {
+      text-transform: uppercase;
+      color: $c-font-dimmer;
+      font-size: 2em;
+      margin: 10px 0;
+      display: block;
+    }
+  }
+
+  .game {
+    text-align: center;
+
+    iframe {
+      margin: 1em 0 2em 0;
+    }
+  }
+
+  .or-play, .game {
+    display: none;
+
+    @media (hover: hover) {
+      @include breakpoint($mq-small) {
+        display: block;
+      }
+    }
+  }
+
+  .credits {
+    font-size: .9em;
+  }
+}

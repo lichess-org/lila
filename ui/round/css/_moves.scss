@@ -1,0 +1,44 @@
+#{$moves-tag} {
+  @extend %zen;
+}
+
+#{$index-tag} {
+  @extend %roboto;
+}
+
+#{$move-tag} {
+  @extend %san;
+}
+
+#{$rmoves-tag} {
+  @extend %flex-column;
+
+  .buttons {
+    @extend %box-shadow;
+
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: stretch;
+    background: $c-bg-zebra;
+    font-size: .9em;
+    order: 2;
+
+    @include breakpoint($mq-col2) {
+      order: 0;
+    }
+  }
+
+  .fbt, .noop {
+    padding: 5px 0;
+    flex: 0 0 calc(100% / 6);
+    text-align: center;
+  }
+
+  #{$moves-tag},
+  .message {
+    flex: 0 0 7.4rem;
+  }
+
+  @import "moves-col1";
+  @import "moves-col2";
+}

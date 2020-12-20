@@ -1,0 +1,50 @@
+$recon-height: 2.5rem;
+
+@keyframes reconnected {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY($recon-height);
+  }
+}
+
+#reconnecting {
+  @extend %flex-center-nowrap, %popup-shadow;
+
+  font-size: 1.2em;
+  font-weight: bold;
+  position: fixed;
+  background: $c-bad;
+  color: $c-bad-over;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: $recon-height;
+  padding: 0 1rem;
+  border-top-right-radius: 3px;
+  z-index: z("reconnecting");
+  opacity: 0;
+  transform: translateY($recon-height);
+
+  &::before {
+    font-size: 1.3em;
+  }
+
+  .offline & {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .online.reconnected & {
+    background: $c-good;
+    animation: reconnected 2.5s ease-out 1.5s backwards;
+  }
+
+  .online &::before {
+    content: "J";
+  }
+}

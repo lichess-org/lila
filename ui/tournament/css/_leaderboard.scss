@@ -1,0 +1,98 @@
+$user-list-width: 35ch;
+
+.tournament-leaderboards,
+.tournament-shields {
+  @extend %box-radius;
+
+  border: $border;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($user-list-width, 1fr));
+
+  &__item {
+    background: $c-bg-box;
+    border-right: $border;
+  }
+
+  h2 {
+    @extend %metal, %box-shadow;
+
+    font-size: 1.45em;
+    line-height: 2.5em;
+    padding-left: .8rem;
+    text-transform: uppercase;
+    margin: 0;
+    white-space: nowrap;
+
+    a {
+      color: $c-brag;
+      display: block;
+
+      &:hover {
+        color: $c-link;
+      }
+    }
+  }
+
+  li {
+    @extend %flex-between;
+
+    padding: 1.2rem 1.2rem 1.2rem .5rem;
+
+    &:nth-child(even) {
+      background: $c-bg-zebra;
+    }
+  }
+}
+
+.tournament-leaderboards__item h2 {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.tournament-shields {
+  h2 {
+    position: relative;
+    padding-left: 95px;
+    border-bottom: $border;
+  }
+}
+
+.shield-trophy {
+  position: absolute;
+  top: -11px;
+  left: 15px;
+  width: 67px;
+  height: 80px;
+  background: img-url("trophy/shield-gold.png") no-repeat;
+  background-size: contain;
+  font-family: "lichess" !important;
+  font-size: 40px;
+  line-height: 76px;
+  text-align: center;
+  letter-spacing: normal;
+  color: #333;
+  text-shadow: 0 0 6px #fff;
+  filter: drop-shadow(0 0 10px $c-brag);
+}
+
+.tournament-categ-shields {
+  font-size: 1.1em;
+
+  .shield-trophy {
+    left: calc(var(--box-padding) - 10px);
+    transform: scale(0.7);
+  }
+
+  li {
+    @extend %flex-between;
+
+    position: relative;
+    height: 60px;
+    padding: 0 var(--box-padding) 0 calc(var(--box-padding) + 70px);
+
+    &:nth-child(odd) {
+      background: $c-bg-zebra;
+    }
+  }
+}

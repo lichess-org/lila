@@ -1,0 +1,81 @@
+@mixin box-radius {
+  border-radius: $box-radius-size;
+}
+
+@mixin box-shadow {
+  box-shadow: $box-shadow;
+}
+
+@mixin box-neat {
+  @include box-radius;
+  @include box-shadow;
+}
+
+@mixin debug-zoom-input {
+  #zoom-input {
+    display: none;
+
+    @include breakpoint($mq-zoom-enabled) {
+      display: block;
+      position: fixed;
+      bottom: 3px;
+      right: 3px;
+      width: 10vw;
+    }
+  }
+}
+
+@mixin transition($prop: all, $dur: $transition-duration) {
+  transition: $prop $dur;
+}
+
+@mixin hoverflow {
+  overflow-y: auto;
+
+  @media (hover: hover) {
+    overflow: hidden;
+
+    &:hover {
+      overflow-y: auto;
+    }
+  }
+}
+
+@mixin hide {
+  display: none;
+
+  .blind-mode & {
+    display: inherit;
+  }
+}
+
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin crosstable-large {
+  .crosstable__users {
+    flex: 7 1 auto;
+  }
+}
+
+@mixin crosstable-small {
+  .crosstable__users {
+    flex: 1 1 auto;
+  }
+}
+
+/* atm only chrome supports min-content, max-content */
+@mixin proper-grid {
+  @supports (height: max-content) {
+    @content;
+  }
+}
+
+@mixin body-fixed-scroll {
+  body {
+    /* prevents scroll bar flicker when dragging a piece out */
+    overflow-y: scroll;
+  }
+}

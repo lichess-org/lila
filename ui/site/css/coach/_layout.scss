@@ -1,0 +1,28 @@
+$mq-picture: $mq-small;
+$mq-coach-col2: $mq-large;
+
+main {
+  .coach-main {
+    grid-area: main;
+  }
+
+  &.coach-full-page {
+    .coach-side {
+      grid-area: side;
+      margin: 2em 2em 0 2em;
+    }
+
+    display: grid;
+    grid-template-areas: 'main' 'side';
+
+    @include breakpoint($mq-coach-col2) {
+      grid-template-columns: 300px auto;
+      grid-template-areas: 'side main';
+      grid-gap: 2rem;
+
+      .coach-side {
+        margin: 4rem 0 0 0;
+      }
+    }
+  }
+}

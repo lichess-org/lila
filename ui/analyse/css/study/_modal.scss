@@ -1,0 +1,71 @@
+.study__modal {
+  &#modal-wrap {
+    padding: 1rem;
+    min-width: 80vw;
+
+    @include breakpoint($mq-x-small) {
+      min-width: 500px;
+    }
+  }
+
+  > div {
+    padding: 1rem;
+    overflow-y: auto;
+  }
+
+  .form3 {
+    text-align: left;
+
+    .editor {
+      margin: -30px 0 30px 0;
+
+      .spinner {
+        padding-top: 80px;
+      }
+    }
+  }
+
+  h2 {
+    margin-bottom: .5em;
+
+    i {
+      font-size: .6em;
+
+      &, &::before {
+        vertical-align: top;
+      }
+
+      margin-left: 1rem;
+      opacity: .5;
+      cursor: pointer;
+
+      &:hover {
+        opacity: .7;
+        color: $c-primary;
+      }
+    }
+  }
+
+  .destructive {
+    text-align: left;
+    font-size: .9em;
+
+    form {
+      display: inline-block;
+    }
+
+    button {
+      opacity: 0.5;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    overflow: hidden;
+  }
+
+  &.chapter-new .tabs-horiz {
+    margin: -1em 0 1.6em 0;
+  }
+}

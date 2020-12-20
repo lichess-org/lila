@@ -1,0 +1,109 @@
+#friend_box {
+  display: none;
+
+  @include breakpoint($mq-topnav-visible $mq-site-header-tall) {
+    display: block;
+  }
+
+
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: z("friend-box");
+  background: $c-bg-popup;
+  border: $border;
+  border-right: 0;
+  border-bottom: 0;
+  border-top-left-radius: $box-radius-size;
+  font-size: .9rem;
+  min-width: 150px;
+  max-height: 95%;
+
+  /* improve scroll perfs */
+  backface-visibility: hidden;
+
+  @include hoverflow;
+
+  .friend_box_title {
+    @extend %metal;
+
+    cursor: pointer;
+    padding: 3px 5px;
+    border-bottom: $border;
+
+    &:hover {
+      @extend %metal-hover;
+    }
+  }
+
+  .content {
+    max-height: 80vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    div {
+      display: flex;
+
+      &:hover {
+        background: mix($c-secondary, $c-bg-popup, 10%);
+      }
+    }
+
+    a {
+      flex: 1 1 100%;
+      padding: 3px 0px;
+      display: block;
+      transition: background 0.13s;
+
+      &:hover {
+        color: $c-font;
+      }
+
+      &.user-link {
+        @extend %ellipsis;
+
+        max-width: 150px;
+
+        .line::before {
+          color: $c-good;
+          content: '';
+        }
+      }
+
+      &.tv {
+        flex: 0 0 auto;
+        padding: 0 5px;
+      }
+
+      &.friend-study {
+        flex: 0 0 auto;
+        padding: 2px 5px 0 5px;
+      }
+    }
+
+    i.line {
+      opacity: 0.6;
+    }
+  }
+
+  .nobody {
+    text-align: center;
+    height: 100%;
+    padding: 3px 5px;
+
+    span {
+      display: block;
+      margin: 5px;
+    }
+  }
+
+  a.find {
+    display: none;
+    margin: 7px;
+    font-style: normal;
+  }
+
+  .nobody:hover a.find {
+    display: block;
+  }
+}

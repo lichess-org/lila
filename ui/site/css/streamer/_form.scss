@@ -1,0 +1,98 @@
+$mq-picture: $mq-large;
+
+@import "header";
+
+.streamer-edit {
+  .streamer-header {
+    margin-bottom: 2em;
+
+    .picture-create {
+      @extend %flex-center;
+
+      justify-content: center;
+      width: 300px;
+      height: 300px;
+      display: none;
+
+      @include breakpoint($mq-picture) {
+        display: flex;
+      }
+    }
+
+    .upload_picture .button {
+      text-align: center;
+      margin: 100px 30px 0 30px;
+    }
+
+    .picture {
+      display: none;
+
+      @include breakpoint($mq-picture) {
+        display: block;
+      }
+    }
+  }
+
+  .status {
+    @extend %box-radius;
+
+    padding: 1em 1.5em;
+    margin-bottom: 2em;
+    background: $c-bg-zebra;
+
+    &::before {
+      font-size: 2em;
+      margin-right: .4em;
+    }
+
+    form {
+      display: inline;
+    }
+  }
+
+  .mod {
+    margin-bottom: 6em;
+  }
+
+  #site_header a.preview {
+    display: block;
+    margin-top: 40px;
+    text-align: center;
+  }
+}
+
+.streamer-rules li {
+  margin: .9em 0 .9em 2.2em;
+  line-height: 1.6em;
+  text-indent: -2.2em;
+
+  &::before {
+    font-family: 'lichess';
+    content: 'E';
+    font-size: 1.5em;
+    margin-right: .5em;
+    vertical-align: middle;
+    opacity: 0.8;
+  }
+}
+
+.streamer-picture {
+  form {
+    padding: 30px;
+    border-top: $border;
+    text-align: center;
+  }
+
+  .cancel {
+    padding: 40px;
+    border-top: $border;
+  }
+
+  .forms > *:first-child {
+    margin-top: 40px;
+  }
+
+  .picture_wrap {
+    text-align: center;
+  }
+}

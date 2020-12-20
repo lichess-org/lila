@@ -1,0 +1,46 @@
+.round__now-playing {
+  h3 {
+    @extend %flex-between;
+
+    margin: 1em 0 .5em 0;
+
+    @include breakpoint($mq-col1) {
+      margin: 1em $block-gap 0.5em $block-gap;
+    }
+  }
+
+  .simul {
+    span {
+      font-weight: bold;
+      margin: 0 .5em;
+    }
+
+    .win {
+      color: $c-good;
+    }
+
+    .draw {
+      color: $c-brag;
+    }
+
+    .loss {
+      color: $c-bad;
+    }
+  }
+
+  .switcher {
+    @extend %flex-center;
+
+    label {
+      cursor: pointer;
+    }
+
+    .switch {
+      margin-left: 10px;
+    }
+  }
+
+  .now-playing {
+    @extend %page-text;
+  }
+}

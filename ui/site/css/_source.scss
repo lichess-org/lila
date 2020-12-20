@@ -1,0 +1,8 @@
+@include breakpoint($mq-not-x-small) {
+  #jslicense-labels1 {
+    max-width: 100vw;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}

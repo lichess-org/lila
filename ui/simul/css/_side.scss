@@ -1,0 +1,44 @@
+$chat-height: calc(90vh - 300px);
+
+.simul__side {
+  @extend %flex-column;
+
+  .mchat {
+    margin-top: $block-gap;
+
+    &__messages {
+      height: $chat-height;
+      max-height: $chat-height;
+    }
+  }
+}
+
+.simul__meta {
+  @extend %box-neat-force;
+
+  background: $c-bg-box;
+  padding: #{$block-gap * 0.6} $block-gap;
+
+  .header {
+    @extend %flex-center;
+
+    flex-flow: row nowrap;
+    text-transform: uppercase;
+
+    .clock {
+      display: block;
+      font-size: 1.5em;
+    }
+
+    > i {
+      font-size: 2.5em;
+      margin-right: .5em;
+    }
+  }
+
+  .game-infos {
+    padding-bottom: .5em;
+    border-bottom: $border;
+    margin-bottom: .5em;
+  }
+}

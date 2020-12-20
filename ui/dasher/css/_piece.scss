@@ -1,0 +1,49 @@
+#dasher_app {
+  .piece {
+    piece {
+      position: absolute;
+      width: 12.5%;
+      height: 12.5%;
+      top: 0;
+      left: 0;
+      background-size: cover;
+      z-index: 2;
+
+      /* no less than 2 */
+      pointer-events: none;
+    }
+
+    .list {
+      @extend %flex-wrap;
+
+      background: url(../images/board/darksquares.jpg);
+      box-shadow: inset 0 7px 20px 3px #777;
+    }
+
+    .no-square {
+      width: 75px;
+      height: 75px;
+      position: relative;
+    }
+
+    .no-square:hover {
+      background: rgba(250, 250, 250, 0.15);
+    }
+
+    .no-square.active {
+      background: fade-out($c-dasher, 0.3);
+    }
+
+    piece {
+      width: 100%;
+      height: 100%;
+    }
+
+    &.d3 piece {
+      left: 0;
+      top: 0;
+      background-size: cover;
+      background-position: 0 67%;
+    }
+  }
+}

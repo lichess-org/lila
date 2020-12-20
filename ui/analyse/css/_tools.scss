@@ -1,0 +1,89 @@
+.analyse {
+  &__tools {
+    @extend %box-neat-force, %flex-column;
+
+    max-height: 100vh;
+
+    /* magically fixes fit-content on safari 10 */
+    background: $c-bg-box;
+
+    .ceval {
+      flex: 0 0 38px;
+    }
+
+    .sub-box {
+      @extend %border-bottom-active;
+
+      user-select: none;
+
+      .title {
+        font-size: .9rem;
+        line-height: 1.9em;
+        background: mix($c-secondary, $c-bg-box, 40%);
+        padding: 0 7px;
+      }
+    }
+  }
+
+  &__moves {
+    flex: 2 1 0;
+
+    // 0 size forces vertical scrollbar
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    // else a scrollbar appears sometimes
+    border-top: $border;
+    position: relative;
+
+    /* required so line::before scrolls along the moves! */
+    .result,
+    .status {
+      background: $c-bg-zebra;
+      text-align: center;
+    }
+
+    .result {
+      border-top: $border;
+      font-weight: bold;
+      font-size: 1.2em;
+      padding: 5px 0 3px 0;
+    }
+
+    .status {
+      font-size: 1em;
+      font-style: italic;
+      padding-bottom: 7px;
+    }
+  }
+
+  &__controls {
+    height: $col3-uniboard-controls;
+    align-items: stretch;
+
+    div {
+      display: flex;
+      flex: 1 1 auto;
+      align-items: stretch;
+    }
+
+    .jumps {
+      flex: 3 1 auto;
+    }
+
+    .fbt {
+      @extend %page-text;
+
+      flex: 0 0 2.5rem;
+    }
+
+    .active {
+      margin-top: -3px;
+      padding-top: 3px;
+    }
+
+    ::before {
+      vertical-align: middle;
+    }
+  }
+}

@@ -1,0 +1,23 @@
+:root {
+  --cg-coord-color-white: #fff;
+  --cg-coord-color-black: #fff;
+  --cg-coord-shadow: 0 1px 2px #000;
+}
+
+coords {
+  text-shadow: var(--cg-coord-shadow);
+}
+
+.orientation-white .files coord:nth-child(2n+1),
+.orientation-white .ranks coord:nth-child(2n),
+.orientation-black .files coord:nth-child(2n),
+.orientation-black .ranks coord:nth-child(2n+1) {
+  color: var(--cg-coord-color-white);
+}
+
+.orientation-white .files coord:nth-child(2n),
+.orientation-white .ranks coord:nth-child(2n+1),
+.orientation-black .files coord:nth-child(2n+1),
+.orientation-black .ranks coord:nth-child(2n) {
+  color: var(--cg-coord-color-black);
+}

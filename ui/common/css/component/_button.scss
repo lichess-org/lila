@@ -1,0 +1,123 @@
+.button {
+  @extend %roboto-fat, %button-shadow, %box-radius;
+
+  background: $c-primary;
+  text-transform: uppercase;
+  padding: .8em 1em;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  user-select: none;
+  white-space: nowrap;
+
+  @include transition;
+
+  &,
+  &:visited {
+    color: $c-primary-over;
+  }
+
+  &:not(.disabled):hover {
+    @extend %button-raised-shadow;
+
+    color: $c-primary-over;
+    background: lighten($c-primary, 7);
+  }
+
+  &:not(.disabled):focus {
+    @extend %focus-shadow;
+  }
+
+  &-no-upper {
+    text-transform: none;
+  }
+
+  &-thin {
+    padding: .1em 1em;
+    font-size: 90%;
+  }
+
+  &-fat {
+    font-size: 1.6rem;
+  }
+
+  &-green {
+    background: $c-secondary;
+
+    &:not(.disabled):hover {
+      background: lighten($c-secondary, 4);
+    }
+  }
+
+  &-red {
+    background: $c-error;
+
+    &:not(.disabled):hover {
+      background: lighten($c-error, 11);
+    }
+  }
+
+  &.button-empty {
+    transition: none;
+
+    &,
+    &:hover {
+      color: $c-primary;
+    }
+
+    background: none;
+    box-shadow: none;
+
+    &:not(.disabled):hover {
+      @extend %button-shadow;
+    }
+
+    &,
+    &.button-green,
+    &.button-red {
+      &:not(.disabled):hover {
+        @extend %metal;
+      }
+    }
+
+    &.button-red,
+    &.button-red:hover {
+      color: $c-error;
+    }
+
+    &.button-green,
+    &.button-green:hover {
+      color: $c-secondary;
+    }
+  }
+
+  &.button-metal {
+    @extend %metal;
+
+    &,
+    &:hover {
+      color: $c-font-dim;
+    }
+
+    &:not(.disabled):hover {
+      @extend %metal-hover;
+    }
+  }
+
+  &.disabled {
+    opacity: .5;
+    cursor: not-allowed;
+  }
+
+  &.active {
+    @extend %active;
+
+    color: #fff;
+  }
+
+  &.active:not(.disabled):hover {
+    @extend %active-hover;
+
+    color: #fff;
+  }
+}

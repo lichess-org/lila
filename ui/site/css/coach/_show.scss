@@ -1,0 +1,76 @@
+.coach-show {
+  &__side {
+    > .button {
+      display: block;
+    }
+  }
+
+  &__main {
+    @extend %box-neat-force;
+  }
+
+  .coach-widget {
+    @extend %metal;
+
+    height: auto;
+    border-bottom: $border;
+
+    .overview {
+      padding-bottom: .5em;
+    }
+  }
+
+  &__sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-auto-flow: dense;
+    grid-gap: 3em;
+    margin: var(--box-padding);
+
+    section {
+      font-size: 1.2em;
+    }
+
+    @include breakpoint($mq-not-xx-small) {
+      grid-template-columns: auto;
+    }
+  }
+
+  h2 {
+    margin: 0 0 12px 0;
+    color: $c-brag;
+    font-size: 1.6em;
+  }
+
+  &__youtube {
+    padding: 2em;
+    background: #000;
+    border: $border;
+    border-width: 0 1px 1px 1px;
+
+    .list {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-between;
+    }
+
+    iframe {
+      margin-bottom: 10px;
+      width: 256px;
+      height: 192px;
+      background: #000;
+    }
+  }
+
+  &__studies {
+    margin-top: 20px;
+
+    .studies {
+      border-top: $border;
+    }
+
+    h2 {
+      padding: 1em 0 0 2em;
+    }
+  }
+}

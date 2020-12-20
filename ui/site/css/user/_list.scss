@@ -1,0 +1,106 @@
+$c-lead: $c-brag;
+$user-list-width: 30ch;
+
+.community {
+  display: grid;
+  grid-gap: 2rem;
+  grid-template-areas: 'online' 'leaders';
+
+  @include breakpoint($mq-xx-small) {
+    grid-template-columns: min-content 1fr;
+    grid-template-rows: min-content;
+    grid-template-areas: 'online leaders' 'online .';
+  }
+
+
+  h2 {
+    font-size: 1.7em;
+    margin-bottom: 2rem;
+  }
+
+  .user-top {
+    li {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      white-space: nowrap;
+    }
+
+    .user-link {
+      @extend %ellipsis;
+    }
+  }
+
+  &__online {
+    grid-area: online;
+
+    li {
+      padding: .6rem 0;
+    }
+
+    .user-link {
+      margin-right: 1em;
+    }
+  }
+
+  &__leaders {
+    grid-area: leaders;
+
+    .leaderboards {
+      @extend %box-radius;
+
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax($user-list-width, 1fr));
+      border: 1px solid $c-lead;
+
+      .user-top {
+        border-right: 2px solid fade-out($c-lead, 0.5);
+      }
+
+      h2 {
+        @extend %flex-center-nowrap, %nowrap-hidden;
+
+        font-size: 1.45em;
+        line-height: 2.5em;
+        letter-spacing: -1px;
+        padding-left: .8rem;
+        text-transform: uppercase;
+        margin: 0;
+        background: $c-lead;
+        color: #fff;
+
+        a {
+          color: #fff;
+        }
+      }
+
+      li {
+        padding: .7rem 1.2rem .7rem .5rem;
+      }
+
+      li:nth-child(even) {
+        background: $c-bg-zebra;
+      }
+    }
+  }
+}
+
+.bots {
+  td:nth-child(3), td:nth-child(4) {
+    white-space: nowrap;
+  }
+
+  img {
+    display: none;
+  }
+
+  .rating {
+    span {
+      &::before {
+        margin: 0;
+      }
+
+      margin: 0 .3em;
+    }
+  }
+}

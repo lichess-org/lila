@@ -1,0 +1,71 @@
+@import "dark";
+
+$theme: "transp";
+
+$c-bg-high: hsla(0, 0%, 0%, 0.6);
+$c-bg-low: hsla(0, 0%, 0%, 0.5);
+
+$c-font: hsl(0, 0%, 80%);
+$c-font-dim: c-light($c-font, 69%);
+$c-font-dimmer: c-light($c-font, 48%);
+$c-font-clear: c-light($c-font, 89%);
+$c-font-clearer: c-light($c-font, 97%);
+$c-font-page: $c-font-clearer;
+
+$c-bg-box: $c-bg-high;
+$c-bg-zebra: hsla(0, 0%, 100%, 0.05);
+$c-bg-input: $c-bg-zebra;
+
+$c-bg-popup: $c-bg-high;
+
+$c-bg-header-dropdown: hsla(0, 0%, 0%, 0.75);
+
+$c-page-input: $c-bg-box;
+
+$text-shadow: 0.5px 1px 1px #000;
+
+%page-text-shadow {
+  text-shadow: $text-shadow;
+}
+
+%page-link-font {
+  color: $c-font-clearer;
+}
+
+@mixin metal-bg {
+  background: linear-gradient(to bottom, hsla(0, 0, 0, 0.4), hsla(0, 0, 0, 0.5) 100%);
+}
+
+@mixin metal {
+  @include metal-bg;
+}
+
+@mixin metal-hover {
+  background: linear-gradient(to bottom, hsla(0, 0, 0, 0.45), hsla(0, 0, 0, 0.55) 100%);
+}
+
+@mixin page-metal {
+  @include metal;
+}
+
+@mixin page-metal-hover {
+  @include metal-hover;
+}
+
+@mixin theme-style {
+  body.transp {
+    &::before {
+      content: ' ';
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      will-change: transform;
+      z-index: -1;
+    }
+  }
+}

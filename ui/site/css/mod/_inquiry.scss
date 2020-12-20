@@ -1,0 +1,366 @@
+body, #mz_menu .inner {
+  margin-top: 53px !important;
+}
+
+body.no-inquiry {
+  transition: margin 0.3s;
+  margin-top: 0;
+}
+
+@keyframes octopus {
+  50% {
+    transform: scale(1.03);
+    background-color: #4a4a4a;
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: #484541;
+  }
+}
+
+#inquiry {
+  height: 48px;
+  background: #484541;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  border-bottom: 1px solid #666;
+  box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: z("inquiry");
+
+  .costello {
+    flex: 0 0 160px;
+    height: 160px;
+    width: 160px;
+    margin: -80px 0 0 -80px;
+    background: #484541 no-repeat url(../images/icons/octopus.svg);
+    background-size: 35% 35%;
+    background-position: 81% 81%;
+    border-radius: 0 0 50% 0;
+    border: 2px solid #666;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+
+    &:hover {
+      animation: octopus 0.5s ease-in-out;
+    }
+  }
+
+  &.hidden {
+    transition: height 0.3s;
+    height: 0;
+    border: none;
+
+    > div {
+      display: none;
+    }
+
+    .costello {
+      transition: opacity 0.3s;
+      opacity: 0.5;
+    }
+  }
+
+  &, a, a.user-link .line {
+    color: #f0f0f0;
+  }
+
+  .meat {
+    @extend %flex-center-nowrap;
+
+    flex: 1 1 100%;
+    height: 100%;
+
+    > .user-link {
+      font-size: 1.3em;
+    }
+  }
+
+  .docs {
+    position: relative;
+    flex: 0 0 43%;
+    height: 100%;
+    margin-left: 10px;
+    overflow: hidden;
+    color: #ccc;
+  }
+
+  .reports {
+    flex: 4 1 auto;
+  }
+
+  .counter {
+    margin-left: .3em;
+    flex: 0 0 auto;
+  }
+
+  .docs .expendable {
+    padding: 4px 20px 20px 20px;
+    background: #555;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .docs:hover {
+    overflow: visible;
+  }
+
+  .docs:hover .expendable {
+    @extend %box-radius-bottom, %dropdown-shadow;
+
+    z-index: 2;
+    border-bottom: 1px solid #666;
+    max-height: 500px;
+    overflow-y: auto;
+  }
+
+  .doc:not(:last-child) {
+    padding-bottom: 8px;
+    border-bottom: 1px dotted #777;
+    margin-bottom: 8px;
+  }
+
+  .docs h2 {
+    line-height: 35px;
+    margin-bottom: 5px;
+  }
+
+  .doc h3 {
+    margin: 0;
+  }
+
+  .report .atom {
+    margin-bottom: .8em;
+    border-bottom: 1px solid #777;
+    padding-bottom: .8em;
+  }
+
+  .report .atom:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .score {
+    display: inline-block;
+    white-space: nowrap;
+    font-weight: bold;
+    font-size: .9em;
+    padding: .1em .5em;
+    border-radius: .3em;
+  }
+
+  .score.green {
+    /* actually blue */
+    background-color: rgba(32, 119, 192, 0.4);
+  }
+
+  .score.yellow {
+    background-color: rgba(221, 207, 63, 0.4);
+  }
+
+  .score.orange {
+    background-color: rgba(231, 155, 100, 0.4);
+  }
+
+  .score.red {
+    background-color: rgba(231, 59, 56, 0.4);
+  }
+
+  form.note {
+    margin-bottom: 2em;
+
+    textarea {
+      width: 100%;
+      resize: vertical;
+      padding: 5px;
+      height: 80px;
+    }
+
+    .submission {
+      text-align: right;
+    }
+  }
+
+  .actions,
+  .links {
+    @extend %flex-center-nowrap;
+
+    margin-right: 10px;
+    white-space: nowrap;
+    height: 100%;
+    text-align: center;
+  }
+
+  .actions:not(.close),
+  .links {
+    padding-right: 10px;
+    border-right: 1px solid #666;
+  }
+
+  .actions > form {
+    height: 100%;
+  }
+
+  .fbt {
+    height: 100%;
+    color: #f0f0f0 !important;
+    background: transparent;
+    padding: 0 1em;
+  }
+
+  .fbt:hover {
+    background: rgba(56, 147, 232, 0.8);
+  }
+
+  .fbt.icon::before,
+  .warn i::before,
+  .alt i {
+    font-size: 1.7em;
+  }
+
+  .fbt.active {
+    color: #fff !important;
+  }
+
+  .links {
+    padding: 0 10px;
+    border-left: 1px solid #666;
+  }
+
+  .links a {
+    padding: 0 13px;
+  }
+
+  .links a:hover,
+  .report a:hover {
+    color: $c-link;
+  }
+
+  .process button {
+    background: #555;
+    font-size: 1.8em;
+    padding: 0 25px;
+  }
+
+  .process button:hover {
+    background: $c-secondary;
+  }
+
+  .cancel button {
+    margin-left: 5px;
+    font-size: .8em;
+    padding: 0 8px;
+  }
+
+  .accuracy {
+    float: right;
+  }
+
+  .dropper {
+    position: relative;
+    height: 100%;
+
+    > span,
+    > i,
+    .main {
+      display: block;
+      height: 100%;
+
+      &:not(form) {
+        padding: 0 10px;
+      }
+    }
+
+    > div {
+      @extend %box-radius-bottom, %dropdown-shadow;
+
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #555;
+      overflow: hidden;
+      padding: .4em 0;
+    }
+
+    &:hover {
+      > span,
+      > i,
+      .main {
+        background: #555;
+      }
+
+      div {
+        display: block;
+      }
+    }
+
+    button {
+      width: 100%;
+      text-align: left;
+    }
+
+    > i {
+      line-height: 40px;
+    }
+
+    &.buttons button {
+      padding: .5em 1.3em;
+      text-transform: initial;
+    }
+
+    &.counter > span {
+      @extend %roboto, %flex-column;
+
+      justify-content: center;
+      text-align: center;
+    }
+
+    &.counter.empty > span {
+      opacity: 0.5;
+    }
+
+    &.counter:not(.empty) > span {
+      background: #555;
+    }
+
+    &.counter > span count {
+      font-size: 1.2em;
+      display: block;
+      height: 1.1em;
+    }
+
+    &.counter > div {
+      padding: 4px 20px 20px 20px;
+    }
+
+    &.counter > div,
+    &.warn > div {
+      width: 360px;
+      right: -155px;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+  }
+
+  .history li {
+    @extend %nowrap-ellipsis;
+
+    padding: 6px 0;
+  }
+
+  .switcher {
+    margin-left: -10px;
+
+    label {
+      transform: scale(0.7);
+    }
+  }
+}

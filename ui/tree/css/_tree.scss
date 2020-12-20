@@ -1,0 +1,323 @@
+@import "extend";
+
+.tview2 {
+  white-space: normal;
+
+  &-column {
+    @extend %flex-wrap;
+  }
+
+  &-inline {
+    padding: 7px 3px 7px 7px;
+  }
+
+  move {
+    @extend %move;
+  }
+
+  &-column move {
+    font-size: 1.092em;
+    padding: 0 2px;
+  }
+
+  &-inline move {
+    padding: .25em .17em;
+    white-space: nowrap;
+    font-weight: bold;
+  }
+
+  move.parent {
+    color: $c-primary;
+  }
+
+  comment a {
+    vertical-align: top;
+  }
+
+  move.current {
+    border: 1px solid $c-accent;
+  }
+
+  move.active {
+    font-weight: bold;
+    background: mix($c-primary, $c-bg-box, 20%);
+  }
+
+  &-inline move.active {
+    @extend %box-radius;
+  }
+
+  move.nongame {
+    font-style: italic;
+  }
+
+  move:not(.empty):hover {
+    &,
+    index,
+    eval {
+      background: $c-primary;
+      color: $c-primary-over;
+    }
+  }
+
+  &-inline move:hover {
+    @extend %box-radius;
+  }
+
+  move.empty {
+    color: $c-font-dimmer;
+    cursor: default;
+  }
+
+  move index {
+    font-size: 90%;
+    color: $c-font-dim;
+  }
+
+  move.context-menu {
+    background: $c-accent;
+    color: $c-accent-over;
+
+    index {
+      color: $c-accent-over;
+    }
+  }
+
+  &-column move index {
+    padding-left: 5px;
+  }
+
+  &-column move index:first-child {
+    padding-left: 0;
+  }
+
+  &-inline move index {
+    padding-right: .2em;
+    line-height: 111.11%;
+  }
+
+  line move {
+    color: $c-font;
+  }
+
+  &-column > move {
+    flex: 0 0 43.5%;
+    display: flex;
+    font-size: 1.185em;
+    line-height: 1.75em;
+    padding: 0 .3em 0 .5em;
+  }
+
+  &-column > index + move {
+    border-right: $c-border;
+  }
+
+  eval {
+    @extend %roboto;
+
+    flex: 3 0 auto;
+    text-align: right;
+    font-size: .8em;
+    color: $c-font-dim;
+  }
+
+  glyph {
+    @extend %base-font;
+
+    margin-left: .08em;
+    vertical-align: bottom;
+  }
+
+  &-column > move glyph {
+    flex: 0 1 auto;
+    text-align: center;
+    overflow: hidden;
+    font-size: .82em;
+  }
+
+  &-column > index {
+    flex: 0 0 13%;
+    display: flex;
+    justify-content: center;
+    border-right: $border;
+    background: $c-bg-zebra;
+    line-height: 2.07em;
+    color: $c-font-dimmer;
+  }
+
+  > interrupt {
+    font-size: 95%;
+  }
+
+  &-column > interrupt {
+    flex: 0 0 100%;
+    background: $c-bg-zebra;
+    border-top: 1px solid $c-border;
+    border-bottom: 1px solid $c-border;
+    max-width: 100%;
+  }
+
+  &-column > interrupt > comment {
+    @extend %break-word;
+
+    display: block;
+    padding: 3px 5px;
+  }
+
+  &-inline comment {
+    vertical-align: 45%;
+    word-wrap: break-word;
+    margin: 0 .2em 0 .1em;
+    font-size: .9em;
+  }
+
+  comment .by {
+    @extend %nowrap-ellipsis, %roboto;
+
+    display: inline-block;
+    vertical-align: -.3em;
+    font-size: .9em;
+    opacity: 0.8;
+    margin-right: .4em;
+    max-width: 9em;
+  }
+
+  &-column comment.white {
+    border-left: 3px solid;
+  }
+
+  &-column comment.black {
+    border-right: 3px solid;
+    overflow-x: hidden;
+  }
+
+  &-column comment.inaccuracy {
+    border-color: #56B4E9;
+  }
+
+  &-column comment.mistake {
+    border-color: #E69F00;
+  }
+
+  &-column comment.blunder {
+    border-color: #DF5353;
+  }
+
+  &-column comment.undefined {
+    border-color: #66558C;
+  }
+
+  line comment {
+    font-size: 90%;
+  }
+
+  &-column line comment {
+    display: inline;
+    color: $c-font-dim;
+    word-wrap: break-word;
+    padding: 0 5px 0 3px;
+    vertical-align: top;
+  }
+
+  line comment .by {
+    font-size: 1em;
+    vertical-align: top;
+  }
+
+  lines {
+    display: block;
+    margin-top: 2px;
+    margin-left: 6px;
+    margin-bottom: .8em;
+    border-left: 2px solid $c-border;
+  }
+
+  > interrupt > lines {
+    margin-left: 0px;
+  }
+
+  lines.single {
+    border-left: none;
+  }
+
+  lines:last-child {
+    margin-bottom: 0;
+  }
+
+  line {
+    display: block;
+    padding-left: 7px;
+  }
+
+  &-column line {
+    margin: 2px 0;
+  }
+
+  lines lines move {
+    font-size: 13px;
+  }
+
+  lines lines {
+    margin-left: 1px;
+  }
+
+  lines lines::before {
+    content: ' ';
+    border-top: 2px solid $c-border;
+    position: absolute;
+    margin-left: -11px;
+    width: 9px;
+    height: 6px;
+  }
+
+  lines line::before {
+    margin-top: .65em;
+    margin-left: -8px;
+    content: ' ';
+    border-top: 2px solid $c-border;
+    position: absolute;
+    width: 8px;
+    height: 6px;
+  }
+
+  lines lines:last-child {
+    margin-bottom: 0;
+  }
+
+  inline {
+    display: inline;
+    font-style: italic;
+    font-size: .9em;
+    opacity: 0.8;
+  }
+
+  inline::before,
+  inline::after {
+    vertical-align: .4em;
+    opacity: 0.7;
+    font-size: .9em;
+  }
+
+  inline::before {
+    content: '(';
+    margin-left: 2px;
+  }
+
+  inline::after {
+    content: ')';
+    margin-right: 2px;
+  }
+
+  &-inline inline::before,
+  &-inline inline::after {
+    vertical-align: .7em;
+  }
+
+  .conceal {
+    opacity: 0.4;
+  }
+
+  .hide {
+    display: none;
+  }
+}

@@ -1,0 +1,183 @@
+@include breakpoint($mq-topnav-hidden) {
+  .topnav-toggle {
+    display: block;
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  .hbg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: $site-header-height;
+    height: $site-header-height;
+    cursor: pointer;
+    z-index: z("topnav");
+
+    &__in {
+      &,
+      &::after,
+      &::before {
+        display: block;
+        margin-top: -1.5px;
+        position: absolute;
+        width: 23px;
+        height: 2px;
+        border-radius: 3px;
+        background-color: $c-font-dim;
+
+        @include breakpoint($mq-site-header-tall) {
+          width: 34px;
+          height: 3px;
+        }
+      }
+
+      top: 50%;
+      left: 8.5px;
+
+      @include breakpoint($mq-site-header-tall) {
+        left: 13px;
+      }
+
+
+      transition: transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+
+      &::after,
+      &::before {
+        content: "";
+      }
+
+      &::before {
+        top: -6px;
+
+        @include breakpoint($mq-site-header-tall) {
+          top: -9px;
+        }
+
+
+        transition: top 0.1s 0.25s ease-in, opacity 0.1s ease-in;
+      }
+
+      &::after {
+        bottom: -7px;
+
+        @include breakpoint($mq-site-header-tall) {
+          bottom: -10px;
+        }
+
+
+        transition: bottom 0.1s 0.25s ease-in, transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+      }
+    }
+
+    .topnav-toggle:checked ~ & {
+      position: fixed;
+      background: $c-bg-high;
+
+      .hbg__in {
+        transform: rotate(225deg);
+        transition-delay: 0.12s;
+        transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+
+        &::before {
+          top: 0;
+          opacity: 0;
+          transition: top 0.1s ease-out, opacity 0.1s 0.12s ease-out;
+        }
+
+        &::after {
+          bottom: 0;
+          transform: rotate(-90deg);
+          transition: bottom 0.1s ease-out, transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+      }
+    }
+  }
+
+  #topnav {
+    display: flex;
+    flex-flow: row wrap;
+    position: fixed;
+    top: $site-header-height;
+    bottom: 0;
+    left: 0;
+    background: $c-bg-high;
+    transform: translateX(calc(-100% - 10px));
+
+    @include transition(transform, 200ms);
+
+    padding-bottom: 1.2rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    box-shadow: 2px 5px 7px hsla(0, 0, 0%, 0.5);
+    border-radius: 0 3px 0 0;
+    max-width: 80%;
+
+    @include breakpoint($mq-xx-small) {
+      max-width: 70%;
+    }
+
+
+    z-index: z("topnav");
+
+    a {
+      color: $c-font;
+      text-decoration: none;
+      padding: .7em 0;
+      opacity: 0;
+
+      @include transition(opacity);
+    }
+
+    section {
+      flex: 1 0 50%;
+      margin-top: 1rem;
+
+      > a {
+        font-size: 1.2em;
+        padding-left: 1.2rem;
+        font-weight: bold;
+        display: block;
+      }
+
+      .play {
+        display: none;
+      }
+
+      div {
+        display: flex;
+        flex-flow: column;
+
+        a {
+          padding-left: 2.4rem;
+        }
+      }
+
+      a:active {
+        background: $c-primary;
+        color: $c-primary-over;
+      }
+    }
+
+    .topnav-toggle:checked ~ & {
+      transform: translateX(0);
+
+      a {
+        opacity: 1;
+        transition: opacity 125ms ease-in-out 125ms;
+      }
+    }
+  }
+
+  body.masked {
+    /* prevent scrolling while topnav is open */
+    overflow: hidden;
+
+    /* awkwardly make up for the disappearance of the scroll bar */
+    /* actually don't, since on mobile devices the scrool bar
+     * has no width, and that menu is mainly for mobile. */
+    // padding-right: 15px;
+ 
+  }
+}

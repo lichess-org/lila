@@ -1,0 +1,192 @@
+$section-margin: 3vh;
+$section-margin-more: 5vh;
+
+.team-show {
+  @extend %break-word;
+
+  overflow: hidden;
+
+  .box__top {
+    margin-bottom: 1.7vh;
+  }
+
+  h1 {
+    @extend %break-word-hard;
+  }
+
+  .mchat {
+    height: 40vh;
+    margin-bottom: $section-margin;
+
+    @if $theme-dark {
+      box-shadow: none;
+
+      &__tabs,
+      &__content,
+      &__say,
+      &__tab-active {
+        background: $c-bg-page !important;
+      }
+    }
+  }
+
+  .chat__members {
+    margin-bottom: $section-margin;
+    height: auto;
+  }
+
+  &__content {
+    margin: 0 var(--box-padding);
+
+    @include breakpoint($mq-small) {
+      display: flex;
+
+      &__col1 {
+        flex: 0 0 30%;
+        margin-right: var(--box-padding);
+      }
+
+      &__col2 {
+        flex: 1;
+      }
+    }
+  }
+
+  &__meta {
+    color: $c-font-dim;
+    margin-bottom: $section-margin;
+  }
+
+  &__actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(30ch, 1fr));
+    grid-gap: 1vmin;
+    margin-bottom: $section-margin;
+
+    .button {
+      display: flex;
+      text-align: left;
+      width: 100%;
+
+      strong {
+        display: block;
+      }
+
+      em {
+        color: $c-font-dim;
+        text-transform: none;
+        white-space: normal;
+      }
+    }
+  }
+
+  &__desc {
+    @extend %box-neat;
+
+    padding: 1.5em 2.5em;
+    background: $c-bg-high;
+    font-size: 1.1em;
+    margin-bottom: $section-margin-more;
+  }
+
+  &__members {
+    @include breakpoint($mq-not-small) {
+      display: none;
+    }
+
+
+    margin-bottom: $section-margin;
+
+    h2 {
+      font-size: 1em;
+    }
+  }
+
+  &__tour {
+    margin-bottom: $section-margin-more;
+  }
+
+  &__requests {
+    margin-bottom: $section-margin-more;
+
+    h2,
+    table {
+      margin: 0;
+    }
+
+    td {
+      padding: .5rem .7rem;
+    }
+  }
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  .userlist > li,
+  .userlist > div.paginated {
+    padding: 5px 0 5px 25px;
+  }
+
+  &__forum {
+    margin-bottom: $section-margin-more;
+    width: 100%;
+
+    &__post {
+      display: block;
+      color: $c-font;
+      padding: 1em 2.5em;
+      overflow: hidden;
+
+      &:nth-child(odd) {
+        background: $c-bg-zebra;
+      }
+
+      &:hover {
+        background: mix($c-link, $c-bg-box, 10%);
+
+        span {
+          color: $c-font;
+        }
+      }
+
+      strong {
+        font-size: 1.3em;
+        font-weight: normal;
+      }
+    }
+
+    .meta {
+      @extend %flex-between;
+
+      margin-bottom: .5rem;
+    }
+
+    p {
+      color: $c-font-dim;
+    }
+
+    a.more {
+      display: block;
+      text-align: right;
+      margin: 10px 10px 0 0;
+    }
+  }
+
+  &__subscribe {
+    div {
+      @extend %flex-center;
+
+      label {
+        margin-left: 1rem;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.team-edit {
+  .inline {
+    display: inline;
+  }
+}

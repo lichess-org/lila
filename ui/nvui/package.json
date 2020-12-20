@@ -1,0 +1,29 @@
+{
+  "name": "nvui",
+  "version": "2.0.0",
+  "private": true,
+  "description": "lichess.org non-visual user interface",
+  "main": "dist/main.js",
+  "types": "dist/main",
+  "keywords": [
+    "chess",
+    "lichess",
+    "non-visual",
+    "blind",
+    "accessibility"
+  ],
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0-or-later",
+  "scripts": {
+    "compile": "../../node_modules/typescript/bin/tsc --incremental",
+    "dev": "yarn run compile",
+    "prod": "yarn run compile"
+  },
+  "devDependencies": {
+    "@types/lichess": "2.0.0",
+    "typescript": "^4.0.2"
+  },
+  "dependencies": {
+    "snabbdom": "^0.7.4"
+  }
+}

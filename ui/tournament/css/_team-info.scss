@@ -1,0 +1,39 @@
+.tour__team-info {
+  .players {
+    width: 100%;
+
+    tr {
+      cursor: pointer;
+
+      @include transition(background-color);
+
+      &:nth-child(odd) {
+        background: $c-bg-zebra;
+      }
+
+      &:hover {
+        background: mix($c-link, $c-bg-box, 10%);
+      }
+    }
+
+    th, td {
+      padding: .3em 1em;
+    }
+
+    td:last-child {
+      text-align: right;
+    }
+
+    .rating {
+      font-style: italic;
+      font-size: .8em;
+    }
+
+    .leader {
+      &::before {
+        color: $c-brag;
+        margin-right: .15em;
+      }
+    }
+  }
+}

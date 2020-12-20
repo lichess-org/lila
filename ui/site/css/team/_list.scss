@@ -1,0 +1,32 @@
+.slist {
+  @extend %break-word-hard;
+
+  td {
+    padding-top: 1.2rem;
+    padding-bottom: 1.2rem;
+
+    &:last-child {
+      white-space: nowrap;
+    }
+  }
+
+  .team-name {
+    font-size: 1.5em;
+    display: block;
+    margin-bottom: .3em;
+
+    &.mine {
+      color: $c-brag;
+    }
+  }
+
+  .info {
+    font-size: .9em;
+    white-space: nowrap;
+    display: none;
+
+    @include breakpoint($mq-x-small) {
+      display: table-cell;
+    }
+  }
+}

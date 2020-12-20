@@ -1,0 +1,132 @@
+.rcontrols {
+  grid-area: controls;
+}
+
+.material-top {
+  grid-area: mat-top;
+}
+
+.material-bottom {
+  grid-area: mat-bot;
+}
+
+.expiration-top {
+  grid-area: expi-top;
+}
+
+.expiration-bottom {
+  grid-area: expi-bot;
+}
+
+.ruser-top {
+  grid-area: user-top;
+}
+
+.ruser-bottom {
+  grid-area: user-bot;
+}
+
+.rclock-top {
+  grid-area: clock-top;
+}
+
+.rclock-bottom {
+  grid-area: clock-bot;
+}
+
+#{$rmoves-tag} {
+  grid-area: moves;
+}
+
+.keyboard-move {
+  grid-area: kb-move;
+}
+
+.round__app {
+  display: grid;
+
+  @include breakpoint($mq-col1) {
+    grid-template-rows: auto $col1-pocket-height $col1-player-clock-height auto $expiration-height $col1-player-clock-height $col1-pocket-height;
+    grid-template-areas: 'moves' 'mat-top' 'user-top' 'board' 'expi-bot' 'user-bot' 'mat-bot' 'kb-move' 'controls';
+
+    // Put clocks and players in the same grid cell.
+    // This allows having a single cell column, instead of
+    // columns: auto min-content;
+    // This is required to display the overflowable horizontal move list,
+    // so that it can be contain within the grid parent.
+    .rclock-top {
+      grid-area: 3 / 1 / 3 / 2;
+    }
+
+    .rclock-bottom {
+      grid-area: 6 / 1 / 6 / 2;
+    }
+
+    cg-board {
+      box-shadow: none;
+    }
+
+    .expiration-top {
+      display: none;
+    }
+
+    &__table {
+      display: none;
+    }
+
+    &.move-confirm {
+      // replace move list with move confirmation
+      grid-template-areas: 'controls' 'mat-top' 'user-top' 'board' 'expi-bot' 'user-bot' 'mat-bot' 'kb-move';
+
+      #{$rmoves-tag} {
+        display: none;
+      }
+    }
+  }
+
+
+  @include breakpoint($mq-col2) {
+    grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
+    grid-template-rows: 1fr $material-height $clock-height $expiration-height $user-height $moves-height $controls-height $user-height $expiration-height $clock-height $material-height 1fr;
+    grid-template-areas: 'board .' 'board mat-top' 'board clock-top' 'board expi-top' 'board user-top' 'board moves' 'board controls' 'board user-bot' 'board expi-bot' 'board clock-bot' 'board mat-bot' 'board .' 'kb-move .';
+    grid-column-gap: $block-gap;
+
+    &__table {
+      grid-area: 4 / 2 / 10 / 3;
+    }
+
+    .expiration-top {
+      display: flex;
+    }
+
+    #{$rmoves-tag} {
+      margin-bottom: 1px;
+    }
+
+    #{$moves-tag} {
+      display: none;
+      background: none;
+    }
+
+    .keyboard-move {
+      margin-top: $block-gap;
+    }
+
+    @include breakpoint($mq-short) {
+      #{$moves-tag} {
+        display: flex;
+      }
+    }
+  }
+
+
+  @include breakpoint($mq-col2-uniboard-squeeze) {
+    grid-template-columns: $col2-uniboard-squeeze-width $col2-uniboard-squeeze-table;
+    grid-column-gap: #{$block-gap * 3 / 2};
+  }
+
+
+  &__board {
+    grid-area: board;
+  }
+}

@@ -1,0 +1,28 @@
+.textcomplete-dropdown {
+  @extend %popup-shadow;
+
+  background: $c-bg-popup;
+
+  li {
+    list-style: none;
+    border-top: $border;
+    padding: .5em;
+    min-width: 100px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  li.textcomplete-header,
+  li.textcomplete-footer {
+    display: none;
+  }
+
+  li:hover,
+  .active {
+    background-color: mix($c-accent, $c-bg-popup, 10%);
+  }
+
+  a {
+    color: $c-font;
+  }
+}

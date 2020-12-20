@@ -1,0 +1,79 @@
+.training-box {
+  @extend %flex-column;
+
+  flex: 1.5 1 0px;
+
+  .feedback {
+    flex: 1 1 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+  }
+
+  .progress {
+    margin-top: 5px;
+    opacity: 0.8;
+    width: 100%;
+    height: 4px;
+    background: $c-shade;
+  }
+
+  .progress div {
+    background: $c-good;
+    height: 4px;
+    transition: width 0.5s;
+    max-width: 100%;
+  }
+
+  .player {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+  }
+
+  .no-square {
+    width: 64px;
+    height: 64px;
+    margin-right: 10px;
+  }
+
+  .is3d & div.no-square {
+    height: 82px;
+  }
+
+  piece {
+    position: inherit;
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .icon {
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin-right: 10px;
+    font-size: 50px;
+    font-size: 64px;
+    line-height: 64px;
+    text-align: center;
+  }
+
+  .instruction > * {
+    display: block;
+  }
+
+  .instruction > strong {
+    font-weight: normal;
+    font-size: 1.2em;
+  }
+
+  .choices {
+    line-height: 1.6em;
+    margin: 5px 0 -5px 0;
+  }
+
+  .choices a {
+    display: block;
+  }
+}

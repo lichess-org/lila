@@ -1,0 +1,62 @@
+$mq-col2: $mq-col2-uniboard;
+$mq-col3: $mq-col3-uniboard;
+
+#main-wrap {
+  --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
+
+  @include breakpoint($mq-col2) {
+    --main-max-width: auto;
+  }
+}
+
+.learn {
+  grid-area: main;
+  display: grid;
+
+  &__side {
+    grid-area: side;
+  }
+
+  &__main {
+    grid-area: main;
+  }
+
+  &__table {
+    grid-area: table;
+  }
+
+  &--run {
+    grid-template-areas: 'main' 'table' 'side';
+  }
+
+  &--map {
+    grid-template-areas: 'side' 'main';
+  }
+
+  grid-gap: $block-gap;
+
+  @include breakpoint($mq-col2) {
+    &--run {
+      grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
+      grid-template-rows: fit-content(0);
+      grid-template-areas: 'main table' 'side .';
+    }
+
+    &--map {
+      grid-template-areas: 'side main';
+      grid-template-columns: 240px auto;
+
+      @include breakpoint($mq-x-large) {
+        grid-template-columns: 240px 960px;
+      }
+    }
+  }
+
+
+  @include breakpoint($mq-col3) {
+    &--run {
+      grid-template-columns: $col3-uniboard-side $col3-uniboard-width $col3-uniboard-table;
+      grid-template-areas: 'side main table';
+    }
+  }
+}

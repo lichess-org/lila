@@ -1,0 +1,43 @@
+.none {
+  display: none !important;
+}
+
+.fullscreen-mask {
+  @extend %fullscreen-mask;
+
+  display: none;
+
+  .fullscreen-toggle:checked ~ & {
+    display: block;
+  }
+}
+
+.rp::before {
+  @extend %data-icon;
+
+  margin-right: .2em;
+  content: 'N';
+}
+
+bad.rp {
+  &::before {
+    content: 'M';
+  }
+}
+
+good {
+  color: $c-good;
+}
+
+bad {
+  color: $c-bad;
+}
+
+/* infinite scroll */
+.inf-more {
+  width: 100%;
+}
+
+#infscr-loading .spinner {
+  margin: 10px auto;
+}

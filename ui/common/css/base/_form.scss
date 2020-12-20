@@ -1,0 +1,38 @@
+button, input, optgroup, select, textarea {
+  font: inherit;
+  color: $c-font;
+  outline-color: $c-primary;
+}
+
+option,
+optgroup {
+  background: $c-bg-box-opaque;
+  color: $c-font-clear;
+}
+
+input, textarea, select {
+  @extend %box-radius;
+
+  background: $c-bg-input;
+  border: $border;
+  padding: .6em 1em;
+}
+
+textarea {
+  overflow: auto;
+  resize: vertical;
+  padding: .8em 1em;
+}
+
+button, a {
+  cursor: pointer;
+}
+
+::placeholder {
+  color: $c-font-dim;
+}
+
+.copyable {
+  background: $c-page-input;
+  color: $c-font-clear;
+}

@@ -1,0 +1,50 @@
+.tv-channel {
+  padding: .4rem .8rem .4rem 0 !important;
+
+  > span {
+    @extend %flex-center-nowrap;
+
+    width: 100%;
+    justify-content: flex-end;
+
+    &::before {
+      order: 2;
+      color: mix($c-brag, $c-bg-page, 60%);
+      font-size: 2.5em;
+      margin-left: .8rem;
+    }
+
+    > span {
+      text-align: right;
+
+      strong {
+        display: block;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  .champion {
+    font-size: .9em;
+    white-space: nowrap;
+    display: block;
+  }
+
+  &.active > span::before {
+    color: $c-accent;
+  }
+}
+
+.tv-channels.subnav {
+  @include breakpoint($mq-subnav-top) {
+    grid-template-columns: repeat(auto-fit, minmax(18ch, 1fr));
+
+    strong {
+      letter-spacing: -1px;
+    }
+  }
+}
+
+.game__meta {
+  margin-bottom: $block-gap;
+}

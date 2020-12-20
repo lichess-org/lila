@@ -1,0 +1,61 @@
+.page {
+  .body {
+    font-size: 1.1em;
+    text-align: justify;
+
+    h2 {
+      margin-top: 1.3em;
+    }
+
+    p,
+    ul,
+    ol {
+      margin: 1em 0;
+    }
+
+    ul li {
+      list-style: disc outside;
+      margin: .5em 0 0 1.5em;
+    }
+
+    ol li {
+      list-style: decimal inside;
+      margin: .5em 0;
+    }
+
+    li {
+      margin-left: 2em;
+    }
+
+    h3 {
+      @extend %roboto;
+
+      font-size: 1.3em;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    iframe {
+      width: 100%;
+    }
+
+    .block-img {
+      margin: 1em auto;
+      text-align: center;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .copy-zone {
+      @extend %flex-center-nowrap;
+
+      input {
+        flex: 1 1 auto;
+      }
+    }
+  }
+}

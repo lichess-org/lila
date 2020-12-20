@@ -1,0 +1,83 @@
+.subnav {
+  a {
+    @extend %nowrap-hidden, %page-text;
+  }
+
+  @include breakpoint($mq-subnav-top) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17ch, 1fr));
+    grid-gap: 3px;
+    margin-bottom: 3px;
+    background: $c-bg-page;
+
+    a {
+      @include box-neat;
+
+      font-family: roboto;
+      display: flex;
+      align-items: center;
+      color: $c-font;
+      padding: .6rem 0 .6rem .5rem;
+      letter-spacing: -.06em;
+      background: $c-bg-high;
+
+      &:hover {
+        color: $c-link;
+      }
+
+      &.active {
+        background: $c-primary;
+        color: $c-primary-over;
+      }
+    }
+
+    .sep {
+      display: none;
+    }
+  }
+
+
+  @include breakpoint($mq-subnav-side) {
+    margin-top: 5px;
+    z-index: z("subnav-side");
+
+    /* active border must go over the page content */
+    a {
+      display: block;
+      color: $c-font-page;
+      padding: .7rem 2vw .7rem .8rem;
+      position: relative;
+
+      @include transition;
+
+      &::after {
+        content: "";
+        background: fade-out($c-accent, 0.4);
+        width: 3px;
+        position: absolute;
+        height: 98%;
+        top: 1%;
+        right: -1px;
+
+        @include transition(all, 0.25s);
+
+        transform: scale(0);
+      }
+
+      &.active,
+      &:hover {
+        &::after {
+          transform: scale(1);
+        }
+      }
+
+      &.active {
+        color: $c-accent;
+      }
+    }
+
+    .sep {
+      height: 2em;
+    }
+  }
+}

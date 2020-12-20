@@ -1,0 +1,114 @@
+@import "sub-rating";
+@import "header";
+@import "trophy";
+@import "profile";
+@import "number-menu";
+@import "note-zone";
+@import "activity";
+@import "games";
+
+.page-menu {
+  /* for the trophies. This glorious hack bypasses the .user-show overflow: hidden */
+  position: relative;
+}
+
+.user-show {
+  overflow: hidden;
+
+  /* this fixes profile overflow, but cuts out the trophies */
+
+  .flash {
+    @extend %box-padding-horiz;
+  }
+
+  &__social {
+    @extend %flex-between;
+
+    background: $c-bg-zebra;
+
+    .number-menu {
+      margin: 0 0 .2em 1em;
+    }
+
+    .user-actions {
+      margin: 1em;
+
+      form {
+        display: inline;
+      }
+    }
+
+    .relation-actions {
+      @extend %flex-center-nowrap;
+
+      border-right: $border;
+    }
+  }
+
+  .claim-title {
+    @extend %box-padding;
+
+    border-top: $border;
+
+    h2 {
+      font-size: 1.5em;
+      margin-bottom: 1em;
+    }
+
+    form {
+      @extend %flex-between;
+
+      margin: 3em 0 1em 0;
+    }
+  }
+
+  .crosstable {
+    margin: 2em 1em;
+    width: auto;
+  }
+
+  .new-player {
+    padding: 1.5em;
+    overflow-y: scroll;
+
+    h2 {
+      font-size: 1.5em;
+    }
+
+    p {
+      margin: 1em 0;
+    }
+
+    li {
+      list-style: disc inside;
+      line-height: 1.5em;
+    }
+  }
+
+  .number-menu .to-games.active,
+  #games.number-menu {
+    background: $c-bg-low !important;
+  }
+
+  .angles {
+    @extend %metal;
+
+    font-size: 1.2em;
+    height: 4rem;
+    border-top: $border;
+
+    .nm-item {
+      @extend %flex-center;
+
+      justify-content: center;
+    }
+
+    .unread {
+      margin-left: .5em;
+    }
+  }
+
+  .activity {
+    margin-bottom: 2em;
+  }
+}

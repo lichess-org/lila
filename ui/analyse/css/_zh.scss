@@ -1,0 +1,46 @@
+@import "variables";
+
+$pocket-col1-height: auto;
+$pocket-height: 60px;
+
+.pocket {
+  &-top {
+    grid-area: pocket-top;
+  }
+
+  &-bottom {
+    grid-area: pocket-bot;
+  }
+
+  &-c1 {
+    max-width: $pocket-height;
+  }
+}
+
+.analyse.variant-crazyhouse {
+  grid-template-rows: $pocket-col1-height auto $pocket-col1-height auto 50vh;
+  grid-template-areas: 'pocket-top' 'board' 'pocket-bot' 'controls' 'tools' 'side' 'acpl' 'under' 'chat' 'uchat';
+
+  @include breakpoint($mq-col2) {
+    grid-template-rows: $pocket-height auto $pocket-height;
+    grid-template-areas: 'board      gauge pocket-top' 'board      gauge tools' 'board      gauge pocket-bot' 'under      .     controls' 'under      .     acpl' 'under      .     side' 'chat       .     side' 'uchat      .     side';
+  }
+
+
+  @include breakpoint($mq-col3) {
+    grid-template-rows: $pocket-height $meta-height $chat-height $pocket-height;
+    grid-template-areas: 'side    . board gauge pocket-top' 'side    . board gauge tools' 'chat    . board gauge tools' 'chat    . board gauge pocket-bot' 'uchat   . under .     controls' 'uchat   . under .     acpl';
+  }
+}
+
+@include breakpoint($mq-col1) {
+  .pocket {
+    &-top {
+      margin-bottom: #{-$block-gap};
+    }
+
+    &-bottom {
+      margin-top: #{-$block-gap};
+    }
+  }
+}

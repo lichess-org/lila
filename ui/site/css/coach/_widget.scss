@@ -1,0 +1,93 @@
+.coach-widget {
+  position: relative;
+  display: flex;
+  padding-bottom: 1rem;
+
+  @include transition;
+  @include breakpoint($mq-picture) {
+    height: 300px;
+  }
+
+
+  .overlay {
+    @extend %link-overlay;
+  }
+
+  .picture {
+    display: none;
+
+    @include breakpoint($mq-picture) {
+      display: block;
+    }
+  }
+
+  .overview {
+    margin: 1.3em 2.5vw 0 2.5vw;
+  }
+
+  .coach-name {
+    @extend %roboto;
+
+    font-size: 2em;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin: 0 0 .6rem 0;
+  }
+
+  .headline {
+    font-style: italic;
+    font-size: 1.2em;
+    margin: 0 0 1em  0;
+
+    &.medium {
+      font-size: 1em;
+      margin-bottom: .8em;
+    }
+
+    &.large {
+      font-size: .9em;
+      margin-bottom: .7em;
+    }
+  }
+
+  table {
+    line-height: 1.7;
+
+    th {
+      color: $c-font-dim;
+      padding-right: 1.2em;
+      text-align: right;
+    }
+
+    .seen {
+      color: $c-font-dim;
+
+      time {
+        font-size: inherit;
+        opacity: inherit;
+      }
+    }
+
+    .rating td {
+      @extend %flex-center;
+
+      a {
+        display: flex;
+        color: $c-font;
+
+        span {
+          margin-left: .5em;
+        }
+      }
+    }
+
+    .flag {
+      margin-left: .5em;
+      vertical-align: text-bottom;
+    }
+
+    [data-icon] {
+      @extend %flex-center;
+    }
+  }
+}

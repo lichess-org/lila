@@ -1,0 +1,102 @@
+.study__metadata {
+  @extend %box-neat;
+
+  background: $c-bg-box;
+  text-align: left;
+
+  h2 {
+    @extend %metal, %flex-between-nowrap;
+
+    font-size: 1.3em;
+    padding: 0 1rem;
+    white-space: nowrap;
+    border-bottom: $border;
+
+    .name {
+      @extend %ellipsis;
+
+      padding: .7rem 0;
+    }
+
+    .credit {
+      display: block;
+      font-size: .8rem;
+      margin: .2rem 0 -.3rem 0;
+    }
+
+    .liking {
+      margin-left: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: 0.3s;
+    }
+
+    .liking:hover {
+      opacity: 1;
+      color: $c-red;
+    }
+  }
+}
+
+.study__tags {
+  border: none;
+
+  th {
+    font-weight: bold;
+    color: $c-font-dim;
+    width: 1px;
+    padding: 0 0.3em 0 1em !important;
+  }
+
+  td {
+    padding: 0;
+  }
+
+  input,
+  span {
+    display: block;
+    padding: .6em 1em .6em .7em;
+    line-height: 1.7;
+  }
+
+  input {
+    border: none;
+    background: none;
+    width: 100%;
+  }
+
+  input:hover,
+  input:focus {
+    background: mix($c-primary, $c-bg-box, 10%);
+  }
+
+  select {
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+  }
+}
+
+.study__topics {
+  @extend %flex-center, %roboto;
+
+  margin: 1em;
+
+  .topic {
+    @extend %box-radius;
+
+    background: mix($c-primary, $c-bg-box, 17%);
+    padding: .2em .6em;
+    margin: .2em;
+  }
+
+  .manage {
+    margin: .2em;
+  }
+}
+
+.study-topics form {
+  max-width: 600px;
+}

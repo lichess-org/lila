@@ -1,0 +1,40 @@
+{
+  "name": "analyse",
+  "version": "2.0.0",
+  "private": true,
+  "description": "lichess.org analysis board",
+  "keywords": [
+    "chess",
+    "lichess",
+    "play",
+    "replay",
+    "analysis",
+    "study"
+  ],
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0-or-later",
+  "devDependencies": {
+    "@build/rollupProject": "2.0.0",
+    "@types/jquery": "^2.0",
+    "@types/lichess": "2.0.0"
+  },
+  "dependencies": {
+    "@badrap/result": "^0.2.6",
+    "ceval": "2.0.0",
+    "chat": "2.0.0",
+    "chess": "2.0.0",
+    "chessground": "^7.9.2",
+    "chessops": "^0.6.0",
+    "common": "2.0.0",
+    "game": "2.0.0",
+    "nvui": "2.0.0",
+    "snabbdom": "^0.7.4",
+    "tree": "2.0.0"
+  },
+  "scripts": {
+    "dev": "rollup --config",
+    "prod": "rollup --config --config-prod",
+    "plugin-dev": "rollup --config --config-plugin",
+    "plugin-prod": "rollup --config --config-prod --config-plugin"
+  }
+}

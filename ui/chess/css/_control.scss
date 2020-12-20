@@ -1,0 +1,30 @@
+.analyse-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  font-size: 1.3rem;
+
+  .fbt {
+    @extend %box-radius-bottom;
+
+    text-align: center;
+  }
+
+  .hidden {
+    visibility: hidden;
+  }
+
+  .jumps {
+    display: flex;
+
+    .fbt {
+      flex: 1 1 30%;
+
+      &:first-child,
+      &:last-child {
+        flex: 1 1 20%;
+        font-size: .7em;
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "editor",
+  "version": "2.0.0",
+  "private": true,
+  "description": "lichess.org board editor",
+  "keywords": [
+    "chess",
+    "lichess.org",
+    "board",
+    "editor"
+  ],
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0-or-later",
+  "devDependencies": {
+    "@build/rollupProject": "2.0.0"
+  },
+  "dependencies": {
+    "chessground": "^7.9.2",
+    "chessops": "^0.6.0",
+    "snabbdom": "^0.7.4",
+    "common": "2.0.0"
+  },
+  "scripts": {
+    "dev": "rollup --config",
+    "prod": "rollup --config --config-prod"
+  }
+}

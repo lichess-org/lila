@@ -1,0 +1,73 @@
+.cmn-toggle {
+  position: absolute;
+  margin-left: -99999px;
+}
+
+.cmn-toggle + label {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+.cmn-toggle + label {
+  padding: 1px;
+  width: 40px;
+  height: 24px;
+  background-color: $c-border;
+  border-radius: 24px;
+}
+
+.cmn-toggle + label::before,
+.cmn-toggle + label::after {
+  display: block;
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  bottom: 1px;
+  content: "";
+}
+
+.cmn-toggle + label::before {
+  right: 1px;
+  background-color: $c-bad;
+  border-radius: 24px;
+}
+
+.cmn-toggle:focus + label::before {
+  @extend %focus-shadow;
+}
+
+.cmn-toggle--subtle + label::before {
+  background-color: $c-font-dimmer;
+}
+
+.cmn-toggle:hover + label::before {
+  @extend %focus-shadow;
+
+  @include transition(background);
+}
+
+.cmn-toggle + label::after {
+  @extend %metal;
+
+  width: 22px;
+  border-radius: 100%;
+  box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.3);
+}
+
+.cmn-toggle:hover + label::after {
+  @extend %metal-hover;
+
+  @include transition(margin);
+}
+
+.cmn-toggle:checked + label::before {
+  background-color: $c-good;
+}
+
+.cmn-toggle:checked + label::after {
+  margin-left: 16px;
+}

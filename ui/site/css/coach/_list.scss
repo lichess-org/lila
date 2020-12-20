@@ -1,0 +1,55 @@
+.coach-list {
+  .mselect {
+    font-size: 1.2em;
+  }
+
+  &__side {
+    @extend %page-text;
+
+    text-align: center;
+    margin-top: 2rem;
+
+    img {
+      width: 140px;
+      height: 140px;
+    }
+
+    h1 {
+      font: 1.95em Roboto;
+      text-transform: uppercase;
+      color: #639B24;
+      white-space: nowrap;
+      margin-bottom: 1em;
+    }
+
+    p {
+      margin-top: 1em;
+      font-size: 1.1em;
+    }
+  }
+
+  &__main {
+    .coach-widget {
+      border-top: $border;
+
+      &:nth-child(even) {
+        background: $c-bg-zebra;
+        justify-content: space-between;
+
+        .picture {
+          order: 3;
+        }
+      }
+
+      &:hover {
+        background: mix($c-accent, $c-bg-box, 12%);
+      }
+    }
+
+    @include breakpoint($mq-not-xx-small) {
+      .rating {
+        display: none;
+      }
+    }
+  }
+}

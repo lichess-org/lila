@@ -1,0 +1,65 @@
+#main-wrap {
+  --main-max-width: auto;
+
+  @include breakpoint($mq-col1) {
+    --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-player-clock-height * 2} - #{$col1-moves-height});
+  }
+}
+
+.round {
+  grid-area: main;
+  display: grid;
+  grid-gap: $block-gap;
+
+  &__app {
+    grid-area: app;
+  }
+
+  &__side {
+    grid-area: side;
+  }
+
+  &__underboard {
+    @extend %zen;
+
+    grid-area: under;
+  }
+
+  &__underchat {
+    @extend %zen;
+
+    grid-area: uchat;
+
+    #{$move-tag} {
+      display: none;
+    }
+  }
+
+  grid-template-areas: 'app' 'under' 'side' 'uchat';
+
+  @include breakpoint($mq-col2) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto fit-content(0) fit-content(0);
+    grid-template-areas: 'app   app' 'under side' 'under uchat';
+
+    &__app {
+      justify-self: center;
+    }
+  }
+
+
+  @include breakpoint($mq-col3) {
+    grid-template-columns: $col3-uniboard-side $col3-uniboard-width $col3-uniboard-table;
+    grid-template-rows: fit-content(0);
+    grid-template-areas: 'side  app   app' 'uchat under .';
+
+    @include crosstable-large;
+  }
+
+
+  @include breakpoint($mq-col2-uniboard-squeeze) {
+    .crosstable {
+      display: none;
+    }
+  }
+}

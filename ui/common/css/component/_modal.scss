@@ -1,0 +1,49 @@
+#modal {
+  &-overlay {
+    @extend %fullscreen-mask, %flex-center;
+
+    justify-content: center;
+  }
+
+  &-wrap {
+    @extend %box-radius, %popup-shadow, %flex-column;
+
+    background: $c-bg-box;
+    position: relative;
+    padding: 2rem;
+    text-align: center;
+    max-width: 100vw;
+    max-height: 96vh;
+
+    > div {
+      overflow: auto;
+    }
+
+    .close {
+      color: $c-font;
+      position: absolute;
+      font-size: 16px;
+      line-height: 27px;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      top: 0;
+      right: 0;
+      background: none;
+
+      @include breakpoint($mq-small) {
+        top: -12px;
+        right: -12px;
+        background: $c-bg-popup;
+        border-radius: 50%;
+      }
+    }
+
+    .close:hover {
+      @extend %box-shadow;
+
+      background: $c-bad;
+      color: #fff;
+    }
+  }
+}

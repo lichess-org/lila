@@ -1,0 +1,128 @@
+@import "../abstract/functions";
+
+/* Colors */
+
+@function c-dimmer($color, $weight: 17%) {
+  @return mix(#fff, $color, $weight);
+}
+
+@function c-clearer($color, $weight: 17%) {
+  @return mix(#000, $color, $weight);
+}
+
+$c-site-hue: 37;
+
+$c-bg-page: hsl($c-site-hue, 10%, 92%);
+
+// hsl(210, 17%, 95%)
+$c-bg-high: hsl(0, 0%, 100%);
+$c-bg-low: hsl(0, 0%, 89%);
+
+/* even rows in list or tables, subtle shade of $c-bg-high */
+$c-bg-zebra: hsl($c-site-hue, 12%, 96.5%);
+$c-bg-zebra2: hsl($c-site-hue, 12%, 92%);
+
+$c-body-gradient: hsl($c-site-hue, 12%, 84%);
+
+$c-font: hsl(0, 0%, 30%);
+$c-font-dim: c-light($c-font, 47%);
+$c-font-dimmer: c-light($c-font, 70%);
+$c-font-clear: c-light($c-font, 12%);
+$c-font-clearer: c-light($c-font, 0%);
+$c-shade: c-dimmer($c-font, 80%);
+$c-font-page: c-light($c-font, 37%);
+
+/* Primary: blue */
+$c-primary: hsl(209, 77%, 46%);
+$c-primary-dim: c-dimmer($c-primary);
+$c-primary-clear: c-clearer($c-primary);
+$c-primary-over: #fff;
+
+/* text over primary background */
+
+/* Secondary: green */
+$c-secondary: hsl(88, 62%, 37%);
+$c-secondary-dim: c-dimmer($c-secondary);
+$c-secondary-dimmer: c-dimmer($c-secondary, 40%);
+$c-secondary-over: #fff;
+
+/* text over secondary background */
+
+/* Accent: orange */
+$c-accent: hsl(22, 100%, 42%);
+$c-accent-dim: c-dimmer($c-accent);
+$c-accent-clear: c-clearer($c-accent);
+$c-accent-over: #fff;
+
+/* text over accent background */
+
+/* Brag: gold */
+$c-brag: hsl(37, 74%, 48%);
+$c-brag-over: #fff;
+
+/* text over brag background */
+
+/* Error: red */
+$c-red: hsl(0, 60%, 50%);
+$c-error: $c-red;
+$c-error-over: #fff;
+
+/* text over brag background */
+
+/* Good: green */
+$c-good: $c-secondary;
+$c-good-over: $c-secondary-over;
+
+/* Warn: orange */
+$c-warn: $c-brag;
+$c-warn-over: $c-brag-over;
+
+/* Bad: red */
+$c-bad: $c-error;
+$c-bad-over: $c-error-over;
+
+/* Fancy: pink */
+$c-fancy: hsl(294, 61%, 62%);
+$c-fancy-over: white;
+
+/* text over brag background */
+
+$c-link: $c-primary;
+$c-link-dim: $c-primary-dim;
+$c-link-clear: $c-primary-clear;
+$c-link-hover: c-clearer(saturate($c-primary, 100%), 35%);
+$c-link-over: $c-primary-over;
+
+$c-bg-box: $c-bg-high;
+$c-bg-box-opaque: $c-bg-box;
+$c-bg-input: c-light($c-bg-page, 98%);
+
+$c-border: hsl(0, 0%, 85%);
+$c-border-page: hsl(0, 0%, 80%);
+
+$c-page-mask: hsla(0, 0, 0%, 0.6);
+
+$c-bg-popup: $c-bg-high;
+$c-popup: $c-font;
+
+$c-bg-header-dropdown: $c-bg-popup;
+$c-header-dropdown: $c-popup;
+
+$c-font-shadow: white;
+$text-shadow: 0 1px 0 $c-font-shadow;
+
+$c-bot: $c-fancy;
+
+$c-page-input: $c-bg-low;
+
+/* Borders */
+
+$border-width: 1px;
+$border-style: solid;
+$border: $border-width $border-style $c-border;
+
+/* Shadows */
+
+$box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+
+// $box-shadow: 0 2px 2px 0 rgba(0,0,0,.157);

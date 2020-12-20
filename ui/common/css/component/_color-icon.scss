@@ -1,0 +1,24 @@
+.color-icon {
+  @if $theme-light {
+    &.white::before {
+      content: "K";
+    }
+
+    &.black::before {
+      content: "J";
+    }
+  }
+  @else {
+    &.white::before {
+      content: "J";
+    }
+
+    &.black::before {
+      content: "K";
+    }
+  }
+
+  &.random::before {
+    content: "l";
+  }
+}

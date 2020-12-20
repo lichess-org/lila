@@ -1,0 +1,74 @@
+@import "crud";
+@import "practice";
+@import "irwin";
+@import "dev";
+
+.mod-search {
+  form {
+    @extend %flex-center;
+
+    input, select {
+      flex: 1 1 auto;
+      margin: 0 1em 2em 0;
+    }
+  }
+
+  .slist {
+    td {
+      word-break: normal;
+    }
+
+    email {
+      display: block;
+      font-size: .8em;
+    }
+
+    marked {
+      margin: 0 .3em;
+      font-size: .9em;
+    }
+  }
+
+  li {
+    @extend %break-word-hard;
+
+    list-style: inside disc;
+  }
+}
+
+.mod-confirm form input {
+  width: 100%;
+  padding: 15px 25px;
+  font-size: 1.2em;
+  margin: .5rem 0 2rem 0;
+  position: relative;
+}
+
+.mod-confirm form input {
+  margin-top: 2rem;
+}
+
+#chat-panic {
+  .forms {
+    margin: 30px 0;
+    text-align: center;
+  }
+
+  form {
+    display: inline;
+    margin: 0 .5em;
+  }
+}
+
+.slist thead {
+  white-space: nowrap;
+}
+
+.mod-presets {
+  h1 small {
+    font-size: 70%;
+  }
+  textarea {
+    width: 100%;
+  }
+}

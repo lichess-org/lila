@@ -1,0 +1,39 @@
+#analyse-cm {
+  @extend %box-radius, %popup-shadow;
+
+  background: $c-bg-box;
+  position: absolute;
+  display: none;
+  z-index: z("context-menu");
+  cursor: default;
+
+  &.visible {
+    display: block;
+  }
+
+  .title {
+    @extend %san, %metal;
+
+    padding: .4em;
+    text-align: center;
+    font-size: 1.2em;
+    border-bottom: $border;
+    margin: 0;
+  }
+
+  a {
+    @extend %flex-center-nowrap;
+
+    color: $c-font;
+    padding: .5em .6em .5em .3em;
+
+    &::before {
+      width: 2em;
+      text-align: center;
+    }
+
+    &:hover {
+      background: mix($c-accent, $c-bg-box, 10%);
+    }
+  }
+}
