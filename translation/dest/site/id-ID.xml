@@ -419,6 +419,7 @@
   <string name="lastName">Nama Belakang</string>
   <string name="biography">Biografi</string>
   <string name="country">Negara</string>
+  <string name="thankYou">Terima Kasih!</string>
   <string name="socialMediaLinks">Tautan sosial media</string>
   <string name="inlineNotation">Notasi inline</string>
   <string name="watchLichessTV">Nonton Lichess TV</string>
@@ -427,33 +428,7 @@
   <string name="activeToday">Aktif hari ini</string>
   <string name="activePlayers">Pemain aktif</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Awas, permainan ini pake rating namun tanpa pake waktu!</string>
-  <string name="yourPuzzleRatingX">Rating taktik anda: %s</string>
-  <string name="findTheBestMoveForWhite">Temukan langkah terbaik untuk putih.</string>
-  <string name="findTheBestMoveForBlack">Temukan langkah terbaik untuk hitam.</string>
-  <string name="toTrackYourProgress">Lihat perkembangan anda:</string>
-  <string name="puzzleId">Taktik nomer %s</string>
-  <string name="puzzleOfTheDay">Taktik hari ini</string>
-  <string name="clickToSolve">Klik untuk menyelesaikan</string>
-  <string name="goodMove">Langkah bagus</string>
-  <string name="butYouCanDoBetter">Tetapi anda bisa melakukan lebih baik.</string>
-  <string name="bestMove">Langkah terbaik!</string>
-  <string name="keepGoing">Teruskan...</string>
-  <string name="puzzleFailed">Taktik gagal diselesaikan.</string>
-  <string name="butYouCanKeepTrying">Tetapi anda bisa mencoba terus.</string>
   <string name="success">Sukses</string>
-  <string name="wasThisPuzzleAnyGood">Apakah taktik ini bagus?</string>
-  <string name="pleaseVotePuzzle">Bantu lichess berkembang dengan vote, gunakan tanda panah ke atas atau bawah:</string>
-  <string name="thankYou">Terima Kasih!</string>
-  <string name="ratingX">Rating: %s</string>
-  <string name="hidden">tersembunyi</string>
-  <plurals name="playedXTimes">
-    <item quantity="other">Dimainkan %s kali</item>
-  </plurals>
-  <string name="fromGameLink">Dari permainan %s</string>
-  <string name="continueTraining">Lanjutkan latihan</string>
-  <string name="retryThisPuzzle">Coba lagi taktik ini</string>
-  <string name="thisPuzzleIsCorrect">Taktik ini benar dan menarik</string>
-  <string name="thisPuzzleIsWrong">Taktik ini salah atau membosankan</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s pertandingan sedang berlangsung</item>
   </plurals>
