@@ -25,8 +25,6 @@ final class PuzzleApi(
 
     def delete(id: Puzzle.Id): Funit =
       colls.puzzle(_.delete.one($id(id.value))).void
-
-    def count = colls.puzzle(_.countAll).dmap(_.toInt)
   }
 
   object round {
