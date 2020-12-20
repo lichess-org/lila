@@ -10,10 +10,16 @@
   <string name="bishopEndgame">Слоновый эндшипль </string>
   <string name="bishopEndgameDescription">Эндшпиль только со слонами и пешками</string>
   <string name="castling">Рокировка</string>
+  <string name="kingsideAttack">Атака на королевском фланге</string>
   <string name="defensiveMove">Защитный ход</string>
+  <string name="defensiveMoveDescription">Точный ход или последовательность ходов, которые необходимы во избежание потери материала или другого преимущества.</string>
   <string name="endgame">Эндшпиль</string>
+  <string name="endgameDescription">Тактика на последней фазе игры.</string>
+  <string name="enPassant">Взятие на проходе</string>
   <string name="exposedKingDescription">Тактика, подразумевающая короля и нескольких защитников вокруг него, часто приводящая к мату.</string>
   <string name="fork">Вилка</string>
+  <string name="hangingPiece">Незащищённая фигура</string>
+  <string name="intermezzoDescription">Вместо того, чтобы делать ожидаемый ход, сначала сделайте другой ход, представляющий непосредственную угрозу, на которую противник должен ответить. Также известен как \"промежуточный ход\".</string>
   <string name="mateDescription">Выиграйте игру красиво.</string>
   <string name="mateIn1">Мат в 1 ход</string>
   <string name="mateIn3">Мат в 3 хода</string>
