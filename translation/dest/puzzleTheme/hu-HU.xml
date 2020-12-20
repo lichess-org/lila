@@ -21,6 +21,7 @@
   <string name="doubleCheck">Kettős sakk</string>
   <string name="doubleCheckDescription">Két figurával történő egyidejű sakkadás amikor felfedés után az elmozdított és a korábban akadályozott figura is támadja az ellenfél királyát.</string>
   <string name="endgame">Végjáték</string>
+  <string name="endgameDescription">Taktikák a játszma utolsó fázisában.</string>
   <string name="hangingPiece">Lógó figura</string>
   <string name="mateIn5">Matt 5 vagy több lépésben</string>
   <string name="queenEndgame">Vezér végjáték</string>
