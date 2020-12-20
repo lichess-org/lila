@@ -19,9 +19,9 @@
   <string name="crushing">Vernichtend</string>
   <string name="crushingDescription">Erkenne den Patzer des Gegners, um einen vernichtenden Vorteil zu erhalten. (Bewertung &gt; 600 Hunderstel-Bauern)</string>
   <string name="equality">Ausgleich</string>
-  <string name="equalityDescription">Komme aus einer verlorenen Stellung zurück und sichere dir ein Remis oder eine ausgeglichene Position. (Bewertung &lt; 200 Hunderstel-Bauern)</string>
+  <string name="equalityDescription">Komme aus einer verlorenen Stellung zurück und sichere dir ein Remis oder eine ausgeglichene Stellung. (Bewertung &lt; 200 Hundertstel-Bauern)</string>
   <string name="kingsideAttack">Angriff auf dem Königsflügel</string>
-  <string name="kingsideAttackDescription">Ein Angriff auf den gegnerischen König nachdem dieser auf den Königsflügel rochiert hat.</string>
+  <string name="kingsideAttackDescription">Ein Angriff auf den gegnerischen König nachdem dieser auf den Königsflügel rochiert ist.</string>
   <string name="clearance">Öffnung</string>
   <string name="clearanceDescription">Ein Zug, oft mit einem Tempo, der ein Feld, eine Linie oder Diagonale für eine nachfolgende taktische Idee öffnet.</string>
   <string name="defensiveMove">Verteidigungszug</string>
@@ -29,5 +29,18 @@
   <string name="deflection">Ablenkung</string>
   <string name="deflectionDescription">Ein Zug, der eine gegnerische Schachfigur von einer anderen Aufgabe ablenkt, wie zum Beispiel den Schutz eines wichtigen Felds.</string>
   <string name="discoveredAttack">Abzugsangriff</string>
+  <string name="discoveredAttackDescription">Ziehe eine Schachfigur, die zuvor einen Angriff durch eine andere weitfeldrige Figur blockierte, wie einen Springer aus dem Weg eines Turms.</string>
   <string name="doubleCheck">Doppelschach</string>
+  <string name="doubleCheckDescription">Schachgebot mit zwei Schachfiguren gleichzeitig als Ergebnis eines Abzugsangriffs, indem die abziehende und die zuvor blockierte Figur den gegnerischen König angreifen.</string>
+  <string name="endgame">Endspiel</string>
+  <string name="endgameDescription">Eine Taktik in der letzten Phase des Spiels, dem Endspiel.</string>
+  <string name="enPassant">En passant</string>
+  <string name="enPassantDescription">Eine Taktik, die die Schachregel \"en passant\" (im Vorbeigehen) einbezieht, in der ein Bauer einen gegnerischen Bauer schlagen kann, der an ihm mit seinem Doppelschritt aus der Ausgangsstellung vorbei gangen ist.</string>
+  <string name="exposedKing">Offener König</string>
+  <string name="exposedKingDescription">Eine Taktik mit einem König mit wenigen Verteidigern um sich herum, die oft zum Matt führt.</string>
+  <string name="fork">Gabel</string>
+  <string name="forkDescription">Ein Zug, bei dem die gezogene Schachfigur mindestens zwei Gegner auf einmal angreift.</string>
+  <string name="hangingPiece">Hängende Figur</string>
+  <string name="interference">Unterbrechung</string>
+  <string name="intermezzo">Zwischenzug</string>
 </resources>
