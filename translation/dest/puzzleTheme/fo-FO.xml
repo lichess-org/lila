@@ -34,6 +34,10 @@
   <string name="doubleCheckDescription">At skáka við tveimum fólkum samstundis. Úrslit av einum ávdúkaraálopi, har bæði fólkið, ið flutti, og fólkið, ið varð avdúkað, leypa á mótstøðukongin.</string>
   <string name="endgame">Endatalv</string>
   <string name="endgameDescription">Taktisk atgerð í seinasta skeiðinum av talvinum.</string>
+  <string name="enPassantDescription">Taktisk atgerð, ið inniber at taka í framlopi, har ein finna kann taka eina mótstøðufinnu, ið er komin at standa undir liðini á henni, aftaná at finnan í fyrsta leiki sínum júst er flutt tveir puntar fram.</string>
+  <string name="exposedKing">Kongur í andgletti</string>
+  <string name="exposedKingDescription">Taktisk atgerð móti kongi, ið bert hevur fá verndarfólk um seg. Ber ofta skák og mát við sær.</string>
+  <string name="fork">Gaffil</string>
   <string name="middlegameDescription">Taktisk atgerð í seinna skeiði av talvinum.</string>
   <string name="oneMove">Uppgáva við einum leiki</string>
   <string name="oneMoveDescription">Uppgáva, ið bert krevur ein leik.</string>
