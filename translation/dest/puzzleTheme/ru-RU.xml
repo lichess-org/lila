@@ -19,6 +19,7 @@
   <string name="exposedKingDescription">Тактика, подразумевающая короля и нескольких защитников вокруг него, часто приводящая к мату.</string>
   <string name="fork">Вилка</string>
   <string name="hangingPiece">Незащищённая фигура</string>
+  <string name="hangingPieceDescription">Тактика, при которой фигура соперника не защищена или недостаточно защищена и может быть взята.</string>
   <string name="intermezzoDescription">Вместо того, чтобы делать ожидаемый ход, сначала сделайте другой ход, представляющий непосредственную угрозу, на которую противник должен ответить. Также известен как \"промежуточный ход\".</string>
   <string name="mateDescription">Выиграйте игру красиво.</string>
   <string name="mateIn1">Мат в 1 ход</string>
