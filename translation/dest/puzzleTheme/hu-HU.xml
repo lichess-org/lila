@@ -14,11 +14,18 @@
   <string name="castling">Sáncolás</string>
   <string name="castlingDescription">Helyezd a királyt biztonságba és mozgósítsd a bástyát.</string>
   <string name="capturingDefender">A védő leütése</string>
+  <string name="capturingDefenderDescription">Egy olyan figura leütése, amelyik elengedhetetlen egy másik védelméhez, így a védtelen figura a következő lépésben szabadon levehető.</string>
   <string name="crushing">Megsemmisítés</string>
   <string name="crushingDescription">Az ellenfél sakkvakságának kihasználása elsöprő előnnyé fordítható. (&gt; 600cp)</string>
+  <string name="equality">Egyenlőség</string>
+  <string name="equalityDescription">Visszatérés egy rosszabb állásból és a döntetlen vagy kiegyensúlyozott állás bebiztosítása.</string>
   <string name="kingsideAttack">Királyszárnytámadás</string>
+  <string name="kingsideAttackDescription">Királyszárnyra sáncolt király ellen indított támadás.</string>
   <string name="clearance">Felszabadítás</string>
   <string name="clearanceDescription">Egy lépés, általában tempóval, amely felszabadít egy mezőt, vonalat vagy átlót egy taktika kedvéért.</string>
+  <string name="defensiveMove">Védekező lépés</string>
+  <string name="defensiveMoveDescription">Olyan precíz lépés vagy lépéssorozat amivel elkerülhető anyagveszteség vagy más hátrányos helyzet.</string>
+  <string name="deflection">Elterelés</string>
   <string name="discoveredAttack">Felfedés</string>
   <string name="discoveredAttackDescription">Egy figura mozgatása ami előzőleg egy másik figura tűzvonalában állt, például huszár elléptetése a bástya útjából.</string>
   <string name="doubleCheck">Kettős sakk</string>
@@ -33,6 +40,7 @@
   <string name="interference">Akadályozás</string>
   <string name="interferenceDescription">Egy figura mozgatása két ellenséges figura közé az egyiket vagy mindkettőt védtelenné téve, például egy huszárral belépni egy védett mezőre két bástya közé.</string>
   <string name="intermezzo">Köztes lépés</string>
+  <string name="intermezzoDescription">A várt lépés megtétele helyett egy olyan lépés beszúrása, amely fenyegetésére az ellenfélnek rögtön válaszolnia kell. Ismert még \"Zwischenzug\"-nak vagy \"Intermezzo\"-nak.</string>
   <string name="knightEndgame">Huszár végjáték</string>
   <string name="knightEndgameDescription">Végjáték csak huszárokkal és gyalogokkal.</string>
   <string name="long">Hosszú feladványok</string>
