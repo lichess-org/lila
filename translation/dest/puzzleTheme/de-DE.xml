@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Vorgerückter Bauer</string>
-  <string name="advancedPawnDescription">Ein Bauer, der umwandelt oder oder zu umwandeln droht, ist Schlüssel zur Taktik.</string>
+  <string name="advancedPawnDescription">Ein Bauer, der umwandelt oder umzuwandeln droht, ist Schlüssel zur Taktik.</string>
   <string name="advantage">Vorteil</string>
   <string name="advantageDescription">Nutze deine Chance um einen entscheidenden Vorteil zu erlangen. (200cp ≥ Bewertung ≤ 600cp)</string>
-  <string name="attackingF2F7">Angriff f2 oder f7</string>
-  <string name="attackingF2F7Description">Ein Angriff, der sich auf die Bauern auf f2 oder f7 konzentriert, wie zum Beispiel bei der Eröffnung \"Zweispringerspiel im Nachzug, 4. Sg5\".</string>
+  <string name="attackingF2F7">Angriff auf f2 oder f7</string>
+  <string name="attackingF2F7Description">Ein Angriff, der sich auf den Bauern auf f2 oder f7 konzentriert, wie zum Beispiel bei der Eröffnung \"Zweispringerspiel im Nachzug, 4. Sg5\".</string>
   <string name="attraction">Hineinziehung oder \"Magnet\"</string>
   <string name="attractionDescription">Ein Abtausch oder Opfer, der eine gegnerische Schachfigur auf ein Feld einlädt oder zwingt, was eine Folgetaktik erlaubt.</string>
   <string name="backRankMate">Grundreihenmatt</string>
@@ -50,7 +50,7 @@
   <string name="long">Mehrzügige Aufgabe</string>
   <string name="longDescription">Drei Züge zum Sieg.</string>
   <string name="mate">Matt</string>
-  <string name="mateDescription">Gewinne das Spiel mit Stil.</string>
+  <string name="mateDescription">Gewinne die Partie mit Stil.</string>
   <string name="mateIn1">Matt in 1</string>
   <string name="mateIn1Description">Mattsetzen in einem Zug.</string>
   <string name="mateIn2">Matt in 2</string>
@@ -59,4 +59,15 @@
   <string name="mateIn3Description">Mattsetzen in drei Zügen.</string>
   <string name="mateIn4">Matt in 4</string>
   <string name="mateIn4Description">Mattsetzen in vier Zügen.</string>
+  <string name="mateIn5">Matt in 5 oder mehr</string>
+  <string name="mateIn5Description">Finde eine lange mattsetzende Zugfolge.</string>
+  <string name="middlegame">Mittelspiel</string>
+  <string name="middlegameDescription">Eine Taktik in der mittleren Phase des Spiels, dem Mittelspiel.</string>
+  <string name="oneMove">Einzügige Aufgaben</string>
+  <string name="oneMoveDescription">Eine Aufgabe, die nur einen Zug erfodert.</string>
+  <string name="opening">Eröffnung</string>
+  <string name="openingDescription">Eine Taktik in der ersten Phase des Spiels, der Eröffnung.</string>
+  <string name="overloading">Überlastung</string>
+  <string name="overloadingDescription">Wo eine Schachfigure mehrere Aufgaben erfüllt, wie zum Beispiel die Deckung von zwei Schachfiguren. Das Schlagen einer der gedeckten Schachfiguren schafft eine Gelegenheit, nachdem sich die deckende Schachfigure zieht, ähnlich wie bei der Ablenkung.</string>
+  <string name="pawnEndgame">Bauernendspiel</string>
 </resources>
