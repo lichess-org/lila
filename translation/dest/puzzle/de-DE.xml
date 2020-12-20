@@ -8,6 +8,7 @@
   <string name="lengths">Längen</string>
   <string name="mates">Matts</string>
   <string name="goals">Ziele</string>
+  <string name="specialMoves">Spezialzüge</string>
   <string name="didYouLikeThisPuzzle">Hat dir diese Aufgabe gefallen?</string>
   <string name="voteToLoadNextOne">Stimme ab, um die nächste zu laden!</string>
   <string name="yourPuzzleRatingX">Deine Aufgaben-Wertung: %s</string>
@@ -26,6 +27,10 @@
   <string name="trySomethingElse">Versuche etwas anderes.</string>
   <string name="ratingX">Wertung: %s</string>
   <string name="hidden">versteckt</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">%s mal gespielt</item>
+    <item quantity="other">%s mal gespielt</item>
+  </plurals>
   <string name="fromGameLink">Aus der Partie %s</string>
   <string name="continueTraining">Training fortsetzen</string>
   <string name="difficultyLevel">Schwierigkeitsgrad</string>
