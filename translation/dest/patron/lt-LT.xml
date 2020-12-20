@@ -1,2 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="currentStatus">Dabartinė būsena</string>
+  <string name="nextPayment">Kitas mokėjimas</string>
+  <string name="youWillBeChargedXOnY">%1$s bus nuskaityta %2$s.</string>
+  <string name="makeAdditionalDonation">Atlikti papildomą paramos pervedimą</string>
+  <string name="update">Atnaujinti</string>
+  <string name="changeMonthlyAmount">Pakeisti mėnesinį kiekį (%s)</string>
+  <string name="cancelSupport">atšaukti savo pagalbą</string>
+  <string name="xOrY">%1$s arba %2$s</string>
+  <string name="decideHowMuch">Nuspręskite, kiek jums vertas Lichess:</string>
+  <string name="stopPayments">Pašalinti savo kortelę ir sustabdyti mokėjimus:</string>
+  <string name="noLongerSupport">Daugiau neberemti Lichess</string>
+  <string name="paymentHistory">Mokėjimų istorija</string>
+  <string name="paid">Mokėta</string>
+  <string name="viewOthers">Peržiūrėti kitus Lichess rėmėjus</string>
+  <string name="date">Data</string>
+  <string name="amount">Suma</string>
+  <string name="transactionCompleted">Jūsų pervedimas buvo atliktas, dovanos sąskaita jums buvo išsiųsta el. paštu.</string>
+  <string name="permanentPatron">Dabar visam laikui turite rėmėjo paskyrą.</string>
+  <string name="checkOutProfile">Patikrinkite savo profilio puslapį!</string>
+  <string name="nowLifetime">Jūs esate Lichess rėmėjas visam gyvenimui!</string>
+  <string name="nowOneMonth">Jūs esate Lichess rėmėjas vienam mėnesiui!</string>
+  <string name="downgradeNextMonth">Po mėnesio pinigai nebus nuskaityti dar kartą ir jūsų Lichess paskyra atsistatys į įprastą.</string>
+</resources>
