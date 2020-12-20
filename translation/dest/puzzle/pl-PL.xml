@@ -9,11 +9,17 @@
   <string name="puzzleOfTheDay">Zadanie dnia</string>
   <string name="goodMove">Dobry ruch</string>
   <string name="bestMove">Najlepszy ruch!</string>
+  <string name="keepGoing">Kontynuuj…</string>
   <string name="puzzleSuccess">Sukces!</string>
   <string name="ratingX">Ranking: %s</string>
   <string name="hidden">ukryty</string>
+  <string name="fromGameLink">Z partii %s</string>
+  <string name="continueTraining">Kontynuuj trening</string>
   <string name="difficultyLevel">Poziom trudności</string>
   <string name="normal">Normalny</string>
+  <string name="easier">Łatwy</string>
+  <string name="easiest">Najłatwiejszy</string>
   <string name="harder">Trudny</string>
+  <string name="hardest">Najtrudniejszy</string>
   <string name="example">Przykład</string>
 </resources>
