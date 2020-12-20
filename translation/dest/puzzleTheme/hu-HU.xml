@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="advancedPawn">Előretört gyalog</string>
+  <string name="advancedPawnDescription">Átváltozó vagy átváltozással fenyegető gyalog kulcsfontosságú taktika.</string>
+  <string name="advantage">Előny</string>
+  <string name="attackingF2F7">f2 vagy f7 támadása</string>
+  <string name="attackingF2F7Description">Az f2 vagy f7 gyalog ellen irányuló támadás, mint például a \"sültmáj\" megnyitás.</string>
+  <string name="attraction">Ráterelés</string>
+  <string name="attractionDescription">Csere vagy áldozat ami elmozdítja az ellenfél figuráját egy olyan mezőre ahol újabb taktika alkalmazható.</string>
+  <string name="backRankMate">Matt a hátsó soron</string>
+  <string name="bishopEndgame">Futó végjáték</string>
+  <string name="bishopEndgameDescription">Végjáték csak futókkal és gyalogokkal.</string>
+  <string name="castling">Sáncolás</string>
+  <string name="crushing">Megsemmisítés</string>
+  <string name="crushingDescription">Az ellenfél sakkvakságának kihasználása elsöprő előnnyé fordítható. (&gt; 600cp)</string>
+  <string name="hangingPiece">Lógó figura</string>
+  <string name="mateIn5">Matt 5 vagy több lépésben</string>
+  <string name="queenEndgame">Vezér végjáték</string>
+  <string name="queenEndgameDescription">Végjáték csak vezérekkel és gyalogokkal.</string>
+  <string name="queensideAttack">Vezérszárnytámadás</string>
+  <string name="queensideAttackDescription">Vezérszárnyra sáncolt király ellen indított támadás.</string>
+  <string name="quietMove">Csendes lépés</string>
+  <string name="quietMoveDescription">Olyan lépés ami nem ad sakkot és nem is ütés, de védhetetlen fenyegetést készít elő egy későbbi lépéshez.</string>
+  <string name="rookEndgame">Bástya végjáték</string>
+  <string name="rookEndgameDescription">Végjáték csak bástyákkal és gyalogokkal.</string>
+  <string name="sacrifice">Áldozat</string>
+  <string name="sacrificeDescription">Olyan taktika ami enged leütni egy figurát annak érdekében, hogy később előnyre tegyen szert kényszerítő lépések által.</string>
+  <string name="short">Rövid feladvány</string>
+  <string name="shortDescription">Két lépés a megoldás.</string>
+  <string name="smotheredMate">Fojtott matt</string>
+  <string name="smotheredMateDescription">Olyan huszárral adott matt, ahol a sakkot kapó király nem tud lépni, mert saját figurái veszik körül (fojtják meg).</string>
+  <string name="underPromotion">Minor-átváltozás</string>
+  <string name="underPromotionDescription">Gyalog átváltozása huszár, futó vagy bástyára.</string>
+  <string name="veryLong">Hosszú feladvány</string>
+  <string name="veryLongDescription">Négy vagy több lépés a megoldáshoz.</string>
+  <string name="zugzwang">Lépéskényszer</string>
+  <string name="zugzwangDescription">Az ellenfélnek kevés lehetséges lépése van, és mind csak tovább rontja a pozícióját.</string>
+</resources>
