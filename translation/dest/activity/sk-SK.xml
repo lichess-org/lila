@@ -52,15 +52,15 @@
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Začiatok sledovania %s hráča</item>
-    <item quantity="few">Začiatok sledovania %s hráčov</item>
-    <item quantity="many">Začiatok sledovania %s hráčov</item>
-    <item quantity="other">Začiatok sledovania %s hráčov</item>
+    <item quantity="few">Začal sledovať %s hráčov</item>
+    <item quantity="many">Začal sledovať %s hráčov</item>
+    <item quantity="other">Začal sledovať %s hráčov</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">Získanie %s nového sledovateľa</item>
-    <item quantity="few">Získanie %s nových sledovateľov</item>
-    <item quantity="many">Získanie %s nových sledovateľov</item>
-    <item quantity="other">Získanie %s nových sledovateľov</item>
+    <item quantity="one">Získal %s nového sledovateľa</item>
+    <item quantity="few">Získal %s nových sledovateľov</item>
+    <item quantity="many">Získal %s nových sledovateľov</item>
+    <item quantity="other">Získal %s nových sledovateľov</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">Usporiadanie a odohranie %s simultánky</item>
