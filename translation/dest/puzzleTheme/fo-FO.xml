@@ -31,6 +31,9 @@
   <string name="discoveredAttack">Avdúkað álop</string>
   <string name="discoveredAttackDescription">At flyta eitt fólk, ið frammanundan forðaði einum fólki í at leypa á; eitt nú at flyta ein riddara, ið stendur framman fyri ein rók.</string>
   <string name="doubleCheck">Tvískák</string>
+  <string name="doubleCheckDescription">At skáka við tveimum fólkum samstundis. Úrslit av einum ávdúkaraálopi, har bæði fólkið, ið flutti, og fólkið, ið varð avdúkað, leypa á mótstøðukongin.</string>
+  <string name="endgame">Endatalv</string>
+  <string name="endgameDescription">Taktisk atgerð í seinasta skeiðinum av talvinum.</string>
   <string name="middlegameDescription">Taktisk atgerð í seinna skeiði av talvinum.</string>
   <string name="oneMove">Uppgáva við einum leiki</string>
   <string name="oneMoveDescription">Uppgáva, ið bert krevur ein leik.</string>
