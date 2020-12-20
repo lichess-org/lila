@@ -8,4 +8,15 @@
   <string name="noConfirmationEmail">Negaunu patvirtinimo laiško</string>
   <string name="forgotPassword">Pamiršau slaptažodį</string>
   <string name="forgotUsername">Pamiršau prisijungimo vardą</string>
+  <string name="cantChangeMore">Negalime pakeisti daugiau negu didžiųjų/mažųjų raidžių. Dėl techninių priežasčių tai neįmanoma.</string>
+  <string name="orCloseAccount">Jūs galite uždaryti esamą paskyrą ir atsidaryti naują.</string>
+  <string name="wantClearHistory">Noriu išvalyti savo istoriją ir reitingą</string>
+  <string name="cantClearHistory">Nėra galimybės išvalyti savo žaidimų istorijos, galvosūkių istorijos ar reitingų.</string>
+  <string name="wantReport">Noriu pranešti apie žaidėją</string>
+  <string name="cheating">sukčiavimo</string>
+  <string name="sandbagging">tyčinio pralaimėjimo</string>
+  <string name="trolling">erzinimo</string>
+  <string name="insults">įžeidinėjimo</string>
+  <string name="otherReason">kitos priežasties</string>
+  <string name="toReportAPlayer">Norėdami pranešti apie žaidėją už %s, naudokite pranešimo formą</string>
 </resources>
