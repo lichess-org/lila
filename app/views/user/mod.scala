@@ -106,7 +106,7 @@ object mod {
             title := "Activate kid mode if not already the case",
             cls := "xhr"
           )(
-            submitButton(cls := "btn-rack__btn confirm")("kid")
+            submitButton(cls := "btn-rack__btn confirm")("Kid")
           )
         },
         isGranted(_.RemoveRanking) option {
