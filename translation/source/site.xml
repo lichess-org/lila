@@ -869,4 +869,5 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="notationSystem">Notation</string>
     <string name="officialBlog">Lishogi Official Blog</string>
     <string name="previousBlogPosts">Previous blog posts</string>
+    <string name="discussBlogForum">Discuss this blog post in the forum</string>
 </resources>
