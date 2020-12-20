@@ -30,6 +30,9 @@
   <string name="fork">Villa</string>
   <string name="forkDescription">Olyan lépés ahol mozgatott figura egyszerre két ellenséges figurát támad.</string>
   <string name="hangingPiece">Lógó figura</string>
+  <string name="interference">Akadályozás</string>
+  <string name="interferenceDescription">Egy figura mozgatása két ellenséges figura közé az egyiket vagy mindkettőt védtelenné téve, például egy huszárral belépni egy védett mezőre két bástya közé.</string>
+  <string name="intermezzo">Köztes lépés</string>
   <string name="knightEndgame">Huszár végjáték</string>
   <string name="knightEndgameDescription">Végjáték csak huszárokkal és gyalogokkal.</string>
   <string name="long">Hosszú feladványok</string>
