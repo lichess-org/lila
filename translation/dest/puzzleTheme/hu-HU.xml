@@ -13,9 +13,12 @@
   <string name="bishopEndgameDescription">Végjáték csak futókkal és gyalogokkal.</string>
   <string name="castling">Sáncolás</string>
   <string name="castlingDescription">Helyezd a királyt biztonságba és mozgósítsd a bástyát.</string>
+  <string name="capturingDefender">A védő leütése</string>
   <string name="crushing">Megsemmisítés</string>
   <string name="crushingDescription">Az ellenfél sakkvakságának kihasználása elsöprő előnnyé fordítható. (&gt; 600cp)</string>
   <string name="kingsideAttack">Királyszárnytámadás</string>
+  <string name="clearance">Felszabadítás</string>
+  <string name="clearanceDescription">Egy lépés, általában tempóval, amely felszabadít egy mezőt, vonalat vagy átlót egy taktika kedvéért.</string>
   <string name="discoveredAttack">Felfedés</string>
   <string name="discoveredAttackDescription">Egy figura mozgatása ami előzőleg egy másik figura tűzvonalában állt, például huszár elléptetése a bástya útjából.</string>
   <string name="doubleCheck">Kettős sakk</string>
