@@ -28,6 +28,8 @@
   <string name="mateIn4">Мат в 4 хода</string>
   <string name="mateIn5">Мат в 5 или более</string>
   <string name="middlegame">Миттельшпиль</string>
+  <string name="opening">Дебют</string>
+  <string name="pawnEndgame">Пешечное окончание</string>
   <string name="pawnEndgameDescription">Эндшпиль только с пешками</string>
   <string name="pin">Связка</string>
   <string name="promotion">Провождение</string>
