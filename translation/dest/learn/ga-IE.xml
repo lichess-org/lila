@@ -7,6 +7,9 @@
   <string name="play">imir!</string>
   <string name="chessPieces">Píosanna fichille</string>
   <string name="theRook">An caiseal</string>
+  <string name="itMovesInStraightLines">Bogann sé i línte díreacha</string>
+  <string name="rookIntro">Is píosa cumhachtach é an caiseal. An bhfuil tú réidh é a ordú?</string>
+  <string name="rookGoal">Clicáil ar an gcaiseal agus tabhair é chun an réalta!</string>
   <string name="theBishop">An t-easpag</string>
   <string name="theQueen">An bhanríon</string>
   <string name="queenCombinesRookAndBishop">Banríon = caiseal + easpag</string>
