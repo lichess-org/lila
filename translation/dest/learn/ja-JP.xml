@@ -11,8 +11,7 @@
 	<string name="theIntoduction">はじめに</string>
 	<string name="introBasics">基本を学びましょう。</string>
 	<string name="introIntro">あなたの旅はここから始まります。</string>
-	<string name="choosePieceDesign">伝えておくべき大事なことは、駒の区別がつくことですので正しい駒のセットを選びましょう。\n
-そうするためには歯車か（右上にある）ユーザー名をクリックし、そこから「駒のセット」をクリックします。</string>
+	<string name="choosePieceDesign">伝えておくべき大事なことは、駒の区別がつくことですので正しい駒のセットを選びましょう。そうするためには歯車か（右上にある）ユーザー名をクリックし、そこから「駒のセット」をクリックします。</string>
 	<string name="promotionZone">いくつかの駒は相手の陣地3列内に入り、または出たときに、成ることを選択して強くすることができます。</string>
 	<string name="introComplete">これで基本的なことは分かったと思いますが、チュートリアルのこの部分はまだ作成中です。今のところは、個々の駒がどのように動くかを学んでください。</string>
 	<string name="theRook">飛車</string>
@@ -29,7 +28,7 @@
 	<string name="itMovesDiagonally">ナナメに動く</string>
 	<string name="bishopIntro">次は角行の動き方です！</string>
 	<string name="bishopPromotion">角行が成ると、竜馬と呼ばれるより強い駒に変化します。</string>
-	<string name="bishopSummary">角行は斜めへどの方向にも動きます。</string>
+	<string name="bishopSummary">角行はどの斜め方向にも動きます。</string>
 	<string name="horseSummary">竜馬は斜めにも動きますが、上下、左右に1マス進むこともできます。</string>
 	<string name="bishopComplete">おめでとう！角行を使えるようになりました。</string>
 	<string name="theKing">王将/玉将</string>
@@ -56,7 +55,7 @@
 	<string name="pawnSummary">歩兵は理解するにはむしろ分かりやすい駒です。</string>
 	<string name="tokinSummary">このパターンは今やもう慣れているはずです。</string>
 	<string name="theLance">香車</string>
-	<string name="itMovesStraightForward">前に進むことしかできません。</string>
+	<string name="itMovesStraightForward">前に進むことしかできません</string>
 	<string name="lanceIntro">賢く使ってください。</string>
 	<string name="lancesAreStraighforward">動けるだけ好きに前へ動くだけです。簡単なはずです。</string>
 	<string name="lancePromotion">香車が成った後、異なる動きをします。しかし、どこかで既に見たことがあります。金将と同じです。</string>
@@ -192,7 +191,7 @@
 	<string name="watchInstructiveChessVideos">将棋の教材動画を見る</string>
 	<string name="playPeople">対人戦</string>
 	<string name="opponentsFromAroundTheWorld">世界中に相手がいます</string>
-	<string name="playMachine">コンピュータと対局</string>
+	<string name="playMachine">AIと対局</string>
 	<string name="testYourSkillsWithTheComputer">コンピュータ相手に技術を試そう</string>
 	<string name="letsGo">行こう！</string>
 	<string name="stageX">ステージ %s</string>

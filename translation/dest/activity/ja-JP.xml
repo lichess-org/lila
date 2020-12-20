@@ -27,22 +27,22 @@
     <item quantity="other">%s 局の通信戦を完了</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="other">%s フォロー中</item>
+    <item quantity="other">%s 人をフォロー開始</item>
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="other">%s 人の新規フォロワーを獲得</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="other">%s 回の同時対局を主催</item>
+    <item quantity="other">%s 回の多面指しを主催</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="other">%s 回の同時対局に参加</item>
+    <item quantity="other">%s 回の多面指しに参加</item>
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="other">%s 件の研究を作成</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="other">トーナメントに%s 回参加</item>
+    <item quantity="other">%s 回のトーナメントに参加</item>
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="other">%1$s 位（上位 %2$s %%）（%4$s %3$s 局で）</item>
