@@ -25,12 +25,12 @@ final class PuzzleAnon(colls: PuzzleColls, cacheApi: CacheApi, pathApi: PuzzlePa
     pool get PuzzleTheme.mix.key map (_ take nb)
   }.mon(_.puzzle.selector.anon.batch(nb))
 
-  private val poolSize      = 80
+  private val poolSize      = 150
   private val minPathLength = 10
 
   private val pool =
     cacheApi[PuzzleTheme.Key, Vector[Puzzle]](initialCapacity = 64, name = "puzzle.byTheme.anon") {
-      _.refreshAfterWrite(3 minutes)
+      _.refreshAfterWrite(2 minutes)
         .buildAsyncFuture { theme =>
           pathApi countPuzzlesByTheme theme flatMap { count =>
             val tier =
