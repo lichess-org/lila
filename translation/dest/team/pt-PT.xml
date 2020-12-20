@@ -43,5 +43,5 @@ Os jogadores que não gostam de receber as tuas mensagens podem sair da equipa.<
   <string name="usersWhoCanManageThisTeam">Utilizadores que gerem esta equipa</string>
   <string name="leadersChat">Chat dos líderes</string>
   <string name="closeTeam">Encerrar a equipa</string>
-  <string name="closeTeamDescription" comment="closeTeamDescription&#10;&#10;If you click this, your team will be closed forever.">Encerrar a equipa para sempre.</string>
+  <string name="closeTeamDescription">Encerrar a equipa para sempre.</string>
 </resources>
