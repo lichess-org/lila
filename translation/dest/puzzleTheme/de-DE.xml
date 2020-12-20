@@ -79,7 +79,7 @@
   <string name="queenEndgameDescription">Ein Endspiel nur mit Damen und Bauern.</string>
   <string name="queensideAttack">Damenflügelangriff</string>
   <string name="queensideAttackDescription">Ein Angriff auf den gegnerischen König, nachdem dieser auf den Damenflügel rochiert ist.</string>
-  <string name="quietMove">Stiller Zug</string>
+  <string name="quietMove">Ruhiger Zug</string>
   <string name="quietMoveDescription">Ein Zug, der nicht Schach gibt oder schlägt, aber eine unvermeidliche Bedrohung durch einen späteren Zug vorbereitet.</string>
   <string name="rookEndgame">Turmendspiel</string>
   <string name="rookEndgameDescription">Ein Endspiel nur mit Türmen und Bauern.</string>
@@ -88,9 +88,9 @@
   <string name="short">Kurze Aufgabe</string>
   <string name="shortDescription">Zwei Züge zum Sieg.</string>
   <string name="skewer">Spieß (Hinterstellung)</string>
-  <string name="skewerDescription">Ein Motiv mit einer angegriffenen hochwertigen Schachfigur, deren Wegziehen erlaubt, dass eine niedriger wertige Schachfigur hinter ihr geschlagen oder angegriffen werden kann, die Umgekehrung einer Fesselung.</string>
-  <string name="smotheredMate">Ersticktes Matt / Erstickungsmatt</string>
-  <string name="smotheredMateDescription">Ein Matt durch einen Springer, in dem der mattgesetzte König sich nicht bewegen kann, weil er von seinen eigenen Schachfiguren umgeben (bzw. erstickt) wird.</string>
+  <string name="skewerDescription">Ein Motiv mit einer angegriffenen, hochwertigen Schachfigur, deren Wegziehen erlaubt, dass eine niederwertige Schachfigur hinter ihr geschlagen oder angegriffen werden kann, das Gegenteil einer Fesselung.</string>
+  <string name="smotheredMate">Ersticktes Matt</string>
+  <string name="smotheredMateDescription">Ein Matt durch einen Springer, in dem der mattgesetzte König sich nicht bewegen kann, weil er von seinen eigenen Figuren umgeben (oder erstickt) wird.</string>
   <string name="trappedPiece">Gefangene Figur</string>
   <string name="trappedPieceDescription">Eine Figur die dem Schlagen nicht entgehen kann, da sie begrenzte Züge hat.</string>
   <string name="underPromotion">Unter-Umwandlung</string>
@@ -102,5 +102,5 @@
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Der Gegner hat nur eingeschränkt mögliche Züge und alle Züge verschlechtern seine Stellung.</string>
   <string name="healthyMix">Gesunder Mix</string>
-  <string name="healthyMixDescription">Ein bisschen von allen Aufgaben. Du weißt nicht, was dich erwartet, deshalb bleibst du auf alles vorbereitet! Genau wie in echten Partien.</string>
+  <string name="healthyMixDescription">Ein bisschen von Allem. Du weißt nicht, was dich erwartet, deshalb bleibst du auf alles vorbereitet! Genau wie in echten Partien.</string>
 </resources>
