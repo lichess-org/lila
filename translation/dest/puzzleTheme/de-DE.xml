@@ -6,10 +6,10 @@
   <string name="advantageDescription">Nutze deine Chance um einen entscheidenden Vorteil zu erlangen. (200cp ≥ Bewertung ≤ 600cp)</string>
   <string name="attackingF2F7">Angriff auf f2 oder f7</string>
   <string name="attackingF2F7Description">Ein Angriff, der sich auf den Bauern auf f2 oder f7 konzentriert, wie zum Beispiel bei der Eröffnung \"Zweispringerspiel im Nachzug, 4. Sg5\".</string>
-  <string name="attraction">Hineinziehung oder \"Magnet\"</string>
-  <string name="attractionDescription">Ein Abtausch oder Opfer, der eine gegnerische Schachfigur auf ein Feld einlädt oder zwingt, was eine Folgetaktik erlaubt.</string>
+  <string name="attraction">Hinzuziehung</string>
+  <string name="attractionDescription">Ein Tausch oder Opfer, der eine gegnerische Figur auf ein Feld einlädt oder zwingt, was eine Folgetaktik erlaubt.</string>
   <string name="backRankMate">Grundreihenmatt</string>
-  <string name="backRankMateDescription">Setze den König auf der Grundreihe matt, wenn er dort durch seine eigenen Schachfiguren blockiert ist.</string>
+  <string name="backRankMateDescription">Setze den König auf der Grundreihe matt, wenn er dort durch seine eigenen Figuren blockiert wird.</string>
   <string name="bishopEndgame">Läuferendspiel</string>
   <string name="bishopEndgameDescription">Ein Endspiel nur mit Läufern und Bauern.</string>
   <string name="castling">Rochade</string>
@@ -70,4 +70,18 @@
   <string name="overloading">Überlastung</string>
   <string name="overloadingDescription">Wo eine Schachfigure mehrere Aufgaben erfüllt, wie zum Beispiel die Deckung von zwei Schachfiguren. Das Schlagen einer der gedeckten Schachfiguren schafft eine Gelegenheit, nachdem sich die deckende Schachfigure zieht, ähnlich wie bei der Ablenkung.</string>
   <string name="pawnEndgame">Bauernendspiel</string>
+  <string name="pawnEndgameDescription">Ein Endspiel nur mit Bauern.</string>
+  <string name="pin">Fesselung</string>
+  <string name="pinDescription">Eine Taktik mit Fesselung(en), bei der eine Schachfiguren sich nicht bewegen kann, ohne einen Angriff auf eine höherwertige Schachfigur zuzulassen.</string>
+  <string name="promotion">Bauernumwandlung</string>
+  <string name="promotionDescription">Ein Bauer, der umwandelt oder umzuwandeln droht, ist Schlüssel für die Taktik.</string>
+  <string name="queenEndgame">Damenendspiel</string>
+  <string name="queenEndgameDescription">Ein Endspiel nur mit Damen und Bauern.</string>
+  <string name="queensideAttack">Damenflügelangriff auf den König</string>
+  <string name="queensideAttackDescription">Ein Angriff auf den gegnerischen König, nachdem dieser auf den Damenflügel rochiert hat.</string>
+  <string name="quietMove">Stiller Zug</string>
+  <string name="quietMoveDescription">Ein Schritt, der nicht Schach gibt oder schlägt, aber eine unvermeidliche Bedrohung durch einen späteren Zug vorbereitet.</string>
+  <string name="rookEndgame">Turmendspiel</string>
+  <string name="rookEndgameDescription">Ein Endspiel nur mit Türmen und Bauern.</string>
+  <string name="sacrifice">Opfer</string>
 </resources>
