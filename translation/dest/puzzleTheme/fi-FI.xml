@@ -2,4 +2,7 @@
 <resources>
   <string name="long">Pitkä tehtävä</string>
   <string name="oneMove">Yhden siirron tehtävä</string>
+  <string name="oneMoveDescription">Tehtävä, jossa vaaditaan vain yksi siirto.</string>
+  <string name="short">Lyhyt tehtävä</string>
+  <string name="veryLong">Erittäin pitkä tehtävä</string>
 </resources>
