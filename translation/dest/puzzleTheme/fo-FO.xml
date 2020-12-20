@@ -18,4 +18,14 @@
   <string name="oneMove">Uppgáva við einum leiki</string>
   <string name="oneMoveDescription">Uppgáva, ið bert krevur ein leik.</string>
   <string name="opening">Byrjanartalv</string>
+  <string name="openingDescription">Taktisk atgerð í fyrsta skeiðinum av talvinum.</string>
+  <string name="overloading">Ovbyrjan</string>
+  <string name="overloadingDescription">Har eitt fólk útynnir fleiri størv í senn, eitt nú verjir tvey fólk. At taka eitt av vardu fólkunum letur upp fyri einum møguleika, tá ið fólkið, ið verjir, flytir. Líkist avbending.</string>
+  <string name="pawnEndgame">Finnuendatalv</string>
+  <string name="pawnEndgameDescription">Endatalv við finnum burturav.</string>
+  <string name="pin">Binding</string>
+  <string name="pinDescription">Taktisk atgerð við bindingum, har eitt fólk ikki er ført fyri at flyta uttan at lata upp fyri álopi á eitt fólk við hægri virði.</string>
+  <string name="promotion">Umskapan</string>
+  <string name="promotionDescription">Ein finna, ið umskapast ella hóttir við at umskapast, er lykilin til taktikkin.</string>
+  <string name="queenEndgame">Frúgvaendatalv</string>
 </resources>
