@@ -45,6 +45,8 @@
   <string name="interferenceDescription">Figūras novietošana starp divām pretinieka figūrām tā, lai vismaz viena no tām būtu neapsargāta — piemēram zirdziņa novietošana uz apsargāta lauciņa starp torņiem.</string>
   <string name="intermezzo">Intermezzo</string>
   <string name="intermezzoDescription">Tā vietā lai izspēlētu sagaidīto gājienu, vispirms iestarpiniet citu gājienu, kas radīs neatliekamus draudus, par kuriem pretiniekam būs jārūpējas. Pazīstams arī kā \"Zwischenzug\" vai kā gājiens \"pa vidu\".</string>
+  <string name="knightEndgame">Zirdziņu beigu spēle</string>
+  <string name="knightEndgameDescription">Beigu spēle, kurā iesaistīti tikai zirdziņi un bandinieki.</string>
   <string name="long">Gara puzle</string>
   <string name="longDescription">Trīs gājieni līdz uzvarai.</string>
   <string name="mate">Mats</string>
@@ -66,4 +68,16 @@
   <string name="opening">Atklātne</string>
   <string name="openingDescription">Atklātnes posma taktika.</string>
   <string name="overloading">Pārslogošana</string>
+  <string name="overloadingDescription">Pozīcija, kurā viena figūra veic vairākas funkcijas, piemēram, apsargā divas figūras. Vienas figūras nosišana radīs izdevību, kad sargājošā figūra izkustēsies, līdzīgi novirzes stratēģijai.</string>
+  <string name="pawnEndgame">Bandinieku beigu spēle</string>
+  <string name="pawnEndgameDescription">Beigu spēle, kurā iesaistīti tikai bandinieki.</string>
+  <string name="pin">Piespraušana</string>
+  <string name="pinDescription">Taktika, kas iesaista piespraušanu – pozīciju, kurā figūra nevar izkustēties bez uzbrukuma atklāšanas augstākas vērtības figūrai.</string>
+  <string name="promotion">Paaugstināšana</string>
+  <string name="promotionDescription">Taktika balstās uz bandinieka paaugstināšanu vai paaugstināšanas draudu.</string>
+  <string name="queenEndgame">Dāmu beigu spēle</string>
+  <string name="queenEndgameDescription">Beigu spēle, kurā iesaistīti tikai bandinieki un dāmas.</string>
+  <string name="queensideAttack">Dāmas puses uzbrukums</string>
+  <string name="queensideAttackDescription">Uzbrukums pretinieka karalim pēc rokādes dāmas pusē.</string>
+  <string name="quietMove">Klusais gājiens</string>
 </resources>
