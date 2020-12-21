@@ -17,4 +17,6 @@
   <string name="capturingDefender">Қорғаушыны басып алыңыз</string>
   <string name="capturingDefenderDescription">Бір тасты қорғап тұрған басқа тасты басып алсаңыз, әлгі тас қорғаусыз қалып, оны басып алуға жол ашылады.</string>
   <string name="crushing">Жойқын</string>
+  <string name="crushingDescription">Жойқын артықшылыққа ие болу үшін қарсыластың қателігін анықтаңыз. (eval ≥ 600cp)</string>
+  <string name="equality">Теңдік</string>
 </resources>
