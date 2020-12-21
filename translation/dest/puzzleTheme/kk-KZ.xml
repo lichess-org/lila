@@ -39,4 +39,6 @@
   <string name="exposedKingDescription">Бірнеше қорғаушысы бар патшаны қамтитын әдетте матқа әкелетін тактика.</string>
   <string name="fork">Шанышқы</string>
   <string name="forkDescription">Қарсыластың бірден екі тасына шабуылдайтын тас жүрісі.</string>
+  <string name="hangingPiece">Тасты барымталау</string>
+  <string name="hangingPieceDescription">Қарсыластың қорғаусыз не қорғанысы әлсіз тұрған тасты басып алуды меңзейтін тактика.</string>
 </resources>
