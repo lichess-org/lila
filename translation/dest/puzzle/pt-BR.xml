@@ -23,4 +23,21 @@
   <string name="keepGoing">Continue…</string>
   <string name="puzzleSuccess">Sucesso!</string>
   <string name="puzzleComplete">Quebra-cabeças concluído!</string>
+  <string name="notTheMove">O movimento não é esse!</string>
+  <string name="trySomethingElse">Tente algo diferente.</string>
+  <string name="ratingX">Rating: %s</string>
+  <string name="hidden">oculto</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Jogado %s vezes</item>
+    <item quantity="other">Jogado %s vezes</item>
+  </plurals>
+  <string name="fromGameLink">Do jogo %s</string>
+  <string name="continueTraining">Continue treinando</string>
+  <string name="difficultyLevel">Nível de dificuldade</string>
+  <string name="normal">Normal</string>
+  <string name="easier">Fácil</string>
+  <string name="easiest">Muito fácil</string>
+  <string name="harder">Difícil</string>
+  <string name="hardest">Muito difícil</string>
+  <string name="example">Exemplo</string>
 </resources>
