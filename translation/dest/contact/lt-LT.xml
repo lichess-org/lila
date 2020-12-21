@@ -73,4 +73,8 @@
   <string name="authorizationToUse">Leidimai naudoti Lichess</string>
   <string name="welcomeToUse">Jūs galite naudoti Lichess bet kokiai veiklai, net ir komercinei.</string>
   <string name="videosAndBooks">Jūs galite jį rodyti savo video, galite spaustindi Lichess ekranvaizdžius savo knygose.</string>
+  <string name="creditAppreciated">Paminėjimas laukiamas, bet ne reikalingas.</string>
+  <string name="noneOfTheAbove">Nė vienas iš šių</string>
+  <string name="sendEmailAt">Išsiųskite mums el. laišką adresu %s.</string>
+  <string name="explainYourRequest">Išdėstykite savo užklausą aiškiai ir iki galo. Paminėkite savo Lichess vartotojo vardą, ir bet kokią informaciją, kuri padėtų mums padėti jums.</string>
 </resources>
