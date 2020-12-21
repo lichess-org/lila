@@ -90,4 +90,14 @@
   <string name="skewer">Raio X</string>
   <string name="skewerDescription">Um movimento que envolve uma peça de alto valor sendo atacada fugindo do ataque e permitindo que uma peça de menor valor seja capturada ou atacada, o inverso de cravada.</string>
   <string name="smotheredMate">Mate de Philidor</string>
+  <string name="smotheredMateDescription">Um xeque-mate dado por um cavalo onde o rei é incapaz de mover-se porque está cercado (ou sufocado) pelas próprias peças.</string>
+  <string name="trappedPiece">Peça Presa</string>
+  <string name="trappedPieceDescription">Uma peça é incapaz de escapar da captura, pois tem movimentos limitados.</string>
+  <string name="underPromotion">Subpromoção</string>
+  <string name="underPromotionDescription">Promover para cavalo, bispo ou torre.</string>
+  <string name="veryLong">Quebra-cabeças muito longo</string>
+  <string name="veryLongDescription">Quatro movimentos ou mais para vencer.</string>
+  <string name="xRayAttack">Ataque em raio X</string>
+  <string name="xRayAttackDescription">Uma peça ataca ou defende uma casa indiretamente, através de uma peça adversária.</string>
+  <string name="zugzwang">Zugzwang</string>
 </resources>
