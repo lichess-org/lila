@@ -45,6 +45,14 @@ Arba galite %s.</string>
   <string name="noPatronFeatures">Ne, kadangi Lichess visiškai ir visada nemokamas ir visiems. Tai yra mūsų pažadas.
 Tačiau Rėmėjai gauna pagyrų teises ir šaunią naują profilio piktogramą.</string>
   <string name="featuresComparison">Peržiūrėkite detalų funkcijų palyginimą</string>
+  <plurals name="patronForMonths">
+    <item quantity="one">Lichess Rėmėjas vieną mėnesį</item>
+    <item quantity="few">Lichess Rėmėjas %s mėnesius</item>
+    <item quantity="many">Lichess Rėmėjas %s mėnesio</item>
+    <item quantity="other">Lichess rėmėjas %s mėnesių</item>
+  </plurals>
+  <string name="youSupportWith">Jūs remiate lichess.org %s per mėnesį.</string>
+  <string name="tyvm">Dekojame už pagalbą. Jūs šauniausias!</string>
   <string name="currentStatus">Dabartinė būsena</string>
   <string name="nextPayment">Kitas mokėjimas</string>
   <string name="youWillBeChargedXOnY">%1$s bus nuskaityta %2$s.</string>
