@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">पहेलियाँ</string>
+  <string name="recommended">सिफारिश की</string>
+  <string name="phases">के चरण</string>
+  <string name="motifs">रूपांकनों</string>
+  <string name="advanced">उन्नत</string>
+  <string name="lengths">लंबाई</string>
+  <string name="mates">साथी</string>
+  <string name="goals">लक्ष्य</string>
+  <string name="specialMoves">विशेष चाल</string>
+  <string name="didYouLikeThisPuzzle">क्या आपको यह पहेली पसंद आई?</string>
+  <string name="voteToLoadNextOne">अगले एक को लोड करने के लिए वोट दें!</string>
+</resources>
