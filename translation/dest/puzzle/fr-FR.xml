@@ -4,7 +4,7 @@
   <string name="recommended">Recommandé</string>
   <string name="phases">Phases</string>
   <string name="motifs">Motifs</string>
-  <string name="advanced">Passé</string>
+  <string name="advanced">Avancé</string>
   <string name="lengths">Longueurs</string>
   <string name="mates">Mats</string>
   <string name="goals">Objectifs</string>
@@ -35,9 +35,9 @@
   <string name="continueTraining">Continuer l\'entraînement</string>
   <string name="difficultyLevel">Niveau de difficulté</string>
   <string name="normal">Normal</string>
-  <string name="easier">Facile</string>
+  <string name="easier">Plus facile</string>
   <string name="easiest">Le plus facile</string>
-  <string name="harder">Elevé</string>
-  <string name="hardest">Le plus élevé</string>
+  <string name="harder">Plus difficile</string>
+  <string name="hardest">Le plus difficile</string>
   <string name="example">Exemple</string>
 </resources>
