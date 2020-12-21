@@ -79,4 +79,12 @@
   <string name="queensideAttack">Dronningfløyåtak</string>
   <string name="queensideAttackDescription">Eit åtak på kongen som motspelaren har rokert til dronningfløya.</string>
   <string name="quietMove">Stille trekk</string>
+  <string name="quietMoveDescription">Eit trekk som ikkje gjev ein sjakk eller eit utslag, men som førebur eit uavvendeleg trugsmål i eit seinare trekk.</string>
+  <string name="rookEndgame">Tårnsluttspel</string>
+  <string name="rookEndgameDescription">Eit sluttspel med berre tårn og bønder.</string>
+  <string name="sacrifice">Offer</string>
+  <string name="sacrificeDescription">Ein taktikk der ei brikke blir ofra på kort sikt til fordel for seinare vinst eller ei tvungen trekkrekke.</string>
+  <string name="short">Kort taktikkoppgåve</string>
+  <string name="shortDescription">Vinst i to trekk.</string>
+  <string name="skewer">Spidder</string>
 </resources>
