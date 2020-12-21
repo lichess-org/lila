@@ -36,4 +36,7 @@
   <string name="endgameDescription">Ойынның соңғы кезеңіндегі тактика.</string>
   <string name="enPassantDescription">Бір сазбаз, қасынан қарсыластың сарбазы өткенде, оны басып алатын жағдайды, яғни жолай басып алуды қамтитын тактика.</string>
   <string name="exposedKing">Жалаңаш патша</string>
+  <string name="exposedKingDescription">Бірнеше қорғаушысы бар патшаны қамтитын әдетте матқа әкелетін тактика.</string>
+  <string name="fork">Шанышқы</string>
+  <string name="forkDescription">Қарсыластың бірден екі тасына шабуылдайтын тас жүрісі.</string>
 </resources>
