@@ -236,10 +236,11 @@ export function renderBoard(pieces: Pieces, pov: Color, pieceStyle: PieceStyle, 
     const piece = pieces.get(key);
     const pieceWrapper = boardStyle === 'table' ? 'td' : 'span';
     if (piece) {        
-      const letter = renderPieceStyle(piece.color === 'white' ? letters[piece.role].toUpperCase() : letters[piece.role], pieceStyle);
+      const role = letters[piece.role];
+      const pieceText = renderPieceStyle(piece.color === 'white' ? role.toUpperCase() : role, pieceStyle);
       const prefix = renderPrefixStyle(piece.color, prefixStyle);
-      const text = renderPositionStyle(rank, file, prefix + letter);
-      return h(pieceWrapper, doPieceButton(rank, file, letter, piece.color, text));
+      const text = renderPositionStyle(rank, file, prefix + pieceText);
+      return h(pieceWrapper, doPieceButton(rank, file, role, piece.color, text));
     } else {
       const letter = (key.charCodeAt(0) + key.charCodeAt(1)) % 2 ? '-' : '+';
       const text = renderPositionStyle(rank, file, letter);
