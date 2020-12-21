@@ -7,4 +7,7 @@
   <string name="attackingF2F7">Attackera f2 eller f7</string>
   <string name="attackingF2F7Description">En attack som fokuserar på f2 eller f7 bonden, som i stekt leveröppning.</string>
   <string name="attraction">Attraktion</string>
+  <string name="attractionDescription">Ett byte eller offer som inbjuder eller tvingar motståndarens pjäs till en ruta som ger möjlighet till fler taktiska finesser.</string>
+  <string name="backRankMate">Plaskmatt</string>
+  <string name="backRankMateDescription">Schackmattar kungen på första raden, när den är instängd av sina egna pjäser.</string>
 </resources>
