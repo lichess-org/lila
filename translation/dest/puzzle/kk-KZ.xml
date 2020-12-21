@@ -32,4 +32,5 @@
   </plurals>
   <string name="fromGameLink">%s ойнынан</string>
   <string name="continueTraining">Жаттығуды жалғастыру</string>
+  <string name="difficultyLevel">Күрделілік деңгейі</string>
 </resources>
