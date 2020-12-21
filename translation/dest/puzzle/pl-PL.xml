@@ -2,7 +2,10 @@
 <resources>
   <string name="puzzles">Zadania szachowe</string>
   <string name="recommended">Zalecane</string>
+  <string name="phases">Faza gry</string>
+  <string name="motifs">Motyw</string>
   <string name="advanced">Zaawansowane</string>
+  <string name="lengths">Długość zadania</string>
   <string name="mates">Maty</string>
   <string name="goals">Cele</string>
   <string name="specialMoves">Ruchy specjalne</string>
