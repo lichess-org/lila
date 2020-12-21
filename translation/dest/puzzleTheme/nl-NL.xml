@@ -32,8 +32,10 @@
   <string name="mateIn4Description">Zet schaakmat in vier zetten.</string>
   <string name="mateIn5">Mat in 5 of meer</string>
   <string name="middlegame">Middenspel</string>
+  <string name="opening">Opening</string>
   <string name="pin">Penning</string>
   <string name="promotion">Promotie</string>
+  <string name="queensideAttack">Dameaanval</string>
   <string name="quietMove">Stille zet</string>
   <string name="rookEndgame">Toreneindspel</string>
   <string name="rookEndgameDescription">Een eindspel met alleen torens en pionnen.</string>
