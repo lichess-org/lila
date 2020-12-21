@@ -4,4 +4,13 @@
   <string name="recommended">Ұсыныстар</string>
   <string name="phases">Кезеңдер</string>
   <string name="motifs">Мақсаттар</string>
+  <string name="advanced">Кеңейтілген</string>
+  <string name="lengths">Ұзындығы</string>
+  <string name="mates">Маттар</string>
+  <string name="goals">Нысаналар</string>
+  <string name="didYouLikeThisPuzzle">Бұл жұмбақ ұнай ма?</string>
+  <string name="voteToLoadNextOne">Келесін ашу үшін дауыс беріңіз!</string>
+  <string name="yourPuzzleRatingX">Жұмбақ шешу рейтингіңіз: %s</string>
+  <string name="findTheBestMoveForWhite">Ақтың пайдасына ең дұрыс жүрісті табыңыз.</string>
+  <string name="findTheBestMoveForBlack">Қараның пайдасына ең дұрыс жүрісті табыңыз.</string>
 </resources>
