@@ -33,6 +33,15 @@
   <string name="doubleCheck">Подвійний шах</string>
   <string name="doubleCheckDescription">Шах двома фігурами одночасно, як наслідок відкриття атаки на короля, коли обидві фігури неможливо захопити.</string>
   <string name="endgame">Эндшпіль</string>
+  <string name="endgameDescription">Тактика на останній фазі гри.</string>
+  <string name="enPassantDescription">Тактика із застосуванням правила \"взяття на проході\", коли пішак може взяти пішака суперника, що зробив початковий хід на два поля, внаслідок якого перетинаюче поле під боєм пішака.</string>
+  <string name="exposedKing">Незахищений король</string>
+  <string name="exposedKingDescription">Король з малою кількістю захисників, що часто призводить до мату.</string>
+  <string name="fork">Вилка</string>
+  <string name="forkDescription">Хід, при якому фігура атакує дві фігури одночасно.</string>
+  <string name="hangingPiece">Незахищена фігура</string>
+  <string name="hangingPieceDescription">Незахищена або недостатньо захищена фігура, що може бути атакована.</string>
+  <string name="interference">Перешкода</string>
   <string name="mateIn1">Мат в 1 хід</string>
   <string name="mateIn2">Мат в 2 ходи</string>
   <string name="mateIn3">Мат в 3 ходи</string>
