@@ -27,4 +27,12 @@
   <string name="trySomethingElse">Pokušajte nešto drugo.</string>
   <string name="ratingX">Rejting: %s</string>
   <string name="hidden">skriven</string>
+  <string name="continueTraining">Nastavite trening</string>
+  <string name="difficultyLevel">Nivo težine</string>
+  <string name="normal">Normalni</string>
+  <string name="easier">Lakši</string>
+  <string name="easiest">Najlakši</string>
+  <string name="harder">Teži</string>
+  <string name="hardest">Najteži</string>
+  <string name="example">Primjer</string>
 </resources>
