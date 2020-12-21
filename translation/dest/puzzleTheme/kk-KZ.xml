@@ -42,4 +42,5 @@
   <string name="hangingPiece">Олжа тас</string>
   <string name="hangingPieceDescription">Қарсыластың қорғаусыз не қорғанысы әлсіз тұрған тасты басып алуды меңзейтін тактика.</string>
   <string name="interference">Бөгет</string>
+  <string name="interferenceDescription">Тасты қарсыластың екі тасының арасындағы қорғау жолына қойып, олардың біреуін не екеуін қорғаусыз ету. Мысалы, екі өзара қорғап тұрған туралардың арасына тұра қалған ат.</string>
 </resources>
