@@ -8,4 +8,6 @@
   <string name="attackingF2F7Description">\"Қуырылған бүйрек\" бастауындағыдай f2 не f7 сарбазына бағытталған шабуыл.</string>
   <string name="attraction">Тартымдылық</string>
   <string name="attractionDescription">Қарсылас тасын белгілі бір шаршыға итермелейтін не күштеп ығыстыратын айырбастау не құрбан ету.</string>
+  <string name="backRankMate">Сап артына мат</string>
+  <string name="backRankMateDescription">Өз үйінде өз тастарымен қамалған патшаға мат.</string>
 </resources>
