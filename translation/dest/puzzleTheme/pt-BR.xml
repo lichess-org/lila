@@ -86,4 +86,8 @@
   <string name="sacrifice">Sacrifício</string>
   <string name="sacrificeDescription">Uma tática envolvendo a entrega de material no curto prazo, com o objetivo de se obter uma vantagem após uma sequência forçada de movimentos.</string>
   <string name="short">Quebra-cabeças curto</string>
+  <string name="shortDescription">Vitória em dois lances.</string>
+  <string name="skewer">Raio X</string>
+  <string name="skewerDescription">Um movimento que envolve uma peça de alto valor sendo atacada fugindo do ataque e permitindo que uma peça de menor valor seja capturada ou atacada, o inverso de cravada.</string>
+  <string name="smotheredMate">Mate de Philidor</string>
 </resources>
