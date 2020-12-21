@@ -58,4 +58,13 @@
     <item quantity="one">Kappaðist í %s kapping</item>
     <item quantity="other">Kappaðist í %s kappingum</item>
   </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">Styrkismettur #%1$s (top %2$s%%) við %3$s talvi í %4$s</item>
+    <item quantity="other">Styrkismettur #%1$s (top %2$s%%) við %3$s talvum í %4$s</item>
+  </plurals>
+  <string name="signedUp">Innritaður í lichess.org</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Fór upp í %s lið</item>
+    <item quantity="other">Fór upp í %s lið</item>
+  </plurals>
 </resources>
