@@ -63,6 +63,7 @@ case class Modlog(
       case Modlog.streamerTier        => "set streamer tier"
       case Modlog.teamKick            => "kick from team"
       case Modlog.teamEdit            => "edited team"
+      case Modlog.setKidMode          => "set kid mode"
       case a                          => a
     }
 
@@ -126,4 +127,5 @@ object Modlog {
   val streamerTier        = "streamerTier"
   val teamKick            = "teamKick"
   val teamEdit            = "teamEdit"
+  val setKidMode          = "setKidMode"
 }
