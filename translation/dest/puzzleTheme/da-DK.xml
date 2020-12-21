@@ -23,4 +23,7 @@
   <string name="mate">Mat</string>
   <string name="mateDescription">Vind spillet med stil.</string>
   <string name="mateIn1">Mat i 1</string>
+  <string name="pin">Binding</string>
+  <string name="pinDescription">En taktik med bindinger, hvor en brik er ude af stand til at bevæge sig uden at afdække et angreb på en brik af højere værdi.</string>
+  <string name="promotion">Bondeforvandling</string>
 </resources>
