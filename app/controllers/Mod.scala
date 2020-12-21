@@ -109,7 +109,7 @@ final class Mod(
     )
 
   def kid(username: String) =
-    OAuthMod(_.ForceKid) { _ => me =>
+    OAuthMod(_.SetKidMode) { _ => me =>
       modApi.setKid(me.id, username) map some
     }(actionResult(username))
 

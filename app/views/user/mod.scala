@@ -100,7 +100,7 @@ object mod {
             submitButton(cls := "btn-rack__btn confirm")("Clear PMs & chats")
           )
         },
-        isGranted(_.ForceKid) option {
+        isGranted(_.SetKidMode) option {
           postForm(
             action := routes.Mod.kid(u.username),
             title := "Activate kid mode if not already the case",

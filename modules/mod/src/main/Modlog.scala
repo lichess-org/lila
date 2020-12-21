@@ -66,7 +66,7 @@ case class Modlog(
       case Modlog.teamKick            => "kick from team"
       case Modlog.teamEdit            => "edited team"
       case Modlog.appealPost          => "posted in appeal"
-      case Modlog.forceKid            => "force kid mode"
+      case Modlog.setKidMode          => "set kid mode"
       case a                          => a
     }
 
@@ -130,5 +130,5 @@ object Modlog {
   val teamKick            = "teamKick"
   val teamEdit            = "teamEdit"
   val appealPost          = "appealPost"
-  val forceKid            = "forceKid"
+  val setKidMode          = "setKidMode"
 }
