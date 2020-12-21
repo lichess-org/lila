@@ -15,4 +15,9 @@
   <string name="castlingDescription">Få kongen din i tryggleik og gjer tårnet klårt for åtak.</string>
   <string name="capturingDefender">Slå ut forsvararen</string>
   <string name="capturingDefenderDescription">Slå ut ei brikke som er kritisk som dekning for ei anna brikke, slik at brikka som no står udekka kan fjernast i eit seinare trekk.</string>
+  <string name="crushing">Avgjerande fordel</string>
+  <string name="crushingDescription">Finn motspelarens feil for å få ein avgjerande fordel. (eval ≥ 600 centibønder)</string>
+  <string name="equality">Utjamning</string>
+  <string name="equalityDescription">Vend ei tapt stilling til remis eller utjamna stilling. (eval ≤ 200 centibønder)</string>
+  <string name="kingsideAttack">Åtak på kongefløyen</string>
 </resources>
