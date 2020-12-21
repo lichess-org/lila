@@ -20,4 +20,9 @@
   <string name="equality">Utjamning</string>
   <string name="equalityDescription">Vend ei tapt stilling til remis eller utjamna stilling. (eval ≤ 200 centibønder)</string>
   <string name="kingsideAttack">Åtak på kongefløyen</string>
+  <string name="kingsideAttackDescription">Eit åtak på kongen som motspelaren har rokert.</string>
+  <string name="clearance">Klarering</string>
+  <string name="clearanceDescription">Eit trekk, gjerne med tempo, som opnar eit felt, ei line eller ein diagonal for ein påfølgjande taktisk ide.</string>
+  <string name="defensiveMove">Forsvarstrekk</string>
+  <string name="defensiveMoveDescription">Presist trekk eller trekkserie som er naudsynt for å unngå å tape materiell eller andre fordelar.</string>
 </resources>
