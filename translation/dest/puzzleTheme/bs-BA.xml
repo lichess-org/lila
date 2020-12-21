@@ -39,6 +39,8 @@
   <string name="sacrificeDescription">Taktika kojom se kratkoročno žrtvuje materijal kako bi se kasnije ponovo stekla prednost nakon forsiranog niza poteza.</string>
   <string name="short">Kratki problem</string>
   <string name="shortDescription">Pobjeda u dva poteza.</string>
+  <string name="skewer">Ražanj</string>
+  <string name="skewerDescription">Motiv u kojem se napada neka teška figura, čije sklanjanje od napada omogućuje uzimanje neke lahke figure koja je iza nje ili napad na nju; obratno od svezivanja.</string>
   <string name="smotheredMate">Ugušeni mat</string>
   <string name="smotheredMateDescription">Mat skakačem u poziciji kad protivnički kralj nema slobodnih polja jer je okružen (ili ugušen) vlastitim figurama.</string>
   <string name="trappedPiece">Zarobljena figura</string>
@@ -46,4 +48,11 @@
   <string name="underPromotion">Potpromocija</string>
   <string name="underPromotionDescription">Promocija pješaka u skakača, lovca ili topa.</string>
   <string name="veryLong">Vrlo dug problem</string>
+  <string name="veryLongDescription">Pobjeda u četiri ili više poteza.</string>
+  <string name="xRayAttack">Rendgenski napad</string>
+  <string name="xRayAttackDescription">Figura napada ili brani polje kroz protivničku figuru.</string>
+  <string name="zugzwang">Iznudica</string>
+  <string name="zugzwangDescription">Protivnik ima ograničen broj poteza, a svaki od njih pogoršava mu poziciju.</string>
+  <string name="healthyMix">Zdrava mješavina</string>
+  <string name="healthyMixDescription">Svega pomalo. Ne znate šta možete očekivati, pa ostajete spremni na sve! Baš kao u pravim partijama.</string>
 </resources>
