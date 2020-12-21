@@ -33,4 +33,5 @@
   <string name="thankYouForReview">Dėkojame už apžvalgą!</string>
   <string name="xWillApproveIt">%s ją jau greitai patvirtins, arba ją peržiūrės moderatorius.</string>
   <string name="reviewCoach">Apžvelgti šį trenerį</string>
+  <string name="describeExperienceWith">Apibūdinkite savo mokymosi su %s patirtį</string>
 </resources>
