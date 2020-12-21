@@ -42,4 +42,14 @@
   <string name="hangingPiece">Peça Pendurada</string>
   <string name="hangingPieceDescription">Uma táctica que envolve uma peça indefesa do oponente ou insuficientemente defendida e livre para ser capturada.</string>
   <string name="interference">Interferência</string>
+  <string name="interferenceDescription">Mover uma peça entre duas peças do oponente para deixar uma ou duas peças do oponente indefesas, como um cavalo em uma casa defendida por duas torres.</string>
+  <string name="intermezzo">Lance intermediário</string>
+  <string name="intermezzoDescription">Em vez de jogar o movimento esperado, primeiro realiza outro movimento criando uma ameaça imediata a que o oponente deve responder. Também conhecido como \"Zwischenzug\" ou \"In between\".</string>
+  <string name="knightEndgame">Finais de Cavalo</string>
+  <string name="knightEndgameDescription">Um final jogado apenas com cavalos e peões.</string>
+  <string name="long">Quebra-cabeças longo</string>
+  <string name="longDescription">Vitória em três movimentos.</string>
+  <string name="mate">Xeque-mate</string>
+  <string name="mateDescription">Vença o jogo com estilo.</string>
+  <string name="mateIn1">Mate em 1</string>
 </resources>
