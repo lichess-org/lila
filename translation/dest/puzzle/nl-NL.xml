@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">Puzzels</string>
+  <string name="recommended">Aanbevolen</string>
+  <string name="phases">Fasen</string>
+  <string name="motifs">Motieven</string>
+  <string name="advanced">Geavanceerd</string>
+  <string name="puzzleOfTheDay">Puzzel van de dag</string>
+  <string name="clickToSolve">Klik om op te lossen</string>
+  <string name="goodMove">Goede zet</string>
+  <string name="bestMove">Beste zet!</string>
+</resources>
