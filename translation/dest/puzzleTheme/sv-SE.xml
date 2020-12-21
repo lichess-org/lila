@@ -15,4 +15,15 @@
   <string name="castling">Rockad</string>
   <string name="castlingDescription">För din kung i säkerhet, och använd ditt torn till att angripa.</string>
   <string name="capturingDefender">Ta försvararen</string>
+  <string name="capturingDefenderDescription">Ta en pjäs som försvarar av en annan pjäs, så att du kan ta den nu oförsvarade pjäsen i nästa drag.</string>
+  <string name="crushing">Krossa</string>
+  <string name="crushingDescription">Upptäck motståndare blunder för att få en förkrossande fördel. (eval ≥ 600cp)</string>
+  <string name="equality">Utjämning</string>
+  <string name="equalityDescription">Kom tillbaka från en förlorad position och säkra en remi eller en utjämnad position. (eval ≤ 200cp)</string>
+  <string name="kingsideAttack">Kungsflygelattack</string>
+  <string name="kingsideAttackDescription">En attack mot motståndarens kung, efter att de rockerat på kungsflygeln.</string>
+  <string name="clearance">Rensning</string>
+  <string name="clearanceDescription">Ett drag, ofta med tempo, som rensar en ruta, linje eller diagonal för en uppföljande taktisk idé.</string>
+  <string name="defensiveMove">Defensiva drag</string>
+  <string name="defensiveMoveDescription">Ett exakt drag eller sekvens av drag som är nödvändiga behövs för att undvika att förlora material eller annan fördel.</string>
 </resources>
