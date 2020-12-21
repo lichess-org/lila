@@ -89,4 +89,5 @@
   <string name="skewer">Spidder</string>
   <string name="skewerDescription">Ein manøver der ei høgverdig brikke kjem under åtak og må flytte slik at ei brikke av lågare verde som står bak kan slås ut eller verte truga. Spidding kan utførast med løpar, dronning eller tårn. Spiddar vert rekna som motsatsen til binding.</string>
   <string name="smotheredMate">Kvelarmatt</string>
+  <string name="smotheredMateDescription">Ein sjakkmatt ved hjelp av ein springar der motspelarens konge er stengd inne (eller kjøvd) av eigne brikker.</string>
 </resources>
