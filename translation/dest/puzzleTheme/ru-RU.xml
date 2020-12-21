@@ -80,6 +80,14 @@
   <string name="queensideAttack">Атака на ферзевом фланге</string>
   <string name="queensideAttackDescription">Атака короля, рокировавшегося в длинную сторону.</string>
   <string name="quietMove">Тихий ход</string>
+  <string name="quietMoveDescription">Ход, на первый взгляд бесполезный: без шаха, взятия или нападения, но он подготавливает следующий ход, в котором заключается настоящая угроза.</string>
+  <string name="rookEndgame">Ладейный эндшпиль</string>
+  <string name="rookEndgameDescription">Эндшпиль с ладьями и пешками.</string>
+  <string name="sacrifice">Жертва</string>
+  <string name="sacrificeDescription">Тактический приём, в котором временно отдаётся материал, но в последующей серии ходов он приводит к получению гораздо большего преимущества.</string>
+  <string name="short">Малоходовая задача</string>
+  <string name="shortDescription">Два хода до победы.</string>
+  <string name="skewer">Линейный удар</string>
   <string name="underPromotionDescription">Проведите до коня,слона или ладьи</string>
   <string name="veryLongDescription">Четыре хода или более для победы.</string>
   <string name="healthyMix">Здоровая смесь</string>
