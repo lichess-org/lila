@@ -680,6 +680,7 @@
   <string name="zeroAdvertisement">Ongar lýsingar</string>
   <string name="fullFeatured">Við øllum hentleikum</string>
   <string name="phoneAndTablet">Snildfon og teldil</string>
+  <string name="bulletBlitzClassical">Bullet, snartalv, vanligt</string>
   <string name="correspondenceChess">Brævtalv</string>
   <string name="onlineAndOfflinePlay">Telva á netinum og uttan net</string>
   <string name="viewTheSolution">Síggj svarið</string>
@@ -796,6 +797,7 @@
   <string name="agreementPolicy">Eg samtykki, at eg fari at fylgja øllum Lichess-reglugerðum.</string>
   <string name="searchOrStartNewDiscussion">Leita eftir samrøðu ella byrja eina nýggja</string>
   <string name="edit">Broyt</string>
+  <string name="rapid">Kviktalv</string>
   <string name="classical">Vanligt</string>
   <string name="ultraBulletDesc">Vitleyst skjót talv: styttri enn 30 sekund</string>
   <string name="bulletDesc">Ógvuliga skjót talv: styttri enn 3 minuttir</string>
