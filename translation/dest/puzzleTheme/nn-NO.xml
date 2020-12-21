@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Framskoten bonde</string>
+  <string name="advancedPawnDescription">Ein bonde som blir forvandla eller trugar med å bli forvandla er ein taktisk nøkkel.</string>
+  <string name="advantage">Fordel</string>
+  <string name="advantageDescription">Grip sjansen til å få eit avgjerande fortrinn. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="attackingF2F7">Gå til åtak på f2 eller f7</string>
 </resources>
