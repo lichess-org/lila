@@ -5,4 +5,5 @@
   <string name="advantage">Fordel</string>
   <string name="advantageDescription">Grip sjansen til å få eit avgjerande fortrinn. (200cp ≤ eval ≤ 600cp)</string>
   <string name="attackingF2F7">Gå til åtak på f2 eller f7</string>
+  <string name="attackingF2F7Description">Eit åtak som konsentrerar seg om bøndene på f2 eller f7, som til dømes i prøyssisk opning, fegatellovarianten (\"Fried Liver Attack\").</string>
 </resources>
