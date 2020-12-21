@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="puzzles">Задачи</string>
   <string name="phases">Фазы</string>
   <string name="motifs">Мотивы</string>
   <string name="advanced">Продвинутый</string>
