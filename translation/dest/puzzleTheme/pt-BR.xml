@@ -8,4 +8,9 @@
   <string name="attackingF2F7Description">Um ataque focado no peão de f2 e no peão de f7, como na abertura frango frito.</string>
   <string name="attraction">Atração</string>
   <string name="attractionDescription">Uma troca ou sacrifício encorajando ou forçando uma peça do oponente a uma casa que permite uma sequência tática.</string>
+  <string name="backRankMate">Mate do corredor</string>
+  <string name="backRankMateDescription">Dê o xeque-mate no rei na última fileira, quando ele estiver bloqueado pelas próprias peças.</string>
+  <string name="bishopEndgame">Final de bispo</string>
+  <string name="bishopEndgameDescription">Final com somente bispos e peões.</string>
+  <string name="castling">Roque</string>
 </resources>
