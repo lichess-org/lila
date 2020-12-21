@@ -40,4 +40,7 @@
   <string name="forkDescription">Eit trekk der brikka som vart flytta går til åtak på meir enn ein motstandarbrikke på same tid.</string>
   <string name="hangingPiece">Hengande brikke</string>
   <string name="hangingPieceDescription">Ein taktikk som inneber at ein udekka eller utilstrekkeleg dekka motstandarbrikke med fordel kan slås ut.</string>
+  <string name="interference">Hindring</string>
+  <string name="interferenceDescription">Flytte ei brikke mellom to motstandarbrikker for å oppnå at ei eller begge vert udekka. Til dømes ein springar til eit dekka felt mellom to tårn.</string>
+  <string name="intermezzo">Mellomtrekk</string>
 </resources>
