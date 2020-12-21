@@ -101,5 +101,6 @@
   <string name="xRayAttackDescription">Uma peça ataca ou defende uma casa indiretamente, através de uma peça adversária.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">O adversário tem os seus movimentos limitados, e qualquer movimento que ele faça vai enfraquecer sua própria posição.</string>
-  <string name="healthyMixDescription">Um pouco de cada coisa. Você não sabe o que vai encontrar, então esteja pronto para tudo! Idêntico aos jogos em tabuleiros reais.</string>
+  <string name="healthyMix">Mistura saudável</string>
+  <string name="healthyMixDescription">Um pouco de cada coisa. Você não sabe o que vai encontrar, então esteja pronto para tudo! Idêntico aos jogos em tabuleiros de verdade.</string>
 </resources>
