@@ -8,6 +8,7 @@
   <string name="lengths">Längd</string>
   <string name="mates">Mattar</string>
   <string name="goals">Mål</string>
+  <string name="specialMoves">Speciella drag</string>
   <string name="didYouLikeThisPuzzle">Gillade du det här problemet?</string>
   <string name="voteToLoadNextOne">Rösta för att ladda nästa!</string>
   <string name="yourPuzzleRatingX">Din problemrating: %s</string>
