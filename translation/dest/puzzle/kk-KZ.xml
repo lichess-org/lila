@@ -13,4 +13,23 @@
   <string name="yourPuzzleRatingX">Жұмбақ шешу рейтингіңіз: %s</string>
   <string name="findTheBestMoveForWhite">Ақтың пайдасына ең дұрыс жүрісті табыңыз.</string>
   <string name="findTheBestMoveForBlack">Қараның пайдасына ең дұрыс жүрісті табыңыз.</string>
+  <string name="toGetPersonalizedPuzzles">Жекелендірген жұмбақ алу үшін:</string>
+  <string name="puzzleId">Жұмбақ %s</string>
+  <string name="puzzleOfTheDay">Бүгінгі жұмбақ</string>
+  <string name="clickToSolve">Шешу үшін басыңыз</string>
+  <string name="goodMove">Жақсы жүріс</string>
+  <string name="bestMove">Үздік жүріс!</string>
+  <string name="keepGoing">Ары қарай…</string>
+  <string name="puzzleSuccess">Бәрі дұрыс!</string>
+  <string name="puzzleComplete">Жұмбақ шешілді!</string>
+  <string name="notTheMove">Бұл жүріс емес!</string>
+  <string name="trySomethingElse">Басқаша жүріп көріңіз.</string>
+  <string name="ratingX">Рейтинг: %s</string>
+  <string name="hidden">жасырын</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">%s рет ойналды</item>
+    <item quantity="other">%s рет ойналды</item>
+  </plurals>
+  <string name="fromGameLink">%s ойнынан</string>
+  <string name="continueTraining">Жаттығуды жалғастыру</string>
 </resources>
