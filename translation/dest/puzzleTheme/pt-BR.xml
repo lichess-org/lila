@@ -66,4 +66,6 @@
   <string name="oneMove">Quebra-cabeças de um movimento</string>
   <string name="oneMoveDescription">Quebra-cabeças de um movimento.</string>
   <string name="opening">Abertura</string>
+  <string name="openingDescription">Tática durante a última fase do jogo.</string>
+  <string name="overloading">Sobrecarga</string>
 </resources>
