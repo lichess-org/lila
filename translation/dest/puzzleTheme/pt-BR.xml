@@ -5,4 +5,7 @@
   <string name="advantage">Vantagem</string>
   <string name="advantageDescription">Aproveite a sua chance de ter uma vantagem decisiva. (200cp ≤ eval ≤ 600cp)</string>
   <string name="attackingF2F7">Atacando f2 ou f7</string>
+  <string name="attackingF2F7Description">Um ataque focado no peão de f2 e no peão de f7, como na abertura frango frito.</string>
+  <string name="attraction">Atração</string>
+  <string name="attractionDescription">Uma troca ou sacrifício encorajando ou forçando uma peça do oponente a uma casa que permite uma sequência tática.</string>
 </resources>
