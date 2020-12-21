@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advancedPawn">Opgerukte pion</string>
+  <string name="advantage">Voordeel</string>
+  <string name="backRankMate">Mat op de achterste rij</string>
+  <string name="castling">Rokade</string>
+</resources>
