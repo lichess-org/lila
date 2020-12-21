@@ -82,4 +82,9 @@
       }
     }
   }
+
+  &__db {
+    @extend %box-padding;
+    text-align: center;
+  }
 }

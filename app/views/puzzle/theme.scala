@@ -44,7 +44,12 @@ object theme {
                 }
               )
             )
-          }
+          },
+          p(cls := "puzzle-themes__db text", dataIcon := "")(
+            "These puzzles are in the public domain, and can be downloaded from ",
+            a(href := "https://database.lichess.org/")("database.lichess.org"),
+            "."
+          )
         )
       )
     )
