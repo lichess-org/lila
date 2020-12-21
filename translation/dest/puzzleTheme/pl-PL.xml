@@ -5,6 +5,8 @@
   <string name="bishopEndgame">Końcówka gońcowa</string>
   <string name="bishopEndgameDescription">Gra końcowa wyłącznie z gońcami i pionami.</string>
   <string name="castling">Roszada</string>
+  <string name="capturingDefender">Zbij obrońcę</string>
+  <string name="kingsideAttack">Atak skrzydłem królewskim</string>
   <string name="doubleCheck">Podwójny szach</string>
   <string name="endgame">Końcówka</string>
   <string name="exposedKing">Odsłonięty król</string>
