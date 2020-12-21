@@ -68,4 +68,12 @@
   <string name="opening">Abertura</string>
   <string name="openingDescription">Tática durante a última fase do jogo.</string>
   <string name="overloading">Sobrecarga</string>
+  <string name="overloadingDescription">Quando uma peça está desempenhando funções múltiplas, por exemplo defender duas peças ao mesmo tempo. Capturar uma das peças defendidas vai criar uma oportunidade, quando a peça defensora se mover.</string>
+  <string name="pawnEndgame">Finais de peões</string>
+  <string name="pawnEndgameDescription">Um final apenas com peões.</string>
+  <string name="pin">Cravada</string>
+  <string name="pinDescription">Uma tática envolvendo peões, onde uma peça é incapaz de mover-se sem abrir um descoberto em uma peça de maior valor.</string>
+  <string name="promotion">Promoção</string>
+  <string name="promotionDescription">Um peão sendo promovido ou ameaçando ser promovido é chave para a tática.</string>
+  <string name="queenEndgame">Final de Rainha</string>
 </resources>
