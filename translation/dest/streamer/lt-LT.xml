@@ -46,4 +46,11 @@ Jei jūsų transliacija anglų kalba, poreikio pridėti kalbos žymę nėra.</st
   <string name="whenApproved">Kai bus patvirtintas moderatorių</string>
   <string name="headline">Antraštė</string>
   <string name="tellUsAboutTheStream">Papasakokite apie savo transliaciją vienu sakiniu</string>
+  <string name="longDescription">Ilgas aprašymas</string>
+  <string name="xStreamerPicture">%s transliuotojo nuotrauka</string>
+  <string name="changePicture">Keisti/trinti savo nuotrauką</string>
+  <string name="uploadPicture">Įkelti nuotrauką</string>
+  <string name="deletePicture">Ištrinti nuotrauką</string>
+  <string name="maxSize">Maksimalus dydis: %s</string>
+  <string name="installBlocker">Įsidiekite kenkėjiškų programų blokavimą!</string>
 </resources>
