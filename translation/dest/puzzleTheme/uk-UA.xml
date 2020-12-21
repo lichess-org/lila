@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advancedPawn">Просунутий пішак</string>
   <string name="advancedPawnDescription">Ключовим для тактики є пішак просування або загроза просуванню.</string>
   <string name="advantage">Перевага</string>
   <string name="advantageDescription">Схопіть ваш шанс отримати вирішальну перевагу. (200cp ≥ eval ≤ 600cp)</string>
