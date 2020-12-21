@@ -10,4 +10,9 @@
   <string name="attractionDescription">Ett byte eller offer som inbjuder eller tvingar motståndarens pjäs till en ruta som ger möjlighet till fler taktiska finesser.</string>
   <string name="backRankMate">Plaskmatt</string>
   <string name="backRankMateDescription">Schackmattar kungen på första raden, när den är instängd av sina egna pjäser.</string>
+  <string name="bishopEndgame">Löparslutspel</string>
+  <string name="bishopEndgameDescription">Ett slutspel med bara löpare och bönder.</string>
+  <string name="castling">Rockad</string>
+  <string name="castlingDescription">För din kung i säkerhet, och använd ditt torn till att angripa.</string>
+  <string name="capturingDefender">Ta försvararen</string>
 </resources>
