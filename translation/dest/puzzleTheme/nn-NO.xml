@@ -73,4 +73,10 @@
   <string name="pin">Binding</string>
   <string name="pinDescription">Ein taktikk der ei brikke ikkje kan flyttast utan at det fører til eit trugsmål mot ei brikke av høgare verdi. Ei absolutt binding inneber at det ikkje er lov å flytte brikka fordi det vil føre til at kongen blir sett i sjakk.</string>
   <string name="promotion">Forvandling</string>
+  <string name="promotionDescription">Ein bonde som blir forvandla eller trugar med å bli forvandla er den taktiske nøkkelen.</string>
+  <string name="queenEndgame">Dronningsluttspel</string>
+  <string name="queenEndgameDescription">Eit sluttspel utan andre brikker enn dronningar og bønder.</string>
+  <string name="queensideAttack">Dronningfløyåtak</string>
+  <string name="queensideAttackDescription">Eit åtak på kongen som motspelaren har rokert til dronningfløya.</string>
+  <string name="quietMove">Stille trekk</string>
 </resources>
