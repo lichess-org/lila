@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">Pusled</string>
+  <string name="recommended">Soovitatav</string>
+  <string name="phases">Etapid</string>
+  <string name="advanced">Lisavalikud</string>
+  <string name="lengths">Pikkused</string>
+  <string name="goals">Eesmärgid</string>
+  <string name="findTheBestMoveForWhite">Leia parim käik valgele.</string>
+  <string name="findTheBestMoveForBlack">Leia parim käik mustale.</string>
+  <string name="puzzleOfTheDay">Päevaülesanne</string>
+  <string name="clickToSolve">Lahendamiseks vajuta</string>
+</resources>
