@@ -30,4 +30,8 @@
   <string name="deflectionDescription">Қарсыластың тасын өз міндетінен үзіп (мысалы, бір маңызды шаршыны қорғаудан), назарын бұру үшін жасалынатын жүріс.</string>
   <string name="discoveredAttack">Ашылған шабуыл</string>
   <string name="discoveredAttackDescription">Ұзын жүрісті тастың шабуылын бөгеп тұрған таспен жүру. Мысалы, тура жолында тұрған атпен жүру.</string>
+  <string name="doubleCheck">Қос шах</string>
+  <string name="doubleCheckDescription">Ашылған шабуыл кезінде екі тастың (яғни, шабулды ашқан тас пен шабуылдап жатқан тас) қарсылас патшасына бірден қойған шахтары.</string>
+  <string name="endgame">Ойынсоңы</string>
+  <string name="endgameDescription">Ойынның соңғы кезеңіндегі тактика.</string>
 </resources>
