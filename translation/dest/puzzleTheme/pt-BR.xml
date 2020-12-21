@@ -15,4 +15,5 @@
   <string name="castling">Roque</string>
   <string name="castlingDescription">Traga o seu rei para a segurança, e prepare sua torre para o ataque.</string>
   <string name="capturingDefender">Capture o defensor</string>
+  <string name="capturingDefenderDescription">Remover uma peça que seja importante na defesa de outra, permitindo que agora a peça indefesa seja capturada na jogada seguinte.</string>
 </resources>
