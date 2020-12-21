@@ -31,6 +31,7 @@
   <string name="sacrificeDescription">Een tactiek waarbij op korte termijn materiaal wordt opgegeven om voordeel te verkrijgen na een aantal gedwongen zetten.</string>
   <string name="smotheredMate">Stikmat</string>
   <string name="underPromotion">Minorpromotie</string>
+  <string name="underPromotionDescription">Promotie tot paard, loper of toren.</string>
   <string name="xRayAttack">Röntgenaanval</string>
   <string name="zugzwang">Zetdwang</string>
   <string name="zugzwangDescription">De tegenstander is beperkt in de zetten die hij kan doen, en elke zet verslechtert zijn stelling.</string>
