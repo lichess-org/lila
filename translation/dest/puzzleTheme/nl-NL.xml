@@ -3,12 +3,15 @@
   <string name="advancedPawn">Opgerukte pion</string>
   <string name="advantage">Voordeel</string>
   <string name="attackingF2F7">f2 of f7 aanvallen</string>
+  <string name="attractionDescription">Een afruil of offer om een vijandelijk stuk naar een veld te lokken of te dwingen waardoor een tactisch vervolg mogelijk wordt gemaakt.</string>
   <string name="backRankMate">Mat op de achterste rij</string>
   <string name="bishopEndgame">Lopereindspel</string>
   <string name="bishopEndgameDescription">Een eindspel met alleen lopers en pionnen.</string>
   <string name="castling">Rokade</string>
   <string name="castlingDescription">Breng de koning in veiligheid en zet de toren in voor een aanval.</string>
   <string name="capturingDefender">De verdediger slaan</string>
+  <string name="kingsideAttack">Koningsaanval</string>
+  <string name="kingsideAttackDescription">Een aanval op de koning van de tegenstander, na een korte rokade.</string>
   <string name="doubleCheck">Dubbelschaak</string>
   <string name="endgame">Eindspel</string>
   <string name="endgameDescription">Een tactiek in de laatste fase van de partij.</string>
