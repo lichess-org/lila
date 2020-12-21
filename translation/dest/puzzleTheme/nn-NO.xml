@@ -87,4 +87,6 @@
   <string name="short">Kort taktikkoppgåve</string>
   <string name="shortDescription">Vinst i to trekk.</string>
   <string name="skewer">Spidder</string>
+  <string name="skewerDescription">Ein manøver der ei høgverdig brikke kjem under åtak og må flytte slik at ei brikke av lågare verde som står bak kan slås ut eller verte truga. Spidding kan utførast med løpar, dronning eller tårn. Spiddar vert rekna som motsatsen til binding.</string>
+  <string name="smotheredMate">Kvelarmatt</string>
 </resources>
