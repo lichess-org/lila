@@ -18,9 +18,13 @@
   <string name="knightEndgameDescription">Een eindspel met alleen paarden en pionnen.</string>
   <string name="mate">Mat</string>
   <string name="mateIn1">Mat in 1</string>
+  <string name="mateIn1Description">Zet schaakmat in één zet.</string>
   <string name="mateIn2">Mat in 2</string>
+  <string name="mateIn2Description">Zet schaakmat in twee zetten.</string>
   <string name="mateIn3">Mat in 3</string>
+  <string name="mateIn3Description">Zet schaakmat in drie zetten.</string>
   <string name="mateIn4">Mat in 4</string>
+  <string name="mateIn4Description">Zet schaakmat in vier zetten.</string>
   <string name="mateIn5">Mat in 5 of meer</string>
   <string name="middlegame">Middenspel</string>
   <string name="pin">Penning</string>
