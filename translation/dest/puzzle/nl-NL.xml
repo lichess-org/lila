@@ -9,4 +9,7 @@
   <string name="clickToSolve">Klik om op te lossen</string>
   <string name="goodMove">Goede zet</string>
   <string name="bestMove">Beste zet!</string>
+  <string name="keepGoing">Ga zo door…</string>
+  <string name="puzzleSuccess">Succes!</string>
+  <string name="puzzleComplete">Puzzel voltooid!</string>
 </resources>
