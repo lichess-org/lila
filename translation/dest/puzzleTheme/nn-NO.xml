@@ -13,4 +13,6 @@
   <string name="bishopEndgameDescription">Eit sluttspel utan andre brikker enn løparar og bønder.</string>
   <string name="castling">Rokade</string>
   <string name="castlingDescription">Få kongen din i tryggleik og gjer tårnet klårt for åtak.</string>
+  <string name="capturingDefender">Slå ut forsvararen</string>
+  <string name="capturingDefenderDescription">Slå ut ei brikke som er kritisk som dekning for ei anna brikke, slik at brikka som no står udekka kan fjernast i eit seinare trekk.</string>
 </resources>
