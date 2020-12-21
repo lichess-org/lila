@@ -33,4 +33,10 @@
   <string name="fromGameLink">%s ойнынан</string>
   <string name="continueTraining">Жаттығуды жалғастыру</string>
   <string name="difficultyLevel">Күрделілік деңгейі</string>
+  <string name="normal">Қалыпты</string>
+  <string name="easier">Жеңілдеу</string>
+  <string name="easiest">Ең жеңілі</string>
+  <string name="harder">Қиындау</string>
+  <string name="hardest">Ең қиыны</string>
+  <string name="example">Мысал</string>
 </resources>
