@@ -6,10 +6,16 @@
   <string name="advantageDescription">Используйте свой шанс получить решающее преимущество. (200cp ≥ eval ≤ 600cp)</string>
   <string name="attackingF2F7">Атака f2 или f7</string>
   <string name="attackingF2F7Description">Атака, фокусирующаяся на пешки f2 или f7, например, в дебюте жареной печени.</string>
+  <string name="attraction">Привлекательность</string>
   <string name="attractionDescription">Обменять или пожертвовать, поощряя или принуждая фигуру противника на поле, которое позволяет следующую тактику.</string>
+  <string name="backRankMate">Мат на последней горизонтали</string>
+  <string name="backRankMateDescription">Поставьте мат королю на его горизонтали, когда он заблокирован своими же фигурами.</string>
   <string name="bishopEndgame">Слоновый эндшипль </string>
   <string name="bishopEndgameDescription">Эндшпиль только со слонами и пешками</string>
   <string name="castling">Рокировка</string>
+  <string name="castlingDescription">Поместите короля в надёжное место и выведите в бой ладью.</string>
+  <string name="capturingDefender">Уничтожение защитника</string>
+  <string name="capturingDefenderDescription">Срубите фигуру, защищающую другую фигуру, а следующим ходом срубите фигуру, оставшуюся без защиты.</string>
   <string name="kingsideAttack">Атака на королевском фланге</string>
   <string name="defensiveMove">Защитный ход</string>
   <string name="defensiveMoveDescription">Точный ход или последовательность ходов, которые необходимы во избежание потери материала или другого преимущества.</string>
