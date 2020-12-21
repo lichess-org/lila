@@ -265,11 +265,27 @@ function pieceJumpingHandler() {
     const $next = ev.key.toLowerCase() === ev.key;
     const $prevNextPieces = $next ? $allPieces.slice($myPieceIndex+1) : $allPieces.slice(0, $myPieceIndex);
     const $piece = $next ? $prevNextPieces.get(0) : $prevNextPieces.get($prevNextPieces.length-1);
+    console.log("BTN: ");
+    console.log($currBtn);
+    console.log("BTNAttrs: " );
+    console.log($myBtnAttrs);
+    console.log("allPcs: " );
+    console.log($allPieces);
+    console.log("myPieceIndex: ");
+    console.log($myPieceIndex);
+    console.log("next: ");
+    console.log($next)
+    console.log("prex/next: ");
+    console.log($prevNextPieces);
+    console.log("piece: " );
+    console.log($piece);
     if ($piece) {
       $piece.focus();
     // if detected any matching piece; one is the pice being clicked on,
     } else if ($allPieces.length >= 2) {
       const $wrapPiece = $next ? $allPieces.get(0): $allPieces.get($allPieces.length-1);
+      console.log("wrapP: ");
+      console.log($wrapPiece);
       $wrapPiece?.focus();
       sound.wrap();
     } else {
