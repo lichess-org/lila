@@ -27,4 +27,7 @@
   <string name="defensiveMove">Қорғану жүрісі</string>
   <string name="defensiveMoveDescription">Тастарды не артықшылықты жоғалтпау мақсатында жасалатын жүріс не жүрістер тізбегі.</string>
   <string name="deflection">Назарын бұру</string>
+  <string name="deflectionDescription">Қарсыластың тасын өз міндетінен үзіп (мысалы, бір маңызды шаршыны қорғаудан), назарын бұру үшін жасалынатын жүріс.</string>
+  <string name="discoveredAttack">Ашылған шабуыл</string>
+  <string name="discoveredAttackDescription">Ұзын жүрісті тастың шабуылын бөгеп тұрған таспен жүру. Мысалы, тура жолында тұрған атпен жүру.</string>
 </resources>
