@@ -34,4 +34,6 @@
   <string name="doubleCheckDescription">Ашылған шабуыл кезінде екі тастың (яғни, шабулды ашқан тас пен шабуылдап жатқан тас) қарсылас патшасына бірден қойған шахтары.</string>
   <string name="endgame">Ойынсоңы</string>
   <string name="endgameDescription">Ойынның соңғы кезеңіндегі тактика.</string>
+  <string name="enPassantDescription">Бір сазбаз, қасынан қарсыластың сарбазы өткенде, оны басып алатын жағдайды, яғни жолай басып алуды қамтитын тактика.</string>
+  <string name="exposedKing">Жалаңаш патша</string>
 </resources>
