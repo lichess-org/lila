@@ -28,4 +28,9 @@
   <string name="deflection">Avleiing</string>
   <string name="deflectionDescription">Eit trekk som leier ei av brikkene til motstpelaren bort frå ei anna oppgåve, som til dømes oppdekking av eit viktig felt.</string>
   <string name="discoveredAttack">Avdekkaråtak</string>
+  <string name="discoveredAttackDescription">Flytting av ei brikke som opphavleg blokkerer ei anna langtrekkande brikke, til dømes ein springar som ved å flytte skapar rom for eit tårn.</string>
+  <string name="doubleCheck">Dobbeltsjakk</string>
+  <string name="doubleCheckDescription">Sjakk med to brikker på same tid, som eit resultat av eit avdekkaråtak der både brikka som vert flytta og den avdekka brikka set kongen til motspelaren i sjakk.</string>
+  <string name="endgame">Sluttspel</string>
+  <string name="endgameDescription">Ein taktikk i den siste fasen av partiet.</string>
 </resources>
