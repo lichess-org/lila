@@ -88,8 +88,19 @@
   <string name="short">Малоходовая задача</string>
   <string name="shortDescription">Два хода до победы.</string>
   <string name="skewer">Линейный удар</string>
+  <string name="skewerDescription">Разновидность связки, но в этом случае наоборот, более ценная фигура оказывается на линии атаки перед менее ценной или равноценной фигурой.</string>
+  <string name="smotheredMate">Спёртый мат</string>
+  <string name="smotheredMateDescription">Мат конём королю, который не может уйти от мата, потому что окружён (спёрт) своими же собственными фигурами.</string>
+  <string name="trappedPiece">Ловля фигуры</string>
+  <string name="trappedPieceDescription">Фигура не может уйти от нападения, потому что не имеет свободных полей для отхода, или эти поля тоже находятся под нападением.</string>
+  <string name="underPromotion">Превращение в слабую фигуру</string>
   <string name="underPromotionDescription">Проведите до коня,слона или ладьи</string>
+  <string name="veryLong">Сверхмногоходовая задача</string>
   <string name="veryLongDescription">Четыре хода или более для победы.</string>
+  <string name="xRayAttack">Рентген</string>
+  <string name="xRayAttackDescription">Ситуация, когда на линии нападения или защиты дальнобойной фигуры стоит фигура противника.</string>
+  <string name="zugzwang">Цугцванг</string>
+  <string name="zugzwangDescription">Противник вынужден сделать один из немногих возможных ходов, но любой ход ведёт к ухудшению его положения.</string>
   <string name="healthyMix">Здоровая смесь</string>
   <string name="healthyMixDescription">Немного всё. Ты не знаешь, что ожидать, так что ты готов ко всему! Так же, как в настоящих партиях</string>
 </resources>
