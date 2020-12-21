@@ -17,4 +17,14 @@
   <string name="toGetPersonalizedPuzzles">Kako biste dobili personalizirane probleme:</string>
   <string name="puzzleId">Problem %s</string>
   <string name="puzzleOfTheDay">Problem dana</string>
+  <string name="clickToSolve">Kliknite da riješite</string>
+  <string name="goodMove">Dobar potez</string>
+  <string name="bestMove">Najbolji potez!</string>
+  <string name="keepGoing">Nastavite…</string>
+  <string name="puzzleSuccess">Uspješno!</string>
+  <string name="puzzleComplete">Problem završen!</string>
+  <string name="notTheMove">To nije traženi potez!</string>
+  <string name="trySomethingElse">Pokušajte nešto drugo.</string>
+  <string name="ratingX">Rejting: %s</string>
+  <string name="hidden">skriven</string>
 </resources>
