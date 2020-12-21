@@ -80,4 +80,13 @@
   <string name="queensideAttack">Dāmas puses uzbrukums</string>
   <string name="queensideAttackDescription">Uzbrukums pretinieka karalim pēc rokādes dāmas pusē.</string>
   <string name="quietMove">Klusais gājiens</string>
+  <string name="quietMoveDescription">Gājiens, kas nepiesaka šahu un nenosit nevienu figūru, tomēr sagatavo nenovēršamus draudus kādā sekojošā gājienā.</string>
+  <string name="rookEndgame">Torņu beigu spēle</string>
+  <string name="rookEndgameDescription">Beigu spēle, kurā iesaistīti tikai torņi un bandinieki.</string>
+  <string name="sacrifice">Upuris</string>
+  <string name="sacrificeDescription">Stratēģija, kurā īstermiņā atdod materiālu, lai atkal iegūtu pārsvaru pēc piespiestu gājienu virknes.</string>
+  <string name="short">Īsa puzle</string>
+  <string name="shortDescription">Divi gājieni līdz uzvarai.</string>
+  <string name="skewer">Iesms</string>
+  <string name="skewerDescription">Šis motīvs iesaista augstas vērtības figūru, kurai jāizkustās, lai izvairītos no uzbrukuma, atļaujot vai nu uzbrukumu mazākas vērtības figūrai, kas atrodas aiz tās, vai arī šīs figūras nosišanu – pretējais piespraušanai.</string>
 </resources>
