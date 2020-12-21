@@ -76,4 +76,14 @@
   <string name="promotion">Promoção</string>
   <string name="promotionDescription">Um peão sendo promovido ou ameaçando ser promovido é chave para a tática.</string>
   <string name="queenEndgame">Final de Rainha</string>
+  <string name="queenEndgameDescription">Um final com apenas rainhas e peões.</string>
+  <string name="queensideAttack">Ataque na ala da Dama</string>
+  <string name="queensideAttackDescription">Um ataque ao rei adversário, após ter efetuado o roque na ala da Dama.</string>
+  <string name="quietMove">Lance de preparação</string>
+  <string name="quietMoveDescription">Um lance que não dá xeque nem realiza uma captura, mas prepara uma ameaça inevitável para a jogada seguinte.</string>
+  <string name="rookEndgame">Finais de Torres</string>
+  <string name="rookEndgameDescription">Um final com apenas torres e peões.</string>
+  <string name="sacrifice">Sacrifício</string>
+  <string name="sacrificeDescription">Uma tática envolvendo a entrega de material no curto prazo, com o objetivo de se obter uma vantagem após uma sequência forçada de movimentos.</string>
+  <string name="short">Quebra-cabeças curto</string>
 </resources>
