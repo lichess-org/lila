@@ -58,14 +58,19 @@
   <string name="shareAndExport">शेयर &amp; एक्सपोर्ट करें</string>
   <string name="cloneStudy">प्रतिलिपि</string>
   <string name="studyPgn">PGN का अध्ययन करें</string>
+  <string name="downloadAllGames">सभी गेम डाउनलोड करें</string>
   <string name="chapterPgn">अध्याय PGN</string>
+  <string name="downloadGame">गेम डाउनलोड करो</string>
   <string name="studyUrl">अध्ययन का URL</string>
+  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">प्रसारण यूआरएल</string>
   <string name="currentChapterUrl">वर्तमान अध्याय URL</string>
   <string name="currentGameUrl">वर्तमान अध्याय URL</string>
   <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">आप अध्याय को जोड़ने के लिए इसे फ़ोरम में जोर सकते हैं</string>
   <string name="startAtInitialPosition">प्रारंभिक स्थिति में शुरू करें</string>
   <string name="startAtX">%s से प्रारंभ करें</string>
   <string name="embedInYourWebsite">अपनी वेबसाइट अथवा ब्लॉग पर प्रकाशित करें</string>
+  <string name="readMoreAboutEmbedding">एम्बेड करने के बारे में और पढ़ें</string>
+  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">केवल सार्वजनिक अध्ययनों को एम्बेड किया जा सकता है!</string>
   <string name="open">खोलें</string>
   <string name="xBroughtToYouByY">%1$s, %2$s द्वारा आपके लिए</string>
   <string name="studyNotFound">अध्ययन नहीं मिला</string>
