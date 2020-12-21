@@ -13,4 +13,6 @@
   <string name="bishopEndgame">Final de bispo</string>
   <string name="bishopEndgameDescription">Final com somente bispos e peões.</string>
   <string name="castling">Roque</string>
+  <string name="castlingDescription">Traga o seu rei para a segurança, e prepare sua torre para o ataque.</string>
+  <string name="capturingDefender">Capture o defensor</string>
 </resources>
