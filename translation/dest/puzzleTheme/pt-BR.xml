@@ -3,4 +3,6 @@
   <string name="advancedPawn">Peão avançado</string>
   <string name="advancedPawnDescription">Um peão prestes a ser promovido ou à beira da promoção é um tema tático.</string>
   <string name="advantage">Vantagem</string>
+  <string name="advantageDescription">Aproveite a sua chance de ter uma vantagem decisiva. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="attackingF2F7">Atacando f2 ou f7</string>
 </resources>
