@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advancedPawn">Peão avançado</string>
+  <string name="advancedPawnDescription">Um peão prestes a ser promovido ou à beira da promoção é um tema tático.</string>
+  <string name="advantage">Vantagem</string>
+</resources>
