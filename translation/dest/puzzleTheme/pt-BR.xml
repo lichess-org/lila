@@ -16,4 +16,9 @@
   <string name="castlingDescription">Traga o seu rei para a segurança, e prepare sua torre para o ataque.</string>
   <string name="capturingDefender">Capture o defensor</string>
   <string name="capturingDefenderDescription">Remover uma peça que seja importante na defesa de outra, permitindo que agora a peça indefesa seja capturada na jogada seguinte.</string>
+  <string name="crushing">Esmagando</string>
+  <string name="crushingDescription">Perceba a capivarada do oponente para obter uma vantagem esmagadora. (vantagem ≥ 600cp)</string>
+  <string name="equality">Igualdade</string>
+  <string name="equalityDescription">Saia de uma posição perdida, e assegure um empate ou uma posição equilibrada. (aval ≤ 200cp)</string>
+  <string name="kingsideAttack">Ataque na ala do rei</string>
 </resources>
