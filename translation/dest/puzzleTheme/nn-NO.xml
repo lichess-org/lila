@@ -95,4 +95,12 @@
   <string name="trappedPieceDescription">Ei brikke som ikkje kjem unna på grunn av mangel på utvegar.</string>
   <string name="underPromotion">Underforvandling</string>
   <string name="underPromotionDescription">Bondeforvandling til springar, løpar eller tårn.</string>
+  <string name="veryLong">Svært lang taktikkoppgåve</string>
+  <string name="veryLongDescription">Fire trekk eller fleire for å vinne.</string>
+  <string name="xRayAttack">Røntgenåtak</string>
+  <string name="xRayAttackDescription">Ein situasjon der ei brikke går til åtak gjennom ei eller fleire andre brikker, gjerne brikker som høyrer til motspelaren.</string>
+  <string name="zugzwang">Trekktvang</string>
+  <string name="zugzwangDescription">Ei stilling der alle moglege trekk skadar stillinga.</string>
+  <string name="healthyMix">Helsesam blanding</string>
+  <string name="healthyMixDescription">Litt av kvart. Du veit ikkje kva du blir møtt med, så du må vera førebudd på det meste. Nett som i verkelege parti.</string>
 </resources>
