@@ -19,4 +19,8 @@
   <string name="crushing">Жойқын</string>
   <string name="crushingDescription">Жойқын артықшылыққа ие болу үшін қарсыластың қателігін анықтаңыз. (eval ≥ 600cp)</string>
   <string name="equality">Теңдік</string>
+  <string name="equalityDescription">Жаман күйден шығып, ойынды тепе-теңдікке не тең күйге жеткізіңіз. (eval ≤ 200cp)</string>
+  <string name="kingsideAttack">Патша жақты шабуыл</string>
+  <string name="kingsideAttackDescription">Қарсыластың патшасы өз жағына бекінгеннен кейін оған жасалатын шабуыл.</string>
+  <string name="clearance">Тазарту</string>
 </resources>
