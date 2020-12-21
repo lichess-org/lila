@@ -47,11 +47,6 @@ case class Perf(
       add(Glicko.default, date)
     }
 
-  def averageGlicko(other: Perf) =
-    copy(
-      glicko = glicko average other.glicko
-    )
-
   def refund(points: Int): Perf = {
     val newGlicko = glicko refund points
     copy(

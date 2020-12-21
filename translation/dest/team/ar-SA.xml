@@ -24,4 +24,18 @@
   <string name="kickSomeone">طرد أحداً ما من الفريق</string>
   <string name="willBeReviewed">سيتم النظر في طلب انضمامك من قبل قائد الفريق.</string>
   <string name="beingReviewed">طلب انضمامك مازال يتم النظر فيه من قبل قائد الفريق.</string>
+  <string name="teamBattle">مسابقة الفرق</string>
+  <string name="teamBattleOverview">معركة بين مجموعة فرق، كل لاعب يحرز النقاط لفريقه</string>
+  <string name="teamTournament">مسابقة للفريق</string>
+  <string name="teamTournamentOverview">مسابقة أرينا (الساحة) التي يمكن فقط لأعضاء فريقك الأنضمام إليها</string>
+  <string name="messageAllMembers">مراسلة جميع الأعضاء</string>
+  <string name="messageAllMembersOverview">ارسل رسالة خاصة الى كل عضو في الفريق</string>
+  <string name="messageAllMembersLongDescription">إرسال رسالة خاصة إلى جميع أعضاء الفريق.
+يمكنك استخدام هذا لاستدعاء اللاعبين للانضمام إلى مسابقة للفريق أو مسابقة الفرق.
+اللاعبين الذين لا يحبون تلقي رسائلك قد يغادرون الفريق.</string>
+  <string name="teamsIlead">الفرق التي أقودها</string>
+  <string name="usersWhoCanManageThisTeam">المستخدمين الذين يمكنهم إدارة هذا الفريق</string>
+  <string name="leadersChat">محادثة القادة</string>
+  <string name="closeTeam">إغلاق الفريق</string>
+  <string name="closeTeamDescription" comment="closeTeamDescription&#10;&#10;If you click this, your team will be closed forever.">اغلق الفريق إلى الأبد.</string>
 </resources>

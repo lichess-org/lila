@@ -70,6 +70,7 @@ object BinaryFormat {
         .map {
           case Vector(a, b) => (enc(a) << 4) + enc(b)
           case Vector(a)    => enc(a) << 4
+          case v            => sys error s"moveTime.write unexpected $v"
         }
         .map(_.toByte)
         .toArray

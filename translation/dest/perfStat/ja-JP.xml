@@ -12,7 +12,7 @@
   <string name="tournamentGames">トーナメント対局数</string>
   <string name="berserkedGames">バーサーク局数</string>
   <string name="timeSpentPlaying">総プレイ時間</string>
-  <string name="averageOpponent">対戦相手の平均</string>
+  <string name="averageOpponent">対局相手の平均</string>
   <string name="victories">勝ち</string>
   <string name="defeats">負け</string>
   <string name="disconnections">接続切れ</string>

@@ -531,6 +531,7 @@
   <string name="currentPassword">Kasalukuyang password</string>
   <string name="newPassword">Bagong password</string>
   <string name="newPasswordAgain">Bagong password (muli)</string>
+  <string name="newPasswordsDontMatch">Hindi tumutugma ang mga bagong password</string>
   <string name="clockInitialTime">Panimulang oras ng Orasan</string>
   <string name="clockIncrement">Dagdag sa orasan</string>
   <string name="privacy">Pagiging Pribado</string>
@@ -556,6 +557,9 @@
   <string name="xCommentedY">%1$s nakomentohan %2$s</string>
   <string name="victory">Tagumpay</string>
   <string name="defeat">Natalo</string>
+  <string name="victoryVsYInZ">%1$s vs %2$s sa %3$s</string>
+  <string name="defeatVsYInZ">%1$s vs %2$s sa %3$s</string>
+  <string name="drawVsYInZ">%1$s vs %2$s sa %3$s</string>
   <string name="timeline">Timeline</string>
   <string name="starting">Nagsisimula:</string>
   <string name="allInformationIsPublicAndOptional">Ang lahat ng impormasyon ay nasa publiko at opsyonal.</string>
@@ -618,6 +622,7 @@
   <string name="webmasters">Webmasters</string>
   <string name="about">Patungkol</string>
   <string name="aboutX">Tungkol sa %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ay isang malaya(%2$s), libre, walang ads, open source chess server.</string>
   <string name="really">talaga</string>
   <string name="contribute">Mag-ambag</string>
   <string name="termsOfService">Termino ng Serbisyo</string>
@@ -665,6 +670,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Ang iyong %1$s marka ay %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ikaw ay mas magaling kaysa sa %1$s ng %2$s mga manlalaro.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s ay mas magaling sa %2$s ng %3$s manlalaro.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ikaw ay walang naitatag %s na marka.</string>
   <string name="yourRating">Ang iyong grado</string>
   <string name="cumulative">Naiipon</string>
@@ -718,6 +724,7 @@
   <string name="xHostsY">%1$s mga host %2$s</string>
   <string name="xJoinsY">%1$s mga sumali %2$s</string>
   <string name="xLikesY">%1$s mga gusto %2$s</string>
+  <string name="xCreatesStudyY">Si%1$s ay gumawa ng pag-aaral tungkol sa %2$s</string>
   <string name="quickPairing">Mabilis na pagpares</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Hindi kilala</string>
@@ -832,6 +839,9 @@
   <string name="agreementAssistance">Sumasang-ayon ako na hindi ako kailanman tatanggap ng ayuda sa panahon ng aking mga laro (mula sa isang kompyuter ng ahedres, aklat, database o sa ibang tao).</string>
   <string name="agreementNice">Sumasang-ayon ako na lagi akong magiging magalang sa ibang mga manlalaro.</string>
   <string name="agreementAccount">Sumasang-ayon ako na hindi ako lilikha ng maraming mga account.</string>
+  <string name="agreementPolicy">Sumasang-ayon ako na susundin ko ang lahat ng polisiya ng Lichess.</string>
+  <string name="searchOrStartNewDiscussion">Mag-search o mag-start ng bagong pag-uusap</string>
+  <string name="edit">I-edit</string>
   <string name="rapid">Mabilisan</string>
   <string name="classical">Klasiko</string>
   <string name="ultraBulletDesc">Nakakabuwang na mabibilis na mga laro: mas mababa sa tatlumpung segundo</string>

@@ -14,6 +14,7 @@
   <string name="officialNonProfit">Lichess 是一個非營利組織嗎?</string>
   <string name="contactSupport">聯絡 Lichess 支援</string>
   <string name="bankTransfers">我們也接受銀行轉帳</string>
+  <string name="bitcoin">這是我們的bitcoin連結:%s</string>
   <string name="youSupportWith">你贊助lichess.org每個月 %s美元</string>
   <string name="update">更新</string>
   <string name="cancelSupport">取消贊助</string>

@@ -45,4 +45,6 @@ Spēlētāji, kas nevēlēsies saņemt jūsu ziņas varētu pamest komandu.</str
   <string name="youWayWantToLinkOneOfTheseTournaments">Vai vēlaties pievienot saiti uz kādu no šiem turnīriem?</string>
   <string name="usersWhoCanManageThisTeam">Lietotāji, kas var pārvaldīt šo komandu</string>
   <string name="leadersChat">Vadītāju sarakste</string>
+  <string name="closeTeam">Slēgt komandu</string>
+  <string name="closeTeamDescription" comment="closeTeamDescription&#10;&#10;If you click this, your team will be closed forever.">Uz visiem laikiem slēdz komandu.</string>
 </resources>

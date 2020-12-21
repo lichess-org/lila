@@ -1,2 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessCoaches">Mga Lichess coach</string>
+  <string name="lichessCoach">Lichess coach</string>
+  <string name="areYouCoach">Isa ka bang magaling na chess coach na may%s?</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM o FIDE title</string>
+  <string name="confirmTitle">Kumpirmahin ang iyong title dito at aming susuriin ang iyong aplikasyon.</string>
+  <string name="sendApplication">Magpadala ng email sa amin %s at aming susuriin ang iyong aplikasyon.</string>
+  <string name="location">Lokasyon</string>
+  <string name="languages">Mga Wika</string>
+  <string name="rating">Marka</string>
+  <string name="hourlyRate">Markang Pang-oras-oras</string>
+  <string name="availability">Petsa na ikaw ay maaari</string>
+  <string name="accepting">Tumatanggap ng estudyante</string>
+  <string name="notAccepting">Hindi tumatanggap ng estudyante sa ngayon</string>
+  <string name="xCoachesStudents">%snagtuturo ng mga estudyante</string>
+  <string name="viewXProfile">Tingnan%s Lichess profile</string>
+  <string name="sendPM">Magpadala ng pribadong mensahe</string>
+  <string name="aboutMe">Tungkol sa akin</string>
+  <string name="playingExperience">Karanasan sa paglalaro</string>
+  <string name="teachingExperience">Karanasan sa pagtuturo</string>
+  <string name="otherExperiences">Iba pang karanasan</string>
+  <string name="bestSkills">Pinakamahusay na kakayahan</string>
+  <string name="teachingMethod">Paraan ng pagtuturo</string>
+  <string name="publicStudies">Mga pampublikong pag-aaral</string>
+  <string name="youtubeVideos">Mga bidyo sa YouTube</string>
+  <string name="thankYouForReview">Salamat sa iyong pagsusuri!</string>
+  <string name="xWillApproveIt">%s ay magiging aprubado sa lalong madaling panahon, o isang moderator ang titingin dito.</string>
+  <string name="reviewCoach">Suriin ang coach na ito</string>
+  <string name="describeExperienceWith">Ilarawan ang iyong karanasan sa coaching kasama si%s</string>
+</resources>

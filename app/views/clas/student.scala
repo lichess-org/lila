@@ -255,7 +255,7 @@ object student {
     p(dataIcon := "", cls := "text")(
       s"Note that a class can have up to ${lila.clas.Clas.maxStudents} students.",
       "To manage more students, ",
-      a(href := routes.Clas.studentForm(clas.id.value))("create more classes"),
+      a(href := routes.Clas.form())("create more classes"),
       "."
     )
 

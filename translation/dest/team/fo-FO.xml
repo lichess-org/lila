@@ -1,16 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="team">Toymi</string>
-  <string name="teams">Toymi</string>
+  <string name="team">Lið</string>
+  <string name="teams">Lið</string>
   <plurals name="nbMembers">
     <item quantity="one">%s limur</item>
     <item quantity="other">%s limir</item>
   </plurals>
-  <string name="allTeams">Øll toymi</string>
-  <string name="newTeam">Nýtt toymi</string>
-  <string name="myTeams">Míni toymi</string>
-  <string name="noTeamFound">Einki toymi funnið</string>
-  <string name="joinTeam">Kom upp í eitt toymi</string>
-  <string name="quitTeam">Far úr toymi</string>
+  <string name="allTeams">Øll lið</string>
+  <string name="newTeam">Nýtt lið</string>
+  <string name="myTeams">Míni lið</string>
+  <string name="noTeamFound">Einki lið funnið</string>
+  <string name="joinTeam">Kom upp í eitt lið</string>
+  <string name="quitTeam">Far úr einum liði</string>
+  <string name="anyoneCanJoin">Øll kunnu taka lut</string>
+  <string name="aConfirmationIsRequiredToJoin">Neyðugt er við eini váttan, áðrenn til ber at luttaka</string>
+  <string name="joiningPolicy">Luttøkutreytir</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Liðleiðari</item>
+    <item quantity="other">Liðleiðarar</item>
+  </plurals>
   <string name="teamBestPlayers">Bestu telvarar</string>
+  <string name="teamRecentMembers">Nýligir limir</string>
+  <string name="kickSomeone">Tveit onkran av liðnum</string>
+  <string name="whoToKick">Hvønn vilt tú tveita av liðnum?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s luttøkuumbøn</item>
+    <item quantity="other">%s luttøkuumbønir</item>
+  </plurals>
+  <string name="willBeReviewed">Liðleiðarin metir um luttøkuumbøn tína.</string>
+  <string name="beingReviewed">Liðleiðarin metir í løtuni um luttøkuumbøn tína.</string>
+  <string name="teamBattle">Fleiri lið berjast</string>
+  <string name="teamBattleOverview">Fleiri lið stríðast, hvør leikari vinnur sínum liði stig</string>
+  <string name="teamTournament">Innanhýsis kapping</string>
+  <string name="teamTournamentOverview">Arena kapping, ið bert limir á tínum liði kunnu taka lut í</string>
+  <string name="messageAllMembers">Gev øllum limum boð</string>
+  <string name="messageAllMembersOverview">Send eini boð til hvønn lim á liðnum</string>
+  <string name="messageAllMembersLongDescription">Send eini boð til ALLAR limir á liðnum. Tú kanst nýta hetta, tá ið tú vilt biðja leikarar um at taka lut í eini kapping ella liðbardaga. Leikarar, ið ikki leggja í at fáa boð tíni, kunnu møguliga fara av liðnum.</string>
+  <string name="teamsIlead">Lið, ið eg leiði</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Tú hevur møguliga hug at leinkja til eina av hesum komandi kappingunum?</string>
+  <string name="usersWhoCanManageThisTeam">Brúkarar, ið kunnu leiða hetta liðið</string>
+  <string name="leadersChat">Leiðaraprát (kjatt)</string>
+  <string name="closeTeam">Lat lið aftur</string>
+  <string name="closeTeamDescription" comment="closeTeamDescription&#10;&#10;If you click this, your team will be closed forever.">Letur lið aftur med alla.</string>
 </resources>

@@ -2,4 +2,10 @@
 <resources>
   <string name="search">Търсене</string>
   <string name="advancedSearch">Разширено търсене</string>
+  <plurals name="xGamesFound">
+    <item quantity="one">Открита е една игра</item>
+    <item quantity="other">Една намерена игра</item>
+  </plurals>
+  <string name="opponentName">Името на противника</string>
+  <string name="loser">Победен</string>
 </resources>

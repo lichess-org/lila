@@ -29,7 +29,7 @@ object passwd {
             autocomplete := "current-password"
           ),
           form3.passwordModified(form("newPasswd1"), trans.newPassword())(autocomplete := "new-password"),
-          form3.passwordComplexityMeter(),
+          form3.passwordComplexityMeter(trans.newPasswordStrength()),
           form3.passwordModified(form("newPasswd2"), trans.newPasswordAgain())(
             autocomplete := "new-password"
           ),

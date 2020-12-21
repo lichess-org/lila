@@ -21,4 +21,6 @@
   <string name="teamBestPlayers">മികച്ച കളിക്കാര്‍</string>
   <string name="teamRecentMembers">പുതിയ അംഗങ്ങള്‍</string>
   <string name="teamsIlead">ഞാന്‍ ലീഡര്‍ ആയ ടീമുകള്‍</string>
+  <string name="closeTeam">ടീം അടച്ചുപൂട്ടുക</string>
+  <string name="closeTeamDescription">ഇത് ഈ ടീമിനെ എന്നേക്കുമായി അടച്ചുപൂട്ടും.</string>
 </resources>

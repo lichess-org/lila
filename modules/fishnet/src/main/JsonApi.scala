@@ -15,18 +15,8 @@ object JsonApi {
 
   sealed trait Request {
     val fishnet: Request.Fishnet
-    val stockfish: Request.Engine
 
-    def instance(ip: IpAddress) =
-      Client.Instance(
-        fishnet.version,
-        fishnet.python | Client.Python(""),
-        Client.Engines(
-          stockfish = Client.Engine(stockfish.name)
-        ),
-        ip,
-        DateTime.now
-      )
+    def instance(ip: IpAddress) = Client.Instance(fishnet.version, ip, DateTime.now)
   }
 
   object Request {
@@ -39,33 +29,19 @@ object JsonApi {
         apikey: Client.Key
     )
 
-    sealed trait Engine {
-      def name: String
-    }
-
-    case class BaseEngine(name: String) extends Engine
-
-    case class FullEngine(
-        name: String,
-        options: EngineOptions
-    ) extends Engine
-
-    case class EngineOptions(
-        threads: Option[String],
-        hash: Option[String]
+    case class Stockfish(
+        flavor: Option[String]
     ) {
-      def threadsInt = threads flatMap (_.toIntOption)
-      def hashInt    = hash flatMap (_.toIntOption)
+      def isNnue = flavor.has("nnue")
     }
 
     case class Acquire(
-        fishnet: Fishnet,
-        stockfish: BaseEngine
+        fishnet: Fishnet
     ) extends Request
 
     case class PostAnalysis(
         fishnet: Fishnet,
-        stockfish: FullEngine,
+        stockfish: Stockfish,
         analysis: List[Option[Evaluation.OrSkipped]]
     ) extends Request
         with Result {
@@ -77,7 +53,7 @@ object JsonApi {
 
     case class CompleteAnalysis(
         fishnet: Fishnet,
-        stockfish: FullEngine,
+        stockfish: Stockfish,
         analysis: List[Evaluation.OrSkipped]
     ) {
 
@@ -90,13 +66,15 @@ object JsonApi {
             .flatMap(_.nodes)
         }
 
-      def strong = medianNodes.fold(true)(_ > Evaluation.acceptableNodes)
+      // fishnet 2.x analysis is never weak in this sense. It is either exactly
+      // the same as analysis provided by any other instance, or failed.
+      def strong = stockfish.flavor.isDefined || medianNodes.fold(true)(_ > Evaluation.legacyAcceptableNodes)
       def weak   = !strong
     }
 
     case class PartialAnalysis(
         fishnet: Fishnet,
-        stockfish: FullEngine,
+        stockfish: Stockfish,
         analysis: List[Option[Evaluation.OrSkipped]]
     )
 
@@ -128,10 +106,10 @@ object JsonApi {
         def invertIf(cond: Boolean) = if (cond) invert else this
       }
 
-      val npsCeil = 10 * 1000 * 1000
+      val npsCeil = 10_000_000
 
-      val desiredNodes    = 3 * 1000 * 1000
-      val acceptableNodes = desiredNodes * 0.9
+      private val legacyDesiredNodes = 3_000_000
+      val legacyAcceptableNodes      = legacyDesiredNodes * 0.9
     }
   }
 
@@ -175,9 +153,7 @@ object JsonApi {
     implicit val ClientVersionReads = Reads.of[String].map(Client.Version(_))
     implicit val ClientPythonReads  = Reads.of[String].map(Client.Python(_))
     implicit val ClientKeyReads     = Reads.of[String].map(Client.Key(_))
-    implicit val EngineOptionsReads = Json.reads[Request.EngineOptions]
-    implicit val BaseEngineReads    = Json.reads[Request.BaseEngine]
-    implicit val FullEngineReads    = Json.reads[Request.FullEngine]
+    implicit val StockfishReads     = Json.reads[Request.Stockfish]
     implicit val FishnetReads       = Json.reads[Request.Fishnet]
     implicit val AcquireReads       = Json.reads[Request.Acquire]
     implicit val ScoreReads         = Json.reads[Request.Evaluation.Score]
@@ -216,9 +192,13 @@ object JsonApi {
           Json.obj(
             "work" -> Json.obj(
               "type" -> "analysis",
-              "id"   -> a.id
+              "id"   -> a.id,
+              "nodes" -> Json.obj(
+                "nnue"      -> a.nodes,
+                "classical" -> a.nodes * 18 / 10
+              )
             ),
-            "nodes"         -> a.nodes,
+            "nodes"         -> a.nodes * 18 / 10, // bc for fishnet 1.x clients without nnue
             "skipPositions" -> a.skipPositions
           )
       }) ++ Json.toJson(work.game).as[JsObject]

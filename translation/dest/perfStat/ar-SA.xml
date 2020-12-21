@@ -1,2 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="perfStats">احصائيات %s</string>
+  <string name="viewTheGames">عرض المباريات</string>
+  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">مؤقت</string>
+  <string name="notEnoughRatedGames">لم تلعب مباريات مقيّمة بما يكفي للحصول ع تقييم موثق.</string>
+  <string name="progressOverLastXGames">التقدم خلال آخر المباريات ال%s الاخيرة:</string>
+  <string name="ratingDeviation">انحراف التقييم: %s.</string>
+  <string name="ratingDeviationHelp">القيمة المنخفضة تعني تقييم أكثر استقراراً.
+اعلى من %s، يعتبر التقييم مؤقتاً.</string>
+  <string name="totalGames">إجمالي المباريات</string>
+  <string name="ratedGames">مباريات مقيّمة</string>
+  <string name="tournamentGames">مباريات بطولة</string>
+  <string name="berserkedGames">مباريات مخاطرة</string>
+  <string name="timeSpentPlaying">الوقت المقضي في اللعب</string>
+  <string name="averageOpponent">متوسط تقييم الخصم</string>
+  <string name="victories">الانتصارات</string>
+  <string name="defeats">الهزائم</string>
+  <string name="disconnections">الانقطاعات</string>
+  <string name="notEnoughGames">لم تلعب مباريات كفاية</string>
+  <string name="highestRating">أعلى تقييم: %s</string>
+  <string name="lowestRating">أقل تقييم: %s</string>
+  <string name="fromXToY">من %1$s الى %2$s</string>
+  <string name="winningStreak">سلسلة الانتصارات</string>
+  <string name="losingStreak">سلسلة الهزائم</string>
+  <string name="longestStreak">اطول سلسلة: %s</string>
+  <string name="currentStreak">السلسلة الحالية: %s</string>
+  <string name="bestRated">افضل الانتصارات المقيّمة</string>
+  <string name="worstRated">اسوء الهزائم المقيّمة</string>
+  <string name="gamesInARow">مباريات لُعبت على التوالي</string>
+  <string name="lessThanOneHour">اقل من ساعة واحدة بين المباريات</string>
+  <string name="maxTimePlaying">اقصى وقت مقضي في اللعب</string>
+  <string name="now">الآن</string>
+</resources>

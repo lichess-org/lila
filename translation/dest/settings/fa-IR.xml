@@ -2,6 +2,9 @@
 <resources>
   <string name="settings">تنظیمات</string>
   <string name="closeAccount">بستن حساب</string>
+  <string name="closingIsDefinitive">بعد از بستن حسابتان دیگر نمی توانید به آن دسترسی پیدا کنید. آیا مطمئن هستید؟</string>
+  <string name="cantOpenSimilarAccount">شما نمی توانید حساب جدیدی با این نام کاربری باز کنید، حتی اگر با دستگاه دیگری وارد شوید .</string>
   <string name="changedMindDoNotCloseAccount">نظرم را عوض کردم اکانتم را نمی بندم</string>
+  <string name="closeAccountExplanation">آیا شما از بستن حسابتان مطمئین هستید؟ دقت کنید که این یک تصمیم دائمی ست و شما دیگر هیچگاه نمی توانید وارد حسابتان بشوید .</string>
   <string name="thisAccountIsClosed">این حساب بسته شده است</string>
 </resources>

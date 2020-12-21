@@ -1,21 +1,21 @@
 package lila.api
 
 import akka.stream.scaladsl._
+import chess.format.FEN
+import chess.format.pgn.Tag
 import org.joda.time.DateTime
 import play.api.libs.json._
 import scala.concurrent.duration._
 
-import chess.format.FEN
-import chess.format.pgn.Tag
 import lila.analyse.{ JsonView => analysisJson, Analysis }
 import lila.common.config.MaxPerSecond
 import lila.common.Json.jodaWrites
 import lila.common.{ HTTPRequest, LightUser }
 import lila.db.dsl._
-import lila.team.GameTeams
 import lila.game.JsonView._
 import lila.game.PgnDump.WithFlags
 import lila.game.{ Game, PerfPicker, Query }
+import lila.team.GameTeams
 import lila.tournament.Tournament
 import lila.user.User
 
@@ -69,7 +69,7 @@ final class GameApiV2(
 
   private val fileR = """[\s,]""".r
   def filename(game: Game, format: Format): Fu[String] =
-    gameLightUsers(game) map { case List(wu, bu) =>
+    gameLightUsers(game) map { case (wu, bu) =>
       fileR.replaceAllIn(
         "lichess_pgn_%s_%s_vs_%s.%s.%s".format(
           Tag.UTCDate.format.print(game.createdAt),
@@ -262,7 +262,7 @@ final class GameApiV2(
       realPlayers: Option[RealPlayers] = None
   ): Fu[JsObject] =
     for {
-      lightUsers <- gameLightUsers(g)
+      lightUsers <- gameLightUsers(g) dmap { case (wu, bu) => List(wu, bu) }
       pgn <-
         withFlags.pgnInJson ?? pgnDump
           .apply(g, initialFen, analysisOption, withFlags, realPlayers = realPlayers)
@@ -308,10 +308,8 @@ final class GameApiV2(
         )
       })
 
-  private def gameLightUsers(game: Game): Fu[List[Option[LightUser]]] =
-    (game.whitePlayer.userId ?? getLightUser) zip (game.blackPlayer.userId ?? getLightUser) map {
-      case (wu, bu) => List(wu, bu)
-    }
+  private def gameLightUsers(game: Game): Fu[(Option[LightUser], Option[LightUser])] =
+    (game.whitePlayer.userId ?? getLightUser) zip (game.blackPlayer.userId ?? getLightUser)
 }
 
 object GameApiV2 {

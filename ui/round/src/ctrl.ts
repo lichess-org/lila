@@ -259,7 +259,7 @@ export default class RoundController {
       ackable: true
     };
     if (this.clock) {
-      socketOpts.withLag = !this.shouldSendMoveTime || !this.clock.isRunning;
+      socketOpts.withLag = !this.shouldSendMoveTime || !this.clock.isRunning();
       if (meta.premove && this.shouldSendMoveTime) {
         this.clock.hardStopClock();
         socketOpts.millis = 0;

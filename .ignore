@@ -1,6 +1,6 @@
 # search ignores
 vendor
-translation
+translation/dest
 ui/*/css/build
 public/font
 public/sound

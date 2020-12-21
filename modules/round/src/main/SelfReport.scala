@@ -53,7 +53,13 @@ final class SelfReport(
           proxyRepo.pov(fullId.value) flatMap {
             _ ?? { pov =>
               if (!known) doLog()
-              if (Set("ceval", "rcb", "cma")(name)) fuccess {
+              if (
+                Set("ceval", "rcb", "cma", "lga")(name) ||
+                (name.startsWith("soc") && (
+                  name.contains("stockfish") || name.contains("userscript") ||
+                    name.contains("__puppeteer_evaluation_script__")
+                ))
+              ) fuccess {
                 tellRound(
                   pov.gameId,
                   lila.round.actorApi.round.Cheat(pov.color)

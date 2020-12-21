@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailConfirm_subject">jan %s o, o toki e nimi sin sina pi lipu Lichess.org</string>
+  <string name="emailConfirm_subject">jan %s, o toki e nimi sin sina pi lipu lichess.org</string>
   <string name="emailConfirm_click">sina wile jo e nimi sina pi lipu Lichess la o luka e nimi ni:</string>
   <string name="emailConfirm_ignore">sina pali ala e nimi pi lipu Lichess la sina sona ala e sitelen ni.</string>
   <string name="passwordReset_subject">jan %s o, o pali e nimi sin pi sona ala pi lipu Lichess.org</string>
@@ -10,6 +10,11 @@
   <string name="emailChange_intro">sina toki e ni: sina wile jo e nimi ante pi pana toki.</string>
   <string name="emailChange_click">sina ken lukin e nimi ni pi pana toki la o sina luka e nimi lon noka:</string>
   <string name="welcome_subject">jan %s o, kama pona tawa lipu Lichess.org</string>
+  <string name="welcome_text">https://lichess.org la lipu sina li lon.
+
+lipu sina li lon lipu ni: %1$s. sina ken ante e ona lon %2$s.
+
+o musi! mi wile e ni: tomo utala sina tawa lon lawa mije pi jan ante!</string>
   <string name="logInToLichess">jan %s o, o tawa lipu Lichess.org</string>
   <string name="common_orPaste">(luka li tawa ala la sina sitelen e sitelen lon ilo lipu sina!)</string>
   <string name="common_note">ni li sitelen sona li tawa ni: sina pali lipu %s.</string>

@@ -16,7 +16,7 @@
   <string name="aConfirmationIsRequiredToJoin">Se requiere una confirmación para unirse</string>
   <string name="joiningPolicy">Política para unirse</string>
   <plurals name="teamLeaders">
-    <item quantity="one">representante del equipo</item>
+    <item quantity="one">Líder del equipo</item>
     <item quantity="other">Líderes del equipo</item>
   </plurals>
   <string name="teamBestPlayers">Mejores jugadores</string>
@@ -42,4 +42,6 @@ Los jugadores a los que no les guste recibir tus mensajes pueden abandonar el eq
   <string name="youWayWantToLinkOneOfTheseTournaments">¿Tal vez quieras vincular uno de estos próximos torneos?</string>
   <string name="usersWhoCanManageThisTeam">Usuarios que pueden administrar este equipo</string>
   <string name="leadersChat">Chat de líderes</string>
+  <string name="closeTeam">Cerrar equipo</string>
+  <string name="closeTeamDescription">Cierra el equipo para siempre.</string>
 </resources>

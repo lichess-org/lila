@@ -221,7 +221,7 @@ final class ReportApi(
   def autoBoostReport(winnerId: User.ID, loserId: User.ID): Funit =
     securityApi.shareIpOrPrint(winnerId, loserId) zip
       userRepo.byId(winnerId) zip userRepo.byId(loserId) zip getLichessReporter flatMap {
-        case isSame ~ Some(winner) ~ Some(loser) ~ reporter =>
+        case isSame ~ Some(winner) ~ Some(loser) ~ reporter if !winner.lame && !loser.lame =>
           create(
             Candidate(
               reporter = reporter,

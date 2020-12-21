@@ -70,7 +70,7 @@ function threatButton(ctrl: ParentCtrl): VNode | null {
 function engineName(ctrl: CevalCtrl): VNode[] {
   const version = ctrl.engineName();
   return [
-    h('span', version ? { attrs: { title: version } } : {}, ctrl.technology == 'wasmx' ? 'Stockfish 11+' : 'Stockfish 10+'),
+    h('span', version ? { attrs: { title: `${version} (classical eval)` } } : {}, ctrl.technology == 'wasmx' ? 'Stockfish 12+' : 'Stockfish 10+'),
     ctrl.technology == 'wasmx' ? h('span.wasmx', { attrs: { title: 'Multi-threaded WebAssembly (fastest)' } }, 'wasmx') :
       (ctrl.technology == 'wasm' ? h('span.wasm', { attrs: { title: 'Single-threaded WebAssembly fallback (second fastest)' } }, 'wasm') :
         h('span.asmjs', { attrs: { title: 'Single-threaded JavaScript fallback (very slow)' } }, 'asmjs'))

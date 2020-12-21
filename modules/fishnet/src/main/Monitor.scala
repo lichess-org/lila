@@ -31,18 +31,16 @@ final private class Monitor(
   ) = {
     Monitor.success(work, client)
 
-    val threads = result.stockfish.options.threadsInt
-    val userId  = client.userId.value
+    val userId = client.userId.value
 
-    result.stockfish.options.hashInt foreach { monBy.hash(userId).update(_) }
-    result.stockfish.options.threadsInt foreach { monBy.threads(userId).update(_) }
+    monBy.totalSecond(userId).increment(sumOf(result.evaluations)(_.time) / 1000)
 
-    monBy.totalSecond(userId).increment(sumOf(result.evaluations)(_.time) * threads.|(1) / 1000)
-    monBy
-      .totalMeganode(userId)
-      .increment(sumOf(result.evaluations) { eval =>
-        eval.nodes ifFalse eval.mateFound
-      } / 1000000)
+    if (result.stockfish.isNnue)
+      monBy
+        .totalMeganode(userId)
+        .increment(sumOf(result.evaluations) { eval =>
+          eval.nodes ifFalse eval.mateFound
+        } / 1000000)
 
     val metaMovesSample = sample(result.evaluations.drop(6).filterNot(_.mateFound), 100)
     def avgOf(f: JsonApi.Request.Evaluation => Option[Int]): Option[Int] = {
@@ -54,8 +52,10 @@ final private class Monitor(
       (nb > 0) option (sum / nb)
     }
     avgOf(_.time) foreach { monBy.movetime(userId).record(_) }
-    avgOf(_.nodes) foreach { monBy.node(userId).record(_) }
-    avgOf(_.cappedNps) foreach { monBy.nps(userId).record(_) }
+    if (result.stockfish.isNnue) {
+      avgOf(_.nodes) foreach { monBy.node(userId).record(_) }
+      avgOf(_.cappedNps) foreach { monBy.nps(userId).record(_) }
+    }
     avgOf(_.depth) foreach { monBy.depth(userId).record(_) }
     avgOf(_.pv.size.some) foreach { monBy.pvSize(userId).record(_) }
 
@@ -80,12 +80,6 @@ final private class Monitor(
 
       instances.groupMapReduce(_.version.value)(_ => 1)(_ + _) foreach { case (v, nb) =>
         version(v).update(nb)
-      }
-      instances.groupMapReduce(_.engines.stockfish.name)(_ => 1)(_ + _) foreach { case (s, nb) =>
-        stockfish(s).update(nb)
-      }
-      instances.groupMapReduce(_.python.value)(_ => 1)(_ + _) foreach { case (s, nb) =>
-        python(s).update(nb)
       }
     }
 

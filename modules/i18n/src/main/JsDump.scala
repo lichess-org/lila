@@ -17,7 +17,7 @@ object JsDump {
 
   private type JsTrans = Iterable[(String, JsString)]
 
-  private def removeDbPrefix(key: MessageKey): String = {
+  def removeDbPrefix(key: MessageKey): String = {
     val index = key.indexOf(':')
     if (index > 0) key.drop(index + 1) else key
   }

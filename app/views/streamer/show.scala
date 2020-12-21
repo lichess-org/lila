@@ -52,7 +52,7 @@ object show {
             }
           ),
           bits.menu("show", s.withoutStream.some),
-          a(cls := "ads-vulnerable blocker none button button-metal", href := "https://getublockorigin.com")(
+          a(cls := "ads-vulnerable blocker none button button-metal", href := "https://ublockorigin.com")(
             i(dataIcon := ""),
             strong(installBlocker()),
             beSafe()

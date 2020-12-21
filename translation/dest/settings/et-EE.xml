@@ -2,6 +2,9 @@
 <resources>
   <string name="settings">Seaded</string>
   <string name="closeAccount">Sulge konto</string>
+  <string name="closingIsDefinitive">Sulgemist ei saa tagasi võtta. Oled sa kindel?</string>
+  <string name="cantOpenSimilarAccount">Uut samanimelist kontot ei saa luua, isegi kui sümbolite register on erinev.</string>
   <string name="changedMindDoNotCloseAccount">Ma muutsin meelt, ärge sulgege kontot</string>
+  <string name="closeAccountExplanation">Kas olete kindel, et soovite oma konto sulgeda? Konto sulgemine on pöördumatu. Sellesse ei saa enam kunagi sisestada.</string>
   <string name="thisAccountIsClosed">See konto on suletud.</string>
 </resources>

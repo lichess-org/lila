@@ -1,6 +1,5 @@
 import * as xhr from 'common/xhr';
 import idleTimer from './idle-timer';
-import once from './once';
 import sri from './sri';
 import { reload } from './reload';
 import { storage as makeStorage } from './storage';
@@ -163,14 +162,14 @@ export default class StrongSocket {
     }
 
     const message = JSON.stringify(msg);
-    if (t == 'move' && o.sign != this._sign && once('socket-sign')) {
+    if (t == 'move' && o.sign != this._sign) {
       let stack: string;
       try {
         stack = (new Error).stack!.split('\n').join(' / ').replace(/\s+/g, ' ');
       } catch (e) {
         stack = `${e.message} ${navigator.userAgent}`;
       }
-      setTimeout(() => this.send('rep', { n: `soc: ${message} ${stack}` }), 10000)
+      if (!stack.includes('round.nvui')) setTimeout(() => this.send('rep', { n: `soc: ${message} ${stack}` }), 10000)
     }
     this.debug("send " + message);
     try {

@@ -39,4 +39,6 @@ Pemain yang tidak suka menerima pesan anda dapat meninggalkan tim.</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Apakah anda ingin menautkan salah satu turnamen ini yang akan datang?</string>
   <string name="usersWhoCanManageThisTeam">Pengguna yang dapat mengatur tim</string>
   <string name="leadersChat">Obrolan Pemimpin</string>
+  <string name="closeTeam">Bubarkan tim</string>
+  <string name="closeTeamDescription">Bubarkan tim selamanya.</string>
 </resources>

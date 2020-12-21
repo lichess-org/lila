@@ -562,6 +562,8 @@
   <string name="currentPassword">Тренутна лозинка</string>
   <string name="newPassword">Нова лозинка</string>
   <string name="newPasswordAgain">Понови нову лозинку</string>
+  <string name="newPasswordsDontMatch">Нове лозинке се не подударају</string>
+  <string name="newPasswordStrength">Јачина лозинке</string>
   <string name="clockInitialTime">Почетно време на сату</string>
   <string name="clockIncrement">Повећање времена</string>
   <string name="privacy">Приватност</string>

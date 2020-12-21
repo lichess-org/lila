@@ -81,7 +81,7 @@ final class Simul(env: Env) extends LilaController(env) {
         env.chat.panic.allowed
       } && simul.team.fold(true) { teamId =>
         ctx.userId exists {
-          env.team.api.syncBelongsTo(teamId, _)
+          env.team.api.syncBelongsTo(teamId, _) || isGranted(_.ChatTimeout)
         }
       }
 

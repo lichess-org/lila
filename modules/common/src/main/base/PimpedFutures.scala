@@ -163,6 +163,7 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
     chronometerTry.mon { r =>
       path(lila.mon)(r.isSuccess)
     }.result
+  def monValue(path: A => lila.mon.TimerPath) = chronometer.monValue(path).result
 
   def logTime(name: String)                               = chronometer pp name
   def logTimeIfGt(name: String, duration: FiniteDuration) = chronometer.ppIfGt(name, duration)

@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="contact">Samband</string>
+  <string name="contactLichess">Set teg í samband við Lichess</string>
+  <string name="whatCanWeHelpYouWith">Hvørjum kunnu vit hjálpa tær við?</string>
+  <string name="visitThisPage">Vitja hesa síðuna at greiða trupulleikan</string>
+  <string name="iCantLogIn">Eg fái ikki loggað á</string>
+  <string name="noConfirmationEmail">Eg fekk ikki teldupost við váttan</string>
+  <string name="forgotPassword">Gloymt loyniorðið</string>
+  <string name="forgotUsername">Eg havi gloymt mítt brúkaranavn</string>
+  <string name="youCanLoginWithEmail">Tú kanst logga á við teldupostbústaðinum, tú meldaði teg til við</string>
+  <string name="illegalCastling">Ólógligur ella ómøguligur máti at leypa í borg</string>
+  <string name="castlingRules">Ver vís/ur í, at tú skilir reglurnar fyri at leypa í borg</string>
+  <string name="welcomeToUse">Tú ert vælkomin at nýta Lichess til títt virksemi, enntá handilsliga.</string>
+  <string name="sendEmailAt">Send okkum ein teldupost á %s.</string>
+</resources>

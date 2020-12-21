@@ -27,13 +27,7 @@ final class Api(
     Json.obj(
       "api" -> Json.obj(
         "current" -> api.currentVersion.value,
-        "olds" -> api.oldVersions.map { old =>
-          Json.obj(
-            "version"       -> old.version.value,
-            "deprecatedAt"  -> old.deprecatedAt,
-            "unsupportedAt" -> old.unsupportedAt
-          )
-        }
+        "olds"    -> Json.arr()
       )
     )
   }

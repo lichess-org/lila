@@ -212,9 +212,9 @@
   <string name="exerciseYourTacticalSkills">戦術の力をみがく</string>
   <string name="videos">動画</string>
   <string name="watchInstructiveChessVideos">チェスの教材動画を見る</string>
-  <string name="playPeople">人と対戦</string>
+  <string name="playPeople">対人戦</string>
   <string name="opponentsFromAroundTheWorld">世界中に相手がいます</string>
-  <string name="playMachine">マシンと対戦</string>
+  <string name="playMachine">AIと対局</string>
   <string name="testYourSkillsWithTheComputer">コンピュータで腕前をテスト</string>
   <string name="letsGo">どうぞ！</string>
   <string name="stageX">ステージ %s</string>

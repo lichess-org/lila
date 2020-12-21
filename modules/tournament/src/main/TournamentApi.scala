@@ -305,8 +305,8 @@ final class TournamentApi(
                         publish()
                       } inject true
                   withTeamId match {
-                    case None if !tour.isTeamBattle => proceedWithTeam(none)
-                    case None if tour.isTeamBattle  => playerExists ?? proceedWithTeam(none)
+                    case None if tour.isTeamBattle => playerExists ?? proceedWithTeam(none)
+                    case None                      => proceedWithTeam(none)
                     case Some(team) =>
                       tour.teamBattle match {
                         case Some(battle) if battle.teams contains team =>

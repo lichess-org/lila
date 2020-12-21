@@ -92,7 +92,7 @@ object StreamerForm {
               chatEnabled = m.chat,
               lastGrantedAt = m.granted.option(DateTime.now) orElse streamer.approval.lastGrantedAt
             )
-          case None =>
+          case _ =>
             streamer.approval.copy(
               granted = streamer.approval.granted &&
                 newStreamer.twitch.fold(true)(streamer.twitch.has) &&

@@ -16,7 +16,7 @@
   <string name="aConfirmationIsRequiredToJoin">Eine Bestätigung ist erforderlich, um beitreten zu können</string>
   <string name="joiningPolicy">Beitrittsregeln</string>
   <plurals name="teamLeaders">
-    <item quantity="one">Teamleiter</item>
+    <item quantity="one">Teamleader</item>
     <item quantity="other">Team leader</item>
   </plurals>
   <string name="teamBestPlayers">Beste Spieler</string>
@@ -27,12 +27,12 @@
     <item quantity="one">%s Beitrittsanfrage</item>
     <item quantity="other">%s Beitrittsanfragen</item>
   </plurals>
-  <string name="willBeReviewed">Deine Beitrittsanfrage wird vom Teamleiter überprüft.</string>
+  <string name="willBeReviewed">Deine Beitrittsanfrage wird von einem Teamleiter überprüft werden.</string>
   <string name="beingReviewed">Deine Beitrittsanfrage wird von einem Teamleiter überprüft.</string>
   <string name="teamBattle">Teamkampf</string>
   <string name="teamBattleOverview">Ein Kampf mehrerer Teams, jeder Spieler erzielt Punkte für sein Team</string>
   <string name="teamTournament">Team-Turnier</string>
-  <string name="teamTournamentOverview">Ein Arenaturnier, dem nur Mitglieder deines Teams beitreten können</string>
+  <string name="teamTournamentOverview">Arenaturnier, an dem nur Mitglieder deines Teams teilnehmen können</string>
   <string name="messageAllMembers">Benachrichtige alle Mitglieder</string>
   <string name="messageAllMembersOverview">Sende eine private Nachricht an alle Mitglieder des Teams</string>
   <string name="messageAllMembersLongDescription">Sende eine private Nachricht an alle Mitglieder dieses Teams. Du kannst die Funktion benutzen um Spieler zu einem Turnier oder einem Team-Kampf aufzurufen. Spieler, die diese Art von Nachrichten nicht empfangen wollen können dein Team verlassen.</string>
@@ -40,4 +40,6 @@
   <string name="youWayWantToLinkOneOfTheseTournaments">Möchtest du eines der kommenden Turniere verlinken?</string>
   <string name="usersWhoCanManageThisTeam">Benutzer, die dieses Team verwalten können</string>
   <string name="leadersChat">Teamleiter-Chat</string>
+  <string name="closeTeam">Team auflösen</string>
+  <string name="closeTeamDescription">Löst das Team für immer auf.</string>
 </resources>

@@ -28,4 +28,6 @@
   <string name="willBeReviewed">Cererea ta va fi revizuită de către liderul echipei.</string>
   <string name="beingReviewed">Cererea ta este revizuită de către liderul echipei.</string>
   <string name="teamBattle">Luptă în echipă</string>
+  <string name="closeTeam">Închide echipa</string>
+  <string name="closeTeamDescription">Închide echipa pentru totdeauna.</string>
 </resources>

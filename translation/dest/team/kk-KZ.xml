@@ -42,4 +42,6 @@
   <string name="youWayWantToLinkOneOfTheseTournaments">Сіз келе жатқан жарыстардың біріне қосыларсыз.</string>
   <string name="usersWhoCanManageThisTeam">Осы топты басқару құзыреті бар ойыншылар</string>
   <string name="leadersChat">Жетекшілер чаты</string>
+  <string name="closeTeam">Топты жабу</string>
+  <string name="closeTeamDescription">Топты түпкілікті жабады.</string>
 </resources>

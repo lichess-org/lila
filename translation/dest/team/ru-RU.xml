@@ -48,4 +48,6 @@
   <string name="youWayWantToLinkOneOfTheseTournaments">Не хотите ли присоединить один из предстоящих турниров?</string>
   <string name="usersWhoCanManageThisTeam">Пользователи, которые могут управлять этим клубом</string>
   <string name="leadersChat">Чат руководителей</string>
+  <string name="closeTeam">Расформировать клуб</string>
+  <string name="closeTeamDescription">Закрывает клуб навсегда.</string>
 </resources>

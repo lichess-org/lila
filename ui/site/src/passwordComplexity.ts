@@ -14,7 +14,6 @@ export function addPasswordChangeListener(id: string): void {
 function updatePasswordComplexityMeter(password: string): void {
   const analysis = zxcvbn(password);
   updateMeter(analysis.score);
-  updateLabel(password.length, analysis.score, analysis.feedback);
 }
 
 function updateMeter(score: number): void {
@@ -28,43 +27,3 @@ function updateMeter(score: number): void {
   }
 }
 
-function updateLabel(
-  passwordLength: number,
-  score: number,
-  feedback: zxcvbn.ZXCVBNFeedback
-): void {
-  const suggestionLabel = document.querySelector(
-    ".password-complexity-label"
-  ) as HTMLElement;
-
-  const suggestion = feedback.warning || feedback.suggestions[0];
-
-  if (passwordLength < 4) {
-    suggestionLabel.textContent = "Password must be at least four characters.";
-  } else if (suggestion) {
-    suggestionLabel.textContent = suggestion.endsWith(".")
-      ? suggestion
-      : suggestion + ".";
-  } else {
-    // fallback strings in case the suggestion is not included in zxcvbn feedback
-    switch (score) {
-      case 0:
-      case 1:
-        suggestionLabel.textContent = "Password is short and easy to guess.";
-        break;
-      case 2:
-        suggestionLabel.textContent =
-          "Somewhat guessable, still susceptible to being cracked.";
-        break;
-      case 3:
-        suggestionLabel.textContent =
-          "Decent password, would require many guesses to crack.";
-        break;
-      case 4:
-        suggestionLabel.textContent = "Strong and secure password!";
-        break;
-      default:
-        suggestionLabel.textContent = "";
-    }
-  }
-}

@@ -2,11 +2,13 @@ package views.html.game
 
 import chess.format.Forsyth
 import controllers.routes
+import play.api.i18n.Lang
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.game.Pov
+import lila.i18n.defaultLang
 
 object mini {
 
@@ -46,16 +48,16 @@ object mini {
       dataLive := isLive.option(game.id),
       renderState(pov)
     )(
-      renderPlayer(!pov),
+      renderPlayer(!pov)(defaultLang),
       cgWrap,
-      renderPlayer(pov)
+      renderPlayer(pov)(defaultLang)
     )
   }
 
   private def renderState(pov: Pov) =
     dataState := s"${Forsyth boardAndColor pov.game.situation},${pov.color.name},${~pov.game.lastMoveKeys}"
 
-  private def renderPlayer(pov: Pov) =
+  private def renderPlayer(pov: Pov)(implicit lang: Lang) =
     span(cls := "mini-game__player")(
       span(cls := "mini-game__user")(
         playerUsername(pov.player, withRating = false),

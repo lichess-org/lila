@@ -46,6 +46,12 @@ function median(values: number[]): number {
   return values.length % 2 ? values[half] : (values[half - 1] + values[half]) / 2.0;
 }
 
+function enabledAfterDisable() {
+  const enabledAfter = lichess.tempStorage.get('ceval.enabled-after');
+  const disable = lichess.storage.get('ceval.disable');
+  return !disable || enabledAfter === disable;
+}
+
 export default function(opts: CevalOpts): CevalCtrl {
   const storageKey = (k: string) => {
     return opts.storageKeyPrefix ? `${opts.storageKeyPrefix}.${k}` : k;
@@ -81,7 +87,7 @@ export default function(opts: CevalOpts): CevalCtrl {
   const infinite = storedProp('ceval.infinite', false);
   let curEval: Tree.ClientEval | null = null;
   const allowed = prop(true);
-  const enabled = prop(false);
+  const enabled = prop(opts.possible && allowed() && enabledAfterDisable());
   let started: Started | false = false;
   let lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
   const hovering = prop<Hovering | null>(null);
@@ -135,7 +141,7 @@ export default function(opts: CevalOpts): CevalCtrl {
     npsRecorder(ev);
     curEval = ev;
     opts.emit(ev, work);
-    if (ev.fen !== lastEmitFen) {
+    if (ev.fen !== lastEmitFen && enabledAfterDisable()) { // amnesty while auto disable not processed
       lastEmitFen = ev.fen;
       lichess.storage.fire('ceval.fen', ev.fen);
     }
@@ -150,7 +156,7 @@ export default function(opts: CevalOpts): CevalCtrl {
 
   const start = (path: Tree.Path, steps: Step[], threatMode: boolean, deeper: boolean) => {
 
-    if (!enabled() || !opts.possible) return;
+    if (!enabled() || !opts.possible || !enabledAfterDisable()) return;
 
     isDeeper(deeper);
     const maxD = effectiveMaxDepth();
@@ -189,6 +195,10 @@ export default function(opts: CevalOpts): CevalCtrl {
         } else work.moves.push(s.uci!);
       }
     }
+
+    // Notify all other tabs to disable ceval.
+    lichess.storage.fire('ceval.disable');
+    lichess.tempStorage.set('ceval.enabled-after', lichess.storage.get('ceval.disable')!);
 
     pool.start(work);
 
@@ -238,7 +248,14 @@ export default function(opts: CevalOpts): CevalCtrl {
     toggle() {
       if (!opts.possible || !allowed()) return;
       stop();
-      enabled(!enabled());
+      if (!enabled() && !document.hidden) {
+        const disable = lichess.storage.get('ceval.disable');
+        if (disable) lichess.tempStorage.set('ceval.enabled-after', disable);
+        enabled(true);
+      } else {
+        lichess.tempStorage.set('ceval.enabled-after', '');
+        enabled(false);
+      }
     },
     curDepth: () => curEval ? curEval.depth : 0,
     effectiveMaxDepth,

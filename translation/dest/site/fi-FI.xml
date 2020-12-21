@@ -532,6 +532,7 @@
   <string name="newPassword">Uusi salasana</string>
   <string name="newPasswordAgain">Varmista uusi salasana</string>
   <string name="newPasswordsDontMatch">Uudet salasanat eivät täsmää</string>
+  <string name="newPasswordStrength">Salasanan vahvuus</string>
   <string name="clockInitialTime">Alkuaika</string>
   <string name="clockIncrement">Lisäaika</string>
   <string name="privacy">Yksityisyys</string>

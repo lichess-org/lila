@@ -531,6 +531,7 @@
   <string name="currentPassword">Senha atual</string>
   <string name="newPassword">Nova senha</string>
   <string name="newPasswordAgain">Nova senha (novamente)</string>
+  <string name="newPasswordStrength">Senha forte</string>
   <string name="clockInitialTime">Tempo de relógio</string>
   <string name="clockIncrement">Incremento do relógio</string>
   <string name="privacy">Privacidade</string>
