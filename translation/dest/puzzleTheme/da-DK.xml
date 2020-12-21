@@ -4,6 +4,8 @@
   <string name="advancedPawnDescription">En bonde, der forfremmes eller truer med at forfremme, er nøglen til taktikken.</string>
   <string name="advantage">Fordel</string>
   <string name="attackingF2F7">Angriber f2 eller f7</string>
+  <string name="bishopEndgame">Løber-slutspil</string>
+  <string name="bishopEndgameDescription">Et slutspil med kun løbere og bønder.</string>
   <string name="castling">Rokade</string>
   <string name="castlingDescription">Bring din konge i sikkerhed og gør dit tårn klar til angreb.</string>
   <string name="kingsideAttack">Angreb på kongesiden</string>
