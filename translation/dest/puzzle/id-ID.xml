@@ -16,4 +16,27 @@
   <string name="findTheBestMoveForBlack">Temukan langkah terbaik hitam.</string>
   <string name="toGetPersonalizedPuzzles">Untuk mendapatkan problem pribadi:</string>
   <string name="puzzleId">Problems %s</string>
+  <string name="puzzleOfTheDay">Problem hari ini</string>
+  <string name="clickToSolve">Klik untuk jawabannya</string>
+  <string name="goodMove">Langkah bagus</string>
+  <string name="bestMove">Langkah Baik!</string>
+  <string name="keepGoing">Lanjutkan…</string>
+  <string name="puzzleSuccess">Sukses!</string>
+  <string name="puzzleComplete">Problem lengkap!</string>
+  <string name="notTheMove">Itu bukan langkahnya!</string>
+  <string name="trySomethingElse">Coba lagi lainnya.</string>
+  <string name="ratingX">Rating: %s</string>
+  <string name="hidden">sembunyi</string>
+  <plurals name="playedXTimes">
+    <item quantity="other">Bermain % kali</item>
+  </plurals>
+  <string name="fromGameLink">Dari game %s</string>
+  <string name="continueTraining">Lanjut latihan</string>
+  <string name="difficultyLevel">Level Sulit</string>
+  <string name="normal">Normal</string>
+  <string name="easier">Lebih mudah</string>
+  <string name="easiest">Paling mudah</string>
+  <string name="harder">Lebih sulit</string>
+  <string name="hardest">Paling sulit</string>
+  <string name="example">Contoh</string>
 </resources>
