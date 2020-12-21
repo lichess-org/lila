@@ -25,4 +25,7 @@
   <string name="clearanceDescription">Eit trekk, gjerne med tempo, som opnar eit felt, ei line eller ein diagonal for ein påfølgjande taktisk ide.</string>
   <string name="defensiveMove">Forsvarstrekk</string>
   <string name="defensiveMoveDescription">Presist trekk eller trekkserie som er naudsynt for å unngå å tape materiell eller andre fordelar.</string>
+  <string name="deflection">Avleiing</string>
+  <string name="deflectionDescription">Eit trekk som leier ei av brikkene til motstpelaren bort frå ei anna oppgåve, som til dømes oppdekking av eit viktig felt.</string>
+  <string name="discoveredAttack">Avdekkaråtak</string>
 </resources>
