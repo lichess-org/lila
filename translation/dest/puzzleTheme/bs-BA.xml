@@ -15,4 +15,16 @@
   <string name="kingsideAttack">Napad na kraljevom krilu</string>
   <string name="kingsideAttackDescription">Napad na protivničkog kralja nakon što se on rokirao na kraljevo krilo.</string>
   <string name="clearance">Raščišćavanje</string>
+  <string name="clearanceDescription">Potez, često s tempom, koji raščišćava polje, liniju ili dijagonalu za izvođenje taktičke ideje.</string>
+  <string name="defensiveMove">Odbrambeni potez</string>
+  <string name="defensiveMoveDescription">Precizan potez ili niz poteza potreban da se izbjegne gubitak materijala ili neke druge prednosti.</string>
+  <string name="deflection">Odvlačenje</string>
+  <string name="deflectionDescription">Potez koji odvlači protivničku figuru od obavljanja njene trenutne dužnosti, kao što je čuvanje ključnog polja.</string>
+  <string name="discoveredAttack">Otkriveni napad</string>
+  <string name="discoveredAttackDescription">Pomjeranje figure koja je dotad blokirala napad druge dalekometne figure, kao, npr., sklanjanje skakača ispred topa.</string>
+  <string name="doubleCheck">Dvostruki šah</string>
+  <string name="doubleCheckDescription">Šahiranje dvjema figurama istovremeno, kao rezultat otkrivenog napada, kad i otkrivena figura i ona koja ju je zaklanjala napadaju protivničkog kralja.</string>
+  <string name="endgame">Završnica</string>
+  <string name="endgameDescription">Taktika tokom posljednje faze partije.</string>
+  <string name="exposedKing">Izloženi kralj</string>
 </resources>
