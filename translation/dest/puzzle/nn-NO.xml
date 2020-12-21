@@ -33,4 +33,10 @@
   <string name="fromGameLink">Frå parti %s</string>
   <string name="continueTraining">Hald fram å øva</string>
   <string name="difficultyLevel">Vanskenivå</string>
+  <string name="normal">Middels</string>
+  <string name="easier">Enklare</string>
+  <string name="easiest">Enklast</string>
+  <string name="harder">Vanskelegare</string>
+  <string name="hardest">Vanskelegast</string>
+  <string name="example">Døme</string>
 </resources>
