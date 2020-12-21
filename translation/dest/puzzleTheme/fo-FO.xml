@@ -97,9 +97,9 @@
   <string name="underPromotionDescription">Umskapan til riddara, bisp ella rók.</string>
   <string name="veryLong">Sera long uppgáva</string>
   <string name="veryLongDescription">Fýra leikir ella fleiri til tess at vinna.</string>
-  <string name="xRayAttack">Geislað álop</string>
+  <string name="xRayAttack">Geisling</string>
   <string name="xRayAttackDescription">Eitt fólk loypur á ella verjir ein punt gjøgnum eitt mótstøðufólk.</string>
-  <string name="zugzwang">Tvingsilsleikur</string>
+  <string name="zugzwang">Leiktvingsil</string>
   <string name="zugzwangDescription">Mótleikarin hevur avmarkaðar møguleikar at flyta, og allir leikir gera støðu hansara verri.</string>
   <string name="healthyMix">Sunt bland</string>
   <string name="healthyMixDescription">Eitt sindur av øllum. Tú veitst ikki, hvat tú kanst vænta tær, so ver til reiðar til alt! Júst sum í veruligum talvum.</string>
