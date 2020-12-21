@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="advancedPawn">Pion passé</string>
+  <string name="advancedPawn">Pion avancé</string>
   <string name="advancedPawnDescription">Un pion promouvant ou menaçant d\'être promu est essentiel à la tactique.</string>
   <string name="advantage">Avantage</string>
   <string name="advantageDescription">Saisissez votre chance d\'obtenir un avantage décisif. (200cp ≤ évaluation ≤ 600cp)</string>
-  <string name="attackingF2F7">Attaque en f2 ou f7</string>
+  <string name="attackingF2F7">Attaquer f2 ou f7</string>
   <string name="attackingF2F7Description">Une attaque sur le pion f2 ou f7, comme dans l\'attaque fegatello/Fried Liver.</string>
   <string name="attraction">Attraction</string>
   <string name="attractionDescription">Un échange ou un sacrifice encourageant ou forçant une pièce adverse à bouger sur une case, permettant une tactique.</string>
@@ -88,6 +88,7 @@
   <string name="short">Court problème</string>
   <string name="shortDescription">Victoire en deux coups.</string>
   <string name="skewer">Enfilade</string>
+  <string name="skewerDescription">Un motif impliquant l\'attaque d\'une pièce de grande valeur qui en se dégageant permet la capture ou l\'attaque d\'une pièce de moindre valeur située derrière elle, l\'inverse d\'un clouage.</string>
   <string name="smotheredMate">Mat à l\'étouffée</string>
   <string name="smotheredMateDescription">Un mat délivré par un cavalier dans lequel le roi est incapable de s\'échapper parce qu\'il est entouré (ou étouffé) par ses propres pièces.</string>
   <string name="trappedPiece">Pièce enfermée</string>
@@ -96,6 +97,7 @@
   <string name="underPromotionDescription">Promotion en cavalier, fou ou tour.</string>
   <string name="veryLong">Très long problème</string>
   <string name="veryLongDescription">Quatre coups ou plus pour gagner.</string>
+  <string name="xRayAttack">Attaque par rayons X</string>
   <string name="xRayAttackDescription">Une pièce attaque ou défend une case, à travers une pièce ennemie.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">L\'adversaire est limité dans les mouvements qu\'il peut effectuer, et tous les coups aggravent sa position.</string>
