@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">Taktikkoppgåver</string>
+  <string name="recommended">Anbefalt</string>
+  <string name="phases">Fasar</string>
+  <string name="motifs">Motiv</string>
+  <string name="advanced">Vidarekomande</string>
+  <string name="lengths">Lengder</string>
+</resources>
