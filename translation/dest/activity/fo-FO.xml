@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="activity">Virkni</string>
+  <string name="hostedALiveStream">Var vertur fyri beinleiðis stroyming</string>
+  <plurals name="supportedNbMonths">
+    <item quantity="one">Stuðlaði lichess.org í %1$s mánaða sum ein %2$s</item>
+    <item quantity="other">Stuðlaði lichess.org í %1$s mánaðir sum ein %2$s</item>
+  </plurals>
+</resources>
