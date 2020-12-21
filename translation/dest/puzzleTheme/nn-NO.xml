@@ -43,4 +43,17 @@
   <string name="interference">Hindring</string>
   <string name="interferenceDescription">Flytte ei brikke mellom to motstandarbrikker for å oppnå at ei eller begge vert udekka. Til dømes ein springar til eit dekka felt mellom to tårn.</string>
   <string name="intermezzo">Mellomtrekk</string>
+  <string name="intermezzoDescription">Eit trekk som kjem før det venta trekket og som motspelaren må svare på. I engelsk sjakklitteratur vert det tyske omgrepet \"Zwischenzug\" nytta.</string>
+  <string name="knightEndgame">Springarsluttspel</string>
+  <string name="knightEndgameDescription">Eit sluttspel som berre involverer springarar og bønder.</string>
+  <string name="long">Lang taktikkoppgåve</string>
+  <string name="longDescription">Vinst i tre trekk.</string>
+  <string name="mate">Matt</string>
+  <string name="mateDescription">Vinn partiet med stil.</string>
+  <string name="mateIn1">Matt i eitt trekk</string>
+  <string name="mateIn1Description">Sett matt i eitt trekk.</string>
+  <string name="mateIn2">Matt i to trekk</string>
+  <string name="mateIn2Description">Sett matt i to trekk.</string>
+  <string name="mateIn3">Matt i tre trekk</string>
+  <string name="mateIn3Description">Sett matt i tre trekk.</string>
 </resources>
