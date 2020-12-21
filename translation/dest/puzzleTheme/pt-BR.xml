@@ -52,4 +52,18 @@
   <string name="mate">Xeque-mate</string>
   <string name="mateDescription">Vença o jogo com estilo.</string>
   <string name="mateIn1">Mate em 1</string>
+  <string name="mateIn1Description">Dar xeque-mate em um movimento.</string>
+  <string name="mateIn2">Mate em 2</string>
+  <string name="mateIn2Description">Dar xeque-mate em dois movimentos.</string>
+  <string name="mateIn3">Mate em 3</string>
+  <string name="mateIn3Description">Dar xeque-mate em três movimentos.</string>
+  <string name="mateIn4">Mate em 4</string>
+  <string name="mateIn4Description">Dar xeque-mate em 4 movimentos.</string>
+  <string name="mateIn5">Mate em 5 ou mais</string>
+  <string name="mateIn5Description">Descubra uma longa sequência de mate.</string>
+  <string name="middlegame">Meio-jogo</string>
+  <string name="middlegameDescription">Tática durante a segunda fase do jogo.</string>
+  <string name="oneMove">Quebra-cabeças de um movimento</string>
+  <string name="oneMoveDescription">Quebra-cabeças de um movimento.</string>
+  <string name="opening">Abertura</string>
 </resources>
