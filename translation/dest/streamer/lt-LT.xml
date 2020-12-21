@@ -1,2 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessStreamers">Lichess transliuotojai</string>
+  <string name="lichessStreamer">Lichess transliuotojas</string>
+  <string name="live">GYVAI!</string>
+  <string name="offline">NEPRISIJUNGĘ</string>
+  <string name="currentlyStreaming">Dabar transliuojama: %s</string>
+  <string name="lastStream">Paskutinė transliacija %s</string>
+  <string name="becomeStreamer">Tapkite Lichess transliuotoju</string>
+  <string name="doYouHaveStream">Ar turite Twitch ar YouTube paskyrą?</string>
+  <string name="hereWeGo">Pradėkime!</string>
+  <string name="allStreamers">Visi transliuotojai</string>
+  <string name="editPage">Keisti transliuotojo puslapį</string>
+  <string name="yourPage">Jūsų transliuotojo puslapis</string>
+  <string name="downloadKit">Atsisiųsti transliuotojo rinkinį</string>
+  <string name="xIsStreaming">%s transliuoja</string>
+  <string name="rules">Transliacijų taisyklės</string>
+  <string name="rule1">Transliuodami Lichess transliacijos pavadinime įterpkite \"lichess.org\" ir naudokite kategoriją \"Šachmatai\" (Chess).</string>
+  <string name="rule2">Pašalinkite raktinį žodį kai transliuojate ne Lichess dalykus.</string>
+  <string name="rule3">Lichess jūsų transliaciją aptiks automatiškai ir suteiks jums šiuos privalumus:</string>
+  <string name="perks">Pranašumai transliuojant su raktiniu žodžiu</string>
+  <string name="perk1">Gaukite degančią transliuotojo piktogramą savo Lichess profilį.</string>
+  <string name="perk2">Patekite į transliuotojų sąrašo viršų.</string>
+</resources>
