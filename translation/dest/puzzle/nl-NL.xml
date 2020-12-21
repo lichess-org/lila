@@ -5,6 +5,7 @@
   <string name="phases">Fasen</string>
   <string name="motifs">Motieven</string>
   <string name="advanced">Geavanceerd</string>
+  <string name="specialMoves">Speciale zetten</string>
   <string name="findTheBestMoveForWhite">Vind de beste zet voor wit.</string>
   <string name="findTheBestMoveForBlack">Vind de beste zet voor zwart.</string>
   <string name="puzzleId">Puzzel %s</string>
