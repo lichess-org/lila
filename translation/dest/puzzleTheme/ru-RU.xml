@@ -73,7 +73,7 @@
   <string name="pawnEndgameDescription">Эндшпиль только с пешками</string>
   <string name="pin">Связка</string>
   <string name="pinDescription">Тактика, использующая связку, когда фигура не может сделать ход, иначе под атаку попадёт стоящая за ней более ценная фигура.</string>
-  <string name="promotion">Провождение</string>
+  <string name="promotion">Превращение</string>
   <string name="promotionDescription">Превращение пешки или угроза превращения может быть тактическим приёмом.</string>
   <string name="queenEndgame">Ферзевый эндшпиль</string>
   <string name="queenEndgameDescription">Эндшпиль с ферзями и пешками.</string>
@@ -94,13 +94,13 @@
   <string name="trappedPiece">Ловля фигуры</string>
   <string name="trappedPieceDescription">Фигура не может уйти от нападения, потому что не имеет свободных полей для отхода, или эти поля тоже находятся под нападением.</string>
   <string name="underPromotion">Превращение в слабую фигуру</string>
-  <string name="underPromotionDescription">Проведите до коня,слона или ладьи</string>
+  <string name="underPromotionDescription">Превращение пешки не в ферзя, а в коня, слона или ладью.</string>
   <string name="veryLong">Сверхмногоходовая задача</string>
-  <string name="veryLongDescription">Четыре хода или более для победы.</string>
+  <string name="veryLongDescription">Четыре или более ходов для победы.</string>
   <string name="xRayAttack">Рентген</string>
   <string name="xRayAttackDescription">Ситуация, когда на линии нападения или защиты дальнобойной фигуры стоит фигура противника.</string>
   <string name="zugzwang">Цугцванг</string>
   <string name="zugzwangDescription">Противник вынужден сделать один из немногих возможных ходов, но любой ход ведёт к ухудшению его положения.</string>
   <string name="healthyMix">Здоровая смесь</string>
-  <string name="healthyMixDescription">Немного всё. Ты не знаешь, что ожидать, так что ты готов ко всему! Так же, как в настоящих партиях</string>
+  <string name="healthyMixDescription">Всего понемногу. Ты не знаешь, чего ожидать, так что будь готов ко всему! Как и в любой игре.</string>
 </resources>
