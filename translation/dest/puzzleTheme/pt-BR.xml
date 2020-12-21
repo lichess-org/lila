@@ -34,4 +34,12 @@
   <string name="doubleCheckDescription">Dar Xeque com duas peças ao mesmo tempo, como resultado de um ataque descoberto onde tanto a peça que se move quanto a peça que estava sendo obstruída atacam o rei do oponente.</string>
   <string name="endgame">Finais</string>
   <string name="endgameDescription">Tática durante a última fase do jogo.</string>
+  <string name="enPassantDescription">Uma tática envolvendo a regra do en passant, onde um peão pode capturar um peão do oponente que passou por ele usando seu movimento inicial de duas casas.</string>
+  <string name="exposedKing">Rei exposto</string>
+  <string name="exposedKingDescription">Uma tática que envolve um rei com poucos defensores ao seu redor, muitas vezes levando a xeque-mate.</string>
+  <string name="fork">Garfo (ou duplo)</string>
+  <string name="forkDescription">Um movimento onde a peça movida ataca duas peças de oponente de uma só vez.</string>
+  <string name="hangingPiece">Peça Pendurada</string>
+  <string name="hangingPieceDescription">Uma táctica que envolve uma peça indefesa do oponente ou insuficientemente defendida e livre para ser capturada.</string>
+  <string name="interference">Interferência</string>
 </resources>
