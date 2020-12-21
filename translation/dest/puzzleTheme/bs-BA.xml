@@ -27,4 +27,23 @@
   <string name="endgame">Završnica</string>
   <string name="endgameDescription">Taktika tokom posljednje faze partije.</string>
   <string name="exposedKing">Izloženi kralj</string>
+  <string name="exposedKingDescription">Taktika koja uključuje mali broj figura koje brane kralja, što često dovodi do mata.</string>
+  <string name="fork">Viljuška</string>
+  <string name="forkDescription">Potez kojim pomjerena figura istovremeno napada dvije protivničke.</string>
+  <string name="hangingPiece">Viseća figura</string>
+  <string name="quietMove">Tihi potez</string>
+  <string name="quietMoveDescription">Potez kojim se ne daje šah niti uzima figura, ali kojim se priprema neizbježna prijetnja u nekom kasnijem potezu.</string>
+  <string name="rookEndgame">Topovska završnica</string>
+  <string name="rookEndgameDescription">Završnica samo s topovima i pješacima.</string>
+  <string name="sacrifice">Žrtvovanje</string>
+  <string name="sacrificeDescription">Taktika kojom se kratkoročno žrtvuje materijal kako bi se kasnije ponovo stekla prednost nakon forsiranog niza poteza.</string>
+  <string name="short">Kratki problem</string>
+  <string name="shortDescription">Pobjeda u dva poteza.</string>
+  <string name="smotheredMate">Ugušeni mat</string>
+  <string name="smotheredMateDescription">Mat skakačem u poziciji kad protivnički kralj nema slobodnih polja jer je okružen (ili ugušen) vlastitim figurama.</string>
+  <string name="trappedPiece">Zarobljena figura</string>
+  <string name="trappedPieceDescription">Figura ne može izbjeći da bude uzeta jer su joj potezi ograničeni.</string>
+  <string name="underPromotion">Potpromocija</string>
+  <string name="underPromotionDescription">Promocija pješaka u skakača, lovca ili topa.</string>
+  <string name="veryLong">Vrlo dug problem</string>
 </resources>
