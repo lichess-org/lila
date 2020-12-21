@@ -8,6 +8,7 @@
   <string name="lengths">Длина</string>
   <string name="mates">Маты</string>
   <string name="goals">Цели</string>
+  <string name="specialMoves">Особые ходы</string>
   <string name="didYouLikeThisPuzzle">Вам понравились задачи?</string>
   <string name="voteToLoadNextOne">Проголосуйте, чтобы загрузить следующий!</string>
   <string name="yourPuzzleRatingX">Ваш рейтинг в решении задач: %s</string>
@@ -26,6 +27,12 @@
   <string name="trySomethingElse">Мне нужно что-то другое.</string>
   <string name="ratingX">Рейтинг: %s</string>
   <string name="hidden">скрыт</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Решено %s раз</item>
+    <item quantity="few">Решено %s раза</item>
+    <item quantity="many">Решено %s раз</item>
+    <item quantity="other">Решено %s раз</item>
+  </plurals>
   <string name="fromGameLink">Из партии %s</string>
   <string name="continueTraining">Продолжить тренировку</string>
   <string name="difficultyLevel">Уровень сложности</string>
