@@ -21,4 +21,5 @@
   <string name="equality">Igualdade</string>
   <string name="equalityDescription">Saia de uma posição perdida, e assegure um empate ou uma posição equilibrada. (aval ≤ 200cp)</string>
   <string name="kingsideAttack">Ataque na ala do rei</string>
+  <string name="kingsideAttackDescription">Um ataque ao rei do oponente, após ele ter efetuado o roque curto.</string>
 </resources>
