@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advancedPawn">Avancerande bonde</string>
+  <string name="advancedPawnDescription">En bonde som promoverar eller hotar att promovera är nyckeln till taktiken.</string>
+  <string name="advantage">Fördel</string>
+  <string name="advantageDescription">Ta chansen att få en avgörande fördel. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="attackingF2F7">Attackera f2 eller f7</string>
+  <string name="attackingF2F7Description">En attack som fokuserar på f2 eller f7 bonden, som i stekt leveröppning.</string>
+  <string name="attraction">Attraktion</string>
+</resources>
