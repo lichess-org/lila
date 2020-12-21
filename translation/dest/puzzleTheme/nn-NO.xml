@@ -7,7 +7,7 @@
   <string name="attackingF2F7">Gå til åtak på f2 eller f7</string>
   <string name="attackingF2F7Description">Eit åtak som konsentrerar seg om bøndene på f2 eller f7, som til dømes i prøyssisk opning, fegatellovarianten (\"Fried Liver Attack\").</string>
   <string name="attraction">Magnet</string>
-  <string name="attractionDescription">Eit byte eller offer som lokkar eller tvingar motspelaren til å flytte ei brikke til eit felt som gjer det mogleg å setje i verk ein taktisk plan.</string>
+  <string name="attractionDescription">Eit byte eller offer (magnetoffer) som lokkar eller tvingar motspelaren til å flytte ei brikke til eit felt som gjer det mogleg å setje i verk ein taktisk plan.</string>
   <string name="backRankMate">Matt på åttanderaden</string>
   <string name="backRankMateDescription">Sjakkmatt på åttanderaden, ved at kongen til motspelaren blir innestengd av sine eigne brikker.</string>
   <string name="bishopEndgame">Løparsluttspel</string>
@@ -91,4 +91,8 @@
   <string name="skewerDescription">Ein manøver der ei høgverdig brikke kjem under åtak og må flytte slik at ei brikke av lågare verde som står bak kan slås ut eller verte truga. Spidding kan utførast med løpar, dronning eller tårn. Spiddar vert rekna som motsatsen til binding.</string>
   <string name="smotheredMate">Kvelarmatt</string>
   <string name="smotheredMateDescription">Ein sjakkmatt ved hjelp av ein springar der motspelarens konge er stengd inne (eller kjøvd) av eigne brikker.</string>
+  <string name="trappedPiece">Fanga brikke</string>
+  <string name="trappedPieceDescription">Ei brikke som ikkje kjem unna på grunn av mangel på utvegar.</string>
+  <string name="underPromotion">Underforvandling</string>
+  <string name="underPromotionDescription">Bondeforvandling til springar, løpar eller tårn.</string>
 </resources>
