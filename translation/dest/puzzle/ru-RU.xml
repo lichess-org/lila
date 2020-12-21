@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Задачи</string>
+  <string name="recommended">Рекомендовано</string>
   <string name="phases">Фазы</string>
   <string name="motifs">Мотивы</string>
   <string name="advanced">Продвинутый</string>
@@ -20,8 +21,10 @@
   <string name="bestMove">Лучший ход!</string>
   <string name="keepGoing">Продолжайте...</string>
   <string name="puzzleSuccess">Успех!</string>
+  <string name="puzzleComplete">Задача решено!</string>
   <string name="notTheMove">Это не ход!</string>
   <string name="trySomethingElse">Мне нужно что-то другое.</string>
+  <string name="ratingX">Рейтинг: %s</string>
   <string name="hidden">скрыт</string>
   <string name="fromGameLink">Из партии %s</string>
   <string name="continueTraining">Продолжить тренировку</string>
