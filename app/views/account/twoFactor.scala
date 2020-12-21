@@ -39,6 +39,11 @@ object twoFactor {
           ),
           div(cls := "form-group")(scanTheCode()),
           qrCode,
+          div(cls := "form-group")(
+            ifYouCannotScanEnterX(
+              span(style := "background:black;color:black;")(~form("secret").value)
+            )
+          ),
           div(cls := "form-group explanation")(enterPassword()),
           form3.hidden(form("secret")),
           form3.passwordModified(form("passwd"), trans.password())(
