@@ -17,10 +17,12 @@
   <string name="toGetPersonalizedPuzzles">Aby uzyskać spersonalizowane zagadki:</string>
   <string name="puzzleId">Zadanie %s</string>
   <string name="puzzleOfTheDay">Zadanie dnia</string>
+  <string name="clickToSolve">Kliknij aby zobaczyć rozwiązanie</string>
   <string name="goodMove">Dobry ruch</string>
   <string name="bestMove">Najlepszy ruch!</string>
   <string name="keepGoing">Kontynuuj…</string>
   <string name="puzzleSuccess">Sukces!</string>
+  <string name="puzzleComplete">Zadanie zakończone!</string>
   <string name="trySomethingElse">Spróbuj czegoś innego.</string>
   <string name="ratingX">Ranking: %s</string>
   <string name="hidden">ukryty</string>
