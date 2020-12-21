@@ -23,7 +23,7 @@
   <string name="keepGoing">Hald fram…</string>
   <string name="puzzleSuccess">Korrekt!</string>
   <string name="puzzleComplete">Oppgåva er fullført!</string>
-  <string name="notTheMove">Det er ikkje trekket!</string>
+  <string name="notTheMove">Det er ikkje rett trekk!</string>
   <string name="trySomethingElse">Prøv noko anna.</string>
   <string name="ratingX">Rating: %s</string>
   <string name="hidden">løynd</string>
