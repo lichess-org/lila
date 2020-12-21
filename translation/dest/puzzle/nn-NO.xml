@@ -24,4 +24,13 @@
   <string name="puzzleComplete">Oppgåva er fullført!</string>
   <string name="notTheMove">Det er ikkje trekket!</string>
   <string name="trySomethingElse">Prøv noko anna.</string>
+  <string name="ratingX">Rating: %s</string>
+  <string name="hidden">løynd</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Spelt %s gong</item>
+    <item quantity="other">Spelt %s gonger</item>
+  </plurals>
+  <string name="fromGameLink">Frå parti %s</string>
+  <string name="continueTraining">Hald fram å øva</string>
+  <string name="difficultyLevel">Vanskenivå</string>
 </resources>
