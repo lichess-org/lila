@@ -90,4 +90,5 @@
   <string name="veryLong">Très long problème</string>
   <string name="veryLongDescription">Quatre coups ou plus pour gagner.</string>
   <string name="zugzwang">Zugzwang</string>
+  <string name="healthyMixDescription">Un peu de tout. Vous ne savez pas à quoi vous attendre ! Comme dans une vraie partie.</string>
 </resources>
