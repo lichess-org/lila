@@ -8,6 +8,10 @@
   <string name="bishopEndgameDescription">Et slutspil med kun løbere og bønder.</string>
   <string name="castling">Rokade</string>
   <string name="castlingDescription">Bring din konge i sikkerhed og gør dit tårn klar til angreb.</string>
+  <string name="crushing">Knusende</string>
+  <string name="crushingDescription">Spot modstanderens brøler for at opnå en knusende fordel. (eval ≥ 600cb)</string>
   <string name="kingsideAttack">Angreb på kongesiden</string>
+  <string name="defensiveMove">Defensivt træk</string>
+  <string name="deflection">Afledning</string>
   <string name="endgame">Slutspil</string>
 </resources>
