@@ -5,6 +5,7 @@
   <string name="twoFactorApp">Skaffa en app för tvåfaktorsautentisering, till exempel Google Authenticator för %1$s eller %2$s.</string>
   <string name="scanTheCode">Skanna QR-koden med appen.</string>
   <string name="enterPassword">Ange ditt lösenord och autentiseringskoden som genereras av appen för att slutföra installationen. Du behöver en autentiseringskod varje gång du loggar in.</string>
+  <string name="ifYouCannotScanEnterX" comment="ifYouCannotScanEnterX&#10;&#10;%s is the authentication code">Om du inte kan skanna koden, ange hemligheten %s i din app.</string>
   <string name="authenticationCode">Autentiseringskod</string>
   <string name="ifYouLoseAccess">Obs! Om du förlorar åtkomst till dina tvåfaktorsautentiseringskoder, kan du återställa lösenordet via e-post.</string>
   <string name="enableTwoFactor">Aktivera tvåfaktorsautentisering</string>
