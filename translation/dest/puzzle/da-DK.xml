@@ -8,6 +8,9 @@
   <string name="mates">Matter</string>
   <string name="goals">Mål</string>
   <string name="specialMoves">Særlige træk</string>
+  <string name="voteToLoadNextOne">Stem for at indlæse den næste!</string>
+  <string name="findTheBestMoveForWhite">Find det bedste træk for hvid.</string>
+  <string name="findTheBestMoveForBlack">Find det bedste træk for sort.</string>
   <string name="clickToSolve">Klik for at løse</string>
   <string name="goodMove">Godt træk</string>
   <string name="bestMove">Bedste træk!</string>
