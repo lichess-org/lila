@@ -21,4 +21,29 @@
   <string name="perks">Pranašumai transliuojant su raktiniu žodžiu</string>
   <string name="perk1">Gaukite degančią transliuotojo piktogramą savo Lichess profilį.</string>
   <string name="perk2">Patekite į transliuotojų sąrašo viršų.</string>
+  <string name="perk3">Pranešti savo Lichess sekėjams.</string>
+  <string name="perk4">Parodykite savo transliaciją savo žaidimuose, turnyruose ir studijose.</string>
+  <string name="approved">Jūsų transliacija patvirtinta.</string>
+  <string name="pendingReview">Jūsų transliacija peržiūrima moderatorių.</string>
+  <string name="pleaseFillIn">Užpildykite savo transliuotojo informaciją ir įkelkite nuotrauką.</string>
+  <string name="whenReady">Kai būsite pasiruošę būti pažymėti kaip Lichess transliuotojas, %s</string>
+  <string name="requestReview">pareikalaukite moderatoriaus peržiūros</string>
+  <string name="anotherLanguage">Jei jūsų transliacija vyksta kita kalba, nei anglų, pridėkite teisingą kalbos žymę (%s), apgaubtą laužtiniais skliaustais, savo transliacijos pavadinimo pradžioje.
+Pavyzdžiui, galite pridėti \"[RU]\" rusų kalbai, \"[TR]\" turkų kalbai, \"[FR]\" prancūzų kalbai ir t. t.
+Šį transliacijos pavadinimą įrašykite savo Twitch ar YouTube puslapyje, ne Lichess transliacijos nustatymuose.
+Jei jūsų transliacija anglų kalba, poreikio pridėti kalbos žymę nėra.</string>
+  <string name="twitchUsername">Jūsų Twitch vartotojo vardas ar adresas</string>
+  <string name="optionalOrEmpty">Nebūtina. Palikite tuščią, jei nėra</string>
+  <string name="youtubeChannel">Jūsų YouTube kanalo ID ar adresas</string>
+  <string name="streamerName">Jūsų transliuotojo vardas Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Pasirinkite trumpą: daugiausia %s ženklas</item>
+    <item quantity="few">Pasirinkite trumpą: daugiausia %s žeklai</item>
+    <item quantity="many">Pasirinkite trumpą: daugiausia %s ženklo</item>
+    <item quantity="other">Pasirinkite trumpą: daugiausia %s ženklų</item>
+  </plurals>
+  <string name="visibility">Matomas transliuotojų puslapyje</string>
+  <string name="whenApproved">Kai bus patvirtintas moderatorių</string>
+  <string name="headline">Antraštė</string>
+  <string name="tellUsAboutTheStream">Papasakokite apie savo transliaciją vienu sakiniu</string>
 </resources>
