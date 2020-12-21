@@ -88,8 +88,16 @@
   <string name="short">Коротка задача</string>
   <string name="shortDescription">Два ходи до перемоги.</string>
   <string name="skewer">Лінійний удар</string>
+  <string name="skewerDescription">Мотив, що включає атаку цінної фігури менш цінною, протилежність зв\'язування.</string>
   <string name="smotheredMate">Спертий мат</string>
+  <string name="smotheredMateDescription">Мат конем, коли король не може вийти з-під атаки, тому що оточений (спертий) власними фігурами.</string>
   <string name="trappedPiece">Фігура у пастці</string>
+  <string name="trappedPieceDescription">Фігура не може уникнути захоплення, тому що не має ходів для відступу.</string>
+  <string name="underPromotion">Перетворення на слабку фігуру</string>
+  <string name="underPromotionDescription">Перетворення пішака на коня, слона чи туру.</string>
   <string name="veryLong">Дуже довга задача</string>
+  <string name="veryLongDescription">Чотири чи більше ходи до перемоги.</string>
+  <string name="xRayAttack">Рентген</string>
+  <string name="xRayAttackDescription">Фігура, що атакує чи захищає поле, що знаходиться за фігурою суперника.</string>
   <string name="zugzwang">Цугцванг</string>
 </resources>
