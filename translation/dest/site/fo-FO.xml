@@ -623,6 +623,7 @@
   <string name="lichessTournaments">Lichess kappingar</string>
   <string name="tournamentOfficial">Almennar</string>
   <string name="timeBeforeTournamentStarts">Tíð áðrenn kapping byrjar</string>
+  <string name="averageCentipawnLoss">Miðal centifinnu-tap</string>
   <string name="keyboardShortcuts">Knappaborðssnarvegir</string>
   <string name="keyMoveBackwardOrForward">flyt aftur/fram</string>
   <string name="keyGoToStartOrEnd">far til byrjan/enda</string>
@@ -630,6 +631,7 @@
   <string name="keyEnterOrExitVariation">lat upp/lat aftur avbrigdi</string>
   <string name="newTournament">Nýggj kapping</string>
   <string name="tournamentHomeTitle">Talvkappingar við ymiskum tíðaravmarkingum og avbrigdum</string>
+  <string name="tournamentHomeDescription">Telva í talvkappingum við høgari ferð! Far upp í eina almenna tíðarásetta kapping ella set tína egnu kapping á stovn. Bullet, snar, vanligt, Chess960, King of the Hill, Threecheck, og aðrir valmøguleikar eru.</string>
   <string name="tournamentNotFound">Kapping ikki funnin</string>
   <string name="tournamentDoesNotExist">Kappingin er ikki til.</string>
   <string name="tournamentMayHaveBeenCanceled">Kappingin er møguliga avlýst, um allir telvarar fóru burturúr, áðrenn hon byrjaði.</string>
@@ -697,6 +699,7 @@
   <string name="xLikesY">%1$s dámar %2$s</string>
   <string name="xCreatesStudyY">%1$s stovnar rannsókn %2$s</string>
   <string name="quickPairing">Skjót greiping</string>
+  <string name="lobby">Forhøll</string>
   <string name="anonymous">Dulnevnt</string>
   <string name="yourScore">Títt stigatal: %s</string>
   <string name="language">Mál</string>
@@ -709,6 +712,7 @@
   <string name="boardTheme">Talvborðssnið</string>
   <string name="boardSize">Borðstødd</string>
   <string name="pieceSet">Snið á talvfólki</string>
+  <string name="embedInYourWebsite">Fell inn í heimasíðu tína</string>
   <string name="usernameAlreadyUsed">Hetta brúkaranavnið verður longu nýtt. Royn vinaliga eitt annað.</string>
   <string name="usernamePrefixInvalid">Brúkaranavnið má byrja við einum bókstavi.</string>
   <string name="usernameSuffixInvalid">Brúkaranavnið má enda við einum bókstavi ella tali.</string>
@@ -780,7 +784,15 @@
   <string name="yourXRatingIsTooFarFromY">Títt %1$s styrkital er ov langt frá %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Fær ikki bjóðað av vegna fyribils %s styrkital.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s tekur bert við avbjóðingum frá vinum.</string>
+  <string name="conditionalPremoves">Treytaðir undanleikir</string>
+  <string name="addCurrentVariation">Skoyt núverandi brigdi upp í</string>
+  <string name="playVariationToCreateConditionalPremoves">Telva eitt brigdi til tess at skapa treytaðar undanleikir</string>
+  <string name="noConditionalPremoves">Eingir treytaðir undanleikir</string>
   <string name="playX">Telva %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">og goym %s undanleik</item>
+    <item quantity="other">og goym %s undanleikir</item>
+  </plurals>
   <string name="sorry">Orsaka :(</string>
   <string name="weHadToTimeYouOutForAWhile">Vit noyddust at geva tær leikbrá eina tíð.</string>
   <string name="timeoutExpires">Leikbráið gongur út %s.</string>
