@@ -206,6 +206,7 @@ witTydVerstreke
 Wys wanneer Wit se tyd uitgehardloop het. Dit word gevolg deur die eindvoorwaarde, byvoorbeeld
 \'Wit tyd verstreke · Gelykop\'
 Leêr: Webwerf &amp; toep - mees belangrikste rye</string>
+  <string name="blackTimeOut">Swart time-out</string>
   <string name="drawOfferSent">Gelykop aanbod gestuur</string>
   <string name="drawOfferDeclined">Gelykop aanbod verwerp</string>
   <string name="drawOfferAccepted">Gelykop aanbod aanvaar</string>
@@ -281,6 +282,7 @@ Leêr: Webwerf &amp; toep - mees belangrikste rye</string>
     <item quantity="one">Gee %s sekonde</item>
     <item quantity="other">Gee %s sekondes</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Hierdie rekening oortree die diensvoorwaardes van Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Hierdie speler verhoog/verlaag hul gradering kunsmatig</string>
   <string name="openingExplorerAndTablebase">Opening ontdekker &amp; tafelbasis</string>
   <string name="takeback">Terug-vat</string>
@@ -511,6 +513,8 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="currentPassword">Huidige wagwoord</string>
   <string name="newPassword">Nuwe wagwoord</string>
   <string name="newPasswordAgain">Nuwe wagwoord (weer)</string>
+  <string name="newPasswordsDontMatch">Die nuwe wagwoorde stem nie ooreen nie</string>
+  <string name="newPasswordStrength">Wagwoord sterkte</string>
   <string name="clockInitialTime">Aanvanklike kloktyd</string>
   <string name="clockIncrement">Klok inkrement</string>
   <string name="privacy">Privaatheid</string>
@@ -832,10 +836,15 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="puzzleDesc">Skaak kopkrapper instrukteur</string>
   <string name="important">Tshivenda</string>
   <string name="yourQuestionMayHaveBeenAnswered">Your question may already have an answer %1$s</string>
+  <string name="inTheFAQ">in die F.A.Q.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Om \'n gebruiker aan te kondig vir bedrog of slegte gedrag, %1$s</string>
   <string name="useTheReportForm">gebruik die meldingsformulier</string>
   <string name="toRequestSupport">Om hulp te vra, %1$s</string>
   <string name="tryTheContactPage">probeer die kontak bladsy</string>
+  <string name="thisTopicIsArchived">Hierdie onderwerp is geargiveer en kan nie meer beantwoord word nie.</string>
+  <string name="joinTheTeamXToPost">Sluit aan by die %1$s om in hierdie forum te plaas</string>
+  <string name="teamNamedX">%1$s span</string>
+  <string name="youCannotPostYetPlaySomeGames">U kan nog nie in die forums plaas nie. Speel \'n paar speletjies!</string>
   <string name="subscribe">Skryf in</string>
   <string name="unsubscribe">Beëindig inskrywing</string>
 </resources>
