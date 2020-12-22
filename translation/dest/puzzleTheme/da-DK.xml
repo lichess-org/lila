@@ -44,6 +44,19 @@
   <string name="mateIn1Description">Sæt skakmat i ét træk.</string>
   <string name="mateIn2">Mat i 2</string>
   <string name="mateIn2Description">Sæt skakmat med to træk.</string>
+  <string name="mateIn3">Mat i 3</string>
+  <string name="mateIn3Description">Sæt skakmat med tre træk.</string>
+  <string name="mateIn4">Mat i 4</string>
+  <string name="mateIn4Description">Sæt skakmat i fire træk.</string>
+  <string name="mateIn5">Mat i 5 eller flere</string>
+  <string name="mateIn5Description">Find en lang træksekvens, som fører til mat.</string>
+  <string name="middlegame">Midtspil</string>
+  <string name="middlegameDescription">En taktik i den anden fase af spillet.</string>
+  <string name="oneMove">En-træks opgave</string>
+  <string name="oneMoveDescription">En opgave, der kun er ét træk lang.</string>
+  <string name="opening">Åbning</string>
+  <string name="openingDescription">En taktik i den første fase af spillet.</string>
+  <string name="overloading">Overbelastning</string>
   <string name="pin">Binding</string>
   <string name="pinDescription">En taktik med bindinger, hvor en brik er ude af stand til at bevæge sig uden at afdække et angreb på en brik af højere værdi.</string>
   <string name="promotion">Bondeforvandling</string>
@@ -51,7 +64,12 @@
   <string name="rookEndgame">Tårnslutspil</string>
   <string name="sacrifice">Offer</string>
   <string name="shortDescription">To træk for at vinde.</string>
+  <string name="veryLong">Meget lang opgave</string>
+  <string name="veryLongDescription">Fire træk eller mere for at vinde.</string>
+  <string name="xRayAttack">Røngtenangreb</string>
+  <string name="xRayAttackDescription">En brik angriber eller forsvarer et felt gennem en af modstanderens brikker.</string>
   <string name="zugzwang">Zugzwang</string>
+  <string name="zugzwangDescription">Modstanderen er begrænset i de træk, de kan lave, og ethvert træk forværrer deres position.</string>
   <string name="healthyMix">Sund blanding</string>
   <string name="healthyMixDescription">Lidt af hvert. Du ved ikke, hvad du skal forvente, så du forbliver klar til hvad som helst! Ligesom i rigtige spil.</string>
 </resources>
