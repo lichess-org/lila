@@ -64,12 +64,21 @@ Ní gá duit ardaigh.</string>
   <string name="fundamentals">Buneolas</string>
   <string name="capture">Gabháil</string>
   <string name="takeTheEnemyPieces">Gabh na píosaí namhad</string>
+  <string name="captureIntro">Aithin na píosaí namhad neamhcosanta, agus gabh iad!</string>
   <string name="takeTheBlackPieces">Gabh na píosaí dubha!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Gabh na píosaí dubha!
 Agus ná caill do chuid féin.</string>
   <string name="captureComplete">Comhghairdeas! Tá fhios agat conas a troid le píosaí fichille!</string>
   <string name="protection">Cosaint</string>
   <string name="keepYourPiecesSafe">Coinnigh do phíosaí slán</string>
+  <string name="protectionIntro">Aithin na píosaí a bhfuil faoi iasacht, agus cosain iad!</string>
+  <string name="protectionComplete">Comhghairdeas! Is é píosa gan cailleadh píosa buaite!</string>
+  <string name="escape">Tá tú faoi iasacht!
+Éalaigh uaidh!</string>
+  <string name="noEscape">Ní féidir leat éalú,
+ach is féidir leat cosaint!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Ná lig dóibh aon píosa
+neamhcosanta a tógáil!</string>
   <string name="combat">Comhrac</string>
   <string name="captureAndDefendPieces">Gabh agus cosain píosaí</string>
   <string name="checkInOne">Sáinn i beart amháin</string>
@@ -92,6 +101,7 @@ Agus ná caill do chuid féin.</string>
   <string name="evaluatePieceStrength">Meas láidir na píosaí</string>
   <string name="checkInTwo">Sáinn i dhá beart</string>
   <string name="twoMovesToGiveCheck">Dhá beart chun sáinn</string>
+  <string name="checkInTwoComplete">Comhghairdeas! Sháinn tú do chéile comhraic, agus is gá dó a rí a cosaint!</string>
   <string name="whatNext">Cad é an chéad chéim eile?</string>
   <string name="youKnowHowToPlayChess">Tá fhios agat conas ficheall a imirt, comhghairdeas! Ba mhaith leat imreoir níos láidre a bheith?</string>
   <string name="register">Cláraigh</string>
