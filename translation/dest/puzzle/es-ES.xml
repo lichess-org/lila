@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Rompecabezas</string>
-  <string name="recommended">Recomendado</string>
+  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;">Recomendado</string>
   <string name="phases">Fases</string>
   <string name="motifs">Motivos</string>
   <string name="advanced">Avanzado</string>
@@ -40,4 +40,5 @@
   <string name="harder">Difícil</string>
   <string name="hardest">Más difícil</string>
   <string name="example">Ejemplo</string>
+  <string name="addAnotherTheme">Añadir otro tema</string>
 </resources>
