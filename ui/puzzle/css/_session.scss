@@ -2,24 +2,47 @@
   display: flex;
   flex-flow: row wrap-reverse;
   margin-top: -.4em;
+
   a {
-    @extend %box-radius;
+    @extend %box-radius, %flex-center;
+
     flex: 0 0 2em;
-    height: 1em;
+    height: 1.2em;
     margin: .4em .5em 0 0;
     opacity: .7;
+    color: #fff;
+    justify-content: center;
+
+    &::before {
+      @extend %data-icon;
+      opacity: .8;
+      font-size: .8em;
+    }
+
     &.result-true {
       background: $c-good;
+
+      &::before {
+        content: 'E';
+      }
     }
+
     &.result-false {
       background: $c-bad;
+
+      &::before {
+        content: 'L';
+      }
     }
+
     &.current {
       background: $c-brag;
     }
+
     &.session-new {
       background: $c-link;
     }
+
     &:hover {
       opacity: 1;
     }
