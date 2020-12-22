@@ -90,13 +90,13 @@ case class Pref(
       case _     => none
     }
 
-  def animationFactor =
+  def animationMillis: Int =
     animation match {
       case Animation.NONE   => 0
-      case Animation.FAST   => 0.5f
-      case Animation.NORMAL => 1
-      case Animation.SLOW   => 2
-      case _                => 1
+      case Animation.FAST   => 120
+      case Animation.NORMAL => 250
+      case Animation.SLOW   => 500
+      case _                => 250
     }
 
   def isBlindfold = blindfold == Pref.Blindfold.YES

@@ -13,8 +13,7 @@ private class PuzzleConfig(
     @ConfigName("mongodb.uri") val mongoUri: String,
     @ConfigName("collection.puzzle") val puzzleColl: CollName,
     @ConfigName("collection.round") val roundColl: CollName,
-    @ConfigName("collection.path") val pathColl: CollName,
-    @ConfigName("animation.duration") val animationDuration: FiniteDuration
+    @ConfigName("collection.path") val pathColl: CollName
 )
 
 case class PuzzleColls(

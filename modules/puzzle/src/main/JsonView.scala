@@ -12,8 +12,7 @@ import lila.user.User
 
 final class JsonView(
     gameJson: GameJson,
-    gameRepo: GameRepo,
-    animationDuration: scala.concurrent.duration.Duration
+    gameRepo: GameRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import JsonView._
@@ -66,12 +65,10 @@ final class JsonView(
 
   def pref(p: lila.pref.Pref) =
     Json.obj(
-      "blindfold"  -> p.blindfold,
-      "coords"     -> p.coords,
-      "rookCastle" -> p.rookCastle,
-      "animation" -> Json.obj(
-        "duration" -> p.animationFactor * animationDuration.toMillis
-      ),
+      "blindfold"    -> p.blindfold,
+      "coords"       -> p.coords,
+      "rookCastle"   -> p.rookCastle,
+      "animation"    -> Json.obj("duration" -> p.animationMillis),
       "destination"  -> p.destination,
       "resizeHandle" -> p.resizeHandle,
       "moveEvent"    -> p.moveEvent,
