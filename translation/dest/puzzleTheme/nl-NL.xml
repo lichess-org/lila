@@ -15,6 +15,7 @@
   <string name="kingsideAttack">Koningsaanval</string>
   <string name="kingsideAttackDescription">Een aanval op de koning van de tegenstander, na een korte rokade.</string>
   <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Defensieve zet</string>
+  <string name="defensiveMoveDescription">Een nauwkeurige zet of reeks zetten die nodig zijn om verlies van materiaal of een ander voordeel te voorkomen.</string>
   <string name="doubleCheck">Dubbelschaak</string>
   <string name="endgame">Eindspel</string>
   <string name="endgameDescription">Tactiek in de slotfase van de partij.</string>
@@ -22,6 +23,7 @@
   <string name="hangingPiece">Hangend stuk</string>
   <string name="knightEndgame">Paardeneindspel</string>
   <string name="knightEndgameDescription">Een eindspel met alleen paarden en pionnen.</string>
+  <string name="long">Lange puzzel</string>
   <string name="mate">Mat</string>
   <string name="mateIn1">Mat in 1</string>
   <string name="mateIn1Description">Zet schaakmat in één zet.</string>
