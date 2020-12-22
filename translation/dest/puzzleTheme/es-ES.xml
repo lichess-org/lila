@@ -3,7 +3,7 @@
   <string name="advancedPawn">Peón avanzado</string>
   <string name="advancedPawnDescription">Un peón que promueve o amenaza con promover es clave para la táctica.</string>
   <string name="advantage">Ventaja</string>
-  <string name="advantageDescription">Aprovecha tu oportunidad de obtener una ventaja decisiva. (200cp ≥ eval ≤ 600cp)</string>
+  <string name="advantageDescription">Aprovecha tu oportunidad de obtener una ventaja decisiva. (200cp ≤ eval ≤ 600cp)</string>
   <string name="attackingF2F7">Atacando f2 o f7</string>
   <string name="attackingF2F7Description">Un ataque centrado en el peón f2 o f7, como en la apertura Fried Liver.</string>
   <string name="attraction">Atracción</string>
