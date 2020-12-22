@@ -14,6 +14,7 @@
   <string name="yourPuzzleRatingX">Din sjakknøttrating: %s</string>
   <string name="findTheBestMoveForWhite">Finn det beste trekket for hvit.</string>
   <string name="findTheBestMoveForBlack">Finn det beste trekket for svart.</string>
+  <string name="toGetPersonalizedPuzzles">For tilpassede sjakknøtter:</string>
   <string name="puzzleId">Sjakknøtt %s</string>
   <string name="puzzleOfTheDay">Dagens nøtt</string>
   <string name="puzzleComplete">Knekt nøtt!</string>
@@ -24,4 +25,5 @@
   <string name="easiest">Lettest</string>
   <string name="harder">Verre</string>
   <string name="hardest">Verst</string>
+  <string name="example">Eksempel</string>
 </resources>
