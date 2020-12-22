@@ -29,8 +29,12 @@
   <string name="mate">メイト</string>
   <string name="middlegame">ミドルゲーム</string>
   <string name="opening">オープニング</string>
+  <string name="overloading">オーバーローディング</string>
+  <string name="pawnEndgame">ポーンエンドゲーム</string>
+  <string name="pawnEndgameDescription">ポーンだけのエンドゲーム。</string>
   <string name="pin">ピン</string>
   <string name="promotion">プロモーション</string>
+  <string name="queenEndgame">クイーンエンドゲーム</string>
   <string name="sacrifice">サクリファイス</string>
   <string name="skewer">スキュア</string>
   <string name="zugzwang">ツークツワンク</string>
