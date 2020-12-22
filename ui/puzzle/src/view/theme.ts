@@ -28,7 +28,8 @@ const editor = (ctrl: Controller): VNode => {
   const visibleThemes: string[] = data.puzzle.themes.concat(
     Object.keys(votedThemes).filter(t => votedThemes[t] && !data.puzzle.themes.includes(t))
   ).sort()
-  const availableThemes = ctrl.allThemes ? ctrl.allThemes.dynamic.filter(t => !votedThemes[t]) : null;
+  const allThemes = location.pathname == '/training/daily' ? null : ctrl.allThemes;
+  const availableThemes = allThemes ? allThemes.dynamic.filter(t => !votedThemes[t]) : null;
   return h('div.puzzle__themes', [
     h('div.puzzle__themes_list', {
       hook: bind('click', e => {
@@ -48,8 +49,8 @@ const editor = (ctrl: Controller): VNode => {
             title: ctrl.trans.noarg(`${key}Description`)
           }
         }, ctrl.trans.noarg(key)),
-        !ctrl.allThemes ? null : h('div.puzzle__themes__votes',
-          ctrl.allThemes.static.has(key) ? [
+        !allThemes ? null : h('div.puzzle__themes__votes',
+          allThemes.static.has(key) ? [
             h('div.puzzle__themes__lock', h('i', {
               attrs: dataIcon('a')
             }))
