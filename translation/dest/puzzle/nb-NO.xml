@@ -12,4 +12,8 @@
   <string name="puzzleOfTheDay">Dagens nøtt</string>
   <string name="puzzleComplete">Knekt nøtt!</string>
   <string name="fromGameLink">Fra parti %s</string>
+  <string name="difficultyLevel">Vanskelighetsgrad</string>
+  <string name="normal">Vanlig</string>
+  <string name="easier">Lettere</string>
+  <string name="easiest">Lettest</string>
 </resources>
