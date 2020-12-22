@@ -10,7 +10,7 @@
   <string name="attractionDescription">Uma troca ou sacrifício encorajando ou forçando uma peça do oponente a uma casa que permite uma sequência tática.</string>
   <string name="backRankMate">Mate do corredor</string>
   <string name="backRankMateDescription">Dê o xeque-mate no rei na última fileira, quando ele estiver bloqueado pelas próprias peças.</string>
-  <string name="bishopEndgame">Final de bispo</string>
+  <string name="bishopEndgame">Finais de bispo</string>
   <string name="bishopEndgameDescription">Final com somente bispos e peões.</string>
   <string name="castling">Roque</string>
   <string name="castlingDescription">Traga o seu rei para a segurança, e prepare sua torre para o ataque.</string>
@@ -75,8 +75,8 @@
   <string name="pinDescription">Uma tática envolvendo peões, onde uma peça é incapaz de mover-se sem abrir um descoberto em uma peça de maior valor.</string>
   <string name="promotion">Promoção</string>
   <string name="promotionDescription">Um peão sendo promovido ou ameaçando ser promovido é chave para a tática.</string>
-  <string name="queenEndgame">Final de Rainha</string>
-  <string name="queenEndgameDescription">Um final com apenas rainhas e peões.</string>
+  <string name="queenEndgame">Finais de Dama</string>
+  <string name="queenEndgameDescription">Um final com apenas Damas e peões.</string>
   <string name="queensideAttack">Ataque na ala da Dama</string>
   <string name="queensideAttackDescription">Um ataque ao rei adversário, após ter efetuado o roque na ala da Dama.</string>
   <string name="quietMove">Lance de preparação</string>
