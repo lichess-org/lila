@@ -31,12 +31,12 @@
   <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">ディスカバード・アタック</string>
   <string name="doubleCheck">ダブル・チェック</string>
   <string name="endgame">エンドゲーム</string>
-  <string name="exposedKing">エクスポーズド・キング</string>
+  <string name="exposedKing">危険なキング</string>
   <string name="fork">フォーク</string>
   <string name="forkDescription">動いた駒が相手の 2 つの駒を同時に攻撃する手。</string>
-  <string name="hangingPiece">ハンギング・ピース</string>
+  <string name="hangingPiece">浮き駒</string>
   <string name="interference">インターフェアランス</string>
-  <string name="intermezzo">インテルメッツォ</string>
+  <string name="intermezzo">ツヴィッシェンツーク</string>
   <string name="knightEndgame">ナイト・エンドゲーム</string>
   <string name="long">長手数タクティクス</string>
   <string name="mate">メイト</string>
@@ -50,21 +50,23 @@
   <string name="opening">オープニング</string>
   <string name="overloading">オーバーロード</string>
   <string name="pawnEndgame">ポーン・エンドゲーム</string>
-  <string name="pawnEndgameDescription">ポーンだけのエンドゲーム。</string>
+  <string name="pawnEndgameDescription">ポーンだけの終盤。</string>
   <string name="pin">ピン</string>
   <string name="promotion">プロモーション</string>
   <string name="queenEndgame">クイーン・エンドゲーム</string>
   <string name="rookEndgame">ルーク・エンドゲーム</string>
-  <string name="rookEndgameDescription">ルークとポーンだけのエンドゲーム。</string>
+  <string name="rookEndgameDescription">ルークとポーンだけの終盤。</string>
   <string name="sacrifice">サクリファイス</string>
   <string name="short">短手数タクティクス</string>
+  <string name="shortDescription">2手で勝つ。</string>
   <string name="skewer">スキュアー</string>
   <string name="smotheredMate">スマザード・メイト</string>
   <string name="trappedPiece">敵駒を殺す</string>
   <string name="underPromotion">アンダープロモーション</string>
   <string name="underPromotionDescription">ナイト、ビショップ、ルークへの昇格。</string>
   <string name="veryLong">超長手数タクティクス</string>
-  <string name="xRayAttack">エックス・レイ・アタック</string>
+  <string name="veryLongDescription">4手以上で勝つ。</string>
+  <string name="xRayAttack">Ｘ線攻撃</string>
   <string name="zugzwang">ツークツワンク</string>
-  <string name="healthyMixDescription">何事も少しずつ。備えあれば憂いなし！実際のゲームのように。</string>
+  <string name="healthyMixDescription">いろいろな問題を少しずつ。どんな問題が来るかわからないので油断しないで！　実戦と同じです。</string>
 </resources>
