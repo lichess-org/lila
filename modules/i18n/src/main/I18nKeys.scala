@@ -1812,6 +1812,7 @@ val `easiest` = new I18nKey("puzzle:easiest")
 val `harder` = new I18nKey("puzzle:harder")
 val `hardest` = new I18nKey("puzzle:hardest")
 val `example` = new I18nKey("puzzle:example")
+val `addAnotherTheme` = new I18nKey("puzzle:addAnotherTheme")
 val `playedXTimes` = new I18nKey("puzzle:playedXTimes")
 }
 
