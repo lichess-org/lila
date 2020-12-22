@@ -24,6 +24,7 @@
   <string name="kingsideAttackDescription">Et angrep mot motstanderens konge etter kort rokade.</string>
   <string name="endgame">Sluttspill</string>
   <string name="fork">Gaffel</string>
+  <string name="intermezzo">Mellomtrekk</string>
   <string name="knightEndgame">Springersluttspill</string>
   <string name="long">Lang sjakknøtt</string>
   <string name="longDescription">Tre trekk til vinst.</string>
