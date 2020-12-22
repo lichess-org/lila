@@ -48,9 +48,9 @@ ag an ridire!</string>
   <string name="pawnsMoveOneSquareOnly">Ní bogann sé ach cearnóg amháin. Ach nuair a sroicheann sé an taobh eile, beidh sé mar píosa níos láidir!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Formhór an ama, is fearr ardaigh chun banríona.
 Ach uaireanta, bheith an ridire úsáideach!</string>
-  <string name="pawnsMoveForward">Bogann an ceitheanach go díreach,
-ach gabháilann sé go fiar!</string>
-  <string name="captureThenPromote">Gabháil, agus ansin, ardaigh!</string>
+  <string name="pawnsMoveForward">Bogann an ceithearnach go díreach,
+ach gabhann sé go fiar!</string>
+  <string name="captureThenPromote">Gabh, agus ansin, ardaigh!</string>
   <string name="useAllThePawns">Bain úsáid as gach ceithearnach!
 Ní gá duit ardaigh.</string>
   <string name="aPawnOnTheSecondRank">Is féidir le ceithearnach ar an dara rang bogadh dhá cearnóg ag an am céanna!</string>
@@ -59,7 +59,7 @@ Ní gá duit ardaigh.</string>
   <string name="pawnComplete">Comhghairdeas! Tá fhios agat rúin na ceithearnaigh.</string>
   <string name="pawnPromotion">Ardú ceithearnaigh</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Shroich do cheithearnach an deiridh!</string>
-  <string name="itNowPromotesToAStrongerPiece">Is feidir leis chun píosa níos laidre a ardú.</string>
+  <string name="itNowPromotesToAStrongerPiece">Is féidir leis chun píosa níos láidre a ardú.</string>
   <string name="selectThePieceYouWant">Pioc an píosa is fearr leat!</string>
   <string name="fundamentals">Buneolas</string>
   <string name="capture">Gabháil</string>
@@ -100,6 +100,8 @@ Ní gá duit ardaigh.</string>
   <string name="watchInstructiveChessVideos">Féach ar físeáin fichille oideachasúla</string>
   <string name="playPeople">Imir le daoine eile</string>
   <string name="opponentsFromAroundTheWorld">Céilí comhrac ar fud an domhain</string>
+  <string name="playMachine">Imir leis an mheaisín</string>
+  <string name="testYourSkillsWithTheComputer">Triail do scileanna leis an ríomhaire</string>
   <string name="letsGo">Ar aghaidh linn!</string>
   <string name="stageX">Leibhéal %s</string>
   <string name="awesome">Thar barr!</string>
