@@ -81,10 +81,15 @@ ach is féidir leat cosaint!</string>
 neamhcosanta a tógáil!</string>
   <string name="combat">Comhrac</string>
   <string name="captureAndDefendPieces">Gabh agus cosain píosaí</string>
+  <string name="combatIntro">Tá fhios ag gascíoch maith faoin dá iasacht agus cosaint!</string>
+  <string name="combatComplete">Comhghairdeas! Tá fhios agat conas a troid le píosaí fichille!</string>
   <string name="checkInOne">Sáinn i beart amháin</string>
   <string name="attackTheOpponentsKing">Ionsaigh ar an rí namhad</string>
   <string name="outOfCheck">As sháinn</string>
   <string name="defendYourKing">Cosain do rí</string>
+  <string name="escapeWithTheKing">Éalaigh leis an rí!</string>
+  <string name="theKingCannotEscapeButBlock">Ní féidir leis an rí éalú,
+ach is féidir leat an iasacht a blocáil!</string>
   <string name="mateInOne">Marbhsháinn i beart amháin</string>
   <string name="defeatTheOpponentsKing">Faigh bua ar an rí namhad</string>
   <string name="intermediate">Meanleibhéal</string>
