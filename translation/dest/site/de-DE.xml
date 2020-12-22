@@ -92,7 +92,7 @@
     <item quantity="other">Nächster Schlag- oder Bauernzug in %s Halbzügen (Distanz zum Zurücksetzen des Zählers für die 50-Züge-Regel)</item>
   </plurals>
   <string name="noGameFound">Kein Spiel gefunden</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Vielleicht sollten mehr Spiele über das \"Einstellungen\"-Menü einbezogen werden?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Vielleicht sollten mehr Partien über das \"Einstellungen\"-Menü einbezogen werden?</string>
   <string name="openingExplorer">Eröffnungsdatenbank</string>
   <string name="xOpeningExplorer">%s Eröffnungsbuch</string>
   <string name="winPreventedBy50MoveRule">Sieg durch 50-Züge-Regel verhindert</string>
@@ -281,7 +281,7 @@
   <string name="openingExplorerAndTablebase">Eröffnungsbuch &amp; Tablebase</string>
   <string name="takeback">Zugrücknahme</string>
   <string name="proposeATakeback">Zugrücknahme vorschlagen</string>
-  <string name="takebackPropositionSent">Zugrücknahme angefordert</string>
+  <string name="takebackPropositionSent">Zugrücknahme vorgeschlagen</string>
   <string name="takebackPropositionDeclined">Zugrücknahme abgelehnt</string>
   <string name="takebackPropositionAccepted">Zugrücknahme angenommen</string>
   <string name="takebackPropositionCanceled">Zugrücknahme zurückgezogen</string>
@@ -325,7 +325,7 @@
   <string name="ratedLessThanInPerf">Wertung ≤ %1$s in %2$s</string>
   <string name="mustBeInTeam">Du musst in Team %s sein</string>
   <string name="youAreNotInTeam">Du bist nicht in Team %s</string>
-  <string name="backToGame">Zurück zum Spiel</string>
+  <string name="backToGame">Zurück zur Partie</string>
   <string name="siteDescription">Kostenloser Online-Schach-Server. Spiele jetzt auf einer übersichtlichen Benutzeroberfläche Schach! Keine Registrierung und keine Plugins erforderlich, komplett ohne Werbung. Spiele gegen den Computer, Freunde oder zufällige Gegner!</string>
   <string name="xJoinedTeamY">%1$s trat der Gruppe %2$s bei</string>
   <string name="xCreatedTeamY">%1$s hat das Team %2$s gegründet</string>
