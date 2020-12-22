@@ -21,6 +21,7 @@
   <string name="equality">Utligning</string>
   <string name="equalityDescription">Vend en tapt stilling til remis eller lik stilling. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Angrep på kongefløyen</string>
+  <string name="kingsideAttackDescription">Et angrep mot motstanderens konge etter kort rokade.</string>
   <string name="endgame">Sluttspill</string>
   <string name="fork">Gaffel</string>
   <string name="knightEndgame">Springersluttspill</string>
@@ -29,7 +30,9 @@
   <string name="mate">Matt</string>
   <string name="mateDescription">Vinn partiet med stil.</string>
   <string name="mateIn1">Matt i 1</string>
+  <string name="mateIn1Description">Sett sjakk matt i ett trekk.</string>
   <string name="mateIn2">Matt i 2</string>
+  <string name="mateIn2Description">Sett sjakk matt i to trekk.</string>
   <string name="mateIn3">Matt i 3</string>
   <string name="mateIn4">Matt i 4</string>
   <string name="mateIn5">Matt i 5 eller flere</string>
