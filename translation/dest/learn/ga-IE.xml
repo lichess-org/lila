@@ -46,10 +46,24 @@ ag an ridire!</string>
   <string name="itMovesForwardOnly">Ní bogann sé ach díreach</string>
   <string name="pawnIntro">Is píosa lag é an ceithearnach, ach tá cumas láidir aige.</string>
   <string name="pawnsMoveOneSquareOnly">Ní bogann sé ach cearnóg amháin. Ach nuair a sroicheann sé an taobh eile, beidh sé mar píosa níos láidir!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Formhór an ama, is fearr ardaigh chun banríona.
+Ach uaireanta, bheith an ridire úsáideach!</string>
+  <string name="pawnsMoveForward">Bogann an ceitheanach go díreach,
+ach gabháilann sé go fiar!</string>
   <string name="captureThenPromote">Gabháil, agus ansin, ardaigh!</string>
+  <string name="useAllThePawns">Bain úsáid as gach ceithearnach!
+Ní gá duit ardaigh.</string>
+  <string name="aPawnOnTheSecondRank">Is féidir le ceithearnach ar an dara rang bogadh dhá cearnóg ag an am céanna!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Sciob gach réalta!
+Ní gá duit ardaigh.</string>
+  <string name="pawnComplete">Comhghairdeas! Tá fhios agat rúin na ceithearnaigh.</string>
   <string name="pawnPromotion">Ardú ceithearnaigh</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Shroich do cheithearnach an deiridh!</string>
+  <string name="itNowPromotesToAStrongerPiece">Is feidir leis chun píosa níos laidre a ardú.</string>
+  <string name="selectThePieceYouWant">Pioc an píosa is fearr leat!</string>
   <string name="fundamentals">Buneolas</string>
   <string name="capture">Gabháil</string>
+  <string name="protection">Cosaint</string>
   <string name="intermediate">Meanleibhéal</string>
   <string name="castling">Caisliú</string>
   <string name="enPassant">En passant</string>
