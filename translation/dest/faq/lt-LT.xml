@@ -37,6 +37,7 @@ Pavyzdžiui, spėjama žaidimo 5+3 trukmė yra 5 × 60 + 40 × 3 = 420 sekundži
   <string name="whatVariantsCanIplay">Kokius variantus galiu žaisti Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess palaiko standartinius šachmatus ir %1$s.</string>
   <string name="eightVariants">aštuonis šachmatų variantus</string>
+  <string name="whatIsACPL">Kas yra vidutinių pėstininko šimtųjų pralaimėjimas (average centipawn loss, ACPL)?</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Šis garbės titulas nėra oficialus ir egzistuoja tik Lichess.
 
 Jis mūsų nuožiūra suteikiamas išskirtinai pasižymėjusiems žaidėjams, kurie yra puikūs Lichess piliečiai. Jūs negaunate LM titulo, LM titulas susiranda jus. Jei jūs esate tinkamas jam, iš mūsų gausite žinutę apie jį ir būdus jį priimti ar jo atsisakyti.
