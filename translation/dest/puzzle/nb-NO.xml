@@ -11,4 +11,5 @@
   <string name="puzzleId">Sjakknøtt %s</string>
   <string name="puzzleOfTheDay">Dagens nøtt</string>
   <string name="puzzleComplete">Knekt nøtt!</string>
+  <string name="fromGameLink">Fra parti %s</string>
 </resources>
