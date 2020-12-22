@@ -135,7 +135,7 @@
 .puzzle__controls {
   @extend %flex-center;
 
-  height: $puzzle-history-height;
+  height: $col3-uniboard-controls;
   margin-top: #{-$block-gap};
 
   // height: calc(#{$puzzle-history-height} + #{$block-gap});
