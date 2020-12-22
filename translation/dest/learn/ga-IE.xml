@@ -14,16 +14,29 @@
   <string name="rookGoal">Clicáil ar an gcaiseal agus tabhair é chun an réalta!</string>
   <string name="grabAllTheStars">Sciob gach réalta!</string>
   <string name="theFewerMoves">Dá laghad beart a dhéanann tú, bheadh tuilleadh pointe agat!</string>
+  <string name="useTwoRooks">Bog dhá caiseal
+chun rudaí a bhrostú!</string>
+  <string name="rookComplete">Comhgairdeas! Fuair tú máistreacht ar an gcaiseal.</string>
   <string name="theBishop">An t-easpag</string>
   <string name="itMovesDiagonally">Bogann sé go fiar</string>
+  <string name="bishopIntro">Ansin, foghlaimid conas a bhogann an t-easpag!</string>
+  <string name="youNeedBothBishops">Easpag geal amháin,
+easpag dorcha amháin.
+Tá an dá uait!</string>
+  <string name="bishopComplete">Comhgairdeas! Is féidir leat an t-easpag a ordú.</string>
   <string name="theQueen">An bhanríon</string>
   <string name="queenCombinesRookAndBishop">Banríon = caiseal + easpag</string>
+  <string name="queenIntro">Isteach leis an píosa is tabhachtach. An bhanríon!</string>
+  <string name="queenComplete">Comhgairdeas! Tá fhios agat rúin na banríona.</string>
   <string name="theKing">An rí</string>
   <string name="theMostImportantPiece">An píosa is tábhachtach</string>
+  <string name="kingIntro">Is tusa an rí. Dá thitfeá sa chogadh, bheadh an cluiche caillte.</string>
   <string name="theKingIsSlow">Is píosa mall é an rí.</string>
   <string name="lastOne">An ceann deiridh!</string>
+  <string name="kingComplete">Anois, is tusa rí na ríthe!</string>
   <string name="theKnight">An ridire</string>
   <string name="itMovesInAnLShape">Bogann sé chomh an litir L</string>
+  <string name="knightIntro">Is dúshlán mór é seo duit. Is píosa... casta é an ridire.</string>
   <string name="thePawn">An ceithearnach</string>
   <string name="itMovesForwardOnly">Ní bogann sé ach díreach</string>
   <string name="pawnsMoveOneSquareOnly">Ní bogann sé ach céarnóg amhain. Ach nuair a sroicheann sé an taobh eile, beidh sé mar píosa níos láidir!</string>
