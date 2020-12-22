@@ -52,4 +52,19 @@
   <string name="youWillBeChargedXOnY">Tú verður biðin at gjalda %1$s tann %2$s.</string>
   <string name="makeAdditionalDonation">Lat eina eyka peningagávu nú</string>
   <string name="update">Dagfør</string>
+  <string name="changeMonthlyAmount">Broyt mánaðarligu upphæddina (%s)</string>
+  <string name="cancelSupport">strika stuðul tín</string>
+  <string name="xOrY">%1$s ella %2$s</string>
+  <string name="decideHowMuch">Ger av, hvussu nógv Lichess er vert fyri teg:</string>
+  <string name="stopPayments">Tak keypskortið aftur og steðga gjaldingum:</string>
+  <string name="noLongerSupport">Stuðla ikki Lichess longur</string>
+  <string name="paymentHistory">Gjaldssøga</string>
+  <string name="paid">Goldið</string>
+  <string name="viewOthers">Síggj onnur Lichess vælvildarfólk</string>
+  <string name="date">Dagfesting</string>
+  <string name="amount">Upphædd</string>
+  <string name="transactionCompleted">Flytingin er fullførd, og ein kvittan fyri stuðulin er send við telduposti til tín.</string>
+  <string name="permanentPatron">Tú hevur nú eina varandi vælvildarfólkakontu.</string>
+  <string name="checkOutProfile">Hygg at vangamynd tínari!</string>
+  <string name="nowLifetime">Tú ert nú eitt lívstíðar Lichess-vælvildarfólk!</string>
 </resources>
