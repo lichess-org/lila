@@ -35,8 +35,11 @@
   <string name="enPassantDescription">En taktik som inkluderer en passant-reglen, hvor en bonde kan tage en modstanderbonde, der er flyttet forbi den med dens første to-felts-træk.</string>
   <string name="exposedKing">Eksponeret konge</string>
   <string name="fork">Gaffel</string>
+  <string name="intermezzo">Intermezzo</string>
+  <string name="intermezzoDescription">I stedet for at spille det forventede træk foretages først et andet træk, som udgør en umiddelbar trussel, som modstanderen må besvare. Også kendt som \"Zwischenzug\" eller \"In between\".</string>
   <string name="knightEndgame">Springer-slutspil</string>
   <string name="knightEndgameDescription">Et slutspil med kun springere og bønder.</string>
+  <string name="long">Lang opgave</string>
   <string name="longDescription">Tre træk for at vinde.</string>
   <string name="mate">Mat</string>
   <string name="mateDescription">Vind spillet med stil.</string>
@@ -57,9 +60,13 @@
   <string name="opening">Åbning</string>
   <string name="openingDescription">En taktik i den første fase af spillet.</string>
   <string name="overloading">Overbelastning</string>
+  <string name="pawnEndgame">Bondeslutspil</string>
+  <string name="pawnEndgameDescription">Et slutspil kun med bønder.</string>
   <string name="pin">Binding</string>
   <string name="pinDescription">En taktik med bindinger, hvor en brik er ude af stand til at bevæge sig uden at afdække et angreb på en brik af højere værdi.</string>
   <string name="promotion">Bondeforvandling</string>
+  <string name="queenEndgame">Dronningeslutspil</string>
+  <string name="queenEndgameDescription">Et slutspil med kun dronninger og bønder.</string>
   <string name="queensideAttack">Dronningeside-angreb</string>
   <string name="rookEndgame">Tårnslutspil</string>
   <string name="sacrifice">Offer</string>
