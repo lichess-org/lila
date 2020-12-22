@@ -37,6 +37,11 @@ Tá an dá uait!</string>
   <string name="theKnight">An ridire</string>
   <string name="itMovesInAnLShape">Bogann sé chomh an litir L</string>
   <string name="knightIntro">Is dúshlán mór é seo duit. Is píosa... casta é an ridire.</string>
+  <string name="knightsHaveAFancyWay">Tá slí bogadh ardnósach
+ag an ridire!</string>
+  <string name="knightsCanJumpOverObstacles">Is féidir leis an ridire thar bacainní a léim!
+Éalaigh agus cloígh na réaltaí!</string>
+  <string name="knightComplete">Comhgairdeas! Fuair tú máistreacht ar an ridire.</string>
   <string name="thePawn">An ceithearnach</string>
   <string name="itMovesForwardOnly">Ní bogann sé ach díreach</string>
   <string name="pawnsMoveOneSquareOnly">Ní bogann sé ach céarnóg amhain. Ach nuair a sroicheann sé an taobh eile, beidh sé mar píosa níos láidir!</string>
@@ -49,6 +54,12 @@ Tá an dá uait!</string>
   <string name="enPassant">En passant</string>
   <string name="stalemate">Leamhsháinn</string>
   <string name="advanced">Ardeolas</string>
+  <string name="whatNext">Cad é an chéad chéim eile?</string>
+  <string name="register">Cláraigh</string>
+  <string name="getAFreeLichessAccount">Faigh cuntas saor Lichess</string>
+  <string name="practice">Cleachtaigh</string>
+  <string name="learnCommonChessPositions">Foghlaim suíomhanna fichille coiteanna</string>
+  <string name="puzzles">Fadbhbanna</string>
   <string name="letsGo">Ar aghaidh linn!</string>
   <string name="stageX">Leibhéal %s</string>
   <string name="awesome">Thar barr!</string>
