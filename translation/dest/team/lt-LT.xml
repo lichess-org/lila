@@ -17,6 +17,12 @@
   <string name="anyoneCanJoin">Prisijungti gali bet kas</string>
   <string name="aConfirmationIsRequiredToJoin">Įstojimui reikalingas patvirtinimas</string>
   <string name="joiningPolicy">Stojimo sąlygos</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Komandos vadovas</item>
+    <item quantity="few">Komandos vadovai</item>
+    <item quantity="many">Komandos vadovo</item>
+    <item quantity="other">Komandos vadovų</item>
+  </plurals>
   <string name="teamBestPlayers">Geriausi žaidėjai</string>
   <string name="teamRecentMembers">Naujausi nariai</string>
   <string name="kickSomeone">Išmesti ką nors iš komandos</string>
@@ -30,6 +36,8 @@
   <string name="willBeReviewed">Komandos vadovas peržiūrės jūsų stojimo prašymą.</string>
   <string name="beingReviewed">Komandos vadovas peržiūri jūsų stojimo prašymą.</string>
   <string name="teamBattle">Komandų turnyras</string>
+  <string name="teamBattleOverview">Kelių komandų kova, kiekvienas žaidėjas renka taškus savo komandai</string>
+  <string name="teamTournament">Komandinis turnyras</string>
   <string name="teamTournamentOverview">Arenos turnyras į kurį gali prisijungti tik jūsų komandos nariai</string>
   <string name="messageAllMembers">Siųsti žinutę visiems nariams</string>
   <string name="messageAllMembersOverview">Siųsti asmeninę žinutę kiekvienam komandos nariui</string>
