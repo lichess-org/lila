@@ -101,5 +101,6 @@
   <string name="xRayAttackDescription">Une pièce attaque ou défend une case, à travers une pièce ennemie.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">L\'adversaire est limité dans les mouvements qu\'il peut effectuer, et tous les coups aggravent sa position.</string>
+  <string name="healthyMix">Divers</string>
   <string name="healthyMixDescription">Un peu de tout. Vous ne savez pas à quoi vous attendre ! Comme dans une vraie partie.</string>
 </resources>
