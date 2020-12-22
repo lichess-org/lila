@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="backRankMate">Sekkematt</string>
   <string name="bishopEndgame">Løpersluttspill</string>
   <string name="castling">Rokade</string>
   <string name="fork">Gaffel</string>
