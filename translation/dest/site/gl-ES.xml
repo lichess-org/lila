@@ -645,6 +645,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s é mellor que o %2$s dos xogadores de %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Non tes unha puntuación en %s establecida.</string>
   <string name="yourRating">A túa puntuación</string>
+  <string name="cumulative">Acumulado</string>
   <string name="glicko2Rating">Puntuación Glicko-2</string>
   <string name="checkYourEmail">Revisa o teu correo</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Enviámosche un correo electrónico. Fai clic na ligazón do correo para activar a súa conta.</string>
@@ -792,6 +793,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
     <item quantity="other">e garda %s variantes de premovementos</item>
   </plurals>
   <string name="sorry">Sentímolo :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Tivemos que suspenderche temporalmente.</string>
   <string name="why">Por que?</string>
   <string name="howToAvoidThis">Como evitar isto?</string>
   <string name="playEveryGame">Xoga todas as partidas que comeces.</string>
@@ -799,6 +801,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="resignLostGames">Abandona partidas perdidas (non deixes que remate o tempo).</string>
   <string name="temporaryInconvenience">Pedimos desculpas polas molestias</string>
   <string name="wishYouGreatGames">e desexámosche grandes partidas en lichess.org.</string>
+  <string name="lifetimeScore">Puntuación histórica</string>
   <string name="agreementAccount">Comprométome a non crear múltiples contas.</string>
   <string name="agreementPolicy">Comprométome a seguir as normas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Busca ou comeza unha nova conversa</string>
@@ -807,6 +810,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="classical">Clásica</string>
   <string name="bulletDesc">Partidas moi rápidas: menos de 3 minutos</string>
   <string name="blitzDesc">Partidas rápidas: de 3 a 8 minutos</string>
+  <string name="rapidDesc">Partidas rápidas: de 3 a 8 minutos</string>
   <string name="classicalDesc">Partidas clásicas: 25 minutos ou máis</string>
   <string name="correspondenceDesc">Partidas por correspondencia: un ou varios días por xogada</string>
   <string name="puzzleDesc">Entrenador de tácticas de xadrez</string>
@@ -820,4 +824,6 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="joinTheTeamXToPost">Únete a %1$s para publicar neste foro</string>
   <string name="teamNamedX">equipo %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Aínda non podes publicar nos foros. Xoga algunhas partidas!</string>
+  <string name="subscribe">Subscribirse</string>
+  <string name="unsubscribe">Cancelar a subscrición</string>
 </resources>

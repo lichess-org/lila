@@ -10,25 +10,25 @@
   <string name="attractionDescription">Uma troca ou sacrifício encorajando ou forçando uma peça do oponente a uma casa que permite uma sequência tática.</string>
   <string name="backRankMate">Mate do corredor</string>
   <string name="backRankMateDescription">Dê o xeque-mate no rei na última fileira, quando ele estiver bloqueado pelas próprias peças.</string>
-  <string name="bishopEndgame">Final de bispo</string>
+  <string name="bishopEndgame">Finais de bispo</string>
   <string name="bishopEndgameDescription">Final com somente bispos e peões.</string>
   <string name="castling">Roque</string>
   <string name="castlingDescription">Traga o seu rei para a segurança, e prepare sua torre para o ataque.</string>
   <string name="capturingDefender">Capture o defensor</string>
   <string name="capturingDefenderDescription">Remover uma peça que seja importante na defesa de outra, permitindo que agora a peça indefesa seja capturada na jogada seguinte.</string>
-  <string name="crushing">Esmagando</string>
-  <string name="crushingDescription">Perceba a capivarada do oponente para obter uma vantagem esmagadora. (vantagem ≥ 600cp)</string>
+  <string name="crushing">Punindo</string>
+  <string name="crushingDescription">Perceba a capivarada do oponente para obter uma vantagem decisiva. (vantagem ≥ 600cp)</string>
   <string name="equality">Igualdade</string>
   <string name="equalityDescription">Saia de uma posição perdida, e assegure um empate ou uma posição equilibrada. (aval ≤ 200cp)</string>
   <string name="kingsideAttack">Ataque na ala do rei</string>
   <string name="kingsideAttackDescription">Um ataque ao rei do oponente, após ele ter efetuado o roque curto.</string>
-  <string name="clearance">Lance útil</string>
+  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Lance útil</string>
   <string name="clearanceDescription">Um lance, às vezes consumindo tempos, que libera uma casa, fileira ou diagonal para uma ideia tática em seguida.</string>
-  <string name="defensiveMove">Movimento defensivo</string>
+  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Movimento defensivo</string>
   <string name="defensiveMoveDescription">Um movimento preciso ou sequência de movimentos que são necessários para evitar perda de material ou outra vantagem.</string>
-  <string name="deflection">Desvio</string>
+  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Desvio</string>
   <string name="deflectionDescription">Um movimento que desvia a peça do oponente da sua função, por exemplo a de defesa de outra peça ou a defesa de uma casa importante.</string>
-  <string name="discoveredAttack">Ataque Descoberto</string>
+  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Ataque Descoberto</string>
   <string name="discoveredAttackDescription">Mover uma peça que anteriormente bloqueava um ataque de uma peça de longo alcance, como por exemplo um cavalo liberando a coluna de uma torre.</string>
   <string name="doubleCheck">Xeque duplo</string>
   <string name="doubleCheckDescription">Dar Xeque com duas peças ao mesmo tempo, como resultado de um ataque descoberto onde tanto a peça que se move quanto a peça que estava sendo obstruída atacam o rei do oponente.</string>
@@ -75,8 +75,8 @@
   <string name="pinDescription">Uma tática envolvendo peões, onde uma peça é incapaz de mover-se sem abrir um descoberto em uma peça de maior valor.</string>
   <string name="promotion">Promoção</string>
   <string name="promotionDescription">Um peão sendo promovido ou ameaçando ser promovido é chave para a tática.</string>
-  <string name="queenEndgame">Final de Rainha</string>
-  <string name="queenEndgameDescription">Um final com apenas rainhas e peões.</string>
+  <string name="queenEndgame">Finais de Dama</string>
+  <string name="queenEndgameDescription">Um final com apenas Damas e peões.</string>
   <string name="queensideAttack">Ataque na ala da Dama</string>
   <string name="queensideAttackDescription">Um ataque ao rei adversário, após ter efetuado o roque na ala da Dama.</string>
   <string name="quietMove">Lance de preparação</string>
@@ -101,6 +101,6 @@
   <string name="xRayAttackDescription">Uma peça ataca ou defende uma casa indiretamente, através de uma peça adversária.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">O adversário tem os seus movimentos limitados, e qualquer movimento que ele faça vai enfraquecer sua própria posição.</string>
-  <string name="healthyMix">Mistura saudável</string>
-  <string name="healthyMixDescription">Um pouco de cada coisa. Você não sabe o que vai encontrar, então esteja pronto para tudo! Idêntico aos jogos em tabuleiros de verdade.</string>
+  <string name="healthyMix">Combinação saudável</string>
+  <string name="healthyMixDescription">Um pouco de cada. Você não sabe o que vai encontrar, então esteja pronto para tudo! Igualzinho aos jogos em tabuleiros reais.</string>
 </resources>

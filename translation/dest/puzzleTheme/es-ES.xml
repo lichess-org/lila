@@ -12,19 +12,31 @@
   <string name="bishopEndgame">Final de alfiles</string>
   <string name="bishopEndgameDescription">Un final solo con alfiles y peones.</string>
   <string name="castling">Enroque</string>
-  <string name="castlingDescription">Coloca el rey a salvo y pone a la torre en juego.</string>
+  <string name="castlingDescription">Coloca el rey a salvo y pone a la torre en juego para el ataque.</string>
   <string name="capturingDefender">Capturar al defensor</string>
   <string name="equality">Igualdad</string>
   <string name="kingsideAttack">Ataque en el flanco de rey</string>
-  <string name="defensiveMove">Movimiento defensivo</string>
-  <string name="deflection">Desviación</string>
-  <string name="discoveredAttack">Ataque a la descubierta</string>
+  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Movimiento defensivo</string>
+  <string name="defensiveMoveDescription">Un movimiento o una secuencia de movimientos necesarios para evitar la pérdida de material u otra ventaja.</string>
+  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Desviación</string>
+  <string name="deflectionDescription">Un movimiento que distrae una pieza del oponente de una tarea que desempeña, como la protección de una casilla clave.</string>
+  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Ataque a la descubierta</string>
+  <string name="discoveredAttackDescription">Mover una pieza que previamente bloqueaba un ataque por otra pieza de largo alcance, por ejemplo un caballo fuera del camino de una torre.</string>
   <string name="doubleCheck">Jaque doble</string>
+  <string name="doubleCheckDescription">Jaque con dos piezas a la vez, como resultado de un ataque descubierto donde tanto la pieza en movimiento como la desvelada atacan al rey del oponente.</string>
   <string name="endgame">Final</string>
+  <string name="endgameDescription">Una táctica durante la última fase de la partida.</string>
   <string name="exposedKing">Rey expuesto</string>
+  <string name="exposedKingDescription">Una táctica que involucra a un rey con poca defensa a su alrededor, a menudo conduce a jaque mate.</string>
+  <string name="forkDescription">Movimiento donde la pieza movida ataca a la vez a dos piezas del oponente.</string>
   <string name="hangingPiece">Pieza colgante</string>
+  <string name="hangingPieceDescription">Una táctica que implica que una pieza del oponente no sea defendida o suficientemente defendida y quede libre para ser capturada.</string>
   <string name="interference">Interferencia</string>
+  <string name="interferenceDescription">Mover una pieza entre dos piezas del oponente para dejar una o ambas piezas del oponente sin defensa, por ejemplo un caballo en una casilla entre dos torres.</string>
+  <string name="intermezzo">Jugada intermedia</string>
+  <string name="intermezzoDescription">En lugar de jugar el movimiento esperado, se realiza antes otro movimiento que plantea una amenaza inmediata a la que el oponente debe responder. También conocido como \"Zwischenzug\" o \"Intermezzo\".</string>
   <string name="knightEndgame">Final de caballos</string>
+  <string name="knightEndgameDescription">Un final de partida solo con caballos y peones.</string>
   <string name="long">Rompecabezas largo</string>
   <string name="longDescription">Tres movimientos para ganar.</string>
   <string name="mate">Mate</string>
@@ -38,6 +50,7 @@
   <string name="mateIn4">Mate en 4</string>
   <string name="mateIn4Description">Dar jaque mate en cuatro movimientos.</string>
   <string name="mateIn5">Mate en 5 o más</string>
+  <string name="mateIn5Description">Calcular una secuencia de mate larga.</string>
   <string name="middlegame">Medio juego</string>
   <string name="middlegameDescription">Una táctica durante la segunda fase de la partida.</string>
   <string name="oneMove">Rompecabezas de un solo movimiento</string>
@@ -56,18 +69,27 @@
   <string name="queenEndgameDescription">Un final solo con damas y peones.</string>
   <string name="queensideAttack">Ataque en el flanco de dama</string>
   <string name="queensideAttackDescription">Un ataque al rey del oponente, luego de haber realizado el enroque largo.</string>
+  <string name="quietMove">Movimiento tranquilo</string>
+  <string name="quietMoveDescription">Un movimiento que no hace uno jaque o una captura, pero sí que prepara una amenaza inevitable para un movimiento posterior.</string>
   <string name="rookEndgame">Final de torres</string>
   <string name="rookEndgameDescription">Un final solo con torres y peones.</string>
   <string name="sacrifice">Sacrificio</string>
   <string name="sacrificeDescription">Una táctica que implica renunciar a material a corto plazo, para obtener una ventaja luego de una secuencia forzada de movimientos.</string>
   <string name="short">Rompecabezas corto</string>
   <string name="shortDescription">Dos movimientos para ganar.</string>
-  <string name="smotheredMate">Mate del ahogado</string>
+  <string name="skewer">Pincho</string>
+  <string name="smotheredMate">Mate de la coz</string>
+  <string name="smotheredMateDescription">Un jaque mate en el que el caballo ataca al rey contrario, el cual no puede moverse al encontrarse rodeado (o ahogado) por sus propias piezas.</string>
   <string name="trappedPiece">Pieza atrapada</string>
+  <string name="trappedPieceDescription">Una pieza no puede escapar de la captura porque tiene movimientos limitados.</string>
+  <string name="underPromotion">Subpromoción</string>
+  <string name="underPromotionDescription">Promoción a caballo, alfil o torre.</string>
   <string name="veryLong">Rompecabezas muy largo</string>
   <string name="veryLongDescription">Cuatro movimientos o más para ganar.</string>
   <string name="xRayAttack">Ataque de rayos X</string>
+  <string name="xRayAttackDescription">Una pieza ataca o defiende una casilla, a través de una pieza del oponente.</string>
   <string name="zugzwang">Zugzwang</string>
+  <string name="zugzwangDescription">El oponente está limitado en los movimientos que puede realizar, y todos los movimientos empeoran su posición.</string>
   <string name="healthyMix">Mezcla saludable</string>
   <string name="healthyMixDescription">Un poco de todo. No sabes qué esperar, así que estarás listo para cualquier cosa. Al igual que en las partidas reales.</string>
 </resources>

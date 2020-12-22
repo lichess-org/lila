@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="puzzles">Opgaver</string>
   <string name="recommended">Anbefalet</string>
   <string name="phases">Faser</string>
   <string name="motifs">Begrundelser</string>
@@ -8,14 +9,20 @@
   <string name="mates">Matter</string>
   <string name="goals">Mål</string>
   <string name="specialMoves">Særlige træk</string>
+  <string name="didYouLikeThisPuzzle">Kunne du lide denne opgave?</string>
   <string name="voteToLoadNextOne">Stem for at indlæse den næste!</string>
+  <string name="yourPuzzleRatingX">Din opgave-rating: %s</string>
   <string name="findTheBestMoveForWhite">Find det bedste træk for hvid.</string>
   <string name="findTheBestMoveForBlack">Find det bedste træk for sort.</string>
+  <string name="toGetPersonalizedPuzzles">For at få personlige opgaver:</string>
+  <string name="puzzleId">Opgave %s</string>
+  <string name="puzzleOfTheDay">Dagens opgave</string>
   <string name="clickToSolve">Klik for at løse</string>
   <string name="goodMove">Godt træk</string>
   <string name="bestMove">Bedste træk!</string>
   <string name="keepGoing">Bliv ved…</string>
   <string name="puzzleSuccess">Succes!</string>
+  <string name="puzzleComplete">Opgave løst!</string>
   <string name="notTheMove">Det er ikke trækket!</string>
   <string name="trySomethingElse">Prøv noget andet.</string>
   <string name="ratingX">Rating: %s</string>

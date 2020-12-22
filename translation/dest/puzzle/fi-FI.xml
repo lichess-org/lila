@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Tehtävät</string>
+  <string name="recommended">Suositeltu</string>
   <string name="phases">Vaiheet</string>
   <string name="motifs">Motiivit</string>
+  <string name="lengths">Pituudet</string>
+  <string name="mates">Matit</string>
+  <string name="goals">Tavoitteet</string>
   <string name="specialMoves">Erityissiirrot</string>
   <string name="didYouLikeThisPuzzle">Piditkö tästä tehtävästä?</string>
+  <string name="voteToLoadNextOne">Äänestä, niin seuraava latautuu!</string>
   <string name="yourPuzzleRatingX">Tehtävävahvuuslukusi: %s</string>
   <string name="findTheBestMoveForWhite">Löydä valkean paras siirto.</string>
   <string name="findTheBestMoveForBlack">Löydä mustan paras siirto.</string>
   <string name="toGetPersonalizedPuzzles">Halutessasi henkilökohtaisia tehtäviä:</string>
   <string name="puzzleId">Tehtävä %s</string>
   <string name="puzzleOfTheDay">Päivän tehtävä</string>
+  <string name="clickToSolve">Ratkaise klikkaamalla</string>
   <string name="goodMove">Hyvä siirto</string>
   <string name="bestMove">Paras siirto!</string>
   <string name="keepGoing">Jatka…</string>

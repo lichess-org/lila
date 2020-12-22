@@ -3,6 +3,9 @@
   <string name="advancedPawn">Pitkälle edennyt sotilas</string>
   <string name="advancedPawnDescription">Taktiikassa keskeistä on sotilas, joka korottuu tai uhkaa korottua.</string>
   <string name="advantage">Etu</string>
+  <string name="advantageDescription">Tartu tilaisuuteen hankkia ratkaiseva etu. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="attackingF2F7">Hyökkäys f2:een tai f7:ään</string>
+  <string name="attackingF2F7Description">F2- tai f7-sotilaaseen kohdistuva hyökkäys, kuten esimerkiksi Preussilaisen pelin Fried Liver eli Fegatello-muunnelma.</string>
   <string name="backRankMate">Takarivin matti</string>
   <string name="bishopEndgameDescription">Loppupeli, jossa on vain lähettejä ja sotilaita.</string>
   <string name="castling">Linnoitus</string>

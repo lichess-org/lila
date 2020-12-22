@@ -14,7 +14,7 @@
   <string name="chat">Kjatta</string>
   <string name="resign">Legg kong</string>
   <string name="checkmate">Skák og mát</string>
-  <string name="stalemate">Pattstøða (patt)</string>
+  <string name="stalemate">Pattstøða</string>
   <string name="white">Hvítur</string>
   <string name="black">Svartur</string>
   <string name="randomColor">Tilvildarligur litur</string>
@@ -108,6 +108,7 @@
   <string name="enable">Loyv</string>
   <string name="bestMoveArrow">Pílur fyri besta leik</string>
   <string name="evaluationGauge">Eftirmetingarmát</string>
+  <string name="multipleLines">Fleiri linjur</string>
   <string name="cpus">CPUir</string>
   <string name="memory">Minni</string>
   <string name="infiniteAnalysis">Óendalig greining</string>
@@ -318,7 +319,7 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Títt %s styrkital er fyribils</string>
   <string name="yourPerfRatingIsTooHigh">Títt %1$s styrkital (%2$s) er ov høgt</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Títt \"top weekly\" %1$s styrkital (%2$s) er ov høgt</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Títt vikuliga %1$s styrkital (%2$s) er ov høgt</string>
   <string name="yourPerfRatingIsTooLow">Títt %1$s styrkital (%2$s) er ov lágt</string>
   <string name="ratedMoreThanInPerf">Styrkismettur ≥ %1$s í %2$s</string>
   <string name="ratedLessThanInPerf">Styrkismettur ≤ %1$s í %2$s</string>
@@ -448,6 +449,7 @@
   <string name="country">Land</string>
   <string name="thankYou">Takk fyri!</string>
   <string name="socialMediaLinks">Leinki til sosialar miðlar</string>
+  <string name="inlineNotation">Innbygd teknskipan</string>
   <string name="watchLichessTV">Hygg at Lichess sjónvarpi</string>
   <string name="previouslyOnLichessTV">Áður víst í Lichess-sjónvarpi</string>
   <string name="onlinePlayers">Telvarar á netinum nú</string>
@@ -491,6 +493,7 @@
   <string name="error.provideOneCheatedGameLink">Útvega leinki til í minsta lagi eitt talv, har snýtt varð.</string>
   <string name="by">eftir %s</string>
   <string name="thisTopicIsNowClosed">Evnið er nú afturlatið.</string>
+  <string name="theming">Tema</string>
   <string name="blog">Bloggur</string>
   <string name="questionsAndAnswers">Spurningar &amp; Svør</string>
   <string name="notes">Upprit</string>
@@ -619,8 +622,10 @@
   <string name="simulAddExtraTime">Tú hevur loyvi at leggja tíð aftrat tínari klokku til tess at hjálpa tær at megna at telva fjøltalvið.</string>
   <string name="simulHostExtraTime">Vertur fær eyka klokkutíð</string>
   <string name="lichessTournaments">Lichess kappingar</string>
+  <string name="tournamentFAQ">Arena kapping FAQ</string>
   <string name="tournamentOfficial">Almennar</string>
   <string name="timeBeforeTournamentStarts">Tíð áðrenn kapping byrjar</string>
+  <string name="averageCentipawnLoss">Miðal centifinnu-tap</string>
   <string name="keyboardShortcuts">Knappaborðssnarvegir</string>
   <string name="keyMoveBackwardOrForward">flyt aftur/fram</string>
   <string name="keyGoToStartOrEnd">far til byrjan/enda</string>
@@ -628,6 +633,7 @@
   <string name="keyEnterOrExitVariation">lat upp/lat aftur avbrigdi</string>
   <string name="newTournament">Nýggj kapping</string>
   <string name="tournamentHomeTitle">Talvkappingar við ymiskum tíðaravmarkingum og avbrigdum</string>
+  <string name="tournamentHomeDescription">Telva í talvkappingum við høgari ferð! Far upp í eina almenna tíðarásetta kapping ella set tína egnu kapping á stovn. Bullet, snar, vanligt, Chess960, King of the Hill, Threecheck, og aðrir valmøguleikar eru.</string>
   <string name="tournamentNotFound">Kapping ikki funnin</string>
   <string name="tournamentDoesNotExist">Kappingin er ikki til.</string>
   <string name="tournamentMayHaveBeenCanceled">Kappingin er møguliga avlýst, um allir telvarar fóru burturúr, áðrenn hon byrjaði.</string>
@@ -695,6 +701,7 @@
   <string name="xLikesY">%1$s dámar %2$s</string>
   <string name="xCreatesStudyY">%1$s stovnar rannsókn %2$s</string>
   <string name="quickPairing">Skjót greiping</string>
+  <string name="lobby">Forhøll</string>
   <string name="anonymous">Dulnevnt</string>
   <string name="yourScore">Títt stigatal: %s</string>
   <string name="language">Mál</string>
@@ -707,6 +714,7 @@
   <string name="boardTheme">Talvborðssnið</string>
   <string name="boardSize">Borðstødd</string>
   <string name="pieceSet">Snið á talvfólki</string>
+  <string name="embedInYourWebsite">Fell inn í heimasíðu tína</string>
   <string name="usernameAlreadyUsed">Hetta brúkaranavnið verður longu nýtt. Royn vinaliga eitt annað.</string>
   <string name="usernamePrefixInvalid">Brúkaranavnið má byrja við einum bókstavi.</string>
   <string name="usernameSuffixInvalid">Brúkaranavnið má enda við einum bókstavi ella tali.</string>
@@ -778,7 +786,15 @@
   <string name="yourXRatingIsTooFarFromY">Títt %1$s styrkital er ov langt frá %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Fær ikki bjóðað av vegna fyribils %s styrkital.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s tekur bert við avbjóðingum frá vinum.</string>
+  <string name="conditionalPremoves">Treytaðir undanleikir</string>
+  <string name="addCurrentVariation">Skoyt núverandi brigdi upp í</string>
+  <string name="playVariationToCreateConditionalPremoves">Telva eitt brigdi til tess at skapa treytaðar undanleikir</string>
+  <string name="noConditionalPremoves">Eingir treytaðir undanleikir</string>
   <string name="playX">Telva %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">og goym %s undanleik</item>
+    <item quantity="other">og goym %s undanleikir</item>
+  </plurals>
   <string name="sorry">Orsaka :(</string>
   <string name="weHadToTimeYouOutForAWhile">Vit noyddust at geva tær leikbrá eina tíð.</string>
   <string name="timeoutExpires">Leikbráið gongur út %s.</string>
@@ -793,6 +809,10 @@
   <string name="temporaryInconvenience">Vit biðja teg halda okkum til góðar fyri fyribils órógvanina</string>
   <string name="wishYouGreatGames">og ynskja tær nógv góð talv á lichess.org.</string>
   <string name="thankYouForReading">Takk fyri, at tú las hetta!</string>
+  <string name="lifetimeScore">Lívstíðarstigatal</string>
+  <string name="currentMatchScore">Núverandi dystarstigatal</string>
+  <string name="agreementAssistance">Eg lovi, at eg ongantíð taki ímóti hjálp, meðan eg telvi (frá telvingarteldum, bókum, dátugrunnum ella øðrum telvarum).</string>
+  <string name="agreementNice">Eg lovi altíð at sýna virðing móti øðrum telvarum.</string>
   <string name="agreementAccount">Eg taki undir við, at eg ikki fái mær fleiri kontur.</string>
   <string name="agreementPolicy">Eg samtykki, at eg fari at fylgja øllum Lichess-reglugerðum.</string>
   <string name="searchOrStartNewDiscussion">Leita eftir samrøðu ella byrja eina nýggja</string>
@@ -802,6 +822,8 @@
   <string name="ultraBulletDesc">Vitleyst skjót talv: styttri enn 30 sekund</string>
   <string name="bulletDesc">Ógvuliga skjót talv: styttri enn 3 minuttir</string>
   <string name="blitzDesc">Skjót talv: 3 til 8 minuttir</string>
+  <string name="rapidDesc">Kviktalv: 8 til 25 minuttir</string>
+  <string name="classicalDesc">Klassisk talv: 25 minuttir ella longur</string>
   <string name="correspondenceDesc">Brævtalv: ein ella fleiri dagar fyri hvønn leik</string>
   <string name="puzzleDesc">Taktikkvenjing</string>
   <string name="important">Umráðandi</string>
@@ -811,6 +833,7 @@
   <string name="useTheReportForm">nýt útfyllingarskjalið</string>
   <string name="toRequestSupport">Til tess at biðja um stuðul, %1$s</string>
   <string name="tryTheContactPage">royn síðuna við sambondum</string>
+  <string name="thisTopicIsArchived">Hetta evnið er goymt í savninum, og til ber ikki at gera viðmerkingar til tað longur.</string>
   <string name="joinTheTeamXToPost">Far upp í %1$s, at gera uppsløg á hesum torgi</string>
   <string name="teamNamedX">%1$s lið</string>
   <string name="youCannotPostYetPlaySomeGames">Tú kanst ikki seta uppsløg upp á torgunum enn. Telva nøkur talv!</string>

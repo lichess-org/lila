@@ -22,13 +22,13 @@
   <string name="equalityDescription">Повернення з програшної позиції, забезпечення нічиєї або отримання збалансованої позиції. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Атака на королівський фланг</string>
   <string name="kingsideAttackDescription">Атака на королівському фланзі, після короткої рокіровки суперника.</string>
-  <string name="clearance">Очищення</string>
+  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Очищення</string>
   <string name="clearanceDescription">Хід, зазвичай з темпом, що звільнює поле, лінію чи діагональ з подальшою тактичною ідеєю.</string>
-  <string name="defensiveMove">Оборонний хід</string>
+  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Оборонний хід</string>
   <string name="defensiveMoveDescription">Точний хід або послідовність ходів, що необхідні для уникнення втрати матеріалу чи іншої переваги.</string>
-  <string name="deflection">Відволікання</string>
+  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Відволікання</string>
   <string name="deflectionDescription">Хід, що відволікає фігуру суперника від іншої задачі, наприклад, захисту ключового поля.</string>
-  <string name="discoveredAttack">Відкриття атаки</string>
+  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Відкриття атаки</string>
   <string name="discoveredAttackDescription">Хід фігурою, яка до цього блокувала атаку далекобійної фігури, наприклад, виведення коня з під лінії тури.</string>
   <string name="doubleCheck">Подвійний шах</string>
   <string name="doubleCheckDescription">Шах двома фігурами одночасно, як наслідок відкриття атаки на короля, коли обидві фігури неможливо захопити.</string>
@@ -100,4 +100,7 @@
   <string name="xRayAttack">Рентген</string>
   <string name="xRayAttackDescription">Фігура, що атакує чи захищає поле, що знаходиться за фігурою суперника.</string>
   <string name="zugzwang">Цугцванг</string>
+  <string name="zugzwangDescription">Суперник лімітований в своїх ходах, які він робить і кожен хід погіршує його позицію.</string>
+  <string name="healthyMix">Здорова суміш</string>
+  <string name="healthyMixDescription">По трошки від усього. Ти не знаєш чого очікувати, тому будь готовим до всього! Як в справжніх партіях.</string>
 </resources>

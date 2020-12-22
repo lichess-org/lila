@@ -28,6 +28,62 @@
   <string name="isCorrespondenceDifferent">Ar korespondencija skiriasi nuo įprastų šachmatų?</string>
   <string name="youCanUseOpeningBookNoEngine">Lichess pagrindinis skirtumas korespondencinių šachmatų taisyklėse yra, kad leidžiamos debiutų knygos. Variklių naudojimas vis dar draudžiamas ir galite būti pažymėti kaip sukčiaujantys kompiuteriu. Nors ICCF leidžia variklių naudojimą korespondenciniuose šachmatuose - Lichess ne.</string>
   <string name="gameplay">Žaidimas</string>
+  <string name="howBulletBlitzEtcDecided">Kaip nusprendžiama laiko kontrolė kulkos, žaibo ir kituose žaidimuose?</string>
+  <string name="basedOnGameDuration">Lichess laiko kontrolės paremtos spėjama žaidimo trukme %1$s
+Pavyzdžiui, spėjama žaidimo 5+3 trukmė yra 5 × 60 + 40 × 3 = 420 sekundžių.</string>
+  <string name="durationFormula">(pradinis laiko kiekis) + 40 × (pridėtinės sekundės)</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="whatVariantsCanIplay">Kokius variantus galiu žaisti Lichess?</string>
+  <string name="lichessSupportChessAnd">Lichess palaiko standartinius šachmatus ir %1$s.</string>
+  <string name="eightVariants">aštuonis šachmatų variantus</string>
+  <string name="whatIsACPL">Kas yra vidutinių pėstininko šimtųjų pralaimėjimas (average centipawn loss, ACPL)?</string>
+  <string name="acplExplanation">Pėstininkų šimtosios yra matavimo vienetas skirtas įvertinti pranašumui. Pėstininko šimtoji lygi 1/100 pėstininko. Todėl 100 pėstininkų šimtosios = 1 pėstininkas. Šios reikšmės neturi jokios formalios prasmės žaidime, tačiau yra naudingos žaidėjams ir būtinos šachmatų kompiuteriams įvertinant pozicijas.
+
+Geriausias kompiuterio ėjimas praras 0 pėstininkų šimtųjų, prastesni ėjimai prives prie prastesnės pozicijos vertinamos pėstininkų šimtosiomis.
+
+Ši reikšmė gali būti naudojama kaip žaidimo kokybės indikatorius. Kuo mažiau žaidėjas praranda pėstininkų šimtųjų per ėjimą, tuo stipresnis jo žaidimas.
+
+Kompiuterinė šachmatų analizė Lichess veikia Stockfish pagalba.</string>
+  <string name="insufficientMaterial">Pralaimėjimai dėl laiko, lygiųjų ar nepakankamų figūrų</string>
+  <string name="lichessFollowFIDErules">Kai vienam iš žaidėjų baigiasi laikas, tas žaidėjas dažniausia pralaimi žaidimą. Tačiau, žaidimas yra lygiosios jei įvyksta tokia pozicija, kur priešininkas negali įvykdyti mato žaidėjo karaliui jokia legalių ėjimų seka (%1$s).
+
+Retais atvejais sunku nuspręsti automatiškai (forsuotos linijos, tvirtovės). Pagal nutylėjimą mes visada esame žaidėjo, kuriam nepasibaigė laikas, pusėje.
+
+Verta pastebėti, kad matas su vienu žirgu ar rikiu galimas, jei priešininkas turi figūrą, kuri gali blokuoti karalių.</string>
+  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDE taisyklės %s</string>
+  <string name="discoveringEnPassant">Kodėl pėstininkas gali kirsti kitą pėstininką, nors jis jau prasilenkė? (kirtimas prasilenkiant, en passant)</string>
+  <string name="explainingEnPassant">Tai yra legalus ėjimas vadinamas \"kirtimu prasilenkiant\". Šis Vikipedijos straipsnis suteikia %1$s.
+
+Jis apibrėžtas %2$s 3.7 (d) sekcijoje:
+
+\"Pėstininkas užimantis tą pačią eilę ir esantis gretimame stulpelyje, šalia priešininko pėstininko, kuris ką tik paėjo du laukelius vienu ėjimu iš savo pradinio langelio, gali kirsti priešininko pėstininką taip, lyg jis būtų paėjęs tik vieną langelį. Šis kirtimas galimas tik ėjime, einančiame iš karto po šio pastūmimo ir yra vadinamas \'kirtimu prasilenkiant\'.\"
+
+Peržiūrėkite %3$s apie šį ėjimą norėdami jį pasipraktikuoti.</string>
+  <string name="goodIntroduction">gerą įžangą</string>
+  <string name="officialRulesPDF">oficialių taisyklių (PDF)</string>
+  <string name="lichessTraining">Lichess treniruotes</string>
+  <string name="threefoldRepetition">Trigubas pasikartojimas</string>
+  <string name="threefoldRepetitionExplanation">Jei ta pati pozicija įvyksta tris kartus žaidėjai gali skelbti lygiąsias %1$s. Lichess įgyvendina oficialias FIDE taisykles, kokios jos apibrėžtos %2$s straipsnyje 9.2 (d).</string>
+  <string name="threefoldRepetitionLowerCase">trigubu pasikartojimu</string>
+  <string name="notRepeatedMoves">Mes nekartojome ėjimų. Kodėl žaidimas vis tiek buvo paskelbtas lygiosiomis pasikartojimu?</string>
+  <string name="repeatedPositionsThatMatters">Trigubas pasikartojimas kalba apie pasikartojančias %1$s, ne ėjimus. Pasikartojimi neturi įvykti iš karto vienas po kito.</string>
+  <string name="positions">pozicijas</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Mes pakartojome poziciją tris kartus. Kodėl nebuvo paskelbtos lygiosios?</string>
+  <string name="threeFoldHasToBeClaimed">Pakartojimas turi būti iškviestas vieno iš žaidėjų. Tai galite padaryti spustelėdami atsiradusį mygtuką, arba pasiūlydami lygiąsias prieš paskutinį pasikartojantį ėjimą. Nesvarbu, ar priešininkas priims ar atmes lygiųjų pasiūlymą, lygiosios tribugu pasikartojimu vis tiek bus paskelbtos. Taip pat galite %1$s Lichess automatiškai skelbi lygiąsias už jus. Papildomai pakartojimas penkis kartus iš karto užbaigia žaidimą.</string>
+  <string name="configure">sukonfigūruoti</string>
+  <string name="accounts">Paskyros</string>
+  <string name="titlesAvailableOnLichess">Kokie yra Lichess titulai?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess pripažįsta visus FIDE titulus gautus iš OTB (\"virš lentos\") žaidimų, taip pat ir %1$s. Štai visų FIDE titulų sąrašas:</string>
+  <string name="showYourTitle">Jei turite OTB titulą, galite aplikuotis ir jis bus atvaizduotas jūsų paskyroje pabaigus %1$s, pridedant aiškią nuotrauką su identifikuojančiu dokumentu ir asmenukę su savimi laikančiu šį dokumentą.
+
+Buvimas patvirtintu tituluotu žaidėju Lichess jums suteikia galimybę žaisti Tituluotų Arenų renginiuose.
+
+Galiausia yra garbės %2$s titulas.</string>
+  <string name="asWellAsManyNMtitles">daug valstybinių titulų</string>
+  <string name="verificationForm">patikrinimo formą</string>
+  <string name="canIbecomeLM">Ar galiu gauti Lichess Master (LM) titulą?</string>
+  <string name="noUpperCaseDot">Ne.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Šis garbės titulas nėra oficialus ir egzistuoja tik Lichess.
 
 Jis mūsų nuožiūra suteikiamas išskirtinai pasižymėjusiems žaidėjams, kurie yra puikūs Lichess piliečiai. Jūs negaunate LM titulo, LM titulas susiranda jus. Jei jūs esate tinkamas jam, iš mūsų gausite žinutę apie jį ir būdus jį priimti ar jo atsisakyti.

@@ -1,2 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">Sjakknøtter</string>
+  <string name="recommended">Anbefalt</string>
+  <string name="phases">Faser</string>
+  <string name="motifs">Motiver</string>
+  <string name="advanced">For viderekomne</string>
+  <string name="lengths">Varighet</string>
+  <string name="mates">Mattstillinger</string>
+  <string name="goals">Mål</string>
+  <string name="specialMoves">Spesialtrekk</string>
+  <string name="didYouLikeThisPuzzle">Likte du denne sjakknøtten?</string>
+  <string name="voteToLoadNextOne">Stem for å laste den neste!</string>
+  <string name="yourPuzzleRatingX">Din sjakknøttrating: %s</string>
+  <string name="findTheBestMoveForWhite">Finn det beste trekket for hvit.</string>
+  <string name="findTheBestMoveForBlack">Finn det beste trekket for svart.</string>
+  <string name="toGetPersonalizedPuzzles">For tilpassede sjakknøtter:</string>
+  <string name="puzzleId">Sjakknøtt %s</string>
+  <string name="puzzleOfTheDay">Dagens nøtt</string>
+  <string name="clickToSolve">Klikk for å løse</string>
+  <string name="goodMove">Bra trekk</string>
+  <string name="bestMove">Beste trekk!</string>
+  <string name="keepGoing">Fortsett…</string>
+  <string name="puzzleSuccess">Korrekt!</string>
+  <string name="puzzleComplete">Knekt nøtt!</string>
+  <string name="notTheMove">Det er ikke trekket!</string>
+  <string name="trySomethingElse">Prøv noe annet.</string>
+  <string name="ratingX">Rating: %s</string>
+  <string name="hidden">skjult</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Spilt %s gang</item>
+    <item quantity="other">Spilt %s ganger</item>
+  </plurals>
+  <string name="fromGameLink">Fra parti %s</string>
+  <string name="continueTraining">Fortsett å øve</string>
+  <string name="difficultyLevel">Vanskelighetsgrad</string>
+  <string name="normal">Vanlig</string>
+  <string name="easier">Lettere</string>
+  <string name="easiest">Lettest</string>
+  <string name="harder">Verre</string>
+  <string name="hardest">Verst</string>
+  <string name="example">Eksempel</string>
+</resources>

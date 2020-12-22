@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="castling">Nhập thành</string>
+  <string name="endgame">Tàn cuộc</string>
+  <string name="hangingPiece">Quân cờ không được bảo vệ</string>
+  <string name="mate">Chiếu hết</string>
+  <string name="mateIn2Description">Chiếu hết trong hai nước cờ.</string>
+  <string name="mateIn3">Chiếu hết trong 3 nước</string>
+  <string name="middlegame">Trung cuộc</string>
+  <string name="oneMove">Câu đố một nước</string>
+  <string name="oneMoveDescription">Câu đố mà chỉ có một nước đi.</string>
+  <string name="opening">Khai cuộc</string>
+  <string name="openingDescription">Chiến thuật trong phần mở đầu của ván cờ.</string>
+</resources>
