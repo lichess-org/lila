@@ -44,6 +44,10 @@
   <string name="queenEndgame">クイーン・エンドゲーム</string>
   <string name="sacrifice">サクリファイス</string>
   <string name="skewer">スキュア</string>
+  <string name="trappedPiece">トラップ</string>
+  <string name="underPromotion">アンダープロモーション</string>
+  <string name="underPromotionDescription">ナイト、ビショップ、またはルークへのプロモーション。</string>
+  <string name="veryLong">長手数タクティクス</string>
   <string name="xRayAttack">エックス・レイ・アタック</string>
   <string name="zugzwang">ツークツワンク</string>
   <string name="healthyMixDescription">何事も少しずつ。備えあれば憂いなし！実際のゲームのように。</string>
