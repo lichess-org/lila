@@ -2,8 +2,8 @@
 <resources>
   <string name="advancedPawn">進んだポーン</string>
   <string name="advancedPawnDescription">ポーンの昇格かその狙いがタクティクスの中心です。</string>
-  <string name="advantage">アドバンテージ</string>
-  <string name="advantageDescription">決定的なアドバンテージを得てください。（評価値は 200cp 以上 600cp 以下）</string>
+  <string name="advantage">優位</string>
+  <string name="advantageDescription">決定的な優位を得てください。（評価値は 200cp 以上 600cp 以下）</string>
   <string name="attackingF2F7">f2/f7への攻撃</string>
   <string name="attackingF2F7Description">f2 か f7 のポーンを狙う攻撃（フライド・リバー・アタックなど）。</string>
   <string name="attraction">アトラクション（引き寄せ）</string>
@@ -16,4 +16,10 @@
   <string name="castlingDescription">キングを安全にし、ルークを攻撃に活用します。</string>
   <string name="capturingDefender">守り駒の除去</string>
   <string name="capturingDefenderDescription">別の駒を守っている駒を消して、無防備になった駒を取ります。</string>
+  <string name="crushing">圧倒</string>
+  <string name="crushingDescription">相手の悪手をとがめて圧倒的な優位を築きます。（評価値は 600cp 以上）</string>
+  <string name="equality">互角</string>
+  <string name="equalityDescription">劣勢の局面から、ドローを確保するか互角の局面に戻します。（評価値は 200cp 以下）</string>
+  <string name="kingsideAttack">キングサイド攻撃</string>
+  <string name="kingsideAttackDescription">キングサイドにキャスリングした相手のキングを攻撃します。</string>
 </resources>
