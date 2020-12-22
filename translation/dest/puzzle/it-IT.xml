@@ -3,4 +3,7 @@
   <string name="puzzles">Puzzle</string>
   <string name="recommended">Consigliati</string>
   <string name="phases">Fasi</string>
+  <string name="advanced">Avanzato</string>
+  <string name="didYouLikeThisPuzzle">Ti è piaciuta questa tattica?</string>
+  <string name="findTheBestMoveForWhite">Trova la mossa migliore per il bianco.</string>
 </resources>
