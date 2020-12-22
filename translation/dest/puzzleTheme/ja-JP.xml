@@ -40,10 +40,13 @@
   <string name="fork">フォーク</string>
   <string name="forkDescription">動いた駒が相手の 2 つの駒を同時に攻撃する手。</string>
   <string name="hangingPiece">浮き駒</string>
+  <string name="hangingPieceDescription">守りのない駒、または守り駒の足りない駒をただで取るタクティクス。</string>
   <string name="interference">インターフェアランス</string>
+  <string name="interferenceDescription">相手の 2 つの駒の間に駒を入れて、少なくとも一方を浮き駒にするタクティクス。相手の 2 個のルークの間で守りのあるマスにナイトを進める、など。</string>
   <string name="intermezzo">ツヴィッシェンツーク</string>
+  <string name="intermezzoDescription">当然に見える手を指す代わりに、いったん相手が受けなくてはならない別の手をはさむタクティクス。</string>
   <string name="knightEndgame">ナイト・エンドゲーム</string>
-  <string name="knightEndgameDescription">ナイトとポーンだけのエンドゲーム。</string>
+  <string name="knightEndgameDescription">ナイトとポーンだけの終盤。</string>
   <string name="long">長手数タクティクス</string>
   <string name="longDescription">3手で勝つ。</string>
   <string name="mate">メイト</string>
@@ -65,9 +68,11 @@
   <string name="opening">オープニング</string>
   <string name="openingDescription">ゲームの序盤でのタクティクス。</string>
   <string name="overloading">オーバーロード</string>
+  <string name="overloadingDescription">1 つの駒が、2 つの駒を同時に守るなど、複数の役割を果たしている状況。守られている駒のひとつを取れば、相手がそれを取り返すことでディフレクションと同じ効果になります。</string>
   <string name="pawnEndgame">ポーン・エンドゲーム</string>
   <string name="pawnEndgameDescription">ポーンだけの終盤。</string>
   <string name="pin">ピン</string>
+  <string name="pinDescription">ピンを含むタクティクス。ラインピースに狙われた駒が動くと、より価値の高い駒が取られてしまう状況。</string>
   <string name="promotion">プロモーション</string>
   <string name="promotionDescription">ポーンの昇格かその狙いがタクティクスの中心です。</string>
   <string name="queenEndgame">クイーン・エンドゲーム</string>
