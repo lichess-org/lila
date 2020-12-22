@@ -10,6 +10,7 @@
   <string name="queenEndgame">Dronningsluttspill</string>
   <string name="rookEndgame">Tårnsluttspill</string>
   <string name="sacrifice">Offer</string>
+  <string name="skewer">Spidding</string>
   <string name="smotheredMate">Kvelermatt</string>
   <string name="underPromotion">Underforvandling</string>
   <string name="underPromotionDescription">Bondeforvandling til springer, løper eller tårn.</string>
