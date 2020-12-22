@@ -33,7 +33,7 @@
   <string name="basedOnGameDuration">Параметр часу Lichess базується на розрахунковій тривалості гри = %1$s
 Наприклад, приблизна тривалість гри 5+3 становить 5 × 60 + 40 × 3 = 420 секунд.</string>
   <string name="durationFormula">(початковий час) + 40 × (приріст годинника)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$s с = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s с = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
   <string name="whatVariantsCanIplay">В які варіанти я можу грати на Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess підтримує стандартні шахи та %1$s.</string>
