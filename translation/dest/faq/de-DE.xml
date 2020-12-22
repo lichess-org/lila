@@ -31,19 +31,19 @@
   <string name="gameplay">Das Spiel selbst betreffend</string>
   <string name="howBulletBlitzEtcDecided">Wie wird entschieden, was Bullet, Blitz und andere Zeitkontrollen sind?</string>
   <string name="basedOnGameDuration">Lichess Zeitkontrollen basieren auf der erwarteten Spieldauer = %1$s
-Zum Beispiel berechnet sich die erwartete Spieldauer einer 5+3 Partie zu 5 * 60 + 40 * 3 = 420 Sekunden.</string>
-  <string name="durationFormula">(Zeitguthaben zu Beginn) + 40 * (Zug-Inkrement)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+Zum Beispiel berechnet sich die erwartete Spieldauer einer 5+3 Partie zu 5 × 60 + 40 × 3 = 420 Sekunden.</string>
+  <string name="durationFormula">(Zeitguthaben zu Beginn) + 40 × (Zug-Inkrement)</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Welche Varianten kann ich auf Lichess spielen?</string>
   <string name="lichessSupportChessAnd">Lichess unterstützt Standardschach und %1$s.</string>
   <string name="eightVariants">8 Schachvarianten</string>
-  <string name="whatIsACPL">Was ist \"durchschnittlicher Centipawn-Verlust\"/ACPL?</string>
-  <string name="acplExplanation">Der Zentibauer oder Hundertstelbauer ist die Maßeinheit im Schach für den Vorteil eines Spielers. Der Zentibauer entspricht dabei dem Wert von 1/100 eines regulären Bauern. Deshalb gilt 100 Zentibauern = 1 Bauer. Diese Werte spielen während der Partie keine besondere Rolle, sind jedoch für Spieler nützlich und spielen im Computerschach eine essentielle Rolle bei der Bewertung von Stellungen.
+  <string name="whatIsACPL">Was ist durchschnittlicher Centibauer-Verlust (ACPL)?</string>
+  <string name="acplExplanation">Der Centibauer oder Hundertstelbauer ist die Maßeinheit im Schach für den Vorteil eines Spielers. Der Centibauer entspricht dabei dem Wert von 1/100 eines regulären Bauern. Deshalb gilt 100 Centibauern = 1 Bauer. Diese Werte spielen während der Partie keine besondere Rolle, sind jedoch für Spieler nützlich und spielen im Computerschach eine essentielle Rolle bei der Bewertung von Stellungen.
 
-Der beste Computerzug verliert keinen Zentibauern, schlechtere Züge verschlechtern allerdings die Stellung, was in Zentibauern gemessen wird.
+Der beste Computerzug verliert keinen Centibauern, schlechtere Züge verschlechtern allerdings die Stellung, was in Centibauern gemessen wird.
 
-Dieser Wert kann als Indikator für die Spielqualität benutzt werden. Je weniger Zentibauern pro Zug verloren werden, desto größer die Spielstärke.
+Dieser Wert kann als Indikator für die Spielqualität benutzt werden. Je weniger Centibauern pro Zug verloren werden, desto größer die Spielstärke.
 
 Die Computeranalyse wird auf Lichess von Stockfish durchgeführt.</string>
   <string name="insufficientMaterial">Auf Zeit verlieren, remis spielen und ungenügendes Material</string>
