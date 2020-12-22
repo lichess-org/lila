@@ -108,6 +108,7 @@
   <string name="enable">Loyv</string>
   <string name="bestMoveArrow">Pílur fyri besta leik</string>
   <string name="evaluationGauge">Eftirmetingarmát</string>
+  <string name="multipleLines">Fleiri linjur</string>
   <string name="cpus">CPUir</string>
   <string name="memory">Minni</string>
   <string name="infiniteAnalysis">Óendalig greining</string>
@@ -318,7 +319,7 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Títt %s styrkital er fyribils</string>
   <string name="yourPerfRatingIsTooHigh">Títt %1$s styrkital (%2$s) er ov høgt</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Títt \"top weekly\" %1$s styrkital (%2$s) er ov høgt</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Títt vikuliga %1$s styrkital (%2$s) er ov høgt</string>
   <string name="yourPerfRatingIsTooLow">Títt %1$s styrkital (%2$s) er ov lágt</string>
   <string name="ratedMoreThanInPerf">Styrkismettur ≥ %1$s í %2$s</string>
   <string name="ratedLessThanInPerf">Styrkismettur ≤ %1$s í %2$s</string>
@@ -491,6 +492,7 @@
   <string name="error.provideOneCheatedGameLink">Útvega leinki til í minsta lagi eitt talv, har snýtt varð.</string>
   <string name="by">eftir %s</string>
   <string name="thisTopicIsNowClosed">Evnið er nú afturlatið.</string>
+  <string name="theming">Tema</string>
   <string name="blog">Bloggur</string>
   <string name="questionsAndAnswers">Spurningar &amp; Svør</string>
   <string name="notes">Upprit</string>
