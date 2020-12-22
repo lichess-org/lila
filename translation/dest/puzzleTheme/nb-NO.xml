@@ -22,6 +22,8 @@
   <string name="equalityDescription">Vend en tapt stilling til remis eller lik stilling. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Angrep på kongefløyen</string>
   <string name="kingsideAttackDescription">Et angrep mot motstanderens konge etter kort rokade.</string>
+  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Feltrømning</string>
+  <string name="clearanceDescription">Et trekk, gjerne med tempo, som åpner et felt, en linje eller en diagonal for en påfølgende taktisk idé.</string>
   <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Forsvarstrekk</string>
   <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Avledning</string>
   <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Avdekker</string>
