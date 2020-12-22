@@ -54,7 +54,7 @@
   <string name="selectThePieceYouWant">Vel fólkið, tú vilt vera!</string>
   <string name="fundamentals">Grundleggjandi</string>
   <string name="capture">At taka</string>
-  <string name="takeTheEnemyPieces">Tak fólkini hjá hinum</string>
+  <string name="takeTheEnemyPieces">Tak fólkini hjá fíggindanum</string>
   <string name="captureIntro">Finn útav, hvørji fólk standa óvard, og tak tey!</string>
   <string name="takeTheBlackPieces">Tak svørtu talvfólkini!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Tak svørtu talvfólkini! Og ansa eftir ikki at missa tíni egnu.</string>
@@ -72,7 +72,7 @@
   <string name="combatComplete">Til lukku! Nú dugir tú at berjast við talvfólkum!</string>
   <string name="checkInOne">Skák í einum</string>
   <string name="attackTheOpponentsKing">Leyp á kongin hjá mótleikaranum</string>
-  <string name="checkInOneIntro">Til tess at skáka mótpartin, mást tú leypa á kongin. Mótparturin má verja hann!</string>
+  <string name="checkInOneIntro">Til tess at skáka mótpartin, mást tú leypa á kongin. Mótparturin noyðist at verja hann!</string>
   <string name="checkInOneGoal">Hótt mótstøðukongin í einum leiki!</string>
   <string name="checkInOneComplete">Til lukku! Tú skákaði mótpartin, og noyddi hann at verja kongin!</string>
   <string name="outOfCheck">Úr skáki</string>
@@ -86,7 +86,7 @@
   <string name="outOfCheckComplete">Til lukku! Kongurin hjá tær verður ikki tikin. Ansa eftir, at tú fært vart móti skáki!</string>
   <string name="mateInOne">Skák og mát í einum</string>
   <string name="defeatTheOpponentsKing">Vinn á mótstøðukonginum</string>
-  <string name="mateInOneIntro">Tú vinnur, tá ið mótparturin ikki fær vart ímóti skáki.</string>
+  <string name="mateInOneIntro">Tú vinnur, tá ið mótparturin ikki fær vart seg ímóti skáki.</string>
   <string name="attackYourOpponentsKing">Leyp á mótstøðukongin, soleiðis at hann ikki fær vart seg!</string>
   <string name="mateInOneComplete">Til lukku! Soleiðis vinnur tú í talvi!</string>
   <string name="intermediate">Millumstig</string>
