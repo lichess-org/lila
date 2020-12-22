@@ -10,8 +10,11 @@
   <string name="clickToSolve">Click để giải</string>
   <string name="goodMove">Nước tốt</string>
   <string name="bestMove">Nước tối ưu!</string>
+  <string name="keepGoing">Tiếp tục…</string>
   <string name="puzzleSuccess">Thành công!</string>
-  <string name="trySomethingElse">Thử nước đi khác.</string>
+  <string name="puzzleComplete">Hoàn thành câu đố!</string>
+  <string name="notTheMove">Đó chưa phải là nước đi tối ưu!</string>
+  <string name="trySomethingElse">Hãy thử nước đi khác.</string>
   <string name="hidden">ẩn</string>
   <plurals name="playedXTimes">
     <item quantity="other">Đã chơi %s lần</item>
