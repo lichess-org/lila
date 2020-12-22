@@ -27,6 +27,9 @@
   <string name="trySomethingElse">Coba lagi lainnya.</string>
   <string name="ratingX">Rating: %s</string>
   <string name="hidden">sembunyi</string>
+  <plurals name="playedXTimes">
+    <item quantity="other">Bermain % kali</item>
+  </plurals>
   <string name="fromGameLink">Dari game %s</string>
   <string name="continueTraining">Lanjut latihan</string>
   <string name="difficultyLevel">Level Sulit</string>
