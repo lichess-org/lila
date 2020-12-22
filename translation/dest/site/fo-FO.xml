@@ -810,6 +810,7 @@
   <string name="lifetimeScore">Lívstíðarstigatal</string>
   <string name="currentMatchScore">Núverandi dystarstigatal</string>
   <string name="agreementAssistance">Eg lovi, at eg ongantíð taki ímóti hjálp, meðan eg telvi (frá telvingarteldum, bókum, dátugrunnum ella øðrum telvarum).</string>
+  <string name="agreementNice">Eg lovi altíð at sýna virðing móti øðrum telvarum.</string>
   <string name="agreementAccount">Eg taki undir við, at eg ikki fái mær fleiri kontur.</string>
   <string name="agreementPolicy">Eg samtykki, at eg fari at fylgja øllum Lichess-reglugerðum.</string>
   <string name="searchOrStartNewDiscussion">Leita eftir samrøðu ella byrja eina nýggja</string>
@@ -819,6 +820,7 @@
   <string name="ultraBulletDesc">Vitleyst skjót talv: styttri enn 30 sekund</string>
   <string name="bulletDesc">Ógvuliga skjót talv: styttri enn 3 minuttir</string>
   <string name="blitzDesc">Skjót talv: 3 til 8 minuttir</string>
+  <string name="rapidDesc">Kviktalv: 8 til 25 minuttir</string>
   <string name="correspondenceDesc">Brævtalv: ein ella fleiri dagar fyri hvønn leik</string>
   <string name="puzzleDesc">Taktikkvenjing</string>
   <string name="important">Umráðandi</string>
