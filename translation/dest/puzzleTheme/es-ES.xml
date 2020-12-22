@@ -22,14 +22,16 @@
   <string name="deflectionDescription">Un movimiento que distrae una pieza del oponente de una tarea que desempeña, como la protección de una casilla clave.</string>
   <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Ataque a la descubierta</string>
   <string name="doubleCheck">Jaque doble</string>
+  <string name="doubleCheckDescription">Jaque con dos piezas a la vez, como resultado de un ataque descubierto donde tanto la pieza en movimiento como la desvelada atacan al rey del oponente.</string>
   <string name="endgame">Final</string>
+  <string name="endgameDescription">Una táctica durante la última fase de la partida.</string>
   <string name="exposedKing">Rey expuesto</string>
   <string name="hangingPiece">Pieza colgante</string>
   <string name="interference">Interferencia</string>
   <string name="intermezzo">Jugada intermedia</string>
   <string name="intermezzoDescription">En lugar de jugar el movimiento esperado, se realiza antes otro movimiento que plantea una amenaza inmediata a la que el oponente debe responder. También conocido como \"Zwischenzug\" o \"Intermezzo\".</string>
   <string name="knightEndgame">Final de caballos</string>
-  <string name="knightEndgameDescription">Un final de juego solo con caballos y peones.</string>
+  <string name="knightEndgameDescription">Un final de partida solo con caballos y peones.</string>
   <string name="long">Rompecabezas largo</string>
   <string name="longDescription">Tres movimientos para ganar.</string>
   <string name="mate">Mate</string>
