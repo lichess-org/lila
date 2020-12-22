@@ -23,16 +23,21 @@
   <string name="kingsideAttack">キングサイド・アタック</string>
   <string name="kingsideAttackDescription">キングサイドにキャスリングした相手のキングを攻撃します。</string>
   <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">クリアランス</string>
+  <string name="clearanceDescription">次のタクティクスのためにマス、ファイル、斜線を開く手（先手であることが多い）。</string>
+  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">守り</string>
+  <string name="defensiveMoveDescription">駒損などの不利を避けるために必要な正確な手または手順。</string>
+  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">ディフレクション</string>
+  <string name="deflectionDescription">相手の駒を別の役割（重要なマスを守るなど）からそらす手。</string>
   <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">ディスカバード・アタック</string>
   <string name="doubleCheck">ダブル・チェック</string>
   <string name="endgame">エンドゲーム</string>
   <string name="exposedKing">エクスポーズド・キング</string>
   <string name="fork">フォーク</string>
-  <string name="forkDescription">動いた駒が相手の2つの駒を同時に攻撃する動き。</string>
+  <string name="forkDescription">動いた駒が相手の 2 つの駒を同時に攻撃する手。</string>
   <string name="hangingPiece">ハンギング・ピース</string>
   <string name="interference">インターフェアランス</string>
   <string name="intermezzo">インテルメッツォ</string>
-  <string name="knightEndgame">ナイト・エンドーゲーム</string>
+  <string name="knightEndgame">ナイト・エンドゲーム</string>
   <string name="long">長手数タクティクス</string>
   <string name="mate">メイト</string>
   <string name="mateIn1">1手メイト</string>
@@ -43,7 +48,7 @@
   <string name="middlegame">ミドルゲーム</string>
   <string name="oneMove">1手タクティクス</string>
   <string name="opening">オープニング</string>
-  <string name="overloading">オーバーローディング</string>
+  <string name="overloading">オーバーロード</string>
   <string name="pawnEndgame">ポーン・エンドゲーム</string>
   <string name="pawnEndgameDescription">ポーンだけのエンドゲーム。</string>
   <string name="pin">ピン</string>
@@ -53,11 +58,11 @@
   <string name="rookEndgameDescription">ルークとポーンだけのエンドゲーム。</string>
   <string name="sacrifice">サクリファイス</string>
   <string name="short">短手数タクティクス</string>
-  <string name="skewer">スキュア</string>
+  <string name="skewer">スキュアー</string>
   <string name="smotheredMate">スマザード・メイト</string>
-  <string name="trappedPiece">トラップ</string>
+  <string name="trappedPiece">敵駒を殺す</string>
   <string name="underPromotion">アンダープロモーション</string>
-  <string name="underPromotionDescription">ナイト、ビショップ、またはルークへのプロモーション。</string>
+  <string name="underPromotionDescription">ナイト、ビショップ、ルークへの昇格。</string>
   <string name="veryLong">超長手数タクティクス</string>
   <string name="xRayAttack">エックス・レイ・アタック</string>
   <string name="zugzwang">ツークツワンク</string>
