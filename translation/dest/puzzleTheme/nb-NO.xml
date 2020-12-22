@@ -16,5 +16,7 @@
   <string name="underPromotionDescription">Bondeforvandling til springer, løper eller tårn.</string>
   <string name="xRayAttack">Røntgenangrep</string>
   <string name="zugzwang">Trekktvang</string>
+  <string name="zugzwangDescription">Motstanderen kan bare utføre trekk som forverrer egen stilling.</string>
   <string name="healthyMix">Frisk blanding</string>
+  <string name="healthyMixDescription">Litt av alt. Du vet ikke hva du får, så du er klar for alt! Akkurat som i virkelige partier.</string>
 </resources>
