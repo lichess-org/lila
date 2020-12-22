@@ -14,7 +14,9 @@
   <string name="smotheredMate">Kvelermatt</string>
   <string name="underPromotion">Underforvandling</string>
   <string name="underPromotionDescription">Bondeforvandling til springer, løper eller tårn.</string>
+  <string name="veryLongDescription">Fire trekk eller flere for å vinne.</string>
   <string name="xRayAttack">Røntgenangrep</string>
+  <string name="xRayAttackDescription">En brikke angriper eller forsvarer et felt indirekte, gjennom en av motstanderens brikker.</string>
   <string name="zugzwang">Trekktvang</string>
   <string name="zugzwangDescription">Motstanderen kan bare utføre trekk som forverrer egen stilling.</string>
   <string name="healthyMix">Frisk blanding</string>
