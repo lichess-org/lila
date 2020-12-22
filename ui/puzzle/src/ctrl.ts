@@ -232,7 +232,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
       setTimeout(() => {
         const pos = Chess.fromSetup(parseFen(progress.fen).unwrap()).unwrap();
         sendMoveAt(progress.path, pos, progress.move);
-      }, 100);
+      }, opts.pref.animation.duration * (autoNext() ? 1 : 1.5));
     }
   }
 
