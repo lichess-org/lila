@@ -53,4 +53,8 @@ Jei jūsų transliacija anglų kalba, poreikio pridėti kalbos žymę nėra.</st
   <string name="deletePicture">Ištrinti nuotrauką</string>
   <string name="maxSize">Maksimalus dydis: %s</string>
   <string name="installBlocker">Įsidiekite kenkėjiškų programų blokavimą!</string>
+  <string name="beSafe">Apsisaugokite nuo reklamų ir sekimo įskiepių
+sukištų Twitch ir YouTube.
+Lichess rekomenduoja uBlock Origin
+kuris yra nemokamas ir atviro kodo.</string>
 </resources>
