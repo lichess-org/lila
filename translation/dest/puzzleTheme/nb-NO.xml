@@ -42,7 +42,9 @@
   <string name="hangingPiece">Hengende brikke</string>
   <string name="hangingPieceDescription">En taktikk som utnytter at en motstanderbrikke er udekket eller ikke tilstrekkelig dekket og kan slås.</string>
   <string name="interference">Interferens</string>
+  <string name="interferenceDescription">Å flytte en brikke mellom to motstanderbrikker slik at en av eller begge motstanderbrikkene er udekket, for eksempel en springer på et dekket felt mellom to tårn.</string>
   <string name="intermezzo">Mellomtrekk</string>
+  <string name="intermezzoDescription">I stedet for å foreta det forventede trekket utføres først et annet trekk som utgjør en umiddelbar trussel, som motstanderen må svare på.</string>
   <string name="knightEndgame">Springersluttspill</string>
   <string name="knightEndgameDescription">Et sluttspill med kun springere og bønder.</string>
   <string name="long">Lang sjakknøtt</string>
