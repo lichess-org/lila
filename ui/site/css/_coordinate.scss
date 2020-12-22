@@ -19,22 +19,22 @@ $mq-col3: $mq-x-large;
 
   &.white {
     .bottom_color {
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       background-image: url(../images/blackPiece.svg);
       background-repeat: no-repeat;
       position: absolute;
-      top: 107%;
+      top: 110%;
     }
   }
   &.black {
     .bottom_color {
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       background-image: url(../images/whitePiece.svg);
       background-repeat: no-repeat;
       position: absolute;
-      top: 107%;
+      top: 110%;
     }
   }
 
@@ -120,9 +120,9 @@ $mq-col3: $mq-x-large;
     position: absolute;
     top: 0;
     left: 0;
-    width: 90%;
+    width: 95%;
     height: 100%;
-    font-size: 180px;
+    font-size: 14rem;
     font-weight: bold;
     opacity: 1;
     pointer-events: none;
@@ -135,19 +135,22 @@ $mq-col3: $mq-x-large;
     }
   }
   #next_coord0 {
+    z-index: 3;
     color: #fff;
   }
   #next_coord1 {
-    left: 26%;
+    z-index: 2;
+    left: 32%;
     top: 10%;
-    font-size: 75px;
+    font-size: 50px;
     opacity: 0.7;
   }
   #next_coord2 {
+    z-index: 1;
     transition: none;
-    left: 38%;
+    left: 43%;
     top: 13%;
-    font-size: 38px;
+    font-size: 24px;
     opacity: 0.4;
   }
   #next_coord1,

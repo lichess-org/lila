@@ -16,6 +16,7 @@ $(function () {
     var colorPref = $trainer.data("color-pref");
     var color;
     var startAt, score;
+    const $notation = $(".notation-0")[0] ? 0 : 1;
 
     var showColor = function () {
       color =
@@ -90,9 +91,9 @@ $(function () {
       var rowIndex = rows.indexOf(prevCoord[1]);
       rows = rows.slice(0, rowIndex) + rows.slice(rowIndex + 1, 9);
 
-      return (
+      return codeCoords(
         files[Math.round(Math.random() * (files.length - 1))] +
-        rows[Math.round(Math.random() * (rows.length - 1))]
+          rows[Math.round(Math.random() * (rows.length - 1))]
       );
     };
 
@@ -165,6 +166,28 @@ $(function () {
       return fileMap[key[0]] + rankMap[key[1]];
     }
 
+    function codeCoords(key) {
+      const rankMap1 = {
+        1: "一",
+        2: "二",
+        3: "三",
+        4: "四",
+        5: "五",
+        6: "六",
+        7: "七",
+        8: "八",
+        9: "九",
+      };
+      switch ($notation) {
+        // 11
+        case 0:
+          return key;
+        // 1一
+        default:
+          return key[0] + rankMap1[key[1]];
+      }
+    }
+
     $start.click(function () {
       $explanation.remove();
       $trainer.addClass("play").removeClass("init");
@@ -179,7 +202,7 @@ $(function () {
         ground.set({
           events: {
             select: function (key) {
-              var hit = getShogiCoords(key) == $coords[0].text();
+              var hit = codeCoords(getShogiCoords(key)) == $coords[0].text();
               if (hit) {
                 score++;
                 $score.text(score);
