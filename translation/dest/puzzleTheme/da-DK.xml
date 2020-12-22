@@ -71,9 +71,12 @@
   <string name="queenEndgame">Dronningeslutspil</string>
   <string name="queenEndgameDescription">Et slutspil med kun dronninger og bønder.</string>
   <string name="queensideAttack">Dronningeside-angreb</string>
+  <string name="quietMove">Stille træk</string>
   <string name="rookEndgame">Tårnslutspil</string>
   <string name="sacrifice">Offer</string>
+  <string name="short">Kort opgave</string>
   <string name="shortDescription">To træk for at vinde.</string>
+  <string name="smotheredMate">Kvalt mat</string>
   <string name="veryLong">Meget lang opgave</string>
   <string name="veryLongDescription">Fire træk eller mere for at vinde.</string>
   <string name="xRayAttack">Røngtenangreb</string>
