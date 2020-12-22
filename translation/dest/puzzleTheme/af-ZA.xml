@@ -41,4 +41,25 @@
   <string name="interference">Inmenging</string>
   <string name="interferenceDescription">Om \'n stuk tussen twee teenstanderstukke te skuif om een ​​of albei teenstanderstukke onverdedig te laat, soos \'n ridder op \'n verdedigde vierkant tussen twee toring.</string>
   <string name="intermezzo">Intermezzo</string>
+  <string name="intermezzoDescription">In plaas daarvan om die verwagte skuif te speel, moet u eers \'n ander stap inbring wat \'n onmiddellike bedreiging inhou wat die opponent moet beantwoord. Ook bekend as \"Zwischenzug\" of \"Tussenin\".</string>
+  <string name="knightEndgame">Ridder eindspel</string>
+  <string name="knightEndgameDescription">\'N Eindspel met net ridders en pionne.</string>
+  <string name="long">Lang legkaart</string>
+  <string name="longDescription">Drie skofte om te wen.</string>
+  <string name="mate">Maat</string>
+  <string name="mateDescription">Wen die spel met styl.</string>
+  <string name="mateIn1">Maat in 1</string>
+  <string name="mateIn1Description">Lewer skaakmat in een beweging.</string>
+  <string name="mateIn2">Maat in 2</string>
+  <string name="mateIn2Description">Lewer skaakmat in twee bewegings.</string>
+  <string name="mateIn3">Maat in 3</string>
+  <string name="mateIn3Description">Lewer skaakmat in drie bewegings.</string>
+  <string name="mateIn4">Maat in 4</string>
+  <string name="mateIn4Description">Lewer skaakmat in vier bewegings.</string>
+  <string name="mateIn5">Par in 5 of meer</string>
+  <string name="mateIn5Description">Stel \'n lang paringsvolgorde uit.</string>
+  <string name="zugzwang">Zugzwang</string>
+  <string name="zugzwangDescription">Die opponent is beperk in die bewegings wat hulle kan maak, en alle bewegings vererger hul posisie.</string>
+  <string name="healthyMix">Gesonde mengsel</string>
+  <string name="healthyMixDescription">\'N Bietjie van alles. Jy weet nie wat om te verwag nie, dus bly jy gereed vir enigiets! Net soos in regte speletjies.</string>
 </resources>
