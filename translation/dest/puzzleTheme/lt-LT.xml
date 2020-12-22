@@ -13,6 +13,8 @@
   <string name="bishopEndgame">Rikių endšpilis</string>
   <string name="bishopEndgameDescription">Endšpilis tik su rikiais ir pėstininkais.</string>
   <string name="castling">Rokiruotės</string>
+  <string name="castlingDescription">Parveskite karalių į saugią vietą ir panaudokite atakai bokštą.</string>
+  <string name="capturingDefender">Nukirskite gynėją</string>
   <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Atidengimo ataka</string>
   <string name="discoveredAttackDescription">Blokuojančios figūros patraukimas nuo ilgų distancijų figūros, pavyzdžiui žirgo patraukimas nuo bokšto trajektorijos.</string>
   <string name="doubleCheck">Dvigubas šachas</string>
