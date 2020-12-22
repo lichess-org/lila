@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="advancedPawn">進んだポーン</string>
+  <string name="advancedPawn">アドバンスト・ポーン</string>
   <string name="advancedPawnDescription">ポーンの昇格かその狙いがタクティクスの中心です。</string>
   <string name="advantage">優位</string>
   <string name="advantageDescription">決定的な優位を得てください。（評価値は 200cp 以上 600cp 以下）</string>
@@ -47,6 +47,7 @@
   <string name="long">長手数タクティクス</string>
   <string name="longDescription">3手で勝つ。</string>
   <string name="mate">メイト</string>
+  <string name="mateDescription">上品に対局で勝つ。</string>
   <string name="mateIn1">1手メイト</string>
   <string name="mateIn1Description">1 手でチェックメイトにします。</string>
   <string name="mateIn2">2手メイト</string>
@@ -60,6 +61,7 @@
   <string name="middlegame">ミドルゲーム</string>
   <string name="middlegameDescription">ゲームの中盤でのタクティクス。</string>
   <string name="oneMove">1手タクティクス</string>
+  <string name="oneMoveDescription">1手だけ動かすタクティクス。</string>
   <string name="opening">オープニング</string>
   <string name="openingDescription">ゲームの序盤でのタクティクス。</string>
   <string name="overloading">オーバーロード</string>
@@ -68,6 +70,10 @@
   <string name="pin">ピン</string>
   <string name="promotion">プロモーション</string>
   <string name="queenEndgame">クイーン・エンドゲーム</string>
+  <string name="queensideAttack">クイーンサイド攻撃</string>
+  <string name="queensideAttackDescription">クイーンサイドにキャスリングした相手のキングを攻撃します。</string>
+  <string name="quietMove">静かな手</string>
+  <string name="quietMoveDescription">チェックでも駒取りでもないが、次に防げない狙いを用意する手。</string>
   <string name="rookEndgame">ルーク・エンドゲーム</string>
   <string name="rookEndgameDescription">ルークとポーンだけの終盤。</string>
   <string name="sacrifice">サクリファイス</string>
@@ -82,5 +88,7 @@
   <string name="veryLongDescription">4手以上で勝つ。</string>
   <string name="xRayAttack">Ｘ線攻撃</string>
   <string name="zugzwang">ツークツワンク</string>
+  <string name="zugzwangDescription">相手の指せる手が、どれを選んでも局面を悪くしてしまう形です。</string>
+  <string name="healthyMix">混合</string>
   <string name="healthyMixDescription">いろいろな問題を少しずつ。どんな問題が来るかわからないので油断しないで！　実戦と同じです。</string>
 </resources>
