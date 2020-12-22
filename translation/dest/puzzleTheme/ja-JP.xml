@@ -34,6 +34,10 @@
   <string name="intermezzo">インテルメッツォ</string>
   <string name="knightEndgame">ナイト・エンドーゲーム</string>
   <string name="mate">メイト</string>
+  <string name="mateIn1">1手メイト</string>
+  <string name="mateIn2">2手メイト</string>
+  <string name="mateIn3">3手メイト</string>
+  <string name="mateIn4">4手メイト</string>
   <string name="middlegame">ミドルゲーム</string>
   <string name="opening">オープニング</string>
   <string name="overloading">オーバーローディング</string>
@@ -42,8 +46,12 @@
   <string name="pin">ピン</string>
   <string name="promotion">プロモーション</string>
   <string name="queenEndgame">クイーン・エンドゲーム</string>
+  <string name="rookEndgame">ルーク・エンドゲーム</string>
+  <string name="rookEndgameDescription">ルークとポーンだけのエンドゲーム。</string>
   <string name="sacrifice">サクリファイス</string>
+  <string name="short">短手数タクティクス</string>
   <string name="skewer">スキュア</string>
+  <string name="smotheredMate">スマザード・メイト</string>
   <string name="trappedPiece">トラップ</string>
   <string name="underPromotion">アンダープロモーション</string>
   <string name="underPromotionDescription">ナイト、ビショップ、またはルークへのプロモーション。</string>
