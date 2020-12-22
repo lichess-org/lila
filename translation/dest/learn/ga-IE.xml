@@ -39,10 +39,11 @@
   <string name="stageX">Leibhéal %s</string>
   <string name="awesome">Thar barr!</string>
   <string name="excellent">Iontach!</string>
-  <string name="greatJob">An mhaith!</string>
+  <string name="greatJob">An-mhaith!</string>
   <string name="perfect">Foirfe!</string>
   <string name="outstanding">Ar fheabhas!</string>
   <string name="wayToGo">Maith thú!</string>
+  <string name="youreGoodAtThis">Ealaíonta!</string>
   <string name="yourScore">Do scór</string>
   <string name="next">Ar Aghaidh</string>
   <string name="backToMenu">Ar ais don roghchlár</string>
