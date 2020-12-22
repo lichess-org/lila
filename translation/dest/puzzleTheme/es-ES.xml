@@ -67,7 +67,8 @@
   <string name="short">Rompecabezas corto</string>
   <string name="shortDescription">Dos movimientos para ganar.</string>
   <string name="skewer">Pincho</string>
-  <string name="smotheredMate">Mate del ahogado</string>
+  <string name="smotheredMate">Mate de la coz</string>
+  <string name="smotheredMateDescription">Un jaque mate en el que el caballo ataca al rey contrario, el cual no puede moverse al encontrarse rodeado (o ahogado) por sus propias piezas.</string>
   <string name="trappedPiece">Pieza atrapada</string>
   <string name="trappedPieceDescription">Una pieza no puede escapar de la captura porque tiene movimientos limitados.</string>
   <string name="underPromotion">Subpromoción</string>
