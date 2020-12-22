@@ -56,6 +56,6 @@ object PuzzleRound {
     val weight = "e"
     val user   = "u"
     val date   = "d"
-    val theme  = "t"
+    val theme  = "h"
   }
 }
