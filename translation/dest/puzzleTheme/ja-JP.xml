@@ -22,6 +22,16 @@
   <string name="equalityDescription">劣勢の局面から、ドローを確保するか互角の局面に戻します。（評価値は 200cp 以下）</string>
   <string name="kingsideAttack">キングサイド攻撃</string>
   <string name="kingsideAttackDescription">キングサイドにキャスリングした相手のキングを攻撃します。</string>
+  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">クリアランス</string>
+  <string name="endgame">エンドゲーム</string>
   <string name="fork">フォーク</string>
   <string name="forkDescription">動いた駒が相手の2つの駒を同時に攻撃する動き。</string>
+  <string name="mate">メイト</string>
+  <string name="middlegame">ミドルゲーム</string>
+  <string name="opening">オープニング</string>
+  <string name="pin">ピン</string>
+  <string name="promotion">プロモーション</string>
+  <string name="sacrifice">サクリファイス</string>
+  <string name="skewer">スキュア</string>
+  <string name="zugzwang">ツークツワンク</string>
 </resources>
