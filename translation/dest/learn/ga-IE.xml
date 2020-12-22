@@ -43,7 +43,11 @@
   <string name="perfect">Foirfe!</string>
   <string name="outstanding">Ar fheabhas!</string>
   <string name="wayToGo">Maith thú!</string>
+  <string name="yesYesYes">Lean ort!</string>
   <string name="youreGoodAtThis">Ealaíonta!</string>
+  <string name="nailedIt">Ceart.</string>
+  <string name="rightOn">Mar sin!</string>
+  <string name="stageXComplete">Léibhéal %s críochnaithe</string>
   <string name="yourScore">Do scór</string>
   <string name="next">Ar Aghaidh</string>
   <string name="backToMenu">Ar ais don roghchlár</string>
