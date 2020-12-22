@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Framskutt bonde</string>
+  <string name="advancedPawnDescription">En bondeforvandling eller en trussel om bondeforvandling er nøkkeltaktikken.</string>
+  <string name="advantage">Fordel</string>
   <string name="backRankMate">Sekkematt</string>
   <string name="bishopEndgame">Løpersluttspill</string>
   <string name="castling">Rokade</string>
