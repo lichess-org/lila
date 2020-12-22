@@ -52,7 +52,7 @@ function renderInfo(ctrl) {
             ctrl.level.complete();
           },
         },
-        [ctrl.level.blueprint.text]
+        [ctrl.trans.noarg(ctrl.level.blueprint.text)]
       ),
     ]),
   ]);
