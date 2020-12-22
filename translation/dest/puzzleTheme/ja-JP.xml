@@ -22,4 +22,5 @@
   <string name="equalityDescription">劣勢の局面から、ドローを確保するか互角の局面に戻します。（評価値は 200cp 以下）</string>
   <string name="kingsideAttack">キングサイド攻撃</string>
   <string name="kingsideAttackDescription">キングサイドにキャスリングした相手のキングを攻撃します。</string>
+  <string name="fork">フォーク</string>
 </resources>
