@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="goals">Mục tiêu</string>
+  <string name="findTheBestMoveForBlack">Tìm nước tối ưu cho Đen.</string>
+  <string name="clickToSolve">Click để giải</string>
+  <string name="goodMove">Nước tốt</string>
+  <string name="bestMove">Nước tối ưu!</string>
+  <string name="puzzleSuccess">Thành công!</string>
+  <string name="hidden">ẩn</string>
+  <plurals name="playedXTimes">
+    <item quantity="other">Đã chơi %s lần</item>
+  </plurals>
+  <string name="fromGameLink">Từ ván cờ %s</string>
+  <string name="continueTraining">Tiếp tục tập luyện</string>
+  <string name="difficultyLevel">Độ khó</string>
+  <string name="normal">Bình thường</string>
+  <string name="easier">Dễ hơn</string>
+  <string name="easiest">Dễ nhất</string>
+  <string name="harder">Khó hơn</string>
+  <string name="hardest">Khó nhất</string>
+  <string name="example">Ví dụ</string>
+</resources>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="advancedPawn">Fremskudt bonde</string>
+  <string name="advancedPawnDescription">En bonde, der forfremmes eller truer med at forfremme, er nøglen til taktikken.</string>
+  <string name="advantage">Fordel</string>
+  <string name="advantageDescription">Grib chancen for at få en afgørende fordel. (200cb ≤ eval ≤ 600cb)</string>
+  <string name="attackingF2F7">Angriber f2 eller f7</string>
+  <string name="backRankMate">Baglinjemat</string>
+  <string name="bishopEndgame">Løber-slutspil</string>
+  <string name="bishopEndgameDescription">Et slutspil med kun løbere og bønder.</string>
+  <string name="castling">Rokade</string>
+  <string name="castlingDescription">Bring din konge i sikkerhed og gør dit tårn klar til angreb.</string>
+  <string name="crushing">Knusende</string>
+  <string name="crushingDescription">Spot modstanderens brøler for at opnå en knusende fordel. (eval ≥ 600cb)</string>
+  <string name="kingsideAttack">Angreb på kongesiden</string>
+  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Defensivt træk</string>
+  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Afledning</string>
+  <string name="deflectionDescription">Et træk der distraherer en modstanders brik fra at udføre en anden funktion, såsom bevogtning af et vigtigt felt.</string>
+  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Afdækkertræk</string>
+  <string name="doubleCheck">Dobbeltskak</string>
+  <string name="doubleCheckDescription">Skak med to brikker på samme tid som resultat af et afdækket angreb, hvor både den flyttede brik og den afdækkede brik giver skak til modstanderens konge.</string>
+  <string name="endgame">Slutspil</string>
+  <string name="endgameDescription">En taktik i den sidste fase af spillet.</string>
+  <string name="enPassantDescription">En taktik som inkluderer en passant-reglen, hvor en bonde kan tage en modstanderbonde, der er flyttet forbi den med dens første to-felts-træk.</string>
+  <string name="exposedKing">Eksponeret konge</string>
+  <string name="fork">Gaffel</string>
+  <string name="knightEndgame">Springer-slutspil</string>
+  <string name="knightEndgameDescription">Et slutspil med kun springere og bønder.</string>
+  <string name="longDescription">Tre træk for at vinde.</string>
+  <string name="mate">Mat</string>
+  <string name="mateDescription">Vind spillet med stil.</string>
+  <string name="mateIn1">Mat i 1</string>
+  <string name="mateIn1Description">Sæt skakmat i ét træk.</string>
+  <string name="mateIn2">Mat i 2</string>
+  <string name="mateIn2Description">Sæt skakmat med to træk.</string>
+  <string name="pin">Binding</string>
+  <string name="pinDescription">En taktik med bindinger, hvor en brik er ude af stand til at bevæge sig uden at afdække et angreb på en brik af højere værdi.</string>
+  <string name="promotion">Bondeforvandling</string>
+  <string name="queensideAttack">Dronningeside-angreb</string>
+  <string name="rookEndgame">Tårnslutspil</string>
+  <string name="sacrifice">Offer</string>
+  <string name="shortDescription">To træk for at vinde.</string>
+  <string name="zugzwang">Zugzwang</string>
+  <string name="healthyMix">Sund blanding</string>
+  <string name="healthyMixDescription">Lidt af hvert. Du ved ikke, hvad du skal forvente, så du forbliver klar til hvad som helst! Ligesom i rigtige spil.</string>
+</resources>

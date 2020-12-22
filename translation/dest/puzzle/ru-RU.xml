@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Задачи</string>
+  <string name="recommended">Рекомендовано</string>
+  <string name="phases">Фазы</string>
+  <string name="motifs">Мотивы</string>
+  <string name="advanced">Продвинутый</string>
+  <string name="lengths">Длина</string>
+  <string name="mates">Маты</string>
+  <string name="goals">Цели</string>
+  <string name="specialMoves">Особые ходы</string>
+  <string name="didYouLikeThisPuzzle">Вам понравились задачи?</string>
+  <string name="voteToLoadNextOne">Проголосуйте, чтобы загрузить следующий!</string>
+  <string name="yourPuzzleRatingX">Ваш рейтинг в решении задач: %s</string>
+  <string name="findTheBestMoveForWhite">Найдите лучший ход за белых.</string>
+  <string name="findTheBestMoveForBlack">Найдите лучший ход за чёрных.</string>
+  <string name="toGetPersonalizedPuzzles">Чтобы получить персонализированные задачи:</string>
+  <string name="puzzleId">Задача № %s</string>
+  <string name="puzzleOfTheDay">Шахматная задача дня</string>
+  <string name="clickToSolve">Нажмите, чтобы решить</string>
+  <string name="goodMove">Хороший ход</string>
+  <string name="bestMove">Лучший ход!</string>
+  <string name="keepGoing">Продолжайте...</string>
+  <string name="puzzleSuccess">Успех!</string>
+  <string name="puzzleComplete">Задача решено!</string>
+  <string name="notTheMove">Это не ход!</string>
+  <string name="trySomethingElse">Мне нужно что-то другое.</string>
+  <string name="ratingX">Рейтинг: %s</string>
+  <string name="hidden">скрыт</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Решено %s раз</item>
+    <item quantity="few">Решено %s раза</item>
+    <item quantity="many">Решено %s раз</item>
+    <item quantity="other">Решено %s раз</item>
+  </plurals>
+  <string name="fromGameLink">Из партии %s</string>
+  <string name="continueTraining">Продолжить тренировку</string>
+  <string name="difficultyLevel">Уровень сложности</string>
+  <string name="normal">Нормальная</string>
+  <string name="easier">Легкий</string>
+  <string name="easiest">Самые легкие</string>
+  <string name="harder">Сложнее</string>
+  <string name="hardest">Самый сложный</string>
+  <string name="example">Пример</string>
+</resources>

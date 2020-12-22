@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Puzzels</string>
+  <string name="recommended">Aanbevolen</string>
+  <string name="phases">Fasen</string>
+  <string name="motifs">Motieven</string>
+  <string name="advanced">Geavanceerd</string>
+  <string name="specialMoves">Speciale zetten</string>
+  <string name="findTheBestMoveForWhite">Vind de beste zet voor wit.</string>
+  <string name="findTheBestMoveForBlack">Vind de beste zet voor zwart.</string>
+  <string name="puzzleId">Puzzel %s</string>
+  <string name="puzzleOfTheDay">Puzzel van de dag</string>
+  <string name="clickToSolve">Klik om op te lossen</string>
+  <string name="goodMove">Goede zet</string>
+  <string name="bestMove">Beste zet!</string>
+  <string name="keepGoing">Ga zo door…</string>
+  <string name="puzzleSuccess">Succes!</string>
+  <string name="puzzleComplete">Puzzel voltooid!</string>
+  <string name="notTheMove">Dat is niet de juiste zet!</string>
+  <string name="trySomethingElse">Probeer iets anders.</string>
+  <string name="ratingX">Rating: %s</string>
+  <string name="hidden">verborgen</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">%s keer gespeeld</item>
+    <item quantity="other">%s keer gespeeld</item>
+  </plurals>
+  <string name="fromGameLink">Van partij %s</string>
+  <string name="continueTraining">Ga verder met de training</string>
+  <string name="difficultyLevel">Moeilijkheidsgraad</string>
+  <string name="normal">Standaard</string>
+  <string name="easier">Gemakkelijker</string>
+  <string name="easiest">Gemakkelijkst</string>
+  <string name="harder">Moeilijker</string>
+  <string name="hardest">Moeilijkst</string>
+  <string name="example">Voorbeeld</string>
+</resources>

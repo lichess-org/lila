@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Puzles</string>
+  <string name="recommended">Ieteikumi</string>
+  <string name="phases">Posmi</string>
+  <string name="motifs">Motīvi</string>
+  <string name="advanced">Papildu iespējas</string>
+  <string name="lengths">Garumi</string>
+  <string name="mates">Mati</string>
+  <string name="goals">Mērķi</string>
+  <string name="specialMoves">Īpaši gājieni</string>
+  <string name="didYouLikeThisPuzzle">Vai patika šī puzle?</string>
+  <string name="voteToLoadNextOne">Balsojiet, lai ielādētu nākamo!</string>
+  <string name="yourPuzzleRatingX">Jūsu pužļu reitings: %s</string>
+  <string name="findTheBestMoveForWhite">Atrodiet labāko gājienu baltajiem.</string>
+  <string name="findTheBestMoveForBlack">Atrodiet labāko gājienu melnajiem.</string>
+  <string name="toGetPersonalizedPuzzles">Lai iegūtu pielāgotas puzles:</string>
+  <string name="puzzleId">Puzle %s</string>
+  <string name="puzzleOfTheDay">Dienas puzle</string>
+  <string name="clickToSolve">Klikšķiniet, lai atrisinātu</string>
+  <string name="goodMove">Labs gājiens</string>
+  <string name="bestMove">Vislabākais gājiens!</string>
+  <string name="keepGoing">Turpiniet…</string>
+  <string name="puzzleSuccess">Izdevās!</string>
+  <string name="puzzleComplete">Puzle atrisināta!</string>
+  <string name="notTheMove">Tas nav īstais gājiens!</string>
+  <string name="trySomethingElse">Izmēģiniet ko citu.</string>
+  <string name="ratingX">Reitings: %s</string>
+  <string name="hidden">slēpts</string>
+  <plurals name="playedXTimes">
+    <item quantity="zero">Spēlēts %s reizes</item>
+    <item quantity="one">Spēlēts %s reizi</item>
+    <item quantity="other">Spēlēts %s reizes</item>
+  </plurals>
+  <string name="fromGameLink">No spēles %s</string>
+  <string name="continueTraining">Turpināt treniņu</string>
+  <string name="difficultyLevel">Grūtības pakāpe</string>
+  <string name="normal">Parasta</string>
+  <string name="easier">Vieglāka</string>
+  <string name="easiest">Visvieglākā</string>
+  <string name="harder">Grūtāka</string>
+  <string name="hardest">Visgrūtākā</string>
+  <string name="example">Piemērs</string>
+</resources>

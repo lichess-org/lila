@@ -420,6 +420,7 @@
   <string name="lastName">姓</string>
   <string name="biography">自己紹介</string>
   <string name="country">国</string>
+  <string name="thankYou">ありがとう！</string>
   <string name="socialMediaLinks">ソーシャルメディアへのリンク</string>
   <string name="inlineNotation">棋譜を行書き</string>
   <string name="watchLichessTV">Lichess TV を観戦</string>
@@ -428,33 +429,7 @@
   <string name="activeToday">今日の対局数上位</string>
   <string name="activePlayers">総対局数上位</string>
   <string name="bewareTheGameIsRatedButHasNoClock">注意！レイティング対象ですが時間無制限です</string>
-  <string name="yourPuzzleRatingX">タクティクス レーティング: %s</string>
-  <string name="findTheBestMoveForWhite">白の最善手を見つけてください。</string>
-  <string name="findTheBestMoveForBlack">黒の最善手を見つけてください。</string>
-  <string name="toTrackYourProgress">履歴を保存するには:</string>
-  <string name="puzzleId">問題番号 %s</string>
-  <string name="puzzleOfTheDay">今日の問題</string>
-  <string name="clickToSolve">問題を解く</string>
-  <string name="goodMove">次善手</string>
-  <string name="butYouCanDoBetter">もっといい手があります。</string>
-  <string name="bestMove">最善手！</string>
-  <string name="keepGoing">続ける</string>
-  <string name="puzzleFailed">不正解</string>
-  <string name="butYouCanKeepTrying">別の手をどうぞ。</string>
   <string name="success">成功</string>
-  <string name="wasThisPuzzleAnyGood">この問題はよかったですか？</string>
-  <string name="pleaseVotePuzzle">今後の改善のため、上下の矢印で投票をお願いします:</string>
-  <string name="thankYou">ありがとう！</string>
-  <string name="ratingX">レーティング: %s</string>
-  <string name="hidden">非表示</string>
-  <plurals name="playedXTimes">
-    <item quantity="other">解答数のべ %s 回</item>
-  </plurals>
-  <string name="fromGameLink">ゲーム%sから</string>
-  <string name="continueTraining">トレーニングを続ける</string>
-  <string name="retryThisPuzzle">この問題に再挑戦する</string>
-  <string name="thisPuzzleIsCorrect">この問題は正しく、おもしろい。</string>
-  <string name="thisPuzzleIsWrong">この問題はおかしい／つまらない</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s 局対局中</item>
   </plurals>

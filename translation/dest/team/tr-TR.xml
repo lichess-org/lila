@@ -42,4 +42,6 @@ Mesajlarınızı almayı sevmeyen oyuncular takımdan ayrılabilir.</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">A dëshironi të shpërndani linkun e ndonjërit prej turnireve në vijim?</string>
   <string name="usersWhoCanManageThisTeam">Bu takımı yönetebilen kullanıcılar</string>
   <string name="leadersChat">Liderler arası sohbet</string>
+  <string name="closeTeam">Takımı kapat</string>
+  <string name="closeTeamDescription">Takımı sonsuza dek kapatır.</string>
 </resources>

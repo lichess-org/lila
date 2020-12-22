@@ -42,4 +42,6 @@ Spelare som inte gillar att ta emot dina meddelanden kan komma att lämna laget.
   <string name="youWayWantToLinkOneOfTheseTournaments">Du kanske vill länka en av dessa kommande turneringar?</string>
   <string name="usersWhoCanManageThisTeam">Användare som kan managera detta lag</string>
   <string name="leadersChat">Lagledarchatt</string>
+  <string name="closeTeam">Avsluta lag</string>
+  <string name="closeTeamDescription">Stänger laget för evigt.</string>
 </resources>

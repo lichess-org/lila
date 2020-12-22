@@ -42,4 +42,6 @@ Pelaajat, jotka eivät mielellään ota vastaan viestejäsi, saattavat lähteä 
   <string name="youWayWantToLinkOneOfTheseTournaments">Saatat haluta linkata yhden näistä tulevista turnauksista?</string>
   <string name="usersWhoCanManageThisTeam">Käyttäjät, jotka voivat hallita tätä joukkuetta</string>
   <string name="leadersChat">Johtajien chat</string>
+  <string name="closeTeam">Sulje joukkue</string>
+  <string name="closeTeamDescription">Sulkee joukkueen pysyvästi.</string>
 </resources>

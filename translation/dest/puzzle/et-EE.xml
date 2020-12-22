@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Pusled</string>
+  <string name="recommended">Soovitatav</string>
+  <string name="phases">Etapid</string>
+  <string name="advanced">Lisavalikud</string>
+  <string name="lengths">Pikkused</string>
+  <string name="goals">Eesmärgid</string>
+  <string name="yourPuzzleRatingX">Sinu lahendamisskoor: %s</string>
+  <string name="findTheBestMoveForWhite">Leia parim käik valgele.</string>
+  <string name="findTheBestMoveForBlack">Leia parim käik mustale.</string>
+  <string name="puzzleId">%s ülesanne</string>
+  <string name="puzzleOfTheDay">Päevaülesanne</string>
+  <string name="clickToSolve">Lahendamiseks vajuta</string>
+  <string name="goodMove">Hea käik</string>
+  <string name="bestMove">Parim käik!</string>
+  <string name="keepGoing">Liigu edasi…</string>
+  <string name="puzzleSuccess">Edukas!</string>
+  <string name="ratingX">Reiting: %s</string>
+  <string name="hidden">peidetud</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Mängitud %s kord</item>
+    <item quantity="other">Mängitud %s korda</item>
+  </plurals>
+  <string name="fromGameLink">%s mängudest</string>
+  <string name="continueTraining">Jätka treeningut</string>
+  <string name="difficultyLevel">Raskusaste</string>
+  <string name="normal">Tavaline</string>
+  <string name="easier">Kerge</string>
+  <string name="easiest">Väga kerge</string>
+  <string name="harder">Raske</string>
+  <string name="hardest">Väga raske</string>
+  <string name="example">Näide</string>
+</resources>

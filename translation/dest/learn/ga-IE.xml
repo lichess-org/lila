@@ -3,5 +3,34 @@
   <string name="learnChess">Foghlaim ficheall</string>
   <string name="byPlaying">trí imirt!</string>
   <string name="menu">Roghchlár</string>
-  <string name="progressX">Forás%s</string>
+  <string name="progressX">Forás: %s</string>
+  <string name="resetMyProgress">Athshocraigh mo thomhas</string>
+  <string name="youWillLoseAllYourProgress">Caillfidh tú do thomhas ar fad!</string>
+  <string name="play">imir!</string>
+  <string name="chessPieces">Píosanna fichille</string>
+  <string name="theRook">An caiseal</string>
+  <string name="itMovesInStraightLines">Bogann sé i línte díreacha</string>
+  <string name="rookIntro">Is píosa cumhachtach é an caiseal. An bhfuil tú réidh é a ordú?</string>
+  <string name="rookGoal">Clicáil ar an gcaiseal agus tabhair é chun an réalta!</string>
+  <string name="grabAllTheStars">Sciob gach réalta!</string>
+  <string name="theBishop">An t-easpag</string>
+  <string name="itMovesDiagonally">Bogann sé go fiar</string>
+  <string name="theQueen">An bhanríon</string>
+  <string name="queenCombinesRookAndBishop">Banríon = caiseal + easpag</string>
+  <string name="theKing">An rí</string>
+  <string name="theMostImportantPiece">An píosa is tábhachtach</string>
+  <string name="theKingIsSlow">Is píosa mall é an rí.</string>
+  <string name="theKnight">An ridire</string>
+  <string name="itMovesInAnLShape">Bogann sé chomh an litir L</string>
+  <string name="thePawn">An ceithearnach</string>
+  <string name="itMovesForwardOnly">Ní bogann sé ach díreach</string>
+  <string name="pawnsMoveOneSquareOnly">Ní bogann sé ach céarnóg amhain. Ach nuair a sroicheann sé an taobh eile, beidh sé mar píosa níos láidir!</string>
+  <string name="pawnPromotion">Ardú ceithearnaigh</string>
+  <string name="fundamentals">Buneolas</string>
+  <string name="capture">Gabháil</string>
+  <string name="intermediate">Meanleibhéal</string>
+  <string name="castling">Caisliú</string>
+  <string name="enPassant">En passant</string>
+  <string name="stalemate">Leamhsháinn</string>
+  <string name="advanced">Ardeolas</string>
 </resources>

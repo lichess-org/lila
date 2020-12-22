@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Problems</string>
+  <string name="recommended">Direkomendasikan</string>
+  <string name="phases">Tahapan</string>
+  <string name="motifs">Tema</string>
+  <string name="advanced">Lanjut</string>
+  <string name="lengths">Panjang</string>
+  <string name="mates">Mat</string>
+  <string name="goals">Tujuan</string>
+  <string name="specialMoves">Langkah spesial</string>
+  <string name="didYouLikeThisPuzzle">Apakah anda menyukai problem ini?</string>
+  <string name="voteToLoadNextOne">Isi untuk memanggil yang satunya lagi!</string>
+  <string name="yourPuzzleRatingX">Rating Problem anda: %s</string>
+  <string name="findTheBestMoveForWhite">Temukan langkah terbaik putih.</string>
+  <string name="findTheBestMoveForBlack">Temukan langkah terbaik hitam.</string>
+  <string name="toGetPersonalizedPuzzles">Untuk mendapatkan problem pribadi:</string>
+  <string name="puzzleId">Problems %s</string>
+  <string name="puzzleOfTheDay">Problem hari ini</string>
+  <string name="clickToSolve">Klik untuk jawabannya</string>
+  <string name="goodMove">Langkah bagus</string>
+  <string name="bestMove">Langkah Baik!</string>
+  <string name="keepGoing">Lanjutkan…</string>
+  <string name="puzzleSuccess">Sukses!</string>
+  <string name="puzzleComplete">Problem lengkap!</string>
+  <string name="notTheMove">Itu bukan langkahnya!</string>
+  <string name="trySomethingElse">Coba lagi lainnya.</string>
+  <string name="ratingX">Rating: %s</string>
+  <string name="hidden">sembunyi</string>
+  <plurals name="playedXTimes">
+    <item quantity="other">Bermain % kali</item>
+  </plurals>
+  <string name="fromGameLink">Dari game %s</string>
+  <string name="continueTraining">Lanjut latihan</string>
+  <string name="difficultyLevel">Level Sulit</string>
+  <string name="normal">Normal</string>
+  <string name="easier">Lebih mudah</string>
+  <string name="easiest">Paling mudah</string>
+  <string name="harder">Lebih sulit</string>
+  <string name="hardest">Paling sulit</string>
+  <string name="example">Contoh</string>
+</resources>

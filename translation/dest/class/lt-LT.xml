@@ -4,6 +4,7 @@
   <string name="teachClassesOfChessStudents">Mokykite šachmatų mokinių klases su Lichess klasių įrankių paketu.</string>
   <string name="features">Funkcijos</string>
   <string name="quicklyGenerateSafeUsernames">Greitai mokiniams sugeneruokite saugius vartotojų vardus ir slaptažodžius</string>
+  <string name="trackStudentProgress">Sekite mokinių progresą žaidimuose ir galvosūkiuose</string>
   <string name="messageAllStudents">Praneškite visiems mokiniams apie naują pamokų medžiagą</string>
   <string name="freeForAllForever">100% nemokamas visiems ir visada, jokių reklamų ar sekimo įskiepių</string>
   <string name="applyToBeLichessTeacher">Tapkite Lichess mokytoju</string>
@@ -52,4 +53,52 @@ Slaptažodis: %3$s</string>
 Štai nuoroda patekti į klasę.</string>
   <string name="invitationToClass">Jūs buvote pakviestas prisijungti prie klasės \"%s\" kaip mokinys.</string>
   <string name="clickToViewInvitation">Spustelėkite nuorodą norėdami peržiūrėti pakvietimą:</string>
+  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+    <item quantity="one">Vienas laukiantis kvietimas</item>
+    <item quantity="few">%s laukiantys kvietimai</item>
+    <item quantity="many">%s laukiančio kvietimo</item>
+    <item quantity="other">%s laukiančių kvietimų</item>
+  </plurals>
+  <string name="noPendingInvitations">Nėra laukiančių kvietimų</string>
+  <string name="onlyVisibleToTeachers">Matoma tik klasės mokytojams</string>
+  <string name="lastActiveDate">Aktyvus</string>
+  <string name="managed">Valdoma</string>
+  <string name="thisStudentAccountIsManaged">Ši mokinio paskyra valdoma</string>
+  <string name="upgradeFromManaged">Keisti iš valdomos į autonominę</string>
+  <string name="release">Išleisti</string>
+  <string name="releaseTheAccount">Išleidus paskyrą mokinys ją gali valdyti savarankiškai.</string>
+  <string name="releaseDesc1">Išleista paskyra nebegali tapti valdoma. Mokinys galės perjungi vaikų režimą ar pakeisti savo slaptažodį.</string>
+  <string name="releaseDesc2">Po paskyros paleidimo mokinys liks klasėje.</string>
+  <string name="realUniqueEmail">Tikras, unikalus mokinio el. pašto adresas. Juo išsiųsime patvirtinimo laišką su nuoroda išleisti paskyrą.</string>
+  <string name="teachers">Mokytojai</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Mokytojas</item>
+    <item quantity="few">%s mokytojai</item>
+    <item quantity="many">%s mokytojo</item>
+    <item quantity="other">%s mokytojų</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Mokinys</item>
+    <item quantity="few">%s mokiniai</item>
+    <item quantity="many">%s mokinio</item>
+    <item quantity="other">%s mokinių</item>
+  </plurals>
+  <string name="students">Mokiniai</string>
+  <string name="progress">Progresas</string>
+  <string name="noStudents">Klasėje dar nėra mokinių.</string>
+  <string name="noRemovedStudents">Nėra pašalintų mokinių.</string>
+  <string name="overDays">Per dienas</string>
+  <string name="timePlaying">Žaista laiko</string>
+  <string name="variantXOverLastY">%1$s per paskutines %2$s</string>
+  <string name="winrate">Laimėjimo dažnumas</string>
+  <string name="na">Neprieinama</string>
+  <string name="news">Klasės naujienos</string>
+  <string name="editNews">Keisti naujienas</string>
+  <string name="notifyAllStudents">Pranešti visiems mokiniams</string>
+  <string name="nothingHere">Kol kas nieko.</string>
+  <string name="newsEdit1">Visos klasės naujienos viename laukelyje.</string>
+  <string name="newsEdit2">Paskutines naujienas pridėkite viršuje. Netrinkite esamų naujienų.</string>
+  <string name="newsEdit3">Atskirkite naujienas su ---
+Taip bus parodyta horizontali linija.</string>
+  <string name="markdownAvailable">%s prieinamas sudėtingesnei sintaksei.</string>
 </resources>

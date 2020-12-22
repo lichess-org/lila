@@ -276,6 +276,7 @@
     <item quantity="one">%s सेकंड्स दें</item>
     <item quantity="other">%s सेकंड्स दें</item>
   </plurals>
+  <string name="thisAccountViolatedTos">इस खाते ने सेवा की शर्तों का उल्लंघन किया</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">यह खिलाड़ी धोखे से अपने अंक बदलता है</string>
   <string name="openingExplorerAndTablebase">ओपनिंग एक्सप्लोरर &amp; टेबलबेस</string>
   <string name="takeback">चाल को वापस लें</string>
@@ -446,6 +447,7 @@
   <string name="lastName">अंतिम नाम</string>
   <string name="biography">जीवनी</string>
   <string name="country">देश</string>
+  <string name="thankYou">धन्यवाद!</string>
   <string name="socialMediaLinks">सामाजिक माध्यम</string>
   <string name="inlineNotation">इनलाइन नोटेशन</string>
   <string name="watchLichessTV">Lichess TV देखें</string>
@@ -454,34 +456,7 @@
   <string name="activeToday">आज सक्रिय</string>
   <string name="activePlayers">सक्रिय  खिलाडी</string>
   <string name="bewareTheGameIsRatedButHasNoClock">सावधान, खेल मूल्यांकित है लेकिन कोई समय नियंत्रण नहीं है!</string>
-  <string name="yourPuzzleRatingX">आपकी पहेली-आधारित रेटिंग है: %s</string>
-  <string name="findTheBestMoveForWhite">सफेद के लिए सबसे अच्छी चाल ढूंढें।</string>
-  <string name="findTheBestMoveForBlack">काले के लिए सबसे अच्छी चाल ढूंढें।</string>
-  <string name="toTrackYourProgress">अपनी प्रगति का हिसाब देखने के लिए:</string>
-  <string name="puzzleId">पहेली क्रमांक %s</string>
-  <string name="puzzleOfTheDay">आज की पहेली</string>
-  <string name="clickToSolve">हल करने के लिए क्लिक करें|</string>
-  <string name="goodMove">अच्छी चाल!</string>
-  <string name="butYouCanDoBetter">पर आप बहतर कर सकते है!</string>
-  <string name="bestMove">सर्वश्रेष्ठ चाल!</string>
-  <string name="keepGoing">लगे रहें …</string>
-  <string name="puzzleFailed">पहेली असफल</string>
-  <string name="butYouCanKeepTrying">परंतु आप फिर कोशिश कर सकतें है</string>
   <string name="success">सफलता</string>
-  <string name="wasThisPuzzleAnyGood">क्या यह पहेली बढ़िया थी?</string>
-  <string name="pleaseVotePuzzle">वोट करके लीचेस की सहायता करियें, ऊपर या नीचे वाले तीर का इस्तेमाल करें</string>
-  <string name="thankYou">धन्यवाद!</string>
-  <string name="ratingX">रेटिंग: %s</string>
-  <string name="hidden">छिपा हुआ</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">%s बार खेला गया</item>
-    <item quantity="other">%s बार खेला गया</item>
-  </plurals>
-  <string name="fromGameLink">%s खेल से</string>
-  <string name="continueTraining">प्रशिक्षण जारी रखें</string>
-  <string name="retryThisPuzzle">यह पहेली पुनः खेलें</string>
-  <string name="thisPuzzleIsCorrect">यह पहेली सही एवं दिलचस्प थी</string>
-  <string name="thisPuzzleIsWrong">यह पहेली गलत एवं बेकार थी</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s खेल खेले जा रहे है</item>
     <item quantity="other">%s खेल खेले जा रहे है</item>
@@ -530,6 +505,8 @@
   <string name="currentPassword">वर्तमान पासवर्ड</string>
   <string name="newPassword">नया पासवर्ड</string>
   <string name="newPasswordAgain">नया पासवर्ड (फिर से)</string>
+  <string name="newPasswordsDontMatch">नए पासवर्ड मेल नहीं खाते हैं</string>
+  <string name="newPasswordStrength">पासवर्ड क्षमता</string>
   <string name="clockInitialTime">घड़ी का शुरुआती समय</string>
   <string name="clockIncrement">समय वृद्धि</string>
   <string name="privacy">एकांतता (प्राइवेसी)</string>
@@ -853,5 +830,16 @@
   <string name="correspondenceDesc">पत्राचार खेल: एक या कई दिन प्रति चाल</string>
   <string name="puzzleDesc">शतरंज की रणनीति के प्रशिक्षक</string>
   <string name="important">जरूरी</string>
+  <string name="yourQuestionMayHaveBeenAnswered">आपके प्रश्न में पहले से ही एक उत्तर %1$s हो सकता है</string>
   <string name="inTheFAQ">F.A.Q. मे</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">उपयोगकर्ता को धोखा देने या बुरे व्यवहार के लिए रिपोर्ट करने के लिए,%1$s</string>
+  <string name="useTheReportForm">रिपोर्ट फॉर्म का उपयोग करें</string>
+  <string name="toRequestSupport">समर्थन का अनुरोध करने के लिए,%1$s</string>
+  <string name="tryTheContactPage">संपर्क पृष्ठ का प्रयास करें</string>
+  <string name="thisTopicIsArchived">इस विषय को संग्रहीत किया गया है और अब इसका उत्तर नहीं दिया जा सकता है।</string>
+  <string name="joinTheTeamXToPost">इस फ़ोरम में पोस्ट करने के लिए%1$s से जुड़ें</string>
+  <string name="teamNamedX">%1$s टीम</string>
+  <string name="youCannotPostYetPlaySomeGames">आप अभी तक फ़ोरम में पोस्ट नहीं कर सकते। कुछ गेम्स खेलें!</string>
+  <string name="subscribe">सदस्यता लें</string>
+  <string name="unsubscribe">सदस्यता रद्द करें</string>
 </resources>

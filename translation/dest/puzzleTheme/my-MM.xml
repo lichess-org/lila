@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="advancedPawn">ရှေ့ရောက် ပွန်း</string>
+  <string name="advancedPawnDescription">ဤနည်းဗျူဟာတွင် ရာထူးတိုးသော သို့မဟုတ် တိုးရန် ခြိမ်းခြောက်နေသာ ပွန်းသည် သော့ချက် ဖြစ်သည်</string>
+  <string name="advantageDescription"> အဆုံးအဖြတ် ပေးနိုင်သော အသာစီးမှုကို ရယူပါ (200cp ≤ eval ≤ 600cp)</string>
+  <string name="attackingF2F7">f2  သို့မဟုတ် f7 အား ထိုးနှက်ခြင်း</string>
+  <string name="attraction">မျှားခေါ်ခြင်း</string>
+  <string name="backRankMate">နောက်ဆုံးတန်း၌ အသေဖမ်းခြင်း</string>
+  <string name="backRankMateDescription">မိမိ၏ အရုပ်များနှင့် ပိတ်မိနေသာ ဘုရင်းအား ၎င်း၏ မူလ အတန်း၌ပင် မိအောင် ဖမ်းခြင်း။</string>
+  <string name="bishopEndgame">ဘစ်ရှော့ ပွဲသိမ်း</string>
+  <string name="bishopEndgameDescription">ဘစ်ရှော့များနှင့် ပွန်းများသာ ကျန်သော ပွဲသိမ်းပိုင်း</string>
+  <string name="castling">ရထားပြောင်းခြင်း</string>
+  <string name="castlingDescription">ဘုရင်အား လုံခြုံရာသို့ ပို့ပြီး ရထားအား ထိုးနှက်ရန် အဆင်သင့် ဖြစ်စေခြင်း</string>
+  <string name="mateIn3">သုံးလှည့်နှင့် အမိဖမ်းရန်</string>
+  <string name="mateIn4">လေးလှည့်နှင့် အမိဖမ်းရန်</string>
+  <string name="mateIn5">ငါးလှည့် သို့မဟုတ် အထက်နှင့် အမိဖမ်းရန်</string>
+</resources>

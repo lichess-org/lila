@@ -419,6 +419,7 @@
   <string name="lastName">姓</string>
   <string name="biography">個人簡介</string>
   <string name="country">國家</string>
+  <string name="thankYou">謝謝！</string>
   <string name="socialMediaLinks">官方社群連結</string>
   <string name="inlineNotation">棋譜集中顯示</string>
   <string name="watchLichessTV">觀看Lichess TV</string>
@@ -427,33 +428,7 @@
   <string name="activeToday">本日活躍棋手</string>
   <string name="activePlayers">活躍棋手</string>
   <string name="bewareTheGameIsRatedButHasNoClock">注意，這盤棋是評級的，但是没有計時！</string>
-  <string name="yourPuzzleRatingX">您的解題等級：%s</string>
-  <string name="findTheBestMoveForWhite">找出白方的最佳著法</string>
-  <string name="findTheBestMoveForBlack">找出黑方的最佳著法</string>
-  <string name="toTrackYourProgress">註冊以跟蹤您的進度：</string>
-  <string name="puzzleId">%s 號題</string>
-  <string name="puzzleOfTheDay">每日一題</string>
-  <string name="clickToSolve">点击解题</string>
-  <string name="goodMove">好棋</string>
-  <string name="butYouCanDoBetter">您還可以做得更好。</string>
-  <string name="bestMove">最佳着法！</string>
-  <string name="keepGoing">繼續…</string>
-  <string name="puzzleFailed">解題失敗</string>
-  <string name="butYouCanKeepTrying">但您可以繼續嘗試。</string>
   <string name="success">大功告成！</string>
-  <string name="wasThisPuzzleAnyGood">這道題目好不好？</string>
-  <string name="pleaseVotePuzzle">按向上鍵或向下鍵投票來幫助 Lichess 提高訓練題品質：</string>
-  <string name="thankYou">謝謝！</string>
-  <string name="ratingX">評級：%s</string>
-  <string name="hidden">隱藏</string>
-  <plurals name="playedXTimes">
-    <item quantity="other">已被嘗試%s次</item>
-  </plurals>
-  <string name="fromGameLink">來自對局 %s</string>
-  <string name="continueTraining">繼續訓練</string>
-  <string name="retryThisPuzzle">重試本題</string>
-  <string name="thisPuzzleIsCorrect">本題正確且有趣</string>
-  <string name="thisPuzzleIsWrong">本題錯誤及乏味</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s場對局正在進行中</item>
   </plurals>

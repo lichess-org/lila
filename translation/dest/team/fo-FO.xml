@@ -41,5 +41,5 @@
   <string name="usersWhoCanManageThisTeam">Brúkarar, ið kunnu leiða hetta liðið</string>
   <string name="leadersChat">Leiðaraprát (kjatt)</string>
   <string name="closeTeam">Lat lið aftur</string>
-  <string name="closeTeamDescription" comment="closeTeamDescription&#10;&#10;If you click this, your team will be closed forever.">Letur lið aftur med alla.</string>
+  <string name="closeTeamDescription">Letur lið aftur med alla.</string>
 </resources>

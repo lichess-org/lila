@@ -34,7 +34,7 @@
   <string name="whitePlays">Hvítur eigur leik</string>
   <string name="blackPlays">Svartur eigur leik</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Títt mótstøðufólk fór frá talvinum. Tú kanst siga teg hava vunnið um %s sekund.</item>
+    <item quantity="one">Mótleikarin fór frá talvinum. Tú kanst siga teg hava vunnið um %s sekund.</item>
     <item quantity="other">Títt mótstøðufólk fór frá talvinum. Tú kanst siga teg hava vunnið um %s sekund.</item>
   </plurals>
   <string name="opponentLeftChoices">Tín móttelvari er farin frá talvinum. Tú kanst antin krevja sigur, siga tað vera remis ella bíða.</string>
@@ -79,7 +79,7 @@
   <string name="unknown">Ókent</string>
   <string name="database">Dátugrunnur</string>
   <string name="whiteDrawBlack">Hvítur / Javnt / Svartur</string>
-  <string name="averageRatingX">Miðal styrkimeting: %s</string>
+  <string name="averageRatingX">Miðal styrkismeting: %s</string>
   <string name="recentGames">Nýliga telvað talv</string>
   <string name="topGames">Bestu talv</string>
   <string name="masterDbExplanation">Tvær milliónir OTB talv hjá %1$s+ FIDE-styrkismettum telvarum frá %2$s til %3$s</string>
@@ -121,8 +121,8 @@
   <string name="moveTimes">Leiktíðir</string>
   <string name="flipBoard">Vend borði við</string>
   <string name="threefoldRepetition">Endurtøka tríggjar ferðir</string>
-  <string name="claimADraw">Krev javnleik (remis)</string>
-  <string name="offerDraw">Eg bjóði javnleik (remis)</string>
+  <string name="claimADraw">Krev remis (javnleik)</string>
+  <string name="offerDraw">Eg bjóði remis</string>
   <string name="draw">Javnleikur</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s telvari</item>
@@ -211,7 +211,7 @@
   <string name="yourOpponentOffersADraw">Mótleikarin bjóðar tær javnt</string>
   <string name="accept">Góðtak</string>
   <string name="decline">Nokta</string>
-  <string name="playingRightNow">Telvað beint nú</string>
+  <string name="playingRightNow">Verður telvað beint nú</string>
   <string name="eventInProgress">Telvað beint nú</string>
   <string name="finished">Liðugt</string>
   <string name="finishesX">endar %s</string>
@@ -250,8 +250,8 @@
   <string name="freeOnlineChess">Ókeypis talv á netinum</string>
   <string name="spectators">Áskoðarar:</string>
   <plurals name="nbRated">
-    <item quantity="one">%s styrkimett</item>
-    <item quantity="other">%s styrkimett</item>
+    <item quantity="one">%s styrkismett</item>
+    <item quantity="other">%s styrkismett</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s vunnið</item>
@@ -288,10 +288,10 @@
   <string name="bookmarkThisGame">Set bókamerki við hetta talvið</string>
   <string name="tournament">Kapping</string>
   <string name="tournaments">Kappingar</string>
-  <string name="tournamentPoints">Kappingarstig</string>
+  <string name="tournamentPoints">Kappingastig</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s kappingarstig</item>
-    <item quantity="other">%s kappingarstig</item>
+    <item quantity="other">%s kappingastig</item>
   </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s rannsókn</item>
@@ -395,7 +395,7 @@
   <string name="winner">Vinnari</string>
   <string name="standing">Støðan</string>
   <string name="createANewTournament">Stovna eina nýggja kapping</string>
-  <string name="tournamentCalendar">Kappingarkalendari</string>
+  <string name="tournamentCalendar">Kappingakalendari</string>
   <string name="conditionOfEntry">Luttøkufortreytir:</string>
   <string name="advancedSettings">Framkomnar stillingar</string>
   <string name="safeTournamentName">Vel eitt trygt og hóskiligt navn til kappingina.</string>
@@ -421,9 +421,9 @@
   <string name="performance">Avrik</string>
   <string name="tournamentComplete">Kappingin fullfíggjað</string>
   <string name="movesPlayed">Telvdir leikir</string>
-  <string name="whiteWins">Hvítur vinnur</string>
-  <string name="blackWins">Svartur vinnur</string>
-  <string name="draws">Javnleikur</string>
+  <string name="whiteWins">Sigrar við hvítum</string>
+  <string name="blackWins">Sigrar við svørtum</string>
+  <string name="draws">Javnleikir</string>
   <string name="nextXTournament">Næsta %s kapping:</string>
   <string name="averageOpponent">Miðalmótleikari</string>
   <string name="membersOnly">Bert brúkarar</string>
@@ -446,41 +446,15 @@
   <string name="lastName">Eftirnavn</string>
   <string name="biography">Ævilýsing</string>
   <string name="country">Land</string>
+  <string name="thankYou">Takk fyri!</string>
   <string name="socialMediaLinks">Leinki til sosialar miðlar</string>
   <string name="watchLichessTV">Hygg at Lichess sjónvarpi</string>
-  <string name="previouslyOnLichessTV">Áður sýnt á Lichess sjónvarpi</string>
+  <string name="previouslyOnLichessTV">Áður víst í Lichess-sjónvarpi</string>
   <string name="onlinePlayers">Telvarar á netinum nú</string>
   <string name="activeToday">Virknir í dag</string>
   <string name="activePlayers">Virknir telvarar</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Gev gætur, talvið verður styrkismett, men hevur onga klokku!</string>
-  <string name="yourPuzzleRatingX">Títt uppgávustyrkital: %s</string>
-  <string name="findTheBestMoveForWhite">Finn besta leikin hjá hvítum.</string>
-  <string name="findTheBestMoveForBlack">Finn besta leikin hjá svørtum.</string>
-  <string name="toTrackYourProgress">Fylg við í tínari framgongd:</string>
-  <string name="puzzleId">Uppgáva %s</string>
-  <string name="puzzleOfTheDay">Dagsins talvuppgáva</string>
-  <string name="clickToSolve">Klikk á at loysa</string>
-  <string name="goodMove">Góður leikur</string>
-  <string name="butYouCanDoBetter">Ein betri leikur er.</string>
-  <string name="bestMove">Besti leikur</string>
-  <string name="keepGoing">Blív við</string>
-  <string name="puzzleFailed">Uppgávan miseydnaðist</string>
-  <string name="butYouCanKeepTrying">Men til ber at halda fram at royna.</string>
   <string name="success">Tað eydnaðist</string>
-  <string name="wasThisPuzzleAnyGood">Var henda uppgávan góð?</string>
-  <string name="pleaseVotePuzzle">Hjálp Lichess at gerast betri. Atkvøð við at nýta upp- og niður-pílin:</string>
-  <string name="thankYou">Takk fyri!</string>
-  <string name="ratingX">Styrkital: %s</string>
-  <string name="hidden">fjalt</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Roynt %s ferð</item>
-    <item quantity="other">Roynt %s ferðir</item>
-  </plurals>
-  <string name="fromGameLink">Úr talvi %s</string>
-  <string name="continueTraining">Halt fram við venjing</string>
-  <string name="retryThisPuzzle">Royn aftur</string>
-  <string name="thisPuzzleIsCorrect">Henda uppgávan er røtt og áhugaverd</string>
-  <string name="thisPuzzleIsWrong">Henda uppgávan er skeiv og keðilig</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s talv verður telvað</item>
     <item quantity="other">%s talv verða telvað</item>
@@ -706,6 +680,7 @@
   <string name="zeroAdvertisement">Ongar lýsingar</string>
   <string name="fullFeatured">Við øllum hentleikum</string>
   <string name="phoneAndTablet">Snildfon og teldil</string>
+  <string name="bulletBlitzClassical">Bullet, snartalv, vanligt</string>
   <string name="correspondenceChess">Brævtalv</string>
   <string name="onlineAndOfflinePlay">Telva á netinum og uttan net</string>
   <string name="viewTheSolution">Síggj svarið</string>
@@ -818,13 +793,17 @@
   <string name="temporaryInconvenience">Vit biðja teg halda okkum til góðar fyri fyribils órógvanina</string>
   <string name="wishYouGreatGames">og ynskja tær nógv góð talv á lichess.org.</string>
   <string name="thankYouForReading">Takk fyri, at tú las hetta!</string>
+  <string name="agreementAccount">Eg taki undir við, at eg ikki fái mær fleiri kontur.</string>
   <string name="agreementPolicy">Eg samtykki, at eg fari at fylgja øllum Lichess-reglugerðum.</string>
   <string name="searchOrStartNewDiscussion">Leita eftir samrøðu ella byrja eina nýggja</string>
   <string name="edit">Broyt</string>
+  <string name="rapid">Kviktalv</string>
+  <string name="classical">Vanligt</string>
   <string name="ultraBulletDesc">Vitleyst skjót talv: styttri enn 30 sekund</string>
   <string name="bulletDesc">Ógvuliga skjót talv: styttri enn 3 minuttir</string>
   <string name="blitzDesc">Skjót talv: 3 til 8 minuttir</string>
   <string name="correspondenceDesc">Brævtalv: ein ella fleiri dagar fyri hvønn leik</string>
+  <string name="puzzleDesc">Taktikkvenjing</string>
   <string name="important">Umráðandi</string>
   <string name="yourQuestionMayHaveBeenAnswered">Spurningur tín hevur kanska longu eitt svar %1$s</string>
   <string name="inTheFAQ">í F.A.Q.-inum.</string>

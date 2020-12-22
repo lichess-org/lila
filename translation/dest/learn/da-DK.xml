@@ -48,7 +48,7 @@
   <string name="aPawnOnTheSecondRank">En bonde på anden række kan flytte 2 felter på én gang!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Fang alle stjernerne! Ingen grund til at forfremme.</string>
   <string name="pawnComplete">Tillykke! Bønder har ingen hemmeligheder for dig.</string>
-  <string name="pawnPromotion">Bonde-forfremmelse</string>
+  <string name="pawnPromotion">Bondeforvandling</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Din bonde har nået kanten af brættet!</string>
   <string name="itNowPromotesToAStrongerPiece">Den forfremmes nu til en stærkere brik.</string>
   <string name="selectThePieceYouWant">Vælg den brik du vil have!</string>

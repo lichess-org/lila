@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="advancedPawn">Pažengęs pėstininkas</string>
+  <string name="advancedPawnDescription">Pėstininkas, kuris keičiamas kita figūra, ar tuoj tai darys, čia yra esminė taktika.</string>
+  <string name="advantage">Pranašumas</string>
+  <string name="advantageDescription">Pasinaudokite proga įgauti esminį pranašumą. (200cp ≥ eval ≤ 600cp)</string>
+  <string name="attackingF2F7">F2 ar f7 puolimas</string>
+  <string name="attackingF2F7Description">Puolimas, koncentruotas ties f2 ar f7 pėstininkais, panašiai kaip keptų kepenų debiute.</string>
+  <string name="attraction">Trauka</string>
+  <string name="attractionDescription">Apsikeitimas ar paaukojimas, skatinantis ar priverčiantis priešininko figūrą pajudėti į langelį, kuris leidžia kitą taktiką.</string>
+  <string name="backRankMate">Paskutinės eilės matas</string>
+  <string name="backRankMateDescription">Matas karaliui, esančiam namų eilėje, kai jis užblokuotas savo paties figūrų.</string>
+  <string name="bishopEndgame">Rikių endšpilis</string>
+  <string name="bishopEndgameDescription">Endšpilis tik su rikiais ir pėstininkais.</string>
+  <string name="castling">Rokiruotės</string>
+  <string name="endgame">Endšpilis</string>
+  <string name="endgameDescription">Taktika, skirta paskutinei žaidimo fazei.</string>
+  <string name="knightEndgame">Žirgų endšpilis</string>
+  <string name="knightEndgameDescription">Endšpilis tik su žirgais ir pėstininkais.</string>
+  <string name="middlegame">Mitelšpilis</string>
+  <string name="middlegameDescription">Taktikos skirtos antrai žaidimo fazei.</string>
+  <string name="oneMove">Vieno ėjimo galvosūkiai</string>
+  <string name="oneMoveDescription">Tik vieno ėjimo galvosūkiai.</string>
+  <string name="opening">Debiutai</string>
+  <string name="openingDescription">Taktika, kuri galioja pirmoje žaidimo fazėje.</string>
+  <string name="overloading">Perkrovimas</string>
+  <string name="pawnEndgame">Pėstininkų endšpilis</string>
+  <string name="pawnEndgameDescription">Endšpilis tik su pėstininkais.</string>
+  <string name="queenEndgame">Karalienės endšpilis</string>
+  <string name="queenEndgameDescription">Endšpilis tik su karalienėmis ir pėstininkais.</string>
+  <string name="rookEndgame">Bokštų endšpilis</string>
+  <string name="rookEndgameDescription">Endšpilis tik su bokštais ir pėstininkais.</string>
+</resources>

@@ -5,6 +5,7 @@
   <string name="twoFactorApp">Skaf en app til totrinsbekræftelse, for eksempel Google Authenticator til %1$s eller %2$s.</string>
   <string name="scanTheCode">Skan QR-koden med appen.</string>
   <string name="enterPassword">Indtast din adgangskode og bekræftelseskoden genereret af appen for at færdiggøre opsætningen. Du vil få brug for en bekræftelseskode, hvor gang du logger ind.</string>
+  <string name="ifYouCannotScanEnterX" comment="ifYouCannotScanEnterX&#10;&#10;%s is the authentication code">Hvis du ikke kan scanne koden, skal du indtaste den hemmelige %s i din app.</string>
   <string name="authenticationCode">Bekræftelseskode</string>
   <string name="ifYouLoseAccess">Bemærk: Hvis du mister adgang til dine totrinsbekræftelseskoder, kan du lave en adgangskode-nulstilling via e-mail.</string>
   <string name="enableTwoFactor">Aktivér totrinsbekræftelse</string>

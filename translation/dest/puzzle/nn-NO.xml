@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Taktikkoppgåver</string>
+  <string name="recommended">Anbefalt</string>
+  <string name="phases">Fasar</string>
+  <string name="motifs">Motiv</string>
+  <string name="advanced">Vidarekomande</string>
+  <string name="lengths">Lengder</string>
+  <string name="mates">Mattar</string>
+  <string name="goals">Mål</string>
+  <string name="specialMoves">Spesialtrekk</string>
+  <string name="didYouLikeThisPuzzle">Likte du denne oppgåva?</string>
+  <string name="voteToLoadNextOne">Stem for å laste den neste!</string>
+  <string name="yourPuzzleRatingX">Problemløysar-ratinga di: %s</string>
+  <string name="findTheBestMoveForWhite">Finn det beste trekket for kvit.</string>
+  <string name="findTheBestMoveForBlack">Finn det beste trekket for svart.</string>
+  <string name="toGetPersonalizedPuzzles">For å få personleg tilpassa oppgåver:</string>
+  <string name="puzzleId">Oppgåve %s</string>
+  <string name="puzzleOfTheDay">Dagens oppgåve</string>
+  <string name="clickToSolve">Klikk for å løyse oppgåva</string>
+  <string name="goodMove">Godt trekk</string>
+  <string name="bestMove">Beste trekk!</string>
+  <string name="keepGoing">Hald fram…</string>
+  <string name="puzzleSuccess">Korrekt!</string>
+  <string name="puzzleComplete">Oppgåva er fullført!</string>
+  <string name="notTheMove">Det er ikkje rett trekk!</string>
+  <string name="trySomethingElse">Prøv noko anna.</string>
+  <string name="ratingX">Rating: %s</string>
+  <string name="hidden">løynd</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Spelt %s gong</item>
+    <item quantity="other">Spelt %s gonger</item>
+  </plurals>
+  <string name="fromGameLink">Frå parti %s</string>
+  <string name="continueTraining">Hald fram å øva</string>
+  <string name="difficultyLevel">Vanskenivå</string>
+  <string name="normal">Middels</string>
+  <string name="easier">Enklare</string>
+  <string name="easiest">Enklast</string>
+  <string name="harder">Vanskelegare</string>
+  <string name="hardest">Vanskelegast</string>
+  <string name="example">Døme</string>
+</resources>

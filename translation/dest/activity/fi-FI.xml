@@ -11,8 +11,8 @@
     <item quantity="other">Harjoitteli %1$s %2$s -tilannetta</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Harjoitteli %s taktiikkatehtävää</item>
-    <item quantity="other">Harjoitteli %s taktiikkatehtävää</item>
+    <item quantity="one">Ratkaisi %s taktiikkatehtävän</item>
+    <item quantity="other">Ratkaisi %s taktiikkatehtävää</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Pelasi %1$s %2$s-pelin</item>

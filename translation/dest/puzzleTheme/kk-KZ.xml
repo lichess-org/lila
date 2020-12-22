@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="advancedPawn">Кеңейтілген сарбаз</string>
+  <string name="advancedPawnDescription">Сарбазды айналдыру не айналдырумен қорқыту – тактиканың кілті.</string>
+  <string name="advantage">Артықшылық</string>
+  <string name="advantageDescription">Артықшылыққа ие болу үшін мүмкіндікті пайдаланыңыз. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="attackingF2F7">Шабуылдайтын f2 не f7</string>
+  <string name="attackingF2F7Description">\"Қуырылған бүйрек\" бастауындағыдай f2 не f7 сарбазына бағытталған шабуыл.</string>
+  <string name="attraction">Тартымдылық</string>
+  <string name="attractionDescription">Қарсылас тасын белгілі бір шаршыға итермелейтін не күштеп ығыстыратын айырбастау не құрбан ету.</string>
+  <string name="backRankMate">Сап артына мат</string>
+  <string name="backRankMateDescription">Өз үйінде өз тастарымен қамалған патшаға мат.</string>
+  <string name="bishopEndgame">Пiл ойынсоңы</string>
+  <string name="bishopEndgameDescription">Пілдер мен сарбаздары ғана бар ойынсоңы.</string>
+  <string name="castling">Бекіну</string>
+  <string name="castlingDescription">Патшаны қорғаулы жерге кіргізіп, тураны шабуылға даярлаңыз.</string>
+  <string name="capturingDefender">Қорғаушыны басып алыңыз</string>
+  <string name="capturingDefenderDescription">Бір тасты қорғап тұрған басқа тасты басып алсаңыз, әлгі тас қорғаусыз қалып, оны басып алуға жол ашылады.</string>
+  <string name="crushing">Жойқын</string>
+  <string name="crushingDescription">Жойқын артықшылыққа ие болу үшін қарсыластың қателігін анықтаңыз. (eval ≥ 600cp)</string>
+  <string name="equality">Теңдік</string>
+  <string name="equalityDescription">Жаман күйден шығып, ойынды тепе-теңдікке не тең күйге жеткізіңіз. (eval ≤ 200cp)</string>
+  <string name="kingsideAttack">Патша жақты шабуыл</string>
+  <string name="kingsideAttackDescription">Қарсыластың патшасы өз жағына бекінгеннен кейін оған жасалатын шабуыл.</string>
+  <string name="clearance">Тазарту</string>
+  <string name="clearanceDescription">Ілесу тактикасы мақсатында шаршыны, тігінен жолды не диагоналды тазарту үшін әдетте қарқынмен жасалынатын жүріс.</string>
+  <string name="defensiveMove">Қорғану жүрісі</string>
+  <string name="defensiveMoveDescription">Тастарды не артықшылықты жоғалтпау мақсатында жасалатын жүріс не жүрістер тізбегі.</string>
+  <string name="deflection">Назарын бұру</string>
+  <string name="deflectionDescription">Қарсыластың тасын өз міндетінен үзіп (мысалы, бір маңызды шаршыны қорғаудан), назарын бұру үшін жасалынатын жүріс.</string>
+  <string name="discoveredAttack">Ашылған шабуыл</string>
+  <string name="discoveredAttackDescription">Ұзын жүрісті тастың шабуылын бөгеп тұрған таспен жүру. Мысалы, тура жолында тұрған атпен жүру.</string>
+  <string name="doubleCheck">Қос шах</string>
+  <string name="doubleCheckDescription">Ашылған шабуыл кезінде екі тастың (яғни, шабулды ашқан тас пен шабуылдап жатқан тас) қарсылас патшасына бірден қойған шахтары.</string>
+  <string name="endgame">Ойынсоңы</string>
+  <string name="endgameDescription">Ойынның соңғы кезеңіндегі тактика.</string>
+  <string name="enPassantDescription">Бір сазбаз, қасынан қарсыластың сарбазы өткенде, оны басып алатын жағдайды, яғни жолай басып алуды қамтитын тактика.</string>
+  <string name="exposedKing">Жалаңаш патша</string>
+  <string name="exposedKingDescription">Бірнеше қорғаушысы бар патшаны қамтитын әдетте матқа әкелетін тактика.</string>
+  <string name="fork">Шанышқы</string>
+  <string name="forkDescription">Қарсыластың бірден екі тасына шабуылдайтын тас жүрісі.</string>
+  <string name="hangingPiece">Олжа тас</string>
+  <string name="hangingPieceDescription">Қарсыластың қорғаусыз не қорғанысы әлсіз тұрған тасты басып алуды меңзейтін тактика.</string>
+  <string name="interference">Бөгет</string>
+  <string name="interferenceDescription">Тасты қарсыластың екі тасының арасындағы қорғау жолына қойып, олардың біреуін не екеуін қорғаусыз ету. Мысалы, екі өзара қорғап тұрған туралардың арасына тұра қалған ат.</string>
+</resources>

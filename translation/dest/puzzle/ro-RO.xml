@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Probleme de șah</string>
+  <string name="phases">Faze</string>
+  <string name="lengths">Lungimi</string>
+  <string name="goals">Obiective</string>
+  <string name="specialMoves">Mutări speciale</string>
+  <string name="didYouLikeThisPuzzle">Ți-a plăcut această problemă?</string>
+  <string name="voteToLoadNextOne">Votează pentru a-l încărca pe următorul!</string>
+  <string name="findTheBestMoveForWhite">Găsiți cea mai bună mutare pentru alb.</string>
+  <string name="findTheBestMoveForBlack">Găsiți cea mai bună mutare pentru negru.</string>
+  <string name="puzzleOfTheDay">Problema zilei</string>
+  <string name="goodMove">Mutare bună</string>
+  <string name="bestMove">Cea mai bună mutare!</string>
+  <string name="keepGoing">Continuați…</string>
+  <string name="puzzleSuccess">Succes!</string>
+  <string name="puzzleComplete">Puzzle complet!</string>
+  <string name="notTheMove">Mișcarea nu este aceasta!</string>
+  <string name="trySomethingElse">Încercaţi altceva.</string>
+  <string name="hidden">ascuns</string>
+  <string name="fromGameLink">Din partida %s</string>
+  <string name="continueTraining">Continuați antrenamentul</string>
+  <string name="difficultyLevel">Nivel de dificultate</string>
+  <string name="normal">Normal</string>
+  <string name="easier">Mai ușor</string>
+  <string name="easiest">Cel mai ușor</string>
+  <string name="harder">Mai Greu</string>
+  <string name="hardest">Cel mai greu</string>
+  <string name="example">Exemplu</string>
+</resources>

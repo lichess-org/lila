@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Problemi</string>
+  <string name="recommended">Preporučeno</string>
+  <string name="phases">Faze</string>
+  <string name="motifs">Motivi</string>
+  <string name="advanced">Napredno</string>
+  <string name="lengths">Dužine</string>
+  <string name="mates">Matovi</string>
+  <string name="goals">Ciljevi</string>
+  <string name="specialMoves">Specijalni potezi</string>
+  <string name="didYouLikeThisPuzzle">Je li Vam se svidio ovaj problem?</string>
+  <string name="voteToLoadNextOne">Glasajte da učitate sljedeći!</string>
+  <string name="yourPuzzleRatingX">Vaš rejting u problemima: %s</string>
+  <string name="findTheBestMoveForWhite">Nađite najbolji potez za bijelog.</string>
+  <string name="findTheBestMoveForBlack">Nađite najbolji potez za crnog.</string>
+  <string name="toGetPersonalizedPuzzles">Kako biste dobili personalizirane probleme:</string>
+  <string name="puzzleId">Problem %s</string>
+  <string name="puzzleOfTheDay">Problem dana</string>
+  <string name="clickToSolve">Kliknite da riješite</string>
+  <string name="goodMove">Dobar potez</string>
+  <string name="bestMove">Najbolji potez!</string>
+  <string name="keepGoing">Nastavite…</string>
+  <string name="puzzleSuccess">Uspješno!</string>
+  <string name="puzzleComplete">Problem završen!</string>
+  <string name="notTheMove">To nije traženi potez!</string>
+  <string name="trySomethingElse">Pokušajte nešto drugo.</string>
+  <string name="ratingX">Rejting: %s</string>
+  <string name="hidden">skriven</string>
+  <string name="continueTraining">Nastavite trening</string>
+  <string name="difficultyLevel">Nivo težine</string>
+  <string name="normal">Normalni</string>
+  <string name="easier">Lakši</string>
+  <string name="easiest">Najlakši</string>
+  <string name="harder">Teži</string>
+  <string name="hardest">Najteži</string>
+  <string name="example">Primjer</string>
+</resources>
