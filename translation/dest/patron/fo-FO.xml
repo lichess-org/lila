@@ -14,4 +14,20 @@
   <string name="weAreNonProfit">Vit eru ein felagsskapur, sum ikki miðar eftir vinningi, tí vit halda, at øll eiga at hava atgongd til ein ókeypis telvingarpall í heimsflokki.</string>
   <string name="weRelyOnSupport">Vit eru bundin at stuðli frá fólki sum tær, skal hetta vera møguligt. Dámar tær at nýta Lichess, umhugsa so vinaliga at stuðla okkum við eini peningagávu og við at gerast Lichess vælvildarfólk!</string>
   <string name="lifetime">Lívstíð</string>
+  <string name="payLifetimeOnce">Rinda %s eina ferð. Verð Lichess vælvildarfólk um ævir!</string>
+  <string name="lifetimePatron">Lívstíðar Lichess vælvildarfólk</string>
+  <string name="makeExtraDonation">Vilt tú lata eina eyka gávu?</string>
+  <string name="monthly">Mánaðarligt</string>
+  <string name="recurringBilling">Afturvendandi rokning. Endurnýggja vælvildarveingir tínar hvønn mánaða.</string>
+  <string name="onetime">Eina ferð</string>
+  <string name="singleDonation">Einstøk gáva, ið gevur tær vælvildarveingir í ein mánaða.</string>
+  <string name="otherAmount">Annað</string>
+  <string name="pleaseEnterAmount">Skriva vinaliga eina upphædd í USD</string>
+  <string name="withCreditCard">Keypskort</string>
+  <string name="withPaypal">PayPal</string>
+  <string name="weAreSmallTeam">Vit eru eitt lítið lið, so tín stuðul ger stóran mun!</string>
+  <string name="celebratedPatrons">Virðismettu vælvildarfólkini, ið gera Lichess møguligt</string>
+  <string name="whereMoneyGoes">Hvagar fer peningurin?</string>
+  <string name="serversAndDeveloper">Fyrst av øllum til sterkar ambætarar. Síðani lata vit einum fulltíðarmennara løn: %s, stovnarin av Lichess.</string>
+  <string name="costBreakdown">Nágreinaðar útreiðslur</string>
 </resources>
