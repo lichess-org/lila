@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Sjakknøtter</string>
+  <string name="phases">Faser</string>
   <string name="motifs">Motiver</string>
   <string name="didYouLikeThisPuzzle">Likte du denne sjakknøtten?</string>
+  <string name="voteToLoadNextOne">Stem for å laste den neste!</string>
   <string name="yourPuzzleRatingX">Din sjakknøttrating: %s</string>
+  <string name="findTheBestMoveForWhite">Finn det beste trekket for hvit.</string>
+  <string name="findTheBestMoveForBlack">Finn det beste trekket for svart.</string>
   <string name="puzzleId">Sjakknøtt %s</string>
   <string name="puzzleOfTheDay">Dagens nøtt</string>
   <string name="puzzleComplete">Knekt nøtt!</string>
