@@ -95,6 +95,24 @@
   <string name="editor">Ritstjóri</string>
   <string name="startFromCustomPosition">Byrja við støðu, ið brúkari ger av</string>
   <string name="loadAGameByUrl">Les inn talv frá URL</string>
+  <string name="loadAPositionFromFen">Les inn talvstøðu frá FEN</string>
+  <string name="loadAGameFromPgn">Les inn talv frá PGN</string>
+  <string name="automatic">Sjálvvirkið</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">Set PGN tekstin hjá tær inn her, upp til %s talv</item>
+    <item quantity="other">Set PGN tekstin hjá tær inn her, upp til %s talv</item>
+  </plurals>
+  <string name="urlOfTheGame">URL fyri talvini</string>
+  <string name="loadAGameFromXOrY">Les talv inn frá %1$s ella %2$s</string>
+  <string name="createChapter">Stovna kapittul</string>
+  <string name="configureLiveBroadcast">Innstilla beinleiðis sending</string>
+  <string name="createStudy">Stovna rannsókn</string>
+  <string name="editStudy">Ritstjórna rannsókn</string>
+  <string name="visibility">Sýni</string>
+  <string name="public">Almen</string>
+  <string name="unlisted">Ikki skrásett</string>
+  <string name="inviteOnly">Bert innboðin</string>
+  <string name="allowCloning">Loyv kloning</string>
   <string name="nobody">Eingin</string>
   <string name="onlyMe">Bert eg</string>
   <string name="members">Limir</string>
