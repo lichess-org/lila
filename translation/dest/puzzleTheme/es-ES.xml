@@ -16,9 +16,9 @@
   <string name="capturingDefender">Capturar al defensor</string>
   <string name="equality">Igualdad</string>
   <string name="kingsideAttack">Ataque en el flanco de rey</string>
-  <string name="defensiveMove">Movimiento defensivo</string>
-  <string name="deflection">Desviación</string>
-  <string name="discoveredAttack">Ataque a la descubierta</string>
+  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Movimiento defensivo</string>
+  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Desviación</string>
+  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Ataque a la descubierta</string>
   <string name="doubleCheck">Jaque doble</string>
   <string name="endgame">Final</string>
   <string name="exposedKing">Rey expuesto</string>
@@ -62,12 +62,14 @@
   <string name="sacrificeDescription">Una táctica que implica renunciar a material a corto plazo, para obtener una ventaja luego de una secuencia forzada de movimientos.</string>
   <string name="short">Rompecabezas corto</string>
   <string name="shortDescription">Dos movimientos para ganar.</string>
+  <string name="skewer">Pincho</string>
   <string name="smotheredMate">Mate del ahogado</string>
   <string name="trappedPiece">Pieza atrapada</string>
   <string name="veryLong">Rompecabezas muy largo</string>
   <string name="veryLongDescription">Cuatro movimientos o más para ganar.</string>
   <string name="xRayAttack">Ataque de rayos X</string>
   <string name="zugzwang">Zugzwang</string>
+  <string name="zugzwangDescription">El oponente está limitado en los movimientos que puede realizar, y todos los movimientos empeoran su posición.</string>
   <string name="healthyMix">Mezcla saludable</string>
   <string name="healthyMixDescription">Un poco de todo. No sabes qué esperar, así que estarás listo para cualquier cosa. Al igual que en las partidas reales.</string>
 </resources>
