@@ -24,6 +24,8 @@
   <string name="exposedKing">Rey expuesto</string>
   <string name="hangingPiece">Pieza colgante</string>
   <string name="interference">Interferencia</string>
+  <string name="intermezzo">Jugada intermedia</string>
+  <string name="intermezzoDescription">En lugar de jugar el movimiento esperado, se realiza antes otro movimiento que plantea una amenaza inmediata a la que el oponente debe responder. También conocido como \"Zwischenzug\" o \"Intermezzo\".</string>
   <string name="knightEndgame">Final de caballos</string>
   <string name="long">Rompecabezas largo</string>
   <string name="longDescription">Tres movimientos para ganar.</string>
@@ -65,6 +67,7 @@
   <string name="skewer">Pincho</string>
   <string name="smotheredMate">Mate del ahogado</string>
   <string name="trappedPiece">Pieza atrapada</string>
+  <string name="underPromotion">Subpromoción</string>
   <string name="veryLong">Rompecabezas muy largo</string>
   <string name="veryLongDescription">Cuatro movimientos o más para ganar.</string>
   <string name="xRayAttack">Ataque de rayos X</string>
