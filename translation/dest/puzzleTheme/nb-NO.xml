@@ -3,6 +3,8 @@
   <string name="advancedPawn">Framskutt bonde</string>
   <string name="advancedPawnDescription">En bondeforvandling eller en trussel om bondeforvandling er nøkkeltaktikken.</string>
   <string name="advantage">Fordel</string>
+  <string name="advantageDescription">Grip sjansen til en avgjørende fordel. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="attackingF2F7">Angrep mot f2 eller f7</string>
   <string name="backRankMate">Sekkematt</string>
   <string name="bishopEndgame">Løpersluttspill</string>
   <string name="castling">Rokade</string>
