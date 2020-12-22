@@ -504,6 +504,11 @@
   <string name="about">Faoi</string>
   <string name="aboutX">Faoi %s</string>
   <string name="really">i ndáiríre</string>
+  <string name="contribute">Déan Tairbhe</string>
+  <string name="termsOfService">Téarmaí Seirbhíse</string>
+  <string name="sourceCode">Cód Foinseach</string>
+  <string name="simultaneousExhibitions">Taispeántais comhuineacha</string>
+  <string name="host">Óstach</string>
   <string name="create">Cruthaigh</string>
   <string name="lichessTournaments">Comórtais Lichess</string>
   <string name="tournamentFAQ">CCanna Comórtas Airéine</string>
