@@ -36,6 +36,7 @@
   <string name="endgameDescription">En taktik i den sidste fase af spillet.</string>
   <string name="enPassantDescription">En taktik som inkluderer en passant-reglen, hvor en bonde kan tage en modstanderbonde, der er flyttet forbi den med dens første to-felts-træk.</string>
   <string name="exposedKing">Eksponeret konge</string>
+  <string name="exposedKingDescription">En taktik der involverer en konge med få forsvarere omkring sig, hvilket ofte fører til skakmat.</string>
   <string name="fork">Gaffel</string>
   <string name="hangingPiece">Hængende brik</string>
   <string name="hangingPieceDescription">En taktik der indebærer, at en af modstanderens brikker, der ikke forsvares eller ikke forsvares tilstrækkeligt, frit kan tages.</string>
@@ -75,7 +76,9 @@
   <string name="queensideAttack">Dronningeside-angreb</string>
   <string name="quietMove">Stille træk</string>
   <string name="rookEndgame">Tårnslutspil</string>
+  <string name="rookEndgameDescription">Et slutspil med kun tårne og bønder.</string>
   <string name="sacrifice">Offer</string>
+  <string name="sacrificeDescription">En taktik der består i at opgive materiale på kort sigt for igen at få en fordel efter en tvungen træksekvens.</string>
   <string name="short">Kort opgave</string>
   <string name="shortDescription">To træk for at vinde.</string>
   <string name="smotheredMate">Kvalt mat</string>
