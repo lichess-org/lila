@@ -37,7 +37,6 @@ private object jsI18n {
     trans.mistakes,
     trans.blunders,
     trans.averageCentipawnLoss,
-    trans.goodMove,
     trans.viewTheSolution,
     trans.youNeedAnAccountToDoThat,
     // ceval (also uses gameOver)
@@ -77,7 +76,7 @@ private object jsI18n {
     trans.forceVariation,
     // practice (also uses checkmate, draw)
     trans.practiceWithComputer,
-    trans.goodMove,
+    trans.puzzle.goodMove,
     trans.inaccuracy,
     trans.mistake,
     trans.blunder,

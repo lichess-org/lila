@@ -20,6 +20,16 @@ object Chronometer {
       this
     }
 
+    def mon(path: lila.mon.TimerPath) = {
+      path(lila.mon).record(nanos).unit
+      this
+    }
+
+    def monValue(path: A => lila.mon.TimerPath) = {
+      path(result)(lila.mon).record(nanos).unit
+      this
+    }
+
     def pp: A = {
       println(s"chrono $showDuration")
       result
@@ -45,9 +55,12 @@ object Chronometer {
     }
 
     def mon(path: lila.mon.TimerPath) = {
-      lap dforeach { l =>
-        path(lila.mon).record(l.nanos).unit
-      }
+      lap dforeach { _.mon(path).unit }
+      this
+    }
+
+    def monValue(path: A => lila.mon.TimerPath) = {
+      lap dforeach { _.monValue(path).unit }
       this
     }
 
@@ -59,6 +72,11 @@ object Chronometer {
     def pp: Fu[A]                                            = lap.dmap(_.pp)
     def pp(msg: String): Fu[A]                               = lap.dmap(_ pp msg)
     def ppIfGt(msg: String, duration: FiniteDuration): Fu[A] = lap.dmap(_.ppIfGt(msg, duration))
+
+    def tap(f: Lap[A] => Unit) = {
+      lap dforeach f
+      this
+    }
 
     def result = lap.dmap(_.result)
   }

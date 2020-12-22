@@ -191,3 +191,17 @@ export function option(value: string, current: string | undefined, name: string)
 export function scrollTo(el: HTMLElement | undefined, target: HTMLElement |  null) {
   if (el && target) el.scrollTop = target.offsetTop - el.offsetHeight / 2 + target.offsetHeight / 2;
 }
+
+export function treeReconstruct(parts: any): Tree.Node {	
+  const root = parts[0], nb = parts.length;	
+  let node = root, i: number;	
+  root.id = '';	
+  for (i = 1; i < nb; i++) {	
+    const n = parts[i];	
+    if (node.children) node.children.unshift(n);	
+    else node.children = [n];	
+    node = n;	
+  }	
+  node.children = node.children || [];	
+  return root;	
+}

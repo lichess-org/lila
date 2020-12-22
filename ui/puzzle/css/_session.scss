@@ -1,0 +1,27 @@
+.puzzle__session {
+  display: flex;
+  flex-flow: row wrap-reverse;
+  margin-top: -.4em;
+  a {
+    @extend %box-radius;
+    flex: 0 0 2em;
+    height: 1em;
+    margin: .4em .5em 0 0;
+    opacity: .7;
+    &.result-true {
+      background: $c-good;
+    }
+    &.result-false {
+      background: $c-bad;
+    }
+    &.current {
+      background: $c-brag;
+    }
+    &.session-new {
+      background: $c-link;
+    }
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

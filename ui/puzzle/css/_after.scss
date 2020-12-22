@@ -1,95 +1,110 @@
 .puzzle__feedback.after {
-  .half {
-    flex: 1 1 50%;
+  flex-flow: row nowrap;
+
+  @include breakpoint($mq-col2) {
+    flex-flow: column;
   }
 
-  .half-top {
-    @extend %flex-center;
-
-    flex-flow: row nowrap;
-  }
 
   .complete {
-    flex: 1 0;
-    display: flex;
-    align-items: center;
+    @extend %flex-center;
+
     justify-content: center;
+    flex: 1 1 50%;
     font-size: 1.3em;
-    border: none;
     white-space: nowrap;
   }
 
-  .complete.win {
-    align-items: flex-start;
-  }
-
-  .vote {
-    display: flex;
-    flex-flow: column;
-    margin: 0 1em;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .vote a {
-    cursor: default;
-    cursor: pointer;
-    opacity: 0.7;
-  }
-
-  .vote a::before {
-    font-size: 26px;
-    line-height: 22px;
-  }
-
-  .vote a:hover,
-  .vote a.active {
-    opacity: 1;
-    color: $c-accent;
-  }
-
-  .vote span.count {
-    font-size: 15px;
-    line-height: 1;
-  }
-
   .continue {
-    @extend %flex-center;
+    @extend %flex-center-nowrap;
 
     justify-content: center;
     font-size: 1.3em;
     background: $c-primary;
     color: $c-primary-over;
     text-transform: uppercase;
-    padding: 0 10px;
-    order: -1;
+    padding: 2em;
 
-    @include breakpoint($mq-landscape) {
-      order: 0;
+    &:hover {
+      background: lighten($c-primary, 10%);
+    }
+
+    i::before {
+      font-size: 2.5em;
+      margin-right: 10px;
+    }
+  }
+}
+
+.puzzle__vote {
+  @extend %flex-column;
+
+  flex: 1 1 70%;
+
+  &__help {
+    margin: .5em 1em 0 0;
+
+    p {
+      display: inline;
+
+      &:last-child {
+        margin-left: 1ch;
+      }
+    }
+
+    @include breakpoint($mq-col2) {
+      display: block;
+      margin: 0 1em;
     }
   }
 
-  .continue:hover {
-    background: lighten($c-primary, 10%);
+  &__buttons {
+    @extend %flex-center-nowrap;
+
+    opacity: .1;
+
+    &.enabled {
+      opacity: 1;
+      @include transition(opacity, .5s);
+    }
+
+    flex: 1 1 100%;
+    align-items: stretch;
+    text-align: center;
   }
 
-  .continue i::before {
-    font-size: 2.5em;
-    margin-right: 10px;
-  }
+  .vote {
+    @extend %flex-center;
 
-  &.call {
-    flex: 17rem 1 0;
-  }
+    justify-content: center;
+    flex: 0 0 50%;
+    cursor: pointer;
+    color: $c-good;
 
-  .vote_call {
-    text-align: right;
-    background: $c-good;
-    color: #fff;
-    padding: 8px 10px;
+    &.vote-down {
+      color: $c-bad;
+    }
 
-    // display: none;
-    // @include breakpoint($
- 
+    &::before {
+      @extend %data-icon;
+
+      content: 'h';
+      font-size: 5em;
+    }
+
+    &.vote-down::before {
+      transform: rotate(0.5turn);
+    }
+
+    &:hover,
+    &.active {
+      background: $c-good;
+      color: $c-good-over;
+    }
+
+    &.vote-down:hover,
+    &.vote-down.active {
+      background: $c-bad;
+    }
   }
 }

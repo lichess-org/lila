@@ -16,16 +16,16 @@ function selector(data: StudyPracticeData) {
     h('option', {
       attrs: { disabled: true, selected: true }
     }, 'Practice list'),
-    ...data.structure.map(function(section) {
-      return h('optgroup', {
+    ...data.structure.map(section =>
+      h('optgroup', {
         attrs: { label: section.name }
-      }, section.studies.map(function(study) {
-        return option(
+      }, section.studies.map(study => 
+        option(
           section.id + '/' + study.slug + '/' + study.id,
           '',
-          study.name);
-      }));
-    })
+          study.name)
+      ))
+    )
   ]);
 }
 

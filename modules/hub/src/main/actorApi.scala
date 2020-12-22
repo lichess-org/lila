@@ -187,11 +187,6 @@ package timeline {
   }
 }
 
-package game {
-  case class ChangeFeatured(id: String, msg: JsObject)
-  case object Count
-}
-
 package tv {
   case class TvSelect(gameId: String, speed: chess.Speed, data: JsObject)
 }

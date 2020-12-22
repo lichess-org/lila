@@ -110,6 +110,7 @@ final class UserAnalysis(
       ctx: Context
   ): Fu[Result] =
     env.game.gameRepo initialFen pov.gameId flatMap { initialFen =>
+      val owner = isMyPov(pov)
       gameC.preloadUsers(pov.game) zip
         (env.analyse.analyser get pov.game) zip
         env.game.crosstableApi(pov.game) flatMap { case _ ~ analysis ~ crosstable =>
@@ -120,7 +121,8 @@ final class UserAnalysis(
             tv = none,
             analysis,
             initialFenO = initialFen.some,
-            withFlags = WithFlags(division = true, opening = true, clocks = true, movetimes = true)
+            withFlags = WithFlags(division = true, opening = true, clocks = true, movetimes = true),
+            owner = owner
           ) map { data =>
             Ok(data.add("crosstable", crosstable))
           }

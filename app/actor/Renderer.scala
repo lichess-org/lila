@@ -13,7 +13,7 @@ final private[app] class Renderer extends Actor {
     case lila.tv.actorApi.RenderFeaturedJs(game) =>
       sender() ! V.game.mini.noCtx(Pov naturalOrientation game, tv = true).render
 
-    case lila.puzzle.RenderDaily(puzzle, fen, lastMove) =>
+    case lila.puzzle.DailyPuzzle.Render(puzzle, fen, lastMove) =>
       sender() ! V.puzzle.bits.daily(puzzle, fen, lastMove).render
 
     case streams: lila.streamer.LiveStreams.WithTitles =>

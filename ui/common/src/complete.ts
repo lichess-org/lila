@@ -17,7 +17,7 @@ export default function <Result>(opts: Opts<Result>) {
     empty = opts.empty || (() => '<div class="complete-list__empty">No results.</div>'),
     cache = new Map<string, Result[]>(),
     fetchResults: Fetch<Result> = term => {
-      if (cache.has(term)) return new Promise(res => setTimeout(() => res(cache.get(term)), 50));
+      if (cache.has(term)) return new Promise(res => setTimeout(() => res(cache.get(term)!), 50));
       else if (
         term.length > 3 && Array.from({
           length: term.length - 3

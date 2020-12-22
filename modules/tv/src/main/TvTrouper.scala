@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 import scala.concurrent.Promise
 
 import lila.common.{ Bus, LightUser }
-import lila.game.Game
+import lila.game.{ Game, Pov }
 import lila.hub.Trouper
 
 final private[tv] class TvTrouper(
@@ -79,13 +79,14 @@ final private[tv] class TvTrouper(
       if (channel == Tv.Channel.Best) {
         implicit def timeout = makeTimeout(100 millis)
         actorAsk(renderer.actor, actorApi.RenderFeaturedJs(game)) foreach { case html: String =>
-          val event = lila.hub.actorApi.game.ChangeFeatured(
-            game.id,
+          val pov = Pov naturalOrientation game
+          val event = lila.round.ChangeFeatured(
+            pov,
             makeMessage(
               "featured",
               Json.obj(
                 "html"  -> html,
-                "color" -> game.naturalOrientation.name,
+                "color" -> pov.color.name,
                 "id"    -> game.id
               )
             )

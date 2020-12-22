@@ -1,8 +1,8 @@
 package lila
 
 import com.github.benmanes.caffeine.cache.{ Cache => CaffeineCache }
-import kamon.tag.TagSet
 import kamon.metric.{ Counter, Timer }
+import kamon.tag.TagSet
 
 import lila.common.ApiVersion
 
@@ -419,9 +419,35 @@ object mon {
   }
   object puzzle {
     object selector {
-      val time = timer("puzzle.selector.time").withoutTags()
-      val vote = histogram("puzzle.selector.vote").withoutTags()
+      object user {
+        def puzzle(theme: String, retries: Int, vote: Int) =
+          timer("puzzle.selector.user.puzzle").withTags(
+            Map("theme" -> theme, "retries" -> retries, "vote" -> vote)
+          )
+        def batch(nb: Int) = timer("puzzle.selector.user.batch").withTag("nb", nb)
+      }
+      object anon {
+        def puzzle(vote: Int) = timer("puzzle.selector.anon.puzzle").withTag("vote", vote)
+        def batch(nb: Int)    = timer("puzzle.selector.anon.batch").withTag("nb", nb)
+      }
+      def nextPuzzleResult(theme: String, difficulty: String, position: Int, result: String) =
+        timer("puzzle.selector.user.puzzle").withTags(
+          Map("theme" -> theme, "difficulty" -> difficulty, "position" -> position, "result" -> result)
+        )
     }
+    object path {
+      def nextFor(theme: String, tier: String, difficulty: String, previousPaths: Int, compromise: Int) =
+        timer("puzzle.path.nextFor").withTags(
+          Map(
+            "theme"         -> theme,
+            "tier"          -> tier,
+            "difficulty"    -> difficulty,
+            "previousPaths" -> previousPaths,
+            "compromise"    -> compromise
+          )
+        )
+    }
+
     object batch {
       object selector {
         val count = counter("puzzle.batch.selector.count").withoutTags()
@@ -430,13 +456,18 @@ object mon {
       val solve = counter("puzzle.batch.solve").withoutTags()
     }
     object round {
-      def attempt(mate: Boolean, user: Boolean, endpoint: String) =
-        counter("puzzle.attempt.count").withTags(Map("mate" -> mate, "user" -> user, "endpoint" -> endpoint))
+      def attempt(user: Boolean, theme: String) =
+        counter("puzzle.attempt.count").withTags(Map("user" -> user, "theme" -> theme))
     }
-    object vote {
-      val up   = counter("puzzle.vote.count").withTag("dir", "up")
-      val down = counter("puzzle.vote.count").withTag("dir", "down")
-    }
+    def vote(up: Boolean, win: Boolean) = counter("puzzle.vote.count").withTag("up", up)
+    def voteTheme(key: String, up: Option[Boolean], win: Boolean) =
+      counter("puzzle.selector.voteTheme").withTags(
+        Map(
+          "up"    -> up.fold("cancel")(_.toString),
+          "theme" -> key,
+          "win"   -> win
+        )
+      )
     val crazyGlicko = counter("puzzle.crazyGlicko").withoutTags()
   }
   object game {

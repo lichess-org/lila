@@ -1,19 +1,16 @@
 package lila.round
 
-import scala.math
-
+import actorApi.SocketStatus
+import chess.format.{ FEN, Forsyth }
+import chess.{ Clock, Color }
 import play.api.libs.json._
+import scala.math
 
 import lila.common.ApiVersion
 import lila.game.JsonView._
 import lila.game.{ Pov, Game, Player => GamePlayer }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
-
-import chess.format.{ FEN, Forsyth }
-import chess.{ Clock, Color }
-
-import actorApi.SocketStatus
 
 final class JsonView(
     userRepo: UserRepo,
@@ -38,9 +35,7 @@ final class JsonView(
 
   private def commonPlayerJson(g: Game, p: GamePlayer, user: Option[User], withFlags: WithFlags): JsObject =
     Json
-      .obj(
-        "color" -> p.color.name
-      )
+      .obj("color" -> p.color.name)
       .add("user" -> user.map { userJsonView.minimal(_, g.perfType) })
       .add("rating" -> p.rating)
       .add("ratingDiff" -> p.ratingDiff)

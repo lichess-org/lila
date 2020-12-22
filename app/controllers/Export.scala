@@ -9,6 +9,7 @@ import scala.concurrent.duration._
 import lila.app._
 import lila.common.HTTPRequest
 import lila.game.Pov
+import lila.puzzle.Puzzle.Id
 
 final class Export(env: Env) extends LilaController(env) {
 
@@ -53,18 +54,13 @@ final class Export(env: Env) extends LilaController(env) {
       }(rateLimitedFu)
     }
 
-  def legacyPuzzleThumbnail(id: Int) =
-    Action {
-      MovedPermanently(routes.Export.puzzleThumbnail(id).url)
-    }
-
-  def puzzleThumbnail(id: Int) =
+  def puzzleThumbnail(id: String) =
     Open { implicit ctx =>
       ExportImageRateLimitGlobal("-", msg = HTTPRequest.ipAddress(ctx.req).value) {
-        OptionFuResult(env.puzzle.api.puzzle find id) { puzzle =>
+        OptionFuResult(env.puzzle.api.puzzle find Id(id)) { puzzle =>
           env.game.gifExport.thumbnail(
-            fen = puzzle.fenAfterInitialMove | puzzle.fen,
-            lastMove = puzzle.initialMove.uci.some,
+            fen = puzzle.fenAfterInitialMove,
+            lastMove = puzzle.line.head.uci.some,
             orientation = puzzle.color
           ) map stream("image/gif") map { res =>
             res.withHeaders(CACHE_CONTROL -> "max-age=86400")

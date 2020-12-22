@@ -108,6 +108,11 @@ final class Mod(
       }
     )
 
+  def kid(username: String) =
+    OAuthMod(_.SetKidMode) { _ => me =>
+      modApi.setKid(me.id, username) map some
+    }(actionResult(username))
+
   def deletePmsAndChats(username: String) =
     OAuthMod(_.Shadowban) { _ => _ =>
       withSuspect(username) { sus =>

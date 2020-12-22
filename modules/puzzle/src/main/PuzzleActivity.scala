@@ -13,23 +13,23 @@ import lila.db.dsl._
 import lila.user.User
 
 final class PuzzleActivity(
-    puzzleColl: AsyncColl,
-    roundColl: AsyncColl
+    colls: PuzzleColls
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem
 ) {
 
   import PuzzleActivity._
-  import Round.RoundBSONHandler
+  import BsonHandlers._
+  import JsonView._
 
   def stream(config: Config): Source[String, _] =
     Source futureSource {
-      roundColl.map {
-        _.find($doc("_id" $startsWith config.user.id))
-          .sort($sort desc "_id")
+      colls.round.map {
+        _.find($doc(PuzzleRound.BSONFields.user -> config.user.id))
+          .sort($sort desc PuzzleRound.BSONFields.date)
           .batchSize(config.perSecond.value)
-          .cursor[Round](ReadPreference.secondaryPreferred)
+          .cursor[PuzzleRound](ReadPreference.secondaryPreferred)
           .documentSource()
           .take(config.max | Int.MaxValue)
           .grouped(config.perSecond.value)
@@ -42,25 +42,19 @@ final class PuzzleActivity(
       }
     }
 
-  private def enrich(rounds: Seq[Round]): Fu[Seq[JsObject]] =
-    puzzleColl {
-      _.primitiveMap[Int, Double](
+  private def enrich(rounds: Seq[PuzzleRound]): Fu[Seq[JsObject]] =
+    colls.puzzle {
+      _.primitiveMap[Puzzle.Id, Double](
         ids = rounds.map(_.id.puzzleId),
-        field = "perf.gl.r",
-        fieldExtractor = obj =>
-          for {
-            perf   <- obj.child("perf")
-            gl     <- perf.child("gl")
-            rating <- gl.double("r")
-          } yield rating
+        field = s"${Puzzle.BSONFields.glicko}.r",
+        fieldExtractor = _.child("glicko").flatMap(_ double "r")
       ) map { ratings =>
         rounds flatMap { round =>
           ratings get round.id.puzzleId map { puzzleRating =>
             Json.obj(
               "id"           -> round.id.puzzleId,
               "date"         -> round.date,
-              "rating"       -> round.rating,
-              "ratingDiff"   -> round.ratingDiff,
+              "win"          -> round.win,
               "puzzleRating" -> puzzleRating.toInt
             )
           }
