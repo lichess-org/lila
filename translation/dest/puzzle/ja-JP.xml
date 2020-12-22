@@ -1,2 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">タクティクス問題</string>
+  <string name="recommended">おすすめ</string>
+  <string name="motifs">モチーフ</string>
+  <string name="mates">メイト</string>
+  <string name="didYouLikeThisPuzzle">この問題は気に入りましたか？</string>
+  <string name="voteToLoadNextOne">投票すると次を読み込みます！</string>
+  <string name="yourPuzzleRatingX">タクティクス レーティング: %s</string>
+  <string name="findTheBestMoveForWhite">白の最善手を見つけてください。</string>
+  <string name="findTheBestMoveForBlack">黒の最善手を見つけてください。</string>
+  <string name="toGetPersonalizedPuzzles">あなたに合わせた問題を解くには:</string>
+  <string name="puzzleId">問題番号 %s</string>
+  <string name="puzzleOfTheDay">本日の問題</string>
+  <string name="clickToSolve">問題を解く</string>
+  <string name="goodMove">好手</string>
+  <string name="bestMove">最善手！</string>
+  <string name="keepGoing">続ける…</string>
+  <string name="puzzleSuccess">成功！</string>
+  <string name="puzzleComplete">問題終了！</string>
+  <string name="notTheMove">その手は違います！</string>
+</resources>
