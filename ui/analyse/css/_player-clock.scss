@@ -4,8 +4,8 @@ $clock-height: 20px;
   @extend %metal, %box-shadow;
 
   position: absolute;
-  right: 0;
-  padding: 0 .5em;
+  right: 3px; // 100/9 isn't as nice as 100/8
+  padding: 0 0.5em;
 
   height: $clock-height;
 
@@ -15,11 +15,11 @@ $clock-height: 20px;
   &.top {
     @extend %box-radius-top;
     top: #{-$clock-height};
-    z-index: 1; // over the board coords
+    z-index: 2; // over the board coords
   }
   &.bottom {
     @extend %box-radius-bottom;
-    bottom: #{-$clock-height};
+    bottom: -19px; // changed from #{-$clock-height}, 100/9
   }
   &.active {
     background: mix($c-primary, $c-bg-box, 30%);

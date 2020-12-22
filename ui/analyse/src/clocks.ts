@@ -2,16 +2,24 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import AnalyseCtrl from './ctrl';
 import { isFinished } from './study/studyChapters';
+import * as game from "game";
+
 
 export default function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
-  if (ctrl.embed) return;
+  if (ctrl.embed || ctrl.data.game.id === "synthetic") return;
 
-  const node = ctrl.node, clock = node.clock;
-  if (!clock && clock !== 0) return;
+  const node = ctrl.node,
+  clock = node.clock,
+  whitePov = ctrl.bottomIsWhite(),
+  isWhiteTurn = node.ply % 2 === 0;
 
-  const whitePov = ctrl.bottomIsWhite(),
-    parentClock = ctrl.tree.getParentClock(node, ctrl.path),
-    isWhiteTurn = node.ply % 2 === 0,
+  if (!clock && clock !== 0)
+    return [
+      renderOnlyName(ctrl, isWhiteTurn, whitePov ? 'bottom' : 'top', "white"),
+      renderOnlyName(ctrl, !isWhiteTurn, whitePov ? 'top' : 'bottom', "black")
+    ];
+
+  const parentClock = ctrl.tree.getParentClock(node, ctrl.path),
     centis: Array<number | undefined> = [parentClock, clock];
 
   if (!isWhiteTurn) centis.reverse();
@@ -27,15 +35,15 @@ export default function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefi
   const showTenths = !ctrl.study || !ctrl.study.relay;
 
   return [
-    renderClock(centis[0], isWhiteTurn, whitePov ? 'bottom' : 'top', showTenths),
-    renderClock(centis[1], !isWhiteTurn,  whitePov ? 'top' : 'bottom', showTenths)
+    renderClock(ctrl, centis[0], isWhiteTurn, whitePov ? 'bottom' : 'top', "white", showTenths),
+    renderClock(ctrl, centis[1], !isWhiteTurn,  whitePov ? 'top' : 'bottom', "black", showTenths)
   ];
 }
 
-function renderClock(centis: number | undefined, active: boolean, cls: string, showTenths: boolean): VNode {
+function renderClock(ctrl: AnalyseCtrl , centis: number | undefined, active: boolean, cls: string, color: Color, showTenths: boolean): VNode {
   return h('div.analyse__clock.' + cls, {
     class: { active },
-  }, clockContent(centis, showTenths));
+  }, [spanName(ctrl, color), h("span", {}, clockContent(centis, showTenths))]);
 }
 
 function clockContent(centis: number | undefined, showTenths: boolean): Array<string | VNode> {
@@ -53,4 +61,15 @@ function clockContent(centis: number | undefined, showTenths: boolean): Array<st
 
 function pad2(num: number): string {
   return (num < 10 ? '0' : '') + num;
+}
+
+function spanName(ctrl: AnalyseCtrl, color: Color, sep: string = " - ") {
+  const p = game.getPlayer(ctrl.data, color);
+  return h("span", [(p.user ? p.user.username : p.ai ? "Stockfish" : "Anonymous") + sep]);
+}
+
+function renderOnlyName(ctrl: AnalyseCtrl, active: boolean, cls: string, color: Color) {
+  return h('div.analyse__clock.' + cls, {
+    class: { active },
+  }, [spanName(ctrl, color, " ")]);
 }
