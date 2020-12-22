@@ -20,11 +20,13 @@
   <string name="theKing">An rí</string>
   <string name="theMostImportantPiece">An píosa is tábhachtach</string>
   <string name="theKingIsSlow">Is píosa mall é an rí.</string>
+  <string name="lastOne">An ceann deiridh!</string>
   <string name="theKnight">An ridire</string>
   <string name="itMovesInAnLShape">Bogann sé chomh an litir L</string>
   <string name="thePawn">An ceithearnach</string>
   <string name="itMovesForwardOnly">Ní bogann sé ach díreach</string>
   <string name="pawnsMoveOneSquareOnly">Ní bogann sé ach céarnóg amhain. Ach nuair a sroicheann sé an taobh eile, beidh sé mar píosa níos láidir!</string>
+  <string name="captureThenPromote">Gabháil, agus ansin, ardaigh!</string>
   <string name="pawnPromotion">Ardú ceithearnaigh</string>
   <string name="fundamentals">Buneolas</string>
   <string name="capture">Gabháil</string>
@@ -33,4 +35,17 @@
   <string name="enPassant">En passant</string>
   <string name="stalemate">Leamhsháinn</string>
   <string name="advanced">Ardeolas</string>
+  <string name="letsGo">Ar aghaidh linn!</string>
+  <string name="stageX">Leibhéal %s</string>
+  <string name="awesome">Thar barr!</string>
+  <string name="excellent">Iontach!</string>
+  <string name="greatJob">An mhaith!</string>
+  <string name="perfect">Foirfe!</string>
+  <string name="outstanding">Ar fheabhas!</string>
+  <string name="wayToGo">Maith thú!</string>
+  <string name="yourScore">Do scór</string>
+  <string name="next">Ar Aghaidh</string>
+  <string name="backToMenu">Ar ais don roghchlár</string>
+  <string name="puzzleFailed">Theip ar an bhfadhb!</string>
+  <string name="retry">Bain triail as arís</string>
 </resources>
