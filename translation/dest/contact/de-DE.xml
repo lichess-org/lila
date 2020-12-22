@@ -16,7 +16,7 @@
   <string name="visitTitleConfirmation">Um deinen Titel in deinem Lichess-Profil zu zeigen und an den Titled-Arenas teilzunehmen, besuche die Titelbestätigungsseite</string>
   <string name="wantCloseAccount">Ich möchte mein Konto schließen</string>
   <string name="closeYourAccount">Du kannst dein Konto auf dieser Seite schließen</string>
-  <string name="doNotAskByEmail">Bitte uns nicht per E-Mail ein Konto zu schließen, das kannst du selbst tun.</string>
+  <string name="doNotAskByEmail">Bitte uns nicht per E-Mail ein Konto zu schließen, wir werden es nicht schließen.</string>
   <string name="wantReopen">Ich möchte mein Konto wiedereröffnen</string>
   <string name="reopenOnThisPage">Du kannst dein Konto auf dieser Seite wiedereröffnen. Das funktioniert nur ein einziges Mal.</string>
   <string name="doNotAskByEmailToReopen">Bitte uns nicht per E-Mail ein Konto wiederzueröffnen, wir werden es nicht wiedereröffnen.</string>
@@ -27,7 +27,7 @@
   <string name="wantClearHistory">Ich möchte meinen Verlauf oder meine Wertung löschen</string>
   <string name="cantClearHistory">Es ist nicht möglich deinen Spiel-, Puzzleverlauf oder deine Wertung zu löschen.</string>
   <string name="wantReport">Ich möchte einen Spieler melden</string>
-  <string name="cheating">betrügen</string>
+  <string name="cheating">Betrügens</string>
   <string name="sandbagging">absichtlichen Verlierens</string>
   <string name="trolling">Trollens</string>
   <string name="insults">Beleidigungen</string>
