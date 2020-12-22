@@ -3,7 +3,7 @@
   <string name="advancedPawn">Pažengęs pėstininkas</string>
   <string name="advancedPawnDescription">Pėstininkas, kuris keičiamas kita figūra, ar tuoj tai darys, čia yra esminė taktika.</string>
   <string name="advantage">Pranašumas</string>
-  <string name="advantageDescription">Pasinaudokite proga įgauti esminį pranašumą. (200cp ≥ eval ≤ 600cp)</string>
+  <string name="advantageDescription">Pasinaudokite proga įgauti esminį pranašumą. (200cp ≤ eval ≤ 600cp)</string>
   <string name="attackingF2F7">F2 ar f7 puolimas</string>
   <string name="attackingF2F7Description">Puolimas, koncentruotas ties f2 ar f7 pėstininkais, panašiai kaip keptų kepenų debiute.</string>
   <string name="attraction">Trauka</string>
