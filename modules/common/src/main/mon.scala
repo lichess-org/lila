@@ -431,7 +431,7 @@ object mon {
         def batch(nb: Int)    = timer("puzzle.selector.anon.batch").withTag("nb", nb)
       }
       def nextPuzzleResult(theme: String, difficulty: String, position: Int, result: String) =
-        timer("puzzle.selector.user.puzzle").withTags(
+        timer("puzzle.selector.user.puzzleResult").withTags(
           Map("theme" -> theme, "difficulty" -> difficulty, "position" -> position, "result" -> result)
         )
     }
