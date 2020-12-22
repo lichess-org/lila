@@ -25,6 +25,7 @@
   <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Feltrømning</string>
   <string name="clearanceDescription">Et trekk, gjerne med tempo, som åpner et felt, en linje eller en diagonal for en påfølgende taktisk idé.</string>
   <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Forsvarstrekk</string>
+  <string name="defensiveMoveDescription">Et trekk eller en trekkrekke som er nøyaktig det som trengs for å unngå å tape materiell eller en annen fordel.</string>
   <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Avledning</string>
   <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Avdekker</string>
   <string name="doubleCheck">Dobbeltsjakk</string>
