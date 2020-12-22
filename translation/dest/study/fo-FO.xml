@@ -80,6 +80,9 @@
   <string name="analysisMode">Greiningarstøða</string>
   <string name="pinnedChapterComment">Føst viðmerking til kapittulin</string>
   <string name="saveChapter">Goym kapittulin</string>
+  <string name="clearAnnotations">Strika viðmerkingar</string>
+  <string name="deleteChapter">Strika kapittul</string>
+  <string name="deleteThisChapter">Strika henda kapittulin? Til ber ikki at angra!</string>
   <string name="normalAnalysis">Vanlig greining</string>
   <string name="hideNextMoves">Fjal næstu leikirnar</string>
   <string name="nobody">Eingin</string>
