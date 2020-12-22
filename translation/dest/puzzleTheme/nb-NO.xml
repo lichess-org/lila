@@ -23,9 +23,12 @@
   <string name="kingsideAttack">Angrep på kongefløyen</string>
   <string name="kingsideAttackDescription">Et angrep mot motstanderens konge etter kort rokade.</string>
   <string name="endgame">Sluttspill</string>
+  <string name="endgameDescription">En taktikk i den siste fasen av partiet.</string>
+  <string name="exposedKing">Utsatt konge</string>
   <string name="fork">Gaffel</string>
   <string name="intermezzo">Mellomtrekk</string>
   <string name="knightEndgame">Springersluttspill</string>
+  <string name="knightEndgameDescription">Et sluttspill med kun springere og bønder.</string>
   <string name="long">Lang sjakknøtt</string>
   <string name="longDescription">Tre trekk til vinst.</string>
   <string name="mate">Matt</string>
