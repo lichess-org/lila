@@ -1,2 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">Puzzles</string>
+  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Recommended</string>
+  <string name="phases">Phases</string>
+  <string name="motifs">Motifs</string>
+  <string name="advanced">Advanced</string>
+  <string name="lengths">Lengths</string>
+  <string name="mates">Mates</string>
+  <string name="goals">Goals</string>
+  <string name="specialMoves">Special moves</string>
+  <string name="didYouLikeThisPuzzle">Did you like this puzzle?</string>
+  <string name="voteToLoadNextOne">Vote to load the next one!</string>
+  <string name="yourPuzzleRatingX">Your puzzle rating: %s</string>
+  <string name="findTheBestMoveForWhite">Find the best move for white.</string>
+  <string name="findTheBestMoveForBlack">Find the best move for black.</string>
+  <string name="toGetPersonalizedPuzzles">To get personalized puzzles:</string>
+  <string name="puzzleId">Puzzle %s</string>
+  <string name="puzzleOfTheDay">Puzzle of the day</string>
+  <string name="clickToSolve">Click to solve</string>
+  <string name="goodMove">Good move</string>
+  <string name="bestMove">Best move!</string>
+  <string name="keepGoing">Keep going…</string>
+  <string name="puzzleSuccess">Success!</string>
+  <string name="puzzleComplete">Puzzle complete!</string>
+  <string name="notTheMove">That\'s not the move!</string>
+  <string name="trySomethingElse">Try something else.</string>
+  <string name="ratingX">Rating: %s</string>
+  <string name="hidden">hidden</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Played %s time</item>
+    <item quantity="other">Played %s times</item>
+  </plurals>
+  <string name="fromGameLink">From game %s</string>
+  <string name="continueTraining">Continue training</string>
+  <string name="difficultyLevel">Difficulty level</string>
+  <string name="normal">Normal</string>
+  <string name="easier">Easier</string>
+  <string name="easiest">Easiest</string>
+  <string name="harder">Harder</string>
+  <string name="hardest">Hardest</string>
+  <string name="example">Example</string>
+  <string name="addAnotherTheme">Add another theme</string>
+</resources>
