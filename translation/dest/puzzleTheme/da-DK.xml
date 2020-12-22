@@ -68,14 +68,17 @@
   <string name="opening">Åbning</string>
   <string name="openingDescription">En taktik i den første fase af spillet.</string>
   <string name="overloading">Overbelastning</string>
+  <string name="overloadingDescription">Når en brik er bebyrdet med flere opgaver som for eksempel at forsvare to brikker på én gang. Tages en af de forsvarede brikker, kan det give en ny mulighed for modstanderen svarende til en afledning.</string>
   <string name="pawnEndgame">Bondeslutspil</string>
   <string name="pawnEndgameDescription">Et slutspil kun med bønder.</string>
   <string name="pin">Binding</string>
   <string name="pinDescription">En taktik med bindinger, hvor en brik er ude af stand til at bevæge sig uden at afdække et angreb på en brik af højere værdi.</string>
   <string name="promotion">Bondeforvandling</string>
+  <string name="promotionDescription">En bonde, der forvandles eller truer med at forvandle, er nøglen til taktikken.</string>
   <string name="queenEndgame">Dronningeslutspil</string>
   <string name="queenEndgameDescription">Et slutspil med kun dronninger og bønder.</string>
   <string name="queensideAttack">Dronningeside-angreb</string>
+  <string name="queensideAttackDescription">Et angreb på modstanderens konge efter der er rokeret på dronningesiden.</string>
   <string name="quietMove">Stille træk</string>
   <string name="quietMoveDescription">Et træk som ikke sætter skak eller tager en brik, men som forbereder en uundgåelig trussel ved et senere træk.</string>
   <string name="rookEndgame">Tårnslutspil</string>
@@ -84,6 +87,8 @@
   <string name="sacrificeDescription">En taktik der består i at opgive materiale på kort sigt for igen at få en fordel efter en tvungen træksekvens.</string>
   <string name="short">Kort opgave</string>
   <string name="shortDescription">To træk for at vinde.</string>
+  <string name="skewer">Spid</string>
+  <string name="skewerDescription">En manøvre hvor en brik af høj værdi angribes og må flyttes, hvorved en brik af lavere værdi bagved kan tages eller trues. Det omvendte af en binding.</string>
   <string name="smotheredMate">Kvalt mat</string>
   <string name="smotheredMateDescription">En skakmat leveret af en ridder, hvor den matte konge er ude af stand til at bevæge sig, fordi den er omgivet (eller kvalt) af sine egne brikker.</string>
   <string name="trappedPiece">Fastlåste brikker</string>
