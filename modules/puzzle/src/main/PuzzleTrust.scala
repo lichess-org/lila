@@ -68,10 +68,13 @@ final private class PuzzleTrustApi(colls: PuzzleColls)(implicit ec: scala.concur
   // 200 games  = 2.41
   // 1000 games = 3.16
   private def nbGamesBonus(user: User) =
-    math.sqrt(user.count.game / 100)
+    nbBonus(user.count.game)
 
   private def nbPuzzlesBonus(user: User) =
-    math.sqrt(user.perfs.puzzle.nb / 100)
+    nbBonus(user.perfs.puzzle.nb)
+
+  private def nbBonus(nb: Int) =
+    math.sqrt(nb / 100) atMost 10
 
   private def modBonus(user: User) =
     if (user.roles.exists(_ contains "ROLE_PUZZLE_CURATOR")) 100
@@ -80,5 +83,5 @@ final private class PuzzleTrustApi(colls: PuzzleColls)(implicit ec: scala.concur
     else 0
 
   private def lameBonus(user: User) =
-    if (user.lame) -10 else 0
+    if (user.lameOrTroll) -10 else 0
 }
