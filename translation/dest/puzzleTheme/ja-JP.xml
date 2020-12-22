@@ -23,4 +23,5 @@
   <string name="kingsideAttack">キングサイド攻撃</string>
   <string name="kingsideAttackDescription">キングサイドにキャスリングした相手のキングを攻撃します。</string>
   <string name="fork">フォーク</string>
+  <string name="forkDescription">動いた駒が相手の2つの駒を同時に攻撃する動き。</string>
 </resources>
