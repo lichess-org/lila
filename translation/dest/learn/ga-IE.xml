@@ -13,6 +13,7 @@
   <string name="rookIntro">Is píosa cumhachtach é an caiseal. An bhfuil tú réidh é a ordú?</string>
   <string name="rookGoal">Clicáil ar an gcaiseal agus tabhair é chun an réalta!</string>
   <string name="grabAllTheStars">Sciob gach réalta!</string>
+  <string name="theFewerMoves">Dá laghad beart a dhéanann tú, bheadh tuilleadh pointe agat!</string>
   <string name="theBishop">An t-easpag</string>
   <string name="itMovesDiagonally">Bogann sé go fiar</string>
   <string name="theQueen">An bhanríon</string>
