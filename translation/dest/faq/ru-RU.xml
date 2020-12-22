@@ -33,7 +33,7 @@
   <string name="basedOnGameDuration">Контроль времени влияет на общее ожидаемое время на партию, равное %1$s
  Например, время партии с контролем 5+3 равно 5 × 60 + 40 × 3 = 420 секунд.</string>
   <string name="durationFormula">(начальное время) + 40 × (добавка)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$s с = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s с = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
   <string name="whatVariantsCanIplay">В какие виды шахмат я могу играть на Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess поддерживает стандартные шахматы и ещё %1$s.</string>
