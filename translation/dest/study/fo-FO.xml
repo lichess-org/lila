@@ -115,9 +115,18 @@
   <string name="allowCloning">Loyv kloning</string>
   <string name="nobody">Eingin</string>
   <string name="onlyMe">Bert eg</string>
+  <string name="contributors">Luttakarar</string>
   <string name="members">Limir</string>
   <string name="everyone">Øll</string>
+  <string name="enableSync">Samstilling møgulig</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Ja: varðveit øll í somu støðu</string>
   <string name="noLetPeopleBrowseFreely">Nei: lat fólk kaga frítt</string>
+  <string name="pinnedStudyComment">Føst rannsóknarviðmerking</string>
   <string name="start">Byrja</string>
   <string name="save">Goym</string>
+  <string name="clearChat">Rudda kjatt</string>
+  <string name="deleteTheStudyChatHistory">Skal kjattsøgan í rannsóknini strikast? Til ber ikki at angra!</string>
+  <string name="deleteStudy">Burturbein rannsókn</string>
+  <string name="deleteTheEntireStudy">Skal øll rannsóknin strikast? Til ber ikki at angra!</string>
+  <string name="whereDoYouWantToStudyThat">Hvar vilt tú rannsaka hatta?</string>
 </resources>
