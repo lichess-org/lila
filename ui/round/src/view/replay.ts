@@ -18,9 +18,9 @@ const autoScroll = throttle(
   100,
   (movesEl: HTMLElement, ctrl: RoundController) =>
     window.requestAnimationFrame(() => {
-      if (ctrl.data.steps.length < 7) return;
+      if (ctrl.data.steps.length < 5) return;
       let st: number | undefined = undefined;
-      if (ctrl.ply < 3) st = 0;
+      if (ctrl.ply < 1) st = 0;
       else if (ctrl.ply == round.lastPly(ctrl.data)) st = scrollMax;
       else {
         const plyEl = movesEl.querySelector(".active") as
@@ -118,7 +118,7 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
 
   for (let i = 0; i < move.length; i++) {
     els.push(h("index", i + 1 + ""));
-    els.push(renderMove(move[i], curPly, true, (ctrl.shogiground  && ctrl.shogiground.state) ? ctrl.shogiground.state.orientation : "white", (i * 2) % 2 ? color : oppositeColor, ctrl.data.pref.pieceNotation));
+    els.push(renderMove(move[i], curPly, true, (ctrl.shogiground  && ctrl.shogiground.state) ? ctrl.shogiground.state.orientation : "white", i % 2 ? color : oppositeColor, ctrl.data.pref.pieceNotation));
   }
   els.push(renderResult(ctrl));
 
