@@ -17,6 +17,8 @@
   <string name="toGetPersonalizedPuzzles">For tilpassede sjakknøtter:</string>
   <string name="puzzleId">Sjakknøtt %s</string>
   <string name="puzzleOfTheDay">Dagens nøtt</string>
+  <string name="clickToSolve">Klikk for å løse</string>
+  <string name="goodMove">Bra trekk</string>
   <string name="puzzleComplete">Knekt nøtt!</string>
   <string name="fromGameLink">Fra parti %s</string>
   <string name="difficultyLevel">Vanskelighetsgrad</string>
