@@ -23,6 +23,14 @@
   <string name="keepGoing">Fortsett…</string>
   <string name="puzzleSuccess">Korrekt!</string>
   <string name="puzzleComplete">Knekt nøtt!</string>
+  <string name="notTheMove">Det er ikke trekket!</string>
+  <string name="trySomethingElse">Prøv noe annet.</string>
+  <string name="ratingX">Rating: %s</string>
+  <string name="hidden">skjult</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Spilt %s gang</item>
+    <item quantity="other">Spilt %s ganger</item>
+  </plurals>
   <string name="fromGameLink">Fra parti %s</string>
   <string name="difficultyLevel">Vanskelighetsgrad</string>
   <string name="normal">Vanlig</string>
