@@ -40,6 +40,8 @@
   <string name="fork">Gaffel</string>
   <string name="forkDescription">Et trekk der brikken som ble flyttet, angriper to av motstanderens brikker samtidig.</string>
   <string name="hangingPiece">Hengende brikke</string>
+  <string name="hangingPieceDescription">En taktikk som utnytter at en motstanderbrikke er udekket eller ikke tilstrekkelig dekket og kan slås.</string>
+  <string name="interference">Interferens</string>
   <string name="intermezzo">Mellomtrekk</string>
   <string name="knightEndgame">Springersluttspill</string>
   <string name="knightEndgameDescription">Et sluttspill med kun springere og bønder.</string>
