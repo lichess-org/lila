@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Fremskudt bonde</string>
-  <string name="advancedPawnDescription">En bonde, der forfremmes eller truer med at forfremme, er nøglen til taktikken.</string>
+  <string name="advancedPawnDescription">En bonde, der forvandles eller truer med at forvandle, er nøglen til taktikken.</string>
   <string name="advantage">Fordel</string>
   <string name="advantageDescription">Grib chancen for at få en afgørende fordel. (200cb ≤ eval ≤ 600cb)</string>
   <string name="attackingF2F7">Angriber f2 eller f7</string>
@@ -25,9 +25,11 @@
   <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Rydning</string>
   <string name="clearanceDescription">Et træk, ofte med tempo, som rydder et felt, en linje eller diagonal til en opfølgende taktisk idé.</string>
   <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Defensivt træk</string>
+  <string name="defensiveMoveDescription">Et nøjagtigt træk eller trækserie, der er nødvendig for at undgå at miste materiale eller en anden fordel.</string>
   <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Afledning</string>
   <string name="deflectionDescription">Et træk der distraherer en modstanders brik fra at udføre en anden funktion, såsom bevogtning af et vigtigt felt.</string>
   <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Afdækkertræk</string>
+  <string name="discoveredAttackDescription">Flytning af en brik, som tidligere blokerede for et angreb fra en langtrækkende brik. For eksempel en ridder flyttet for et tårn.</string>
   <string name="doubleCheck">Dobbeltskak</string>
   <string name="doubleCheckDescription">Skak med to brikker på samme tid som resultat af et afdækket angreb, hvor både den flyttede brik og den afdækkede brik giver skak til modstanderens konge.</string>
   <string name="endgame">Slutspil</string>
@@ -81,7 +83,7 @@
   <string name="trappedPiece">Fastlåste brikker</string>
   <string name="trappedPieceDescription">En brik er ude af stand til at undslippe fangst, da den har begrænsede trækmuligheder.</string>
   <string name="underPromotion">Underforvandling</string>
-  <string name="underPromotionDescription">Forfremmelse til en springer, løber eller tårn.</string>
+  <string name="underPromotionDescription">Forvandling til en springer, løber eller tårn.</string>
   <string name="veryLong">Meget lang opgave</string>
   <string name="veryLongDescription">Fire træk eller mere for at vinde.</string>
   <string name="xRayAttack">Røngtenangreb</string>
