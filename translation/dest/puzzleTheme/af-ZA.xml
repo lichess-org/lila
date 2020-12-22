@@ -15,4 +15,30 @@
   <string name="castlingDescription">Bring die koning in veiligheid en sit die toring in vir aanval.</string>
   <string name="capturingDefender">Vang die verdediger vas</string>
   <string name="capturingDefenderDescription">Verwyder \'n stuk wat van kritieke belang is vir die verdediging van \'n ander stuk, sodat die nou onverdedigde stuk op \'n volgende skuif vasgevang kan word.</string>
+  <string name="crushing">Verpletter</string>
+  <string name="equality">Gelykheid</string>
+  <string name="kingsideAttack">Kingside aanval</string>
+  <string name="kingsideAttackDescription">\'N Aanval van die koning van die teenstander, nadat hulle aan die koningskant gegooi het.</string>
+  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Opruiming</string>
+  <string name="clearanceDescription">\'N Beweging, dikwels met tempo, wat \'n vierkant, lêer of skuins skoonmaak vir \'n opvolg taktiese idee.</string>
+  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Verdedigende skuif</string>
+  <string name="defensiveMoveDescription">\'N Presiese skuif of volgorde van bewegings wat benodig word om materiaal of \'n ander voordeel te verloor.</string>
+  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Buiging</string>
+  <string name="deflectionDescription">\'N Skuif wat \'n teenstander se aandag aftrek van \'n ander plig wat dit uitvoer, soos die beskerming van \'n sleutelvierkant.</string>
+  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Ontdek aanval</string>
+  <string name="discoveredAttackDescription">Om \'n stuk wat voorheen \'n aanval deur \'n ander langafstandstuk, soos \'n ridder, geblokkeer het, uit die pad van \'n toring te skuif.</string>
+  <string name="doubleCheck">Maak seker</string>
+  <string name="doubleCheckDescription">Kontroleer met twee stukke gelyktydig, as gevolg van \'n ontdekte aanval waar beide die bewegende stuk en die onthulde stuk die teenstander se koning aanval.</string>
+  <string name="endgame">Eindspel</string>
+  <string name="endgameDescription">\'N Taktiek tydens die laaste fase van die wedstryd.</string>
+  <string name="enPassantDescription">\'N Taktiek waarby die en passant-reël betrokke is, waar \'n pion \'n teenstanderspion kan vang wat dit omseil het met die aanvanklike beweging van twee vierkante.</string>
+  <string name="exposedKing">Blootgestelde koning</string>
+  <string name="exposedKingDescription">\'N Taktiek waarby \'n koning betrokke was, met min verdedigers rondom, wat dikwels gelei het tot skaakmat.</string>
+  <string name="fork">Vurk</string>
+  <string name="forkDescription">\'N Beweging waar die bewegende stuk twee teenstanderstukke gelyktydig aanval.</string>
+  <string name="hangingPiece">Hangstuk</string>
+  <string name="hangingPieceDescription">\'N Taktiek waarby \'n teenstander onverdedig of onvoldoende verdedig word en vry is om vas te lê.</string>
+  <string name="interference">Inmenging</string>
+  <string name="interferenceDescription">Om \'n stuk tussen twee teenstanderstukke te skuif om een ​​of albei teenstanderstukke onverdedig te laat, soos \'n ridder op \'n verdedigde vierkant tussen twee toring.</string>
+  <string name="intermezzo">Intermezzo</string>
 </resources>
