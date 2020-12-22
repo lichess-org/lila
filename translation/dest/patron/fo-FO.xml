@@ -8,4 +8,10 @@
   <string name="freeChess">Ókeypis telving fyri øll, altíð!</string>
   <string name="noAdsNoSubs">Ongar lýsingar, eingi hald; bert opnar keldur og gløðandi áhugi.</string>
   <string name="thankYou">Takk fyri gávuna!</string>
+  <string name="youHaveLifetime">Tú hevur eina vælvildarfólkakontu fyri lívið. Framúrskarandi!</string>
+  <string name="patronUntil">Tú hevur eina vælvildarfólkakontu til %s.</string>
+  <string name="ifNotRenewed">Um kontan ikki verður endurnýggjað, verður hon lækkað til eina ókeypis kontu.</string>
+  <string name="weAreNonProfit">Vit eru ein felagsskapur, sum ikki miðar eftir vinningi, tí vit halda, at øll eiga at hava atgongd til ein ókeypis telvingarpall í heimsflokki.</string>
+  <string name="weRelyOnSupport">Vit eru bundin at stuðli frá fólki sum tær, skal hetta vera møguligt. Dámar tær at nýta Lichess, umhugsa so vinaliga at stuðla okkum við eini peningagávu og við at gerast Lichess vælvildarfólk!</string>
+  <string name="lifetime">Lívstíð</string>
 </resources>
