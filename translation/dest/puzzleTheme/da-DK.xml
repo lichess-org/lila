@@ -77,6 +77,11 @@
   <string name="short">Kort opgave</string>
   <string name="shortDescription">To træk for at vinde.</string>
   <string name="smotheredMate">Kvalt mat</string>
+  <string name="smotheredMateDescription">En skakmat leveret af en ridder, hvor den matte konge er ude af stand til at bevæge sig, fordi den er omgivet (eller kvalt) af sine egne brikker.</string>
+  <string name="trappedPiece">Fastlåste brikker</string>
+  <string name="trappedPieceDescription">En brik er ude af stand til at undslippe fangst, da den har begrænsede trækmuligheder.</string>
+  <string name="underPromotion">Underforvandling</string>
+  <string name="underPromotionDescription">Forfremmelse til en springer, løber eller tårn.</string>
   <string name="veryLong">Meget lang opgave</string>
   <string name="veryLongDescription">Fire træk eller mere for at vinde.</string>
   <string name="xRayAttack">Røngtenangreb</string>
