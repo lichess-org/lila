@@ -38,6 +38,22 @@ Pavyzdžiui, spėjama žaidimo 5+3 trukmė yra 5 × 60 + 40 × 3 = 420 sekundži
   <string name="lichessSupportChessAnd">Lichess palaiko standartinius šachmatus ir %1$s.</string>
   <string name="eightVariants">aštuonis šachmatų variantus</string>
   <string name="whatIsACPL">Kas yra vidutinių pėstininko šimtųjų pralaimėjimas (average centipawn loss, ACPL)?</string>
+  <string name="acplExplanation">Pėstininkų šimtosios yra matavimo vienetas skirtas įvertinti pranašumui. Pėstininko šimtoji lygi 1/100 pėstininko. Todėl 100 pėstininkų šimtosios = 1 pėstininkas. Šios reikšmės neturi jokios formalios prasmės žaidime, tačiau yra naudingos žaidėjams ir būtinos šachmatų kompiuteriams įvertinant pozicijas.
+
+Geriausias kompiuterio ėjimas praras 0 pėstininkų šimtųjų, prastesni ėjimai prives prie prastesnės pozicijos vertinamos pėstininkų šimtosiomis.
+
+Ši reikšmė gali būti naudojama kaip žaidimo kokybės indikatorius. Kuo mažiau žaidėjas praranda pėstininkų šimtųjų per ėjimą, tuo stipresnis jo žaidimas.
+
+Kompiuterinė šachmatų analizė Lichess veikia Stockfish pagalba.</string>
+  <string name="insufficientMaterial">Pralaimėjimai dėl laiko, lygiųjų ar nepakankamų figūrų</string>
+  <string name="lichessFollowFIDErules">Kai vienam iš žaidėjų baigiasi laikas, tas žaidėjas dažniausia pralaimi žaidimą. Tačiau, žaidimas yra lygiosios jei įvyksta tokia pozicija, kur priešininkas negali įvykdyti mato žaidėjo karaliui jokia legalių ėjimų seka (%1$s).
+
+Retais atvejais sunku nuspręsti automatiškai (forsuotos linijos, tvirtovės). Pagal nutylėjimą mes visada esame žaidėjo, kuriam nepasibaigė laikas, pusėje.
+
+Verta pastebėti, kad matas su vienu žirgu ar rikiu galimas, jei priešininkas turi figūrą, kuri gali blokuoti karalių.</string>
+  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDE taisyklės %s</string>
+  <string name="canIbecomeLM">Ar galiu gauti Lichess Master (LM) titulą?</string>
+  <string name="noUpperCaseDot">Ne.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Šis garbės titulas nėra oficialus ir egzistuoja tik Lichess.
 
 Jis mūsų nuožiūra suteikiamas išskirtinai pasižymėjusiems žaidėjams, kurie yra puikūs Lichess piliečiai. Jūs negaunate LM titulo, LM titulas susiranda jus. Jei jūs esate tinkamas jam, iš mūsų gausite žinutę apie jį ir būdus jį priimti ar jo atsisakyti.
