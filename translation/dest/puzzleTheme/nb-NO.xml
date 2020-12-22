@@ -34,8 +34,11 @@
   <string name="doubleCheckDescription">Å gi sjakk med to brikker samtidig, gjennom en avdekker der både brikken som flyttes, og brikken som avdekkes, angriper motstanderens konge.</string>
   <string name="endgame">Sluttspill</string>
   <string name="endgameDescription">En taktikk i den siste fasen av partiet.</string>
+  <string name="enPassantDescription">En taktikk som utnytter en passant-regelen, der en bonde kan slå en motstanderbonde som har passert den ved å flytte to felt.</string>
   <string name="exposedKing">Utsatt konge</string>
+  <string name="exposedKingDescription">En taktikk som utnytter en konge med få forsvarsbrikker rundt seg, noe som ofte leder til sjakk matt.</string>
   <string name="fork">Gaffel</string>
+  <string name="forkDescription">Et trekk der brikken som ble flyttet, angriper to av motstanderens brikker samtidig.</string>
   <string name="hangingPiece">Hengende brikke</string>
   <string name="intermezzo">Mellomtrekk</string>
   <string name="knightEndgame">Springersluttspill</string>
