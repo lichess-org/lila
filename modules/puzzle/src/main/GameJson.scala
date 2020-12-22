@@ -16,30 +16,42 @@ final private class GameJson(
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(gameId: Game.ID, plies: Int, bc: Boolean): Fu[JsObject] =
-    cache get CacheKey(gameId, plies, bc)
+    (if (bc) bcCache else cache) get writeKey(gameId, plies)
 
   def noCacheBc(game: Game, plies: Int): Fu[JsObject] =
     lightUserApi preloadMany game.userIds map { _ =>
       generateBc(game, plies)
     }
 
-  private case class CacheKey(gameId: Game.ID, plies: Int, bc: Boolean)
+  private def readKey(k: String): (Game.ID, Int) = (k take Game.gameIdSize, k.drop(Game.gameIdSize).toInt)
+  private def writeKey(id: Game.ID, ply: Int)    = s"$id$ply"
 
-  private val cache = cacheApi[CacheKey, JsObject](1024, "puzzle.gameJson") {
+  private val cache = cacheApi[String, JsObject](1024, "puzzle.gameJson") {
     _.expireAfterAccess(5 minutes)
       .maximumSize(1024)
-      .buildAsyncFuture(generate)
+      .buildAsyncFuture(key =>
+        readKey(key) match {
+          case (id, plies) => generate(id, plies, false)
+        }
+      )
   }
 
-  private def generate(ck: CacheKey): Fu[JsObject] =
-    ck match {
-      case CacheKey(gameId, plies, bc) =>
-        gameRepo game gameId orFail s"Missing puzzle game $gameId!" flatMap { game =>
-          lightUserApi preloadMany game.userIds map { _ =>
-            if (bc) generateBc(game, plies)
-            else generate(game, plies)
-          }
+  private val bcCache = cacheApi[String, JsObject](1024, "puzzle.bc.gameJson") {
+    _.expireAfterAccess(5 minutes)
+      .maximumSize(1024)
+      .buildAsyncFuture(key =>
+        readKey(key) match {
+          case (id, plies) => generate(id, plies, true)
         }
+      )
+  }
+
+  private def generate(gameId: Game.ID, plies: Int, bc: Boolean): Fu[JsObject] =
+    gameRepo game gameId orFail s"Missing puzzle game $gameId!" flatMap { game =>
+      lightUserApi preloadMany game.userIds map { _ =>
+        if (bc) generateBc(game, plies)
+        else generate(game, plies)
+      }
     }
 
   private def generate(game: Game, plies: Int): JsObject =
