@@ -829,4 +829,7 @@
 	<string name="whiteDeclinesImpasse">後手が引き分けを拒否しました</string>
 	<string name="whiteOffersImpasse">後手が引き分けを申し込んでいます</string>
 	<string name="notationSystem">表記方法</string>
+	<string name="officialBlog">Lishogi Official Blog</string>
+	<string name="previousBlogPosts">Previous blog posts</string>
+	<string name="discussBlogForum">Discuss this blog post in the forum</string>
 </resources>

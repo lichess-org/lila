@@ -828,4 +828,7 @@
 	<string name="whiteDeclinesImpasse">后手拒绝持棋</string>
 	<string name="whiteOffersImpasse">后手提出持棋</string>
 	<string name="notationSystem">棋谱记法</string>
+	<string name="officialBlog">Lishogi Official Blog</string>
+	<string name="previousBlogPosts">Previous blog posts</string>
+	<string name="discussBlogForum">Discuss this blog post in the forum</string>
 </resources>

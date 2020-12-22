@@ -866,4 +866,7 @@
 	<string name="whiteDeclinesImpasse">Gote refuse le jishogi</string>
 	<string name="whiteOffersImpasse">Gote propose le jishogi</string>
 	<string name="notationSystem">Notation</string>
+	<string name="officialBlog">Lishogi Official Blog</string>
+	<string name="previousBlogPosts">Previous blog posts</string>
+	<string name="discussBlogForum">Discuss this blog post in the forum</string>
 </resources>

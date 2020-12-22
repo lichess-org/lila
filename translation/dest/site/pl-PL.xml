@@ -942,4 +942,7 @@
 	<string name="whiteDeclinesImpasse">Gote odrzuca propozycję impasu</string>
 	<string name="whiteOffersImpasse">Gote proponuje impas</string>
 	<string name="notationSystem">Notation</string>
+	<string name="officialBlog">Lishogi Official Blog</string>
+	<string name="previousBlogPosts">Previous blog posts</string>
+	<string name="discussBlogForum">Discuss this blog post in the forum</string>
 </resources>
