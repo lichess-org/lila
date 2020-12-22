@@ -10,7 +10,7 @@
   <string name="goals">Célok</string>
   <string name="specialMoves">Különleges lépések</string>
   <string name="didYouLikeThisPuzzle">Tetszett ez a feladvány?</string>
-  <string name="voteToLoadNextOne">Szavazz a következő feladványhoz!</string>
+  <string name="voteToLoadNextOne">Szavazz egy újért cserébe!</string>
   <string name="yourPuzzleRatingX">Feladvány pontszámod: %s</string>
   <string name="findTheBestMoveForWhite">Találd meg világos legjobb lépését!</string>
   <string name="findTheBestMoveForBlack">Találd meg sötét legjobb lépését!</string>
