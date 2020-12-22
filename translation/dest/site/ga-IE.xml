@@ -509,13 +509,16 @@
   <string name="sourceCode">Cód Foinseach</string>
   <string name="simultaneousExhibitions">Taispeántais comhuineacha</string>
   <string name="host">Óstach</string>
+  <string name="hostColorX">Dath an óstaigh: %s</string>
   <string name="create">Cruthaigh</string>
   <string name="lichessTournaments">Comórtais Lichess</string>
   <string name="tournamentFAQ">CCanna Comórtas Airéine</string>
   <string name="tournamentOfficial">Oifigiúil</string>
   <string name="timeBeforeTournamentStarts">Am fágtha sula thosnaíonn an comórtas</string>
+  <string name="keyboardShortcuts">Aicearraí méarchlár</string>
   <string name="newTournament">Comórtas Nua</string>
   <string name="yourRating">Do rátáil</string>
+  <string name="cumulative">Carnach</string>
   <string name="glicko2Rating">Rátáil Glicko-2</string>
   <string name="checkYourEmail">Féach ar do ríomhphost</string>
   <string name="downloadAnnotated">Ioslódáil sonraí anótáilte</string>
