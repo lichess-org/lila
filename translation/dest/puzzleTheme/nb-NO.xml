@@ -22,6 +22,9 @@
   <string name="equalityDescription">Vend en tapt stilling til remis eller lik stilling. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Angrep på kongefløyen</string>
   <string name="kingsideAttackDescription">Et angrep mot motstanderens konge etter kort rokade.</string>
+  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Avledning</string>
+  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Avdekker</string>
+  <string name="doubleCheck">Dobbeltsjakk</string>
   <string name="endgame">Sluttspill</string>
   <string name="endgameDescription">En taktikk i den siste fasen av partiet.</string>
   <string name="exposedKing">Utsatt konge</string>
@@ -71,7 +74,7 @@
   <string name="veryLong">Veldig lang sjakknøtt</string>
   <string name="veryLongDescription">Fire trekk eller flere til vinst.</string>
   <string name="xRayAttack">Røntgenangrep</string>
-  <string name="xRayAttackDescription">En brikke angriper eller forsvarer et felt indirekte, gjennom en av motstanderens brikker.</string>
+  <string name="xRayAttackDescription">En brikke angriper eller dekker et felt indirekte, gjennom en av motstanderens brikker.</string>
   <string name="zugzwang">Trekktvang</string>
   <string name="zugzwangDescription">Motstanderen kan bare utføre trekk som forverrer egen stilling.</string>
   <string name="healthyMix">Frisk blanding</string>
