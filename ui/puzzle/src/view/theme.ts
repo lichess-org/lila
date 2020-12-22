@@ -80,7 +80,7 @@ const editor = (ctrl: Controller): VNode => {
     }, [
       h('option', {
         attrs: { value: '', selected: true }
-      }, 'Add another theme'),
+      }, ctrl.trans.noarg('addAnotherTheme')),
       ...availableThemes.map(theme =>
         h('option', {
           attrs: {

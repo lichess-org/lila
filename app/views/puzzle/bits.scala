@@ -57,6 +57,7 @@ object bits {
       trans.puzzle.difficultyLevel,
       trans.puzzle.example,
       trans.puzzle.toGetPersonalizedPuzzles,
+      trans.puzzle.addAnotherTheme,
       trans.signUp,
       trans.analysis,
       trans.rated,
