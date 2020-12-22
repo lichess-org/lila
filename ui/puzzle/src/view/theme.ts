@@ -24,12 +24,14 @@ export default function theme(ctrl: Controller): VNode {
 
 const editor = (ctrl: Controller): VNode => {
   const data = ctrl.getData(),
+    trans = ctrl.trans.noarg,
     votedThemes = ctrl.vm.round?.themes || {};
   const visibleThemes: string[] = data.puzzle.themes.concat(
     Object.keys(votedThemes).filter(t => votedThemes[t] && !data.puzzle.themes.includes(t))
   ).sort()
   const allThemes = location.pathname == '/training/daily' ? null : ctrl.allThemes;
   const availableThemes = allThemes ? allThemes.dynamic.filter(t => !votedThemes[t]) : null;
+  if (availableThemes) availableThemes.sort((a, b) => trans(a) < trans(b) ? -1 : 1);
   return h('div.puzzle__themes', [
     h('div.puzzle__themes_list', {
       hook: bind('click', e => {
@@ -46,9 +48,9 @@ const editor = (ctrl: Controller): VNode => {
         h('a', {
           attrs: {
             href: `/training/${key}`,
-            title: ctrl.trans.noarg(`${key}Description`)
+            title: trans(`${key}Description`)
           }
-        }, ctrl.trans.noarg(key)),
+        }, trans(key)),
         !allThemes ? null : h('div.puzzle__themes__votes',
           allThemes.static.has(key) ? [
             h('div.puzzle__themes__lock', h('i', {
@@ -80,14 +82,14 @@ const editor = (ctrl: Controller): VNode => {
     }, [
       h('option', {
         attrs: { value: '', selected: true }
-      }, ctrl.trans.noarg('addAnotherTheme')),
+      }, trans('addAnotherTheme')),
       ...availableThemes.map(theme =>
         h('option', {
           attrs: {
             value: theme,
-            title: ctrl.trans.noarg(`${theme}Description`)
+            title: trans(`${theme}Description`)
           },
-        }, ctrl.trans.noarg(theme))
+        }, trans(theme))
       )
     ]),
       h('a.puzzle__themes__study.text', {
