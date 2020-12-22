@@ -33,6 +33,18 @@
   <string name="pleaseOnlyInvitePeopleYouKnow">Bjóða vinaliga bert fólki, tú kennir, og sum vilja taka virknan lut í rannsóknini.</string>
   <string name="searchByUsername">Leita eftir brúkaranavni</string>
   <string name="spectator">Áskoðari</string>
+  <string name="contributor">Gevur íkast</string>
+  <string name="kick">Koyr úr</string>
+  <string name="leaveTheStudy">Far úr rannsóknini</string>
+  <string name="youAreNowAContributor">Tú ert nú ein, ið leggur aftrat rannsóknini</string>
+  <string name="youAreNowASpectator">Tú ert nú áskoðari</string>
+  <string name="pgnTags">PGN-frámerki</string>
+  <string name="like">Dáma</string>
+  <string name="newTag">Nýtt frámerki</string>
+  <string name="commentThisPosition">Viðmerk hesa støðuna</string>
+  <string name="commentThisMove">Viðmerk henda leikin</string>
+  <string name="annotateWithGlyphs">Skriva við teknum</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Kapittulin er ov stuttur til at verða greinaður.</string>
   <string name="downloadGame">Tak talv niður</string>
   <string name="studyUrl">URL rannsókn</string>
   <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Varpa URL út</string>
