@@ -4,7 +4,8 @@ import { MouchEvent } from "shogiground/types";
 import { onInsert } from "../util";
 import AnalyseCtrl from "../ctrl";
 
-const eventNames = ["mousedown", "touchstart"];
+const eventNames1 = ["mousedown", "touchmove"];
+const eventNames2 = ["click"];
 const oKeys = ["pawn", "lance", "knight", "silver", "gold", "bishop", "rook"];
 
 type Position = "top" | "bottom";
@@ -40,11 +41,13 @@ export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
       class: { usable },
       hook: onInsert((el) => {
         if (ctrl.embed) return;
-        eventNames.forEach((name) => {
+        eventNames1.forEach((name) => {
           el.addEventListener(name, (e) => drag(ctrl, color, e as MouchEvent));
         });
-        el.addEventListener("click", (e) => {
-          selectToDrop(ctrl, color, e as MouchEvent);
+        eventNames2.forEach((name) => {
+          el.addEventListener(name, (e) => {
+            selectToDrop(ctrl, color, e as MouchEvent);
+          });
         });
       }),
     },
@@ -67,6 +70,7 @@ export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
               "data-role": role,
               "data-color": color,
               "data-nb": nb,
+              cursor: "pointer"
             },
           })
         )

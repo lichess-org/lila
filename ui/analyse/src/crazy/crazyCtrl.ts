@@ -1,4 +1,5 @@
 import { dragNewPiece } from "shogiground/drag";
+import { setDropMode, cancelDropMode } from "shogiground/drop";
 import { readDrops } from "chess";
 import AnalyseCtrl from "../ctrl";
 import * as cg from "shogiground/types";
@@ -25,13 +26,17 @@ export function selectToDrop(ctrl: AnalyseCtrl, color: Color, e: cg.MouchEvent) 
   const el = e.target as HTMLElement;
   const role = el.getAttribute("data-role") as cg.Role,
     number = el.getAttribute("data-nb");
-  if (!role || !color || number === "0") return;
+  if (!role || number === "0") return;
   if(!ctrl.selected || ctrl.selected[1] !== role){
+    setDropMode(ctrl.shogiground.state, { color, role });
     ctrl.selected = [color, role];
   }
   else{
     ctrl.selected = undefined;
+    cancelDropMode(ctrl.shogiground.state);
   }
+  e.stopPropagation();
+  e.preventDefault();
   ctrl.redraw();
 }
 

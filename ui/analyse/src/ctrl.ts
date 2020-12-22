@@ -66,6 +66,7 @@ import {
 } from "./interfaces";
 import GamebookPlayCtrl from "./study/gamebook/gamebookPlayCtrl";
 import { ctrl as treeViewCtrl, TreeView } from "./treeView/treeView";
+import { cancelDropMode } from "shogiground/drop";
 //import { init } from 'snabbdom';
 
 const li = window.lishogi;
@@ -534,6 +535,7 @@ export default class AnalyseCtrl {
       this.socket.sendAnaDrop(drop);
       this.preparePremoving();
     } else this.jump(this.path);
+    cancelDropMode(this.shogiground.state);
     this.selected = undefined;
     this.redraw();
   };
