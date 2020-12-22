@@ -1,2 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advancedPawn">進んだポーン</string>
+  <string name="advancedPawnDescription">ポーンの昇格かその狙いがタクティクスの中心です。</string>
+  <string name="advantage">アドバンテージ</string>
+  <string name="advantageDescription">決定的なアドバンテージを得てください。（評価値は 200cp 以上 600cp 以下）</string>
+  <string name="attackingF2F7">f2/f7への攻撃</string>
+  <string name="attackingF2F7Description">f2 か f7 のポーンを狙う攻撃（フライド・リバー・アタックなど）。</string>
+  <string name="attraction">アトラクション（引き寄せ）</string>
+  <string name="attractionDescription">交換か捨て駒によって相手の駒を不利なマスに誘い込みます。</string>
+  <string name="backRankMate">バックランク・メイト</string>
+  <string name="backRankMateDescription">一番下のランクで、上を自分の駒に囲まれたキングをメイトします。</string>
+  <string name="bishopEndgame">ビショップ・エンドゲーム</string>
+  <string name="bishopEndgameDescription">ビショップとポーンだけの終盤。</string>
+  <string name="castling">キャスリング</string>
+  <string name="castlingDescription">キングを安全にし、ルークを攻撃に活用します。</string>
+  <string name="capturingDefender">守り駒の除去</string>
+  <string name="capturingDefenderDescription">別の駒を守っている駒を消して、無防備になった駒を取ります。</string>
+</resources>
