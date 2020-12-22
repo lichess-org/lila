@@ -62,7 +62,7 @@
   <string name="showThreat">Vis trussel</string>
   <string name="inLocalBrowser">i din egen browser</string>
   <string name="toggleLocalEvaluation">Skift til lokal evaluering</string>
-  <string name="promoteVariation">Forfremmelsesvariation</string>
+  <string name="promoteVariation">Forvandlingsvariation</string>
   <string name="makeMainLine">Gør til hovedlinjen</string>
   <string name="deleteFromHere">Slet herfra</string>
   <string name="forceVariation">Fremtving variant</string>
