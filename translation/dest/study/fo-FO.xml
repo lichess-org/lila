@@ -45,6 +45,17 @@
   <string name="commentThisMove">Viðmerk henda leikin</string>
   <string name="annotateWithGlyphs">Skriva við teknum</string>
   <string name="theChapterIsTooShortToBeAnalysed">Kapittulin er ov stuttur til at verða greinaður.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Bert tey, ið geva sítt íkast til rannsóknina, kunnu biðja um eina teldugreining.</string>
+  <string name="getAFullComputerAnalysis">Fá eina fullfíggjaða teldugreining av høvuðsbrigdinum frá ambætaranum.</string>
+  <string name="makeSureTheChapterIsComplete">Tryggja tær, at kapittulin er fullfíggjaður. Tú kanst bert biðja um greining eina ferð.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Allir SYNC-limir verða verandi í somu støðu</string>
+  <string name="shareChanges">Deil broytingar við áskoðarar, og goym tær á ambætaranum</string>
+  <string name="playing">Í gongd</string>
+  <string name="first">Fyrsta</string>
+  <string name="previous">Fyrra</string>
+  <string name="next">Næsta</string>
+  <string name="last">Síðsta</string>
+  <string name="shareAndExport">Deil &amp; flyt út</string>
   <string name="downloadGame">Tak talv niður</string>
   <string name="studyUrl">URL rannsókn</string>
   <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Varpa URL út</string>
