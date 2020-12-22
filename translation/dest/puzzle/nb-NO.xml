@@ -3,4 +3,8 @@
   <string name="puzzles">Sjakknøtter</string>
   <string name="motifs">Motiver</string>
   <string name="didYouLikeThisPuzzle">Likte du denne sjakknøtten?</string>
+  <string name="yourPuzzleRatingX">Din sjakknøttrating: %s</string>
+  <string name="puzzleId">Sjakknøtt %s</string>
+  <string name="puzzleOfTheDay">Dagens nøtt</string>
+  <string name="puzzleComplete">Knekt nøtt!</string>
 </resources>
