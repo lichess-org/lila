@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="puzzles">Sjakknøtter</string>
   <string name="motifs">Motiver</string>
+  <string name="didYouLikeThisPuzzle">Likte du denne sjakknøtten?</string>
 </resources>
