@@ -10,5 +10,8 @@
   <string name="rookEndgame">Tårnsluttspill</string>
   <string name="sacrifice">Offer</string>
   <string name="smotheredMate">Kvelermatt</string>
+  <string name="underPromotion">Underforvandling</string>
+  <string name="underPromotionDescription">Bondeforvandling til springer, løper eller tårn.</string>
+  <string name="xRayAttack">Røntgenangrep</string>
   <string name="zugzwang">Trekktvang</string>
 </resources>
