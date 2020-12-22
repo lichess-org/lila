@@ -34,4 +34,9 @@
   <string name="actOfCreation">Ja, her er stovnsskipanin (á fronskum)</string>
   <string name="changeMonthlySupport">Kann eg broyta/steðga mín mánaðarliga stuðul?</string>
   <string name="changeOrContact">Ja, nær tað skal vera. Á hesari síðuni. Ella kanst tú %s.</string>
+  <string name="contactSupport">seta teg í samband við Lichess stuðul</string>
+  <string name="otherMethods">Eru aðrir hættir at stuðla?</string>
+  <string name="bankTransfers">Vit taka eisini ímóti bankaflytingum</string>
+  <string name="bitcoin">Og her er bitcoin-bústaður okkara: %s</string>
+  <string name="patronFeatures">Eru tænastur, ið serliga eru ætlaðar vælvildarfólki?</string>
 </resources>
