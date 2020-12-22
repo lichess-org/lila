@@ -90,6 +90,8 @@
   <string name="skewer">Spidding</string>
   <string name="skewerDescription">Et motiv der en brikke med høy verdi er under angrep og må flyttes, noe som tillater at en brikke med lavere verdi som står bak den, blir slått eller angrepet, det motsatte av en binding.</string>
   <string name="smotheredMate">Kvelermatt</string>
+  <string name="smotheredMateDescription">En stilling der en springer setter sjakk matt, og kongen ikke kan flyttes fordi den er omgitt (eller kvalt) av egne brikker.</string>
+  <string name="trappedPiece">Fanget brikke</string>
   <string name="underPromotion">Underforvandling</string>
   <string name="underPromotionDescription">Bondeforvandling til springer, løper eller tårn.</string>
   <string name="veryLong">Veldig lang sjakknøtt</string>
