@@ -12,9 +12,8 @@ case class Glicko(
     volatility: Double
 ) {
 
-  def intRating           = rating.toInt
-  def intDeviation        = deviation.toInt
-  def intDeviationDoubled = (deviation * 2).toInt
+  def intRating    = rating.toInt
+  def intDeviation = deviation.toInt
 
   def intervalMin = (rating - deviation * 2).toInt
   def intervalMax = (rating + deviation * 2).toInt

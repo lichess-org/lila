@@ -78,7 +78,8 @@ final class PuzzleSessionApi(
           theme = theme.value,
           retries = retries,
           vote = puzzle.vote,
-          ratingDiff = math.abs(puzzle.glicko.intRating - user.perfs.puzzle.intRating)
+          ratingDiff = math.abs(puzzle.glicko.intRating - user.perfs.puzzle.intRating),
+          ratingDev = puzzle.glicko.intDeviation
         )
       }
 

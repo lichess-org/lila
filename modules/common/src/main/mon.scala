@@ -420,9 +420,15 @@ object mon {
   object puzzle {
     object selector {
       object user {
-        def puzzle(theme: String, retries: Int, vote: Int, ratingDiff: Int) =
+        def puzzle(theme: String, retries: Int, vote: Int, ratingDiff: Int, ratingDev: Int) =
           timer("puzzle.selector.user.puzzle").withTags(
-            Map("theme" -> theme, "retries" -> retries, "vote" -> vote, "ratingDiff" -> ratingDiff)
+            Map(
+              "theme"      -> theme,
+              "retries"    -> retries,
+              "vote"       -> vote,
+              "ratingDiff" -> ratingDiff,
+              "ratingDev"  -> ratingDev
+            )
           )
         def batch(nb: Int) = timer("puzzle.selector.user.batch").withTag("nb", nb)
       }
