@@ -5,6 +5,8 @@
   <string name="advantage">Fordel</string>
   <string name="advantageDescription">Grip sjansen til en avgjørende fordel. (200cp ≤ eval ≤ 600cp)</string>
   <string name="attackingF2F7">Angrep mot f2 eller f7</string>
+  <string name="attackingF2F7Description">Et angrep med fokus på bonden på f2 eller f7, slik som i fegatello-angrepet.</string>
+  <string name="attraction">Magnetoffer</string>
   <string name="backRankMate">Sekkematt</string>
   <string name="bishopEndgame">Løpersluttspill</string>
   <string name="castling">Rokade</string>
