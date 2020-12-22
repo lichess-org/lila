@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="chessClock">Talvklokka</string>
+  <string name="promoteToQueenAutomatically">Umskapa til frúgv sjálvvirkið</string>
 </resources>
