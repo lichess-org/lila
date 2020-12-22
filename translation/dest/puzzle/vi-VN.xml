@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="recommended">Khuyến nghị</string>
   <string name="goals">Mục tiêu</string>
+  <string name="didYouLikeThisPuzzle">Bạn có thích câu đố này?</string>
+  <string name="findTheBestMoveForWhite">Tìm nước tối ưu cho Trắng.</string>
   <string name="findTheBestMoveForBlack">Tìm nước tối ưu cho Đen.</string>
+  <string name="puzzleOfTheDay">Câu đố của ngày</string>
   <string name="clickToSolve">Click để giải</string>
   <string name="goodMove">Nước tốt</string>
   <string name="bestMove">Nước tối ưu!</string>
   <string name="puzzleSuccess">Thành công!</string>
+  <string name="trySomethingElse">Thử nước đi khác.</string>
   <string name="hidden">ẩn</string>
   <plurals name="playedXTimes">
     <item quantity="other">Đã chơi %s lần</item>
