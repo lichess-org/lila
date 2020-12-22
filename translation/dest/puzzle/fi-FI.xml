@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Tehtävät</string>
+  <string name="recommended">Suositeltu</string>
   <string name="phases">Vaiheet</string>
   <string name="motifs">Motiivit</string>
   <string name="specialMoves">Erityissiirrot</string>
