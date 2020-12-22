@@ -31,6 +31,7 @@
   <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Avdekker</string>
   <string name="discoveredAttackDescription">Å flytte en brikke som blokkerer angrep fra en annen langtrekkende brikke, for eksempel å flytte en springer ut av veien for et tårn.</string>
   <string name="doubleCheck">Dobbeltsjakk</string>
+  <string name="doubleCheckDescription">Å gi sjakk med to brikker samtidig, gjennom en avdekker der både brikken som flyttes, og brikken som avdekkes, angriper motstanderens konge.</string>
   <string name="endgame">Sluttspill</string>
   <string name="endgameDescription">En taktikk i den siste fasen av partiet.</string>
   <string name="exposedKing">Utsatt konge</string>
