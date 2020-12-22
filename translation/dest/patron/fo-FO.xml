@@ -3,4 +3,9 @@
   <string name="donate">Gev gávu</string>
   <string name="lichessPatron">Lichess vælvildarfólk</string>
   <string name="freeAccount">Ókeypis konta</string>
+  <string name="xBecamePatron">%s gjørdist eitt Lichess vælvildarfólk</string>
+  <string name="newPatrons">Nýggj vælvildarfólk</string>
+  <string name="freeChess">Ókeypis telving fyri øll, altíð!</string>
+  <string name="noAdsNoSubs">Ongar lýsingar, eingi hald; bert opnar keldur og gløðandi áhugi.</string>
+  <string name="thankYou">Takk fyri gávuna!</string>
 </resources>
