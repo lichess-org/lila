@@ -4,6 +4,8 @@
   <string name="recommended">Anbefalt</string>
   <string name="phases">Faser</string>
   <string name="motifs">Motiver</string>
+  <string name="advanced">For viderekomne</string>
+  <string name="specialMoves">Spesialtrekk</string>
   <string name="didYouLikeThisPuzzle">Likte du denne sjakknøtten?</string>
   <string name="voteToLoadNextOne">Stem for å laste den neste!</string>
   <string name="yourPuzzleRatingX">Din sjakknøttrating: %s</string>
