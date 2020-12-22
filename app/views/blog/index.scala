@@ -26,13 +26,13 @@ object index {
         bits.menu(none),
         div(cls := "blog index page-menu__content page-small box")(
           div(cls := "box__top")(
-            h1("Lishogi Official Blog"),
+            h1(trans.officialBlog()),
             a(cls := "atom", href := routes.Blog.atom(), dataIcon := "3")
           ),
           primaryPost map { post =>
             frag(
               latestPost(post),
-              h2("Previous blog posts")
+              h2(trans.previousBlogPosts())
             )
           },
           div(cls := "blog-cards list infinitescroll")(
