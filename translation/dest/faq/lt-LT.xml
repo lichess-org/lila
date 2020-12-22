@@ -28,6 +28,15 @@
   <string name="isCorrespondenceDifferent">Ar korespondencija skiriasi nuo įprastų šachmatų?</string>
   <string name="youCanUseOpeningBookNoEngine">Lichess pagrindinis skirtumas korespondencinių šachmatų taisyklėse yra, kad leidžiamos debiutų knygos. Variklių naudojimas vis dar draudžiamas ir galite būti pažymėti kaip sukčiaujantys kompiuteriu. Nors ICCF leidžia variklių naudojimą korespondenciniuose šachmatuose - Lichess ne.</string>
   <string name="gameplay">Žaidimas</string>
+  <string name="howBulletBlitzEtcDecided">Kaip nusprendžiama laiko kontrolė kulkos, žaibo ir kituose žaidimuose?</string>
+  <string name="basedOnGameDuration">Lichess laiko kontrolės paremtos spėjama žaidimo trukme %1$s
+Pavyzdžiui, spėjama žaidimo 5+3 trukmė yra 5 × 60 + 40 × 3 = 420 sekundžių.</string>
+  <string name="durationFormula">(pradinis laiko kiekis) + 40 × (pridėtinės sekundės)</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="whatVariantsCanIplay">Kokius variantus galiu žaisti Lichess?</string>
+  <string name="lichessSupportChessAnd">Lichess palaiko standartinius šachmatus ir %1$s.</string>
+  <string name="eightVariants">aštuonis šachmatų variantus</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Šis garbės titulas nėra oficialus ir egzistuoja tik Lichess.
 
 Jis mūsų nuožiūra suteikiamas išskirtinai pasižymėjusiems žaidėjams, kurie yra puikūs Lichess piliečiai. Jūs negaunate LM titulo, LM titulas susiranda jus. Jei jūs esate tinkamas jam, iš mūsų gausite žinutę apie jį ir būdus jį priimti ar jo atsisakyti.
