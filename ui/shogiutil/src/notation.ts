@@ -100,9 +100,9 @@ function kawasakiShogiNotation(move: MoveInfo): string {
     // hackish solution, requires refresh if you change dark/light theme
     let colorSymbol;
     if (document.getElementsByClassName("dark")[0])
-        colorSymbol = color === "white" ? "☗\uFE0E" : "☖\uFE0E";
+        colorSymbol = color === "white" ? "☗" : "☖";
     else
-        colorSymbol = color === "white" ? "☖\uFE0E" : "☗\uFE0E";
+        colorSymbol = color === "white" ? "☖" : "☗";
 
     return `${colorSymbol}${piece}${origin}${connector}${dest}${promotion}`;
 }
@@ -187,8 +187,14 @@ function japaneseShogiNotation(move: MoveInfo): string {
     const ambiguity = parsed.origin ? resolveAmbiguity(parsed.piece, move.uci!, move.fen!, color) : "";
     const dest = `${index[parsed.dest[0]]}${index[parsed.dest[1]]}`;
     const promotion = parsed.promotion ? (parsed.promotion === "+" ? "成" : "不成") : "";
+    // hackish solution, requires refresh if you change dark/light theme
+    let colorSymbol;
+    if (document.getElementsByClassName("dark")[0])
+        colorSymbol = color === "white" ? "☗" : "☖";
+    else
+        colorSymbol = color === "white" ? "☖" : "☗";
 
-    return `${dest}${piece}${dropped}${ambiguity}${promotion}`;
+    return `${colorSymbol}${dest}${piece}${dropped}${ambiguity}${promotion}`;
 }
 type vertical = "up" | "down" | "same" | undefined;
 type horizontal = "right" | "left" | "same" | undefined;
