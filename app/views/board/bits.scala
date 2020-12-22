@@ -13,8 +13,15 @@ object bits {
 
   private val dataState = attr("data-state")
 
+  private def miniOrientation(pov: Pov): chess.Color =
+    if (pov.game.variant == chess.variant.RacingKings) chess.White else pov.player.color
+
   def mini(pov: Pov): Tag => Tag =
-    mini(FEN(Forsyth.boardAndColor(pov.game.situation)), pov.color, ~pov.game.lastMoveKeys) _
+    mini(
+      FEN(Forsyth.boardAndColor(pov.game.situation)),
+      miniOrientation(pov),
+      ~pov.game.lastMoveKeys
+    ) _
 
   def mini(fen: chess.format.FEN, color: chess.Color = chess.White, lastMove: String = "")(tag: Tag): Tag =
     tag(
