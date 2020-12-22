@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="bishopEndgame">Løpersluttspill</string>
+  <string name="castling">Rokade</string>
+  <string name="fork">Gaffel</string>
+  <string name="knightEndgame">Springersluttspill</string>
+  <string name="mate">Matt</string>
+  <string name="pawnEndgame">Bondesluttspill</string>
+  <string name="queenEndgame">Dronningsluttspill</string>
+  <string name="rookEndgame">Tårnsluttspill</string>
+  <string name="sacrifice">Offer</string>
+  <string name="smotheredMate">Kvelermatt</string>
+</resources>
