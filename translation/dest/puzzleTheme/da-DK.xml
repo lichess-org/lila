@@ -35,6 +35,9 @@
   <string name="enPassantDescription">En taktik som inkluderer en passant-reglen, hvor en bonde kan tage en modstanderbonde, der er flyttet forbi den med dens første to-felts-træk.</string>
   <string name="exposedKing">Eksponeret konge</string>
   <string name="fork">Gaffel</string>
+  <string name="hangingPiece">Hængende brik</string>
+  <string name="hangingPieceDescription">En taktik der indebærer, at en af modstanderens brikker, der ikke forsvares eller ikke forsvares tilstrækkeligt, frit kan tages.</string>
+  <string name="interference">Obstruktion</string>
   <string name="intermezzo">Intermezzo</string>
   <string name="intermezzoDescription">I stedet for at spille det forventede træk foretages først et andet træk, som udgør en umiddelbar trussel, som modstanderen må besvare. Også kendt som \"Zwischenzug\" eller \"In between\".</string>
   <string name="knightEndgame">Springer-slutspil</string>
