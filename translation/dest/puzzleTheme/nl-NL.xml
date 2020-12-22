@@ -14,9 +14,10 @@
   <string name="capturingDefenderDescription">Een stuk slaan dat essentieel is voor de verdediging van een ander stuk, waardoor vervolgens het nu onverdedigde stuk met een volgende zet kan worden geslagen.</string>
   <string name="kingsideAttack">Koningsaanval</string>
   <string name="kingsideAttackDescription">Een aanval op de koning van de tegenstander, na een korte rokade.</string>
+  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Defensieve zet</string>
   <string name="doubleCheck">Dubbelschaak</string>
   <string name="endgame">Eindspel</string>
-  <string name="endgameDescription">Een tactiek in de laatste fase van de partij.</string>
+  <string name="endgameDescription">Tactiek in de slotfase van de partij.</string>
   <string name="fork">Vork</string>
   <string name="hangingPiece">Hangend stuk</string>
   <string name="knightEndgame">Paardeneindspel</string>
