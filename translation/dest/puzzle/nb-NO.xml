@@ -19,6 +19,9 @@
   <string name="puzzleOfTheDay">Dagens nøtt</string>
   <string name="clickToSolve">Klikk for å løse</string>
   <string name="goodMove">Bra trekk</string>
+  <string name="bestMove">Beste trekk!</string>
+  <string name="keepGoing">Fortsett…</string>
+  <string name="puzzleSuccess">Korrekt!</string>
   <string name="puzzleComplete">Knekt nøtt!</string>
   <string name="fromGameLink">Fra parti %s</string>
   <string name="difficultyLevel">Vanskelighetsgrad</string>
