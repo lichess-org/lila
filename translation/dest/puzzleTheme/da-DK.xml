@@ -5,6 +5,8 @@
   <string name="advantage">Fordel</string>
   <string name="advantageDescription">Grib chancen for at få en afgørende fordel. (200cb ≤ eval ≤ 600cb)</string>
   <string name="attackingF2F7">Angriber f2 eller f7</string>
+  <string name="attackingF2F7Description">Et angreb som er fokuseret på f2 eller f7 bonden, som det kendes fra Fegatello-angrebet (\"Fried Liver Attack\").</string>
+  <string name="attraction">Lokkedue</string>
   <string name="backRankMate">Baglinjemat</string>
   <string name="bishopEndgame">Løber-slutspil</string>
   <string name="bishopEndgameDescription">Et slutspil med kun løbere og bønder.</string>
