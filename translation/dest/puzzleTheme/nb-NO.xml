@@ -92,6 +92,7 @@
   <string name="smotheredMate">Kvelermatt</string>
   <string name="smotheredMateDescription">En stilling der en springer setter sjakk matt, og kongen ikke kan flyttes fordi den er omgitt (eller kvalt) av egne brikker.</string>
   <string name="trappedPiece">Fanget brikke</string>
+  <string name="trappedPieceDescription">En brikke kan ikke unnslippe, siden den har få mulige trekk.</string>
   <string name="underPromotion">Underforvandling</string>
   <string name="underPromotionDescription">Bondeforvandling til springer, løper eller tårn.</string>
   <string name="veryLong">Veldig lang sjakknøtt</string>
