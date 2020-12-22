@@ -1,12 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessStreamers">Những streamer Lichess</string>
+  <string name="lichessStreamer">Những streamer của Lichess</string>
   <string name="live">TRỰC TIẾP!</string>
   <string name="offline">OFFLINE</string>
   <string name="currentlyStreaming">Đang livestream: %s</string>
   <string name="lastStream">Lần stream cuối %s</string>
   <string name="becomeStreamer">Trở thành một streamer Lichess</string>
   <string name="doYouHaveStream">Bạn có kênh YouTube hoặc Twitch không?</string>
+  <string name="allStreamers">Tất cả các streamer</string>
+  <string name="downloadKit">Tải bộ công cụ cho streamer</string>
   <string name="xIsStreaming">%s đang livestream</string>
+  <string name="rules">Luật phát trực tiếp</string>
+  <string name="rule1">Dùng từ khóa \"lichess.org\" ở tên stream của bạn và dùng mục \"Chess\" khi bạn stream ở Lichess.</string>
+  <string name="approved">Stream của bạn đã được phê duyệt.</string>
+  <string name="pendingReview">Stream của bạn đang được quản trị viên đánh giá.</string>
+  <string name="pleaseFillIn">Hãy điền thông tin của bạn và tải lên một hình ảnh.</string>
+  <string name="twitchUsername">Tên người dùng hoặc đường dẫn đến trang Twitch của bạn</string>
   <string name="optionalOrEmpty">Tùy chọn. Bỏ trống nếu không có</string>
+  <string name="tellUsAboutTheStream">Giới thiệu về stream của bạn trong một câu</string>
+  <string name="changePicture">Thay đổi/xóa ảnh của bạn</string>
+  <string name="uploadPicture">Tải lên hình ảnh</string>
+  <string name="deletePicture">Xóa hình ảnh</string>
+  <string name="maxSize">Kích cỡ tối đa: %s</string>
 </resources>
