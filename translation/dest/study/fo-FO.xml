@@ -2,6 +2,37 @@
 <resources>
   <string name="private">Innanhýsis</string>
   <string name="myStudies">Mínar kanningar</string>
+  <string name="studiesIContributeTo">Rannsóknir, eg komi við íkasti til</string>
+  <string name="myPublicStudies">Mínar almennu rannsóknir</string>
+  <string name="myPrivateStudies">Mínar egnu rannsóknir</string>
+  <string name="myFavoriteStudies">Mínar yndisrannsóknir</string>
+  <string name="whatAreStudies">Hvat eru rannsóknir?</string>
+  <string name="allStudies">Allar rannsóknir</string>
+  <string name="studiesCreatedByX">%s stovnaði hesar rannsóknir</string>
+  <string name="noneYet">Ongar enn.</string>
+  <string name="hot">Heitar</string>
+  <string name="dateAddedNewest">Eftir dagfesting (nýggjastu)</string>
+  <string name="dateAddedOldest">Eftir dagfesting (eldstu)</string>
+  <string name="recentlyUpdated">Nýliga dagførdar</string>
+  <string name="mostPopular">Best dámdu</string>
+  <string name="addNewChapter">Skoyt nýggjan kapittul upp í</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s kapittul</item>
+    <item quantity="other">%s kapitlar</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s talv</item>
+    <item quantity="other">%s talv</item>
+  </plurals>
+  <string name="addMembers">Legg limir aftrat</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s limur</item>
+    <item quantity="other">%s limir</item>
+  </plurals>
+  <string name="inviteToTheStudy">Bjóða uppí rannsóknina</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Bjóða vinaliga bert fólki, tú kennir, og sum vilja taka virknan lut í rannsóknini.</string>
+  <string name="searchByUsername">Leita eftir brúkaranavni</string>
+  <string name="spectator">Áskoðari</string>
   <string name="downloadGame">Tak talv niður</string>
   <string name="studyUrl">URL rannsókn</string>
   <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Varpa URL út</string>

@@ -54,7 +54,7 @@
   <string name="selectThePieceYouWant">Vel fólkið, tú vilt vera!</string>
   <string name="fundamentals">Grundleggjandi</string>
   <string name="capture">At taka</string>
-  <string name="takeTheEnemyPieces">Tak fólkini hjá hinum</string>
+  <string name="takeTheEnemyPieces">Tak fólkini hjá fíggindanum</string>
   <string name="captureIntro">Finn útav, hvørji fólk standa óvard, og tak tey!</string>
   <string name="takeTheBlackPieces">Tak svørtu talvfólkini!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Tak svørtu talvfólkini! Og ansa eftir ikki at missa tíni egnu.</string>
@@ -72,7 +72,7 @@
   <string name="combatComplete">Til lukku! Nú dugir tú at berjast við talvfólkum!</string>
   <string name="checkInOne">Skák í einum</string>
   <string name="attackTheOpponentsKing">Leyp á kongin hjá mótleikaranum</string>
-  <string name="checkInOneIntro">Til tess at skáka mótpartin, mást tú leypa á kongin. Mótparturin má verja hann!</string>
+  <string name="checkInOneIntro">Til tess at skáka mótpartin, mást tú leypa á kongin. Mótparturin noyðist at verja hann!</string>
   <string name="checkInOneGoal">Hótt mótstøðukongin í einum leiki!</string>
   <string name="checkInOneComplete">Til lukku! Tú skákaði mótpartin, og noyddi hann at verja kongin!</string>
   <string name="outOfCheck">Úr skáki</string>
@@ -86,7 +86,7 @@
   <string name="outOfCheckComplete">Til lukku! Kongurin hjá tær verður ikki tikin. Ansa eftir, at tú fært vart móti skáki!</string>
   <string name="mateInOne">Skák og mát í einum</string>
   <string name="defeatTheOpponentsKing">Vinn á mótstøðukonginum</string>
-  <string name="mateInOneIntro">Tú vinnur, tá ið mótparturin ikki fær vart ímóti skáki.</string>
+  <string name="mateInOneIntro">Tú vinnur, tá ið mótparturin ikki fær vart seg ímóti skáki.</string>
   <string name="attackYourOpponentsKing">Leyp á mótstøðukongin, soleiðis at hann ikki fær vart seg!</string>
   <string name="mateInOneComplete">Til lukku! Soleiðis vinnur tú í talvi!</string>
   <string name="intermediate">Millumstig</string>
@@ -104,8 +104,8 @@
   <string name="castling">At leypa í borg</string>
   <string name="theSpecialKingMove">Serligi leikurin hjá kongi</string>
   <string name="castlingIntro">Flyt kongin í tryggleika, og tak rókin í nýtslu, so hann fær lopið á!</string>
-  <string name="castleKingSide">Flyt kongin tveir puntar til at leypa í stuttu borg!</string>
-  <string name="castleQueenSide">Flyt kongin tveir puntar til at leypa í longu borg!</string>
+  <string name="castleKingSide">Flyt kongin tveir puntar til tess at leypa í stuttu borg!</string>
+  <string name="castleQueenSide">Flyt kongin tveir puntar til tess at leypa í longu borg!</string>
   <string name="theKnightIsInTheWay">Riddarin stendur fyri! Flyt hann, og leyp í borg kongamegin (stuttu borg).</string>
   <string name="castleKingSideMovePiecesFirst">Leyp í stuttu borg! Fyrst mást tú flyta fólk út.</string>
   <string name="castleQueenSideMovePiecesFirst">Leyp í longu borg! Fyrst mást tú flyta fólk út.</string>
@@ -122,16 +122,16 @@
   <string name="enPassantOnlyWorksOnFifthRank">At taka í framlopi riggar bert, um finnan hjá tær er á fimtu røð.</string>
   <string name="takeAllThePawnsEnPassant">Tak allar finnurnar í framlopi!</string>
   <string name="enPassantComplete">Til lukku! Nú dugir tú at taka í framlopi (en passant).</string>
-  <string name="stalemate">Pattstøða (patt)</string>
+  <string name="stalemate">Pattstøða</string>
   <string name="theGameIsADraw">Talvið endar við javnleiki</string>
   <string name="stalemateIntro">Tá ið ein telvari ikki er skákaður, og ikki hevur nakran lógligan leik, er pattstøða (patt). Talvið endar við javnleiki: eingin vinnur, og eingin tapir.</string>
   <string name="stalemateGoal">Set svartan í pattstøðu:
 - Svartur fær ikki flutt nakrastaðni
 - Hann er ikki skákaður.</string>
-  <string name="stalemateComplete">Til lukku! Betri er at vera settur patt enn at vera settur skák og mát!</string>
+  <string name="stalemateComplete">Til lukku! Betri er at vera settur í pattstøðu enn at vera settur skák og mát!</string>
   <string name="advanced">Framkomið stig</string>
   <string name="pieceValue">Talvfólkavirði</string>
-  <string name="evaluatePieceStrength">Rokna styrkina á talvfólki</string>
+  <string name="evaluatePieceStrength">Met um styrkina á talvfólki</string>
   <string name="pieceValueIntro">Talvfólk, ið fáa flutt langt og lætt, hava hægri virði!
 Frúgv = 9
 Rókur = 5
