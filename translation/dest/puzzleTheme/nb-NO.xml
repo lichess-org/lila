@@ -10,4 +10,5 @@
   <string name="rookEndgame">Tårnsluttspill</string>
   <string name="sacrifice">Offer</string>
   <string name="smotheredMate">Kvelermatt</string>
+  <string name="zugzwang">Trekktvang</string>
 </resources>
