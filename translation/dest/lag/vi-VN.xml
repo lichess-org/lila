@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessServerLatency">Độ trễ máy chủ Lichess</string>
+  <string name="networkBetweenLichessAndYouExplanation">Thời gian cần để gửi một nước đi từ máy tính của bạn đến máy chủ của Lichess, và nhận phản hồi trở lại. Phụ thuộc cụ thể vào khoảng cách của bạn tới Lichess (Pháp), và vào chất lượng mạng Internet của bạn. Các nhà phát triển của Lichess không thể sửa mạng wifi của bạn hay khiến ánh sáng di chuyển nhanh hơn được.</string>
+</resources>
