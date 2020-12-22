@@ -103,7 +103,7 @@ final class JsonView(
             "game"   -> gameJson,
             "puzzle" -> puzzleJson(puzzle)
           )
-          .add("user" -> user.map(userJson))
+          .add("user" -> user.map(_.perfs.puzzle.intRating).map(userJson))
       }
     }
 
@@ -121,7 +121,12 @@ final class JsonView(
       }.sequenceFu
     } yield Json
       .obj("puzzles" -> jsons)
-      .add("user" -> user.map(userJson))
+      .add("user" -> user.map(_.perfs.puzzle.intRating).map(userJson))
+
+    def userJson(rating: Int) = Json.obj(
+      "rating" -> rating,
+      "recent" -> Json.arr()
+    )
 
     private def puzzleJson(puzzle: Puzzle) = Json.obj(
       "id"         -> Puzzle.numericalId(puzzle.id),

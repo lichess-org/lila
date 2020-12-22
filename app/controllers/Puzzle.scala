@@ -105,25 +105,13 @@ final class Puzzle(
                     _       = env.puzzle.session.onComplete(round, theme.key)
                     json <-
                       if (mobileBc) fuccess {
-                        Json
-                          .obj(
-                            "user" -> Json
-                              .obj(
-                                "rating" -> perf.intRating,
-                                "recent" -> Json.arr(
-                                  Json.arr(
-                                    Puz.numericalId(puzzle.id),
-                                    perf.intRating - me.perfs.puzzle.intRating,
-                                    puzzle.glicko.intRating
-                                  )
-                                )
-                              ),
-                            "round" -> Json.obj(
-                              "ratingDiff" -> 0,
-                              "win"        -> (resultInt == 1)
-                            ),
-                            "voted" -> round.vote
-                          )
+                        env.puzzle.jsonView.bc.userJson(perf.intRating) ++ Json.obj(
+                          "round" -> Json.obj(
+                            "ratingDiff" -> 0,
+                            "win"        -> (resultInt == 1)
+                          ),
+                          "voted" -> round.vote
+                        )
                       }
                       else
                         for {
@@ -302,12 +290,7 @@ final class Puzzle(
                     env.puzzle.api.puzzle.find(Puz.numericalId(solution.id)).map2(_ -> Result(solution.win))
                   }
                   .flatMap {
-                    case None =>
-                      Ok(
-                        Json.obj(
-                          "user" -> Json.obj("rating" -> me.perfs.puzzle.intRating, "recent" -> Json.arr())
-                        )
-                      ).fuccess
+                    case None => Ok(env.puzzle.jsonView.bc.userJson(me.perfs.puzzle.intRating)).fuccess
                     case Some((puzzle, result)) =>
                       for {
                         (round, perf) <- env.puzzle.finisher(
@@ -317,11 +300,7 @@ final class Puzzle(
                           result = result
                         )
                         _ = env.puzzle.session.onComplete(round, PuzzleTheme.mix.key)
-                      } yield Ok(
-                        Json.obj(
-                          "user" -> Json.obj("rating" -> perf.intRating, "recent" -> Json.arr())
-                        )
-                      )
+                      } yield Ok(env.puzzle.jsonView.bc.userJson(perf.intRating))
                   }
             )
         }
