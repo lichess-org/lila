@@ -38,9 +38,11 @@
   <string name="exposedKing">Eksponeret konge</string>
   <string name="exposedKingDescription">En taktik der involverer en konge med få forsvarere omkring sig, hvilket ofte fører til skakmat.</string>
   <string name="fork">Gaffel</string>
+  <string name="forkDescription">Et træk hvor den flyttede brik angriber to af modstanderen brikker på én gang.</string>
   <string name="hangingPiece">Hængende brik</string>
   <string name="hangingPieceDescription">En taktik der indebærer, at en af modstanderens brikker, der ikke forsvares eller ikke forsvares tilstrækkeligt, frit kan tages.</string>
   <string name="interference">Obstruktion</string>
+  <string name="interferenceDescription">Flytte en brik ind mellem to af modstanderens brikker, så den ene eller begge er uden forsvar, såsom en springer på et forsvaret felt mellem to tårne.</string>
   <string name="intermezzo">Intermezzo</string>
   <string name="intermezzoDescription">I stedet for at spille det forventede træk foretages først et andet træk, som udgør en umiddelbar trussel, som modstanderen må besvare. Også kendt som \"Zwischenzug\" eller \"In between\".</string>
   <string name="knightEndgame">Springer-slutspil</string>
@@ -75,6 +77,7 @@
   <string name="queenEndgameDescription">Et slutspil med kun dronninger og bønder.</string>
   <string name="queensideAttack">Dronningeside-angreb</string>
   <string name="quietMove">Stille træk</string>
+  <string name="quietMoveDescription">Et træk som ikke sætter skak eller tager en brik, men som forbereder en uundgåelig trussel ved et senere træk.</string>
   <string name="rookEndgame">Tårnslutspil</string>
   <string name="rookEndgameDescription">Et slutspil med kun tårne og bønder.</string>
   <string name="sacrifice">Offer</string>
