@@ -33,12 +33,15 @@
   <string name="interference">インターフェアランス</string>
   <string name="intermezzo">インテルメッツォ</string>
   <string name="knightEndgame">ナイト・エンドーゲーム</string>
+  <string name="long">長手数タクティクス</string>
   <string name="mate">メイト</string>
   <string name="mateIn1">1手メイト</string>
   <string name="mateIn2">2手メイト</string>
   <string name="mateIn3">3手メイト</string>
   <string name="mateIn4">4手メイト</string>
+  <string name="mateIn5">5手以上メイト</string>
   <string name="middlegame">ミドルゲーム</string>
+  <string name="oneMove">1手タクティクス</string>
   <string name="opening">オープニング</string>
   <string name="overloading">オーバーローディング</string>
   <string name="pawnEndgame">ポーン・エンドゲーム</string>
@@ -55,7 +58,7 @@
   <string name="trappedPiece">トラップ</string>
   <string name="underPromotion">アンダープロモーション</string>
   <string name="underPromotionDescription">ナイト、ビショップ、またはルークへのプロモーション。</string>
-  <string name="veryLong">長手数タクティクス</string>
+  <string name="veryLong">超長手数タクティクス</string>
   <string name="xRayAttack">エックス・レイ・アタック</string>
   <string name="zugzwang">ツークツワンク</string>
   <string name="healthyMixDescription">何事も少しずつ。備えあれば憂いなし！実際のゲームのように。</string>
