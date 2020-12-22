@@ -1,4 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="puzzles">Fadbhbanna</string>
+  <string name="recommended">Molta</string>
+  <string name="phases">Céimeanna</string>
+  <string name="motifs">Móitífeanna</string>
+  <string name="mates">Marbhsháinneacha</string>
   <string name="specialMoves">Bearta speisialta</string>
+  <string name="didYouLikeThisPuzzle">Ba mhaith leat an fadhb seo?</string>
+  <string name="yourPuzzleRatingX">Do rátáil faidhbe: %s</string>
+  <string name="findTheBestMoveForWhite">Faigh an beart is fearr le bán.</string>
+  <string name="findTheBestMoveForBlack">Faigh an beart is fearr le dubh.</string>
+  <string name="puzzleId">Fadhb %s</string>
+  <string name="puzzleOfTheDay">Fadhb an lae</string>
+  <string name="goodMove">Beart maith</string>
+  <string name="bestMove">Beart is fearr!</string>
+  <string name="keepGoing">Lean ar aghaidh…</string>
+  <string name="puzzleSuccess">D\'éirigh leat!</string>
+  <string name="puzzleComplete">Fadhb críochnaithe!</string>
+  <string name="trySomethingElse">Triail beart eile.</string>
+  <string name="ratingX">Rátáil: %s</string>
+  <string name="hidden">folaithe</string>
+  <string name="fromGameLink">Ó cluiche %s</string>
+  <string name="continueTraining">Lean ar aghaidh le cleachtadh</string>
+  <string name="difficultyLevel">Deacracht</string>
+  <string name="normal">Gnáth</string>
+  <string name="easier">Níos éasca</string>
+  <string name="easiest">Is éasca</string>
+  <string name="harder">Níos deacra</string>
+  <string name="hardest">Is deacra</string>
+  <string name="example">Sampla</string>
 </resources>
