@@ -68,8 +68,18 @@
   <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Tú kanst seta hetta inn í torgið at sýna tað har</string>
   <string name="startAtInitialPosition">Byrja við byrjanarstøðuni</string>
   <string name="startAtX">Byrja við %s</string>
-  <string name="embedInYourWebsite">Set inn í heimasíðu tína ella blogg tín</string>
-  <string name="readMoreAboutEmbedding">Les meira um at seta inn í</string>
+  <string name="embedInYourWebsite">Fell inn í heimasíðu tína ella blogg tín</string>
+  <string name="readMoreAboutEmbedding">Les meira um at fella inn í</string>
+  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Bert almennar rannsóknir kunnu verða feldar inn í!</string>
+  <string name="open">Lat upp</string>
+  <string name="xBroughtToYouByY">%2$s fekk tær %1$s til vegar</string>
+  <string name="studyNotFound">Rannsókn ikki funnin</string>
+  <string name="editChapter">Broyt kapittul</string>
+  <string name="newChapter">Nýggjur kapittul</string>
+  <string name="orientation">Helling</string>
+  <string name="analysisMode">Greiningarstøða</string>
+  <string name="pinnedChapterComment">Føst viðmerking til kapittulin</string>
+  <string name="saveChapter">Goym kapittulin</string>
   <string name="normalAnalysis">Vanlig greining</string>
   <string name="hideNextMoves">Fjal næstu leikirnar</string>
   <string name="nobody">Eingin</string>
