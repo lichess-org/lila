@@ -51,11 +51,11 @@ object PuzzleRound {
     val id     = "_id"
     val win    = "w"
     val vote   = "v"
-    val themes = "t"
-    val puzzle = "p" // only if themes is set!
     val weight = "e"
     val user   = "u"
     val date   = "d"
     val theme  = "t"
+    val themes = "h"
+    val puzzle = "p" // only if themes is set!
   }
 }
