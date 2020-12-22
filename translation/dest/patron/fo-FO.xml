@@ -31,4 +31,7 @@
   <string name="serversAndDeveloper">Fyrst av øllum til sterkar ambætarar. Síðani lata vit einum fulltíðarmennara løn: %s, stovnarin av Lichess.</string>
   <string name="costBreakdown">Nágreinaðar útreiðslur</string>
   <string name="officialNonProfit">Er Lichess alment ein felagsskapur, ið ikki miðar eftir vinningi?</string>
+  <string name="actOfCreation">Ja, her er stovnsskipanin (á fronskum)</string>
+  <string name="changeMonthlySupport">Kann eg broyta/steðga mín mánaðarliga stuðul?</string>
+  <string name="changeOrContact">Ja, nær tað skal vera. Á hesari síðuni. Ella kanst tú %s.</string>
 </resources>
