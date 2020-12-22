@@ -20,23 +20,31 @@
   <string name="crushingDescription">相手の悪手をとがめて圧倒的な優位を築きます。（評価値は 600cp 以上）</string>
   <string name="equality">互角</string>
   <string name="equalityDescription">劣勢の局面から、ドローを確保するか互角の局面に戻します。（評価値は 200cp 以下）</string>
-  <string name="kingsideAttack">キングサイド攻撃</string>
+  <string name="kingsideAttack">キングサイド・アタック</string>
   <string name="kingsideAttackDescription">キングサイドにキャスリングした相手のキングを攻撃します。</string>
   <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">クリアランス</string>
+  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">ディスカバード・アタック</string>
+  <string name="doubleCheck">ダブル・チェック</string>
   <string name="endgame">エンドゲーム</string>
+  <string name="exposedKing">エクスポーズド・キング</string>
   <string name="fork">フォーク</string>
   <string name="forkDescription">動いた駒が相手の2つの駒を同時に攻撃する動き。</string>
+  <string name="hangingPiece">ハンギング・ピース</string>
+  <string name="interference">インターフェアランス</string>
+  <string name="intermezzo">インテルメッツォ</string>
+  <string name="knightEndgame">ナイト・エンドーゲーム</string>
   <string name="mate">メイト</string>
   <string name="middlegame">ミドルゲーム</string>
   <string name="opening">オープニング</string>
   <string name="overloading">オーバーローディング</string>
-  <string name="pawnEndgame">ポーンエンドゲーム</string>
+  <string name="pawnEndgame">ポーン・エンドゲーム</string>
   <string name="pawnEndgameDescription">ポーンだけのエンドゲーム。</string>
   <string name="pin">ピン</string>
   <string name="promotion">プロモーション</string>
-  <string name="queenEndgame">クイーンエンドゲーム</string>
+  <string name="queenEndgame">クイーン・エンドゲーム</string>
   <string name="sacrifice">サクリファイス</string>
   <string name="skewer">スキュア</string>
+  <string name="xRayAttack">エックス・レイ・アタック</string>
   <string name="zugzwang">ツークツワンク</string>
   <string name="healthyMixDescription">何事も少しずつ。備えあれば憂いなし！実際のゲームのように。</string>
 </resources>
