@@ -32,6 +32,7 @@
     <item quantity="other">Spilt %s ganger</item>
   </plurals>
   <string name="fromGameLink">Fra parti %s</string>
+  <string name="continueTraining">Fortsett å øve</string>
   <string name="difficultyLevel">Vanskelighetsgrad</string>
   <string name="normal">Vanlig</string>
   <string name="easier">Lettere</string>
