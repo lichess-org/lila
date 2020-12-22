@@ -35,7 +35,7 @@
   <string name="basedOnGameDuration">Lichess上的時限基於預期的對弈時間 %1$s
 例如，5+3的預期對弈時間為 5 × 60 + 40 × 3 = 420秒。</string>
   <string name="durationFormula">(初始時間) + 40 x (加時)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">有哪些變體是在Lichess上玩得到的？</string>
   <string name="lichessSupportChessAnd">Lichess上有標準國際象棋和%1$s</string>
