@@ -5,6 +5,9 @@
   <string name="phases">Fasen</string>
   <string name="motifs">Motieven</string>
   <string name="advanced">Geavanceerd</string>
+  <string name="lengths">Duur</string>
+  <string name="mates">Schaakmat</string>
+  <string name="goals">Doelen</string>
   <string name="specialMoves">Speciale zetten</string>
   <string name="didYouLikeThisPuzzle">Vond je deze puzzel leuk?</string>
   <string name="voteToLoadNextOne">Stem om de volgende te laden!</string>
