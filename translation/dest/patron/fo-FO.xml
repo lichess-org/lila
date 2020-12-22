@@ -40,7 +40,7 @@
   <string name="bankTransfers">Vit taka eisini ímóti bankaflytingum</string>
   <string name="bitcoin">Og her er bitcoin-bústaður okkara: %s</string>
   <string name="patronFeatures">Eru tænastur, ið serliga eru ætlaðar stuðlum?</string>
-  <string name="noPatronFeatures">Nei, tí Lichess er fullkomiliga ókeypis og fyri øll. Tað er eitt lyfti. Hinvegin hava vælvildarfólk rætt til at reypa sær við eini nýggjari, kulari ímynd á vangamynd teirra.</string>
+  <string name="noPatronFeatures">Nei, tí Lichess er fullkomiliga ókeypis og fyri øll. Tað er eitt lyfti. Hinvegin hava stuðlar rætt til at reypa sær við eini nýggjari, kulari ímynd á vangamynd teirra.</string>
   <string name="featuresComparison">Síggj nágreiniligar sammetingar av eginleikum</string>
   <plurals name="patronForMonths">
     <item quantity="one">Lichess vælvildarfólk í ein mánað</item>
@@ -61,13 +61,13 @@
   <string name="noLongerSupport">Stuðla ikki Lichess longur</string>
   <string name="paymentHistory">Gjaldssøga</string>
   <string name="paid">Goldið</string>
-  <string name="viewOthers">Síggj onnur Lichess vælvildarfólk</string>
-  <string name="date">Dagfesting</string>
+  <string name="viewOthers">Síggj aðrar Lichess-stuðlar</string>
+  <string name="date">Dagur</string>
   <string name="amount">Upphædd</string>
   <string name="transactionCompleted">Flytingin er fullførd, og ein kvittan fyri stuðulin er send við telduposti til tín.</string>
-  <string name="permanentPatron">Tú hevur nú eina varandi vælvildarfólkakontu.</string>
+  <string name="permanentPatron">Tú hevur nú eina varandi stuðulskontu.</string>
   <string name="checkOutProfile">Hygg at vangamynd tínari!</string>
-  <string name="nowLifetime">Tú ert nú eitt lívstíðar Lichess-vælvildarfólk!</string>
-  <string name="nowOneMonth">Tú ert nú eitt Lichess-vælvildarfólk í ein mánað!</string>
-  <string name="downgradeNextMonth">Um ein mánað, verður tú IKKI kravd/ur eftir peningi aftur, og Lichess konta tín verður lækkað til eina vanliga kontu.</string>
+  <string name="nowLifetime">Tú ert nú ein lívstíðar Lichess-stuðul!</string>
+  <string name="nowOneMonth">Tú ert nú Lichess-stuðul í ein mánað!</string>
+  <string name="downgradeNextMonth">Um ein mánað, verður tú IKKI kravd/ur eftir peningi aftur, og Lichess-konta tín verður lækkað til eina vanliga kontu.</string>
 </resources>
