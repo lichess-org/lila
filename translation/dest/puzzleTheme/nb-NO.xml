@@ -3,6 +3,7 @@
   <string name="backRankMate">Sekkematt</string>
   <string name="bishopEndgame">Løpersluttspill</string>
   <string name="castling">Rokade</string>
+  <string name="endgame">Sluttspill</string>
   <string name="fork">Gaffel</string>
   <string name="knightEndgame">Springersluttspill</string>
   <string name="long">Lang sjakknøtt</string>
@@ -14,7 +15,12 @@
   <string name="mateIn3">Matt i 3</string>
   <string name="mateIn4">Matt i 4</string>
   <string name="mateIn5">Matt i 5 eller flere</string>
+  <string name="middlegame">Midtspill</string>
+  <string name="opening">Åpning</string>
   <string name="pawnEndgame">Bondesluttspill</string>
+  <string name="pawnEndgameDescription">Et sluttspill med kun bønder.</string>
+  <string name="pin">Binding</string>
+  <string name="promotion">Bondeforvandling</string>
   <string name="queenEndgame">Dronningsluttspill</string>
   <string name="rookEndgame">Tårnsluttspill</string>
   <string name="sacrifice">Offer</string>
