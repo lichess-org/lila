@@ -1,2 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="passwordX">Loyniorð: %s</string>
+  <string name="createANewLichessAccount">Stovna eina nýggja Lichess kontu</string>
+  <string name="lichessUsername">Lichess brúkaranavn</string>
+  <string name="lastActiveDate">Virkin</string>
+  <string name="teachers">Lærarar</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Lærari</item>
+    <item quantity="other">%s lærarar</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Næmingur</item>
+    <item quantity="other">%s næmingar</item>
+  </plurals>
+  <string name="students">Næmingar</string>
+  <string name="progress">Framgongd</string>
+</resources>
