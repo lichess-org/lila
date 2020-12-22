@@ -74,7 +74,12 @@ final class PuzzleSessionApi(
         }
       }
       .monValue { puzzle =>
-        _.puzzle.selector.user.puzzle(theme = theme.value, retries = retries, vote = puzzle.vote)
+        _.puzzle.selector.user.puzzle(
+          theme = theme.value,
+          retries = retries,
+          vote = puzzle.vote,
+          ratingDiff = math.abs(puzzle.glicko.intRating - user.perfs.puzzle.intRating)
+        )
       }
 
   private def nextPuzzleResult(user: User, session: PuzzleSession): Fu[NextPuzzleResult] =
