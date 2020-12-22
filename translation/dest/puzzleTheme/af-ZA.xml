@@ -1,2 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advancedPawn">Gevorderde pion</string>
+  <string name="advancedPawnDescription">\'N Pion wat bevorder of dreig om te bevorder, is die sleutel tot die taktiek.</string>
+  <string name="advantage">Voordeel</string>
+  <string name="attackingF2F7">Aanval f2 of f7</string>
+  <string name="attackingF2F7Description">\'N Aanval wat op die f2- of f7-pion fokus, soos in die gebraaide leweropening.</string>
+  <string name="attraction">Aantrekkingskrag</string>
+  <string name="attractionDescription">\'N Uitwisseling of opoffering wat \'n opponentstuk aanmoedig of dwing na \'n vierkant wat \'n opvolgtaktiek moontlik maak.</string>
+  <string name="backRankMate">Agter rang maat</string>
+  <string name="backRankMateDescription">Skaakmaat die koning op die tuisrang, as hy daar vasgevang word deur sy eie stukke.</string>
+  <string name="bishopEndgame">Biskop eindspel</string>
+  <string name="bishopEndgameDescription">\'N Eindspel met slegs biskoppe en pionne.</string>
+  <string name="castling">Kasteel</string>
+  <string name="castlingDescription">Bring die koning in veiligheid en sit die toring in vir aanval.</string>
+  <string name="capturingDefender">Vang die verdediger vas</string>
+  <string name="capturingDefenderDescription">Verwyder \'n stuk wat van kritieke belang is vir die verdediging van \'n ander stuk, sodat die nou onverdedigde stuk op \'n volgende skuif vasgevang kan word.</string>
+</resources>
