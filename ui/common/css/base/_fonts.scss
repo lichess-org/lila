@@ -10,9 +10,9 @@
   font-style: normal;
 }
 @font-face {
-  font-family: "Noto Chess";
-  src: local-font("lishogi.chess.woff2") format("woff2"),
-    local-font("lishogi.chess.woff") format("woff");
+  font-family: "Noto Shogi";
+  src: local-font("lishogi.shogi.woff2") format("woff2"),
+    local-font("lishogi.shogi.woff") format("woff");
 }
 /* cyrillic-ext */
 @font-face {

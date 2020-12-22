@@ -25,6 +25,7 @@ coords {
     &.black {
       flex-flow: column;
     }
+    z-index: 1;
   }
 
   &.files {

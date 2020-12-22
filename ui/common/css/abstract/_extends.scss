@@ -12,7 +12,7 @@
   font-weight: 600;
 }
 %chess-font {
-  font-family: "Noto Sans"; // shogi font sometimes?
+  font-family: "Noto Shogi", "Noto Sans"; // shogi font sometimes?
 }
 %san {
   @extend %chess-font;

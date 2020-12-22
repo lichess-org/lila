@@ -12,24 +12,21 @@
     }
   }
   .player-color {
+    font-family: lishogi;
     font-size: 1.2em;
     @if $theme-light {
       &.white::before {
-        font-family: monospace;
-        content: "\2617\fe0e"; // ☗
+        content: "☗";
       }
       &.black::before {
-        font-family: monospace;
-        content: "\2616\fe0e"; // ☖
+        content: "☖";
       }
     } @else {
       &.white::before {
-        font-family: monospace;
-        content: "\2616\fe0e";
+        content: "☖";
       }
       &.black::before {
-        font-family: monospace;
-        content: "\2617\fe0e";
+        content: "☗";
       }
     }
   }
@@ -45,7 +42,7 @@
       opacity: 0.8;
     }
     &::before {
-      content: "Ò";
+      content: "";
     }
     &.patron::before {
       content: "" !important;
