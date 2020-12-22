@@ -14,6 +14,7 @@
   <string name="bishopEndgameDescription">Et sluttspill med kun løpere og bønder.</string>
   <string name="castling">Rokade</string>
   <string name="castlingDescription">Få kongen i sikkerhet og gjør tårnet klart for angrep.</string>
+  <string name="capturingDefender">Slå forsvareren</string>
   <string name="endgame">Sluttspill</string>
   <string name="fork">Gaffel</string>
   <string name="knightEndgame">Springersluttspill</string>
