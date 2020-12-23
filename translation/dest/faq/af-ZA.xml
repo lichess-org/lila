@@ -11,7 +11,51 @@
   <string name="howCanIContributeToLichess">Hoe kan ek bydra tot Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess word aangedryf deur donasies van beskermhere en die pogings van \'n span vrywilligers.</string>
   <string name="findMoreAndSeeHowHelp">U kan meer uitvind oor %1$s (insluitend %2$s). As u Lichess wil help deur u tyd en vaardighede aan te bied, is daar baie %3$s.</string>
+  <string name="beingAPatron">beskermheer wees</string>
+  <string name="breakdownOfOurCosts">uiteensetting van ons koste</string>
+  <string name="otherWaysToHelp">ander maniere om te help</string>
+  <string name="areThereWebsitesBasedOnLichess">Is daar webwerwe wat op Lichess gebaseer is?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess het inderdaad ander open source-webwerwe geïnspireer wat ons %1$s, %2$s of %3$s gebruik.</string>
+  <string name="fairPlay">Regverdige spel</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">Waarom word ek gemerk vir kunsmatige manipulering (sandbagging en boosting) of rekenaarhulp?</string>
+  <string name="cheatDetectionMethods">Lichess het sterk opsporingsmetodes en \'n baie deeglike proses om al die bewyse te hersien en \'n besluit te neem. Die proses betrek dikwels baie moderators en kan lank duur. Afgesien van die merk self, gaan ons nie in besonderhede oor bewyse of die besluitnemingsproses vir individuele sake nie. Deur dit te doen, sal dit makliker wees om in die toekoms opsporing te vermy en \'n uitnodiging tot onproduktiewe debatte te wees. Die tyd en moeite word beter aan ander belangrike sake bestee. Gebruikers kan appèl aanteken deur %1$s te e-pos, maar besluite word selde ongedaan gemaak.</string>
+  <string name="whenAmIEligibleRatinRefund">Wanneer kom ek in aanmerking vir die outomatiese terugbetaling van graderings van bedrieërs?</string>
+  <string name="ratingRefundExplanation">Een minuut nadat \'n speler gemerk is, word hul 40 laaste wedstryde in die afgelope drie dae geneem. As u die teenstander in daardie wedstryde is, het u \'n aanslag verloor (as gevolg van \'n verlies of gelykop uitslag) en u gradering was nie voorlopig nie, u ontvang \'n terugbetaling. Die terugbetaling is beperk op grond van u piekgradering en u vordering na die wedstryd.
+  (Byvoorbeeld, as u gradering aansienlik toegeneem het na daardie speletjies, sal u miskien geen terugbetaling of slegs \'n gedeeltelike terugbetaling kry nie.) \'N Terugbetaling sal nooit meer as 150 punte oorskry nie.</string>
   <string name="preventLeavingGameWithoutResigning">Wat word gedoen daaraan dat spelers speletjies verlaat aonder om te bedank?</string>
+  <string name="leavingGameWithoutResigningExplanation">As u opponent gereeld speletjies staak / verlaat, word hulle \"speel verban\", wat beteken dat hulle tydelik verbied word om speletjies te speel. Dit word nie publiek op hul profiel aangedui nie. As hierdie gedrag voortduur, verhoog die lengte van die speelbaan - en langdurige gedrag van hierdie aard kan lei tot die sluiting van die rekening.</string>
+  <string name="howCanIBecomeModerator">Hoe kan ek moderator word?</string>
+  <string name="youCannotApply">Dit is nie moontlik om aansoek te doen om moderator te word nie. As ons iemand sien wat volgens ons goed sal wees as moderator, sal ons hulle direk kontak.</string>
+  <string name="isCorrespondenceDifferent">Is korrespondensie anders as normale skaak?</string>
+  <string name="youCanUseOpeningBookNoEngine">Op Lichess is die belangrikste verskil in reëls vir korrespondensie-skaak dat \'n openingsboek toegelaat word. Die gebruik van enjins is steeds verbode en sal daartoe gelei word dat dit vir enjinbystand gemerk word. Alhoewel ICCF die gebruik van enjins in korrespondensie toelaat, doen Lichess dit nie.</string>
   <string name="gameplay">Spel</string>
+  <string name="howBulletBlitzEtcDecided">Hoe word daar besluit oor Bullet, Blitz en ander tydsbeheer?</string>
+  <string name="basedOnGameDuration">Lichess-tydkontroles is gebaseer op die geskatte tydsduur = %1$s
+Die geskatte duur van \'n 5 + 3-speletjie is byvoorbeeld 5 × 60 + 40 × 3 = 420 sekondes.</string>
+  <string name="durationFormula">(clock initial time) + 40 × (clock increment)</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="eightVariants">Agt skaak variante</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">minstens 30 gegradeerde speletjies in \'n gegewe gradering gespeel het,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">het die afgelope week \'n beoordelingspel vir hierdie gradering gespeel,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">het \'n beoordelingsafwyking laer as %1$s, in standaard skaak, en laer as %2$s in variante,</string>
+  <string name="beInTopTen">word in die top-10 in hierdie gradering.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Die tweede vereiste is dat spelers wat nie meer hul rekeninge gebruik nie, ophou om ranglyste in te vul.</string>
+  <string name="whyAreRatingHigher">Waarom is graderings hoër vergeleke met ander webwerwe en organisasies soos FIDE, USCF en die ICC?</string>
+  <string name="whyAreRatingHigherExplanation">Die beste is om nie beoordelings as absolute getalle te beskou nie, of dit met ander organisasies te vergelyk nie. Verskillende organisasies het verskillende vlakke van spelers, verskillende graderingstelsels (Elo, Glicko, Glicko-2, of \'n gewysigde weergawe van die bogenoemde). Hierdie faktore kan die absolute getalle (graderings) drasties beïnvloed.
+
+Die beste is om graderings te beskou as \'relatiewe\' syfers (in teenstelling met \'absolute\' syfers): binne \'n poel spelers sal hul relatiewe verskille in graderings u help om te skat wie sal wen / gelykop / verloor en hoe gereeld. Om te sê \"Ek het X-gradering\" beteken niks, tensy daar ander spelers is om die gradering mee te vergelyk.</string>
+  <string name="howToHideRatingWhilePlaying">Hoe kan u graderings verberg terwyl u speel?</string>
+  <string name="enableZenMode">Skakel Zen-modus in die %1$s in, of deur %2$s tydens \'n speletjie te druk.</string>
+  <string name="displayPreferences">vertoon voorkeure</string>
+  <string name="connexionLostCanIGetMyRatingBack">Ek het \'n wedstryd verloor as gevolg van vertraging / ontkoppeling. Kan ek my graderingspunte terugkry?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Ongelukkig kan ons nie punte weergee vir speletjies wat verloor is as gevolg van vertraging of ontkoppeling nie, ongeag of die probleem aan u einde of aan die einde was. Laasgenoemde is egter baie skaars. Let ook daarop dat wanneer Lichess weer begin en u daarom betyds verloor, ons die spel staak om \'n onregverdige verlies te voorkom.</string>
+  <string name="howToThreeDots">Hoe om...</string>
+  <string name="enableDisableNotificationPopUps">Skakel pop-upvensters in of uit?</string>
+  <string name="viewSiteInformationPopUp">Kyk na die pop-up van webwerf-inligting</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess kan opsioneel opspringkennisgewings stuur, byvoorbeeld as dit u beurt is of u \'n privaat boodskap ontvang het.
+
+Klik op die slotpictogram langs die lichess.org-adres in die URL-balk van u blaaier.
+
+Kies dan om kennisgewings van Lichess toe te laat of te blokkeer.</string>
 </resources>
