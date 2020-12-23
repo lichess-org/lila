@@ -31,4 +31,6 @@
   <string name="whereMoneyGoes">Unde se duc banii?</string>
   <string name="serversAndDeveloper">În primul rând, la servere puternice.
 Apoi plătim un dezvoltator de normă întreagă: %s, fondatorul Lichess.</string>
+  <string name="costBreakdown">Vezi analiza detaliată a costurilor</string>
+  <string name="actOfCreation">Da, iată actul de creare (în franceză)</string>
 </resources>
