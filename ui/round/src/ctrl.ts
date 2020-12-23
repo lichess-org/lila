@@ -45,7 +45,9 @@ import {
   MoveMetadata,
   Position,
   NvuiPlugin,
+  Selected,
 } from "./interfaces";
+import { cancelDropMode } from "shogiground/drop";
 
 interface GoneBerserk {
   white?: boolean;
@@ -88,6 +90,8 @@ export default class RoundController {
   preDrop?: cg.Role;
   lastDrawOfferAtPly?: Ply;
   nvui?: NvuiPlugin;
+
+  selected: Selected = undefined;
 
   private music?: any;
 
@@ -188,6 +192,9 @@ export default class RoundController {
     if (!this.replaying() && crazyValid(this.data, this, role, key)) {
       this.sendNewPiece(role, key, !!meta.predrop);
     } else this.jump(this.ply);
+    cancelDropMode(this.shogiground.state);
+    this.selected = undefined;
+    this.redraw();
   };
 
   private onMove = (_: cg.Key, dest: cg.Key, captured?: cg.Piece) => {
@@ -220,7 +227,7 @@ export default class RoundController {
     onUserMove: this.onUserMove,
     onUserNewPiece: this.onUserNewPiece,
     onMove: this.onMove,
-    onNewPiece: sound.move,
+    onNewPiece: sound.move, // check if drop is valid unitl we play the sound?
     onPremove: this.onPremove,
     onCancelPremove: this.onCancelPremove,
     onPredrop: this.onPredrop,

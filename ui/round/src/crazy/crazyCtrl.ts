@@ -30,6 +30,27 @@ export function drag(ctrl: RoundController, e: cg.MouchEvent): void {
   dragNewPiece(ctrl.shogiground.state, { color, role }, e);
 }
 
+export function selectToDrop(ctrl: RoundController, e: cg.MouchEvent): void {
+  if (e.button !== undefined && e.button !== 0) return; // only touch or left click
+  if (ctrl.replaying() || !ctrl.isPlaying()) return;
+  const el = e.target as HTMLElement,
+    role = el.getAttribute("data-role") as cg.Role,
+    color = el.getAttribute("data-color") as cg.Color,
+    number = el.getAttribute("data-nb");
+  if (!role || !color || number === "0") return;
+  if(!ctrl.selected || ctrl.selected[1] !== role){
+    setDropMode(ctrl.shogiground.state, { color, role });
+    ctrl.selected = [color, role];
+  }
+  else{
+    ctrl.selected = undefined;
+    cancelDropMode(ctrl.shogiground.state);
+  }
+  e.stopPropagation();
+  e.preventDefault();
+  ctrl.redraw();
+}
+
 let dropWithKey = false;
 let dropWithDrag = false;
 let mouseIconsLoaded = false;

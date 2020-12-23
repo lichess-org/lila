@@ -15,6 +15,11 @@
       margin-top: $block-gap;
     }
   }
+  .selected-square {
+    background-color: #888888;
+    box-shadow: 0px 32px 15px rgba(0, 0, 0, 0.3) inset;
+    border-radius: 8px;
+  }
 }
 
 .round__app {
