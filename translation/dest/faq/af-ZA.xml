@@ -112,6 +112,10 @@ Die stelsel is basies 90% seker dat u gradering tussen 800 en 2200 is. Dit is on
   <string name="notPlayedEnoughRatedGamesAgainstX">Die speler het nog nie genoeg beoordeelde speletjies teen %1$s in die graderingskategorie voltooi nie.</string>
   <string name="similarOpponents">teenstanders van soortgelyke krag</string>
   <string name="notPlayedRecently">Die speler het nie genoeg onlangse wedstryde gespeel nie. Afhangend van die aantal speletjies wat u gespeel het, kan dit ongeveer \'n jaar van onaktiwiteit neem voordat u gradering weer voorlopig word.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Dit beteken konkreet dat die Glicko-2-afwyking groter is as 110. Die afwyking is die mate van vertroue wat die stelsel in die gradering het. Hoe laer die afwyking, hoe stabieler is \'n gradering.</string>
+  <string name="howDoLeaderoardsWork">Hoe werk ranglyste en ranglyste?</string>
+  <string name="inOrderToAppearsYouMust">Om die %1$s te kry, moet u:</string>
+  <string name="ratingLeaderboards">ranglys</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">minstens 30 gegradeerde speletjies in \'n gegewe gradering gespeel het,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">het die afgelope week \'n beoordelingspel vir hierdie gradering gespeel,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">het \'n beoordelingsafwyking laer as %1$s, in standaard skaak, en laer as %2$s in variante,</string>
