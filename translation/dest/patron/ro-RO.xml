@@ -49,4 +49,8 @@ Totuși, Patronii primesc drepturi de laudă cu o nouă pictogramă faină lâng
   <string name="tyvm">Mulțumim foarte mult pentru ajutor. Ești tare!</string>
   <string name="currentStatus">Status actual</string>
   <string name="nextPayment">Următoarea plată</string>
+  <string name="youWillBeChargedXOnY">Veți plăti %1$s pe %2$s.</string>
+  <string name="makeAdditionalDonation">Faceți o donație în plus acum</string>
+  <string name="update">Actualizare</string>
+  <string name="changeMonthlyAmount">Modificați suma lunară (%s)</string>
 </resources>
