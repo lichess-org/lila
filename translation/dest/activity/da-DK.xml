@@ -11,8 +11,8 @@
     <item quantity="other">Øvede %1$s positioner i %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Løste %s taktikopgave</item>
-    <item quantity="other">Løste %s taktikopgaver</item>
+    <item quantity="one">Løste %s taktisk opgave</item>
+    <item quantity="other">Løste %s taktiske opgaver</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Spillede %1$s %2$s parti</item>
