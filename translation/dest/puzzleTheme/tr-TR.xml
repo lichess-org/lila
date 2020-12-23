@@ -33,7 +33,12 @@
   <string name="doubleCheck">Çifte şah</string>
   <string name="doubleCheckDescription">Bir hamlede, hem hareket eden hem de bu hareket sonucu önü açılan taş ile rakibe aynı anda iki farklı yerden şah çek.</string>
   <string name="endgame">Oyunsonu</string>
+  <string name="endgameDescription">Oyunun son aşamasında hayat kurtarıcı taktikler.</string>
   <string name="opening">Açılış</string>
+  <string name="sacrificeDescription">Zorunlu bir hamleler serisinden sonra avantaj elde etmek için kısa vadede birkaç taşı gözden çıkarmanız gereken taktikler.</string>
+  <string name="short">Kısa bulmaca</string>
+  <string name="shortDescription">İki hamlede kazanın.</string>
+  <string name="skewer">Şiş</string>
   <string name="healthyMix">Bir ondan bir bundan</string>
   <string name="healthyMixDescription">Ortaya karışık bulmacalar. Karşına ne tür bir pozisyonun çıkacağı tam bir muamma. Tıpkı gerçek maçlardaki gibi her şeye hazırlıklı olmakta fayda var.</string>
 </resources>
