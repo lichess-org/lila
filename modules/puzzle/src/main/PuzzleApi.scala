@@ -106,7 +106,8 @@ final class PuzzleApi(
           round.themeVote(theme, vote) ?? { newThemes =>
             import PuzzleRound.{ BSONFields => F }
             val update =
-              if (newThemes.isEmpty) fuccess($unset(F.themes, F.puzzle).some)
+              if (newThemes.isEmpty || !PuzzleRound.themesLookSane(newThemes))
+                fuccess($unset(F.themes, F.puzzle).some)
               else
                 vote match {
                   case None =>

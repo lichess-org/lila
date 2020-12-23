@@ -47,6 +47,10 @@ object PuzzleRound {
 
   case class Theme(theme: PuzzleTheme.Key, vote: Boolean)
 
+  // max 7 theme upvotes
+  // unlimited downvotes
+  def themesLookSane(themes: List[Theme]): Boolean = themes.count(_.vote) < 8
+
   object BSONFields {
     val id     = "_id"
     val win    = "w"
