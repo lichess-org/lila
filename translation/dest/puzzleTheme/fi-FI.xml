@@ -32,6 +32,7 @@
   <string name="doubleCheckDescription">Shakkaa samanaikaisesti kahdella nappulalla tekemällä kaksoishakki, jossa sekä liikkuva nappula että paljastettu nappula hyökkäävät vastustajan kuninkaan kimppuun.</string>
   <string name="endgame">Loppupeli</string>
   <string name="endgameDescription">Taktiikka pelin viimeisessä vaiheessa.</string>
+  <string name="enPassantDescription">Taktiikka, jossa sovelletaan ohestalyöntisääntöä, eli jossa sotilas vai lyödä sellaisen vastustajan sotilaan, joka on juuri ensimmäisellä kahden ruudun siirrollaan ohittanut sen.</string>
   <string name="long">Pitkä tehtävä</string>
   <string name="mate">Matti</string>
   <string name="mateDescription">Voita peli tyylillä.</string>
