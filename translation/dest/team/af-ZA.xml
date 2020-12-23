@@ -15,6 +15,10 @@
   <string name="anyoneCanJoin">Enige persoon mag aansluit</string>
   <string name="aConfirmationIsRequiredToJoin">\'n Bevestiging is nodig om aan te sluit</string>
   <string name="joiningPolicy">Voorwaardes vir aansluiting</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Spanleier</item>
+    <item quantity="other">Spanleiers</item>
+  </plurals>
   <string name="teamBestPlayers">Beste spanlede</string>
   <string name="teamRecentMembers">Onlangse spanlede</string>
   <string name="kickSomeone">Skop iemand uit die span uit</string>
@@ -31,4 +35,13 @@
   <string name="teamTournamentOverview">\'n Arena toernooi waarby net mense van jou span kan aansluit</string>
   <string name="messageAllMembers">Stuur \'n boodskap aan alle lede</string>
   <string name="messageAllMembersOverview">Stuur \'n private boodskap na elke lid van die span</string>
+  <string name="messageAllMembersLongDescription">Stuur \'n privaat boodskap aan AL die lede van die span.
+U kan dit gebruik om spelers te roep om deel te neem aan \'n toernooi of \'n spanstryd.
+Spelers wat nie daarvan hou om u boodskappe te ontvang nie, kan die span verlaat.</string>
+  <string name="teamsIlead">Spanne wat ek lei</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Wil u dalk een van hierdie komende toernooie koppel?</string>
+  <string name="usersWhoCanManageThisTeam">Gebruikers wat hierdie span kan bestuur</string>
+  <string name="leadersChat">Leiers gesels</string>
+  <string name="closeTeam">Naby span</string>
+  <string name="closeTeamDescription">Sluit die span vir altyd.</string>
 </resources>
