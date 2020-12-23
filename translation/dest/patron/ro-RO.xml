@@ -32,6 +32,7 @@
   <string name="serversAndDeveloper">În primul rând, la servere puternice.
 Apoi plătim un dezvoltator de normă întreagă: %s, fondatorul Lichess.</string>
   <string name="costBreakdown">Vezi analiza detaliată a costurilor</string>
+  <string name="officialNonProfit">Este Lichess un non-profit în mod oficial?</string>
   <string name="actOfCreation">Da, iată actul de creare (în franceză)</string>
   <string name="changeMonthlySupport">Pot schimba/anula susținerea mea lunară?</string>
   <string name="changeOrContact">Da, oricând, de pe această pagină.
@@ -41,4 +42,11 @@ Sau poți %s.</string>
   <string name="bankTransfers">Acceptăm și transferuri bancare</string>
   <string name="bitcoin">Și iată adresa noastră bitcoin: %s</string>
   <string name="patronFeatures">Sunt unele funcții rezervate Patronilor?</string>
+  <string name="noPatronFeatures">Nu, deoarece Lichess e complet gratuit, pentru totdeauna, și pentru toată lumea. Asta e o promisiune.
+Totuși, Patronii primesc drepturi de laudă cu o nouă pictogramă faină lângă profil.</string>
+  <string name="featuresComparison">Vezi compararea detaliată a caracteristicilor</string>
+  <string name="youSupportWith">Susțineți lichess.org cu %s pe lună.</string>
+  <string name="tyvm">Mulțumim foarte mult pentru ajutor. Ești tare!</string>
+  <string name="currentStatus">Status actual</string>
+  <string name="nextPayment">Următoarea plată</string>
 </resources>
