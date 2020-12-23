@@ -76,7 +76,7 @@ object index {
             div(cls := "wrapper")(
               div(cls := "text")(
                 p(weRelyOnSupport()),
-                p("If you don't receive a confirmation by the system immediately, do not worry, within 24 hourse you will get your icon:). Donations through Patreon will be handled manually within 24 hours.")
+                p("Donations through Patreon will be handled manually within 24 hours.")
               ),
               div(cls := "content")(
                 div(
