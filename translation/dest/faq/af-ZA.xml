@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="faqAbbreviation">Gereelde vrae</string>
   <string name="frequentlyAskedQuestions">Gereelde Vrae</string>
   <string name="whyIsLichessCalledLichess">Hoekom word Lichess Lichess genoem?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess is \'n kombinasie van lewendige/ligte/libre en skaak. Dit word as %1$s uitgespreek.</string>
   <string name="leechess">lie-chess</string>
   <string name="hearItPronouncedBySpecialist">Hoor hoe dit deur \'n spesialis uitgespreek word.</string>
   <string name="whyLiveLightLibre">Lewendig, want wedstryde word regstreeks gespeel en gekyk 24/7; lig en libre want Lichess is oop-bron en vry van eiendomsregtelike strooi wat ander webwerwe lastig val.</string>
+  <string name="whyIsLilaCalledLila">Net so staan ​​die bronkode vir Lichess, %1$s, vir li [skaak in sca] la, aangesien die grootste deel van Lichess in %2$s, \'n intuïtiewe programmeertaal, geskryf is.</string>
+  <string name="howCanIContributeToLichess">Hoe kan ek bydra tot Lichess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess word aangedryf deur donasies van beskermhere en die pogings van \'n span vrywilligers.</string>
+  <string name="findMoreAndSeeHowHelp">U kan meer uitvind oor %1$s (insluitend %2$s). As u Lichess wil help deur u tyd en vaardighede aan te bied, is daar baie %3$s.</string>
   <string name="preventLeavingGameWithoutResigning">Wat word gedoen daaraan dat spelers speletjies verlaat aonder om te bedank?</string>
   <string name="gameplay">Spel</string>
   <string name="eightVariants">Agt skaak variante</string>
