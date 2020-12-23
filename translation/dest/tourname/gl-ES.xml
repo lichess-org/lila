@@ -43,4 +43,7 @@
   <string name="openingRapidArena">Torneo rápido de %s</string>
   <string name="openingRapid">Rápida %s</string>
   <string name="xTeamBattle">Batalla por equipos %s</string>
+  <string name="eliteXArena">Torneo %s de elite</string>
+  <string name="eliteX">%s de elite</string>
+  <string name="xArena">Torneo %s</string>
 </resources>
