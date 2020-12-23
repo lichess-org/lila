@@ -4,4 +4,7 @@
   <string name="advancedPawnDescription">Un pion care promovează sau amenință să promoveze e cheia acestei tactici.</string>
   <string name="advantage">Avantaj</string>
   <string name="attackingF2F7">Atac pe f2 sau f7</string>
+  <string name="attackingF2F7Description">Un atac concentrat pe pionul f2 sau f7, cum ar fi în deschiderea ficat prăjit (atacul Fegatello).</string>
+  <string name="attraction">Atragere</string>
+  <string name="attractionDescription">Un schimb sau sacrificiu care încurajează sau forțează o piesă adversară pe un pătrat care permite o tactică ulterioară.</string>
 </resources>
