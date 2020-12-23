@@ -7,7 +7,6 @@ import * as game from "game";
 
 export default function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   if (ctrl.embed || ctrl.data.game.id === "synthetic" || ctrl.data.forecast) return;
-  console.log(ctrl);
   const node = ctrl.node,
   clock = node.clock,
   whitePov = ctrl.bottomIsWhite(),

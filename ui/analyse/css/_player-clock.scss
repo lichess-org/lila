@@ -14,7 +14,7 @@ $clock-height: 20px;
 
   &.top {
     @extend %box-radius-top;
-    top: #{-$clock-height};
+    top: -18px; // changed from #{-$clock-height}, 100/9
     z-index: 2; // over the board coords
   }
   &.bottom {
