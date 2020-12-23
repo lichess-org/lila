@@ -44,4 +44,21 @@
   <string name="interference">Obstacol</string>
   <string name="interferenceDescription">Mutarea unei piese între două piese adversare pentru a lăsa una sau ambele piese adversare neprotejate, cum ar fi un cal pe un pătrat protejat dintre două ture.</string>
   <string name="intermezzo">Intermezzo</string>
+  <string name="intermezzoDescription">În loc să faci mutarea așteptată, mai întâi intervii cu o altă mutare care e o amenințare imediată, căreia adversarul trebuie să-i răspundă. Cunoscut și ca \"Zwischenzug\" sau \"In between\".</string>
+  <string name="knightEndgame">Final cu cai</string>
+  <string name="knightEndgameDescription">Un final de partidă doar cu pioni și cai.</string>
+  <string name="long">Puzzle lung</string>
+  <string name="longDescription">Trei mutări pentru a câștiga.</string>
+  <string name="mate">Mat</string>
+  <string name="mateDescription">Câștigă jocul cu stil.</string>
+  <string name="mateIn1">Mat din 1</string>
+  <string name="mateIn1Description">Dă mat dintr-o mutare.</string>
+  <string name="mateIn2">Mat din 2</string>
+  <string name="mateIn2Description">Dă mat din două mutări.</string>
+  <string name="mateIn3">Mat din 3</string>
+  <string name="mateIn3Description">Dă mat din trei mutări.</string>
+  <string name="mateIn4">Mat din 4</string>
+  <string name="mateIn4Description">Dă mat din patru mutări.</string>
+  <string name="mateIn5">Mat din 5 sau mai multe</string>
+  <string name="mateIn5Description">Găsește o secvență lungă de mat.</string>
 </resources>
