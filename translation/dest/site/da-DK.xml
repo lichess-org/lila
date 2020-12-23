@@ -190,8 +190,8 @@
     <item quantity="other">Ranking opdateres hvert %s minut</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s taktikopgave</item>
-    <item quantity="other">%s taktikopgaver</item>
+    <item quantity="one">%s opgave</item>
+    <item quantity="other">%s opgaver</item>
   </plurals>
   <string name="gamesPlayed">Antal partier spillet</string>
   <plurals name="nbGamesWithYou">
@@ -463,7 +463,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatisk videre til næste spil efter træk</string>
   <string name="autoSwitch">Autoskift</string>
-  <string name="puzzles">Taktikopgaver</string>
+  <string name="puzzles">Opgaver</string>
   <string name="latestUpdates">Seneste opdateringer</string>
   <string name="tournamentWinners">Turneringsvindere</string>
   <string name="name">Navn</string>
