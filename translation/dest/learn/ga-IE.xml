@@ -95,8 +95,19 @@ i beart amháin!</string>
   <string name="escapeWithTheKing">Éalaigh leis an rí!</string>
   <string name="theKingCannotEscapeButBlock">Ní féidir leis an rí éalú,
 ach is féidir leat an iasacht a blocáil!</string>
+  <string name="youCanGetOutOfCheckByTaking">Is féidir leat sáinn a éalú
+le píosa ag iasacht a tógáil.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Cuireann an ridire thú i sáinn
+trí do chosaint!</string>
+  <string name="escapeOrBlock">Éalaigh leis an rí
+nó an iasacht a blocáil!</string>
+  <string name="outOfCheckComplete">Comhghairdeas! Ní féidir do rí a bheith tógtha, bí cinnte go mbeadh tú ábalta cosaint ar sáinn!</string>
   <string name="mateInOne">Marbhsháinn i beart amháin</string>
   <string name="defeatTheOpponentsKing">Faigh bua ar an rí namhad</string>
+  <string name="mateInOneIntro">Buaigh leat nuair gan féidir do chéile comhraic cosaint ar sáinn.</string>
+  <string name="attackYourOpponentsKing">Iasaigh ar an rí namhaid
+gan féidir leis é a cosaint!</string>
+  <string name="mateInOneComplete">Comhghairdeas! Sin mar a buann tú an ficheall!</string>
   <string name="intermediate">Meanleibhéal</string>
   <string name="boardSetup">Leag amach an clár</string>
   <string name="howTheGameStarts">Conas a tosaíonn an cluiche</string>
