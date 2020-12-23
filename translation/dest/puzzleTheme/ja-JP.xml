@@ -19,7 +19,7 @@
   <string name="crushing">圧倒</string>
   <string name="crushingDescription">相手の悪手をとがめて圧倒的な優位を築きます。（評価値は 600cp 以上）</string>
   <string name="equality">互角</string>
-  <string name="equalityDescription">劣勢の局面から、ドローを確保するか互角の局面に戻します。（評価値は 200cp 以下）</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">劣勢の局面から、ドローを確保するか互角の局面に戻します。（評価値は 200cp 以下）</string>
   <string name="kingsideAttack">キングサイド・アタック</string>
   <string name="kingsideAttackDescription">キングサイドにキャスリングした相手のキングを攻撃します。</string>
   <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">クリアランス</string>
