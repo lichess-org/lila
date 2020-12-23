@@ -50,9 +50,9 @@ db.puzzle2_round.aggregate([{
 }).forEach(r => {
   db.puzzle2_puzzle.update({_id: r._id},{$set:{
     vote: r.v,
-    vd: r.vd,
-    vu: r.vu
+    vd: NumberInt(r.vd),
+    vu: NumberInt(r.vu)
   }});
 });
 
-db.puzzle2_puzzle.update({vu:{$exists:0},vd:{$exists:0}}, {$set:{vote:1,vu:1,vd:0}}, {multi:1});
+db.puzzle2_puzzle.update({vu:{$exists:0},vd:{$exists:0}}, {$set:{vote:1,vu:NumberInt(1),vd:NumberInt(0)}}, {multi:1});
