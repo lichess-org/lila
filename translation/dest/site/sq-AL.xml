@@ -199,6 +199,8 @@
     <item quantity="other">%s lojra me ju</item>
   </plurals>
   <string name="cancel">Anullo</string>
+  <string name="whiteTimeOut">Koha e bardhë jashtë</string>
+  <string name="blackTimeOut">Koha e zezë</string>
   <string name="drawOfferSent">Oferta për barazim u dërgua</string>
   <string name="drawOfferDeclined">Oferta për barazim u hodh poshtë</string>
   <string name="drawOfferAccepted">Oferta për barazim u pranua</string>
@@ -503,6 +505,8 @@
   <string name="currentPassword">Fjalëkalimi i tanishëm</string>
   <string name="newPassword">Fjalëkalimi i ri</string>
   <string name="newPasswordAgain">Fjalëkalimi i ri (përsëri)</string>
+  <string name="newPasswordsDontMatch">Fjalëkalimet e reja nuk përputhen</string>
+  <string name="newPasswordStrength">Fortësia e fjalëkalimit</string>
   <string name="clockInitialTime">Koha fillestare e orës</string>
   <string name="clockIncrement">Rritja e orës</string>
   <string name="privacy">Privatësia</string>
