@@ -7,4 +7,9 @@
   <string name="attackingF2F7Description">Un atac concentrat pe pionul f2 sau f7, cum ar fi în deschiderea ficat prăjit (atacul Fegatello).</string>
   <string name="attraction">Atragere</string>
   <string name="attractionDescription">Un schimb sau sacrificiu care încurajează sau forțează o piesă adversară pe un pătrat care permite o tactică ulterioară.</string>
+  <string name="backRankMate">Mat pe rândul din spate</string>
+  <string name="backRankMateDescription">Dă mat regelui pe rândul inițial, când e blocat acolo de propriele lui piese.</string>
+  <string name="bishopEndgame">Final cu nebuni</string>
+  <string name="bishopEndgameDescription">Un final de partidă doar cu nebuni și pioni.</string>
+  <string name="castling">Rocada</string>
 </resources>
