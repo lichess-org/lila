@@ -22,6 +22,7 @@
   <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Nouse häviöasemasta takaisin peliin ja saavuta tasapeli tai tasapainoinen asema. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Hyökkäys kuningassivustalla</string>
   <string name="kingsideAttackDescription">Hyökkää vastustajan kuninkaan kimppuun tämän linnoittauduttua kuningassivustalle.</string>
+  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Vapautus</string>
   <string name="long">Pitkä tehtävä</string>
   <string name="mate">Matti</string>
   <string name="mateDescription">Voita peli tyylillä.</string>
