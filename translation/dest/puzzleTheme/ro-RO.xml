@@ -37,4 +37,11 @@
   <string name="enPassantDescription">O tactică cu regula en passant, unde un pion poate captura un pion adversar care l-a întrecut folosind mutarea sa inițială de două pătrate.</string>
   <string name="exposedKing">Rege expus</string>
   <string name="exposedKingDescription">O tactică ce implică un rege cu puțini apărători în jurul său, adeseori rezultând în șah mat.</string>
+  <string name="fork">Bifurcare</string>
+  <string name="forkDescription">O mutare unde piesa mutată atacă două piese adversare deodată.</string>
+  <string name="hangingPiece">Piesă neprotejată</string>
+  <string name="hangingPieceDescription">O tactică ce implică o piesă adversară care e neprotejată sau apărată insuficient și e liberă pentru capturare.</string>
+  <string name="interference">Obstacol</string>
+  <string name="interferenceDescription">Mutarea unei piese între două piese adversare pentru a lăsa una sau ambele piese adversare neprotejate, cum ar fi un cal pe un pătrat protejat dintre două ture.</string>
+  <string name="intermezzo">Intermezzo</string>
 </resources>
