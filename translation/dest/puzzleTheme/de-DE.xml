@@ -6,7 +6,7 @@
   <string name="advantageDescription">Nutze deine Chance um einen entscheidenden Vorteil zu erlangen. (200cp ≤ Bewertung ≤ 600cp)</string>
   <string name="attackingF2F7">Angriff auf f2 oder f7</string>
   <string name="attackingF2F7Description">Ein Angriff, der sich auf den Bauern auf f2 oder f7 konzentriert, wie zum Beispiel bei der Eröffnung \"Zweispringerspiel im Nachzug, 4. Sg5\".</string>
-  <string name="attraction">Hinzuziehung</string>
+  <string name="attraction">Hineinziehung oder \"Magnet\"</string>
   <string name="attractionDescription">Ein Tausch oder Opfer, der eine gegnerische Figur auf ein Feld einlädt oder zwingt, was eine Folgetaktik erlaubt.</string>
   <string name="backRankMate">Grundreihenmatt</string>
   <string name="backRankMateDescription">Setze den König auf der Grundreihe matt, wenn er dort durch seine eigenen Figuren blockiert wird.</string>
@@ -19,7 +19,7 @@
   <string name="crushing">Vernichtend</string>
   <string name="crushingDescription">Finde den gegnerischen Patzer, um einen vernichtenden Vorteil zu erhalten. (Bewertung ≥ 600 Hundertstel-Bauern)</string>
   <string name="equality">Ausgleich</string>
-  <string name="equalityDescription">Komme aus einer verlorenen Stellung zurück und sichere dir ein Remis oder eine ausgeglichene Stellung. (Bewertung ≤ 200 Hundertstel-Bauern)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Komme aus einer verlorenen Stellung zurück und sichere dir ein Remis oder eine ausgeglichene Stellung. (Bewertung ≤ 200 Hundertstel-Bauern)</string>
   <string name="kingsideAttack">Angriff auf den Königsflügel</string>
   <string name="kingsideAttackDescription">Ein Angriff auf den gegnerischen König nachdem dieser auf den Königsflügel rochiert ist.</string>
   <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Öffnung</string>
