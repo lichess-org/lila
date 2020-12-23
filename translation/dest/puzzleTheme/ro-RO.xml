@@ -21,7 +21,7 @@
   <string name="equality">Egalitate</string>
   <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Întoarce-te dintr-o poziție de pierdere și asigură o remiză sau o poziție echilibrată. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Atac pe partea regelui</string>
-  <string name="kingsideAttackDescription">Un atac al regelui adversarului, după ce au făcut rocada pe partea regelui.</string>
+  <string name="kingsideAttackDescription">Un atac al regelui adversarului, după ce a făcut rocada pe partea regelui.</string>
   <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Îndepărtare</string>
   <string name="clearanceDescription">O mutare, adeseori cu tempo, care eliberează un pătrat, o coloană sau o diagonală pentru o idee tactică ulterioară.</string>
   <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Mutare defensivă</string>
@@ -61,4 +61,27 @@
   <string name="mateIn4Description">Dă mat din patru mutări.</string>
   <string name="mateIn5">Mat din 5 sau mai multe</string>
   <string name="mateIn5Description">Găsește o secvență lungă de mat.</string>
+  <string name="middlegame">Mijlocul jocului</string>
+  <string name="middlegameDescription">O tactică în a doua etapă a jocului.</string>
+  <string name="oneMove">Puzzle de o mutare</string>
+  <string name="oneMoveDescription">Un puzzle care are doar o mutare.</string>
+  <string name="opening">Deschidere</string>
+  <string name="openingDescription">O tactică în prima etapă a jocului.</string>
+  <string name="overloading">Supraîncărcare</string>
+  <string name="overloadingDescription">Când o piesă îndeplinește mai multe funcții, cum ar fi apărarea a două piese. Capturarea uneia dintre piesele apărate va da o oportunitate când se mută apărătorul, similar devierii.</string>
+  <string name="pawnEndgame">Final cu pioni</string>
+  <string name="pawnEndgameDescription">Un final de partidă doar cu pioni.</string>
+  <string name="pin">Blocare</string>
+  <string name="pinDescription">O tactică cu blocări, unde o piesă nu se poate mișca fără a descoperi un atac asupra unei piese mai valoroase.</string>
+  <string name="promotion">Promovare</string>
+  <string name="promotionDescription">Un pion care promovează sau amenință să promoveze e cheia acestei tactici.</string>
+  <string name="queenEndgame">Final cu regine</string>
+  <string name="queenEndgameDescription">Un final de partidă doar cu regine și pioni.</string>
+  <string name="queensideAttack">Atac pe partea reginei</string>
+  <string name="queensideAttackDescription">Un atac asupra regelui adversarului, după ce a făcut rocada pe partea reginei.</string>
+  <string name="quietMove">Mutare silențioasă</string>
+  <string name="quietMoveDescription">O mutare care nu capturează sau dă șah, dar care pregătește o amenințare inevitabilă pentru o mutare ulterioară.</string>
+  <string name="rookEndgame">Final cu turnuri</string>
+  <string name="rookEndgameDescription">Un final de partidă doar cu turnuri și pioni.</string>
+  <string name="sacrifice">Sacrificiu</string>
 </resources>
