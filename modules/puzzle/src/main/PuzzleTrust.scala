@@ -83,5 +83,5 @@ final private class PuzzleTrustApi(colls: PuzzleColls)(implicit ec: scala.concur
     else 0
 
   private def lameBonus(user: User) =
-    if (user.lameOrTroll) -10 else 0
+    if (user.lameOrTroll) -30 else 0
 }
