@@ -14,4 +14,9 @@
   <string name="openingDescription">Taktika počas prvého úseku hry.</string>
   <string name="pawnEndgame">Pešiaková koncovka</string>
   <string name="pawnEndgameDescription">Koncovka iba s pešiakmi.</string>
+  <string name="promotion">Premena</string>
+  <string name="queenEndgameDescription">Koncovka iba s kráľovnami a pešiakmi.</string>
+  <string name="sacrifice">Obetovanie</string>
+  <string name="smotheredMate">Dusený mat</string>
+  <string name="zugzwang">Nevýhoda ťahu</string>
 </resources>
