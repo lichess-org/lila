@@ -100,7 +100,7 @@
   <string name="xRayAttack">Röntgen-Angriff</string>
   <string name="xRayAttackDescription">Eine Schachfigur greift ein Feld an oder verteidigt es hindurch eine gegnerische Schachfigur.</string>
   <string name="zugzwang">Zugzwang</string>
-  <string name="zugzwangDescription">Der Gegner hat nur eingeschränkt mögliche Züge und alle Züge verschlechtern seine Stellung.</string>
+  <string name="zugzwangDescription">Der Gegner ist in der Anzahl seiner Züge limitiert und jeder seiner Züge verschlechtert seine Stellung.</string>
   <string name="healthyMix">Gesunder Mix</string>
   <string name="healthyMixDescription">Ein bisschen von Allem. Du weißt nicht, was dich erwartet, deshalb bleibst du auf alles vorbereitet! Genau wie in echten Partien.</string>
 </resources>
