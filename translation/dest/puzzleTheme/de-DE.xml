@@ -64,7 +64,7 @@
   <string name="middlegame">Mittelspiel</string>
   <string name="middlegameDescription">Eine Taktik in der mittleren Phase des Spiels, dem Mittelspiel.</string>
   <string name="oneMove">Einzügige Aufgabe</string>
-  <string name="oneMoveDescription">Eine Aufgabe, die nur einen Zug erfodert.</string>
+  <string name="oneMoveDescription">Eine Aufgabe, die nur einen Zug erfordert.</string>
   <string name="opening">Eröffnung</string>
   <string name="openingDescription">Eine Taktik in der ersten Phase des Spiels, der Eröffnung.</string>
   <string name="overloading">Überlastung</string>
