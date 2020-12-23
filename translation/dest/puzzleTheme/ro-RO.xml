@@ -84,4 +84,7 @@
   <string name="rookEndgame">Final cu turnuri</string>
   <string name="rookEndgameDescription">Un final de partidă doar cu turnuri și pioni.</string>
   <string name="sacrifice">Sacrificiu</string>
+  <string name="sacrificeDescription">O tactică care implică renunțarea la material pe termen scurt pentru a câștiga un avantaj din nou după o secvență forțată de mutări.</string>
+  <string name="short">Puzzle scurt</string>
+  <string name="shortDescription">Două mutări pentru a câștiga.</string>
 </resources>
