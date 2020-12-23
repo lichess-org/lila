@@ -96,20 +96,6 @@
         border: none;
       }
     }
-
-    &__beta {
-      @extend %box-neat;
-      margin-top: 1vmin;
-      padding: 1em;
-      background: mix($c-brag, $c-bg-box, 15%);
-      strong {
-        display: block;
-        font-size: 1.2em;
-        font-weight: normal;
-        color: $c-brag;
-        margin-bottom: .5em;
-      }
-    }
   }
 
   &__theme {
