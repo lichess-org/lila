@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="contact">Contacto</string>
+  <string name="contactLichess">Contactar con Lichess</string>
+  <string name="forgotPassword">Esquecín o meu contrasinal</string>
+  <string name="wantCloseAccount">Quero cerrar a miña conta</string>
+</resources>
