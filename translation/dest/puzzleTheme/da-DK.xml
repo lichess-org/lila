@@ -38,7 +38,7 @@
   <string name="exposedKing">Eksponeret konge</string>
   <string name="exposedKingDescription">En taktik der involverer en konge med få forsvarere omkring sig, hvilket ofte fører til skakmat.</string>
   <string name="fork">Gaffel</string>
-  <string name="forkDescription">Et træk hvor den flyttede brik angriber to af modstanderen brikker på én gang.</string>
+  <string name="forkDescription">Et træk hvor den flyttede brik angriber to af modstanderens brikker på én gang.</string>
   <string name="hangingPiece">Hængende brik</string>
   <string name="hangingPieceDescription">En taktik der indebærer, at en af modstanderens brikker, der ikke forsvares eller ikke forsvares tilstrækkeligt, frit kan tages.</string>
   <string name="interference">Obstruktion</string>
