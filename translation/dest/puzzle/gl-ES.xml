@@ -37,5 +37,7 @@
   <string name="easier">Máis fácil</string>
   <string name="easiest">O máis fácil</string>
   <string name="harder">Máis difícil</string>
+  <string name="hardest">O máis difícil</string>
+  <string name="example">Exemplo</string>
   <string name="addAnotherTheme">Engadir outro tema</string>
 </resources>
