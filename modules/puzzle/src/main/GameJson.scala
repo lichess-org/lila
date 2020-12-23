@@ -26,7 +26,7 @@ final private class GameJson(
   private def readKey(k: String): (Game.ID, Int) = (k take Game.gameIdSize, k.drop(Game.gameIdSize).toInt)
   private def writeKey(id: Game.ID, ply: Int)    = s"$id$ply"
 
-  private val cache = cacheApi[String, JsObject](1024, "puzzle.gameJson") {
+  private val cache = cacheApi[String, JsObject](4096, "puzzle.gameJson") {
     _.expireAfterAccess(5 minutes)
       .maximumSize(1024)
       .buildAsyncFuture(key =>
@@ -36,7 +36,7 @@ final private class GameJson(
       )
   }
 
-  private val bcCache = cacheApi[String, JsObject](1024, "puzzle.bc.gameJson") {
+  private val bcCache = cacheApi[String, JsObject](64, "puzzle.bc.gameJson") {
     _.expireAfterAccess(5 minutes)
       .maximumSize(1024)
       .buildAsyncFuture(key =>
