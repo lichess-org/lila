@@ -53,9 +53,7 @@ final class PuzzleApi(
               _ ?? { weight =>
                 val voteValue = (if (vote) 1 else -1) * weight
                 lila.mon.puzzle.vote(vote, prevRound.win).increment()
-                colls.puzzle {
-                  _.incField($id(id), F.vote, voteValue - ~prevRound.vote).void
-                }.void zip
+                updatePuzzle(id, voteValue, prevRound.vote) zip
                   colls.round {
                     _.updateField($id(prevRound.id), PuzzleRound.BSONFields.vote, voteValue)
                   } void
@@ -63,6 +61,32 @@ final class PuzzleApi(
             }
           }
         }
+
+    private def updatePuzzle(puzzleId: Puzzle.Id, newVote: Int, prevVote: Option[Int]): Funit =
+      colls.puzzle { coll =>
+        import Puzzle.{ BSONFields => F }
+        coll.one[Bdoc](
+          $id(puzzleId.value),
+          $doc(F.voteUp -> true, F.voteDown -> true, F.id -> false)
+        ) flatMap {
+          _ ?? { doc =>
+            val prevUp   = ~doc.int(F.voteUp)
+            val prevDown = ~doc.int(F.voteDown)
+            val up       = prevUp + ~newVote.some.filter(0 <) - ~prevVote.filter(0 <)
+            val down     = prevDown - ~newVote.some.filter(0 >) + ~prevVote.filter(0 >)
+            coll.update
+              .one(
+                $id(puzzleId.value),
+                $set(
+                  F.voteUp   -> up,
+                  F.voteDown -> down,
+                  F.vote     -> ((up - down).toFloat / (up + down))
+                )
+              )
+              .void
+          }
+        }
+      }
   }
 
   object theme {

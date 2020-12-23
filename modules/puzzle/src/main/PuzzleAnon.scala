@@ -17,13 +17,16 @@ final class PuzzleAnon(
 
   import BsonHandlers._
 
-  def getOneFor(theme: PuzzleTheme.Key): Fu[Option[Puzzle]] = {
-    pool get theme map ThreadLocalRandom.oneOf
-  }.chronometer.tap { lap =>
-    lap.result.foreach { puzzle =>
-      lap.mon(_.puzzle.selector.anon.puzzle(puzzle.vote))
-    }
-  }.result
+  def getOneFor(theme: PuzzleTheme.Key): Fu[Option[Puzzle]] =
+    pool
+      .get(theme)
+      .map(ThreadLocalRandom.oneOf)
+      .mon(_.puzzle.selector.anon.time(theme.value))
+      .addEffect {
+        _ foreach { puzzle =>
+          lila.mon.puzzle.selector.anon.vote(theme.value).record(math.round(puzzle.vote * 100))
+        }
+      }
 
   def getBatchFor(nb: Int): Fu[Vector[Puzzle]] = {
     pool get PuzzleTheme.mix.key map (_ take nb)

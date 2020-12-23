@@ -77,7 +77,7 @@ final class PuzzleSessionApi(
       .addEffect { puzzle =>
         val mon = lila.mon.puzzle.selector.user
         mon.retries(theme.value).record(retries)
-        mon.vote(theme.value).record(puzzle.vote)
+        mon.vote(theme.value).record(math.round(puzzle.vote * 100))
         mon.ratingDiff(theme.value).record(math.abs(puzzle.glicko.intRating - user.perfs.puzzle.intRating))
         mon.ratingDev(theme.value).record(puzzle.glicko.intDeviation).unit
       }
@@ -139,7 +139,6 @@ final class PuzzleSessionApi(
         _.puzzle.selector.nextPuzzleResult(
           theme = session.path.theme.value,
           difficulty = session.difficulty.key,
-          position = session.positionInPath,
           result = result.name
         )
       }
@@ -164,7 +163,7 @@ final class PuzzleSessionApi(
       createSessionFor(user, theme, difficulty).tap { sessions.put(user.id, _) }.void
     }
 
-  private val sessions = cacheApi.notLoading[User.ID, PuzzleSession](32768, "puzzle.session")(
+  private val sessions = cacheApi.notLoading[User.ID, PuzzleSession](16384, "puzzle.session")(
     _.expireAfterWrite(1 hour).buildAsync()
   )
 

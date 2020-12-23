@@ -12,7 +12,7 @@ case class Puzzle(
     line: NonEmptyList[Uci.Move],
     glicko: Glicko,
     plays: Int,
-    vote: Int,
+    vote: Float, // denormalized ratio of voteUp/voteDown
     themes: Set[PuzzleTheme.Key]
 ) {
   // ply after "initial move" when we start solving
@@ -82,16 +82,18 @@ object Puzzle {
   )
 
   object BSONFields {
-    val id     = "_id"
-    val gameId = "gameId"
-    val fen    = "fen"
-    val line   = "line"
-    val glicko = "glicko"
-    val vote   = "vote"
-    val plays  = "plays"
-    val themes = "themes"
-    val day    = "day"
-    val dirty  = "dirty" // themes need to be denormalized
+    val id       = "_id"
+    val gameId   = "gameId"
+    val fen      = "fen"
+    val line     = "line"
+    val glicko   = "glicko"
+    val vote     = "vote"
+    val voteUp   = "vu"
+    val voteDown = "vd"
+    val plays    = "plays"
+    val themes   = "themes"
+    val day      = "day"
+    val dirty    = "dirty" // themes need to be denormalized
   }
 
   implicit val idIso = lila.common.Iso.string[Id](Id.apply, _.value)

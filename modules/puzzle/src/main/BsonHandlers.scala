@@ -25,7 +25,7 @@ private[puzzle] object BsonHandlers {
       line    <- lineStr.split(' ').toList.flatMap(Uci.Move.apply).toNel.toTry("Empty move list?!")
       glicko  <- r.getAsTry[Glicko](glicko)
       plays   <- r.getAsTry[Int](plays)
-      vote    <- r.getAsTry[Int](vote)
+      vote    <- r.getAsTry[Float](vote)
       themes  <- r.getAsTry[Set[PuzzleTheme.Key]](themes)
     } yield Puzzle(
       id = id,
