@@ -6,4 +6,12 @@
   <string name="castlingDescription">Schovajte svojho kráľa do bezpečia a nasaďte vežu do útoku.</string>
   <string name="fork">Vidlička</string>
   <string name="forkDescription">Ťah, pri ktorom figúra útočí na dve nepriateľské figúry naraz.</string>
+  <string name="mate">Mat</string>
+  <string name="mateIn4">Mat na 4 ťahy</string>
+  <string name="middlegame">Stredná hra</string>
+  <string name="middlegameDescription">Taktika počas druhého úseku hry.</string>
+  <string name="opening">Otvorenie</string>
+  <string name="openingDescription">Taktika počas prvého úseku hry.</string>
+  <string name="pawnEndgame">Pešiaková koncovka</string>
+  <string name="pawnEndgameDescription">Koncovka iba s pešiakmi.</string>
 </resources>
