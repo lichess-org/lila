@@ -33,4 +33,12 @@
 Apoi plătim un dezvoltator de normă întreagă: %s, fondatorul Lichess.</string>
   <string name="costBreakdown">Vezi analiza detaliată a costurilor</string>
   <string name="actOfCreation">Da, iată actul de creare (în franceză)</string>
+  <string name="changeMonthlySupport">Pot schimba/anula susținerea mea lunară?</string>
+  <string name="changeOrContact">Da, oricând, de pe această pagină.
+Sau poți %s.</string>
+  <string name="contactSupport">cere asistență de la Lichess</string>
+  <string name="otherMethods">Alte metode de donare?</string>
+  <string name="bankTransfers">Acceptăm și transferuri bancare</string>
+  <string name="bitcoin">Și iată adresa noastră bitcoin: %s</string>
+  <string name="patronFeatures">Sunt unele funcții rezervate Patronilor?</string>
 </resources>
