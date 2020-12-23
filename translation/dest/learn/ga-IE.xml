@@ -11,7 +11,7 @@
   <string name="theRook">An caiseal</string>
   <string name="itMovesInStraightLines">Bogann sé i línte díreacha</string>
   <string name="rookIntro">Is píosa cumhachtach é an caiseal. An bhfuil tú réidh é a ordú?</string>
-  <string name="rookGoal">Cliceáil ar an gcaiseal agus tabhair é chun an réalta!</string>
+  <string name="rookGoal">Cliceáil ar an gcaiseal agus bog é chun an réalta!</string>
   <string name="grabAllTheStars">Sciob gach réalta!</string>
   <string name="theFewerMoves">Dá laghad beart a dhéanann tú, bheadh tuilleadh pointe agat!</string>
   <string name="useTwoRooks">Bog dhá caiseal
@@ -85,13 +85,29 @@ neamhcosanta a tógáil!</string>
   <string name="combatComplete">Comhghairdeas! Tá fhios agat conas a troid le píosaí fichille!</string>
   <string name="checkInOne">Sáinn i beart amháin</string>
   <string name="attackTheOpponentsKing">Ionsaigh ar an rí namhad</string>
+  <string name="checkInOneIntro">Chun do chéile comhraic a cur i sáinn, ionsaigh a rí. Is gá dó é a cosaint!</string>
+  <string name="checkInOneGoal">Ionsaigh an rí namhaid
+i beart amháin!</string>
+  <string name="checkInOneComplete">Comhghairdeas! Sháinn tú do chéile comhraic, agus is gá dó a rí a cosaint!</string>
   <string name="outOfCheck">As sháinn</string>
   <string name="defendYourKing">Cosain do rí</string>
+  <string name="outOfCheckIntro">Tá tú i sáinn! Caithfidh duit éalú nó an iasacht a blocáil.</string>
   <string name="escapeWithTheKing">Éalaigh leis an rí!</string>
   <string name="theKingCannotEscapeButBlock">Ní féidir leis an rí éalú,
 ach is féidir leat an iasacht a blocáil!</string>
+  <string name="youCanGetOutOfCheckByTaking">Is féidir leat sáinn a éalú
+le píosa ag iasacht a tógáil.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Cuireann an ridire thú i sáinn
+trí do chosaint!</string>
+  <string name="escapeOrBlock">Éalaigh leis an rí
+nó an iasacht a blocáil!</string>
+  <string name="outOfCheckComplete">Comhghairdeas! Ní féidir do rí a bheith tógtha, bí cinnte go mbeadh tú ábalta cosaint ar sáinn!</string>
   <string name="mateInOne">Marbhsháinn i beart amháin</string>
   <string name="defeatTheOpponentsKing">Faigh bua ar an rí namhad</string>
+  <string name="mateInOneIntro">Buaigh leat nuair gan féidir do chéile comhraic cosaint ar sáinn.</string>
+  <string name="attackYourOpponentsKing">Iasaigh ar an rí namhaid
+gan féidir leis é a cosaint!</string>
+  <string name="mateInOneComplete">Comhghairdeas! Sin mar a buann tú an ficheall!</string>
   <string name="intermediate">Meanleibhéal</string>
   <string name="boardSetup">Leag amach an clár</string>
   <string name="howTheGameStarts">Conas a tosaíonn an cluiche</string>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Rompecabezas</string>
-  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;">Recomendado</string>
+  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Recomendado</string>
   <string name="phases">Fases</string>
   <string name="motifs">Motivos</string>
   <string name="advanced">Avanzado</string>
-  <string name="lengths">Duración</string>
+  <string name="lengths">Duraciones</string>
   <string name="mates">Mates</string>
   <string name="goals">Objetivos</string>
   <string name="specialMoves">Movimientos especiales</string>
@@ -35,9 +35,9 @@
   <string name="continueTraining">Continuar entrenamiento</string>
   <string name="difficultyLevel">Nivel de dificultad</string>
   <string name="normal">Normal</string>
-  <string name="easier">Fácil</string>
-  <string name="easiest">Más fácil</string>
-  <string name="harder">Difícil</string>
+  <string name="easier">Más fácil</string>
+  <string name="easiest">El más fácil</string>
+  <string name="harder">Más difícil</string>
   <string name="hardest">Más difícil</string>
   <string name="example">Ejemplo</string>
   <string name="addAnotherTheme">Añadir otro tema</string>

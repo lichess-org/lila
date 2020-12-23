@@ -33,6 +33,10 @@
   <string name="joinTheGame">Unirse á partida</string>
   <string name="whitePlays">Xogan as brancas</string>
   <string name="blackPlays">Xogan as negras</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">O teu opoñente saíu da partida. Poderás reclamar a vitoria en %s segundo.</item>
+    <item quantity="other">O teu opoñente saíu da partida. Poderás reclamar a vitoria en %s segundos.</item>
+  </plurals>
   <string name="opponentLeftChoices">Pode que o outro xogador saíse da partida. Podes reclamar a vitoria, declarar táboas ou agardar.</string>
   <string name="makeYourOpponentResign">Forzar ó teu rival a abandonar</string>
   <string name="forceResignation">Reclamar vitoria</string>
@@ -794,20 +798,29 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   </plurals>
   <string name="sorry">Sentímolo :(</string>
   <string name="weHadToTimeYouOutForAWhile">Tivemos que suspenderche temporalmente.</string>
+  <string name="timeoutExpires">A suspensión expira en %s.</string>
   <string name="why">Por que?</string>
+  <string name="pleasantChessExperience">O noso obxectivo é proporcionar no xadrez unha experiencia agradable a todo o mundo.</string>
+  <string name="goodPractice">Para iso, debemos asegurarnos de que todos os xogadores compórtanse como é debido.</string>
+  <string name="potentialProblem">Cando detectamos un posible problema, mostramos esta mensaxe.</string>
   <string name="howToAvoidThis">Como evitar isto?</string>
   <string name="playEveryGame">Xoga todas as partidas que comeces.</string>
   <string name="tryToWin">Intenta gañar (ou polo menos empatar) todas as partidas que xogues.</string>
   <string name="resignLostGames">Abandona partidas perdidas (non deixes que remate o tempo).</string>
   <string name="temporaryInconvenience">Pedimos desculpas polas molestias</string>
   <string name="wishYouGreatGames">e desexámosche grandes partidas en lichess.org.</string>
+  <string name="thankYouForReading">Grazas por tomar o tempo para ler isto!</string>
   <string name="lifetimeScore">Puntuación histórica</string>
+  <string name="currentMatchScore">Resultados deste enfrontamento</string>
+  <string name="agreementAssistance">Comprométome a non recibir axuda externa durante as miñas partidas (dun computador, un libro, unha base de datos ou de outra persoa).</string>
+  <string name="agreementNice">Comprométome a respectar sempre aos outros xogadores.</string>
   <string name="agreementAccount">Comprométome a non crear múltiples contas.</string>
   <string name="agreementPolicy">Comprométome a seguir as normas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Busca ou comeza unha nova conversa</string>
   <string name="edit">Editar</string>
   <string name="rapid">Rápida</string>
   <string name="classical">Clásica</string>
+  <string name="ultraBulletDesc">Partidas incriblemente rápidas: menos de 30 segundos</string>
   <string name="bulletDesc">Partidas moi rápidas: menos de 3 minutos</string>
   <string name="blitzDesc">Partidas rápidas: de 3 a 8 minutos</string>
   <string name="rapidDesc">Partidas rápidas: de 3 a 8 minutos</string>
@@ -817,6 +830,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="important">Importante</string>
   <string name="yourQuestionMayHaveBeenAnswered">Pode que a túa pregunta xa teña resposta %1$s</string>
   <string name="inTheFAQ">nas preguntas frecuentes.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Para denunciar a un usuario por tramposo ou por mal comportamento, %1$s</string>
   <string name="useTheReportForm">usa o formulario correspondente</string>
   <string name="toRequestSupport">Para solicitar axuda, %1$s</string>
   <string name="tryTheContactPage">proba a páxina de contacto</string>

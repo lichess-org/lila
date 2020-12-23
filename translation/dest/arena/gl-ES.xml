@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arenaTournaments">Torneos</string>
   <string name="isItRated">É puntuado?</string>
   <string name="willBeNotified">Serás notificado cando o torneo comece, polo que podes xogar sen problema noutra pestaña mentres agardas.</string>
   <string name="isRated">Este torneo é puntuado e afectará á túa puntuación.</string>
