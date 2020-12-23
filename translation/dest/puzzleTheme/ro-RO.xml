@@ -22,9 +22,11 @@
   <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Întoarce-te dintr-o poziție de pierdere și asigură o remiză sau o poziție echilibrată. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Atac pe partea regelui</string>
   <string name="kingsideAttackDescription">Un atac al regelui adversarului, după ce au făcut rocada pe partea regelui.</string>
+  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Îndepărtare</string>
   <string name="clearanceDescription">O mutare, adeseori cu tempo, care eliberează un pătrat, o coloană sau o diagonală pentru o idee tactică ulterioară.</string>
   <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Mutare defensivă</string>
   <string name="defensiveMoveDescription">O mutare precisă sau o secvență de mutări care e necesară pentru a evita pierderea pieselor sau a unui alt avantaj.</string>
   <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Deviere</string>
-  <string name="deflectionDescription">O mutare care distrage o piesă adversară de la o altă funcție pe care o împlinește, cum ar fi apărarea unui pătrat esențial.</string>
+  <string name="deflectionDescription">O mutare care distrage o piesă adversară de la o altă funcție pe care o îndeplinește, cum ar fi apărarea unui pătrat esențial.</string>
+  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Atac prin descoperire</string>
 </resources>
