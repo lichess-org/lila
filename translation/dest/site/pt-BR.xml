@@ -767,8 +767,8 @@
   <string name="waitingForAnalysis">Aguardando análise</string>
   <string name="noMistakesFoundForWhite">Nenhum erro encontrado para as Brancas</string>
   <string name="noMistakesFoundForBlack">Nenhum erro encontrado para as Pretas</string>
-  <string name="doneReviewingWhiteMistakes">Erros brancos já revistos</string>
-  <string name="doneReviewingBlackMistakes">Erros pretos já revistos</string>
+  <string name="doneReviewingWhiteMistakes">Erros das brancas já revistos</string>
+  <string name="doneReviewingBlackMistakes">Erros das pretas já revistos</string>
   <string name="doItAgain">Faça novamente</string>
   <string name="reviewWhiteMistakes">Rever erros das Brancas</string>
   <string name="reviewBlackMistakes">Rever erros das Pretas</string>

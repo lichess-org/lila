@@ -6,7 +6,7 @@
   <string name="advantageDescription">Nutze deine Chance, um einen entscheidenden Vorteil zu erlangen. (200 Hundertstel-Bauern ≤ Bewertung ≤ 600 Hundertstel-Bauern)</string>
   <string name="attackingF2F7">Angriff auf f2 oder f7</string>
   <string name="attackingF2F7Description">Ein Angriff, der sich auf den Bauern auf f2 oder f7 konzentriert, wie zum Beispiel bei der Eröffnung \"Zweispringerspiel im Nachzug, 4. Sg5\".</string>
-  <string name="attraction">Hineinziehung oder \"Magnet\"</string>
+  <string name="attraction">Hinlenkung oder \"Magnet\"</string>
   <string name="attractionDescription">Ein Abtausch oder Opfer, der eine gegnerische Schachfigur auf ein Feld einlädt oder zwingt, was eine Folgetaktik erlaubt.</string>
   <string name="backRankMate">Grundreihenmatt</string>
   <string name="backRankMateDescription">Setze den König auf der Grundreihe matt, wenn er dort durch seine eigenen Figuren blockiert wird.</string>
@@ -64,7 +64,7 @@
   <string name="middlegame">Mittelspiel</string>
   <string name="middlegameDescription">Eine Taktik in der mittleren Phase des Spiels, dem Mittelspiel.</string>
   <string name="oneMove">Einzügige Aufgabe</string>
-  <string name="oneMoveDescription">Eine Aufgabe, die nur einen Zug erfodert.</string>
+  <string name="oneMoveDescription">Eine Aufgabe, die nur einen Zug erfordert.</string>
   <string name="opening">Eröffnung</string>
   <string name="openingDescription">Eine Taktik in der ersten Phase des Spiels, der Eröffnung.</string>
   <string name="overloading">Überlastung</string>
@@ -95,12 +95,12 @@
   <string name="trappedPieceDescription">Eine Figur kann dem Schlagen nicht entgehen, weil ihre Zugmöglichkeiten begrenzt wurden.</string>
   <string name="underPromotion">Unterverwandlung</string>
   <string name="underPromotionDescription">Umwandlung in einen Springer, Läufer oder Turm.</string>
-  <string name="veryLong">Sehr lange Aufgabe</string>
+  <string name="veryLong">Sehr langzügige Aufgabe</string>
   <string name="veryLongDescription">Vier oder mehr Züge zum Gewinn.</string>
   <string name="xRayAttack">Röntgen-Angriff</string>
-  <string name="xRayAttackDescription">Eine Schachfigur greift ein Feld an oder verteidigt es hindurch eine gegnerische Schachfigur.</string>
+  <string name="xRayAttackDescription">Eine Figur attackiert oder verteidigt ein Feld durch eine gegnerische Figur hindurch.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Der Gegner ist in der Anzahl seiner Züge limitiert und jeder seiner Züge verschlechtert seine Stellung.</string>
   <string name="healthyMix">Gesunder Mix</string>
-  <string name="healthyMixDescription">Ein bisschen von Allem. Du weißt nicht, was dich erwartet, deshalb bleibst du auf alles vorbereitet! Genau wie in echten Partien.</string>
+  <string name="healthyMixDescription">Ein bisschen von allen Aufgaben. Du weißt nicht, was dich erwartet, deshalb bleibst du auf alles vorbereitet! Genau wie in echten Partien.</string>
 </resources>

@@ -11,7 +11,7 @@
   <string name="specialMoves">Besondere Züge</string>
   <string name="didYouLikeThisPuzzle">Hat dir diese Aufgabe gefallen?</string>
   <string name="voteToLoadNextOne">Stimme ab, um die nächste zu laden!</string>
-  <string name="yourPuzzleRatingX">Deine Aufgaben-Wertung: %s</string>
+  <string name="yourPuzzleRatingX">Deine Taktikwertung: %s</string>
   <string name="findTheBestMoveForWhite">Finde den besten Zug für Weiß.</string>
   <string name="findTheBestMoveForBlack">Finde den besten Zug für Schwarz.</string>
   <string name="toGetPersonalizedPuzzles">Um personalisierte Aufgaben zu erhalten:</string>
@@ -26,7 +26,7 @@
   <string name="notTheMove">Das ist nicht der Zug!</string>
   <string name="trySomethingElse">Versuche etwas anderes.</string>
   <string name="ratingX">Wertung: %s</string>
-  <string name="hidden">versteckt</string>
+  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">versteckt</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s mal gespielt</item>
     <item quantity="other">%s mal gespielt</item>

@@ -2,9 +2,63 @@
 <resources>
   <string name="advancedPawn">İlerlemiş piyon</string>
   <string name="advancedPawnDescription">Terfi eden veya terfi etmek üzere olan bir piyon taktik bilgisinin olmazsa olmazıdır.</string>
-  <string name="advantage">Avantaj</string>
+  <string name="advantage">Avantaj yakala</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;cp is centipawn, eval is short for evaluation">Mutlak bir üstünlük kazanma şansını yakala. (200sp ≤ analiz ≤ 600sp)</string>
   <string name="attackingF2F7">Saldırı: f2 ve f7</string>
+  <string name="attackingF2F7Description">Kızarmış karaciğer açılışında olduğu gibi f2 veya f7 karesindeki piyonları hedef alan saldırılar.</string>
+  <string name="attraction">Tehlikeli sular</string>
+  <string name="attractionDescription">Rakip taşı türlü taktiklere müsait bir kareye gitmeye zorlayan yahut teşvik eden takas veya taş fedası.</string>
+  <string name="backRankMate">Koridor matı</string>
+  <string name="backRankMateDescription">Kendi taşları arkasında sıkışıp kalmış şaha koridorun kapısını göster.</string>
+  <string name="bishopEndgame">Fil oyunsonu</string>
+  <string name="bishopEndgameDescription">Sadece fil ve piyon içeren oyunsonu.</string>
+  <string name="castling">Rok</string>
+  <string name="castlingDescription">Şahı güvene alırken kaleni saldırıya hazırla.</string>
+  <string name="capturingDefender">Savunmayı baltala</string>
+  <string name="capturingDefenderDescription">Bir taşı savunan diğer bir taşı ortadan kaldırarak savunmasız kalan taşı sonraki hamlede ele geçir.</string>
+  <string name="crushing">Ezici üstünlük</string>
+  <string name="crushingDescription">Ezici bir üstünlük elde etmek için rakibin vahim hatasını yakala. (analiz ≥ 600sp)</string>
+  <string name="equality">Eşitlik</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Kaybeden bir durumdan paçayı kurtararak beraberlik veya dengeli bir pozisyon elde et. (analiz ≤ 200sp)</string>
+  <string name="kingsideAttack">Şah tarafına saldırı</string>
+  <string name="kingsideAttackDescription">Kısa rok atan rahip şaha saldırı.</string>
+  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Fırtınadan önceki sessizlik</string>
+  <string name="clearanceDescription">Bir kareyi veya bir hattı arkasından gelecek taktiğe hazırlayan, genellikle oynayan tarafa tempo kazandıran bir hamle.</string>
+  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Savunma hamlesi</string>
+  <string name="defensiveMoveDescription">Taş veya avantaj kaybını önlemek için yapılması gereken bir hamle ya da hamleler dizisi.</string>
+  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Saptırma</string>
+  <string name="deflectionDescription">Rakip taşı önemli bir kareyi korumak gibi mühim bir görevden alıkoyan hamle.</string>
+  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Açarak saldırı</string>
+  <string name="discoveredAttackDescription">Uzun menzilli bir taşın yolunu kesen diğer bir taşı oynayarak yapılan saldırılar. Atı oynayarak kaleyle şah çekmek gibi.</string>
+  <string name="doubleCheck">Çifte şah</string>
+  <string name="doubleCheckDescription">Bir hamlede, hem hareket eden hem de bu hareket sonucu önü açılan taş ile rakibe aynı anda iki farklı yerden şah çek.</string>
+  <string name="endgame">Oyunsonu</string>
+  <string name="endgameDescription">Oyunun son aşamasında hayat kurtarıcı taktikler.</string>
+  <string name="enPassantDescription">Başlangıçta iki kare ileri giden kurnaz piyonun, rakip piyon ile yan yana geldikten sonra geçerken alma kuralı sebebiyle helvasının yendiği taktikler.</string>
+  <string name="exposedKing">Savunmasız şah</string>
+  <string name="exposedKingDescription">Şahın defansa gelin diye feryat ettiği, çoğu zaman mata giden taktikler.</string>
+  <string name="fork">Çatal</string>
+  <string name="forkDescription">Bir taşın aynı anda iki rakip taşa saldırdığı hamleler.</string>
+  <string name="hangingPiece">Taş düşürme</string>
+  <string name="hangingPieceDescription">Savunmasız veya yeterince korunmayan rakip taşların kol gezdiği taktikler.</string>
+  <string name="interference">Müdahale</string>
+  <string name="mateIn1">1 Hamlede Mat</string>
+  <string name="mateIn1Description">Tek hamlede rakibi mat et.</string>
+  <string name="mateIn2">2 Hamlede Mat</string>
+  <string name="mateIn2Description">İki hamlede rakibi mat et.</string>
+  <string name="mateIn3">3 Hamlede Mat</string>
+  <string name="mateIn3Description">Üç hamlede rakibi mat et.</string>
+  <string name="mateIn4">4 Hamlede Mat</string>
+  <string name="mateIn4Description">Dört hamlede rakibi mat et.</string>
+  <string name="mateIn5">5 hamle ve üstü matlar</string>
+  <string name="mateIn5Description">Uzun bir mat serisini çözmeye çalış.</string>
   <string name="opening">Açılış</string>
+  <string name="pin">Açmaz</string>
+  <string name="promotion">Terfi</string>
+  <string name="sacrificeDescription">Zorunlu bir hamleler serisinden sonra avantaj elde etmek için kısa vadede birkaç taşı gözden çıkarmanız gereken taktikler.</string>
+  <string name="short">Kısa bulmaca</string>
+  <string name="shortDescription">İki hamlede kazanın.</string>
+  <string name="skewer">Şiş</string>
   <string name="healthyMix">Bir ondan bir bundan</string>
   <string name="healthyMixDescription">Ortaya karışık bulmacalar. Karşına ne tür bir pozisyonun çıkacağı tam bir muamma. Tıpkı gerçek maçlardaki gibi her şeye hazırlıklı olmakta fayda var.</string>
 </resources>

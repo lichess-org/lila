@@ -3,11 +3,11 @@
   <string name="advancedPawn">Fremskudt bonde</string>
   <string name="advancedPawnDescription">En bonde, der forvandles eller truer med at forvandle, er nøglen til taktikken.</string>
   <string name="advantage">Fordel</string>
-  <string name="advantageDescription">Grib chancen for at få en afgørende fordel. (200cb ≤ eval ≤ 600cb)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;cp is centipawn, eval is short for evaluation">Grib chancen for at få en afgørende fordel. (200cb ≤ eval ≤ 600cb)</string>
   <string name="attackingF2F7">Angreb på f2 eller f7</string>
   <string name="attackingF2F7Description">Et angreb som er fokuseret på f2 eller f7 bonden, som det kendes fra Fegatello-angrebet (\"Fried Liver Attack\").</string>
   <string name="attraction">Lokkedue</string>
-  <string name="attractionDescription">En udveksling eller et offer som lokker eller tvinger en modstanders brik til et felt, der giver mulighed for en opfølgende taktik.</string>
+  <string name="attractionDescription">En udveksling eller et offer som lokker eller tvinger en af modstanderens brikker til et felt, der giver mulighed for en opfølgende taktik.</string>
   <string name="backRankMate">Baglinjemat</string>
   <string name="backRankMateDescription">Sæt kongen skakmat på baglinjen, når den er fanget der af sine egne brikker.</string>
   <string name="bishopEndgame">Løberslutspil</string>
@@ -19,7 +19,7 @@
   <string name="crushing">Knusende</string>
   <string name="crushingDescription">Spot modstanderens brøler for at opnå en knusende fordel. (eval ≥ 600cb)</string>
   <string name="equality">Udligning</string>
-  <string name="equalityDescription">Vend en tabende stilling til en remis eller en lige stilling. (eval ≤ 200cb)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Vend en tabende stilling til en remis eller en lige stilling. (eval ≤ 200cb)</string>
   <string name="kingsideAttack">Angreb på kongesiden</string>
   <string name="kingsideAttackDescription">Et angreb på modstanderens konge efter der er rokeret på kongesiden.</string>
   <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Rydning</string>
@@ -34,11 +34,11 @@
   <string name="doubleCheckDescription">Skak med to brikker på samme tid som resultat af et afdækket angreb, hvor både den flyttede brik og den afdækkede brik giver skak til modstanderens konge.</string>
   <string name="endgame">Slutspil</string>
   <string name="endgameDescription">En taktik i den sidste fase af spillet.</string>
-  <string name="enPassantDescription">En taktik som inkluderer en passant-reglen, hvor en bonde kan tage en modstanderbonde, der er flyttet forbi den med dens første to-felts-træk.</string>
+  <string name="enPassantDescription">En taktik som inkluderer En passant-reglen, hvor en bonde kan tage en modstanderbonde, der er flyttet forbi med dens første to-felts-træk.</string>
   <string name="exposedKing">Eksponeret konge</string>
   <string name="exposedKingDescription">En taktik der involverer en konge med få forsvarere omkring sig, hvilket ofte fører til skakmat.</string>
   <string name="fork">Gaffel</string>
-  <string name="forkDescription">Et træk hvor den flyttede brik angriber to af modstanderen brikker på én gang.</string>
+  <string name="forkDescription">Et træk hvor den flyttede brik angriber to af modstanderens brikker på én gang.</string>
   <string name="hangingPiece">Hængende brik</string>
   <string name="hangingPieceDescription">En taktik der indebærer, at en af modstanderens brikker, der ikke forsvares eller ikke forsvares tilstrækkeligt, frit kan tages.</string>
   <string name="interference">Obstruktion</string>
@@ -64,7 +64,7 @@
   <string name="middlegame">Midtspil</string>
   <string name="middlegameDescription">En taktik i den anden fase af spillet.</string>
   <string name="oneMove">En-træks opgave</string>
-  <string name="oneMoveDescription">En opgave, der kun er ét træk lang.</string>
+  <string name="oneMoveDescription">En opgave der kun er ét træk lang.</string>
   <string name="opening">Åbning</string>
   <string name="openingDescription">En taktik i den første fase af spillet.</string>
   <string name="overloading">Overbelastning</string>
@@ -100,7 +100,7 @@
   <string name="xRayAttack">Røngtenangreb</string>
   <string name="xRayAttackDescription">En brik angriber eller forsvarer et felt gennem en af modstanderens brikker.</string>
   <string name="zugzwang">Zugzwang</string>
-  <string name="zugzwangDescription">Modstanderen er begrænset i de træk, de kan lave, og ethvert træk forværrer deres position.</string>
+  <string name="zugzwangDescription">Modstanderen har begrænsede muligheder for træk, og ethvert træk vil forværre positionen.</string>
   <string name="healthyMix">Sund blanding</string>
-  <string name="healthyMixDescription">Lidt af hvert. Du ved ikke, hvad du skal forvente. Så du skal være klar til hvad som helst! Ligesom i rigtige spil.</string>
+  <string name="healthyMixDescription">Lidt af hvert. Du ved ikke, hvad du kan forvente. Så du skal være klar til hvad som helst! Ligesom i rigtige spil.</string>
 </resources>

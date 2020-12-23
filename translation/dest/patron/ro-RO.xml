@@ -1,2 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">Donează</string>
+  <string name="lichessPatron">Patron Lichess</string>
+  <string name="freeAccount">Cont gratuit</string>
+  <string name="becomePatron">Devino un Patron Lichess</string>
+  <string name="xBecamePatron">%s a devenit un Patron Lichess</string>
+  <string name="newPatrons">Patroni noi</string>
+  <string name="freeChess">Șah gratuit pentru toată lumea, pentru totdeauna!</string>
+  <string name="noAdsNoSubs">Fără reclame, fără abonamente; dar open-source și pasiune.</string>
+  <string name="thankYou">Îți mulțumim pentru donația ta!</string>
+  <string name="youHaveLifetime">Ai un cont de Patron pe viață. Asta e minunat!</string>
+  <string name="patronUntil">Ai un cont de Patron până pe %s.</string>
+  <string name="ifNotRenewed">Dacă nu e reînnoit, vă veți întoarce la stadiul gratuit.</string>
+  <string name="weAreNonProfit">Suntem o asociație non-profit deoarece credem că toată lumea ar trebui să aibă acces la o platformă de șah gratuită, de talie mondială.</string>
+  <string name="weRelyOnSupport">Ne bazăm pe sprijinul din partea oamenilor ca tine pentru a face acest lucru posibil. Dacă îți place să folosești Lichess, te rugăm să ne susții donând și devenind un Patron!</string>
+  <string name="lifetime">Pe viață</string>
+  <string name="payLifetimeOnce">Plătește %s o dată. Fii un Patron Lichess pentru totdeauna!</string>
+  <string name="lifetimePatron">Patron Lichess pe viață</string>
+  <string name="makeExtraDonation">Faci o donație în plus?</string>
+  <string name="monthly">Lunar</string>
+  <string name="recurringBilling">Plată recurentă, reînnoindu-ți aripile de Patron în fiecare lună.</string>
+  <string name="onetime">O dată</string>
+  <string name="singleDonation">O singură donație care îți oferă aripile de Patron pentru o lună.</string>
+  <string name="otherAmount">Altă sumă</string>
+  <string name="pleaseEnterAmount">Te rugăm să introduci suma în dolari americani</string>
+  <string name="withCreditCard">Card de credit</string>
+  <string name="withPaypal">PayPal</string>
+  <string name="weAreSmallTeam">Suntem o echipă mică, deci susținerea ta aduce o diferență uriașă!</string>
+  <string name="celebratedPatrons">Patronii renumiți care fac Lichess posibil</string>
+  <string name="whereMoneyGoes">Unde se duc banii?</string>
+  <string name="serversAndDeveloper">În primul rând, la servere puternice.
+Apoi plătim un dezvoltator de normă întreagă: %s, fondatorul Lichess.</string>
+  <string name="costBreakdown">Vezi analiza detaliată a costurilor</string>
+  <string name="officialNonProfit">Este Lichess un non-profit în mod oficial?</string>
+  <string name="actOfCreation">Da, iată actul de creare (în franceză)</string>
+  <string name="changeMonthlySupport">Pot schimba/anula susținerea mea lunară?</string>
+  <string name="changeOrContact">Da, oricând, de pe această pagină.
+Sau poți %s.</string>
+  <string name="contactSupport">cere asistență de la Lichess</string>
+  <string name="otherMethods">Alte metode de donare?</string>
+  <string name="bankTransfers">Acceptăm și transferuri bancare</string>
+  <string name="bitcoin">Și iată adresa noastră bitcoin: %s</string>
+  <string name="patronFeatures">Sunt unele funcții rezervate Patronilor?</string>
+  <string name="noPatronFeatures">Nu, deoarece Lichess e complet gratuit, pentru totdeauna, și pentru toată lumea. Asta e o promisiune.
+Totuși, Patronii primesc drepturi de laudă cu o nouă pictogramă faină lângă profil.</string>
+  <string name="featuresComparison">Vezi compararea detaliată a caracteristicilor</string>
+  <string name="youSupportWith">Susțineți lichess.org cu %s pe lună.</string>
+  <string name="tyvm">Mulțumim foarte mult pentru ajutor. Ești tare!</string>
+  <string name="currentStatus">Status actual</string>
+  <string name="nextPayment">Următoarea plată</string>
+  <string name="youWillBeChargedXOnY">Veți plăti %1$s pe %2$s.</string>
+  <string name="makeAdditionalDonation">Faceți o donație în plus acum</string>
+  <string name="update">Actualizare</string>
+  <string name="changeMonthlyAmount">Modificați suma lunară (%s)</string>
+</resources>

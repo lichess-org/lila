@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Bulmacalar</string>
-  <string name="recommended">Önerilen</string>
-  <string name="didYouLikeThisPuzzle">Bulmacayı beğendin mi?</string>
+  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Önerilen</string>
+  <string name="phases">Oyun bölümleri</string>
+  <string name="motifs">Motifler</string>
+  <string name="advanced">İleri düzey</string>
+  <string name="lengths">Uzunluğa göre</string>
+  <string name="mates">Matlar</string>
+  <string name="goals">Hedefler</string>
+  <string name="specialMoves">Özel hamleler</string>
+  <string name="didYouLikeThisPuzzle">Bulmacayı beğendiniz mi?</string>
+  <string name="voteToLoadNextOne">Sıradakine geçmek için oy verin!</string>
   <string name="yourPuzzleRatingX">Bulmaca puanınız: %s</string>
   <string name="findTheBestMoveForWhite">Beyaz için en iyi hamleyi bulun.</string>
   <string name="findTheBestMoveForBlack">Siyah için en iyi hamleyi bulun.</string>
+  <string name="toGetPersonalizedPuzzles">Kişiselleştirilmiş bulmacalar için:</string>
   <string name="puzzleId">Bulmaca %s</string>
   <string name="puzzleOfTheDay">Günün bulmacası</string>
   <string name="clickToSolve">Çözmek için tıklayın</string>
@@ -14,10 +23,10 @@
   <string name="keepGoing">Devam et...</string>
   <string name="puzzleSuccess">Başarılı!</string>
   <string name="puzzleComplete">Bulmaca tamamlandı!</string>
-  <string name="notTheMove">Doğru hamle o değil!</string>
+  <string name="notTheMove">Olmadı!</string>
   <string name="trySomethingElse">Başka bir şey dene.</string>
   <string name="ratingX">Puan: %s</string>
-  <string name="hidden">gizli</string>
+  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">gizli</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s kez çözüldü</item>
     <item quantity="other">%s kez çözüldü</item>
@@ -31,4 +40,5 @@
   <string name="harder">Zor</string>
   <string name="hardest">Çok zor</string>
   <string name="example">Örnek</string>
+  <string name="addAnotherTheme">Başka bir tema ekle</string>
 </resources>

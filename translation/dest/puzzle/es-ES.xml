@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">Rompecabezas</string>
+  <string name="puzzles">Ejercicios</string>
   <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Recomendado</string>
   <string name="phases">Fases</string>
   <string name="motifs">Motivos</string>
@@ -26,7 +26,7 @@
   <string name="notTheMove">¡Ese no es el movimiento!</string>
   <string name="trySomethingElse">Prueba otra cosa.</string>
   <string name="ratingX">Puntuación: %s</string>
-  <string name="hidden">oculto</string>
+  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">oculto</string>
   <plurals name="playedXTimes">
     <item quantity="one">Jugado %s vez</item>
     <item quantity="other">Jugado %s veces</item>

@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="arenaTournaments">Arena kappingar</string>
+  <string name="isItRated">Er hon styrkismett?</string>
+  <string name="willBeNotified">Tú fært boð, tá ið kappingin byrjar, so tað er trygt at telva í øðrum teigara (tab), meðan tú bíðar.</string>
+  <string name="isRated">Henda kapping verður styrkismett, og fer at ávirka títt styrkital.</string>
+  <string name="isNotRated">Henda kapping verður *ikki* styrkismett, og fer *ikki* at ávirka títt styrkital.</string>
+  <string name="someRated">Nakrar kappingar verða styrkismettar, og fara at ávirka títt styrkital.</string>
+  <string name="howAreScoresCalculated">Hvussu verða stig roknað?</string>
 </resources>
