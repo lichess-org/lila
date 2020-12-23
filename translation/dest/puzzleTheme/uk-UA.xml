@@ -3,7 +3,7 @@
   <string name="advancedPawn">Просунутий пішак</string>
   <string name="advancedPawnDescription">Пішак, що загрожує перетворенню, є ключовим для тактики.</string>
   <string name="advantage">Перевага</string>
-  <string name="advantageDescription">Схопіть ваш шанс отримати вирішальну перевагу. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription">Скористайтесь шансом отримати вирішальну перевагу. (200cp ≤ eval ≤ 600cp)</string>
   <string name="attackingF2F7">Атака f2 або f7</string>
   <string name="attackingF2F7Description">Атака, спрямована на f2 або f7, наприклад, як у дебюті смаженої печінки.</string>
   <string name="attraction">Заманювання</string>
@@ -19,7 +19,7 @@
   <string name="crushing">Руйнування</string>
   <string name="crushingDescription">Визначте грубу помилку суперника, щоб отримати нищівну перевагу. (eval ≥ 600 cp)</string>
   <string name="equality">Рівність</string>
-  <string name="equalityDescription">Повернення з програшної позиції, забезпечення нічиєї або отримання збалансованої позиції. (eval ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Повернення з програшної позиції, забезпечення нічиєї або отримання збалансованої позиції. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Атака на королівський фланг</string>
   <string name="kingsideAttackDescription">Атака на королівському фланзі, після короткої рокіровки суперника.</string>
   <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Очищення</string>
@@ -100,7 +100,7 @@
   <string name="xRayAttack">Рентген</string>
   <string name="xRayAttackDescription">Фігура, що атакує чи захищає поле, що знаходиться за фігурою суперника.</string>
   <string name="zugzwang">Цугцванг</string>
-  <string name="zugzwangDescription">Суперник лімітований в своїх ходах, які він робить і кожен хід погіршує його позицію.</string>
+  <string name="zugzwangDescription">Суперник обмежений в своїх ходах, а кожен хід погіршує його позицію.</string>
   <string name="healthyMix">Здорова суміш</string>
   <string name="healthyMixDescription">По трошки від усього. Ти не знаєш чого очікувати, тому будь готовим до всього! Як в справжніх партіях.</string>
 </resources>
