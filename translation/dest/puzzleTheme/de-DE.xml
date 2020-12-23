@@ -40,7 +40,7 @@
   <string name="fork">Gabel</string>
   <string name="forkDescription">Ein Zug, bei dem die gezogene Figur zwei gegnerische Figuren auf einmal angreift.</string>
   <string name="hangingPiece">Hängende Figur</string>
-  <string name="hangingPieceDescription">Eine Taktik, in der eine gegnerische Figur nicht oder unzureichend gedeckt ist und mit Vorteil geschlagen werden kann.</string>
+  <string name="hangingPieceDescription">Eine Taktik, bei der eine gegnerische Figur nicht oder nur unzureichend gedeckt ist und deshalb mit Vorteil geschlagen werden kann.</string>
   <string name="interference">Unterbrechung</string>
   <string name="interferenceDescription">Eine Figur zwischen zwei gegnerischen Figuren ziehen, um eine oder beide gegnerische Figuren ungedeckt zu lassen, wie etwa einen Springer auf einem gedeckten Feld zwischen zwei Türmen.</string>
   <string name="intermezzo">Zwischenzug</string>
