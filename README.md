@@ -1,8 +1,6 @@
-[lishogi.org](https://lishogi.org) - WIP
-========================================
+# [lishogi.org](https://lishogi.org) - WIP
 
-<img src="https://raw.githubusercontent.com/WandererXII/lishogi/master/public/images/whiteSite.png" alt="Lishogi homepage" title="Lichess comes with light and dark theme, this screenshot shows light." />
-
+<img src="https://raw.githubusercontent.com/WandererXII/lishogi/master/public/images/blackSite.png" alt="Lishogi homepage" title="Lichess comes with light and dark theme, this screenshot shows light." />
 
 Lila (li[chess in sca]la) is a free online shogi game server focused on realtime gameplay and ease of use.
 
@@ -25,30 +23,26 @@ HTTP requests and WebSocket connections can be proxied by [nginx](http://nginx.o
 The web client is written in [TypeScript](https://www.typescriptlang.org/) and [snabbdom](https://github.com/snabbdom/snabbdom), using [Sass](https://sass-lang.com/) to generate CSS.
 The [blog](https://lishogi.org/blog) uses a free open content plan from [prismic.io](https://prismic.io).
 
-
 Use [GitHub issues](https://github.com/WandererXII/lishogi/issues) for bug reports and feature requests.
 
-Credits
--------
+## Credits
 
 This code exists because of [ornicar](https://github.com/ornicar), and the whole [Lichess project](https://github.com/ornicar/lila)
 
-Supported browsers
-------------------
+## Supported browsers
 
-| Name              | Version | Notes |
-| ----------------- | ------- | ----- |
-| Chromium / Chrome | last 10 | Full support, fastest local analysis |
+| Name              | Version | Notes                                       |
+| ----------------- | ------- | ------------------------------------------- |
+| Chromium / Chrome | last 10 | Full support, fastest local analysis        |
 | Firefox           | 55+     | Full support, second fastest local analysis |
-| Safari            | 10.1+   | Reasonable support |
-| Opera             | 55+     | Reasonable support |
-| Edge              | 17+     | Reasonable support |
+| Safari            | 10.1+   | Reasonable support                          |
+| Opera             | 55+     | Reasonable support                          |
+| Edge              | 17+     | Reasonable support                          |
 
 Older browsers (including any version of Internet Explorer) will not work.
 For your own sake, please upgrade. Security and performance, think about it!
 
-License
--------
+## License
 
 Lila is licensed under the GNU Affero General Public License 3 or any later
 version at your choice with an exception for Highcharts. See COPYING for
