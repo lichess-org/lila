@@ -27,6 +27,11 @@
   <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Puolustussiirto</string>
   <string name="defensiveMoveDescription">Tarkka siirto tai siirtosarja, joka tarvitaan materiaali- tai muun edun menetyksen välttämiseksi.</string>
   <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Paljastushyökkäys</string>
+  <string name="discoveredAttackDescription">Siirrä nappulaa, joka on tähän asti peittänyt jonkin ulottuvaisen nappulan hyökkäyksen, esimerkiksi ratsu pois tornin edestä.</string>
+  <string name="doubleCheck">Kaksoisshakki</string>
+  <string name="doubleCheckDescription">Shakkaa samanaikaisesti kahdella nappulalla tekemällä kaksoishakki, jossa sekä liikkuva nappula että paljastettu nappula hyökkäävät vastustajan kuninkaan kimppuun.</string>
+  <string name="endgame">Loppupeli</string>
+  <string name="endgameDescription">Taktiikka pelin viimeisessä vaiheessa.</string>
   <string name="long">Pitkä tehtävä</string>
   <string name="mate">Matti</string>
   <string name="mateDescription">Voita peli tyylillä.</string>
