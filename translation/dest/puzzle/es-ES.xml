@@ -35,9 +35,9 @@
   <string name="continueTraining">Continuar entrenamiento</string>
   <string name="difficultyLevel">Nivel de dificultad</string>
   <string name="normal">Normal</string>
-  <string name="easier">Fácil</string>
-  <string name="easiest">Más fácil</string>
-  <string name="harder">Difícil</string>
+  <string name="easier">Más fácil</string>
+  <string name="easiest">El más fácil</string>
+  <string name="harder">Más difícil</string>
   <string name="hardest">Más difícil</string>
   <string name="example">Ejemplo</string>
   <string name="addAnotherTheme">Añadir otro tema</string>
