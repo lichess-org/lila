@@ -3,8 +3,10 @@
   <string name="advancedPawn">İlerlemiş piyon</string>
   <string name="advancedPawnDescription">Terfi eden veya terfi etmek üzere olan bir piyon taktik bilgisinin olmazsa olmazıdır.</string>
   <string name="advantage">Avantaj</string>
+  <string name="advantageDescription">Mutlak bir üstünlük kazanma şansını yakala. (200sp ≤ analiz ≤ 600sp)</string>
   <string name="attackingF2F7">Saldırı: f2 ve f7</string>
   <string name="attackingF2F7Description">Kızarmış karaciğer açılışında olduğu gibi f2 veya f7 karesindeki piyonları hedef alan saldırılar.</string>
+  <string name="attractionDescription">Rakip taşı türlü taktiklere müsait bir kareye gitmeye zorlayan yahut teşvik eden takas veya taş fedası.</string>
   <string name="backRankMate">Koridor matı</string>
   <string name="backRankMateDescription">Kendi taşları arkasında sıkışıp kalmış şaha koridorun kapısını göster.</string>
   <string name="bishopEndgame">Fil oyun sonu</string>
