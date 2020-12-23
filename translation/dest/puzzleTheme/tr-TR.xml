@@ -38,6 +38,7 @@
   <string name="exposedKing">Savunmasız şah</string>
   <string name="exposedKingDescription">Şahın defansa gelin diye feryat ettiği, çoğu zaman mata giden taktikler.</string>
   <string name="fork">Çatal</string>
+  <string name="forkDescription">Bir taşın aynı anda iki rakip taşa saldırdığı hamleler.</string>
   <string name="opening">Açılış</string>
   <string name="sacrificeDescription">Zorunlu bir hamleler serisinden sonra avantaj elde etmek için kısa vadede birkaç taşı gözden çıkarmanız gereken taktikler.</string>
   <string name="short">Kısa bulmaca</string>
