@@ -28,7 +28,7 @@
   <string name="ratingX">Rating: %s</string>
   <string name="hidden">sembunyi</string>
   <plurals name="playedXTimes">
-    <item quantity="other">Bermain % kali</item>
+    <item quantity="other">Bermain %s kali</item>
   </plurals>
   <string name="fromGameLink">Dari game %s</string>
   <string name="continueTraining">Lanjut latihan</string>
