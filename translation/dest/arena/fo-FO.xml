@@ -5,4 +5,6 @@
   <string name="willBeNotified">Tú fært boð, tá ið kappingin byrjar, so tað er trygt at telva í øðrum teigara (tab), meðan tú bíðar.</string>
   <string name="isRated">Henda kapping verður styrkismett, og fer at ávirka títt styrkital.</string>
   <string name="isNotRated">Henda kapping verður *ikki* styrkismett, og fer *ikki* at ávirka títt styrkital.</string>
+  <string name="someRated">Nakrar kappingar verða styrkismettar, og fara at ávirka títt styrkital.</string>
+  <string name="howAreScoresCalculated">Hvussu verða stig roknað?</string>
 </resources>
