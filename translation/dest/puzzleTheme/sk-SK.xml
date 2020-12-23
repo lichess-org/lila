@@ -19,4 +19,7 @@
   <string name="sacrifice">Obetovanie</string>
   <string name="smotheredMate">Dusený mat</string>
   <string name="zugzwang">Nevýhoda ťahu</string>
+  <string name="zugzwangDescription">Oponent je limitovaný vo svojich ťahoch, a každý ťah zhorší jeho pozíciu.</string>
+  <string name="healthyMix">Zdravý mix</string>
+  <string name="healthyMixDescription">Zo všetkého niečo. Neviete čo očakávať, a tak budete pripravený na všetko! Presne ako v skutočných hrách.</string>
 </resources>
