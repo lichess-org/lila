@@ -6,31 +6,29 @@
   a {
     @extend %box-radius, %flex-center;
 
-    flex: 0 0 2em;
-    height: 1.2em;
+    flex: 0 0 2.3em;
+    height: 1.6em;
     margin: .4em .5em 0 0;
-    opacity: .7;
     color: #fff;
+    opacity: .85;
+    font-size: .85em;
+    font-weight: bold;
     justify-content: center;
 
-    &::before {
+    &.result-empty::before {
       @extend %data-icon;
-      opacity: .8;
-      font-size: .8em;
+      content: 'E';
+      font-size: .9em;
     }
 
     &.result-true {
       background: $c-good;
-
-      &::before {
-        content: 'E';
-      }
     }
 
     &.result-false {
       background: $c-bad;
 
-      &::before {
+      &.result-empty::before {
         content: 'L';
       }
     }

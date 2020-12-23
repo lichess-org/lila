@@ -245,6 +245,8 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
         data.user.rating = res.next.user.rating;
         data.user.provisional = res.next.user.provisional;
         vm.round = res.round;
+        if (res.round?.ratingDiff) 
+          session.setRatingDiff(data.puzzle.id, res.round.ratingDiff);
       }
       if (win) speech.success();
       vm.next.resolve(res.next);

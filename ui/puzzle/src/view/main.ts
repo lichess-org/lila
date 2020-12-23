@@ -124,8 +124,9 @@ function session(ctrl: Controller) {
   const rounds = ctrl.session.get().rounds,
     current = ctrl.getData().puzzle.id;
   return h('div.puzzle__session', [
-    ...rounds.map(round =>
-      h(`a.result-${round.result}`, {
+    ...rounds.map(round => {
+      const rd = round.ratingDiff ? (round.ratingDiff > 0 ? '+' + round.ratingDiff : round.ratingDiff) : null;
+      return h(`a.result-${round.result}${rd ? '' : '.result-empty'}`, {
         key: round.id,
         class: {
           current: current == round.id
@@ -133,8 +134,8 @@ function session(ctrl: Controller) {
         attrs: {
           href: `/training/${ctrl.session.theme}/${round.id}`
         }
-      })
-    ),
+      }, rd)
+    }),
     rounds.find(r => r.id == current) ? 
       h('a.session-new', {
         key: 'new',

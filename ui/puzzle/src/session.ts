@@ -4,6 +4,7 @@ import { ThemeKey } from './interfaces';
 interface SessionRound {
   id: string;
   result?: boolean;
+  ratingDiff?: number;
 }
 interface Store {
   theme: ThemeKey;
@@ -45,6 +46,14 @@ export default class PuzzleSession {
       }
       else s.rounds[i].result = result;
       s.at = Date.now();
+      return s;
+    });
+
+  setRatingDiff = (id: string, ratingDiff: number) =>
+    this.update(s => {
+      s.rounds.forEach(r => {
+        if (r.id == id) r.ratingDiff = ratingDiff;
+      });
       return s;
     });
 
