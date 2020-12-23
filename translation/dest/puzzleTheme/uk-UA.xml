@@ -3,7 +3,7 @@
   <string name="advancedPawn">Просунутий пішак</string>
   <string name="advancedPawnDescription">Пішак, що загрожує перетворенню, є ключовим для тактики.</string>
   <string name="advantage">Перевага</string>
-  <string name="advantageDescription">Скористайтесь шансом отримати вирішальну перевагу. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;cp is centipawn, eval is short for evaluation">Скористайтесь шансом отримати вирішальну перевагу. (200cp ≤ eval ≤ 600cp)</string>
   <string name="attackingF2F7">Атака f2 або f7</string>
   <string name="attackingF2F7Description">Атака, спрямована на f2 або f7, наприклад, як у дебюті смаженої печінки.</string>
   <string name="attraction">Заманювання</string>
@@ -66,7 +66,7 @@
   <string name="oneMove">Завдання в один хід</string>
   <string name="oneMoveDescription">Задача, що складається лише з одного ходу.</string>
   <string name="opening">Дебют</string>
-  <string name="openingDescription">Тактика на другому етапі гри.</string>
+  <string name="openingDescription">Тактика на першому етапі гри.</string>
   <string name="overloading">Перевантаження</string>
   <string name="overloadingDescription">Випадок, коли фігура виконує кілька функцій, наприклад, захист двох фігур. Захоплення однієї з фігур залишить без захисту іншу, схоже на відволікання.</string>
   <string name="pawnEndgame">Пішаковий ендшпіль</string>
