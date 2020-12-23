@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Probleme de șah</string>
+  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Recomandare</string>
   <string name="phases">Faze</string>
   <string name="lengths">Lungimi</string>
   <string name="goals">Obiective</string>
@@ -27,4 +28,5 @@
   <string name="harder">Mai Greu</string>
   <string name="hardest">Cel mai greu</string>
   <string name="example">Exemplu</string>
+  <string name="addAnotherTheme">Adăugați o altă temă</string>
 </resources>
