@@ -4,6 +4,13 @@
   <string name="advancedPawnDescription">Terfi eden veya terfi etmek üzere olan bir piyon taktik bilgisinin olmazsa olmazıdır.</string>
   <string name="advantage">Avantaj</string>
   <string name="attackingF2F7">Saldırı: f2 ve f7</string>
+  <string name="attackingF2F7Description">Kızarmış karaciğer açılışında olduğu gibi f2 veya f7 karesindeki piyonları hedef alan saldırılar.</string>
+  <string name="backRankMate">Koridor matı</string>
+  <string name="backRankMateDescription">Kendi taşları arkasında sıkışıp kalmış şaha koridorun kapısını göster.</string>
+  <string name="bishopEndgame">Fil oyun sonu</string>
+  <string name="bishopEndgameDescription">Sadece fil ve piyon içeren oyun sonu.</string>
+  <string name="castling">Rok</string>
+  <string name="castlingDescription">Şahı güvene alırken kaleni saldırıya hazırla.</string>
   <string name="opening">Açılış</string>
   <string name="healthyMix">Bir ondan bir bundan</string>
   <string name="healthyMixDescription">Ortaya karışık bulmacalar. Karşına ne tür bir pozisyonun çıkacağı tam bir muamma. Tıpkı gerçek maçlardaki gibi her şeye hazırlıklı olmakta fayda var.</string>
