@@ -12,4 +12,24 @@
   <string name="teachersX">Tanárok: %s</string>
   <string name="newClass">Új osztály</string>
   <string name="closeClass">Bezárás osztály</string>
+  <string name="closedByX">%s zárta</string>
+  <string name="reopen">Nyissa meg újra</string>
+  <string name="removeStudent">Tanuló eltávolítása</string>
+  <string name="removedStudents">Eltávolítva</string>
+  <string name="inviteTheStudentBack">Hívja vissza a tanulót</string>
+  <string name="sendAMessage">Küldjön üzenetet minden hallgatónak.</string>
+  <string name="aLinkToTheClassWillBeAdded">Az osztály végére automatikusan bekerül egy link az üzenet végén, így nem kell magának hozzáadnia.</string>
+  <string name="className">Osztály név</string>
+  <string name="classDescription">Osztályleírás</string>
+  <string name="visibleByBothStudentsAndTeachers">Látható mind a tanárok, mind az osztály tanulói számára</string>
+  <string name="teachersOfTheClass">Az osztály tanárai</string>
+  <string name="addLichessUsernames">Adja hozzá a Lichess felhasználónéveket, hogy meghívja őket tanároknak. Soronként egy.</string>
+  <string name="theyMustFirstApply">Először Lichess-tanárnak kell jelentkezniük.</string>
+  <string name="resetPassword">Jelszó visszaállítása</string>
+  <string name="makeSureToCopy">Most mindenképpen másolja vagy írja le a jelszót. Nem láthatja újra!</string>
+  <string name="passwordX">Jelszó: %s</string>
+  <string name="generateANewPassword">Készítsen új jelszót a hallgató számára</string>
+  <string name="invitedToXByY" comment="invitedToXByY&#10;&#10;%1$s is the Class name and %$2s is the person who invited">%2$s meghívta ide: %1$s</string>
+  <string name="realName">Igazi neve</string>
+  <string name="privateWillNeverBeShown">Magán. Soha nem jelenik meg az órán kívül. Segít emlékezni arra, hogy ki a hallgató.</string>
 </resources>
