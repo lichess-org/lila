@@ -102,5 +102,5 @@
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">El oponente está limitado en los movimientos que puede realizar, y todos los movimientos empeoran su posición.</string>
   <string name="healthyMix">Mezcla saludable</string>
-  <string name="healthyMixDescription">Un poco de todo. No sabes qué esperar, así que estarás listo para cualquier cosa, como en las partidas reales.</string>
+  <string name="healthyMixDescription">Un poco de todo. No sabes lo que te espera, así que estate listo para cualquier cosa, como en las partidas reales.</string>
 </resources>
