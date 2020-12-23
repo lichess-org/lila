@@ -6,6 +6,7 @@
   <string name="advantageDescription">Mutlak bir üstünlük kazanma şansını yakala. (200sp ≤ analiz ≤ 600sp)</string>
   <string name="attackingF2F7">Saldırı: f2 ve f7</string>
   <string name="attackingF2F7Description">Kızarmış karaciğer açılışında olduğu gibi f2 veya f7 karesindeki piyonları hedef alan saldırılar.</string>
+  <string name="attraction">Tehlikeli sular</string>
   <string name="attractionDescription">Rakip taşı türlü taktiklere müsait bir kareye gitmeye zorlayan yahut teşvik eden takas veya taş fedası.</string>
   <string name="backRankMate">Koridor matı</string>
   <string name="backRankMateDescription">Kendi taşları arkasında sıkışıp kalmış şaha koridorun kapısını göster.</string>
@@ -13,6 +14,14 @@
   <string name="bishopEndgameDescription">Sadece fil ve piyon içeren oyun sonu.</string>
   <string name="castling">Rok</string>
   <string name="castlingDescription">Şahı güvene alırken kaleni saldırıya hazırla.</string>
+  <string name="capturingDefender">Savunmayı baltala</string>
+  <string name="capturingDefenderDescription">Bir taşı savunan diğer bir taşı ortadan kaldırarak savunmasız kalan taşı sonraki hamlede ele geçir.</string>
+  <string name="crushing">Ezici üstünlük</string>
+  <string name="crushingDescription">Ezici bir üstünlük elde etmek için rakibin vahim hatasını yakala. (analiz ≥ 600sp)</string>
+  <string name="equality">Eşitlik</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Kaybeden bir durumdan paçayı kurtararak beraberlik veya dengeli bir pozisyon elde et. (analiz ≤ 200sp)</string>
+  <string name="kingsideAttack">Şah tarafına saldırı</string>
+  <string name="kingsideAttackDescription">Kısa rok atan rahip şaha saldırı.</string>
   <string name="opening">Açılış</string>
   <string name="healthyMix">Bir ondan bir bundan</string>
   <string name="healthyMixDescription">Ortaya karışık bulmacalar. Karşına ne tür bir pozisyonun çıkacağı tam bir muamma. Tıpkı gerçek maçlardaki gibi her şeye hazırlıklı olmakta fayda var.</string>
