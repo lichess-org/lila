@@ -529,7 +529,7 @@
   <string name="signedOut">サインアウトしました。</string>
   <string name="loginSuccessful">ログインしました</string>
   <string name="playOnTheBoardOffline">オフライン（2人対局）</string>
-  <string name="playOfflineComputer">オフラインでCPUと対戦する</string>
+  <string name="playOfflineComputer">オフラインでCPUと対局する</string>
   <string name="opponent">対局相手</string>
   <string name="learnMenu">学ぶ</string>
   <string name="studyMenu">研究</string>
