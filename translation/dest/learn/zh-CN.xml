@@ -13,6 +13,7 @@
 	<string name="introIntro">您的路程从这里在开始</string>
 	<string name="choosePieceDesign">重要的是您可以分别棋子，所以清确保您选择正确的棋子。\n为了这一点，请点齿轮或您的用户名（右上角），之后点棋子设定。</string>
 	<string name="promotionZone">当您的一些棋子进入或退出靠进您对手的三路，您可以选择升变您的棋子。</string>
+	<string name="senteGoesFirst">In shogi the player who goes first is called sente and the player who goes second is called gote. Sente is sometimes represented by black color and gote by white. Make any move as sente to continue.</string>
 	<string name="introComplete">你现在知道基本知识，但这教程的一部分正还没有完成。暂时学习个别棋子的移动方法。</string>
 	<string name="theRook">车</string>
 	<string name="itMovesInStraightLines">它以直线移动</string>

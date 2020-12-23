@@ -13,6 +13,7 @@
 	<string name="introIntro">El teu viatge comença aquí.</string>
 	<string name="choosePieceDesign">És important que puguis diferenciar les peces, estigues segur que tries l\'estil correcte.\nPer fer això, clica en l\'engranatge o el teu nom d\'usuari (cantonada superior dreta) i després clicar a conjunt de peces.</string>
 	<string name="promotionZone">Quan alguna de les teves peces arriba o deixa les tres primeres files en el territori del teu oponent pots escollir promocionar la peça i fer-la més forta.</string>
+	<string name="senteGoesFirst">In shogi the player who goes first is called sente and the player who goes second is called gote. Sente is sometimes represented by black color and gote by white. Make any move as sente to continue.</string>
 	<string name="introComplete">Ara coneixes alguns conceptes bàsics, però aquest tutorial encara està en construcció. Per ara aprèn com es mouen les peces individuals.</string>
 	<string name="theRook">La torre</string>
 	<string name="itMovesInStraightLines">Es mou en línies rectes</string>
