@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Órák</string>
+  <string name="teachClassesOfChessStudents">Tanítson sakk diákok osztályait a Lichess osztályok eszközkészlettel.</string>
+  <string name="features">Jellemzők</string>
+  <string name="quicklyGenerateSafeUsernames">Gyorsan előállíthat biztonságos felhasználóneveket és jelszavakat a hallgatók számára</string>
+  <string name="trackStudentProgress">Kövesse nyomon a tanulók fejlődését a játékokban és a rejtvényekben</string>
+  <string name="messageAllStudents">Üzenjen minden hallgatót az új tananyagról</string>
+  <string name="freeForAllForever">100% ingyenes mindenkinek, örökre, hirdetés és nyomkövető nélkül</string>
+  <string name="applyToBeLichessTeacher">Jelentkezzen Lichess tanárnak</string>
+  <string name="noClassesYet">Még nincs osztály.</string>
+  <string name="teachersX">Tanárok: %s</string>
+  <string name="newClass">Új osztály</string>
+  <string name="closeClass">Bezárás osztály</string>
 </resources>
