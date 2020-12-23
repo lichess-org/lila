@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">Donează</string>
+  <string name="lichessPatron">Patron Lichess</string>
+  <string name="freeAccount">Cont gratuit</string>
+  <string name="becomePatron">Devino un Patron Lichess</string>
+  <string name="xBecamePatron">%s a devenit un Patron Lichess</string>
+  <string name="newPatrons">Patroni noi</string>
+  <string name="freeChess">Șah gratuit pentru toată lumea, pentru totdeauna!</string>
+</resources>
