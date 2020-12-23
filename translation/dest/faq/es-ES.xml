@@ -69,7 +69,7 @@ Ten en cuenta que es posible dar mate con un sólo caballo o alfil, siempre que 
   <string name="threefoldRepetitionExplanation">Si una posición ocurre tres veces, los jugadores pueden reclamar un empate por %1$s. Lichess implementa las reglas oficiales de la FIDE, de acuerdo con el Artículo 9.2 (d) del %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triple repetición</string>
   <string name="notRepeatedMoves">No hemos repetido movimientos, ¿por qué el juego sigue siendo tablas por repetición?</string>
-  <string name="repeatedPositionsThatMatters">La triple repetición se da por repetición de %1$s, no de movimientos. La repetición no tiene ocurrir consecutivamente.</string>
+  <string name="repeatedPositionsThatMatters">La triple repetición se da por repetición de %1$s, no de movimientos. La repetición no tiene porqué ocurrir consecutivamente.</string>
   <string name="positions">posiciones</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Hemos repetido una posición tres veces. ¿Por qué la partida no se declara tablas?</string>
   <string name="threeFoldHasToBeClaimed">Las tablas por triple repetición deben ser reclamadas por uno de los jugadores. Puedes hacerlo pulsando el botón que se muestra, u ofreciendo tablas antes de hacer el movimiento que cause la tercera repetición, no importará que tu oponente rechace la oferta de tablas, las tablas por triple repetición serán reclamadas de todas maneras. También puedes %1$s Lichess para que reclame automáticamente las repeticiones por ti. Además, la quinta repetición siempre termina la partida inmediatamente.</string>
