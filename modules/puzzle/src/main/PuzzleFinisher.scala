@@ -156,13 +156,7 @@ final private[puzzle] class PuzzleFinisher(
       case Glicko.Result.Loss => results.addResult(u2, u1)
     }
     try {
-      val (r1, r2) = (u1.getRating, u2.getRating)
       system.updateRatings(results)
-      // never take away more than 30 rating points - it just causes upsets
-      List(r1 -> u1, r2 -> u2).foreach {
-        case (prev, next) if next.getRating - prev < -30 => next.setRating(prev - 30)
-        case _                                           =>
-      }
     } catch {
       case e: Exception => logger.error("finisher", e)
     }
