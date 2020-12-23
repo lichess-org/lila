@@ -54,6 +54,7 @@ LishogiLearn(document.getElementById('learn-app'), ${safeJsonValue(
       introBasics,
       theIntoduction,
       choosePieceDesign,
+      senteGoesFirst,
       promotionZone,
       introComplete,
       theRook,
