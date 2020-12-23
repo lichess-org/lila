@@ -40,6 +40,7 @@
   <string name="fork">Çatal</string>
   <string name="forkDescription">Bir taşın aynı anda iki rakip taşa saldırdığı hamleler.</string>
   <string name="hangingPiece">Taş düşürme</string>
+  <string name="hangingPieceDescription">Savunmasız veya yeterince korunmayan rakip taşların kol gezdiği taktikler.</string>
   <string name="opening">Açılış</string>
   <string name="sacrificeDescription">Zorunlu bir hamleler serisinden sonra avantaj elde etmek için kısa vadede birkaç taşı gözden çıkarmanız gereken taktikler.</string>
   <string name="short">Kısa bulmaca</string>
