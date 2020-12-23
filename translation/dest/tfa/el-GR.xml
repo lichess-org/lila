@@ -5,6 +5,7 @@
   <string name="twoFactorApp">Κάντε λήψη ενός app ταυτοποίησης δύο παραγόντων, για παράδειγμα Google Authenticator για %1$s ή %2$s.</string>
   <string name="scanTheCode">Σαρώστε το κωδικό QR με την εφαρμογή.</string>
   <string name="enterPassword">Εισάγετε κωδικό και κωδικό ταυτοποίησης που δημιουργήθηκε από το app για να ολοκληρώσετε την ρύθμιση. Θα χρειάζεστε ένα κωδικό ταυτοποίησης κάθε φορά που εισέρχεστε.</string>
+  <string name="ifYouCannotScanEnterX" comment="ifYouCannotScanEnterX&#10;&#10;%s is the authentication code">Αν δεν μπορείτε να σαρώσετε τον κωδικό, εισάγετε το μυστικό κλειδί %s στην εφαρμογή σας.</string>
   <string name="authenticationCode">Κωδικός ταυτοποίησης</string>
   <string name="ifYouLoseAccess">Σημείωση: Αν χάσετε τους κωδικούς ταυτοποίησης δύο παραγόντων, μπορείτε να επαναφέρετε το κωδικό σας με email.</string>
   <string name="enableTwoFactor">Ενεργοποίηση ταυτοποίησης δύο παραγόντων</string>
