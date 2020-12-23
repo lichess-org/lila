@@ -12,8 +12,9 @@
   <string name="bishopEndgame">Final de alfiles</string>
   <string name="bishopEndgameDescription">Un final solo con alfiles y peones.</string>
   <string name="castling">Enroque</string>
-  <string name="castlingDescription">Coloca el rey a salvo y pone a la torre en juego para el ataque.</string>
+  <string name="castlingDescription">Lleva al rey a un lugar seguro y despliega la torre para atacar.</string>
   <string name="capturingDefender">Capturar al defensor</string>
+  <string name="capturingDefenderDescription">Eliminar una pieza que es fundamental para la defensa de otra pieza, lo que permite capturar la pieza ahora indefensa en el siguiente movimiento.</string>
   <string name="crushingDescription">Detecta el error del oponente para obtener una ventaja aplastante. (eval ≥ 600cp)</string>
   <string name="equality">Igualdad</string>
   <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Vuelve de una posición perdedora y asegura un empate o una posición equilibrada. (eval ≤ 200cp)</string>
