@@ -3,7 +3,7 @@
   <string name="advancedPawn">Frífinna</string>
   <string name="advancedPawnDescription">Ein finna, ið umskapast ella hóttir við at umskapast, er lykilin til taktikkin.</string>
   <string name="advantage">Fyrimunur</string>
-  <string name="advantageDescription">Tak av møguleikanum at fáa avgerandi fyrimun. (200cp ≥ eval ≤ 600cp)</string>
+  <string name="advantageDescription">Tak av møguleikanum at fáa avgerandi fyrimun. (200cp ≤ eval ≤ 600cp)</string>
   <string name="attackingF2F7">Álop á f2 ella f7</string>
   <string name="attackingF2F7Description">Eitt álop, ið savnar seg um f2 ella f7-finnuna, eins og í livrasteiks-byrjanini.</string>
   <string name="attraction">Atdráttur</string>

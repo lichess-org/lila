@@ -19,7 +19,7 @@
   <string name="crushing">Graušana</string>
   <string name="crushingDescription">Ieraugiet pretinieka rupjo kļūdu, lai iegūtu graujošu pārsvaru. (vērtējums &gt; 600cp)</string>
   <string name="equality">Vienlīdzība</string>
-  <string name="equalityDescription">Atgriezieties no zaudējošas pozīcijas, un iegūstiet neizšķirtu vai vienlīdzīgu pozīciju. (vērtējums &lt; 200cp)</string>
+  <string name="equalityDescription">Atgriezieties no zaudējošas pozīcijas, un iegūstiet neizšķirtu vai vienlīdzīgu pozīciju. (vērtējums ≤ 200cp)</string>
   <string name="kingsideAttack">Karaļa puses uzbrukums</string>
   <string name="kingsideAttackDescription">Uzbrukums pretinieka karalim pēc rokādes karaļa pusē.</string>
   <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Atbrīvošana</string>

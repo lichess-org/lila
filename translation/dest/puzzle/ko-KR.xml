@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">추천</string>
+  <string name="lengths">길이</string>
+  <string name="puzzleOfTheDay">오늘의 퍼즐</string>
+  <string name="puzzleSuccess">성공!</string>
+  <string name="fromGameLink">게임 %s에서</string>
+  <string name="difficultyLevel">난이도</string>
+  <string name="normal">보통</string>
+  <string name="easier">쉬움</string>
+  <string name="easiest">매우 쉬움</string>
+  <string name="harder">어려움</string>
+  <string name="hardest">매우 어려움</string>
+  <string name="example">예시</string>
+  <string name="addAnotherTheme">새 테마 추가</string>
+</resources>

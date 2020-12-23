@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessCoaches">Lichess Coaches</string>
+  <string name="lichessCoaches">Lichess Trainer</string>
   <string name="lichessCoach">Lichess Trainer</string>
   <string name="areYouCoach">Bist du ein toller Schachtrainer mit einem %s?</string>
   <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM oder FIDE-Titel</string>
   <string name="confirmTitle">Bestätige hier deinen Titel und wir werden deine Bewerbung überprüfen.</string>
-  <string name="sendApplication">Sende uns eine Mail an %s und wir werden deine Bewerbung überprüfen.</string>
+  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Sende uns eine Mail an %s und wir werden deine Bewerbung überprüfen.</string>
   <string name="location">Ort</string>
   <string name="languages">Sprachen</string>
   <string name="rating">Wertungszahl</string>
@@ -30,6 +30,6 @@
   </plurals>
   <string name="thankYouForReview">Danke für deine Bewertung!</string>
   <string name="xWillApproveIt">%s wird sie bald freischalten oder ein Moderator wird einen Blick darauf werfen.</string>
-  <string name="reviewCoach">Bewerte diesen Coach</string>
+  <string name="reviewCoach">Bewerte diesen Trainer</string>
   <string name="describeExperienceWith">Beschreibe deine Trainingserfahrung mit %s</string>
 </resources>

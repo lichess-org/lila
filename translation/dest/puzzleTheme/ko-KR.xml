@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="backRankMate">백 랭크 메이트</string>
+  <string name="bishopEndgame">비숍 엔드게임</string>
+  <string name="bishopEndgameDescription">비숍과 폰만 있는 엔드게임</string>
+  <string name="castling">캐슬링</string>
+  <string name="castlingDescription">왕을 안전하게 피신시키고, 룩을 이용해 공격 태세를 갖춥니다.</string>
+  <string name="capturingDefender">보호기물 제거</string>
+  <string name="doubleCheck">더블 체크</string>
+  <string name="endgame">엔드게임</string>
+  <string name="fork">포크</string>
+</resources>

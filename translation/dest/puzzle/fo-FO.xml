@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Uppgávur</string>
-  <string name="recommended">Viðmæld</string>
+  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Viðmæld</string>
   <string name="phases">Skifti</string>
   <string name="motifs">Ætlanir</string>
   <string name="advanced">Framkomið stig</string>
@@ -40,4 +40,5 @@
   <string name="harder">Truplari</string>
   <string name="hardest">Truplasta</string>
   <string name="example">Dømi</string>
+  <string name="addAnotherTheme">Legg eitt nýtt tema aftrat</string>
 </resources>

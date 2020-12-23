@@ -19,7 +19,7 @@
   <string name="crushing">Vernichtend</string>
   <string name="crushingDescription">Finde den gegnerischen Patzer, um einen vernichtenden Vorteil zu erhalten. (Bewertung ≥ 600 Hundertstel-Bauern)</string>
   <string name="equality">Ausgleich</string>
-  <string name="equalityDescription">Komme aus einer verlorenen Stellung zurück und sichere dir ein Remis oder eine ausgeglichene Stellung. (Bewertung &lt; 200 Hundertstel-Bauern)</string>
+  <string name="equalityDescription">Komme aus einer verlorenen Stellung zurück und sichere dir ein Remis oder eine ausgeglichene Stellung. (Bewertung ≤ 200 Hundertstel-Bauern)</string>
   <string name="kingsideAttack">Angriff auf den Königsflügel</string>
   <string name="kingsideAttackDescription">Ein Angriff auf den gegnerischen König nachdem dieser auf den Königsflügel rochiert ist.</string>
   <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Öffnung</string>

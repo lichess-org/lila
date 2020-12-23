@@ -1,2 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advancedPawn">Gevorderde pion</string>
+  <string name="advancedPawnDescription">\'N Pion wat bevorder of dreig om te bevorder, is die sleutel tot die taktiek.</string>
+  <string name="advantage">Voordeel</string>
+  <string name="advantageDescription">Gryp u kans aan om \'n deurslaggewende voordeel te behaal. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="attackingF2F7">Aanval f2 of f7</string>
+  <string name="attackingF2F7Description">\'N Aanval wat op die f2- of f7-pion fokus, soos in die gebraaide leweropening.</string>
+  <string name="attraction">Aantrekkingskrag</string>
+  <string name="attractionDescription">\'N Uitwisseling of opoffering wat \'n opponentstuk aanmoedig of dwing na \'n vierkant wat \'n opvolgtaktiek moontlik maak.</string>
+  <string name="backRankMate">Agter rang maat</string>
+  <string name="backRankMateDescription">Skaakmaat die koning op die tuisrang, as hy daar vasgevang word deur sy eie stukke.</string>
+  <string name="bishopEndgame">Biskop eindspel</string>
+  <string name="bishopEndgameDescription">\'N Eindspel met slegs biskoppe en pionne.</string>
+  <string name="castling">Kasteel</string>
+  <string name="castlingDescription">Bring die koning in veiligheid en sit die toring in vir aanval.</string>
+  <string name="capturingDefender">Vang die verdediger vas</string>
+  <string name="capturingDefenderDescription">Verwyder \'n stuk wat van kritieke belang is vir die verdediging van \'n ander stuk, sodat die nou onverdedigde stuk op \'n volgende skuif vasgevang kan word.</string>
+  <string name="crushing">Verpletter</string>
+  <string name="crushingDescription">Let op die flater van die teenstander om \'n verpletterende voordeel te behaal. (eval ≥ 600cp)</string>
+  <string name="equality">Gelykheid</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Kom terug uit \'n verloorposisie en verseker \'n gelykopuitslag of \'n gebalanseerde posisie. (eval ≤ 200cp)</string>
+  <string name="kingsideAttack">Kingside aanval</string>
+  <string name="kingsideAttackDescription">\'N Aanval van die koning van die teenstander, nadat hulle aan die koningskant gegooi het.</string>
+  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Opruiming</string>
+  <string name="clearanceDescription">\'N Beweging, dikwels met tempo, wat \'n vierkant, lêer of skuins skoonmaak vir \'n opvolg taktiese idee.</string>
+  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Verdedigende skuif</string>
+  <string name="defensiveMoveDescription">\'N Presiese skuif of volgorde van bewegings wat benodig word om materiaal of \'n ander voordeel te verloor.</string>
+  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Buiging</string>
+  <string name="deflectionDescription">\'N Skuif wat \'n teenstander se aandag aftrek van \'n ander plig wat dit uitvoer, soos die beskerming van \'n sleutelvierkant.</string>
+  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Ontdek aanval</string>
+  <string name="discoveredAttackDescription">Om \'n stuk wat voorheen \'n aanval deur \'n ander langafstandstuk, soos \'n ridder, geblokkeer het, uit die pad van \'n toring te skuif.</string>
+  <string name="doubleCheck">Maak seker</string>
+  <string name="doubleCheckDescription">Kontroleer met twee stukke gelyktydig, as gevolg van \'n ontdekte aanval waar beide die bewegende stuk en die onthulde stuk die teenstander se koning aanval.</string>
+  <string name="endgame">Eindspel</string>
+  <string name="endgameDescription">\'N Taktiek tydens die laaste fase van die wedstryd.</string>
+  <string name="enPassantDescription">\'N Taktiek waarby die en passant-reël betrokke is, waar \'n pion \'n teenstanderspion kan vang wat dit omseil het met die aanvanklike beweging van twee vierkante.</string>
+  <string name="exposedKing">Blootgestelde koning</string>
+  <string name="exposedKingDescription">\'N Taktiek waarby \'n koning betrokke was, met min verdedigers rondom, wat dikwels gelei het tot skaakmat.</string>
+  <string name="fork">Vurk</string>
+  <string name="forkDescription">\'N Beweging waar die bewegende stuk twee teenstanderstukke gelyktydig aanval.</string>
+  <string name="hangingPiece">Hangstuk</string>
+  <string name="hangingPieceDescription">\'N Taktiek waarby \'n teenstander onverdedig of onvoldoende verdedig word en vry is om vas te lê.</string>
+  <string name="interference">Inmenging</string>
+  <string name="interferenceDescription">Om \'n stuk tussen twee teenstanderstukke te skuif om een ​​of albei teenstanderstukke onverdedig te laat, soos \'n ridder op \'n verdedigde vierkant tussen twee toring.</string>
+  <string name="intermezzo">Intermezzo</string>
+  <string name="intermezzoDescription">In plaas daarvan om die verwagte skuif te speel, moet u eers \'n ander stap inbring wat \'n onmiddellike bedreiging inhou wat die opponent moet beantwoord. Ook bekend as \"Zwischenzug\" of \"Tussenin\".</string>
+  <string name="knightEndgame">Ridder eindspel</string>
+  <string name="knightEndgameDescription">\'N Eindspel met net ridders en pionne.</string>
+  <string name="long">Lang legkaart</string>
+  <string name="longDescription">Drie skofte om te wen.</string>
+  <string name="mate">Maat</string>
+  <string name="mateDescription">Wen die spel met styl.</string>
+  <string name="mateIn1">Maat in 1</string>
+  <string name="mateIn1Description">Lewer skaakmat in een beweging.</string>
+  <string name="mateIn2">Maat in 2</string>
+  <string name="mateIn2Description">Lewer skaakmat in twee bewegings.</string>
+  <string name="mateIn3">Maat in 3</string>
+  <string name="mateIn3Description">Lewer skaakmat in drie bewegings.</string>
+  <string name="mateIn4">Maat in 4</string>
+  <string name="mateIn4Description">Lewer skaakmat in vier bewegings.</string>
+  <string name="mateIn5">Par in 5 of meer</string>
+  <string name="mateIn5Description">Stel \'n lang paringsvolgorde uit.</string>
+  <string name="middlegame">Middelspel</string>
+  <string name="middlegameDescription">\'N Taktiek tydens die tweede fase van die wedstryd.</string>
+  <string name="oneMove">Een-beweeg legkaart</string>
+  <string name="oneMoveDescription">\'N Raaisel wat net een beweging lank is.</string>
+  <string name="opening">Opening</string>
+  <string name="openingDescription">\'N Taktiek tydens die eerste fase van die wedstryd.</string>
+  <string name="overloading">Oorlading</string>
+  <string name="overloadingDescription">Waar \'n stuk verskeie funksies verrig, soos om twee stukke te verdedig. Die vaslegging van een van die verdedigde stukke sal \'n kans laat as die verdediger beweeg, soortgelyk aan die buiging.</string>
+  <string name="pawnEndgame">Pand eindspel</string>
+  <string name="pawnEndgameDescription">\'N Eindspel met slegs pionne.</string>
+  <string name="pin">Speld</string>
+  <string name="pinDescription">\'N Taktiek wat spelde insluit, waar \'n stuk nie kan beweeg sonder om \'n aanval op \'n stuk met \'n hoër waarde te openbaar nie.</string>
+  <string name="promotion">Promosie</string>
+  <string name="promotionDescription">\'N Pion wat bevorder of dreig om te bevorder, is die sleutel tot die taktiek.</string>
+  <string name="queenEndgame">Koningin eindspel</string>
+  <string name="queenEndgameDescription">\'N Eindspel met slegs koninginne en pionne.</string>
+  <string name="queensideAttack">Queenside aanval</string>
+  <string name="queensideAttackDescription">\'N Aanval van die koning van die opponent, nadat hulle aan die koninginkant gegooi het.</string>
+  <string name="quietMove">Rustige skuif</string>
+  <string name="quietMoveDescription">\'N Skuif wat nie \'n tjek maak of vaslê nie, maar \'n onvermydelike bedreiging voorberei vir \'n latere skuif.</string>
+  <string name="rookEndgame">Rook eindspel</string>
+  <string name="rookEndgameDescription">\'N Eindspel met slegs toring en pionne.</string>
+  <string name="sacrifice">Offer</string>
+  <string name="sacrificeDescription">\'N Taktiek wat op kort termyn afstaan ​​van materiaal om weer \'n voordeel te kry na \'n gedwonge reeks bewegings.</string>
+  <string name="short">Kort legkaart</string>
+  <string name="shortDescription">Twee skofte om te wen.</string>
+  <string name="skewer">Sosatiepen-Aanval</string>
+  <string name="skewerDescription">\'N Motief waarby \'n waarde van \'n hoë waarde aangeval word, wat uit die weg beweeg en \'n laer waarde agter dit kan vasvang of aanval, die omgekeerde van \'n pen.</string>
+  <string name="smotheredMate">Versmoorde maat</string>
+  <string name="smotheredMateDescription">\'N Skaakmat wat deur \'n ridder afgelewer word waarin die gepaste koning nie kan beweeg nie omdat dit deur sy eie stukke omring (of versmoor word).</string>
+  <string name="trappedPiece">Vasgevang stuk</string>
+  <string name="trappedPieceDescription">\'N Stuk kan nie vang om te ontsnap nie, aangesien dit beperkte bewegings het.</string>
+  <string name="underPromotion">Onderbevordering</string>
+  <string name="underPromotionDescription">Bevordering tot \'n ridder, biskop of toring.</string>
+  <string name="veryLong">Baie lang legkaart</string>
+  <string name="veryLongDescription">Vier bewegings of meer om te wen.</string>
+  <string name="xRayAttack">X-Ray aanval</string>
+  <string name="xRayAttackDescription">\'N Stuk val of verdedig \'n vierkant deur \'n vyandige stuk.</string>
+  <string name="zugzwang">Zugzwang</string>
+  <string name="zugzwangDescription">Die opponent is beperk in die bewegings wat hulle kan maak, en alle bewegings vererger hul posisie.</string>
+  <string name="healthyMix">Gesonde mengsel</string>
+  <string name="healthyMixDescription">\'N Bietjie van alles. Jy weet nie wat om te verwag nie, dus bly jy gereed vir enigiets! Net soos in regte speletjies.</string>
+</resources>

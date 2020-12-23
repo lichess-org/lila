@@ -820,10 +820,10 @@
   <string name="rapid">Schnellschach</string>
   <string name="classical">Klassisch</string>
   <string name="ultraBulletDesc">Wahnsinnig schnelle Spiele: Weniger als 30 Sekunden</string>
-  <string name="bulletDesc">Sehr schnelle Spiele: Weniger als 3 Minuten</string>
+  <string name="bulletDesc">Sehr schnelle Partien: Weniger als 3 Minuten</string>
   <string name="blitzDesc">Schnelle Spiele: 3 bis 8 Minuten</string>
-  <string name="rapidDesc">Schnellschachspiele: 8 bis 25 Minuten</string>
-  <string name="classicalDesc">Klassische Spiele: 25 Minuten und mehr</string>
+  <string name="rapidDesc">Schnellschachpartien: 8 bis 25 Minuten</string>
+  <string name="classicalDesc">Klassische Partien: 25 Minuten und mehr</string>
   <string name="correspondenceDesc">Fernschachspiele: Ein oder mehrere Tage pro Zug</string>
   <string name="puzzleDesc">Schachtaktik-Trainer</string>
   <string name="important">Wichtig</string>
@@ -834,7 +834,7 @@
   <string name="toRequestSupport">Um Hilfe zu erhalten, %1$s</string>
   <string name="tryTheContactPage">probiere die Kontaktseite aus</string>
   <string name="thisTopicIsArchived">Dieses Thema wurde archiviert und kann nicht mehr beantwortet werden.</string>
-  <string name="joinTheTeamXToPost">Tritt dem %1$s bei, um in diesem Forum schreiben zu können</string>
+  <string name="joinTheTeamXToPost">Tritt %1$s bei, um in diesem Forum schreiben zu können</string>
   <string name="teamNamedX">%1$s Team</string>
   <string name="youCannotPostYetPlaySomeGames">Du kannst noch nichts in den Foren schreiben. Spiel ein paar Partien!</string>
   <string name="subscribe">Abonnieren</string>

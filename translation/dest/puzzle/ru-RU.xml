@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Задачи</string>
-  <string name="recommended">Рекомендовано</string>
+  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Рекомендовано</string>
   <string name="phases">Фазы</string>
   <string name="motifs">Мотивы</string>
   <string name="advanced">Продвинутый</string>
@@ -42,4 +42,5 @@
   <string name="harder">Сложнее</string>
   <string name="hardest">Самый сложный</string>
   <string name="example">Пример</string>
+  <string name="addAnotherTheme">Добавить другую тему</string>
 </resources>

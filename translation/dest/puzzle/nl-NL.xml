@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Puzzels</string>
-  <string name="recommended">Aanbevolen</string>
+  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Aanbevolen</string>
   <string name="phases">Fasen</string>
   <string name="motifs">Motieven</string>
   <string name="advanced">Geavanceerd</string>
+  <string name="lengths">Duur</string>
+  <string name="mates">Schaakmat</string>
+  <string name="goals">Doelen</string>
   <string name="specialMoves">Speciale zetten</string>
+  <string name="didYouLikeThisPuzzle">Vond je deze puzzel leuk?</string>
+  <string name="voteToLoadNextOne">Stem om de volgende te laden!</string>
+  <string name="yourPuzzleRatingX">Je puzzelscore: %s</string>
   <string name="findTheBestMoveForWhite">Vind de beste zet voor wit.</string>
   <string name="findTheBestMoveForBlack">Vind de beste zet voor zwart.</string>
+  <string name="toGetPersonalizedPuzzles">Om gepersonaliseerde puzzels te krijgen:</string>
   <string name="puzzleId">Puzzel %s</string>
   <string name="puzzleOfTheDay">Puzzel van de dag</string>
   <string name="clickToSolve">Klik om op te lossen</string>
@@ -33,4 +40,5 @@
   <string name="harder">Moeilijker</string>
   <string name="hardest">Moeilijkst</string>
   <string name="example">Voorbeeld</string>
+  <string name="addAnotherTheme">Voeg nog een thema toe</string>
 </resources>

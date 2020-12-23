@@ -33,7 +33,7 @@
   <string name="basedOnGameDuration">Lichess time controls are based on estimated game duration = %1$s
 For instance, the estimated duration of a 5+3 game is 5 × 60 + 40 × 3 = 420 seconds.</string>
   <string name="durationFormula">(clock initial time) + 40 × (clock increment)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">What variants can I play on Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess supports standard chess and %1$s.</string>

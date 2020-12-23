@@ -1,2 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">Þrautir</string>
+  <string name="recommended">Mælt með</string>
+  <string name="lengths">Lengdir</string>
+  <string name="mates">Mát</string>
+  <string name="goals">Markmið</string>
+  <string name="specialMoves">Sérstakir leikir</string>
+  <string name="didYouLikeThisPuzzle">Fannst þér þrautin góð?</string>
+  <string name="voteToLoadNextOne">Kjóstu til að hlaða inn sú næsta!</string>
+  <string name="yourPuzzleRatingX">Þrautaskákstigin þín %s</string>
+  <string name="findTheBestMoveForWhite">Finndu besta leikinn fyrir hvítan.</string>
+  <string name="findTheBestMoveForBlack">Finndu besta leikinn fyrir svartan.</string>
+  <string name="toGetPersonalizedPuzzles">Til að fá sérsniðaðar þrautir:</string>
+  <string name="puzzleId">Þraut %s</string>
+  <string name="puzzleOfTheDay">Þraut dagsins</string>
+  <string name="clickToSolve">Smelltu til að leysa</string>
+  <string name="goodMove">Góður leikur</string>
+  <string name="bestMove">Besti leikurinn!</string>
+  <string name="keepGoing">Haltu áfram…</string>
+  <string name="puzzleSuccess">Árangur!</string>
+  <string name="trySomethingElse">Reyndu eitthvað annað.</string>
+  <string name="ratingX">Skákstig: %s</string>
+  <string name="continueTraining">Halda áfram að æfa</string>
+  <string name="difficultyLevel">Þyngdarstig</string>
+  <string name="normal">Miðlungs</string>
+  <string name="easier">Léttari</string>
+  <string name="easiest">Léttust</string>
+  <string name="harder">Þyngri</string>
+  <string name="hardest">Þyngst</string>
+  <string name="example">Dæmi</string>
+  <string name="addAnotherTheme">Bæta við annan þema</string>
+</resources>

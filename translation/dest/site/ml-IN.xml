@@ -231,6 +231,7 @@
   <string name="rematchOfferDeclined">റീമാച്ച് വാഗ്ദാനം നിരസിക്കപ്പെട്ടു</string>
   <string name="cancelRematchOffer">റീമാച്ച് വാഗ്ദാനം റദ്ദാക്കുക</string>
   <string name="viewRematch">റീമാച്ച് കാണുക</string>
+  <string name="confirmMove">നീക്കം ഉറപ്പിക്കുക</string>
   <string name="play">കളിക്കുക</string>
   <string name="inbox">ഇന്‍ബോക്സ്‌</string>
   <string name="chatRoom">ചാറ്റ് റൂം</string>
@@ -325,6 +326,7 @@
   <string name="filterGames">മത്സരങ്ങള്‍ തരംതിരിക്കുക</string>
   <string name="reset">റീസെറ്റ് (പുനക്രമീകരിക്കുക)</string>
   <string name="apply">പ്രയോഗിക്കുക</string>
+  <string name="save">സേവ് ചെയ്യുക</string>
   <string name="leaderboard">മികച്ച കളിക്കാര്‍</string>
   <string name="pasteTheFenStringHere">FEN ടെക്സ്റ്റ്‌ ഇവിടെ കൊടുക്കുക</string>
   <string name="pasteThePgnStringHere">PGN ടെക്സ്റ്റ്‌ ഇവിടെ കൊടുക്കുക</string>
@@ -795,4 +797,13 @@
   <string name="agreementNice">ഞാൻ എല്ലായ്പ്പോഴും മറ്റു കളിക്കാരോട് മാന്യമായി പെരുമാറുമെന്ന് സമ്മതിക്കുന്നു.</string>
   <string name="agreementAccount">ഞാൻ ഒന്നിലധികം അക്കൗണ്ടുകൾ നിർമിക്കില്ലെന്ന് സമ്മതിക്കുന്നു.</string>
   <string name="agreementPolicy">ഞാൻ Lichess പോളിസികൾ അനുകൂലിക്കുന്നതായി സമ്മതിക്കുന്നു.</string>
+  <string name="rapid">റാപിഡ്</string>
+  <string name="classical">ക്ലാസിക്കല്‍</string>
+  <string name="ultraBulletDesc">തീവ്രവേഗത്തിലുള്ള കളികള്‍: 30 സെക്കന്‍റില്‍ താഴെ</string>
+  <string name="bulletDesc">അതിവേഗത്തിലുള്ള കളികള്‍: 3 മിനിറ്റില്‍ താഴെ</string>
+  <string name="blitzDesc">വേഗത്തില്‍ ഉള്ള കളികള്‍: 3 മുതല്‍ 8 മിനിട്ട് വരെ</string>
+  <string name="rapidDesc">റാപിഡ് കളികള്‍: 8 മുതല്‍ 25 മിനിട്ട് വരെ</string>
+  <string name="classicalDesc">ക്ലാസ്സിക്കല്‍ കളികള്‍: 25 മിനിറ്റില്‍ കൂടുതല്‍</string>
+  <string name="correspondenceDesc">കറസ്പോണ്ടന്‍സ് കളികള്‍: ഓരോ നീക്കത്തിനും ഒരു ദിവസമോ അതില്‍ കൂടുതലോ ലഭിക്കും</string>
+  <string name="puzzleDesc">ചെസ്സ്‌ ടാക്ടിക്സ് ട്രെയിനര്‍</string>
 </resources>

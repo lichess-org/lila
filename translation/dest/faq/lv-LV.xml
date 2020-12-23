@@ -33,7 +33,7 @@
   <string name="basedOnGameDuration">Lichess laika kontroles ir balstītas uz aprēķināto spēles ilgumu = %1$s
   Piemēram, 5+3 spēles aptuvenais ilgums ir 5 * 60 + 40 * 3 = 420 sekundes.</string>
   <string name="durationFormula">(sākotnējais laiks) + 40 * (gājiena pieaugums)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Kādus variantus varu spēlēt Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess atbalsta standarta šahu un %1$s.</string>
