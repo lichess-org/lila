@@ -3,5 +3,8 @@
   <string name="faqAbbreviation">Întrebări frecvente</string>
   <string name="frequentlyAskedQuestions">Întrebări Adresate Frecvent</string>
   <string name="whyIsLichessCalledLichess">De se cheamă Lichess așa?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess e o combinație între live/light/liber și șah. E pronunțat %1$s.</string>
+  <string name="leechess">lii-ces</string>
+  <string name="hearItPronouncedBySpecialist">Auziți-l pronunțat de un specialist.</string>
   <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">Manualul FIDE %s</string>
 </resources>
