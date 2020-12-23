@@ -34,6 +34,8 @@
   <string name="doubleCheckDescription">Bir hamlede, hem hareket eden hem de bu hareket sonucu önü açılan taş ile rakibe aynı anda iki farklı yerden şah çek.</string>
   <string name="endgame">Oyunsonu</string>
   <string name="endgameDescription">Oyunun son aşamasında hayat kurtarıcı taktikler.</string>
+  <string name="enPassantDescription">Başlangıçta iki kare ileri giden kurnaz piyonun, rakip piyon ile yan yana geldikten sonra geçerken alma kuralı sebebiyle helvasının yendiği taktikler.</string>
+  <string name="exposedKing">Savunmasız şah</string>
   <string name="opening">Açılış</string>
   <string name="sacrificeDescription">Zorunlu bir hamleler serisinden sonra avantaj elde etmek için kısa vadede birkaç taşı gözden çıkarmanız gereken taktikler.</string>
   <string name="short">Kısa bulmaca</string>
