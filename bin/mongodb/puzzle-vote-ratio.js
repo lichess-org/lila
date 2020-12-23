@@ -41,10 +41,6 @@ db.puzzle2_round.aggregate([{
       }]
     }
   }
-}, {
-  $sort: {
-    v: -1
-  }
 }], {
   allowDiskUse: true
 }).forEach(r => {
