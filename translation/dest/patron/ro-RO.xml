@@ -11,4 +11,6 @@
   <string name="thankYou">Îți mulțumim pentru donația ta!</string>
   <string name="youHaveLifetime">Ai un cont de Patron Lifetime. Asta e minunat!</string>
   <string name="patronUntil">Ai un cont de Patron până pe %s.</string>
+  <string name="ifNotRenewed">Dacă nu e reînnoit, vă veți întoarce la stadiul gratuit.</string>
+  <string name="weAreNonProfit">Suntem o asociație non-profit deoarece credem că toată lumea ar trebui să aibă acces la o platformă de șah gratuită, de talie mondială.</string>
 </resources>
