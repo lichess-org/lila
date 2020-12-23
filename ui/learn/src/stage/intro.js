@@ -52,6 +52,11 @@ module.exports = {
         "i7",
       ],
     },
+    {
+      goal: "senteGoesFirst",
+      fen: "9/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -",
+      nbMoves: 1,
+    },
   ].map(util.toLevel),
   complete: "introComplete",
 };
