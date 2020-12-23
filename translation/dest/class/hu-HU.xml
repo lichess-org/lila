@@ -52,4 +52,47 @@ Jelszó: %3$s</string>
   <string name="welcomeToClass">Üdvözöljük osztályában: %s.
 Itt található a link az osztály eléréséhez.</string>
   <string name="invitationToClass">Meghívást kapsz, hogy csatlakozz a \"%s\" osztályhoz diákként.</string>
+  <string name="clickToViewInvitation">Kattintson a linkre a meghívó megtekintéséhez:</string>
+  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+    <item quantity="one">Egy függőben lévő meghívó</item>
+    <item quantity="other">%s függőben lévő meghívó</item>
+  </plurals>
+  <string name="noPendingInvitations">Nincs függőben lévő meghívó</string>
+  <string name="onlyVisibleToTeachers">Csak az osztályfőnökök láthatják</string>
+  <string name="lastActiveDate">Aktív</string>
+  <string name="managed">Kezelt</string>
+  <string name="thisStudentAccountIsManaged">Ezt a hallgatói fiókot kezelik</string>
+  <string name="upgradeFromManaged">Frissítés menedzseltről autonómra</string>
+  <string name="release">Kiadás</string>
+  <string name="releaseTheAccount">Engedje el a fiókot, hogy a hallgató önállóan kezelhesse.</string>
+  <string name="releaseDesc1">A kiadott fiókot nem lehet újra kezelni. A hallgató képes lesz a gyerek mód váltására és a jelszó visszaállítására.</string>
+  <string name="releaseDesc2">A tanuló a fiókja kiadása után az osztályban marad.</string>
+  <string name="realUniqueEmail">A hallgató valódi, egyedi e-mail címe. Küldünk neki egy visszaigazoló e-mailt, amelyben megtalálható egy link a fiók felszabadításához.</string>
+  <string name="teachers">Tanárok</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Tanár</item>
+    <item quantity="other">%s tanár</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Diák</item>
+    <item quantity="other">%s hallgató</item>
+  </plurals>
+  <string name="students">Diákok</string>
+  <string name="progress">Előrehalad</string>
+  <string name="noStudents">Még nincs tanuló az osztályban.</string>
+  <string name="noRemovedStudents">Nincs eltávolított hallgató.</string>
+  <string name="overDays">Napok alatt</string>
+  <string name="timePlaying">Idő játszik</string>
+  <string name="variantXOverLastY">%1$s az elmúlt %2$s alatt</string>
+  <string name="winrate">Nyerési arány</string>
+  <string name="na">N/A</string>
+  <string name="news">Osztályhírek</string>
+  <string name="editNews">Hírek szerkesztése</string>
+  <string name="notifyAllStudents">Értesítsen minden hallgatót</string>
+  <string name="nothingHere">Itt még semmi.</string>
+  <string name="newsEdit1">Minden osztályhír egyetlen mezőben.</string>
+  <string name="newsEdit2">Adja hozzá a legfrissebb híreket a tetején. Ne törölje a korábbi híreket.</string>
+  <string name="newsEdit3">Különválaszthatja a ---
+Vízszintes vonalat jelenít meg.</string>
+  <string name="markdownAvailable">A %s elérhető a fejlettebb szintaxishoz.</string>
 </resources>
