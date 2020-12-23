@@ -25,7 +25,8 @@ themes = [
   ['orangain', 'svg'],
   ['simple_kanji', 'svg'],
   ['Vald_opt', 'svg'],
-  ['Valdivia', 'svg']
+  ['Valdivia', 'svg'],
+  ['Logy_Games', 'svg']
 ]
 types = {
   'svg' => 'svg+xml;base64,',

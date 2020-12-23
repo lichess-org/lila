@@ -33,6 +33,7 @@ object PieceSet extends PieceSetObject {
     "international",
     "kanji_red_wood",
     "doubutsu",
+    "Logy_Games",
     "1Kanji_3D",
     "2Kanji_3D",
     "Intl_Colored_2D",
