@@ -420,17 +420,12 @@ object mon {
   object puzzle {
     object selector {
       object user {
-        def puzzle(theme: String, retries: Int, vote: Int, ratingDiff: Int, ratingDev: Int) =
-          timer("puzzle.selector.user.puzzle").withTags(
-            Map(
-              "theme"      -> theme,
-              "retries"    -> retries,
-              "vote"       -> vote,
-              "ratingDiff" -> ratingDiff,
-              "ratingDev"  -> ratingDev
-            )
-          )
-        def batch(nb: Int) = timer("puzzle.selector.user.batch").withTag("nb", nb)
+        def time(theme: String)       = timer("puzzle.selector.user.puzzle").withTag("theme", theme)
+        def retries(theme: String)    = histogram("puzzle.selector.user.retries").withTag("theme", theme)
+        def vote(theme: String)       = histogram("puzzle.selector.user.vote").withTag("theme", theme)
+        def ratingDiff(theme: String) = histogram("puzzle.selector.user.ratingDiff").withTag("theme", theme)
+        def ratingDev(theme: String)  = histogram("puzzle.selector.user.ratingDev").withTag("theme", theme)
+        def batch(nb: Int)            = timer("puzzle.selector.user.batch").withTag("nb", nb)
       }
       object anon {
         def puzzle(vote: Int) = timer("puzzle.selector.anon.puzzle").withTag("vote", vote)

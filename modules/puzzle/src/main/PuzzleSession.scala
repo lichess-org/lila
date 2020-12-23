@@ -73,14 +73,13 @@ final class PuzzleSessionApi(
           case PuzzleFound(puzzle)                                           => fuccess(puzzle)
         }
       }
-      .monValue { puzzle =>
-        _.puzzle.selector.user.puzzle(
-          theme = theme.value,
-          retries = retries,
-          vote = puzzle.vote,
-          ratingDiff = math.abs(puzzle.glicko.intRating - user.perfs.puzzle.intRating),
-          ratingDev = puzzle.glicko.intDeviation
-        )
+      .mon(_.puzzle.selector.user.time(theme.value))
+      .addEffect { puzzle =>
+        val mon = lila.mon.puzzle.selector.user
+        mon.retries(theme.value).record(retries)
+        mon.vote(theme.value).record(puzzle.vote)
+        mon.ratingDiff(theme.value).record(math.abs(puzzle.glicko.intRating - user.perfs.puzzle.intRating))
+        mon.ratingDev(theme.value).record(puzzle.glicko.intDeviation).unit
       }
 
   private def nextPuzzleResult(user: User, session: PuzzleSession): Fu[NextPuzzleResult] =
