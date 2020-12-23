@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessStreamers">Transmetues Lichessi</string>
+  <string name="lichessStreamer">Transmetues i liches</string>
+  <string name="live">JETONI!</string>
+  <string name="offline">Jashtë linje</string>
+  <string name="currentlyStreaming">Transmetimi aktual: %s</string>
+  <string name="lastStream">Transmetimi i fundit %s</string>
+  <string name="becomeStreamer">Bëhuni një transmetues i Lichess</string>
+  <string name="doYouHaveStream">A keni një kanal Twitch ose YouTube?</string>
+  <string name="hereWeGo">Ja ku do te shkojme!</string>
+  <string name="allStreamers">Të gjithë transmetuesit</string>
+  <string name="editPage">Redakto faqen e transmetuesit</string>
+  <string name="yourPage">Faqja juaj e transmetuesit</string>
+  <string name="downloadKit">Shkarkoni paketën e transmetimit</string>
 </resources>
