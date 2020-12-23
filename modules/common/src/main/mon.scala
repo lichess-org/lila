@@ -465,9 +465,14 @@ object mon {
       def attempt(user: Boolean, theme: String) =
         counter("puzzle.attempt.count").withTags(Map("user" -> user, "theme" -> theme))
     }
-    def vote(up: Boolean, win: Boolean) = counter("puzzle.vote.count").withTag("up", up)
+    def vote(up: Boolean, win: Boolean) = counter("puzzle.vote.count").withTags(
+      Map(
+        "up"  -> up,
+        "win" -> win
+      )
+    )
     def voteTheme(key: String, up: Option[Boolean], win: Boolean) =
-      counter("puzzle.selector.voteTheme").withTags(
+      counter("puzzle.vote.theme").withTags(
         Map(
           "up"    -> up.fold("cancel")(_.toString),
           "theme" -> key,
