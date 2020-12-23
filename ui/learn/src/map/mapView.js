@@ -88,12 +88,12 @@ function whatNext(ctrl) {
         "puzzles",
         "exerciseYourTacticalSkills"
       ),
-      //makeStage(
-      //  "/video",
-      //  "tied-scroll",
-      //  "videos",
-      //  "watchInstructiveChessVideos"
-      //),
+      makeStage(
+        "/video",
+        "tied-scroll",
+        "videos",
+        "watchInstructiveChessVideos"
+      ),
       makeStage(
         "/#hook",
         "sword-clash",
