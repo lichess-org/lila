@@ -119,10 +119,10 @@ $mq-col3: $mq-x-large;
     justify-content: center;
     position: absolute;
     top: 0;
-    left: 0;
-    width: 95%;
+    left: 5%;
+    width: 90%;
     height: 100%;
-    font-size: 14rem;
+    font-size: 160px;
     font-weight: bold;
     opacity: 1;
     pointer-events: none;
@@ -139,14 +139,12 @@ $mq-col3: $mq-x-large;
     color: #fff;
   }
   #next_coord1 {
-    z-index: 2;
     left: 32%;
     top: 10%;
     font-size: 50px;
     opacity: 0.7;
   }
   #next_coord2 {
-    z-index: 1;
     transition: none;
     left: 43%;
     top: 13%;
