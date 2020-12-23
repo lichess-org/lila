@@ -6,5 +6,5 @@ package object blog extends PackageObject {
 
   lazy val thisYear = org.joda.time.DateTime.now.getYear
 
-  lazy val allYears = (thisYear to 2014 by -1).toList
+  lazy val allYears = (thisYear to 2020 by -1).toList
 }
