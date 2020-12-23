@@ -10,8 +10,8 @@
   <string name="attractionDescription">Rakip taşı türlü taktiklere müsait bir kareye gitmeye zorlayan yahut teşvik eden takas veya taş fedası.</string>
   <string name="backRankMate">Koridor matı</string>
   <string name="backRankMateDescription">Kendi taşları arkasında sıkışıp kalmış şaha koridorun kapısını göster.</string>
-  <string name="bishopEndgame">Fil oyun sonu</string>
-  <string name="bishopEndgameDescription">Sadece fil ve piyon içeren oyun sonu.</string>
+  <string name="bishopEndgame">Fil oyunsonu</string>
+  <string name="bishopEndgameDescription">Sadece fil ve piyon içeren oyunsonu.</string>
   <string name="castling">Rok</string>
   <string name="castlingDescription">Şahı güvene alırken kaleni saldırıya hazırla.</string>
   <string name="capturingDefender">Savunmayı baltala</string>
@@ -31,6 +31,8 @@
   <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Açarak saldırı</string>
   <string name="discoveredAttackDescription">Uzun menzilli bir taşın yolunu kesen diğer bir taşı oynayarak yapılan saldırılar. Atı oynayarak kaleyle şah çekmek gibi.</string>
   <string name="doubleCheck">Çifte şah</string>
+  <string name="doubleCheckDescription">Bir hamlede, hem hareket eden hem de bu hareket sonucu önü açılan taş ile rakibe aynı anda iki farklı yerden şah çek.</string>
+  <string name="endgame">Oyunsonu</string>
   <string name="opening">Açılış</string>
   <string name="healthyMix">Bir ondan bir bundan</string>
   <string name="healthyMixDescription">Ortaya karışık bulmacalar. Karşına ne tür bir pozisyonun çıkacağı tam bir muamma. Tıpkı gerçek maçlardaki gibi her şeye hazırlıklı olmakta fayda var.</string>
