@@ -799,5 +799,11 @@
   <string name="agreementPolicy">ഞാൻ Lichess പോളിസികൾ അനുകൂലിക്കുന്നതായി സമ്മതിക്കുന്നു.</string>
   <string name="rapid">റാപിഡ്</string>
   <string name="classical">ക്ലാസിക്കല്‍</string>
-  <string name="ultraBulletDesc">അതിവേഗത്തിലുള്ള കളികള്‍: 30 സെക്കന്‍റില്‍ താഴെ</string>
+  <string name="ultraBulletDesc">തീവ്രവേഗത്തിലുള്ള കളികള്‍: 30 സെക്കന്‍റില്‍ താഴെ</string>
+  <string name="bulletDesc">അതിവേഗത്തിലുള്ള കളികള്‍: 3 മിനിറ്റില്‍ താഴെ</string>
+  <string name="blitzDesc">വേഗത്തില്‍ ഉള്ള കളികള്‍: 3 മുതല്‍ 8 മിനിട്ട് വരെ</string>
+  <string name="rapidDesc">റാപിഡ് കളികള്‍: 8 മുതല്‍ 25 മിനിട്ട് വരെ</string>
+  <string name="classicalDesc">ക്ലാസ്സിക്കല്‍ കളികള്‍: 25 മിനിറ്റില്‍ കൂടുതല്‍</string>
+  <string name="correspondenceDesc">കറസ്പോണ്ടന്‍സ് കളികള്‍: ഓരോ നീക്കത്തിനും ഒരു ദിവസമോ അതില്‍ കൂടുതലോ ലഭിക്കും</string>
+  <string name="puzzleDesc">ചെസ്സ്‌ ടാക്ടിക്സ് ട്രെയിനര്‍</string>
 </resources>
