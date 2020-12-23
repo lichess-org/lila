@@ -10,4 +10,5 @@
   <string name="noAdsNoSubs">Fără reclame, fără abonamente; dar open-source și pasiune.</string>
   <string name="thankYou">Îți mulțumim pentru donația ta!</string>
   <string name="youHaveLifetime">Ai un cont de Patron Lifetime. Asta e minunat!</string>
+  <string name="patronUntil">Ai un cont de Patron până pe %s.</string>
 </resources>
