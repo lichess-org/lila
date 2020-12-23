@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advantage">Avantaj</string>
-  <string name="healthyMixDescription">Ortaya karışık bulmacalar. Karşına neyin çıkacağı tam bir muamma. Tıpkı gerçek maçlardaki gibi her şeye hazırlıklı olmakta fayda var. </string>
+  <string name="opening">Açılış</string>
+  <string name="healthyMix">Bir ondan bir bundan</string>
+  <string name="healthyMixDescription">Ortaya karışık bulmacalar. Karşına ne tür bir pozisyonun çıkacağı tam bir muamma. Tıpkı gerçek maçlardaki gibi her şeye hazırlıklı olmakta fayda var.</string>
 </resources>
