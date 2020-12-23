@@ -4,6 +4,7 @@
   <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Suositeltu</string>
   <string name="phases">Vaiheet</string>
   <string name="motifs">Motiivit</string>
+  <string name="advanced">Edistyneille</string>
   <string name="lengths">Pituudet</string>
   <string name="mates">Matit</string>
   <string name="goals">Tavoitteet</string>
