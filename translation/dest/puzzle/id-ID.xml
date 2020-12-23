@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Problems</string>
-  <string name="recommended">Direkomendasikan</string>
+  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Direkomendasikan</string>
   <string name="phases">Tahapan</string>
   <string name="motifs">Tema</string>
   <string name="advanced">Lanjut</string>
@@ -27,9 +27,6 @@
   <string name="trySomethingElse">Coba lagi lainnya.</string>
   <string name="ratingX">Rating: %s</string>
   <string name="hidden">sembunyi</string>
-  <plurals name="playedXTimes">
-    <item quantity="other">Bermain %s kali</item>
-  </plurals>
   <string name="fromGameLink">Dari game %s</string>
   <string name="continueTraining">Lanjut latihan</string>
   <string name="difficultyLevel">Level Sulit</string>

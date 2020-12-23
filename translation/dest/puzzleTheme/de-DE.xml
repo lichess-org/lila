@@ -3,11 +3,11 @@
   <string name="advancedPawn">Vorgerückter Bauer</string>
   <string name="advancedPawnDescription">Ein Bauer, der umwandelt oder umzuwandeln droht, ist Schlüssel zur Taktik.</string>
   <string name="advantage">Vorteil</string>
-  <string name="advantageDescription">Nutze deine Chance um einen entscheidenden Vorteil zu erlangen. (200cp ≤ Bewertung ≤ 600cp)</string>
+  <string name="advantageDescription">Nutze deine Chance, um einen entscheidenden Vorteil zu erlangen. (200 Hundertstel-Bauern ≤ Bewertung ≤ 600 Hundertstel-Bauern)</string>
   <string name="attackingF2F7">Angriff auf f2 oder f7</string>
   <string name="attackingF2F7Description">Ein Angriff, der sich auf den Bauern auf f2 oder f7 konzentriert, wie zum Beispiel bei der Eröffnung \"Zweispringerspiel im Nachzug, 4. Sg5\".</string>
-  <string name="attraction">Hinzuziehung</string>
-  <string name="attractionDescription">Ein Tausch oder Opfer, der eine gegnerische Figur auf ein Feld einlädt oder zwingt, was eine Folgetaktik erlaubt.</string>
+  <string name="attraction">Hineinziehung oder \"Magnet\"</string>
+  <string name="attractionDescription">Ein Abtausch oder Opfer, der eine gegnerische Schachfigur auf ein Feld einlädt oder zwingt, was eine Folgetaktik erlaubt.</string>
   <string name="backRankMate">Grundreihenmatt</string>
   <string name="backRankMateDescription">Setze den König auf der Grundreihe matt, wenn er dort durch seine eigenen Figuren blockiert wird.</string>
   <string name="bishopEndgame">Läuferendspiel</string>
@@ -15,32 +15,32 @@
   <string name="castling">Rochade</string>
   <string name="castlingDescription">Bringe deinen König in Sicherheit und den Turm in Angriffsposition.</string>
   <string name="capturingDefender">Schlage den Verteidiger</string>
-  <string name="capturingDefenderDescription">Eine Figur entfernen, die zur Verteidigung einer anderen Figur gebraucht wird um die nun ungedeckte Figur in einem darauffolgenden Zug zu schlagen.</string>
+  <string name="capturingDefenderDescription">Schlagen einer Schachfigur, die für die Deckung einer anderen Schachfigur von entscheidender Bedeutung ist, sodass die jetzt nicht mehr gedeckte Schachfigur mit dem folgendem Zug geschlagen werden kann.</string>
   <string name="crushing">Vernichtend</string>
   <string name="crushingDescription">Finde den gegnerischen Patzer, um einen vernichtenden Vorteil zu erhalten. (Bewertung ≥ 600 Hundertstel-Bauern)</string>
   <string name="equality">Ausgleich</string>
-  <string name="equalityDescription">Komme aus einer verlorenen Stellung zurück und sichere dir ein Remis oder eine ausgeglichene Stellung. (Bewertung ≤ 200 Hundertstel-Bauern)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Komme aus einer verlorenen Stellung zurück und sichere dir ein Remis oder eine ausgeglichene Stellung. (Bewertung ≤ 200 Hundertstel-Bauern)</string>
   <string name="kingsideAttack">Angriff auf den Königsflügel</string>
-  <string name="kingsideAttackDescription">Ein Angriff auf den gegnerischen König nachdem dieser auf den Königsflügel rochiert ist.</string>
+  <string name="kingsideAttackDescription">Ein Angriff auf den gegnerischen König, nachdem dieser auf den Königsflügel rochiert hat.</string>
   <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Öffnung</string>
   <string name="clearanceDescription">Ein Zug, oft mit Tempo, der ein Feld, eine Linie oder Diagonale für eine nachfolgende taktische Idee öffnet.</string>
   <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Verteidigungszug</string>
-  <string name="defensiveMoveDescription">Ein präziser Zug oder eine Zugfolge, die benötigt wird, um kein Material oder einen anderen Vorteil einzustellen.</string>
+  <string name="defensiveMoveDescription">Ein präziser Zug oder eine Zugfolge, die benötigt wird, um kein Material oder einen anderen Vorteil zu verlieren.</string>
   <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Ablenkung</string>
   <string name="deflectionDescription">Ein Zug, der eine gegnerische Figur von einer anderen Aufgabe ablenkt, wie zum Beispiel dem Schutz eines wichtigen Felds.</string>
   <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Abzugsangriff</string>
-  <string name="discoveredAttackDescription">Ziehe eine Figur, die zuvor einen Angriff durch eine andere weitfeldrige Figur blockierte, wie einen Springer aus dem Weg eines Turms.</string>
+  <string name="discoveredAttackDescription">Ziehe eine Figur, die zuvor einen Angriff durch eine andere langschrittige Figur blockierte, wie einen Springer aus dem Weg eines Turms.</string>
   <string name="doubleCheck">Doppelschach</string>
-  <string name="doubleCheckDescription">Schachgebot mit zwei Figuren gleichzeitig als Ergebnis eines Abzugsangriffs, indem die abziehende und die zuvor blockierte Figur den gegnerischen König angreifen.</string>
+  <string name="doubleCheckDescription">Schachgebot mit zwei Figuren gleichzeitig als Ergebnis eines Abzugsangriffs, bei dem sowohl die abziehende als auch die zuvor blockierte Figur den gegnerischen König angreifen.</string>
   <string name="endgame">Endspiel</string>
-  <string name="endgameDescription">Eine Taktik in der letzten Phase des Spiels.</string>
-  <string name="enPassantDescription">Eine Taktik, die die en passant Regel beinhaltet, bei der ein Bauer einen gegnerischen Bauern schlagen kann, der mit einem Doppelschritt an ihm vorbei gezogen ist.</string>
-  <string name="exposedKing">Offener König</string>
-  <string name="exposedKingDescription">Eine Taktik, die einen König mit wenigen Verteidigern um sich herum beinhaltet, welche oft zum Matt führt.</string>
+  <string name="endgameDescription">Eine Taktik in der letzten Phase des Spiels, dem Endspiel.</string>
+  <string name="enPassantDescription">Eine Taktik, die die Schachregel \"en passant\" (im Vorübergehen) einbezieht, bei der ein Bauer einen gegnerischen Bauer schlagen kann, der an ihm mit seinem Doppelschritt aus der Ausgangsstellung vorbeigangen ist.</string>
+  <string name="exposedKing">Offener (exponierter) König</string>
+  <string name="exposedKingDescription">Eine Taktik, bei der der König nur von wenigen Figuren verteidigt wird, was oft zum Matt führt.</string>
   <string name="fork">Gabel</string>
   <string name="forkDescription">Ein Zug, bei dem die gezogene Figur zwei gegnerische Figuren auf einmal angreift.</string>
   <string name="hangingPiece">Hängende Figur</string>
-  <string name="hangingPieceDescription">Eine Taktik, in der eine gegnerische Figur nicht oder unzureichend gedeckt ist und mit Vorteil geschlagen werden kann.</string>
+  <string name="hangingPieceDescription">Eine Taktik, bei der eine gegnerische Figur nicht oder nur unzureichend gedeckt ist und deshalb mit Vorteil geschlagen werden kann.</string>
   <string name="interference">Unterbrechung</string>
   <string name="interferenceDescription">Eine Figur zwischen zwei gegnerischen Figuren ziehen, um eine oder beide gegnerische Figuren ungedeckt zu lassen, wie etwa einen Springer auf einem gedeckten Feld zwischen zwei Türmen.</string>
   <string name="intermezzo">Zwischenzug</string>
@@ -79,18 +79,18 @@
   <string name="queenEndgameDescription">Ein Endspiel nur mit Damen und Bauern.</string>
   <string name="queensideAttack">Damenflügelangriff</string>
   <string name="queensideAttackDescription">Ein Angriff auf den gegnerischen König, nachdem dieser auf den Damenflügel rochiert ist.</string>
-  <string name="quietMove">Ruhiger Zug</string>
+  <string name="quietMove">Stiller Zug</string>
   <string name="quietMoveDescription">Ein Zug, der nicht Schach gibt oder schlägt, aber eine unvermeidliche Bedrohung durch einen späteren Zug vorbereitet.</string>
   <string name="rookEndgame">Turmendspiel</string>
   <string name="rookEndgameDescription">Ein Endspiel nur mit Türmen und Bauern.</string>
   <string name="sacrifice">Opfer</string>
   <string name="sacrificeDescription">Eine Taktik mit kurzfristigem Materialverlust, um nach einer erzwungenen Zugfolge wieder einen Vorteil zu erlangen.</string>
-  <string name="short">Kurze Aufgabe</string>
+  <string name="short">Aufgabe mit kurzer Zugfolge</string>
   <string name="shortDescription">Zwei Züge zum Sieg.</string>
   <string name="skewer">Spieß (Hinterstellung)</string>
   <string name="skewerDescription">Ein Motiv mit einer angegriffenen, hochwertigen Schachfigur, deren Wegziehen erlaubt, dass eine niederwertige Schachfigur hinter ihr geschlagen oder angegriffen werden kann, das Gegenteil einer Fesselung.</string>
   <string name="smotheredMate">Ersticktes Matt</string>
-  <string name="smotheredMateDescription">Ein Matt durch einen Springer, in dem der mattgesetzte König sich nicht bewegen kann, weil er von seinen eigenen Figuren umgeben (oder erstickt) wird.</string>
+  <string name="smotheredMateDescription">Ein Matt durch einen Springer, in dem der mattgesetzte König sich nicht bewegen kann, weil er von seinen eigenen Figuren umgeben (also erstickt) wird.</string>
   <string name="trappedPiece">Gefangene Figur</string>
   <string name="trappedPieceDescription">Eine Figur die dem Schlagen nicht entgehen kann, da sie begrenzte Züge hat.</string>
   <string name="underPromotion">Unter-Umwandlung</string>
@@ -100,7 +100,7 @@
   <string name="xRayAttack">Röntgen-Angriff</string>
   <string name="xRayAttackDescription">Eine Schachfigur greift ein Feld an oder verteidigt es hindurch eine gegnerische Schachfigur.</string>
   <string name="zugzwang">Zugzwang</string>
-  <string name="zugzwangDescription">Der Gegner hat nur eingeschränkt mögliche Züge und alle Züge verschlechtern seine Stellung.</string>
+  <string name="zugzwangDescription">Der Gegner ist in der Anzahl seiner Züge limitiert und jeder seiner Züge verschlechtert seine Stellung.</string>
   <string name="healthyMix">Gesunder Mix</string>
   <string name="healthyMixDescription">Ein bisschen von Allem. Du weißt nicht, was dich erwartet, deshalb bleibst du auf alles vorbereitet! Genau wie in echten Partien.</string>
 </resources>

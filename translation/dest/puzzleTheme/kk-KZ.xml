@@ -19,16 +19,16 @@
   <string name="crushing">Жойқын</string>
   <string name="crushingDescription">Жойқын артықшылыққа ие болу үшін қарсыластың қателігін анықтаңыз. (eval ≥ 600cp)</string>
   <string name="equality">Теңдік</string>
-  <string name="equalityDescription">Жаман күйден шығып, ойынды тепе-теңдікке не тең күйге жеткізіңіз. (eval ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Жаман күйден шығып, ойынды тепе-теңдікке не тең күйге жеткізіңіз. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Патша жақты шабуыл</string>
   <string name="kingsideAttackDescription">Қарсыластың патшасы өз жағына бекінгеннен кейін оған жасалатын шабуыл.</string>
-  <string name="clearance">Тазарту</string>
+  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Тазарту</string>
   <string name="clearanceDescription">Ілесу тактикасы мақсатында шаршыны, тігінен жолды не диагоналды тазарту үшін әдетте қарқынмен жасалынатын жүріс.</string>
-  <string name="defensiveMove">Қорғану жүрісі</string>
+  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Қорғану жүрісі</string>
   <string name="defensiveMoveDescription">Тастарды не артықшылықты жоғалтпау мақсатында жасалатын жүріс не жүрістер тізбегі.</string>
-  <string name="deflection">Назарын бұру</string>
+  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Назарын бұру</string>
   <string name="deflectionDescription">Қарсыластың тасын өз міндетінен үзіп (мысалы, бір маңызды шаршыны қорғаудан), назарын бұру үшін жасалынатын жүріс.</string>
-  <string name="discoveredAttack">Ашылған шабуыл</string>
+  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Ашылған шабуыл</string>
   <string name="discoveredAttackDescription">Ұзын жүрісті тастың шабуылын бөгеп тұрған таспен жүру. Мысалы, тура жолында тұрған атпен жүру.</string>
   <string name="doubleCheck">Қос шах</string>
   <string name="doubleCheckDescription">Ашылған шабуыл кезінде екі тастың (яғни, шабулды ашқан тас пен шабуылдап жатқан тас) қарсылас патшасына бірден қойған шахтары.</string>
@@ -43,4 +43,5 @@
   <string name="hangingPieceDescription">Қарсыластың қорғаусыз не қорғанысы әлсіз тұрған тасты басып алуды меңзейтін тактика.</string>
   <string name="interference">Бөгет</string>
   <string name="interferenceDescription">Тасты қарсыластың екі тасының арасындағы қорғау жолына қойып, олардың біреуін не екеуін қорғаусыз ету. Мысалы, екі өзара қорғап тұрған туралардың арасына тұра қалған ат.</string>
+  <string name="healthyMixDescription">Барлығы аз-аздан. Сіз не күту керектігін білмейсіз, сондықтан сіз бәріне дайын болу керек! Шынайы ойындардағы сияқты.</string>
 </resources>

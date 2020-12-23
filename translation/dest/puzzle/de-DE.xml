@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Aufgaben</string>
-  <string name="recommended">Empfohlen</string>
+  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Empfohlen</string>
   <string name="phases">Phasen</string>
   <string name="motifs">Motive</string>
   <string name="advanced">Fortgeschritten</string>
   <string name="lengths">Längen</string>
   <string name="mates">Matts</string>
   <string name="goals">Ziele</string>
-  <string name="specialMoves">Spezialzüge</string>
+  <string name="specialMoves">Besondere Züge</string>
   <string name="didYouLikeThisPuzzle">Hat dir diese Aufgabe gefallen?</string>
   <string name="voteToLoadNextOne">Stimme ab, um die nächste zu laden!</string>
   <string name="yourPuzzleRatingX">Deine Aufgaben-Wertung: %s</string>
