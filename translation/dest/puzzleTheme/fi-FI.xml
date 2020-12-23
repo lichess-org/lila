@@ -7,7 +7,10 @@
   <string name="attackingF2F7">Hyökkäys f2:een tai f7:ään</string>
   <string name="attackingF2F7Description">F2- tai f7-sotilaaseen kohdistuva hyökkäys, kuten esimerkiksi Preussilaisen pelin Fried Liver eli Fegatello-muunnelma.</string>
   <string name="attraction">Houkutus</string>
+  <string name="attractionDescription">Vaihto tai uhraus, joka houkuttelee tai pakottaa vastustajan nappulan tiettyyn ruutuun ja mahdollistaa siten taktisen jatkon.</string>
   <string name="backRankMate">Takarivin matti</string>
+  <string name="backRankMateDescription">Matita kuningas takarivillä, kun sen omat nappulat estävät sitä siirtymästä pois.</string>
+  <string name="bishopEndgame">Lähettiloppupeli</string>
   <string name="bishopEndgameDescription">Loppupeli, jossa on vain lähettejä ja sotilaita.</string>
   <string name="castling">Linnoitus</string>
   <string name="castlingDescription">Vie kuninkaasi turvaan ja tuo tornisi mukaan hyökkäykseen.</string>
