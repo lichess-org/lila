@@ -36,6 +36,8 @@
   <string name="endgameDescription">Oyunun son aşamasında hayat kurtarıcı taktikler.</string>
   <string name="enPassantDescription">Başlangıçta iki kare ileri giden kurnaz piyonun, rakip piyon ile yan yana geldikten sonra geçerken alma kuralı sebebiyle helvasının yendiği taktikler.</string>
   <string name="exposedKing">Savunmasız şah</string>
+  <string name="exposedKingDescription">Şahın defansa gelin diye feryat ettiği, çoğu zaman mata giden taktikler.</string>
+  <string name="fork">Çatal</string>
   <string name="opening">Açılış</string>
   <string name="sacrificeDescription">Zorunlu bir hamleler serisinden sonra avantaj elde etmek için kısa vadede birkaç taşı gözden çıkarmanız gereken taktikler.</string>
   <string name="short">Kısa bulmaca</string>
