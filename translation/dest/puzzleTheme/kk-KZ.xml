@@ -44,5 +44,12 @@
   <string name="interference">Бөгет</string>
   <string name="interferenceDescription">Тасты қарсыластың екі тасының арасындағы қорғау жолына қойып, олардың біреуін не екеуін қорғаусыз ету. Мысалы, екі өзара қорғап тұрған туралардың арасына тұра қалған ат.</string>
   <string name="intermezzo">Аралық жүріс</string>
+  <string name="intermezzoDescription">Болжамды түрде жүрудің орнына қарсыласқа қауіп төндіретіндей жүру. Басқаша \"Intermezzo\" не \"Zwischenzug\" деп те аталады.</string>
+  <string name="knightEndgame">Ат ойынсоңы</string>
+  <string name="knightEndgameDescription">Аттар мен сарбаздары ғана бар ойынсоңы.</string>
+  <string name="long">Ұзын жұмбақ</string>
+  <string name="longDescription">Жеңіске үш қадам.</string>
+  <string name="mate">Мат</string>
+  <string name="mateDescription">Ойынды әдемі жеңіп алыңыз.</string>
   <string name="healthyMixDescription">Барлығынан аз-аздан. Күтпеген жағдайларға бейім болыңыз! Дәл нағыз шахматтағыдай!</string>
 </resources>
