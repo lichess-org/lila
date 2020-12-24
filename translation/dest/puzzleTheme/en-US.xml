@@ -3,7 +3,7 @@
   <string name="advancedPawn">Advanced pawn</string>
   <string name="advancedPawnDescription">A pawn promoting or threatening too promote is key to the tactic.</string>
   <string name="advantage">Advantage</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;cp is centipawn, eval is short for evaluation">Seize your chance to get a decisive advantage. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription">Seize your chance to get a decisive advantage. (200cp ≤ eval ≤ 600cp)</string>
   <string name="attackingF2F7">Attacking f2 or f7</string>
   <string name="attackingF2F7Description">An attack focusing on the f2 or f7 pawn, such as in the fried liver opening.</string>
   <string name="attraction">Attraction</string>
@@ -19,16 +19,16 @@
   <string name="crushing">Crushing</string>
   <string name="crushingDescription">Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)</string>
   <string name="equality">Equality</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Come back from a losing position, and secure a draw or a balanced position. (eval ≤ 200cp)</string>
+  <string name="equalityDescription">Come back from a losing position, and secure a draw or a balanced position. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Kingside attack</string>
   <string name="kingsideAttackDescription">An attack of the opponent\'s king, after they castled on the king side.</string>
-  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Clearance</string>
+  <string name="clearance">Clearance</string>
   <string name="clearanceDescription">A move, often with tempo, that clears a square, file or diagonal for a follow-up tactical idea.</string>
-  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Defensive move</string>
+  <string name="defensiveMove">Defensive move</string>
   <string name="defensiveMoveDescription">A precise move or sequence of moves that is needed to avoid losing material or another advantage.</string>
-  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Deflection</string>
+  <string name="deflection">Deflection</string>
   <string name="deflectionDescription">A move that distracts an opponent piece from another duty that it performs, such as guarding a key square.</string>
-  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Discovered attack</string>
+  <string name="discoveredAttack">Discovered attack</string>
   <string name="discoveredAttackDescription">Moving a piece that previously blocked an attack by another long range piece, such as a knight out of the way of a rook.</string>
   <string name="doubleCheck">Double check</string>
   <string name="doubleCheckDescription">Checking with two pieces at once, as a result of a discovered attack where both the moving piece and the unveiled piece attack the opponent\'s king.</string>
