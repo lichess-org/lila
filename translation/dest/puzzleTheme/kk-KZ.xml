@@ -91,5 +91,14 @@
   <string name="skewerDescription">Байлауға қарама-қарсы: құнды тас соққы астында бола, артындағы арзан тасты беріп, қашуға мәжбүр болатындай жағдай.</string>
   <string name="smotheredMate">Қамаған мат</string>
   <string name="smotheredMateDescription">Өз тастарымен қамалған патша бірде-бір жүріс жасай алмайтын кезде оған қарсыластың аты жасаған мат.</string>
+  <string name="trappedPiece">Тұзаққа түскен</string>
+  <string name="trappedPieceDescription">Басып алынудан қаша алмайтын, жүрісі шектелген тас.</string>
+  <string name="underPromotion">Кіші айналу</string>
+  <string name="underPromotionDescription">Ат, піл не тураға айналу.</string>
+  <string name="veryLong">Ұп-ұзын жұмбақ</string>
+  <string name="veryLongDescription">Жеңіске төрт не одан да көп қадам.</string>
+  <string name="xRayAttack">Рентген</string>
+  <string name="xRayAttackDescription">Бір тастың қарсылас тасын аттай бір шаршыны қорғауы не шабуылдауы.</string>
+  <string name="zugzwang">Цугцванг</string>
   <string name="healthyMixDescription">Барлығынан аз-аздан. Күтпеген жағдайларға бейім болыңыз! Дәл нағыз шахматтағыдай!</string>
 </resources>
