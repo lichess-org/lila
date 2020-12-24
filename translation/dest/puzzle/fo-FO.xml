@@ -26,7 +26,7 @@
   <string name="notTheMove">Hatta er ikki rætti leikurin!</string>
   <string name="trySomethingElse">Royn okkurt annað.</string>
   <string name="ratingX">Styrkital: %s</string>
-  <string name="hidden">fjalt</string>
+  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">fjalt</string>
   <plurals name="playedXTimes">
     <item quantity="one">Telvað %s ferð</item>
     <item quantity="other">Telvað %s ferðir</item>
