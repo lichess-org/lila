@@ -55,6 +55,7 @@
   <string name="queenEndgame">Dame-eindspel</string>
   <string name="queenEndgameDescription">Een eindspel met alleen dame en pionnen.</string>
   <string name="queensideAttack">Dameaanval</string>
+  <string name="queensideAttackDescription">Een aanval op de koning van de tegenstander, na een lange rokade.</string>
   <string name="quietMove">Stille zet</string>
   <string name="rookEndgame">Toreneindspel</string>
   <string name="rookEndgameDescription">Een eindspel met alleen torens en pionnen.</string>
