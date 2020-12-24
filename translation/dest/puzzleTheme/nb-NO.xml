@@ -3,7 +3,7 @@
   <string name="advancedPawn">Framskutt bonde</string>
   <string name="advancedPawnDescription">En bondeforvandling eller en trussel om bondeforvandling er nøkkeltaktikken.</string>
   <string name="advantage">Fordel</string>
-  <string name="advantageDescription">Grip sjansen til en avgjørende fordel. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;cp is centipawn, eval is short for evaluation">Grip sjansen til en avgjørende fordel. (200cp ≤ eval ≤ 600cp)</string>
   <string name="attackingF2F7">Angrep mot f2 eller f7</string>
   <string name="attackingF2F7Description">Et angrep med fokus på bonden på f2 eller f7, slik som i fegatello-angrepet.</string>
   <string name="attraction">Magnetoffer</string>
@@ -19,7 +19,7 @@
   <string name="crushing">Knusende</string>
   <string name="crushingDescription">Oppdag motstanderens bukk og oppnå en knusende fordel. (eval ≥ 600cp)</string>
   <string name="equality">Utligning</string>
-  <string name="equalityDescription">Vend en tapt stilling til remis eller lik stilling. (eval ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Vend en tapt stilling til remis eller lik stilling. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Angrep på kongefløyen</string>
   <string name="kingsideAttackDescription">Et angrep mot motstanderens konge etter kort rokade.</string>
   <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Feltrømning</string>
