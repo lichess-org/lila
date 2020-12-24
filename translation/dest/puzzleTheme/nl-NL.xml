@@ -67,6 +67,7 @@
   <string name="smotheredMate">Stikmat</string>
   <string name="smotheredMateDescription">Schaakmat met een paard waarbij de aangevallen koning geen zet kan doen omdat hij ingesloten is (of verstikt) door zijn eigen stukken.</string>
   <string name="trappedPiece">Ingesloten stuk</string>
+  <string name="trappedPieceDescription">Een stuk kan niet meer ontsnappen omdat het geen velden meer heeft.</string>
   <string name="underPromotion">Minorpromotie</string>
   <string name="underPromotionDescription">Promotie tot paard, loper of toren.</string>
   <string name="veryLong">Zeer lange puzzel</string>
@@ -74,4 +75,6 @@
   <string name="xRayAttack">Röntgenaanval</string>
   <string name="zugzwang">Zetdwang</string>
   <string name="zugzwangDescription">De tegenstander is beperkt in de zetten die hij kan doen, en elke zet verslechtert zijn stelling.</string>
+  <string name="healthyMix">Gezonde mix</string>
+  <string name="healthyMixDescription">Een beetje van dit en een beetje van dat. Je weet niet wat je te wachten staat, je moet dus op alles voorbereid zijn! Net als in echte partijen.</string>
 </resources>
