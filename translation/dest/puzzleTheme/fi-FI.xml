@@ -38,6 +38,7 @@
   <string name="fork">Haarukka</string>
   <string name="forkDescription">Siirto, jolla siirrettävä nappula uhkaa samanaikaisesti kahta vastustajan nappulaa.</string>
   <string name="hangingPiece">Ilmainen nappula</string>
+  <string name="hangingPieceDescription">Taktiikka, jossa vastustajan nappulaa ei ole suojattu lainkaan tai riittävästi, ja jossa se on vapaasti lyötävissä.</string>
   <string name="long">Pitkä tehtävä</string>
   <string name="mate">Matti</string>
   <string name="mateDescription">Voita peli tyylillä.</string>
