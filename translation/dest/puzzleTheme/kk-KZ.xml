@@ -51,5 +51,24 @@
   <string name="longDescription">Жеңіске үш қадам.</string>
   <string name="mate">Мат</string>
   <string name="mateDescription">Ойынды әдемі жеңіп алыңыз.</string>
+  <string name="mateIn1">1 жүрісті мат</string>
+  <string name="mateIn1Description">Бір жүріспен мат жасаңыз.</string>
+  <string name="mateIn2">2 жүрісті мат</string>
+  <string name="mateIn2Description">Екі жүріспен мат жасаңыз.</string>
+  <string name="mateIn3">3 жүрісті мат</string>
+  <string name="mateIn3Description">Үш жүріспен мат жасаңыз.</string>
+  <string name="mateIn4">4 жүрісті мат</string>
+  <string name="mateIn4Description">Төрт жүріспен мат жасаңыз.</string>
+  <string name="mateIn5">5 не одан көп жүрісті мат</string>
+  <string name="mateIn5Description">Матқа жеткізетін жүрістер тізбегін табыңыз.</string>
+  <string name="middlegame">Ойын ортасы</string>
+  <string name="middlegameDescription">Ойынның екінші кезеңіндегі тактика.</string>
+  <string name="oneMove">Бір қадамды жұмбақ</string>
+  <string name="oneMoveDescription">Бір жүріспен ғана шешілетін жұмбақ.</string>
+  <string name="opening">Бастау</string>
+  <string name="openingDescription">Ойынның алғашқы кезеңіндегі тактика.</string>
+  <string name="pawnEndgame">Сарбаздар ойынсоңы</string>
+  <string name="pawnEndgameDescription">Сарбаздары ғана бар ойынсоңы.</string>
+  <string name="pin">Байлау</string>
   <string name="healthyMixDescription">Барлығынан аз-аздан. Күтпеген жағдайларға бейім болыңыз! Дәл нағыз шахматтағыдай!</string>
 </resources>
