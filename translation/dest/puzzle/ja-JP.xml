@@ -11,7 +11,7 @@
   <string name="specialMoves">特殊な手</string>
   <string name="didYouLikeThisPuzzle">この問題は気に入りましたか？</string>
   <string name="voteToLoadNextOne">投票すると次を読み込みます！</string>
-  <string name="yourPuzzleRatingX">タクティクス レーティング: %s</string>
+  <string name="yourPuzzleRatingX">あなたのレーティング: %s</string>
   <string name="findTheBestMoveForWhite">白の最善手を見つけてください。</string>
   <string name="findTheBestMoveForBlack">黒の最善手を見つけてください。</string>
   <string name="toGetPersonalizedPuzzles">あなたに合わせた問題を解くには:</string>
