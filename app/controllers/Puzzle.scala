@@ -77,7 +77,9 @@ final class Puzzle(
 
   def mobileBcRound(nid: Long) =
     OpenBody { implicit ctx =>
-      onComplete(Puz.numericalId(nid), PuzzleTheme.mix, mobileBc = true)
+      Puz.numericalId(nid) ?? {
+        onComplete(_, PuzzleTheme.mix, mobileBc = true)
+      }
     }
 
   private def onComplete[A](id: Puz.Id, theme: PuzzleTheme, mobileBc: Boolean)(implicit
@@ -188,12 +190,18 @@ final class Puzzle(
   def show(themeOrId: String) = Open { implicit ctx =>
     NoBot {
       PuzzleTheme.find(themeOrId) match {
-        case None if themeOrId.size == 5 =>
-          OptionFuResult(env.puzzle.api.puzzle find Puz.Id(themeOrId)) { renderShow(_, PuzzleTheme.mix) }
-        case None => Redirect(routes.Puzzle.home()).fuccess
         case Some(theme) =>
           nextPuzzleForMe(theme.key) flatMap {
             renderShow(_, theme)
+          }
+        case None if themeOrId.size == 5 =>
+          OptionFuResult(env.puzzle.api.puzzle find Puz.Id(themeOrId)) { renderShow(_, PuzzleTheme.mix) }
+        case None =>
+          themeOrId.toLongOption
+            .flatMap(Puz.numericalId.apply)
+            .??(env.puzzle.api.puzzle.find) map {
+            case None      => Redirect(routes.Puzzle.home())
+            case Some(puz) => Redirect(routes.Puzzle.show(puz.id.value))
           }
       }
     }
@@ -237,7 +245,7 @@ final class Puzzle(
       negotiate(
         html = notFound,
         _ =>
-          OptionFuOk(env.puzzle.api.puzzle find Puz.numericalId(nid)) { puz =>
+          OptionFuOk(Puz.numericalId(nid) ?? env.puzzle.api.puzzle.find) { puz =>
             env.puzzle.jsonView.bc(puzzle = puz, theme = PuzzleTheme.mix, user = ctx.me)
           }.dmap(_ as JSON)
       )
@@ -287,7 +295,10 @@ final class Puzzle(
               data =>
                 data.solutions.lastOption
                   .?? { solution =>
-                    env.puzzle.api.puzzle.find(Puz.numericalId(solution.id)).map2(_ -> Result(solution.win))
+                    Puz
+                      .numericalId(solution.id)
+                      .??(env.puzzle.api.puzzle.find)
+                      .map2(_ -> Result(solution.win))
                   }
                   .flatMap {
                     case None => Ok(env.puzzle.jsonView.bc.userJson(me.perfs.puzzle.intRating)).fuccess
@@ -317,10 +328,10 @@ final class Puzzle(
             .bindFromRequest()
             .fold(
               jsonFormError,
-              intVote => {
-                val vote = intVote == 1
-                env.puzzle.api.vote.update(Puz.numericalId(nid), me, vote) inject jsonOkResult
-              }
+              intVote =>
+                Puz.numericalId(nid) ?? {
+                  env.puzzle.api.vote.update(_, me, intVote == 1) inject jsonOkResult
+                }
             )
         }
       )

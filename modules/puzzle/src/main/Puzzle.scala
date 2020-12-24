@@ -51,13 +51,14 @@ object Puzzle {
         l + charToInt(char) * pow
       }
 
-    def apply(l: Long): Id = Id {
-      powers.reverse
+    def apply(l: Long): Option[Id] = {
+      val str = powers.reverse
         .foldLeft(("", l)) { case ((id, rest), pow) =>
           val frac = rest / pow
           (s"${intToChar(frac.toInt)}$id", rest - frac * pow)
         }
         ._1
+      (str.size == idSize) option Id(str)
     }
 
     private def charToInt(c: Char) = {
