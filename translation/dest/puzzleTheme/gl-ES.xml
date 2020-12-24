@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Peón avanzado</string>
+  <string name="queenRookEndgame">Final de dama e torre</string>
+  <string name="queenRookEndgameDescription">Un final solo con damas, torres e peons.</string>
 </resources>
