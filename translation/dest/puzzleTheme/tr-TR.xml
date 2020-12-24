@@ -77,6 +77,8 @@
   <string name="promotionDescription">Terfi eden veya terfi etmek üzere olan bir piyon taktik bilgisinin olmazsa olmazıdır.</string>
   <string name="queenEndgame">Vezir oyunsonu</string>
   <string name="queenEndgameDescription">Sadece vezir ve piyon içeren oyunsonu.</string>
+  <string name="queenRookEndgame">Vezir ve kale oyunsonu</string>
+  <string name="queenRookEndgameDescription">Sadece vezir, kale ve piyon içeren oyunsonu.</string>
   <string name="queensideAttack">Vezir tarafına saldırı</string>
   <string name="queensideAttackDescription">Uzun rok atan rahip şaha saldırı.</string>
   <string name="quietMove">Fırtınadan önceki sessizlik</string>
