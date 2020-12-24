@@ -31,6 +31,8 @@
   <string name="fork">Viljuška</string>
   <string name="forkDescription">Potez kojim pomjerena figura istovremeno napada dvije protivničke.</string>
   <string name="hangingPiece">Viseća figura</string>
+  <string name="queenRookEndgame">Završnica s damom i topom</string>
+  <string name="queenRookEndgameDescription">Završnica samo s damama, topovima i pješacima.</string>
   <string name="quietMove">Tihi potez</string>
   <string name="quietMoveDescription">Potez kojim se ne daje šah niti uzima figura, ali kojim se priprema neizbježna prijetnja u nekom kasnijem potezu.</string>
   <string name="rookEndgame">Topovska završnica</string>
