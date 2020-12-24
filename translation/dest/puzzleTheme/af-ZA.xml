@@ -3,7 +3,7 @@
   <string name="advancedPawn">Gevorderde pion</string>
   <string name="advancedPawnDescription">\'N Pion wat bevorder of dreig om te bevorder, is die sleutel tot die taktiek.</string>
   <string name="advantage">Voordeel</string>
-  <string name="advantageDescription">Gryp u kans aan om \'n deurslaggewende voordeel te behaal. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;cp is centipawn, eval is short for evaluation">Gryp u kans aan om \'n deurslaggewende voordeel te behaal. (200cp ≤ eval ≤ 600cp)</string>
   <string name="attackingF2F7">Aanval f2 of f7</string>
   <string name="attackingF2F7Description">\'N Aanval wat op die f2- of f7-pion fokus, soos in die gebraaide leweropening.</string>
   <string name="attraction">Aantrekkingskrag</string>
