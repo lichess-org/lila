@@ -77,6 +77,8 @@
   <string name="promotionDescription">Перетворення пішака або загроза перетворення є ключовою тактикою.</string>
   <string name="queenEndgame">Ферзевий ендшпіль</string>
   <string name="queenEndgameDescription">Ендшпіль лише з ферзем та пішаками.</string>
+  <string name="queenRookEndgame">Ферзевий та туровий ендшпіль</string>
+  <string name="queenRookEndgameDescription">Ендшпіль лише з ферзями, турами та пішаками.</string>
   <string name="queensideAttack">Атака на ферзевому фланзі</string>
   <string name="queensideAttackDescription">Атака на короля суперника, після того як він зробив рокіровку на ферзевому фланзі.</string>
   <string name="quietMove">Тихий хід</string>
