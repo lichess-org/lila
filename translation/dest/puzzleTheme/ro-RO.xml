@@ -77,6 +77,8 @@
   <string name="promotionDescription">Un pion care promovează sau amenință să promoveze e cheia acestei tactici.</string>
   <string name="queenEndgame">Final cu regine</string>
   <string name="queenEndgameDescription">Un final de partidă doar cu regine și pioni.</string>
+  <string name="queenRookEndgame">Final cu regine și turnuri</string>
+  <string name="queenRookEndgameDescription">Un final de partidă doar cu regine, turnuri și pioni.</string>
   <string name="queensideAttack">Atac pe partea reginei</string>
   <string name="queensideAttackDescription">Un atac asupra regelui adversarului, după ce a făcut rocada pe partea reginei.</string>
   <string name="quietMove">Mutare silențioasă</string>
