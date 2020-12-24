@@ -77,6 +77,8 @@
   <string name="promotionDescription">En bondeforvandling eller en trussel om bondeforvandling er nøkkeltaktikken.</string>
   <string name="queenEndgame">Dronningsluttspill</string>
   <string name="queenEndgameDescription">Et sluttspill med kun dronninger og bønder.</string>
+  <string name="queenRookEndgame">Dronning- og tårnsluttspill</string>
+  <string name="queenRookEndgameDescription">Et sluttspill med kun dronninger, tårn og bønder.</string>
   <string name="queensideAttack">Angrep på dronningfløyen</string>
   <string name="queensideAttackDescription">Et angrep mot motstanderens konge etter lang rokade.</string>
   <string name="quietMove">Rolig trekk</string>
