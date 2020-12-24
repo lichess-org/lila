@@ -77,6 +77,8 @@
   <string name="promotionDescription">En bonde, der forvandles eller truer med at forvandle, er nøglen til taktikken.</string>
   <string name="queenEndgame">Dronningeslutspil</string>
   <string name="queenEndgameDescription">Et slutspil med kun dronninger og bønder.</string>
+  <string name="queenRookEndgame">Dronning og tårn-slutspil</string>
+  <string name="queenRookEndgameDescription">Et slutspil med kun dronninger, tårne og bønder.</string>
   <string name="queensideAttack">Angreb på dronningesiden</string>
   <string name="queensideAttackDescription">Et angreb på modstanderens konge efter der er rokeret på dronningesiden.</string>
   <string name="quietMove">Stille træk</string>
