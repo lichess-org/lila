@@ -3,6 +3,7 @@
   <string name="advancedPawn">Opgerukte pion</string>
   <string name="advancedPawnDescription">Een pion die promoveert of dreigt te promoveren is hier cruciaal.</string>
   <string name="advantage">Voordeel</string>
+  <string name="advantageDescription">Grijp je kans om een doorslaggevend voordeel te verkrijgen. (200cp ≤ eval ≤ 600 cp)</string>
   <string name="attackingF2F7">f2 of f7 aanvallen</string>
   <string name="attraction">Lokken</string>
   <string name="attractionDescription">Een afruil of offer om een vijandelijk stuk naar een veld te lokken of te dwingen waardoor een tactisch vervolg mogelijk wordt gemaakt.</string>
@@ -29,6 +30,7 @@
   <string name="discoveredAttack">Aftrekaanval</string>
   <string name="discoveredAttackDescription">Een stuk verplaatsen dat daarvoor een aanval van een ander lange afstandsstuk blokkeerde, bijvoorbeeld een paard dat opzij gaat voor een toren.</string>
   <string name="doubleCheck">Dubbelschaak</string>
+  <string name="doubleCheckDescription">Schaak geven met twee stukken tegelijk als gevolg van een aftrekaanval waarbij zowel het verplaatste als het geactiveerde stuk de koning van de tegenstander aanvalt.</string>
   <string name="endgame">Eindspel</string>
   <string name="endgameDescription">Tactiek in de slotfase van de partij.</string>
   <string name="exposedKing">Onveilige koning</string>
@@ -36,6 +38,7 @@
   <string name="fork">Vork</string>
   <string name="forkDescription">Een zet waarbij het gespeelde stuk twee vijandelijke stukken tegelijk aanvalt.</string>
   <string name="hangingPiece">Hangend stuk</string>
+  <string name="hangingPieceDescription">Een situatie waarin een vijandelijk stuk niet of onvoldoende verdedigd wordt en daarom ongestraft geslagen kan worden.</string>
   <string name="interference">Tussenplaatsing</string>
   <string name="interferenceDescription">Een stuk plaatsen tussen twee vijandelijke stukken om één of beide stukken onverdedigd te laten, zoals een paard op een verdedigd veld tussen twee torens.</string>
   <string name="intermezzo">Tussenzet</string>
