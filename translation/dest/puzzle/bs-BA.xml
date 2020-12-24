@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Problemi</string>
-  <string name="recommended">Preporučeno</string>
+  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Preporučeno</string>
   <string name="phases">Faze</string>
   <string name="motifs">Motivi</string>
   <string name="advanced">Napredno</string>
@@ -26,7 +26,7 @@
   <string name="notTheMove">To nije traženi potez!</string>
   <string name="trySomethingElse">Pokušajte nešto drugo.</string>
   <string name="ratingX">Rejting: %s</string>
-  <string name="hidden">skriven</string>
+  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">skriven</string>
   <string name="continueTraining">Nastavite trening</string>
   <string name="difficultyLevel">Nivo težine</string>
   <string name="normal">Normalni</string>
