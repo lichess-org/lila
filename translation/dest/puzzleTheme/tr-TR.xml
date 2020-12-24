@@ -90,12 +90,16 @@
   <string name="skewer">Şiş</string>
   <string name="skewerDescription">Değerli bir taşın saldırı altında olduğu, hareketi hâlinde ise arkasındaki daha düşük değerli bir taşın ele geçirileceği ya da tehlikeye düşeceği motifler. Bir nevi açmazın tersi.</string>
   <string name="smotheredMate">Boğmaca Matı</string>
+  <string name="trappedPiece">Tuzağa düşmüş taş</string>
+  <string name="trappedPieceDescription">Gidilecek güvenli bir kare olmadığı için kaçacak yerleri kalmayan taşlar.</string>
   <string name="underPromotion">Düşük terfi</string>
   <string name="underPromotionDescription">At, fil veya kaleye terfi.</string>
   <string name="veryLong">Çok uzun bulmaca</string>
   <string name="veryLongDescription">Dört hamle veya daha uzun kazançlar.</string>
-  <string name="xRayAttack">X Işını Saldırısı</string>
-  <string name="zugzwang">Hamlesizlik</string>
+  <string name="xRayAttack">X-Işını Saldırısı</string>
+  <string name="xRayAttackDescription">Rakibin taşı üzerinden bir kareyi koruyan veya bir kareye saldıran taşları içeren taktikler.</string>
+  <string name="zugzwang">Zugzwang</string>
+  <string name="zugzwangDescription">Rakibin iyi bir hamlesinin kalmadığı, yapabileceği bütün hamlelerin kendisine zarar vereceği taktikler.</string>
   <string name="healthyMix">Bir ondan bir bundan</string>
   <string name="healthyMixDescription">Ortaya karışık bulmacalar. Karşına ne tür bir pozisyonun çıkacağı tam bir muamma. Tıpkı gerçek maçlardaki gibi her şeye hazırlıklı olmakta fayda var.</string>
 </resources>
