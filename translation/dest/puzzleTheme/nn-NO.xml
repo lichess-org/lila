@@ -3,7 +3,7 @@
   <string name="advancedPawn">Framskoten bonde</string>
   <string name="advancedPawnDescription">Ein bonde som blir forvandla eller trugar med å bli forvandla er ein taktisk nøkkel.</string>
   <string name="advantage">Fordel</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;cp is centipawn, eval is short for evaluation">Grip sjansen til å få eit avgjerande fortrinn. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription">Grip sjansen til å få eit avgjerande fortrinn. (200cp ≤ eval ≤ 600cp)</string>
   <string name="attackingF2F7">Gå til åtak på f2 eller f7</string>
   <string name="attackingF2F7Description">Eit åtak som konsentrerar seg om bøndene på f2 eller f7, som til dømes i prøyssisk opning, fegatellovarianten (\"Fried Liver Attack\").</string>
   <string name="attraction">Magnet</string>
@@ -19,16 +19,16 @@
   <string name="crushing">Avgjerande fordel</string>
   <string name="crushingDescription">Finn motspelarens feil for å få ein avgjerande fordel. (eval ≥ 600 centibønder)</string>
   <string name="equality">Utjamning</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Vend ei tapt stilling til remis eller utjamna stilling. (eval ≤ 200 centibønder)</string>
+  <string name="equalityDescription">Vend ei tapt stilling til remis eller utjamna stilling. (eval ≤ 200 centibønder)</string>
   <string name="kingsideAttack">Åtak på kongefløyen</string>
   <string name="kingsideAttackDescription">Eit åtak på kongen som motspelaren har rokert.</string>
-  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Klarering</string>
+  <string name="clearance">Klarering</string>
   <string name="clearanceDescription">Eit trekk, gjerne med tempo, som opnar eit felt, ei line eller ein diagonal for ein påfølgjande taktisk ide.</string>
-  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Forsvarstrekk</string>
+  <string name="defensiveMove">Forsvarstrekk</string>
   <string name="defensiveMoveDescription">Presist trekk eller trekkserie som er naudsynt for å unngå å tape materiell eller andre fordelar.</string>
-  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Avleiing</string>
+  <string name="deflection">Avleiing</string>
   <string name="deflectionDescription">Eit trekk som leier ei av brikkene til motstpelaren bort frå ei anna oppgåve, som til dømes oppdekking av eit viktig felt.</string>
-  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Avdekkaråtak</string>
+  <string name="discoveredAttack">Avdekkaråtak</string>
   <string name="discoveredAttackDescription">Flytting av ei brikke som opphavleg blokkerer ei anna langtrekkande brikke, til dømes ein springar som ved å flytte skapar rom for eit tårn.</string>
   <string name="doubleCheck">Dobbeltsjakk</string>
   <string name="doubleCheckDescription">Sjakk med to brikker på same tid, som eit resultat av eit avdekkaråtak der både brikka som vert flytta og den avdekka brikka set kongen til motspelaren i sjakk.</string>
