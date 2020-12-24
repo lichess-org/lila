@@ -80,6 +80,7 @@
   <string name="queensideAttack">Vezir tarafına saldırı</string>
   <string name="queensideAttackDescription">Uzun rok atan rahip şaha saldırı.</string>
   <string name="quietMove">Fırtınadan önceki sessizlik</string>
+  <string name="quietMoveDescription">Şah çekmenin veya taş yemenin olmadığı, ancak gelecekteki kaçınılmaz bir tehdidin temelini atan hamleler.</string>
   <string name="rookEndgame">Kale oyunsonu</string>
   <string name="rookEndgameDescription">Sadece kale ve piyon içeren oyunsonu.</string>
   <string name="sacrifice">Feda</string>
