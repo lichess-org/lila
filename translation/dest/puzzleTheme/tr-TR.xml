@@ -68,8 +68,15 @@
   <string name="opening">Açılış</string>
   <string name="openingDescription">Oyunun ilk aşamasında hayatınızı kolaylaştıran taktikler.</string>
   <string name="overloading">Aşırı yükleme</string>
+  <string name="pawnEndgame">Piyon oyunsonu</string>
+  <string name="pawnEndgameDescription">Yalnızca piyonların olduğu oyunsonları.</string>
   <string name="pin">Açmaz</string>
   <string name="promotion">Terfi</string>
+  <string name="promotionDescription">Terfi eden veya terfi etmek üzere olan bir piyon taktik bilgisinin olmazsa olmazıdır.</string>
+  <string name="queenEndgame">Vezir oyunsonu</string>
+  <string name="queenEndgameDescription">Sadece vezir ve piyon içeren oyunsonu.</string>
+  <string name="queensideAttack">Vezir tarafına saldırı</string>
+  <string name="queensideAttackDescription">Uzun rok atan rahip şaha saldırı.</string>
   <string name="sacrificeDescription">Zorunlu bir hamleler serisinden sonra avantaj elde etmek için kısa vadede birkaç taşı gözden çıkarmanız gereken taktikler.</string>
   <string name="short">Kısa bulmaca</string>
   <string name="shortDescription">İki hamlede kazanın.</string>
