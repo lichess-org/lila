@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Әккі сарбаз</string>
-  <string name="advancedPawnDescription">Айналуға ұмтылған не айналумен қорқытып тұрған сарбаз – тактиканың кілті.</string>
+  <string name="advancedPawnDescription">Айналуға ұмтылған не айналумен қорқытып тұрған сарбаз – тактиканың өзегі.</string>
   <string name="advantage">Артықшылық</string>
-  <string name="advantageDescription">Шешуші артықшылық беретін сәтті жіберіп алмаңыз. (200cp ≤ шама ≤ 600cp)</string>
+  <string name="advantageDescription">Шешуші артықшылық беретін сәтті жіберіп алмаңыз. (200-600 сп)</string>
   <string name="attackingF2F7">Шабуылдайтын f2 не f7</string>
   <string name="attackingF2F7Description">\"Қуырылған бүйрек\" бастауындағыдай f2 не f7 сарбазына бағытталған шабуыл.</string>
   <string name="attraction">Тартымдылық</string>
@@ -17,9 +17,9 @@
   <string name="capturingDefender">Қорғаушыны жою</string>
   <string name="capturingDefenderDescription">Бір тасты қорғап тұрған басқа тасты басып алсаңыз, әлгі тас қорғаусыз қалып, оны басып алуға жол ашылады.</string>
   <string name="crushing">Тас-талқан</string>
-  <string name="crushingDescription">Жойқын артықшылыққа ие болу үшін қарсыластың қателігін анықтаңыз. (шама≥ 600cp)</string>
+  <string name="crushingDescription">Жойқын артықшылыққа ие болу үшін қарсыластың қателігін анықтаңыз. (≥ 600 сп)</string>
   <string name="equality">Теңдік</string>
-  <string name="equalityDescription">Жаман күйден шығып, ойынды тепе-теңдікке не тең күйге жеткізіңіз. (eval ≤ 200cp)</string>
+  <string name="equalityDescription">Жаман күйден шығып, ойынды тепе-теңдікке не тең күйге жеткізіңіз. (≤ 200 сп)</string>
   <string name="kingsideAttack">Патша жақты шабуыл</string>
   <string name="kingsideAttackDescription">Қарсыластың патшасы өз жағына бекінгеннен кейін оған жасалатын шабуыл.</string>
   <string name="clearance">Тазарту</string>
