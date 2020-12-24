@@ -3,7 +3,7 @@
   <string name="advancedPawn">उन्नत मोहरा</string>
   <string name="advancedPawnDescription">प्रचार करने या धमकी देने वाला मोहरा रणनीति की कुंजी है।</string>
   <string name="advantage">लाभ</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;cp is centipawn, eval is short for evaluation">निर्णायक लाभ प्राप्त करने के लिए अपने अवसर को जब्त करें। (200cp al eval ≤ 600cp)</string>
+  <string name="advantageDescription">निर्णायक लाभ प्राप्त करने के लिए अपने अवसर को जब्त करें। (200cp al eval ≤ 600cp)</string>
   <string name="attackingF2F7">F2 या f7 पर हमला करना</string>
   <string name="attackingF2F7Description">एक हमला f2 या f7 मोहरे पर ध्यान केंद्रित करता है, जैसे कि तले हुए लिवर को खोलना।</string>
   <string name="attraction">आकर्षण</string>
@@ -19,16 +19,16 @@
   <string name="crushing">मुंहतोड़</string>
   <string name="crushingDescription">एक कुचल लाभ प्राप्त करने के लिए प्रतिद्वंद्वी ब्लंडर को स्पॉट करें। (eval ≥ 600cp)</string>
   <string name="equality">समानता</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">एक खोने की स्थिति से वापस आएँ, और एक ड्रॉ या संतुलित स्थिति को सुरक्षित करें। (eval ≤ 200cp)</string>
+  <string name="equalityDescription">एक खोने की स्थिति से वापस आएँ, और एक ड्रॉ या संतुलित स्थिति को सुरक्षित करें। (eval ≤ 200cp)</string>
   <string name="kingsideAttack">किंगसाइड का हमला</string>
   <string name="kingsideAttackDescription">प्रतिद्वंद्वी के राजा का एक हमला, बाद में वे राजा की तरफ झुक गए।</string>
-  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">निकासी</string>
+  <string name="clearance">निकासी</string>
   <string name="clearanceDescription">एक चाल, अक्सर टेम्पो के साथ, जो एक अनुवर्ती सामरिक विचार के लिए एक वर्ग, फ़ाइल या विकर्ण को साफ करता है।</string>
-  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">रक्षात्मक चाल</string>
+  <string name="defensiveMove">रक्षात्मक चाल</string>
   <string name="defensiveMoveDescription">सामग्री को खोने या अन्य लाभ से बचने के लिए आवश्यक चाल की एक सटीक चाल या अनुक्रम।</string>
-  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">नीचे को झुकाव</string>
+  <string name="deflection">नीचे को झुकाव</string>
   <string name="deflectionDescription">एक चाल जो एक प्रतिद्वंद्वी के टुकड़े को दूसरे कर्तव्य से विचलित करती है जो इसे निष्पादित करता है, जैसे कि एक प्रमुख वर्ग की रखवाली।</string>
-  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">हमले की खोज की</string>
+  <string name="discoveredAttack">हमले की खोज की</string>
   <string name="discoveredAttackDescription">एक टुकड़ा जो पहले एक और लंबी दूरी के टुकड़े द्वारा हमले को अवरुद्ध करता है, जैसे कि एक शूरवीर के रास्ते से बाहर एक नाइट।</string>
   <string name="doubleCheck">दोहरा शह</string>
   <string name="doubleCheckDescription">एक बार में दो टुकड़ों के साथ जाँच, एक खोज हमले के परिणामस्वरूप जहां चलती टुकड़ा और अनावरण टुकड़ा दोनों प्रतिद्वंद्वी के राजा पर हमला करते हैं।</string>
