@@ -77,7 +77,7 @@ final class PuzzleSessionApi(
       .addEffect { puzzle =>
         val mon = lila.mon.puzzle.selector.user
         mon.retries(theme.value).record(retries)
-        mon.vote(theme.value).record(math.round(puzzle.vote * 100))
+        mon.vote(theme.value).record(100 + math.round(puzzle.vote * 100))
         mon.ratingDiff(theme.value).record(math.abs(puzzle.glicko.intRating - user.perfs.puzzle.intRating))
         mon.ratingDev(theme.value).record(puzzle.glicko.intDeviation).unit
       }

@@ -24,7 +24,7 @@ final class PuzzleAnon(
       .mon(_.puzzle.selector.anon.time(theme.value))
       .addEffect {
         _ foreach { puzzle =>
-          lila.mon.puzzle.selector.anon.vote(theme.value).record(math.round(puzzle.vote * 100))
+          lila.mon.puzzle.selector.anon.vote(theme.value).record(100 + math.round(puzzle.vote * 100))
         }
       }
 
