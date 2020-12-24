@@ -3,7 +3,7 @@
   <string name="advancedPawn">進んだポーン</string>
   <string name="advancedPawnDescription">ポーンの昇格かその狙いがタクティクスの中心です。</string>
   <string name="advantage">優位</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;cp is centipawn, eval is short for evaluation">決定的な優位を得てください。（評価値は 200cp 以上 600cp 以下）</string>
+  <string name="advantageDescription">決定的な優位を得てください。（評価値は 200cp 以上 600cp 以下）</string>
   <string name="attackingF2F7">f2/f7への攻撃</string>
   <string name="attackingF2F7Description">f2 か f7 のポーンを狙う攻撃（フライド・リバー・アタックなど）。</string>
   <string name="attraction">アトラクション（引き寄せ）</string>
@@ -19,16 +19,16 @@
   <string name="crushing">圧倒</string>
   <string name="crushingDescription">相手の悪手をとがめて圧倒的な優位を築きます。（評価値は 600cp 以上）</string>
   <string name="equality">互角</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">劣勢の局面から、ドローを確保するか互角の局面に戻します。（評価値は 200cp 以下）</string>
+  <string name="equalityDescription">劣勢の局面から、ドローを確保するか互角の局面に戻します。（評価値は 200cp 以下）</string>
   <string name="kingsideAttack">キングサイド攻撃</string>
   <string name="kingsideAttackDescription">キングサイドにキャスリングした相手のキングを攻撃します。</string>
-  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">クリアランス（解放）</string>
+  <string name="clearance">クリアランス（解放）</string>
   <string name="clearanceDescription">次のタクティクスのためにマス、ファイル、斜線を開く手（先手であることが多い）。</string>
-  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">守り</string>
+  <string name="defensiveMove">守り</string>
   <string name="defensiveMoveDescription">駒損などの不利を避けるために必要な正確な手または手順。</string>
-  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">ディフレクション（そらし）</string>
+  <string name="deflection">ディフレクション（そらし）</string>
   <string name="deflectionDescription">相手の駒を別の役割（重要なマスを守るなど）からそらす手。</string>
-  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">ディスカバード・アタック</string>
+  <string name="discoveredAttack">ディスカバード・アタック</string>
   <string name="discoveredAttackDescription">別のラインピースの効きを止めていた駒を動かす手。たとえばルークの効き筋からナイトを動かす。</string>
   <string name="doubleCheck">ダブル・チェック</string>
   <string name="doubleCheckDescription">ディスカバード・アタックによって、動いた駒とラインピースが相手のキングに同時にチェックをかける手。</string>
