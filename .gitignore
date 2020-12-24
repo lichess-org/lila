@@ -25,6 +25,9 @@ yarn-error.log
 
 RUNNING_PID
 
+# VSCode auto-generated files
+.vscode
+
 # Eclipse auto-generated files
 /modules/*/.classpath
 /modules/*/.project
