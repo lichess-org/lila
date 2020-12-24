@@ -2,7 +2,7 @@
 <resources>
   <string name="advancedPawn">ရှေ့ရောက် ပွန်း</string>
   <string name="advancedPawnDescription">ဤနည်းဗျူဟာတွင် ရာထူးတိုးသော သို့မဟုတ် တိုးရန် ခြိမ်းခြောက်နေသာ ပွန်းသည် သော့ချက် ဖြစ်သည်</string>
-  <string name="advantageDescription"> အဆုံးအဖြတ် ပေးနိုင်သော အသာစီးမှုကို ရယူပါ (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;cp is centipawn, eval is short for evaluation"> အဆုံးအဖြတ် ပေးနိုင်သော အသာစီးမှုကို ရယူပါ (200cp ≤ eval ≤ 600cp)</string>
   <string name="attackingF2F7">f2  သို့မဟုတ် f7 အား ထိုးနှက်ခြင်း</string>
   <string name="attraction">မျှားခေါ်ခြင်း</string>
   <string name="backRankMate">နောက်ဆုံးတန်း၌ အသေဖမ်းခြင်း</string>
