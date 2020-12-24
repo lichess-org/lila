@@ -42,6 +42,15 @@
   <string name="hangingPiece">Taş düşürme</string>
   <string name="hangingPieceDescription">Savunmasız veya yeterince korunmayan rakip taşların kol gezdiği taktikler.</string>
   <string name="interference">Müdahale</string>
+  <string name="interferenceDescription">Rakip taşların arasına kendi taşını koyarak rakibin bir taşını ya da iki taşını da savunmasız bırak. Rakibin iki kalesinin arasındaki güvenli bir kareye atı oynamak gibi.</string>
+  <string name="intermezzo">Ara hamle</string>
+  <string name="intermezzoDescription">Beklenen hamleyi oynamadan önce rakibin derhal yanıt vermesi gereken başka bir tehdit oluştur. Bu taktik aynı zamanda \"Zwischenzug\" olarak da bilinir.</string>
+  <string name="knightEndgame">At oyunsonu</string>
+  <string name="knightEndgameDescription">Sadece at ve piyon içeren oyunsonu.</string>
+  <string name="long">Uzun bulmaca</string>
+  <string name="longDescription">Üç hamlede kazanın.</string>
+  <string name="mate">Mat</string>
+  <string name="mateDescription">Oyunu tarz ile kazanın.</string>
   <string name="mateIn1">1 Hamlede Mat</string>
   <string name="mateIn1Description">Tek hamlede rakibi mat et.</string>
   <string name="mateIn2">2 Hamlede Mat</string>
@@ -52,6 +61,8 @@
   <string name="mateIn4Description">Dört hamlede rakibi mat et.</string>
   <string name="mateIn5">5 hamle ve üstü matlar</string>
   <string name="mateIn5Description">Uzun bir mat serisini çözmeye çalış.</string>
+  <string name="middlegame">Oyunortası</string>
+  <string name="oneMove">Tek hamlelik bulmacalar</string>
   <string name="opening">Açılış</string>
   <string name="pin">Açmaz</string>
   <string name="promotion">Terfi</string>
