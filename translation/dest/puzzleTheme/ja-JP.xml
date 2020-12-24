@@ -3,7 +3,7 @@
   <string name="advancedPawn">アドバンスト・ポーン</string>
   <string name="advancedPawnDescription">ポーンの昇格かその狙いがタクティクスの中心です。</string>
   <string name="advantage">優位</string>
-  <string name="advantageDescription">決定的な優位を得てください。（評価値は 200cp 以上 600cp 以下）</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;cp is centipawn, eval is short for evaluation">決定的な優位を得てください。（評価値は 200cp 以上 600cp 以下）</string>
   <string name="attackingF2F7">f2/f7への攻撃</string>
   <string name="attackingF2F7Description">f2 か f7 のポーンを狙う攻撃（フライド・リバー・アタックなど）。</string>
   <string name="attraction">アトラクション（引き寄せ）</string>
@@ -20,7 +20,7 @@
   <string name="crushingDescription">相手の悪手をとがめて圧倒的な優位を築きます。（評価値は 600cp 以上）</string>
   <string name="equality">互角</string>
   <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">劣勢の局面から、ドローを確保するか互角の局面に戻します。（評価値は 200cp 以下）</string>
-  <string name="kingsideAttack">キングサイド・アタック</string>
+  <string name="kingsideAttack">キングサイド攻撃</string>
   <string name="kingsideAttackDescription">キングサイドにキャスリングした相手のキングを攻撃します。</string>
   <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">クリアランス</string>
   <string name="clearanceDescription">次のタクティクスのためにマス、ファイル、斜線を開く手（先手であることが多い）。</string>

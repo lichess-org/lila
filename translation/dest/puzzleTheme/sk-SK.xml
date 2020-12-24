@@ -1,2 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advantage">Výhoda</string>
+  <string name="attackingF2F7">Útok na f2 alebo f7</string>
+  <string name="backRankMate">Mat na poslednom rade</string>
+  <string name="castling">Rošáda</string>
+  <string name="castlingDescription">Schovajte svojho kráľa do bezpečia a nasaďte vežu do útoku.</string>
+  <string name="fork">Vidlička</string>
+  <string name="forkDescription">Ťah, pri ktorom figúra útočí na dve nepriateľské figúry naraz.</string>
+  <string name="mate">Mat</string>
+  <string name="mateIn4">Mat na 4 ťahy</string>
+  <string name="middlegame">Stredná hra</string>
+  <string name="middlegameDescription">Taktika počas druhého úseku hry.</string>
+  <string name="opening">Otvorenie</string>
+  <string name="openingDescription">Taktika počas prvého úseku hry.</string>
+  <string name="pawnEndgame">Pešiaková koncovka</string>
+  <string name="pawnEndgameDescription">Koncovka iba s pešiakmi.</string>
+  <string name="promotion">Premena</string>
+  <string name="queenEndgameDescription">Koncovka iba s kráľovnami a pešiakmi.</string>
+  <string name="sacrifice">Obetovanie</string>
+  <string name="smotheredMate">Dusený mat</string>
+  <string name="zugzwang">Nevýhoda ťahu</string>
+  <string name="zugzwangDescription">Oponent je limitovaný vo svojich ťahoch, a každý ťah zhorší jeho pozíciu.</string>
+  <string name="healthyMix">Zdravý mix</string>
+  <string name="healthyMixDescription">Zo všetkého niečo. Neviete čo očakávať, a tak budete pripravený na všetko! Presne ako v skutočných hrách.</string>
+</resources>
