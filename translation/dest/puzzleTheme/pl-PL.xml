@@ -2,6 +2,7 @@
 <resources>
   <string name="advancedPawn">Zaawansowany pion</string>
   <string name="advantage">Przewaga</string>
+  <string name="attackingF2F7">Atak na f2 lub f7</string>
   <string name="bishopEndgame">Końcówka gońcowa</string>
   <string name="bishopEndgameDescription">Gra końcowa wyłącznie z gońcami i pionami.</string>
   <string name="castling">Roszada</string>
@@ -17,10 +18,14 @@
   <string name="longDescription">Trzy ruchy by wygrać.</string>
   <string name="mate">Mat</string>
   <string name="mateIn1">Mat w 1 ruchu</string>
+  <string name="mateIn1Description">Daj mata w jednym posunięciu.</string>
   <string name="mateIn2">Mat w 2 ruchach</string>
+  <string name="mateIn2Description">Daj mata w dwóch posunięciach.</string>
   <string name="mateIn3">Mat w 3 ruchach</string>
+  <string name="mateIn3Description">Daj mata w trzech posunięciach.</string>
   <string name="mateIn4">Mat w 4 ruchach</string>
-  <string name="mateIn5">Mąka w 5 lub więcej ruchach</string>
+  <string name="mateIn4Description">Daj mata w czterech posunięciach.</string>
+  <string name="mateIn5">Daj mata w pięciu lub więcej posunięciach.</string>
   <string name="middlegame">Gra środkowa</string>
   <string name="opening">Otwarcie</string>
   <string name="overloading">Przeciążenie</string>
