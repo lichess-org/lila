@@ -43,5 +43,6 @@
   <string name="hangingPieceDescription">Қорғанысы нашар не қорғаусыз тұрған қарсылас тасын басып алуды меңзейтін тактика.</string>
   <string name="interference">Бөгет</string>
   <string name="interferenceDescription">Тасты қарсыластың екі тасының арасындағы қорғау жолына қойып, олардың біреуін не екеуін қорғаусыз ету. Мысалы, екі өзара қорғап тұрған туралардың арасына тұра қалған ат.</string>
+  <string name="intermezzo">Аралық жүріс</string>
   <string name="healthyMixDescription">Барлығынан аз-аздан. Күтпеген жағдайларға бейім болыңыз! Дәл нағыз шахматтағыдай!</string>
 </resources>
