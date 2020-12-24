@@ -50,6 +50,7 @@
   <string name="pawnEndgame">Pionneneindspel</string>
   <string name="pawnEndgameDescription">Een eindspel met alleen pionnen.</string>
   <string name="pin">Penning</string>
+  <string name="pinDescription">Een tactiek waarbij een stuk niet verzet kan worden op straffe van een aanval op een stuk van hogere waarde.</string>
   <string name="promotion">Promotie</string>
   <string name="promotionDescription">Een pion die promoveert of dreigt te promoveren is hier cruciaal.</string>
   <string name="queenEndgame">Dame-eindspel</string>
@@ -64,6 +65,7 @@
   <string name="short">Korte puzzel</string>
   <string name="shortDescription">Winnen in twee zetten.</string>
   <string name="skewer">Spies</string>
+  <string name="skewerDescription">Een motief waarbij een waardevol stuk wordt aangevallen en vervolgens verplaatst, waardoor een lichter stuk erachter kan worden geslagen of aangevallen. Het omgekeerde van een penning.</string>
   <string name="smotheredMate">Stikmat</string>
   <string name="smotheredMateDescription">Schaakmat met een paard waarbij de aangevallen koning geen zet kan doen omdat hij ingesloten is (of verstikt) door zijn eigen stukken.</string>
   <string name="trappedPiece">Ingesloten stuk</string>
@@ -73,6 +75,7 @@
   <string name="veryLong">Zeer lange puzzel</string>
   <string name="veryLongDescription">Winnen in vier of meer zetten.</string>
   <string name="xRayAttack">Röntgenaanval</string>
+  <string name="xRayAttackDescription">Een stuk valt een veld aan of verdedigt een veld, door een vijandelijke stuk heen.</string>
   <string name="zugzwang">Zetdwang</string>
   <string name="zugzwangDescription">De tegenstander is beperkt in de zetten die hij kan doen, en elke zet verslechtert zijn stelling.</string>
   <string name="healthyMix">Gezonde mix</string>
