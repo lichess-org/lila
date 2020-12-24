@@ -19,16 +19,16 @@
   <string name="crushing">Verpletter</string>
   <string name="crushingDescription">Let op die flater van die teenstander om \'n verpletterende voordeel te behaal. (eval ≥ 600cp)</string>
   <string name="equality">Gelykheid</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Kom terug uit \'n verloorposisie en verseker \'n gelykopuitslag of \'n gebalanseerde posisie. (eval ≤ 200cp)</string>
+  <string name="equalityDescription">Kom terug uit \'n verloorposisie en verseker \'n gelykopuitslag of \'n gebalanseerde posisie. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Kingside aanval</string>
   <string name="kingsideAttackDescription">\'N Aanval van die koning van die teenstander, nadat hulle aan die koningskant gegooi het.</string>
-  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Opruiming</string>
+  <string name="clearance">Opruiming</string>
   <string name="clearanceDescription">\'N Beweging, dikwels met tempo, wat \'n vierkant, lêer of skuins skoonmaak vir \'n opvolg taktiese idee.</string>
-  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Verdedigende skuif</string>
+  <string name="defensiveMove">Verdedigende skuif</string>
   <string name="defensiveMoveDescription">\'N Presiese skuif of volgorde van bewegings wat benodig word om materiaal of \'n ander voordeel te verloor.</string>
-  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Buiging</string>
+  <string name="deflection">Buiging</string>
   <string name="deflectionDescription">\'N Skuif wat \'n teenstander se aandag aftrek van \'n ander plig wat dit uitvoer, soos die beskerming van \'n sleutelvierkant.</string>
-  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Ontdek aanval</string>
+  <string name="discoveredAttack">Ontdek aanval</string>
   <string name="discoveredAttackDescription">Om \'n stuk wat voorheen \'n aanval deur \'n ander langafstandstuk, soos \'n ridder, geblokkeer het, uit die pad van \'n toring te skuif.</string>
   <string name="doubleCheck">Maak seker</string>
   <string name="doubleCheckDescription">Kontroleer met twee stukke gelyktydig, as gevolg van \'n ontdekte aanval waar beide die bewegende stuk en die onthulde stuk die teenstander se koning aanval.</string>

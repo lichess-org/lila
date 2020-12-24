@@ -18,7 +18,7 @@
   <string name="puzzleComplete">Puzzle complet!</string>
   <string name="notTheMove">Mișcarea nu este aceasta!</string>
   <string name="trySomethingElse">Încercaţi altceva.</string>
-  <string name="hidden">ascuns</string>
+  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">ascuns</string>
   <string name="fromGameLink">Din partida %s</string>
   <string name="continueTraining">Continuați antrenamentul</string>
   <string name="difficultyLevel">Nivel de dificultate</string>

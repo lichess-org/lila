@@ -22,13 +22,13 @@
   <string name="equalityDescription">Saia de uma posição perdida, e assegure um empate ou uma posição equilibrada. (aval ≤ 200cp)</string>
   <string name="kingsideAttack">Ataque na ala do rei</string>
   <string name="kingsideAttackDescription">Um ataque ao rei do oponente, após ele ter efetuado o roque curto.</string>
-  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Lance útil</string>
+  <string name="clearance">Lance útil</string>
   <string name="clearanceDescription">Um lance, às vezes consumindo tempos, que libera uma casa, fileira ou diagonal para uma ideia tática em seguida.</string>
-  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Movimento defensivo</string>
+  <string name="defensiveMove">Movimento defensivo</string>
   <string name="defensiveMoveDescription">Um movimento preciso ou sequência de movimentos que são necessários para evitar perda de material ou outra vantagem.</string>
-  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Desvio</string>
+  <string name="deflection">Desvio</string>
   <string name="deflectionDescription">Um movimento que desvia a peça do oponente da sua função, por exemplo a de defesa de outra peça ou a defesa de uma casa importante.</string>
-  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Ataque Descoberto</string>
+  <string name="discoveredAttack">Ataque Descoberto</string>
   <string name="discoveredAttackDescription">Mover uma peça que anteriormente bloqueava um ataque de uma peça de longo alcance, como por exemplo um cavalo liberando a coluna de uma torre.</string>
   <string name="doubleCheck">Xeque duplo</string>
   <string name="doubleCheckDescription">Dar Xeque com duas peças ao mesmo tempo, como resultado de um ataque descoberto onde tanto a peça que se move quanto a peça que estava sendo obstruída atacam o rei do oponente.</string>

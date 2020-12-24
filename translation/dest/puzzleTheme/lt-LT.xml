@@ -22,13 +22,13 @@
   <string name="equalityDescription">Grįžkite iš pralaiminčios pozicijos ir užsitikrinkite lygiąsias arba balansuotą poziciją. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Karaliaus pusės ataka</string>
   <string name="kingsideAttackDescription">Ataka į priešininko karalių po to, kai jis rokiravosi karaliaus pusėje.</string>
-  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Išvalymas</string>
+  <string name="clearance">Išvalymas</string>
   <string name="clearanceDescription">Ėjimas, dažnai su tempu, kuris išvalo langelį, eilutę ar įstrižainę kitai taktinei idėjai.</string>
-  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Apsisaugantis ėjimas</string>
+  <string name="defensiveMove">Apsisaugantis ėjimas</string>
   <string name="defensiveMoveDescription">Tikslus ėjimas ar ėjimų seka kuri skirta išvengti figūrų praradimo ar kito priešininko pranašumo.</string>
-  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Atmušimas</string>
+  <string name="deflection">Atmušimas</string>
   <string name="deflectionDescription">Ėjimas, kuris nukreipia priešininko figūros dėmesį nuo kitos svarbios jos rolės, pavyzdžiui: langelio šalia karaliaus saugojimo.</string>
-  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Atidengimo ataka</string>
+  <string name="discoveredAttack">Atidengimo ataka</string>
   <string name="discoveredAttackDescription">Blokuojančios figūros patraukimas nuo ilgų distancijų figūros, pavyzdžiui žirgo patraukimas nuo bokšto trajektorijos.</string>
   <string name="doubleCheck">Dvigubas šachas</string>
   <string name="doubleCheckDescription">Šachas dviem figūrom vienu metu. Įvyksta po atidengimo atakos, kai ir perkelta figūra ir atidengta figūra puola priešininko karalių.</string>

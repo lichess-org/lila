@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="advancedPawn">アドバンスト・ポーン</string>
+  <string name="advancedPawn">進んだポーン</string>
   <string name="advancedPawnDescription">ポーンの昇格かその狙いがタクティクスの中心です。</string>
   <string name="advantage">優位</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;cp is centipawn, eval is short for evaluation">決定的な優位を得てください。（評価値は 200cp 以上 600cp 以下）</string>
+  <string name="advantageDescription">決定的な優位を得てください。（評価値は 200cp 以上 600cp 以下）</string>
   <string name="attackingF2F7">f2/f7への攻撃</string>
   <string name="attackingF2F7Description">f2 か f7 のポーンを狙う攻撃（フライド・リバー・アタックなど）。</string>
   <string name="attraction">アトラクション（引き寄せ）</string>
@@ -19,16 +19,16 @@
   <string name="crushing">圧倒</string>
   <string name="crushingDescription">相手の悪手をとがめて圧倒的な優位を築きます。（評価値は 600cp 以上）</string>
   <string name="equality">互角</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">劣勢の局面から、ドローを確保するか互角の局面に戻します。（評価値は 200cp 以下）</string>
+  <string name="equalityDescription">劣勢の局面から、ドローを確保するか互角の局面に戻します。（評価値は 200cp 以下）</string>
   <string name="kingsideAttack">キングサイド攻撃</string>
   <string name="kingsideAttackDescription">キングサイドにキャスリングした相手のキングを攻撃します。</string>
-  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">クリアランス</string>
+  <string name="clearance">クリアランス（解放）</string>
   <string name="clearanceDescription">次のタクティクスのためにマス、ファイル、斜線を開く手（先手であることが多い）。</string>
-  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">守り</string>
+  <string name="defensiveMove">守り</string>
   <string name="defensiveMoveDescription">駒損などの不利を避けるために必要な正確な手または手順。</string>
-  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">ディフレクション</string>
+  <string name="deflection">ディフレクション（そらし）</string>
   <string name="deflectionDescription">相手の駒を別の役割（重要なマスを守るなど）からそらす手。</string>
-  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">ディスカバード・アタック</string>
+  <string name="discoveredAttack">ディスカバード・アタック</string>
   <string name="discoveredAttackDescription">別のラインピースの効きを止めていた駒を動かす手。たとえばルークの効き筋からナイトを動かす。</string>
   <string name="doubleCheck">ダブル・チェック</string>
   <string name="doubleCheckDescription">ディスカバード・アタックによって、動いた駒とラインピースが相手のキングに同時にチェックをかける手。</string>
@@ -43,14 +43,14 @@
   <string name="hangingPieceDescription">守りのない駒、または守り駒の足りない駒をただで取るタクティクス。</string>
   <string name="interference">インターフェア（干渉）</string>
   <string name="interferenceDescription">相手の 2 つの駒の間に駒を入れて、少なくとも一方を浮き駒にするタクティクス。相手の 2 個のルークの間で守りのあるマスにナイトを進める、など。</string>
-  <string name="intermezzo">ツヴィッシェンツーク</string>
+  <string name="intermezzo">ツヴィッシェンツーク（利かし）</string>
   <string name="intermezzoDescription">当然に見える手を指す代わりに、いったん相手が受けなくてはならない別の手をはさむタクティクス。</string>
   <string name="knightEndgame">ナイト・エンドゲーム</string>
   <string name="knightEndgameDescription">ナイトとポーンだけの終盤。</string>
   <string name="long">長手数タクティクス</string>
   <string name="longDescription">3 手で勝ちになります。</string>
   <string name="mate">メイト</string>
-  <string name="mateDescription">上品に対局で勝つ。</string>
+  <string name="mateDescription">きれいに勝ちを決めます。</string>
   <string name="mateIn1">1手メイト</string>
   <string name="mateIn1Description">1 手でチェックメイトにします。</string>
   <string name="mateIn2">2手メイト</string>

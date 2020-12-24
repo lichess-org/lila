@@ -13,7 +13,7 @@
   <string name="bishopEndgame">Слоновый эндшпиль</string>
   <string name="bishopEndgameDescription">Эндшпиль только со слонами и пешками.</string>
   <string name="castling">Рокировка</string>
-  <string name="castlingDescription">Помещение короля в надёжное место и вывод в бой ладьи.</string>
+  <string name="castlingDescription">Поместите короля в надёжное место и выведите в бой ладью.</string>
   <string name="capturingDefender">Уничтожение защитника</string>
   <string name="capturingDefenderDescription">Взятие или размен фигуры, защищающей другую фигуру, с последующим взятием фигуры, оставшейся без защиты.</string>
   <string name="crushing">Разгром</string>

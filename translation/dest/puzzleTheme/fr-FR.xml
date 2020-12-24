@@ -22,13 +22,13 @@
   <string name="equalityDescription">Revenir d\'une position perdante et assurer une nulle ou une position équilibrée. (évaluation ≤ 200cp)</string>
   <string name="kingsideAttack">Attaque à l\'aile roi</string>
   <string name="kingsideAttackDescription">Une attaque du roi adverse, après qu\'il ait fait le petit roque.</string>
-  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Dégagement</string>
+  <string name="clearance">Dégagement</string>
   <string name="clearanceDescription">Un coup, souvent avec tempo, qui libère une case, une colonne ou une diagonale en vue d\'une idée tactique.</string>
-  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Coup défensif</string>
+  <string name="defensiveMove">Coup défensif</string>
   <string name="defensiveMoveDescription">Un coup ou une séquence de coups précis qui est nécessaire pour éviter de perdre du matériel ou un autre avantage.</string>
-  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Déviation</string>
+  <string name="deflection">Déviation</string>
   <string name="deflectionDescription">Un coup qui détourne une pièce de l\'adversaire d\'une tâche qu\'elle assure, comme la protection d\'une case-clé.</string>
-  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Attaque à la découverte</string>
+  <string name="discoveredAttack">Attaque à la découverte</string>
   <string name="discoveredAttackDescription">Déplacer une pièce qui bloquait auparavant une attaque par une autre pièce à longue portée, comme un cavalier hors la ligne d\'une tour.</string>
   <string name="doubleCheck">Échec double</string>
   <string name="doubleCheckDescription">Faire échec avec deux pièces à la fois, à la suite d\'une attaque à la découverte où la pièce mobile et la pièce dévoilée attaquent le roi adverse.</string>

@@ -6,6 +6,7 @@
   <string name="attackingF2F7">f2 of f7 aanvallen</string>
   <string name="attractionDescription">Een afruil of offer om een vijandelijk stuk naar een veld te lokken of te dwingen waardoor een tactisch vervolg mogelijk wordt gemaakt.</string>
   <string name="backRankMate">Mat op de achterste rij</string>
+  <string name="backRankMateDescription">Zet de koning mat op de achterste rij, ingesloten door zijn eigen stukken.</string>
   <string name="bishopEndgame">Lopereindspel</string>
   <string name="bishopEndgameDescription">Een eindspel met alleen lopers en pionnen.</string>
   <string name="castling">Rokade</string>
@@ -14,12 +15,15 @@
   <string name="capturingDefenderDescription">Een stuk slaan dat essentieel is voor de verdediging van een ander stuk, waardoor vervolgens het nu onverdedigde stuk met een volgende zet kan worden geslagen.</string>
   <string name="kingsideAttack">Koningsaanval</string>
   <string name="kingsideAttackDescription">Een aanval op de koning van de tegenstander, na een korte rokade.</string>
-  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Defensieve zet</string>
+  <string name="defensiveMove">Defensieve zet</string>
   <string name="defensiveMoveDescription">Een nauwkeurige zet of reeks zetten die nodig zijn om verlies van materiaal of een ander voordeel te voorkomen.</string>
   <string name="doubleCheck">Dubbelschaak</string>
   <string name="endgame">Eindspel</string>
   <string name="endgameDescription">Tactiek in de slotfase van de partij.</string>
+  <string name="exposedKing">Onveilige koning</string>
+  <string name="exposedKingDescription">Een stelling met een koning met weinig verdedigers, vaak leidend tot schaakmat.</string>
   <string name="fork">Vork</string>
+  <string name="forkDescription">Een zet waarbij het gespeelde stuk twee vijandelijke stukken tegelijk aanvalt.</string>
   <string name="hangingPiece">Hangend stuk</string>
   <string name="knightEndgame">Paardeneindspel</string>
   <string name="knightEndgameDescription">Een eindspel met alleen paarden en pionnen.</string>
@@ -37,9 +41,11 @@
   <string name="mateIn4Description">Zet schaakmat in vier zetten.</string>
   <string name="mateIn5">Mat in 5 of meer</string>
   <string name="middlegame">Middenspel</string>
-  <string name="middlegameDescription">Tactiek in de tweede fase van het spel.</string>
+  <string name="middlegameDescription">Tactiek in de tweede fase van de partij.</string>
+  <string name="oneMove">Eén-zet puzzel</string>
   <string name="oneMoveDescription">Een puzzel die maar één zet vereist.</string>
   <string name="opening">Opening</string>
+  <string name="openingDescription">Tactiek in de eerste fase van de partij.</string>
   <string name="overloading">Overbelasting</string>
   <string name="pawnEndgame">Pionneneindspel</string>
   <string name="pawnEndgameDescription">Een eindspel met alleen pionnen.</string>
@@ -49,6 +55,7 @@
   <string name="queenEndgame">Dame-eindspel</string>
   <string name="queenEndgameDescription">Een eindspel met alleen dame en pionnen.</string>
   <string name="queensideAttack">Dameaanval</string>
+  <string name="queensideAttackDescription">Een aanval op de koning van de tegenstander, na een lange rokade.</string>
   <string name="quietMove">Stille zet</string>
   <string name="rookEndgame">Toreneindspel</string>
   <string name="rookEndgameDescription">Een eindspel met alleen torens en pionnen.</string>
@@ -56,8 +63,11 @@
   <string name="sacrificeDescription">Een tactiek waarbij op korte termijn materiaal wordt opgegeven om voordeel te verkrijgen na een aantal gedwongen zetten.</string>
   <string name="short">Korte puzzel</string>
   <string name="shortDescription">Winnen in twee zetten.</string>
+  <string name="skewer">Spies</string>
   <string name="smotheredMate">Stikmat</string>
   <string name="smotheredMateDescription">Schaakmat met een paard waarbij de aangevallen koning geen zet kan doen omdat hij ingesloten is (of verstikt) door zijn eigen stukken.</string>
+  <string name="trappedPiece">Ingesloten stuk</string>
+  <string name="trappedPieceDescription">Een stuk kan niet meer ontsnappen omdat het geen velden meer heeft.</string>
   <string name="underPromotion">Minorpromotie</string>
   <string name="underPromotionDescription">Promotie tot paard, loper of toren.</string>
   <string name="veryLong">Zeer lange puzzel</string>
@@ -65,4 +75,6 @@
   <string name="xRayAttack">Röntgenaanval</string>
   <string name="zugzwang">Zetdwang</string>
   <string name="zugzwangDescription">De tegenstander is beperkt in de zetten die hij kan doen, en elke zet verslechtert zijn stelling.</string>
+  <string name="healthyMix">Gezonde mix</string>
+  <string name="healthyMixDescription">Een beetje van dit en een beetje van dat. Je weet niet wat je te wachten staat, je moet dus op alles voorbereid zijn! Net als in echte partijen.</string>
 </resources>

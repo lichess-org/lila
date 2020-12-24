@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Opgaver</string>
-  <string name="recommended">Anbefalet</string>
+  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Anbefalet</string>
   <string name="phases">Faser</string>
   <string name="motifs">Begrundelser</string>
   <string name="advanced">Avanceret</string>
@@ -26,7 +26,7 @@
   <string name="notTheMove">Det er ikke trækket!</string>
   <string name="trySomethingElse">Prøv noget andet.</string>
   <string name="ratingX">Rating: %s</string>
-  <string name="hidden">skjult</string>
+  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">skjult</string>
   <plurals name="playedXTimes">
     <item quantity="one">Spillet %s gang</item>
     <item quantity="other">Spillet %s gange</item>

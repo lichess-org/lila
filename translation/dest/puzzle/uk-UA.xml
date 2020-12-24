@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Задачі</string>
-  <string name="recommended">Рекомендоване</string>
+  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Рекомендоване</string>
   <string name="phases">Фази</string>
   <string name="motifs">Мотиви</string>
   <string name="advanced">Просунутий</string>
@@ -26,7 +26,7 @@
   <string name="notTheMove">Це не хід!</string>
   <string name="trySomethingElse">Спробуйте щось інше.</string>
   <string name="ratingX">Рейтинг: %s</string>
-  <string name="hidden">прихований</string>
+  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">прихований</string>
   <plurals name="playedXTimes">
     <item quantity="one">Зіграно %s раз</item>
     <item quantity="few">Зіграно %s рази</item>

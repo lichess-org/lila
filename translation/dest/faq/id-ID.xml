@@ -25,7 +25,10 @@
   <string name="leavingGameWithoutResigningExplanation">Apabila lawan Anda sering meninggalkan permainan, ia akan mendapat \"ban\", yaitu blokir sementara dari bermain catur. Blokade ini tidak ditampilkan secara publik di profil pemain itu. Kalau perilaku ini berlanjut, maka blokade akan diperpanjang. Pengulangan perilaku ini secara berkelanjutan dapat berujung pada penutupan akun.</string>
   <string name="howCanIBecomeModerator">Bagaimana saya bisa menjadi moderator?</string>
   <string name="youCannotApply">Kami tidak menerima aplikasi untuk menjadi moderator. Apabila kami menemukan seseorang yang kami rasa baik untuk menjadi moderator, maka orang tersebut akan dihubungi secara langsung.</string>
+  <string name="isCorrespondenceDifferent">Apakah catur korespondensi berbeda dengan catur standar ?</string>
+  <string name="youCanUseOpeningBookNoEngine">Di Lichess, perbedaan utama dalam aturan catur korespondensi adalah bahwa buku pembukaan diperbolehkan. Penggunaan mesin masih dilarang dan akan mengakibatkan plat merah untuk bantuan mesin. Meskipun ICCF mengizinkan penggunaan mesin dalam catur korespondensi, Lichess tidak</string>
   <string name="gameplay">Aspek permainan</string>
+  <string name="howBulletBlitzEtcDecided">Bagaimana pengaturan waktu catur kilat, peluru, dan lainya ditentukan?</string>
   <string name="whatVariantsCanIplay">Varian apa saja yang dapat saya mainkan di Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess mendukung permainan catur standar dan %1$s.</string>
   <string name="eightVariants">8 varian catur</string>

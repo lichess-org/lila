@@ -26,7 +26,7 @@
   <string name="notTheMove">Itu bukan langkahnya!</string>
   <string name="trySomethingElse">Coba lagi lainnya.</string>
   <string name="ratingX">Rating: %s</string>
-  <string name="hidden">sembunyi</string>
+  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">sembunyi</string>
   <string name="fromGameLink">Dari game %s</string>
   <string name="continueTraining">Lanjut latihan</string>
   <string name="difficultyLevel">Level Sulit</string>

@@ -11,7 +11,7 @@
   <string name="specialMoves">特殊な手</string>
   <string name="didYouLikeThisPuzzle">この問題は気に入りましたか？</string>
   <string name="voteToLoadNextOne">投票すると次を読み込みます！</string>
-  <string name="yourPuzzleRatingX">タクティクス レーティング: %s</string>
+  <string name="yourPuzzleRatingX">あなたのレーティング: %s</string>
   <string name="findTheBestMoveForWhite">白の最善手を見つけてください。</string>
   <string name="findTheBestMoveForBlack">黒の最善手を見つけてください。</string>
   <string name="toGetPersonalizedPuzzles">あなたに合わせた問題を解くには:</string>
@@ -26,7 +26,7 @@
   <string name="notTheMove">その手は違います！</string>
   <string name="trySomethingElse">別の手をどうぞ。</string>
   <string name="ratingX">レーティング: %s</string>
-  <string name="hidden">非表示</string>
+  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">非表示</string>
   <plurals name="playedXTimes">
     <item quantity="other">%s 回プレイ</item>
   </plurals>

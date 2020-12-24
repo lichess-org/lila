@@ -57,10 +57,10 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Все синхронизированные участники остаются на той же позиции</string>
   <string name="shareChanges">Поделиться изменениями со зрителями и сохранить их на сервере</string>
   <string name="playing">Активные</string>
-  <string name="first">Первая</string>
+  <string name="first">Начало</string>
   <string name="previous">Предыдущая</string>
   <string name="next">Следующая</string>
-  <string name="last">Последняя</string>
+  <string name="last">Конец</string>
   <string name="shareAndExport">Поделиться и экспортировать</string>
   <string name="cloneStudy">Клонировать</string>
   <string name="studyPgn">PGN студии</string>

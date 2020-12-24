@@ -22,13 +22,13 @@
   <string name="equalityDescription">Kom afturíaftur úr eini tapandi støðu, og tryggja tær remis ella eina javna støðu. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Álop kongamegin</string>
   <string name="kingsideAttackDescription">Álop á mótstøðukongin, aftaná at hann er lopin í borg kongamegin.</string>
-  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Rudding</string>
+  <string name="clearance">Rudding</string>
   <string name="clearanceDescription">Ein leikur, ofta við tempo, ið ruddar ein punt, eitt rað ella eina tvørlinju, ið gevur møguleika fyri einari taktiskari atgerð.</string>
-  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Verjuleikur</string>
+  <string name="defensiveMove">Verjuleikur</string>
   <string name="defensiveMoveDescription">Ein ávísur leikur ella ein røð av leikum, ið eru neyðugir, um sleppast skal undan at missa fólk ella annan fyrimun.</string>
-  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Avbending</string>
+  <string name="deflection">Avbending</string>
   <string name="deflectionDescription">Ein leikur, ið dregur eitt mótstøðufólk burtur frá at útynna eina aðra uppgávu; eitt nú at ansa eftir einum týdningarmiklum punti.</string>
-  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Avdúkað álop</string>
+  <string name="discoveredAttack">Avdúkað álop</string>
   <string name="discoveredAttackDescription">At flyta eitt fólk, ið frammanundan forðaði einum fólki í at leypa á; eitt nú at flyta ein riddara, ið stendur framman fyri ein rók.</string>
   <string name="doubleCheck">Tvískák</string>
   <string name="doubleCheckDescription">At skáka við tveimum fólkum samstundis. Úrslit av einum ávdúkaraálopi, har bæði fólkið, ið flutti, og fólkið, ið varð avdúkað, leypa á mótstøðukongin.</string>

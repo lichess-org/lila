@@ -19,16 +19,16 @@
   <string name="crushing">Vernichtend</string>
   <string name="crushingDescription">Finde den gegnerischen Patzer, um einen vernichtenden Vorteil zu erhalten. (Bewertung ≥ 600 Hundertstel-Bauern)</string>
   <string name="equality">Ausgleich</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Komme aus einer verlorenen Stellung zurück und sichere dir ein Remis oder eine ausgeglichene Stellung. (Bewertung ≤ 200 Hundertstel-Bauern)</string>
+  <string name="equalityDescription">Komme aus einer verlorenen Stellung zurück und sichere dir ein Remis oder eine ausgeglichene Stellung. (Bewertung ≤ 200 Hundertstel-Bauern)</string>
   <string name="kingsideAttack">Angriff auf den Königsflügel</string>
   <string name="kingsideAttackDescription">Ein Angriff auf den gegnerischen König, nachdem dieser auf den Königsflügel rochiert hat.</string>
-  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Öffnung</string>
+  <string name="clearance">Öffnung</string>
   <string name="clearanceDescription">Ein Zug, oft mit Tempo, der ein Feld, eine Linie oder Diagonale für eine nachfolgende taktische Idee öffnet.</string>
-  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Verteidigungszug</string>
+  <string name="defensiveMove">Verteidigungszug</string>
   <string name="defensiveMoveDescription">Ein präziser Zug oder eine Zugfolge, die benötigt wird, um kein Material oder einen anderen Vorteil zu verlieren.</string>
-  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Ablenkung</string>
+  <string name="deflection">Ablenkung</string>
   <string name="deflectionDescription">Ein Zug, der eine gegnerische Figur von einer anderen Aufgabe ablenkt, wie zum Beispiel dem Schutz eines wichtigen Felds.</string>
-  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Abzugsangriff</string>
+  <string name="discoveredAttack">Abzugsangriff</string>
   <string name="discoveredAttackDescription">Ziehe eine Figur, die zuvor einen Angriff durch eine andere langschrittige Figur blockierte, wie einen Springer aus dem Weg eines Turms.</string>
   <string name="doubleCheck">Doppelschach</string>
   <string name="doubleCheckDescription">Schachgebot mit zwei Figuren gleichzeitig als Ergebnis eines Abzugsangriffs, bei dem sowohl die abziehende als auch die zuvor blockierte Figur den gegnerischen König angreifen.</string>
@@ -77,6 +77,8 @@
   <string name="promotionDescription">Ein Bauer, der umwandelt oder umzuwandeln droht, ist wichtig für die Taktik.</string>
   <string name="queenEndgame">Damenendspiel</string>
   <string name="queenEndgameDescription">Ein Endspiel nur mit Damen und Bauern.</string>
+  <string name="queenRookEndgame">Damen und Turmendspiel</string>
+  <string name="queenRookEndgameDescription">Ein Endspiel nur mit Damen, Türmen und Bauern.</string>
   <string name="queensideAttack">Damenflügelangriff</string>
   <string name="queensideAttackDescription">Ein Angriff auf den gegnerischen König, nachdem dieser auf den Damenflügel rochiert hat.</string>
   <string name="quietMove">Stiller Zug</string>

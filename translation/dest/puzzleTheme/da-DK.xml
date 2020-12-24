@@ -3,7 +3,7 @@
   <string name="advancedPawn">Fremskudt bonde</string>
   <string name="advancedPawnDescription">En bonde, der forvandles eller truer med at forvandle, er nøglen til taktikken.</string>
   <string name="advantage">Fordel</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;cp is centipawn, eval is short for evaluation">Grib chancen for at få en afgørende fordel. (200cb ≤ eval ≤ 600cb)</string>
+  <string name="advantageDescription">Grib chancen for at få en afgørende fordel. (200cb ≤ eval ≤ 600cb)</string>
   <string name="attackingF2F7">Angreb på f2 eller f7</string>
   <string name="attackingF2F7Description">Et angreb som er fokuseret på f2 eller f7 bonden, som det kendes fra Fegatello-angrebet (\"Fried Liver Attack\").</string>
   <string name="attraction">Lokkedue</string>
@@ -19,16 +19,16 @@
   <string name="crushing">Knusende</string>
   <string name="crushingDescription">Spot modstanderens brøler for at opnå en knusende fordel. (eval ≥ 600cb)</string>
   <string name="equality">Udligning</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Vend en tabende stilling til en remis eller en lige stilling. (eval ≤ 200cb)</string>
+  <string name="equalityDescription">Vend en tabende stilling til en remis eller en lige stilling. (eval ≤ 200cb)</string>
   <string name="kingsideAttack">Angreb på kongesiden</string>
   <string name="kingsideAttackDescription">Et angreb på modstanderens konge efter der er rokeret på kongesiden.</string>
-  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Rydning</string>
+  <string name="clearance">Rydning</string>
   <string name="clearanceDescription">Et træk, ofte med tempo, som rydder et felt, en linje eller diagonal til en opfølgende taktisk idé.</string>
-  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Defensivt træk</string>
+  <string name="defensiveMove">Defensivt træk</string>
   <string name="defensiveMoveDescription">Et nøjagtigt træk eller trækserie, der er nødvendig for at undgå at miste materiale eller en anden fordel.</string>
-  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Afledning</string>
+  <string name="deflection">Afledning</string>
   <string name="deflectionDescription">Et træk der distraherer en modstanders brik fra at udføre en anden funktion, såsom bevogtning af et vigtigt felt.</string>
-  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Afdækkertræk</string>
+  <string name="discoveredAttack">Afdækkertræk</string>
   <string name="discoveredAttackDescription">Flytning af en brik, som tidligere blokerede for et angreb fra en langtrækkende brik. For eksempel en ridder flyttet for et tårn.</string>
   <string name="doubleCheck">Dobbeltskak</string>
   <string name="doubleCheckDescription">Skak med to brikker på samme tid som resultat af et afdækket angreb, hvor både den flyttede brik og den afdækkede brik giver skak til modstanderens konge.</string>
@@ -63,7 +63,7 @@
   <string name="mateIn5Description">Find en lang træksekvens, som fører til mat.</string>
   <string name="middlegame">Midtspil</string>
   <string name="middlegameDescription">En taktik i den anden fase af spillet.</string>
-  <string name="oneMove">En-træks opgave</string>
+  <string name="oneMove">Et-træks opgave</string>
   <string name="oneMoveDescription">En opgave der kun er ét træk lang.</string>
   <string name="opening">Åbning</string>
   <string name="openingDescription">En taktik i den første fase af spillet.</string>
@@ -77,6 +77,8 @@
   <string name="promotionDescription">En bonde, der forvandles eller truer med at forvandle, er nøglen til taktikken.</string>
   <string name="queenEndgame">Dronningeslutspil</string>
   <string name="queenEndgameDescription">Et slutspil med kun dronninger og bønder.</string>
+  <string name="queenRookEndgame">Dronning og tårn-slutspil</string>
+  <string name="queenRookEndgameDescription">Et slutspil med kun dronninger, tårne og bønder.</string>
   <string name="queensideAttack">Angreb på dronningesiden</string>
   <string name="queensideAttackDescription">Et angreb på modstanderens konge efter der er rokeret på dronningesiden.</string>
   <string name="quietMove">Stille træk</string>

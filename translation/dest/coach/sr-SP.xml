@@ -4,7 +4,7 @@
   <string name="lichessCoach">Личес тренер</string>
   <string name="areYouCoach">Да ли си одличан тренер шаха са %s?</string>
   <string name="confirmTitle">Потврди своју титулу овде и ми ћемо прегледати вашу пријаву.</string>
-  <string name="sendApplication">Пошаљи нам е-поруку на %s и ми ћемо прегледати вашу пријаву.</string>
+  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Пошаљи нам е-поруку на %s и ми ћемо прегледати вашу пријаву.</string>
   <string name="location">Локација</string>
   <string name="languages">Језици</string>
   <string name="rating">Рејтинг</string>

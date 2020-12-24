@@ -26,7 +26,7 @@
   <string name="notTheMove">Dat is niet de juiste zet!</string>
   <string name="trySomethingElse">Probeer iets anders.</string>
   <string name="ratingX">Rating: %s</string>
-  <string name="hidden">verborgen</string>
+  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">verborgen</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s keer gespeeld</item>
     <item quantity="other">%s keer gespeeld</item>

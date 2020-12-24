@@ -77,6 +77,8 @@
   <string name="promotionDescription">प्रचार करने या धमकी देने वाला मोहरा रणनीति की कुंजी है।</string>
   <string name="queenEndgame">रानी एंडगेम</string>
   <string name="queenEndgameDescription">केवल रानियों और प्यादों के साथ एक एंडगेम।</string>
+  <string name="queenRookEndgame">रानी और रूक एंडगेम</string>
+  <string name="queenRookEndgameDescription">केवल रानियों, बदमाशों और प्यादों के साथ एक एंडगेम।</string>
   <string name="queensideAttack">क्वीन्साइड हमला</string>
   <string name="queensideAttackDescription">रानी के पक्ष में जाने के बाद, प्रतिद्वंद्वी के राजा पर हमला।</string>
   <string name="quietMove">शांत चाल</string>
