@@ -719,7 +719,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="usernameAlreadyUsed">This username is already in use, please try another one.</string>
   <string name="usernamePrefixInvalid">The username must start with a letter.</string>
   <string name="usernameSuffixInvalid">The username must end with a letter or a number.</string>
-  <string name="usernameCharsInvalid">The username must only contain letters, numbers, underscores, and hyphens.</string>
+  <string name="usernameCharsInvalid">The username must only contain letters, numbers, underscores, and hyphens. Consecutive underscores and hyphens are not allowed.</string>
   <string name="usernameUnacceptable">This username is not acceptable.</string>
   <string name="directlySupportLichess">Directly support Lichess</string>
   <string name="playChessInStyle">Play chess in style</string>
