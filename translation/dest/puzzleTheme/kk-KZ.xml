@@ -100,5 +100,7 @@
   <string name="xRayAttack">Рентген</string>
   <string name="xRayAttackDescription">Бір тастың қарсылас тасын аттай бір шаршыны қорғауы не шабуылдауы.</string>
   <string name="zugzwang">Цугцванг</string>
+  <string name="zugzwangDescription">Жүрісі шектелген тастардың әр жүрісі жалпы жағдайдың нашарлауына әкеп соқтыратын кез.</string>
+  <string name="healthyMix">Пайдалы жиынтық</string>
   <string name="healthyMixDescription">Барлығынан аз-аздан. Күтпеген жағдайларға бейім болыңыз! Дәл нағыз шахматтағыдай!</string>
 </resources>
