@@ -77,6 +77,8 @@
   <string name="promotionDescription">Un peón que promueve o amenaza con promover es clave para la táctica.</string>
   <string name="queenEndgame">Final de damas</string>
   <string name="queenEndgameDescription">Un final solo con damas y peones.</string>
+  <string name="queenRookEndgame">Final de dama y torre</string>
+  <string name="queenRookEndgameDescription">Un final solo con damas, torres y peones.</string>
   <string name="queensideAttack">Ataque en el flanco de dama</string>
   <string name="queensideAttackDescription">Un ataque al rey del oponente, luego de haber realizado el enroque largo.</string>
   <string name="quietMove">Movimiento tranquilo</string>
