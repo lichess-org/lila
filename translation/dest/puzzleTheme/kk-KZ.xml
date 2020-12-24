@@ -84,5 +84,9 @@
   <string name="rookEndgame">Тура ойынсоңы</string>
   <string name="rookEndgameDescription">Туралар мен сарбаздары ғана бар ойынсоңы.</string>
   <string name="sacrifice">Құрбан ету</string>
+  <string name="sacrificeDescription">Кейін бір артықшылыққа жету мақсатыменен тастан әдейі айырылу.</string>
+  <string name="short">Қысқа жұмбақ</string>
+  <string name="shortDescription">Жеңіске екі қадам.</string>
+  <string name="skewer">Найза</string>
   <string name="healthyMixDescription">Барлығынан аз-аздан. Күтпеген жағдайларға бейім болыңыз! Дәл нағыз шахматтағыдай!</string>
 </resources>
