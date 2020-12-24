@@ -350,6 +350,7 @@ export default class RoundController {
     this.playerByColor('white').offeringDraw = o.wDraw;
     this.playerByColor('black').offeringDraw = o.bDraw;
     d.possibleMoves = activeColor ? o.dests : undefined;
+    d.possibleOppositeMoves = activeColor ? o.odests : undefined;
     d.possibleDrops = activeColor ? o.drops : undefined;
     d.crazyhouse = o.crazyhouse;
     this.setTitle();
