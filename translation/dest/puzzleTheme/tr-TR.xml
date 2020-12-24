@@ -88,10 +88,13 @@
   <string name="short">Kısa bulmaca</string>
   <string name="shortDescription">İki hamlede kazanç.</string>
   <string name="skewer">Şiş</string>
+  <string name="skewerDescription">Değerli bir taşın saldırı altında olduğu, hareketi hâlinde ise arkasındaki daha düşük değerli bir taşın ele geçirileceği ya da tehlikeye düşeceği motifler. Bir nevi açmazın tersi.</string>
   <string name="smotheredMate">Boğmaca Matı</string>
+  <string name="underPromotion">Düşük terfi</string>
   <string name="underPromotionDescription">At, fil veya kaleye terfi.</string>
   <string name="veryLong">Çok uzun bulmaca</string>
   <string name="veryLongDescription">Dört hamle veya daha uzun kazançlar.</string>
+  <string name="xRayAttack">X Işını Saldırısı</string>
   <string name="zugzwang">Hamlesizlik</string>
   <string name="healthyMix">Bir ondan bir bundan</string>
   <string name="healthyMixDescription">Ortaya karışık bulmacalar. Karşına ne tür bir pozisyonun çıkacağı tam bir muamma. Tıpkı gerçek maçlardaki gibi her şeye hazırlıklı olmakta fayda var.</string>
