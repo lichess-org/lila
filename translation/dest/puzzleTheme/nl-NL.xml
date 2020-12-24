@@ -36,6 +36,9 @@
   <string name="fork">Vork</string>
   <string name="forkDescription">Een zet waarbij het gespeelde stuk twee vijandelijke stukken tegelijk aanvalt.</string>
   <string name="hangingPiece">Hangend stuk</string>
+  <string name="interference">Tussenplaatsing</string>
+  <string name="interferenceDescription">Een stuk plaatsen tussen twee vijandelijke stukken om één of beide stukken onverdedigd te laten, zoals een paard op een verdedigd veld tussen twee torens.</string>
+  <string name="intermezzo">Tussenzet</string>
   <string name="knightEndgame">Paardeneindspel</string>
   <string name="knightEndgameDescription">Een eindspel met alleen paarden en pionnen.</string>
   <string name="long">Lange puzzel</string>
