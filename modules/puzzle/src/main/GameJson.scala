@@ -23,8 +23,12 @@ final private class GameJson(
       generateBc(game, plies)
     }
 
-  private def readKey(k: String): (Game.ID, Int) = (k take Game.gameIdSize, k.drop(Game.gameIdSize).toInt)
-  private def writeKey(id: Game.ID, ply: Int)    = s"$id$ply"
+  private def readKey(k: String): (Game.ID, Int) =
+    k.drop(Game.gameIdSize).toIntOption match {
+      case Some(ply) => (k take Game.gameIdSize, ply)
+      case _         => sys error s"puzzle.GameJson invalid key: $k"
+    }
+  private def writeKey(id: Game.ID, ply: Int) = s"$id$ply"
 
   private val cache = cacheApi[String, JsObject](4096, "puzzle.gameJson") {
     _.expireAfterAccess(5 minutes)
