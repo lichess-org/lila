@@ -6,7 +6,7 @@
   <string name="bishopEndgame">Końcówka gońcowa</string>
   <string name="bishopEndgameDescription">Gra końcowa wyłącznie z gońcami i pionami.</string>
   <string name="castling">Roszada</string>
-  <string name="capturingDefender">Zbij obrońcę</string>
+  <string name="capturingDefender">Zabicie obrońcy</string>
   <string name="kingsideAttack">Atak skrzydłem królewskim</string>
   <string name="doubleCheck">Podwójny szach</string>
   <string name="endgame">Końcówka</string>
@@ -29,6 +29,7 @@
   <string name="mateIn5">Daj mata w pięciu lub więcej posunięciach.</string>
   <string name="middlegame">Gra środkowa</string>
   <string name="middlegameDescription">Taktyka w drugiej fazie gry.</string>
+  <string name="oneMoveDescription">Zadanie, którego długość to tylko jedno posunięcie.</string>
   <string name="opening">Otwarcie</string>
   <string name="openingDescription">Taktyka w pierwszej fazie gry.</string>
   <string name="overloading">Przeciążenie</string>
@@ -36,7 +37,8 @@
   <string name="pawnEndgameDescription">Gra końcowa wyłącznie z pionami.</string>
   <string name="pin">Związanie</string>
   <string name="promotion">Promocja</string>
-  <string name="queensideAttack">Atak na skrzydle hetmańskim</string>
+  <string name="queenEndgame">Końcówka hetmańska</string>
+  <string name="queensideAttack">Atak skrzydłem hetmańskim</string>
   <string name="rookEndgame">Końcówka wieżowa</string>
   <string name="rookEndgameDescription">Gra końcowa wyłącznie z wieżami i pionami.</string>
   <string name="sacrifice">Poświęcenie</string>
