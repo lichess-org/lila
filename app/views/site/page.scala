@@ -29,7 +29,11 @@ object page {
   private def pageContent(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver) = frag(
     h1(doc.getText("doc.title")),
     div(cls := "body")(
-      raw(~doc.getHtml("doc.content", resolver))
+      raw {
+        ~doc
+          .getHtml("doc.content", resolver)
+          .map(lila.blog.BlogTransform.markdown.apply)
+      }
     )
   )
 
