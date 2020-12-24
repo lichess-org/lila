@@ -3,7 +3,7 @@
   <string name="advancedPawn">Просунутий пішак</string>
   <string name="advancedPawnDescription">Пішак, що загрожує перетворенню, є ключовим для тактики.</string>
   <string name="advantage">Перевага</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;cp is centipawn, eval is short for evaluation">Скористайтесь шансом отримати вирішальну перевагу. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription">Скористайтесь шансом отримати вирішальну перевагу. (200cp ≤ eval ≤ 600cp)</string>
   <string name="attackingF2F7">Атака f2 або f7</string>
   <string name="attackingF2F7Description">Атака, спрямована на f2 або f7, наприклад, як у дебюті смаженої печінки.</string>
   <string name="attraction">Заманювання</string>
@@ -19,16 +19,16 @@
   <string name="crushing">Руйнування</string>
   <string name="crushingDescription">Визначте грубу помилку суперника, щоб отримати нищівну перевагу. (eval ≥ 600 cp)</string>
   <string name="equality">Рівність</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Повернення з програшної позиції, забезпечення нічиєї або отримання збалансованої позиції. (eval ≤ 200cp)</string>
+  <string name="equalityDescription">Повернення з програшної позиції, забезпечення нічиєї або отримання збалансованої позиції. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Атака на королівський фланг</string>
   <string name="kingsideAttackDescription">Атака на королівському фланзі, після короткої рокіровки суперника.</string>
-  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Очищення</string>
+  <string name="clearance">Очищення</string>
   <string name="clearanceDescription">Хід, зазвичай з темпом, що звільнює поле, лінію чи діагональ з подальшою тактичною ідеєю.</string>
-  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Оборонний хід</string>
+  <string name="defensiveMove">Оборонний хід</string>
   <string name="defensiveMoveDescription">Точний хід або послідовність ходів, що необхідні для уникнення втрати матеріалу чи іншої переваги.</string>
-  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Відволікання</string>
+  <string name="deflection">Відволікання</string>
   <string name="deflectionDescription">Хід, що відволікає фігуру суперника від іншої задачі, наприклад, захисту ключового поля.</string>
-  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Відкриття атаки</string>
+  <string name="discoveredAttack">Відкриття атаки</string>
   <string name="discoveredAttackDescription">Хід фігурою, яка до цього блокувала атаку далекобійної фігури, наприклад, виведення коня з під лінії тури.</string>
   <string name="doubleCheck">Подвійний шах</string>
   <string name="doubleCheckDescription">Шах двома фігурами одночасно, як наслідок відкриття атаки на короля, коли обидві фігури неможливо захопити.</string>
