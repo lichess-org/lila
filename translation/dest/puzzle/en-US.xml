@@ -26,7 +26,7 @@
   <string name="notTheMove">That\'s not the move!</string>
   <string name="trySomethingElse">Try something else.</string>
   <string name="ratingX">Rating: %s</string>
-  <string name="hidden">hidden</string>
+  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">hidden</string>
   <plurals name="playedXTimes">
     <item quantity="one">Played %s time</item>
     <item quantity="other">Played %s times</item>
