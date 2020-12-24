@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="advancedPawn">Кеңейтілген сарбаз</string>
+  <string name="advancedPawn">Әккі сарбаз</string>
   <string name="advancedPawnDescription">Сарбазды айналдыру не айналдырумен қорқыту – тактиканың кілті.</string>
   <string name="advantage">Артықшылық</string>
   <string name="advantageDescription">Артықшылыққа ие болу үшін мүмкіндікті пайдаланыңыз. (200cp ≤ eval ≤ 600cp)</string>
