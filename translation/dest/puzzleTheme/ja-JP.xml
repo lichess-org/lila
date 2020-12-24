@@ -22,11 +22,11 @@
   <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">劣勢の局面から、ドローを確保するか互角の局面に戻します。（評価値は 200cp 以下）</string>
   <string name="kingsideAttack">キングサイド攻撃</string>
   <string name="kingsideAttackDescription">キングサイドにキャスリングした相手のキングを攻撃します。</string>
-  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">クリアランス</string>
+  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">クリアランス（解放）</string>
   <string name="clearanceDescription">次のタクティクスのためにマス、ファイル、斜線を開く手（先手であることが多い）。</string>
   <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">守り</string>
   <string name="defensiveMoveDescription">駒損などの不利を避けるために必要な正確な手または手順。</string>
-  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">ディフレクション</string>
+  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">ディフレクション（そらし）</string>
   <string name="deflectionDescription">相手の駒を別の役割（重要なマスを守るなど）からそらす手。</string>
   <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">ディスカバード・アタック</string>
   <string name="discoveredAttackDescription">別のラインピースの効きを止めていた駒を動かす手。たとえばルークの効き筋からナイトを動かす。</string>
@@ -43,7 +43,7 @@
   <string name="hangingPieceDescription">守りのない駒、または守り駒の足りない駒をただで取るタクティクス。</string>
   <string name="interference">インターフェア（干渉）</string>
   <string name="interferenceDescription">相手の 2 つの駒の間に駒を入れて、少なくとも一方を浮き駒にするタクティクス。相手の 2 個のルークの間で守りのあるマスにナイトを進める、など。</string>
-  <string name="intermezzo">ツヴィッシェンツーク</string>
+  <string name="intermezzo">ツヴィッシェンツーク（利かし）</string>
   <string name="intermezzoDescription">当然に見える手を指す代わりに、いったん相手が受けなくてはならない別の手をはさむタクティクス。</string>
   <string name="knightEndgame">ナイト・エンドゲーム</string>
   <string name="knightEndgameDescription">ナイトとポーンだけの終盤。</string>
