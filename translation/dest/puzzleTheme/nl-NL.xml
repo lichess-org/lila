@@ -20,7 +20,9 @@
   <string name="doubleCheck">Dubbelschaak</string>
   <string name="endgame">Eindspel</string>
   <string name="endgameDescription">Tactiek in de slotfase van de partij.</string>
+  <string name="exposedKing">Onveilige koning</string>
   <string name="fork">Vork</string>
+  <string name="forkDescription">Een zet waarbij het gespeelde stuk twee vijandelijke stukken tegelijk aanvalt.</string>
   <string name="hangingPiece">Hangend stuk</string>
   <string name="knightEndgame">Paardeneindspel</string>
   <string name="knightEndgameDescription">Een eindspel met alleen paarden en pionnen.</string>
@@ -38,9 +40,11 @@
   <string name="mateIn4Description">Zet schaakmat in vier zetten.</string>
   <string name="mateIn5">Mat in 5 of meer</string>
   <string name="middlegame">Middenspel</string>
-  <string name="middlegameDescription">Tactiek in de tweede fase van het spel.</string>
+  <string name="middlegameDescription">Tactiek in de tweede fase van de partij.</string>
+  <string name="oneMove">Eén-zet puzzel</string>
   <string name="oneMoveDescription">Een puzzel die maar één zet vereist.</string>
   <string name="opening">Opening</string>
+  <string name="openingDescription">Tactiek in de eerste fase van de partij.</string>
   <string name="overloading">Overbelasting</string>
   <string name="pawnEndgame">Pionneneindspel</string>
   <string name="pawnEndgameDescription">Een eindspel met alleen pionnen.</string>
@@ -57,6 +61,7 @@
   <string name="sacrificeDescription">Een tactiek waarbij op korte termijn materiaal wordt opgegeven om voordeel te verkrijgen na een aantal gedwongen zetten.</string>
   <string name="short">Korte puzzel</string>
   <string name="shortDescription">Winnen in twee zetten.</string>
+  <string name="skewer">Spies</string>
   <string name="smotheredMate">Stikmat</string>
   <string name="smotheredMateDescription">Schaakmat met een paard waarbij de aangevallen koning geen zet kan doen omdat hij ingesloten is (of verstikt) door zijn eigen stukken.</string>
   <string name="underPromotion">Minorpromotie</string>
