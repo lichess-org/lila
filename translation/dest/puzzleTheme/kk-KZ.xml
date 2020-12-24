@@ -36,11 +36,11 @@
   <string name="endgameDescription">Ойынның соңғы кезеңіндегі тактика.</string>
   <string name="enPassantDescription">Бір сазбаз, қасынан қарсыластың сарбазы өткенде, оны басып алатын жағдайды, яғни жолай басып алуды қамтитын тактика.</string>
   <string name="exposedKing">Жалаңаш патша</string>
-  <string name="exposedKingDescription">Бірнеше қорғаушысы бар патшаны қамтитын әдетте матқа әкелетін тактика.</string>
+  <string name="exposedKingDescription">Қорғанысы нашар патша әдетте маттың иісін иіскеп отырады.</string>
   <string name="fork">Шанышқы</string>
-  <string name="forkDescription">Қарсыластың бірден екі тасына шабуылдайтын тас жүрісі.</string>
+  <string name="forkDescription">Қарсыластың бірден екі тасын ұратын тас жүрісі.</string>
   <string name="hangingPiece">Олжа тас</string>
-  <string name="hangingPieceDescription">Қарсыластың қорғаусыз не қорғанысы әлсіз тұрған тасты басып алуды меңзейтін тактика.</string>
+  <string name="hangingPieceDescription">Қорғанысы нашар не қорғаусыз тұрған қарсылас тасын басып алуды меңзейтін тактика.</string>
   <string name="interference">Бөгет</string>
   <string name="interferenceDescription">Тасты қарсыластың екі тасының арасындағы қорғау жолына қойып, олардың біреуін не екеуін қорғаусыз ету. Мысалы, екі өзара қорғап тұрған туралардың арасына тұра қалған ат.</string>
   <string name="healthyMixDescription">Барлығынан аз-аздан. Күтпеген жағдайларға бейім болыңыз! Дәл нағыз шахматтағыдай!</string>
