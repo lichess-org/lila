@@ -26,7 +26,7 @@
   <string name="notTheMove">Dit is nie die skuif nie!</string>
   <string name="trySomethingElse">Probeer iets anders.</string>
   <string name="ratingX">Gradering: %s</string>
-  <string name="hidden">verborge</string>
+  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">verborge</string>
   <plurals name="playedXTimes">
     <item quantity="one">Gespeel %s tyd</item>
     <item quantity="other">Gespeel %s keer</item>
