@@ -56,7 +56,7 @@ if [ $mode == "css" ]; then
 else
   if type -p parallel; then # parallel execution!
     if [ -z "$P_OPTS" -a ! -e ~/.parallel/config ]; then
-      P_OPTS="-j+12 --halt 2"
+      P_OPTS="-j+4 --halt 2"
       [ -n "$GITHUB_WORKFLOW" ] || P_OPTS+=" --bar"
     fi
     set -x
