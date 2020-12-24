@@ -33,6 +33,7 @@
   <string name="pawnEndgameDescription">Gra końcowa wyłącznie z pionami.</string>
   <string name="pin">Związanie</string>
   <string name="promotion">Promocja</string>
+  <string name="queensideAttack">Atak na skrzydle hetmańskim</string>
   <string name="rookEndgame">Końcówka wieżowa</string>
   <string name="rookEndgameDescription">Gra końcowa wyłącznie z wieżami i pionami.</string>
   <string name="sacrifice">Poświęcenie</string>
