@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Zadania szachowe</string>
-  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Zalecane</string>
+  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Rekomendowane</string>
   <string name="phases">Faza gry</string>
   <string name="motifs">Motyw</string>
   <string name="advanced">Zaawansowane</string>
