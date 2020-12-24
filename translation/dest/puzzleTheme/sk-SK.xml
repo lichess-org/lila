@@ -5,6 +5,8 @@
   <string name="backRankMate">Mat na poslednom rade</string>
   <string name="castling">Rošáda</string>
   <string name="castlingDescription">Schovajte svojho kráľa do bezpečia a nasaďte vežu do útoku.</string>
+  <string name="endgame">Koncovka</string>
+  <string name="endgameDescription">Taktika počas posledného úseku hry.</string>
   <string name="fork">Vidlička</string>
   <string name="forkDescription">Ťah, pri ktorom figúra útočí na dve nepriateľské figúry naraz.</string>
   <string name="mate">Mat</string>
@@ -20,7 +22,7 @@
   <string name="sacrifice">Obetovanie</string>
   <string name="smotheredMate">Dusený mat</string>
   <string name="zugzwang">Nevýhoda ťahu</string>
-  <string name="zugzwangDescription">Oponent je limitovaný vo svojich ťahoch, a každý ťah zhorší jeho pozíciu.</string>
+  <string name="zugzwangDescription">Oponent je limitovaný vo svojich ťahoch a každý ťah zhorší jeho pozíciu.</string>
   <string name="healthyMix">Zdravý mix</string>
   <string name="healthyMixDescription">Zo všetkého niečo. Neviete čo očakávať, a tak budete pripravený na všetko! Presne ako v skutočných hrách.</string>
 </resources>
