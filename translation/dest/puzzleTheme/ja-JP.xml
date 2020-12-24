@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="advancedPawn">アドバンスト・ポーン</string>
+  <string name="advancedPawn">進んだポーン</string>
   <string name="advancedPawnDescription">ポーンの昇格かその狙いがタクティクスの中心です。</string>
   <string name="advantage">優位</string>
   <string name="advantageDescription" comment="advantageDescription&#10;&#10;cp is centipawn, eval is short for evaluation">決定的な優位を得てください。（評価値は 200cp 以上 600cp 以下）</string>
@@ -50,7 +50,7 @@
   <string name="long">長手数タクティクス</string>
   <string name="longDescription">3 手で勝ちになります。</string>
   <string name="mate">メイト</string>
-  <string name="mateDescription">上品に対局で勝つ。</string>
+  <string name="mateDescription">きれいに勝ちを決めます。</string>
   <string name="mateIn1">1手メイト</string>
   <string name="mateIn1Description">1 手でチェックメイトにします。</string>
   <string name="mateIn2">2手メイト</string>
