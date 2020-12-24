@@ -10,6 +10,7 @@
   <string name="kingsideAttack">Atak skrzydłem królewskim</string>
   <string name="doubleCheck">Podwójny szach</string>
   <string name="endgame">Końcówka</string>
+  <string name="endgameDescription">Taktyka w ostatniej fazie gry.</string>
   <string name="exposedKing">Odsłonięty król</string>
   <string name="fork">Widełki</string>
   <string name="knightEndgame">Końcówka skoczkowa</string>
@@ -27,7 +28,9 @@
   <string name="mateIn4Description">Daj mata w czterech posunięciach.</string>
   <string name="mateIn5">Daj mata w pięciu lub więcej posunięciach.</string>
   <string name="middlegame">Gra środkowa</string>
+  <string name="middlegameDescription">Taktyka w drugiej fazie gry.</string>
   <string name="opening">Otwarcie</string>
+  <string name="openingDescription">Taktyka w pierwszej fazie gry.</string>
   <string name="overloading">Przeciążenie</string>
   <string name="pawnEndgame">Końcówka pionkowa</string>
   <string name="pawnEndgameDescription">Gra końcowa wyłącznie z pionami.</string>
