@@ -5,6 +5,7 @@
   <string name="advantage">Voordeel</string>
   <string name="advantageDescription">Grijp je kans om een doorslaggevend voordeel te verkrijgen. (200cp ≤ eval ≤ 600 cp)</string>
   <string name="attackingF2F7">f2 of f7 aanvallen</string>
+  <string name="attackingF2F7Description">Een aanval gericht op de f2 of de f7-pion, zoals in de Fegatello-opening.</string>
   <string name="attraction">Lokken</string>
   <string name="attractionDescription">Een afruil of offer om een vijandelijk stuk naar een veld te lokken of te dwingen waardoor een tactisch vervolg mogelijk wordt gemaakt.</string>
   <string name="backRankMate">Mat op de achterste rij</string>
