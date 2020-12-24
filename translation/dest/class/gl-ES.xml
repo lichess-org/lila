@@ -52,7 +52,9 @@ Contrasinal %3$s</string>
 Aquí está a ligazón para acceder.</string>
   <string name="invitationToClass">Invitáronte a entrar como alumno na clase %s.</string>
   <string name="clickToViewInvitation">Preme na ligazón para ver a invitación:</string>
+  <string name="lastActiveDate">Última visita</string>
   <string name="winrate">Porcentaxe de victorias</string>
+  <string name="na">Non dispoñible</string>
   <string name="news">Novidades da clase</string>
   <string name="editNews">Editar as novidades</string>
 </resources>
