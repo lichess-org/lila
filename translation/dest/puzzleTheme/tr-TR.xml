@@ -17,13 +17,13 @@
   <string name="capturingDefender">Savunmayı baltala</string>
   <string name="capturingDefenderDescription">Bir taşı savunan diğer bir taşı ortadan kaldırarak savunmasız kalan taşı sonraki hamlede ele geçir.</string>
   <string name="crushing">Ezici üstünlük</string>
-  <string name="crushingDescription">Ezici bir üstünlük elde etmek için rakibin vahim hatasını yakala. (analiz ≥ 600sp)</string>
+  <string name="crushingDescription">Rakibin vahim hatasını yakalayarak ezici bir üstünlük elde et. (analiz ≥ 600sp)</string>
   <string name="equality">Eşitlik</string>
   <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Kaybeden bir durumdan paçayı kurtararak beraberlik veya dengeli bir pozisyon elde et. (analiz ≤ 200sp)</string>
   <string name="kingsideAttack">Şah tarafına saldırı</string>
   <string name="kingsideAttackDescription">Kısa rok atan rahip şaha saldırı.</string>
   <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Fırtınadan önceki sessizlik</string>
-  <string name="clearanceDescription">Bir kareyi veya bir hattı arkasından gelecek taktiğe hazırlayan, genellikle oynayan tarafa tempo kazandıran bir hamle.</string>
+  <string name="clearanceDescription">Bir kareyi veya bir hattı arkasından gelecek taktiğe hazırlayan, genellikle oynayan tarafa tempo kazandıran hamleler.</string>
   <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Savunma hamlesi</string>
   <string name="defensiveMoveDescription">Taş veya avantaj kaybını önlemek için yapılması gereken bir hamle ya da hamleler dizisi.</string>
   <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Saptırma</string>
