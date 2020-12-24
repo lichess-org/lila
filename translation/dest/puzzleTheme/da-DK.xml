@@ -63,7 +63,7 @@
   <string name="mateIn5Description">Find en lang træksekvens, som fører til mat.</string>
   <string name="middlegame">Midtspil</string>
   <string name="middlegameDescription">En taktik i den anden fase af spillet.</string>
-  <string name="oneMove">En-træks opgave</string>
+  <string name="oneMove">Et-træks opgave</string>
   <string name="oneMoveDescription">En opgave der kun er ét træk lang.</string>
   <string name="opening">Åbning</string>
   <string name="openingDescription">En taktik i den første fase af spillet.</string>
