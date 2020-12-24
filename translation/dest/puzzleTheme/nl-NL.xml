@@ -4,6 +4,7 @@
   <string name="advancedPawnDescription">Een pion die promoveert of dreigt te promoveren is hier cruciaal.</string>
   <string name="advantage">Voordeel</string>
   <string name="attackingF2F7">f2 of f7 aanvallen</string>
+  <string name="attraction">Lokken</string>
   <string name="attractionDescription">Een afruil of offer om een vijandelijk stuk naar een veld te lokken of te dwingen waardoor een tactisch vervolg mogelijk wordt gemaakt.</string>
   <string name="backRankMate">Mat op de achterste rij</string>
   <string name="backRankMateDescription">Zet de koning mat op de achterste rij, ingesloten door zijn eigen stukken.</string>
@@ -13,10 +14,19 @@
   <string name="castlingDescription">Breng de koning in veiligheid en zet de toren in voor een aanval.</string>
   <string name="capturingDefender">De verdediger slaan</string>
   <string name="capturingDefenderDescription">Een stuk slaan dat essentieel is voor de verdediging van een ander stuk, waardoor vervolgens het nu onverdedigde stuk met een volgende zet kan worden geslagen.</string>
+  <string name="crushing">Verpletteren</string>
+  <string name="crushingDescription">De blunder van de tegenstander zien om een verpletterend voordeel te verkrijgen. (eval ≥ 600cp)</string>
+  <string name="equalityDescription">Terugkomen uit een verloren stelling en een remise veiligstellen of een gelijkwaardige stelling bereiken. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Koningsaanval</string>
   <string name="kingsideAttackDescription">Een aanval op de koning van de tegenstander, na een korte rokade.</string>
+  <string name="clearance">Breekzet</string>
+  <string name="clearanceDescription">Een zet, vaak met tempo, die een veld, lijn of diagonaal vrijmaakt voor een tactisch vervolg.</string>
   <string name="defensiveMove">Defensieve zet</string>
   <string name="defensiveMoveDescription">Een nauwkeurige zet of reeks zetten die nodig zijn om verlies van materiaal of een ander voordeel te voorkomen.</string>
+  <string name="deflection">Weglokken</string>
+  <string name="deflectionDescription">Een zet die een vijandelijk stuk afleidt van een andere taak die het uitoefent, zoals het bewaken van een belangrijk veld.</string>
+  <string name="discoveredAttack">Aftrekaanval</string>
+  <string name="discoveredAttackDescription">Een stuk verplaatsen dat daarvoor een aanval van een ander lange afstandsstuk blokkeerde, bijvoorbeeld een paard dat opzij gaat voor een toren.</string>
   <string name="doubleCheck">Dubbelschaak</string>
   <string name="endgame">Eindspel</string>
   <string name="endgameDescription">Tactiek in de slotfase van de partij.</string>
@@ -47,9 +57,11 @@
   <string name="opening">Opening</string>
   <string name="openingDescription">Tactiek in de eerste fase van de partij.</string>
   <string name="overloading">Overbelasting</string>
+  <string name="overloadingDescription">Hiervan is sprake als een stuk meer taken heeft dan het aankan, zoals het verdedigen van twee stukken. Slaan van een van de verdedigde stukken zorgt voor nieuwe mogelijkheden als de verdediger verplaatst wordt. Vergelijkbaar met weglokken.</string>
   <string name="pawnEndgame">Pionneneindspel</string>
   <string name="pawnEndgameDescription">Een eindspel met alleen pionnen.</string>
   <string name="pin">Penning</string>
+  <string name="pinDescription">Een tactiek waarbij een stuk niet verzet kan worden op straffe van een aanval op een stuk van hogere waarde.</string>
   <string name="promotion">Promotie</string>
   <string name="promotionDescription">Een pion die promoveert of dreigt te promoveren is hier cruciaal.</string>
   <string name="queenEndgame">Dame-eindspel</string>
@@ -64,6 +76,7 @@
   <string name="short">Korte puzzel</string>
   <string name="shortDescription">Winnen in twee zetten.</string>
   <string name="skewer">Spies</string>
+  <string name="skewerDescription">Een motief waarbij een waardevol stuk wordt aangevallen en vervolgens verplaatst, waardoor een lichter stuk erachter kan worden geslagen of aangevallen. Het omgekeerde van een penning.</string>
   <string name="smotheredMate">Stikmat</string>
   <string name="smotheredMateDescription">Schaakmat met een paard waarbij de aangevallen koning geen zet kan doen omdat hij ingesloten is (of verstikt) door zijn eigen stukken.</string>
   <string name="trappedPiece">Ingesloten stuk</string>
@@ -73,8 +86,9 @@
   <string name="veryLong">Zeer lange puzzel</string>
   <string name="veryLongDescription">Winnen in vier of meer zetten.</string>
   <string name="xRayAttack">Röntgenaanval</string>
+  <string name="xRayAttackDescription">Een stuk valt een veld aan of verdedigt een veld, door een vijandelijke stuk heen.</string>
   <string name="zugzwang">Zetdwang</string>
   <string name="zugzwangDescription">De tegenstander is beperkt in de zetten die hij kan doen, en elke zet verslechtert zijn stelling.</string>
   <string name="healthyMix">Gezonde mix</string>
-  <string name="healthyMixDescription">Een beetje van dit en een beetje van dat. Je weet niet wat je te wachten staat, je moet dus op alles voorbereid zijn! Net als in echte partijen.</string>
+  <string name="healthyMixDescription">Van alles wat. Je weet niet wat je te wachten staat, je moet dus op alles voorbereid zijn! Net als in echte partijen.</string>
 </resources>

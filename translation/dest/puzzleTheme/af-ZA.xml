@@ -77,6 +77,8 @@
   <string name="promotionDescription">\'N Pion wat bevorder of dreig om te bevorder, is die sleutel tot die taktiek.</string>
   <string name="queenEndgame">Koningin eindspel</string>
   <string name="queenEndgameDescription">\'N Eindspel met slegs koninginne en pionne.</string>
+  <string name="queenRookEndgame">Queen and Rook endgame</string>
+  <string name="queenRookEndgameDescription">\'N Eindspel met slegs koninginne, toring en pionne.</string>
   <string name="queensideAttack">Queenside aanval</string>
   <string name="queensideAttackDescription">\'N Aanval van die koning van die opponent, nadat hulle aan die koninginkant gegooi het.</string>
   <string name="quietMove">Rustige skuif</string>

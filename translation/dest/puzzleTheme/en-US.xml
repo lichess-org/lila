@@ -77,6 +77,8 @@
   <string name="promotionDescription">A pawn promoting or threatening to promote is key to the tactic.</string>
   <string name="queenEndgame">Queen endgame</string>
   <string name="queenEndgameDescription">An endgame with only queens and pawns.</string>
+  <string name="queenRookEndgame">Queen and Rook endgame</string>
+  <string name="queenRookEndgameDescription">An endgame with only queens, rooks, and pawns.</string>
   <string name="queensideAttack">Queenside attack</string>
   <string name="queensideAttackDescription">An attack of the opponent\'s king, after they castled on the queen side.</string>
   <string name="quietMove">Quiet move</string>

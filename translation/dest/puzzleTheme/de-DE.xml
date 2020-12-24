@@ -77,7 +77,7 @@
   <string name="promotionDescription">Ein Bauer, der umwandelt oder umzuwandeln droht, ist wichtig für die Taktik.</string>
   <string name="queenEndgame">Damenendspiel</string>
   <string name="queenEndgameDescription">Ein Endspiel nur mit Damen und Bauern.</string>
-  <string name="queenRookEndgame">Damen und Turmendspiel</string>
+  <string name="queenRookEndgame">Damen- und Turmendspiel</string>
   <string name="queenRookEndgameDescription">Ein Endspiel nur mit Damen, Türmen und Bauern.</string>
   <string name="queensideAttack">Damenflügelangriff</string>
   <string name="queensideAttackDescription">Ein Angriff auf den gegnerischen König, nachdem dieser auf den Damenflügel rochiert hat.</string>

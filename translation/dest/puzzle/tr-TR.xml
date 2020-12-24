@@ -36,9 +36,9 @@
   <string name="difficultyLevel">Zorluk seviyesi</string>
   <string name="normal">Normal</string>
   <string name="easier">Kolay</string>
-  <string name="easiest">Çok kolay</string>
+  <string name="easiest">En kolay</string>
   <string name="harder">Zor</string>
-  <string name="hardest">Çok zor</string>
+  <string name="hardest">En zor</string>
   <string name="example">Örnek</string>
   <string name="addAnotherTheme">Başka bir tema ekle</string>
 </resources>

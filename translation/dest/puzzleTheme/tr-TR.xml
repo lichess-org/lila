@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">İlerlemiş piyon</string>
-  <string name="advancedPawnDescription">Terfi eden veya terfi etmek üzere olan bir piyon taktik bilgisinin olmazsa olmazıdır.</string>
+  <string name="advancedPawnDescription">Terfi eden veya terfi etmek üzere olan bir piyon taktiğin anahtarı.</string>
   <string name="advantage">Avantaj yakala</string>
   <string name="advantageDescription">Mutlak bir üstünlük kazanma şansını yakala. (200sp ≤ analiz ≤ 600sp)</string>
   <string name="attackingF2F7">Saldırı: f2 ve f7</string>
@@ -77,6 +77,8 @@
   <string name="promotionDescription">Terfi eden veya terfi etmek üzere olan bir piyon taktik bilgisinin olmazsa olmazıdır.</string>
   <string name="queenEndgame">Vezir oyunsonu</string>
   <string name="queenEndgameDescription">Sadece vezir ve piyon içeren oyunsonu.</string>
+  <string name="queenRookEndgame">Vezir ve kale oyunsonu</string>
+  <string name="queenRookEndgameDescription">Sadece vezir, kale ve piyon içeren oyunsonu.</string>
   <string name="queensideAttack">Vezir tarafına saldırı</string>
   <string name="queensideAttackDescription">Uzun rok atan rahip şaha saldırı.</string>
   <string name="quietMove">Fırtınadan önceki sessizlik</string>

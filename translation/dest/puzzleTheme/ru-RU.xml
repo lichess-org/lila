@@ -77,6 +77,8 @@
   <string name="promotionDescription">Превращение пешки или угроза превращения может быть тактическим приёмом.</string>
   <string name="queenEndgame">Ферзевый эндшпиль</string>
   <string name="queenEndgameDescription">Эндшпиль с ферзями и пешками.</string>
+  <string name="queenRookEndgame">Ферзево-ладейный эндшпиль</string>
+  <string name="queenRookEndgameDescription">Эндшпиль с ферзями, ладьями и пешками.</string>
   <string name="queensideAttack">Атака на ферзевом фланге</string>
   <string name="queensideAttackDescription">Атака короля, рокировавшегося в длинную сторону.</string>
   <string name="quietMove">Тихий ход</string>

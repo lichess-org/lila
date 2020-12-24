@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="queenRookEndgame">Cor deiridh don Banríon agus Casieal</string>
+  <string name="queenRookEndgameDescription">Cor deiridh gan aon píosa ach banríona, caisil, agus ceithearnaigh.</string>
+</resources>

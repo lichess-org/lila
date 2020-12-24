@@ -77,6 +77,8 @@
   <string name="promotionDescription">Un pion promouvant ou menaçant d\'être promu est essentiel à la tactique.</string>
   <string name="queenEndgame">Finale de dames</string>
   <string name="queenEndgameDescription">Une finale avec seulement des dames et des pions.</string>
+  <string name="queenRookEndgame">Finale de Dames et Tours</string>
+  <string name="queenRookEndgameDescription">Une finale avec seulement des dames, tours et pions.</string>
   <string name="queensideAttack">Attaque à l\'aile dame</string>
   <string name="queensideAttackDescription">Une attaque du roi adverse, après qu\'il ait fait le grand roque.</string>
   <string name="quietMove">Coup silencieux</string>
