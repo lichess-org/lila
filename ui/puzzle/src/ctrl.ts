@@ -237,7 +237,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function sendResult(win: boolean): Promise<void> {
-    if (vm.resultSent) Promise.resolve();
+    if (vm.resultSent) return Promise.resolve();
     vm.resultSent = true;
     session.complete(data.puzzle.id, win);
     return xhr.complete(data.puzzle.id, data.theme.key, win).then((res: PuzzleResult) => {
