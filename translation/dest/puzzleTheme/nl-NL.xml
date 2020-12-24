@@ -21,6 +21,7 @@
   <string name="endgame">Eindspel</string>
   <string name="endgameDescription">Tactiek in de slotfase van de partij.</string>
   <string name="exposedKing">Onveilige koning</string>
+  <string name="exposedKingDescription">Een stelling met een koning met weinig verdedigers, vaak leidend tot schaakmat.</string>
   <string name="fork">Vork</string>
   <string name="forkDescription">Een zet waarbij het gespeelde stuk twee vijandelijke stukken tegelijk aanvalt.</string>
   <string name="hangingPiece">Hangend stuk</string>
@@ -64,6 +65,7 @@
   <string name="skewer">Spies</string>
   <string name="smotheredMate">Stikmat</string>
   <string name="smotheredMateDescription">Schaakmat met een paard waarbij de aangevallen koning geen zet kan doen omdat hij ingesloten is (of verstikt) door zijn eigen stukken.</string>
+  <string name="trappedPiece">Ingesloten stuk</string>
   <string name="underPromotion">Minorpromotie</string>
   <string name="underPromotionDescription">Promotie tot paard, loper of toren.</string>
   <string name="veryLong">Zeer lange puzzel</string>
