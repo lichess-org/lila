@@ -3,7 +3,7 @@
   <string name="advancedPawn">Продвинутая пешка</string>
   <string name="advancedPawnDescription">Пешка, готовая к превращению, имеет важное тактическое значение.</string>
   <string name="advantage">Преимущество</string>
-  <string name="advantageDescription">Используйте свой шанс получить решающее преимущество. (от 200 до 600 сантипешек)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;cp is centipawn, eval is short for evaluation">Используйте свой шанс получить решающее преимущество. (от 200 до 600 сантипешек)</string>
   <string name="attackingF2F7">Атака f2 или f7</string>
   <string name="attackingF2F7Description">Атака, направленная на пешки f2 или f7, например, в дебюте жареной печени.</string>
   <string name="attraction">Завлечение</string>
@@ -13,22 +13,22 @@
   <string name="bishopEndgame">Слоновый эндшпиль</string>
   <string name="bishopEndgameDescription">Эндшпиль только со слонами и пешками.</string>
   <string name="castling">Рокировка</string>
-  <string name="castlingDescription">Помещение короля в надёжное место и вывод в бой ладьи.</string>
+  <string name="castlingDescription">Поместите короля в надёжное место и выведите в бой ладью.</string>
   <string name="capturingDefender">Уничтожение защитника</string>
   <string name="capturingDefenderDescription">Взятие или размен фигуры, защищающей другую фигуру, с последующим взятием фигуры, оставшейся без защиты.</string>
   <string name="crushing">Разгром</string>
   <string name="crushingDescription">Использование зевка противника и получение сокрушительного преимущества (600 и более сантипешек).</string>
   <string name="equality">Уравнение</string>
-  <string name="equalityDescription">Отыгрыш в безнадёжной позиции. Сведение партии на ничью или получение позиционного равенства (менее 200 сантипешек).</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Отыгрыш в безнадёжной позиции. Сведение партии на ничью или получение позиционного равенства (менее 200 сантипешек).</string>
   <string name="kingsideAttack">Атака на королевском фланге</string>
   <string name="kingsideAttackDescription">Атака рокированного в короткую сторону короля.</string>
-  <string name="clearance">Освобождение линии или поля</string>
+  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Освобождение линии или поля</string>
   <string name="clearanceDescription">Ход, обычно с темпом, освобождающий поле, линию или диагональ с целью реализации тактической идеи.</string>
-  <string name="defensiveMove">Защитный ход</string>
+  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Защитный ход</string>
   <string name="defensiveMoveDescription">Точный ход или последовательность ходов, которые необходимы во избежание потери материала или другого преимущества.</string>
-  <string name="deflection">Отвлечение</string>
+  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Отвлечение</string>
   <string name="deflectionDescription">Ход, отвлекающий фигуру противника от важной задачи, например, от защиты ключевого поля.</string>
-  <string name="discoveredAttack">Вскрытое нападение</string>
+  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Вскрытое нападение</string>
   <string name="discoveredAttackDescription">Ход фигурой, которая закрывает линию атаки дальнобойной фигуры. Например, ход конём освобождает линию для стоящей за ним ладьи.</string>
   <string name="doubleCheck">Двойной шах</string>
   <string name="doubleCheckDescription">Шах двумя фигурами одновременно при помощи вскрытого нападения. Нельзя срубить обе атакующие фигуры и нельзя закрыться от них, поэтому король может только уйти от шаха.</string>
