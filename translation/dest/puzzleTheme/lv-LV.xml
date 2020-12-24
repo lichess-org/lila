@@ -3,7 +3,7 @@
   <string name="advancedPawn">Izvirzīts bandinieks</string>
   <string name="advancedPawnDescription">Taktika balstās uz bandinieka paaugstināšanu vai paaugstināšanas draudu.</string>
   <string name="advantage">Pārsvars</string>
-  <string name="advantageDescription">Izmantojiet iespēju iegūt noteicošu pārsvaru. (200cp ≤ vērtējums ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;cp is centipawn, eval is short for evaluation">Izmantojiet iespēju iegūt noteicošu pārsvaru. (200cp ≤ vērtējums ≤ 600cp)</string>
   <string name="attackingF2F7">Uzbrukums f2 vai f7</string>
   <string name="attackingF2F7Description">Uzbrukums, kas koncentrējas uz f2 vai f7 bandinieku, līdzīgi \"fried liver\" (angļ. val. \"cepto aknu\") atklātnei.</string>
   <string name="attraction">Ievilkšana</string>
@@ -19,7 +19,7 @@
   <string name="crushing">Graušana</string>
   <string name="crushingDescription">Ieraugiet pretinieka rupjo kļūdu, lai iegūtu graujošu pārsvaru. (vērtējums &gt; 600cp)</string>
   <string name="equality">Vienlīdzība</string>
-  <string name="equalityDescription">Atgriezieties no zaudējošas pozīcijas, un iegūstiet neizšķirtu vai vienlīdzīgu pozīciju. (vērtējums ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Atgriezieties no zaudējošas pozīcijas, un iegūstiet neizšķirtu vai vienlīdzīgu pozīciju. (vērtējums ≤ 200cp)</string>
   <string name="kingsideAttack">Karaļa puses uzbrukums</string>
   <string name="kingsideAttackDescription">Uzbrukums pretinieka karalim pēc rokādes karaļa pusē.</string>
   <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Atbrīvošana</string>
