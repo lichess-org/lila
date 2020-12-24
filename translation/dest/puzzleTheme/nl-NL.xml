@@ -17,6 +17,10 @@
   <string name="kingsideAttackDescription">Een aanval op de koning van de tegenstander, na een korte rokade.</string>
   <string name="defensiveMove">Defensieve zet</string>
   <string name="defensiveMoveDescription">Een nauwkeurige zet of reeks zetten die nodig zijn om verlies van materiaal of een ander voordeel te voorkomen.</string>
+  <string name="deflection">Weglokken</string>
+  <string name="deflectionDescription">Een zet die een vijandelijk stuk afleidt van een andere taak die het uitoefent, zoals het bewaken van een belangrijk veld.</string>
+  <string name="discoveredAttack">Aftrekaanval</string>
+  <string name="discoveredAttackDescription">Een stuk verplaatsen dat eerder een aanval van een ander lange afstandsstuk blokkeerde, zoals een paard dat opzij gaat voor een toren.</string>
   <string name="doubleCheck">Dubbelschaak</string>
   <string name="endgame">Eindspel</string>
   <string name="endgameDescription">Tactiek in de slotfase van de partij.</string>
@@ -47,6 +51,7 @@
   <string name="opening">Opening</string>
   <string name="openingDescription">Tactiek in de eerste fase van de partij.</string>
   <string name="overloading">Overbelasting</string>
+  <string name="overloadingDescription">Hiervan is sprake als een stuk meer taken heeft dan het aankan, zoals het verdedigen van twee stukken. Slaan van een van de verdedigde stukken zorgt voor nieuwe mogelijkheden als de verdediger verplaatst wordt. Vergelijkbaar met weglokken.</string>
   <string name="pawnEndgame">Pionneneindspel</string>
   <string name="pawnEndgameDescription">Een eindspel met alleen pionnen.</string>
   <string name="pin">Penning</string>
