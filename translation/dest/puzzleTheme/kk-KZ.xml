@@ -88,5 +88,8 @@
   <string name="short">Қысқа жұмбақ</string>
   <string name="shortDescription">Жеңіске екі қадам.</string>
   <string name="skewer">Найза</string>
+  <string name="skewerDescription">Байлауға қарама-қарсы: құнды тас соққы астында бола, артындағы арзан тасты беріп, қашуға мәжбүр болатындай жағдай.</string>
+  <string name="smotheredMate">Қамаған мат</string>
+  <string name="smotheredMateDescription">Өз тастарымен қамалған патша бірде-бір жүріс жасай алмайтын кезде оған қарсыластың аты жасаған мат.</string>
   <string name="healthyMixDescription">Барлығынан аз-аздан. Күтпеген жағдайларға бейім болыңыз! Дәл нағыз шахматтағыдай!</string>
 </resources>
