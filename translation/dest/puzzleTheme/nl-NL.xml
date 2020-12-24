@@ -75,6 +75,8 @@
   <string name="promotionDescription">Een pion die promoveert of dreigt te promoveren is hier cruciaal.</string>
   <string name="queenEndgame">Dame-eindspel</string>
   <string name="queenEndgameDescription">Een eindspel met alleen dame en pionnen.</string>
+  <string name="queenRookEndgame">Dame-toreneindspel</string>
+  <string name="queenRookEndgameDescription">Een eindspel met alleen dame, torens en pionnen.</string>
   <string name="queensideAttack">Dameaanval</string>
   <string name="queensideAttackDescription">Een aanval op de koning van de tegenstander, na een lange rokade.</string>
   <string name="quietMove">Stille zet</string>
