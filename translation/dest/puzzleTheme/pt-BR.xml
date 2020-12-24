@@ -77,6 +77,8 @@
   <string name="promotionDescription">Um peão sendo promovido ou ameaçando ser promovido é chave para a tática.</string>
   <string name="queenEndgame">Finais de Dama</string>
   <string name="queenEndgameDescription">Um final com apenas Damas e peões.</string>
+  <string name="queenRookEndgame">Finais de Dama e Torre</string>
+  <string name="queenRookEndgameDescription">Finais com apenas Dama, Torre e Peões.</string>
   <string name="queensideAttack">Ataque na ala da Dama</string>
   <string name="queensideAttackDescription">Um ataque ao rei adversário, após ter efetuado o roque na ala da Dama.</string>
   <string name="quietMove">Lance de preparação</string>
