@@ -3,7 +3,7 @@
   <string name="advancedPawn">Pion avansat</string>
   <string name="advancedPawnDescription">Un pion care promovează sau amenință să promoveze e cheia acestei tactici.</string>
   <string name="advantage">Avantaj</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;cp is centipawn, eval is short for evaluation">Profită de șansa ta pentru a obține un avantaj decisiv. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription">Profită de șansa ta pentru a obține un avantaj decisiv. (200cp ≤ eval ≤ 600cp)</string>
   <string name="attackingF2F7">Atac pe f2 sau f7</string>
   <string name="attackingF2F7Description">Un atac concentrat pe pionul f2 sau f7, cum ar fi în deschiderea ficat prăjit (atacul Fegatello).</string>
   <string name="attraction">Atragere</string>
@@ -19,16 +19,16 @@
   <string name="crushing">Zdrobitor</string>
   <string name="crushingDescription">Observă gafa adversarului pentru a obține un avantaj zdrobitor. (eval ≥ 600cp)</string>
   <string name="equality">Egalitate</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Întoarce-te dintr-o poziție de pierdere și asigură o remiză sau o poziție echilibrată. (eval ≤ 200cp)</string>
+  <string name="equalityDescription">Întoarce-te dintr-o poziție de pierdere și asigură o remiză sau o poziție echilibrată. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Atac pe partea regelui</string>
   <string name="kingsideAttackDescription">Un atac al regelui adversarului, după ce a făcut rocada pe partea regelui.</string>
-  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Îndepărtare</string>
+  <string name="clearance">Îndepărtare</string>
   <string name="clearanceDescription">O mutare, adeseori cu tempo, care eliberează un pătrat, o coloană sau o diagonală pentru o idee tactică ulterioară.</string>
-  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Mutare defensivă</string>
+  <string name="defensiveMove">Mutare defensivă</string>
   <string name="defensiveMoveDescription">O mutare precisă sau o secvență de mutări care e necesară pentru a evita pierderea pieselor sau a unui alt avantaj.</string>
-  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Deviere</string>
+  <string name="deflection">Deviere</string>
   <string name="deflectionDescription">O mutare care distrage o piesă adversară de la o altă funcție pe care o îndeplinește, cum ar fi apărarea unui pătrat esențial.</string>
-  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Atac prin descoperire</string>
+  <string name="discoveredAttack">Atac prin descoperire</string>
   <string name="discoveredAttackDescription">Mutarea unei piese care bloca anterior un atac de la o altă piesă cu rază lungă de acțiune, cum ar fi un cal din calea unui turn.</string>
   <string name="doubleCheck">Șah dublu</string>
   <string name="doubleCheckDescription">Șahul cu două piese deodată, ca rezultat al unui atac descoperit unde și piesa mutată, și cea descoperită atacă regele adversarului.</string>
