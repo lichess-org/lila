@@ -7,7 +7,7 @@ import lila.db.dsl._
 import lila.memo.CacheApi
 import lila.user.User
 
-object PuzzlePath {
+private object PuzzlePath {
 
   case class Id(value: String) {
 
@@ -49,7 +49,10 @@ final private class PuzzlePathApi(
             case 2 => 800
             case _ => 2000
           }
-          Match(select(theme, actualTier, (rating - ratingDelta) to (rating + ratingDelta))) -> List(
+          Match(
+            select(theme, actualTier, (rating - ratingDelta) to (rating + ratingDelta)) ++
+              (previousPaths.nonEmpty ?? $doc("_id" $nin previousPaths))
+          ) -> List(
             Sample(1),
             Project($id(true))
           )

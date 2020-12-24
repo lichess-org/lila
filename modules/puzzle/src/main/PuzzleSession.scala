@@ -8,7 +8,7 @@ import lila.db.dsl._
 import lila.memo.CacheApi
 import lila.user.{ User, UserRepo }
 
-case class PuzzleSession(
+private case class PuzzleSession(
     difficulty: PuzzleDifficulty,
     path: PuzzlePath.Id,
     positionInPath: Int,
