@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Zadania szachowe</string>
-  <string name="recommended">Zalecane</string>
+  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Zalecane</string>
   <string name="phases">Faza gry</string>
   <string name="motifs">Motyw</string>
   <string name="advanced">Zaawansowane</string>
@@ -25,7 +25,7 @@
   <string name="puzzleComplete">Zadanie zakończone!</string>
   <string name="trySomethingElse">Spróbuj czegoś innego.</string>
   <string name="ratingX">Ranking: %s</string>
-  <string name="hidden">ukryty</string>
+  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">ukryty</string>
   <string name="fromGameLink">Z partii %s</string>
   <string name="continueTraining">Kontynuuj trening</string>
   <string name="difficultyLevel">Poziom trudności</string>
