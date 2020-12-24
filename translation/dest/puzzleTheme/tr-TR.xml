@@ -62,8 +62,12 @@
   <string name="mateIn5">5 hamle ve üstü matlar</string>
   <string name="mateIn5Description">Uzun bir mat serisini çözmeye çalış.</string>
   <string name="middlegame">Oyunortası</string>
-  <string name="oneMove">Tek hamlelik bulmacalar</string>
+  <string name="middlegameDescription">Oyunun ikinci aşamasında her eve lazım taktikler.</string>
+  <string name="oneMove">Tek hamlelik bulmaca</string>
+  <string name="oneMoveDescription">Yalnızca bir hamle uzunluğundaki bulmacalar.</string>
   <string name="opening">Açılış</string>
+  <string name="openingDescription">Oyunun ilk aşamasında hayatınızı kolaylaştıran taktikler.</string>
+  <string name="overloading">Aşırı yükleme</string>
   <string name="pin">Açmaz</string>
   <string name="promotion">Terfi</string>
   <string name="sacrificeDescription">Zorunlu bir hamleler serisinden sonra avantaj elde etmek için kısa vadede birkaç taşı gözden çıkarmanız gereken taktikler.</string>
