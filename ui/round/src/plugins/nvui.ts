@@ -17,8 +17,13 @@ import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { castlingFlavours, supportedVariant, Style, symbolToFile } from 'nvui/chess';
 import { commands } from 'nvui/command';
-import * as sound from '../sound';
 import { TourStandingCtrl } from '../tourStanding';
+import { throttled } from '../sound';
+
+const selectSound = throttled('select');
+const wrapSound = throttled('wrapAround');
+const borderSound = throttled('outOfBound');
+const errorSound = throttled('error');
 
 lichess.RoundNVUI = function(redraw: Redraw) {
 
@@ -271,9 +276,9 @@ function pieceJumpingHandler() {
     } else if ($allPieces.length >= 2) {
       const $wrapPiece = $next ? $allPieces.get(0): $allPieces.get($allPieces.length-1);
       $wrapPiece?.focus();
-      sound.wrap();
+      wrapSound();
     } else {
-      sound.error();
+      errorSound();
     }
     return false;
   };
@@ -300,7 +305,7 @@ function arrowKeyHandler(pov: Color) {
     if ($newSq) {
       $newSq.focus();
     } else {
-      sound.border();
+      borderSound();
     }
     ev.preventDefault();
     return false;
@@ -322,7 +327,7 @@ function selectionHandler(opponentColor: () => Color) {
       // as long as the user is selecting a piece and not a blank tile
       if ($evBtn.text().match(/^[^\-+]+/g)) {
         $moveBox.val($pos);
-        sound.select();
+        selectSound();
       }
     } else {
       // if user selects their own piece second
