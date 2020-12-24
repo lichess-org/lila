@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="donate">Gev gávu</string>
+  <string name="donate">Stuðla</string>
   <string name="lichessPatron">Lichess stuðul</string>
   <string name="freeAccount">Ókeypis konta</string>
   <string name="becomePatron">Tekna teg sum Lichess stuðul</string>
