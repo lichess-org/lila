@@ -70,5 +70,14 @@
   <string name="pawnEndgame">Сарбаздар ойынсоңы</string>
   <string name="pawnEndgameDescription">Сарбаздары ғана бар ойынсоңы.</string>
   <string name="pin">Байлау</string>
+  <string name="pinDescription">Артта тұрған құнды тасты жоғалту қаупі болғандықтан, алдыңғы тас орнынан кете алмайтындай жағдай.</string>
+  <string name="promotion">Айналу</string>
+  <string name="promotionDescription">Айналуға ұмтылған не айналумен қорқытып тұрған сарбаз – тактиканың өзегі.</string>
+  <string name="queenEndgame">Уәзір ойынсоңы</string>
+  <string name="queenEndgameDescription">Уәзірлер мен сарбаздары ғана бар ойынсоңы.</string>
+  <string name="queenRookEndgame">Уәзір мен Тура ойынсоңы</string>
+  <string name="queenRookEndgameDescription">Уәзірлер, туралар мен сарбаздары ғана бар ойынсоңы.</string>
+  <string name="queensideAttack">Уәзір жақты шабуыл</string>
+  <string name="queensideAttackDescription">Қарсылас патшасы уәзір жаққа бекінгеннен кейін оған жасалатын шабуыл.</string>
   <string name="healthyMixDescription">Барлығынан аз-аздан. Күтпеген жағдайларға бейім болыңыз! Дәл нағыз шахматтағыдай!</string>
 </resources>
