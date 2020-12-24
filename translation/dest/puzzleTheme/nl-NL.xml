@@ -91,7 +91,7 @@
   <string name="veryLong">Zeer lange puzzel</string>
   <string name="veryLongDescription">Winnen in vier of meer zetten.</string>
   <string name="xRayAttack">Röntgenaanval</string>
-  <string name="xRayAttackDescription">Een stuk valt een veld aan of verdedigt een veld, door een vijandelijke stuk heen.</string>
+  <string name="xRayAttackDescription">Een stuk valt een veld aan of verdedigt een veld, door een vijandelijk stuk heen.</string>
   <string name="zugzwang">Zetdwang</string>
   <string name="zugzwangDescription">De tegenstander is beperkt in de zetten die hij kan doen, en elke zet verslechtert zijn stelling.</string>
   <string name="healthyMix">Gezonde mix</string>
