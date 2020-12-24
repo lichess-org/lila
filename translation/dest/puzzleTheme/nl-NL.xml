@@ -15,12 +15,14 @@
   <string name="capturingDefenderDescription">Een stuk slaan dat essentieel is voor de verdediging van een ander stuk, waardoor vervolgens het nu onverdedigde stuk met een volgende zet kan worden geslagen.</string>
   <string name="kingsideAttack">Koningsaanval</string>
   <string name="kingsideAttackDescription">Een aanval op de koning van de tegenstander, na een korte rokade.</string>
+  <string name="clearance">Breekzet</string>
+  <string name="clearanceDescription">Een zet, vaak met tempo, die een veld, lijn of diagonaal vrijmaakt voor een tactisch vervolg.</string>
   <string name="defensiveMove">Defensieve zet</string>
   <string name="defensiveMoveDescription">Een nauwkeurige zet of reeks zetten die nodig zijn om verlies van materiaal of een ander voordeel te voorkomen.</string>
   <string name="deflection">Weglokken</string>
   <string name="deflectionDescription">Een zet die een vijandelijk stuk afleidt van een andere taak die het uitoefent, zoals het bewaken van een belangrijk veld.</string>
   <string name="discoveredAttack">Aftrekaanval</string>
-  <string name="discoveredAttackDescription">Een stuk verplaatsen dat eerder een aanval van een ander lange afstandsstuk blokkeerde, zoals een paard dat opzij gaat voor een toren.</string>
+  <string name="discoveredAttackDescription">Een stuk verplaatsen dat daarvoor een aanval van een ander lange afstandsstuk blokkeerde, bijvoorbeeld een paard dat opzij gaat voor een toren.</string>
   <string name="doubleCheck">Dubbelschaak</string>
   <string name="endgame">Eindspel</string>
   <string name="endgameDescription">Tactiek in de slotfase van de partij.</string>
