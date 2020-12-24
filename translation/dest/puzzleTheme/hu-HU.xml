@@ -3,7 +3,7 @@
   <string name="advancedPawn">Előretört gyalog</string>
   <string name="advancedPawnDescription">Átváltozó vagy átváltozással fenyegető gyalog kulcsfontosságú taktika.</string>
   <string name="advantage">Előny</string>
-  <string name="advantageDescription">Ragadd meg a lehetőséget a döntő előny megszerzéséhez. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;cp is centipawn, eval is short for evaluation">Ragadd meg a lehetőséget a döntő előny megszerzéséhez. (200cp ≤ eval ≤ 600cp)</string>
   <string name="attackingF2F7">f2 vagy f7 támadása</string>
   <string name="attackingF2F7Description">Az f2 vagy f7 gyalog ellen irányuló támadás, mint például a \"sültmáj\" megnyitás.</string>
   <string name="attraction">Ráterelés</string>
@@ -19,16 +19,16 @@
   <string name="crushing">Megsemmisítés</string>
   <string name="crushingDescription">Az ellenfél sakkvakságának kihasználása elsöprő előnnyé fordítható. (&gt; 600cp)</string>
   <string name="equality">Egyenlőség</string>
-  <string name="equalityDescription">Visszatérés egy rosszabb állásból és a döntetlen vagy kiegyensúlyozott állás bebiztosítása.</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Visszatérés egy rosszabb állásból és a döntetlen vagy kiegyensúlyozott állás bebiztosítása.</string>
   <string name="kingsideAttack">Királyszárnytámadás</string>
   <string name="kingsideAttackDescription">Királyszárnyra sáncolt király ellen indított támadás.</string>
-  <string name="clearance">Felszabadítás</string>
+  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Felszabadítás</string>
   <string name="clearanceDescription">Egy lépés, általában tempóval, amely felszabadít egy mezőt, vonalat vagy átlót egy taktika kedvéért.</string>
-  <string name="defensiveMove">Védekező lépés</string>
+  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Védekező lépés</string>
   <string name="defensiveMoveDescription">Olyan precíz lépés vagy lépéssorozat amivel elkerülhető anyagveszteség vagy más hátrányos helyzet.</string>
-  <string name="deflection">Elterelés</string>
+  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Elterelés</string>
   <string name="deflectionDescription">Egy lépés amivel az ellenfél figurája kimozdítható aktuális feladatából, például egy kulcsmező felügyelete.</string>
-  <string name="discoveredAttack">Felfedés</string>
+  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Felfedés</string>
   <string name="discoveredAttackDescription">Egy figura mozgatása ami előzőleg egy másik figura tűzvonalában állt, például huszár elléptetése a bástya útjából.</string>
   <string name="doubleCheck">Kettős sakk</string>
   <string name="doubleCheckDescription">Két figurával történő egyidejű sakkadás amikor felfedés után az elmozdított és a korábban akadályozott figura is támadja az ellenfél királyát.</string>
