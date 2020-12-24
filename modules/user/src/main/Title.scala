@@ -12,6 +12,8 @@ object Title {
   val BOT = Title("BOT")
 
   val all = Seq(
+    Title("PRO") -> "Professional",
+    Title("プロ") -> "Professional",
     Title("九段") -> "9th dan",
     Title("八段") -> "8th dan",
     Title("七段") -> "7th dan",
@@ -24,14 +26,16 @@ object Title {
     Title("１級") -> "1st kyu",
     Title("２級") -> "2nd kyu",
     Title("３級") -> "3rd kyu",
-    Title("女流五段") -> "ladies 5th dan",
-    Title("女流四段") -> "ladies 4th dan",
-    Title("女流三段") -> "ladies 3rd dan",
-    Title("女流二段") -> "ladies 2nd dan",
-    Title("女流初段") -> "ladies 1st dan",
-    Title("女流１級") -> "ladies 1st kyu",
-    Title("女流２級") -> "ladies 2nd kyu",
-    Title("女流３級") -> "ladies 3rd kyu",
+    Title("LP") -> "Ladies Pro",
+    Title("女流") -> "Ladies Pro",
+    Title("女流五段") -> "Ladies 5th dan",
+    Title("女流四段") -> "Ladies 4th dan",
+    Title("女流三段") -> "Ladies 3rd dan",
+    Title("女流二段") -> "Ladies 2nd dan",
+    Title("女流初段") -> "Ladies 1st dan",
+    Title("女流１級") -> "Ladies 1st kyu",
+    Title("女流２級") -> "Ladies 2nd kyu",
+    Title("女流３級") -> "Ladies 3rd kyu",
     LM           -> "Lishogi Master",
     BOT          -> "Chess Robot"
   )
