@@ -26,7 +26,7 @@
   <string name="notTheMove">Det er ikkje rett trekk!</string>
   <string name="trySomethingElse">Prøv noko anna.</string>
   <string name="ratingX">Rating: %s</string>
-  <string name="hidden">løynd</string>
+  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">løynd</string>
   <plurals name="playedXTimes">
     <item quantity="one">Spelt %s gong</item>
     <item quantity="other">Spelt %s gonger</item>
