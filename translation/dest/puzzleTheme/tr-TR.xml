@@ -3,7 +3,7 @@
   <string name="advancedPawn">İlerlemiş piyon</string>
   <string name="advancedPawnDescription">Terfi eden veya terfi etmek üzere olan bir piyon taktik bilgisinin olmazsa olmazıdır.</string>
   <string name="advantage">Avantaj yakala</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;cp is centipawn, eval is short for evaluation">Mutlak bir üstünlük kazanma şansını yakala. (200sp ≤ analiz ≤ 600sp)</string>
+  <string name="advantageDescription">Mutlak bir üstünlük kazanma şansını yakala. (200sp ≤ analiz ≤ 600sp)</string>
   <string name="attackingF2F7">Saldırı: f2 ve f7</string>
   <string name="attackingF2F7Description">Kızarmış karaciğer açılışında olduğu gibi f2 veya f7 karesindeki piyonları hedef alan saldırılar.</string>
   <string name="attraction">Tehlikeli sular</string>
@@ -19,16 +19,16 @@
   <string name="crushing">Ezici üstünlük</string>
   <string name="crushingDescription">Rakibin vahim hatasını yakalayarak ezici bir üstünlük elde et. (analiz ≥ 600sp)</string>
   <string name="equality">Eşitlik</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Kaybeden bir durumdan paçayı kurtararak beraberlik veya dengeli bir pozisyon elde et. (analiz ≤ 200sp)</string>
+  <string name="equalityDescription">Kaybeden bir durumdan paçayı kurtararak beraberlik veya dengeli bir pozisyon elde et. (analiz ≤ 200sp)</string>
   <string name="kingsideAttack">Şah tarafına saldırı</string>
   <string name="kingsideAttackDescription">Kısa rok atan rahip şaha saldırı.</string>
-  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Ön hazırlık</string>
+  <string name="clearance">Ön hazırlık</string>
   <string name="clearanceDescription">Bir kareyi veya bir hattı arkasından gelecek taktiğe hazırlayan, genellikle oynayan tarafa tempo kazandıran hamleler.</string>
-  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Savunma hamlesi</string>
+  <string name="defensiveMove">Savunma hamlesi</string>
   <string name="defensiveMoveDescription">Taş veya avantaj kaybını önlemek için yapılması gereken bir hamle ya da hamleler dizisi.</string>
-  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Saptırma</string>
+  <string name="deflection">Saptırma</string>
   <string name="deflectionDescription">Rakip taşı önemli bir kareyi korumak gibi mühim bir görevden alıkoyan hamleler.</string>
-  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Açarak saldırı</string>
+  <string name="discoveredAttack">Açarak saldırı</string>
   <string name="discoveredAttackDescription">Uzun menzilli bir taşın yolunu kesen diğer bir taşı oynayarak yapılan saldırılar. Atı oynayarak kaleyle şah çekmek gibi.</string>
   <string name="doubleCheck">Çifte şah</string>
   <string name="doubleCheckDescription">Bir hamlede, hem hareket eden hem de bu hareket sonucu önü açılan taş ile rakibe aynı anda iki farklı yerden şah çek.</string>
