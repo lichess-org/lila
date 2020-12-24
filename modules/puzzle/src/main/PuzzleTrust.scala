@@ -49,7 +49,7 @@ final private class PuzzleTrustApi(colls: PuzzleColls)(implicit ec: scala.concur
   // 1 year = 3.46
   // 2 years = 4.89
   private def seniorityBonus(user: User) =
-    math.sqrt(Days.daysBetween(user.createdAt, DateTime.now).getDays.toDouble / 30)
+    math.sqrt(Days.daysBetween(user.createdAt, DateTime.now).getDays.toDouble / 30) atMost 5
 
   private def titleBonus(user: User) = user.hasTitle ?? 20
 
@@ -64,17 +64,17 @@ final private class PuzzleTrustApi(colls: PuzzleColls)(implicit ec: scala.concur
   private def patronBonus(user: User) = (~user.planMonths * 5) atMost 20
 
   // 0 games    = 0
-  // 100 games  = 1
-  // 200 games  = 2.41
-  // 1000 games = 3.16
+  // 200 games  = 1
+  // 400 games  = 2.41
+  // 2000 games = 3.16
   private def nbGamesBonus(user: User) =
     nbBonus(user.count.game)
 
   private def nbPuzzlesBonus(user: User) =
-    nbBonus(user.perfs.puzzle.nb)
+    nbBonus(user.perfs.puzzle.nb) / 2
 
   private def nbBonus(nb: Int) =
-    math.sqrt(nb / 100) atMost 10
+    math.sqrt(nb / 200) atMost 5
 
   private def modBonus(user: User) =
     if (user.roles.exists(_ contains "ROLE_PUZZLE_CURATOR")) 100
