@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arenaTournaments">Stríðsvallakappingar</string>
+  <string name="arenaTournaments">Arenakappingar</string>
   <string name="isItRated">Er hon styrkismett?</string>
   <string name="willBeNotified">Tú fært boð, tá ið kappingin byrjar, so tað er trygt at telva í øðrum teigara (tab), meðan tú bíðar.</string>
   <string name="isRated">Henda kapping verður styrkismett, og fer at ávirka títt styrkital.</string>
