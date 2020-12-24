@@ -3,7 +3,7 @@
   <string name="advancedPawn">Frífinna</string>
   <string name="advancedPawnDescription">Ein finna, ið umskapast ella hóttir við at umskapast, er lykilin til taktikkin.</string>
   <string name="advantage">Fyrimunur</string>
-  <string name="advantageDescription">Tak av møguleikanum at fáa avgerandi fyrimun. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;cp is centipawn, eval is short for evaluation">Tak av møguleikanum at fáa avgerandi fyrimun. (200cp ≤ eval ≤ 600cp)</string>
   <string name="attackingF2F7">Álop á f2 ella f7</string>
   <string name="attackingF2F7Description">Eitt álop, ið savnar seg um f2 ella f7-finnuna, eins og í livrasteiks-byrjanini.</string>
   <string name="attraction">Atdráttur</string>
@@ -19,7 +19,7 @@
   <string name="crushing">At knúsa</string>
   <string name="crushingDescription">Finn bummaran hjá mótleikaranum til tess at ogna tær knúsandi fyrimun. (eval ≥ 600cp)</string>
   <string name="equality">Javnstøða</string>
-  <string name="equalityDescription">Kom afturíaftur úr eini tapandi støðu, og tryggja tær remis ella eina javna støðu. (eval ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Kom afturíaftur úr eini tapandi støðu, og tryggja tær remis ella eina javna støðu. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Álop kongamegin</string>
   <string name="kingsideAttackDescription">Álop á mótstøðukongin, aftaná at hann er lopin í borg kongamegin.</string>
   <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Rudding</string>
