@@ -90,6 +90,7 @@
   <string name="skewer">Şiş</string>
   <string name="skewerDescription">Değerli bir taşın saldırı altında olduğu, hareketi hâlinde ise arkasındaki daha düşük değerli bir taşın ele geçirileceği ya da tehlikeye düşeceği motifler. Bir nevi açmazın tersi.</string>
   <string name="smotheredMate">Boğmaca Matı</string>
+  <string name="smotheredMateDescription">Kendi taşları tarafından çevrelendiği (ya da boğulduğu) için hareket edemeyen şahın at ile mat edildiği pozisyonlar.</string>
   <string name="trappedPiece">Tuzağa düşmüş taş</string>
   <string name="trappedPieceDescription">Gidilecek güvenli bir kare olmadığı için kaçacak yerleri kalmayan taşlar.</string>
   <string name="underPromotion">Düşük terfi</string>
