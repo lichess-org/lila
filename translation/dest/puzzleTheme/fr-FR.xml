@@ -3,7 +3,7 @@
   <string name="advancedPawn">Pion avancé</string>
   <string name="advancedPawnDescription">Un pion promouvant ou menaçant d\'être promu est essentiel à la tactique.</string>
   <string name="advantage">Avantage</string>
-  <string name="advantageDescription">Saisissez votre chance d\'obtenir un avantage décisif. (200cp ≤ évaluation ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;cp is centipawn, eval is short for evaluation">Saisissez votre chance d\'obtenir un avantage décisif. (200cp ≤ évaluation ≤ 600cp)</string>
   <string name="attackingF2F7">Attaque en f2 ou f7</string>
   <string name="attackingF2F7Description">Une attaque sur le pion f2 ou f7, comme dans l\'attaque fegatello/Fried Liver.</string>
   <string name="attraction">Attraction</string>
@@ -19,7 +19,7 @@
   <string name="crushing">Ecrasant</string>
   <string name="crushingDescription">Repérez la gaffe de l\'adversaire pour obtenir un avantage écrasant. (évaluation &gt; 600cp)</string>
   <string name="equality">Égalité</string>
-  <string name="equalityDescription">Revenir d\'une position perdante et assurer une nulle ou une position équilibrée. (évaluation ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Revenir d\'une position perdante et assurer une nulle ou une position équilibrée. (évaluation ≤ 200cp)</string>
   <string name="kingsideAttack">Attaque à l\'aile roi</string>
   <string name="kingsideAttackDescription">Une attaque du roi adverse, après qu\'il ait fait le petit roque.</string>
   <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Dégagement</string>
