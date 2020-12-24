@@ -26,7 +26,7 @@
   <string name="notTheMove">Это не ход!</string>
   <string name="trySomethingElse">Мне нужно что-то другое.</string>
   <string name="ratingX">Рейтинг: %s</string>
-  <string name="hidden">скрыт</string>
+  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">скрыт</string>
   <plurals name="playedXTimes">
     <item quantity="one">Решено %s раз</item>
     <item quantity="few">Решено %s раза</item>
