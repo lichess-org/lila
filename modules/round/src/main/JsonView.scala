@@ -278,7 +278,7 @@ final class JsonView(
 
   private def possibleOppositeMoves(pov: Pov, apiVersion: ApiVersion): Option[JsValue] =
     (pov.game playableBy pov.player) option
-      lila.game.Event.PossibleMoves.json((!pov).game.situation.destinations, apiVersion)
+      lila.game.Event.PossibleMoves.json((!pov.game.situation).destinations, apiVersion)
 
   private def possibleDrops(pov: Pov): Option[JsValue] =
     (pov.game playableBy pov.player) ?? {
