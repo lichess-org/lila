@@ -79,5 +79,10 @@
   <string name="queenRookEndgameDescription">Уәзірлер, туралар мен сарбаздары ғана бар ойынсоңы.</string>
   <string name="queensideAttack">Уәзір жақты шабуыл</string>
   <string name="queensideAttackDescription">Қарсылас патшасы уәзір жаққа бекінгеннен кейін оған жасалатын шабуыл.</string>
+  <string name="quietMove">Үнсіз жүріс</string>
+  <string name="quietMoveDescription">Шах етпейтін не басып алмайтын, бірақ болашақ соққыны дайындайтын жүріс.</string>
+  <string name="rookEndgame">Тура ойынсоңы</string>
+  <string name="rookEndgameDescription">Туралар мен сарбаздары ғана бар ойынсоңы.</string>
+  <string name="sacrifice">Құрбан ету</string>
   <string name="healthyMixDescription">Барлығынан аз-аздан. Күтпеген жағдайларға бейім болыңыз! Дәл нағыз шахматтағыдай!</string>
 </resources>
