@@ -22,12 +22,12 @@
   <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Kaybeden bir durumdan paçayı kurtararak beraberlik veya dengeli bir pozisyon elde et. (analiz ≤ 200sp)</string>
   <string name="kingsideAttack">Şah tarafına saldırı</string>
   <string name="kingsideAttackDescription">Kısa rok atan rahip şaha saldırı.</string>
-  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Fırtınadan önceki sessizlik</string>
+  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Ön hazırlık</string>
   <string name="clearanceDescription">Bir kareyi veya bir hattı arkasından gelecek taktiğe hazırlayan, genellikle oynayan tarafa tempo kazandıran hamleler.</string>
   <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Savunma hamlesi</string>
   <string name="defensiveMoveDescription">Taş veya avantaj kaybını önlemek için yapılması gereken bir hamle ya da hamleler dizisi.</string>
   <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Saptırma</string>
-  <string name="deflectionDescription">Rakip taşı önemli bir kareyi korumak gibi mühim bir görevden alıkoyan hamle.</string>
+  <string name="deflectionDescription">Rakip taşı önemli bir kareyi korumak gibi mühim bir görevden alıkoyan hamleler.</string>
   <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Açarak saldırı</string>
   <string name="discoveredAttackDescription">Uzun menzilli bir taşın yolunu kesen diğer bir taşı oynayarak yapılan saldırılar. Atı oynayarak kaleyle şah çekmek gibi.</string>
   <string name="doubleCheck">Çifte şah</string>
@@ -48,7 +48,7 @@
   <string name="knightEndgame">At oyunsonu</string>
   <string name="knightEndgameDescription">Sadece at ve piyon içeren oyunsonu.</string>
   <string name="long">Uzun bulmaca</string>
-  <string name="longDescription">Üç hamlede kazanın.</string>
+  <string name="longDescription">Üç hamlede kazanç.</string>
   <string name="mate">Mat</string>
   <string name="mateDescription">Oyunu tarz ile kazanın.</string>
   <string name="mateIn1">1 Hamlede Mat</string>
@@ -68,19 +68,30 @@
   <string name="opening">Açılış</string>
   <string name="openingDescription">Oyunun ilk aşamasında hayatınızı kolaylaştıran taktikler.</string>
   <string name="overloading">Aşırı yükleme</string>
+  <string name="overloadingDescription">İki taşı aynı anda savunmak gibi birden fazla görevi olan taşları içeren bulmacalar. Korunan taşlardan birisine saldırıldığında, savunmada olan taş diğer görevini terk etmek zorunda kalır. Saptırma taktiği ile benzerlik gösterir.</string>
   <string name="pawnEndgame">Piyon oyunsonu</string>
   <string name="pawnEndgameDescription">Yalnızca piyonların olduğu oyunsonları.</string>
   <string name="pin">Açmaz</string>
+  <string name="pinDescription">Hareket ettiği takdirde arkasında bulunan kendisinden daha değerli bir taş tehlikeye düşeceği için olduğu yere mıhlanmış zavallı taşları içeren taktikler.</string>
   <string name="promotion">Terfi</string>
   <string name="promotionDescription">Terfi eden veya terfi etmek üzere olan bir piyon taktik bilgisinin olmazsa olmazıdır.</string>
   <string name="queenEndgame">Vezir oyunsonu</string>
   <string name="queenEndgameDescription">Sadece vezir ve piyon içeren oyunsonu.</string>
   <string name="queensideAttack">Vezir tarafına saldırı</string>
   <string name="queensideAttackDescription">Uzun rok atan rahip şaha saldırı.</string>
+  <string name="quietMove">Fırtınadan önceki sessizlik</string>
+  <string name="rookEndgame">Kale oyunsonu</string>
+  <string name="rookEndgameDescription">Sadece kale ve piyon içeren oyunsonu.</string>
+  <string name="sacrifice">Feda</string>
   <string name="sacrificeDescription">Zorunlu bir hamleler serisinden sonra avantaj elde etmek için kısa vadede birkaç taşı gözden çıkarmanız gereken taktikler.</string>
   <string name="short">Kısa bulmaca</string>
-  <string name="shortDescription">İki hamlede kazanın.</string>
+  <string name="shortDescription">İki hamlede kazanç.</string>
   <string name="skewer">Şiş</string>
+  <string name="smotheredMate">Boğmaca Matı</string>
+  <string name="underPromotionDescription">At, fil veya kaleye terfi.</string>
+  <string name="veryLong">Çok uzun bulmaca</string>
+  <string name="veryLongDescription">Dört hamle veya daha uzun kazançlar.</string>
+  <string name="zugzwang">Hamlesizlik</string>
   <string name="healthyMix">Bir ondan bir bundan</string>
   <string name="healthyMixDescription">Ortaya karışık bulmacalar. Karşına ne tür bir pozisyonun çıkacağı tam bir muamma. Tıpkı gerçek maçlardaki gibi her şeye hazırlıklı olmakta fayda var.</string>
 </resources>
