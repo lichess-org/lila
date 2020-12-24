@@ -16,6 +16,7 @@
   <string name="capturingDefenderDescription">Een stuk slaan dat essentieel is voor de verdediging van een ander stuk, waardoor vervolgens het nu onverdedigde stuk met een volgende zet kan worden geslagen.</string>
   <string name="crushing">Verpletteren</string>
   <string name="crushingDescription">De blunder van de tegenstander zien om een verpletterend voordeel te verkrijgen. (eval ≥ 600cp)</string>
+  <string name="equality">Evenwicht</string>
   <string name="equalityDescription">Terugkomen uit een verloren stelling en een remise veiligstellen of een gelijkwaardige stelling bereiken. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Koningsaanval</string>
   <string name="kingsideAttackDescription">Een aanval op de koning van de tegenstander, na een korte rokade.</string>
