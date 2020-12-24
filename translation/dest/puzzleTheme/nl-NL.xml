@@ -14,6 +14,7 @@
   <string name="castlingDescription">Breng de koning in veiligheid en zet de toren in voor een aanval.</string>
   <string name="capturingDefender">De verdediger slaan</string>
   <string name="capturingDefenderDescription">Een stuk slaan dat essentieel is voor de verdediging van een ander stuk, waardoor vervolgens het nu onverdedigde stuk met een volgende zet kan worden geslagen.</string>
+  <string name="crushing">Verpletteren</string>
   <string name="kingsideAttack">Koningsaanval</string>
   <string name="kingsideAttackDescription">Een aanval op de koning van de tegenstander, na een korte rokade.</string>
   <string name="clearance">Breekzet</string>
