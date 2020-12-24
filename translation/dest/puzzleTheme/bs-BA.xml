@@ -11,16 +11,16 @@
   <string name="crushing">Uništavanje</string>
   <string name="crushingDescription">Uočite protivnikov grubi previd kako biste stekli razornu prednost (≥ 600 cp)</string>
   <string name="equality">Izjednačenost</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;cp stands for centipawn, eval is short for evaluation">Vratite se iz izgubljene pozicije i osigurajte remi ili izjednačenu poziciju (≤ 200 cp)</string>
+  <string name="equalityDescription">Vratite se iz izgubljene pozicije i osigurajte remi ili izjednačenu poziciju (≤ 200 cp)</string>
   <string name="kingsideAttack">Napad na kraljevom krilu</string>
   <string name="kingsideAttackDescription">Napad na protivničkog kralja nakon što se on rokirao na kraljevo krilo.</string>
-  <string name="clearance" comment="clearance&#10;&#10;A theme of puzzle.">Raščišćavanje</string>
+  <string name="clearance">Raščišćavanje</string>
   <string name="clearanceDescription">Potez, često s tempom, koji raščišćava polje, liniju ili dijagonalu za izvođenje taktičke ideje.</string>
-  <string name="defensiveMove" comment="defensiveMove&#10;&#10;A theme of puzzle.">Odbrambeni potez</string>
+  <string name="defensiveMove">Odbrambeni potez</string>
   <string name="defensiveMoveDescription">Precizan potez ili niz poteza potreban da se izbjegne gubitak materijala ili neke druge prednosti.</string>
-  <string name="deflection" comment="deflection&#10;&#10;A theme of puzzle.">Odvlačenje</string>
+  <string name="deflection">Odvlačenje</string>
   <string name="deflectionDescription">Potez koji odvlači protivničku figuru od obavljanja njene trenutne dužnosti, kao što je čuvanje ključnog polja.</string>
-  <string name="discoveredAttack" comment="discoveredAttack&#10;&#10;A theme of puzzle.">Otkriveni napad</string>
+  <string name="discoveredAttack">Otkriveni napad</string>
   <string name="discoveredAttackDescription">Pomjeranje figure koja je dotad blokirala napad druge dalekometne figure, kao, npr., sklanjanje skakača ispred topa.</string>
   <string name="doubleCheck">Dvostruki šah</string>
   <string name="doubleCheckDescription">Šahiranje dvjema figurama istovremeno, kao rezultat otkrivenog napada, kad i otkrivena figura i ona koja ju je zaklanjala napadaju protivničkog kralja.</string>
