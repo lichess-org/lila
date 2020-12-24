@@ -3,7 +3,7 @@
   <string name="advancedPawn">Vorgerückter Bauer</string>
   <string name="advancedPawnDescription">Ein Bauer, der umwandelt oder umzuwandeln droht, ist Schlüssel zur Taktik.</string>
   <string name="advantage">Vorteil</string>
-  <string name="advantageDescription">Nutze deine Chance, um einen entscheidenden Vorteil zu erlangen. (200 Hundertstel-Bauern ≤ Bewertung ≤ 600 Hundertstel-Bauern)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;cp is centipawn, eval is short for evaluation">Nutze deine Chance, um einen entscheidenden Vorteil zu erlangen. (200 Hundertstel-Bauern ≤ Bewertung ≤ 600 Hundertstel-Bauern)</string>
   <string name="attackingF2F7">Angriff auf f2 oder f7</string>
   <string name="attackingF2F7Description">Ein Angriff, der sich auf den Bauern auf f2 oder f7 konzentriert, wie zum Beispiel bei der Eröffnung \"Zweispringerspiel im Nachzug, 4. Sg5\".</string>
   <string name="attraction">Hinlenkung oder \"Magnet\"</string>
