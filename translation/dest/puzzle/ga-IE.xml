@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Fadbhbanna</string>
-  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Molta</string>
+  <string name="recommended">Molta</string>
   <string name="phases">Céimeanna</string>
   <string name="motifs">Móitífeanna</string>
   <string name="advanced">Ardleibhéal</string>
@@ -26,7 +26,7 @@
   <string name="notTheMove">Ní hé sin an beart!</string>
   <string name="trySomethingElse">Triail beart eile.</string>
   <string name="ratingX">Rátáil: %s</string>
-  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">folaithe</string>
+  <string name="hidden">folaithe</string>
   <plurals name="playedXTimes">
     <item quantity="one">Imeartha %s uair</item>
     <item quantity="two">Imeartha %s uair</item>
