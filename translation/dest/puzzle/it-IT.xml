@@ -3,7 +3,9 @@
   <string name="puzzles">Puzzle</string>
   <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Consigliati</string>
   <string name="phases">Fasi</string>
+  <string name="motifs">Temi</string>
   <string name="advanced">Avanzato</string>
+  <string name="lengths">Lunghezza</string>
   <string name="mates">Matti</string>
   <string name="goals">Obiettivi</string>
   <string name="specialMoves">Mosse speciali</string>
@@ -12,4 +14,27 @@
   <string name="yourPuzzleRatingX">Il tuo punteggio nelle tattiche: %s</string>
   <string name="findTheBestMoveForWhite">Trova la mossa migliore per il bianco.</string>
   <string name="findTheBestMoveForBlack">Trova la mossa migliore per il Nero.</string>
+  <string name="toGetPersonalizedPuzzles">Per ottenere problemi personalizzati:</string>
+  <string name="puzzleId">Tattica %s</string>
+  <string name="puzzleOfTheDay">Problema del giorno</string>
+  <string name="clickToSolve">Clicca per vedere la soluzione</string>
+  <string name="goodMove">Buona mossa</string>
+  <string name="bestMove">La mossa migliore!</string>
+  <string name="keepGoing">Continua…</string>
+  <string name="puzzleSuccess">Risolto!</string>
+  <string name="puzzleComplete">Problema completato!</string>
+  <string name="notTheMove">Non è la mossa esatta!</string>
+  <string name="trySomethingElse">Prova qualcos\'altro.</string>
+  <string name="ratingX">Punteggio: %s</string>
+  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">nascosto</string>
+  <string name="fromGameLink">Dalla partita %s</string>
+  <string name="continueTraining">Continua l\'allenamento</string>
+  <string name="difficultyLevel">Livello di difficoltà</string>
+  <string name="normal">Normale</string>
+  <string name="easier">Facile</string>
+  <string name="easiest">Facilissimo</string>
+  <string name="harder">Difficile</string>
+  <string name="hardest">Difficilissimo</string>
+  <string name="example">Esempio</string>
+  <string name="addAnotherTheme">Aggiungi un altro tema</string>
 </resources>
