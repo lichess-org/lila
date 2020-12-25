@@ -77,6 +77,8 @@
   <string name="promotionDescription">Átváltozó vagy átváltozással fenyegető gyalog kulcsfontosságú taktika.</string>
   <string name="queenEndgame">Vezér végjáték</string>
   <string name="queenEndgameDescription">Végjáték csak vezérekkel és gyalogokkal.</string>
+  <string name="queenRookEndgame">Vezér és bástya</string>
+  <string name="queenRookEndgameDescription">Végjáték vezérekkel, bástyákkal és gyalogokkal.</string>
   <string name="queensideAttack">Vezérszárnytámadás</string>
   <string name="queensideAttackDescription">Vezérszárnyra sáncolt király ellen indított támadás.</string>
   <string name="quietMove">Csendes lépés</string>
