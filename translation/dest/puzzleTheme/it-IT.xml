@@ -33,4 +33,11 @@
   <string name="fork">Forchetta</string>
   <string name="forkDescription">Una mossa in cui il pezzo appena mosso attacca due pezzi avversari contemporaneamente.</string>
   <string name="hangingPiece">Pezzo in presa</string>
+  <string name="hangingPieceDescription">Una tattiche che include un pezzo indifeso o insufficientemente difese e che dunque può essere catturato.</string>
+  <string name="interference">Interposizione</string>
+  <string name="interferenceDescription">Muovere un pezzo tra due pezzi avversari per lasciare uno o entrambi i pezzi nemici senza difesa, come ad esempio un cavallo difeso tra due torri.</string>
+  <string name="intermezzo">Intermezzo</string>
+  <string name="intermezzoDescription">Invece di giocare la mossa prevista, si interpone prima un\'altra mossa che pone una minaccia a cui l\'avversario deve reagire. Conosciuto anche come \"Zwischenzug\" o \"Mossa intermedia\".</string>
+  <string name="knightEndgame">Finale di cavallo</string>
+  <string name="knightEndgameDescription">Un finale con soli cavalli e pedoni.</string>
 </resources>
