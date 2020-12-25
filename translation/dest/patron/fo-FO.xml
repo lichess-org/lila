@@ -7,8 +7,8 @@
   <string name="xBecamePatron">%s gjørdist Lichess stuðul</string>
   <string name="newPatrons">Nýggir stuðlar</string>
   <string name="freeChess">Ókeypis telving fyri øll, altíð!</string>
-  <string name="noAdsNoSubs">Ongar lýsingar, eingi hald; bert opnar keldur og gløðandi áhugi.</string>
-  <string name="thankYou">Takk fyri gávuna!</string>
+  <string name="noAdsNoSubs">Ongar lýsingar, eingi hald; men opnar keldukotur og gløðandi áhugi.</string>
+  <string name="thankYou">Takk fyri stuðulin!</string>
   <string name="youHaveLifetime">Tú hevur eina stuðulskontu fyri lívið. Tað er ikki so galið!</string>
   <string name="patronUntil">Tú hevur eina stuðulskontu til %s.</string>
   <string name="ifNotRenewed">Um kontan ikki verður endurnýggjað, verður hon lækkað til eina ókeypis kontu.</string>
@@ -43,8 +43,8 @@
   <string name="noPatronFeatures">Nei, tí Lichess er fullkomiliga ókeypis og fyri øll. Tað er eitt lyfti. Hinvegin hava stuðlar rætt til at reypa sær við eini nýggjari, kulari ímynd á vangamynd teirra.</string>
   <string name="featuresComparison">Síggj nágreiniligar sammetingar av eginleikum</string>
   <plurals name="patronForMonths">
-    <item quantity="one">Lichess vælvildarfólk í ein mánað</item>
-    <item quantity="other">Lichess vælvildarfólk í %s mánaðir</item>
+    <item quantity="one">Lichess stuðulsfólk í ein mánað</item>
+    <item quantity="other">Lichess stuðulsfólk í %s mánaðir</item>
   </plurals>
   <string name="youSupportWith">Tú stuðlar lichess.org við %s um mánaðin.</string>
   <string name="tyvm">Stóra tøkk fyri hjálpina. Tú rokkar!</string>
