@@ -184,6 +184,7 @@ lichess.RoundNVUI = function(redraw: Redraw) {
           'o: announce current position.', h('br'),
           'c: announce last move\'s captured piece.', h('br'),
           'l: display last move.', h('br'),
+          't: display clocks.', h('br'),
           'arrow keys: move left, right, up or down.', h('br'),
           'kqrbnp/KQRBNP: move forward/backward to a piece.', h('br'),
           '1-8: move to rank 1-8.', h('br'),
@@ -228,6 +229,9 @@ function boardCommandsHandler(steps: () => string[], pieceStyle: PieceStyle, pre
       $boardLive.text();
       $boardLive.text(lastCaptured(steps(), pieceStyle, prefixStyle));
       return false;
+    } else if (ev.key === 't') {
+      $boardLive.text();
+      $boardLive.text($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
     } else {
       return true;
     }
