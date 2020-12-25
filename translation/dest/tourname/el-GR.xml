@@ -43,7 +43,7 @@
   <string name="openingRapidArena">%s Ράπιντ Αρένα</string>
   <string name="openingRapid">%s Ράπιντ</string>
   <string name="xTeamBattle">%s Ομαδική Μάχη</string>
-  <string name="eliteXArena">Elite X Αρένα %s</string>
-  <string name="eliteX">EliteX %s</string>
-  <string name="xArena">xΑρένα %s</string>
+  <string name="eliteXArena">Elite Αρένα %s</string>
+  <string name="eliteX">Elite %s</string>
+  <string name="xArena">%s Αρένα</string>
 </resources>
