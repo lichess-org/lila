@@ -6,14 +6,14 @@
   <string name="materialDifference">Материаллӑ уйрӑмлӑх</string>
   <string name="boardHighlights">Утӑм ҫути (кайранхи утӑм тата шах туни)</string>
   <string name="pieceDestinations">Кӗлетке сукмакӗ (тӗрӗс утни тата умӗн утни)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Хӑма координачӗсем (A-H, 1-8)</string>
+  <string name="boardCoordinates">Хӑма координачӗсем (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Куҫӑмсене ҫырса хурасси</string>
   <string name="pgnLetter">Саспалли (K, Q, R, B, N)</string>
   <string name="zenMode">Дсӑн решимӗ</string>
   <string name="blindfoldChess">Суккӑр шахмат (курӑнман кӗлетке)</string>
   <string name="chessClock">Шахмат сехечӗ</string>
   <string name="tenthsOfSeconds">Ҫеккунтӑн вуннӑмӗшӗсем</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Вӑхӑт &lt; 10 ҫеккунтран йулсан</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Вӑхӑт &lt; 10 ҫеккунтран йулсан</string>
   <string name="horizontalGreenProgressBars">Горисонталлӑ симӗс йӗрсем</string>
   <string name="soundWhenTimeGetsCritical">Вӑхӑт пӗтсех пырсан сасӑпа пӗлтересси</string>
   <string name="giveMoreTime">Вӑхӑт партар</string>
@@ -22,7 +22,7 @@
   <string name="inCasualGamesOnly">Ахаль выльанӑ чухне кана</string>
   <string name="promoteToQueenAutomatically">Фӑрӑҫа хӑй халлӗн тухасси</string>
   <string name="whenPremoving">Умӗн куҫнӑ чух</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Вӑхӑт &lt; 30 ҫеккунтран сахал йулсан</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Вӑхӑт &lt; 30 ҫеккунтран сахал йулсан</string>
   <string name="moveConfirmation">Куҫӑма ҫирӗплетесси</string>
   <string name="inCorrespondenceGames">Куҫӑн мар вӑйӑсем</string>
   <string name="correspondenceAndUnlimited">Вӑрах тата чикӗсӗр</string>
