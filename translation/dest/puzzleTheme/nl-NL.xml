@@ -86,7 +86,7 @@
   <string name="sacrificeDescription">Een tactiek waarbij op korte termijn materiaal wordt opgegeven om voordeel te verkrijgen na een aantal gedwongen zetten.</string>
   <string name="short">Korte puzzel</string>
   <string name="shortDescription">Winnen in twee zetten.</string>
-  <string name="skewer">Spies</string>
+  <string name="skewer">Röntgenaanval</string>
   <string name="skewerDescription">Een motief waarbij een waardevol stuk wordt aangevallen en vervolgens verplaatst, waardoor een lichter stuk erachter kan worden geslagen of aangevallen. Het omgekeerde van een penning.</string>
   <string name="smotheredMate">Stikmat</string>
   <string name="smotheredMateDescription">Schaakmat met een paard waarbij de aangevallen koning geen zet kan doen omdat hij ingesloten is (of verstikt) door zijn eigen stukken.</string>
