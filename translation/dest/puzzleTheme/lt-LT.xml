@@ -77,6 +77,8 @@
   <string name="promotionDescription">Pėstininkas, kuris pasiaukština ar kėsinasi pasiaukštinti yra raktas šiai taktikai.</string>
   <string name="queenEndgame">Karalienės endšpilis</string>
   <string name="queenEndgameDescription">Endšpilis tik su karalienėmis ir pėstininkais.</string>
+  <string name="queenRookEndgame">Karalienės ir bokšto endšpilis</string>
+  <string name="queenRookEndgameDescription">Endšpilis tik su karalienėmis, bokštais ir pėstininkais.</string>
   <string name="queensideAttack">Karalienės pusės ataka</string>
   <string name="queensideAttackDescription">Ataka priešininko karaliui po to, kai jis atliko rokiruotę karalienės pusėje.</string>
   <string name="quietMove">Tylus ėjimas</string>

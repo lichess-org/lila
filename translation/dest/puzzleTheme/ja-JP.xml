@@ -77,6 +77,8 @@
   <string name="promotionDescription">ポーンの昇格かその狙いがタクティクスの中心です。</string>
   <string name="queenEndgame">クイーン・エンドゲーム</string>
   <string name="queenEndgameDescription">クイーンとポーンだけの終盤。</string>
+  <string name="queenRookEndgame">クイーンとルークのエンドゲーム</string>
+  <string name="queenRookEndgameDescription">クイーン、ルーク、ポーンだけの終盤。</string>
   <string name="queensideAttack">クイーンサイド攻撃</string>
   <string name="queensideAttackDescription">クイーンサイドにキャスリングした相手のキングを攻撃します。</string>
   <string name="quietMove">静かな手</string>

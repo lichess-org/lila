@@ -32,7 +32,7 @@
   <string name="discoveredAttackDescription">Хід фігурою, яка до цього блокувала атаку далекобійної фігури, наприклад, виведення коня з під лінії тури.</string>
   <string name="doubleCheck">Подвійний шах</string>
   <string name="doubleCheckDescription">Шах двома фігурами одночасно, як наслідок відкриття атаки на короля, коли обидві фігури неможливо захопити.</string>
-  <string name="endgame">Эндшпіль</string>
+  <string name="endgame">Ендшпіль</string>
   <string name="endgameDescription">Тактика на останній фазі гри.</string>
   <string name="enPassantDescription">Тактика із застосуванням правила \"взяття на проході\", коли пішак може взяти пішака суперника, що зробив початковий хід на два поля, внаслідок якого перетинаюче поле під боєм пішака.</string>
   <string name="exposedKing">Незахищений король</string>

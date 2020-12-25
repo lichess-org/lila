@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">Imir le cara</string>
-  <string name="playWithTheMachine">Imir i gcoinne an mheaisín</string>
+  <string name="playWithTheMachine">Imir in éadan an ríomhaire</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Chun cuireadh a thabhairt do dhuine, tabhair an URL seo</string>
-  <string name="gameOver">Cluiche Thar</string>
-  <string name="waitingForOpponent">Ag feitheamh le chéile comhraic</string>
+  <string name="gameOver">Cluiche Thart</string>
+  <string name="waitingForOpponent">Ag fanacht le hiomaitheora</string>
   <string name="waiting">Fanacht</string>
-  <string name="yourTurn">Do shealsa atá ann</string>
+  <string name="yourTurn">Do shealsa</string>
   <string name="aiNameLevelAiLevel">%1$s leibhéal %2$s</string>
   <string name="level">Leibhéal</string>
   <string name="toggleTheChat">Scoránú comhrá</string>

@@ -3,7 +3,9 @@
   <string name="advancedPawn">Opgerukte pion</string>
   <string name="advancedPawnDescription">Een pion die promoveert of dreigt te promoveren is hier cruciaal.</string>
   <string name="advantage">Voordeel</string>
+  <string name="advantageDescription">Grijp je kans om een doorslaggevend voordeel te verkrijgen. (200cp ≤ eval ≤ 600 cp)</string>
   <string name="attackingF2F7">f2 of f7 aanvallen</string>
+  <string name="attackingF2F7Description">Een aanval gericht op de f2 of de f7-pion, zoals in de Fegatello-opening.</string>
   <string name="attraction">Lokken</string>
   <string name="attractionDescription">Een afruil of offer om een vijandelijk stuk naar een veld te lokken of te dwingen waardoor een tactisch vervolg mogelijk wordt gemaakt.</string>
   <string name="backRankMate">Mat op de achterste rij</string>
@@ -16,6 +18,7 @@
   <string name="capturingDefenderDescription">Een stuk slaan dat essentieel is voor de verdediging van een ander stuk, waardoor vervolgens het nu onverdedigde stuk met een volgende zet kan worden geslagen.</string>
   <string name="crushing">Verpletteren</string>
   <string name="crushingDescription">De blunder van de tegenstander zien om een verpletterend voordeel te verkrijgen. (eval ≥ 600cp)</string>
+  <string name="equality">Evenwicht</string>
   <string name="equalityDescription">Terugkomen uit een verloren stelling en een remise veiligstellen of een gelijkwaardige stelling bereiken. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Koningsaanval</string>
   <string name="kingsideAttackDescription">Een aanval op de koning van de tegenstander, na een korte rokade.</string>
@@ -28,6 +31,7 @@
   <string name="discoveredAttack">Aftrekaanval</string>
   <string name="discoveredAttackDescription">Een stuk verplaatsen dat daarvoor een aanval van een ander lange afstandsstuk blokkeerde, bijvoorbeeld een paard dat opzij gaat voor een toren.</string>
   <string name="doubleCheck">Dubbelschaak</string>
+  <string name="doubleCheckDescription">Schaak geven met twee stukken tegelijk als gevolg van een aftrekaanval waarbij zowel het verplaatste als het geactiveerde stuk de koning van de tegenstander aanvalt.</string>
   <string name="endgame">Eindspel</string>
   <string name="endgameDescription">Tactiek in de slotfase van de partij.</string>
   <string name="exposedKing">Onveilige koning</string>
@@ -35,6 +39,11 @@
   <string name="fork">Vork</string>
   <string name="forkDescription">Een zet waarbij het gespeelde stuk twee vijandelijke stukken tegelijk aanvalt.</string>
   <string name="hangingPiece">Hangend stuk</string>
+  <string name="hangingPieceDescription">Een situatie waarin een vijandelijk stuk niet of onvoldoende verdedigd wordt en daarom ongestraft geslagen kan worden.</string>
+  <string name="interference">Tussenplaatsing</string>
+  <string name="interferenceDescription">Een stuk plaatsen tussen twee vijandelijke stukken om één of beide stukken onverdedigd te laten, zoals een paard op een verdedigd veld tussen twee torens.</string>
+  <string name="intermezzo">Tussenzet</string>
+  <string name="intermezzoDescription">In plaats van de verwachte zet, eerst een andere zet doen met een directe dreiging die de tegenstander eerst moet beantwoorden. Ook wel bekend als \"Zwischenzug\" of \"In between\".</string>
   <string name="knightEndgame">Paardeneindspel</string>
   <string name="knightEndgameDescription">Een eindspel met alleen paarden en pionnen.</string>
   <string name="long">Lange puzzel</string>
@@ -66,6 +75,8 @@
   <string name="promotionDescription">Een pion die promoveert of dreigt te promoveren is hier cruciaal.</string>
   <string name="queenEndgame">Dame-eindspel</string>
   <string name="queenEndgameDescription">Een eindspel met alleen dame en pionnen.</string>
+  <string name="queenRookEndgame">Dame-toreneindspel</string>
+  <string name="queenRookEndgameDescription">Een eindspel met alleen dame, torens en pionnen.</string>
   <string name="queensideAttack">Dameaanval</string>
   <string name="queensideAttackDescription">Een aanval op de koning van de tegenstander, na een lange rokade.</string>
   <string name="quietMove">Stille zet</string>
@@ -86,7 +97,7 @@
   <string name="veryLong">Zeer lange puzzel</string>
   <string name="veryLongDescription">Winnen in vier of meer zetten.</string>
   <string name="xRayAttack">Röntgenaanval</string>
-  <string name="xRayAttackDescription">Een stuk valt een veld aan of verdedigt een veld, door een vijandelijke stuk heen.</string>
+  <string name="xRayAttackDescription">Een stuk valt een veld aan of verdedigt een veld, door een vijandelijk stuk heen.</string>
   <string name="zugzwang">Zetdwang</string>
   <string name="zugzwangDescription">De tegenstander is beperkt in de zetten die hij kan doen, en elke zet verslechtert zijn stelling.</string>
   <string name="healthyMix">Gezonde mix</string>

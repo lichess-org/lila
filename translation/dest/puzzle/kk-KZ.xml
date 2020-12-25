@@ -8,6 +8,7 @@
   <string name="lengths">Ұзындығы</string>
   <string name="mates">Маттар</string>
   <string name="goals">Нысаналар</string>
+  <string name="specialMoves">Ерекше жүрістер</string>
   <string name="didYouLikeThisPuzzle">Бұл жұмбақ ұнай ма?</string>
   <string name="voteToLoadNextOne">Келесін ашу үшін дауыс беріңіз!</string>
   <string name="yourPuzzleRatingX">Жұмбақ шешу рейтингіңіз: %s</string>
@@ -39,4 +40,5 @@
   <string name="harder">Қиындау</string>
   <string name="hardest">Ең қиыны</string>
   <string name="example">Мысал</string>
+  <string name="addAnotherTheme">Басқа тақырып қосу</string>
 </resources>
