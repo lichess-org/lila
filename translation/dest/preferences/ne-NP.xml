@@ -6,7 +6,7 @@
   <string name="materialDifference">गोटीहरुमा फरक</string>
   <string name="boardHighlights">बोर्डमा हाइलाइट (अन्तिम चाल र चेक)</string>
   <string name="pieceDestinations">गोटीको गन्तब्य (मान्य चाल र प्रिमुभ)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">बोर्ड समकक्षहरु (A-H, १-८)</string>
+  <string name="boardCoordinates">बोर्ड समकक्षहरु (A-H, १-८)</string>
   <string name="moveListWhilePlaying">खेल्ने क्रममा चालको सुची</string>
   <string name="pgnPieceNotation">चाल नोटेशन</string>
   <string name="chessPieceSymbol">गोटीको चिन्ह</string>
@@ -16,7 +16,7 @@
   <string name="blindfoldChess">आँखा पट्टी बुद्धिचाल (गोटी देखिंदैन)</string>
   <string name="chessClock">बुद्धिचाल घडी</string>
   <string name="tenthsOfSeconds">सेकेन्ड को दश भाग</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">जब १० सेकेण्ड भन्दा कम समय बाँकि हुन्छ</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">जब १० सेकेण्ड भन्दा कम समय बाँकि हुन्छ</string>
   <string name="horizontalGreenProgressBars">हरियो ठाडो प्रगति देखाउने रेखा</string>
   <string name="soundWhenTimeGetsCritical">समय कम बाँकी रहदा ध्वनी</string>
   <string name="giveMoreTime">थप समय दिनु</string>
@@ -29,8 +29,8 @@
   <string name="inCasualGamesOnly">अनौपचारिक खेलहरुमा मात्र</string>
   <string name="promoteToQueenAutomatically">आफै मन्त्री बनाउने</string>
   <string name="whenPremoving">प्रिमुभ गर्दा</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">आफै तीनपटक को दोहोरी मा बराबरी दाबी गर्ने</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">जब ३० सेकेण्ड भन्दा कम समय बाँकि हुन्छ</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">आफै तीनपटक को दोहोरी मा बराबरी दाबी गर्ने</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">जब ३० सेकेण्ड भन्दा कम समय बाँकि हुन्छ</string>
   <string name="moveConfirmation">चाल पुष्टिकरण</string>
   <string name="inCorrespondenceGames">पत्रचारिक खेलहरु</string>
   <string name="correspondenceAndUnlimited">पत्रचारिक तथा अनिश्चितकालीन</string>
