@@ -90,13 +90,17 @@
   <string name="short">Lyhyt tehtävä</string>
   <string name="shortDescription">Voittoon tarvitaan kaksi siirtoa.</string>
   <string name="skewer">Varrastus</string>
+  <string name="skewerDescription">Siirto, jolla uhataan arvokkaampaa nappulaa, jonka siirtyessä sen takana oleva nappula jää uhatuksi ja on lyötävissä, eli toisin päin kuin kiinnityksessä.</string>
   <string name="smotheredMate">Pussimatti</string>
+  <string name="smotheredMateDescription">Ratsun tekemä matti, jossa matitettava kuningas ei pysty liikkumaan, koska sen omat nappulat ympäröivät sitä (eli pussittavat sen).</string>
   <string name="underPromotion">Alikorotus</string>
   <string name="underPromotionDescription">Korotus ratsuksi, lähetiksi tai torniksi.</string>
   <string name="veryLong">Erittäin pitkä tehtävä</string>
   <string name="veryLongDescription">Voittoon tarvitaan neljä siirtoa tai enemmän.</string>
   <string name="xRayAttack">Röntgenhyökkäys</string>
+  <string name="xRayAttackDescription">Nappula uhkaa tai puolustaa ruutua vastustajan nappulan läpi.</string>
   <string name="zugzwang">Siirtopakko</string>
+  <string name="zugzwangDescription">Vastustajalla on rajoitettu määrä mahdollisia siirtoja, ja niistä kaikki heikentävät hänen asemaansa.</string>
   <string name="healthyMix">Terve sekoitus</string>
   <string name="healthyMixDescription">Vähän kaikkea. Et tiedä mitä tuleman pitää, joten olet valmiina mihin tahansa! Aivan kuten oikeissa peleissäkin.</string>
 </resources>
