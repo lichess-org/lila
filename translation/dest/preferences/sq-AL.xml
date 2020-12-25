@@ -6,7 +6,7 @@
   <string name="materialDifference">Ndryshimi në material</string>
   <string name="boardHighlights">Nënvizo fushën, (lëvizjen e fundit dhe shah)</string>
   <string name="pieceDestinations">Vendmbërritja e figurave (lëvizje të vlefshme dhe të paracaktuara)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Koordinatat e fushës (A-H, 1-8)</string>
+  <string name="boardCoordinates">Koordinatat e fushës (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lista e lëvizjeve gjatë lojës</string>
   <string name="pgnPieceNotation">Shenimet e levizjeve</string>
   <string name="chessPieceSymbol">Simboli i figures se shahut</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Shah i verber (gurë të padukshëm)</string>
   <string name="chessClock">Ora e shahut</string>
   <string name="tenthsOfSeconds">Të dhjetat e sekondës</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Kur koha e mbetur &lt;10 sekonda</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Kur koha e mbetur &lt;10 sekonda</string>
   <string name="horizontalGreenProgressBars">Shufra e gjelbërt e progresit</string>
   <string name="soundWhenTimeGetsCritical">Tingull gjatë kohës kritike</string>
   <string name="giveMoreTime">Jep më shumë kohë</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">Vetëm në lojërat e rastësishme</string>
   <string name="promoteToQueenAutomatically">Dalja automatike në mbretëreshë</string>
   <string name="whenPremoving">Kur paracaktohet lëvizja</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Pretendo barazim ne perseritjen tre here te levizjeve automatikisht</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Kur koha e mbetur &lt;30 sekonda</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Pretendo barazim ne perseritjen tre here te levizjeve automatikisht</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Kur koha e mbetur &lt;30 sekonda</string>
   <string name="moveConfirmation">Pohim i lëvizjeve</string>
   <string name="inCorrespondenceGames">Lojëkëmbimet</string>
   <string name="correspondenceAndUnlimited">Korrespondencë dhe i pakufizuar</string>
