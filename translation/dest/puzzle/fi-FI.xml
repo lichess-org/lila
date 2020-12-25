@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Tehtävät</string>
-  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Suositeltu</string>
+  <string name="recommended">Suositeltu</string>
   <string name="phases">Vaiheet</string>
   <string name="motifs">Motiivit</string>
   <string name="advanced">Edistyneille</string>
@@ -26,7 +26,7 @@
   <string name="notTheMove">Tuo siirto se ei ole!</string>
   <string name="trySomethingElse">Kokeile jotain muuta.</string>
   <string name="ratingX">Vahvuusluku: %s</string>
-  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">piilotettu</string>
+  <string name="hidden">piilotettu</string>
   <plurals name="playedXTimes">
     <item quantity="one">Pelattu %s kerran</item>
     <item quantity="other">Pelattu %s kertaa</item>
