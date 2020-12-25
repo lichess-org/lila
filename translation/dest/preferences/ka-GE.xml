@@ -6,14 +6,14 @@
   <string name="materialDifference">ფიგურათა სხვაობა</string>
   <string name="boardHighlights">აღმნიშვნელები დაფაზე (უკანასკნელი სვლა და ქიში)</string>
   <string name="pieceDestinations">ფიგურათა დასაშვები სვლები</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">დაფის კოორდინატები</string>
+  <string name="boardCoordinates">დაფის კოორდინატები</string>
   <string name="moveListWhilePlaying">სვლათა სია</string>
   <string name="chessPieceSymbol">ფიგურის სიმბოლო</string>
   <string name="pgnLetter">ასო-ბგერა (K, Q, R, B, N)</string>
   <string name="blindfoldChess">ბრმად თამაში (უხილავი ფიგურები)</string>
   <string name="chessClock">საათი</string>
   <string name="tenthsOfSeconds">წამის მეათედები</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">როდესაც დარჩენილი დრო ნაკლებია 10 წამზე</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">როდესაც დარჩენილი დრო ნაკლებია 10 წამზე</string>
   <string name="horizontalGreenProgressBars">პროგრესის ჰორიზონტალური მწვანე ინდიკატორი</string>
   <string name="soundWhenTimeGetsCritical">ცაიტნოტის ხმოვანი ინდიკატორი</string>
   <string name="giveMoreTime">მომეცი მეტი დრო</string>
@@ -26,8 +26,8 @@
   <string name="inCasualGamesOnly">მხოლოდ არასარეიტინგო თამაშებისთვის</string>
   <string name="promoteToQueenAutomatically">დედოფლის გაყვანა ავტომატურად</string>
   <string name="whenPremoving">წინასწარი სვლისას</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">ავტომატურად მოიპოვეთ ყაიმი სვლის სამჯერ გამეორებაზე</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">როდესაც დარჩენილი დრო 30 წამზე ნაკლებია</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">ავტომატურად მოიპოვეთ ყაიმი სვლის სამჯერ გამეორებაზე</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">როდესაც დარჩენილი დრო 30 წამზე ნაკლებია</string>
   <string name="moveConfirmation">სვლის დადასტურება</string>
   <string name="inCorrespondenceGames">საკორესპონდენტო თამაშები</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">როქის მეთოდი</string>
