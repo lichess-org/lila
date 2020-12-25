@@ -16,7 +16,7 @@
   <string name="capturingDefender">Cattura il difensore</string>
   <string name="capturingDefenderDescription">Rimuovi un pezzo critico alla difesa di un altro pezzo, permettendo al pezzo ora indifeso di essere catturato con una mossa successiva.</string>
   <string name="crushing">Schiacciante</string>
-  <string name="equality">Equità</string>
+  <string name="equality">Eguaglianza</string>
   <string name="kingsideAttack">Attacco sul lato di re</string>
   <string name="kingsideAttackDescription">Un attacco al re avversario, dopo che ha arroccato sul lato di re.</string>
   <string name="defensiveMove">Mossa difensiva</string>
@@ -72,6 +72,17 @@
   <string name="queenRookEndgame">Finale di donna e torre</string>
   <string name="queenRookEndgameDescription">Un finale con sole donne, torri e pedoni.</string>
   <string name="queensideAttack">Attacco sul lato di donna</string>
+  <string name="quietMove">Mossa calma</string>
+  <string name="rookEndgame">Finale di torre</string>
+  <string name="rookEndgameDescription">Un finale con sole torri e pedoni.</string>
+  <string name="sacrifice">Sacrificio</string>
+  <string name="sacrificeDescription">Una tattica che include la perdita di materiale nel breve termine per guadagnare un vantaggio dopo una serie di mosse forzate.</string>
+  <string name="short">Problema corto</string>
+  <string name="shortDescription">Due mosse per vincere.</string>
+  <string name="skewer">Infilata</string>
+  <string name="skewerDescription">Un tema che consiste in un pezzo di grande valore che viene attaccato e che si sposta, pemettendo ad un pezzo dietro di esso di essere catturato o attaccato. Il contrario di un\'inchiodatura.</string>
+  <string name="smotheredMate">Matto affogato</string>
+  <string name="smotheredMateDescription">Uno scacco matto eseguito con un cavallo, in cui il re sotto scacco è incapace di spostarsi poiché circondato (\"affogato\") dai suoi stessi pezzi.</string>
   <string name="trappedPiece">Pezzo intrappolato</string>
   <string name="trappedPieceDescription">Un pezzo incapace di evitare la cattura a causa delle sue mosse limitate.</string>
   <string name="underPromotion">Sottopromozione</string>
