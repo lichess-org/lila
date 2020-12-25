@@ -19,6 +19,7 @@
   <string name="equality">Eguaglianza</string>
   <string name="kingsideAttack">Attacco sul lato di re</string>
   <string name="kingsideAttackDescription">Un attacco al re avversario, dopo che ha arroccato sul lato di re.</string>
+  <string name="clearance">Sgombero</string>
   <string name="clearanceDescription">Una mossa, spesso con tempo, che libera una casa, una colonna, una traversa o una diagonale per una successiva idea tattica.</string>
   <string name="defensiveMove">Mossa difensiva</string>
   <string name="defensiveMoveDescription">Una mossa precisa o una sequenza di mosse necessarie ad evitare perdite di materiale o di altri vantaggi.</string>
