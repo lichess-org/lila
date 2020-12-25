@@ -47,7 +47,6 @@ object Event {
         state: State,
         clock: Option[ClockEvent],
         possibleMoves: Map[Pos, List[Pos]],
-        possibleOppositeMoves: Map[Pos, List[Pos]],
         possibleDrops: Option[List[Pos]],
         crazyData: Option[Crazyhouse.Data]
     )(extra: JsObject) = {
@@ -56,7 +55,6 @@ object Event {
           "fen"   -> fen,
           "ply"   -> state.turns,
           "dests" -> PossibleMoves.oldJson(possibleMoves),
-          "odests" -> PossibleMoves.oldJson(possibleOppositeMoves)
         )
         .add("clock" -> clock.map(_.data))
         .add("status" -> state.status)
@@ -85,13 +83,12 @@ object Event {
       state: State,
       clock: Option[ClockEvent],
       possibleMoves: Map[Pos, List[Pos]],
-      possibleOppositeMoves: Map[Pos, List[Pos]],
       possibleDrops: Option[List[Pos]],
       crazyData: Option[Crazyhouse.Data]
   ) extends Event {
     def typ = "move"
     def data =
-      MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleOppositeMoves, possibleDrops, crazyData) {
+      MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData) {
         Json
           .obj(
             "uci" -> s"${orig.key}${dest.key}",
@@ -128,7 +125,6 @@ object Event {
         state = state,
         clock = clock,
         possibleMoves = situation.destinations,
-        possibleOppositeMoves = (!situation).destinations,
         possibleDrops = situation.drops,
         crazyData = crazyData
       )
@@ -144,13 +140,12 @@ object Event {
       state: State,
       clock: Option[ClockEvent],
       possibleMoves: Map[Pos, List[Pos]],
-      possibleOppositeMoves: Map[Pos, List[Pos]],
       crazyData: Option[Crazyhouse.Data],
       possibleDrops: Option[List[Pos]]
   ) extends Event {
     def typ = "drop"
     def data =
-      MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleOppositeMoves, possibleDrops, crazyData) {
+      MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData) {
         Json.obj(
           "role" -> role.name,
           "uci"  -> s"${role.pgn}@${pos.key}",
@@ -177,7 +172,6 @@ object Event {
         state = state,
         clock = clock,
         possibleMoves = situation.destinations,
-        possibleOppositeMoves = (!situation).destinations,
         possibleDrops = situation.drops,
         crazyData = crazyData
       )

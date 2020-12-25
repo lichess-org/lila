@@ -125,7 +125,6 @@ final class JsonView(
           .add("moretimeable" -> moretimeable)
           .add("crazyhouse" -> pov.game.board.crazyData)
           .add("possibleMoves" -> possibleMoves(pov, apiVersion))
-          .add("possibleOppositeMoves" -> possibleOppositeMoves(pov, apiVersion))
           .add("possibleDrops" -> possibleDrops(pov))
           .add("expiration" -> game.expirable.option {
             Json.obj(
@@ -275,10 +274,6 @@ final class JsonView(
   private def possibleMoves(pov: Pov, apiVersion: ApiVersion): Option[JsValue] =
     (pov.game playableBy pov.player) option
       lila.game.Event.PossibleMoves.json(pov.game.situation.destinations, apiVersion)
-
-  private def possibleOppositeMoves(pov: Pov, apiVersion: ApiVersion): Option[JsValue] =
-    (pov.game playableBy pov.player) option
-      lila.game.Event.PossibleMoves.json((!pov.game.situation).destinations, apiVersion)
 
   private def possibleDrops(pov: Pov): Option[JsValue] =
     (pov.game playableBy pov.player) ?? {
