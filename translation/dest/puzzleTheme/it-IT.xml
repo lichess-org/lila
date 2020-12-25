@@ -9,7 +9,7 @@
   <string name="attractionDescription">Un cambio o un sacrificio che incoraggia o forza un pezzo avversario su una casa che consente una successiva tattica.</string>
   <string name="backRankMate">Matto del corridoio</string>
   <string name="backRankMateDescription">Dai matto al re sulla traversa di partenza, mentre è intrappolato dai suoi stessi pezzi.</string>
-  <string name="bishopEndgame">Finale d\'alfiere</string>
+  <string name="bishopEndgame">Finali d\'alfiere</string>
   <string name="bishopEndgameDescription">Un finale con soli alfieri e pedoni.</string>
   <string name="castling">Arrocco</string>
   <string name="castlingDescription">Porta il re al sicuro, e sviluppa la torre per attaccare.</string>
@@ -22,4 +22,15 @@
   <string name="defensiveMove">Mossa difensiva</string>
   <string name="defensiveMoveDescription">Una mossa precisa o una sequenza di mosse necessarie ad evitare perdite di materiale o di altri vantaggi.</string>
   <string name="discoveredAttack">Attacco di scoperta</string>
+  <string name="discoveredAttackDescription">Muovi un pezzo che precedentemente bloccava un attacco di un pezzo a lungo raggio, come ad esempio un cavallo che si sposta da una casa in fronte ad una torre.</string>
+  <string name="doubleCheck">Doppio scacco</string>
+  <string name="doubleCheckDescription">Dare scacco con due pezzi in una volta, come risultato di un attacco di scoperta in cui sia il pezzo appena mossa che il pezzo scoperto attaccano il re avversario.</string>
+  <string name="endgame">Finale</string>
+  <string name="endgameDescription">Una tattica durante l\'ultima fase della partita.</string>
+  <string name="enPassantDescription">Una tattica che include la regola dell\'en passant, in cui un pedone può catturare un pedone avversario che l\'ha superato usando la propria mossa iniziale di due caselle.</string>
+  <string name="exposedKing">Re esposto</string>
+  <string name="exposedKingDescription">Una tattica che include un re con pochi difensori vicini, spesso risultando in un matto.</string>
+  <string name="fork">Forchetta</string>
+  <string name="forkDescription">Una mossa in cui il pezzo appena mosso attacca due pezzi avversari contemporaneamente.</string>
+  <string name="hangingPiece">Pezzo in presa</string>
 </resources>
