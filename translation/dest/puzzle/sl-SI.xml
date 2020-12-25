@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Šahovski problemi</string>
-  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Priporočeno</string>
+  <string name="recommended">Priporočeno</string>
   <string name="phases">Faze</string>
   <string name="motifs">Motivi</string>
   <string name="advanced">Napredno</string>
@@ -13,4 +13,5 @@
   <string name="yourPuzzleRatingX">Tvoj rating pri reševanju šahovskih problemov: %s</string>
   <string name="findTheBestMoveForWhite">Poišči najboljšo potezo za belega.</string>
   <string name="findTheBestMoveForBlack">Poišči najboljšo potezo za črnega.</string>
+  <string name="jumpToNextPuzzleImmediately">Takoj skočite k naslednji uganki</string>
 </resources>
