@@ -21,7 +21,7 @@
   <string name="equality">Tasoitus</string>
   <string name="equalityDescription">Nouse häviöasemasta takaisin peliin ja saavuta tasapeli tai tasapainoinen asema. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Hyökkäys kuningassivustalla</string>
-  <string name="kingsideAttackDescription">Hyökkää vastustajan kuninkaan kimppuun tämän linnoittauduttua kuningassivustalle.</string>
+  <string name="kingsideAttackDescription">Hyökkää vastustajan kuninkaan kimppuun tämän linnoituttua kuningassivustalle.</string>
   <string name="clearance">Vapautus</string>
   <string name="clearanceDescription">Usein tempolla tehtävä siirto, joka vapauttaa ruudun, linjan tai diagonaalin seuraavaa taktista ideaa varten.</string>
   <string name="defensiveMove">Puolustussiirto</string>
@@ -48,6 +48,7 @@
   <string name="knightEndgame">Ratsuloppupeli</string>
   <string name="knightEndgameDescription">Loppupeli, jossa on vain ratsuja ja sotilaita.</string>
   <string name="long">Pitkä tehtävä</string>
+  <string name="longDescription">Voittoon tarvitaan kolme siirtoa.</string>
   <string name="mate">Matti</string>
   <string name="mateDescription">Voita peli tyylillä.</string>
   <string name="mateIn1">1 siirron matti</string>
@@ -67,12 +68,19 @@
   <string name="opening">Avaus</string>
   <string name="openingDescription">Taktiikka pelin ensimmäisessä vaiheessa.</string>
   <string name="overloading">Ylikuormitus</string>
+  <string name="overloadingDescription">Yhdellä nappulalla on useita eri tehtäviä, se voi esimerkiksi suojella kahta nappulaa. Lyötyäsi toisen näistä nappuloista suojeleva nappula siirtyy, aivan kuten harhautuksessa, ja tilaisuutesi on tullut.</string>
   <string name="pawnEndgame">Sotilasloppupeli</string>
   <string name="pawnEndgameDescription">Loppupeli, jossa on vain sotilaita.</string>
   <string name="pin">Kiinnitys</string>
+  <string name="pinDescription">Taktiikka, jossa kiinnitetty nappula ei pysty liikkumaan paljastamatta arvokkaampaan nappulaan kohdistuvaa hyökkäystä.</string>
   <string name="promotion">Korotus</string>
+  <string name="promotionDescription">Taktiikassa keskeistä on sotilas, joka korottuu tai uhkaa korottua.</string>
   <string name="queenEndgame">Daamiloppupeli</string>
+  <string name="queenEndgameDescription">Loppupeli, jossa on vain daamit ja sotilaita.</string>
+  <string name="queenRookEndgame">Daami- ja torniloppupeli</string>
+  <string name="queenRookEndgameDescription">Loppupeli, jossa on vain daameja, torneja ja sotilaita.</string>
   <string name="queensideAttack">Hyökkäys daamisivustalla</string>
+  <string name="queensideAttackDescription">Hyökkää vastustajan kuninkaan kimppuun tämän linnoituttua daamisivustalle.</string>
   <string name="quietMove">Hiljainen siirto</string>
   <string name="rookEndgame">Torniloppupeli</string>
   <string name="rookEndgameDescription">Loppupeli, jossa on vain torneja ja sotilaita.</string>
