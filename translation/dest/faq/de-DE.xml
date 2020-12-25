@@ -63,7 +63,7 @@ Dies wird in Abschnitt 3.7 der %2$s beschrieben.
 Siehe %3$s für etwas Übung mit dieser Art von Zug.</string>
   <string name="goodIntroduction">guten ersten Eindruck</string>
   <string name="officialRulesPDF">offiziellen Regeln (PDF)</string>
-  <string name="lichessTraining">Lichess Training</string>
+  <string name="lichessTraining">Lichess-Training</string>
   <string name="threefoldRepetition">Dreifache Stellungswiederholung</string>
   <string name="threefoldRepetitionExplanation">Wenn eine Stellung dreimal auftritt, können Spieler ein Remis durch %1$s reklamieren. Lichess implementiert die offiziellen FIDE-Regeln, wie in Artikel 9.2 (d) des %2$s beschrieben.</string>
   <string name="threefoldRepetitionLowerCase">dreifache Stellungswiederholung</string>
