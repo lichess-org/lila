@@ -6,7 +6,7 @@
   <string name="materialDifference">Materiálny rozdiel</string>
   <string name="boardHighlights">Zvýraznenie šachovnice (posledný ťah a šach)</string>
   <string name="pieceDestinations">Zobrazovať dostupné polia  (možné ťahy a predťahy)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Šachovnicové súradnice (A-H, 1-8)</string>
+  <string name="boardCoordinates">Šachovnicové súradnice (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Zobraziť šachovú notáciu počas partie</string>
   <string name="pgnPieceNotation">Označenie figúr v notácii</string>
   <string name="chessPieceSymbol">Symboly šachových figúr</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Šach naslepo (neviditeľné figúrky)</string>
   <string name="chessClock">Šachové hodiny</string>
   <string name="tenthsOfSeconds">Desatiny sekundy</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Keď ostáva &lt; 10 sekúnd</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Keď ostáva &lt; 10 sekúnd</string>
   <string name="horizontalGreenProgressBars">Vodorovné zelené ukazovatele priebehu</string>
   <string name="soundWhenTimeGetsCritical">Zapnúť zvukové varovanie v prípade kritického množstvo času</string>
   <string name="giveMoreTime">Pridať čas</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">Pri priateľských partiách</string>
   <string name="promoteToQueenAutomatically">Automaticky premeniť pešiaka na dámu</string>
   <string name="whenPremoving">Pri predťahu</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Automaticky vyžiadať remízu pri treťom opakovaní pozície</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Keď ostáva &lt; 30 sekúnd</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticky vyžiadať remízu pri treťom opakovaní pozície</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Keď ostáva &lt; 30 sekúnd</string>
   <string name="moveConfirmation">Potvrdenie ťahu</string>
   <string name="inCorrespondenceGames">Korešpondenčná partia</string>
   <string name="correspondenceAndUnlimited">Korešpondenčný a nekonečný</string>
