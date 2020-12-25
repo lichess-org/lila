@@ -84,7 +84,7 @@ export function config(ctrl: Controller): MaybeVNode {
         }),
         h('label', { attrs: { 'for': id } })
       ]),
-      h('label', { attrs: { 'for': id } }, 'Jump to next puzzle immediately')
+      h('label', { attrs: { 'for': id } }, ctrl.trans.noarg('jumpToNextPuzzleImmediately'))
     ]),
     ctrl.difficulty ? h('form.puzzle__side__config__difficulty', {
       attrs: {

@@ -43,6 +43,8 @@ object bits {
       trans.viewTheSolution,
       trans.puzzle.puzzleSuccess,
       trans.puzzle.puzzleComplete,
+      trans.puzzle.hidden,
+      trans.puzzle.jumpToNextPuzzleImmediately,
       trans.puzzle.fromGameLink,
       trans.boardEditor,
       trans.continueFromHere,

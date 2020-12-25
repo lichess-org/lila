@@ -1510,6 +1510,8 @@ val `castleByMovingTheKingTwoSquaresOrOntoTheRook` = new I18nKey("preferences:ca
 val `castleByMovingTwoSquares` = new I18nKey("preferences:castleByMovingTwoSquares")
 val `castleByMovingOntoTheRook` = new I18nKey("preferences:castleByMovingOntoTheRook")
 val `inputMovesWithTheKeyboard` = new I18nKey("preferences:inputMovesWithTheKeyboard")
+val `snapArrowsToValidMoves` = new I18nKey("preferences:snapArrowsToValidMoves")
+val `sayGgWpAfterLosingOrDrawing` = new I18nKey("preferences:sayGgWpAfterLosingOrDrawing")
 val `yourPreferencesHaveBeenSaved` = new I18nKey("preferences:yourPreferencesHaveBeenSaved")
 }
 
@@ -1813,6 +1815,7 @@ val `harder` = new I18nKey("puzzle:harder")
 val `hardest` = new I18nKey("puzzle:hardest")
 val `example` = new I18nKey("puzzle:example")
 val `addAnotherTheme` = new I18nKey("puzzle:addAnotherTheme")
+val `jumpToNextPuzzleImmediately` = new I18nKey("puzzle:jumpToNextPuzzleImmediately")
 val `playedXTimes` = new I18nKey("puzzle:playedXTimes")
 }
 

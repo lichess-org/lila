@@ -41,4 +41,5 @@
   <string name="hardest">Hardest</string>
   <string name="example">Example</string>
   <string name="addAnotherTheme">Add another theme</string>
+  <string name="jumpToNextPuzzleImmediately">Jump to next puzzle immediately</string>
 </resources>
