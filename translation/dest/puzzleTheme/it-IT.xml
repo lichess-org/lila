@@ -44,4 +44,15 @@
   <string name="longDescription">Tre mosse per vincere.</string>
   <string name="mate">Matto</string>
   <string name="trappedPiece">Pezzo intrappolato</string>
+  <string name="trappedPieceDescription">Un pezzo incapace di evitare la cattura a causa delle sue mosse limitate.</string>
+  <string name="underPromotion">Sottopromozione</string>
+  <string name="underPromotionDescription">Promozione a cavallo, alfiere o torre.</string>
+  <string name="veryLong">Problema molto lungo</string>
+  <string name="veryLongDescription">Quattro o più mosse per vincere.</string>
+  <string name="xRayAttack">Attacco a raggi X</string>
+  <string name="xRayAttackDescription">Un pezzo che attacca o difende una casa attraverso un pezzo nemico.</string>
+  <string name="zugzwang">Zugzwang</string>
+  <string name="zugzwangDescription">L\'avversario è limitato nella sua scelta della mossa, e tutte le mosse possibili peggiorano la sua posizione.</string>
+  <string name="healthyMix">Mix salutare</string>
+  <string name="healthyMixDescription">Un po\' di tutto. Non sai cosa aspettarti, quindi si rimane pronti per tutto! Proprio come nelle partite vere.</string>
 </resources>
