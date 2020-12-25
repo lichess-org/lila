@@ -6,7 +6,7 @@
   <string name="materialDifference">Diforc\'hioù a-fet dafar</string>
   <string name="boardHighlights">Gouleier evit sikour war an dablez (fiñvadenn ziwezhañ ha bec\'h d\'ar roue)</string>
   <string name="pieceDestinations">Karrezennoù degemer (fiñvadennoù ha rak-fiñvadennoù gwiriek)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Daveennoù an dablez (A-H, 1-8)</string>
+  <string name="boardCoordinates">Daveennoù an dablez (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Roll ar fiñvadennoù e-pad ar c\'hrogad</string>
   <string name="pgnPieceNotation">Notenniñ ar fiñvadennoù</string>
   <string name="chessPieceSymbol">Arouez ar pezh echedoù</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Echedoù dall (pezhioù diwelus)</string>
   <string name="chessClock">Horolaj echedoù</string>
   <string name="tenthsOfSeconds">Dekvedennoù an eilennoù</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Pa chom nebeutoc\'h evit &lt; 10 eilenn</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Pa chom nebeutoc\'h evit &lt; 10 eilenn</string>
   <string name="horizontalGreenProgressBars">Barrennoù dibunañ gwer a-blaen</string>
   <string name="soundWhenTimeGetsCritical">Trouz pa ne chom ket kalz amzer</string>
   <string name="giveMoreTime">Reiñ muioc\'h a amzer</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">E krogadoù a vignoniezh hepken</string>
   <string name="promoteToQueenAutomatically">Treiñ da rouanez en un doare emgefreek</string>
   <string name="whenPremoving">E-pad ar rak-fiñvadenn</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Arc\'hañ bezañ rampo goude fiñvadennoù heñvel-poch en un doare emgefreek</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Pa chom nebeutoc\'h evit &lt; 30 eilenn</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Arc\'hañ bezañ rampo goude fiñvadennoù heñvel-poch en un doare emgefreek</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Pa chom nebeutoc\'h evit &lt; 30 eilenn</string>
   <string name="moveConfirmation">Kadarnaat ar fiñvadenn</string>
   <string name="inCorrespondenceGames">Krogadoù a-bell</string>
   <string name="correspondenceAndUnlimited">A-bell ha diharz</string>
