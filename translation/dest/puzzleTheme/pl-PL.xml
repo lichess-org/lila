@@ -8,6 +8,8 @@
   <string name="castling">Roszada</string>
   <string name="capturingDefender">Zabicie obrońcy</string>
   <string name="kingsideAttack">Atak skrzydłem królewskim</string>
+  <string name="defensiveMove">Ruch obronny</string>
+  <string name="discoveredAttack">Atak z odsłony</string>
   <string name="doubleCheck">Podwójny szach</string>
   <string name="endgame">Końcówka</string>
   <string name="endgameDescription">Taktyka w ostatniej fazie gry.</string>
