@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">題目</string>
+  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">推薦</string>
+  <string name="lengths">長度</string>
+  <string name="keepGoing">加油!</string>
+  <string name="puzzleSuccess">成功！</string>
+  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">隱藏</string>
+  <plurals name="playedXTimes">
+    <item quantity="other">已被嘗試%s次</item>
+  </plurals>
+  <string name="fromGameLink">來自對局 %s</string>
+  <string name="continueTraining">繼續訓練</string>
+  <string name="difficultyLevel">困難度</string>
+  <string name="normal">一般</string>
+  <string name="easier">簡單</string>
+  <string name="easiest">超簡單</string>
+  <string name="harder">困難</string>
+  <string name="hardest">超困難</string>
+  <string name="example">範例</string>
+</resources>
