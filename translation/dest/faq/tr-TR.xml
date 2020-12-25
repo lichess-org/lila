@@ -8,7 +8,7 @@
   <string name="hearItPronouncedBySpecialist">Telaffuzunu bir uzmandan dinleyin.</string>
   <string name="whyLiveLightLibre">Canlı, çünkü oyunlar gerçek zamanlı olarak 24/7 oynanır ve izlenir; bunun nedeni Lichess açık kaynak kodludur ve diğer web sitelerini rahatsız eden önemsiz sıkıntılar tarafından engellenmemesi içindir.</string>
   <string name="whyIsLilaCalledLila">Benzer şekilde, Lichess için kaynak kodu, %1$s, li[sca satranç] la anlamına gelir, Lichess, %2$s gibi sezgisel bir programlama dili ile yazılmıştır.</string>
-  <string name="howCanIContributeToLichess">Lichess\'in kaynak kodlarına nasıl katkıda bulunabilirim?</string>
+  <string name="howCanIContributeToLichess">Lichess\'e nasıl katkıda bulunabilirim?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess, sizlerin bağışlarınızla ve katkılarınızla ayakta kalmaktadır.</string>
   <string name="findMoreAndSeeHowHelp">%1$s olmakla alakalı daha fazla şey bulabilirsiniz. (%2$s dahil) Lichess\'e gerek zamanınızla gerek yeteneklerinizle destek olmanın %3$s vardır.</string>
   <string name="beingAPatron">patron</string>
