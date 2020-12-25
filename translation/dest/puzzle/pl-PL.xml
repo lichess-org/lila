@@ -23,6 +23,7 @@
   <string name="keepGoing">Kontynuuj…</string>
   <string name="puzzleSuccess">Sukces!</string>
   <string name="puzzleComplete">Zadanie zakończone!</string>
+  <string name="notTheMove">To nie jest właściwy ruch!</string>
   <string name="trySomethingElse">Spróbuj czegoś innego.</string>
   <string name="ratingX">Ranking: %s</string>
   <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">ukryty</string>
@@ -41,4 +42,5 @@
   <string name="harder">Trudny</string>
   <string name="hardest">Najtrudniejszy</string>
   <string name="example">Przykład</string>
+  <string name="addAnotherTheme">Dodaj inny motyw</string>
 </resources>
