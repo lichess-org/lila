@@ -84,7 +84,7 @@ final private class MsgSecurity(
               "autoFlag"
             )
           case Spam =>
-            logger.warn(s"PM spam from ${contacts.orig.id}: $text")
+            logger.warn(s"PM spam from ${contacts.orig.id} to ${contacts.dest.id}: $text")
           case _ =>
         }
     }
