@@ -5,6 +5,7 @@
   <string name="advantageDescription">Wykorzystaj szansę na uzyskanie decydującej przewagi. (200cp ≤ eval ≤ 600cp)</string>
   <string name="attackingF2F7">Atak na f2 lub f7</string>
   <string name="attackingF2F7Description">Atak koncentrujący się na pionach f2 lub f7, na przykład taki jak w szewskim macie.</string>
+  <string name="backRankMate">Mat na ostatniej linii</string>
   <string name="bishopEndgame">Końcówka gońcowa</string>
   <string name="bishopEndgameDescription">Gra końcowa wyłącznie z gońcami i pionami.</string>
   <string name="castling">Roszada</string>
@@ -12,6 +13,7 @@
   <string name="capturingDefender">Zabicie obrońcy</string>
   <string name="kingsideAttack">Atak skrzydłem królewskim</string>
   <string name="defensiveMove">Ruch obronny</string>
+  <string name="deflection">Odciągnięcie</string>
   <string name="discoveredAttack">Atak z odsłony</string>
   <string name="doubleCheck">Podwójny szach</string>
   <string name="endgame">Końcówka</string>
@@ -20,11 +22,13 @@
   <string name="fork">Widełki</string>
   <string name="forkDescription">Ruch w którym poruszona bierka atakuje jednocześnie dwie bierki przeciwnika.</string>
   <string name="hangingPiece">Wisząca figura</string>
+  <string name="intermezzo">Wtrącony ruch</string>
   <string name="knightEndgame">Końcówka skoczkowa</string>
   <string name="knightEndgameDescription">Gra końcowa wyłącznie ze skoczkami i pionami.</string>
   <string name="long">Długie zadanie</string>
   <string name="longDescription">Trzy ruchy by wygrać.</string>
   <string name="mate">Mat</string>
+  <string name="mateDescription">Wygraj partię ze stylem.</string>
   <string name="mateIn1">Mat w 1 ruchu</string>
   <string name="mateIn1Description">Daj mata w jednym posunięciu.</string>
   <string name="mateIn2">Mat w 2 ruchach</string>
@@ -50,9 +54,12 @@
   <string name="queenRookEndgame">Końcówka wieżowo-hetmańska</string>
   <string name="queenRookEndgameDescription">Gra końcowa wyłącznie z wieżami, hetmanami i pionami.</string>
   <string name="queensideAttack">Atak skrzydłem hetmańskim</string>
+  <string name="quietMove">Cichy ruch</string>
+  <string name="quietMoveDescription">Ruch który nie zbija ani nie atakuje bezpośrednio ale przygotowuje nieunikalną groźbę.</string>
   <string name="rookEndgame">Końcówka wieżowa</string>
   <string name="rookEndgameDescription">Gra końcowa wyłącznie z wieżami i pionami.</string>
   <string name="sacrifice">Poświęcenie</string>
+  <string name="sacrificeDescription">Taktyka wymagająca poświęcenia jakości w celu odzyskania jej z nawiązką po forsownej sekwencji ruchów.</string>
   <string name="short">Krótkie zadanie</string>
   <string name="shortDescription">Dwa ruchy by wygrać.</string>
   <string name="smotheredMate">Mat Beniowskiego</string>
