@@ -2,6 +2,7 @@
 <resources>
   <string name="advancedPawn">Zaawansowany pion</string>
   <string name="advantage">Przewaga</string>
+  <string name="advantageDescription">Wykorzystaj szansę na uzyskanie decydującej przewagi. (200cp ≤ eval ≤ 600cp)</string>
   <string name="attackingF2F7">Atak na f2 lub f7</string>
   <string name="bishopEndgame">Końcówka gońcowa</string>
   <string name="bishopEndgameDescription">Gra końcowa wyłącznie z gońcami i pionami.</string>
@@ -53,6 +54,8 @@
   <string name="sacrifice">Poświęcenie</string>
   <string name="short">Krótkie zadanie</string>
   <string name="shortDescription">Dwa ruchy by wygrać.</string>
+  <string name="smotheredMate">Mat Beniowskiego</string>
+  <string name="smotheredMateDescription">Mat dawany skoczkiem w którym matowany król nie może się poruszać ponieważ jest otoczony (zduszony) własnymi bierkami.</string>
   <string name="trappedPiece">Uwięziona figura</string>
   <string name="underPromotion">Słaba promocja</string>
   <string name="underPromotionDescription">Promocja na skoczka, gońca lub wieżę.</string>
