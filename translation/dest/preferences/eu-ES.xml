@@ -6,7 +6,7 @@
   <string name="materialDifference">Material desoreka</string>
   <string name="boardHighlights">Taulan markak erakutsi (azken jokaldia eta xakea)</string>
   <string name="pieceDestinations">Piezen norakoak (jokaldi zuzenak eta aurre-jokaldiak)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Taularen koordinatutak (A-H, 1-8)</string>
+  <string name="boardCoordinates">Taularen koordinatutak (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Jokaldi-zerrenda partidan zehar</string>
   <string name="pgnPieceNotation">Jokaldien idazketa</string>
   <string name="chessPieceSymbol">Xake piezen ikurra</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Xakea itsu-itsuan (piezak ez dira ikusiko)</string>
   <string name="chessClock">Xake-erlojua</string>
   <string name="tenthsOfSeconds">Segundo-hamarrenak erakutsi</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Denbora 10 segundotik behera dagoenean</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Denbora 10 segundotik behera dagoenean</string>
   <string name="horizontalGreenProgressBars">Aurrerabide-barra berdea horizontalki</string>
   <string name="soundWhenTimeGetsCritical">Soinua jo denbora bukatzear dagoenean</string>
   <string name="giveMoreTime">Denbora gehiago eman</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">Puntu-aldaketarik gabeko partidetan bakarrik</string>
   <string name="promoteToQueenAutomatically">Dama automatikoki sustatzea</string>
   <string name="whenPremoving">Aldez aurreko jokaldia egiten denean</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Posizioa hirutan errepikatzen denean berdinketa automatikoki eskatu</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">30 segundo baino gutxiago geratzen denean</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Posizioa hirutan errepikatzen denean berdinketa automatikoki eskatu</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">30 segundo baino gutxiago geratzen denean</string>
   <string name="moveConfirmation">Jokaldia baieztatzea</string>
   <string name="inCorrespondenceGames">Posta bidezko partidak</string>
   <string name="correspondenceAndUnlimited">Posta-xakea,  denbora-eperik gabe</string>
