@@ -16,6 +16,7 @@
   <string name="endgameDescription">Taktyka w ostatniej fazie gry.</string>
   <string name="exposedKing">Odsłonięty król</string>
   <string name="fork">Widełki</string>
+  <string name="forkDescription">Ruch w którym poruszona bierka atakuje jednocześnie dwie bierki przeciwnika.</string>
   <string name="hangingPiece">Wisząca figura</string>
   <string name="knightEndgame">Końcówka skoczkowa</string>
   <string name="knightEndgameDescription">Gra końcowa wyłącznie ze skoczkami i pionami.</string>
@@ -53,7 +54,9 @@
   <string name="short">Krótkie zadanie</string>
   <string name="shortDescription">Dwa ruchy by wygrać.</string>
   <string name="trappedPiece">Uwięziona figura</string>
+  <string name="underPromotion">Słaba promocja</string>
   <string name="underPromotionDescription">Promocja na skoczka, gońca lub wieżę.</string>
   <string name="veryLong">Bardzo długie zadanie</string>
   <string name="veryLongDescription">Cztery ruchy lub więcej, aby wygrać.</string>
+  <string name="zugzwang">Przymus ruchu</string>
 </resources>
