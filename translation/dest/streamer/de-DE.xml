@@ -28,9 +28,9 @@
   <string name="pleaseFillIn">Bitte fülle deine Streamer-Informationen aus und lade ein Bild hoch.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Wenn du bereit bist als Streamer angezeigt zu werden, %s</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">fordere eine Überprüfung durch Moderatoren an</string>
-  <string name="anotherLanguage">Falls du in einer anderen Sprache als Englisch streamst, füge das richtige Sprach-Tag (%s) am Anfang deines Streamtitels ein, eingeschlossen von eckigen Klammern. Zum Beispiel \"[DE]\" für deutsch, \"[TR]\" für türkisch, \"[FR]\" für französisch usw.
-Das kannst du auf Twitch oder YouTube einstellen, nicht in den Lichess Streamereinstellungen. 
-Falls dein Stream in Englisch ist, musst du kein Sprach-Tag einfügen.</string>
+  <string name="anotherLanguage">Falls du in einer anderen Sprache als Englisch streamst, füge die richtige Sprachmarkierung (%s) am Anfang deines Streamtitels ein, eingeschlossen von eckigen Klammern. Zum Beispiel \"[DE]\" für deutsch, \"[TR]\" für türkisch, \"[FR]\" für französisch usw.
+Das kannst du auf Twitch oder YouTube einstellen, nicht in den Lichess-Streamereinstellungen. 
+Falls dein Stream in Englisch ist, bruchst du keine Sprachmarkierung einfügen.</string>
   <string name="twitchUsername">Dein Twitch-Benutzername oder die URL</string>
   <string name="optionalOrEmpty">Optional. Leer lassen falls nicht verfügbar</string>
   <string name="youtubeChannel">Deine YouTube-Kanal-ID oder die URL</string>
