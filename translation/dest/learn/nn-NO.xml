@@ -125,7 +125,7 @@ Det er inga grunn til omvandling.</string>
   <string name="theSpecialPawnMove">Det særeigne bondetrekket</string>
   <string name="enPassantIntro">Om motspelaren sin bonde hoppar to felt fram, kan du slå den ut som om den flytta eitt felt.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Svart flytta bonden to felt fram! Ta han \"en passant\" (i forbifarta).</string>
-  <string name="enPassantOnlyWorksImmediately">Det er berre lov å slå \"en passant\" i trekket rett etter at motspelaren flytta bonden to felt.</string>
+  <string name="enPassantOnlyWorksImmediately">En passant kan berre brukast i det første trekket etter at motspelaren flytta bonden to felt.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Det er berre lov å slå \"en passant\" om bonden din står på femteraden.</string>
   <string name="takeAllThePawnsEnPassant">Slå alle bøndene \"en passant\"!</string>
   <string name="enPassantComplete">Gratulerar! Du kan nå slå \"en passant\".</string>
