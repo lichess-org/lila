@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">추천</string>
+  <string name="recommended">추천</string>
   <string name="lengths">길이</string>
   <string name="puzzleOfTheDay">오늘의 퍼즐</string>
   <string name="puzzleSuccess">성공!</string>
