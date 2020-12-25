@@ -77,6 +77,8 @@
   <string name="promotionDescription">Taktika balstās uz bandinieka paaugstināšanu vai paaugstināšanas draudu.</string>
   <string name="queenEndgame">Dāmu beigu spēle</string>
   <string name="queenEndgameDescription">Beigu spēle, kurā iesaistīti tikai bandinieki un dāmas.</string>
+  <string name="queenRookEndgame">Dāmu un torņu beigu spēle</string>
+  <string name="queenRookEndgameDescription">Beigu spēle, kurā iesaistīti tikai bandinieki, torņi un dāmas.</string>
   <string name="queensideAttack">Dāmas puses uzbrukums</string>
   <string name="queensideAttackDescription">Uzbrukums pretinieka karalim pēc rokādes dāmas pusē.</string>
   <string name="quietMove">Klusais gājiens</string>
