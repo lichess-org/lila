@@ -58,5 +58,8 @@
   <string name="underPromotionDescription">Promocja na skoczka, gońca lub wieżę.</string>
   <string name="veryLong">Bardzo długie zadanie</string>
   <string name="veryLongDescription">Cztery ruchy lub więcej, aby wygrać.</string>
+  <string name="xRayAttackDescription">Figura atakuje albo broni pole przez wrogą figurę.</string>
   <string name="zugzwang">Przymus ruchu</string>
+  <string name="healthyMix">Wszystkiego po trochu</string>
+  <string name="healthyMixDescription">Trochę wszystkiego. Nie wiesz czego się spodziewać, więc jesteś gotowy na cokolwiek! Tak jak w prawdziwych grach.</string>
 </resources>
