@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Zaawansowany pion</string>
+  <string name="advancedPawnDescription">Zaawansowany pion lub pion grożący przemianą jest kluczowy w taktyce.</string>
   <string name="advantage">Przewaga</string>
   <string name="advantageDescription">Wykorzystaj szansę na uzyskanie decydującej przewagi. (200cp ≤ eval ≤ 600cp)</string>
   <string name="attackingF2F7">Atak na f2 lub f7</string>
   <string name="attackingF2F7Description">Atak koncentrujący się na pionach f2 lub f7, na przykład taki jak w szewskim macie.</string>
+  <string name="attraction">Przyciąganie</string>
+  <string name="attractionDescription">Wymiana bądź poświęcenie zachęcające lub zmuszające figurę przeciwnika do przejścia na pole na którym może być zaatakowane z wykorzystaniem kolejnych taktyk.</string>
   <string name="backRankMate">Mat na ostatniej linii</string>
+  <string name="backRankMateDescription">Zmatuj na ostatniej linii króla który jest uwięziony przez własne bierki.</string>
   <string name="bishopEndgame">Końcówka gońcowa</string>
   <string name="bishopEndgameDescription">Gra końcowa wyłącznie z gońcami i pionami.</string>
   <string name="castling">Roszada</string>
@@ -62,6 +66,8 @@
   <string name="sacrificeDescription">Taktyka wymagająca poświęcenia jakości w celu odzyskania jej z nawiązką po forsownej sekwencji ruchów.</string>
   <string name="short">Krótkie zadanie</string>
   <string name="shortDescription">Dwa ruchy by wygrać.</string>
+  <string name="skewer">Szpila</string>
+  <string name="skewerDescription">Motyw w którym bierka o wyższej wartości unikając ataku pozwala na zbicie bądź zaatakowanie bierki o niższej wartości. Czasami nazywany odwrotnym związaniem.</string>
   <string name="smotheredMate">Mat Beniowskiego</string>
   <string name="smotheredMateDescription">Mat dawany skoczkiem w którym matowany król nie może się poruszać ponieważ jest otoczony (zduszony) własnymi bierkami.</string>
   <string name="trappedPiece">Uwięziona figura</string>
@@ -69,8 +75,10 @@
   <string name="underPromotionDescription">Promocja na skoczka, gońca lub wieżę.</string>
   <string name="veryLong">Bardzo długie zadanie</string>
   <string name="veryLongDescription">Cztery ruchy lub więcej, aby wygrać.</string>
+  <string name="xRayAttack">Rentgen</string>
   <string name="xRayAttackDescription">Figura atakuje albo broni pole przez wrogą figurę.</string>
   <string name="zugzwang">Przymus ruchu</string>
+  <string name="zugzwangDescription">Przeciwnik ma ograniczone ruchy, a każdy z nich pogarsza jego pozycję.</string>
   <string name="healthyMix">Wszystkiego po trochu</string>
   <string name="healthyMixDescription">Trochę wszystkiego. Nie wiesz czego się spodziewać, więc jesteś gotowy na cokolwiek! Tak jak w prawdziwych grach.</string>
 </resources>
