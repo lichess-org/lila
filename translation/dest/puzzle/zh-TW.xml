@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">題目</string>
-  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">推薦</string>
+  <string name="recommended">推薦</string>
   <string name="phases">分類</string>
   <string name="advanced">高級</string>
   <string name="lengths">長度</string>
@@ -24,7 +24,7 @@
   <string name="notTheMove">不是這步!</string>
   <string name="trySomethingElse">試試其他的移動</string>
   <string name="ratingX">評級：%s</string>
-  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">隱藏</string>
+  <string name="hidden">隱藏</string>
   <plurals name="playedXTimes">
     <item quantity="other">已被嘗試%s次</item>
   </plurals>
