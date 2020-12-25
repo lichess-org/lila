@@ -82,11 +82,13 @@
   <string name="queensideAttack">Hyökkäys daamisivustalla</string>
   <string name="queensideAttackDescription">Hyökkää vastustajan kuninkaan kimppuun tämän linnoituttua daamisivustalle.</string>
   <string name="quietMove">Hiljainen siirto</string>
+  <string name="quietMoveDescription">Siirto, joka ei shakkaa eikä lyö, mutta pohjustaa tulevalle siirrolle väistämättömän uhan.</string>
   <string name="rookEndgame">Torniloppupeli</string>
   <string name="rookEndgameDescription">Loppupeli, jossa on vain torneja ja sotilaita.</string>
   <string name="sacrifice">Uhraus</string>
   <string name="sacrificeDescription">Taktiikka, jossa luovutaan väliaikaisesti materiaalista, jotta pakottavan sommitelman päätteeksi saavutetaan jälleen etu.</string>
   <string name="short">Lyhyt tehtävä</string>
+  <string name="shortDescription">Voittoon tarvitaan kaksi siirtoa.</string>
   <string name="skewer">Varrastus</string>
   <string name="smotheredMate">Pussimatti</string>
   <string name="underPromotion">Alikorotus</string>
