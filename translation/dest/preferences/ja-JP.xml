@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">キングを 2 マス動かす</string>
   <string name="castleByMovingOntoTheRook">キングをルークの上に動かす</string>
   <string name="inputMovesWithTheKeyboard">手をキーボードで入力</string>
+  <string name="snapArrowsToValidMoves">可能な手を矢印で表示</string>
+  <string name="sayGgWpAfterLosingOrDrawing">負けかドローの際に「Good game, well played」と言う</string>
   <string name="yourPreferencesHaveBeenSaved">設定が保存されました。</string>
 </resources>
