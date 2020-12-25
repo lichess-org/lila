@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="preferences">Tənzimləmələr</string>
+  <string name="preferences">Tərcihlər</string>
   <string name="gameDisplay">Oyun ekranı</string>
   <string name="pieceAnimation">Fiqur animasiyası</string>
   <string name="materialDifference">Material fərqi</string>
   <string name="boardHighlights">Taxta xəbərdarlıqları (son həmlə və şah çəkmə)</string>
   <string name="pieceDestinations">Daş istiqamətlərə (qaydalara uyğun hücumlar)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Taxta kordinatları</string>
+  <string name="boardCoordinates">Taxta kordinatları</string>
   <string name="moveListWhilePlaying">Oynarken siyahısı keçin</string>
   <string name="pgnPieceNotation">Gediş qeydi</string>
   <string name="chessPieceSymbol">Şaxmat fiqur simvolu</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Gözübağli şahmat (görünməz fiqurlar)</string>
   <string name="chessClock">Şahmat saat</string>
   <string name="tenthsOfSeconds">Son 10 saniyə</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Qalan zaman &lt; 10 saniyə</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Qalan zaman &lt; 10 saniyə</string>
   <string name="horizontalGreenProgressBars">Yaşıl üfüqi tərəqqi bar</string>
   <string name="soundWhenTimeGetsCritical">Zaman azaldığında səslə xəbərdarlıq</string>
   <string name="giveMoreTime">Vaxt ver</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">Yalnız adi oyunlarda</string>
   <string name="promoteToQueenAutomatically">Avtomatik Queen təşviq</string>
   <string name="whenPremoving">Ön hücum edərkən</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Üç dəfə təkrarlanan oyunda avtomatik heç-heçə təklif et</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Qalan zaman &lt; 30 saniyə</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Üç dəfə təkrarlanan oyunda avtomatik heç-heçə təklif et</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Qalan zaman &lt; 30 saniyə</string>
   <string name="moveConfirmation">Gediş təsdiqi</string>
   <string name="inCorrespondenceGames">Qiyabi oyunlar</string>
   <string name="correspondenceAndUnlimited">Müxbir və hədsiz</string>
