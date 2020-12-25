@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Pedone avanzato</string>
+  <string name="advancedPawnDescription">Un pedone che promuove o che minaccia di promuovere è chiave per la tattica.</string>
+  <string name="advantage">Vantaggio</string>
+  <string name="attackingF2F7">Attaccare f2 o f7</string>
+  <string name="attackingF2F7Description">Un attacco che si concentra sul pedone f2 o f7, come nell\'attacco Fegatello.</string>
+  <string name="attraction">Attrazione</string>
+  <string name="attractionDescription">Un cambio o un sacrificio che incoraggia o forza un pezzo avversario su una casa che consente una successiva tattica.</string>
+  <string name="backRankMate">Matto del corridoio</string>
+  <string name="backRankMateDescription">Dai matto al re sulla traversa di partenza, mentre è intrappolato dai suoi stessi pezzi.</string>
+  <string name="bishopEndgame">Finale d\'alfiere</string>
+  <string name="bishopEndgameDescription">Un finale con soli alfieri e pedoni.</string>
+  <string name="castling">Arrocco</string>
+  <string name="castlingDescription">Porta il re al sicuro, e sviluppa la torre per attaccare.</string>
+  <string name="capturingDefender">Cattura il difensore</string>
 </resources>
