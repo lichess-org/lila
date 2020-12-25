@@ -3,7 +3,9 @@
   <string name="faqAbbreviation">S.S.S</string>
   <string name="frequentlyAskedQuestions">Sıkça Sorulan Sorular</string>
   <string name="whyIsLichessCalledLichess">Lichess\'in adı neden Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess, \"live/light/libre\" kelimeleri ile satranç anlamına gelen \"chess\" kelimesinin birleşimiyle oluşturulmuştur. Şu şekilde telaffuz edilir: %1$s .</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess, \"live/light/libre\" kelimeleri ile satranç anlamına gelen \"chess\" kelimesinin birleşimiyle oluşturulmuştur.
+
+%1$s  diye okunur.</string>
   <string name="leechess">lii-çes</string>
   <string name="hearItPronouncedBySpecialist">Telaffuzunu bir uzmandan dinleyin.</string>
   <string name="whyLiveLightLibre">Lichess, oyunlar gerçek zamanlı olarak 7/24 oynanıp ve izlendiği için canlı (live); diğer sitelerde veba gibi hüküm süren para kazanma hırsından yoksun ve açık kaynak kodlu olduğu için hafif (light) ve bedavadır (libre).</string>
