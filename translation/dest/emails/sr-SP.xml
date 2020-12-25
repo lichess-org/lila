@@ -15,7 +15,7 @@
 Ово је ваш профил: %1$s. Можете га персонализовати овде: %2$s.
 
 Забавите се, и нека ваше фигуре увек нађу пут ка противничком краљу!</string>
-  <string name="logInToLichess">Уђи на lichess.org, %s</string>
+  <string name="logInToLichess">Улогуј се на lichess.org, %s</string>
   <string name="common_orPaste">(Кликање не ради? Пробајте то налепити у ваш прегледач!)</string>
   <string name="common_note">Ово је сервисна е-адреса везана за сајт који користите %s.</string>
   <string name="common_contact">Како би сте нас контактирали, молимо вас да користите %s.</string>
