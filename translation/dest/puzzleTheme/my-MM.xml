@@ -14,4 +14,6 @@
   <string name="mateIn3">သုံးလှည့်နှင့် အမိဖမ်းရန်</string>
   <string name="mateIn4">လေးလှည့်နှင့် အမိဖမ်းရန်</string>
   <string name="mateIn5">ငါးလှည့် သို့မဟုတ် အထက်နှင့် အမိဖမ်းရန်</string>
+  <string name="queenRookEndgame">ဘုရင်မနှင့် ရထား ပွဲသိမ်းပိုင်း</string>
+  <string name="queenRookEndgameDescription">ဘုရင်မ၊ ရထားနှင့် ပွန်းများသာ ကျန်သော ပွဲသိမ်းပိုင်း</string>
 </resources>
