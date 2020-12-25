@@ -6,6 +6,7 @@
   <string name="bishopEndgame">Końcówka gońcowa</string>
   <string name="bishopEndgameDescription">Gra końcowa wyłącznie z gońcami i pionami.</string>
   <string name="castling">Roszada</string>
+  <string name="castlingDescription">Zabezpiecz swojego króla i wprowadź do gry wieżę.</string>
   <string name="capturingDefender">Zabicie obrońcy</string>
   <string name="kingsideAttack">Atak skrzydłem królewskim</string>
   <string name="defensiveMove">Ruch obronny</string>
@@ -15,6 +16,7 @@
   <string name="endgameDescription">Taktyka w ostatniej fazie gry.</string>
   <string name="exposedKing">Odsłonięty król</string>
   <string name="fork">Widełki</string>
+  <string name="hangingPiece">Wisząca figura</string>
   <string name="knightEndgame">Końcówka skoczkowa</string>
   <string name="knightEndgameDescription">Gra końcowa wyłącznie ze skoczkami i pionami.</string>
   <string name="long">Długie zadanie</string>
@@ -28,7 +30,8 @@
   <string name="mateIn3Description">Daj mata w trzech posunięciach.</string>
   <string name="mateIn4">Mat w 4 ruchach</string>
   <string name="mateIn4Description">Daj mata w czterech posunięciach.</string>
-  <string name="mateIn5">Daj mata w pięciu lub więcej posunięciach.</string>
+  <string name="mateIn5">Mat w 5 lub więcej ruchach</string>
+  <string name="mateIn5Description">Naprawdę długa sekwencja matowa.</string>
   <string name="middlegame">Gra środkowa</string>
   <string name="middlegameDescription">Taktyka w drugiej fazie gry.</string>
   <string name="oneMoveDescription">Zadanie, którego długość to tylko jedno posunięcie.</string>
@@ -40,6 +43,9 @@
   <string name="pin">Związanie</string>
   <string name="promotion">Promocja</string>
   <string name="queenEndgame">Końcówka hetmańska</string>
+  <string name="queenEndgameDescription">Gra końcowa wyłącznie z hetmanami i pionami.</string>
+  <string name="queenRookEndgame">Końcówka wieżowo-hetmańska</string>
+  <string name="queenRookEndgameDescription">Gra końcowa wyłącznie z wieżami, hetmanami i pionami.</string>
   <string name="queensideAttack">Atak skrzydłem hetmańskim</string>
   <string name="rookEndgame">Końcówka wieżowa</string>
   <string name="rookEndgameDescription">Gra końcowa wyłącznie z wieżami i pionami.</string>
