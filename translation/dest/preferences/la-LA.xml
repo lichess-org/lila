@@ -6,7 +6,7 @@
   <string name="materialDifference">Discrimen materiei</string>
   <string name="boardHighlights">Designanda in tabula (motus ultimus et matus)</string>
   <string name="pieceDestinations">Destinationes scaccorum (motus et praemotus rati)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Coordinatae tabulae (A-H, 1-8)</string>
+  <string name="boardCoordinates">Coordinatae tabulae (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Index motuum</string>
   <string name="chessPieceSymbol">Signum scaccarii</string>
   <string name="pgnLetter">Ars (K, Q, R, B, N)</string>
@@ -14,7 +14,7 @@
   <string name="blindfoldChess">Scacci obligati (calculi cryptici)</string>
   <string name="chessClock">Horologium lantruncularium</string>
   <string name="tenthsOfSeconds">Decimas secundarum</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Dum tempus reliquum minus 10 secundis</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Dum tempus reliquum minus 10 secundis</string>
   <string name="horizontalGreenProgressBars">Regula progressus viridis</string>
   <string name="soundWhenTimeGetsCritical">Sonus cum tempore maximi momenti</string>
   <string name="giveMoreTime">Da tempus</string>
@@ -26,8 +26,8 @@
   <string name="inCasualGamesOnly">Solum in ludo privato</string>
   <string name="promoteToQueenAutomatically">Ad reginam sponte promovere</string>
   <string name="whenPremoving">Cum praemittere</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Aequabiliter digere cum triplex iteratio fiat</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Dum tempus reliquum minor 30 secundis sit</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Aequabiliter digere cum triplex iteratio fiat</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Dum tempus reliquum minor 30 secundis sit</string>
   <string name="moveConfirmation">Confirmatio motu</string>
   <string name="inCorrespondenceGames">Ludi longinqui</string>
   <string name="correspondenceAndUnlimited">per epistolam et immoderatus</string>
