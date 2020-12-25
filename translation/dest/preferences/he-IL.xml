@@ -6,7 +6,7 @@
   <string name="materialDifference">הבדל בחומר</string>
   <string name="boardHighlights">הדגשת המשבצות בלוח: המהלך האחרון ושח</string>
   <string name="pieceDestinations">יעדי הכלים: מהלכים וקדם-מהלכים מותרים</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">קואורדינטות לוח (A-H, 1-8)</string>
+  <string name="boardCoordinates">קואורדינטות לוח (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">רשימת מהלכים במהלך המשחק</string>
   <string name="pgnPieceNotation">תיאור המהלכים</string>
   <string name="chessPieceSymbol">סימן הכלי</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">לשחק עם עיניים מכוסות: הכלים אינם נראים</string>
   <string name="chessClock">שעון השחמט</string>
   <string name="tenthsOfSeconds">עשיריות שניה</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">כאשר הזמן נותר קטן מעשר שניות</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">כאשר הזמן נותר קטן מעשר שניות</string>
   <string name="horizontalGreenProgressBars">מדי התקדמות ירוקים אופקיים</string>
   <string name="soundWhenTimeGetsCritical">השמע צליל כאשר הזמן נהיה קריטי</string>
   <string name="giveMoreTime">תן עוד זמן</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">במשחקים ללא דירוג בלבד</string>
   <string name="promoteToQueenAutomatically">הפוך למלכה באופן אוטומטי</string>
   <string name="whenPremoving">כאשר מבצעים קדם-מהלך</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">הכרז על תיקו בחזרה משולשת באופן אוטומטי</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">כשהזמן הנותר &lt; 30 שניות</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">הכרז על תיקו בחזרה משולשת באופן אוטומטי</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">כשהזמן הנותר &lt; 30 שניות</string>
   <string name="moveConfirmation">אישור מהלך</string>
   <string name="inCorrespondenceGames">במשחקים בהתכתבות</string>
   <string name="correspondenceAndUnlimited">התכתבות וללא הגבלה</string>
