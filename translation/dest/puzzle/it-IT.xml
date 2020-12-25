@@ -4,6 +4,12 @@
   <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Consigliati</string>
   <string name="phases">Fasi</string>
   <string name="advanced">Avanzato</string>
+  <string name="mates">Matti</string>
+  <string name="goals">Obiettivi</string>
+  <string name="specialMoves">Mosse speciali</string>
   <string name="didYouLikeThisPuzzle">Ti è piaciuta questa tattica?</string>
+  <string name="voteToLoadNextOne">Vota per caricare il prossimo problema!</string>
+  <string name="yourPuzzleRatingX">Il tuo punteggio nelle tattiche: %s</string>
   <string name="findTheBestMoveForWhite">Trova la mossa migliore per il bianco.</string>
+  <string name="findTheBestMoveForBlack">Trova la mossa migliore per il Nero.</string>
 </resources>
