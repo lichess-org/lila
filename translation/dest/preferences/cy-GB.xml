@@ -6,7 +6,7 @@
   <string name="materialDifference">Gwahaniaeth materol</string>
   <string name="boardHighlights">Goleubwynt bwrdd (symudiad diwethaf a siach)</string>
   <string name="pieceDestinations">Cyrchfanau darnau (symudiadau dilys a symudiadau o flaen)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Cyfesurynnau bwrdd (A-H, 1-8)</string>
+  <string name="boardCoordinates">Cyfesurynnau bwrdd (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Rhestr symudiadau wrth chwarae</string>
   <string name="pgnPieceNotation">Math o gofnod</string>
   <string name="chessPieceSymbol">Nodiad symbolau</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Gwyddbwyll ar ddall (darnau anweladwy)</string>
   <string name="chessClock">Cloc gwyddbwyll</string>
   <string name="tenthsOfSeconds">Degfedau eiliad</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Gyda llai na 10 eiliad ar ôl</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Gyda llai na 10 eiliad ar ôl</string>
   <string name="horizontalGreenProgressBars">Bâr cynydd gwyrdd llorweddol</string>
   <string name="soundWhenTimeGetsCritical">Sain cyn redeg allan o amser</string>
   <string name="giveMoreTime">Rhoi mwy o amser</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">Wrth chwarae yn achlysurol</string>
   <string name="promoteToQueenAutomatically">Troi yn Frenhines yn awtomatig</string>
   <string name="whenPremoving">Wrth symud o flaen</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Dewis gem gyfartal yn awtomatig ar ol ailadrodd tair gwaith</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Gyda llai na 30 eiliad</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Dewis gem gyfartal yn awtomatig ar ol ailadrodd tair gwaith</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Gyda llai na 30 eiliad</string>
   <string name="moveConfirmation">Cadarnháu symudiad</string>
   <string name="inCorrespondenceGames">Gêmau drwy\'r post</string>
   <string name="correspondenceAndUnlimited">Gohebol ac anghyfyngedig</string>
