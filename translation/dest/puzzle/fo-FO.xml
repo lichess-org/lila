@@ -22,7 +22,7 @@
   <string name="bestMove">Besti leikur!</string>
   <string name="keepGoing">Halt fram…</string>
   <string name="puzzleSuccess">Tað eydnaðist!</string>
-  <string name="puzzleComplete">Uppgávan er liðug!</string>
+  <string name="puzzleComplete">Uppgávan er loyst!</string>
   <string name="notTheMove">Hatta er ikki rætti leikurin!</string>
   <string name="trySomethingElse">Royn okkurt annað.</string>
   <string name="ratingX">Styrkital: %s</string>
