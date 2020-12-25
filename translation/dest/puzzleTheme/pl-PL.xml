@@ -4,6 +4,7 @@
   <string name="advantage">Przewaga</string>
   <string name="advantageDescription">Wykorzystaj szansę na uzyskanie decydującej przewagi. (200cp ≤ eval ≤ 600cp)</string>
   <string name="attackingF2F7">Atak na f2 lub f7</string>
+  <string name="attackingF2F7Description">Atak koncentrujący się na pionach f2 lub f7, na przykład taki jak w szewskim macie.</string>
   <string name="bishopEndgame">Końcówka gońcowa</string>
   <string name="bishopEndgameDescription">Gra końcowa wyłącznie z gońcami i pionami.</string>
   <string name="castling">Roszada</string>
