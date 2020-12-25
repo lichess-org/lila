@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Pedone avanzato</string>
-  <string name="advancedPawnDescription">Un pedone che promuove o che minaccia di promuovere è chiave per la tattica.</string>
+  <string name="advancedPawnDescription">Un pedone che promuove o che minaccia di promuovere è la chiave della tattica.</string>
   <string name="advantage">Vantaggio</string>
   <string name="attackingF2F7">Attaccare f2 o f7</string>
   <string name="attackingF2F7Description">Un attacco che si concentra sul pedone f2 o f7, come nell\'attacco Fegatello.</string>
@@ -19,8 +19,10 @@
   <string name="equality">Eguaglianza</string>
   <string name="kingsideAttack">Attacco sul lato di re</string>
   <string name="kingsideAttackDescription">Un attacco al re avversario, dopo che ha arroccato sul lato di re.</string>
+  <string name="clearanceDescription">Una mossa, spesso con tempo, che libera una casa, una colonna, una traversa o una diagonale per una successiva idea tattica.</string>
   <string name="defensiveMove">Mossa difensiva</string>
   <string name="defensiveMoveDescription">Una mossa precisa o una sequenza di mosse necessarie ad evitare perdite di materiale o di altri vantaggi.</string>
+  <string name="deflectionDescription">Una mossa che distrae un pezzo avversario da un compito, come ad esempio difendere una casa chiave.</string>
   <string name="discoveredAttack">Attacco di scoperta</string>
   <string name="discoveredAttackDescription">Muovi un pezzo che precedentemente bloccava un attacco di un pezzo a lungo raggio, come ad esempio un cavallo che si sposta da una casa in fronte ad una torre.</string>
   <string name="doubleCheck">Doppio scacco</string>
@@ -67,12 +69,15 @@
   <string name="pin">Inchiodatura</string>
   <string name="pinDescription">Una tattica che include un\'inchiodatura, in cui un pezzo è incapace di muoversi senza scoprire un attacco ad un pezzo di maggior valore.</string>
   <string name="promotion">Promozione</string>
+  <string name="promotionDescription">Un pedone che promuove o che minaccia di promuovere è la chiave della tattica.</string>
   <string name="queenEndgame">Finale di donna</string>
   <string name="queenEndgameDescription">Un finale con sole donne e pedoni.</string>
   <string name="queenRookEndgame">Finale di donna e torre</string>
   <string name="queenRookEndgameDescription">Un finale con sole donne, torri e pedoni.</string>
   <string name="queensideAttack">Attacco sul lato di donna</string>
+  <string name="queensideAttackDescription">Un attacco al re avversario, dopo che ha arroccato sul lato di donna.</string>
   <string name="quietMove">Mossa calma</string>
+  <string name="quietMoveDescription">Una mossa che non dà scacco e non cattura nulla ma prepara una successiva minaccia inevitabile.</string>
   <string name="rookEndgame">Finale di torre</string>
   <string name="rookEndgameDescription">Un finale con sole torri e pedoni.</string>
   <string name="sacrifice">Sacrificio</string>
