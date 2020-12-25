@@ -5,7 +5,7 @@
   <string name="advantage">Vantaggio</string>
   <string name="attackingF2F7">Attaccare f2 o f7</string>
   <string name="attackingF2F7Description">Un attacco che si concentra sul pedone f2 o f7, come nell\'attacco Fegatello.</string>
-  <string name="attraction">Attrazione</string>
+  <string name="attraction">Adescamento</string>
   <string name="attractionDescription">Un cambio o un sacrificio che incoraggia o forza un pezzo avversario su una casa che consente una successiva tattica.</string>
   <string name="backRankMate">Matto del corridoio</string>
   <string name="backRankMateDescription">Dai matto al re sulla traversa di partenza, mentre è intrappolato dai suoi stessi pezzi.</string>
@@ -14,4 +14,12 @@
   <string name="castling">Arrocco</string>
   <string name="castlingDescription">Porta il re al sicuro, e sviluppa la torre per attaccare.</string>
   <string name="capturingDefender">Cattura il difensore</string>
+  <string name="capturingDefenderDescription">Rimuovi un pezzo critico alla difesa di un altro pezzo, permettendo al pezzo ora indifeso di essere catturato con una mossa successiva.</string>
+  <string name="crushing">Schiacciante</string>
+  <string name="equality">Equità</string>
+  <string name="kingsideAttack">Attacco sul lato di re</string>
+  <string name="kingsideAttackDescription">Un attacco al re avversario, dopo che ha arroccato sul lato di re.</string>
+  <string name="defensiveMove">Mossa difensiva</string>
+  <string name="defensiveMoveDescription">Una mossa precisa o una sequenza di mosse necessarie ad evitare perdite di materiale o di altri vantaggi.</string>
+  <string name="discoveredAttack">Attacco di scoperta</string>
 </resources>
