@@ -6,7 +6,7 @@
   <string name="materialDifference">Razlika u figurama</string>
   <string name="boardHighlights">Osvijetli zadnji potez i šah</string>
   <string name="pieceDestinations">Legalni potezi (važeći potezi i pretpotezi)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Oznake na ploči (A-H, 1-8)</string>
+  <string name="boardCoordinates">Oznake na ploči (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Popis poteza tijekom partije</string>
   <string name="pgnPieceNotation">Oznaka poteza</string>
   <string name="chessPieceSymbol">Simbol šahovske figure</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Šah na slijepo (nevidljive figure)</string>
   <string name="chessClock">Sat</string>
   <string name="tenthsOfSeconds">Desetinke sekundi</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Kad je ostalo manje od 10 sekundi</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Kad je ostalo manje od 10 sekundi</string>
   <string name="horizontalGreenProgressBars">Vodoravna zelena linija napretka</string>
   <string name="soundWhenTimeGetsCritical">Zvuk kada je vrijeme kritično</string>
   <string name="giveMoreTime">Daj više vremena</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">Samo u prijateljskim partijama</string>
   <string name="promoteToQueenAutomatically">Auto-promocija u damu</string>
   <string name="whenPremoving">Kada odigraš pretpotez</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Automatski proglasi remi po trostrukom ponavljanju pozicije</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Kada je vrijeme &lt; 30 sekundi</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatski proglasi remi po trostrukom ponavljanju pozicije</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Kada je vrijeme &lt; 30 sekundi</string>
   <string name="moveConfirmation">Potvrda poteza</string>
   <string name="inCorrespondenceGames">U dopisnim partijama</string>
   <string name="correspondenceAndUnlimited">Dopisni šah i neograničene partije</string>
