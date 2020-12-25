@@ -65,9 +65,9 @@ Siehe %3$s für etwas Übung mit dieser Art von Zug.</string>
   <string name="officialRulesPDF">offiziellen Regeln (PDF)</string>
   <string name="lichessTraining">Lichess-Training</string>
   <string name="threefoldRepetition">Dreifache Stellungswiederholung</string>
-  <string name="threefoldRepetitionExplanation">Wenn eine Stellung dreimal auftritt, können Spieler ein Remis durch %1$s reklamieren. Lichess implementiert die offiziellen FIDE-Regeln, wie in Artikel 9.2 (d) des %2$s beschrieben.</string>
+  <string name="threefoldRepetitionExplanation">Wenn eine Stellung dreimal auftritt, können Spieler ein Remis durch %1$s reklamieren. Lichess implementiert die offiziellen FIDE-Regeln, wie in Artikel 9.2 des %2$s beschrieben.</string>
   <string name="threefoldRepetitionLowerCase">dreifache Stellungswiederholung</string>
-  <string name="notRepeatedMoves">Wir haben keine Züge wiederholt, warum wurde die Partie immer noch durch Stellungswiederholung Remis erklärt?</string>
+  <string name="notRepeatedMoves">Wir haben keine Züge wiederholt, warum wurde die Partie trotzdem durch Stellungswiederholung Remis erklärt?</string>
   <string name="repeatedPositionsThatMatters">Bei dreifach gleicher Stellung geht es um vollständig gleiche %1$s, nicht um Zugwiederholungen. Die gleichen Stellungen können mit beliebigen Zügen erreicht werden, sofern die Zugmöglichkeiten in diesen Stellungen immer gleich sind.</string>
   <string name="positions">Stellungen</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Wir haben eine Stellung dreimal erreicht. Wieso wurde die Partie nicht für remis erklärt?</string>
