@@ -5,7 +5,7 @@
   <string name="bestMove">بهترین حرکت!</string>
   <string name="keepGoing">ادامه دهید…</string>
   <string name="puzzleSuccess">موفقیت!</string>
-  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">پنهان</string>
+  <string name="hidden">پنهان</string>
   <string name="fromGameLink">برگرفته شده از بازی %s</string>
   <string name="continueTraining">ادامه دادن تمرین</string>
   <string name="difficultyLevel">میزان سختی</string>
