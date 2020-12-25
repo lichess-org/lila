@@ -23,7 +23,7 @@
   <string name="keepGoing">Ары қарай…</string>
   <string name="puzzleSuccess">Бәрі дұрыс!</string>
   <string name="puzzleComplete">Жұмбақ шешілді!</string>
-  <string name="notTheMove">Бұл жүріс емес!</string>
+  <string name="notTheMove">Ол жүріс емес!</string>
   <string name="trySomethingElse">Басқаша жүріп көріңіз.</string>
   <string name="ratingX">Рейтинг: %s</string>
   <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">жасырын</string>
