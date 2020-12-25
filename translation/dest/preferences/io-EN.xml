@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Board coordinates (A-H, 1-8)</string>
+  <string name="boardCoordinates">Board coordinates (A-H, 1-8)</string>
   <string name="zenMode">Zen mode</string>
 </resources>
