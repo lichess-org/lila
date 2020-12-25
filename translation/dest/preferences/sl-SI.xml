@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Premakni kralja za dve polji</string>
   <string name="castleByMovingOntoTheRook">Premakni kralja na trdnjavo</string>
   <string name="inputMovesWithTheKeyboard">Vnos potez prek tipkovnice</string>
+  <string name="snapArrowsToValidMoves">Pretrgajte puščice do veljavnih potez</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Recite \"Dobra igra, dobro odigrana\" ob porazu ali remiju</string>
   <string name="yourPreferencesHaveBeenSaved">Nastavitve so bile shranjene.</string>
 </resources>
