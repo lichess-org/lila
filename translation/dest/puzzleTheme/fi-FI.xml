@@ -85,5 +85,8 @@
   <string name="underPromotionDescription">Korotus ratsuksi, lähetiksi tai torniksi.</string>
   <string name="veryLong">Erittäin pitkä tehtävä</string>
   <string name="veryLongDescription">Voittoon tarvitaan neljä siirtoa tai enemmän.</string>
+  <string name="xRayAttack">Röntgenhyökkäys</string>
   <string name="zugzwang">Siirtopakko</string>
+  <string name="healthyMix">Terve sekoitus</string>
+  <string name="healthyMixDescription">Vähän kaikkea. Et tiedä mitä tuleman pitää, joten olet valmiina mihin tahansa! Aivan kuten oikeissa peleissäkin.</string>
 </resources>
