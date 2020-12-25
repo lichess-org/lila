@@ -26,6 +26,8 @@
   <string name="clearanceDescription">Usein tempolla tehtävä siirto, joka vapauttaa ruudun, linjan tai diagonaalin seuraavaa taktista ideaa varten.</string>
   <string name="defensiveMove">Puolustussiirto</string>
   <string name="defensiveMoveDescription">Tarkka siirto tai siirtosarja, joka tarvitaan materiaali- tai muun edun menetyksen välttämiseksi.</string>
+  <string name="deflection">Harhautus</string>
+  <string name="deflectionDescription">Siirto, jolla harhautetaan vastustajan nappula pois suorittamasta jotain toista tehtävää, kuten vartioimasta tärkeää ruutua.</string>
   <string name="discoveredAttack">Paljastushyökkäys</string>
   <string name="discoveredAttackDescription">Siirrä nappulaa, joka on tähän asti peittänyt jonkin ulottuvaisen nappulan hyökkäyksen, esimerkiksi ratsu pois tornin edestä.</string>
   <string name="doubleCheck">Kaksoisshakki</string>
@@ -80,6 +82,8 @@
   <string name="skewer">Varrastus</string>
   <string name="smotheredMate">Pussimatti</string>
   <string name="underPromotion">Alikorotus</string>
+  <string name="underPromotionDescription">Korotus ratsuksi, lähetiksi tai torniksi.</string>
   <string name="veryLong">Erittäin pitkä tehtävä</string>
+  <string name="veryLongDescription">Voittoon tarvitaan neljä siirtoa tai enemmän.</string>
   <string name="zugzwang">Siirtopakko</string>
 </resources>
