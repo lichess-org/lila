@@ -22,6 +22,7 @@
   <string name="clearanceDescription">Una mossa, spesso con tempo, che libera una casa, una colonna, una traversa o una diagonale per una successiva idea tattica.</string>
   <string name="defensiveMove">Mossa difensiva</string>
   <string name="defensiveMoveDescription">Una mossa precisa o una sequenza di mosse necessarie ad evitare perdite di materiale o di altri vantaggi.</string>
+  <string name="deflection">Deviazione</string>
   <string name="deflectionDescription">Una mossa che distrae un pezzo avversario da un compito, come ad esempio difendere una casa chiave.</string>
   <string name="discoveredAttack">Attacco di scoperta</string>
   <string name="discoveredAttackDescription">Muovi un pezzo che precedentemente bloccava un attacco di un pezzo a lungo raggio, come ad esempio un cavallo che si sposta da una casa in fronte ad una torre.</string>
