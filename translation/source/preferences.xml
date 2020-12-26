@@ -44,6 +44,8 @@
   <string name="castleByMovingTwoSquares">Move king two squares</string>
   <string name="castleByMovingOntoTheRook">Move king onto rook</string>
   <string name="inputMovesWithTheKeyboard">Input moves with the keyboard</string>
+  <string name="snapArrowsToValidMoves">Snap arrows to valid moves</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Say "Good game, well played" upon defeat or draw</string>
 
   <string name="yourPreferencesHaveBeenSaved">Your preferences have been saved.</string>
 </resources>
