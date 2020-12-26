@@ -40,7 +40,7 @@
   <string name="fork">Haarukka</string>
   <string name="forkDescription">Siirto, jolla siirrettävä nappula uhkaa samanaikaisesti kahta vastustajan nappulaa.</string>
   <string name="hangingPiece">Ilmainen nappula</string>
-  <string name="hangingPieceDescription">Taktiikka, jossa vastustajan nappulaa ei ole suojattu lainkaan tai riittävästi, ja jossa se on vapaasti lyötävissä.</string>
+  <string name="hangingPieceDescription">Taktiikka, jossa vastustajan nappulaa ei ole suojattu lainkaan tai ei riittävästi, ja jossa se on vapaasti lyötävissä.</string>
   <string name="interference">Katko</string>
   <string name="interferenceDescription">Siirrä nappulasi kahden vastustajan nappulan väliin niin, että yksi tai molemmat vastustajan nappuloista jäävät ilman suojaa, esimerkiksi ratsusi suojattuun ruutuun kahden tornin väliin.</string>
   <string name="intermezzo">Välisiirto</string>
