@@ -563,6 +563,8 @@
   <string name="currentPassword">Současné heslo</string>
   <string name="newPassword">Nové heslo</string>
   <string name="newPasswordAgain">Nové heslo (znovu)</string>
+  <string name="newPasswordsDontMatch">Nová hesla nesouhlasí</string>
+  <string name="newPasswordStrength">Síla hesla</string>
   <string name="clockInitialTime">Počáteční čas</string>
   <string name="clockIncrement">Přídavek</string>
   <string name="privacy">Soukromí</string>
