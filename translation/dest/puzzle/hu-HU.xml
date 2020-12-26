@@ -41,4 +41,5 @@
   <string name="hardest">Nagyon nehéz</string>
   <string name="example">Példa</string>
   <string name="addAnotherTheme">Új téma hozzáadása</string>
+  <string name="jumpToNextPuzzleImmediately">Rögtön a következő feladányhoz ugrás</string>
 </resources>
