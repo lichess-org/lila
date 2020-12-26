@@ -82,7 +82,7 @@
   <string name="queensideAttack">Dameaanval</string>
   <string name="queensideAttackDescription">Een aanval op de vijandelijke koning na een lange rokade.</string>
   <string name="quietMove">Stille zet</string>
-  <string name="quietMoveDescription">Een zet die niet schaak geeft of een stuk slaat, maar wel een onvermijdelijke dreiging voor een latere zet voorbereidt.</string>
+  <string name="quietMoveDescription">Een zet die niet schaak geeft of een stuk slaat, maar een onvermijdelijke dreiging door een latere zet voorbereidt.</string>
   <string name="rookEndgame">Toreneindspel</string>
   <string name="rookEndgameDescription">Een eindspel met alleen torens en pionnen.</string>
   <string name="sacrifice">Offer</string>
