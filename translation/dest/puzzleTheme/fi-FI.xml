@@ -31,7 +31,7 @@
   <string name="discoveredAttack">Paljastushyökkäys</string>
   <string name="discoveredAttackDescription">Siirrä nappulaa, joka on tähän asti peittänyt jonkin ulottuvaisen nappulan hyökkäyksen, esimerkiksi ratsu pois tornin edestä.</string>
   <string name="doubleCheck">Kaksoisshakki</string>
-  <string name="doubleCheckDescription">Shakkaa samanaikaisesti kahdella nappulalla tekemällä kaksoishakki, jossa sekä liikkuva nappula että paljastettu nappula hyökkäävät vastustajan kuninkaan kimppuun.</string>
+  <string name="doubleCheckDescription">Shakkaa samanaikaisesti kahdella nappulalla niin, että paljastushyökkäyksessäsi sekä liikkuva nappula että sen paljastama nappula uhkaavat vastustajan kuningasta.</string>
   <string name="endgame">Loppupeli</string>
   <string name="endgameDescription">Taktiikka pelin viimeisessä vaiheessa.</string>
   <string name="enPassantDescription">Taktiikka, jossa sovelletaan ohestalyöntisääntöä, eli jossa sotilas vai lyödä sellaisen vastustajan sotilaan, joka on juuri ensimmäisellä kahden ruudun siirrollaan ohittanut sen.</string>
