@@ -42,13 +42,9 @@ final private class PuzzlePathApi(
       .path {
         _.aggregateOne() { framework =>
           import framework._
-          val rating = user.perfs.puzzle.glicko.intRating + difficulty.ratingDelta
-          val ratingDelta = compromise match {
-            case 0 => 0
-            case 1 => 300
-            case 2 => 800
-            case _ => 2000
-          }
+          val rating          = user.perfs.puzzle.glicko.intRating + difficulty.ratingDelta
+          val ratingDeltaBase = 100 + math.abs(1500 - rating) / 4
+          val ratingDelta     = ratingDeltaBase * compromise
           Match(
             select(theme, actualTier, (rating - ratingDelta) to (rating + ratingDelta)) ++
               (previousPaths.nonEmpty ?? $doc("_id" $nin previousPaths))
