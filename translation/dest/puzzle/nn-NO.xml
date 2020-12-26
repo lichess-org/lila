@@ -41,4 +41,5 @@
   <string name="hardest">Vanskelegast</string>
   <string name="example">Døme</string>
   <string name="addAnotherTheme">Legg til endå eit tema</string>
+  <string name="jumpToNextPuzzleImmediately">Hopp straks til neste oppgåve</string>
 </resources>
