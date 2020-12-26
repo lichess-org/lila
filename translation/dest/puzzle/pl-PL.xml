@@ -43,4 +43,5 @@
   <string name="hardest">Najtrudniejszy</string>
   <string name="example">Przykład</string>
   <string name="addAnotherTheme">Dodaj inny motyw</string>
+  <string name="jumpToNextPuzzleImmediately">Natychmiast skocz do następnego zadania</string>
 </resources>
