@@ -106,7 +106,7 @@
   <string name="byCPL">CPL тілі арқылы</string>
   <string name="openStudy">Зерттеуді ашу</string>
   <string name="enable">Қол жетімді</string>
-  <string name="bestMoveArrow">Ең үздік жүріс жебесі</string>
+  <string name="bestMoveArrow">Үздік жүрісті нұсқағыш</string>
   <string name="evaluationGauge">Бағалау мөлшері</string>
   <string name="multipleLines">Бірнеше жол</string>
   <string name="cpus">Процессор</string>
