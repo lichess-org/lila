@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Патшаны екі шаршы жүру</string>
   <string name="castleByMovingOntoTheRook">Патшаны тура тасына қою</string>
   <string name="inputMovesWithTheKeyboard">Пернетақта арқылы жүру</string>
+  <string name="snapArrowsToValidMoves">Нұсқағыш тек заңды жүрістерге ғана жабысады</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Жеңіліс не тепе-теңдіктен кейін \"Жақсы ойын, қызық болды\" деп айту</string>
   <string name="yourPreferencesHaveBeenSaved">Баптауыңыз сақталды.</string>
 </resources>
