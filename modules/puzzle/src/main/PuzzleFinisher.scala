@@ -58,7 +58,7 @@ final private[puzzle] class PuzzleFinisher(
                   .atLeast(puzzle.glicko.rating - Glicko.maxRatingDelta),
                 deviation = puzzleRating.getRatingDeviation,
                 volatility = puzzleRating.getVolatility
-              ),
+              ).cap,
               player = user.perfs.puzzle.glicko
             )
             .some

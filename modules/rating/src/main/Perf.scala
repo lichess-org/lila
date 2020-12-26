@@ -21,13 +21,15 @@ case class Perf(
       recent.lastOption map (head -)
     }
 
-  def add(g: Glicko, date: DateTime): Perf =
+  def add(g: Glicko, date: DateTime): Perf = {
+    val capped = g.cap
     copy(
-      glicko = g.cap,
+      glicko = capped,
       nb = nb + 1,
-      recent = updateRecentWith(g),
+      recent = updateRecentWith(capped),
       latest = date.some
     )
+  }
 
   def add(r: Rating, date: DateTime): Option[Perf] = {
     val newGlicko = Glicko(
