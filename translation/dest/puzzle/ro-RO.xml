@@ -29,4 +29,5 @@
   <string name="hardest">Cel mai greu</string>
   <string name="example">Exemplu</string>
   <string name="addAnotherTheme">Adăugați o altă temă</string>
+  <string name="jumpToNextPuzzleImmediately">Sari imediat la puzzle-ul următor</string>
 </resources>
