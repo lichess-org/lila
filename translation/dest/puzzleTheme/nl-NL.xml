@@ -34,6 +34,7 @@
   <string name="doubleCheckDescription">Schaak geven met twee stukken tegelijk als gevolg van een aftrekaanval waarbij zowel het verplaatste als het geactiveerde stuk de koning van de tegenstander aanvalt.</string>
   <string name="endgame">Eindspel</string>
   <string name="endgameDescription">Tactiek in de slotfase van de partij.</string>
+  <string name="enPassantDescription">Tactiek met betrekking tot de en passant-regel, waarbij een pion een vijandelijke pion die vanuit zijn beginpositie twee velden tegelijk wordt opgespeeld, kan slaan.</string>
   <string name="exposedKing">Onveilige koning</string>
   <string name="exposedKingDescription">Een stelling met een koning met weinig verdedigers, vaak leidend tot schaakmat.</string>
   <string name="fork">Vork</string>
