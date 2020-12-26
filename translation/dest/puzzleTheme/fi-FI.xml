@@ -93,6 +93,8 @@
   <string name="skewerDescription">Siirto, jolla uhataan arvokkaampaa nappulaa, jonka siirtyessä sen takana oleva nappula jää uhatuksi ja on lyötävissä, eli toisin päin kuin kiinnityksessä.</string>
   <string name="smotheredMate">Pussimatti</string>
   <string name="smotheredMateDescription">Ratsun tekemä matti, jossa matitettava kuningas ei pysty liikkumaan, koska sen omat nappulat ympäröivät sitä (eli pussittavat sen).</string>
+  <string name="trappedPiece">Ansaan jäävä nappula</string>
+  <string name="trappedPieceDescription">Nappula ei pääse pakenemaan lyömiseltä sopivien pakosiirtojen puuttuessa.</string>
   <string name="underPromotion">Alikorotus</string>
   <string name="underPromotionDescription">Korotus ratsuksi, lähetiksi tai torniksi.</string>
   <string name="veryLong">Erittäin pitkä tehtävä</string>
