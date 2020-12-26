@@ -113,8 +113,8 @@
   <string name="memory">Minni</string>
   <string name="infiniteAnalysis">Óendalig greining</string>
   <string name="removesTheDepthLimit">Tekur dýpdaravmarkingar burtur, og heldur telduna hjá tær heita</string>
-  <string name="blunder">Bummari</string>
-  <string name="blunders">Bummarar</string>
+  <string name="blunder">Bukkur</string>
+  <string name="blunders">Bukkar</string>
   <string name="mistake">Mistak</string>
   <string name="mistakes">Mistøk</string>
   <string name="inaccuracy">Óneyvleiki</string>
@@ -124,7 +124,7 @@
   <string name="threefoldRepetition">Endurtøka tríggjar ferðir</string>
   <string name="claimADraw">Krev remis (javnleik)</string>
   <string name="offerDraw">Eg bjóði remis</string>
-  <string name="draw">Javnleikur</string>
+  <string name="draw">Remis</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s telvari</item>
     <item quantity="other">%s telvarar</item>
@@ -141,7 +141,7 @@
   <string name="viewInFullSize">Síggj í fullari stødd</string>
   <string name="logOut">Rita út</string>
   <string name="signIn">Rita inn</string>
-  <string name="youNeedAnAccountToDoThat">Tær tørvar eina konto at gera hatta</string>
+  <string name="youNeedAnAccountToDoThat">Tær nýtist at hava eina konto at gera hetta</string>
   <string name="signUp">Skráset teg</string>
   <string name="computersAreNotAllowedToPlay">Teldur og telvarar, ið fáa hjálp frá teldum, hava ikki loyvi at telva. Bannað er at leita sær hjálp frá talvtólum (chess engines), dátugrunnum ella øðrum telvarum, meðan telvað verður. Gev eisini gætur, at tað verður staðiliga frámælt at fáa sær fleiri kontur, og telvarar við nógvum kontum, kunnu verða útihýstir.</string>
   <string name="games">Talv</string>
