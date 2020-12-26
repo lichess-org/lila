@@ -256,10 +256,11 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
 
   def countRecentCheatDetected(userId: User.ID): Fu[Int] =
     coll.countSel(
-      $doc("user" -> userId,
-           "action" -> Modlog.cheatDetected,
-           "date" $gte DateTime.now.minusSeconds(3600 * 24 * 30 * 6)
-        )
+      $doc(
+        "user"   -> userId,
+        "action" -> Modlog.cheatDetected,
+        "date" $gte DateTime.now.minusSeconds(3600 * 24 * 30 * 6)
+      )
     )
 
   private def add(m: Modlog): Funit = {
