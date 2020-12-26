@@ -130,7 +130,7 @@ Geriausia galvoti apie reitingus kaip apie \"reliatyvius\" skaičius (priešinga
   <string name="connexionLostCanIGetMyRatingBack">Pralaimėjau žaidimą dėl delsos/atsijungimo. Ar galiu atgauti reitingo taškus?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Gaila, tačiau negalime grąžinti taškų, prarastų dėl delsos ar atsijungimo, nepriklausomai nuo to, ar problema buvo mūsų pusėje. Antras variantas yra labai retas. Taip pat verta paminėti, kad kai Lichess persikrauna ir jūs pralaimite žaidimą dėl to, mes atšaukiame tą žaidimą ir užkertame kelią nesąžiningam pralaimėjimui.</string>
   <string name="howToThreeDots">Kaip...</string>
-  <string name="enableDisableNotificationPopUps">Įgalinti arišjungti iššokančius pranešimus?</string>
+  <string name="enableDisableNotificationPopUps">Įgalinti ar išjungti iššokančius pranešimus?</string>
   <string name="viewSiteInformationPopUp">Peržiūrėti iššokančią svetainės informaciją</string>
   <string name="lichessCanOptionnalySendPopUps">Lichess pasirinktinai gali siųsti iššokančius pranešimus, pavyzdžiui kai yra jūsų eilė daryti ėjimą ar kai gavote asmeninę žinutę.
 
