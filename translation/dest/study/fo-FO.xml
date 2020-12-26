@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="private">Innanhýsis</string>
+  <string name="private">Egin (privat)</string>
   <string name="myStudies">Mínar rannsóknir</string>
-  <string name="studiesIContributeTo">Rannsóknir, eg komi við íkasti til</string>
+  <string name="studiesIContributeTo">Rannsóknir, eg gevi mítt íkast til</string>
   <string name="myPublicStudies">Mínar almennu rannsóknir</string>
   <string name="myPrivateStudies">Mínar egnu rannsóknir</string>
   <string name="myFavoriteStudies">Mínar yndisrannsóknir</string>
