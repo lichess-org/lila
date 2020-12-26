@@ -111,7 +111,7 @@ Ein weiterer Punkt ist, dass sich das Konfidenzintervall im Laufe der Zeit erhö
   <string name="provisionalRatingExplanation">Das Fragezeichen bedeutet, dass die Wertung vorläufig ist. Zu den Gründen gehört:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Der Spieler hat noch nicht genug gewertete Partien gegen %1$s in der Wertungskategorie beendet.</string>
   <string name="similarOpponents">Gegner ähnlicher Spielstärke</string>
-  <string name="notPlayedRecently">Der Spieler hat nicht genügend aktuelle Partien gespielt. Abhängig von der Anzahl der Partien, die du gespielt hast, benötigt es ungefähr ein Jahr der Inaktivität, bis deine Wertung wieder vorläufig wird.</string>
+  <string name="notPlayedRecently">Der Spieler hat nicht genügend aktuelle Partien gespielt. Abhängig von der Anzahl der Partien, die du gespielt hast, benötigt es ungefähr ein Jahr der Inaktivität, bis deine Wertung wieder vorläufig ist.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Konkret bedeutet dies, dass die Abweichung in Glicko-2 größer als 110 ist. Die Abweichung ist das Vertrauen, dass das System in die Wertung hat. Je niedriger die Abweichung, desto stabiler ist eine Wertung.</string>
   <string name="howDoLeaderoardsWork">Wie funktionieren Ränge und Ranglisten?</string>
   <string name="inOrderToAppearsYouMust">Um auf die %1$s zu kommen, musst du:</string>
