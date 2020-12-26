@@ -41,5 +41,6 @@
   <string name="castleByMovingTwoSquares">En déplaçant le Roi de 2 cases</string>
   <string name="castleByMovingOntoTheRook">En déplaçant le Roi sur la Tour</string>
   <string name="inputMovesWithTheKeyboard">Saisir les coups au clavier</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Dire \"Bonne partie, bien joué\" en cas de défaite ou de nulle</string>
   <string name="yourPreferencesHaveBeenSaved">Vos préférences ont été sauvegardées.</string>
 </resources>
