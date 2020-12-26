@@ -155,7 +155,7 @@
   <string name="yesterday">Í gjár</string>
   <string name="minutesPerSide">Minuttir í part</string>
   <string name="variant">Avbrigdi</string>
-  <string name="variants">Fleiri avbrigdi</string>
+  <string name="variants">Avbrigdi</string>
   <string name="timeControl">Tíðaravmarking</string>
   <string name="realTime">Uttan tíðaravmarking</string>
   <string name="correspondence">Brævtalv</string>
@@ -202,7 +202,7 @@
   <string name="whiteTimeOut">Tíð uppi hjá hvítum</string>
   <string name="blackTimeOut">Tíð uppi hjá svørtum</string>
   <string name="drawOfferSent">Tilboð um javnleik sent</string>
-  <string name="drawOfferDeclined">Tilboð um javnleik noktað</string>
+  <string name="drawOfferDeclined">Tilboð um javnleik havnað</string>
   <string name="drawOfferAccepted">Tilboð um javnleik góðtikið</string>
   <string name="drawOfferCanceled">Tilboð um javnleik avlýst</string>
   <string name="whiteOffersDraw">Hvítur bjóðar javnt</string>
@@ -211,13 +211,13 @@
   <string name="blackDeclinesDraw">Svartur tekur ikki av javnleiki</string>
   <string name="yourOpponentOffersADraw">Mótleikarin bjóðar tær javnt</string>
   <string name="accept">Góðtak</string>
-  <string name="decline">Nokta</string>
+  <string name="decline">Havna</string>
   <string name="playingRightNow">Verður telvað beint nú</string>
   <string name="eventInProgress">Telvað beint nú</string>
   <string name="finished">Liðugt</string>
   <string name="finishesX">endar %s</string>
   <string name="abortGame">Enda talvið</string>
-  <string name="gameAborted">Talvið er endað</string>
+  <string name="gameAborted">Talvið varð brotið av</string>
   <string name="standard">Vanligt</string>
   <string name="unlimited">Óavmarkað</string>
   <string name="mode">Støða</string>
@@ -251,16 +251,16 @@
   <string name="freeOnlineChess">Ókeypis talv á netinum</string>
   <string name="spectators">Áskoðarar:</string>
   <plurals name="nbRated">
-    <item quantity="one">%s styrkismett</item>
+    <item quantity="one">%s styrkismettur</item>
     <item quantity="other">%s styrkismett</item>
   </plurals>
   <plurals name="nbWins">
-    <item quantity="one">%s vunnið</item>
-    <item quantity="other">%s vunnin</item>
+    <item quantity="one">%s sigur</item>
+    <item quantity="other">%s sigrar</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s tapt</item>
-    <item quantity="other">%s tapt</item>
+    <item quantity="one">%s ósigur</item>
+    <item quantity="other">%s ósigrar</item>
   </plurals>
   <plurals name="nbDraws">
     <item quantity="one">%s javnt</item>
