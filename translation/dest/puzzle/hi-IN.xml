@@ -41,4 +41,5 @@
   <string name="hardest">सबसे कठिन</string>
   <string name="example">उदाहरण</string>
   <string name="addAnotherTheme">एक और विषय जोड़ें</string>
+  <string name="jumpToNextPuzzleImmediately">तुरंत अगली पहेली पर जाएं</string>
 </resources>
