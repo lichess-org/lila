@@ -43,4 +43,5 @@
   <string name="hardest">Sunkiausias</string>
   <string name="example">Pavyzdys</string>
   <string name="addAnotherTheme">Pridėti dar vieną temą</string>
+  <string name="jumpToNextPuzzleImmediately">Iš karto pereiti į kitą galvosūkį</string>
 </resources>
