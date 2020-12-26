@@ -476,6 +476,8 @@
   <string name="currentPassword">目前密碼</string>
   <string name="newPassword">新密碼</string>
   <string name="newPasswordAgain">重複新密碼</string>
+  <string name="newPasswordsDontMatch">新密碼不符合</string>
+  <string name="newPasswordStrength">密碼強度</string>
   <string name="clockInitialTime">棋鐘起始時間</string>
   <string name="clockIncrement">加秒</string>
   <string name="privacy">隱私</string>
