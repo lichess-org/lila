@@ -7,7 +7,7 @@
   <string name="attackingF2F7">Atak na f2 lub f7</string>
   <string name="attackingF2F7Description">Atak koncentrujący się na pionach f2 lub f7, na przykład taki jak w szewskim macie.</string>
   <string name="attraction">Przyciąganie</string>
-  <string name="attractionDescription">Wymiana bądź poświęcenie zachęcające lub zmuszające figurę przeciwnika do przejścia na pole na którym może być zaatakowane z wykorzystaniem kolejnych taktyk.</string>
+  <string name="attractionDescription">Wymiana bądź poświęcenie zachęcające lub zmuszające bierkę przeciwnika do zajęcia pola, na którym będzie ona celem kolejnych taktyk.</string>
   <string name="backRankMate">Mat na ostatniej linii</string>
   <string name="backRankMateDescription">Zmatuj na ostatniej linii króla który jest uwięziony przez własne bierki.</string>
   <string name="bishopEndgame">Końcówka gońcowa</string>
@@ -50,7 +50,7 @@
   <string name="long">Długie zadanie</string>
   <string name="longDescription">Trzy ruchy by wygrać.</string>
   <string name="mate">Mat</string>
-  <string name="mateDescription">Wygraj partię ze stylem.</string>
+  <string name="mateDescription">Wygraj partię w dobrym stylu.</string>
   <string name="mateIn1">Mat w 1 ruchu</string>
   <string name="mateIn1Description">Daj mata w jednym posunięciu.</string>
   <string name="mateIn2">Mat w 2 ruchach</string>
@@ -68,7 +68,7 @@
   <string name="opening">Otwarcie</string>
   <string name="openingDescription">Taktyka w pierwszej fazie gry.</string>
   <string name="overloading">Przeciążenie</string>
-  <string name="overloadingDescription">Jeżeli figura wykonuje jednocześnie kilka funkcji, na przykład broni dwóch figur. Zbicie i odbicie jednej z bronionych figur pozostawi drugą niebronioną. Podobne do odciągnięcia.</string>
+  <string name="overloadingDescription">Sytuacje, w których bierka pełni jednocześnie kilka funkcji. Przykładowo, gdy broni ona dwóch bierek, zbicie jednej z nich otworzy możliwość ataku na drugą, niebronioną. Podobne do odciągnięcia.</string>
   <string name="pawnEndgame">Końcówka pionkowa</string>
   <string name="pawnEndgameDescription">Gra końcowa wyłącznie z pionami.</string>
   <string name="pin">Związanie</string>
@@ -90,7 +90,7 @@
   <string name="short">Krótkie zadanie</string>
   <string name="shortDescription">Dwa ruchy by wygrać.</string>
   <string name="skewer">Szpila</string>
-  <string name="skewerDescription">Motyw w którym bierka o wyższej wartości unikając ataku pozwala na zbicie bądź zaatakowanie bierki o niższej wartości. Czasami nazywany odwrotnym związaniem.</string>
+  <string name="skewerDescription">Motyw, w którym bierka o wyższej wartości unikając ataku pozwala na zbicie bądź zaatakowanie bierki o niższej wartości. Odwrotność związania.</string>
   <string name="smotheredMate">Mat Beniowskiego</string>
   <string name="smotheredMateDescription">Mat dawany skoczkiem w którym matowany król nie może się poruszać ponieważ jest otoczony (zduszony) własnymi bierkami.</string>
   <string name="trappedPiece">Uwięziona figura</string>
@@ -101,8 +101,8 @@
   <string name="veryLongDescription">Cztery ruchy lub więcej, aby wygrać.</string>
   <string name="xRayAttack">Rentgen</string>
   <string name="xRayAttackDescription">Figura atakuje albo broni pole przez wrogą figurę.</string>
-  <string name="zugzwang">Przymus ruchu</string>
-  <string name="zugzwangDescription">Przeciwnik ma ograniczone ruchy, a każdy z nich pogarsza jego pozycję.</string>
-  <string name="healthyMix">Wszystkiego po trochu</string>
+  <string name="zugzwang">Zugzwang</string>
+  <string name="zugzwangDescription">Ograniczone ruchy przeciwnika powodują, że każde posunięcie pogarsza jego pozycję.</string>
+  <string name="healthyMix">Miszmasz</string>
   <string name="healthyMixDescription">Trochę wszystkiego. Nie wiesz czego się spodziewać, więc jesteś gotowy na cokolwiek! Tak jak w prawdziwych grach.</string>
 </resources>
