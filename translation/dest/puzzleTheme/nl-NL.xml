@@ -21,7 +21,7 @@
   <string name="equality">Evenwicht</string>
   <string name="equalityDescription">Terugkomen uit een verloren stelling en een remise veiligstellen of een gelijkwaardige stelling bereiken. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Koningsaanval</string>
-  <string name="kingsideAttackDescription">Een aanval op de koning van de tegenstander, na een korte rokade.</string>
+  <string name="kingsideAttackDescription">Een aanval op de vijandelijke koning na een korte rokade.</string>
   <string name="clearance">Breekzet</string>
   <string name="clearanceDescription">Een zet, vaak met tempo, die een veld, lijn of diagonaal vrijmaakt voor een tactisch vervolg.</string>
   <string name="defensiveMove">Defensieve zet</string>
@@ -72,7 +72,7 @@
   <string name="pawnEndgame">Pionneneindspel</string>
   <string name="pawnEndgameDescription">Een eindspel met alleen pionnen.</string>
   <string name="pin">Penning</string>
-  <string name="pinDescription">Een tactiek waarbij een stuk niet verzet kan worden op straffe van een aanval op een stuk van hogere waarde.</string>
+  <string name="pinDescription">Tactiek waarbij een stuk niet verzet kan worden op straffe van een aanval op een stuk van hogere waarde.</string>
   <string name="promotion">Promotie</string>
   <string name="promotionDescription">Een pion die promoveert of dreigt te promoveren is hier cruciaal.</string>
   <string name="queenEndgame">Dame-eindspel</string>
@@ -80,13 +80,13 @@
   <string name="queenRookEndgame">Dame-toreneindspel</string>
   <string name="queenRookEndgameDescription">Een eindspel met alleen dame, torens en pionnen.</string>
   <string name="queensideAttack">Dameaanval</string>
-  <string name="queensideAttackDescription">Een aanval op de koning van de tegenstander, na een lange rokade.</string>
+  <string name="queensideAttackDescription">Een aanval op de vijandelijke koning na een lange rokade.</string>
   <string name="quietMove">Stille zet</string>
   <string name="quietMoveDescription">Een zet die niet schaak geeft of een stuk slaat, maar wel een onvermijdelijke dreiging voor een latere zet voorbereidt.</string>
   <string name="rookEndgame">Toreneindspel</string>
   <string name="rookEndgameDescription">Een eindspel met alleen torens en pionnen.</string>
   <string name="sacrifice">Offer</string>
-  <string name="sacrificeDescription">Een tactiek waarbij op korte termijn materiaal wordt opgegeven om voordeel te verkrijgen na een aantal gedwongen zetten.</string>
+  <string name="sacrificeDescription">Tactiek waarbij op korte termijn materiaal wordt opgegeven om voordeel te verkrijgen na een aantal gedwongen zetten.</string>
   <string name="short">Korte puzzel</string>
   <string name="shortDescription">Winnen in twee zetten.</string>
   <string name="skewer">Röntgenaanval</string>
