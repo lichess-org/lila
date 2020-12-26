@@ -41,4 +41,5 @@
   <string name="hardest">Vaikein</string>
   <string name="example">Esimerkki</string>
   <string name="addAnotherTheme">Lisää toinen teema</string>
+  <string name="jumpToNextPuzzleImmediately">Jatka heti seuraavaan tehtävään</string>
 </resources>
