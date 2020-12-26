@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Probleme de șah</string>
-  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Recomandare</string>
+  <string name="recommended">Recomandare</string>
   <string name="phases">Faze</string>
   <string name="lengths">Lungimi</string>
   <string name="goals">Obiective</string>
@@ -18,7 +18,7 @@
   <string name="puzzleComplete">Puzzle complet!</string>
   <string name="notTheMove">Mișcarea nu este aceasta!</string>
   <string name="trySomethingElse">Încercaţi altceva.</string>
-  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">ascuns</string>
+  <string name="hidden">ascuns</string>
   <string name="fromGameLink">Din partida %s</string>
   <string name="continueTraining">Continuați antrenamentul</string>
   <string name="difficultyLevel">Nivel de dificultate</string>
@@ -29,4 +29,5 @@
   <string name="hardest">Cel mai greu</string>
   <string name="example">Exemplu</string>
   <string name="addAnotherTheme">Adăugați o altă temă</string>
+  <string name="jumpToNextPuzzleImmediately">Sari imediat la puzzle-ul următor</string>
 </resources>

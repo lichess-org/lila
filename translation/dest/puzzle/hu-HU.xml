@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Feladványok</string>
-  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Ajánlott</string>
+  <string name="recommended">Ajánlott</string>
   <string name="phases">Szakaszok</string>
   <string name="motifs">Motívumok</string>
   <string name="advanced">Haladó</string>
@@ -26,7 +26,7 @@
   <string name="notTheMove">Nem a legjobb lépés!</string>
   <string name="trySomethingElse">Próbálkozz mással.</string>
   <string name="ratingX">Pontszám: %s</string>
-  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">rejtett</string>
+  <string name="hidden">rejtett</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s beküldött megfejtés</item>
     <item quantity="other">%s beküldött megfejtés</item>
@@ -41,4 +41,5 @@
   <string name="hardest">Nagyon nehéz</string>
   <string name="example">Példa</string>
   <string name="addAnotherTheme">Új téma hozzáadása</string>
+  <string name="jumpToNextPuzzleImmediately">Rögtön a következő feladányhoz ugrás</string>
 </resources>

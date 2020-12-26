@@ -106,7 +106,7 @@
   <string name="byCPL">CPL тілі арқылы</string>
   <string name="openStudy">Зерттеуді ашу</string>
   <string name="enable">Қол жетімді</string>
-  <string name="bestMoveArrow">Ең үздік жүріс жебесі</string>
+  <string name="bestMoveArrow">Үздік жүрісті нұсқағыш</string>
   <string name="evaluationGauge">Бағалау мөлшері</string>
   <string name="multipleLines">Бірнеше жол</string>
   <string name="cpus">Процессор</string>
@@ -663,7 +663,7 @@
   <string name="printFriendlyPDF">Қағазға бастыруға лайық PDF</string>
   <string name="crosstable">Қос дерек</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Сонымен қатар, сіз тақта үстінен тінтуір доңғалағын айналдырып, жүріс жасай аласыз.</string>
-  <string name="analysisShapesHowTo">Тақтада дөңгелек пен бағыт сызу үшін shift+шерту немесе тінтуірмен оң шертуді басыңыз.</string>
+  <string name="analysisShapesHowTo">Тақтада шеңбер мен нұсқағыш сызу үшін тінтуірмен оң шертіңіз немесе shift баса сол шертіңіз.</string>
   <string name="letOtherPlayersMessageYou">Ойыншыларға сізге хабар жіберу рұқсат па?</string>
   <string name="shareYourInsightsData">Шахмат жайлы ойларыңызды бөлісу</string>
   <string name="withNobody">Ешкіммен</string>

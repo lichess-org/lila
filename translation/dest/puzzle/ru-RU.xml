@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Задачи</string>
-  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Рекомендовано</string>
-  <string name="phases">Фазы</string>
+  <string name="recommended">Рекомендуемые</string>
+  <string name="phases">Стадии игры</string>
   <string name="motifs">Мотивы</string>
   <string name="advanced">Продвинутый</string>
   <string name="lengths">Длина</string>
@@ -21,12 +21,12 @@
   <string name="goodMove">Хороший ход</string>
   <string name="bestMove">Лучший ход!</string>
   <string name="keepGoing">Продолжайте...</string>
-  <string name="puzzleSuccess">Успех!</string>
+  <string name="puzzleSuccess">Получилось!</string>
   <string name="puzzleComplete">Задача решена!</string>
-  <string name="notTheMove">Это не ход!</string>
-  <string name="trySomethingElse">Мне нужно что-то другое.</string>
+  <string name="notTheMove">Это не тот ход!</string>
+  <string name="trySomethingElse">Попробуйте иначе.</string>
   <string name="ratingX">Рейтинг: %s</string>
-  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">скрыт</string>
+  <string name="hidden">скрыт</string>
   <plurals name="playedXTimes">
     <item quantity="one">Решено %s раз</item>
     <item quantity="few">Решено %s раза</item>
@@ -35,12 +35,13 @@
   </plurals>
   <string name="fromGameLink">Из партии %s</string>
   <string name="continueTraining">Продолжить тренировку</string>
-  <string name="difficultyLevel">Уровень сложности</string>
-  <string name="normal">Нормальная</string>
-  <string name="easier">Легкий</string>
-  <string name="easiest">Самые легкие</string>
-  <string name="harder">Сложнее</string>
-  <string name="hardest">Самый сложный</string>
+  <string name="difficultyLevel">Уровень</string>
+  <string name="normal">Средний</string>
+  <string name="easier">Лёгкий</string>
+  <string name="easiest">Легчайший</string>
+  <string name="harder">Сложный</string>
+  <string name="hardest">Сложнейший</string>
   <string name="example">Пример</string>
-  <string name="addAnotherTheme">Добавить другую тему</string>
+  <string name="addAnotherTheme">Добавить другой мотив</string>
+  <string name="jumpToNextPuzzleImmediately">Сразу перейти к следующей задаче</string>
 </resources>

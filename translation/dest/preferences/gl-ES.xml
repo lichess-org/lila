@@ -6,7 +6,7 @@
   <string name="materialDifference">Diferenza de material</string>
   <string name="boardHighlights">Resaltar no taboleiro (última xogada e xaque)</string>
   <string name="pieceDestinations">Destino das pezas (xogadas válidas e premovementos)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Coordenadas do taboleiro (A-H, 1-8)</string>
+  <string name="boardCoordinates">Coordenadas do taboleiro (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lista de xogadas mentres xogas</string>
   <string name="pgnPieceNotation">Notación das xogadas</string>
   <string name="chessPieceSymbol">Símbolo da peza de xadrez</string>
@@ -16,7 +16,7 @@
   <string name="blindfoldChess">Xadrez a cegas (pezas invisibles)</string>
   <string name="chessClock">Reloxo de xadrez</string>
   <string name="tenthsOfSeconds">Décimas de segundo</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Cando o tempo restante &lt; 10 segundos</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Cando o tempo restante &lt; 10 segundos</string>
   <string name="horizontalGreenProgressBars">Barras horizontais de progreso verdes</string>
   <string name="soundWhenTimeGetsCritical">Aviso cando se esgota o tempo</string>
   <string name="giveMoreTime">Dar máis tempo</string>
@@ -29,8 +29,8 @@
   <string name="inCasualGamesOnly">Só en partidas amigables</string>
   <string name="promoteToQueenAutomatically">Coroar Dama automaticamente</string>
   <string name="whenPremoving">Con premovemento</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Automaticamente reclamar táboas por triple repetición</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Cando o tempo restante &lt;30 segundos</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticamente reclamar táboas por triple repetición</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Cando o tempo restante &lt;30 segundos</string>
   <string name="moveConfirmation">Confirmación do movemento</string>
   <string name="inCorrespondenceGames">Partidas por correspondencia</string>
   <string name="correspondenceAndUnlimited">Correspondencia e ilimitado</string>
@@ -39,5 +39,7 @@
   <string name="castleByMovingTwoSquares">Movendo o rei dúas casillas</string>
   <string name="castleByMovingOntoTheRook">Movendo rei ata a torre</string>
   <string name="inputMovesWithTheKeyboard">Introducción de movementos co teclado</string>
+  <string name="snapArrowsToValidMoves">Adherir frechas a movementos válidos</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Dicir \"Good game, well played\" (Boa partida, ben xogada) ao perder ou empatar</string>
   <string name="yourPreferencesHaveBeenSaved">As túas preferencias foron gardadas.</string>
 </resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Puzzels</string>
-  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Aanbevolen</string>
+  <string name="recommended">Aanbevolen</string>
   <string name="phases">Fasen</string>
   <string name="motifs">Motieven</string>
   <string name="advanced">Geavanceerd</string>
@@ -26,7 +26,7 @@
   <string name="notTheMove">Dat is niet de juiste zet!</string>
   <string name="trySomethingElse">Probeer iets anders.</string>
   <string name="ratingX">Rating: %s</string>
-  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">verborgen</string>
+  <string name="hidden">verborgen</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s keer gespeeld</item>
     <item quantity="other">%s keer gespeeld</item>
@@ -41,4 +41,5 @@
   <string name="hardest">Moeilijkst</string>
   <string name="example">Voorbeeld</string>
   <string name="addAnotherTheme">Voeg nog een thema toe</string>
+  <string name="jumpToNextPuzzleImmediately">Direct door naar volgende puzzel</string>
 </resources>

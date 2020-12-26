@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">タクティクス問題</string>
-  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">おすすめ</string>
+  <string name="recommended">おすすめ</string>
   <string name="phases">序盤・中盤・終盤</string>
   <string name="motifs">モチーフ</string>
   <string name="advanced">上級</string>
@@ -26,7 +26,7 @@
   <string name="notTheMove">その手は違います！</string>
   <string name="trySomethingElse">別の手をどうぞ。</string>
   <string name="ratingX">レーティング: %s</string>
-  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">非表示</string>
+  <string name="hidden">非表示</string>
   <plurals name="playedXTimes">
     <item quantity="other">%s 回プレイ</item>
   </plurals>
@@ -40,4 +40,5 @@
   <string name="hardest">非常に難しい</string>
   <string name="example">例</string>
   <string name="addAnotherTheme">別のテーマを追加</string>
+  <string name="jumpToNextPuzzleImmediately">解いたらすぐ次の問題を読み込む</string>
 </resources>

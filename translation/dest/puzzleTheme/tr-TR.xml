@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">İlerlemiş piyon</string>
-  <string name="advancedPawnDescription">Terfi eden veya terfi etmek üzere olan bir piyon taktiğin anahtarı.</string>
+  <string name="advancedPawnDescription">Terfi eden veya terfi etmek üzere olan bir piyon taktik bilgisinin olmazsa olmazıdır.</string>
   <string name="advantage">Avantaj yakala</string>
   <string name="advantageDescription">Mutlak bir üstünlük kazanma şansını yakala. (200sp ≤ analiz ≤ 600sp)</string>
   <string name="attackingF2F7">Saldırı: f2 ve f7</string>
@@ -72,7 +72,7 @@
   <string name="pawnEndgame">Piyon oyunsonu</string>
   <string name="pawnEndgameDescription">Yalnızca piyonların olduğu oyunsonları.</string>
   <string name="pin">Açmaz</string>
-  <string name="pinDescription">Hareket ettiği takdirde arkasında bulunan kendisinden daha değerli bir taş tehlikeye düşeceği için olduğu yere mıhlanmış zavallı taşları içeren taktikler.</string>
+  <string name="pinDescription">Hareket ettiği takdirde arkasında bulunan, kendisinden daha değerli bir taş tehlikeye düşeceği için olduğu yere mıhlanmış zavallı taşları içeren taktikler.</string>
   <string name="promotion">Terfi</string>
   <string name="promotionDescription">Terfi eden veya terfi etmek üzere olan bir piyon taktik bilgisinin olmazsa olmazıdır.</string>
   <string name="queenEndgame">Vezir oyunsonu</string>
@@ -86,15 +86,15 @@
   <string name="rookEndgame">Kale oyunsonu</string>
   <string name="rookEndgameDescription">Sadece kale ve piyon içeren oyunsonu.</string>
   <string name="sacrifice">Feda</string>
-  <string name="sacrificeDescription">Zorunlu bir hamleler serisinden sonra avantaj elde etmek için kısa vadede birkaç taşı gözden çıkarmanız gereken taktikler.</string>
+  <string name="sacrificeDescription">Zorunlu hamleler serisinden sonra avantaj elde etmek için kısa vadede en az bir taşı gözden çıkarmanız gereken taktikler.</string>
   <string name="short">Kısa bulmaca</string>
   <string name="shortDescription">İki hamlede kazanç.</string>
   <string name="skewer">Şiş</string>
-  <string name="skewerDescription">Değerli bir taşın saldırı altında olduğu, hareketi hâlinde ise arkasındaki daha düşük değerli bir taşın ele geçirileceği ya da tehlikeye düşeceği motifler. Bir nevi açmazın tersi.</string>
+  <string name="skewerDescription">Değerli bir taşın saldırı altında olduğu, hareketi hâlinde ise arkasındaki daha düşük değerli bir taşın düşeceği ya da tehlikeye gireceği motifler. Bir nevi açmazın tersi.</string>
   <string name="smotheredMate">Boğmaca Matı</string>
   <string name="smotheredMateDescription">Kendi taşları tarafından çevrelendiği (ya da boğulduğu) için hareket edemeyen şahın at ile mat edildiği pozisyonlar.</string>
   <string name="trappedPiece">Tuzağa düşmüş taş</string>
-  <string name="trappedPieceDescription">Gidilecek güvenli bir kare olmadığı için kaçacak yerleri kalmayan taşlar.</string>
+  <string name="trappedPieceDescription">Gidecek güvenli bir kare kalmadığı için kaçacak yerleri olmayan taşlar.</string>
   <string name="underPromotion">Düşük terfi</string>
   <string name="underPromotionDescription">At, fil veya kaleye terfi.</string>
   <string name="veryLong">Çok uzun bulmaca</string>

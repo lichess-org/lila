@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Galvosūkiai</string>
-  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Rekomenduojama</string>
+  <string name="recommended">Rekomenduojama</string>
   <string name="phases">Fazės</string>
   <string name="motifs">Motyvai</string>
   <string name="advanced">Pažengusiems</string>
@@ -26,7 +26,7 @@
   <string name="notTheMove">Ne toks ėjimas!</string>
   <string name="trySomethingElse">Bandykite kitką.</string>
   <string name="ratingX">Reitingas: %s</string>
-  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">paslėpta</string>
+  <string name="hidden">paslėpta</string>
   <plurals name="playedXTimes">
     <item quantity="one">Žaista %s kartą</item>
     <item quantity="few">Žaista %s kartus</item>
@@ -43,4 +43,5 @@
   <string name="hardest">Sunkiausias</string>
   <string name="example">Pavyzdys</string>
   <string name="addAnotherTheme">Pridėti dar vieną temą</string>
+  <string name="jumpToNextPuzzleImmediately">Iš karto pereiti į kitą galvosūkį</string>
 </resources>

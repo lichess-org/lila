@@ -6,7 +6,7 @@
   <string name="materialDifference">Material tapawudy</string>
   <string name="boardHighlights">Tagta indikatorlary (soňky göçüm we şah)</string>
   <string name="pieceDestinations">Çöpüň gidip biljek ýerleri (düzgün göçümler we öň-göçümler)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Tagta kordinatlary (A-H, 1-8)</string>
+  <string name="boardCoordinates">Tagta kordinatlary (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Oýun dowamynda göçüm sanawy</string>
   <string name="pgnPieceNotation">Göçüm notasiýasy</string>
   <string name="chessPieceSymbol">Küşt çöpi nyşany</string>
@@ -15,7 +15,7 @@
   <string name="blindfoldChess">Gözdaňyly küşt (görünmeýän çöpler)</string>
   <string name="chessClock">Küşt sagady</string>
   <string name="tenthsOfSeconds">Sekundyň 10-da 1-i</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Galan wagt &lt; 10 sekunt bolanda</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Galan wagt &lt; 10 sekunt bolanda</string>
   <string name="horizontalGreenProgressBars">Keseligine ýaşyl progres zolaklary</string>
   <string name="soundWhenTimeGetsCritical">Wagt aýgytly ýagdaýa gelende ses çykar</string>
   <string name="giveMoreTime">Has köp wagt ber</string>
@@ -28,8 +28,8 @@
   <string name="inCasualGamesOnly">Diňe reýtingsiz oýunlarda</string>
   <string name="promoteToQueenAutomatically">Awto-wezir</string>
   <string name="whenPremoving">Öň-göçüm göçülýärkä</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">3-gaýtalanmada deňligi awto-yglan et</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Galan wagt &lt; 30 sekunt bolanda</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">3-gaýtalanmada deňligi awto-yglan et</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Galan wagt &lt; 30 sekunt bolanda</string>
   <string name="moveConfirmation">Göçüm tassyklamasy</string>
   <string name="inCorrespondenceGames">Günlük oýunlar</string>
   <string name="correspondenceAndUnlimited">Günlük we çäksiz</string>

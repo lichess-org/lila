@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Taktikkoppgåver</string>
-  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Anbefalt</string>
+  <string name="recommended">Anbefalt</string>
   <string name="phases">Fasar</string>
   <string name="motifs">Motiv</string>
   <string name="advanced">Vidarekomande</string>
@@ -26,7 +26,7 @@
   <string name="notTheMove">Det er ikkje rett trekk!</string>
   <string name="trySomethingElse">Prøv noko anna.</string>
   <string name="ratingX">Rating: %s</string>
-  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">løynd</string>
+  <string name="hidden">løynd</string>
   <plurals name="playedXTimes">
     <item quantity="one">Spelt %s gong</item>
     <item quantity="other">Spelt %s gonger</item>
@@ -41,4 +41,5 @@
   <string name="hardest">Vanskelegast</string>
   <string name="example">Døme</string>
   <string name="addAnotherTheme">Legg til endå eit tema</string>
+  <string name="jumpToNextPuzzleImmediately">Hopp straks til neste oppgåve</string>
 </resources>

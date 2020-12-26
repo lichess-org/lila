@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Šachové úlohy</string>
-  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Odporúčané</string>
+  <string name="recommended">Odporúčané</string>
   <string name="phases">Fázy</string>
   <string name="advanced">Pokročilé</string>
   <string name="mates">Mat</string>
@@ -18,7 +18,7 @@
   <string name="puzzleComplete">Úloha splnená!</string>
   <string name="trySomethingElse">Skúste niečo iné.</string>
   <string name="ratingX">Hodnotenie: %s</string>
-  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">skryté</string>
+  <string name="hidden">skryté</string>
   <plurals name="playedXTimes">
     <item quantity="one">Hrané %s-krát</item>
     <item quantity="few">Hrané %s-krát</item>

@@ -1,2 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">Puzloj</string>
+  <string name="recommended">Rekomendita</string>
+  <string name="phases">Fazoj</string>
+  <string name="mates">Matoj</string>
+  <string name="specialMoves">Specialaj movoj</string>
+  <string name="didYouLikeThisPuzzle">Ĉu vi ŝatis la puzlon?</string>
+  <string name="voteToLoadNextOne">Voĉdonu por iri al la venonta puzlo!</string>
+  <string name="yourPuzzleRatingX">Via puzla rango: %s</string>
+  <string name="findTheBestMoveForWhite">Trovu la plej bonan movon por blanko.</string>
+  <string name="findTheBestMoveForBlack">Trovu la plej bonan movon por nigro.</string>
+  <string name="puzzleId">Puzlo %s</string>
+  <string name="puzzleOfTheDay">Puzlo de la tago</string>
+  <string name="clickToSolve">Klaku por solvi</string>
+  <string name="goodMove">Bona movo</string>
+  <string name="bestMove">Plej bona movo!</string>
+  <string name="puzzleSuccess">Sukceso!</string>
+  <string name="notTheMove">Tiu ne estas la movo!</string>
+  <string name="trySomethingElse">Provu ion alian.</string>
+  <string name="ratingX">Taksado: %s</string>
+  <string name="hidden">kaŝita</string>
+  <string name="fromGameLink">El ludo %s</string>
+  <string name="continueTraining">Daŭrigi la trejnadon</string>
+  <string name="normal">Normale</string>
+  <string name="easier">Facile</string>
+  <string name="easiest">Tre facile</string>
+  <string name="harder">Malfacile</string>
+  <string name="hardest">Tre malfacile</string>
+  <string name="example">Ekzamplo</string>
+  <string name="addAnotherTheme">Aldonu novan temon</string>
+</resources>

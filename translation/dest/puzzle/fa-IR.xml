@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advanced">پیشرفته</string>
+  <string name="puzzleOfTheDay">مسئله روز</string>
+  <string name="bestMove">بهترین حرکت!</string>
+  <string name="keepGoing">ادامه دهید…</string>
+  <string name="puzzleSuccess">موفقیت!</string>
+  <string name="hidden">پنهان</string>
+  <string name="fromGameLink">برگرفته شده از بازی %s</string>
+  <string name="continueTraining">ادامه دادن تمرین</string>
+  <string name="difficultyLevel">میزان سختی</string>
+  <string name="normal">معمولی</string>
+  <string name="easiest">آسان‌ترین</string>
+  <string name="hardest">سخت‌ترین</string>
+</resources>

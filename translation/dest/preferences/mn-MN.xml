@@ -6,7 +6,7 @@
   <string name="materialDifference">Талуудын хөлгийн зөрүүг үзүүлэх</string>
   <string name="boardHighlights">Хийгдсэн нүүдлүүдийг тодотгох (сүүлчийн нүүдэл, мад, шаг)</string>
   <string name="pieceDestinations">Хөлгийн нүүдэл үзүүлэх (зөвшөөрөгдсөн нүүдэл, урьдчилсан нүүдэл)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Солбилцолын тэмдэглэлүүдийг үзүүлэх (A-H, 1-8)</string>
+  <string name="boardCoordinates">Солбилцолын тэмдэглэлүүдийг үзүүлэх (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Хийгдсэн нүүдлүүдийн жагсаалтыг хажуу талд харуулах</string>
   <string name="pgnPieceNotation">Нүүдлийн тэмдэглэгээ</string>
   <string name="chessPieceSymbol">Шатрын дүрсний тэмдэглэгээ</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Харахгүйгээр тоглох (шатрын хөлгүүд үзэгдэхгүй)</string>
   <string name="chessClock">Шатрын цаг</string>
   <string name="tenthsOfSeconds">1/10 секунд</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Хэрэв цаг 10 секундээс бага болвол</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Хэрэв цаг 10 секундээс бага болвол</string>
   <string name="horizontalGreenProgressBars">Элсэн цаг</string>
   <string name="soundWhenTimeGetsCritical">Цаг эрс бага болвол дуут дохио өгөх</string>
   <string name="giveMoreTime">Цаг нэмж өгөх</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">Зөвхөн чансаа өөрчлөгдөхгүй өрөгт</string>
   <string name="promoteToQueenAutomatically">Хүүг үргэлж бэрс гаргана</string>
   <string name="whenPremoving">Урьдчилсан нүүдэл хийсэн тохиолдолд</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Автоматаар гурван нүүдлийн тэнцэлийг тооцох</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Хугацаа 30 секундээс доош үлдсэн тохиолдолд</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматаар гурван нүүдлийн тэнцэлийг тооцох</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Хугацаа 30 секундээс доош үлдсэн тохиолдолд</string>
   <string name="moveConfirmation">Нүүдлээ баталгаажуулах</string>
   <string name="inCorrespondenceGames">Бодит цагт тоглогдохгүй өрөг</string>
   <string name="correspondenceAndUnlimited">Ээлжээр нүүх (хязгааргүй)</string>

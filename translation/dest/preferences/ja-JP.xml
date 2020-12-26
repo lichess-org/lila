@@ -6,7 +6,7 @@
   <string name="materialDifference">駒の損得</string>
   <string name="boardHighlights">盤上のハイライト表示（最後の手、チェック）</string>
   <string name="pieceDestinations">駒の行き先（ルール上動けるマス、プリムーブ）</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">マスの座標（A-H, 1-8）</string>
+  <string name="boardCoordinates">マスの座標（A-H, 1-8）</string>
   <string name="moveListWhilePlaying">プレイ中の棋譜記録</string>
   <string name="pgnPieceNotation">PGN 駒表示方法</string>
   <string name="chessPieceSymbol">チェス駒シンボル</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">目隠しチェス</string>
   <string name="chessClock">時間表示</string>
   <string name="tenthsOfSeconds">0.1秒単位で時間表示</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">持時間が残り10秒以下の場合</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">持時間が残り10秒以下の場合</string>
   <string name="horizontalGreenProgressBars">プログレスバー</string>
   <string name="soundWhenTimeGetsCritical">時間が迫ってきたら音を鳴らす</string>
   <string name="giveMoreTime">相手に時間追加</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">非レート戦のみ</string>
   <string name="promoteToQueenAutomatically">自動的にクイーンに昇格する</string>
   <string name="whenPremoving">プリムーブをした場合</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">同形三復を自動的にドローにする</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">持時間が残り30秒以下の場合</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">同形三復を自動的にドローにする</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">持時間が残り30秒以下の場合</string>
   <string name="moveConfirmation">着手を確定</string>
   <string name="inCorrespondenceGames">通信チェスのみ</string>
   <string name="correspondenceAndUnlimited">通信戦と持時間無制限</string>
@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">キングを 2 マス動かす</string>
   <string name="castleByMovingOntoTheRook">キングをルークの上に動かす</string>
   <string name="inputMovesWithTheKeyboard">手をキーボードで入力</string>
+  <string name="snapArrowsToValidMoves">可能な手を矢印で表示</string>
+  <string name="sayGgWpAfterLosingOrDrawing">負けかドローの際に「Good game, well played」と言う</string>
   <string name="yourPreferencesHaveBeenSaved">設定が保存されました。</string>
 </resources>

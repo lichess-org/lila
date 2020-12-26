@@ -33,7 +33,7 @@
   <string name="doubleCheck">Двойной шах</string>
   <string name="doubleCheckDescription">Шах двумя фигурами одновременно при помощи вскрытого нападения. Нельзя срубить обе атакующие фигуры и нельзя закрыться от них, поэтому король может только уйти от шаха.</string>
   <string name="endgame">Эндшпиль</string>
-  <string name="endgameDescription">Тактика на последней фазе игры.</string>
+  <string name="endgameDescription">Тактика на последней стадии игры.</string>
   <string name="enPassantDescription">Тактика с применением правила «взятие на проходе», где пешка может взять пешку противника, сделавшую первоначальный ход с перемещением на два поля, при котором пересекаемое поле находится под боем пешки, которая может взять пешку противника.</string>
   <string name="exposedKing">Голый король</string>
   <string name="exposedKingDescription">Незащищённый или слабо защищённый король часто становится жертвой матовой атаки.</string>
@@ -62,11 +62,11 @@
   <string name="mateIn5">Мат в 5 или более</string>
   <string name="mateIn5Description">Найдите последовательность ходов, ведущую к мату.</string>
   <string name="middlegame">Миттельшпиль</string>
-  <string name="middlegameDescription">Тактические приёмы во второй фазе игры.</string>
+  <string name="middlegameDescription">Тактические приёмы на второй стадии игры.</string>
   <string name="oneMove">Одноходовая задача</string>
   <string name="oneMoveDescription">Задача, где нужно сделать только один выигрывающий ход.</string>
   <string name="opening">Дебют</string>
-  <string name="openingDescription">Тактические приёмы в первой фазе игры.</string>
+  <string name="openingDescription">Тактические приёмы в первой стадии игры.</string>
   <string name="overloading">Перегрузка</string>
   <string name="overloadingDescription">Ситуация, в которой фигура выполняет несколько задач, например, защищает две фигуры. Размен одной из фигур оставит вторую фигуру без защиты. Похоже на отвлечение.</string>
   <string name="pawnEndgame">Пешечное окончание</string>
@@ -104,5 +104,5 @@
   <string name="zugzwang">Цугцванг</string>
   <string name="zugzwangDescription">Противник вынужден сделать один из немногих возможных ходов, но любой ход ведёт к ухудшению его положения.</string>
   <string name="healthyMix">Здоровая смесь</string>
-  <string name="healthyMixDescription">Всего понемногу. Ты не знаешь, чего ожидать, так что будь готов ко всему! Как и в любой игре.</string>
+  <string name="healthyMixDescription">Всего понемногу. Вы не знаете, чего ожидать, так что будьте готовы ко всему! Как и в любой игре.</string>
 </resources>

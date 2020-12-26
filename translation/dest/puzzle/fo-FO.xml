@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Uppgávur</string>
-  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Viðmæld</string>
+  <string name="recommended">Viðmæld</string>
   <string name="phases">Skifti</string>
   <string name="motifs">Ætlanir</string>
   <string name="advanced">Framkomið stig</string>
@@ -22,11 +22,11 @@
   <string name="bestMove">Besti leikur!</string>
   <string name="keepGoing">Halt fram…</string>
   <string name="puzzleSuccess">Tað eydnaðist!</string>
-  <string name="puzzleComplete">Uppgávan er liðug!</string>
+  <string name="puzzleComplete">Uppgávan er loyst!</string>
   <string name="notTheMove">Hatta er ikki rætti leikurin!</string>
   <string name="trySomethingElse">Royn okkurt annað.</string>
   <string name="ratingX">Styrkital: %s</string>
-  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">fjalt</string>
+  <string name="hidden">fjalt</string>
   <plurals name="playedXTimes">
     <item quantity="one">Telvað %s ferð</item>
     <item quantity="other">Telvað %s ferðir</item>

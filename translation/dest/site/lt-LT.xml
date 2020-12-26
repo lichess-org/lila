@@ -34,10 +34,10 @@
   <string name="whitePlays">Baltųjų ėjimas</string>
   <string name="blackPlays">Juodųjų ėjimas</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Jūsų varžovas paliko partiją. Galėsite pasiimti pergalę už %s sekundės.</item>
-    <item quantity="few">Jūsų varžovas paliko partiją. Galėsite pasiimti pergalę už %s sekundžių.</item>
-    <item quantity="many">Jūsų varžovas paliko partiją. Galėsite pasiimti pergalę už %s sekundžių.</item>
-    <item quantity="other">Jūsų varžovas paliko partiją. Galėsite pasiimti pergalę už %s sekundžių.</item>
+    <item quantity="one">Jūsų varžovas paliko partiją. Galėsite prisiimti pergalę už %s sekundės.</item>
+    <item quantity="few">Jūsų varžovas paliko partiją. Galėsite prisiimti pergalę už %s sekundžių.</item>
+    <item quantity="many">Jūsų varžovas paliko partiją. Galėsite prisiimti pergalę už %s sekundžių.</item>
+    <item quantity="other">Jūsų varžovas paliko partiją. Galėsite prisiimti pergalę už %s sekundžių.</item>
   </plurals>
   <string name="opponentLeftChoices">Panašu, kad varžovas paliko žaidimą. Galite pasiimti pergalę, lygiąsias, arba palaukti.</string>
   <string name="makeYourOpponentResign">Priversti priešininką pasiduoti</string>
@@ -169,7 +169,7 @@
   <string name="variant">Variantas</string>
   <string name="variants">Variantai</string>
   <string name="timeControl">Laiko kontrolė</string>
-  <string name="realTime">Greitieji</string>
+  <string name="realTime">Realiu laiku</string>
   <string name="correspondence">Korespondencija</string>
   <string name="daysPerTurn">Dienų ėjimui</string>
   <string name="oneDay">Viena diena</string>
@@ -189,17 +189,17 @@
   <string name="rating">Reitingas</string>
   <string name="ratingStats">Įvertinimų statistika</string>
   <string name="username">Vartotojo vardas</string>
-  <string name="usernameOrEmail">Vartotojo vardas</string>
-  <string name="changeUsername">Keisti naudotojo vardą</string>
+  <string name="usernameOrEmail">Vartotojo vardas ar el. pašto adresas</string>
+  <string name="changeUsername">Keisti vartotojo vardą</string>
   <string name="changeUsernameNotSame">Galima keisti tik raidžių dydį. Pvz., „vardaspav“ į „VardasPav“.</string>
   <string name="changeUsernameDescription">Pasikeiskite naudotojo vardą. Tai gali būti atlikta tik kartą, ir keisti galite tik raidžių dydį.</string>
   <string name="password">Slaptažodis</string>
-  <string name="changePassword">Pasikeisti slaptažodį</string>
-  <string name="changeEmail">Pasikeisti el. pašto adresą</string>
-  <string name="email">El. paštas</string>
+  <string name="changePassword">Keisti slaptažodį</string>
+  <string name="changeEmail">Keisti el. pašto adresą</string>
+  <string name="email">El. pašto adresas</string>
   <string name="passwordReset">Slaptažodžio atkūrimas</string>
   <string name="forgotPassword">Pamiršote slaptažodį?</string>
-  <string name="rank">Rangas</string>
+  <string name="rank">Reitingas</string>
   <string name="rankX">Reitingas: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">Reitingas atnaujinamas kas minutę</item>
@@ -241,7 +241,7 @@
   <string name="abortGame">Nutraukti žaidimą</string>
   <string name="gameAborted">Žaidimas nutrauktas</string>
   <string name="standard">Standartinis</string>
-  <string name="unlimited">Neriboti</string>
+  <string name="unlimited">Neribota</string>
   <string name="mode">Tipas</string>
   <string name="casual">Nevertinamas</string>
   <string name="rated">Vertinamas</string>
@@ -625,8 +625,8 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="playOfflineComputer">Su kompiuteriu</string>
   <string name="opponent">Varžovas</string>
   <string name="learnMenu">Išmok</string>
-  <string name="studyMenu">Studijuoti</string>
-  <string name="practice">Praktikuotis</string>
+  <string name="studyMenu">Studijos</string>
+  <string name="practice">Praktika</string>
   <string name="community">Bendruomenė</string>
   <string name="tools">Įrankiai</string>
   <string name="increment">Prieaugis</string>

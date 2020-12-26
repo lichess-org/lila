@@ -6,7 +6,7 @@
   <string name="materialDifference">Diferencia material</string>
   <string name="boardHighlights">Destacar casillas del tablero (último movimiento y jaque)</string>
   <string name="pieceDestinations">Destino de las piezas (movimientos válidos y anticipados)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Coordenadas del tablero (A-H, 1-8)</string>
+  <string name="boardCoordinates">Coordenadas del tablero (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lista de movimientos durante la partida</string>
   <string name="pgnPieceNotation">Notación de los movimientos</string>
   <string name="chessPieceSymbol">Símbolo de la pieza</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Ajedrez a ciegas (piezas invisibles)</string>
   <string name="chessClock">Reloj de ajedrez</string>
   <string name="tenthsOfSeconds">Décimas de segundo</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Cuando queden menos de 10 segundos</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Cuando queden menos de 10 segundos</string>
   <string name="horizontalGreenProgressBars">Barras de progreso horizontales verdes</string>
   <string name="soundWhenTimeGetsCritical">Alerta cuando reste poco tiempo</string>
   <string name="giveMoreTime">Dar más tiempo</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">Sólo en partidas amistosas</string>
   <string name="promoteToQueenAutomatically">Promover a la Reina automáticamente</string>
   <string name="whenPremoving">Con anticipadas</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Reclamar tablas por triple repetición</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Cuando el tiempo restante sea de &lt; 30 segundos</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar tablas por triple repetición</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Cuando el tiempo restante sea de &lt; 30 segundos</string>
   <string name="moveConfirmation">Confirmación de movimiento</string>
   <string name="inCorrespondenceGames">Partidas por correspondencia</string>
   <string name="correspondenceAndUnlimited">Correspondencia y sin límite de tiempo</string>
@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Moviendo el rey dos escaques</string>
   <string name="castleByMovingOntoTheRook">Moviendo el rey hasta la torre</string>
   <string name="inputMovesWithTheKeyboard">Entrada de movimientos con el teclado</string>
+  <string name="snapArrowsToValidMoves">Adherir flechas a movimientos válidos</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Decir \"Good game, well played\" (Buena partida, bien jugada) al perder o empatar</string>
   <string name="yourPreferencesHaveBeenSaved">Tus preferencias se han guardado.</string>
 </resources>

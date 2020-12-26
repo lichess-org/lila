@@ -4,7 +4,7 @@
   <string name="advancedPawnDescription">Айналуға ұмтылған не айналумен қорқытып тұрған сарбаз – тактиканың өзегі.</string>
   <string name="advantage">Артықшылық</string>
   <string name="advantageDescription">Шешуші артықшылық беретін сәтті жіберіп алмаңыз. (200-600 сп)</string>
-  <string name="attackingF2F7">Шабуылдайтын f2 не f7</string>
+  <string name="attackingF2F7">f2 не f7-ге шабуылдау</string>
   <string name="attackingF2F7Description">\"Қуырылған бүйрек\" бастауындағыдай f2 не f7 сарбазына бағытталған шабуыл.</string>
   <string name="attraction">Тартымдылық</string>
   <string name="attractionDescription">Қарсылас тасын белгілі бір шаршыға итермелейтін не күштеп ығыстыратын айырбастау не құрбан ету.</string>
@@ -59,7 +59,7 @@
   <string name="mateIn3Description">Үш жүріспен мат жасаңыз.</string>
   <string name="mateIn4">4 жүрісті мат</string>
   <string name="mateIn4Description">Төрт жүріспен мат жасаңыз.</string>
-  <string name="mateIn5">5 не одан көп жүрісті мат</string>
+  <string name="mateIn5">≥5 жүрісті мат</string>
   <string name="mateIn5Description">Матқа жеткізетін жүрістер тізбегін табыңыз.</string>
   <string name="middlegame">Ойын ортасы</string>
   <string name="middlegameDescription">Ойынның екінші кезеңіндегі тактика.</string>
@@ -77,7 +77,7 @@
   <string name="promotionDescription">Айналуға ұмтылған не айналумен қорқытып тұрған сарбаз – тактиканың өзегі.</string>
   <string name="queenEndgame">Уәзір ойынсоңы</string>
   <string name="queenEndgameDescription">Уәзірлер мен сарбаздары ғана бар ойынсоңы.</string>
-  <string name="queenRookEndgame">Уәзір мен Тура ойынсоңы</string>
+  <string name="queenRookEndgame">Уәзір мен Тура</string>
   <string name="queenRookEndgameDescription">Уәзірлер, туралар мен сарбаздары ғана бар ойынсоңы.</string>
   <string name="queensideAttack">Уәзір жақты шабуыл</string>
   <string name="queensideAttackDescription">Қарсылас патшасы уәзір жаққа бекінгеннен кейін оған жасалатын шабуыл.</string>
@@ -103,6 +103,6 @@
   <string name="xRayAttackDescription">Бір тастың қарсылас тасын аттай бір шаршыны қорғауы не шабуылдауы.</string>
   <string name="zugzwang">Цугцванг</string>
   <string name="zugzwangDescription">Жүрісі шектелген тастардың әр жүрісі жалпы жағдайдың нашарлауына әкеп соқтыратын кез.</string>
-  <string name="healthyMix">Пайдалы жиынтық</string>
+  <string name="healthyMix">Пайдалы микс</string>
   <string name="healthyMixDescription">Барлығынан аз-аздан. Күтпеген жағдайларға бейім болыңыз! Дәл нағыз шахматтағыдай!</string>
 </resources>

@@ -6,7 +6,7 @@
   <string name="materialDifference">सामग्री का अंतर</string>
   <string name="boardHighlights">बोर्ड का हाइलाइट (आख़िरी चाल और सह)</string>
   <string name="pieceDestinations">मोहरों का गंतव्य (मान्य चालें और पहले से चुनी आई चालें)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">बोर्ड का निर्देशांक (A-H, 1-8)</string>
+  <string name="boardCoordinates">बोर्ड का निर्देशांक (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">खेलते समय चालों की सूची</string>
   <string name="pgnPieceNotation">चाल नोटेशन</string>
   <string name="chessPieceSymbol">शतरंज टुकड़ा प्रतीक</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">अदृश्य शतरंज (अदृश्य मोहरे )</string>
   <string name="chessClock">शतरंज की घड़ी</string>
   <string name="tenthsOfSeconds">सेकेंड का दसवाँ हिस्सा</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">जब बचा हुआ समय &lt; 10 सेकेंड</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">जब बचा हुआ समय &lt; 10 सेकेंड</string>
   <string name="horizontalGreenProgressBars">क्षैतिज(horizontal) हरी प्रगति सलाखें(bars)</string>
   <string name="soundWhenTimeGetsCritical">ध्वनि जब समय महत्वपूर्ण (कम) हो जाता है</string>
   <string name="giveMoreTime">अधिक समय दें</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">केवल आकस्मिक खेलों में ही</string>
   <string name="promoteToQueenAutomatically">रानी की उन्नति (प्रमोट) अपने आप करें</string>
   <string name="whenPremoving">पहले से चाल चलते समय</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">दावा तीन बार दोहराव पर स्वचालित रूप से ड्रा</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">जब बचा हुआ समय &lt; 30 सेकेंड</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">दावा तीन बार दोहराव पर स्वचालित रूप से ड्रा</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">जब बचा हुआ समय &lt; 30 सेकेंड</string>
   <string name="moveConfirmation">चाल की पुष्टि करें</string>
   <string name="inCorrespondenceGames">लम्बे खेलों में</string>
   <string name="correspondenceAndUnlimited">पत्राचार और असीमित</string>
@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">राजा दो चौकों ले जाएँ</string>
   <string name="castleByMovingOntoTheRook">राजा हाथी पर ले जाएँ</string>
   <string name="inputMovesWithTheKeyboard">कंप्यूटर कीबोर्ड के साथ इनपुट करें</string>
+  <string name="snapArrowsToValidMoves">मान्य चाल के लिए स्नैप तीर</string>
+  <string name="sayGgWpAfterLosingOrDrawing">हार या ड्रॉ पर \"अच्छा खेल, अच्छा खेला\" कहें</string>
   <string name="yourPreferencesHaveBeenSaved">आपकी प्राथमिकताएं सेव कर ली गई हैं</string>
 </resources>

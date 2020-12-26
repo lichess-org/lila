@@ -6,7 +6,7 @@
   <string name="materialDifference">기물 차이</string>
   <string name="boardHighlights">보드 하이라이트 (마지막 움직임 및 체크)</string>
   <string name="pieceDestinations">기물 착지점 (유효한 움직임 및 미리두기)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">보드 좌표 (A-H, 1-8)</string>
+  <string name="boardCoordinates">보드 좌표 (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">피스 움직임 기록</string>
   <string name="pgnPieceNotation">PGN 기물표기방식</string>
   <string name="chessPieceSymbol">체스 말 기호</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">눈을 가리고 체스 (기물이 보이지 않음)</string>
   <string name="chessClock">체스 시계</string>
   <string name="tenthsOfSeconds">1/10초 단위</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">남은 시간이 10초 미만일 때</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">남은 시간이 10초 미만일 때</string>
   <string name="horizontalGreenProgressBars">녹색 수평 진행 바</string>
   <string name="soundWhenTimeGetsCritical">시간이 위태로울 때 소리 재생</string>
   <string name="giveMoreTime">시간 더 주기</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">캐주얼 모드에서만</string>
   <string name="promoteToQueenAutomatically">퀸으로 자동 승급</string>
   <string name="whenPremoving">미리 뒀을 때만</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">세 번 반복하면 자동으로 무승부 요청</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">남은 시간이 30초 미만일 때만</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">세 번 반복하면 자동으로 무승부 요청</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">남은 시간이 30초 미만일 때만</string>
   <string name="moveConfirmation">피스를 움직이기 전에 물음</string>
   <string name="inCorrespondenceGames">긴 대국에서만</string>
   <string name="correspondenceAndUnlimited">긴 대국과 무제한</string>

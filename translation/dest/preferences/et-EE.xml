@@ -6,7 +6,7 @@
   <string name="materialDifference">Materjal erinevus</string>
   <string name="boardHighlights">Laual rõhutatakse (viimast käiku ja tuld)</string>
   <string name="pieceDestinations">malendi sihtkoht (kehtib käies ja ennetaval käigul)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Laua koordinaadid (A-H, 1-8)</string>
+  <string name="boardCoordinates">Laua koordinaadid (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">käikude loend mängides</string>
   <string name="pgnPieceNotation">Käikude notatsioon</string>
   <string name="chessPieceSymbol">Malendi sümbol</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Pime male</string>
   <string name="chessClock">Malekell</string>
   <string name="tenthsOfSeconds">Kümnendikku sekundit</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Kui aega on jäänud &lt;10 sekundi</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Kui aega on jäänud &lt;10 sekundi</string>
   <string name="horizontalGreenProgressBars">Horisontaalne roheline progressi riba</string>
   <string name="soundWhenTimeGetsCritical">Heli kui aeg hakkab lõppema</string>
   <string name="giveMoreTime">Anna lisaaega</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">ilma reitinguta mängud ainult</string>
   <string name="promoteToQueenAutomatically">Automaatselt edenda lipuks</string>
   <string name="whenPremoving">ennetava käiguga</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Kuuluta viik kolmekordsel kordusel automaatselt</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Aega on vähem kui &lt;30 sekundit</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Kuuluta viik kolmekordsel kordusel automaatselt</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Aega on vähem kui &lt;30 sekundit</string>
   <string name="moveConfirmation">Käigu kinnitus</string>
   <string name="inCorrespondenceGames">Kirjavahetus mängud</string>
   <string name="correspondenceAndUnlimited">Kirjavahetus ja piiramatu</string>

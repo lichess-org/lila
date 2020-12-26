@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Жұмбақтар</string>
-  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Ұсыныстар</string>
+  <string name="recommended">Ұсыныстар</string>
   <string name="phases">Кезеңдер</string>
-  <string name="motifs">Мақсаттар</string>
+  <string name="motifs">Жағдайлар</string>
   <string name="advanced">Кеңейтілген</string>
   <string name="lengths">Ұзындығы</string>
   <string name="mates">Маттар</string>
-  <string name="goals">Нысаналар</string>
+  <string name="goals">Мақсаттар</string>
   <string name="specialMoves">Ерекше жүрістер</string>
   <string name="didYouLikeThisPuzzle">Бұл жұмбақ ұнай ма?</string>
   <string name="voteToLoadNextOne">Келесін ашу үшін дауыс беріңіз!</string>
@@ -23,10 +23,10 @@
   <string name="keepGoing">Ары қарай…</string>
   <string name="puzzleSuccess">Бәрі дұрыс!</string>
   <string name="puzzleComplete">Жұмбақ шешілді!</string>
-  <string name="notTheMove">Бұл жүріс емес!</string>
+  <string name="notTheMove">Ол жүріс емес!</string>
   <string name="trySomethingElse">Басқаша жүріп көріңіз.</string>
   <string name="ratingX">Рейтинг: %s</string>
-  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">жасырын</string>
+  <string name="hidden">жасырын</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s рет ойналды</item>
     <item quantity="other">%s рет ойналды</item>
@@ -41,4 +41,5 @@
   <string name="hardest">Ең қиыны</string>
   <string name="example">Мысал</string>
   <string name="addAnotherTheme">Басқа тақырып қосу</string>
+  <string name="jumpToNextPuzzleImmediately">Келесі жұмбаққа бірден өту</string>
 </resources>

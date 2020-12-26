@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">पहेलियाँ</string>
-  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">सिफारिश की</string>
+  <string name="recommended">सिफारिश की</string>
   <string name="phases">के चरण</string>
   <string name="motifs">रूपांकनों</string>
   <string name="advanced">उन्नत</string>
@@ -26,7 +26,7 @@
   <string name="notTheMove">यह कदम नहीं है!</string>
   <string name="trySomethingElse">कुछ और कोशिश करो।</string>
   <string name="ratingX">रेटिंग: %s</string>
-  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">छिपा हुआ</string>
+  <string name="hidden">छिपा हुआ</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s समय खेले</item>
     <item quantity="other">%s समय खेले</item>
@@ -41,4 +41,5 @@
   <string name="hardest">सबसे कठिन</string>
   <string name="example">उदाहरण</string>
   <string name="addAnotherTheme">एक और विषय जोड़ें</string>
+  <string name="jumpToNextPuzzleImmediately">तुरंत अगली पहेली पर जाएं</string>
 </resources>

@@ -68,7 +68,7 @@
   <string name="opening">Eröffnung</string>
   <string name="openingDescription">Eine Taktik in der ersten Phase des Spiels, der Eröffnung.</string>
   <string name="overloading">Überlastung</string>
-  <string name="overloadingDescription">Wo eine Figur mehrere Aufgaben erfüllt, wie die Deckung von zwei Figuren. Das Schlagen einer der gedeckten Figuren schafft eine Gelegenheit, da die verteidigende Figur gezogen wurde, ähnlich wie bei der Ablenkung.</string>
+  <string name="overloadingDescription">Wenn eine Figur mehrere Aufgaben erfüllt, wie die Deckung von zwei Figuren. Das Schlagen einer der gedeckten Figuren verschafft einen Vorteil, da die verteidigende Figur eine der beiden Deckungen aufgeben muss, ähnlich wie bei der Ablenkung.</string>
   <string name="pawnEndgame">Bauernendspiel</string>
   <string name="pawnEndgameDescription">Ein Endspiel nur mit Bauern.</string>
   <string name="pin">Fesselung</string>
@@ -79,7 +79,7 @@
   <string name="queenEndgameDescription">Ein Endspiel nur mit Damen und Bauern.</string>
   <string name="queenRookEndgame">Damen- und Turmendspiel</string>
   <string name="queenRookEndgameDescription">Ein Endspiel nur mit Damen, Türmen und Bauern.</string>
-  <string name="queensideAttack">Damenflügelangriff</string>
+  <string name="queensideAttack">Angriff auf den Damenflügel</string>
   <string name="queensideAttackDescription">Ein Angriff auf den gegnerischen König, nachdem dieser auf den Damenflügel rochiert hat.</string>
   <string name="quietMove">Stiller Zug</string>
   <string name="quietMoveDescription">Ein Zug, der nicht Schach gibt oder schlägt, aber eine unvermeidliche Bedrohung durch einen späteren Zug vorbereitet.</string>
@@ -90,7 +90,7 @@
   <string name="short">Aufgabe mit kurzer Zugfolge</string>
   <string name="shortDescription">Zwei Züge zum Sieg.</string>
   <string name="skewer">Spieß (Hinterstellung)</string>
-  <string name="skewerDescription">Ein Motiv mit einer angegriffenen, hochwertigen Schachfigur, deren Wegziehen erlaubt, dass eine niederwertige Schachfigur hinter ihr geschlagen oder angegriffen werden kann, das Gegenteil einer Fesselung.</string>
+  <string name="skewerDescription">Ein Motiv mit einer angegriffenen, hochwertigen Figur, deren Wegziehen erlaubt, dass eine niederwertige Figur hinter ihr geschlagen oder angegriffen werden kann, das Gegenteil einer Fesselung.</string>
   <string name="smotheredMate">Ersticktes Matt</string>
   <string name="smotheredMateDescription">Ein Matt durch einen Springer, in dem der mattgesetzte König sich nicht bewegen kann, weil er von seinen eigenen Figuren umgeben (also erstickt) wird.</string>
   <string name="trappedPiece">Gefangene Figur</string>

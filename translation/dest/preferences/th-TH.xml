@@ -6,7 +6,7 @@
   <string name="materialDifference">วัตถุที่มีต่างกัน</string>
   <string name="boardHighlights">สีเน้นบนกระดาน (ตาเดินล่าสุด และการรุก)</string>
   <string name="pieceDestinations">เส้นทางของหมาก (ช่องที่เดินได้ และการเดินล่วงหน้า)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">พิกัดกระดาน</string>
+  <string name="boardCoordinates">พิกัดกระดาน</string>
   <string name="moveListWhilePlaying">แสดงรายชื่อตาที่เดินในขณะที่เล่น</string>
   <string name="pgnPieceNotation">สัญกรณ์การเดิน</string>
   <string name="chessPieceSymbol">สัญลักษณ์ตัวหมากรุก</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">หมากรุกอำพราง (ไม่เห็นตัวหมาก)</string>
   <string name="chessClock">นาฬิกาหมากรุก</string>
   <string name="tenthsOfSeconds">ทศนิยมของวินาที</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">เมื่อเหลือเวลา &lt; 10 วินาที</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">เมื่อเหลือเวลา &lt; 10 วินาที</string>
   <string name="horizontalGreenProgressBars">แถบแนวนอนสีเขียวแสดงความคืบหน้า</string>
   <string name="soundWhenTimeGetsCritical">เสียงเมื่อเวลาถึงจุดวิกฤต</string>
   <string name="giveMoreTime">ให้เวลาเพิ่ม</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">เฉพาะเกมธรรมดา</string>
   <string name="promoteToQueenAutomatically">เลื่อนขั้นเบี้ยเป็นควีนอัตโนมัติ</string>
   <string name="whenPremoving">เมื่อกำลังเดินล่วงหน้า</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">อ้างสิทธิ์การเสมอโดยอัตโนมัติเมื่อเดินซ้ำ 3 รอบ</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">เมื่อเหลือเวลา &lt; 30 วินาที</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">อ้างสิทธิ์การเสมอโดยอัตโนมัติเมื่อเดินซ้ำ 3 รอบ</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">เมื่อเหลือเวลา &lt; 30 วินาที</string>
   <string name="moveConfirmation">ยืนยันการเดิน</string>
   <string name="inCorrespondenceGames">เกมแบบยาวนาน</string>
   <string name="correspondenceAndUnlimited">แบบยาวนานและแบบไม่จำกัดเวลา</string>

@@ -6,7 +6,7 @@
   <string name="materialDifference">الفرق المادي</string>
   <string name="boardHighlights">تميز معالم الرقعة (آخر نقلة والكش)</string>
   <string name="pieceDestinations">نقلات القطعة ( النقلات المتاحة والنقلات الاستباقية)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">إحداثيات الرقعة (A-H, 1-8)</string>
+  <string name="boardCoordinates">إحداثيات الرقعة (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">قائمة النقلات خلال المباراة</string>
   <string name="pgnPieceNotation">تدوين النقلة</string>
   <string name="chessPieceSymbol">رمز قطعة الشطرنج</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">(معصوب العينين (إخفاء القطع</string>
   <string name="chessClock">مؤقت الشطرنج</string>
   <string name="tenthsOfSeconds">أجزاء الثانية</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">عندما يقل الوقت عن 10 ثوانٍ</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">عندما يقل الوقت عن 10 ثوانٍ</string>
   <string name="horizontalGreenProgressBars">الشريط الأخضر للساعة</string>
   <string name="soundWhenTimeGetsCritical">الصوت عندما يقارب الوقت على الإنتهاء</string>
   <string name="giveMoreTime">إعطاء مزيد من الوقت</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">في المباريات غير المقيمة فقط</string>
   <string name="promoteToQueenAutomatically">الترقية إلى وزير آلياً</string>
   <string name="whenPremoving">عند النقلة الاستباقية</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">مطالبة بالتعادل لتكرار نفس النقلات ثلاث مرات بشكل تلقائي</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">عندما يقل الوقت عن 30 ثانية</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">مطالبة بالتعادل لتكرار نفس النقلات ثلاث مرات بشكل تلقائي</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">عندما يقل الوقت عن 30 ثانية</string>
   <string name="moveConfirmation">تأكيد النقلة</string>
   <string name="inCorrespondenceGames">فى العاب المراسلة</string>
   <string name="correspondenceAndUnlimited">مراسلة وبدون توقيت</string>

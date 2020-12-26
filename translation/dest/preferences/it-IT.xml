@@ -6,7 +6,7 @@
   <string name="materialDifference">Differenza di materiale</string>
   <string name="boardHighlights">Segnalazioni sulla scacchiera (ultima mossa e scacco)</string>
   <string name="pieceDestinations">Destinazioni del pezzo (mosse e pre-mosse valide)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Coordinate della scacchiera (A-H, 1-8)</string>
+  <string name="boardCoordinates">Coordinate della scacchiera (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lista delle mosse mentre giochi</string>
   <string name="pgnPieceNotation">Notazione mossa</string>
   <string name="chessPieceSymbol">Simbolo del pezzo</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Scacchi alla cieca</string>
   <string name="chessClock">Orologio</string>
   <string name="tenthsOfSeconds">Decimi di secondo</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Quando il tempo rimanente è &lt; 10 secondi</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Quando il tempo rimanente è &lt; 10 secondi</string>
   <string name="horizontalGreenProgressBars">Barra verde orizzontale del tempo</string>
   <string name="soundWhenTimeGetsCritical">Suono quando sei a corto di tempo</string>
   <string name="giveMoreTime">Dai più tempo</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">Solo nelle partite amichevoli</string>
   <string name="promoteToQueenAutomatically">Promuovi a Donna automaticamente</string>
   <string name="whenPremoving">Quando preseleziono una mossa</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Reclama patta automaticamente dopo triplice ripetizione</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Quando il tempo rimanente è &lt; 30 secondi</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclama patta automaticamente dopo triplice ripetizione</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Quando il tempo rimanente è &lt; 30 secondi</string>
   <string name="moveConfirmation">Conferma della mossa</string>
   <string name="inCorrespondenceGames">Partite per corrispondenza</string>
   <string name="correspondenceAndUnlimited">Corrispondenza e senza limiti di tempo</string>
@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Muovi il re di due caselle</string>
   <string name="castleByMovingOntoTheRook">Muovi il re sopra la Torre</string>
   <string name="inputMovesWithTheKeyboard">Muovi utilizzando la tastiera</string>
+  <string name="snapArrowsToValidMoves">Collega le frecce a mosse valide</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Di \"Bella giocata\" alla sconfitta o al pareggio</string>
   <string name="yourPreferencesHaveBeenSaved">Le tue preferenze sono state salvate.</string>
 </resources>

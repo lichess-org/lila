@@ -6,7 +6,7 @@
   <string name="materialDifference">Material difference</string>
   <string name="boardHighlights">Board highlights (last move and check)</string>
   <string name="pieceDestinations">Piece destinations (valid moves and premoves)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Board coordinates (A-H, 1-8)</string>
+  <string name="boardCoordinates">Board coordinates (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Move list while playing</string>
   <string name="pgnPieceNotation">Move notation</string>
   <string name="chessPieceSymbol">Chess piece symbol</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Blindfold chess (invisible pieces)</string>
   <string name="chessClock">Chess clock</string>
   <string name="tenthsOfSeconds">Tenths of seconds</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">When time remaining &lt; 10 seconds</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">When time remaining &lt; 10 seconds</string>
   <string name="horizontalGreenProgressBars">Horizontal green progress bars</string>
   <string name="soundWhenTimeGetsCritical">Sound when time gets critical</string>
   <string name="giveMoreTime">Give more time</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">In casual games only</string>
   <string name="promoteToQueenAutomatically">Promote to Queen automatically</string>
   <string name="whenPremoving">When premoving</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Claim draw on threefold repetition automatically</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">When time remaining &lt; 30 seconds</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Claim draw on threefold repetition automatically</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">When time remaining &lt; 30 seconds</string>
   <string name="moveConfirmation">Move confirmation</string>
   <string name="inCorrespondenceGames">Correspondence games</string>
   <string name="correspondenceAndUnlimited">Correspondence and unlimited</string>
@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Move king two squares</string>
   <string name="castleByMovingOntoTheRook">Move king onto rook</string>
   <string name="inputMovesWithTheKeyboard">Input moves with the keyboard</string>
+  <string name="snapArrowsToValidMoves">Snap arrows to valid moves</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Say \"Good game, well played\" upon defeat or draw</string>
   <string name="yourPreferencesHaveBeenSaved">Your preferences have been saved.</string>
 </resources>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="private">Innanhýsis</string>
+  <string name="private">Egin (privat)</string>
   <string name="myStudies">Mínar rannsóknir</string>
-  <string name="studiesIContributeTo">Rannsóknir, eg komi við íkasti til</string>
+  <string name="studiesIContributeTo">Rannsóknir, eg gevi mítt íkast til</string>
   <string name="myPublicStudies">Mínar almennu rannsóknir</string>
   <string name="myPrivateStudies">Mínar egnu rannsóknir</string>
   <string name="myFavoriteStudies">Mínar yndisrannsóknir</string>
@@ -52,7 +52,7 @@
   <string name="shareChanges">Deil broytingar við áskoðarar, og goym tær á ambætaranum</string>
   <string name="playing">Í gongd</string>
   <string name="first">Fyrsta</string>
-  <string name="previous">Fyrra</string>
+  <string name="previous">Undanfarna</string>
   <string name="next">Næsta</string>
   <string name="last">Síðsta</string>
   <string name="shareAndExport">Deil &amp; flyt út</string>

@@ -31,7 +31,7 @@
   <string name="discoveredAttack">Paljastushyökkäys</string>
   <string name="discoveredAttackDescription">Siirrä nappulaa, joka on tähän asti peittänyt jonkin ulottuvaisen nappulan hyökkäyksen, esimerkiksi ratsu pois tornin edestä.</string>
   <string name="doubleCheck">Kaksoisshakki</string>
-  <string name="doubleCheckDescription">Shakkaa samanaikaisesti kahdella nappulalla tekemällä kaksoishakki, jossa sekä liikkuva nappula että paljastettu nappula hyökkäävät vastustajan kuninkaan kimppuun.</string>
+  <string name="doubleCheckDescription">Shakkaa samanaikaisesti kahdella nappulalla niin, että paljastushyökkäyksessäsi sekä liikkuva nappula että sen paljastama nappula uhkaavat vastustajan kuningasta.</string>
   <string name="endgame">Loppupeli</string>
   <string name="endgameDescription">Taktiikka pelin viimeisessä vaiheessa.</string>
   <string name="enPassantDescription">Taktiikka, jossa sovelletaan ohestalyöntisääntöä, eli jossa sotilas vai lyödä sellaisen vastustajan sotilaan, joka on juuri ensimmäisellä kahden ruudun siirrollaan ohittanut sen.</string>
@@ -40,7 +40,7 @@
   <string name="fork">Haarukka</string>
   <string name="forkDescription">Siirto, jolla siirrettävä nappula uhkaa samanaikaisesti kahta vastustajan nappulaa.</string>
   <string name="hangingPiece">Ilmainen nappula</string>
-  <string name="hangingPieceDescription">Taktiikka, jossa vastustajan nappulaa ei ole suojattu lainkaan tai riittävästi, ja jossa se on vapaasti lyötävissä.</string>
+  <string name="hangingPieceDescription">Taktiikka, jossa vastustajan nappulaa ei ole suojattu lainkaan tai ei riittävästi, ja jossa se on vapaasti lyötävissä.</string>
   <string name="interference">Katko</string>
   <string name="interferenceDescription">Siirrä nappulasi kahden vastustajan nappulan väliin niin, että yksi tai molemmat vastustajan nappuloista jäävät ilman suojaa, esimerkiksi ratsusi suojattuun ruutuun kahden tornin väliin.</string>
   <string name="intermezzo">Välisiirto</string>
@@ -93,6 +93,8 @@
   <string name="skewerDescription">Siirto, jolla uhataan arvokkaampaa nappulaa, jonka siirtyessä sen takana oleva nappula jää uhatuksi ja on lyötävissä, eli toisin päin kuin kiinnityksessä.</string>
   <string name="smotheredMate">Pussimatti</string>
   <string name="smotheredMateDescription">Ratsun tekemä matti, jossa matitettava kuningas ei pysty liikkumaan, koska sen omat nappulat ympäröivät sitä (eli pussittavat sen).</string>
+  <string name="trappedPiece">Ansaan jäävä nappula</string>
+  <string name="trappedPieceDescription">Nappula ei pääse pakenemaan lyömiseltä sopivien pakosiirtojen puuttuessa.</string>
   <string name="underPromotion">Alikorotus</string>
   <string name="underPromotionDescription">Korotus ratsuksi, lähetiksi tai torniksi.</string>
   <string name="veryLong">Erittäin pitkä tehtävä</string>

@@ -5,6 +5,7 @@
   <string name="twoFactorApp">Stáhněte si aplikaci pro dvoufázové ověřování, například Google Authenticator pro %1$s nebo %2$s.</string>
   <string name="scanTheCode">Naskenujte QR kód pomocí aplikace.</string>
   <string name="enterPassword">Zadejte své heslo a ověřovací kód vygenerovaný aplikací pro dokončení nastavení. Při každém přihlášení budete potřebovat ověřovací kód.</string>
+  <string name="ifYouCannotScanEnterX" comment="ifYouCannotScanEnterX&#10;&#10;%s is the authentication code">Pokud nemůžete naskenovat kód, zadejte %s do vaší aplikace.</string>
   <string name="authenticationCode">Ověřovací kód</string>
   <string name="ifYouLoseAccess">Poznámka: Pokud ztratíte přístup k vašim dvoufázovým ověřovacím kódům, můžete provést resetování hesla e-mailem.</string>
   <string name="enableTwoFactor">Povolit dvoufázové ověřování</string>

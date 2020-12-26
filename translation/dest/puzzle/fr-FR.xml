@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Problèmes</string>
-  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Recommandé</string>
+  <string name="recommended">Recommandé</string>
   <string name="phases">Phases</string>
   <string name="motifs">Motifs</string>
   <string name="advanced">Avancé</string>
@@ -26,7 +26,7 @@
   <string name="notTheMove">Ce n\'est pas le coup !</string>
   <string name="trySomethingElse">Essayez autre chose.</string>
   <string name="ratingX">Classement : %s</string>
-  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">masqué</string>
+  <string name="hidden">masqué</string>
   <plurals name="playedXTimes">
     <item quantity="one">Joué %s fois</item>
     <item quantity="other">Joué %s fois</item>
@@ -41,4 +41,5 @@
   <string name="hardest">Le plus difficile</string>
   <string name="example">Exemple</string>
   <string name="addAnotherTheme">Ajouter un autre thème</string>
+  <string name="jumpToNextPuzzleImmediately">Passer immédiatement au problème suivant</string>
 </resources>

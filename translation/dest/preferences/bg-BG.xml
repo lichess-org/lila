@@ -6,7 +6,7 @@
   <string name="materialDifference">Разлика в притежанието</string>
   <string name="boardHighlights">Осветяване на дъската (последен ход и шах)</string>
   <string name="pieceDestinations">Обозначение на ходовете (позволени ходове и предварително задаване)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Координати на дъската (A-H, 1-8)</string>
+  <string name="boardCoordinates">Координати на дъската (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Списък на ходовете докато играя</string>
   <string name="pgnPieceNotation">Нотация</string>
   <string name="chessPieceSymbol">Символ</string>
@@ -16,7 +16,7 @@
   <string name="blindfoldChess">Блинд (невидими фигури)</string>
   <string name="chessClock">Шахматен часовник</string>
   <string name="tenthsOfSeconds">Десети от секундата</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Когато останалото време е &lt; 10 секунди</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Когато останалото време е &lt; 10 секунди</string>
   <string name="horizontalGreenProgressBars">Водоравен стълб на времето</string>
   <string name="soundWhenTimeGetsCritical">Звук, когато времето привършва</string>
   <string name="giveMoreTime">Дайте повече време</string>
@@ -29,8 +29,8 @@
   <string name="inCasualGamesOnly">Само в приятелски игри</string>
   <string name="promoteToQueenAutomatically">Автоматично изкарване на царица</string>
   <string name="whenPremoving">Когато е направен предварителен ход</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Автоматично реми при трикратно повторение</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Когато остават по-малко от 30 секунди</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматично реми при трикратно повторение</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Когато остават по-малко от 30 секунди</string>
   <string name="moveConfirmation">Потвърждение на хода</string>
   <string name="inCorrespondenceGames">Кореспондентски игри</string>
   <string name="correspondenceAndUnlimited">Кореспондентен и без ограничение</string>

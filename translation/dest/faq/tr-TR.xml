@@ -3,13 +3,15 @@
   <string name="faqAbbreviation">S.S.S</string>
   <string name="frequentlyAskedQuestions">Sıkça Sorulan Sorular</string>
   <string name="whyIsLichessCalledLichess">Lichess\'in adı neden Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess, \"live/light/libre\" kelimeleri ile satranç anlamına gelen \"chess\" kelimesinin birleşimiyle oluşturulmuştur. Şu şekilde telaffuz edilir: %1$s .</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess, \"live/light/libre\" kelimeleri ile satranç anlamına gelen \"chess\" kelimesinin birleşimiyle oluşturulmuştur.
+
+%1$s  diye okunur.</string>
   <string name="leechess">lii-çes</string>
   <string name="hearItPronouncedBySpecialist">Telaffuzunu bir uzmandan dinleyin.</string>
-  <string name="whyLiveLightLibre">Canlı, çünkü oyunlar gerçek zamanlı olarak 24/7 oynanır ve izlenir; bunun nedeni Lichess açık kaynak kodludur ve diğer web sitelerini rahatsız eden önemsiz sıkıntılar tarafından engellenmemesi içindir.</string>
+  <string name="whyLiveLightLibre">Lichess, oyunlar gerçek zamanlı olarak 7/24 oynanıp ve izlendiği için canlı (live); diğer sitelerde veba gibi hüküm süren para kazanma hırsından yoksun ve açık kaynak kodlu olduğu için hafif (light) ve bedavadır (libre).</string>
   <string name="whyIsLilaCalledLila">Benzer şekilde, Lichess için kaynak kodu, %1$s, li[sca satranç] la anlamına gelir, Lichess, %2$s gibi sezgisel bir programlama dili ile yazılmıştır.</string>
-  <string name="howCanIContributeToLichess">Lichess\'in kaynak kodlarına nasıl katkıda bulunabilirim?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess, sizlerin bağışlarınızla ve katkılarınızla ayakta kalmaktadır.</string>
+  <string name="howCanIContributeToLichess">Lichess\'e nasıl katkıda bulunabilirim?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess, sizlerin bağışlarıyla ve gönüllülerden oluşan bir ekibin gayretleriyle ayakta kalmaktadır.</string>
   <string name="findMoreAndSeeHowHelp">%1$s olmakla alakalı daha fazla şey bulabilirsiniz. (%2$s dahil) Lichess\'e gerek zamanınızla gerek yeteneklerinizle destek olmanın %3$s vardır.</string>
   <string name="beingAPatron">patron</string>
   <string name="breakdownOfOurCosts">giderlerimizin dağılışı</string>

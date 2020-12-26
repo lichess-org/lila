@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Crebacabezas</string>
-  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Recomendado</string>
+  <string name="recommended">Recomendado</string>
   <string name="phases">Fases</string>
   <string name="motifs">Motivos</string>
   <string name="advanced">Avanzado</string>
@@ -26,7 +26,7 @@
   <string name="notTheMove">Ese non é o movemento!</string>
   <string name="trySomethingElse">Proba outra cosa.</string>
   <string name="ratingX">Puntuación: %s</string>
-  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">oculta</string>
+  <string name="hidden">oculta</string>
   <plurals name="playedXTimes">
     <item quantity="one">Xogado %s veces</item>
     <item quantity="other">Xogado %s veces</item>
@@ -41,4 +41,5 @@
   <string name="hardest">O máis difícil</string>
   <string name="example">Exemplo</string>
   <string name="addAnotherTheme">Engadir outro tema</string>
+  <string name="jumpToNextPuzzleImmediately">Ir ao seguinte crebacabezas inmediatamente</string>
 </resources>

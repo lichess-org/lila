@@ -6,7 +6,7 @@
   <string name="materialDifference">子力差距</string>
   <string name="boardHighlights">棋盘高亮（最后一步与将军）</string>
   <string name="pieceDestinations">棋子走到位置（有效着与预先走棋）</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">棋盘坐标（A-H, 1-8）</string>
+  <string name="boardCoordinates">棋盘坐标（A-H, 1-8）</string>
   <string name="moveListWhilePlaying">对局进行时显示可走着</string>
   <string name="pgnPieceNotation">使用PGN字母(K,Q,R,B,N)或棋子图标来显示PGN棋谱</string>
   <string name="chessPieceSymbol">国际象棋件符号</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">盲棋(看不见棋子)</string>
   <string name="chessClock">棋钟</string>
   <string name="tenthsOfSeconds">显示十分之一秒</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">当剩余时间小于10秒</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">当剩余时间小于10秒</string>
   <string name="horizontalGreenProgressBars">显示绿色横进度条</string>
   <string name="soundWhenTimeGetsCritical">时间不足时声音提醒</string>
   <string name="giveMoreTime">给对方更多时间</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">仅限于无积分对局</string>
   <string name="promoteToQueenAutomatically">兵自动升为后</string>
   <string name="whenPremoving">预先走棋時</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">在三次重复局面时自动要求和局</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">当剩余时间小于30秒时</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">在三次重复局面时自动要求和局</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">当剩余时间小于30秒时</string>
   <string name="moveConfirmation">确认走棋</string>
   <string name="inCorrespondenceGames">通信棋局</string>
   <string name="correspondenceAndUnlimited">通信和无限</string>

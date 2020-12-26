@@ -6,7 +6,7 @@
   <string name="materialDifference">Bábuk közötti különbség</string>
   <string name="boardHighlights">Kiemelések a táblán (utolsó lépés és sakk)</string>
   <string name="pieceDestinations">A figurák érkezési mezői (érvényes lépések és előre bevitt lépések)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Tábla koordináták (A-H, 1-8)</string>
+  <string name="boardCoordinates">Tábla koordináták (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lépéslista játék közben</string>
   <string name="pgnPieceNotation">Lépés jelölése</string>
   <string name="chessPieceSymbol">Sakkbábu ikonja</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Vakjátszma (láthatatlan bábuk)</string>
   <string name="chessClock">Sakkóra</string>
   <string name="tenthsOfSeconds">Tizedmásodpercek</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Amikor a hátralévő idő &lt; 10 másodperc</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Amikor a hátralévő idő &lt; 10 másodperc</string>
   <string name="horizontalGreenProgressBars">Vízszintes zöld folyamatjelző</string>
   <string name="soundWhenTimeGetsCritical">Figyelmeztető hang, ha nagyon kevés idő maradt</string>
   <string name="giveMoreTime">Több idő adása</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">Csak rangosorolás nélküli játékok esetén</string>
   <string name="promoteToQueenAutomatically">Gyalog automatikus előléptetése vezérré</string>
   <string name="whenPremoving">Előre meghatározott lépés esetén</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Háromszori ismétlés esetén automatikus döntetlen igénylése</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Ha a hátralévő idő &lt; 30 másodperc</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Háromszori ismétlés esetén automatikus döntetlen igénylése</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Ha a hátralévő idő &lt; 30 másodperc</string>
   <string name="moveConfirmation">Lépés jóváhagyatása</string>
   <string name="inCorrespondenceGames">Levelező mérkőzés</string>
   <string name="correspondenceAndUnlimited">Távjáték és korlátlan</string>
@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Király mozog két mezőt</string>
   <string name="castleByMovingOntoTheRook">Király mozog a bástyára</string>
   <string name="inputMovesWithTheKeyboard">Lépések bevitele a billentyűzettel</string>
+  <string name="snapArrowsToValidMoves">Nyilak illesztése a szabályos lépésekhez</string>
+  <string name="sayGgWpAfterLosingOrDrawing">\"Good game, well played\" üzenet döntetlen vagy vereség esetén</string>
   <string name="yourPreferencesHaveBeenSaved">Beállítások elmentve.</string>
 </resources>

@@ -6,7 +6,7 @@
   <string name="materialDifference">Materiální rozdíl</string>
   <string name="boardHighlights">Zvýraznění na šachovnici (poslední tah a šach)</string>
   <string name="pieceDestinations">Možnosti figur (možné tahy a předtahy)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Souřadnice šachovnice (A-H, 1-8)</string>
+  <string name="boardCoordinates">Souřadnice šachovnice (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Seznam tahů během hry</string>
   <string name="pgnPieceNotation">Označení figur v notaci</string>
   <string name="chessPieceSymbol">Symbol šachových figur</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Blindfold šachy (neviditelné figurky)</string>
   <string name="chessClock">Šachové hodiny</string>
   <string name="tenthsOfSeconds">Desetiny sekund</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Když zbývající čas &lt; 10 sekund</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Když zbývající čas &lt; 10 sekund</string>
   <string name="horizontalGreenProgressBars">Vodorovný indikátor průběhu</string>
   <string name="soundWhenTimeGetsCritical">Zvuk, když zbývá velmi málo času</string>
   <string name="giveMoreTime">Přidej čas</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">Pouze v hrách \"jen tak\"</string>
   <string name="promoteToQueenAutomatically">Povýšit na dámu automaticky</string>
   <string name="whenPremoving">Při předtahu</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Automaticky vyžádat remízu při trojím opakování pozice</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Když zbývající čas &lt; 30 sekund</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticky vyžádat remízu při trojím opakování pozice</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Když zbývající čas &lt; 30 sekund</string>
   <string name="moveConfirmation">Potvrzení tahu</string>
   <string name="inCorrespondenceGames">V korespondenčním šachu</string>
   <string name="correspondenceAndUnlimited">Korespondeční a bez limitu</string>
@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Pohnout králem o dvě pole</string>
   <string name="castleByMovingOntoTheRook">Pohnout králem na místo věže</string>
   <string name="inputMovesWithTheKeyboard">Zadávání tahů pomocí klávesnice</string>
+  <string name="snapArrowsToValidMoves">Přichytit šipky k platným tahům</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Řekněte \"Good game, well played\" (překlad: \"Dobrá hra, pěkně zahráno\") po porážce nebo remíze</string>
   <string name="yourPreferencesHaveBeenSaved">Vaše předvolby byly uloženy.</string>
 </resources>

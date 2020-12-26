@@ -3,6 +3,7 @@
   <string name="advancedPawn">Pedone avanzato</string>
   <string name="advancedPawnDescription">Un pedone che promuove o che minaccia di promuovere è la chiave della tattica.</string>
   <string name="advantage">Vantaggio</string>
+  <string name="advantageDescription">Cogli l\'occasione per guadagnare un vantaggio decisivo. (200cp ≤ valutazione ≤ 600cp)</string>
   <string name="attackingF2F7">Attaccare f2 o f7</string>
   <string name="attackingF2F7Description">Un attacco che si concentra sul pedone f2 o f7, come nell\'attacco Fegatello.</string>
   <string name="attraction">Adescamento</string>
@@ -16,7 +17,9 @@
   <string name="capturingDefender">Cattura il difensore</string>
   <string name="capturingDefenderDescription">Rimuovi un pezzo critico alla difesa di un altro pezzo, permettendo al pezzo ora indifeso di essere catturato con una mossa successiva.</string>
   <string name="crushing">Schiacciante</string>
+  <string name="crushingDescription">Trova l\'errore grave del tuo avversario per ottenere un vantaggio schiacciante. (valutazione ≥ 600cp)</string>
   <string name="equality">Eguaglianza</string>
+  <string name="equalityDescription">Recupera una posizione persa e assicurati la patta o una posizione equa. (valutazione ≥ 200cp)</string>
   <string name="kingsideAttack">Attacco sul lato di re</string>
   <string name="kingsideAttackDescription">Un attacco al re avversario, dopo che ha arroccato sul lato di re.</string>
   <string name="clearance">Sgombero</string>

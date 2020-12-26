@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Câu đố</string>
-  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Khuyến nghị</string>
+  <string name="recommended">Khuyến nghị</string>
   <string name="phases">Giai đoạn</string>
   <string name="mates">Chiếu hết</string>
   <string name="goals">Mục tiêu</string>
@@ -20,7 +20,7 @@
   <string name="puzzleComplete">Hoàn thành câu đố!</string>
   <string name="notTheMove">Đó chưa phải là nước đi tối ưu!</string>
   <string name="trySomethingElse">Hãy thử nước đi khác.</string>
-  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">ẩn</string>
+  <string name="hidden">ẩn</string>
   <plurals name="playedXTimes">
     <item quantity="other">Đã chơi %s lần</item>
   </plurals>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Puzles</string>
-  <string name="recommended" comment="recommended&#10;&#10;A heading for puzzle themes, can be seen on https://lichess.org/training/themes&#10;&#10;The only theme under is 'Healthy Mix'. This will not change.">Ieteikumi</string>
+  <string name="recommended">Ieteikumi</string>
   <string name="phases">Posmi</string>
   <string name="motifs">Motīvi</string>
-  <string name="advanced">Papildu iespējas</string>
+  <string name="advanced">Lietpratējiem</string>
   <string name="lengths">Garumi</string>
   <string name="mates">Mati</string>
   <string name="goals">Mērķi</string>
@@ -26,7 +26,7 @@
   <string name="notTheMove">Tas nav īstais gājiens!</string>
   <string name="trySomethingElse">Izmēģiniet ko citu.</string>
   <string name="ratingX">Reitings: %s</string>
-  <string name="hidden" comment="hidden&#10;&#10;Puzzlerating: hidden&#10;&#10;Appears while solving puzzles ">slēpts</string>
+  <string name="hidden">slēpts</string>
   <plurals name="playedXTimes">
     <item quantity="zero">Spēlēts %s reizes</item>
     <item quantity="one">Spēlēts %s reizi</item>
@@ -42,4 +42,5 @@
   <string name="hardest">Visgrūtākā</string>
   <string name="example">Piemērs</string>
   <string name="addAnotherTheme">Pievienot jaunu tēmu</string>
+  <string name="jumpToNextPuzzleImmediately">Uzreiz pārslēgties uz nākamo puzli</string>
 </resources>

@@ -3,13 +3,13 @@
   <string name="faqAbbreviation">Perguntas Frequentes</string>
   <string name="frequentlyAskedQuestions">Perguntas Frequentes</string>
   <string name="whyIsLichessCalledLichess">Por que o Lichess se chama Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess é uma combinação de live/light/libre e chess. Pronuncia-se %1$s.</string>
-  <string name="leechess">li-chess</string>
-  <string name="hearItPronouncedBySpecialist"> Escute a sua pronúncia por um especialista.</string>
-  <string name="whyLiveLightLibre">Live, porque partidas são jogadas e assistidas em tempo real 24/7; light e libre pelo fato de que Lichess é de código-aberto e livre de lixo eletrônico que atormenta em outros sites.</string>
-  <string name="whyIsLilaCalledLila">Da mesma forma, o código fonte do Lichess, %1$s, significa li [xadrez em esca] la, visto que a maior parte do Lichess é escrita em %2$s, uma linguagem de programação intuitiva.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess é uma combinação de live/light/livre e chess. Pronuncia-se %1$s.</string>
+  <string name="leechess">li-tiés</string>
+  <string name="hearItPronouncedBySpecialist">Escute a pronúncia por um especialista.</string>
+  <string name="whyLiveLightLibre">Live, porque partidas são jogadas e assistidas em tempo real 24/7; light e livre pelo fato de que Lichess é de código-aberto e livre de lixo eletrônico que atormenta em outros sites.</string>
+  <string name="whyIsLilaCalledLila">Da mesma forma, o código fonte do Lichess, %1$s, significa li[chess em sca]la, visto que a maior parte do Lichess é escrita em %2$s, uma linguagem de programação intuitiva.</string>
   <string name="howCanIContributeToLichess">Como posso contribuir para o Lichess?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess é alimentado por doações de clientes e pelos esforços de uma equipe de voluntários.</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess se mantém no ar com doações de clientes e pelos esforços de uma equipe de voluntários.</string>
   <string name="findMoreAndSeeHowHelp">Você pode saber mais sobre %1$s (incluindo uma %2$s). Se você quiser ajudar o Lichess voluntariando seu tempo e habilidades, há muitas %3$s.</string>
   <string name="beingAPatron">ser um Patrono</string>
   <string name="breakdownOfOurCosts">lista detalhada dos nossos custos</string>
@@ -17,17 +17,17 @@
   <string name="areThereWebsitesBasedOnLichess">Existem sites baseados no Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Sim. Lichess de fato inspirou outros sites de código aberto que usam nossos %1$s, %2$s ou %3$s.</string>
   <string name="fairPlay">Jogo Limpo</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">Por que é que estou marcado por manipulação artificial da pontuação (perder de propósito ou trapacear) ou ajuda de computador?</string>
-  <string name="cheatDetectionMethods">O Lichess tem fortes métodos de detecção e um processo muito completo para revisar todas as evidências e tomar uma decisão. O processo frequentemente envolve muitos moderadores e pode levar muito tempo. Além da marcação do jogador, não iremos entrar em pormenores sobre evidências e tomada de decisão para casos individuais. Fazê-lo tornaria mais fácil evitar a detecção no futuro e seria um convite para debates improdutivos. Este tempo e esforço são melhor usados em outros casos importantes. Os usuários podem apelar enviando um e-mail para %1$s, mas as decisões raramente são revertidas.</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">Por que é que fui reportado por manipulação artificial da pontuação (perder de propósito ou receber ajuda externa) ou ajuda de computador?</string>
+  <string name="cheatDetectionMethods">O Lichess tem fortes métodos de detecção e um processo muito completo para revisar todas as provas e tomar uma decisão. O processo frequentemente envolve muitos moderadores e pode levar muito tempo. Além da marcação do jogador, não iremos entrar em pormenores sobre provas e tomada de decisão para casos individuais. Fazê-lo tornaria mais fácil evitar a detecção no futuro e seria um convite a debates improdutivos. Este tempo e esforço são melhor usados em outros casos importantes. Os usuários podem pedir uma revisão enviando um e-mail para %1$s, mas as decisões tomadas raramente são revertidas.</string>
   <string name="whenAmIEligibleRatinRefund">Quando tenho direito a reembolso automático de pontuação de trapaceiros?</string>
-  <string name="ratingRefundExplanation">Um minuto após um jogador ser marcado, suas últimas 40 partidas valendo pontuação nos últimos 3 dias são tomadas. Se você era oponente dele ou dela nessas partidas, e você perdeu pontuação (por derrota ou empate), e sua pontuação não era provisória, você recebe um reembolso de pontuação. O reembolso é limitado baseado no seu pico de pontuação e no seu progresso de pontuação após o jogo.
+  <string name="ratingRefundExplanation">Um minuto após um(a) jogador(a) ser reportado(a), suas últimas 40 partidas valendo pontuação nos últimos 3 dias são invalidadas. Se você foi oponente dele(a) nessas partidas, você perdeu pontuação (por derrota ou empate) e sua pontuação não era provisória, então você recebe um reembolso de pontuação. O reembolso é limitado baseado no seu pico de pontuação e no seu progresso de pontuação após o jogo.
   (Por exemplo, se sua pontuação aumentou significativamente após essas partidas, você pode não receber reembolso ou apenas reembolsar parcialmente.) Um reembolso nunca excederá 150 pontos.</string>
-  <string name="preventLeavingGameWithoutResigning">O que é feito sobre jogadores saírem de partidas sem abandonar?</string>
-  <string name="leavingGameWithoutResigningExplanation">Se seu oponente aborta/sai de partidas com frequência, ele é \"banido de jogar\", o que significa que está temporariamente proibido de disputar partidas. Isto não é indicado publicamente no seu perfil. Se este comportamento continuar, aumenta a duração da proibição de jogar - e comportamento prolongado desta natureza pode levar a fechamento de conta.</string>
-  <string name="howCanIBecomeModerator">Como posso me tornar um moderador?</string>
-  <string name="youCannotApply">Não possível candidatar-se a moderador. Se virmos alguém que consideramos que seria um bom moderador, entraremos em contato diretamente.</string>
+  <string name="preventLeavingGameWithoutResigning">Como vocês lidam com jogadores que saem de partidas sem abandono?</string>
+  <string name="leavingGameWithoutResigningExplanation">Se seu oponente aborta/sai de partidas com frequência, ele(a) é \"banido de jogar\", o que significa que está temporariamente proibido(a) de disputar partidas. Isto não é indicado publicamente no perfil dele(a). Se este comportamento continuar, a duração da proibição aumenta - e continuar se comportando desta forma tipo pode levar ao fechamento da conta dele(a).</string>
+  <string name="howCanIBecomeModerator">Como posso me tornar um(a) moderador(a)?</string>
+  <string name="youCannotApply">Não é possível candidatar-se a moderador(a). Se virmos alguém que consideramos que seria um(a) bom(a) moderador(a), entraremos em contato diretamente.</string>
   <string name="isCorrespondenceDifferent">Os jogos por correspondência são diferentes do xadrez normal?</string>
-  <string name="youCanUseOpeningBookNoEngine">No Lichess, a principal diferença nas regras para jogos por correspondência é que é permitido utilizar um livro de aberturas. A ajuda de computadores continua a ser proibida e utilizá-la resultará em ser marcado por utilizar ajuda de computadores. Embora a ICCF permita a ajuda de computadores, o Lichess não permite.</string>
+  <string name="youCanUseOpeningBookNoEngine">No Lichess, a principal diferença nas regras para jogos por correspondência é que é permitido utilizar um livro de aberturas. A ajuda de computadores continua a ser proibida e resultará em ser reportado(a) por utilizar ajuda de computadores. Embora a ICCF permita a ajuda de computadores, o Lichess não permite.</string>
   <string name="gameplay">Jogabilidade</string>
   <string name="howBulletBlitzEtcDecided">Como é que Bullet, Blitz e outros ritmos de jogo são decididos?</string>
   <string name="basedOnGameDuration">Os ritmos de jogo do Lichess baseiam-se na duração estimada do jogo = %1$s
@@ -35,7 +35,7 @@ Por exemplo, a duração estimada de um jogo 5+3 é 5 × 60 + 40 × 3 = 420 segu
   <string name="durationFormula">(tempo inicial no relógio) + 40 × (incremento no relógio)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
-  <string name="whatVariantsCanIplay">Que variantes posso jogar no Lichess?</string>
+  <string name="whatVariantsCanIplay">Quais variantes eu posso jogar no Lichess?</string>
   <string name="lichessSupportChessAnd">O Lichess suporta o xadrez normal e %1$s.</string>
   <string name="eightVariants">8 variantes de xadrez</string>
   <string name="whatIsACPL">O que é a perda média de centésimas de peão (ACPL)?</string>
