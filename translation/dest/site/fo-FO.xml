@@ -417,7 +417,7 @@
   <string name="tournamentPairingsAreNowClosed">Liðugt er at seta luttakararnar saman tveir og tveir.</string>
   <string name="standByX">Bíða %s, telvarar verða greipaðir, ger teg til reiðar!</string>
   <string name="youArePlaying">Tú telvar!</string>
-  <string name="winRate">Sigrar</string>
+  <string name="winRate">Sigurslutfall</string>
   <string name="berserkRate">Berserksstig</string>
   <string name="performance">Avrik</string>
   <string name="tournamentComplete">Kappingin fullfíggjað</string>
@@ -436,10 +436,10 @@
   <string name="savePosition">Goym støðuna</string>
   <string name="loadPosition">Les støðuna inn</string>
   <string name="isPrivate">Innanhýsis</string>
-  <string name="reportXToModerators">Sig fyriskipara frá um %s</string>
+  <string name="reportXToModerators">Sig fyriskiparum frá um %s</string>
   <string name="profileCompletion">Vangamynd útfylt: %s</string>
   <string name="xRating">%s styrkital</string>
-  <string name="ifNoneLeaveEmpty">Um einki, lat teig vera tóman</string>
+  <string name="ifNoneLeaveEmpty">Um einki, lat teigin vera tóman</string>
   <string name="gameCompletionRate">Talv telvd at enda:: %s</string>
   <string name="profile">Vangamynd</string>
   <string name="editProfile">Broyt vangamynd</string>
@@ -455,7 +455,7 @@
   <string name="onlinePlayers">Telvarar á netinum nú</string>
   <string name="activeToday">Virknir í dag</string>
   <string name="activePlayers">Virknir telvarar</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Gev gætur, talvið verður styrkismett, men hevur onga klokku!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Gev gætur, at talvið verður styrkismett, men hevur onga klokku!</string>
   <string name="success">Tað eydnaðist</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s talv verður telvað</item>
@@ -480,7 +480,7 @@
   <string name="replyToThisTopic">Svara í sambandi við hetta evnið</string>
   <string name="reply">Svara</string>
   <string name="message">Boð</string>
-  <string name="createTheTopic">Stovnað evnið</string>
+  <string name="createTheTopic">Stovna evnið</string>
   <string name="reportAUser">Sig frá um ein brúkara</string>
   <string name="user">Brúkari</string>
   <string name="reason">Orsøk</string>
@@ -514,7 +514,7 @@
   <string name="letOtherPlayersChallengeYou">Lat aðrar telvarar bjóða tær av</string>
   <string name="letOtherPlayersInviteYouToStudy">Lat aðrar telvarar bjóða tær at rannsaka</string>
   <string name="sound">Ljóð</string>
-  <string name="none">Einki</string>
+  <string name="none">Eingin</string>
   <string name="fast">Skjótt</string>
   <string name="normal">Vanligt</string>
   <string name="slow">Seint</string>
@@ -551,12 +551,12 @@
   <string name="listBlockedPlayers">Ger lista yvir telvarar, tú hevur forðað</string>
   <string name="human">Menniskja</string>
   <string name="computer">Telda</string>
-  <string name="side">Síða</string>
+  <string name="side">Litur</string>
   <string name="clock">Klokka</string>
   <string name="unauthorizedError">Atgongd er ikki heimilað.</string>
   <string name="noInternetConnection">Einki internetsamband. Tú kanst enn telva offline.</string>
   <string name="connectedToLichess">Tú hevur nú samband við lichess.org</string>
-  <string name="signedOut">Tú ert útritaður</string>
+  <string name="signedOut">Tú ert útritað/ur</string>
   <string name="loginSuccessful">Tú ert nú innritað/ur</string>
   <string name="playOnTheBoardOffline">Uttan net, nýt sum talvborð</string>
   <string name="playOfflineComputer">Telda</string>
@@ -569,7 +569,7 @@
   <string name="increment">Hækking</string>
   <string name="sharePGN">Deil PGN</string>
   <string name="playOnline">Telva á netinum</string>
-  <string name="playOffline">Telva offline</string>
+  <string name="playOffline">Telva ótongt (offline)</string>
   <string name="allowAnalytics">Loyv ónavngivnum hagtølum</string>
   <string name="shareGameURL">Deil talv URL</string>
   <string name="error.required">Hesin teigur er kravdur</string>
@@ -577,7 +577,7 @@
   <string name="error.email_acceptable">Hesin teldupostbústaður verður ikki góðtikin. Kanna, um hann er rættur, og royn so aftur.</string>
   <string name="error.email_unique">Onkur nýtir longu henda teldupostbústaðin</string>
   <string name="error.email_different">Hetta er longu tín teldupostbústaður</string>
-  <string name="ifRatingIsPlusMinusX">Um loynitalið er ± %s</string>
+  <string name="ifRatingIsPlusMinusX">Um styrkitalið er ± %s</string>
   <string name="onlyFriends">Bert vinir</string>
   <string name="menu">Valmynd</string>
   <string name="castling">Loypur í borg</string>
