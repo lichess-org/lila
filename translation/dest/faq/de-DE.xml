@@ -128,7 +128,7 @@ Es ist am besten, Wertungen als \"relative\" Werte zu betrachten (im Gegensatz z
   <string name="howToHideRatingWhilePlaying">Wie kann man Wertungen während des Spiels ausblenden?</string>
   <string name="enableZenMode">Aktiviere den Zen-Modus in den %1$s oder durch Drücken von %2$s während einer Partie.</string>
   <string name="displayPreferences">Anzeigeeinstellungen</string>
-  <string name="connexionLostCanIGetMyRatingBack">Ich habe eine Partie wegen Lag/Internetproblemen verloren. Kann ich meine Wertungspunkte zurück bekommen?</string>
+  <string name="connexionLostCanIGetMyRatingBack">Ich habe eine Partie wegen Lag/Internetproblemen verloren. Kann ich meine Wertungspunkte zurückbekommen?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Leider können wir keine Wertungspunkte für Partien zurückgeben, die aufgrund von Lag oder Internetproblemen verloren gehen, unabhängig davon, ob das Problem von deiner oder von unserer Seite verursacht wurde. Letzteres ist jedoch sehr selten. Beachte auch, dass wir die Partie abbrechen, wenn Lichess neu gestartet wird und du deshalb auf Zeit verlieren würdest.</string>
   <string name="howToThreeDots">Wie kann ich...</string>
   <string name="enableDisableNotificationPopUps">Benachrichtigungs-Popups aktivieren oder deaktivieren?</string>
