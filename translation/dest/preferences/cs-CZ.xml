@@ -42,5 +42,6 @@
   <string name="castleByMovingOntoTheRook">Pohnout králem na místo věže</string>
   <string name="inputMovesWithTheKeyboard">Zadávání tahů pomocí klávesnice</string>
   <string name="snapArrowsToValidMoves">Přichytit šipky k platným tahům</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Řekněte \"Good game, well played\" (překlad: \"Dobrá hra, pěkně zahráno\") po porážce nebo remíze</string>
   <string name="yourPreferencesHaveBeenSaved">Vaše předvolby byly uloženy.</string>
 </resources>
