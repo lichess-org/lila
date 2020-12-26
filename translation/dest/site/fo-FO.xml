@@ -598,8 +598,8 @@
   <string name="about">Um</string>
   <string name="aboutX">Um %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s er ein ókeypis (%2$s), óhandilsligur talvkagi uttan lýsingar.</string>
-  <string name="really">satt!</string>
-  <string name="contribute">Hjálp til</string>
+  <string name="really">álvara</string>
+  <string name="contribute">Stuðla</string>
   <string name="termsOfService">Tænastutreytir</string>
   <string name="sourceCode">Keldukota</string>
   <string name="simultaneousExhibitions">Fjøltelvingar</string>
@@ -612,7 +612,7 @@
   <string name="returnToSimulHomepage">Far aftur til fjøltelvingarheimasíðu</string>
   <string name="aboutSimul">Í fjøltalvum telvar einstakur telvari móti fleiri telvarum samstundis.</string>
   <string name="aboutSimulImage">Móti 50 mótleikarum vann Fischer 47 talv, telvaði 2 jøvn og tapti 1.</string>
-  <string name="aboutSimulRealLife">Hugskotið er tikið úr veruliga heiminum, har verturin fyri fjøltalvum gongur frá einum borði til tað næsta at flyta ein einstakan leik.</string>
+  <string name="aboutSimulRealLife">Hugtakið er tikið úr veruliga heiminum, har verturin fyri fjøltalvum gongur frá einum borði til tað næsta at flyta ein leik í senn.</string>
   <string name="aboutSimulRules">Tá ið fjøltalvið byrjar, fer hvør leikari undir eitt talv móti vertinum, ið sleppur at telva við hvíta fólkinum. Fjøltalvið endar, tá ið øll talv eru liðug.</string>
   <string name="aboutSimulSettings">Fjøltalv eru altíð uttan styrkismetingar. Til ber ikki at leggja tíð aftrat, telva nýggj talv ella telva við afturtøkum.</string>
   <string name="create">Stovna</string>
