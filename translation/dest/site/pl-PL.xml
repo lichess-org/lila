@@ -310,7 +310,7 @@
     <item quantity="many">Dodaj %s sekund</item>
     <item quantity="other">Dodaj %s sekund</item>
   </plurals>
-  <string name="thisAccountViolatedTos">To konto naruszyło warunki korzystania z Lichess</string>
+  <string name="thisAccountViolatedTos">Użytkownik tego konta naruszył warunki korzystania z Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ten gracz sztucznie zwiększa/obniża swój ranking</string>
   <string name="openingExplorerAndTablebase">Biblioteka otwarć i końcówek</string>
   <string name="takeback">Cofnij ruch</string>
