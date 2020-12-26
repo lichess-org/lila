@@ -1,5 +1,7 @@
 package lila.mod
 
+import org.joda.time.DateTime
+
 import lila.db.dsl._
 import lila.report.{ Mod, ModId, Report, Suspect }
 import lila.security.Permission
@@ -251,6 +253,14 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
 
   def userHistory(userId: User.ID): Fu[List[Modlog]] =
     coll.find($doc("user" -> userId)).sort($sort desc "date").cursor[Modlog]().gather[List](30)
+
+  def countRecentCheatDetected(userId: User.ID): Fu[Int] =
+    coll.countSel(
+      $doc("user" -> userId,
+           "action" -> Modlog.cheatDetected,
+           "date" $gte DateTime.now.minusSeconds(3600 * 24 * 30 * 6)
+        )
+    )
 
   private def add(m: Modlog): Funit = {
     lila.mon.mod.log.create.increment()
