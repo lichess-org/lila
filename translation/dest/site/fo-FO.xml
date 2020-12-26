@@ -622,7 +622,7 @@
   <string name="simulAddExtraTime">Tú hevur loyvi at leggja tíð aftrat tínari klokku til tess at hjálpa tær at megna at telva fjøltalvið.</string>
   <string name="simulHostExtraTime">Vertur fær eyka klokkutíð</string>
   <string name="lichessTournaments">Lichess kappingar</string>
-  <string name="tournamentFAQ">Arena kapping FAQ</string>
+  <string name="tournamentFAQ">Arena-kapping FAQ</string>
   <string name="tournamentOfficial">Almennar</string>
   <string name="timeBeforeTournamentStarts">Tíð áðrenn kapping byrjar</string>
   <string name="averageCentipawnLoss">Miðal centifinnu-tap</string>
@@ -671,7 +671,7 @@
   <string name="withEverybody">Við øll</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Tú hevur longu skrásett teldupostin: %s</string>
   <string name="kidMode">Barnastøða</string>
-  <string name="kidModeExplanation">Hetta er um trygd. Í barnastøðu er alt samskifti á síðuni óvirkið. Vel barnastøðu, soleiðis at børn tíni og skúlanæmingar ikki hava við aðrar internetbrúkarar at gera.</string>
+  <string name="kidModeExplanation">Hetta snýr seg um trygd. Í barnastøðu er alt samskifti á síðuni óvirkið. Vel barnastøðu, soleiðis at børn tíni og skúlanæmingar ikki hava við aðrar internetbrúkarar at gera.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Í barnastøðu fær Lichess-búmerkið eina %s mynd, so tú veitst, at børn tíni eru trygg.</string>
   <string name="enableKidMode">Vel barnastøðu</string>
   <string name="disableKidMode">Sløkk barnastøðu</string>
