@@ -15,11 +15,11 @@
   <string name="breakdownOfOurCosts">Aufschlüsselung unserer Kosten</string>
   <string name="otherWaysToHelp">andere Wege zu helfen</string>
   <string name="areThereWebsitesBasedOnLichess">Gibt es Websites, die auf Lichess basieren?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess hat in der Tat andere quelloffene Seiten inspiriert, die unsere %1$s, %2$s, oder %3$s verwenden.</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess hat in der Tat andere quelloffene Seiten inspiriert, die unsere %1$s, %2$s oder %3$s verwenden.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whyFlaggedRatingManipulationOrCheater">Warum wurde ich für künstliche Wertungsmanipulation (Tiefstapelei und Hochtreiben) oder Computerunterstützung markiert?</string>
   <string name="cheatDetectionMethods">Lichess verfügt über starke Erkennungsmethoden und ein sehr gründliches Verfahren, um alle Beweise zu überprüfen und eine Entscheidung zu treffen. Der Prozess umfasst oft viele Moderatoren und kann eine lange Zeit dauern. Außer der Markierung selbst werden wir für einzelne Fälle nicht auf Einzelheiten über Beweise oder das Entscheidungsverfahren eingehen. Dies würde es in Zukunft einfacher machen, eine Erkennung zu vermeiden, und wäre eine Einladung zu unproduktiven Debatten. Diese Zeit und Mühe sind besser für andere wichtige Fälle aufgewendet. Benutzer können Widerspruch einlegen, indem sie eine  E-Mail an %1$s schicken, jedoch werden Entscheidungen selten rückgängig gemacht.</string>
-  <string name="whenAmIEligibleRatinRefund">Wann qualifiziere ich mich für die automatische Wertungs-Rückerstattung von Betrügern?</string>
+  <string name="whenAmIEligibleRatinRefund">Wann bin ich berechtigt, die automatische Wertungs-Rückerstattung von Betrügern zu erhalten?</string>
   <string name="ratingRefundExplanation">Eine Minute, nachdem ein Spieler markiert wurde, werden seine 40 neuesten Partien in den letzten 3 Tagen betrachtet. Wenn du in diesen Partien unter den Gegnern warst, damit deine Wertung (wegen einer Niederlage oder eines Remis) verschlechtert hast und deine Wertung nicht vorläufig war, erhältst du eine Wertungsrückerstattung. Die Rückerstattung ist begrenzt von deiner Spitzenwertung und deinen Wertungsfortschritten nach der Partie.
   (Wenn deine Wertung nach diesen Partien stark gestiegen ist, erhältst du möglicherweise keine Rückerstattung oder nur eine Teilrückerstattung.) Eine Rückerstattung beträgt nie mehr als 150 Punkte.</string>
   <string name="preventLeavingGameWithoutResigning">Was geschieht mit Spielern, die Partien verlassen ohne aufzugeben?</string>
