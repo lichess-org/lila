@@ -22,7 +22,7 @@
   <string name="equalityDescription">Odzyskaj remis bądź równowagę wychodząc z przegrywającej pozycji. (ocena pozycji: poniżej 200cp)</string>
   <string name="kingsideAttack">Atak skrzydłem królewskim</string>
   <string name="kingsideAttackDescription">Atak na króla przeciwnika po krótkiej roszadzie.</string>
-  <string name="clearance">Prześwit</string>
+  <string name="clearance">Zwolnienie</string>
   <string name="clearanceDescription">Posunięcie, często z tempem, które udostępnia pole, linię bądź przekątną do wykorzystania w następnej taktyce.</string>
   <string name="defensiveMove">Ruch obronny</string>
   <string name="defensiveMoveDescription">Precyzyjne posunięcie lub ich ciąg, niezbędne by uniknąć straty materiału lub innej przewagi.</string>
@@ -82,11 +82,11 @@
   <string name="queensideAttack">Atak skrzydłem hetmańskim</string>
   <string name="queensideAttackDescription">Atak na króla przeciwnika po długiej roszadzie.</string>
   <string name="quietMove">Cichy ruch</string>
-  <string name="quietMoveDescription">Ruch który nie zbija ani nie atakuje bezpośrednio ale przygotowuje nieunikalną groźbę.</string>
+  <string name="quietMoveDescription">Posunięcie niebędące ani szachem, ani biciem, które przygotowuje groźbę nie do uniknięcia w jednym z kolejnych posunięć.</string>
   <string name="rookEndgame">Końcówka wieżowa</string>
   <string name="rookEndgameDescription">Gra końcowa wyłącznie z wieżami i pionami.</string>
   <string name="sacrifice">Poświęcenie</string>
-  <string name="sacrificeDescription">Taktyka wymagająca poświęcenia jakości w celu odzyskania jej z nawiązką po forsownej sekwencji ruchów.</string>
+  <string name="sacrificeDescription">Taktyka wykorzystująca krótkoterminowe oddanie materiału do zdobycia przewagi po forsownej sekwencji posunięć.</string>
   <string name="short">Krótkie zadanie</string>
   <string name="shortDescription">Dwa ruchy by wygrać.</string>
   <string name="skewer">Szpila</string>
