@@ -42,4 +42,5 @@
   <string name="hardest">Visgrūtākā</string>
   <string name="example">Piemērs</string>
   <string name="addAnotherTheme">Pievienot jaunu tēmu</string>
+  <string name="jumpToNextPuzzleImmediately">Uzreiz pārslēgties uz nākamo puzli</string>
 </resources>
