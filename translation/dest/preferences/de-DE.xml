@@ -41,7 +41,7 @@
   <string name="castleByMovingTwoSquares">Ziehe den König zwei Felder weit</string>
   <string name="castleByMovingOntoTheRook">Ziehe den König auf den Turm</string>
   <string name="inputMovesWithTheKeyboard">Züge mit der Tastatur eingeben</string>
-  <string name="snapArrowsToValidMoves">Pfeile markieren immer einen möglichen Zug</string>
+  <string name="snapArrowsToValidMoves">Pfeile markieren immer mögliche Züge</string>
   <string name="sayGgWpAfterLosingOrDrawing">Sage \"Gute Partie, gut gespielt\" nach einer Niederlage oder einem Remis</string>
   <string name="yourPreferencesHaveBeenSaved">Deine Einstellungen wurden gespeichert.</string>
 </resources>
