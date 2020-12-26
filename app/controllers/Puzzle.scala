@@ -104,7 +104,7 @@ final class Puzzle(
                       result = Result(resultInt == 1)
                     )
                     newUser = me.copy(perfs = me.perfs.copy(puzzle = perf))
-                    _       = env.puzzle.session.onComplete(round, theme.key)
+                    _ <- env.puzzle.session.onComplete(round, theme.key)
                     json <-
                       if (mobileBc) fuccess {
                         env.puzzle.jsonView.bc.userJson(perf.intRating) ++ Json.obj(
