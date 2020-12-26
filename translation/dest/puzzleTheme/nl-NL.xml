@@ -80,6 +80,7 @@
   <string name="queensideAttack">Dameaanval</string>
   <string name="queensideAttackDescription">Een aanval op de koning van de tegenstander, na een lange rokade.</string>
   <string name="quietMove">Stille zet</string>
+  <string name="quietMoveDescription">Een zet die niet schaak geeft of een stuk slaat, maar een onvermijdelijke dreiging voor een latere zet voorbereidt.</string>
   <string name="rookEndgame">Toreneindspel</string>
   <string name="rookEndgameDescription">Een eindspel met alleen torens en pionnen.</string>
   <string name="sacrifice">Offer</string>
@@ -87,7 +88,7 @@
   <string name="short">Korte puzzel</string>
   <string name="shortDescription">Winnen in twee zetten.</string>
   <string name="skewer">Röntgenaanval</string>
-  <string name="skewerDescription">Een motief waarbij een waardevol stuk wordt aangevallen en vervolgens verplaatst, waardoor een lichter stuk erachter kan worden geslagen of aangevallen. Het omgekeerde van een penning.</string>
+  <string name="skewerDescription">Een motief waarbij een waardevol stuk wordt aangevallen en vervolgens wordt verplaatst, waardoor een lichter stuk erachter kan worden geslagen of aangevallen. Het omgekeerde van een penning.</string>
   <string name="smotheredMate">Stikmat</string>
   <string name="smotheredMateDescription">Schaakmat met een paard waarbij de aangevallen koning geen zet kan doen omdat hij ingesloten is (of verstikt) door zijn eigen stukken.</string>
   <string name="trappedPiece">Ingesloten stuk</string>
