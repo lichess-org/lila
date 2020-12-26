@@ -21,7 +21,7 @@
   <string name="goodMove">Хороший ход</string>
   <string name="bestMove">Лучший ход!</string>
   <string name="keepGoing">Продолжайте...</string>
-  <string name="puzzleSuccess">Успех!</string>
+  <string name="puzzleSuccess">Получилось!</string>
   <string name="puzzleComplete">Задача решена!</string>
   <string name="notTheMove">Это не тот ход!</string>
   <string name="trySomethingElse">Попробуйте иначе.</string>
@@ -39,8 +39,8 @@
   <string name="normal">Средний</string>
   <string name="easier">Лёгкий</string>
   <string name="easiest">Легчайший</string>
-  <string name="harder">Посложнее</string>
-  <string name="hardest">Сложная</string>
+  <string name="harder">Сложный</string>
+  <string name="hardest">Сложнейший</string>
   <string name="example">Пример</string>
   <string name="addAnotherTheme">Добавить другую тему</string>
   <string name="jumpToNextPuzzleImmediately">Сразу перейти к следующей задаче</string>
