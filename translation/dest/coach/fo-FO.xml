@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessCoaches">Lichess venjarar</string>
+  <string name="lichessCoaches">Lichess-venjarar</string>
   <string name="lichessCoach">Lichess venjari</string>
   <string name="areYouCoach">Ert tú ein góður talvvenjari við einum %s?</string>
   <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM ella FIDE heiti</string>
@@ -8,7 +8,7 @@
   <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Send okkum ein teldupost á %s, og vit meta um umsókn tína.</string>
   <string name="location">Bústaður</string>
   <string name="languages">Mál</string>
-  <string name="rating">Ratingstig</string>
+  <string name="rating">Styrkital</string>
   <string name="hourlyRate">Tímagjald</string>
   <string name="availability">Nær eg eri tøk/ur</string>
   <string name="accepting">Taki móti næmingum</string>
