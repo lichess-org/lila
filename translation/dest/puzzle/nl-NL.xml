@@ -41,4 +41,5 @@
   <string name="hardest">Moeilijkst</string>
   <string name="example">Voorbeeld</string>
   <string name="addAnotherTheme">Voeg nog een thema toe</string>
+  <string name="jumpToNextPuzzleImmediately">Direct door naar volgende puzzel</string>
 </resources>
