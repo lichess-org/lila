@@ -281,7 +281,7 @@
   <string name="openingExplorerAndTablebase">Lat dátugrunn við byrjanar- og endatalvum upp</string>
   <string name="takeback">Tak aftur</string>
   <string name="proposeATakeback">Ber fram ynski um afturtøku</string>
-  <string name="takebackPropositionSent">Afturtøka send</string>
+  <string name="takebackPropositionSent">Boð um afturtøku sent</string>
   <string name="takebackPropositionDeclined">Afturtøka havnað</string>
   <string name="takebackPropositionAccepted">Afturtøka góðtikin</string>
   <string name="takebackPropositionCanceled">Afturtøka avlýst</string>
@@ -332,7 +332,7 @@
   <string name="xStartedStreaming">%s byrjaði at stroyma</string>
   <string name="averageElo">Miðalstyrkital</string>
   <string name="location">Staður</string>
-  <string name="filterGames">Síla talv frá</string>
+  <string name="filterGames">Sálda talv frá</string>
   <string name="reset">Endurset</string>
   <string name="apply">Vátta</string>
   <string name="save">Goym</string>
