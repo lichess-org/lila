@@ -36,4 +36,5 @@
   <string name="hardest">Najteži</string>
   <string name="example">Primjer</string>
   <string name="addAnotherTheme">Dodajte drugu temu</string>
+  <string name="jumpToNextPuzzleImmediately">Odmah skočite na sljedeći problem</string>
 </resources>
