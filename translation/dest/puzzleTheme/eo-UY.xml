@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advantage">Avantaĝo</string>
+  <string name="attackingF2F7">Atako al f2 aŭ f7</string>
+  <string name="bishopEndgame">Kuriera finludo</string>
+  <string name="castling">Aroko</string>
+  <string name="capturingDefender">Kapti la defendanton</string>
+  <string name="equality">Egaligi</string>
+  <string name="kingsideAttack">Atako al la reĝa flanko</string>
+  <string name="defensiveMove">Defenda movo</string>
+  <string name="doubleCheck">Duobla ŝako</string>
+</resources>
