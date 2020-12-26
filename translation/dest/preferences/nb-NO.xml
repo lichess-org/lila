@@ -41,6 +41,7 @@
   <string name="castleByMovingTwoSquares">Flytt kongen to felter</string>
   <string name="castleByMovingOntoTheRook">Sett kongen på tårnet</string>
   <string name="inputMovesWithTheKeyboard">Skriv trekk med tastaturet</string>
-  <string name="snapArrowsToValidMoves">Piler viser gyldig trekk</string>
+  <string name="snapArrowsToValidMoves">Piler viser gyldige trekk</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Si «Good game, well played» («Godt parti, bra spilt») etter tap eller remis</string>
   <string name="yourPreferencesHaveBeenSaved">Innstillingene dine er lagret.</string>
 </resources>
