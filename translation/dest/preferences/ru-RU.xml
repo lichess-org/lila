@@ -41,5 +41,6 @@
   <string name="castleByMovingTwoSquares">Переместить короля на две клетки</string>
   <string name="castleByMovingOntoTheRook">Переместить короля на ладью</string>
   <string name="inputMovesWithTheKeyboard">Вводить ходы с помощью клавиатуры</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Писать в чат \"Good game, well played\" после поражения или ничьей</string>
   <string name="yourPreferencesHaveBeenSaved">Ваши настройки сохранены.</string>
 </resources>
