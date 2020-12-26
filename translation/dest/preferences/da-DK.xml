@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Flyt kongen to felter</string>
   <string name="castleByMovingOntoTheRook">Flyt kongen over på tårn</string>
   <string name="inputMovesWithTheKeyboard">Lav træk med tastaturet</string>
+  <string name="snapArrowsToValidMoves">Marker lovlige træk med pile</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Sig \"Godt spil, godt spillet\" ved nederlag eller remis</string>
   <string name="yourPreferencesHaveBeenSaved">Dine præferencer er blevet gemt.</string>
 </resources>
