@@ -42,6 +42,6 @@
   <string name="castleByMovingOntoTheRook">Moviendo el rey hasta la torre</string>
   <string name="inputMovesWithTheKeyboard">Entrada de movimientos con el teclado</string>
   <string name="snapArrowsToValidMoves">Adherir flechas a movimientos válidos</string>
-  <string name="sayGgWpAfterLosingOrDrawing">Decir \"Buena partida, bien jugado\" al perder o empatar</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Decir \"Good game, well played\" (Buena partida, bien jugada) al perder o empatar</string>
   <string name="yourPreferencesHaveBeenSaved">Tus preferencias se han guardado.</string>
 </resources>
