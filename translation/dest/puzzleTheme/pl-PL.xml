@@ -21,7 +21,7 @@
   <string name="equality">Równość</string>
   <string name="equalityDescription">Powróć z przegranej pozycji i zabezpiecz remis bądź równowagę. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Atak skrzydłem królewskim</string>
-  <string name="kingsideAttackDescription">Atak na króla przeciwnika po tym, jak wykonał roszadę na skrzydle królewskim.</string>
+  <string name="kingsideAttackDescription">Atak na króla przeciwnika po krótkiej roszadzie.</string>
   <string name="clearance">Prześwit</string>
   <string name="clearanceDescription">Ruch, często z tempem który oczyszcza pole, linię bądź przekątną do następnej taktyki.</string>
   <string name="defensiveMove">Ruch obronny</string>
@@ -72,15 +72,15 @@
   <string name="pawnEndgame">Końcówka pionkowa</string>
   <string name="pawnEndgameDescription">Gra końcowa wyłącznie z pionami.</string>
   <string name="pin">Związanie</string>
-  <string name="pinDescription">Taktyka wykorzystująca przypięcia, gdzie bierka nie może się ruszyć bez odsłaniania ataku na figurę o wyższej wartości.</string>
+  <string name="pinDescription">Taktyka wykorzystująca związania, czyli sytuacje, w których ruch bierki naraża na atak figurę o wyższej wartości.</string>
   <string name="promotion">Promocja</string>
-  <string name="promotionDescription">Zaawansowany pion lub pion grożący przemianą jest kluczowy w taktyce.</string>
+  <string name="promotionDescription">Promocja piona lub zagrożenie promocją jest kluczem tej taktyki.</string>
   <string name="queenEndgame">Końcówka hetmańska</string>
   <string name="queenEndgameDescription">Gra końcowa wyłącznie z hetmanami i pionami.</string>
   <string name="queenRookEndgame">Końcówka wieżowo-hetmańska</string>
   <string name="queenRookEndgameDescription">Gra końcowa wyłącznie z wieżami, hetmanami i pionami.</string>
   <string name="queensideAttack">Atak skrzydłem hetmańskim</string>
-  <string name="queensideAttackDescription">Atak na króla przeciwnika po tym, jak wykonał roszadę na skrzydle hetmańskim.</string>
+  <string name="queensideAttackDescription">Atak na króla przeciwnika po długiej roszadzie.</string>
   <string name="quietMove">Cichy ruch</string>
   <string name="quietMoveDescription">Ruch który nie zbija ani nie atakuje bezpośrednio ale przygotowuje nieunikalną groźbę.</string>
   <string name="rookEndgame">Końcówka wieżowa</string>
@@ -94,7 +94,7 @@
   <string name="smotheredMate">Mat Beniowskiego</string>
   <string name="smotheredMateDescription">Mat dawany skoczkiem w którym matowany król nie może się poruszać ponieważ jest otoczony (zduszony) własnymi bierkami.</string>
   <string name="trappedPiece">Uwięziona figura</string>
-  <string name="trappedPieceDescription">Figura nie może uciec przed zbiciem, ponieważ ma ograniczone ruchy.</string>
+  <string name="trappedPieceDescription">Bierka nie może uniknąć zbicia z powodu ograniczenia mobilności.</string>
   <string name="underPromotion">Słaba promocja</string>
   <string name="underPromotionDescription">Promocja na skoczka, gońca lub wieżę.</string>
   <string name="veryLong">Bardzo długie zadanie</string>
