@@ -41,5 +41,6 @@
   <string name="castleByMovingTwoSquares">Mută regele două pătrățele</string>
   <string name="castleByMovingOntoTheRook">Mută regele pe turn</string>
   <string name="inputMovesWithTheKeyboard">Introdu mutări folosind tastatura</string>
+  <string name="snapArrowsToValidMoves">Trage săgețile la mutările valide</string>
   <string name="yourPreferencesHaveBeenSaved">Preferințele tale au fost salvate</string>
 </resources>
