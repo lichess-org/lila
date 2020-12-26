@@ -41,5 +41,6 @@
   <string name="castleByMovingTwoSquares">Pohnout králem o dvě pole</string>
   <string name="castleByMovingOntoTheRook">Pohnout králem na místo věže</string>
   <string name="inputMovesWithTheKeyboard">Zadávání tahů pomocí klávesnice</string>
+  <string name="snapArrowsToValidMoves">Přichytit šipky k platným tahům</string>
   <string name="yourPreferencesHaveBeenSaved">Vaše předvolby byly uloženy.</string>
 </resources>
