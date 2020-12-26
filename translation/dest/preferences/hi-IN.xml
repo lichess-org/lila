@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">राजा दो चौकों ले जाएँ</string>
   <string name="castleByMovingOntoTheRook">राजा हाथी पर ले जाएँ</string>
   <string name="inputMovesWithTheKeyboard">कंप्यूटर कीबोर्ड के साथ इनपुट करें</string>
+  <string name="snapArrowsToValidMoves">मान्य चाल के लिए स्नैप तीर</string>
+  <string name="sayGgWpAfterLosingOrDrawing">हार या ड्रॉ पर \"अच्छा खेल, अच्छा खेला\" कहें</string>
   <string name="yourPreferencesHaveBeenSaved">आपकी प्राथमिकताएं सेव कर ली गई हैं</string>
 </resources>
