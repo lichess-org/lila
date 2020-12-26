@@ -6,7 +6,7 @@
   <string name="advantageDescription">Nutze deine Chance, um einen entscheidenden Vorteil zu erlangen. (200 Hundertstel-Bauern ≤ Bewertung ≤ 600 Hundertstel-Bauern)</string>
   <string name="attackingF2F7">Angriff auf f2 oder f7</string>
   <string name="attackingF2F7Description">Ein Angriff, der sich auf den Bauern auf f2 oder f7 konzentriert, wie zum Beispiel bei der Eröffnung \"Zweispringerspiel im Nachzug, 4. Sg5\".</string>
-  <string name="attraction">Hinlenkung</string>
+  <string name="attraction">Hinlenkung oder \"Magnet\"</string>
   <string name="attractionDescription">Ein Abtausch oder Opfer, der eine gegnerische Schachfigur auf ein Feld einlädt oder zwingt, was eine Folgetaktik erlaubt.</string>
   <string name="backRankMate">Grundreihenmatt</string>
   <string name="backRankMateDescription">Setze den König auf der Grundreihe matt, wenn er dort durch seine eigenen Figuren blockiert wird.</string>
