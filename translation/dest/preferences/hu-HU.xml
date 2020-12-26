@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Király mozog két mezőt</string>
   <string name="castleByMovingOntoTheRook">Király mozog a bástyára</string>
   <string name="inputMovesWithTheKeyboard">Lépések bevitele a billentyűzettel</string>
+  <string name="snapArrowsToValidMoves">Nyilak illesztése a szabályos lépésekhez</string>
+  <string name="sayGgWpAfterLosingOrDrawing">\"Good game, well played\" üzenet döntetlen vagy vereség esetén</string>
   <string name="yourPreferencesHaveBeenSaved">Beállítások elmentve.</string>
 </resources>
