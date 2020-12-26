@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Muovi il re di due caselle</string>
   <string name="castleByMovingOntoTheRook">Muovi il re sopra la Torre</string>
   <string name="inputMovesWithTheKeyboard">Muovi utilizzando la tastiera</string>
+  <string name="snapArrowsToValidMoves">Collega le frecce a mosse valide</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Di \"Bella giocata\" alla sconfitta o al pareggio</string>
   <string name="yourPreferencesHaveBeenSaved">Le tue preferenze sono state salvate.</string>
 </resources>
