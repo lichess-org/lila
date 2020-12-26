@@ -42,5 +42,6 @@
   <string name="castleByMovingOntoTheRook">Mută regele pe turn</string>
   <string name="inputMovesWithTheKeyboard">Introdu mutări folosind tastatura</string>
   <string name="snapArrowsToValidMoves">Trage săgețile la mutările valide</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Spune \"Joc bun, bine jucat\" la înfrângere sau la remiză</string>
   <string name="yourPreferencesHaveBeenSaved">Preferințele tale au fost salvate</string>
 </resources>
