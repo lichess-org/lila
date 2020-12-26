@@ -41,4 +41,5 @@
   <string name="hardest">O máis difícil</string>
   <string name="example">Exemplo</string>
   <string name="addAnotherTheme">Engadir outro tema</string>
+  <string name="jumpToNextPuzzleImmediately">Ir ao seguinte crebacabezas inmediatamente</string>
 </resources>
