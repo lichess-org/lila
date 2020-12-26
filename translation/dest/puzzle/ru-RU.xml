@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Задачи</string>
-  <string name="recommended">Рекомендовано</string>
-  <string name="phases">Фазы</string>
+  <string name="recommended">Рекомендуемые</string>
+  <string name="phases">Стадии игры</string>
   <string name="motifs">Мотивы</string>
   <string name="advanced">Продвинутый</string>
   <string name="lengths">Длина</string>
@@ -42,6 +42,6 @@
   <string name="harder">Сложный</string>
   <string name="hardest">Сложнейший</string>
   <string name="example">Пример</string>
-  <string name="addAnotherTheme">Добавить другую тему</string>
+  <string name="addAnotherTheme">Добавить другой мотив</string>
   <string name="jumpToNextPuzzleImmediately">Сразу перейти к следующей задаче</string>
 </resources>
