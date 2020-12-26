@@ -61,7 +61,7 @@ Dies wird in Abschnitt 3.7 der %2$s beschrieben.
 \"Ein Bauer, der auf derselben Reihe auf einem unmittelbar angrenzenden Feld wie ein gegnerischer Bauer, der soeben zwei Felder von seiner Anfangsstellung vorgerückt ist, steht, darf diesen gegnerischen Bauern so schlagen, als ob letzterer nur um ein Feld vorgerückt wäre. Dieses Schlagen ist nur in dem unmittelbar nachfolgenden Zug regelgemäß und wird \'Schlagen en passant\' genannt.\"
 
 Siehe %3$s für etwas Übung mit dieser Art von Zug.</string>
-  <string name="goodIntroduction">guten ersten Eindruck</string>
+  <string name="goodIntroduction">guter ersten Eindruck</string>
   <string name="officialRulesPDF">offiziellen Regeln (PDF)</string>
   <string name="lichessTraining">Lichess-Training</string>
   <string name="threefoldRepetition">Dreifache Stellungswiederholung</string>
