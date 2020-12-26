@@ -170,7 +170,7 @@
   <string name="variants">Odmiany</string>
   <string name="timeControl">Tempo gry</string>
   <string name="realTime">W czasie rzeczywistym</string>
-  <string name="correspondence">Correspondence</string>
+  <string name="correspondence">Korespondencyjne</string>
   <string name="daysPerTurn">Dni na ruch</string>
   <string name="oneDay">1 dzień</string>
   <plurals name="nbDays">
@@ -825,7 +825,7 @@
   <string name="learnFromYourMistakes">Ucz się na swoich błędach</string>
   <string name="learnFromThisMistake">Ucz się na tym błędzie</string>
   <string name="skipThisMove">Pomiń ten ruch</string>
-  <string name="next">Następny</string>
+  <string name="next">Dalej</string>
   <string name="xWasPlayed">Zagrano %s</string>
   <string name="findBetterMoveForWhite">Znajdź lepszy ruch dla białych</string>
   <string name="findBetterMoveForBlack">Znajdź lepszy ruch dla czarnych</string>
