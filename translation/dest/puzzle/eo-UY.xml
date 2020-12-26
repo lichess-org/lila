@@ -21,4 +21,12 @@
   <string name="ratingX">Taksado: %s</string>
   <string name="hidden">kaŝita</string>
   <string name="fromGameLink">El ludo %s</string>
+  <string name="continueTraining">Daŭrigi la trejnadon</string>
+  <string name="normal">Normale</string>
+  <string name="easier">Facile</string>
+  <string name="easiest">Tre facile</string>
+  <string name="harder">Malfacile</string>
+  <string name="hardest">Tre malfacile</string>
+  <string name="example">Ekzamplo</string>
+  <string name="addAnotherTheme">Aldonu novan temon</string>
 </resources>
