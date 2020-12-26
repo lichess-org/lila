@@ -42,6 +42,6 @@
   <string name="castleByMovingOntoTheRook">Перемістити короля на клітинку, яка межує з турою</string>
   <string name="inputMovesWithTheKeyboard">Вводити ходи за допомогою клавіатури</string>
   <string name="snapArrowsToValidMoves">Прив\'язати стрілки до можливих ходів</string>
-  <string name="sayGgWpAfterLosingOrDrawing">Писати в чат \"Хороша гра, гарно зіграно\" після поразки або нічиї</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Скажіть в чат \"Хороша гра, гарно зіграно\" після поразки або нічиї</string>
   <string name="yourPreferencesHaveBeenSaved">Ваші налаштування збережено.</string>
 </resources>
