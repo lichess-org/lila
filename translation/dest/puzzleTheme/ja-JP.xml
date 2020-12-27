@@ -67,8 +67,6 @@
   <string name="oneMoveDescription">1 手だけ動かす問題。</string>
   <string name="opening">オープニング</string>
   <string name="openingDescription">ゲームの序盤でのタクティクス。</string>
-  <string name="overloading">オーバーロード</string>
-  <string name="overloadingDescription">1 つの駒が複数の役割を果たしている状況。たとえばある駒が 2 つの駒を守っている場合、一方を取って相手がそれを取り返せばもう一方が浮き駒になる。</string>
   <string name="pawnEndgame">ポーン・エンドゲーム</string>
   <string name="pawnEndgameDescription">ポーンだけの終盤。</string>
   <string name="pin">ピン</string>
