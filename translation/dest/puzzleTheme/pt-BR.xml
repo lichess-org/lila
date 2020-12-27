@@ -67,8 +67,6 @@
   <string name="oneMoveDescription">Quebra-cabeças de um movimento.</string>
   <string name="opening">Abertura</string>
   <string name="openingDescription">Tática durante a última fase do jogo.</string>
-  <string name="overloading">Sobrecarga</string>
-  <string name="overloadingDescription">Quando uma peça está desempenhando funções múltiplas, por exemplo defender duas peças ao mesmo tempo. Capturar uma das peças defendidas vai criar uma oportunidade, quando a peça defensora se mover.</string>
   <string name="pawnEndgame">Finais de peões</string>
   <string name="pawnEndgameDescription">Um final apenas com peões.</string>
   <string name="pin">Cravada</string>
