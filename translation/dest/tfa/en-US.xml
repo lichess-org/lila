@@ -13,4 +13,5 @@
   <string name="twoFactorEnabled">Two-factor authentication enabled</string>
   <string name="twoFactorDisable">You need your password and an authentication code from your authenticator app to disable two-factor authentication.
 If you lost access to your authentication codes, you can also do a password reset via email.</string>
+  <string name="openTwoFactorApp">Open the two-factor authentication app on your device to view your authentication code and verify your identity.</string>
 </resources>
