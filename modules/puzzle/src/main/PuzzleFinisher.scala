@@ -89,11 +89,13 @@ final private[puzzle] class PuzzleFinisher(
         (userPerf != user.perfs.puzzle).?? {
           userRepo.setPerf(user.id, PerfType.Puzzle, userPerf) zip
             historyApi.addPuzzle(user = user, completedAt = now, perf = userPerf) void
-        } >>-
-        Bus.publish(
-          Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating),
-          "finishPuzzle"
-        ) inject (round -> userPerf)
+        } >>- {
+          if (prevRound.isEmpty)
+            Bus.publish(
+              Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating),
+              "finishPuzzle"
+            )
+        } inject (round -> userPerf)
     }
 
   private object ponder {
