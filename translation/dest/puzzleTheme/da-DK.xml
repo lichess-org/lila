@@ -67,8 +67,6 @@
   <string name="oneMoveDescription">En opgave der kun er ét træk lang.</string>
   <string name="opening">Åbning</string>
   <string name="openingDescription">En taktik i den første fase af spillet.</string>
-  <string name="overloading">Overbelastning</string>
-  <string name="overloadingDescription">Når en brik er bebyrdet med flere opgaver som for eksempel at forsvare to brikker på én gang. Tages en af de forsvarede brikker, kan det give en ny mulighed for modstanderen svarende til en afledning.</string>
   <string name="pawnEndgame">Bondeslutspil</string>
   <string name="pawnEndgameDescription">Et slutspil kun med bønder.</string>
   <string name="pin">Binding</string>
