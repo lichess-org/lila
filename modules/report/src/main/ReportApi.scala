@@ -161,6 +161,21 @@ final class ReportApi(
         case _ => funit
       }
 
+  def autoCheatDetectedReport(userId: User.ID, cheatedGames: Int): Funit =
+    userRepo.byId(userId) zip getLichessReporter flatMap {
+      case Some(user) ~ reporter if !user.lame && cheatedGames >= 3 =>
+        lila.mon.cheat.autoReport.increment()
+        create(
+          Candidate(
+            reporter = reporter,
+            suspect = Suspect(user),
+            reason = Reason.Cheat,
+            text = s"$cheatedGames cheat detected in the last 6 months"
+          )
+        )
+      case _ => funit
+    }
+
   def autoBotReport(userId: String, referer: Option[String], name: String): Funit =
     getSuspect(userId) zip getLichessReporter flatMap {
       case (Some(suspect), reporter) =>
