@@ -33,4 +33,5 @@
   <string name="hardest">အခက်ဆုံး</string>
   <string name="example">ဥပမာ</string>
   <string name="addAnotherTheme">မြင်ကွင်းပုံစံ နောက်တစ်မျိုး ထည့်ပါ</string>
+  <string name="jumpToNextPuzzleImmediately">လာမည့် ဉာဏ်စမ်းသို့ ချက်ချင်း သွားပါ</string>
 </resources>
