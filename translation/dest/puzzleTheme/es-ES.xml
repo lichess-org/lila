@@ -67,8 +67,6 @@
   <string name="oneMoveDescription">Un rompecabezas de un solo movimiento.</string>
   <string name="opening">Apertura</string>
   <string name="openingDescription">Una táctica durante la primera fase de la partida.</string>
-  <string name="overloading">Sobrecarga</string>
-  <string name="overloadingDescription">Cuando una pieza desempeña varias funciones, tal como defender dos piezas. La captura de una de las piezas defendidas abrirá una oportunidad cuando el defensor se mueva, similar a la desviación.</string>
   <string name="pawnEndgame">Final de peones</string>
   <string name="pawnEndgameDescription">Un final solo con peones.</string>
   <string name="pin">Clavada</string>
