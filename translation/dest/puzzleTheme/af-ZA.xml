@@ -67,8 +67,6 @@
   <string name="oneMoveDescription">\'N Raaisel wat net een beweging lank is.</string>
   <string name="opening">Opening</string>
   <string name="openingDescription">\'N Taktiek tydens die eerste fase van die wedstryd.</string>
-  <string name="overloading">Oorlading</string>
-  <string name="overloadingDescription">Waar \'n stuk verskeie funksies verrig, soos om twee stukke te verdedig. Die vaslegging van een van die verdedigde stukke sal \'n kans laat as die verdediger beweeg, soortgelyk aan die buiging.</string>
   <string name="pawnEndgame">Pand eindspel</string>
   <string name="pawnEndgameDescription">\'N Eindspel met slegs pionne.</string>
   <string name="pin">Speld</string>
