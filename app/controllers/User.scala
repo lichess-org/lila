@@ -94,34 +94,40 @@ final class User(
     OpenBody { implicit ctx =>
       Reasonable(page) {
         EnabledUser(username) { u =>
-          negotiate(
-            html = for {
-              nbs <- env.userNbGames(u, ctx, withCrosstable = true)
-              filters = GameFilterMenu(u, nbs, filter)
-              pag <- env.gamePaginator(
-                user = u,
-                nbs = nbs.some,
-                filter = filters.current,
-                me = ctx.me,
-                page = page
-              )(ctx.body)
-              _ <- env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
-              _ <- env.tournament.cached.nameCache preloadMany {
-                pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctxLang)
-              }
-              res <-
-                if (HTTPRequest isSynchronousHttp ctx.req) for {
-                  info   <- env.userInfo(u, nbs, ctx)
-                  _      <- env.team.cached.nameCache preloadMany info.teamIds
-                  social <- env.socialInfo(u, ctx)
-                  searchForm =
-                    (filters.current == GameFilter.Search) option
-                      GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
-                } yield html.user.show.page.games(u, info, pag, filters, searchForm, social)
-                else fuccess(html.user.show.gamesContent(u, nbs, pag, filters, filter))
-            } yield res,
-            api = _ => apiGames(u, filter, page)
-          )
+          if (filter == "search" && ctx.isAnon)
+            negotiate(
+              html = Unauthorized(html.search.login(u.count.game)).fuccess,
+              api = _ => Unauthorized(jsonError("Login required")).fuccess
+            )
+          else
+            negotiate(
+              html = for {
+                nbs <- env.userNbGames(u, ctx, withCrosstable = true)
+                filters = GameFilterMenu(u, nbs, filter, ctx.isAuth)
+                pag <- env.gamePaginator(
+                  user = u,
+                  nbs = nbs.some,
+                  filter = filters.current,
+                  me = ctx.me,
+                  page = page
+                )(ctx.body)
+                _ <- env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
+                _ <- env.tournament.cached.nameCache preloadMany {
+                  pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctxLang)
+                }
+                res <-
+                  if (HTTPRequest isSynchronousHttp ctx.req) for {
+                    info   <- env.userInfo(u, nbs, ctx)
+                    _      <- env.team.cached.nameCache preloadMany info.teamIds
+                    social <- env.socialInfo(u, ctx)
+                    searchForm =
+                      (filters.current == GameFilter.Search) option
+                        GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
+                  } yield html.user.show.page.games(u, info, pag, filters, searchForm, social)
+                  else fuccess(html.user.show.gamesContent(u, nbs, pag, filters, filter))
+              } yield res,
+              api = _ => apiGames(u, filter, page)
+            )
         }
       }
     }
