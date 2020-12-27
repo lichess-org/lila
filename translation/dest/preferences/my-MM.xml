@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="snapArrowsToValidMoves">မြားတို့ကို တရားဝင် ရွှေ့ကွက်သို့ တပ်ပေးပါ</string>
+  <string name="sayGgWpAfterLosingOrDrawing">ရှုံးသည့် အခါ သို့မဟုတ် သရေကျသည့် အခါ \"ကောင်းတဲ့ပွဲပါ၊ ခင်ဗျား ကစားတာ ကောင်းပါတယ်\" လို့ပြောပါ</string>
+</resources>
