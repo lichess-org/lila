@@ -45,6 +45,9 @@
     padding: 2vmin;
 
     &__rating {
+      p {
+        margin: 0;
+      }
       strong {
         @extend %flex-center;
 
