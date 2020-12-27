@@ -15,7 +15,7 @@
   <string name="castling">Rochade</string>
   <string name="castlingDescription">Bringe deinen König in Sicherheit und den Turm in Angriffsposition.</string>
   <string name="capturingDefender">Schlage den Verteidiger</string>
-  <string name="capturingDefenderDescription">Schlagen einer Schachfigur, die für die Deckung einer anderen Schachfigur von entscheidender Bedeutung ist, sodass die jetzt nicht mehr gedeckte Schachfigur mit dem folgendem Zug geschlagen werden kann.</string>
+  <string name="capturingDefenderDescription">Schlagen einer Figur, die für die Deckung einer anderen Figur von entscheidender Bedeutung ist, sodass die jetzt nicht mehr gedeckte Figur mit dem folgendem Zug geschlagen werden kann.</string>
   <string name="crushing">Vernichtend</string>
   <string name="crushingDescription">Finde den gegnerischen Patzer, um einen vernichtenden Vorteil zu erhalten. (Bewertung ≥ 600 Hundertstel-Bauern)</string>
   <string name="equality">Ausgleich</string>
@@ -97,12 +97,12 @@
   <string name="trappedPieceDescription">Eine Figur kann dem Schlagen nicht entgehen, weil ihre Zugmöglichkeiten begrenzt wurden.</string>
   <string name="underPromotion">Unterverwandlung</string>
   <string name="underPromotionDescription">Umwandlung in einen Springer, Läufer oder Turm.</string>
-  <string name="veryLong">Sehr langzügige Aufgabe</string>
+  <string name="veryLong">Sehr lange Aufgabe</string>
   <string name="veryLongDescription">Vier oder mehr Züge zum Gewinn.</string>
   <string name="xRayAttack">Röntgen-Angriff</string>
   <string name="xRayAttackDescription">Eine Figur attackiert oder verteidigt ein Feld durch eine gegnerische Figur hindurch.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Der Gegner ist in der Anzahl seiner Züge limitiert und jeder seiner Züge verschlechtert seine Stellung.</string>
   <string name="healthyMix">Gesunder Mix</string>
-  <string name="healthyMixDescription">Ein bisschen von allen Aufgaben. Du weißt nicht, was dich erwartet, deshalb bleibst du auf alles vorbereitet! Genau wie in echten Partien.</string>
+  <string name="healthyMixDescription">Ein bisschen von Allem. Du weißt nicht, was dich erwartet, deshalb bleibst du auf alles vorbereitet! Genau wie in echten Partien.</string>
 </resources>
