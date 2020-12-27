@@ -7,7 +7,7 @@ import play.api.i18n.Lang
 
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.LightUser
-import lila.i18n.{ I18nKeys => trans }
+import lila.i18n.{ I18nKey, I18nKeys => trans }
 import lila.rating.{ Perf, PerfType }
 import lila.user.{ Title, User }
 
@@ -253,19 +253,22 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     if (filter == GameFilter.Search) frag(br, trans.search.advancedSearch())
     else splitNumber(userGameFilterTitleNoTag(u, nbs, filter))
 
+  private def transLocalize(key: I18nKey, number: Int)(implicit lang: Lang) =
+    key.pluralTxt(number, number.localize)
+
   def userGameFilterTitleNoTag(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(implicit
       lang: Lang
   ): String =
     filter match {
-      case GameFilter.All      => trans.nbGames.pluralSameTxt(u.count.game)
-      case GameFilter.Me       => nbs.withMe ?? trans.nbGamesWithYou.pluralSameTxt
-      case GameFilter.Rated    => trans.nbRated.pluralSameTxt(u.count.rated)
-      case GameFilter.Win      => trans.nbWins.pluralSameTxt(u.count.win)
-      case GameFilter.Loss     => trans.nbLosses.pluralSameTxt(u.count.loss)
-      case GameFilter.Draw     => trans.nbDraws.pluralSameTxt(u.count.draw)
-      case GameFilter.Playing  => trans.nbPlaying.pluralSameTxt(nbs.playing)
-      case GameFilter.Bookmark => trans.nbBookmarks.pluralSameTxt(nbs.bookmark)
-      case GameFilter.Imported => trans.nbImportedGames.pluralSameTxt(nbs.imported)
+      case GameFilter.All      => transLocalize(trans.nbGames, u.count.game)
+      case GameFilter.Me       => nbs.withMe ?? { transLocalize(trans.nbGamesWithYou, _) }
+      case GameFilter.Rated    => transLocalize(trans.nbRated, u.count.rated)
+      case GameFilter.Win      => transLocalize(trans.nbWins, u.count.win)
+      case GameFilter.Loss     => transLocalize(trans.nbLosses, u.count.loss)
+      case GameFilter.Draw     => transLocalize(trans.nbDraws, u.count.draw)
+      case GameFilter.Playing  => transLocalize(trans.nbPlaying, nbs.playing)
+      case GameFilter.Bookmark => transLocalize(trans.nbBookmarks, nbs.bookmark)
+      case GameFilter.Imported => transLocalize(trans.nbImportedGames, nbs.imported)
       case GameFilter.Search   => trans.search.advancedSearch.txt()
     }
 
