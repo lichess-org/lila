@@ -40,6 +40,7 @@
   <string name="whatVariantsCanIplay">有哪些變體是在Lichess上玩得到的？</string>
   <string name="lichessSupportChessAnd">Lichess上有標準國際象棋和%1$s</string>
   <string name="eightVariants">8種變體</string>
+  <string name="goodIntroduction">好的自我介紹</string>
   <string name="officialRulesPDF">官方規則 (PDF)</string>
   <string name="lichessTraining">Lichess 訓練</string>
   <string name="positions">位置</string>
@@ -48,11 +49,13 @@
   <string name="titlesAvailableOnLichess">Lichess 上有什麼頭銜?</string>
   <string name="noUpperCaseDot">不行</string>
   <string name="uniqueTrophies">獨一無二的獎盃</string>
+  <string name="aHourlyBulletTournament">一場小時制Bullet模式錦標賽</string>
   <string name="lichessRatings">Lichess 評分</string>
   <string name="whichRatingSystemUsedByLichess">Lichess 使用什麼評分機制?</string>
   <string name="similarOpponents">實力相近的對手</string>
   <string name="howDoLeaderoardsWork">排名和排行榜是如何運作的?</string>
   <string name="ratingLeaderboards">評分排行表</string>
+  <string name="beInTopTen">在此模式下得到前10的積分</string>
   <string name="howToHideRatingWhilePlaying">如何在奕棋時隱藏評分?</string>
   <string name="displayPreferences">隱藏積分顯示</string>
   <string name="connexionLostCanIGetMyRatingBack">我因為斷線或lag而導致我輸了。我可以加回我的分數嗎?</string>

@@ -47,7 +47,7 @@
   <string name="intermezzoDescription">A várt lépés megtétele helyett egy olyan lépés beszúrása, amely fenyegetésére az ellenfélnek rögtön válaszolnia kell. Ismert még \"Zwischenzug\"-nak vagy \"Intermezzo\"-nak.</string>
   <string name="knightEndgame">Huszár végjáték</string>
   <string name="knightEndgameDescription">Végjáték csak huszárokkal és gyalogokkal.</string>
-  <string name="long">Hosszú feladványok</string>
+  <string name="long">Hosszú feladvány</string>
   <string name="longDescription">Három lépés a megoldás.</string>
   <string name="mate">Matt</string>
   <string name="mateDescription">Vidd a játszmát stílusosan.</string>
@@ -64,11 +64,9 @@
   <string name="middlegame">Középjáték</string>
   <string name="middlegameDescription">Taktikák a játszma második fázisában.</string>
   <string name="oneMove">Egy lépéses feladvány</string>
-  <string name="oneMoveDescription">Csupán egy lépésből álló feladványok.</string>
+  <string name="oneMoveDescription">Csupán egy lépésből álló feladvány.</string>
   <string name="opening">Megnyitás</string>
   <string name="openingDescription">Taktikák a játszma kezdeti fázisában.</string>
-  <string name="overloading">Túlterhelés</string>
-  <string name="overloadingDescription">Több feladatot ellátó figurán alapul, például amikor két másik figurát véd. Az egyik védett figura leütése után lehetőség nyílik a másik ellen irányuló támadásra. Hasonló az eltereléshez.</string>
   <string name="pawnEndgame">Gyalogvégjáték</string>
   <string name="pawnEndgameDescription">Végjáték csak gyalogokkal.</string>
   <string name="pin">Kötés</string>
@@ -97,7 +95,7 @@
   <string name="trappedPieceDescription">Egy figura leütése nem elkerülhető, ha nincs menekülési útja.</string>
   <string name="underPromotion">Minor-átváltozás</string>
   <string name="underPromotionDescription">Gyalog átváltozása huszár, futó vagy bástyára.</string>
-  <string name="veryLong">Hosszú feladvány</string>
+  <string name="veryLong">Nagyon hosszú feladvány</string>
   <string name="veryLongDescription">Négy vagy több lépés a megoldáshoz.</string>
   <string name="xRayAttack">Röntgen támadás</string>
   <string name="xRayAttackDescription">Figura ami egy ellenséges figurán áthatolva véd vagy támad egy mezőt.</string>

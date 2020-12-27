@@ -67,8 +67,6 @@
   <string name="oneMoveDescription">Un puzzle care are doar o mutare.</string>
   <string name="opening">Deschidere</string>
   <string name="openingDescription">O tactică în prima etapă a jocului.</string>
-  <string name="overloading">Supraîncărcare</string>
-  <string name="overloadingDescription">Când o piesă îndeplinește mai multe funcții, cum ar fi apărarea a două piese. Capturarea uneia dintre piesele apărate va da o oportunitate când se mută apărătorul, similar devierii.</string>
   <string name="pawnEndgame">Final cu pioni</string>
   <string name="pawnEndgameDescription">Un final de partidă doar cu pioni.</string>
   <string name="pin">Blocare</string>

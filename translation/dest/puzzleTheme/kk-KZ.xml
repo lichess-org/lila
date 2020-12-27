@@ -67,8 +67,6 @@
   <string name="oneMoveDescription">Бір жүріспен ғана шешілетін жұмбақ.</string>
   <string name="opening">Бастау</string>
   <string name="openingDescription">Ойынның алғашқы кезеңіндегі тактика.</string>
-  <string name="overloading">Ауырлық</string>
-  <string name="overloadingDescription">Бір тас бірнеше міндет атқарғандағы жағдай, мысалы, бірден екі тасты қорғау. Егер қарсылас осы тастың біреуін айырбастап алса, екінші тас қорғаусыз қалады. Назар бұруға ұқсас.</string>
   <string name="pawnEndgame">Сарбаздар ойынсоңы</string>
   <string name="pawnEndgameDescription">Сарбаздары ғана бар ойынсоңы.</string>
   <string name="pin">Байлау</string>

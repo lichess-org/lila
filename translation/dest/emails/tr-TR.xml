@@ -10,13 +10,13 @@
   <string name="emailChange_intro">E-posta adresini değiştirme talebinde bulundunuz.</string>
   <string name="emailChange_click">Bu e-postayı aldığınızı doğrulamak için aşağıdaki bağlantıya tıklayın:</string>
   <string name="welcome_subject">Lichess.org\'a hoş geldiniz, %s</string>
-  <string name="welcome_text">Başarılı bir şekilde https://lichess.org\'ta hesabınızı oluşturdunuz.
+  <string name="welcome_text">https://lichess.org üzerindeki hesabınızı başarılı bir şekilde oluşturdunuz.
 
-Profil sayfanız: %1$s. Profilinizi buradan kişiselleştirebilirsiniz: %2$s.
+Profil sayfanız burada: %1$s. Buradan kişiselleştirebilirsiniz: %2$s.
 
-İyi eğlenceler, ve taşlarınız her zaman rakip şaha doğru yollarını bulabilsin!</string>
+Keyfini çıkarın, ve taşlarınız her zaman rakibin şahına giden yolu bulsun!</string>
   <string name="logInToLichess">Lichess.org\'a giriş yapın, %s</string>
   <string name="common_orPaste">(Tıklamak işe yaramadı mı? Tarayıcıya yapıştırmayı dene!)</string>
   <string name="common_note">Bu, %s kullanımınızla ilgili otomatik bir e-postadır.</string>
-  <string name="common_contact">Bizimle iletişime geçmek için burayı kullanın: %s.</string>
+  <string name="common_contact">Bizimle iletişime geçmek için lütfen bu bağlantıyı kullanın: %s</string>
 </resources>

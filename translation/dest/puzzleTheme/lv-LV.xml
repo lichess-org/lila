@@ -67,8 +67,6 @@
   <string name="oneMoveDescription">Puzle, kas ilgst tikai vienu gājienu.</string>
   <string name="opening">Atklātne</string>
   <string name="openingDescription">Atklātnes posma taktika.</string>
-  <string name="overloading">Pārslogošana</string>
-  <string name="overloadingDescription">Pozīcija, kurā viena figūra veic vairākas funkcijas, piemēram, apsargā divas figūras. Vienas figūras nosišana radīs izdevību, kad sargājošā figūra izkustēsies, līdzīgi novirzes stratēģijai.</string>
   <string name="pawnEndgame">Bandinieku beigu spēle</string>
   <string name="pawnEndgameDescription">Beigu spēle, kurā iesaistīti tikai bandinieki.</string>
   <string name="pin">Piespraušana</string>

@@ -67,8 +67,6 @@
   <string name="oneMoveDescription">Un problema lungo una sola mossa.</string>
   <string name="opening">Apertura</string>
   <string name="openingDescription">Una tattica durante la prima fase della partita.</string>
-  <string name="overloading">Sovraccarico</string>
-  <string name="overloadingDescription">Situazione in cui un pezzo ha più funzioni, come difendere due pezzi. Catturare uno dei pezzi difesi donerà un\'opportunità dato che il difensore si sposta, similmente a come succede con una deviazione.</string>
   <string name="pawnEndgame">Finale di pedoni</string>
   <string name="pawnEndgameDescription">Un finale con soli pedoni.</string>
   <string name="pin">Inchiodatura</string>

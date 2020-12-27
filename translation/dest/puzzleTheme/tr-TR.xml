@@ -67,8 +67,6 @@
   <string name="oneMoveDescription">Yalnızca bir hamle uzunluğundaki bulmacalar.</string>
   <string name="opening">Açılış</string>
   <string name="openingDescription">Oyunun ilk aşamasında hayatınızı kolaylaştıran taktikler.</string>
-  <string name="overloading">Aşırı yükleme</string>
-  <string name="overloadingDescription">İki taşı aynı anda savunmak gibi birden fazla görevi olan taşları içeren bulmacalar. Korunan taşlardan birisine saldırıldığında, savunmada olan taş diğer görevini terk etmek zorunda kalır. Saptırma taktiği ile benzerlik gösterir.</string>
   <string name="pawnEndgame">Piyon oyunsonu</string>
   <string name="pawnEndgameDescription">Yalnızca piyonların olduğu oyunsonları.</string>
   <string name="pin">Açmaz</string>

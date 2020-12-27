@@ -67,8 +67,6 @@
   <string name="oneMoveDescription">Tik vieno ėjimo galvosūkiai.</string>
   <string name="opening">Debiutai</string>
   <string name="openingDescription">Taktika, kuri galioja pirmoje žaidimo fazėje.</string>
-  <string name="overloading">Perkrovimas</string>
-  <string name="overloadingDescription">Kai figūra atlieka daug funkcijų, pavyzdžiui saugo dvi kitas figūras. Vienos iš apgintų figūrų nukirtimas palieka progą, kai pajuda gynėjas, panašiai kaip atmušime.</string>
   <string name="pawnEndgame">Pėstininkų endšpilis</string>
   <string name="pawnEndgameDescription">Endšpilis tik su pėstininkais.</string>
   <string name="pin">Surišimas</string>

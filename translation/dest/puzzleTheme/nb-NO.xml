@@ -67,8 +67,6 @@
   <string name="oneMoveDescription">En sjakknøtt på bare ett trekk.</string>
   <string name="opening">Åpning</string>
   <string name="openingDescription">En taktikk i den første fasen av partiet.</string>
-  <string name="overloading">Overbelastning</string>
-  <string name="overloadingDescription">Når en brikke har flere roller, for eksempel å dekke to brikker. Hvis en av de dekkede brikkene slås, gir det muligheter når den forsvarende brikken flyttes, lignende avledning.</string>
   <string name="pawnEndgame">Bondesluttspill</string>
   <string name="pawnEndgameDescription">Et sluttspill med kun bønder.</string>
   <string name="pin">Binding</string>

@@ -67,8 +67,6 @@
   <string name="oneMoveDescription">एक पहेली जो केवल एक लंबी है।</string>
   <string name="opening">प्रारंभिक</string>
   <string name="openingDescription">खेल के पहले चरण के दौरान एक रणनीति।</string>
-  <string name="overloading">अधिक भार</string>
-  <string name="overloadingDescription">जहां एक टुकड़ा कई कार्य कर रहा है, जैसे कि दो टुकड़े का बचाव। डिफेंडर के समान, डिफेंडर चाल के रूप में, बचाव किए गए टुकड़ों में से एक पर कब्जा एक अवसर छोड़ देगा।</string>
   <string name="pawnEndgame">प्यादा एंडगेम</string>
   <string name="pawnEndgameDescription">केवल प्यादों के साथ एक एंडगेम।</string>
   <string name="pin">पिन</string>

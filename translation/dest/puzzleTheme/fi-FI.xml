@@ -67,8 +67,6 @@
   <string name="oneMoveDescription">Tehtävä, jossa vaaditaan vain yksi siirto.</string>
   <string name="opening">Avaus</string>
   <string name="openingDescription">Taktiikka pelin ensimmäisessä vaiheessa.</string>
-  <string name="overloading">Ylikuormitus</string>
-  <string name="overloadingDescription">Yhdellä nappulalla on useita eri tehtäviä, se voi esimerkiksi suojella kahta nappulaa. Lyötyäsi toisen näistä nappuloista suojeleva nappula siirtyy, aivan kuten harhautuksessa, ja tilaisuutesi on tullut.</string>
   <string name="pawnEndgame">Sotilasloppupeli</string>
   <string name="pawnEndgameDescription">Loppupeli, jossa on vain sotilaita.</string>
   <string name="pin">Kiinnitys</string>

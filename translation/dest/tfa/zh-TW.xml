@@ -5,6 +5,7 @@
   <string name="twoFactorApp">得到用於兩步驟驗證的 App，例如適用於 %1$s或 %2$s 的Google Authenticator</string>
   <string name="scanTheCode">使用App掃描QR code</string>
   <string name="enterPassword">輸入您的密碼和兩步驟驗證碼以完成設置，在之後的每次登入，您都需要驗證碼</string>
+  <string name="ifYouCannotScanEnterX" comment="ifYouCannotScanEnterX&#10;&#10;%s is the authentication code">如果您無法掃描此條碼，請輸入此密碼到您的app上 : %s</string>
   <string name="authenticationCode">驗證碼</string>
   <string name="ifYouLoseAccess">備註: 如果您遺失了您的兩步驟驗證碼，您可以用email來重設驗證碼</string>
   <string name="enableTwoFactor">啟用兩步驟驗證</string>

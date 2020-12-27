@@ -67,8 +67,6 @@
   <string name="oneMoveDescription">Zadanie, którego długość to tylko jedno posunięcie.</string>
   <string name="opening">Otwarcie</string>
   <string name="openingDescription">Taktyka w pierwszej fazie gry.</string>
-  <string name="overloading">Przeciążenie</string>
-  <string name="overloadingDescription">Sytuacje, w których bierka pełni jednocześnie kilka funkcji. Przykładowo, gdy broni ona dwóch bierek, zbicie jednej z nich otworzy możliwość ataku na drugą, niebronioną. Podobne do odciągnięcia.</string>
   <string name="pawnEndgame">Końcówka pionkowa</string>
   <string name="pawnEndgameDescription">Gra końcowa wyłącznie z pionami.</string>
   <string name="pin">Związanie</string>
