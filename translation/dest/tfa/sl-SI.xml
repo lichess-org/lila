@@ -13,4 +13,5 @@
   <string name="twoFactorEnabled">Dvoja avtentikacija je omogočena</string>
   <string name="twoFactorDisable">Če želite onemogočiti dvojno avtentikacijo, boste potrebovali geslo in aplikacijo za dvojno avtentikacijo.
 Če boste izgubili dostop do kod za dvojno avtentikacijo, lahko ponastavite geslo preko email naslova.</string>
+  <string name="openTwoFactorApp">V napravi odprite aplikacijo za dvostopenjsko preverjanje pristnosti, da si ogledate kodo za preverjanje pristnosti in preverite svojo identiteto.</string>
 </resources>
