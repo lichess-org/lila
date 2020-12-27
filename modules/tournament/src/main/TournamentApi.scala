@@ -677,6 +677,28 @@ final class TournamentApi(
       maxPerPage = MaxPerPage(20)
     )
 
+  object upcomingByPlayerPager {
+
+    private val max = 20
+
+    private val cache =
+      cacheApi[User.ID, lila.db.paginator.StaticAdapter[Tournament]](64, "tournament.upcomingByPlayer") {
+        _.expireAfterWrite(10 seconds)
+          .buildAsyncFuture {
+            tournamentRepo.upcomingAdapterExpensiveCacheMe(_, max)
+          }
+      }
+
+    def apply(player: User, page: Int): Fu[Paginator[Tournament]] =
+      cache.get(player.id) flatMap { adapter =>
+        Paginator(
+          adapter = adapter,
+          currentPage = page,
+          maxPerPage = MaxPerPage(max)
+        )
+      }
+  }
+
   def visibleByTeam(teamId: TeamID, nbPast: Int, nbNext: Int): Fu[Tournament.PastAndNext] =
     tournamentRepo.finishedByTeam(teamId, nbPast) zip
       tournamentRepo.upcomingByTeam(teamId, nbNext) map
