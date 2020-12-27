@@ -67,8 +67,6 @@
   <string name="oneMoveDescription">Eine Aufgabe, die nur einen Zug erfordert.</string>
   <string name="opening">Eröffnung</string>
   <string name="openingDescription">Eine Taktik in der ersten Phase des Spiels.</string>
-  <string name="overloading">Überlastung</string>
-  <string name="overloadingDescription">Wenn eine Figur mehrere Aufgaben erfüllt, wie die Deckung von zwei Figuren. Das Schlagen einer der gedeckten Figuren verschafft einen Vorteil, da die verteidigende Figur eine der beiden Deckungen aufgeben muss, ähnlich wie bei der Ablenkung.</string>
   <string name="pawnEndgame">Bauernendspiel</string>
   <string name="pawnEndgameDescription">Ein Endspiel nur mit Bauern.</string>
   <string name="pin">Fesselung</string>
