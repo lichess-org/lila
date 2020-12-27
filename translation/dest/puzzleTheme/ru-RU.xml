@@ -67,8 +67,6 @@
   <string name="oneMoveDescription">Задача, где нужно сделать только один выигрывающий ход.</string>
   <string name="opening">Дебют</string>
   <string name="openingDescription">Тактические приёмы в первой стадии игры.</string>
-  <string name="overloading">Перегрузка</string>
-  <string name="overloadingDescription">Ситуация, в которой фигура выполняет несколько задач, например, защищает две фигуры. Размен одной из фигур оставит вторую фигуру без защиты. Похоже на отвлечение.</string>
   <string name="pawnEndgame">Пешечное окончание</string>
   <string name="pawnEndgameDescription">Эндшпиль только с пешками</string>
   <string name="pin">Связка</string>
