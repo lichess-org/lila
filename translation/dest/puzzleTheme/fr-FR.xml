@@ -67,8 +67,6 @@
   <string name="oneMoveDescription">Un problème qui ne dure qu\'un coup.</string>
   <string name="opening">Ouverture</string>
   <string name="openingDescription">Une tactique durant la première phase de jeu.</string>
-  <string name="overloading">Surcharge</string>
-  <string name="overloadingDescription">Lorsqu\'une pièce a plusieurs fonctions, comme protéger deux pièces, la capture de l\'une de ces deux pièces fera bouger la pièce défenseur, ce qui permettra d\'attaquer l\'autre.</string>
   <string name="pawnEndgame">Finale de pions</string>
   <string name="pawnEndgameDescription">Une finale avec seulement des pions.</string>
   <string name="pin">Clouage</string>
