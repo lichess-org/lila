@@ -13,4 +13,5 @@
   <string name="twoFactorEnabled">Tweestapsverificatie ingeschakeld</string>
   <string name="twoFactorDisable">Je hebt je wachtwoord en een verificatiecode van je authenticatie-app nodig om tweestapsverificatie uit te schakelen.
 Als je geen toegang meer hebt tot uw verificatiecodes, kunt je ook je wachtwoord resetten via e-mail.</string>
+  <string name="openTwoFactorApp">Open de tweestapsverificatie-app op uw apparaat om uw authenticatiecode te bekijken en uw identiteit te verifiëren.</string>
 </resources>
