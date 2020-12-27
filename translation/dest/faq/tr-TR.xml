@@ -16,7 +16,7 @@
   <string name="beingAPatron">Destekçi</string>
   <string name="breakdownOfOurCosts">site giderleri dökümünü</string>
   <string name="otherWaysToHelp">birçok yolu</string>
-  <string name="areThereWebsitesBasedOnLichess">Lichess\'in kaynak kodunu kullanan başka siteler var mı?</string>
+  <string name="areThereWebsitesBasedOnLichess">Lichess kaynak kodunu kullanan siteler var mı?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Evet. Lichess %1$s, %2$s ve %3$s paylaşımında bulunarak farklı açık kaynak kodlu sitelere ilham kaynağı olmuştur.</string>
   <string name="fairPlay">Adil Oyun</string>
   <string name="whyFlaggedRatingManipulationOrCheater">Neden bir bilgisayardan yardım alan ya da haksız puan kazanan birisi olarak işaretlendim?</string>
