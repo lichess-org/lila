@@ -58,29 +58,32 @@ final class PuzzleSessionApi(
               nextPuzzleFor(user, theme, retries = retries + 1)
             }
 
-        nextPuzzleResult(user, session) flatMap {
-          case PathMissing | PathEnded if retries < 10 => switchPath(session.path.tier)
-          case PathMissing | PathEnded                 => fufail(s"Puzzle path missing or ended for ${user.id}")
-          case PuzzleMissing(id) =>
-            logger.warn(s"Puzzle missing: $id")
-            sessions.put(user.id, fuccess(session.next))
-            nextPuzzleFor(user, theme, retries)
-          case PuzzleAlreadyPlayed(_) if retries < 3 =>
-            sessions.put(user.id, fuccess(session.next))
-            nextPuzzleFor(user, theme, retries = retries + 1)
-          case PuzzleAlreadyPlayed(_) if session.path.tier == PuzzleTier.Top => switchPath(PuzzleTier.All)
-          case PuzzleAlreadyPlayed(puzzle)                                   => fuccess(puzzle)
-          case PuzzleFound(puzzle)                                           => fuccess(puzzle)
-        }
+        nextPuzzleResult(user, session)
+          .flatMap {
+            case PathMissing | PathEnded if retries < 10 => switchPath(session.path.tier)
+            case PathMissing | PathEnded                 => fufail(s"Puzzle path missing or ended for ${user.id}")
+            case PuzzleMissing(id) =>
+              logger.warn(s"Puzzle missing: $id")
+              sessions.put(user.id, fuccess(session.next))
+              nextPuzzleFor(user, theme, retries)
+            case PuzzleAlreadyPlayed(_) if retries < 3 =>
+              sessions.put(user.id, fuccess(session.next))
+              nextPuzzleFor(user, theme, retries = retries + 1)
+            case PuzzleAlreadyPlayed(_) if session.path.tier == PuzzleTier.Top => switchPath(PuzzleTier.All)
+            case PuzzleAlreadyPlayed(puzzle)                                   => fuccess(puzzle)
+            case PuzzleFound(puzzle)                                           => fuccess(puzzle)
+          }
+          .addEffect { puzzle =>
+            val mon = lila.mon.puzzle.selector.user
+            mon.retries(theme.value).record(retries)
+            mon.vote(theme.value).record(100 + math.round(puzzle.vote * 100))
+            mon
+              .ratingDiff(theme.value, session.difficulty.key)
+              .record(math.abs(puzzle.glicko.intRating - user.perfs.puzzle.intRating))
+            mon.ratingDev(theme.value).record(puzzle.glicko.intDeviation).unit
+          }
       }
       .mon(_.puzzle.selector.user.time(theme.value))
-      .addEffect { puzzle =>
-        val mon = lila.mon.puzzle.selector.user
-        mon.retries(theme.value).record(retries)
-        mon.vote(theme.value).record(100 + math.round(puzzle.vote * 100))
-        mon.ratingDiff(theme.value).record(math.abs(puzzle.glicko.intRating - user.perfs.puzzle.intRating))
-        mon.ratingDev(theme.value).record(puzzle.glicko.intDeviation).unit
-      }
 
   private def nextPuzzleResult(user: User, session: PuzzleSession): Fu[NextPuzzleResult] =
     colls

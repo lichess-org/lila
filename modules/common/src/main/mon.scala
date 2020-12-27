@@ -420,12 +420,15 @@ object mon {
   object puzzle {
     object selector {
       object user {
-        def time(theme: String)       = timer("puzzle.selector.user.puzzle").withTag("theme", theme)
-        def retries(theme: String)    = histogram("puzzle.selector.user.retries").withTag("theme", theme)
-        def vote(theme: String)       = histogram("puzzle.selector.user.vote").withTag("theme", theme)
-        def ratingDiff(theme: String) = histogram("puzzle.selector.user.ratingDiff").withTag("theme", theme)
-        def ratingDev(theme: String)  = histogram("puzzle.selector.user.ratingDev").withTag("theme", theme)
-        def batch(nb: Int)            = timer("puzzle.selector.user.batch").withTag("nb", nb)
+        def time(theme: String)    = timer("puzzle.selector.user.puzzle").withTag("theme", theme)
+        def retries(theme: String) = histogram("puzzle.selector.user.retries").withTag("theme", theme)
+        def vote(theme: String)    = histogram("puzzle.selector.user.vote").withTag("theme", theme)
+        def ratingDiff(theme: String, difficulty: String) =
+          histogram("puzzle.selector.user.ratingDiff").withTags(
+            Map("theme" -> theme, "difficulty" -> difficulty)
+          )
+        def ratingDev(theme: String) = histogram("puzzle.selector.user.ratingDev").withTag("theme", theme)
+        def batch(nb: Int)           = timer("puzzle.selector.user.batch").withTag("nb", nb)
       }
       object anon {
         def time(theme: String) = timer("puzzle.selector.anon.puzzle").withTag("theme", theme)
