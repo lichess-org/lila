@@ -67,8 +67,6 @@
   <string name="oneMoveDescription">Ei taktikkoppgåve på berre eitt trekk.</string>
   <string name="opening">Opning</string>
   <string name="openingDescription">Ein taktikk i den første fasen av partiet.</string>
-  <string name="overloading">Overbelastning</string>
-  <string name="overloadingDescription">Ei brikke med for mange oppgåver. Eit døme er ei brikke som må forsvare to brikker samstundes. Dersom ei av dei dekte brikkene vert slått ut kan det opne for ein sjanse etter trekket til motspelaren, likt manøveren avleiing.</string>
   <string name="pawnEndgame">Bondesluttspel</string>
   <string name="pawnEndgameDescription">Eit sluttspel med berre bønder.</string>
   <string name="pin">Binding</string>
