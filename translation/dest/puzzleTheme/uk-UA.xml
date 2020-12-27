@@ -67,8 +67,6 @@
   <string name="oneMoveDescription">Задача, що складається лише з одного ходу.</string>
   <string name="opening">Дебют</string>
   <string name="openingDescription">Тактика на першому етапі гри.</string>
-  <string name="overloading">Перевантаження</string>
-  <string name="overloadingDescription">Випадок, коли фігура виконує кілька функцій, наприклад, захист двох фігур. Захоплення однієї з фігур залишить без захисту іншу, схоже на відволікання.</string>
   <string name="pawnEndgame">Пішаковий ендшпіль</string>
   <string name="pawnEndgameDescription">Ендшпіль лише з пішаками.</string>
   <string name="pin">Зв\'язування</string>
