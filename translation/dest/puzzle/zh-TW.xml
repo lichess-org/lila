@@ -10,6 +10,7 @@
   <string name="goals">目標</string>
   <string name="specialMoves">特殊移動</string>
   <string name="didYouLikeThisPuzzle">您喜歡這個題目嗎？</string>
+  <string name="voteToLoadNextOne">告訴我們加載下一題!</string>
   <string name="yourPuzzleRatingX">您的解題等級：%s</string>
   <string name="findTheBestMoveForWhite">為白方找出最佳移動</string>
   <string name="findTheBestMoveForBlack">為黑方找出最佳移動</string>
@@ -38,5 +39,6 @@
   <string name="harder">困難</string>
   <string name="hardest">超困難</string>
   <string name="example">範例</string>
+  <string name="addAnotherTheme">加入其他主題</string>
   <string name="jumpToNextPuzzleImmediately">立即跳到下一個題目</string>
 </resources>
