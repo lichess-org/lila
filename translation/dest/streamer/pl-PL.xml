@@ -28,12 +28,11 @@
   <string name="pleaseFillIn">Wypełnij informacje o sobie i prześlij swoje zdjęcie.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Gdy jesteś gotowy do pojawienia się na liście streamerów Lichess, %s</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">poproś o recenzję moderatora</string>
-  <string name="anotherLanguage">Jeśli Twój stream jest w innym języku niż angielski, dodaj na początku jego tytułu poprawny znacznik języka w nawiasach kwadratowych (%s).
-Przykładowo: dołącz [PL] dla języka polskiego, [DE] dla niemiecki, [FR] dla francuskiego itd.
-Umieść go w tytule streama na stronie Twitch lub YouTube, a nie w ustawieniach streama Lichess.
-Jeśli Twój stream jest w języku angielskim, nie ma potrzeby dołączania znacznika.</string>
+  <string name="anotherLanguage">Jeśli Twoja emisja będzie odbywać się w języku innym niż angielski, dodaj na początku jego tytułu poprawny znacznik języka w nawiasach kwadratowych (%s).
+Przykładowo: dodaj „[PL]” w przypadku języka polskiego, „[DE]” – niemieckiego, „[FR]” – francuskiego itd.
+Umieść go w tytule emisji na stronie Twitcha lub YouTube, a nie w ustawieniach emisji Lichess. Nie ma potrzeby dodawania znacznika języka, jeśli emisja będzie w języku angielskim.</string>
   <string name="twitchUsername">Twoja nazwa użytkownika lub adres URL na Twitch</string>
-  <string name="optionalOrEmpty">Opcjonalne. Pozostaw puste, jeśli nie ma</string>
+  <string name="optionalOrEmpty">Opcjonalne. Jeśli brak, pozostaw puste</string>
   <string name="youtubeChannel">ID lub adres URL Twojego kanału YouTube</string>
   <string name="streamerName">Twoja nazwa streamera na Lichess</string>
   <plurals name="keepItShort">
@@ -54,5 +53,5 @@ Jeśli Twój stream jest w języku angielskim, nie ma potrzeby dołączania znac
   <string name="maxSize">Maksymalny rozmiar: %s</string>
   <string name="installBlocker">Zainstaluj blokadę złośliwego oprogramowania!</string>
   <string name="beSafe">Uwolnij się od reklam i śledzenia przez Twitch i YouTube.
-Lichess rekomenduje zainstalowanie darmowego uBlock Origin.</string>
+Lichess zaleca zainstalowanie uBlock Origin, który jest darmowy i ma otwarte źródła.</string>
 </resources>
