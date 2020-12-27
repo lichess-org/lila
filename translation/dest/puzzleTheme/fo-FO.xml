@@ -67,8 +67,6 @@
   <string name="oneMoveDescription">Uppgáva, ið bert krevur ein leik.</string>
   <string name="opening">Byrjanartalv</string>
   <string name="openingDescription">Taktisk atgerð í fyrsta skeiðinum av talvinum.</string>
-  <string name="overloading">Ovbyrjan</string>
-  <string name="overloadingDescription">Har eitt fólk útynnir fleiri uppgávur í senn, eitt nú verjir tvey fólk. At taka eitt av vardu fólkunum letur upp fyri einum møguleika, tá ið fólkið, ið verjir, flytir. Líkist avbending.</string>
   <string name="pawnEndgame">Finnuendatalv</string>
   <string name="pawnEndgameDescription">Endatalv við finnum burturav.</string>
   <string name="pin">Binding</string>
