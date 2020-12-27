@@ -1456,6 +1456,7 @@ val `enableTwoFactor` = new I18nKey("tfa:enableTwoFactor")
 val `disableTwoFactor` = new I18nKey("tfa:disableTwoFactor")
 val `twoFactorEnabled` = new I18nKey("tfa:twoFactorEnabled")
 val `twoFactorDisable` = new I18nKey("tfa:twoFactorDisable")
+val `openTwoFactorApp` = new I18nKey("tfa:openTwoFactorApp")
 }
 
 object settings {
