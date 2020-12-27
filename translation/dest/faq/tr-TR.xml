@@ -38,7 +38,7 @@
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Lichess\'te hangi varyantları oynayabilirim?</string>
-  <string name="lichessSupportChessAnd">Lichess standart satranç ve%1$s\'yi destekler.</string>
+  <string name="lichessSupportChessAnd">Lichess standart satranç ve %1$s\'nı destekler.</string>
   <string name="eightVariants">8 satranç varyantı</string>
   <string name="whatIsACPL">Ortalama santipiyon kaybı (OSK) nedir?</string>
   <string name="acplExplanation">Santipiyon, satrançta avantajın temsili olarak kullanılan ölçü birimidir. Bir santipiyon, bir piyonun 1 / 100\'üne eşittir. Bu nedenle 100 santipiyon = 1 piyon. Bu değerler oyunda resmi bir rol oynamaz, ancak oyuncular için yararlıdır ve bilgisayar satrancında pozisyonları değerlendirmek için gereklidir.
@@ -87,7 +87,7 @@ Lichess\'te Unvanlı bir oyuncu olarak doğrulanmak Unvanlı Arena olaylarda oyn
 
 Bir de Onursal bir %2$s Unvanı var.</string>
   <string name="asWellAsManyNMtitles">birçok ulusal usta unvanı</string>
-  <string name="verificationForm">onaylama formu</string>
+  <string name="verificationForm">doğrulama formu</string>
   <string name="canIbecomeLM">Lichess ustası (LM) ünvanını alabilir miyim?</string>
   <string name="noUpperCaseDot">Hayır.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Bu onursal unvan resmi değil ve sadece Lichess üzerinde var.
