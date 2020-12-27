@@ -3,6 +3,7 @@
   <string name="advantage">擁有優勢</string>
   <string name="castling">易位</string>
   <string name="equality">均勢</string>
+  <string name="clearance">騰挪</string>
   <string name="deflection">引離</string>
   <string name="doubleCheck">雙將</string>
   <string name="endgame">殘局</string>
@@ -19,11 +20,14 @@
   <string name="mateIn4Description">走四步以達到將軍</string>
   <string name="mateIn5">五步或更高 將軍</string>
   <string name="middlegame">中局</string>
+  <string name="oneMove">一步題目</string>
   <string name="opening">開局</string>
   <string name="pin">牽制</string>
   <string name="promotion">升變</string>
   <string name="short">短題目</string>
+  <string name="shortDescription">兩步獲勝</string>
   <string name="underPromotion">防止升變</string>
   <string name="veryLong">非常長的題目</string>
+  <string name="veryLongDescription">四步或以上獲勝</string>
   <string name="healthyMix">綜合</string>
 </resources>
