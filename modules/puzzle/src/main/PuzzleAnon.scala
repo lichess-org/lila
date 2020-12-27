@@ -36,7 +36,7 @@ final class PuzzleAnon(
 
   private val pool =
     cacheApi[PuzzleTheme.Key, Vector[Puzzle]](initialCapacity = 64, name = "puzzle.byTheme.anon") {
-      _.refreshAfterWrite(2 minutes)
+      _.expireAfterWrite(1 minute)
         .buildAsyncFuture { theme =>
           countApi byTheme theme flatMap { count =>
             val tier =
