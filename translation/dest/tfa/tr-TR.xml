@@ -8,11 +8,11 @@
   <string name="ifYouCannotScanEnterX">Kodu taratmanız mümkün değilse, uygulamanıza süper gizli %s kodunu girin.</string>
   <string name="authenticationCode">Kimlik doğrulama kodu</string>
   <string name="ifYouLoseAccess">Not: İki faktörlü kimlik doğrulama koduna erişiminizi kaybederseniz e-posta yoluyla şifrenizi sıfırlayabilirsiniz.</string>
-  <string name="enableTwoFactor">İki faktörlü kimlik doğrulamayı etkinleştirin</string>
+  <string name="enableTwoFactor">İki faktörlü kimlik doğrulamayı etkinleştir</string>
   <string name="disableTwoFactor">İki faktörlü kimlik doğrulamayı devre dışı bırak</string>
   <string name="twoFactorEnabled">İki faktörlü kimlik doğrulama etkinleştirildi</string>
   <string name="twoFactorDisable">İki faktörlü kimlik doğrulamayı devre dışı bırakmak için şifrenize ve kimlik belirleme programınızdaki doğrulama koduna ihtiyacınız olacak.
 
 Kimlik doğrulama kodlarına erişimi kaybettiyseniz e-posta yoluyla şifrenizi sıfırlayabilirsiniz.</string>
-  <string name="openTwoFactorApp">Kimliğinizi doğrulamak ve doğrulama kodunu görüntülemek için cihazınızdan iki faktörlü kimlik doğrulama uygulamasını açın.</string>
+  <string name="openTwoFactorApp">Doğrulama kodunu görüntüleyerek kimliğinizi doğrulamak için cihazınızdan iki faktörlü kimlik doğrulama uygulamasını açın.</string>
 </resources>
