@@ -7,7 +7,7 @@
   <string name="attackingF2F7">Angriff auf f2 oder f7</string>
   <string name="attackingF2F7Description">Ein Angriff, der sich auf den Bauern auf f2 oder f7 konzentriert, wie zum Beispiel bei der Eröffnung \"Zweispringerspiel im Nachzug, 4. Sg5\".</string>
   <string name="attraction">Hinlenkung oder \"Magnet\"</string>
-  <string name="attractionDescription">Ein Abtausch oder Opfer, der eine gegnerische Schachfigur auf ein Feld einlädt oder zwingt, was eine Folgetaktik erlaubt.</string>
+  <string name="attractionDescription">Ein Abtausch oder Opfer, der eine gegnerische Figur auf ein Feld einlädt oder zwingt, was eine Folgetaktik erlaubt.</string>
   <string name="backRankMate">Grundreihenmatt</string>
   <string name="backRankMateDescription">Setze den König auf der Grundreihe matt, wenn er dort durch seine eigenen Figuren blockiert wird.</string>
   <string name="bishopEndgame">Läuferendspiel</string>
@@ -33,9 +33,9 @@
   <string name="doubleCheck">Doppelschach</string>
   <string name="doubleCheckDescription">Schachgebot mit zwei Figuren gleichzeitig als Ergebnis eines Abzugsangriffs, bei dem sowohl die abziehende als auch die zuvor blockierte Figur den gegnerischen König angreifen.</string>
   <string name="endgame">Endspiel</string>
-  <string name="endgameDescription">Eine Taktik in der letzten Phase des Spiels, dem Endspiel.</string>
+  <string name="endgameDescription">Eine Taktik in der letzten Phase des Spiels.</string>
   <string name="enPassantDescription">Eine Taktik, die die Schachregel \"en passant\" (im Vorübergehen) einbezieht, bei der ein Bauer einen gegnerischen Bauer schlagen kann, der an ihm mit seinem Doppelschritt aus der Ausgangsstellung vorbeigangen ist.</string>
-  <string name="exposedKing">Offener (exponierter) König</string>
+  <string name="exposedKing">Exponierter König</string>
   <string name="exposedKingDescription">Eine Taktik, bei der der König nur von wenigen Figuren verteidigt wird, was oft zum Matt führt.</string>
   <string name="fork">Gabel</string>
   <string name="forkDescription">Ein Zug, bei dem die gezogene Figur zwei gegnerische Figuren auf einmal angreift.</string>
@@ -66,7 +66,7 @@
   <string name="oneMove">Einzügige Aufgabe</string>
   <string name="oneMoveDescription">Eine Aufgabe, die nur einen Zug erfordert.</string>
   <string name="opening">Eröffnung</string>
-  <string name="openingDescription">Eine Taktik in der ersten Phase des Spiels, der Eröffnung.</string>
+  <string name="openingDescription">Eine Taktik in der ersten Phase des Spiels.</string>
   <string name="overloading">Überlastung</string>
   <string name="overloadingDescription">Wenn eine Figur mehrere Aufgaben erfüllt, wie die Deckung von zwei Figuren. Das Schlagen einer der gedeckten Figuren verschafft einen Vorteil, da die verteidigende Figur eine der beiden Deckungen aufgeben muss, ähnlich wie bei der Ablenkung.</string>
   <string name="pawnEndgame">Bauernendspiel</string>
@@ -87,7 +87,7 @@
   <string name="rookEndgameDescription">Ein Endspiel nur mit Türmen und Bauern.</string>
   <string name="sacrifice">Opfer</string>
   <string name="sacrificeDescription">Eine Taktik mit kurzfristigem Materialverlust, um nach einer erzwungenen Zugfolge wieder einen Vorteil zu erlangen.</string>
-  <string name="short">Aufgabe mit kurzer Zugfolge</string>
+  <string name="short">Kurze Aufgabe</string>
   <string name="shortDescription">Zwei Züge zum Sieg.</string>
   <string name="skewer">Spieß (Hinterstellung)</string>
   <string name="skewerDescription">Ein Motiv mit einer angegriffenen, hochwertigen Figur, deren Wegziehen erlaubt, dass eine niederwertige Figur hinter ihr geschlagen oder angegriffen werden kann, das Gegenteil einer Fesselung.</string>
