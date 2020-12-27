@@ -54,15 +54,10 @@ final private[team] class TeamForm(
 
   val request = Form(
     mapping(
-      "message" -> clean(text(minLength = 30, maxLength = 2000)),
-      Fields.gameId,
-      Fields.move
+      "message" -> clean(text(minLength = 30, maxLength = 2000))
     )(RequestSetup.apply)(RequestSetup.unapply)
-      .verifying(captchaFailMessage, validateCaptcha _)
   ) fill RequestSetup(
-    message = "Hello, I would like to join the team!",
-    gameId = "",
-    move = ""
+    message = "Hello, I would like to join the team!"
   )
 
   val apiRequest = Form(single("message" -> optional(clean(text(minLength = 30, maxLength = 2000)))))
@@ -132,7 +127,5 @@ private[team] case class TeamEdit(
 }
 
 private[team] case class RequestSetup(
-    message: String,
-    gameId: String,
-    move: String
+    message: String
 )

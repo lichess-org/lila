@@ -13,14 +13,13 @@ object request {
 
   import trans.team._
 
-  def requestForm(t: lila.team.Team, form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context) = {
+  def requestForm(t: lila.team.Team, form: Form[_])(implicit ctx: Context) = {
 
     val title = s"${joinTeam.txt()} ${t.name}"
 
     views.html.base.layout(
       title = title,
-      moreCss = cssTag("team"),
-      moreJs = captchaTag
+      moreCss = cssTag("team")
     ) {
       main(cls := "page-menu page-small")(
         bits.menu("requests".some),
@@ -30,7 +29,6 @@ object request {
           postForm(cls := "form3", action := routes.Team.requestCreate(t.id))(
             form3.group(form("message"), trans.message())(form3.textarea(_)()),
             p(willBeReviewed()),
-            views.html.base.captcha(form, captcha),
             form3.actions(
               a(href := routes.Team.show(t.slug))(trans.cancel()),
               form3.submit(joinTeam())

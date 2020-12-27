@@ -2,20 +2,27 @@ package lila.round
 
 import akka.actor._
 import akka.stream.scaladsl._
-import lila.game.actorApi.MoveGameEvent
-import lila.hub.actorApi.game.ChangeFeatured
-import lila.socket.Socket.makeMessage
+import chess.format.FEN
+import chess.format.Forsyth
 import play.api.libs.json._
 
 import lila.common.Bus
+import lila.common.LightUser
+import lila.game.actorApi.MoveGameEvent
+import lila.game.Game
+import lila.socket.Socket
+import lila.socket.Socket.makeMessage
 
-final private class TvBroadcast extends Actor {
+final private class TvBroadcast(
+    userJsonView: lila.user.JsonView,
+    lightUserSync: LightUser.GetterSync
+) extends Actor {
 
   import TvBroadcast._
 
-  private var queues = Set.empty[Queue]
+  private var clients = Set.empty[Client]
 
-  private var featuredId = none[String]
+  private var featured = none[Featured]
 
   Bus.subscribe(self, "changeFeaturedGame")
 
@@ -28,26 +35,51 @@ final private class TvBroadcast extends Actor {
 
   def receive = {
 
-    case TvBroadcast.Connect =>
+    case TvBroadcast.Connect(compat) =>
       sender() ! Source
         .queue[JsValue](8, akka.stream.OverflowStrategy.dropHead)
         .mapMaterializedValue { queue =>
-          self ! Add(queue)
+          val client = Client(queue, compat)
+          self ! Add(client)
           queue.watchCompletion().foreach { _ =>
-            self ! Remove(queue)
+            self ! Remove(client)
+          }
+          featured ifFalse compat foreach { f =>
+            client.queue.offer(Socket.makeMessage("featured", f.dataWithFen))
           }
         }
 
-    case Add(queue)    => queues = queues + queue
-    case Remove(queue) => queues = queues - queue
+    case Add(client)    => clients = clients + client
+    case Remove(client) => clients = clients - client
 
-    case ChangeFeatured(id, msg) =>
+    case ChangeFeatured(pov, msg) =>
       unsubscribeFromFeaturedId()
-      Bus.subscribe(self, MoveGameEvent makeChan id)
-      featuredId = id.some
-      queues.foreach(_ offer msg)
+      Bus.subscribe(self, MoveGameEvent makeChan pov.gameId)
+      val feat = Featured(
+        pov.gameId,
+        Json.obj(
+          "id"          -> pov.gameId,
+          "orientation" -> pov.color.name,
+          "players" -> pov.game.players.map { p =>
+            val user = p.userId.flatMap(lightUserSync)
+            Json
+              .obj("color" -> p.color.name)
+              .add("user" -> user.map(LightUser.lightUserWrites.writes))
+              .add("ai" -> p.aiLevel)
+              .add("rating" -> p.rating)
+          }
+        ),
+        fen = Forsyth exportBoard pov.game.chess.board
+      )
+      clients.foreach { client =>
+        client.queue offer {
+          if (client.fromLichess) msg
+          else feat.socketMsg
+        }
+      }
+      featured = feat.some
 
-    case MoveGameEvent(game, fen, move) if queues.nonEmpty =>
+    case MoveGameEvent(game, fen, move) =>
       val msg = makeMessage(
         "fen",
         Json
@@ -58,12 +90,15 @@ final private class TvBroadcast extends Actor {
           .add("wc" -> game.clock.map(_.remainingTime(chess.White).roundSeconds))
           .add("bc" -> game.clock.map(_.remainingTime(chess.Black).roundSeconds))
       )
-      queues.foreach(_ offer msg)
+      clients.foreach(_.queue offer msg)
+      featured foreach { f =>
+        featured = f.copy(fen = fen).some
+      }
   }
 
   def unsubscribeFromFeaturedId() =
-    featuredId foreach { previous =>
-      Bus.unsubscribe(self, MoveGameEvent makeChan previous)
+    featured foreach { previous =>
+      Bus.unsubscribe(self, MoveGameEvent makeChan previous.id)
     }
 }
 
@@ -72,8 +107,14 @@ object TvBroadcast {
   type SourceType = Source[JsValue, _]
   type Queue      = SourceQueueWithComplete[JsValue]
 
-  case object Connect
+  case class Featured(id: Game.ID, data: JsObject, fen: String) {
+    def dataWithFen = data ++ Json.obj("fen" -> fen)
+    def socketMsg   = Socket.makeMessage("featured", dataWithFen)
+  }
 
-  case class Add(q: Queue)
-  case class Remove(q: Queue)
+  case class Connect(fromLichess: Boolean)
+  case class Client(queue: Queue, fromLichess: Boolean)
+
+  case class Add(c: Client)
+  case class Remove(c: Client)
 }

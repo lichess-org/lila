@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Aufgaben</string>
+  <string name="recommended">Empfohlen</string>
+  <string name="phases">Phasen</string>
+  <string name="motifs">Motive</string>
+  <string name="advanced">Fortgeschritten</string>
+  <string name="lengths">Längen</string>
+  <string name="mates">Matts</string>
+  <string name="goals">Ziele</string>
+  <string name="specialMoves">Besondere Züge</string>
+  <string name="didYouLikeThisPuzzle">Hat dir diese Aufgabe gefallen?</string>
+  <string name="voteToLoadNextOne">Stimme ab, um die nächste zu laden!</string>
+  <string name="yourPuzzleRatingX">Deine Taktikwertung: %s</string>
+  <string name="findTheBestMoveForWhite">Finde den besten Zug für Weiß.</string>
+  <string name="findTheBestMoveForBlack">Finde den besten Zug für Schwarz.</string>
+  <string name="toGetPersonalizedPuzzles">Um personalisierte Aufgaben zu erhalten:</string>
+  <string name="puzzleId">Aufgabe %s</string>
+  <string name="puzzleOfTheDay">Aufgabe des Tages</string>
+  <string name="clickToSolve">Zum Lösen klicken</string>
+  <string name="goodMove">Guter Zug</string>
+  <string name="bestMove">Bester Zug!</string>
+  <string name="keepGoing">Mach weiter…</string>
+  <string name="puzzleSuccess">Korrekt!</string>
+  <string name="puzzleComplete">Aufgabe abgeschlossen!</string>
+  <string name="notTheMove">Das ist nicht der Zug!</string>
+  <string name="trySomethingElse">Versuche etwas anderes.</string>
+  <string name="ratingX">Wertung: %s</string>
+  <string name="hidden">versteckt</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">%s mal gespielt</item>
+    <item quantity="other">%s mal gespielt</item>
+  </plurals>
+  <string name="fromGameLink">Aus der Partie %s</string>
+  <string name="continueTraining">Training fortsetzen</string>
+  <string name="difficultyLevel">Schwierigkeitsgrad</string>
+  <string name="normal">Normal</string>
+  <string name="easier">Einfacher</string>
+  <string name="easiest">Am einfachsten</string>
+  <string name="harder">Schwieriger</string>
+  <string name="hardest">Am schwierigsten</string>
+  <string name="example">Beispiel</string>
+  <string name="addAnotherTheme">Ein weiteres Motiv hinzufügen</string>
+  <string name="jumpToNextPuzzleImmediately">Sofort zur nächsten Aufgabe springen</string>
+</resources>

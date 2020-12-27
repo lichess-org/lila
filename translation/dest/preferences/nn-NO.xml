@@ -6,7 +6,7 @@
   <string name="materialDifference">Materiellskilnad</string>
   <string name="boardHighlights">Feltmarkering (siste trekk og sjakk)</string>
   <string name="pieceDestinations">Brikkedestinasjonar (moglege trekk og førehandstrekk)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Brettkoordinatar (A-H, 1-8)</string>
+  <string name="boardCoordinates">Brettkoordinatar (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Vis liste over trekk medan partiet pågår</string>
   <string name="pgnPieceNotation">Notasjon</string>
   <string name="chessPieceSymbol">Brikkesymbol</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Blindsjakk</string>
   <string name="chessClock">Sjakklokke</string>
   <string name="tenthsOfSeconds">Tidels sekund</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Når det er mindre enn 10 sekundar igjen</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Når det er mindre enn 10 sekundar igjen</string>
   <string name="horizontalGreenProgressBars">Horisontal grøn progresjonsline</string>
   <string name="soundWhenTimeGetsCritical">Lyd når det er kritisk lite tid att</string>
   <string name="giveMoreTime">Gje meir tid</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">Berre i parti som ikkje påverkar rating</string>
   <string name="promoteToQueenAutomatically">Omvandle til dronning automatisk</string>
   <string name="whenPremoving">Ved førehandstrekk</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Krev remis automatisk ved trekkgjentaking</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Når attverande tid &lt; 30 sekundar</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Krev remis automatisk ved trekkgjentaking</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Når attverande tid &lt; 30 sekundar</string>
   <string name="moveConfirmation">Stadfest trekket</string>
   <string name="inCorrespondenceGames">I fjernsjakksparti</string>
   <string name="correspondenceAndUnlimited">Fjernsjakk og ubegrensa tid</string>
@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Flytt kongen to felt</string>
   <string name="castleByMovingOntoTheRook">Sett kongen på tårnet, eller to felt</string>
   <string name="inputMovesWithTheKeyboard">Skriv trekk med tastaturet</string>
+  <string name="snapArrowsToValidMoves">Marker lovlege trekk med piler</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Sei \"Bra parti, godt spela\" etter nederlag eller remis</string>
   <string name="yourPreferencesHaveBeenSaved">Preferansane dine er lagra.</string>
 </resources>

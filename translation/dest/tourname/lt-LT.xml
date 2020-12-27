@@ -1,2 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="hourlyRapidArena">Valandinė greitoji arena</string>
+  <string name="hourlyRapid">Valandinė greitoji</string>
+  <string name="hourlyXArena">Valandinė %s arena</string>
+  <string name="hourlyX">Valandinis %s</string>
+  <string name="dailyRapidArena">Kasdienė greitoji arena</string>
+  <string name="dailyRapid">Kasdieninė greitoji</string>
+  <string name="dailyClassicalArena">Kasdienė klasikinė arena</string>
+  <string name="dailyClassical">Kasdieninė klasikinė</string>
+  <string name="dailyXArena">Kasdienė %s arena</string>
+  <string name="dailyX">Kasdienis %s</string>
+  <string name="easternRapidArena">Rytinė greitoji arena</string>
+  <string name="easternRapid">Rytinė greitoji</string>
+  <string name="easternClassicalArena">Rytinė klasikinė arena</string>
+  <string name="easternClassical">Rytinė klasikinė</string>
+  <string name="easternXArena">Rytinė %s arena</string>
+  <string name="easternX">Rytinė %s</string>
+  <string name="weeklyRapidArena">Savaitinė greitoji arena</string>
+  <string name="weeklyRapid">Savaitinė greitoji</string>
+  <string name="weeklyClassicalArena">Savaitinė klasikinė arena</string>
+  <string name="weeklyClassical">Savaitinė klasikinė</string>
+  <string name="weeklyXArena">Savaitinė %s arena</string>
+  <string name="weeklyX">Savaitinė %s</string>
+  <string name="monthlyRapidArena">Mėnesinė greitoji arena</string>
+  <string name="monthlyRapid">Mėnesinė greitoji</string>
+  <string name="monthlyClassicalArena">Mėnesinė klasikinė arena</string>
+  <string name="monthlyClassical">Mėnesinė klasikinė</string>
+  <string name="monthlyXArena">Mėnesinė %s arena</string>
+  <string name="monthlyX">Mėnesinė %s</string>
+  <string name="yearlyRapidArena">Kasmetinė greitoji arena</string>
+  <string name="yearlyRapid">Kasmetinė greitoji</string>
+  <string name="yearlyClassicalArena">Kasmetinė klasikinė arena</string>
+  <string name="yearlyClassical">Kasmetinė klasikinė</string>
+  <string name="yearlyXArena">Kasmetinė %s arena</string>
+  <string name="yearlyX">Kasmetinė %s</string>
+  <string name="rapidShieldArena">Greitoji skydo arena</string>
+  <string name="rapidShield">Greitoji skydo</string>
+  <string name="classicalShieldArena">Klasikinė skydo arena</string>
+  <string name="classicalShield">Klasikinė skydo</string>
+  <string name="xShieldArena">%s skydo arena</string>
+  <string name="xShield">%s skydo</string>
+  <string name="openingRapidArena">%s greitoji arena</string>
+  <string name="openingRapid">%s greitoji</string>
+  <string name="xTeamBattle">%s komandos kova</string>
+  <string name="eliteXArena">Elitinė %s arena</string>
+  <string name="eliteX">Elitinė %s</string>
+  <string name="xArena">%s arena</string>
+</resources>

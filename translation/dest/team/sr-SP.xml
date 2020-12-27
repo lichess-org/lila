@@ -45,4 +45,6 @@
   <string name="youWayWantToLinkOneOfTheseTournaments">Можда желите да проследите један од ових надолазеђих турнира?</string>
   <string name="usersWhoCanManageThisTeam">Корисници који могу управљати овим тимом</string>
   <string name="leadersChat">Чет за вође</string>
+  <string name="closeTeam">Угаси тим</string>
+  <string name="closeTeamDescription">Угаси тим заувек.</string>
 </resources>

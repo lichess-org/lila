@@ -3,7 +3,6 @@ package views.html.board
 import chess.format.{ FEN, Forsyth }
 import controllers.routes
 import play.api.libs.json.Json
-import scala.concurrent.duration.Duration
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -14,8 +13,15 @@ object bits {
 
   private val dataState = attr("data-state")
 
+  private def miniOrientation(pov: Pov): chess.Color =
+    if (pov.game.variant == chess.variant.RacingKings) chess.White else pov.player.color
+
   def mini(pov: Pov): Tag => Tag =
-    mini(FEN(Forsyth.boardAndColor(pov.game.situation)), pov.color, ~pov.game.lastMoveKeys) _
+    mini(
+      FEN(Forsyth.boardAndColor(pov.game.situation)),
+      miniOrientation(pov),
+      ~pov.game.lastMoveKeys
+    ) _
 
   def mini(fen: chess.format.FEN, color: chess.Color = chess.White, lastMove: String = "")(tag: Tag): Tag =
     tag(
@@ -28,8 +34,7 @@ object bits {
 
   def jsData(
       sit: chess.Situation,
-      fen: FEN,
-      animationDuration: Duration
+      fen: FEN
   )(implicit ctx: Context) =
     Json.obj(
       "fen"     -> fen.value.split(" ").take(4).mkString(" "),
@@ -41,11 +46,9 @@ object bits {
         "k" -> (sit canCastle chess.Black on chess.KingSide),
         "q" -> (sit canCastle chess.Black on chess.QueenSide)
       ),
-      "animation" -> Json.obj(
-        "duration" -> ctx.pref.animationFactor * animationDuration.toMillis
-      ),
-      "is3d" -> ctx.pref.is3d,
-      "i18n" -> i18nJsObject(i18nKeyes)
+      "animation" -> Json.obj("duration" -> ctx.pref.animationMillis),
+      "is3d"      -> ctx.pref.is3d,
+      "i18n"      -> i18nJsObject(i18nKeyes)
     )
 
   private val i18nKeyes = List(

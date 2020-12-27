@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">ဉာဏ်စမ်းများ</string>
+  <string name="recommended">ထောက်ခံသော</string>
+  <string name="phases">အဆင့်များ</string>
+  <string name="motifs">ပုံစံများ</string>
+  <string name="advanced">အဆင့်မြင့်</string>
+  <string name="lengths">အတိုအရှည်</string>
+  <string name="mates">အသေမိခြင်းများ</string>
+  <string name="goals">ပန်းတိုင်များ</string>
+  <string name="didYouLikeThisPuzzle">ဤဉာဏ်စမ်းကို သင် သဘောကျပါသလား</string>
+  <string name="voteToLoadNextOne">လာမည့် ဉာဏ်စမ်း အတွက် ဆန္ဒပြုပါ</string>
+  <string name="findTheBestMoveForWhite">အဖြူ အတွက် အကောင်းဆုံး ရွှေ့ကွက်ကို ရှာပါ</string>
+  <string name="findTheBestMoveForBlack">အနက် အတွက် အကောင်းဆုံး ရွှေ့ကွက်ကို ရှာပါ</string>
+  <string name="toGetPersonalizedPuzzles">သင့်အတွက် သီးခြား ဉာဏ်စမ်းများ ရယူရန်</string>
+  <string name="puzzleOfTheDay">ယနေ့ ဉာဏ်စမ်း</string>
+  <string name="clickToSolve">ဖြေရန် ကလစ်လုပ်ပါ</string>
+  <string name="goodMove">ကောင်းသော ရွှေ့ကွက်</string>
+  <string name="bestMove">အကောင်းဆုံး ရွှေ့ကွက်</string>
+  <string name="keepGoing">ဆက်လုပ်ပါ</string>
+  <string name="notTheMove">၎င်း ရွှေ့ကွက် မဟုတ်ပါ</string>
+  <string name="trySomethingElse">တခြားနည်း စမ်းကြည့်ပါ</string>
+  <string name="ratingX">လက်ရည်- %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="other">%s ကြိမ်း ကစားခဲ့သည်</item>
+  </plurals>
+  <string name="continueTraining">ဆက်လက် လေ့ကျင့်ရန်</string>
+  <string name="difficultyLevel">အခက်အခဲ အဆင့်</string>
+  <string name="normal">သာမန်</string>
+  <string name="easier">ပို၍ လွယ်သည်</string>
+  <string name="easiest">အလွယ်ဆုံး</string>
+  <string name="harder">ပို၍ ခက်သည်</string>
+  <string name="hardest">အခက်ဆုံး</string>
+  <string name="example">ဥပမာ</string>
+  <string name="addAnotherTheme">မြင်ကွင်းပုံစံ နောက်တစ်မျိုး ထည့်ပါ</string>
+</resources>

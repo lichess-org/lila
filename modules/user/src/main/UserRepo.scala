@@ -72,6 +72,9 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       } yield xx -> yy
     }
 
+  def namePair(x: ID, y: ID): Fu[Option[(User, User)]] =
+    pair(normalize(x), normalize(y))
+
   def byOrderedIds(ids: Seq[ID], readPreference: ReadPreference): Fu[List[User]] =
     coll.byOrderedIds[User, User.ID](ids, readPreference = readPreference)(_.id)
 

@@ -29,11 +29,11 @@
   <string name="makeSureToCopy">अब पासवर्ड को कॉपी करे या लिख ले। आप इसे फिर से नहीं देख पाएंगे!</string>
   <string name="passwordX">पासवर्ड: %s</string>
   <string name="generateANewPassword">छात्र के लिए एक नया पासवर्ड बनाएं</string>
-  <string name="invitedToXByY">%2$s द्वारा %1$s में आमंत्रित किया गया</string>
+  <string name="invitedToXByY" comment="invitedToXByY&#10;&#10;%1$s is the Class name and %$2s is the person who invited">%2$s द्वारा %1$s में आमंत्रित किया गया</string>
   <string name="realName">वास्‍तविक नाम</string>
   <string name="privateWillNeverBeShown">निजी। कक्षा के बाहर कभी नहीं दिखाया जाएगा। याद रखने में मदद करता है कि छात्र कौन है।</string>
   <string name="addStudent">छात्र जोड़ें</string>
-  <string name="lichessProfileXCreatedForY">Lichess प्रोफाइल %1$s ने %2$s के लिए बनाया।</string>
+  <string name="lichessProfileXCreatedForY" comment="lichessProfileXCreatedForY&#10;&#10;%1$s is the created account (nickname) &#10;%$2s is the real name of the student (only visible for the teacher)">Lichess प्रोफाइल %1$s ने %2$s के लिए बनाया।</string>
   <string name="studentCredentials">छात्र:%1$s
 उपयोगकर्ता नाम:%2$s
 पासवर्ड:%3$s</string>
@@ -51,6 +51,13 @@
   <string name="generateANewUsername">एक नया उपयोगकर्ता नाम बनाएँ</string>
   <string name="welcomeToClass">आपकी कक्षा में आपका स्वागत है:%s
 यहां लिंक क्लास एक्सेस करने के लिए है।</string>
+  <string name="invitationToClass">आपको एक छात्र के रूप में कक्षा \"%s\" में शामिल होने के लिए आमंत्रित किया जाता है।</string>
+  <string name="clickToViewInvitation">निमंत्रण देखने के लिए लिंक पर क्लिक करें:</string>
+  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+    <item quantity="one">एक लंबित निमंत्रण</item>
+    <item quantity="other">%s लंबित आमंत्रण</item>
+  </plurals>
+  <string name="noPendingInvitations">कोई लंबित आमंत्रण नहीं</string>
   <string name="onlyVisibleToTeachers">केवल कक्षा शिक्षकों को दिखाई देगा</string>
   <string name="lastActiveDate">सक्रिय</string>
   <string name="managed">प्रबंधित</string>
@@ -70,6 +77,7 @@
     <item quantity="one">छात्र</item>
     <item quantity="other">%s विद्यार्थी</item>
   </plurals>
+  <string name="students">छात्र</string>
   <string name="progress">प्रगति</string>
   <string name="noStudents">कोई भी छात्र अभी तक कक्षा में नहीं है।</string>
   <string name="noRemovedStudents">छात्रों को हटाया नहीं गया।</string>

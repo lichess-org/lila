@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Задачі</string>
+  <string name="recommended">Рекомендоване</string>
+  <string name="phases">Фази</string>
+  <string name="motifs">Мотиви</string>
+  <string name="advanced">Просунутий</string>
+  <string name="lengths">Довжина</string>
+  <string name="mates">Мати</string>
+  <string name="goals">Цілі</string>
+  <string name="specialMoves">Спеціальні ходи</string>
+  <string name="didYouLikeThisPuzzle">Вам сподобалась ця задача?</string>
+  <string name="voteToLoadNextOne">Голосуйте, щоб завантажити наступний!</string>
+  <string name="yourPuzzleRatingX">Ваш рейтинг по задачах: %s</string>
+  <string name="findTheBestMoveForWhite">Знайдіть найкращий хід за білих.</string>
+  <string name="findTheBestMoveForBlack">Знайдіть найкращий хід за чорних.</string>
+  <string name="toGetPersonalizedPuzzles">Щоб отримати персоналізовані задачі:</string>
+  <string name="puzzleId">Задача %s</string>
+  <string name="puzzleOfTheDay">Задача дня</string>
+  <string name="clickToSolve">Натисніть, щоб вирішити</string>
+  <string name="goodMove">Хороший хід</string>
+  <string name="bestMove">Найкращий хід!</string>
+  <string name="keepGoing">Продовжуйте...</string>
+  <string name="puzzleSuccess">Успіх!</string>
+  <string name="puzzleComplete">Задача вирішена!</string>
+  <string name="notTheMove">Це не хід!</string>
+  <string name="trySomethingElse">Спробуйте щось інше.</string>
+  <string name="ratingX">Рейтинг: %s</string>
+  <string name="hidden">прихований</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Зіграно %s раз</item>
+    <item quantity="few">Зіграно %s рази</item>
+    <item quantity="many">Зіграно %s раз</item>
+    <item quantity="other">Зіграно %s раз</item>
+  </plurals>
+  <string name="fromGameLink">З партії %s</string>
+  <string name="continueTraining">Продовжити тренування</string>
+  <string name="difficultyLevel">Рівень складності</string>
+  <string name="normal">Нормальний</string>
+  <string name="easier">Легше</string>
+  <string name="easiest">Найлегший</string>
+  <string name="harder">Складніше</string>
+  <string name="hardest">Найскладніший</string>
+  <string name="example">Приклад</string>
+  <string name="addAnotherTheme">Додати іншу тему</string>
+  <string name="jumpToNextPuzzleImmediately">Перейти до наступної задачі миттєво</string>
+</resources>

@@ -92,7 +92,7 @@
     <item quantity="other">Nächster Schlag- oder Bauernzug in %s Halbzügen (Distanz zum Zurücksetzen des Zählers für die 50-Züge-Regel)</item>
   </plurals>
   <string name="noGameFound">Kein Spiel gefunden</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Vielleicht sollten mehr Spiele über das \"Einstellungen\"-Menü einbezogen werden?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Vielleicht sollten mehr Partien über das \"Einstellungen\"-Menü einbezogen werden?</string>
   <string name="openingExplorer">Eröffnungsdatenbank</string>
   <string name="xOpeningExplorer">%s Eröffnungsbuch</string>
   <string name="winPreventedBy50MoveRule">Sieg durch 50-Züge-Regel verhindert</string>
@@ -281,7 +281,7 @@
   <string name="openingExplorerAndTablebase">Eröffnungsbuch &amp; Tablebase</string>
   <string name="takeback">Zugrücknahme</string>
   <string name="proposeATakeback">Zugrücknahme vorschlagen</string>
-  <string name="takebackPropositionSent">Zugrücknahme angefordert</string>
+  <string name="takebackPropositionSent">Zugrücknahme vorgeschlagen</string>
   <string name="takebackPropositionDeclined">Zugrücknahme abgelehnt</string>
   <string name="takebackPropositionAccepted">Zugrücknahme angenommen</string>
   <string name="takebackPropositionCanceled">Zugrücknahme zurückgezogen</string>
@@ -325,7 +325,7 @@
   <string name="ratedLessThanInPerf">Wertung ≤ %1$s in %2$s</string>
   <string name="mustBeInTeam">Du musst in Team %s sein</string>
   <string name="youAreNotInTeam">Du bist nicht in Team %s</string>
-  <string name="backToGame">Zurück zum Spiel</string>
+  <string name="backToGame">Zurück zur Partie</string>
   <string name="siteDescription">Kostenloser Online-Schach-Server. Spiele jetzt auf einer übersichtlichen Benutzeroberfläche Schach! Keine Registrierung und keine Plugins erforderlich, komplett ohne Werbung. Spiele gegen den Computer, Freunde oder zufällige Gegner!</string>
   <string name="xJoinedTeamY">%1$s trat der Gruppe %2$s bei</string>
   <string name="xCreatedTeamY">%1$s hat das Team %2$s gegründet</string>
@@ -447,6 +447,7 @@
   <string name="lastName">Nachname</string>
   <string name="biography">Profiltext</string>
   <string name="country">Land</string>
+  <string name="thankYou">Vielen Dank!</string>
   <string name="socialMediaLinks">Social-Media Links</string>
   <string name="inlineNotation">Inline-Notation</string>
   <string name="watchLichessTV">Lichess-TV anschauen</string>
@@ -455,34 +456,7 @@
   <string name="activeToday">Heute aktiv</string>
   <string name="activePlayers">Aktive Spieler</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Achtung! Das Spiel wird gewertet, aber ohne Uhr gespielt!</string>
-  <string name="yourPuzzleRatingX">Deine Taktikwertung: %s</string>
-  <string name="findTheBestMoveForWhite">Finde den besten Zug für Weiß.</string>
-  <string name="findTheBestMoveForBlack">Finde den besten Zug für Schwarz.</string>
-  <string name="toTrackYourProgress">Verfolge deinen Fortschritt:</string>
-  <string name="puzzleId">Aufgabe %s</string>
-  <string name="puzzleOfTheDay">Aufgabe des Tages</string>
-  <string name="clickToSolve">Zum Lösen klicken</string>
-  <string name="goodMove">Guter Zug</string>
-  <string name="butYouCanDoBetter">Aber es geht besser.</string>
-  <string name="bestMove">Bester Zug!</string>
-  <string name="keepGoing">Mach weiter...</string>
-  <string name="puzzleFailed">Nicht gelöst</string>
-  <string name="butYouCanKeepTrying">Aber du kannst es trotzdem weiterversuchen.</string>
   <string name="success">Korrekt</string>
-  <string name="wasThisPuzzleAnyGood">Wie fandest du diese Aufgabe?</string>
-  <string name="pleaseVotePuzzle">Verbessere Lichess, indem du mit den Pfeilen abstimmst:</string>
-  <string name="thankYou">Vielen Dank!</string>
-  <string name="ratingX">Schwierigkeitsgrad: %s</string>
-  <string name="hidden">ausgeblendet</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">%s mal gespielt</item>
-    <item quantity="other">%s mal gespielt</item>
-  </plurals>
-  <string name="fromGameLink">Aus der Partie %s</string>
-  <string name="continueTraining">Training fortsetzen</string>
-  <string name="retryThisPuzzle">Diese Aufgabe erneut versuchen</string>
-  <string name="thisPuzzleIsCorrect">Diese Aufgabe ist korrekt und interessant</string>
-  <string name="thisPuzzleIsWrong">Diese Aufgabe ist falsch oder langweilig</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s laufende Partie</item>
     <item quantity="other">%s laufende Partien</item>
@@ -846,10 +820,10 @@
   <string name="rapid">Schnellschach</string>
   <string name="classical">Klassisch</string>
   <string name="ultraBulletDesc">Wahnsinnig schnelle Spiele: Weniger als 30 Sekunden</string>
-  <string name="bulletDesc">Sehr schnelle Spiele: Weniger als 3 Minuten</string>
+  <string name="bulletDesc">Sehr schnelle Partien: Weniger als 3 Minuten</string>
   <string name="blitzDesc">Schnelle Spiele: 3 bis 8 Minuten</string>
-  <string name="rapidDesc">Schnellschachspiele: 8 bis 25 Minuten</string>
-  <string name="classicalDesc">Klassische Spiele: 25 Minuten und mehr</string>
+  <string name="rapidDesc">Schnellschachpartien: 8 bis 25 Minuten</string>
+  <string name="classicalDesc">Klassische Partien: 25 Minuten und mehr</string>
   <string name="correspondenceDesc">Fernschachspiele: Ein oder mehrere Tage pro Zug</string>
   <string name="puzzleDesc">Schachtaktik-Trainer</string>
   <string name="important">Wichtig</string>
@@ -860,7 +834,7 @@
   <string name="toRequestSupport">Um Hilfe zu erhalten, %1$s</string>
   <string name="tryTheContactPage">probiere die Kontaktseite aus</string>
   <string name="thisTopicIsArchived">Dieses Thema wurde archiviert und kann nicht mehr beantwortet werden.</string>
-  <string name="joinTheTeamXToPost">Tritt dem %1$s bei, um in diesem Forum schreiben zu können</string>
+  <string name="joinTheTeamXToPost">Tritt %1$s bei, um in diesem Forum schreiben zu können</string>
   <string name="teamNamedX">%1$s Team</string>
   <string name="youCannotPostYetPlaySomeGames">Du kannst noch nichts in den Foren schreiben. Spiel ein paar Partien!</string>
   <string name="subscribe">Abonnieren</string>

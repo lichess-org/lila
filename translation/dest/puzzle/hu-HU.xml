@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Feladványok</string>
+  <string name="recommended">Ajánlott</string>
+  <string name="phases">Szakaszok</string>
+  <string name="motifs">Motívumok</string>
+  <string name="advanced">Haladó</string>
+  <string name="lengths">Hossz</string>
+  <string name="mates">Matt</string>
+  <string name="goals">Célok</string>
+  <string name="specialMoves">Különleges lépések</string>
+  <string name="didYouLikeThisPuzzle">Tetszett ez a feladvány?</string>
+  <string name="voteToLoadNextOne">Szavazz egy újért cserébe!</string>
+  <string name="yourPuzzleRatingX">Feladvány pontszámod: %s</string>
+  <string name="findTheBestMoveForWhite">Találd meg világos legjobb lépését!</string>
+  <string name="findTheBestMoveForBlack">Találd meg sötét legjobb lépését!</string>
+  <string name="toGetPersonalizedPuzzles">Személyre szóló feladványok:</string>
+  <string name="puzzleId">%s. feladvány</string>
+  <string name="puzzleOfTheDay">Napi feladvány</string>
+  <string name="clickToSolve">Katt a megoldáshoz</string>
+  <string name="goodMove">Jó lépés</string>
+  <string name="bestMove">A legjobb lépés!</string>
+  <string name="keepGoing">Folytasd…</string>
+  <string name="puzzleSuccess">Siker!</string>
+  <string name="puzzleComplete">Kész a feladvány!</string>
+  <string name="notTheMove">Nem a legjobb lépés!</string>
+  <string name="trySomethingElse">Próbálkozz mással.</string>
+  <string name="ratingX">Pontszám: %s</string>
+  <string name="hidden">rejtett</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">%s beküldött megfejtés</item>
+    <item quantity="other">%s beküldött megfejtés</item>
+  </plurals>
+  <string name="fromGameLink">%s játszmából</string>
+  <string name="continueTraining">Gyakorlás folytatása</string>
+  <string name="difficultyLevel">Nehézségi szint</string>
+  <string name="normal">Közepes</string>
+  <string name="easier">Könnyű</string>
+  <string name="easiest">Nagyon könnyű</string>
+  <string name="harder">Nehéz</string>
+  <string name="hardest">Nagyon nehéz</string>
+  <string name="example">Példa</string>
+  <string name="addAnotherTheme">Új téma hozzáadása</string>
+  <string name="jumpToNextPuzzleImmediately">Rögtön a következő feladányhoz ugrás</string>
+</resources>

@@ -12,9 +12,8 @@ case class Glicko(
     volatility: Double
 ) {
 
-  def intRating           = rating.toInt
-  def intDeviation        = deviation.toInt
-  def intDeviationDoubled = (deviation * 2).toInt
+  def intRating    = rating.toInt
+  def intDeviation = deviation.toInt
 
   def intervalMin = (rating - deviation * 2).toInt
   def intervalMax = (rating + deviation * 2).toInt
@@ -48,16 +47,19 @@ case class Glicko(
       volatility = volatility atMost Glicko.maxVolatility
     )
 
-  def average(other: Glicko) =
-    Glicko(
-      rating = (rating + other.rating) / 2,
-      deviation = (deviation + other.deviation) / 2,
-      volatility = (volatility + other.volatility) / 2
-    )
+  def average(other: Glicko, weight: Float = 0.5f) =
+    if (weight >= 1) other
+    else if (weight <= 0) this
+    else
+      Glicko(
+        rating = rating * (1 - weight) + other.rating * weight,
+        deviation = deviation * (1 - weight) + other.deviation * weight,
+        volatility = volatility * (1 - weight) + other.volatility * weight
+      )
 
   def display = s"$intRating${provisional ?? "?"}"
 
-  override def toString = s"$intRating $intDeviation"
+  override def toString = f"$intRating/$intDeviation/${volatility}%.3f"
 }
 
 case object Glicko {

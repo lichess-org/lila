@@ -1,2 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="perfStats">%s statistika</string>
+  <string name="viewTheGames">Peržiūrėti žaidimus</string>
+  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">laikinas</string>
+  <string name="notEnoughRatedGames">Kol kas nesužaista pakankamai žaidimų, kad būtų sudarytas patikimas reitingas.</string>
+  <string name="progressOverLastXGames">Progresas per paskutinius %s žaidimus:</string>
+  <string name="ratingDeviation">Reitingo paklaida: %s.</string>
+  <string name="ratingDeviationHelp">Žemesnė reikšmė rodo, kad reitingas stabilesnis. Virš %s reitingas laikomas laikinu.</string>
+  <string name="totalGames">Viso žaidimų</string>
+  <string name="ratedGames">Reitinguotų žaidimų</string>
+  <string name="tournamentGames">Turnyrinių žaidimų</string>
+  <string name="berserkedGames">Įsiučio žaidimų</string>
+  <string name="timeSpentPlaying">Laiko praleista žaidžiant</string>
+  <string name="averageOpponent">Vidutinis priešininkas</string>
+  <string name="victories">Pergalių</string>
+  <string name="defeats">Pralaimėjimų</string>
+  <string name="disconnections">Atsijungimų</string>
+  <string name="notEnoughGames">Žaista nepakankamai žaidimų</string>
+  <string name="highestRating">Aukščiausias reitingas: %s</string>
+  <string name="lowestRating">Žemiausias reitingas: %s</string>
+  <string name="fromXToY">nuo %1$s iki %2$s</string>
+  <string name="winningStreak">Pergalių iš eilės</string>
+  <string name="losingStreak">Pralaimėjimų iš eilės</string>
+  <string name="longestStreak">Daugiausia iš eilės: %s</string>
+  <string name="currentStreak">Kol kas iš eilės: %s</string>
+  <string name="bestRated">Geriausios reitinguotos pergalės</string>
+  <string name="worstRated">Blogiausia reitinguoti pralaimėjimai</string>
+  <string name="gamesInARow">Žaidimų žaista iš eilės</string>
+  <string name="lessThanOneHour">Mažiau negu valanda tarp žaidimų</string>
+  <string name="maxTimePlaying">Daugiausia laiko praleista žaidžiant</string>
+  <string name="now">dabar</string>
+</resources>

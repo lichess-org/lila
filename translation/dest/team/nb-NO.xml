@@ -24,11 +24,11 @@
   <string name="kickSomeone">Kast noen ut av laget</string>
   <string name="whoToKick">Hvem vil du kaste ut av laget?</string>
   <plurals name="xJoinRequests">
-    <item quantity="one">%s anmodning om å slutte seg til</item>
-    <item quantity="other">%s anmodninger om å slutte seg til</item>
+    <item quantity="one">%s ønske om å bli med</item>
+    <item quantity="other">%s ønsker om å bli med</item>
   </plurals>
-  <string name="willBeReviewed">Din anmodning om å slutte seg til vil bli vurdert av laglederen.</string>
-  <string name="beingReviewed">Din anmodning om å slutte seg til vurderes av laglederen.</string>
+  <string name="willBeReviewed">Ønsket ditt om å bli med vil bli vurdert av en lagleder.</string>
+  <string name="beingReviewed">Ønsket ditt om å bli med blir vurdert av en lagleder.</string>
   <string name="teamBattle">Lagkamp</string>
   <string name="teamBattleOverview">En kamp mellom flere lag, hver spiller skårer poeng for sitt lag</string>
   <string name="teamTournament">Lagturnering</string>
@@ -43,5 +43,5 @@ Spillere som ikke liker å motta meldinger fra deg, kan komme til å forlate lag
   <string name="usersWhoCanManageThisTeam">Brukere som kan administrere dette laget</string>
   <string name="leadersChat">Ledersamtale</string>
   <string name="closeTeam">Legg ned laget</string>
-  <string name="closeTeamDescription" comment="closeTeamDescription&#10;&#10;If you click this, your team will be closed forever.">Legger ned laget for alltid.</string>
+  <string name="closeTeamDescription">Legger ned laget for alltid.</string>
 </resources>

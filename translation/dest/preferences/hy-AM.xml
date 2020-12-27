@@ -4,17 +4,18 @@
   <string name="gameDisplay">Խաղի ցուցադրում</string>
   <string name="materialDifference">Ցուցադրել նյութական առավելությունը</string>
   <string name="boardHighlights">Խաղատախտակի բնութագիր (Վերջին քայլը եւ շախ)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Խաղատախտակի համակարգում (A-H, 1-8)</string>
+  <string name="boardCoordinates">Խաղատախտակի համակարգում (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">քայլերի ցուցակը խաղի ժամանակ</string>
   <string name="chessClock">շախմատի ժամացույց</string>
   <string name="tenthsOfSeconds">ցուցադրել վայրկյանները</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Երբ ժամանակը մնացել է &lt;10 վայրկյան</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Երբ ժամանակը մնացել է &lt;10 վայրկյան</string>
   <string name="horizontalGreenProgressBars">Հորիզոնական կանաչ գծով</string>
   <string name="soundWhenTimeGetsCritical">ձայնով, երբ ժամանակը վերջանում է</string>
+  <string name="gameBehavior">Խաղի վարքագիծ</string>
   <string name="takebacksWithOpponentApproval">քայլը հետ վերցնելու առաջարկ (հակառակորդի թույլտվությամբ)</string>
   <string name="promoteToQueenAutomatically">Ավտոմատ փոխակերպվել թագուհու</string>
   <string name="whenPremoving">Նախաքայլ անելիս</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Երբ ժամանակը մնացել է &lt;30 վայրկյան</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Երբ ժամանակը մնացել է &lt;30 վայրկյան</string>
   <string name="moveConfirmation">Քայլի հաստատում</string>
   <string name="yourPreferencesHaveBeenSaved">Ձեր նախընտրությունները պահպանված են</string>
 </resources>

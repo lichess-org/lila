@@ -16,6 +16,10 @@
   <string name="areThereWebsitesBasedOnLichess">Sú nejaké webstránky založené na Lichessi?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Áno. Lichess vskutku inšpiroval iné open-source stránky, ktoré používajú náš %1$s, %2$s, alebo %3$s.</string>
   <string name="fairPlay">Fair Play</string>
+  <string name="whenAmIEligibleRatinRefund">Kedy mám právo na automatické vrátenie hodnotenia od podvodníkov?</string>
+  <string name="howCanIBecomeModerator">Ako sa môžem stať moderátorom?</string>
+  <string name="youCannotApply">Není možné podať prihlášku pre pozíciu moderátora. Ak si všimneme niekoho o kom si myslíme, že by bol dobrým moderátorom, sami ho kontaktujeme.</string>
+  <string name="isCorrespondenceDifferent">Je korešpondenčný šach odlyšný od normálneho šachu?</string>
   <string name="gameplay">Hrateľnosť</string>
   <string name="howBulletBlitzEtcDecided">Ako sa rozhoduje o Bullete, Blitzi a iných časových kontrolách?</string>
   <string name="basedOnGameDuration">Časové kontroly na Lichessi sú založené na odhadovanom trvaní partie = %1$s 

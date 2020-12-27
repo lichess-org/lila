@@ -26,15 +26,16 @@
     grid-area: controls;
   }
 
-  &__history {
-    grid-area: history;
+  &__session {
+    grid-area: session;
+    align-self: start;
   }
 
   .eval-gauge {
     grid-area: gauge;
   }
 
-  grid-template-areas: 'board' 'controls' 'tools' 'history' 'side';
+  grid-template-areas: 'board' 'controls' 'tools' 'session' 'side';
   grid-row-gap: $block-gap;
 
   &__moves {
@@ -44,7 +45,7 @@
   @include breakpoint($mq-col2) {
     grid-template-columns: $col2-uniboard-width var(--gauge-gap) $col2-uniboard-table;
     grid-template-rows: fit-content(0);
-    grid-template-areas: 'board   gauge tools' 'history .     controls' 'side    side  side';
+    grid-template-areas: 'board   gauge tools' 'session .     controls' 'side    side  side';
 
     &__moves {
       display: block;
@@ -53,31 +54,33 @@
 
 
   @include breakpoint($mq-col3) {
-    grid-template-areas: 'side    . board   gauge tools' '.       . history .     controls';
+    grid-template-areas: 
+    'side    . board   gauge tools' 
+    'side    . session .     controls'
+    'side    . .       .     .';
     grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width var(--gauge-gap) $col3-uniboard-table;
   }
 
 
   &__side {
     display: grid;
-    grid-template-areas: 'metas' 'user';
+    grid-template-areas: 'user' 'theme' 'metas' 'config';
     grid-gap: $block-gap;
 
-    @include breakpoint($mq-x-small) {
+    @include breakpoint($mq-xx-small) {
       grid-template-columns: 1fr 1fr;
-      grid-template-areas: 'metas user';
+      grid-template-areas: 'metas user' 'metas theme' 'config theme' '. theme';
+      grid-template-rows: min-content min-content min-content;
     }
-
 
     @include breakpoint($mq-x-large) {
       grid-template-columns: 1fr;
-      grid-template-rows: min-content;
-      grid-template-areas: 'metas' 'user';
+      grid-template-areas: 'metas' 'user' 'theme' 'config';
+      grid-template-rows: min-content min-content min-content;
       justify-self: end;
       min-width: 250px;
       max-width: 350px;
     }
-
 
     &__metas {
       grid-area: metas;
@@ -85,6 +88,14 @@
 
     &__user {
       grid-area: user;
+    }
+
+    &__config {
+      grid-area: config;
+    }
+
+    &__theme {
+      grid-area: theme;
     }
   }
 }

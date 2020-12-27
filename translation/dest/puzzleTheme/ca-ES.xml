@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="queenRookEndgame">Dama i Torre</string>
+  <string name="queenRookEndgameDescription">Un final amb només dames, torres i peons.</string>
+</resources>

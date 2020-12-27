@@ -9,51 +9,51 @@
   <string name="whyLiveLightLibre">Live, denn Partien werden 24/7 in Echtzeit gespielt und angeschaut; leicht und frei aufgrund der Tatsache, dass Lichess quelloffen und frei von proprietärem Müll ist, welcher andere Internetseiten belastet.</string>
   <string name="whyIsLilaCalledLila">Ähnlich verhält es sich mit dem Quellcode von Lichess, %1$s, der für li[chess in sca]la steht. Der Großteil von Lichess wurde in %2$s geschrieben, einer intuitiven Programmiersprache.</string>
   <string name="howCanIContributeToLichess">Wie kann ich zu Lichess beitragen?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess wird durch Spenden von Förderern und der Leistung eines Teams von Freiwilligen betrieben.</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess wird durch Spenden von Unterstützern und der Leistung eines Teams von Freiwilligen betrieben.</string>
   <string name="findMoreAndSeeHowHelp">Du kannst mehr darüber herausfinden, %1$s (inklusive einer %2$s). Falls du Lichess durch freiwillige Arbeit unterstützen möchtest, gibt es viele %3$s.</string>
   <string name="beingAPatron">ein Patron zu sein</string>
   <string name="breakdownOfOurCosts">Aufschlüsselung unserer Kosten</string>
   <string name="otherWaysToHelp">andere Wege zu helfen</string>
   <string name="areThereWebsitesBasedOnLichess">Gibt es Websites, die auf Lichess basieren?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess hat in der Tat andere quelloffene Seiten inspiriert, die unsere %1$s, %2$s, oder %3$s verwenden.</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess hat in der Tat andere quelloffene Seiten inspiriert, die unsere %1$s, %2$s oder %3$s verwenden.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whyFlaggedRatingManipulationOrCheater">Warum wurde ich für künstliche Wertungsmanipulation (Tiefstapelei und Hochtreiben) oder Computerunterstützung markiert?</string>
-  <string name="cheatDetectionMethods">Lichess verfügt über starke Erkennungsmethoden und ein sehr gründliches Verfahren, um alle Beweise zu überprüfen und eine Entscheidung zu treffen. Der Prozess umfasst oft viele Moderatoren und kann eine lange Zeit dauern. Außer der Markierung selbst werden wir für einzelne Fälle nicht auf Einzelheiten über Beweise oder das Entscheidungsverfahren eingehen. Dies würde es in Zukunft einfacher machen, eine Erkennung zu vermeiden, und wäre eine Einladung zu unproduktiven Debatten. Diese Zeit und Mühe sind besser für andere wichtige Fälle aufgewendet. Benutzer können Widerspruch einlegen, indem sie eine  E-Mail an %1$s schicken, jedoch werden Entscheidungen selten rückgängig gemacht.</string>
-  <string name="whenAmIEligibleRatinRefund">Wann qualifiziere ich mich für die automatische Wertungs-Rückerstattung von Betrügern?</string>
-  <string name="ratingRefundExplanation">Eine Minute, nachdem ein Spieler markiert wurde, werden seine 40 neuesten Partien in den letzten 3 Tagen betrachtet. Wenn du in diesen Partien unter den Gegnern warst, damit deine Wertung (wegen einer Niederlage oder eines Remis) verschlechtert hast und deine Wertung nicht vorläufig war, erhältst du eine Wertungsrückerstattung. Die Rückerstattung ist begrenzt von deiner Spitzenwertung und deinen Wertungsfortschritten nach der Partie.
-  (Wenn deine Wertung nach diesen Partien stark gestiegen ist, erhältst du möglicherweise keine Rückerstattung oder nur eine Teilrückerstattung.) Eine Rückerstattung beträgt nie mehr als 150 Punkte.</string>
+  <string name="cheatDetectionMethods">Lichess arbeitet mit starken Erkennungsmethoden und sehr gründlichen Verfahren, um alle Hinweise zu überprüfen und eine Entscheidung zu treffen. Der Prozess umfasst oft viele Moderatoren und kann eine lange Zeit dauern. Außer der Markierung selbst werden wir für einzelne Fälle nicht auf Einzelheiten über Hinweise oder das Entscheidungsverfahren eingehen. Dies würde es in Zukunft einfacher machen, eine Erkennung zu vermeiden und wäre eine Einladung zu unproduktiven Debatten. Diese Zeit und Mühe wenden wir lieber für andere wichtige Fälle auf. Benutzer können Widerspruch einlegen, indem sie eine E-Mail an %1$s schicken, jedoch werden Entscheidungen selten rückgängig gemacht.</string>
+  <string name="whenAmIEligibleRatinRefund">Wann bin ich berechtigt, die automatische Wertungs-Rückerstattung von Betrügern zu erhalten?</string>
+  <string name="ratingRefundExplanation">Eine Minute, nachdem ein Spieler markiert wurde, werden seine 40 neuesten Partien in den letzten 3 Tagen betrachtet. Wenn du in diesen Partien unter den Gegnern warst, sich damit deine Wertung (wegen einer Niederlage oder eines Remis\') verschlechtert hat und deine Wertung nicht vorläufig war, erhältst du eine Wertungsrückerstattung. Die Rückerstattung wird begrenzt durch deine Spitzenwertung und deine Wertungsfortschritte nach der Partie.
+ (Wenn deine Wertung nach diesen Partien stark gestiegen ist, erhältst du möglicherweise keine Rückerstattung oder nur eine Teilrückerstattung.) Eine Rückerstattung beträgt nie mehr als 150 Punkte.</string>
   <string name="preventLeavingGameWithoutResigning">Was geschieht mit Spielern, die Partien verlassen ohne aufzugeben?</string>
   <string name="leavingGameWithoutResigningExplanation">Falls dein Gegner häufig Partien abbricht/verlässt, erhält er einen \"Spiel-Bann\", was bedeutet, dass er temporär keine Partien mehr spielen kann. Dies wird nicht öffentlich auf der Profilseite vermerkt. Falls dieses Verhalten fortbesteht, wird die Länge des Spiel-Banns verlängert. Weitere dieser Vergehen können schließlich zur Schließung des Kontos führen.</string>
   <string name="howCanIBecomeModerator">Wie kann ich Moderator werden?</string>
   <string name="youCannotApply">Es ist nicht möglich, sich als Moderator zu bewerben. Wenn wir jemanden sehen, von dem wir glauben, dass er als Moderator gut wäre, werden wir ihn direkt kontaktieren.</string>
   <string name="isCorrespondenceDifferent">Unterscheidet sich Fernschach von normalem Schach?</string>
-  <string name="youCanUseOpeningBookNoEngine">Bei Lichess besteht der Hauptunterschied bei den Regeln für Fernschach darin, dass hier zwar ein Eröffnungsbuch erlaubt ist. Die Verwendung von Schachcomputern ist jedoch immer noch verboten und führt zu einer Markierung des Kontos wegen unerlaubter Unterstützung durch Schachcomputer. Obwohl die ICCF die Verwendung von Schachcomputern in Fernschachpartien erlaubt, ist dies auf Lichess nicht erlaubt.</string>
+  <string name="youCanUseOpeningBookNoEngine">Bei Lichess besteht der Hauptunterschied bei den Regeln für Fernschach darin, dass hier zwar ein Eröffnungsbuch erlaubt ist. Die Verwendung von Schachcomputern ist jedoch immer noch verboten und führt zu einer Markierung des Kontos wegen unerlaubter Unterstützung durch Schachcomputer. Obwohl die ICCF die Verwendung von Schachcomputern in Fernschachpartien erlaubt, ist dies auf Lichess nicht gestattet.</string>
   <string name="gameplay">Das Spiel selbst betreffend</string>
   <string name="howBulletBlitzEtcDecided">Wie wird entschieden, was Bullet, Blitz und andere Zeitkontrollen sind?</string>
   <string name="basedOnGameDuration">Lichess Zeitkontrollen basieren auf der erwarteten Spieldauer = %1$s
-Zum Beispiel berechnet sich die erwartete Spieldauer einer 5+3 Partie zu 5 * 60 + 40 * 3 = 420 Sekunden.</string>
-  <string name="durationFormula">(Zeitguthaben zu Beginn) + 40 * (Zug-Inkrement)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+Zum Beispiel berechnet sich die erwartete Spieldauer einer 5+3 Partie zu 5 × 60 + 40 × 3 = 420 Sekunden.</string>
+  <string name="durationFormula">(Zeitguthaben zu Beginn) + 40 × (Zug-Inkrement)</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Welche Varianten kann ich auf Lichess spielen?</string>
   <string name="lichessSupportChessAnd">Lichess unterstützt Standardschach und %1$s.</string>
   <string name="eightVariants">8 Schachvarianten</string>
-  <string name="whatIsACPL">Was ist \"durchschnittlicher Centipawn-Verlust\"/ACPL?</string>
-  <string name="acplExplanation">Der Zentibauer oder Hundertstelbauer ist die Maßeinheit im Schach für den Vorteil eines Spielers. Der Zentibauer entspricht dabei dem Wert von 1/100 eines regulären Bauern. Deshalb gilt 100 Zentibauern = 1 Bauer. Diese Werte spielen während der Partie keine besondere Rolle, sind jedoch für Spieler nützlich und spielen im Computerschach eine essentielle Rolle bei der Bewertung von Stellungen.
+  <string name="whatIsACPL">Was bedeutet der durchschnittliche Hundertstelbauer-Verlust (ACPL)?</string>
+  <string name="acplExplanation">Der Centibauer oder Hundertstelbauer ist die Maßeinheit im Schach für den Vorteil eines Spielers. Der Centibauer entspricht dabei dem Wert von 1/100 eines regulären Bauern. Also gilt: 100 Centibauern = 1 Bauer. Diese Werte spielen während der Partie keine besondere Rolle, sind jedoch für Spieler nützlich und spielen im Computerschach eine essentielle Rolle bei der Bewertung von Stellungen.
 
-Der beste Computerzug verliert keinen Zentibauern, schlechtere Züge verschlechtern allerdings die Stellung, was in Zentibauern gemessen wird.
+Der beste Computerzug verliert keinen Centibauern, schlechtere Züge verschlechtern allerdings die Stellung, was in Centibauern gemessen wird.
 
-Dieser Wert kann als Indikator für die Spielqualität benutzt werden. Je weniger Zentibauern pro Zug verloren werden, desto größer die Spielstärke.
+Dieser Wert kann als Indikator für die Spielqualität benutzt werden. Je weniger Centibauern pro Zug verloren werden, desto größer die Spielstärke.
 
 Die Computeranalyse wird auf Lichess von Stockfish durchgeführt.</string>
-  <string name="insufficientMaterial">Auf Zeit verlieren, remis spielen und ungenügendes Material</string>
+  <string name="insufficientMaterial">Auf Zeit verlieren, Remis und ungenügendes Material</string>
   <string name="lichessFollowFIDErules">Falls einem Spieler keine Bedenkzeit mehr zur Verfügung steht, so verliert er in der Regel die Partie. Jedoch wird die Partie Remis erklärt, falls es dem Gegner durch keine legale Zugfolge möglich sein sollte ein Matt zu erzwingen (%1$s). Standardmäßig wird immer für den Spieler entschieden, dessen Bedenkzeit nicht abgelaufen ist. 
 
 In seltenen Fällen kann es schwierig sein, dies automatisch zu entscheiden. (Erzwungene Zugfolgen, Festungen)
 
 Beachte, dass es mit einem einzelnen Springer oder Läufer möglich ist ein Matt zu erzwingen, falls der Gegner eine Figur besitzt, die dessen König blockieren könnte.</string>
   <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDE-Handbuch %s</string>
-  <string name="discoveringEnPassant">Warum kann ein Bauer einen anderen Bauer schlagen, wenn er bereits vorbei gezogen ist? (en passant)</string>
+  <string name="discoveringEnPassant">Warum kann ein Bauer einen anderen Bauern schlagen, wenn er bereits vorbei gezogen ist? (en passant)</string>
   <string name="explainingEnPassant">Dies ist ein regelgemäßer Zug, bekannt als \"en passant\". Der Wikipedia-Artikel gibt einen %1$s.
 
 Dies wird in Abschnitt 3.7 der %2$s beschrieben.
@@ -61,13 +61,13 @@ Dies wird in Abschnitt 3.7 der %2$s beschrieben.
 \"Ein Bauer, der auf derselben Reihe auf einem unmittelbar angrenzenden Feld wie ein gegnerischer Bauer, der soeben zwei Felder von seiner Anfangsstellung vorgerückt ist, steht, darf diesen gegnerischen Bauern so schlagen, als ob letzterer nur um ein Feld vorgerückt wäre. Dieses Schlagen ist nur in dem unmittelbar nachfolgenden Zug regelgemäß und wird \'Schlagen en passant\' genannt.\"
 
 Siehe %3$s für etwas Übung mit dieser Art von Zug.</string>
-  <string name="goodIntroduction">guten ersten Eindruck</string>
+  <string name="goodIntroduction">guter ersten Eindruck</string>
   <string name="officialRulesPDF">offiziellen Regeln (PDF)</string>
-  <string name="lichessTraining">Lichess Training</string>
+  <string name="lichessTraining">Lichess-Training</string>
   <string name="threefoldRepetition">Dreifache Stellungswiederholung</string>
-  <string name="threefoldRepetitionExplanation">Wenn eine Stellung dreimal auftritt, können Spieler ein Remis durch %1$s reklamieren. Lichess implementiert die offiziellen FIDE-Regeln, wie in Artikel 9.2 (d) des %2$s beschrieben.</string>
+  <string name="threefoldRepetitionExplanation">Wenn eine Stellung dreimal auftritt, können Spieler ein Remis durch %1$s reklamieren. Lichess implementiert die offiziellen FIDE-Regeln, wie in Artikel 9.2 des %2$s beschrieben.</string>
   <string name="threefoldRepetitionLowerCase">dreifache Stellungswiederholung</string>
-  <string name="notRepeatedMoves">Wir haben keine Züge wiederholt, warum wurde die Partie immer noch durch Stellungswiederholung Remis erklärt?</string>
+  <string name="notRepeatedMoves">Wir haben keine Züge wiederholt, warum wurde die Partie trotzdem durch Stellungswiederholung für remis erklärt?</string>
   <string name="repeatedPositionsThatMatters">Bei dreifach gleicher Stellung geht es um vollständig gleiche %1$s, nicht um Zugwiederholungen. Die gleichen Stellungen können mit beliebigen Zügen erreicht werden, sofern die Zugmöglichkeiten in diesen Stellungen immer gleich sind.</string>
   <string name="positions">Stellungen</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Wir haben eine Stellung dreimal erreicht. Wieso wurde die Partie nicht für remis erklärt?</string>
@@ -76,7 +76,7 @@ Siehe %3$s für etwas Übung mit dieser Art von Zug.</string>
   <string name="accounts">Konten</string>
   <string name="titlesAvailableOnLichess">Welche Titel gibt es auf Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess erkennt alle FIDE-Titel an, die beim OTB (über dem Brett) Spiel gewonnen wurden, sowie %1$s. Hier ist eine Liste von FIDE-Titeln:</string>
-  <string name="showYourTitle">Wenn du einen OTB Titel hast, kannst du beantragen, dass dieser auf deinem Konto angezeigt wird, indem du das %1$s ausfüllst, mit einem klaren Bild eines Identifikationsausweises/einer -karte und einem Selfie von dir mit Nachweis/Karte im Bild hochgehalten.
+  <string name="showYourTitle">Wenn du einen OTB Titel hast, kannst du beantragen, dass dieser auf deinem Konto angezeigt wird, indem du das %1$s ausfüllst, mit einem klaren Bild eines Identifikationsausweises/einer -karte und einem Selfie von dir, in dem du diese/n Ausweis/Karte im Bild hochhältst.
 
 Eine solche Verifikation als Titelspieler auf Lichess ermöglicht die Teilnahme in den Titel-Arena-Events.
 
@@ -87,16 +87,16 @@ Daneben gibt es auch einen Ehrentitel %2$s.</string>
   <string name="noUpperCaseDot">Nein.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Dieser Ehrentitel ist inoffiziell und existiert nur auf Lichess.
 
-Wir belohnen nur selten äußerst bemerkenswerte Spieler, die nach unserem Ermessen gute Bürger von Lichess sind. Diese erhalten den LM Titel nicht, der LM Titel kommt zu ihnen. Wenn du dich qualifizierst, erhälst du von uns eine Nachricht zu diesem Thema und hast die Möglichkeit, diesen Titel anzunehmen oder abzulehnen.
+Wir belohnen damit in seltenen Fällen und nach unserem Ermessen ausschließlich bemerkenswerte Spieler, die zudem gute Bürger von Lichess sind. Diese erhalten den LM Titel nicht, der LM Titel kommt zu ihnen. Wenn du dich qualifizierst, erhältst du von uns eine Nachricht zu diesem Thema und hast die Möglichkeit, diesen Titel anzunehmen oder abzulehnen.
 
 Bitte nicht darum, den LM-Titel zu erhalten.</string>
-  <string name="whatUsernameCanIchoose">Was kann mein Benutzername sein?</string>
+  <string name="whatUsernameCanIchoose">Wie kann mein Benutzername lauten?</string>
   <string name="usernamesNotOffensive">Im Allgemeinen sollten Nutzernamen nicht anstößig, jemand anderen imitierend oder Werbung sein. Du kannst mehr über die %1$s lesen.</string>
   <string name="guidelines">Richtlinien</string>
-  <string name="uniqueTrophies">Einmalige Trophäen</string>
+  <string name="uniqueTrophies">Einzigartige Trophäen</string>
   <string name="ownerUniqueTrophies">Diese Trophäe ist einzigartig in der Geschichte von Lichess, niemand außer %1$s wird sie jemals haben.</string>
-  <string name="wayOfBerserkExplanation">Um sie zu bekommen, forderte hiimgosu sich selbst heraus 100%% der %s-Partien zu berserken und zu gewinnen.</string>
-  <string name="aHourlyBulletTournament">stündlichen Bullet-Arena</string>
+  <string name="wayOfBerserkExplanation">Um sie zu bekommen, forderte hiimgosu sich selbst heraus, 100%% der %s-Partien zu berserken und zu gewinnen.</string>
+  <string name="aHourlyBulletTournament">stündliche Bullet-Arena</string>
   <string name="goldenZeeExplanation">ZugAddict streamte und hatte in den letzten 2 Stunden versucht, die künstliche Intelligenz auf Stufe 8 in einem 1+0 Spiel zu besiegen, ohne Erfolg. Thibault versprach ihm, dass er eine einzigartige Trophäe bekommen würde, wenn er es erfolgreich im Stream schaffen würde. Eine Stunde später zerschmetterte er Stockfish und das Versprechen wurde eingehalten.</string>
   <string name="lichessRatings">Lichess-Wertungen</string>
   <string name="whichRatingSystemUsedByLichess">Welches Wertungssystem nutzt Lichess?</string>
@@ -111,7 +111,7 @@ Ein weiterer Punkt ist, dass sich das Konfidenzintervall im Laufe der Zeit erhö
   <string name="provisionalRatingExplanation">Das Fragezeichen bedeutet, dass die Wertung vorläufig ist. Zu den Gründen gehört:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Der Spieler hat noch nicht genug gewertete Partien gegen %1$s in der Wertungskategorie beendet.</string>
   <string name="similarOpponents">Gegner ähnlicher Spielstärke</string>
-  <string name="notPlayedRecently">Der Spieler hat nicht genug aktuelle Partien gespielt. Abhängig von der Anzahl der Partien, die du gespielt hast, benötigt es ungefähr ein Jahr der Inaktivität, bis deine Wertung wieder vorläufig wird.</string>
+  <string name="notPlayedRecently">Der Spieler hat nicht genügend aktuelle Partien gespielt. Abhängig von der Anzahl der Partien, die du gespielt hast, benötigt es ungefähr ein Jahr der Inaktivität, bis deine Wertung wieder vorläufig ist.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Konkret bedeutet dies, dass die Abweichung in Glicko-2 größer als 110 ist. Die Abweichung ist das Vertrauen, dass das System in die Wertung hat. Je niedriger die Abweichung, desto stabiler ist eine Wertung.</string>
   <string name="howDoLeaderoardsWork">Wie funktionieren Ränge und Ranglisten?</string>
   <string name="inOrderToAppearsYouMust">Um auf die %1$s zu kommen, musst du:</string>
@@ -128,14 +128,14 @@ Es ist am besten, Wertungen als \"relative\" Werte zu betrachten (im Gegensatz z
   <string name="howToHideRatingWhilePlaying">Wie kann man Wertungen während des Spiels ausblenden?</string>
   <string name="enableZenMode">Aktiviere den Zen-Modus in den %1$s oder durch Drücken von %2$s während einer Partie.</string>
   <string name="displayPreferences">Anzeigeeinstellungen</string>
-  <string name="connexionLostCanIGetMyRatingBack">Ich habe eine Partie wegen Lag/Internetproblemen verloren. Kann ich meine Wertungspunkte zurück bekommen?</string>
+  <string name="connexionLostCanIGetMyRatingBack">Ich habe eine Partie wegen Lag/Internetproblemen verloren. Kann ich meine Wertungspunkte zurückbekommen?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Leider können wir keine Wertungspunkte für Partien zurückgeben, die aufgrund von Lag oder Internetproblemen verloren gehen, unabhängig davon, ob das Problem von deiner oder von unserer Seite verursacht wurde. Letzteres ist jedoch sehr selten. Beachte auch, dass wir die Partie abbrechen, wenn Lichess neu gestartet wird und du deshalb auf Zeit verlieren würdest.</string>
   <string name="howToThreeDots">Wie kann ich...</string>
   <string name="enableDisableNotificationPopUps">Benachrichtigungs-Popups aktivieren oder deaktivieren?</string>
   <string name="viewSiteInformationPopUp">Seiteninformations-Popup anzeigen</string>
-  <string name="lichessCanOptionnalySendPopUps">Lichess kann optional Popup-Benachrichtigungen versenden, zum Beispiel wenn du am Zug bist oder du eine private Nachricht erhalten hast.
+  <string name="lichessCanOptionnalySendPopUps">Lichess kann optional Popup-Benachrichtigungen versenden, zum Beispiel wenn du am Zug bist oder eine private Nachricht erhalten hast.
 
-Klicke auf das Schlosssymbol neben der Lichess.org Adresse in der URL-Leiste deines Browsers.
+Klicke auf das Schlosssymbol neben der lichess.org Adresse in der URL-Leiste deines Browsers.
 
 Wähle dann aus, ob Benachrichtigungen von Lichess erlaubt oder blockiert werden sollen.</string>
 </resources>

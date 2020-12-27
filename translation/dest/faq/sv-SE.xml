@@ -33,7 +33,7 @@
   <string name="basedOnGameDuration">Lichess tidskontroller är baserade på uppskattad partilängd = %1$s
  Till exempel, den uppskattade längden av ett 5+3 parti är 5 * 60 + 40 * 3 = 420 sekunder.</string>
   <string name="durationFormula">(initial klocktid) + 40 · (tidstillägg)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Vilka varianter kan jag spela på Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess stöder standardschack och %1$s.</string>

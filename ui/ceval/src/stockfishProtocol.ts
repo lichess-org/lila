@@ -1,5 +1,6 @@
 import { lichessVariantRules } from 'chessops/compat';
 import { WorkerOpts, Work } from './types';
+import { defer } from 'common/defer';
 
 const EVAL_REGEX = new RegExp(''
   + /^info depth (\d+) seldepth \d+ multipv (\d+) /.source
@@ -143,13 +144,4 @@ export default class Protocol {
   isComputing(): boolean {
     return !this.stopped;
   }
-}
-
-function defer<A>(): DeferPromise.Deferred<A> {
-  const deferred: Partial<DeferPromise.Deferred<A>> = {};
-  deferred.promise = new Promise<A>((resolve, reject) => {
-    deferred.resolve = resolve;
-    deferred.reject = reject;
-  });
-  return deferred as DeferPromise.Deferred<A>;
 }

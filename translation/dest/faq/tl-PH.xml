@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">MMT%s</string>
+  <string name="faqAbbreviation">MMT</string>
   <string name="frequentlyAskedQuestions">Mga Madalas na Itinatanong%s</string>
   <string name="whyIsLichessCalledLichess">Bakit tinawag na Lichess ang Lichess?%s?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Ang Lichess ay isang pinaghalong live/light/libre at ahedres. Ibinibigkas ito ng%1$s.</string>

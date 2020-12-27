@@ -100,6 +100,15 @@ object mod {
             submitButton(cls := "btn-rack__btn confirm")("Clear PMs & chats")
           )
         },
+        isGranted(_.SetKidMode) option {
+          postForm(
+            action := routes.Mod.kid(u.username),
+            title := "Activate kid mode if not already the case",
+            cls := "xhr"
+          )(
+            submitButton(cls := "btn-rack__btn confirm")("Kid")
+          )
+        },
         isGranted(_.RemoveRanking) option {
           postForm(
             action := routes.Mod.rankban(u.username, !u.marks.rankban),

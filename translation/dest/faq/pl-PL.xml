@@ -36,7 +36,7 @@
   <string name="basedOnGameDuration">Kontrole czasu na Lichess oparte są na szacowanym czasie trwania gry = %1$s
 Na przykład, szacowany czas trwania gry 5+3 wynosi 5 * 60 + 40 * 3 = 420 sekund.</string>
   <string name="durationFormula">(czas podstawowy) + 40 * (czas dodatkowy)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">W jakie warianty szachów mogę zagrać na Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess umożliwia grę w standardowe szachy oraz %1$s.</string>

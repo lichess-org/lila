@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">題目</string>
+  <string name="recommended">推薦</string>
+  <string name="phases">分類</string>
+  <string name="advanced">高級</string>
+  <string name="lengths">長度</string>
+  <string name="mates">對手</string>
+  <string name="goals">目標</string>
+  <string name="specialMoves">特殊移動</string>
+  <string name="didYouLikeThisPuzzle">您喜歡這個題目嗎？</string>
+  <string name="yourPuzzleRatingX">您的解題等級：%s</string>
+  <string name="findTheBestMoveForWhite">為白方找出最佳移動</string>
+  <string name="findTheBestMoveForBlack">為黑方找出最佳移動</string>
+  <string name="toGetPersonalizedPuzzles">得到個人推薦題目:</string>
+  <string name="puzzleId">題目%s</string>
+  <string name="puzzleOfTheDay">每日一題</string>
+  <string name="clickToSolve">點擊解題</string>
+  <string name="goodMove">好棋</string>
+  <string name="bestMove">最佳走法!</string>
+  <string name="keepGoing">加油!</string>
+  <string name="puzzleSuccess">成功！</string>
+  <string name="puzzleComplete">解題完成!</string>
+  <string name="notTheMove">不是這步!</string>
+  <string name="trySomethingElse">試試其他的移動</string>
+  <string name="ratingX">評級：%s</string>
+  <string name="hidden">隱藏</string>
+  <plurals name="playedXTimes">
+    <item quantity="other">已被嘗試%s次</item>
+  </plurals>
+  <string name="fromGameLink">來自對局 %s</string>
+  <string name="continueTraining">繼續訓練</string>
+  <string name="difficultyLevel">困難度</string>
+  <string name="normal">一般</string>
+  <string name="easier">簡單</string>
+  <string name="easiest">超簡單</string>
+  <string name="harder">困難</string>
+  <string name="hardest">超困難</string>
+  <string name="example">範例</string>
+</resources>

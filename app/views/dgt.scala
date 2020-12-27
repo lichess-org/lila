@@ -14,7 +14,7 @@ object dgt {
 
   def index(implicit ctx: Context) =
     layout("index")(
-      h1("Lichess <3 DGT (BETA)"),
+      h1("Lichess <3 DGT"),
       p(
         "This page allows you to connect your DGT board to Lichess, and to use it for playing games."
       ),

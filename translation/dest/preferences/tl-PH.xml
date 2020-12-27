@@ -6,7 +6,7 @@
   <string name="materialDifference">Pagkakaiba ng materyal</string>
   <string name="boardHighlights">Mga highlight ng board (huling galaw at suriin)</string>
   <string name="pieceDestinations">Destinasyon ng piraso ( saktong mga galaw at mga bago gumalaw)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Mga lokasyon ng Board (A-H, 1-8)</string>
+  <string name="boardCoordinates">Mga lokasyon ng Board (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Galawin ang listahan habang naglalaro</string>
   <string name="pgnPieceNotation">Notasyon ng Galaw</string>
   <string name="chessPieceSymbol">Simbolo ng piraso ng Chess</string>
@@ -15,7 +15,7 @@
   <string name="blindfoldChess">May takip ang mata na chess ( hindi makitang mga piraso)</string>
   <string name="chessClock">Orasan ng Chess</string>
   <string name="tenthsOfSeconds">Pangsampu ng isang segundo</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Kapag ang natitirang oras &lt; 10 segundos</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Kapag ang natitirang oras &lt; 10 segundos</string>
   <string name="horizontalGreenProgressBars">Pahalang na berdeng pag-unlad na mga bar</string>
   <string name="soundWhenTimeGetsCritical">Tutunog kapag ang oras ay naging kritikal</string>
   <string name="giveMoreTime">Magbigay ng maraming oras</string>
@@ -28,8 +28,8 @@
   <string name="inCasualGamesOnly">Sa kaswal na mga laro lamang</string>
   <string name="promoteToQueenAutomatically">Awtomatikong gawing Queen</string>
   <string name="whenPremoving">Kapag bago gumalaw</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Awtomatikong magkuha sa tatlong beses na pag-uulit</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Kapag ang natitirang oras &lt; 30 segundo</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Awtomatikong magkuha sa tatlong beses na pag-uulit</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Kapag ang natitirang oras &lt; 30 segundo</string>
   <string name="moveConfirmation">Kompirmasyon ng galaw</string>
   <string name="inCorrespondenceGames">Mga laro ng pagsusulatan</string>
   <string name="correspondenceAndUnlimited">Pagsusulatan at walang katapusan</string>

@@ -35,8 +35,7 @@ final class Editor(env: Env) extends LilaController(env) {
           html.board.editor(
             sit = situation,
             fen = Forsyth >> situation,
-            positionsJson,
-            animationDuration = env.api.config.editorAnimationDuration
+            positionsJson
           )
         )
       }
@@ -49,8 +48,7 @@ final class Editor(env: Env) extends LilaController(env) {
         Ok(
           html.board.bits.jsData(
             sit = situation,
-            fen = Forsyth >> situation,
-            animationDuration = env.api.config.editorAnimationDuration
+            fen = Forsyth >> situation
           )
         ) as JSON
       }

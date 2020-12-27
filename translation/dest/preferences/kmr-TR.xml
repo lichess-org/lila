@@ -6,7 +6,7 @@
   <string name="materialDifference">Cudahiya kabikan</string>
   <string name="boardHighlights">Nîşankirinên texteyê (hemleya dawîn û kişkirin)</string>
   <string name="pieceDestinations">Hedefên kabikan (hemleyên derbasdar û pêşhereket)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Koordînatên texteyê (A-H, 1-8)</string>
+  <string name="boardCoordinates">Koordînatên texteyê (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lîsteyê hereketên gava lîstinê</string>
   <string name="pgnPieceNotation">Notasyona hereketê</string>
   <string name="chessPieceSymbol">Sembola kabikên kişikê</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Kişika çavmiçkirî (kabikên nexuyabar)</string>
   <string name="chessClock">Demjimêra kişikê</string>
   <string name="tenthsOfSeconds">Ji deha yekê saniyeyan</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Gava wext kêmtirî 10 saniyeyan be</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Gava wext kêmtirî 10 saniyeyan be</string>
   <string name="horizontalGreenProgressBars">Benda pêşveçûna kesk ya asoyî</string>
   <string name="soundWhenTimeGetsCritical">Hişyariya dengî gava ku dem kêm bû</string>
   <string name="giveMoreTime">Zêdetir wext bide</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">Tenê li lîstikên bêpoînt</string>
   <string name="promoteToQueenAutomatically">Bi otomatîkî bike Wezîr</string>
   <string name="whenPremoving">Gava pêş-hemleyê</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Di tekrara sêgavî debi otomatîkî wekheviyê teklîf bike</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Gava wext &lt; 30 saniye mabe</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Di tekrara sêgavî debi otomatîkî wekheviyê teklîf bike</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Gava wext &lt; 30 saniye mabe</string>
   <string name="moveConfirmation">Tesdîqkirina hemleyê</string>
   <string name="inCorrespondenceGames">Lîstikên bi muxabere</string>
   <string name="correspondenceAndUnlimited">Bipêwendî û bêsînor</string>

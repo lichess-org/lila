@@ -231,6 +231,7 @@
   <string name="rematchOfferDeclined">റീമാച്ച് വാഗ്ദാനം നിരസിക്കപ്പെട്ടു</string>
   <string name="cancelRematchOffer">റീമാച്ച് വാഗ്ദാനം റദ്ദാക്കുക</string>
   <string name="viewRematch">റീമാച്ച് കാണുക</string>
+  <string name="confirmMove">നീക്കം ഉറപ്പിക്കുക</string>
   <string name="play">കളിക്കുക</string>
   <string name="inbox">ഇന്‍ബോക്സ്‌</string>
   <string name="chatRoom">ചാറ്റ് റൂം</string>
@@ -325,6 +326,7 @@
   <string name="filterGames">മത്സരങ്ങള്‍ തരംതിരിക്കുക</string>
   <string name="reset">റീസെറ്റ് (പുനക്രമീകരിക്കുക)</string>
   <string name="apply">പ്രയോഗിക്കുക</string>
+  <string name="save">സേവ് ചെയ്യുക</string>
   <string name="leaderboard">മികച്ച കളിക്കാര്‍</string>
   <string name="pasteTheFenStringHere">FEN ടെക്സ്റ്റ്‌ ഇവിടെ കൊടുക്കുക</string>
   <string name="pasteThePgnStringHere">PGN ടെക്സ്റ്റ്‌ ഇവിടെ കൊടുക്കുക</string>
@@ -434,6 +436,7 @@
   <string name="lastName">അവസാന പേര്</string>
   <string name="biography">ജീവചരിത്രം</string>
   <string name="country">രാജ്യം</string>
+  <string name="thankYou">നന്ദി!</string>
   <string name="inlineNotation">ഇൻഫയൽ നോട്ടെഷൻ</string>
   <string name="watchLichessTV">കാണാം Lichess TV</string>
   <string name="previouslyOnLichessTV">Lichess TV യിൽ നേരെത്തെയുള്ളത്</string>
@@ -441,34 +444,7 @@
   <string name="activeToday">ഇന്ന് സജീവമായ</string>
   <string name="activePlayers">സജീവ കളിക്കാർ</string>
   <string name="bewareTheGameIsRatedButHasNoClock">നോക്കൂ, ഈ കളി ക്രമപ്പെടുത്തിയതാണ്. പക്ഷെ സമയ പരിധിയില്ല!</string>
-  <string name="yourPuzzleRatingX">നിങ്ങളുടെ സമസ്യ ക്രമം: %s</string>
-  <string name="findTheBestMoveForWhite">വെള്ളയുടെ ഉത്തമ നീക്കം കണ്ടു പിടിക്കൂ</string>
-  <string name="findTheBestMoveForBlack">കറുപ്പിന്റെ ഉത്തമ നീക്കം കണ്ടു പിടിക്കൂ.</string>
-  <string name="toTrackYourProgress">നിങ്ങളുടെ നിലവാരം പിന്തുടരാൻ:</string>
-  <string name="puzzleId">%s സമസ്യ</string>
-  <string name="puzzleOfTheDay">ഇന്നത്തെ സമസ്യ</string>
-  <string name="clickToSolve">പരിഹാരത്തിന് ക്ലിക്ക് ചെയ്യൂ</string>
-  <string name="goodMove">നല്ല നീക്കം</string>
-  <string name="butYouCanDoBetter">എന്നാലും നിങ്ങൾക്ക് മെച്ചപ്പെടുത്താം.</string>
-  <string name="bestMove">നല്ല നീക്കം!</string>
-  <string name="keepGoing">മുന്നോട്ട് പോവൂ...</string>
-  <string name="puzzleFailed">സമസ്യ പരാജയം</string>
-  <string name="butYouCanKeepTrying">എന്നാലും നിങ്ങൾ ശ്രമിച്ചു നോക്കൂ.</string>
   <string name="success">വിജയകരം</string>
-  <string name="wasThisPuzzleAnyGood">ഈ സമസ്യ നല്ലതായിരുന്നോ?</string>
-  <string name="pleaseVotePuzzle">Lichess മികവുറ്റതാക്കാൻ അപ്പ് അല്ലെങ്കിൽ ഡൗൺ ആരോ ഉപയോഗിച്ച് വോട്ട് ചെയ്തു സഹായിക്കൂ:</string>
-  <string name="thankYou">നന്ദി!</string>
-  <string name="ratingX">നിലവാരം: %s</string>
-  <string name="hidden">മറച്ചത്</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">കളിച്ചത്‌ %s തവണകൾ</item>
-    <item quantity="other">കളിച്ചത്‌ %s തവണകൾ</item>
-  </plurals>
-  <string name="fromGameLink">%s കളിയിൽ നിന്ന്</string>
-  <string name="continueTraining">പരിശീലനം തുടരാം</string>
-  <string name="retryThisPuzzle">ഈ സമസ്യക്കു വീണ്ടും ശ്രമിക്കൂ</string>
-  <string name="thisPuzzleIsCorrect">ഈ സമസ്യ കൃത്യവും രസകരവുമാണ്</string>
-  <string name="thisPuzzleIsWrong">ഈ സമസ്യ അബദ്ധം അല്ലെങ്കിൽ വിരസമാണ്</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s കളികൾ പുരോഗമിക്കുന്നു</item>
     <item quantity="other">%s കളികൾ പുരോഗമിക്കുന്നു</item>
@@ -821,4 +797,13 @@
   <string name="agreementNice">ഞാൻ എല്ലായ്പ്പോഴും മറ്റു കളിക്കാരോട് മാന്യമായി പെരുമാറുമെന്ന് സമ്മതിക്കുന്നു.</string>
   <string name="agreementAccount">ഞാൻ ഒന്നിലധികം അക്കൗണ്ടുകൾ നിർമിക്കില്ലെന്ന് സമ്മതിക്കുന്നു.</string>
   <string name="agreementPolicy">ഞാൻ Lichess പോളിസികൾ അനുകൂലിക്കുന്നതായി സമ്മതിക്കുന്നു.</string>
+  <string name="rapid">റാപിഡ്</string>
+  <string name="classical">ക്ലാസിക്കല്‍</string>
+  <string name="ultraBulletDesc">തീവ്രവേഗത്തിലുള്ള കളികള്‍: 30 സെക്കന്‍റില്‍ താഴെ</string>
+  <string name="bulletDesc">അതിവേഗത്തിലുള്ള കളികള്‍: 3 മിനിറ്റില്‍ താഴെ</string>
+  <string name="blitzDesc">വേഗത്തില്‍ ഉള്ള കളികള്‍: 3 മുതല്‍ 8 മിനിട്ട് വരെ</string>
+  <string name="rapidDesc">റാപിഡ് കളികള്‍: 8 മുതല്‍ 25 മിനിട്ട് വരെ</string>
+  <string name="classicalDesc">ക്ലാസ്സിക്കല്‍ കളികള്‍: 25 മിനിറ്റില്‍ കൂടുതല്‍</string>
+  <string name="correspondenceDesc">കറസ്പോണ്ടന്‍സ് കളികള്‍: ഓരോ നീക്കത്തിനും ഒരു ദിവസമോ അതില്‍ കൂടുതലോ ലഭിക്കും</string>
+  <string name="puzzleDesc">ചെസ്സ്‌ ടാക്ടിക്സ് ട്രെയിനര്‍</string>
 </resources>

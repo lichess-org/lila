@@ -4,7 +4,7 @@
   <string name="teachClassesOfChessStudents">Undervis klasser af skakelever med Lichess-klasser værktøjspakken.</string>
   <string name="features">Features</string>
   <string name="quicklyGenerateSafeUsernames">Generer hurtigt sikre brugernavne og adgangskoder til elever</string>
-  <string name="trackStudentProgress">Følg elevudvikling i spil og taktikopgaver</string>
+  <string name="trackStudentProgress">Følg elevudvikling i spil og opgaver</string>
   <string name="messageAllStudents">Underret alle elever om nyt klassemateriale</string>
   <string name="freeForAllForever">100% gratis for alle, for altid, uden reklamer eller sporing</string>
   <string name="applyToBeLichessTeacher">Ansøg om at blive Lichess-lærer</string>
@@ -29,11 +29,11 @@
   <string name="makeSureToCopy">Sørg for, at kopiere eller nedskrive den nye adgangskode nu. Du vil ikke kunne få den vist igen!</string>
   <string name="passwordX">Adgangskode: %s</string>
   <string name="generateANewPassword">Generer en ny adgangskode til eleven</string>
-  <string name="invitedToXByY">Inviteret til %1$s af %2$s</string>
+  <string name="invitedToXByY" comment="invitedToXByY&#10;&#10;%1$s is the Class name and %$2s is the person who invited">Inviteret til %1$s af %2$s</string>
   <string name="realName">Rigtigt navn</string>
   <string name="privateWillNeverBeShown">Privat. Vil aldrig blive vist uden for klassen. Hjælper med at huske hvem eleven er.</string>
   <string name="addStudent">Tilføj elev</string>
-  <string name="lichessProfileXCreatedForY">Lichess-profil %1$s oprettet til %2$s.</string>
+  <string name="lichessProfileXCreatedForY" comment="lichessProfileXCreatedForY&#10;&#10;%1$s is the created account (nickname) &#10;%$2s is the real name of the student (only visible for the teacher)">Lichess-profil %1$s oprettet til %2$s.</string>
   <string name="studentCredentials">Elev:  %1$s
 Brugernavn: %2$s
 Adgangskode: %3$s</string>

@@ -43,5 +43,5 @@
   <string name="usersWhoCanManageThisTeam">Χρήστες που μπορούν να διαχειριστούν αυτή την ομάδα</string>
   <string name="leadersChat">Chat αρχηγών</string>
   <string name="closeTeam">Κλείστε την ομάδα</string>
-  <string name="closeTeamDescription" comment="closeTeamDescription&#10;&#10;If you click this, your team will be closed forever.">Κλείνει την ομάδα για πάντα.</string>
+  <string name="closeTeamDescription">Κλείνει την ομάδα για πάντα.</string>
 </resources>

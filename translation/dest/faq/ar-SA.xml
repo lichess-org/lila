@@ -25,6 +25,9 @@
   <string name="howCanIBecomeModerator">كيف يمكنني أن أصبح مشرفاً؟</string>
   <string name="youCannotApply">ليس من الممكن التقدّم بطلب ان تكون مشرف. اذا رأينا شخصاً نعتقد انه سيكون جيداً كمشرف، سنقوم بالتواصل معهم مباشرة.</string>
   <string name="gameplay">أسلوب اللعب</string>
+  <string name="officialRulesPDF">القواعد الرسمية (PDF)</string>
+  <string name="lichessTraining">التدريب في Lichess</string>
+  <string name="threefoldRepetitionExplanation">إذا تكرر موقف ثلاث مرات يمكن للاعبين إقتراح تعادل ب- %1$s. ينفذ Lichess القواعد الرسمية للاتحاد الدولي للشطرنج، كما هو مبين في المادة 9-2 (د) من القرار %2$s.</string>
   <string name="notRepeatedMoves">لماذا انتهت المباراة بالتعادل على الرغم من أننا لم نقم بتكرير النقلات؟</string>
   <string name="repeatedPositionsThatMatters">تكرار الوضعية ثلاثا عبارة عن تكرار %1$s وليس النقلات. لا تتطلب هذه القاعدة ظهور الوضعية ثلاثا بإعادة النقلات بشكل متتالي.</string>
   <string name="positions">الوضعية</string>
@@ -56,4 +59,10 @@
   <string name="goldenZeeExplanation">حاول ZugAddict هزيمة المستوى 8 من ستوكفيش لساعتين متواصلتين بينما كان يقوم بالبث في مباراة 1+0 لكن لم يحالفه الحظ في النجاح. أخبره Thibault أنه إذا نجح في القيام بذلك أثناء البث فسوف يحصل على كأس فريد. بعد ذلك بساعة، قام بهزم المحرك هزيمة نكراء وتم الوفاء بالوعد.</string>
   <string name="lichessRatings">تقييمات Lichess</string>
   <string name="whichRatingSystemUsedByLichess">ما هو نظام التقييم الذي يستخدمه ليشيس؟</string>
+  <string name="provisionalRatingExplanation">علامة الاستفهام تعني أن التقييم مؤقت. الأسباب تشمل:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">اللاعب لم يكمل بعد مباريات مصنفة كافية مقابل %1$s في فئة التصنيف.</string>
+  <string name="beInTopTen">كن من 10 الأوائل في هذا التقييم.</string>
+  <string name="displayPreferences">عرض التفضيلات الخاصة بك</string>
+  <string name="connexionLostCanIGetMyRatingBack">خسرت لعبة بسبب التخلف/قطع الاتصال. هل يمكنني استعادة نقاط التقييم الخاصة بي؟</string>
+  <string name="howToThreeDots">كيف يمكنني أن...</string>
 </resources>

@@ -6,13 +6,13 @@
   <string name="materialDifference">子力差距</string>
   <string name="boardHighlights">棋盘高亮（最后一步与将军）</string>
   <string name="pieceDestinations">棋子目的地（有效着法与预先走棋）</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">棋盤座標（A-H, 1-8）</string>
+  <string name="boardCoordinates">棋盤座標（A-H, 1-8）</string>
   <string name="moveListWhilePlaying">遊戲進行時顯示棋譜</string>
   <string name="zenMode">禪意模式</string>
   <string name="blindfoldChess">蒙眼象棋 (看不见棋子)</string>
   <string name="chessClock">棋鍾</string>
   <string name="tenthsOfSeconds">十分之一秒</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">當剩餘時間小於10秒</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">當剩餘時間小於10秒</string>
   <string name="horizontalGreenProgressBars">绿色横进度条</string>
   <string name="soundWhenTimeGetsCritical">時間不足時聲音提醒</string>
   <string name="giveMoreTime">給對方更多時間</string>
@@ -22,7 +22,7 @@
   <string name="inCasualGamesOnly">仅限非正式游戏</string>
   <string name="promoteToQueenAutomatically">兵自動升為后</string>
   <string name="whenPremoving">預先走棋時</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">当剩余时间小于30秒</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">当剩余时间小于30秒</string>
   <string name="moveConfirmation">走棋确认</string>
   <string name="inCorrespondenceGames">在长期对局中</string>
   <string name="correspondenceAndUnlimited">通信和无限</string>

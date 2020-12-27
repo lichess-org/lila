@@ -51,7 +51,7 @@ object TotpSecret {
   def apply(base32: String) = new TotpSecret(new Base32().decode(base32))
 
   def random: TotpSecret = {
-    val secret = new Array[Byte](20)
+    val secret = new Array[Byte](10)
     secureRandom.nextBytes(secret)
     TotpSecret(secret)
   }

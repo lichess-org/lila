@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Жұмбақтар</string>
+  <string name="recommended">Ұсыныстар</string>
+  <string name="phases">Кезеңдер</string>
+  <string name="motifs">Жағдайлар</string>
+  <string name="advanced">Кеңейтілген</string>
+  <string name="lengths">Ұзындығы</string>
+  <string name="mates">Маттар</string>
+  <string name="goals">Мақсаттар</string>
+  <string name="specialMoves">Ерекше жүрістер</string>
+  <string name="didYouLikeThisPuzzle">Бұл жұмбақ ұнай ма?</string>
+  <string name="voteToLoadNextOne">Келесін ашу үшін дауыс беріңіз!</string>
+  <string name="yourPuzzleRatingX">Жұмбақ шешу рейтингіңіз: %s</string>
+  <string name="findTheBestMoveForWhite">Ақтың пайдасына ең дұрыс жүрісті табыңыз.</string>
+  <string name="findTheBestMoveForBlack">Қараның пайдасына ең дұрыс жүрісті табыңыз.</string>
+  <string name="toGetPersonalizedPuzzles">Жекелендірген жұмбақ алу үшін:</string>
+  <string name="puzzleId">Жұмбақ %s</string>
+  <string name="puzzleOfTheDay">Бүгінгі жұмбақ</string>
+  <string name="clickToSolve">Шешу үшін басыңыз</string>
+  <string name="goodMove">Жақсы жүріс</string>
+  <string name="bestMove">Үздік жүріс!</string>
+  <string name="keepGoing">Ары қарай…</string>
+  <string name="puzzleSuccess">Бәрі дұрыс!</string>
+  <string name="puzzleComplete">Жұмбақ шешілді!</string>
+  <string name="notTheMove">Ол жүріс емес!</string>
+  <string name="trySomethingElse">Басқаша жүріп көріңіз.</string>
+  <string name="ratingX">Рейтинг: %s</string>
+  <string name="hidden">жасырын</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">%s рет ойналды</item>
+    <item quantity="other">%s рет ойналды</item>
+  </plurals>
+  <string name="fromGameLink">%s ойнынан</string>
+  <string name="continueTraining">Жаттығуды жалғастыру</string>
+  <string name="difficultyLevel">Күрделілік деңгейі</string>
+  <string name="normal">Қалыпты</string>
+  <string name="easier">Жеңілдеу</string>
+  <string name="easiest">Ең жеңілі</string>
+  <string name="harder">Қиындау</string>
+  <string name="hardest">Ең қиыны</string>
+  <string name="example">Мысал</string>
+  <string name="addAnotherTheme">Басқа тақырып қосу</string>
+  <string name="jumpToNextPuzzleImmediately">Келесі жұмбаққа бірден өту</string>
+</resources>

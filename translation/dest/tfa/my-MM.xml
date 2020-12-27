@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="ifYouCannotScanEnterX" comment="ifYouCannotScanEnterX&#10;&#10;%s is the authentication code">ပုံအား စကင် မလုပ်နိုင်လျှင် လျှို့ဝှက် %s ကို သင့် အက်ပ်သို့ ရိုက်ထည့်ပါ။</string>
+</resources>

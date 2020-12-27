@@ -19,7 +19,7 @@
   <string name="basedOnGameDuration">Lichess tempokontroloj baziĝas sur laŭtaksa daŭro de ludo = %1$s
 Ekzemple, la laŭtaksa daŭro de ludo 5+3 estas 5 × 60 + 40 × 3 = 420 sekundoj.</string>
   <string name="durationFormula">(horloĝa komenca horo) + 40 × (horloĝa pliigo)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Kiujn ŝakvariantojn mi povas ludi en Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess subtenas norman ŝakon kaj %1$s.</string>

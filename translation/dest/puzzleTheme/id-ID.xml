@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="advancedPawn">Bidak terdepan</string>
+  <string name="advantage">Keuntungan</string>
+  <string name="attackingF2F7">Menyerang f2 atau f7</string>
+  <string name="attraction">Pikatan</string>
+  <string name="backRankMate">Mat Baris Terakhir</string>
+  <string name="bishopEndgame">Ending Gajah</string>
+  <string name="bishopEndgameDescription">Sebuah ending yang hanya Gajah dan bidak.</string>
+  <string name="castling">Rokade</string>
+  <string name="castlingDescription">Letakkan posisi raja aman, dan manfaatkan benteng untuk menyerang.</string>
+</resources>

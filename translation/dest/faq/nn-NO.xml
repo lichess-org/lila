@@ -33,7 +33,7 @@
   <string name="basedOnGameDuration">Tidskontrollane på Lichess er basert på estimert total speletid = %1$s
   Til dømes er estimert lengd på eit 5+3 parti 5 * 60 + 40 * 3 = 420 sekund.</string>
   <string name="durationFormula">(starttid på sjakkuret) + 40 * (tilleggstid)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Kva for variantar kan eg spele på Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess støttar standard sjakk og %1$s.</string>

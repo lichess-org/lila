@@ -5,7 +5,7 @@
   <string name="areYouCoach">Yes un gran entrenador d\'escaques con un %s?</string>
   <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">Titol MN u FIDE</string>
   <string name="confirmTitle">Confirma lo tuyo titol aquí y revisaremos la tuya solicitut.</string>
-  <string name="sendApplication">Ninvia-nos un correu electronico a %s y revisaremos la tuya solicitut.</string>
+  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Ninvia-nos un correu electronico a %s y revisaremos la tuya solicitut.</string>
   <string name="location">Ubicación</string>
   <string name="languages">Idiomas</string>
   <string name="rating">Puntuación</string>

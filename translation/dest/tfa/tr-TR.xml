@@ -5,6 +5,7 @@
   <string name="twoFactorApp">İki aşamalı kimlik doğrulama için bir uygulama indirin. Örneğin %1$s ve %2$s için Google Authenticator yükleyebilirsiniz.</string>
   <string name="scanTheCode">QR kodunu uygulama ile tarayın.</string>
   <string name="enterPassword">Kurulumu tamamlamak için şifrenizi ve uygulama tarafından oluşturulan kimlik doğrulama kodunu girin. Her oturum açtığınızda bir kimlik doğrulama koduna ihtiyacınız olacak.</string>
+  <string name="ifYouCannotScanEnterX" comment="ifYouCannotScanEnterX&#10;&#10;%s is the authentication code">Eğer kodu taratmanız mümkün değilse, uygulamanıza süper gizli %s kodunu girin.</string>
   <string name="authenticationCode">Kimlik doğrulama kodu</string>
   <string name="ifYouLoseAccess">Not: İki faktörlü kimlik doğrulama kodunuza erişimi kaybederseniz, elektronik posta yoluyla bir şifre sıfırlama işlemi yapabilirsiniz.</string>
   <string name="enableTwoFactor">İki faktörlü kimlik doğrulamayı etkinleştirin</string>

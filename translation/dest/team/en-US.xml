@@ -42,4 +42,6 @@ Players who don\'t like receiving your messages might leave the team.</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">You may want to link one of these upcoming tournaments?</string>
   <string name="usersWhoCanManageThisTeam">Users who can manage this team</string>
   <string name="leadersChat">Leaders chat</string>
+  <string name="closeTeam">Close team</string>
+  <string name="closeTeamDescription">Closes the team forever.</string>
 </resources>

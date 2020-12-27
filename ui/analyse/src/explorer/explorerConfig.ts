@@ -26,11 +26,11 @@ export function controller(game: Game, onClose: () => void, trans: Trans, redraw
     },
     rating: {
       available: allRatings,
-      selected: storedJsonProp('explorer.rating', allRatings)
+      selected: storedJsonProp('explorer.rating', () => allRatings)
     },
     speed: {
       available: allSpeeds,
-      selected: storedJsonProp<ExplorerSpeed[]>('explorer.speed', allSpeeds)
+      selected: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds)
     }
   };
 

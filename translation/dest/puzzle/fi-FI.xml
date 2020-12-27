@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Tehtävät</string>
+  <string name="recommended">Suosittelemme</string>
+  <string name="phases">Pelin vaiheet</string>
+  <string name="motifs">Motiivit</string>
+  <string name="advanced">Edistyneille</string>
+  <string name="lengths">Pituudet</string>
+  <string name="mates">Matit</string>
+  <string name="goals">Tavoitteet</string>
+  <string name="specialMoves">Erityissiirrot</string>
+  <string name="didYouLikeThisPuzzle">Piditkö tästä tehtävästä?</string>
+  <string name="voteToLoadNextOne">Äänestä, niin seuraava latautuu!</string>
+  <string name="yourPuzzleRatingX">Tehtävävahvuuslukusi: %s</string>
+  <string name="findTheBestMoveForWhite">Löydä valkean paras siirto.</string>
+  <string name="findTheBestMoveForBlack">Löydä mustan paras siirto.</string>
+  <string name="toGetPersonalizedPuzzles">Halutessasi henkilökohtaisia tehtäviä:</string>
+  <string name="puzzleId">Tehtävä %s</string>
+  <string name="puzzleOfTheDay">Päivän tehtävä</string>
+  <string name="clickToSolve">Ratkaise klikkaamalla</string>
+  <string name="goodMove">Hyvä siirto</string>
+  <string name="bestMove">Paras siirto!</string>
+  <string name="keepGoing">Jatka…</string>
+  <string name="puzzleSuccess">Onnistui!</string>
+  <string name="puzzleComplete">Tehtävä ratkaistu!</string>
+  <string name="notTheMove">Tuo siirto se ei ole!</string>
+  <string name="trySomethingElse">Kokeile jotain muuta.</string>
+  <string name="ratingX">Vahvuusluku: %s</string>
+  <string name="hidden">piilotettu</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Pelattu %s kerran</item>
+    <item quantity="other">Pelattu %s kertaa</item>
+  </plurals>
+  <string name="fromGameLink">Pelistä %s</string>
+  <string name="continueTraining">Jatka harjoittelua</string>
+  <string name="difficultyLevel">Vaikeustaso</string>
+  <string name="normal">Keskitaso</string>
+  <string name="easier">Helpompi</string>
+  <string name="easiest">Helpoin</string>
+  <string name="harder">Vaikeampi</string>
+  <string name="hardest">Vaikein</string>
+  <string name="example">Esimerkki</string>
+  <string name="addAnotherTheme">Lisää toinen teema</string>
+  <string name="jumpToNextPuzzleImmediately">Jatka heti seuraavaan tehtävään</string>
+</resources>

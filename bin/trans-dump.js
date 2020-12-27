@@ -2,7 +2,7 @@ const fs = require('fs').promises;
 const parseString = require('xml2js').parseString;
 
 const baseDir = 'translation/source';
-const dbs = 'site arena emails learn activity coordinates study clas contact patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss'.split(' ');
+const dbs = 'site arena emails learn activity coordinates study clas contact patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme'.split(' ');
 
 function ucfirst(s) {
   return s.charAt(0).toUpperCase() + s.slice(1);

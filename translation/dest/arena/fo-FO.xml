@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="arenaTournaments">Arenakappingar</string>
+  <string name="isItRated">Er hon styrkismett?</string>
+  <string name="willBeNotified">Tú fært boð, tá ið kappingin byrjar, so tað er trygt at telva í øðrum teigara (tab), meðan tú bíðar.</string>
+  <string name="isRated">Henda kapping verður styrkismett, og fer at ávirka títt styrkital.</string>
+  <string name="isNotRated">Henda kapping verður *ikki* styrkismett, og fer *ikki* at ávirka títt styrkital.</string>
+  <string name="someRated">Nakrar kappingar verða styrkismettar, og fara at ávirka títt styrkital.</string>
+  <string name="howAreScoresCalculated">Hvussu verða stig roknað?</string>
+  <string name="howAreScoresCalculatedAnswer">Vinnur tú, fært tú 2 stig. Telvar tú javnt, fært tú 1 stig. Tapir tú, fært tú einki stig. Vinnur tú tvey talv á rað, byrjar tú at fáa dupult stigatal. Hetta verður lýst við eini mynd av einum loga. Talvini, ið síðani verða telvað, eru eisini verd 4 stig, um tú vinnur tey, og tað heldur fram, til tú ikki vinnur longur. Tað merkir, at ein sigur er verdur 4 stig, javnleikur er verdur 2 stig, og ein ósigur gevur framvegis einki stig.
+
+T. d. geva tveir sigrar og ein javnleikur 6 stig tilsamans: 2 + 2 + (2 + 1)</string>
+  <string name="berserk">Berserkaraarena</string>
+  <string name="howIsTheWinnerDecided">Hvussu verður gjørt av, hvør ið vinnur?</string>
+  <string name="howDoesPairingWork">Hvussu fer greipingin fram?</string>
+</resources>

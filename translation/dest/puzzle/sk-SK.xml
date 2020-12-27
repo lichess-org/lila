@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Šachové úlohy</string>
+  <string name="recommended">Odporúčané</string>
+  <string name="phases">Fázy</string>
+  <string name="advanced">Pokročilé</string>
+  <string name="mates">Mat</string>
+  <string name="didYouLikeThisPuzzle">Páčila sa vám táto úloha?</string>
+  <string name="yourPuzzleRatingX">Vaše hodnotenie úloh: %s</string>
+  <string name="findTheBestMoveForWhite">Nájdite najlepší ťah pre bieleho.</string>
+  <string name="findTheBestMoveForBlack">Nájdite najlepší ťah pre čierneho.</string>
+  <string name="puzzleId">Úloha %s</string>
+  <string name="puzzleOfTheDay">Rébus dňa</string>
+  <string name="goodMove">Dobrý ťah</string>
+  <string name="bestMove">Najlepší ťah!</string>
+  <string name="keepGoing">Pokračujte…</string>
+  <string name="puzzleSuccess">Úspech!</string>
+  <string name="puzzleComplete">Úloha splnená!</string>
+  <string name="trySomethingElse">Skúste niečo iné.</string>
+  <string name="ratingX">Hodnotenie: %s</string>
+  <string name="hidden">skryté</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Hrané %s-krát</item>
+    <item quantity="few">Hrané %s-krát</item>
+    <item quantity="many">Hrané %s-krát</item>
+    <item quantity="other">Hrané %s-krát</item>
+  </plurals>
+  <string name="fromGameLink">Z hry %s</string>
+  <string name="continueTraining">Trénujte ďalej</string>
+  <string name="difficultyLevel">Obtiažnosť</string>
+  <string name="normal">Normálna</string>
+  <string name="easier">Ľahšia</string>
+  <string name="easiest">Najľahšia</string>
+  <string name="harder">Ťažšia</string>
+  <string name="hardest">Najťažšia</string>
+  <string name="example">Príklad</string>
+</resources>

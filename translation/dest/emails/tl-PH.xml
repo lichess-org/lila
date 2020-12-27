@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Kumpirmahin ang iyong Lichess account,%s</string>
-  <string name="emailConfirm_click">Pindutin ang link upang paganahin ang iyong Lichess account:%s:</string>
-  <string name="emailConfirm_ignore">Kung hindi ka nag-register sa Lichess, maaari mo nang i-ignore ang mensaheng ito. %s.</string>
+  <string name="emailConfirm_click">Pindutin ang link upang paganahin ang iyong Lichess account:</string>
+  <string name="emailConfirm_ignore">Kung hindi ka nag-register sa Lichess, maaari mo nang i-ignore ang mensaheng ito.</string>
   <string name="passwordReset_subject">I-reset ang iyong Lichess password,%s</string>
-  <string name="passwordReset_intro">Kami ay nakatanggap ng iyong request upang i-reset ang password para sa iyong account.%s.</string>
-  <string name="passwordReset_clickOrIgnore">Kung ginawa mo ang request na ito, pindutin ang link sa ibaba. Kung hindi, maaari mo nang i-ignore ang email na ito.%s.</string>
+  <string name="passwordReset_intro">Kami ay nakatanggap ng iyong request upang i-reset ang password para sa iyong account.</string>
+  <string name="passwordReset_clickOrIgnore">Kung ginawa mo ang request na ito, pindutin ang link sa ibaba. Kung hindi, maaari mo nang i-ignore ang email na ito.</string>
   <string name="emailChange_subject">Kumpirmahin ang bagong email address,%s</string>
-  <string name="emailChange_intro">Nai-request mo nang baguhin ang iyong email address.%s.</string>
-  <string name="emailChange_click">Upang kumpirmahin na mayroon kang access sa email na ito, pindutin ang link sa ibaba:%s:</string>
+  <string name="emailChange_intro">Nai-request mo nang baguhin ang iyong email address.</string>
+  <string name="emailChange_click">Upang kumpirmahin na mayroon kang access sa email na ito, pindutin ang link sa ibaba:</string>
   <string name="welcome_subject">Maligayang pagdating sa lichess.org,%s</string>
   <string name="welcome_text">Ito ang iyong profile page:%1$s. Maaari mo itong i-personalize sa %2$s.
 

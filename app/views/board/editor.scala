@@ -13,15 +13,14 @@ object editor {
   def apply(
       sit: chess.Situation,
       fen: FEN,
-      positionsJson: String,
-      animationDuration: scala.concurrent.duration.Duration
+      positionsJson: String
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.boardEditor.txt(),
       moreJs = frag(
         jsModule("editor"),
         embedJsUnsafeLoadThen(
-          s"""const data=${safeJsonValue(bits.jsData(sit, fen, animationDuration))};data.positions=$positionsJson;
+          s"""const data=${safeJsonValue(bits.jsData(sit, fen))};data.positions=$positionsJson;
 LichessEditor(document.getElementById('board-editor'), data);"""
         )
       ),

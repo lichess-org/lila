@@ -171,11 +171,15 @@ final private[round] class RoundDuct(
       }
 
     case lila.chat.actorApi.RoundLine(line, watcher) =>
-      fuccess {
-        publish(List(line match {
-          case l: lila.chat.UserLine   => Event.UserMessage(l, watcher)
-          case l: lila.chat.PlayerLine => Event.PlayerMessage(l)
-        }))
+      val message = line match {
+        case l: lila.chat.UserLine => Event.UserMessage(l, watcher).some
+        case l: lila.chat.PlayerLine =>
+          proxy.withGameOptionSync {
+            _.fromFriend option Event.PlayerMessage(l)
+          }.flatten
+      }
+      message ?? { msg =>
+        fuccess(publish(List(msg)))
       }
 
     case Protocol.In.HoldAlert(fullId, ip, mean, sd) =>

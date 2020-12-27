@@ -6,7 +6,7 @@
   <string name="materialDifference">Figūrų vertės skirtumas</string>
   <string name="boardHighlights">Lentos paryškinimai (paskutinis ėjimas ir šachas)</string>
   <string name="pieceDestinations">Leistini (galimi) ėjimai</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Lentos koordinatės (A-H, 1-8)</string>
+  <string name="boardCoordinates">Lentos koordinatės (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Ėjimų sąrašas žaidžiant</string>
   <string name="pgnPieceNotation">Ėjimų žymėjimas</string>
   <string name="chessPieceSymbol">Šachmatų figūrų simboliai</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Aklieji šachmatai (nematomos figūros)</string>
   <string name="chessClock">Žaidimo laikrodis</string>
   <string name="tenthsOfSeconds">Dešimtosios sekundės dalys</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Kai lieka mažiau nei 10 sekundžių</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Kai lieka mažiau nei 10 sekundžių</string>
   <string name="horizontalGreenProgressBars">Horizontalios, žalios eigos juostos</string>
   <string name="soundWhenTimeGetsCritical">Garsas pasiekus kritinę laiko ribą</string>
   <string name="giveMoreTime">Duoti daugiau laiko</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">Tik nevertinamose partijose</string>
   <string name="promoteToQueenAutomatically">Automatiškai paaukštinti į valdovę</string>
   <string name="whenPremoving">Per išankstinį ėjimą</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Automatiškai įskaityti lygiąsias pozicijai pasikartojus tris kartus</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Kai lieka mažiau nei 30 sekundžių</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatiškai įskaityti lygiąsias pozicijai pasikartojus tris kartus</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Kai lieka mažiau nei 30 sekundžių</string>
   <string name="moveConfirmation">Ėjimo patvirtinimas</string>
   <string name="inCorrespondenceGames">Korespondenciniuose</string>
   <string name="correspondenceAndUnlimited">Korespondenciniai ir neriboti</string>
@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Eiti su karaliumi per du langelius</string>
   <string name="castleByMovingOntoTheRook">Eiti su karaliumi ant bokšto</string>
   <string name="inputMovesWithTheKeyboard">Ėjimų įvedimas su klaviatūra</string>
+  <string name="snapArrowsToValidMoves">Rodykles užfiksuoti ties leistinais ėjimais</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Nepamirškite nugalėti ar po lygiųjų pasakyti, \"Gera partija, ačiū\"</string>
   <string name="yourPreferencesHaveBeenSaved">Jūsų nuostatos buvo išsaugotos.</string>
 </resources>

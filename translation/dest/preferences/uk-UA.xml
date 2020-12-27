@@ -6,7 +6,7 @@
   <string name="materialDifference">Співвідношення матеріалу</string>
   <string name="boardHighlights">Підсвітлення кольором (останнього ходу та шаху)</string>
   <string name="pieceDestinations">Поля для ходів (можливі ходи та ходи на випередження)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Координати (A-H, 1-8)</string>
+  <string name="boardCoordinates">Координати (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Список ходів під час гри</string>
   <string name="pgnPieceNotation">Нотація ходів</string>
   <string name="chessPieceSymbol">Символ шахової фігури</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Шахи наосліп (невидимі фігури)</string>
   <string name="chessClock">Шаховий годинник</string>
   <string name="tenthsOfSeconds">Десяті частки секунди</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Коли часу залишається &lt; 10 секунд</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Коли часу залишається &lt; 10 секунд</string>
   <string name="horizontalGreenProgressBars">Горизонтальна зелена смуга</string>
   <string name="soundWhenTimeGetsCritical">Звук, коли часу стає зовсім обмаль</string>
   <string name="giveMoreTime">Додати часу</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">Тільки у товариських іграх</string>
   <string name="promoteToQueenAutomatically">Перетворення пішака завжди на ферзя</string>
   <string name="whenPremoving">Для ходів на випередження</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Автоматично оголошувати нічию при троєкратному повторенні ходів</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Коли часу залишається &lt; 30 секунд</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматично оголошувати нічию при троєкратному повторенні ходів</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Коли часу залишається &lt; 30 секунд</string>
   <string name="moveConfirmation">Підтвердження ходу</string>
   <string name="inCorrespondenceGames">У заочних партіях</string>
   <string name="correspondenceAndUnlimited">За листуванням та необмежені</string>
@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Перемістити короля на два поля</string>
   <string name="castleByMovingOntoTheRook">Перемістити короля на клітинку, яка межує з турою</string>
   <string name="inputMovesWithTheKeyboard">Вводити ходи за допомогою клавіатури</string>
+  <string name="snapArrowsToValidMoves">Прив\'язати стрілки до можливих ходів</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Скажіть в чат \"Хороша гра, гарно зіграно\" після поразки або нічиї</string>
   <string name="yourPreferencesHaveBeenSaved">Ваші налаштування збережено.</string>
 </resources>

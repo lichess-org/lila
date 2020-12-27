@@ -6,7 +6,7 @@
   <string name="materialDifference">Materiaal verskil</string>
   <string name="boardHighlights">Bord hoogtepunte (onlangste skuif en skaak)</string>
   <string name="pieceDestinations">Stuk bestemmings (geldige skuiwe en vooraf-skuiwe)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Bord koördinate (A-H, 1-8)</string>
+  <string name="boardCoordinates">Bord koördinate (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Skuiflys tydens spel</string>
   <string name="pgnPieceNotation">Skuif Notasie</string>
   <string name="chessPieceSymbol">Skaakstuk simbool</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Blinddoek skaak (onsigbare stukke)</string>
   <string name="chessClock">Skaakklok</string>
   <string name="tenthsOfSeconds">Tiendes van sekondes</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">&lt; 10 sekondes voor tyd uitloop</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">&lt; 10 sekondes voor tyd uitloop</string>
   <string name="horizontalGreenProgressBars">Horisontale groen voortgangsbalkies</string>
   <string name="soundWhenTimeGetsCritical">Klank as tyd noop</string>
   <string name="giveMoreTime">Gee meer tyd</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">Slegs in vriendskaplike spelle</string>
   <string name="promoteToQueenAutomatically">Promoveer outomaties tot Dame</string>
   <string name="whenPremoving">Tydens vooraf-skuiwe</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Eis gelykop met drievoudige repetisie outomaties</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">&lt; 30 sekondes voor tyd uitloop</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Eis gelykop met drievoudige repetisie outomaties</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">&lt; 30 sekondes voor tyd uitloop</string>
   <string name="moveConfirmation">Skuif bevestiging</string>
   <string name="inCorrespondenceGames">Korrespondensie spelle</string>
   <string name="correspondenceAndUnlimited">Korrespondensie en onbeperkte</string>

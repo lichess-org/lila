@@ -6,7 +6,7 @@
   <string name="materialDifference">രൂപ വ്യത്യാസം</string>
   <string name="boardHighlights">പലകയിലെ മുഖ്യ ആകർഷണങ്ങൾ (അവസാന നീക്കവും അടിയറവും)</string>
   <string name="pieceDestinations">കരുവിന്റെ ശരിയായ സ്ഥാനം ( ന്യായമായ നീക്കങ്ങളും premoves-ഉം)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">പലകയിലെ സ്ഥാനാങ്കങ്ങൾ (A-H, 1-8)</string>
+  <string name="boardCoordinates">പലകയിലെ സ്ഥാനാങ്കങ്ങൾ (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">കളിയുടെ നീക്ക-ശ്രേണി</string>
   <string name="pgnPieceNotation">നീക്കങ്ങൾ എങ്ങനെ രേഖപ്പെടുത്തണം</string>
   <string name="chessPieceSymbol">ചെസ്സ് കരുവിന്റെ അടയാളം</string>
@@ -16,7 +16,7 @@
   <string name="blindfoldChess">കണ്ണു കെട്ടിയ ചതുരംഗം (അദൃശ്യമായ കരുക്കൾ)</string>
   <string name="chessClock">ചതുരംഗ സമയം</string>
   <string name="tenthsOfSeconds">സെക്കന്റിന്റെ പത്തിലൊരംശം</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">ഇനി ശേഷിക്കുന്നത് 10 ഇൽ താഴെ സെക്കന്റുകൾ</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">ഇനി ശേഷിക്കുന്നത് 10 ഇൽ താഴെ സെക്കന്റുകൾ</string>
   <string name="horizontalGreenProgressBars">തിരശ്ചീന പച്ച നിലവാര രേഖകൾ</string>
   <string name="soundWhenTimeGetsCritical">നിർണായക സമയത്തു ധ്വനിപ്പിക്കുക</string>
   <string name="giveMoreTime">കൂടുതൽ സമയം കൊടുക്കുക</string>
@@ -29,8 +29,8 @@
   <string name="inCasualGamesOnly">സാധാരണ കളികളിൽ മാത്രം</string>
   <string name="promoteToQueenAutomatically">റാണിയായി താനെ സ്ഥാനക്കയറ്റം നൽകൂ</string>
   <string name="whenPremoving">മുൻകൂട്ടിയുള്ള നീക്കത്തിൽ</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">3 തവണ ഒരേ നീക്കം തുടർന്നാൽ താനെ ഗെയിം സമനിലയായി മാറ്റുക</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">ശേഷിക്കുന്ന സമയം &lt;30 സെക്കന്റുകൾ</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">3 തവണ ഒരേ നീക്കം തുടർന്നാൽ താനെ ഗെയിം സമനിലയായി മാറ്റുക</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">ശേഷിക്കുന്ന സമയം &lt;30 സെക്കന്റുകൾ</string>
   <string name="moveConfirmation">നീക്കം സ്ഥിരീകരണം</string>
   <string name="inCorrespondenceGames">തത്തുല്യമായ കളികൾ</string>
   <string name="correspondenceAndUnlimited">തത്തുല്യമായതും അതീതമായതും</string>

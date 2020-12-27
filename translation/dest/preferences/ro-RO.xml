@@ -6,7 +6,7 @@
   <string name="materialDifference">Diferență de piese capturate</string>
   <string name="boardHighlights">Evidențiază pe tablă (ultima mutare și șahul)</string>
   <string name="pieceDestinations">Destinația piesei (mutări valide și premutări)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Coordonatele tablei (A-H, 1-8)</string>
+  <string name="boardCoordinates">Coordonatele tablei (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lista de mutări în timpul jocului</string>
   <string name="pgnPieceNotation">Notația mutării</string>
   <string name="chessPieceSymbol">Simbolul piesei de șah</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Șah ”legat la ochi” (piese invizibile)</string>
   <string name="chessClock">Ceasul de șah</string>
   <string name="tenthsOfSeconds">Zecimi de secundă</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Când timpul rămas e mai scurt de 10 de secunde</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Când timpul rămas e mai scurt de 10 de secunde</string>
   <string name="horizontalGreenProgressBars">Bare orizontale verzi cu progresul</string>
   <string name="soundWhenTimeGetsCritical">Sunet când timpul e aproape de expirare</string>
   <string name="giveMoreTime">Adaugă timp adversarului</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">În jocuri amicale</string>
   <string name="promoteToQueenAutomatically">Promovează automat in damă</string>
   <string name="whenPremoving">În cazul mutărilor anticipate</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Declară automat o remiză în cazul a trei repetări</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Când timpul rămas e mai scurt de 30 de secunde</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Declară automat o remiză în cazul a trei repetări</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Când timpul rămas e mai scurt de 30 de secunde</string>
   <string name="moveConfirmation">Confirmare mutare</string>
   <string name="inCorrespondenceGames">În jocuri prin corespondență</string>
   <string name="correspondenceAndUnlimited">Corespondență sau timp nelimitat</string>
@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Mută regele două pătrățele</string>
   <string name="castleByMovingOntoTheRook">Mută regele pe turn</string>
   <string name="inputMovesWithTheKeyboard">Introdu mutări folosind tastatura</string>
+  <string name="snapArrowsToValidMoves">Trage săgețile la mutările valide</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Spune \"Joc bun, bine jucat\" la înfrângere sau la remiză</string>
   <string name="yourPreferencesHaveBeenSaved">Preferințele tale au fost salvate</string>
 </resources>
