@@ -67,8 +67,6 @@
   <string name="oneMoveDescription">A puzzle that is only one move long.</string>
   <string name="opening">Opening</string>
   <string name="openingDescription">A tactic during the first phase of the game.</string>
-  <string name="overloading">Overloading</string>
-  <string name="overloadingDescription">Where a piece is performing multiple functions, such as defending two pieces. Capture of one of the defended pieces will leave an opportunity as the defender moves, similar to deflection.</string>
   <string name="pawnEndgame">Pawn endgame</string>
   <string name="pawnEndgameDescription">An endgame with only pawns.</string>
   <string name="pin">Pin</string>

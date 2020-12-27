@@ -49,7 +49,6 @@ object PuzzleTheme {
   val middlegame     = PuzzleTheme(Key("middlegame"), i.middlegame, i.middlegameDescription)
   val oneMove        = PuzzleTheme(Key("oneMove"), i.oneMove, i.oneMoveDescription)
   val opening        = PuzzleTheme(Key("opening"), i.opening, i.openingDescription)
-  val overloading    = PuzzleTheme(Key("overloading"), i.overloading, i.overloadingDescription)
   val pawnEndgame    = PuzzleTheme(Key("pawnEndgame"), i.pawnEndgame, i.pawnEndgameDescription)
   val pin            = PuzzleTheme(Key("pin"), i.pin, i.pinDescription)
   val promotion      = PuzzleTheme(Key("promotion"), i.promotion, i.promotionDescription)
@@ -106,7 +105,6 @@ object PuzzleTheme {
       deflection,
       interference,
       intermezzo,
-      overloading,
       quietMove,
       xRayAttack,
       zugzwang
