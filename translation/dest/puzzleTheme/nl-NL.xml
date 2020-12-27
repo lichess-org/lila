@@ -67,8 +67,6 @@
   <string name="oneMoveDescription">Een puzzel die maar één zet vereist.</string>
   <string name="opening">Opening</string>
   <string name="openingDescription">Tactiek in de eerste fase van de partij.</string>
-  <string name="overloading">Overbelasting</string>
-  <string name="overloadingDescription">Hiervan is sprake als een stuk meer taken heeft dan het aankan, zoals het verdedigen van twee stukken. Slaan van een van de verdedigde stukken zorgt voor nieuwe mogelijkheden als de verdediger verplaatst wordt. Vergelijkbaar met weglokken.</string>
   <string name="pawnEndgame">Pionneneindspel</string>
   <string name="pawnEndgameDescription">Een eindspel met alleen pionnen.</string>
   <string name="pin">Penning</string>
