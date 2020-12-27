@@ -13,4 +13,5 @@
   <string name="twoFactorEnabled">Iespējota divfaktoru autentifikācija</string>
   <string name="twoFactorDisable">Jums nepieciešama parole un autentifikatora lietojumprogrammas autentifikācijas kods, lai atspējotu divfaktoru autentifikāciju.
 Ja zaudējāt piekļuvi autentifikācijas kodiem, varat arī atiestatīt paroli, izmantojot e-pastu.</string>
+  <string name="openTwoFactorApp">Atveriet divu faktoru autentifikācijas aplikāciju savā ierīcē, lai skatītu autentifikācijas kodu un apliecinātu savu identitāti.</string>
 </resources>
