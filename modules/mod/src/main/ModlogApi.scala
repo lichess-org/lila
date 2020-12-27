@@ -259,7 +259,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
       $doc(
         "user"   -> userId,
         "action" -> Modlog.cheatDetected,
-        "date" $gte DateTime.now.minusSeconds(3600 * 24 * 30 * 6)
+        "date" $gte DateTime.now.minusMonths(6)
       )
     )
 
