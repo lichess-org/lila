@@ -37,7 +37,7 @@
   <string name="enPassantDescription">アンパッサン、つまり相手の 2 マス前進したポーンを途中で取る手を含むタクティクス。</string>
   <string name="exposedKing">危険なキング</string>
   <string name="exposedKingDescription">守り駒の少ないキングを攻める問題、多くの場合メイトにつながる。</string>
-  <string name="fork">フォーク</string>
+  <string name="fork">フォーク（両取り）</string>
   <string name="forkDescription">動いた駒が相手の 2 つの駒を同時に攻撃する手。</string>
   <string name="hangingPiece">浮き駒</string>
   <string name="hangingPieceDescription">守りのない駒、または守り駒の足りない駒をただで取る問題。</string>
