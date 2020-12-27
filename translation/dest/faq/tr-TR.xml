@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">S.S.S</string>
+  <string name="faqAbbreviation">SSS</string>
   <string name="frequentlyAskedQuestions">Sıkça Sorulan Sorular</string>
   <string name="whyIsLichessCalledLichess">Lichess\'in adı neden Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess, \"live/light/libre\" kelimeleri ile satranç anlamına gelen \"chess\" kelimesinin birleşimiyle oluşturulmuştur.
