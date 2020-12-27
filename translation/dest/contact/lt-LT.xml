@@ -25,7 +25,7 @@
   <string name="cantChangeMore">Negalime pakeisti daugiau negu didžiųjų/mažųjų raidžių. Dėl techninių priežasčių tai neįmanoma.</string>
   <string name="orCloseAccount">Jūs galite uždaryti esamą paskyrą ir atsidaryti naują.</string>
   <string name="wantClearHistory">Noriu išvalyti savo istoriją ir reitingą</string>
-  <string name="cantClearHistory">Nėra galimybės išvalyti savo žaidimų istorijos, galvosūkių istorijos ar reitingų.</string>
+  <string name="cantClearHistory">Nėra galimybės išvalyti savo partijų istorijos, galvosūkių istorijos ar reitingų.</string>
   <string name="wantReport">Noriu pranešti apie žaidėją</string>
   <string name="cheating">sukčiavimo</string>
   <string name="sandbagging">tyčinio pralaimėjimo</string>
@@ -56,7 +56,7 @@
   <string name="fideMate">Pagal FIDE šachmatų taisyklių §6.9, jei matas yra įmanomas bet kokia leistina ėjimų seka, žaidimas nėra lygiosios</string>
   <string name="knightMate">Yra įmanoma atlikti matą tik su žirgu ar rikiu jeigu priešininkas ant lentos turi daugiau negu tik karalių.</string>
   <string name="noRatingPoints">Nebuvo skirta reitingo taškų</string>
-  <string name="ratedGame">Įsitikinkite, kad žaidėte reitinguotą žaidimą. Nevertinami žaidimai nedaro įtakos žaidėjų reitingams.</string>
+  <string name="ratedGame">Įsitikinkite, kad žaidėte reitinguotą partiją. Nevertinamos partijos nedaro įtakos žaidėjų reitingams.</string>
   <string name="errorPage">Klaidos puslapis</string>
   <string name="reportErrorPage">Jei susidūrėte su klaidos puslapiu galite apie jį pranešti:</string>
   <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Apeliuoti blokavimą ar IP adreso apribojimą</string>
