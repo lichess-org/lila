@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Zadania szachowe</string>
-  <string name="recommended">Rekomendowane</string>
+  <string name="recommended">Polecane</string>
   <string name="phases">Faza gry</string>
   <string name="motifs">Motyw</string>
   <string name="advanced">Zaawansowane</string>
   <string name="lengths">Długość zadania</string>
-  <string name="mates">Mat</string>
+  <string name="mates">Maty</string>
   <string name="goals">Cele</string>
-  <string name="specialMoves">Ruchy specjalne</string>
+  <string name="specialMoves">Szczególne posunięcia</string>
   <string name="didYouLikeThisPuzzle">Czy podobało Ci się to zadanie?</string>
-  <string name="voteToLoadNextOne">Zagłosuj by wczytać następny!</string>
+  <string name="voteToLoadNextOne">Zagłosuj, by wczytać następny!</string>
   <string name="yourPuzzleRatingX">Twój ranking treningowy: %s</string>
   <string name="findTheBestMoveForWhite">Znajdź najlepszy ruch dla białych.</string>
   <string name="findTheBestMoveForBlack">Znajdź najlepszy ruch dla czarnych.</string>
-  <string name="toGetPersonalizedPuzzles">Aby uzyskać spersonalizowane zagadki:</string>
+  <string name="toGetPersonalizedPuzzles">Aby uzyskać spersonalizowane zadania:</string>
   <string name="puzzleId">Zadanie %s</string>
   <string name="puzzleOfTheDay">Zadanie dnia</string>
-  <string name="clickToSolve">Kliknij aby zobaczyć rozwiązanie</string>
+  <string name="clickToSolve">Kliknij, aby zobaczyć rozwiązanie</string>
   <string name="goodMove">Dobry ruch</string>
   <string name="bestMove">Najlepszy ruch!</string>
   <string name="keepGoing">Kontynuuj…</string>
@@ -37,11 +37,11 @@
   <string name="continueTraining">Kontynuuj trening</string>
   <string name="difficultyLevel">Poziom trudności</string>
   <string name="normal">Normalny</string>
-  <string name="easier">Łatwy</string>
+  <string name="easier">Łatwiejszy</string>
   <string name="easiest">Najłatwiejszy</string>
-  <string name="harder">Trudny</string>
+  <string name="harder">Trudniejszy</string>
   <string name="hardest">Najtrudniejszy</string>
   <string name="example">Przykład</string>
   <string name="addAnotherTheme">Dodaj inny motyw</string>
-  <string name="jumpToNextPuzzleImmediately">Natychmiast skocz do następnego zadania</string>
+  <string name="jumpToNextPuzzleImmediately">Natychmiast przejdź do następnego zadania</string>
 </resources>
