@@ -53,12 +53,14 @@
       font-weight: normal;
       font-size: 1.7em;
       display: block;
-      white-space: nowrap;
-      line-height: 1.5em;
+      line-height: 1em;
+      margin: .1em 0 .3em 0;
       em {
         @extend %roboto;
         color: $c-font-dimmer;
-        margin-left: 1ch;
+        font-size: .8em;
+        margin-left: .7ch;
+        letter-spacing: -1px;
       }
     }
 
