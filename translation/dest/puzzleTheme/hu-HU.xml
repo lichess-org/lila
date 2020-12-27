@@ -67,8 +67,6 @@
   <string name="oneMoveDescription">Csupán egy lépésből álló feladvány.</string>
   <string name="opening">Megnyitás</string>
   <string name="openingDescription">Taktikák a játszma kezdeti fázisában.</string>
-  <string name="overloading">Túlterhelés</string>
-  <string name="overloadingDescription">Több feladatot ellátó figurán alapul, például amikor két másik figurát véd. Az egyik védett figura leütése után lehetőség nyílik a másik ellen irányuló támadásra. Hasonló az eltereléshez.</string>
   <string name="pawnEndgame">Gyalogvégjáték</string>
   <string name="pawnEndgameDescription">Végjáték csak gyalogokkal.</string>
   <string name="pin">Kötés</string>
