@@ -42,6 +42,6 @@
   <string name="castleByMovingOntoTheRook">Ruch królem na wieżę</string>
   <string name="inputMovesWithTheKeyboard">Wprowadzaj ruchy za pomocą klawiatury</string>
   <string name="snapArrowsToValidMoves">Wyrównuj strzałki do legalnych ruchów</string>
-  <string name="sayGgWpAfterLosingOrDrawing">Napisz \"Good game, well played\" po przegranej lub remisie</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Napisz \"Dobra gra, dobrze zagrałeś\" po porażce lub remisie</string>
   <string name="yourPreferencesHaveBeenSaved">Twoje ustawienia zostały zapisane.</string>
 </resources>
