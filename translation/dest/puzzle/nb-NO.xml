@@ -22,7 +22,7 @@
   <string name="bestMove">Beste trekk!</string>
   <string name="keepGoing">Fortsett…</string>
   <string name="puzzleSuccess">Korrekt!</string>
-  <string name="puzzleComplete">Knekt nøtt!</string>
+  <string name="puzzleComplete">Ferdigknekt nøtt!</string>
   <string name="notTheMove">Det der er ikke trekket!</string>
   <string name="trySomethingElse">Prøv noe annet.</string>
   <string name="ratingX">Rating: %s</string>
