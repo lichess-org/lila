@@ -53,4 +53,20 @@
   <string name="editStudy">Chỉnh sửa nghiên cứu</string>
   <string name="visibility">Khả năng hiển thị</string>
   <string name="public">Công khai</string>
+  <string name="unlisted">Không công khai</string>
+  <string name="inviteOnly">Chỉ những người được mời</string>
+  <string name="allowCloning">Cho phép tạo bản sao</string>
+  <string name="nobody">Không ai</string>
+  <string name="onlyMe">Chỉ tôi</string>
+  <string name="contributors">Những người đóng góp</string>
+  <string name="members">Thành viên</string>
+  <string name="everyone">Mọi người</string>
+  <string name="enableSync">Kích hoạt tính năng sync</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Có: giữ tất cả mọi người trên 1 thế cờ</string>
+  <string name="noLetPeopleBrowseFreely">Không: để mọi người tự do xem xét</string>
+  <string name="pinnedStudyComment">Bình luận được ghim</string>
+  <string name="start">Bắt đầu</string>
+  <string name="save">Lưu</string>
+  <string name="clearChat">Xóa chat</string>
+  <string name="deleteTheStudyChatHistory">Xóa lịch sử chat? Không thể làm lại được đâu!</string>
 </resources>
