@@ -543,6 +543,7 @@
   <string name="asFreeAsLichess">Chomh saor le Lichess</string>
   <string name="zeroAdvertisement">Gan fógraíocht</string>
   <string name="gameAnalysis">Anailís cluiche</string>
+  <string name="quickPairing">Péireáil tapaidh</string>
   <string name="lobby">Forsheomra</string>
   <string name="anonymous">Gan ainm</string>
   <string name="yourScore">Do scór: %s</string>
