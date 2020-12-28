@@ -37,4 +37,20 @@
   <string name="empty">Trống</string>
   <string name="startFromInitialPosition">Bắt đầu từ thế cờ đầu</string>
   <string name="editor">Chỉnh sửa bàn cờ</string>
+  <string name="startFromCustomPosition">Bắt đầu từ thế cờ đặt sẵn</string>
+  <string name="loadAGameByUrl">Tải ván cờ bằng đường dẫn</string>
+  <string name="loadAPositionFromFen">Tải thế cờ từ mã FEN</string>
+  <string name="loadAGameFromPgn">Tải thế cờ từ PGN</string>
+  <string name="automatic">Tự động</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="other">Dán PGN ở đây, lên đến %s ván</item>
+  </plurals>
+  <string name="urlOfTheGame">Đường dẫn của các ván, một đường dẫn mỗi dòng</string>
+  <string name="loadAGameFromXOrY">Tải ván cờ từ %1$s hoặc %2$s</string>
+  <string name="createChapter">Tạo chương</string>
+  <string name="configureLiveBroadcast">Cấu hình truyền hình trực tiếp</string>
+  <string name="createStudy">Tạo nghiên cứu</string>
+  <string name="editStudy">Chỉnh sửa nghiên cứu</string>
+  <string name="visibility">Khả năng hiển thị</string>
+  <string name="public">Công khai</string>
 </resources>
