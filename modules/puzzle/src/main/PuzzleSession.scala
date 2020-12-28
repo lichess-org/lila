@@ -80,7 +80,8 @@ final class PuzzleSessionApi(
             mon
               .ratingDiff(theme.value, session.difficulty.key)
               .record(math.abs(puzzle.glicko.intRating - user.perfs.puzzle.intRating))
-            mon.ratingDev(theme.value).record(puzzle.glicko.intDeviation).unit
+            mon.ratingDev(theme.value).record(puzzle.glicko.intDeviation)
+            mon.tier(session.path.tier.key, theme.value).increment().unit
           }
       }
       .mon(_.puzzle.selector.user.time(theme.value))
