@@ -12,4 +12,5 @@
   <string name="disableTwoFactor">停用兩步驟驗證</string>
   <string name="twoFactorEnabled">已啟用兩步驟驗證</string>
   <string name="twoFactorDisable">您需要使用兩步驟驗證碼和密碼來解除兩步驟驗證。如果您遺失了您的驗證碼，您可以用email來重設驗證碼</string>
+  <string name="openTwoFactorApp">開啟您裝置上的雙重要素驗證應用程式，即可檢視驗證碼並驗證您的帳號</string>
 </resources>
