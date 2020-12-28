@@ -127,7 +127,7 @@ lichess.RoundNVUI = function(redraw: Redraw) {
             const $board = $(el as HTMLElement);
             $board.on('keypress', boardCommandsHandler());
             $board.on('keypress', () => console.log(ctrl));
-            // NOTE: This is the only line different from analysisBoardListenerSetup
+            // NOTE: This is the only line different from analysis board listener setup
             $board.on('keypress', lastCapturedCommandHandler(() => ctrl.data.steps.map(step => step.fen), pieceStyle.get(), prefixStyle.get()));
             const $buttons = $board.find('button');
             $buttons.on('click', selectionHandler(ctrl.data.opponent.color, selectSound));
