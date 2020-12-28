@@ -313,6 +313,27 @@ export function pieceJumpingHandler(wrapSound: () => void, errorSound: () => voi
   return (ev: KeyboardEvent) => {
     if (!ev.key.match(/^[kqrbnp]$/i)) return true;
     const $currBtn = $(ev.target as HTMLElement);
+
+    // TODO: decouple from promotion attribute setting in selectionHandler
+    if ($currBtn.attr('promotion') === 'true') {
+      const $moveBox = $('input.move');
+      const $boardLive = $('.boardstatus');
+      const $promotionPiece = ev.key.toLowerCase();
+      const $form = $moveBox.parent().parent();
+      if (!$promotionPiece.match(/^[qnrb]$/)) {
+        $boardLive.text('Invalid promotion piece. ' + $boardLive.text());
+        return false;
+      } 
+      $moveBox.val($moveBox.val() + $promotionPiece);
+      $currBtn.removeAttr('promotion');
+      const $sendForm = new Event('submit', {
+        cancelable: true,
+        bubbles: true
+      });
+      $form.trigger($sendForm);
+      return false;
+    }
+
     const $myBtnAttrs = '.board-wrapper [rank="' + $currBtn.attr('rank') + '"][file="' + $currBtn.attr('file') + '"]';
     const $allPieces = $('.board-wrapper [piece="' + ev.key.toLowerCase() + '"], ' + $myBtnAttrs);
     const $myPieceIndex = $allPieces.index($myBtnAttrs);
@@ -365,7 +386,10 @@ export function selectionHandler(opponentColor: Color, selectSound: () => void) 
   return (ev: MouseEvent) => {
     // this depends on the current document structure. This may not be advisable in case the structure wil change.
     const $evBtn = $(ev.target as HTMLElement);
-    const $pos = ($evBtn.attr('file') ?? "") + $evBtn.attr('rank');
+    const $rank = $evBtn.attr('rank');
+    const $pos = ($evBtn.attr('file') ?? "") + $rank;
+    const $boardLive = $('.boardstatus');
+    const $promotionRank = opponentColor === 'black' ? '8' : '1';
     const $moveBox = $(document.querySelector('input.move') as HTMLInputElement);
     if (!$moveBox) return false;
 
@@ -382,7 +406,16 @@ export function selectionHandler(opponentColor: Color, selectSound: () => void) 
       // if user selects their own piece second
       if ($evBtn.attr('color') === (opponentColor === 'black' ? 'white' : 'black')) return false;
 
+      const $first = $moveBox.val();
+      const $firstPiece = $('.board-wrapper [file="' + $first[0] + '"][rank="' + $first[1] + '"]');
       $moveBox.val($moveBox.val() + $pos);
+      // this is coupled to pieceJumpingHandler() noticing that the attribute is set and acting differently. TODO: make cleaner
+      // if pawn promotion
+      if ($rank === $promotionRank && $firstPiece.attr('piece')?.toLowerCase() === 'p') {
+        $evBtn.attr('promotion', 'true');
+        $boardLive.text('Promote to? q for queen, n for knight, r for rook, b for bishop');
+        return false;
+      }
       // this section depends on the form being the granparent of the input.move box.
       const $form = $moveBox.parent().parent();
       const $event = new Event('submit', {
