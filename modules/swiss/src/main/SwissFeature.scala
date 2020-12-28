@@ -44,8 +44,9 @@ final class SwissFeature(
   private val cache = cacheApi.unit[FeaturedSwisses] {
     _.refreshAfterWrite(10 seconds)
       .buildAsyncFuture { _ =>
-        cacheCompute($doc("$gt" -> DateTime.now, "$lt" -> DateTime.now.plusHours(1))) zip
-          cacheCompute($doc("$lt" -> DateTime.now)) map { case (created, started) =>
+        val now = DateTime.now
+        cacheCompute($doc("$gt" -> now, "$lt" -> now.plusHours(1))) zip
+          cacheCompute($doc("$gt" -> now.minusHours(3), "$lt" -> now)) map { case (created, started) =>
             FeaturedSwisses(created, started)
           }
       }
