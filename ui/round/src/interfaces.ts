@@ -113,7 +113,6 @@ export interface Step {
 
 export interface ApiMove extends Step {
   dests: EncodedDests;
-  odests: EncodedDests;
   clock?: {
     white: Seconds;
     black: Seconds;
