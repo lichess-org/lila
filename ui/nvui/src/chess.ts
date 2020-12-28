@@ -283,7 +283,7 @@ export function castlingFlavours(input: string): string {
 }
 
 /* Listen to interactions on the chessboard */
-function positionJumpHandler() {
+export function positionJumpHandler() {
   return (ev: KeyboardEvent) => {
     const $btn = $(ev.target as HTMLElement);
     const $file = $btn.attr('file') ?? "";
@@ -309,7 +309,7 @@ function positionJumpHandler() {
   }
 }
 
-function pieceJumpingHandler(wrapSound: () => void, errorSound: () => void) {
+export function pieceJumpingHandler(wrapSound: () => void, errorSound: () => void) {
   return (ev: KeyboardEvent) => {
     if (!ev.key.match(/^[kqrbnp]$/i)) return true;
     const $currBtn = $(ev.target as HTMLElement);
@@ -333,7 +333,7 @@ function pieceJumpingHandler(wrapSound: () => void, errorSound: () => void) {
   };
 }
 
-function arrowKeyHandler(pov: Color, borderSound: () => void) {
+export function arrowKeyHandler(pov: Color, borderSound: () => void) {
   return (ev: KeyboardEvent) => {
     const $currBtn = $(ev.target as HTMLElement);
     const $isWhite = pov === 'white';
@@ -361,7 +361,7 @@ function arrowKeyHandler(pov: Color, borderSound: () => void) {
   };
 }
 
-function selectionHandler(opponentColor: Color, selectSound: () => void) {
+export function selectionHandler(opponentColor: Color, selectSound: () => void) {
   return (ev: MouseEvent) => {
     // this depends on the current document structure. This may not be advisable in case the structure wil change.
     const $evBtn = $(ev.target as HTMLElement);
@@ -395,7 +395,7 @@ function selectionHandler(opponentColor: Color, selectSound: () => void) {
   };
 }
 
-function boardCommandsHandler() {
+export function boardCommandsHandler() {
   return (ev: KeyboardEvent) => {
     const $currBtn = $(ev.target as HTMLElement);
     const $boardLive = $('.boardstatus');
@@ -417,7 +417,7 @@ function boardCommandsHandler() {
     return true;
   };
 }
-function lastCapturedCommandHandler(steps: () => string[], pieceStyle: PieceStyle, prefixStyle: PrefixStyle) {
+export function lastCapturedCommandHandler(steps: () => string[], pieceStyle: PieceStyle, prefixStyle: PrefixStyle) {
   return (ev: KeyboardEvent) => {
     const $boardLive = $('.boardstatus');
     if (ev.key === 'c') {
@@ -429,30 +429,53 @@ function lastCapturedCommandHandler(steps: () => string[], pieceStyle: PieceStyl
   }
 }
 
-export function analysisBoardListenersSetup(color: Color, ocolor: Color, selectSound: () => void, wrapSound: () => void, borderSound: () => void, errorSound: () => void): (vnode: HTMLElement) => void {
-  return (el: HTMLElement) => {
-    const $board = $(el as HTMLElement);
-    $board.on('keypress', boardCommandsHandler());
-    const $buttons = $board.find('button');
-    $buttons.on('click', selectionHandler(ocolor, selectSound));
-    $buttons.on('keydown', arrowKeyHandler(color, borderSound));
-    $buttons.on('keypress', positionJumpHandler());
-    $buttons.on('keypress', pieceJumpingHandler(wrapSound, errorSound));
+/* TODO: this only has access to valid moves when it is the users turn; this should be fixed somehow. Likely server side.
+Currently announces: "Cannot look at valid moves when it is not your turn." but this should be considered a bug.*/
+export function possibleMovesHandler(possibleMoves: () => string | { [key: string]: string }, pieces: () => Pieces) {
+  return (ev: KeyboardEvent) => {
+    if (ev.key !== 'm' && ev.key !== 'M') return true;
+    const $boardLive = $('.boardstatus');
+    const $pieces = pieces();
+
+    const $btn = $(ev.target as HTMLElement);
+    const $file = $btn.attr('file') ?? "";
+    const $rank = $btn.attr('rank') ?? "";
+    const $possibleMoves = possibleMoves();
+    let $moveMap: {
+      [key: string]: string
+    } = {};
+    if (typeof $possibleMoves === 'string') {
+      $moveMap = stringToMap($possibleMoves);
+    } else {
+      $moveMap = $possibleMoves;
+    }
+    // TODO: here it is
+    if (!$moveMap) {
+      $boardLive.text("Cannot look at valid moves when it is not your turn.");
+    }
+    const $myDests = $moveMap[$file + $rank];
+    if (!$myDests) {
+      $boardLive.text("None");
+      return false;
+    }
+    console.log(pieces);
+    const $myDestsList = $myDests.match(/.{2}/g)?.map(dest => {
+      const $pieceAtDest = $pieces.get(dest as Key);
+      if ($pieceAtDest) {
+        return dest + ' captures ' + $pieceAtDest.role;
+      } else {
+        return dest;
+      }
+    }).filter(dest => ev.key === 'm' || dest.includes('captures'));
+    if (!$myDestsList || ($myDestsList && $myDestsList.length === 0)) {
+      $boardLive.text("No captures");
+    }
+    $boardLive.text($myDestsList?.join(', ') ?? "None");
+    return false;
   };
 }
 
-export function roundBoardListenersSetup(color: Color, ocolor: Color, steps: () => string[], pieceStyle: PieceStyle, prefixStyle: PrefixStyle, selectSound: () => void, wrapSound: () => void, borderSound: () => void, errorSound: () => void) {
-  return (el: HTMLElement) => {
-    console.log(steps);
-    console.log(steps());
-    const $board = $(el);
-    $board.on('keypress', boardCommandsHandler());
-    // NOTE: This is the only line different from analysisBoardListenerSetup
-    $board.on('keypress', lastCapturedCommandHandler(steps, pieceStyle, prefixStyle));
-    const $buttons = $board.find('button');
-    $buttons.on('click', selectionHandler(ocolor, selectSound));
-    $buttons.on('keydown', arrowKeyHandler(color, borderSound));
-    $buttons.on('keypress', positionJumpHandler());
-    $buttons.on('keypress', pieceJumpingHandler(wrapSound, errorSound));
-  };
+function stringToMap(possibleMovesString: string) {
+  const split = possibleMovesString.split(' ').map(dests => dests.match(/.{2}/g) ?? []);
+  return split.reduce((a,x) => ({...a, [x[0]]: x.splice(1).join('')}), {})
 }

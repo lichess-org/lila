@@ -14,6 +14,7 @@ import { Step, Dests, Position, Redraw } from '../interfaces';
 import * as game from 'game';
 import { renderSan, renderPieces, renderBoard, styleSetting, pieceSetting, prefixSetting, positionSetting, boardSetting, lastCaptured, PieceStyle, PrefixStyle } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
+import { boardCommandsHandler, possibleMovesHandler, lastCapturedCommandHandler, selectionHandler, arrowKeyHandler, positionJumpHandler, pieceJumpingHandler } from 'nvui/chess';
 import { Notify } from 'nvui/notify';
 import { castlingFlavours, supportedVariant, Style, symbolToFile, roundBoardListenersSetup } from 'nvui/chess';
 import { commands } from 'nvui/command';
@@ -123,8 +124,19 @@ lichess.RoundNVUI = function(redraw: Redraw) {
         )),
         h('h2', 'Board'),
         h('div.board', {
-          hook: onInsert(roundBoardListenersSetup(ctrl.data.player.color, ctrl.data.opponent.color, () => ctrl.data.steps.map(step => step.fen), pieceStyle.get(), prefixStyle.get(), selectSound, wrapSound, borderSound, errorSound))
-        }, renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color, pieceStyle.get(), prefixStyle.get(), positionStyle.get(), boardStyle.get())),
+          hook: onInsert(el => {
+            const $board = $(el as HTMLElement);
+            $board.on('keypress', boardCommandsHandler());
+            $board.on('keypress', () => console.log(ctrl));
+            // NOTE: This is the only line different from analysisBoardListenerSetup
+            $board.on('keypress', lastCapturedCommandHandler(() => ctrl.data.steps.map(step => step.fen), pieceStyle, prefixStyle));
+            const $buttons = $board.find('button');
+            $buttons.on('click', selectionHandler(ctrl.data.opponent.color, selectSound));
+            $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
+            $buttons.on('keypress', possibleMovesHandler(() => ctrl.data.possibleMoves, () => ctrl.chessground.state.pieces));
+            $buttons.on('keypress', positionJumpHandler());
+            $buttons.on('keypress', pieceJumpingHandler(wrapSound, errorSound));
+          })}, renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color, pieceStyle.get(), prefixStyle.get(), positionStyle.get(), boardStyle.get())),
         h('div.boardstatus', {
           attrs: {
             'aria-live': 'polite',

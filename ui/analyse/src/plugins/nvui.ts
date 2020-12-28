@@ -8,6 +8,7 @@ import { Chessground } from 'chessground';
 import { Redraw, AnalyseData, MaybeVNodes } from '../interfaces';
 import { Player } from 'game';
 import { renderSan, renderPieces, renderBoard, styleSetting, pieceSetting, prefixSetting, boardSetting, positionSetting, analysisBoardListenersSetup } from 'nvui/chess';
+import { boardCommandsHandler, possibleMovesHandler, lastCapturedCommandHandler, selectionHandler, arrowKeyHandler, positionJumpHandler, pieceJumpingHandler } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { Style } from 'nvui/chess';
@@ -103,8 +104,14 @@ lichess.AnalyseNVUI = function(redraw: Redraw) {
           h('h2', 'Board'),
           h('div.board', 
           {hook: {
-            insert: (vnode) => {
-              analysisBoardListenersSetup(ctrl.data.player.color, ctrl.data.opponent.color, selectSound, wrapSound, borderSound, errorSound)(vnode.elm as HTMLElement);
+            insert: (el) => {
+              const $board = $(el.elm as HTMLElement);
+              $board.on('keypress', boardCommandsHandler());
+              const $buttons = $board.find('button');
+              $buttons.on('click', selectionHandler(ctrl.data.opponent.color, selectSound));
+              $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
+              $buttons.on('keypress', positionJumpHandler());
+              $buttons.on('keypress', pieceJumpingHandler(wrapSound, errorSound));
             }
           }},
           renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color, pieceStyle.get(), prefixStyle.get(), positionStyle.get(), boardStyle.get())),
