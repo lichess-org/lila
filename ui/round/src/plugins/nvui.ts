@@ -204,6 +204,7 @@ lichess.RoundNVUI = function(redraw: Redraw) {
 }
 
 const promotionRegex = /^([a-h]x?)?[a-h](1|8)=\w$/;
+const uciPromotionRegex = /^([a-h][1-8])([a-h](1|8))[qrbn]$/;
 
 function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: () => Style, $input: Cash) {
   return () => {
@@ -220,7 +221,14 @@ function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: (
       if (input.match(promotionRegex)) {
         uci = sanToUci(input.slice(0, -2), legalSans) || input;
         promotion = input.slice(-1).toLowerCase();
+      } else if (input.match(uciPromotionRegex)) {
+        uci = input.slice(0, -1);
+        promotion = input.slice(-1).toLowerCase();
       }
+      console.log(uci);
+      console.log(uci.slice(0, -1));
+      console.log(promotion);
+      console.log(legalSans);
 
       if (legalUcis.includes(uci.toLowerCase())) ctrl.socket.send("move", {
         u: uci + promotion
