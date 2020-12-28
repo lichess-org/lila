@@ -143,7 +143,7 @@
   <string name="signIn">Entrar</string>
   <string name="youNeedAnAccountToDoThat">Você precisa de uma conta para fazer isso</string>
   <string name="signUp">Registrar</string>
-  <string name="computersAreNotAllowedToPlay">O uso de engine não é permitido. Por favor, não utilize programas de xadrez, bancos de dados ou o auxilio de outros jogadores durante a partida. Além disso, a criação de múltiplas contas é fortemente desaconselhada e sua prática excessiva acarretará banimento.</string>
+  <string name="computersAreNotAllowedToPlay">A ajuda de software não é permitida. Por favor, não utilize programas de xadrez, bancos de dados ou o auxilio de outros jogadores durante a partida. Além disso, a criação de múltiplas contas é fortemente desaconselhada e sua prática excessiva acarretará em banimento.</string>
   <string name="games">Partidas</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s postou em %2$s</string>
