@@ -27,12 +27,12 @@
     <item quantity="other">Jogou %1$s movimentos</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
-    <item quantity="one">em %1$s jogo de correspondência</item>
-    <item quantity="other">em %1$s jogos de correspondência</item>
+    <item quantity="one">em %1$s jogo por correspondência</item>
+    <item quantity="other">em %1$s jogos por correspondência</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">Completou %s partida por correspondência</item>
-    <item quantity="other">Completou %s partidas por correspondência</item>
+    <item quantity="one">Completou %s jogo por correspondência</item>
+    <item quantity="other">Completou %s jogos por correspondência</item>
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Seguiu %s jogador</item>
