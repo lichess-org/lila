@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="advancedPawn">高級兵</string>
+  <string name="advancedPawn">升變兵</string>
   <string name="advantage">擁有優勢</string>
+  <string name="attackingF2F7">攻擊f2或f7</string>
   <string name="attraction">吸引</string>
   <string name="bishopEndgame">象殘局</string>
   <string name="bishopEndgameDescription">只剩象和兵的殘局</string>
   <string name="castling">易位</string>
   <string name="equality">均勢</string>
+  <string name="kingsideAttack">王翼攻擊</string>
   <string name="clearance">騰挪</string>
   <string name="deflection">引離</string>
   <string name="doubleCheck">雙將</string>
@@ -41,6 +43,7 @@
   <string name="queenEndgameDescription">只剩后和兵的殘局</string>
   <string name="queenRookEndgame">后與車</string>
   <string name="queenRookEndgameDescription">只剩后、車和兵的殘局</string>
+  <string name="queensideAttack">后翼攻擊</string>
   <string name="rookEndgame">車殘局</string>
   <string name="rookEndgameDescription">只剩車和兵的殘局</string>
   <string name="short">短題目</string>
