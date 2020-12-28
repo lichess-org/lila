@@ -272,6 +272,7 @@
     <item quantity="one">Gefa %s sekúndur</item>
     <item quantity="other">Gefa %s sekúndur</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Þessi notandi braut þjónustuskilmálum Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Þessi skákmaður hækkar/lækkar stig sín með vafasömum hætti</string>
   <string name="openingExplorerAndTablebase">Opnunarvafri og endataflsútreikningar</string>
   <string name="takeback">Afturköllun</string>
@@ -493,6 +494,7 @@
   <string name="currentPassword">Núverandi lykilorð</string>
   <string name="newPassword">Nýtt lykilorð</string>
   <string name="newPasswordAgain">Nýtt lykilorð (aftur)</string>
+  <string name="newPasswordStrength">Styrkur aðgangsorðsins</string>
   <string name="privacy">Einkamál</string>
   <string name="letOtherPlayersFollowYou">Leyfa öðrum að fylgjast með þér</string>
   <string name="letOtherPlayersChallengeYou">Leyfa öðrum að skora á þig</string>
@@ -775,6 +777,7 @@
   <string name="important">Mikilvægt</string>
   <string name="yourQuestionMayHaveBeenAnswered">Spurningin þín gæti verið búin að fá svar %1$s</string>
   <string name="inTheFAQ">í FAQ-ið</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Til að tilkynna notenda fyrir svindl eða slæma hegðun, %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Þú mátt ekki pósta enn. Spilaðu nokkra leiki!</string>
   <string name="subscribe">Gerast áskrifandi</string>
   <string name="unsubscribe">Taka úr áskrift</string>
