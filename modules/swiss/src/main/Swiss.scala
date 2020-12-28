@@ -70,6 +70,11 @@ case class Swiss(
     settings = settings.copy(conditions = conditions)
   )
 
+  def unrealisticSettings =
+    !settings.manualRounds &&
+      settings.dailyInterval.isEmpty &&
+      clock.estimateTotalSeconds * 2 * settings.nbRounds > 3600 * 8
+
   lazy val looksLikePrize = lila.common.String.looksLikePrize(s"$name ${~settings.description}")
 }
 
