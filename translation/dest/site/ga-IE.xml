@@ -517,6 +517,9 @@
   <string name="timeBeforeTournamentStarts">Am fágtha sula thosnaíonn an comórtas</string>
   <string name="keyboardShortcuts">Aicearraí méarchlár</string>
   <string name="newTournament">Comórtas Nua</string>
+  <string name="tournamentDoesNotExist">Nil an comórtas seo ann.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Tá tú níos fearr ná %1$s as %2$s imreoirí.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">Tá %1$s níos fearr ná %2$s as %3$s imreoirí.</string>
   <string name="yourRating">Do rátáil</string>
   <string name="cumulative">Carnach</string>
   <string name="glicko2Rating">Rátáil Glicko-2</string>
