@@ -64,7 +64,7 @@
   <string name="showThreat">Rodyti grėsmę</string>
   <string name="inLocalBrowser">vietinėje naršyklėje</string>
   <string name="toggleLocalEvaluation">Perjungti vietinį įvertinimą</string>
-  <string name="promoteVariation">Paaukštinti variaciją</string>
+  <string name="promoteVariation">Paaukštinimo varijacija</string>
   <string name="makeMainLine">Padaryti pagrindine linija</string>
   <string name="deleteFromHere">Ištrinti nuo čia</string>
   <string name="forceVariation">Rodyti kaip variaciją</string>
@@ -187,7 +187,7 @@
   </plurals>
   <string name="time">Laikas</string>
   <string name="rating">Reitingas</string>
-  <string name="ratingStats">Įvertinimų statistika</string>
+  <string name="ratingStats">Reitingų statistika</string>
   <string name="username">Vartotojo vardas</string>
   <string name="usernameOrEmail">Vartotojo vardas ar el. pašto adresas</string>
   <string name="changeUsername">Keisti vartotojo vardą</string>
@@ -199,7 +199,7 @@
   <string name="email">El. pašto adresas</string>
   <string name="passwordReset">Slaptažodžio atkūrimas</string>
   <string name="forgotPassword">Pamiršote slaptažodį?</string>
-  <string name="rank">Reitingas</string>
+  <string name="rank">Rangas</string>
   <string name="rankX">Reitingas: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">Reitingas atnaujinamas kas minutę</item>
@@ -238,8 +238,8 @@
   <string name="eventInProgress">Vyksta šiuo metu</string>
   <string name="finished">Baigėsi</string>
   <string name="finishesX">baigiasi %s</string>
-  <string name="abortGame">Nutraukti žaidimą</string>
-  <string name="gameAborted">Žaidimas nutrauktas</string>
+  <string name="abortGame">Nutraukti partiją</string>
+  <string name="gameAborted">Partija nutraukta</string>
   <string name="standard">Standartinis</string>
   <string name="unlimited">Neribota</string>
   <string name="mode">Tipas</string>
@@ -320,7 +320,7 @@
   <string name="takebackPropositionAccepted">Ėjimo atšaukimo prašymas priimtas</string>
   <string name="takebackPropositionCanceled">Ėjimo atšaukimo prašymas atšauktas</string>
   <string name="yourOpponentProposesATakeback">Varžovas prašo atšaukti ėjimą</string>
-  <string name="bookmarkThisGame">Pasižymėti šį žaidimą</string>
+  <string name="bookmarkThisGame">Pasižymėti šią partiją</string>
   <string name="tournament">Turnyras</string>
   <string name="tournaments">Turnyrai</string>
   <string name="tournamentPoints">Turnyro taškai</string>
@@ -520,7 +520,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
     <item quantity="many">%s vykstančių partijų</item>
     <item quantity="other">%s vykstančių partijų</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">Po ėjimo automatiškai pereiti prie kito žaidimo</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">Po ėjimo automatiškai pereiti prie kitos partijos</string>
   <string name="autoSwitch">Automatinis perjungimas</string>
   <string name="puzzles">Užduotys</string>
   <string name="latestUpdates">Paskutiniai atnaujinimai</string>
@@ -548,8 +548,8 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="insult">Ižeidė</string>
   <string name="troll">„Troll\'ino“</string>
   <string name="other">Kita</string>
-  <string name="reportDescriptionHelp">Įdėkite nuorodą į žaidimą(-us) ir paaiškinkite, kas netinkamo yra šio vartotojo elgsenoje.</string>
-  <string name="error.provideOneCheatedGameLink">Pateikite bent vieną nuorodą į sukčiautą partiją.</string>
+  <string name="reportDescriptionHelp">Įdėkite nuorodą į partiją(-as) ir paaiškinkite, kas netinkamo yra šio vartotojo elgsenoje. Paminėkite, kaip priėjote prie tokios išvados. Jūsų pranešimas bus apdorotas greičiau, jei bus pateiktas anglų kalba.</string>
+  <string name="error.provideOneCheatedGameLink">Pateikite bent vieną nuorodą į partiją, kurioje buvo sukčiauta.</string>
   <string name="by">nuo %s</string>
   <string name="thisTopicIsNowClosed">Ši tema yra uždaryta.</string>
   <string name="theming">Išvaizda</string>
@@ -653,7 +653,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
     <item quantity="other">%s forumo pranešimų</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Laikas, praleistas žaidžiant: %s</string>
-  <string name="watchGames">Stebėti žaidimus</string>
+  <string name="watchGames">Stebėti partijas</string>
   <string name="tpTimeSpentOnTV">Laikas, praleistas stebint: %s</string>
   <string name="watch">Žiūrėk</string>
   <string name="videoLibrary">Video biblioteka</string>
@@ -676,7 +676,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="noSimulExplanation">Šis simulas neegzistuoja.</string>
   <string name="returnToSimulHomepage">Grįžti į simulų pradžią</string>
   <string name="aboutSimul">Simulai yra vieno žaidėjo partijos prieš keletą kitų žaidėjų vienu metu.</string>
-  <string name="aboutSimulImage">Iš 50 varžovų, Fišeris laimėjo 47 žaidimus, lygiosiom baigė 2 ir pralaimėjo 1.</string>
+  <string name="aboutSimulImage">Iš 50 varžovų, Fišeris laimėjo 47 partijas, lygiosiom baigė 2 ir pralaimėjo 1.</string>
   <string name="aboutSimulRealLife">Idėja yra paimta iš tikro pasaulio įvykių. Tikrame gyvenime, simulo šeiminkas vaikšto nuo stalo prie stalo atlikdamas po ėjimą.</string>
   <string name="aboutSimulRules">Prasidėjus simului, kiekvienas žaidėjas pradeda partiją su šeimininku, kuris gauna baltuosius. Simulas baigiasi kai užbaigiamos visos partijos.</string>
   <string name="aboutSimulSettings">Simulai visada yra nevertinami. Revanšai, ėjimų atšaukimai ir „daugiau laiko“ yra negalimi.</string>
@@ -729,7 +729,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="downloadImported">Siųstis importuotą</string>
   <string name="printFriendlyPDF">PDF failas spausdinimui</string>
   <string name="crosstable">Susitikimai</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Judėti žaidime taip pat galite slinkdami virš lentos.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Judėti partijoje taip pat galite naudodamiesi pelės ratuku virš lentos.</string>
   <string name="analysisShapesHowTo">Spustelėkite Shift + kairįjį pelės klavišą arba dešinįjį pelės klavišą norėdami piešti ant lentos.</string>
   <string name="letOtherPlayersMessageYou">Leisti kitiems žaidėjams jums parašyti</string>
   <string name="shareYourInsightsData">Bendrinti jūsų statistiką</string>
@@ -764,7 +764,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
     <item quantity="many">Galima rinktis iš %s kalbų!</item>
     <item quantity="other">Galima rinktis iš %s kalbų!</item>
   </plurals>
-  <string name="gameAnalysis">Žaidimo analizė</string>
+  <string name="gameAnalysis">Partijos analizė</string>
   <string name="xHostsY">%1$s veda %2$s</string>
   <string name="xJoinsY">%1$s prisijungė prie %2$s</string>
   <string name="xLikesY">%1$s patiko %2$s</string>
@@ -820,7 +820,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="seeBestMove">Rodyti geriausią ėjimą</string>
   <string name="hideBestMove">Slėpti geriausią ėjimą</string>
   <string name="getAHint">Gauti užuominą</string>
-  <string name="evaluatingYourMove">Jūsų ėjimas įvertinamas...</string>
+  <string name="evaluatingYourMove">Vertinamas jūsų ėjimas...</string>
   <string name="whiteWinsGame">Laimėjo baltieji</string>
   <string name="blackWinsGame">Laimėjo juodieji</string>
   <string name="learnFromYourMistakes">Mokykitės iš savo klaidų</string>
@@ -878,15 +878,15 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="goodPractice">Dėl to turime užtikrinti, kad visi žaidėjai laikytųsi gerųjų praktikų.</string>
   <string name="potentialProblem">Kai aptinkama galima problema, mes parodome šį pranešimą.</string>
   <string name="howToAvoidThis">Kaip to išvengti?</string>
-  <string name="playEveryGame">Sužaiskite kiekvieną pradėtą partiją.</string>
-  <string name="tryToWin">Stenkitės laimėti (ar bent sužaisti lygiosiomis) kiekvieną kartą.</string>
+  <string name="playEveryGame">Užbaikite kiekvieną pradėtą partiją.</string>
+  <string name="tryToWin">Kiekvieną kartą stenkitės laimėti, ar bent sužaisti lygiosiomis.</string>
   <string name="resignLostGames">Pasiduokite pralaimėtose partijose (nelaukite kol pasibaigs laikas).</string>
   <string name="temporaryInconvenience">Atsiprašome dėl laikinų nepatogumų,</string>
   <string name="wishYouGreatGames">ir linkime jums puikių partijų per lichess.org.</string>
   <string name="thankYouForReading">Ačiū, kad perskaitėte!</string>
   <string name="lifetimeScore">Visų laikų rezultatas</string>
   <string name="currentMatchScore">Dabartinės partijos rezultatas</string>
-  <string name="agreementAssistance">Pasižadu niekada savo partijų metu nesinaudoti pagalba (ar tai būtų kompiuteris, knyga, duomenų bazė, ar kitas žmogus).</string>
+  <string name="agreementAssistance">Pasižadu niekada savo partijų metu nesinaudoti kompiuterio, knygos, duomenų bazės ar kito žmogaus pagalba.</string>
   <string name="agreementNice">Pasižadu visada būti pagarbus kitiems žaidėjams.</string>
   <string name="agreementAccount">Pasižadu nesikurti keleto paskyrų.</string>
   <string name="agreementPolicy">Pasižadu laikytis visų „Lichess“ nuostatų.</string>

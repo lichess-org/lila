@@ -5,11 +5,12 @@
   <string name="twoFactorApp">Obține o aplicație pentru autentificarea în doi pași, de exemplu Google Authenticator pentru %1$s sau %2$s.</string>
   <string name="scanTheCode">Scanează codul QR cu aplicația.</string>
   <string name="enterPassword">Introdu parola și codul de autentificare generat de aplicație pentru a completa configurarea. Vei avea nevoie de un cod de autentificare de fiecare dată când te conectezi.</string>
-  <string name="ifYouCannotScanEnterX" comment="ifYouCannotScanEnterX&#10;&#10;%s is the authentication code">Dacă nu puteți scana codul, introduceți codul secret %s în aplicația dvs.</string>
+  <string name="ifYouCannotScanEnterX">Dacă nu puteți scana codul, introduceți codul secret %s în aplicația dvs.</string>
   <string name="authenticationCode">Cod de autentificare</string>
   <string name="ifYouLoseAccess">Notă: Dacă pierzi accesul la codurile de autentificare în doi pași, poți reseta parola prin email.</string>
   <string name="enableTwoFactor">Activează autentificarea în doi pași</string>
   <string name="disableTwoFactor">Dezactivează autentificarea în doi pași</string>
   <string name="twoFactorEnabled">Autentificare în doi pași activată</string>
   <string name="twoFactorDisable">Ai nevoie de parolă și de un cod de autentificare din aplicație pentru a dezactiva autentificarea în doi pași. Dacă ai pierdut accesul la codurile tale de autentificare, poți reseta parola prin email.</string>
+  <string name="openTwoFactorApp">Deschideți aplicația de autentificare cu doi factori de pe dispozitivul dvs pentru a vedea codul de autentificare și a verifica identitatea dvs.</string>
 </resources>

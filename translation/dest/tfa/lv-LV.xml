@@ -5,7 +5,7 @@
   <string name="twoFactorApp">Iegūstiet lietojumprogrammu divfaktoru autentifikācijai, piemēram Google Autentifikatoru platformai %1$s vai %2$s.</string>
   <string name="scanTheCode">Skenējiet QR kodu ar lietojumprogrammu.</string>
   <string name="enterPassword">Ievadiet savu paroli un autentifikācijas lietojumprogrammas radīto kodu lai pabeigtu uzstādīšanu. Jums vajadzēs autentifikācijas kodu katru reizi, kad ierakstīsieties.</string>
-  <string name="ifYouCannotScanEnterX" comment="ifYouCannotScanEnterX&#10;&#10;%s is the authentication code">Ja nevarat ieskenēt kodu, ievadiet slepeno kodu %s aplikācijā.</string>
+  <string name="ifYouCannotScanEnterX">Ja nevarat ieskenēt kodu, ievadiet slepeno kodu %s aplikācijā.</string>
   <string name="authenticationCode">Autentifikācijas kods</string>
   <string name="ifYouLoseAccess">Piezīme: Ja zaudēsiet piekļuvi divfaktoru autentifikācijas kodiem, varēsiet atiestatīt paroli, izmantojot epastu.</string>
   <string name="enableTwoFactor">Iespējot divfaktoru autentifikāciju</string>
@@ -13,4 +13,5 @@
   <string name="twoFactorEnabled">Iespējota divfaktoru autentifikācija</string>
   <string name="twoFactorDisable">Jums nepieciešama parole un autentifikatora lietojumprogrammas autentifikācijas kods, lai atspējotu divfaktoru autentifikāciju.
 Ja zaudējāt piekļuvi autentifikācijas kodiem, varat arī atiestatīt paroli, izmantojot e-pastu.</string>
+  <string name="openTwoFactorApp">Atveriet divu faktoru autentifikācijas aplikāciju savā ierīcē, lai skatītu autentifikācijas kodu un apliecinātu savu identitāti.</string>
 </resources>
