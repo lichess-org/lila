@@ -442,12 +442,8 @@ export function possibleMovesHandler(possibleMoves: () => string | { [key: strin
     const $pos = ($btn.attr('file') ?? "")
       + $btn.attr('rank') as Key;
 
-    let $moveMap;
-    if (typeof $possibleMoves === 'string') {
-      $moveMap = stringToMap($possibleMoves);
-    } else {
-      $moveMap = $possibleMoves;
-    }
+    const $moveMap = typeof $possibleMoves === 'string' ? stringToMap($possibleMoves) : $possibleMoves;
+
     // TODO: here it is
     if (!$moveMap) {
       $boardLive.text("Cannot view moves when it is not your turn.");
@@ -458,15 +454,10 @@ export function possibleMovesHandler(possibleMoves: () => string | { [key: strin
       $boardLive.text("None");
       return false;
     }
-    const $myDestsList = $myDests.match(/.{2}/g)?.map(dest => {
-      const $pieceAtDest = $pieces.get(dest as Key);
-      if ($pieceAtDest) {
-        return dest + ' captures ' + $pieceAtDest.role;
-      } else {
-        return dest;
-      }
-    }).filter(dest => ev.key === 'm' || dest.includes('captures'));
-    // this shoudn't ever happen, but typescript makes me check.
+    const $myDestsList = $myDests.match(/.{2}/g)
+      ?.map(dest => $pieces.get(dest as Key) ? dest + ' captures ' +  $pieces.get(dest as Key)?.role : dest)
+      .filter(dest => ev.key === 'm' || dest.includes('captures'));
+    // this shoudn't happen, but typescript makes me check.
     if (!$myDestsList) {
       $boardLive.text("None");
       return false;
