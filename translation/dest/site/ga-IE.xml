@@ -294,6 +294,7 @@
   <string name="toStudy">Staidéar</string>
   <string name="importGame">Déan cluiche a iompórtáil</string>
   <string name="thisIsAChessCaptcha">Seo CAPCHTA fichille.</string>
+  <string name="captcha.fail">Réitigh an captcha fichille, le do thoil.</string>
   <string name="notACheckmate">Ní marbhsháinn é sin</string>
   <string name="whiteCheckmatesInOneMove">Marbhsháinn ag bán le beart amháin</string>
   <string name="blackCheckmatesInOneMove">Marbhsháinn ag dubh le beart amháin</string>
