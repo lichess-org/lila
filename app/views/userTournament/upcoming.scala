@@ -11,8 +11,6 @@ import controllers.routes
 
 object upcoming {
 
-  private val path = "upcoming"
-
   def apply(u: User, pager: Paginator[lila.tournament.Tournament])(implicit ctx: Context) =
     bits.layout(
       u = u,

@@ -130,6 +130,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
             )
           ),
           Match("player" $ne $arr()),
+          Sort(Ascending("startsAt")),
           Limit(max)
         )
       }
