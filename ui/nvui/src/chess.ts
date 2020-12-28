@@ -122,14 +122,17 @@ const renderPrefixStyle = (color: Color, prefixStyle: PrefixStyle) => {
 }
 
 
-export function lastCaptured(moves: string[], pieceStyle: PieceStyle, prefixStyle: PrefixStyle): string {
-  const oldFen = moves[moves.length-2].split(' ')[0];
-  const newFen = moves[moves.length-1].split(' ')[0];
+export function lastCaptured(movesGenerator: () => string[], pieceStyle: PieceStyle, prefixStyle: PrefixStyle): string {
+  const moves = movesGenerator();
+  const oldFen = moves[moves.length-2];
+  const newFen = moves[moves.length-1];
   if (!oldFen || !newFen) {
     return 'none';
   }
+  const oldSplitFen = oldFen.split(' ')[0];
+  const newSplitFen = newFen.split(' ')[0];
   for (var p of 'kKqQrRbBnNpP') {
-    const diff = (oldFen.split(p).length - 1) - (newFen.split(p).length -1);
+    const diff = (oldSplitFen.split(p).length - 1) - (newSplitFen.split(p).length -1);
     const pcolor = p.toUpperCase() === p ? 'white' : 'black';
     if (diff === 1) {
       const prefix = renderPrefixStyle(pcolor, prefixStyle);
@@ -260,7 +263,7 @@ export function renderBoard(pieces: Pieces, pov: Color, pieceStyle: PieceStyle, 
   ranks.push(...invRanks.map(rank => doRank(pov, rank)));
   if (boardStyle === 'table') ranks.push(doFileHeaders());
   if (pov === 'black') ranks.reverse();
-  return h((boardStyle === 'table' ? 'table' : 'div'), ranks);
+  return h((boardStyle === 'table' ? 'table.board-wrapper' : 'div.board-wrapper'), ranks);
 }
 
 export function renderFile(f: string, style: Style): string {
@@ -277,4 +280,179 @@ export function castlingFlavours(input: string): string {
     case 'ooo': case '000': return 'o-o-o';
   }
   return input;
+}
+
+/* Listen to interactions on the chessboard */
+function positionJumpHandler() {
+  return (ev: KeyboardEvent) => {
+    const $btn = $(ev.target as HTMLElement);
+    const $file = $btn.attr('file') ?? "";
+    const $rank = $btn.attr('rank') ?? "";
+    let $newRank = "";
+    let $newFile = "";
+    if (ev.key.match(/^[1-8]$/)) {
+      $newRank = ev.key;
+      $newFile = $file;
+    } else if (ev.key.match(/^[!@#$%^&*]$/)) {
+      $newRank = $rank;
+      $newFile = symbolToFile(ev.key);
+    // if not a valid key for jumping
+    } else {
+      return true;
+    }
+    const newBtn = document.querySelector('.board-wrapper button[rank="' + $newRank + '"][file="' + $newFile + '"]') as HTMLElement;
+    if (newBtn) {
+      newBtn.focus();
+      return false;
+    }
+    return true;
+  }
+}
+
+function pieceJumpingHandler(wrapSound: () => void, errorSound: () => void) {
+  return (ev: KeyboardEvent) => {
+    if (!ev.key.match(/^[kqrbnp]$/i)) return true;
+    const $currBtn = $(ev.target as HTMLElement);
+    const $myBtnAttrs = '.board-wrapper [rank="' + $currBtn.attr('rank') + '"][file="' + $currBtn.attr('file') + '"]';
+    const $allPieces = $('.board-wrapper [piece="' + ev.key.toLowerCase() + '"], ' + $myBtnAttrs);
+    const $myPieceIndex = $allPieces.index($myBtnAttrs);
+    const $next = ev.key.toLowerCase() === ev.key;
+    const $prevNextPieces = $next ? $allPieces.slice($myPieceIndex+1) : $allPieces.slice(0, $myPieceIndex);
+    const $piece = $next ? $prevNextPieces.get(0) : $prevNextPieces.get($prevNextPieces.length-1);
+    if ($piece) {
+      $piece.focus();
+    // if detected any matching piece; one is the pice being clicked on,
+    } else if ($allPieces.length >= 2) {
+      const $wrapPiece = $next ? $allPieces.get(0): $allPieces.get($allPieces.length-1);
+      $wrapPiece?.focus();
+      wrapSound();
+    } else {
+      errorSound();
+    }
+    return false;
+  };
+}
+
+function arrowKeyHandler(pov: Color, borderSound: () => void) {
+  return (ev: KeyboardEvent) => {
+    const $currBtn = $(ev.target as HTMLElement);
+    const $isWhite = pov === 'white';
+    let $file = $currBtn.attr('file') ?? " ";
+    let $rank = Number($currBtn.attr('rank'));
+    if (ev.key === 'ArrowUp') {
+      $rank = $isWhite ? $rank += 1 : $rank -= 1;
+    } else if (ev.key === 'ArrowDown') {
+      $rank = $isWhite ? $rank -= 1 : $rank += 1;
+    } else if (ev.key === 'ArrowLeft') {
+      $file = String.fromCharCode($isWhite ? $file.charCodeAt(0) - 1 : $file.charCodeAt(0) + 1);
+    } else if (ev.key === 'ArrowRight') {
+      $file = String.fromCharCode($isWhite ? $file.charCodeAt(0) + 1 : $file.charCodeAt(0) - 1);
+    } else {
+      return true;
+    }
+    const $newSq = document.querySelector('.board-wrapper [file="' + $file + '"][rank="' + $rank + '"]') as HTMLElement;
+    if ($newSq) {
+      $newSq.focus();
+    } else {
+      borderSound();
+    }
+    ev.preventDefault();
+    return false;
+  };
+}
+
+function selectionHandler(opponentColor: Color, selectSound: () => void) {
+  return (ev: MouseEvent) => {
+    // this depends on the current document structure. This may not be advisable in case the structure wil change.
+    const $evBtn = $(ev.target as HTMLElement);
+    const $pos = ($evBtn.attr('file') ?? "") + $evBtn.attr('rank');
+    const $moveBox = $(document.querySelector('input.move') as HTMLInputElement);
+    if (!$moveBox) return false;
+
+    // if no move in box yet
+    if ($moveBox.val() === '') {
+      // if user selects anothers' piece first
+      if ($evBtn.attr('color') === opponentColor) return false;
+      // as long as the user is selecting a piece and not a blank tile
+      if ($evBtn.text().match(/^[^\-+]+/g)) {
+        $moveBox.val($pos);
+        selectSound();
+      }
+    } else {
+      // if user selects their own piece second
+      if ($evBtn.attr('color') === (opponentColor === 'black' ? 'white' : 'black')) return false;
+
+      $moveBox.val($moveBox.val() + $pos);
+      // this section depends on the form being the granparent of the input.move box.
+      const $form = $moveBox.parent().parent();
+      const $event = new Event('submit', {
+        cancelable: true,
+        bubbles: true
+      })
+      $form.trigger($event);
+    }
+    return false;
+  };
+}
+
+function boardCommandsHandler() {
+  return (ev: KeyboardEvent) => {
+    const $currBtn = $(ev.target as HTMLElement);
+    const $boardLive = $('.boardstatus');
+    const $position = ($currBtn.attr('file') ?? "") + ($currBtn.attr('rank') ?? "")
+    if (ev.key === 'o') {
+      $boardLive.text()
+      $boardLive.text($position);
+      return false;
+    } else if (ev.key === 'l') {
+      const $lastMove = $('p.lastMove').text();
+      $boardLive.text();
+      $boardLive.text($lastMove);
+      return false;
+    } else if (ev.key === 't') {
+      $boardLive.text();
+      $boardLive.text($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
+      return false;
+    }
+    return true;
+  };
+}
+function lastCapturedCommandHandler(steps: () => string[], pieceStyle: PieceStyle, prefixStyle: PrefixStyle) {
+  return (ev: KeyboardEvent) => {
+    const $boardLive = $('.boardstatus');
+    if (ev.key === 'c') {
+      $boardLive.text();
+      $boardLive.text(lastCaptured(steps, pieceStyle, prefixStyle));
+      return false;
+    }
+    return true;
+  }
+}
+
+export function analysisBoardListenersSetup(color: Color, ocolor: Color, selectSound: () => void, wrapSound: () => void, borderSound: () => void, errorSound: () => void): (vnode: HTMLElement) => void {
+  return (el: HTMLElement) => {
+    const $board = $(el as HTMLElement);
+    $board.on('keypress', boardCommandsHandler());
+    const $buttons = $board.find('button');
+    $buttons.on('click', selectionHandler(ocolor, selectSound));
+    $buttons.on('keydown', arrowKeyHandler(color, borderSound));
+    $buttons.on('keypress', positionJumpHandler());
+    $buttons.on('keypress', pieceJumpingHandler(wrapSound, errorSound));
+  };
+}
+
+export function roundBoardListenersSetup(color: Color, ocolor: Color, steps: () => string[], pieceStyle: PieceStyle, prefixStyle: PrefixStyle, selectSound: () => void, wrapSound: () => void, borderSound: () => void, errorSound: () => void) {
+  return (el: HTMLElement) => {
+    console.log(steps);
+    console.log(steps());
+    const $board = $(el);
+    $board.on('keypress', boardCommandsHandler());
+    // NOTE: This is the only line different from analysisBoardListenerSetup
+    $board.on('keypress', lastCapturedCommandHandler(steps, pieceStyle, prefixStyle));
+    const $buttons = $board.find('button');
+    $buttons.on('click', selectionHandler(ocolor, selectSound));
+    $buttons.on('keydown', arrowKeyHandler(color, borderSound));
+    $buttons.on('keypress', positionJumpHandler());
+    $buttons.on('keypress', pieceJumpingHandler(wrapSound, errorSound));
+  };
 }

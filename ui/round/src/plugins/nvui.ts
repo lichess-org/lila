@@ -12,10 +12,10 @@ import { plyStep } from '../round';
 import { onInsert } from '../util';
 import { Step, Dests, Position, Redraw } from '../interfaces';
 import * as game from 'game';
-import { renderSan, renderPieces, renderBoard, styleSetting, pieceSetting, prefixSetting, positionSetting, boardSetting, lastCaptured, PieceStyle, PrefixStyle} from 'nvui/chess';
+import { renderSan, renderPieces, renderBoard, styleSetting, pieceSetting, prefixSetting, positionSetting, boardSetting, lastCaptured, PieceStyle, PrefixStyle } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
-import { castlingFlavours, supportedVariant, Style, symbolToFile } from 'nvui/chess';
+import { castlingFlavours, supportedVariant, Style, symbolToFile, roundBoardListenersSetup } from 'nvui/chess';
 import { commands } from 'nvui/command';
 import { TourStandingCtrl } from '../tourStanding';
 import { throttled } from '../sound';
@@ -123,18 +123,7 @@ lichess.RoundNVUI = function(redraw: Redraw) {
         )),
         h('h2', 'Board'),
         h('div.board', {
-          hook: onInsert(el => {
-            const $board = $(el as HTMLElement);
-            $board.on('keypress', boardCommandsHandler((): string[] => ctrl.data.steps.map(step => step.fen), pieceStyle.get(), prefixStyle.get()));
-            $board.on('keypress', showctrl(ctrl));
-            // looking for specific elements tightly couples this file and nvui/chess.ts
-            // unsure if a bad thing?
-            const $buttons = $board.find('button');
-            $buttons.on('click', selectionHandler((): Color => ctrl.data.opponent.color));
-            $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color));
-            $buttons.on('keypress', positionJumpHandler());
-            $buttons.on('keypress', pieceJumpingHandler());
-          })
+          hook: onInsert(roundBoardListenersSetup(ctrl.data.player.color, ctrl.data.opponent.color, () => ctrl.data.steps.map(step => step.fen), pieceStyle.get(), prefixStyle.get(), selectSound, wrapSound, borderSound, errorSound))
         }, renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color, pieceStyle.get(), prefixStyle.get(), positionStyle.get(), boardStyle.get())),
         h('div.boardstatus', {
           attrs: {
@@ -203,152 +192,6 @@ lichess.RoundNVUI = function(redraw: Redraw) {
 }
 
 const promotionRegex = /^([a-h]x?)?[a-h](1|8)=\w$/;
-
-function showctrl(ctrl: RoundController) {
-  return () => {
-    console.log(ctrl);
-    return true;
-  }
-}
-
-function boardCommandsHandler(steps: () => string[], pieceStyle: PieceStyle, prefixStyle: PrefixStyle) {
-  return (ev: KeyboardEvent) => {
-    const $currBtn = $(ev.target as HTMLElement);
-    const $boardLive = $('.boardstatus');
-    const $position = ($currBtn.attr('file') ?? "") + ($currBtn.attr('rank') ?? "")
-    if (ev.key === 'o') {
-      $boardLive.text()
-      $boardLive.text($position);
-      return false;
-    } else if (ev.key === 'l') {
-      const $lastMove = $('p.lastMove').text();
-      $boardLive.text();
-      $boardLive.text($lastMove);
-      return false;
-    } else if (ev.key === 'c') {
-      $boardLive.text();
-      $boardLive.text(lastCaptured(steps(), pieceStyle, prefixStyle));
-      return false;
-    } else if (ev.key === 't') {
-      $boardLive.text();
-      $boardLive.text($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
-    } else {
-      return true;
-    }
-  };
-}
-
-function positionJumpHandler() {
-  return (ev: KeyboardEvent) => {
-    const $btn = $(ev.target as HTMLElement);
-    const $file = $btn.attr('file') ?? "";
-    const $rank = $btn.attr('rank') ?? "";
-    let $newRank = "";
-    let $newFile = "";
-    if (ev.key.match(/^[1-8]$/)) {
-      $newRank = ev.key;
-      $newFile = $file;
-    } else if (ev.key.match(/^[!@#$%^&*]$/)) {
-      $newRank = $rank;
-      $newFile = symbolToFile(ev.key);
-    // if not a valid key for jumping
-    } else {
-      return true;
-    }
-    const newBtn = document.querySelector('.board button[rank="' + $newRank + '"][file="' + $newFile + '"]') as HTMLElement;
-    if (newBtn) {
-      newBtn.focus();
-      return false;
-    }
-    return true;
-  }
-}
-
-function pieceJumpingHandler() {
-  return (ev: KeyboardEvent) => {
-    if (!ev.key.match(/^[kqrbnp]$/i)) return true;
-    const $currBtn = $(ev.target as HTMLElement);
-    const $myBtnAttrs = '.board [rank="' + $currBtn.attr('rank') + '"][file="' + $currBtn.attr('file') + '"]';
-    const $allPieces = $('.board [piece="' + ev.key.toLowerCase() + '"], ' + $myBtnAttrs);
-    const $myPieceIndex = $allPieces.index($myBtnAttrs);
-    const $next = ev.key.toLowerCase() === ev.key;
-    const $prevNextPieces = $next ? $allPieces.slice($myPieceIndex+1) : $allPieces.slice(0, $myPieceIndex);
-    const $piece = $next ? $prevNextPieces.get(0) : $prevNextPieces.get($prevNextPieces.length-1);
-    if ($piece) {
-      $piece.focus();
-    // if detected any matching piece; one is the pice being clicked on,
-    } else if ($allPieces.length >= 2) {
-      const $wrapPiece = $next ? $allPieces.get(0): $allPieces.get($allPieces.length-1);
-      $wrapPiece?.focus();
-      wrapSound();
-    } else {
-      errorSound();
-    }
-    return false;
-  };
-}
-
-function arrowKeyHandler(pov: Color) {
-  return (ev: KeyboardEvent) => {
-    const $currBtn = $(ev.target as HTMLElement);
-    const $isWhite = pov === 'white';
-    let $file = $currBtn.attr('file') ?? " ";
-    let $rank = Number($currBtn.attr('rank'));
-    if (ev.key === 'ArrowUp') {
-      $rank = $isWhite ? $rank += 1 : $rank -= 1;
-    } else if (ev.key === 'ArrowDown') {
-      $rank = $isWhite ? $rank -= 1 : $rank += 1;
-    } else if (ev.key === 'ArrowLeft') {
-      $file = String.fromCharCode($isWhite ? $file.charCodeAt(0) - 1 : $file.charCodeAt(0) + 1);
-    } else if (ev.key === 'ArrowRight') {
-      $file = String.fromCharCode($isWhite ? $file.charCodeAt(0) + 1 : $file.charCodeAt(0) - 1);
-    } else {
-      return true;
-    }
-    const $newSq = document.querySelector('.board [file="' + $file + '"][rank="' + $rank + '"]') as HTMLElement;
-    if ($newSq) {
-      $newSq.focus();
-    } else {
-      borderSound();
-    }
-    ev.preventDefault();
-    return false;
-  };
-}
-
-function selectionHandler(opponentColor: () => Color) {
-  return (ev: MouseEvent) => {
-    // this depends on the current document structure. This may not be advisable in case the structure wil change.
-    const $evBtn = $(ev.target as HTMLElement);
-    const $pos = ($evBtn.attr('file') ?? "") + $evBtn.attr('rank');
-    const $moveBox = $(document.querySelector('input.move') as HTMLInputElement);
-    if (!$moveBox) return false;
-
-    // if no move in box yet
-    if ($moveBox.val() === '') {
-      // if user selects anothers' piece first
-      if ($evBtn.attr('color') === opponentColor()) return false;
-      // as long as the user is selecting a piece and not a blank tile
-      if ($evBtn.text().match(/^[^\-+]+/g)) {
-        $moveBox.val($pos);
-        selectSound();
-      }
-    } else {
-      // if user selects their own piece second
-      if ($evBtn.attr('color') === (opponentColor() === 'black' ? 'white' : 'black')) return false;
-
-      $moveBox.val($moveBox.val() + $pos);
-      // this section depends on the form being the granparent of the input.move box.
-      const $form = $moveBox.parent().parent();
-      const $event = new Event('submit', {
-        cancelable: true,
-        bubbles: true
-      })
-      $form.trigger($event);
-    }
-    return false;
-  };
-}
 
 function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: () => Style, $input: Cash) {
   return () => {
