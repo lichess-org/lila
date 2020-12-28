@@ -5,7 +5,7 @@
   <string name="twoFactorApp">Download een app voor tweestapsverificatie, bijvoorbeeld Google Authenticator voor %1$s of %2$s.</string>
   <string name="scanTheCode">Scan de QR-code met de app.</string>
   <string name="enterPassword">Voer je wachtwoord en de verificatiecode in die door de app wordt gegenereerd om de installatie te voltooien. Je heeft een verificatiecode nodig elke keer dat je inlogt.</string>
-  <string name="ifYouCannotScanEnterX" comment="ifYouCannotScanEnterX&#10;&#10;%s is the authentication code">Als u de code niet kunt scannen, voer het geheime %s in in uw app.</string>
+  <string name="ifYouCannotScanEnterX">Als u de code niet kunt scannen, voer het geheime %s in in uw app.</string>
   <string name="authenticationCode">Verificatiecode</string>
   <string name="ifYouLoseAccess">Belangrijk: Als je geen toegang meer hebt tot je tweestapsverificatiecodes, kan je het wachtwoord opnieuw instellen via e-mail.</string>
   <string name="enableTwoFactor">Schakel tweestapsverificatie in</string>
@@ -13,4 +13,5 @@
   <string name="twoFactorEnabled">Tweestapsverificatie ingeschakeld</string>
   <string name="twoFactorDisable">Je hebt je wachtwoord en een verificatiecode van je authenticatie-app nodig om tweestapsverificatie uit te schakelen.
 Als je geen toegang meer hebt tot uw verificatiecodes, kunt je ook je wachtwoord resetten via e-mail.</string>
+  <string name="openTwoFactorApp">Open de tweestapsverificatie-app op uw apparaat om uw authenticatiecode te bekijken en uw identiteit te verifiëren.</string>
 </resources>

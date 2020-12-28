@@ -13,7 +13,7 @@ function register(el: HTMLElement, selector: string, backoff: number = 500) {
     next = nav?.querySelector('.pager a') as HTMLAnchorElement | null,
     nextUrl = next?.href;
 
-  if (nav && nextUrl) new Promise(res => {
+  if (nav && nextUrl) new Promise<void>(res => {
     if (isVisible(nav)) res();
     else window.addEventListener('scroll', function scrollListener() {
       if (isVisible(nav)) {

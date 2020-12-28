@@ -5,7 +5,7 @@
   <string name="twoFactorApp">Pobierz aplikację do uwierzytelniania dwuetapowego, na przykład Google Authenticator dla %1$s lub %2$s.</string>
   <string name="scanTheCode">Zeskanuj kod QR za pomocą aplikacji.</string>
   <string name="enterPassword">Wprowadź hasło i kod uwierzytelniający wygenerowany przez aplikację, aby zakończyć konfigurację. Będziesz potrzebował kodu uwierzytelniającego za każdym razem, gdy się zalogujesz.</string>
-  <string name="ifYouCannotScanEnterX" comment="ifYouCannotScanEnterX&#10;&#10;%s is the authentication code">Jeśli nie możesz zeskanować kodu, wpisz kod %s do swojej aplikacji.</string>
+  <string name="ifYouCannotScanEnterX">Jeśli nie możesz zeskanować kodu, wpisz kod %s do swojej aplikacji.</string>
   <string name="authenticationCode">Kod uwierzytelniania</string>
   <string name="ifYouLoseAccess">Uwaga: Jeśli utracisz dostęp do kodów uwierzytelniania dwuetapowego, możesz zresetować hasło za pomocą wiadomości e-mail.</string>
   <string name="enableTwoFactor">Włącz uwierzytelnianie dwuetapowe</string>
@@ -13,4 +13,5 @@
   <string name="twoFactorEnabled">Uwierzytelnianie dwuetapowe włączone</string>
   <string name="twoFactorDisable">Potrzebujesz hasła i kodu uwierzytelniającego z aplikacji uwierzytelniającej, aby wyłączyć uwierzytelnianie dwuetapowe.
 Jeśli utraciłeś dostęp do swoich kodów uwierzytelniających, możesz również zresetować hasło poprzez e-mail.</string>
+  <string name="openTwoFactorApp">Uruchom na swoim urządzeniu aplikację do uwierzytelnienia dwupoziomowego, aby zobaczyć swój kod autoryzacji i zweryfikować swoją tożsamość.</string>
 </resources>

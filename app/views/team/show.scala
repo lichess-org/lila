@@ -138,7 +138,7 @@ object show {
                   dataIcon := "g"
                 )(
                   span(
-                    strong("Swiss tournament"),
+                    strong(trans.swiss.swissTournaments()),
                     em("A Swiss tournament that only members of your team can join")
                   )
                 ),

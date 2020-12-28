@@ -5,7 +5,7 @@
   <string name="twoFactorApp">Lataa sovellus kaksivaiheiseen tunnistautumiseen, esimerkiksi Google Authenticator %1$s tai %2$s -laitteeseen.</string>
   <string name="scanTheCode">Skannaa sovelluksella tämä QR-koodi.</string>
   <string name="enterPassword">Saata asennus loppuun kirjoittamalla tähän salasanasi ja sovelluksen tuottaman tunnistautumiskoodin. Tämän jälkeen tarvitset kirjautumiseen joka kerralla tunnistautumiskoodin.</string>
-  <string name="ifYouCannotScanEnterX" comment="ifYouCannotScanEnterX&#10;&#10;%s is the authentication code">Jos et voi skannata koodia, syötä sovellukseesi salainen %s.</string>
+  <string name="ifYouCannotScanEnterX">Jos et voi skannata koodia, syötä sovellukseesi salainen %s.</string>
   <string name="authenticationCode">Tunnistautumiskoodi</string>
   <string name="ifYouLoseAccess">Huomaa: Jos menetät pääsyn kaksivaiheisen tunnistautumisen koodeihin, voit nollata salasanasi sähköpostitse.</string>
   <string name="enableTwoFactor">Ota käyttöön kaksivaiheinen tunnistautuminen</string>

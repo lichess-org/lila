@@ -5,7 +5,7 @@
   <string name="twoFactorApp">Nabavite aplikaciju za dvofaktorsku provjeru autentičnosti, kao što je to na primjer Google Autenticator za %1$s ili %2$s.</string>
   <string name="scanTheCode">Skenirajte QR kod sa aplikacijom.</string>
   <string name="enterPassword">Unesite lozinku i kod za provjeru autentičnosti koji je generisala aplikacija da biste dovršili postavke. Kod za provjeru autentičnosti će Vam trebati svaki put kada se prijavljujete.</string>
-  <string name="ifYouCannotScanEnterX" comment="ifYouCannotScanEnterX&#10;&#10;%s is the authentication code">Ako ne možete skenirati kod, ukucajte tajni %s u Vašoj aplikaciji.</string>
+  <string name="ifYouCannotScanEnterX">Ako ne možete skenirati kod, ukucajte tajni %s u Vašoj aplikaciji.</string>
   <string name="authenticationCode">Kod za provjeru autentičnosti</string>
   <string name="ifYouLoseAccess">Napomena: Ako izgubite pristup dvofaktornim kodovima za provjeru autentičnosti, možete resetovati lozinku pomoću e-mail poruke.</string>
   <string name="enableTwoFactor">Uključite dvofaktorsku provjeru autentičnosti</string>
@@ -13,4 +13,5 @@
   <string name="twoFactorEnabled">Dvofaktorska provjera autentičnosti uključena</string>
   <string name="twoFactorDisable">Da biste isključili dvofaktorsku provjeru autentičnosti, potrebna Vam je lozinka i kod za provjeru autentičnosti iz aplikacije za potvrđivanje.
 Ako ste izgubili pristup kodovima za provjeru autentičnosti, možete resetovati lozinku pomoću e-mail poruke.</string>
+  <string name="openTwoFactorApp">Otvorite aplikaciju za autentikaciju s dva faktora na Vašem uređaju da vidite Vaš kod za autentikaciju i potvrdite Vaš identitet.</string>
 </resources>

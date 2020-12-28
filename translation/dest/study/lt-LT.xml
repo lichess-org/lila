@@ -100,9 +100,9 @@
   <string name="startFromInitialPosition">Pradėti nuo pirminės pozicijos</string>
   <string name="editor">Redaktorius</string>
   <string name="startFromCustomPosition">Pradėti nuo tinkintos pozicijos</string>
-  <string name="loadAGameByUrl">Pakrauti žaidimus iš adresų</string>
+  <string name="loadAGameByUrl">Pakrauti partijas iš adresų</string>
   <string name="loadAPositionFromFen">Pakrauti poziciją iš FEN</string>
-  <string name="loadAGameFromPgn">Pakrauti žaidimus iš PGN</string>
+  <string name="loadAGameFromPgn">Pakrauti partijas iš PGN</string>
   <string name="automatic">Automatinis</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">Įklijuokite savo PGN tekstą čia, iki %s žaidimo</item>
@@ -110,8 +110,8 @@
     <item quantity="many">Įklijuokite savo PGN tekstą čia, iki %s žaidimo</item>
     <item quantity="other">Įklijuokite savo PGN tekstą čia, iki %s žaidimų</item>
   </plurals>
-  <string name="urlOfTheGame">Žaidimų adresai, vienas per eilutę</string>
-  <string name="loadAGameFromXOrY">Pakrauti žaidimus iš %1$s arba %2$s</string>
+  <string name="urlOfTheGame">Partijų adresai, vienas per eilutę</string>
+  <string name="loadAGameFromXOrY">Pakrauti partijas iš %1$s arba %2$s</string>
   <string name="createChapter">Sukurti skyrių</string>
   <string name="configureLiveBroadcast">Tinkinti gyvą transliaciją</string>
   <string name="createStudy">Sukurti studiją</string>

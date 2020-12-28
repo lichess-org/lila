@@ -87,4 +87,9 @@
   <string name="sacrificeDescription">O tactică care implică renunțarea la material pe termen scurt pentru a câștiga un avantaj din nou după o secvență forțată de mutări.</string>
   <string name="short">Puzzle scurt</string>
   <string name="shortDescription">Două mutări pentru a câștiga.</string>
+  <string name="underPromotionDescription">Promovează într-un cal, un nebun sau o tură.</string>
+  <string name="veryLongDescription">Patru mutări sau mai multe pentru a câștiga.</string>
+  <string name="zugzwangDescription">Adversarul este limitat în mișcările pe care le poate face, iar toate mișcările îi înrăutățesc poziția.</string>
+  <string name="healthyMix">Amestec sănătos</string>
+  <string name="healthyMixDescription">Un pic din toate. Nu știi la ce să te aștepți, așa că rămâi gata pentru orice! La fel ca în jocurile reale.</string>
 </resources>

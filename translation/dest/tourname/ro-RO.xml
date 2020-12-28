@@ -2,12 +2,12 @@
 <resources>
   <string name="hourlyRapidArena">Arenă Rapidă Orară</string>
   <string name="hourlyRapid">Rapid orar</string>
-  <string name="hourlyXArena">Arenă %s Orară</string>
+  <string name="hourlyXArena">Arena Orară %s</string>
   <string name="dailyRapidArena">arena rapida zilnica</string>
   <string name="dailyRapid">rapid zilnic</string>
   <string name="dailyClassicalArena">arena clasica zilnica</string>
   <string name="dailyClassical">clasic zilnic</string>
-  <string name="dailyXArena">Zilnic %s Arenă</string>
+  <string name="dailyXArena">Arena Zilnică %s</string>
   <string name="dailyX">Zilnic %s</string>
   <string name="easternRapidArena">Arena Rapidă de fus orar</string>
   <string name="easternRapid">rapid de fus orar</string>

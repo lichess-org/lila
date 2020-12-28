@@ -142,6 +142,9 @@ private object BsonHandlers {
 
   def addFeaturable(s: Swiss) =
     swissHandler.writeTry(s).get ++ {
-      s.isNotFinished ?? $doc("featurable" -> true)
+      s.isNotFinished ?? $doc(
+        "featurable" -> true,
+        "garbage"    -> s.unrealisticSettings.option(true)
+      )
     }
 }

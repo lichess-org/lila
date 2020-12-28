@@ -698,8 +698,8 @@
   <string name="gameAnalysis">Análise da partida</string>
   <string name="xHostsY">%1$s criou %2$s</string>
   <string name="xJoinsY">%1$s entrou em %2$s</string>
-  <string name="xLikesY">%1$s curtiu %2$s</string>
-  <string name="xCreatesStudyY">%1$s Cria o Estudo %2$s</string>
+  <string name="xLikesY">%1$s gostou de %2$s</string>
+  <string name="xCreatesStudyY">%1$s criou o estudo %2$s</string>
   <string name="quickPairing">Partida rápida</string>
   <string name="lobby">Salão</string>
   <string name="anonymous">Anônimo</string>

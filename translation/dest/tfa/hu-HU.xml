@@ -5,7 +5,7 @@
   <string name="twoFactorApp">Tölts le egy alkalmazást a kétlépcsős azonosításhoz, például Google Authenticator-t %1$s vagy %2$s-hoz.</string>
   <string name="scanTheCode">Olvasd be a QR kódot az app-al.</string>
   <string name="enterPassword">Add meg a jelszót és az hitelesítő kódot amit az alkalmazás generált a beállítás befejezéséhez. Minden bejelentkezéskor szükséged lesz hitelesítő kódra.</string>
-  <string name="ifYouCannotScanEnterX" comment="ifYouCannotScanEnterX&#10;&#10;%s is the authentication code">Ha nem sikerül beolvasni a kódot, írd be ezt a jelszót %s az alkalmazásban.</string>
+  <string name="ifYouCannotScanEnterX">Ha nem sikerül beolvasni a kódot, írd be ezt a jelszót %s az alkalmazásban.</string>
   <string name="authenticationCode">Hitelesítő kód</string>
   <string name="ifYouLoseAccess">Megjegyzés: ha elvész a hozzáférés a kétlépcsős azonosítási kódokhoz, email-ben lehet új jelszót igényelni.</string>
   <string name="enableTwoFactor">Kétlépcsős azonosítás engedélyezése</string>
