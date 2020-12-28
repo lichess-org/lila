@@ -738,10 +738,10 @@ chessground@^7.9.2:
   resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.9.3.tgz#dec20a45afe439fe9ed961836a7e5a9157087141"
   integrity sha512-6vU1q3u/69aHt/Y/UwNk9h9BxPhOuJl+xTQH/taicVZcVY7VcUEUpt+yvVGgglooPgOzM/uj2Rzv5Pcaj/R2/A==
 
-chessops@^0.8.1:
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/chessops/-/chessops-0.8.1.tgz#23f420692264319a73de4ad8535f1c5e4be488c4"
-  integrity sha512-D0VeU1cI0iHqGE3RAZYRZaWTai1wHpKXdZaTM3iWKt89kfnO8Y49MWydcd5TawrfE3Zczq9Xa+1pyr+j/2q4lQ==
+chessops@^0.7.4:
+  version "0.7.4"
+  resolved "https://registry.yarnpkg.com/chessops/-/chessops-0.7.4.tgz#a94d1032521768835d43b5c2bf087abe7d0ae736"
+  integrity sha512-xK/G+3NqWNS6lnRrzmV2miLRb0YilIwTuSE6m34pdGh8sA9XenQK4KnrXdRPVRA9QaeW9LZhE+NT3LCpXbCxrA==
   dependencies:
     "@badrap/result" "^0.2.6"
 
@@ -4532,7 +4532,7 @@ types-serviceworker@^0.0.1:
   resolved "https://registry.yarnpkg.com/types-serviceworker/-/types-serviceworker-0.0.1.tgz#3d356e176d3b987d2164b34e609c591e67d31f1c"
   integrity sha512-EKO/SZ3AsHEZsqv+bsdlTCz5k955riOksnYGlG6JhVwNTVsPWj/TScTbiNVZ5+mmX8TcEXF0C8aSxUw0jTDpIw==
 
-typescript@^4.1.3:
+typescript@^4.0.3, typescript@^4.1.3:
   version "4.1.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.1.3.tgz#519d582bd94cba0cf8934c7d8e8467e473f53bb7"
   integrity sha512-B3ZIOf1IKeH2ixgHhj6la6xdwR9QrLC5d1VKeCSY4tvkqhF2eqd9O7txNlS0PO3GrBAFIdr3L1ndNwteUbZLYg==
