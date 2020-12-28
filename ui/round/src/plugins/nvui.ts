@@ -12,13 +12,12 @@ import { plyStep } from '../round';
 import { onInsert } from '../util';
 import { Step, Dests, Position, Redraw } from '../interfaces';
 import * as game from 'game';
-import { renderSan, renderPieces, renderBoard, styleSetting, pieceSetting, prefixSetting, positionSetting, boardSetting, lastCaptured, PieceStyle, PrefixStyle } from 'nvui/chess';
+import { renderSan, renderPieces, renderBoard, styleSetting, pieceSetting, prefixSetting, positionSetting, boardSetting } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { boardCommandsHandler, possibleMovesHandler, lastCapturedCommandHandler, selectionHandler, arrowKeyHandler, positionJumpHandler, pieceJumpingHandler } from 'nvui/chess';
 import { Notify } from 'nvui/notify';
-import { castlingFlavours, supportedVariant, Style, symbolToFile, roundBoardListenersSetup } from 'nvui/chess';
+import { castlingFlavours, supportedVariant, Style } from 'nvui/chess';
 import { commands } from 'nvui/command';
-import { TourStandingCtrl } from '../tourStanding';
 import { throttled } from '../sound';
 
 const selectSound = throttled('select');
@@ -129,7 +128,7 @@ lichess.RoundNVUI = function(redraw: Redraw) {
             $board.on('keypress', boardCommandsHandler());
             $board.on('keypress', () => console.log(ctrl));
             // NOTE: This is the only line different from analysisBoardListenerSetup
-            $board.on('keypress', lastCapturedCommandHandler(() => ctrl.data.steps.map(step => step.fen), pieceStyle, prefixStyle));
+            $board.on('keypress', lastCapturedCommandHandler(() => ctrl.data.steps.map(step => step.fen), pieceStyle.get(), prefixStyle.get()));
             const $buttons = $board.find('button');
             $buttons.on('click', selectionHandler(ctrl.data.opponent.color, selectSound));
             $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));

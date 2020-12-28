@@ -431,7 +431,7 @@ export function lastCapturedCommandHandler(steps: () => string[], pieceStyle: Pi
 
 /* TODO: this only has access to valid moves when it is the users turn; this should be fixed somehow. Likely server side.
 Currently announces: "Cannot look at valid moves when it is not your turn." but this should be considered a bug.*/
-export function possibleMovesHandler(possibleMoves: () => string | { [key: string]: string }, pieces: () => Pieces) {
+export function possibleMovesHandler(possibleMoves: () => string | { [key: string]: string } | undefined, pieces: () => Pieces) {
   return (ev: KeyboardEvent) => {
     if (ev.key !== 'm' && ev.key !== 'M') return true;
     const $boardLive = $('.boardstatus');
@@ -443,7 +443,7 @@ export function possibleMovesHandler(possibleMoves: () => string | { [key: strin
     const $possibleMoves = possibleMoves();
     let $moveMap: {
       [key: string]: string
-    } = {};
+    } | undefined = {};
     if (typeof $possibleMoves === 'string') {
       $moveMap = stringToMap($possibleMoves);
     } else {
@@ -452,6 +452,7 @@ export function possibleMovesHandler(possibleMoves: () => string | { [key: strin
     // TODO: here it is
     if (!$moveMap) {
       $boardLive.text("Cannot look at valid moves when it is not your turn.");
+      return false;
     }
     const $myDests = $moveMap[$file + $rank];
     if (!$myDests) {
