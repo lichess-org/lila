@@ -436,14 +436,13 @@ export function possibleMovesHandler(possibleMoves: () => string | { [key: strin
     if (ev.key !== 'm' && ev.key !== 'M') return true;
     const $boardLive = $('.boardstatus');
     const $pieces = pieces();
+    const $possibleMoves = possibleMoves();
 
     const $btn = $(ev.target as HTMLElement);
-    const $file = $btn.attr('file') ?? "";
-    const $rank = $btn.attr('rank') ?? "";
-    const $possibleMoves = possibleMoves();
-    let $moveMap: {
-      [key: string]: string
-    } | undefined = {};
+    const $pos = ($btn.attr('file') ?? "")
+      + $btn.attr('rank') as Key;
+
+    let $moveMap;
     if (typeof $possibleMoves === 'string') {
       $moveMap = stringToMap($possibleMoves);
     } else {
@@ -451,15 +450,14 @@ export function possibleMovesHandler(possibleMoves: () => string | { [key: strin
     }
     // TODO: here it is
     if (!$moveMap) {
-      $boardLive.text("Cannot look at valid moves when it is not your turn.");
+      $boardLive.text("Cannot view moves when it is not your turn.");
       return false;
     }
-    const $myDests = $moveMap[$file + $rank];
+    const $myDests = $moveMap[$pos];
     if (!$myDests) {
       $boardLive.text("None");
       return false;
     }
-    console.log(pieces);
     const $myDestsList = $myDests.match(/.{2}/g)?.map(dest => {
       const $pieceAtDest = $pieces.get(dest as Key);
       if ($pieceAtDest) {
@@ -468,8 +466,14 @@ export function possibleMovesHandler(possibleMoves: () => string | { [key: strin
         return dest;
       }
     }).filter(dest => ev.key === 'm' || dest.includes('captures'));
-    if (!$myDestsList || ($myDestsList && $myDestsList.length === 0)) {
+    // this shoudn't ever happen, but typescript makes me check.
+    if (!$myDestsList) {
+      $boardLive.text("None");
+      return false;
+    } 
+    if ($myDestsList.length === 0 && ev.key === 'M') {
       $boardLive.text("No captures");
+      return false;
     }
     $boardLive.text($myDestsList?.join(', ') ?? "None");
     return false;
