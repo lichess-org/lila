@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advancedPawn">高級兵</string>
   <string name="advantage">擁有優勢</string>
+  <string name="bishopEndgame">象殘局</string>
+  <string name="bishopEndgameDescription">只剩象和兵的殘局</string>
   <string name="castling">易位</string>
   <string name="equality">均勢</string>
   <string name="clearance">騰挪</string>
@@ -8,6 +11,8 @@
   <string name="doubleCheck">雙將</string>
   <string name="endgame">殘局</string>
   <string name="fork">捉雙</string>
+  <string name="knightEndgame">士殘局</string>
+  <string name="knightEndgameDescription">只剩士和兵的殘局</string>
   <string name="long">長題目</string>
   <string name="longDescription">三步獲勝</string>
   <string name="mate">將軍</string>
@@ -22,8 +27,11 @@
   <string name="middlegame">中局</string>
   <string name="oneMove">一步題目</string>
   <string name="opening">開局</string>
+  <string name="pawnEndgame">兵殘局</string>
+  <string name="pawnEndgameDescription">只剩兵的殘局</string>
   <string name="pin">牽制</string>
   <string name="promotion">升變</string>
+  <string name="queenEndgame">后殘局</string>
   <string name="short">短題目</string>
   <string name="shortDescription">兩步獲勝</string>
   <string name="underPromotion">防止升變</string>
