@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Erregea bi lauki mugitu</string>
   <string name="castleByMovingOntoTheRook">Erregea gazteluaren gainera mugitu</string>
   <string name="inputMovesWithTheKeyboard">Jokaldiak teklatuarekin sartu</string>
+  <string name="snapArrowsToValidMoves">Marraztutako geziak legezko jokaldietara mugatu</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Txateam \"Good game, well played\" esan partida galdu edo berdintzean</string>
   <string name="yourPreferencesHaveBeenSaved">Zure lehentasunak gorde dira</string>
 </resources>
