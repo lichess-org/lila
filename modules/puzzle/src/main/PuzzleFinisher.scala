@@ -34,7 +34,7 @@ final private[puzzle] class PuzzleFinisher(
       val (round, newPuzzleGlicko, userPerf) = prevRound match {
         case Some(prev) =>
           (
-            prev.copy(win = result.win),
+            prev.updateWithWin(result.win),
             none,
             user.perfs.puzzle
           )
@@ -65,7 +65,12 @@ final private[puzzle] class PuzzleFinisher(
             .filter(puzzle.glicko !=)
             .filter(_.sanityCheck)
           val round =
-            PuzzleRound(id = PuzzleRound.Id(user.id, puzzle.id), win = result.win, date = DateTime.now)
+            PuzzleRound(
+              id = PuzzleRound.Id(user.id, puzzle.id),
+              win = result.win,
+              fixedAt = none,
+              date = DateTime.now
+            )
           val userPerf =
             user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, now) pipe {
               p =>

@@ -7,8 +7,9 @@ import lila.user.User
 
 case class PuzzleRound(
     id: PuzzleRound.Id,
-    win: Boolean,
-    date: DateTime,
+    win: Boolean,              // last result
+    fixedAt: Option[DateTime], // date of first-replaying lost puzzle and winning it
+    date: DateTime,            // date of first playing the puzzle
     vote: Option[Int] = None,
     themes: List[PuzzleRound.Theme] = Nil
 ) {
@@ -34,6 +35,11 @@ case class PuzzleRound(
     }
 
   def nonEmptyThemes = themes.nonEmpty option themes
+
+  def updateWithWin(win: Boolean) = copy(
+    win = win,
+    fixedAt = fixedAt orElse win.option(DateTime.now)
+  )
 }
 
 object PuzzleRound {
@@ -52,14 +58,15 @@ object PuzzleRound {
   def themesLookSane(themes: List[Theme]): Boolean = themes.count(_.vote) < 8
 
   object BSONFields {
-    val id     = "_id"
-    val win    = "w"
-    val vote   = "v"
-    val themes = "t"
-    val puzzle = "p" // only if themes is set!
-    val weight = "e"
-    val user   = "u"
-    val date   = "d"
-    val theme  = "h"
+    val id      = "_id"
+    val win     = "w" // last result
+    val fixedAt = "f" // date of first-replaying lost puzzle and winning it
+    val vote    = "v"
+    val themes  = "t"
+    val puzzle  = "p" // only if themes is set!
+    val weight  = "e"
+    val user    = "u"
+    val date    = "d" // date of first playing the puzzle
+    val theme   = "h"
   }
 }

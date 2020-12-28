@@ -240,6 +240,8 @@ final class Puzzle(
         .fuccess
     }
 
+  def renderDashboard(u: lila.user.User) = ???
+
   def mobileBcLoad(nid: Long) =
     Open { implicit ctx =>
       negotiate(
