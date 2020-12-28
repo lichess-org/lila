@@ -11,8 +11,8 @@
   <string name="studiesCreatedByX">Estudos criados por %s</string>
   <string name="noneYet">Nenhum ainda.</string>
   <string name="hot">Em alta</string>
-  <string name="dateAddedNewest">Data adicionada (mais recente)</string>
-  <string name="dateAddedOldest">Data adicionada (mais antiga)</string>
+  <string name="dateAddedNewest">Data de criação (mais recente)</string>
+  <string name="dateAddedOldest">Data de criação (mais antiga)</string>
   <string name="recentlyUpdated">Atualizado recentemente</string>
   <string name="mostPopular">Mais populares</string>
   <string name="addNewChapter">Adicionar um novo capítulo</string>
@@ -21,7 +21,7 @@
     <item quantity="other">%s Capítulos</item>
   </plurals>
   <plurals name="nbGames">
-    <item quantity="one">%s Jogos</item>
+    <item quantity="one">%s Jogo</item>
     <item quantity="other">%s Jogos</item>
   </plurals>
   <string name="addMembers">Adicionar membros</string>
@@ -36,20 +36,20 @@
   <string name="contributor">Colaborador</string>
   <string name="kick">Expulsar</string>
   <string name="leaveTheStudy">Sair deste estudo</string>
-  <string name="youAreNowAContributor">Você agora é um colaborador</string>
-  <string name="youAreNowASpectator">Você agora é um espectador</string>
-  <string name="pgnTags">Tags PGN</string>
+  <string name="youAreNowAContributor">Agora você é um(a) colaborador(a)</string>
+  <string name="youAreNowASpectator">Você agora é um(a) espectador(a)</string>
+  <string name="pgnTags">Etiquetas PGN</string>
   <string name="like">Gostei</string>
-  <string name="newTag">Novo marcador</string>
-  <string name="commentThisPosition">Comente esta posição</string>
-  <string name="commentThisMove">Comente este lance</string>
+  <string name="newTag">Nova etiqueta</string>
+  <string name="commentThisPosition">Comente sobre esta posição</string>
+  <string name="commentThisMove">Comente sobre este lance</string>
   <string name="annotateWithGlyphs">Anotar com símbolos</string>
   <string name="theChapterIsTooShortToBeAnalysed">O capítulo é muito curto para ser analisado.</string>
   <string name="onlyContributorsCanRequestAnalysis">Apenas os colaboradores de um estudo podem solicitar uma análise de computador.</string>
   <string name="getAFullComputerAnalysis">Obter uma análise completa dos movimentos pelo servidor.</string>
   <string name="makeSureTheChapterIsComplete">Certifique-se de que o capítulo está completo. Você só pode solicitar análise uma vez.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Todos os membros do SYNC permanecem na mesma posição</string>
-  <string name="shareChanges">Compartilhe as alterações com os espectadores e salve-as no servidor</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Todos os membros em SYNC veem a mesma posição</string>
+  <string name="shareChanges">Compartilhar as alterações com os espectadores e salvá-las no servidor</string>
   <string name="playing">Jogando</string>
   <string name="first">Primeiro</string>
   <string name="previous">Anterior</string>
@@ -63,12 +63,12 @@
   <string name="downloadGame">Baixar partida</string>
   <string name="studyUrl">URL de estudo</string>
   <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">URL de transmissão</string>
-  <string name="currentChapterUrl">URL atual do capítulo</string>
+  <string name="currentChapterUrl">URL do capítulo atual</string>
   <string name="currentGameUrl">URL da partida atual</string>
   <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Você pode colar isso no fórum para incorporar</string>
-  <string name="startAtInitialPosition">Reiniciar para posição inicial</string>
-  <string name="startAtX">Começa em %s</string>
-  <string name="embedInYourWebsite">Incorpore isso em seu site ou blog</string>
+  <string name="startAtInitialPosition">Começar na posição inicial</string>
+  <string name="startAtX">Começar em %s</string>
+  <string name="embedInYourWebsite">Incorporar em seu site ou blog</string>
   <string name="readMoreAboutEmbedding">Leia mais sobre como incorporar</string>
   <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Apenas os estudos públicos podem ser incorporados!</string>
   <string name="open">Abertura</string>

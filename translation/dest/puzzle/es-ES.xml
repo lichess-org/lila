@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">Ejercicios</string>
+  <string name="puzzles">Tácticas</string>
   <string name="recommended">Recomendado</string>
-  <string name="phases">Fases</string>
-  <string name="motifs">Motivos</string>
+  <string name="phases">Partes</string>
+  <string name="motifs">Temas</string>
   <string name="advanced">Avanzado</string>
   <string name="lengths">Duraciones</string>
   <string name="mates">Mates</string>
@@ -41,5 +41,5 @@
   <string name="hardest">El más difícil</string>
   <string name="example">Ejemplo</string>
   <string name="addAnotherTheme">Añadir otro tema</string>
-  <string name="jumpToNextPuzzleImmediately">Ir al siguiente puzzle inmediatamente</string>
+  <string name="jumpToNextPuzzleImmediately">Ir al siguiente rompecabezas inmediatamente</string>
 </resources>

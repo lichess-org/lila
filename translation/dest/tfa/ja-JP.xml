@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="twoFactorAuth">二要素認証</string>
-  <string name="twoFactorHelp">二要素認証はアカウントのセキュリティを高めます。</string>
-  <string name="twoFactorApp">二要素認証のためのアプリ（たとえば%1$s、%2$s 用の Google Authenticator）を手に入れてください。</string>
+  <string name="twoFactorAuth">2 要素認証</string>
+  <string name="twoFactorHelp">2 要素認証はアカウントのセキュリティを高めます。</string>
+  <string name="twoFactorApp">2 要素認証のためのアプリ（たとえば%1$s、%2$s 用の Google Authenticator）を手に入れてください。</string>
   <string name="scanTheCode">そのアプリで QR コードをスキャンします。</string>
   <string name="enterPassword">パスワードと、アプリが生成した認証コードを入力すれば準備完了です。認証コードはログインするたびに必要になります。</string>
-  <string name="ifYouCannotScanEnterX" comment="ifYouCannotScanEnterX&#10;&#10;%s is the authentication code">コードをスキャンできない場合は、秘密の %s をアプリに入力してください。</string>
+  <string name="ifYouCannotScanEnterX">コードをスキャンできない場合は、秘密の %s をアプリに入力してください。</string>
   <string name="authenticationCode">認証コード</string>
-  <string name="ifYouLoseAccess">二要素認証コードがわからなくなったら、Lichess にメールで連絡してパスワードリセットを行なうことができます。</string>
-  <string name="enableTwoFactor">二要素認証を有効にする</string>
-  <string name="disableTwoFactor">二要素認証を無効にする</string>
-  <string name="twoFactorEnabled">二要素認証を有効にしました。</string>
-  <string name="twoFactorDisable">二要素認証を無効にするには、パスワードと、アプリが生成した認証コードが必要です。
+  <string name="ifYouLoseAccess">2 要素認証コードがわからなくなったら、Lichess にメールで連絡してパスワードリセットを行なうことができます。</string>
+  <string name="enableTwoFactor">2 要素認証を有効にする</string>
+  <string name="disableTwoFactor">2 要素認証を無効にする</string>
+  <string name="twoFactorEnabled">2 要素認証を有効にしました。</string>
+  <string name="twoFactorDisable">2 要素認証を無効にするには、パスワードと、アプリが生成した認証コードが必要です。
 認証コードがわからなくなったら、Lichess にメールで連絡してパスワードリセットを行なってください。</string>
+  <string name="openTwoFactorApp">デバイスで 2 要素認証アプリを開き、認証コードを表示して確認してださい。</string>
 </resources>

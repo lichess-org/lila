@@ -22,12 +22,12 @@
   <string name="perk1">Gaukite degančią transliuotojo piktogramą savo Lichess profilį.</string>
   <string name="perk2">Patekite į transliuotojų sąrašo viršų.</string>
   <string name="perk3">Pranešti savo Lichess sekėjams.</string>
-  <string name="perk4">Parodykite savo transliaciją savo žaidimuose, turnyruose ir studijose.</string>
+  <string name="perk4">Parodykite savo transliaciją savo partijose, turnyruose ir studijose.</string>
   <string name="approved">Jūsų transliacija patvirtinta.</string>
   <string name="pendingReview">Jūsų transliacija peržiūrima moderatorių.</string>
   <string name="pleaseFillIn">Užpildykite savo transliuotojo informaciją ir įkelkite nuotrauką.</string>
-  <string name="whenReady">Kai būsite pasiruošę būti pažymėti kaip Lichess transliuotojas, %s</string>
-  <string name="requestReview">pareikalaukite moderatoriaus peržiūros</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Kai būsite pasiruošę būti pažymėti kaip Lichess transliuotojas, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">pareikalaukite moderatoriaus peržiūros</string>
   <string name="anotherLanguage">Jei jūsų transliacija vyksta kita kalba, nei anglų, pridėkite teisingą kalbos žymę (%s), apgaubtą laužtiniais skliaustais, savo transliacijos pavadinimo pradžioje.
 Pavyzdžiui, galite pridėti \"[RU]\" rusų kalbai, \"[TR]\" turkų kalbai, \"[FR]\" prancūzų kalbai ir t. t.
 Šį transliacijos pavadinimą įrašykite savo Twitch ar YouTube puslapyje, ne Lichess transliacijos nustatymuose.

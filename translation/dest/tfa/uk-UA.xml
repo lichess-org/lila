@@ -5,7 +5,7 @@
   <string name="twoFactorApp">Отримайте програму для двофакторної аутентифікації, наприклад Google Authenticator для %1$s або %2$s.</string>
   <string name="scanTheCode">Проскануйте QR-код за допомогою додатку.</string>
   <string name="enterPassword">Введіть Ваш пароль та код аутентифікації, згенерований програмою, щоб завершити налаштування. Щоразу при вході в систему Вам знадобиться код аутентифікації.</string>
-  <string name="ifYouCannotScanEnterX" comment="ifYouCannotScanEnterX&#10;&#10;%s is the authentication code">Якщо Ви не можете відсканувати код, введіть секретний %s у свою програму.</string>
+  <string name="ifYouCannotScanEnterX">Якщо Ви не можете відсканувати код, введіть секретний %s у свою програму.</string>
   <string name="authenticationCode">Код аутентифікації</string>
   <string name="ifYouLoseAccess">Зверніть увагу: якщо Ви втратите доступ до своїх кодів двофакторної аутентифікації, Ви зможете скинути пароль через електронну пошту.</string>
   <string name="enableTwoFactor">Увімкнути двофакторну аутентифікацію</string>

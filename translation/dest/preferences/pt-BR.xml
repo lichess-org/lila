@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Xadrez cego (peças invisíveis)</string>
   <string name="chessClock">Relógio de xadrez</string>
   <string name="tenthsOfSeconds">Décimos de segundo</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Quando o tempo restante &lt; 10 segundos</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Quando o tempo restante for &lt; 10 segundos</string>
   <string name="horizontalGreenProgressBars">Barras de progresso verdes horizontais</string>
   <string name="soundWhenTimeGetsCritical">Som ao atingir tempo crítico</string>
   <string name="giveMoreTime">Dar mais tempo</string>
@@ -32,7 +32,7 @@
   <string name="promoteToQueenAutomatically">Promover a Dama automaticamente</string>
   <string name="whenPremoving">Quando mover previamente</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reivindicar empate sobre a repetição tripla automaticamente</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Quando o tempo restante &lt; 30 segundos</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Quando o tempo restante for &lt; 30 segundos</string>
   <string name="moveConfirmation">Confirmação de movimento</string>
   <string name="inCorrespondenceGames">Jogos por correspondência</string>
   <string name="correspondenceAndUnlimited">Por correspondência e sem limites</string>
@@ -41,7 +41,7 @@
   <string name="castleByMovingTwoSquares">Mova o rei duas casas</string>
   <string name="castleByMovingOntoTheRook">Mova o Rei em direção a torre</string>
   <string name="inputMovesWithTheKeyboard">Inclua os lances com o teclado</string>
-  <string name="snapArrowsToValidMoves">Insira setas para movimentos válidos</string>
+  <string name="snapArrowsToValidMoves">Limitar setas a movimentos válidos</string>
   <string name="sayGgWpAfterLosingOrDrawing">Diga \"Bom jogo\" após a derrota ou empate</string>
   <string name="yourPreferencesHaveBeenSaved">Suas preferências foram salvas.</string>
 </resources>
