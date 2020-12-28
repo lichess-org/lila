@@ -55,7 +55,7 @@ Cependant, les mécènes sont distingués au moyen d\'une nouvelle icône de pro
   <string name="nextPayment">Prochain paiement</string>
   <string name="youWillBeChargedXOnY">Vous serez facturé %1$s le %2$s.</string>
   <string name="makeAdditionalDonation">Faire un don supplémentaire maintenant</string>
-  <string name="update">Actualiser</string>
+  <string name="update">Modifier</string>
   <string name="changeMonthlyAmount">Changer le montant mensuel (%s)</string>
   <string name="cancelSupport">annuler votre soutien</string>
   <string name="xOrY">%1$s ou %2$s</string>
