@@ -4,7 +4,6 @@ import { CevalCtrl, NodeEvals } from 'ceval';
 import { Config as CgConfig } from 'chessground/config';
 import { Outcome } from 'chessops/types';
 import { Prop } from 'common';
-import { Deferred } from 'common/defer';
 import { Role, Move } from 'chessops/types';
 import { StoredBooleanProp } from 'common/storage';
 import { TreeWrapper } from 'tree';
@@ -76,7 +75,7 @@ export interface Vm {
   pov: Color;
   mode: 'play' | 'view' | 'try';
   round?: PuzzleRound;
-  next: Deferred<PuzzleData>;
+  next: DeferPromise.Deferred<PuzzleData>;
   justPlayed?: Key;
   resultSent: boolean;
   lastFeedback: 'init' | 'fail' | 'win' | 'good' | 'retry';
