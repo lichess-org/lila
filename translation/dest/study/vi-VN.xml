@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Vui lòng chỉ mời những người bạn biết và muốn tham gia.</string>
+  <string name="searchByUsername">Tìm theo tên người dùng</string>
+  <string name="spectator">Khán giả</string>
+  <string name="contributor">Người đóng góp</string>
+  <string name="kick">Đá</string>
+  <string name="youAreNowAContributor">Bây giờ bạn là một người đóng góp</string>
+  <string name="youAreNowASpectator">Bây giờ bạn là người xem</string>
+  <string name="pgnTags">Nhãn PGN</string>
+  <string name="like">Thích</string>
+  <string name="newTag">Nhãn mới</string>
+  <string name="commentThisPosition">Bình luận về thế cờ này</string>
+  <string name="commentThisMove">Bình luận về nước đi này</string>
+  <string name="annotateWithGlyphs">Chú thích bằng dấu</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Chương này quá ngắn để được phân tích.</string>
   <string name="playing">Đang chơi</string>
 </resources>
