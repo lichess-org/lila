@@ -46,7 +46,6 @@ export interface RoundData extends GameData {
   pref: Pref;
   steps: Step[];
   possibleMoves?: EncodedDests;
-  possibleOppositeMoves?: EncodedDests;
   possibleDrops?: string;
   forecastCount?: number;
   crazyhouse?: CrazyData;
