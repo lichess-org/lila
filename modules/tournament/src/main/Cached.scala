@@ -19,7 +19,7 @@ final private[tournament] class Cached(
 
   val nameCache = cacheApi.sync[(Tournament.ID, Lang), Option[String]](
     name = "tournament.name",
-    initialCapacity = 32768,
+    initialCapacity = 65536,
     compute = { case (id, lang) =>
       tournamentRepo byId id dmap2 { _.name()(lang) }
     },
