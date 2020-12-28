@@ -191,7 +191,6 @@ lichess.RoundNVUI = function(redraw: Redraw) {
           'kqrbnp/KQRBNP: move forward/backward to a piece.', h('br'),
           '1-8: move to rank 1-8.', h('br'),
           'Shift+1-8: move to file a-h.', h('br'),
-          '', h('br')
         ]),
         h('h2', 'Promotion'),
         h('p', [
