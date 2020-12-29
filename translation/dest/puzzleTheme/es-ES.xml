@@ -88,7 +88,7 @@
   <string name="short">Rompecabezas corto</string>
   <string name="shortDescription">Dos movimientos para ganar.</string>
   <string name="skewer">Pincho</string>
-  <string name="skewerDescription">Un motivo que implica el ataque de una pieza de alto valor, que se aparta del camino y permite capturar o atacar una pieza de menor valor detrás de ella, lo contrario de una clavada.</string>
+  <string name="skewerDescription">Un tema que implica el ataque de una pieza de alto valor, que se aparta del camino y permite capturar o atacar una pieza de menor valor detrás de ella, lo contrario de una clavada.</string>
   <string name="smotheredMate">Mate de la coz</string>
   <string name="smotheredMateDescription">Un jaque mate en el que el caballo ataca al rey contrario, el cual no puede moverse al encontrarse rodeado (o ahogado) por sus propias piezas.</string>
   <string name="trappedPiece">Pieza atrapada</string>
