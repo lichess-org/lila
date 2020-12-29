@@ -13,7 +13,7 @@ final class PuzzleApi(
     colls: PuzzleColls,
     trustApi: PuzzleTrustApi,
     countApi: PuzzleCountApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem, mode: play.api.Mode) {
 
   import Puzzle.{ BSONFields => F }
   import BsonHandlers._
@@ -44,23 +44,33 @@ final class PuzzleApi(
 
   object vote {
 
+    private val sequencer =
+      new lila.hub.DuctSequencers(
+        maxSize = 16,
+        expiration = 5 minutes,
+        timeout = 3 seconds,
+        name = "puzzle.vote"
+      )
+
     def update(id: Puzzle.Id, user: User, vote: Boolean): Funit =
-      round
-        .find(user, id)
-        .flatMap {
-          _ ?? { prevRound =>
-            trustApi.vote(user, prevRound, vote) flatMap {
-              _ ?? { weight =>
-                val voteValue = (if (vote) 1 else -1) * weight
-                lila.mon.puzzle.vote(vote, prevRound.win).increment()
-                updatePuzzle(id, voteValue, prevRound.vote) zip
-                  colls.round {
-                    _.updateField($id(prevRound.id), PuzzleRound.BSONFields.vote, voteValue)
-                  } void
+      sequencer(id.value) {
+        round
+          .find(user, id)
+          .flatMap {
+            _ ?? { prevRound =>
+              trustApi.vote(user, prevRound, vote) flatMap {
+                _ ?? { weight =>
+                  val voteValue = (if (vote) 1 else -1) * weight
+                  lila.mon.puzzle.vote(vote, prevRound.win).increment()
+                  updatePuzzle(id, voteValue, prevRound.vote) zip
+                    colls.round {
+                      _.updateField($id(prevRound.id), PuzzleRound.BSONFields.vote, voteValue)
+                    } void
+                }
               }
             }
           }
-        }
+      }
 
     private def updatePuzzle(puzzleId: Puzzle.Id, newVote: Int, prevVote: Option[Int]): Funit =
       colls.puzzle { coll =>
