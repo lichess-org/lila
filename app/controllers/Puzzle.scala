@@ -126,7 +126,7 @@ final class Puzzle(
                       )
                 } yield json
               case None =>
-                env.puzzle.finisher.incPuzzlePlays(puzzleId)
+                env.puzzle.finisher.incPuzzlePlays(id)
                 if (mobileBc) fuccess(Json.obj("user" -> false))
                 else
                   nextPuzzleForMe(theme.key) flatMap {
@@ -320,22 +320,17 @@ final class Puzzle(
                   .?? { solution =>
                     Puz
                       .numericalId(solution.id)
-                      .??(env.puzzle.api.puzzle.find)
-                      .map2(_ -> Result(solution.win))
-                  }
-                  .flatMap {
-                    case None => Ok(env.puzzle.jsonView.bc.userJson(me.perfs.puzzle.intRating)).fuccess
-                    case Some((puzzle, result)) =>
-                      for {
-                        (round, perf) <- env.puzzle.finisher(
-                          puzzle = puzzle,
-                          theme = PuzzleTheme.mix.key,
-                          user = me,
-                          result = result
-                        )
-                        _ = env.puzzle.session.onComplete(round, PuzzleTheme.mix.key)
-                      } yield Ok(env.puzzle.jsonView.bc.userJson(perf.intRating))
-                  }
+                      .map(_ -> Result(solution.win))
+                  } match {
+                  case None => Ok(env.puzzle.jsonView.bc.userJson(me.perfs.puzzle.intRating)).fuccess
+                  case Some((puzzleId, result)) =>
+                    for {
+                      (round, perf) <- env.puzzle
+                        .finisher(puzzleId, PuzzleTheme.mix.key, me, result)
+                        .orFail(s"No such puzzle $puzzleId for mobile")
+                      _ = env.puzzle.session.onComplete(round, PuzzleTheme.mix.key)
+                    } yield Ok(env.puzzle.jsonView.bc.userJson(perf.intRating))
+                }
             )
         }
       )
