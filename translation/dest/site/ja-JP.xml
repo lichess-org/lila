@@ -50,7 +50,7 @@
   <string name="theComputerAnalysisHasFailed">コンピューターの解析に失敗しました</string>
   <string name="viewTheComputerAnalysis">コンピューターの解析を見る</string>
   <string name="requestAComputerAnalysis">コンピューターの解析をリクエスト</string>
-  <string name="computerAnalysis">コンピューター分析</string>
+  <string name="computerAnalysis">コンピューター解析</string>
   <string name="computerAnalysisAvailable">コンピュータ解析がされています</string>
   <string name="analysis">棋譜解析</string>
   <string name="depthX">深度 %s</string>
