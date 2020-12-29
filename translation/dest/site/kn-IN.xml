@@ -133,7 +133,12 @@
   <string name="minutesPerSide">ಪ್ರತಿ ಪರಕ್ಕೆ ಇರುವ ನಿಮಿಷಗಳು</string>
   <string name="variant">ಇತರೆ ರೂಪ</string>
   <string name="variants">ಇತರೆ ರೂಪಗಳು</string>
-  <string name="timeControl">ನಿಗದಿತ ಸಮಯ</string>
+  <string name="timeControl">ನಿಗದಿತ ಅವಧಿ</string>
+  <string name="realTime">ವಾಸ್ತವ</string>
+  <string name="correspondence">ಒಪ್ಪಂದ</string>
+  <string name="daysPerTurn">ಪ್ರತಿ ಸರದಿಗೆ ಇರುವ ದಿನಗಳು</string>
+  <string name="oneDay">ಒಂದು ದಿನ</string>
+  <string name="time">ಅವಧಿ</string>
   <string name="rating">ಮಟ್ಟ</string>
   <string name="ratingStats">ಮಟ್ಟ ವ್ಯತ್ಯಾಸ</string>
   <string name="username">ಬಳಸಲು ಇಚ್ಛಿಸುವ ಗುರುತು</string>
