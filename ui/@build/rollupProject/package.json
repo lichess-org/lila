@@ -6,7 +6,7 @@
   "license": "AGPL-3.0-or-later",
   "main": "index.js",
   "dependencies": {
-    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-commonjs": "^16.0.0",
     "@rollup/plugin-node-resolve": "^11.0.1",
     "@rollup/plugin-typescript": "^8.1.0",
     "rollup": "^2.35.1",
