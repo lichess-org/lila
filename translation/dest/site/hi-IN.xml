@@ -9,8 +9,8 @@
   <string name="yourTurn">आपकी चाल</string>
   <string name="aiNameLevelAiLevel">%1$s स्तर %2$s वाला</string>
   <string name="level">स्तर</string>
-  <string name="toggleTheChat">बातचीत  को शुरू या बंद करें</string>
-  <string name="toggleSound">ध्वनि को चालू या बंद करें</string>
+  <string name="toggleTheChat">चैट को टोग्ल करें</string>
+  <string name="toggleSound">ध्वनि को टोग्ल करें</string>
   <string name="chat">बातचीत</string>
   <string name="resign">हार मान लें</string>
   <string name="checkmate">शह और मात</string>
@@ -23,7 +23,7 @@
   <string name="blackIsVictorious">काले की जय</string>
   <string name="youPlayTheWhitePieces">आप सफेद मोहरों से खेलेंगे</string>
   <string name="youPlayTheBlackPieces">आप काले मोहरों से खेलेंगे</string>
-  <string name="itsYourTurn">यह आपकी बारी है</string>
+  <string name="itsYourTurn">यह आपकी बारी है!</string>
   <string name="kingInTheCenter">राजा मध्य में</string>
   <string name="threeChecks">तीन शह</string>
   <string name="raceFinished">दौड़ समाप्त</string>
