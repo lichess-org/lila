@@ -125,5 +125,6 @@
   <string name="games">ಆಟಗಳು</string>
   <string name="forum">ವೇದಿಕೆಗಳು</string>
   <string name="players">ಆಟಗಾರರು</string>
+  <string name="rating">ಮಟ್ಟ</string>
   <string name="gamesPlayed">ಆಡಿದ ಆಟಗಳು</string>
 </resources>
