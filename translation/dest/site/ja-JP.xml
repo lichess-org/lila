@@ -435,7 +435,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">指した後 自動的に次のゲームに進む</string>
   <string name="autoSwitch">自動切り替え</string>
-  <string name="puzzles">タクティクス</string>
+  <string name="puzzles">タクティクス問題</string>
   <string name="latestUpdates">最新情報</string>
   <string name="tournamentWinners">トーナメント優勝者</string>
   <string name="name">名称</string>
