@@ -39,29 +39,38 @@
 
       background: $c-bg-zebra2;
 
+      $c-darken: #333;
+
       &--win {
-        $c-first: mix($c-good, $c-bg-box, 80%);
-        $c-fix: mix($c-good, $c-font, 50%);
-        $c-fail: mix($c-bad, $c-bg-box, 80%);
+        $c-first: mix($c-good, $c-darken, 85%);
+        $c-fix: mix($c-good, $c-darken, 50%);
+        $c-fail: mix($c-bad, $c-darken, 80%);
 
         background: #{$glow-gradient}, linear-gradient(to right, $c-first 0%, $c-first var(--first), $c-fix var(--first), $c-fix var(--win), $c-fail var(--win), $c-fail 100%);
         color: $c-good-over;
       }
 
       &--perf {
-        background: #{$glow-gradient} mix($c-brag, $c-bg-box, 80%);
+        background: #{$glow-gradient} mix($c-brag, $c-darken, 85%);
         color: $c-good-over;
       }
 
       &--fix {
-        background: #{$glow-gradient} mix($c-primary, $c-bg-box, 80%);
+        background: #{$glow-gradient} mix($c-primary, $c-darken, 85%);
         color: $c-good-over;
+      }
+
+      @if $theme-light {
+        &--played span {
+          color: $c-font-dim !important;
+        }
       }
     }
   }
 
   &__global .puzzle-dashboard__metrics__metric {
     padding: 1em 0 1.5em 0;
+    border-radius: 6px;
 
     strong {
       font-size: 5em;
@@ -96,9 +105,8 @@
       }
 
       &__name {
-        @extend %roboto;
-
         font-size: 1.5em;
+        font-weight: bold;
         text-transform: uppercase;
       }
 
