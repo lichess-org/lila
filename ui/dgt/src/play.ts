@@ -100,7 +100,7 @@ export default function (token: string) {
       //Rewire function
       console[name] = function () {
         //Return a promise so execution is not delayed by string manipulation
-        return new Promise(resolve => {
+        return new Promise<void>(resolve => {
           var output = "";
           for (let i = 0; i < arguments.length; i++) {
             let arg = arguments[i];
