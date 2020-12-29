@@ -82,9 +82,9 @@
   <string name="averageRatingX">औसत रेटिंग: %s</string>
   <string name="recentGames">हाल के खेल</string>
   <string name="topGames">शीर्ष खेल</string>
-  <string name="masterDbExplanation">%2$s से %3$s तक %1$s + FIDE रेटेड खिलाड़ियों के 20 लाख गेम</string>
+  <string name="masterDbExplanation">%2$s से %3$s के दशक के %1$s+ FIDE- रेटेड खिलाड़ियों के दो मिलियन ओटीबी खेल</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">%s आधे-कदम में चेकमैट</item>
+    <item quantity="one">%s हाफ मूव में मैच</item>
     <item quantity="other">%s आधे-कदम में चेकमैट</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
