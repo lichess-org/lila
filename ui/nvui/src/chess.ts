@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { Pieces } from 'chessground/types';
+import { Pieces, Dests } from 'chessground/types';
 import { Rank, File } from 'chessground/types';
 import { invRanks, allKeys } from 'chessground/util';
 import { Setting, makeSetting } from './setting';
@@ -463,8 +463,8 @@ export function lastCapturedCommandHandler(steps: () => string[], pieceStyle: Pi
 }
 
 /* TODO: this only has access to valid moves when it is the users turn; this should be fixed somehow. Likely server side.
-Currently announces: "Cannot look at valid moves when it is not your turn." but this should be considered a bug.*/
-export function possibleMovesHandler(possibleMoves: () => string | { [key: string]: string } | undefined, pieces: () => Pieces) {
+Currently announces: "Moves unavailable" but this should be considered a bug.*/
+export function possibleMovesHandler(possibleMoves: () => Dests, pieces: () => Pieces) {
   return (ev: KeyboardEvent) => {
     if (ev.key !== 'm' && ev.key !== 'M') return true;
     const $boardLive = $('.boardstatus');
@@ -475,36 +475,24 @@ export function possibleMovesHandler(possibleMoves: () => string | { [key: strin
     const $pos = ($btn.attr('file') ?? "")
       + $btn.attr('rank') as Key;
 
-    const $moveMap = typeof $possibleMoves === 'string' ? stringToMap($possibleMoves) : $possibleMoves;
-
     // TODO: here it is
-    if (!$moveMap) {
-      $boardLive.text("Cannot view moves when it is not your turn.");
+    if ($possibleMoves.size === 0) {
+      $boardLive.text("Moves unavailable.");
       return false;
     }
-    const $myDests = $moveMap[$pos];
+    const $myDests = $possibleMoves.get($pos);
     if (!$myDests) {
       $boardLive.text("None");
       return false;
     }
-    const $myDestsList = $myDests.match(/.{2}/g)
-      ?.map(dest => $pieces.get(dest as Key) ? dest + ' captures ' +  $pieces.get(dest as Key)?.role : dest)
+    const $destText = $myDests
+      .map(dest => $pieces.get(dest as Key) ? dest + ' captures ' +  $pieces.get(dest as Key)?.role : dest)
       .filter(dest => ev.key === 'm' || dest.includes('captures'));
-    // this shoudn't happen, but typescript makes me check.
-    if (!$myDestsList) {
-      $boardLive.text("None");
-      return false;
-    } 
-    if ($myDestsList.length === 0 && ev.key === 'M') {
+    if ($destText.length === 0 && ev.key === 'M') {
       $boardLive.text("No captures");
       return false;
     }
-    $boardLive.text($myDestsList?.join(', ') ?? "None");
+    $boardLive.text($destText.join(', '));
     return false;
   };
-}
-
-function stringToMap(possibleMovesString: string) {
-  const split = possibleMovesString.split(' ').map(dests => dests.match(/.{2}/g) ?? []);
-  return split.reduce((a,x) => ({...a, [x[0]]: x.splice(1).join('')}), {})
 }
