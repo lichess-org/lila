@@ -39,7 +39,8 @@ object dashboard {
                 href := s"${routes.Puzzle.dashboard(d)}$urlExt"
               )(trans.nbDays.pluralSame(d))
             }
-          )
+          ),
+          " (Work In Progress!)"
         ),
         dashOpt match {
           case None =>
