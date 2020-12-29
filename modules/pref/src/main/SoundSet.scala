@@ -9,11 +9,11 @@ sealed class SoundSet private[pref] (val key: String, val name: String) {
 
 object SoundSet {
 
-  val default = new SoundSet("standard", "Standard")
+  val default = new SoundSet("shogi2", "Shogi2")
 
   val list = List(
     new SoundSet("silent", "Silent"),
-    default,
+    new SoundSet("standard", "Standard"),
     new SoundSet("piano", "Piano"),
     new SoundSet("nes", "NES"),
     new SoundSet("sfx", "SFX"),
@@ -21,7 +21,7 @@ object SoundSet {
     new SoundSet("robot", "Robot"),
     new SoundSet("music", "Pentatonic"),
     new SoundSet("shogi1", "Shogi1"),
-    new SoundSet("shogi2", "Shogi2"),
+    default,
     new SoundSet("speech", "Speech")
   )
 
