@@ -10,6 +10,8 @@ final class IrwinStream {
 
   private val channel = "irwin"
 
+  private val keepAliveMsg = """{"keepAlive":true}\n"""
+
   private val blueprint =
     Source
       .queue[IrwinRequest](64, akka.stream.OverflowStrategy.dropHead)
@@ -17,7 +19,7 @@ final class IrwinStream {
       .map { js =>
         s"${Json.stringify(js)}\n"
       }
-      .keepAlive(60.seconds, () => "{keepAlive:true}")
+      .keepAlive(60.seconds, () => keepAliveMsg)
 
   def apply(): Source[String, _] =
     blueprint mapMaterializedValue { queue =>
