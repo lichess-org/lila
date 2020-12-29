@@ -128,5 +128,7 @@
   <string name="rating">ಮಟ್ಟ</string>
   <string name="ratingStats">ಮಟ್ಟ ವ್ಯತ್ಯಾಸ</string>
   <string name="username">ಬಳಸಲು ಇಚ್ಛಿಸುವ ಹೆಸರು</string>
+  <string name="usernameOrEmail">ಬಳಸಲು ಇಚ್ಛಿಸುವ ಗುರುತು(ಹೆಸರು) ಅಥವಾ ಇ-ಅಂಚೆ</string>
+  <string name="changeUsername">ಗುರುತು ಬದಲಾವಣೆ</string>
   <string name="gamesPlayed">ಆಡಿದ ಆಟಗಳು</string>
 </resources>
