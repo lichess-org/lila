@@ -12,7 +12,7 @@
   <string name="loser">敗者</string>
   <string name="from">From</string>
   <string name="to">To</string>
-  <string name="humanOrComputer">対局相手が人間かAIか</string>
+  <string name="humanOrComputer">対戦相手が人間かコンピュータか</string>
   <string name="aiLevel">AI レベル</string>
   <string name="source">検索対象</string>
   <string name="nbTurns">手数</string>
