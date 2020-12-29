@@ -522,7 +522,7 @@
   <string name="human">人間</string>
   <string name="computer">コンピューター</string>
   <string name="side">先手後手</string>
-  <string name="clock">時間制限</string>
+  <string name="clock">対局時計</string>
   <string name="unauthorizedError">アクセス権限がありません。</string>
   <string name="noInternetConnection">インターネット接続なし。メニューからオフラインで対局できます。</string>
   <string name="connectedToLichess">lichess.org に接続しています。</string>
