@@ -144,5 +144,13 @@
   <string name="username">ಬಳಸಲು ಇಚ್ಛಿಸುವ ಗುರುತು</string>
   <string name="usernameOrEmail">ಬಳಸಲು ಇಚ್ಛಿಸುವ ಗುರುತು ಅಥವಾ ಇ-ಅಂಚೆ</string>
   <string name="changeUsername">ಗುರುತು ಬದಲಾವಣೆ</string>
+  <string name="password">ಗುಪ್ತಪದ</string>
+  <string name="changePassword">ಗುಪ್ತಪದವನ್ನು ಬದಲಾಯಿಸು</string>
+  <string name="changeEmail">ಇ-ಆಂಚೆಯನ್ನು ಬದಲಾಯಿಸು</string>
+  <string name="email">ಇ-ಆಂಚೆ</string>
+  <string name="passwordReset">ಗುಪ್ತಪದವನ್ನು ಮರುಹೊಂದಿಸು</string>
+  <string name="forgotPassword">ಗುಪ್ತಪದ ಮರೆತು ಹೋಯಿತು?</string>
+  <string name="rank">ಶ್ರೇಣಿ</string>
+  <string name="rankX">ಶ್ರೇಣಿ %s</string>
   <string name="gamesPlayed">ಆಡಿದ ಆಟಗಳು</string>
 </resources>
