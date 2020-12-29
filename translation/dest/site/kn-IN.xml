@@ -121,14 +121,23 @@
   <string name="viewInFullSize">ಪೂರ್ಣ ಗಾತ್ರದಲ್ಲಿ ವೀಕ್ಷಿಸಿ</string>
   <string name="logOut">ಸೈನ್ ಔಟ್</string>
   <string name="signIn">ಸೈನ್ ಇನ್</string>
+  <string name="youNeedAnAccountToDoThat">ಅದನ್ನು ಮಾಡಲು ನಿಮಗೆ ಖಾತೆ ಇರಬೇಕು</string>
   <string name="signUp">ನೋಂದಣಿ</string>
   <string name="games">ಆಟಗಳು</string>
   <string name="forum">ವೇದಿಕೆಗಳು</string>
   <string name="players">ಆಟಗಾರರು</string>
+  <string name="friends">ಸ್ನೇಹಿತರು</string>
+  <string name="discussions">ಸಂಭಾಷಣೆಗಳು</string>
+  <string name="today">ಇವತ್ತು</string>
+  <string name="yesterday">ನಿನ್ನೆ</string>
+  <string name="minutesPerSide">ಪ್ರತಿ ಪರಕ್ಕೆ ಇರುವ ನಿಮಿಷಗಳು</string>
+  <string name="variant">ಇತರೆ ರೂಪ</string>
+  <string name="variants">ಇತರೆ ರೂಪಗಳು</string>
+  <string name="timeControl">ನಿಗದಿತ ಸಮಯ</string>
   <string name="rating">ಮಟ್ಟ</string>
   <string name="ratingStats">ಮಟ್ಟ ವ್ಯತ್ಯಾಸ</string>
-  <string name="username">ಬಳಸಲು ಇಚ್ಛಿಸುವ ಹೆಸರು</string>
-  <string name="usernameOrEmail">ಬಳಸಲು ಇಚ್ಛಿಸುವ ಗುರುತು(ಹೆಸರು) ಅಥವಾ ಇ-ಅಂಚೆ</string>
+  <string name="username">ಬಳಸಲು ಇಚ್ಛಿಸುವ ಗುರುತು</string>
+  <string name="usernameOrEmail">ಬಳಸಲು ಇಚ್ಛಿಸುವ ಗುರುತು ಅಥವಾ ಇ-ಅಂಚೆ</string>
   <string name="changeUsername">ಗುರುತು ಬದಲಾವಣೆ</string>
   <string name="gamesPlayed">ಆಡಿದ ಆಟಗಳು</string>
 </resources>
