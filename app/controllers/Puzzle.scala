@@ -241,12 +241,16 @@ final class Puzzle(
     }
 
   def dashboard(days: Int) =
-    Auth { implicit ctx => _ =>
-      env.user.repo.named("juliano123").orFail("!!!") flatMap { me =>
-        env.puzzle.dashboard(me, days) map { dashboard =>
-          Ok(views.html.puzzle.dashboard(dashboard, days))
+    Auth { implicit ctx => me =>
+      get("u")
+        .ifTrue(isGranted(_.Hunter))
+        .??(env.user.repo.named)
+        .map(_ | me)
+        .flatMap { user =>
+          env.puzzle.dashboard(user, days) map { dashboard =>
+            Ok(views.html.puzzle.dashboard(user, dashboard, days))
+          }
         }
-      }
     }
 
   def mobileBcLoad(nid: Long) =

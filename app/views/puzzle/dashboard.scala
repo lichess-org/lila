@@ -18,7 +18,11 @@ object dashboard {
   private val themeClass     = s"${baseClass}__themes__theme"
   private val dataWinPercent = attr("data-win-percent")
 
-  def apply(dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: Context) =
+  def apply(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: Context) = {
+    val title =
+      if (ctx is user) "Puzzle dashboard"
+      else s"${user.username} puzzle dashboard"
+    val urlExt = !(ctx is user) ?? s"?u=${user.username}"
     views.html.base.layout(
       title = "Puzzle dashboard",
       moreCss = cssTag("puzzle.dashboard")
@@ -32,7 +36,7 @@ object dashboard {
             PuzzleDashboard.dayChoices map { d =>
               a(
                 cls := (d == days).option("current"),
-                href := routes.Puzzle.dashboard(d)
+                href := s"${routes.Puzzle.dashboard(d)}$urlExt"
               )(trans.nbDays.pluralSame(d))
             }
           )
@@ -65,6 +69,7 @@ object dashboard {
         }
       )
     )
+  }
 
   private def themeSelection(themes: List[(PuzzleTheme.Key, PuzzleDashboard.Results)])(implicit lang: Lang) =
     themes.map { case (key, results) =>
