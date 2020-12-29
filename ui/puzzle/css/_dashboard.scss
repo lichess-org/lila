@@ -12,7 +12,7 @@
   &__metrics {
     display: flex;
 
-    $glow-gradient: linear-gradient(135deg, rgba(255%, 255%, 255%, 0.25) 0%, transparent 40%);
+    $glow-gradient: linear-gradient(145deg, rgba(255%, 255%, 255%, 0.3) 0%, transparent 45%);
 
     &__metric {
       @extend %box-neat, %flex-column;
@@ -35,6 +35,7 @@
       span {
         color: rgba(255%, 255%, 255%, 0.8);
         letter-spacing: -1px;
+        font-size: .9rem;
       }
 
       background: $c-bg-zebra2;
@@ -56,8 +57,13 @@
       }
 
       &--fix {
-        background: #{$glow-gradient} mix($c-primary, $c-darken, 85%);
+        background: #{$glow-gradient} mix($c-primary, $c-darken, 80%);
         color: $c-good-over;
+
+        &:hover {
+          background: #{$glow-gradient} $c-primary;
+          color: $c-good-over;
+        }
       }
 
       @if $theme-light {
@@ -79,6 +85,7 @@
     span {
       color: rgba(255%, 255%, 255%, 0.8);
       letter-spacing: 2px;
+      font-size: 1rem;
     }
   }
 
