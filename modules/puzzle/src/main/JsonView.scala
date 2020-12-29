@@ -17,7 +17,7 @@ final class JsonView(
 
   import JsonView._
 
-  def apply(puzzle: Puzzle, theme: PuzzleTheme, user: Option[User])(implicit
+  def apply(puzzle: Puzzle, theme: PuzzleTheme, replay: Option[PuzzleReplay], user: Option[User])(implicit
       lang: Lang
   ): Fu[JsObject] = {
     gameJson(
@@ -38,6 +38,7 @@ final class JsonView(
             .add("chapter" -> PuzzleTheme.studyChapterIds.get(theme.key))
         )
         .add("user" -> user.map(userJson))
+        .add("replay" -> replay.map(replayJson))
     }
   }
 
@@ -49,6 +50,9 @@ final class JsonView(
       .add(
         "provisional" -> u.perfs.puzzle.provisional
       )
+
+  private def replayJson(r: PuzzleReplay) =
+    Json.obj("days" -> r.days, "i" -> r.i, "of" -> r.nb)
 
   def roundJson(u: User, round: PuzzleRound, perf: Perf) =
     Json

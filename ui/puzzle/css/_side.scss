@@ -45,9 +45,7 @@
     padding: 2vmin;
 
     &__rating {
-      p {
-        margin: 0;
-      }
+
       strong {
         @extend %flex-center;
 
@@ -98,6 +96,35 @@
       select {
         border: none;
       }
+    }
+  }
+
+  &__replay {
+    @extend %box-neat;
+
+    background: $c-bg-box;
+    padding: 2vmin;
+
+    a {
+      @extend %roboto;
+
+      font-size: 1.3em;
+      margin-bottom: 1em;
+      display: block;
+    }
+
+    &__bar {
+      @extend %box-radius, %flex-center;
+
+      justify-content: center;
+      padding: 0 1em;
+      height: 2.5em;
+
+      $c-bar-bg: $c-bg-zebra2;
+      $c-bar-fg: mix($c-bg-page, $c-primary, 40%);
+
+      font-weight: bold;
+      background: linear-gradient(to right, $c-bar-fg 0%, $c-bar-fg var(--p), $c-bar-bg var(--p), $c-bar-bg 100%);
     }
   }
 
@@ -192,8 +219,8 @@
 
   &__lock {
     @extend %flex-center;
-    justify-content: center;
 
+    justify-content: center;
     flex: 0 0 100%;
     color: $c-font-dimmer;
     opacity: .5;
@@ -202,6 +229,7 @@
   &__selector {
     margin: 1em 0;
   }
+
   &__study {
     display: block;
   }

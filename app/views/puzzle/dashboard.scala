@@ -49,21 +49,21 @@ object dashboard {
           case Some(dash) =>
             frag(
               div(cls := s"${baseClass}__global")(
-                metricsOf(dash.global)
+                metricsOf(days, PuzzleTheme.mix.key, dash.global)
               ),
               div(cls := s"${baseClass}__themes")(
                 div(cls := s"${baseClass}__themes__title")(
                   h2("Your weaknesses"),
                   p("Train these to optimize your progress!")
                 ),
-                themeSelection(dash weakestThemes 5)
+                themeSelection(days, dash weakestThemes 5)
               ),
               div(cls := s"${baseClass}__themes")(
                 div(cls := s"${baseClass}__themes__title")(
                   h2("Your strengths"),
                   p("Congratulations, you did really well in these puzzles!")
                 ),
-                themeSelection(dash strongestThemes 5)
+                themeSelection(days, dash strongestThemes 5)
               )
             )
         }
@@ -71,7 +71,9 @@ object dashboard {
     )
   }
 
-  private def themeSelection(themes: List[(PuzzleTheme.Key, PuzzleDashboard.Results)])(implicit lang: Lang) =
+  private def themeSelection(days: Int, themes: List[(PuzzleTheme.Key, PuzzleDashboard.Results)])(implicit
+      lang: Lang
+  ) =
     themes.map { case (key, results) =>
       div(cls := themeClass)(
         div(cls := s"${themeClass}__meta")(
@@ -80,18 +82,20 @@ object dashboard {
           ),
           p(cls := s"${themeClass}__description")(PuzzleTheme(key).description())
         ),
-        metricsOf(results)
+        metricsOf(days, key, results)
       )
     }
 
-  private def metricsOf(results: PuzzleDashboard.Results)(implicit lang: Lang) =
+  private def metricsOf(days: Int, theme: PuzzleTheme.Key, results: PuzzleDashboard.Results)(implicit
+      lang: Lang
+  ) =
     div(cls := s"${baseClass}__metrics")(
       div(cls := s"$metricClass $metricClass--played")(
         strong(results.nb.localize),
         span("played")
       ),
       div(cls := s"$metricClass $metricClass--perf")(
-        strong(results.performance),
+        strong(results.performance, results.unclear ?? "?"),
         span("performance")
       ),
       div(
@@ -101,7 +105,7 @@ object dashboard {
         strong(s"${results.winPercent}%"),
         span("solved")
       ),
-      div(cls := s"$metricClass $metricClass--fix")(
+      a(cls := s"$metricClass $metricClass--fix", href := routes.Puzzle.replay(days, theme.value))(
         strong(results.unfixed),
         span("to replay")
       )

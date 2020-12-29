@@ -75,7 +75,7 @@ export default function(ctrl: Controller): VNode {
     if (!cevalShown) ctrl.vm.autoScrollNow = true;
     cevalShown = showCeval;
   }
-  return h('main.puzzle', {
+  return h(`main.puzzle.puzzle-${ctrl.getData().replay ? 'replay' : 'play'}`, {
     class: { 'gauge-on': gaugeOn },
     hook: {
       postpatch(old, vnode) {
@@ -91,6 +91,7 @@ export default function(ctrl: Controller): VNode {
     }
   }, [
     h('aside.puzzle__side', [
+      side.replay(ctrl),
       side.puzzleBox(ctrl),
       side.userBox(ctrl),
       side.config(ctrl),

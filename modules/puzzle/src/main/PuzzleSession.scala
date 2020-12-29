@@ -29,11 +29,7 @@ final class PuzzleSessionApi(
     pathApi: PuzzlePathApi,
     cacheApi: CacheApi,
     userRepo: UserRepo
-)(implicit
-    ec: ExecutionContext,
-    system: akka.actor.ActorSystem,
-    mode: play.api.Mode
-) {
+)(implicit ec: ExecutionContext) {
 
   import BsonHandlers._
 

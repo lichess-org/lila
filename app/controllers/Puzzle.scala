@@ -10,7 +10,7 @@ import lila.app._
 import lila.common.ApiVersion
 import lila.common.config.MaxPerSecond
 import lila.puzzle.PuzzleTheme
-import lila.puzzle.{ Result, PuzzleRound, PuzzleDifficulty, Puzzle => Puz }
+import lila.puzzle.{ Result, PuzzleRound, PuzzleDifficulty, PuzzleReplay, Puzzle => Puz }
 
 final class Puzzle(
     env: Env,
@@ -20,6 +20,7 @@ final class Puzzle(
   private def renderJson(
       puzzle: Puz,
       theme: PuzzleTheme,
+      replay: Option[PuzzleReplay] = None,
       newUser: Option[lila.user.User] = None,
       apiVersion: Option[ApiVersion] = None
   )(implicit
@@ -28,10 +29,12 @@ final class Puzzle(
     if (apiVersion.exists(!_.puzzleV2))
       env.puzzle.jsonView.bc(puzzle = puzzle, theme = theme, user = newUser orElse ctx.me)
     else
-      env.puzzle.jsonView(puzzle = puzzle, theme = theme, user = newUser orElse ctx.me)
+      env.puzzle.jsonView(puzzle = puzzle, theme = theme, replay = replay, user = newUser orElse ctx.me)
 
-  private def renderShow(puzzle: Puz, theme: PuzzleTheme)(implicit ctx: Context) =
-    renderJson(puzzle, theme) zip
+  private def renderShow(puzzle: Puz, theme: PuzzleTheme, replay: Option[PuzzleReplay] = None)(implicit
+      ctx: Context
+  ) =
+    renderJson(puzzle, theme, replay) zip
       ctx.me.??(u => env.puzzle.session.getDifficulty(u) dmap some) map { case (json, difficulty) =>
         EnableSharedArrayBuffer(
           Ok(views.html.puzzle.show(puzzle, json, env.puzzle.jsonView.pref(ctx.pref), difficulty))
@@ -118,7 +121,7 @@ final class Puzzle(
                       else
                         for {
                           next     <- nextPuzzleForMe(theme.key)
-                          nextJson <- renderJson(next, theme, newUser.some)
+                          nextJson <- renderJson(next, theme, none, newUser.some)
                         } yield Json.obj(
                           "round" -> env.puzzle.jsonView.roundJson(me, round, perf),
                           "next"  -> nextJson
@@ -251,6 +254,15 @@ final class Puzzle(
             Ok(views.html.puzzle.dashboard(user, dashboard, days))
           }
         }
+    }
+
+  def replay(days: Int, themeKey: String) =
+    Auth { implicit ctx => me =>
+      val theme = PuzzleTheme.findOrAny(themeKey)
+      env.puzzle.replay(me, days, theme.key) flatMap {
+        case None                   => Redirect(routes.Puzzle.dashboard(days)).fuccess
+        case Some((puzzle, replay)) => renderShow(puzzle, theme, replay.some)
+      }
     }
 
   def mobileBcLoad(nid: Long) =

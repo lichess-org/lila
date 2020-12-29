@@ -56,7 +56,7 @@ export function userBox(ctrl: Controller): VNode {
   ]);
   const diff = ctrl.vm.round?.ratingDiff;
   return h('div.puzzle__side__user', [
-    h('p.puzzle__side__user__rating', ctrl.trans.vdom('yourPuzzleRatingX', h('strong', [
+    h('div.puzzle__side__user__rating', ctrl.trans.vdom('yourPuzzleRatingX', h('strong', [
       data.user.rating - (diff || 0),
       ...(diff && diff > 0 ? [' ', h('good.rp', '+' + diff)] : []),
       ...(diff && diff < 0 ? [' ', h('bad.rp', '−' + (-diff))] : [])
@@ -66,8 +66,24 @@ export function userBox(ctrl: Controller): VNode {
 
 const difficulties: PuzzleDifficulty[] = ['easiest', 'easier', 'normal', 'harder', 'hardest'];
 
-export function config(ctrl: Controller): MaybeVNode {
+export function replay(ctrl: Controller): MaybeVNode {
+  const replay = ctrl.getData().replay;
+  return replay ?
+    h('div.puzzle__side__replay', [
+      h('a', {
+        attrs: {
+          href: `/training/dashboard/${replay.days}`
+        }
+      }, ['« ', `Replaying ${ctrl.trans.noarg(ctrl.getData().theme.key)} puzzles`]),
+      h('div.puzzle__side__replay__bar', {
+        attrs: {
+          style: `--p:${Math.round(100 * replay.i / replay.of)}%`
+        },
+      }, `${replay.i} / ${replay.of}`)
+    ]) : null;
+}
 
+export function config(ctrl: Controller): MaybeVNode {
   const id = 'puzzle-toggle-autonext';
   return h('div.puzzle__side__config', [
     h('div.puzzle__side__config__jump', [
@@ -86,7 +102,7 @@ export function config(ctrl: Controller): MaybeVNode {
       ]),
       h('label', { attrs: { 'for': id } }, ctrl.trans.noarg('jumpToNextPuzzleImmediately'))
     ]),
-    ctrl.difficulty ? h('form.puzzle__side__config__difficulty', {
+    !ctrl.getData().replay && ctrl.difficulty ? h('form.puzzle__side__config__difficulty', {
       attrs: {
         action: `/training/difficulty/${ctrl.getData().theme.key}`,
         method: 'post'
@@ -107,5 +123,6 @@ export function config(ctrl: Controller): MaybeVNode {
         }, ctrl.trans.noarg(diff))
       ))
     ]) : null
+
   ]);
 }

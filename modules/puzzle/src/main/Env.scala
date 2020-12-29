@@ -76,6 +76,8 @@ final class Env(
 
   lazy val dashboard = wire[PuzzleDashboardApi]
 
+  lazy val replay = wire[PuzzleReplayApi]
+
   def cli =
     new lila.common.Cli {
       def process = { case "puzzle" :: "delete" :: id :: Nil =>

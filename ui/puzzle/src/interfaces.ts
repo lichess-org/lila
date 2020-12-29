@@ -127,6 +127,13 @@ export interface PuzzleData {
   theme: Theme;
   game: PuzzleGame;
   user: PuzzleUser | undefined;
+  replay?: PuzzleReplay;
+}
+
+export interface PuzzleReplay {
+  i: number;
+  of: number;
+  days: number;
 }
 
 export interface PuzzleGame {

@@ -54,24 +54,30 @@
 
 
   @include breakpoint($mq-col3) {
-    grid-template-areas: 
-    'side    . board   gauge tools' 
-    'side    . session .     controls'
-    'side    . .       .     .';
+    grid-template-areas: 'side    . board   gauge tools' 'side    . session .     controls' 'side    . .       .     .';
     grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width var(--gauge-gap) $col3-uniboard-table;
   }
 
 
   &__side {
     display: grid;
-    grid-template-areas: 'user' 'theme' 'metas' 'config';
     grid-gap: $block-gap;
+    grid-template-areas: 'user' 'theme' 'metas' 'config';
+
+    .puzzle-replay & {
+      grid-template-areas: 'replay' 'user' 'metas' 'config';
+    }
 
     @include breakpoint($mq-xx-small) {
       grid-template-columns: 1fr 1fr;
       grid-template-areas: 'metas user' 'metas theme' 'config theme' '. theme';
       grid-template-rows: min-content min-content min-content;
+
+      .puzzle-replay & {
+        grid-template-areas: 'metas replay' 'metas user' 'config user';
+      }
     }
+
 
     @include breakpoint($mq-x-large) {
       grid-template-columns: 1fr;
@@ -80,7 +86,12 @@
       justify-self: end;
       min-width: 250px;
       max-width: 350px;
+
+      .puzzle-replay & {
+        grid-template-areas: 'metas' 'replay' 'user' 'config';
+      }
     }
+
 
     &__metas {
       grid-area: metas;
@@ -96,6 +107,10 @@
 
     &__theme {
       grid-area: theme;
+    }
+
+    &__replay {
+      grid-area: replay;
     }
   }
 }

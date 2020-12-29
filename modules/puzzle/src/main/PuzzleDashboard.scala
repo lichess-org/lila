@@ -123,7 +123,7 @@ final class PuzzleDashboardApi(
 
   private def countField(field: String) = $doc("$cond" -> $arr("$" + field, 1, 0))
 
-  private val puzzleLookup =
+  private[puzzle] val puzzleLookup =
     $doc(
       "$lookup" -> $doc(
         "from" -> colls.puzzle.name.value,

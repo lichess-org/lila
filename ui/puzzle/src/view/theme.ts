@@ -1,13 +1,13 @@
 import { bind, dataIcon } from '../util';
-import { Controller } from '../interfaces';
+import { Controller, MaybeVNode } from '../interfaces';
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 
 const studyUrl = 'https://lichess.org/study/viiWlKjv';
 
-export default function theme(ctrl: Controller): VNode {
+export default function theme(ctrl: Controller): MaybeVNode {
   const t = ctrl.getData().theme;
-  return h('div.puzzle__side__theme', [
+  return ctrl.getData().replay ? null : h('div.puzzle__side__theme', [
     h('a', { attrs: { href: '/training/themes' } }, h('h2', ['« ', t.name])),
     h('p', [
       t.desc,
