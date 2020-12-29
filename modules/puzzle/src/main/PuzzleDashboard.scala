@@ -15,6 +15,7 @@ case class PuzzleDashboard(
 ) {
 
   import PuzzleDashboard._
+  import BsonHandlers._
 
   lazy val clearThemes = byTheme.view.filter { case (_, results) =>
     results.clear
@@ -92,6 +93,7 @@ final class PuzzleDashboardApi(
               "global" -> List(Group(BSONNull)(resultsGroup: _*)),
               "byTheme" -> List(
                 Unwind("puzzle.themes"),
+                Match(irrelevantThemes),
                 GroupField("puzzle.themes")(resultsGroup: _*)
               )
             )
@@ -148,4 +150,21 @@ final class PuzzleDashboardApi(
     fixes  <- doc.int("fixes")
     rating <- doc.double("rating")
   } yield Results(nb, wins, fixes, rating.toInt)
+
+  val irrelevantThemes = $doc(
+    "puzzle.themes" $nin List(
+      PuzzleTheme.oneMove,
+      PuzzleTheme.short,
+      PuzzleTheme.long,
+      PuzzleTheme.veryLong,
+      PuzzleTheme.mateIn1,
+      PuzzleTheme.mateIn2,
+      PuzzleTheme.mateIn3,
+      PuzzleTheme.mateIn4,
+      PuzzleTheme.mateIn5,
+      PuzzleTheme.equality,
+      PuzzleTheme.advantage,
+      PuzzleTheme.crushing
+    ).map(_.key.value)
+  )
 }
