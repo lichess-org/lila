@@ -326,6 +326,7 @@ GET   /game/export/gif/$gameId<\w{8}>.gif                     controllers.Export
 GET   /game/export/gif/$color<white|black>/$gameId<\w{8}>.gif controllers.Export.gif(gameId: String, color: String)
 
 # Fishnet
+GET   /fishnet                                controllers.Main.movedPermanently(to: String = "https://github.com/niklasf/fishnet")
 POST  /fishnet/acquire                        controllers.Fishnet.acquire(slow: Boolean ?= false)
 POST  /fishnet/analysis/$workId<\w{8}>        controllers.Fishnet.analysis(workId: String, slow: Boolean ?= false, stop: Boolean ?= false)
 POST  /fishnet/abort/$workId<\w{8}>           controllers.Fishnet.abort(workId: String)
