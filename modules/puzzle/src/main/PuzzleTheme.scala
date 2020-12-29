@@ -144,6 +144,10 @@ object PuzzleTheme {
     List(t.name, t.description)
   }
 
+  private lazy val byKey: Map[Key, PuzzleTheme] = all.view.map { t =>
+    t.key -> t
+  }.toMap
+
   private lazy val byLowerKey: Map[String, PuzzleTheme] = all.view.map { t =>
     t.key.value.toLowerCase -> t
   }.toMap
@@ -195,6 +199,8 @@ object PuzzleTheme {
   ).view.map { case (theme, id) =>
     theme.key -> id
   }.toMap
+
+  def apply(key: Key): PuzzleTheme = byKey.getOrElse(key, mix)
 
   def find(key: String) = byLowerKey get key.toLowerCase
 

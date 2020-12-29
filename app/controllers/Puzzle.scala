@@ -240,7 +240,14 @@ final class Puzzle(
         .fuccess
     }
 
-  def renderDashboard(u: lila.user.User) = ???
+  def dashboard(days: Int) =
+    Auth { implicit ctx => _ =>
+      env.user.repo.named("juliano123").orFail("!!!") flatMap { me =>
+        env.puzzle.dashboard(me, days) map { dashboard =>
+          Ok(views.html.puzzle.dashboard(dashboard, days))
+        }
+      }
+    }
 
   def mobileBcLoad(nid: Long) =
     Open { implicit ctx =>
