@@ -451,8 +451,8 @@ object mon {
             "theme"         -> theme,
             "tier"          -> tier,
             "difficulty"    -> difficulty,
-            "previousPaths" -> previousPaths,
-            "compromise"    -> compromise
+            "previousPaths" -> previousPaths.toString,
+            "compromise"    -> compromise.toString
           )
         )
     }
