@@ -12,4 +12,5 @@
   <string name="disableTwoFactor">Kétlépcsős azonosítás letiltása</string>
   <string name="twoFactorEnabled">Kétlépcsős azonosítás engedélyezve</string>
   <string name="twoFactorDisable">Szükség van a jelszóra és egy hitelesítő kódra a hitelesítő alkalmazásból, hogy kikapcsold a kétlépcsős azonosítást. Ha nincs hozzáférésed a hitelesítő kódokhoz, email-ben lehet a jelszót visszaállítani.</string>
+  <string name="openTwoFactorApp">Nyisd meg a kétlépcsős azonosítási alkalmazást az eszközödön az azonosító kódért és igazold a személyazonosságod.</string>
 </resources>

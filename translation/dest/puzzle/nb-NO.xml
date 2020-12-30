@@ -22,8 +22,8 @@
   <string name="bestMove">Beste trekk!</string>
   <string name="keepGoing">Fortsett…</string>
   <string name="puzzleSuccess">Korrekt!</string>
-  <string name="puzzleComplete">Knekt nøtt!</string>
-  <string name="notTheMove">Det er ikke trekket!</string>
+  <string name="puzzleComplete">Ferdigknekt nøtt!</string>
+  <string name="notTheMove">Det der er ikke trekket!</string>
   <string name="trySomethingElse">Prøv noe annet.</string>
   <string name="ratingX">Rating: %s</string>
   <string name="hidden">skjult</string>
@@ -41,5 +41,5 @@
   <string name="hardest">Verst</string>
   <string name="example">Eksempel</string>
   <string name="addAnotherTheme">Legg til tema</string>
-  <string name="jumpToNextPuzzleImmediately">Gå til neste sjakknøtt med én gang</string>
+  <string name="jumpToNextPuzzleImmediately" comment="jumpToNextPuzzleImmediately&#10;&#10;With this setting enabled, the screen will transition to a new puzzle as soon as you complete the puzzle you are viewing.">Gå til neste sjakknøtt med én gang</string>
 </resources>

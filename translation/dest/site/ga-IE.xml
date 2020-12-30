@@ -294,6 +294,7 @@
   <string name="toStudy">Staidéar</string>
   <string name="importGame">Déan cluiche a iompórtáil</string>
   <string name="thisIsAChessCaptcha">Seo CAPCHTA fichille.</string>
+  <string name="captcha.fail">Réitigh an captcha fichille, le do thoil.</string>
   <string name="notACheckmate">Ní marbhsháinn é sin</string>
   <string name="whiteCheckmatesInOneMove">Marbhsháinn ag bán le beart amháin</string>
   <string name="blackCheckmatesInOneMove">Marbhsháinn ag dubh le beart amháin</string>
@@ -517,6 +518,11 @@
   <string name="timeBeforeTournamentStarts">Am fágtha sula thosnaíonn an comórtas</string>
   <string name="keyboardShortcuts">Aicearraí méarchlár</string>
   <string name="newTournament">Comórtas Nua</string>
+  <string name="tournamentNotFound">Níor aimsíodh an comórtas</string>
+  <string name="tournamentDoesNotExist">Nil an comórtas seo ann.</string>
+  <string name="tournamentMayHaveBeenCanceled">B\'fhéidir go raibh an comórtas curtha ar ceal má d\'fhág gach imreoir sular thosaigh sé.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Tá tú níos fearr ná %1$s as %2$s imreoirí.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">Tá %1$s níos fearr ná %2$s as %3$s imreoirí.</string>
   <string name="yourRating">Do rátáil</string>
   <string name="cumulative">Carnach</string>
   <string name="glicko2Rating">Rátáil Glicko-2</string>
@@ -538,6 +544,7 @@
   <string name="asFreeAsLichess">Chomh saor le Lichess</string>
   <string name="zeroAdvertisement">Gan fógraíocht</string>
   <string name="gameAnalysis">Anailís cluiche</string>
+  <string name="quickPairing">Péireáil tapaidh</string>
   <string name="lobby">Forsheomra</string>
   <string name="anonymous">Gan ainm</string>
   <string name="yourScore">Do scór: %s</string>

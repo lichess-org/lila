@@ -15,11 +15,11 @@
   <string name="downloadKit">Descargar kit de presentador</string>
   <string name="xIsStreaming">%s está transmitiendo</string>
   <string name="rules">Reglas de transmisión</string>
-  <string name="rule1">Incluye la palabra clave \"lichess.org\" en el título de tu stream cuando transmitas en Lichess.</string>
+  <string name="rule1">Incluye la palabra clave \"lichess.org\" en el título de tu transmisión cuando transmitas en Lichess.</string>
   <string name="rule2">Elimina la palabra clave cuando transmitas cosas que no son relativas a Lichess.</string>
-  <string name="rule3">Lichess detectará tu stream automáticamente y habilitará los siguientes incentivos:</string>
+  <string name="rule3">Lichess detectará tu transmisión automáticamente y habilitará los siguientes incentivos:</string>
   <string name="perks">Beneficios de transmitir con la palabra clave</string>
-  <string name="perk1">Obtén un icono flameante de streamer en tu perfil de Lichess.</string>
+  <string name="perk1">Obtén un icono de presentador en tu perfil de Lichess.</string>
   <string name="perk2">Alcanza la cima de la lista de streamers.</string>
   <string name="perk3">Avisar a tus seguidores de Lichess.</string>
   <string name="perk4">Mostrar tu stream en tus juegos, torneos y estudios.</string>

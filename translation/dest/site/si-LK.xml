@@ -23,6 +23,7 @@
   <string name="blackIsVictorious">කළු ජයග්‍රාහී වේ</string>
   <string name="youPlayTheWhitePieces">You play the white pieces</string>
   <string name="youPlayTheBlackPieces">You play the white pieces</string>
+  <string name="itsYourTurn">ඔබගේ වාරය!</string>
   <string name="kingInTheCenter">රජු කෙන්ද්‍රයේය</string>
   <string name="threeChecks">වැටලුම් තුනක්</string>
   <string name="raceFinished">තරඟය අවසන්</string>
@@ -60,6 +61,14 @@
   <string name="promoteVariation">විචලනය ප්‍රමුඛ කරන්න</string>
   <string name="makeMainLine">ප්‍රමුඛ රේඛාව කරන්න</string>
   <string name="deleteFromHere">මෙතැන සිට මකන්න</string>
+  <string name="move">ඇදීම</string>
+  <string name="capture">නතු කරගන්න</string>
+  <string name="close">වසන්න</string>
+  <string name="winning">ජයග්‍රාහී</string>
+  <string name="losing">පරාජිත</string>
+  <string name="database">දත්ත සංචිතය</string>
+  <string name="delete">මකන්න</string>
+  <string name="realtimeReplay">එසැණින්</string>
   <string name="victoryVsYInZ">%3$s හි %1$s එදිරිව %2$s</string>
   <string name="defeatVsYInZ">%3$s හි %1$s එදිරිව %2$s</string>
   <string name="drawVsYInZ">%3$s හි %1$s එදිරිව %2$s</string>

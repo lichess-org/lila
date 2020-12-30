@@ -13,4 +13,5 @@
   <string name="twoFactorEnabled">Tofaktorautentisering skrudd på</string>
   <string name="twoFactorDisable">For å skru av tofaktorautentiseringa treng du passordet og ein autentiseringskode frå tofaktorautentiseringsappen.
 Dersom du mistar tilgangen til autentiseringskodene dine, kan du tilbakestille passordet ditt vha. e-post.</string>
+  <string name="openTwoFactorApp">Opna 2-stegs autentiseringsappen på eininga di for å sjå autentiseringskoden og verifisera identiteten din.</string>
 </resources>

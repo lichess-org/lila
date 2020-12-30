@@ -76,7 +76,7 @@
   <string name="winning">Kazandıran hamle(ler)</string>
   <string name="losing">Kaybettiren hamle(ler)</string>
   <string name="drawn">Berabere</string>
-  <string name="unknown">Belirsiz</string>
+  <string name="unknown">Bilinmeyen</string>
   <string name="database">Veritabanı</string>
   <string name="whiteDrawBlack">Beyaz / Berabere / Siyah</string>
   <string name="averageRatingX">Ortalama puan: %s</string>

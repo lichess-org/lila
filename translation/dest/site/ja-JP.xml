@@ -50,7 +50,7 @@
   <string name="theComputerAnalysisHasFailed">コンピューターの解析に失敗しました</string>
   <string name="viewTheComputerAnalysis">コンピューターの解析を見る</string>
   <string name="requestAComputerAnalysis">コンピューターの解析をリクエスト</string>
-  <string name="computerAnalysis">コンピューター分析</string>
+  <string name="computerAnalysis">コンピューター解析</string>
   <string name="computerAnalysisAvailable">コンピュータ解析がされています</string>
   <string name="analysis">棋譜解析</string>
   <string name="depthX">深度 %s</string>
@@ -435,7 +435,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">指した後 自動的に次のゲームに進む</string>
   <string name="autoSwitch">自動切り替え</string>
-  <string name="puzzles">タクティクス</string>
+  <string name="puzzles">タクティクス問題</string>
   <string name="latestUpdates">最新情報</string>
   <string name="tournamentWinners">トーナメント優勝者</string>
   <string name="name">名称</string>
@@ -522,14 +522,14 @@
   <string name="human">人間</string>
   <string name="computer">コンピューター</string>
   <string name="side">先手後手</string>
-  <string name="clock">時間制限</string>
+  <string name="clock">対局時計</string>
   <string name="unauthorizedError">アクセス権限がありません。</string>
   <string name="noInternetConnection">インターネット接続なし。メニューからオフラインで対局できます。</string>
   <string name="connectedToLichess">lichess.org に接続しています。</string>
   <string name="signedOut">サインアウトしました。</string>
   <string name="loginSuccessful">ログインしました</string>
   <string name="playOnTheBoardOffline">オフライン（2人対局）</string>
-  <string name="playOfflineComputer">オフラインでCPUと対局する</string>
+  <string name="playOfflineComputer">オフラインでＣＰＵと対戦する</string>
   <string name="opponent">対局相手</string>
   <string name="learnMenu">学ぶ</string>
   <string name="studyMenu">研究</string>

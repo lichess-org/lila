@@ -12,4 +12,5 @@
   <string name="twoFactorEnabled">Xác thực 2 bước đã được kích hoạt</string>
   <string name="twoFactorDisable">Bạn cần mật khẩu và mã xác thực từ ứng dụng xác thực để tắt xác thực 2 bước.
 Nếu bạn mất quyền truy cập vào mã xác thực, bạn có thể đặt lại mật khẩu qua email.</string>
+  <string name="openTwoFactorApp">Mở ứng dụng xác minh 2 bước trên thiết bị của bạn để xem mã xác minh của bạn và xác nhận danh tính.</string>
 </resources>

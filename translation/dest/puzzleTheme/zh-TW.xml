@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advancedPawn">升變兵</string>
   <string name="advantage">擁有優勢</string>
+  <string name="attackingF2F7">攻擊f2或f7</string>
+  <string name="attraction">吸引</string>
+  <string name="bishopEndgame">象殘局</string>
+  <string name="bishopEndgameDescription">只剩象和兵的殘局</string>
   <string name="castling">易位</string>
   <string name="equality">均勢</string>
+  <string name="kingsideAttack">王翼攻擊</string>
   <string name="clearance">騰挪</string>
   <string name="deflection">引離</string>
   <string name="doubleCheck">雙將</string>
   <string name="endgame">殘局</string>
+  <string name="endgameDescription">棋局中最後階段的戰術</string>
   <string name="fork">捉雙</string>
+  <string name="knightEndgame">士殘局</string>
+  <string name="knightEndgameDescription">只剩士和兵的殘局</string>
   <string name="long">長題目</string>
   <string name="longDescription">三步獲勝</string>
   <string name="mate">將軍</string>
   <string name="mateIn1">一步將軍</string>
+  <string name="mateIn1Description">一步將軍</string>
   <string name="mateIn2">兩步將軍</string>
   <string name="mateIn2Description">走兩步以達到將軍</string>
   <string name="mateIn3">三步將軍</string>
@@ -20,14 +30,28 @@
   <string name="mateIn4Description">走四步以達到將軍</string>
   <string name="mateIn5">五步或更高 將軍</string>
   <string name="middlegame">中局</string>
+  <string name="middlegameDescription">棋局中第二階段的戰術</string>
   <string name="oneMove">一步題目</string>
+  <string name="oneMoveDescription">只有一步長的題目</string>
   <string name="opening">開局</string>
+  <string name="openingDescription">棋局中起始階段的戰術</string>
+  <string name="pawnEndgame">兵殘局</string>
+  <string name="pawnEndgameDescription">只剩兵的殘局</string>
   <string name="pin">牽制</string>
   <string name="promotion">升變</string>
+  <string name="queenEndgame">后殘局</string>
+  <string name="queenEndgameDescription">只剩后和兵的殘局</string>
+  <string name="queenRookEndgame">后與車</string>
+  <string name="queenRookEndgameDescription">只剩后、車和兵的殘局</string>
+  <string name="queensideAttack">后翼攻擊</string>
+  <string name="rookEndgame">車殘局</string>
+  <string name="rookEndgameDescription">只剩車和兵的殘局</string>
   <string name="short">短題目</string>
   <string name="shortDescription">兩步獲勝</string>
   <string name="underPromotion">防止升變</string>
+  <string name="underPromotionDescription">升變成騎士、象或車</string>
   <string name="veryLong">非常長的題目</string>
   <string name="veryLongDescription">四步或以上獲勝</string>
   <string name="healthyMix">綜合</string>
+  <string name="healthyMixDescription">所有類型都有!你不知道會遇到什麼題型，所以請做好準備，就像在對局裡一樣</string>
 </resources>

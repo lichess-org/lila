@@ -13,4 +13,5 @@
   <string name="twoFactorEnabled">Autenticazione a due fattori attivata</string>
   <string name="twoFactorDisable">Hai bisogno della tua password e di un codice di autenticazione dalla tua app di autenticazione per disattivare l\'autenticazione a due fattori.
 Se hai perso l\'accesso ai tuoi codici di autenticazione, puoi anche reimpostare la password per email.</string>
+  <string name="openTwoFactorApp">Apri l\'app di autenticazione a due fattori sul tuo dispositivo per visualizzare il tuo codice di autenticazione e verificare la tua identità.</string>
 </resources>
