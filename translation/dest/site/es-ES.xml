@@ -17,6 +17,8 @@
 	<string name="stalemate">Ahogado</string>
 	<string name="white">Blancas</string>
 	<string name="black">Negras</string>
+	<string name="shitate">Shitate</string>
+	<string name="uwate">Uwate</string>
 	<string name="randomColor">Color aleatorio</string>
 	<string name="createAGame">Crear una partida</string>
 	<string name="whiteIsVictorious">Las blancas ganan</string>
@@ -33,6 +35,8 @@
 	<string name="joinTheGame">Unirse a la partida</string>
 	<string name="whitePlays">Juegan las blancas</string>
 	<string name="blackPlays">Juegan las negras</string>
+	<string name="shitatePlays">Shitate to play</string>
+	<string name="uwatePlays">Uwate to play</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">Tu oponente ha salido de la partida. Podrás reclamar la victoria en %s segundo.</item>
 		<item quantity="other">Tu oponente ha salido de la partida. Podrás reclamar la victoria en %s segundos.</item>
@@ -247,6 +251,8 @@
 	<string name="recipient">Destinatario</string>
 	<string name="send">Enviar</string>
 	<string name="incrementInSeconds">Segundos de incremento</string>
+	<string name="byoyomiInSeconds">Byoyomi in seconds</string>
+	<string name="numberOfPeriods">Number of periods</string>
 	<string name="freeOnlineChess">Shogi en línea gratis</string>
 	<string name="spectators">Espectadores:</string>
 	<plurals name="nbRated">
@@ -532,6 +538,7 @@
 	<string name="newPasswordAgain">Nueva contraseña (otra vez)</string>
 	<string name="clockInitialTime">Tiempo inicial del reloj</string>
 	<string name="clockIncrement">Incremento</string>
+	<string name="clockByoyomi">Clock byoyomi</string>
 	<string name="privacy">Privacidad</string>
 	<string name="letOtherPlayersFollowYou">Permitir que otros jugadores te sigan</string>
 	<string name="letOtherPlayersChallengeYou">Permitir que otros jugadores te desafíen</string>
@@ -590,6 +597,8 @@
 	<string name="community">Comunidad</string>
 	<string name="tools">Herramientas</string>
 	<string name="increment">Incremento</string>
+	<string name="byoyomi">Byoyomi</string>
+	<string name="periods">Periods</string>
 	<string name="sharePGN">Compartir PGN</string>
 	<string name="playOnline">Jugar en línea</string>
 	<string name="playOffline">Jugar sin conexión</string>

@@ -17,6 +17,8 @@
 	<string name="stalemate">Dooiepunt</string>
 	<string name="white">Wit</string>
 	<string name="black">Swart</string>
+	<string name="shitate">Shitate</string>
+	<string name="uwate">Uwate</string>
 	<string name="randomColor">Lukrake kant</string>
 	<string name="createAGame">Skep \'n spel</string>
 	<string name="whiteIsVictorious">Wit het gewen</string>
@@ -33,6 +35,8 @@
 	<string name="joinTheGame">Sluit aan by spel</string>
 	<string name="whitePlays">Wit aan die beurt</string>
 	<string name="blackPlays">Swart aan die beurt</string>
+	<string name="shitatePlays">Shitate to play</string>
+	<string name="uwatePlays">Uwate to play</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">Jou opponent het die spel verlaat. Jy kan die oorwinning in %s sekonde eis.</item>
 		<item quantity="other">Jou opponent het die spel verlaat. Jy kan die oorwinning in %s sekondes eis.</item>
@@ -247,6 +251,8 @@
 	<string name="recipient">Ontvanger</string>
 	<string name="send">Stuur</string>
 	<string name="incrementInSeconds">Inkrement in sekondes</string>
+	<string name="byoyomiInSeconds">Byoyomi in seconds</string>
+	<string name="numberOfPeriods">Number of periods</string>
 	<string name="freeOnlineChess">Free Online Shogi</string>
 	<string name="spectators">Toeskouers:</string>
 	<plurals name="nbRated">
@@ -534,6 +540,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
 	<string name="newPasswordAgain">Nuwe wagwoord (weer)</string>
 	<string name="clockInitialTime">Aanvanklike kloktyd</string>
 	<string name="clockIncrement">Klok inkrement</string>
+	<string name="clockByoyomi">Clock byoyomi</string>
 	<string name="privacy">Privaatheid</string>
 	<string name="letOtherPlayersFollowYou">Laat toe dat ander spelers jou te volg</string>
 	<string name="letOtherPlayersChallengeYou">Laat toe dat ander spelers jou uitdaag</string>
@@ -592,6 +599,8 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
 	<string name="community">Gemeenskap</string>
 	<string name="tools">Gereedskap</string>
 	<string name="increment">Inkrement</string>
+	<string name="byoyomi">Byoyomi</string>
+	<string name="periods">Periods</string>
 	<string name="sharePGN">Deel PGN</string>
 	<string name="playOnline">Speel aanlyn</string>
 	<string name="playOffline">Speel vanlyn</string>

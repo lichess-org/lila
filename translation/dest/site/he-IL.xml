@@ -17,6 +17,8 @@
 	<string name="stalemate">פט</string>
 	<string name="white">לבן</string>
 	<string name="black">שחור</string>
+	<string name="shitate">Shitate</string>
+	<string name="uwate">Uwate</string>
 	<string name="randomColor">צבע אקראי</string>
 	<string name="createAGame">צור משחק</string>
 	<string name="whiteIsVictorious">הלבן ניצח</string>
@@ -33,6 +35,8 @@
 	<string name="joinTheGame">הצטרף למשחק</string>
 	<string name="whitePlays">תור הלבן</string>
 	<string name="blackPlays">תור השחור</string>
+	<string name="shitatePlays">Shitate to play</string>
+	<string name="uwatePlays">Uwate to play</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">המשתמש עזב את המשחק. תוכל לקחת ניצחון בעוד %s שנייה.</item>
 		<item quantity="two">המשתמש עזב את המשחק. תוכל לירוש ניצחון בעוד %s שניות.</item>
@@ -269,6 +273,8 @@
 	<string name="recipient">נמען</string>
 	<string name="send">שלח</string>
 	<string name="incrementInSeconds">תוספת בשניות</string>
+	<string name="byoyomiInSeconds">Byoyomi in seconds</string>
+	<string name="numberOfPeriods">Number of periods</string>
 	<string name="freeOnlineChess">Free Online Shogi</string>
 	<string name="spectators">צופים:</string>
 	<plurals name="nbRated">
@@ -592,6 +598,7 @@
 	<string name="newPasswordAgain">סיסמא חדשה שוב</string>
 	<string name="clockInitialTime">זמן שעון התחלתי</string>
 	<string name="clockIncrement">הוספת זמן</string>
+	<string name="clockByoyomi">Clock byoyomi</string>
 	<string name="privacy">פרטיות</string>
 	<string name="letOtherPlayersFollowYou">אפשר לשחקנים אחרים לעקוב אחריך</string>
 	<string name="letOtherPlayersChallengeYou">אפשר לשחקנים אחרים להזמינך למשחק</string>
@@ -657,6 +664,8 @@
 	<string name="community">קהילה</string>
 	<string name="tools">כלים</string>
 	<string name="increment">שניות למהלך</string>
+	<string name="byoyomi">Byoyomi</string>
+	<string name="periods">Periods</string>
 	<string name="sharePGN">שתף PGN</string>
 	<string name="playOnline">משחק רשת</string>
 	<string name="playOffline">משחק מקומי</string>

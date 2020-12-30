@@ -15,7 +15,7 @@
 Hier geht es zu deiner Profil-Seite: %1$s. Du kannst sie auf %2$s personalisieren.
 
 Viel Spaß und mögen deine Figuren immer den Weg zum gegnerischen König finden!</string>
-  <string name="logInToLishogi">Log in to lishogi.org, %s</string>
+  <string name="logInToLishogi">Bei lishogi.org anmelden, %s</string>
   <string name="common_orPaste">(Klicken funktioniert nicht? Versuche den Link in deinen Browser einzufügen!)</string>
   <string name="common_note">Dies ist eine Service-E-Mail im Zusammenhang mit deiner Nutzung von %s.</string>
   <string name="common_contact">Um uns zu kontaktieren, benutze bitte %s.</string>

@@ -2,7 +2,7 @@
 <resources>
 	<string name="lishogiCoaches">Lishogi coaches</string>
 	<string name="lishogiCoach">Lishogi coach</string>
-	<string name="areYouCoach">Are you a great shogi coach with a %s?</string>
+	<string name="areYouCoach" comment="not sure if coaches will ever be a feature in lishogi. the original text in lichess is: &quot;Are you a great chess coach with a NM or FIDE title?&#10;Confirm your title here and we will review your application.&quot;">Are you a great shogi coach with a %s?</string>
 	<string name="nmOrFideTitle">title</string>
 	<string name="confirmTitle">Подтвердите ваше звание, и мы рассмотрим вашу заявку.</string>
 	<string name="sendApplication">Отправьте нам письмо на %s и мы рассмотрим вашу заявку.</string>

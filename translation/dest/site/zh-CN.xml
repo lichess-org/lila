@@ -17,6 +17,8 @@
 	<string name="stalemate">逼和</string>
 	<string name="white">白方</string>
 	<string name="black">黑方</string>
+	<string name="shitate">Shitate</string>
+	<string name="uwate">Uwate</string>
 	<string name="randomColor">随机选色</string>
 	<string name="createAGame">创建对局</string>
 	<string name="whiteIsVictorious">白方胜利</string>
@@ -33,6 +35,8 @@
 	<string name="joinTheGame">加入对局</string>
 	<string name="whitePlays">白方走棋</string>
 	<string name="blackPlays">黑方走棋</string>
+	<string name="shitatePlays">Shitate to play</string>
+	<string name="uwatePlays">Uwate to play</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="other">你的对手已离开棋局。你将在 %s 秒后胜利。</item>
 	</plurals>
@@ -236,6 +240,8 @@
 	<string name="recipient">收件人</string>
 	<string name="send">发送</string>
 	<string name="incrementInSeconds">步时</string>
+	<string name="byoyomiInSeconds">Byoyomi in seconds</string>
+	<string name="numberOfPeriods">Number of periods</string>
 	<string name="freeOnlineChess">免税线上将棋</string>
 	<string name="spectators">观众：</string>
 	<plurals name="nbRated">
@@ -502,6 +508,7 @@
 	<string name="newPasswordAgain">重复新密码</string>
 	<string name="clockInitialTime">起始时限</string>
 	<string name="clockIncrement">加秒</string>
+	<string name="clockByoyomi">Clock byoyomi</string>
 	<string name="privacy">隐私</string>
 	<string name="letOtherPlayersFollowYou">允许其他用户关注</string>
 	<string name="letOtherPlayersChallengeYou">允许其他玩家挑战</string>
@@ -558,6 +565,8 @@
 	<string name="community">社区</string>
 	<string name="tools">工具</string>
 	<string name="increment">加秒</string>
+	<string name="byoyomi">Byoyomi</string>
+	<string name="periods">Periods</string>
 	<string name="sharePGN">分享PGN</string>
 	<string name="playOnline">在线下棋</string>
 	<string name="playOffline">离线下棋</string>

@@ -17,6 +17,8 @@
 	<string name="stalemate">Stallo</string>
 	<string name="white">Bianco</string>
 	<string name="black">Nero</string>
+	<string name="shitate">Shitate</string>
+	<string name="uwate">Uwate</string>
 	<string name="randomColor">Colore casuale</string>
 	<string name="createAGame">Crea una partita</string>
 	<string name="whiteIsVictorious">Vince il Bianco</string>
@@ -33,6 +35,8 @@
 	<string name="joinTheGame">Unisciti alla partita</string>
 	<string name="whitePlays">Tocca al Bianco</string>
 	<string name="blackPlays">Tocca al Nero</string>
+	<string name="shitatePlays">Shitate to play</string>
+	<string name="uwatePlays">Uwate to play</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">Il tuo avversario ha lasciato la partita. Puoi reclamare la vittoria fra %s secondo.</item>
 		<item quantity="other">Il tuo avversario ha lasciato la partita. Puoi reclamare la vittoria fra %s secondi.</item>
@@ -247,6 +251,8 @@
 	<string name="recipient">Destinatario</string>
 	<string name="send">Invia</string>
 	<string name="incrementInSeconds">Incremento in secondi</string>
+	<string name="byoyomiInSeconds">Byoyomi in seconds</string>
+	<string name="numberOfPeriods">Number of periods</string>
 	<string name="freeOnlineChess">Free Online Shogi</string>
 	<string name="spectators">Spettatori:</string>
 	<plurals name="nbRated">
@@ -533,6 +539,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
 	<string name="newPasswordAgain">Nuova password (ripeti)</string>
 	<string name="clockInitialTime">Tempo iniziale</string>
 	<string name="clockIncrement">Incremento orologio</string>
+	<string name="clockByoyomi">Clock byoyomi</string>
 	<string name="privacy">Privacy</string>
 	<string name="letOtherPlayersFollowYou">Permetti ad altri giocatori di seguirti</string>
 	<string name="letOtherPlayersChallengeYou">Permetti ad altri giocatori di sfidarti</string>
@@ -591,6 +598,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
 	<string name="community">Community</string>
 	<string name="tools">Strumenti</string>
 	<string name="increment">Incremento</string>
+	<string name="byoyomi">Byoyomi</string>
+	<string name="periods">Periods</string>
 	<string name="sharePGN">Condividi PGN</string>
 	<string name="playOnline">Gioca online</string>
 	<string name="playOffline">Gioca offline</string>

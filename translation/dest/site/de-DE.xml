@@ -17,6 +17,8 @@
 	<string name="stalemate">Patt</string>
 	<string name="white">Weiß</string>
 	<string name="black">Schwarz</string>
+	<string name="shitate">Shitate</string>
+	<string name="uwate">Uwate</string>
 	<string name="randomColor">Zufällige Farbe</string>
 	<string name="createAGame">Neue Partie</string>
 	<string name="whiteIsVictorious">Weiß gewinnt</string>
@@ -33,6 +35,8 @@
 	<string name="joinTheGame">Der Partie beitreten</string>
 	<string name="whitePlays">Weiß am Zug</string>
 	<string name="blackPlays">Schwarz am Zug</string>
+	<string name="shitatePlays">Shitate to play</string>
+	<string name="uwatePlays">Uwate to play</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">Dein Gegner hat die Partie verlassen. Du kannst in %s Sekunde den Sieg beanspruchen.</item>
 		<item quantity="other">Dein Gegner hat die Partie verlassen. Du kannst in %s Sekunden den Sieg beanspruchen.</item>
@@ -247,6 +251,8 @@
 	<string name="recipient">Empfänger</string>
 	<string name="send">Senden</string>
 	<string name="incrementInSeconds">Inkrement in Sekunden</string>
+	<string name="byoyomiInSeconds">Byoyomi in seconds</string>
+	<string name="numberOfPeriods">Number of periods</string>
 	<string name="freeOnlineChess">Free Online Shogi</string>
 	<string name="spectators">Zuschauer:</string>
 	<plurals name="nbRated">
@@ -532,6 +538,7 @@
 	<string name="newPasswordAgain">Neues Passwort (wiederholen)</string>
 	<string name="clockInitialTime">Grundbedenkzeit</string>
 	<string name="clockIncrement">Zeit-Inkrement</string>
+	<string name="clockByoyomi">Clock byoyomi</string>
 	<string name="privacy">Privatsphäre</string>
 	<string name="letOtherPlayersFollowYou">Anderen erlauben, mir zu folgen</string>
 	<string name="letOtherPlayersChallengeYou">Anderen erlauben, mich herauszufordern</string>
@@ -590,6 +597,8 @@
 	<string name="community">Gemeinschaft</string>
 	<string name="tools">Werkzeuge</string>
 	<string name="increment">Inkrement</string>
+	<string name="byoyomi">Byoyomi</string>
+	<string name="periods">Periods</string>
 	<string name="sharePGN">PGN teilen</string>
 	<string name="playOnline">Spiele online</string>
 	<string name="playOffline">Spiele offline</string>

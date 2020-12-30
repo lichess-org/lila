@@ -17,6 +17,8 @@
 	<string name="stalemate">ステイルメイト</string>
 	<string name="white">後手</string>
 	<string name="black">先手</string>
+	<string name="shitate">Shitate</string>
+	<string name="uwate">Uwate</string>
 	<string name="randomColor">ランダム</string>
 	<string name="createAGame">対局を作成する</string>
 	<string name="whiteIsVictorious">後手の勝ちです</string>
@@ -33,6 +35,8 @@
 	<string name="joinTheGame">対局に参加する</string>
 	<string name="whitePlays">後手番です</string>
 	<string name="blackPlays">先手番です</string>
+	<string name="shitatePlays">Shitate to play</string>
+	<string name="uwatePlays">Uwate to play</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="other">相手が退席したようです。%s 秒後に勝ちを宣言できます。</item>
 	</plurals>
@@ -236,6 +240,8 @@
 	<string name="recipient">受信者</string>
 	<string name="send">送信する</string>
 	<string name="incrementInSeconds">１手ごとに増える秒数</string>
+	<string name="byoyomiInSeconds">Byoyomi in seconds</string>
+	<string name="numberOfPeriods">Number of periods</string>
 	<string name="freeOnlineChess">無料オンライン将棋</string>
 	<string name="spectators">観覧者:</string>
 	<plurals name="nbRated">
@@ -503,6 +509,7 @@
 	<string name="newPasswordAgain">新しいパスワード（確認）</string>
 	<string name="clockInitialTime">初期持ち時間</string>
 	<string name="clockIncrement">追加時間</string>
+	<string name="clockByoyomi">Clock byoyomi</string>
 	<string name="privacy">プライバシー（英文）</string>
 	<string name="letOtherPlayersFollowYou">他人からのフォローを可能にする</string>
 	<string name="letOtherPlayersChallengeYou">他人からの挑戦を可能にする</string>
@@ -559,6 +566,8 @@
 	<string name="community">コミュニティ</string>
 	<string name="tools">ツール</string>
 	<string name="increment">追加時間</string>
+	<string name="byoyomi">Byoyomi</string>
+	<string name="periods">Periods</string>
 	<string name="sharePGN">PGNを共有</string>
 	<string name="playOnline">オンラインでプレイする</string>
 	<string name="playOffline">オフラインでプレイする</string>

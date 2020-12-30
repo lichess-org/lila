@@ -17,6 +17,8 @@
 	<string name="stalemate">Пат</string>
 	<string name="white">Бели</string>
 	<string name="black">Црни</string>
+	<string name="shitate">Shitate</string>
+	<string name="uwate">Uwate</string>
 	<string name="randomColor">Насумична боја</string>
 	<string name="createAGame">Започни нову партију</string>
 	<string name="whiteIsVictorious">Бели је победник</string>
@@ -33,6 +35,8 @@
 	<string name="joinTheGame">Придружи се партији</string>
 	<string name="whitePlays">Бели је на потезу</string>
 	<string name="blackPlays">Црни је на потезу</string>
+	<string name="shitatePlays">Shitate to play</string>
+	<string name="uwatePlays">Uwate to play</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">Ваш противник је напустио игру. Победа ће Вам бити приписана за %s секунди.</item>
 		<item quantity="few">Ваш противник је напустио игру. Победа ће Вам бити приписана за %s секунди.</item>
@@ -258,6 +262,8 @@
 	<string name="recipient">Прималац</string>
 	<string name="send">Пошаљи</string>
 	<string name="incrementInSeconds">Додавање у секундама</string>
+	<string name="byoyomiInSeconds">Byoyomi in seconds</string>
+	<string name="numberOfPeriods">Number of periods</string>
 	<string name="freeOnlineChess">Free Online Shogi</string>
 	<string name="spectators">Посматрачи:</string>
 	<plurals name="nbRated">
@@ -563,6 +569,7 @@
 	<string name="newPasswordAgain">Понови нову лозинку</string>
 	<string name="clockInitialTime">Почетно време на сату</string>
 	<string name="clockIncrement">Повећање времена</string>
+	<string name="clockByoyomi">Clock byoyomi</string>
 	<string name="privacy">Приватност</string>
 	<string name="letOtherPlayersFollowYou">Допустите да вас други играчи прате</string>
 	<string name="letOtherPlayersChallengeYou">Допустите да вас други играчи изазову</string>
@@ -623,6 +630,8 @@
 	<string name="community">Заједница</string>
 	<string name="tools">Алати</string>
 	<string name="increment">додатак</string>
+	<string name="byoyomi">Byoyomi</string>
+	<string name="periods">Periods</string>
 	<string name="sharePGN">Подели PGN</string>
 	<string name="playOnline">Играј online</string>
 	<string name="playOffline">Играј offline</string>

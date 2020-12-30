@@ -17,6 +17,8 @@
 	<string name="stalemate">Patti</string>
 	<string name="white">Valkea</string>
 	<string name="black">Musta</string>
+	<string name="shitate">Shitate</string>
+	<string name="uwate">Uwate</string>
 	<string name="randomColor">Satunnainen</string>
 	<string name="createAGame">Luo uusi peli</string>
 	<string name="whiteIsVictorious">Valkea voittaa</string>
@@ -33,6 +35,8 @@
 	<string name="joinTheGame">Liity peliin</string>
 	<string name="whitePlays">Valkean vuoro</string>
 	<string name="blackPlays">Mustan vuoro</string>
+	<string name="shitatePlays">Shitate to play</string>
+	<string name="uwatePlays">Uwate to play</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">Vastustajasi poistui pelistä. Voit vaatia voiton %s sekunnin kuluttua.</item>
 		<item quantity="other">Vastustajasi poistui pelistä. Voit vaatia voiton %s sekunnin kuluttua.</item>
@@ -247,6 +251,8 @@
 	<string name="recipient">Vastaanottaja</string>
 	<string name="send">Lähetä</string>
 	<string name="incrementInSeconds">Lisäaika sekunteina</string>
+	<string name="byoyomiInSeconds">Byoyomi in seconds</string>
+	<string name="numberOfPeriods">Number of periods</string>
 	<string name="freeOnlineChess">Free Online Shogi</string>
 	<string name="spectators">Katsojat:</string>
 	<plurals name="nbRated">
@@ -532,6 +538,7 @@
 	<string name="newPasswordAgain">Varmista uusi salasana</string>
 	<string name="clockInitialTime">Alkuaika</string>
 	<string name="clockIncrement">Lisäaika</string>
+	<string name="clockByoyomi">Clock byoyomi</string>
 	<string name="privacy">Yksityisyys</string>
 	<string name="letOtherPlayersFollowYou">Anna muiden pelaajien seurata sinua</string>
 	<string name="letOtherPlayersChallengeYou">Anna muiden pelaajien haastaa sinut</string>
@@ -590,6 +597,8 @@
 	<string name="community">Yhteisö</string>
 	<string name="tools">Työkalut</string>
 	<string name="increment">Lisäaika</string>
+	<string name="byoyomi">Byoyomi</string>
+	<string name="periods">Periods</string>
 	<string name="sharePGN">Jaa PGN</string>
 	<string name="playOnline">Pelaa verkossa</string>
 	<string name="playOffline">Pelaa paikallisesti</string>

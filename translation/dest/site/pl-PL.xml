@@ -17,6 +17,8 @@
 	<string name="stalemate">Pat</string>
 	<string name="white">Białe</string>
 	<string name="black">Czarne</string>
+	<string name="shitate">Shitate</string>
+	<string name="uwate">Uwate</string>
 	<string name="randomColor">Losowo</string>
 	<string name="createAGame">Nowa partia</string>
 	<string name="whiteIsVictorious">Zwycięstwo białych</string>
@@ -33,6 +35,8 @@
 	<string name="joinTheGame">Dołącz do gry</string>
 	<string name="whitePlays">Ruch białych</string>
 	<string name="blackPlays">Ruch czarnych</string>
+	<string name="shitatePlays">Shitate to play</string>
+	<string name="uwatePlays">Uwate to play</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">Przeciwnik porzucił partię. Możesz ogłosić wygraną za %s sekundę.</item>
 		<item quantity="few">Przeciwnik porzucił partię. Możesz ogłosić wygraną za %s sekundy.</item>
@@ -269,6 +273,8 @@
 	<string name="recipient">Adresat</string>
 	<string name="send">Wyślij</string>
 	<string name="incrementInSeconds">Dodawany czas w sekundach</string>
+	<string name="byoyomiInSeconds">Byoyomi in seconds</string>
+	<string name="numberOfPeriods">Number of periods</string>
 	<string name="freeOnlineChess">Darmowe shogi online</string>
 	<string name="spectators">Widzowie:</string>
 	<plurals name="nbRated">
@@ -592,6 +598,7 @@
 	<string name="newPasswordAgain">Powtórz nowe hasło</string>
 	<string name="clockInitialTime">Początkowy czas zegara</string>
 	<string name="clockIncrement">Przyrost czasu</string>
+	<string name="clockByoyomi">Clock byoyomi</string>
 	<string name="privacy">Prywatność</string>
 	<string name="letOtherPlayersFollowYou">Inni gracze mogą Cię obserwować</string>
 	<string name="letOtherPlayersChallengeYou">Zezwól na zaproszenia od innych graczy</string>
@@ -654,6 +661,8 @@
 	<string name="community">Społeczność</string>
 	<string name="tools">Narzędzia</string>
 	<string name="increment">Czas dodawany</string>
+	<string name="byoyomi">Byoyomi</string>
+	<string name="periods">Periods</string>
 	<string name="sharePGN">Udostępnij PGN</string>
 	<string name="playOnline">Graj online</string>
 	<string name="playOffline">Graj offline</string>
