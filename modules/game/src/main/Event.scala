@@ -54,7 +54,7 @@ object Event {
         .obj(
           "fen"   -> fen,
           "ply"   -> state.turns,
-          "dests" -> PossibleMoves.oldJson(possibleMoves),
+          "dests" -> PossibleMoves.oldJson(possibleMoves)
         )
         .add("clock" -> clock.map(_.data))
         .add("status" -> state.status)

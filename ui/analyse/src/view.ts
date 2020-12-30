@@ -37,14 +37,6 @@ import relayIntro from './study/relay/relayIntroView';
 import renderPlayerBars from './study/playerBars';
 import serverSideUnderboard from './serverSideUnderboard';
 import * as gridHacks from './gridHacks';
-import throttle from 'common/throttle';
-
-const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
-
-const selectSound = throttled('select');
-const wrapSound = throttled('wraparound');
-const borderSound = throttled('outofbound');
-const errorSound = throttled('error');
 
 function renderResult(ctrl: AnalyseCtrl): VNode[] {
   let result: string | undefined;
