@@ -75,6 +75,7 @@
   <string name="promotionDescription">Ein finna, ið umskapast ella hóttir við at umskapast, er lykilin til taktikkin.</string>
   <string name="queenEndgame">Frúgvaendatalv</string>
   <string name="queenEndgameDescription">Endatalv við frúgvum og finnum burturav.</string>
+  <string name="queenRookEndgame">Frúgv og rókur</string>
   <string name="queensideAttack">Álop frúgvamegin</string>
   <string name="queensideAttackDescription">Álop á mótstøðukongin, aftaná at hann er lopin í borg frúgvamegin.</string>
   <string name="quietMove">Stillførur leikur</string>
