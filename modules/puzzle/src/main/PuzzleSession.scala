@@ -46,6 +46,7 @@ final class PuzzleSessionApi(
     continueOrCreateSessionFor(user, theme)
       .flatMap { session =>
         import NextPuzzleResult._
+
         def switchPath(tier: PuzzleTier) =
           pathApi.nextFor(user, theme, tier, session.difficulty, session.previousPaths) orFail
             s"No puzzle path for ${user.id} $theme $tier" flatMap { pathId =>
@@ -53,6 +54,18 @@ final class PuzzleSessionApi(
               sessions.put(user.id, fuccess(newSession))
               nextPuzzleFor(user, theme, retries = retries + 1)
             }
+
+        def serveAndMonitor(puzzle: Puzzle) = {
+          val mon = lila.mon.puzzle.selector.user
+          mon.retries(theme.value).record(retries)
+          mon.vote(theme.value).record(100 + math.round(puzzle.vote * 100))
+          mon
+            .ratingDiff(theme.value, session.difficulty.key)
+            .record(math.abs(puzzle.glicko.intRating - user.perfs.puzzle.intRating))
+          mon.ratingDev(theme.value).record(puzzle.glicko.intDeviation)
+          mon.tier(session.path.tier.key, theme.value, session.difficulty.key).increment().unit
+          puzzle
+        }
 
         nextPuzzleResult(user, session)
           .flatMap {
@@ -65,19 +78,9 @@ final class PuzzleSessionApi(
             case PuzzleAlreadyPlayed(_) if retries < 3 =>
               sessions.put(user.id, fuccess(session.next))
               nextPuzzleFor(user, theme, retries = retries + 1)
-            case PuzzleAlreadyPlayed(_) if session.path.tier == PuzzleTier.Top => switchPath(PuzzleTier.All)
-            case PuzzleAlreadyPlayed(puzzle)                                   => fuccess(puzzle)
-            case PuzzleFound(puzzle)                                           => fuccess(puzzle)
-          }
-          .addEffect { puzzle =>
-            val mon = lila.mon.puzzle.selector.user
-            mon.retries(theme.value).record(retries)
-            mon.vote(theme.value).record(100 + math.round(puzzle.vote * 100))
-            mon
-              .ratingDiff(theme.value, session.difficulty.key)
-              .record(math.abs(puzzle.glicko.intRating - user.perfs.puzzle.intRating))
-            mon.ratingDev(theme.value).record(puzzle.glicko.intDeviation)
-            mon.tier(session.path.tier.key, theme.value).increment().unit
+            case PuzzleAlreadyPlayed(puzzle) =>
+              session.path.tier.stepDown.fold(fuccess(serveAndMonitor(puzzle)))(switchPath)
+            case PuzzleFound(puzzle) => fuccess(serveAndMonitor(puzzle))
           }
       }
       .mon(_.puzzle.selector.user.time(theme.value))
