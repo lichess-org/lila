@@ -20,4 +20,8 @@ T. d. geva tveir sigrar og ein javnleikur 6 stig tilsamans: 2 + 2 + (2 + 1)</str
     <item quantity="one">At telva javnt áðrenn fyrsta %s leik, gevur hvørgum telvara nakað stig.</item>
     <item quantity="other">At telva javnt áðrenn fyrstu %s leikirnar, gevur hvørgum telvara nakað stig.</item>
   </plurals>
+  <string name="thisIsPrivate">Hetta er ein privat kapping</string>
+  <string name="shareUrl">Deil hetta URL, so at fólk kunnu taka lut: %s</string>
+  <string name="drawStreak">Remisrøð: Ein telvari, ið hevur eina óbrotna røð av javnleikum í eini arena, fær bert stig fyri fyrsta javnleikin ella fyri javnleikir aftaná fleiri enn %s leikir. Remisrøðin kann bert verða brotin av einum sigri; ikki av einum ósigri ella javnleiki.</string>
+  <string name="history">Arenusøga</string>
 </resources>
