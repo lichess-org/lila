@@ -100,31 +100,32 @@ final class Puzzle(
           {
             ctx.me match {
               case Some(me) =>
-                for {
-                  (round, perf) <- env.puzzle
-                    .finisher(id, theme.key, me, Result(resultInt == 1))
-                    .orFail(s"No such puzzle $id")
-                  newUser = me.copy(perfs = me.perfs.copy(puzzle = perf))
-                  _ <- env.puzzle.session.onComplete(round, theme.key)
-                  json <-
-                    if (mobileBc) fuccess {
-                      env.puzzle.jsonView.bc.userJson(perf.intRating) ++ Json.obj(
-                        "round" -> Json.obj(
-                          "ratingDiff" -> 0,
-                          "win"        -> (resultInt == 1)
-                        ),
-                        "voted" -> round.vote
-                      )
-                    }
-                    else
-                      for {
-                        next     <- nextPuzzleForMe(theme.key)
-                        nextJson <- renderJson(next, theme, none, newUser.some)
-                      } yield Json.obj(
-                        "round" -> env.puzzle.jsonView.roundJson(me, round, perf),
-                        "next"  -> nextJson
-                      )
-                } yield json
+                env.puzzle.finisher(id, theme.key, me, Result(resultInt == 1)) flatMap {
+                  _ ?? { case (round, perf) =>
+                    val newUser = me.copy(perfs = me.perfs.copy(puzzle = perf))
+                    for {
+                      _ <- env.puzzle.session.onComplete(round, theme.key)
+                      json <-
+                        if (mobileBc) fuccess {
+                          env.puzzle.jsonView.bc.userJson(perf.intRating) ++ Json.obj(
+                            "round" -> Json.obj(
+                              "ratingDiff" -> 0,
+                              "win"        -> (resultInt == 1)
+                            ),
+                            "voted" -> round.vote
+                          )
+                        }
+                        else
+                          for {
+                            next     <- nextPuzzleForMe(theme.key)
+                            nextJson <- renderJson(next, theme, none, newUser.some)
+                          } yield Json.obj(
+                            "round" -> env.puzzle.jsonView.roundJson(me, round, perf),
+                            "next"  -> nextJson
+                          )
+                    } yield json
+                  }
+                }
               case None =>
                 env.puzzle.finisher.incPuzzlePlays(id)
                 if (mobileBc) fuccess(Json.obj("user" -> false))
@@ -317,19 +318,14 @@ final class Puzzle(
               err => BadRequest(err.toString).fuccess,
               data =>
                 data.solutions.lastOption
-                  .?? { solution =>
-                    Puz
-                      .numericalId(solution.id)
-                      .map(_ -> Result(solution.win))
-                  } match {
+                  .flatMap { solution => Puz.numericalId(solution.id) }
+                  .?? {
+                    env.puzzle.finisher(_, PuzzleTheme.mix.key, me, Result(solution.win))
+                  } flatMap {
                   case None => Ok(env.puzzle.jsonView.bc.userJson(me.perfs.puzzle.intRating)).fuccess
                   case Some((puzzleId, result)) =>
-                    for {
-                      (round, perf) <- env.puzzle
-                        .finisher(puzzleId, PuzzleTheme.mix.key, me, result)
-                        .orFail(s"No such puzzle $puzzleId for mobile")
-                      _ = env.puzzle.session.onComplete(round, PuzzleTheme.mix.key)
-                    } yield Ok(env.puzzle.jsonView.bc.userJson(perf.intRating))
+                    env.puzzle.session.onComplete(round, PuzzleTheme.mix.key)
+                    Ok(env.puzzle.jsonView.bc.userJson(perf.intRating))
                 }
             )
         }
