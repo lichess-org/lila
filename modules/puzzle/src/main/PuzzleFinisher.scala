@@ -36,8 +36,8 @@ final private[puzzle] class PuzzleFinisher(
       user: User,
       result: Result
   ): Fu[Option[(PuzzleRound, Perf)]] =
-    api.round.find(user, id) flatMap { prevRound =>
-      sequencer(id.value) {
+    sequencer(id.value) {
+      api.round.find(user, id) flatMap { prevRound =>
         api.puzzle.find(id) flatMap {
           _ ?? { puzzle =>
             val now              = DateTime.now
