@@ -14,6 +14,7 @@ T. d. geva tveir sigrar og ein javnleikur 6 stig tilsamans: 2 + 2 + (2 + 1)</str
   <string name="howIsTheWinnerDecided">Hvussu verður gjørt av, hvør ið vinnur?</string>
   <string name="howDoesPairingWork">Hvussu fer greipingin fram?</string>
   <string name="howDoesItEnd">Hvussu endar tað?</string>
+  <string name="howDoesItEndAnswer">Kappingin hevur eina niðurteljingarklokku. Tá ið klokkan kemur niður á null, verður kappingarstøðan fryst, og vinnarin verður kunngjørdur. Talv, ið eru í gongd, skulu telvast liðug, men tey telja tó ikki við í kappingini.</string>
   <string name="otherRules">Aðrar týdningarmiklar reglur</string>
   <string name="thereIsACountdown">Ein niðurteljing er á fyrsta leikinum hjá tær. Flytir tú ikki, áðrenn tíðin er uppi, tapir tú talvið.</string>
   <plurals name="drawingWithinNbMoves">
