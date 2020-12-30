@@ -76,6 +76,7 @@
   <string name="queenEndgame">Frúgvaendatalv</string>
   <string name="queenEndgameDescription">Endatalv við frúgvum og finnum burturav.</string>
   <string name="queenRookEndgame">Frúgv og rókur</string>
+  <string name="queenRookEndgameDescription">Endatalv við frúm, rókum og finnum.</string>
   <string name="queensideAttack">Álop frúgvamegin</string>
   <string name="queensideAttackDescription">Álop á mótstøðukongin, aftaná at hann er lopin í borg frúgvamegin.</string>
   <string name="quietMove">Stillførur leikur</string>
