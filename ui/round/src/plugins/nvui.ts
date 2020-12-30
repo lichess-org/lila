@@ -132,7 +132,7 @@ lichess.RoundNVUI = function(redraw: Redraw) {
             const $buttons = $board.find('button');
             $buttons.on('click', selectionHandler(ctrl.data.opponent.color, selectSound));
             $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
-            $buttons.on('keypress', possibleMovesHandler(() => ctrl.chessground.state.movable.dests, () => ctrl.chessground.state.pieces));
+            $buttons.on('keypress', possibleMovesHandler(ctrl.data.player.color, ctrl.chessground.getFen, () => ctrl.chessground.state.pieces));
             $buttons.on('keypress', positionJumpHandler());
             $buttons.on('keypress', pieceJumpingHandler(wrapSound, errorSound));
           })}, renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color, pieceStyle.get(), prefixStyle.get(), positionStyle.get(), boardStyle.get())),

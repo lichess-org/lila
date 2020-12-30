@@ -1,10 +1,14 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { Pieces, Dests } from 'chessground/types';
+import { Pieces } from 'chessground/types';
 import { Rank, File } from 'chessground/types';
 import { invRanks, allKeys } from 'chessground/util';
 import { Setting, makeSetting } from './setting';
 import { files } from 'chessground/types';
+import { parseFen } from 'chessops/fen';
+import { Chess } from 'chessops/chess';
+import { chessgroundDests } from 'chessops/compat';
+import { SquareName } from 'chessops/types';
 
 export type Style = 'uci' | 'san' | 'literate' | 'nato' | 'anna';
 export type PieceStyle = 'letter' | 'white uppercase letter' | 'name' | 'white uppercase name';
@@ -462,37 +466,36 @@ export function lastCapturedCommandHandler(steps: () => string[], pieceStyle: Pi
   }
 }
 
-/* TODO: this only has access to valid moves when it is the users turn; this should be fixed somehow. Likely server side.
-Currently announces: "Moves unavailable" but this should be considered a bug.*/
-export function possibleMovesHandler(possibleMoves: () => Dests, pieces: () => Pieces) {
+export function possibleMovesHandler(color: Color, fen: () => string, pieces: () => Pieces) {
   return (ev: KeyboardEvent) => {
     if (ev.key !== 'm' && ev.key !== 'M') return true;
     const $boardLive = $('.boardstatus');
     const $pieces = pieces();
-    const $possibleMoves = possibleMoves();
+    const myTurnFen = color === 'white' ? 'w' : 'b';
+    const opponentTurnFen = color === 'white' ? 'b' : 'w';
 
     const $btn = $(ev.target as HTMLElement);
     const $pos = ($btn.attr('file') ?? "")
-      + $btn.attr('rank') as Key;
+      + $btn.attr('rank') as SquareName;
 
-    // TODO: here it is
-    if ($possibleMoves.size === 0) {
-      $boardLive.text("Moves unavailable.");
-      return false;
-    }
-    const $myDests = $possibleMoves.get($pos);
-    if (!$myDests) {
+    // possible ineffecient to reparse fen; but seems to work when it is AND when it is not the users' turn.
+    const possibleMoves = chessgroundDests(
+      Chess.fromSetup(
+        parseFen(fen().replace(' ' + opponentTurnFen + ' ', ' ' + myTurnFen + ' ')).unwrap()).unwrap())
+        .get($pos)
+        ?.map(i => {
+          const p = $pieces.get(i);
+          return p ? i + ' captures ' + p.role : i;
+        })
+        .filter(i => ev.key === 'm' || i.includes('captures'));
+    if (!possibleMoves) {
       $boardLive.text("None");
-      return false;
+    // if filters out non-capturing moves
+    } else if (possibleMoves.length === 0) {
+      $boardLive.text("No captures")
+    } else {
+      $boardLive.text(possibleMoves.join(', '));
     }
-    const $destText = $myDests
-      .map(dest => $pieces.get(dest as Key) ? dest + ' captures ' +  $pieces.get(dest as Key)?.role : dest)
-      .filter(dest => ev.key === 'm' || dest.includes('captures'));
-    if ($destText.length === 0 && ev.key === 'M') {
-      $boardLive.text("No captures");
-      return false;
-    }
-    $boardLive.text($destText.join(', '));
     return false;
   };
 }
