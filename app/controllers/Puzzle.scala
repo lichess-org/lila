@@ -318,12 +318,16 @@ final class Puzzle(
               err => BadRequest(err.toString).fuccess,
               data =>
                 data.solutions.lastOption
-                  .flatMap { solution => Puz.numericalId(solution.id) }
-                  .?? {
-                    env.puzzle.finisher(_, PuzzleTheme.mix.key, me, Result(solution.win))
-                  } flatMap {
-                  case None => Ok(env.puzzle.jsonView.bc.userJson(me.perfs.puzzle.intRating)).fuccess
-                  case Some((puzzleId, result)) =>
+                  .flatMap { solution =>
+                    Puz
+                      .numericalId(solution.id)
+                      .map(_ -> Result(solution.win))
+                  }
+                  .?? { case (id, solution) =>
+                    env.puzzle.finisher(id, PuzzleTheme.mix.key, me, Result(solution.win))
+                  } map {
+                  case None => Ok(env.puzzle.jsonView.bc.userJson(me.perfs.puzzle.intRating))
+                  case Some((round, perf)) =>
                     env.puzzle.session.onComplete(round, PuzzleTheme.mix.key)
                     Ok(env.puzzle.jsonView.bc.userJson(perf.intRating))
                 }
