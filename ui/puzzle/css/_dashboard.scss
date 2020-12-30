@@ -107,7 +107,7 @@
       margin-top: 2vh;
 
       &__meta {
-        flex: 0 1 40%;
+        flex: 1 1 40%;
         margin-right: 3vw;
       }
 
@@ -122,7 +122,7 @@
       }
 
       .puzzle-dashboard__metrics {
-        flex: 1 1 auto;
+        flex: 1 1 50ch;
       }
     }
   }
