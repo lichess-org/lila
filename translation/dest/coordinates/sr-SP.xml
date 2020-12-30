@@ -4,9 +4,9 @@
 	<string name="coordinateTraining">Тренинг координата</string>
 	<string name="averageScoreAsWhiteX">Просечан резултат као бели играч: %s</string>
 	<string name="averageScoreAsBlackX">Просечан резултат као црни играч: %s</string>
-	<string name="knowingTheShogiBoard">Knowing the shogiboard coordinates is a very important shogi skill:</string>
-	<string name="mostShogiCourses">All shogi courses and exercises use some kind of a shogi notation. You can pick between the Japanese one and the western one.</string>
-	<string name="talkToYourShogiFriends">It makes it easier to talk to your shogi friends, since you both understand the \'language of shogi\'.</string>
+	<string name="knowingTheShogiBoard">Познавање координата на шоги табли је врло важна вештина</string>
+	<string name="mostShogiCourses">Сви шоги курсеви и вежбе користе неку врсту шоги нотације. Можете бирати између јапанске и западњачке нотације.</string>
+	<string name="talkToYourShogiFriends">Олакшава вам разговор са вашим шоги пријатељима јер сви разумете \"шоги језик\".</string>
 	<string name="youCanAnalyseAGameMoreEffectively">Можете да анализирате игре ефикасније ако не морате тражити имена поља.</string>
 	<string name="aSquareNameAppears">Име поља се појави на табли и морате кликнути на исправан квадрат. Имате 30 секунди да препознате што више поља!</string>
 	<string name="startTraining">Почните тренинг</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="lishogiCoaches">Lishogi 指導者陣</string>
-	<string name="lishogiCoach">Lishogi 指導者</string>
+	<string name="lishogiCoaches">Lishogi コーチ</string>
+	<string name="lishogiCoach">Lishogi コーチ</string>
 	<string name="areYouCoach">あなたは%s を持つ優秀な将棋の指導者ですか？</string>
 	<string name="nmOrFideTitle">タイトル</string>
 	<string name="confirmTitle">タイトルをこちらで証明してくだされば申請を審査します。</string>
@@ -13,7 +13,7 @@
 	<string name="availability">生徒募集</string>
 	<string name="accepting">生徒を募集中です</string>
 	<string name="notAccepting">現在、生徒を募集していません</string>
-	<string name="xCoachesStudents">%s が将棋の生徒に指導します</string>
+	<string name="xCoachesStudents">%s が生徒を指導します</string>
 	<string name="viewXProfile">%s の Lishogi プロフィールを見る</string>
 	<string name="sendPM">プライベートメッセージを送る</string>
 	<string name="aboutMe">プロフィール</string>
@@ -29,6 +29,6 @@
 	</plurals>
 	<string name="thankYouForReview">レビュー投稿ありがとう！</string>
 	<string name="xWillApproveIt">間もなく %s が承認するか、モデレーターが審査します。</string>
-	<string name="reviewCoach">この指導者をレビューする</string>
+	<string name="reviewCoach">このコーチをレビューする</string>
 	<string name="describeExperienceWith">%s の指導を受けた感想をどうぞ</string>
 </resources>

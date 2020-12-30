@@ -6,10 +6,10 @@
   <string name="noAndYourNetworkIsBad">いいえ。あなたの接続が悪いようです。</string>
   <string name="yesItWillBeFixedSoon">そうです。間もなく直します！</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">では詳しい説明を。対局時の通信ラグは 2 つの関係のない数値で決まります（小さいほどよい）：</string>
-  <string name="lishogiServerLatency">Lishogi サーバの処理時間</string>
-  <string name="lishogiServerLatencyExplanation">サーバ上で指し手を処理するのにかかる時間です。これはどの人でも同じで、サーバ読み込みの負荷だけで決まります。対局者が増えるほど大きくなりますが、なるべく小さくなるように開発陣は努力しています。10msを超えることはまれです。</string>
+  <string name="lishogiServerLatency">Lishogi サーバーの処理時間</string>
+  <string name="lishogiServerLatencyExplanation">サーバー上で指し手を処理するのにかかる時間です。これはどの人でも同じで、サーバー読み込みの負荷だけで決まります。対局者が増えるほど大きくなりますが、なるべく小さくなるように開発陣は努力しています。10ms を超えることはまれです。</string>
   <string name="networkBetweenLishogiAndYou">Lishogi とあなたの通信時間</string>
-  <string name="networkBetweenLishogiAndYouExplanation">あなたの機器から Lishogi のサーバまで手の情報が往復するのに要する時間です。これは Lishogi のサーバ（フランス国内）までの距離と、あなたの接続の質で決まります。あなたの Wi-Fi や光回線の問題は、Lishogi の開発者にはどうしようもありません。</string>
+  <string name="networkBetweenLishogiAndYouExplanation">あなたの機器から Lishogi のサーバーまで手の情報が往復するのに要する時間です。これは Lishogi のサーバー（フランス国内）までの距離と、あなたの接続の質で決まります。あなたの Wi-Fi や光回線の問題は、Lishogi の開発者にはどうしようもありません。</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">これらの値は右上の自分のユーザー名をクリックするといちばん下に表示されます。</string>
   <string name="lagCompensation">ラグ補償</string>
   <string name="lagCompensationExplanation">Lishogi ではラグ補償（lag compensation）による消費時間調整を行なっています。その対象は継続的なラグと突発的なラグ・スパイクの両方です。時間設定と補正されたラグに基づく限界と経験則があるので、その結果は両対局者が納得と感じるはずのものです。ですのでラグが相手より大きくとも時間で不利になることはありません。</string>

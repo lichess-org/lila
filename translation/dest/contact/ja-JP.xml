@@ -42,7 +42,7 @@
   <string name="reportBugInForum">Lishogi フォーラムの「フィードバック」掲示板で</string>
   <string name="reportWebsiteIssue">GitHub 上で Lishogi ウェブサイトの問題として</string>
   <string name="reportMobileIssue">GitHub 上で Lishogi モバイルアプリの問題として</string>
-  <string name="reportBugInDiscord">Lishogi Discord サーバで</string>
+  <string name="reportBugInDiscord">Lishogi Discord サーバーで</string>
   <string name="howToReportBug">バグがどのようなもので、本来あるべき正しい動作と、そのバグの再現方法をお知らせください。</string>
   <string name="illegalPawnCapture">ポーンを変な風に取られた</string>
   <string name="calledEnPassant">それは「アンパッサン」というルールです。</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="playWithAFriend">友達と対局する</string>
-	<string name="playWithTheMachine">AIと対局する</string>
+	<string name="playWithTheMachine">コンピューターと対局する</string>
 	<string name="toInviteSomeoneToPlayGiveThisUrl">対局に招待するとき、下記のリンク先を知らせてください</string>
 	<string name="gameOver">終局</string>
 	<string name="waitingForOpponent">相手を待っています</string>
@@ -51,10 +51,10 @@
 	<string name="viewTheComputerAnalysis">コンピューター解析を見る</string>
 	<string name="requestAComputerAnalysis">コンピューター解析をリクエスト</string>
 	<string name="computerAnalysis">コンピューター解析</string>
-	<string name="computerAnalysisAvailable">コンピュータ解析がされています</string>
+	<string name="computerAnalysisAvailable">コンピューター解析がされています</string>
 	<string name="analysis">棋譜解析</string>
 	<string name="depthX">深度 %s</string>
-	<string name="usingServerAnalysis">サーバ解析を使用</string>
+	<string name="usingServerAnalysis">サーバー解析を使用</string>
 	<string name="loadingEngine">エンジン読み込み中…</string>
 	<string name="cloudAnalysis">クラウド解析</string>
 	<string name="goDeeper">もっと深く</string>
@@ -137,7 +137,7 @@
 	<string name="signIn">ログイン</string>
 	<string name="youNeedAnAccountToDoThat">アカウントが必要です</string>
 	<string name="signUp">登録</string>
-	<string name="computersAreNotAllowedToPlay">コンピューターの力を借りてのプレイは禁止されています。プレイ中に将棋ソフト、データベース、他のプレイヤーの助言を利用しないでください。また複数アカウントの使用もしないでください。ひどい場合は追放されます。</string>
+	<string name="computersAreNotAllowedToPlay">コンピューターの力を借りての対局は禁止されています。対局中に将棋ソフト、データベース、他のプレイヤーの助言を利用しないでください。また複数アカウントの使用もしないでください。ひどい場合は追放されます。</string>
 	<string name="games">対局</string>
 	<string name="forum">フォーラム</string>
 	<string name="xPostedInForumY">%1$s が %2$s に投稿しました</string>
@@ -302,7 +302,7 @@
 	<string name="mustBeInTeam">チーム %s のメンバー限定</string>
 	<string name="youAreNotInTeam">チーム %s に入っていません</string>
 	<string name="backToGame">対局に戻る</string>
-	<string name="siteDescription">無料オンライン将棋。簡素なインターフェースですぐに対局を。登録不要、広告なし、プラグイン不要。AIと、友達と、知らない相手とも対局できます。</string>
+	<string name="siteDescription">無料オンライン将棋。簡素なインターフェースですぐに対局を。登録不要、広告なし、プラグイン不要。コンピューターと、友達と、知らない相手とも対局できます。</string>
 	<string name="xJoinedTeamY">%1$s がチーム %2$s に参加しました</string>
 	<string name="xCreatedTeamY">%1$s がチーム %2$s を作成しました</string>
 	<string name="xStartedStreaming">%s が配信を開始</string>
@@ -319,8 +319,8 @@
 	<string name="continueFromHere">中断した所から再開</string>
 	<string name="toStudy">研究</string>
 	<string name="importGame">棋譜をインポート</string>
-	<string name="importGameExplanation">ゲームの PGN を貼りつけると、ブラウザ上でのリプレイ、
-コンピュータ解析、ゲームチャット、共有可能 URL が得られます。</string>
+	<string name="importGameExplanation">ゲームの PGN を貼りつけると、ブラウザー上でのリプレイ、
+コンピューター解析、ゲームチャット、共有可能 URL が得られます。</string>
 	<plurals name="nbImportedGames">
 		<item quantity="other">%s 局をインポート</item>
 	</plurals>
@@ -544,16 +544,16 @@
 	<string name="human">人間</string>
 	<string name="computer">コンピューター</string>
 	<string name="side">先手後手</string>
-	<string name="clock">時間制限</string>
+	<string name="clock">対局時計</string>
 	<string name="unauthorizedError">アクセス権限がありません。</string>
 	<string name="noInternetConnection">インターネット接続なし。メニューからオフラインで対局できます。</string>
 	<string name="connectedToLishogi">lishogi.org に繋がっています。</string>
 	<string name="signedOut">サインアウトしました。</string>
 	<string name="loginSuccessful">ログインしました</string>
 	<string name="playOnTheBoardOffline">オフライン（2人対局）</string>
-	<string name="playOfflineComputer">オフラインでCPUと対局する</string>
+	<string name="playOfflineComputer">オフラインで CPU と対局する</string>
 	<string name="opponent">対局相手</string>
-	<string name="learnMenu">学習</string>
+	<string name="learnMenu">学ぶ</string>
 	<string name="studyMenu">研究</string>
 	<string name="practice">練習問題</string>
 	<string name="community">コミュニティ</string>
@@ -563,7 +563,7 @@
 	<string name="playOnline">オンラインでプレイする</string>
 	<string name="playOffline">オフラインでプレイする</string>
 	<string name="allowAnalytics">匿名の統計を許可する</string>
-	<string name="shareGameURL">対局のURLを共有</string>
+	<string name="shareGameURL">対局の URL を共有</string>
 	<string name="error.required">この欄は入力必須です</string>
 	<string name="error.email">このメールアドレスは無効です</string>
 	<string name="error.email_acceptable">このメールアドレスは認められません。再確認してもう一度試してください。</string>
@@ -586,7 +586,7 @@
 	<string name="webmasters">ウェブサイト運営者</string>
 	<string name="about">Lishogi の概要</string>
 	<string name="aboutX">%s について</string>
-	<string name="xIsAFreeYLibreOpenSourceChessServer">%1$s は無料 (%2$s)・ 自由・広告なし・オープンソースの将棋サーバです。</string>
+	<string name="xIsAFreeYLibreOpenSourceChessServer">%1$s は無料 (%2$s)・ 自由・広告なし・オープンソースの将棋サーバーです。</string>
 	<string name="really">本当に</string>
 	<string name="contribute">貢献する</string>
 	<string name="termsOfService">利用規約（英文）</string>
@@ -599,9 +599,9 @@
 	<string name="noSimulFound">多面指しが見つかりません</string>
 	<string name="noSimulExplanation">この多面指しは存在しません</string>
 	<string name="returnToSimulHomepage">多面指しトップに戻る</string>
-	<string name="aboutSimul">多面指しでは、1人が多数の相手と同時に対局します。</string>
+	<string name="aboutSimul">多面指しでは、1 人が多数の相手と同時に対局します。</string>
 	<string name="aboutSimulImage">この時フィッシャーは 50 人と対局して 47 勝 2 分 1 敗でした。</string>
-	<string name="aboutSimulRealLife">コンセプトは現実の多面指しと同じです。現実世界では1人がテーブルを回って1手ずつ指していきます。</string>
+	<string name="aboutSimulRealLife">コンセプトは現実の多面指しと同じです。現実世界では 1 人がテーブルを回って 1 手ずつ指していきます。</string>
 	<string name="aboutSimulRules">多面指しが始まると、全員がホスト（先手）と対局します。多面指しはすべての対局が終わった時に終了します。</string>
 	<string name="aboutSimulSettings">多面指しは非レート戦です。再対局、待った、持ち時間追加はできません。</string>
 	<string name="create">作成する</string>
@@ -644,7 +644,7 @@
 	<string name="weHaveSentYouAnEmailTo">%sにメールを送信しました。リンクをクリックしてパスワードの変更を完了してください。</string>
 	<string name="byRegisteringYouAgreeToBeBoundByOur">登録するとあなたは %s に従うと同意したことになります。</string>
 	<string name="networkLagBetweenYouAndLishogi">あなたと Lishogi の間のネットワークラグ</string>
-	<string name="timeToProcessAMoveOnLishogiServer">Lishogi サーバが手を処理する時間</string>
+	<string name="timeToProcessAMoveOnLishogiServer">Lishogi サーバーが手を処理する時間</string>
 	<string name="downloadAnnotated">解説つきダウンロード</string>
 	<string name="downloadRaw">棋譜のみダウンロード</string>
 	<string name="downloadImported">インポート分のダウンロード</string>
@@ -710,7 +710,7 @@
 	<string name="directlySupportLishogi">Lishogi を直接支援</string>
 	<string name="playChessInStyle">グッズ購入</string>
 	<string name="chessBasics">将棋の基本</string>
-	<string name="coaches">指導者</string>
+	<string name="coaches">コーチ</string>
 	<string name="invalidPgn">無効な PGN</string>
 	<string name="invalidFen">無効な FEN</string>
 	<string name="error.minLength">最小の長さは %s 文字です</string>
@@ -795,7 +795,7 @@
 	<string name="thankYouForReading">熟読ありがとう！</string>
 	<string name="lifetimeScore">通算成績</string>
 	<string name="currentMatchScore">現在のスコア</string>
-	<string name="agreementAssistance">私はいかなる場合も対局中に外部の力を借りないことに同意します（コンピュータ、書籍、データベース、別の人物）。</string>
+	<string name="agreementAssistance">私はいかなる場合も対局中に外部の力を借りないことに同意します（コンピューター、書籍、データベース、別の人物）。</string>
 	<string name="agreementNice">私は常に他のプレイヤーへの礼儀を守ることに同意します。</string>
 	<string name="agreementAccount">私は複数のアカウントを持たないことに同意します。</string>
 	<string name="agreementPolicy">私は Lishogi のすべてのポリシーに従うことに同意します。</string>
@@ -829,7 +829,7 @@
 	<string name="whiteDeclinesImpasse">後手が引き分けを拒否しました</string>
 	<string name="whiteOffersImpasse">後手が引き分けを申し込んでいます</string>
 	<string name="notationSystem">表記方法</string>
-	<string name="officialBlog">Lishogi Official Blog</string>
+	<string name="officialBlog">Lishogi 公式ブログ</string>
 	<string name="previousBlogPosts">Previous blog posts</string>
 	<string name="discussBlogForum">Discuss this blog post in the forum</string>
 </resources>

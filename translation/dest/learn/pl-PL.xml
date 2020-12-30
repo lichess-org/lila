@@ -13,7 +13,7 @@
 	<string name="introIntro">Twoja podróż zaczyna się tutaj.</string>
 	<string name="choosePieceDesign">Ważne jest, byś mógł rozróżniać swoje bierki, więc upewnij się, że wybrałeś prawidłowy zestaw bierek,\nAby to zrobić, kliknij na zębatkę lub swoją nazwę użytkownika (w górnym prawym rogu), a następnie kliknij \"zestaw bierek\".</string>
 	<string name="promotionZone">Kiedy Twoje bierki osiągną lub opuszczą trzy pierwsze rzędy w terytorium przeciwnika, możesz wybrać, czy chcesz promować bierkę i uczynić ją silniejszą.</string>
-	<string name="senteGoesFirst">In shogi the player who goes first is called sente and the player who goes second is called gote. Sente is sometimes represented by black color and gote by white. Make any move as sente to continue.</string>
+	<string name="senteGoesFirst">W shogi, gracz, który wykonuje ruch jako pierwszy, jest nazywany sente, a gracz, który wykonuje ruch jako drugi, jest nazywany gote. Sente jest czasami oznaczany kolorem czarnym, a gote białym. Wykonaj dowolny ruch jako sente, by kontynuować.</string>
 	<string name="introComplete">Znasz teraz kilka podstaw, ale ta część samouczka jest wciąż w budowie. Na razie możesz dowiedzieć się, jak poruszają się poszczególne bierki.</string>
 	<string name="theRook">Wieża</string>
 	<string name="itMovesInStraightLines">Porusza się po liniach prostych</string>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">Mga torneo sa arena</string>
+  <string name="isItRated">Ito ba ay rated?</string>
+  <string name="willBeNotified">Ikaw ay maabisuhan kapag ang torneo ay nagsimula na, kaya ligtas ang maglaro sa ibang tab habang naghihintay.</string>
+  <string name="isRated">Itong torneo ay rated at makakaapekto ito sa iyong rating.</string>
+  <string name="isNotRated">Itong torneo ay *hindi* rated at ay *hindi* ito apektado sa iyong rating.</string>
+  <string name="someRated">Ang ilang mga paligsahan ay rated at makakaapekto ito sa iyong rating.</string>
+  <string name="howAreScoresCalculated">Paano kinakalkula ang mga iskor?</string>
+  <string name="howAreScoresCalculatedAnswer">Ang isang panalo ay nakabase sa iskor na dalawang puntos, isang draw: isang punto, at ang talo ay katumbas ng walang puntos.
+Kung maipanalo mo ang dalawang laro na magkasunod maari kang magsimula sa doble na point streak, inererepresenta ng isang flame icon.
+Ang sumusunod na mga laro ay magpapatuloy sa halaga na doble sa iyong puntos hanggang sa iyong matalo ka sa laro.
+Yan ay, ang panalo ay may halagang apat na puntos, isang draw: dalawang puntos, at ang isang talo ay mananatili na walang halaga na puntos.
+Isang halimbawa, dalawang panalo kasunod ay isang draw at nagkakahalagang anim na puntos: 2 + 2 + (2 x 1)</string>
+  <string name="berserk">Arena Berserk</string>
+  <string name="berserkAnswer">Kapag ang manlalaro ay pumindot sa Berserk na button sa simula ng laro, maiwawala ang kalahati sa oras ng kanilang orasan, pero ang panalo ay may halaga na isang dagdag na punto sa torneo.
+Pagpunta ng Berserk sa pagkontrol ng oras na may pagdagdag ay kinakansela din ang pagdagdag (1 +2 ay may pagbubukod, ito ay nagbibigay ng 1+0).
+Ang Berserk ay hindi maaaring gamitin sa mga laro na may zero na pansimulang oras (0+1, 0+2).
+Ang Berserk ay magbibigay lamang ng karagdagang punto kapag nakapaglaro ka ng hindi bababa sa 7 na mga galaw sa laro.</string>
+  <string name="howIsTheWinnerDecided">Paano napagdedesisyonan ang mananalo?</string>
+  <string name="howIsTheWinnerDecidedAnswer">Ang mga manlalaro na may pinakamaraming puntos sa katapusan ng itinakdang oras sa paligsahan ay ituturing na mga nagwagi.
+
+Kung sakali man ay dalawa o mas maraming mga manlalaro ay magkakaparehas ng puntos, ang kanilang performance sa torneo ay gagamitin para sa tie break.</string>
+  <string name="howDoesPairingWork">Paano gumagana ang pagpapares?</string>
+  <string name="howDoesPairingWorkAnswer">Sa simula ng laro, ang mga manlalaro ay ipinapares base sa kanilang rating.
+Sa madaling panahon na matatapos ang laro, bumalik sa lobby ng torneo: ikaw ay ipapares sa isang manlalaro na malapit sa iyong ranking. Ito ay itinitiyak na maliit lang ang oras ng paghintay, gayunpaman hindi mo mahaharap ang ibang mga manlalaro sa torneo.
+Maglaro ng mabilis at bumalik sa lobby para makapaglaro ng maraming mga laro at makapanalo ng maraming puntos.</string>
+  <string name="howDoesItEnd">Paano ito matatapos?</string>
+  <string name="howDoesItEndAnswer">Ang torneo ay may countdown na orasan. Kapag nakaabot ito ng zero, ang rankings ng paligsahan ay magyeyelo, at ang panalo ay inihahayag. Ang mga laro na may progreso ay dapat na matapos, gayunpaman ito ay hindi mabilang sa torneo.</string>
+  <string name="otherRules">Mga ibang importanteng patakaran</string>
+  <string name="thereIsACountdown">Mayroong countdown para sa iyong unang galaw. Ang hindi paggalaw ng isang pyesa sa loob ng itinakdang oras ay magreresulta sa pag-forfeit ng laro sa iyong kalaban.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">Ang pagtabla ng laro sa loob ng unang %s na galaw ay magreresulta sa parehas na manlalaro na walang matatanggap na puntos.</item>
+    <item quantity="other">Drawing the game within the first %s moves will earn neither player any points.</item>
+  </plurals>
+  <string name="thisIsPrivate">Ito ay isang pribadong torneo</string>
+  <string name="shareUrl">Ibahagi ang URL para makasali ang mga tao:%s</string>
+  <string name="drawStreak">Draw streaks: When a player has consecutive draws in an arena, only the first draw will result in a point, or draws lasting more than %s moves. The draw streak can only be broken by a win, not a loss or a draw.</string>
+</resources>

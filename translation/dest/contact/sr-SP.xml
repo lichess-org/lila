@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Контакт</string>
-  <string name="contactLishogi">Contact Lishogi</string>
+  <string name="contactLishogi">Контактирај Lishogi</string>
   <string name="whatCanWeHelpYouWith">Како Вам можемо помоћи?</string>
   <string name="visitThisPage">Посетите ову страницу да решите проблем</string>
   <string name="iCantLogIn">Логовање није успело</string>

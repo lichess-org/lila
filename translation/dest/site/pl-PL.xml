@@ -941,8 +941,8 @@
 	<string name="notationType">Notacja</string>
 	<string name="whiteDeclinesImpasse">Gote odrzuca propozycję impasu</string>
 	<string name="whiteOffersImpasse">Gote proponuje impas</string>
-	<string name="notationSystem">Notation</string>
-	<string name="officialBlog">Lishogi Official Blog</string>
-	<string name="previousBlogPosts">Previous blog posts</string>
-	<string name="discussBlogForum">Discuss this blog post in the forum</string>
+	<string name="notationSystem">Notacja</string>
+	<string name="officialBlog">Oficjalny blog Lishogi</string>
+	<string name="previousBlogPosts">Poprzednie wpisy</string>
+	<string name="discussBlogForum">Dyskutuj o tym wpisie na forum</string>
 </resources>

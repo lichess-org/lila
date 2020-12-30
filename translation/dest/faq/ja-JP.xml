@@ -7,7 +7,7 @@
 	<string name="lishogiCombinationLiveLightLibrePronounced">Lichess から派生しているからです。そして Lichess が Lichess と呼ばれるのはライブ/軽い/自由 (live/light/libre) とチェスの組み合わせだからです。Lishogi は %1$s と発音します。</string>
 	<string name="leechess">リ将棋</string>
 	<string name="hearItPronouncedBySpecialist"> 実際の発音をお聞きください。</string>
-	<string name="whyLiveLightLibre">「ライブ」それは24時間常に対戦・観戦できるから。「軽い」「自由」は Lishogi がオープンソースで、他のサイトにありがちな誰かの権利とかにわずらわされないからです。</string>
+	<string name="whyLiveLightLibre">「ライブ」それは24時間常に対局・観戦できるから。「軽い」「自由」は Lishogi がオープンソースで、他のサイトにありがちな誰かの権利などにわずらわされないからです。</string>
 	<string name="whyIsLilaCalledLila">同様に、Lishogi のソースコード %1$s は li[shogi in sca]la の略であり、 Lishogi の大部分は直感的なプログラミング言語である %2$s で書かれています。</string>
 	<string name="howCanIContributeToLishogi">どうやったら Lishogi に貢献できますか？</string>
 	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi はパトロンからの寄付、そしてボランティアチームの献身的な努力によって成り立っています。</string>
