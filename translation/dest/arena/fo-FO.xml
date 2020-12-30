@@ -13,4 +13,11 @@ T. d. geva tveir sigrar og ein javnleikur 6 stig tilsamans: 2 + 2 + (2 + 1)</str
   <string name="berserk">Berserkaraarena</string>
   <string name="howIsTheWinnerDecided">Hvussu verður gjørt av, hvør ið vinnur?</string>
   <string name="howDoesPairingWork">Hvussu fer greipingin fram?</string>
+  <string name="howDoesItEnd">Hvussu endar tað?</string>
+  <string name="otherRules">Aðrar týdningarmiklar reglur</string>
+  <string name="thereIsACountdown">Ein niðurteljing er á fyrsta leikinum hjá tær. Flytir tú ikki, áðrenn tíðin er uppi, tapir tú talvið.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">At telva javnt áðrenn fyrsta %s leik, gevur hvørgum telvara nakað stig.</item>
+    <item quantity="other">At telva javnt áðrenn fyrstu %s leikirnar, gevur hvørgum telvara nakað stig.</item>
+  </plurals>
 </resources>
