@@ -40,4 +40,6 @@
   <string name="harder">Svårare</string>
   <string name="hardest">Svåraste</string>
   <string name="example">Exempel</string>
+  <string name="addAnotherTheme">Lägg till ett annat tema</string>
+  <string name="jumpToNextPuzzleImmediately" comment="jumpToNextPuzzleImmediately&#10;&#10;With this setting enabled, the screen will transition to a new puzzle as soon as you complete the puzzle you are viewing.">Hoppa till nästa pussel omedelbart</string>
 </resources>
