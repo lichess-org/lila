@@ -13,4 +13,5 @@
   <string name="twoFactorEnabled">Tvåfaktorsautentisering aktiverad</string>
   <string name="twoFactorDisable">Du behöver ditt lösenord och en autentiseringskod från din autentiseringapp för att inaktivera tvåfaktorsautentisering.
 Om du har förlorat åtkomst till dina autentiseringskoder, kan du också återställa lösenordet via e-post.</string>
+  <string name="openTwoFactorApp">Öppna tvåfaktorsautentiseringsappen på din enhet för att visa din autentiseringskod och verifiera din identitet.</string>
 </resources>
