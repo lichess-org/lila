@@ -13,6 +13,8 @@ T. d. geva tveir sigrar og ein javnleikur 6 stig tilsamans: 2 + 2 + (2 + 1)</str
   <string name="berserk">Berserkaraarena</string>
   <string name="howIsTheWinnerDecided">Hvussu verður gjørt av, hvør ið vinnur?</string>
   <string name="howDoesPairingWork">Hvussu fer greipingin fram?</string>
+  <string name="howDoesPairingWorkAnswer">Tá ið kappingin byrjar, verða telvarar greipaðir eftir styrkitølum teirra. So skjótt sum tú ert liðug/ur við eitt talv, far aftur til kappingarsalin: tú verður tá greipað/ur við ein telvara, ið er tætt við styrkital títt. Hetta tryggjar, at bíðitíðin verður so stutt sum til ber. Tú fært hinvegin ikki tíð til at telva móti øllum telvarum í eini kapping.
+Telva skjótt, og far aftur til salin at telva fleiri talv og vinna fleiri stig.</string>
   <string name="howDoesItEnd">Hvussu endar tað?</string>
   <string name="howDoesItEndAnswer">Kappingin hevur eina niðurteljingarklokku. Tá ið klokkan kemur niður á null, verður kappingarstøðan fryst, og vinnarin verður kunngjørdur. Talv, ið eru í gongd, skulu telvast liðug, men tey telja tó ikki við í kappingini.</string>
   <string name="otherRules">Aðrar týdningarmiklar reglur</string>
