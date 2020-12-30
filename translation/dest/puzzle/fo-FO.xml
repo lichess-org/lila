@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Uppgávur</string>
-  <string name="recommended">Viðmæld</string>
+  <string name="recommended">Viðmældar uppgávur</string>
   <string name="phases">Skifti</string>
   <string name="motifs">Ætlanir</string>
   <string name="advanced">Framkomið stig</string>
