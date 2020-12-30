@@ -48,7 +48,7 @@
   <string name="rookEndgameDescription">只剩車和兵的殘局</string>
   <string name="short">短題目</string>
   <string name="shortDescription">兩步獲勝</string>
-  <string name="underPromotion">防止升變</string>
+  <string name="underPromotion">升變</string>
   <string name="underPromotionDescription">升變成騎士、象或車</string>
   <string name="veryLong">非常長的題目</string>
   <string name="veryLongDescription">四步或以上獲勝</string>
