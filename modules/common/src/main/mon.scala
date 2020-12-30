@@ -429,7 +429,7 @@ object mon {
           )
         def ratingDev(theme: String) = histogram("puzzle.selector.user.ratingDev").withTag("theme", theme)
         def tier(t: String, theme: String, difficulty: String) =
-          gauge("puzzle.selector.user.tier").withTags(
+          counter("puzzle.selector.user.tier").withTags(
             Map("tier" -> t, "theme" -> theme, "difficulty" -> difficulty)
           )
         def batch(nb: Int) = timer("puzzle.selector.user.batch").withTag("nb", nb)
