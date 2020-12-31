@@ -21,17 +21,21 @@ case class PuzzleDashboard(
     results.clear
   }.toList
 
-  def strongestThemes(nb: Int) = themesByPerf(nb, true)
-  def weakestThemes(nb: Int)   = themesByPerf(nb, false)
-
-  private def themesByPerf(nb: Int, best: Boolean): List[(PuzzleTheme.Key, Results)] = {
-    val order = if (best) -1 else 1
+  lazy val (weakThemes, strongThemes) = {
     val all = byTheme.toList.sortBy { case (_, res) =>
-      (res.performance * order, -res.nb)
+      (res.performance, -res.nb)
     }
-    val clear = all.filter(_._2.clear)
-    if (clear.size >= nb) clear take nb
-    else clear ::: all.filter(_._2.unclear).take(nb - clear.size)
+    val (clear, unclear) = all.partition(_._2.clear)
+    if (clear.size >= topThemesNb * 2)
+      (
+        clear take topThemesNb,
+        clear takeRight topThemesNb
+      )
+    else
+      (
+        clear take topThemesNb,
+        clear takeRight topThemesNb
+      )
   }
 }
 
@@ -41,16 +45,19 @@ object PuzzleDashboard {
 
   val dayChoices = List(1, 2, 3, 7, 10, 14, 21, 30, 60, 90)
 
+  val topThemesNb = 5
+
   case class Results(nb: Int, wins: Int, fixed: Int, puzzleRatingAvg: Int) {
 
-    def performance = puzzleRatingAvg - 500 + math.round(1000 * (wins.toFloat / nb))
-
-    def unfixed = nb - wins
-    def failed  = fixed + unfixed
+    def firstWins = wins - fixed
+    def unfixed   = nb - wins
+    def failed    = fixed + unfixed
 
     def winPercent      = wins * 100 / nb
     def fixedPercent    = fixed * 100 / nb
-    def firstWinPercent = winPercent - fixedPercent
+    def firstWinPercent = firstWins * 100 / nb
+
+    def performance = puzzleRatingAvg - 500 + math.round(1000 * (firstWins.toFloat / nb))
 
     def clear   = wins >= 3 && failed >= 3
     def unclear = !clear

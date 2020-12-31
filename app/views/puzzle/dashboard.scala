@@ -106,8 +106,7 @@ object dashboard {
         strong(s"${results.winPercent}%"),
         span("solved")
       ),
-      // a(cls := s"$metricClass $metricClass--fix", href := routes.Puzzle.replay(days, theme.value))(
-      a(cls := s"$metricClass $metricClass--fix")(
+      a(cls := s"$metricClass $metricClass--fix", href := routes.Puzzle.replay(days, theme.value))(
         strong(results.unfixed),
         span("to replay")
       )
