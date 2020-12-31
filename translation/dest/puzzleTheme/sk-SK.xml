@@ -15,6 +15,10 @@
   <string name="castling">Rošáda</string>
   <string name="castlingDescription">Schovajte svojho kráľa do bezpečia a nasaďte vežu do útoku.</string>
   <string name="capturingDefender">Odstránenie obrany</string>
+  <string name="capturingDefenderDescription">Odstránenie figúry, ktorá je dôležitá pri obrane inej figúry, dovoľujúc branie novo nebránenej figúry v následujúcom ťahu.</string>
+  <string name="crushing">Drtivé</string>
+  <string name="crushingDescription">Odhaľte súperovu hrubú chybu a získajte drtivú výhodu. (eval ≥ 600cp)</string>
+  <string name="equality">Rovnováha</string>
   <string name="endgame">Koncovka</string>
   <string name="endgameDescription">Taktika počas posledného úseku hry.</string>
   <string name="fork">Vidlička</string>
