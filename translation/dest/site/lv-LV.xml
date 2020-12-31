@@ -641,7 +641,7 @@
   <string name="hostANewSimul">Vadīt jaunu simultānseansu</string>
   <string name="noSimulFound">Simultānseanss nav atrasts</string>
   <string name="noSimulExplanation">Šāds simultānseanss neeksistē.</string>
-  <string name="returnToSimulHomepage">Atgriesties uz Simultānseansu sākumlapu</string>
+  <string name="returnToSimulHomepage">Atgriesties uz simultānseansu sākumlapu</string>
   <string name="aboutSimul">Simultānseansos viens spēlētājs spēlē ar vairākiem citiem vienlaicīgi.</string>
   <string name="aboutSimulImage">Fišers 50 spēlēs uzvarēja 47, zaudēja 1 un 2 beidzās neizšķirti.</string>
   <string name="aboutSimulRealLife">Princips ir aizgūts no reāliem pasākumiem. Reālajā dzīvē simultānseansa vadītājs staigā no galdiņa pie galdiņa un veic pa vienam gājienam.</string>
