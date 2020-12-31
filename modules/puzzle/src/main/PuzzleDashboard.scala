@@ -17,25 +17,21 @@ case class PuzzleDashboard(
   import PuzzleDashboard._
   import BsonHandlers._
 
-  lazy val clearThemes = byTheme.view.filter { case (_, results) =>
-    results.clear
-  }.toList
-
   lazy val (weakThemes, strongThemes) = {
-    val all = byTheme.toList.sortBy { case (_, res) =>
+    val all = byTheme.view.filter(_._2.nb > global.nb / 20).toList.sortBy { case (_, res) =>
       (res.performance, -res.nb)
     }
-    val (clear, unclear) = all.partition(_._2.clear)
-    if (clear.size >= topThemesNb * 2)
-      (
-        clear take topThemesNb,
-        clear takeRight topThemesNb
-      )
-    else
-      (
-        clear take topThemesNb,
-        clear takeRight topThemesNb
-      )
+    val weaks = all
+      .filter { case (_, r) =>
+        r.failed >= 3
+      }
+      .take(topThemesNb)
+    val strong = all
+      .filter { case (t, r) =>
+        r.firstWins >= 3 && !weaks.contains(t)
+      }
+      .takeRight(topThemesNb)
+    (weaks, strong)
   }
 }
 
@@ -59,7 +55,7 @@ object PuzzleDashboard {
 
     def performance = puzzleRatingAvg - 500 + math.round(1000 * (firstWins.toFloat / nb))
 
-    def clear   = wins >= 3 && failed >= 3
+    def clear   = nb >= 6 && firstWins >= 2 && failed >= 2
     def unclear = !clear
   }
 }

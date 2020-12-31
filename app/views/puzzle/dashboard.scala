@@ -55,16 +55,22 @@ object dashboard {
               div(cls := s"${baseClass}__themes")(
                 div(cls := s"${baseClass}__themes__title")(
                   h2("Your weaknesses"),
-                  p("Train these to optimize your progress!")
+                  if (dash.weakThemes.size >= PuzzleDashboard.topThemesNb)
+                    p("Train these to optimize your progress!")
+                  else
+                    p("Play more puzzles to get a better analysis.")
                 ),
-                themeSelection(days, dash weakestThemes 5)
+                themeSelection(days, dash.weakThemes)
               ),
               div(cls := s"${baseClass}__themes")(
                 div(cls := s"${baseClass}__themes__title")(
                   h2("Your strengths"),
-                  p("Congratulations, you did really well in these puzzles!")
+                  if (dash.strongThemes.size >= PuzzleDashboard.topThemesNb)
+                    p("Congratulations, you did really well in these puzzles!")
+                  else
+                    p("Play more puzzles to get a better analysis.")
                 ),
-                themeSelection(days, dash strongestThemes 5)
+                themeSelection(days, dash.strongThemes)
               )
             )
         }
