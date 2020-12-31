@@ -579,9 +579,9 @@
   <string name="noSimulFound">同時対局が見つかりません</string>
   <string name="noSimulExplanation">この同時対局は存在しません</string>
   <string name="returnToSimulHomepage">同時対局トップに戻る</string>
-  <string name="aboutSimul">同時対局では、1人が多数の相手と同時に対戦します。</string>
+  <string name="aboutSimul">同時対局では、1 人が多数の相手と同時に対局します。</string>
   <string name="aboutSimulImage">この時フィッシャーは 50 人と対局して 47 勝 2 分 1 敗でした。</string>
-  <string name="aboutSimulRealLife">アイデアは現実の同時対局と同じです。現実世界では1人がテーブルを回って1手ずつ指していきます。</string>
+  <string name="aboutSimulRealLife">コンセプトは現実の同時対局と同じです。現実世界では 1 人がテーブルを回って 1 手ずつ指していきます。</string>
   <string name="aboutSimulRules">同時対局が始まると、全員がホスト（白番）と対戦します。同時対局はすべての対局が終わった時に終了します。</string>
   <string name="aboutSimulSettings">同時対局は非レート戦です。再対局、待った、持時間追加はできません。</string>
   <string name="create">作成する</string>
