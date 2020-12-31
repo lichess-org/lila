@@ -58,6 +58,25 @@ object PuzzleDashboard {
     def clear   = nb >= 6 && firstWins >= 2 && failed >= 2
     def unclear = !clear
   }
+
+  val irrelevantThemes = List(
+    PuzzleTheme.oneMove,
+    PuzzleTheme.short,
+    PuzzleTheme.long,
+    PuzzleTheme.veryLong,
+    PuzzleTheme.mateIn1,
+    PuzzleTheme.mateIn2,
+    PuzzleTheme.mateIn3,
+    PuzzleTheme.mateIn4,
+    PuzzleTheme.mateIn5,
+    PuzzleTheme.equality,
+    PuzzleTheme.advantage,
+    PuzzleTheme.crushing
+  ).map(_.key)
+
+  val relevantThemes = PuzzleTheme.all collect {
+    case t if !irrelevantThemes.contains(t.key) => t.key
+  }
 }
 
 final class PuzzleDashboardApi(
@@ -96,7 +115,7 @@ final class PuzzleDashboardApi(
               "global" -> List(Group(BSONNull)(resultsGroup: _*)),
               "byTheme" -> List(
                 Unwind("puzzle.themes"),
-                Match(irrelevantThemes),
+                Match(relevantThemesSelect),
                 GroupField("puzzle.themes")(resultsGroup: _*)
               )
             )
@@ -154,20 +173,7 @@ final class PuzzleDashboardApi(
     rating <- doc.double("rating")
   } yield Results(nb, wins, fixes, rating.toInt)
 
-  val irrelevantThemes = $doc(
-    "puzzle.themes" $nin List(
-      PuzzleTheme.oneMove,
-      PuzzleTheme.short,
-      PuzzleTheme.long,
-      PuzzleTheme.veryLong,
-      PuzzleTheme.mateIn1,
-      PuzzleTheme.mateIn2,
-      PuzzleTheme.mateIn3,
-      PuzzleTheme.mateIn4,
-      PuzzleTheme.mateIn5,
-      PuzzleTheme.equality,
-      PuzzleTheme.advantage,
-      PuzzleTheme.crushing
-    ).map(_.key.value)
+  val relevantThemesSelect = $doc(
+    "puzzle.themes" $nin irrelevantThemes.map(_.value)
   )
 }

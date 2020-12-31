@@ -12,8 +12,8 @@ import { Chess } from 'chessops/chess';
 import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
 import { ctrl as cevalCtrl, CevalCtrl } from 'ceval';
-import { defined, prop, Prop } from 'common';
 import { defer } from 'common/defer';
+import { defined, prop, Prop } from 'common';
 import { makeSanAndPlay } from 'chessops/san';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseSquare, parseUci, makeSquare, makeUci } from 'chessops/util';
@@ -102,7 +102,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     const color: Color = node.ply % 2 === 0 ? 'white' : 'black';
     const dests = chessgroundDests(position());
     const nextNode = vm.node.children[0];
-    const canMove = vm.mode === 'view' || 
+    const canMove = vm.mode === 'view' ||
       (color === vm.pov && (!nextNode || nextNode.puzzle == 'fail'));
     const movable = canMove ? {
       color: dests.size > 0 ? color : undefined,
@@ -241,11 +241,12 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.resultSent = true;
     session.complete(data.puzzle.id, win);
     return xhr.complete(data.puzzle.id, data.theme.key, win, data.replay).then((res: PuzzleResult) => {
+      if (res?.replayComplete) return lichess.redirect('/training/dashboard');
       if (res?.next.user && data.user) {
         data.user.rating = res.next.user.rating;
         data.user.provisional = res.next.user.provisional;
         vm.round = res.round;
-        if (res.round?.ratingDiff) 
+        if (res.round?.ratingDiff)
           session.setRatingDiff(data.puzzle.id, res.round.ratingDiff);
       }
       if (win) speech.success();
@@ -258,8 +259,10 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     ceval.stop();
     vm.next.promise.then(initiate).then(redraw);
 
-    const path = `/training/${data.theme.key}`;
-    if (location.pathname != path) history.replaceState(null, '', path);
+    if (!data.replay) {
+      const path = `/training/${data.theme.key}`;
+      if (location.pathname != path) history.replaceState(null, '', path);
+    }
   }
 
   function instanciateCeval(): void {
