@@ -2,6 +2,23 @@
 <resources>
   <string name="advancedPawn">Peó avançat</string>
   <string name="advancedPawnDescription">Un peó a punt de coronar o amenaçant la coronació és la tàctica clau.</string>
+  <string name="advantage">Avantatge</string>
+  <string name="advantageDescription">Aprofita l\'oportunitat per agafar avantatge definitiva. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="attackingF2F7">Atacant f2 o f7</string>
+  <string name="attackingF2F7Description">Un atac centrat en el peó de f2 o f7, com a l\'obertura de l\'atac Fegatello.</string>
+  <string name="attraction">Atracció</string>
+  <string name="castling">Enrocant</string>
+  <string name="capturingDefender">Captura el defensor</string>
+  <string name="equality">Igualtat</string>
+  <string name="kingsideAttack">Atac pel flan de rei</string>
+  <string name="endgame">Final</string>
+  <string name="fork">Forquilla</string>
+  <string name="mate">Mat</string>
+  <string name="pin">Clavada</string>
   <string name="queenRookEndgame">Dama i Torre</string>
   <string name="queenRookEndgameDescription">Un final amb només dames, torres i peons.</string>
+  <string name="short">Problema curt</string>
+  <string name="trappedPiece">Peça tancada</string>
+  <string name="veryLong">Problema molt llarg</string>
+  <string name="veryLongDescription">Quatre o més jugades per guanyar.</string>
 </resources>
