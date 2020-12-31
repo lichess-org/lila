@@ -84,7 +84,7 @@ Lūk saite, lai piekļūtu grupai.</string>
   <string name="progress">Izpilde</string>
   <string name="noStudents">Vēl grupā nav skolēnu.</string>
   <string name="noRemovedStudents">Nav noņemtu skolēnu.</string>
-  <string name="overDays">Dienu laikā</string>
+  <string name="overDays" comment="overDays&#10;&#10;In the &quot;Progress&quot; tab of a Lichess Class dashboard, &quot;Over days&quot; is the title of a selector. This selector offers a choice between various durations, in days, over which the user can view the progress of the class.">Dienu periods</string>
   <string name="timePlaying">Laiks spēlējot</string>
   <string name="variantXOverLastY">%1$s pagājušajās %2$s</string>
   <string name="winrate">Uzvaru proporcija</string>
