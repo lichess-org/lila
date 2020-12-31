@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="applyToBeLichessTeacher">Søk um at gerast Lichess-lærari</string>
+  <string name="noClassesYet">Eingir flokkar enn.</string>
+  <string name="teachersX">Lærarar: %s</string>
+  <string name="newClass">Nýggjur flokkur</string>
+  <string name="closeClass">Lat flokk aftur</string>
+  <string name="closedByX">%s lat flokk aftur</string>
   <string name="passwordX">Loyniorð: %s</string>
   <string name="createANewLichessAccount">Stovna eina nýggja Lichess kontu</string>
   <string name="lichessUsername">Lichess brúkaranavn</string>
