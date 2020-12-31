@@ -14,6 +14,7 @@
   <string name="bishopEndgameDescription">Koncovka iba so strelcami a pešiakmi.</string>
   <string name="castling">Rošáda</string>
   <string name="castlingDescription">Schovajte svojho kráľa do bezpečia a nasaďte vežu do útoku.</string>
+  <string name="capturingDefender">Odstránenie obrany</string>
   <string name="endgame">Koncovka</string>
   <string name="endgameDescription">Taktika počas posledného úseku hry.</string>
   <string name="fork">Vidlička</string>
