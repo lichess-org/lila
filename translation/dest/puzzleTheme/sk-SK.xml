@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Pokročilý pešiak</string>
+  <string name="advancedPawnDescription">Premena pešiaka alebo hrozba premeny je kľúčom k taktike.</string>
   <string name="advantage">Výhoda</string>
   <string name="attackingF2F7">Útok na f2 alebo f7</string>
   <string name="backRankMate">Mat na poslednom rade</string>
