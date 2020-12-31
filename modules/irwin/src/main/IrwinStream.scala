@@ -10,7 +10,7 @@ final class IrwinStream {
 
   private val channel = "irwin"
 
-  private val keepAliveMsg = """{"keepAlive":true}\n"""
+  private val keepAliveMsg = "{\"keepAlive\":true}\n"
 
   private val blueprint =
     Source
