@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advancedPawn">Peó avançat</string>
+  <string name="advancedPawnDescription">Un peó a punt de coronar o amenaçant la coronació és la tàctica clau.</string>
   <string name="queenRookEndgame">Dama i Torre</string>
   <string name="queenRookEndgameDescription">Un final amb només dames, torres i peons.</string>
 </resources>
