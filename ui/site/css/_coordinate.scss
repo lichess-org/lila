@@ -10,6 +10,9 @@ $mq-col3: $mq-x-large;
   }
 }
 
+body.transp .coord-trainer .explanation {
+  text-shadow: $text-shadow;
+}
 .coord-trainer {
   grid-area: main;
   display: grid;

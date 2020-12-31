@@ -1,3 +1,6 @@
+body.transp .mini-game {
+  text-shadow: $text-shadow;
+}
 .mini-game {
   @extend %nowrap-hidden;
 

@@ -1,3 +1,6 @@
+body.transp .simul-list__help {
+  text-shadow: $text-shadow;
+}
 .simul-list {
   &__help {
     color: $c-font-page;

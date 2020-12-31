@@ -68,6 +68,9 @@ body {
   display: none;
 }
 
+body.transp .about-side {
+  text-shadow: $text-shadow;
+}
 .about-side {
   margin-top: $block-gap;
 }
