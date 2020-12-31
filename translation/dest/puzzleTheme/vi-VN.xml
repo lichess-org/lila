@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advancedPawn">Tốt thông xa</string>
+  <string name="advancedPawnDescription">Một quân tốt phong cấp hay đe dọa phong cấp là chìa khóa của chiến thuật.</string>
+  <string name="advantage">Lợi thế</string>
+  <string name="advantageDescription">Sử dụng cơ hội của bạn để chiếm lấy lợi thế quyết định. (200cp ≤ đánh giá ≤ 600cp)</string>
+  <string name="attackingF2F7">Tấn công f2 hoặc f7</string>
   <string name="castling">Nhập thành</string>
   <string name="endgame">Tàn cuộc</string>
   <string name="hangingPiece">Quân cờ không được bảo vệ</string>
