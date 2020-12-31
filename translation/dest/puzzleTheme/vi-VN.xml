@@ -27,7 +27,16 @@
   <string name="defensiveMove">Nước đi phòng thủ</string>
   <string name="defensiveMoveDescription">Một nước đi hoặc chuỗi nước đi chính xác cần để tránh mất quân hoặc một lợi thế khác.</string>
   <string name="deflection">Đánh lạc hướng</string>
+  <string name="deflectionDescription">Một nước đi đánh lạc hướng một quân đối phương khỏi một nhiệm vụ nó đang làm, chẳng hạn như bảo vệ một ô trọng điểm. Còn được gọi là \"quá tải\".</string>
+  <string name="discoveredAttack">Tấn công mở</string>
+  <string name="discoveredAttackDescription">Đi một quân cờ đang chặn đường tấn công của một quân tầm xa khác, ví dụ như đi một quân mã khỏi tầm ngắm của xe.</string>
+  <string name="doubleCheck">Lưỡng chiếu</string>
+  <string name="doubleCheckDescription">Chiếu tướng bằng hai quân một lúc, như là một kết quả của một đòn tấn công mở khi mà cả quân đứng sau và quân chặn đường đều tấn công vua đối phương.</string>
   <string name="endgame">Tàn cuộc</string>
+  <string name="endgameDescription">Chiến thuật trong phần kết thúc của ván cờ.</string>
+  <string name="enPassantDescription">Một đòn chiến thuật bao gồm luật bắt tốt qua đường, khi một con tốt có thể ăn một con tốt đối phương đi qua mặt nó khi đi 2 ô từ vị trí ban đầu của nó.</string>
+  <string name="exposedKing">Vua sơ hở</string>
+  <string name="exposedKingDescription">Một đòn chiến thuật bao gồm một quân vua với ít sự bảo vệ quanh nó, thường dẫn tới hết cờ.</string>
   <string name="hangingPiece">Quân cờ không được bảo vệ</string>
   <string name="mate">Chiếu hết</string>
   <string name="mateIn2Description">Chiếu hết trong hai nước cờ.</string>
