@@ -43,7 +43,7 @@ If your stream is in English, there is no need to include a language tag.</strin
   <string name="visibility">Visible on the streamers page</string>
   <string name="whenApproved">When approved by moderators</string>
   <string name="headline">Headline</string>
-  <string name="tellUsAboutTheStream">In one sentence, tell us about your stream</string>
+  <string name="tellUsAboutTheStream">Tell us about your stream in one sentence</string>
   <string name="longDescription">Long description</string>
   <string name="xStreamerPicture">%s streamer picture</string>
   <string name="changePicture">Change/delete your picture</string>
