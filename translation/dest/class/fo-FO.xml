@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessClasses">Flokkar</string>
   <string name="applyToBeLichessTeacher">Søk um at gerast Lichess-lærari</string>
   <string name="noClassesYet">Eingir flokkar enn.</string>
   <string name="teachersX">Lærarar: %s</string>
@@ -7,6 +8,7 @@
   <string name="closeClass">Lat flokk aftur</string>
   <string name="closedByX">%s lat flokk aftur</string>
   <string name="passwordX">Loyniorð: %s</string>
+  <string name="addStudent">Legg næming afturat</string>
   <string name="createANewLichessAccount">Stovna eina nýggja Lichess kontu</string>
   <string name="lichessUsername">Lichess brúkaranavn</string>
   <string name="lastActiveDate">Virkin</string>
