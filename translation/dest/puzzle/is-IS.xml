@@ -23,6 +23,8 @@
   <string name="notTheMove">Þetta er ekki leikurinn!</string>
   <string name="trySomethingElse">Reyndu eitthvað annað.</string>
   <string name="ratingX">Skákstig: %s</string>
+  <string name="hidden">falið</string>
+  <string name="fromGameLink">Úr leik %s</string>
   <string name="continueTraining">Halda áfram að æfa</string>
   <string name="difficultyLevel">Þyngdarstig</string>
   <string name="normal">Miðlungs</string>
