@@ -18,7 +18,8 @@
   },
   "homepage": "https://lichess.org",
   "engines": {
-    "node": ">=10"
+    "node": ">=10",
+    "yarn": "^1"
   },
   "dependencies": {
     "xml2js": "^0.4.19"
