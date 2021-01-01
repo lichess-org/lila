@@ -20,6 +20,7 @@
   <string name="crushingDescription">Veure l\'error de l\'adversari per a obtenir un gran avantatge (aval ≥ 600cp)</string>
   <string name="equality">Igualtat</string>
   <string name="kingsideAttack">Atac pel flan de rei</string>
+  <string name="discoveredAttack">Atac a la descoberta</string>
   <string name="endgame">Final</string>
   <string name="fork">Forquilla</string>
   <string name="hangingPiece">Peça penjant</string>
@@ -35,15 +36,21 @@
   <string name="mateIn5">Mat en 5 o més</string>
   <string name="middlegame">Mig joc</string>
   <string name="middlegameDescription">Una maniobra tàctica a la segona fase de la partida.</string>
+  <string name="oneMove">Problema d\'una sola jugada</string>
   <string name="opening">Obertura</string>
   <string name="pawnEndgame">Final de peons</string>
   <string name="pawnEndgameDescription">Final amb només peons.</string>
   <string name="pin">Clavada</string>
   <string name="promotion">Promoció</string>
+  <string name="queenEndgame">Final de dames</string>
   <string name="queenRookEndgame">Dama i Torre</string>
   <string name="queenRookEndgameDescription">Un final amb només dames, torres i peons.</string>
+  <string name="queensideAttack">Atac pel flanc de dama</string>
+  <string name="sacrifice">Sacrifici</string>
   <string name="short">Problema curt</string>
+  <string name="shortDescription">Guanyar en dues jugades.</string>
   <string name="trappedPiece">Peça tancada</string>
   <string name="veryLong">Problema molt llarg</string>
   <string name="veryLongDescription">Quatre o més jugades per guanyar.</string>
+  <string name="healthyMixDescription">Una mica de tot. No sabràs el que t\'espera, així doncs estigues alerta pel que sigui! Igual que a les partides de veritat.</string>
 </resources>
