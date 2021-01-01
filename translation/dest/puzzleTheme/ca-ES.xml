@@ -7,6 +7,7 @@
   <string name="attackingF2F7">Atacant f2 o f7</string>
   <string name="attackingF2F7Description">Un atac centrat en el peó de f2 o f7, com a l\'obertura de l\'atac Fegatello.</string>
   <string name="attraction">Atracció</string>
+  <string name="attractionDescription">Un intercanvi o sacrifici encoratjant o forçant la peça d’un oponent a una posició que permet la continuació d’una tàctica.</string>
   <string name="castling">Enrocant</string>
   <string name="capturingDefender">Captura el defensor</string>
   <string name="equality">Igualtat</string>
