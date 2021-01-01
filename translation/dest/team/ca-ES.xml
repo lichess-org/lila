@@ -27,8 +27,8 @@
     <item quantity="one">%s solicitud d\'adhesió</item>
     <item quantity="other">%s solicituds d\'adhesió</item>
   </plurals>
-  <string name="willBeReviewed">La teva petició serà revisada pel líder de l\'equip.</string>
-  <string name="beingReviewed">La teva petició està sent revisada pel líder de l\'equip.</string>
+  <string name="willBeReviewed">La teva petició serà revisada pel capità de l\'equip.</string>
+  <string name="beingReviewed">La teva petició serà revisada pel capità de l\'equip.</string>
   <string name="teamBattle">Batalla d\'equips</string>
   <string name="teamBattleOverview">Batalla de múltiples equips, cada jugador puntua per al seu equip</string>
   <string name="teamTournament">Torneig intern</string>
