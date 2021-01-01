@@ -38,10 +38,10 @@
   <string name="messageAllMembersLongDescription">Envia un missatge privat a TOTS els membres de l\'equip.
 Pots fer-ho servir per avisar als jugadors per entrar a un torneig o batalla d\'equips.
 Els jugadors que no els agrada rebre missatges podrien abandonar l\'equip.</string>
-  <string name="teamsIlead">Equips que en sóc capità</string>
+  <string name="teamsIlead">Equips en que sóc capità</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Potser vols enllaçar un d\'aquests propers torneigs?</string>
   <string name="usersWhoCanManageThisTeam">Usuaris que poden administrar aquest equip</string>
   <string name="leadersChat">Xat de capitans</string>
   <string name="closeTeam">Eliminar equip</string>
-  <string name="closeTeamDescription">Elimina l\'equip per sempre.</string>
+  <string name="closeTeamDescription">Elimina l\'equip definitivament.</string>
 </resources>
