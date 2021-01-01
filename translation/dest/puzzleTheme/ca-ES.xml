@@ -23,6 +23,16 @@
   <string name="endgame">Final</string>
   <string name="fork">Forquilla</string>
   <string name="mate">Mat</string>
+  <string name="mateIn1">Mat en 1</string>
+  <string name="mateIn2">Mat en 2</string>
+  <string name="mateIn3">Mat en 3</string>
+  <string name="mateIn4">Mat en 4</string>
+  <string name="mateIn5">Mat en 5 o més</string>
+  <string name="middlegame">Mig joc</string>
+  <string name="middlegameDescription">Una maniobra tàctica a la segona fase de la partida.</string>
+  <string name="opening">Obertura</string>
+  <string name="pawnEndgame">Final de peons</string>
+  <string name="pawnEndgameDescription">Final amb només peons.</string>
   <string name="pin">Clavada</string>
   <string name="queenRookEndgame">Dama i Torre</string>
   <string name="queenRookEndgameDescription">Un final amb només dames, torres i peons.</string>
