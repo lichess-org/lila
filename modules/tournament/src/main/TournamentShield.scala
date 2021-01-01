@@ -128,27 +128,27 @@ object TournamentShield {
           iconChar = '{'
         )
 
-    case object HyperBullet
-        extends Category(
-          of = Left(Schedule.Speed.HyperBullet),
-          iconChar = 'T'
-        )
-
     case object Bullet
         extends Category(
           of = Left(Schedule.Speed.Bullet),
           iconChar = 'T'
         )
 
-    case object SuperBlitz
+    case object HyperBlitz
         extends Category(
-          of = Left(Schedule.Speed.SuperBlitz),
+          of = Left(Schedule.Speed.HyperBlitz),
           iconChar = ')'
         )
 
     case object Blitz
         extends Category(
           of = Left(Schedule.Speed.Blitz),
+          iconChar = ')'
+        )
+
+    case object HyperRapid
+        extends Category(
+          of = Left(Schedule.Speed.HyperRapid),
           iconChar = ')'
         )
 
@@ -166,11 +166,11 @@ object TournamentShield {
 
     val all: List[Category] = List(
       Bullet,
-      SuperBlitz,
+      HyperBlitz,
       Blitz,
+      HyperRapid,
       Rapid,
       Classical,
-      HyperBullet,
       UltraBullet
     )
 
