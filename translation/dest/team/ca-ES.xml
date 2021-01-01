@@ -36,9 +36,9 @@
   <string name="messageAllMembers">Missatge a tots els membres</string>
   <string name="messageAllMembersOverview">Enviar missatge privat a tots els membres de l\'equip</string>
   <string name="messageAllMembersLongDescription">Envia un missatge privat a TOTS els membres de l\'equip.
-Pots usar això per a cridar a jugadors a unir-se a un torneig o a una batalla d\'equips.
-Els jugadors als que no els agradi rebre els teus missatges poden abandonar l\'equip.</string>
-  <string name="teamsIlead">Equips que lidero</string>
+Pots fer-ho servir per avisar als jugadors per entrar a un torneig o batalla d\'equips.
+Els jugadors que no els agrada rebre missatges podrien abandonar l\'equip.</string>
+  <string name="teamsIlead">Equips que en sóc capità</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Potser vols enllaçar un d\'aquests propers tornejos?</string>
   <string name="usersWhoCanManageThisTeam">Usuaris que poden administrar aquest equip</string>
   <string name="leadersChat">Xat de líders</string>
