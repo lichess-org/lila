@@ -3,7 +3,7 @@
   <string name="team">Equip</string>
   <string name="teams">Equips</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s membres</item>
+    <item quantity="one">%s membre</item>
     <item quantity="other">%s membres</item>
   </plurals>
   <string name="allTeams">Tots els equips</string>
@@ -42,4 +42,6 @@ Els jugadors als que no els agradi rebre els teus missatges poden abandonar l\'e
   <string name="youWayWantToLinkOneOfTheseTournaments">Potser vols enllaçar un d\'aquests propers tornejos?</string>
   <string name="usersWhoCanManageThisTeam">Usuaris que poden administrar aquest equip</string>
   <string name="leadersChat">Xat de líders</string>
+  <string name="closeTeam">Eliminar equip</string>
+  <string name="closeTeamDescription">Elimina l\'equip per sempre.</string>
 </resources>
