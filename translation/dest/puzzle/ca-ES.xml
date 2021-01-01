@@ -24,7 +24,7 @@
   <string name="puzzleSuccess">Èxit!</string>
   <string name="puzzleComplete">Problema fet!</string>
   <string name="notTheMove">Aquesta no és la jugada!</string>
-  <string name="trySomethingElse">Prova\'n un altre.</string>
+  <string name="trySomethingElse">Prova d\'una altra manera.</string>
   <string name="ratingX">Puntuació: %s</string>
   <string name="hidden">ocult</string>
   <string name="fromGameLink">De la partida %s</string>
