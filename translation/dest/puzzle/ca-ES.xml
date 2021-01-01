@@ -8,11 +8,11 @@
   <string name="lengths">Durada</string>
   <string name="mates">Mats</string>
   <string name="goals">Objectius</string>
-  <string name="specialMoves">Jugades Especials</string>
+  <string name="specialMoves">Jugades especials</string>
   <string name="didYouLikeThisPuzzle">T\'ha agradat aquest problema?</string>
   <string name="voteToLoadNextOne">Vota per passar al següent!</string>
   <string name="yourPuzzleRatingX">La teva puntuació de problemes: %s</string>
-  <string name="findTheBestMoveForWhite">Troba la millor jugada de les banques.</string>
+  <string name="findTheBestMoveForWhite">Troba la millor jugada de les blanques.</string>
   <string name="findTheBestMoveForBlack">Troba la millor jugada de les negres.</string>
   <string name="toGetPersonalizedPuzzles">Per obtenir problemes personalitzats:</string>
   <string name="puzzleId">Problema %s</string>
