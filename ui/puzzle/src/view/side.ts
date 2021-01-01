@@ -68,19 +68,21 @@ const difficulties: PuzzleDifficulty[] = ['easiest', 'easier', 'normal', 'harder
 
 export function replay(ctrl: Controller): MaybeVNode {
   const replay = ctrl.getData().replay;
-  return replay ?
-    h('div.puzzle__side__replay', [
-      h('a', {
-        attrs: {
-          href: `/training/dashboard/${replay.days}`
-        }
-      }, ['« ', `Replaying ${ctrl.trans.noarg(ctrl.getData().theme.key)} puzzles`]),
-      h('div.puzzle__side__replay__bar', {
-        attrs: {
-          style: `--p:${Math.round(100 * replay.i / replay.of)}%`
-        },
-      }, `${replay.i} / ${replay.of}`)
-    ]) : null;
+  if (!replay) return;
+  const i = replay.i + (ctrl.vm.mode == 'play' ? 0 : 1);
+  return h('div.puzzle__side__replay', [
+    h('a', {
+      attrs: {
+        href: `/training/dashboard/${replay.days}`
+      }
+    }, ['« ', `Replaying ${ctrl.trans.noarg(ctrl.getData().theme.key)} puzzles`]),
+    h('div.puzzle__side__replay__bar', {
+      attrs: {
+        style: `--p:${replay.of ? Math.round(100 * i / replay.of) : 1}%`,
+        'data-text': `${i} / ${replay.of}`
+      },
+    })
+  ]);
 }
 
 export function config(ctrl: Controller): MaybeVNode {

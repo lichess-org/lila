@@ -17,21 +17,21 @@ case class PuzzleDashboard(
   import PuzzleDashboard._
   import BsonHandlers._
 
-  lazy val clearThemes = byTheme.view.filter { case (_, results) =>
-    results.clear
-  }.toList
-
-  def strongestThemes(nb: Int) = themesByPerf(nb, true)
-  def weakestThemes(nb: Int)   = themesByPerf(nb, false)
-
-  private def themesByPerf(nb: Int, best: Boolean): List[(PuzzleTheme.Key, Results)] = {
-    val order = if (best) -1 else 1
-    val all = byTheme.toList.sortBy { case (_, res) =>
-      (res.performance * order, -res.nb)
+  lazy val (weakThemes, strongThemes) = {
+    val all = byTheme.view.filter(_._2.nb > global.nb / 20).toList.sortBy { case (_, res) =>
+      (res.performance, -res.nb)
     }
-    val clear = all.filter(_._2.clear)
-    if (clear.size >= nb) clear take nb
-    else clear ::: all.filter(_._2.unclear).take(nb - clear.size)
+    val weaks = all
+      .filter { case (_, r) =>
+        r.failed >= 3
+      }
+      .take(topThemesNb)
+    val strong = all
+      .filter { case (t, r) =>
+        r.firstWins >= 3 && !weaks.contains(t)
+      }
+      .takeRight(topThemesNb)
+    (weaks, strong)
   }
 }
 
@@ -41,19 +41,41 @@ object PuzzleDashboard {
 
   val dayChoices = List(1, 2, 3, 7, 10, 14, 21, 30, 60, 90)
 
+  val topThemesNb = 5
+
   case class Results(nb: Int, wins: Int, fixed: Int, puzzleRatingAvg: Int) {
 
-    def performance = puzzleRatingAvg - 500 + math.round(1000 * (wins.toFloat / nb))
-
-    def unfixed = nb - wins
-    def failed  = fixed + unfixed
+    def firstWins = wins - fixed
+    def unfixed   = nb - wins
+    def failed    = fixed + unfixed
 
     def winPercent      = wins * 100 / nb
     def fixedPercent    = fixed * 100 / nb
-    def firstWinPercent = winPercent - fixedPercent
+    def firstWinPercent = firstWins * 100 / nb
 
-    def clear   = wins >= 3 && failed >= 3
+    def performance = puzzleRatingAvg - 500 + math.round(1000 * (firstWins.toFloat / nb))
+
+    def clear   = nb >= 6 && firstWins >= 2 && failed >= 2
     def unclear = !clear
+  }
+
+  val irrelevantThemes = List(
+    PuzzleTheme.oneMove,
+    PuzzleTheme.short,
+    PuzzleTheme.long,
+    PuzzleTheme.veryLong,
+    PuzzleTheme.mateIn1,
+    PuzzleTheme.mateIn2,
+    PuzzleTheme.mateIn3,
+    PuzzleTheme.mateIn4,
+    PuzzleTheme.mateIn5,
+    PuzzleTheme.equality,
+    PuzzleTheme.advantage,
+    PuzzleTheme.crushing
+  ).map(_.key)
+
+  val relevantThemes = PuzzleTheme.all collect {
+    case t if !irrelevantThemes.contains(t.key) => t.key
   }
 }
 
@@ -93,7 +115,7 @@ final class PuzzleDashboardApi(
               "global" -> List(Group(BSONNull)(resultsGroup: _*)),
               "byTheme" -> List(
                 Unwind("puzzle.themes"),
-                Match(irrelevantThemes),
+                Match(relevantThemesSelect),
                 GroupField("puzzle.themes")(resultsGroup: _*)
               )
             )
@@ -151,20 +173,7 @@ final class PuzzleDashboardApi(
     rating <- doc.double("rating")
   } yield Results(nb, wins, fixes, rating.toInt)
 
-  val irrelevantThemes = $doc(
-    "puzzle.themes" $nin List(
-      PuzzleTheme.oneMove,
-      PuzzleTheme.short,
-      PuzzleTheme.long,
-      PuzzleTheme.veryLong,
-      PuzzleTheme.mateIn1,
-      PuzzleTheme.mateIn2,
-      PuzzleTheme.mateIn3,
-      PuzzleTheme.mateIn4,
-      PuzzleTheme.mateIn5,
-      PuzzleTheme.equality,
-      PuzzleTheme.advantage,
-      PuzzleTheme.crushing
-    ).map(_.key.value)
+  val relevantThemesSelect = $doc(
+    "puzzle.themes" $nin irrelevantThemes.map(_.value)
   )
 }

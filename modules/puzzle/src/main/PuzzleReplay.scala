@@ -34,10 +34,10 @@ final class PuzzleReplayApi(
     replays.getFuture(user.id, _ => createReplayFor(user, days, theme)) flatMap { current =>
       if (current.days == days && current.theme == theme) fuccess(current)
       else createReplayFor(user, days, theme) tap { replays.put(user.id, _) }
-    } flatMap {
-      _.step ?? { case (puzzleId, newReplay) =>
+    } flatMap { replay =>
+      replay.step ?? { case (puzzleId, newReplay) =>
         replays.put(user.id, fuccess(newReplay))
-        colls.puzzle(_.byId[Puzzle](puzzleId.value)) map2 (_ -> newReplay)
+        colls.puzzle(_.byId[Puzzle](puzzleId.value)) map2 (_ -> replay)
       }
     }
 

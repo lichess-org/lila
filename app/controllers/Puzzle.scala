@@ -96,11 +96,11 @@ final class Puzzle(
       .bindFromRequest()
       .fold(
         jsonFormError,
-        resultInt =>
+        data =>
           {
             ctx.me match {
               case Some(me) =>
-                env.puzzle.finisher(id, theme.key, me, Result(resultInt == 1)) flatMap {
+                env.puzzle.finisher(id, theme.key, me, data.result) flatMap {
                   _ ?? { case (round, perf) =>
                     val newUser = me.copy(perfs = me.perfs.copy(puzzle = perf))
                     for {
@@ -110,19 +110,33 @@ final class Puzzle(
                           env.puzzle.jsonView.bc.userJson(perf.intRating) ++ Json.obj(
                             "round" -> Json.obj(
                               "ratingDiff" -> 0,
-                              "win"        -> (resultInt == 1)
+                              "win"        -> data.result.win
                             ),
                             "voted" -> round.vote
                           )
                         }
                         else
-                          for {
-                            next     <- nextPuzzleForMe(theme.key)
-                            nextJson <- renderJson(next, theme, none, newUser.some)
-                          } yield Json.obj(
-                            "round" -> env.puzzle.jsonView.roundJson(me, round, perf),
-                            "next"  -> nextJson
-                          )
+                          data.replayDays match {
+                            case None =>
+                              for {
+                                next     <- nextPuzzleForMe(theme.key)
+                                nextJson <- renderJson(next, theme, none, newUser.some)
+                              } yield Json.obj(
+                                "round" -> env.puzzle.jsonView.roundJson(me, round, perf),
+                                "next"  -> nextJson
+                              )
+                            case Some(replayDays) =>
+                              env.puzzle.replay(me, replayDays, theme.key).thenPp flatMap {
+                                case None => fuccess(Json.obj("replayComplete" -> true))
+                                case Some((puzzle, replay)) =>
+                                  renderJson(puzzle, theme, replay.some) map { nextJson =>
+                                    Json.obj(
+                                      "round" -> env.puzzle.jsonView.roundJson(me, round, perf),
+                                      "next"  -> nextJson
+                                    )
+                                  }
+                              }
+                          }
                     } yield json
                   }
                 }

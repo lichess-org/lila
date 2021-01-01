@@ -166,6 +166,7 @@ export interface Puzzle {
 export interface PuzzleResult {
   round?: PuzzleRound;
   next: PuzzleData;
+  replayComplete?: boolean;
 }
 
 export interface RoundThemes {
