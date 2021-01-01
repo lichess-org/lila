@@ -13,7 +13,10 @@
   <string name="bishopEndgame">Final d’àlfil</string>
   <string name="bishopEndgameDescription">Un final amb àlfils i peons només.</string>
   <string name="castling">Enrocant</string>
+  <string name="castlingDescription">Assegura el rei, i prepara la torre per l\'atac.</string>
   <string name="capturingDefender">Captura el defensor</string>
+  <string name="capturingDefenderDescription">Menjar una peça que és vital per defensar-ne un altre, fent que es pugui menjar la peça que ara ja no està defensada.</string>
+  <string name="crushing">Aixafar</string>
   <string name="equality">Igualtat</string>
   <string name="kingsideAttack">Atac pel flan de rei</string>
   <string name="endgame">Final</string>
