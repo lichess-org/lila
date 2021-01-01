@@ -11,7 +11,7 @@
   <string name="specialMoves">Mosse speciali</string>
   <string name="didYouLikeThisPuzzle">Ti è piaciuto questo rompicapo?</string>
   <string name="voteToLoadNextOne">Vota per caricare il prossimo!</string>
-  <string name="yourPuzzleRatingX">Il voto del tuo rompicapo: %s</string>
+  <string name="yourPuzzleRatingX">Il tuo punteggio nelle tattiche: %s</string>
   <string name="findTheBestMoveForWhite">Trova la mossa migliore per il bianco.</string>
   <string name="findTheBestMoveForBlack">Trova la mossa migliore per il nero.</string>
   <string name="toGetPersonalizedPuzzles">Per ottenere rompicapi personalizzati:</string>
@@ -41,5 +41,5 @@
   <string name="hardest">Difficilissimo</string>
   <string name="example">Esempio</string>
   <string name="addAnotherTheme">Aggiungi un altro tema</string>
-  <string name="jumpToNextPuzzleImmediately">Salta immediatamente al prossimo rompicapo</string>
+  <string name="jumpToNextPuzzleImmediately" comment="jumpToNextPuzzleImmediately&#10;&#10;With this setting enabled, the screen will transition to a new puzzle as soon as you complete the puzzle you are viewing.">Salta immediatamente al prossimo rompicapo</string>
 </resources>
