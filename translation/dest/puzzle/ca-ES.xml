@@ -16,7 +16,26 @@
   <string name="findTheBestMoveForBlack">Troba la millor jugada de les negres.</string>
   <string name="toGetPersonalizedPuzzles">Per obtenir problemes personalitzats:</string>
   <string name="puzzleId">Problema %s</string>
+  <string name="puzzleOfTheDay">Problema del dia</string>
+  <string name="clickToSolve">Clica per resoldre</string>
+  <string name="goodMove">Bona jugada</string>
+  <string name="bestMove">La millor jugada!</string>
+  <string name="keepGoing">Continua jugant…</string>
+  <string name="puzzleSuccess">Èxit!</string>
+  <string name="puzzleComplete">Problema fet!</string>
+  <string name="notTheMove">Aquesta no és la jugada!</string>
+  <string name="trySomethingElse">Prova\'n un altre.</string>
+  <string name="ratingX">Puntuació: %s</string>
+  <string name="hidden">ocult</string>
+  <string name="fromGameLink">De la partida %s</string>
   <string name="continueTraining">Continuar l\'entrenament</string>
   <string name="difficultyLevel">Nivell de dificultat</string>
+  <string name="normal">Normal</string>
+  <string name="easier">Més fàcil</string>
+  <string name="easiest">El més fàcil</string>
+  <string name="harder">Més difícil</string>
+  <string name="hardest">El més difícil</string>
   <string name="example">Exemple</string>
+  <string name="addAnotherTheme">Afegir un nou tema</string>
+  <string name="jumpToNextPuzzleImmediately" comment="jumpToNextPuzzleImmediately&#10;&#10;With this setting enabled, the screen will transition to a new puzzle as soon as you complete the puzzle you are viewing.">Passar al següent problema immediatament</string>
 </resources>
