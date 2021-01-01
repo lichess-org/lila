@@ -22,8 +22,13 @@
   <string name="kingsideAttack">Atac pel flan de rei</string>
   <string name="endgame">Final</string>
   <string name="fork">Forquilla</string>
+  <string name="hangingPiece">Peça penjant</string>
+  <string name="intermezzo">Intermèdia</string>
+  <string name="knightEndgame">Final de cavalls</string>
+  <string name="long">Problema llarg</string>
   <string name="mate">Mat</string>
   <string name="mateIn1">Mat en 1</string>
+  <string name="mateIn1Description">Fer escac i mat en una jugada.</string>
   <string name="mateIn2">Mat en 2</string>
   <string name="mateIn3">Mat en 3</string>
   <string name="mateIn4">Mat en 4</string>
@@ -34,6 +39,7 @@
   <string name="pawnEndgame">Final de peons</string>
   <string name="pawnEndgameDescription">Final amb només peons.</string>
   <string name="pin">Clavada</string>
+  <string name="promotion">Promoció</string>
   <string name="queenRookEndgame">Dama i Torre</string>
   <string name="queenRookEndgameDescription">Un final amb només dames, torres i peons.</string>
   <string name="short">Problema curt</string>
