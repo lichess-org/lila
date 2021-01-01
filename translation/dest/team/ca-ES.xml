@@ -32,8 +32,8 @@
   <string name="teamBattle">Batalla d\'equips</string>
   <string name="teamBattleOverview">Batalla de diversos equips, cada jugador puntua pel seu equip</string>
   <string name="teamTournament">Torneig d\'equip</string>
-  <string name="teamTournamentOverview">Torneig Arena només membres del teu equip poden inscriure\'s</string>
-  <string name="messageAllMembers">Missatge a tots</string>
+  <string name="teamTournamentOverview">Torneig Arena on només membres del teu equip poden inscriure\'s</string>
+  <string name="messageAllMembers">Missatge a tots els membres</string>
   <string name="messageAllMembersOverview">Enviar missatge privat a tots els membres de l\'equip</string>
   <string name="messageAllMembersLongDescription">Envia un missatge privat a TOTS els membres de l\'equip.
 Pots usar això per a cridar a jugadors a unir-se a un torneig o a una batalla d\'equips.
