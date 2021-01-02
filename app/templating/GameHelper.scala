@@ -104,7 +104,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         )
       }
     ) { level =>
-      raw(s"A.I. level $level")
+      frag(aiName(level))
     }
 
   def playerText(player: Player, withRating: Boolean = false) =
