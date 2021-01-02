@@ -46,7 +46,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(implicit ec: scala.con
   ): Funit =
     if (!pov.isMyTurn) funit
     else
-      Uci.Move(uciMove).fold[Funit](fufail(s"Invalid move $uciMove on $pov")) { uci =>
+      Uci(uciMove).fold[Funit](fufail(s"Invalid move $uciMove on $pov")) { uci =>
         val promise = Promise[Unit]()
         tellRound(
           pov.gameId,
@@ -76,16 +76,16 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(implicit ec: scala.con
         else fuccess(fc.some)
     }
 
-  def nextMove(g: Game, last: chess.Move): Fu[Option[Uci.Move]] =
+  def nextMove(g: Game, last: Uci): Fu[Option[Uci]] =
     g.forecastable ?? {
       loadForPlay(Pov player g) flatMap {
         case None => fuccess(none)
         case Some(fc) =>
           fc(g, last) match {
-            case Some((newFc, uciMove)) if newFc.steps.nonEmpty =>
-              coll.update.one($id(fc._id), newFc) inject uciMove.some
-            case Some((_, uciMove)) => clearPov(Pov player g) inject uciMove.some
-            case _                  => clearPov(Pov player g) inject none
+            case Some((newFc, uci)) if newFc.steps.nonEmpty =>
+              coll.update.one($id(fc._id), newFc) inject uci.some
+            case Some((_, uci)) => clearPov(Pov player g) inject uci.some
+            case _              => clearPov(Pov player g) inject none
           }
       }
     }

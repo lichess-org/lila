@@ -52,7 +52,7 @@ package round {
   case object QuietFlag
   case class ClientFlag(color: Color, fromPlayerId: Option[PlayerId])
   case object Abandon
-  case class ForecastPlay(lastMove: chess.Move)
+  case class ForecastPlay(lastMove: Uci)
   case class Cheat(color: Color)
   case class HoldAlert(playerId: PlayerId, mean: Int, sd: Int, ip: IpAddress)
   case class GoBerserk(color: Color)
