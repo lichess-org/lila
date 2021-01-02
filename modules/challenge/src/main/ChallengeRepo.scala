@@ -76,7 +76,7 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
     val selector = $doc(
       "seenAt" $lt date,
       "status" -> Status.Created.id,
-      "timeControl" $exists true
+      "timeControl.l" $exists true // only realtime games
     )
     coll.ext
       .find(selector)
