@@ -10,6 +10,8 @@ case class AiConfig(
     timeMode: TimeMode,
     time: Double,
     increment: Int,
+    byoyomi: Int,
+    periods: Int,
     days: Int,
     level: Int,
     color: Color,
@@ -19,7 +21,7 @@ case class AiConfig(
 
   val strictFen = true
 
-  def >> = (variant.id, timeMode.id, time, increment, days, level, color.name, fen.map(_.value)).some
+  def >> = (variant.id, timeMode.id, time, increment, byoyomi, periods, days, level, color.name, fen.map(_.value)).some
 
   def game(user: Option[User]) = {
     fenGame { chessGame =>
@@ -55,12 +57,14 @@ case class AiConfig(
 
 object AiConfig extends BaseConfig {
 
-  def from(v: Int, tm: Int, t: Double, i: Int, d: Int, level: Int, c: String, fen: Option[String]) =
+  def from(v: Int, tm: Int, t: Double, i: Int, b: Int, p: Int, d: Int, level: Int, c: String, fen: Option[String]) =
     new AiConfig(
       variant = chess.variant.Variant(v) err "Invalid game variant " + v,
       timeMode = TimeMode(tm) err s"Invalid time mode $tm",
       time = t,
       increment = i,
+      byoyomi = b,
+      periods = p,
       days = d,
       level = level,
       color = Color(c) err "Invalid color " + c,
@@ -71,7 +75,9 @@ object AiConfig extends BaseConfig {
     variant = variantDefault,
     timeMode = TimeMode.Unlimited,
     time = 5d,
-    increment = 8,
+    increment = 0,
+    byoyomi = 10,
+    periods = 1,
     days = 2,
     level = 1,
     color = Color.default
@@ -95,6 +101,8 @@ object AiConfig extends BaseConfig {
         timeMode = TimeMode orDefault (r int "tm"),
         time = r double "t",
         increment = r int "i",
+        byoyomi = r intD "b",
+        periods = r intD "p",
         days = r int "d",
         level = r int "l",
         color = Color.White,
@@ -107,6 +115,8 @@ object AiConfig extends BaseConfig {
         "tm" -> o.timeMode.id,
         "t"  -> o.time,
         "i"  -> o.increment,
+        "b"  -> o.byoyomi,
+        "p"  -> o.periods,
         "d"  -> o.days,
         "l"  -> o.level,
         "f"  -> o.fen

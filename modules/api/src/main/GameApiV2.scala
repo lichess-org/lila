@@ -303,6 +303,8 @@ final class GameApiV2(
         Json.obj(
           "initial"   -> clock.limitSeconds,
           "increment" -> clock.incrementSeconds,
+          "byoyomi"   -> clock.byoyomiSeconds,
+          "periods"   -> clock.periods,
           "totalTime" -> clock.estimateTotalSeconds
         )
       })

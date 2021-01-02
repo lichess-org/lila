@@ -66,7 +66,7 @@ object Work {
       else userId orElse ip.map(_.value) getOrElse "unknown"
   }
 
-  case class Clock(wtime: Int, btime: Int, inc: Int)
+  case class Clock(wtime: Int, btime: Int, inc: Int, byo: Int)
 
   case class Move(
       _id: Work.Id, // random

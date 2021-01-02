@@ -53,12 +53,26 @@ object form {
             form3.group(
               form("clockTime"),
               raw("Clock initial time"),
-              help = trans.simulClockHint().some,
+              //help = trans.simulClockHint().some,
               half = true
             )(form3.select(_, clockTimeChoices)),
-            form3.group(form("clockIncrement"), raw("Clock increment"), half = true)(
-              form3.select(_, clockIncrementChoices)
-            )
+            form3.group(
+              form("clockByoyomi"),
+              raw("Clock byoyomi"),
+              half = true
+              )(form3.select(_, clockByoyomiChoices))
+          ),
+          form3.split(
+            form3.group(
+              form("clockIncrement"),
+              raw("Clock Increment"),
+              half = true
+            )(form3.select(_, clockIncrementChoices)),
+            form3.group(
+              form("periods"),
+              raw("Number of byoyomi periods"),
+              half = true
+              )(form3.select(_, periodsChoices))
           ),
           form3.split(
             form3.group(

@@ -92,7 +92,9 @@ final class BotJsonView(
   implicit private val clockConfigWriter: OWrites[chess.Clock.Config] = OWrites { c =>
     Json.obj(
       "initial"   -> c.limit.millis,
-      "increment" -> c.increment.millis
+      "increment" -> c.increment.millis,
+      "byoyomi"   -> c.byoyomi.millis,
+      "periods"   -> c.periods
     )
   }
 }

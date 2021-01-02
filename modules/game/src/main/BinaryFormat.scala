@@ -96,7 +96,7 @@ object BinaryFormat {
       Array(writeClockLimit(clock.limitSeconds), clock.incrementSeconds.toByte) ++
         writeSignedInt24(legacyElapsed(clock, White).centis) ++
         writeSignedInt24(legacyElapsed(clock, Black).centis) ++
-        clock.timer.fold(Array.empty[Byte])(writeTimer)
+        clock.timer.fold(Array.empty[Byte])(writeTimer) ++ Array(clock.byoyomiSeconds.toByte, clock.periods.toByte)
     }
 
     def read(ba: ByteArray, whiteBerserk: Boolean, blackBerserk: Boolean): Color => Clock =
@@ -107,13 +107,25 @@ object BinaryFormat {
         // ba.size might be 8 if there was no timer.
         // #TODO remove 5 byte timer case! But fix the DB first!
         val timer = {
-          if (ia.size == 12) readTimer(readInt(ia(8), ia(9), ia(10), ia(11)))
+          if (ia.size >= 12) readTimer(readInt(ia(8), ia(9), ia(10), ia(11)))
           else None
+        }
+
+        val byo = {
+          if (ia.size == 14) ia(12)
+          else if(ia.size == 10) ia(8)
+          else 0
+        }
+
+        val per = {
+          if (ia.size == 14) ia(13)
+          else if(ia.size == 10) ia(9)
+          else 1
         }
 
         ia match {
           case Array(b1, b2, b3, b4, b5, b6, b7, b8, _*) => {
-            val config      = Clock.Config(readClockLimit(b1), b2)
+            val config      = Clock.Config(readClockLimit(b1), b2, byo, per)
             val legacyWhite = Centis(readSignedInt24(b3, b4, b5))
             val legacyBlack = Centis(readSignedInt24(b6, b7, b8))
             Clock(

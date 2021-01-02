@@ -4,9 +4,9 @@ import * as button from '../view/button';
 import { bind, justIcon } from '../util';
 import * as game from 'game';
 import RoundController from '../ctrl';
-import { ClockElements, ClockController, Millis } from './clockCtrl';
+import { ClockElements, ClockController, Seconds, Millis } from './clockCtrl';
 import { Player } from 'game';
-import { Position } from '../interfaces';
+import { MaybeVNode, Position } from '../interfaces';
 
 export function renderClock(ctrl: RoundController, player: Player, position: Position) {
   const clock = ctrl.clock!,
@@ -19,7 +19,8 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
        isRunning = player.color === clock.times.activeColor;
     els.time = el;
     els.clock = el.parentElement!;
-    el.innerHTML = formatClockTime(millis, clock.showTenths(millis), isRunning, clock.opts.nvui);
+    el.innerHTML =
+      formatClockTime(millis, clock.showTenths(millis), isRunning, clock.opts.nvui);
   }
   const timeHook: Hooks = {
     insert: (vnode) => update(vnode.elm as HTMLElement),
@@ -37,14 +38,17 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
       hook: timeHook
     })
   ] : [
-    clock.showBar && game.bothPlayersHavePlayed(ctrl.data) ? showBar(ctrl, player.color) : undefined,
-    h('div.time', {
-      attrs: { title: `${player.color} clock` },
-      class: {
-        hour: millis > 3600 * 1000
-      },
-      hook: timeHook
-    }),
+    clock.showBar[player.color] && game.bothPlayersHavePlayed(ctrl.data) ? showBar(ctrl, player.color) : undefined,
+    h('div.clockByo', [
+      h('div.time', {
+        attrs: { title: `${player.color} clock` },
+        class: {
+          hour: millis > 3600 * 1000
+        },
+        hook: timeHook
+      }),
+      renderByoyomiTime(clock.byoyomi, clock.startPeriod - clock.curPeriods[player.color]),
+    ]),
     renderBerserk(ctrl, player.color, position),
     isPlayer ? goBerserk(ctrl) : button.moretime(ctrl),
     tourRank(ctrl, player.color, position)
@@ -57,6 +61,14 @@ function pad2(num: number): string {
 
 const sepHigh = '<sep>:</sep>';
 const sepLow = '<sep class="low">:</sep>';
+
+function renderByoyomiTime(byoyomi: Seconds, periods: number) : MaybeVNode {
+  const byo = byoyomi > 0 ? `+${byoyomi}s` : "";
+  const per = periods > 1 ? `(${periods}x)` : "";
+  if(byo && periods > 0)
+    return h(`div.byoyomi.byo-${periods}`, {}, byo + per);
+  else return undefined;
+}
 
 function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean, nvui: boolean) {
   const date = new Date(time);

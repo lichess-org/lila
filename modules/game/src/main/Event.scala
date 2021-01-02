@@ -337,21 +337,23 @@ object Event {
 
   sealed trait ClockEvent extends Event
 
-  case class Clock(white: Centis, black: Centis, nextLagComp: Option[Centis] = None) extends ClockEvent {
+  case class Clock(white: Centis, black: Centis, byo: Centis, nextLagComp: Option[Centis] = None) extends ClockEvent {
     def typ = "clock"
     def data =
       Json
         .obj(
           "white" -> white.toSeconds,
-          "black" -> black.toSeconds
+          "black" -> black.toSeconds,
+          "byo"   -> byo.toSeconds
         )
-        .add("lag" -> nextLagComp.collect { case Centis(c) if c > 1 => c })
+        .add("lag"  -> nextLagComp.collect { case Centis(c) if c > 1 => c })
   }
   object Clock {
     def apply(clock: ChessClock): Clock =
       Clock(
         clock remainingTime Color.White,
         clock remainingTime Color.Black,
+        clock.byoyomi,
         clock lagCompEstimate clock.color
       )
   }

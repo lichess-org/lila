@@ -54,7 +54,7 @@ final class SimulApi(
     val simul = Simul.make(
       name = setup.name,
       clock = SimulClock(
-        config = chess.Clock.Config(setup.clockTime * 60, setup.clockIncrement),
+        config = chess.Clock.Config(setup.clockTime * 60, setup.clockIncrement, setup.clockByoyomi, setup.periods),
         hostExtraTime = setup.clockExtra * 60
       ),
       variants = setup.variants.flatMap { chess.variant.Variant(_) },

@@ -1,12 +1,12 @@
 package lila.round
 
 import chess.format.{ Forsyth, Uci }
-import chess.{ Centis, MoveMetrics, MoveOrDrop, Status }
+import chess.{ Centis, MoveMetrics, MoveOrDrop, Status, Color }
 
 import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, TakebackNo, TooManyPlies }
 import lila.game.actorApi.MoveGameEvent
 import lila.common.Bus
-import lila.game.{ Game, Pov, Progress, UciMemo }
+import lila.game.{ Game, Pov, Progress, UciMemo, Event }
 import lila.game.Game.PlayerId
 
 final private class Player(
@@ -78,9 +78,10 @@ final private class Player(
       if (progress.game.playableByAi) requestFishnet(progress.game, round)
       if (pov.opponent.isOfferingDraw) round ! DrawNo(PlayerId(pov.player.id))
       if (pov.player.isProposingTakeback) round ! TakebackNo(PlayerId(pov.player.id))
-      if (progress.game.forecastable) moveOrDrop.left.toOption.foreach { move =>
-        round ! ForecastPlay(move)
-      }
+      if (progress.game.forecastable) moveOrDrop.fold(
+        move => round ! ForecastPlay(move.toUci),
+        drop => round ! ForecastPlay(drop.toUci)
+        )
       scheduleExpiration(progress.game)
       fuccess(progress.events)
     }
@@ -98,7 +99,7 @@ final private class Player(
               notifyMove(moveOrDrop, progress.game) >> {
               if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
               else
-                fuccess(progress.events)
+                fuccess(progress.events :+ Event.Reload)
             }
         }
     } else
@@ -132,10 +133,18 @@ final private class Player(
           case (ncg, drop) => ncg -> (Right(drop): MoveOrDrop)
         }
     }).map {
-      case (ncg, _) if ncg.clock.exists(_.outOfTime(game.turnColor, false)) => Flagged
+      case (ncg, _) if (ncg.clock.exists(
+        c => c.outOfTime(game.turnColor, false) &&
+        !c.hasPeriodsLeft(game.turnColor))) => Flagged
       case (newChessGame, moveOrDrop) => {
+        val cg = {
+          if(newChessGame.clock.exists(c => c.outOfTime(game.turnColor, false) && c.hasPeriodsLeft(game.turnColor))){
+            newChessGame.copy(clock = newChessGame.clock.map(c => c.nextPeriod(game.turnColor)))
+          }
+          else newChessGame
+        }
         MoveApplied(
-          game.update(newChessGame, moveOrDrop, blur),
+          game.update(cg, moveOrDrop, blur),
           moveOrDrop
         )
       }

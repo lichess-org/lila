@@ -32,7 +32,8 @@ object form {
             fields.name,
             form3.split(fields.rated, fields.variant),
             //fields.startPosition,
-            fields.clock,
+            fields.clock1,
+            fields.clock2,
             form3.split(fields.minutes, fields.waitMinutes),
             fields.description,
             form3.globalError(form),
@@ -71,7 +72,8 @@ object form {
             form3.split(fields.name, tour.isCreated option fields.startDate),
             form3.split(fields.rated, fields.variant),
             fields.startPosition,
-            fields.clock,
+            fields.clock1,
+            fields.clock2,
             form3.split(
               if (DataForm.minutes contains tour.minutes) form3.split(fields.minutes)
               else
@@ -255,13 +257,22 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
     form3.group(form("position"), trans.startPosition(), klass = "position")(
       views.html.tournament.form.startingPosition(_, tour)
     )
-  def clock =
+  def clock1 =
     form3.split(
       form3.group(form("clockTime"), trans.clockInitialTime(), half = true)(
         form3.select(_, DataForm.clockTimeChoices, disabled = disabledAfterStart)
       ),
+      form3.group(form("clockByoyomi"), trans.clockByoyomi(), half = true)(
+        form3.select(_, DataForm.clockByoyomiChoices, disabled = disabledAfterStart)
+      )
+    )
+  def clock2 =
+    form3.split(
       form3.group(form("clockIncrement"), trans.clockIncrement(), half = true)(
         form3.select(_, DataForm.clockIncrementChoices, disabled = disabledAfterStart)
+      ),
+      form3.group(form("periods"), trans.numberOfPeriods(), half = true)(
+        form3.select(_, DataForm.periodsChoices, disabled = disabledAfterStart)
       )
     )
   def minutes =

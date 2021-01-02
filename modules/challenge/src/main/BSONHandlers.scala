@@ -26,14 +26,16 @@ private object BSONHandlers {
   )
   implicit val TimeControlBSONHandler = new BSON[TimeControl] {
     def reads(r: Reader) =
-      (r.intO("l") |@| r.intO("i")) {
-        case (limit, inc) => TimeControl.Clock(chess.Clock.Config(limit, inc))
+      (r.intO("l") |@| r.intO("i") |@| r.intD("b").some |@| r.intD("p").some) {
+        case (limit, inc, byo, per) => {
+          TimeControl.Clock(chess.Clock.Config(limit, inc, byo, per))
+        }
       } orElse {
         r intO "d" map TimeControl.Correspondence.apply
       } getOrElse TimeControl.Unlimited
     def writes(w: Writer, t: TimeControl) =
       t match {
-        case TimeControl.Clock(chess.Clock.Config(l, i)) => $doc("l" -> l, "i" -> i)
+        case TimeControl.Clock(chess.Clock.Config(l, i, b, p)) => $doc("l" -> l, "i" -> i, "b" -> b, "p" -> p)
         case TimeControl.Correspondence(d)               => $doc("d" -> d)
         case TimeControl.Unlimited                       => $empty
       }

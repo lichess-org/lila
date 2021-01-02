@@ -21,6 +21,8 @@ final class DataForm {
       name = teamBattleId.isEmpty option user.titleUsername,
       clockTime = clockTimeDefault,
       clockIncrement = clockIncrementDefault,
+      clockByoyomi = clockByoyomiDefault,
+      periods = periodsDefault,
       minutes = minuteDefault,
       waitMinutes = waitMinuteDefault.some,
       startDate = none,
@@ -42,6 +44,8 @@ final class DataForm {
       name = tour.name.some,
       clockTime = tour.clock.limitInMinutes,
       clockIncrement = tour.clock.incrementSeconds,
+      clockByoyomi = tour.clock.byoyomiSeconds,
+      periods = tour.clock.periods,
       minutes = tour.minutes,
       waitMinutes = none,
       startDate = tour.startsAt.some,
@@ -78,6 +82,8 @@ final class DataForm {
         "name"           -> optional(nameType),
         "clockTime"      -> numberInDouble(clockTimeChoices),
         "clockIncrement" -> numberIn(clockIncrementChoices),
+        "clockByoyomi"   -> numberIn(clockByoyomiChoices),
+        "periods"        -> numberIn(periodsChoices),
         "minutes" -> {
           if (lila.security.Granter(_.ManageTournament)(user)) number
           else numberIn(minuteChoices)
@@ -112,7 +118,7 @@ object DataForm {
   }.map(_.toDouble)
   val clockTimeDefault = 2d
   private def formatLimit(l: Double) =
-    chess.Clock.Config(l * 60 toInt, 0).limitString + {
+    chess.Clock.Config(l * 60 toInt, 0, 0, 1).limitString + {
       if (l <= 1) " minute" else " minutes"
     }
   val clockTimeChoices = optionsDouble(clockTimes, formatLimit)
@@ -120,6 +126,14 @@ object DataForm {
   val clockIncrements       = (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10)
   val clockIncrementDefault = 0
   val clockIncrementChoices = options(clockIncrements, "%d second{s}")
+
+  val clockByoyomi          = (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10)
+  val clockByoyomiDefault   = 0
+  val clockByoyomiChoices   = options(clockByoyomi, "%d second{s}")
+
+  val periods = (1 to 5)
+  val periodsDefault = 1
+  val periodsChoices = options(periods, "%d period{s}")
 
   val minutes       = (20 to 60 by 5) ++ (70 to 120 by 10) ++ (150 to 360 by 30) ++ (420 to 600 by 60) :+ 720
   val minuteDefault = 45
@@ -151,6 +165,8 @@ private[tournament] case class TournamentSetup(
     name: Option[String],
     clockTime: Double,
     clockIncrement: Int,
+    clockByoyomi: Int,
+    periods: Int,
     minutes: Int,
     waitMinutes: Option[Int],
     startDate: Option[DateTime],
@@ -167,13 +183,13 @@ private[tournament] case class TournamentSetup(
     hasChat: Option[Boolean]
 ) {
 
-  def validClock = (clockTime + clockIncrement) > 0
+  def validClock = (clockTime + clockIncrement) > 0 || (clockTime + clockByoyomi) > 0
 
   def realMode = Mode(rated.orElse(mode.map(Mode.Rated.id ==)) | true)
 
   def realVariant = variant.flatMap(DataForm.guessVariant) | chess.variant.Standard
 
-  def clockConfig = chess.Clock.Config((clockTime * 60).toInt, clockIncrement)
+  def clockConfig = chess.Clock.Config((clockTime * 60).toInt, clockIncrement, clockByoyomi, periods)
 
   def validRatedUltraBulletVariant =
     realMode == Mode.Casual ||
@@ -189,6 +205,6 @@ private[tournament] case class TournamentSetup(
   // There are 2 players, and they don't always use all their time (0.8)
   // add 15 seconds for pairing delay
   private def estimatedGameSeconds: Double = {
-    (60 * clockTime + 30 * clockIncrement) * 2 * 0.8
+    (60 * clockTime + 30 * clockIncrement + clockByoyomi * 20 * periods) * 2 * 0.8
   } + 15
 }

@@ -25,6 +25,8 @@ final class FormFactory {
       "timeMode"  -> timeMode,
       "time"      -> time,
       "increment" -> increment,
+      "byoyomi"   -> byoyomi,
+      "periods"   -> periods,
       "days"      -> days,
       "level"     -> level,
       "color"     -> color,
@@ -46,6 +48,8 @@ final class FormFactory {
         "timeMode"  -> timeMode,
         "time"      -> time,
         "increment" -> increment,
+        "byoyomi"   -> byoyomi,
+        "periods"   -> periods,
         "days"      -> days,
         "mode"      -> mode(withRated = ctx.isAuth),
         "color"     -> color,
@@ -65,6 +69,8 @@ final class FormFactory {
         "timeMode"    -> timeMode,
         "time"        -> time,
         "increment"   -> increment,
+        "byoyomi"     -> byoyomi,
+        "periods"     -> periods,
         "days"        -> days,
         "mode"        -> mode(ctx.isAuth),
         "ratingRange" -> optional(ratingRange),
@@ -79,16 +85,20 @@ final class FormFactory {
     mapping(
       "time"        -> time,
       "increment"   -> increment,
+      "byoyomi"     -> byoyomi,
+      "periods"     -> periods,
       "variant"     -> optional(boardApiVariantKeys),
       "rated"       -> optional(boolean),
       "color"       -> optional(color),
       "ratingRange" -> optional(ratingRange)
-    )((t, i, v, r, c, g) =>
+    )((t, i, b, p, v, r, c, g) =>
       HookConfig(
         variant = v.flatMap(Variant.apply) | Variant.default,
         timeMode = TimeMode.RealTime,
         time = t,
         increment = i,
+        byoyomi = b,
+        periods = p,
         days = 1,
         mode = chess.Mode(~r),
         color = lila.lobby.Color.orDefault(c),
@@ -110,7 +120,9 @@ final class FormFactory {
     private lazy val clock = "clock" -> optional(
       mapping(
         "limit"     -> number.verifying(ApiConfig.clockLimitSeconds.contains _),
-        "increment" -> increment
+        "increment" -> increment,
+        "byoyomi" -> byoyomi,
+        "periods" -> periods
       )(chess.Clock.Config.apply)(chess.Clock.Config.unapply)
     )
 

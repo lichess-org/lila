@@ -19,6 +19,12 @@ private[setup] trait Config {
   val increment: Int
 
   // Correspondence days per turn
+  val byoyomi: Int
+
+  // Clock periods
+  val periods: Int
+
+  // Correspondence days per turn
   val days: Int
 
   // Game variant code
@@ -36,15 +42,15 @@ private[setup] trait Config {
 
   def makeGame: ChessGame = makeGame(variant)
 
-  def validClock = !hasClock || clockHasTime
+  def validClock = !hasClock || clockHasTimeInc || clockHasTimeByo
 
-  def clockHasTime = time + increment > 0
+  def clockHasTimeInc = time + increment > 0
+
+  def clockHasTimeByo = time + byoyomi > 0
 
   def makeClock = hasClock option justMakeClock
 
-  protected def justMakeClock =
-    Clock.Config((time * 60).toInt, if (clockHasTime) increment else 1)
-
+  protected def justMakeClock = Clock.Config((time * 60).toInt, if (clockHasTimeInc) increment else 0, if (clockHasTimeByo) byoyomi else 0, periods)
   def makeDaysPerTurn: Option[Int] = (timeMode == TimeMode.Correspondence) option days
 }
 
@@ -136,4 +142,12 @@ trait BaseConfig {
   private val incrementMin      = 0
   private val incrementMax      = 180
   def validateIncrement(i: Int) = i >= incrementMin && i <= incrementMax
+
+  private val byoyomiMin      = 0
+  private val byoyomiMax      = 180
+  def validateByoyomi(i: Int) = i >= byoyomiMin && i <= byoyomiMax
+
+  private val periodsMin      = 0 // todo 1
+  private val periodsMax      = 5
+  def validatePeriods(i: Int) = i >= periodsMin && i <= periodsMax
 }

@@ -134,6 +134,8 @@ object Challenge {
       // All durations are expressed in seconds
       def limit     = config.limit
       def increment = config.increment
+      def byoyomi   = config.byoyomi
+      def periods   = config.periods
       def show      = config.show
     }
   }

@@ -104,6 +104,10 @@ object JsonView {
       "running"   -> c.isRunning,
       "initial"   -> c.limitSeconds,
       "increment" -> c.incrementSeconds,
+      "byoyomi"   -> c.byoyomiSeconds,
+      "periods"   -> c.periods,
+      "bPeriods"  -> c.curPeriod(Color.Black),
+      "wPeriods"  -> c.curPeriod(Color.White),
       "white"     -> c.remainingTime(Color.White).toSeconds,
       "black"     -> c.remainingTime(Color.Black).toSeconds,
       "emerg"     -> c.config.emergSeconds

@@ -107,6 +107,15 @@ private object bits {
             renderLabel(form("time"), trans.minutesPerSide()),
             renderSelect(form("time"), clockTimeChoices, (a, b) => a.replace(".0", "") == b)
           ),
+          div(cls := "byoyomi_choice")(
+            renderLabel(form("byoyomi"), trans.byoyomiInSeconds()),
+            renderSelect(form("byoyomi"), clockByoyomiChoices)
+          ),
+          renderRadios(form("periods"), periodsChoices),
+          //div(cls := "periods_choice")(
+          //  renderLabel(form("periods"), trans.byoyomiInSeconds()),
+          //  renderSelect(form("periods"), clockByoyomiChoices)
+          //),
           div(cls := "increment_choice")(
             renderLabel(form("increment"), trans.incrementInSeconds()),
             renderSelect(form("increment"), clockIncrementChoices)
@@ -117,14 +126,32 @@ private object bits {
           div(cls := "time_choice slider")(
             trans.minutesPerSide(),
             ": ",
-            span(chess.Clock.Config(~form("time").value.map(x => (x.toDouble * 60).toInt), 0).limitString),
+            span(chess.Clock.Config(~form("time").value.map(x => (x.toDouble * 60).toInt), 0, 0, 1).limitString),
             renderInput(form("time"))
           ),
-          div(cls := "increment_choice slider")(
-            trans.incrementInSeconds(),
+          div(cls := "byoyomi_choice slider")(
+            trans.byoyomiInSeconds(),
             ": ",
-            span(form("increment").value),
-            renderInput(form("increment"))
+            span(form("byoyomi").value),
+            renderInput(form("byoyomi"))
+          ),
+          raw("""<a class="advanced_toggle"></a>"""),
+          div(cls := "advanced_setup hidden")(
+            frag(
+              br,
+              trans.periods(),
+              div(cls := "periods buttons")(
+                div(id := "config_periods")(
+                  renderRadios(form("periods"), periodsChoices)
+                )
+              )
+            ),
+            div(cls := "increment_choice slider")(
+              trans.incrementInSeconds(),
+              ": ",
+              span(form("increment").value),
+              renderInput(form("increment"))
+            )
           )
         ),
       div(cls := "correspondence")(

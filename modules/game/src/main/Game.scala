@@ -225,9 +225,11 @@ case class Game(
   def lastMoveKeys: Option[String] = {
     history.lastMove map {
       case Uci.Drop(target, pos) => s"${target.forsyth}*$pos" // changed
-      case m: Uci.Move         => m.keys
+      case m: Uci.Move           => m.keys
     }
   }
+
+  def pocketsKeys: Option[String] = board.crazyData.map { data => data.pockets.keys }
 
   def updatePlayer(color: Color, f: Player => Player) =
     color.fold(
@@ -253,6 +255,12 @@ case class Game(
     clock map { c =>
       start.withClock(c.start)
     }
+
+  def moveToNextPeriod = {
+    clock map { c =>
+      start.withClock(c.nextPeriod(turnColor))
+    }
+  }
 
   def correspondenceClock: Option[CorrespondenceClock] =
     daysPerTurn map { days =>
@@ -442,12 +450,22 @@ case class Game(
 
   def drawn = finished && winner.isEmpty
 
-  def outoftime(withGrace: Boolean): Boolean =
-    if (isCorrespondence) outoftimeCorrespondence else outoftimeClock(withGrace)
+  def outoftime(withGrace: Boolean): Boolean = {
+    if (isCorrespondence)
+      outoftimeCorrespondence
+    else outoftimeClock(withGrace)
+  }
+
+  def nextPeriodClock(withGrace: Boolean): Boolean = 
+    clock ?? { c =>
+      !isCorrespondence && clockValidity && c.outOfTime(turnColor, withGrace) && c.hasPeriodsLeft(turnColor)
+    }
+
+  private def clockValidity: Boolean = started && playable && (bothPlayersHaveMoved || isSimul || isSwiss)
 
   private def outoftimeClock(withGrace: Boolean): Boolean =
     clock ?? { c =>
-      started && playable && (bothPlayersHaveMoved || isSimul || isSwiss) && {
+      clockValidity && {
         (!c.isRunning && !c.isInit) || c.outOfTime(turnColor, withGrace)
       }
     }
@@ -674,7 +692,7 @@ object Game {
   val idRegex         = """[\w-]{8}""".r
   def validId(id: ID) = idRegex matches id
 
-  private val boardApiRatedMinClock = chess.Clock.Config(20 * 60, 0)
+  private val boardApiRatedMinClock = chess.Clock.Config(20 * 60, 0, 0, 0)
 
   def isBoardCompatible(game: Game): Boolean =
     game.clock.fold(true) { c =>

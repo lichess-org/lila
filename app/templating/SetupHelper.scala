@@ -65,6 +65,18 @@ trait SetupHelper { self: I18nHelper =>
     (s.toString, s.toString, none)
   }
 
+  val clockByoyomiChoices: List[SelectChoice] = {
+    (0 to 20).toList ::: List(25, 30, 35, 40, 45, 60, 90, 120, 150, 180)
+  } map { s =>
+    (s.toString, s.toString, none)
+  }
+
+  val periodsChoices: List[SelectChoice] = {
+    (1 to 5).toList map { s =>
+      (s.toString, s.toString, none)
+    }
+  }
+
   val corresDaysChoices: List[SelectChoice] =
     ("1", "One day", none) :: List(2, 3, 5, 7, 10, 14).map { d =>
       (d.toString, s"${d} days", none)
@@ -90,6 +102,12 @@ trait SetupHelper { self: I18nHelper =>
     List(
       (Mode.Casual.id.toString, trans.casual.txt(), none),
       (Mode.Rated.id.toString, trans.rated.txt(), none)
+    )
+
+  def translatedByoyomiChoices(implicit lang: Lang) =
+    List(
+      (1, trans.yes.txt(), none),
+      (0, trans.no.txt(), none)
     )
 
   def translatedIncrementChoices(implicit lang: Lang) =
@@ -191,6 +209,7 @@ trait SetupHelper { self: I18nHelper =>
   def translatedPieceNotationChoices(implicit lang: Lang) =
     List(
       (Pref.PieceNotation.WESTERN, "Western notation"),
+      (Pref.PieceNotation.WESTERN2, "Western2 notation"),
       (Pref.PieceNotation.JAPANESE, "Japanese notation"),
       (Pref.PieceNotation.KAWASAKI, "Kawasaki notation"), // trans.preferences.pgnLetter.txt()
     )

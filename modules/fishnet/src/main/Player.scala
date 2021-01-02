@@ -29,7 +29,7 @@ final class Player(
     }
 
   private val delayFactor  = 0.011f
-  private val defaultClock = Clock(300, 0)
+  private val defaultClock = Clock(300, 0, 0, 0)
 
   private def delayFor(g: Game): Option[FiniteDuration] =
     if (!g.bothPlayersHaveMoved) 2.seconds.some
@@ -66,7 +66,8 @@ final class Player(
               Work.Clock(
                 wtime = clk.remainingTime(White).centis,
                 btime = clk.remainingTime(Black).centis,
-                inc = clk.incrementSeconds
+                inc = clk.incrementSeconds,
+                byo = clk.byoyomiSeconds
               )
             },
             tries = 0,

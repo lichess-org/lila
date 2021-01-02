@@ -32,12 +32,16 @@ object BSONHandlers {
         for {
           limit <- doc.getAsTry[Int]("limit")
           inc   <- doc.getAsTry[Int]("increment")
-        } yield ClockConfig(limit, inc)
+          byo   <- doc.getAsTry[Int]("byoyomi")
+          per  <- doc.getAsTry[Int]("periods")
+        } yield ClockConfig(limit, inc, byo, per)
     },
     c =>
       BSONDocument(
         "limit"     -> c.limitSeconds,
-        "increment" -> c.incrementSeconds
+        "increment" -> c.incrementSeconds,
+        "byoyomi"   -> c.byoyomiSeconds,
+        "periods"   -> c.periods
       )
   )
 

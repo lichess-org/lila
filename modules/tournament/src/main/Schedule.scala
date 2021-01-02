@@ -301,11 +301,11 @@ object Schedule {
   private def zhEliteTc(s: Schedule) = {
     val TC = chess.Clock.Config
     s.at.getDayOfMonth / 7 match {
-      case 0 => TC(3 * 60, 0)
-      case 1 => TC(1 * 60, 1)
-      case 2 => TC(3 * 60, 2)
-      case 3 => TC(1 * 60, 0)
-      case _ => TC(2 * 60, 0) // for the sporadic 5th Saturday
+      case 0 => TC(3 * 60, 0, 0, 1)
+      case 1 => TC(1 * 60, 1, 0, 1)
+      case 2 => TC(3 * 60, 2, 0, 1)
+      case 3 => TC(1 * 60, 0, 0, 1)
+      case _ => TC(2 * 60, 0, 0, 1) // for the sporadic 5th Saturday
     }
   }
 
@@ -318,20 +318,20 @@ object Schedule {
     (s.freq, s.variant, s.speed) match {
       // Special cases.
       case (Weekend, Crazyhouse, Blitz)                 => zhEliteTc(s)
-      case (Hourly, Crazyhouse, SuperBlitz) if zhInc(s) => TC(3 * 60, 1)
-      case (Hourly, Crazyhouse, Blitz) if zhInc(s)      => TC(4 * 60, 2)
-      case (Hourly, Standard, Blitz) if standardInc(s)  => TC(3 * 60, 2)
+      case (Hourly, Crazyhouse, SuperBlitz) if zhInc(s) => TC(3 * 60, 1, 0, 1)
+      case (Hourly, Crazyhouse, Blitz) if zhInc(s)      => TC(4 * 60, 2, 0, 1)
+      case (Hourly, Standard, Blitz) if standardInc(s)  => TC(3 * 60, 2, 0, 1)
 
-      case (Shield, variant, Blitz) if variant.exotic => TC(3 * 60, 2)
+      case (Shield, variant, Blitz) if variant.exotic => TC(3 * 60, 2, 0, 1)
 
-      case (_, _, UltraBullet) => TC(15, 0)
-      case (_, _, HyperBullet) => TC(30, 0)
-      case (_, _, Bullet)      => TC(60, 0)
-      case (_, _, HippoBullet) => TC(2 * 60, 0)
-      case (_, _, SuperBlitz)  => TC(3 * 60, 0)
-      case (_, _, Blitz)       => TC(5 * 60, 0)
-      case (_, _, Rapid)       => TC(10 * 60, 0)
-      case (_, _, Classical)   => TC(20 * 60, 10)
+      case (_, _, UltraBullet) => TC(15, 0, 0, 1)
+      case (_, _, HyperBullet) => TC(30, 0, 0, 1)
+      case (_, _, Bullet)      => TC(60, 0, 0, 1)
+      case (_, _, HippoBullet) => TC(2 * 60, 0, 0, 1)
+      case (_, _, SuperBlitz)  => TC(3 * 60, 0, 0, 1)
+      case (_, _, Blitz)       => TC(5 * 60, 0, 0, 1)
+      case (_, _, Rapid)       => TC(10 * 60, 0, 0, 1)
+      case (_, _, Classical)   => TC(20 * 60, 10, 0, 1)
     }
   }
   private[tournament] def addCondition(s: Schedule) =

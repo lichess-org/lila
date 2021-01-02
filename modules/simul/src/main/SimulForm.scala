@@ -22,11 +22,19 @@ object SimulForm {
   val clockExtraChoices = options(clockExtras, "%d minute{s}")
   val clockExtraDefault = 0
 
+  val clockByoyomi          = (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10) ++ (90 to 180 by 30)
+  val clockByoyomiDefault   = 0
+  val clockByoyomiChoices = options(clockByoyomi, "%d second{s}")
+
+  val periods         = (1 to 5)
+  val periodsDefault   = 1
+  val periodsChoices = options(periods, "%d period{s}")
+
   val colors = List("white", "random", "black")
   val colorChoices = List(
-    "white"  -> "Black",
+    "white"  -> "Sente",
     "random" -> "Random",
-    "black"  -> "White"
+    "black"  -> "Gote"
   )
   val colorDefault = "white"
 
@@ -65,19 +73,13 @@ object SimulForm {
         "name"           -> nameType(host),
         "clockTime"      -> numberIn(clockTimeChoices),
         "clockIncrement" -> numberIn(clockIncrementChoices),
+        "clockByoyomi"   -> numberIn(clockByoyomiChoices),
+        "periods"        -> numberIn(periodsChoices),
         "clockExtra"     -> numberIn(clockExtraChoices),
         "variants" -> list {
           number.verifying(
             Set(
-              chess.variant.Standard.id,
-              chess.variant.Chess960.id,
-              chess.variant.KingOfTheHill.id,
-              chess.variant.ThreeCheck.id,
-              chess.variant.Antichess.id,
-              chess.variant.Atomic.id,
-              chess.variant.Horde.id,
-              chess.variant.RacingKings.id,
-              chess.variant.Crazyhouse.id
+              chess.variant.Standard.id
             ) contains _
           )
         }.verifying("At least one variant", _.nonEmpty),
@@ -90,6 +92,8 @@ object SimulForm {
       name = host.titleUsername,
       clockTime = clockTimeDefault,
       clockIncrement = clockIncrementDefault,
+      clockByoyomi = clockByoyomiDefault,
+      periods = periodsDefault,
       clockExtra = clockExtraDefault,
       variants = List(chess.variant.Standard.id),
       position = StartingPosition.initial.fen.some,
@@ -113,6 +117,8 @@ object SimulForm {
       name: String,
       clockTime: Int,
       clockIncrement: Int,
+      clockByoyomi: Int,
+      periods: Int,
       clockExtra: Int,
       variants: List[Int],
       position: Option[String],

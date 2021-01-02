@@ -30,7 +30,9 @@ final class SwissForm(implicit mode: Mode) {
         ),
         "clock" -> mapping(
           "limit"     -> number.verifying(clockLimits.contains _),
-          "increment" -> number(min = 0, max = 600)
+          "increment" -> number(min = 0, max = 600),
+          "byoyomi"   -> number(min = 0, max = 600),
+          "periods"   -> number(min = 1, max = 5)
         )(ClockConfig.apply)(ClockConfig.unapply)
           .verifying("Invalid clock", _.estimateTotalSeconds > 0),
         "startsAt"      -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
@@ -46,7 +48,7 @@ final class SwissForm(implicit mode: Mode) {
   def create =
     form() fill SwissData(
       name = none,
-      clock = ClockConfig(180, 0),
+      clock = ClockConfig(180, 0, 0, 1),
       startsAt = Some(DateTime.now plusSeconds {
         if (mode == Mode.Prod) 60 * 10 else 20
       }),
@@ -87,7 +89,7 @@ object SwissForm {
 
   val clockLimitChoices = options(
     clockLimits,
-    l => s"${chess.Clock.Config(l, 0).limitString}${if (l <= 1) " minute" else " minutes"}"
+    l => s"${chess.Clock.Config(l, 0, 0, 1).limitString}${if (l <= 1) " minute" else " minutes"}"
   )
 
   val roundIntervals: Seq[Int] =

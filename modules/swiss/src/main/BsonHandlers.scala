@@ -18,12 +18,14 @@ private object BsonHandlers {
         for {
           limit <- doc.getAsTry[Int]("limit")
           inc   <- doc.getAsTry[Int]("increment")
-        } yield ClockConfig(limit, inc)
+        } yield ClockConfig(limit, inc, 0, 1)
     },
     c =>
       BSONDocument(
         "limit"     -> c.limitSeconds,
-        "increment" -> c.incrementSeconds
+        "increment" -> c.incrementSeconds,
+        "byoyomi"   -> c.byoyomiSeconds,
+        "periods"   -> c.periods
       )
   )
   implicit val variantHandler = lila.db.dsl.quickHandler[Variant](

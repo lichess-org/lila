@@ -18,12 +18,16 @@ export interface ClockData {
   running: boolean;
   initial: Seconds;
   increment: Seconds;
+  byoyomi: Seconds;
+  periods: number;
   white: Seconds;
   black: Seconds;
   emerg: Seconds;
   showTenths: TenthsPref;
   showBar: boolean;
   moretime: number;
+  wPeriods: number;
+  bPeriods: number;
 }
 
 interface Times {
@@ -63,7 +67,7 @@ export class ClockController {
   };
 
   showTenths: (millis: Millis) => boolean;
-  showBar: boolean;
+  showBar = {} as ColorMap<boolean>;
   times: Times;
 
   barTime: number;
@@ -74,6 +78,11 @@ export class ClockController {
     white: {},
     black: {},
   } as ColorMap<ClockElements>;
+
+  byoyomi: number;
+
+  startPeriod: number;
+  curPeriods = {} as ColorMap<number>;
 
   private tickCallback?: number;
 
@@ -86,7 +95,14 @@ export class ClockController {
       this.showTenths = (time) => time < cutoff;
     }
 
-    this.showBar = cdata.showBar && !this.opts.nvui;
+    this.byoyomi = cdata.byoyomi;
+
+    this.startPeriod = cdata.periods;
+    this.curPeriods["white"] = cdata.wPeriods ?? 0;
+    this.curPeriods["black"] = cdata.bPeriods ?? 0;
+
+    this.showBar["white"] = cdata.showBar && !this.opts.nvui && this.curPeriods["white"] === 0;
+    this.showBar["black"] = cdata.showBar && !this.opts.nvui && this.curPeriods["black"] === 0;
     this.barTime = 1000 * (Math.max(cdata.initial, 2) + 5 * cdata.increment);
     this.timeRatioDivisor = 1 / this.barTime;
 
@@ -121,6 +137,15 @@ export class ClockController {
   addTime = (color: Color, time: Centis): void => {
     this.times[color] += time * 10;
   };
+
+  nextPeriod = (color: Color): void => {
+    this.curPeriods[color] += 1;
+    this.times[color] += this.byoyomi * 1000;
+    if (this.opts.soundColor === color) this.emergSound.play();
+    //this.barTime = this.byoyomi * 1000;
+    //this.timeRatioDivisor = 1 / this.barTime;
+    this.showBar[color] = false; // let's just not show the bar for byoyomi
+  }
 
   stopClock = (): Millis | void => {
     const color = this.times.activeColor;

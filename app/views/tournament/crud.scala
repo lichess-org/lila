@@ -106,8 +106,16 @@ object crud {
         form3.group(form("clockTime"), raw("Clock time"), half = true)(
           form3.select(_, DataForm.clockTimeChoices)
         ),
+        form3.group(form("clockByoyomi"), raw("Clock Byoyomi"), half = true)(
+          form3.select(_, DataForm.clockByoyomiChoices)
+        )
+      ),
+      form3.split(
         form3.group(form("clockIncrement"), raw("Clock increment"), half = true)(
           form3.select(_, DataForm.clockIncrementChoices)
+        ),
+        form3.group(form("periods"), raw("Number of byoyomi periods"), half = true)(
+          form3.select(_, DataForm.periodsChoices)
         )
       ),
       form3.split(

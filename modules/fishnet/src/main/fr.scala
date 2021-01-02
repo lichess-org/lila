@@ -63,6 +63,7 @@ final class FishnetRedis(
     List(
       clock.wtime,
       clock.btime,
-      clock.inc
+      clock.inc,
+      clock.byo
     ) mkString " "
 }
