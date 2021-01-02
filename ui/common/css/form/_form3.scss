@@ -47,6 +47,8 @@ textarea.form-control {
 }
 .form3 .error {
   color: $c-error;
+  font-weight: bold;
+  font-size: 1.3rem;
 }
 .form-help {
   color: $c-font-dim;

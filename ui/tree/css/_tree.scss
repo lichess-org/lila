@@ -79,7 +79,7 @@
     color: $c-font;
   }
   &-column > move {
-    flex: 0 0 87%;
+    flex: 0 0 83%;
     display: flex;
     font-size: 1.185em;
     line-height: 1.75em;
@@ -107,7 +107,7 @@
     font-size: .82em;
   }
   &-column > index {
-    flex: 0 0 13%;
+    flex: 0 0 17%;
     display: flex;
     justify-content: center;
     border-right: $border;
