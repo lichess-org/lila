@@ -45,7 +45,6 @@
     padding: 2vmin;
 
     &__rating {
-
       strong {
         @extend %flex-center;
 
@@ -114,17 +113,32 @@
     }
 
     &__bar {
-      @extend %box-radius, %flex-center;
+      @extend %box-radius-force, %flex-center;
 
+      position: relative;
       justify-content: center;
       padding: 0 1em;
       height: 2.5em;
-
-      $c-bar-bg: $c-bg-zebra2;
-      $c-bar-fg: mix($c-bg-page, $c-primary, 40%);
-
+      background: $c-bg-zebra2;
       font-weight: bold;
-      background: linear-gradient(to right, $c-bar-fg 0%, $c-bar-fg var(--p), $c-bar-bg var(--p), $c-bar-bg 100%);
+
+      &::before {
+        @extend %box-radius;
+        z-index: 0;
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: var(--p);
+        background: mix($c-bg-page, $c-primary, 40%) linear-gradient(180deg, rgba(255%, 255%, 255%, 0.15) 0%, transparent 35%);
+        animation: bar-glider-anim 3s linear infinite;
+        @include transition(width, 1s);
+      }
+      &::after {
+        z-index: 1;
+        content: attr(data-text);
+      }
     }
   }
 

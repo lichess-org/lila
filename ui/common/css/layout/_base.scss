@@ -46,32 +46,6 @@ body {
   }
 }
 
-@if $debug {
-  #main-wrap::before {
-    position: absolute;
-    z-index: 9999;
-    background: $c-accent;
-    color: #fff;
-    font-weight: bold;
-    padding: 1em;
-    content: 'COL 1';
-
-    @include breakpoint($mq-col2-uniboard) {
-      content: 'COL 2';
-    }
-
-
-    @include breakpoint($mq-col2-uniboard-squeeze) {
-      content: 'COL 2 squeezed';
-    }
-
-
-    @include breakpoint($mq-col3-uniboard) {
-      content: 'COL 3';
-    }
-  }
-}
-
 main {
   grid-area: main;
 

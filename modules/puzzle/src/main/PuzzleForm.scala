@@ -7,8 +7,15 @@ import lila.common.Form.{ numberIn, stringIn }
 
 object PuzzleForm {
 
+  case class RoundData(win: Boolean, replayDays: Option[Int]) {
+    def result = Result(win)
+  }
+
   val round = Form(
-    single("win" -> number)
+    mapping(
+      "win"        -> boolean,
+      "replayDays" -> optional(numberIn(PuzzleDashboard.dayChoices))
+    )(RoundData.apply)(RoundData.unapply)
   )
 
   val vote = Form(
