@@ -697,7 +697,7 @@ export default class RoundController {
     if (v && toSubmit) {
       if (this.moveToSubmit) this.actualSendMove("move", this.moveToSubmit);
       else this.actualSendMove("drop", this.dropToSubmit);
-      li.sound.confirmation();
+      //li.sound.confirmation();
     } else this.jump(this.ply);
     this.cancelMove();
     if (toSubmit) this.setLoading(true, 300);
