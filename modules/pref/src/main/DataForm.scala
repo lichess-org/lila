@@ -227,7 +227,7 @@ object DataForm {
 
   val pieceNotation = Form(
     single(
-      "pieceNotation" -> text.verifying(Set("0", "1", "2") contains _)
+      "pieceNotation" -> text.verifying(Set("0", "1", "2", "3") contains _)
     )
   )
 }

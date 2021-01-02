@@ -221,9 +221,11 @@ object Pref {
     val WESTERN = 0
     val KAWASAKI = 1
     val JAPANESE = 2
+    val WESTERN2 = 3
 
     val choices = Seq(
-      WESTERN -> "0",
+      WESTERN  -> "0",
+      WESTERN2 -> "3",
       KAWASAKI -> "1",
       JAPANESE -> "2"
     )

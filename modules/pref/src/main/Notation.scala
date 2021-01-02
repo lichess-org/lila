@@ -9,12 +9,13 @@ sealed class Notation private[pref] (val key: String, val name: String) {
 
 object Notations {
 
-  val default = new Notation("0", "Western")
+  val default = new Notation("0", "Western") // 11
 
   val list = List(
     default,
+    new Notation("3", "Western2"), // 1a
     new Notation("1", "Kawasaki"),
-    new Notation("2", "Japanese"),
+    new Notation("2", "Japanese")
   )
 
   lazy val allByKey = list map { c =>

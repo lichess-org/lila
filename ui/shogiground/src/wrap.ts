@@ -48,10 +48,18 @@ export function renderWrap(
 
   if (s.coordinates) {
     const orientClass = s.orientation === "black" ? " black" : "";
-    if(s.notation === Notation.WESTERN){
+    if(s.notation === Notation.WESTERN || s.notation === Notation.KAWASAKI){
       container.appendChild(
         renderCoords(
           ["9", "8", "7", "6", "5", "4", "3", "2", "1"],
+          "ranks" + orientClass
+        )
+      );
+    }
+    else if(s.notation === Notation.WESTERN2){
+      container.appendChild(
+        renderCoords(
+          ["i", "h", "g", "f", "e", "d", "c", "b", "a"],
           "ranks" + orientClass
         )
       );

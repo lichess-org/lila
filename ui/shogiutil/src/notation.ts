@@ -15,6 +15,7 @@ export function notationStyle(notation: number) : (move: MoveInfo) => string {
     switch(notation){
         case 1: return kawasakiShogiNotation;
         case 2: return japaneseShogiNotation;
+        case 3: return westernShogiNotation2;
         default: return westernShogiNotation;
     }
 }
@@ -57,24 +58,24 @@ function fixPawnMove(move: string): string {
 
 function kawasakiShogiNotation(move: MoveInfo): string {
     const index = {
-        "9": "一",
-        "8": "二",
-        "7": "三",
-        "6": "四",
-        "5": "五",
-        "4": "六",
-        "3": "七",
-        "2": "八",
-        "1": "九",
-        a: "９",
-        b: "８",
-        c: "７",
-        d: "６",
-        e: "５",
-        f: "４",
-        g: "３",
-        h: "２",
-        i: "１",
+        "9": "1",
+        "8": "2",
+        "7": "3",
+        "6": "4",
+        "5": "5",
+        "4": "6",
+        "3": "7",
+        "2": "8",
+        "1": "9",
+        a: "9",
+        b: "8",
+        c: "7",
+        d: "6",
+        e: "5",
+        f: "4",
+        g: "3",
+        h: "2",
+        i: "1",
         P: "歩",
         L: "香",
         N: "桂",
@@ -93,7 +94,7 @@ function kawasakiShogiNotation(move: MoveInfo): string {
     const parsed = parseMove(move.san);
     const piece = index[parsed.piece];
     const origin = parsed.origin ? (`(${index[parsed.origin[0]]}${index[parsed.origin[1]]})`) : "";
-    const connector = parsed.capture ? "ｘ" : (parsed.drop ? "＊" : "－")
+    const connector = parsed.capture ? "x" : (parsed.drop ? "*" : "-")
     const dest = `${index[parsed.dest[0]]}${index[parsed.dest[1]]}`;
     const promotion = parsed.promotion ? parsed.promotion : ""
     const color = move.fen ? getColorFromSfen(move.fen) : "white";
@@ -107,7 +108,6 @@ function kawasakiShogiNotation(move: MoveInfo): string {
     return `${colorSymbol}${piece}${origin}${connector}${dest}${promotion}`;
 }
 
-
 function westernShogiNotation(move: MoveInfo): string {
     const index = {
         "9": "1",
@@ -119,6 +119,43 @@ function westernShogiNotation(move: MoveInfo): string {
         "3": "7",
         "2": "8",
         "1": "9",
+        a: "9",
+        b: "8",
+        c: "7",
+        d: "6",
+        e: "5",
+        f: "4",
+        g: "3",
+        h: "2",
+        i: "1",
+        U: "+L",
+        M: "+N",
+        A: "+S",
+        T: "+P",
+        H: "+B",
+        D: "+R",
+    };
+    const parsed = parseMove(move.san);
+    const piece = index[parsed.piece] ? index[parsed.piece] : parsed.piece;
+    const origin = parsed.origin ? (`${index[parsed.origin[0]]}${index[parsed.origin[1]]}`) : "";
+    const connector = parsed.capture ? "x" : (parsed.drop ? "*" : "-")
+    const dest = `${index[parsed.dest[0]]}${index[parsed.dest[1]]}`;
+    const promotion = parsed.promotion ? parsed.promotion : "";
+
+    return `${piece}${origin}${connector}${dest}${promotion}`;
+}
+
+function westernShogiNotation2(move: MoveInfo): string {
+    const index = {
+        "9": "a",
+        "8": "b",
+        "7": "c",
+        "6": "d",
+        "5": "e",
+        "4": "f",
+        "3": "g",
+        "2": "h",
+        "1": "i",
         a: "9",
         b: "8",
         c: "7",

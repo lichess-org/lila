@@ -211,4 +211,4 @@ export const ranks: readonly Rank[] = [
   "9",
 ];
 
-export const enum Notation {WESTERN, JAPANESE};
+export const enum Notation {WESTERN, KAWASAKI, JAPANESE, WESTERN2};
