@@ -16,7 +16,13 @@ $(function () {
     var colorPref = $trainer.data("color-pref");
     var color;
     var startAt, score;
-    const $notation = $(".notation-0")[0] ? 0 : 1;
+    const notation = $(".notation-0")[0]
+      ? 0
+      : $(".notation-1")[0]
+      ? 1
+      : $(".notation-2")[0]
+      ? 2
+      : 3;
 
     var showColor = function () {
       color =
@@ -178,13 +184,27 @@ $(function () {
         8: "八",
         9: "九",
       };
-      switch ($notation) {
+      const rankMap2 = {
+        1: "a",
+        2: "b",
+        3: "c",
+        4: "d",
+        5: "e",
+        6: "f",
+        7: "g",
+        8: "h",
+        9: "i",
+      };
+      switch (notation) {
         // 11
         case 0:
+        case 1:
           return key;
         // 1一
-        default:
+        case 2:
           return key[0] + rankMap1[key[1]];
+        default:
+          return key[0] + rankMap2[key[1]];
       }
     }
 
