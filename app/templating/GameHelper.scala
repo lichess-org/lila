@@ -18,6 +18,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   private val dataColor    = attr("data-color")
   private val dataFen      = attr("data-fen")
   private val dataLastmove = attr("data-lastmove")
+  private val dataPocket   = attr("data-pocket")
 
   def netBaseUrl: String
   def cdnUrl(path: String): String
@@ -263,7 +264,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       dataLive := isLive.option(game.id),
       dataColor := pov.color.name,
       dataFen := Forsyth.exportBoard(game.board),
-      dataLastmove := ~game.lastMoveKeys
+      dataLastmove := ~game.lastMoveKeys,
+      dataPocket := ~game.pocketsKeys
     )(cgWrapContent)
   }
 
@@ -281,6 +283,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       dataColor := pov.color.name,
       dataFen := Forsyth.exportBoard(pov.game.board),
       dataLastmove := ~pov.game.lastMoveKeys,
+      dataPocket := ~pov.game.pocketsKeys,
       target := blank.option("_blank")
     )(cgWrapContent)
   }
