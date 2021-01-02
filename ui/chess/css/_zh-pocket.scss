@@ -9,6 +9,8 @@
     background: #888;
   }
   &-c1 {
+    display: flex;
+    align-items: center;
     flex: 0 0 14%;
     max-width: 10vmin;
   }
@@ -41,16 +43,20 @@
     &.premove {
       background-color: #555;
     }
+    &.selected-square {
+      background-color: #14551e80 !important;
+      @extend %box-radius;
+    }
   }
   &.usable {
     piece {
       cursor: pointer;
       pointer-events: auto;
       &:hover {
-        background-color: #aaa;
+        background-color: #14551e50;
       }
       &:first-child:hover {
-        @extend %box-radius-left;
+        @extend %box-radius;
       }
     }
   }
