@@ -77,6 +77,16 @@ function notationView(ctrl: NotationCtrl, current: Key) {
         class: { active: current === s[0] },
         attrs: { "data-icon": "E" },
       },
-      s[1]
+      notationDisplay(s[1])
     );
+}
+
+function notationDisplay(notation: string): string {
+  switch (notation) {
+    case "Western": return  "Western        - P-76";
+    case "Western2": return "Western        - P-7f";
+    case "Japanese": return "Japanese       - ７六歩";
+    case "Kawasaki": return "Kitao-Kawasaki - 歩-76";
+    default: return notation;
+  } 
 }
