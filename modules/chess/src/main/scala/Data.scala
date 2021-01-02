@@ -45,6 +45,7 @@ case class Pockets(white: Pocket, black: Pocket) {
       copy(black = black store piece.role),
       copy(white = white store piece.role)
     )
+  def keys: String = white.roles.map(_.forsyth).mkString("").toUpperCase() + black.roles.map(_.forsyth).mkString("").toLowerCase()
 }
 
 case class Pocket(roles: List[Role]) {
