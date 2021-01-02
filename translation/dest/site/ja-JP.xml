@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">友達と対局する</string>
-  <string name="playWithTheMachine">AIと対局する</string>
+  <string name="playWithTheMachine">AI と対局する</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">対局に招待するときこのURLを知らせてください</string>
   <string name="gameOver">終局</string>
   <string name="waitingForOpponent">相手を待っています</string>
@@ -529,7 +529,7 @@
   <string name="signedOut">サインアウトしました。</string>
   <string name="loginSuccessful">ログインしました</string>
   <string name="playOnTheBoardOffline">オフライン（2人対局）</string>
-  <string name="playOfflineComputer">オフラインでＣＰＵと対戦する</string>
+  <string name="playOfflineComputer">オフラインで CPU と対局する</string>
   <string name="opponent">対局相手</string>
   <string name="learnMenu">学ぶ</string>
   <string name="studyMenu">研究</string>
