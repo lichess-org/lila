@@ -7,7 +7,7 @@ import { eventPosition, opposite } from "shogiground/util";
 import EditorCtrl from "./ctrl";
 import shogiground from "./shogiground";
 import { displaySfen, undisplaySfen, switchColorSfen } from "shogiutil/util";
-import { Selected, EditorState } from "./interfaces";
+import { OpeningPosition, Selected, EditorState } from "./interfaces";
 // @ts-ignore
 import { Shogi } from "shogiutil/vendor/Shogi.js";
 
@@ -90,6 +90,10 @@ function dragFromPocket(
   }
 }
 
+function optgroup(name: string, opts: VNode[]): VNode {
+  return h('optgroup', { attrs: { label: name } }, opts);
+}
+
 function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
   return h(
     "form",
@@ -133,8 +137,41 @@ function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
 }
 
 function controls(ctrl: EditorCtrl, state: EditorState): VNode {
+  const position2option = function(pos: OpeningPosition): VNode {
+    return h('option', {
+      attrs: {
+        value: pos.epd || pos.fen,
+        'data-fen': pos.fen,
+      }
+    }, pos.eco ? `${pos.eco} ${pos.name}` : pos.name);
+  };
   return h("div.board-editor__tools", [
     pocket(ctrl, "black"),
+    ...(ctrl.cfg.embed || !ctrl.cfg.positions ? [] : [h('div', [
+      h('select.positions', {
+        props: {
+          value: state.fen.split(' ').slice(0, 4).join(' ')
+        },
+        on: {
+          change(e) {
+            const el = e.target as HTMLSelectElement;
+            let value = el.selectedOptions[0].getAttribute('data-fen');
+            if (value == 'prompt') value = (prompt('Paste FEN') || '').trim();
+            if (!value || !ctrl.setFen(value)) el.value = '';
+          }
+        }
+      }, [
+        optgroup(ctrl.trans.noarg('setTheBoard'), [
+          h('option', {
+            attrs: {
+              selected: true
+            }
+          }, `- ${ctrl.trans.noarg('boardEditor')}  -`),
+          ...ctrl.extraPositions.map(position2option)
+        ]),
+        optgroup(ctrl.trans.noarg('popularOpenings'), ctrl.cfg.positions.map(position2option))
+      ])
+    ])]),
     h("div.metadata", [
       h(
         "div.color",
