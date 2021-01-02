@@ -1,6 +1,3 @@
-body.transp .mini-game {
-  text-shadow: $text-shadow;
-}
 .mini-game {
   @extend %nowrap-hidden;
 
@@ -12,6 +9,7 @@ body.transp .mini-game {
 
   &__player {
     @extend %flex-between-nowrap;
+    @extend %page-text-shadow !optional;
 
     padding: 3px 2px 0 2px;
 

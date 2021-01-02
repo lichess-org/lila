@@ -1,7 +1,5 @@
-body.transp .tour-home__side {
-  text-shadow: $text-shadow;
-}
 .tour-home__side {
+  @extend %page-text-shadow !optional;
   h2 {
     font-size: 1.5em;
     margin-top: 30px;

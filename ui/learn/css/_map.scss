@@ -3,12 +3,12 @@
 
   .categ > h2 {
     @extend %roboto;
+    @extend %page-text-shadow !optional;
 
     font-size: 2em;
     letter-spacing: 8px;
     text-transform: uppercase;
     color: #999;
-    text-shadow: $text-shadow;
     text-align: center;
   }
 
@@ -179,10 +179,10 @@
   }
 
   .what_next > p {
+    @extend %page-text-shadow !optional;
     width: 100%;
     text-align: center;
     margin: 20px 0;
     font-size: 1.2em;
-    text-shadow: $text-shadow;
   }
 }

@@ -68,10 +68,9 @@ body {
   display: none;
 }
 
-body.transp .about-side {
-  text-shadow: $text-shadow;
-}
 .about-side {
+  @extend %page-text-shadow !optional;
+
   margin-top: $block-gap;
 }
 
