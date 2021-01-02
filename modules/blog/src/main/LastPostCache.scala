@@ -34,7 +34,6 @@ final class LastPostCache(
       })
     } addEffect maybeNotifyLastPost map { _.flatten }
     miniPosts.map { m =>
-      // println("fetched in lastpostcache length: " + m.length)
     }
     miniPosts
   }
@@ -45,18 +44,11 @@ final class LastPostCache(
   private val wasTranslated = collection.mutable.Map[String, Option[Boolean]]().withDefaultValue(None)
 
   private def maybeNotifyLastPost(posts: List[List[MiniPost]]): Unit = {
-    // println("lastNotifiedId: " + lastNotifiedId)
-    // println("lastNotifiedTitle: " + lastNotifiedTitle)
-    // println("wasTranslated" + wasTranslated)
     posts foreach { postsLang =>
       postsLang.headOption foreach { last =>
-        // println("last in lastpostcache: " + last)
         val newBlogWasPosted = lastNotifiedId(last.langCode).??( (x) => {
-          // println("lastNotifiedId(" + last.langCode + "): " + lastNotifiedId(last.langCode))
-          // println("extracted id: " + x)
           last.id != x
         })
-        // println("newBlogWasPosted: " + newBlogWasPosted)
         if (last.langCode == "en-US") {
           // if english, notify if new blog id was detected
           if (newBlogWasPosted) notifier(last.id, last.langCode)
@@ -68,14 +60,12 @@ final class LastPostCache(
           // if japanese, notify if new blog title was detected and the japanese title is different from english title (meaning the blog was already translated)
 
           val enTitle = posts(BlogLangs.enIndex)(0).title
-          // println("enTitle: " + enTitle)
           val titleDifferentFromEn = last.title != enTitle
           val titleSameWithEn = !titleDifferentFromEn
           if (titleSameWithEn) wasTranslated += (last.langCode -> Some(false))
 
           val titleWasChanged = lastNotifiedTitle(last.langCode).??(last.title !=)
           val notYetTranslated = !wasTranslated(last.langCode).getOrElse(false)
-          // println(titleWasChanged, titleDifferentFromEn, notYetTranslated)
 
           if (titleWasChanged && titleDifferentFromEn && notYetTranslated) {
             notifier(last.id, last.langCode)
@@ -90,7 +80,6 @@ final class LastPostCache(
 
   def apply: List[MiniPost] = {
     val miniPosts = cache sync true
-    // println("miniPosts in lastpostcache length: " + miniPosts.length)
     miniPosts
   }
 }
