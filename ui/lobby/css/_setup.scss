@@ -36,7 +36,10 @@ $c-slider: $c-setup;
     background: $c-bg-zebra;
     border-top: $border;
   }
-
+  .advanced_toggle {
+    font-size: 20px;
+    color: #629924;
+  }
   .label_select {
     @extend %flex-center;
     text-align: left;

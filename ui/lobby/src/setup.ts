@@ -151,6 +151,10 @@ export default class Setup {
       forceFormPosition = !!$fenInput.val(),
       $timeInput = $form.find(".time_choice [name=time]"),
       $incrementInput = $form.find(".increment_choice [name=increment]"),
+      $byoyomiInput = $form.find(".byoyomi_choice [name=byoyomi]"),
+      $periodsInput = $form.find(".periods [name=periods]"),
+      $advancedSetup = $form.find(".advanced_setup"),
+      $advancedToggle = $form.find(".advanced_toggle"),
       $daysInput = $form.find(".days_choice [name=days]"),
       typ = $form.data("type"),
       $ratings = $modal.find(".ratings > div"),
@@ -162,10 +166,15 @@ export default class Setup {
           rated = $rated.prop("checked"),
           limit = $timeInput.val(),
           inc = $incrementInput.val(),
+          byo = $byoyomiInput.val(),
+          per = $periodsInput.filter(":checked").val(),
           // no rated variants with less than 30s on the clock
           cantBeRated =
             (timeMode == "1" && variantId != "1" && limit < 0.5 && inc == 0) ||
-            (variantId != "1" && timeMode != "1");
+            (variantId != "1" && timeMode != "1") ||
+            (timeMode == "1" && variantId != "1" && limit < 0.5 && byo == 0) ||
+            (timeMode == "1" && inc > 0 && byo > 0) ||
+            (timeMode == "1" && byo > 0 && per > 1);
         if (cantBeRated && rated) {
           $casual.click();
           return toggleButtons();
@@ -174,7 +183,7 @@ export default class Setup {
           .prop("disabled", !!cantBeRated)
           .siblings("label")
           .toggleClass("disabled", cantBeRated);
-        const timeOk = timeMode != "1" || limit > 0 || inc > 0,
+        const timeOk = timeMode != "1" || (limit > 0 || inc > 0 || byo > 0) && (byo || per == 1),
           ratedOk = typ != "hook" || !rated || timeMode != "0",
           aiOk = typ != "ai" || variantId != "3" || limit >= 1;
         if (timeOk && ratedOk && aiOk) {
@@ -183,11 +192,40 @@ export default class Setup {
             .filter(":not(.random)")
             .toggle(!rated || !randomColorVariants.includes(variantId));
         } else $submits.toggleClass("nope", true);
+
+        if(byo > 0) $(".periods").show();
+        else $(".periods").hide();
       },
       save = function () {
         self.save($form[0] as HTMLFormElement);
-      };
-
+      },
+      displayAdvanced = function() {
+        if($incrementInput.val() == 0 && $periodsInput.filter(":checked").val() == 1 || 
+        $timeModeSelect.val() != 1){
+          $advancedToggle.attr("data-icon", "R");
+          $advancedSetup.hide();
+          $advancedSetup.addClass("hidden");
+        }
+        else{
+          $advancedToggle.attr("data-icon", "S");
+          $advancedSetup.show();
+          $advancedSetup.removeClass("hidden");
+        };
+      },
+      // displays properly only for value < 20 or smth - slider increment
+      updateSlider = function(val) {
+        $incrementInput.val(val);
+        $(".increment_choice .ui-slider").slider("value", val);
+        $(".increment_choice input").siblings("span").text(val);
+      },
+      updatePeriods = function(val) {
+        $(".periods [name=periods]").val(val);
+        $(".periods #sf_periods_" + val).click();
+      },
+      resetPeriods = function() {
+        if($byoyomiInput.val() == 0) updatePeriods(1);
+      }
+      ;
     // This switches the color in sfen that is being sent to the server, make it better if you can
     $submits.click(() => {
       $fenInput.val(switchColorSfen($fenInput.val()));
@@ -212,7 +250,7 @@ export default class Setup {
         case "1":
         case "3":
           if (timeMode == "1") {
-            const time = $timeInput.val() * 60 + $incrementInput.val() * 40;
+            const time = $timeInput.val() * 60 + $incrementInput.val() * 40 + $byoyomiInput.val() * 25 * $periodsInput.filter(":checked").val();
             if (time < 30) key = "ultraBullet";
             else if (time < 180) key = "bullet";
             else if (time < 480) key = "blitz";
@@ -295,9 +333,17 @@ export default class Setup {
         toggleButtons();
         showRating();
       });
+      $timeInput.add($byoyomiInput).on("change", function () {
+        toggleButtons();
+        showRating();
+      });
+      $timeInput.add($periodsInput).on("change", function () {
+        toggleButtons();
+        showRating();
+      });
     } else
       li.slider().done(function () {
-        $timeInput.add($incrementInput).each(function (this: HTMLElement) {
+        $timeInput.add($incrementInput).add($byoyomiInput).each(function (this: HTMLElement) {
           const $input = $(this),
             $value = $input.siblings("span"),
             isTimeSlider = $input.parent().hasClass("time_choice"),
@@ -329,6 +375,7 @@ export default class Setup {
                 $input.val(time);
                 showRating();
                 toggleButtons();
+                resetPeriods();
               },
             })
           );
@@ -383,8 +430,10 @@ export default class Setup {
     $timeModeSelect
       .on("change", function (this: HTMLElement) {
         var timeMode = $(this).val();
-        $form.find(".time_choice, .increment_choice").toggle(timeMode == "1");
+        $form.find(".time_choice, .byoyomi_choice, .advanced_toggle").toggle(timeMode == "1");
         $form.find(".days_choice").toggle(timeMode == "2");
+        if(timeMode == "1") displayAdvanced();
+        if(timeMode == "2") $advancedSetup.hide();
         toggleButtons();
         showRating();
       })
@@ -443,6 +492,24 @@ export default class Setup {
       .trigger("change");
 
     $modeChoices.on("change", save);
+
+    // We hide the advanced menu only if the user isn't using it
+    displayAdvanced();
+    
+    $advancedToggle.click(() => {
+      if($advancedSetup.hasClass("hidden")){
+        $advancedSetup.show();
+        $advancedSetup.removeClass("hidden");
+        $advancedToggle.attr("data-icon", "S");
+      }
+      else{
+        $advancedSetup.hide();
+        $advancedSetup.addClass("hidden");
+        $advancedToggle.attr("data-icon", "R");
+        updateSlider("0");
+        updatePeriods("1");
+      }
+    })
 
     $form.find("div.level").each(function (this: HTMLElement) {
       var $infos = $(this).find(".ai_info > div");

@@ -66,6 +66,7 @@ export default class Filter {
           ) ||
           (f.mode?.length == 1 && f.mode[0] != (hook.ra || 0).toString()) ||
           (f.increment?.length == 1 && f.increment[0] != hook.i.toString()) ||
+          (f.byoyomi?.length == 1 && f.byoyomi[0] != hook.b.toString()) ||
           (ratingRange &&
             (!hook.rating ||
               hook.rating < ratingRange[0] ||
