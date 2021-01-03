@@ -22,7 +22,7 @@
   <string name="bestMove">Лучший ход!</string>
   <string name="keepGoing">Продолжайте...</string>
   <string name="puzzleSuccess">Получилось!</string>
-  <string name="puzzleComplete">Задача решена!</string>
+  <string name="puzzleComplete">Пазл решён !</string>
   <string name="notTheMove">Это не тот ход!</string>
   <string name="trySomethingElse">Попробуйте иначе.</string>
   <string name="ratingX">Рейтинг: %s</string>
