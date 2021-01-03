@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Puzzels</string>
+  <string name="puzzleThemes" comment="puzzleThemes&#10;&#10;https://lichess.org/training/themes">Puzzelthema\'s</string>
   <string name="recommended">Aanbevolen</string>
   <string name="phases">Fasen</string>
   <string name="motifs">Motieven</string>
