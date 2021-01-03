@@ -9,6 +9,7 @@
   <string name="yourTurn">Sıra sizde</string>
   <string name="aiNameLevelAiLevel">%1$s seviye %2$s</string>
   <string name="level">Seviye</string>
+  <string name="strength">Kuvvet</string>
   <string name="toggleTheChat">Sohbeti aç/kapat</string>
   <string name="toggleSound">Sesi aç/kapat</string>
   <string name="chat">Sohbet</string>
