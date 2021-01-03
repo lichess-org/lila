@@ -11,54 +11,71 @@
 
   &__metrics {
     display: flex;
+  }
+
+  &__metric {
+    @extend %box-neat, %flex-column;
 
     $glow-gradient: linear-gradient(145deg, rgba(255%, 255%, 255%, 0.3) 0%, transparent 45%);
 
-    &__metric {
-      @extend %box-neat, %flex-column;
+    align-items: center;
+    padding: .4em 0 .6em 0;
+    text-transform: uppercase;
+    flex: 0 0 23.5%;
+    margin-left: 2%;
+    cursor: default;
 
-      align-items: center;
-      padding: .4em 0 .6em 0;
-      text-transform: uppercase;
-      flex: 0 0 23%;
-      margin-left: 2%;
+    &:first-child {
+      margin-left: 0;
+    }
 
-      &:first-child {
-        margin-left: 0;
+    strong {
+      @extend %roboto;
+
+      font-size: 2em;
+      line-height: 1.3em;
+      font-weight: normal;
+    }
+
+    span {
+      color: rgba(255%, 255%, 255%, 0.8);
+      letter-spacing: -1px;
+      font-size: .9rem;
+    }
+
+    background: $c-bg-zebra2;
+
+    $c-darken: #333;
+
+    &--win {
+      $c-first: mix($c-good, $c-darken, 85%);
+      $c-fix: mix($c-good, $c-darken, 50%);
+      $c-fail: mix($c-bad, $c-darken, 80%);
+
+      background: #{$glow-gradient}, linear-gradient(to right, $c-first 0%, $c-first var(--first), $c-fix var(--first), $c-fix var(--win), $c-fail var(--win), $c-fail 100%);
+      color: $c-good-over;
+    }
+
+    &--perf {
+      background: #{$glow-gradient} mix($c-brag, $c-darken, 85%);
+      color: $c-good-over;
+    }
+
+    &--fix {
+      .puzzle-dashboard__metrics & {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-evenly;
       }
 
-      strong {
-        font-size: 2em;
-        line-height: 1.3em;
-      }
+      background: mix($c-primary, $c-darken, 70%);
+      color: $c-good-over;
+      opacity: .7;
 
-      span {
-        color: rgba(255%, 255%, 255%, 0.8);
-        letter-spacing: -1px;
-        font-size: .9rem;
-      }
-
-      background: $c-bg-zebra2;
-
-      $c-darken: #333;
-
-      &--win {
-        $c-first: mix($c-good, $c-darken, 85%);
-        $c-fix: mix($c-good, $c-darken, 50%);
-        $c-fail: mix($c-bad, $c-darken, 80%);
-
-        background: #{$glow-gradient}, linear-gradient(to right, $c-first 0%, $c-first var(--first), $c-fix var(--first), $c-fix var(--win), $c-fail var(--win), $c-fail 100%);
-        color: $c-good-over;
-      }
-
-      &--perf {
-        background: #{$glow-gradient} mix($c-brag, $c-darken, 85%);
-        color: $c-good-over;
-      }
-
-      &--fix {
+      &[href] {
+        opacity: 1;
+        cursor: pointer;
         background: #{$glow-gradient} mix($c-primary, $c-darken, 80%);
-        color: $c-good-over;
 
         &:hover {
           background: #{$glow-gradient} $c-primary;
@@ -66,17 +83,30 @@
         }
       }
 
-      @if $theme-light {
-        &--played span {
-          color: $c-font-dim !important;
-        }
+      &__text {
+        @extend %flex-column;
+
+        align-items: center;
+      }
+
+      i {
+        font-size: 4em;
+        opacity: .8;
+        margin-right: -.1em;
+        color: $c-good-over;
+      }
+    }
+
+    @if $theme-light {
+      &--played span {
+        color: $c-font-dim !important;
       }
     }
   }
 
-  &__global .puzzle-dashboard__metrics__metric {
+  &__global .puzzle-dashboard__metric {
     padding: 1em 0 1.5em 0;
-    border-radius: 7px;
+    border-radius: 8px;
 
     strong {
       font-size: 5em;
@@ -100,29 +130,35 @@
       font-size: 1.2em;
       margin-bottom: 4vh;
     }
+  }
 
-    &__theme {
-      @extend %flex-center;
+  &__theme {
+    @extend %flex-center;
 
-      margin-top: 2vh;
+    margin-top: 2vh;
 
-      &__meta {
-        flex: 1 1 40%;
-        margin-right: 3vw;
-      }
+    &__meta {
+      flex: 1 1 40%;
+      margin-right: 3vw;
+    }
 
-      &__name {
-        font-size: 1.5em;
-        font-weight: bold;
-        text-transform: uppercase;
-      }
+    &__name {
+      font-size: 1.5em;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
 
-      &__description {
-        color: $c-font-dim;
-      }
+    &__description {
+      color: $c-font-dim;
+    }
 
-      .puzzle-dashboard__metrics {
-        flex: 1 1 50ch;
+    .puzzle-dashboard__metrics {
+      flex: 1 1 50ch;
+    }
+
+    .puzzle-dashboard__metric--fix {
+      i {
+        font-size: 1.6em;
       }
     }
   }

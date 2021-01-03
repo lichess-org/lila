@@ -32,10 +32,10 @@ final class PuzzleReplayApi(
 
   def apply(user: User, days: Int, theme: PuzzleTheme.Key): Fu[Option[(Puzzle, PuzzleReplay)]] =
     replays.getFuture(user.id, _ => createReplayFor(user, days, theme)) flatMap { current =>
-      if (current.days == days && current.theme == theme) fuccess(current)
+      if (current.days == days && current.theme == theme && current.remaining.nonEmpty) fuccess(current)
       else createReplayFor(user, days, theme) tap { replays.put(user.id, _) }
     } flatMap { replay =>
-      replay.step ?? { case (puzzleId, newReplay) =>
+      replay.pp.step ?? { case (puzzleId, newReplay) =>
         replays.put(user.id, fuccess(newReplay))
         colls.puzzle(_.byId[Puzzle](puzzleId.value)) map2 (_ -> replay)
       }

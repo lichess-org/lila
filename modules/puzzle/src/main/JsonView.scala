@@ -31,8 +31,11 @@ final class JsonView(
           "puzzle" -> puzzleJson(puzzle),
           "theme" -> Json
             .obj(
-              "key"  -> theme.key,
-              "name" -> theme.name.txt(),
+              "key" -> theme.key,
+              "name" -> {
+                if (theme == PuzzleTheme.mix) lila.i18n.I18nKeys.puzzle.puzzleThemes.txt()
+                else theme.name.txt()
+              },
               "desc" -> theme.description.txt()
             )
             .add("chapter" -> PuzzleTheme.studyChapterIds.get(theme.key))

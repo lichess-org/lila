@@ -14,8 +14,8 @@ import lila.user.User
 object dashboard {
 
   private val baseClass      = "puzzle-dashboard"
-  private val metricClass    = s"${baseClass}__metrics__metric"
-  private val themeClass     = s"${baseClass}__themes__theme"
+  private val metricClass    = s"${baseClass}__metric"
+  private val themeClass     = s"${baseClass}__theme"
   private val dataWinPercent = attr("data-win-percent")
 
   def apply(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: Context) = {
@@ -40,7 +40,7 @@ object dashboard {
               )(trans.nbDays.pluralSame(d))
             }
           ),
-          " (Work In Progress!)"
+          " [BETA]"
         ),
         dashOpt match {
           case None =>
@@ -112,9 +112,15 @@ object dashboard {
         strong(s"${results.winPercent}%"),
         span("solved")
       ),
-      a(cls := s"$metricClass $metricClass--fix", href := routes.Puzzle.replay(days, theme.value))(
-        strong(results.unfixed),
-        span("to replay")
+      a(
+        cls := s"$metricClass $metricClass--fix",
+        href := results.canReplay.option(routes.Puzzle.replay(days, theme.value).url)
+      )(
+        span(cls := s"$metricClass--fix__text")(
+          strong(results.unfixed),
+          span("to replay")
+        ),
+        iconTag(if (results.canReplay) 'G' else 'E')
       )
     )
 }

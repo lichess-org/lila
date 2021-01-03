@@ -126,7 +126,7 @@ final class Puzzle(
                                 "next"  -> nextJson
                               )
                             case Some(replayDays) =>
-                              env.puzzle.replay(me, replayDays, theme.key).thenPp flatMap {
+                              env.puzzle.replay(me, replayDays, theme.key) flatMap {
                                 case None => fuccess(Json.obj("replayComplete" -> true))
                                 case Some((puzzle, replay)) =>
                                   renderJson(puzzle, theme, replay.some) map { nextJson =>

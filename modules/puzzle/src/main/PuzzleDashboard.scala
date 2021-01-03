@@ -57,6 +57,8 @@ object PuzzleDashboard {
 
     def clear   = nb >= 6 && firstWins >= 2 && failed >= 2
     def unclear = !clear
+
+    def canReplay = unfixed > 0
   }
 
   val irrelevantThemes = List(
