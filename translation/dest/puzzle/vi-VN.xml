@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Câu đố</string>
+  <string name="puzzleThemes">Chủ đề câu đố</string>
   <string name="recommended">Khuyến nghị</string>
   <string name="phases">Giai đoạn</string>
   <string name="motifs">Mô típ</string>
