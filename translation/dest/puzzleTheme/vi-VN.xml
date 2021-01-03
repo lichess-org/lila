@@ -39,6 +39,7 @@
   <string name="exposedKingDescription">Một đòn chiến thuật bao gồm một quân vua với ít sự bảo vệ quanh nó, thường dẫn tới hết cờ.</string>
   <string name="forkDescription">Một nước đi mà một quân cờ tấn công hai quân cờ của đối phương cùng lúc.</string>
   <string name="hangingPiece">Quân cờ không được bảo vệ</string>
+  <string name="hangingPieceDescription">Một chiến thuật liên quan đến quân cờ của đối phương không được phòng thủ hoặc phòng thủ không đủ dẫn tới việc có thể ăn quân cờ đấy.</string>
   <string name="intermezzo">Intermezzo</string>
   <string name="knightEndgameDescription">Một thế cờ tàn chỉ có mã và tốt.</string>
   <string name="long">Câu đố dài</string>
@@ -88,4 +89,5 @@
   <string name="xRayAttackDescription">Một quân cờ tấn công hoặc phòng thủ một ô bàn cờ thông qua một quân cờ khác của đối phương.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Đối phương bị giới hạn các nước mà họ có thể đi và tất cả các nước đi đấy đều khiến vị trị của họ tệ hơn.</string>
+  <string name="healthyMixDescription">Mỗi thứ một chút. Bạn không biết phải chờ đợi gì cả, vậy nên bạn sẽ sẵn sàng cho mọi thứ! Như một ván cờ thật vậy.</string>
 </resources>
