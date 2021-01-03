@@ -26,6 +26,9 @@
 Sau đó chúng tôi trả lương cho một nhà phát triển toàn thời gian: %s, nhà sáng lập Lichess.</string>
   <string name="contactSupport">liên hệ với bộ phận hỗ trợ Lichess</string>
   <string name="bankTransfers">Chúng tôi cũng chấp nhận chuyển khoản ngân hàng</string>
+  <string name="patronFeatures">Có tính năng nào được dành riêng cho Patron không?</string>
+  <string name="noPatronFeatures">Không, Lichess hoàn toàn miễn phí, mãi mãi và cho tất cả mọi người. Đó là lời hứa của chúng tôi.
+Tuy nhiên, Patron được quyền khoe khoang với một huy hiệu mới.</string>
   <string name="youSupportWith">Bạn hỗ trợ lichess.org với %s mỗi tháng.</string>
   <string name="update">Cập nhật</string>
   <string name="xOrY">%1$s hoặc %2$s</string>
