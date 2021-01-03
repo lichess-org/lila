@@ -2,4 +2,18 @@
 <resources>
   <string name="lichessStreamers">Lichess stroymarar</string>
   <string name="lichessStreamer">Lichess stroymari</string>
+  <string name="live">LIVE!</string>
+  <string name="offline">OFFLINE</string>
+  <string name="currentlyStreaming">Stroymarar í løtuni: %s</string>
+  <string name="lastStream">Seinasta stroyming %s</string>
+  <string name="becomeStreamer">Verð ein Lichess-stroymari</string>
+  <string name="doYouHaveStream">Hevur tú eina Twitch- ella YouTube-rás?</string>
+  <string name="hereWeGo">Nú byrja vit!</string>
+  <string name="allStreamers">Allir stroymarar</string>
+  <string name="editPage">Ritstjórna stroymarasíðu</string>
+  <string name="yourPage">Tín stroymarasíða</string>
+  <string name="downloadKit">Tak stroymaraútgerð niður</string>
+  <string name="xIsStreaming">%s stroymar</string>
+  <string name="rules">Stroymarareglur</string>
+  <string name="headline">Yvirskrift</string>
 </resources>
