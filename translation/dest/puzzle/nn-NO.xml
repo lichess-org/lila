@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Taktikkoppgåver</string>
+  <string name="puzzleThemes">Oppgåvetema</string>
   <string name="recommended">Anbefalt</string>
   <string name="phases">Fasar</string>
   <string name="motifs">Motiv</string>
