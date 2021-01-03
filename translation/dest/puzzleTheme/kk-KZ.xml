@@ -27,7 +27,7 @@
   <string name="defensiveMove">Қорғану жүрісі</string>
   <string name="defensiveMoveDescription">Тастарды не артықшылықты жоғалтпау мақсатында жасалатын жүріс не жүрістер тізбегі.</string>
   <string name="deflection">Назарын бұру</string>
-  <string name="deflectionDescription">Қарсылас тасын өз міндетінен үзіп (мысалы, бір маңызды шаршыны қорғаудан), алдау үшін жасалынатын жүріс.</string>
+  <string name="deflectionDescription">Қарсылас тасын өз міндетінен (мысалы, бір маңызды шаршыны қорғаудан) үзу үшін жасалынатын алдамшы жүріс.</string>
   <string name="discoveredAttack">Ашылған шабуыл</string>
   <string name="discoveredAttackDescription">Ұзын жүрісті тастың шабуылын бөгеп тұрған таспен жүру. Мысалы, тура жолында тұрған атпен жүру.</string>
   <string name="doubleCheck">Қос шах</string>
@@ -44,7 +44,7 @@
   <string name="interference">Бөгет</string>
   <string name="interferenceDescription">Тасты қарсыластың екі тасының арасындағы қорғау жолына қойып, олардың біреуін не екеуін қорғаусыз ету. Мысалы, екі өзара қорғап тұрған туралардың арасына тұра қалған ат.</string>
   <string name="intermezzo">Аралық жүріс</string>
-  <string name="intermezzoDescription">Болжамды түрде жүрудің орнына қарсыласқа қауіп төндіретіндей жүру. Басқаша \"Intermezzo\" не \"Zwischenzug\" деп те аталады.</string>
+  <string name="intermezzoDescription">Болжамға сай жүрудің орнына алдымен басқаша, қарсыласқа қауіп келтіретін, жауап беруге мәжбүрлейтін жүріс жасау. Басқаша \"Intermezzo\" не \"Zwischenzug\" деп те аталады.</string>
   <string name="knightEndgame">Ат ойынсоңы</string>
   <string name="knightEndgameDescription">Аттар мен сарбаздары ғана бар ойынсоңы.</string>
   <string name="long">Ұзын жұмбақ</string>
