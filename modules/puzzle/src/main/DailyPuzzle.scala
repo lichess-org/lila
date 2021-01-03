@@ -60,7 +60,7 @@ final private[puzzle] class DailyPuzzle(
       } flatMap { ids =>
       colls.puzzle { c =>
         c.find($doc(F.id $in ids, F.day $exists false))
-          .sort($doc(F.vote -> -1))
+          .sort($doc(F.vote -> -1, F.voteUp -> -1))
           .one[Puzzle] flatMap {
           case Some(puzzle) =>
             c.update.one(
