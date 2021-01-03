@@ -49,7 +49,9 @@ Mật khẩu: %3$s</string>
   <string name="createDesc4">Nếu họ đã có, hãy sử dụng biểu mẫu mời thay thế.</string>
   <string name="lichessUsername">Tên người dùng Lichess</string>
   <string name="generateANewUsername">Tạo một tài khoản mới</string>
-  <string name="invitationToClass">Bạn được mời đến vào lớp học \"%s\" với tư cách là học viên.</string>
+  <string name="welcomeToClass">Chào mừng đến với lớp học của bạn: %s.
+Đây là đường link để tham gia lớp học.</string>
+  <string name="invitationToClass">Bạn được mời đến vào lớp học \"%s\" với tư cách học viên.</string>
   <string name="clickToViewInvitation">Nhấn vào đường link để xem lời mời:</string>
   <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
     <item quantity="other">%s lời mời đang chờ</item>
