@@ -22,4 +22,11 @@
   <string name="withPaypal">Paypal</string>
   <string name="weAreSmallTeam">Chúng tôi là một đội nhỏ, vì vậy sự giúp đỡ của bạn tạo nên khác biệt rất lớn!</string>
   <string name="whereMoneyGoes">Tiền được dùng để làm gi?</string>
+  <string name="serversAndDeveloper">Đầu tiên, một máy chủ mạnh mẽ.
+Sau đó chúng tôi trả lương cho một nhà phát triển toàn thời gian: %s, nhà sáng lập Lichess.</string>
+  <string name="contactSupport">liên hệ với bộ phận hỗ trợ Lichess</string>
+  <string name="bankTransfers">Chúng tôi cũng chấp nhận chuyển khoản ngân hàng</string>
+  <string name="youSupportWith">Bạn hỗ trợ lichess.org với %s mỗi tháng.</string>
+  <string name="update">Cập nhật</string>
+  <string name="xOrY">%1$s hoặc %2$s</string>
 </resources>
