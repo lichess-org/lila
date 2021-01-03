@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Uppgávur</string>
+  <string name="puzzleThemes">Uppgávuevni</string>
   <string name="recommended">Viðmældar uppgávur</string>
   <string name="phases">Skifti</string>
   <string name="motifs">Ætlanir</string>
