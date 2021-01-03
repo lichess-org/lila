@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Flokkar</string>
+  <string name="teachClassesOfChessStudents">Gev flokkum við talvnæmingum frálæru við Lichess-amboðskassanum.</string>
+  <string name="features">Eyðkenni</string>
+  <string name="quicklyGenerateSafeUsernames">Ger kvikliga talvnæmingum trygg brúkaranøvn og loyniorð</string>
+  <string name="trackStudentProgress">Fylg næmingaframgongd í talvum og uppgávum</string>
   <string name="applyToBeLichessTeacher">Søk um at gerast Lichess-lærari</string>
   <string name="noClassesYet">Eingir flokkar enn.</string>
   <string name="teachersX">Lærarar: %s</string>
