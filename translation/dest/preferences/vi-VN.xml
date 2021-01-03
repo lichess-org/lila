@@ -21,7 +21,7 @@
   <string name="horizontalGreenProgressBars">Thanh tiến trình ngang màu xanh</string>
   <string name="soundWhenTimeGetsCritical">Âm thanh khi khủng hoảng thời gian</string>
   <string name="giveMoreTime">Cho thêm thời gian</string>
-  <string name="gameBehavior">Thao tác game</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Thao tác game</string>
   <string name="howDoYouMovePieces">Bạn di chuyển quân như thế nào?</string>
   <string name="clickTwoSquares">Nhấn hai ô</string>
   <string name="dragPiece">Thả quân cờ</string>
@@ -41,5 +41,6 @@
   <string name="castleByMovingTwoSquares">Di chuyển vua 2 nước</string>
   <string name="castleByMovingOntoTheRook">Di chuyển vua vào xe</string>
   <string name="inputMovesWithTheKeyboard">Nhập các nước đi với bàn phím</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Tự kéo mũi tên vào chỗ của nước đi hợp lệ</string>
   <string name="yourPreferencesHaveBeenSaved">Tùy chọn của bạn đã được lưu</string>
 </resources>
