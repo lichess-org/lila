@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Problemes</string>
+  <string name="puzzleThemes">Temàtiques de problemes</string>
   <string name="recommended">Recomanat</string>
   <string name="phases">Fases</string>
   <string name="motifs">Motius</string>
