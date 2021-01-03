@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Galvosūkiai</string>
+  <string name="puzzleThemes">Galvosūkių temos</string>
   <string name="recommended">Rekomenduojama</string>
   <string name="phases">Fazės</string>
   <string name="motifs">Motyvai</string>
