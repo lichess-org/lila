@@ -16,5 +16,5 @@
   <string name="harder">更难</string>
   <string name="hardest">最难</string>
   <string name="example">例子</string>
-  <string name="jumpToNextPuzzleImmediately" comment="jumpToNextPuzzleImmediately&#10;&#10;With this setting enabled, the screen will transition to a new puzzle as soon as you complete the puzzle you are viewing.">一解决训练题就马上转到下一个</string>
+  <string name="jumpToNextPuzzleImmediately">一解决训练题就马上转到下一个</string>
 </resources>
