@@ -37,12 +37,15 @@
   <string name="enPassantDescription">Một đòn chiến thuật bao gồm luật bắt tốt qua đường, khi một con tốt có thể ăn một con tốt đối phương đi qua mặt nó khi đi 2 ô từ vị trí ban đầu của nó.</string>
   <string name="exposedKing">Vua sơ hở</string>
   <string name="exposedKingDescription">Một đòn chiến thuật bao gồm một quân vua với ít sự bảo vệ quanh nó, thường dẫn tới hết cờ.</string>
+  <string name="forkDescription">Một nước đi mà một quân cờ tấn công hai quân cờ của đối phương cùng lúc.</string>
   <string name="hangingPiece">Quân cờ không được bảo vệ</string>
+  <string name="intermezzo">Intermezzo</string>
   <string name="knightEndgameDescription">Một thế cờ tàn chỉ có mã và tốt.</string>
   <string name="long">Câu đố dài</string>
   <string name="longDescription">Thắng trong ba nước cờ.</string>
   <string name="mate">Chiếu hết</string>
   <string name="mateIn1">Chiếu hết trong 1 nước</string>
+  <string name="mateIn1Description">Chiếu hết trong một nước cờ.</string>
   <string name="mateIn2">Chiếu hết trong 2 nước</string>
   <string name="mateIn2Description">Chiếu hết trong hai nước cờ.</string>
   <string name="mateIn3">Chiếu hết trong 3 nước</string>
@@ -52,12 +55,15 @@
   <string name="mateIn5">Chiếu hết trong 5 nước cờ hoặc hơn</string>
   <string name="mateIn5Description">Tìm ra một chuỗi dài các nước cờ dẫn đến chiếu hết.</string>
   <string name="middlegame">Trung cuộc</string>
+  <string name="middlegameDescription">Chiến thuật trong phần thứ hai của ván cờ.</string>
   <string name="oneMove">Câu đố một nước</string>
   <string name="oneMoveDescription">Câu đố mà chỉ có một nước đi.</string>
   <string name="opening">Khai cuộc</string>
   <string name="openingDescription">Chiến thuật trong phần mở đầu của ván cờ.</string>
   <string name="pawnEndgame">Tàn cuộc với Tốt</string>
   <string name="pawnEndgameDescription">Một thế tàn cuộc chỉ với tốt.</string>
+  <string name="pin">Ghim</string>
+  <string name="pinDescription">Một chiến thuật liên quan tới ghim, trong đó một quân cờ không thể di chuyển mà không làm lộ quân cờ đằng sau nó với giá trị lớn hơn.</string>
   <string name="promotion">Phong cấp</string>
   <string name="promotionDescription">Một quân tốt phong cấp hay đe dọa phong cấp là chìa khóa của chiến thuật.</string>
   <string name="queenEndgameDescription">Một thế cờ tàn chỉ có hậu và tốt.</string>
@@ -66,6 +72,7 @@
   <string name="queensideAttack">Tấn công cánh hậu</string>
   <string name="queensideAttackDescription">Tấn công vua đối phương sau khi họ nhập thành cánh hậu.</string>
   <string name="quietMoveDescription">Một nước cờ không chiếu hay ăn quân của đối phương, nhưng lại tạo ra một sự đe dọa không tránh khỏi cho một nước đi sau.</string>
+  <string name="rookEndgameDescription">Một thế cờ tàn chỉ có xe và tốt.</string>
   <string name="sacrifice">Hy sinh</string>
   <string name="short">Câu đố ngắn</string>
   <string name="shortDescription">Thắng trong hai nước cờ.</string>
@@ -76,4 +83,9 @@
   <string name="trappedPieceDescription">Một quân cờ không thể thoát khỏi việc bị ăn vì nó bị giới hạn các nước đi.</string>
   <string name="underPromotionDescription">Phong cấp thành mã, tượng hoặc xe.</string>
   <string name="veryLong">Câu đố rất dài</string>
+  <string name="veryLongDescription">Bốn nước cờ hoặc hơn để chiến thắng.</string>
+  <string name="xRayAttack">Đòn Tia X</string>
+  <string name="xRayAttackDescription">Một quân cờ tấn công hoặc phòng thủ một ô bàn cờ thông qua một quân cờ khác của đối phương.</string>
+  <string name="zugzwang">Zugzwang</string>
+  <string name="zugzwangDescription">Đối phương bị giới hạn các nước mà họ có thể đi và tất cả các nước đi đấy đều khiến vị trị của họ tệ hơn.</string>
 </resources>
