@@ -25,5 +25,8 @@
   <string name="perk4">Vís stroyming tína í talvum, kappingum og rannsóknum tínum.</string>
   <string name="approved">Stroymingin hjá tær er góðkend.</string>
   <string name="pendingReview">Fyriskiparar viðgera nú stroymingina hjá tær.</string>
+  <string name="pleaseFillIn">Fyll vinaliga tínar stroymaraupplýsingar inn, og legg eina mynd inn.</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Tá ið tú ert til reiðar at verða settur á listan sum Lichess-stroymari, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">bið um fyriskiparameting</string>
   <string name="headline">Yvirskrift</string>
 </resources>
