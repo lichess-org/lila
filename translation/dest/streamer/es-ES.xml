@@ -20,18 +20,18 @@
   <string name="rule3">Lichess detectará tu transmisión automáticamente y habilitará los siguientes incentivos:</string>
   <string name="perks">Beneficios de transmitir con la palabra clave</string>
   <string name="perk1">Obtén un icono de presentador en tu perfil de Lichess.</string>
-  <string name="perk2">Alcanza la cima de la lista de streamers.</string>
+  <string name="perk2">Alcanza la cima de la lista de presentadores.</string>
   <string name="perk3">Avisar a tus seguidores de Lichess.</string>
-  <string name="perk4">Mostrar tu stream en tus juegos, torneos y estudios.</string>
+  <string name="perk4">Mostrar tu transmisión en tus juegos, torneos y estudios.</string>
   <string name="approved">Tu transmisión está aprobada.</string>
   <string name="pendingReview">Tu transmisión está siendo revisada por los moderadores.</string>
   <string name="pleaseFillIn">Por favor, rellena la información como presentador y sube una foto.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Cuando estés preparado para ser incluido como un streamer de Lichess, %s</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Cuando estés preparado para ser listado como un presentador de Lichess, %s</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">solicitar una revisión de moderador</string>
-  <string name="anotherLanguage">Si tu stream está en otro idioma que el inglés, escribe el tag de idioma correcto (%s), encerrado entre corchetes, al comienzo del título de tu stream.
-Por ejemplo, escribe \"[ES]\" para español, \"[FR]\" para francés, \"[PT]\" para portugués, etc.
-Colócalo en el título del stream en la página de Twitch o YouTube, no en la configuración de la transmisión de Lichess.
-Si tu stream está en inglés, no hay necesidad de incluir una etiqueta de idioma.</string>
+  <string name="anotherLanguage">Si tu transmisión está en otro idioma que el inglés, incluye la etiqueta de idioma correcta (%s), encerrada entre corchetes, al comienzo del título de tu transmisión.
+Por ejemplo, incluye \"[ES]\" para español, \"[FR]\" para francés, \"[PT]\" para portugués, etc.
+Colócala en el título de la transmisión en la página de Twitch o YouTube, no en la configuración de la transmisión de Lichess.
+Si tu transmisión está en inglés, no hay necesidad de incluir una etiqueta de idioma.</string>
   <string name="twitchUsername">Tu nombre de usuario o URL de Twitch</string>
   <string name="optionalOrEmpty">Opcional. Déjalo vacío si no hay ninguno</string>
   <string name="youtubeChannel">El ID o URL de tu canal de YouTube</string>
