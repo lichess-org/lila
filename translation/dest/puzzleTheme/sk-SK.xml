@@ -27,6 +27,8 @@
   <string name="defensiveMove">Obranný ťah</string>
   <string name="defensiveMoveDescription">Presný ťah alebo sekvencia ťahov, ktorá je potrebná na odvrátenie straty materiálu alebo inej výhody.</string>
   <string name="deflection">Odlákanie</string>
+  <string name="deflectionDescription">Ťah, ktorý odvádza súperovu figúry od jej iných povinností, ako napríklad bránenie kľúčového poľa. Občas nazývané aj \"preťaženie\".</string>
+  <string name="discoveredAttack">Odťažené napadnutie</string>
   <string name="endgame">Koncovka</string>
   <string name="endgameDescription">Taktika počas posledného úseku hry.</string>
   <string name="fork">Vidlička</string>
