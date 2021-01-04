@@ -20,5 +20,10 @@
   <string name="rule3">Lichess finnur sjálvvirkið tína stroyming og veitir tær hesar ágóðar:</string>
   <string name="perks">Fyrimunir við at stroyma við lyklaorðinum</string>
   <string name="perk1">Fá eina logandi stroymaramynd á Lichess-vangamynd tína.</string>
+  <string name="perk2">Verð flutt/ur upp á ovastu rók á stroymaralistanum.</string>
+  <string name="perk3">Sig Lichess-fylgjarum tínum frá.</string>
+  <string name="perk4">Vís stroyming tína í talvum, kappingum og rannsóknum tínum.</string>
+  <string name="approved">Stroymingin hjá tær er góðkend.</string>
+  <string name="pendingReview">Fyriskiparar viðgera nú stroymingina hjá tær.</string>
   <string name="headline">Yvirskrift</string>
 </resources>
