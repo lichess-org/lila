@@ -14,11 +14,11 @@
   <string name="easternRapid">Eysturlendskt kviktalv</string>
   <string name="easternClassicalArena">Eysturlendsk klassisk arena</string>
   <string name="easternClassical">Eysturlendsk klassisk</string>
-  <string name="easternXArena">Eysturlends %s Arena</string>
+  <string name="easternXArena">Eysturlendsk %s arena</string>
   <string name="easternX">Eysturlendsk %s</string>
   <string name="weeklyRapidArena">Kviktalvs-arena eina ferð um vikuna</string>
   <string name="weeklyRapid">Kviktalv hesa vikuna</string>
-  <string name="weeklyClassicalArena">Arenakapping í klassiskum talvi hesa vikuna</string>
+  <string name="weeklyClassicalArena">Arena í klassiskum talvi hesa vikuna</string>
   <string name="weeklyClassical">Klassiskt hesa vikuna</string>
   <string name="weeklyXArena">%s arena hesa vikuna</string>
   <string name="weeklyX">%s hesa vikuna</string>
@@ -33,6 +33,10 @@
   <string name="yearlyClassicalArena">Árlig klassisk arena</string>
   <string name="yearlyClassical">Árlig klassisk</string>
   <string name="yearlyXArena">Árlig %s arena</string>
+  <string name="yearlyX">´Árlig %s</string>
+  <string name="rapidShieldArena">Skjaldrararena í kviktalvi</string>
+  <string name="rapidShield">Kviktalvs-skjøldur</string>
+  <string name="classicalShieldArena">Klassisk skjaldrararena</string>
   <string name="openingRapidArena">%s Kviktalv Arena</string>
   <string name="openingRapid">%s Kviktalv</string>
   <string name="xArena">%s Arena</string>
