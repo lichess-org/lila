@@ -34,5 +34,20 @@ Set hetta inn í stroymaraheitið á Twitch- ella YouTube-síðuni; ikki Lichess
 Stroymar tú á enskum, er ikki neyðugt at hava tungumálsfrámerkini við.</string>
   <string name="twitchUsername">Twitch-brúkaranavn títt ella URL</string>
   <string name="optionalOrEmpty">Valfrítt. Lat vera tómt, um einki</string>
+  <string name="youtubeChannel">YouTube-rásarsamleiki tín ella URL</string>
+  <string name="streamerName">Stroymaranavn títt á Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Halt tað stutt: %s stavur í mesta lagi</item>
+    <item quantity="other">Halt tað stutt: %s stavir í mesta lagi</item>
+  </plurals>
+  <string name="visibility">Sjónligt á stroymarasíðuni</string>
+  <string name="whenApproved">Tá ið fyriskiparar hava góðkent</string>
   <string name="headline">Yvirskrift</string>
+  <string name="tellUsAboutTheStream">Greið okkum frá um stroyming tína í einum setningi</string>
+  <string name="longDescription">Long lýsing</string>
+  <string name="xStreamerPicture">%s stroymaramynd</string>
+  <string name="changePicture">Broyt/strika mynd tína</string>
+  <string name="uploadPicture">Legg eina mynd út</string>
+  <string name="deletePicture">Tak mynd burtur</string>
+  <string name="maxSize">Hægst loyvda stødd: %s</string>
 </resources>
