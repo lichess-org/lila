@@ -21,6 +21,12 @@
   <string name="equality">Rovnováha</string>
   <string name="equalityDescription">Dostaňte sa z prehratej pozície, a zaistite remízu alebo vyrovnanú pozíciu. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Útok na kráľovskom krídle</string>
+  <string name="kingsideAttackDescription">Útok na súperovho kráľa, ktorý rošoval na kráľovské krídlo.</string>
+  <string name="clearance">Uvoľnenie</string>
+  <string name="clearanceDescription">Ťah, častokrát s tempom, ktorý uvoľňuje pole, stĺpec alebo diagonálu na nasledujúcu taktickú ideu.</string>
+  <string name="defensiveMove">Obranný ťah</string>
+  <string name="defensiveMoveDescription">Presný ťah alebo sekvencia ťahov, ktorá je potrebná na odvrátenie straty materiálu alebo inej výhody.</string>
+  <string name="deflection">Odlákanie</string>
   <string name="endgame">Koncovka</string>
   <string name="endgameDescription">Taktika počas posledného úseku hry.</string>
   <string name="fork">Vidlička</string>
