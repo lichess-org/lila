@@ -116,7 +116,7 @@ object dashboard {
         cls := s"$metricClass $metricClass--fix",
         href := results.canReplay.option(routes.Puzzle.replay(days, theme.value).url)
       )(
-        span(cls := s"$metricClass--fix__text")(
+        results.canReplay option span(cls := s"$metricClass--fix__text")(
           strong(results.unfixed),
           span("to replay")
         ),

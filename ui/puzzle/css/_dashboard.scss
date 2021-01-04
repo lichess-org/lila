@@ -68,7 +68,6 @@
         justify-content: space-evenly;
       }
 
-      background: mix($c-primary, $c-darken, 70%);
       color: $c-good-over;
       opacity: .7;
 
@@ -80,6 +79,20 @@
         &:hover {
           background: #{$glow-gradient} $c-primary;
           color: $c-good-over;
+        }
+      }
+
+      &:not([href]) {
+        background: none;
+        box-shadow: none;
+        opacity: 1;
+
+        i {
+          opacity: 1;
+          color: mix($c-primary, $c-bg-box, 70%);
+          position: absolute;
+          font-size: 5.5em !important;
+          margin-bottom: .2em;
         }
       }
 
