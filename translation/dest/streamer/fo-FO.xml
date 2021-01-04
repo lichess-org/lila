@@ -50,4 +50,9 @@ Stroymar tú á enskum, er ikki neyðugt at hava tungumálsfrámerkini við.</st
   <string name="uploadPicture">Legg eina mynd út</string>
   <string name="deletePicture">Tak mynd burtur</string>
   <string name="maxSize">Hægst loyvda stødd: %s</string>
+  <string name="installBlocker">Set inn illbúnaðarforðing!</string>
+  <string name="beSafe">Tryggja teg móti lýsingum og sporingum,
+ið plága Twitch og YouTube.
+Lichess viðmælir uBlock Origin,
+ið er ókeypis og við opnum keldukotum.</string>
 </resources>
