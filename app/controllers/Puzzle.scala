@@ -126,16 +126,20 @@ final class Puzzle(
                                 "next"  -> nextJson
                               )
                             case Some(replayDays) =>
-                              env.puzzle.replay(me, replayDays, theme.key) flatMap {
-                                case None => fuccess(Json.obj("replayComplete" -> true))
-                                case Some((puzzle, replay)) =>
-                                  renderJson(puzzle, theme, replay.some) map { nextJson =>
-                                    Json.obj(
-                                      "round" -> env.puzzle.jsonView.roundJson(me, round, perf),
-                                      "next"  -> nextJson
-                                    )
-                                  }
-                              }
+                              for {
+                                _    <- env.puzzle.replay.onComplete(round, replayDays, theme.key)
+                                next <- env.puzzle.replay(me, replayDays, theme.key)
+                                json <- next match {
+                                  case None => fuccess(Json.obj("replayComplete" -> true))
+                                  case Some((puzzle, replay)) =>
+                                    renderJson(puzzle, theme, replay.some) map { nextJson =>
+                                      Json.obj(
+                                        "round" -> env.puzzle.jsonView.roundJson(me, round, perf),
+                                        "next"  -> nextJson
+                                      )
+                                    }
+                                }
+                              } yield json
                           }
                     } yield json
                   }

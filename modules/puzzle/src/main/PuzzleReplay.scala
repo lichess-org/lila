@@ -14,7 +14,7 @@ case class PuzzleReplay(days: Int, theme: PuzzleTheme.Key, nb: Int, remaining: V
 
   def i = nb - remaining.size
 
-  def step = remaining.headOption map { _ -> copy(remaining = remaining drop 1) }
+  def step = copy(remaining = remaining drop 1)
 }
 
 final class PuzzleReplayApi(
@@ -35,9 +35,16 @@ final class PuzzleReplayApi(
       if (current.days == days && current.theme == theme && current.remaining.nonEmpty) fuccess(current)
       else createReplayFor(user, days, theme) tap { replays.put(user.id, _) }
     } flatMap { replay =>
-      replay.pp.step ?? { case (puzzleId, newReplay) =>
-        replays.put(user.id, fuccess(newReplay))
-        colls.puzzle(_.byId[Puzzle](puzzleId.value)) map2 (_ -> replay)
+      replay.remaining.headOption ?? { id =>
+        colls.puzzle(_.byId[Puzzle](id.value)) map2 (_ -> replay)
+      }
+    }
+
+  def onComplete(round: PuzzleRound, days: Int, theme: PuzzleTheme.Key): Funit =
+    replays.getIfPresent(round.userId) ?? {
+      _ map { replay =>
+        if (replay.days == days && replay.theme == theme)
+          replays.put(round.userId, fuccess(replay.step))
       }
     }
 
