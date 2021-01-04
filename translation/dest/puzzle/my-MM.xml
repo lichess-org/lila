@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">ဉာဏ်စမ်းများ</string>
+  <string name="puzzleThemes" comment="puzzleThemes&#10;&#10;https://lichess.org/training/themes">ဉာဏ်စမ်း အမျိုးအစားများ</string>
   <string name="recommended">ထောက်ခံသော</string>
   <string name="phases">အဆင့်များ</string>
   <string name="motifs">ပုံစံများ</string>
