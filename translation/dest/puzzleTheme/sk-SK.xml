@@ -59,6 +59,9 @@
   <string name="sacrifice">Obetovanie</string>
   <string name="short">Krátky diagram</string>
   <string name="smotheredMate">Dusený mat</string>
+  <string name="trappedPiece">Chytená figúra</string>
+  <string name="underPromotion">Pod-premena</string>
+  <string name="underPromotionDescription">Premena na jazdca, strelca, alebo vežu.</string>
   <string name="zugzwang">Nevýhoda ťahu</string>
   <string name="zugzwangDescription">Oponent je limitovaný vo svojich ťahoch a každý ťah zhorší jeho pozíciu.</string>
   <string name="healthyMix">Zdravý mix</string>
