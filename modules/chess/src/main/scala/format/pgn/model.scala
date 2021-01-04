@@ -49,7 +49,6 @@ case class Pgn(
   }.trim
 
   def renderAsKifu(uciPgn: scala.collection.IndexedSeq[(String, String)], gameCreatedAt: DateTime) = {
-    pprint.log(this)
     val fmt = DateTimeFormat.forPattern("yyyy/MM/dd HH:mm:ss")
     val gameCreatedTag = "開始日時：" + fmt.print(gameCreatedAt) + "\n"
     val tagsStr = KifuUtils tagsAsKifu tags mkString "\n"
