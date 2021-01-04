@@ -20,6 +20,11 @@
   <string name="weeklyRapid">Kviktalv hesa vikuna</string>
   <string name="weeklyClassicalArena">Arenakapping í klassiskum talvi hesa vikuna</string>
   <string name="weeklyClassical">Klassiskt hesa vikuna</string>
+  <string name="weeklyXArena">%s arena hesa vikuna</string>
+  <string name="weeklyX">%s hesa vikuna</string>
+  <string name="monthlyRapidArena">Mánaðarlig arena í kviktalvi</string>
+  <string name="monthlyRapid">Mánaðarligt kviktalv</string>
+  <string name="monthlyClassicalArena">Mánaðarlig klassisk arena</string>
   <string name="openingRapidArena">%s Kviktalv Arena</string>
   <string name="openingRapid">%s Kviktalv</string>
   <string name="xArena">%s Arena</string>
