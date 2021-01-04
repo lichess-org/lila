@@ -15,5 +15,10 @@
   <string name="downloadKit">Tak stroymaraútgerð niður</string>
   <string name="xIsStreaming">%s stroymar</string>
   <string name="rules">Stroymarareglur</string>
+  <string name="rule1">Hav lyklaorðið \"lichess.org\" við í stroymingarheiti tínum.</string>
+  <string name="rule2">Tak lyklaorðið burtur, tá ið tú stroymar tilfar, ið einki hevur við Lichess at gera.</string>
+  <string name="rule3">Lichess finnur sjálvvirkið tína stroyming og veitir tær hesar ágóðar:</string>
+  <string name="perks">Fyrimunir við at stroyma við lyklaorðinum</string>
+  <string name="perk1">Fá eina logandi stroymaramynd á Lichess-vangamynd tína.</string>
   <string name="headline">Yvirskrift</string>
 </resources>
