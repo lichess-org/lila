@@ -44,5 +44,6 @@
   <string name="openingRapid">%s Kviktalv</string>
   <string name="xTeamBattle">%s Bardagi millum lið</string>
   <string name="eliteXArena">Úrvals-%s arena</string>
+  <string name="eliteX">Úrvals-%s</string>
   <string name="xArena">%s Arena</string>
 </resources>
