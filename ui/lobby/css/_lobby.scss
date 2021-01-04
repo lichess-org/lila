@@ -86,6 +86,8 @@ body {
 }
 
 .lobby__puzzle .text {
+  @extend %page-text-shadow !optional;
+
   color: $c-font-dim;
   display: block;
   text-align: right;
