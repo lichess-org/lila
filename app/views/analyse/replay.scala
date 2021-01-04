@@ -3,6 +3,7 @@ package views.html.analyse
 import chess.variant.Standard
 import play.api.i18n.Lang
 import play.api.libs.json.Json
+import play.utils.UriEncoding
 
 import bits.dataPanel
 import lila.api.Context
@@ -23,7 +24,7 @@ object replay {
       pov: Pov,
       data: play.api.libs.json.JsObject,
       initialFen: Option[chess.format.FEN],
-      pgn: String,
+      kifu: String,
       analysis: Option[lila.analyse.Analysis],
       analysisStarted: Boolean,
       simul: Option[lila.simul.Simul],
@@ -47,10 +48,11 @@ object replay {
       )
     }
     val pgnLinks = div(
+      /*
       a(dataIcon := "x", cls := "text", href := s"${routes.Game.exportOne(game.id)}?literate=1")(
         trans.downloadAnnotated()
-      ),
-      a(dataIcon := "x", cls := "text", href := s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0")(
+      ),*/
+      game.variant == chess.variant.Standard option a(dataIcon := "x", cls := "text", href := s"data:text/plain;charset=utf-8,${UriEncoding.encodePathSegment(kifu, "UTF-8")}", attr("download") := s"${game.createdAt}-${game.whitePlayer.userId | "Anonymous"}-vs-${game.blackPlayer.userId | "Anonymous"}.kifu")(
         trans.downloadRaw()
       ),
       game.isPgnImport option a(
@@ -61,15 +63,15 @@ object replay {
       ctx.noBlind option frag(
         a(dataIcon := "=", cls := "text embed-howto", target := "_blank")(
           trans.embedInYourWebsite()
-        ),
-        a(
+        )
+        /*a(
           dataIcon := "$",
           cls := "text",
           target := "_blank",
           href := cdnUrl(routes.Page.notSupported().url) // routes.Export.gif(pov.gameId, pov.color.name).url
         )(
           "Share as a GIF"
-        )
+        )*/
       )
     )
 
@@ -142,12 +144,12 @@ object replay {
                       spellcheck := false,
                       cls := "copyable autoselect analyse__underboard__fen"
                     )
-                  )
-                  // div(cls := "pgn-options")(
-                  //   strong("PGN"),
-                  //   pgnLinks
-                  // ),
-                  // div(cls := "pgn")(pgn)
+                  ),
+                  div(cls := "pgn-options")(
+                    strong("Kifu"),
+                    pgnLinks
+                  ),
+                  game.variant == chess.variant.Standard option div(cls := "pgn")(kifu)
                 ),
                 cross.map { c =>
                   div(cls := "ctable")(
@@ -156,6 +158,7 @@ object replay {
                 }
               ),
               div(cls := "analyse__underboard__menu")(
+                /*
                 game.analysable option
                   span(
                     cls := "computer-analysis",
@@ -163,12 +166,12 @@ object replay {
                     title := analysis.map { a =>
                       s"Provided by ${usernameOrId(a.providedBy)}"
                     }
-                  )(trans.computerAnalysis()),
+                  )(trans.computerAnalysis()),*/
                 !game.isPgnImport option frag(
                   game.turns > 1 option span(dataPanel := "move-times")(trans.moveTimes()),
                   cross.isDefined option span(dataPanel := "ctable")(trans.crosstable())
                 ),
-                span(dataPanel := "fen-pgn")(raw("FEN &amp; PGN"))
+                span(dataPanel := "fen-pgn")(raw("SFEN &amp; Kifu"))
               )
             )
           )
