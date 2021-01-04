@@ -16,4 +16,6 @@
   <string name="startDate">Byrjanardagfesting í tínum egna tíðarøki</string>
   <string name="startDateHelp">Valfrítt, um tú veitst, nær tiltakið byrjar</string>
   <string name="credits">Nevn kelduna</string>
+  <string name="cloneBroadcast">Klona sendingina</string>
+  <string name="resetBroadcast">Nullstilla sendingina</string>
 </resources>
