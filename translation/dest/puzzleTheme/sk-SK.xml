@@ -19,6 +19,8 @@
   <string name="crushing">Drtivé</string>
   <string name="crushingDescription">Odhaľte súperovu hrubú chybu a získajte drtivú výhodu. (eval ≥ 600cp)</string>
   <string name="equality">Rovnováha</string>
+  <string name="equalityDescription">Dostaňte sa z prehratej pozície, a zaistite remízu alebo vyrovnanú pozíciu. (eval ≤ 200cp)</string>
+  <string name="kingsideAttack">Útok na kráľovskom krídle</string>
   <string name="endgame">Koncovka</string>
   <string name="endgameDescription">Taktika počas posledného úseku hry.</string>
   <string name="fork">Vidlička</string>
