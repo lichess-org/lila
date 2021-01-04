@@ -12,4 +12,6 @@
   <string name="middlegame">미들게임</string>
   <string name="opening">오프닝</string>
   <string name="pin">핀</string>
+  <string name="promotion">승진</string>
+  <string name="underPromotion">하향 승진</string>
 </resources>
