@@ -93,6 +93,7 @@ Ikke be om LM-tittelen.</string>
   <string name="whatUsernameCanIchoose">Hva kan brukernavnet mitt være?</string>
   <string name="usernamesNotOffensive">Brukernavnet skal ikke være støtende, det skal ikke gi seg ut for å tilhøre en annen enn deg selv og det skal ikke inneholde reklame. Du kan lese mer om %1$s.</string>
   <string name="guidelines">retningslinjene</string>
+  <string name="canIChangeMyUsername">Kan jeg endre brukernavnet mitt?</string>
   <string name="uniqueTrophies">Unike trofeer</string>
   <string name="ownerUniqueTrophies">Det trofeet er unikt i Lichess-historien, ingen andre enn %1$s vil noensinne få det.</string>
   <string name="wayOfBerserkExplanation">For å få det utfordret hiimgosu seg selv til å gå berserk i og vinne 100%% av partiene i %s.</string>
