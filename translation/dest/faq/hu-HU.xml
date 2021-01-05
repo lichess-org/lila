@@ -93,6 +93,8 @@ Ne kérj LM címet.</string>
   <string name="whatUsernameCanIchoose">Mi lehet a felhasználói nevem?</string>
   <string name="usernamesNotOffensive">Általánosságban, egy felhasználói név nem lehet: bántó, más valódi neve vagy reklám. Erről bővebben a %1$s olvashatsz.</string>
   <string name="guidelines">szabályokban</string>
+  <string name="canIChangeMyUsername">Megváltoztathatom a felhasználói nevem?</string>
+  <string name="usernamesCannotBeChanged">Nem, a felhasználói nevek nem módosíthatók technikai és gyakorlati okok miatt. A felhasználói nevek jelen vannak adatbázisokban, exportált fájlokban, naplófájlokban és az emberek fejében. Kis- és nagybetűt változtathatsz egyszer.</string>
   <string name="uniqueTrophies">Egyedi trófeák</string>
   <string name="ownerUniqueTrophies">Ezek a trófeák egyediek a Lichess történelmében, %1$s kivéve senki más nem szerezhet ilyet.</string>
   <string name="wayOfBerserkExplanation">Megszerzéséhez, hiimgosu bevállalta, hogy berserkel és megnyeri 100%%-át az %s.</string>
