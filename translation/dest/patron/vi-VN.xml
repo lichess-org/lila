@@ -42,7 +42,9 @@ Tuy nhiên, Patron được quyền khoe khoang với một huy hiệu mới.</s
   <string name="nextPayment">Thanh toán tiếp theo</string>
   <string name="update">Cập nhật</string>
   <string name="xOrY">%1$s hoặc %2$s</string>
+  <string name="paymentHistory">Lịch sử thanh toán</string>
   <string name="paid">Đã thanh toán</string>
+  <string name="viewOthers">Xem các Lichess Patron khác</string>
   <string name="date">Ngày</string>
   <string name="amount">Số lượng</string>
   <string name="transactionCompleted">Giao dịch của bạn đã thành công, một hóa đơn cho quyên góp của bạn đã được email tới bạn.</string>
