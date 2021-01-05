@@ -1,5 +1,6 @@
 package controllers
 
+import play.api.libs.json._
 import play.api.mvc._
 
 import chess.format.FEN
@@ -67,15 +68,18 @@ final class Analyse(
                   opening = true
                 )
               ) map { data =>
+                val finalPgn = env.analyse.annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status)
+                val movesSeq = data("treeParts").as[JsArray].value.tail map {move: JsValue =>
+                  val nodeMap = move.as[JsObject].value
+                  (nodeMap("uci").as[JsString].value, nodeMap("san").as[JsString].value)
+                }
                 EnableSharedArrayBuffer(
                   Ok(
                     html.analyse.replay(
                       pov,
                       data,
                       initialFen,
-                      env.analyse
-                        .annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status)
-                        .toString,
+                      finalPgn.renderAsKifu(movesSeq, pov.game.createdAt),
                       analysis,
                       analysisInProgress,
                       simul,

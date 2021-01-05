@@ -2,6 +2,10 @@ package chess
 package format
 package pgn
 
+import play.api.libs.json._
+import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
+
 import scala._
 
 case class Pgn(
@@ -43,6 +47,21 @@ case class Pgn(
     val endStr  = tags(_.Result) | ""
     s"$tags\n\n$initStr$turnStr $endStr"
   }.trim
+
+  def renderAsKifu(uciPgn: scala.collection.IndexedSeq[(String, String)], gameCreatedAt: DateTime) = {
+    val fmt = DateTimeFormat.forPattern("yyyy/MM/dd HH:mm:ss")
+    val gameCreatedTag = "開始日時：" + fmt.print(gameCreatedAt) + "\n"
+    val tagsStr = KifuUtils tagsAsKifu tags mkString "\n"
+    val movesHeader = """
+手数----指手---------消費時間--
+"""
+    val uciPgnAsVector = uciPgn.foldLeft(Vector[(String, String)]()) {_ :+ _}
+    val movesVector = KifuUtils.movesAsKifu(uciPgnAsVector)
+    val movesStr = movesVector.zipWithIndex map { (move) => s"${move._2 + 1} ${move._1}" } mkString "\n"
+
+    val endMoveStr = ""
+    s"$gameCreatedTag$tagsStr$movesHeader$movesStr\n$endMoveStr"
+  }
 
   override def toString = render
 }
