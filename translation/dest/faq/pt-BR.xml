@@ -94,6 +94,8 @@ Não peça pelo título de LM.</string>
   <string name="whatUsernameCanIchoose">Qual pode ser o meu nome de usuário?</string>
   <string name="usernamesNotOffensive">Em geral, os nomes de usuários não devem ser: ofensivos, personificar outra pessoa, ou alguma publicidade. Você pode ler mais nas %1$s.</string>
   <string name="guidelines">orientações</string>
+  <string name="canIChangeMyUsername">Posso mudar meu nome de usuário?</string>
+  <string name="usernamesCannotBeChanged">Não, nomes de usuário não podem ser alterados por razões técnicas e práticas. Nomes de usuário são gravados em muitos lugares: banco de dados, exportações, registros e na mente das pessoas. Você pode ajustar a letra maiúscula uma vez.</string>
   <string name="uniqueTrophies">Troféus únicos</string>
   <string name="ownerUniqueTrophies">Esse troféu é único na história dos Lichess, ninguém mais o terá além de %1$s.</string>
   <string name="wayOfBerserkExplanation">Para obtê-lo, hiimgosu desafiou-se a ganhar freneticamente 100%% dos jogos de %s.</string>
