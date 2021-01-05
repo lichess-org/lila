@@ -20,6 +20,9 @@ class ReferrerRedirectTest extends Specification {
       r.valid(
         "https://oauth.lichess.org/oauth/authorize?response_type=code&client_id=NotReal1&redirect_uri=http%3A%2F%2Fexample.lichess.ovh%3A9371%2Foauth-callback&scope=&state=123abc"
       ) must beTrue
+      r.valid(
+        "https://oauth.lichess.org/oauth/authorize?response_type=code&client_id=VDUGxvEOmD7kYMnf&redirect_uri=chessrtx%3A%2F%2Foauth&scope=challenge:read+challenge:write+board:play"
+      ) must beTrue
     }
     "be invalid" in {
       r.valid("") must beFalse
