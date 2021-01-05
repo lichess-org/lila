@@ -94,6 +94,8 @@ No sol·licitis el títol de LM.</string>
   <string name="whatUsernameCanIchoose">Quin pot ser el meu nom d\'usuari?</string>
   <string name="usernamesNotOffensive">En general, els noms d\'usuari no han de: ser ofensius, suplantar a algú o fer publicitat. Pots llegir més sobre les %1$s.</string>
   <string name="guidelines">pautes</string>
+  <string name="canIChangeMyUsername">Puc canviar el meu nom d\'usuari?</string>
+  <string name="usernamesCannotBeChanged">No, el noms d’usuari no es poden canviar per motius tècnics i pràctics. El nom d’usuari s’usa en masses llocs: bases de dades, exportacions, registres, y a la ment de la gent. Pots ajustar les majúscules una vegada.</string>
   <string name="uniqueTrophies">Trofeus únics</string>
   <string name="ownerUniqueTrophies">Aquest trofeu és únic en la historia de Lichess, ningú altre excepte %1$s el podrà obtenir.</string>
   <string name="wayOfBerserkExplanation">Per obtenir-lo, hiimgosu es va reptar a fer berserk i guanyar el 100 %% partides de %s.</string>
