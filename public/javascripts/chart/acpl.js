@@ -1,7 +1,7 @@
 function toBlurArray(player) {
   return player.blurs && player.blurs.bits ? player.blurs.bits.split("") : [];
 }
-lishogi.advantageChart = function (data, trans, el) {
+lishogi.advantageChart = function (data, trans, el, notation) {
   lishogi.loadScript("javascripts/chart/common.js").done(function () {
     lishogi.loadScript("javascripts/chart/division.js").done(function () {
       lishogi.chartCommon("highchart").done(function () {
@@ -30,10 +30,11 @@ lishogi.advantageChart = function (data, trans, el) {
                 y: null,
               };
 
-            var turn = Math.floor((node.ply - 1) / 2) + 1;
-            var dots = color === 1 ? "." : "...";
             var point = {
-              name: turn + dots + " " + node.san,
+              name:
+                node.ply +
+                ". " +
+                notation({ san: node.san, uci: node.uci, fen: node.fen }),
               y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
             };
             if (!partial && blurs[color].shift() === "1") {

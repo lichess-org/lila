@@ -3,7 +3,7 @@ import { defined } from "common";
 import { baseUrl } from "./util";
 import { AnalyseData } from "./interfaces";
 import {displaySfen} from "shogiutil/util";
-import {westernShogiNotation} from "shogiutil/util";
+import { notationStyle } from "shogiutil/notation";
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   const li = window.lishogi;
@@ -86,7 +86,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   }
 
   function chartLoader() {
-    return `<div id="acpl-chart-loader"><span>Stockfish 11+<br>server analysis</span>${li.spinnerHtml}</div>`;
+    return `<div id="acpl-chart-loader"><span>YaneuraOu V6<br>server analysis</span>${li.spinnerHtml}</div>`;
   }
   function startAdvantageChart() {
     if (li.advantageChart || li.AnalyseNVUI) return;
@@ -100,7 +100,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     else if (loading && !$("#acpl-chart-loader").length)
       $panel.append(chartLoader());
     li.loadScript("javascripts/chart/acpl.js").then(function () {
-      li.advantageChart(data, ctrl.trans, $("#acpl-chart")[0] as HTMLElement);
+      li.advantageChart(data, ctrl.trans, $("#acpl-chart")[0] as HTMLElement, notationStyle(ctrl.data.pref.pieceNotation ?? 0));
     });
   }
 
@@ -119,7 +119,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     if ((panel == "move-times" || ctrl.opts.hunter) && !li.movetimeChart)
       try {
         li.loadScript("javascripts/chart/movetime.js").then(function () {
-          li.movetimeChart(data, ctrl.trans, westernShogiNotation);
+          li.movetimeChart(data, ctrl.trans, notationStyle(data.pref.pieceNotation ?? 0));
         });
       } catch (e) {}
     if (

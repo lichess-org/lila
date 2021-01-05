@@ -1,7 +1,7 @@
 function toBlurArray(player) {
   return player.blurs && player.blurs.bits ? player.blurs.bits.split("") : [];
 }
-lishogi.movetimeChart = function (data, trans, westernShogiNotation) {
+lishogi.movetimeChart = function (data, trans, notation) {
   if (!data.game.moveCentis) return; // imported games
   lishogi.loadScript("javascripts/chart/common.js").done(function () {
     lishogi.loadScript("javascripts/chart/division.js").done(function () {
@@ -27,9 +27,10 @@ lishogi.movetimeChart = function (data, trans, westernShogiNotation) {
             data.game.moveCentis.forEach(function (time, i) {
               var node = tree[i + 1];
               ply = node ? node.ply : ply + 1;
-              var san = node ? westernShogiNotation(node.san) : "-";
+              var san = node
+                ? notation({ san: node.san, uci: node.uci, fen: node.fen })
+                : "-";
 
-              var turn = (ply + 1) >> 1;
               var color = ply & 1;
 
               var y =
@@ -37,7 +38,7 @@ lishogi.movetimeChart = function (data, trans, westernShogiNotation) {
               max = Math.max(y, max);
 
               var point = {
-                name: turn + (color ? ". " : "... ") + san,
+                name: ply + ". " + san,
                 x: i,
                 y: color ? y : -y,
               };

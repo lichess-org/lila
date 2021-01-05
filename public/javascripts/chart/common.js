@@ -7,16 +7,18 @@ lishogi.chartCommon = function (type) {
     .done(function () {
       // Drop-in fix for Highcharts issue #8477 on older Highcharts versions. The
       // issue is fixed since Highcharts v6.1.1.
-      Highcharts.wrap(Highcharts.Axis.prototype, "getPlotLinePath", function (
-        proceed
-      ) {
-        var path = proceed.apply(
-          this,
-          Array.prototype.slice.call(arguments, 1)
-        );
-        if (path) path.flat = false;
-        return path;
-      });
+      Highcharts.wrap(
+        Highcharts.Axis.prototype,
+        "getPlotLinePath",
+        function (proceed) {
+          var path = proceed.apply(
+            this,
+            Array.prototype.slice.call(arguments, 1)
+          );
+          if (path) path.flat = false;
+          return path;
+        }
+      );
       Highcharts.makeFont = function (size) {
         return (
           size +
@@ -35,8 +37,8 @@ lishogi.chartCommon = function (type) {
           fat: "#d85000", // light ? '#a0a0a0' : '#707070'
         };
         var area = {
-          white: light ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.3)",
-          black: light ? "rgba(0,0,0,0.2)" : "rgba(0,0,0,1)",
+          black: light ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.3)",
+          white: light ? "rgba(0,0,0,0.2)" : "rgba(0,0,0,1)",
         };
         return {
           light: light,

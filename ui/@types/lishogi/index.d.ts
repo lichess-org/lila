@@ -69,7 +69,7 @@ interface Lishogi {
   // misc
   advantageChart: {
     update(data: any): void;
-    (data: any, trans: Trans, el: HTMLElement): void;
+    (data: any, trans: Trans, el: HTMLElement, notation: any): void;
   };
   movetimeChart: any;
   RoundNVUI(

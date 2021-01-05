@@ -46,7 +46,7 @@ const feedback = {
             withDots: true,
             showGlyphs: true,
             showEval: false
-          }, ctrl.current().fault.node, 0, "white")!))), // todo
+          }, ctrl.current().fault.node, ctrl.notation, "white")!))),
           h('em', ctrl.noarg(ctrl.color === 'white' ? 'findBetterMoveForWhite' : 'findBetterMoveForBlack')),
           skipOrViewSolution(ctrl)
         ])
