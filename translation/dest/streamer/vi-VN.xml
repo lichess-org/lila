@@ -8,6 +8,7 @@
   <string name="lastStream">Lần stream cuối %s</string>
   <string name="becomeStreamer">Trở thành một streamer Lichess</string>
   <string name="doYouHaveStream">Bạn có kênh YouTube hoặc Twitch không?</string>
+  <string name="hereWeGo">Bắt đầu nào!</string>
   <string name="allStreamers">Tất cả các streamer</string>
   <string name="downloadKit">Tải bộ công cụ cho streamer</string>
   <string name="xIsStreaming">%s đang livestream</string>
@@ -16,9 +17,16 @@
   <string name="approved">Stream của bạn đã được phê duyệt.</string>
   <string name="pendingReview">Stream của bạn đang được quản trị viên đánh giá.</string>
   <string name="pleaseFillIn">Hãy điền thông tin của bạn và tải lên một hình ảnh.</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">yêu cầu đánh giá của quản trị viên</string>
   <string name="twitchUsername">Tên người dùng hoặc đường dẫn đến trang Twitch của bạn</string>
   <string name="optionalOrEmpty">Tùy chọn. Bỏ trống nếu không có</string>
+  <plurals name="keepItShort">
+    <item quantity="other">Để tên ngắn gọn: tối đa %s ký tự</item>
+  </plurals>
+  <string name="whenApproved">Khi được quản trị viên xác nhận</string>
+  <string name="headline">Tiêu đề</string>
   <string name="tellUsAboutTheStream">Giới thiệu về stream của bạn trong một câu</string>
+  <string name="longDescription">Miêu tả dài</string>
   <string name="changePicture">Thay đổi/xóa ảnh của bạn</string>
   <string name="uploadPicture">Tải lên hình ảnh</string>
   <string name="deletePicture">Xóa hình ảnh</string>
