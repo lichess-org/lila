@@ -32,7 +32,7 @@ Napríklad, odhadované trvanie 5+3 partie je 5 × 60 + 40 × 3 = 420 sekúnd.</
   <string name="eightVariants">8 šachových variant</string>
   <string name="whatIsACPL">Čo je priemerná strata stotiny pešiaka (ACPL)?</string>
   <string name="insufficientMaterial">Prehra na čas, remíza a nedostatočný materiál</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">Príručka FIDE %s</string>
+  <string name="fideHandbookX">Príručka FIDE %s</string>
   <string name="officialRulesPDF">oficiálne pravidlá (PDF)</string>
   <string name="lichessTraining">Lichess tréning</string>
   <string name="threefoldRepetition">Trojnásobné opakovanie</string>
