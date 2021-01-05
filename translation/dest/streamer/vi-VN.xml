@@ -33,6 +33,8 @@ Ví dụ, bạn có thể thêm \"[RU]\" cho tiếng Nga, \"[TR]\" cho tiếng T
 Nếu stream của bạn dùng tiếng Anh, bạn không cần thêm thẻ ngôn ngữ.</string>
   <string name="twitchUsername">Tên người dùng hoặc đường dẫn đến trang Twitch của bạn</string>
   <string name="optionalOrEmpty">Tùy chọn. Bỏ trống nếu không có</string>
+  <string name="youtubeChannel">Đường dẫn hoặc ID kênh YouTube của bạn</string>
+  <string name="streamerName">Tên streamer của bạn trên Lichess</string>
   <plurals name="keepItShort">
     <item quantity="other">Để tên ngắn gọn: tối đa %s ký tự</item>
   </plurals>
