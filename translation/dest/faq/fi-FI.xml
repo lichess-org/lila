@@ -93,6 +93,7 @@ Katso %3$ssta tämä siirto ja harjoittele sen käyttöä.</string>
   <string name="whatUsernameCanIchoose">Mikä minun käyttäjänimeni voi olla?</string>
   <string name="usernamesNotOffensive">Yleisesti ottaen käyttäjänimien ei pidä olla loukkaavia, eikä niillä saa esittää toista ihmistä eikä mainostaa. Voit lukea lisää %1$s.</string>
   <string name="guidelines">ohjeista</string>
+  <string name="canIChangeMyUsername">Voinko vaihtaa käyttäjänimeni?</string>
   <string name="uniqueTrophies">Ainutlaatuiset palkinnot</string>
   <string name="ownerUniqueTrophies">Tämä palkinto on Lichessin historiassa ainutlaatuinen, eikä sitä voi koskaan saada kukaan muu kuin %1$s.</string>
   <string name="wayOfBerserkExplanation">hiimgosu sai sen haastettuaan itsensä voittamaan berserkkitilassa 100%% %s peleistä.</string>
