@@ -94,6 +94,8 @@ Her er en liste over FIDE-titler:</string>
   <string name="whatUsernameCanIchoose">Hvad kan mit brugernavn være?</string>
   <string name="usernamesNotOffensive">Generelt bør brugernavne ikke: støde, udgive sig for en anden eller reklamere. Du kan læse mere om %1$s.</string>
   <string name="guidelines">retningslinjer</string>
+  <string name="canIChangeMyUsername">Kan jeg ændre mit brugernavn?</string>
+  <string name="usernamesCannotBeChanged">Nej, brugernavne kan ikke ændres af tekniske og praktiske årsager. Brugernavne optræder for mange steder: i databaser, udtræk, logger og folks bevidsthed. Du kan kun ændre bogstavstørrelsen én gang.</string>
   <string name="uniqueTrophies">Unikke trofæer</string>
   <string name="ownerUniqueTrophies">Det trofæ er unikt i Lichess\' historie. Ingen andre end %1$s vil nogensinde få det.</string>
   <string name="wayOfBerserkExplanation">For at få det udfordrede hiimgosu sig selv til at berserke og vinde 100%% partier af %s.</string>
