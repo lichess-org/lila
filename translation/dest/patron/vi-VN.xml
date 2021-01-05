@@ -12,10 +12,12 @@
   <string name="youHaveLifetime">Bạn có một tài khoản Patron trọn đời. Khá là tuyệt vời đấy!</string>
   <string name="patronUntil">Bạn có tài khoản Patron cho đến %s.</string>
   <string name="ifNotRenewed">Nếu không được làm mới, bạn sẽ hạ cấp xuống miễn phí.</string>
+  <string name="weAreNonProfit">Chúng tôi là một hiệp hội phi lợi nhuận bởi vì chúng tôi tin rằng tất cả mọi người đều có thể có truy cập tới một nền tảng cờ vua đẳng cấp thế giới và miễn phí.</string>
   <string name="weRelyOnSupport">Chúng tôi dựa vào sự đóng góp từ những người như bạn. Nếu bạn thích sử dụng Lichess, hãy cân nhắc giúp đỡ chúng tôi thông qua việc quyên góp và trờ thành một Patron!</string>
   <string name="lifetime">Vĩnh viễn</string>
   <string name="payLifetimeOnce">Đóng góp %s một lần. Trở thành Lichess Patron vĩnh viễn!</string>
   <string name="lifetimePatron">Lichess Patron trọn đời</string>
+  <string name="makeExtraDonation">Quyên góp thêm nữa?</string>
   <string name="monthly">Hàng tháng</string>
   <string name="recurringBilling">Trả tiền định kỳ, làm mới đôi cánh Patron của bạn mỗi tháng.</string>
   <string name="onetime">Một lần</string>
@@ -28,6 +30,7 @@
   <string name="whereMoneyGoes">Tiền được dùng để làm gi?</string>
   <string name="serversAndDeveloper">Đầu tiên, một máy chủ mạnh mẽ.
 Sau đó chúng tôi trả lương cho một nhà phát triển toàn thời gian: %s, nhà sáng lập Lichess.</string>
+  <string name="costBreakdown">Xem phân tích chi phí chi tiết</string>
   <string name="changeMonthlySupport">Tôi có thể thay đổi/hủy việc đóng góp hàng tháng được không?</string>
   <string name="changeOrContact">Có, bất cứ lúc nào, ở trang này.
 Hoặc bạn có thể %s.</string>
