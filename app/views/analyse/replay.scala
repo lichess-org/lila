@@ -121,18 +121,18 @@ object replay {
           !ctx.blind option frag(
             div(cls := "analyse__underboard")(
               div(cls := "analyse__underboard__panels")(
-                //game.analysable option div(cls := "computer-analysis")(
-                //  if (analysis.isDefined || analysisStarted) div(id := "acpl-chart")
-                //  else
-                //    postForm(
-                //      cls := s"future-game-analysis${ctx.isAnon ?? " must-login"}",
-                //      action := routes.Analyse.requestAnalysis(gameId)
-                //    )(
-                //      submitButton(cls := "button text")(
-                //        span(cls := "is3 text", dataIcon := "")(trans.requestAComputerAnalysis())
-                //      )
-                //    )
-                //),
+                game.analysable option div(cls := "computer-analysis")(
+                  if (analysis.isDefined || analysisStarted) div(id := "acpl-chart")
+                  else
+                    postForm(
+                      cls := s"future-game-analysis${ctx.isAnon ?? " must-login"}",
+                      action := routes.Analyse.requestAnalysis(gameId)
+                    )(
+                      submitButton(cls := "button text")(
+                        span(cls := "is3 text", dataIcon := "")(trans.requestAComputerAnalysis())
+                      )
+                    )
+                ),
                 div(cls := "move-times")(
                   game.turns > 1 option div(id := "movetimes-chart")
                 ),
@@ -158,7 +158,6 @@ object replay {
                 }
               ),
               div(cls := "analyse__underboard__menu")(
-                /*
                 game.analysable option
                   span(
                     cls := "computer-analysis",
@@ -166,7 +165,7 @@ object replay {
                     title := analysis.map { a =>
                       s"Provided by ${usernameOrId(a.providedBy)}"
                     }
-                  )(trans.computerAnalysis()),*/
+                  )(trans.computerAnalysis()),
                 !game.isPgnImport option frag(
                   game.turns > 1 option span(dataPanel := "move-times")(trans.moveTimes()),
                   cross.isDefined option span(dataPanel := "ctable")(trans.crosstable())
