@@ -36,5 +36,6 @@
 Bạn có thể dùng chứ năng này để gọi các người chơi đến tham gia một giải đấu hoặc thi đấu theo đội.
 Những người chơi không muốn nhận tin nhắn của bạn có thể sẽ thoát khỏi đội.</string>
   <string name="teamsIlead">Những đội mà tôi dẫn đầu</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Có thể bạn muốn dẫn tới một trong những giải đấu sắp tới?</string>
   <string name="usersWhoCanManageThisTeam">Những người dùng có thể quản lý đội này</string>
 </resources>
