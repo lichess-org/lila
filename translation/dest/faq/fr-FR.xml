@@ -94,7 +94,7 @@ Ne demandez pas le titre de LM.</string>
   <string name="usernamesNotOffensive">En général, les noms d\'utilisateur ne doivent pas être : offensants, usurpant l\'identité de quelqu\'un d\'autre, ou publicitaires. Vous pouvez en savoir plus sur les %1$s.</string>
   <string name="guidelines">lignes directrices</string>
   <string name="canIChangeMyUsername">Puis-je changer de nom d\'utilisateur?</string>
-  <string name="usernamesCannotBeChanged">Non, les noms d\'utilisateur ne peuvent pas être modifiés pour des raisons techniques et pratiques. Les noms d\'utilisateur sont présents à beaucoup d\'endroits : bases de données, exportations, logs et esprit des gens. Vous pouvez modifier les majuscules une fois.</string>
+  <string name="usernamesCannotBeChanged">Non, les noms d\'utilisateur ne peuvent pas être modifiés pour des raisons techniques et pratiques, entre autres parce qu\'ils sont à beaucoup d\'endroits : bases de données, exportations, logs et esprit des gens. Vous pouvez modifier les majuscules une fois.</string>
   <string name="uniqueTrophies">Trophées uniques</string>
   <string name="ownerUniqueTrophies">Ce trophée est unique dans l\'histoire de Lichess, personne d\'autre que %1$s ne l\'aura jamais.</string>
   <string name="wayOfBerserkExplanation">Pour l\'obtenir, hiimgosu s\'est mis au défi de gagner en berserk 100%% des parties d\'%s.</string>
