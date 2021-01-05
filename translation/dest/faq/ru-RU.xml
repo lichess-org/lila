@@ -52,7 +52,7 @@
  В редких случаях бывает трудно вынести решение автоматически (серия вынужденных ходов, крепость). По умолчанию мы принимаем сторону того игрока, чьё время не вышло.
 
  Имейте в виду, что мат возможен и одним конём, и слоном, если у соперника есть фигура или пешка, способная заблокировать его короля.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">Правила ФИДЕ %s</string>
+  <string name="fideHandbookX">Правила ФИДЕ %s</string>
   <string name="discoveringEnPassant">Почему можно взять пешку, когда она уже прошла битое поле? (взятие на проходе)</string>
   <string name="explainingEnPassant">Это ход, известный как «взятие на проходе». Статья в Википедии даёт %1$s.
 
