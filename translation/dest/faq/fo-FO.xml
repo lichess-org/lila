@@ -4,4 +4,5 @@
   <string name="accounts">Kontur</string>
   <string name="whatUsernameCanIchoose">Hvat kann brúkaranavn mítt vera?</string>
   <string name="canIChangeMyUsername">Kann eg broyta brúkaranavn mítt?</string>
+  <string name="usernamesCannotBeChanged">Nei, av tøkniligum og verkligum ávum, ber ikki til at broyta brúkaranøvn. Brúkaranøvn koma fyri ov nógv støð: í dátugrunnum, útflutningum, skráum, og í huganum á fólki. Til ber at broyta, um navnið verður skrivað við stórum ella smáum stavum eina ferð.</string>
 </resources>
