@@ -41,8 +41,14 @@ Loyniorð: %3$s</string>
   <string name="inviteDesc1">Hevur næmingurin longu eina Lichess-konto, kanst tú bjóða honum ella henni at vera við í flokkinum.</string>
   <string name="inviteDesc2">Næmingarnir fáa eini boð á Lichess við einum leinki at melda seg til flokkin.</string>
   <string name="inviteDesc3">Týdningarmikið: Bjóða bert fólki, tú kennir, og sum vilja taka virknan lut í flokkinum.</string>
+  <string name="inviteDesc4">Send ongantíð óbodnar innbjóðingar til tilvildarligar telvarar.</string>
   <string name="createANewLichessAccount">Stovna eina nýggja Lichess kontu</string>
+  <string name="createDesc1">Um næmingurin ikki hevur eina Lichess-kontu enn, kanst tú stovna honum ella henni eina.</string>
+  <string name="createDesc2">Teldupostbústaður er ikki kravdur. Eitt loyniorð verður gjørt, og tær nýtist at senda næminginum tað, so hann fær ritað inn.</string>
+  <string name="createDesc3">Týdningarmikið: Ein næmingur sleppur ikki at hava fleiri kontur.</string>
+  <string name="createDesc4">Nýt innbjóðingaroyðublaðið, um næmingurin longu hevur eina brúkarakontu.</string>
   <string name="lichessUsername">Lichess brúkaranavn</string>
+  <string name="generateANewUsername">Ger eitt nýtt brúkaranavn</string>
   <string name="lastActiveDate">Virkin</string>
   <string name="teachers">Lærarar</string>
   <plurals name="nbTeachers">
