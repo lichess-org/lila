@@ -81,7 +81,9 @@ Tässä on linkki, josta pääset luokkaan.</string>
   <string name="progress">Edistyminen</string>
   <string name="noStudents">Luokassa ei vielä ole oppilaita.</string>
   <string name="noRemovedStudents">Ei poistettuja oppilaita.</string>
+  <string name="overDays" comment="overDays&#10;&#10;In the &quot;Progress&quot; tab of a Lichess Class dashboard, &quot;Over days&quot; is the title of a selector. This selector offers a choice between various durations, in days, over which the user can view the progress of the class.">Aikaväli päivissä</string>
   <string name="timePlaying">Pelattu aika</string>
+  <string name="variantXOverLastY" comment="variantXOverLastY&#10;&#10;The first variable is a game type (Blitz/Bullet, etc).&#10;The second variable is a duration length (in days).&#10;&#10;This is the heading of a column for a table that appears in the &quot;Progress&quot; tab of the Lichess Class dashboard.">%1$s, viimeiset %2$s</string>
   <string name="winrate">Voittoprosentti</string>
   <string name="na">Ei saatavilla</string>
   <string name="news">Luokan uutiset</string>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Zadania szachowe</string>
+  <string name="puzzleThemes">Motywy zadań</string>
   <string name="recommended">Polecane</string>
   <string name="phases">Faza gry</string>
   <string name="motifs">Motyw</string>

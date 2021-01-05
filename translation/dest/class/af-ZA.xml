@@ -81,9 +81,9 @@ Hier is die skakel om die klas te betree.</string>
   <string name="progress">Vordering</string>
   <string name="noStudents">Nog geen studente in die klas nie.</string>
   <string name="noRemovedStudents">Geen verwyderde studente.</string>
-  <string name="overDays">Oor dae</string>
+  <string name="overDays" comment="overDays&#10;&#10;In the &quot;Progress&quot; tab of a Lichess Class dashboard, &quot;Over days&quot; is the title of a selector. This selector offers a choice between various durations, in days, over which the user can view the progress of the class.">Oor dae</string>
   <string name="timePlaying">Tyd gespeel</string>
-  <string name="variantXOverLastY">%1$s oor laaste %2$s</string>
+  <string name="variantXOverLastY" comment="variantXOverLastY&#10;&#10;The first variable is a game type (Blitz/Bullet, etc).&#10;The second variable is a duration length (in days).&#10;&#10;This is the heading of a column for a table that appears in the &quot;Progress&quot; tab of the Lichess Class dashboard.">%1$s oor laaste %2$s</string>
   <string name="winrate">Wen koers</string>
   <string name="na">N.v.t.</string>
   <string name="news">Klas nuus</string>

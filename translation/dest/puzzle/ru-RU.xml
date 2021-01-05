@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Задачи</string>
+  <string name="puzzleThemes">Темы задач</string>
   <string name="recommended">Рекомендуемые</string>
   <string name="phases">Стадии игры</string>
   <string name="motifs">Мотивы</string>
@@ -9,8 +10,8 @@
   <string name="mates">Маты</string>
   <string name="goals">Цели</string>
   <string name="specialMoves">Особые ходы</string>
-  <string name="didYouLikeThisPuzzle">Вам понравились задачи?</string>
-  <string name="voteToLoadNextOne">Проголосуйте, чтобы загрузить следующий!</string>
+  <string name="didYouLikeThisPuzzle">Понравилась задача?</string>
+  <string name="voteToLoadNextOne">Проголосуйте и перейдите к следующей!</string>
   <string name="yourPuzzleRatingX">Ваш рейтинг в решении задач: %s</string>
   <string name="findTheBestMoveForWhite">Найдите лучший ход за белых.</string>
   <string name="findTheBestMoveForBlack">Найдите лучший ход за чёрных.</string>
@@ -22,7 +23,7 @@
   <string name="bestMove">Лучший ход!</string>
   <string name="keepGoing">Продолжайте...</string>
   <string name="puzzleSuccess">Получилось!</string>
-  <string name="puzzleComplete">Задача решена!</string>
+  <string name="puzzleComplete">Пазл решён !</string>
   <string name="notTheMove">Это не тот ход!</string>
   <string name="trySomethingElse">Попробуйте иначе.</string>
   <string name="ratingX">Рейтинг: %s</string>

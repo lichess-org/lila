@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Aufgaben</string>
+  <string name="puzzleThemes" comment="puzzleThemes&#10;&#10;https://lichess.org/training/themes">Aufgabenthemen</string>
   <string name="recommended">Empfohlen</string>
   <string name="phases">Phasen</string>
   <string name="motifs">Motive</string>

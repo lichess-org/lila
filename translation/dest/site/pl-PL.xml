@@ -9,6 +9,7 @@
   <string name="yourTurn">Twój ruch</string>
   <string name="aiNameLevelAiLevel">%1$s poziom %2$s</string>
   <string name="level">Poziom</string>
+  <string name="strength">Siła</string>
   <string name="toggleTheChat">Pokaż/ukryj rozmowy</string>
   <string name="toggleSound">Włącz/wyłącz dźwięk</string>
   <string name="chat">Czat</string>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">पहेलियाँ</string>
+  <string name="puzzleThemes">पहेली विषयों</string>
   <string name="recommended">सिफारिश की</string>
   <string name="phases">के चरण</string>
   <string name="motifs">रूपांकनों</string>

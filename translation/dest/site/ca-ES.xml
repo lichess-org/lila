@@ -505,6 +505,8 @@
   <string name="currentPassword">Contrasenya actual</string>
   <string name="newPassword">Nova contrasenya</string>
   <string name="newPasswordAgain">Nova contrasenya (de nou)</string>
+  <string name="newPasswordsDontMatch">La nova contrasenya no es correspón</string>
+  <string name="newPasswordStrength">Solidesa de la contrasenya</string>
   <string name="clockInitialTime">Temps inicial al rellotge</string>
   <string name="clockIncrement">Increment de temps</string>
   <string name="privacy">Privacitat</string>

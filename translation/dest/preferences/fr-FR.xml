@@ -41,6 +41,7 @@
   <string name="castleByMovingTwoSquares">En déplaçant le Roi de 2 cases</string>
   <string name="castleByMovingOntoTheRook">En déplaçant le Roi sur la Tour</string>
   <string name="inputMovesWithTheKeyboard">Saisir les coups au clavier</string>
-  <string name="sayGgWpAfterLosingOrDrawing">Dire \"Bonne partie, bien joué\" en cas de défaite ou de nulle</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Restreindre les flèches aux coups valides</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Dire \"Good game, well played\" c.-à.-d. \"Bonne partie, bien joué\", en cas de défaite ou de nulle</string>
   <string name="yourPreferencesHaveBeenSaved">Vos préférences ont été sauvegardées.</string>
 </resources>

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Opgaver</string>
+  <string name="puzzleThemes" comment="puzzleThemes&#10;&#10;https://lichess.org/training/themes">Opgavetemaer</string>
   <string name="recommended">Anbefalet</string>
   <string name="phases">Faser</string>
-  <string name="motifs">Begrundelser</string>
+  <string name="motifs">Motiv</string>
   <string name="advanced">Avanceret</string>
   <string name="lengths">Længder</string>
   <string name="mates">Matter</string>
@@ -23,7 +24,7 @@
   <string name="keepGoing">Bliv ved…</string>
   <string name="puzzleSuccess">Succes!</string>
   <string name="puzzleComplete">Opgave løst!</string>
-  <string name="notTheMove">Det er ikke trækket!</string>
+  <string name="notTheMove">Ikke det rigtige træk!</string>
   <string name="trySomethingElse">Prøv noget andet.</string>
   <string name="ratingX">Rating: %s</string>
   <string name="hidden">skjult</string>

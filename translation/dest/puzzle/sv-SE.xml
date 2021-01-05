@@ -40,4 +40,6 @@
   <string name="harder">Svårare</string>
   <string name="hardest">Svåraste</string>
   <string name="example">Exempel</string>
+  <string name="addAnotherTheme">Lägg till ett annat tema</string>
+  <string name="jumpToNextPuzzleImmediately">Hoppa till nästa pussel omedelbart</string>
 </resources>

@@ -9,6 +9,7 @@
   <string name="yourTurn">Ditt trekk</string>
   <string name="aiNameLevelAiLevel">%1$s på nivå %2$s</string>
   <string name="level">Nivå</string>
+  <string name="strength">Styrke</string>
   <string name="toggleTheChat">Chat av/på</string>
   <string name="toggleSound">Lyd av/på</string>
   <string name="chat">Praterom</string>

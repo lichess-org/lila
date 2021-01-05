@@ -49,6 +49,14 @@ Mật khẩu: %3$s</string>
   <string name="createDesc4">Nếu họ đã có, hãy sử dụng biểu mẫu mời thay thế.</string>
   <string name="lichessUsername">Tên người dùng Lichess</string>
   <string name="generateANewUsername">Tạo một tài khoản mới</string>
+  <string name="welcomeToClass">Chào mừng đến với lớp học của bạn: %s.
+Đây là đường link để tham gia lớp học.</string>
+  <string name="invitationToClass">Bạn được mời đến vào lớp học \"%s\" với tư cách học viên.</string>
+  <string name="clickToViewInvitation">Nhấn vào đường link để xem lời mời:</string>
+  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+    <item quantity="other">%s lời mời đang chờ</item>
+  </plurals>
+  <string name="noPendingInvitations">Không có lời mời đang chờ</string>
   <string name="onlyVisibleToTeachers">Chỉ hiển thị cho các giáo viên</string>
   <string name="lastActiveDate">Hoạt động</string>
   <string name="managed">Quản lý</string>
@@ -66,12 +74,13 @@ Mật khẩu: %3$s</string>
   <plurals name="nbStudents">
     <item quantity="other">%s học viên</item>
   </plurals>
+  <string name="students">Học viên</string>
   <string name="progress">Tiến trình</string>
   <string name="noStudents">Không có học viên nào trong lớp.</string>
   <string name="noRemovedStudents">Không học viên nào được loại bỏ.</string>
-  <string name="overDays">Qua nhiều ngày</string>
+  <string name="overDays" comment="overDays&#10;&#10;In the &quot;Progress&quot; tab of a Lichess Class dashboard, &quot;Over days&quot; is the title of a selector. This selector offers a choice between various durations, in days, over which the user can view the progress of the class.">Qua nhiều ngày</string>
   <string name="timePlaying">Thời gian chơi</string>
-  <string name="variantXOverLastY">%1$s qua %2$s cuối</string>
+  <string name="variantXOverLastY" comment="variantXOverLastY&#10;&#10;The first variable is a game type (Blitz/Bullet, etc).&#10;The second variable is a duration length (in days).&#10;&#10;This is the heading of a column for a table that appears in the &quot;Progress&quot; tab of the Lichess Class dashboard.">%1$s qua %2$s cuối</string>
   <string name="winrate">Tỉ lệ thắng</string>
   <string name="na">Không xác định</string>
   <string name="news">Tin lớp học</string>

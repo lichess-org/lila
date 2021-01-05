@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Feladványok</string>
+  <string name="puzzleThemes" comment="puzzleThemes&#10;&#10;https://lichess.org/training/themes">Feladvány témák</string>
   <string name="recommended">Ajánlott</string>
   <string name="phases">Szakaszok</string>
   <string name="motifs">Motívumok</string>

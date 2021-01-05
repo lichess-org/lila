@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Bulmacalar</string>
+  <string name="puzzleThemes">Bulmacalar</string>
   <string name="recommended">Önerilen</string>
   <string name="phases">Oyun bölümleri</string>
   <string name="motifs">Motifler</string>

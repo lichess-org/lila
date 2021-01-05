@@ -1,2 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">Problemes</string>
+  <string name="puzzleThemes">Temàtiques de problemes</string>
+  <string name="recommended">Recomanat</string>
+  <string name="phases">Fases</string>
+  <string name="motifs">Motius</string>
+  <string name="advanced">Avançat</string>
+  <string name="lengths">Durada</string>
+  <string name="mates">Mats</string>
+  <string name="goals">Objectius</string>
+  <string name="specialMoves">Jugades especials</string>
+  <string name="didYouLikeThisPuzzle">T\'ha agradat aquest problema?</string>
+  <string name="voteToLoadNextOne">Vota per passar al següent!</string>
+  <string name="yourPuzzleRatingX">La teva puntuació de problemes: %s</string>
+  <string name="findTheBestMoveForWhite">Troba la millor jugada de les blanques.</string>
+  <string name="findTheBestMoveForBlack">Troba la millor jugada de les negres.</string>
+  <string name="toGetPersonalizedPuzzles">Per obtenir problemes personalitzats:</string>
+  <string name="puzzleId">Problema %s</string>
+  <string name="puzzleOfTheDay">Problema del dia</string>
+  <string name="clickToSolve">Clica per resoldre</string>
+  <string name="goodMove">Bona jugada</string>
+  <string name="bestMove">La millor jugada!</string>
+  <string name="keepGoing">Continua jugant…</string>
+  <string name="puzzleSuccess">Èxit!</string>
+  <string name="puzzleComplete">Problema fet!</string>
+  <string name="notTheMove">Aquesta no és la jugada!</string>
+  <string name="trySomethingElse">Prova d\'una altra manera.</string>
+  <string name="ratingX">Puntuació: %s</string>
+  <string name="hidden">ocult</string>
+  <string name="fromGameLink">De la partida %s</string>
+  <string name="continueTraining">Continuar l\'entrenament</string>
+  <string name="difficultyLevel">Nivell de dificultat</string>
+  <string name="normal">Normal</string>
+  <string name="easier">Més fàcil</string>
+  <string name="easiest">El més fàcil</string>
+  <string name="harder">Més difícil</string>
+  <string name="hardest">El més difícil</string>
+  <string name="example">Exemple</string>
+  <string name="addAnotherTheme">Afegir un nou tema</string>
+  <string name="jumpToNextPuzzleImmediately">Passar al següent problema immediatament</string>
+</resources>

@@ -9,6 +9,7 @@
   <string name="yourTurn">Sıra sizde</string>
   <string name="aiNameLevelAiLevel">%1$s seviye %2$s</string>
   <string name="level">Seviye</string>
+  <string name="strength">Kuvvet</string>
   <string name="toggleTheChat">Sohbeti aç/kapat</string>
   <string name="toggleSound">Sesi aç/kapat</string>
   <string name="chat">Sohbet</string>
@@ -76,7 +77,7 @@
   <string name="winning">Kazandıran hamle(ler)</string>
   <string name="losing">Kaybettiren hamle(ler)</string>
   <string name="drawn">Berabere</string>
-  <string name="unknown">Bilinmeyen</string>
+  <string name="unknown">Belirsiz</string>
   <string name="database">Veritabanı</string>
   <string name="whiteDrawBlack">Beyaz / Berabere / Siyah</string>
   <string name="averageRatingX">Ortalama puan: %s</string>

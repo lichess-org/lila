@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Sjakknøtter</string>
+  <string name="puzzleThemes" comment="puzzleThemes&#10;&#10;https://lichess.org/training/themes">Temaer for sjakknøtter</string>
   <string name="recommended">Anbefalt</string>
   <string name="phases">Faser</string>
   <string name="motifs">Motiver</string>
@@ -41,5 +42,5 @@
   <string name="hardest">Verst</string>
   <string name="example">Eksempel</string>
   <string name="addAnotherTheme">Legg til tema</string>
-  <string name="jumpToNextPuzzleImmediately" comment="jumpToNextPuzzleImmediately&#10;&#10;With this setting enabled, the screen will transition to a new puzzle as soon as you complete the puzzle you are viewing.">Gå til neste sjakknøtt med én gang</string>
+  <string name="jumpToNextPuzzleImmediately">Gå til neste sjakknøtt med én gang</string>
 </resources>

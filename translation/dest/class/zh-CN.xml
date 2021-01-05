@@ -78,9 +78,9 @@
   <string name="progress">进度</string>
   <string name="noStudents">本课堂中暂无学生。</string>
   <string name="noRemovedStudents">没有被移除的学生。</string>
-  <string name="overDays">几天后</string>
+  <string name="overDays" comment="overDays&#10;&#10;In the &quot;Progress&quot; tab of a Lichess Class dashboard, &quot;Over days&quot; is the title of a selector. This selector offers a choice between various durations, in days, over which the user can view the progress of the class.">几天后</string>
   <string name="timePlaying">游戏时间</string>
-  <string name="variantXOverLastY">%1$s 超过了最近的 %2$s</string>
+  <string name="variantXOverLastY" comment="variantXOverLastY&#10;&#10;The first variable is a game type (Blitz/Bullet, etc).&#10;The second variable is a duration length (in days).&#10;&#10;This is the heading of a column for a table that appears in the &quot;Progress&quot; tab of the Lichess Class dashboard.">%1$s 超过了最近的 %2$s</string>
   <string name="winrate">胜率</string>
   <string name="na">N/A</string>
   <string name="news">班级新闻</string>

@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">训练题</string>
+  <string name="recommended">我们推荐：</string>
+  <string name="phases">阶段</string>
+  <string name="motifs">主题</string>
+  <string name="advanced">高等</string>
+  <string name="didYouLikeThisPuzzle">你喜欢了这个训练题吗？</string>
+  <string name="keepGoing">继续……</string>
+  <string name="fromGameLink">来自 %s 号赛</string>
+  <string name="continueTraining">继续训练</string>
+  <string name="difficultyLevel">难度</string>
+  <string name="normal">正常</string>
+  <string name="easier">容易</string>
+  <string name="easiest">最容易</string>
+  <string name="harder">更难</string>
+  <string name="hardest">最难</string>
+  <string name="example">例子</string>
+  <string name="jumpToNextPuzzleImmediately">一解决训练题就马上转到下一个</string>
+</resources>

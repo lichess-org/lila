@@ -9,6 +9,7 @@
   <string name="yourTurn">Сіз жүресіз</string>
   <string name="aiNameLevelAiLevel">%1$s деңгейі: %2$s</string>
   <string name="level">Деңгей</string>
+  <string name="strength">Күші</string>
   <string name="toggleTheChat">Чат батырмасы</string>
   <string name="toggleSound">Дыбыс батырмасы</string>
   <string name="chat">Чат</string>

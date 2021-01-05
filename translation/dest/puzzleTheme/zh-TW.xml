@@ -7,6 +7,7 @@
   <string name="bishopEndgame">象殘局</string>
   <string name="bishopEndgameDescription">只剩象和兵的殘局</string>
   <string name="castling">易位</string>
+  <string name="capturingDefender">吃子 - 防守者</string>
   <string name="equality">均勢</string>
   <string name="kingsideAttack">王翼攻擊</string>
   <string name="clearance">騰挪</string>
@@ -48,7 +49,7 @@
   <string name="rookEndgameDescription">只剩車和兵的殘局</string>
   <string name="short">短題目</string>
   <string name="shortDescription">兩步獲勝</string>
-  <string name="underPromotion">防止升變</string>
+  <string name="underPromotion">升變</string>
   <string name="underPromotionDescription">升變成騎士、象或車</string>
   <string name="veryLong">非常長的題目</string>
   <string name="veryLongDescription">四步或以上獲勝</string>

@@ -9,6 +9,7 @@
   <string name="yourTurn">आपकी चाल</string>
   <string name="aiNameLevelAiLevel">%1$s स्तर %2$s वाला</string>
   <string name="level">स्तर</string>
+  <string name="strength">ताक़त</string>
   <string name="toggleTheChat">चैट को टोग्ल करें</string>
   <string name="toggleSound">ध्वनि को टोग्ल करें</string>
   <string name="chat">बातचीत</string>

@@ -81,9 +81,9 @@
   <string name="progress">प्रगति</string>
   <string name="noStudents">कोई भी छात्र अभी तक कक्षा में नहीं है।</string>
   <string name="noRemovedStudents">छात्रों को हटाया नहीं गया।</string>
-  <string name="overDays">दिनों के साथ</string>
+  <string name="overDays" comment="overDays&#10;&#10;In the &quot;Progress&quot; tab of a Lichess Class dashboard, &quot;Over days&quot; is the title of a selector. This selector offers a choice between various durations, in days, over which the user can view the progress of the class.">दिनों के साथ</string>
   <string name="timePlaying">समय के साथ खेल</string>
-  <string name="variantXOverLastY">%1$s अंतिम %2$s पर</string>
+  <string name="variantXOverLastY" comment="variantXOverLastY&#10;&#10;The first variable is a game type (Blitz/Bullet, etc).&#10;The second variable is a duration length (in days).&#10;&#10;This is the heading of a column for a table that appears in the &quot;Progress&quot; tab of the Lichess Class dashboard.">%1$s अंतिम %2$s पर</string>
   <string name="winrate">जीत दर</string>
   <string name="na">N/A</string>
   <string name="news">कक्षा समाचार</string>

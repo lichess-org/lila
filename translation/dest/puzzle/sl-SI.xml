@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Šahovski problemi</string>
+  <string name="puzzleThemes">Teme ugank</string>
   <string name="recommended">Priporočeno</string>
   <string name="phases">Faze</string>
   <string name="motifs">Motivi</string>

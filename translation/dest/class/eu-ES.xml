@@ -81,9 +81,9 @@ Hemen dago bertara sartzeko lotura.</string>
   <string name="progress">Aurrerapena</string>
   <string name="noStudents">Klasean ez dago ikaslerik oraindik.</string>
   <string name="noRemovedStudents">Ez dago ezabatutako ikaslerik.</string>
-  <string name="overDays">Egunetan zehar</string>
+  <string name="overDays" comment="overDays&#10;&#10;In the &quot;Progress&quot; tab of a Lichess Class dashboard, &quot;Over days&quot; is the title of a selector. This selector offers a choice between various durations, in days, over which the user can view the progress of the class.">Egunetan zehar</string>
   <string name="timePlaying">Jokatzen emandako denbora</string>
-  <string name="variantXOverLastY">%1$s azken %2$s-n</string>
+  <string name="variantXOverLastY" comment="variantXOverLastY&#10;&#10;The first variable is a game type (Blitz/Bullet, etc).&#10;The second variable is a duration length (in days).&#10;&#10;This is the heading of a column for a table that appears in the &quot;Progress&quot; tab of the Lichess Class dashboard.">%1$s azken %2$s-n</string>
   <string name="winrate">Garaipen ratioa</string>
   <string name="na">Ezezaguna</string>
   <string name="news">Klaseko berriak</string>

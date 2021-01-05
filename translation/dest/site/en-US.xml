@@ -9,6 +9,7 @@
   <string name="yourTurn">Your turn</string>
   <string name="aiNameLevelAiLevel">%1$s level %2$s</string>
   <string name="level">Level</string>
+  <string name="strength">Strength</string>
   <string name="toggleTheChat">Toggle the chat</string>
   <string name="toggleSound">Toggle sound</string>
   <string name="chat">Chat</string>
@@ -506,7 +507,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="currentPassword">Current password</string>
   <string name="newPassword">New password</string>
   <string name="newPasswordAgain">New password (again)</string>
-  <string name="newPasswordsDontMatch">nlnazmul 1</string>
+  <string name="newPasswordsDontMatch">The new passwords don\'t match</string>
   <string name="newPasswordStrength">Password strength</string>
   <string name="clockInitialTime">Clock initial time</string>
   <string name="clockIncrement">Clock increment</string>
