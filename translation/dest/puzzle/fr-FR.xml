@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Problèmes</string>
-  <string name="puzzleDashboard">Tableau de bord des problèmes tactiques</string>
+  <string name="puzzleDashboard">Tableau de bord des problèmes</string>
   <string name="puzzleThemes">Thèmes des problèmes</string>
   <string name="recommended">Recommandé</string>
   <string name="phases">Phases</string>
