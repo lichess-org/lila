@@ -93,7 +93,8 @@
   <string name="whatUsernameCanIchoose">Каким может быть моё имя пользователя?</string>
   <string name="usernamesNotOffensive">В целом, имя пользователя не должно быть оскорбительным, выдающим вас за кого-то другого и рекламирующем что-то. Узнайте больше в наших %1$s.</string>
   <string name="guidelines">рекомендациях</string>
-  <string name="canIChangeMyUsername">Могу ли я изменить свой ник?</string>
+  <string name="canIChangeMyUsername">Могу ли я изменить своё имя пользователя?</string>
+  <string name="usernamesCannotBeChanged">Нет, по техническим и практическим причинам нельзя изменять имена пользователей. Они прописываются в слишком многих местах: базах данных, файлах экспорта, журналах и, конечно, в памяти людей. Вы можете изменить регистр символов, но только один раз.</string>
   <string name="uniqueTrophies">Уникальные трофеи</string>
   <string name="ownerUniqueTrophies">Это уникальные трофеи за всю историю Lichess, и ни у кого, кроме %1$s их не было.</string>
   <string name="wayOfBerserkExplanation">Чтобы его получить, hiimgosu бросил вызов самому себе выиграть с Берсерком 100%% игр в %s.</string>
