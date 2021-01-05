@@ -93,6 +93,8 @@ Bitte nicht darum, den LM-Titel zu erhalten.</string>
   <string name="whatUsernameCanIchoose">Wie kann mein Benutzername lauten?</string>
   <string name="usernamesNotOffensive">Im Allgemeinen sollten Nutzernamen nicht anstößig, jemand anderen imitierend oder Werbung sein. Du kannst mehr über die %1$s lesen.</string>
   <string name="guidelines">Richtlinien</string>
+  <string name="canIChangeMyUsername">Kann ich meinen Benutzernamen ändern?</string>
+  <string name="usernamesCannotBeChanged">Nein, Benutzernamen können aus technischen und praktischen Gründen nicht geändert werden. Die Benutzernamen tauchen an zu vielen Stellen auf: Datenbanken, Exporte, Logs und im Gedächtnis anderer Leute. Du kannst lediglich die Groß-/Kleinschreibung ändern.</string>
   <string name="uniqueTrophies">Einzigartige Trophäen</string>
   <string name="ownerUniqueTrophies">Diese Trophäe ist einzigartig in der Geschichte von Lichess, niemand außer %1$s wird sie jemals haben.</string>
   <string name="wayOfBerserkExplanation">Um sie zu bekommen, forderte hiimgosu sich selbst heraus, 100%% der %s-Partien zu berserken und zu gewinnen.</string>
