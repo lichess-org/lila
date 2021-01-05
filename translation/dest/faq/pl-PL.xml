@@ -99,7 +99,7 @@ Nie proś nas o przyznanie tytułu LM.</string>
   <string name="usernamesNotOffensive">Ogólnie rzecz biorąc, nazwy użytkowników nie powinny być obraźliwe, podszywać się pod kogoś innego, zawierać treści reklamowych. Możesz przeczytać więcej na ten temat na stronie %1$s.</string>
   <string name="guidelines">Zasady dotyczące nazwy użytkownika</string>
   <string name="canIChangeMyUsername">Czy mogę zmienić nazwę użytkownika?</string>
-  <string name="usernamesCannotBeChanged">Nie, nazwy użytkowników nie mogą zostać zmienione ze względów technicznych i praktycznych. Nazwy użytkowników są zapisane w zbyt wielu miejscach: bazy danych, pliki eksportu, logi i umysły ludzi. Możesz co najwyżej jednokrotnie zmienić kapitalizację liter w tej nazwie.</string>
+  <string name="usernamesCannotBeChanged">Nie, nie można zmieniać nazwy użytkowników z praktycznych i technicznych przyczyn. Nazwy użytkowników zapisywane są w zbyt wielu miejscach: bazach danych, plikach eksportu, logach, jak i w pamięci ludzi. Istnieje natomiast możliwość jednorazowej zmiany wielkości liter.</string>
   <string name="uniqueTrophies">Unikalne trofea</string>
   <string name="ownerUniqueTrophies">To unikalne trofeum w historii Lichess, nikt inny oprócz %1$s nie będzie go mieć.</string>
   <string name="wayOfBerserkExplanation">Aby je zdobyć, hiimgosu postawił sobie wyzwanie wygrania %s, wygrywając wszystkie swoje partie z włączonym berserkiem.</string>
