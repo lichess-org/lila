@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Задачи</string>
+  <string name="puzzleDashboard">Страница задач</string>
   <string name="puzzleThemes">Темы задач</string>
   <string name="recommended">Рекомендуемые</string>
   <string name="phases">Стадии игры</string>
