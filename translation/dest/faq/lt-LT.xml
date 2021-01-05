@@ -92,6 +92,8 @@ Neprašykite LM titulo.</string>
   <string name="whatUsernameCanIchoose">Koks gali būti mano vartotojo vardas?</string>
   <string name="usernamesNotOffensive">Bendrai, vartotojo vardai negali būti: įžeidūs, mėgdžiojantys ką nors kitą, ar reklamuojantys. Daugiau apie tai galite skaityti %1$s.</string>
   <string name="guidelines">taisyklėse</string>
+  <string name="canIChangeMyUsername">Ar galiu pakeisti savo vartotojo vardą?</string>
+  <string name="usernamesCannotBeChanged">Ne, vartotojų vardai negali būti pakeisti dėl techninių ir praktinių priežasčių. Vartotojų vardai naudojami per daug skirtingų vietų - duomenų bazėse, eksportuotuose žaidimuose, išrašuose ir žmonių mintyse. Yra galimybė tik pakeisti didžiąsias/mažąsias raides.</string>
   <string name="uniqueTrophies">Unikalūs trofėjai</string>
   <string name="ownerUniqueTrophies">Šis trofėjus yra unikalus Lichess istorijoje, jo neturės niekas daugiau be %1$s.</string>
   <string name="wayOfBerserkExplanation">Norėdamas jį gauti, hiimgosu iškėlė tau iššūkį laimėti tūžiu 100%% žaidimų %s.</string>
