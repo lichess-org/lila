@@ -17,9 +17,11 @@
   <string name="payLifetimeOnce">Đóng góp %s một lần. Trở thành Lichess Patron vĩnh viễn!</string>
   <string name="lifetimePatron">Lichess Patron trọn đời</string>
   <string name="monthly">Hàng tháng</string>
+  <string name="recurringBilling">Trả tiền định kỳ, làm mới đôi cánh Patron của bạn mỗi tháng.</string>
   <string name="onetime">Một lần</string>
   <string name="singleDonation">Đóng góp một lần cho bạn đôi cánh Patron trong vòng một tháng.</string>
   <string name="otherAmount">Khác</string>
+  <string name="pleaseEnterAmount">Xin hãy nhập một số tiền bằng USD</string>
   <string name="withCreditCard">Thẻ tín dụng</string>
   <string name="withPaypal">Paypal</string>
   <string name="weAreSmallTeam">Chúng tôi là một đội nhỏ, vì vậy sự giúp đỡ của bạn tạo nên khác biệt rất lớn!</string>
@@ -36,12 +38,18 @@ Hoặc bạn có thể %s.</string>
   <string name="patronFeatures">Có tính năng nào được dành riêng cho Patron không?</string>
   <string name="noPatronFeatures">Không, Lichess hoàn toàn miễn phí, mãi mãi và cho tất cả mọi người. Đó là lời hứa của chúng tôi.
 Tuy nhiên, Patron được quyền khoe khoang với một huy hiệu mới.</string>
+  <plurals name="patronForMonths">
+    <item quantity="other">Lichess Patron cho %s tháng</item>
+  </plurals>
   <string name="youSupportWith">Bạn hỗ trợ lichess.org với %s mỗi tháng.</string>
   <string name="tyvm">Cảm ơn sự giúp đỡ của bạn rất nhiều. Bạn thật tuyệt vời!</string>
   <string name="currentStatus">Trạng thái hiện tại</string>
   <string name="nextPayment">Thanh toán tiếp theo</string>
+  <string name="youWillBeChargedXOnY">Bạn sẽ trả %1$s vào ngày %2$s.</string>
   <string name="update">Cập nhật</string>
+  <string name="changeMonthlyAmount">Đổi lượng tiền hàng tháng (%s)</string>
   <string name="xOrY">%1$s hoặc %2$s</string>
+  <string name="noLongerSupport">Không ủng hộ Lichess nữa</string>
   <string name="paymentHistory">Lịch sử thanh toán</string>
   <string name="paid">Đã thanh toán</string>
   <string name="viewOthers">Xem các Lichess Patron khác</string>
@@ -51,4 +59,5 @@ Tuy nhiên, Patron được quyền khoe khoang với một huy hiệu mới.</s
   <string name="permanentPatron">Giờ bạn đã có một tài khoản Patron vĩnh viễn.</string>
   <string name="nowLifetime">Giờ bạn đã trở thành Lichess Patron trọn đời!</string>
   <string name="nowOneMonth">Giờ bạn đã trở thành Lichess Patron trong một tháng!</string>
+  <string name="downgradeNextMonth">Sau một tháng, bạn sẽ không phải trả tiền lại nữa, và tài khoản Lichess của bạn sẽ quay trở lại tài khoản thường.</string>
 </resources>
