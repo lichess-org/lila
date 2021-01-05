@@ -78,11 +78,15 @@ final private class GameJson(
   }
 
   private def playersJson(game: Game) = JsArray(game.players.map { p =>
-    Json.obj(
-      "userId" -> p.userId,
-      "name"   -> lila.game.Namer.playerTextBlocking(p, withRating = true)(lightUserApi.sync),
-      "color"  -> p.color.name
-    )
+    val userId = p.userId | "anon"
+    val user   = lightUserApi.syncFallback(userId)
+    Json
+      .obj(
+        "userId" -> userId,
+        "name"   -> s"${user.name} (${p.rating.??(_.toString)})",
+        "color"  -> p.color.name
+      )
+      .add("title" -> user.title)
   })
 
   private def generateBc(game: Game, plies: Int): JsObject =

@@ -2,9 +2,9 @@ import PuzzleSession from './session';
 import { Api as CgApi } from 'chessground/api';
 import { CevalCtrl, NodeEvals } from 'ceval';
 import { Config as CgConfig } from 'chessground/config';
+import { Deferred } from 'common/defer';
 import { Outcome } from 'chessops/types';
 import { Prop } from 'common';
-import { Deferred } from 'common/defer';
 import { Role, Move } from 'chessops/types';
 import { StoredBooleanProp } from 'common/storage';
 import { TreeWrapper } from 'tree';
@@ -144,9 +144,16 @@ export interface PuzzleGame {
     name: string;
   };
   rated: boolean;
-  players: Array<{ userId: string, name: string, color: Color }>;
+  players: [PuzzlePlayer, PuzzlePlayer];
   pgn: string;
   clock: string;
+}
+
+export interface PuzzlePlayer {
+  userId: string;
+  name: string;
+  title?: string;
+  color: Color;
 }
 
 export interface PuzzleUser {

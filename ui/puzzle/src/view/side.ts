@@ -1,4 +1,4 @@
-import { Controller, Puzzle, PuzzleGame, MaybeVNode, PuzzleDifficulty } from '../interfaces';
+import { Controller, Puzzle, PuzzleGame, MaybeVNode, PuzzleDifficulty, PuzzlePlayer } from '../interfaces';
 import { dataIcon, onInsert } from '../util';
 import { h } from 'snabbdom';
 import { numberFormat } from 'common/number';
@@ -42,10 +42,14 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
       h('div.player.color-icon.is.text.' + p.color,
         p.userId ? h('a.user-link.ulpt', {
           attrs: { href: '/@/' + p.userId }
-        }, p.name) : p.name
+        }, playerName(p)) : p.name
       )
     ))
   ])]);
+}
+
+function playerName(p: PuzzlePlayer) {
+  return p.title ? [h('span.utitle', p.title), ' ' + p.name] : p.name;
 }
 
 export function userBox(ctrl: Controller): VNode {
