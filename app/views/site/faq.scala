@@ -227,6 +227,11 @@ object faq {
           )
         ),
         question(
+          "change-username",
+          canIChangeMyUsername.txt(),
+          p(usernamesCannotBeChanged.txt())
+        ),
+        question(
           "trophies",
           uniqueTrophies.txt(),
           h4("The way of Berserk"),
