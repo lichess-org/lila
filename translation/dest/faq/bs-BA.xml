@@ -77,6 +77,7 @@ Pogledajte %3$s koja se odnosi na ovaj potez kako biste ga malo izvježbali.</st
   <string name="whatUsernameCanIchoose">Šta može biti moje korisničko ime?</string>
   <string name="usernamesNotOffensive">Korisnička imena ne bi trebala biti uvredljiva, marketinška ili takva da označavaju drugu osobu. Možete pročitati više o %1$s.</string>
   <string name="guidelines">smjernicama</string>
+  <string name="canIChangeMyUsername">Mogu li promijeniti korisničko ime?</string>
   <string name="uniqueTrophies">Jedinstveni trofeji</string>
   <string name="lichessRatings">Rejtinzi na Lichessu</string>
   <string name="whichRatingSystemUsedByLichess">Koji sistem rejtingovanja upotrebljava Lichess?</string>
