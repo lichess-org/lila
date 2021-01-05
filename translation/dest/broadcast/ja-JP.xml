@@ -11,9 +11,9 @@
   <string name="fullDescription">イベントの完全な説明</string>
   <string name="fullDescriptionHelp">内容の詳しい説明（オプション）。%1$s が利用できます。長さは [半角英数字で] %2$s 字まで。</string>
   <string name="sourceUrl">ソース URL</string>
-  <string name="sourceUrlHelp">PGN アップデートを取得するために Lishogi が確認するURL。インターネットから誰でもアクセスできる必要があります。</string>
+  <string name="sourceUrlHelp">PGN アップデートを取得するために Lishogi が確認する URL。インターネットから誰でもアクセスできる必要があります。</string>
   <string name="roundNumber">ラウンド数</string>
-  <string name="startDate">（あなたのタイムゾーンでの）開始日時</string>
+  <string name="startDate">開始日付（あなたの現地時間）</string>
   <string name="startDateHelp">オプション：イベント開始時に通知するかどうか</string>
   <string name="credits">ソースを表示する</string>
   <string name="cloneBroadcast">中継をクローン</string>

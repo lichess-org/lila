@@ -12,7 +12,7 @@
 	<string name="introBasics">基本を学びましょう。</string>
 	<string name="introIntro">あなたの旅はここから始まります。</string>
 	<string name="choosePieceDesign">伝えておくべき大事なことは、駒の区別がつくことですので正しい駒のセットを選びましょう。そうするためには歯車か（右上にある）ユーザー名をクリックし、そこから「駒のセット」をクリックします。</string>
-	<string name="promotionZone">いくつかの駒は相手の陣地3列内に入り、または出たときに、成ることを選択して強くすることができます。</string>
+	<string name="promotionZone">いくつかの駒は相手の陣地 3 列内に入り、または出たときに、成ることを選択して強くすることができます。</string>
 	<string name="senteGoesFirst">将棋では最初に指す人を先手と呼び、次に指す人を後手と呼びます。先手は黒で、後手は白で表されることがあります。続けるには先手として好きな手を指してください。</string>
 	<string name="introComplete">これで基本的なことは分かったと思いますが、チュートリアルのこの部分はまだ作成中です。今のところは、個々の駒がどのように動くかを学んでください。</string>
 	<string name="theRook">飛車</string>
@@ -39,11 +39,11 @@
 	<string name="kingSummary">王将/玉将はどの方向にも動けますが、たったの1マスしか移動できません。</string>
 	<string name="kingComplete">王将/玉将の動きも覚えましたね！</string>
 	<string name="theKnight">桂馬</string>
-	<string name="itMovesInAnLShape">L字型に動きますが、前方のみです！</string>
-	<string name="knightIntro">ここでもう1つの課題があります。桂馬は......扱いにくい駒です。</string>
+	<string name="itMovesInAnLShape">L 字型に動きますが、前方のみです！</string>
+	<string name="knightIntro">ここでもう 1 つの課題があります。桂馬は...扱いにくい駒です。</string>
 	<string name="knightsHaveAFancyWay">桂馬は面白い動きで盤上を跳ね回ります！</string>
 	<string name="knightsCanJumpOverObstacles">桂馬は障害物を飛び越えることができます！</string>
-	<string name="knightSummary">桂馬は前方にL字型にジャンプすることができますが、前方に2マス、横に1マスしかジャンプできません。桂馬の動きは他の駒に制限されず、ただ飛び越えるだけです。</string>
+	<string name="knightSummary">桂馬は前方に L 字型にジャンプすることができますが、前方に 2 マス、横に 1 マスしかジャンプできません。桂馬の動きは他の駒に制限されず、ただ飛び越えるだけです。</string>
 	<string name="pknightSummary">成桂の動きは桂馬とは全く異なります。しかし、金将と同じ動きをするのが分かると思いますので、そちらをしっかりと確認してください。</string>
 	<string name="knightPromotion">桂馬は成ることもできます。その後、動きが大きく変化するので注意してください。</string>
 	<string name="knightComplete">おめでとうございます！桂馬もマスターしました。</string>
@@ -186,7 +186,7 @@
 	<string name="getAFreeLishogiAccount">Lishogi の無料アカウントを作る</string>
 	<string name="practice">練習</string>
 	<string name="learnCommonChessPositions">将棋のよくある局面を知る</string>
-	<string name="puzzles">タクティクス</string>
+	<string name="puzzles">タクティクス問題</string>
 	<string name="exerciseYourTacticalSkills">戦術の技を磨く</string>
 	<string name="videos">動画</string>
 	<string name="watchInstructiveChessVideos">将棋の教材動画を見る</string>

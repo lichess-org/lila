@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xStreamsShogi">%s streams shogi</string>
-  <string name="lishogiStreamers">Lishogi streamers</string>
-  <string name="lishogiStreamer">Lishogi streamer</string>
+  <string name="xStreamsShogi">%s streamt Shogi</string>
+  <string name="lishogiStreamers">Lishogi-Streamer</string>
+  <string name="lishogiStreamer">Lishogi-Streamer</string>
   <string name="live">LIVE!</string>
   <string name="offline">OFFLINE</string>
   <string name="currentlyStreaming">Streamt gerade: %s</string>

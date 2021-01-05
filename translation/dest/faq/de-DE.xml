@@ -5,18 +5,18 @@
 	<string name="whyIsLishogiCalledLishogi">Warum wurde Lishogi Lishogi genannt?</string>
 	<string name="forkedFromLichess">Lishogi ist ein Open-Source-Projekt, das von lichess geforkt wurde, aber da es zum Shogi spielen gedacht ist, heißt es lishogi.</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">Weil es von Liсhess abgeleitet ist. Und Liсhess wird Liсhess genannt, weil es eine Kombination aus live/light/libre und Schach(chess) ist. Lishogi wird ausgesprochen %1$s.</string>
-	<string name="leechess">lee-shogi</string>
+	<string name="leechess">li-schogi</string>
 	<string name="hearItPronouncedBySpecialist">Höre dir die Aussprache von einem Spezialisten an.</string>
 	<string name="whyLiveLightLibre">Live, denn Partien werden 24/7 in Echtzeit gespielt und angeschaut; leicht und frei aufgrund der Tatsache, dass Lishogi quelloffen und frei von proprietärem Müll ist, welcher andere Internetseiten belastet.</string>
-	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
+	<string name="whyIsLilaCalledLila">Ähnlich verhält es sich mit dem Quellcode von Lishogi, %1$s, der für li[shogi in sca]la steht. Der Großteil von Lishogi wurde in %2$s geschrieben, einer intuitiven Programmiersprache.</string>
 	<string name="howCanIContributeToLishogi">Wie kann ich zu Lishogi beitragen?</string>
 	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi wird durch Spenden von Unterstützern und der Leistung eines Teams von Freiwilligen betrieben.</string>
-	<string name="findMoreAndSeeHowHelp">You can find out more about %1$s. If you want to help Lishogi by volunteering your time and skills, there are many %2$s.</string>
-	<string name="beingAPatron">Become a patron</string>
+	<string name="findMoreAndSeeHowHelp">Du kannst mehr herausfinden über %1$s. Falls du Lishogi durch freiwillige Arbeit unterstützen möchtest, gibt es viele %2$s.</string>
+	<string name="beingAPatron">Werde ein Patron!</string>
 	<string name="breakdownOfOurCosts">Aufschlüsselung unserer Kosten</string>
 	<string name="otherWaysToHelp">andere Wege zu helfen</string>
-	<string name="areThereWebsitesBasedOnLishogi">Are there websites based on Lishogi?</string>
-	<string name="yesLishogiInspiredOtherOpenSourceWebsites">Yes. Lishogi has indeed inspired other open-source sites that use our %1$s, %2$s, or %3$s.</string>
+	<string name="areThereWebsitesBasedOnLishogi">Gibt es Websites basierend auf Lishogi?</string>
+	<string name="yesLishogiInspiredOtherOpenSourceWebsites">Ja. Lishogi hat in der Tat andere quelloffene Seiten inspiriert, die unsere %1$s, %2$s oder %3$s verwenden.</string>
 	<string name="fairPlay">Fair Play</string>
 	<string name="whyFlaggedRatingManipulationOrCheater">Warum wurde ich für künstliche Wertungsmanipulation (Tiefstapelei und Hochtreiben) oder Computerunterstützung markiert?</string>
 	<string name="cheatDetectionMethods">Lishogi verfügt über starke Erkennungsmethoden und ein sehr gründliches Verfahren, um alle Beweise zu überprüfen und eine Entscheidung zu treffen. Der Prozess umfasst oft viele Moderatoren und kann eine lange Zeit dauern. Außer der Markierung selbst werden wir für einzelne Fälle nicht auf Einzelheiten über Beweise oder das Entscheidungsverfahren eingehen. Dies würde es in Zukunft einfacher machen, eine Erkennung zu vermeiden, und wäre eine Einladung zu unproduktiven Debatten. Diese Zeit und Mühe sind besser für andere wichtige Fälle aufgewendet. Benutzer können Widerspruch einlegen, indem sie eine  E-Mail an %1$s schicken, jedoch werden Entscheidungen selten rückgängig gemacht.</string>
@@ -27,8 +27,8 @@
 	<string name="leavingGameWithoutResigningExplanation">Falls dein Gegner häufig Partien abbricht/verlässt, erhält er einen \"Spiel-Bann\", was bedeutet, dass er temporär keine Partien mehr spielen kann. Dies wird nicht öffentlich auf der Profilseite vermerkt. Falls dieses Verhalten fortbesteht, wird die Länge des Spiel-Banns verlängert. Weitere dieser Vergehen können schließlich zur Schließung des Kontos führen.</string>
 	<string name="howCanIBecomeModerator">Wie kann ich Moderator werden?</string>
 	<string name="youCannotApply">Es ist nicht möglich, sich als Moderator zu bewerben. Wenn wir jemanden sehen, von dem wir glauben, dass er als Moderator gut wäre, werden wir ihn direkt kontaktieren.</string>
-	<string name="isCorrespondenceDifferent">Is correspondence different from normal shogi?</string>
-	<string name="youCanUseOpeningBookNoEngine">On Lishogi, the main difference in rules for correspondence shogi is that an opening book is allowed. The use of engines is still prohibited and will result in being flagged for engine assistance. Although ICCF allows engine use in correspondence, Lishogi does not.</string>
+	<string name="isCorrespondenceDifferent">Unterscheidet sich Fernshogi von normalem Shogi?</string>
+	<string name="youCanUseOpeningBookNoEngine">Bei Lishogi besteht der Hauptunterschied bei den Regeln für Fernshogi darin, dass hier zwar ein Eröffnungsbuch erlaubt ist. Die Verwendung von Schachcomputern ist jedoch immer noch verboten und führt zu einer Markierung des Kontos wegen unerlaubter Unterstützung durch Schachcomputer. Obwohl die ICCF die Verwendung von Schachcomputern in Fernschachpartien erlaubt, ist dies auf Lishogi nicht gestattet.</string>
 	<string name="gameplay">Das Spiel selbst betreffend</string>
 	<string name="howBulletBlitzEtcDecided">Wie wird entschieden, was Bullet, Blitz und andere Zeitkontrollen sind?</string>
 	<string name="basedOnGameDuration">Lishogi Zeitkontrollen basieren auf der erwarteten Spieldauer = %1$s
@@ -37,7 +37,7 @@ Zum Beispiel berechnet sich die erwartete Spieldauer einer 5+3 Partie zu 5 * 60 
 	<string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
 	<string name="whatVariantsCanIplay">Welche Varianten kann ich auf Lishogi spielen?</string>
-	<string name="lishogiSupportChessAnd">Lishogi supports standard shogi and %1$s.</string>
+	<string name="lishogiSupportChessAnd">Lishogi unterstützt Standard-Shogi und %1$s.</string>
 	<string name="eightVariants">8 Schachvarianten</string>
 	<string name="whatIsACPL">Was ist \"durchschnittlicher Centipawn-Verlust\"/ACPL?</string>
 	<string name="acplExplanation">Der Zentibauer oder Hundertstelbauer ist die Maßeinheit im Schach für den Vorteil eines Spielers. Der Zentibauer entspricht dabei dem Wert von 1/100 eines regulären Bauern. Deshalb gilt 100 Zentibauern = 1 Bauer. Diese Werte spielen während der Partie keine besondere Rolle, sind jedoch für Spieler nützlich und spielen im Computerschach eine essentielle Rolle bei der Bewertung von Stellungen.
@@ -64,7 +64,7 @@ Dies wird in Abschnitt 3.7 der %2$s beschrieben.
 Siehe %3$s für etwas Übung mit dieser Art von Zug.</string>
 	<string name="goodIntroduction">guten ersten Eindruck</string>
 	<string name="officialRulesPDF">offiziellen Regeln (PDF)</string>
-	<string name="lishogiTraining">Lishogi training</string>
+	<string name="lishogiTraining">Lishogi-Training</string>
 	<string name="threefoldRepetition">Dreifache Stellungswiederholung</string>
 	<string name="threefoldRepetitionExplanation">Wenn eine Stellung dreimal auftritt, können Spieler ein Remis durch %1$s reklamieren. Lishogi implementiert die offiziellen FIDE-Regeln, wie in Artikel 9.2 (d) des %2$s beschrieben.</string>
 	<string name="threefoldRepetitionLowerCase">dreifache Stellungswiederholung</string>
@@ -76,7 +76,7 @@ Siehe %3$s für etwas Übung mit dieser Art von Zug.</string>
 	<string name="threeFoldHasToBeClaimed">Dreifach gleiche Stellung muss von einem der Spieler reklamiert werden. Das kannst du erreichen, indem du auf die Schaltfläche drückst, die angezeigt wird, oder indem du Remis vor deinem letzten Zug anbietest, der eine solche Stellung herbeiführt. In letztem Fall wird eine berechtigte Reklamation wegen dreifach gleicher Stellung selbst dann erfolgreich sein, wenn dein Gegner das Angebot ablehnt. Du kannst Lishogi auch so %1$s, dass automatisch dreifach gleiche Stellung für dich reklamiert wird. Zusätzlich beendet die fünffach gleiche Stellung mit gleichen Zugmöglichkeiten immer sofort das Spiel.</string>
 	<string name="configure">konfigurieren</string>
 	<string name="accounts">Konten</string>
-	<string name="titlesAvailableOnLishogi">What titles are there on Lishogi?</string>
+	<string name="titlesAvailableOnLishogi">Welche Titel gibt es auf Lishogi?</string>
 	<string name="lishogiRecognizeAllOTBtitles">Lishogi recognises all FIDE titles gained from OTB (over the board) play, as well as %1$s. Here is a list of FIDE titles:</string>
 	<string name="showYourTitle">Wenn du einen OTB Titel hast, kannst du beantragen, dass dieser auf deinem Konto angezeigt wird, indem du das %1$s ausfüllst, mit einem klaren Bild eines Identifikationsausweises/einer -karte und einem Selfie von dir mit Nachweis/Karte im Bild hochgehalten.
 
@@ -100,15 +100,15 @@ Bitte nicht darum, den LM-Titel zu erhalten.</string>
 	<string name="wayOfBerserkExplanation">Um sie zu bekommen, forderte hiimgosu sich selbst heraus 100%% der %s-Partien zu berserken und zu gewinnen.</string>
 	<string name="aHourlyBulletTournament">stündlichen Bullet-Arena</string>
 	<string name="goldenZeeExplanation">ZugAddict streamte und hatte in den letzten 2 Stunden versucht, die künstliche Intelligenz auf Stufe 8 in einem 1+0 Spiel zu besiegen, ohne Erfolg. Thibault versprach ihm, dass er eine einzigartige Trophäe bekommen würde, wenn er es erfolgreich im Stream schaffen würde. Eine Stunde später zerschmetterte er Stockfish und das Versprechen wurde eingehalten.</string>
-	<string name="lishogiRatings">Lishogi ratings</string>
-	<string name="whichRatingSystemUsedByLishogi">What rating system does Lishogi use?</string>
-	<string name="ratingSystemUsedByLishogi">Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant number of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system).
+	<string name="lishogiRatings">Lishogi-Bewertungen</string>
+	<string name="whichRatingSystemUsedByLishogi">Welches Wertungssystem nutzt Lishogi?</string>
+	<string name="ratingSystemUsedByLishogi">Wertungen (\"Wertungszahlen\", \"Ratings\") werden mit der von Mark Glickman entwickelten Glicko-2-Wertungsmethode berechnet. Dies ist eine sehr beliebte Wertungsmethode und wird von einer bedeutenden Anzahl von Schachorganisationen verwendet (FIDE ist ein bemerkenswertes Gegenbeispiel da sie immer noch das veraltete Elo-Wertungs-System verwenden).
 
-Fundamentally, Glicko ratings use \"confidence intervals\" when calculating and representing your rating. When you first start using the site, your rating starts at 1500 ± 700. The 1500 represents your rating, and the 700 represents the confidence interval.
+Grundsätzlich verwenden Glicko-Wertungen \"Konfidenzintervalle\" bei der Berechnung deiner Wertung. Wenn du das erste Mal auf der Website spielst, beginnt deine Wertung bei 1500 ± 700. Die 1500 stellt deine Wertung dar, und die 700 stellt das Konfidenzintervall dar.
 
-Basically, the system is 90% sure that your rating is somewhere between 800 and 2200. It is incredibly uncertain. Because of this, when a player is just starting out, their rating will change very dramatically, potentially several hundred points at a time. But after some games against established players the confidence interval will narrow, and the amount of points gained/lost after each game will decrease.
+Grundsätzlich ist sich das System zu 90% sicher, dass deine Wertung zwischen 800 und 2200 liegt. Das ist unglaublich ungewiss. Aus diesem Grund wird sich die Wertung, wenn ein Spieler gerade beginnt drastisch ändern, möglicherweise um mehrere hundert Punkte pro Stunde. Aber nach einigen Spielen gegen etablierte Spieler wird sich das Konfidenzintervall verkleinern und die Anzahl der gewonnenen/verlorenen Punkte nach jedem Spiel sinken.
 
-Another point to note is that, as time passes, the confidence interval will increase. This allows you to gain/lose points points more rapidly to match any changes in your skill level over that time.</string>
+Ein weiterer Punkt ist, dass sich das Konfidenzintervall im Laufe der Zeit erhöhen wird. Dies erlaubt es dir, Punkte schneller zu gewinnen oder zu verlieren, um alle Änderungen in deinem Fertigkeitslevel über diese Zeit hinweg zu berücksichtigen.</string>
 	<string name="whatIsProvisionalRating">Warum gibt es ein Fragezeichen (?) neben einer Wertung?</string>
 	<string name="provisionalRatingExplanation">Das Fragezeichen bedeutet, dass die Wertung vorläufig ist. Zu den Gründen gehört:</string>
 	<string name="notPlayedEnoughRatedGamesAgainstX">Der Spieler hat noch nicht genug gewertete Partien gegen %1$s in der Wertungskategorie beendet.</string>
@@ -120,7 +120,7 @@ Another point to note is that, as time passes, the confidence interval will incr
 	<string name="ratingLeaderboards">Wertungs-Ranglisten</string>
 	<string name="havePlayedMoreThanThirtyGamesInThatRating">mindestens 30 gewertete Partien in einer bestimmten Kategorie gespielt haben,</string>
 	<string name="havePlayedARatedGameAtLeastOneWeekAgo">in der letzten Woche eine gewertete Partie in dieser Kategorie gespielt haben,</string>
-	<string name="ratingDeviationLowerThanXinChessYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
+	<string name="ratingDeviationLowerThanXinChessYinVariants">eine Wertungsabweichung kleiner als %1$s im Standardshogi und niedriger als %2$s in Varianten besitzen,</string>
 	<string name="beInTopTen">in den Top 10 dieser Wertungskategorie sein.</string>
 	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Die zweite Bedingung dient dazu, dass Spieler, welche ihre Konten nicht mehr verwenden, aufhören in Ranglisten aufzutauchen.</string>
 	<string name="whyAreRatingHigher">Warum sind die Wertungen im Vergleich zu anderen Websites und Organisationen wie FIDE, USCF und dem ICC höher?</string>
@@ -135,9 +135,9 @@ Es ist am besten, Wertungen als \"relative\" Werte zu betrachten (im Gegensatz z
 	<string name="howToThreeDots">Wie kann ich...</string>
 	<string name="enableDisableNotificationPopUps">Benachrichtigungs-Popups aktivieren oder deaktivieren?</string>
 	<string name="viewSiteInformationPopUp">Seiteninformations-Popup anzeigen</string>
-	<string name="lishogiCanOptionnalySendPopUps">Lishogi can optionally send popup notifications, for example when it is your turn or you received a private message.
+	<string name="lishogiCanOptionnalySendPopUps">Lishogi kann optional Popup-Benachrichtigungen versenden, zum Beispiel wenn du am Zug bist oder eine private Nachricht erhalten hast.
 
-Click the lock icon next to the lishogi.org address in the URL bar of your browser.
+Klicke auf das Schlosssymbol neben der lishogi.org Adresse in der URL-Leiste deines Browsers.
 
-Then select whether to allow or block notifications from Lishogi.</string>
+Wähle dann aus, ob Benachrichtigungen von Lishogi erlaubt oder blockiert werden sollen.</string>
 </resources>

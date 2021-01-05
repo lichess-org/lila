@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xStreamsShogi">%s streams shogi</string>
+  <string name="xStreamsShogi">%s streame le shogi</string>
   <string name="lishogiStreamers">Streamers sur Lishogi</string>
   <string name="lishogiStreamer">Lishogi streamer</string>
   <string name="live">EN DIRECT !</string>
   <string name="offline">HORS LIGNE</string>
-  <string name="currentlyStreaming">En cours de streaming %s</string>
+  <string name="currentlyStreaming">En direct maintenant : %s</string>
   <string name="lastStream">Dernière diffusion %s</string>
   <string name="becomeStreamer">Devenir un streamer sur Lishogi</string>
   <string name="doYouHaveStream">Avez-vous une chaîne Twitch ou YouTube ?</string>
@@ -16,13 +16,13 @@
   <string name="downloadKit">Téléchargez le kit streamer</string>
   <string name="xIsStreaming">%s est en train de streamer</string>
   <string name="rules">Règles de streaming</string>
-  <string name="rule1">Incluez \"lishogi.org\" dans votre titre de streaming lorsque vous streamez sur Lishogi.</string>
-  <string name="rule2">Retirez le mot-clé lorsque vous ne streamez pas à propos de Lishogi.</string>
+  <string name="rule1">Mettre \"lishogi.org\" dans le titre de votre stream lorsque vous streamez sur Lishogi.</string>
+  <string name="rule2">Retirez le mot-clé lorsque vous ne streamez pas sur Lishogi.</string>
   <string name="rule3">Lishogi détectera automatiquement votre stream et activera les avantages suivants :</string>
-  <string name="perks">Avantages du streaming avec le mot-clé</string>
+  <string name="perks">Avantages de streamer avec le mot-clé</string>
   <string name="perk1">Obtenez une flamboyante icône de streamer sur votre profil Lishogi.</string>
   <string name="perk2">Soyez remonté en haut de la liste des streamers.</string>
-  <string name="perk3">Notifier vos suiveurs sur Lishogi.</string>
+  <string name="perk3">Notifiez vos suiveurs sur Lishogi.</string>
   <string name="perk4">Montrez votre stream dans vos parties, tournois et études.</string>
   <string name="approved">Votre stream est approuvé.</string>
   <string name="pendingReview">Votre stream est en cours de révision par les modérateurs.</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xStreamsShogi">%s streams shogi</string>
+  <string name="xStreamsShogi">%sは将棋を配信する</string>
   <string name="lishogiStreamers">Lishogi 配信者</string>
   <string name="lishogiStreamer">Lishogi 配信者</string>
   <string name="live">ライブ配信中</string>

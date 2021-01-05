@@ -253,7 +253,7 @@
 	<string name="incrementInSeconds">Inkrement in Sekunden</string>
 	<string name="byoyomiInSeconds">Byoyomi in seconds</string>
 	<string name="numberOfPeriods">Number of periods</string>
-	<string name="freeOnlineChess">Free Online Shogi</string>
+	<string name="freeOnlineChess">Gratis Online-Shogi</string>
 	<string name="spectators">Zuschauer:</string>
 	<plurals name="nbRated">
 		<item quantity="one">%s gewertet</item>
@@ -331,7 +331,7 @@
 	<string name="mustBeInTeam">Du musst in Team %s sein</string>
 	<string name="youAreNotInTeam">Du bist nicht in Team %s</string>
 	<string name="backToGame">Zurück zum Spiel</string>
-	<string name="siteDescription">Free online shogi server. Play shogi in a clean interface. No registration, no ads, no plugin required. Play shogi with the computer, friends or random opponents.</string>
+	<string name="siteDescription">Kostenloses Online-Shogi. Spiele in einer einladenden Umgebung Shogi! Keine Werbung, keine Registrierung oder Plugins erforderlich. Spiele gegen den Computer, Freunde oder zufällige Gegner!</string>
 	<string name="xJoinedTeamY">%1$s trat der Gruppe %2$s bei</string>
 	<string name="xCreatedTeamY">%1$s hat das Team %2$s gegründet</string>
 	<string name="xStartedStreaming">%s startete Stream</string>
@@ -353,9 +353,9 @@
 		<item quantity="one">%s importierte Partie</item>
 		<item quantity="other">%s importierte Partien</item>
 	</plurals>
-	<string name="thisIsAChessCaptcha">This is a shogi CAPTCHA.</string>
+	<string name="thisIsAChessCaptcha">Dies ist ein Shogi-CAPTCHA.</string>
 	<string name="clickOnTheBoardToMakeYourMove">Mach einen Zug, um zu beweisen, dass du ein Mensch bist.</string>
-	<string name="captcha.fail">Please solve the shogi captcha.</string>
+	<string name="captcha.fail">Bitte löse die Shogi-Aufgabe.</string>
 	<string name="notACheckmate">Kein Matt</string>
 	<string name="whiteCheckmatesInOneMove">Weiß setzt in einem Zug Matt</string>
 	<string name="blackCheckmatesInOneMove">Schwarz setzt in einem Zug Matt</string>
@@ -406,7 +406,7 @@
 	<string name="advancedSettings">Erweiterte Einstellungen</string>
 	<string name="safeTournamentName">Wähle einen äußerst sicheren Namen für das Turnier.</string>
 	<string name="inappropriateNameWarning">Sämtliche unangemessene Inhalte können zur Schließung deines Benutzerkontos führen.</string>
-	<string name="emptyTournamentName">Leave empty to name the tournament after a notable shogi player.</string>
+	<string name="emptyTournamentName">Frei lassen, um das Turnier nach einem zufälligen Großmeister zu benennen.</string>
 	<string name="recommendNotTouching">Wir empfehlen, diese nicht zu ändern.</string>
 	<string name="fewerPlayers">Falls du Teilnahmebedingungen setzt, wird das Turnier weniger Spieler haben.</string>
 	<string name="showAdvancedSettings">Zeige erweiterte Einstellungen</string>
@@ -454,8 +454,8 @@
 	<string name="country">Land</string>
 	<string name="socialMediaLinks">Social-Media Links</string>
 	<string name="inlineNotation">Inline-Notation</string>
-	<string name="watchLishogiTV">Watch Lishogi TV</string>
-	<string name="previouslyOnLishogiTV">Previously on Lishogi TV</string>
+	<string name="watchLishogiTV">Lishogi-TV anschauen</string>
+	<string name="previouslyOnLishogiTV">Zuletzt auf Lishogi-TV</string>
 	<string name="onlinePlayers">Spieler online</string>
 	<string name="activeToday">Heute aktiv</string>
 	<string name="activePlayers">Aktive Spieler</string>
@@ -585,7 +585,7 @@
 	<string name="clock">Uhr</string>
 	<string name="unauthorizedError">Zugriff verweigert.</string>
 	<string name="noInternetConnection">Keine Internet Verbindung. Offline Spielen möglich.</string>
-	<string name="connectedToLishogi">You are now connected to lishogi.org</string>
+	<string name="connectedToLishogi">Verbindung hergestellt</string>
 	<string name="signedOut">Erfolgreich ausgeloggt</string>
 	<string name="loginSuccessful">Du bist jetzt eingeloggt</string>
 	<string name="playOnTheBoardOffline">Spiele offline gegen Mensch</string>
@@ -627,7 +627,7 @@
 	<string name="webmasters">Webmaster</string>
 	<string name="about">Über</string>
 	<string name="aboutX">Über %s</string>
-	<string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is a free (%2$s), libre, no-ads, open source shogi server.</string>
+	<string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ist ein freier (%2$s), quelloffener Shogi-Server. Kostenlos und ohne Werbung.</string>
 	<string name="really">wirklich</string>
 	<string name="contribute">Mitmachen</string>
 	<string name="termsOfService">AGB</string>
@@ -651,7 +651,7 @@
 	<string name="simulClockHint">Fischer Bedenkzeit. Je mehr Gegner du hast, desto mehr Zeit wirst du benötigen.</string>
 	<string name="simulAddExtraTime">Du kannst dir selbst zusätzliche Zeit hinzufügen, um mit dem Simultan zurechtzukommen.</string>
 	<string name="simulHostExtraTime">Extra Bedenkzeit des Ausrichters</string>
-	<string name="lishogiTournaments">Lishogi tournaments</string>
+	<string name="lishogiTournaments">Lishogi-Turniere</string>
 	<string name="tournamentFAQ">Arena FAQ</string>
 	<string name="tournamentOfficial">Offiziell</string>
 	<string name="timeBeforeTournamentStarts">Zeit bis zum Start des Turniers</string>
@@ -662,8 +662,8 @@
 	<string name="keyShowOrHideComments">zeige/verberge Kommentare</string>
 	<string name="keyEnterOrExitVariation">Variante wählen/verlassen</string>
 	<string name="newTournament">Neues Turnier</string>
-	<string name="tournamentHomeTitle">Shogi tournaments featuring various time controls and variants</string>
-	<string name="tournamentHomeDescription">Play fast-paced shogi tournaments! Join an official scheduled tournament, or create your own. Bullet, Blitz, Classical and more options available for endless shogi fun.</string>
+	<string name="tournamentHomeTitle">Shogi-Turniere mit verschiedenen Zeitkontrollen und Shogi-Varianten</string>
+	<string name="tournamentHomeDescription">Spiele rasante Turniere! Trete einem geplanten Turnier bei oder erstelle ein neues. Bullet, Blitz, Klassisch und andere Varianten für grenzenlosen Spaß.</string>
 	<string name="tournamentNotFound">Turnier nicht gefunden</string>
 	<string name="tournamentDoesNotExist">Dieses Turnier existiert nicht.</string>
 	<string name="tournamentMayHaveBeenCanceled">Womöglich wurde es abgesagt, weil zu Turnierbeginn kein Spieler (mehr) registriert war.</string>
@@ -685,8 +685,8 @@
 	<string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Wenn du die E-Mail nicht findest, prüfe in deinem E-Mail-Konto, ob sie in einem anderen Ordner wie z.B. dem Spamordner oder dem Papierkorb ist.</string>
 	<string name="weHaveSentYouAnEmailTo">Wir haben dir eine Email an %s gesendet. Klicke auf den Link in der E-Mail, um dein Passwort zurück zu setzen.</string>
 	<string name="byRegisteringYouAgreeToBeBoundByOur">Durch die Anmeldung wird den %s zugestimmt.</string>
-	<string name="networkLagBetweenYouAndLishogi">Network lag between you and Lishogi</string>
-	<string name="timeToProcessAMoveOnLishogiServer">Time to process a move on Lishogi\'s server</string>
+	<string name="networkLagBetweenYouAndLishogi">Netzwerkverzögerung zwischen dir und Lishogi</string>
+	<string name="timeToProcessAMoveOnLishogiServer">Zeit, um einen Zug auf dem Lishogi-Server zu verarbeiten</string>
 	<string name="downloadAnnotated">Download kommentiert</string>
 	<string name="downloadRaw">Download unkommentiert</string>
 	<string name="downloadImported">Importiertes Spiel herunterladen</string>
@@ -695,7 +695,7 @@
 	<string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kannst auch auf dem Brett scrollen, um die Partie durchzugehen.</string>
 	<string name="analysisShapesHowTo">Drücke Shift+Mausklick oder Rechtsklick, um Kreise und Pfeile auf dem Brett zu zeichnen.</string>
 	<string name="letOtherPlayersMessageYou">Erlaube anderen Spielern dich zu kontaktieren</string>
-	<string name="shareYourInsightsData">Share your shogi insights data</string>
+	<string name="shareYourInsightsData">Teile deine persönliche Spielerstatistiken</string>
 	<string name="withNobody">Mit niemandem</string>
 	<string name="withFriends">Mit deinen Freunden</string>
 	<string name="withEverybody">Mit jedem</string>
@@ -709,9 +709,9 @@
 	<string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Dies ist eine Liste aller Geräte, die mit deinem Konto verknüpft sind. Entferne alle Sitzungen, die du nicht kennst.</string>
 	<string name="alternativelyYouCanX">Alternativ kannst du %s.</string>
 	<string name="revokeAllSessions">alle Sitzungen beenden</string>
-	<string name="playChessEverywhere">Play shogi everywhere</string>
-	<string name="asFreeAsLishogi">As free as Lishogi</string>
-	<string name="builtForTheLoveOfChessNotMoney">Built for the love of shogi, not money</string>
+	<string name="playChessEverywhere">Spiele Shogi überall</string>
+	<string name="asFreeAsLishogi">Kostenlos wie Lishogi</string>
+	<string name="builtForTheLoveOfChessNotMoney">Aus Liebe zum Shogi</string>
 	<string name="everybodyGetsAllFeaturesForFree">Jeder erhält alle Funktionen völlig kostenlos</string>
 	<string name="zeroAdvertisement">Keine Werbung</string>
 	<string name="fullFeatured">Keine Einschränkungen</string>
@@ -738,7 +738,7 @@
 	<string name="background">Hintergrund</string>
 	<string name="light">Hell</string>
 	<string name="dark">Dunkel</string>
-	<string name="transparent">Transparent</string>
+	<string name="transparent">Durchsichtig</string>
 	<string name="backgroundImageUrl">Hintergrundbild-URL:</string>
 	<string name="boardGeometry">Brettgröße und 3D</string>
 	<string name="boardTheme">Brettdesign</string>
@@ -750,9 +750,9 @@
 	<string name="usernameSuffixInvalid">Der Benutzername muss mit einem Buchstaben oder einer Zahl enden.</string>
 	<string name="usernameCharsInvalid">Der Benutzername darf nur Buchstaben, Zahlen, Unterstriche und Bindestriche beinhalten.</string>
 	<string name="usernameUnacceptable">Dieser Benutzername ist nicht akzeptabel.</string>
-	<string name="directlySupportLishogi">Directly support Lishogi</string>
-	<string name="playChessInStyle">Play shogi in style</string>
-	<string name="chessBasics">Shogi basics</string>
+	<string name="directlySupportLishogi">Lishogi direkt unterstützen</string>
+	<string name="playChessInStyle">Shogispielen mit Style</string>
+	<string name="chessBasics">Shogi-Grundlagen</string>
 	<string name="coaches">Trainer</string>
 	<string name="invalidPgn">Fehlerhaftes PGN</string>
 	<string name="invalidFen">FEN ungültig</string>
@@ -829,7 +829,7 @@
 	<string name="weHadToTimeYouOutForAWhile">Wir haben dich mit einer vorübergehenden Spielsperre belegt.</string>
 	<string name="timeoutExpires">Die Sperre endet in %s.</string>
 	<string name="why">Warum?</string>
-	<string name="pleasantChessExperience">We aim to provide a pleasant shogi experience for everyone.</string>
+	<string name="pleasantChessExperience">Wir möchten allen eine möglichst gute Shogi-Erfahrung bieten.</string>
 	<string name="goodPractice">Um dies zu erreichen, müssen wir sicherstellen, dass sich alle Spieler korrekt verhalten.</string>
 	<string name="potentialProblem">Wir zeigen diese Nachricht an, wenn ein mögliches Problem erkannt wurde.</string>
 	<string name="howToAvoidThis">Wie kann das verhindert werden?</string>
@@ -841,7 +841,7 @@
 	<string name="thankYouForReading">Vielen Dank für’s Lesen!</string>
 	<string name="lifetimeScore">Ewiger Spielstand</string>
 	<string name="currentMatchScore">Aktueller Spielstand</string>
-	<string name="agreementAssistance">I agree that I will at no time receive assistance during my games (from a shogi computer, book, database or another person).</string>
+	<string name="agreementAssistance">Ich stimme zu, dass ich zu keiner Zeit während meiner Partien Hilfe in Anspruch nehmen werde (durch einen Shogi-Computer, ein Buch, eine Datenbank oder eine andere Person).</string>
 	<string name="agreementNice">Ich stimme zu, dass ich anderen Spielern immer respektvoll gegenübertreten werde.</string>
 	<string name="agreementAccount">Ich stimme zu, dass ich nicht mehrere Konten erstellen werde.</string>
 	<string name="agreementPolicy">Ich stimme zu, dass ich allen Lishogi-Richtlinien folgen werde.</string>
@@ -855,7 +855,7 @@
 	<string name="rapidDesc">Schnellschachspiele: 8 bis 25 Minuten</string>
 	<string name="classicalDesc">Klassische Spiele: 25 Minuten und mehr</string>
 	<string name="correspondenceDesc">Fernschachspiele: Ein oder mehrere Tage pro Zug</string>
-	<string name="puzzleDesc">Shogi tactics trainer</string>
+	<string name="puzzleDesc">Shogi-Taktik-Trainer</string>
 	<string name="important">Wichtig</string>
 	<string name="yourQuestionMayHaveBeenAnswered">Deine Frage könnte bereits %1$s beantwortet worden sein</string>
 	<string name="inTheFAQ">in den F.A.Q.</string>
@@ -869,13 +869,13 @@
 	<string name="youCannotPostYetPlaySomeGames">Du kannst noch nichts in den Foren schreiben. Spiel ein paar Partien!</string>
 	<string name="subscribe">Abonnieren</string>
 	<string name="unsubscribe">Abonnement beenden</string>
-	<string name="blackDeclinesImpasse">Sente declines impasse</string>
-	<string name="blackOffersImpasse">Sente offers impasse</string>
+	<string name="blackDeclinesImpasse">Sente lehnt Impasse ab</string>
+	<string name="blackOffersImpasse">Sente bietet Impasse an</string>
 	<string name="notationType">Notation</string>
-	<string name="whiteDeclinesImpasse">Gote declines impasse</string>
-	<string name="whiteOffersImpasse">Gote offers impasse</string>
+	<string name="whiteDeclinesImpasse">Gote lehnt Impasse ab</string>
+	<string name="whiteOffersImpasse">Gote bietet Impasse an</string>
 	<string name="notationSystem">Notation</string>
-	<string name="officialBlog">Lishogi Official Blog</string>
-	<string name="previousBlogPosts">Previous blog posts</string>
-	<string name="discussBlogForum">Discuss this blog post in the forum</string>
+	<string name="officialBlog">Offizieller Lishogi-Blog</string>
+	<string name="previousBlogPosts">Vorherige Blogeinträge</string>
+	<string name="discussBlogForum">Diesen Blog-Beitrag im Forum diskutieren</string>
 </resources>

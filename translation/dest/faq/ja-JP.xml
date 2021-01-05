@@ -5,7 +5,7 @@
 	<string name="whyIsLishogiCalledLishogi">Lishogi はなぜ Lishogi と呼ばれるのですか？</string>
 	<string name="forkedFromLichess">Lishogi は lichess から枝分かれしたオープンソースプロジェクトですが、将棋をするので lishogi と呼ばれます。</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">Lichess から派生しているからです。そして Lichess が Lichess と呼ばれるのはライブ/軽い/自由 (live/light/libre) とチェスの組み合わせだからです。Lishogi は %1$s と発音します。</string>
-	<string name="leechess">リ将棋</string>
+	<string name="leechess">リーショウギ</string>
 	<string name="hearItPronouncedBySpecialist"> 実際の発音をお聞きください。</string>
 	<string name="whyLiveLightLibre">「ライブ」それは24時間常に対局・観戦できるから。「軽い」「自由」は Lishogi がオープンソースで、他のサイトにありがちな誰かの権利などにわずらわされないからです。</string>
 	<string name="whyIsLilaCalledLila">同様に、Lishogi のソースコード %1$s は li[shogi in sca]la の略であり、 Lishogi の大部分は直感的なプログラミング言語である %2$s で書かれています。</string>
@@ -30,7 +30,7 @@
 	<string name="isCorrespondenceDifferent">通信戦は通常の将棋と異なりますか？</string>
 	<string name="youCanUseOpeningBookNoEngine">Lishogi では、通信戦のルール上の主な違いは序盤の定跡調査が認められていることです。ソフトの使用はそれでも禁止されており、使うとソフト使用者の表示が付くことがあります。[通信戦の国際団体] ICCF は通信戦でのソフト使用を認めていますが、Lishogi は認めません。</string>
 	<string name="gameplay">対局について</string>
-	<string name="howBulletBlitzEtcDecided">バレット、ブリッツなど持ち時間の区分の基準は？</string>
+	<string name="howBulletBlitzEtcDecided">ブレット、ブリッツなど持ち時間の区分の基準は？</string>
 	<string name="basedOnGameDuration">Lishogi の持時間は推定所要時間（%1$s）で分類されています。
   たとえば 5+3 （5分＋1手3秒）の対局の推定所要時間は 5 x 60 + 40 x 3 = 420秒です。</string>
 	<string name="durationFormula">(初期持時間) + 40 x (1 手ごとの追加時間)</string>
@@ -40,10 +40,10 @@
 	<string name="lishogiSupportChessAnd">Lishogi は標準の将棋と %1$s をサポートしています。</string>
 	<string name="eightVariants">8種類のバリアント</string>
 	<string name="whatIsACPL">「平均センチポーン差（ACPL: average centipawn loss）」とは？</string>
-	<string name="acplExplanation">「センチポーン」とはチェスで局面の有利さを表現するために使われる単位です。1 センチポーンは 1/100 ポーン、つまり 100 センチポーン＝1 ポーンです。この数字は対局には関係ありませんが、局面を評価する際に便利であり、コンピュータチェスでは欠かせないものとなっています。
+	<string name="acplExplanation">「センチポーン」とはチェスで局面の有利さを表現するために使われる単位です。1 センチポーンは 1/100 ポーン、つまり 100 センチポーン＝1 ポーンです。この数字は対局には関係ありませんが、局面を評価する際に便利であり、コンピューターチェスでは欠かせないものとなっています。
   コンピュータの示す最善手をゼロとして、他の手で生じる局面を評価し、その差をセンチポーン単位で表現します。
  この数値はプレイの質の指標としても使えます。1 手あたりの平均センチポーン差が小さいほどしっかり指せたということです。
- Lishogi ではコンピュータ解析に Stockfish を使っています。</string>
+ Lishogi ではコンピューター解析に Stockfish を使っています。</string>
 	<string name="insufficientMaterial">時間切れと戦力不足について</string>
 	<string name="lishogiFollowFIDErules">一方のプレイヤーが時間切れになると、通常そのプレーヤーは負けになります。ただし、時間を残したプレイヤーがいかなる合法な手順で相手のキングをメイトすることができない場合はドローになります（%1$s）。
 まれな場合、自動での判定が難しいことがあります（強制手順、要塞状態など）。標準では、常に時間を残した方を有利に判定しています。
@@ -87,7 +87,7 @@
 	<string name="uniqueTrophies">ユニークトロフィー</string>
 	<string name="ownerUniqueTrophies">このトロフィーは Lishogi の歴史で唯一のもので、与えられるのは今後を含めて %1$s だけです。</string>
 	<string name="wayOfBerserkExplanation">ユーザー hiimgosu は %s で全局バーサークして100%%の勝率を上げたのです。</string>
-	<string name="aHourlyBulletTournament">毎時のバレット・トーナメント</string>
+	<string name="aHourlyBulletTournament">毎時のブレット・トーナメント</string>
 	<string name="goldenZeeExplanation">ユーザー ZugAddict はストリーム配信をしながら 1+0 の持時間でレベル 8 の AI に勝とうと 2 時間奮闘しましたがうまくいきませんでした。Thibault は彼に、配信中に勝ったら特製のトロフィーをあげると言いました。1 時間後、彼はみごと Stockfish を破り、約束が守られたというわけです。</string>
 	<string name="lishogiRatings">Lishogi レーティング</string>
 	<string name="whichRatingSystemUsedByLishogi">Lishogi の使うレーティングシステムは何ですか？</string>

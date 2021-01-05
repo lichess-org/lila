@@ -35,8 +35,8 @@
 	<string name="joinTheGame">Rejoindre la partie</string>
 	<string name="whitePlays">Trait à gote</string>
 	<string name="blackPlays">Trait à sente</string>
-	<string name="shitatePlays">Shitate to play</string>
-	<string name="uwatePlays">Uwate to play</string>
+	<string name="shitatePlays">Trait à shitate</string>
+	<string name="uwatePlays">Trait à uwate</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="one">Votre adversaire a quitté la partie. Vous pourrez revendiquer la victoire dans %s seconde.</item>
 		<item quantity="other">Votre adversaire a quitté la partie. Vous pouvez revendiquer la victoire dans %s secondes.</item>
@@ -251,8 +251,8 @@
 	<string name="recipient">Destinataire</string>
 	<string name="send">Envoyer</string>
 	<string name="incrementInSeconds">Incrément en secondes</string>
-	<string name="byoyomiInSeconds">Byoyomi in seconds</string>
-	<string name="numberOfPeriods">Number of periods</string>
+	<string name="byoyomiInSeconds">Byôyomi en secondes</string>
+	<string name="numberOfPeriods">Nombre de périodes</string>
 	<string name="freeOnlineChess">Jeu de shogi gratuit en ligne</string>
 	<string name="spectators">Spectateurs :</string>
 	<plurals name="nbRated">
@@ -597,8 +597,8 @@
 	<string name="community">Communauté</string>
 	<string name="tools">Outils</string>
 	<string name="increment">Incrément</string>
-	<string name="byoyomi">Byoyomi</string>
-	<string name="periods">Periods</string>
+	<string name="byoyomi">Byôyomi</string>
+	<string name="periods">Périodes</string>
 	<string name="sharePGN">Partager le PGN</string>
 	<string name="playOnline">Jouer en ligne</string>
 	<string name="playOffline">Jouer hors ligne</string>
@@ -875,7 +875,7 @@
 	<string name="whiteDeclinesImpasse">Gote refuse le jishogi</string>
 	<string name="whiteOffersImpasse">Gote propose le jishogi</string>
 	<string name="notationSystem">Notation</string>
-	<string name="officialBlog">Lishogi Official Blog</string>
-	<string name="previousBlogPosts">Previous blog posts</string>
-	<string name="discussBlogForum">Discuss this blog post in the forum</string>
+	<string name="officialBlog">Blog officiel de Lishogi</string>
+	<string name="previousBlogPosts">Publications précédentes</string>
+	<string name="discussBlogForum">Discutez de cet article dans le forum</string>
 </resources>

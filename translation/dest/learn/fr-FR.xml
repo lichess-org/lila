@@ -13,7 +13,7 @@
 	<string name="introIntro">Votre parcours commence ici.</string>
 	<string name="choosePieceDesign">Il est important que vous puissiez distinguer vos pièces, alors assurez-vous de choisir le jeu de pièces convenable pour vous. \n Pour le faire, cliquez sur la roue dentée ou sur votre nom d\'utilisateur (en haut à droite) puis cliquez sur \"Jeu de pièces\".</string>
 	<string name="promotionZone">Lorsque certaines de vos pièces atteignent ou quittent les trois premières rangées du territoire de votre adversaire, vous avez l\'option de promouvoir cette pièce et la rendre plus forte.</string>
-	<string name="senteGoesFirst">In shogi the player who goes first is called sente and the player who goes second is called gote. Sente is sometimes represented by black color and gote by white. Make any move as sente to continue.</string>
+	<string name="senteGoesFirst">Dans le jeu de shogi, le joueur qui joue le premier coup s\'appelle sente et l\'autre, gote. Sente est parfois représenté par la couleur noire et gote par la couleur blanche. Jouez un coup pour sente pour continuer.</string>
 	<string name="introComplete">Vous connaissez maintenant quelques bases. Cette partie du tutoriel est encore en cours de développement. Pour l\'instant, apprenons comment les pièces se déplacent.</string>
 	<string name="theRook">La Tour</string>
 	<string name="itMovesInStraightLines">Elle se déplace sur une ligne droite</string>

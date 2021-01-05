@@ -7,7 +7,7 @@
   <string name="yesItWillBeFixedSoon">そうです。間もなく直します！</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">では詳しい説明を。対局時の通信ラグは 2 つの関係のない数値で決まります（小さいほどよい）：</string>
   <string name="lishogiServerLatency">Lishogi サーバーの処理時間</string>
-  <string name="lishogiServerLatencyExplanation">サーバー上で指し手を処理するのにかかる時間です。これはどの人でも同じで、サーバー読み込みの負荷だけで決まります。対局者が増えるほど大きくなりますが、なるべく小さくなるように開発陣は努力しています。10ms を超えることはまれです。</string>
+  <string name="lishogiServerLatencyExplanation">サーバー上で指し手を処理するのにかかる時間です。これはどの人でも同じで、サーバーの負荷だけで決まります。対局者が増えるほど大きくなりますが、なるべく小さくなるように開発陣は努力しています。10ms を超えることはまれです。</string>
   <string name="networkBetweenLishogiAndYou">Lishogi とあなたの通信時間</string>
   <string name="networkBetweenLishogiAndYouExplanation">あなたの機器から Lishogi のサーバーまで手の情報が往復するのに要する時間です。これは Lishogi のサーバー（フランス国内）までの距離と、あなたの接続の質で決まります。あなたの Wi-Fi や光回線の問題は、Lishogi の開発者にはどうしようもありません。</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">これらの値は右上の自分のユーザー名をクリックするといちばん下に表示されます。</string>

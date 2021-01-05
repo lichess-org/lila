@@ -9,13 +9,13 @@
 	<string name="boardCoordinates">Brettkoordinaten (A-H, 1-8)</string>
 	<string name="moveListWhilePlaying">Notation während des Spiels anzeigen</string>
 	<string name="pgnPieceNotation">Zugnotation</string>
-	<string name="chessPieceSymbol">Shogi piece symbol</string>
-	<string name="pgnLetter">Letter (K, R, B, G, S, N, L)</string>
+	<string name="chessPieceSymbol">Shogifigurensymbol</string>
+	<string name="pgnLetter">Buchstabe (K, R, B, G, S, N, L)</string>
 	<string name="zenMode">Zen-Modus</string>
 	<string name="displayBoardResizeHandle">Regler zum Ändern der Brettgröße anzeigen</string>
 	<string name="onlyOnInitialPosition">Nur in der Anfangsstellung</string>
-	<string name="blindfoldChess">Blindfold shogi (invisible pieces)</string>
-	<string name="chessClock">Shogi clock</string>
+	<string name="blindfoldChess">Blind-Shogi (unsichtbare Figuren)</string>
+	<string name="chessClock">Shogi-Uhr</string>
 	<string name="tenthsOfSeconds">Zehntelsekunden</string>
 	<string name="whenTimeRemainingLessThanTenSeconds">Wenn Restzeit &lt; 10 Sekunden</string>
 	<string name="horizontalGreenProgressBars">Horizontale grüne Fortschrittsbalken</string>

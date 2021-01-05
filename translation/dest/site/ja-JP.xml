@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="playWithAFriend">友達と対局する</string>
-	<string name="playWithTheMachine">コンピューターと対局する</string>
+	<string name="playWithTheMachine">AI と対局する</string>
 	<string name="toInviteSomeoneToPlayGiveThisUrl">対局に招待するとき、下記のリンク先を知らせてください</string>
 	<string name="gameOver">終局</string>
 	<string name="waitingForOpponent">相手を待っています</string>
@@ -17,8 +17,8 @@
 	<string name="stalemate">ステイルメイト</string>
 	<string name="white">後手</string>
 	<string name="black">先手</string>
-	<string name="shitate">Shitate</string>
-	<string name="uwate">Uwate</string>
+	<string name="shitate">下手</string>
+	<string name="uwate">上手</string>
 	<string name="randomColor">ランダム</string>
 	<string name="createAGame">対局を作成する</string>
 	<string name="whiteIsVictorious">後手の勝ちです</string>
@@ -35,14 +35,14 @@
 	<string name="joinTheGame">対局に参加する</string>
 	<string name="whitePlays">後手番です</string>
 	<string name="blackPlays">先手番です</string>
-	<string name="shitatePlays">Shitate to play</string>
-	<string name="uwatePlays">Uwate to play</string>
+	<string name="shitatePlays">下手の番です</string>
+	<string name="uwatePlays">上手の番です</string>
 	<plurals name="opponentLeftCounter">
 		<item quantity="other">相手が退席したようです。%s 秒後に勝ちを宣言できます。</item>
 	</plurals>
 	<string name="opponentLeftChoices">相手が退席したようです。投了させる、引き分けにする、相手を待つ、のどれかを選んでください。</string>
 	<string name="makeYourOpponentResign">相手を投了させる</string>
-	<string name="forceResignation">勝利を宣言する</string>
+	<string name="forceResignation">投了させる</string>
 	<string name="forceDraw">引き分けにする</string>
 	<string name="talkInChat">チャットでは礼儀を忘れず</string>
 	<string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">このURLを最初にクリックした人があなたと対局します。</string>
@@ -110,7 +110,7 @@
 	<string name="bestMoveArrow">最善手を表示</string>
 	<string name="evaluationGauge">評価値を表示</string>
 	<string name="multipleLines">解析ライン数</string>
-	<string name="cpus">CPU数</string>
+	<string name="cpus">CPU 数</string>
 	<string name="memory">メモリ</string>
 	<string name="infiniteAnalysis">無限解析</string>
 	<string name="removesTheDepthLimit">探索手数の制限をなくし、できるかぎりの解析を行う</string>
@@ -240,8 +240,8 @@
 	<string name="recipient">受信者</string>
 	<string name="send">送信する</string>
 	<string name="incrementInSeconds">１手ごとに増える秒数</string>
-	<string name="byoyomiInSeconds">Byoyomi in seconds</string>
-	<string name="numberOfPeriods">Number of periods</string>
+	<string name="byoyomiInSeconds">秒読み</string>
+	<string name="numberOfPeriods">考慮時間</string>
 	<string name="freeOnlineChess">無料オンライン将棋</string>
 	<string name="spectators">観覧者:</string>
 	<plurals name="nbRated">
@@ -309,8 +309,8 @@
 	<string name="youAreNotInTeam">チーム %s に入っていません</string>
 	<string name="backToGame">対局に戻る</string>
 	<string name="siteDescription">無料オンライン将棋。簡素なインターフェースですぐに対局を。登録不要、広告なし、プラグイン不要。コンピューターと、友達と、知らない相手とも対局できます。</string>
-	<string name="xJoinedTeamY">%1$s がチーム %2$s に参加しました</string>
-	<string name="xCreatedTeamY">%1$s がチーム %2$s を作成しました</string>
+	<string name="xJoinedTeamY">%1$s がチーム %2$s に参加</string>
+	<string name="xCreatedTeamY">%1$s がチーム %2$s を作成</string>
 	<string name="xStartedStreaming">%s が配信を開始</string>
 	<string name="averageElo">平均レーティング</string>
 	<string name="location">住所</string>
@@ -461,11 +461,11 @@
 	<string name="thisPuzzleIsCorrect">この問題は正しくておもしろい。</string>
 	<string name="thisPuzzleIsWrong">この問題はおかしい／つまらない</string>
 	<plurals name="nbGamesInPlay">
-		<item quantity="other">%s 局プレイ中</item>
+		<item quantity="other">%s 局対局中</item>
 	</plurals>
 	<string name="automaticallyProceedToNextGameAfterMoving">指した後 自動的に次の対局に進む</string>
 	<string name="autoSwitch">自動切り替え</string>
-	<string name="puzzles">タクティクス</string>
+	<string name="puzzles">タクティクス問題</string>
 	<string name="latestUpdates">最新情報</string>
 	<string name="tournamentWinners">トーナメント優勝者</string>
 	<string name="name">名称</string>
@@ -509,7 +509,7 @@
 	<string name="newPasswordAgain">新しいパスワード（確認）</string>
 	<string name="clockInitialTime">初期持ち時間</string>
 	<string name="clockIncrement">追加時間</string>
-	<string name="clockByoyomi">Clock byoyomi</string>
+	<string name="clockByoyomi">秒読み</string>
 	<string name="privacy">プライバシー（英文）</string>
 	<string name="letOtherPlayersFollowYou">他人からのフォローを可能にする</string>
 	<string name="letOtherPlayersChallengeYou">他人からの挑戦を可能にする</string>
@@ -531,8 +531,8 @@
 	<string name="xAskedY">%1$s が %2$s に質問しました。</string>
 	<string name="xAnsweredY">%1$s が %2$s と答えました。</string>
 	<string name="xCommentedY">%1$s が %2$s とコメントしました。</string>
-	<string name="victory">勝利！</string>
-	<string name="defeat">失敗</string>
+	<string name="victory">勝ち</string>
+	<string name="defeat">負け</string>
 	<string name="victoryVsYInZ">%1$s 対 %2$s、%3$s</string>
 	<string name="defeatVsYInZ">%1$s 対 %2$s、%3$s で</string>
 	<string name="drawVsYInZ">%1$s 対 %2$s、%3$s で</string>
@@ -566,8 +566,8 @@
 	<string name="community">コミュニティ</string>
 	<string name="tools">ツール</string>
 	<string name="increment">追加時間</string>
-	<string name="byoyomi">Byoyomi</string>
-	<string name="periods">Periods</string>
+	<string name="byoyomi">秒読み</string>
+	<string name="periods">考慮時間</string>
 	<string name="sharePGN">PGNを共有</string>
 	<string name="playOnline">オンラインでプレイする</string>
 	<string name="playOffline">オフラインでプレイする</string>
@@ -631,7 +631,7 @@
 	<string name="keyEnterOrExitVariation">変化に入る/出る</string>
 	<string name="newTournament">新しいトーナメント</string>
 	<string name="tournamentHomeTitle">さまざまな持ち時間とルールの将棋トーナメント</string>
-	<string name="tournamentHomeDescription">早指しの将棋トーナメントに参加しよう！　定時のトーナメントに参加するほか、自分で作ることもできます。バレット、ブリッツ、クラシック、その他に選べる選択肢より無限の将棋の楽しみを。</string>
+	<string name="tournamentHomeDescription">早指しの将棋トーナメントに参加しよう！　定時のトーナメントに参加するほか、自分で作ることもできます。ブレット、ブリッツ、クラシック、その他に選べる選択肢より無限の将棋の楽しみを。</string>
 	<string name="tournamentNotFound">トーナメントが見つかりません</string>
 	<string name="tournamentDoesNotExist">このトーナメントは存在しません</string>
 	<string name="tournamentMayHaveBeenCanceled">開始前に全員が退場してキャンセルされた可能性があります。</string>
@@ -683,7 +683,7 @@
 	<string name="zeroAdvertisement">広告いっさいなし</string>
 	<string name="fullFeatured">幅広い機能</string>
 	<string name="phoneAndTablet">携帯やタブレットで</string>
-	<string name="bulletBlitzClassical">バレット、ブリッツ、クラシカル</string>
+	<string name="bulletBlitzClassical">ブレット、ブリッツ、クラシカル</string>
 	<string name="correspondenceChess">通信将棋</string>
 	<string name="onlineAndOfflinePlay">オンラインでもオフラインでも</string>
 	<string name="viewTheSolution">解答を見る</string>
@@ -704,7 +704,7 @@
 	<string name="background">背景</string>
 	<string name="light">明るい</string>
 	<string name="dark">暗い</string>
-	<string name="transparent">透明</string>
+	<string name="transparent">自由設定</string>
 	<string name="backgroundImageUrl">背景画像URL:</string>
 	<string name="boardGeometry">盤の表示形式</string>
 	<string name="boardTheme">盤のデザイン</string>
@@ -839,6 +839,6 @@
 	<string name="whiteOffersImpasse">後手が引き分けを申し込んでいます</string>
 	<string name="notationSystem">表記方法</string>
 	<string name="officialBlog">Lishogi 公式ブログ</string>
-	<string name="previousBlogPosts">Previous blog posts</string>
-	<string name="discussBlogForum">Discuss this blog post in the forum</string>
+	<string name="previousBlogPosts">前のブログ投稿</string>
+	<string name="discussBlogForum">フォーラムでこのブログ記事を議論する</string>
 </resources>

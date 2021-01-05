@@ -6,7 +6,7 @@
 	<string name="materialDifference">Przewaga materialna</string>
 	<string name="boardHighlights">Wyróżnienie pól szachownicy (ostatni ruch i szach)</string>
 	<string name="pieceDestinations">Pola docelowe (ruchy poprawne i planowane)</string>
-	<string name="boardCoordinates">Współrzędne pól (a-h, 1-8)</string>
+	<string name="boardCoordinates">Współrzędne pól</string>
 	<string name="moveListWhilePlaying">Lista ruchów podczas partii</string>
 	<string name="pgnPieceNotation">Notacja ruchów</string>
 	<string name="chessPieceSymbol">Symbole bierek</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arenaTournaments">アリーナトーナメント</string>
+  <string name="arenaTournaments">アリーナ トーナメント</string>
   <string name="isItRated">レート戦ですか？</string>
   <string name="willBeNotified">トーナメントが始まると通知が来るので、それまで別のタブでプレイしていても大丈夫です。</string>
   <string name="isRated">このトーナメントはレート戦で、レーティングが変動します。</string>
@@ -8,7 +8,7 @@
   <string name="someRated">一部のトーナメントはレート戦で、レーティングが変動します。</string>
   <string name="howAreScoresCalculated">スコアの計算方法は？</string>
   <string name="howAreScoresCalculatedAnswer">基本は勝ちが 2 点、ドローが 1 点、負けが 0 点です。
-2 連勝すると次のゲームから「2倍ボーナス」となり、炎のアイコンが表示されます。
+2 連勝すると次のゲームから「2 倍ボーナス」となり、炎のアイコンが表示されます。
 連勝後のゲームは、連勝が途切れるまで基本の点が 2 倍になります。つまり勝ちが 4 点、ドローが 2 点です。
 たとえば 2 連勝の後ドローなら合計は 2 + 2 + (2 x 1) = 6 点になります。</string>
   <string name="berserk">バーサーク（Berserk）</string>
@@ -30,6 +30,6 @@
     <item quantity="other">%s 手以内のドローでは双方ともポイントが得られません。</item>
   </plurals>
   <string name="thisIsPrivate">これはプライベートのトーナメントです</string>
-  <string name="shareUrl">誰もが参加できるようにこのURLを共有しましょう: %s</string>
+  <string name="shareUrl">誰もが参加できるようにこの URL を共有しましょう: %s</string>
   <string name="drawStreak">連続引き分け：引き分けが連続した場合、手数が %s 手を超えた対局しかポイントが得られません（最初の引き分けは手数を問わない）。連続引き分けが途切れるのは勝った時だけで、負けや引き分けでは途切れたことになりません。</string>
 </resources>
