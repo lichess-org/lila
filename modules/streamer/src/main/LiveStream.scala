@@ -20,11 +20,11 @@ case class LiveStreams(streams: List[Stream]) {
 
   def homepage(max: Int, req: RequestHeader, user: Option[User]) =
     LiveStreams {
-      val langs = req.acceptLanguages.view.map(_.language).toSet + "en" ++ user.flatMap(_.lang).toSet
+      //val langs = req.acceptLanguages.view.map(_.language).toSet + "en" ++ user.flatMap(_.lang).toSet
       streams
         .takeWhile(_.streamer.approval.tier > 0)
         .foldLeft(Vector.empty[Stream]) {
-          case (selected, s) if langs(s.lang) && {
+          case (selected, s) if {//langs(s.lang) && {
                 selected.size < max || s.streamer.approval.tier == Streamer.maxTier
               } && {
                 s.streamer.approval.tier > 1 || selected.size < 2
