@@ -8,7 +8,7 @@ import lila.app.ui.ScalatagsTemplate._
 trait AiHelper { self: I18nHelper =>
 
   def aiName(level: Int, withRating: Boolean = true)(implicit lang: Lang): String = {
-    val name = trans.aiNameLevelAiLevel.txt("Stockfish AI", level)
+    val name = trans.aiNameLevelAiLevel.txt("Stockfish", level)
     val rating = withRating ?? {
       aiRating(level) ?? { r =>
         s" ($r)"
