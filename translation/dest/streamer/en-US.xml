@@ -26,8 +26,8 @@
   <string name="approved">Your stream is approved.</string>
   <string name="pendingReview">Your stream is being reviewed by moderators.</string>
   <string name="pleaseFillIn">Please fill in your streamer information, and upload a picture.</string>
-  <string name="whenReady">When you are ready to be listed as a Lichess streamer, %s</string>
-  <string name="requestReview">request a moderator review</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">When you are ready to be listed as a Lichess streamer, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">request a moderator review</string>
   <string name="anotherLanguage">If your stream is in a language other than English, include the correct language tag (%s), enclosed in square brackets, at the start of your stream title.
 As examples, include \"[RU]\" for Russian, \"[TR]\" for Turkish, \"[FR]\" for French, etc.
 Put it in the stream title in the Twitch or YouTube page, not in the Lichess stream settings.
@@ -43,7 +43,7 @@ If your stream is in English, there is no need to include a language tag.</strin
   <string name="visibility">Visible on the streamers page</string>
   <string name="whenApproved">When approved by moderators</string>
   <string name="headline">Headline</string>
-  <string name="tellUsAboutTheStream">In one sentence, tell us about your stream</string>
+  <string name="tellUsAboutTheStream">Tell us about your stream in one sentence</string>
   <string name="longDescription">Long description</string>
   <string name="xStreamerPicture">%s streamer picture</string>
   <string name="changePicture">Change/delete your picture</string>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Puzzles</string>
+  <string name="puzzleThemes">Puzzle themes</string>
   <string name="recommended">Recommended</string>
   <string name="phases">Phases</string>
   <string name="motifs">Motifs</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">友達と対局する</string>
-  <string name="playWithTheMachine">AIと対局する</string>
+  <string name="playWithTheMachine">AI と対局する</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">対局に招待するときこのURLを知らせてください</string>
   <string name="gameOver">終局</string>
   <string name="waitingForOpponent">相手を待っています</string>
@@ -304,8 +304,8 @@
   <string name="youAreNotInTeam">チーム %s に入っていません</string>
   <string name="backToGame">ゲームに戻る</string>
   <string name="siteDescription">無料オンラインチェス。簡素なインターフェースですぐに対局を。登録不要、広告なし、プラグイン不要。AIと、友達と、知らない相手とも対局できます。</string>
-  <string name="xJoinedTeamY">%1$s がチーム %2$s に参加しました</string>
-  <string name="xCreatedTeamY">%1$s がチーム %2$s を作成しました</string>
+  <string name="xJoinedTeamY">%1$s がチーム %2$s に参加</string>
+  <string name="xCreatedTeamY">%1$s がチーム %2$s を作成</string>
   <string name="xStartedStreaming">%s が配信を開始</string>
   <string name="averageElo">平均レーティング</string>
   <string name="location">住所</string>
@@ -502,8 +502,8 @@
   <string name="xAskedY">%1$s が %2$s に質問しました。</string>
   <string name="xAnsweredY">%1$s が %2$s と答えました。</string>
   <string name="xCommentedY">%1$s が %2$s とコメントしました。</string>
-  <string name="victory">勝利！</string>
-  <string name="defeat">失敗</string>
+  <string name="victory">勝ち</string>
+  <string name="defeat">負け</string>
   <string name="victoryVsYInZ">%1$s 対 %2$s、%3$s</string>
   <string name="defeatVsYInZ">%1$s 対 %2$s、%3$s で</string>
   <string name="drawVsYInZ">%1$s 対 %2$s、%3$s で</string>
@@ -529,7 +529,7 @@
   <string name="signedOut">サインアウトしました。</string>
   <string name="loginSuccessful">ログインしました</string>
   <string name="playOnTheBoardOffline">オフライン（2人対局）</string>
-  <string name="playOfflineComputer">オフラインでＣＰＵと対戦する</string>
+  <string name="playOfflineComputer">オフラインで CPU と対局する</string>
   <string name="opponent">対局相手</string>
   <string name="learnMenu">学ぶ</string>
   <string name="studyMenu">研究</string>
@@ -564,7 +564,7 @@
   <string name="streamersMenu">配信者</string>
   <string name="mobileApp">モバイルアプリ</string>
   <string name="webmasters">ウェブサイト運営者の方へ</string>
-  <string name="about">Lichess概要</string>
+  <string name="about">Lichess 概要</string>
   <string name="aboutX">%s について</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s は無料 (%2$s)・自由・広告なし・オープンソースのチェス サーバです。</string>
   <string name="really">本当に</string>
@@ -579,9 +579,9 @@
   <string name="noSimulFound">同時対局が見つかりません</string>
   <string name="noSimulExplanation">この同時対局は存在しません</string>
   <string name="returnToSimulHomepage">同時対局トップに戻る</string>
-  <string name="aboutSimul">同時対局では、1人が多数の相手と同時に対戦します。</string>
+  <string name="aboutSimul">同時対局では、1 人が多数の相手と同時に対局します。</string>
   <string name="aboutSimulImage">この時フィッシャーは 50 人と対局して 47 勝 2 分 1 敗でした。</string>
-  <string name="aboutSimulRealLife">アイデアは現実の同時対局と同じです。現実世界では1人がテーブルを回って1手ずつ指していきます。</string>
+  <string name="aboutSimulRealLife">コンセプトは現実の同時対局と同じです。現実世界では 1 人がテーブルを回って 1 手ずつ指していきます。</string>
   <string name="aboutSimulRules">同時対局が始まると、全員がホスト（白番）と対戦します。同時対局はすべての対局が終わった時に終了します。</string>
   <string name="aboutSimulSettings">同時対局は非レート戦です。再対局、待った、持時間追加はできません。</string>
   <string name="create">作成する</string>

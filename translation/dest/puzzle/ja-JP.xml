@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">タクティクス問題</string>
+  <string name="puzzleThemes" comment="puzzleThemes&#10;&#10;https://lichess.org/training/themes">問題のテーマ</string>
   <string name="recommended">おすすめ</string>
   <string name="phases">序盤・中盤・終盤</string>
   <string name="motifs">モチーフ</string>

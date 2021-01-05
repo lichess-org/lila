@@ -66,11 +66,11 @@
   <string name="oneMove">Quebra-cabeças de um movimento</string>
   <string name="oneMoveDescription">Quebra-cabeças de um movimento.</string>
   <string name="opening">Abertura</string>
-  <string name="openingDescription">Tática durante a última fase do jogo.</string>
+  <string name="openingDescription">Tática durante a primeira fase do jogo.</string>
   <string name="pawnEndgame">Finais de peões</string>
   <string name="pawnEndgameDescription">Um final apenas com peões.</string>
   <string name="pin">Cravada</string>
-  <string name="pinDescription">Uma tática envolvendo peões, onde uma peça é incapaz de mover-se sem abrir um descoberto em uma peça de maior valor.</string>
+  <string name="pinDescription">Uma tática envolvendo cravada, onde uma peça é incapaz de mover-se sem abrir um descoberto em uma peça de maior valor.</string>
   <string name="promotion">Promoção</string>
   <string name="promotionDescription">Um peão sendo promovido ou ameaçando ser promovido é chave para a tática.</string>
   <string name="queenEndgame">Finais de Dama</string>

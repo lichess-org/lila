@@ -755,6 +755,7 @@
   <string name="playX">Leika %s</string>
   <string name="sorry">Afsakaðu :(</string>
   <string name="weHadToTimeYouOutForAWhile">Við þurftum að setja þig í stutt leikbann.</string>
+  <string name="timeoutExpires">Leikbannið rennur út eftir: %s.</string>
   <string name="why">Afhverju?</string>
   <string name="howToAvoidThis">Hvernig er hægt að komast hjá þessu?</string>
   <string name="playEveryGame">Tefldu allar skákir sem þú byrjar.</string>

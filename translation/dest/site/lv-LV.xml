@@ -9,6 +9,7 @@
   <string name="yourTurn">Jūsu gājiens</string>
   <string name="aiNameLevelAiLevel">%1$s %2$s. līmenis</string>
   <string name="level">Līmenis</string>
+  <string name="strength">Stiprums</string>
   <string name="toggleTheChat">Ieslēgt/izslēgt sarunu</string>
   <string name="toggleSound">Ieslēgt/Izslēgt skaņu</string>
   <string name="chat">Saruna</string>
@@ -90,9 +91,9 @@
     <item quantity="other">Mats %s pusgājienos</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="zero">Nākamā sišana vai bandinieka gājiens pēc %s pusgājieniem (50 gājienu skaitītāja Nullēšanas Attālums)</item>
-    <item quantity="one">Nākamā sišana vai bandinieka gājiens pēc %s pusgājiena (50 gājienu skaitītāja Nullēšanas Attālums)</item>
-    <item quantity="other">Nākamā sišana vai bandinieka gājiens pēc %s pusgājieniem (50 gājienu skaitītāja Nullēšanas Attālums)</item>
+    <item quantity="zero">Nākamā sišana vai bandinieka gājiens pēc %s pusgājieniem (50 gājienu skaitītāja atiestatīšanas attālums)</item>
+    <item quantity="one">Nākamā sišana vai bandinieka gājiens pēc %s pusgājiena (50 gājienu skaitītāja atiestatīšanas attālums)</item>
+    <item quantity="other">Nākamā sišana vai bandinieka gājiens pēc %s pusgājieniem (50 gājienu skaitītāja atiestatīšanas attālums)</item>
   </plurals>
   <string name="noGameFound">Neviena spēle nav atrasta</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Varbūt iekļaujiet vairāk spēļu uzstādījumu izvēlnē?</string>
@@ -302,7 +303,7 @@
   <string name="takebackPropositionDeclined">Gājiena atsaukšana atteikta</string>
   <string name="takebackPropositionAccepted">Gājiena atsaukšana pieņemta</string>
   <string name="takebackPropositionCanceled">Gājiena atsaukšanas piedāvājums atcelts</string>
-  <string name="yourOpponentProposesATakeback">Jūsu pretienieks piedāvā atsaukt gājienu</string>
+  <string name="yourOpponentProposesATakeback">Jūsu pretinieks piedāvā atsaukt gājienu</string>
   <string name="bookmarkThisGame">Atzīmēt šo spēli</string>
   <string name="tournament">Turnīrs</string>
   <string name="tournaments">Turnīri</string>
@@ -342,7 +343,7 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Jūsu pagaidu reitings ir %s</string>
   <string name="yourPerfRatingIsTooHigh">Tavs %1$s reitings (%2$s) ir pārāk augsts</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Jūsu nedēļas augstāgais %1$s reitings (%2$s) ir pārāk augsts</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Jūsu nedēļas augstākais %1$s reitings (%2$s) ir pārāk augsts</string>
   <string name="yourPerfRatingIsTooLow">Tavs %1$s reitings (%2$s) ir pārāk zems</string>
   <string name="ratedMoreThanInPerf">%2$s reitings ≥ %1$s</string>
   <string name="ratedLessThanInPerf">%2$s reitings ≤ %1$s</string>
@@ -449,7 +450,7 @@
   <string name="berserkRate">Dullo spēļu biežums</string>
   <string name="performance">Sniegums</string>
   <string name="tournamentComplete">Turnīrs beidzies</string>
-  <string name="movesPlayed">Izpēlēti gājieni</string>
+  <string name="movesPlayed">Izspēlēti gājieni</string>
   <string name="whiteWins">Balto uzvaras</string>
   <string name="blackWins">Melno uzvaras</string>
   <string name="draws">Neizšķirti</string>
@@ -605,7 +606,7 @@
   <string name="shareGameURL">Dalīties ar spēles URL</string>
   <string name="error.required">Šis lauks ir obligāts</string>
   <string name="error.email">Šī e-pasta adrese ir nepareiza</string>
-  <string name="error.email_acceptable">Šī e-pasta adrese nav pieņemama</string>
+  <string name="error.email_acceptable">Šī e-pasta adrese nav pieņemama. Lūdzu pārbaudiet to un mēģiniet vēlreiz.</string>
   <string name="error.email_unique">Šī e-pasta adrese jau tiek lietota</string>
   <string name="error.email_different">Šī jau ir jūsu e-pasta adrese</string>
   <string name="ifRatingIsPlusMinusX">Ja reitings ir ± %s</string>
@@ -641,7 +642,7 @@
   <string name="hostANewSimul">Vadīt jaunu simultānseansu</string>
   <string name="noSimulFound">Simultānseanss nav atrasts</string>
   <string name="noSimulExplanation">Šāds simultānseanss neeksistē.</string>
-  <string name="returnToSimulHomepage">Atgriesties uz Simultānseansu sākumlapu</string>
+  <string name="returnToSimulHomepage">Atgriesties uz simultānseansu sākumlapu</string>
   <string name="aboutSimul">Simultānseansos viens spēlētājs spēlē ar vairākiem citiem vienlaicīgi.</string>
   <string name="aboutSimulImage">Fišers 50 spēlēs uzvarēja 47, zaudēja 1 un 2 beidzās neizšķirti.</string>
   <string name="aboutSimulRealLife">Princips ir aizgūts no reāliem pasākumiem. Reālajā dzīvē simultānseansa vadītājs staigā no galdiņa pie galdiņa un veic pa vienam gājienam.</string>

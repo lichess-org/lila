@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Әккі сарбаз</string>
-  <string name="advancedPawnDescription">Айналуға ұмтылған не айналумен қорқытып тұрған сарбаз – тактиканың өзегі.</string>
+  <string name="advancedPawnDescription">Айналуға ұмтылған не айналу қаупін төндіретін сарбаз – тактиканың өзегі.</string>
   <string name="advantage">Артықшылық</string>
   <string name="advantageDescription">Шешуші артықшылық беретін сәтті жіберіп алмаңыз. (200-600 сп)</string>
   <string name="attackingF2F7">f2 не f7-ге шабуылдау</string>
@@ -27,7 +27,7 @@
   <string name="defensiveMove">Қорғану жүрісі</string>
   <string name="defensiveMoveDescription">Тастарды не артықшылықты жоғалтпау мақсатында жасалатын жүріс не жүрістер тізбегі.</string>
   <string name="deflection">Назарын бұру</string>
-  <string name="deflectionDescription">Қарсылас тасын өз міндетінен үзіп (мысалы, бір маңызды шаршыны қорғаудан), алдау үшін жасалынатын жүріс.</string>
+  <string name="deflectionDescription">Қарсылас тасын өз міндетінен (мысалы, бір маңызды шаршыны қорғаудан) үзу үшін жасалынатын алдамшы жүріс.</string>
   <string name="discoveredAttack">Ашылған шабуыл</string>
   <string name="discoveredAttackDescription">Ұзын жүрісті тастың шабуылын бөгеп тұрған таспен жүру. Мысалы, тура жолында тұрған атпен жүру.</string>
   <string name="doubleCheck">Қос шах</string>
@@ -42,9 +42,9 @@
   <string name="hangingPiece">Олжа тас</string>
   <string name="hangingPieceDescription">Қорғанысы нашар не қорғаусыз тұрған қарсылас тасын басып алуды меңзейтін тактика.</string>
   <string name="interference">Бөгет</string>
-  <string name="interferenceDescription">Тасты қарсыластың екі тасының арасындағы қорғау жолына қойып, олардың біреуін не екеуін қорғаусыз ету. Мысалы, екі өзара қорғап тұрған туралардың арасына тұра қалған ат.</string>
+  <string name="interferenceDescription">Қарсыластың екі байланысқан тастарының арасына бөгет қойып, олардың біреуін не екеуін қорғаусыз ету. Мысалы, екі өзара қорғап тұрған туралардың арасына тұра қалған ат.</string>
   <string name="intermezzo">Аралық жүріс</string>
-  <string name="intermezzoDescription">Болжамды түрде жүрудің орнына қарсыласқа қауіп төндіретіндей жүру. Басқаша \"Intermezzo\" не \"Zwischenzug\" деп те аталады.</string>
+  <string name="intermezzoDescription">Болжамға сай жүрудің орнына алдымен басқаша, қарсыласқа қауіп келтіретін, жауап беруге мәжбүрлейтін жүріс жасау. Басқаша \"Intermezzo\" не \"Zwischenzug\" деп те аталады.</string>
   <string name="knightEndgame">Ат ойынсоңы</string>
   <string name="knightEndgameDescription">Аттар мен сарбаздары ғана бар ойынсоңы.</string>
   <string name="long">Ұзын жұмбақ</string>
@@ -72,7 +72,7 @@
   <string name="pin">Байлау</string>
   <string name="pinDescription">Артта тұрған құнды тасты жоғалту қаупі болғандықтан, алдыңғы тас орнынан кете алмайтындай жағдай.</string>
   <string name="promotion">Айналу</string>
-  <string name="promotionDescription">Айналуға ұмтылған не айналумен қорқытып тұрған сарбаз – тактиканың өзегі.</string>
+  <string name="promotionDescription">Айналуға ұмтылған не айналу қаупін төндіретін сарбаз – тактиканың өзегі.</string>
   <string name="queenEndgame">Уәзір ойынсоңы</string>
   <string name="queenEndgameDescription">Уәзірлер мен сарбаздары ғана бар ойынсоңы.</string>
   <string name="queenRookEndgame">Уәзір мен Тура</string>

@@ -5,6 +5,7 @@
   <string name="twoFactorApp">Nhận ứng dụng cho xác thực 2 bước, ví dụ: Google Authenticator cho %1$s hoặc %2$s.</string>
   <string name="scanTheCode">Quét mã QR bằng ứng dụng.</string>
   <string name="enterPassword">Nhập mật khẩu và mã xác thực được tạo ra bởi ứng dụng để hoàn thành cài đặt. Bạn sẽ cần mã xác thực mỗi khi đăng nhập.</string>
+  <string name="ifYouCannotScanEnterX">Nếu bạn không thể quét mã, hãy nhập %s bí mật vào trong ứng dụng.</string>
   <string name="authenticationCode">Mã xác thực</string>
   <string name="ifYouLoseAccess">Nếu bạn mất quyền truy cập mã xác thực 2 bước, bạn có thể khởi tạo lại mật khẩu thông qua email.</string>
   <string name="enableTwoFactor">Bật xác thực 2 bước</string>

@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessClasses">Flokkar</string>
+  <string name="teachClassesOfChessStudents">Gev flokkum við talvnæmingum frálæru við Lichess-amboðskassanum.</string>
+  <string name="features">Eyðkenni</string>
+  <string name="quicklyGenerateSafeUsernames">Ger kvikliga talvnæmingum trygg brúkaranøvn og loyniorð</string>
+  <string name="trackStudentProgress">Fylg næmingaframgongd í talvum og uppgávum</string>
+  <string name="messageAllStudents">Boða øllum næmingum frá um nýtt flokstilfar</string>
+  <string name="freeForAllForever">100% ókeypis fyri øll, altíð, við ongum lýsingum ella farsporum</string>
+  <string name="applyToBeLichessTeacher">Søk um at gerast Lichess-lærari</string>
+  <string name="noClassesYet">Eingir flokkar enn.</string>
+  <string name="teachersX">Lærarar: %s</string>
+  <string name="newClass">Nýggjur flokkur</string>
+  <string name="closeClass">Lat flokk aftur</string>
+  <string name="closedByX">%s lat flokk aftur</string>
+  <string name="reopen">Lat upp</string>
+  <string name="removeStudent">Koyr næming úr</string>
+  <string name="removedStudents">Úrkoyrdur</string>
+  <string name="inviteTheStudentBack">Bjóða næminginum við aftur</string>
+  <string name="sendAMessage">Send eini boð til allar næmingar.</string>
+  <string name="aLinkToTheClassWillBeAdded">Eitt leinki til flokkin, verður lagt afturat móti endanum á boðunum, so tær nýtist ikki at skoyta tað upp í sjálv/ur.</string>
+  <string name="className">Floksnavn</string>
   <string name="passwordX">Loyniorð: %s</string>
+  <string name="addStudent">Legg næming afturat</string>
   <string name="createANewLichessAccount">Stovna eina nýggja Lichess kontu</string>
   <string name="lichessUsername">Lichess brúkaranavn</string>
   <string name="lastActiveDate">Virkin</string>

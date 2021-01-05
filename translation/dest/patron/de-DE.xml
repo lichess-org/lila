@@ -22,7 +22,7 @@
   <string name="recurringBilling">Wiederkehrende Zahlung, erneuert deine Patron-Flügel jeden Monat.</string>
   <string name="onetime">Einmalig</string>
   <string name="singleDonation">Eine einmalige Spende, die dir Patron-Flügel für einen Monat verleiht.</string>
-  <string name="otherAmount">Anderer Betrag</string>
+  <string name="otherAmount">Anderer</string>
   <string name="pleaseEnterAmount">Bitte gib einen Betrag in US-Dollar ein</string>
   <string name="withCreditCard">Kreditkarte</string>
   <string name="withPaypal">PayPal</string>

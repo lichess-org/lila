@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Γρίφοι</string>
+  <string name="puzzleThemes" comment="puzzleThemes&#10;&#10;https://lichess.org/training/themes">Θέματα γρίφων</string>
   <string name="addAnotherTheme">Προσθήκη νέου θέματος</string>
 </resources>

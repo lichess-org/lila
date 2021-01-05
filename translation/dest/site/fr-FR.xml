@@ -9,6 +9,7 @@
   <string name="yourTurn">À votre tour</string>
   <string name="aiNameLevelAiLevel">%1$s niveau %2$s</string>
   <string name="level">Niveau</string>
+  <string name="strength">Niveau</string>
   <string name="toggleTheChat">Activer/désactiver la discussion</string>
   <string name="toggleSound">Activer/désactiver le son</string>
   <string name="chat">Discussion</string>

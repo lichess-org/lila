@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Problemi</string>
+  <string name="puzzleThemes" comment="puzzleThemes&#10;&#10;https://lichess.org/training/themes">Teme problema</string>
   <string name="recommended">Preporučeno</string>
   <string name="phases">Faze</string>
   <string name="motifs">Motivi</string>

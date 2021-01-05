@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">Tácticas</string>
+  <string name="puzzles">Rompecabezas</string>
+  <string name="puzzleThemes" comment="puzzleThemes&#10;&#10;https://lichess.org/training/themes">Temario</string>
   <string name="recommended">Recomendado</string>
-  <string name="phases">Partes</string>
+  <string name="phases">Fases</string>
   <string name="motifs">Temas</string>
   <string name="advanced">Avanzado</string>
   <string name="lengths">Duraciones</string>

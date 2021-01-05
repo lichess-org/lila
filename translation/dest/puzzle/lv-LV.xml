@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Puzles</string>
+  <string name="puzzleThemes" comment="puzzleThemes&#10;&#10;https://lichess.org/training/themes">Pužļu tēmati</string>
   <string name="recommended">Ieteikumi</string>
   <string name="phases">Posmi</string>
   <string name="motifs">Motīvi</string>

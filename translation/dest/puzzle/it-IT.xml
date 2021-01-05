@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Rompicapi</string>
+  <string name="puzzleThemes">Giochi Puzzle</string>
   <string name="recommended">Consigliati</string>
   <string name="phases">Fasi</string>
   <string name="motifs">Temi</string>
@@ -11,7 +12,7 @@
   <string name="specialMoves">Mosse speciali</string>
   <string name="didYouLikeThisPuzzle">Ti è piaciuto questo rompicapo?</string>
   <string name="voteToLoadNextOne">Vota per caricare il prossimo!</string>
-  <string name="yourPuzzleRatingX">Il voto del tuo rompicapo: %s</string>
+  <string name="yourPuzzleRatingX">Il tuo punteggio nelle tattiche: %s</string>
   <string name="findTheBestMoveForWhite">Trova la mossa migliore per il bianco.</string>
   <string name="findTheBestMoveForBlack">Trova la mossa migliore per il nero.</string>
   <string name="toGetPersonalizedPuzzles">Per ottenere rompicapi personalizzati:</string>

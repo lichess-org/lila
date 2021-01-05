@@ -17,7 +17,7 @@
   <string name="capturingDefender">Tak fólkið, ið verjir</string>
   <string name="capturingDefenderDescription">At beina eitt fólk burtur, ið hevur týdning í verjuni av einum øðrum fólki. Hetta ger tað møguligt at taka fólkið, ið nú er óvart, í einum seinni leiki.</string>
   <string name="crushing">At knúsa</string>
-  <string name="crushingDescription">Finn bummaran hjá mótleikaranum til tess at ogna tær knúsandi fyrimun. (eval ≥ 600cp)</string>
+  <string name="crushingDescription">Finn bukkin hjá mótleikaranum til tess at ogna tær knúsandi fyrimun. (eval ≥ 600cp)</string>
   <string name="equality">Javnstøða</string>
   <string name="equalityDescription">Kom afturíaftur úr eini tapandi støðu, og tryggja tær remis ella eina javna støðu. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Álop kongamegin</string>
@@ -75,6 +75,8 @@
   <string name="promotionDescription">Ein finna, ið umskapast ella hóttir við at umskapast, er lykilin til taktikkin.</string>
   <string name="queenEndgame">Frúgvaendatalv</string>
   <string name="queenEndgameDescription">Endatalv við frúgvum og finnum burturav.</string>
+  <string name="queenRookEndgame">Frúgv og rókur</string>
+  <string name="queenRookEndgameDescription">Endatalv við frúm, rókum og finnum.</string>
   <string name="queensideAttack">Álop frúgvamegin</string>
   <string name="queensideAttackDescription">Álop á mótstøðukongin, aftaná at hann er lopin í borg frúgvamegin.</string>
   <string name="quietMove">Stillførur leikur</string>

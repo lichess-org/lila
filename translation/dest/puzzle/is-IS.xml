@@ -19,8 +19,12 @@
   <string name="bestMove">Besti leikurinn!</string>
   <string name="keepGoing">Haltu áfram…</string>
   <string name="puzzleSuccess">Árangur!</string>
+  <string name="puzzleComplete">Þraut leyst!</string>
+  <string name="notTheMove">Þetta er ekki leikurinn!</string>
   <string name="trySomethingElse">Reyndu eitthvað annað.</string>
   <string name="ratingX">Skákstig: %s</string>
+  <string name="hidden">falið</string>
+  <string name="fromGameLink">Úr leik %s</string>
   <string name="continueTraining">Halda áfram að æfa</string>
   <string name="difficultyLevel">Þyngdarstig</string>
   <string name="normal">Miðlungs</string>
@@ -30,4 +34,5 @@
   <string name="hardest">Þyngst</string>
   <string name="example">Dæmi</string>
   <string name="addAnotherTheme">Bæta við annan þema</string>
+  <string name="jumpToNextPuzzleImmediately">Fara strax á næsta þraut</string>
 </resources>

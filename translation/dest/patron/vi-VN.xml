@@ -2,8 +2,34 @@
 <resources>
   <string name="donate">Ủng hộ</string>
   <string name="lichessPatron">Lichess Patron</string>
+  <string name="freeAccount">Tài khoản miễn phí</string>
   <string name="becomePatron">Trở thành Lichess Patron</string>
+  <string name="xBecamePatron">%s trở thành Lichess Patron</string>
   <string name="newPatrons">Patrons mới</string>
+  <string name="freeChess">Cờ vua miễn phí cho tất cả mọi người, mãi mãi!</string>
+  <string name="noAdsNoSubs">Không quảng cáo, không đóng tiền; nhưng có mã nguồn mở và sự đam mê.</string>
+  <string name="thankYou">Cảm ơn sự đóng góp của bạn!</string>
+  <string name="patronUntil">Bạn có tài khoản Patron cho đến %s.</string>
+  <string name="ifNotRenewed">Nếu không được làm mới, bạn sẽ hạ cấp xuống miễn phí.</string>
+  <string name="weRelyOnSupport">Chúng tôi dựa vào sự đóng góp từ những người như bạn. Nếu bạn thích sử dụng Lichess, hãy cân nhắc giúp đỡ chúng tôi thông qua việc quyên góp và trờ thành một Patron!</string>
   <string name="lifetime">Vĩnh viễn</string>
+  <string name="payLifetimeOnce">Đóng góp %s một lần. Trở thành Lichess Patron vĩnh viễn!</string>
+  <string name="monthly">Hàng tháng</string>
+  <string name="onetime">Một lần</string>
+  <string name="singleDonation">Đóng góp một lần cho bạn đôi cánh Patron trong vòng một tháng.</string>
+  <string name="otherAmount">Khác</string>
   <string name="withCreditCard">Thẻ tín dụng</string>
+  <string name="withPaypal">Paypal</string>
+  <string name="weAreSmallTeam">Chúng tôi là một đội nhỏ, vì vậy sự giúp đỡ của bạn tạo nên khác biệt rất lớn!</string>
+  <string name="whereMoneyGoes">Tiền được dùng để làm gi?</string>
+  <string name="serversAndDeveloper">Đầu tiên, một máy chủ mạnh mẽ.
+Sau đó chúng tôi trả lương cho một nhà phát triển toàn thời gian: %s, nhà sáng lập Lichess.</string>
+  <string name="contactSupport">liên hệ với bộ phận hỗ trợ Lichess</string>
+  <string name="bankTransfers">Chúng tôi cũng chấp nhận chuyển khoản ngân hàng</string>
+  <string name="patronFeatures">Có tính năng nào được dành riêng cho Patron không?</string>
+  <string name="noPatronFeatures">Không, Lichess hoàn toàn miễn phí, mãi mãi và cho tất cả mọi người. Đó là lời hứa của chúng tôi.
+Tuy nhiên, Patron được quyền khoe khoang với một huy hiệu mới.</string>
+  <string name="youSupportWith">Bạn hỗ trợ lichess.org với %s mỗi tháng.</string>
+  <string name="update">Cập nhật</string>
+  <string name="xOrY">%1$s hoặc %2$s</string>
 </resources>

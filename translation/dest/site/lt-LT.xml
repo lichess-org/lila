@@ -9,6 +9,7 @@
   <string name="yourTurn">Jūsų ėjimas</string>
   <string name="aiNameLevelAiLevel">%1$s lygis Nr. %2$s</string>
   <string name="level">Lygis</string>
+  <string name="strength">Stiprumas</string>
   <string name="toggleTheChat">Įjungti / išjungti pokalbį</string>
   <string name="toggleSound">Įjungti / išjungti garsus</string>
   <string name="chat">Pokalbis</string>

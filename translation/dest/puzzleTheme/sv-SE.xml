@@ -26,4 +26,23 @@
   <string name="clearanceDescription">Ett drag, ofta med tempo, som rensar en ruta, linje eller diagonal för en uppföljande taktisk idé.</string>
   <string name="defensiveMove">Defensiva drag</string>
   <string name="defensiveMoveDescription">Ett exakt drag eller sekvens av drag som är nödvändiga behövs för att undvika att förlora material eller annan fördel.</string>
+  <string name="endgame">Slutspel</string>
+  <string name="longDescription">Tre drag för att vinna.</string>
+  <string name="mateIn1">Matt i 1 drag</string>
+  <string name="mateIn1Description">Gör schackmatt i ett drag.</string>
+  <string name="mateIn2">Matt i 2 drag</string>
+  <string name="mateIn2Description">Gör schackmatt i två drag.</string>
+  <string name="mateIn3">Matt i 3 drag</string>
+  <string name="mateIn3Description">Gör schackmatt i tre drag.</string>
+  <string name="mateIn4">Matt i 4 drag</string>
+  <string name="mateIn4Description">Gör schackmatt i fyra drag.</string>
+  <string name="mateIn5">Matt i 5 eller fler drag</string>
+  <string name="mateIn5Description">Räkna ut en lång schackmattsekvens.</string>
+  <string name="pawnEndgame">Bondeslutspel</string>
+  <string name="pawnEndgameDescription">Ett slutspel med endast bönder.</string>
+  <string name="promotion">Promovering</string>
+  <string name="queenRookEndgame">Dam och torn</string>
+  <string name="queenRookEndgameDescription">Ett slutspel med endast damer, torn och bönder.</string>
+  <string name="short">Kort pussel</string>
+  <string name="shortDescription">Två drag för att vinna.</string>
 </resources>

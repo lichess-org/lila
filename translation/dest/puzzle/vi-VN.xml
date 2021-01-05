@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Câu đố</string>
+  <string name="puzzleThemes">Chủ đề câu đố</string>
   <string name="recommended">Khuyến nghị</string>
   <string name="phases">Giai đoạn</string>
+  <string name="motifs">Mô típ</string>
+  <string name="advanced">Nâng cao</string>
+  <string name="lengths">Độ dài</string>
   <string name="mates">Chiếu hết</string>
   <string name="goals">Mục tiêu</string>
+  <string name="specialMoves">Nước đi đặc biệt</string>
   <string name="didYouLikeThisPuzzle">Bạn có thích câu đố này?</string>
   <string name="voteToLoadNextOne">Bình chọn để mở câu đố tiếp theo!</string>
   <string name="findTheBestMoveForWhite">Tìm nước tối ưu cho Trắng.</string>
@@ -33,4 +38,6 @@
   <string name="harder">Khó hơn</string>
   <string name="hardest">Khó nhất</string>
   <string name="example">Ví dụ</string>
+  <string name="addAnotherTheme">Thêm chủ đề khác</string>
+  <string name="jumpToNextPuzzleImmediately">Chuyển tới câu đố tiếp theo ngay lập tức</string>
 </resources>

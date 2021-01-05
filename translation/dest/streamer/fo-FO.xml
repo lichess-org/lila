@@ -1,2 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessStreamers">Lichess stroymarar</string>
+  <string name="lichessStreamer">Lichess stroymari</string>
+  <string name="live">LIVE!</string>
+  <string name="offline">OFFLINE</string>
+  <string name="currentlyStreaming">Stroymarar í løtuni: %s</string>
+  <string name="lastStream">Seinasta stroyming %s</string>
+  <string name="becomeStreamer">Verð ein Lichess-stroymari</string>
+  <string name="doYouHaveStream">Hevur tú eina Twitch- ella YouTube-rás?</string>
+  <string name="hereWeGo">Nú byrja vit!</string>
+  <string name="allStreamers">Allir stroymarar</string>
+  <string name="editPage">Ritstjórna stroymarasíðu</string>
+  <string name="yourPage">Tín stroymarasíða</string>
+  <string name="downloadKit">Tak stroymaraútgerð niður</string>
+  <string name="xIsStreaming">%s stroymar</string>
+  <string name="rules">Stroymarareglur</string>
+  <string name="rule1">Hav lyklaorðið \"lichess.org\" við í stroymingarheiti tínum.</string>
+  <string name="rule2">Tak lyklaorðið burtur, tá ið tú stroymar tilfar, ið einki hevur við Lichess at gera.</string>
+  <string name="rule3">Lichess finnur sjálvvirkið tína stroyming og veitir tær hesar ágóðar:</string>
+  <string name="perks">Fyrimunir við at stroyma við lyklaorðinum</string>
+  <string name="perk1">Fá eina logandi stroymaramynd á Lichess-vangamynd tína.</string>
+  <string name="perk2">Verð flutt/ur upp á ovastu rók á stroymaralistanum.</string>
+  <string name="perk3">Sig Lichess-fylgjarum tínum frá.</string>
+  <string name="perk4">Vís stroyming tína í talvum, kappingum og rannsóknum tínum.</string>
+  <string name="approved">Stroymingin hjá tær er góðkend.</string>
+  <string name="pendingReview">Fyriskiparar viðgera nú stroymingina hjá tær.</string>
+  <string name="pleaseFillIn">Fyll vinaliga tínar stroymaraupplýsingar inn, og legg eina mynd inn.</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Tá ið tú ert til reiðar at verða settur á listan sum Lichess-stroymari, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">bið um fyriskiparameting</string>
+  <string name="anotherLanguage">Stroymar tú á øðrum máli enn enskum, hav rætta tungumálsfrámerkið við (%s) inni í fýrkantaðum klombrum í byrjanini á stroymaraheiti tínum.
+T. d. kanst tú hava \"[RU]\" fyri russiskt, \"[TR]\" fyri turkiskt, \"[FR]\" fyri franskt o. s. fr.
+Set hetta inn í stroymaraheitið á Twitch- ella YouTube-síðuni; ikki Lichess-stroymarastillingarnar. 
+Stroymar tú á enskum, er ikki neyðugt at hava tungumálsfrámerkini við.</string>
+  <string name="twitchUsername">Twitch-brúkaranavn títt ella URL</string>
+  <string name="optionalOrEmpty">Valfrítt. Lat vera tómt, um einki</string>
+  <string name="youtubeChannel">YouTube-rásarsamleiki tín ella URL</string>
+  <string name="streamerName">Stroymaranavn títt á Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Halt tað stutt: %s stavur í mesta lagi</item>
+    <item quantity="other">Halt tað stutt: %s stavir í mesta lagi</item>
+  </plurals>
+  <string name="visibility">Sjónligt á stroymarasíðuni</string>
+  <string name="whenApproved">Tá ið fyriskiparar hava góðkent</string>
+  <string name="headline">Yvirskrift</string>
+  <string name="tellUsAboutTheStream">Greið okkum frá um stroyming tína í einum setningi</string>
+  <string name="longDescription">Long lýsing</string>
+  <string name="xStreamerPicture">%s stroymaramynd</string>
+  <string name="changePicture">Broyt/strika mynd tína</string>
+  <string name="uploadPicture">Legg eina mynd út</string>
+  <string name="deletePicture">Tak mynd burtur</string>
+  <string name="maxSize">Hægst loyvda stødd: %s</string>
+  <string name="installBlocker">Set inn illbúnaðarforðing!</string>
+  <string name="beSafe">Tryggja teg móti lýsingum og sporingum,
+ið plága Twitch og YouTube.
+Lichess viðmælir uBlock Origin,
+ið er ókeypis og við opnum keldukotum.</string>
+</resources>

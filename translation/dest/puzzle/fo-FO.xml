@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Uppgávur</string>
-  <string name="recommended">Viðmæld</string>
+  <string name="puzzleThemes">Uppgávuevni</string>
+  <string name="recommended">Viðmældar uppgávur</string>
   <string name="phases">Skifti</string>
   <string name="motifs">Ætlanir</string>
   <string name="advanced">Framkomið stig</string>
@@ -41,4 +42,5 @@
   <string name="hardest">Truplasta</string>
   <string name="example">Dømi</string>
   <string name="addAnotherTheme">Legg eitt nýtt tema aftrat</string>
+  <string name="jumpToNextPuzzleImmediately">Far beinanvegin til næstu uppgávu</string>
 </resources>

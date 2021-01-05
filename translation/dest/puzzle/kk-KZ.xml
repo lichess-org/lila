@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Жұмбақтар</string>
+  <string name="puzzleThemes">Жұмбақ тақырыптары</string>
   <string name="recommended">Ұсыныстар</string>
   <string name="phases">Кезеңдер</string>
   <string name="motifs">Жағдайлар</string>
-  <string name="advanced">Кеңейтілген</string>
-  <string name="lengths">Ұзындығы</string>
+  <string name="advanced">Қосымша</string>
+  <string name="lengths">Ұзындық</string>
   <string name="mates">Маттар</string>
   <string name="goals">Мақсаттар</string>
   <string name="specialMoves">Ерекше жүрістер</string>
