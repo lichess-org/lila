@@ -52,7 +52,7 @@
 दुर्लभ मामलों में यह स्वचालित रूप से तय करने के लिए मुश्किल हो सकता है (मजबूर लाइनें, किले)। डिफ़ॉल्ट रूप से हम हमेशा उस खिलाड़ी के साथ होते हैं जो समय से बाहर नहीं भागता था।
 
 ध्यान दें कि एक एकल नाइट या बिशप के साथ संभोग करना संभव हो सकता है यदि प्रतिद्वंद्वी के पास एक टुकड़ा है जो राजा को अवरुद्ध कर सकता है।</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDE हैंडबुक%s</string>
+  <string name="fideHandbookX">FIDE हैंडबुक%s</string>
   <string name="discoveringEnPassant">जब पहले से ही पास हो तो कोई मोहरा दूसरे मोहरे पर कब्जा क्यों कर सकता है? (एन पासेंट)</string>
   <string name="explainingEnPassant">यह एक कानूनी कदम है जिसे \"एन पासेंट\" के रूप में जाना जाता है। विकिपीडिया लेख एक%1$s देता है।
 
