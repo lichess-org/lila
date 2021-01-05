@@ -27,7 +27,7 @@
   <string name="gameplay">Hraní hry</string>
   <string name="whatVariantsCanIplay">Jaké varianty mohu hrát na Lichess?</string>
   <string name="eightVariants">8 variant šachu</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDE příručka %s</string>
+  <string name="fideHandbookX">FIDE příručka %s</string>
   <string name="goodIntroduction">dobré zahájení</string>
   <string name="positions">pozice</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Třikrát jsme zopakovali stejnou pozici. Proč hra neskončila remízou?</string>
