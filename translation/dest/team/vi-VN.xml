@@ -38,4 +38,6 @@ Những người chơi không muốn nhận tin nhắn của bạn có thể s�
   <string name="teamsIlead">Những đội mà tôi dẫn đầu</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Có thể bạn muốn dẫn tới một trong những giải đấu sắp tới?</string>
   <string name="usersWhoCanManageThisTeam">Những người dùng có thể quản lý đội này</string>
+  <string name="closeTeam">Giải tán đội</string>
+  <string name="closeTeamDescription">Giải tán đội vĩnh viễn.</string>
 </resources>
