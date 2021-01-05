@@ -27,10 +27,13 @@
   <string name="withCreditCard">Thẻ tín dụng</string>
   <string name="withPaypal">Paypal</string>
   <string name="weAreSmallTeam">Chúng tôi là một đội nhỏ, vì vậy sự giúp đỡ của bạn tạo nên khác biệt rất lớn!</string>
+  <string name="celebratedPatrons">Những Patron nổi tiếng khiến cho Lichess thành hiện thực</string>
   <string name="whereMoneyGoes">Tiền được dùng để làm gi?</string>
   <string name="serversAndDeveloper">Đầu tiên, một máy chủ mạnh mẽ.
 Sau đó chúng tôi trả lương cho một nhà phát triển toàn thời gian: %s, nhà sáng lập Lichess.</string>
   <string name="costBreakdown">Xem phân tích chi phí chi tiết</string>
+  <string name="officialNonProfit">Lichess có phải là một tổ chức phi lợi nhuận chính thống?</string>
+  <string name="actOfCreation">Đúng, và đây là tuyên bố thành lập (bằng tiếng Pháp)</string>
   <string name="changeMonthlySupport">Tôi có thể thay đổi/hủy việc đóng góp hàng tháng được không?</string>
   <string name="changeOrContact">Có, bất cứ lúc nào, ở trang này.
 Hoặc bạn có thể %s.</string>
