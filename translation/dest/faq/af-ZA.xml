@@ -52,7 +52,7 @@ Die rekenaaranalise op Lichess word aangedryf deur Stockfish.</string>
 In seldsame gevalle kan dit moeilik wees om outomaties te besluit (gedwonge lyne, vestings). By verstek staan ​​ons altyd saam met die speler wat nie tyd verloor het nie.
 
 Let daarop dat dit moontlik kan wees om met \'n enkele ridder of biskop te paar as die opponent \'n stuk het wat die koning kan blokkeer.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDE-handboek %s</string>
+  <string name="fideHandbookX">FIDE-handboek %s</string>
   <string name="discoveringEnPassant">Waarom kan \'n pion \'n ander pion vang as dit reeds geslaag is? (en passant)</string>
   <string name="explainingEnPassant">Dit is \'n wettige stap wat bekend staan ​​as \'en passant\'. Die Wikipedia-artikel gee \'n %1$s.
 
