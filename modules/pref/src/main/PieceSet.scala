@@ -29,24 +29,24 @@ object PieceSet extends PieceSetObject {
   val all = List(
     default.name,
     "kanji_brown",
-    "orangain",
     "Ryoko_1Kanji",
-    "Shogi_cz",
+    "orangain",
     "kanji_red_wood",
-    "doubutsu",
-    "Logy_Games",
     "1Kanji_3D",
     "2Kanji_3D",
+    "Shogi_cz",
+    "Kanji_Guide_Shadowed",
+    "Valdivia",
+    "Vald_opt",
     "Intl_Colored_2D",
     "Intl_Colored_3D",
     "Intl_Colored_Shadowed",
     "Intl_Monochrome_2D",
     "Intl_Wooden_3D",
     "international",
-    "Kanji_Guide_Shadowed",
     "simple_kanji",
-    "Valdivia",
-    "Vald_opt"
+    "doubutsu",
+    "Logy_Games"
   ) map { name =>
     new PieceSet(name)
   }
