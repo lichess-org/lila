@@ -1,6 +1,7 @@
 package views
 package html.puzzle
 
+import controllers.routes
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsArray, JsObject, JsString, Json }
 
@@ -29,6 +30,22 @@ object bits {
         "static"  -> static.map(_.value).mkString(" ")
       )
   }
+
+  def pageMenu(active: String, days: Int = 30)(implicit lang: Lang) =
+    st.nav(cls := "page-menu__menu subnav")(
+      a(href := routes.Puzzle.home())(
+        trans.puzzles()
+      ),
+      a(cls := active.active("themes"), href := routes.Puzzle.themes())(
+        trans.puzzle.puzzleThemes()
+      ),
+      a(cls := active.active("dashboard"), href := routes.Puzzle.dashboard(days, "home"))(
+        trans.puzzle.puzzleDashboard()
+      ),
+      a(cls := active.active("weaknesses"), href := routes.Puzzle.dashboard(days, "weaknesses"))(
+        trans.puzzle.puzzleDashboard()
+      )
+    )
 
   private val i18nKeys: List[MessageKey] = {
     List(

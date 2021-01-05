@@ -18,65 +18,109 @@ object dashboard {
   private val themeClass     = s"${baseClass}__theme"
   private val dataWinPercent = attr("data-win-percent")
 
-  def apply(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: Context) = {
-    val title =
-      if (ctx is user) "Puzzle dashboard"
-      else s"${user.username} puzzle dashboard"
-    val urlExt = !(ctx is user) ?? s"?u=${user.username}"
+  def home(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: Context) =
+    dashboardLayout(
+      user = user,
+      days = days,
+      path = "home",
+      title =
+        if (ctx is user) "Puzzle dashboard"
+        else s"${user.username} puzzle dashboard",
+      dashOpt = dashOpt
+    ) { dash =>
+      frag(
+        div(cls := s"${baseClass}__global")(
+          metricsOf(days, PuzzleTheme.mix.key, dash.global)
+        ),
+        div(cls := s"${baseClass}__themes")(
+          div(cls := s"${baseClass}__themes__title")(
+          ),
+          themeSelection(days, dash.weakThemes)
+        ),
+        div(cls := s"${baseClass}__themes")(
+          div(cls := s"${baseClass}__themes__title")(
+            h2("Your strengths"),
+            if (dash.strongThemes.size >= PuzzleDashboard.topThemesNb)
+              p("Congratulations, you did really well in these puzzles!")
+            else
+              p("Play more puzzles to get a better analysis.")
+          ),
+          themeSelection(days, dash.strongThemes)
+        )
+      )
+    }
+
+  def weaknesses(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: Context) =
+    dashboardLayout(
+      user = user,
+      days = days,
+      "weaknesses",
+      title =
+        if (ctx is user) "My puzzle weaknesses"
+        else s"${user.username} puzzle weaknesses",
+      dashOpt = dashOpt
+    ) { dash =>
+      frag(
+        p("Train these to optimize your progress!"),
+        themeSelection(days, dash.weakThemes)
+      )
+    }
+
+  def strengths(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: Context) =
+    dashboardLayout(
+      user = user,
+      days = days,
+      "strengths",
+      title =
+        if (ctx is user) "My puzzle strengths"
+        else s"${user.username} puzzle strengths",
+      dashOpt = dashOpt
+    ) { dash =>
+      frag(
+        p("Train these to optimize your progress!"),
+        themeSelection(days, dash.strongThemes)
+      )
+    }
+
+  private def dashboardLayout(
+      user: User,
+      days: Int,
+      path: String,
+      title: String,
+      dashOpt: Option[PuzzleDashboard]
+  )(
+      body: PuzzleDashboard => Frag
+  )(implicit ctx: Context) =
     views.html.base.layout(
-      title = "Puzzle dashboard",
+      title = title,
       moreCss = cssTag("puzzle.dashboard")
     )(
-      main(cls := s"page box box-pad $baseClass")(
-        h1(
-          "Puzzle dashboard",
-          views.html.base.bits.mselect(
-            s"${baseClass}__day-select",
-            span(trans.nbDays.pluralSame(days)),
-            PuzzleDashboard.dayChoices map { d =>
-              a(
-                cls := (d == days).option("current"),
-                href := s"${routes.Puzzle.dashboard(d)}$urlExt"
-              )(trans.nbDays.pluralSame(d))
-            }
+      main(cls := "page-menu")(
+        bits.pageMenu("dashboard"),
+        div(cls := s"page-menu__content box box-pad $baseClass")(
+          h1(
+            title,
+            views.html.base.bits.mselect(
+              s"${baseClass}__day-select",
+              span(trans.nbDays.pluralSame(days)),
+              PuzzleDashboard.dayChoices map { d =>
+                a(
+                  cls := (d == days).option("current"),
+                  href := s"${routes.Puzzle.dashboard(d, path)}${!(ctx is user) ?? s"?u=${user.username}"}"
+                )(trans.nbDays.pluralSame(d))
+              }
+            )
           ),
-          " [BETA]"
-        ),
-        dashOpt match {
-          case None =>
-            div(cls := s"${baseClass}__empty")(
-              a(href := routes.Puzzle.home())("Nothing to show, go play some puzzles first!")
-            )
-          case Some(dash) =>
-            frag(
-              div(cls := s"${baseClass}__global")(
-                metricsOf(days, PuzzleTheme.mix.key, dash.global)
-              ),
-              div(cls := s"${baseClass}__themes")(
-                div(cls := s"${baseClass}__themes__title")(
-                  h2("Your weaknesses"),
-                  if (dash.weakThemes.size >= PuzzleDashboard.topThemesNb)
-                    p("Train these to optimize your progress!")
-                  else
-                    p("Play more puzzles to get a better analysis.")
-                ),
-                themeSelection(days, dash.weakThemes)
-              ),
-              div(cls := s"${baseClass}__themes")(
-                div(cls := s"${baseClass}__themes__title")(
-                  h2("Your strengths"),
-                  if (dash.strongThemes.size >= PuzzleDashboard.topThemesNb)
-                    p("Congratulations, you did really well in these puzzles!")
-                  else
-                    p("Play more puzzles to get a better analysis.")
-                ),
-                themeSelection(days, dash.strongThemes)
+          dashOpt match {
+            case None =>
+              div(cls := s"${baseClass}__empty")(
+                a(href := routes.Puzzle.home())("Nothing to show, go play some puzzles first!")
               )
-            )
-        }
+            case Some(dash) => body(dash)
+          }
+        )
       )
     )
-  }
 
   private def themeSelection(days: Int, themes: List[(PuzzleTheme.Key, PuzzleDashboard.Results)])(implicit
       lang: Lang

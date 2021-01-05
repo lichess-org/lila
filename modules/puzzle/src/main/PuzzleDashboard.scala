@@ -28,7 +28,7 @@ case class PuzzleDashboard(
       .take(topThemesNb)
     val strong = all
       .filter { case (t, r) =>
-        r.firstWins >= 3 && !weaks.contains(t)
+        r.firstWins >= 3 && !weaks.contains(t -> r)
       }
       .takeRight(topThemesNb)
     (weaks, strong)
@@ -41,7 +41,7 @@ object PuzzleDashboard {
 
   val dayChoices = List(1, 2, 3, 7, 10, 14, 21, 30, 60, 90)
 
-  val topThemesNb = 5
+  val topThemesNb = 8
 
   case class Results(nb: Int, wins: Int, fixed: Int, puzzleRatingAvg: Int) {
 

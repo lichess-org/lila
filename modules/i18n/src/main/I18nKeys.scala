@@ -1781,6 +1781,7 @@ val `swissTournaments` = new I18nKey("swiss:swissTournaments")
 
 object puzzle {
 val `puzzles` = new I18nKey("puzzle:puzzles")
+val `puzzleDashboard` = new I18nKey("puzzle:puzzleDashboard")
 val `puzzleThemes` = new I18nKey("puzzle:puzzleThemes")
 val `recommended` = new I18nKey("puzzle:recommended")
 val `phases` = new I18nKey("puzzle:phases")

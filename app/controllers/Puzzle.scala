@@ -260,7 +260,7 @@ final class Puzzle(
         .fuccess
     }
 
-  def dashboard(days: Int) =
+  def dashboard(days: Int, path: String = "home") =
     Auth { implicit ctx => me =>
       get("u")
         .ifTrue(isGranted(_.Hunter))
@@ -268,7 +268,12 @@ final class Puzzle(
         .map(_ | me)
         .flatMap { user =>
           env.puzzle.dashboard(user, days) map { dashboard =>
-            Ok(views.html.puzzle.dashboard(user, dashboard, days))
+            path match {
+              case "home"       => Ok(views.html.puzzle.dashboard.home(user, dashboard, days))
+              case "weaknesses" => Ok(views.html.puzzle.dashboard.weaknesses(user, dashboard, days))
+              case "strengths"  => Ok(views.html.puzzle.dashboard.strengths(user, dashboard, days))
+              case _            => Redirect(routes.Puzzle.dashboard(days, "home"))
+            }
           }
         }
     }
@@ -277,7 +282,7 @@ final class Puzzle(
     Auth { implicit ctx => me =>
       val theme = PuzzleTheme.findOrAny(themeKey)
       env.puzzle.replay(me, days, theme.key) flatMap {
-        case None                   => Redirect(routes.Puzzle.dashboard(days)).fuccess
+        case None                   => Redirect(routes.Puzzle.dashboard(days, "home")).fuccess
         case Some((puzzle, replay)) => renderShow(puzzle, theme, replay.some)
       }
     }

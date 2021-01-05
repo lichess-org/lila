@@ -82,8 +82,8 @@ GET   /training/daily                  controllers.Puzzle.daily
 GET   /training/frame                  controllers.Puzzle.frame
 GET   /training/export/gif/thumbnail/:id.gif controllers.Export.puzzleThumbnail(id: String)
 GET   /training/themes                 controllers.Puzzle.themes
-GET   /training/dashboard              controllers.Puzzle.dashboard(days: Int = 30)
-GET   /training/dashboard/$days<\d+>   controllers.Puzzle.dashboard(days: Int)
+GET   /training/dashboard/$days<\d+>   controllers.Puzzle.dashboard(days: Int, path: String = "home")
+GET   /training/dashboard/$days<\d+>/:path  controllers.Puzzle.dashboard(days: Int, path: String)
 GET   /training/replay/$days<\d+>/:theme controllers.Puzzle.replay(days: Int, theme: String)
 GET   /training/batch                  controllers.Puzzle.mobileBcBatchSelect
 POST  /training/batch                  controllers.Puzzle.mobileBcBatchSolve
