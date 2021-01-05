@@ -93,6 +93,8 @@ Lūdzu, neprasiet LM titulu.</string>
   <string name="whatUsernameCanIchoose">Kāds man var būt lietotājvārds?</string>
   <string name="usernamesNotOffensive">Lietotājvārdiem nevajadzētu būt aizvainojošiem, un tie nedrīkst uzdoties par kādu citu vai ko reklamēt. Varat lasīt vairāk par %1$s.</string>
   <string name="guidelines">norādījumiem</string>
+  <string name="canIChangeMyUsername">Vai varu mainīt lietotājvārdu?</string>
+  <string name="usernamesCannotBeChanged">Nē; lietotājvārdus nevar mainīt tehnisku un praktisku iemeslu dēļ. Lietotājvārdi ir iegulti pārāk daudzās vietās: datubāzēs, eksportos, žurnālos un cilvēku prātos. Vienreiz varat mainīt lielo burtu lietojumu.</string>
   <string name="uniqueTrophies">Unikālas trofejas</string>
   <string name="ownerUniqueTrophies">Tā trofeja ir unikāla Lichess vēsturē; tā nepiederēs nevienam citam kā %1$s.</string>
   <string name="wayOfBerserkExplanation">Lai to dabūtu, hiimgosu izaicināja sevi spēlēt Kurbadu un uzvarēt visas spēlētās spēles %s.</string>
