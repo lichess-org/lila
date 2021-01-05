@@ -502,8 +502,8 @@
   <string name="xAskedY">%1$s が %2$s に質問しました。</string>
   <string name="xAnsweredY">%1$s が %2$s と答えました。</string>
   <string name="xCommentedY">%1$s が %2$s とコメントしました。</string>
-  <string name="victory">勝利！</string>
-  <string name="defeat">失敗</string>
+  <string name="victory">勝ち</string>
+  <string name="defeat">負け</string>
   <string name="victoryVsYInZ">%1$s 対 %2$s、%3$s</string>
   <string name="defeatVsYInZ">%1$s 対 %2$s、%3$s で</string>
   <string name="drawVsYInZ">%1$s 対 %2$s、%3$s で</string>
