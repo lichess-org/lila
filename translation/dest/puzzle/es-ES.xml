@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Rompecabezas</string>
-  <string name="puzzleThemes" comment="puzzleThemes&#10;&#10;https://lichess.org/training/themes">Temario</string>
+  <string name="puzzleThemes">Temario</string>
   <string name="recommended">Recomendado</string>
   <string name="phases">Fases</string>
   <string name="motifs">Temas</string>
