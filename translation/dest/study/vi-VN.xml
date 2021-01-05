@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="private">Riêng tư</string>
+  <string name="noneYet">Chưa có gì cả.</string>
+  <string name="recentlyUpdated">Cập nhật gần đây</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Vui lòng chỉ mời những người bạn biết và muốn tham gia.</string>
   <string name="searchByUsername">Tìm theo tên người dùng</string>
   <string name="spectator">Khán giả</string>
