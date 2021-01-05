@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Δωρίστε</string>
-  <string name="lichessPatron">Lichess Δωρητής</string>
+  <string name="lichessPatron">Χορηγός του Lichess</string>
   <string name="freeAccount">Δωρεάν λογαριασμός</string>
-  <string name="becomePatron">Γίνετε Lichess Δωρητής</string>
-  <string name="xBecamePatron">%s έγινε Lichess Δωρητής</string>
-  <string name="newPatrons">Νέοι Δωρητές</string>
-  <string name="freeChess">Δωρεάν σκάκι για όλους, εφ όρου ζωής!</string>
+  <string name="becomePatron">Γίνεται χορηγός του Lichess</string>
+  <string name="xBecamePatron">%s έγινε χορηγός του Lichess</string>
+  <string name="newPatrons">Νέοι Χορηγοί</string>
+  <string name="freeChess">Δωρεάν σκάκι για όλους, για πάντα!</string>
   <string name="noAdsNoSubs">Χωρίς διαφημίσεις, χωρίς συνδρομές\' αλλά με ανοιχτό λογισμικό και πάθος.</string>
   <string name="thankYou">Σας ευχαριστούμε για την δωρεά!</string>
   <string name="youHaveLifetime">Έχετε έναν εφ όρου ζωής λογαριασμό Δωρητή. Αυτό είναι φανταστικό!</string>
