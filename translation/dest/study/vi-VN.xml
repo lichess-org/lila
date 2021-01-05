@@ -4,6 +4,17 @@
   <string name="noneYet">Chưa có gì cả.</string>
   <string name="recentlyUpdated">Cập nhật gần đây</string>
   <string name="mostPopular">Phổ biến nhất</string>
+  <string name="addNewChapter">Thêm một chương mới</string>
+  <plurals name="nbChapters">
+    <item quantity="other">%s Chương</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="other">%s ván cờ</item>
+  </plurals>
+  <string name="addMembers">Thêm thành viên</string>
+  <plurals name="nbMembers">
+    <item quantity="other">%s thành viên</item>
+  </plurals>
   <string name="pleaseOnlyInvitePeopleYouKnow">Vui lòng chỉ mời những người bạn biết và muốn tham gia.</string>
   <string name="searchByUsername">Tìm theo tên người dùng</string>
   <string name="spectator">Khán giả</string>
