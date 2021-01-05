@@ -94,7 +94,7 @@ Non chiedere il titolo di LM.</string>
   <string name="usernamesNotOffensive">In generale, i nomi utente non dovrebbero essere: offensivi, volti ad impersonare qualcun altro, o costituire un messaggio pubblicitario. Puoi leggere di più su %1$s.</string>
   <string name="guidelines">linee guida</string>
   <string name="canIChangeMyUsername">Posso cambiare il mio nome utente?</string>
-  <string name="usernamesCannotBeChanged">No, i nomi utenti non possono essere modificati per ragioni tecniche e pratiche. I nomi utente sono presenti in troppi posti: database, esportazioni, log, e nella testa delle persone. Puoi solo cambiare le maiuscole una volta sola.</string>
+  <string name="usernamesCannotBeChanged">No, i nomi utenti non possono essere modificati per ragioni tecniche e pratiche. I nomi utente compaiono in troppi posti: database, esportazioni, log, e nella testa delle persone. Puoi solo cambiare le maiuscole una volta sola.</string>
   <string name="uniqueTrophies">Trofei unici</string>
   <string name="ownerUniqueTrophies">Questo trofeo è unico nella storia di Lichess, nessun altro tranne %1$s lo potrà mai avere.</string>
   <string name="wayOfBerserkExplanation">Per ottenerlo hiimgosu si è superato nel vincere il 100%% delle partite di un %s in berserk.</string>
