@@ -138,9 +138,8 @@ private object bits {
           raw("""<a class="advanced_toggle"></a>"""),
           div(cls := "advanced_setup hidden")(
             frag(
-              br,
-              trans.periods(),
               div(cls := "periods buttons")(
+                trans.periods(),
                 div(id := "config_periods")(
                   renderRadios(form("periods"), periodsChoices)
                 )

@@ -39,6 +39,7 @@ $c-slider: $c-setup;
   .advanced_toggle {
     font-size: 20px;
     color: #629924;
+    padding: 1rem 0;
   }
   .label_select {
     @extend %flex-center;
