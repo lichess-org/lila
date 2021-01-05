@@ -32,7 +32,7 @@
   <string name="serversAndDeveloper">Καταρχήν, σε δυνατούς σέρβερς.
 Έπειτα πληρώνουμε έναν προγραμματιστή πλήρους απασχόλησης: %s, ιδρυτής του Lichess.</string>
   <string name="costBreakdown">Δείτε τα αναλυτικά έξοδα</string>
-  <string name="officialNonProfit">Είναι το Lichess επίσημα χωρίς κέρδος;</string>
+  <string name="officialNonProfit">Είναι το Lichess επίσημα μια μη κερδοσκοπική οργάνωση;</string>
   <string name="actOfCreation">Ναι, εδώ είναι η πράξη δημιουργίας (στα γαλλικά)</string>
   <string name="changeMonthlySupport">Μπορώ να αλλάξω/ακυρώσω την μηνιαία υποστήριξη μου;</string>
   <string name="changeOrContact">Ναι, οποιαδήποτε στιγμή, από αυτή τη σελίδα.
