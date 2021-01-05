@@ -901,7 +901,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="rapidDesc">Greitosios partijos: nuo 8 iki 25 minučių</string>
   <string name="classicalDesc">Klasikinės partijos: 25 minutės ir daugiau</string>
   <string name="correspondenceDesc">Korespondencinės partijos: viena ar kelios dienos ėjimui</string>
-  <string name="puzzleDesc">Šachmatų taktikų treniravimas</string>
+  <string name="puzzleDesc">Šachmatų taktikų treniruotė</string>
   <string name="important">Dėmesio</string>
   <string name="yourQuestionMayHaveBeenAnswered">Jūsų klausimas jau gali būti atsakytas %1$s</string>
   <string name="inTheFAQ">per D.U.K.</string>
