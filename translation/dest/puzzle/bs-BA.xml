@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Problemi</string>
+  <string name="puzzleDashboard">Kontrolna tabla za probleme</string>
   <string name="puzzleThemes">Teme problema</string>
   <string name="recommended">Preporučeno</string>
   <string name="phases">Faze</string>
