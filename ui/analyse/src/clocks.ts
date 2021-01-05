@@ -64,7 +64,7 @@ function pad2(num: number): string {
 
 function spanName(ctrl: AnalyseCtrl, color: Color, sep: string = " - ") {
   const p = game.getPlayer(ctrl.data, color);
-  return h("span", [(p.user ? p.user.username : p.ai ? "Stockfish" : "Anonymous") + sep]);
+  return h("span", [(p.user ? p.user.username : p.ai ? "Engine" : "Anonymous") + sep]);
 }
 
 function renderOnlyName(ctrl: AnalyseCtrl, active: boolean, cls: string, color: Color) {

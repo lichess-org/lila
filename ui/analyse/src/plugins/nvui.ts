@@ -307,7 +307,7 @@ function renderComment(comment: Tree.Comment, style: Style): string {
 
 function renderPlayer(ctrl: AnalyseController, player: Player) {
   return player.ai
-    ? ctrl.trans("aiNameLevelAiLevel", "Stockfish", player.ai)
+    ? ctrl.trans("aiNameLevelAiLevel", "YaneuraOu", player.ai)
     : userHtml(ctrl, player);
 }
 

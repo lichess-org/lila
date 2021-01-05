@@ -96,7 +96,7 @@ function engineName(ctrl: CevalCtrl): VNode[] {
     h(
       "span",
       version ? { attrs: { title: version } } : {},
-      ctrl.technology == "wasmx" ? "Stockfish 11+" : "Stockfish 10+"
+      ctrl.technology == "wasmx" ? "Fairy-Stockfish" : " - "
     ),
     ctrl.technology == "wasmx"
       ? h(

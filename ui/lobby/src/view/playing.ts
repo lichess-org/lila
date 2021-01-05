@@ -46,7 +46,7 @@ export default function (ctrl: LobbyController) {
           }),
           h("span.meta", [
             pov.opponent.ai
-              ? ctrl.trans("aiNameLevelAiLevel", "Stockfish", pov.opponent.ai)
+              ? ctrl.trans("aiNameLevelAiLevel", "YaneuraOu", pov.opponent.ai)
               : pov.opponent.username,
             h(
               "span.indicator",
