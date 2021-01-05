@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Quebra-cabeças</string>
+  <string name="puzzleDashboard">Painel do quebra-cabeça</string>
   <string name="puzzleThemes">Temas de quebra-cabeça</string>
   <string name="recommended">Recomendado</string>
   <string name="phases">Fases</string>
