@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">ဉာဏ်စမ်းများ</string>
+  <string name="puzzleDashboard">ဉဏ်စမ်း ဒက်ရှ်ဘုတ်</string>
   <string name="puzzleThemes">ဉာဏ်စမ်း အမျိုးအစားများ</string>
   <string name="recommended">ထောက်ခံသော</string>
   <string name="phases">အဆင့်များ</string>
