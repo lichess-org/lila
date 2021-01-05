@@ -18,4 +18,6 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Da. Lichess a inspirat într-adevăr alte websiteuri open-source care folosesc %1$s, %2$s sau %3$s.</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="fideHandbookX">Manualul FIDE %s</string>
+  <string name="canIChangeMyUsername">Îmi pot schimba numele de utilizator?</string>
+  <string name="usernamesCannotBeChanged">Nu, numele de utilizator nu poate fi schimbat din motive tehnice și practice. Numele de utilizator sunt stocate în prea multe locuri: baze de date, exporturi, jurnale și mințile oamenilor. Poți ajusta capitalizarea o dată.</string>
 </resources>
