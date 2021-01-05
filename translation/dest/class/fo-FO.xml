@@ -40,6 +40,7 @@ Loyniorð: %3$s</string>
   <string name="inviteALichessAccount">Bjóða einari Lichess-kontu</string>
   <string name="inviteDesc1">Hevur næmingurin longu eina Lichess-konto, kanst tú bjóða honum ella henni at vera við í flokkinum.</string>
   <string name="inviteDesc2">Næmingarnir fáa eini boð á Lichess við einum leinki at melda seg til flokkin.</string>
+  <string name="inviteDesc3">Týdningarmikið: Bjóða bert fólki, tú kennir, og sum vilja taka virknan lut í flokkinum.</string>
   <string name="createANewLichessAccount">Stovna eina nýggja Lichess kontu</string>
   <string name="lichessUsername">Lichess brúkaranavn</string>
   <string name="lastActiveDate">Virkin</string>
