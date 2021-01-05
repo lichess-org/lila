@@ -38,6 +38,7 @@ Hoặc bạn có thể %s.</string>
   <string name="patronFeatures">Có tính năng nào được dành riêng cho Patron không?</string>
   <string name="noPatronFeatures">Không, Lichess hoàn toàn miễn phí, mãi mãi và cho tất cả mọi người. Đó là lời hứa của chúng tôi.
 Tuy nhiên, Patron được quyền khoe khoang với một huy hiệu mới.</string>
+  <string name="featuresComparison">Xem so sánh các tính năng chi tiết</string>
   <plurals name="patronForMonths">
     <item quantity="other">Lichess Patron cho %s tháng</item>
   </plurals>
@@ -46,9 +47,13 @@ Tuy nhiên, Patron được quyền khoe khoang với một huy hiệu mới.</s
   <string name="currentStatus">Trạng thái hiện tại</string>
   <string name="nextPayment">Thanh toán tiếp theo</string>
   <string name="youWillBeChargedXOnY">Bạn sẽ trả %1$s vào ngày %2$s.</string>
+  <string name="makeAdditionalDonation">Quyên góp thêm ngay bây giờ</string>
   <string name="update">Cập nhật</string>
   <string name="changeMonthlyAmount">Đổi lượng tiền hàng tháng (%s)</string>
+  <string name="cancelSupport">hủy sự giúp đỡ của bạn</string>
   <string name="xOrY">%1$s hoặc %2$s</string>
+  <string name="decideHowMuch">Quyết định Lichess đáng giá như nào với bạn:</string>
+  <string name="stopPayments">Rút thẻ tín dụng và dừng các thanh toán:</string>
   <string name="noLongerSupport">Không ủng hộ Lichess nữa</string>
   <string name="paymentHistory">Lịch sử thanh toán</string>
   <string name="paid">Đã thanh toán</string>
@@ -57,6 +62,7 @@ Tuy nhiên, Patron được quyền khoe khoang với một huy hiệu mới.</s
   <string name="amount">Số lượng</string>
   <string name="transactionCompleted">Giao dịch của bạn đã thành công, một hóa đơn cho quyên góp của bạn đã được email tới bạn.</string>
   <string name="permanentPatron">Giờ bạn đã có một tài khoản Patron vĩnh viễn.</string>
+  <string name="checkOutProfile">Hãy xem trang cá nhân của bạn!</string>
   <string name="nowLifetime">Giờ bạn đã trở thành Lichess Patron trọn đời!</string>
   <string name="nowOneMonth">Giờ bạn đã trở thành Lichess Patron trong một tháng!</string>
   <string name="downgradeNextMonth">Sau một tháng, bạn sẽ không phải trả tiền lại nữa, và tài khoản Lichess của bạn sẽ quay trở lại tài khoản thường.</string>
