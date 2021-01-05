@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Sjakknøtter</string>
+  <string name="puzzleDashboard">Panel for sjakknøtter</string>
   <string name="puzzleThemes">Temaer for sjakknøtter</string>
   <string name="recommended">Anbefalt</string>
   <string name="phases">Faser</string>
