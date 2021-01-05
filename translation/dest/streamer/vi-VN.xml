@@ -46,4 +46,5 @@ Nếu stream của bạn dùng tiếng Anh, bạn không cần thêm thẻ ngôn
   <string name="uploadPicture">Tải lên hình ảnh</string>
   <string name="deletePicture">Xóa hình ảnh</string>
   <string name="maxSize">Kích cỡ tối đa: %s</string>
+  <string name="installBlocker">Cài phần mềm chặn mã độc!</string>
 </resources>
