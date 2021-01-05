@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Opgaver</string>
+  <string name="puzzleDashboard">Opgave-kontrolpanel</string>
   <string name="puzzleThemes">Opgavetemaer</string>
   <string name="recommended">Anbefalet</string>
   <string name="phases">Faser</string>
