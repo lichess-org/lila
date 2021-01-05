@@ -49,6 +49,16 @@ Loyniorð: %3$s</string>
   <string name="createDesc4">Nýt innbjóðingaroyðublaðið, um næmingurin longu hevur eina brúkarakontu.</string>
   <string name="lichessUsername">Lichess brúkaranavn</string>
   <string name="generateANewUsername">Ger eitt nýtt brúkaranavn</string>
+  <string name="welcomeToClass">Vælkomin til tín flokk: %s.
+Her er leinkið til atgongdina til flokkin.</string>
+  <string name="invitationToClass">Tú ert boðin at luttaka í flokkinum \"%s\" sum næmingur.</string>
+  <string name="clickToViewInvitation">Klikk á leinkið at síggja innbjóðingina:</string>
+  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+    <item quantity="one">Ein innbjóðing bíðar</item>
+    <item quantity="other">%s innbjóðingar bíða</item>
+  </plurals>
+  <string name="noPendingInvitations">Ongar bíðandi innbjóðingar</string>
+  <string name="onlyVisibleToTeachers">Bert sjónligt fyri lærarar hjá flokkinum</string>
   <string name="lastActiveDate">Virkin</string>
   <string name="teachers">Lærarar</string>
   <plurals name="nbTeachers">
