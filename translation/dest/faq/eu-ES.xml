@@ -93,6 +93,8 @@ Ikusi jokaldi honen inguruko %3$s eta praktikatu bertan.</string>
   <string name="whatUsernameCanIchoose">Zer izan daiteke erabiltzaile-izena?</string>
   <string name="usernamesNotOffensive">Normalean erabiltzaile izenak ez dira izan behar iraingarriak, beste norbaiten izenak edo iragarkiak. %1$s irakurri dezakezu gehiago honi buruz.</string>
   <string name="guidelines">Gidalerroetan</string>
+  <string name="canIChangeMyUsername">Aldatu dezaket nire erabiltzaile-izena?</string>
+  <string name="usernamesCannotBeChanged">Ez, erabiltzaile-izenak ezin dira aldatu arrazoi tekniko eta praktikoak direla-eta. Erabiltzaile-izenak hainbat lekutan gordetzen dira, hala nola, datu-basean, esportazioetan, logetan,...</string>
   <string name="uniqueTrophies">Garaikur bereziak</string>
   <string name="ownerUniqueTrophies">Garaikur hori Lichessen historian bakarra da eta %1$s ez den beste inork ez du izango.</string>
   <string name="wayOfBerserkExplanation">Lortzeko, hiimgosu erabiltzeaileak berserk erabiliz erronka egin zion eta %s partidatik 100%% irabazi.</string>
