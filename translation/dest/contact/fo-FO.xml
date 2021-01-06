@@ -21,6 +21,10 @@
   <string name="reopenOnThisPage">Tú kanst lata kontu tína upp aftur á hesari síðuni. Tað ber bert til eina ferð.</string>
   <string name="doNotAskByEmailToReopen">Ikki biðja okkum í einum telduposti at lata eina kontu upp aftur. Vit fara ikki at gera tað.</string>
   <string name="wantChangeUsername">Eg vil broyta mítt brúkaranavn</string>
+  <string name="changeUsernameCase">Vitja hesa síðuna at broyta støddina á bókstavum í brúkaranavni tínum</string>
+  <string name="cantChangeMore">Av tøkniligum ávum ber ikki til at broyta annað enn støddina á bókstavum; um teir eru við stórum ella smáum.</string>
+  <string name="orCloseAccount">Hinvegin ber til hjá tær at steingja tína núverandi kontu og stovna eina nýggja.</string>
+  <string name="wantClearHistory">Eg vil strika mína hendingagongd ella mítt styrkital</string>
   <string name="illegalCastling">Ólógligur ella ómøguligur máti at leypa í borg</string>
   <string name="castlingRules">Ver vís/ur í, at tú skilir reglurnar fyri at leypa í borg</string>
   <string name="welcomeToUse">Tú ert vælkomin at nýta Lichess til títt virksemi, enntá handilsliga.</string>
