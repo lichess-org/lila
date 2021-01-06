@@ -9,6 +9,14 @@
   <string name="castling">Pοκέ</string>
   <string name="castlingDescription">Εξασφαλίστε την ασφάλεια του Βασιλιά και αναπτύξτε τον πύργο για επίθεση.</string>
   <string name="capturingDefender">Αιχμαλωτίστε τον αμυνόμενο</string>
+  <string name="defensiveMove">Αμυντική κίνηση</string>
+  <string name="defensiveMoveDescription">Μια ακριβής κίνηση ή ακολουθία κινήσεων που απαιτείται για να αποφευχθεί η απώλεια υλικού ή άλλου πλεονεκτήματος.</string>
+  <string name="doubleCheck">Διπλό σαχ</string>
+  <string name="mate">Ματ</string>
+  <string name="mateIn1">Ματ σε 1</string>
+  <string name="mateIn2">Ματ σε 2</string>
+  <string name="mateIn3">Ματ σε 3</string>
+  <string name="mateIn4">Ματ σε 4</string>
   <string name="queenRookEndgame">Βασίλισσα και Πύργος</string>
   <string name="queenRookEndgameDescription">Ένα τέλος παρτίδας μόνο με βασίλισσες, πύργους και πιόνια.</string>
 </resources>
