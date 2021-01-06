@@ -172,19 +172,11 @@ object appeal {
       p(
         "If your account has been restricted for violation of ",
         a(href := routes.Page.tos())("the Lichess rules"),
-        ", and you are absolutely certain that you did not break ",
-        a(href := routes.Page.tos())("said rules"),
-        ", then you may file an appeal here."
+        " you may file an appeal here."
       ),
       p(
-        "If you did break ",
-        a(href := routes.Page.tos())("the Lichess rules"),
-        ", even once, then your account is lost. We don't have the luxury of being forgiving."
-      ),
-      p(
-        strong("Do not lie in an appeal"),
-        ". It would result in a lifetime ban, ",
-        "and the automatic termination of any future account you make."
+        "You can read more about the appeal process ",
+        a(href := routes.Page.loneBookmark("appeal"))("here.")
       )
     )
 
