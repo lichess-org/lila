@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="hourlyRapidArena">Ωριαία Αρένα Rapid</string>
-  <string name="hourlyRapid">Ωριαίο Ράπιντ</string>
+  <string name="hourlyRapid">Ωριαίo Rapid</string>
   <string name="hourlyXArena">Ωριαία Αρένα %s</string>
   <string name="hourlyX">Ωριαίο %s</string>
-  <string name="dailyRapidArena">Ημερήσια Αρένα Ράπιντ</string>
+  <string name="dailyRapidArena">Ημερήσια Αρένα Rapid</string>
   <string name="dailyRapid">Ημερήσιο Rapid</string>
   <string name="dailyClassicalArena">Ημερήσια Αρένα Κλασικού</string>
   <string name="dailyClassical">Ημερήσιο Κλασικό</string>
@@ -43,7 +43,7 @@
   <string name="openingRapidArena">%s Ράπιντ Αρένα</string>
   <string name="openingRapid">Rapid %s</string>
   <string name="xTeamBattle">Ομαδική Μάχη %s</string>
-  <string name="eliteXArena">Elite Αρένα %s</string>
-  <string name="eliteX">Elite %s</string>
-  <string name="xArena">%s Αρένα</string>
+  <string name="eliteXArena">Ελίτ Αρένα %s</string>
+  <string name="eliteX">Ελίτ %s</string>
+  <string name="xArena">Αρένα %s</string>
 </resources>
