@@ -64,6 +64,10 @@ Her er leinkið til atgongdina til flokkin.</string>
   <string name="thisStudentAccountIsManaged">Henda næmingakontu verður umsitin</string>
   <string name="upgradeFromManaged">Uppstiga frá umsitnari til sjálvstýrandi</string>
   <string name="release">Leysgev</string>
+  <string name="releaseTheAccount">Leysgev kontuna, so næmingurin fær stýrt henni sjálvur.</string>
+  <string name="releaseDesc1">Konta, ið er leysgivin, kann ikki verða sett undir umsiting aftur. Næmingurin kann velja barnastøðu, og sjálvur nullstilla loyniorðið.</string>
+  <string name="releaseDesc2">Næmingurin verður verandi í flokkinum, hóast kontan er leysgivin.</string>
+  <string name="realUniqueEmail">Veruligi, serligi teldupostbústaðurin hjá næminginum. Vit senda teldupost til teldupostbústaðin við eini váttan um at leysgeva kontuna.</string>
   <string name="teachers">Lærarar</string>
   <plurals name="nbTeachers">
     <item quantity="one">Lærari</item>
