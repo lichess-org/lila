@@ -124,7 +124,7 @@ Another point to note is that, as time passes, the confidence interval will incr
 	<string name="ratingDeviationLowerThanXinChessYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
 	<string name="beInTopTen">be in the top 10 in this rating.</string>
 	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">The 2nd requirement is so that players who no longer use their accounts stop populating leaderboards.</string>
-	<string name="whyAreRatingHigher">Why are ratings higher compared to other sites and organisations such as FIDE, USCF and the ICC?</string>
+	<string name="whyAreRatingHigher">Why are ratings different compared to other sites and organisations such as 81Dojo and Shogi Club 24?</string>
 	<string name="whyAreRatingHigherExplanation">It is best not to think of ratings as absolute numbers, or compare them against other organisations. Different organisations have different levels of players, different rating systems (Elo, Glicko, Glicko-2, or a modified version of the aforementioned). These factors can drastically affect the absolute numbers (ratings).
 
 It\'s best to think of ratings as \"relative\" figures (as opposed to \"absolute\" figures): Within a pool of players, their relative differences in ratings will help you estimate who will win/draw/lose, and how often. Saying \"I have X rating\" means nothing unless there are other players to compare that rating to.</string>

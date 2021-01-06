@@ -38,7 +38,7 @@
 	<string name="shitatePlays">下手の番です</string>
 	<string name="uwatePlays">上手の番です</string>
 	<plurals name="opponentLeftCounter">
-		<item quantity="other">相手が退席したようです。%s 秒後に勝ちを宣言できます。</item>
+		<item quantity="other">相手がいなくなりました。後 %s 秒で勝ちにできます。</item>
 	</plurals>
 	<string name="opponentLeftChoices">相手が退席したようです。投了させる、引き分けにする、相手を待つ、のどれかを選んでください。</string>
 	<string name="makeYourOpponentResign">相手を投了させる</string>
