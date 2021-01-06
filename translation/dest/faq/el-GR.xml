@@ -16,6 +16,7 @@
   <string name="otherWaysToHelp">άλλοι τρόποι για να βοηθήσετε</string>
   <string name="areThereWebsitesBasedOnLichess">Υπάρχουν άλλες ιστοσελίδες που βασίζονται στο Lichess;</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ναι. Το Lichess έχει πράγματι εμπνεύσει πολλούς άλλους ιστότοπους ανοιχτού κώδικα που χρησιμοποιούν το %1$s, το %2$s ή την %3$s.</string>
+  <string name="fairPlay">Κανόνες Δικαίου Παιχνιδιού</string>
   <string name="threefoldRepetition">Τριπλή επανάληψη</string>
   <string name="threefoldRepetitionLowerCase">τριπλή επανάληψη</string>
   <string name="notRepeatedMoves">Δεν επαναλάβαμε κινήσεις. Γιατί το παιχνίδι έληξε ως ισόπαλο λόγω τριπλής επανάληψης;</string>
