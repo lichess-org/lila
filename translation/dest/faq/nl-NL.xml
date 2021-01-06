@@ -94,6 +94,7 @@ Vraag niet om de LM-titel.</string>
   <string name="usernamesNotOffensive">In het algemeen geldt voor gebruikersnamen: ze mogen niet aanstootgevend zijn of reclame zijn en bovendien mag je niet doen alsof je iemand anders bent. Je kunt er meer over lezen in de %1$s.</string>
   <string name="guidelines">richtlijnen</string>
   <string name="canIChangeMyUsername">Kan ik mijn gebruikersnaam wijzigen?</string>
+  <string name="usernamesCannotBeChanged">Nee, gebruikersnamen kunnen om technische en praktische redenen niet worden gewijzigd. Gebruikersnamen komen op te veel plaatsen voor: in databases, exporten, logbestanden en in de hoofden van mensen. Hoofdletters kunnen één keer worden aangepast.</string>
   <string name="uniqueTrophies">Unieke trofeeën</string>
   <string name="ownerUniqueTrophies">Die trofee is uniek in de geschiedenis van Lichess, niemand anders dan %1$s zal die ooit bezitten.</string>
   <string name="wayOfBerserkExplanation">Om de troffee te verkrijgen, had hiimgosu zichzelf uitgedaagd om tijdens een %s alle partijen berserk te gaan en 100%% van de potjes te winnen.</string>
