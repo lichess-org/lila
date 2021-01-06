@@ -4,5 +4,7 @@
   <string name="puzzleDashboard">Ταμπλώ γρίφων</string>
   <string name="puzzleThemes">Θέματα γρίφων</string>
   <string name="didYouLikeThisPuzzle">Σας άρεσε αυτός ο γρίφος;</string>
+  <string name="goodMove">Καλή κίνηση</string>
+  <string name="trySomethingElse">Δοκιμάστε κάτι άλλο.</string>
   <string name="addAnotherTheme">Προσθήκη νέου θέματος</string>
 </resources>
