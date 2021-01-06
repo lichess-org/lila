@@ -33,6 +33,16 @@
   <string name="insults">háðanir</string>
   <string name="otherReason">aðra orsøk</string>
   <string name="toReportAPlayer">Til tess at melda ein telvara fyri %s, nýt fráboðanaroyðublaðið</string>
+  <string name="youCanAlsoReachReportPage">Tú røkkur eisini teirri síðuni við at klikkja %s fráboðanarknøttin á eini vangamyndssíðu.</string>
+  <string name="doNotReportInForum">Ikki melda telvarar á torginum.</string>
+  <string name="doNotSendReportEmails">Send okkum ikki teldupostar við fráboðanum.</string>
+  <string name="doNotMessageModerators">Send ikki beinleiðis boð til fyriskiparar.</string>
+  <string name="onlyReports">Tað er bert munadygt at melda telvarar gjøgnum fráboðanaroyðublaðið.</string>
+  <string name="wantReportBug">Eg vil boða frá eini telduvillu</string>
+  <string name="reportBugInForum">Í Lichess-afturboðanarpartinum av torginum</string>
+  <string name="reportWebsiteIssue">Sum ein Lichess-heimasíðutrupulleiki á GitHub</string>
+  <string name="reportMobileIssue">Sum ein Lichess-fartelefonsapp-trupulleiki á GitHub</string>
+  <string name="reportBugInDiscord">Í Lichess-tvídráttaambætaranum</string>
   <string name="illegalCastling">Ólógligur ella ómøguligur máti at leypa í borg</string>
   <string name="castlingRules">Ver vís/ur í, at tú skilir reglurnar fyri at leypa í borg</string>
   <string name="welcomeToUse">Tú ert vælkomin at nýta Lichess til títt virksemi, enntá handilsliga.</string>
