@@ -3,6 +3,9 @@
   <string name="faqAbbreviation">Συχνές ερωτήσεις</string>
   <string name="frequentlyAskedQuestions">Συχνές Ερωτήσεις</string>
   <string name="whyIsLichessCalledLichess">Γιατί το Lichess ονομάζεται Lichess;</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Το Lichess συνδιάζει το σκάκι με ανοικτό κώδικα, αποδοτικότητα και καινοτομία στα ζωντανά παιχνίδια. Προφέρεται ως %1$s.</string>
+  <string name="leechess">lee-chess (λί-τσες)</string>
+  <string name="hearItPronouncedBySpecialist">Ακούστε πως προφέρεται από έναν ειδικό.</string>
   <string name="howCanIContributeToLichess">Πώς μπορώ να συνεισφέρω στο Lichess;</string>
   <string name="breakdownOfOurCosts">ανάλυση των εξόδων μας</string>
   <string name="otherWaysToHelp">άλλοι τρόποι για να βοηθήσετε</string>
