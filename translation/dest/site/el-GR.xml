@@ -9,6 +9,7 @@
   <string name="yourTurn">Η σειρά σας</string>
   <string name="aiNameLevelAiLevel">%1$s επιπέδου %2$s</string>
   <string name="level">Επίπεδο</string>
+  <string name="strength">Ισχύς</string>
   <string name="toggleTheChat">Εναλλαγή προβολής της συνομιλίας</string>
   <string name="toggleSound">Εναλλαγή ήχου</string>
   <string name="chat">Συνομιλία</string>
