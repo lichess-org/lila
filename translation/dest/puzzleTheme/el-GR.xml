@@ -42,4 +42,5 @@
   <string name="trappedPiece">Παγιδευμένο κομμάτι</string>
   <string name="trappedPieceDescription">Ένα κομμάτι δεν μπορεί να αποφύγει το πάρσιμο, καθώς έχει περιορισμένες κινήσεις.</string>
   <string name="veryLong">Πολύ μεγάλος γρίφος</string>
+  <string name="healthyMixDescription">Λίγο απ\' όλα. Δεν ξέρετε τι να περιμένετε, οπότε παραμένετε σε ετοιμότητα! Όπως στα πραγματικά παιχνίδια.</string>
 </resources>
