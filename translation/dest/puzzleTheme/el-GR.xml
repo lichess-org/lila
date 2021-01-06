@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advancedPawn">Προηγμένο πιόνι</string>
   <string name="queenRookEndgame">Βασίλισσα και Πύργος</string>
   <string name="queenRookEndgameDescription">Ένα τέλος παρτίδας μόνο με βασίλισσες, πύργους και πιόνια.</string>
 </resources>
