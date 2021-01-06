@@ -22,8 +22,24 @@
   <string name="mateIn2">Ματ σε 2</string>
   <string name="mateIn3">Ματ σε 3</string>
   <string name="mateIn4">Ματ σε 4</string>
+  <string name="mateIn5">Ματ σε 5 ή περισσότερο</string>
+  <string name="middlegame">Μέση φάση παιχνιδιού</string>
+  <string name="middlegameDescription">Μια τακτική κατά τη δεύτερη φάση του παιχνιδιού.</string>
+  <string name="oneMove">Γρίφος μιας κίνησης</string>
+  <string name="oneMoveDescription">Ένας γρίφος που έχει μόνο μία κίνηση.</string>
+  <string name="opening">Άνοιγμα</string>
+  <string name="openingDescription">Μια τακτική κατά την πρώτη φάση του παιχνιδιού.</string>
+  <string name="pin">Κάρφωμα</string>
+  <string name="pinDescription">Μια τακτική που περιλαμβάνει καρφώματα, όπου ένα κομμάτι αδυνατεί να μετακινηθεί χωρίς να αποκαλύψει μια επίθεση σε ένα κομμάτι μεγαλύτερης αξίας.</string>
   <string name="queenRookEndgame">Βασίλισσα και Πύργος</string>
   <string name="queenRookEndgameDescription">Ένα τέλος παρτίδας μόνο με βασίλισσες, πύργους και πιόνια.</string>
+  <string name="sacrifice">Θυσία</string>
+  <string name="sacrificeDescription">Μια τακτική που περιλαμβάνει την εγκατάλειψη υλικού βραχυπρόθεσμα, ώστε να κερδηθεί πλεονέκτημα μετά από μια εξαναγκασμένη ακολουθία κινήσεων.</string>
   <string name="short">Σύντομος γρίφος</string>
   <string name="shortDescription">Δύο κινήσεις για να κερδίσετε.</string>
+  <string name="skewer">Σούβλισμα</string>
+  <string name="skewerDescription">Ένα μοτίβο όπου ένα κομμάτι υψηλής αξίας δέχεται επίθεση, κάνει στην άκρη, και επιτρέπει την επίθεση ή το πάρσιμο ενός κομματιού μικρότερης αξίας πίσω από αυτό, το αντίστροφο δηλαδή του καρφώματος.</string>
+  <string name="trappedPiece">Παγιδευμένο κομμάτι</string>
+  <string name="trappedPieceDescription">Ένα κομμάτι δεν μπορεί να αποφύγει το πάρσιμο, καθώς έχει περιορισμένες κινήσεις.</string>
+  <string name="veryLong">Πολύ μεγάλος γρίφος</string>
 </resources>
