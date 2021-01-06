@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hourlyRapidArena">Ωριαία Αρένα Ράπιντ</string>
+  <string name="hourlyRapidArena">Ωριαία Αρένα Rapid</string>
   <string name="hourlyRapid">Ωριαίο Ράπιντ</string>
   <string name="hourlyXArena">Ωριαία Αρένα %s</string>
   <string name="hourlyX">Ωριαίο %s</string>
