@@ -60,6 +60,10 @@ Her er leinkið til atgongdina til flokkin.</string>
   <string name="noPendingInvitations">Ongar bíðandi innbjóðingar</string>
   <string name="onlyVisibleToTeachers">Bert sjónligt fyri lærarar hjá flokkinum</string>
   <string name="lastActiveDate">Virkin</string>
+  <string name="managed">Umsitið</string>
+  <string name="thisStudentAccountIsManaged">Henda næmingakontu verður umsitin</string>
+  <string name="upgradeFromManaged">Uppstiga frá umsitnari til sjálvstýrandi</string>
+  <string name="release">Leysgev</string>
   <string name="teachers">Lærarar</string>
   <plurals name="nbTeachers">
     <item quantity="one">Lærari</item>
@@ -79,4 +83,12 @@ Her er leinkið til atgongdina til flokkin.</string>
   <string name="winrate">Tal á sigrum</string>
   <string name="na">N/A</string>
   <string name="news">Flokstíðindi</string>
+  <string name="editNews">Ritstjórna tíðindi</string>
+  <string name="notifyAllStudents">Gev øllum næmingum boð</string>
+  <string name="nothingHere">Einki her enn.</string>
+  <string name="newsEdit1">Øll flokstíðindi í einum einstøkum teigi.</string>
+  <string name="newsEdit2">Legg nýggjastu tíðindini ovast. Ikki strika eldru tíðindini.</string>
+  <string name="newsEdit3">Skil tíðindi sundur við --- 
+Tað verður víst sum ein vatnrøtt linja.</string>
+  <string name="markdownAvailable">%s er til taks, um neyðugt er við meira framkomnum setningsbygnaði.</string>
 </resources>
