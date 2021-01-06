@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hourlyRapidArena">Ωριαία Ράπιντ Αρένα</string>
-  <string name="hourlyRapid">Ωριαία Ράπιντ</string>
-  <string name="hourlyXArena">Ωριαία %s Αρένα</string>
-  <string name="hourlyX">Ωριαία %s</string>
-  <string name="dailyRapidArena">Ημερήσια Rapid Αρένα</string>
+  <string name="hourlyRapidArena">Ωριαία Αρένα Ράπιντ</string>
+  <string name="hourlyRapid">Ωριαίο Ράπιντ</string>
+  <string name="hourlyXArena">Ωριαία Αρένα %s</string>
+  <string name="hourlyX">Ωριαίο %s</string>
+  <string name="dailyRapidArena">Ημερήσια Αρένα Ράπιντ</string>
   <string name="dailyRapid">Ημερήσιο Rapid</string>
   <string name="dailyClassicalArena">Ημερήσια Κλασική Αρένα</string>
   <string name="dailyClassical">Ημερήσιο Κλασικό</string>
