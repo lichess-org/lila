@@ -43,7 +43,12 @@
   <string name="reportWebsiteIssue">Sum ein Lichess-heimasíðutrupulleiki á GitHub</string>
   <string name="reportMobileIssue">Sum ein Lichess-fartelefonsapp-trupulleiki á GitHub</string>
   <string name="reportBugInDiscord">Í Lichess-tvídráttaambætaranum</string>
+  <string name="howToReportBug">Greið vinaliga frá, hvussu trupulleikin ber seg at, hvat tú hevði væntað ístaðin, og tey stig, ið skulu til fyri at endurskapa trupulleikan.</string>
+  <string name="illegalPawnCapture">Ólógligur háttur at taka finnuna</string>
+  <string name="calledEnPassant">Tað eitur at taka í framlopi (\"en passant\"), og er ein av reglunum í talvi.</string>
+  <string name="tryEnPassant">Royn hetta lítla samvirkna spælið at læra meir um at taka í framlopi (\"en passant.\")</string>
   <string name="illegalCastling">Ólógligur ella ómøguligur máti at leypa í borg</string>
+  <string name="castlingPrevented">Forðað verður bert fyri at leypa í borg, um kongurin noyðist at ganga tvørtur um ein punt, ið mótleikarin hevur tamarhald á.</string>
   <string name="castlingRules">Ver vís/ur í, at tú skilir reglurnar fyri at leypa í borg</string>
   <string name="welcomeToUse">Tú ert vælkomin at nýta Lichess til títt virksemi, enntá handilsliga.</string>
   <string name="sendEmailAt">Send okkum ein teldupost á %s.</string>
