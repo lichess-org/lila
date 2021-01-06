@@ -20,4 +20,6 @@
   <string name="threefoldRepetition">Τριπλή επανάληψη</string>
   <string name="threefoldRepetitionLowerCase">τριπλή επανάληψη</string>
   <string name="notRepeatedMoves">Δεν επαναλάβαμε κινήσεις. Γιατί το παιχνίδι έληξε ως ισόπαλο λόγω τριπλής επανάληψης;</string>
+  <string name="canIChangeMyUsername">Μπορώ να αλλάξω το όνομα χρήστη μου;</string>
+  <string name="usernamesCannotBeChanged">Όχι, τα ονόματα χρηστών δεν μπορούν να αλλάξουν για τεχνικούς και πρακτικούς λόγους. Τα ονόματα χρηστών υλοποιούνται σε πάρα πολλές θέσεις: βάσεις δεδομένων, εξαγωγές, αρχεία καταγραφής και στο μυαλό των ανθρώπων. Μπορείτε να προσαρμόσετε την κεφαλαιοποίηση μία φορά.</string>
 </resources>
