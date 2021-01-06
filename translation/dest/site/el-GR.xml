@@ -35,7 +35,7 @@
   <string name="whitePlays">Παίζουν τα λευκά</string>
   <string name="blackPlays">Παίζουν τα μαύρα</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Ο αντίπαλος έφυγε από το παιχνίδι. Διεκδίκηση νίκης σε %s δευτερόλεπτο.</item>
+    <item quantity="one">Ο αντίπαλός σας έφυγε από το παιχνίδι. Διεκδίκηση νίκης σε %s δευτερόλεπτο.</item>
     <item quantity="other">Ο αντίπαλος έφυγε από το παιχνίδι. Διεκδίκηση νίκης σε %s δευτερόλεπτα.</item>
   </plurals>
   <string name="opponentLeftChoices">Ο αντίπαλος σας έφυγε από το παιχνίδι. Μπορείτε να ισχυρισθείτε νίκη, ισοπαλία, ή να περιμένετε.</string>
@@ -175,7 +175,7 @@
   <string name="ratingStats">Στατιστικές βαθμολογίας</string>
   <string name="username">Όνομα χρήστη</string>
   <string name="usernameOrEmail">Όνομα χρήστη ή ηλ. ταχυδρομείο</string>
-  <string name="changeUsername">Αλλαγή ονόματος του χρήστη</string>
+  <string name="changeUsername">Αλλαγή ονόματος χρήστη</string>
   <string name="changeUsernameNotSame">Μόνο η αλλαγή χαρακτήρων σε μικρά-κεφαλαία επιτρέπεται. Για παράδειγμα \"johndoe\" σε \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Αλλαγή ονόματος χρήστη. Μπορεί να γίνει μόνο μία φορά και μόνο η αλλαγή χαρακτήρων σε μικρά-κεφαλαία στο όνομα χρήστη επιτρέπεται.</string>
   <string name="password">Κωδικός</string>
@@ -819,6 +819,7 @@
   <string name="agreementPolicy">Αποδέχομαι ότι θα συμμορφωθώ με όλες τις πολιτικές του Lichess.</string>
   <string name="searchOrStartNewDiscussion">Αναζήτηση ή έναρξη νέας συνομιλίας</string>
   <string name="edit">Επεξεργασία</string>
+  <string name="rapid">Rapid</string>
   <string name="classical">Κλασικό</string>
   <string name="ultraBulletDesc">Εξαιρετικά γρήγορες παρτίδες: λιγότερο από 30 δεύτερα</string>
   <string name="bulletDesc">Πολύ γρήγορες παρτίδες: λιγότερο από 3 λεπτά</string>
