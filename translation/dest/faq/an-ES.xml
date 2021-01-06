@@ -93,6 +93,8 @@ No demandes d\'obtener lo titol de LM.</string>
   <string name="whatUsernameCanIchoose">Quál puede estar lo mío nombre d\'usuario?</string>
   <string name="usernamesNotOffensive">En cheneral, los nombres d\'usuario no han de: estar ofensivos, suplantar a belún u fer publicidat. Puetz leyer mas sobre las %1$s.</string>
   <string name="guidelines">pautas</string>
+  <string name="canIChangeMyUsername">Puedo cambiar lo mío nombre d\'usuario?</string>
+  <string name="usernamesCannotBeChanged">No, los nombres d\'usuario no se pueden cambiar per razons practicas. Los nombres d\'usuario se materializan en masiaus puestos: bases de datos, exportacions, rechistros y en as ments d\'as personas. Puetz cambiar las mayusclas y minusclas una vegada.</string>
   <string name="uniqueTrophies">Trofeyos unicos</string>
   <string name="ownerUniqueTrophies">Ixe trofeyo ye unico en a historia de Lichess, nomás %1$s lo tendrá.</string>
   <string name="wayOfBerserkExplanation">Pa obtener-lo, hiimgosu se desafió a ell mesmo a berserk y ganó 100%% partidas de %s.</string>
