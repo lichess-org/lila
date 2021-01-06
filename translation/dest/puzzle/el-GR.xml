@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Γρίφοι</string>
-  <string name="puzzleDashboard">Ταμπλώ γρίφων</string>
+  <string name="puzzleDashboard">Ταμπλό γρίφων</string>
   <string name="puzzleThemes">Θέματα γρίφων</string>
   <string name="didYouLikeThisPuzzle">Σας άρεσε αυτός ο γρίφος;</string>
   <string name="goodMove">Καλή κίνηση</string>
+  <string name="keepGoing">Συνεχίστε…</string>
   <string name="trySomethingElse">Δοκιμάστε κάτι άλλο.</string>
+  <string name="fromGameLink">Από το παιχνίδι %s</string>
+  <string name="continueTraining">Συνέχεια εξάσκησης</string>
+  <string name="difficultyLevel">Επίπεδο δυσκολίας</string>
   <string name="addAnotherTheme">Προσθήκη νέου θέματος</string>
 </resources>
