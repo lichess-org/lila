@@ -12,11 +12,18 @@
   <string name="defensiveMove">Αμυντική κίνηση</string>
   <string name="defensiveMoveDescription">Μια ακριβής κίνηση ή ακολουθία κινήσεων που απαιτείται για να αποφευχθεί η απώλεια υλικού ή άλλου πλεονεκτήματος.</string>
   <string name="doubleCheck">Διπλό σαχ</string>
+  <string name="endgame">Φινάλε</string>
+  <string name="endgameDescription">Μια τακτική κατά την τελευταία φάση του παιχνιδιού.</string>
+  <string name="long">Μεγάλος γρίφος</string>
+  <string name="longDescription">Τρεις κινήσεις για να κερδίσετε.</string>
   <string name="mate">Ματ</string>
+  <string name="mateDescription">Κερδίστε το παιχνίδι με στυλ.</string>
   <string name="mateIn1">Ματ σε 1</string>
   <string name="mateIn2">Ματ σε 2</string>
   <string name="mateIn3">Ματ σε 3</string>
   <string name="mateIn4">Ματ σε 4</string>
   <string name="queenRookEndgame">Βασίλισσα και Πύργος</string>
   <string name="queenRookEndgameDescription">Ένα τέλος παρτίδας μόνο με βασίλισσες, πύργους και πιόνια.</string>
+  <string name="short">Σύντομος γρίφος</string>
+  <string name="shortDescription">Δύο κινήσεις για να κερδίσετε.</string>
 </resources>
