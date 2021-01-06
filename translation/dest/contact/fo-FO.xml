@@ -13,6 +13,14 @@
   <string name="doPasswordReset">Nullstilla loyniorðið til tess at burturbeina seinna stigið</string>
   <string name="accountSupport">Mær tørvar kontustuðul</string>
   <string name="wantTitle">Eg vil fegin, at heitið hjá mær verður víst á Lichess</string>
+  <string name="visitTitleConfirmation">Fyri at heitið hjá tær skal verða víst á Lichess-vangamynd tíni, og fyri at tú skalt kunna luttaka í Titled Arenas, skalt tú vitja váttanarsíðuna</string>
+  <string name="wantCloseAccount">Eg vil steingja kontu mína</string>
+  <string name="closeYourAccount">Tú kanst steingja kontu tína á hesari síðuni</string>
+  <string name="doNotAskByEmail">Ikki biðja okkum í einum telduposti at steingja eina kontu. Vit fara ikki at gera tað.</string>
+  <string name="wantReopen">Eg vil lata kontu mína upp aftur</string>
+  <string name="reopenOnThisPage">Tú kanst lata kontu tína upp aftur á hesari síðuni. Tað ber bert til eina ferð.</string>
+  <string name="doNotAskByEmailToReopen">Ikki biðja okkum í einum telduposti at lata eina kontu upp aftur. Vit fara ikki at gera tað.</string>
+  <string name="wantChangeUsername">Eg vil broyta mítt brúkaranavn</string>
   <string name="illegalCastling">Ólógligur ella ómøguligur máti at leypa í borg</string>
   <string name="castlingRules">Ver vís/ur í, at tú skilir reglurnar fyri at leypa í borg</string>
   <string name="welcomeToUse">Tú ert vælkomin at nýta Lichess til títt virksemi, enntá handilsliga.</string>
