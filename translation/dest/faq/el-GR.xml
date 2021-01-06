@@ -10,9 +10,12 @@
   <string name="whyIsLilaCalledLila">Όμοια, ο πηγαίος κώδικας για το Lichess, %1$s, σημαίνει li[chess in sca]la (lichess σε scala), αφού ένα αρκετά μεγάλο μέρος του Lichess είναι γραμμένο στην %2$s, μια διαισθητική γλώσσα προγραμματισμού.</string>
   <string name="howCanIContributeToLichess">Πώς μπορώ να συνεισφέρω στο Lichess;</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Το Lichess υποστηρίζεται από δωρεές των χρηστών του (patrons) καθώς και από τις προσπάθειες μιας ομάδας εθελοντών.</string>
+  <string name="findMoreAndSeeHowHelp">Μπορείτε να μάθετε περισσότερα για το πως να %1$s (καθώς και των ισολογισμών της οργάνωσης %2$s). Αν θέλετε να βοηθήσετε το Lichess με τον χρόνο και τις ικανότητές σας, υπάρχουν πολλοί %3$s.</string>
+  <string name="beingAPatron">γίνετε χορηγός</string>
   <string name="breakdownOfOurCosts">ανάλυση των εξόδων μας</string>
   <string name="otherWaysToHelp">άλλοι τρόποι για να βοηθήσετε</string>
   <string name="areThereWebsitesBasedOnLichess">Υπάρχουν άλλες ιστοσελίδες που βασίζονται στο Lichess;</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Ναι. Το Lichess έχει πράγματι εμπνεύσει πολλούς άλλους ιστότοπους ανοιχτού κώδικα που χρησιμοποιούν το %1$s, το %2$s ή την %3$s.</string>
   <string name="threefoldRepetition">Τριπλή επανάληψη</string>
   <string name="threefoldRepetitionLowerCase">τριπλή επανάληψη</string>
   <string name="notRepeatedMoves">Δεν επαναλάβαμε κινήσεις. Γιατί το παιχνίδι έληξε ως ισόπαλο λόγω τριπλής επανάληψης;</string>
