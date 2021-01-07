@@ -1,7 +1,7 @@
 package lila.streamer
 
 import org.joda.time.DateTime
-
+import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 import lila.db.dsl._
@@ -154,6 +154,25 @@ final class StreamerApi(
         )
       )
   }
+
+  def sameChannels(streamer: Streamer): Fu[List[Streamer]] =
+    coll
+      .find(
+        $doc(
+          "$or" -> List(
+            streamer.twitch.map(_.userId).map { t =>
+              $doc("twitch.userId" -> t)
+            },
+            streamer.youTube.map(_.channelId).map { t =>
+              $doc("youTube.channelId" -> t)
+            }
+          ).flatten,
+          "_id" $ne streamer.userId
+        )
+      )
+      .sort($sort desc "createdAt")
+      .cursor[Streamer](readPreference = ReadPreference.secondaryPreferred)
+      .list(10)
 
   private object cache {
 

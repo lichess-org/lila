@@ -67,17 +67,18 @@ final class Streamer(
       }
     }
 
-  private def modData(user: lila.user.User)(implicit ctx: Context) =
+  private def modData(streamer: StreamerModel)(implicit ctx: Context) =
     isGranted(_.ModLog) ?? {
-      env.mod.logApi.userHistory(user.id) zip
-        env.user.noteApi.forMod(user.id) map some
+      env.mod.logApi.userHistory(streamer.userId) zip
+        env.user.noteApi.forMod(streamer.userId) zip
+        env.streamer.api.sameChannels(streamer) map some
     }
 
   def edit =
     Auth { implicit ctx => _ =>
       AsStreamer { s =>
         env.streamer.liveStreamApi of s flatMap { sws =>
-          modData(s.user) map { forMod =>
+          modData(s.streamer) map { forMod =>
             NoCache(Ok(html.streamer.edit(sws, StreamerForm userForm sws.streamer, forMod)))
           }
         }
@@ -94,7 +95,7 @@ final class Streamer(
             .bindFromRequest()
             .fold(
               error =>
-                modData(s.user) map { forMod =>
+                modData(s.streamer) map { forMod =>
                   BadRequest(html.streamer.edit(sws, error, forMod))
                 },
               data =>

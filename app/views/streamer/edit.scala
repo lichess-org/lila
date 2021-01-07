@@ -15,7 +15,7 @@ object edit extends Context.ToLang {
   def apply(
       s: lila.streamer.Streamer.WithUserAndStream,
       form: Form[_],
-      modData: Option[(List[lila.mod.Modlog], List[lila.user.Note])]
+      modData: Option[((List[lila.mod.Modlog], List[lila.user.Note]), List[lila.streamer.Streamer])]
   )(implicit ctx: Context) = {
 
     views.html.base.layout(
@@ -87,7 +87,7 @@ object edit extends Context.ToLang {
                   )
                 )
               ),
-              modData.map { case (log, notes) =>
+              modData.map { case ((log, notes), same) =>
                 div(cls := "mod_log status")(
                   strong(cls := "text", dataIcon := "!")(
                     "Moderation history",
@@ -116,6 +116,26 @@ object edit extends Context.ToLang {
                       li(
                         p(cls := "meta")(userIdLink(note.from.some), " ", momentFromNow(note.date)),
                         p(cls := "text")(richText(note.text))
+                      )
+                    }
+                  ),
+                  br,
+                  strong(cls := "text", dataIcon := "!")(
+                    "Streamers with same Twitch or YouTube",
+                    same.isEmpty option ": nothing to show."
+                  ),
+                  same.nonEmpty option table(cls := "slist")(
+                    same.map { s =>
+                      tr(
+                        td(userIdLink(s.userId.some)),
+                        td(s.name),
+                        td(s.twitch.map(t => a(href := s"https://twitch.tv/${t.userId}")(t.userId))),
+                        td(
+                          s.youTube.map(t =>
+                            a(href := s"https://youtube.com/channel/${t.channelId}")(t.channelId)
+                          )
+                        ),
+                        td(momentFromNow(s.createdAt))
                       )
                     }
                   )
