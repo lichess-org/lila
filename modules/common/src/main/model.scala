@@ -44,8 +44,10 @@ case class EmailAddress(value: String) extends AnyVal with StringValue {
       case Array(user, domain) => s"${user take 3}*****@$domain"
       case _                   => value
     }
+
   def normalize =
     NormalizedEmailAddress {
+      // changing normalization requires database migration!
       val lower = value.toLowerCase
       lower.split('@') match {
         case Array(name, domain) if EmailAddress.gmailLikeNormalizedDomains(domain) =>
@@ -56,6 +58,7 @@ case class EmailAddress(value: String) extends AnyVal with StringValue {
         case _ => lower
       }
     }
+
   def domain: Option[Domain] =
     value split '@' match {
       case Array(_, domain) => Domain from domain.toLowerCase
@@ -76,6 +79,7 @@ object EmailAddress {
   private val regex =
     """^[a-zA-Z0-9\.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$""".r
 
+  // adding normalized domains requires database migration!
   private val gmailLikeNormalizedDomains =
     Set("gmail.com", "googlemail.com", "protonmail.com", "protonmail.ch", "pm.me")
 
