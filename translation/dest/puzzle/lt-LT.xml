@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Užduotys</string>
-  <string name="puzzleDashboard">Užduočių centras</string>
   <string name="puzzleThemes">Užduočių temos</string>
   <string name="recommended">Rekomenduojama</string>
   <string name="phases">Fazės</string>
@@ -46,4 +45,5 @@
   <string name="example">Pavyzdys</string>
   <string name="addAnotherTheme">Pridėti dar vieną temą</string>
   <string name="jumpToNextPuzzleImmediately">Iš karto pereiti į kitą užduotį</string>
+  <string name="puzzleDashboard">Užduočių centras</string>
 </resources>
