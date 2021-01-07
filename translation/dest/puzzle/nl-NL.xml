@@ -36,10 +36,10 @@
   <string name="continueTraining">Ga verder met de training</string>
   <string name="difficultyLevel">Moeilijkheidsgraad</string>
   <string name="normal">Standaard</string>
-  <string name="easier">Gemakkelijker</string>
-  <string name="easiest">Gemakkelijkst</string>
-  <string name="harder">Moeilijker</string>
-  <string name="hardest">Moeilijkst</string>
+  <string name="easier">Gemakkelijk</string>
+  <string name="easiest">Gemakkelijker</string>
+  <string name="harder">Moeilijk</string>
+  <string name="hardest">Moeilijker</string>
   <string name="example">Voorbeeld</string>
   <string name="addAnotherTheme">Voeg nog een thema toe</string>
   <string name="jumpToNextPuzzleImmediately">Direct door naar volgende puzzel</string>
