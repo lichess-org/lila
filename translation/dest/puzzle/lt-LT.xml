@@ -46,4 +46,6 @@
   <string name="addAnotherTheme">Pridėti dar vieną temą</string>
   <string name="jumpToNextPuzzleImmediately">Iš karto pereiti į kitą užduotį</string>
   <string name="puzzleDashboard">Užduočių centras</string>
+  <string name="personalTraining">Asmeninės treniruotės</string>
+  <string name="strengths">Striprybės</string>
 </resources>
