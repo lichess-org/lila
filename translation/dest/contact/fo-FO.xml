@@ -53,6 +53,13 @@
   <string name="tryCastling">Ven at leypa í borg við at royna hetta lítla samvirkna spælið</string>
   <string name="castlingImported">Tryggja tær, at tú valdi røttu innstillingina fyri at leypa í borg, um tú las talvið inn ella byrjaði tað frá eini ávísari støðu.</string>
   <string name="insufficientMaterial">Ov fá talvfólk eftir at seta skák og mát</string>
+  <string name="fideMate">Sambært altjóða FIDE-reglunum fyri telving §6.9 endar eitt talv ikki við remis, um møguligt er at seta skák og mát við eini lógligari raðfylgju av leikum</string>
+  <string name="knightMate">Tað er møguligt at seta skák og mát við bert einum riddara ella einum bispi, um mótleikarin hevur meir enn ein kong á borðinum.</string>
+  <string name="noRatingPoints">Eingi ratingstig vórðu givin</string>
+  <string name="ratedGame">Ver vísur í, at tú telvaði eitt talv, ið varð styrkismett. Óformell talv ávirka ikki styrkitalið hjá telvaranum.</string>
+  <string name="errorPage">Skeivleikasíða</string>
+  <string name="reportErrorPage">Um tú barst við eina síðu við skeivleikum, kanst tú boða frá tí:</string>
+  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Bið um eitt bann ella eina IP-avmarking</string>
   <string name="welcomeToUse">Tú ert vælkomin at nýta Lichess til títt virksemi, enntá handilsliga.</string>
   <string name="sendEmailAt">Send okkum ein teldupost á %s.</string>
 </resources>
