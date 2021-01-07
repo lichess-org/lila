@@ -9,6 +9,7 @@
   <string name="yourTurn">Tu torno</string>
   <string name="aiNameLevelAiLevel">%1$s nivello %2$s</string>
   <string name="level">Nivello</string>
+  <string name="strength">Fortia</string>
   <string name="toggleTheChat">Activar/disactivar le chat</string>
   <string name="toggleSound">Activar/disactivar sono</string>
   <string name="chat">Chat</string>
@@ -142,6 +143,8 @@
   <string name="xPostedInForumY">%1$s postava in topico %2$s</string>
   <string name="latestForumPosts">Ultime messages del foro</string>
   <string name="players">Jocatores</string>
+  <string name="today">Hodie</string>
+  <string name="yesterday">Heri</string>
   <string name="minutesPerSide">Minutas per latere</string>
   <string name="variant">Variante</string>
   <string name="variants">Variantes</string>
