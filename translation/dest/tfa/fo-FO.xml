@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="twoFactorAuth">Váttan í tveimum stigum</string>
+  <string name="twoFactorHelp">Váttan í tveimum stigum leggur eitt eyka lag av trygd afturat tíni kontu.</string>
+</resources>
