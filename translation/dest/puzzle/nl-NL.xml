@@ -36,8 +36,8 @@
   <string name="continueTraining">Ga verder met de training</string>
   <string name="difficultyLevel">Moeilijkheidsgraad</string>
   <string name="normal">Standaard</string>
-  <string name="easier">Gemakkelijk</string>
-  <string name="easiest">Gemakkelijker</string>
+  <string name="easier">Makkelijk</string>
+  <string name="easiest">Makkelijker</string>
   <string name="harder">Moeilijk</string>
   <string name="hardest">Moeilijker</string>
   <string name="example">Voorbeeld</string>
