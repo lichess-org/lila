@@ -51,6 +51,8 @@
   <string name="castlingPrevented">Forðað verður bert fyri at leypa í borg, um kongurin noyðist at ganga tvørtur um ein punt, ið mótleikarin hevur tamarhald á.</string>
   <string name="castlingRules">Ver vís/ur í, at tú skilir reglurnar fyri at leypa í borg</string>
   <string name="tryCastling">Ven at leypa í borg við at royna hetta lítla samvirkna spælið</string>
+  <string name="castlingImported">Tryggja tær, at tú valdi røttu innstillingina fyri at leypa í borg, um tú las talvið inn ella byrjaði tað frá eini ávísari støðu.</string>
+  <string name="insufficientMaterial">Ov fá talvfólk eftir at seta skák og mát</string>
   <string name="welcomeToUse">Tú ert vælkomin at nýta Lichess til títt virksemi, enntá handilsliga.</string>
   <string name="sendEmailAt">Send okkum ein teldupost á %s.</string>
 </resources>
