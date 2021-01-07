@@ -1,11 +1,11 @@
 package controllers
 
 import play.api.mvc._
+import views._
 
 import lila.api.Context
 import lila.app._
 import lila.streamer.{ Streamer => StreamerModel, StreamerForm }
-import views._
 
 final class Streamer(
     env: Env,
@@ -153,9 +153,16 @@ final class Streamer(
 
   private def AsStreamer(f: StreamerModel.WithUser => Fu[Result])(implicit ctx: Context) =
     ctx.me.fold(notFound) { me =>
-      api.find(get("u").ifTrue(isGranted(_.Streamers)) | me.id) flatMap {
-        _.fold(Ok(html.streamer.bits.create).fuccess)(f)
-      }
+      if (StreamerModel canApply me)
+        api.find(get("u").ifTrue(isGranted(_.Streamers)) | me.id) flatMap {
+          _.fold(Ok(html.streamer.bits.create).fuccess)(f)
+        }
+      else
+        Ok(
+          html.site.message("Too soon")(
+            scalatags.Text.all.raw("You are not yet allowed to create a streamer profile.")
+          )
+        ).fuccess
     }
 
   private def WithVisibleStreamer(s: StreamerModel.WithUser)(f: Fu[Result])(implicit ctx: Context) =
