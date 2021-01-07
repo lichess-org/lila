@@ -782,6 +782,11 @@
   <string name="edit">Modificar</string>
   <string name="rapid">Rapide</string>
   <string name="classical">Classic</string>
+  <string name="ultraBulletDesc">Partitas insanmente veloce: minus que 30 secundas</string>
+  <string name="bulletDesc">Partitas multo veloce: minus que 3 minutas</string>
+  <string name="blitzDesc">Partitas veloce: 3 a 8 minutas</string>
+  <string name="rapidDesc">Partitas rapide: 8 a 25 minutas</string>
   <string name="classicalDesc">Partitas classic: 25 minutas e plus</string>
+  <string name="subscribe">Abonar</string>
   <string name="unsubscribe">Disabonar</string>
 </resources>
