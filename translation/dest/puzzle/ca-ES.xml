@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Problemes</string>
-  <string name="puzzleDashboard">Panell de problemes</string>
   <string name="puzzleThemes">Temàtiques de problemes</string>
   <string name="recommended">Recomanat</string>
   <string name="phases">Fases</string>
@@ -40,4 +39,5 @@
   <string name="example">Exemple</string>
   <string name="addAnotherTheme">Afegir un nou tema</string>
   <string name="jumpToNextPuzzleImmediately">Passar al següent problema immediatament</string>
+  <string name="puzzleDashboard">Panell de problemes</string>
 </resources>
