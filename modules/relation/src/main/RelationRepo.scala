@@ -107,7 +107,6 @@ final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(impli
         upsert = true
       )
       .void
-      .recover(lila.db.ignoreDuplicateKey)
 
   def remove(u1: ID, u2: ID): Funit = coll.delete.one($id(makeId(u1, u2))).void
 

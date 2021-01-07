@@ -31,7 +31,6 @@ final class PrefApi(
           upsert = true
         )
         .void
-        .recover(lila.db.ignoreDuplicateKey)
     else
       coll.update
         .one($id(user.id), $unset(s"tags.${tag(Pref.Tag)}"))
@@ -69,7 +68,7 @@ final class PrefApi(
     }
 
   def setPref(pref: Pref): Funit =
-    coll.update.one($id(pref.id), pref, upsert = true).void.recover(lila.db.ignoreDuplicateKey) >>-
+    coll.update.one($id(pref.id), pref, upsert = true).void >>-
       cache.put(pref.id, fuccess(pref.some))
 
   def setPref(user: User, change: Pref => Pref): Funit =
