@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Uppgávur</string>
-  <string name="puzzleDashboard">Uppgávuyvirlit</string>
   <string name="puzzleThemes">Uppgávuevni</string>
   <string name="recommended">Viðmældar uppgávur</string>
   <string name="phases">Skifti</string>
@@ -44,4 +43,5 @@
   <string name="example">Dømi</string>
   <string name="addAnotherTheme">Legg eitt nýtt tema aftrat</string>
   <string name="jumpToNextPuzzleImmediately">Far beinanvegin til næstu uppgávu</string>
+  <string name="puzzleDashboard">Uppgávuyvirlit</string>
 </resources>
