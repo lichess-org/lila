@@ -44,4 +44,6 @@
   <string name="addAnotherTheme">Tilføj et andet tema</string>
   <string name="jumpToNextPuzzleImmediately">Spring straks videre til næste opgave</string>
   <string name="puzzleDashboard">Opgave-kontrolpanel</string>
+  <string name="personalTraining">Personlig træning</string>
+  <string name="strengths">Styrke</string>
 </resources>
