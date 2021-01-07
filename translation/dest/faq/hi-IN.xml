@@ -93,6 +93,8 @@
   <string name="whatUsernameCanIchoose">मेरा उपयोगकर्ता नाम क्या हो सकता है?</string>
   <string name="usernamesNotOffensive">सामान्य तौर पर, उपयोगकर्ता नाम नहीं होना चाहिए: आक्रामक, किसी और को प्रतिरूपण करना, या विज्ञापन करना। आप%1$s के बारे में अधिक पढ़ सकते हैं।</string>
   <string name="guidelines">दिशा निर्देशों</string>
+  <string name="canIChangeMyUsername">क्या मेरे द्वारा मेरा यूजरनेम बदला जा सकता है?</string>
+  <string name="usernamesCannotBeChanged">नहीं, तकनीकी और व्यावहारिक कारणों से उपयोगकर्ता नाम नहीं बदले जा सकते हैं। डेटाबेस, निर्यात, लॉग और लोगों के दिमाग: उपयोगकर्ता नामों को बहुत अधिक स्थानों पर भौतिकीकृत किया गया है। आप एक बार पूंजीकरण को समायोजित कर सकते हैं।</string>
   <string name="uniqueTrophies">अनोखी ट्राफियां</string>
   <string name="ownerUniqueTrophies">लिचेस के इतिहास में यह ट्रॉफी अद्वितीय है,%1$s के अलावा किसी के पास कभी नहीं होगा।</string>
   <string name="wayOfBerserkExplanation">इसे पाने के लिए, हीमगासु ने खुद को निडर होने के लिए चुनौती दी और 100%% का %sगेम जीत लिया।</string>
