@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Жұмбақтар</string>
-  <string name="puzzleDashboard">Жұмбақ басқару</string>
   <string name="puzzleThemes">Жұмбақ тақырыптары</string>
   <string name="recommended">Ұсыныстар</string>
   <string name="phases">Кезеңдер</string>
@@ -44,4 +43,5 @@
   <string name="example">Мысал</string>
   <string name="addAnotherTheme">Басқа тақырып қосу</string>
   <string name="jumpToNextPuzzleImmediately">Келесі жұмбаққа бірден өту</string>
+  <string name="puzzleDashboard">Жұмбақ басқару</string>
 </resources>
