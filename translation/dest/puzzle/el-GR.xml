@@ -5,10 +5,16 @@
   <string name="recommended">Προτεινόμενα</string>
   <string name="phases">Φάσεις</string>
   <string name="motifs">Μοτίβα</string>
+  <string name="advanced">Για προχωρημένους</string>
+  <string name="lengths">Μήκος γρίφου</string>
   <string name="mates">Ματ</string>
   <string name="goals">Στόχοι</string>
+  <string name="specialMoves">Ειδικές κινήσεις</string>
   <string name="didYouLikeThisPuzzle">Σας άρεσε αυτός ο γρίφος;</string>
   <string name="voteToLoadNextOne">Ψηφίστε για να φορτώσετε το επόμενο!</string>
+  <string name="yourPuzzleRatingX">Η βαθμολογία γρίφων σας: %s</string>
+  <string name="findTheBestMoveForWhite">Βρείτε την καλύτερη κίνηση για τα λευκά.</string>
+  <string name="findTheBestMoveForBlack">Βρείτε την καλύτερη κίνηση για τα μαύρα.</string>
   <string name="toGetPersonalizedPuzzles">Για να πάρετε εξατομικευμένους γρίφους:</string>
   <string name="puzzleId">Γρίφος %s</string>
   <string name="puzzleOfTheDay">Γρίφος της ημέρας</string>
