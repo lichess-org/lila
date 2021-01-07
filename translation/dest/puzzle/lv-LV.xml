@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Puzles</string>
-  <string name="puzzleDashboard">Pužļu panelis</string>
   <string name="puzzleThemes">Pužļu tēmati</string>
   <string name="recommended">Ieteikumi</string>
   <string name="phases">Posmi</string>
@@ -45,4 +44,5 @@
   <string name="example">Piemērs</string>
   <string name="addAnotherTheme">Pievienot jaunu tēmu</string>
   <string name="jumpToNextPuzzleImmediately">Uzreiz pārslēgties uz nākamo puzli</string>
+  <string name="puzzleDashboard">Pužļu panelis</string>
 </resources>
