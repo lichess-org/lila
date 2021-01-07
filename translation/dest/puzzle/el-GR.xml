@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Γρίφοι</string>
-  <string name="puzzleDashboard">Ταμπλό γρίφων</string>
   <string name="puzzleThemes">Θέματα γρίφων</string>
   <string name="didYouLikeThisPuzzle">Σας άρεσε αυτός ο γρίφος;</string>
   <string name="goodMove">Καλή κίνηση</string>
@@ -11,4 +10,5 @@
   <string name="continueTraining">Συνέχεια εξάσκησης</string>
   <string name="difficultyLevel">Επίπεδο δυσκολίας</string>
   <string name="addAnotherTheme">Προσθήκη νέου θέματος</string>
+  <string name="puzzleDashboard">Ταμπλό γρίφων</string>
 </resources>
