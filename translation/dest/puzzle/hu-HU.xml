@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Feladványok</string>
-  <string name="puzzleDashboard">Feladvány statisztika</string>
   <string name="puzzleThemes">Feladvány témák</string>
   <string name="recommended">Ajánlott</string>
   <string name="phases">Szakaszok</string>
@@ -44,4 +43,5 @@
   <string name="example">Példa</string>
   <string name="addAnotherTheme">Új téma hozzáadása</string>
   <string name="jumpToNextPuzzleImmediately">Rögtön a következő feladányhoz ugrás</string>
+  <string name="puzzleDashboard">Feladvány statisztika</string>
 </resources>
