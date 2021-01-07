@@ -1,6 +1,6 @@
 function gmailNormalize(email) {
   let [name, domain] = email.toLowerCase().split('@');
-  [name, ] = name.replace('.', '').split('+');
+  [name, ] = name.replace(/\./g, '').split('+');
   return name + '@' + domain;
 }
 
