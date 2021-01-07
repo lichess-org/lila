@@ -7,11 +7,11 @@
   <string name="attackingF2F7">Атака f2 или f7</string>
   <string name="attackingF2F7Description">Атака, направленная на пешки f2 или f7, например, в дебюте жареной печени.</string>
   <string name="attraction">Завлечение</string>
-  <string name="attractionDescription">Размен или жертва фигуры, заставляющие противника занять поле, на которое будет нацелен последующий тактический удар.</string>
+  <string name="attractionDescription">Размен или жертва, вынуждающая или подталкивающая фигуру противника занять поле, на которое будет нацелен последующий тактический удар.</string>
   <string name="backRankMate">Мат на последней горизонтали</string>
   <string name="backRankMateDescription">Матование короля на его горизонтали, когда он заблокирован своими же фигурами.</string>
   <string name="bishopEndgame">Слоновый эндшпиль</string>
-  <string name="bishopEndgameDescription">Эндшпиль только со слонами и пешками.</string>
+  <string name="bishopEndgameDescription">Эндшпиль, где присутствуют лишь слоны и пешки.</string>
   <string name="castling">Рокировка</string>
   <string name="castlingDescription">Поместите короля в надёжное место и выведите в бой ладью.</string>
   <string name="capturingDefender">Уничтожение защитника</string>
