@@ -254,7 +254,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     else splitNumber(userGameFilterTitleNoTag(u, nbs, filter))
 
   private def transLocalize(key: I18nKey, number: Int)(implicit lang: Lang) =
-    key.pluralTxt(number, number.localize)
+    key.pluralSameTxt(number)
 
   def userGameFilterTitleNoTag(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(implicit
       lang: Lang
