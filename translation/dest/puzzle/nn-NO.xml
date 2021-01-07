@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Taktikkoppgåver</string>
-  <string name="puzzleDashboard">Oppgåveoversikt</string>
   <string name="puzzleThemes">Oppgåvetema</string>
   <string name="recommended">Anbefalt</string>
   <string name="phases">Fasar</string>
@@ -44,4 +43,5 @@
   <string name="example">Døme</string>
   <string name="addAnotherTheme">Legg til endå eit tema</string>
   <string name="jumpToNextPuzzleImmediately">Hopp straks til neste oppgåve</string>
+  <string name="puzzleDashboard">Oppgåveoversikt</string>
 </resources>
