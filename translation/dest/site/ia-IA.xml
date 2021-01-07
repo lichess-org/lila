@@ -779,6 +779,7 @@
   <string name="sorry">Pardono! :(</string>
   <string name="why">Proque?</string>
   <string name="howToAvoidThis">Como evitar isto?</string>
+  <string name="searchOrStartNewDiscussion">Cerca o initia un nove conversation</string>
   <string name="edit">Modificar</string>
   <string name="rapid">Rapide</string>
   <string name="classical">Classic</string>
@@ -787,6 +788,9 @@
   <string name="blitzDesc">Partitas veloce: 3 a 8 minutas</string>
   <string name="rapidDesc">Partitas rapide: 8 a 25 minutas</string>
   <string name="classicalDesc">Partitas classic: 25 minutas e plus</string>
+  <string name="correspondenceDesc">Partitas per correspondentia: un o plure dies per movimento</string>
+  <string name="puzzleDesc">Trainator de tacticas de chacos</string>
+  <string name="important">Importante</string>
   <string name="subscribe">Abonar</string>
   <string name="unsubscribe">Disabonar</string>
 </resources>
