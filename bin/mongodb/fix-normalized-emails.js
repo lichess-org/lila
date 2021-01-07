@@ -4,10 +4,10 @@ function gmailNormalize(email) {
   return name + '@' + domain;
 }
 
-db.user4.find({email: {$regex:/.*[+.].*@(protonmail\.com|protonmail\.ch|pm\.me|gmail\.com|googlemail\.com)$/}}).forEach(user => {
+db.user4.find({email: /.*[+.].*@(protonmail\.com|protonmail\.ch|pm\.me|gmail\.com|googlemail\.com)$/}).forEach(user => {
   const normalized = gmailNormalize(user.email);
   const verbatim = user.verbatimEmail || user.email;
-  print(verbatim, '->', normalized);
+  print(user.username, ': ', verbatim, '->', normalized);
 
   db.user4.update({
     _id: user._id
