@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Ariketak</string>
-  <string name="puzzleDashboard">Ariketen kontrol-panela</string>
   <string name="recommended">Gomendatutakoak</string>
   <string name="phases">Faseak</string>
   <string name="motifs">Gaiak</string>
@@ -43,4 +42,5 @@
   <string name="example">Adibidea</string>
   <string name="addAnotherTheme">Beste gai bat gehitu</string>
   <string name="jumpToNextPuzzleImmediately">Salto egin hurrengo ariketara berehala</string>
+  <string name="puzzleDashboard">Ariketen kontrol-panela</string>
 </resources>
