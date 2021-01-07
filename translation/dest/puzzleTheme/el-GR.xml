@@ -7,6 +7,9 @@
   <string name="attackingF2F7">Επίθεση στο f2 ή f7</string>
   <string name="attackingF2F7Description">Μια επίθεση που εστιάζει στο πιόνι f2 ή f7, όπως στην επίθεση Φράιντ Λίβερ.</string>
   <string name="attraction">Έλξη</string>
+  <string name="attractionDescription">Μια ανταλλαγή ή θυσία που ενθαρρύνει ή αναγκάζει ένα αντίπαλο κομμάτι σε ένα τετράγωνο όπου δύναται μια επακόλουθη τακτική.</string>
+  <string name="bishopEndgame">Φινάλε Αξιωματικών</string>
+  <string name="bishopEndgameDescription">Ένα τέλος παρτίδας μόνο με αξιωματικούς και πιόνια.</string>
   <string name="castling">Pοκέ</string>
   <string name="castlingDescription">Εξασφαλίστε την ασφάλεια του βασιλιά και αναπτύξτε τον πύργο για επίθεση.</string>
   <string name="capturingDefender">Αιχμαλωτίστε τον αμυνόμενο</string>
@@ -19,6 +22,8 @@
   <string name="exposedKing">Εκτεθειμένος βασιλιάς</string>
   <string name="hangingPieceDescription">Μια τακτική όπου ένα αντίπαλο κομμάτι είναι ανυπεράσπιστο ή υπερασπιζόμενο ανεπαρκώς και μπορεί να παρθεί.</string>
   <string name="interference">Παρεμβολή</string>
+  <string name="knightEndgame">Φινάλε Ίππων</string>
+  <string name="knightEndgameDescription">Ένα τέλος παρτίδας μόνο με ίππους και πιόνια.</string>
   <string name="long">Μεγάλος γρίφος</string>
   <string name="longDescription">Τρεις κινήσεις για να κερδίσετε.</string>
   <string name="mate">Ματ</string>
@@ -34,10 +39,16 @@
   <string name="oneMoveDescription">Ένας γρίφος που έχει μόνο μία κίνηση.</string>
   <string name="opening">Άνοιγμα</string>
   <string name="openingDescription">Μια τακτική κατά την πρώτη φάση του παιχνιδιού.</string>
+  <string name="pawnEndgame">Φινάλε Πιονιών</string>
+  <string name="pawnEndgameDescription">Ένα τέλος παρτίδας μόνο με πιόνια.</string>
   <string name="pin">Κάρφωμα</string>
   <string name="pinDescription">Μια τακτική που περιλαμβάνει καρφώματα, όπου ένα κομμάτι αδυνατεί να μετακινηθεί χωρίς να αποκαλύψει μια επίθεση σε ένα κομμάτι μεγαλύτερης αξίας.</string>
+  <string name="queenEndgame">Φινάλε Βασιλισσών</string>
+  <string name="queenEndgameDescription">Ένα τέλος παρτίδας μόνο με βασίλισσες και πιόνια.</string>
   <string name="queenRookEndgame">Βασίλισσα και Πύργος</string>
   <string name="queenRookEndgameDescription">Ένα τέλος παρτίδας μόνο με βασίλισσες, πύργους και πιόνια.</string>
+  <string name="rookEndgame">Φινάλε Πύργων</string>
+  <string name="rookEndgameDescription">Ένα τέλος παρτίδας μόνο με πύργους και πιόνια.</string>
   <string name="sacrifice">Θυσία</string>
   <string name="sacrificeDescription">Μια τακτική που περιλαμβάνει την εγκατάλειψη υλικού βραχυπρόθεσμα, ώστε να κερδηθεί πλεονέκτημα μετά από μια εξαναγκασμένη ακολουθία κινήσεων.</string>
   <string name="short">Σύντομος γρίφος</string>
