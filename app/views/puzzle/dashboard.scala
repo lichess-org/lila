@@ -26,6 +26,7 @@ object dashboard {
       title =
         if (ctx is user) "Puzzle dashboard"
         else s"${user.username} puzzle dashboard",
+      subtitle = "Let's see how good you've been doing",
       dashOpt = dashOpt
     ) { dash =>
       frag(
@@ -50,20 +51,18 @@ object dashboard {
       )
     }
 
-  def weaknesses(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: Context) =
+  def personalTraining(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: Context) =
     dashboardLayout(
       user = user,
       days = days,
-      "weaknesses",
+      "personalTraining",
       title =
-        if (ctx is user) "My puzzle weaknesses"
-        else s"${user.username} puzzle weaknesses",
+        if (ctx is user) "My personal training"
+        else s"${user.username} personal training",
+      subtitle = "Train these to optimize your progress!",
       dashOpt = dashOpt
     ) { dash =>
-      frag(
-        p("Train these to optimize your progress!"),
-        themeSelection(days, dash.weakThemes)
-      )
+      themeSelection(days, dash.weakThemes)
     }
 
   def strengths(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: Context) =
@@ -74,12 +73,10 @@ object dashboard {
       title =
         if (ctx is user) "My puzzle strengths"
         else s"${user.username} puzzle strengths",
+      subtitle = "You perform the best in these themes:",
       dashOpt = dashOpt
     ) { dash =>
-      frag(
-        p("Train these to optimize your progress!"),
-        themeSelection(days, dash.strongThemes)
-      )
+      themeSelection(days, dash.strongThemes)
     }
 
   private def dashboardLayout(
@@ -87,6 +84,7 @@ object dashboard {
       days: Int,
       path: String,
       title: String,
+      subtitle: String,
       dashOpt: Option[PuzzleDashboard]
   )(
       body: PuzzleDashboard => Frag
@@ -98,10 +96,14 @@ object dashboard {
       main(cls := "page-menu")(
         bits.pageMenu("dashboard"),
         div(cls := s"page-menu__content box box-pad $baseClass")(
-          h1(
-            title,
+          div(cls := "box__top")(
+            iconTag('-'),
+            h1(
+              title,
+              strong(subtitle)
+            ),
             views.html.base.bits.mselect(
-              s"${baseClass}__day-select",
+              s"${baseClass}__day-select box__top__actions",
               span(trans.nbDays.pluralSame(days)),
               PuzzleDashboard.dayChoices map { d =>
                 a(

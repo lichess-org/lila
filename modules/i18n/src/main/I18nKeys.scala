@@ -1783,7 +1783,6 @@ val `swissTournaments` = new I18nKey("swiss:swissTournaments")
 
 object puzzle {
 val `puzzles` = new I18nKey("puzzle:puzzles")
-val `puzzleDashboard` = new I18nKey("puzzle:puzzleDashboard")
 val `puzzleThemes` = new I18nKey("puzzle:puzzleThemes")
 val `recommended` = new I18nKey("puzzle:recommended")
 val `phases` = new I18nKey("puzzle:phases")
@@ -1822,6 +1821,9 @@ val `hardest` = new I18nKey("puzzle:hardest")
 val `example` = new I18nKey("puzzle:example")
 val `addAnotherTheme` = new I18nKey("puzzle:addAnotherTheme")
 val `jumpToNextPuzzleImmediately` = new I18nKey("puzzle:jumpToNextPuzzleImmediately")
+val `puzzleDashboard` = new I18nKey("puzzle:puzzleDashboard")
+val `personalTraining` = new I18nKey("puzzle:personalTraining")
+val `strengths` = new I18nKey("puzzle:strengths")
 val `playedXTimes` = new I18nKey("puzzle:playedXTimes")
 }
 

@@ -39,11 +39,14 @@ object bits {
       a(cls := active.active("themes"), href := routes.Puzzle.themes())(
         trans.puzzle.puzzleThemes()
       ),
-      a(cls := active.active("dashboard"), href := routes.Puzzle.dashboard(days, "home"))(
+      a(cls := active.active("home"), href := routes.Puzzle.dashboard(days, "home"))(
         trans.puzzle.puzzleDashboard()
       ),
-      a(cls := active.active("weaknesses"), href := routes.Puzzle.dashboard(days, "weaknesses"))(
-        trans.puzzle.puzzleDashboard()
+      a(cls := active.active("personalTraining"), href := routes.Puzzle.dashboard(days, "personalTraining"))(
+        trans.puzzle.personalTraining()
+      ),
+      a(cls := active.active("strengths"), href := routes.Puzzle.dashboard(days, "strengths"))(
+        trans.puzzle.strengths()
       )
     )
 
