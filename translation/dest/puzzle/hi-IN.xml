@@ -43,4 +43,7 @@
   <string name="example">उदाहरण</string>
   <string name="addAnotherTheme">एक और विषय जोड़ें</string>
   <string name="jumpToNextPuzzleImmediately">तुरंत अगली पहेली पर जाएं</string>
+  <string name="puzzleDashboard">पहेली डैशबोर्ड</string>
+  <string name="personalTraining">निजी प्रशिक्षण</string>
+  <string name="strengths">ताकत</string>
 </resources>
