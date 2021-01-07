@@ -44,4 +44,6 @@
   <string name="addAnotherTheme">Ein weiteres Motiv hinzufügen</string>
   <string name="jumpToNextPuzzleImmediately">Sofort zur nächsten Aufgabe springen</string>
   <string name="puzzleDashboard">Aufgabenübersicht</string>
+  <string name="personalTraining">Persönliches Training</string>
+  <string name="strengths">Stärken</string>
 </resources>
