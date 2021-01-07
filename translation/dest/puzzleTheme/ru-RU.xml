@@ -102,5 +102,5 @@
   <string name="zugzwang">Цугцванг</string>
   <string name="zugzwangDescription">Противник вынужден сделать один из немногих возможных ходов, но любой ход ведёт к ухудшению его положения.</string>
   <string name="healthyMix">Сборная солянка</string>
-  <string name="healthyMixDescription">Всего понемногу. Ты не знаешь, чего ожидать, так что будь готов ко всему! Прямо как в партиях.</string>
+  <string name="healthyMixDescription">Всего понемногу. Вы не знаете, чего ожидать, так что будьте готовы ко всему! Прямо как в партиях.</string>
 </resources>
