@@ -73,5 +73,8 @@
   <string name="authorizationToUse">Loyvi at nýta Lichess</string>
   <string name="welcomeToUse">Tú ert vælkomin at nýta Lichess til títt virksemi, enntá handilsliga.</string>
   <string name="videosAndBooks">Tú kanst vísa tað í tínum sjónfílum, og tú kanst prenta skíggjamyndir av Lichess í tínum bókum.</string>
+  <string name="creditAppreciated">At nevna Lichess sum heimild verður virðismett, men er ikki kravt.</string>
+  <string name="noneOfTheAbove">Einki av tí, ið stendur omanfyri</string>
   <string name="sendEmailAt">Send okkum ein teldupost á %s.</string>
+  <string name="explainYourRequest">Greið frá fyrispurningi tínum út í æsir. Upplýs títt Lichess-brúkaranavn og onnur viðurskifti, ið kunnu hjálpa okkum at hjálpa tær.</string>
 </resources>
