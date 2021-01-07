@@ -24,4 +24,14 @@
     <item quantity="one">Jocate %s vice</item>
     <item quantity="other">Jocate %s vices</item>
   </plurals>
+  <string name="fromGameLink">Extrahite del partita %s</string>
+  <string name="continueTraining">Continuar a exercitar</string>
+  <string name="difficultyLevel">Nivello del difficultate</string>
+  <string name="normal">Normal</string>
+  <string name="easier">Facile</string>
+  <string name="easiest">Le plus facile</string>
+  <string name="harder">Difficile</string>
+  <string name="hardest">Le plus difficile</string>
+  <string name="example">Exemplo</string>
+  <string name="personalTraining" comment="personalTraining&#10;&#10;A personalized set of puzzle themes that the user can practice to improve their skills.">Trainamento personal</string>
 </resources>
