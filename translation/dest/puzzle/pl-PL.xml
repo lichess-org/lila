@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Zadania szachowe</string>
-  <string name="puzzleDashboard">Tablica z zadaniami</string>
   <string name="puzzleThemes">Motywy zadań</string>
   <string name="recommended">Polecane</string>
   <string name="phases">Faza gry</string>
@@ -46,4 +45,5 @@
   <string name="example">Przykład</string>
   <string name="addAnotherTheme">Dodaj inny motyw</string>
   <string name="jumpToNextPuzzleImmediately">Natychmiast przejdź do następnego zadania</string>
+  <string name="puzzleDashboard">Tablica z zadaniami</string>
 </resources>
