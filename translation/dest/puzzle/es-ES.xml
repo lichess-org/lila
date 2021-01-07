@@ -44,4 +44,5 @@
   <string name="addAnotherTheme">Añadir otro tema</string>
   <string name="jumpToNextPuzzleImmediately">Ir al siguiente rompecabezas inmediatamente</string>
   <string name="puzzleDashboard">Panel de rompecabezas</string>
+  <string name="personalTraining">Entrenamiento personalizado</string>
 </resources>
