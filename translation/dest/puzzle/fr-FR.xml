@@ -44,4 +44,6 @@
   <string name="addAnotherTheme">Ajouter un autre thème</string>
   <string name="jumpToNextPuzzleImmediately">Passer immédiatement au problème suivant</string>
   <string name="puzzleDashboard">Tableau de bord des problèmes</string>
+  <string name="personalTraining">Entraînement personnel</string>
+  <string name="strengths">Points forts</string>
 </resources>
