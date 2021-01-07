@@ -2,4 +2,9 @@
 <resources>
   <string name="twoFactorAuth">Váttan í tveimum stigum</string>
   <string name="twoFactorHelp">Váttan í tveimum stigum leggur eitt eyka lag av trygd afturat tíni kontu.</string>
+  <string name="twoFactorApp">Fá eina app til váttanina í tveimum stigum. T. d Google Authenticator til %1$s ella %2$s.</string>
+  <string name="scanTheCode">Skanna QR-kotuna við appini.</string>
+  <string name="enterPassword">Tøppa inn loyniorð og váttanarkotu, ið tú hevur fingið frá appini, til tess at fullføra uppsetingina. Tær tørvar eina váttanarkotu, hvørja ferð tú ritar inn.</string>
+  <string name="ifYouCannotScanEnterX">Um tú ikki fært skannað kotuna, skalt tú tøppa ta loyniligu %s inn í tína app.</string>
+  <string name="authenticationCode">Váttanarkota</string>
 </resources>
