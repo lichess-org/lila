@@ -6,7 +6,7 @@
   <string name="phases">Стадии игры</string>
   <string name="motifs">Мотивы</string>
   <string name="advanced">Продвинутый</string>
-  <string name="lengths">Длина</string>
+  <string name="lengths">Количество ходов</string>
   <string name="mates">Маты</string>
   <string name="goals">Цели</string>
   <string name="specialMoves">Особые ходы</string>
@@ -46,5 +46,5 @@
   <string name="addAnotherTheme">Добавить другой мотив</string>
   <string name="jumpToNextPuzzleImmediately">Сразу перейти к следующей задаче</string>
   <string name="puzzleDashboard">Страница задач</string>
-  <string name="personalTraining">Индивидуальная тренировка</string>
+  <string name="personalTraining" comment="personalTraining&#10;&#10;A personalized set of puzzle themes that the user can practice to improve their skills.">Индивидуальная тренировка</string>
 </resources>
