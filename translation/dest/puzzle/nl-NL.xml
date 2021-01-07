@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Puzzels</string>
-  <string name="puzzleDashboard">Puzzel-dashboard</string>
   <string name="puzzleThemes">Puzzelthema\'s</string>
   <string name="recommended">Aanbevolen</string>
   <string name="phases">Fasen</string>
@@ -44,4 +43,5 @@
   <string name="example">Voorbeeld</string>
   <string name="addAnotherTheme">Voeg nog een thema toe</string>
   <string name="jumpToNextPuzzleImmediately">Direct door naar volgende puzzel</string>
+  <string name="puzzleDashboard">Puzzel-dashboard</string>
 </resources>
