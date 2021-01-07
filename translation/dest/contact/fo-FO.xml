@@ -65,6 +65,13 @@
   <string name="falsePositives">Vit eru hørm um, at fólk viðhvørt kunnu verða bannað av órøttum.</string>
   <string name="ifLegit">Um hald er í áheitan tíni, seta vit bannið úr gildi skjótast gjørligt.</string>
   <string name="accountLost">Fekst tú hinvegin í roynd og veru hjálp frá einari talvteldu - eisini um tað bert var ta einu ferðina - er konta tín tíverri farin fyri skeyti.</string>
+  <string name="doNotDeny">Nokta ikki, at tú svikaði. Vilt tú hava loyvi at stovna eina nýggja kontu, mást tú viðganga tað, tú gjørdi, og vísa, at tú skilir, at tað var eitt mistak.</string>
+  <string name="otherRestriction">Aðrar avmarkingar</string>
+  <string name="collaboration">Samstarv, løgfrøði, vinnuligt virksemi</string>
+  <string name="monetizing">At tjena pening upp á Lichess</string>
+  <string name="buyingLichess">At keypa Lichess</string>
+  <string name="authorizationToUse">Loyvi at nýta Lichess</string>
   <string name="welcomeToUse">Tú ert vælkomin at nýta Lichess til títt virksemi, enntá handilsliga.</string>
+  <string name="videosAndBooks">Tú kanst vísa tað í tínum sjónfílum, og tú kanst prenta skíggjamyndir av Lichess í tínum bókum.</string>
   <string name="sendEmailAt">Send okkum ein teldupost á %s.</string>
 </resources>
