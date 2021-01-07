@@ -60,6 +60,9 @@
   <string name="errorPage">Skeivleikasíða</string>
   <string name="reportErrorPage">Um tú barst við eina síðu við skeivleikum, kanst tú boða frá tí:</string>
   <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Bið um eitt bann ella eina IP-avmarking</string>
+  <string name="engineAppeal">Fráboðan um svik ella talvteldu</string>
+  <string name="sendAppealTo">Tú kanst senda eina áheitan til %s.</string>
+  <string name="falsePositives">Vit eru hørm um, at fólk viðhvørt kunnu verða bannað av órøttum.</string>
   <string name="welcomeToUse">Tú ert vælkomin at nýta Lichess til títt virksemi, enntá handilsliga.</string>
   <string name="sendEmailAt">Send okkum ein teldupost á %s.</string>
 </resources>
