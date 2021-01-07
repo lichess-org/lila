@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Šahovski problemi</string>
-  <string name="puzzleDashboard">Nadzorna plošča uganke</string>
   <string name="puzzleThemes">Teme ugank</string>
   <string name="recommended">Priporočeno</string>
   <string name="phases">Faze</string>
@@ -16,4 +15,5 @@
   <string name="findTheBestMoveForWhite">Poišči najboljšo potezo za belega.</string>
   <string name="findTheBestMoveForBlack">Poišči najboljšo potezo za črnega.</string>
   <string name="jumpToNextPuzzleImmediately">Takoj skočite k naslednji uganki</string>
+  <string name="puzzleDashboard">Nadzorna plošča uganke</string>
 </resources>
