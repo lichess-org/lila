@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Задачи</string>
-  <string name="puzzleDashboard">Страница задач</string>
   <string name="puzzleThemes">Темы задач</string>
   <string name="recommended">Рекомендуемые</string>
   <string name="phases">Стадии игры</string>
@@ -46,4 +45,5 @@
   <string name="example">Пример</string>
   <string name="addAnotherTheme">Добавить другой мотив</string>
   <string name="jumpToNextPuzzleImmediately">Сразу перейти к следующей задаче</string>
+  <string name="puzzleDashboard">Страница задач</string>
 </resources>
