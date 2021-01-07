@@ -176,7 +176,7 @@
   <string name="username">Όνομα χρήστη</string>
   <string name="usernameOrEmail">Όνομα χρήστη ή ηλ. ταχυδρομείο</string>
   <string name="changeUsername">Αλλαγή ονόματος χρήστη</string>
-  <string name="changeUsernameNotSame">Μόνο η αλλαγή χαρακτήρων σε μικρά-κεφαλαία επιτρέπεται. Για παράδειγμα \"johndoe\" σε \"JohnDoe\".</string>
+  <string name="changeUsernameNotSame">Μόνο η αλλαγή χαρακτήρων από μικρά σε κεφαλαία επιτρέπεται. Για παράδειγμα \"johndoe\" σε \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Αλλαγή ονόματος χρήστη. Μπορεί να γίνει μόνο μία φορά και μόνο η αλλαγή χαρακτήρων σε μικρά-κεφαλαία στο όνομα χρήστη επιτρέπεται.</string>
   <string name="password">Κωδικός</string>
   <string name="changePassword">Αλλάξτε κωδικό</string>
@@ -810,7 +810,7 @@
   <string name="resignLostGames">Παραιτηθείτε σε παιχνίδια που χάνετε (μην αφήνετε τον χρόνο σας να τελειώσει).</string>
   <string name="temporaryInconvenience">Συγχωρέστε μας για την προσωρινή δυσφορία,</string>
   <string name="wishYouGreatGames">και σας ευχόμαστε καλές παρτίδες στο lichess.org.</string>
-  <string name="thankYouForReading">Ευχαριστούμε που αφιερώσατε χρόνο για να να τα διαβάσετε!</string>
+  <string name="thankYouForReading">Ευχαριστούμε που αφιερώσατε χρόνο για να διαβάσετε το μήνυμα!</string>
   <string name="lifetimeScore">Συνολικό σκορ</string>
   <string name="currentMatchScore">Τρέχον σκορ</string>
   <string name="agreementAssistance">Αποδέχομαι ότι ουδέποτε θα λάβω βοήθεια κατά τις παρτίδες μου (από υπολογιστή, βιβλίο, βάση δεδομένων ή άλλο πρόσωπο).</string>
