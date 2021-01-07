@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Aufgaben</string>
-  <string name="puzzleDashboard">Aufgabenübersicht</string>
   <string name="puzzleThemes">Aufgabenthemen</string>
   <string name="recommended">Empfohlen</string>
   <string name="phases">Phasen</string>
@@ -44,4 +43,5 @@
   <string name="example">Beispiel</string>
   <string name="addAnotherTheme">Ein weiteres Motiv hinzufügen</string>
   <string name="jumpToNextPuzzleImmediately">Sofort zur nächsten Aufgabe springen</string>
+  <string name="puzzleDashboard">Aufgabenübersicht</string>
 </resources>
