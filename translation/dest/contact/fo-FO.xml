@@ -63,6 +63,8 @@
   <string name="engineAppeal">Fráboðan um svik ella talvteldu</string>
   <string name="sendAppealTo">Tú kanst senda eina áheitan til %s.</string>
   <string name="falsePositives">Vit eru hørm um, at fólk viðhvørt kunnu verða bannað av órøttum.</string>
+  <string name="ifLegit">Um hald er í áheitan tíni, seta vit bannið úr gildi skjótast gjørligt.</string>
+  <string name="accountLost">Fekst tú hinvegin í roynd og veru hjálp frá einari talvteldu - eisini um tað bert var ta einu ferðina - er konta tín tíverri farin fyri skeyti.</string>
   <string name="welcomeToUse">Tú ert vælkomin at nýta Lichess til títt virksemi, enntá handilsliga.</string>
   <string name="sendEmailAt">Send okkum ein teldupost á %s.</string>
 </resources>
