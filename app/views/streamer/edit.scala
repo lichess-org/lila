@@ -58,10 +58,10 @@ object edit extends Context.ToLang {
                     approved(),
                     s.streamer.approval.tier > 0 option frag(
                       br,
-                      strong("You have been selected for frontpage featuring!"),
+                      strong(youHaveBeenSelectedFrontpage()),
                       p(
-                        "Note that we can only show a limited number of streams on the homepage, ",
-                        "so yours may not always appear."
+                        noteThatOnlyLimited(),
+                        soYoursMayNotAlwaysAppear()
                       )
                     )
                   )
