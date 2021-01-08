@@ -511,6 +511,7 @@
   <string name="clockInitialTime">Byrjanartíð á klokku</string>
   <string name="clockIncrement">Øking á klokku</string>
   <string name="privacy">Privatlív</string>
+  <string name="privacyPolicy" comment="privacyPolicy&#10;&#10;This string appears exclusively in the context of the readAboutOur string. The full Enlish text is &quot;Read about our Privacy policy&quot;, and &quot;Privacy policy&quot; is a link.">Verndarpolitikkur</string>
   <string name="letOtherPlayersFollowYou">Lat aðrar telvarar fylgja tær</string>
   <string name="letOtherPlayersChallengeYou">Lat aðrar telvarar bjóða tær av</string>
   <string name="letOtherPlayersInviteYouToStudy">Lat aðrar telvarar bjóða tær at rannsaka</string>
