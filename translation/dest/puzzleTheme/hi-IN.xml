@@ -8,10 +8,10 @@
   <string name="attackingF2F7Description">एक हमला f2 या f7 मोहरे पर ध्यान केंद्रित करता है, जैसे कि तले हुए लिवर को खोलना।</string>
   <string name="attraction">आकर्षण</string>
   <string name="attractionDescription">एक विरोधी टुकड़े को एक वर्ग को प्रोत्साहित करने या मजबूर करने के लिए एक विनिमय या बलिदान जो अनुवर्ती रणनीति की अनुमति देता है।</string>
-  <string name="backRankMate">बैक रैंक मात</string>
-  <string name="backRankMateDescription">होम रैंक पर राजा को चेकमेट करें, जब वह अपने टुकड़ों से वहां फंस गया हो।</string>
-  <string name="bishopEndgame">बिशप एंडगेम</string>
-  <string name="bishopEndgameDescription">केवल बिशप और प्यादे के साथ एक एंडगेम।</string>
+  <string name="backRankMate">पीछे की पंक्ति पर मात</string>
+  <string name="backRankMateDescription">होम पंक्ति पर राजा को मात दे, जब वह अपने टुकड़ों से वहां फंस गया हो।</string>
+  <string name="bishopEndgame">ऊंट का एंडगेम</string>
+  <string name="bishopEndgameDescription">केवल ऊंट और प्यादे के साथ एक एंडगेम।</string>
   <string name="castling">कैसलिंग</string>
   <string name="castlingDescription">राजा को सुरक्षा के लिए लाएँ, और हमले के लिए किश्ती तैनात करें।</string>
   <string name="capturingDefender">रक्षक को पकड़ना</string>
