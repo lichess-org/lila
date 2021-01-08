@@ -511,6 +511,7 @@
   <string name="clockInitialTime">Starttid på klokken</string>
   <string name="clockIncrement">Inkrement</string>
   <string name="privacy">Personvern</string>
+  <string name="privacyPolicy" comment="privacyPolicy&#10;&#10;This string appears exclusively in the context of the readAboutOur string. The full Enlish text is &quot;Read about our Privacy policy&quot;, and &quot;Privacy policy&quot; is a link.">personvernerklæringen</string>
   <string name="letOtherPlayersFollowYou">La andre spillere følge deg</string>
   <string name="letOtherPlayersChallengeYou">La andre spillere utfordre deg</string>
   <string name="letOtherPlayersInviteYouToStudy">La andre spillere invitere deg til studier</string>
@@ -656,6 +657,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Om du ikke ser e-posten, sjekk andre steder den kan være, som søppel, spam, sosial, eller andre mapper.</string>
   <string name="weHaveSentYouAnEmailTo">Vi har sendt en e-post til %s. Klikk på linken i e-posten for å tilbakestille passordet ditt.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ved å registrere deg, godtar du å våre %s.</string>
+  <string name="readAboutOur" comment="readAboutOur&#10;&#10;The variable %s is a link to the Privacy Policy. The link's title is the privacyPolicy string.&#10;&#10;This text appears on the signup page, as well as in emails.">Les %s vår.</string>
   <string name="networkLagBetweenYouAndLichess">Nettverksforsinkelsen mellom deg og lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tiden det tar å behandle et trekk på lichess-serveren</string>
   <string name="downloadAnnotated">Last ned kommentert</string>
