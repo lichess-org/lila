@@ -52,7 +52,7 @@ Die Computeranalyse wird auf Lichess von Stockfish durchgeführt.</string>
 In seltenen Fällen kann es schwierig sein, dies automatisch zu entscheiden. (Erzwungene Zugfolgen, Festungen)
 
 Beachte, dass es mit einem einzelnen Springer oder Läufer möglich ist ein Matt zu erzwingen, falls der Gegner eine Figur besitzt, die dessen König blockieren könnte.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDE-Handbuch %s</string>
+  <string name="fideHandbookX">FIDE-Handbuch %s</string>
   <string name="discoveringEnPassant">Warum kann ein Bauer einen anderen Bauern schlagen, wenn er bereits vorbei gezogen ist? (en passant)</string>
   <string name="explainingEnPassant">Dies ist ein regelgemäßer Zug, bekannt als \"en passant\". Der Wikipedia-Artikel gibt einen %1$s.
 
@@ -93,6 +93,8 @@ Bitte nicht darum, den LM-Titel zu erhalten.</string>
   <string name="whatUsernameCanIchoose">Wie kann mein Benutzername lauten?</string>
   <string name="usernamesNotOffensive">Im Allgemeinen sollten Nutzernamen nicht anstößig, jemand anderen imitierend oder Werbung sein. Du kannst mehr über die %1$s lesen.</string>
   <string name="guidelines">Richtlinien</string>
+  <string name="canIChangeMyUsername">Kann ich meinen Benutzernamen ändern?</string>
+  <string name="usernamesCannotBeChanged">Nein, Benutzernamen können aus technischen und praktischen Gründen nicht geändert werden. Die Benutzernamen tauchen an zu vielen Stellen auf: Datenbanken, Exporte, Logs und im Gedächtnis anderer Leute. Du kannst lediglich einmal die Groß-/Kleinschreibung ändern.</string>
   <string name="uniqueTrophies">Einzigartige Trophäen</string>
   <string name="ownerUniqueTrophies">Diese Trophäe ist einzigartig in der Geschichte von Lichess, niemand außer %1$s wird sie jemals haben.</string>
   <string name="wayOfBerserkExplanation">Um sie zu bekommen, forderte hiimgosu sich selbst heraus, 100%% der %s-Partien zu berserken und zu gewinnen.</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">Galvosūkiai</string>
-  <string name="puzzleThemes">Galvosūkių temos</string>
+  <string name="puzzles">Užduotys</string>
+  <string name="puzzleThemes">Užduočių temos</string>
   <string name="recommended">Rekomenduojama</string>
   <string name="phases">Fazės</string>
   <string name="motifs">Motyvai</string>
@@ -10,20 +10,20 @@
   <string name="mates">Matai</string>
   <string name="goals">Tikslai</string>
   <string name="specialMoves">Ypatingi ėjimai</string>
-  <string name="didYouLikeThisPuzzle">Ar jums patiko šis galvosūkis?</string>
+  <string name="didYouLikeThisPuzzle">Ar jums patiko ši užduotis?</string>
   <string name="voteToLoadNextOne">Nubalsuokite norėdami pakrauti kitą!</string>
-  <string name="yourPuzzleRatingX">Jūsų galvosūkių reitingas: %s</string>
+  <string name="yourPuzzleRatingX">Jūsų užduočių reitingas: %s</string>
   <string name="findTheBestMoveForWhite">Raskite geriausią ėjimą baltiems.</string>
   <string name="findTheBestMoveForBlack">Raskite geriausią ėjimą juodiems.</string>
-  <string name="toGetPersonalizedPuzzles">Norėdami gauti suasmenintus galvosūkius:</string>
-  <string name="puzzleId">Galvosūkis %s</string>
-  <string name="puzzleOfTheDay">Dienos galvosūkis</string>
+  <string name="toGetPersonalizedPuzzles">Norėdami gauti suasmenintas užduotis:</string>
+  <string name="puzzleId">Užduotis %s</string>
+  <string name="puzzleOfTheDay">Dienos užduotis</string>
   <string name="clickToSolve">Norėdami spręsti spustelkite</string>
   <string name="goodMove">Geras ėjimas</string>
   <string name="bestMove">Geriausias ėjimas!</string>
   <string name="keepGoing">Toliau…</string>
   <string name="puzzleSuccess">Pavyko!</string>
-  <string name="puzzleComplete">Galvosūkis išspręstas!</string>
+  <string name="puzzleComplete">Užduotis išspręsta!</string>
   <string name="notTheMove">Ne toks ėjimas!</string>
   <string name="trySomethingElse">Bandykite kitką.</string>
   <string name="ratingX">Reitingas: %s</string>
@@ -44,5 +44,8 @@
   <string name="hardest">Sunkiausias</string>
   <string name="example">Pavyzdys</string>
   <string name="addAnotherTheme">Pridėti dar vieną temą</string>
-  <string name="jumpToNextPuzzleImmediately">Iš karto pereiti į kitą galvosūkį</string>
+  <string name="jumpToNextPuzzleImmediately">Iš karto pereiti į kitą užduotį</string>
+  <string name="puzzleDashboard">Užduočių centras</string>
+  <string name="personalTraining" comment="personalTraining&#10;&#10;A personalized set of puzzle themes that the user can practice to improve their skills.">Asmeninės treniruotės</string>
+  <string name="strengths" comment="strengths&#10;&#10;The title of a link leading to a section in the Puzzle dashboard. A user's puzzle strengths can be viewed there. This is a list of puzzle theme's the user performs best at.">Striprybės</string>
 </resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Opgaver</string>
-  <string name="puzzleThemes" comment="puzzleThemes&#10;&#10;https://lichess.org/training/themes">Opgavetemaer</string>
+  <string name="puzzleThemes">Opgavetemaer</string>
   <string name="recommended">Anbefalet</string>
   <string name="phases">Faser</string>
   <string name="motifs">Motiv</string>
@@ -43,4 +43,7 @@
   <string name="example">Eksempel</string>
   <string name="addAnotherTheme">Tilføj et andet tema</string>
   <string name="jumpToNextPuzzleImmediately">Spring straks videre til næste opgave</string>
+  <string name="puzzleDashboard">Opgave-kontrolpanel</string>
+  <string name="personalTraining" comment="personalTraining&#10;&#10;A personalized set of puzzle themes that the user can practice to improve their skills.">Personlig træning</string>
+  <string name="strengths" comment="strengths&#10;&#10;The title of a link leading to a section in the Puzzle dashboard. A user's puzzle strengths can be viewed there. This is a list of puzzle theme's the user performs best at.">Styrke</string>
 </resources>

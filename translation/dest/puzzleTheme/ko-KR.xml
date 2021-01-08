@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advancedPawn">전진한 폰</string>
+  <string name="advancedPawnDescription">이 전략의 핵심은 폰을 승급하거나 그런 위협을 가하는 것 입니다.</string>
+  <string name="advantage">이점</string>
+  <string name="advantageDescription">확실한 이점을 쟁취 할수있는 기회를 잡으세요. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="attackingF2F7">F2나 f7를 공격합니다</string>
+  <string name="attackingF2F7Description">F2나 f7 폰을 노리고 공격합니다. 예시: 프라이드 리버 오프닝.</string>
   <string name="backRankMate">백 랭크 메이트</string>
   <string name="bishopEndgame">비숍 엔드게임</string>
   <string name="bishopEndgameDescription">비숍과 폰만 있는 엔드게임</string>

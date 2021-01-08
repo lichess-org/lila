@@ -47,7 +47,7 @@
   <string name="lichessFollowFIDErules">一方のプレイヤーが時間切れになると、通常は負けになります。ただし、時間を残したプレイヤーがいかなる合法な手順でも相手のキングをメイトできない場合はドローになります（%1$s）。
  まれな場合には自動での判定が難しいことがあります（強制手順、フォートレスの存在など）。Lichess では常に時間を残した方に有利に判定しています。
  一方がビショップかナイト 1 個だけでも、他方にキング以外の駒が残っていればメイトの可能性があることに注意してください。</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDE ハンドブック %s</string>
+  <string name="fideHandbookX">FIDE ハンドブック %s</string>
   <string name="discoveringEnPassant">ポーンがすでに通過したマスで取られてしまうのですが…？（アンパッサンについて）</string>
   <string name="explainingEnPassant">それは「アンパッサン (en passant)」というルールです。ウィキペディアの記事がまず%1$sになるでしょう。
 これは%2$sの第 3.7 (d) 項にあります。
@@ -81,6 +81,8 @@
   <string name="whatUsernameCanIchoose">ユーザー名にはどんなものが使えますか？</string>
   <string name="usernamesNotOffensive">ユーザー名として攻撃的なもの、別人になりすますもの、宣伝的なものは禁止です。詳しくは%1$sをお読みください。</string>
   <string name="guidelines">ガイドライン</string>
+  <string name="canIChangeMyUsername">ユーザー名は変えられますか？</string>
+  <string name="usernamesCannotBeChanged">いえ、変えられません。技術上・実務上の理由があります。 ユーザー名はデータベース、エクスポート、ログ、人の頭の中とあまりにも多くの場所にあるからです。大文字小文字の区別は一度だけ変更できます。</string>
   <string name="uniqueTrophies">独特なトロフィー</string>
   <string name="ownerUniqueTrophies">このトロフィーは Lichess 史上唯一のもので、与えられたのは今後を含めて %1$s だけです。</string>
   <string name="wayOfBerserkExplanation">ユーザー hiimgosu は %s で全局バーサークして100%%の勝率を上げたのです。</string>

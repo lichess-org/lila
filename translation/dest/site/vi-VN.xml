@@ -9,6 +9,7 @@
   <string name="yourTurn">Lượt của bạn</string>
   <string name="aiNameLevelAiLevel">%1$s cấp độ %2$s</string>
   <string name="level">Cấp độ</string>
+  <string name="strength">Độ mạnh</string>
   <string name="toggleTheChat">Bật/tắt chat</string>
   <string name="toggleSound">Bật/Tắt âm thanh</string>
   <string name="chat">Trò chuyện</string>

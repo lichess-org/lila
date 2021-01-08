@@ -52,7 +52,7 @@
  В редких случаях бывает трудно вынести решение автоматически (серия вынужденных ходов, крепость). По умолчанию мы принимаем сторону того игрока, чьё время не вышло.
 
  Имейте в виду, что мат возможен и одним конём, и слоном, если у соперника есть фигура или пешка, способная заблокировать его короля.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">Правила ФИДЕ %s</string>
+  <string name="fideHandbookX">Правила ФИДЕ %s</string>
   <string name="discoveringEnPassant">Почему можно взять пешку, когда она уже прошла битое поле? (взятие на проходе)</string>
   <string name="explainingEnPassant">Это ход, известный как «взятие на проходе». Статья в Википедии даёт %1$s.
 
@@ -93,6 +93,8 @@
   <string name="whatUsernameCanIchoose">Каким может быть моё имя пользователя?</string>
   <string name="usernamesNotOffensive">В целом, имя пользователя не должно быть оскорбительным, выдающим вас за кого-то другого и рекламирующем что-то. Узнайте больше в наших %1$s.</string>
   <string name="guidelines">рекомендациях</string>
+  <string name="canIChangeMyUsername">Могу ли я изменить своё имя пользователя?</string>
+  <string name="usernamesCannotBeChanged">Нет, по техническим и практическим причинам нельзя изменять имена пользователей. Они прописываются в слишком многих местах: базах данных, файлах экспорта, журналах и, конечно, в памяти людей. Вы можете изменить регистр символов, но только один раз.</string>
   <string name="uniqueTrophies">Уникальные трофеи</string>
   <string name="ownerUniqueTrophies">Это уникальные трофеи за всю историю Lichess, и ни у кого, кроме %1$s их не было.</string>
   <string name="wayOfBerserkExplanation">Чтобы его получить, hiimgosu бросил вызов самому себе выиграть с Берсерком 100%% игр в %s.</string>

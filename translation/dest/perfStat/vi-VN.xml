@@ -1,2 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="perfStats">Thống kê %s</string>
+  <string name="viewTheGames">Xem các ván cờ</string>
+  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">tạm thời</string>
+  <string name="progressOverLastXGames">Sự tiến bộ qua %s ván cờ trước đây:</string>
+  <string name="totalGames">Tổng số các ván cờ</string>
+  <string name="ratedGames">Các ván cờ xếp hạng</string>
+  <string name="timeSpentPlaying">Thời gian đã chơi</string>
+  <string name="victories">Thắng</string>
+  <string name="defeats">Thua</string>
+  <string name="notEnoughGames">Chơi chưa đủ ván</string>
+  <string name="fromXToY">từ %1$s đến %2$s</string>
+  <string name="winningStreak">Chuỗi thắng</string>
+  <string name="losingStreak">Chuỗi thua</string>
+  <string name="longestStreak">Chuỗi dài nhất: %s</string>
+  <string name="currentStreak">Chuỗi hiện tại: %s</string>
+  <string name="gamesInARow">Các ván cờ được chơi liên tục</string>
+  <string name="lessThanOneHour">Ít hơn một giờ giữa các ván cờ</string>
+  <string name="maxTimePlaying">Thời gian dài nhất đã chơi</string>
+  <string name="now">bây giờ</string>
+</resources>

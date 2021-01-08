@@ -55,7 +55,7 @@ Analiza komputerowa dostępna na Lichess wspierana jest przez silnik szachowy St
 W rzadkich sytuacjach może to być trudne do automatycznego określenia (ruchy wymuszone, twierdze). Domyślnie zawsze stajemy po stronie gracza, któremu nie skończył się czas.
 
 Zauważ, że możliwe jest zamatowanie pojedynczym skoczkiem lub gońcem, jeżeli przeciwnik posiada bierkę, która może zablokować króla.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">Przepisy gry w szachy FIDE %s</string>
+  <string name="fideHandbookX">Przepisy gry w szachy FIDE %s</string>
   <string name="discoveringEnPassant">Dlaczego pion może zbić piona, który ruszył się o dwa pola do przodu i nie jest już pod biciem? (bicie w przelocie)</string>
   <string name="explainingEnPassant">To jest legalny ruch znany jako \"bicie w przelocie\". Wikipedia daje %1$s do zrozumienia tego posunięcia.
 
@@ -98,6 +98,8 @@ Nie proś nas o przyznanie tytułu LM.</string>
   <string name="whatUsernameCanIchoose">Jaka może być moja nazwa użytkownika?</string>
   <string name="usernamesNotOffensive">Ogólnie rzecz biorąc, nazwy użytkowników nie powinny być obraźliwe, podszywać się pod kogoś innego, zawierać treści reklamowych. Możesz przeczytać więcej na ten temat na stronie %1$s.</string>
   <string name="guidelines">Zasady dotyczące nazwy użytkownika</string>
+  <string name="canIChangeMyUsername">Czy mogę zmienić nazwę użytkownika?</string>
+  <string name="usernamesCannotBeChanged">Nie, nie można zmieniać nazwy użytkowników z praktycznych i technicznych przyczyn. Nazwy użytkowników zapisywane są w zbyt wielu miejscach: bazach danych, plikach eksportu, logach, jak i w pamięci ludzi. Istnieje natomiast możliwość jednorazowej zmiany wielkości liter.</string>
   <string name="uniqueTrophies">Unikalne trofea</string>
   <string name="ownerUniqueTrophies">To unikalne trofeum w historii Lichess, nikt inny oprócz %1$s nie będzie go mieć.</string>
   <string name="wayOfBerserkExplanation">Aby je zdobyć, hiimgosu postawił sobie wyzwanie wygrania %s, wygrywając wszystkie swoje partie z włączonym berserkiem.</string>

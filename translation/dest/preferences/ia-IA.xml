@@ -12,6 +12,7 @@
   <string name="chessPieceSymbol">Symbolo del pecia de chacos</string>
   <string name="pgnLetter">Littera (K, Q, R, B, N)</string>
   <string name="zenMode">Modo Zen</string>
+  <string name="displayBoardResizeHandle">Monstrar le flechas pro redimensionar le tabula</string>
   <string name="onlyOnInitialPosition">Solmente in position initial</string>
   <string name="blindfoldChess">Chacos al oculos bandate (pecias invisibile)</string>
   <string name="chessClock">Horologio de chacos</string>
@@ -20,6 +21,7 @@
   <string name="horizontalGreenProgressBars">Barras de progresso verde horizontal</string>
   <string name="soundWhenTimeGetsCritical">Sono quando le tempore es critic</string>
   <string name="giveMoreTime">Offerer plus tempore</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Comportamento del joco</string>
   <string name="howDoYouMovePieces">Como tu vole mover le pecias?</string>
   <string name="clickTwoSquares">Cliccar sur duo placias</string>
   <string name="dragPiece">Traher e deponer le pecia</string>

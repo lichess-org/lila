@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Rompecabezas</string>
-  <string name="puzzleThemes" comment="puzzleThemes&#10;&#10;https://lichess.org/training/themes">Temario</string>
+  <string name="puzzleThemes">Temas de rompecabezas</string>
   <string name="recommended">Recomendado</string>
   <string name="phases">Fases</string>
   <string name="motifs">Temas</string>
@@ -43,4 +43,6 @@
   <string name="example">Ejemplo</string>
   <string name="addAnotherTheme">Añadir otro tema</string>
   <string name="jumpToNextPuzzleImmediately">Ir al siguiente rompecabezas inmediatamente</string>
+  <string name="puzzleDashboard">Panel de rompecabezas</string>
+  <string name="personalTraining" comment="personalTraining&#10;&#10;A personalized set of puzzle themes that the user can practice to improve their skills.">Entrenamiento personalizado</string>
 </resources>

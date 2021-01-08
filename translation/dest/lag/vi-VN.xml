@@ -2,7 +2,9 @@
 <resources>
   <string name="measurementInProgressThreeDot">Đang tiến hành đo đạc...</string>
   <string name="noAndYourNetworkIsGood">Không. Và mạng của bạn tốt.</string>
+  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">Không. Và mạng của bạn không ổn định.</string>
   <string name="yesItWillBeFixedSoon">Đúng. Nó sẽ được sửa sớm thôi!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">Và bây giờ là câu trả lời dài! Độ trễ của ván cờ được tạo ra từ hai giá trị không liên quan đến nhau (càng thấp càng tốt):</string>
   <string name="lichessServerLatency">Độ trễ máy chủ Lichess</string>
   <string name="lichessServerLatencyExplanation">Thời gian cần để xử lý một nước đi ở máy chủ. Thời gian này không thay đổi với mọi người, và nó phụ thuộc vào máy chủ. Càng nhiều người dùng thì nó càng lớn, nhưng các nhà phát triển Lichess cố gắng hết sức có thể để giữ nó thấp. Hiếm khi nào nó vượt quá 10ms.</string>
   <string name="networkBetweenLichessAndYou">Mạng giữa Lichess và bạn</string>

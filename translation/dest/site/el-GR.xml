@@ -9,6 +9,7 @@
   <string name="yourTurn">Η σειρά σας</string>
   <string name="aiNameLevelAiLevel">%1$s επιπέδου %2$s</string>
   <string name="level">Επίπεδο</string>
+  <string name="strength">Ισχύς</string>
   <string name="toggleTheChat">Εναλλαγή προβολής της συνομιλίας</string>
   <string name="toggleSound">Εναλλαγή ήχου</string>
   <string name="chat">Συνομιλία</string>
@@ -34,7 +35,7 @@
   <string name="whitePlays">Παίζουν τα λευκά</string>
   <string name="blackPlays">Παίζουν τα μαύρα</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Ο αντίπαλος έφυγε από το παιχνίδι. Διεκδίκηση νίκης σε %s δευτερόλεπτο.</item>
+    <item quantity="one">Ο αντίπαλός σας έφυγε από το παιχνίδι. Διεκδίκηση νίκης σε %s δευτερόλεπτο.</item>
     <item quantity="other">Ο αντίπαλος έφυγε από το παιχνίδι. Διεκδίκηση νίκης σε %s δευτερόλεπτα.</item>
   </plurals>
   <string name="opponentLeftChoices">Ο αντίπαλος σας έφυγε από το παιχνίδι. Μπορείτε να ισχυρισθείτε νίκη, ισοπαλία, ή να περιμένετε.</string>
@@ -174,8 +175,8 @@
   <string name="ratingStats">Στατιστικές βαθμολογίας</string>
   <string name="username">Όνομα χρήστη</string>
   <string name="usernameOrEmail">Όνομα χρήστη ή ηλ. ταχυδρομείο</string>
-  <string name="changeUsername">Αλλαγή ονόματος του χρήστη</string>
-  <string name="changeUsernameNotSame">Μόνο η αλλαγή χαρακτήρων σε μικρά-κεφαλαία επιτρέπεται. Για παράδειγμα \"johndoe\" σε \"JohnDoe\".</string>
+  <string name="changeUsername">Αλλαγή ονόματος χρήστη</string>
+  <string name="changeUsernameNotSame">Μόνο η αλλαγή χαρακτήρων από μικρά σε κεφαλαία επιτρέπεται. Για παράδειγμα \"johndoe\" σε \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Αλλαγή ονόματος χρήστη. Μπορεί να γίνει μόνο μία φορά και μόνο η αλλαγή χαρακτήρων σε μικρά-κεφαλαία στο όνομα χρήστη επιτρέπεται.</string>
   <string name="password">Κωδικός</string>
   <string name="changePassword">Αλλάξτε κωδικό</string>
@@ -809,7 +810,7 @@
   <string name="resignLostGames">Παραιτηθείτε σε παιχνίδια που χάνετε (μην αφήνετε τον χρόνο σας να τελειώσει).</string>
   <string name="temporaryInconvenience">Συγχωρέστε μας για την προσωρινή δυσφορία,</string>
   <string name="wishYouGreatGames">και σας ευχόμαστε καλές παρτίδες στο lichess.org.</string>
-  <string name="thankYouForReading">Ευχαριστούμε που αφιερώσατε χρόνο για να να τα διαβάσετε!</string>
+  <string name="thankYouForReading">Ευχαριστούμε που αφιερώσατε χρόνο για να διαβάσετε το μήνυμα!</string>
   <string name="lifetimeScore">Συνολικό σκορ</string>
   <string name="currentMatchScore">Τρέχον σκορ</string>
   <string name="agreementAssistance">Αποδέχομαι ότι ουδέποτε θα λάβω βοήθεια κατά τις παρτίδες μου (από υπολογιστή, βιβλίο, βάση δεδομένων ή άλλο πρόσωπο).</string>
@@ -818,6 +819,7 @@
   <string name="agreementPolicy">Αποδέχομαι ότι θα συμμορφωθώ με όλες τις πολιτικές του Lichess.</string>
   <string name="searchOrStartNewDiscussion">Αναζήτηση ή έναρξη νέας συνομιλίας</string>
   <string name="edit">Επεξεργασία</string>
+  <string name="rapid">Rapid</string>
   <string name="classical">Κλασικό</string>
   <string name="ultraBulletDesc">Εξαιρετικά γρήγορες παρτίδες: λιγότερο από 30 δεύτερα</string>
   <string name="bulletDesc">Πολύ γρήγορες παρτίδες: λιγότερο από 3 λεπτά</string>

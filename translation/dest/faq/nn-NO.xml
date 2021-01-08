@@ -52,7 +52,7 @@
   I eit fåtal tilfelle kan dette vere vanskeleg å avgjera automatisk (tvungne linjer, festningar).  I utgangspunktet held vi med den spelaren som har tid igjen på klokka.
 
   Merk at det er mogleg å sette matt med ein einskild springar eller løpar dersom motspelaren har ein brikke som kan blokkere kongen.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDE handbok %s</string>
+  <string name="fideHandbookX">FIDE handbok %s</string>
   <string name="discoveringEnPassant">Kvifor kan ein bonde slå ein passert bonde? (en passant)</string>
   <string name="explainingEnPassant">Dette er eit lovleg trekk kalla «en passant» («i forbifarta»). Wikipedia-artikkelen gir ein %1$s.
 
@@ -93,6 +93,8 @@ Sjå meir om dette trekket i %3$s for å få litt øving med det.</string>
   <string name="whatUsernameCanIchoose">Kva kan brukarnamnet mitt vere?</string>
   <string name="usernamesNotOffensive">Brukernamnet skal ikkje vere støytande, det skal ikkje utgje deg for å vere ein annan og det kan ikkje vere reklame. Du kan lese meir om %1$s.</string>
   <string name="guidelines">retningslinjer</string>
+  <string name="canIChangeMyUsername">Kan eg endra brukarnamnet mitt?</string>
+  <string name="usernamesCannotBeChanged">Nei, av tekniske og praktiske grunnar kan ikkje brukarnamn endras. Til det vert det nytta for mange stader: i databasar, eksportar, loggar og folks hovuder. Men du kan endra mellom store og små bokstavar éin gong.</string>
   <string name="uniqueTrophies">Unike trofé</string>
   <string name="ownerUniqueTrophies">Dette troféet er unikt for Lichess, ingen andre enn %1$s vil nokon gong få det.</string>
   <string name="wayOfBerserkExplanation">For å få det, utfordra hiimgosu seg sjølv til berserkergang og vann 100%% spel av %s.</string>

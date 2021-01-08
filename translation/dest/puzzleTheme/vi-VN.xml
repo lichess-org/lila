@@ -37,10 +37,12 @@
   <string name="enPassantDescription">Một đòn chiến thuật bao gồm luật bắt tốt qua đường, khi một con tốt có thể ăn một con tốt đối phương đi qua mặt nó khi đi 2 ô từ vị trí ban đầu của nó.</string>
   <string name="exposedKing">Vua sơ hở</string>
   <string name="exposedKingDescription">Một đòn chiến thuật bao gồm một quân vua với ít sự bảo vệ quanh nó, thường dẫn tới hết cờ.</string>
+  <string name="fork">Tấn công nhánh</string>
   <string name="forkDescription">Một nước đi mà một quân cờ tấn công hai quân cờ của đối phương cùng lúc.</string>
   <string name="hangingPiece">Quân cờ không được bảo vệ</string>
   <string name="hangingPieceDescription">Một chiến thuật liên quan đến quân cờ của đối phương không được phòng thủ hoặc phòng thủ không đủ dẫn tới việc có thể ăn quân cờ đấy.</string>
   <string name="intermezzo">Intermezzo</string>
+  <string name="knightEndgame">Tàn cuộc với Mã</string>
   <string name="knightEndgameDescription">Một thế cờ tàn chỉ có mã và tốt.</string>
   <string name="long">Câu đố dài</string>
   <string name="longDescription">Thắng trong ba nước cờ.</string>
@@ -67,12 +69,14 @@
   <string name="pinDescription">Một chiến thuật liên quan tới ghim, trong đó một quân cờ không thể di chuyển mà không làm lộ quân cờ đằng sau nó với giá trị lớn hơn.</string>
   <string name="promotion">Phong cấp</string>
   <string name="promotionDescription">Một quân tốt phong cấp hay đe dọa phong cấp là chìa khóa của chiến thuật.</string>
+  <string name="queenEndgame">Tàn cuộc với Hậu</string>
   <string name="queenEndgameDescription">Một thế cờ tàn chỉ có hậu và tốt.</string>
   <string name="queenRookEndgame">Hậu và Xe</string>
   <string name="queenRookEndgameDescription">Một thế cờ tàn chỉ có hậu, xe và tốt.</string>
   <string name="queensideAttack">Tấn công cánh hậu</string>
   <string name="queensideAttackDescription">Tấn công vua đối phương sau khi họ nhập thành cánh hậu.</string>
   <string name="quietMoveDescription">Một nước cờ không chiếu hay ăn quân của đối phương, nhưng lại tạo ra một sự đe dọa không tránh khỏi cho một nước đi sau.</string>
+  <string name="rookEndgame">Tàn cuộc với Xe</string>
   <string name="rookEndgameDescription">Một thế cờ tàn chỉ có xe và tốt.</string>
   <string name="sacrifice">Hy sinh</string>
   <string name="short">Câu đố ngắn</string>

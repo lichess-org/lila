@@ -52,7 +52,7 @@ El análisis informático en Lichess lo proporciona Stockfish.</string>
 En raras ocasiones esto puede ser difícil de decidir automáticamente (líneas forzadas, fortalezas). Por defecto, siempre estamos de parte del jugador que no se quedó sin tiempo.
 
 Ten en cuenta que es posible dar mate con un sólo caballo o alfil, siempre que el oponente tenga una pieza que pueda bloquear al rey.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">%s del manual de la FIDE</string>
+  <string name="fideHandbookX">%s del manual de la FIDE</string>
   <string name="discoveringEnPassant">¿Por qué un peón puede capturar otro peón cuando ya está pasado? (en passant)</string>
   <string name="explainingEnPassant">Este movimiento es legal, y se llama \"captura al paso\". El artículo de Wikipedia da una %1$s al mismo.
 
@@ -94,6 +94,8 @@ No solicites el título de LM.</string>
   <string name="whatUsernameCanIchoose">¿Cuál puede ser mi nombre de usuario?</string>
   <string name="usernamesNotOffensive">En general, los nombres de usuario no deben: ser ofensivos, suplantar a alguien o hacer publicidad. Puedes leer más sobre las %1$s.</string>
   <string name="guidelines">pautas</string>
+  <string name="canIChangeMyUsername">¿Puedo cambiar mi nombre de usuario?</string>
+  <string name="usernamesCannotBeChanged">No, los nombres de usuario no pueden cambiarse por razones técnicas y prácticas. Los nombres de usuario se materializan en muchos lugares: bases de datos, exportaciones, registros y en la mente de las personas. Puedes ajustar las mayúsculas solo una vez.</string>
   <string name="uniqueTrophies">Trofeos únicos</string>
   <string name="ownerUniqueTrophies">Ese trofeo es único en la historia de Lichess, nadie más que %1$s lo tendrá jamás.</string>
   <string name="wayOfBerserkExplanation">Para obtenerlo, hiimgosu se desafió a sí mismo a berserk y ganó 100%% partidas de %s.</string>

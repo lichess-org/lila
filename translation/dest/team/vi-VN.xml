@@ -14,6 +14,9 @@
   <string name="anyoneCanJoin">Miễn phí hoàn toàn</string>
   <string name="aConfirmationIsRequiredToJoin">Xác nhận để tham gia</string>
   <string name="joiningPolicy">Luật tham gia</string>
+  <plurals name="teamLeaders">
+    <item quantity="other">Đội trưởng</item>
+  </plurals>
   <string name="teamBestPlayers">Người giỏi nhất đội</string>
   <string name="teamRecentMembers">Thành viên Đội gần đây</string>
   <string name="kickSomeone">Loại ai đó ra khỏi đội</string>
@@ -24,4 +27,17 @@
   <string name="willBeReviewed">Yêu cầu tham gia đề nghị sẽ được xem xét bởi trưởng nhóm.</string>
   <string name="beingReviewed">Yêu cầu tham gia đề nghị đang được xem xét bởi trưởng nhóm.</string>
   <string name="teamBattle">Thi đấu theo đội</string>
+  <string name="teamBattleOverview">Một trận đấu giữa nhiều đội, mỗi người chơi ghi điểm cho đội của họ</string>
+  <string name="teamTournament">Giải đấu trong đội</string>
+  <string name="teamTournamentOverview">Một giải đấu Đấu trường mà chỉ thành viên của đội bạn có thể tham gia</string>
+  <string name="messageAllMembers">Nhắn tin tất cả thành viên</string>
+  <string name="messageAllMembersOverview">Gửi một tin nhắn riêng cho mỗi thành viên của đội</string>
+  <string name="messageAllMembersLongDescription">Gửi tin nhắn riêng tới TẤT CẢ các thành viên của đội.
+Bạn có thể dùng chứ năng này để gọi các người chơi đến tham gia một giải đấu hoặc thi đấu theo đội.
+Những người chơi không muốn nhận tin nhắn của bạn có thể sẽ thoát khỏi đội.</string>
+  <string name="teamsIlead">Những đội mà tôi dẫn đầu</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Có thể bạn muốn dẫn tới một trong những giải đấu sắp tới?</string>
+  <string name="usersWhoCanManageThisTeam">Những người dùng có thể quản lý đội này</string>
+  <string name="closeTeam">Giải tán đội</string>
+  <string name="closeTeamDescription">Giải tán đội vĩnh viễn.</string>
 </resources>

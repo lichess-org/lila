@@ -52,7 +52,7 @@ Lichess bruker Stockfish til maskinanalyse.</string>
 Dette kan i sjeldne tilfeller være vanskelig å avgjøre automatisk (tvungne linjer, festninger). Da holder vi med spilleren der tiden ikke løp ut.
 
 Legg merke til at den kan være mulig å matte med en enkelt springer eller løper hvis motstanderen har en brikke som kan blokkere kongen.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDEs håndbok %s</string>
+  <string name="fideHandbookX">FIDEs håndbok %s</string>
   <string name="discoveringEnPassant">Hvorfor kan en bonde slå en annen bonde når den allerede er passert? (en passant)</string>
   <string name="explainingEnPassant">Dette er et lovlig trekk kjent som «en passant». Wikipedia-artikkelen gir en %1$s.
 
@@ -93,6 +93,8 @@ Ikke be om LM-tittelen.</string>
   <string name="whatUsernameCanIchoose">Hva kan brukernavnet mitt være?</string>
   <string name="usernamesNotOffensive">Brukernavnet skal ikke være støtende, det skal ikke gi seg ut for å tilhøre en annen enn deg selv og det skal ikke inneholde reklame. Du kan lese mer om %1$s.</string>
   <string name="guidelines">retningslinjene</string>
+  <string name="canIChangeMyUsername">Kan jeg endre brukernavnet mitt?</string>
+  <string name="usernamesCannotBeChanged">Nei, det er tekniske og praktiske årsaker til at brukernavn ikke kan endres. Brukernavn opptrer for mange steder: databaser, eksporter, logger og folks hoder. Du kan endre mellom store og små bokstaver én gang.</string>
   <string name="uniqueTrophies">Unike trofeer</string>
   <string name="ownerUniqueTrophies">Det trofeet er unikt i Lichess-historien, ingen andre enn %1$s vil noensinne få det.</string>
   <string name="wayOfBerserkExplanation">For å få det utfordret hiimgosu seg selv til å gå berserk i og vinne 100%% av partiene i %s.</string>

@@ -45,4 +45,7 @@
   <string name="example">Przykład</string>
   <string name="addAnotherTheme">Dodaj inny motyw</string>
   <string name="jumpToNextPuzzleImmediately">Natychmiast przejdź do następnego zadania</string>
+  <string name="puzzleDashboard">Tablica z zadaniami</string>
+  <string name="personalTraining" comment="personalTraining&#10;&#10;A personalized set of puzzle themes that the user can practice to improve their skills.">Trening osobisty</string>
+  <string name="strengths" comment="strengths&#10;&#10;The title of a link leading to a section in the Puzzle dashboard. A user's puzzle strengths can be viewed there. This is a list of puzzle theme's the user performs best at.">Siła</string>
 </resources>

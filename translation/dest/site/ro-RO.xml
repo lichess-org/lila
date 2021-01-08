@@ -539,6 +539,7 @@
   <string name="clockInitialTime">Timpul inițial al ceasului</string>
   <string name="clockIncrement">Incrementarea ceasului</string>
   <string name="privacy">Confidențialitate</string>
+  <string name="privacyPolicy">Politica de confidențialitate</string>
   <string name="letOtherPlayersFollowYou">Permite altor jucători să te urmărească</string>
   <string name="letOtherPlayersChallengeYou">Permite altor jucători să te provoace la joc</string>
   <string name="letOtherPlayersInviteYouToStudy">Lasă alți jucători să te invite într-un studiu</string>
@@ -688,6 +689,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Dacă nu vezi email-ul trimis, verifică și în alte locuri, cum ar fi folderul de spam, junk, mesaje sociale sau alte foldere.</string>
   <string name="weHaveSentYouAnEmailTo">Am trimis un email la %s. Fă click pe link-ul trimis în acel email pentru a-ți reseta parola.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Înregistrându-te, ești de acord cu %s.</string>
+  <string name="readAboutOur">Citește despre %s.</string>
   <string name="networkLagBetweenYouAndLichess">Întârziere de rețea între tine și lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Timpul necesar procesării unei mutări pe serverul lichess</string>
   <string name="downloadAnnotated">Descarcă cu note</string>

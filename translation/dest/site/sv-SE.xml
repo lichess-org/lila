@@ -774,7 +774,7 @@
   <string name="reviewBlackMistakes">Granska svarts misstag</string>
   <string name="advantage">Fördel</string>
   <plurals name="nbSeconds">
-    <item quantity="one">%s sekunder</item>
+    <item quantity="one">%s sekund</item>
     <item quantity="other">%s sekunder</item>
   </plurals>
   <string name="opening">Öppning</string>

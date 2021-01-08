@@ -1,6 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Γρίφοι</string>
-  <string name="puzzleThemes" comment="puzzleThemes&#10;&#10;https://lichess.org/training/themes">Θέματα γρίφων</string>
+  <string name="puzzleThemes">Θέματα γρίφων</string>
+  <string name="recommended">Προτεινόμενα</string>
+  <string name="phases">Φάσεις</string>
+  <string name="motifs">Μοτίβα</string>
+  <string name="advanced">Για προχωρημένους</string>
+  <string name="lengths">Μήκος γρίφου</string>
+  <string name="mates">Ματ</string>
+  <string name="goals">Στόχοι</string>
+  <string name="specialMoves">Ειδικές κινήσεις</string>
+  <string name="didYouLikeThisPuzzle">Σας άρεσε αυτός ο γρίφος;</string>
+  <string name="voteToLoadNextOne">Ψηφίστε για να φορτώσετε το επόμενο!</string>
+  <string name="yourPuzzleRatingX">Η βαθμολογία γρίφων σας: %s</string>
+  <string name="findTheBestMoveForWhite">Βρείτε την καλύτερη κίνηση για τα λευκά.</string>
+  <string name="findTheBestMoveForBlack">Βρείτε την καλύτερη κίνηση για τα μαύρα.</string>
+  <string name="toGetPersonalizedPuzzles">Για να πάρετε εξατομικευμένους γρίφους:</string>
+  <string name="puzzleId">Γρίφος %s</string>
+  <string name="puzzleOfTheDay">Γρίφος της ημέρας</string>
+  <string name="clickToSolve">Κάντε κλικ για να τον λύσετε</string>
+  <string name="goodMove">Καλή κίνηση</string>
+  <string name="bestMove">Καλύτερη κίνηση!</string>
+  <string name="keepGoing">Συνεχίστε…</string>
+  <string name="puzzleSuccess">Επιτυχία!</string>
+  <string name="puzzleComplete">Ο γρίφος ολοκληρώθηκε!</string>
+  <string name="notTheMove">Δεν είναι αυτή η κίνηση!</string>
+  <string name="trySomethingElse">Δοκιμάστε κάτι άλλο.</string>
+  <string name="ratingX">Βαθμολογία: %s</string>
+  <string name="hidden">κρυφό</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Λύθηκε %s φορά</item>
+    <item quantity="other">Λύθηκε %s φορές</item>
+  </plurals>
+  <string name="fromGameLink">Από το παιχνίδι %s</string>
+  <string name="continueTraining">Συνέχεια εξάσκησης</string>
+  <string name="difficultyLevel">Επίπεδο δυσκολίας</string>
+  <string name="normal">Κανονικό</string>
+  <string name="easier">Εύκολο</string>
+  <string name="easiest">Πολύ εύκολο</string>
+  <string name="harder">Δύσκολο</string>
+  <string name="hardest">Πολύ δύσκολο</string>
+  <string name="example">Παράδειγμα</string>
   <string name="addAnotherTheme">Προσθήκη νέου θέματος</string>
+  <string name="jumpToNextPuzzleImmediately">Μετάβαση στον επόμενο γρίφο αμέσως</string>
+  <string name="puzzleDashboard">Ταμπλό γρίφων</string>
+  <string name="personalTraining" comment="personalTraining&#10;&#10;A personalized set of puzzle themes that the user can practice to improve their skills.">Εξατομικευμένη προπόνηση</string>
+  <string name="strengths" comment="strengths&#10;&#10;The title of a link leading to a section in the Puzzle dashboard. A user's puzzle strengths can be viewed there. This is a list of puzzle theme's the user performs best at.">Δυνατά σημεία</string>
 </resources>

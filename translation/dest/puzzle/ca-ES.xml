@@ -39,4 +39,5 @@
   <string name="example">Exemple</string>
   <string name="addAnotherTheme">Afegir un nou tema</string>
   <string name="jumpToNextPuzzleImmediately">Passar al següent problema immediatament</string>
+  <string name="puzzleDashboard">Panell de problemes</string>
 </resources>

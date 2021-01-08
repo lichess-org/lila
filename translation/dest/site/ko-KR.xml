@@ -9,6 +9,7 @@
   <string name="yourTurn">내 차례</string>
   <string name="aiNameLevelAiLevel">%1$s 레벨 %2$s</string>
   <string name="level">레벨</string>
+  <string name="strength">강도</string>
   <string name="toggleTheChat">채팅 끄기/켜기</string>
   <string name="toggleSound">음소거/음소거 해제</string>
   <string name="chat">채팅</string>
@@ -476,6 +477,8 @@
   <string name="currentPassword">현재 비밀번호</string>
   <string name="newPassword">새 비밀번호</string>
   <string name="newPasswordAgain">새 비밀번호 확인</string>
+  <string name="newPasswordsDontMatch">새로운 비밀번호가 일치하지 않습니다</string>
+  <string name="newPasswordStrength">비밀번호 강도</string>
   <string name="clockInitialTime">기본 시간</string>
   <string name="clockIncrement">한 수당 증가하는 시간</string>
   <string name="privacy">보안</string>

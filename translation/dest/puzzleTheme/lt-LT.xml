@@ -101,6 +101,6 @@
   <string name="xRayAttackDescription">Figūra puola ar gina laukelį kiaurai priešininko figūros.</string>
   <string name="zugzwang">Priverstinis ėjimas</string>
   <string name="zugzwangDescription">Priešininkas apribotas ėjimais, kuriuos gali padaryti, ir visi jo ėjimai tik pabloginą jo poziciją.</string>
-  <string name="healthyMix">Sveikas mišinys</string>
-  <string name="healthyMixDescription">Visko po truputį. Nežinote ko tikėtis, todėl būkite pasiruošę bet kam! Visai kaip tikruose žaidimuose.</string>
+  <string name="healthyMix">Visko po truputį</string>
+  <string name="healthyMixDescription">Nežinote ko tikėtis, todėl būkite pasiruošę bet kam! Visai kaip tikruose žaidimuose.</string>
 </resources>

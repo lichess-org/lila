@@ -10,7 +10,7 @@
   <string name="moveListWhilePlaying">Λίστα κινήσεων κατά τη διάρκεια της παρτίδας</string>
   <string name="pgnPieceNotation">Εμφάνιση κινήσεων</string>
   <string name="chessPieceSymbol">Σύμβολο πιονιού στο σκάκι</string>
-  <string name="pgnLetter">Χαρακτήρας (K, Q, R, B, N)</string>
+  <string name="pgnLetter">Γράμμα (K, Q, R, B, N)</string>
   <string name="zenMode">Λειτουργία Zεν</string>
   <string name="displayBoardResizeHandle">Εμφάνιση χειριστηρίου αλλαγής μεγέθους σκακιέρας</string>
   <string name="onlyOnInitialPosition">Μόνο στην αρχική διάταξη</string>
@@ -21,7 +21,7 @@
   <string name="horizontalGreenProgressBars">Οριζόντιες πράσινες γραμμές προόδου</string>
   <string name="soundWhenTimeGetsCritical">Ηχητική ειδοποίηση όταν ο χρόνος γίνεται κρίσιμος</string>
   <string name="giveMoreTime">Προσθέστε περισσότερο χρόνο</string>
-  <string name="gameBehavior">Συμπεριφορά παιχνιδιού</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Συμπεριφορά παιχνιδιού</string>
   <string name="howDoYouMovePieces">Πώς θέλετε να μετακινείτε τα κομμάτια;</string>
   <string name="clickTwoSquares">Κάνοντας κλικ στα δύο τετράγωνα</string>
   <string name="dragPiece">Σέρνοντας ένα πιόνι</string>
@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Ροκέ μετακινώντας τον βασιλιά δύο τετράγωνα</string>
   <string name="castleByMovingOntoTheRook">Ροκέ μετακινώντας τον βασιλιά πάνω στον πύργο</string>
   <string name="inputMovesWithTheKeyboard">Κάντε κινήσεις με το πληκτρολόγιο</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Αγκύρωση βελών σε έγκυρες κινήσεις</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Αποστολή «Good game, well played» (Ωραίο παιχνίδι, καλά παιγμένο) μετά από ήττα ή ισοπαλία</string>
   <string name="yourPreferencesHaveBeenSaved">Οι προτιμήσεις σας αποθηκεύτηκαν.</string>
 </resources>

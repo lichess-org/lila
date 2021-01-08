@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">Lichess μεταδότες</string>
-  <string name="lichessStreamer">Lichess μεταδότης</string>
+  <string name="lichessStreamers">Lichess streamers</string>
+  <string name="lichessStreamer">Lichess streamer</string>
   <string name="live">ΖΩΝΤΑΝΑ!</string>
   <string name="offline">ΕΚΤΟΣ ΣΥΝΔΕΣΗΣ</string>
   <string name="currentlyStreaming">Αυτή τη στιγμή μεταδίδουν: %s</string>
   <string name="lastStream">Τελευταία μετάδοση %s</string>
-  <string name="becomeStreamer">Γίνετε Lichess μεταδότης</string>
+  <string name="becomeStreamer">Γίνετε Lichess streamer</string>
   <string name="doYouHaveStream">Έχετε μια μετάδοση Twitch ή YouTube;</string>
   <string name="hereWeGo">Ξεκινάμε!</string>
-  <string name="allStreamers">Όλοι οι μεταδότες</string>
-  <string name="editPage">Διόρθωση σελίδας μεταδότη</string>
+  <string name="allStreamers">Όλοι οι streamers</string>
+  <string name="editPage">Επεξεργασία σελίδας streamer</string>
   <string name="yourPage">Η σελίδα σας ως μεταδότης</string>
   <string name="downloadKit">Κατέβασμα πακέτου μετάδοσης</string>
   <string name="xIsStreaming">%s μεταδίδει</string>
@@ -26,8 +26,8 @@
   <string name="approved">Η μετάδοσή σας εγκρίθηκε.</string>
   <string name="pendingReview">Η μετάδοσή σας αξιολογείται από τους διαχειριστές.</string>
   <string name="pleaseFillIn">Παρακαλώ συμπληρώστε τις πληροφορίες μεταδότη, και ανεβάστε μια εικόνα.</string>
-  <string name="whenReady">Όταν είστε έτοιμος να εμφανίζεστε ως Lichess μεταδότης, %s</string>
-  <string name="requestReview">αιτηθείτε μια αξιολόγηση από διαχειριστή</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Όταν είστε έτοιμος να εμφανίζεστε ως Lichess μεταδότης, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">αιτηθείτε μια αξιολόγηση από διαχειριστή</string>
   <string name="anotherLanguage">Αν η μετάδοσή σας είναι σε γλώσσα διαφορετικά από τα Αγγλικά, συμπεριλάβετε την σωστή ετικέτα γλώσσας (%s), σε ορθογώνιες αγκύλες, στην αρχή του τίτλου μετάδοσης.
 Παράδειγμα, συμπεριλάβετε \"[RU]\" για Ρώσικα, \"[GR]\" για Ελληνικά, \"[FR]\" για Γαλλικά, κ. ο. κ.
 Τοποθετήστε το στο τίτλο μετάδοσης στη σελίδα του Twitch ή YouTube, και όχι στις ρυθμίσεις μετάδοσης του Lichess.

@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="private">Riêng tư</string>
+  <string name="noneYet">Chưa có gì cả.</string>
+  <string name="recentlyUpdated">Cập nhật gần đây</string>
+  <string name="mostPopular">Phổ biến nhất</string>
+  <string name="addNewChapter">Thêm một chương mới</string>
+  <plurals name="nbChapters">
+    <item quantity="other">%s Chương</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="other">%s ván cờ</item>
+  </plurals>
+  <string name="addMembers">Thêm thành viên</string>
+  <plurals name="nbMembers">
+    <item quantity="other">%s thành viên</item>
+  </plurals>
   <string name="pleaseOnlyInvitePeopleYouKnow">Vui lòng chỉ mời những người bạn biết và muốn tham gia.</string>
   <string name="searchByUsername">Tìm theo tên người dùng</string>
   <string name="spectator">Khán giả</string>
@@ -26,6 +41,15 @@
   <string name="last">Trang cuối</string>
   <string name="shareAndExport">Chia sẻ &amp; xuất</string>
   <string name="cloneStudy">Tạo bản sao</string>
+  <string name="downloadGame">Tải xuống ván cờ</string>
+  <string name="embedInYourWebsite">Nhúng vào website hoặc blog của bạn</string>
+  <string name="readMoreAboutEmbedding">Đọc thêm về việc nhúng</string>
+  <string name="open">Mở</string>
+  <string name="editChapter">Sửa chương</string>
+  <string name="newChapter">Chương mới</string>
+  <string name="analysisMode">Chế độ phân tích</string>
+  <string name="saveChapter">Lưu chương</string>
+  <string name="deleteChapter">Xóa chương</string>
   <string name="deleteThisChapter">Bạn muốn xóa chương này? Không thể làm lại được đâu!</string>
   <string name="clearAllCommentsInThisChapter">Xóa tất cả bình luận, dấu chú thích và hình vẽ trong chương này?</string>
   <string name="rightUnderTheBoard">Ngay dưới bàn cờ</string>

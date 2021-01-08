@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Problemi</string>
-  <string name="puzzleThemes" comment="puzzleThemes&#10;&#10;https://lichess.org/training/themes">Teme problema</string>
+  <string name="puzzleThemes">Teme problema</string>
   <string name="recommended">Preporučeno</string>
   <string name="phases">Faze</string>
   <string name="motifs">Motivi</string>
@@ -38,4 +38,7 @@
   <string name="example">Primjer</string>
   <string name="addAnotherTheme">Dodajte drugu temu</string>
   <string name="jumpToNextPuzzleImmediately">Odmah skočite na sljedeći problem</string>
+  <string name="puzzleDashboard">Kontrolna tabla za probleme</string>
+  <string name="personalTraining" comment="personalTraining&#10;&#10;A personalized set of puzzle themes that the user can practice to improve their skills.">Lični trening</string>
+  <string name="strengths" comment="strengths&#10;&#10;The title of a link leading to a section in the Puzzle dashboard. A user's puzzle strengths can be viewed there. This is a list of puzzle theme's the user performs best at.">Jake strane</string>
 </resources>

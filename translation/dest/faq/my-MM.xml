@@ -4,5 +4,7 @@
   <string name="frequentlyAskedQuestions">အမေးးများသောမေးခွန်းများ</string>
   <string name="whyIsLichessCalledLichess">Lichess ကိုဘာလို့ Lichess လို့ခေါ်တာလဲ?</string>
   <string name="gameplay">ကစားခြင်း</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDE လက်စွဲစာအုပ် %s</string>
+  <string name="fideHandbookX">FIDE လက်စွဲစာအုပ် %s</string>
+  <string name="canIChangeMyUsername">ကျွန်တော့် အသုံးပြုတဲ့ အမည်ကို ပြောင်းခွင့် ရှိပါသလား</string>
+  <string name="usernamesCannotBeChanged">ပြောင်းလဲခွင့် မရှိပါဘူး။ လက်တွေ့ကျတဲ့ အကြောင်းရင်း၊ နည်းပညာပိုင်း အကြောင်းရင်းတွေကြောင့် ဖြစ်ပါတယ်။ အသုံးပြုသူအမည်တွေကို ဒေတာဘေ့စ်တွေ၊ မှတ်တမ်းတွေနဲ့ လူတွေရဲ့ ဦးနှောက်တွေ အပါအဝင် နေရာ အများအပြားမှာ မှတ်ထားပြီးသား ဖြစ်နေလို့ပါ။ အင်္ဂလိပ် စာလုံး အကြီးအသေးကို တစ်ကြိမ် ပြောင်းလဲခွင့် ရှိပါတယ်။</string>
 </resources>

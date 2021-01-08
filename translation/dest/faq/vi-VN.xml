@@ -52,7 +52,7 @@ Phân tích máy tính trên Lichess do Stockfish cung cấp.</string>
 Trong một số trường hợp hiếm hoi, điều này có thể khó được quyết định một cách tự động (đường bắt buộc, pháo đài). Mặc định chúng tôi luôn sát cánh với người chơi không hết thời gian.
 
 Lưu ý rằng có thể chiếu hết với một quân mã hoặc một quân tượng nếu đối phương có quân cờ có thể chặn được vua.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">Sổ tay FIDE %s</string>
+  <string name="fideHandbookX">Sổ tay FIDE %s</string>
   <string name="discoveringEnPassant">Tại sao một con tốt có thể bị bắt bởi một con tốt khác khi mà nó đã đi qua? (bắt tốt qua đường)</string>
   <string name="explainingEnPassant">Đây là một nước đi hợp lệ được gọi là \"bắt tốt qua đường\". Bài viết trên Wikipedia cho một %1$s.
 
@@ -93,6 +93,8 @@ Vui lòng không yêu cầu được nhận danh hiệu LM.</string>
   <string name="whatUsernameCanIchoose">Tôi có thể đặt tên người dùng là gì?</string>
   <string name="usernamesNotOffensive">Nói chung, tên người dùng không được: xúc phạm, mạo danh người khác hoặc quảng cáo. Bạn có thể đọc thêm về %1$s.</string>
   <string name="guidelines">hướng dẫn</string>
+  <string name="canIChangeMyUsername">Tôi có thể đổi tên đăng nhập được không?</string>
+  <string name="usernamesCannotBeChanged">Không, tên đăng nhập không thể thay đổi được vì nhiều lý do kỹ thuật và thực tế. Các tên đăng nhập được đưa vào quá nhiều nơi: cơ sở dữ liệu, biên bản ván cờ, và trong trí nhớ của mọi người. Bạn có thể điều chỉnh việc viết hoa hoặc thường một lần.</string>
   <string name="uniqueTrophies">Những chiếc cúp độc nhất</string>
   <string name="ownerUniqueTrophies">Chiếc cúp đó là duy nhất trong lịch sử của Lichess, không ai khác ngoài %1$s sẽ có được nó.</string>
   <string name="wayOfBerserkExplanation">Để có được nó, hiimgosu đã tự thử thách bản thân bằng cách chia đôi thời gian mỗi ván và giành chiến thắng 100%% tất cả các ván trong một %s.</string>

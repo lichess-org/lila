@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Puzzels</string>
-  <string name="puzzleThemes" comment="puzzleThemes&#10;&#10;https://lichess.org/training/themes">Puzzelthema\'s</string>
+  <string name="puzzleThemes">Puzzelthema\'s</string>
   <string name="recommended">Aanbevolen</string>
   <string name="phases">Fasen</string>
   <string name="motifs">Motieven</string>
@@ -36,11 +36,13 @@
   <string name="continueTraining">Ga verder met de training</string>
   <string name="difficultyLevel">Moeilijkheidsgraad</string>
   <string name="normal">Standaard</string>
-  <string name="easier">Gemakkelijker</string>
-  <string name="easiest">Gemakkelijkst</string>
-  <string name="harder">Moeilijker</string>
-  <string name="hardest">Moeilijkst</string>
+  <string name="easier">Makkelijk</string>
+  <string name="easiest">Makkelijker</string>
+  <string name="harder">Moeilijk</string>
+  <string name="hardest">Moeilijker</string>
   <string name="example">Voorbeeld</string>
   <string name="addAnotherTheme">Voeg nog een thema toe</string>
   <string name="jumpToNextPuzzleImmediately">Direct door naar volgende puzzel</string>
+  <string name="puzzleDashboard">Puzzel-dashboard</string>
+  <string name="personalTraining" comment="personalTraining&#10;&#10;A personalized set of puzzle themes that the user can practice to improve their skills.">Persoonlijke training</string>
 </resources>

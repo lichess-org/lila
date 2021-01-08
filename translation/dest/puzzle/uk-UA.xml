@@ -45,4 +45,5 @@
   <string name="example">Приклад</string>
   <string name="addAnotherTheme">Додати іншу тему</string>
   <string name="jumpToNextPuzzleImmediately">Перейти до наступної задачі миттєво</string>
+  <string name="personalTraining" comment="personalTraining&#10;&#10;A personalized set of puzzle themes that the user can practice to improve their skills.">Індивідуальні тренування</string>
 </resources>

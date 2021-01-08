@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">タクティクス問題</string>
-  <string name="puzzleThemes" comment="puzzleThemes&#10;&#10;https://lichess.org/training/themes">問題のテーマ</string>
+  <string name="puzzleThemes">問題のテーマ</string>
   <string name="recommended">おすすめ</string>
   <string name="phases">序盤・中盤・終盤</string>
   <string name="motifs">モチーフ</string>
@@ -42,4 +42,6 @@
   <string name="example">例</string>
   <string name="addAnotherTheme">別のテーマを追加</string>
   <string name="jumpToNextPuzzleImmediately">解いたらすぐ次の問題を読み込む</string>
+  <string name="puzzleDashboard">問題成績ボード</string>
+  <string name="personalTraining" comment="personalTraining&#10;&#10;A personalized set of puzzle themes that the user can practice to improve their skills.">特別トレーニング</string>
 </resources>

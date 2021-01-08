@@ -28,6 +28,8 @@
   <string name="defensiveMoveDescription">Ett exakt drag eller sekvens av drag som är nödvändiga behövs för att undvika att förlora material eller annan fördel.</string>
   <string name="endgame">Slutspel</string>
   <string name="longDescription">Tre drag för att vinna.</string>
+  <string name="mate">Matt</string>
+  <string name="mateDescription">Vinn partiet med stil.</string>
   <string name="mateIn1">Matt i 1 drag</string>
   <string name="mateIn1Description">Gör schackmatt i ett drag.</string>
   <string name="mateIn2">Matt i 2 drag</string>
@@ -43,6 +45,8 @@
   <string name="promotion">Promovering</string>
   <string name="queenRookEndgame">Dam och torn</string>
   <string name="queenRookEndgameDescription">Ett slutspel med endast damer, torn och bönder.</string>
+  <string name="rookEndgame">Tornslutspel</string>
+  <string name="rookEndgameDescription">Ett slutspel med endast torn och bönder.</string>
   <string name="short">Kort pussel</string>
   <string name="shortDescription">Två drag för att vinna.</string>
 </resources>

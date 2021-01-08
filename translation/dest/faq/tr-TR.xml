@@ -54,7 +54,7 @@ Lichess üzerindeki bilgisayar analizi Stockfish tarafından desteklenmektedir.<
 Nadir durumlarda bu karara otomatik olarak ulaşmak zor olabilir (zorla berabere, kaleler). Varsayılan olarak biz her zaman hangi oyuncunun zamanı bitmedi ise onun tarafını tutarız.
 
 Rakibin şahı kenara sıkıştırabilecek herhangi bir taşı varsa, tek bir at veya fil ile mat edebilmenin mümkün olabileceğini unutmayın.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">%s bölümdür. Bu dizi, SSS\'nin \'Zamandan kaybetme, beraberlik ve yetersiz taş\' bölümünde \'FIDE el kitabı §6.9\' olarak görünür.
+  <string name="fideHandbookX">%s bölümdür. Bu dizi, SSS\'nin \'Zamandan kaybetme, beraberlik ve yetersiz taş\' bölümünde \'FIDE el kitabı §6.9\' olarak görünür.
 
 Https://handbook. fide. com/chapter/E012018 bağlantısı.
 Dosya: Sık Sorulan Sorular (SSS) sayfası</string>
@@ -98,6 +98,8 @@ LM unvanı için sorma.</string>
   <string name="whatUsernameCanIchoose">Kullanıcı adım ne olmalı?</string>
   <string name="usernamesNotOffensive">Genel olarak, kullanıcı adları: saldırgan, başkasını taklit eden veya reklam amaçlı olmamalıdır. %1$s hakkında daha fazla bilgi edinebilirsiniz.</string>
   <string name="guidelines">yönetmelik</string>
+  <string name="canIChangeMyUsername">Kullanıcı adımı değiştirebilir miyim?</string>
+  <string name="usernamesCannotBeChanged">Hayır, kullanıcı adları teknik ve pratik sebeplerden ötürü değiştirilemez. Veri tabanları, dışa aktarmalar, log dosyaları ve insanların hafızası dahil olmak üzere kullanıcı adları birçok yerde kullanılıyor. Yalnızca bir kereyle sınırlı olmak üzere kullanıcı adındaki büyük ve küçük harflerde oynama yapabilirsiniz.</string>
   <string name="uniqueTrophies">Benzersiz kupalar</string>
   <string name="ownerUniqueTrophies">Bu kupa Lichess tarihinde benzersizdir ve %1$s dışında kimse bu kupaya sahip olamaz.</string>
   <string name="wayOfBerserkExplanation">Bunu almak için, hiimgosu kendini berserk ile test etti ve %s oyunlarının 100%%\'ünü kazandı.</string>

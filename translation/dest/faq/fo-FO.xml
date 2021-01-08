@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="faqAbbreviation">FAQ</string>
+  <string name="frequentlyAskedQuestions">Spurningar, ið ofta verða settir</string>
+  <string name="whyIsLichessCalledLichess">Hví eitur tað Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess er ein samanseting av live/light/libre og chess. Tað verður úttalað %1$s.</string>
+  <string name="leechess">lee-chess</string>
+  <string name="hearItPronouncedBySpecialist">Hoyr, hvussu tað verður úttalað av einum serfrøðingi.</string>
+  <string name="whyLiveLightLibre">Live, tí at talv verða telvað, og til ber at hyggja at teimum beinleiðis, 24/7; light og libre, tí at Lichess er open-source og ikki tyngt av einstaklingaognarviðurskiftum og øðrum skrambli, ið plágar aðrar heimasíður.</string>
+  <string name="whyIsLilaCalledLila">Á sama hátt er tað við keldukotuni fyri Lichess, %1$s, ið stendur fyri li[chess in sca]la. Meginparturin av Lichess er skrivaður í %2$s, ið er eitt hugskygt forritanarmál.</string>
   <string name="howCanIContributeToLichess">Hvussu kann eg stuðla Lichess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess verður rikið við peningagávum frá stuðlum og sjálvbodnum arbeiði.</string>
+  <string name="findMoreAndSeeHowHelp">Tú kanst fáa meira kunning um %1$s (eisini um %2$s). Hevur tú hug at hjálpa Lichess við at bjóða tína tíð og tínar førleikar fram, eru nógvir %3$s.</string>
+  <string name="beingAPatron">at vera stuðul</string>
+  <string name="breakdownOfOurCosts">sundurgreining av okkara útreiðslum</string>
+  <string name="otherWaysToHelp">aðrir mátar at hjálpa</string>
   <string name="accounts">Kontur</string>
   <string name="whatUsernameCanIchoose">Hvat kann brúkaranavn mítt vera?</string>
+  <string name="canIChangeMyUsername">Kann eg broyta brúkaranavn mítt?</string>
+  <string name="usernamesCannotBeChanged">Nei, av tøkniligum og verkligum ávum, ber ikki til at broyta brúkaranøvn. Brúkaranøvn koma fyri ov nógv støð: í dátugrunnum, útflutningum, skráum, og í huganum á fólki. Til ber at broyta, um navnið verður skrivað við stórum ella smáum stavum eina ferð.</string>
 </resources>

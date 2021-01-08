@@ -42,4 +42,6 @@ Los chugadors a los quals no les faiga goyo recibir los tuyos mensaches pueden a
   <string name="youWayWantToLinkOneOfTheseTournaments">Talment quieras vincular un d\'estes proximos torneyos?</string>
   <string name="usersWhoCanManageThisTeam">Usuarios que pueden administrar este equipo</string>
   <string name="leadersChat">Chat de liders</string>
+  <string name="closeTeam">Zarrar equipo</string>
+  <string name="closeTeamDescription">Zarrar l\'equipo pa cutio.</string>
 </resources>
