@@ -512,6 +512,7 @@
   <string name="clockInitialTime">Ρολόι αρχικός χρόνος</string>
   <string name="clockIncrement">Ρολόι προσαύξηση</string>
   <string name="privacy">Απόρρητο</string>
+  <string name="privacyPolicy">Πολιτική απορρήτου</string>
   <string name="letOtherPlayersFollowYou">Επιτρέψτε σε άλλους παίκτες να σας ακολουθούν</string>
   <string name="letOtherPlayersChallengeYou">Επιτρέψτε σε άλλους παίκτες να σας προκαλούν σε παιχνίδι</string>
   <string name="letOtherPlayersInviteYouToStudy">Επιτρέψτε σε άλλους παίκτες να σας προσκαλούν σε μελέτη</string>
