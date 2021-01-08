@@ -36,7 +36,7 @@
   <string name="contributor">Συνεισφέρων</string>
   <string name="kick">Διώξε</string>
   <string name="leaveTheStudy">Αποχώρησε από αυτήν την μελέτη</string>
-  <string name="youAreNowAContributor">Είστε πλέον συνδημιουργός</string>
+  <string name="youAreNowAContributor">Μπορείτε τώρα να συνεισφέρετε στην μελέτη</string>
   <string name="youAreNowASpectator">Είστε πλέον θεατής</string>
   <string name="pgnTags">PGN ετικέτες</string>
   <string name="like">Μου αρέσει</string>
@@ -64,13 +64,16 @@
   <string name="studyUrl">URL μελέτης</string>
   <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">URL Αναμετάδοσης</string>
   <string name="currentChapterUrl">Τρέχον κεφάλαιο URL</string>
+  <string name="currentGameUrl">Το URL από το τρέχον παιχνίδι</string>
   <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Επικολλήστε το παρόν για ενσωμάτωση στο φόρουμ</string>
   <string name="startAtInitialPosition">Ξεκινάει από αρχική θέση</string>
   <string name="startAtX">Ξεκινάει με %s</string>
   <string name="embedInYourWebsite">Ενσωματώστε στην ιστοσελίδα σας ή το μπλογκ σας</string>
+  <string name="readMoreAboutEmbedding">Διαβάστε περισσότερα για την ενσωμάτωση</string>
+  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Μόνο δημόσιες μελέτες μπορούν να ενσωματωθούν!</string>
   <string name="open">Άνοιξε</string>
   <string name="xBroughtToYouByY">%1$s, δημιουργήθηκε από %2$s</string>
-  <string name="studyNotFound">Η σπουδή δεν βρέθηκε</string>
+  <string name="studyNotFound">Η μελέτη δεν βρέθηκε</string>
   <string name="editChapter">Επεξεργάσου το κεφάλαιο</string>
   <string name="newChapter">Νέο κεφάλαιο</string>
   <string name="orientation">Προσανατολισμός</string>
@@ -96,11 +99,11 @@
   <string name="loadAGameFromPgn">Φόρτωσε μια παρτίδα από PGN</string>
   <string name="automatic">Αυτόματο</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="one">Επικόλληστε το PGN εδώ, μέχρι %s παρτίδες</item>
+    <item quantity="one">Επικολλήστε το PGN εδώ, μέχρι %s παρτίδες</item>
     <item quantity="other">Επικολλήστε το PGN εδώ, μέχρι %s παρτίδες</item>
   </plurals>
-  <string name="urlOfTheGame">URL παρτίδας</string>
-  <string name="loadAGameFromXOrY">Φόρτωση παρτίδας από %1$s ή %2$s</string>
+  <string name="urlOfTheGame">URL παρτίδων, ένα ανά γραμμή</string>
+  <string name="loadAGameFromXOrY">Φόρτωση παρτίδων από %1$s ή %2$s</string>
   <string name="createChapter">Δημιουργία κεφαλαίου</string>
   <string name="configureLiveBroadcast">Ρύθμιση αναμετάδοσης</string>
   <string name="createStudy">Δημιουργία μελέτης</string>
@@ -112,7 +115,7 @@
   <string name="allowCloning">Επέτρεψε αντιγραφή</string>
   <string name="nobody">Κανένας</string>
   <string name="onlyMe">Μόνο εγώ</string>
-  <string name="contributors">Συνδημιουργοί</string>
+  <string name="contributors">Συνεισφέροντες</string>
   <string name="members">Μέλη</string>
   <string name="everyone">Οποιοσδήποτε</string>
   <string name="enableSync">Ενεργ. συγχρονισμού</string>
