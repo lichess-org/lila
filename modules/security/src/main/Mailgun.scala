@@ -111,7 +111,13 @@ ${trans.common_contact("https://lichess.org/contact").render}"""
         small(
           trans.common_note(Mailgun.html.noteLink),
           " ",
-          trans.common_contact(noteContact)
+          trans.common_contact(noteContact),
+          " ",
+          lila.i18n.I18nKeys.readAboutOur(
+            a(href := "https://lichess.org/privacy")(
+              lila.i18n.I18nKeys.privacyPolicy()
+            )
+          )
         )
       )
 
