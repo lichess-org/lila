@@ -511,6 +511,7 @@
   <string name="clockInitialTime">Capital temps initial à la pendule</string>
   <string name="clockIncrement">Incrément de la pendule</string>
   <string name="privacy">Confidentialité</string>
+  <string name="privacyPolicy">Politique de confidentialité</string>
   <string name="letOtherPlayersFollowYou">Autoriser les autres joueurs à vous suivre</string>
   <string name="letOtherPlayersChallengeYou">Autoriser les autres joueurs à vous défier</string>
   <string name="letOtherPlayersInviteYouToStudy">Autoriser les autres joueurs à vous inviter à une analyse partagée</string>
