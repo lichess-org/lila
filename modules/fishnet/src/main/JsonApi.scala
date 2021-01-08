@@ -143,7 +143,7 @@ object JsonApi {
       val npsCeil = 10 * 1000 * 1000
 
       val desiredNodes    = 3 * 1000 * 1000
-      val acceptableNodes = desiredNodes * 0.9
+      val acceptableNodes = desiredNodes * 0.8
     }
   }
 
