@@ -482,6 +482,7 @@
   <string name="clockInitialTime">持時間</string>
   <string name="clockIncrement">追加時間</string>
   <string name="privacy">プライバシー（英文）</string>
+  <string name="privacyPolicy">プライバシー・ポリシー</string>
   <string name="letOtherPlayersFollowYou">他人からのフォローを可能にする</string>
   <string name="letOtherPlayersChallengeYou">他人からの挑戦を可能にする</string>
   <string name="letOtherPlayersInviteYouToStudy">研究について他の人からの招待を認める</string>
@@ -623,6 +624,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">メールが見つからない場合は、他の場所（スパムフォルダなど）を確認してください。</string>
   <string name="weHaveSentYouAnEmailTo">%sにメールを送信しました。リンクをクリックしてパスワードの変更を完了してください。</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">登録するとあなたは %s に従うと同意したことになります。</string>
+  <string name="readAboutOur">Lichess の %s 文書です。</string>
   <string name="networkLagBetweenYouAndLichess">あなたと Lichess の間のネットワークラグ</string>
   <string name="timeToProcessAMoveOnLichessServer">Lichess サーバが手を処理する時間</string>
   <string name="downloadAnnotated">解説つきダウンロード</string>
