@@ -510,6 +510,7 @@
   <string name="clockInitialTime">Starttid</string>
   <string name="clockIncrement">Tidstillägg</string>
   <string name="privacy">Sekretess</string>
+  <string name="privacyPolicy">Integritetspolicy</string>
   <string name="letOtherPlayersFollowYou">Låt andra spelare följa dig</string>
   <string name="letOtherPlayersChallengeYou">Låt andra spelare utmana dig</string>
   <string name="letOtherPlayersInviteYouToStudy">Låt andra spelare bjuda in dig till studier</string>
@@ -655,6 +656,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Om du inte ser e-postmeddelandet, kontrollera andra ställen där det kan vara, som din skräppost, spam, sociala eller andra mappar.</string>
   <string name="weHaveSentYouAnEmailTo">Vi har skickat ett e-postmeddelande till %s. Tryck på länken i e-posten för att återställa ditt lösenord.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Genom att registrera samtycker du till att vara bunden av våra %s.</string>
+  <string name="readAboutOur">Läs om vår %s.</string>
   <string name="networkLagBetweenYouAndLichess">Nätverksfördröjning mellan dig och lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tid att bearbeta ett drag på lichess server</string>
   <string name="downloadAnnotated">Hämta med noter</string>
