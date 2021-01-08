@@ -50,6 +50,8 @@
   <string name="pawnEndgameDescription">Ένα τέλος παρτίδας μόνο με πιόνια.</string>
   <string name="pin">Κάρφωμα</string>
   <string name="pinDescription">Μια τακτική που περιλαμβάνει καρφώματα, όπου ένα κομμάτι αδυνατεί να μετακινηθεί χωρίς να αποκαλύψει μια επίθεση σε ένα κομμάτι μεγαλύτερης αξίας.</string>
+  <string name="promotion">Προαγωγή</string>
+  <string name="promotionDescription">Ένα πιόνι που προάγεται ή απειλεί να προαχθεί είναι κλειδί για αυτή την τακτική.</string>
   <string name="queenEndgame">Φινάλε Βασιλισσών</string>
   <string name="queenEndgameDescription">Ένα τέλος παρτίδας μόνο με βασίλισσες και πιόνια.</string>
   <string name="queenRookEndgame">Βασίλισσα και Πύργος</string>
@@ -66,6 +68,12 @@
   <string name="skewerDescription">Ένα μοτίβο όπου ένα κομμάτι υψηλής αξίας δέχεται επίθεση, κάνει στην άκρη, και επιτρέπει την επίθεση ή το πάρσιμο ενός κομματιού μικρότερης αξίας πίσω από αυτό, το αντίστροφο δηλαδή του καρφώματος.</string>
   <string name="trappedPiece">Παγιδευμένο κομμάτι</string>
   <string name="trappedPieceDescription">Ένα κομμάτι δεν μπορεί να αποφύγει το πάρσιμο, καθώς έχει περιορισμένες κινήσεις.</string>
+  <string name="underPromotion">Προαγωγή σε κομμάτι μικρότερης αξίας</string>
+  <string name="underPromotionDescription">Προώθηση σε ιππότη, αξιωματικό ή πύργο.</string>
   <string name="veryLong">Πολύ μεγάλος γρίφος</string>
+  <string name="veryLongDescription">Τέσσερις κινήσεις ή περισσότερα για να κερδίσετε.</string>
+  <string name="zugzwang">Τσούγκτσβανγκ</string>
+  <string name="zugzwangDescription">Ο αντίπαλος είναι περιορισμένος στις κινήσεις που μπορεί να κάνεί και οποιαδήποτε κίνηση επιλέξει επιδεινώνει την θέση του.</string>
+  <string name="healthyMix">Προτεινόμενο μίγμα</string>
   <string name="healthyMixDescription">Λίγο απ\' όλα. Δεν ξέρετε τι να περιμένετε, οπότε παραμένετε σε ετοιμότητα! Όπως στα πραγματικά παιχνίδια.</string>
 </resources>
