@@ -42,7 +42,7 @@
   <string name="commentThisMove">この手にコメントする</string>
   <string name="annotateWithGlyphs">記号で解説する</string>
   <string name="theChapterIsTooShortToBeAnalysed">章が短すぎて解析できません。</string>
-  <string name="onlyContributorsCanRequestAnalysis">コンピュータ解析を要請できるのは投稿参加者だけです。</string>
+  <string name="onlyContributorsCanRequestAnalysis">コンピューター解析をリクエストできるのは投稿参加者だけです。</string>
   <string name="getAFullComputerAnalysis">主手順についてサーバー上でのコンピューター解析を行なう。</string>
   <string name="makeSureTheChapterIsComplete">章が完成したか確認してください。解析の要請は 1 回だけです。</string>
   <string name="allSyncMembersRemainOnTheSamePosition">同期したメンバーは同じ局面に留まります</string>

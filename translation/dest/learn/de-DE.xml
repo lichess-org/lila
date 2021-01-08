@@ -11,8 +11,8 @@
 	<string name="theIntoduction">Einführung</string>
 	<string name="introBasics">Lass uns ein paar Grundlagen lernen.</string>
 	<string name="introIntro">Deine Reise beginnt hier.</string>
-	<string name="choosePieceDesign">Es ist wichtig, dass Sie Ihre Figuren voneinander unterscheiden können, also stell sicher, dass du den richtigen Figurenstil wählst.
-Um das zu tun, klicke auf das Zahnrad oder deinen Benutzernamen (oben recht) und klicke dann auf \'Figurenstil\'.</string>
+	<string name="choosePieceDesign">Es ist wichtig, dass du deine Figuren voneinander unterscheiden kannst, also stell sicher, dass du den richtigen Figurenstil wählst.
+Um das zu tun, klicke auf das Zahnrad oder deinen Benutzernamen (oben rechts) und klicke dann auf \'Figurenstil\'.</string>
 	<string name="promotionZone">Wenn einige deiner Figuren eine der ersten drei Reihen im Territorium deines Gegners erreichen oder verlassen, kannst die gezogene Figur befördern und sie somit stärker machen.</string>
 	<string name="senteGoesFirst">In Shogi nennt man den Spieler, der zuerst zieht, Sente und den Spieler, der als Zweites zieht, Gote. Der Sente wird manchmal durch die Farbe Schwarz dargestellt und Gote durch Weiß. Mache einen beliebigen Zug um fortzufahren.</string>
 	<string name="introComplete">Du kennst jetzt einige Grundlagen, aber dieser Teil des Tutorials ist noch im Aufbau. Lerne erstmal wie die einzelnen Figuren ziehen.</string>

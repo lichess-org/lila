@@ -692,8 +692,8 @@
 		<item quantity="other">%s 言語で利用可能</item>
 	</plurals>
 	<string name="gameAnalysis">棋譜解析</string>
-	<string name="xHostsY">%1$s が %2$s を作成しました</string>
-	<string name="xJoinsY">%1$sが %2$s に参加しました</string>
+	<string name="xHostsY">%1$s が %2$s を作成</string>
+	<string name="xJoinsY">%1$sが %2$s に参加</string>
 	<string name="xLikesY">%1$s が %2$s に「いいね」しました。</string>
 	<string name="xCreatesStudyY">%1$s が研究 %2$s を作成</string>
 	<string name="quickPairing">自動ペアリング</string>
