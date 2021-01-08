@@ -10,7 +10,7 @@
   <string name="allStudies">Όλες οι μελέτες</string>
   <string name="studiesCreatedByX">Μελέτες που δημιουργήθηκαν από τον/την %s</string>
   <string name="noneYet">Τίποτα ακόμη εδώ.</string>
-  <string name="hot">Δημοφιλείς</string>
+  <string name="hot">Δημοφιλείς (hot)</string>
   <string name="dateAddedNewest">Ημερομηνία προσθήκης (νεότερες)</string>
   <string name="dateAddedOldest">Ημερομηνία προσθήκης (παλαιότερες)</string>
   <string name="recentlyUpdated">Πρόσφατα ενημερωμένες</string>
@@ -29,13 +29,13 @@
     <item quantity="one">%s [Μέλος] [Μέλη]</item>
     <item quantity="other">%s Μέλη</item>
   </plurals>
-  <string name="inviteToTheStudy">Προσκάλεσε στην σπουδή</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">Παρακαλώ, προσκαλέστε μόνο άτομα που γνωρίζετε και που θέλουν να συμμετέχουν ενεργά σε αυτήν την σπουδή.</string>
+  <string name="inviteToTheStudy">Προσκάλεσε στην μελέτη</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Παρακαλώ, προσκαλέστε μόνο άτομα που γνωρίζετε και που θέλουν να συμμετέχουν ενεργά σε αυτήν την μελέτη.</string>
   <string name="searchByUsername">Αναζήτηση με όνομα χρήστη</string>
   <string name="spectator">Θεατής</string>
   <string name="contributor">Συνεισφέρων</string>
   <string name="kick">Διώξε</string>
-  <string name="leaveTheStudy">Αποχώρησε απο αυτήν την σπουδή</string>
+  <string name="leaveTheStudy">Αποχώρησε από αυτήν την μελέτη</string>
   <string name="youAreNowAContributor">Είστε πλέον συνδημιουργός</string>
   <string name="youAreNowASpectator">Είστε πλέον θεατής</string>
   <string name="pgnTags">PGN ετικέτες</string>
@@ -57,12 +57,17 @@
   <string name="last">Τελευταία</string>
   <string name="shareAndExport">Διαμοιρασμός &amp; εξαγωγή</string>
   <string name="cloneStudy">Κλωνοποίησε</string>
-  <string name="studyPgn">PGN της σπουδής</string>
+  <string name="studyPgn">PGN της μελέτης</string>
+  <string name="downloadAllGames">Λήψη όλων των παιχνιδιών</string>
   <string name="chapterPgn">PGN του κεφαλαίου</string>
+  <string name="downloadGame">Λήψη παιχνιδιού</string>
   <string name="studyUrl">URL μελέτης</string>
+  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">URL Αναμετάδοσης</string>
   <string name="currentChapterUrl">Τρέχον κεφάλαιο URL</string>
+  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Επικολλήστε το παρόν για ενσωμάτωση στο φόρουμ</string>
   <string name="startAtInitialPosition">Ξεκινάει από αρχική θέση</string>
   <string name="startAtX">Ξεκινάει με %s</string>
+  <string name="embedInYourWebsite">Ενσωματώστε στην ιστοσελίδα σας ή το μπλογκ σας</string>
   <string name="open">Άνοιξε</string>
   <string name="xBroughtToYouByY">%1$s, δημιουργήθηκε από %2$s</string>
   <string name="studyNotFound">Η σπουδή δεν βρέθηκε</string>
