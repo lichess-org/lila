@@ -510,6 +510,7 @@
   <string name="clockInitialTime">Kiindulási idő</string>
   <string name="clockIncrement">Növekmény</string>
   <string name="privacy">Adatvédelem</string>
+  <string name="privacyPolicy">Adatvédelmi irányelvek</string>
   <string name="letOtherPlayersFollowYou">Mások követhetnek téged</string>
   <string name="letOtherPlayersChallengeYou">Mások kihívhatnak egy játszmára</string>
   <string name="letOtherPlayersInviteYouToStudy">Mások meghívhatnak játszma tanulmányozásra</string>
