@@ -334,7 +334,7 @@ function renderMoves(steps: Step[], style: Style) {
 }
 
 function renderAi(ctrl: RoundController, level: number): string {
-  return ctrl.trans("aiNameLevelAiLevel", "YaneuraOu", level);
+  return ctrl.trans("aiNameLevelAiLevel", "Engine", level);
 }
 
 function playerHtml(ctrl: RoundController, player: game.Player) {

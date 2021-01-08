@@ -4,7 +4,7 @@ import { Position } from "../interfaces";
 import RoundController from "../ctrl";
 
 export function aiName(ctrl: RoundController, level: number) {
-  return ctrl.trans("aiNameLevelAiLevel", "YaneuraOu", level);
+  return ctrl.trans("aiNameLevelAiLevel", "Engine", level);
 }
 
 export function userHtml(

@@ -307,7 +307,7 @@ function renderComment(comment: Tree.Comment, style: Style): string {
 
 function renderPlayer(ctrl: AnalyseController, player: Player) {
   return player.ai
-    ? ctrl.trans("aiNameLevelAiLevel", "YaneuraOu", player.ai)
+    ? ctrl.trans("aiNameLevelAiLevel", "Engine", player.ai)
     : userHtml(ctrl, player);
 }
 
