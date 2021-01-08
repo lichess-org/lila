@@ -14,7 +14,13 @@
   <string name="beingAPatron">at vera stuðul</string>
   <string name="breakdownOfOurCosts">sundurgreining av okkara útreiðslum</string>
   <string name="otherWaysToHelp">aðrir mátar at hjálpa</string>
+  <string name="areThereWebsitesBasedOnLichess">Eru heimasíður, ið eru bygdar á Lichess?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess hevur veitt øðrum heimasíðum við opnum keldukotum, sum nýta okkara %1$s, %2$s, ella %3$s íblástur.</string>
+  <string name="fairPlay">Rættvís telving</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">Hví eri eg meldaður fyri óreiðiliga at hava tiltuskað mær eitt tilgjørt styrkital (sandbagging og boosting) ella hjálp frá telduni?</string>
   <string name="accounts">Kontur</string>
+  <string name="verificationForm">váttanaroyðublað</string>
+  <string name="noUpperCaseDot">Nei.</string>
   <string name="whatUsernameCanIchoose">Hvat kann brúkaranavn mítt vera?</string>
   <string name="canIChangeMyUsername">Kann eg broyta brúkaranavn mítt?</string>
   <string name="usernamesCannotBeChanged">Nei, av tøkniligum og verkligum ávum, ber ikki til at broyta brúkaranøvn. Brúkaranøvn koma fyri ov nógv støð: í dátugrunnum, útflutningum, skráum, og í huganum á fólki. Til ber at broyta, um navnið verður skrivað við stórum ella smáum stavum eina ferð.</string>
