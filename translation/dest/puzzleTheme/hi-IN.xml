@@ -8,7 +8,7 @@
   <string name="attackingF2F7Description">एक हमला f2 या f7 मोहरे पर ध्यान केंद्रित करता है, जैसे कि तले हुए लिवर को खोलना।</string>
   <string name="attraction">आकर्षण</string>
   <string name="attractionDescription">एक विरोधी टुकड़े को एक वर्ग को प्रोत्साहित करने या मजबूर करने के लिए एक विनिमय या बलिदान जो अनुवर्ती रणनीति की अनुमति देता है।</string>
-  <string name="backRankMate">बैक रैंक मेट</string>
+  <string name="backRankMate">बैक रैंक मात</string>
   <string name="backRankMateDescription">होम रैंक पर राजा को चेकमेट करें, जब वह अपने टुकड़ों से वहां फंस गया हो।</string>
   <string name="bishopEndgame">बिशप एंडगेम</string>
   <string name="bishopEndgameDescription">केवल बिशप और प्यादे के साथ एक एंडगेम।</string>
@@ -22,7 +22,7 @@
   <string name="equalityDescription">एक खोने की स्थिति से वापस आएँ, और एक ड्रॉ या संतुलित स्थिति को सुरक्षित करें। (eval ≤ 200cp)</string>
   <string name="kingsideAttack">किंगसाइड का हमला</string>
   <string name="kingsideAttackDescription">प्रतिद्वंद्वी के राजा का एक हमला, बाद में वे राजा की तरफ झुक गए।</string>
-  <string name="clearance">निकासी</string>
+  <string name="clearance">रास्ता साफ़ करना</string>
   <string name="clearanceDescription">एक चाल, अक्सर टेम्पो के साथ, जो एक अनुवर्ती सामरिक विचार के लिए एक वर्ग, फ़ाइल या विकर्ण को साफ करता है।</string>
   <string name="defensiveMove">रक्षात्मक चाल</string>
   <string name="defensiveMoveDescription">सामग्री को खोने या अन्य लाभ से बचने के लिए आवश्यक चाल की एक सटीक चाल या अनुक्रम।</string>
@@ -89,10 +89,10 @@
   <string name="shortDescription">जीतने के लिए दो चाल।</string>
   <string name="skewer">स्किवर</string>
   <string name="skewerDescription">एक उच्च मूल्य के टुकड़े पर हमला करने वाला एक मोटिफ, जिस तरह से बाहर निकल रहा है, और इसके पीछे एक कम मूल्य के टुकड़े को पकड़ने या हमला करने की अनुमति देता है, एक पिन का उलटा।</string>
-  <string name="smotheredMate">परेशान हो गया साथी</string>
-  <string name="smotheredMateDescription">एक चेकमेट जो एक नाइट द्वारा दिया जाता है, जिसमें संभोगरत राजा हिलने में असमर्थ होता है, क्योंकि वह अपने ही टुकड़ों से घिरा होता है (या स्मूथ)।</string>
-  <string name="trappedPiece">फँसा हुआ टुकड़ा</string>
-  <string name="trappedPieceDescription">एक टुकड़ा कब्जा से बचने में असमर्थ है क्योंकि इसमें सीमित चालें हैं।</string>
+  <string name="smotheredMate">दमघोंटू मात</string>
+  <string name="smotheredMateDescription">एक चेकमेट जो एक घोड़े द्वारा दिया जाता है, जिसमें संभोगरत राजा हिलने में असमर्थ होता है, क्योंकि वह अपने ही टुकड़ों से घिरा होता है (या स्मूथ)।</string>
+  <string name="trappedPiece">फँसा हुआ मोहरा</string>
+  <string name="trappedPieceDescription">एक मोहरा बचने में असमर्थ है क्योंकि सीमित चालें हैं।</string>
   <string name="underPromotion">सामर्थ्य से कम उन्नति</string>
   <string name="underPromotionDescription">एक नाइट, बिशप, या बदमाश को बढ़ावा देना।</string>
   <string name="veryLong">बहुत लंबी पहेली</string>
