@@ -7,9 +7,9 @@
   <string name="attackingF2F7">Atacando f2 o f7</string>
   <string name="attackingF2F7Description">Un ataque centrado en el peón f2 o f7, como en la apertura Fried Liver.</string>
   <string name="attraction">Atracción</string>
-  <string name="attractionDescription">Un cambio o sacrificio forzando una pieza del oponente a una casilla que permite una táctica ganadora.</string>
-  <string name="backRankMate">Mate de pasillo</string>
-  <string name="backRankMateDescription">Mate en la última fila, donde el rey se encuentra atrapado por sus propias piezas.</string>
+  <string name="attractionDescription">Un intercambio o sacrificio alentando o forzando una pieza del oponente a una casilla que permite una táctica de seguimiento.</string>
+  <string name="backRankMate">Mate del pasillo</string>
+  <string name="backRankMateDescription">Jaque mate en la última fila, donde el rey se encuentra atrapado por sus propias piezas.</string>
   <string name="bishopEndgame">Final de alfiles</string>
   <string name="bishopEndgameDescription">Un final solo con alfiles y peones.</string>
   <string name="castling">Enroque</string>
@@ -21,7 +21,7 @@
   <string name="equality">Igualdad</string>
   <string name="equalityDescription">Vuelve de una posición perdedora y asegura un empate o una posición equilibrada. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Ataque en el flanco de rey</string>
-  <string name="kingsideAttackDescription">Un ataque al rey del oponente, luego del enroque corto.</string>
+  <string name="kingsideAttackDescription">Un ataque al rey del oponente, luego de haber realizado el enroque corto.</string>
   <string name="clearance">Despeje</string>
   <string name="clearanceDescription">Un movimiento, a menudo con ganancia de un tiempo, que limpia una casilla, una fila o una diagonal para una idea táctica.</string>
   <string name="defensiveMove">Movimiento defensivo</string>
