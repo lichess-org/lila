@@ -569,6 +569,7 @@
   <string name="clockInitialTime">Początkowy czas zegara</string>
   <string name="clockIncrement">Przyrost czasu</string>
   <string name="privacy">Prywatność</string>
+  <string name="privacyPolicy">Polityka prywatności</string>
   <string name="letOtherPlayersFollowYou">Inni gracze mogą Cię obserwować</string>
   <string name="letOtherPlayersChallengeYou">Zezwól na zaproszenia od innych graczy</string>
   <string name="letOtherPlayersInviteYouToStudy">Inni gracze mogą zapraszać Cię do opracowania</string>
@@ -722,6 +723,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jeśli nie widzisz wiadomości e-mail, sprawdź inne możliwe miejsca, takie jak kosz, spam lub inne foldery.</string>
   <string name="weHaveSentYouAnEmailTo">Wysłaliśmy wiadomość e-mail do %s.Kliknij w link znajdujący się w wiadomości aby zresetować swoje hasło.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Rejestrując się wyrażasz zgodę na przestrzeganie %s.</string>
+  <string name="readAboutOur">Przeczytaj o %s w naszym serwisie.</string>
   <string name="networkLagBetweenYouAndLichess">Opóźnienie sieci między Tobą a lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Czas przetwarzania ruchu na serwerze lichess</string>
   <string name="downloadAnnotated">Pobierz z komentarzem</string>
