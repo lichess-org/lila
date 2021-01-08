@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">Ιδιωτικό</string>
-  <string name="myStudies">Οι σπουδές μου</string>
-  <string name="studiesIContributeTo">Σπουδές που συνεισφέρω</string>
-  <string name="myPublicStudies">Οι δημόσιες σπουδές μου</string>
-  <string name="myPrivateStudies">Οι ιδιωτικές σπουδές μου</string>
-  <string name="myFavoriteStudies">Οι αγαπημένες σπουδές μου</string>
-  <string name="whatAreStudies">Τι είναι οι σπουδές;</string>
-  <string name="allStudies">Όλες οι σπουδές</string>
-  <string name="studiesCreatedByX">Σπουδές που δημιουργήθηκαν απο %s</string>
+  <string name="myStudies">Οι μελέτες μου</string>
+  <string name="studiesIContributeTo">Μελέτες που συνεισφέρω</string>
+  <string name="myPublicStudies">Οι δημόσιες μελέτες μου</string>
+  <string name="myPrivateStudies">Οι ιδιωτικές μελέτες μου</string>
+  <string name="myFavoriteStudies">Οι αγαπημένες μελέτες μου</string>
+  <string name="whatAreStudies">Τι είναι οι μελέτες;</string>
+  <string name="allStudies">Όλες οι μελέτες</string>
+  <string name="studiesCreatedByX">Μελέτες που δημιουργήθηκαν από τον/την %s</string>
   <string name="noneYet">Τίποτα ακόμη εδώ.</string>
   <string name="hot">Δημοφιλείς</string>
-  <string name="dateAddedNewest">Ημερομηνία προσθήκης (νεώτερες)</string>
+  <string name="dateAddedNewest">Ημερομηνία προσθήκης (νεότερες)</string>
   <string name="dateAddedOldest">Ημερομηνία προσθήκης (παλαιότερες)</string>
   <string name="recentlyUpdated">Πρόσφατα ενημερωμένες</string>
   <string name="mostPopular">Οι πιο δημοφιλείς</string>
