@@ -9,6 +9,7 @@
   <string name="yourTurn">Du bist am Zug</string>
   <string name="aiNameLevelAiLevel">%1$s Stufe %2$s</string>
   <string name="level">Stufe</string>
+  <string name="strength">Stärke</string>
   <string name="toggleTheChat">Chat ein-/ausblenden</string>
   <string name="toggleSound">Ton ein-/ausschalten</string>
   <string name="chat">Chat</string>
@@ -510,6 +511,7 @@
   <string name="clockInitialTime">Grundbedenkzeit</string>
   <string name="clockIncrement">Zeit-Inkrement</string>
   <string name="privacy">Privatsphäre</string>
+  <string name="privacyPolicy">Datenschutzrichtlinie</string>
   <string name="letOtherPlayersFollowYou">Anderen erlauben, mir zu folgen</string>
   <string name="letOtherPlayersChallengeYou">Anderen erlauben, mich herauszufordern</string>
   <string name="letOtherPlayersInviteYouToStudy">Erlaube anderen Spielern, dich zu einer Studie einzuladen</string>
@@ -655,6 +657,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Wenn du die E-Mail nicht findest, prüfe in deinem E-Mail-Konto, ob sie in einem anderen Ordner wie z.B. dem Spamordner oder dem Papierkorb ist.</string>
   <string name="weHaveSentYouAnEmailTo">Wir haben dir eine Email an %s gesendet. Klicke auf den Link in der E-Mail, um dein Passwort zurück zu setzen.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Durch die Anmeldung wird den %s zugestimmt.</string>
+  <string name="readAboutOur">Lese unsere %s.</string>
   <string name="networkLagBetweenYouAndLichess">Netzwerkverzögerung zwischen dir und Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Zeit, um einen Zug auf dem Lichess-Server zu verarbeiten</string>
   <string name="downloadAnnotated">Download kommentiert</string>
