@@ -11,7 +11,7 @@
   <string name="hereWeGo">Ξεκινάμε!</string>
   <string name="allStreamers">Όλοι οι streamers</string>
   <string name="editPage">Επεξεργασία σελίδας streamer</string>
-  <string name="yourPage">Η σελίδα σας ως μεταδότης</string>
+  <string name="yourPage">Η σελίδα σας ως streamer</string>
   <string name="downloadKit">Κατέβασμα πακέτου μετάδοσης</string>
   <string name="xIsStreaming">%s μεταδίδει</string>
   <string name="rules">Κανόνες μετάδοσης</string>
