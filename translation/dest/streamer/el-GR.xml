@@ -15,10 +15,10 @@
   <string name="downloadKit">Κατέβασμα πακέτου μετάδοσης</string>
   <string name="xIsStreaming">%s μεταδίδει</string>
   <string name="rules">Κανόνες μετάδοσης</string>
-  <string name="rule1">Συμπεριλάβετε την λέξη \"lichess.org\" στο τίτλο μετάδοσης όταν μεταδίδετε στο Lichess.</string>
-  <string name="rule2">Διαγράψτε την λέξη όταν μεταδίδετε μη-Lichess θέματα.</string>
-  <string name="rule3">Το Lichess θα ανιχνεύσει την μετάδοσή σας αυτόματα και θα ενεργοποιήσει τα ακόλουθα σημάδια:</string>
-  <string name="perks">Πλεονεκτήματα μετάδοσης με λέξη</string>
+  <string name="rule1">Συμπεριλάβετε την λέξη-κλειδί \"lichess.org\" στο τίτλο μετάδοσης όταν μεταδίδετε στο Lichess.</string>
+  <string name="rule2">Διαγράψτε την λέξη-κλειδί αφού σταματήσετε να μεταδίδετε θέματα σχετικά με το Lichess.</string>
+  <string name="rule3">Το Lichess θα ανιχνεύσει την μετάδοσή σας αυτόματα και θα έχετε τα ακόλουθα πλεονεκτήματα:</string>
+  <string name="perks">Πλεονεκτήματα μετάδοσης με την λέξη-κλειδί</string>
   <string name="perk1">Λήψη φλεγόμενου εικονιδίου στο προφίλ σας στο Lichess.</string>
   <string name="perk2">Ανεβείτε στη κορυφή της λίστας μεταδοτών.</string>
   <string name="perk3">Ενημέρωση των ακολούθων σας στο Lichess.</string>
