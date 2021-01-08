@@ -7,7 +7,7 @@ import scala.util.chaining._
 
 import chess.Clock.{ Config => ClockConfig }
 import chess.{ Mode, Speed, StartingPosition }
-import lila.common.GreatPlayer
+import lila.common.Animal
 import lila.game.PerfPicker
 import lila.i18n.defaultLang
 import lila.rating.PerfType
@@ -171,7 +171,7 @@ object Tournament {
     Tournament(
       id = makeId,
       name = name | {
-        if (position.initial) GreatPlayer.randomName
+        if (position.initial) Animal.randomName
         else position.shortName
       },
       status = Status.Created,

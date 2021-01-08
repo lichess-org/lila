@@ -10,7 +10,7 @@ import scala.concurrent.duration._
 import scala.util.chaining._
 
 import lila.chat.Chat
-import lila.common.{ Bus, GreatPlayer, LightUser }
+import lila.common.{ Bus, Animal, LightUser }
 import lila.db.dsl._
 import lila.game.{ Game, Pov }
 import lila.hub.LightTeam.TeamID
@@ -56,7 +56,7 @@ final class SwissApi(
   def create(data: SwissForm.SwissData, me: User, teamId: TeamID): Fu[Swiss] = {
     val swiss = Swiss(
       _id = Swiss.makeId,
-      name = data.name | GreatPlayer.randomName,
+      name = data.name | Animal.randomName,
       clock = data.clock,
       variant = data.realVariant,
       round = SwissRound.Number(0),

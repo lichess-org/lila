@@ -43,7 +43,7 @@ export interface SwissData {
     at: string;
     in: number;
   }
-  greatPlayer?: {
+  animal?: {
     name: string;
     url: string;
   }
