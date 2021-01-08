@@ -540,7 +540,7 @@
   <string name="clockInitialTime">Sākotnējais pulksteņa laiks</string>
   <string name="clockIncrement">Laika pieaugums</string>
   <string name="privacy">Privātums</string>
-  <string name="privacyPolicy">Privātuma politiku</string>
+  <string name="privacyPolicy" comment="privacyPolicy&#10;&#10;This string appears exclusively in the context of the readAboutOur string. The full Enlish text is &quot;Read about our Privacy policy&quot;, and &quot;Privacy policy&quot; is a link.">Privātuma politiku</string>
   <string name="letOtherPlayersFollowYou">Ļaut citiem jums sekot</string>
   <string name="letOtherPlayersChallengeYou">Ļaut citiem jūs izaicināt</string>
   <string name="letOtherPlayersInviteYouToStudy">Ļaut citiem jūs uzaicināt uz izpēti</string>
