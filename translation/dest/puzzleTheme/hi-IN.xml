@@ -13,11 +13,11 @@
   <string name="bishopEndgame">ऊंट का एंडगेम</string>
   <string name="bishopEndgameDescription">केवल ऊंट और प्यादे के साथ एक एंडगेम।</string>
   <string name="castling">कैसलिंग</string>
-  <string name="castlingDescription">राजा को सुरक्षा के लिए लाएँ, और हमले के लिए किश्ती तैनात करें।</string>
+  <string name="castlingDescription">राजा को सुरक्षा के लिए लाएँ, और हमले के लिए हाथी तैनात करें।</string>
   <string name="capturingDefender">रक्षक को पकड़ना</string>
   <string name="capturingDefenderDescription">एक टुकड़े को निकालना जो दूसरे टुकड़े की रक्षा के लिए महत्वपूर्ण है, जिससे अब अपरिभाषित टुकड़ा को निम्नलिखित चाल पर कब्जा करने की अनुमति मिलती है।</string>
   <string name="crushing">मुंहतोड़</string>
-  <string name="crushingDescription">एक कुचल लाभ प्राप्त करने के लिए प्रतिद्वंद्वी ब्लंडर को स्पॉट करें। (eval ≥ 600cp)</string>
+  <string name="crushingDescription">एक कुचल लाभ प्राप्त करने के लिए प्रतिद्वंद्वी की बड़ी भूल को ढूंढे । (eval ≥ 600cp)</string>
   <string name="equality">समानता</string>
   <string name="equalityDescription">एक खोने की स्थिति से वापस आएँ, और एक ड्रॉ या संतुलित स्थिति को सुरक्षित करें। (eval ≤ 200cp)</string>
   <string name="kingsideAttack">किंगसाइड का हमला</string>
