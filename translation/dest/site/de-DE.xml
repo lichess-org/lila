@@ -511,7 +511,7 @@
   <string name="clockInitialTime">Grundbedenkzeit</string>
   <string name="clockIncrement">Zeit-Inkrement</string>
   <string name="privacy">Privatsphäre</string>
-  <string name="privacyPolicy">Datenschutzrichtlinie</string>
+  <string name="privacyPolicy">Datenschutzbestimmungen</string>
   <string name="letOtherPlayersFollowYou">Anderen erlauben, mir zu folgen</string>
   <string name="letOtherPlayersChallengeYou">Anderen erlauben, mich herauszufordern</string>
   <string name="letOtherPlayersInviteYouToStudy">Erlaube anderen Spielern, dich zu einer Studie einzuladen</string>
