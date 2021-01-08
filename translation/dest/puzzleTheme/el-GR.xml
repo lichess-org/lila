@@ -24,6 +24,7 @@
   <string name="endgame">Φινάλε</string>
   <string name="endgameDescription">Μια τακτική κατά την τελευταία φάση του παιχνιδιού.</string>
   <string name="exposedKing">Εκτεθειμένος βασιλιάς</string>
+  <string name="fork">Πιρούνισμα</string>
   <string name="hangingPieceDescription">Μια τακτική όπου ένα αντίπαλο κομμάτι είναι ανυπεράσπιστο ή υπερασπιζόμενο ανεπαρκώς και μπορεί να παρθεί.</string>
   <string name="interference">Παρεμβολή</string>
   <string name="knightEndgame">Φινάλε Ίππων</string>
@@ -68,6 +69,8 @@
   <string name="shortDescription">Δύο κινήσεις για να κερδίσετε.</string>
   <string name="skewer">Σούβλισμα</string>
   <string name="skewerDescription">Ένα μοτίβο όπου ένα κομμάτι υψηλής αξίας δέχεται επίθεση, κάνει στην άκρη, και επιτρέπει την επίθεση ή το πάρσιμο ενός κομματιού μικρότερης αξίας πίσω από αυτό, το αντίστροφο δηλαδή του καρφώματος.</string>
+  <string name="smotheredMate">Ματ αποπνιγμού</string>
+  <string name="smotheredMateDescription">Ένα ματ που γίνεται από έναν ίππο σε έναν βασιλιάς ο οποίος δεν μπορεί να μετακινηθεί όντας περιτριγυρισμένος (ή πνιγμένος) από δικά του κομμάτια.</string>
   <string name="trappedPiece">Παγιδευμένο κομμάτι</string>
   <string name="trappedPieceDescription">Ένα κομμάτι δεν μπορεί να αποφύγει το πάρσιμο, καθώς έχει περιορισμένες κινήσεις.</string>
   <string name="underPromotion">Προαγωγή σε κομμάτι μικρότερης αξίας</string>
