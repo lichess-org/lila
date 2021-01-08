@@ -10,7 +10,7 @@
   <string name="attractionDescription">एक विरोधी टुकड़े को एक वर्ग को प्रोत्साहित करने या मजबूर करने के लिए एक विनिमय या बलिदान जो अनुवर्ती रणनीति की अनुमति देता है।</string>
   <string name="backRankMate">पीछे की पंक्ति पर मात</string>
   <string name="backRankMateDescription">होम पंक्ति पर राजा को मात दे, जब वह अपने टुकड़ों से वहां फंस गया हो।</string>
-  <string name="bishopEndgame">ऊंट का एंडगेम</string>
+  <string name="bishopEndgame">ऊँट का एंडगेम</string>
   <string name="bishopEndgameDescription">केवल ऊंट और प्यादे के साथ एक एंडगेम।</string>
   <string name="castling">कैसलिंग</string>
   <string name="castlingDescription">राजा को सुरक्षा के लिए लाएँ, और हमले के लिए हाथी तैनात करें।</string>
