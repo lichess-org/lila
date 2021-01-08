@@ -60,22 +60,26 @@ final class MoveDB(implicit system: ActorSystem) {
         clearIfFull()
         coll += (move.id -> move)
 
-      case Acquire(client) =>
+      case Acquire(client) => {
         sender() ! coll.values
           .foldLeft[Option[Move]](None) {
-            case (found, m) if m.nonAcquired =>
+            case (found, m) if m.nonAcquired && (client.getVariants contains m.game.variant) => {
               Some {
                 found.fold(m) { a =>
                   if (m.canAcquire(client) && m.createdAt.isBefore(a.createdAt)) m else a
                 }
               }
-            case (found, _) => found
+            }
+            case (found, _) => {
+              found
+            }
           }
           .map { m =>
             val move = m assignTo client
             coll += (move.id -> move)
             move
           }
+        }
 //Bus.publish(Tell(gameId, FishnetPlay(move, ply)), "roundSocket")
       case PostResult(workId, client, data) => {
         coll get workId match {

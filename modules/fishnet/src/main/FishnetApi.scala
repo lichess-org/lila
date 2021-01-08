@@ -5,7 +5,7 @@ import reactivemongo.api.bson._
 import scala.concurrent.duration._
 import scala.util.{ Failure, Success, Try }
 
-import Client.Skill
+import Client.{ Skill, Evaluation }
 import lila.common.IpAddress
 import lila.db.dsl._
 
@@ -33,7 +33,7 @@ final class FishnetApi(
   def keyExists(key: Client.Key) = repo.getEnabledClient(key).map(_.isDefined)
 
   def authenticateClient(req: JsonApi.Request, ip: IpAddress): Fu[Try[Client]] = {
-    if (config.offlineMode) repo.getOfflineClient map some
+    if (config.offlineMode && req.fishnet.apikey.value.isEmpty) repo.getOfflineClient map some
     else repo.getEnabledClient(req.fishnet.apikey)
   } map {
     case None         => Failure(new Exception("Can't authenticate: invalid key or disabled client"))
@@ -66,6 +66,8 @@ final class FishnetApi(
             !client.offline ?? $doc("lastTryByKey" $ne client.key) // client alternation
           } ++ {
             slow ?? $doc("sender.system" -> true)
+          } ++ {
+            repo.selectVariant(client.getVariants.map(_.id)) // only variants client supports
           }
         )
         .sort(
@@ -181,6 +183,7 @@ final class FishnetApi(
       _id = Client.makeKey,
       userId = userId,
       skill = Skill.Analysis,
+      evaluation = Evaluation.NNUE,
       instance = None,
       enabled = true,
       createdAt = DateTime.now

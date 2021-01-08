@@ -17,6 +17,10 @@ private object BSONHandlers {
     { case BSONString(v) => Client.Skill byKey v toTry s"Invalid client skill $v" },
     x => BSONString(x.key)
   )
+  implicit val ClientEvaluationBSONHandler = tryHandler[Client.Evaluation](
+    { case BSONString(v) => Client.Evaluation byKey v toTry s"Invalid client evaluation $v" },
+    x => BSONString(x.key)
+  )
 
   import Client.{ Engine, Engines }
   implicit val EngineBSONHandler  = Macros.handler[Engine]
