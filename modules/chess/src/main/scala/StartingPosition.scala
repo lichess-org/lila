@@ -29,7 +29,7 @@ object StartingPosition {
         StartingPosition(
           "香落ち",
           "Lance",
-          "lnsgkgsn1/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
+          "lnsgkgsn1/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
           "Handicap_(shogi)",
           "",
           false
@@ -37,7 +37,7 @@ object StartingPosition {
         StartingPosition(
           "角落ち",
           "Bishop",
-          "lnsgkgsnl/1r7/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
+          "lnsgkgsnl/1r7/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
           "Handicap_(shogi)",
           "",
           false
@@ -45,7 +45,7 @@ object StartingPosition {
         StartingPosition(
           "飛車落ち",
           "Rook",
-          "lnsgkgsnl/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
+          "lnsgkgsnl/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
           "Handicap_(shogi)",
           "",
           false
@@ -53,7 +53,7 @@ object StartingPosition {
         StartingPosition(
           "飛香落ち",
           "Rook-Lance",
-          "lnsgkgsn1/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
+          "lnsgkgsn1/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
           "Handicap_(shogi)",
           "",
           false
@@ -61,7 +61,7 @@ object StartingPosition {
         StartingPosition(
           "二枚落ち",
           "2-piece",
-          "lnsgkgsnl/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
+          "lnsgkgsnl/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
           "Handicap_(shogi)",
           "",
           false
@@ -69,7 +69,7 @@ object StartingPosition {
         StartingPosition(
           "四枚落ち",
           "4-piece",
-          "1nsgkgsn1/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
+          "1nsgkgsn1/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
           "Handicap_(shogi)",
           "",
           false
@@ -77,7 +77,15 @@ object StartingPosition {
         StartingPosition(
           "六枚落ち",
           "6-piece",
-          "2sgkgs2/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1",
+          "2sgkgs2/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+          "Handicap_(shogi)",
+          "",
+          false
+        ),
+        StartingPosition(
+          "八枚落ち",
+          "8-piece",
+          "3gkg3/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
           "Handicap_(shogi)",
           "",
           false
