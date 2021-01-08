@@ -21,11 +21,13 @@
   <string name="defensiveMoveDescription">Μια ακριβής κίνηση ή ακολουθία κινήσεων που απαιτείται για να αποφευχθεί η απώλεια υλικού ή άλλου πλεονεκτήματος.</string>
   <string name="discoveredAttack">Επίθεση με αποκάλυψη</string>
   <string name="doubleCheck">Διπλό σαχ</string>
+  <string name="doubleCheckDescription">Διπλό σαχ ως αποτέλεσμα μίας επίθεσης με αποκάλυψη, όπου και το μετακινούμενο κομμάτι δίνει σαχ.</string>
   <string name="endgame">Φινάλε</string>
   <string name="endgameDescription">Μια τακτική κατά την τελευταία φάση του παιχνιδιού.</string>
   <string name="exposedKing">Εκτεθειμένος βασιλιάς</string>
   <string name="fork">Πιρούνισμα</string>
   <string name="forkDescription">Μια κίνηση όπου το μετακινούμενο κομμάτι επιτίθεται ταυτόχρονα σε δύο ή περισσότερα αντίπαλα κομμάτια.</string>
+  <string name="hangingPiece">Κρεμασμένα κομμάτια</string>
   <string name="hangingPieceDescription">Μια τακτική όπου ένα αντίπαλο κομμάτι είναι ανυπεράσπιστο ή υπερασπιζόμενο ανεπαρκώς και μπορεί να παρθεί.</string>
   <string name="interference">Παρεμβολή</string>
   <string name="intermezzo">Ενδιάμεση κίνηση</string>
