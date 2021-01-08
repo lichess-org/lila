@@ -5,7 +5,7 @@ import org.joda.time.format.ISODateTimeFormat
 import play.api.libs.json._
 import scala.concurrent.ExecutionContext
 
-import lila.common.{ GreatPlayer, LightUser }
+import lila.common.{ Animal, LightUser }
 import lila.db.dsl._
 import lila.game.Game
 import lila.quote.Quote.quoteWriter
@@ -60,7 +60,7 @@ final class SwissJson(
       .add("podium" -> podium)
       .add("isRecentlyFinished" -> swiss.isRecentlyFinished)
       .add("stats" -> stats)
-      .add("greatPlayer" -> GreatPlayer.wikiUrl(swiss.name).map { url =>
+      .add("animal" -> Animal.wikiUrl(swiss.name).map { url =>
         Json.obj("name" -> swiss.name, "url" -> url)
       })
   }.monSuccess(_.swiss.json)

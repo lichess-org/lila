@@ -7,7 +7,7 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
-import lila.common.{ GreatPlayer, LightUser, Uptime }
+import lila.common.{ Animal, LightUser, Uptime }
 import lila.game.{ Game, LightPov }
 import lila.hub.LightTeam.TeamID
 import lila.memo.CacheApi._
@@ -122,7 +122,7 @@ final class JsonView(
           .add("private" -> tour.isPrivate)
           .add("quote" -> tour.isCreated.option(lila.quote.Quote.one(tour.id)))
           .add("defender" -> shieldOwner.map(_.value))
-          .add("greatPlayer" -> GreatPlayer.wikiUrl(tour.name).map { url =>
+          .add("animal" -> Animal.wikiUrl(tour.name).map { url =>
             Json.obj("name" -> tour.name, "url" -> url)
           })
           .add("teamBattle" -> tour.teamBattle.map { battle =>

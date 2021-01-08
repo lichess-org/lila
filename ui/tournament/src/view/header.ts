@@ -83,17 +83,17 @@ function title(ctrl: TournamentController) {
     ]);
   return h(
     "h1",
-    (d.greatPlayer
+    (d.animal
       ? [
           h(
             "a",
             {
               attrs: {
-                href: d.greatPlayer.url,
+                href: d.animal.url,
                 target: "_blank",
               },
             },
-            d.greatPlayer.name
+            d.animal.name
           ),
           " Arena",
         ]

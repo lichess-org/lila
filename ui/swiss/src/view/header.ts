@@ -43,17 +43,17 @@ function ongoing(ctrl: SwissCtrl): VNode | undefined {
 }
 
 export default function(ctrl: SwissCtrl): VNode {
-  const greatPlayer = ctrl.data.greatPlayer;
+  const animal = ctrl.data.animal;
   return h('div.swiss__main__header', [
     h('i.img', dataIcon('g')),
     h('h1',
-      (greatPlayer ? [
+      (animal ? [
         h('a', {
           attrs: {
-            href: greatPlayer.url,
+            href: animal.url,
             target: '_blank'
           }
-        }, greatPlayer.name),
+        }, animal.name),
         ' Tournament'
       ] : [ctrl.data.name])
     ),
