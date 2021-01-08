@@ -169,7 +169,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           }, `- ${ctrl.trans.noarg('boardEditor')}  -`),
           ...ctrl.extraPositions.map(position2option)
         ]),
-        optgroup(ctrl.trans.noarg('popularOpenings'), ctrl.cfg.positions.map(position2option))
+        optgroup("Handicaps", ctrl.cfg.positions.map(position2option))
       ])
     ])]),
     h("div.metadata", [

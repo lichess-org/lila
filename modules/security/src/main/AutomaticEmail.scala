@@ -111,7 +111,7 @@ $key
 
 Please treat it like a password. You can use the same key on multiple machines (even at the same time), but you should not share it with anyone.
 
-Thank you very much for your help! Thanks to you, chess lovers all around the world will enjoy swift and powerful analysis for their games.
+Thank you very much for your help! Thanks to you, shogi lovers all around the world will enjoy swift and powerful analysis for their games.
 
 $regards
 """
