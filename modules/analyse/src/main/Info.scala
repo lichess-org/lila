@@ -59,7 +59,7 @@ object Info {
 
   val LineMaxPlies = 14
 
-  private val separator     = ","
+  private val separator     = "@"
   private val listSeparator = ";"
 
   def start(ply: Int) = Info(ply, Eval.initial, Nil)
