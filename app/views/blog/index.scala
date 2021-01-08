@@ -48,14 +48,14 @@ object index {
 
   def byYear(year: Int, posts: List[MiniPost])(implicit ctx: Context) =
     views.html.base.layout(
-      title = s"Blog posts from $year",
+      title = trans.blogPostsFromYear.txt(year),
       moreCss = cssTag("blog"),
       csp = bits.csp
     )(
       main(cls := "page-menu")(
         bits.menu(year.some),
         div(cls := "page-menu__content box")(
-          div(cls := "box__top")(h1(s"Blog posts from $year")),
+          div(cls := "box__top")(h1(trans.blogPostsFromYear(year))),
           st.section(
             div(cls := "blog-cards")(posts map { bits.postCard(_) })
           )
@@ -87,7 +87,7 @@ object index {
               href := routes.Blog.show(doc.id, doc.slug, ref = prismic.maybeRef),
               dataIcon := "G"
             )(
-              " Continue reading this post"
+              trans.continueReadingThis()
             )
           )
         )
