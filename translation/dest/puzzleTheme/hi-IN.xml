@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="advancedPawn">उन्नत मोहरा</string>
-  <string name="advancedPawnDescription">प्रचार करने या धमकी देने वाला मोहरा रणनीति की कुंजी है।</string>
+  <string name="advancedPawn">उन्नत पैदल</string>
+  <string name="advancedPawnDescription">प्रचार करने या धमकी देने वाला पैदल रणनीति की कुंजी है।</string>
   <string name="advantage">लाभ</string>
   <string name="advantageDescription">निर्णायक लाभ प्राप्त करने के लिए अपने अवसर को जब्त करें। (200cp al eval ≤ 600cp)</string>
   <string name="attackingF2F7">F2 या f7 पर हमला करना</string>
@@ -49,7 +49,7 @@
   <string name="knightEndgameDescription">केवल शूरवीरों और प्यादों के साथ एक एंडगेम।</string>
   <string name="long">लंबी पहेली</string>
   <string name="longDescription">जीत के लिए तीन चाल चली।</string>
-  <string name="mate">दोस्त</string>
+  <string name="mate">मात</string>
   <string name="mateDescription">शैली के साथ खेल जीतें।</string>
   <string name="mateIn1">1 में मात</string>
   <string name="mateIn1Description">एक कदम में चेकमेट वितरित करें।</string>
