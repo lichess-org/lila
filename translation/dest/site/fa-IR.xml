@@ -821,9 +821,7 @@
   <string name="correspondenceDesc">بازی های مکاتبه ای : یک  یا چند روز برای هر حرکت</string>
   <string name="puzzleDesc">تمرین تاکتیک های شطرنج</string>
   <string name="important">مهم!</string>
-  <string name="yourQuestionMayHaveBeenAnswered">ممکن است پاسخ سوال شما در سوالات متداول باشد</string>
   <string name="inTheFAQ">در سوالات متداول باشد.</string>
-  <string name="toReportSomeoneForCheatingOrBadBehavior"> برای گزارش دادن یک کاربر برای تقلب یا رفتار بد</string>
   <string name="useTheReportForm">از فرم گزارش استفاده کنید.</string>
   <string name="tryTheContactPage">با این صفحه ارتباط بگیرید.</string>
   <string name="subscribe">مشترک شدن</string>
