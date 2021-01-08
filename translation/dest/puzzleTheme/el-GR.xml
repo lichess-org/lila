@@ -8,6 +8,8 @@
   <string name="attackingF2F7Description">Μια επίθεση που εστιάζει στο πιόνι f2 ή f7, όπως στην επίθεση Φράιντ Λίβερ.</string>
   <string name="attraction">Έλξη</string>
   <string name="attractionDescription">Μια ανταλλαγή ή θυσία που ενθαρρύνει ή αναγκάζει ένα αντίπαλο κομμάτι σε ένα τετράγωνο όπου δύναται μια επακόλουθη τακτική.</string>
+  <string name="backRankMate">Ματ της τελευταίας γραμμής</string>
+  <string name="backRankMateDescription">Κάντε ματ στον βασιλιά στην τελευταία γραμμή όταν είναι παγιδευμένος εκεί από τα κομμάτια του.</string>
   <string name="bishopEndgame">Φινάλε Αξιωματικών</string>
   <string name="bishopEndgameDescription">Ένα τέλος παρτίδας μόνο με αξιωματικούς και πιόνια.</string>
   <string name="castling">Pοκέ</string>
