@@ -102,7 +102,7 @@ object KifuUtils {
               val realInit = if (init.toInt % 60 == 0) s"${init.toInt / 60}分" else s"${init}秒"
               s"$realInit+${byo}秒 # $init seconds initial time, $inc seconds increment, $byo seconds byoyomi with $periods periods"
             }
-            case _ => "PGN error"
+            case _ => "-"
           }
           case _ => tag.value
         }
