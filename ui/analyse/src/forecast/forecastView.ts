@@ -4,6 +4,7 @@ import { ForecastCtrl, ForecastStep } from './interfaces';
 import AnalyseCtrl from '../ctrl';
 import { renderNodesHtml } from '../pgnExport';
 import { bind, dataIcon, spinner } from '../util';
+import { notationStyle } from 'shogiutil/notation';
 
 function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefined {
   var firstNode = cNodes[0];
@@ -18,7 +19,7 @@ function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]
     hook: bind('click', _ => fctrl.playAndSave(firstNode))
   }, [
     h('span', [
-      h('strong', ctrl.trans('playX', cNodes[0].san)),
+      h('strong', ctrl.trans('playX', notationStyle(ctrl.data.pref.pieceNotation ?? 0)({san: cNodes[0].san, uci: cNodes[0].uci, fen: cNodes[0].fen}))),
       lines.length ?
       h('span', ctrl.trans.plural('andSaveNbPremoveLines', lines.length)) :
       h('span', ctrl.trans.noarg('noConditionalPremoves'))

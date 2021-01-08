@@ -73,7 +73,7 @@ final private class PushApi(
                     _.move,
                     PushApi.Data(
                       title = "It's your turn!",
-                      body = s"$opponent played $sanMove",
+                      body = s"$opponent played a move", // add notation to backend?
                       stacking = Stacking.GameMove,
                       payload = Json.obj(
                         "userId"   -> userId,

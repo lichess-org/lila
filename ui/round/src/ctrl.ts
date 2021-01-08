@@ -48,6 +48,7 @@ import {
   Selected,
 } from "./interfaces";
 import { cancelDropMode } from "shogiground/drop";
+import { notationStyle } from "shogiutil/notation";
 
 interface GoneBerserk {
   white?: boolean;
@@ -380,9 +381,9 @@ export default class RoundController {
           opponent = renderUser.userTxt(this, d.opponent);
         if (this.ply < 1) txt = opponent + "\njoined the game.\n" + txt;
         else {
-          let move = d.steps[d.steps.length - 1].san,
-            turn = Math.floor((this.ply - 1) / 2) + 1;
-          move = turn + (this.ply % 2 === 1 ? "." : "...") + " " + move;
+          const m_step = d.steps[d.steps.length - 1],
+            move = this.ply + "." + " " +
+              notationStyle(this.data.pref.pieceNotation ?? 0)({san: m_step.san, uci: m_step.uci, fen: m_step.fen});
           txt = opponent + "\nplayed " + move + ".\n" + txt;
         }
         return txt;
