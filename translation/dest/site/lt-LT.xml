@@ -570,6 +570,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="clockInitialTime">Laikrodžio pradinis laikas</string>
   <string name="clockIncrement">Laikrodžio prieaugis</string>
   <string name="privacy">Privatumas</string>
+  <string name="privacyPolicy">privatumo politiką</string>
   <string name="letOtherPlayersFollowYou">Leisti kitiems žaidėjams jus sekti</string>
   <string name="letOtherPlayersChallengeYou">Leisti kitiems žaidėjams pakviesti jus partijai</string>
   <string name="letOtherPlayersInviteYouToStudy">Leisti kitiems žaidėjams pakviesti jus į studiją</string>
@@ -723,6 +724,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jei nematote laiško, patikrinkite kitas galimas vietas: šlamšto, šiukšlių, socialinius ar kitus aplankus.</string>
   <string name="weHaveSentYouAnEmailTo">Išsiuntėme laišką į %s. Spustelėję jame esančią nurodą galėsite atstatyti savo slaptažodį.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registruodamiesi sutinkate su mūsų %s.</string>
+  <string name="readAboutOur">Skaitykite daugiau apie mūsų %s.</string>
   <string name="networkLagBetweenYouAndLichess">Tinklo delsa tarp jūsų ir „lichess“</string>
   <string name="timeToProcessAMoveOnLichessServer">Laikas, per kurį „lichess“ serveris apdoroja ėjimą</string>
   <string name="downloadAnnotated">Siųstis anotuotą</string>
