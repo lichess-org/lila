@@ -30,5 +30,16 @@
   <string name="takebacksWithOpponentApproval">Afturtøka (við loyvi frá mótleikaranum)</string>
   <string name="inCasualGamesOnly">Bert í talvum, ið ikki ávirka styrkitøl</string>
   <string name="promoteToQueenAutomatically">Umskapa til frúgv sjálvvirkið</string>
+  <string name="whenPremoving">Við forhandarleikum</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Krev remis sjálvvirkið aftaná trífalda endurtøku</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Tá ið minni enn 30 sekund eru eftir</string>
+  <string name="moveConfirmation">Vátta leik</string>
+  <string name="inCorrespondenceGames">Brævtalv</string>
+  <string name="correspondenceAndUnlimited">Brævtalv og óavmarkað</string>
+  <string name="confirmResignationAndDrawOffers">Vátta, tá ið tú gevur upp ella býður remis</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Háttur at leypa í borg</string>
+  <string name="castleByMovingTwoSquares">Flyt kongin tveir puntar</string>
+  <string name="castleByMovingOntoTheRook">Flyt kongin yvir á rókin</string>
+  <string name="inputMovesWithTheKeyboard">Skriva leikirnar við lyklaborðinum</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Sig \"Gott talv, væl telvað,\" tá ið tú vinnur ella telvar javnt</string>
 </resources>
