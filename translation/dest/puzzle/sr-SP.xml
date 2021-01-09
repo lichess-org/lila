@@ -14,6 +14,7 @@
   <string name="yourPuzzleRatingX">Ваш рејтинг у проблемима: %s</string>
   <string name="findTheBestMoveForWhite">Нађи најбољи потез за белог.</string>
   <string name="findTheBestMoveForBlack">Нађи најбољи потез за црног.</string>
+  <string name="toGetPersonalizedPuzzles">Да би добили персонализоване проблеме:</string>
   <string name="puzzleId">Проблем %s</string>
   <string name="puzzleOfTheDay">Проблем дана</string>
   <string name="clickToSolve">Кликните да би решили</string>
