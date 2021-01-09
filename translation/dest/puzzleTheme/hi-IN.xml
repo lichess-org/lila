@@ -89,7 +89,7 @@
   <string name="shortDescription">जीतने के लिए दो चाल।</string>
   <string name="skewer">स्किवर</string>
   <string name="skewerDescription">एक उच्च मूल्य के टुकड़े पर हमला करने वाला एक मोटिफ, जिस तरह से बाहर निकल रहा है, और इसके पीछे एक कम मूल्य के टुकड़े को पकड़ने या हमला करने की अनुमति देता है, एक पिन का उलटा।</string>
-  <string name="smotheredMate">दमघोंटू मात</string>
+  <string name="smotheredMate">समोथेरद मात</string>
   <string name="smotheredMateDescription">एक चेकमेट जो एक घोड़े द्वारा दिया जाता है, जिसमें संभोगरत राजा हिलने में असमर्थ होता है, क्योंकि वह अपने ही टुकड़ों से घिरा होता है (या स्मूथ)।</string>
   <string name="trappedPiece">फँसा हुआ मोहरा</string>
   <string name="trappedPieceDescription">एक मोहरा बचने में असमर्थ है क्योंकि सीमित चालें हैं।</string>
