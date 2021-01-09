@@ -22,6 +22,7 @@
   <string name="howCanIBecomeModerator">Hvussu kann eg gerast fyriskipari?</string>
   <string name="gameplay">Leikgongd</string>
   <string name="howBulletBlitzEtcDecided">Hvussu verður avgjørt, hvørjar tíðarásetingar eru fyri Bullet, Snar og onnur sløg av talvum?</string>
+  <string name="whatVariantsCanIplay">Hvørji avbrigdi kann eg telva á Lichess?</string>
   <string name="eightVariants">8 talvavbrigdi</string>
   <string name="whatIsACPL">Hvat er centifinnutapið (ACPL) í miðal?</string>
   <string name="fideHandbookX">FIDE handbók %s</string>
@@ -35,7 +36,11 @@
   <string name="notRepeatedMoves">Vit endurtóku ikki leikir. Hví endaði talvið kortini við javnleiki, orsakað av endurtøku?</string>
   <string name="positions">støður</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Vit endurtóku eina støðu tríggjar ferðir. Hví endaði talvið ikki við remis?</string>
+  <string name="threeFoldHasToBeClaimed">Einum av telvarunum nýtist at krevja endurtøkuregluna. Tú fært gjørt tað við at klikkja á knøttin, ið er vístur, ella við at bjóða remis áðrenn tín endaliga endurtøkuleik. Tað ger ongan mun, um mótleikarin avvísur tilboðið um remis; remis við trífaldari endurtøku verður kravt kortini. Tú kanst eisini %1$s Lichess at krevja remis sjálvvirkið fyri teg. Harumframt endar eitt talv altíð alt fyri eitt, um endurtøka kemur fyri fimm ferðir.</string>
+  <string name="configure">stilla</string>
   <string name="accounts">Kontur</string>
+  <string name="titlesAvailableOnLichess">Hvørji heiti eru á Lichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess viðurkennir øll FIDE heiti ognað OTB (telvað á veruligum talvborðum), eins og %1$s. Her er ein listi yvir FIDE-heiti:</string>
   <string name="verificationForm">váttanaroyðublað</string>
   <string name="noUpperCaseDot">Nei.</string>
   <string name="whatUsernameCanIchoose">Hvat kann brúkaranavn mítt vera?</string>
