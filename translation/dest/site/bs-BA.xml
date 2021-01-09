@@ -540,6 +540,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="clockInitialTime">Početno vrijeme sata</string>
   <string name="clockIncrement">Dodatak satu</string>
   <string name="privacy">Privatnost</string>
+  <string name="privacyPolicy" comment="privacyPolicy&#10;&#10;This string appears exclusively in the context of the readAboutOur string. The full Enlish text is &quot;Read about our Privacy policy&quot;, and &quot;Privacy policy&quot; is a link.">Politika privatnosti</string>
   <string name="letOtherPlayersFollowYou">Dopustite da vas drugi igrači prate</string>
   <string name="letOtherPlayersChallengeYou">Dopustite da vas drugi igrači izazovu</string>
   <string name="letOtherPlayersInviteYouToStudy">Dopustite da vas drugi igrači pozovu u studiju</string>
