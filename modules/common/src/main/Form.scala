@@ -68,7 +68,7 @@ object Form {
       Constraints maxLength maxLength,
       Constraints.pattern(
         regex = """[\p{L}\p{N}-\s:.,;'\+]+""".r,
-        error = "Invalid characters contained; only letters, numbers and the following characters are supported: ":", ",", "+", "'", ".", ";" "
+        error = "Invalid characters contained; only letters, numbers and the following characters are supported: ':', ',', '+', ''', '.', ';' "
       )
     )
 
