@@ -540,7 +540,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="clockInitialTime">Početno vrijeme sata</string>
   <string name="clockIncrement">Dodatak satu</string>
   <string name="privacy">Privatnost</string>
-  <string name="privacyPolicy" comment="privacyPolicy&#10;&#10;This string appears exclusively in the context of the readAboutOur string. The full Enlish text is &quot;Read about our Privacy policy&quot;, and &quot;Privacy policy&quot; is a link.">Politika privatnosti</string>
+  <string name="privacyPolicy" comment="privacyPolicy&#10;&#10;This string appears exclusively in the context of the readAboutOur string. The full Enlish text is &quot;Read about our Privacy policy&quot;, and &quot;Privacy policy&quot; is a link.">Politici privatnosti</string>
   <string name="letOtherPlayersFollowYou">Dopustite da vas drugi igrači prate</string>
   <string name="letOtherPlayersChallengeYou">Dopustite da vas drugi igrači izazovu</string>
   <string name="letOtherPlayersInviteYouToStudy">Dopustite da vas drugi igrači pozovu u studiju</string>
@@ -690,6 +690,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ako ne vidite našu e-mail poruku u Vašem odijelu za dolaznu e-mail poštu, provjerite na drugim mjestima, kao što su junk i spam.</string>
   <string name="weHaveSentYouAnEmailTo">Poslali smo e-mail na %s. Kliknite na link u e-mail poruci kako biste resetovali vašu lozinku.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registracijom prihvatate naše %s.</string>
+  <string name="readAboutOur" comment="readAboutOur&#10;&#10;The variable %s is a link to the Privacy Policy. The link's title is the privacyPolicy string.&#10;&#10;This text appears on the signup page, as well as in emails.">Pročitajte o našoj %s.</string>
   <string name="networkLagBetweenYouAndLichess">Mrežno kašnjenje između Vas i lichess-a</string>
   <string name="timeToProcessAMoveOnLichessServer">Vrijeme potrebno da se odigra potez na lichess serveru</string>
   <string name="downloadAnnotated">Preuzmite sa bilješkama</string>
