@@ -23,6 +23,7 @@
   <string name="gameplay">Leikgongd</string>
   <string name="howBulletBlitzEtcDecided">Hvussu verður avgjørt, hvørjar tíðarásetingar eru fyri Bullet, Snar og onnur sløg av talvum?</string>
   <string name="eightVariants">8 talvavbrigdi</string>
+  <string name="whatIsACPL">Hvat er centifinnutapið (ACPL) í miðal?</string>
   <string name="fideHandbookX">FIDE handbók %s</string>
   <string name="discoveringEnPassant">Hví kann ein finna taka eina aðra finnu, tá ið hon longu er farin framvið? (en passant)</string>
   <string name="goodIntroduction">góð innførsla</string>
@@ -32,6 +33,8 @@
   <string name="threefoldRepetitionExplanation">Kemur sama støða fyri tríggjar ferðir, kunnu leikarar krevja remis við %1$s. Lichess nýtir almennu FIDE-reglurnar, ið verða lýstar í grein 9.2 (d) í %2$s.</string>
   <string name="threefoldRepetitionLowerCase">endurtøka tríggjar ferðir</string>
   <string name="notRepeatedMoves">Vit endurtóku ikki leikir. Hví endaði talvið kortini við javnleiki, orsakað av endurtøku?</string>
+  <string name="positions">støður</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Vit endurtóku eina støðu tríggjar ferðir. Hví endaði talvið ikki við remis?</string>
   <string name="accounts">Kontur</string>
   <string name="verificationForm">váttanaroyðublað</string>
   <string name="noUpperCaseDot">Nei.</string>
