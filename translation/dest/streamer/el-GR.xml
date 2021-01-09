@@ -11,30 +11,30 @@
   <string name="hereWeGo">Ξεκινάμε!</string>
   <string name="allStreamers">Όλοι οι streamers</string>
   <string name="editPage">Επεξεργασία σελίδας streamer</string>
-  <string name="yourPage">Η σελίδα σας ως μεταδότης</string>
+  <string name="yourPage">Η σελίδα σας ως streamer</string>
   <string name="downloadKit">Κατέβασμα πακέτου μετάδοσης</string>
   <string name="xIsStreaming">%s μεταδίδει</string>
   <string name="rules">Κανόνες μετάδοσης</string>
-  <string name="rule1">Συμπεριλάβετε την λέξη \"lichess.org\" στο τίτλο μετάδοσης όταν μεταδίδετε στο Lichess.</string>
-  <string name="rule2">Διαγράψτε την λέξη όταν μεταδίδετε μη-Lichess θέματα.</string>
-  <string name="rule3">Το Lichess θα ανιχνεύσει την μετάδοσή σας αυτόματα και θα ενεργοποιήσει τα ακόλουθα σημάδια:</string>
-  <string name="perks">Πλεονεκτήματα μετάδοσης με λέξη</string>
-  <string name="perk1">Λήψη φλεγόμενου εικονιδίου στο προφίλ σας στο Lichess.</string>
-  <string name="perk2">Ανεβείτε στη κορυφή της λίστας μεταδοτών.</string>
-  <string name="perk3">Ενημέρωση των ακολούθων σας στο Lichess.</string>
-  <string name="perk4">Εμφάνιση της μετάδοσής σας στα παιχνίδια, τουρνουά και μελέτες.</string>
+  <string name="rule1">Συμπεριλάβετε την λέξη-κλειδί \"lichess.org\" στο τίτλο μετάδοσης όταν μεταδίδετε στο Lichess.</string>
+  <string name="rule2">Διαγράψτε την λέξη-κλειδί αφού σταματήσετε να μεταδίδετε θέματα σχετικά με το Lichess.</string>
+  <string name="rule3">Το Lichess θα ανιχνεύσει την μετάδοσή σας αυτόματα και θα έχετε τα ακόλουθα πλεονεκτήματα:</string>
+  <string name="perks">Πλεονεκτήματα μετάδοσης με την λέξη-κλειδί</string>
+  <string name="perk1">Αποκτήστε το εικονίδιο του flaming streamer στο προφίλ σας στο Lichess.</string>
+  <string name="perk2">Ανεβείτε στη κορυφή της λίστας των streamers.</string>
+  <string name="perk3">Ενημερώστε τους ακόλουθούς σας στο Lichess.</string>
+  <string name="perk4">Δείξτε την μετάδοσής σας στα παιχνίδια, τουρνουά και μελέτες σας.</string>
   <string name="approved">Η μετάδοσή σας εγκρίθηκε.</string>
   <string name="pendingReview">Η μετάδοσή σας αξιολογείται από τους διαχειριστές.</string>
-  <string name="pleaseFillIn">Παρακαλώ συμπληρώστε τις πληροφορίες μεταδότη, και ανεβάστε μια εικόνα.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Όταν είστε έτοιμος να εμφανίζεστε ως Lichess μεταδότης, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">αιτηθείτε μια αξιολόγηση από διαχειριστή</string>
+  <string name="pleaseFillIn">Παρακαλώ συμπληρώστε τις πληροφορίες σας και ανεβάστε μια εικόνα.</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Όταν είσαστε έτοιμος να εμφανιστείτε ως Lichess streamer, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">ζητήστε αξιολόγηση από κάποιον διαχειριστή</string>
   <string name="anotherLanguage">Αν η μετάδοσή σας είναι σε γλώσσα διαφορετικά από τα Αγγλικά, συμπεριλάβετε την σωστή ετικέτα γλώσσας (%s), σε ορθογώνιες αγκύλες, στην αρχή του τίτλου μετάδοσης.
 Παράδειγμα, συμπεριλάβετε \"[RU]\" για Ρώσικα, \"[GR]\" για Ελληνικά, \"[FR]\" για Γαλλικά, κ. ο. κ.
 Τοποθετήστε το στο τίτλο μετάδοσης στη σελίδα του Twitch ή YouTube, και όχι στις ρυθμίσεις μετάδοσης του Lichess.
 Αν η μετάδοσή σας είναι στα Αγγλικά, δεν χρειάζεται να συμπεριλάβετε μια ετικέτα γλώσσας.</string>
-  <string name="twitchUsername">Το όνομα χρήστη σας στο Twitch ή URL</string>
+  <string name="twitchUsername">Το όνομα χρήστη σας στο Twitch ή το URL του προφίλ σας</string>
   <string name="optionalOrEmpty">Προαιρετικό. Αφήστε το κενό αν δεν υπάρχει</string>
-  <string name="youtubeChannel">Το ID καναλιού σας στο YouTube ή URL</string>
+  <string name="youtubeChannel">Το ID του καναλιού σας στο YouTube ή το URL</string>
   <string name="streamerName">Το όνομα μεταδότη στο Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Σύντομη περιγραφή: %s χαρακτήρας το πολύ</item>

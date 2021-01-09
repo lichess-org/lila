@@ -24,11 +24,11 @@
   <string name="kickSomeone">Απομάκρυνση κάποιου από την ομάδα</string>
   <string name="whoToKick">Ποιον επιθυμείτε να απομακρύνετε από την ομάδα;</string>
   <plurals name="xJoinRequests">
-    <item quantity="one">%s αίτημα σύνδεσης</item>
-    <item quantity="other">%s αιτήματα σύνδεσης</item>
+    <item quantity="one">%s αίτημα ένταξης</item>
+    <item quantity="other">%s αιτήματα ένταξης</item>
   </plurals>
-  <string name="willBeReviewed">Το αίτημα σύνδεσης θα αξιολογηθεί από τον αρχηγό ομάδας.</string>
-  <string name="beingReviewed">Το αίτημα σύνδεσης αξιολογείται από τον αρχηγό ομάδας.</string>
+  <string name="willBeReviewed">Το αίτημα ένταξη σας θα αξιολογηθεί από κάποιον αρχηγό της ομάδας.</string>
+  <string name="beingReviewed">Το αίτημά σας για ένταξη στην ομάδα εξετάζεται από κάποιον αρχηγό.</string>
   <string name="teamBattle">Μάχη ομάδας</string>
   <string name="teamBattleOverview">Μια μάχη μεταξύ πολλών ομάδων που ο κάθε παίκτης κερδίζει πόντους για την ομάδα του</string>
   <string name="teamTournament">Τουρνουά ομάδας</string>

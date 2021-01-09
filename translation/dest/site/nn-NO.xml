@@ -512,6 +512,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="clockInitialTime">Starttid på klokka</string>
   <string name="clockIncrement">Inkrement</string>
   <string name="privacy">Privatsfære</string>
+  <string name="privacyPolicy">Personvernpolitikk</string>
   <string name="letOtherPlayersFollowYou">Lat andre spelarar fylgja deg</string>
   <string name="letOtherPlayersChallengeYou">Lat andre spelarar utfordra deg</string>
   <string name="letOtherPlayersInviteYouToStudy">Lat andre spelarar invitere til studium</string>
@@ -660,6 +661,7 @@ i %3$s</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Hvis du ikkje ser e-posten, sjekk om den ligg i mappene spam, søppel, sosialt eller liknande.</string>
   <string name="weHaveSentYouAnEmailTo">Vi har sendt en e-post til %s. Trykk på lenka i e-posten for å attendestille passordet ditt.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ved å registrere deg godtek du å binda deg til våre %s.</string>
+  <string name="readAboutOur">Les om vår %s.</string>
   <string name="networkLagBetweenYouAndLichess">Nettverksforseinking mellom deg og lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tida det tar å handsama eit trekk på serveren</string>
   <string name="downloadAnnotated">Last ned kommentert</string>

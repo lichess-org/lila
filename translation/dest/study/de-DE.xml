@@ -68,7 +68,7 @@
   <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Zum Einbinden füge dies im Forum ein</string>
   <string name="startAtInitialPosition">Beginne mit der Anfangsstellung</string>
   <string name="startAtX">Beginne mit %s</string>
-  <string name="embedInYourWebsite">In deine Webseite oder deinen Blog einbinden</string>
+  <string name="embedInYourWebsite">In deine Webseite oder deinen Blog einbetten</string>
   <string name="readMoreAboutEmbedding">Lies mehr über das Einbinden</string>
   <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Nur öffentliche Studien können eingebunden werden!</string>
   <string name="open">Öffnen</string>

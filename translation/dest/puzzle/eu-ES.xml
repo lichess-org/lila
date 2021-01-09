@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Ariketak</string>
+  <string name="puzzleThemes">Ariketen gaiak</string>
   <string name="recommended">Gomendatutakoak</string>
   <string name="phases">Faseak</string>
   <string name="motifs">Gaiak</string>

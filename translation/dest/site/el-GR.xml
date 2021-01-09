@@ -512,6 +512,7 @@
   <string name="clockInitialTime">Ρολόι αρχικός χρόνος</string>
   <string name="clockIncrement">Ρολόι προσαύξηση</string>
   <string name="privacy">Απόρρητο</string>
+  <string name="privacyPolicy" comment="privacyPolicy&#10;&#10;This string appears exclusively in the context of the readAboutOur string. The full Enlish text is &quot;Read about our Privacy policy&quot;, and &quot;Privacy policy&quot; is a link.">Πολιτική απορρήτου</string>
   <string name="letOtherPlayersFollowYou">Επιτρέψτε σε άλλους παίκτες να σας ακολουθούν</string>
   <string name="letOtherPlayersChallengeYou">Επιτρέψτε σε άλλους παίκτες να σας προκαλούν σε παιχνίδι</string>
   <string name="letOtherPlayersInviteYouToStudy">Επιτρέψτε σε άλλους παίκτες να σας προσκαλούν σε μελέτη</string>
@@ -657,6 +658,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Εάν δεν μπορείτε να δείτε το μήνυμα ηλ. ταχυδρομείου, ελέγξτε άλλες θέσεις που θα μπορούσε να είναι, όπως στα διαγραμμένα, ανεπιθύμητη αλληλογραφία, κοινωνικά, ή σε άλλους φακέλους.</string>
   <string name="weHaveSentYouAnEmailTo">Έχουμε στείλει ένα μήνυμα ηλ. ταχυδρομείου στο %s. Κάντε κλικ τον σύνδεσμο στο ηλ. ταχυδρομείο για να επαναφέρετε τον κωδικό πρόσβασής σας.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Με την εγγραφή σας συμφωνείτε ότι δεσμεύεστε από τους %s.</string>
+  <string name="readAboutOur" comment="readAboutOur&#10;&#10;The variable %s is a link to the Privacy Policy. The link's title is the privacyPolicy string.&#10;&#10;This text appears on the signup page, as well as in emails.">Διαβάστε για την %s μας.</string>
   <string name="networkLagBetweenYouAndLichess">Υστέρηση δικτύου ανάμεσα σε εσάς και το lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Χρόνος επεξεργασίας μίας κίνησης στον διακομιστή lichess</string>
   <string name="downloadAnnotated">Λήψη με υποσημειώσεις</string>

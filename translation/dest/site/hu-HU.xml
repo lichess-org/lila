@@ -510,6 +510,7 @@
   <string name="clockInitialTime">Kiindulási idő</string>
   <string name="clockIncrement">Növekmény</string>
   <string name="privacy">Adatvédelem</string>
+  <string name="privacyPolicy">Adatvédelmi irányelvek</string>
   <string name="letOtherPlayersFollowYou">Mások követhetnek téged</string>
   <string name="letOtherPlayersChallengeYou">Mások kihívhatnak egy játszmára</string>
   <string name="letOtherPlayersInviteYouToStudy">Mások meghívhatnak játszma tanulmányozásra</string>
@@ -655,6 +656,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ha nem látod az email-t, ellenőrizd, hogy nincs-e a szemetes, a spam vagy a közösségi mappában, vagy egyéb mappákban.</string>
   <string name="weHaveSentYouAnEmailTo">Küldtünk egy üzenetet a %s email címre. A jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">A regisztrációval elfogadod a %s-t</string>
+  <string name="readAboutOur">Itt olvashatók az %s.</string>
   <string name="networkLagBetweenYouAndLichess">Hálózati késleltetés a számítógéped és a lichess között</string>
   <string name="timeToProcessAMoveOnLichessServer">Az az idő, amíg a lichess szerver egy lépést feldolgoz</string>
   <string name="downloadAnnotated">Letöltés elemzéssel</string>

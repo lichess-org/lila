@@ -511,6 +511,7 @@
   <string name="clockInitialTime">Maç başlangıç süresi</string>
   <string name="clockIncrement">Hamle başına süre artışı</string>
   <string name="privacy">Gizlilik</string>
+  <string name="privacyPolicy">Gizlilik politikası</string>
   <string name="letOtherPlayersFollowYou">Diğer oyuncular seni takip etsin mi?</string>
   <string name="letOtherPlayersChallengeYou">Diğer oyuncular sana oyun teklifinde bulunsun mu?</string>
   <string name="letOtherPlayersInviteYouToStudy">Diğer oyuncular sizi bir çalışmaya davet edebilsin</string>
@@ -656,6 +657,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Eğer e-postayı görmüyorsanız, spam, sosyal veya diğer klasörlere göz atmayı deneyin.</string>
   <string name="weHaveSentYouAnEmailTo">%s adresine e-posta yolladık. Şifrenizi tekrar ayarlamak için e-postadaki linke tıklayın.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Kaydolarak, %s \'ı kabul etmiş sayılırsınız.</string>
+  <string name="readAboutOur">%s hakkında bilgi edinin.</string>
   <string name="networkLagBetweenYouAndLichess">Siz ve lichess.org arasındaki gecikme (ping)</string>
   <string name="timeToProcessAMoveOnLichessServer">lichess.org üzerindeki hamle süreniz (ms)</string>
   <string name="downloadAnnotated">Açıklamalarıyla beraber indirin</string>

@@ -12,7 +12,7 @@
   <string name="chessPieceSymbol">Simbol figur</string>
   <string name="pgnLetter">Črke (K, Q, R, B, N)</string>
   <string name="zenMode">Zen način</string>
-  <string name="displayBoardResizeHandle">Prikazuj ročico za spremembo velikosti šahovnice</string>
+  <string name="displayBoardResizeHandle">Prikaži ročico za spremembo velikosti šahovnice</string>
   <string name="onlyOnInitialPosition">Samo ob začetni poziciji</string>
   <string name="blindfoldChess">Slepi šah (nevidne figure)</string>
   <string name="chessClock">Šahovska ura</string>
@@ -21,7 +21,7 @@
   <string name="horizontalGreenProgressBars">Vodoravna zelena prečka</string>
   <string name="soundWhenTimeGetsCritical">Zvočni signal ko čas postane kritičen</string>
   <string name="giveMoreTime">Dajte več časa</string>
-  <string name="gameBehavior">Nastavitve igre</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Posebnosti igre</string>
   <string name="howDoYouMovePieces">Kako premikate figure?</string>
   <string name="clickTwoSquares">Klikni dve polji</string>
   <string name="dragPiece">Potegni figuro</string>
@@ -41,7 +41,7 @@
   <string name="castleByMovingTwoSquares">Premakni kralja za dve polji</string>
   <string name="castleByMovingOntoTheRook">Premakni kralja na trdnjavo</string>
   <string name="inputMovesWithTheKeyboard">Vnos potez prek tipkovnice</string>
-  <string name="snapArrowsToValidMoves">Pretrgajte puščice do veljavnih potez</string>
-  <string name="sayGgWpAfterLosingOrDrawing">Recite \"Dobra igra, dobro odigrana\" ob porazu ali remiju</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Postavi puščice po veljavnih potezah</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Reci \"Dobra igra, dobro odigrano\" ob porazu ali remiju</string>
   <string name="yourPreferencesHaveBeenSaved">Nastavitve so bile shranjene.</string>
 </resources>

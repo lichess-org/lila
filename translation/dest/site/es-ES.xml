@@ -511,6 +511,7 @@
   <string name="clockInitialTime">Tiempo inicial del reloj</string>
   <string name="clockIncrement">Incremento</string>
   <string name="privacy">Privacidad</string>
+  <string name="privacyPolicy" comment="privacyPolicy&#10;&#10;This string appears exclusively in the context of the readAboutOur string. The full Enlish text is &quot;Read about our Privacy policy&quot;, and &quot;Privacy policy&quot; is a link.">Política de privacidad</string>
   <string name="letOtherPlayersFollowYou">Permitir que otros jugadores te sigan</string>
   <string name="letOtherPlayersChallengeYou">Permitir que otros jugadores te desafíen</string>
   <string name="letOtherPlayersInviteYouToStudy">Permitir que otros jugadores te inviten a estudios</string>
@@ -656,6 +657,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si no encuentras el correo, mira a ver si está en otras carpetas (spam, social, ...).</string>
   <string name="weHaveSentYouAnEmailTo">Te hemos enviado un correo a %s. Restablece tu contraseña haciendo clic en el enlace.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Al registrarte, aceptas las %s.</string>
+  <string name="readAboutOur" comment="readAboutOur&#10;&#10;The variable %s is a link to the Privacy Policy. The link's title is the privacyPolicy string.&#10;&#10;This text appears on the signup page, as well as in emails.">Lee acerca de nuestra %s.</string>
   <string name="networkLagBetweenYouAndLichess">Retardo de conexión entre tú y lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tiempo para procesar un movimiento en el servidor de Lichess</string>
   <string name="downloadAnnotated">Descargar la partida anotada</string>

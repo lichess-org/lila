@@ -510,6 +510,7 @@
   <string name="clockInitialTime">Temps inicial al rellotge</string>
   <string name="clockIncrement">Increment de temps</string>
   <string name="privacy">Privacitat</string>
+  <string name="privacyPolicy">Política de privacitat</string>
   <string name="letOtherPlayersFollowYou">Deixa que altres jugadors et segueixin</string>
   <string name="letOtherPlayersChallengeYou">Deixa que altres jugadors et reptin</string>
   <string name="letOtherPlayersInviteYouToStudy">Permetre que altres jugadors et conviden a un estudi</string>
@@ -658,6 +659,7 @@ en %3$s</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si no veus l\'email, comprova altres llocs on pugui ser, com el correu brossa, spam, o altres carpetes</string>
   <string name="weHaveSentYouAnEmailTo">Hem enviat un correu electrònic a %s. Clica a l\'enllaç per renovar la teva contrasenya.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">En registrar-te,dones la teva conformitat a estar legalment obligats per el nostre %s.</string>
+  <string name="readAboutOur">Llegeix sobre la nostre %s.</string>
   <string name="networkLagBetweenYouAndLichess">Retard de la xarxa entre tu i lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Temps per processar un moviment al servidor lichess</string>
   <string name="downloadAnnotated">Descàrrega anotada</string>

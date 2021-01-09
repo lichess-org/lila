@@ -6,7 +6,7 @@
   <string name="passwordReset_subject">%s, скидання вашого паролю lichess.org</string>
   <string name="passwordReset_intro">Ми отримали запит на скидання пароля для вашого облікового запису.</string>
   <string name="passwordReset_clickOrIgnore">Якщо запит виконано вами, натисніть на посилання нижче. Якщо ні, проігноруйте цей лист.</string>
-  <string name="emailChange_subject">%s, підтвердіть нову адресу пошти </string>
+  <string name="emailChange_subject">%s, підтвердіть нову адресу пошти</string>
   <string name="emailChange_intro">Ми отримали запит на зміну вашої адреси пошти.</string>
   <string name="emailChange_click">Для підтвердження наявності вами доступу до цієї пошти, натисніть на посилання нижче:</string>
   <string name="welcome_subject">Ласкаво просимо на lichess.org, %s</string>

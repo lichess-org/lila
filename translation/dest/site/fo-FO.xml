@@ -511,6 +511,7 @@
   <string name="clockInitialTime">Byrjanartíð á klokku</string>
   <string name="clockIncrement">Øking á klokku</string>
   <string name="privacy">Privatlív</string>
+  <string name="privacyPolicy" comment="privacyPolicy&#10;&#10;This string appears exclusively in the context of the readAboutOur string. The full Enlish text is &quot;Read about our Privacy policy&quot;, and &quot;Privacy policy&quot; is a link.">Verndarpolitikkur</string>
   <string name="letOtherPlayersFollowYou">Lat aðrar telvarar fylgja tær</string>
   <string name="letOtherPlayersChallengeYou">Lat aðrar telvarar bjóða tær av</string>
   <string name="letOtherPlayersInviteYouToStudy">Lat aðrar telvarar bjóða tær at rannsaka</string>
@@ -656,6 +657,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Um tú ikki sært teldupostin, kanna onnur støð, hann kann vera. Eitt nú í junk, spam, social ella øðrum faldarum.</string>
   <string name="weHaveSentYouAnEmailTo">Vit hava sent %s ein teldupost. Klikk á leinkið í teldupostinum at endurseta títt loyniorð.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Við at skráseta teg, samtykkir tú í at vera bundin av okkara %s.</string>
+  <string name="readAboutOur" comment="readAboutOur&#10;&#10;The variable %s is a link to the Privacy Policy. The link's title is the privacyPolicy string.&#10;&#10;This text appears on the signup page, as well as in emails.">Les um, hvør %s okkara er.</string>
   <string name="networkLagBetweenYouAndLichess">Netseinkan millum teg og Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tíð at viðgera ein leik í Lichess-ambætaranum</string>
   <string name="downloadAnnotated">Tak viðmerkingar niður</string>

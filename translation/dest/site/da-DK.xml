@@ -511,6 +511,7 @@
   <string name="clockInitialTime">Indledende tid på ur</string>
   <string name="clockIncrement">Ur-forøgelse</string>
   <string name="privacy">Privat</string>
+  <string name="privacyPolicy">Privatlivspolitik</string>
   <string name="letOtherPlayersFollowYou">Lad andre spillere følge dig</string>
   <string name="letOtherPlayersChallengeYou">Lad andre spillere udfordre dig</string>
   <string name="letOtherPlayersInviteYouToStudy">Lad andre spillere invitere dig til at studere</string>
@@ -656,6 +657,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Hvis du ikke kan se emailen, bør du kontrollere andre steder den kan være endt, som i din junk, spam eller andre mapper.</string>
   <string name="weHaveSentYouAnEmailTo">Vi har sendt en e-mail til %s. Klik på linket i e-mailen for at nulstille din adgangskode.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ved at registrere, accepterer du at være bundet af vores %s.</string>
+  <string name="readAboutOur">Læs om vores %s.</string>
   <string name="networkLagBetweenYouAndLichess">Netværksforsinkelse mellem dig og lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tid til at behandle et træk på Lichess-server</string>
   <string name="downloadAnnotated">Download kommenteret</string>

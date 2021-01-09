@@ -8,6 +8,8 @@
   <string name="attackingF2F7Description">Μια επίθεση που εστιάζει στο πιόνι f2 ή f7, όπως στην επίθεση Φράιντ Λίβερ.</string>
   <string name="attraction">Έλξη</string>
   <string name="attractionDescription">Μια ανταλλαγή ή θυσία που ενθαρρύνει ή αναγκάζει ένα αντίπαλο κομμάτι σε ένα τετράγωνο όπου δύναται μια επακόλουθη τακτική.</string>
+  <string name="backRankMate">Ματ της τελευταίας γραμμής</string>
+  <string name="backRankMateDescription">Κάντε ματ στον βασιλιά στην τελευταία γραμμή όταν είναι παγιδευμένος εκεί από τα κομμάτια του.</string>
   <string name="bishopEndgame">Φινάλε Αξιωματικών</string>
   <string name="bishopEndgameDescription">Ένα τέλος παρτίδας μόνο με αξιωματικούς και πιόνια.</string>
   <string name="castling">Pοκέ</string>
@@ -19,11 +21,17 @@
   <string name="defensiveMoveDescription">Μια ακριβής κίνηση ή ακολουθία κινήσεων που απαιτείται για να αποφευχθεί η απώλεια υλικού ή άλλου πλεονεκτήματος.</string>
   <string name="discoveredAttack">Επίθεση με αποκάλυψη</string>
   <string name="doubleCheck">Διπλό σαχ</string>
+  <string name="doubleCheckDescription">Διπλό σαχ ως αποτέλεσμα μίας επίθεσης με αποκάλυψη, όπου και το μετακινούμενο κομμάτι δίνει σαχ.</string>
   <string name="endgame">Φινάλε</string>
   <string name="endgameDescription">Μια τακτική κατά την τελευταία φάση του παιχνιδιού.</string>
   <string name="exposedKing">Εκτεθειμένος βασιλιάς</string>
+  <string name="fork">Πιρούνισμα</string>
+  <string name="forkDescription">Μια κίνηση όπου το μετακινούμενο κομμάτι επιτίθεται ταυτόχρονα σε δύο ή περισσότερα αντίπαλα κομμάτια.</string>
+  <string name="hangingPiece">Κρεμασμένα κομμάτια</string>
   <string name="hangingPieceDescription">Μια τακτική όπου ένα αντίπαλο κομμάτι είναι ανυπεράσπιστο ή υπερασπιζόμενο ανεπαρκώς και μπορεί να παρθεί.</string>
   <string name="interference">Παρεμβολή</string>
+  <string name="intermezzo">Ενδιάμεση κίνηση</string>
+  <string name="intermezzoDescription">Αντί για την αναμενόμενη κίνηση παίζουμε πρώτα μια άλλη κίνηση η οποία δημιουργεί μια άμεση απειλή και που ο αντίπαλος πρέπει να απαντήσει. Επίσης γνωστό ως \"Zwischenzug\" ή \"Intermezzo\".</string>
   <string name="knightEndgame">Φινάλε Ίππων</string>
   <string name="knightEndgameDescription">Ένα τέλος παρτίδας μόνο με ίππους και πιόνια.</string>
   <string name="long">Μεγάλος γρίφος</string>
@@ -66,6 +74,8 @@
   <string name="shortDescription">Δύο κινήσεις για να κερδίσετε.</string>
   <string name="skewer">Σούβλισμα</string>
   <string name="skewerDescription">Ένα μοτίβο όπου ένα κομμάτι υψηλής αξίας δέχεται επίθεση, κάνει στην άκρη, και επιτρέπει την επίθεση ή το πάρσιμο ενός κομματιού μικρότερης αξίας πίσω από αυτό, το αντίστροφο δηλαδή του καρφώματος.</string>
+  <string name="smotheredMate">Ματ αποπνιγμού</string>
+  <string name="smotheredMateDescription">Ένα ματ που γίνεται από έναν ίππο σε έναν βασιλιάς ο οποίος δεν μπορεί να μετακινηθεί όντας περιτριγυρισμένος (ή πνιγμένος) από δικά του κομμάτια.</string>
   <string name="trappedPiece">Παγιδευμένο κομμάτι</string>
   <string name="trappedPieceDescription">Ένα κομμάτι δεν μπορεί να αποφύγει το πάρσιμο, καθώς έχει περιορισμένες κινήσεις.</string>
   <string name="underPromotion">Προαγωγή σε κομμάτι μικρότερης αξίας</string>

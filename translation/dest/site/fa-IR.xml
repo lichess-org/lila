@@ -817,15 +817,12 @@
   <string name="bulletDesc">بازی های فوق سریع : کمتر از 3 دقیقه</string>
   <string name="blitzDesc">بازی های سریع : 3 تا 8 دقیقه</string>
   <string name="rapidDesc">بازی های رپید ( سرعتی ) : 8 تا 25 دقیقه</string>
-  <string name="classicalDesc">بازی های کلاسیک : 25 دقیقه یا بیشتر </string>
+  <string name="classicalDesc">بازی های کلاسیک : 25 دقیقه یا بیشتر</string>
   <string name="correspondenceDesc">بازی های مکاتبه ای : یک  یا چند روز برای هر حرکت</string>
   <string name="puzzleDesc">تمرین تاکتیک های شطرنج</string>
   <string name="important">مهم!</string>
-  <string name="yourQuestionMayHaveBeenAnswered">ممکن است پاسخ سوال شما در سوالات متداول باشد</string>
   <string name="inTheFAQ">در سوالات متداول باشد.</string>
-  <string name="toReportSomeoneForCheatingOrBadBehavior"> برای گزارش دادن یک کاربر برای تقلب یا رفتار بد</string>
   <string name="useTheReportForm">از فرم گزارش استفاده کنید.</string>
-  <string name="toRequestSupport">برای پشتیبانی</string>
   <string name="tryTheContactPage">با این صفحه ارتباط بگیرید.</string>
   <string name="subscribe">مشترک شدن</string>
   <string name="unsubscribe">لغو اشتراک</string>
