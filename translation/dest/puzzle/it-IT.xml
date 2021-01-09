@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">Rompicapi</string>
-  <string name="puzzleThemes">Giochi Puzzle</string>
+  <string name="puzzles">Tattiche</string>
+  <string name="puzzleThemes">Tattiche a tema</string>
   <string name="recommended">Consigliati</string>
   <string name="phases">Fasi</string>
   <string name="motifs">Temi</string>
-  <string name="advanced">Avanzate</string>
-  <string name="lengths">Lunghezze</string>
-  <string name="mates">Compagni</string>
-  <string name="goals">Scopi</string>
+  <string name="advanced">Avanzati</string>
+  <string name="lengths">Per lunghezza</string>
+  <string name="mates">Matti</string>
+  <string name="goals">Per obiettivo</string>
   <string name="specialMoves">Mosse speciali</string>
-  <string name="didYouLikeThisPuzzle">Ti è piaciuto questo rompicapo?</string>
+  <string name="didYouLikeThisPuzzle">Ti è piaciuta questa tattica?</string>
   <string name="voteToLoadNextOne">Vota per caricare il prossimo!</string>
   <string name="yourPuzzleRatingX">Il tuo punteggio nelle tattiche: %s</string>
   <string name="findTheBestMoveForWhite">Trova la mossa migliore per il bianco.</string>
