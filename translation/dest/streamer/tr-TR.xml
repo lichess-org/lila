@@ -24,6 +24,9 @@
   <string name="perk2">Yayıncılar listesinde en üst sırada görünürsünüz.</string>
   <string name="perk3">Lishogi takipçilerinizi haberdar edersiniz.</string>
   <string name="perk4">Maç, turnuva ve çalışmalarınızda yayınınızı gösterebilirsiniz.</string>
+  <string name="youHaveBeenSelectedFrontpage">You have been selected for frontpage featuring!</string>
+  <string name="noteThatOnlyLimited">Note that we can only show a limited number of streams on the homepage, </string>
+  <string name="soYoursMayNotAlwaysAppear">so yours may not always appear.</string>
   <string name="approved">Yayın başvurunuz onaylandı.</string>
   <string name="pendingReview">Yayın başvurunuz moderatörler tarafından gözden geçiriliyor.</string>
   <string name="pleaseFillIn">Lütfen yayıncı bilgilerini doldurun ve bir fotoğraf yükleyin.</string>

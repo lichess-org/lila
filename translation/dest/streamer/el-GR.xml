@@ -24,6 +24,9 @@
   <string name="perk2">Ανεβείτε στη κορυφή της λίστας μεταδοτών.</string>
   <string name="perk3">Ενημέρωση των ακολούθων σας στο Lishogi.</string>
   <string name="perk4">Εμφάνιση της μετάδοσής σας στα παιχνίδια, τουρνουά και μελέτες.</string>
+  <string name="youHaveBeenSelectedFrontpage">You have been selected for frontpage featuring!</string>
+  <string name="noteThatOnlyLimited">Note that we can only show a limited number of streams on the homepage, </string>
+  <string name="soYoursMayNotAlwaysAppear">so yours may not always appear.</string>
   <string name="approved">Η μετάδοσή σας εγκρίθηκε.</string>
   <string name="pendingReview">Η μετάδοσή σας αξιολογείται από τους διαχειριστές.</string>
   <string name="pleaseFillIn">Παρακαλώ συμπληρώστε τις πληροφορίες μεταδότη, και ανεβάστε μια εικόνα.</string>

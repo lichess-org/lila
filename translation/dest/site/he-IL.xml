@@ -263,6 +263,7 @@
 	<string name="confirmMove">אשר מהלך</string>
 	<string name="play">שחק</string>
 	<string name="inbox">תיבת דואר</string>
+	<string name="streamerManager">Streamer manager</string>
 	<string name="chatRoom">חדר צא\'ט</string>
 	<string name="loginToChat">התחבר כדי לדבר בצ\'אט</string>
 	<string name="youHaveBeenTimedOut">עבר הזמן הקצוב והתנתקת.</string>
@@ -955,6 +956,8 @@
 	<string name="whiteOffersImpasse">Gote offers impasse</string>
 	<string name="notationSystem">Notation</string>
 	<string name="officialBlog">Lishogi Official Blog</string>
+	<string name="blogPostsFromYear">Blog posts from %1$s</string>
 	<string name="previousBlogPosts">Previous blog posts</string>
+	<string name="continueReadingThis"> Continue reading this post</string>
 	<string name="discussBlogForum">Discuss this blog post in the forum</string>
 </resources>

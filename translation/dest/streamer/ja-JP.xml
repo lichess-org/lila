@@ -24,6 +24,9 @@
   <string name="perk2">配信者リストのトップに上がる。</string>
   <string name="perk3">Lishogi 内のフォロワーに知らせる。</string>
   <string name="perk4">対局・トーナメント・研究の中に配信動画を表示できる。</string>
+  <string name="youHaveBeenSelectedFrontpage">You have been selected for frontpage featuring!</string>
+  <string name="noteThatOnlyLimited">Note that we can only show a limited number of streams on the homepage, </string>
+  <string name="soYoursMayNotAlwaysAppear">so yours may not always appear.</string>
   <string name="approved">配信動画が承認されました。</string>
   <string name="pendingReview">あなたの配信動画はモデレーターが審査中です。</string>
   <string name="pleaseFillIn">配信者としての情報を入力し、写真をアップロードしてください。</string>

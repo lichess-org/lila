@@ -241,6 +241,7 @@
 	<string name="confirmMove">Confirmar movimiento</string>
 	<string name="play">Jugar</string>
 	<string name="inbox">Mensajes</string>
+	<string name="streamerManager">Streamer manager</string>
 	<string name="chatRoom">Sala de chat</string>
 	<string name="loginToChat">Inicia sesión para chatear</string>
 	<string name="youHaveBeenTimedOut">Has sido silenciado temporalmente.</string>
@@ -876,6 +877,8 @@
 	<string name="whiteOffersImpasse">Gote ofrecen impase</string>
 	<string name="notationSystem">Notation</string>
 	<string name="officialBlog">Lishogi Official Blog</string>
+	<string name="blogPostsFromYear">Blog posts from %1$s</string>
 	<string name="previousBlogPosts">Previous blog posts</string>
+	<string name="continueReadingThis"> Continue reading this post</string>
 	<string name="discussBlogForum">Discuss this blog post in the forum</string>
 </resources>

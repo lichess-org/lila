@@ -24,6 +24,9 @@
   <string name="perk2">Awans na górę listy streamerów.</string>
   <string name="perk3">Powiadomienie obserwujących Cię.</string>
   <string name="perk4">Informacja o streamie w Twoich partiach, turniejach i opracowaniach.</string>
+  <string name="youHaveBeenSelectedFrontpage">You have been selected for frontpage featuring!</string>
+  <string name="noteThatOnlyLimited">Note that we can only show a limited number of streams on the homepage, </string>
+  <string name="soYoursMayNotAlwaysAppear">so yours may not always appear.</string>
   <string name="approved">Twój stream został zatwierdzony.</string>
   <string name="pendingReview">Twój stream jest sprawdzany przez moderatorów.</string>
   <string name="pleaseFillIn">Wypełnij proszę informacje o sobie i prześlij nam swoje zdjęcie.</string>

@@ -241,6 +241,7 @@
 	<string name="confirmMove">Επιβεβαίωση κίνησης</string>
 	<string name="play">Παίξτε</string>
 	<string name="inbox">Εισερχόμενα</string>
+	<string name="streamerManager">Streamer manager</string>
 	<string name="chatRoom">Ζωντανή συζήτηση</string>
 	<string name="loginToChat">Συνδεθείτε για να μιλήσετε</string>
 	<string name="youHaveBeenTimedOut">Έχετε αποσυνδεθεί.</string>
@@ -877,6 +878,8 @@
 	<string name="whiteOffersImpasse">Gote offers impasse</string>
 	<string name="notationSystem">Notation</string>
 	<string name="officialBlog">Lishogi Official Blog</string>
+	<string name="blogPostsFromYear">Blog posts from %1$s</string>
 	<string name="previousBlogPosts">Previous blog posts</string>
+	<string name="continueReadingThis"> Continue reading this post</string>
 	<string name="discussBlogForum">Discuss this blog post in the forum</string>
 </resources>

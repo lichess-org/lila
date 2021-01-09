@@ -24,6 +24,9 @@
   <string name="perk2">Ви будете переміщені вверх по списку стрімерів.</string>
   <string name="perk3">Повідомлення Ваших підписників Lishogi.</string>
   <string name="perk4">Відображення вашого стріму у ваших іграх, турнірах та студіях.</string>
+  <string name="youHaveBeenSelectedFrontpage">You have been selected for frontpage featuring!</string>
+  <string name="noteThatOnlyLimited">Note that we can only show a limited number of streams on the homepage, </string>
+  <string name="soYoursMayNotAlwaysAppear">so yours may not always appear.</string>
   <string name="approved">Ваш стрім підтверджено.</string>
   <string name="pendingReview">Стрім перевіряють модератори.</string>
   <string name="pleaseFillIn">Будь ласка, заповніть інформацію про стрім та завантажте фотографію.</string>

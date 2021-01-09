@@ -24,6 +24,9 @@
   <string name="perk2">Ești ridicat în vârful listei de streameri.</string>
   <string name="perk3">Îți notifici următorii de pe Lishogi.</string>
   <string name="perk4">Îți apare streamul în meciurile, turneele și studiile tale.</string>
+  <string name="youHaveBeenSelectedFrontpage">You have been selected for frontpage featuring!</string>
+  <string name="noteThatOnlyLimited">Note that we can only show a limited number of streams on the homepage, </string>
+  <string name="soYoursMayNotAlwaysAppear">so yours may not always appear.</string>
   <string name="approved">Streamul tău este aprobat.</string>
   <string name="pendingReview">Streamul tău este revizuit de moderatori.</string>
   <string name="pleaseFillIn">Vă rugăm să introduceți informațiile de streamer și să încărcați o imagine.</string>

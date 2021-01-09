@@ -241,6 +241,7 @@
 	<string name="confirmMove">Zug bestätigen</string>
 	<string name="play">Spielen</string>
 	<string name="inbox">Posteingang</string>
+	<string name="streamerManager">Streamer manager</string>
 	<string name="chatRoom">Chatraum</string>
 	<string name="loginToChat">Logge dich ein, um zu chatten</string>
 	<string name="youHaveBeenTimedOut">Dir wurde eine Auszeit verordnet.</string>
@@ -876,6 +877,8 @@
 	<string name="whiteOffersImpasse">Gote bietet Impasse an</string>
 	<string name="notationSystem">Notation</string>
 	<string name="officialBlog">Offizieller Lishogi-Blog</string>
+	<string name="blogPostsFromYear">Blog posts from %1$s</string>
 	<string name="previousBlogPosts">Vorherige Blogeinträge</string>
+	<string name="continueReadingThis"> Continue reading this post</string>
 	<string name="discussBlogForum">Diesen Blog-Beitrag im Forum diskutieren</string>
 </resources>

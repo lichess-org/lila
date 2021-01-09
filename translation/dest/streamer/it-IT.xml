@@ -24,6 +24,9 @@
   <string name="perk2">Vieni messo in primo piano nella lista degli streamer.</string>
   <string name="perk3">Informa i tuoi follower su Lishogi.</string>
   <string name="perk4">Mostra il tuo stream nei tuoi giochi, tornei e studi.</string>
+  <string name="youHaveBeenSelectedFrontpage">You have been selected for frontpage featuring!</string>
+  <string name="noteThatOnlyLimited">Note that we can only show a limited number of streams on the homepage, </string>
+  <string name="soYoursMayNotAlwaysAppear">so yours may not always appear.</string>
   <string name="approved">Il tuo stream è approvato.</string>
   <string name="pendingReview">Il tuo stream è in fase di revisione da parte dei moderatori.</string>
   <string name="pleaseFillIn">Per favore compila le tue informazioni da streamer e carica un\'immagine.</string>

@@ -24,6 +24,9 @@
   <string name="perk2">Get bumped up to the top of the streamers list.</string>
   <string name="perk3">Notify your Lishogi followers.</string>
   <string name="perk4">Show your stream in your games, tournaments and studies.</string>
+  <string name="youHaveBeenSelectedFrontpage">You have been selected for frontpage featuring!</string>
+  <string name="noteThatOnlyLimited">Note that we can only show a limited number of streams on the homepage, </string>
+  <string name="soYoursMayNotAlwaysAppear">so yours may not always appear.</string>
   <string name="approved">Your stream is approved.</string>
   <string name="pendingReview">Your stream is being reviewed by moderators.</string>
   <string name="pleaseFillIn">Please fill in your streamer information, and upload a picture.</string>
@@ -32,7 +35,10 @@
   <string name="anotherLanguage">If your stream is in a language other than English, include the correct language tag (%s), enclosed in square brackets, at the start of your stream title.
 As examples, you can include \"[RU]\" for Russian, \"[TR]\" for Turkish, \"[FR]\" for French, etc.
 Put this in the stream title in the Twitch or YouTube page, not in the Lishogi stream settings.
-If your stream is in English, there is no need to include a language tag.</string>
+If your stream is in English, there is no need to include a language tag.
+
+Streamer pages eventually expire if they are not used for a long time, also, you must stream once within a week of your approval or the page de-activates. The streaming trophy will also not appear on your account until you’ve streamed. If your streamer page has expired you must apply again and wait to be approved.
+ </string>
   <string name="twitchUsername">Your Twitch username or URL</string>
   <string name="optionalOrEmpty">Tùy chọn. Bỏ trống nếu không có</string>
   <string name="youtubeChannel">Your YouTube channel ID or URL</string>

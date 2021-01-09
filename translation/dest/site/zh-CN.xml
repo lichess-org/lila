@@ -230,6 +230,7 @@
 	<string name="confirmMove">确认步着</string>
 	<string name="play">下棋</string>
 	<string name="inbox">收件箱</string>
+	<string name="streamerManager">Streamer manager</string>
 	<string name="chatRoom">聊天室</string>
 	<string name="loginToChat">聊天请登录</string>
 	<string name="youHaveBeenTimedOut">您暂时被禁言。</string>
@@ -838,6 +839,8 @@
 	<string name="whiteOffersImpasse">后手提出持棋</string>
 	<string name="notationSystem">棋谱记法</string>
 	<string name="officialBlog">Lishogi Official Blog</string>
+	<string name="blogPostsFromYear">Blog posts from %1$s</string>
 	<string name="previousBlogPosts">Previous blog posts</string>
+	<string name="continueReadingThis"> Continue reading this post</string>
 	<string name="discussBlogForum">Discuss this blog post in the forum</string>
 </resources>

@@ -230,6 +230,7 @@
 	<string name="confirmMove">Xác nhận nước đi</string>
 	<string name="play">Chơi</string>
 	<string name="inbox">Hộp thư</string>
+	<string name="streamerManager">Streamer manager</string>
 	<string name="chatRoom">Phòng chat</string>
 	<string name="loginToChat">Đăng nhập để trò chuyện</string>
 	<string name="youHaveBeenTimedOut">Bạn đã bị tạm dừng trò chuyện.</string>
@@ -838,6 +839,8 @@
 	<string name="whiteOffersImpasse">Gote offers impasse</string>
 	<string name="notationSystem">Notation</string>
 	<string name="officialBlog">Lishogi Official Blog</string>
+	<string name="blogPostsFromYear">Blog posts from %1$s</string>
 	<string name="previousBlogPosts">Previous blog posts</string>
+	<string name="continueReadingThis"> Continue reading this post</string>
 	<string name="discussBlogForum">Discuss this blog post in the forum</string>
 </resources>

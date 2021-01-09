@@ -252,6 +252,7 @@
 	<string name="confirmMove">Confirmă mutarea</string>
 	<string name="play">Joacă</string>
 	<string name="inbox">Căsuță poștală</string>
+	<string name="streamerManager">Streamer manager</string>
 	<string name="chatRoom">Zona de chat</string>
 	<string name="loginToChat">Conectare la chat</string>
 	<string name="youHaveBeenTimedOut">Timpul alocat v-a fost suprimat.</string>
@@ -914,6 +915,8 @@
 	<string name="whiteOffersImpasse">Gote offers impasse</string>
 	<string name="notationSystem">Notation</string>
 	<string name="officialBlog">Lishogi Official Blog</string>
+	<string name="blogPostsFromYear">Blog posts from %1$s</string>
 	<string name="previousBlogPosts">Previous blog posts</string>
+	<string name="continueReadingThis"> Continue reading this post</string>
 	<string name="discussBlogForum">Discuss this blog post in the forum</string>
 </resources>

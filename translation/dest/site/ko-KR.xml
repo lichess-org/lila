@@ -230,6 +230,7 @@
 	<string name="confirmMove">수 확인</string>
 	<string name="play">플레이</string>
 	<string name="inbox">받은편지함</string>
+	<string name="streamerManager">Streamer manager</string>
 	<string name="chatRoom">채팅</string>
 	<string name="loginToChat">채팅에 로그인하기</string>
 	<string name="youHaveBeenTimedOut">채팅에서 로그아웃 되었습니다.</string>
@@ -838,6 +839,8 @@
 	<string name="whiteOffersImpasse">Gote offers impasse</string>
 	<string name="notationSystem">Notation</string>
 	<string name="officialBlog">Lishogi Official Blog</string>
+	<string name="blogPostsFromYear">Blog posts from %1$s</string>
 	<string name="previousBlogPosts">Previous blog posts</string>
+	<string name="continueReadingThis"> Continue reading this post</string>
 	<string name="discussBlogForum">Discuss this blog post in the forum</string>
 </resources>
