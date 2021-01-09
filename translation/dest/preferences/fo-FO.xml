@@ -23,6 +23,12 @@
   <string name="giveMoreTime">Gev meira tíð</string>
   <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Hvussu telvað verður</string>
   <string name="howDoYouMovePieces">Hvussu flytir tú fólkini?</string>
+  <string name="clickTwoSquares">Klikk á tveir puntar</string>
+  <string name="dragPiece">Drag talvfólkið</string>
+  <string name="bothClicksAndDrag">Bæði</string>
+  <string name="premovesPlayingDuringOpponentTurn">Forhandarleikur (at leika, meðan mótparturin eigur leik)</string>
+  <string name="takebacksWithOpponentApproval">Afturtøka (við loyvi frá mótleikaranum)</string>
+  <string name="inCasualGamesOnly">Bert í talvum, ið ikki ávirka styrkitøl</string>
   <string name="promoteToQueenAutomatically">Umskapa til frúgv sjálvvirkið</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Sig \"Gott talv, væl telvað,\" tá ið tú vinnur ella telvar javnt</string>
 </resources>
