@@ -21,7 +21,7 @@
   <string name="horizontalGreenProgressBars">Vodoravna zelena prečka</string>
   <string name="soundWhenTimeGetsCritical">Zvočni signal ko čas postane kritičen</string>
   <string name="giveMoreTime">Dajte več časa</string>
-  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Nastavitve igre</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Posebnosti igre</string>
   <string name="howDoYouMovePieces">Kako premikate figure?</string>
   <string name="clickTwoSquares">Klikni dve polji</string>
   <string name="dragPiece">Potegni figuro</string>
