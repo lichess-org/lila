@@ -49,7 +49,7 @@
   <string name="knightEndgameDescription">Een eindspel met alleen paarden en pionnen.</string>
   <string name="long">Lange puzzel</string>
   <string name="longDescription">Winnen in drie zetten.</string>
-  <string name="mate">Mat</string>
+  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mat</string>
   <string name="mateDescription">De partij in stijl winnen.</string>
   <string name="mateIn1">Mat in 1</string>
   <string name="mateIn1Description">Zet schaakmat in één zet.</string>
@@ -89,7 +89,7 @@
   <string name="shortDescription">Winnen in twee zetten.</string>
   <string name="skewer">Röntgenaanval</string>
   <string name="skewerDescription">Een motief waarbij een waardevol stuk wordt aangevallen en vervolgens wordt verplaatst, waardoor een lichter stuk erachter kan worden geslagen of aangevallen. Het omgekeerde van een penning.</string>
-  <string name="smotheredMate">Stikmat</string>
+  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Stikmat</string>
   <string name="smotheredMateDescription">Schaakmat met een paard waarbij de aangevallen koning geen zet kan doen omdat hij ingesloten is (of verstikt) door zijn eigen stukken.</string>
   <string name="trappedPiece">Ingesloten stuk</string>
   <string name="trappedPieceDescription">Een stuk kan niet meer ontsnappen omdat het geen velden meer heeft.</string>
