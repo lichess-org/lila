@@ -916,4 +916,7 @@
   <string name="youCannotPostYetPlaySomeGames">Nie możesz jeszcze publikować na forach. Rozegraj najpierw kilka partii!</string>
   <string name="subscribe">Subskrybuj</string>
   <string name="unsubscribe">Zakończ subskrybcję</string>
+  <string name="challengeDeclined">Wyzwanie odrzucone</string>
+  <string name="challengeAccepted">Wyzwanie zaakceptowane!</string>
+  <string name="challengeCanceled">Wyzwanie anulowane.</string>
 </resources>
