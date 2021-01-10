@@ -40,7 +40,12 @@
   <string name="intermezzo">Medziťah</string>
   <string name="knightEndgame">Jazdcová koncovka</string>
   <string name="long">Dlhý diagram</string>
+  <string name="longDescription">Výhra v troch ťahoch.</string>
   <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mat</string>
+  <string name="mateDescription">Vyhrajte hru so štýlom.</string>
+  <string name="mateIn1">Mat 1. ťahom</string>
+  <string name="mateIn2">Mat 2. ťahom</string>
+  <string name="mateIn3">Mat 3. ťahom</string>
   <string name="mateIn4">Mat na 4 ťahy</string>
   <string name="middlegame">Stredná hra</string>
   <string name="middlegameDescription">Taktika počas druhého úseku hry.</string>
