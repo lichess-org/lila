@@ -8,4 +8,7 @@
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">Og nú kemur tað langa svarið! Drál í spæli er sett saman av tveimum virðum, ið ikki hava nakað við hvørt annað at gera (lægri er betri):</string>
   <string name="lichessServerLatency">Lichess ambætaradrál</string>
   <string name="networkBetweenLichessAndYou">Net millum Lichess og teg</string>
+  <string name="networkBetweenLichessAndYouExplanation">Tíðin that tekur at senda ein leik frá tínari teldu til Lichess-ambætaran og fáa svar aftur. Hetta snýr seg serstakliga um frástøðu tína til Lichess (Frakland) og um góðskuna á tínum internetsambandi. Lichess-mennarar kunnu ikki bøta um títt wi-fi ella fáa ljós at ferðast skjótari.</string>
+  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Tú kanst altíð finna hesi bæði virði við at klikkja á brúkaranavn títt í bjálkanum í erva.</string>
+  <string name="lagCompensation">Javnan av seinking</string>
 </resources>
