@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Prečo sa Lichess volá Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess je kombinácia slov live/light/libre a chess. Vyslovuje sa %1$s.</string>
   <string name="leechess">ličes</string>
-  <string name="hearItPronouncedBySpecialist">Vypočujte si to vyslovené špecialistom.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Vypočujte si to vyslovené špecialistom.</string>
   <string name="whyLiveLightLibre">Live (naživo), lebo partie sa hrajú a sledujú v reálnom čase 24/7; light (ľahký) a libre (bezplatný) vďaka faktu že Lichess je open-source a nezaťažený odpadom, ktorý trápi ostatné stránky.</string>
   <string name="whyIsLilaCalledLila">Podobne, zdrojový kód pre Lichess, %1$s, znamená li[chess in sca]la, pretože väčšina stránky Lichess je napísaná v %2$s, intuitívnom programovacom jazyku.</string>
   <string name="howCanIContributeToLichess">Ako môžem prispieť stránke Lichess?</string>
