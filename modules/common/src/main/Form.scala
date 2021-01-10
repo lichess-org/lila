@@ -68,7 +68,7 @@ object Form {
       Constraints maxLength maxLength,
       Constraints.pattern(
         regex = """[\p{L}\p{N}-\s:.,;'\+]+""".r,
-        error = "Invalid characters"
+        error = "Invalid characters; only letters, numbers, and common punctuation marks are accepted."
       )
     )
 
