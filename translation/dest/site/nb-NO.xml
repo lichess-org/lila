@@ -844,4 +844,5 @@
   <string name="unsubscribe">Avslutt abonnement</string>
   <string name="challengeDeclined">Utfordring avslått</string>
   <string name="challengeAccepted">Utfordring godtatt!</string>
+  <string name="challengeCanceled">Utfordring avbrutt.</string>
 </resources>
