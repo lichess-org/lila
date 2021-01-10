@@ -49,7 +49,7 @@
   <string name="knightEndgameDescription">Sadece at ve piyon içeren oyunsonu.</string>
   <string name="long">Uzun bulmaca</string>
   <string name="longDescription">Üç hamlede kazanç.</string>
-  <string name="mate">Mat</string>
+  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mat</string>
   <string name="mateDescription">Oyunu tarz ile kazanın.</string>
   <string name="mateIn1">1 Hamlede Mat</string>
   <string name="mateIn1Description">Tek hamlede rakibi mat et.</string>
@@ -89,7 +89,7 @@
   <string name="shortDescription">İki hamlede kazanç.</string>
   <string name="skewer">Şiş</string>
   <string name="skewerDescription">Değerli bir taşın saldırı altında olduğu, hareketi hâlinde ise arkasındaki daha düşük değerli bir taşın düşeceği ya da tehlikeye gireceği motifler. Bir nevi açmazın tersi.</string>
-  <string name="smotheredMate">Boğmaca Matı</string>
+  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Boğmaca Matı</string>
   <string name="smotheredMateDescription">Kendi taşları tarafından çevrelendiği (ya da boğulduğu) için hareket edemeyen şahın at ile mat edildiği pozisyonlar.</string>
   <string name="trappedPiece">Tuzağa düşmüş taş</string>
   <string name="trappedPieceDescription">Gidecek güvenli bir kare kalmadığı için kaçacak yerleri olmayan taşlar.</string>
