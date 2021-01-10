@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Mengapa Lichess dikatakan Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess adalah kombinasi antara langsung/ringan/kebebasan dan catur. Itu diucapkan %1$s.</string>
   <string name="leechess">lee-chess</string>
-  <string name="hearItPronouncedBySpecialist">Mendengarkan yang diucapkan oleh seorang spesialis.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Mendengarkan yang diucapkan oleh seorang spesialis.</string>
   <string name="whyLiveLightLibre">Langsung, karena permainan dimainkan dan ditonton secara real-time 24/7; ringan dan bebas yang nyatanya bahwa Lichess adalah sumber-terbuka dan tidak terbebani oleh sampah eksklusif yang mengganggu situs web lain.</string>
   <string name="whyIsLilaCalledLila">Demikian pula, kode sumber untuk Lichess, %1$s, singkatan dari li[chess in sca]la, mengingat sebagian besar Lichess ditulis dalam %2$s, bahasa pemrograman yang intuitif.</string>
   <string name="howCanIContributeToLichess">Bagaimana saya dapat berkontribusi?</string>
