@@ -667,8 +667,11 @@
   <string name="gameAnalysis">Oyun analizi</string>
   <string name="xHostsY">%1$s ev sahibi: %2$s</string>
   <string name="xLikesY">%1$s bəyəndi: %2$s</string>
+  <string name="xCreatesStudyY">%1$s %2$s çalışmasını yaratdı</string>
   <string name="quickPairing">Tez qoşulma</string>
   <string name="lobby">Lobbi</string>
+  <string name="anonymous">Anonim</string>
+  <string name="yourScore">Hesab: %s</string>
   <string name="language">Dil</string>
   <string name="background">Arxaplan</string>
   <string name="light">İşıq</string>
@@ -679,6 +682,11 @@
   <string name="boardTheme">Taxta teması</string>
   <string name="boardSize">Taxta ölçüsü</string>
   <string name="pieceSet">Fiqur seti</string>
+  <string name="embedInYourWebsite">Saytınıza yerləşdirin</string>
+  <string name="usernameAlreadyUsed">Bu istifadəçi adı artıq istifadə olunur, lütfən başqasını sınayın.</string>
+  <string name="usernamePrefixInvalid">İstifadəçi adı hərflə başlamalıdır.</string>
+  <string name="usernameSuffixInvalid">İstifadəçi adı hərf və ya rəqəmlə bitməlidir.</string>
+  <string name="usernameCharsInvalid">İstifadəçi adı yalnız hərflər, rəqəmlər, alt xətlər və tirelərdən ibarət olmalıdır. Ardıcıl alt xətlər və tire işarələrinə icazə verilmir.</string>
   <string name="playChessInStyle">Şahmatı tərz ilə oynayın</string>
   <string name="chessBasics">Şahmatın təməl prinsipləri</string>
   <string name="coaches">Məşqçilər</string>
