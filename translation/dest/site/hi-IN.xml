@@ -845,4 +845,7 @@
   <string name="youCannotPostYetPlaySomeGames">आप अभी तक फ़ोरम में पोस्ट नहीं कर सकते। कुछ गेम्स खेलें!</string>
   <string name="subscribe">सदस्यता लें</string>
   <string name="unsubscribe">सदस्यता रद्द करें</string>
+  <string name="challengeDeclined">चुनौती इंकार कर दिया</string>
+  <string name="challengeAccepted">चुनौती स्वीकार की गई!</string>
+  <string name="challengeCanceled">चुनौती रद्द ।</string>
 </resources>
