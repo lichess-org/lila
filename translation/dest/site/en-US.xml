@@ -512,6 +512,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="clockInitialTime">Clock initial time</string>
   <string name="clockIncrement">Clock increment</string>
   <string name="privacy">Privacy</string>
+  <string name="privacyPolicy">Privacy policy</string>
   <string name="letOtherPlayersFollowYou">Let other players follow you</string>
   <string name="letOtherPlayersChallengeYou">Let other players challenge you</string>
   <string name="letOtherPlayersInviteYouToStudy">Let other players invite you to study</string>
@@ -657,6 +658,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">If you don\'t see the email, check other places it might be, like your junk, spam, social, or other folders.</string>
   <string name="weHaveSentYouAnEmailTo">We\'ve sent an email to %s. Click the link in the email to reset your password.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">By registering, you agree to be bound by our %s.</string>
+  <string name="readAboutOur">Read about our %s.</string>
   <string name="networkLagBetweenYouAndLichess">Network lag between you and lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Time to process a move on lichess server</string>
   <string name="downloadAnnotated">Download annotated</string>
@@ -841,4 +843,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="youCannotPostYetPlaySomeGames">You can\'t post in the forums yet. Play some games!</string>
   <string name="subscribe">Subscribe</string>
   <string name="unsubscribe">Unsubscribe</string>
+  <string name="challengeDeclined">Challenge declined</string>
+  <string name="challengeAccepted">Challenge accepted!</string>
+  <string name="challengeCanceled">Challenge canceled.</string>
 </resources>
