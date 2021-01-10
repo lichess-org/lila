@@ -476,9 +476,11 @@
   <string name="currentPassword">Cari şifre</string>
   <string name="newPassword">Yeni şifrə</string>
   <string name="newPasswordAgain">Yeni şifrə (təkrar)</string>
+  <string name="newPasswordStrength">Etibarlı şifrə</string>
   <string name="clockInitialTime">Saat başlanğıc vaxtı</string>
   <string name="clockIncrement">Vaxt artırma</string>
   <string name="privacy">Gizlilik</string>
+  <string name="privacyPolicy">Gizlilik siyasəti</string>
   <string name="letOtherPlayersFollowYou">Digər oyunçular təqib edəbilə</string>
   <string name="letOtherPlayersChallengeYou">Digər oyunçular oyun təklif edəbilə</string>
   <string name="sound">Səs</string>
