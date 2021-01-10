@@ -46,7 +46,7 @@
   <string name="knightEndgameDescription">Một thế cờ tàn chỉ có mã và tốt.</string>
   <string name="long">Câu đố dài</string>
   <string name="longDescription">Thắng trong ba nước cờ.</string>
-  <string name="mate">Chiếu hết</string>
+  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Chiếu hết</string>
   <string name="mateIn1">Chiếu hết trong 1 nước</string>
   <string name="mateIn1Description">Chiếu hết trong một nước cờ.</string>
   <string name="mateIn2">Chiếu hết trong 2 nước</string>
