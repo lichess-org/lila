@@ -721,7 +721,7 @@
   <string name="usernameAlreadyUsed">Brukernavnet er allerede i bruk, prøv et annet et.</string>
   <string name="usernamePrefixInvalid">Det første tegnet i brukernavnet må være en bokstav.</string>
   <string name="usernameSuffixInvalid">Det siste tegnet i brukernavnet må være en bokstav eller et tall.</string>
-  <string name="usernameCharsInvalid">Brukernavnet kan bare bestå av bokstaver, tall, understrekingstegn og bindestreker.</string>
+  <string name="usernameCharsInvalid">Brukernavnet kan bare bestå av bokstaver, tall, understrekingstegn og bindestreker. Det er ikke lov med flere understrekingstegn eller bindestreker på rad.</string>
   <string name="usernameUnacceptable">Dette brukernavnet er ikke akseptabelt.</string>
   <string name="directlySupportLichess">Støtt Lichess direkte</string>
   <string name="playChessInStyle">Spill sjakk med stil</string>
