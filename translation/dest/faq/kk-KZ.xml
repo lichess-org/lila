@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Личес неге Личес деп аталады?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Личес деген live/light/libre деген сөз бен chess сөзінің қосындысы. Ол %1$s деп оқылады.</string>
   <string name="leechess">ли-чес</string>
-  <string name="hearItPronouncedBySpecialist">Маманның айтуын тыңдаңыз.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Маманның айтуын тыңдаңыз.</string>
   <string name="whyLiveLightLibre">\"Live\" дегеннің мағынасы – ойындарды шын уақытта 24/7 ойнап, көруге болады; \"light\" пен \"libre\" деген сөздер Личестің түбір коды ашық, онымен қатар басқа веб-сайттардағыдай жекешелендіру сияқты қоқыстан еркін екендігін білдіреді.</string>
   <string name="whyIsLilaCalledLila">Личестің түбір коды – %1$s сөзі, li[chess in sca]la-дан құралады. %2$s програмдау тілінде Личестің негізгі бөлігі жазылған.</string>
   <string name="howCanIContributeToLichess">Лическе қалайша жәрдем көрсетсем болады?</string>
