@@ -9,6 +9,7 @@
   <string name="yourTurn">Ste na ťahu</string>
   <string name="aiNameLevelAiLevel">%1$s úrovne %2$s</string>
   <string name="level">Úroveň</string>
+  <string name="strength">Sila</string>
   <string name="toggleTheChat">Prepínač okna rozhovoru</string>
   <string name="toggleSound">Prepínač zvuku</string>
   <string name="chat">Rozhovor</string>
@@ -568,6 +569,7 @@
   <string name="clockInitialTime">Počiatočný čas na hodinách</string>
   <string name="clockIncrement">Časový prírastok</string>
   <string name="privacy">Súkromie</string>
+  <string name="privacyPolicy">Ochrana osobných údajov</string>
   <string name="letOtherPlayersFollowYou">Povoliť ostatným hráčom aby Vás sledovali</string>
   <string name="letOtherPlayersChallengeYou">Povoliť ostatným hráčom aby Vás vyzvali k partii</string>
   <string name="letOtherPlayersInviteYouToStudy">Povoliť ostatným hráčom aby Vás pozvali k šachovej štúdii</string>
@@ -721,6 +723,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ak nevidíte email, pozrite iné miesta kde by mohol byť, ako napríklad kôš, spam, sociálne, alebo iné priečinky.</string>
   <string name="weHaveSentYouAnEmailTo">Poslali sme email na %s. Kliknite na link v emaili na obnovenie hesla.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registráciou súhlasíte aby ste boli viazaný s našimi %s.</string>
+  <string name="readAboutOur">Prečítajte si o našej %s.</string>
   <string name="networkLagBetweenYouAndLichess">Internetové oneskorenie medzi Vami a lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Čas na spracovanie ťahu na lichess serveri</string>
   <string name="downloadAnnotated">Stiahnuť s poznámkami</string>
@@ -913,4 +916,7 @@
   <string name="youCannotPostYetPlaySomeGames">Nemôžeš prispievať do fóra. Zahraj si nejaké hry!</string>
   <string name="subscribe">Prihlásiť sa k odberu</string>
   <string name="unsubscribe">Odhlásiť sa z odberu</string>
+  <string name="challengeDeclined">Výzva odmietnutá</string>
+  <string name="challengeAccepted">Výzva prijatá!</string>
+  <string name="challengeCanceled">Výzva zrušená.</string>
 </resources>
