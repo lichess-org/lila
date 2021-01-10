@@ -69,6 +69,7 @@
   <string name="short">Krátky diagram</string>
   <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Dusený mat</string>
   <string name="trappedPiece">Chytená figúra</string>
+  <string name="trappedPieceDescription">Figúra neschopná ujsť vyhodeniu, pretože má limitované možnosti.</string>
   <string name="underPromotion">Pod-premena</string>
   <string name="underPromotionDescription">Premena na jazdca, strelca, alebo vežu.</string>
   <string name="veryLong">Veľmi dlhý diagram</string>
