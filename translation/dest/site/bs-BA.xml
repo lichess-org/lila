@@ -879,4 +879,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="youCannotPostYetPlaySomeGames">Još ne možete objavljivati na forumima. Odigrajte nekoliko partija!</string>
   <string name="subscribe">Pretplatite se</string>
   <string name="unsubscribe">Odjavite pretplatu</string>
+  <string name="challengeDeclined">Izazov odbijen</string>
+  <string name="challengeAccepted">Izazov prihvaćen!</string>
+  <string name="challengeCanceled">Izazov otkazan.</string>
 </resources>
