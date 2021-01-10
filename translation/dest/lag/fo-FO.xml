@@ -12,4 +12,5 @@
   <string name="networkBetweenLichessAndYouExplanation">Tíðin that tekur at senda ein leik frá tínari teldu til Lichess-ambætaran og fáa svar aftur. Hetta snýr seg serstakliga um frástøðu tína til Lichess (Frakland) og um góðskuna á tínum internetsambandi. Lichess-mennarar kunnu ikki bøta um títt wi-fi ella fáa ljós at ferðast skjótari.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Tú kanst altíð finna hesi bæði virði við at klikkja á brúkaranavn títt í bjálkanum í erva.</string>
   <string name="lagCompensation">Javnan av seinking</string>
+  <string name="lagCompensationExplanation">Lichess javnar netseinking. Hetta umfatar áhaldandi seinkingar og tilvildarligar seinkingartindar, ið vara stutt. Har eru mørk og teldufundvísi, ið byggja á tíðaravmarking og higartil javnaðu seinkingina, so at úrslitið skuldi kenst rímiligt hjá báðum telvarum. Úrslitið er, at tað ikki er ein meinbogi hjá tær at hava hægri netseinking enn mótleikarin!</string>
 </resources>
