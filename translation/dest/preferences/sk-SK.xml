@@ -21,7 +21,7 @@
   <string name="horizontalGreenProgressBars">Vodorovné zelené ukazovatele priebehu</string>
   <string name="soundWhenTimeGetsCritical">Zapnúť zvukové varovanie v prípade kritického množstvo času</string>
   <string name="giveMoreTime">Pridať čas</string>
-  <string name="gameBehavior">Správanie hry</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Správanie hry</string>
   <string name="howDoYouMovePieces">Akým spôsobom ťaháte figúrkami?</string>
   <string name="clickTwoSquares">Kliknutím na dve polia</string>
   <string name="dragPiece">Presun figúrky</string>
@@ -41,5 +41,6 @@
   <string name="castleByMovingTwoSquares">Presunúť kráľa o dve polia</string>
   <string name="castleByMovingOntoTheRook">Presunúť kráľa na vežu</string>
   <string name="inputMovesWithTheKeyboard">Zadávanie ťahov pomocou klávesnice</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Použiť šípky pri platných ťahoch</string>
   <string name="yourPreferencesHaveBeenSaved">Vaše nastavenia boli uložené.</string>
 </resources>
