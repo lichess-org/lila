@@ -94,16 +94,16 @@
   <string name="startFromInitialPosition">Start ved innledende stilling</string>
   <string name="editor">Editor</string>
   <string name="startFromCustomPosition">Start fra innledende stilling</string>
-  <string name="loadAGameByUrl">Last inn et parti fra URL</string>
+  <string name="loadAGameByUrl">Last inn partier fra URL-er</string>
   <string name="loadAPositionFromFen">Last inn en stilling fra FEN</string>
-  <string name="loadAGameFromPgn">Last inn et parti fra PGN</string>
+  <string name="loadAGameFromPgn">Last inn partier fra PGN</string>
   <string name="automatic">Automatisk</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">Sett inn PGN-teksten din her, maksimum %s parti</item>
     <item quantity="other">Sett inn PGN-teksten din her, maksimum %s partier</item>
   </plurals>
-  <string name="urlOfTheGame">URL for partiet</string>
-  <string name="loadAGameFromXOrY">Last opp et parti fra %1$s eller %2$s</string>
+  <string name="urlOfTheGame">URL for partiene, én pr. linje</string>
+  <string name="loadAGameFromXOrY">Last inn partier fra %1$s eller %2$s</string>
   <string name="createChapter">Opprett kapittel</string>
   <string name="configureLiveBroadcast">Konfigurer direkteoverføring</string>
   <string name="createStudy">Opprett en studie</string>
