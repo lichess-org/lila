@@ -843,7 +843,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="youCannotPostYetPlaySomeGames">Non puoi ancora postare nei forum. Gioca qualche partita!</string>
   <string name="subscribe">Iscriviti</string>
   <string name="unsubscribe">Annullare l\'iscrizione</string>
-  <string name="challengeDeclined">Sfida Rifiutata</string>
-  <string name="challengeAccepted">Sfida Accettata</string>
+  <string name="challengeDeclined">Sfida rifiutata</string>
+  <string name="challengeAccepted">Sfida accettata!</string>
   <string name="challengeCanceled">Sfida annullata.</string>
 </resources>
