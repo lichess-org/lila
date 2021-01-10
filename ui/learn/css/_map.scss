@@ -179,6 +179,7 @@
   }
 
   .what_next > p {
+    @extend %page-text-shadow !optional;
     width: 100%;
     text-align: center;
     margin: 20px 0;

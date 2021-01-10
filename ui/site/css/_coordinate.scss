@@ -204,6 +204,10 @@ $mq-col3: $mq-x-large;
       }
     }
 
+    .explanation {
+      @extend %page-text-shadow !optional;
+    }
+
 
     .coord-trainer__score {
       opacity: 0;
