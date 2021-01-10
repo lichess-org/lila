@@ -703,6 +703,20 @@
   <string name="notifications">Bildirişlər</string>
   <string name="challenges">Çağırışlar</string>
   <string name="perfRatingX">Reytinq: %s</string>
+  <string name="practiceWithComputer">Kompüterlə məşq</string>
+  <string name="anotherWasX">Digər variant: %s</string>
+  <string name="bestWasX">Ən yaxşı gediş: %s</string>
+  <string name="youBrowsedAway">Əlaqə kəsildi</string>
+  <string name="resumePractice">Məşqə davam edin</string>
+  <string name="theGameIsADraw">Oyun heç-heçədir.</string>
+  <string name="computerThinking">Kompüter fikirləşir ...</string>
+  <string name="seeBestMove">Ən yaxşı gedişə bax</string>
+  <string name="hideBestMove">Ən yaxşı gedişi gizlət</string>
+  <string name="getAHint">İpucu Al</string>
+  <string name="evaluatingYourMove">Gedişiniz dəyərləndirilir ...</string>
+  <string name="whiteWinsGame">Ağlar qazandı</string>
+  <string name="blackWinsGame">Qaralar qazandı</string>
+  <string name="learnFromYourMistakes">Səhvlərinizdən öyrənin</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klassik</string>
 </resources>
