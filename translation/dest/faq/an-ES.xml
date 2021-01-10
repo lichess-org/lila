@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Per qué Lichess se diz asinas?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess ye una combinación de live/light/libre (en directo, liuchero y libre, en anglés) y chess (escaques, en anglés). Se pronuncia %1$s.</string>
   <string name="leechess">liches</string>
-  <string name="hearItPronouncedBySpecialist">Asinas ye como lo pronuncia un especialista.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Asinas ye como lo pronuncia un especialista.</string>
   <string name="whyLiveLightLibre">En directo, perque los partidas se chugan y se veyen en tiempo real 24/7; liuchero y libre perque Lichess ye de codigo ubierto y sin la vasuera propietaria que abunda en atras pachinas.</string>
   <string name="whyIsLilaCalledLila">D\'a mesma manera, lo codigo fuent de Lichess, %1$s, significa li[chess en sca]la, dau que la mayor parte de Lichess ye escrito en %2$s, un intuitivo luengache de programación.</string>
   <string name="howCanIContributeToLichess">Cómo puedo contribuyir a Lichess?</string>
