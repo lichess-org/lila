@@ -613,13 +613,17 @@
   <string name="weeklyPerfTypeRatingDistribution">Həftəlik %s reytinq dağılımı</string>
   <string name="yourPerfTypeRatingIsRating">Sənin %1$s reytinqin %2$s-dir</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Sən %1$s oyunçularşn %2$s -dan daha yaxşısan</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %3$s oyunçularından %2$s daha yaxşıdır.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sən müəyyən olunmuş %s reytinqə malik deyilsən.</string>
   <string name="yourRating">Xalınız</string>
+  <string name="cumulative">Məcmu</string>
+  <string name="glicko2Rating">Glicko-2 reytinqi</string>
   <string name="checkYourEmail">E-poçtunu yoxla</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Biz sənə e-poçt göndərdik. Hesabını aktivləşdirmək üçün linkə kliklə</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Əgər e-poçtu görmürsünzsə, onun ola biləçəyi digər yerləri, məsələn, zibil qutusu, spam, sosial və digər qovluqları nəzərdən keçirin.</string>
   <string name="weHaveSentYouAnEmailTo">Biz %s-ə e-poçt göndərdik. Şifrəni yeniləmək üçün e-poçtundakı linki kliklə.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Qeydiyyatdan keçməklə sən, bizim %s-la razılaşırsan.</string>
+  <string name="readAboutOur">%s haqqında oxuyun.</string>
   <string name="networkLagBetweenYouAndLichess">Sən və lichess arasında şəbəkə geçikməsi</string>
   <string name="timeToProcessAMoveOnLichessServer">Lichess serverində gedişi icra etmə zamanı</string>
   <string name="downloadAnnotated">Annotasiyanı endir.</string>
