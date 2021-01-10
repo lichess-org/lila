@@ -511,7 +511,7 @@
   <string name="clockInitialTime">Oorspronkelijke kloktijd</string>
   <string name="clockIncrement">Bijtelling</string>
   <string name="privacy">Privacy</string>
-  <string name="privacyPolicy" comment="privacyPolicy&#10;&#10;This string appears exclusively in the context of the readAboutOur string. The full Enlish text is &quot;Read about our Privacy policy&quot;, and &quot;Privacy policy&quot; is a link.">privacybeleid</string>
+  <string name="privacyPolicy">privacybeleid</string>
   <string name="letOtherPlayersFollowYou">Andere spelers mogen je volgen</string>
   <string name="letOtherPlayersChallengeYou">Andere spelers mogen je uitdagen</string>
   <string name="letOtherPlayersInviteYouToStudy">Laat andere spelers je uitnodigen voor een Study</string>
@@ -657,7 +657,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Als je de email niet ziet, kijk dan op andere plaatsen, zoals je spam of andere mappen.</string>
   <string name="weHaveSentYouAnEmailTo">We hebben een email verstuurd naar %s. Klik op de link in de email om je wachtwoord te resetten.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Door je registratie ben je gebonden aan onze %s.</string>
-  <string name="readAboutOur" comment="readAboutOur&#10;&#10;The variable %s is a link to the Privacy Policy. The link's title is the privacyPolicy string.&#10;&#10;This text appears on the signup page, as well as in emails.">Lees meer over ons %s.</string>
+  <string name="readAboutOur">Lees meer over ons %s.</string>
   <string name="networkLagBetweenYouAndLichess">Netwerkvertraging tussen u en Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tijd om een zet te verwerken op de lichess server</string>
   <string name="downloadAnnotated">Download de geannoteerde partij</string>
