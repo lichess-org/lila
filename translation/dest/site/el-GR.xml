@@ -296,8 +296,8 @@
     <item quantity="other">%s πόντοι πρωταθλήματος</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">%s σπουδή</item>
-    <item quantity="other">%s σπουδές</item>
+    <item quantity="one">%s μελέτη</item>
+    <item quantity="other">%s μελέτες</item>
   </plurals>
   <string name="viewTournament">Παρακολούθηση πρωταθλήματος</string>
   <string name="backToTournament">Επιστροφή στο πρωτάθλημα</string>
