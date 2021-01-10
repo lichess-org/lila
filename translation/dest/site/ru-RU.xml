@@ -916,4 +916,7 @@
   <string name="youCannotPostYetPlaySomeGames">Вы пока не можете писать на форуме. Сыграйте несколько партий!</string>
   <string name="subscribe">Подписаться</string>
   <string name="unsubscribe">Отписаться</string>
+  <string name="challengeDeclined">Вызов отклонён</string>
+  <string name="challengeAccepted">Вызов принят!</string>
+  <string name="challengeCanceled">Вызов отменён.</string>
 </resources>
