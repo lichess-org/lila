@@ -879,4 +879,7 @@
   <string name="youCannotPostYetPlaySomeGames">Vēl nevarat rakstīt forumos. Uzspēlējiet dažas spēles!</string>
   <string name="subscribe">Abonēt</string>
   <string name="unsubscribe">Atcelt abonēšanu</string>
+  <string name="challengeDeclined">Izaicinājums noraidīts</string>
+  <string name="challengeAccepted">Izaicinājums pieņemts!</string>
+  <string name="challengeCanceled">Izaicinājums atcelts.</string>
 </resources>
