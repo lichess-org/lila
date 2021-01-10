@@ -49,7 +49,7 @@
   <string name="knightEndgameDescription">Et slutspil med kun springere og bønder.</string>
   <string name="long">Lang opgave</string>
   <string name="longDescription">Tre træk for at vinde.</string>
-  <string name="mate">Mat</string>
+  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mat</string>
   <string name="mateDescription">Vind spillet med stil.</string>
   <string name="mateIn1">Mat i 1</string>
   <string name="mateIn1Description">Sæt skakmat i ét træk.</string>
@@ -89,7 +89,7 @@
   <string name="shortDescription">To træk for at vinde.</string>
   <string name="skewer">Spid</string>
   <string name="skewerDescription">En manøvre hvor en brik af høj værdi angribes og må flyttes, hvorved en brik af lavere værdi bagved kan tages eller trues. Det omvendte af en binding.</string>
-  <string name="smotheredMate">Kvalt mat</string>
+  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Kvalt mat</string>
   <string name="smotheredMateDescription">En skakmat leveret af en ridder, hvor den matte konge er ude af stand til at bevæge sig, fordi den er omgivet (eller kvalt) af sine egne brikker.</string>
   <string name="trappedPiece">Fastlåste brikker</string>
   <string name="trappedPieceDescription">En brik er ude af stand til at undslippe fangst, da den har begrænsede trækmuligheder.</string>
