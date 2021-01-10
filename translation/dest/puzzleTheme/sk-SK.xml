@@ -52,6 +52,7 @@
   <string name="middlegame">Stredná hra</string>
   <string name="middlegameDescription">Taktika počas druhého úseku hry.</string>
   <string name="oneMove">Jedno-ťahový diagram</string>
+  <string name="oneMoveDescription">Úloha, ktorá je iba jednoťahová.</string>
   <string name="opening">Otvorenie</string>
   <string name="openingDescription">Taktika počas prvého úseku hry.</string>
   <string name="pawnEndgame">Pešiaková koncovka</string>
