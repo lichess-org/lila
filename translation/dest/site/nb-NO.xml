@@ -842,4 +842,6 @@
   <string name="youCannotPostYetPlaySomeGames">Du kan ikke skrive innlegg i forumene ennå. Spill noen partier!</string>
   <string name="subscribe">Abonner</string>
   <string name="unsubscribe">Avslutt abonnement</string>
+  <string name="challengeDeclined">Utfordring avslått</string>
+  <string name="challengeAccepted">Utfordring godtatt!</string>
 </resources>
