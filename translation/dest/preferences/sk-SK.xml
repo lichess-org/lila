@@ -21,7 +21,7 @@
   <string name="horizontalGreenProgressBars">Vodorovné zelené ukazovatele priebehu</string>
   <string name="soundWhenTimeGetsCritical">Zapnúť zvukové varovanie v prípade kritického množstva času</string>
   <string name="giveMoreTime">Pridať čas</string>
-  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Správanie hry</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Správanie sa partie</string>
   <string name="howDoYouMovePieces">Akým spôsobom ťaháte figúrkami?</string>
   <string name="clickTwoSquares">Kliknutím na dve polia</string>
   <string name="dragPiece">Presun figúrky</string>
@@ -34,7 +34,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticky vyžiadať remízu pri treťom opakovaní pozície</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Keď ostáva &lt; 30 sekúnd</string>
   <string name="moveConfirmation">Potvrdenie ťahu</string>
-  <string name="inCorrespondenceGames">Korešpondenčná partia</string>
+  <string name="inCorrespondenceGames">Korešpondenčné partie</string>
   <string name="correspondenceAndUnlimited">Korešpondenčný a nekonečný</string>
   <string name="confirmResignationAndDrawOffers">Potvrdzovať vzdanie partie a ponuku remízy</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Spôsob vykonania rošády</string>
