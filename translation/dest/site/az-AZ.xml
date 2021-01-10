@@ -511,6 +511,7 @@
   <string name="starting">Başlanğıc</string>
   <string name="allInformationIsPublicAndOptional">Bütün məlumatlar hər kəsə açıq və seçkiyə bağlıdır.</string>
   <string name="yourCityRegionOrDepartment">Şəhər və ya rayon</string>
+  <string name="biographyDescription">Özünüz haqqında danışın, maraqlarınız, şahmatda nəyi bəyəndiyiniz, sevimli açılışlarınız, oyunçular və s...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Ən çox: %s xarakter</item>
     <item quantity="other">Ən çox: %s xarakter</item>
@@ -547,6 +548,7 @@
   <string name="error.email">Bu email adresində xəta var</string>
   <string name="error.email_acceptable">Bu e-poçt qəbul edilmir</string>
   <string name="error.email_unique">Bu e-poçt artıq qəbul edilib</string>
+  <string name="error.email_different">Bu sizin inidiki email ünvanınızdır</string>
   <string name="ifRatingIsPlusMinusX">Əgər reytinq %s olarsa</string>
   <string name="onlyFriends">Yanlız dostlar</string>
   <string name="menu">Menu</string>
@@ -574,6 +576,7 @@
   <string name="sourceCode">Mənbə kodu</string>
   <string name="simultaneousExhibitions">Sinxron sərgilər</string>
   <string name="host">Ev sahibi</string>
+  <string name="hostColorX">Ev sahibi rəngi: %s</string>
   <string name="createdSimuls">Yeni yaradılmış simullar</string>
   <string name="hostANewSimul">Yeni simul yaratmaq</string>
   <string name="noSimulFound">Simul tabılmadı</string>
