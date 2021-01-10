@@ -72,6 +72,7 @@
   <string name="underPromotion">Pod-premena</string>
   <string name="underPromotionDescription">Premena na jazdca, strelca, alebo vežu.</string>
   <string name="veryLong">Veľmi dlhý diagram</string>
+  <string name="veryLongDescription">Štyri alebo viac ťahov do výhry.</string>
   <string name="xRayAttack">Röntgenový útok</string>
   <string name="zugzwang">Nevýhoda ťahu</string>
   <string name="zugzwangDescription">Súper je limitovaný vo svojich ťahoch a každý ťah zhorší jeho pozíciu.</string>
