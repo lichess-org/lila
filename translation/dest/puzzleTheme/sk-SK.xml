@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="advancedPawn">Pokročilý pešiak</string>
+  <string name="advancedPawn">Voľný pešiak</string>
   <string name="advancedPawnDescription">Premena pešiaka alebo hrozba premeny je kľúčom k taktike.</string>
   <string name="advantage">Výhoda</string>
   <string name="advantageDescription">Využite svoju šancu získať rozhodujúcu prevahu (200cp ≤ eval ≤ 600cp)</string>
@@ -9,7 +9,7 @@
   <string name="attraction">Preťaženie</string>
   <string name="attractionDescription">Výmena alebo obeť podnecujúca alebo nútiaca pohyb súperovej figúry na pole, ktoré povoľuje nasledovnú taktiku.</string>
   <string name="backRankMate">Mat na poslednom rade</string>
-  <string name="backRankMateDescription">Zmatujte kráľa na poslednej rade, keď je tam uveznený svojimi vlastnými figúrami.</string>
+  <string name="backRankMateDescription">Zmatujte kráľa na poslednej rade, keď je tam uväznený svojimi vlastnými figúrami.</string>
   <string name="bishopEndgame">Strelcová koncovka</string>
   <string name="bishopEndgameDescription">Koncovka iba so strelcami a pešiakmi.</string>
   <string name="castling">Rošáda</string>
@@ -65,8 +65,9 @@
   <string name="queensideAttack">Útok na dámskom krídle</string>
   <string name="quietMove">Tichý ťah</string>
   <string name="rookEndgame">Vežová koncovka</string>
-  <string name="sacrifice">Obetovanie</string>
+  <string name="sacrifice">Obeť</string>
   <string name="short">Krátky diagram</string>
+  <string name="shortDescription">Dva ťahy do výhry.</string>
   <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Dusený mat</string>
   <string name="trappedPiece">Chytená figúra</string>
   <string name="trappedPieceDescription">Figúra neschopná ujsť vyhodeniu, pretože má limitované možnosti.</string>
@@ -75,6 +76,7 @@
   <string name="veryLong">Veľmi dlhý diagram</string>
   <string name="veryLongDescription">Štyri alebo viac ťahov do výhry.</string>
   <string name="xRayAttack">Röntgenový útok</string>
+  <string name="xRayAttackDescription">Figúra bráni alebo útočí na pole cez súperovu figúru.</string>
   <string name="zugzwang">Nevýhoda ťahu</string>
   <string name="zugzwangDescription">Súper je limitovaný vo svojich ťahoch a každý ťah zhorší jeho pozíciu.</string>
   <string name="healthyMix">Zdravý mix</string>
