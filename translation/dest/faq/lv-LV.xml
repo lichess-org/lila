@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Kādēļ Lichess tā sauc?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">\"Lichess\" ir vārdu \"live/light/libre\" (angļ. val. tiešraidē/viegls/brīvs) un \"chess\" (šahs) savienojums. To izrunā %1$s.</string>
   <string name="leechess">lī-čes</string>
-  <string name="hearItPronouncedBySpecialist">Klausīties, kā to izrunā eksperts.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Klausīties, kā to izrunā eksperts.</string>
   <string name="whyLiveLightLibre">\"Tiešraidē\", jo spēles var spēlēt un skatīties reāllaikā 24/7; \"viegls\" un \"brīvs\", jo Lichess ir atvērtā koda programmatūra, kas nav piesārņota ar īpašniekprogrammatūras mēsliem, kādi atrodami citās vietnēs.</string>
   <string name="whyIsLilaCalledLila">Līdzīgi, Lichess pirmkods, %1$s, ir saīsinājums \"li[chess in sca]la\" (angļ. val. Lichess programmēšanas valodā \"Scala\"), tādēļ ka lielākā daļa Lichess koda ir rakstīta intuitīvā programmēšanas valodā \"%2$s\".</string>
   <string name="howCanIContributeToLichess">Kā varu iegūldīt Lichess?</string>
