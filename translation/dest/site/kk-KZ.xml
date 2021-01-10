@@ -511,6 +511,7 @@
   <string name="clockInitialTime">Сағаттың бастапқы уақыты</string>
   <string name="clockIncrement">Уақыт қосылғышы</string>
   <string name="privacy">Даралық</string>
+  <string name="privacyPolicy">Даралық саясаты</string>
   <string name="letOtherPlayersFollowYou">Ойыншылар сізге серік бола ала ма?</string>
   <string name="letOtherPlayersChallengeYou">Ойыншылар сізді ойынға шақыра ала ма?</string>
   <string name="letOtherPlayersInviteYouToStudy">Ойыншылар сізді зерттеуге шақыра ала ма?</string>
@@ -656,6 +657,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Егер хат көрінбей тұрса, басқа болжамды жерлерді қарап көріңіз, мысалы – қоржын, спам, әлеуметтік желілер сияқты қалталар.</string>
   <string name="weHaveSentYouAnEmailTo">Біз хатты %s-ға жібердік. Құпиясөзді арылту үшін хаттағы сілтемеге басыңыз.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Сіздің тіркелуіңіз – %s-н мойындайтыныңыздың белгісі.</string>
+  <string name="readAboutOur">Біздің %s туралы оқыңыз.</string>
   <string name="networkLagBetweenYouAndLichess">Личес пен сіздің араңыздағы кідіріс</string>
   <string name="timeToProcessAMoveOnLichessServer">Личес сервері жүрісті өңдеуге жұмсайтын уақыт</string>
   <string name="downloadAnnotated">Жазбасы барды алу</string>
@@ -840,4 +842,7 @@
   <string name="youCannotPostYetPlaySomeGames">Сіз форумда әлі хабар қалдыра алмайсыз. Ойнаңыз!</string>
   <string name="subscribe">Жазылу</string>
   <string name="unsubscribe">Жазылымды тоқтату</string>
+  <string name="challengeDeclined">Шақыруды қабылдамады</string>
+  <string name="challengeAccepted">Шақыруды қабылдады!</string>
+  <string name="challengeCanceled">Шақырудан бас тартты.</string>
 </resources>
