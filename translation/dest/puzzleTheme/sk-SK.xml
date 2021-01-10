@@ -47,6 +47,8 @@
   <string name="mateIn2">Mat 2. ťahom</string>
   <string name="mateIn3">Mat 3. ťahom</string>
   <string name="mateIn4">Mat na 4 ťahy</string>
+  <string name="mateIn5">Mat 5. alebo väčším počtom ťahov</string>
+  <string name="mateIn5Description">Nájdite dlhú matovú kombináciu.</string>
   <string name="middlegame">Stredná hra</string>
   <string name="middlegameDescription">Taktika počas druhého úseku hry.</string>
   <string name="oneMove">Jedno-ťahový diagram</string>
