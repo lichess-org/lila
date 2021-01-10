@@ -687,10 +687,22 @@
   <string name="usernamePrefixInvalid">İstifadəçi adı hərflə başlamalıdır.</string>
   <string name="usernameSuffixInvalid">İstifadəçi adı hərf və ya rəqəmlə bitməlidir.</string>
   <string name="usernameCharsInvalid">İstifadəçi adı yalnız hərflər, rəqəmlər, alt xətlər və tirelərdən ibarət olmalıdır. Ardıcıl alt xətlər və tire işarələrinə icazə verilmir.</string>
+  <string name="usernameUnacceptable">Bu istifadəçi adı qəbuledilməzdir.</string>
+  <string name="directlySupportLichess">Lichessi dəstəkləyin</string>
   <string name="playChessInStyle">Şahmatı tərz ilə oynayın</string>
   <string name="chessBasics">Şahmatın təməl prinsipləri</string>
   <string name="coaches">Məşqçilər</string>
+  <string name="invalidPgn">Yanlış PGN</string>
+  <string name="invalidFen">Yanlış FEN</string>
+  <string name="error.minLength">Minimum uzunluq: %s</string>
+  <string name="error.maxLength">Maksimum uzunluq: %s</string>
+  <string name="error.min">%s-dən kiçik və ya bərabər olmalıdır</string>
+  <string name="error.max">%s-dən böyük və ya bərabər olmalıdır</string>
+  <string name="error.unknown">Xəta</string>
   <string name="custom">Özəl</string>
+  <string name="notifications">Bildirişlər</string>
+  <string name="challenges">Çağırışlar</string>
+  <string name="perfRatingX">Reytinq: %s</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klassik</string>
 </resources>
