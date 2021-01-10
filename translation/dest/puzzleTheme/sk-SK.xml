@@ -40,7 +40,7 @@
   <string name="intermezzo">Medziťah</string>
   <string name="knightEndgame">Jazdcová koncovka</string>
   <string name="long">Dlhý diagram</string>
-  <string name="mate">Mat</string>
+  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mat</string>
   <string name="mateIn4">Mat na 4 ťahy</string>
   <string name="middlegame">Stredná hra</string>
   <string name="middlegameDescription">Taktika počas druhého úseku hry.</string>
@@ -58,7 +58,7 @@
   <string name="rookEndgame">Vežová koncovka</string>
   <string name="sacrifice">Obetovanie</string>
   <string name="short">Krátky diagram</string>
-  <string name="smotheredMate">Dusený mat</string>
+  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Dusený mat</string>
   <string name="trappedPiece">Chytená figúra</string>
   <string name="underPromotion">Pod-premena</string>
   <string name="underPromotionDescription">Premena na jazdca, strelca, alebo vežu.</string>
