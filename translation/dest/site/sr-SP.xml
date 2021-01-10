@@ -880,4 +880,7 @@
   <string name="youCannotPostYetPlaySomeGames">Још увек не можете писати поруке на овај форум. Играјте још коју партију!</string>
   <string name="subscribe">Претплати се</string>
   <string name="unsubscribe">Одјавите претплату</string>
+  <string name="challengeDeclined">Изазов одбијен</string>
+  <string name="challengeAccepted">Изазов прихваћен!</string>
+  <string name="challengeCanceled">Изазов отказан.</string>
 </resources>
