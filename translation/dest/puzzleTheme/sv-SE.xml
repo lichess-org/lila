@@ -28,7 +28,7 @@
   <string name="defensiveMoveDescription">Ett exakt drag eller sekvens av drag som är nödvändiga behövs för att undvika att förlora material eller annan fördel.</string>
   <string name="endgame">Slutspel</string>
   <string name="longDescription">Tre drag för att vinna.</string>
-  <string name="mate">Matt</string>
+  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Matt</string>
   <string name="mateDescription">Vinn partiet med stil.</string>
   <string name="mateIn1">Matt i 1 drag</string>
   <string name="mateIn1Description">Gör schackmatt i ett drag.</string>
