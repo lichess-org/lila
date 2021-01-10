@@ -7,4 +7,5 @@
   <string name="yesItWillBeFixedSoon">Ja. Tað verður umvælt skjótt!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">Og nú kemur tað langa svarið! Drál í spæli er sett saman av tveimum virðum, ið ikki hava nakað við hvørt annað at gera (lægri er betri):</string>
   <string name="lichessServerLatency">Lichess ambætaradrál</string>
+  <string name="networkBetweenLichessAndYou">Net millum Lichess og teg</string>
 </resources>
