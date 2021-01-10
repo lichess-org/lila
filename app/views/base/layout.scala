@@ -306,7 +306,8 @@ object layout {
             else ctx.isBot option botImage,
             a(href := "/")(
               "lishogi",
-              span(if (isProd && !isStage) ".org" else ".dev")
+              span(if (isProd && !isStage) ".org" else ".dev"),
+              span(style := "vertical-align: super; font-size: 14px;")("beta")
             )
           ),
           ctx.blind option h2("Navigation"),

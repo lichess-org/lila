@@ -21,7 +21,7 @@ object topnav {
           "/",
           frag(
             span(cls := "play")(trans.play()),
-            span(cls := "home")("lishogi.org")
+            span(cls := "home")("lishogi.org beta")
           )
         ),
         div(role := "group")(
