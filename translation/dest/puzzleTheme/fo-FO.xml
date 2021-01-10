@@ -49,7 +49,7 @@
   <string name="knightEndgameDescription">Endatalv við riddarum og finnum.</string>
   <string name="long">Long uppgáva</string>
   <string name="longDescription">Tríggir leikir, so er vunnið.</string>
-  <string name="mate">Mát</string>
+  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mát</string>
   <string name="mateDescription">Vinn talvið við stíli.</string>
   <string name="mateIn1">Mát í einum</string>
   <string name="mateIn1Description">Set skák og mát í einum leiki.</string>
@@ -89,7 +89,7 @@
   <string name="shortDescription">Tveir leikir, so er vunnið.</string>
   <string name="skewer">Spjót</string>
   <string name="skewerDescription">Ein hugsan, ið inniber, at eitt fólk við høgum virði, ið verður álopið, flytur burtur, soleiðis at eitt fólk við lægri virði kann verða tikið ella vera fyri álopi. Tað øvuta av eini binding.</string>
-  <string name="smotheredMate">Kvalt mát</string>
+  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Kvalt mát</string>
   <string name="smotheredMateDescription">Skák og mát, framt av einum riddara, har mátaði kongurin ikki er førur fyri at flyta, tí at hann er umgyrdur (ella kvaldur) av egnum fólki.</string>
   <string name="trappedPiece">Innibyrgt fólk</string>
   <string name="trappedPieceDescription">Eitt fólk er ikki ført fyri at sleppa sær undan at verða tikið, tí tað hevur avmarkaðar leikmøguleikar.</string>
