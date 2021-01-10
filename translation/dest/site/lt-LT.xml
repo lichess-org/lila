@@ -917,4 +917,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="youCannotPostYetPlaySomeGames">Diskutuoti forume dar negalite. Sužaiskite keletą partijų!</string>
   <string name="subscribe">Prenumeruoti</string>
   <string name="unsubscribe">Atsisakyti prenumeratos</string>
+  <string name="challengeDeclined">Iššūkis atmestas</string>
+  <string name="challengeAccepted">Iššūkis priimtas!</string>
+  <string name="challengeCanceled">Iššūkis atšauktas.</string>
 </resources>
