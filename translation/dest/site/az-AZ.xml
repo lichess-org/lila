@@ -640,9 +640,14 @@
   <string name="withEverybody">Hər kəs ilə</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Sən e-poçtu artıq qeydiyyatdan keçirmisən: %s</string>
   <string name="kidMode">Uşaq tərzi</string>
+  <string name="kidModeExplanation">Bu təhlükəsizliklə bağlıdır. Uşaq rejimində bütün sayt əlaqələri deaktivdir. Uşaqlarınız və məktəb şagirdləriniz üçün, onları digər internet istifadəçilərindən qorumaq üçün bunu aktiv edin.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Uşaq rejimində, Lichess loqosu %s işarəsini alır, beləliklə uşaqlarınızın təhlükəsiz olduğunu bilirsiniz.</string>
   <string name="enableKidMode">Uşaq rejimini fəallaşdır</string>
   <string name="disableKidMode">Uşaq rejimini sıradan çıxart</string>
   <string name="security">Təhlükəsizlik</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Bu hesabınıza daxil olan cihazların siyahısıdır. Tanımadığınız sessiyaları ləğv edin.</string>
+  <string name="alternativelyYouCanX">Həmçinin %s də edə bilərsiniz.</string>
+  <string name="revokeAllSessions">bütün sessiyaları ləğv et</string>
   <string name="playChessEverywhere">Şahmatı hər yerdə oyna</string>
   <string name="asFreeAsLichess">Lichess kimi azad</string>
   <string name="builtForTheLoveOfChessNotMoney">Pula görə deyil, şahamat sevgisinə görə yarat</string>
@@ -660,6 +665,8 @@
     <item quantity="other">%s dillərdə mövcuddur</item>
   </plurals>
   <string name="gameAnalysis">Oyun analizi</string>
+  <string name="xHostsY">%1$s ev sahibi: %2$s</string>
+  <string name="xLikesY">%1$s bəyəndi: %2$s</string>
   <string name="quickPairing">Tez qoşulma</string>
   <string name="lobby">Lobbi</string>
   <string name="language">Dil</string>
