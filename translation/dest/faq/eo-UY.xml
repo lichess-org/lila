@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Kial Lichess nomiĝas tiel?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess estas kombino de realtempe/malpeza/libera (angle: live/light/libre) kaj ŝako (angle: chess). Ĝi estas prononcita %1$s.</string>
   <string name="leechess">li-ĉes</string>
-  <string name="hearItPronouncedBySpecialist">Aŭskultu ĝin prononcita de fakulo.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Aŭskultu ĝin prononcita de fakulo.</string>
   <string name="whyLiveLightLibre">Realtempe, ĉar ludoj estas ludataj kaj spektataj plentempe 24/7; malpeza kaj libera pro la fakto, ke Lichess estas malferma-kodo kaj sen proprietaj rubaĵoj, kiuj multas en aliaj retejoj.</string>
   <string name="howCanIContributeToLichess">Kiel mi povas kontribui kun Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess ekzistas danke al donacoj de patronoj kaj klopodoj de volontula teamo.</string>
