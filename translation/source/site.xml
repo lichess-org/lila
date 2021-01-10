@@ -843,4 +843,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="youCannotPostYetPlaySomeGames">You can't post in the forums yet. Play some games!</string>
   <string name="subscribe">Subscribe</string>
   <string name="unsubscribe">Unsubscribe</string>
+  <string name="challengeDeclined">Challenge declined</string>
+  <string name="challengeAccepted">Challenge accepted!</string>
+  <string name="challengeCanceled">Challenge canceled.</string>
 </resources>
