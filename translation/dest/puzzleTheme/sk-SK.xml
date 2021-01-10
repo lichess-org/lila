@@ -61,6 +61,7 @@
   <string name="promotion">Premena</string>
   <string name="queenEndgame">Dámska koncovka</string>
   <string name="queenEndgameDescription">Koncovka iba s kráľovnami a pešiakmi.</string>
+  <string name="queenRookEndgame">Dáma a Veža</string>
   <string name="queensideAttack">Útok na dámskom krídle</string>
   <string name="quietMove">Tichý ťah</string>
   <string name="rookEndgame">Vežová koncovka</string>
@@ -71,8 +72,9 @@
   <string name="underPromotion">Pod-premena</string>
   <string name="underPromotionDescription">Premena na jazdca, strelca, alebo vežu.</string>
   <string name="veryLong">Veľmi dlhý diagram</string>
+  <string name="xRayAttack">Röntgenový útok</string>
   <string name="zugzwang">Nevýhoda ťahu</string>
-  <string name="zugzwangDescription">Oponent je limitovaný vo svojich ťahoch a každý ťah zhorší jeho pozíciu.</string>
+  <string name="zugzwangDescription">Súper je limitovaný vo svojich ťahoch a každý ťah zhorší jeho pozíciu.</string>
   <string name="healthyMix">Zdravý mix</string>
   <string name="healthyMixDescription">Zo všetkého niečo. Neviete čo očakávať, a tak budete pripravený na všetko! Presne ako v skutočných hrách.</string>
 </resources>
