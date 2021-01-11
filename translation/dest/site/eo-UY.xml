@@ -9,6 +9,7 @@
   <string name="yourTurn">Via vico</string>
   <string name="aiNameLevelAiLevel">%1$s nivelo %2$s</string>
   <string name="level">Nivelo</string>
+  <string name="strength">Forto</string>
   <string name="toggleTheChat">Baskuligi la babilejon</string>
   <string name="toggleSound">(Mal)ŝalti sonon</string>
   <string name="chat">Babilejo</string>
@@ -505,9 +506,12 @@
   <string name="currentPassword">Nuna pasvorto</string>
   <string name="newPassword">Nova pasvorto</string>
   <string name="newPasswordAgain">Nova pasvorto (retajpu)</string>
+  <string name="newPasswordsDontMatch">La nova pasvorto ne kongruas</string>
+  <string name="newPasswordStrength">Pasvorta forto</string>
   <string name="clockInitialTime">Horloĝa komenca tempo</string>
   <string name="clockIncrement">Horloĝa pliigo</string>
   <string name="privacy">Privateco</string>
+  <string name="privacyPolicy">Privateca politiko</string>
   <string name="letOtherPlayersFollowYou">Lasi aliajn ludantojn sekvi vin</string>
   <string name="letOtherPlayersChallengeYou">Lasi aliajn ludantojn defii vin</string>
   <string name="letOtherPlayersInviteYouToStudy">Ebligi al aliaj ludantoj inviti vin al studo</string>
