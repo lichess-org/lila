@@ -56,7 +56,7 @@
   <string name="computerAnalysisAvailable">Kompüter təhlili mövcuddur</string>
   <string name="analysis">Təhlil lövhəsi</string>
   <string name="depthX">Dərinlik %s</string>
-  <string name="usingServerAnalysis">Server təhlili istifadə olunur</string>
+  <string name="usingServerAnalysis">Server analizi edilir</string>
   <string name="loadingEngine">Motor yüklənir ...</string>
   <string name="cloudAnalysis">Bulud təhlili</string>
   <string name="goDeeper">Dərinə get</string>
@@ -112,7 +112,7 @@
   <string name="multipleLines">Oxların sayı</string>
   <string name="cpus">CPU sayı</string>
   <string name="memory">Yaddaş</string>
-  <string name="infiniteAnalysis">Sonsuz təhlil</string>
+  <string name="infiniteAnalysis">Sonsuz analiz</string>
   <string name="removesTheDepthLimit">Dərinlik limitini ləğv edir və kompüterinizi isti saxlayır</string>
   <string name="blunder">kobud səhv</string>
   <string name="blunders">Kobud səhvlər</string>
@@ -324,7 +324,7 @@
   <string name="continueFromHere">Buradan davam edin</string>
   <string name="toStudy">Çalışma</string>
   <string name="importGame">Oyun daxil edin</string>
-  <string name="importGameExplanation">Göz gəzdiriləbilir bir oyun təkrarı, kompüter analizi, oyun söhbəti ve paylaşılabilir bir URL edinmək üçün bir oyun PGN\'si yapıştırın.</string>
+  <string name="importGameExplanation">Göz gəzdiriləbilən bir oyun təkrarı, kompüter analizi, oyun söhbəti ve paylaşılabilən bir URL əldə etmək üçün bir oyun PGN\'si daxil edin.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s oyunları daxil etdi</item>
     <item quantity="other">%s oyunları daxil etdi</item>
