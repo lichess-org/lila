@@ -123,7 +123,12 @@ private[study] object PgnDump {
         case Shape.Arrow(brush, orig, dest) => s"${brush.head.toUpper}$orig$dest"
       }
     }
-    s"$circles$arrows".some.filter(_.nonEmpty)
+    val pieces = render("cpl") {
+      shapes.value.collect {
+        case Shape.Piece(brush, orig, piece) => s"${brush.head.toUpper}$orig${piece.forsyth}"
+      }
+    }
+    s"$circles$arrows$pieces".some.filter(_.nonEmpty)
   }
 
   def toTurn(first: Node, second: Option[Node], variations: Variations) =

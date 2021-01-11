@@ -2,8 +2,8 @@ package lila.study
 
 import chess.format.pgn.{ Glyph, Glyphs, Tag, Tags }
 import chess.format.{ FEN, Uci, UciCharPair }
-import chess.variant.{ Standard, Variant }
-import chess.{ Centis, Pos, PromotableRole, Role, Data, Pockets, Pocket }
+import chess.variant.Variant
+import chess.{ Centis, Pos, PromotableRole, Role, Piece, Data, Pockets, Pocket }
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.util.Success
@@ -36,18 +36,27 @@ object BSONHandlers {
     { case BSONString(v) => Pos.posAt(v) toTry s"No such pos: $v" },
     x => BSONString(x.key)
   )
+  implicit private val PieceBSONHandler = tryHandler[Piece](
+    { case BSONString(v) => Piece.fromChar(v.head) toTry s"No such piece: $v" },
+    x => BSONString(x.forsyth.toString)
+  )
 
   implicit val ShapeBSONHandler = new BSON[Shape] {
     def reads(r: Reader) = {
       val brush = r str "b"
       r.getO[Pos]("p") map { pos =>
         Shape.Circle(brush, pos)
-      } getOrElse Shape.Arrow(brush, r.get[Pos]("o"), r.get[Pos]("d"))
+      } getOrElse {
+        r.getO[Piece]("k") map { piece =>
+          Shape.Piece(brush, r.get[Pos]("o"), piece)
+        } getOrElse Shape.Arrow(brush, r.get[Pos]("o"), r.get[Pos]("d"))
+      }
     }
     def writes(w: Writer, t: Shape) =
       t match {
-        case Shape.Circle(brush, pos)       => $doc("b" -> brush, "p" -> pos.key)
-        case Shape.Arrow(brush, orig, dest) => $doc("b" -> brush, "o" -> orig.key, "d" -> dest.key)
+        case Shape.Circle(brush, pos)         => $doc("b" -> brush, "p" -> pos.key)
+        case Shape.Arrow(brush, orig, dest)   => $doc("b" -> brush, "o" -> orig.key, "d" -> dest.key)
+        case Shape.Piece(brush, orig, piece)  => $doc("b" -> brush, "o" -> orig.key, "k" -> piece.forsyth.toString)
       }
   }
 

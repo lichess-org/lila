@@ -6,6 +6,7 @@ import AnalyseCtrl from "../ctrl";
 
 const eventNames1 = ["mousedown", "touchmove"];
 const eventNames2 = ["click"];
+const eventNames3 = ["contextmenu"];
 const oKeys = ["pawn", "lance", "knight", "silver", "gold", "bishop", "rook"];
 
 type Position = "top" | "bottom";
@@ -22,16 +23,16 @@ export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
       (!captured["promoted"]
         ? captured.role
         : captured.role === "tokin"
-        ? "pawn"
-        : captured.role === "promotedLance"
-        ? "lance"
-        : captured.role === "promotedKnight"
-        ? "knight"
-        : captured.role === "promotedSilver"
-        ? "silver"
-        : captured.role === "horse"
-        ? "bishop"
-        : "rook");
+          ? "pawn"
+          : captured.role === "promotedLance"
+            ? "lance"
+            : captured.role === "promotedKnight"
+              ? "knight"
+              : captured.role === "promotedSilver"
+                ? "silver"
+                : captured.role === "horse"
+                  ? "bishop"
+                  : "rook");
 
   const activeColor = color === ctrl.turnColor();
   const usable = !ctrl.embed && activeColor;
@@ -49,11 +50,16 @@ export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
             selectToDrop(ctrl, color, e as MouchEvent);
           });
         });
+        eventNames3.forEach((name) => {
+          el.addEventListener(name, (e) => {
+            shadowDrop(ctrl, color, e as MouchEvent);
+          });
+        });
       }),
     },
     oKeys.map((role) => {
       let nb = pocket[role] || 0;
-      const selectedSquare : boolean = (!!ctrl.selected && ctrl.selected[0] === color && ctrl.selected[1] === role && ctrl.shogiground.state.movable.color == color);
+      const selectedSquare: boolean = (!!ctrl.selected && ctrl.selected[0] === color && ctrl.selected[1] === role && ctrl.shogiground.state.movable.color == color);
       if (activeColor) {
         if (dropped === role) nb--;
         if (captured && captured.role === role) nb++;

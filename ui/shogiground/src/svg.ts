@@ -116,7 +116,7 @@ function modifiersHash(m: DrawModifiers): Hash {
 
 function renderShape(state: State, { shape, current, hash }: Shape, brushes: DrawBrushes, arrowDests: ArrowDests, bounds: ClientRect): SVGElement {
   let el: SVGElement;
-  if (shape.piece) el = renderPiece(
+  if (shape.piece && !shape.dest) el = renderPiece(
     orient(key2pos(shape.orig), state.orientation),
     shape.piece,
     bounds);

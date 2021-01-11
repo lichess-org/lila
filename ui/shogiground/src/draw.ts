@@ -46,11 +46,13 @@ export interface Drawable {
     baseUrl: string;
   };
   prevSvgHash: string;
+  piece?: cg.Piece;
 }
 
 export interface DrawCurrent {
   orig: cg.Key; // orig key of drawing
   dest?: cg.Key; // shape dest, or undefined for circle
+  piece?: cg.Piece;
   mouseSq?: cg.Key; // square being moused over
   pos: cg.NumberPair; // relative current position
   brush: string; // brush name for shape
@@ -65,11 +67,13 @@ export function start(state: State, e: cg.MouchEvent): void {
   e.preventDefault();
   e.ctrlKey ? unselect(state) : cancelMove(state);
   const pos = eventPosition(e)!,
-  orig = getKeyAtDomPos(pos, whitePov(state), state.dom.bounds());
+    orig = getKeyAtDomPos(pos, whitePov(state), state.dom.bounds()),
+    piece = state.drawable.piece;
   if (!orig) return;
   state.drawable.current = {
     orig,
     pos,
+    piece,
     brush: eventBrush(e)
   };
   processDraw(state);

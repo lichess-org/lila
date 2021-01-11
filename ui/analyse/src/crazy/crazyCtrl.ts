@@ -8,6 +8,15 @@ import { Api as ShogigroundApi } from "shogiground/api";
 // @ts-ignore
 import { Shogi } from "shogiutil/vendor/Shogi.js";
 
+// @ts-ignore
+export function shadowDrop(ctrl: AnalyseCtrl, color: Color, e: cg.MouchEvent): void {
+  const el = e.target as HTMLElement;
+  const role = el.getAttribute("data-role") as cg.Role;
+  ctrl.shogiground.state.drawable.piece = { role: role, color: color };
+  e.stopPropagation();
+  e.preventDefault();
+}
+
 export function drag(ctrl: AnalyseCtrl, color: Color, e: cg.MouchEvent): void {
   if (e.button !== undefined && e.button !== 0) return; // only touch or left click
   if (ctrl.shogiground.state.movable.color !== color) return;
@@ -20,18 +29,18 @@ export function drag(ctrl: AnalyseCtrl, color: Color, e: cg.MouchEvent): void {
   dragNewPiece(ctrl.shogiground.state, { color, role }, e);
 }
 
-export function selectToDrop(ctrl: AnalyseCtrl, color: Color, e: cg.MouchEvent) : void {
+export function selectToDrop(ctrl: AnalyseCtrl, color: Color, e: cg.MouchEvent): void {
   if (e.button !== undefined && e.button !== 0) return;
   if (ctrl.shogiground.state.movable.color !== color) return;
   const el = e.target as HTMLElement;
   const role = el.getAttribute("data-role") as cg.Role,
     number = el.getAttribute("data-nb");
   if (!role || number === "0") return;
-  if(!ctrl.selected || ctrl.selected[1] !== role){
+  if (!ctrl.selected || ctrl.selected[1] !== role) {
     setDropMode(ctrl.shogiground.state, { color, role });
     ctrl.selected = [color, role];
   }
-  else{
+  else {
     ctrl.selected = undefined;
     cancelDropMode(ctrl.shogiground.state);
   }

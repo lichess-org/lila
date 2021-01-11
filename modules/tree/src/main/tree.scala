@@ -5,7 +5,7 @@ import play.api.libs.json._
 import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ Uci, UciCharPair }
 import chess.opening.FullOpening
-import chess.{ Data, Pos }
+import chess.{ Data, Pos, Piece => ChessPiece }
 import chess.variant.Standard
 
 import chess.Centis
@@ -108,8 +108,9 @@ object Node {
   object Shape {
     type ID    = String
     type Brush = String
-    case class Circle(brush: Brush, orig: Pos)           extends Shape
-    case class Arrow(brush: Brush, orig: Pos, dest: Pos) extends Shape
+    case class Circle(brush: Brush, orig: Pos)                    extends Shape
+    case class Arrow(brush: Brush, orig: Pos, dest: Pos)          extends Shape
+    case class Piece(brush: Brush, orig: Pos, piece: ChessPiece)  extends Shape
   }
   case class Shapes(value: List[Shape]) extends AnyVal {
     def list = value
@@ -216,11 +217,19 @@ object Node {
   implicit private val posWrites: Writes[Pos] = Writes[Pos] { p =>
     JsString(p.key)
   }
+  implicit private val pieceWrites: Writes[ChessPiece] = Writes[ChessPiece] { p =>
+    Json.obj(
+      "role"  -> p.role.name,
+      "color" -> p.color.name
+    )
+  }
   implicit private val shapeCircleWrites = Json.writes[Shape.Circle]
   implicit private val shapeArrowWrites  = Json.writes[Shape.Arrow]
+  implicit private val shapePieceWrites  = Json.writes[Shape.Piece]
   implicit val shapeWrites: Writes[Shape] = Writes[Shape] {
     case s: Shape.Circle => shapeCircleWrites writes s
     case s: Shape.Arrow  => shapeArrowWrites writes s
+    case s: Shape.Piece  => shapePieceWrites writes s
   }
   implicit val shapesWrites: Writes[Node.Shapes] = Writes[Node.Shapes] { s =>
     JsArray(s.list.map(shapeWrites.writes))
