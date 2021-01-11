@@ -84,8 +84,10 @@
   <string name="rookEndgame">Vežová koncovka</string>
   <string name="rookEndgameDescription">Koncovka iba s vežami a pešiakmi.</string>
   <string name="sacrifice">Obeť</string>
+  <string name="sacrificeDescription">Taktika spojená s krátkodobým odovzdaním materiálu za účelom neskoršieho zisku výhody po zahratí vynútenej série ťahov.</string>
   <string name="short">Krátky diagram</string>
   <string name="shortDescription">Dva ťahy do výhry.</string>
+  <string name="skewer">Napichnutie</string>
   <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Dusený mat</string>
   <string name="trappedPiece">Chytená figúra</string>
   <string name="trappedPieceDescription">Figúra neschopná ujsť vyhodeniu, pretože má limitované možnosti.</string>
