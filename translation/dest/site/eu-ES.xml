@@ -842,4 +842,7 @@
   <string name="youCannotPostYetPlaySomeGames">Ezin duzu foroetan idatzi. Jokatu partida batzuk!</string>
   <string name="subscribe">Harpidetu</string>
   <string name="unsubscribe">Harpidetza kendu</string>
+  <string name="challengeDeclined">Erronka baztertuta</string>
+  <string name="challengeAccepted">Erronka onartuta!</string>
+  <string name="challengeCanceled">Erronka bertan behera utzita.</string>
 </resources>
