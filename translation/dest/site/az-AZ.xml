@@ -186,6 +186,10 @@
   <string name="forgotPassword">Parolu unutdun?</string>
   <string name="rank">Təsnifat</string>
   <string name="rankX">Sıralama: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Sıralama hər %s dəqiqədə bir yenilənir</item>
+    <item quantity="other">Sıralama hər %s dəqiqədə bir yenilənir</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s məsələ</item>
     <item quantity="other">%s məsələ</item>
@@ -287,6 +291,10 @@
   <string name="tournament">Turnir</string>
   <string name="tournaments">Turnirlər</string>
   <string name="tournamentPoints">Turnir xalları</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s turnir xalı</item>
+    <item quantity="other">%s turnir xalı</item>
+  </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s çalışma</item>
     <item quantity="other">%s çalışma</item>
@@ -294,6 +302,18 @@
   <string name="viewTournament">Turnirə baxmaq</string>
   <string name="backToTournament">Turnire qayıt</string>
   <string name="thematic">Tematik</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s reytinqli oyun</item>
+    <item quantity="other">≥ %s reytinqli oyun</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s reytinqli %2$s oyunu</item>
+    <item quantity="other">≥ %1$s reytinqli %2$s oyunu</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">%1$s dənə daha reytinqli %2$s oynamanız gərəklidir</item>
+    <item quantity="other">%1$s dənə daha reytinqli %2$s oynamalısınız</item>
+  </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">%s dənə daha reytinqli oyun oynamanız gərəklidir</item>
     <item quantity="other">%s dənə daha reytinqli  oynamanız gərəklidir</item>
@@ -337,6 +357,10 @@
   <string name="blackCheckmatesInOneMove">Qaralar bir gedişə mat edir</string>
   <string name="retry">Yenidən cəhd edin</string>
   <string name="reconnecting">Yenidən birləşməyə cəhd edilir</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s dost onlayn</item>
+    <item quantity="other">%s dost onlayn</item>
+  </plurals>
   <string name="noFriendsOnline">Onlaynda dost yoxdur</string>
   <string name="findFriends">Dostlarınızı tapın</string>
   <string name="favoriteOpponents">Favorit rəqiblər</string>
@@ -617,6 +641,10 @@
   <string name="tournamentMayHaveBeenCanceled">Əgər turnir başlamadan öncə bütün oyunçular turniri tərk edərsə, o turnir ləğv oluna bilər.</string>
   <string name="returnToTournamentsHomepage">Turnirlərin ana səhifəsinə qayıt</string>
   <string name="weeklyPerfTypeRatingDistribution">Həftəlik %s reytinq dağılımı</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">Bu həftə %1$s %2$s oyunçusu.</item>
+    <item quantity="other">Bu həftə %1$s %2$s oyunçusu.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Sənin %1$s reytinqin %2$s-dir</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Sən %1$s oyunçularşn %2$s -dan daha yaxşısan</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %3$s oyunçularından %2$s daha yaxşıdır.</string>
@@ -710,6 +738,10 @@
   <string name="notifications">Bildirişlər</string>
   <string name="challenges">Çağırışlar</string>
   <string name="perfRatingX">Reytinq: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">ilk gedişi etmək üçün son %s saniyə</item>
+    <item quantity="other">ilk gedişi etmək üçün son %s saniyə</item>
+  </plurals>
   <string name="practiceWithComputer">Kompüterlə məşq</string>
   <string name="anotherWasX">Digər variant: %s</string>
   <string name="bestWasX">Ən yaxşı gediş: %s</string>
@@ -744,6 +776,10 @@
   <string name="reviewWhiteMistakes">Ağların səhvlərini nəzərdən keçirin</string>
   <string name="reviewBlackMistakes">Qaraların səhvlərini nəzərdən keçirin</string>
   <string name="advantage">Üstünlük</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s saniyə</item>
+    <item quantity="other">%s saniyə</item>
+  </plurals>
   <string name="opening">Debüt</string>
   <string name="middlegame">Mittelşpil</string>
   <string name="endgame">Endşpil</string>
@@ -758,6 +794,10 @@
   <string name="playVariationToCreateConditionalPremoves">Şərtli öngedişlər etmək üçün bir variasiya oynayın</string>
   <string name="noConditionalPremoves">Şərtli öngedişsiz</string>
   <string name="playX">%s oyna</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">və %s öngediş variantını saxla</item>
+    <item quantity="other">və %s öngediş variantını saxla</item>
+  </plurals>
   <string name="sorry">Təəssüf :(</string>
   <string name="weHadToTimeYouOutForAWhile">Sizi bir müddətlik oyunlardan xaric etmək məcburiyyətində qaldıq.</string>
   <string name="timeoutExpires">Zaman aşımı %s bitəcək.</string>
@@ -777,8 +817,12 @@
   <string name="agreementAssistance">Razıyam ki, heç vaxt oyunlarım zamanı (şahmat kompüterindən, kitabdan, məlumat bazasından və ya başqa bir şəxsdən) kömək almayacağam.</string>
   <string name="agreementNice">Həmişə digər oyunçulara hörmətlə yanaşacağımla razıyam.</string>
   <string name="agreementAccount">Çox hesab yaratmayacağımla razıyam.</string>
+  <string name="agreementPolicy">Bütün Lichess qaydalarına riayət edəcəyimlə razıyam.</string>
+  <string name="searchOrStartNewDiscussion">Axtarış edin və ya yeni söhbətə başlayın</string>
+  <string name="edit">Redaktə et</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klassik</string>
+  <string name="ultraBulletDesc">İnanılmaz sürətli oyunlar: 30 saniyədən az</string>
   <string name="bulletDesc">Çox sürətli oyunlar: 3 dəqiqədən az</string>
   <string name="blitzDesc">Sürətli oyunlar: 3-8 dəqiqə</string>
   <string name="rapidDesc">Rapid oyunlar: 8-25 dəqiqə</string>
