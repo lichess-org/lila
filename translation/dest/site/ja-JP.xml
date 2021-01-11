@@ -805,4 +805,7 @@
   <string name="youCannotPostYetPlaySomeGames">何局か指し終えるまで投稿はできません。</string>
   <string name="subscribe">投稿をフォロー</string>
   <string name="unsubscribe">投稿のフォローをはずす</string>
+  <string name="challengeDeclined">挑戦が拒否されました。</string>
+  <string name="challengeAccepted">挑戦が承認されました！</string>
+  <string name="challengeCanceled">挑戦がキャンセルされました。</string>
 </resources>
