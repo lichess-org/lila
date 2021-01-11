@@ -159,7 +159,7 @@
   <string name="variants">Versiyalar</string>
   <string name="timeControl">Vaxta nəzarət</string>
   <string name="realTime">Real vaxt</string>
-  <string name="correspondence">Qiyabi oyun</string>
+  <string name="correspondence">Yazışmalı</string>
   <string name="daysPerTurn">Gündəlik gediş</string>
   <string name="oneDay">Bir gün</string>
   <plurals name="nbDays">
@@ -656,7 +656,7 @@
   <string name="fullFeatured">Tam özəllikli</string>
   <string name="phoneAndTablet">Telefon və tablet</string>
   <string name="bulletBlitzClassical">Bulit, blitz, klassik</string>
-  <string name="correspondenceChess">Müxbir şahmat</string>
+  <string name="correspondenceChess">Yazışmalı şahmat</string>
   <string name="onlineAndOfflinePlay">Onlayn və offlayn oyna</string>
   <string name="viewTheSolution">Həlli gör</string>
   <string name="followAndChallengeFriends">Dostlarını izlə və yarışa çağır</string>
@@ -734,4 +734,9 @@
   <string name="bulletDesc">Çox sürətli oyunlar: 3 dəqiqədən az</string>
   <string name="blitzDesc">Sürətli oyunlar: 3-8 dəqiqə</string>
   <string name="rapidDesc">Rapid oyunlar: 8-25 dəqiqə</string>
+  <string name="classicalDesc">Klassik oyunlar: 25 dəqiqə və daha artıq</string>
+  <string name="correspondenceDesc">Yazışmalı oyunlar: gediş başına bir və ya bir neçə gün</string>
+  <string name="puzzleDesc">Şahmat taktika məşqçisi</string>
+  <string name="important">Önəmli</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Sizin sualınız %1$s cavablanmış ola bilər</string>
 </resources>
