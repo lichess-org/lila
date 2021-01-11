@@ -426,6 +426,7 @@
   <string name="country">Ölkə</string>
   <string name="thankYou">Təşşəkkür edirik!</string>
   <string name="socialMediaLinks">Sosial media bağlantıları</string>
+  <string name="inlineNotation">Sətirarası notasiya</string>
   <string name="watchLichessTV">Lichess TV izlə</string>
   <string name="previouslyOnLichessTV">Daha öncə Lichess TV-də</string>
   <string name="onlinePlayers">Onlayn oyunçular</string>
@@ -466,6 +467,7 @@
   <string name="troll">Trol</string>
   <string name="other">Digər</string>
   <string name="reportDescriptionHelp">Oyunun ( vəya oyunların ) linkini yapışdırıb və istifadəçi haqqındakı şikayetinizi açıqlayın.</string>
+  <string name="error.provideOneCheatedGameLink">Lütfən ən azı bir hiyləli oyun linki daxil edin.</string>
   <string name="by">%s tərəfindən</string>
   <string name="thisTopicIsNowClosed">Mövzu bağlandı.</string>
   <string name="theming">Temalar</string>
@@ -670,6 +672,7 @@
   </plurals>
   <string name="gameAnalysis">Oyun analizi</string>
   <string name="xHostsY">%1$s ev sahibi: %2$s</string>
+  <string name="xJoinsY">%1$s qoşuldu: %2$s</string>
   <string name="xLikesY">%1$s bəyəndi: %2$s</string>
   <string name="xCreatesStudyY">%1$s %2$s çalışmasını yaratdı</string>
   <string name="quickPairing">Tez qoşulma</string>
@@ -733,6 +736,15 @@
   <string name="tryAnotherMoveForBlack">Qaralar üçün başqa bir gediş yoxlayın</string>
   <string name="solution">Həll</string>
   <string name="waitingForAnalysis">Analiz üçün gözlənilir</string>
+  <string name="noMistakesFoundForWhite">Ağlar üçün səhv tapılmadı</string>
+  <string name="noMistakesFoundForBlack">Qaralar üçün səhv tapılmadı</string>
+  <string name="doneReviewingWhiteMistakes">Ağların səhvləri nəzərdən keçirildi</string>
+  <string name="doneReviewingBlackMistakes">Qaraların səhvləri nəzərdən keçirildi</string>
+  <string name="doItAgain">Təkrar et</string>
+  <string name="reviewWhiteMistakes">Ağların səhvlərini nəzərdən keçirin</string>
+  <string name="reviewBlackMistakes">Qaraların səhvlərini nəzərdən keçirin</string>
+  <string name="advantage">Üstünlük</string>
+  <string name="opening">Açılış</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klassik</string>
   <string name="bulletDesc">Çox sürətli oyunlar: 3 dəqiqədən az</string>
