@@ -29,6 +29,7 @@
   <string name="deflection">Odlákanie</string>
   <string name="deflectionDescription">Ťah, ktorý odvádza súperovu figúry od jej iných povinností, ako napríklad bránenie kľúčového poľa. Občas nazývané aj \"preťaženie\".</string>
   <string name="discoveredAttack">Odťažené napadnutie</string>
+  <string name="discoveredAttackDescription">Ťah figúrou, ktorá blokovala napadnutie inou figúrou, ako napr. ťah jazdcom, ktorý odkryje napadnutie vežou.</string>
   <string name="doubleCheck">Dvojitý šach</string>
   <string name="endgame">Koncovka</string>
   <string name="endgameDescription">Taktika počas posledného úseku hry.</string>
