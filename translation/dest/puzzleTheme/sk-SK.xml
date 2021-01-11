@@ -34,10 +34,13 @@
   <string name="doubleCheckDescription">Šachovanie dvoma figúrami naraz, ako výsledok odkryvného šachu, kedy aj figúra ktorou sa potiahlo aj odkrytá figúra napádajú súperovho kráľa.</string>
   <string name="endgame">Koncovka</string>
   <string name="endgameDescription">Taktika počas posledného úseku hry.</string>
+  <string name="enPassantDescription">Taktika spojená s pravidlom brania mimochodom, kedy pešiak môže vziať súperovho pešiaka, ktorý sa pohol zo základného postavenia o dve polia a tým sa dostal na jeho úroveň.</string>
   <string name="exposedKing">Oslabený kráľ</string>
+  <string name="exposedKingDescription">Taktika spojená s kráľom, ktorý má okolo seba málo brániacich figúr, často vedúca k matu.</string>
   <string name="fork">Vidlička</string>
   <string name="forkDescription">Ťah, pri ktorom figúra útočí na dve nepriateľské figúry naraz.</string>
   <string name="hangingPiece">Visiaca figúra</string>
+  <string name="hangingPieceDescription">Taktika spojená so súperovou figúrou, ktorá je nekrytá alebo nedostatočne krytá a je možné ju vziať zadarmo.</string>
   <string name="interference">Prekrytie</string>
   <string name="intermezzo">Medziťah</string>
   <string name="knightEndgame">Jazdcová koncovka</string>
