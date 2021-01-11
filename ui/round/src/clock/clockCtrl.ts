@@ -47,7 +47,9 @@ export interface ClockElements {
 }
 
 interface EmergSound {
-  play(): void;
+  lowtime(): void;
+  nextPeriod(): void;
+  tick(): void;
   next?: number;
   delay: Millis;
   playable: {
@@ -58,7 +60,9 @@ interface EmergSound {
 
 export class ClockController {
   emergSound: EmergSound = {
-    play: window.lishogi.sound.lowtime,
+    lowtime: window.lishogi.sound.lowtime,
+    nextPeriod: window.lishogi.sound.period,
+    tick: window.lishogi.sound.tick,
     delay: 20000,
     playable: {
       white: true,
@@ -141,9 +145,7 @@ export class ClockController {
   nextPeriod = (color: Color): void => {
     this.curPeriods[color] += 1;
     this.times[color] += this.byoyomi * 1000;
-    if (this.opts.soundColor === color) this.emergSound.play();
-    //this.barTime = this.byoyomi * 1000;
-    //this.timeRatioDivisor = 1 / this.barTime;
+    if (this.opts.soundColor === color) this.emergSound.nextPeriod();
     this.showBar[color] = false; // let's just not show the bar for byoyomi
   }
 
@@ -188,7 +190,7 @@ export class ClockController {
     if (this.opts.soundColor === color) {
       if (this.emergSound.playable[color]) {
         if (millis < this.emergMs && !(now < this.emergSound.next!)) {
-          this.emergSound.play();
+          this.emergSound.lowtime();
           this.emergSound.next = now + this.emergSound.delay;
           this.emergSound.playable[color] = false;
         }

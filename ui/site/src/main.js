@@ -703,6 +703,8 @@
       newPM: "NewPM",
       confirmation: "Confirmation",
       error: "Error",
+      tick: "Tick",
+      period: "Period"
     };
     for (var i = 0; i <= 10; i++) names["countDown" + i] = "CountDown" + i;
 
