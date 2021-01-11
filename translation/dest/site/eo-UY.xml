@@ -657,6 +657,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se vi ne vidas la retpoŝton , kontrolu aliajn lokojn kie ĝi povas esti, kiel via rubo , spam, socia , aŭ aliaj dosierujoj.</string>
   <string name="weHaveSentYouAnEmailTo">Ni sendis retmesaĝon al %s. Klaku la ligilon en la poŝto por rekomencigi vian pasvorton.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">De registranta , vi konsentas al esti ligita de nia %s.</string>
+  <string name="readAboutOur">Legu pri nia %s.</string>
   <string name="networkLagBetweenYouAndLichess">Reto lag inter vi kaj Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tempo por prilabori moviĝon sur Lichess servilo</string>
   <string name="downloadAnnotated">Elŝutu prinotitan</string>
@@ -841,4 +842,6 @@
   <string name="youCannotPostYetPlaySomeGames">Vi jam ne rajtas afiŝi en la forumoj. Ludu iujn ludojn!</string>
   <string name="subscribe">Aboni</string>
   <string name="unsubscribe">Malaboni</string>
+  <string name="challengeDeclined">Defio malkreskis</string>
+  <string name="challengeAccepted">Defio akceptita!</string>
 </resources>
