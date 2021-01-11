@@ -493,6 +493,7 @@
 	<string name="boardEditor">Editor šachovnice</string>
 	<string name="setTheBoard">Upravit šachovnici</string>
 	<string name="popularOpenings">Populární zahájení</string>
+	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Základní postavení</string>
 	<string name="clearBoard">Prázdná šachovnice</string>
 	<string name="savePosition">Uložit pozici</string>

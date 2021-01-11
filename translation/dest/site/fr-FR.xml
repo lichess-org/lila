@@ -437,6 +437,7 @@
 	<string name="boardEditor">Éditeur de position</string>
 	<string name="setTheBoard">Entrer une position</string>
 	<string name="popularOpenings">Ouvertures courantes</string>
+	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Position de départ</string>
 	<string name="clearBoard">Vider l\'échiquier</string>
 	<string name="savePosition">Enregistrer la position</string>

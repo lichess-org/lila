@@ -437,6 +437,7 @@
 	<string name="boardEditor">Tahta yapıcı</string>
 	<string name="setTheBoard">Tahtayı ayarla</string>
 	<string name="popularOpenings">Popüler açılışlar</string>
+	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Başlangıç konumu</string>
 	<string name="clearBoard">Tahtayı temizle</string>
 	<string name="savePosition">Konumu kaydet</string>

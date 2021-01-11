@@ -549,6 +549,7 @@
 	<string name="boardEditor">محرر الرقعة</string>
 	<string name="setTheBoard">إعداد الرقعة</string>
 	<string name="popularOpenings">إفتتاحيات شائعة</string>
+	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">وضع البداية</string>
 	<string name="clearBoard">رقعة بلا قطع</string>
 	<string name="savePosition">حفظ الوضع</string>

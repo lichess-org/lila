@@ -493,6 +493,7 @@
 	<string name="boardEditor">Edytor pozycji</string>
 	<string name="setTheBoard">Ustaw szachownicę</string>
 	<string name="popularOpenings">Popularne otwarcia</string>
+	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Ustawienie początkowe</string>
 	<string name="clearBoard">Wyczyść szachownicę</string>
 	<string name="savePosition">Zapisz pozycję</string>

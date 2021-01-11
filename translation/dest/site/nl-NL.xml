@@ -437,6 +437,7 @@
 	<string name="boardEditor">Bordbewerker</string>
 	<string name="setTheBoard">Zet het bord op</string>
 	<string name="popularOpenings">Populaire openingen</string>
+	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Beginstelling</string>
 	<string name="clearBoard">Maak het bord leeg</string>
 	<string name="savePosition">Sla de stelling op</string>

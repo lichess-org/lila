@@ -437,6 +437,7 @@
 	<string name="boardEditor">Stellung aufbauen</string>
 	<string name="setTheBoard">Brett aufbauen</string>
 	<string name="popularOpenings">Beliebte Eröffnungen</string>
+	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Anfangsposition</string>
 	<string name="clearBoard">Brett räumen</string>
 	<string name="savePosition">Stellung speichern</string>

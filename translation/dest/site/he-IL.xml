@@ -493,6 +493,7 @@
 	<string name="boardEditor">עריכת לוח</string>
 	<string name="setTheBoard">הכן את הלוח</string>
 	<string name="popularOpenings">פתיחות פופולריות</string>
+	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">מצב התחלתי</string>
 	<string name="clearBoard">נקה לוח</string>
 	<string name="savePosition">שמור מצב</string>

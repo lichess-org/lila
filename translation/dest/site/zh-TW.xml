@@ -409,6 +409,7 @@
 	<string name="boardEditor">棋盤編輯器</string>
 	<string name="setTheBoard">設定版型</string>
 	<string name="popularOpenings">使用率最高的開局</string>
+	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">初始佈局</string>
 	<string name="clearBoard">清空棋盤</string>
 	<string name="savePosition">保存佈局</string>

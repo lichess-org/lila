@@ -437,6 +437,7 @@
 	<string name="boardEditor">Lautaeditori</string>
 	<string name="setTheBoard">Asettele lauta</string>
 	<string name="popularOpenings">Suosittuja avauksia</string>
+	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Alkuasema</string>
 	<string name="clearBoard">Tyhjennä lauta</string>
 	<string name="savePosition">Tallenna asema</string>

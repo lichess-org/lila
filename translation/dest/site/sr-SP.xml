@@ -466,6 +466,7 @@
 	<string name="boardEditor">Уредник табле</string>
 	<string name="setTheBoard">Постави таблу</string>
 	<string name="popularOpenings">Популарна отварања</string>
+	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Почетна позиција</string>
 	<string name="clearBoard">Уклони фигуре</string>
 	<string name="savePosition">Сачувај позицију</string>

@@ -438,6 +438,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
 	<string name="boardEditor">Editor scacchiera</string>
 	<string name="setTheBoard">Imposta la scacchiera</string>
 	<string name="popularOpenings">Aperture popolari</string>
+	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Posizione iniziale</string>
 	<string name="clearBoard">Svuota scacchiera</string>
 	<string name="savePosition">Salva la posizione</string>

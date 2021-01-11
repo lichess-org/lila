@@ -437,6 +437,7 @@
 	<string name="boardEditor">Opstilling</string>
 	<string name="setTheBoard">Opstil bræt</string>
 	<string name="popularOpenings">Populære åbninger</string>
+	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Startopstilling</string>
 	<string name="clearBoard">Fjern alle brikker</string>
 	<string name="savePosition">Gem stilling</string>

@@ -437,6 +437,7 @@
 	<string name="boardEditor">Editor de tablero</string>
 	<string name="setTheBoard">Configurar tablero</string>
 	<string name="popularOpenings">Aperturas populares</string>
+	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Posición inicial</string>
 	<string name="clearBoard">Limpiar el tablero</string>
 	<string name="savePosition">Guardar posición</string>

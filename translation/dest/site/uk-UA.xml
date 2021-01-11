@@ -494,6 +494,7 @@
 	<string name="boardEditor">Редактор дошки</string>
 	<string name="setTheBoard">Устав дошку</string>
 	<string name="popularOpenings">Знанні початки</string>
+	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Початкова позиція</string>
 	<string name="clearBoard">Вичисть дошку</string>
 	<string name="savePosition">Збережи розташову</string>

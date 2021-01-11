@@ -437,6 +437,7 @@
 	<string name="boardEditor">Brädeditor</string>
 	<string name="setTheBoard">Ställ upp brädet</string>
 	<string name="popularOpenings">Populära öppningar</string>
+	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Startposition</string>
 	<string name="clearBoard">Rensa brädet</string>
 	<string name="savePosition">Spara ställning</string>

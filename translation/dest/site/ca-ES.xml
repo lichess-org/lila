@@ -437,6 +437,7 @@
 	<string name="boardEditor">Editor del tauler</string>
 	<string name="setTheBoard">Establir el tauler</string>
 	<string name="popularOpenings">Obertures populars</string>
+	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Posició inicial</string>
 	<string name="clearBoard">Neteja el tauler</string>
 	<string name="savePosition">Desa la posició</string>
