@@ -94,7 +94,7 @@
   </plurals>
   <string name="noGameFound">Oyun tapılmadı</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bəlkə seçimlər menyusunda daha çox oyun daxil edilməsini seçəsiniz?</string>
-  <string name="openingExplorer">Debut tədqiqatçısı və cədvəl bazası</string>
+  <string name="openingExplorer">Debüt tədqiqatçısı</string>
   <string name="xOpeningExplorer">%s debüt bazası</string>
   <string name="winPreventedBy50MoveRule">Qələbə 50 gediş qaydasına görə sayılmadı</string>
   <string name="lossSavedBy50MoveRule">Məğlubiyyət 50 gediş qaydasına görə sayılmadı</string>
@@ -407,7 +407,7 @@
   <string name="membersOnly">Yalnız üzvlər</string>
   <string name="boardEditor">Oyun redaktoru</string>
   <string name="setTheBoard">Lövhəni tənzimlə</string>
-  <string name="popularOpenings">Məşhur açılışlar</string>
+  <string name="popularOpenings">Məşhur debütlər</string>
   <string name="startPosition">Başlanğıc vəziyyəti</string>
   <string name="clearBoard">Oyunu sil.</string>
   <string name="savePosition">Vəziyyəti yaddaşa vermək.</string>
@@ -517,7 +517,7 @@
   <string name="starting">Başlanğıc</string>
   <string name="allInformationIsPublicAndOptional">Bütün məlumatlar hər kəsə açıq və seçkiyə bağlıdır.</string>
   <string name="yourCityRegionOrDepartment">Şəhər və ya rayon</string>
-  <string name="biographyDescription">Özünüz haqqında danışın, maraqlarınız, şahmatda nəyi bəyəndiyiniz, sevimli açılışlarınız, oyunçular və s...</string>
+  <string name="biographyDescription">Özünüz haqqında danışın, maraqlarınız, şahmatda nəyi bəyəndiyiniz, sevimli debütləriniz, oyunçular və s...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Ən çox: %s xarakter</item>
     <item quantity="other">Ən çox: %s xarakter</item>
@@ -744,7 +744,12 @@
   <string name="reviewWhiteMistakes">Ağların səhvlərini nəzərdən keçirin</string>
   <string name="reviewBlackMistakes">Qaraların səhvlərini nəzərdən keçirin</string>
   <string name="advantage">Üstünlük</string>
-  <string name="opening">Açılış</string>
+  <string name="opening">Debüt</string>
+  <string name="middlegame">Mittelşpil</string>
+  <string name="endgame">Endşpil</string>
+  <string name="registerToSendChallenges">Çağırış göndərmək üçün lütfən qeydiyyatdan keçin.</string>
+  <string name="youCannotChallengeX">%s istifadəçisinə çağırış edə bilməzsiz.</string>
+  <string name="xDoesNotAcceptChallenges">%s çağırışları qəbul etmir.</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klassik</string>
   <string name="bulletDesc">Çox sürətli oyunlar: 3 dəqiqədən az</string>
