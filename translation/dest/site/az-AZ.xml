@@ -608,7 +608,7 @@
   <string name="keyMoveBackwardOrForward">İrəliyə/arxaya gediş</string>
   <string name="keyGoToStartOrEnd">Əvvələ/sona get</string>
   <string name="keyShowOrHideComments">Rəyləri göstər/gizlə</string>
-  <string name="keyEnterOrExitVariation">Giriş/çıxış dəyişikliyi</string>
+  <string name="keyEnterOrExitVariation">giriş/çıxış variasiyası</string>
   <string name="newTournament">Yeni turnir</string>
   <string name="tournamentHomeTitle">Müxtəlif zaman kontrollu və variantlı şahmat turnuri.</string>
   <string name="tournamentHomeDescription">Sürətli şahmat turnirləri oyna! Rəsmi təyin olunmuş turnirlər qoşul və ya özün turnir yarat. Bulit, Blitz, Klassik, Chess960, King of the Hill, Threecheck və digər sonsuz şahmat əyləncəsi.</string>
@@ -756,6 +756,12 @@
   <string name="conditionalPremoves">Şərtli öngediş</string>
   <string name="addCurrentVariation">Cari variasiyanı əlavə et</string>
   <string name="playVariationToCreateConditionalPremoves">Şərtli öngedişlər etmək üçün bir variasiya oynayın</string>
+  <string name="noConditionalPremoves">Şərtli öngedişsiz</string>
+  <string name="playX">%s oyna</string>
+  <string name="sorry">Təəssüf :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Sizi bir müddətlik oyunlardan xaric etmək məcburiyyətində qaldıq.</string>
+  <string name="timeoutExpires">Zaman aşımı %s bitəcək.</string>
+  <string name="why">Niyə?</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klassik</string>
   <string name="bulletDesc">Çox sürətli oyunlar: 3 dəqiqədən az</string>
