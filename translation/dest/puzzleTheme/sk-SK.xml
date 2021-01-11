@@ -72,12 +72,17 @@
   <string name="pin">Väzba</string>
   <string name="pinDescription">Taktika spojená s väzbou, kedy sa figúrka nemôže pohnúť bez toho aby neodkryla napadnutie figúry vyššej hodnoty.</string>
   <string name="promotion">Premena</string>
+  <string name="promotionDescription">Premena pešiaka alebo hrozba premeny pešiaka je kľúčom k tejto taktike.</string>
   <string name="queenEndgame">Dámska koncovka</string>
   <string name="queenEndgameDescription">Koncovka iba s kráľovnami a pešiakmi.</string>
   <string name="queenRookEndgame">Dáma a Veža</string>
+  <string name="queenRookEndgameDescription">Koncovka iba s dámami, vežami a pešiakmi.</string>
   <string name="queensideAttack">Útok na dámskom krídle</string>
+  <string name="queensideAttackDescription">Útok na súperovho kráľa po tom ako súper zahral veľkú rošádu.</string>
   <string name="quietMove">Tichý ťah</string>
+  <string name="quietMoveDescription">Ťah, ktorým ani nešachujeme ani neberieme súperove figúry, ale pripravujeme neodvratnú hrozbu v neskoršom ťahu.</string>
   <string name="rookEndgame">Vežová koncovka</string>
+  <string name="rookEndgameDescription">Koncovka iba s vežami a pešiakmi.</string>
   <string name="sacrifice">Obeť</string>
   <string name="short">Krátky diagram</string>
   <string name="shortDescription">Dva ťahy do výhry.</string>
