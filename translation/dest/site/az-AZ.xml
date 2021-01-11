@@ -717,6 +717,21 @@
   <string name="whiteWinsGame">Ağlar qazandı</string>
   <string name="blackWinsGame">Qaralar qazandı</string>
   <string name="learnFromYourMistakes">Səhvlərinizdən öyrənin</string>
+  <string name="learnFromThisMistake">Bu səhvdən öyrən</string>
+  <string name="skipThisMove">Bu gedişi keç</string>
+  <string name="next">Növbəti</string>
+  <string name="xWasPlayed">%s oynanıldı</string>
+  <string name="findBetterMoveForWhite">Ağlar üçün daha yaxşı gedişi tapın</string>
+  <string name="findBetterMoveForBlack">Qaralar üçün daha yaxşı gedişi tapın</string>
+  <string name="resumeLearning">Öyrənməyə davam</string>
+  <string name="youCanDoBetter">Daha yaxşısını bacara bilərsən</string>
+  <string name="tryAnotherMoveForWhite">Ağlar üçün başqa bir gediş yoxlayın</string>
+  <string name="tryAnotherMoveForBlack">Qaralar üçün başqa bir gediş yoxlayın</string>
+  <string name="solution">Həll</string>
+  <string name="waitingForAnalysis">Analiz üçün gözlənilir</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klassik</string>
+  <string name="bulletDesc">Çox sürətli oyunlar: 3 dəqiqədən az</string>
+  <string name="blitzDesc">Sürətli oyunlar: 3-8 dəqiqə</string>
+  <string name="rapidDesc">Rapid oyunlar: 8-25 dəqiqə</string>
 </resources>
