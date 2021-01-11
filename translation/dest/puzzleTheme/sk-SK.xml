@@ -44,15 +44,21 @@
   <string name="interference">Prekrytie</string>
   <string name="interferenceDescription">Umiestnenie figúry medzi dve súperove figúry čím sa tieto dve stávajú nekrytými, napr. umiestnenie jazdca na kryté pole medzi dve veže.</string>
   <string name="intermezzo">Medziťah</string>
+  <string name="intermezzoDescription">Namiesto očakávaného ťahu, zahranie ťahu znamenajúceho okamžitú hrozbu, na ktorú musí protihráč reagovať. Nazývaný tiež \"Zwischenzug\" alebo \"Medzitah\".</string>
   <string name="knightEndgame">Jazdcová koncovka</string>
+  <string name="knightEndgameDescription">Koncovka iba s jazdcami a pešiakmi.</string>
   <string name="long">Dlhý diagram</string>
   <string name="longDescription">Výhra v troch ťahoch.</string>
   <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mat</string>
   <string name="mateDescription">Vyhrajte hru so štýlom.</string>
   <string name="mateIn1">Mat 1. ťahom</string>
+  <string name="mateIn1Description">Dajte mat jedným ťahom.</string>
   <string name="mateIn2">Mat 2. ťahom</string>
+  <string name="mateIn2Description">Dajte mat dvoma ťahmi.</string>
   <string name="mateIn3">Mat 3. ťahom</string>
+  <string name="mateIn3Description">Dajte mat tromi ťahmi.</string>
   <string name="mateIn4">Mat na 4 ťahy</string>
+  <string name="mateIn4Description">Dajte mat štyrmi ťahmi.</string>
   <string name="mateIn5">Mat 5. alebo väčším počtom ťahov</string>
   <string name="mateIn5Description">Nájdite dlhú matovú kombináciu.</string>
   <string name="middlegame">Stredná hra</string>
@@ -64,6 +70,7 @@
   <string name="pawnEndgame">Pešiaková koncovka</string>
   <string name="pawnEndgameDescription">Koncovka iba s pešiakmi.</string>
   <string name="pin">Väzba</string>
+  <string name="pinDescription">Taktika spojená s väzbou, kedy sa figúrka nemôže pohnúť bez toho aby neodkryla napadnutie figúry vyššej hodnoty.</string>
   <string name="promotion">Premena</string>
   <string name="queenEndgame">Dámska koncovka</string>
   <string name="queenEndgameDescription">Koncovka iba s kráľovnami a pešiakmi.</string>
