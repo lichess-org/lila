@@ -453,11 +453,11 @@
   <string name="reply">Cavab</string>
   <string name="message">İsmarıc</string>
   <string name="createTheTopic">Mövzu yarat</string>
-  <string name="reportAUser">Istifadəçi ihbar et</string>
+  <string name="reportAUser">Istifadəçi şikayət et</string>
   <string name="user">İstifadəçi</string>
   <string name="reason">Səbəb</string>
   <string name="whatIsIheMatter">Problem nədir ?</string>
-  <string name="cheat">Hile</string>
+  <string name="cheat">Hiylə</string>
   <string name="insult">Təhqir</string>
   <string name="troll">Trol</string>
   <string name="other">Digər</string>
@@ -738,5 +738,12 @@
   <string name="correspondenceDesc">Yazışmalı oyunlar: gediş başına bir və ya bir neçə gün</string>
   <string name="puzzleDesc">Şahmat taktika məşqçisi</string>
   <string name="important">Önəmli</string>
-  <string name="yourQuestionMayHaveBeenAnswered">Sizin sualınız %1$s cavablanmış ola bilər</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Sizin sualınız %1$s cavablanmış ola bilər.</string>
+  <string name="inTheFAQ">F.A.Q bölməsində</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Bir istifadəçini aldatma və ya pis davranışa görə bildirmək üçün, %1$s</string>
+  <string name="useTheReportForm">şikayət formundan istifadə edin</string>
+  <string name="toRequestSupport">Dəstək almaq üçün, %1$s</string>
+  <string name="tryTheContactPage">əlaqə səhifəsindən istifadə edin</string>
+  <string name="thisTopicIsArchived">Bu mövzu arxivləşdirilib və artıq cavab verilə bilməz.</string>
+  <string name="joinTheTeamXToPost">Bu forumda yazı göndərmək üçün, %1$s komandasına qoşulun</string>
 </resources>
