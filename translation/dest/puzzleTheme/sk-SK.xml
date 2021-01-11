@@ -42,6 +42,7 @@
   <string name="hangingPiece">Visiaca figúra</string>
   <string name="hangingPieceDescription">Taktika spojená so súperovou figúrou, ktorá je nekrytá alebo nedostatočne krytá a je možné ju vziať zadarmo.</string>
   <string name="interference">Prekrytie</string>
+  <string name="interferenceDescription">Umiestnenie figúry medzi dve súperove figúry čím sa tieto dve stávajú nekrytými, napr. umiestnenie jazdca na kryté pole medzi dve veže.</string>
   <string name="intermezzo">Medziťah</string>
   <string name="knightEndgame">Jazdcová koncovka</string>
   <string name="long">Dlhý diagram</string>
