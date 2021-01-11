@@ -63,10 +63,10 @@
   <string name="showThreat">Təhdidi göstər</string>
   <string name="inLocalBrowser">yerli səyyahda</string>
   <string name="toggleLocalEvaluation">Yerli qiymətləndirməni aç/bağla</string>
-  <string name="promoteVariation">Variantı irəli çək</string>
+  <string name="promoteVariation">Variasiyanı irəli çək</string>
   <string name="makeMainLine">Ana yol et</string>
   <string name="deleteFromHere">Buradan sil</string>
-  <string name="forceVariation">Variantı kimi göstər</string>
+  <string name="forceVariation">Variasiyanı göstər</string>
   <string name="move">Gediş</string>
   <string name="variantLoss">Uduzduracaq variant</string>
   <string name="variantWin">Qazandıracaq variant</string>
@@ -750,6 +750,12 @@
   <string name="registerToSendChallenges">Çağırış göndərmək üçün lütfən qeydiyyatdan keçin.</string>
   <string name="youCannotChallengeX">%s istifadəçisinə çağırış edə bilməzsiz.</string>
   <string name="xDoesNotAcceptChallenges">%s çağırışları qəbul etmir.</string>
+  <string name="yourXRatingIsTooFarFromY">Sizin %1$s reytinqiniz %2$s istifadəçisindən çox uzaqdır.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Müvəqqəti %s reytinqi səbəbilə çağırış edə bilməzsiz.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s yalnız dostlarından çağırış qəbul edir.</string>
+  <string name="conditionalPremoves">Şərtli öngediş</string>
+  <string name="addCurrentVariation">Cari variasiyanı əlavə et</string>
+  <string name="playVariationToCreateConditionalPremoves">Şərtli öngedişlər etmək üçün bir variasiya oynayın</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klassik</string>
   <string name="bulletDesc">Çox sürətli oyunlar: 3 dəqiqədən az</string>
