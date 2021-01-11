@@ -25,6 +25,10 @@ function pocket(ctrl: EditorCtrl, c: Color): VNode {
               on: {
                 mousedown: dragFromPocket(ctrl, [c, r as Role], nb, "mouseup"),
                 touchstart: dragFromPocket(ctrl, [c, r as Role], nb, "touchend"),
+                click: (e) => {
+                  e.preventDefault();
+                  ctrl.addToPocket(c, r as Role);
+                }
               },
             },
             [
