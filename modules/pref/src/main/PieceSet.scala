@@ -24,12 +24,12 @@ sealed trait PieceSetObject {
 
 object PieceSet extends PieceSetObject {
 
-  val default = new PieceSet("kanji_light")
+  val default = new PieceSet("Ryoko_1Kanji")
 
   val all = List(
-    default.name,
+    "kanji_light",
     "kanji_brown",
-    "Ryoko_1Kanji",
+    default.name,
     "orangain",
     "kanji_red_wood",
     "1Kanji_3D",
