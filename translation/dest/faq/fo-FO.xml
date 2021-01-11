@@ -55,7 +55,9 @@
 At fáa staðfest á Lichess, at tú ert telvari við einum vunnum heiti, gevur tær atgongd til Titled Arena-tiltøk.
 
 At enda er ærisheitið: %2$s.</string>
+  <string name="asWellAsManyNMtitles">nógv landsumfevnandi meistaraheiti</string>
   <string name="verificationForm">váttanaroyðublað</string>
+  <string name="canIbecomeLM">Kann eg fáa Lichessmeistaraheitið (LM)?</string>
   <string name="noUpperCaseDot">Nei.</string>
   <string name="whatUsernameCanIchoose">Hvat kann brúkaranavn mítt vera?</string>
   <string name="usernamesNotOffensive">Sum heild eiga brúkaranøvn ikki at vera stoytandi og eiga ikki at lýsa fyri onkrari ávísari vøru ella virki. Við brúkaranavninum eigur tú ei heldur at látast at vera onkur annar, enn tú ert. Tú kanst lesa meir um hetta: %1$s.</string>
