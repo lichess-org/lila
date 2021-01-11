@@ -38,7 +38,7 @@
   <string name="exposedKing">Atidengtas karalius</string>
   <string name="exposedKingDescription">Taktika, susijusi su karaliumi, kuris neturi daug gynejų aplink save. Tai dažnai priveda prie mato.</string>
   <string name="fork">Šakutė</string>
-  <string name="forkDescription">Ėjimas, kurio metu perkelta figūra puola dvi kitas priešininko figūras vienu metu.</string>
+  <string name="forkDescription">Ėjimas, kurio metu perkelta figūra puola dvi ar daugiau priešininko figūrų vienu metu.</string>
   <string name="hangingPiece">Kabanti figūra</string>
   <string name="hangingPieceDescription">Taktika, susijusi su neapginta ar nepakankamai apginta ir lengvai nukertama priešininko figūra.</string>
   <string name="interference">Trukdymas</string>
