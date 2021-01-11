@@ -230,7 +230,7 @@
 	<string name="confirmMove">手を確定</string>
 	<string name="play">対局</string>
 	<string name="inbox">受信箱</string>
-	<string name="streamerManager">Streamer manager</string>
+	<string name="streamerManager">配信者用マネージャー</string>
 	<string name="chatRoom">チャットルーム</string>
 	<string name="loginToChat">（ログインが必要）</string>
 	<string name="youHaveBeenTimedOut">（チャットは一時禁止中）</string>
@@ -840,8 +840,8 @@
 	<string name="whiteOffersImpasse">後手が引き分けを申し込んでいます</string>
 	<string name="notationSystem">表記方法</string>
 	<string name="officialBlog">Lishogi 公式ブログ</string>
-	<string name="blogPostsFromYear">Blog posts from %1$s</string>
+	<string name="blogPostsFromYear">%1$s によるブログ投稿</string>
 	<string name="previousBlogPosts">前のブログ投稿</string>
-	<string name="continueReadingThis"> Continue reading this post</string>
+	<string name="continueReadingThis">続けてこの投稿を読む</string>
 	<string name="discussBlogForum">フォーラムでこのブログ記事を議論する</string>
 </resources>
