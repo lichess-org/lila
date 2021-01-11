@@ -20,6 +20,8 @@
   <string name="whyFlaggedRatingManipulationOrCheater">Hví eri eg meldaður fyri óreiðiliga at hava tiltuskað mær eitt tilgjørt styrkital (sandbagging og boosting) ella hjálp frá telduni?</string>
   <string name="preventLeavingGameWithoutResigning">Hvat verður gjørt við telvarar, ið fara frá einum talvi uttan at geva upp?</string>
   <string name="howCanIBecomeModerator">Hvussu kann eg gerast fyriskipari?</string>
+  <string name="youCannotApply">Tað er ikki møguligt at søkja um at gerast fyriskipari. Síggja vit onkran, vit halda hevði hóskað væl sum fyriskipari, seta vit okkum í samband við hann ella hana beinleiðis.</string>
+  <string name="isCorrespondenceDifferent">Er brævtalv øðrvísi enn vanligt talv?</string>
   <string name="gameplay">Leikgongd</string>
   <string name="howBulletBlitzEtcDecided">Hvussu verður avgjørt, hvørjar tíðarásetingar eru fyri Bullet, Snar og onnur sløg av talvum?</string>
   <string name="durationFormula">(byrjanartíð á klokkuni) + 40 × (tíð løgd afturat)</string>
