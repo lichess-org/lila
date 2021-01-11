@@ -271,7 +271,7 @@ export default class RoundController {
     if (s.san && isForwardStep) {
       if (s.san.includes("x")) sound.capture();
       else sound.move();
-      if (/[+#]/.test(s.san)) sound.check();
+      if (s.check) sound.check();
     }
     this.autoScroll();
     if (this.keyboardMove) this.keyboardMove.update(s);
