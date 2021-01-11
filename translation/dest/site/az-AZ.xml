@@ -287,6 +287,10 @@
   <string name="tournament">Turnir</string>
   <string name="tournaments">Turnirlər</string>
   <string name="tournamentPoints">Turnir xalları</string>
+  <plurals name="nbStudies">
+    <item quantity="one">%s çalışma</item>
+    <item quantity="other">%s çalışma</item>
+  </plurals>
   <string name="viewTournament">Turnirə baxmaq</string>
   <string name="backToTournament">Turnire qayıt</string>
   <string name="thematic">Tematik</string>
@@ -746,4 +750,11 @@
   <string name="tryTheContactPage">əlaqə səhifəsindən istifadə edin</string>
   <string name="thisTopicIsArchived">Bu mövzu arxivləşdirilib və artıq cavab verilə bilməz.</string>
   <string name="joinTheTeamXToPost">Bu forumda yazı göndərmək üçün, %1$s komandasına qoşulun</string>
+  <string name="teamNamedX">%1$s komandası</string>
+  <string name="youCannotPostYetPlaySomeGames">Hələ forumlarda yazı göndərə bilməzsiniz. Biraz oyun oynayın!</string>
+  <string name="subscribe">Abunə ol</string>
+  <string name="unsubscribe">Abunəlikdən çıx</string>
+  <string name="challengeDeclined">Çağırış rədd edildi</string>
+  <string name="challengeAccepted">Çağırış qəbul edildi!</string>
+  <string name="challengeCanceled">Çağırışdan imtina edildi.</string>
 </resources>
