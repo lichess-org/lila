@@ -43,7 +43,7 @@
   <string name="shortDescription">Pobjeda u dva poteza.</string>
   <string name="skewer">Ražanj</string>
   <string name="skewerDescription">Motiv u kojem se napada neka teška figura, čije sklanjanje od napada omogućuje uzimanje neke lahke figure koja je iza nje ili napad na nju; obratno od svezivanja.</string>
-  <string name="smotheredMate">Ugušeni mat</string>
+  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Ugušeni mat</string>
   <string name="smotheredMateDescription">Mat skakačem u poziciji kad protivnički kralj nema slobodnih polja jer je okružen (ili ugušen) vlastitim figurama.</string>
   <string name="trappedPiece">Zarobljena figura</string>
   <string name="trappedPieceDescription">Figura ne može izbjeći da bude uzeta jer su joj potezi ograničeni.</string>

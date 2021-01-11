@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Hvorfor navnet Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess er sammensatt av live/light/libre og chess. Uttalen er %1$s.</string>
   <string name="leechess">li-tsjess</string>
-  <string name="hearItPronouncedBySpecialist">Hør hvordan en spesialist uttaler det.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Hør hvordan en spesialist uttaler det.</string>
   <string name="whyLiveLightLibre">Live, fordi partiene spilles og ses på i sanntid døgnet rundt; light og libre fordi Lichess er åpen kildekode og ikke nedtynget av slikt proprietært skrot som hjemsøker andre nettsteder.</string>
   <string name="whyIsLilaCalledLila">Like ens står %1$s, kildekoden til Lichess, for li[chess in sca]la, ettersom det meste av Lichess er skrevet i %2$s, et intuitivt programmeringsspråk.</string>
   <string name="howCanIContributeToLichess">Hvordan kan jeg bidra til Lichess?</string>
@@ -71,7 +71,7 @@ Se mer om dette trekket i %3$s for å få litt øvelse med det.</string>
   <string name="repeatedPositionsThatMatters">Trekkgjentakelse dreier seg om gjentatte %1$s, ikke trekk. Gjentakelsene trenger ikke skje rett etter hverandre.</string>
   <string name="positions">stillinger</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Vi gjentok en stilling tre ganger. Hvorfor ble det ikke remis?</string>
-  <string name="threeFoldHasToBeClaimed">Trekkgjentakelse må kreves av en av spillerne. Du kan gjøre det ved å trykke på knappen som dukker opp, eller ved å tilby remis før du gjør det endelige gjentakende trekket. Du kan også %1$s Lichess til å automatisk kreve trekkgjentakelse for deg. I tillegg vil spillet avsluttes øyeblikkelig hvis samme stilling oppstår fem ganger.</string>
+  <string name="threeFoldHasToBeClaimed">Trekkgjentakelse må kreves av en av spillerne. Du kan gjøre det ved å trykke på knappen som dukker opp, eller ved å tilby remis før du gjør det endelige gjentakende trekket. Det betyr ingenting om motstanderen avslår remistilbudet, trekkgjentakelsen blir krevd uansett. Du kan også %1$s Lichess til å automatisk kreve trekkgjentakelse for deg. I tillegg vil spillet avsluttes øyeblikkelig hvis samme stilling oppstår fem ganger.</string>
   <string name="configure">konfigurere</string>
   <string name="accounts">Kontoer</string>
   <string name="titlesAvailableOnLichess">Hvilke titler finnes hos Lichess?</string>

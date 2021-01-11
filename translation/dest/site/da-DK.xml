@@ -842,4 +842,7 @@
   <string name="youCannotPostYetPlaySomeGames">Du kan endnu ikke lave oplag i foraene. Spil nogle partier!</string>
   <string name="subscribe">Abonnér</string>
   <string name="unsubscribe">Ophæv abonnement</string>
+  <string name="challengeDeclined">Udfordring afvist</string>
+  <string name="challengeAccepted">Udfordring accepteret!</string>
+  <string name="challengeCanceled">Udfordring annulleret.</string>
 </resources>

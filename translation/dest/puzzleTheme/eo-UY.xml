@@ -15,7 +15,7 @@
   <string name="knightEndgame">Ĉevala finludo</string>
   <string name="long">Longa puzlo</string>
   <string name="longDescription">Tri movoj por venki.</string>
-  <string name="mate">Mato</string>
+  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mato</string>
   <string name="pawnEndgame">Peona finludo</string>
   <string name="promotion">Damigo</string>
   <string name="queenEndgame">Dama finludo</string>

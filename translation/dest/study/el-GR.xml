@@ -21,12 +21,12 @@
     <item quantity="other">%s Κεφάλαια</item>
   </plurals>
   <plurals name="nbGames">
-    <item quantity="one">%s [Παρτίδα] [Παρτίδες]</item>
+    <item quantity="one">%s Παρτίδα</item>
     <item quantity="other">%s Παρτίδες</item>
   </plurals>
   <string name="addMembers">Προσθήκη μελών</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s [Μέλος] [Μέλη]</item>
+    <item quantity="one">%s Μέλος</item>
     <item quantity="other">%s Μέλη</item>
   </plurals>
   <string name="inviteToTheStudy">Προσκάλεσε στην μελέτη</string>
@@ -99,7 +99,7 @@
   <string name="loadAGameFromPgn">Φόρτωσε μια παρτίδα από PGN</string>
   <string name="automatic">Αυτόματο</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="one">Επικολλήστε το PGN εδώ, μέχρι %s παρτίδες</item>
+    <item quantity="one">Επικολλήστε το PGN εδώ, μέχρι %s παρτίδα</item>
     <item quantity="other">Επικολλήστε το PGN εδώ, μέχρι %s παρτίδες</item>
   </plurals>
   <string name="urlOfTheGame">URL παρτίδων, ένα ανά γραμμή</string>
@@ -118,7 +118,7 @@
   <string name="contributors">Συνεισφέροντες</string>
   <string name="members">Μέλη</string>
   <string name="everyone">Οποιοσδήποτε</string>
-  <string name="enableSync">Ενεργ. συγχρονισμού</string>
+  <string name="enableSync">Ενεργοποίηση συγχρονισμού</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Ναι: όλοι βλέπουν την ίδια θέση</string>
   <string name="noLetPeopleBrowseFreely">Όχι: ελεύθερη επιλογή θέσης</string>
   <string name="pinnedStudyComment">Καρφιτσωμένο σχόλιο μελέτης</string>
@@ -128,5 +128,5 @@
   <string name="deleteTheStudyChatHistory">Διαγραφή συνομιλίας μελέτης; Μη αναιρέσιμη ενέργεια!</string>
   <string name="deleteStudy">Διαγραφή μελέτης</string>
   <string name="deleteTheEntireStudy">Διαγραφή ολόκληρης μελέτης; Μη αναιρέσιμη ενέργεια!</string>
-  <string name="whereDoYouWantToStudyThat">Που θέλετε να δημιουργήσω την μελέτη;</string>
+  <string name="whereDoYouWantToStudyThat">Που θέλετε να δημιουργήσετε την μελέτη;</string>
 </resources>

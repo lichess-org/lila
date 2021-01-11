@@ -842,4 +842,7 @@
   <string name="youCannotPostYetPlaySomeGames">Du kannst noch nichts in den Foren schreiben. Spiel ein paar Partien!</string>
   <string name="subscribe">Abonnieren</string>
   <string name="unsubscribe">Abonnement beenden</string>
+  <string name="challengeDeclined">Herausforderung abgelehnt</string>
+  <string name="challengeAccepted">Herausforderung akzeptiert!</string>
+  <string name="challengeCanceled">Herausforderung abgebrochen.</string>
 </resources>

@@ -540,7 +540,7 @@
   <string name="clockInitialTime">Sākotnējais pulksteņa laiks</string>
   <string name="clockIncrement">Laika pieaugums</string>
   <string name="privacy">Privātums</string>
-  <string name="privacyPolicy" comment="privacyPolicy&#10;&#10;This string appears exclusively in the context of the readAboutOur string. The full Enlish text is &quot;Read about our Privacy policy&quot;, and &quot;Privacy policy&quot; is a link.">Privātuma politiku</string>
+  <string name="privacyPolicy">Privātuma politiku</string>
   <string name="letOtherPlayersFollowYou">Ļaut citiem jums sekot</string>
   <string name="letOtherPlayersChallengeYou">Ļaut citiem jūs izaicināt</string>
   <string name="letOtherPlayersInviteYouToStudy">Ļaut citiem jūs uzaicināt uz izpēti</string>
@@ -690,7 +690,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ja nevarat atrast e-pastu, pārbaudiet citas vietas, kur tas varētu būt, piemēram, mēstulēs, atkritnē, sociālo tīklu sadaļā vai citās mapēs.</string>
   <string name="weHaveSentYouAnEmailTo">Esam aizsūtījuši e-pastu uz %s. Klikšķiniet uz saites e-pastā, lai atjaunotu savu paroli.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Reģistrējoties, jums jāpiekrīt saistībām atbilstoši mūsu %s.</string>
-  <string name="readAboutOur" comment="readAboutOur&#10;&#10;The variable %s is a link to the Privacy Policy. The link's title is the privacyPolicy string.&#10;&#10;This text appears on the signup page, as well as in emails.">Lasiet par mūsu %s.</string>
+  <string name="readAboutOur">Lasiet par mūsu %s.</string>
   <string name="networkLagBetweenYouAndLichess">Tīkla aizture starp jums un Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Gājiena apstrādei nepieciešamais laiks Lichess serverī</string>
   <string name="downloadAnnotated">Lejupielādēt anotētu</string>
@@ -879,4 +879,7 @@
   <string name="youCannotPostYetPlaySomeGames">Vēl nevarat rakstīt forumos. Uzspēlējiet dažas spēles!</string>
   <string name="subscribe">Abonēt</string>
   <string name="unsubscribe">Atcelt abonēšanu</string>
+  <string name="challengeDeclined">Izaicinājums noraidīts</string>
+  <string name="challengeAccepted">Izaicinājums pieņemts!</string>
+  <string name="challengeCanceled">Izaicinājums atcelts.</string>
 </resources>

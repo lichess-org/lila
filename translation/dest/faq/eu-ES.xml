@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Zergatik da Lichess Lichessen izena?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess inglesezko live/light/libre eta chessen arteko konbinazioa da. Xakea zuzenean/arina/librea. %1$s ahoskatzen da.</string>
   <string name="leechess">li-txes</string>
-  <string name="hearItPronouncedBySpecialist">Entzun espezialista batek nola ahoskatzen duen.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Entzun espezialista batek nola ahoskatzen duen.</string>
   <string name="whyLiveLightLibre">Zuzenean, partidak denbora errealean 24 orduz, astean 7 egunez jokatu eta ikusten direlako; arina eta librea, Lichess kode-irekikoa delako eta ez duelako programa jabedunik erabiltzen, beste webgune batzuek bezala.</string>
   <string name="whyIsLilaCalledLila">Antzera, Lichessen iturburuko kodeak, %1$s, li[chess in sca]la esan nahi du, %2$s izeneko programazio lengoaian idatzita dagoelako.</string>
   <string name="howCanIContributeToLichess">Nola lagundu dezaket Lichess?</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="advancedPawn">Pokročilý pešiak</string>
+  <string name="advancedPawn">Voľný pešiak</string>
   <string name="advancedPawnDescription">Premena pešiaka alebo hrozba premeny je kľúčom k taktike.</string>
   <string name="advantage">Výhoda</string>
   <string name="advantageDescription">Využite svoju šancu získať rozhodujúcu prevahu (200cp ≤ eval ≤ 600cp)</string>
@@ -9,7 +9,7 @@
   <string name="attraction">Preťaženie</string>
   <string name="attractionDescription">Výmena alebo obeť podnecujúca alebo nútiaca pohyb súperovej figúry na pole, ktoré povoľuje nasledovnú taktiku.</string>
   <string name="backRankMate">Mat na poslednom rade</string>
-  <string name="backRankMateDescription">Zmatujte kráľa na poslednej rade, keď je tam uveznený svojimi vlastnými figúrami.</string>
+  <string name="backRankMateDescription">Zmatujte kráľa na poslednej rade, keď je tam uväznený svojimi vlastnými figúrami.</string>
   <string name="bishopEndgame">Strelcová koncovka</string>
   <string name="bishopEndgameDescription">Koncovka iba so strelcami a pešiakmi.</string>
   <string name="castling">Rošáda</string>
@@ -29,22 +29,36 @@
   <string name="deflection">Odlákanie</string>
   <string name="deflectionDescription">Ťah, ktorý odvádza súperovu figúry od jej iných povinností, ako napríklad bránenie kľúčového poľa. Občas nazývané aj \"preťaženie\".</string>
   <string name="discoveredAttack">Odťažené napadnutie</string>
+  <string name="discoveredAttackDescription">Ťah figúrou, ktorá blokovala napadnutie inou figúrou, ako napr. ťah jazdcom, ktorý odkryje napadnutie vežou.</string>
   <string name="doubleCheck">Dvojitý šach</string>
+  <string name="doubleCheckDescription">Šachovanie dvoma figúrami naraz, ako výsledok odkryvného šachu, kedy aj figúra ktorou sa potiahlo aj odkrytá figúra napádajú súperovho kráľa.</string>
   <string name="endgame">Koncovka</string>
   <string name="endgameDescription">Taktika počas posledného úseku hry.</string>
+  <string name="enPassantDescription">Taktika spojená s pravidlom brania mimochodom, kedy pešiak môže vziať súperovho pešiaka, ktorý sa pohol zo základného postavenia o dve polia a tým sa dostal na jeho úroveň.</string>
   <string name="exposedKing">Oslabený kráľ</string>
+  <string name="exposedKingDescription">Taktika spojená s kráľom, ktorý má okolo seba málo brániacich figúr, často vedúca k matu.</string>
   <string name="fork">Vidlička</string>
   <string name="forkDescription">Ťah, pri ktorom figúra útočí na dve nepriateľské figúry naraz.</string>
   <string name="hangingPiece">Visiaca figúra</string>
+  <string name="hangingPieceDescription">Taktika spojená so súperovou figúrou, ktorá je nekrytá alebo nedostatočne krytá a je možné ju vziať zadarmo.</string>
   <string name="interference">Prekrytie</string>
+  <string name="interferenceDescription">Umiestnenie figúry medzi dve súperove figúry čím sa tieto dve stávajú nekrytými, napr. umiestnenie jazdca na kryté pole medzi dve veže.</string>
   <string name="intermezzo">Medziťah</string>
   <string name="knightEndgame">Jazdcová koncovka</string>
   <string name="long">Dlhý diagram</string>
-  <string name="mate">Mat</string>
+  <string name="longDescription">Výhra v troch ťahoch.</string>
+  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mat</string>
+  <string name="mateDescription">Vyhrajte hru so štýlom.</string>
+  <string name="mateIn1">Mat 1. ťahom</string>
+  <string name="mateIn2">Mat 2. ťahom</string>
+  <string name="mateIn3">Mat 3. ťahom</string>
   <string name="mateIn4">Mat na 4 ťahy</string>
+  <string name="mateIn5">Mat 5. alebo väčším počtom ťahov</string>
+  <string name="mateIn5Description">Nájdite dlhú matovú kombináciu.</string>
   <string name="middlegame">Stredná hra</string>
   <string name="middlegameDescription">Taktika počas druhého úseku hry.</string>
   <string name="oneMove">Jedno-ťahový diagram</string>
+  <string name="oneMoveDescription">Úloha, ktorá je iba jednoťahová.</string>
   <string name="opening">Otvorenie</string>
   <string name="openingDescription">Taktika počas prvého úseku hry.</string>
   <string name="pawnEndgame">Pešiaková koncovka</string>
@@ -53,18 +67,24 @@
   <string name="promotion">Premena</string>
   <string name="queenEndgame">Dámska koncovka</string>
   <string name="queenEndgameDescription">Koncovka iba s kráľovnami a pešiakmi.</string>
+  <string name="queenRookEndgame">Dáma a Veža</string>
   <string name="queensideAttack">Útok na dámskom krídle</string>
   <string name="quietMove">Tichý ťah</string>
   <string name="rookEndgame">Vežová koncovka</string>
-  <string name="sacrifice">Obetovanie</string>
+  <string name="sacrifice">Obeť</string>
   <string name="short">Krátky diagram</string>
-  <string name="smotheredMate">Dusený mat</string>
+  <string name="shortDescription">Dva ťahy do výhry.</string>
+  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Dusený mat</string>
   <string name="trappedPiece">Chytená figúra</string>
+  <string name="trappedPieceDescription">Figúra neschopná ujsť vyhodeniu, pretože má limitované možnosti.</string>
   <string name="underPromotion">Pod-premena</string>
   <string name="underPromotionDescription">Premena na jazdca, strelca, alebo vežu.</string>
   <string name="veryLong">Veľmi dlhý diagram</string>
+  <string name="veryLongDescription">Štyri alebo viac ťahov do výhry.</string>
+  <string name="xRayAttack">Röntgenový útok</string>
+  <string name="xRayAttackDescription">Figúra bráni alebo útočí na pole cez súperovu figúru.</string>
   <string name="zugzwang">Nevýhoda ťahu</string>
-  <string name="zugzwangDescription">Oponent je limitovaný vo svojich ťahoch a každý ťah zhorší jeho pozíciu.</string>
+  <string name="zugzwangDescription">Súper je limitovaný vo svojich ťahoch a každý ťah zhorší jeho pozíciu.</string>
   <string name="healthyMix">Zdravý mix</string>
   <string name="healthyMixDescription">Zo všetkého niečo. Neviete čo očakávať, a tak budete pripravený na všetko! Presne ako v skutočných hrách.</string>
 </resources>

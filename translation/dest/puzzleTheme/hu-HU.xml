@@ -49,7 +49,7 @@
   <string name="knightEndgameDescription">Végjáték csak huszárokkal és gyalogokkal.</string>
   <string name="long">Hosszú feladvány</string>
   <string name="longDescription">Három lépés a megoldás.</string>
-  <string name="mate">Matt</string>
+  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Matt</string>
   <string name="mateDescription">Vidd a játszmát stílusosan.</string>
   <string name="mateIn1">Matt 1 lépésben</string>
   <string name="mateIn1Description">Adj mattot egy lépésben.</string>
@@ -89,7 +89,7 @@
   <string name="shortDescription">Két lépés a megoldás.</string>
   <string name="skewer">Nyárs</string>
   <string name="skewerDescription">Az a motívum mikor egy magasabb értékű figurát támadva az kénytelen ellépni szabaddá téve így az utat a kisebb értékű figura leütéséhez. A kötés fordítottja.</string>
-  <string name="smotheredMate">Fojtott matt</string>
+  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Fojtott matt</string>
   <string name="smotheredMateDescription">Olyan huszárral adott matt, ahol a sakkot kapó király nem tud lépni, mert saját figurái veszik körül (fojtják meg).</string>
   <string name="trappedPiece">Csapda</string>
   <string name="trappedPieceDescription">Egy figura leütése nem elkerülhető, ha nincs menekülési útja.</string>

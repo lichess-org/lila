@@ -49,7 +49,7 @@
   <string name="knightEndgameDescription">केवल शूरवीरों और प्यादों के साथ एक एंडगेम।</string>
   <string name="long">लंबी पहेली</string>
   <string name="longDescription">जीत के लिए तीन चाल चली।</string>
-  <string name="mate">मात</string>
+  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">मात</string>
   <string name="mateDescription">शैली के साथ खेल जीतें।</string>
   <string name="mateIn1">1 में मात</string>
   <string name="mateIn1Description">एक कदम में चेकमेट वितरित करें।</string>
@@ -59,7 +59,7 @@
   <string name="mateIn3Description">चेकमेट को तीन चालों में वितरित करें।</string>
   <string name="mateIn4">4 में मात</string>
   <string name="mateIn4Description">चेकमेट को चार चालों में वितरित करें।</string>
-  <string name="mateIn5">5 या अधिक में मेट</string>
+  <string name="mateIn5">5 या अधिक में मात</string>
   <string name="mateIn5Description">एक लंबी संभोग अनुक्रम का चित्रण करें।</string>
   <string name="middlegame">मिडलगेम</string>
   <string name="middlegameDescription">खेल के दूसरे चरण के दौरान एक रणनीति।</string>
@@ -89,7 +89,7 @@
   <string name="shortDescription">जीतने के लिए दो चाल।</string>
   <string name="skewer">स्किवर</string>
   <string name="skewerDescription">एक उच्च मूल्य के टुकड़े पर हमला करने वाला एक मोटिफ, जिस तरह से बाहर निकल रहा है, और इसके पीछे एक कम मूल्य के टुकड़े को पकड़ने या हमला करने की अनुमति देता है, एक पिन का उलटा।</string>
-  <string name="smotheredMate">दमघोंटू मात</string>
+  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">समोथेरद मात</string>
   <string name="smotheredMateDescription">एक चेकमेट जो एक घोड़े द्वारा दिया जाता है, जिसमें संभोगरत राजा हिलने में असमर्थ होता है, क्योंकि वह अपने ही टुकड़ों से घिरा होता है (या स्मूथ)।</string>
   <string name="trappedPiece">फँसा हुआ मोहरा</string>
   <string name="trappedPieceDescription">एक मोहरा बचने में असमर्थ है क्योंकि सीमित चालें हैं।</string>

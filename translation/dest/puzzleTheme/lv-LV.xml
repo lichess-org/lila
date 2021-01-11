@@ -49,7 +49,7 @@
   <string name="knightEndgameDescription">Beigu spēle, kurā iesaistīti tikai zirdziņi un bandinieki.</string>
   <string name="long">Gara puzle</string>
   <string name="longDescription">Trīs gājieni līdz uzvarai.</string>
-  <string name="mate">Mats</string>
+  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mats</string>
   <string name="mateDescription">Uzvariet spēli ar stilu.</string>
   <string name="mateIn1">Mats vienā gājienā</string>
   <string name="mateIn1Description">Piesakiet matu vienā gājienā.</string>
@@ -89,7 +89,7 @@
   <string name="shortDescription">Divi gājieni līdz uzvarai.</string>
   <string name="skewer">Iesms</string>
   <string name="skewerDescription">Šis motīvs iesaista augstas vērtības figūru, kurai jāizkustās, lai izvairītos no uzbrukuma, atļaujot vai nu uzbrukumu mazākas vērtības figūrai, kas atrodas aiz tās, vai arī šīs figūras nosišanu – pretējais piespraušanai.</string>
-  <string name="smotheredMate">Smacējošais mats</string>
+  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Smacējošais mats</string>
   <string name="smotheredMateDescription">Zirdziņa pieteikts mats karalim, kas nevar kustēties dēļ paša figūrām, kas to ielenkušas (nosmacējušas).</string>
   <string name="trappedPiece">Iesprostota figūra</string>
   <string name="trappedPieceDescription">Figūra nevar izbēgt nosišanu, jo ierobežoti tās gājieni.</string>

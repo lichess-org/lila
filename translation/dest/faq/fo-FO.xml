@@ -5,8 +5,8 @@
   <string name="whyIsLichessCalledLichess">Hví eitur tað Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess er ein samanseting av live/light/libre og chess. Tað verður úttalað %1$s.</string>
   <string name="leechess">lee-chess</string>
-  <string name="hearItPronouncedBySpecialist">Hoyr, hvussu tað verður úttalað av einum serfrøðingi.</string>
-  <string name="whyLiveLightLibre">Live, tí at talv verða telvað, og til ber at hyggja at teimum beinleiðis, 24/7; light og libre, tí at Lichess er open-source og ikki tyngt av einstaklingaognarviðurskiftum og øðrum skrambli, ið plágar aðrar heimasíður.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Hoyr, hvussu tað verður úttalað av einum serfrøðingi.</string>
+  <string name="whyLiveLightLibre">Live (beinleiðis), tí at talv verða telvað, og til ber at hyggja at teimum beinleiðis, 24/7; light og libre, tí at Lichess er open-source og ikki tyngt av einstaklingaognarviðurskiftum og øðrum skrambli, ið plágar aðrar heimasíður.</string>
   <string name="whyIsLilaCalledLila">Á sama hátt er tað við keldukotuni fyri Lichess, %1$s, ið stendur fyri li[chess in sca]la. Meginparturin av Lichess er skrivaður í %2$s, ið er eitt hugskygt forritanarmál.</string>
   <string name="howCanIContributeToLichess">Hvussu kann eg stuðla Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess verður rikið við peningagávum frá stuðlum og sjálvbodnum arbeiði.</string>
@@ -14,7 +14,7 @@
   <string name="beingAPatron">at vera stuðul</string>
   <string name="breakdownOfOurCosts">sundurgreining av okkara útreiðslum</string>
   <string name="otherWaysToHelp">aðrir mátar at hjálpa</string>
-  <string name="areThereWebsitesBasedOnLichess">Eru heimasíður, ið eru bygdar á Lichess?</string>
+  <string name="areThereWebsitesBasedOnLichess">Eru heimasíður, ið eru grundaðar á Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess hevur veitt øðrum heimasíðum við opnum keldukotum, sum nýta okkara %1$s, %2$s, ella %3$s íblástur.</string>
   <string name="fairPlay">Rættvís telving</string>
   <string name="whyFlaggedRatingManipulationOrCheater">Hví eri eg meldaður fyri óreiðiliga at hava tiltuskað mær eitt tilgjørt styrkital (sandbagging og boosting) ella hjálp frá telduni?</string>
@@ -22,6 +22,14 @@
   <string name="howCanIBecomeModerator">Hvussu kann eg gerast fyriskipari?</string>
   <string name="gameplay">Leikgongd</string>
   <string name="howBulletBlitzEtcDecided">Hvussu verður avgjørt, hvørjar tíðarásetingar eru fyri Bullet, Snar og onnur sløg av talvum?</string>
+  <string name="durationFormula">(byrjanartíð á klokkuni) + 40 × (tíð løgd afturat)</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="whatVariantsCanIplay">Hvørji avbrigdi kann eg telva á Lichess?</string>
+  <string name="lichessSupportChessAnd">Á Lichess ber til at telva vanlig talv og %1$s.</string>
+  <string name="eightVariants">8 talvavbrigdi</string>
+  <string name="whatIsACPL">Hvat er centifinnutapið (ACPL) í miðal?</string>
+  <string name="insufficientMaterial">At tapa upp á tíð, telva javnt og at hava ov fá talvfólk</string>
   <string name="fideHandbookX">FIDE handbók %s</string>
   <string name="discoveringEnPassant">Hví kann ein finna taka eina aðra finnu, tá ið hon longu er farin framvið? (en passant)</string>
   <string name="goodIntroduction">góð innførsla</string>
@@ -31,12 +39,19 @@
   <string name="threefoldRepetitionExplanation">Kemur sama støða fyri tríggjar ferðir, kunnu leikarar krevja remis við %1$s. Lichess nýtir almennu FIDE-reglurnar, ið verða lýstar í grein 9.2 (d) í %2$s.</string>
   <string name="threefoldRepetitionLowerCase">endurtøka tríggjar ferðir</string>
   <string name="notRepeatedMoves">Vit endurtóku ikki leikir. Hví endaði talvið kortini við javnleiki, orsakað av endurtøku?</string>
+  <string name="positions">støður</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Vit endurtóku eina støðu tríggjar ferðir. Hví endaði talvið ikki við remis?</string>
+  <string name="threeFoldHasToBeClaimed">Einum av telvarunum nýtist at krevja endurtøkuregluna. Tú fært gjørt tað við at klikkja á knøttin, ið er vístur, ella við at bjóða remis áðrenn tín endaliga endurtøkuleik. Tað ger ongan mun, um mótleikarin avvísur tilboðið um remis; remis við trífaldari endurtøku verður kravt kortini. Tú kanst eisini %1$s Lichess at krevja remis sjálvvirkið fyri teg. Harumframt endar eitt talv altíð alt fyri eitt, um endurtøka kemur fyri fimm ferðir.</string>
+  <string name="configure">stilla</string>
   <string name="accounts">Kontur</string>
+  <string name="titlesAvailableOnLichess">Hvørji heiti eru á Lichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess viðurkennir øll FIDE heiti ognað OTB (telvað á veruligum talvborðum), eins og %1$s. Her er ein listi yvir FIDE-heiti:</string>
   <string name="verificationForm">váttanaroyðublað</string>
   <string name="noUpperCaseDot">Nei.</string>
   <string name="whatUsernameCanIchoose">Hvat kann brúkaranavn mítt vera?</string>
   <string name="usernamesNotOffensive">Sum heild eiga brúkaranøvn ikki at vera stoytandi og eiga ikki at lýsa fyri onkrari ávísari vøru ella virki. Við brúkaranavninum eigur tú ei heldur at látast at vera onkur annar, enn tú ert. Tú kanst lesa meir um hetta: %1$s.</string>
   <string name="canIChangeMyUsername">Kann eg broyta brúkaranavn mítt?</string>
   <string name="usernamesCannotBeChanged">Nei, av tøkniligum og verkligum ávum, ber ikki til at broyta brúkaranøvn. Brúkaranøvn koma fyri ov nógv støð: í dátugrunnum, útflutningum, skráum, og í huganum á fólki. Til ber at broyta, um navnið verður skrivað við stórum ella smáum stavum eina ferð.</string>
+  <string name="lichessRatings">Lichess styrkitøl</string>
   <string name="whichRatingSystemUsedByLichess">Hvørja styrkitalaskipan nýtir Lichess?</string>
 </resources>

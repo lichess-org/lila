@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Lichess-ə niyə Lichess deyirlər?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess, live/light/libre yəni canlı/parlaq/libre ilə şahmatın kombinasiyasıdır. %1$s kimi tələffüz edilir.</string>
   <string name="leechess">lee-chess</string>
-  <string name="hearItPronouncedBySpecialist">Bir mütəxəssisin tələffüzünə qulaq asın.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Bir mütəxəssisin tələffüzünə qulaq asın.</string>
   <string name="whyLiveLightLibre">Canlı, çünki oyunlar real vaxt kəsiyində 24/7 oynanılır və izlənilir; Lichess açıq mənbəli bir sistem olduğu üçün ödənişsizdir, digər veb saytları narahat edən lazımsız tullantıları ehtiva etmədiyi üçün yüngüldür.</string>
   <string name="whyIsLilaCalledLila">Oxşar olaraq, Lichess üçün mənbə kodu, %1$s, li[sca-da şahmat] mənasını verir, Lichess intuitiv proqramlaşdırma dili olan %2$s üzərində yazılmışdır.</string>
   <string name="howCanIContributeToLichess">Lichess-ə necə töhfə verə bilərəm?</string>

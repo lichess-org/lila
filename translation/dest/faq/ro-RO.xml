@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">De se cheamă Lichess așa?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess e o combinație între live/light/liber și șah. E pronunțat %1$s.</string>
   <string name="leechess">lii-ces</string>
-  <string name="hearItPronouncedBySpecialist"> Auziți-l pronunțat de un specialist.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o"> Auziți-l pronunțat de un specialist.</string>
   <string name="whyLiveLightLibre">Live, pentru că jocurile sunt jucate și urmărite în timp real 24/7; light și liber pentru că Lichess e open-source și neîngreunat de prostii proprietare care afectează alte websiteuri.</string>
   <string name="whyIsLilaCalledLila">De asemenea, codul sursă pentru Lichess, %1$s, vine de la li[șah în sca]la, considerând că cea mai mare parte din Lichess e scrisă în %2$s, un limbaj de programare intuitiv.</string>
   <string name="howCanIContributeToLichess">Cum pot contribui la Lichess?</string>

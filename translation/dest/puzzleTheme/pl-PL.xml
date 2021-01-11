@@ -49,7 +49,7 @@
   <string name="knightEndgameDescription">Gra końcowa wyłącznie ze skoczkami i pionami.</string>
   <string name="long">Długie zadanie</string>
   <string name="longDescription">Trzy ruchy by wygrać.</string>
-  <string name="mate">Mat</string>
+  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mat</string>
   <string name="mateDescription">Wygraj partię w dobrym stylu.</string>
   <string name="mateIn1">Mat w 1 ruchu</string>
   <string name="mateIn1Description">Daj mata w jednym posunięciu.</string>
@@ -89,7 +89,7 @@
   <string name="shortDescription">Dwa ruchy by wygrać.</string>
   <string name="skewer">Szpila</string>
   <string name="skewerDescription">Motyw, w którym bierka o wyższej wartości unikając ataku pozwala na zbicie bądź zaatakowanie bierki o niższej wartości. Odwrotność związania.</string>
-  <string name="smotheredMate">Mat Beniowskiego</string>
+  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Mat Beniowskiego</string>
   <string name="smotheredMateDescription">Mat dawany skoczkiem w którym matowany król nie może się poruszać ponieważ jest otoczony (zduszony) własnymi bierkami.</string>
   <string name="trappedPiece">Uwięziona figura</string>
   <string name="trappedPieceDescription">Bierka nie może uniknąć zbicia z powodu ograniczenia mobilności.</string>

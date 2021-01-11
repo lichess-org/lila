@@ -19,9 +19,9 @@
   <string name="tenthsOfSeconds">Desatiny sekundy</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Keď ostáva &lt; 10 sekúnd</string>
   <string name="horizontalGreenProgressBars">Vodorovné zelené ukazovatele priebehu</string>
-  <string name="soundWhenTimeGetsCritical">Zapnúť zvukové varovanie v prípade kritického množstvo času</string>
+  <string name="soundWhenTimeGetsCritical">Zapnúť zvukové varovanie v prípade kritického množstva času</string>
   <string name="giveMoreTime">Pridať čas</string>
-  <string name="gameBehavior">Správanie hry</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Správanie sa partie</string>
   <string name="howDoYouMovePieces">Akým spôsobom ťaháte figúrkami?</string>
   <string name="clickTwoSquares">Kliknutím na dve polia</string>
   <string name="dragPiece">Presun figúrky</string>
@@ -34,12 +34,14 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticky vyžiadať remízu pri treťom opakovaní pozície</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Keď ostáva &lt; 30 sekúnd</string>
   <string name="moveConfirmation">Potvrdenie ťahu</string>
-  <string name="inCorrespondenceGames">Korešpondenčná partia</string>
+  <string name="inCorrespondenceGames">Korešpondenčné partie</string>
   <string name="correspondenceAndUnlimited">Korešpondenčný a nekonečný</string>
   <string name="confirmResignationAndDrawOffers">Potvrdzovať vzdanie partie a ponuku remízy</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Spôsob vykonania rošády</string>
   <string name="castleByMovingTwoSquares">Presunúť kráľa o dve polia</string>
   <string name="castleByMovingOntoTheRook">Presunúť kráľa na vežu</string>
   <string name="inputMovesWithTheKeyboard">Zadávanie ťahov pomocou klávesnice</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Použiť šípky pri platných ťahoch</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Napíš \"Good game, well played\" (preklad: Dobrá partia, pekne zahrané) po prehre alebo remíze</string>
   <string name="yourPreferencesHaveBeenSaved">Vaše nastavenia boli uložené.</string>
 </resources>

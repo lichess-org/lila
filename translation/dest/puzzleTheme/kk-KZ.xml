@@ -49,7 +49,7 @@
   <string name="knightEndgameDescription">Аттар мен сарбаздары ғана бар ойынсоңы.</string>
   <string name="long">Ұзын жұмбақ</string>
   <string name="longDescription">Жеңіске үш қадам.</string>
-  <string name="mate">Мат</string>
+  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Мат</string>
   <string name="mateDescription">Ойынды әдемі жеңіп алыңыз.</string>
   <string name="mateIn1">1 жүрісті мат</string>
   <string name="mateIn1Description">Бір жүріспен мат жасаңыз.</string>
@@ -89,7 +89,7 @@
   <string name="shortDescription">Жеңіске екі қадам.</string>
   <string name="skewer">Найза</string>
   <string name="skewerDescription">Байлауға қарама-қарсы: құнды тас соққы астында бола, артындағы арзан тасты беріп, қашуға мәжбүр болатындай жағдай.</string>
-  <string name="smotheredMate">Қамаған мат</string>
+  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Қамаған мат</string>
   <string name="smotheredMateDescription">Өз тастарымен қамалған патша бірде-бір жүріс жасай алмайтын кезде оған қарсыластың аты жасаған мат.</string>
   <string name="trappedPiece">Тұзаққа түскен</string>
   <string name="trappedPieceDescription">Басып алынудан қаша алмайтын, жүрісі шектелген тас.</string>

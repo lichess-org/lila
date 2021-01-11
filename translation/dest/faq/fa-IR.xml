@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">وجه تسمیه Lichess چیست؟</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess ترکیب کلمات live (زنده)، light (سریع) و libre (آزاد) و chess (شطرنج) است. تلفظ Lichess به شکل %1$s است.</string>
   <string name="leechess">lee-chess</string>
-  <string name="hearItPronouncedBySpecialist">می‌توانید تلفظ اسم سایت توسط فردی متخصص را بشنوید.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">می‌توانید تلفظ اسم سایت توسط فردی متخصص را بشنوید.</string>
   <string name="whyLiveLightLibre">Live (زنده) چون به صورت بی‌درنگ در 24 ساعت روز و 7 روز هفته بازیکنان با یکدیگر بازی می‌کنند و بازی‌ها قابل تماشا است. Libre (آزاد) چون که این سایت منبع باز است بر خلاف سایر وب‌سایت‌ها، هیچ کسی مالک سایت نیست.</string>
   <string name="howCanIContributeToLichess">چگونه می‌توانم به Lichess کمک کنم؟</string>
 </resources>

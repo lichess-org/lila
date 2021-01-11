@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">为什么 Lichess 被称为 Lichess ？</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess 是 live/light/libre 和 chess 的组合。它的发音是 %1$s。</string>
   <string name="leechess">lee-chess</string>
-  <string name="hearItPronouncedBySpecialist">听一位专家发音。</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">听一位专家发音。</string>
   <string name="whyLiveLightLibre">Live ，因为游戏全年无休实时的游玩与观看。 Light 和 Libre 代表 Lichess 开源且不被纠缠其它网站的专利垃圾打扰。</string>
   <string name="whyIsLilaCalledLila">同样，Lichess源代码 %1$s，表示li[chess in sca]la，查看Lichess的主体是用 %2$s写的，这是一种直观的编程语言。</string>
   <string name="howCanIContributeToLichess">我可以如何为 Lichess 做出贡献？</string>

@@ -841,4 +841,7 @@
   <string name="youCannotPostYetPlaySomeGames">Még nem írhatsz a fórumokba. Játssz néhány partit!</string>
   <string name="subscribe">Feliratkozás</string>
   <string name="unsubscribe">Leiratkozás</string>
+  <string name="challengeDeclined">Kihívás elutasítva</string>
+  <string name="challengeAccepted">Kihívás elfogadva!</string>
+  <string name="challengeCanceled">Kihívás visszavonva.</string>
 </resources>

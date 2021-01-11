@@ -9,6 +9,7 @@
   <string name="yourTurn">Ваш потез</string>
   <string name="aiNameLevelAiLevel">%1$s ниво %2$s</string>
   <string name="level">Ниво</string>
+  <string name="strength">Снага</string>
   <string name="toggleTheChat">Укључи/искључи ћаскање</string>
   <string name="toggleSound">Укључи/искључи звук</string>
   <string name="chat">Ћаскање</string>
@@ -540,6 +541,7 @@
   <string name="clockInitialTime">Почетно време на сату</string>
   <string name="clockIncrement">Повећање времена</string>
   <string name="privacy">Приватност</string>
+  <string name="privacyPolicy">Политика приватности</string>
   <string name="letOtherPlayersFollowYou">Допустите да вас други играчи прате</string>
   <string name="letOtherPlayersChallengeYou">Допустите да вас други играчи изазову</string>
   <string name="letOtherPlayersInviteYouToStudy">дозволи другим играчима да те позову на проблем</string>
@@ -689,6 +691,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ако не видите е-пошту у пријемном сандучету, проверите је у другим местима (датотекама): Јунк, Социал.</string>
   <string name="weHaveSentYouAnEmailTo">Послали смо Вам е-поруку на %s. Кликните на дати линк да промените Вашу лозинку.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registracijom prihvatate ograničenja predviđe našim %s.</string>
+  <string name="readAboutOur">Прочитајте о нашем %s.</string>
   <string name="networkLagBetweenYouAndLichess">Мрежно кашњење између вас и Лицхесса</string>
   <string name="timeToProcessAMoveOnLichessServer">Време потребно за процесирање на Лицхесс серверу</string>
   <string name="downloadAnnotated">Преузимање белешки.</string>
@@ -877,4 +880,7 @@
   <string name="youCannotPostYetPlaySomeGames">Још увек не можете писати поруке на овај форум. Играјте још коју партију!</string>
   <string name="subscribe">Претплати се</string>
   <string name="unsubscribe">Одјавите претплату</string>
+  <string name="challengeDeclined">Изазов одбијен</string>
+  <string name="challengeAccepted">Изазов прихваћен!</string>
+  <string name="challengeCanceled">Изазов отказан.</string>
 </resources>

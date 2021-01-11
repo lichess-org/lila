@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Tại sao Lichess lại có tên là Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess là một sự kết hợp của live/light/libre (trực tiếp/nhẹ/miễn phí) và chess (cờ vua). Nó được phát âm là %1$s.</string>
   <string name="leechess">lee-chess</string>
-  <string name="hearItPronouncedBySpecialist">Nghe cách phát âm chuẩn.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Nghe cách phát âm chuẩn.</string>
   <string name="whyLiveLightLibre">Trực tiếp, bởi vì bạn có thể chơi và xem 24/7, nghĩa là mọi lúc; nhẹ và miễn phí vì trên thực tế, Lichess có mã nguồn mở và không có các vấn đề về độc quyền làm ảnh hưởng đến các trang web khác.</string>
   <string name="whyIsLilaCalledLila">Tương tự vậy, mã nguồn của Lichess,%1$s, li là viết tắt của cờ vua trong sca, la vì phần lớn Lichess được viết bằng %2$s, một ngôn ngữ lập trình trực quan.</string>
   <string name="howCanIContributeToLichess">Làm thế nào để tôi có thể đóng góp cho Lichess?</string>

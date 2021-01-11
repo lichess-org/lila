@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Why is Lichess called Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess is a combination of live/light/libre and chess. It is pronounced %1$s.</string>
   <string name="leechess">LEE-CHESS</string>
-  <string name="hearItPronouncedBySpecialist">Hear it pronounced by a specialist.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Hear it pronounced by a specialist.</string>
   <string name="whyLiveLightLibre">Live, because games are played and watched in real-time 24/7; light and libre for the fact that Lichess is open-source and unencumbered by proprietary junk that plagues other websites.</string>
   <string name="whyIsLilaCalledLila">Similarly, the source code for Lichess, %1$s, stands for li[chess in sca]la, seeing as the bulk of Lichess is written in %2$s, an intuitive programming language.</string>
   <string name="howCanIContributeToLichess">How can I contribute to Lichess?</string>
@@ -93,6 +93,8 @@ Do not ask for the LM title.</string>
   <string name="whatUsernameCanIchoose">What can my username be?</string>
   <string name="usernamesNotOffensive">In general, usernames should not be: offensive, impersonating someone else, or advertising. You can read more about the %1$s.</string>
   <string name="guidelines">guidelines</string>
+  <string name="canIChangeMyUsername">Can I change my username?</string>
+  <string name="usernamesCannotBeChanged">No, usernames cannot be changed for technical and practical reasons. Usernames are materialized in too many places: databases, exports, logs, and people\'s minds. You can adjust the capitalization once.</string>
   <string name="uniqueTrophies">Unique trophies</string>
   <string name="ownerUniqueTrophies">That trophy is unique in the history of Lichess; nobody other than %1$s will ever have it.</string>
   <string name="wayOfBerserkExplanation">To get it, hiimgosu challenged himself to berserk and win 100%% games of %s.</string>

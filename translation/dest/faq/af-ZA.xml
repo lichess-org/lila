@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Hoekom word Lichess Lichess genoem?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess is \'n kombinasie van lewendige/ligte/libre en skaak. Dit word as %1$s uitgespreek.</string>
   <string name="leechess">lie-chess</string>
-  <string name="hearItPronouncedBySpecialist">Hoor hoe dit deur \'n spesialis uitgespreek word.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Hoor hoe dit deur \'n spesialis uitgespreek word.</string>
   <string name="whyLiveLightLibre">Lewendig, want wedstryde word regstreeks gespeel en gekyk 24/7; lig en libre want Lichess is oop-bron en vry van eiendomsregtelike strooi wat ander webwerwe lastig val.</string>
   <string name="whyIsLilaCalledLila">Net so staan ​​die bronkode vir Lichess, %1$s, vir li [skaak in sca] la, aangesien die grootste deel van Lichess in %2$s, \'n intuïtiewe programmeertaal, geskryf is.</string>
   <string name="howCanIContributeToLichess">Hoe kan ek bydra tot Lichess?</string>

@@ -49,7 +49,7 @@
   <string name="knightEndgameDescription">An endgame with only knights and pawns.</string>
   <string name="long">Long puzzle</string>
   <string name="longDescription">Three moves to win.</string>
-  <string name="mate">Mate</string>
+  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mate</string>
   <string name="mateDescription">Win the game with style.</string>
   <string name="mateIn1">Mate in 1</string>
   <string name="mateIn1Description">Deliver checkmate in one move.</string>
@@ -89,7 +89,7 @@
   <string name="shortDescription">Two moves to win.</string>
   <string name="skewer">Skewer</string>
   <string name="skewerDescription">A motif involving a high value piece being attacked, moving out the way, and allowing a lower value piece behind it to be captured or attacked, the inverse of a pin.</string>
-  <string name="smotheredMate">Smothered mate</string>
+  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Smothered mate</string>
   <string name="smotheredMateDescription">A checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.</string>
   <string name="trappedPiece">Trapped piece</string>
   <string name="trappedPieceDescription">A piece is unable to escape capture as it has limited moves.</string>

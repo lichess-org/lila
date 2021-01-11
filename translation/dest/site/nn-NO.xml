@@ -846,4 +846,7 @@ i %3$s</string>
   <string name="youCannotPostYetPlaySomeGames">Du kan så langt ikkje skrive oppslag i foraane. Spel nokre parti fyrst!</string>
   <string name="subscribe">Abonner</string>
   <string name="unsubscribe">Avslutt abonnement</string>
+  <string name="challengeDeclined">Utfordring avvist</string>
+  <string name="challengeAccepted">Utfordring akseptert!</string>
+  <string name="challengeCanceled">Utfordring avbroten.</string>
 </resources>

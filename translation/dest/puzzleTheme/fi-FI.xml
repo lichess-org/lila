@@ -49,7 +49,7 @@
   <string name="knightEndgameDescription">Loppupeli, jossa on vain ratsuja ja sotilaita.</string>
   <string name="long">Pitkä tehtävä</string>
   <string name="longDescription">Voittoon tarvitaan kolme siirtoa.</string>
-  <string name="mate">Matti</string>
+  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Matti</string>
   <string name="mateDescription">Voita peli tyylillä.</string>
   <string name="mateIn1">1 siirron matti</string>
   <string name="mateIn1Description">Tee matti yhdessä siirrossa.</string>
@@ -89,7 +89,7 @@
   <string name="shortDescription">Voittoon tarvitaan kaksi siirtoa.</string>
   <string name="skewer">Varrastus</string>
   <string name="skewerDescription">Siirto, jolla uhataan arvokkaampaa nappulaa, jonka siirtyessä sen takana oleva nappula jää uhatuksi ja on lyötävissä, eli toisin päin kuin kiinnityksessä.</string>
-  <string name="smotheredMate">Pussimatti</string>
+  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Pussimatti</string>
   <string name="smotheredMateDescription">Ratsun tekemä matti, jossa matitettava kuningas ei pysty liikkumaan, koska sen omat nappulat ympäröivät sitä (eli pussittavat sen).</string>
   <string name="trappedPiece">Ansaan jäävä nappula</string>
   <string name="trappedPieceDescription">Nappula ei pääse pakenemaan lyömiseltä sopivien pakosiirtojen puuttuessa.</string>

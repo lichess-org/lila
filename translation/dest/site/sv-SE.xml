@@ -841,4 +841,7 @@
   <string name="youCannotPostYetPlaySomeGames">Du kan inte posta i forumen ännu. Spela några partier!</string>
   <string name="subscribe">Prenumerera</string>
   <string name="unsubscribe">Avprenumerera</string>
+  <string name="challengeDeclined">Utmaning avböjd</string>
+  <string name="challengeAccepted">Utmaning antagen!</string>
+  <string name="challengeCanceled">Utmaning avbruten.</string>
 </resources>

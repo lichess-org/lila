@@ -878,4 +878,7 @@
   <string name="youCannotPostYetPlaySomeGames">Încă nu puteți posta în forumuri. Jucați câteva partide!</string>
   <string name="subscribe">Abonați-vă</string>
   <string name="unsubscribe">Dezabonați-vă</string>
+  <string name="challengeDeclined">Provocare refuzată</string>
+  <string name="challengeAccepted">Provocare acceptată!</string>
+  <string name="challengeCanceled">Provocare anulată.</string>
 </resources>

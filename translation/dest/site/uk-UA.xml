@@ -9,6 +9,7 @@
   <string name="yourTurn">Ваш хід</string>
   <string name="aiNameLevelAiLevel">%1$s рівень %2$s</string>
   <string name="level">Рівень</string>
+  <string name="strength">Рівень</string>
   <string name="toggleTheChat">Вимк./увімк. чат</string>
   <string name="toggleSound">Вимк./увімк. звук</string>
   <string name="chat">Чат</string>
@@ -914,4 +915,7 @@
   <string name="youCannotPostYetPlaySomeGames">Ви не можете писати нові повідомлення у форумах. Зіграйте кілька ігор!</string>
   <string name="subscribe">Підписатись</string>
   <string name="unsubscribe">Відписатись</string>
+  <string name="challengeDeclined">Виклик відхилено</string>
+  <string name="challengeAccepted">Виклик прийнято!</string>
+  <string name="challengeCanceled">Виклик скасовано.</string>
 </resources>

@@ -49,7 +49,7 @@
   <string name="knightEndgameDescription">\'N Eindspel met net ridders en pionne.</string>
   <string name="long">Lang legkaart</string>
   <string name="longDescription">Drie skofte om te wen.</string>
-  <string name="mate">Maat</string>
+  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Maat</string>
   <string name="mateDescription">Wen die spel met styl.</string>
   <string name="mateIn1">Maat in 1</string>
   <string name="mateIn1Description">Lewer skaakmat in een beweging.</string>
@@ -89,7 +89,7 @@
   <string name="shortDescription">Twee skofte om te wen.</string>
   <string name="skewer">Sosatiepen-Aanval</string>
   <string name="skewerDescription">\'N Motief waarby \'n waarde van \'n hoë waarde aangeval word, wat uit die weg beweeg en \'n laer waarde agter dit kan vasvang of aanval, die omgekeerde van \'n pen.</string>
-  <string name="smotheredMate">Versmoorde maat</string>
+  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Versmoorde maat</string>
   <string name="smotheredMateDescription">\'N Skaakmat wat deur \'n ridder afgelewer word waarin die gepaste koning nie kan beweeg nie omdat dit deur sy eie stukke omring (of versmoor word).</string>
   <string name="trappedPiece">Vasgevang stuk</string>
   <string name="trappedPieceDescription">\'N Stuk kan nie vang om te ontsnap nie, aangesien dit beperkte bewegings het.</string>

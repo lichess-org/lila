@@ -2,6 +2,10 @@
 <resources>
   <string name="activity">Aktivlik</string>
   <string name="hostedALiveStream">Canlı yayım etdi</string>
+  <plurals name="supportedNbMonths">
+    <item quantity="one">Lichess.org\'u %1$s aylığına %2$s olaraq dəstəklədi</item>
+    <item quantity="other">Lichess.org\'u %1$s aylığına %2$s olaraq dəstəklədi</item>
+  </plurals>
   <string name="signedUp">lichess.org\'a üzv oldu</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s komandasına qatıldı</item>

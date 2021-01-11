@@ -49,7 +49,7 @@
   <string name="knightEndgameDescription">Zaldunak eta peoiak bakarrik dituen partida bukaera.</string>
   <string name="long">Ariketa luzea</string>
   <string name="longDescription">Irabazteko hiru jokaldi.</string>
-  <string name="mate">Mate</string>
+  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mate</string>
   <string name="mateDescription">Irabazi partida estiloarekin.</string>
   <string name="mateIn1">Mate baten</string>
   <string name="mateIn1Description">Eman mate jokaldi bakarrean.</string>
@@ -89,7 +89,7 @@
   <string name="shortDescription">Bi jokaldi irabazteko.</string>
   <string name="skewer">Paretik kentzea</string>
   <string name="skewerDescription">Erasotua den balio handiko pieza bat mugitzea, erasotik kenduz eta bere atzean dagoen baina gutxiago balio duen pieza bat harrapatzen uztea, iltzaketaren aurkakoa.</string>
-  <string name="smotheredMate">Ostikoaren matea</string>
+  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Ostikoaren matea</string>
   <string name="smotheredMateDescription">Zaldiak ematen duen matea, aurkariaren erregea bere piezak oztopatzen dutenez ezin delako mugitu.</string>
   <string name="trappedPiece">Harrapatutako pieza</string>
   <string name="trappedPieceDescription">Bere jokaldiak mugatuta dituelako ihes egin ezin duen pieza.</string>
