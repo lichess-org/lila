@@ -482,6 +482,7 @@
   <string name="clockInitialTime">Thời gian ban đầu</string>
   <string name="clockIncrement">Thời gian được cho thêm</string>
   <string name="privacy">Riêng tư</string>
+  <string name="privacyPolicy">Chính sách bảo mật</string>
   <string name="letOtherPlayersFollowYou">Cho phép người khác theo dõi bạn</string>
   <string name="letOtherPlayersChallengeYou">Cho phép người khác thách đấu bạn</string>
   <string name="letOtherPlayersInviteYouToStudy">Cho phép đối thủ khác mời bạn học</string>
@@ -623,6 +624,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Nếu bạn không thấy ở trong Email, kiểm tra lại ở các nơi khác có thể có, như rác, thư rác, xã hội hay các thư mục khác.</string>
   <string name="weHaveSentYouAnEmailTo">Chúng tôi đã gửi một email đến %s. Nhấp vào liên kết trong email để đặt lại mật khẩu của bạn.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Bằng cách đăng ký, bạn đồng ý bị ràng buộc bởi chúng tôi %s.</string>
+  <string name="readAboutOur">Đọc về %s của chúng tôi.</string>
   <string name="networkLagBetweenYouAndLichess">Hệ số lag giữa bạn và Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Thời gian để tiến hành một nước đi trên máy chủ lichess</string>
   <string name="downloadAnnotated">Tải kèm chú thích</string>
