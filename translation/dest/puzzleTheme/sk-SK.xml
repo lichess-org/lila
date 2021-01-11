@@ -16,7 +16,7 @@
   <string name="castlingDescription">Schovajte svojho kráľa do bezpečia a nasaďte vežu do útoku.</string>
   <string name="capturingDefender">Odstránenie obrany</string>
   <string name="capturingDefenderDescription">Odstránenie figúry, ktorá je dôležitá pri obrane inej figúry, dovoľujúc branie novo nebránenej figúry v následujúcom ťahu.</string>
-  <string name="crushing">Drtivé</string>
+  <string name="crushing">Rozdrvenie</string>
   <string name="crushingDescription">Odhaľte súperovu hrubú chybu a získajte drtivú výhodu. (eval ≥ 600cp)</string>
   <string name="equality">Rovnováha</string>
   <string name="equalityDescription">Dostaňte sa z prehratej pozície, a zaistite remízu alebo vyrovnanú pozíciu. (eval ≤ 200cp)</string>
@@ -88,7 +88,9 @@
   <string name="short">Krátky diagram</string>
   <string name="shortDescription">Dva ťahy do výhry.</string>
   <string name="skewer">Napichnutie</string>
+  <string name="skewerDescription">Motív spojený s napadnutím figúry vysokej hodnoty, po ktorej ustúpení je umožnené zobratie alebo napadnutie figúry nižšej hodnoty, opak väzby.</string>
   <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Dusený mat</string>
+  <string name="smotheredMateDescription">Mat daný jazdcom, pri ktorom sa matovaný kráľ nemá kam pohnúť pretože je obkolesený (alebo zadusený) vlastnými figúrami.</string>
   <string name="trappedPiece">Chytená figúra</string>
   <string name="trappedPieceDescription">Figúra neschopná ujsť vyhodeniu, pretože má limitované možnosti.</string>
   <string name="underPromotion">Pod-premena</string>
