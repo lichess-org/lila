@@ -424,7 +424,7 @@ Thank you all, you rock!"""
           }
         ).flatten
       },
-      // hourly variant tournaments!
+      // hourly atomic/antichess variant tournaments!
       (0 to 6).toList.flatMap { hourDelta =>
         val date = rightNow plusHours hourDelta
         val hour = date.getHourOfDay
@@ -435,6 +435,47 @@ Thank you all, you rock!"""
           case _     => Blitz
         }
         val variant = if (hour % 2 == 0) Atomic else Antichess
+        List(
+          at(date, hour) map { date =>
+            Schedule(Hourly, speed, variant, none, date).plan
+          },
+          at(date, hour, 30) collect {
+            case date if speed == Bullet =>
+              Schedule(Hourly, if (hour == 18) HyperBullet else Bullet, variant, none, date).plan
+          }
+        ).flatten
+      },
+      // hourly chess960/three check variant tournaments!
+      (0 to 6).toList.flatMap { hourDelta =>
+        val date = rightNow plusHours hourDelta
+        val hour = date.getHourOfDay
+        val speed = hour % 6 match {
+          case 1 | 4 => Bullet
+          case 2 | 5 => SuperBlitz
+          case 3 |_  => Blitz
+        }
+        val variant = if (hour % 2 == 0) Chess960 else ThreeCheck
+        List(
+          at(date, hour) map { date =>
+            Schedule(Hourly, speed, variant, none, date).plan
+          },
+          at(date, hour, 30) collect {
+            case date if speed == Bullet =>
+              Schedule(Hourly, if (hour == 18) HyperBullet else Bullet, variant, none, date).plan
+          }
+        ).flatten
+      },
+      // hourly horde/racing kings variant tournaments!
+      (0 to 6).toList.flatMap { hourDelta =>
+        val date = rightNow plusHours hourDelta
+        val hour = date.getHourOfDay
+        val speed = hour % 6 match {
+          case 1 | 4 => Bullet
+          case 2 | 5 => SuperBlitz
+          case 3     => HippoBullet
+          case _     => Blitz
+        }
+        val variant = if (hour % 2 == 0) Horde else RacingKings
         List(
           at(date, hour) map { date =>
             Schedule(Hourly, speed, variant, none, date).plan
