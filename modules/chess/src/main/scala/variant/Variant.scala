@@ -245,7 +245,7 @@ abstract class Variant private[variant] (
 
   protected def validSide(board: Board, strict: Boolean)(color: Color) = {
     val roles = board rolesOf color
-    roles.count(_ == King) == 1 &&
+    roles.size > 0 &&
     (!strict || { roles.count(_ == Pawn) <= 9 && roles.size <= 40 }) &&
     !pieceInPromotionRank(board, color)
   }
