@@ -9,6 +9,7 @@
   <string name="castling">Qalaqurma</string>
   <string name="crushing">Əzici üstünlük</string>
   <string name="equality">Bərabərləşmə</string>
+  <string name="kingsideAttack">Şah cinahında hücum</string>
   <string name="defensiveMove">Müdafiə gedişi</string>
   <string name="deflection">Yayındırma</string>
   <string name="doubleCheck">İkiqat şah</string>
@@ -26,12 +27,14 @@
   <string name="mateIn3">3 Gedişə Mat</string>
   <string name="mateIn4">4 Gedişə Mat</string>
   <string name="middlegame">Mittelşpil</string>
+  <string name="oneMove">Bir gedişlik tapmaca</string>
   <string name="opening">Debüt</string>
   <string name="pawnEndgame">Piyada sonluğu</string>
   <string name="pin">Bağlama</string>
   <string name="promotion">Çevrilmə</string>
   <string name="queenEndgame">Vəzir sonluğu</string>
   <string name="queenRookEndgame">Vəzir və Top</string>
+  <string name="queensideAttack">Vəzir cinahında hücum</string>
   <string name="quietMove">Sakit gediş</string>
   <string name="rookEndgame">Top sonluğu</string>
   <string name="sacrifice">Qurban</string>
@@ -39,6 +42,7 @@
   <string name="skewer">Şiş</string>
   <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Boğma matı</string>
   <string name="trappedPiece">Tələyə düşmüş fiqur</string>
+  <string name="veryLong">Çox uzun tapmaca</string>
   <string name="xRayAttack">Rentgen hücumu</string>
   <string name="zugzwang">Suqsvanq</string>
   <string name="healthyMix">Həftəbecər</string>
