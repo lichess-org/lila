@@ -34,6 +34,7 @@
   <string name="positions">vəziyyətlər</string>
   <string name="configure">konfiqurasiya</string>
   <string name="accounts">Hesablar</string>
+  <string name="asWellAsManyNMtitles">bir çox milli usta titulları</string>
   <string name="verificationForm">təsdiqləmə formu</string>
   <string name="noUpperCaseDot">Xeyr.</string>
   <string name="whatUsernameCanIchoose">İstifadəçi adım nə ola bilər?</string>
@@ -45,4 +46,5 @@
   <string name="ratingLeaderboards">liderlik cədvəli</string>
   <string name="displayPreferences">görüntü ayarları</string>
   <string name="howToThreeDots">Necə...</string>
+  <string name="viewSiteInformationPopUp">Sayt haqqında məlumat pəncərəsinə baxın</string>
 </resources>
