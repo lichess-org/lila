@@ -38,8 +38,18 @@
   <string name="combat">Döyüş</string>
   <string name="checkInOne">Şah vermə</string>
   <string name="mateInOne">Mat vermə</string>
+  <string name="castling">Qalaqurma</string>
+  <string name="stalemate">Pat</string>
+  <string name="advanced">Ətraflı</string>
+  <string name="register">Qeydiyyat</string>
+  <string name="practice">Məşğələ</string>
   <string name="puzzles">Puzzlelar</string>
   <string name="videos">Videolar</string>
+  <string name="letsGo">Getdik!</string>
+  <string name="stageX">Mərhələ %s</string>
+  <string name="awesome">Möhtəşəm!</string>
+  <string name="perfect">Mükəmməl!</string>
+  <string name="rightOn">Bax belə!</string>
   <string name="next">Növbəti</string>
   <string name="retry">Yenidən başlat</string>
 </resources>
