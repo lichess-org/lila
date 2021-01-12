@@ -44,6 +44,7 @@
   <string name="protection">Müdafiə</string>
   <string name="keepYourPiecesSafe">Fiqurlarını qoru</string>
   <string name="combat">Döyüş</string>
+  <string name="captureAndDefendPieces">Fiqurları vur və müdfiə et</string>
   <string name="checkInOne">Şah vermə</string>
   <string name="outOfCheck">Şahı qoru</string>
   <string name="defendYourKing">Şahı müdafiə edin</string>
@@ -62,6 +63,7 @@
   <string name="pieceValue">Fiqur dəyəri</string>
   <string name="evaluatePieceStrength">Fiqur gücü qiymətləndirilməsi</string>
   <string name="checkInTwo">2 gedişə şah</string>
+  <string name="twoMovesToGiveCheck">Şah vermək üçün iki gediş</string>
   <string name="whatNext">Sırada nə var?</string>
   <string name="register">Qeydiyyat</string>
   <string name="practice">Məşğələ</string>
