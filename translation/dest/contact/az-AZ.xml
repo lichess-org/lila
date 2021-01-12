@@ -6,6 +6,7 @@
   <string name="forgotPassword">Şifrəmi unutdum</string>
   <string name="forgotUsername">İstifadəçi adımı unutdum</string>
   <string name="accountSupport">Hesabımla əlaqədar köməyə ehtiyacım var</string>
+  <string name="wantReport">Bir oyunçunu bildirmək istəyirəm</string>
   <string name="cheating">hiylə</string>
   <string name="sandbagging">bilərək uduzma</string>
   <string name="trolling">trollama</string>
@@ -19,4 +20,5 @@
   <string name="monetizing">Lichessdən pul qazanmaq</string>
   <string name="buyingLichess">Lichessi almaq</string>
   <string name="noneOfTheAbove">Yuxarıdakıların heç biri</string>
+  <string name="sendEmailAt">Bizə %s vasitəsilə bir e-poçt göndərin.</string>
 </resources>
