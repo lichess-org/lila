@@ -842,4 +842,7 @@
   <string name="youCannotPostYetPlaySomeGames">Você não pode postar nos fóruns ainda. Jogue algumas partidas!</string>
   <string name="subscribe">Inscreva-se</string>
   <string name="unsubscribe">Cancelar inscrição</string>
+  <string name="challengeDeclined">Desafio recusado</string>
+  <string name="challengeAccepted">Desafio aceito!</string>
+  <string name="challengeCanceled">Desafio cancelado.</string>
 </resources>

@@ -842,4 +842,7 @@
   <string name="youCannotPostYetPlaySomeGames">Je kunt nog geen post in de forums plaatsen. Speel eerst een paar partijen!</string>
   <string name="subscribe">Abonneren</string>
   <string name="unsubscribe">Abonnement opzeggen</string>
+  <string name="challengeDeclined">Uitdaging geweigerd</string>
+  <string name="challengeAccepted">Uitdaging geaccepteerd!</string>
+  <string name="challengeCanceled">Uitdaging geannuleerd.</string>
 </resources>

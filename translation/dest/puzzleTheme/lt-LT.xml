@@ -38,7 +38,7 @@
   <string name="exposedKing">Atidengtas karalius</string>
   <string name="exposedKingDescription">Taktika, susijusi su karaliumi, kuris neturi daug gynejų aplink save. Tai dažnai priveda prie mato.</string>
   <string name="fork">Šakutė</string>
-  <string name="forkDescription">Ėjimas, kurio metu perkelta figūra puola dvi kitas priešininko figūras vienu metu.</string>
+  <string name="forkDescription">Ėjimas, kurio metu perkelta figūra puola dvi ar daugiau priešininko figūrų vienu metu.</string>
   <string name="hangingPiece">Kabanti figūra</string>
   <string name="hangingPieceDescription">Taktika, susijusi su neapginta ar nepakankamai apginta ir lengvai nukertama priešininko figūra.</string>
   <string name="interference">Trukdymas</string>
@@ -87,8 +87,8 @@
   <string name="sacrificeDescription">Taktika, susijusi su figūrų atidavimu dabar, bei gautu pranašumu vėliau po priverstų ėjimų sekos.</string>
   <string name="short">Trumpas galvosūkis</string>
   <string name="shortDescription">Du ėjimai laimėti.</string>
-  <string name="skewer">Atvirkščias surišimas</string>
-  <string name="skewerDescription">Motyvas įtraukiantis brangią figūrą, kuri puolama. Jai pasitraukiant atveriamas kelias nukirsti už jos stovinčiai mažiau brangiai figūrai.</string>
+  <string name="skewer">Pradūrimas</string>
+  <string name="skewerDescription">Motyvas įtraukiantis brangią figūrą, kuri puolama. Jai pasitraukiant atveriamas kelias nukirsti už jos stovinčią mažiau brangią figūrą.</string>
   <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Uždusintas matas</string>
   <string name="smotheredMateDescription">Matas, kurį atlieka žirgas, kai matuojamas karalius negali pajudėti nes yra apsuptas savo paties figūrų.</string>
   <string name="trappedPiece">Įkalinta figūra</string>

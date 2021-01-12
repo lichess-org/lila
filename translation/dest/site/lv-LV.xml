@@ -319,7 +319,7 @@
     <item quantity="other">%s izpētes</item>
   </plurals>
   <string name="viewTournament">Skatīt turnīru</string>
-  <string name="backToTournament">Atgriesties turnīrā</string>
+  <string name="backToTournament">Atgriezties turnīrā</string>
   <string name="thematic">Tematisks</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="zero">≥ %s vērtētas spēles</item>

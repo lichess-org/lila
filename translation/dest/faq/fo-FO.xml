@@ -20,6 +20,9 @@
   <string name="whyFlaggedRatingManipulationOrCheater">Hví eri eg meldaður fyri óreiðiliga at hava tiltuskað mær eitt tilgjørt styrkital (sandbagging og boosting) ella hjálp frá telduni?</string>
   <string name="preventLeavingGameWithoutResigning">Hvat verður gjørt við telvarar, ið fara frá einum talvi uttan at geva upp?</string>
   <string name="howCanIBecomeModerator">Hvussu kann eg gerast fyriskipari?</string>
+  <string name="youCannotApply">Tað er ikki møguligt at søkja um at gerast fyriskipari. Síggja vit onkran, vit halda hevði hóskað væl sum fyriskipari, seta vit okkum í samband við hann ella hana beinleiðis.</string>
+  <string name="isCorrespondenceDifferent">Er brævtalv øðrvísi enn vanligt talv?</string>
+  <string name="youCanUseOpeningBookNoEngine">Á Lichess er høvuðsmunurin á reglunum í brævtalvi, at eitt sonevnt bókabyrjanartalv er loyvt. At nýta hjálp frá telduni er tó enn bannað, og førir við sær, at viðkomandi telvari verður meldaður fyri at fáa hjálp frá telduni. Hóast ICCF loyvir hjálp frá telduni í brævtalvi, loyvir Lichess tí ikki.</string>
   <string name="gameplay">Leikgongd</string>
   <string name="howBulletBlitzEtcDecided">Hvussu verður avgjørt, hvørjar tíðarásetingar eru fyri Bullet, Snar og onnur sløg av talvum?</string>
   <string name="durationFormula">(byrjanartíð á klokkuni) + 40 × (tíð løgd afturat)</string>
@@ -39,6 +42,7 @@
   <string name="threefoldRepetitionExplanation">Kemur sama støða fyri tríggjar ferðir, kunnu leikarar krevja remis við %1$s. Lichess nýtir almennu FIDE-reglurnar, ið verða lýstar í grein 9.2 (d) í %2$s.</string>
   <string name="threefoldRepetitionLowerCase">endurtøka tríggjar ferðir</string>
   <string name="notRepeatedMoves">Vit endurtóku ikki leikir. Hví endaði talvið kortini við javnleiki, orsakað av endurtøku?</string>
+  <string name="repeatedPositionsThatMatters">Trífalda endurtøkan snýr seg um endurtiknar %1$s, ikki leikir. Endurtøkurnar nýtast ikki at henda beint aftaná hvørja aðra.</string>
   <string name="positions">støður</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Vit endurtóku eina støðu tríggjar ferðir. Hví endaði talvið ikki við remis?</string>
   <string name="threeFoldHasToBeClaimed">Einum av telvarunum nýtist at krevja endurtøkuregluna. Tú fært gjørt tað við at klikkja á knøttin, ið er vístur, ella við at bjóða remis áðrenn tín endaliga endurtøkuleik. Tað ger ongan mun, um mótleikarin avvísur tilboðið um remis; remis við trífaldari endurtøku verður kravt kortini. Tú kanst eisini %1$s Lichess at krevja remis sjálvvirkið fyri teg. Harumframt endar eitt talv altíð alt fyri eitt, um endurtøka kemur fyri fimm ferðir.</string>
@@ -46,7 +50,14 @@
   <string name="accounts">Kontur</string>
   <string name="titlesAvailableOnLichess">Hvørji heiti eru á Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess viðurkennir øll FIDE heiti ognað OTB (telvað á veruligum talvborðum), eins og %1$s. Her er ein listi yvir FIDE-heiti:</string>
+  <string name="showYourTitle">Hevur tú eitt OTB-heiti, kanst tú søkja um at fáa tað víst á kontu tínari við at útfylla %1$s, leggja eina klára mynd av skjalinum við, og eina sjálvsmynd (selfie), har tú heldur í skjalinum ella kortinum.
+
+At fáa staðfest á Lichess, at tú ert telvari við einum vunnum heiti, gevur tær atgongd til Titled Arena-tiltøk.
+
+At enda er ærisheitið: %2$s.</string>
+  <string name="asWellAsManyNMtitles">nógv landsumfevnandi meistaraheiti</string>
   <string name="verificationForm">váttanaroyðublað</string>
+  <string name="canIbecomeLM">Kann eg fáa Lichessmeistaraheitið (LM)?</string>
   <string name="noUpperCaseDot">Nei.</string>
   <string name="whatUsernameCanIchoose">Hvat kann brúkaranavn mítt vera?</string>
   <string name="usernamesNotOffensive">Sum heild eiga brúkaranøvn ikki at vera stoytandi og eiga ikki at lýsa fyri onkrari ávísari vøru ella virki. Við brúkaranavninum eigur tú ei heldur at látast at vera onkur annar, enn tú ert. Tú kanst lesa meir um hetta: %1$s.</string>

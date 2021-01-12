@@ -34,7 +34,12 @@
   <string name="itMovesInAnLShape">L hərfi formasında hərəkət edir</string>
   <string name="thePawn">Piyada</string>
   <string name="pawnPromotion">Piyadanın çevrilməsi</string>
+  <string name="capture">Vurma</string>
+  <string name="combat">Döyüş</string>
   <string name="checkInOne">Şah vermə</string>
   <string name="mateInOne">Mat vermə</string>
   <string name="puzzles">Puzzlelar</string>
+  <string name="videos">Videolar</string>
+  <string name="next">Növbəti</string>
+  <string name="retry">Yenidən başlat</string>
 </resources>

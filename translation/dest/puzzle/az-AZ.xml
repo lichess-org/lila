@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="phases">Mərhələlər</string>
+  <string name="motifs">Motivlər</string>
+  <string name="mates">Matlar</string>
+  <string name="goals">Hədəflər</string>
+  <string name="hidden">gizli</string>
+  <string name="normal">Normal</string>
+  <string name="easier">Asan</string>
+  <string name="harder">Çətin</string>
+</resources>
