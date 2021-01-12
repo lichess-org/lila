@@ -1,7 +1,7 @@
-import Chart from 'chart.js';
+import { Chart } from 'chart.js';
 
 export function renderRadar(data: any) {
-  const canvas = document.querySelector('.puzzle-dashboard__radar')!.getContext("2d");
+  const canvas = document.querySelector('.puzzle-dashboard__radar') as HTMLCanvasElement;
   const d = data.radar;
   const dark = $('body').hasClass('dark');
   d.datasets[0] = {

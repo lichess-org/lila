@@ -67,7 +67,7 @@ else
     parallel --gnu $P_OPTS build_plugin site ::: $site_plugins
     parallel --gnu $P_OPTS build_plugin round ::: $round_plugins
     parallel --gnu $P_OPTS build_plugin analyse ::: $analyse_plugins
-    parallel --gnu $P_OPTS build_plugin analyse ::: $puzzle_plugins
+    parallel --gnu $P_OPTS build_plugin puzzle ::: $puzzle_plugins
   else # sequential execution
     echo "For faster builds, install GNU parallel."
     for app in $apps1 $apps2 $apps3; do (build $app); done
