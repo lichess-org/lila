@@ -44,6 +44,9 @@
   <string name="addAnotherTheme">Añadir otro tema</string>
   <string name="jumpToNextPuzzleImmediately">Ir al siguiente rompecabezas inmediatamente</string>
   <string name="puzzleDashboard">Panel de rompecabezas</string>
-  <string name="personalTraining" comment="personalTraining&#10;&#10;A personalized set of puzzle themes that the user can practice to improve their skills.">Entrenamiento personalizado</string>
-  <string name="strengths" comment="strengths&#10;&#10;The title of a link leading to a section in the Puzzle dashboard. A user's puzzle strengths can be viewed there. This is a list of puzzle theme's the user performs best at.">Fortalezas</string>
+  <string name="improvementAreas">Áreas de mejora</string>
+  <string name="strengths">Fortalezas</string>
+  <string name="history">Historial de rompecabezas</string>
+  <string name="won">victoria</string>
+  <string name="failed">error</string>
 </resources>

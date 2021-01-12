@@ -91,7 +91,7 @@
   <string name="noGameFound">ゲームが見つかりません</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">設定メニューからさらに広い範囲を指定しますか？</string>
   <string name="openingExplorer">オープニング探索</string>
-  <string name="xOpeningExplorer">%s オープニング・エクスプローラー</string>
+  <string name="xOpeningExplorer">%s オープニング探索</string>
   <string name="winPreventedBy50MoveRule">勝勢ながら 50 手ルールでドロー</string>
   <string name="lossSavedBy50MoveRule">敗勢ながら 50 手ルールでドロー</string>
   <string name="allSet">準備完了！</string>
@@ -261,7 +261,7 @@
   </plurals>
   <string name="thisAccountViolatedTos">このアカウントは Lichess の利用規約に違反しました</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">このプレイヤーは不正にレーティングを操作しています</string>
-  <string name="openingExplorerAndTablebase">序盤探索&amp;テーブルベース</string>
+  <string name="openingExplorerAndTablebase">オープニング探索 &amp; テーブルベース</string>
   <string name="takeback">待った</string>
   <string name="proposeATakeback">待ったのお願い</string>
   <string name="takebackPropositionSent">待ったのお願いを送りました</string>
@@ -702,7 +702,7 @@
   <string name="error.unknown">エラー</string>
   <string name="custom">自由設定</string>
   <string name="notifications">通知</string>
-  <string name="challenges">チャレンジ</string>
+  <string name="challenges">挑戦</string>
   <string name="perfRatingX">レーティング: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">あと %s 秒以内に初手を指してください</item>

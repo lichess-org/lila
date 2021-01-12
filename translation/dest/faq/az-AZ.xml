@@ -22,5 +22,20 @@
   <string name="howCanIBecomeModerator">Necə moderator ola bilərəm?</string>
   <string name="isCorrespondenceDifferent">Yazışmalı oyun normal şahmatdan fərqlidir?</string>
   <string name="gameplay">Oynama</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="eightVariants">8 şahmat variantı</string>
+  <string name="fideHandbookX">FIDE qaydaları %s</string>
+  <string name="goodIntroduction">yaxşı giriş</string>
+  <string name="lichessTraining">Lichess məşqi</string>
+  <string name="positions">vəziyyətlər</string>
+  <string name="configure">konfiqurasiya</string>
+  <string name="accounts">Hesablar</string>
+  <string name="verificationForm">təsdiqləmə formu</string>
   <string name="noUpperCaseDot">Xeyr.</string>
+  <string name="guidelines">təlimatlat</string>
+  <string name="uniqueTrophies">Unikal kuboklar</string>
+  <string name="lichessRatings">Lichess reytinqi</string>
+  <string name="ratingLeaderboards">liderlik cədvəli</string>
+  <string name="howToThreeDots">Necə...</string>
 </resources>

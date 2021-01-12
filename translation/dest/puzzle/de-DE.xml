@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">Aufgaben</string>
+  <string name="puzzles">Taktikaufgaben</string>
   <string name="puzzleThemes">Aufgabenthemen</string>
   <string name="recommended">Empfohlen</string>
   <string name="phases">Phasen</string>
@@ -44,6 +44,9 @@
   <string name="addAnotherTheme">Ein weiteres Motiv hinzufügen</string>
   <string name="jumpToNextPuzzleImmediately">Sofort zur nächsten Aufgabe springen</string>
   <string name="puzzleDashboard">Aufgabenübersicht</string>
-  <string name="personalTraining" comment="personalTraining&#10;&#10;A personalized set of puzzle themes that the user can practice to improve their skills.">Persönliches Training</string>
-  <string name="strengths" comment="strengths&#10;&#10;The title of a link leading to a section in the Puzzle dashboard. A user's puzzle strengths can be viewed there. This is a list of puzzle theme's the user performs best at.">Stärken</string>
+  <string name="improvementAreas">Verbesserungsbereiche</string>
+  <string name="strengths">Stärken</string>
+  <string name="history">Aufgabenverlauf</string>
+  <string name="won">gewonnen</string>
+  <string name="failed">fehlgeschlagen</string>
 </resources>

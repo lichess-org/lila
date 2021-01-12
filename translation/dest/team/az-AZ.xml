@@ -42,4 +42,6 @@ Mesajlarınızı almaq istəməyən oyunçular komandanı tərk edə bilər.</st
   <string name="youWayWantToLinkOneOfTheseTournaments">Gələn turnirlərdən birinə bağlamaq istəyirsiniz?</string>
   <string name="usersWhoCanManageThisTeam">Bu komandanı idarə edə bilən istifadəçilər</string>
   <string name="leadersChat">Liderlərin söhbəti</string>
+  <string name="closeTeam">Komandanı bağla</string>
+  <string name="closeTeamDescription">Komandanı həmişəlik bağla.</string>
 </resources>

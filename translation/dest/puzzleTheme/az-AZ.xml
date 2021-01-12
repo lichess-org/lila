@@ -1,7 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advancedPawn">Keçid piyadası</string>
+  <string name="advantage">Üstünlük</string>
+  <string name="attackingF2F7">f2 və ya f7 Hücumu</string>
+  <string name="attraction">Cəlbetmə</string>
+  <string name="backRankMate">Arxa xətdə mat</string>
+  <string name="bishopEndgame">Fil sonluğu</string>
+  <string name="castling">Qalaqurma</string>
+  <string name="crushing">Əzici üstünlük</string>
+  <string name="equality">Bərabərləşmə</string>
+  <string name="kingsideAttack">Şah cinahında hücum</string>
+  <string name="defensiveMove">Müdafiə gedişi</string>
+  <string name="deflection">Yayındırma</string>
+  <string name="discoveredAttack">Açaraq hücum</string>
+  <string name="doubleCheck">İkiqat şah</string>
+  <string name="endgame">Endşpil</string>
+  <string name="exposedKing">Müdafiəsiz şah</string>
   <string name="fork">Çəngəl</string>
+  <string name="hangingPiece">Qorunmasız fiqur</string>
+  <string name="interference">Yolukəsmə</string>
+  <string name="intermezzo">İntermezzo</string>
+  <string name="knightEndgame">At sonluğu</string>
+  <string name="long">Uzun tapmaca</string>
   <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mat</string>
+  <string name="mateIn1">1 Gedişə Mat</string>
+  <string name="mateIn2">2 Gedişə Mat</string>
+  <string name="mateIn3">3 Gedişə Mat</string>
+  <string name="mateIn4">4 Gedişə Mat</string>
+  <string name="mateIn5">5 və ya daha çox gedişə mat</string>
+  <string name="middlegame">Mittelşpil</string>
+  <string name="oneMove">Bir gedişlik tapmaca</string>
+  <string name="opening">Debüt</string>
+  <string name="pawnEndgame">Piyada sonluğu</string>
   <string name="pin">Bağlama</string>
+  <string name="promotion">Çevrilmə</string>
+  <string name="queenEndgame">Vəzir sonluğu</string>
+  <string name="queenRookEndgame">Vəzir və Top</string>
+  <string name="queensideAttack">Vəzir cinahında hücum</string>
+  <string name="quietMove">Sakit gediş</string>
+  <string name="rookEndgame">Top sonluğu</string>
+  <string name="sacrifice">Qurban</string>
+  <string name="short">Qısa tapmaca</string>
+  <string name="shortDescription">2 gedişə qələbə.</string>
   <string name="skewer">Şiş</string>
+  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Boğma matı</string>
+  <string name="trappedPiece">Tələyə düşmüş fiqur</string>
+  <string name="veryLong">Çox uzun tapmaca</string>
+  <string name="xRayAttack">Rentgen hücumu</string>
+  <string name="zugzwang">Suqsvanq</string>
+  <string name="healthyMix">Həftəbecər</string>
 </resources>

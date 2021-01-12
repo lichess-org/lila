@@ -2,6 +2,7 @@
 <resources>
   <string name="lichessClasses">Siniflər</string>
   <string name="features">Özəlliklər</string>
+  <string name="noClassesYet">Hələki bir sinif yoxdur.</string>
   <string name="teachersX">Müəllimlər: %s</string>
   <string name="newClass">Yeni sinif</string>
   <string name="closeClass">Sinifi bağla</string>
@@ -10,14 +11,24 @@
   <string name="removeStudent">Tələbəni sil</string>
   <string name="removedStudents">Çıxarıldı</string>
   <string name="className">Sinif adı</string>
+  <string name="classDescription">Sinif açıqlaması</string>
   <string name="resetPassword">Şifrəni sıfırla</string>
   <string name="passwordX">Şifrə: %s</string>
   <string name="realName">Həqiqi ad</string>
   <string name="addStudent">Tələbə əlavə et</string>
+  <string name="lichessUsername">Lichess istifadəçi adı</string>
   <string name="lastActiveDate">Aktiv</string>
   <string name="managed">İdarə Edilən</string>
   <string name="release">Azad et</string>
   <string name="teachers">Müəllimlər</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">%s müəllim</item>
+    <item quantity="other">%s müəllim</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">%s tələbə</item>
+    <item quantity="other">%s tələbə</item>
+  </plurals>
   <string name="students">Tələbələr</string>
   <string name="progress">İrəliləyiş</string>
   <string name="overDays" comment="overDays&#10;&#10;In the &quot;Progress&quot; tab of a Lichess Class dashboard, &quot;Over days&quot; is the title of a selector. This selector offers a choice between various durations, in days, over which the user can view the progress of the class.">Günlər ərzində</string>
@@ -26,4 +37,5 @@
   <string name="na">Məlumat Yoxdur</string>
   <string name="news">Sinif xəbərləri</string>
   <string name="editNews">Xəbərləri redaktə et</string>
+  <string name="nothingHere">Hələ heç nə yoxdur.</string>
 </resources>

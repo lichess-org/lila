@@ -44,5 +44,4 @@
   <string name="addAnotherTheme">Voeg nog een thema toe</string>
   <string name="jumpToNextPuzzleImmediately">Direct door naar volgende puzzel</string>
   <string name="puzzleDashboard">Puzzel-dashboard</string>
-  <string name="personalTraining" comment="personalTraining&#10;&#10;A personalized set of puzzle themes that the user can practice to improve their skills.">Persoonlijke training</string>
 </resources>

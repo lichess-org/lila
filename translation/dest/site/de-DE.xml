@@ -843,6 +843,6 @@
   <string name="subscribe">Abonnieren</string>
   <string name="unsubscribe">Abonnement beenden</string>
   <string name="challengeDeclined">Herausforderung abgelehnt</string>
-  <string name="challengeAccepted">Herausforderung akzeptiert!</string>
+  <string name="challengeAccepted">Herausforderung angenommen!</string>
   <string name="challengeCanceled">Herausforderung abgebrochen.</string>
 </resources>

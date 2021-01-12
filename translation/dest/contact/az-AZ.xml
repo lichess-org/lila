@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="contact">Əlaqə</string>
+  <string name="contactLichess">Lichess ilə əlaqə</string>
+  <string name="iCantLogIn">Daxil ola bilmirəm</string>
+  <string name="cheating">hiylə</string>
+  <string name="sandbagging">bilərək uduzma</string>
+  <string name="trolling">trollama</string>
+  <string name="insults">təhqir</string>
+  <string name="otherReason">başqa bir səbəb</string>
+  <string name="errorPage">Xəta səhifəsi</string>
+  <string name="otherRestriction">Digər məhdudiyyət</string>
+  <string name="monetizing">Lichessdən pul qazanmaq</string>
+  <string name="buyingLichess">Lichessi almaq</string>
+  <string name="noneOfTheAbove">Yuxarıdakıların heç biri</string>
+</resources>

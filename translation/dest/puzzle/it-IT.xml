@@ -44,6 +44,6 @@
   <string name="addAnotherTheme">Aggiungi un altro tema</string>
   <string name="jumpToNextPuzzleImmediately">Passa subito alla tattica successiva</string>
   <string name="puzzleDashboard">Pagina dei puzzle</string>
-  <string name="personalTraining" comment="personalTraining&#10;&#10;A personalized set of puzzle themes that the user can practice to improve their skills.">Allenamento personalizzato</string>
-  <string name="strengths" comment="strengths&#10;&#10;The title of a link leading to a section in the Puzzle dashboard. A user's puzzle strengths can be viewed there. This is a list of puzzle theme's the user performs best at.">Punti di forza</string>
+  <string name="improvementAreas">Aree di miglioramento</string>
+  <string name="strengths">Punti di forza</string>
 </resources>
