@@ -41,6 +41,7 @@
   <string name="combat">Döyüş</string>
   <string name="checkInOne">Şah vermə</string>
   <string name="outOfCheck">Şahı qoru</string>
+  <string name="defendYourKing">Şahı müdafiə edin</string>
   <string name="mateInOne">Mat vermə</string>
   <string name="intermediate">Orta</string>
   <string name="boardSetup">Fuqurların düzülüşü</string>
