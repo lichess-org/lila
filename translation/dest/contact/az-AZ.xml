@@ -2,10 +2,12 @@
 <resources>
   <string name="contact">Əlaqə</string>
   <string name="contactLichess">Lichess ilə əlaqə</string>
+  <string name="whatCanWeHelpYouWith">Sizə nədə kömək edə bilərik?</string>
   <string name="iCantLogIn">Daxil ola bilmirəm</string>
   <string name="forgotPassword">Şifrəmi unutdum</string>
   <string name="forgotUsername">İstifadəçi adımı unutdum</string>
   <string name="accountSupport">Hesabımla əlaqədar köməyə ehtiyacım var</string>
+  <string name="wantCloseAccount">Hesabımı bağlamaq istəyirəm</string>
   <string name="wantReport">Bir oyunçunu bildirmək istəyirəm</string>
   <string name="cheating">hiylə</string>
   <string name="sandbagging">bilərək uduzma</string>
