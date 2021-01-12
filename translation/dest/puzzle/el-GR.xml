@@ -44,5 +44,7 @@
   <string name="addAnotherTheme">Προσθήκη νέου θέματος</string>
   <string name="jumpToNextPuzzleImmediately">Μετάβαση στον επόμενο γρίφο αμέσως</string>
   <string name="puzzleDashboard">Ταμπλό γρίφων</string>
+  <string name="improvementAreas">Τομείς βελτίωσης</string>
   <string name="strengths">Δυνατά σημεία</string>
+  <string name="history">Ιστορικό γρίφων</string>
 </resources>
