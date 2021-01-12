@@ -45,7 +45,7 @@ object dashboard {
                   },
                   "datasets" -> Json.arr(
                     Json.obj(
-                      "label" -> "Performance per theme",
+                      "label" -> "Performance",
                       "data" -> mostPlayed.map { case (_, results) =>
                         results.performance
                       }

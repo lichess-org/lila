@@ -1,54 +1,44 @@
-import { Chart, LineElement, PointElement, RadarController, RadialLinearScale } from 'chart.js';
-
-Chart.register(RadarController, RadialLinearScale, PointElement, LineElement);
+import Chart from 'chart.js';
 
 export function renderRadar(data: any) {
   const canvas = document.querySelector('.puzzle-dashboard__radar')!.getContext("2d");
   const d = data.radar;
+  const dark = $('body').hasClass('dark');
   d.datasets[0] = {
     ...d.datasets[0],
     ...{
-      backgroundColor: 'rgba(189,130,35,0.1)',
+      backgroundColor: 'rgba(189,130,35,0.2)',
       borderColor: 'rgba(189,130,35,1)',
       pointBackgroundColor: "rgb(189,130,35,1)",
-      pointBorderColor: "#fff",
-      pointHoverBackgroundColor: "#fff",
-      pointHoverBorderColor: "rgb(255, 99, 132)"
     }
   };
+  const fontColor = dark ? '#bababa' : '#4d4d4d';
+  const lineColor = 'rgba(127, 127, 127, .3)';
 
   new Chart(canvas, {
     type: 'radar',
     data: d,
     options: {
-      scales: {
-        r: {
-          beginAtZero: false,
-          suggestedMin: 1200
-        }
+      legend: {
+        display: false
       },
-      elements: {
-        line: {
-          tension: 0,
-          borderWidth: 5
+      scale: {
+        ticks: {
+          beginAtZero: false,
+          suggestedMin: Math.min(...d.datasets[0].data) - 100,
+          fontColor,
+          showLabelBackdrop: false // hide square behind text
+        },
+        pointLabels: {
+          fontColor
+        },
+        gridLines: {
+          color: lineColor
+        },
+        angleLines: {
+          color: lineColor
         }
       }
-      // scale: {
-      //   pointLabels: {
-      //     fontSize: 15
-      //   },
-      //   angleLines: {
-      //     display: false
-      //   },
-      //   suggestedMin: 1500,
-      //   suggestedMax: 2000
-      // },
-      // legend: {
-      //   labels: {
-      //     // This more specific font property overrides the global property
-      //     fontSize: 15
-      //   }
-      // }
     }
   });
 

@@ -14,11 +14,12 @@
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
-    "@types/lichess": "2.0.0"
+    "@types/lichess": "2.0.0",
+    "@types/chart.js": "^2.9.29"
   },
   "dependencies": {
     "ceval": "2.0.0",
-    "chart.js": "3.0.0-beta.7",
+    "chart.js": "^2.9",
     "chessground": "^7.9.2",
     "chessops": "^0.8.1",
     "common": "2.0.0",
