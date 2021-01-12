@@ -18,7 +18,9 @@
   <string name="otherAmount">Digər</string>
   <string name="withCreditCard">Kredit Kartı</string>
   <string name="withPaypal">Paypal</string>
+  <string name="nextPayment">Növbəti ödəniş</string>
   <string name="update">Yenilə</string>
+  <string name="xOrY">%1$s və ya %2$s</string>
   <string name="paid">Pullu</string>
   <string name="date">Tarix</string>
   <string name="amount">Miqdar</string>
