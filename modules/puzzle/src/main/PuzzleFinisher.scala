@@ -92,7 +92,7 @@ final private[puzzle] class PuzzleFinisher(
                   }
                 (round, newPuzzleGlicko, userPerf)
             }
-            api.round.upsert(round.pp, theme) zip
+            api.round.upsert(round, theme) zip
               colls.puzzle {
                 _.update
                   .one(

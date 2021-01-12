@@ -53,8 +53,6 @@ object PuzzleRound {
 
   case class Theme(theme: PuzzleTheme.Key, vote: Boolean)
 
-  case class WithPuzzle(round: PuzzleRound, puzzle: Puzzle)
-
   // max 7 theme upvotes
   // unlimited downvotes
   def themesLookSane(themes: List[Theme]): Boolean = themes.count(_.vote) < 8

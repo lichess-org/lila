@@ -8,15 +8,17 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-import lila.puzzle.PuzzleRound
+import lila.puzzle.PuzzleHistory.{ PuzzleSession, SessionRound }
+import lila.puzzle.{ PuzzleRound, PuzzleTheme }
 import lila.user.User
 
 object history {
 
-  def apply(user: User, page: Int, pager: Paginator[PuzzleRound.WithPuzzle])(implicit ctx: Context) =
+  def apply(user: User, page: Int, pager: Paginator[PuzzleSession])(implicit ctx: Context) =
     views.html.base.layout(
       title = "Puzzle history",
-      moreCss = cssTag("puzzle.dashboard")
+      moreCss = cssTag("puzzle.dashboard"),
+      moreJs = infiniteScrollTag
     )(
       main(cls := "page-menu")(
         bits.pageMenu("history"),
@@ -24,7 +26,7 @@ object history {
           h1(trans.puzzle.history()),
           div(cls := "puzzle-history")(
             div(cls := "infinite-scroll")(
-              div(cls := "puzzle-history__session")(pager.currentPageResults map widget),
+              pager.currentPageResults map renderSession,
               pagerNext(pager, np => routes.Puzzle.history(np).url)
             )
           )
@@ -32,19 +34,26 @@ object history {
       )
     )
 
-  private def widget(pr: PuzzleRound.WithPuzzle)(implicit ctx: Context) = pr match {
-    case PuzzleRound.WithPuzzle(round, puzzle) =>
-      a(cls := "puzzle-history__round", href := routes.Puzzle.show(puzzle.id.value))(
-        views.html.board.bits.mini(puzzle.fenAfterInitialMove, puzzle.color, puzzle.line.head.uci)(
-          span(cls := "puzzle-history__round__puzzle")
+  private def renderSession(session: PuzzleSession)(implicit ctx: Context) =
+    div(cls := "puzzle-history__session")(
+      h2(cls := "puzzle-history__session__title")(
+        strong(PuzzleTheme(session.theme).name()),
+        momentFromNow(session.puzzles.head.round.date)
+      ),
+      div(cls := "puzzle-history__session__rounds")(session.puzzles.toList.reverse map renderRound)
+    )
+
+  private def renderRound(r: SessionRound)(implicit ctx: Context) =
+    a(cls := "puzzle-history__round", href := routes.Puzzle.show(r.puzzle.id.value))(
+      views.html.board.bits.mini(r.puzzle.fenAfterInitialMove, r.puzzle.color, r.puzzle.line.head.uci)(
+        span(cls := "puzzle-history__round__puzzle")
+      ),
+      span(cls := "puzzle-history__round__meta")(
+        span(cls := "puzzle-history__round__result")(
+          if (r.round.win) goodTag(trans.puzzle.won())
+          else badTag(trans.puzzle.failed())
         ),
-        span(cls := "puzzle-history__round__meta")(
-          span(cls := "puzzle-history__round__result")(
-            if (round.win) goodTag(trans.puzzle.won())
-            else badTag(trans.puzzle.failed())
-          ),
-          span(cls := "puzzle-history__round__id")(s"#${puzzle.id.value}")
-        )
+        span(cls := "puzzle-history__round__id")(s"#${r.puzzle.id.value}")
       )
-  }
+    )
 }
