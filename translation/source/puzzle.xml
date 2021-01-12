@@ -46,4 +46,7 @@
   <string name="puzzleDashboard">Puzzle dashboard</string>
   <string name="improvementAreas">Improvement areas</string>
   <string name="strengths">Strengths</string>
+  <string name="history">Puzzle history</string>
+  <string name="won">won</string>
+  <string name="failed">failed</string>
 </resources>

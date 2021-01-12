@@ -110,7 +110,12 @@ final class PuzzleDashboardApi(
         Match($doc("u" -> userId, "d" $gt DateTime.now.minusDays(days))) -> List(
           Sort(Descending("d")),
           Limit(10_000),
-          PipelineOperator(puzzleLookup),
+          PipelineOperator(
+            PuzzleRound.puzzleLookup(
+              colls,
+              List($doc("$project" -> $doc("themes" -> true, "rating" -> "$glicko.r")))
+            )
+          ),
           Unwind("puzzle"),
           Facet(
             List(
@@ -146,27 +151,6 @@ final class PuzzleDashboardApi(
     }
 
   private def countField(field: String) = $doc("$cond" -> $arr("$" + field, 1, 0))
-
-  private val puzzleLookup =
-    $doc(
-      "$lookup" -> $doc(
-        "from" -> colls.puzzle.name.value,
-        "as"   -> "puzzle",
-        "let" -> $doc(
-          "pid" -> $doc("$arrayElemAt" -> $arr($doc("$split" -> $arr("$_id", ":")), 1))
-        ),
-        "pipeline" -> $arr(
-          $doc(
-            "$match" -> $doc(
-              "$expr" -> $doc(
-                $doc("$eq" -> $arr("$_id", "$$pid"))
-              )
-            )
-          ),
-          $doc("$project" -> $doc("themes" -> true, "rating" -> "$glicko.r"))
-        )
-      )
-    )
 
   private def readResults(doc: Bdoc) = for {
     nb     <- doc.int("nb")

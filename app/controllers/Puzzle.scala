@@ -288,6 +288,21 @@ final class Puzzle(
       }
     }
 
+  def history(page: Int) =
+    Auth { implicit ctx => me =>
+      get("u")
+        .ifTrue(isGranted(_.Hunter))
+        .??(env.user.repo.named)
+        .map(_ | me)
+        .flatMap { user =>
+          Reasonable(page) {
+            env.puzzle.history(user, page) map { history =>
+              Ok(views.html.puzzle.history(user, page, history))
+            }
+          }
+        }
+    }
+
   def mobileBcLoad(nid: Long) =
     Open { implicit ctx =>
       negotiate(

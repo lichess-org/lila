@@ -53,6 +53,8 @@ object PuzzleRound {
 
   case class Theme(theme: PuzzleTheme.Key, vote: Boolean)
 
+  case class WithPuzzle(round: PuzzleRound, puzzle: Puzzle)
+
   // max 7 theme upvotes
   // unlimited downvotes
   def themesLookSane(themes: List[Theme]): Boolean = themes.count(_.vote) < 8
@@ -69,4 +71,25 @@ object PuzzleRound {
     val date    = "d" // date of first playing the puzzle
     val theme   = "h"
   }
+
+  import lila.db.dsl._
+  def puzzleLookup(colls: PuzzleColls, pipeline: List[Bdoc] = Nil) =
+    $doc(
+      "$lookup" -> $doc(
+        "from" -> colls.puzzle.name.value,
+        "as"   -> "puzzle",
+        "let" -> $doc(
+          "pid" -> $doc("$arrayElemAt" -> $arr($doc("$split" -> $arr("$_id", ":")), 1))
+        ),
+        "pipeline" -> {
+          $doc(
+            "$match" -> $doc(
+              "$expr" -> $doc(
+                $doc("$eq" -> $arr("$_id", "$$pid"))
+              )
+            )
+          ) :: pipeline
+        }
+      )
+    )
 }

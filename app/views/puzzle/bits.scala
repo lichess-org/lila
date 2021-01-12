@@ -47,6 +47,9 @@ object bits {
       ),
       a(cls := active.active("strengths"), href := routes.Puzzle.dashboard(days, "strengths"))(
         trans.puzzle.strengths()
+      ),
+      a(cls := active.active("history"), href := routes.Puzzle.history(1))(
+        trans.puzzle.history()
       )
     )
 

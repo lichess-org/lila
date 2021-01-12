@@ -1829,6 +1829,9 @@ val `jumpToNextPuzzleImmediately` = new I18nKey("puzzle:jumpToNextPuzzleImmediat
 val `puzzleDashboard` = new I18nKey("puzzle:puzzleDashboard")
 val `improvementAreas` = new I18nKey("puzzle:improvementAreas")
 val `strengths` = new I18nKey("puzzle:strengths")
+val `history` = new I18nKey("puzzle:history")
+val `won` = new I18nKey("puzzle:won")
+val `failed` = new I18nKey("puzzle:failed")
 val `playedXTimes` = new I18nKey("puzzle:playedXTimes")
 }
 
