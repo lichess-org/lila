@@ -22,6 +22,7 @@
   <string name="intermezzo">İntermezzo</string>
   <string name="knightEndgame">At sonluğu</string>
   <string name="long">Uzun tapmaca</string>
+  <string name="longDescription">3 gedişə qələbə.</string>
   <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mat</string>
   <string name="mateIn1">1 Gedişə Mat</string>
   <string name="mateIn2">2 Gedişə Mat</string>
