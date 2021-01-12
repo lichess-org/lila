@@ -6,6 +6,10 @@
     <item quantity="one">Lichess.org\'u %1$s aylığına %2$s olaraq dəstəklədi</item>
     <item quantity="other">Lichess.org\'u %1$s aylığına %2$s olaraq dəstəklədi</item>
   </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">%1$s dəfə %2$s oynadı</item>
+    <item quantity="other">%1$s dəfə %2$s oynadı</item>
+  </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">%1$s gediş etdi</item>
     <item quantity="other">%1$s gediş etdi</item>
