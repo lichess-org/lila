@@ -5,17 +5,23 @@
   <string name="castling">Qalaqurma</string>
   <string name="crushing">Əzici üstünlük</string>
   <string name="equality">Bərabərləşmə</string>
+  <string name="deflection">Yayındırma</string>
   <string name="endgame">Endşpil</string>
   <string name="fork">Çəngəl</string>
+  <string name="intermezzo">İntermezzo</string>
+  <string name="long">Uzun tapmaca</string>
   <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mat</string>
   <string name="mateIn1">1 Gedişə Mat</string>
   <string name="mateIn2">2 Gedişə Mat</string>
   <string name="mateIn3">3 Gedişə Mat</string>
   <string name="mateIn4">4 Gedişə Mat</string>
+  <string name="middlegame">Mittelşpil</string>
   <string name="opening">Debüt</string>
   <string name="pin">Bağlama</string>
   <string name="promotion">Çevrilmə</string>
+  <string name="quietMove">Sakit gediş</string>
   <string name="sacrifice">Qurban</string>
   <string name="skewer">Şiş</string>
   <string name="zugzwang">Suqsvanq</string>
+  <string name="healthyMix">Həftəbecər</string>
 </resources>
