@@ -3,4 +3,5 @@
   <string name="fork">Çəngəl</string>
   <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mat</string>
   <string name="pin">Bağlama</string>
+  <string name="skewer">Şiş</string>
 </resources>
