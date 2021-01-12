@@ -11,6 +11,7 @@
   <string name="removeStudent">Tələbəni sil</string>
   <string name="removedStudents">Çıxarıldı</string>
   <string name="className">Sinif adı</string>
+  <string name="classDescription">Sinif açıqlaması</string>
   <string name="resetPassword">Şifrəni sıfırla</string>
   <string name="passwordX">Şifrə: %s</string>
   <string name="realName">Həqiqi ad</string>
@@ -36,4 +37,5 @@
   <string name="na">Məlumat Yoxdur</string>
   <string name="news">Sinif xəbərləri</string>
   <string name="editNews">Xəbərləri redaktə et</string>
+  <string name="nothingHere">Hələ heç nə yoxdur.</string>
 </resources>
