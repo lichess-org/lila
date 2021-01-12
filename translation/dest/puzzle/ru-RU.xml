@@ -47,4 +47,5 @@
   <string name="jumpToNextPuzzleImmediately">Сразу перейти к следующей задаче</string>
   <string name="puzzleDashboard">Страница задач</string>
   <string name="strengths">Сильные стороны</string>
+  <string name="history">История задач</string>
 </resources>
