@@ -462,6 +462,7 @@
   <string name="tpTimeSpentOnTV">Edrychodd ar TV: %s</string>
   <string name="watch">Gwylio</string>
   <string name="videoLibrary">Llyfrgell fideo</string>
+  <string name="streamersMenu">Ffrydwyr</string>
   <string name="mobileApp">Rhaglen symudol</string>
   <string name="webmasters">Gwefeistrau</string>
   <string name="about">Amdan</string>
@@ -556,6 +557,7 @@
   <string name="xHostsY">Mae %1$s yn cynnal %2$s</string>
   <string name="xJoinsY">Mae %1$s yn ymuno gyda %2$s</string>
   <string name="xLikesY">Mae %1$s yn hoffi %2$s</string>
+  <string name="xCreatesStudyY">Creodd %1$s astudiaeth %2$s</string>
   <string name="quickPairing">Gem yn sydyn</string>
   <string name="lobby">Cyntedd</string>
   <string name="anonymous">DiEnw</string>
