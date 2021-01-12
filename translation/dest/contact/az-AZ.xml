@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Əlaqə</string>
+  <string name="iCantLogIn">Daxil ola bilmirəm</string>
   <string name="cheating">hiylə</string>
   <string name="sandbagging">bilərək uduzma</string>
   <string name="trolling">trollama</string>
   <string name="insults">təhqir</string>
   <string name="errorPage">Xəta səhifəsi</string>
+  <string name="buyingLichess">Lichessi almaq</string>
 </resources>
