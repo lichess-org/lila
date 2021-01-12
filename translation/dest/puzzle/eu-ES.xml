@@ -44,5 +44,9 @@
   <string name="addAnotherTheme">Beste gai bat gehitu</string>
   <string name="jumpToNextPuzzleImmediately">Salto egin hurrengo ariketara berehala</string>
   <string name="puzzleDashboard">Ariketen kontrol-panela</string>
+  <string name="improvementAreas">Hobetzekoak</string>
   <string name="strengths">Indarguneak</string>
+  <string name="history">Ariketen historikoa</string>
+  <string name="won">irabazita</string>
+  <string name="failed">huts eginda</string>
 </resources>
