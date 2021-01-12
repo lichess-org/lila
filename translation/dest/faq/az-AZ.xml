@@ -36,7 +36,9 @@
   <string name="accounts">Hesablar</string>
   <string name="verificationForm">təsdiqləmə formu</string>
   <string name="noUpperCaseDot">Xeyr.</string>
+  <string name="whatUsernameCanIchoose">İstifadəçi adım nə ola bilər?</string>
   <string name="guidelines">təlimatlat</string>
+  <string name="canIChangeMyUsername">İstifadəçi adımı dəyişə bilərəmmi?</string>
   <string name="uniqueTrophies">Unikal kuboklar</string>
   <string name="lichessRatings">Lichess reytinqi</string>
   <string name="ratingLeaderboards">liderlik cədvəli</string>
