@@ -45,6 +45,7 @@
   <string name="skewer">Şiş</string>
   <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Boğma matı</string>
   <string name="trappedPiece">Tələyə düşmüş fiqur</string>
+  <string name="underPromotion">Zəifə Çevrilmə</string>
   <string name="veryLong">Çox uzun tapmaca</string>
   <string name="xRayAttack">Rentgen hücumu</string>
   <string name="zugzwang">Suqsvanq</string>
