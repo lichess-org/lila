@@ -46,4 +46,7 @@
   <string name="puzzleDashboard">Aufgabenübersicht</string>
   <string name="improvementAreas">Verbesserungsbereiche</string>
   <string name="strengths">Stärken</string>
+  <string name="history">Aufgabenverlauf</string>
+  <string name="won">gewonnen</string>
+  <string name="failed">fehlgeschlagen</string>
 </resources>
