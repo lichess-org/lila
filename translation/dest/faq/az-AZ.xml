@@ -37,5 +37,6 @@
   <string name="uniqueTrophies">Unikal kuboklar</string>
   <string name="lichessRatings">Lichess reytinqi</string>
   <string name="ratingLeaderboards">liderlik cədvəli</string>
+  <string name="displayPreferences">görüntü ayarları</string>
   <string name="howToThreeDots">Necə...</string>
 </resources>
