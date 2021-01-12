@@ -27,7 +27,10 @@
   <string name="eightVariants">8 şahmat variantı</string>
   <string name="fideHandbookX">FIDE qaydaları %s</string>
   <string name="goodIntroduction">yaxşı giriş</string>
+  <string name="officialRulesPDF">rəsmi qaydalar (PDF)</string>
   <string name="lichessTraining">Lichess məşqi</string>
+  <string name="threefoldRepetition">Üç dəfə təkrar</string>
+  <string name="threefoldRepetitionLowerCase">üç dəfə təkrar</string>
   <string name="positions">vəziyyətlər</string>
   <string name="configure">konfiqurasiya</string>
   <string name="accounts">Hesablar</string>
