@@ -2,6 +2,7 @@
 <resources>
   <string name="contact">Əlaqə</string>
   <string name="cheating">hiylə</string>
+  <string name="sandbagging">bilərək uduzma</string>
   <string name="trolling">trollama</string>
   <string name="insults">təhqir</string>
   <string name="errorPage">Xəta səhifəsi</string>
