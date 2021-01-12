@@ -145,9 +145,9 @@ function create(): VNode {
   return h('a.create', {
     attrs: {
       href: '/?any#friend',
-      'data-icon': 'O'
-    },
-    title: 'Challenge someone'
+      'data-icon': 'O',
+      title: 'Challenge someone'
+    }
   });
 }
 
