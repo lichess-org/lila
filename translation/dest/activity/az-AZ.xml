@@ -10,6 +10,10 @@
     <item quantity="one">%1$s gediş etdi</item>
     <item quantity="other">%1$s gediş etdi</item>
   </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">%s yeni çalışma yaratdı</item>
+    <item quantity="other">%s yeni çalışma yaratdı</item>
+  </plurals>
   <string name="signedUp">lichess.org\'a üzv oldu</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s komandasına qatıldı</item>
