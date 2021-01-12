@@ -7,6 +7,10 @@
   <string name="sandbagging">bilərək uduzma</string>
   <string name="trolling">trollama</string>
   <string name="insults">təhqir</string>
+  <string name="otherReason">başqa bir səbəb</string>
   <string name="errorPage">Xəta səhifəsi</string>
+  <string name="otherRestriction">Digər məhdudiyyət</string>
+  <string name="monetizing">Lichessdən pul qazanmaq</string>
   <string name="buyingLichess">Lichessi almaq</string>
+  <string name="noneOfTheAbove">Yuxarıdakıların heç biri</string>
 </resources>
