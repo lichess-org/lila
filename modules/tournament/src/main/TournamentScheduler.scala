@@ -424,17 +424,21 @@ Thank you all, you rock!"""
           }
         ).flatten
       },
-      // hourly atomic/antichess variant tournaments!
+      // hourly atomic/antichess/chess960 variant tournaments!
       (0 to 6).toList.flatMap { hourDelta =>
         val date = rightNow plusHours hourDelta
         val hour = date.getHourOfDay
-        val speed = hour % 6 match {
-          case 1 | 4 => Bullet
-          case 2 | 5 => SuperBlitz
-          case 3     => HippoBullet
-          case _     => Blitz
+        val speed = hour % 5 match {
+          case 0 | 3 => Bullet
+          case 1     => Blitz
+          case 2     => HippoBullet
+          case _     => SuperBlitz
         }
-        val variant = if (hour % 2 == 0) Atomic else Antichess
+        val variant = hour % 3 match {
+          case 0 => Atomic
+          case 1 => Antichess
+          case _ => Chess960
+        }
         List(
           at(date, hour) map { date =>
             Schedule(Hourly, speed, variant, none, date).plan
@@ -445,37 +449,21 @@ Thank you all, you rock!"""
           }
         ).flatten
       },
-      // hourly chess960/three check variant tournaments!
+      // hourly threecheck/horde/racing variant tournaments!
       (0 to 6).toList.flatMap { hourDelta =>
         val date = rightNow plusHours hourDelta
         val hour = date.getHourOfDay
-        val speed = hour % 6 match {
+        val speed = hour % 5 match {
           case 1 | 4 => Bullet
-          case 2 | 5 => SuperBlitz
-          case 3 |_  => Blitz
-        }
-        val variant = if (hour % 2 == 0) Chess960 else ThreeCheck
-        List(
-          at(date, hour) map { date =>
-            Schedule(Hourly, speed, variant, none, date).plan
-          },
-          at(date, hour, 30) collect {
-            case date if speed == Bullet =>
-              Schedule(Hourly, if (hour == 18) HyperBullet else Bullet, variant, none, date).plan
-          }
-        ).flatten
-      },
-      // hourly horde/racing kings variant tournaments!
-      (0 to 6).toList.flatMap { hourDelta =>
-        val date = rightNow plusHours hourDelta
-        val hour = date.getHourOfDay
-        val speed = hour % 6 match {
-          case 1 | 4 => Bullet
-          case 2 | 5 => SuperBlitz
+          case 2     => Blitz
           case 3     => HippoBullet
-          case _     => Blitz
+          case _     => SuperBlitz
         }
-        val variant = if (hour % 2 == 0) Horde else RacingKings
+        val variant = hour % 3 match {
+          case 0 => ThreeCheck
+          case 1 => Horde
+          case _ => RacingKings
+        }
         List(
           at(date, hour) map { date =>
             Schedule(Hourly, speed, variant, none, date).plan
