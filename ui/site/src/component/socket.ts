@@ -61,7 +61,7 @@ export default class StrongSocket {
   tryOtherUrl: boolean = false;
   autoReconnect: boolean = true;
   nbConnects: number = 0;
-  storage: LichessStorage = makeStorage.make('surl11');
+  storage: LichessStorage = makeStorage.make('surl12');
   private _sign?: string;
 
   static defaultOptions: Options = {
@@ -303,12 +303,7 @@ export default class StrongSocket {
   }
 
   baseUrl = () => {
-    //const baseUrls = document.body.getAttribute('data-socket-domains')!.split(',');
-    const baseUrls = [
-      'socket3.lichess.org',
-      'socket4.lichess.org',
-      'socket5.lichess.org',
-    ];
+    const baseUrls = document.body.getAttribute('data-socket-domains')!.split(',');
     let url = this.storage.get();
     if (!url || this.tryOtherUrl) {
       url = baseUrls[Math.floor(Math.random() * baseUrls.length)];
