@@ -2,4 +2,5 @@
 <resources>
   <string name="lichessClasses">Siniflər</string>
   <string name="features">Özəlliklər</string>
+  <string name="na">Məlumat Yoxdur</string>
 </resources>
