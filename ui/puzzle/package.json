@@ -17,9 +17,8 @@
     "@types/lichess": "2.0.0"
   },
   "dependencies": {
-    "@types/chart.js": "^2.9.29",
     "ceval": "2.0.0",
-    "chart.js": "^2.9.4",
+    "chart.js": "3.0.0-beta.7",
     "chessground": "^7.9.2",
     "chessops": "^0.8.1",
     "common": "2.0.0",

@@ -44,14 +44,8 @@ object dashboard {
                     PuzzleTheme(key).name.txt()
                   },
                   "datasets" -> Json.arr(
-                    // Json.obj(
-                    //   "label" -> "# of puzzles",
-                    //   "data" -> mostPlayed.map { case (_, results) =>
-                    //     results.nb
-                    //   }
-                    // ),
                     Json.obj(
-                      "label" -> "Performance",
+                      "label" -> "Performance per theme",
                       "data" -> mostPlayed.map { case (_, results) =>
                         results.performance
                       }
