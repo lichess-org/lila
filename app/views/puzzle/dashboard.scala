@@ -32,33 +32,18 @@ object dashboard {
       frag(
         div(cls := s"${baseClass}__global")(
           metricsOf(days, PuzzleTheme.mix.key, dash.global)
-        ),
-        div(cls := s"${baseClass}__themes")(
-          div(cls := s"${baseClass}__themes__title")(
-          ),
-          themeSelection(days, dash.weakThemes)
-        ),
-        div(cls := s"${baseClass}__themes")(
-          div(cls := s"${baseClass}__themes__title")(
-            h2("Your strengths"),
-            if (dash.strongThemes.size >= PuzzleDashboard.topThemesNb)
-              p("Congratulations, you did really well in these puzzles!")
-            else
-              p("Play more puzzles to get a better analysis.")
-          ),
-          themeSelection(days, dash.strongThemes)
         )
       )
     }
 
-  def personalTraining(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: Context) =
+  def improvementAreas(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: Context) =
     dashboardLayout(
       user = user,
       days = days,
-      "personalTraining",
+      "improvementAreas",
       title =
-        if (ctx is user) "My personal training"
-        else s"${user.username} personal training",
+        if (ctx is user) trans.puzzle.improvementAreas.txt()
+        else s"${user.username} improvement areas",
       subtitle = "Train these to optimize your progress!",
       dashOpt = dashOpt
     ) { dash =>
@@ -71,9 +56,9 @@ object dashboard {
       days = days,
       "strengths",
       title =
-        if (ctx is user) "My puzzle strengths"
+        if (ctx is user) trans.puzzle.strengths.txt()
         else s"${user.username} puzzle strengths",
-      subtitle = "You perform the best in these themes:",
+      subtitle = "You perform the best in these themes",
       dashOpt = dashOpt
     ) { dash =>
       themeSelection(days, dash.strongThemes)

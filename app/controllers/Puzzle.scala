@@ -270,8 +270,8 @@ final class Puzzle(
           env.puzzle.dashboard(user, days) map { dashboard =>
             path match {
               case "home" => Ok(views.html.puzzle.dashboard.home(user, dashboard, days))
-              case "personalTraining" =>
-                Ok(views.html.puzzle.dashboard.personalTraining(user, dashboard, days))
+              case "improvementAreas" =>
+                Ok(views.html.puzzle.dashboard.improvementAreas(user, dashboard, days))
               case "strengths" => Ok(views.html.puzzle.dashboard.strengths(user, dashboard, days))
               case _           => Redirect(routes.Puzzle.dashboard(days, "home"))
             }

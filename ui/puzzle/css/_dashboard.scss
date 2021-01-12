@@ -1,12 +1,41 @@
 .puzzle-dashboard {
-  .mselect {
-    display: inline-block;
-    margin-left: 1ch;
+  .box__top {
+    display: flex;
+    flex-flow: nowrap;
+    justify-content: flex-start;
 
-    &__list > * {
-      font-size: 1.3rem;
-      padding: .3em 1em .3em .7em;
+    i {
+      flex: 0 0 auto;
+      font-size: 4.5em;
+      margin-right: .5em;
     }
+
+    h1 {
+      flex: 1 1 100%;
+      margin: 0;
+
+      strong {
+        display: block;
+        font-size: 1.5rem;
+        font-weight: normal;
+      }
+    }
+
+    .mselect {
+      display: inline-block;
+      margin-left: 1ch;
+      font-size: 2em;
+
+      &__list > * {
+        font-size: 1.3rem;
+        padding: .3em 1em .3em .7em;
+      }
+    }
+  }
+  
+  &__empty {
+    margin: 8em auto;
+    text-align: center;
   }
 
   &__metrics {
