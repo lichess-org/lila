@@ -66,10 +66,12 @@
   <string name="perfect">Mükəmməl!</string>
   <string name="outstanding">Mükəmməl!</string>
   <string name="wayToGo">Belə davam!</string>
+  <string name="yesYesYes">Afərin!</string>
   <string name="nailedIt">Bacardın.</string>
   <string name="rightOn">Bax belə!</string>
   <string name="yourScore">Sizin reytqin:</string>
   <string name="next">Növbəti</string>
   <string name="backToMenu">Menyuya qayıt</string>
+  <string name="puzzleFailed">Tapmaca həll olunmadı!</string>
   <string name="retry">Yenidən başlat</string>
 </resources>
