@@ -46,6 +46,5 @@
   <string name="addAnotherTheme">Додати іншу тему</string>
   <string name="jumpToNextPuzzleImmediately">Перейти до наступної задачі миттєво</string>
   <string name="puzzleDashboard">Дошка задач</string>
-  <string name="personalTraining" comment="personalTraining&#10;&#10;A personalized set of puzzle themes that the user can practice to improve their skills.">Індивідуальні тренування</string>
-  <string name="strengths" comment="strengths&#10;&#10;The title of a link leading to a section in the Puzzle dashboard. A user's puzzle strengths can be viewed there. This is a list of puzzle theme's the user performs best at.">Сильні сторони</string>
+  <string name="strengths">Сильні сторони</string>
 </resources>
