@@ -22,6 +22,7 @@
   <string name="nextPayment">Növbəti ödəniş</string>
   <string name="update">Yenilə</string>
   <string name="xOrY">%1$s və ya %2$s</string>
+  <string name="paymentHistory">Ödəmə keçmişi</string>
   <string name="paid">Pullu</string>
   <string name="date">Tarix</string>
   <string name="amount">Miqdar</string>
