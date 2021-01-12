@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advantage">Üstünlük</string>
   <string name="castling">Qalaqurma</string>
   <string name="crushing">Əzici üstünlük</string>
   <string name="equality">Bərabərləşmə</string>
