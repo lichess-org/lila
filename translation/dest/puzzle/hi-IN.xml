@@ -46,4 +46,7 @@
   <string name="puzzleDashboard">पहेली डैशबोर्ड</string>
   <string name="improvementAreas">सुधार क्षेत्रों</string>
   <string name="strengths">ताकत</string>
+  <string name="history">पहेली इतिहास</string>
+  <string name="won">जीत लिया</string>
+  <string name="failed">विफल</string>
 </resources>
