@@ -17,4 +17,5 @@ Məsələn; üst-üstə qazanılan iki oyun ve ardından alınan bir bərabərli
   <string name="otherRules">Digər vacib qaydalar</string>
   <string name="thisIsPrivate">Bu özəl turnirdir</string>
   <string name="shareUrl">Dəvət etmək ücün, linki paylaş: %s</string>
+  <string name="history">Arena Keçmişi</string>
 </resources>
