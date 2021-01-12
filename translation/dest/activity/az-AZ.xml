@@ -22,6 +22,10 @@
     <item quantity="one">%1$s gediş etdi</item>
     <item quantity="other">%1$s gediş etdi</item>
   </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">%1$s yazışmalı oyunda</item>
+    <item quantity="other">%1$s yazışmalı oyunda</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">%s oyunçunu izləməyə başladı</item>
     <item quantity="other">%s oyunçunu izləməyə başladı</item>
