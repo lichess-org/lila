@@ -2,6 +2,7 @@
 <resources>
   <string name="lichessClasses">Siniflər</string>
   <string name="features">Özəlliklər</string>
+  <string name="noClassesYet">Hələki bir sinif yoxdur.</string>
   <string name="teachersX">Müəllimlər: %s</string>
   <string name="newClass">Yeni sinif</string>
   <string name="closeClass">Sinifi bağla</string>
@@ -14,6 +15,7 @@
   <string name="passwordX">Şifrə: %s</string>
   <string name="realName">Həqiqi ad</string>
   <string name="addStudent">Tələbə əlavə et</string>
+  <string name="lichessUsername">Lichess istifadəçi adı</string>
   <string name="lastActiveDate">Aktiv</string>
   <string name="managed">İdarə Edilən</string>
   <string name="release">Azad et</string>
