@@ -61,7 +61,7 @@ export default class StrongSocket {
   tryOtherUrl: boolean = false;
   autoReconnect: boolean = true;
   nbConnects: number = 0;
-  storage: LichessStorage = makeStorage.make('surl9');
+  storage: LichessStorage = makeStorage.make('surl10');
   private _sign?: string;
 
   static defaultOptions: Options = {
@@ -308,15 +308,6 @@ export default class StrongSocket {
       'socket0.lichess.org',
       'socket1.lichess.org',
       'socket2.lichess.org',
-      'socket0.lichess.org',
-      'socket1.lichess.org',
-      'socket2.lichess.org',
-      'socket0.lichess.org',
-      'socket1.lichess.org',
-      'socket2.lichess.org',
-      'socket3.lichess.org',
-      'socket4.lichess.org',
-      'socket5.lichess.org',
     ];
     let url = this.storage.get();
     if (!url || this.tryOtherUrl) {
