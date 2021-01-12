@@ -2,10 +2,18 @@
 <resources>
   <string name="search">Axtar</string>
   <string name="advancedSearch">Mütərəqqi axtarış</string>
+  <plurals name="searchInXGames">
+    <item quantity="one">%s şahmat oyunu içində axtar</item>
+    <item quantity="other">%s şahmat oyunu içində axtar</item>
+  </plurals>
+  <plurals name="xGamesFound">
+    <item quantity="one">Oyun tapılmadı</item>
+    <item quantity="other">%s oyun tapıldı</item>
+  </plurals>
   <string name="opponentName">Rəqibin adı</string>
   <string name="loser">Məğlub olan</string>
-  <string name="from">Bu dəyərdən:</string>
-  <string name="to">Bu dəyərə qədər:</string>
+  <string name="from">Bu tarixdə:</string>
+  <string name="to">Bu tarixə qədər:</string>
   <string name="humanOrComputer">Oyunçunun rəqibi insan mı yoxsa kompüterdimi</string>
   <string name="aiLevel">Zorluq səviyyəsi</string>
   <string name="source">Qaynaq</string>
