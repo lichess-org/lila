@@ -49,6 +49,7 @@
   <string name="castling">Qalaqurma</string>
   <string name="enPassant">Keçiddə götürmə</string>
   <string name="stalemate">Pat</string>
+  <string name="theGameIsADraw">Oyun heç-heçədir</string>
   <string name="advanced">Ətraflı</string>
   <string name="pieceValue">Fiqur dəyəri</string>
   <string name="checkInTwo">2 gedişə şah</string>
@@ -70,6 +71,7 @@
   <string name="yesYesYes">Afərin!</string>
   <string name="nailedIt">Bacardın.</string>
   <string name="rightOn">Bax belə!</string>
+  <string name="stageXComplete">Mərhələ %s tamamlandı</string>
   <string name="yourScore">Sizin reytqin:</string>
   <string name="next">Növbəti</string>
   <string name="backToMenu">Menyuya qayıt</string>
