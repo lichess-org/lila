@@ -46,4 +46,5 @@
   <string name="puzzleDashboard">Opgave-kontrolpanel</string>
   <string name="improvementAreas">Plads til forbedring</string>
   <string name="strengths">Styrke</string>
+  <string name="history">Opgavehistorik</string>
 </resources>
