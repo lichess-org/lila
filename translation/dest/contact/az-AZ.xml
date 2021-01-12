@@ -12,6 +12,7 @@
   <string name="otherReason">başqa bir səbəb</string>
   <string name="illegalPawnCapture">Sehv piyada vurma</string>
   <string name="errorPage">Xəta səhifəsi</string>
+  <string name="engineAppeal">Şahmat mühərriki istifadəsi və ya hiylə işarəsi</string>
   <string name="otherRestriction">Digər məhdudiyyət</string>
   <string name="monetizing">Lichessdən pul qazanmaq</string>
   <string name="buyingLichess">Lichessi almaq</string>
