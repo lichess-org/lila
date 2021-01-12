@@ -356,7 +356,7 @@
   <string name="more">さらに表示</string>
   <string name="memberSince">登録日</string>
   <string name="lastSeenActive">最後のログイン %s</string>
-  <string name="challengeToPlay">対局を申し込む</string>
+  <string name="challengeToPlay">挑戦を申し込む</string>
   <string name="player">プレイヤー</string>
   <string name="list">リスト</string>
   <string name="graph">グラフ</string>
