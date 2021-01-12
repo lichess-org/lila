@@ -18,6 +18,14 @@
   <string name="managed">İdarə Edilən</string>
   <string name="release">Azad et</string>
   <string name="teachers">Müəllimlər</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">%s müəllim</item>
+    <item quantity="other">%s müəllim</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">%s tələbə</item>
+    <item quantity="other">%s tələbə</item>
+  </plurals>
   <string name="students">Tələbələr</string>
   <string name="progress">İrəliləyiş</string>
   <string name="overDays" comment="overDays&#10;&#10;In the &quot;Progress&quot; tab of a Lichess Class dashboard, &quot;Over days&quot; is the title of a selector. This selector offers a choice between various durations, in days, over which the user can view the progress of the class.">Günlər ərzində</string>
