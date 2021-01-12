@@ -21,6 +21,7 @@
   <string name="currentStatus">Cari status</string>
   <string name="nextPayment">Növbəti ödəniş</string>
   <string name="update">Yenilə</string>
+  <string name="cancelSupport">dəstəyini kəs</string>
   <string name="xOrY">%1$s və ya %2$s</string>
   <string name="paymentHistory">Ödəmə keçmişi</string>
   <string name="paid">Pullu</string>
