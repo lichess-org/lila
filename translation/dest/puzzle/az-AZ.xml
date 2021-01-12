@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="phases">Mərhələlər</string>
+  <string name="mates">Matlar</string>
+  <string name="goals">Hədəflər</string>
+</resources>
