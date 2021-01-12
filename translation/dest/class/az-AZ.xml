@@ -2,5 +2,7 @@
 <resources>
   <string name="lichessClasses">Siniflər</string>
   <string name="features">Özəlliklər</string>
+  <string name="reopen">Yenidən aç</string>
+  <string name="lastActiveDate">Aktiv</string>
   <string name="na">Məlumat Yoxdur</string>
 </resources>
