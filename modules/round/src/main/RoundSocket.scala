@@ -146,6 +146,7 @@ final class RoundSocket(
       versions foreach { case (roomId, version) =>
         rounds.tell(roomId, SetVersion(version))
       }
+    case P.In.Ping(id) => send(P.Out.pong(id))
     case P.In.WsBoot =>
       logger.warn("Remote socket boot")
       // schedule termination for all game ducts
