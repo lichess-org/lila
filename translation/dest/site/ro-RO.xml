@@ -237,10 +237,10 @@
   <string name="casualTournament">Amical</string>
   <string name="ratedTournament">Oficial</string>
   <string name="thisGameIsRated">Această partidă este oficială</string>
-  <string name="rematch">Revanşă</string>
+  <string name="rematch">Revanșă</string>
   <string name="rematchOfferSent">Propunerea de revanșă a fost trimisă</string>
-  <string name="rematchOfferSentWhite">Albul oferă remiză</string>
-  <string name="rematchOfferSentBlack">Negrul oferă remiză</string>
+  <string name="rematchOfferSentWhite">Albul oferă revanșa</string>
+  <string name="rematchOfferSentBlack">Negrul oferă revanșa</string>
   <string name="rematchOfferAccepted">Propunerea de revanșă a fost acceptată</string>
   <string name="rematchOfferCanceled">Propunerea de revanșă a fost anulată</string>
   <string name="rematchOfferDeclined">Propunerea de revanșă a fost respinsă</string>
@@ -647,7 +647,7 @@
   <string name="aboutSimulImage">Din 50 de oponenți, Fischer a câștigat 47 de meciuri, a remizat în 2 meciuri și a pierdut 1 meci.</string>
   <string name="aboutSimulRealLife">Conceptul provine din evenimentele din lumea reală. În viața reală, jucătorul care acordă un simultan se deplasează de la o tablă la alta pentru a juca la fiecare câte o singură mutare.</string>
   <string name="aboutSimulRules">Când simultanul începe, fiecare jucător începe jocul cu gazda și va juca cu piesele albe. Simultanul se termină când toate jocurile sunt complete.</string>
-  <string name="aboutSimulSettings">Simultanele sunt tot timpul amicale. Revanșele, mutările înapoi și opțiune \"mai mult timp\" sunt dezactivate.</string>
+  <string name="aboutSimulSettings">Simultanele sunt tot timpul amicale. Revanșele, mutările înapoi și opțiunea \"mai mult timp\" sunt dezactivate.</string>
   <string name="create">Creează</string>
   <string name="whenCreateSimul">Când creezi un simultan, vei juca cu mai mulți jucători în același timp.</string>
   <string name="simulVariantsHint">Dacă alegi mai multe variante, fiecare jucător va avea de ales care variantă o va juca.</string>
