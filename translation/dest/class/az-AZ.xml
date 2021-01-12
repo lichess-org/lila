@@ -12,6 +12,7 @@
   <string name="removedStudents">Çıxarıldı</string>
   <string name="className">Sinif adı</string>
   <string name="classDescription">Sinif açıqlaması</string>
+  <string name="teachersOfTheClass">Sinif müəllimləri</string>
   <string name="resetPassword">Şifrəni sıfırla</string>
   <string name="passwordX">Şifrə: %s</string>
   <string name="realName">Həqiqi ad</string>
