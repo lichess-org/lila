@@ -44,5 +44,6 @@
   <string name="addAnotherTheme">Legg til tema</string>
   <string name="jumpToNextPuzzleImmediately">Gå til neste sjakknøtt med én gang</string>
   <string name="puzzleDashboard">Panel for sjakknøtter</string>
+  <string name="improvementAreas">Forbedringsområder</string>
   <string name="strengths">Styrker</string>
 </resources>
