@@ -486,16 +486,16 @@ Thank you all, you rock!"""
           }
         ).flatten
       }
-    ).flatten filter { _.schedule.at.isAfter(rightNow minusHours 1) }
+    ).flatten filter { _.schedule.at isAfter rightNow }
   }
 
-  private[tournament] def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) = {
+  private[tournament] def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) =
     newTourns
       .foldLeft(List[Tournament]()) { case (tourns, t) =>
         if (overlaps(t, tourns) || overlaps(t, scheds)) tourns
         else t :: tourns
-      } reverse
-  }
+      }
+      .reverse
 
   private case class ScheduleNowWith(dbScheds: List[Tournament])
 
@@ -534,8 +534,9 @@ Thank you all, you rock!"""
     case ScheduleNowWith(dbScheds) =>
       try {
         val newTourns = allWithConflicts(DateTime.now).map(_.build)
+        val pruned    = pruneConflicts(dbScheds, newTourns)
         tournamentRepo
-          .insert(pruneConflicts(dbScheds, newTourns))
+          .insert(pruned)
           .logFailure(logger)
           .unit
       } catch {
