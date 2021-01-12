@@ -13,6 +13,7 @@
   <string name="patronUntil">Dəstəkçi hesabınızın müddəti %s tarixində başa çatır.</string>
   <string name="ifNotRenewed">Yeniləmədinizsə, hesabınız ödənişsiz hesaba çevriləcək.</string>
   <string name="lifetime">Ömürlük</string>
+  <string name="monthly">Aylıq</string>
   <string name="otherAmount">Digər</string>
   <string name="withPaypal">Paypal</string>
   <string name="update">Yenilə</string>
