@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="castling">Qalaqurma</string>
+  <string name="crushing">Əzici üstünlük</string>
+  <string name="equality">Bərabərləşmə</string>
+  <string name="endgame">Endşpil</string>
   <string name="fork">Çəngəl</string>
   <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mat</string>
+  <string name="opening">Debüt</string>
   <string name="pin">Bağlama</string>
   <string name="skewer">Şiş</string>
+  <string name="zugzwang">Suqsvanq</string>
 </resources>
