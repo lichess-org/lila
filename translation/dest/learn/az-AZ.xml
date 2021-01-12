@@ -43,7 +43,8 @@
   <string name="outOfCheck">Şahı qoru</string>
   <string name="mateInOne">Mat vermə</string>
   <string name="intermediate">Orta</string>
-  <string name="boardSetup">Lövhə ayarları</string>
+  <string name="boardSetup">Fuqurların düzülüşü</string>
+  <string name="howTheGameStarts">Oyuna necə başlamalı</string>
   <string name="castling">Qalaqurma</string>
   <string name="enPassant">Keçiddə götürmə</string>
   <string name="stalemate">Pat</string>
