@@ -35,12 +35,15 @@
   <string name="thePawn">Piyada</string>
   <string name="pawnPromotion">Piyadanın çevrilməsi</string>
   <string name="capture">Vurma</string>
+  <string name="protection">Müdafiə</string>
   <string name="combat">Döyüş</string>
   <string name="checkInOne">Şah vermə</string>
   <string name="mateInOne">Mat vermə</string>
   <string name="castling">Qalaqurma</string>
+  <string name="enPassant">Keçiddə götürmə</string>
   <string name="stalemate">Pat</string>
   <string name="advanced">Ətraflı</string>
+  <string name="whatNext">Sırada nə var?</string>
   <string name="register">Qeydiyyat</string>
   <string name="practice">Məşğələ</string>
   <string name="puzzles">Puzzlelar</string>
@@ -48,8 +51,13 @@
   <string name="letsGo">Getdik!</string>
   <string name="stageX">Mərhələ %s</string>
   <string name="awesome">Möhtəşəm!</string>
+  <string name="excellent">Mükəmməl!</string>
+  <string name="greatJob">Əla!</string>
   <string name="perfect">Mükəmməl!</string>
+  <string name="wayToGo">Belə davam!</string>
+  <string name="nailedIt">Bacardın.</string>
   <string name="rightOn">Bax belə!</string>
+  <string name="yourScore">Sizin reytqin:</string>
   <string name="next">Növbəti</string>
   <string name="retry">Yenidən başlat</string>
 </resources>
