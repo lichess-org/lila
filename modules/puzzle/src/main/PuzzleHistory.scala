@@ -1,5 +1,6 @@
 package lila.puzzle
 
+import cats.data.NonEmptyList
 import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONNull
 import reactivemongo.api.ReadPreference
@@ -7,22 +8,29 @@ import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 import scala.util.chaining._
 
+import lila.common.config.MaxPerPage
 import lila.common.paginator.AdapterLike
+import lila.common.paginator.Paginator
 import lila.db.dsl._
 import lila.memo.CacheApi
 import lila.user.User
-import lila.common.paginator.Paginator
-import lila.common.config.MaxPerPage
-import cats.data.NonEmptyList
 
 object PuzzleHistory {
+
+  val maxPerPage = MaxPerPage(100)
 
   case class SessionRound(round: PuzzleRound, puzzle: Puzzle, theme: PuzzleTheme.Key)
 
   case class PuzzleSession(
       theme: PuzzleTheme.Key,
       puzzles: NonEmptyList[SessionRound] // chronological order, oldest first
-  )
+  ) {
+    // val nb              = puzzles.size
+    // val firstWins       = puzzles.toList.count(_.round.firstWin)
+    // val fails           = nb - firstWins
+    // def puzzleRatingAvg = puzzles.toList.foldLeft(0)(_ + _.puzzle.glicko.intRating)
+    // def performance     = puzzleRatingAvg - 500 + math.round(1000 * (firstWins.toFloat / nb))
+  }
 
   final class HistoryAdapter(user: User, colls: PuzzleColls)(implicit ec: ExecutionContext)
       extends AdapterLike[PuzzleSession] {
@@ -60,13 +68,13 @@ object PuzzleHistory {
     rounds
       .foldLeft(List.empty[PuzzleSession]) {
         case (Nil, round) => List(PuzzleSession(round.theme, NonEmptyList(round, Nil)))
-        case (last :: sessions, round) =>
+        case (last :: sessions, r) =>
           if (
-            last.puzzles.head.theme == round.theme &&
-            last.puzzles.head.round.date.isAfter(round.round.date minusMinutes 15)
+            last.puzzles.head.theme == r.theme &&
+            r.round.date.isAfter(last.puzzles.head.round.date minusHours 1)
           )
-            last.copy(puzzles = round :: last.puzzles) :: sessions
-          else PuzzleSession(round.theme, NonEmptyList(round, Nil)) :: last :: sessions
+            last.copy(puzzles = r :: last.puzzles) :: sessions
+          else PuzzleSession(r.theme, NonEmptyList(r, Nil)) :: last :: sessions
       }
       .reverse
 }
@@ -82,7 +90,7 @@ final class PuzzleHistoryApi(
     Paginator[PuzzleSession](
       new HistoryAdapter(user, colls),
       currentPage = page,
-      maxPerPage = MaxPerPage(50)
+      maxPerPage = maxPerPage
     )
 
 }

@@ -3,10 +3,12 @@ package html.puzzle
 
 import controllers.routes
 import play.api.i18n.Lang
+import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.common.String.html.safeJsonValue
 import lila.puzzle.PuzzleDashboard
 import lila.puzzle.PuzzleTheme
 import lila.user.User
@@ -27,14 +29,54 @@ object dashboard {
         if (ctx is user) "Puzzle dashboard"
         else s"${user.username} puzzle dashboard",
       subtitle = "Let's see how good you've been doing",
-      dashOpt = dashOpt
+      dashOpt = dashOpt,
+      moreJs = dashOpt ?? { dash =>
+        val mostPlayed = dash.mostPlayed.sortBy { case (key, _) =>
+          PuzzleTheme(key).name.txt()
+        }
+        frag(
+          jsModule("puzzle.dashboard"),
+          embedJsUnsafeLoadThen(s"""LichessPuzzleDashboard.renderRadar(${safeJsonValue(
+            Json
+              .obj(
+                "radar" -> Json.obj(
+                  "labels" -> mostPlayed.map { case (key, _) =>
+                    PuzzleTheme(key).name.txt()
+                  },
+                  "datasets" -> Json.arr(
+                    // Json.obj(
+                    //   "label" -> "# of puzzles",
+                    //   "data" -> mostPlayed.map { case (_, results) =>
+                    //     results.nb
+                    //   }
+                    // ),
+                    Json.obj(
+                      "label" -> "Performance",
+                      "data" -> mostPlayed.map { case (_, results) =>
+                        results.performance
+                      }
+                    )
+                  )
+                )
+              )
+          )})""")
+        )
+      }
     ) { dash =>
       frag(
         div(cls := s"${baseClass}__global")(
-          metricsOf(days, PuzzleTheme.mix.key, dash.global)
+          metricsOf(days, PuzzleTheme.mix.key, dash.global),
+          canvas(cls := s"${baseClass}__radar")
         )
       )
     }
+
+// data: {
+//     labels: ['Running', 'Swimming', 'Eating', 'Cycling'],
+//     datasets: [{
+//         data: [20, 10, 4, 2]
+//     }]
+// }
 
   def improvementAreas(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: Context) =
     dashboardLayout(
@@ -70,13 +112,15 @@ object dashboard {
       path: String,
       title: String,
       subtitle: String,
-      dashOpt: Option[PuzzleDashboard]
+      dashOpt: Option[PuzzleDashboard],
+      moreJs: Frag = emptyFrag
   )(
       body: PuzzleDashboard => Frag
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
-      moreCss = cssTag("puzzle.dashboard")
+      moreCss = cssTag("puzzle.dashboard"),
+      moreJs = moreJs
     )(
       main(cls := "page-menu")(
         bits.pageMenu("dashboard"),

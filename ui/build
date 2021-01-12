@@ -19,6 +19,7 @@ apps3="site swiss msg chat cli challenge notify learn insight editor puzzle roun
 site_plugins="tvEmbed puzzleEmbed analyseEmbed user modUser clas coordinate captcha expandText team forum account coachShow coachForm challengePage checkout login passwordComplexity tourForm teamBattleForm gameSearch userComplete infiniteScroll flatpickr teamAdmin"
 round_plugins="nvui keyboardMove"
 analyse_plugins="nvui studyTopicForm"
+puzzle_plugins="dashboard"
 
 if [ $mode == "upgrade" ]; then
   yarn upgrade --non-interactive
@@ -66,11 +67,13 @@ else
     parallel --gnu $P_OPTS build_plugin site ::: $site_plugins
     parallel --gnu $P_OPTS build_plugin round ::: $round_plugins
     parallel --gnu $P_OPTS build_plugin analyse ::: $analyse_plugins
+    parallel --gnu $P_OPTS build_plugin analyse ::: $puzzle_plugins
   else # sequential execution
     echo "For faster builds, install GNU parallel."
     for app in $apps1 $apps2 $apps3; do (build $app); done
     for plugin in $site_plugins; do (build_plugin site $plugin); done
     for plugin in $round_plugins; do (build_plugin round $plugin); done
     for plugin in $analyse_plugins; do (build_plugin analyse $plugin); done
+    for plugin in $puzzle_plugins; do (build_plugin puzzle $plugin); done
   fi
 fi

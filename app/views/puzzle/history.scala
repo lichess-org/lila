@@ -27,7 +27,7 @@ object history {
           div(cls := "puzzle-history")(
             div(cls := "infinite-scroll")(
               pager.currentPageResults map renderSession,
-              pagerNext(pager, np => routes.Puzzle.history(np).url)
+              pagerNext(pager, np => s"${routes.Puzzle.history(np).url}${!ctx.is(user) ?? s"&u=${user.id}"}")
             )
           )
         )

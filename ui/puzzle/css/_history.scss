@@ -1,9 +1,16 @@
 .puzzle-history {
+
   &__session {
     margin-bottom: 5em;
+
     &__title {
       @extend %flex-between;
+      align-items: flex-end;
       margin-bottom: 1rem;
+      time {
+        font-size: 1.5rem;
+        margin-right: 1ch;
+      }
     }
     &__rounds {
       display: grid;
@@ -13,7 +20,7 @@
   }
 
   &__round {
-    padding: .3em;
+    padding: .4em;
     color: $c-font;
 
     &__meta {

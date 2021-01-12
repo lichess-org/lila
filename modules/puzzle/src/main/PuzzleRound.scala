@@ -40,6 +40,8 @@ case class PuzzleRound(
     win = win,
     fixedAt = fixedAt orElse win.option(DateTime.now)
   )
+
+  def firstWin = win && fixedAt.isEmpty
 }
 
 object PuzzleRound {

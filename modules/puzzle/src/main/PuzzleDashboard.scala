@@ -33,6 +33,8 @@ case class PuzzleDashboard(
       .takeRight(topThemesNb)
     (weaks, strong)
   }
+
+  def mostPlayed = byTheme.toList.sortBy(-_._2.nb).take(9)
 }
 
 object PuzzleDashboard {
