@@ -24,11 +24,11 @@ object dashboard {
     dashboardLayout(
       user = user,
       days = days,
-      path = "home",
+      path = "dashboard",
       title =
         if (ctx is user) "Puzzle dashboard"
         else s"${user.username} puzzle dashboard",
-      subtitle = "Let's see how good you've been doing",
+      subtitle = "Train, analyse, improve",
       dashOpt = dashOpt,
       moreJs = dashOpt ?? { dash =>
         val mostPlayed = dash.mostPlayed.sortBy { case (key, _) =>
@@ -117,10 +117,10 @@ object dashboard {
       moreJs = moreJs
     )(
       main(cls := "page-menu")(
-        bits.pageMenu("dashboard"),
+        bits.pageMenu(path),
         div(cls := s"page-menu__content box box-pad $baseClass")(
           div(cls := "box__top")(
-            iconTag('-'),
+            // iconTag('-'),
             h1(
               title,
               strong(subtitle)
