@@ -14,9 +14,17 @@
     <item quantity="one">%1$s dəfə %2$s oynadı</item>
     <item quantity="other">%1$s dəfə %2$s oynadı</item>
   </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">%2$s mövzusunda %1$s mesaj paylaşdı</item>
+    <item quantity="other">%2$s mövzusunda %1$s mesaj paylaşdı</item>
+  </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">%1$s gediş etdi</item>
     <item quantity="other">%1$s gediş etdi</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">%s oyunçunu izləməyə başladı</item>
+    <item quantity="other">%s oyunçunu izləməyə başladı</item>
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="one">%s yeni izləyici qazandı</item>
