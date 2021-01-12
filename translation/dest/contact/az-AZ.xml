@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Əlaqə</string>
+  <string name="cheating">hiylə</string>
+  <string name="trolling">trollama</string>
   <string name="insults">təhqir</string>
 </resources>
