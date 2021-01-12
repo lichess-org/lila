@@ -46,4 +46,7 @@
   <string name="puzzleDashboard">Bulmaca kontrol paneli</string>
   <string name="improvementAreas">Gelişim alanları</string>
   <string name="strengths">Güçlü yönler</string>
+  <string name="history">Bulmaca geçmişi</string>
+  <string name="won">başarılı</string>
+  <string name="failed">başarısız</string>
 </resources>
