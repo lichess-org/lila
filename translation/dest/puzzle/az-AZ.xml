@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">Məsələ</string>
-  <string name="puzzleThemes">Məsələ temaları</string>
+  <string name="puzzles">Tapmacalar</string>
+  <string name="puzzleThemes">Tapmaca temaları</string>
   <string name="recommended">Tövsiyə edilən</string>
   <string name="phases">Mərhələlər</string>
   <string name="motifs">Motivlər</string>
@@ -10,11 +10,25 @@
   <string name="mates">Matlar</string>
   <string name="goals">Hədəflər</string>
   <string name="specialMoves">Xüsusi gedişlər</string>
+  <string name="didYouLikeThisPuzzle">Bu tapmacanı bəyəndiniz?</string>
+  <string name="voteToLoadNextOne">Sıradakına keçmək üçün səs verin!</string>
+  <string name="yourPuzzleRatingX">Sizin tapmaca reytinginiz: %s</string>
+  <string name="findTheBestMoveForWhite">Ağlar üçün ən yaxşı gedişi tapın.</string>
+  <string name="findTheBestMoveForBlack">Qaralar üçün ən yaxşı gedişi tapın.</string>
+  <string name="toGetPersonalizedPuzzles">Fərdiləşdirilmiş tapmacalar üçün:</string>
+  <string name="puzzleId">Tapmaca %s</string>
+  <string name="puzzleOfTheDay">Günün tapmacası</string>
+  <string name="clickToSolve">Həll edin</string>
+  <string name="goodMove">Yaxşı gediş</string>
+  <string name="bestMove">Ən yaxşı gediş!</string>
+  <string name="keepGoing">Davam edin…</string>
+  <string name="puzzleSuccess">Uğurlu!</string>
+  <string name="puzzleComplete">Tapmaca tamalandı!</string>
   <string name="hidden">gizli</string>
   <string name="normal">Normal</string>
   <string name="easier">Asan</string>
   <string name="harder">Çətin</string>
-  <string name="history">Məsələ keçmişi</string>
+  <string name="history">Tapmaca keçmişi</string>
   <string name="won">qazandı</string>
   <string name="failed">uğursuz oldu</string>
 </resources>
