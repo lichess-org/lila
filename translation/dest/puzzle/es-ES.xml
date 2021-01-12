@@ -44,6 +44,9 @@
   <string name="addAnotherTheme">Añadir otro tema</string>
   <string name="jumpToNextPuzzleImmediately">Ir al siguiente rompecabezas inmediatamente</string>
   <string name="puzzleDashboard">Panel de rompecabezas</string>
+  <string name="improvementAreas">Áreas de mejora</string>
   <string name="strengths">Fortalezas</string>
   <string name="history">Historial de rompecabezas</string>
+  <string name="won">victoria</string>
+  <string name="failed">error</string>
 </resources>
