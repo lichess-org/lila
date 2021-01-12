@@ -44,5 +44,6 @@
   <string name="addAnotherTheme">Aggiungi un altro tema</string>
   <string name="jumpToNextPuzzleImmediately">Passa subito alla tattica successiva</string>
   <string name="puzzleDashboard">Pagina dei puzzle</string>
+  <string name="improvementAreas">Aree di miglioramento</string>
   <string name="strengths">Punti di forza</string>
 </resources>
