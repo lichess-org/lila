@@ -17,4 +17,6 @@
   <string name="jumpToNextPuzzleImmediately">Takoj skočite k naslednji uganki</string>
   <string name="puzzleDashboard">Nadzorna plošča uganke</string>
   <string name="strengths">Prednosti</string>
+  <string name="history">Zgodovina ugank</string>
+  <string name="won">zmaga</string>
 </resources>
