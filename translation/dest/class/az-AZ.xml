@@ -31,11 +31,14 @@
   </plurals>
   <string name="students">Tələbələr</string>
   <string name="progress">İrəliləyiş</string>
+  <string name="noRemovedStudents">Çıxarılan tələbə yoxdur.</string>
   <string name="overDays" comment="overDays&#10;&#10;In the &quot;Progress&quot; tab of a Lichess Class dashboard, &quot;Over days&quot; is the title of a selector. This selector offers a choice between various durations, in days, over which the user can view the progress of the class.">Günlər ərzində</string>
   <string name="timePlaying">Oynama müddəti</string>
+  <string name="variantXOverLastY" comment="variantXOverLastY&#10;&#10;The first variable is a game type (Blitz/Bullet, etc).&#10;The second variable is a duration length (in days).&#10;&#10;This is the heading of a column for a table that appears in the &quot;Progress&quot; tab of the Lichess Class dashboard.">Son %2$s gündə %1$s</string>
   <string name="winrate">Qazanma əmsalı</string>
   <string name="na">Məlumat Yoxdur</string>
   <string name="news">Sinif xəbərləri</string>
   <string name="editNews">Xəbərləri redaktə et</string>
+  <string name="notifyAllStudents">Bütün tələbələri xəbərdar edin</string>
   <string name="nothingHere">Hələ heç nə yoxdur.</string>
 </resources>
