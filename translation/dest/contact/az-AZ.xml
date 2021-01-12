@@ -8,6 +8,7 @@
   <string name="forgotUsername">İstifadəçi adımı unutdum</string>
   <string name="accountSupport">Hesabımla əlaqədar köməyə ehtiyacım var</string>
   <string name="wantCloseAccount">Hesabımı bağlamaq istəyirəm</string>
+  <string name="wantReopen">Hesabımı yenidən açmaq istəyirəm</string>
   <string name="wantReport">Bir oyunçunu bildirmək istəyirəm</string>
   <string name="cheating">hiylə</string>
   <string name="sandbagging">bilərək uduzma</string>
