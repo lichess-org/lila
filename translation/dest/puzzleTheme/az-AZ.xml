@@ -35,6 +35,7 @@
   <string name="oneMove">Bir gedişlik tapmaca</string>
   <string name="opening">Debüt</string>
   <string name="pawnEndgame">Piyada sonluğu</string>
+  <string name="pawnEndgameDescription">Sadəcə piyadalrın olduğu oyun sonu.</string>
   <string name="pin">Bağlama</string>
   <string name="promotion">Çevrilmə</string>
   <string name="queenEndgame">Vəzir sonluğu</string>
