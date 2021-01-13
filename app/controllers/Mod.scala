@@ -289,7 +289,6 @@ final class Mod(
   def refreshUserAssess(username: String) =
     Secure(_.MarkEngine) { implicit ctx => me =>
       OptionFuResult(env.user.repo named username) { user =>
-        env.insight.api.ensureLatest(user.id)
         assessApi.refreshAssessByUsername(username) >>
           env.irwin.api.requests.fromMod(Suspect(user), AsMod(me)) >>
           userC.renderModZoneActions(username)

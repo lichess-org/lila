@@ -46,12 +46,6 @@ final class InsightApi(
         }
     }
 
-  def ensureLatest(userId: User.ID): Funit =
-    userCacheApi version userId flatMap {
-      case Some(v) if v == latestVersion => funit
-      case _                             => storage.removeAll(userId) >> indexAll(userId)
-    }
-
   def indexAll(userId: User.ID) =
     indexer
       .all(userId)
