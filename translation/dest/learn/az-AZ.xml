@@ -75,6 +75,8 @@ götürmələrinə imkan verməyin!</string>
 bir hərəkətdə!</string>
   <string name="outOfCheck">Şahı qoru</string>
   <string name="defendYourKing">Şahı müdafiə edin</string>
+  <string name="outOfCheckIntro">Rəqib sizə şah verdi!
+Şahı qaçmalı və ya hücumu blok etməlisiz.</string>
   <string name="escapeWithTheKing">Şah ilə qaç!</string>
   <string name="theKingCannotEscapeButBlock">Şah qaça bilməz,
 lakin hücumun bloklaya bilərsiz!</string>
@@ -115,10 +117,13 @@ Davam etmək üçün bir gediş edir.</string>
   <string name="findAWayToCastleQueenSide">Vəzir tərəfə qalaqurmanın bir yolunu tapın!</string>
   <string name="enPassant">Keçiddə götürmə</string>
   <string name="theSpecialPawnMove">Xüsusi piyada gedişi</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Keçiddə götürmə yalnız
+piyadanız 5-ci horizontalda olanda mümkündür.</string>
   <string name="takeAllThePawnsEnPassant">Bütün keçiddə piyadaları götür!</string>
   <string name="enPassantComplete">Təbriklər! Artıq keçiddə piyada götürə bilərsiz.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Oyun heç-heçədir</string>
+  <string name="stalemateComplete">Təbriklər! Mat olmaqdansa Pat yaxşıdır!</string>
   <string name="advanced">Ətraflı</string>
   <string name="pieceValue">Fiqur dəyəri</string>
   <string name="evaluatePieceStrength">Fiqur gücü qiymətləndirilməsi</string>
