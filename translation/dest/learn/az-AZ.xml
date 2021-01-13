@@ -38,7 +38,10 @@
   <string name="captureThenPromote">Vur və çevril!</string>
   <string name="useAllThePawns">Bütün piyadalardan istifadə edin!
 Çevrilməyə ehtiyac yoxdur.</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Bütün ulduzları yığın!
+Çevrilməyə ehtiyac yoxdur.</string>
   <string name="pawnPromotion">Piyadanın çevrilməsi</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Piyadanız lövhənin sonuna çatdı!</string>
   <string name="itNowPromotesToAStrongerPiece">İndi daha güclü bir fiqura çevrilir.</string>
   <string name="selectThePieceYouWant">İstədiyiniz fiquru seçin!</string>
   <string name="fundamentals">Təməl Prinsiplər</string>
@@ -47,10 +50,16 @@
   <string name="takeTheBlackPieces">Qara fiqurları vur!</string>
   <string name="protection">Müdafiə</string>
   <string name="keepYourPiecesSafe">Fiqurlarını qoru</string>
+  <string name="escape">Hücum altındasınız!
+Təhlükədən qaçın!</string>
+  <string name="noEscape">Qaçış yoxdur,
+ancaq sən müdafiə oluna bilərsən!</string>
   <string name="combat">Döyüş</string>
   <string name="captureAndDefendPieces">Fiqurları vur və müdfiə et</string>
   <string name="checkInOne">Şah vermə</string>
   <string name="attackTheOpponentsKing">Rəqib şahına hücum et</string>
+  <string name="checkInOneGoal">Rəqibin kralını hədəf alın
+bir hərəkətdə!</string>
   <string name="outOfCheck">Şahı qoru</string>
   <string name="defendYourKing">Şahı müdafiə edin</string>
   <string name="escapeWithTheKing">Şah ilə qaç!</string>
