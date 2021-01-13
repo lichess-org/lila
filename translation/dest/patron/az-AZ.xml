@@ -38,6 +38,7 @@
     <item quantity="other">%s aydır Lichess dəstəkçisidir</item>
   </plurals>
   <string name="youSupportWith">Lichess.org-a ayda %s ilə dəstək verirsiniz.</string>
+  <string name="tyvm">Köməyiniz üçün çox təşəkkür edirəm. Möhtəşəmsiz!</string>
   <string name="currentStatus">Cari status</string>
   <string name="nextPayment">Növbəti ödəniş</string>
   <string name="youWillBeChargedXOnY">Hesabınızdan %2$s tarixində %1$s tutulacaq.</string>
@@ -47,6 +48,7 @@
   <string name="cancelSupport">dəstəyini kəs</string>
   <string name="xOrY">%1$s və ya %2$s</string>
   <string name="decideHowMuch">Lichessin sizin üçün nə qədər dəyərli olduğuna qərar verin:</string>
+  <string name="stopPayments">Kredit kartınızı geri çəkin və ödənişləri dayandırın:</string>
   <string name="noLongerSupport">Artıq Lichessi dəstəkləmir</string>
   <string name="paymentHistory">Ödəmə keçmişi</string>
   <string name="paid">Pullu</string>
