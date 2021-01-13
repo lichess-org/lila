@@ -58,6 +58,10 @@
     <item quantity="one">%s turnirə qatıldı</item>
     <item quantity="other">%s taktiki tapmaca həll etdi</item>
   </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">%3$s oyun oynayaraq %4$s turnirində %1$s. oldu (en yaxşı%2$s%% içində)</item>
+    <item quantity="other">%3$s oyun oynayaraq %4$s turnirində %1$s. oldu (en yaxşı%2$s%% içində)</item>
+  </plurals>
   <string name="signedUp">lichess.org\'a üzv oldu</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s komandasına qatıldı</item>
