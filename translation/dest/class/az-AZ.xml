@@ -3,6 +3,7 @@
   <string name="lichessClasses">Siniflər</string>
   <string name="features">Özəlliklər</string>
   <string name="trackStudentProgress">Oyunlarda və tapmacalarda tələbələrin irəliləyişini izləyin</string>
+  <string name="messageAllStudents">Bütün tələbələrə yeni dərs materialları haqqında mesaj göndərin</string>
   <string name="applyToBeLichessTeacher">Lichess müəllimi olmaq üçün müraciət edin</string>
   <string name="noClassesYet">Hələki bir sinif yoxdur.</string>
   <string name="teachersX">Müəllimlər: %s</string>
