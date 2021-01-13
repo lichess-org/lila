@@ -29,6 +29,7 @@
   <string name="lichessSupportChessAnd">Lichess standart şahmatı və daha %1$s dəstəkləyir.</string>
   <string name="eightVariants">8 şahmat variantını</string>
   <string name="whatIsACPL">Ortalama santipiyada itkisi nədir(OSPİ)?</string>
+  <string name="insufficientMaterial">Vaxt azlığı, heç-heçə və yetərsiz fiqur</string>
   <string name="fideHandbookX">FIDE qaydaları %s</string>
   <string name="goodIntroduction">yaxşı giriş</string>
   <string name="officialRulesPDF">rəsmi qaydalar (PDF)</string>
@@ -50,6 +51,7 @@
   <string name="aHourlyBulletTournament">bir saatlıq Bullet turniri</string>
   <string name="lichessRatings">Lichess reytinqi</string>
   <string name="whichRatingSystemUsedByLichess">Lichess hansı reytinq sistemindən istifadə edir?</string>
+  <string name="whatIsProvisionalRating">Niyə reytinqin yanında bir sual işarəsi (?) var?</string>
   <string name="similarOpponents">eynigüclü rəqiblər</string>
   <string name="howDoLeaderoardsWork">Sıralama və liderlik cədvəli necə işləyir?</string>
   <string name="inOrderToAppearsYouMust">%1$s cədvəlinə daxil olmaq üçün bunları etməlisiniz:</string>
