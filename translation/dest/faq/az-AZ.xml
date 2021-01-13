@@ -53,6 +53,13 @@
   <string name="aHourlyBulletTournament">bir saatlıq Bullet turniri</string>
   <string name="lichessRatings">Lichess reytinqi</string>
   <string name="whichRatingSystemUsedByLichess">Lichess hansı reytinq sistemindən istifadə edir?</string>
+  <string name="ratingSystemUsedByLichess">Reytinqlər Mark Glickman tərəfindən hazırlanmış Glicko-2 qiymətləndirmə metodu ilə hesablanır. Bu, çox populyar bir reytinq metodudur və xeyli sayda şahmat təşkilatı tərəfindən istifadə olunur (FIDE hələ də tarixli Elo reytinq sistemini istifadə etdiyi üçün diqqətəlayiq bir əks nümunədir).
+
+Əsasən, Glicko reytinqləri reytinqinizi hesablayarkən \"güvən intervalı\"ndan istifadə edir. Saytı ilk dəfə istifadə etməyə başladığınızda, reytinqiniz 1500 ± 700-dən başlayır. 1500, reytinqinizi, 700 isə güvən aralığını təmsil edir.
+
+Qısacası, sistem reytinqinizin 800 ilə 2200 arasında bir yerdə olduğundan 90% əmindir. Bu inanılmaz dərəcədə qeyri-müəyyəndir. Bu səbəbdən bir oyunçu yeni başlayanda, reytinqləri çox dramatik şəkildə dəyişəcək, potensial olaraq hər dəfə bir neçə yüz bal. Ancaq müəyyən oyunçulara qarşı bəzi oyunlardan sonra güvən intervalı azalacaq və hər oyundan sonra qazanılan / itirilən xal miqdarı azalacaq.
+
+Diqqət çəkən başqa bir məqam, zaman keçdikcə özünə inam aralığının artmasıdır. Bu, bu müddət ərzində bacarıq səviyyəsindəki hər hansı bir dəyişikliklə uyğunlaşmaq üçün daha sürətli xal qazanma / itirmə imkanı verir.</string>
   <string name="whatIsProvisionalRating">Niyə reytinqin yanında bir sual işarəsi (?) var?</string>
   <string name="similarOpponents">eynigüclü rəqiblər</string>
   <string name="howDoLeaderoardsWork">Sıralama və liderlik cədvəli necə işləyir?</string>
@@ -61,6 +68,9 @@
   <string name="havePlayedMoreThanThirtyGamesInThatRating">verilmiş reytinqdə ən azı 30 reytinqli oyun oynamış,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">verilmiş reytinqdə son bir həftə reytinqli oyunlar oynamış,</string>
   <string name="beInTopTen">bu reytinqdə ilk 10-da olmaq.</string>
+  <string name="whyAreRatingHigherExplanation">Reytinqləri mütləq rəqəmlər hesab etməmək və ya digər təşkilatlarla müqayisə etməmək yaxşıdır. Fərqli təşkilatların fərqli səviyyəli oyunçuları, fərqli reytinq sistemləri var (Elo, Glicko, Glicko-2 və ya yuxarıda göstərilənlərin dəyişdirilmiş bir versiyası). Bu amillər mütləq rəqəmləri (dərəcələri) kəskin şəkildə təsir edə bilər.
+
+Reytinqləri \"nisbi\" rəqəmlər (\"mütləq\" rəqəmlərdən fərqli olaraq) kimi düşünmək daha yaxşıdır: Bir oyunçu hövzəsində reytinqlərdəki nisbi fərqlər kimin nə qədər qazandığını / heç-heçə etdiyini / məğlub olduğunu təxmin etməyə kömək edəcəkdir. \"X reytinqim var\" demək, bu reytinqi müqayisə edəcək digər oyunçular olmasa, heç bir mənası yoxdur.</string>
   <string name="howToHideRatingWhilePlaying">Oynayarkən reytinqləri necə gizlətmək olar?</string>
   <string name="displayPreferences">görüntü ayarları</string>
   <string name="howToThreeDots">Necə...</string>
