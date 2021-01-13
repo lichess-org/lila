@@ -110,6 +110,7 @@ final class RemoteSocket(
       send(Out.impersonate(userId, modId))
     case ApiUserIsOnline(userId, value) =>
       send(Out.apiUserOnline(userId, value))
+      if (value) onlineUserIds.getAndUpdate(_ + userId).unit
     case Follow(u1, u2)   => send(Out.follow(u1, u2))
     case UnFollow(u1, u2) => send(Out.unfollow(u1, u2))
   }
