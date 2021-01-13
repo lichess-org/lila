@@ -46,4 +46,7 @@
   <string name="puzzleDashboard">Painel do quebra-cabeça</string>
   <string name="improvementAreas">Áreas de aprimoramento</string>
   <string name="strengths">Pontos fortes</string>
+  <string name="history">Histórico de quebra-cabeças</string>
+  <string name="solved" comment="&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">resolvido</string>
+  <string name="failed">falhou</string>
 </resources>
