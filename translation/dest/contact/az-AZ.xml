@@ -9,6 +9,7 @@
   <string name="forgotPassword">Şifrəmi unutdum</string>
   <string name="forgotUsername">İstifadəçi adımı unutdum</string>
   <string name="lost2FA">İki faktorlu doğrulama kodlarımı itirdim</string>
+  <string name="doPasswordReset">İkinci doğrulamanı silmək üçün şifrənizi sıfırlayın</string>
   <string name="accountSupport">Hesabımla əlaqədar köməyə ehtiyacım var</string>
   <string name="wantTitle">Titulumun Lichessdə göstərilməsini istəyirəm</string>
   <string name="wantCloseAccount">Hesabımı bağlamaq istəyirəm</string>
