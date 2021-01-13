@@ -50,7 +50,7 @@ object history {
       ),
       span(cls := "puzzle-history__round__meta")(
         span(cls := "puzzle-history__round__result")(
-          if (r.round.win) goodTag(trans.puzzle.won())
+          if (r.round.win) goodTag(trans.puzzle.solved())
           else badTag(trans.puzzle.failed())
         ),
         span(cls := "puzzle-history__round__id")(s"#${r.puzzle.id.value}")
