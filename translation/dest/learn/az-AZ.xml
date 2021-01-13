@@ -37,6 +37,7 @@
   <string name="itMovesForwardOnly">Yalnız irəliləyir</string>
   <string name="captureThenPromote">Vur və çevril!</string>
   <string name="pawnPromotion">Piyadanın çevrilməsi</string>
+  <string name="itNowPromotesToAStrongerPiece">İndi daha güclü bir fiqura çevrilir.</string>
   <string name="selectThePieceYouWant">İstədiyiniz fiquru seçin!</string>
   <string name="fundamentals">Təməl Prinsiplər</string>
   <string name="capture">Vurma</string>
@@ -82,6 +83,7 @@
   <string name="playPeople">İnsanlarla oyna</string>
   <string name="opponentsFromAroundTheWorld">Dünyanın hər yerindən oyunçular</string>
   <string name="playMachine">Kompüterlə oyna</string>
+  <string name="testYourSkillsWithTheComputer">Bacarıqlarınızı kompüterə qarşı yoxlayın</string>
   <string name="letsGo">Getdik!</string>
   <string name="stageX">Mərhələ %s</string>
   <string name="awesome">Möhtəşəm!</string>
