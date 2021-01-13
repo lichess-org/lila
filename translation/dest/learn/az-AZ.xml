@@ -54,6 +54,8 @@
 Təhlükədən qaçın!</string>
   <string name="noEscape">Qaçış yoxdur,
 ancaq sən müdafiə oluna bilərsən!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Hər hansı müdafiəsiz fiquru
+götürmələrinə imkan verməyin!</string>
   <string name="combat">Döyüş</string>
   <string name="captureAndDefendPieces">Fiqurları vur və müdfiə et</string>
   <string name="checkInOne">Şah vermə</string>
@@ -63,11 +65,15 @@ bir hərəkətdə!</string>
   <string name="outOfCheck">Şahı qoru</string>
   <string name="defendYourKing">Şahı müdafiə edin</string>
   <string name="escapeWithTheKing">Şah ilə qaç!</string>
+  <string name="escapeOrBlock">Şahla qaç
+və ya hücumu blokla!</string>
   <string name="mateInOne">Mat vermə</string>
   <string name="defeatTheOpponentsKing">Rəqib şahını mat et</string>
   <string name="intermediate">Orta</string>
   <string name="boardSetup">Fuqurların düzülüşü</string>
   <string name="howTheGameStarts">Oyuna necə başlamalı</string>
+  <string name="placeTheKing">Şahı qoyun!
+Düz vəzirin yanına.</string>
   <string name="castling">Qalaqurma</string>
   <string name="theSpecialKingMove">Xüsusi şah gedişi</string>
   <string name="findAWayToCastleKingSide">Şah tərəfə qalaqurmanın bir yolunu tap!</string>
