@@ -47,6 +47,5 @@
   <string name="improvementAreas">Zones d\'entraînement</string>
   <string name="strengths">Points forts</string>
   <string name="history">Historique des problèmes</string>
-  <string name="won">réussis</string>
   <string name="failed">non réussis</string>
 </resources>
