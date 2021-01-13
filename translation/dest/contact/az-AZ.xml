@@ -8,12 +8,14 @@
   <string name="noConfirmationEmail">Təsdiq e-poçtumu almadım</string>
   <string name="forgotPassword">Şifrəmi unutdum</string>
   <string name="forgotUsername">İstifadəçi adımı unutdum</string>
+  <string name="lost2FA">İki faktorlu doğrulama kodlarımı itirdim</string>
   <string name="accountSupport">Hesabımla əlaqədar köməyə ehtiyacım var</string>
   <string name="wantTitle">Titulumun Lichessdə göstərilməsini istəyirəm</string>
   <string name="wantCloseAccount">Hesabımı bağlamaq istəyirəm</string>
   <string name="closeYourAccount">Bu səhifədəki hesabınızı bağlaya bilərsiniz</string>
   <string name="wantReopen">Hesabımı yenidən açmaq istəyirəm</string>
   <string name="wantChangeUsername">İstifadəçi adımı dəyişmək istəyirəm</string>
+  <string name="changeUsernameCase">İstifadəçi adınızda böyük və ya kiçik hərf dəyişikliyi etmək üçün bu səhifəni ziyarət edin</string>
   <string name="wantClearHistory">Tarixçəmi və ya reytinqimi sıfırlamaq istəyirəm</string>
   <string name="wantReport">Bir oyunçunu bildirmək istəyirəm</string>
   <string name="cheating">hiylə</string>
