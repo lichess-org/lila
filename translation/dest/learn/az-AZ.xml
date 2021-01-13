@@ -33,8 +33,12 @@
   <string name="kingComplete">İndi isə əmr sahibinə əmri siz verə bilərsiniz!</string>
   <string name="theKnight">At</string>
   <string name="itMovesInAnLShape">L hərfi formasında hərəkət edir</string>
+  <string name="knightsHaveAFancyWay">Atların üstündən atlamaq kimi
+özünəməxsus mərifəti var!</string>
   <string name="thePawn">Piyada</string>
   <string name="itMovesForwardOnly">Yalnız irəliləyir</string>
+  <string name="pawnsMoveForward">Piyadalar irəliyə gedir,
+lakin çapraz vurur!</string>
   <string name="captureThenPromote">Vur və çevril!</string>
   <string name="useAllThePawns">Bütün piyadalardan istifadə edin!
 Çevrilməyə ehtiyac yoxdur.</string>
@@ -89,6 +93,8 @@ Düz vəzirin yanına.</string>
   <string name="takeThePieceWithTheHighestValue">Ən dəyərli fiquru götürün!</string>
   <string name="checkInTwo">2 gedişə şah</string>
   <string name="twoMovesToGiveCheck">Şah vermək üçün iki gediş</string>
+  <string name="checkInTwoGoal">Rəqibə iki gedişdə
+şah ver!</string>
   <string name="whatNext">Sırada nə var?</string>
   <string name="register">Qeydiyyat</string>
   <string name="getAFreeLichessAccount">Pulsuz Lichess hesabı əldə edin</string>
