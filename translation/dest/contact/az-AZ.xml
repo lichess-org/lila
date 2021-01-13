@@ -27,6 +27,7 @@
   <string name="engineAppeal">Şahmat mühərriki istifadəsi və ya hiylə işarəsi</string>
   <string name="sendAppealTo">Buraya müraciət edə bilərsiniz: %s.</string>
   <string name="otherRestriction">Digər məhdudiyyət</string>
+  <string name="collaboration">Əməkdaşlıq, hüquqi, kommersiya</string>
   <string name="monetizing">Lichessdən pul qazanmaq</string>
   <string name="buyingLichess">Lichessi almaq</string>
   <string name="authorizationToUse">Lichess istifadə icazəsi</string>
