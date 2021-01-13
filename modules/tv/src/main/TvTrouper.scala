@@ -14,7 +14,8 @@ final private[tv] class TvTrouper(
     lightUser: LightUser.GetterSync,
     recentTvGames: lila.round.RecentTvGames,
     gameProxyRepo: lila.round.GameProxyRepo,
-    rematches: lila.game.Rematches
+    rematches: lila.game.Rematches,
+    lightUserSync: LightUser.GetterSync
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends Trouper {
 
@@ -23,7 +24,7 @@ final private[tv] class TvTrouper(
   Bus.subscribe(this, "startGame")
 
   private val channelTroupers: Map[Tv.Channel, ChannelTrouper] = Tv.Channel.all.map { c =>
-    c -> new ChannelTrouper(c, onSelect = this.!, gameProxyRepo.game, rematches.of)
+    c -> new ChannelTrouper(c, onSelect = this.!, gameProxyRepo.game, rematches.of, lightUserSync)
   }.toMap
 
   private var channelChampions = Map[Tv.Channel, Tv.Champion]()
