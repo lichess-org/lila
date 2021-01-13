@@ -23,9 +23,12 @@
   <string name="withPaypal">Paypal</string>
   <string name="whereMoneyGoes">Pul hara gedir?</string>
   <string name="costBreakdown">Detallı maliyyətə baxın</string>
+  <string name="officialNonProfit">Lichess rəsmi olaraq qeyri-kommersiya təşkilatıdır?</string>
   <string name="contactSupport">Lichess dəstəyi ilə əlaqə saxlayın</string>
   <string name="otherMethods">Digər ianə üsulları?</string>
   <string name="bankTransfers">Bank köçürmələrini də qəbul edirik</string>
+  <string name="bitcoin">Bitcoin ünvanımız: %s</string>
+  <string name="featuresComparison">Ətraflı özəllik müqayisəsinə baxın</string>
   <plurals name="patronForMonths">
     <item quantity="one">Bir aydır Lichess dəstəkçisidir</item>
     <item quantity="other">%s aydır Lichess dəstəkçisidir</item>
