@@ -40,6 +40,7 @@
   <string name="mateIn5">5 və ya daha çox gedişə mat</string>
   <string name="mateIn5Description">Uzun mat ardıcıllığını həll etməyə çalışın.</string>
   <string name="middlegame">Mittelşpil</string>
+  <string name="middlegameDescription">Oyunun ikinci mərhələsindəki taktikalar.</string>
   <string name="oneMove">Bir gedişlik tapmaca</string>
   <string name="oneMoveDescription">Bir gedişlik tapmacalar.</string>
   <string name="opening">Debüt</string>
