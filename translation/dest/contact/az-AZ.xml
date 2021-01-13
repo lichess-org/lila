@@ -3,6 +3,7 @@
   <string name="contact">Əlaqə</string>
   <string name="contactLichess">Lichess ilə əlaqə</string>
   <string name="whatCanWeHelpYouWith">Sizə nədə kömək edə bilərik?</string>
+  <string name="visitThisPage">Problemi həll etmək üçün bu səhifəyə keçin</string>
   <string name="iCantLogIn">Daxil ola bilmirəm</string>
   <string name="forgotPassword">Şifrəmi unutdum</string>
   <string name="forgotUsername">İstifadəçi adımı unutdum</string>
@@ -16,6 +17,7 @@
   <string name="trolling">trollama</string>
   <string name="insults">təhqir</string>
   <string name="otherReason">başqa bir səbəb</string>
+  <string name="doNotReportInForum">Forumdakı oyunçuları şikayət etməyin.</string>
   <string name="doNotSendReportEmails">Bizə şikayət e-poçtları göndərməyin.</string>
   <string name="wantReportBug">Bir səhv barədə məlumat vermək istəyirəm</string>
   <string name="reportBugInDiscord">Lichessin Discord serverində</string>
@@ -24,6 +26,7 @@
   <string name="insufficientMaterial">Mat üçün yetərsiz fiqur</string>
   <string name="noRatingPoints">Heç bir reytinq xalı verilməyib</string>
   <string name="errorPage">Xəta səhifəsi</string>
+  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Ban və ya IP məhdudlaşması üçün müraciət edin</string>
   <string name="engineAppeal">Şahmat mühərriki istifadəsi və ya hiylə işarəsi</string>
   <string name="sendAppealTo">Buraya müraciət edə bilərsiniz: %s.</string>
   <string name="otherRestriction">Digər məhdudiyyət</string>
