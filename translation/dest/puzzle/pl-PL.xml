@@ -49,6 +49,5 @@
   <string name="improvementAreas">Obszary rozwoju</string>
   <string name="strengths">Siła</string>
   <string name="history">Historia zadań</string>
-  <string name="won">udało się</string>
   <string name="failed">nie udało się</string>
 </resources>
