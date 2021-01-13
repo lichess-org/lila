@@ -48,5 +48,5 @@
   <string name="strengths">Fortalezas</string>
   <string name="history">Historial de rompecabezas</string>
   <string name="solved" comment="solved&#10;&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">resuelto</string>
-  <string name="failed">incorrecto</string>
+  <string name="failed">error</string>
 </resources>
