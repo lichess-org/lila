@@ -8,6 +8,7 @@
   <string name="bishopEndgame">Fil sonluğu</string>
   <string name="bishopEndgameDescription">Yalnız fillər və piyadalardan ibarət oyun sonu.</string>
   <string name="castling">Qalaqurma</string>
+  <string name="castlingDescription">Şahı təhlükəsiz yerə gətirin və hücum üçün topu hazırlayın.</string>
   <string name="capturingDefender">Müdafiəçini vurmaq</string>
   <string name="crushing">Əzici üstünlük</string>
   <string name="equality">Bərabərləşmə</string>
