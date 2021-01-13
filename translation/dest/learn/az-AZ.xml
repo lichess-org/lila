@@ -58,6 +58,7 @@ lakin çapraz vurur!</string>
   <string name="takeTheBlackPieces">Qara fiqurları vur!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Qara fiqurları götürün!
 Və özünüzünkünü itirməyin.</string>
+  <string name="captureComplete">Təbriklər! Şahmat fiqurları ilə necə mübarizə aparacağınızı bilirsiniz!</string>
   <string name="protection">Müdafiə</string>
   <string name="keepYourPiecesSafe">Fiqurlarını qoru</string>
   <string name="escape">Hücum altındasınız!
@@ -69,6 +70,7 @@ götürmələrinə imkan verməyin!</string>
   <string name="combat">Döyüş</string>
   <string name="captureAndDefendPieces">Fiqurları vur və müdfiə et</string>
   <string name="combatIntro">Yaxşı bir döyüşçü həm hücumu, həm müdafiəni bilir!</string>
+  <string name="combatComplete">Təbriklər! Şahmat fiqurları ilə necə mübarizə aparacağınızı bilirsiniz!</string>
   <string name="checkInOne">Şah vermə</string>
   <string name="attackTheOpponentsKing">Rəqib şahına hücum et</string>
   <string name="checkInOneGoal">Rəqibin kralını hədəf alın
@@ -88,6 +90,7 @@ lakin hücumun bloklaya bilərsiz!</string>
 və ya hücumu blokla!</string>
   <string name="mateInOne">Mat vermə</string>
   <string name="defeatTheOpponentsKing">Rəqib şahını mat et</string>
+  <string name="mateInOneIntro">Rəqib, verdiyiniz şahın qarşısını ala bilmədikdə qalib sayılırsız.</string>
   <string name="mateInOneComplete">Təbriklər! Şahmat oyunları belə qazanılır!</string>
   <string name="intermediate">Orta</string>
   <string name="boardSetup">Fuqurların düzülüşü</string>
@@ -105,12 +108,15 @@ Onlar atların yanına gedir.</string>
 Düz vəzirin yanına.</string>
   <string name="pawnsFormTheFrontLine">Piyadalar ön xətti təşkil edir.
 Davam etmək üçün bir gediş edir.</string>
+  <string name="boardSetupComplete">Təbrikl\'r! Artıq şahmat taxtasını necə quracağınızı bilirsiniz.</string>
   <string name="castling">Qalaqurma</string>
   <string name="theSpecialKingMove">Xüsusi şah gedişi</string>
   <string name="castleKingSide">Qısa qalaqurma üçün
 şahını iki xana hərəkət etdir!</string>
   <string name="castleQueenSide">Uzun qalaqurma üçün
 şahını iki xana hərəkət etdir!</string>
+  <string name="theKnightIsInTheWay">At qalaqurmaya mane olur!
+Onu çək və qısa qalaqurma et.</string>
   <string name="castleKingSideMovePiecesFirst">Qısa qalaqurma!
 İlk öncə aradakı fiqurları çəkmək lazımdır.</string>
   <string name="castleQueenSideMovePiecesFirst">Uzun qalaqurma!
@@ -129,6 +135,9 @@ piyadanız 5-ci horizontalda olanda mümkündür.</string>
   <string name="advanced">Ətraflı</string>
   <string name="pieceValue">Fiqur dəyəri</string>
   <string name="evaluatePieceStrength">Fiqur gücü qiymətləndirilməsi</string>
+  <string name="queenOverBishop">Ən yüksək
+dəyərli fiquru vur!
+Vəzir &gt; Fil</string>
   <string name="takeThePieceWithTheHighestValue">Ən dəyərli fiquru götürün!</string>
   <string name="checkInTwo">2 gedişə şah</string>
   <string name="twoMovesToGiveCheck">Şah vermək üçün iki gediş</string>
