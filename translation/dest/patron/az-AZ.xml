@@ -22,6 +22,7 @@
   <string name="withCreditCard">Kredit Kartı</string>
   <string name="withPaypal">Paypal</string>
   <string name="whereMoneyGoes">Pul hara gedir?</string>
+  <string name="costBreakdown">Detallı maliyyətə baxın</string>
   <string name="contactSupport">Lichess dəstəyi ilə əlaqə saxlayın</string>
   <string name="otherMethods">Digər ianə üsulları?</string>
   <string name="bankTransfers">Bank köçürmələrini də qəbul edirik</string>
@@ -31,6 +32,7 @@
   </plurals>
   <string name="currentStatus">Cari status</string>
   <string name="nextPayment">Növbəti ödəniş</string>
+  <string name="makeAdditionalDonation">İndi əlavə bir ianə edin</string>
   <string name="update">Yenilə</string>
   <string name="changeMonthlyAmount">Aylıq məbləği dəyişdirin (%s)</string>
   <string name="cancelSupport">dəstəyini kəs</string>
