@@ -22,6 +22,7 @@
   <string name="howCanIBecomeModerator">Necə moderator ola bilərəm?</string>
   <string name="isCorrespondenceDifferent">Yazışmalı oyun normal şahmatdan fərqlidir?</string>
   <string name="gameplay">Oynama</string>
+  <string name="howBulletBlitzEtcDecided">Bullet, Blitz və digər vaxt nəzarətlərinə necə qərar verilir?</string>
   <string name="durationFormula">(başlanğıc vaxt) + 40 × (əlavə vaxt)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
@@ -56,6 +57,7 @@
   <string name="howDoLeaderoardsWork">Sıralama və liderlik cədvəli necə işləyir?</string>
   <string name="inOrderToAppearsYouMust">%1$s cədvəlinə daxil olmaq üçün bunları etməlisiniz:</string>
   <string name="ratingLeaderboards">liderlik cədvəli</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">göstərilən reytinqdə ən azı 30 reytinqli oyun oynamış,</string>
   <string name="beInTopTen">bu reytinqdə ilk 10-da olmaq.</string>
   <string name="howToHideRatingWhilePlaying">Oynayarkən reytinqləri necə gizlətmək olar?</string>
   <string name="displayPreferences">görüntü ayarları</string>
