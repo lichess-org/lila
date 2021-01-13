@@ -22,11 +22,14 @@
   <string name="pleaseEnterAmount">Zəhmət olmasa məbləği ABŞ dollarında daxil edin</string>
   <string name="withCreditCard">Kredit Kartı</string>
   <string name="withPaypal">Paypal</string>
+  <string name="celebratedPatrons">Lichessi var edən dəyərli Dəstəkçilərimiz</string>
   <string name="whereMoneyGoes">Pul hara gedir?</string>
   <string name="costBreakdown">Detallı maliyyətə baxın</string>
   <string name="officialNonProfit">Lichess rəsmi olaraq qeyri-kommersiya təşkilatıdır?</string>
   <string name="actOfCreation">Bəli, bu da təsis sənədi (fransızca)</string>
   <string name="changeMonthlySupport">Aylıq dəstəyimi dəyişdirə/ləğv edə bilərəmmi?</string>
+  <string name="changeOrContact">Bəli, istənilən vaxt bu səhifədən.
+Və ya buradan: %s.</string>
   <string name="contactSupport">Lichess dəstəyi ilə əlaqə saxlayın</string>
   <string name="otherMethods">Digər ianə üsulları?</string>
   <string name="bankTransfers">Bank köçürmələrini də qəbul edirik</string>
