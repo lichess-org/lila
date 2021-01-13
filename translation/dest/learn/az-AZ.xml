@@ -60,6 +60,7 @@
   <string name="theSpecialKingMove">Xüsusi şah gedişi</string>
   <string name="enPassant">Keçiddə götürmə</string>
   <string name="theSpecialPawnMove">Xüsusi piyada gedişi</string>
+  <string name="takeAllThePawnsEnPassant">Bütün keçiddə piyadaları götür!</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Oyun heç-heçədir</string>
   <string name="advanced">Ətraflı</string>
@@ -75,6 +76,7 @@
   <string name="puzzles">Tapmacalar</string>
   <string name="exerciseYourTacticalSkills">Taktiki bacarıqlarınızı məşq edin</string>
   <string name="videos">Videolar</string>
+  <string name="watchInstructiveChessVideos">Öyrədici şahmat videolarını izlə</string>
   <string name="playPeople">İnsanlarla oyna</string>
   <string name="playMachine">Kompüterlə oyna</string>
   <string name="letsGo">Getdik!</string>
