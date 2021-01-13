@@ -28,6 +28,7 @@
   <string name="otherMethods">Digər ianə üsulları?</string>
   <string name="bankTransfers">Bank köçürmələrini də qəbul edirik</string>
   <string name="bitcoin">Bitcoin ünvanımız: %s</string>
+  <string name="patronFeatures">Bəzi xüsusiyyətlər yalnız Dəstəkçilərə məxsusdur?</string>
   <string name="featuresComparison">Ətraflı özəllik müqayisəsinə baxın</string>
   <plurals name="patronForMonths">
     <item quantity="one">Bir aydır Lichess dəstəkçisidir</item>
@@ -49,4 +50,5 @@
   <string name="date">Tarix</string>
   <string name="amount">Miqdar</string>
   <string name="checkOutProfile">Profil səhifənizə baxın!</string>
+  <string name="nowLifetime">İndi siz ömürlük Lichess Dəstəkçisisiniz!</string>
 </resources>
