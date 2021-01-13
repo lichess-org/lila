@@ -74,5 +74,7 @@
   <string name="notifyAllStudents">Bütün tələbələri xəbərdar edin</string>
   <string name="nothingHere">Hələ heç nə yoxdur.</string>
   <string name="newsEdit1">Bütün sinif xəbərləri tək bölmədə.</string>
+  <string name="newsEdit3">Xəbərləri bununla ayırın ---
+Bu üfüqi bir xətt göstərəcək.</string>
   <string name="markdownAvailable">Daha inkişaf etmiş sintaksis üçün %s mövcuddur.</string>
 </resources>
