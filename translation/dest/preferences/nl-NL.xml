@@ -6,7 +6,7 @@
   <string name="materialDifference">Materiaalverschil</string>
   <string name="boardHighlights">Bord laten oplichten (laatste zet en schaak)</string>
   <string name="pieceDestinations">Bestemming van het stuk (geldige zetten en premoves)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Bordcoördinaten (A-H, 1-8)</string>
+  <string name="boardCoordinates">Bordcoördinaten (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Zetnotatie zichtbaar tijdens partij</string>
   <string name="pgnPieceNotation">Stuknotatie in PGN</string>
   <string name="chessPieceSymbol">Schaakstuksymbool</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Blindschaak (onzichtbare stukken)</string>
   <string name="chessClock">Schaakklok</string>
   <string name="tenthsOfSeconds">Tienden van seconden</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Wanneer resterende tijd &lt; 10 seconden</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Wanneer resterende tijd &lt; 10 seconden</string>
   <string name="horizontalGreenProgressBars">Horizontale groene voortgangsbalk</string>
   <string name="soundWhenTimeGetsCritical">Geluidssignaal als tijd opraakt</string>
   <string name="giveMoreTime">Meer tijd geven</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">Alleen bij partijen zonder rating</string>
   <string name="promoteToQueenAutomatically">Automatisch promoveren tot dame</string>
   <string name="whenPremoving">Bij vooraf-zetten</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Eis automatisch remise op bij driemaal dezelfde stelling</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Wanneer resterende tijd &lt; 30 seconden</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Eis automatisch remise op bij driemaal dezelfde stelling</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Wanneer resterende tijd &lt; 30 seconden</string>
   <string name="moveConfirmation">Zetbevestiging</string>
   <string name="inCorrespondenceGames">Bij correspondentiepartijen</string>
   <string name="correspondenceAndUnlimited">Correspondentiepartij en zonder klok</string>
@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Verplaats de koning twee velden</string>
   <string name="castleByMovingOntoTheRook">Verplaats de koning naar de toren</string>
   <string name="inputMovesWithTheKeyboard">Zetten invoeren met het toetsenbord</string>
+  <string name="snapArrowsToValidMoves">Geldige zetten markeren met pijlen</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Zeg \"Goede partij, goed gespeeld\" bij verlies of remise</string>
   <string name="yourPreferencesHaveBeenSaved">Uw voorkeuren werden opgeslagen.</string>
 </resources>

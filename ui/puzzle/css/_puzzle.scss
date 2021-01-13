@@ -2,10 +2,8 @@ $mq-col2-squeeze: $mq-col2-uniboard-squeeze;
 $mq-col2: $mq-col2-uniboard;
 $mq-col3: $mq-col3-uniboard;
 
-$puzzle-history-height: $col3-uniboard-controls;
-
 @import "layout";
 @import "side";
 @import "tools";
-@import "history";
 @import "after";
+@import "session";

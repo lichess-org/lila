@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Af hverju nafnið Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess er blanda af lifandi (e. live), létt (e. light), frítt (e. libre) og skák (e. chess). Orðið er borið fram %1$s.</string>
   <string name="leechess">lí\'tjess</string>
-  <string name="hearItPronouncedBySpecialist">Heyra sérfræðing bera þetta fram.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Heyra sérfræðing bera þetta fram.</string>
   <string name="whyLiveLightLibre">Live (í beinni), af því að skákir eru tefldir allan sólahringin; light (létt) og libre (frítt) vegna þess að lichess er opin uppspretta og óheftur af rusli sem hrjáir aðrar vefsíður.</string>
   <string name="howCanIContributeToLichess">Hvernig get ég hjálpað Lichess?</string>
   <string name="findMoreAndSeeHowHelp">Þú getur fundið meira um %1$s (þar á meðal %2$s). Ef þú vilt hjálpa Lichess með því að bjóða fram tímann þinn of færni, eru margir %3$s.</string>

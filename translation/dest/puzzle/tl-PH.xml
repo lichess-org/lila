@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="didYouLikeThisPuzzle">Nagustuhan mo ba ang palaisipang ito?</string>
+  <string name="voteToLoadNextOne">Bumoto ka upang mapunta ka sa susunod na palaisipan!</string>
+  <string name="yourPuzzleRatingX">Ang iyong marka sa palaisipan: %s</string>
+  <string name="findTheBestMoveForWhite">Hanapin ang pinakamahusay na galaw para sa puti.</string>
+  <string name="findTheBestMoveForBlack">Hanapin ang pinakamahusay na galaw para sa itim.</string>
+</resources>

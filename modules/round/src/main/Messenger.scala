@@ -39,13 +39,26 @@ final class Messenger(api: ChatApi) {
         api.userChat.write(Chat.Id(gameId.value), userId, text, publicSource = none, _.Round)
     }
 
-  def owner(gameId: Game.Id, anonColor: chess.Color, text: String): Funit =
-    api.playerChat.write(Chat.Id(gameId.value), anonColor, text, _.Round)
+  def owner(game: Game, anonColor: chess.Color, text: String): Funit =
+    (game.fromFriend || presets.contains(text)) ??
+      api.playerChat.write(Chat.Id(game.id), anonColor, text, _.Round)
 
   def timeout(chatId: Chat.Id, modId: User.ID, suspect: User.ID, reason: String, text: String): Funit =
     ChatTimeout.Reason(reason) ?? { r =>
       api.userChat.timeout(chatId, modId, suspect, r, ChatTimeout.Scope.Global, text, _.Round)
     }
+
+  private val presets = Set(
+    "Hello",
+    "Good luck",
+    "Have fun!",
+    "You too!",
+    "Good game",
+    "Well played",
+    "Thank you",
+    "I\"ve got to go",
+    "Bye!"
+  )
 
   private def watcherId(chatId: Chat.Id) = Chat.Id(s"$chatId/w")
   private def watcherId(gameId: Game.Id) = Chat.Id(s"$gameId/w")

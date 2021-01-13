@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Lichess の名前の由来は？</string>
   <string name="lichessCombinationLiveLightLibrePronounced">「Lichess」はlive（ライブ）/light（軽い）/libre（自由） と chess の組み合わせです。発音は %1$s です。</string>
   <string name="leechess">リーチェス</string>
-  <string name="hearItPronouncedBySpecialist">実際の発音をお聞きください。</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">実際の発音をお聞きください。</string>
   <string name="whyLiveLightLibre">「ライブ」それは24時間無休で対局・観戦できるから。「軽い」「自由」は Lichess がオープンソースで、他のサイトにありがちな誰かの権利とかにわずらわされないから。</string>
   <string name="whyIsLilaCalledLila">同様に、Lichess のソースコード「%1$s」は「Li(chess in sca)la」の意味で、Lichess の大部分が直感的なプログラム言語 %2$s で書かれているからです。</string>
   <string name="howCanIContributeToLichess">どうすれば Lichess に貢献できますか？</string>
@@ -33,7 +33,7 @@
   <string name="basedOnGameDuration">Lichess の持時間は推定所要時間（%1$s）で分類されています。
   たとえば 5+3 （5分＋1手3秒）の対局の推定所要時間は 5 x 60 + 40 x 3 = 420秒です。</string>
   <string name="durationFormula">(初期持時間) + 40 x (1 手ごとの追加時間)</string>
-  <string name="inferiorThanXsEqualYtimeControl">＜ %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Lichess にはどんなバリアント（変則ルール）がありますか？</string>
   <string name="lichessSupportChessAnd">通常のチェスと%1$sがあります。</string>
@@ -47,7 +47,7 @@
   <string name="lichessFollowFIDErules">一方のプレイヤーが時間切れになると、通常は負けになります。ただし、時間を残したプレイヤーがいかなる合法な手順でも相手のキングをメイトできない場合はドローになります（%1$s）。
  まれな場合には自動での判定が難しいことがあります（強制手順、フォートレスの存在など）。Lichess では常に時間を残した方に有利に判定しています。
  一方がビショップかナイト 1 個だけでも、他方にキング以外の駒が残っていればメイトの可能性があることに注意してください。</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDE ハンドブック %s</string>
+  <string name="fideHandbookX">FIDE ハンドブック %s</string>
   <string name="discoveringEnPassant">ポーンがすでに通過したマスで取られてしまうのですが…？（アンパッサンについて）</string>
   <string name="explainingEnPassant">それは「アンパッサン (en passant)」というルールです。ウィキペディアの記事がまず%1$sになるでしょう。
 これは%2$sの第 3.7 (d) 項にあります。
@@ -81,6 +81,8 @@
   <string name="whatUsernameCanIchoose">ユーザー名にはどんなものが使えますか？</string>
   <string name="usernamesNotOffensive">ユーザー名として攻撃的なもの、別人になりすますもの、宣伝的なものは禁止です。詳しくは%1$sをお読みください。</string>
   <string name="guidelines">ガイドライン</string>
+  <string name="canIChangeMyUsername">ユーザー名は変えられますか？</string>
+  <string name="usernamesCannotBeChanged">いえ、変えられません。技術上・実務上の理由があります。 ユーザー名はデータベース、エクスポート、ログ、人の頭の中とあまりにも多くの場所にあるからです。大文字小文字の区別は一度だけ変更できます。</string>
   <string name="uniqueTrophies">独特なトロフィー</string>
   <string name="ownerUniqueTrophies">このトロフィーは Lichess 史上唯一のもので、与えられたのは今後を含めて %1$s だけです。</string>
   <string name="wayOfBerserkExplanation">ユーザー hiimgosu は %s で全局バーサークして100%%の勝率を上げたのです。</string>

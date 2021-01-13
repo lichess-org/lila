@@ -22,7 +22,7 @@
   <string name="recurringBilling">Wiederkehrende Zahlung, erneuert deine Patron-Flügel jeden Monat.</string>
   <string name="onetime">Einmalig</string>
   <string name="singleDonation">Eine einmalige Spende, die dir Patron-Flügel für einen Monat verleiht.</string>
-  <string name="otherAmount">Anderer Betrag</string>
+  <string name="otherAmount">Anderer</string>
   <string name="pleaseEnterAmount">Bitte gib einen Betrag in US-Dollar ein</string>
   <string name="withCreditCard">Kreditkarte</string>
   <string name="withPaypal">PayPal</string>
@@ -70,7 +70,7 @@ Jedoch erhalten Unterstützer das Recht, mit ihrem coolen neuen Profil-Icon anzu
   <string name="transactionCompleted">Deine Transaktion war erfolgreich und eine Spendenquittung wurde dir per E-Mail zugestellt.</string>
   <string name="permanentPatron">Du besitzt jetzt ein dauerhaftes Unterstützerkonto.</string>
   <string name="checkOutProfile">Sieh dir deine Profilseite an!</string>
-  <string name="nowLifetime">Du bist jetzt ein lebenslanger Lichess Patron!</string>
+  <string name="nowLifetime">Du bist jetzt lebenslanger Lichess-Patron!</string>
   <string name="nowOneMonth">Du bist jetzt für einen Monat Lichess Patron!</string>
   <string name="downgradeNextMonth">Dir wird in einem Monat NICHTS erneut berechnet und dein Lichess-Konto wird in ein reguläres Konto umgewandelt.</string>
 </resources>

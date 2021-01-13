@@ -25,7 +25,7 @@
   <string name="cantChangeMore">Av tekniske årsaker er det ikke mulig å endre annet enn småbokstaver (minuskler) til store bokstaver (majuskler) eller omvendt. Eksempelvis kan brukernavnet \"jacquematt\" endres til \"JacqueMatt\" men ikke til \"sjakkmatt\".</string>
   <string name="orCloseAccount">Du kan likevel lukke kontoen din og opprette en ny.</string>
   <string name="wantClearHistory">Jeg vil slette historikken eller ratingen min</string>
-  <string name="cantClearHistory">Det er ikke mulig å slette historikken din for partier, taktikkøvelser eller ratinger.</string>
+  <string name="cantClearHistory">Det er ikke mulig å slette historikken din for partier, sjakknøtter eller ratinger.</string>
   <string name="wantReport">Jeg vil melde en spiller</string>
   <string name="cheating">fusk</string>
   <string name="sandbagging">tape med vilje</string>

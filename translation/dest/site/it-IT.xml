@@ -9,6 +9,7 @@
   <string name="yourTurn">Tocca a te</string>
   <string name="aiNameLevelAiLevel">%1$s livello %2$s</string>
   <string name="level">Livello</string>
+  <string name="strength">Forza</string>
   <string name="toggleTheChat">Attiva/disattiva la chat</string>
   <string name="toggleSound">Attiva/disattiva audio</string>
   <string name="chat">Chat</string>
@@ -448,6 +449,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="lastName">Cognome</string>
   <string name="biography">Biografia</string>
   <string name="country">Paese</string>
+  <string name="thankYou">Grazie!</string>
   <string name="socialMediaLinks">Collegamenti ai social media</string>
   <string name="inlineNotation">Notazione in linea</string>
   <string name="watchLichessTV">Guarda la TV di Lichess</string>
@@ -456,34 +458,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="activeToday">Attivi oggi</string>
   <string name="activePlayers">Giocatori attivi</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Attenzione, la partita è classificata ma senza limite di tempo!</string>
-  <string name="yourPuzzleRatingX">Il tuo punteggio nelle tattiche: %s</string>
-  <string name="findTheBestMoveForWhite">Trova la mossa migliore per il Bianco.</string>
-  <string name="findTheBestMoveForBlack">Trova la mossa migliore per il Nero.</string>
-  <string name="toTrackYourProgress">Tieni traccia dei tuoi progressi:</string>
-  <string name="puzzleId">Tattica %s</string>
-  <string name="puzzleOfTheDay">Tattica del giorno</string>
-  <string name="clickToSolve">Clicca per risolvere</string>
-  <string name="goodMove">Buona mossa</string>
-  <string name="butYouCanDoBetter">Puoi fare una mossa migliore.</string>
-  <string name="bestMove">La mossa migliore!</string>
-  <string name="keepGoing">Continua...</string>
-  <string name="puzzleFailed">Soluzione sbagliata</string>
-  <string name="butYouCanKeepTrying">Ma puoi riprovare.</string>
   <string name="success">Risolto</string>
-  <string name="wasThisPuzzleAnyGood">Questa tattica era interessante?</string>
-  <string name="pleaseVotePuzzle">Aiuta lichess a migliorare, utilizza la freccia su o giù per votare:</string>
-  <string name="thankYou">Grazie!</string>
-  <string name="ratingX">Punteggio: %s</string>
-  <string name="hidden">nascosto</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Giocato %s volta</item>
-    <item quantity="other">Giocato %s volte</item>
-  </plurals>
-  <string name="fromGameLink">Dalla partita %s</string>
-  <string name="continueTraining">Continua allenamento</string>
-  <string name="retryThisPuzzle">Riprova questa tattica</string>
-  <string name="thisPuzzleIsCorrect">Questa tattica è giusta e interessante</string>
-  <string name="thisPuzzleIsWrong">Questa tattica è sbagliata o noiosa</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partita in gioco</item>
     <item quantity="other">%s partite in gioco</item>
@@ -537,6 +512,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="clockInitialTime">Tempo iniziale</string>
   <string name="clockIncrement">Incremento orologio</string>
   <string name="privacy">Privacy</string>
+  <string name="privacyPolicy">privacy policy</string>
   <string name="letOtherPlayersFollowYou">Permetti ad altri giocatori di seguirti</string>
   <string name="letOtherPlayersChallengeYou">Permetti ad altri giocatori di sfidarti</string>
   <string name="letOtherPlayersInviteYouToStudy">Permetti ad altri giocatori di invitarti negli studi</string>
@@ -682,6 +658,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se non vedi l\'e-mail, controlla la cartella spam o altre cartelle.</string>
   <string name="weHaveSentYouAnEmailTo">Abbiamo inviato un\'email all\'indirizzo %s. Clicca sul link nell\'email per reimpostare la password.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registrandoti, accetti i nostri %s</string>
+  <string name="readAboutOur">Leggi la nostra %s.</string>
   <string name="networkLagBetweenYouAndLichess">Ping tra te e Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tempo per elaborare una mossa sul server di Lichess</string>
   <string name="downloadAnnotated">Scarica PGN annotato</string>
@@ -866,4 +843,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="youCannotPostYetPlaySomeGames">Non puoi ancora postare nei forum. Gioca qualche partita!</string>
   <string name="subscribe">Iscriviti</string>
   <string name="unsubscribe">Annullare l\'iscrizione</string>
+  <string name="challengeDeclined">Sfida rifiutata</string>
+  <string name="challengeAccepted">Sfida accettata!</string>
+  <string name="challengeCanceled">Sfida annullata.</string>
 </resources>

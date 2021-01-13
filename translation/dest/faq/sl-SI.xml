@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Zakaj se Lichess imenuje Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess je kombinacija live/light/ libre in šaha. Izgovarja se %1$s.</string>
   <string name="leechess">li-čes</string>
-  <string name="hearItPronouncedBySpecialist">Slišite, da jo izgovori specialist.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Slišite, da jo izgovori specialist.</string>
   <string name="whyLiveLightLibre">V živo, ker se igre igrajo in gledajo v realnem času 24/7; lahek in svoboden za dejstvo, da je Lichess odprtokoden in neobremenjen z lastniškimi smeti, ki težijo druge spletne strani.</string>
   <string name="whyIsLilaCalledLila">Podobno izvorna koda za Lichess, %1$s, pomeni li[chess in sca]la, saj je večina lichess napisana v %2$s, intuitivnem programskem jeziku.</string>
   <string name="howCanIContributeToLichess">Kako lahko prispevam k Lichess-u?</string>
@@ -30,4 +30,6 @@
   <string name="youCanUseOpeningBookNoEngine">Na Lichess, je glavna razlika v pravilih ta, da je dovoljena uporaba otvoritvenih knjižnic. Uporaba računalniških motorjev je prepovedana in ima za posledico zaznamek za pomoč z računalnikom. Čeprav ICCF dovoljuje uporabo motorjev v dopisnem šahu jih Lichess ne.</string>
   <string name="gameplay">Igranje</string>
   <string name="howBulletBlitzEtcDecided">Kako so izbrane Bullet, Blitz in druge časovne kontrole izbrane?</string>
+  <string name="canIChangeMyUsername">Ali lahko spremenim svoje uporabniško ime?</string>
+  <string name="usernamesCannotBeChanged">Ne, uporabniških imen ni mogoče spreminjati iz tehničnih in praktičnih razlogov. Uporabniška imena so materializirana na premnogih mestih: zbirke podatkov, izvozi, dnevniki in mislih ljudi. Velike začetnice lahko prilagodite enkrat.</string>
 </resources>

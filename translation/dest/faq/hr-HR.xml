@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Zašto se Lichess tako zove?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess je šah opisan sa izrazima uživo/lako/beslatno. Izgovara se kao %1$s.</string>
   <string name="leechess">lee-chess</string>
-  <string name="hearItPronouncedBySpecialist">Čujte to izgovara stručnjak.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Čujte to izgovara stručnjak.</string>
   <string name="whyLiveLightLibre">Uživo, jer se igre igraju i gledaju u stvarnom vremenu 24/7; lagan i besplatan zbog činjenice da je Lichess otvorenog koda i da nije opterećen vlasničkim smećem koji muči druge web stranice.</string>
   <string name="whyIsLilaCalledLila">Slično tome, izvorni kod Lichess-a, %1$s, stoji za li[chess in sca]la, s obzirom da je najveći dio Lichess-a napisan u %2$s, intuitivnom programskom jeziku.</string>
   <string name="howCanIContributeToLichess">Kako mogu pridonjeti Lichess-u?</string>
@@ -20,6 +20,10 @@
   <string name="whyFlaggedRatingManipulationOrCheater">Zašto se prijavljen za umjetnu manipulaciju rejtinga (namjerno izgubljenim partijama ili pobjeđivanjem vanjskom pomoći) ili računalnu pomoć?</string>
   <string name="cheatDetectionMethods">Lichess posjeduje snažne metode otkrivanja i vrlo temeljit postupak pregleda svih dokaza i donošenja odluke. U procesu se često uključuju mnogi moderatori i može dugo potrajati. Osim samog žiga, nećemo ulaziti u detalje o dokazima ili postupku odlučivanja za pojedinačne slučajeve. Time bi se izbjeglo otkrivanje u budućnosti i postalo poziv na neproduktivne rasprave. To vrijeme i trud bolje je potrošiti na druge važne slučajeve. Korisnici mogu uložiti žalbu slanjem poruke e-pošte %1$s, ali odluke se rijetko poništavaju.</string>
   <string name="whenAmIEligibleRatinRefund">Kada ispunjavam uvjete za automatsko vraćanje rejtinga od varalica?</string>
+  <string name="ratingRefundExplanation">Nakon jedne minute što je igrač označen, njemu se uzima 40 rejtingiranih partija u posljednja tri dana. Ako ste mu Vi u tim partijama bili protivnik, past će vam rejting (zbog poraza ili remija) i ako Vaš rejting nije privremen, dobijete povrat rejtinga. Količina vraćenog rejtinga temelji se na Vašem najvišem rejtingu i njegovom napretku nakon date partije.
+(npr., ako se nakon svih tih partija Vaš rejting značajno uvećao, dobiti ćete djelomičan ili možda nećete dobiti nikakav povrat rejtinga.) Povrat rejtinga nikad neće prekoračiti gornju granicu od 150 bodova.</string>
+  <string name="preventLeavingGameWithoutResigning">Šta se čini s igračima koji napuste igru, a da je ne predaju?</string>
+  <string name="leavingGameWithoutResigningExplanation">Ako Vaš protivnik često otkazuje ili napušta partije, dobiti će poruku o zabrani igranja, a to znači da mu je privremeno zabranjeno igranje šaha. To neće biti javno istaknuto na profilu igrača. Ako se takvo ponašanje nastavi, povećati će se trajanje zabrane, a produženo ponašanje takve prirode može dovesti do zatvaranja korisničkog računa.</string>
   <string name="howCanIBecomeModerator">Kako mogu postati moderator?</string>
   <string name="youCannotApply">Nije moguće podnijeti zahtjev za moderatora. Ako vidimo nekoga za koga mislimo da bi bio dobar moderator, kontaktirat ćemo ga izravno.</string>
   <string name="isCorrespondenceDifferent">Da li se dopisni šah razlikuje od uobičajenog šaha?</string>

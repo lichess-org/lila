@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Зашто се Lichess зове Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Личес је комбинација речи live/light/libre и chess. Изговара се %1$s.</string>
   <string name="leechess">ли-чес</string>
-  <string name="hearItPronouncedBySpecialist">Послушај како то стручњак изговара.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Послушај како то стручњак изговара.</string>
   <string name="howCanIContributeToLichess">Како могу допринети Личесу?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Личес покрећу донације наших патрона, као и труд нашег тима волонтера.</string>
   <string name="findMoreAndSeeHowHelp">Можеш сазнати више о %1$s (укључујући и %2$s). Ако желиш помоћи Личесу волонтирајући своје време и вештине, постоје разни %3$s.</string>
@@ -38,7 +38,7 @@
 У ретким случајевима, ово може бити тешко за одлучити аутоматски (форсиране линије, тврђаве). Ми смо аутоматски на страни играча којем није истекло време.
 
 Битно је знати да је могуће матирати и са једним коњем или ловцем ако противник има фигуру која може блокирати краља.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDE приручник %s</string>
+  <string name="fideHandbookX">FIDE приручник %s</string>
   <string name="discoveringEnPassant">Зашто пешак може узети другог пешака када је он већ прошао? (ан пасан)</string>
   <string name="explainingEnPassant">Ово је легалан потез познак као \"ан пасан\". Википедија чланак даје %1$s.
 

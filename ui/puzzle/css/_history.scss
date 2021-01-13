@@ -1,54 +1,70 @@
-.puzzle__history {
-  @extend %box-radius-force;
+.puzzle-history {
 
-  height: $puzzle-history-height;
-  display: flex;
-  justify-content: flex-end;
-  background: $c-shade;
+  &__session {
+    margin-bottom: 5em;
 
-  > * {
-    @extend %flex-center;
-
-    justify-content: center;
-    color: #fff;
-    flex: 0 0 12.5%;
-
-    @include breakpoint($mq-small $mq-short) {
-      flex: 0 0 10%;
+    &__title {
+      @extend %flex-between;
+      align-items: flex-end;
+      margin-bottom: 1rem;
+      time {
+        font-size: 1.5rem;
+        margin-right: 1ch;
+      }
     }
-
-
-    @include breakpoint($mq-medium $mq-short) {
-      flex: 0 0 6.6667%;
+    &__rounds {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+      align-content: start;
     }
   }
 
-  a {
-    @include transition(background);
+  &__round {
+    padding: .4em;
+    color: $c-font;
 
-    &:hover {
-      color: #fff;
-      opacity: 1;
+    &__meta {
+      @extend %flex-between;
     }
 
-    &.win {
-      background: mix($c-good, $c-shade, 60%);
-
-      &:hover {
-        background: $c-good;
-      }
+    &__id {
+      visibility: hidden;
     }
 
-    &.loss {
-      background: mix($c-bad, $c-shade, 57%);
-
-      &:hover {
-        background: $c-bad;
-      }
+    &:hover .puzzle-history__round__id {
+      visibility: visible;
     }
+  }
 
-    &.current {
-      background: $c-brag;
+  good, bad {
+    @extend %flex-center;
+
+    color: white;
+    text-transform: uppercase;
+    padding: 0 .2em;
+    font-size: .9em;
+    opacity: .7;
+
+    &::before {
+      @extend %data-icon;
+
+      margin-right: .2em;
+    }
+  }
+
+  good {
+    background: $c-good;
+
+    &::before {
+      content: 'E';
+    }
+  }
+
+  bad {
+    background: $c-bad;
+
+    &::before {
+      content: 'L';
     }
   }
 }

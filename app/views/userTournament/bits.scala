@@ -44,6 +44,10 @@ object bits {
           a(cls := path.active("created"), href := routes.UserTournament.path(u.username, "created"))(
             "Created"
           ),
+          ctx.is(u) option
+            a(cls := path.active("upcoming"), href := routes.UserTournament.path(u.username, "upcoming"))(
+              "Upcoming"
+            ),
           a(cls := path.active("recent"), href := routes.UserTournament.path(u.username, "recent"))(
             "Recently played"
           ),

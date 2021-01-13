@@ -30,7 +30,7 @@
   <string name="cheating">hacer trampas</string>
   <string name="sandbagging">reducción intencionada de su puntuación</string>
   <string name="trolling">molestar</string>
-  <string name="insults">insultar</string>
+  <string name="insults">insultos</string>
   <string name="otherReason">alguna otra razón</string>
   <string name="toReportAPlayer">Para denunciar a un jugador por %s, utiliza el formulario de denuncia</string>
   <string name="youCanAlsoReachReportPage">También puedes acceder a esa página pulsando el botón de denuncia %s en un perfil.</string>

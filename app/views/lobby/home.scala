@@ -152,11 +152,7 @@ object home {
           )
         },
         puzzle map { p =>
-          a(href := routes.Puzzle.daily(), cls := "lobby__puzzle", title := trans.clickToSolve.txt())(
-            span(cls := "text")(trans.puzzleOfTheDay()),
-            raw(p.html),
-            span(cls := "text")(p.color.fold(trans.whitePlays, trans.blackPlays)())
-          )
+          views.html.puzzle.embed.dailyLink(p)(ctx.lang)(cls := "lobby__puzzle")
         },
         ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
         ctx.noKid option div(cls := "lobby__forum lobby__box")(

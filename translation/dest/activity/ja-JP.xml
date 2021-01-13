@@ -33,10 +33,10 @@
     <item quantity="other">%s 人の新規フォロワーを獲得</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="other">%s 回の多面指しを主催</item>
+    <item quantity="other">%s 回の同時対局を主催</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="other">%s 回の多面指しに参加</item>
+    <item quantity="other">%s 回の同時対局に参加</item>
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="other">%s 件の研究を作成</item>

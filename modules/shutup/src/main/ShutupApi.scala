@@ -80,7 +80,6 @@ final class ShutupApi(
                 case None             => fufail(s"can't find user record for $userId")
                 case Some(userRecord) => legiferate(userRecord)
               }
-              .recover(lila.db.ignoreDuplicateKey)
         }
     }
 

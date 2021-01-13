@@ -1,9 +1,10 @@
 package lila.tv
 
+import chess.Color
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
-import chess.Color
+import lila.common.LightUser
 import lila.game.Game
 import lila.hub.Trouper
 
@@ -11,7 +12,8 @@ final private[tv] class ChannelTrouper(
     channel: Tv.Channel,
     onSelect: TvTrouper.Selected => Unit,
     proxyGame: Game.ID => Fu[Option[Game]],
-    rematchOf: Game.ID => Option[Game.ID]
+    rematchOf: Game.ID => Option[Game.ID],
+    lightUserSync: LightUser.GetterSync
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends Trouper {
 
@@ -80,31 +82,45 @@ final private[tv] class ChannelTrouper(
   }
 
   private def score(game: Game): Int =
-    math.round {
-      (heuristics map { case (fn, coefficient) =>
-        heuristicBox(fn(game)) * coefficient
-      }).sum * 1000
+    heuristics.foldLeft(0) { case (score, fn) =>
+      score + fn(game)
     }
 
-  private type Heuristic = Game => Float
-  private val heuristicBox = box(0 to 1) _
-  private val ratingBox    = box(1000 to 2700) _
-  private val turnBox      = box(1 to 25) _
+  private type Heuristic = Game => Int
 
-  private val heuristics: List[(Heuristic, Float)] = List(
-    ratingHeuristic(Color.White) -> 1.2f,
-    ratingHeuristic(Color.Black) -> 1.2f,
-    progressHeuristic            -> 0.7f
+  private val heuristics: List[Heuristic] = List(
+    ratingHeuristic(Color.White),
+    ratingHeuristic(Color.Black),
+    titleHeuristic(Color.White),
+    titleHeuristic(Color.Black)
   )
 
   private def ratingHeuristic(color: Color): Heuristic =
-    game => ratingBox(game.player(color).rating.fold(1400f)(_.toFloat))
+    game => game.player(color).stableRating | 1300
 
-  private def progressHeuristic: Heuristic = game => 1 - turnBox(game.turns.toFloat)
+  private def titleHeuristic(color: Color): Heuristic = game =>
+    ~game
+      .player(color)
+      .some
+      .flatMap { p =>
+        p.stableRating.exists(2100 <) ?? p.userId
+      }
+      .flatMap(lightUserSync)
+      .flatMap(_.title)
+      .flatMap(titleScores.get)
 
-  // boxes and reduces to 0..1 range
-  private def box(in: Range.Inclusive)(v: Float): Float =
-    (math.max(in.start.toFloat, math.min(v, in.end.toFloat)) - in.start) / (in.end - in.start).toFloat
+  private val titleScores = Map(
+    "GM"  -> 500,
+    "WGM" -> 500,
+    "IM"  -> 300,
+    "WIM" -> 300,
+    "FM"  -> 200,
+    "WFM" -> 200,
+    "NM"  -> 100,
+    "CM"  -> 100,
+    "WCM" -> 100,
+    "WNM" -> 100
+  )
 }
 
 object ChannelTrouper {

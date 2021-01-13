@@ -6,7 +6,7 @@
   <string name="materialDifference">Perbedaan materi</string>
   <string name="boardHighlights">Tanda papan (langkah terakhir dan skak)</string>
   <string name="pieceDestinations">Jejak buah catur (langkah sah dan premove)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Koordinat Papan (A-H, 1-8)</string>
+  <string name="boardCoordinates">Koordinat Papan (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Daftar langkah ketika bermain</string>
   <string name="pgnPieceNotation">Catatan langkah</string>
   <string name="chessPieceSymbol">Simbol bidak catur</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Catur buta (buah catur disembunyikan)</string>
   <string name="chessClock">Jam catur</string>
   <string name="tenthsOfSeconds">Sepersepuluh detik</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Ketika waktu tersisa &lt; 10 detik</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Ketika waktu tersisa &lt; 10 detik</string>
   <string name="horizontalGreenProgressBars">Indikator horisontal perkembangan warna hijau</string>
   <string name="soundWhenTimeGetsCritical">Bersuara ketika waktu hampir habis</string>
   <string name="giveMoreTime">Berikan waktu lebih</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">Hanya pada permainan santai (tanpa di-rating)</string>
   <string name="promoteToQueenAutomatically">Otomatis promosikan Menteri</string>
   <string name="whenPremoving">Ketika pra-langkah</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Langsung Remis pada pengulangan ketiga kali</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Ketika waktu tersisa &lt; 30 detik</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Langsung Remis pada pengulangan ketiga kali</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Ketika waktu tersisa &lt; 30 detik</string>
   <string name="moveConfirmation">Konfirmasi langkah</string>
   <string name="inCorrespondenceGames">Pada partai korespondensi</string>
   <string name="correspondenceAndUnlimited">Korespondensi dan permainan tanpa batas waktu</string>

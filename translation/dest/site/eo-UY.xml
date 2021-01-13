@@ -9,6 +9,7 @@
   <string name="yourTurn">Via vico</string>
   <string name="aiNameLevelAiLevel">%1$s nivelo %2$s</string>
   <string name="level">Nivelo</string>
+  <string name="strength">Forto</string>
   <string name="toggleTheChat">Baskuligi la babilejon</string>
   <string name="toggleSound">(Mal)ŝalti sonon</string>
   <string name="chat">Babilejo</string>
@@ -447,6 +448,7 @@
   <string name="lastName">Familia nomo</string>
   <string name="biography">Biografio</string>
   <string name="country">Lando</string>
+  <string name="thankYou">Dankon!</string>
   <string name="socialMediaLinks">Ligiloj al sociaj retejoj</string>
   <string name="inlineNotation">Enlineaj markoj</string>
   <string name="watchLichessTV">Spekti Lichess-TV</string>
@@ -455,34 +457,7 @@
   <string name="activeToday">Aktivaj hodiaŭ</string>
   <string name="activePlayers">Aktivaj ludantoj</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Atentu: la ludo estas taksa, sed ne havas tempolimon!</string>
-  <string name="yourPuzzleRatingX">Via puzla rango: %s</string>
-  <string name="findTheBestMoveForWhite">Trovu la plej bonan movon por la blanka ludanto.</string>
-  <string name="findTheBestMoveForBlack">Trovu la plej bonan movon por la nigra ludanto.</string>
-  <string name="toTrackYourProgress">Por atenti vian progreson:</string>
-  <string name="puzzleId">Puzlo %s</string>
-  <string name="puzzleOfTheDay">Puzlo de la tago</string>
-  <string name="clickToSolve">Alklaku por solvi</string>
-  <string name="goodMove">Bona movo</string>
-  <string name="butYouCanDoBetter">Sed eblas pli bona.</string>
-  <string name="bestMove">Plej bona movo!</string>
-  <string name="keepGoing">Daŭrigu...</string>
-  <string name="puzzleFailed">Vi malsukcesis</string>
-  <string name="butYouCanKeepTrying">Sed vi rajtas daŭrigi la provon.</string>
   <string name="success">Sukceso</string>
-  <string name="wasThisPuzzleAnyGood">Ĉu vi ŝatis ĉi tiun puzlon?</string>
-  <string name="pleaseVotePuzzle">Helpu al Lichess pliboniĝi per voĉdoni, uzante la supren- aŭ suben-sagbutonojn:</string>
-  <string name="thankYou">Dankon!</string>
-  <string name="ratingX">Rango: %s</string>
-  <string name="hidden">kaŝita</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Ludita %s-foje</item>
-    <item quantity="other">Ludita %s-foje</item>
-  </plurals>
-  <string name="fromGameLink">El ludo %s</string>
-  <string name="continueTraining">Daŭrigi trejnadon</string>
-  <string name="retryThisPuzzle">Reprovi ĉi tiun puzlon</string>
-  <string name="thisPuzzleIsCorrect">Ĉi tiu puzlo estas ĝusta kaj interesa</string>
-  <string name="thisPuzzleIsWrong">Ĉi tiu puzlo estas malĝusta aŭ enuiga</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s aktivaj ludoj</item>
     <item quantity="other">%s aktivaj ludoj</item>
@@ -531,9 +506,12 @@
   <string name="currentPassword">Nuna pasvorto</string>
   <string name="newPassword">Nova pasvorto</string>
   <string name="newPasswordAgain">Nova pasvorto (retajpu)</string>
+  <string name="newPasswordsDontMatch">La nova pasvorto ne kongruas</string>
+  <string name="newPasswordStrength">Pasvorta forto</string>
   <string name="clockInitialTime">Horloĝa komenca tempo</string>
   <string name="clockIncrement">Horloĝa pliigo</string>
   <string name="privacy">Privateco</string>
+  <string name="privacyPolicy">Privateca politiko</string>
   <string name="letOtherPlayersFollowYou">Lasi aliajn ludantojn sekvi vin</string>
   <string name="letOtherPlayersChallengeYou">Lasi aliajn ludantojn defii vin</string>
   <string name="letOtherPlayersInviteYouToStudy">Ebligi al aliaj ludantoj inviti vin al studo</string>
@@ -679,6 +657,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se vi ne vidas la retpoŝton , kontrolu aliajn lokojn kie ĝi povas esti, kiel via rubo , spam, socia , aŭ aliaj dosierujoj.</string>
   <string name="weHaveSentYouAnEmailTo">Ni sendis retmesaĝon al %s. Klaku la ligilon en la poŝto por rekomencigi vian pasvorton.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">De registranta , vi konsentas al esti ligita de nia %s.</string>
+  <string name="readAboutOur">Legu pri nia %s.</string>
   <string name="networkLagBetweenYouAndLichess">Reto lag inter vi kaj Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tempo por prilabori moviĝon sur Lichess servilo</string>
   <string name="downloadAnnotated">Elŝutu prinotitan</string>
@@ -863,4 +842,7 @@
   <string name="youCannotPostYetPlaySomeGames">Vi jam ne rajtas afiŝi en la forumoj. Ludu iujn ludojn!</string>
   <string name="subscribe">Aboni</string>
   <string name="unsubscribe">Malaboni</string>
+  <string name="challengeDeclined">Defio malkreskis</string>
+  <string name="challengeAccepted">Defio akceptita!</string>
+  <string name="challengeCanceled">Defio nuligita.</string>
 </resources>

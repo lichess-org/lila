@@ -1,5 +1,7 @@
 package lila.mod
 
+import org.joda.time.DateTime
+
 import lila.db.dsl._
 import lila.report.{ Mod, ModId, Report, Suspect }
 import lila.security.Permission
@@ -51,6 +53,11 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
   def troll(mod: Mod, sus: Suspect) =
     add {
       Modlog.make(mod, sus, if (sus.user.marks.troll) Modlog.troll else Modlog.untroll)
+    }
+
+  def setKidMode(mod: User.ID, kid: User.ID) =
+    add {
+      Modlog(mod, kid.some, Modlog.setKidMode)
     }
 
   def disableTwoFactor(mod: User.ID, user: User.ID) =
@@ -246,6 +253,15 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
 
   def userHistory(userId: User.ID): Fu[List[Modlog]] =
     coll.find($doc("user" -> userId)).sort($sort desc "date").cursor[Modlog]().gather[List](30)
+
+  def countRecentCheatDetected(userId: User.ID): Fu[Int] =
+    coll.countSel(
+      $doc(
+        "user"   -> userId,
+        "action" -> Modlog.cheatDetected,
+        "date" $gte DateTime.now.minusMonths(6)
+      )
+    )
 
   private def add(m: Modlog): Funit = {
     lila.mon.mod.log.create.increment()

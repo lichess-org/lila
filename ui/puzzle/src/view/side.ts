@@ -1,7 +1,6 @@
-import sparkline from "@fnando/sparkline";
-import { Controller, Puzzle, PuzzleGame, MaybeVNode } from '../interfaces';
-import { dataIcon } from '../util';
-import { h, thunk } from 'snabbdom';
+import { Controller, Puzzle, PuzzleGame, MaybeVNode, PuzzleDifficulty, PuzzlePlayer } from '../interfaces';
+import { dataIcon, onInsert } from '../util';
+import { h } from 'snabbdom';
 import { numberFormat } from 'common/number';
 import { VNode } from 'snabbdom/vnode';
 
@@ -17,11 +16,13 @@ function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
   return h('div.infos.puzzle', {
     attrs: dataIcon('-')
   }, [h('div', [
-    h('a.title', {
-      attrs: { href: '/training/' + puzzle.id }
-    }, ctrl.trans('puzzleId', puzzle.id)),
+    h('p', [
+      ...ctrl.trans.vdom('puzzleId', h('a', {
+        attrs: { href: `/training/${puzzle.id}` }
+      }, '#' + puzzle.id))
+    ]),
     h('p', ctrl.trans.vdom('ratingX', ctrl.vm.mode === 'play' ? h('span.hidden', ctrl.trans.noarg('hidden')) : h('strong', puzzle.rating))),
-    h('p', ctrl.trans.vdom('playedXTimes', h('strong', numberFormat(puzzle.attempts))))
+    h('p', ctrl.trans.vdom('playedXTimes', h('strong', numberFormat(puzzle.plays))))
   ])]);
 }
 
@@ -29,60 +30,105 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
   return h('div.infos', {
     attrs: dataIcon(game.perf.icon)
   }, [h('div', [
-    h('p', ctrl.trans.vdom('fromGameLink', h('a', {
-      attrs: { href: `/${game.id}/${puzzle.color}#${puzzle.initialPly}` }
+    h('p', ctrl.trans.vdom('fromGameLink', ctrl.vm.mode == 'play' ? h('span.hidden', ctrl.trans.noarg('hidden')) : h('a', {
+      attrs: { href: `/${game.id}/${ctrl.vm.pov}#${puzzle.initialPly}` }
     }, '#' + game.id))),
     h('p', [
       game.clock, ' • ',
       game.perf.name, ' • ',
       ctrl.trans.noarg(game.rated ? 'rated' : 'casual')
     ]),
-    h('div.players', game.players.map(function(p) {
-      return h('div.player.color-icon.is.text.' + p.color,
+    h('div.players', game.players.map(p =>
+      h('div.player.color-icon.is.text.' + p.color,
         p.userId ? h('a.user-link.ulpt', {
           attrs: { href: '/@/' + p.userId }
-        }, p.name) : p.name
-      );
-    }))
+        }, playerName(p)) : p.name
+      )
+    ))
   ])]);
 }
 
-export function userBox(ctrl: Controller): MaybeVNode {
+function playerName(p: PuzzlePlayer) {
+  return p.title ? [h('span.utitle', p.title), ' ' + p.name] : p.name;
+}
+
+export function userBox(ctrl: Controller): VNode {
   const data = ctrl.getData();
-  if (!data.user) return;
-  const diff = ctrl.vm.round && ctrl.vm.round.ratingDiff;
-  const hash = ctrl.recentHash();
+  if (!data.user) return h('div.puzzle__side__user', [
+    h('p', ctrl.trans.noarg('toGetPersonalizedPuzzles')),
+    h('button.button', { attrs: { href: '/signup' } }, ctrl.trans.noarg('signUp'))
+  ]);
+  const diff = ctrl.vm.round?.ratingDiff;
   return h('div.puzzle__side__user', [
-    h('h2', ctrl.trans.vdom('yourPuzzleRatingX', h('strong', [
-      data.user.rating,
-      ...(diff >= 0 ? [' ', h('good.rp', '+' + diff)] : []),
-      ...(diff < 0 ? [' ', h('bad.rp', '−' + (-diff))] : [])
-    ]))),
-    h('div', thunk('div.rating_chart.' + hash, ratingChart, [ctrl, hash]))
+    h('div.puzzle__side__user__rating', ctrl.trans.vdom('yourPuzzleRatingX', h('strong', [
+      data.user.rating - (diff || 0),
+      ...(diff && diff > 0 ? [' ', h('good.rp', '+' + diff)] : []),
+      ...(diff && diff < 0 ? [' ', h('bad.rp', '−' + (-diff))] : [])
+    ])))
   ]);
 }
 
-function ratingChart(ctrl: Controller, hash: string): VNode {
-  return h('div.rating_chart.' + hash, {
-    hook: {
-      insert(vnode) { drawRatingChart(ctrl, vnode) },
-      postpatch(_, vnode) { drawRatingChart(ctrl, vnode) }
-    }
-  });
+const difficulties: PuzzleDifficulty[] = ['easiest', 'easier', 'normal', 'harder', 'hardest'];
+
+export function replay(ctrl: Controller): MaybeVNode {
+  const replay = ctrl.getData().replay;
+  if (!replay) return;
+  const i = replay.i + (ctrl.vm.mode == 'play' ? 0 : 1);
+  return h('div.puzzle__side__replay', [
+    h('a', {
+      attrs: {
+        href: `/training/dashboard/${replay.days}`
+      }
+    }, ['« ', `Replaying ${ctrl.trans.noarg(ctrl.getData().theme.key)} puzzles`]),
+    h('div.puzzle__side__replay__bar', {
+      attrs: {
+        style: `--p:${replay.of ? Math.round(100 * i / replay.of) : 1}%`,
+        'data-text': `${i} / ${replay.of}`
+      },
+    })
+  ]);
 }
 
-function drawRatingChart(ctrl: Controller, vnode: VNode): void {
-  const $el = $(vnode.elm as HTMLElement);
-  const points = ctrl.getData().user!.recent.map(r => r[2] + r[1]);
-  const localPuzzleMin = Math.min(...points); 
-  const redraw = () => {
-    const $svg = $('<svg class="sparkline" height="80px" stroke-width="3">')
-      .attr('width', Math.round($el.outerWidth()) + 'px')
-      .prependTo($(vnode.elm).empty());
-    sparkline($svg[0] as unknown as SVGSVGElement, points.map(r => r - localPuzzleMin), {
-      interactive: true,
-    })
-  };
-  requestAnimationFrame(redraw);
-  window.addEventListener('resize', redraw);
+export function config(ctrl: Controller): MaybeVNode {
+  const id = 'puzzle-toggle-autonext';
+  return h('div.puzzle__side__config', [
+    h('div.puzzle__side__config__jump', [
+      h('div.switch', [
+        h(`input#${id}.cmn-toggle.cmn-toggle--subtle`, {
+          attrs: {
+            type: 'checkbox',
+            checked: ctrl.autoNext()
+          },
+          hook: {
+            insert: vnode => (vnode.elm as HTMLElement).addEventListener('change', () =>
+              ctrl.autoNext(!ctrl.autoNext()))
+          }
+        }),
+        h('label', { attrs: { 'for': id } })
+      ]),
+      h('label', { attrs: { 'for': id } }, ctrl.trans.noarg('jumpToNextPuzzleImmediately'))
+    ]),
+    !ctrl.getData().replay && ctrl.difficulty ? h('form.puzzle__side__config__difficulty', {
+      attrs: {
+        action: `/training/difficulty/${ctrl.getData().theme.key}`,
+        method: 'post'
+      }
+    }, [
+      h('label', {
+        attrs: { for: 'puzzle-difficulty' },
+      }, ctrl.trans.noarg('difficultyLevel')),
+      h('select#puzzle-difficulty.puzzle__difficulty__selector', {
+        attrs: { name: 'difficulty' },
+        hook: onInsert(elm => elm.addEventListener('change', () => (elm.parentNode as HTMLFormElement).submit()))
+      }, difficulties.map(diff =>
+        h('option', {
+          attrs: {
+            value: diff,
+            selected: diff == ctrl.difficulty
+          },
+        }, ctrl.trans.noarg(diff))
+      ))
+    ]) : null
+
+  ]);
 }

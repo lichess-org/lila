@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Waarom heet Lichess Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess is een samentrekking van \'live/light/libre\' en \'chess\'. Het wordt uitgesproken als %1$s.</string>
   <string name="leechess">lie-tjess</string>
-  <string name="hearItPronouncedBySpecialist"> Hoor het uitgesproken door een specialist.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Hoor het uitgesproken door een specialist.</string>
   <string name="whyLiveLightLibre">Live, omdat voortdurend partijen worden gespeeld en bekeken; licht en vrij omdat Lichess open source is en niet gebukt gaat onder allerhande ballast die andere websites plaagt.</string>
   <string name="whyIsLilaCalledLila">Evenzo staat de broncode voor Lichess, %1$s, voor li[chess in sca]la, omdat het grootste deel van Lichess geschreven is in %2$s, een intuïtieve programmeertaal.</string>
   <string name="howCanIContributeToLichess">Hoe kan ik bijdragen aan Lichess?</string>
@@ -52,7 +52,7 @@ De computeranalyse op Lichess wordt aangedreven door Stockfish.</string>
   In zeldzame gevallen kan het moeilijk zijn om dit automatisch te beslissen (geforceerde lijnen, vestingen). Standaard scharen we ons altijd aan de kant van de speler die niet in tijdnood is gekomen.
 
   Merk op dat het mogelijk kan zijn om met één paard of loper mat te zetten, als de tegenstander een stuk heeft dat de koning kan blokkeren.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDE handboek %s</string>
+  <string name="fideHandbookX">FIDE handboek %s</string>
   <string name="discoveringEnPassant">Waarom kan een pion een andere pion slaan als hij die al gepasseerd is? (en passant)</string>
   <string name="explainingEnPassant">Dit is een geldige zet die bekend staat als \"en passant\" slaan. Het Wikipedia-artikel geeft een %1$s.
 
@@ -93,6 +93,8 @@ Vraag niet om de LM-titel.</string>
   <string name="whatUsernameCanIchoose">Wat kan mijn gebruikersnaam zijn?</string>
   <string name="usernamesNotOffensive">In het algemeen geldt voor gebruikersnamen: ze mogen niet aanstootgevend zijn of reclame zijn en bovendien mag je niet doen alsof je iemand anders bent. Je kunt er meer over lezen in de %1$s.</string>
   <string name="guidelines">richtlijnen</string>
+  <string name="canIChangeMyUsername">Kan ik mijn gebruikersnaam wijzigen?</string>
+  <string name="usernamesCannotBeChanged">Nee, gebruikersnamen kunnen om technische en praktische redenen niet worden gewijzigd. Gebruikersnamen komen op te veel plaatsen voor: in databases, exporten, logbestanden en in de hoofden van mensen. Hoofdletters kunnen één keer worden aangepast.</string>
   <string name="uniqueTrophies">Unieke trofeeën</string>
   <string name="ownerUniqueTrophies">Die trofee is uniek in de geschiedenis van Lichess, niemand anders dan %1$s zal die ooit bezitten.</string>
   <string name="wayOfBerserkExplanation">Om de troffee te verkrijgen, had hiimgosu zichzelf uitgedaagd om tijdens een %s alle partijen berserk te gaan en 100%% van de potjes te winnen.</string>

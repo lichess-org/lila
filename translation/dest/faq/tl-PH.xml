@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">MMT%s</string>
-  <string name="frequentlyAskedQuestions">Mga Madalas na Itinatanong%s</string>
-  <string name="whyIsLichessCalledLichess">Bakit tinawag na Lichess ang Lichess?%s?</string>
+  <string name="faqAbbreviation">MMT</string>
+  <string name="frequentlyAskedQuestions">Mga Madalas na Itinatanong</string>
+  <string name="whyIsLichessCalledLichess">Bakit tinawag na Lichess ang Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Ang Lichess ay isang pinaghalong live/light/libre at ahedres. Ibinibigkas ito ng%1$s.</string>
-  <string name="leechess">lee-chess%s</string>
-  <string name="hearItPronouncedBySpecialist">Pakinggan itong ibinigkas ng isang espesyalista.%s.</string>
-  <string name="whyLiveLightLibre">Live, dahil ang mga laro ay linalaro at pinapanood ng totoong oras 24/7, at libre para sa katotohanang ang lichess ay bukas-mapagkukunan at hindi nababalutan ng pagmamay-ari ng basura na nagpapahamak sa iba pang mga website.%s.</string>
-  <string name="howCanIContributeToLichess">Paano ako makakapag-ambag sa Lichess?%s?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Ang Lichess ay napapagana ng mga donasyon galing sa mga patron at mga pagsisikap ng isang grupo ng mga volunteers.%s.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Pakinggan itong ibinigkas ng isang espesyalista.</string>
+  <string name="whyLiveLightLibre">Live, dahil ang mga laro ay linalaro at pinapanood ng totoong oras 24/7, at libre para sa katotohanang ang lichess ay bukas-mapagkukunan at hindi nababalutan ng pagmamay-ari ng basura na nagpapahamak sa iba pang mga website.</string>
+  <string name="howCanIContributeToLichess">Paano ako makakapag-ambag sa Lichess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Ang Lichess ay napapagana ng mga donasyon galing sa mga patron at mga pagsisikap ng isang grupo ng mga volunteers.</string>
 </resources>

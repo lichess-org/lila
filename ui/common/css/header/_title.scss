@@ -27,7 +27,7 @@
 
   @include breakpoint($mq-topnav-visible $mq-site-header-tall) {
     line-height: #{$site-header-tall-height - 5};
-    margin: 0 1rem;
+    margin: 0 1rem 0 1.5rem;
   }
 
 

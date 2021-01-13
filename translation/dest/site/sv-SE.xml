@@ -447,6 +447,7 @@
   <string name="lastName">Efternamn</string>
   <string name="biography">Biografi</string>
   <string name="country">Land</string>
+  <string name="thankYou">Tack!</string>
   <string name="socialMediaLinks">Länkar till sociala medier</string>
   <string name="inlineNotation">Visa notation</string>
   <string name="watchLichessTV">Titta på Lichess-TV</string>
@@ -455,34 +456,7 @@
   <string name="activeToday">Mest aktiva idag</string>
   <string name="activePlayers">Mest aktiva spelare</string>
   <string name="bewareTheGameIsRatedButHasNoClock">OBS! Partiet är rankat men har ingen tidsgräns.</string>
-  <string name="yourPuzzleRatingX">Din problemlösarrating: %s</string>
-  <string name="findTheBestMoveForWhite">Hitta bästa draget för vit.</string>
-  <string name="findTheBestMoveForBlack">Hitta bästa draget för svart.</string>
-  <string name="toTrackYourProgress">För att följa din utveckling:</string>
-  <string name="puzzleId">Schackproblem %s</string>
-  <string name="puzzleOfTheDay">Dagens schackproblem</string>
-  <string name="clickToSolve">Klicka för att lösa</string>
-  <string name="goodMove">Bra drag</string>
-  <string name="butYouCanDoBetter">Men det finns ännu bättre drag.</string>
-  <string name="bestMove">Bästa draget!</string>
-  <string name="keepGoing">Fortsätt...</string>
-  <string name="puzzleFailed">Feldrag</string>
-  <string name="butYouCanKeepTrying">Men du kan fortsätta försöka.</string>
   <string name="success">Rätt</string>
-  <string name="wasThisPuzzleAnyGood">Var det här schackproblemet bra?</string>
-  <string name="pleaseVotePuzzle">Hjälp lichess att bli bättre genom att rösta (använd pil upp eller pil ner):</string>
-  <string name="thankYou">Tack!</string>
-  <string name="ratingX">Rating: %s</string>
-  <string name="hidden">dold</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Spelat %s gånger</item>
-    <item quantity="other">Spelat %s gånger</item>
-  </plurals>
-  <string name="fromGameLink">Från parti: %s</string>
-  <string name="continueTraining">Fortsätt träning</string>
-  <string name="retryThisPuzzle">Testa detta schackproblem igen</string>
-  <string name="thisPuzzleIsCorrect">Det här schackproblemet är korrekt och intressant</string>
-  <string name="thisPuzzleIsWrong">Det här schackproblemet är fel eller tråkigt</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s parti spelas</item>
     <item quantity="other">%s partier spelas</item>
@@ -532,9 +506,11 @@
   <string name="newPassword">Nytt lösenord</string>
   <string name="newPasswordAgain">Nytt lösenord (igen)</string>
   <string name="newPasswordsDontMatch">De nya lösenorden är inte lika</string>
+  <string name="newPasswordStrength">Lösenordsstyrka</string>
   <string name="clockInitialTime">Starttid</string>
   <string name="clockIncrement">Tidstillägg</string>
   <string name="privacy">Sekretess</string>
+  <string name="privacyPolicy">Integritetspolicy</string>
   <string name="letOtherPlayersFollowYou">Låt andra spelare följa dig</string>
   <string name="letOtherPlayersChallengeYou">Låt andra spelare utmana dig</string>
   <string name="letOtherPlayersInviteYouToStudy">Låt andra spelare bjuda in dig till studier</string>
@@ -680,6 +656,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Om du inte ser e-postmeddelandet, kontrollera andra ställen där det kan vara, som din skräppost, spam, sociala eller andra mappar.</string>
   <string name="weHaveSentYouAnEmailTo">Vi har skickat ett e-postmeddelande till %s. Tryck på länken i e-posten för att återställa ditt lösenord.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Genom att registrera samtycker du till att vara bunden av våra %s.</string>
+  <string name="readAboutOur">Läs om vår %s.</string>
   <string name="networkLagBetweenYouAndLichess">Nätverksfördröjning mellan dig och lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tid att bearbeta ett drag på lichess server</string>
   <string name="downloadAnnotated">Hämta med noter</string>
@@ -799,7 +776,7 @@
   <string name="reviewBlackMistakes">Granska svarts misstag</string>
   <string name="advantage">Fördel</string>
   <plurals name="nbSeconds">
-    <item quantity="one">%s sekunder</item>
+    <item quantity="one">%s sekund</item>
     <item quantity="other">%s sekunder</item>
   </plurals>
   <string name="opening">Öppning</string>
@@ -864,4 +841,7 @@
   <string name="youCannotPostYetPlaySomeGames">Du kan inte posta i forumen ännu. Spela några partier!</string>
   <string name="subscribe">Prenumerera</string>
   <string name="unsubscribe">Avprenumerera</string>
+  <string name="challengeDeclined">Utmaning avböjd</string>
+  <string name="challengeAccepted">Utmaning antagen!</string>
+  <string name="challengeCanceled">Utmaning avbruten.</string>
 </resources>

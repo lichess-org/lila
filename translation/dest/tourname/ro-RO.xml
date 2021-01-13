@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hourlyRapidArena">Arenă Rapidă Orară</string>
+  <string name="hourlyRapidArena">Arena orară rapidă</string>
   <string name="hourlyRapid">Rapid orar</string>
-  <string name="hourlyXArena">Arenă %s Orară</string>
-  <string name="dailyRapidArena">arena rapida zilnica</string>
+  <string name="hourlyXArena">Arena orară %s</string>
+  <string name="hourlyX">Orar %s</string>
+  <string name="dailyRapidArena">Arena zilnică rapidă</string>
   <string name="dailyRapid">rapid zilnic</string>
-  <string name="dailyClassicalArena">arena clasica zilnica</string>
+  <string name="dailyClassicalArena">Arena clasică zilnică</string>
   <string name="dailyClassical">clasic zilnic</string>
-  <string name="dailyXArena">Zilnic %s Arenă</string>
+  <string name="dailyXArena">Arena Zilnică %s</string>
   <string name="dailyX">Zilnic %s</string>
   <string name="easternRapidArena">Arena Rapidă de fus orar</string>
   <string name="easternRapid">rapid de fus orar</string>
@@ -19,15 +20,15 @@
   <string name="weeklyRapid">Rapid săptămânal</string>
   <string name="weeklyClassicalArena">Arena clasică săptămânală</string>
   <string name="weeklyClassical">Clasică săptămânală</string>
-  <string name="weeklyXArena">Săptămâna %s Arenă</string>
+  <string name="weeklyXArena">Arena săptămânală %s</string>
   <string name="weeklyX">Săptămânal %s</string>
   <string name="monthlyRapidArena">Arenă Rapidă Lunară</string>
   <string name="monthlyRapid">Rapid lunar</string>
   <string name="monthlyClassicalArena">Arena clasică lunară</string>
   <string name="monthlyClassical">Clasică Lunară</string>
-  <string name="monthlyXArena">Lunar %s Arenă</string>
+  <string name="monthlyXArena">Arena lunară %s</string>
   <string name="monthlyX">Lunar %s</string>
-  <string name="yearlyRapidArena">Arenă Rapidă Anual</string>
+  <string name="yearlyRapidArena">Arena anuală rapidă</string>
   <string name="yearlyRapid">Anual Rapid</string>
   <string name="yearlyClassicalArena">Arena clasică anuală</string>
   <string name="yearlyClassical">Clasică anuală</string>

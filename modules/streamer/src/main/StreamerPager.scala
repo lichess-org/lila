@@ -31,7 +31,7 @@ final class StreamerPager(
             "_id" $nin live.streams.map(_.streamer.id)
           ),
       projection = none,
-      sort = $sort desc "liveAt"
+      sort = if (approvalRequested) $sort asc "updatedAt" else $sort desc "liveAt"
     ) mapFutureList withUsers
     Paginator(
       adapter = new CachedAdapter(adapter, nbResults = fuccess(6000)),

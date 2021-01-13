@@ -27,8 +27,8 @@
     <item quantity="one">%s join request</item>
     <item quantity="other">%s join requests</item>
   </plurals>
-  <string name="willBeReviewed">Your join request will be reviewed by the team leader.</string>
-  <string name="beingReviewed">Your join request is being reviewed by the team leader.</string>
+  <string name="willBeReviewed">Your join request will be reviewed by a team leader.</string>
+  <string name="beingReviewed">Your join request is being reviewed by a team leader.</string>
   <string name="teamBattle">Team Battle</string>
   <string name="teamBattleOverview">A battle of multiple teams, each player scores points for their team</string>
   <string name="teamTournament">Team tournament</string>

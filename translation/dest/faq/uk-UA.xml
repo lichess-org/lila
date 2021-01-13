@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Чому Lichess так називається?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess — це поєднання live/light/libre, тобто \"наживо\", \"легко\", \"вільно\" і \"chess\", тобто \"шахи\" англійською. Вимовляється %1$s.</string>
   <string name="leechess">\"лі-чес\"</string>
-  <string name="hearItPronouncedBySpecialist">Послухайте це у виконанні спеціаліста.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Послухайте це у виконанні спеціаліста.</string>
   <string name="whyLiveLightLibre">Наживо - тому що ігри граються та спостерігаються в режимі реального часу 24/7; легко та вільно - тому що Lichess має відкритий вихідний код і не захаращений пропрієтарним мотлохом, як на інших веб-сайтах.</string>
   <string name="whyIsLilaCalledLila">А код Lichess, %1$s, означає \"li[chess in sca]la\" (Lichess на Scala), тому що рушій Lichess написаний на %2$s, інтуїтивній мові програмування.</string>
   <string name="howCanIContributeToLichess">Як я можу зробити свій внесок у Lichess?</string>
@@ -33,7 +33,7 @@
   <string name="basedOnGameDuration">Параметр часу Lichess базується на розрахунковій тривалості гри = %1$s
 Наприклад, приблизна тривалість гри 5+3 становить 5 × 60 + 40 × 3 = 420 секунд.</string>
   <string name="durationFormula">(початковий час) + 40 × (приріст годинника)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$s с = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s с = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
   <string name="whatVariantsCanIplay">В які варіанти я можу грати на Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess підтримує стандартні шахи та %1$s.</string>
@@ -52,7 +52,7 @@
 У рідкісних випадках це складно визначити автоматично (серія вимушених ходів, фортеця). За замовчуванням ми завжди на стороні гравця, який не вичерпав часу.
 
 Зверніть увагу, що можна поставити мат одним конем або слоном, якщо суперник має фігуру, яка може заблокувати короля.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">Правила ФІДЕ %s</string>
+  <string name="fideHandbookX">Правила ФІДЕ %s</string>
   <string name="discoveringEnPassant">Чому пішак може захопити іншого пішака, коли він вже пройшов? (взяття на проході)</string>
   <string name="explainingEnPassant">Це дозволений хід, відомий як \"взяття на проході\". Стаття Вікіпедії дає %1$s.
 

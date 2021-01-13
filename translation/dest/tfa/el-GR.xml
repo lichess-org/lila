@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="twoFactorAuth">Ταυτοποίηση δύο παραγόντων</string>
-  <string name="twoFactorHelp">Η ταυτοποίηση δύο παραγόντων προσθέτει επιπλέον επίπεδο ασφάλειας στο λογαριασμό σας.</string>
+  <string name="twoFactorAuth">Έλεγχος ταυτότητας δύο παραγόντων</string>
+  <string name="twoFactorHelp">Ο έλεγχος ταυτότητας δύο παραγόντων προσθέτει επιπλέον επίπεδο ασφάλειας στο λογαριασμό σας.</string>
   <string name="twoFactorApp">Κάντε λήψη ενός app ταυτοποίησης δύο παραγόντων, για παράδειγμα Google Authenticator για %1$s ή %2$s.</string>
   <string name="scanTheCode">Σαρώστε το κωδικό QR με την εφαρμογή.</string>
   <string name="enterPassword">Εισάγετε κωδικό και κωδικό ταυτοποίησης που δημιουργήθηκε από το app για να ολοκληρώσετε την ρύθμιση. Θα χρειάζεστε ένα κωδικό ταυτοποίησης κάθε φορά που εισέρχεστε.</string>
+  <string name="ifYouCannotScanEnterX">Αν δεν μπορείτε να σαρώσετε τον κωδικό, εισάγετε το μυστικό κλειδί %s στην εφαρμογή σας.</string>
   <string name="authenticationCode">Κωδικός ταυτοποίησης</string>
   <string name="ifYouLoseAccess">Σημείωση: Αν χάσετε τους κωδικούς ταυτοποίησης δύο παραγόντων, μπορείτε να επαναφέρετε το κωδικό σας με email.</string>
-  <string name="enableTwoFactor">Ενεργοποίηση ταυτοποίησης δύο παραγόντων</string>
-  <string name="disableTwoFactor">Απενεργοποίηση ταυτοποίησης δύο παραγόντων</string>
-  <string name="twoFactorEnabled">Η ταυτοποίηση δύο παραγόντων ενεργοποιήθηκε</string>
+  <string name="enableTwoFactor">Ενεργοποίηση ελέγχου ταυτότητας δύο παραγόντων</string>
+  <string name="disableTwoFactor">Απενεργοποίηση ελέγχου ταυτότητας δύο παραγόντων</string>
+  <string name="twoFactorEnabled">Ο έλεγχος ταυτότητας δύο παραγόντων ενεργοποιήθηκε</string>
   <string name="twoFactorDisable">Χρειάζεστε το κωδικό σας και ένα κωδικό ταυτοποίησης από την εφαρμογή σας για να απενεργοποιήσετε την ταυτοποίηση δύο παραγόντων.
 Αν χάσατε τους κωδικούς ταυτοποίησης, μπορείτε να επαναφέρετε τον κωδικό με email.</string>
+  <string name="openTwoFactorApp">Ανοίξτε την εφαρμογή ελέγχου ταυτότητας δύο παραγόντων στη συσκευή σας για να δείτε τον κωδικό ταυτοποίησης και να επαληθεύσετε την ταυτότητά σας.</string>
 </resources>

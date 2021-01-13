@@ -447,6 +447,7 @@
   <string name="lastName">Vezetéknév</string>
   <string name="biography">Bemutatkozás</string>
   <string name="country">Ország</string>
+  <string name="thankYou">Köszönjük!</string>
   <string name="socialMediaLinks">Közösségi média</string>
   <string name="inlineNotation">Megjegyzések beszúrása</string>
   <string name="watchLichessTV">Lichess TV</string>
@@ -455,34 +456,7 @@
   <string name="activeToday">Ma aktívak</string>
   <string name="activePlayers">Aktív játékosok</string>
   <string name="bewareTheGameIsRatedButHasNoClock">A játszma értékelt, de nincs időmérés!</string>
-  <string name="yourPuzzleRatingX">Feladvány pontszámod: %s</string>
-  <string name="findTheBestMoveForWhite">Találd meg világos legjobb lépését!</string>
-  <string name="findTheBestMoveForBlack">Találd meg sötét legjobb lépését!</string>
-  <string name="toTrackYourProgress">Kövesd nyomon a fejlődésed:</string>
-  <string name="puzzleId">%s. feladvány</string>
-  <string name="puzzleOfTheDay">Napi feladvány</string>
-  <string name="clickToSolve">Katt a megoldáshoz</string>
-  <string name="goodMove">Jó lépés</string>
-  <string name="butYouCanDoBetter">De jobbat is találhatsz.</string>
-  <string name="bestMove">A legjobb lépés!</string>
-  <string name="keepGoing">Folytasd...</string>
-  <string name="puzzleFailed">Nem sikerült megoldani</string>
-  <string name="butYouCanKeepTrying">De még próbálkozhatsz.</string>
   <string name="success">Sikerült!</string>
-  <string name="wasThisPuzzleAnyGood">Tetszett a feladvány?</string>
-  <string name="pleaseVotePuzzle">Segíts a lichess fejlődésében azzal, hogy szavazol a le-föl nyilakkal:</string>
-  <string name="thankYou">Köszönjük!</string>
-  <string name="ratingX">Pontszám: %s</string>
-  <string name="hidden">rejtett</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">%s beküldött megfejtés</item>
-    <item quantity="other">%s beküldött megfejtés</item>
-  </plurals>
-  <string name="fromGameLink">%s játszmából</string>
-  <string name="continueTraining">Gyakorlás folytatása</string>
-  <string name="retryThisPuzzle">Újabb próba</string>
-  <string name="thisPuzzleIsCorrect">Ez a feladvány helyes és érdekes</string>
-  <string name="thisPuzzleIsWrong">Ez a feladvány hibás vagy unalmas</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s játszma fut</item>
     <item quantity="other">%s játszma fut</item>
@@ -536,6 +510,7 @@
   <string name="clockInitialTime">Kiindulási idő</string>
   <string name="clockIncrement">Növekmény</string>
   <string name="privacy">Adatvédelem</string>
+  <string name="privacyPolicy">Adatvédelmi irányelvek</string>
   <string name="letOtherPlayersFollowYou">Mások követhetnek téged</string>
   <string name="letOtherPlayersChallengeYou">Mások kihívhatnak egy játszmára</string>
   <string name="letOtherPlayersInviteYouToStudy">Mások meghívhatnak játszma tanulmányozásra</string>
@@ -681,6 +656,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ha nem látod az email-t, ellenőrizd, hogy nincs-e a szemetes, a spam vagy a közösségi mappában, vagy egyéb mappákban.</string>
   <string name="weHaveSentYouAnEmailTo">Küldtünk egy üzenetet a %s email címre. A jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">A regisztrációval elfogadod a %s-t</string>
+  <string name="readAboutOur">Itt olvashatók az %s.</string>
   <string name="networkLagBetweenYouAndLichess">Hálózati késleltetés a számítógéped és a lichess között</string>
   <string name="timeToProcessAMoveOnLichessServer">Az az idő, amíg a lichess szerver egy lépést feldolgoz</string>
   <string name="downloadAnnotated">Letöltés elemzéssel</string>
@@ -865,4 +841,7 @@
   <string name="youCannotPostYetPlaySomeGames">Még nem írhatsz a fórumokba. Játssz néhány partit!</string>
   <string name="subscribe">Feliratkozás</string>
   <string name="unsubscribe">Leiratkozás</string>
+  <string name="challengeDeclined">Kihívás elutasítva</string>
+  <string name="challengeAccepted">Kihívás elfogadva!</string>
+  <string name="challengeCanceled">Kihívás visszavonva.</string>
 </resources>

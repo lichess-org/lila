@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="contact">Contacto</string>
+  <string name="contactLichess">Contactar con Lichess</string>
+  <string name="iCantLogIn">Non podo iniciar sesión</string>
+  <string name="forgotPassword">Esquecín o meu contrasinal</string>
+  <string name="forgotUsername">Esquecín o meu nome de usuario</string>
+  <string name="wantCloseAccount">Quero cerrar a miña conta</string>
+  <string name="wantReopen">Quero reabrir miña conta</string>
+  <string name="cheating">facer trampas</string>
+  <string name="trolling">molestar</string>
+  <string name="insults">insultos</string>
+  <string name="otherReason">outra razón</string>
+  <string name="wantReportBug">Quero informar dun erro</string>
+  <string name="errorPage">Páxina de erro</string>
+  <string name="noneOfTheAbove">Ningún dos anteriores</string>
+</resources>

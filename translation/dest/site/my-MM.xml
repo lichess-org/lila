@@ -80,6 +80,8 @@
   <string name="help">အကူအညီ</string>
   <string name="newPasswordsDontMatch">စကားဝှက် အသစ်တို့ အချင်းချင်း မကိုက်ညီပါ</string>
   <string name="newPasswordStrength">စကားဝှက် အားကောင်းမှု</string>
+  <string name="privacyPolicy">ပုဂ္ဂိုလ်ဆိုင်ရာ အချက်အလက် လုံခြုံရေး မူဝါဒ</string>
+  <string name="readAboutOur">ကျွန်ုပ်တို့၏ %s အကြောင်း ဖတ်ရှုပါ။</string>
   <string name="important">အရေးကြီးပါသည်</string>
   <string name="yourQuestionMayHaveBeenAnswered">%1$s တွင် အဖြေ ရှိပြီး ဖြစ်နိုင်ပါသည်။</string>
   <string name="inTheFAQ">အများသိလိုသော မေးခွန်းများတွင် ရှိပါသည်။</string>

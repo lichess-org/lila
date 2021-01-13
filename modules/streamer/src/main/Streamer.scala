@@ -120,4 +120,6 @@ object Streamer {
   val maxTier = 10
 
   val tierChoices = (0 to maxTier).map(t => t -> t.toString)
+
+  def canApply(u: User) = (u.count.game >= 15 && u.createdSinceDays(2)) || u.hasTitle || u.isVerified
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="advantage">Avantaĝo</string>
+  <string name="attackingF2F7">Atako al f2 aŭ f7</string>
+  <string name="bishopEndgame">Kuriera finludo</string>
+  <string name="castling">Aroko</string>
+  <string name="capturingDefender">Kapti la defendanton</string>
+  <string name="equality">Egaligi</string>
+  <string name="kingsideAttack">Atako al la reĝa flanko</string>
+  <string name="defensiveMove">Defenda movo</string>
+  <string name="doubleCheck">Duobla ŝako</string>
+  <string name="endgame">Finludo</string>
+  <string name="fork">Forko</string>
+  <string name="interference">Interfero</string>
+  <string name="knightEndgame">Ĉevala finludo</string>
+  <string name="long">Longa puzlo</string>
+  <string name="longDescription">Tri movoj por venki.</string>
+  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mato</string>
+  <string name="pawnEndgame">Peona finludo</string>
+  <string name="promotion">Damigo</string>
+  <string name="queenEndgame">Dama finludo</string>
+  <string name="queenRookEndgame">Damo kaj Turo</string>
+  <string name="queensideAttack">Atako al la dama flanko</string>
+  <string name="rookEndgame">Tura finludo</string>
+  <string name="short">Mallonga puzlo</string>
+  <string name="shortDescription">Du movoj por venki.</string>
+  <string name="underPromotionDescription">Damigi al ĉevalo, kuriero aŭ turo.</string>
+  <string name="veryLong">Tre longa puzlo</string>
+  <string name="veryLongDescription">Kvar aŭ pliaj movoj por venki.</string>
+</resources>

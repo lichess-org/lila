@@ -39,13 +39,6 @@ object coordinate {
             if (ctx.isAuth) scoreOption.map { score =>
               div(cls := "scores")(scoreCharts(score))
             }
-            else
-              div(cls := "register")(
-                p(trans.toTrackYourProgress()),
-                p(cls := "signup")(
-                  a(cls := "button", href := routes.Auth.signup())(trans.signUp())
-                )
-              )
           ),
           form(cls := "color buttons", action := routes.Coordinate.color(), method := "post")(
             st.group(cls := "radio")(

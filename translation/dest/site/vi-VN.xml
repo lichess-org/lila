@@ -9,6 +9,7 @@
   <string name="yourTurn">Lượt của bạn</string>
   <string name="aiNameLevelAiLevel">%1$s cấp độ %2$s</string>
   <string name="level">Cấp độ</string>
+  <string name="strength">Độ mạnh</string>
   <string name="toggleTheChat">Bật/tắt chat</string>
   <string name="toggleSound">Bật/Tắt âm thanh</string>
   <string name="chat">Trò chuyện</string>
@@ -419,6 +420,7 @@
   <string name="lastName">Họ</string>
   <string name="biography">Lý lịch</string>
   <string name="country">Quốc gia</string>
+  <string name="thankYou">Cám ơn!</string>
   <string name="socialMediaLinks">Kênh mạng xã hội</string>
   <string name="inlineNotation">Ký hiệu bên trong bàn cờ</string>
   <string name="watchLichessTV">Xem ti vi Lichess</string>
@@ -427,33 +429,7 @@
   <string name="activeToday">Hoạt động trong ngày</string>
   <string name="activePlayers">Các kỳ thủ tích cực</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Đề phòng, ván cờ tính điểm nhưng không tính thời gian!</string>
-  <string name="yourPuzzleRatingX">Hệ số giải bài tập của bạn: %s</string>
-  <string name="findTheBestMoveForWhite">Tìm nước tối ưu cho Trắng</string>
-  <string name="findTheBestMoveForBlack">Tìm nước tối ưu cho Đen</string>
-  <string name="toTrackYourProgress">Theo dõi sự tiến bộ của bạn</string>
-  <string name="puzzleId">Bài số %s</string>
-  <string name="puzzleOfTheDay">Câu đố trong ngày</string>
-  <string name="clickToSolve">Click để giải</string>
-  <string name="goodMove">Nước tốt</string>
-  <string name="butYouCanDoBetter">Nhưng bạn không thể làm hơn được</string>
-  <string name="bestMove">Nước tối ưu</string>
-  <string name="keepGoing">Tiếp tục...</string>
-  <string name="puzzleFailed">Giải sai</string>
-  <string name="butYouCanKeepTrying">Nhưng bạn có thể thử lại</string>
   <string name="success">Thành công</string>
-  <string name="wasThisPuzzleAnyGood">Câu này có thú vị gì không?</string>
-  <string name="pleaseVotePuzzle">Giúp lichess cải thiện bằng cách bình chọn, dùng mũi tên lên hoặc xuống:</string>
-  <string name="thankYou">Cám ơn!</string>
-  <string name="ratingX">Hệ số: %s</string>
-  <string name="hidden">ẩn</string>
-  <plurals name="playedXTimes">
-    <item quantity="other">Đã chơi %s lần</item>
-  </plurals>
-  <string name="fromGameLink">Từ ván cờ %s</string>
-  <string name="continueTraining">Tiếp tục luyện</string>
-  <string name="retryThisPuzzle">Thử lại câu này</string>
-  <string name="thisPuzzleIsCorrect">Câu đố này đúng và rất thú vị</string>
-  <string name="thisPuzzleIsWrong">Câu đố này sai hoặc dở ẹc</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s trận đang chơi</item>
   </plurals>
@@ -506,6 +482,7 @@
   <string name="clockInitialTime">Thời gian ban đầu</string>
   <string name="clockIncrement">Thời gian được cho thêm</string>
   <string name="privacy">Riêng tư</string>
+  <string name="privacyPolicy">Chính sách bảo mật</string>
   <string name="letOtherPlayersFollowYou">Cho phép người khác theo dõi bạn</string>
   <string name="letOtherPlayersChallengeYou">Cho phép người khác thách đấu bạn</string>
   <string name="letOtherPlayersInviteYouToStudy">Cho phép đối thủ khác mời bạn học</string>
@@ -647,6 +624,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Nếu bạn không thấy ở trong Email, kiểm tra lại ở các nơi khác có thể có, như rác, thư rác, xã hội hay các thư mục khác.</string>
   <string name="weHaveSentYouAnEmailTo">Chúng tôi đã gửi một email đến %s. Nhấp vào liên kết trong email để đặt lại mật khẩu của bạn.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Bằng cách đăng ký, bạn đồng ý bị ràng buộc bởi chúng tôi %s.</string>
+  <string name="readAboutOur">Đọc về %s của chúng tôi.</string>
   <string name="networkLagBetweenYouAndLichess">Hệ số lag giữa bạn và Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Thời gian để tiến hành một nước đi trên máy chủ lichess</string>
   <string name="downloadAnnotated">Tải kèm chú thích</string>

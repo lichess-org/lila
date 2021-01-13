@@ -6,7 +6,7 @@
   <string name="materialDifference">Diferencia material</string>
   <string name="boardHighlights">Destacar quadretz d\'o escaquero (zaguer movimiento y escaque)</string>
   <string name="pieceDestinations">Destín d\'as piezas (movimientos validos y anticipaus)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Coordenadas d\'o escaquero (A-H, 1-8)</string>
+  <string name="boardCoordinates">Coordenadas d\'o escaquero (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lista de movimientos entre la partida</string>
   <string name="pgnPieceNotation">Notación d\'os movimientos</string>
   <string name="chessPieceSymbol">Simbolo d\'a pieza</string>
@@ -17,11 +17,11 @@
   <string name="blindfoldChess">Escaques a ciegas (piezas invisibles)</string>
   <string name="chessClock">Reloch d\'escaques</string>
   <string name="tenthsOfSeconds">Decenas de segundo</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Quan queden menos de 10 segundos</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Quan queden menos de 10 segundos</string>
   <string name="horizontalGreenProgressBars">Barras de progreso horizontals verdes</string>
   <string name="soundWhenTimeGetsCritical">Alerta quan quede poco tiempo</string>
   <string name="giveMoreTime">Dar mas tiempo</string>
-  <string name="gameBehavior">Comportamiento d\'o chuego</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Comportamiento d\'o chuego</string>
   <string name="howDoYouMovePieces">Cómo quiers mover las piezas?</string>
   <string name="clickTwoSquares">Fendo clic en a pieza y dimpués en o quadro de destín</string>
   <string name="dragPiece">Arrocegando la pieza dica o quadro de destín</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">Nomás en partidas amistosas</string>
   <string name="promoteToQueenAutomatically">Promover a la Reina automaticament</string>
   <string name="whenPremoving">Con anticipadas</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Reclamar taulas per triple repetición</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Quan lo tiempo restante sía de &lt; 30 segundos</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar taulas per triple repetición</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Quan lo tiempo restante sía de &lt; 30 segundos</string>
   <string name="moveConfirmation">Confirmación de movimiento</string>
   <string name="inCorrespondenceGames">Partidas per correspondencia</string>
   <string name="correspondenceAndUnlimited">Correspondencia y sin limite de tiempo</string>
@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Movendo lo rei dos quadros</string>
   <string name="castleByMovingOntoTheRook">Movendo lo rei dica la torre</string>
   <string name="inputMovesWithTheKeyboard">Dentrada de movimientos con o teclau</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Flechas enta los movimientos validos</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Decir \"Buena partida, bien chugada\" en caso de redota u empaz</string>
   <string name="yourPreferencesHaveBeenSaved">Las tuyas preferencias s\'han alzau.</string>
 </resources>

@@ -20,7 +20,7 @@ object BlogTransform {
 
     private val cache: LoadingCache[Text, Html] = lila.memo.CacheApi.scaffeineNoScheduler
       .expireAfterWrite(15 minutes)
-      .maximumSize(32)
+      .maximumSize(64)
       .build((text: Text) => renderer(text.replace("<br>", "\n")))
 
     private val PreRegex = """<pre>markdown(.+)</pre>""".r

@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">¿Por qué Lichess se llama así?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess es una combinación de live/light/libre (en directo, ligero y libre, en inglés) y chess (ajedrez, en inglés). Se pronuncia %1$s.</string>
   <string name="leechess">liches</string>
-  <string name="hearItPronouncedBySpecialist">Así es como lo pronuncia un especialista.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Así es como lo pronuncia un especialista.</string>
   <string name="whyLiveLightLibre">En directo, porque los partidas se juegan y se ven en tiempo real 24/7; ligero y libre porque Lichess es de código abierto y sin la basura propietaria que abunda en otras páginas.</string>
   <string name="whyIsLilaCalledLila">Del mismo modo, el código fuente de Lichess, %1$s, significa li[chess en sca]la, dado que la mayor parte de Lichess está escrito en %2$s, un intuitivo lenguaje de programación.</string>
   <string name="howCanIContributeToLichess">¿Cómo puedo contribuir a Lichess?</string>
@@ -52,16 +52,15 @@ El análisis informático en Lichess lo proporciona Stockfish.</string>
 En raras ocasiones esto puede ser difícil de decidir automáticamente (líneas forzadas, fortalezas). Por defecto, siempre estamos de parte del jugador que no se quedó sin tiempo.
 
 Ten en cuenta que es posible dar mate con un sólo caballo o alfil, siempre que el oponente tenga una pieza que pueda bloquear al rey.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">%s del manual de la FIDE</string>
+  <string name="fideHandbookX">%s del manual de la FIDE</string>
   <string name="discoveringEnPassant">¿Por qué un peón puede capturar otro peón cuando ya está pasado? (en passant)</string>
   <string name="explainingEnPassant">Este movimiento es legal, y se llama \"captura al paso\". El artículo de Wikipedia da una %1$s al mismo.
 
-  Se describe en la sección 3.7 (d) de las %2$s:
+Se describe en la sección 3.7 (d) de las %2$s:
 
-  \"Un peón que ocupa un cuadrado en la misma fila y en una columna adyacente al peón de un oponente que acaba de avanzar dos casillas en un movimiento de su cuadrado original puede capturar el peón de este oponente como si este solo hubiera sido movido una casilla. Esta captura sólo es legal en el movimiento inmediatamente posterior a este avance y se denomina captura “al paso”.
+\"Un peón que ocupa un cuadrado en la misma fila y en una columna adyacente al peón de un oponente que acaba de avanzar dos casillas en un movimiento de su cuadrado original puede capturar el peón de este oponente como si este solo hubiera sido movido una casilla. Esta captura sólo es legal en el movimiento inmediatamente posterior a este avance y se denomina captura “al paso”.
 
-  Mira el capítulo del %3$s sobre este movimiento para practicar un poco con él.
-  </string>
+Mira el capítulo del %3$s sobre este movimiento para practicar un poco con él.</string>
   <string name="goodIntroduction">buena introducción</string>
   <string name="officialRulesPDF">reglas oficiales (pdf)</string>
   <string name="lichessTraining">Entrenamiento en Lichess</string>
@@ -69,7 +68,7 @@ Ten en cuenta que es posible dar mate con un sólo caballo o alfil, siempre que 
   <string name="threefoldRepetitionExplanation">Si una posición ocurre tres veces, los jugadores pueden reclamar un empate por %1$s. Lichess implementa las reglas oficiales de la FIDE, de acuerdo con el Artículo 9.2 (d) del %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triple repetición</string>
   <string name="notRepeatedMoves">No hemos repetido movimientos, ¿por qué el juego sigue siendo tablas por repetición?</string>
-  <string name="repeatedPositionsThatMatters">La triple repetición se da por repetición de %1$s, no de movimientos. La repetición no tiene ocurrir consecutivamente.</string>
+  <string name="repeatedPositionsThatMatters">La triple repetición se da por repetición de %1$s, no de movimientos. La repetición no tiene porqué ocurrir consecutivamente.</string>
   <string name="positions">posiciones</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Hemos repetido una posición tres veces. ¿Por qué la partida no se declara tablas?</string>
   <string name="threeFoldHasToBeClaimed">Las tablas por triple repetición deben ser reclamadas por uno de los jugadores. Puedes hacerlo pulsando el botón que se muestra, u ofreciendo tablas antes de hacer el movimiento que cause la tercera repetición, no importará que tu oponente rechace la oferta de tablas, las tablas por triple repetición serán reclamadas de todas maneras. También puedes %1$s Lichess para que reclame automáticamente las repeticiones por ti. Además, la quinta repetición siempre termina la partida inmediatamente.</string>
@@ -94,6 +93,8 @@ No solicites el título de LM.</string>
   <string name="whatUsernameCanIchoose">¿Cuál puede ser mi nombre de usuario?</string>
   <string name="usernamesNotOffensive">En general, los nombres de usuario no deben: ser ofensivos, suplantar a alguien o hacer publicidad. Puedes leer más sobre las %1$s.</string>
   <string name="guidelines">pautas</string>
+  <string name="canIChangeMyUsername">¿Puedo cambiar mi nombre de usuario?</string>
+  <string name="usernamesCannotBeChanged">No, los nombres de usuario no pueden cambiarse por razones técnicas y prácticas. Los nombres de usuario se materializan en muchos lugares: bases de datos, exportaciones, registros y en la mente de las personas. Puedes ajustar las mayúsculas solo una vez.</string>
   <string name="uniqueTrophies">Trofeos únicos</string>
   <string name="ownerUniqueTrophies">Ese trofeo es único en la historia de Lichess, nadie más que %1$s lo tendrá jamás.</string>
   <string name="wayOfBerserkExplanation">Para obtenerlo, hiimgosu se desafió a sí mismo a berserk y ganó 100%% partidas de %s.</string>

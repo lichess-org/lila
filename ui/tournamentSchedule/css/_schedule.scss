@@ -46,7 +46,7 @@ $c-tour-max-rating: #8572ff;
     display: inline;
     height: 100%;
     border-left: 1px dashed $c-border;
-    padding: 3px 6px;
+    padding: 5px 6px;
 
     &.hour {
       font-weight: bold;
@@ -54,10 +54,21 @@ $c-tour-max-rating: #8572ff;
     }
 
     &.now {
-      top: 1.6em;
+      top: 24px;
       height: calc(100% - 1.6em);
       margin-left: 1px;
       border-left: 3px dashed $c-accent;
+      &::after {
+        content: '';
+        position: absolute;
+        top: -24px;
+        left: -10px;
+        width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-top: 8px solid $c-accent;
+      }
     }
   }
 }
@@ -80,7 +91,7 @@ $c-tour-max-rating: #8572ff;
   }
 
   &-finished {
-    opacity: 0.7;
+    opacity: 0.4;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3) inset;
   }
 

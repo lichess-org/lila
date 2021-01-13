@@ -6,7 +6,7 @@
   <string name="materialDifference">تفاوت مهره ها</string>
   <string name="boardHighlights">نشان دادن اتفاقات صفحه(حرکت قبلی و کیش)</string>
   <string name="pieceDestinations">مقصد مهره(حرکت معتبر و پیش حرکت )</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">مختصات صفحه(A-H، 1-8)</string>
+  <string name="boardCoordinates">مختصات صفحه(A-H، 1-8)</string>
   <string name="moveListWhilePlaying">لیست حرکات هنگام بازی کردن</string>
   <string name="pgnPieceNotation">نمایش حرکات</string>
   <string name="chessPieceSymbol">نماد مهره</string>
@@ -16,7 +16,7 @@
   <string name="blindfoldChess">شطرنج با چشمان بسته / مهره های نامرئی</string>
   <string name="chessClock">ساعت شطرنج</string>
   <string name="tenthsOfSeconds">دهم ثانیه</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">وقتی زمان باقی مانده کمتر از ده ثانیه می باشد</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">وقتی زمان باقی مانده کمتر از ده ثانیه می باشد</string>
   <string name="horizontalGreenProgressBars">نمودار زمان سبز رنگ افقی</string>
   <string name="soundWhenTimeGetsCritical">صدا در هنگام زمان بحرانی زده می شود</string>
   <string name="giveMoreTime">افزایش زمان حریف</string>
@@ -30,8 +30,8 @@
   <string name="inCasualGamesOnly">در بازی های غیررسمی</string>
   <string name="promoteToQueenAutomatically">ترفیع کردن به وزیر به صورت خودکار</string>
   <string name="whenPremoving">در زمان پیش حرکت</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">ادعای تساوی در تکرار سه گانه به طور خودکار</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">وقتی زمان باقی مانده کمتر از سی ثانیه است</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">ادعای تساوی در تکرار سه گانه به طور خودکار</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">وقتی زمان باقی مانده کمتر از سی ثانیه است</string>
   <string name="moveConfirmation">تایید حرکت</string>
   <string name="inCorrespondenceGames">در حال بازی مکاتبه ای</string>
   <string name="correspondenceAndUnlimited">مکاتبه ای و نامحدود</string>

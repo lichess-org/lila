@@ -29,7 +29,7 @@
   </plurals>
   <string name="willBeReviewed">Katılma talebiniz takım lideri tarafından incelenecek.</string>
   <string name="beingReviewed">Katılma talebiniz takım lideri tarafından inceleniyor.</string>
-  <string name="teamBattle">Takım Mücadelesi</string>
+  <string name="teamBattle">Takım Çarpışması</string>
   <string name="teamBattleOverview">Bu birden fazla takımın mücadelesidir, her oyuncu kendi takımına puan kazandırır</string>
   <string name="teamTournament">Takım turnuvası</string>
   <string name="teamTournamentOverview">Sadece takım üyelerinizin katılabileceği bir Arena turnuvası</string>
@@ -39,7 +39,9 @@
 Oyuncuları bir turnuvaya veya bir takım savaşına katılmaya çağırmak için kullanabilirsiniz.
 Mesajlarınızı almayı sevmeyen oyuncular takımdan ayrılabilir.</string>
   <string name="teamsIlead">Yönettiğim takımlar</string>
-  <string name="youWayWantToLinkOneOfTheseTournaments">A dëshironi të shpërndani linkun e ndonjërit prej turnireve në vijim?</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Yaklaşan bu turnuvalardan birine link vermek ister miydiniz?</string>
   <string name="usersWhoCanManageThisTeam">Bu takımı yönetebilen kullanıcılar</string>
   <string name="leadersChat">Liderler arası sohbet</string>
+  <string name="closeTeam">Takımı kapat</string>
+  <string name="closeTeamDescription">Takımı sonsuza dek kapatır.</string>
 </resources>

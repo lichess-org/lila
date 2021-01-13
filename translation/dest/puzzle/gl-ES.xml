@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Crebacabezas</string>
+  <string name="puzzleThemes">Temas de quebracabezas</string>
+  <string name="recommended">Recomendado</string>
+  <string name="phases">Fases</string>
+  <string name="motifs">Motivos</string>
+  <string name="advanced">Avanzado</string>
+  <string name="lengths">Duracións</string>
+  <string name="mates">Mates</string>
+  <string name="goals">Obxectivos</string>
+  <string name="specialMoves">Movementos especiais</string>
+  <string name="didYouLikeThisPuzzle">Gustouche este crebacabezas?</string>
+  <string name="voteToLoadNextOne">Vota para cargar o seguinte!</string>
+  <string name="yourPuzzleRatingX">A túa puntuación nos crebacabezas: %s</string>
+  <string name="findTheBestMoveForWhite">Atopa a mellor xogada para o branco.</string>
+  <string name="findTheBestMoveForBlack">Atopa a mellor xogada para o negro.</string>
+  <string name="toGetPersonalizedPuzzles">Para conseguir crebacabezas personalizados:</string>
+  <string name="puzzleId">Crebacabezas %s</string>
+  <string name="puzzleOfTheDay">Crebacabezas do día</string>
+  <string name="clickToSolve">Fai clic para resolver</string>
+  <string name="goodMove">Bo movemento</string>
+  <string name="bestMove">O mellor movemento!</string>
+  <string name="keepGoing">Continúa…</string>
+  <string name="puzzleSuccess">Feito!</string>
+  <string name="puzzleComplete">Crebacabezas terminado!</string>
+  <string name="notTheMove">Ese non é o movemento!</string>
+  <string name="trySomethingElse">Proba outra cosa.</string>
+  <string name="ratingX">Puntuación: %s</string>
+  <string name="hidden">oculta</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Xogado %s veces</item>
+    <item quantity="other">Xogado %s veces</item>
+  </plurals>
+  <string name="fromGameLink">Extraído da partida %s</string>
+  <string name="continueTraining">Continuar o adestramento</string>
+  <string name="difficultyLevel">Nivel de dificultade</string>
+  <string name="normal">Normal</string>
+  <string name="easier">Máis fácil</string>
+  <string name="easiest">O máis fácil</string>
+  <string name="harder">Máis difícil</string>
+  <string name="hardest">O máis difícil</string>
+  <string name="example">Exemplo</string>
+  <string name="addAnotherTheme">Engadir outro tema</string>
+  <string name="jumpToNextPuzzleImmediately">Ir ao seguinte crebacabezas inmediatamente</string>
+</resources>

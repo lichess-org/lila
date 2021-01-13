@@ -39,7 +39,7 @@ object GameFilterMenu {
   val all: NonEmptyList[GameFilter] =
     NonEmptyList.of(All, Me, Rated, Win, Loss, Draw, Playing, Bookmark, Imported, Search)
 
-  def apply(user: User, nbs: UserInfo.NbGames, currentName: String): GameFilterMenu = {
+  def apply(user: User, nbs: UserInfo.NbGames, currentName: String, isAuth: Boolean): GameFilterMenu = {
 
     val filters: NonEmptyList[GameFilter] = NonEmptyList(
       All,
@@ -52,7 +52,7 @@ object GameFilterMenu {
         (nbs.playing > 0) option Playing,
         (nbs.bookmark > 0) option Bookmark,
         (nbs.imported > 0) option Imported,
-        (user.count.game > 0) option Search
+        (isAuth && user.count.game > 0) option Search
       ).flatten
     )
 

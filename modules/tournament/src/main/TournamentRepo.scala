@@ -93,7 +93,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       .cursor[Tournament]()
       .list(limit)
 
-  def byOwnerAdapter(owner: User) =
+  private[tournament] def byOwnerAdapter(owner: User) =
     new lila.db.paginator.Adapter[Tournament](
       collection = coll,
       selector = $doc("createdBy" -> owner.id),
@@ -101,6 +101,41 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       sort = $sort desc "startsAt",
       readPreference = ReadPreference.secondaryPreferred
     )
+
+  private[tournament] def upcomingAdapterExpensiveCacheMe(userId: User.ID, max: Int) =
+    coll
+      .aggregateList(max, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
+        import framework._
+        Match(enterableSelect ++ nonEmptySelect) -> List(
+          PipelineOperator(
+            $doc(
+              "$lookup" -> $doc(
+                "from" -> playerCollName.value,
+                "let"  -> $doc("tid" -> "$_id"),
+                "pipeline" -> $arr(
+                  $doc(
+                    "$match" -> $doc(
+                      "$expr" -> $doc(
+                        "$and" -> $arr(
+                          $doc("$eq" -> $arr("$uid", userId)),
+                          $doc("$eq" -> $arr("$tid", "$$tid"))
+                        )
+                      )
+                    )
+                  ),
+                  $doc("$project" -> $doc("tid" -> true, "_id" -> false))
+                ),
+                "as" -> "player"
+              )
+            )
+          ),
+          Match("player" $ne $arr()),
+          Sort(Ascending("startsAt")),
+          Limit(max)
+        )
+      }
+      .map(_.flatMap(_.asOpt[Tournament]))
+      .dmap { new lila.db.paginator.StaticAdapter(_) }
 
   def finishedByFreqAdapter(freq: Schedule.Freq) =
     new lila.db.paginator.Adapter[Tournament](

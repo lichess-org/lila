@@ -26,8 +26,8 @@
   <string name="approved">Jūsu straume apstiprināta.</string>
   <string name="pendingReview">Jūsu straumi izskata moderatori.</string>
   <string name="pleaseFillIn">Lūdzu, aizpildiet staumētāja datus, un augšupielādējiet attēlu.</string>
-  <string name="whenReady">Kad esiet gatavs iekļaušanai Lichess straumētāju sarakstā, %s</string>
-  <string name="requestReview">pieprasīt moderatora izskatīšanu</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Kad esiet gatavs iekļaušanai Lichess straumētāju sarakstā, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">pieprasīt moderatora izskatīšanu</string>
   <string name="anotherLanguage">Ja jūsu straume nav angļu valodā, iekļaujiet pareizo valodas etiķeti (%s), ietvertu kvadrātiekavās, straumes nosaukuma sākumā.
 Piemēram, iekļaujiet \"[LV]\" latviešu valodai, \"[RU]\" krievu valodai, \"[FR] franču valodai, utt.
 Ievietojiet to straumes nosaukumā savā Twitch vai YouTube lapā, nevis Lichess straumes iestatījumos.
@@ -53,7 +53,7 @@ Ja straume ir angliski, nav nepieciešams pievienot valodas etiķeti.</string>
   <string name="maxSize">Maks. izmērs: %s</string>
   <string name="installBlocker">Instalējiet pretļaunatūras programmu!</string>
   <string name="beSafe">Esiet drošībā no reklāmām un trekeriem,
-kas apsēž Twitch un YouTube.
+kas apsēž platformas Twitch un YouTube.
 Lichess iesaka uBlock Origin,
 kas ir bezmaksas un atvērtā koda.</string>
 </resources>

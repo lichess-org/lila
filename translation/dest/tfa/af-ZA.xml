@@ -5,6 +5,7 @@
   <string name="twoFactorApp">Kry \'n toep vir tweeledige verifikasie, byvoorbeeld Google Authenticator vir %1$s of %2$s.</string>
   <string name="scanTheCode">Skandeer die QR kode met die toep.</string>
   <string name="enterPassword">Tik jou wagwoord en die verifikasie kode in, wat deur die toep gegenereer word, om die opstelling te voltooi. Jy sal die verifikasie kode elke keer benodig wat jy inteken.</string>
+  <string name="ifYouCannotScanEnterX">As u nie die kode kan skandeer nie, voer die geheime %s in u program in.</string>
   <string name="authenticationCode">Verifikasie kode</string>
   <string name="ifYouLoseAccess">Nem kennis: Indien jy toegang tot jou twee ledige verifikasie kodes verloor, kan jy jou wagwoord herstel via e-pos.</string>
   <string name="enableTwoFactor">Skakel twee-ledige verifikasie aan</string>

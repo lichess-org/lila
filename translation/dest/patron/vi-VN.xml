@@ -2,8 +2,74 @@
 <resources>
   <string name="donate">Ủng hộ</string>
   <string name="lichessPatron">Lichess Patron</string>
+  <string name="freeAccount">Tài khoản miễn phí</string>
   <string name="becomePatron">Trở thành Lichess Patron</string>
+  <string name="xBecamePatron">%s trở thành Lichess Patron</string>
   <string name="newPatrons">Patrons mới</string>
+  <string name="freeChess">Cờ vua miễn phí cho tất cả mọi người, mãi mãi!</string>
+  <string name="noAdsNoSubs">Không quảng cáo, không đóng tiền; nhưng có mã nguồn mở và sự đam mê.</string>
+  <string name="thankYou">Cảm ơn sự đóng góp của bạn!</string>
+  <string name="youHaveLifetime">Bạn có một tài khoản Patron trọn đời. Khá là tuyệt vời đấy!</string>
+  <string name="patronUntil">Bạn có tài khoản Patron cho đến %s.</string>
+  <string name="ifNotRenewed">Nếu không được làm mới, bạn sẽ hạ cấp xuống miễn phí.</string>
+  <string name="weAreNonProfit">Chúng tôi là một hiệp hội phi lợi nhuận bởi vì chúng tôi tin rằng tất cả mọi người đều có thể có truy cập tới một nền tảng cờ vua đẳng cấp thế giới và miễn phí.</string>
+  <string name="weRelyOnSupport">Chúng tôi dựa vào sự đóng góp từ những người như bạn. Nếu bạn thích sử dụng Lichess, hãy cân nhắc giúp đỡ chúng tôi thông qua việc quyên góp và trờ thành một Patron!</string>
   <string name="lifetime">Vĩnh viễn</string>
+  <string name="payLifetimeOnce">Đóng góp %s một lần. Trở thành Lichess Patron vĩnh viễn!</string>
+  <string name="lifetimePatron">Lichess Patron trọn đời</string>
+  <string name="makeExtraDonation">Quyên góp thêm nữa?</string>
+  <string name="monthly">Hàng tháng</string>
+  <string name="recurringBilling">Trả tiền định kỳ, làm mới đôi cánh Patron của bạn mỗi tháng.</string>
+  <string name="onetime">Một lần</string>
+  <string name="singleDonation">Đóng góp một lần cho bạn đôi cánh Patron trong vòng một tháng.</string>
+  <string name="otherAmount">Khác</string>
+  <string name="pleaseEnterAmount">Xin hãy nhập một số tiền bằng USD</string>
   <string name="withCreditCard">Thẻ tín dụng</string>
+  <string name="withPaypal">Paypal</string>
+  <string name="weAreSmallTeam">Chúng tôi là một đội nhỏ, vì vậy sự giúp đỡ của bạn tạo nên khác biệt rất lớn!</string>
+  <string name="celebratedPatrons">Những Patron nổi tiếng khiến cho Lichess thành hiện thực</string>
+  <string name="whereMoneyGoes">Tiền được dùng để làm gi?</string>
+  <string name="serversAndDeveloper">Đầu tiên, một máy chủ mạnh mẽ.
+Sau đó chúng tôi trả lương cho một nhà phát triển toàn thời gian: %s, nhà sáng lập Lichess.</string>
+  <string name="costBreakdown">Xem phân tích chi phí chi tiết</string>
+  <string name="officialNonProfit">Lichess có phải là một tổ chức phi lợi nhuận chính thống?</string>
+  <string name="actOfCreation">Đúng, và đây là tuyên bố thành lập (bằng tiếng Pháp)</string>
+  <string name="changeMonthlySupport">Tôi có thể thay đổi/hủy việc đóng góp hàng tháng được không?</string>
+  <string name="changeOrContact">Có, bất cứ lúc nào, ở trang này.
+Hoặc bạn có thể %s.</string>
+  <string name="contactSupport">liên hệ với bộ phận hỗ trợ Lichess</string>
+  <string name="otherMethods">Phương thức quyên góp khác?</string>
+  <string name="bankTransfers">Chúng tôi cũng chấp nhận chuyển khoản ngân hàng</string>
+  <string name="bitcoin">Và đây là địa chỉ Bitcoin của chúng tôi: %s</string>
+  <string name="patronFeatures">Có tính năng nào được dành riêng cho Patron không?</string>
+  <string name="noPatronFeatures">Không, Lichess hoàn toàn miễn phí, mãi mãi và cho tất cả mọi người. Đó là lời hứa của chúng tôi.
+Tuy nhiên, Patron được quyền khoe khoang với một huy hiệu mới.</string>
+  <string name="featuresComparison">Xem so sánh các tính năng chi tiết</string>
+  <plurals name="patronForMonths">
+    <item quantity="other">Lichess Patron cho %s tháng</item>
+  </plurals>
+  <string name="youSupportWith">Bạn hỗ trợ lichess.org với %s mỗi tháng.</string>
+  <string name="tyvm">Cảm ơn sự giúp đỡ của bạn rất nhiều. Bạn thật tuyệt vời!</string>
+  <string name="currentStatus">Trạng thái hiện tại</string>
+  <string name="nextPayment">Thanh toán tiếp theo</string>
+  <string name="youWillBeChargedXOnY">Bạn sẽ trả %1$s vào ngày %2$s.</string>
+  <string name="makeAdditionalDonation">Quyên góp thêm ngay bây giờ</string>
+  <string name="update">Cập nhật</string>
+  <string name="changeMonthlyAmount">Đổi lượng tiền hàng tháng (%s)</string>
+  <string name="cancelSupport">hủy sự giúp đỡ của bạn</string>
+  <string name="xOrY">%1$s hoặc %2$s</string>
+  <string name="decideHowMuch">Quyết định Lichess đáng giá như nào với bạn:</string>
+  <string name="stopPayments">Rút thẻ tín dụng và dừng các thanh toán:</string>
+  <string name="noLongerSupport">Không ủng hộ Lichess nữa</string>
+  <string name="paymentHistory">Lịch sử thanh toán</string>
+  <string name="paid">Đã thanh toán</string>
+  <string name="viewOthers">Xem các Lichess Patron khác</string>
+  <string name="date">Ngày</string>
+  <string name="amount">Số lượng</string>
+  <string name="transactionCompleted">Giao dịch của bạn đã thành công, một hóa đơn cho quyên góp của bạn đã được email tới bạn.</string>
+  <string name="permanentPatron">Giờ bạn đã có một tài khoản Patron vĩnh viễn.</string>
+  <string name="checkOutProfile">Hãy xem trang cá nhân của bạn!</string>
+  <string name="nowLifetime">Giờ bạn đã trở thành Lichess Patron trọn đời!</string>
+  <string name="nowOneMonth">Giờ bạn đã trở thành Lichess Patron trong một tháng!</string>
+  <string name="downgradeNextMonth">Sau một tháng, bạn sẽ không phải trả tiền lại nữa, và tài khoản Lichess của bạn sẽ quay trở lại tài khoản thường.</string>
 </resources>

@@ -9,6 +9,7 @@
   <string name="yourTurn">Your turn</string>
   <string name="aiNameLevelAiLevel">%1$s level %2$s</string>
   <string name="level">Level</string>
+  <string name="strength">Strength</string>
   <string name="toggleTheChat">Toggle the chat</string>
   <string name="toggleSound">Toggle sound</string>
   <string name="chat">Chat</string>
@@ -448,6 +449,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="lastName">Surname</string>
   <string name="biography">Biography</string>
   <string name="country">Country</string>
+  <string name="thankYou">Thank you!</string>
   <string name="socialMediaLinks">Social media links</string>
   <string name="inlineNotation">Inline notation</string>
   <string name="watchLichessTV">Watch Lichess TV</string>
@@ -456,34 +458,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="activeToday">Active today</string>
   <string name="activePlayers">Active players</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Beware, the game is rated but has no clock!</string>
-  <string name="yourPuzzleRatingX">Your puzzle rating: %s</string>
-  <string name="findTheBestMoveForWhite">Find the best move for white.</string>
-  <string name="findTheBestMoveForBlack">Find the best move for black.</string>
-  <string name="toTrackYourProgress">To track your progress:</string>
-  <string name="puzzleId">Puzzle %s</string>
-  <string name="puzzleOfTheDay">Puzzle of the day</string>
-  <string name="clickToSolve">Click to solve</string>
-  <string name="goodMove">Good move</string>
-  <string name="butYouCanDoBetter">But you can do better.</string>
-  <string name="bestMove">Best move!</string>
-  <string name="keepGoing">Keep going…</string>
-  <string name="puzzleFailed">Puzzle failed</string>
-  <string name="butYouCanKeepTrying">But you can keep trying.</string>
   <string name="success">Success</string>
-  <string name="wasThisPuzzleAnyGood">Was this puzzle any good?</string>
-  <string name="pleaseVotePuzzle">Help Lichess improve by voting, using the up or down arrow:</string>
-  <string name="thankYou">Thank you!</string>
-  <string name="ratingX">Rating: %s</string>
-  <string name="hidden">hidden</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Played %s time</item>
-    <item quantity="other">Played %s times</item>
-  </plurals>
-  <string name="fromGameLink">From game %s</string>
-  <string name="continueTraining">Continue training</string>
-  <string name="retryThisPuzzle">Retry this puzzle</string>
-  <string name="thisPuzzleIsCorrect">This puzzle is correct and interesting</string>
-  <string name="thisPuzzleIsWrong">This puzzle is wrong or boring</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s game in play</item>
     <item quantity="other">%s games in play</item>
@@ -537,6 +512,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="clockInitialTime">Clock initial time</string>
   <string name="clockIncrement">Clock increment</string>
   <string name="privacy">Privacy</string>
+  <string name="privacyPolicy">Privacy policy</string>
   <string name="letOtherPlayersFollowYou">Let other players follow you</string>
   <string name="letOtherPlayersChallengeYou">Let other players challenge you</string>
   <string name="letOtherPlayersInviteYouToStudy">Let other players invite you to study</string>
@@ -681,7 +657,8 @@ computer analysis, game chat and shareable URL.</string>
   <string name="weHaveSentYouAnEmailClickTheLink">We've sent you an email. Click the link in the email to activate your account.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">If you don't see the email, check other places it might be, like your junk, spam, social, or other folders.</string>
   <string name="weHaveSentYouAnEmailTo">We've sent an email to %s. Click the link in the email to reset your password.</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">By registering, you agree to be bound by our %s.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">By registering, you agree to the %s.</string>
+  <string name="readAboutOur">Read about our %s.</string>
   <string name="networkLagBetweenYouAndLichess">Network lag between you and Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Time to process a move on Lichess's server</string>
   <string name="downloadAnnotated">Download annotated</string>
@@ -745,7 +722,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="usernameAlreadyUsed">This username is already in use, please try another one.</string>
   <string name="usernamePrefixInvalid">The username must start with a letter.</string>
   <string name="usernameSuffixInvalid">The username must end with a letter or a number.</string>
-  <string name="usernameCharsInvalid">The username must only contain letters, numbers, underscores, and hyphens.</string>
+  <string name="usernameCharsInvalid">The username must only contain letters, numbers, underscores, and hyphens. Consecutive underscores and hyphens are not allowed.</string>
   <string name="usernameUnacceptable">This username is not acceptable.</string>
   <string name="directlySupportLichess">Directly support Lichess</string>
   <string name="playChessInStyle">Play chess in style</string>
@@ -866,4 +843,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="youCannotPostYetPlaySomeGames">You can't post in the forums yet. Play some games!</string>
   <string name="subscribe">Subscribe</string>
   <string name="unsubscribe">Unsubscribe</string>
+  <string name="challengeDeclined">Challenge declined</string>
+  <string name="challengeAccepted">Challenge accepted!</string>
+  <string name="challengeCanceled">Challenge canceled.</string>
 </resources>

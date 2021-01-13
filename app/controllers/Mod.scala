@@ -1,6 +1,11 @@
 package controllers
 
+import ornicar.scalalib.Zero
+import play.api.data._
+import play.api.data.Forms._
+import play.api.mvc._
 import scala.annotation.nowarn
+import views._
 
 import lila.api.{ BodyContext, Context }
 import lila.app._
@@ -10,11 +15,6 @@ import lila.mod.UserSearch
 import lila.report.{ Suspect, Mod => AsMod }
 import lila.security.{ FingerHash, Permission }
 import lila.user.{ User => UserModel, Title }
-import ornicar.scalalib.Zero
-import play.api.data._
-import play.api.data.Forms._
-import play.api.mvc._
-import views._
 
 final class Mod(
     env: Env,
@@ -107,6 +107,11 @@ final class Mod(
         reportC.onInquiryClose(inquiry, me, suspect.some)(ctx)
       }
     )
+
+  def kid(username: String) =
+    OAuthMod(_.SetKidMode) { _ => me =>
+      modApi.setKid(me.id, username) map some
+    }(actionResult(username))
 
   def deletePmsAndChats(username: String) =
     OAuthMod(_.Shadowban) { _ => _ =>
@@ -284,7 +289,6 @@ final class Mod(
   def refreshUserAssess(username: String) =
     Secure(_.MarkEngine) { implicit ctx => me =>
       OptionFuResult(env.user.repo named username) { user =>
-        env.insight.api.ensureLatest(user.id)
         assessApi.refreshAssessByUsername(username) >>
           env.irwin.api.requests.fromMod(Suspect(user), AsMod(me)) >>
           userC.renderModZoneActions(username)
@@ -480,8 +484,10 @@ final class Mod(
     }
 
   def eventStream =
-    OAuthSecure(_.Admin) { _ => _ =>
-      noProxyBuffer(Ok.chunked(env.mod.stream())).fuccess
+    Scoped() { req => me =>
+      IfGranted(_.Admin, req, me) {
+        noProxyBuffer(Ok.chunked(env.mod.stream())).fuccess
+      }
     }
 
   private def withSuspect[A](username: String)(f: Suspect => Fu[A])(implicit zero: Zero[A]): Fu[A] =

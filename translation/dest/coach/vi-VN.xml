@@ -5,7 +5,7 @@
   <string name="areYouCoach">Bạn là huấn luyện viên nổi tiếng với %s?</string>
   <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">Danh hiệu chuẩn Quốc gia hoặc Quốc tế</string>
   <string name="confirmTitle">Xác nhận danh hiệu của bạn ở đây và chúng tôi sẽ xem xét đơn ứng tuyển của bạn.</string>
-  <string name="sendApplication">Gửi email cho chúng tôi tại %s và chúng tôi sẽ xem xét đơn ứng tuyển của bạn.</string>
+  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Gửi email cho chúng tôi tại %s và chúng tôi sẽ xem xét đơn ứng tuyển của bạn.</string>
   <string name="location">Địa điểm</string>
   <string name="languages">Ngôn ngữ</string>
   <string name="rating">Hệ số</string>
@@ -23,7 +23,11 @@
   <string name="bestSkills">Những kỹ năng tốt nhất</string>
   <string name="teachingMethod">Phương pháp giảng dạy</string>
   <string name="youtubeVideos">Các video trên YouTube</string>
+  <plurals name="studentReviews">
+    <item quantity="other">%s đánh giá của học sinh</item>
+  </plurals>
   <string name="thankYouForReview">Cảm ơn đánh giá của bạn!</string>
+  <string name="xWillApproveIt">%s sẽ xác nhận nó sớm, hoặc một quản trị viên sẽ kiểm tra nó.</string>
   <string name="reviewCoach">Đánh giá huấn luyện viên này</string>
   <string name="describeExperienceWith">Mô tả kinh nghiệm huấn luyện của %s</string>
 </resources>

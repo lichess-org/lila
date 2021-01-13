@@ -235,7 +235,7 @@ final class JsonView(
       "win"     -> s.scores.count(_.res == arena.Sheet.ResWin)
     )
 
-  private val cachableData = cacheApi[Tournament.ID, CachableData](16, "tournament.json.cachable") {
+  private val cachableData = cacheApi[Tournament.ID, CachableData](64, "tournament.json.cachable") {
     _.expireAfterWrite(1 second)
       .buildAsyncFuture { id =>
         for {

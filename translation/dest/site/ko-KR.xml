@@ -9,6 +9,7 @@
   <string name="yourTurn">내 차례</string>
   <string name="aiNameLevelAiLevel">%1$s 레벨 %2$s</string>
   <string name="level">레벨</string>
+  <string name="strength">강도</string>
   <string name="toggleTheChat">채팅 끄기/켜기</string>
   <string name="toggleSound">음소거/음소거 해제</string>
   <string name="chat">채팅</string>
@@ -419,6 +420,7 @@
   <string name="lastName">성</string>
   <string name="biography">소개</string>
   <string name="country">국가</string>
+  <string name="thankYou">감사합니다!</string>
   <string name="socialMediaLinks">소셜 미디어 링크</string>
   <string name="inlineNotation">기보를 가로쓰기</string>
   <string name="watchLichessTV">Lichess TV 보기</string>
@@ -427,33 +429,7 @@
   <string name="activeToday">오늘의 활동적인 플레이어</string>
   <string name="activePlayers">활동적인 플레이어</string>
   <string name="bewareTheGameIsRatedButHasNoClock">조심하세요, 레이팅 게임이며 시간 제한이 없습니다!</string>
-  <string name="yourPuzzleRatingX">퍼즐 레이팅: %s</string>
-  <string name="findTheBestMoveForWhite">흰색을 위한 최고의 수를 찾아보세요.</string>
-  <string name="findTheBestMoveForBlack">검은색을 위한 최고의 수를 찾아보세요.</string>
-  <string name="toTrackYourProgress">기록을 저장하려면:</string>
-  <string name="puzzleId">퍼즐 %s</string>
-  <string name="puzzleOfTheDay">오늘의 퍼즐</string>
-  <string name="clickToSolve">퍼즐 풀기</string>
-  <string name="goodMove">괜찮은 수입니다.</string>
-  <string name="butYouCanDoBetter">하지만 더 좋은 수가 있어요.</string>
-  <string name="bestMove">좋은 수입니다!</string>
-  <string name="keepGoing">계속하세요...</string>
-  <string name="puzzleFailed">퍼즐 풀기 실패</string>
-  <string name="butYouCanKeepTrying">하지만 계속 플레이할 수 있습니다.</string>
   <string name="success">성공!</string>
-  <string name="wasThisPuzzleAnyGood">이 퍼즐이 괜찮았나요?</string>
-  <string name="pleaseVotePuzzle">위 또는 아래 화살표를 눌러 Lichess를 향상시켜 주세요</string>
-  <string name="thankYou">감사합니다!</string>
-  <string name="ratingX">레이팅: %s</string>
-  <string name="hidden">숨겨짐</string>
-  <plurals name="playedXTimes">
-    <item quantity="other">%s회 플레이</item>
-  </plurals>
-  <string name="fromGameLink">게임 %s에서</string>
-  <string name="continueTraining">연습 계속하기</string>
-  <string name="retryThisPuzzle">다시 풀기</string>
-  <string name="thisPuzzleIsCorrect">이 퍼즐은 정확하고 재밌습니다</string>
-  <string name="thisPuzzleIsWrong">이 퍼즐은 오류가 있거나 지루합니다</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s개의 게임 플레이 중</item>
   </plurals>
@@ -501,6 +477,8 @@
   <string name="currentPassword">현재 비밀번호</string>
   <string name="newPassword">새 비밀번호</string>
   <string name="newPasswordAgain">새 비밀번호 확인</string>
+  <string name="newPasswordsDontMatch">새로운 비밀번호가 일치하지 않습니다</string>
+  <string name="newPasswordStrength">비밀번호 강도</string>
   <string name="clockInitialTime">기본 시간</string>
   <string name="clockIncrement">한 수당 증가하는 시간</string>
   <string name="privacy">보안</string>

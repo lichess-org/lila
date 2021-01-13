@@ -476,6 +476,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="lastName">Prezime</string>
   <string name="biography">Biografija</string>
   <string name="country">Država</string>
+  <string name="thankYou">Hvala!</string>
   <string name="socialMediaLinks">Linkovi na društvene mreže</string>
   <string name="inlineNotation">Kompaktnija notacija</string>
   <string name="watchLichessTV">Gledaj Lichess TV</string>
@@ -484,35 +485,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="activeToday">Danas aktivni</string>
   <string name="activePlayers">Aktivni igrači</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Oprez, igra se za rejting bodove, ali bez ograničenog vremena!</string>
-  <string name="yourPuzzleRatingX">Vaš rejting za riješavanje problema: %s</string>
-  <string name="findTheBestMoveForWhite">Nađite najbolji potez za bijelog.</string>
-  <string name="findTheBestMoveForBlack">Nađite najbolji potez za crnog.</string>
-  <string name="toTrackYourProgress">Da pratite vaš napredak:</string>
-  <string name="puzzleId">Problem %s</string>
-  <string name="puzzleOfTheDay">Problem dana</string>
-  <string name="clickToSolve">Kliknite za rješavanje</string>
-  <string name="goodMove">Dobar potez</string>
-  <string name="butYouCanDoBetter">Postoji još bolji potez.</string>
-  <string name="bestMove">Najbolji potez!</string>
-  <string name="keepGoing">Nastavite...</string>
-  <string name="puzzleFailed">Problem nije riješen</string>
-  <string name="butYouCanKeepTrying">Ali možete i dalje pokušavati.</string>
   <string name="success">Uspjeh</string>
-  <string name="wasThisPuzzleAnyGood">Da li je ovaj problem bio dobar?</string>
-  <string name="pleaseVotePuzzle">Pomognite poboljšanju lichess-a glasanjem, koristeći strelicu gore ili dole:</string>
-  <string name="thankYou">Hvala!</string>
-  <string name="ratingX">Rejting: %s</string>
-  <string name="hidden">sakriven</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Odigrano %s put</item>
-    <item quantity="few">Odigrano %s puta</item>
-    <item quantity="other">Odigrano %s puta</item>
-  </plurals>
-  <string name="fromGameLink">Iz partije %s</string>
-  <string name="continueTraining">Nastavite trening</string>
-  <string name="retryThisPuzzle">Pokušajte ponovo riješiti ovaj problem</string>
-  <string name="thisPuzzleIsCorrect">Ovaj problem je ispravan i zanimljiv</string>
-  <string name="thisPuzzleIsWrong">Ovaj problem je neispravan ili dosadan</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partija u toku</item>
     <item quantity="few">%s partija u toku</item>
@@ -567,6 +540,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="clockInitialTime">Početno vrijeme sata</string>
   <string name="clockIncrement">Dodatak satu</string>
   <string name="privacy">Privatnost</string>
+  <string name="privacyPolicy">Politici privatnosti</string>
   <string name="letOtherPlayersFollowYou">Dopustite da vas drugi igrači prate</string>
   <string name="letOtherPlayersChallengeYou">Dopustite da vas drugi igrači izazovu</string>
   <string name="letOtherPlayersInviteYouToStudy">Dopustite da vas drugi igrači pozovu u studiju</string>
@@ -716,6 +690,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ako ne vidite našu e-mail poruku u Vašem odijelu za dolaznu e-mail poštu, provjerite na drugim mjestima, kao što su junk i spam.</string>
   <string name="weHaveSentYouAnEmailTo">Poslali smo e-mail na %s. Kliknite na link u e-mail poruci kako biste resetovali vašu lozinku.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registracijom prihvatate naše %s.</string>
+  <string name="readAboutOur">Pročitajte o našoj %s.</string>
   <string name="networkLagBetweenYouAndLichess">Mrežno kašnjenje između Vas i lichess-a</string>
   <string name="timeToProcessAMoveOnLichessServer">Vrijeme potrebno da se odigra potez na lichess serveru</string>
   <string name="downloadAnnotated">Preuzmite sa bilješkama</string>
@@ -904,4 +879,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="youCannotPostYetPlaySomeGames">Još ne možete objavljivati na forumima. Odigrajte nekoliko partija!</string>
   <string name="subscribe">Pretplatite se</string>
   <string name="unsubscribe">Odjavite pretplatu</string>
+  <string name="challengeDeclined">Izazov odbijen</string>
+  <string name="challengeAccepted">Izazov prihvaćen!</string>
+  <string name="challengeCanceled">Izazov otkazan.</string>
 </resources>

@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Proč se Lichess nazývá Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess je kombinace slov live/light/libre a chess z angličtiny. Vyslovuje se %1$s.</string>
   <string name="leechess">ličes</string>
-  <string name="hearItPronouncedBySpecialist">Poslechněte si, jak je vyslovováno profesionálem.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Poslechněte si, jak je vyslovováno profesionálem.</string>
   <string name="whyLiveLightLibre">Živé, protože hry jsou hrány a sledovány v reálném čase 24/7; lehké a volné, protože Lichess má otevřený zdrojový kód a je nezatížené proprietárním nepořádkem, který zaplavuje ostatní weby.</string>
   <string name="whyIsLilaCalledLila">Podobně, zdrojový kód pro Lichess, %1$s, znamená li[chess in sca]la, protože většina Lichess je napsaná v programovacím jazyce %2$s, což je intuitivní programovací jazyk.</string>
   <string name="howCanIContributeToLichess">Jak mohu pomoci Lichess?</string>
@@ -17,6 +17,8 @@
   <string name="areThereWebsitesBasedOnLichess">Existují nějaké webové stránky založené na Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ano. Lichess vskutku inspiroval další otevřené stránky využívající náš %1$s, naše %2$s či naši %3$s.</string>
   <string name="fairPlay">Fair Play</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">Proč jsem podezřelý z manipulování s ratingem (úmyslné prohry a vnější pomoc) nebo z hraní za pomoci umělé intelegince?</string>
+  <string name="cheatDetectionMethods">Lichess má silné metody detekce a velmi důkladný postup pro přezkoumání všech důkazů a rozhodování. Tento proces často zahrnuje mnoho moderátorů a může trvat delší dobu. V jednotlivých případech nebudeme s důvody rozhodnutí zacházet do podrobností o důkazech nebo rozhodovacím procesu. Takový postup by v budoucnu usnadnil obcházení detekcí a byl by pozvánkou k neproduktivním diskusím. Tento čas a úsilí je lépe využit na jiné důležité věci. Uživatelé se mohou odvolat e-mailem %1$s, ale rozhodnutí se zřídka mění.</string>
   <string name="whenAmIEligibleRatinRefund">Kdy mám nárok na automatické vrácení ratingu za zápasy s podvodníky?</string>
   <string name="howCanIBecomeModerator">Jak se mohu stát moderátorem?</string>
   <string name="youCannotApply">Není možné žádat o funkci moderátora. Pokud uvidíme někoho, o němž si myslíme, že by byl dobrým moderátorem, přímo jej kontaktujeme.</string>
@@ -25,7 +27,7 @@
   <string name="gameplay">Hraní hry</string>
   <string name="whatVariantsCanIplay">Jaké varianty mohu hrát na Lichess?</string>
   <string name="eightVariants">8 variant šachu</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDE příručka %s</string>
+  <string name="fideHandbookX">FIDE příručka %s</string>
   <string name="goodIntroduction">dobré zahájení</string>
   <string name="positions">pozice</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Třikrát jsme zopakovali stejnou pozici. Proč hra neskončila remízou?</string>

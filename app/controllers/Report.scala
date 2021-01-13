@@ -54,10 +54,9 @@ final class Report(
     }
 
   private def onInquiryStart(inquiry: ReportModel): Result =
-    inquiry.room match {
-      case Room.Comm => Redirect(routes.Mod.communicationPrivate(inquiry.user))
-      case _         => modC.redirect(inquiry.user)
-    }
+    if (inquiry.isRecentComm) Redirect(routes.Mod.communicationPrivate(inquiry.user))
+    else if (inquiry.isComm) Redirect(routes.Mod.communicationPublic(inquiry.user))
+    else modC.redirect(inquiry.user)
 
   protected[controllers] def onInquiryClose(
       inquiry: Option[ReportModel],

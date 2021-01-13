@@ -61,7 +61,7 @@ export default class StrongSocket {
   tryOtherUrl: boolean = false;
   autoReconnect: boolean = true;
   nbConnects: number = 0;
-  storage: LichessStorage = makeStorage.make('surl8');
+  storage: LichessStorage = makeStorage.make('surl12');
   private _sign?: string;
 
   static defaultOptions: Options = {

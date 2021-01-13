@@ -6,7 +6,7 @@
   <string name="materialDifference">Material difference</string>
   <string name="boardHighlights">Board highlights (last move and check)</string>
   <string name="pieceDestinations">Piece destinations (valid moves and premoves)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Board coordinates (A-H, 1-8)</string>
+  <string name="boardCoordinates">Board coordinates (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Move list while playing</string>
   <string name="pgnPieceNotation">Move notation</string>
   <string name="chessPieceSymbol">Chess piece symbol</string>
@@ -17,11 +17,11 @@
   <string name="blindfoldChess">Blindfold chess (invisible pieces)</string>
   <string name="chessClock">Chess clock</string>
   <string name="tenthsOfSeconds">Tenths of seconds</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">When time remaining &lt; 10 seconds</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">When time remaining &lt; 10 seconds</string>
   <string name="horizontalGreenProgressBars">Horizontal green progress bars</string>
   <string name="soundWhenTimeGetsCritical">Sound when time gets critical</string>
   <string name="giveMoreTime">Give more time</string>
-  <string name="gameBehavior">Game behavior</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Game behavior</string>
   <string name="howDoYouMovePieces">How do you move pieces?</string>
   <string name="clickTwoSquares">Click two squares</string>
   <string name="dragPiece">Drag a piece</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">In casual games only</string>
   <string name="promoteToQueenAutomatically">Promote to Queen automatically</string>
   <string name="whenPremoving">When premoving</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Claim draw on threefold repetition automatically</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">When time remaining &lt; 30 seconds</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Claim draw on threefold repetition automatically</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">When time remaining &lt; 30 seconds</string>
   <string name="moveConfirmation">Move confirmation</string>
   <string name="inCorrespondenceGames">Correspondence games</string>
   <string name="correspondenceAndUnlimited">Correspondence and unlimited</string>
@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Move king two squares</string>
   <string name="castleByMovingOntoTheRook">Move king onto rook</string>
   <string name="inputMovesWithTheKeyboard">Input moves with the keyboard</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Snap arrows to valid moves</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Say \"Good game, well played\" upon defeat or draw</string>
   <string name="yourPreferencesHaveBeenSaved">Your preferences have been saved.</string>
 </resources>

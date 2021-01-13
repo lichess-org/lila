@@ -9,6 +9,7 @@
   <string name="yourTurn">Tu torno</string>
   <string name="aiNameLevelAiLevel">%1$s nivello %2$s</string>
   <string name="level">Nivello</string>
+  <string name="strength">Fortia</string>
   <string name="toggleTheChat">Activar/disactivar le chat</string>
   <string name="toggleSound">Activar/disactivar sono</string>
   <string name="chat">Chat</string>
@@ -21,6 +22,9 @@
   <string name="createAGame">Crear un partita</string>
   <string name="whiteIsVictorious">Le blanco es victoriose</string>
   <string name="blackIsVictorious">Le nigro es victoriose</string>
+  <string name="youPlayTheWhitePieces">Tu joca con le pecias blanc</string>
+  <string name="youPlayTheBlackPieces">Tu joca con le pecias nigre</string>
+  <string name="itsYourTurn">Il es tu torno!</string>
   <string name="kingInTheCenter">Rege in le centro</string>
   <string name="threeChecks">Tres chacos</string>
   <string name="raceFinished">Curso finite</string>
@@ -142,6 +146,10 @@
   <string name="xPostedInForumY">%1$s postava in topico %2$s</string>
   <string name="latestForumPosts">Ultime messages del foro</string>
   <string name="players">Jocatores</string>
+  <string name="friends">Amicos</string>
+  <string name="discussions">Conversationes</string>
+  <string name="today">Hodie</string>
+  <string name="yesterday">Heri</string>
   <string name="minutesPerSide">Minutas per latere</string>
   <string name="variant">Variante</string>
   <string name="variants">Variantes</string>
@@ -315,6 +323,7 @@
   <string name="filterGames">Filtrar partitas</string>
   <string name="reset">Reinitialisar</string>
   <string name="apply">Submitter</string>
+  <string name="save">Salveguardar</string>
   <string name="leaderboard">Tabula del melior jocatores</string>
   <string name="pasteTheFenStringHere">Colla le notation FEN ci</string>
   <string name="pasteThePgnStringHere">Colla le notation PGN ci</string>
@@ -425,6 +434,7 @@
   <string name="lastName">Nomine de familia</string>
   <string name="biography">Biographia</string>
   <string name="country">Pais</string>
+  <string name="thankYou">Gratias!</string>
   <string name="inlineNotation">Notation in lineas</string>
   <string name="watchLichessTV">Spectar Lichess TV</string>
   <string name="previouslyOnLichessTV">Previemente in Lichess TV</string>
@@ -432,34 +442,7 @@
   <string name="activeToday">Active hodie</string>
   <string name="activePlayers">Jocatores active</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Attention, le partita es classificatori ma illo non ha controlo de tempore!</string>
-  <string name="yourPuzzleRatingX">Tu classification de enigmas: %s</string>
-  <string name="findTheBestMoveForWhite">Trova le melior movimento pro le blanco.</string>
-  <string name="findTheBestMoveForBlack">Trova le melior movimento pro le nigro.</string>
-  <string name="toTrackYourProgress">Pro traciar tu progresso:</string>
-  <string name="puzzleId">Enigma %s</string>
-  <string name="puzzleOfTheDay">Enigma del die</string>
-  <string name="clickToSolve">Clicca pro resolver</string>
-  <string name="goodMove">Bon movimento</string>
-  <string name="butYouCanDoBetter">Ma tu pote facer melio.</string>
-  <string name="bestMove">Optime movimento!</string>
-  <string name="keepGoing">Continua...</string>
-  <string name="puzzleFailed">Enigma fallite</string>
-  <string name="butYouCanKeepTrying">Ma tu pote continuar a tentar.</string>
   <string name="success">Successo</string>
-  <string name="wasThisPuzzleAnyGood">Esque iste enigma esseva bon?</string>
-  <string name="pleaseVotePuzzle">Adjuta Lichess a meliorar per tu voto, usante le sagitta a alto o a basso:</string>
-  <string name="thankYou">Gratias!</string>
-  <string name="ratingX">Classification: %s</string>
-  <string name="hidden">celate</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Jocate %s vices</item>
-    <item quantity="other">Jocate %s vices</item>
-  </plurals>
-  <string name="fromGameLink">Extrahite del partita %s</string>
-  <string name="continueTraining">Continuar a exercitar</string>
-  <string name="retryThisPuzzle">Tentar iste enigma de novo</string>
-  <string name="thisPuzzleIsCorrect">Iste enigma es correcte e interessante</string>
-  <string name="thisPuzzleIsWrong">Iste enigma es incorrecte o enoiose</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partitas in curso</item>
     <item quantity="other">%s partitas in curso</item>
@@ -508,6 +491,7 @@
   <string name="currentPassword">Contrasigno actual</string>
   <string name="newPassword">Nove contrasigno</string>
   <string name="newPasswordAgain">Confirmar nove contrasigno</string>
+  <string name="newPasswordStrength">Fortia del contrasigno</string>
   <string name="privacy">Confidentialitate</string>
   <string name="letOtherPlayersFollowYou">Lassar altere jocatores sequer te</string>
   <string name="letOtherPlayersChallengeYou">Lassar altere jocatores defiar te</string>
@@ -795,4 +779,18 @@
   <string name="sorry">Pardono! :(</string>
   <string name="why">Proque?</string>
   <string name="howToAvoidThis">Como evitar isto?</string>
+  <string name="searchOrStartNewDiscussion">Cerca o initia un nove conversation</string>
+  <string name="edit">Modificar</string>
+  <string name="rapid">Rapide</string>
+  <string name="classical">Classic</string>
+  <string name="ultraBulletDesc">Partitas insanmente veloce: minus que 30 secundas</string>
+  <string name="bulletDesc">Partitas multo veloce: minus que 3 minutas</string>
+  <string name="blitzDesc">Partitas veloce: 3 a 8 minutas</string>
+  <string name="rapidDesc">Partitas rapide: 8 a 25 minutas</string>
+  <string name="classicalDesc">Partitas classic: 25 minutas e plus</string>
+  <string name="correspondenceDesc">Partitas per correspondentia: un o plure dies per movimento</string>
+  <string name="puzzleDesc">Trainator de tacticas de chacos</string>
+  <string name="important">Importante</string>
+  <string name="subscribe">Abonar</string>
+  <string name="unsubscribe">Disabonar</string>
 </resources>

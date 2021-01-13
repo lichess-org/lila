@@ -9,6 +9,7 @@
   <string name="yourTurn">Din tur</string>
   <string name="aiNameLevelAiLevel">%1$s niveau %2$s</string>
   <string name="level">Niveau</string>
+  <string name="strength">Styrke</string>
   <string name="toggleTheChat">Skjul/Vis chat</string>
   <string name="toggleSound">slå lyd til/fra</string>
   <string name="chat">Chat</string>
@@ -62,7 +63,7 @@
   <string name="showThreat">Vis trussel</string>
   <string name="inLocalBrowser">i din egen browser</string>
   <string name="toggleLocalEvaluation">Skift til lokal evaluering</string>
-  <string name="promoteVariation">Forfremmelsesvariation</string>
+  <string name="promoteVariation">Forvandlingsvariation</string>
   <string name="makeMainLine">Gør til hovedlinjen</string>
   <string name="deleteFromHere">Slet herfra</string>
   <string name="forceVariation">Fremtving variant</string>
@@ -190,8 +191,8 @@
     <item quantity="other">Ranking opdateres hvert %s minut</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s taktikopgave</item>
-    <item quantity="other">%s taktikopgaver</item>
+    <item quantity="one">%s opgave</item>
+    <item quantity="other">%s opgaver</item>
   </plurals>
   <string name="gamesPlayed">Antal partier spillet</string>
   <plurals name="nbGamesWithYou">
@@ -373,7 +374,7 @@
   <string name="xStartedFollowingY">%1$s følger nu %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s som følger</item>
-    <item quantity="other">%s som følger</item>
+    <item quantity="other">%s følgere</item>
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s følger</item>
@@ -447,6 +448,7 @@
   <string name="lastName">Efternavn</string>
   <string name="biography">Biografi</string>
   <string name="country">Land</string>
+  <string name="thankYou">Tak!</string>
   <string name="socialMediaLinks">Links til sociale medier</string>
   <string name="inlineNotation">Notation uden linjeskift</string>
   <string name="watchLichessTV">Se Lichess TV</string>
@@ -455,41 +457,14 @@
   <string name="activeToday">Aktiv i dag</string>
   <string name="activePlayers">Aktive spillere</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Bemærk: Spillet er ratet, men er uden tidsbegrænsning!</string>
-  <string name="yourPuzzleRatingX">Din opgave-rating: %s</string>
-  <string name="findTheBestMoveForWhite">Find det bedste træk for hvid.</string>
-  <string name="findTheBestMoveForBlack">Find det bedste træk for sort.</string>
-  <string name="toTrackYourProgress">Følg din udvikling:</string>
-  <string name="puzzleId">Opgave %s</string>
-  <string name="puzzleOfTheDay">Dagens opgave</string>
-  <string name="clickToSolve">Klik for at løse</string>
-  <string name="goodMove">Godt træk</string>
-  <string name="butYouCanDoBetter">Men der er et bedre</string>
-  <string name="bestMove">Bedste træk!</string>
-  <string name="keepGoing">Bliv ved...</string>
-  <string name="puzzleFailed">Opgave mislykket</string>
-  <string name="butYouCanKeepTrying">Men du kan blive ved med at prøve.</string>
   <string name="success">Fuldført</string>
-  <string name="wasThisPuzzleAnyGood">Var denne opgave god?</string>
-  <string name="pleaseVotePuzzle">Hjælp med at forbedre Lichess ved at stemme med op- eller ned-pilen:</string>
-  <string name="thankYou">Tak!</string>
-  <string name="ratingX">Rating: %s</string>
-  <string name="hidden">skjult</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Spillet %s gange</item>
-    <item quantity="other">Spillet %s gange</item>
-  </plurals>
-  <string name="fromGameLink">Fra parti %s</string>
-  <string name="continueTraining">Fortsæt træning</string>
-  <string name="retryThisPuzzle">Prøv denne opgave igen</string>
-  <string name="thisPuzzleIsCorrect">Denne opgave er korrekt og interessant</string>
-  <string name="thisPuzzleIsWrong">Denne opgave er forkert eller kedelig</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s parti i gang</item>
     <item quantity="other">%s partier i gang</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatisk videre til næste spil efter træk</string>
   <string name="autoSwitch">Autoskift</string>
-  <string name="puzzles">Taktikopgaver</string>
+  <string name="puzzles">Opgaver</string>
   <string name="latestUpdates">Seneste opdateringer</string>
   <string name="tournamentWinners">Turneringsvindere</string>
   <string name="name">Navn</string>
@@ -536,6 +511,7 @@
   <string name="clockInitialTime">Indledende tid på ur</string>
   <string name="clockIncrement">Ur-forøgelse</string>
   <string name="privacy">Privat</string>
+  <string name="privacyPolicy">Privatlivspolitik</string>
   <string name="letOtherPlayersFollowYou">Lad andre spillere følge dig</string>
   <string name="letOtherPlayersChallengeYou">Lad andre spillere udfordre dig</string>
   <string name="letOtherPlayersInviteYouToStudy">Lad andre spillere invitere dig til at studere</string>
@@ -681,6 +657,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Hvis du ikke kan se emailen, bør du kontrollere andre steder den kan være endt, som i din junk, spam eller andre mapper.</string>
   <string name="weHaveSentYouAnEmailTo">Vi har sendt en e-mail til %s. Klik på linket i e-mailen for at nulstille din adgangskode.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ved at registrere, accepterer du at være bundet af vores %s.</string>
+  <string name="readAboutOur">Læs om vores %s.</string>
   <string name="networkLagBetweenYouAndLichess">Netværksforsinkelse mellem dig og lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tid til at behandle et træk på Lichess-server</string>
   <string name="downloadAnnotated">Download kommenteret</string>
@@ -865,4 +842,7 @@
   <string name="youCannotPostYetPlaySomeGames">Du kan endnu ikke lave oplag i foraene. Spil nogle partier!</string>
   <string name="subscribe">Abonnér</string>
   <string name="unsubscribe">Ophæv abonnement</string>
+  <string name="challengeDeclined">Udfordring afvist</string>
+  <string name="challengeAccepted">Udfordring accepteret!</string>
+  <string name="challengeCanceled">Udfordring annulleret.</string>
 </resources>

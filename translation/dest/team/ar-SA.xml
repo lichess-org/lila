@@ -37,5 +37,5 @@
   <string name="usersWhoCanManageThisTeam">المستخدمين الذين يمكنهم إدارة هذا الفريق</string>
   <string name="leadersChat">محادثة القادة</string>
   <string name="closeTeam">إغلاق الفريق</string>
-  <string name="closeTeamDescription" comment="closeTeamDescription&#10;&#10;If you click this, your team will be closed forever.">اغلق الفريق إلى الأبد.</string>
+  <string name="closeTeamDescription">اغلق الفريق إلى الأبد.</string>
 </resources>

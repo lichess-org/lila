@@ -6,7 +6,7 @@
   <string name="materialDifference">Разлика у материјалу</string>
   <string name="boardHighlights">Осветли последњи потез и шах</string>
   <string name="pieceDestinations">Bажећи потези (важећи помаци и претпотези)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Прикажи координате табле (A-H, 1-8)</string>
+  <string name="boardCoordinates">Прикажи координате табле (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Листа потеза током партије</string>
   <string name="pgnPieceNotation">Нотација</string>
   <string name="chessPieceSymbol">симболи фигура</string>
@@ -17,11 +17,11 @@
   <string name="blindfoldChess">Шах на слепо</string>
   <string name="chessClock">Шаховски сат</string>
   <string name="tenthsOfSeconds">Десетинке</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Када имате &lt; 10 секунди</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Када имате &lt; 10 секунди</string>
   <string name="horizontalGreenProgressBars">Хоризонтални зелени индикатор</string>
   <string name="soundWhenTimeGetsCritical">Звук када преостане мало времена</string>
   <string name="giveMoreTime">Додај још времена</string>
-  <string name="gameBehavior">Понашање игре</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Понашање игре</string>
   <string name="howDoYouMovePieces">Како померате фигуре?</string>
   <string name="clickTwoSquares">\"кликни\" два поља</string>
   <string name="dragPiece">вуци фигуру</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">Само у неформалним партијама</string>
   <string name="promoteToQueenAutomatically">Промовишите у Даму аутоматски</string>
   <string name="whenPremoving">Током претпотеза</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">аутоматски реми после три понављања позиције</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Када преостане &lt; 30 секунди</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">аутоматски реми после три понављања позиције</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Када преостане &lt; 30 секунди</string>
   <string name="moveConfirmation">Потврди потез</string>
   <string name="inCorrespondenceGames">У дописним играма</string>
   <string name="correspondenceAndUnlimited">Dopisno i neograniceno</string>
@@ -41,5 +41,6 @@
   <string name="castleByMovingTwoSquares">Помери краља за два поља</string>
   <string name="castleByMovingOntoTheRook">Помери краља на топа</string>
   <string name="inputMovesWithTheKeyboard">Уноеси потезе са тастатуром</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Кажи \"Добра партија, добро одиграно\" након пораза или нерешеног</string>
   <string name="yourPreferencesHaveBeenSaved">Ваше преференце су сачуване.</string>
 </resources>

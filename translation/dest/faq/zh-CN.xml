@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">为什么 Lichess 被称为 Lichess ？</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess 是 live/light/libre 和 chess 的组合。它的发音是 %1$s。</string>
   <string name="leechess">lee-chess</string>
-  <string name="hearItPronouncedBySpecialist">听一位专家发音。</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">听一位专家发音。</string>
   <string name="whyLiveLightLibre">Live ，因为游戏全年无休实时的游玩与观看。 Light 和 Libre 代表 Lichess 开源且不被纠缠其它网站的专利垃圾打扰。</string>
   <string name="whyIsLilaCalledLila">同样，Lichess源代码 %1$s，表示li[chess in sca]la，查看Lichess的主体是用 %2$s写的，这是一种直观的编程语言。</string>
   <string name="howCanIContributeToLichess">我可以如何为 Lichess 做出贡献？</string>
@@ -33,7 +33,7 @@
   <string name="basedOnGameDuration">Lichess时限基于预计的游戏持续时间 = %1$s
 。 例如，5+3的估计持续时间是 5 × 60 + 40 × 3 = 420 秒。</string>
   <string name="durationFormula">(时钟初始时间) + 40 × (加时)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$s秒 = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s秒 = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s秒 = %2$s</string>
   <string name="whatVariantsCanIplay">我可以在 Lichess上玩哪些变体？</string>
   <string name="lichessSupportChessAnd">Lichess支持标准国际象棋和 %1$s。</string>
@@ -52,7 +52,7 @@ Lichess上的电脑分析是基于Stockfish的。</string>
 在极少数情况下，这可能很难自动决定（强制线路、堡垒）。 默认情况下，我们总是与没有耗时的玩家站在一起。
 
 注意，如果对方一只棋子阻挡自己的王，那么单马或者单象也有可能实现将杀。</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">国际棋联手册 %s</string>
+  <string name="fideHandbookX">国际棋联手册 %s</string>
   <string name="discoveringEnPassant">为什么兵能够吃掉另外一只已经经过了它控制格子的兵？(吃过路兵)</string>
   <string name="explainingEnPassant">这是一个叫做“吃过路兵”的合法着法。维基百科文章给出了一个%1$s。
 

@@ -7,7 +7,7 @@
   <string name="passwordReset_intro">Nós recebemos um pedido para redefinir a senha da sua conta.</string>
   <string name="passwordReset_clickOrIgnore">Caso você tenha efetuado essa solicitação, clique no link abaixo. Caso contrário, ignore este e-mail.</string>
   <string name="emailChange_subject">Confirme o novo endereço de e-mail, %s</string>
-  <string name="emailChange_intro">Você solicitou mudar seu endereço de e-mail.</string>
+  <string name="emailChange_intro">Você solicitou uma alteração do seu endereço de e-mail.</string>
   <string name="emailChange_click">Para confirmar que você tem acesso a este e-mail, por favor clique no link abaixo:</string>
   <string name="welcome_subject">Bem-vindo ao lichess.org, %s</string>
   <string name="welcome_text">Você criou com sucesso a sua conta em https://lichess.org.
@@ -18,5 +18,5 @@ Divirta-se, e que as suas peças sempre encontrem o caminho até o rei inimigo!<
   <string name="logInToLichess">Entre no lichess.org, %s</string>
   <string name="common_orPaste">(Clicar não funciona? Tente colocar o link no seu navegador!)</string>
   <string name="common_note">Isto é um e-mail de serviço relacionado com a sua atividade em %s.</string>
-  <string name="common_contact">Para nos contactar, por favor utilize %s.</string>
+  <string name="common_contact">Para entrar em contato, por favor acesse %s.</string>
 </resources>

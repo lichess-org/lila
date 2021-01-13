@@ -29,11 +29,11 @@
   <string name="makeSureToCopy">下のパスワードを必ずコピーするか書き留めてください。二度と表示されることはありません！</string>
   <string name="passwordX">パスワード: %s</string>
   <string name="generateANewPassword">生徒に新しいパスワードを発行する</string>
-  <string name="invitedToXByY">%2$s が %1$s に招待しています</string>
+  <string name="invitedToXByY" comment="invitedToXByY&#10;&#10;%1$s is the Class name and %$2s is the person who invited">%2$s が %1$s に招待しています</string>
   <string name="realName">姓名</string>
   <string name="privateWillNeverBeShown">非公開。教室参加者以外には表示されません。生徒を覚えておくために。</string>
   <string name="addStudent">生徒を追加</string>
-  <string name="lichessProfileXCreatedForY">%2$s のために Lichess プロフィール %1$s が作成されました。</string>
+  <string name="lichessProfileXCreatedForY" comment="lichessProfileXCreatedForY&#10;&#10;%1$s is the created account (nickname) &#10;%$2s is the real name of the student (only visible for the teacher)">%2$s のために Lichess プロフィール %1$s が作成されました。</string>
   <string name="studentCredentials">生徒：%1$s
 ユーザー名：%2$s
 パスワード：%3$s</string>
@@ -78,9 +78,9 @@
   <string name="progress">進歩</string>
   <string name="noStudents">まだ生徒がいません。</string>
   <string name="noRemovedStudents">削除された生徒はいません。</string>
-  <string name="overDays">何日にもわたって</string>
+  <string name="overDays" comment="overDays&#10;&#10;In the &quot;Progress&quot; tab of a Lichess Class dashboard, &quot;Over days&quot; is the title of a selector. This selector offers a choice between various durations, in days, over which the user can view the progress of the class.">何日にもわたって</string>
   <string name="timePlaying">プレイ時間</string>
-  <string name="variantXOverLastY">%1$s（過去 %2$s 間）</string>
+  <string name="variantXOverLastY" comment="variantXOverLastY&#10;&#10;The first variable is a game type (Blitz/Bullet, etc).&#10;The second variable is a duration length (in days).&#10;&#10;This is the heading of a column for a table that appears in the &quot;Progress&quot; tab of the Lichess Class dashboard.">%1$s（過去 %2$s 間）</string>
   <string name="winrate">勝率</string>
   <string name="na">(無関係)</string>
   <string name="news">教室ニュース</string>

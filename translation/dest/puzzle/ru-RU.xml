@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Задачи</string>
+  <string name="puzzleThemes">Темы задач</string>
+  <string name="recommended">Рекомендуемые</string>
+  <string name="phases">Стадии игры</string>
+  <string name="motifs">Мотивы</string>
+  <string name="advanced">Продвинутый</string>
+  <string name="lengths">Количество ходов</string>
+  <string name="mates">Маты</string>
+  <string name="goals">Цели</string>
+  <string name="specialMoves">Особые ходы</string>
+  <string name="didYouLikeThisPuzzle">Понравилась задача?</string>
+  <string name="voteToLoadNextOne">Проголосуйте и перейдите к следующей!</string>
+  <string name="yourPuzzleRatingX">Ваш рейтинг в решении задач: %s</string>
+  <string name="findTheBestMoveForWhite">Найдите лучший ход за белых.</string>
+  <string name="findTheBestMoveForBlack">Найдите лучший ход за чёрных.</string>
+  <string name="toGetPersonalizedPuzzles">Чтобы получить персонализированные задачи:</string>
+  <string name="puzzleId">Задача № %s</string>
+  <string name="puzzleOfTheDay">Шахматная задача дня</string>
+  <string name="clickToSolve">Нажмите, чтобы решить</string>
+  <string name="goodMove">Хороший ход</string>
+  <string name="bestMove">Лучший ход!</string>
+  <string name="keepGoing">Продолжайте...</string>
+  <string name="puzzleSuccess">Получилось!</string>
+  <string name="puzzleComplete">Пазл решён !</string>
+  <string name="notTheMove">Это не тот ход!</string>
+  <string name="trySomethingElse">Попробуйте иначе.</string>
+  <string name="ratingX">Рейтинг: %s</string>
+  <string name="hidden">скрыт</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Решено %s раз</item>
+    <item quantity="few">Решено %s раза</item>
+    <item quantity="many">Решено %s раз</item>
+    <item quantity="other">Решено %s раз</item>
+  </plurals>
+  <string name="fromGameLink">Из партии %s</string>
+  <string name="continueTraining">Продолжить тренировку</string>
+  <string name="difficultyLevel">Уровень</string>
+  <string name="normal">Средний</string>
+  <string name="easier">Лёгкий</string>
+  <string name="easiest">Легчайший</string>
+  <string name="harder">Сложный</string>
+  <string name="hardest">Сложнейший</string>
+  <string name="example">Пример</string>
+  <string name="addAnotherTheme">Добавить другой мотив</string>
+  <string name="jumpToNextPuzzleImmediately">Сразу перейти к следующей задаче</string>
+  <string name="puzzleDashboard">Страница задач</string>
+  <string name="strengths">Сильные стороны</string>
+  <string name="history">История задач</string>
+</resources>

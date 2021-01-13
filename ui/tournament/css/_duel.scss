@@ -1,4 +1,6 @@
 .tour__duels {
+  @extend %page-text-shadow !optional;
+
   margin: $block-gap 0 0 0;
 
   @include breakpoint($mq-col2) {

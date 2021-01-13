@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Личес неге Личес деп аталады?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Личес деген live/light/libre деген сөз бен chess сөзінің қосындысы. Ол %1$s деп оқылады.</string>
   <string name="leechess">ли-чес</string>
-  <string name="hearItPronouncedBySpecialist">Маманның айтуын тыңдаңыз.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Маманның айтуын тыңдаңыз.</string>
   <string name="whyLiveLightLibre">\"Live\" дегеннің мағынасы – ойындарды шын уақытта 24/7 ойнап, көруге болады; \"light\" пен \"libre\" деген сөздер Личестің түбір коды ашық, онымен қатар басқа веб-сайттардағыдай жекешелендіру сияқты қоқыстан еркін екендігін білдіреді.</string>
   <string name="whyIsLilaCalledLila">Личестің түбір коды – %1$s сөзі, li[chess in sca]la-дан құралады. %2$s програмдау тілінде Личестің негізгі бөлігі жазылған.</string>
   <string name="howCanIContributeToLichess">Лическе қалайша жәрдем көрсетсем болады?</string>
@@ -51,7 +51,7 @@
 Көп жағдайда бұны автоматты түрде шешу қиынға соғады. Әдетте, біз уақытты кетірмеген ойыншыны қолдаймыз.
 
 Бір атпен не пілмен мат қою мүмкін екенін ескеруіңіз жөн. Ол үшін қарсыластың патшаға бөгет болып тұрған тасы болу шарт.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDE анықтамалығының %s</string>
+  <string name="fideHandbookX">FIDE анықтамалығының %s</string>
   <string name="discoveringEnPassant">Бір сарбаз, қасынан басқа сарбаз өтіп болғанда, оны неге басып алуға қабілетті (жолай басу)?</string>
   <string name="explainingEnPassant">Бұл ережеге сай \"жолай басу\" жүрісі. Википедия мақаласында %1$s беріп тұр.
 
@@ -91,6 +91,8 @@
   <string name="whatUsernameCanIchoose">Менің аккаунт атым қандай болу керек?</string>
   <string name="usernamesNotOffensive">Жалпы, аккаунт атында қорлау, басқа біреудің аты, жарнама сияқты белгілер болмау керек. %1$s туралы оқысаңыз болады.</string>
   <string name="guidelines">нұсқаулық</string>
+  <string name="canIChangeMyUsername">Мен аккаунт атымды өзгерте аламын ба?</string>
+  <string name="usernamesCannotBeChanged">Жоқ, техникалық әрі тәжірибелік себептермен аккаунт атыңызды өзгерте алмайсыз. Аккаунт аты көп жерге байланған: дерекқор, экспорт, журнал мен адамдардың есі. Сіз тек бір рет қана әріп үлкендігін өзгерте аласыз.</string>
   <string name="uniqueTrophies">Ерекше олжалар</string>
   <string name="ownerUniqueTrophies">Бұл олжа Личес тарихында ерекше орын алады, %1$s-дан басқа ешкім де оған ие болмады.</string>
   <string name="wayOfBerserkExplanation">Оған жету үшін, hiimgosu өзін берсеркке шақырып, %s-ның 100%% ойындарын жеңді.</string>

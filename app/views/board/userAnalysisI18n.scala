@@ -56,7 +56,6 @@ object userAnalysisI18n {
     trans.inaccuracies,
     trans.mistakes,
     trans.blunders,
-    trans.goodMove,
     trans.viewTheSolution,
     trans.spectators,
     // action menu
@@ -81,7 +80,7 @@ object userAnalysisI18n {
     trans.forceVariation,
     // practice (also uses checkmate, draw)
     trans.practiceWithComputer,
-    trans.goodMove,
+    trans.puzzle.goodMove,
     trans.inaccuracy,
     trans.mistake,
     trans.blunder,
@@ -100,8 +99,8 @@ object userAnalysisI18n {
     trans.getAHint,
     trans.evaluatingYourMove,
     // gamebook
-    trans.findTheBestMoveForWhite,
-    trans.findTheBestMoveForBlack
+    trans.puzzle.findTheBestMoveForWhite,
+    trans.puzzle.findTheBestMoveForBlack
   ).map(_.key)
 
   private val cevalTranslations: Vector[MessageKey] = Vector(

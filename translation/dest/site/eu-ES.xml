@@ -9,6 +9,7 @@
   <string name="yourTurn">Zure txanda</string>
   <string name="aiNameLevelAiLevel">%1$s, %2$s. maila</string>
   <string name="level">Maila</string>
+  <string name="strength">Indarra</string>
   <string name="toggleTheChat">Txata agertu</string>
   <string name="toggleSound">Soinua</string>
   <string name="chat">Txata</string>
@@ -447,6 +448,7 @@
   <string name="lastName">Abizena</string>
   <string name="biography">Biografia</string>
   <string name="country">Herrialdea</string>
+  <string name="thankYou">Eskerrik asko!</string>
   <string name="socialMediaLinks">Sare sozialen loturak</string>
   <string name="inlineNotation">Lerroarteko oharrak</string>
   <string name="watchLichessTV">Lichess TV Ikusi</string>
@@ -455,34 +457,7 @@
   <string name="activeToday">Gaurko aktiboak</string>
   <string name="activePlayers">Jokalari aktiboak</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Kontuz!  erlojurik eduki ez arren, partida hau puntuagarria da!</string>
-  <string name="yourPuzzleRatingX">Ariketen zure sailkapena: %s</string>
-  <string name="findTheBestMoveForWhite">Zurien jokaldi onena bilatu.</string>
-  <string name="findTheBestMoveForBlack">Beltzen jokaldi onena bilatu.</string>
-  <string name="toTrackYourProgress">Zure aurrerabidea ikusteko:</string>
-  <string name="puzzleId">%s ariketa</string>
-  <string name="puzzleOfTheDay">Eguneko ariketa</string>
-  <string name="clickToSolve">Ebazteko klik egin</string>
-  <string name="goodMove">Jokaldi ona</string>
-  <string name="butYouCanDoBetter">Baina hobe egin dezakezu</string>
-  <string name="bestMove">Jokaldi onena!</string>
-  <string name="keepGoing">Jarraitu...</string>
-  <string name="puzzleFailed">Huts egin duzu</string>
-  <string name="butYouCanKeepTrying">Baina berriro saia zaitezke.</string>
   <string name="success">Zorionak</string>
-  <string name="wasThisPuzzleAnyGood">Ariketa hau gustatu zaizu?</string>
-  <string name="pleaseVotePuzzle">Eman botoa Lichessi laguntzeko, goranzko zein beheranzko gezia hautatuz:</string>
-  <string name="thankYou">Eskerrik asko!</string>
-  <string name="ratingX">Sailkapena: %s</string>
-  <string name="hidden">ezkutuan</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Behin jokatu da (%s)</item>
-    <item quantity="other">%s aldiz jokatu da</item>
-  </plurals>
-  <string name="fromGameLink">%s partidatik hartua</string>
-  <string name="continueTraining">Entrenatzen jarraitu</string>
-  <string name="retryThisPuzzle">Ariketa hau berriz egin</string>
-  <string name="thisPuzzleIsCorrect">Ariketa ondo dago eta interesgarria da</string>
-  <string name="thisPuzzleIsWrong">Ariketa gaizki dago edo aspergarria da</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partida une honetan</item>
     <item quantity="other">%s partida une honetan</item>
@@ -536,6 +511,7 @@
   <string name="clockInitialTime">Erlojuaren hasierako denbora</string>
   <string name="clockIncrement">Denbora gehigarria</string>
   <string name="privacy">Pribatutasuna</string>
+  <string name="privacyPolicy">Pribatutasun politika</string>
   <string name="letOtherPlayersFollowYou">Beste jokalari batzuk zu jarraitzea baimendu</string>
   <string name="letOtherPlayersChallengeYou">Beste jokalari batzuk erronka egin dezatela baimentzea</string>
   <string name="letOtherPlayersInviteYouToStudy">Utzi beste jokalari batzuei zu ikerketetara gonbidatzen</string>
@@ -681,6 +657,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ez baduzu mezua aurkitzen, begiratu beste tokietan: zaborrontzian, spam karpetan, ...</string>
   <string name="weHaveSentYouAnEmailTo">Mezu bat bidali dugu %s helbidera. Egizu klik mezuan zure pasahitza berrizteko.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Izena ematean, gure %s onartzen dituzu.</string>
+  <string name="readAboutOur">Irakurri gure %s.</string>
   <string name="networkLagBetweenYouAndLichess">Sarearen atzerapena Lichessen eta zure artean</string>
   <string name="timeToProcessAMoveOnLichessServer">Lichess zerbitzariak jokaldi bat egiteko denbora</string>
   <string name="downloadAnnotated">Oharrekin jaitsi</string>
@@ -865,4 +842,7 @@
   <string name="youCannotPostYetPlaySomeGames">Ezin duzu foroetan idatzi. Jokatu partida batzuk!</string>
   <string name="subscribe">Harpidetu</string>
   <string name="unsubscribe">Harpidetza kendu</string>
+  <string name="challengeDeclined">Erronka baztertuta</string>
+  <string name="challengeAccepted">Erronka onartuta!</string>
+  <string name="challengeCanceled">Erronka bertan behera utzita.</string>
 </resources>

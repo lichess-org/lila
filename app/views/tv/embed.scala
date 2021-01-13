@@ -8,14 +8,14 @@ import lila.app.ui.ScalatagsTemplate._
 
 object embed {
 
-  private val dataStreamUrl = attr("data-stream-url")
+  private val dataStreamUrl = attr("data-stream-url") := "/tv/feed?bc=1"
 
   def apply(pov: lila.game.Pov)(implicit config: EmbedConfig) =
     views.html.base.embed(
       title = "lichess.org chess TV",
       cssModule = "tv.embed"
     )(
-      dataStreamUrl := routes.Tv.feed(),
+      dataStreamUrl,
       div(id := "featured-game", cls := "embedded", title := "lichess.org TV")(
         views.html.game.mini.noCtx(pov, tv = true, blank = true)
       ),

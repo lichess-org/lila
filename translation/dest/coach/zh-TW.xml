@@ -2,14 +2,20 @@
 <resources>
   <string name="lichessCoaches">Lichess 的教練們</string>
   <string name="lichessCoach">Lichess 的教練</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM或FIRD頭銜</string>
   <string name="location">所在地</string>
   <string name="languages">語言</string>
   <string name="rating">評分</string>
   <string name="hourlyRate">每小時費用：</string>
+  <string name="accepting">接受學生</string>
+  <string name="viewXProfile">查看%s的Lichess 帳戶</string>
+  <string name="sendPM">發送私人訊息</string>
   <string name="aboutMe">關於我</string>
   <string name="playingExperience">奕棋經驗</string>
   <string name="teachingExperience">教學經驗</string>
   <string name="otherExperiences">其他經驗</string>
   <string name="publicStudies">公開研究</string>
   <string name="youtubeVideos">在 Youtube 上的影片</string>
+  <string name="thankYouForReview">謝謝您的評論！</string>
+  <string name="reviewCoach">給這個教練評論</string>
 </resources>

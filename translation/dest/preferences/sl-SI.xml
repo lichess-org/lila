@@ -6,22 +6,22 @@
   <string name="materialDifference">Materialna prednost</string>
   <string name="boardHighlights">Osvetlitev šahovnice (zadnja poteza in kralj v šahu)</string>
   <string name="pieceDestinations">Možne poteze (legalne in vnaprej določene)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Koordinate na šahovnici (A-H, 1-8)</string>
+  <string name="boardCoordinates">Koordinate na šahovnici (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Seznam potez med igro</string>
   <string name="pgnPieceNotation">Zapis potez</string>
   <string name="chessPieceSymbol">Simbol figur</string>
   <string name="pgnLetter">Črke (K, Q, R, B, N)</string>
   <string name="zenMode">Zen način</string>
-  <string name="displayBoardResizeHandle">Prikazuj ročico za spremembo velikosti šahovnice</string>
+  <string name="displayBoardResizeHandle">Prikaži ročico za spremembo velikosti šahovnice</string>
   <string name="onlyOnInitialPosition">Samo ob začetni poziciji</string>
   <string name="blindfoldChess">Slepi šah (nevidne figure)</string>
   <string name="chessClock">Šahovska ura</string>
   <string name="tenthsOfSeconds">Desetinke sekunde</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Če je preostanek časa pod 10 sekundami</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Če je preostanek časa pod 10 sekundami</string>
   <string name="horizontalGreenProgressBars">Vodoravna zelena prečka</string>
   <string name="soundWhenTimeGetsCritical">Zvočni signal ko čas postane kritičen</string>
   <string name="giveMoreTime">Dajte več časa</string>
-  <string name="gameBehavior">Nastavitve igre</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Posebnosti igre</string>
   <string name="howDoYouMovePieces">Kako premikate figure?</string>
   <string name="clickTwoSquares">Klikni dve polji</string>
   <string name="dragPiece">Potegni figuro</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">Samo pri nerangiranih partijah</string>
   <string name="promoteToQueenAutomatically">Vedno promoviraj v damo</string>
   <string name="whenPremoving">Pri predpremiku poteze</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Avtomatično zahtevaj remi on ponovitvi treh istih pozicij</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Če je preostanek časa manj kot 30 sekund</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Avtomatično zahtevaj remi on ponovitvi treh istih pozicij</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Če je preostanek časa manj kot 30 sekund</string>
   <string name="moveConfirmation">Potrditev poteze</string>
   <string name="inCorrespondenceGames">V korespondenčnih partijah</string>
   <string name="correspondenceAndUnlimited">Dopisno in neomejeno</string>
@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Premakni kralja za dve polji</string>
   <string name="castleByMovingOntoTheRook">Premakni kralja na trdnjavo</string>
   <string name="inputMovesWithTheKeyboard">Vnos potez prek tipkovnice</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Postavi puščice po veljavnih potezah</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Reci \"Dobra igra, dobro odigrano\" ob porazu ali remiju</string>
   <string name="yourPreferencesHaveBeenSaved">Nastavitve so bile shranjene.</string>
 </resources>

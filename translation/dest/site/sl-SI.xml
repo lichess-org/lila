@@ -9,6 +9,7 @@
   <string name="yourTurn">Ti si na potezi</string>
   <string name="aiNameLevelAiLevel">%1$s, stopnja: %2$s</string>
   <string name="level">Stopnja</string>
+  <string name="strength">Moč</string>
   <string name="toggleTheChat">Preklopi klepet</string>
   <string name="toggleSound">Preklopi zvok</string>
   <string name="chat">Klepet</string>
@@ -503,6 +504,7 @@
   <string name="lastName">Priimek</string>
   <string name="biography">Biografija</string>
   <string name="country">Država</string>
+  <string name="thankYou">Hvala!</string>
   <string name="socialMediaLinks">Povezava za sledenje na družabnih omrežjih</string>
   <string name="inlineNotation">Dodatna notacija</string>
   <string name="watchLichessTV">Glej Lichess TV</string>
@@ -511,36 +513,7 @@
   <string name="activeToday">Danes aktivni</string>
   <string name="activePlayers">Aktivni igralci</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Pozor, igra je rangirana, vendar ni časovno omejena!</string>
-  <string name="yourPuzzleRatingX">Tvoj rating pri reševanju šahovskih problemov: %s</string>
-  <string name="findTheBestMoveForWhite">Poišči najboljšo potezo za belega</string>
-  <string name="findTheBestMoveForBlack">Poišči najboljšo potezo za črnega</string>
-  <string name="toTrackYourProgress">Spremljaj svoj napredek:</string>
-  <string name="puzzleId">Problem %s</string>
-  <string name="puzzleOfTheDay">Problem dneva</string>
-  <string name="clickToSolve">Klikni za reševanje</string>
-  <string name="goodMove">Dobra poteza</string>
-  <string name="butYouCanDoBetter">Vendar obstaja boljša poteza.</string>
-  <string name="bestMove">Najboljša poteza!</string>
-  <string name="keepGoing">Nadaljuj...</string>
-  <string name="puzzleFailed">Reševanje ti je spodletelo</string>
-  <string name="butYouCanKeepTrying">Lahko poskušaš še naprej</string>
   <string name="success">Uspešno</string>
-  <string name="wasThisPuzzleAnyGood">Je bil problem zanimiv?</string>
-  <string name="pleaseVotePuzzle">Pomagajte izboljšati Lichess z glasovanjem, uporabite puščico navzgor/navzdol:</string>
-  <string name="thankYou">Hvala!</string>
-  <string name="ratingX">Rating: %s</string>
-  <string name="hidden">skrito</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Problem odigran %s krat</item>
-    <item quantity="two">Problem odigran %s krat</item>
-    <item quantity="few">Problem odigran %s krat</item>
-    <item quantity="other">Problem odigran %s krat</item>
-  </plurals>
-  <string name="fromGameLink">Iz igre %s</string>
-  <string name="continueTraining">Nadaljuj z reševanjem</string>
-  <string name="retryThisPuzzle">Ponovno reši ta problem</string>
-  <string name="thisPuzzleIsCorrect">Ta problem je pravilen in zanimiv</string>
-  <string name="thisPuzzleIsWrong">Ta problem je napačen oz. dolgočasen</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s igrana partija</item>
     <item quantity="two">%s igrani partiji</item>
@@ -596,6 +569,7 @@
   <string name="clockInitialTime">Začetni čas</string>
   <string name="clockIncrement">Dodatek k času</string>
   <string name="privacy">Zasebnost</string>
+  <string name="privacyPolicy">Politika zasebnosti</string>
   <string name="letOtherPlayersFollowYou">Dovolite da vam sledijo</string>
   <string name="letOtherPlayersChallengeYou">Dovolite da vas izzovejo na partijo</string>
   <string name="letOtherPlayersInviteYouToStudy">Dovoli igralcem, da te povabijo na študij</string>
@@ -752,6 +726,7 @@ v %3$s</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Če ne vidite elektronskega sporočila, preverite druga mesta, kjer bi lahko bilo, npr. v smetnjaku ali v drugih mapah.</string>
   <string name="weHaveSentYouAnEmailTo">Elektronsko pošto smo poslali na %s. Kliknite na povezavo v emailu, da obnovite svoje geslo.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Z registracijo se strinjate z našimi %s.</string>
+  <string name="readAboutOur">Preberite o naši %s.</string>
   <string name="networkLagBetweenYouAndLichess">Omrežna zakasnitev med vami in lichessom</string>
   <string name="timeToProcessAMoveOnLichessServer">Čas za obdelavo poteze na lichess strežniku</string>
   <string name="downloadAnnotated">Prenesi s komentarji</string>
@@ -944,4 +919,7 @@ v %3$s</string>
   <string name="youCannotPostYetPlaySomeGames">Ne moreš še objavljati na forumu. Igraj nekaj iger!</string>
   <string name="subscribe">Naroči se</string>
   <string name="unsubscribe">Odjava</string>
+  <string name="challengeDeclined">Izziv je zavrnjen</string>
+  <string name="challengeAccepted">Izziv je sprejet!</string>
+  <string name="challengeCanceled">Izziv je preklican.</string>
 </resources>

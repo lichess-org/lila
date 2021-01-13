@@ -2,26 +2,30 @@ package lila.insight
 
 import lila.game.{ Game, GameRepo, Pov }
 import lila.user.User
+import org.joda.time.DateTime
 
 final class InsightApi(
     storage: Storage,
     pipeline: AggregationPipeline,
-    userCacheApi: UserCacheApi,
+    insightUserApi: InsightUserApi,
     gameRepo: GameRepo,
-    indexer: Indexer
+    indexer: InsightIndexer
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import InsightApi._
 
-  def userCache(user: User): Fu[UserCache] =
-    userCacheApi find user.id flatMap {
-      case Some(c) => fuccess(c)
+  def insightUser(user: User): Fu[InsightUser] =
+    insightUserApi find user.id flatMap {
+      case Some(u) =>
+        u.lastSeen.isBefore(DateTime.now minusDays 1) ?? {
+          insightUserApi setSeenNow user
+        } inject u
       case None =>
         for {
           count <- storage count user.id
           ecos  <- storage ecos user.id
-          c = UserCache.make(user.id, count, ecos)
-          _ <- userCacheApi save c
+          c = InsightUser.make(user.id, count, ecos)
+          _ <- insightUserApi save c
         } yield c
     }
 
@@ -48,17 +52,11 @@ final class InsightApi(
         }
     }
 
-  def ensureLatest(userId: User.ID): Funit =
-    userCacheApi version userId flatMap {
-      case Some(v) if v == latestVersion => funit
-      case _                             => storage.removeAll(userId) >> indexAll(userId)
-    }
-
   def indexAll(userId: User.ID) =
     indexer
       .all(userId)
       .monSuccess(_.insight.index) >>
-      userCacheApi.remove(userId)
+      insightUserApi.remove(userId)
 
   def updateGame(g: Game) =
     Pov(g)

@@ -6,20 +6,22 @@
   <string name="materialDifference">Differentia material</string>
   <string name="boardHighlights">Marcar le ultime movimento e chaco sur le tabuliero</string>
   <string name="pieceDestinations">Monstrar tote le movimentos/preselectiones valide de cata pecia</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Coordinatas sur tabuliero (A-H, 1-8)</string>
+  <string name="boardCoordinates">Coordinatas sur tabuliero (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lista de movimentos durante le joco</string>
   <string name="pgnPieceNotation">Notation de movimentos</string>
   <string name="chessPieceSymbol">Symbolo del pecia de chacos</string>
   <string name="pgnLetter">Littera (K, Q, R, B, N)</string>
   <string name="zenMode">Modo Zen</string>
+  <string name="displayBoardResizeHandle">Monstrar le flechas pro redimensionar le tabula</string>
   <string name="onlyOnInitialPosition">Solmente in position initial</string>
   <string name="blindfoldChess">Chacos al oculos bandate (pecias invisibile)</string>
   <string name="chessClock">Horologio de chacos</string>
   <string name="tenthsOfSeconds">Decimos de secundas</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Quando le tempore remanente es minus de dece secundas</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Quando le tempore remanente es minus de dece secundas</string>
   <string name="horizontalGreenProgressBars">Barras de progresso verde horizontal</string>
   <string name="soundWhenTimeGetsCritical">Sono quando le tempore es critic</string>
   <string name="giveMoreTime">Offerer plus tempore</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Comportamento del joco</string>
   <string name="howDoYouMovePieces">Como tu vole mover le pecias?</string>
   <string name="clickTwoSquares">Cliccar sur duo placias</string>
   <string name="dragPiece">Traher e deponer le pecia</string>
@@ -29,8 +31,8 @@
   <string name="inCasualGamesOnly">Solmente in jocos amical</string>
   <string name="promoteToQueenAutomatically">Promover a Dama automaticamente</string>
   <string name="whenPremoving">Quando preselectionante</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Declarar automaticamente le partita como nulle post un repetition triple</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Quando le tempore remanente es minus de trenta secundas</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Declarar automaticamente le partita como nulle post un repetition triple</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Quando le tempore remanente es minus de trenta secundas</string>
   <string name="moveConfirmation">Confirmation de movimento</string>
   <string name="inCorrespondenceGames">Jocos per correspondentia</string>
   <string name="correspondenceAndUnlimited">Per correspondentia e illimitate</string>

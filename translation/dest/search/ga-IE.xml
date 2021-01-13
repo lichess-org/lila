@@ -23,6 +23,7 @@
   <string name="humanOrComputer">An ríomhaire nó duine a bhí sa chéile comhraic</string>
   <string name="aiLevel">Leibhéal A.I.</string>
   <string name="source">Foinse</string>
+  <string name="nbTurns">Uimhir sealanna</string>
   <string name="result">Toradh</string>
   <string name="winnerColor">Dath buaiteora</string>
   <string name="date">Dáta</string>

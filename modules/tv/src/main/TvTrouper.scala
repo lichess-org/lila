@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 import scala.concurrent.Promise
 
 import lila.common.{ Bus, LightUser }
-import lila.game.Game
+import lila.game.{ Game, Pov }
 import lila.hub.Trouper
 
 final private[tv] class TvTrouper(
@@ -14,7 +14,8 @@ final private[tv] class TvTrouper(
     lightUser: LightUser.GetterSync,
     recentTvGames: lila.round.RecentTvGames,
     gameProxyRepo: lila.round.GameProxyRepo,
-    rematches: lila.game.Rematches
+    rematches: lila.game.Rematches,
+    lightUserSync: LightUser.GetterSync
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends Trouper {
 
@@ -23,7 +24,7 @@ final private[tv] class TvTrouper(
   Bus.subscribe(this, "startGame")
 
   private val channelTroupers: Map[Tv.Channel, ChannelTrouper] = Tv.Channel.all.map { c =>
-    c -> new ChannelTrouper(c, onSelect = this.!, gameProxyRepo.game, rematches.of)
+    c -> new ChannelTrouper(c, onSelect = this.!, gameProxyRepo.game, rematches.of, lightUserSync)
   }.toMap
 
   private var channelChampions = Map[Tv.Channel, Tv.Champion]()
@@ -79,13 +80,14 @@ final private[tv] class TvTrouper(
       if (channel == Tv.Channel.Best) {
         implicit def timeout = makeTimeout(100 millis)
         actorAsk(renderer.actor, actorApi.RenderFeaturedJs(game)) foreach { case html: String =>
-          val event = lila.hub.actorApi.game.ChangeFeatured(
-            game.id,
+          val pov = Pov naturalOrientation game
+          val event = lila.round.ChangeFeatured(
+            pov,
             makeMessage(
               "featured",
               Json.obj(
                 "html"  -> html,
-                "color" -> game.naturalOrientation.name,
+                "color" -> pov.color.name,
                 "id"    -> game.id
               )
             )

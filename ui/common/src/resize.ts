@@ -58,30 +58,10 @@ export default function resizeHandle(els: cg.Elements, pref: number, ply: number
     toggle(ply);
     lichess.pubsub.on('ply', toggle);
   }
-
-  addNag(el);
 }
 
 function eventPosition(e: MouchEvent): [number, number] | undefined {
   if (e.clientX || e.clientX === 0) return [e.clientX, e.clientY];
   if (e.touches && e.targetTouches[0]) return [e.targetTouches[0].clientX, e.targetTouches[0].clientY];
   return undefined;
-}
-
-function addNag(el: HTMLElement) {
-
-  const storage = lichess.storage.makeBoolean('resize-nag');
-  if (storage.get()) return;
-
-  lichess.loadCssPath('nag-circle');
-  el.title = 'Drag to resize';
-  el.innerHTML = '<div class="nag-circle"></div>';
-  for (const mousedownEvent of ['touchstart', 'mousedown']) {
-    el.addEventListener(mousedownEvent, () => {
-      storage.set(true);
-      el.innerHTML = '';
-    }, { once: true });
-  }
-
-  setTimeout(() => storage.set(true), 15000);
 }

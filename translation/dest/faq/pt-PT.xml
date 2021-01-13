@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Por que é que o Lichess se chama Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess é uma combinação de \"live/light/libre\" (vida, direto/leve/livre). Pronuncia-se %1$s.</string>
   <string name="leechess">li-tchéss</string>
-  <string name="hearItPronouncedBySpecialist">Ouve-o pronunciado por um especialista.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Ouve-o pronunciado por um especialista.</string>
   <string name="whyLiveLightLibre">\"Live\" (vida, direto), porque os jogos são jogados e vistos em tempo real 24/7; \"light\" (leve) e \"libre\" (livre) uma vez que o Lichess é open-source e está livre de lixo proprietário que infesta outros sites.</string>
   <string name="whyIsLilaCalledLila">Do mesmo modo, o código fonte do Lichess, %1$s, significa li[chess em sca]la, mostrando que o Lichess é fundamentalmente escrito em %2$s, uma linguagem de programação intuitiva.</string>
   <string name="howCanIContributeToLichess">Como posso contribuir para o Lichess?</string>
@@ -33,7 +33,7 @@
   <string name="basedOnGameDuration">Os ritmos de jogo do Lichess baseiam-se na duração estimada do jogo = %1$s
 Por exemplo, a duração estimada de um jogo 5+3 é 5 × 60 + 40 × 3 = 420 segundos.</string>
   <string name="durationFormula">(tempo inicial no relógio) + 40 × (incremento no relógio)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$s s = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
   <string name="whatVariantsCanIplay">Que variantes posso jogar no Lichess?</string>
   <string name="lichessSupportChessAnd">O Lichess suporta o xadrez normal e %1$s.</string>
@@ -52,7 +52,7 @@ A análise de xadrez no Lichess é feita pelo Stockfish.</string>
 Em casos raros, isto pode ser difícil de detetar automaticamente (linhas forçadas, fortalezas). Por norma, ficamos sempre do lado do jogador que não ficou sem tempo.
 
 Nota que pode ser possível fazer xeque-mate somente com um cavalo ou bispo, se o adversário tiver uma peça que possa bloquear o seu rei.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">manual da FIDE %s</string>
+  <string name="fideHandbookX">manual da FIDE %s</string>
   <string name="discoveringEnPassant">Por que é que um peão captura outro quando ele já passou? (en passant)</string>
   <string name="explainingEnPassant">Esta é uma jogada legal conhecida como \"en passant\". O artigo da Wikipédia dá uma %1$s.
 

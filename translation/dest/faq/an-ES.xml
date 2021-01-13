@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Per qué Lichess se diz asinas?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess ye una combinación de live/light/libre (en directo, liuchero y libre, en anglés) y chess (escaques, en anglés). Se pronuncia %1$s.</string>
   <string name="leechess">liches</string>
-  <string name="hearItPronouncedBySpecialist">Asinas ye como lo pronuncia un especialista.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Asinas ye como lo pronuncia un especialista.</string>
   <string name="whyLiveLightLibre">En directo, perque los partidas se chugan y se veyen en tiempo real 24/7; liuchero y libre perque Lichess ye de codigo ubierto y sin la vasuera propietaria que abunda en atras pachinas.</string>
   <string name="whyIsLilaCalledLila">D\'a mesma manera, lo codigo fuent de Lichess, %1$s, significa li[chess en sca]la, dau que la mayor parte de Lichess ye escrito en %2$s, un intuitivo luengache de programación.</string>
   <string name="howCanIContributeToLichess">Cómo puedo contribuyir a Lichess?</string>
@@ -52,7 +52,7 @@ L\'analisi informatica en Lichess ye proporcionada per Stockfish.</string>
 En raras ocasions esto puede estar de mal decidir automaticament (linias forzadas, fuerzas). Per defecto, siempre somos de parte d\'o chugador que no se quedó sin tiempo.
 
 Considera que ye posible dar mate con un nomás caballo u alfil, siempre que l\'oponent tienga una pieza que pueda blocar a lo rei.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">Manual de la FIDE %s</string>
+  <string name="fideHandbookX">Manual de la FIDE %s</string>
   <string name="discoveringEnPassant">Per qué un peón puede capturar unatro peón quan ya ye pasau? (en passant)</string>
   <string name="explainingEnPassant">Este movimiento ye legal, y se diz \"captura a lo paso\". L\'articlo de Wikipedia fa una %1$s a este movimiento.
 
@@ -93,6 +93,8 @@ No demandes d\'obtener lo titol de LM.</string>
   <string name="whatUsernameCanIchoose">Quál puede estar lo mío nombre d\'usuario?</string>
   <string name="usernamesNotOffensive">En cheneral, los nombres d\'usuario no han de: estar ofensivos, suplantar a belún u fer publicidat. Puetz leyer mas sobre las %1$s.</string>
   <string name="guidelines">pautas</string>
+  <string name="canIChangeMyUsername">Puedo cambiar lo mío nombre d\'usuario?</string>
+  <string name="usernamesCannotBeChanged">No, los nombres d\'usuario no se pueden cambiar per razons practicas. Los nombres d\'usuario se materializan en masiaus puestos: bases de datos, exportacions, rechistros y en as ments d\'as personas. Puetz cambiar las mayusclas y minusclas una vegada.</string>
   <string name="uniqueTrophies">Trofeyos unicos</string>
   <string name="ownerUniqueTrophies">Ixe trofeyo ye unico en a historia de Lichess, nomás %1$s lo tendrá.</string>
   <string name="wayOfBerserkExplanation">Pa obtener-lo, hiimgosu se desafió a ell mesmo a berserk y ganó 100%% partidas de %s.</string>

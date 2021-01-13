@@ -6,7 +6,7 @@
   <string name="materialDifference">Materialunterschied</string>
   <string name="boardHighlights">Markierungen auf dem Brett (letzter Zug und Schach)</string>
   <string name="pieceDestinations">Zielfelder markieren (gültige Züge und Vorauszüge)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Brettkoordinaten (A-H, 1-8)</string>
+  <string name="boardCoordinates">Brettkoordinaten (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Notation während des Spiels anzeigen</string>
   <string name="pgnPieceNotation">Zugnotation</string>
   <string name="chessPieceSymbol">Schachfigurensymbol</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Blindschach (unsichtbare Figuren)</string>
   <string name="chessClock">Schachuhr</string>
   <string name="tenthsOfSeconds">Zehntelsekunden</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Wenn Restzeit &lt; 10 Sekunden</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Wenn Restzeit &lt; 10 Sekunden</string>
   <string name="horizontalGreenProgressBars">Horizontale grüne Fortschrittsbalken</string>
   <string name="soundWhenTimeGetsCritical">Ton, wenn die Zeit knapp wird</string>
   <string name="giveMoreTime">Mehr Zeit geben</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">Nur in ungewerteten Partien</string>
   <string name="promoteToQueenAutomatically">Automatische Umwandlung zur Dame</string>
   <string name="whenPremoving">Bei Vorauszug</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Reklamiere automatisch Remis bei dreifacher Stellungswiederholung</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Wenn Restzeit &lt; 30 Sekunden</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Reklamiere automatisch Remis bei dreifacher Stellungswiederholung</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Wenn Restzeit &lt; 30 Sekunden</string>
   <string name="moveConfirmation">Zugbestätigung</string>
   <string name="inCorrespondenceGames">Im Fernschach</string>
   <string name="correspondenceAndUnlimited">Fernschach und unbegrenzt</string>
@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Ziehe den König zwei Felder weit</string>
   <string name="castleByMovingOntoTheRook">Ziehe den König auf den Turm</string>
   <string name="inputMovesWithTheKeyboard">Züge mit der Tastatur eingeben</string>
+  <string name="snapArrowsToValidMoves">Pfeile markieren immer mögliche Züge</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Sage \"Gute Partie, gut gespielt\" nach einer Niederlage oder einem Remis</string>
   <string name="yourPreferencesHaveBeenSaved">Deine Einstellungen wurden gespeichert.</string>
 </resources>

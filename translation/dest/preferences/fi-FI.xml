@@ -6,7 +6,7 @@
   <string name="materialDifference">Materiaaliero</string>
   <string name="boardHighlights">Laudan korostukset (viimeisin siirto ja shakki)</string>
   <string name="pieceDestinations">Lailliset siirrot ja esisiirrot</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Laudan koordinaatit (A-H, 1-8)</string>
+  <string name="boardCoordinates">Laudan koordinaatit (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Siirtolista pelin aikana</string>
   <string name="pgnPieceNotation">Siirtojen merkintätapa</string>
   <string name="chessPieceSymbol">Shakkinappulasymbolit</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Sokkoshakki (näkymättömät nappulat)</string>
   <string name="chessClock">Shakkikello</string>
   <string name="tenthsOfSeconds">Sekunnin kymmenesosat</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Kun aikaa jäljellä &lt; 10 sekuntia</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Kun aikaa jäljellä &lt; 10 sekuntia</string>
   <string name="horizontalGreenProgressBars">Vaakasuora vihreä ajanetenemispalkki</string>
   <string name="soundWhenTimeGetsCritical">Äänimerkki kun aika on vähissä</string>
   <string name="giveMoreTime">Anna lisää aikaa</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">Vain rennoissa peleissä</string>
   <string name="promoteToQueenAutomatically">Korota automaattisesti kuningattareksi</string>
   <string name="whenPremoving">Esisiirtäessä</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Vaadi tasapeli automaattisesti kolminkertaisen toiston sattuessa</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Kun aikaa on jäljellä &lt; 30 sekuntia</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Vaadi tasapeli automaattisesti kolminkertaisen toiston sattuessa</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Kun aikaa on jäljellä &lt; 30 sekuntia</string>
   <string name="moveConfirmation">Siirron vahvistus</string>
   <string name="inCorrespondenceGames">Kirjeshakissa</string>
   <string name="correspondenceAndUnlimited">Kirjeshakki ja aikarajaton</string>
@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Siirrä kuningasta kaksi ruutua</string>
   <string name="castleByMovingOntoTheRook">Siirrä kuningas tornin päälle</string>
   <string name="inputMovesWithTheKeyboard">Syötä siirtoja näppäimistöllä</string>
+  <string name="snapArrowsToValidMoves">Merkitse mahdolliset siirrot nuolilla</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Sano \"Good game, well played\" (suom. \"Hyvä peli, hyvin pelattu\") tasapelin tai tappion jälkeen</string>
   <string name="yourPreferencesHaveBeenSaved">Asetuksesi on tallennettu.</string>
 </resources>

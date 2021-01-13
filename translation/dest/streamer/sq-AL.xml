@@ -1,4 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessStreamers">Transmetues Lichessi</string>
+  <string name="lichessStreamer">Transmetues i liches</string>
+  <string name="live">JETONI!</string>
+  <string name="offline">Jashtë linje</string>
+  <string name="currentlyStreaming">Transmetimi aktual: %s</string>
+  <string name="lastStream">Transmetimi i fundit %s</string>
+  <string name="becomeStreamer">Bëhuni një transmetues i Lichess</string>
+  <string name="doYouHaveStream">A keni një kanal Twitch ose YouTube?</string>
+  <string name="hereWeGo">Ja ku do te shkojme!</string>
+  <string name="allStreamers">Të gjithë transmetuesit</string>
+  <string name="editPage">Redakto faqen e transmetuesit</string>
+  <string name="yourPage">Faqja juaj e transmetuesit</string>
+  <string name="downloadKit">Shkarkoni paketën e transmetimit</string>
+  <string name="xIsStreaming">%s po transmeton</string>
+  <string name="rules">Rregullat e transmetimit</string>
+  <string name="rule1">Përfshini fjalën kyçe \"lichess.org\" në titullin tuaj të rrymës dhe përdorni kategorinë \"Shah\" kur transmetoni Lichess.</string>
+  <string name="rule2">Hiqni fjalën kyçe kur transmetoni gjëra jo-lichess.</string>
+  <string name="rule3">Lichess do të zbulojë transmetimin tuaj automatikisht dhe do të mundësojë përfitimet e mëposhtme:</string>
+  <string name="perks">Përfitimet e transmetimit me fjalën kyçe</string>
+  <string name="perk1">Merrni një ikonë të ndezur të transmetuesit në profilin tuaj të Lichess.</string>
+  <string name="perk2">Përplasuni në krye të listës së transmetuesve.</string>
+  <string name="perk3">Njofto ndjekësit e tu të Lichess.</string>
+  <string name="perk4">Tregoni transmetimin tuaj në lojërat, turnet dhe studimet tuaja.</string>
+  <string name="approved">Transmetimi yt është miratuar.</string>
+  <string name="pendingReview">Transmetimi juaj po shqyrtohet nga moderatorët.</string>
+  <string name="pleaseFillIn">Ju lutemi plotësoni informacionin tuaj të transmetuesit dhe ngarkoni një fotografi.</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Kur të jeni gati të renditeni si një transmetues Lichess, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">kërkoni një rishikim të moderatorit</string>
+  <string name="anotherLanguage">Nëse transmetimi juaj është në një gjuhë tjetër përveç anglishtes, përfshini etiketën e saktë të gjuhës (%s), të mbyllur në kllapa katrore, në fillim të titullit tuaj të transmetimit.
+Si shembuj, mund të përfshini \"[RU]\" për rusisht, \"[TR]\" për turqisht, \"[FR]\" për frëngjisht, etj.
+Vendoseni këtë në titullin e transmetimit në faqen Twitch ose YouTube, jo në cilësimet e transmetimit të Lichess.
+Nëse transmetimi juaj është në anglisht, nuk ka nevojë të përfshini një etiketë të gjuhës.</string>
+  <string name="twitchUsername">Emri i përdoruesit ose URL-ja juaj Twitch</string>
+  <string name="optionalOrEmpty">Opsionale. Lëreni bosh nëse asnjë</string>
+  <string name="youtubeChannel">ID-ja ose URL-ja e kanalit tuaj YouTube</string>
+  <string name="streamerName">Emri i transmetuesit tuaj në Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Bëni të shkurtër: %s karakteri maks</item>
+    <item quantity="other">Bëni të shkurtër: %s karaktere maks</item>
+  </plurals>
+  <string name="visibility">E dukshme në faqen e transmetuesve</string>
+  <string name="whenApproved">Kur miratohet nga moderatorët</string>
+  <string name="headline">Titulli</string>
+  <string name="tellUsAboutTheStream">Na trego për rrjedhën tënde me një fjali</string>
+  <string name="longDescription">Përshkrimi i gjatë</string>
 </resources>

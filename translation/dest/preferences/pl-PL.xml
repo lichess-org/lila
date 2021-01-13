@@ -6,7 +6,7 @@
   <string name="materialDifference">Przewaga materialna</string>
   <string name="boardHighlights">Wyróżnienie pól szachownicy (ostatni ruch i szach)</string>
   <string name="pieceDestinations">Pola docelowe (ruchy poprawne i planowane)</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Współrzędne pól (a-h, 1-8)</string>
+  <string name="boardCoordinates">Współrzędne pól (a-h, 1-8)</string>
   <string name="moveListWhilePlaying">Lista ruchów podczas partii</string>
   <string name="pgnPieceNotation">Notacja ruchów</string>
   <string name="chessPieceSymbol">Za pomocą symboli figur</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Gra na ślepo (niewidoczne bierki)</string>
   <string name="chessClock">Zegar szachowy</string>
   <string name="tenthsOfSeconds">Dziesiąte części sekundy</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Kiedy na zegarze jest mniej niż 10 sekund</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Kiedy na zegarze jest mniej niż 10 sekund</string>
   <string name="horizontalGreenProgressBars">Poziomy zielony pasek czasu</string>
   <string name="soundWhenTimeGetsCritical">Powiadom dźwiękiem przy niedoczasie</string>
   <string name="giveMoreTime">Dodaj więcej czasu</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">Tylko w grach towarzyskich</string>
   <string name="promoteToQueenAutomatically">Automatyczna promocja na hetmana</string>
   <string name="whenPremoving">W czasie ruchu planowanego</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Automatyczny remis po trzykrotnym powtórzeniu pozycji</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Kiedy pozostało mniej niż 30 sekund</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatyczny remis po trzykrotnym powtórzeniu pozycji</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Kiedy pozostało mniej niż 30 sekund</string>
   <string name="moveConfirmation">Potwierdzenie ruchu</string>
   <string name="inCorrespondenceGames">W grze korespondencyjnej</string>
   <string name="correspondenceAndUnlimited">Korespondencyjne i bez limitu czasu</string>
@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Ruch królem o dwa pola</string>
   <string name="castleByMovingOntoTheRook">Ruch królem na wieżę</string>
   <string name="inputMovesWithTheKeyboard">Wprowadzaj ruchy za pomocą klawiatury</string>
+  <string name="snapArrowsToValidMoves">Wyrównuj strzałki do legalnych ruchów</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Napisz \"Dobra gra, dobrze zagrałeś\" po porażce lub remisie</string>
   <string name="yourPreferencesHaveBeenSaved">Twoje ustawienia zostały zapisane.</string>
 </resources>

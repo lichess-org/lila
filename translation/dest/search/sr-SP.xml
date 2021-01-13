@@ -2,6 +2,11 @@
 <resources>
   <string name="search">Претрага</string>
   <string name="advancedSearch">Напредна претрага</string>
+  <plurals name="searchInXGames">
+    <item quantity="one">Претражи у %s шаховској партији</item>
+    <item quantity="few">Претражи у %s шаховским партијама</item>
+    <item quantity="other">Претражи у %s шаховским партијама</item>
+  </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">Једна партија пронађена</item>
     <item quantity="few">%s партије пронађене</item>
@@ -12,7 +17,7 @@
   <string name="from">Од</string>
   <string name="to">До</string>
   <string name="humanOrComputer">Да ли је играчев противник био човек или рачунар</string>
-  <string name="aiLevel">Ниво уметне интелигенције</string>
+  <string name="aiLevel">Ниво вештачке интелигенције</string>
   <string name="source">Извор</string>
   <string name="nbTurns">Број потеза</string>
   <string name="result">Резултат</string>

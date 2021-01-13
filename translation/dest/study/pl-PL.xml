@@ -2,7 +2,7 @@
 <resources>
   <string name="private">Prywatne</string>
   <string name="myStudies">Moje opracowania</string>
-  <string name="studiesIContributeTo">Opracowania które współtworzę</string>
+  <string name="studiesIContributeTo">Opracowania, które współtworzę</string>
   <string name="myPublicStudies">Moje publiczne opracowania</string>
   <string name="myPrivateStudies">Moje prywatne opracowania</string>
   <string name="myFavoriteStudies">Moje ulubione opracowania</string>
@@ -14,7 +14,7 @@
   <string name="dateAddedNewest">Data dodania (od najnowszych)</string>
   <string name="dateAddedOldest">Data dodania (od najstarszych)</string>
   <string name="recentlyUpdated">Ostatnio aktualizowane</string>
-  <string name="mostPopular">Najbardziej popularne</string>
+  <string name="mostPopular">Najpopularniejsze</string>
   <string name="addNewChapter">Dodaj nowy rozdział</string>
   <plurals name="nbChapters">
     <item quantity="one">%s rozdział</item>

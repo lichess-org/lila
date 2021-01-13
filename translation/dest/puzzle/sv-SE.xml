@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Problem</string>
+  <string name="recommended">Rekommenderad</string>
+  <string name="phases">Faser</string>
+  <string name="motifs">Motiv</string>
+  <string name="advanced">Avancerat</string>
+  <string name="lengths">Längd</string>
+  <string name="mates">Mattar</string>
+  <string name="goals">Mål</string>
+  <string name="specialMoves">Speciella drag</string>
+  <string name="didYouLikeThisPuzzle">Gillade du det här problemet?</string>
+  <string name="voteToLoadNextOne">Rösta för att ladda nästa!</string>
+  <string name="yourPuzzleRatingX">Din problemrating: %s</string>
+  <string name="findTheBestMoveForWhite">Hitta bästa draget för vit.</string>
+  <string name="findTheBestMoveForBlack">Hitta bästa draget för svart.</string>
+  <string name="toGetPersonalizedPuzzles">För att få personanpassade problem:</string>
+  <string name="puzzleId">Problem %s</string>
+  <string name="puzzleOfTheDay">Dagens problem</string>
+  <string name="clickToSolve">Klicka för att lösa</string>
+  <string name="goodMove">Bra drag</string>
+  <string name="bestMove">Bästa draget!</string>
+  <string name="keepGoing">Fortsätt…</string>
+  <string name="puzzleSuccess">Rätt!</string>
+  <string name="puzzleComplete">Problemet klart!</string>
+  <string name="notTheMove">Det är inte rätt drag!</string>
+  <string name="trySomethingElse">Prova något annat.</string>
+  <string name="ratingX">Rating: %s</string>
+  <string name="hidden">gömd</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Spelat %s gånger</item>
+    <item quantity="other">Spelat %s gånger</item>
+  </plurals>
+  <string name="fromGameLink">Från parti: %s</string>
+  <string name="continueTraining">Fortsätt träningen</string>
+  <string name="difficultyLevel">Svårighetsgrad</string>
+  <string name="normal">Normal</string>
+  <string name="easier">Lättare</string>
+  <string name="easiest">Lättaste</string>
+  <string name="harder">Svårare</string>
+  <string name="hardest">Svåraste</string>
+  <string name="example">Exempel</string>
+  <string name="addAnotherTheme">Lägg till ett annat tema</string>
+  <string name="jumpToNextPuzzleImmediately">Hoppa till nästa pussel omedelbart</string>
+</resources>

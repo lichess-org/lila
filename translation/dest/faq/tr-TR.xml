@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">S.S.S</string>
+  <string name="faqAbbreviation">SSS</string>
   <string name="frequentlyAskedQuestions">Sıkça Sorulan Sorular</string>
   <string name="whyIsLichessCalledLichess">Lichess\'in adı neden Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess, \"live/light/libre\" kelimeleri ile satranç anlamına gelen \"chess\" kelimesinin birleşimiyle oluşturulmuştur. Şu şekilde telaffuz edilir: %1$s .</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess, \"live/light/libre\" kelimeleri ile satranç anlamına gelen \"chess\" kelimesinin birleşimiyle oluşturulmuştur.
+
+%1$s  diye okunur.</string>
   <string name="leechess">lii-çes</string>
-  <string name="hearItPronouncedBySpecialist">Telaffuzunu bir uzmandan dinleyin.</string>
-  <string name="whyLiveLightLibre">Canlı, çünkü oyunlar gerçek zamanlı olarak 24/7 oynanır ve izlenir; bunun nedeni Lichess açık kaynak kodludur ve diğer web sitelerini rahatsız eden önemsiz sıkıntılar tarafından engellenmemesi içindir.</string>
-  <string name="whyIsLilaCalledLila">Benzer şekilde, Lichess için kaynak kodu, %1$s, li[sca satranç] la anlamına gelir, Lichess, %2$s gibi sezgisel bir programlama dili ile yazılmıştır.</string>
-  <string name="howCanIContributeToLichess">Lichess\'in kaynak kodlarına nasıl katkıda bulunabilirim?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess, sizlerin bağışlarınızla ve katkılarınızla ayakta kalmaktadır.</string>
-  <string name="findMoreAndSeeHowHelp">%1$s olmakla alakalı daha fazla şey bulabilirsiniz. (%2$s dahil) Lichess\'e gerek zamanınızla gerek yeteneklerinizle destek olmanın %3$s vardır.</string>
-  <string name="beingAPatron">patron</string>
-  <string name="breakdownOfOurCosts">giderlerimizin dağılışı</string>
-  <string name="otherWaysToHelp">yardım etmenin diğer yolları</string>
-  <string name="areThereWebsitesBasedOnLichess">Lichess kaynak kodunu kullanan diğer siteler de var mı?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Evet. Bizim %1$s, %2$s ve %3$s kullanan bir çok site var.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Telaffuzunu bir uzmandan dinleyin.</string>
+  <string name="whyLiveLightLibre">Lichess, oyunlar 7/24 gerçek zamanlı olarak oynanıp izlendiği için canlı (live); diğer sitelerde veba gibi hüküm süren para kazanma hırsından yoksun ve açık kaynak kodlu olduğu için hafif (light) ve bedavadır (libre).</string>
+  <string name="whyIsLilaCalledLila">Benzer şekilde, Lichess\'in kaynak kodu %1$s, \'li[chess in sca]la\' ifadesinin kısaltılmış hâlidir. Zira Lichess\'in büyük bir bölümü sezgisel bir programlama dili olan %2$s ile yazılmıştır.</string>
+  <string name="howCanIContributeToLichess">Lichess\'e nasıl katkıda bulunabilirim?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess, sizlerin bağışları ve gönüllülerden oluşan bir ekibin gayretleriyle ayakta kalmaktadır.</string>
+  <string name="findMoreAndSeeHowHelp">%1$s olmakla ilgili daha fazla bilgi edinebilirsiniz (isterseniz %2$s de inceleyebilirsiniz). Lichess\'e zamanınızı ve becerilerinizi bahşederek destek olmanın da %3$s var.</string>
+  <string name="beingAPatron">Destekçi</string>
+  <string name="breakdownOfOurCosts">site giderleri dökümünü</string>
+  <string name="otherWaysToHelp">birçok yolu</string>
+  <string name="areThereWebsitesBasedOnLichess">Lichess kaynak kodunu kullanan siteler var mı?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Evet. Lichess %1$s, %2$s ve %3$s paylaşımında bulunarak farklı açık kaynak kodlu sitelere ilham kaynağı olmuştur.</string>
   <string name="fairPlay">Adil Oyun</string>
   <string name="whyFlaggedRatingManipulationOrCheater">Neden bir bilgisayardan yardım alan ya da haksız puan kazanan birisi olarak işaretlendim?</string>
-  <string name="cheatDetectionMethods">Lichess bu konuda güçlü bir yakalama sistemine ve bunu işleme yetisine sahiptir. Bu süreç bir çok moderatör tarafından incelenir ve bu baya zaman alabilir. Haksız ve ya bireysel itirazlar ile ilgilenmiyoruz. Çünkü bu ileride tespit edilmekten kaçışı kolaylaştıracak çok zaman alacaktır. Zamanı ve eforu daha önemli olaylarda harcamak daha iyidir. İtirazlar e-mail yolu ile de yapılabilir. (%1$s) ama unutmayın ki verilen kararlar ya da yasaklar nadiren kaldırılır.</string>
+  <string name="cheatDetectionMethods">Lichess tüm kanıtların incelendiği, güçlü ve kapsamlı bir tespit mekanizmasına sahiptir. Karar sürecine genellikle birçok moderatör dahil olduğundan uzun zaman alabilir. Tespit edilenlerin dışında, bireysel olarak sunulan kanıtlar ile ilgilenmiyoruz. Bunu yapmak, gelecekte tespit edilmekten kaçınmayı kolaylaştırır ve verimsiz tartışmalara neden olur. Bunlara harcanacak zaman ve efor daha önemli vakalara ayrılıyor. Kullanıcılar %1$s adresine e-posta göndererek itirazda bulunabilir, ancak verilen kararlar nadiren bozulur.</string>
   <string name="whenAmIEligibleRatinRefund">Hileye karşı kaybettiğim puanlarımı ne zaman geri alacağım?</string>
   <string name="ratingRefundExplanation">Bir oyuncu işaretlendikten bir dakika sonra, son 3 gün içinde oynadığı 40 puanlı oyun geri alınır. Bu oyunlarda eğer rakibi iseniz, puan kaybettiyseniz (bir kayıp veya beraberlik nedeniyle) ve puanınız geçici değilse, puan geri ödemesi alırsınız. Geri ödeme, en yüksek puanınıza ve oyundan sonraki puan ilerlemenize göre sınırlanır.
 (Örneğin, bu oyunlardan sonra puanınız büyük ölçüde artarsa, geri ödeme veya yalnızca kısmi geri ödeme alabilirsiniz.) Geri ödeme asla 150 puanı geçmez.</string>
@@ -33,10 +35,10 @@
   <string name="basedOnGameDuration">Zaman kontrolleri oyunun süresine bağlı olarak değişiyor = %1$s
 Örneğin, bir 5+3 blitz oyununun yaklaşık süresi 5 x 60 + 40 x 3 = 420 saniyedir.</string>
   <string name="durationFormula">(zaman) + 40 x (arttırma)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Lichess\'te hangi varyantları oynayabilirim?</string>
-  <string name="lichessSupportChessAnd">Lichess standart satranç ve%1$s\'yi destekler.</string>
+  <string name="lichessSupportChessAnd">Lichess standart satranç ve %1$s\'nı destekler.</string>
   <string name="eightVariants">8 satranç varyantı</string>
   <string name="whatIsACPL">Ortalama santipiyon kaybı (OSK) nedir?</string>
   <string name="acplExplanation">Santipiyon, satrançta avantajın temsili olarak kullanılan ölçü birimidir. Bir santipiyon, bir piyonun 1 / 100\'üne eşittir. Bu nedenle 100 santipiyon = 1 piyon. Bu değerler oyunda resmi bir rol oynamaz, ancak oyuncular için yararlıdır ve bilgisayar satrancında pozisyonları değerlendirmek için gereklidir.
@@ -52,7 +54,7 @@ Lichess üzerindeki bilgisayar analizi Stockfish tarafından desteklenmektedir.<
 Nadir durumlarda bu karara otomatik olarak ulaşmak zor olabilir (zorla berabere, kaleler). Varsayılan olarak biz her zaman hangi oyuncunun zamanı bitmedi ise onun tarafını tutarız.
 
 Rakibin şahı kenara sıkıştırabilecek herhangi bir taşı varsa, tek bir at veya fil ile mat edebilmenin mümkün olabileceğini unutmayın.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">%s bölümdür. Bu dizi, SSS\'nin \'Zamandan kaybetme, beraberlik ve yetersiz taş\' bölümünde \'FIDE el kitabı §6.9\' olarak görünür.
+  <string name="fideHandbookX">%s bölümdür. Bu dizi, SSS\'nin \'Zamandan kaybetme, beraberlik ve yetersiz taş\' bölümünde \'FIDE el kitabı §6.9\' olarak görünür.
 
 Https://handbook. fide. com/chapter/E012018 bağlantısı.
 Dosya: Sık Sorulan Sorular (SSS) sayfası</string>
@@ -85,7 +87,7 @@ Lichess\'te Unvanlı bir oyuncu olarak doğrulanmak Unvanlı Arena olaylarda oyn
 
 Bir de Onursal bir %2$s Unvanı var.</string>
   <string name="asWellAsManyNMtitles">birçok ulusal usta unvanı</string>
-  <string name="verificationForm">onaylama formu</string>
+  <string name="verificationForm">doğrulama formu</string>
   <string name="canIbecomeLM">Lichess ustası (LM) ünvanını alabilir miyim?</string>
   <string name="noUpperCaseDot">Hayır.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Bu onursal unvan resmi değil ve sadece Lichess üzerinde var.
@@ -96,6 +98,8 @@ LM unvanı için sorma.</string>
   <string name="whatUsernameCanIchoose">Kullanıcı adım ne olmalı?</string>
   <string name="usernamesNotOffensive">Genel olarak, kullanıcı adları: saldırgan, başkasını taklit eden veya reklam amaçlı olmamalıdır. %1$s hakkında daha fazla bilgi edinebilirsiniz.</string>
   <string name="guidelines">yönetmelik</string>
+  <string name="canIChangeMyUsername">Kullanıcı adımı değiştirebilir miyim?</string>
+  <string name="usernamesCannotBeChanged">Hayır, kullanıcı adları teknik ve pratik sebeplerden ötürü değiştirilemez. Veri tabanları, dışa aktarmalar, log dosyaları ve insanların hafızası dahil olmak üzere kullanıcı adları birçok yerde kullanılıyor. Yalnızca bir kereyle sınırlı olmak üzere kullanıcı adındaki büyük ve küçük harflerde oynama yapabilirsiniz.</string>
   <string name="uniqueTrophies">Benzersiz kupalar</string>
   <string name="ownerUniqueTrophies">Bu kupa Lichess tarihinde benzersizdir ve %1$s dışında kimse bu kupaya sahip olamaz.</string>
   <string name="wayOfBerserkExplanation">Bunu almak için, hiimgosu kendini berserk ile test etti ve %s oyunlarının 100%%\'ünü kazandı.</string>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="queenRookEndgame">Královna a věž</string>
+  <string name="queenRookEndgameDescription">Konec hry jen s královnami, věžemi a pěšci.</string>
+</resources>

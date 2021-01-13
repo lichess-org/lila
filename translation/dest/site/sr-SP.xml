@@ -9,6 +9,7 @@
   <string name="yourTurn">Ваш потез</string>
   <string name="aiNameLevelAiLevel">%1$s ниво %2$s</string>
   <string name="level">Ниво</string>
+  <string name="strength">Снага</string>
   <string name="toggleTheChat">Укључи/искључи ћаскање</string>
   <string name="toggleSound">Укључи/искључи звук</string>
   <string name="chat">Ћаскање</string>
@@ -476,6 +477,7 @@
   <string name="lastName">Презиме</string>
   <string name="biography">Биографија</string>
   <string name="country">Држава</string>
+  <string name="thankYou">Хвала!</string>
   <string name="socialMediaLinks">Линкови за социјалне медије</string>
   <string name="inlineNotation">Нотација у реду</string>
   <string name="watchLichessTV">Гледајте Личес ТВ</string>
@@ -484,35 +486,7 @@
   <string name="activeToday">Активни данас</string>
   <string name="activePlayers">Активни играчи</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Пажња, партија је рангирана али се не игра на време!</string>
-  <string name="yourPuzzleRatingX">Ваш рејтинг у тренингу: %s</string>
-  <string name="findTheBestMoveForWhite">Пронађите најбољи потез за белог.</string>
-  <string name="findTheBestMoveForBlack">Пронађите најбољи потез за црног.</string>
-  <string name="toTrackYourProgress">Да пратите свој напредак:</string>
-  <string name="puzzleId">Вежба %s</string>
-  <string name="puzzleOfTheDay">Вежба дана</string>
-  <string name="clickToSolve">Кликните како би решили</string>
-  <string name="goodMove">Добар потез</string>
-  <string name="butYouCanDoBetter">Али постоји бољи потез.</string>
-  <string name="bestMove">Најбољи потез!</string>
-  <string name="keepGoing">Наставите…</string>
-  <string name="puzzleFailed">Вежба неуспешна</string>
-  <string name="butYouCanKeepTrying">Али можете још покушавати.</string>
   <string name="success">Успешно</string>
-  <string name="wasThisPuzzleAnyGood">Да ли је ова вежба била добра?</string>
-  <string name="pleaseVotePuzzle">Помози да се Личес побољша гласајући, користећи стрелицу нагоре или надоле:</string>
-  <string name="thankYou">Хвала!</string>
-  <string name="ratingX">Рејтинг: %s</string>
-  <string name="hidden">сакривен</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Играно %s пут</item>
-    <item quantity="few">Играно %s пута</item>
-    <item quantity="other">Играно %s пута</item>
-  </plurals>
-  <string name="fromGameLink">Из партије %s</string>
-  <string name="continueTraining">Наставите тренинг</string>
-  <string name="retryThisPuzzle">Покушајте поново ову вежбу</string>
-  <string name="thisPuzzleIsCorrect">Ова вежба је правилна и занимљива</string>
-  <string name="thisPuzzleIsWrong">Ова вежба је неправилна или досадна</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s партија се игра</item>
     <item quantity="few">%s партије се играју</item>
@@ -567,6 +541,7 @@
   <string name="clockInitialTime">Почетно време на сату</string>
   <string name="clockIncrement">Повећање времена</string>
   <string name="privacy">Приватност</string>
+  <string name="privacyPolicy">Политика приватности</string>
   <string name="letOtherPlayersFollowYou">Допустите да вас други играчи прате</string>
   <string name="letOtherPlayersChallengeYou">Допустите да вас други играчи изазову</string>
   <string name="letOtherPlayersInviteYouToStudy">дозволи другим играчима да те позову на проблем</string>
@@ -716,6 +691,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ако не видите е-пошту у пријемном сандучету, проверите је у другим местима (датотекама): Јунк, Социал.</string>
   <string name="weHaveSentYouAnEmailTo">Послали смо Вам е-поруку на %s. Кликните на дати линк да промените Вашу лозинку.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registracijom prihvatate ograničenja predviđe našim %s.</string>
+  <string name="readAboutOur">Прочитајте о нашем %s.</string>
   <string name="networkLagBetweenYouAndLichess">Мрежно кашњење између вас и Лицхесса</string>
   <string name="timeToProcessAMoveOnLichessServer">Време потребно за процесирање на Лицхесс серверу</string>
   <string name="downloadAnnotated">Преузимање белешки.</string>
@@ -904,4 +880,7 @@
   <string name="youCannotPostYetPlaySomeGames">Још увек не можете писати поруке на овај форум. Играјте још коју партију!</string>
   <string name="subscribe">Претплати се</string>
   <string name="unsubscribe">Одјавите претплату</string>
+  <string name="challengeDeclined">Изазов одбијен</string>
+  <string name="challengeAccepted">Изазов прихваћен!</string>
+  <string name="challengeCanceled">Изазов отказан.</string>
 </resources>

@@ -6,7 +6,7 @@
   <string name="materialDifference">Показывать разницу в материале</string>
   <string name="boardHighlights">Подсвечивать последний ход и шах</string>
   <string name="pieceDestinations">Показывать допустимые ходы</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Координаты доски (A–H, 1–8)</string>
+  <string name="boardCoordinates">Координаты доски (A–H, 1–8)</string>
   <string name="moveListWhilePlaying">Показывать список ходов</string>
   <string name="pgnPieceNotation">Шахматная нотация</string>
   <string name="chessPieceSymbol">Символ шахматной фигуры</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Шахматы вслепую (фигуры не видны)</string>
   <string name="chessClock">Шахматные часы</string>
   <string name="tenthsOfSeconds">Десятые доли секунд</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Когда остаётся меньше 10 секунд</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Когда остаётся меньше 10 секунд</string>
   <string name="horizontalGreenProgressBars">Убывающий зелёный индикатор</string>
   <string name="soundWhenTimeGetsCritical">Звук, когда время подходит к концу</string>
   <string name="giveMoreTime">Добавить времени</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">Только в товарищеских играх</string>
   <string name="promoteToQueenAutomatically">Пешка превращается в ферзя автоматически</string>
   <string name="whenPremoving">Когда сделан предварительный ход</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Автоматически запрашивать ничью при трёхкратном повторении хода</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Когда остаётся меньше 30 секунд</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматически запрашивать ничью при трёхкратном повторении хода</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Когда остаётся меньше 30 секунд</string>
   <string name="moveConfirmation">Подтверждение хода</string>
   <string name="inCorrespondenceGames">В игре по переписке</string>
   <string name="correspondenceAndUnlimited">По переписке и без ограничения времени</string>
@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Переместить короля на две клетки</string>
   <string name="castleByMovingOntoTheRook">Переместить короля на ладью</string>
   <string name="inputMovesWithTheKeyboard">Вводить ходы с помощью клавиатуры</string>
+  <string name="snapArrowsToValidMoves">Привязывать стрелки к допустимым ходам</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Писать в чат “Good game, well played” после поражения или ничьей</string>
   <string name="yourPreferencesHaveBeenSaved">Ваши настройки сохранены.</string>
 </resources>

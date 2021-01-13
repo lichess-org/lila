@@ -9,6 +9,7 @@
   <string name="yourTurn">U bent aan zet</string>
   <string name="aiNameLevelAiLevel">%1$s niveau %2$s</string>
   <string name="level">Niveau</string>
+  <string name="strength">Sterkte</string>
   <string name="toggleTheChat">Chat aan-/uitzetten</string>
   <string name="toggleSound">Geluid aan-/uitzetten</string>
   <string name="chat">Chat</string>
@@ -447,6 +448,7 @@
   <string name="lastName">Achternaam</string>
   <string name="biography">Biografie</string>
   <string name="country">Land</string>
+  <string name="thankYou">Bedankt!</string>
   <string name="socialMediaLinks">Links naar sociale media</string>
   <string name="inlineNotation">Geïntegreerde notatie</string>
   <string name="watchLichessTV">Kijk Lichess TV</string>
@@ -455,34 +457,7 @@
   <string name="activeToday">Vandaag actief</string>
   <string name="activePlayers">Actieve spelers</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Let op, de partij is met rating maar heeft geen klok!</string>
-  <string name="yourPuzzleRatingX">Je puzzelscore: %s</string>
-  <string name="findTheBestMoveForWhite">Vind de beste zet voor wit.</string>
-  <string name="findTheBestMoveForBlack">Vind de beste zet voor zwart.</string>
-  <string name="toTrackYourProgress">Om je vooruitgang te volgen:</string>
-  <string name="puzzleId">Puzzel %s</string>
-  <string name="puzzleOfTheDay">Puzzel van de dag</string>
-  <string name="clickToSolve">Klik om op te lossen</string>
-  <string name="goodMove">Goede zet</string>
-  <string name="butYouCanDoBetter">Maar er is een betere zet.</string>
-  <string name="bestMove">Beste zet!</string>
-  <string name="keepGoing">Ga verder...</string>
-  <string name="puzzleFailed">Puzzel gefaald</string>
-  <string name="butYouCanKeepTrying">Maar je kunt het blijven proberen.</string>
   <string name="success">Succes</string>
-  <string name="wasThisPuzzleAnyGood">Was dit een goede puzzel?</string>
-  <string name="pleaseVotePuzzle">Verbeter lichess door te stemmen met de pijl naar boven of beneden.</string>
-  <string name="thankYou">Bedankt!</string>
-  <string name="ratingX">Rating: %s</string>
-  <string name="hidden">verborgen</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">%s keer gespeeld</item>
-    <item quantity="other">%s keer gespeeld</item>
-  </plurals>
-  <string name="fromGameLink">Van partij %s</string>
-  <string name="continueTraining">Ga verder met de training</string>
-  <string name="retryThisPuzzle">Probeer het opnieuw</string>
-  <string name="thisPuzzleIsCorrect">Deze puzzel is correct en interessant</string>
-  <string name="thisPuzzleIsWrong">Deze puzzel is fout of saai</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partij bezig</item>
     <item quantity="other">%s partijen bezig</item>
@@ -536,6 +511,7 @@
   <string name="clockInitialTime">Oorspronkelijke kloktijd</string>
   <string name="clockIncrement">Bijtelling</string>
   <string name="privacy">Privacy</string>
+  <string name="privacyPolicy">privacybeleid</string>
   <string name="letOtherPlayersFollowYou">Andere spelers mogen je volgen</string>
   <string name="letOtherPlayersChallengeYou">Andere spelers mogen je uitdagen</string>
   <string name="letOtherPlayersInviteYouToStudy">Laat andere spelers je uitnodigen voor een Study</string>
@@ -681,6 +657,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Als je de email niet ziet, kijk dan op andere plaatsen, zoals je spam of andere mappen.</string>
   <string name="weHaveSentYouAnEmailTo">We hebben een email verstuurd naar %s. Klik op de link in de email om je wachtwoord te resetten.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Door je registratie ben je gebonden aan onze %s.</string>
+  <string name="readAboutOur">Lees meer over ons %s.</string>
   <string name="networkLagBetweenYouAndLichess">Netwerkvertraging tussen u en Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tijd om een zet te verwerken op de lichess server</string>
   <string name="downloadAnnotated">Download de geannoteerde partij</string>
@@ -865,4 +842,7 @@
   <string name="youCannotPostYetPlaySomeGames">Je kunt nog geen post in de forums plaatsen. Speel eerst een paar partijen!</string>
   <string name="subscribe">Abonneren</string>
   <string name="unsubscribe">Abonnement opzeggen</string>
+  <string name="challengeDeclined">Uitdaging geweigerd</string>
+  <string name="challengeAccepted">Uitdaging geaccepteerd!</string>
+  <string name="challengeCanceled">Uitdaging geannuleerd.</string>
 </resources>

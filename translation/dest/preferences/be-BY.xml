@@ -6,7 +6,7 @@
   <string name="materialDifference">Паказваць розніцу ў фігурах</string>
   <string name="boardHighlights">Падсвечваць апошні ход і шах</string>
   <string name="pieceDestinations">Паказваць дапушчальныя хады</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Каардынаты дошкі</string>
+  <string name="boardCoordinates">Каардынаты дошкі</string>
   <string name="moveListWhilePlaying">Паказваць спіс хадоў</string>
   <string name="pgnPieceNotation">Пазнака фігуры ў натацыі</string>
   <string name="chessPieceSymbol">Знак шахматнай фігуры</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Шахматы ўсляпую (фігуры схаваныя)</string>
   <string name="chessClock">Шахматны гадзіннік</string>
   <string name="tenthsOfSeconds">Дзясятыя долі секунды</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Калі засталося менш за 10 с</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Калі засталося менш за 10 с</string>
   <string name="horizontalGreenProgressBars">Індыкатар часу</string>
   <string name="soundWhenTimeGetsCritical">Гукавое апавяшчэнне пры нястачы часу</string>
   <string name="giveMoreTime">Дадаць часу</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">Толькі ў бязрэйтынгавых гульнях</string>
   <string name="promoteToQueenAutomatically">Аўтаматычна пераўтвараць пешку ў фярзя</string>
   <string name="whenPremoving">Пры ходзе на апярэджанне</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Аўтаматычна запытваць нічыю пры трохразовым паўторы ходу</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Калі засталося менш за 30 секунд</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Аўтаматычна запытваць нічыю пры трохразовым паўторы ходу</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Калі засталося менш за 30 секунд</string>
   <string name="moveConfirmation">Пацверджанне ходу</string>
   <string name="inCorrespondenceGames">У гульні па ліставанні</string>
   <string name="correspondenceAndUnlimited">Па ліставанні і без абмежавання часу</string>

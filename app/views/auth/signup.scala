@@ -34,7 +34,10 @@ object signup {
             trans.computersAreNotAllowedToPlay(),
             br,
             small(
-              trans.byRegisteringYouAgreeToBeBoundByOur(a(href := routes.Page.tos())(trans.termsOfService()))
+              trans.byRegisteringYouAgreeToBeBoundByOur(a(href := routes.Page.tos())(trans.termsOfService())),
+              br,
+              trans.readAboutOur(a(href := routes.Page.menuBookmark("privacy"))(trans.privacyPolicy())),
+              br
             )
           ),
           agreement(form("agreement"), form.form.errors.exists(_.key startsWith "agreement.")),

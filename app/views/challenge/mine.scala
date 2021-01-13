@@ -93,13 +93,13 @@ object mine {
             )
           case Status.Declined =>
             div(cls := "follow-up")(
-              h1("Challenge declined"),
+              h1(trans.challengeDeclined()),
               bits.details(c),
               a(cls := "button button-fat", href := routes.Lobby.home())(trans.newOpponent())
             )
           case Status.Accepted =>
             div(cls := "follow-up")(
-              h1("Challenge accepted!"),
+              h1(trans.challengeAccepted()),
               bits.details(c),
               a(id := "challenge-redirect", href := routes.Round.watcher(c.id, "white"), cls := "button-fat")(
                 trans.joinTheGame()
@@ -107,7 +107,7 @@ object mine {
             )
           case Status.Canceled =>
             div(cls := "follow-up")(
-              h1("Challenge canceled."),
+              h1(trans.challengeCanceled()),
               bits.details(c),
               a(cls := "button button-fat", href := routes.Lobby.home())(trans.newOpponent())
             )

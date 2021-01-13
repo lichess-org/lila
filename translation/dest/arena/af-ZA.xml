@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arenaTournaments">Arena toernooie</string>
   <string name="isItRated">Is dit gegradeer?</string>
   <string name="willBeNotified">Jy sal in kennis gestel word wanneer die toernooi begin, so dit is veilig om op \'n ander blad te speel terwyl jy wag.</string>
   <string name="isRated">Hierdie toernooi is gegradeer en sal jou gradering beïnvloed.</string>
@@ -38,4 +39,6 @@ Speel vinnig en keer terug na die ontvangs om meer te speel en meer punte te kry
   </plurals>
   <string name="thisIsPrivate">Hierdie is \'n privaat toernooi</string>
   <string name="shareUrl">Deel hierdie URL om mense te laat aansluit: %s</string>
+  <string name="drawStreak">Trekstrepe: as \'n speler agtereenvolgens gelykop speel in \'n arena, sal slegs die eerste loting \'n punt tot gevolg hê, of gelykop trekkings wat langer as %s beweeg. Die loting kan slegs deur \'n oorwinning gebreek word, nie deur \'n verlies of gelykop uitslag nie.</string>
+  <string name="history">Arena Geskiedenis</string>
 </resources>

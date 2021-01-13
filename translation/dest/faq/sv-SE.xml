@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Varför kallas Lichess för Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess är en kombination av \"live\"/\"light\"/\"libre\" och \"chess\". Det uttalas %1$s.</string>
   <string name="leechess">li-tjäss</string>
-  <string name="hearItPronouncedBySpecialist">Hör det uttalas av en specialist.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Hör det uttalas av en specialist.</string>
   <string name="whyLiveLightLibre">Live, eftersom spel spelas och ses i realtid dygnet runt; light och libre för det faktum att Lichess är öppen källkod och ohämmad av proprietärt skräp som plågar andra webbplatser.</string>
   <string name="whyIsLilaCalledLila">På liknande sätt står källkoden för Lichess, %1$s, för li[chess i sca]la, då huvuddelen av Lichess är skrivet i %2$s, ett intuitivt programmeringsspråk.</string>
   <string name="howCanIContributeToLichess">Hur kan jag bidra till Lichess?</string>
@@ -33,7 +33,7 @@
   <string name="basedOnGameDuration">Lichess tidskontroller är baserade på uppskattad partilängd = %1$s
  Till exempel, den uppskattade längden av ett 5+3 parti är 5 * 60 + 40 * 3 = 420 sekunder.</string>
   <string name="durationFormula">(initial klocktid) + 40 · (tidstillägg)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Vilka varianter kan jag spela på Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess stöder standardschack och %1$s.</string>
@@ -52,7 +52,7 @@
   I sällsynta fall kan detta vara svårt att avgöra automatiskt (påtvingade linjer, fästningar). Som standard tar vi alltid sida med spelaren som inte fick slut på tid.
 
   Observera att det kan vara möjligt att matta med en enda springare eller löpare om motståndaren har en pjäs som kan blockera kungen.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDE-handbok %s</string>
+  <string name="fideHandbookX">FIDE-handbok %s</string>
   <string name="discoveringEnPassant">Varför kan en bonde slå en annan bonde när den redan har passerat? (en passant)</string>
   <string name="explainingEnPassant">Detta är ett giltigt drag som kallas \"en passant\". Denna Wikipedia-artikel ger en %1$s.
 
@@ -94,6 +94,8 @@ Se %3$s för detta drag för lite övning med det.</string>
   <string name="usernamesNotOffensive">I allmänhet bör användarnamn inte vara: kränkande, utge sig för att vara
 någon annan eller innehålla reklam. Du kan läsa mer i %1$s.</string>
   <string name="guidelines">riktlinjerna</string>
+  <string name="canIChangeMyUsername">Kan jag ändra mitt användarnamn?</string>
+  <string name="usernamesCannotBeChanged">Nej, användarnamn kan inte ändras av tekniska och praktiska skäl. Användarnamn förekommer i för många platser: databaser, exporter, loggar, och människors minne. Du kan justera versalerna en gång.</string>
   <string name="uniqueTrophies">Unika troféer</string>
   <string name="ownerUniqueTrophies">Denna trofé är unik i Lichess historia, ingen annan än %1$s kommer någonsin att ha den.</string>
   <string name="wayOfBerserkExplanation">För att få den, utmanade hiimgosu sig själv att gå bärsärk i och vinna 100%% av partierna i %s.</string>

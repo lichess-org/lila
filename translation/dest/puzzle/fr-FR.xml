@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Problèmes</string>
+  <string name="puzzleThemes">Thèmes des problèmes</string>
+  <string name="recommended">Recommandé</string>
+  <string name="phases">Phases</string>
+  <string name="motifs">Motifs</string>
+  <string name="advanced">Avancé</string>
+  <string name="lengths">Longueurs</string>
+  <string name="mates">Mats</string>
+  <string name="goals">Objectifs</string>
+  <string name="specialMoves">Coups spéciaux</string>
+  <string name="didYouLikeThisPuzzle">Avez-vous aimé ce problème ?</string>
+  <string name="voteToLoadNextOne">Votez pour afficher le suivant !</string>
+  <string name="yourPuzzleRatingX">Votre classement de tactique : %s</string>
+  <string name="findTheBestMoveForWhite">Trouvez le meilleur coup pour les Blancs.</string>
+  <string name="findTheBestMoveForBlack">Trouvez le meilleur coup pour les Noirs.</string>
+  <string name="toGetPersonalizedPuzzles">Pour obtenir des problèmes personnalisés :</string>
+  <string name="puzzleId">Problème %s</string>
+  <string name="puzzleOfTheDay">Problème du jour</string>
+  <string name="clickToSolve">Cliquez pour résoudre</string>
+  <string name="goodMove">Bon coup</string>
+  <string name="bestMove">Meilleur coup  !</string>
+  <string name="keepGoing">Continuez…</string>
+  <string name="puzzleSuccess">Succès !</string>
+  <string name="puzzleComplete">Problème terminé !</string>
+  <string name="notTheMove">Ce n\'est pas le coup !</string>
+  <string name="trySomethingElse">Essayez autre chose.</string>
+  <string name="ratingX">Classement : %s</string>
+  <string name="hidden">masqué</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Joué %s fois</item>
+    <item quantity="other">Joué %s fois</item>
+  </plurals>
+  <string name="fromGameLink">Tiré de la partie %s</string>
+  <string name="continueTraining">Continuer l\'entraînement</string>
+  <string name="difficultyLevel">Niveau de difficulté</string>
+  <string name="normal">Normal</string>
+  <string name="easier">Plus facile</string>
+  <string name="easiest">Le plus facile</string>
+  <string name="harder">Plus difficile</string>
+  <string name="hardest">Le plus difficile</string>
+  <string name="example">Exemple</string>
+  <string name="addAnotherTheme">Ajouter un autre thème</string>
+  <string name="jumpToNextPuzzleImmediately">Passer immédiatement au problème suivant</string>
+  <string name="puzzleDashboard">Tableau de bord des problèmes</string>
+  <string name="improvementAreas">Zones d\'entraînement</string>
+  <string name="strengths">Points forts</string>
+  <string name="history">Historique des problèmes</string>
+  <string name="won">réussis</string>
+  <string name="failed">non réussis</string>
+</resources>

@@ -61,9 +61,6 @@ final class RemoteSocket(
       Bus.publish(TellSriIn(sri.value, userId, msg), s"remoteSocketIn:$typ")
     case In.TellUser(userId, typ, msg) =>
       Bus.publish(TellUserIn(userId, msg), s"remoteSocketIn:$typ")
-    case In.WsBoot =>
-      logger.warn("Remote socket boot")
-      onlineUserIds set Set("lichess")
     case In.ReqResponse(reqId, response) =>
       requests
         .computeIfPresent(
@@ -74,6 +71,10 @@ final class RemoteSocket(
           }
         )
         .unit
+    case In.Ping(id) => send(Out.pong(id))
+    case In.WsBoot =>
+      logger.warn("Remote socket boot")
+      onlineUserIds set Set("lichess")
   }
 
   Bus.subscribeFun(
@@ -109,6 +110,7 @@ final class RemoteSocket(
       send(Out.impersonate(userId, modId))
     case ApiUserIsOnline(userId, value) =>
       send(Out.apiUserOnline(userId, value))
+      if (value) onlineUserIds.getAndUpdate(_ + userId).unit
     case Follow(u1, u2)   => send(Out.follow(u1, u2))
     case UnFollow(u1, u2) => send(Out.unfollow(u1, u2))
   }
@@ -193,6 +195,7 @@ object RemoteSocket {
       case class TellSri(sri: Sri, userId: Option[String], typ: String, msg: JsObject) extends In
       case class TellUser(userId: String, typ: String, msg: JsObject)                  extends In
       case class ReqResponse(reqId: Int, response: String)                             extends In
+      case class Ping(id: String)                                                      extends In
 
       val baseReader: Reader = raw =>
         raw.path match {
@@ -232,6 +235,7 @@ object RemoteSocket {
             raw.get(2) { case Array(reqId, response) =>
               reqId.toIntOption map { ReqResponse(_, response) }
             }
+          case "ping" => Ping(raw.args).some
           case "boot" => WsBoot.some
           case _      => none
         }
@@ -273,6 +277,7 @@ object RemoteSocket {
       def unfollow(u1: String, u2: String)     = s"rel/unfollow $u1 $u2"
       def apiUserOnline(u: String, v: Boolean) = s"api/online $u ${boolean(v)}"
       def boot                                 = "boot"
+      def pong(id: String)                     = s"pong $id"
       def stop(reqId: Int)                     = s"lila/stop $reqId"
 
       def commas(strs: Iterable[Any]): String = if (strs.isEmpty) "-" else strs mkString ","

@@ -22,6 +22,7 @@ object Permission {
   case object NotifySlack           extends Permission("NOTIFY_SLACK", List(UserSpy), "Notify #tavern")
   case object ViewPrivateComms      extends Permission("VIEW_PRIVATE_COMS", "View private comms")
   case object Shadowban             extends Permission("SHADOWBAN", List(UserSpy, ChatTimeout), "Shadowban")
+  case object SetKidMode            extends Permission("SET_KID_MODE", List(UserSpy), "Set Kid Mode")
   case object MarkEngine            extends Permission("ADJUST_CHEATER", List(UserSpy), "Mark as cheater")
   case object MarkBooster           extends Permission("ADJUST_BOOSTER", List(UserSpy), "Mark as booster")
   case object IpBan                 extends Permission("IP_BAN", List(UserSpy), "IP ban")
@@ -36,6 +37,7 @@ object Permission {
   case object ModLog                extends Permission("MOD_LOG", "See mod log")
   case object SeeInsight            extends Permission("SEE_INSIGHT", "View player insights")
   case object PracticeConfig        extends Permission("PRACTICE_CONFIG", "Configure practice")
+  case object PuzzleCurator         extends Permission("PUZZLE_CURATOR", "Classify puzzles")
   case object Beta                  extends Permission("BETA", "Beta features")
   case object UserSearch            extends Permission("USER_SEARCH", "Mod user search")
   case object ManageTeam            extends Permission("MANAGE_TEAM", "Manage teams")
@@ -64,6 +66,7 @@ object Permission {
   case object MonitoredMod          extends Permission("MONITORED_MOD", "Monitored mod")
   case object StudyAdmin            extends Permission("STUDY_ADMIN", "Study admin")
   case object ApiHog                extends Permission("API_HOG", "API hog")
+  case object ApiChallengeAdmin     extends Permission("API_CHALLENGE_ADMIN", "API Challenge admin")
 
   case object LichessTeam
       extends Permission(
@@ -100,6 +103,7 @@ object Permission {
         List(
           ViewPrivateComms,
           Shadowban,
+          SetKidMode,
           ChatTimeout,
           ModerateForum,
           ReportBan,
@@ -139,6 +143,7 @@ object Permission {
           ManageEvent,
           NotifySlack,
           PracticeConfig,
+          PuzzleCurator,
           Presets,
           RemoveRanking,
           DisapproveCoachReview,
@@ -168,6 +173,7 @@ object Permission {
     "Comm mod" -> List(
       ViewPrivateComms,
       Shadowban,
+      SetKidMode,
       ChatTimeout,
       ModerateForum,
       ReportBan,
@@ -209,6 +215,7 @@ object Permission {
       ManageSimul,
       StudyAdmin,
       PracticeConfig,
+      PuzzleCurator,
       Presets
     ),
     "Dev" -> List(
@@ -223,7 +230,8 @@ object Permission {
       Prismic,
       Coach,
       Teacher,
-      ApiHog
+      ApiHog,
+      ApiChallengeAdmin
     ),
     "Badge" -> List(
       Developer,
@@ -245,7 +253,7 @@ object Permission {
   }.toSet
 
   lazy val nonModPermissions: Set[Permission] =
-    Set(Beta, Prismic, Coach, Teacher, Developer, Verified, ApiHog)
+    Set(Beta, Prismic, Coach, Teacher, Developer, Verified, ApiHog, ApiChallengeAdmin)
 
   lazy val modPermissions: Set[Permission] = all diff nonModPermissions
 

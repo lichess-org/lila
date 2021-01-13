@@ -115,7 +115,11 @@ final class RoundSocket(
       }
     case Protocol.In.Flag(gameId, color, fromPlayerId) => tellRound(gameId, ClientFlag(color, fromPlayerId))
     case Protocol.In.PlayerChatSay(id, Right(color), msg) =>
-      messenger.owner(id, color, msg).unit
+      gameIfPresent(id.value) foreach {
+        _ foreach {
+          messenger.owner(_, color, msg).unit
+        }
+      }
     case Protocol.In.PlayerChatSay(id, Left(userId), msg) =>
       messenger.owner(id, userId, msg).unit
     case Protocol.In.WatcherChatSay(id, userId, msg) =>
@@ -142,6 +146,7 @@ final class RoundSocket(
       versions foreach { case (roomId, version) =>
         rounds.tell(roomId, SetVersion(version))
       }
+    case P.In.Ping(id) => send(P.Out.pong(id))
     case P.In.WsBoot =>
       logger.warn("Remote socket boot")
       // schedule termination for all game ducts

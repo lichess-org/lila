@@ -89,7 +89,7 @@
   <string name="thisKnightIsCheckingThroughYourDefenses">אי אפשר לחסום איום שח של פרש!</string>
   <string name="escapeOrBlock">בריחת המלך או חסימת האיום!</string>
   <string name="outOfCheckComplete">יפה, אתה שומר היטב על מלכך!</string>
-  <string name="mateInOne">מט בשניים</string>
+  <string name="mateInOne">מט באחד</string>
   <string name="defeatTheOpponentsKing">הבס את מלך היריב</string>
   <string name="mateInOneIntro">נצחונך מובטח אם היריב לא מצליח להגן על מלכו.</string>
   <string name="attackYourOpponentsKing">חפש התקפות שח שאין להן הגנה!</string>

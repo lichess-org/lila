@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="advancedPawn">Пешак пред промоцијом</string>
+  <string name="advancedPawnDescription">Пешак који се промовише или прети да се промовише је кључни мотив тактике.</string>
+  <string name="advantage">Предност</string>
+  <string name="advantageDescription">Искористите шансу да стекнете одлучујућу предност. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="attackingF2F7">Napad na f2 ili f7</string>
+</resources>

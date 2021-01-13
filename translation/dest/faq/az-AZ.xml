@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Lichess-ə niyə Lichess deyirlər?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess, live/light/libre yəni canlı/parlaq/libre ilə şahmatın kombinasiyasıdır. %1$s kimi tələffüz edilir.</string>
   <string name="leechess">lee-chess</string>
-  <string name="hearItPronouncedBySpecialist">Bir mütəxəssisin tələffüzünə qulaq asın.</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Bir mütəxəssisin tələffüzünə qulaq asın.</string>
   <string name="whyLiveLightLibre">Canlı, çünki oyunlar real vaxt kəsiyində 24/7 oynanılır və izlənilir; Lichess açıq mənbəli bir sistem olduğu üçün ödənişsizdir, digər veb saytları narahat edən lazımsız tullantıları ehtiva etmədiyi üçün yüngüldür.</string>
   <string name="whyIsLilaCalledLila">Oxşar olaraq, Lichess üçün mənbə kodu, %1$s, li[sca-da şahmat] mənasını verir, Lichess intuitiv proqramlaşdırma dili olan %2$s üzərində yazılmışdır.</string>
   <string name="howCanIContributeToLichess">Lichess-ə necə töhfə verə bilərəm?</string>
@@ -22,4 +22,29 @@
   <string name="howCanIBecomeModerator">Necə moderator ola bilərəm?</string>
   <string name="isCorrespondenceDifferent">Yazışmalı oyun normal şahmatdan fərqlidir?</string>
   <string name="gameplay">Oynama</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="eightVariants">8 şahmat variantı</string>
+  <string name="fideHandbookX">FIDE qaydaları %s</string>
+  <string name="goodIntroduction">yaxşı giriş</string>
+  <string name="officialRulesPDF">rəsmi qaydalar (PDF)</string>
+  <string name="lichessTraining">Lichess məşqi</string>
+  <string name="threefoldRepetition">Üç dəfə təkrar</string>
+  <string name="threefoldRepetitionLowerCase">üç dəfə təkrar</string>
+  <string name="positions">vəziyyətlər</string>
+  <string name="configure">konfiqurasiya</string>
+  <string name="accounts">Hesablar</string>
+  <string name="asWellAsManyNMtitles">bir çox milli usta titulları</string>
+  <string name="verificationForm">təsdiqləmə formu</string>
+  <string name="noUpperCaseDot">Xeyr.</string>
+  <string name="whatUsernameCanIchoose">İstifadəçi adım nə ola bilər?</string>
+  <string name="guidelines">təlimatlat</string>
+  <string name="canIChangeMyUsername">İstifadəçi adımı dəyişə bilərəmmi?</string>
+  <string name="uniqueTrophies">Unikal kuboklar</string>
+  <string name="aHourlyBulletTournament">bir saatlıq Bullet turniri</string>
+  <string name="lichessRatings">Lichess reytinqi</string>
+  <string name="ratingLeaderboards">liderlik cədvəli</string>
+  <string name="displayPreferences">görüntü ayarları</string>
+  <string name="howToThreeDots">Necə...</string>
+  <string name="viewSiteInformationPopUp">Sayt haqqında məlumat pəncərəsinə baxın</string>
 </resources>

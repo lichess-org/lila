@@ -57,16 +57,17 @@
 
   flex: 1 0 9rem;
 
-  @include breakpoint($mq-tall) {
-    flex: 1 0 11rem;
+  @include breakpoint($mq-col2) {
+    @include breakpoint($mq-tall) {
+      flex: 1 0 13rem;
+    }
   }
-
 
   background: $c-bg-high;
   justify-content: center;
 
   &:not(.after) {
-    padding: 1em 2em;
+    padding: 2em;
   }
 
   .player {
@@ -117,32 +118,24 @@
     font-size: 1.5em;
   }
 
-  @keyframes reveal {
-    0% {
-      opacity: 0;
-    }
-
-    100% {
-      opacity: 0.8;
-    }
-  }
-
   .view_solution {
     margin-top: 1.5em;
     text-align: center;
     visibility: hidden;
+    opacity: 0;
   }
 
   .view_solution.show {
     visibility: visible;
-    animation: reveal 1.5s;
+    opacity: 0.8;
+    @include transition(opacity, 1.5s);
   }
 }
 
 .puzzle__controls {
   @extend %flex-center;
 
-  height: $puzzle-history-height;
+  height: $col3-uniboard-controls;
   margin-top: #{-$block-gap};
 
   // height: calc(#{$puzzle-history-height} + #{$block-gap});
@@ -152,5 +145,9 @@
 
   .fbt {
     @extend %page-text;
+  }
+
+  .glowing {
+    color: $c-font-clearer;
   }
 }

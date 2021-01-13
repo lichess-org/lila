@@ -1,58 +1,40 @@
-import { h } from 'snabbdom';
 import { bind, dataIcon } from '../util';
-import { Controller, MaybeVNode } from '../interfaces';
+import { Controller } from '../interfaces';
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
 
-function renderVote(ctrl: Controller): MaybeVNode {
-  var data = ctrl.getData();
-  if (!data.puzzle.enabled) return;
-  return h('div.vote', [
-    h('a', {
-      attrs: {
-        'data-icon': 'S',
-        title: ctrl.trans.noarg('thisPuzzleIsCorrect')
-      },
-      class: { active: ctrl.vm.voted === true },
-      hook: bind('click', () => ctrl.vote(true))
-    }),
-    h('span.count', {
-      attrs: {
-        title: 'Popularity'
+const renderVote = (ctrl: Controller): VNode => h('div.puzzle__vote',
+  ctrl.autoNexting() ? [] : [
+    ctrl.session.isNew() ? h('div.puzzle__vote__help', [
+      h('p', ctrl.trans.noarg('didYouLikeThisPuzzle')),
+      h('p', ctrl.trans.noarg('voteToLoadNextOne'))
+    ]) : null,
+    h('div.puzzle__vote__buttons', {
+      class: {
+        enabled: !ctrl.vm.voteDisabled
       }
-    }, '' + Math.max(0, data.puzzle.vote)),
-    h('a', {
-      attrs: {
-        'data-icon': 'R',
-        title: ctrl.trans.noarg('thisPuzzleIsWrong')
-      },
-      class: { active: ctrl.vm.voted === false },
-      hook: bind('click', () => ctrl.vote(false))
-    })
-  ]);
-}
-
-export default function(ctrl: Controller): MaybeVNode {
-  const data = ctrl.getData();
-  const voteCall = !!data.user && ctrl.callToVote() && data.puzzle.enabled && data.voted === undefined;
-  return h('div.puzzle__feedback.after' + (voteCall ? '.call' : ''), [
-    voteCall ? h('div.vote_call', [
-      h('strong', ctrl.trans('wasThisPuzzleAnyGood')),
-      h('br'),
-      h('span', ctrl.trans('pleaseVotePuzzle'))
-    ]) : (ctrl.thanks() ? h('div.vote_call',
-      h('strong', ctrl.trans('thankYou'))
-    ) : null),
-    h('div.half.half-top', [
-      ctrl.vm.lastFeedback === 'win' ? h('div.complete.feedback.win', h('div.player', [
-        h('div.icon', '✓'),
-        h('div.instruction', ctrl.trans.noarg('success'))
-      ])) : h('div.complete', 'Puzzle complete!'),
-      data.user ? renderVote(ctrl) : null
-    ]),
-    h('a.half.continue', {
-      hook: bind('click', ctrl.nextPuzzle)
     }, [
-      h('i', { attrs: dataIcon('G') }),
-      ctrl.trans.noarg('continueTraining')
+      h('div.vote.vote-up', {
+        hook: bind('click', () => ctrl.vote(true))
+      }),
+      h('div.vote.vote-down', {
+        hook: bind('click', () => ctrl.vote(false))
+      })
     ])
+  ]);
+
+const renderContinue = (ctrl: Controller) =>
+  h('a.continue', {
+    hook: bind('click', ctrl.nextPuzzle)
+  }, [
+    h('i', { attrs: dataIcon('G') }),
+    ctrl.trans.noarg('continueTraining')
+  ]);
+
+export default function(ctrl: Controller): VNode {
+  const data = ctrl.getData();
+  return h('div.puzzle__feedback.after', [
+    h('div.complete', ctrl.trans.noarg(ctrl.vm.lastFeedback == 'win' ? 'puzzleSuccess' : 'puzzleComplete')),
+    data.user ? renderVote(ctrl) : renderContinue(ctrl)
   ]);
 }

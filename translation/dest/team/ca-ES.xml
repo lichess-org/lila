@@ -3,7 +3,7 @@
   <string name="team">Equip</string>
   <string name="teams">Equips</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s membres</item>
+    <item quantity="one">%s membre</item>
     <item quantity="other">%s membres</item>
   </plurals>
   <string name="allTeams">Tots els equips</string>
@@ -27,19 +27,21 @@
     <item quantity="one">%s solicitud d\'adhesió</item>
     <item quantity="other">%s solicituds d\'adhesió</item>
   </plurals>
-  <string name="willBeReviewed">La teva petició serà revisada pel líder de l\'equip.</string>
-  <string name="beingReviewed">La teva petició està sent revisada pel líder de l\'equip.</string>
+  <string name="willBeReviewed">La teva petició serà revisada pel capità de l\'equip.</string>
+  <string name="beingReviewed">La teva petició serà revisada pel capità de l\'equip.</string>
   <string name="teamBattle">Batalla d\'equips</string>
-  <string name="teamBattleOverview">Batalla de múltiples equips, cada jugador puntua per al seu equip</string>
-  <string name="teamTournament">Torneig intern</string>
-  <string name="teamTournamentOverview">Torneig Arena només membres del teu equip poden inscriure\'s</string>
-  <string name="messageAllMembers">Missatge a tots</string>
+  <string name="teamBattleOverview">Batalla de diversos equips, cada jugador puntua pel seu equip</string>
+  <string name="teamTournament">Torneig d\'equip</string>
+  <string name="teamTournamentOverview">Torneig Arena on només membres del teu equip poden inscriure\'s</string>
+  <string name="messageAllMembers">Missatge a tots els membres</string>
   <string name="messageAllMembersOverview">Enviar missatge privat a tots els membres de l\'equip</string>
   <string name="messageAllMembersLongDescription">Envia un missatge privat a TOTS els membres de l\'equip.
-Pots usar això per a cridar a jugadors a unir-se a un torneig o a una batalla d\'equips.
-Els jugadors als que no els agradi rebre els teus missatges poden abandonar l\'equip.</string>
-  <string name="teamsIlead">Equips que lidero</string>
-  <string name="youWayWantToLinkOneOfTheseTournaments">Potser vols enllaçar un d\'aquests propers tornejos?</string>
+Pots fer-ho servir per avisar als jugadors per entrar a un torneig o batalla d\'equips.
+Els jugadors que no els agrada rebre missatges podrien abandonar l\'equip.</string>
+  <string name="teamsIlead">Equips en que sóc capità</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Potser vols enllaçar un d\'aquests propers torneigs?</string>
   <string name="usersWhoCanManageThisTeam">Usuaris que poden administrar aquest equip</string>
-  <string name="leadersChat">Xat de líders</string>
+  <string name="leadersChat">Xat de capitans</string>
+  <string name="closeTeam">Eliminar equip</string>
+  <string name="closeTeamDescription">Elimina l\'equip definitivament.</string>
 </resources>

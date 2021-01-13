@@ -29,11 +29,11 @@
   <string name="makeSureToCopy">Obavezno sada kopiraj ili zapiši lozinku. Nećeš je više moći vidjeti!</string>
   <string name="passwordX">Lozinka: %s</string>
   <string name="generateANewPassword">Stvori novu lozinku za studenta</string>
-  <string name="invitedToXByY">%2$s te je pozvao u %1$s</string>
+  <string name="invitedToXByY" comment="invitedToXByY&#10;&#10;%1$s is the Class name and %$2s is the person who invited">%2$s te je pozvao u %1$s</string>
   <string name="realName">Pravo ime</string>
   <string name="privateWillNeverBeShown">Privatna. Nikad se neće prikazati izvan nastave. To pomaže da se upamti tko je student.</string>
   <string name="addStudent">Dodaj studenta</string>
-  <string name="lichessProfileXCreatedForY">Lichess profil %1$s je napravljen za %2$s.</string>
+  <string name="lichessProfileXCreatedForY" comment="lichessProfileXCreatedForY&#10;&#10;%1$s is the created account (nickname) &#10;%$2s is the real name of the student (only visible for the teacher)">Lichess profil %1$s je napravljen za %2$s.</string>
   <string name="studentCredentials">Student:  %1$s
 Korisničko ime: %2$s
 Lozinka: %3$s</string>
@@ -83,9 +83,9 @@ Lozinka: %3$s</string>
   <string name="progress">Napredak</string>
   <string name="noStudents">Učionica je prazna.</string>
   <string name="noRemovedStudents">Nema uklonjenih studenata.</string>
-  <string name="overDays">Tijekom dana</string>
+  <string name="overDays" comment="overDays&#10;&#10;In the &quot;Progress&quot; tab of a Lichess Class dashboard, &quot;Over days&quot; is the title of a selector. This selector offers a choice between various durations, in days, over which the user can view the progress of the class.">Tijekom dana</string>
   <string name="timePlaying">Vrijeme igranja</string>
-  <string name="variantXOverLastY">%1$s u zadnjih %2$s</string>
+  <string name="variantXOverLastY" comment="variantXOverLastY&#10;&#10;The first variable is a game type (Blitz/Bullet, etc).&#10;The second variable is a duration length (in days).&#10;&#10;This is the heading of a column for a table that appears in the &quot;Progress&quot; tab of the Lichess Class dashboard.">%1$s u zadnjih %2$s</string>
   <string name="winrate">Stopa pobjede</string>
   <string name="na">N/A</string>
   <string name="news">Nastavne novosti</string>

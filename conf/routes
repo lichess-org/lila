@@ -78,21 +78,26 @@ POST  /training/coordinate/color       controllers.Coordinate.color
 
 # Training - Puzzle
 GET   /training                        controllers.Puzzle.home
-GET   /training/new                    controllers.Puzzle.newPuzzle
 GET   /training/daily                  controllers.Puzzle.daily
 GET   /training/frame                  controllers.Puzzle.frame
-GET   /training/export/png/:id.png     controllers.Export.legacyPuzzleThumbnail(id: Int)
-GET   /training/export/gif/thumbnail/:id.gif controllers.Export.puzzleThumbnail(id: Int)
-GET   /training/batch                  controllers.Puzzle.batchSelect
-POST  /training/batch                  controllers.Puzzle.batchSolve
-GET   /training/:id                    controllers.Puzzle.show(id: Int)
-GET   /training/:id/load               controllers.Puzzle.load(id: Int)
-POST  /training/:id/vote               controllers.Puzzle.vote(id: Int)
-POST  /training/:id/round              controllers.Puzzle.round(id: Int)
-# new UI
-POST  /training/:id/round2             controllers.Puzzle.round2(id: Int)
-# mobile app BC
-POST  /training/:id/attempt            controllers.Puzzle.round(id: Int)
+GET   /training/export/gif/thumbnail/:id.gif controllers.Export.puzzleThumbnail(id: String)
+GET   /training/themes                 controllers.Puzzle.themes
+GET   /training/dashboard/$days<\d+>   controllers.Puzzle.dashboard(days: Int, path: String = "home")
+GET   /training/dashboard/$days<\d+>/:path  controllers.Puzzle.dashboard(days: Int, path: String)
+GET   /training/replay/$days<\d+>/:theme controllers.Puzzle.replay(days: Int, theme: String)
+GET   /training/history                controllers.Puzzle.history(page: Int ?= 1)
+GET   /training/batch                  controllers.Puzzle.mobileBcBatchSelect
+POST  /training/batch                  controllers.Puzzle.mobileBcBatchSolve
+GET   /training/new                    controllers.Puzzle.mobileBcNew
+GET   /training/$numericalId<\d{6,}>/load      controllers.Puzzle.mobileBcLoad(numericalId: Long)
+POST  /training/$numericalId<\d{6,}>/vote      controllers.Puzzle.mobileBcVote(numericalId: Long)
+GET   /training/:themeOrId             controllers.Puzzle.show(themeOrId: String)
+GET   /training/:theme/$id<\w{5}>      controllers.Puzzle.showWithTheme(theme: String, id: String)
+POST  /training/$numericalId<\d{6,}>/round2    controllers.Puzzle.mobileBcRound(numericalId: Long)
+POST  /training/$id<\w{5}>/vote        controllers.Puzzle.vote(id: String)
+POST  /training/$id<\w{5}>/vote/:theme controllers.Puzzle.voteTheme(id: String, theme: String)
+POST  /training/complete/:theme/$id<\w{5}>  controllers.Puzzle.complete(theme: String, id: String)
+POST  /training/difficulty/:theme      controllers.Puzzle.setDifficulty(theme: String)
 
 # User Analysis
 GET   /analysis/help                   controllers.UserAnalysis.help
@@ -325,6 +330,7 @@ GET   /game/export/gif/$gameId<\w{8}>.gif                     controllers.Export
 GET   /game/export/gif/$color<white|black>/$gameId<\w{8}>.gif controllers.Export.gif(gameId: String, color: String)
 
 # Fishnet
+GET   /fishnet                                controllers.Main.movedPermanently(to: String = "https://github.com/niklasf/fishnet")
 POST  /fishnet/acquire                        controllers.Fishnet.acquire(slow: Boolean ?= false)
 POST  /fishnet/analysis/$workId<\w{8}>        controllers.Fishnet.analysis(workId: String, slow: Boolean ?= false, stop: Boolean ?= false)
 POST  /fishnet/abort/$workId<\w{8}>           controllers.Fishnet.abort(workId: String)
@@ -399,6 +405,7 @@ POST  /mod/:username/booster/:v        controllers.Mod.booster(username: String,
 POST  /mod/:username/troll/:v          controllers.Mod.troll(username: String, v: Boolean)
 POST  /mod/:username/delete-pms-and-chats controllers.Mod.deletePmsAndChats(username: String)
 POST  /mod/:username/warn              controllers.Mod.warn(username: String, subject: String)
+POST  /mod/:username/kid               controllers.Mod.kid(username: String)
 POST  /mod/:username/disable-2fa       controllers.Mod.disableTwoFactor(username: String)
 POST  /mod/:username/close             controllers.Mod.closeAccount(username: String)
 POST  /mod/:username/reopen            controllers.Mod.reopenAccount(username: String)
@@ -588,6 +595,7 @@ POST  /api/account/kid                 controllers.Account.apiKidPost
 GET   /api/account/preferences         controllers.Pref.apiGet
 POST  /api/challenge/ai                controllers.Setup.apiAi
 POST  /api/challenge/open              controllers.Challenge.openCreate
+POST  /api/challenge/admin/:orig/:dest controllers.Challenge.apiCreateAdmin(orig: String, dest: String)
 POST  /api/challenge/:user             controllers.Challenge.apiCreate(user: String)
 POST  /api/challenge/$id<\w{8}>/accept controllers.Challenge.apiAccept(id: String)
 POST  /api/challenge/$id<\w{8}>/decline controllers.Challenge.apiDecline(id: String)

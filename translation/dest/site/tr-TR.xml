@@ -9,6 +9,7 @@
   <string name="yourTurn">Sıra sizde</string>
   <string name="aiNameLevelAiLevel">%1$s seviye %2$s</string>
   <string name="level">Seviye</string>
+  <string name="strength">Kuvvet</string>
   <string name="toggleTheChat">Sohbeti aç/kapat</string>
   <string name="toggleSound">Sesi aç/kapat</string>
   <string name="chat">Sohbet</string>
@@ -447,6 +448,7 @@
   <string name="lastName">Soyad</string>
   <string name="biography">Biyografi</string>
   <string name="country">Ülke</string>
+  <string name="thankYou">Teşekkürler!</string>
   <string name="socialMediaLinks">Sosyal medya bağlantıları</string>
   <string name="inlineNotation">Notasyonu aynı satırda göster</string>
   <string name="watchLichessTV">Lichess TV\'ye göz at</string>
@@ -455,34 +457,7 @@
   <string name="activeToday">Bugün aktif</string>
   <string name="activePlayers">Aktif oyuncular</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Dikkat, oyun puanlı ama suresizdir.</string>
-  <string name="yourPuzzleRatingX">Bulmaca puanın: %s</string>
-  <string name="findTheBestMoveForWhite">Beyaz için en iyi hamleyi bulun.</string>
-  <string name="findTheBestMoveForBlack">Siyah için en iyi hamleyi bulun.</string>
-  <string name="toTrackYourProgress">Gelişimini takip et:</string>
-  <string name="puzzleId">%s. bulmaca</string>
-  <string name="puzzleOfTheDay">Günün bulmacası</string>
-  <string name="clickToSolve">Çözmek için tıkla</string>
-  <string name="goodMove">İyi hamle</string>
-  <string name="butYouCanDoBetter">ama daha iyisini yapabilirsin.</string>
-  <string name="bestMove">En iyi hamle!</string>
-  <string name="keepGoing">Devam et...</string>
-  <string name="puzzleFailed">Bulmaca çözülemedi</string>
-  <string name="butYouCanKeepTrying">ama denemeye devam edebilirsin.</string>
   <string name="success">Başarı</string>
-  <string name="wasThisPuzzleAnyGood">Bu bulmacayı nasıl buldun?</string>
-  <string name="pleaseVotePuzzle">Okları kullanarak oylayın, lichess\'in gelişmesine yardımcı olun.</string>
-  <string name="thankYou">Teşekkürler!</string>
-  <string name="ratingX">Puan: %s</string>
-  <string name="hidden">gizli</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Bu bulmaca %s defa oynandı</item>
-    <item quantity="other">Bu bulmaca %s defa oynandı</item>
-  </plurals>
-  <string name="fromGameLink">%s numaralı oyundan</string>
-  <string name="continueTraining">Pratik yapmaya devam et</string>
-  <string name="retryThisPuzzle">Bu bulmacayı yeniden dene</string>
-  <string name="thisPuzzleIsCorrect">Bu bulmaca doğru ve ilginç.</string>
-  <string name="thisPuzzleIsWrong">Bu bulmaca yanlış veya sıkıcı</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">Şu anda %s oyun oynanıyor</item>
     <item quantity="other">Şu anda %s oyun oynanıyor</item>
@@ -536,8 +511,9 @@
   <string name="clockInitialTime">Maç başlangıç süresi</string>
   <string name="clockIncrement">Hamle başına süre artışı</string>
   <string name="privacy">Gizlilik</string>
+  <string name="privacyPolicy">Gizlilik politikası</string>
   <string name="letOtherPlayersFollowYou">Diğer oyuncular seni takip etsin mi?</string>
-  <string name="letOtherPlayersChallengeYou">Diğer oyuncular sana oyun teklifinde bulunsun mu?</string>
+  <string name="letOtherPlayersChallengeYou">Diğer oyuncular oyun teklif edebilsin</string>
   <string name="letOtherPlayersInviteYouToStudy">Diğer oyuncular sizi bir çalışmaya davet edebilsin</string>
   <string name="sound">Ses</string>
   <string name="none">Hiçbiri</string>
@@ -681,6 +657,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Eğer e-postayı görmüyorsanız, spam, sosyal veya diğer klasörlere göz atmayı deneyin.</string>
   <string name="weHaveSentYouAnEmailTo">%s adresine e-posta yolladık. Şifrenizi tekrar ayarlamak için e-postadaki linke tıklayın.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Kaydolarak, %s \'ı kabul etmiş sayılırsınız.</string>
+  <string name="readAboutOur">%s hakkında bilgi edinin.</string>
   <string name="networkLagBetweenYouAndLichess">Siz ve lichess.org arasındaki gecikme (ping)</string>
   <string name="timeToProcessAMoveOnLichessServer">lichess.org üzerindeki hamle süreniz (ms)</string>
   <string name="downloadAnnotated">Açıklamalarıyla beraber indirin</string>
@@ -811,7 +788,7 @@
   <string name="xDoesNotAcceptChallenges">%s oyun davetlerini kabul etmiyor.</string>
   <string name="yourXRatingIsTooFarFromY">%1$s puanınız %2$s adlı oyuncudan çok uzak.</string>
   <string name="cannotChallengeDueToProvisionalXRating">%s puanınız geçici olduğu için başka oyunculara meydan okuyamazsınız.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s sadece arkadaşlarından gelen meydan okumaları kabul ediyor.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s sadece arkadaşlarından gelen oyun davetlerini kabul ediyor.</string>
   <string name="conditionalPremoves">Şartlı ön hamle</string>
   <string name="addCurrentVariation">Mevcut varyantı ekle</string>
   <string name="playVariationToCreateConditionalPremoves">Koşullu ön hamleler yapmak için bir varyasyon oynayın</string>
@@ -865,4 +842,7 @@
   <string name="youCannotPostYetPlaySomeGames">Şu anda bu forumlarda konu açamazsınız. Biraz oyun oynamayı deneyebilirsiniz :)</string>
   <string name="subscribe">Abone ol</string>
   <string name="unsubscribe">Abonelikten çık</string>
+  <string name="challengeDeclined">Oyun teklifi reddedildi</string>
+  <string name="challengeAccepted">Oyun teklifi kabul edildi!</string>
+  <string name="challengeCanceled">Oyun teklifi iptal edildi.</string>
 </resources>

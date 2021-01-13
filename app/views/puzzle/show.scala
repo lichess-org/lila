@@ -1,5 +1,6 @@
 package views.html.puzzle
 
+import controllers.routes
 import play.api.libs.json.{ JsObject, Json }
 
 import lila.api.Context
@@ -7,49 +8,56 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
 
-import controllers.routes
-
 object show {
 
-  def apply(puzzle: lila.puzzle.Puzzle, data: JsObject, pref: JsObject)(implicit ctx: Context) =
+  def apply(
+      puzzle: lila.puzzle.Puzzle,
+      data: JsObject,
+      pref: JsObject,
+      difficulty: Option[lila.puzzle.PuzzleDifficulty] = None
+  )(implicit
+      ctx: Context
+  ) =
     views.html.base.layout(
       title = trans.puzzles.txt(),
       moreCss = cssTag("puzzle"),
       moreJs = frag(
         jsModule("puzzle"),
         embedJsUnsafeLoadThen(s"""LichessPuzzle(${safeJsonValue(
-          Json.obj(
-            "data" -> data,
-            "pref" -> pref,
-            "i18n" -> bits.jsI18n()
-          )
+          Json
+            .obj(
+              "data" -> data,
+              "pref" -> pref,
+              "i18n" -> bits.jsI18n
+            )
+            .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
+            .add("difficulty" -> difficulty.map(_.key))
         )})""")
       ),
       csp = defaultCsp.withWebAssembly.some,
       chessground = false,
       openGraph = lila.app.ui
         .OpenGraph(
-          image = cdnUrl(routes.Export.puzzleThumbnail(puzzle.id).url).some,
+          image = cdnUrl(routes.Export.puzzleThumbnail(puzzle.id.value).url).some,
           title = s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
-          url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id).url}",
+          url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id.value).url}",
           description = s"Lichess tactic trainer: " + puzzle.color
             .fold(
-              trans.findTheBestMoveForWhite,
-              trans.findTheBestMoveForBlack
+              trans.puzzle.findTheBestMoveForWhite,
+              trans.puzzle.findTheBestMoveForBlack
             )
-            .txt() + s" Played by ${puzzle.attempts} players."
+            .txt() + s" Played by ${puzzle.plays} players."
         )
         .some,
       zoomable = true
     ) {
       main(cls := "puzzle")(
         st.aside(cls := "puzzle__side")(
-          div(cls := "puzzle__side__metas")(spinner)
+          div(cls := "puzzle__side__metas")
         ),
         div(cls := "puzzle__board main-board")(chessgroundBoard),
         div(cls := "puzzle__tools"),
-        div(cls := "puzzle__controls"),
-        div(cls := "puzzle__history")
+        div(cls := "puzzle__controls")
       )
     }
 }

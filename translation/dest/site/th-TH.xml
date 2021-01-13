@@ -416,6 +416,7 @@
   <string name="lastName">นามสกุล</string>
   <string name="biography">ชีวประวัติ</string>
   <string name="country">ประเทศ</string>
+  <string name="thankYou">ขอบคุณ!</string>
   <string name="socialMediaLinks">ลิงก์สื่อโซเชียล</string>
   <string name="inlineNotation">สัญกรณ์ในบรรทัด</string>
   <string name="watchLichessTV">ดู Lichess TV</string>
@@ -424,33 +425,7 @@
   <string name="activeToday">ขยันในวันนี้</string>
   <string name="activePlayers">ผู้เล่นที่ขยัน</string>
   <string name="bewareTheGameIsRatedButHasNoClock">ระวัง, เกมนี้ถูกคิดคะแนนแต่ไม่จับเวลา!</string>
-  <string name="yourPuzzleRatingX">ระดับคะแนนแก้ปริศนาของคุณ: %s</string>
-  <string name="findTheBestMoveForWhite">หาการเดินที่ดีที่สุดสำหรับฝ่ายขาว</string>
-  <string name="findTheBestMoveForBlack">หาการเดินที่ดีที่สุดสำหรับฝ่ายดำ</string>
-  <string name="toTrackYourProgress">เพื่อติดตามความก้าวหน้าของคุณ:</string>
-  <string name="puzzleId">ปริศนา %s</string>
-  <string name="puzzleOfTheDay">ปริศนาประจำวัน</string>
-  <string name="clickToSolve">คลิกเพื่อแก้ปริศนา</string>
-  <string name="goodMove">เดินได้ดี</string>
-  <string name="butYouCanDoBetter">แต่คุณสามารถเดินได้ดีกว่าจุดนั้น</string>
-  <string name="bestMove">เดินได้ดีที่สุด!</string>
-  <string name="keepGoing">เดินต่อไป...</string>
-  <string name="puzzleFailed">แก้ปริศนาไม่สำเร็จ</string>
-  <string name="butYouCanKeepTrying">แต่คุณสามารถลองแก้ต่อได้</string>
   <string name="success">สำเร็จ</string>
-  <string name="wasThisPuzzleAnyGood">ปริศนานี้ดีพอหรือไม่?</string>
-  <string name="pleaseVotePuzzle">ช่วย lichess ปรับปรุงโดยใช้ปุ่มลูกศรขึ้นหรือลง เพื่อทำการโหวต:</string>
-  <string name="thankYou">ขอบคุณ!</string>
-  <string name="ratingX">ระดับคะแนน: %s</string>
-  <string name="hidden">ถูกซ่อน</string>
-  <plurals name="playedXTimes">
-    <item quantity="other">ถูกเล่น %s ครั้ง</item>
-  </plurals>
-  <string name="fromGameLink">จากเกม %s</string>
-  <string name="continueTraining">ฝึกต่อ</string>
-  <string name="retryThisPuzzle">ลองแก้ปริศนานี้อีกครั้ง</string>
-  <string name="thisPuzzleIsCorrect">ปริศนานี้ถูกต้อง และน่าสนใจ</string>
-  <string name="thisPuzzleIsWrong">ปริศนานี้ไม่ถูกต้อง หรือน่าเบื่อ</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s เกมที่กำลังเล่น</item>
   </plurals>

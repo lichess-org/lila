@@ -1,11 +1,11 @@
 package controllers
 
 import play.api.mvc._
+import views._
 
 import lila.api.Context
 import lila.app._
 import lila.streamer.{ Streamer => StreamerModel, StreamerForm }
-import views._
 
 final class Streamer(
     env: Env,
@@ -67,17 +67,18 @@ final class Streamer(
       }
     }
 
-  private def modData(user: lila.user.User)(implicit ctx: Context) =
+  private def modData(streamer: StreamerModel)(implicit ctx: Context) =
     isGranted(_.ModLog) ?? {
-      env.mod.logApi.userHistory(user.id) zip
-        env.user.noteApi.forMod(user.id) map some
+      env.mod.logApi.userHistory(streamer.userId) zip
+        env.user.noteApi.forMod(streamer.userId) zip
+        env.streamer.api.sameChannels(streamer) map some
     }
 
   def edit =
     Auth { implicit ctx => _ =>
       AsStreamer { s =>
         env.streamer.liveStreamApi of s flatMap { sws =>
-          modData(s.user) map { forMod =>
+          modData(s.streamer) map { forMod =>
             NoCache(Ok(html.streamer.edit(sws, StreamerForm userForm sws.streamer, forMod)))
           }
         }
@@ -94,7 +95,7 @@ final class Streamer(
             .bindFromRequest()
             .fold(
               error =>
-                modData(s.user) map { forMod =>
+                modData(s.streamer) map { forMod =>
                   BadRequest(html.streamer.edit(sws, error, forMod))
                 },
               data =>
@@ -153,9 +154,16 @@ final class Streamer(
 
   private def AsStreamer(f: StreamerModel.WithUser => Fu[Result])(implicit ctx: Context) =
     ctx.me.fold(notFound) { me =>
-      api.find(get("u").ifTrue(isGranted(_.Streamers)) | me.id) flatMap {
-        _.fold(Ok(html.streamer.bits.create).fuccess)(f)
-      }
+      if (StreamerModel canApply me)
+        api.find(get("u").ifTrue(isGranted(_.Streamers)) | me.id) flatMap {
+          _.fold(Ok(html.streamer.bits.create).fuccess)(f)
+        }
+      else
+        Ok(
+          html.site.message("Too soon")(
+            scalatags.Text.all.raw("You are not yet allowed to create a streamer profile.")
+          )
+        ).fuccess
     }
 
   private def WithVisibleStreamer(s: StreamerModel.WithUser)(f: Fu[Result])(implicit ctx: Context) =

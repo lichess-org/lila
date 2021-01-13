@@ -2,12 +2,15 @@ package lila.irwin
 
 import akka.stream.scaladsl._
 import play.api.libs.json._
+import scala.concurrent.duration._
 
 import lila.common.Bus
 
 final class IrwinStream {
 
   private val channel = "irwin"
+
+  private val keepAliveMsg = "{\"keepAlive\":true}\n"
 
   private val blueprint =
     Source
@@ -16,6 +19,7 @@ final class IrwinStream {
       .map { js =>
         s"${Json.stringify(js)}\n"
       }
+      .keepAlive(60.seconds, () => keepAliveMsg)
 
   def apply(): Source[String, _] =
     blueprint mapMaterializedValue { queue =>

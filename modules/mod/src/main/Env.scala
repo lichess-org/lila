@@ -100,7 +100,12 @@ final class Env(
                 assessApi.onGameReady(game, whiteUser, blackUser)
             }
             if (game.status == chess.Status.Cheat)
-              game.loserUserId foreach { logApi.cheatDetected(_, game.id) }
+              game.loserUserId foreach { userId =>
+                logApi.cheatDetected(userId, game.id) >>
+                  logApi.countRecentCheatDetected(userId) flatMap {
+                    reportApi.autoCheatDetectedReport(userId, _)
+                  }
+              }
           case lila.hub.actorApi.mod.ChatTimeout(mod, user, reason, text) =>
             logApi.chatTimeout(mod, user, reason, text).unit
           case lila.hub.actorApi.security.GCImmediateSb(userId) =>

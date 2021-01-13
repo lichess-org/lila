@@ -21,6 +21,9 @@
   <string name="createAGame">રમત બનાવો</string>
   <string name="whiteIsVictorious">સફેદ વિજય રહ્યો</string>
   <string name="blackIsVictorious">કાળો વિજય રહ્યો</string>
+  <string name="youPlayTheWhitePieces">તમે સફેદ મહોરા સાથે રમસો</string>
+  <string name="youPlayTheBlackPieces">તમે કાળા મહોરા સાથે રમસો</string>
+  <string name="itsYourTurn">તમારો વારો!</string>
   <string name="kingInTheCenter">મધ્યમાં રાજા</string>
   <string name="threeChecks">ત્રણ શે</string>
   <string name="raceFinished">રેસ પુરી થઇ ગઇ</string>
@@ -30,6 +33,10 @@
   <string name="joinTheGame">રમત માં જોડવ</string>
   <string name="whitePlays">સફેદની ચાલ</string>
   <string name="blackPlays">કાળાની ચાલ</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">તમારી સામેના ખેલાડી એ રમત છોડી દીધી છે તો તમે %s સેકન્ડમાં જીત નોંધાવી શકો છો.</item>
+    <item quantity="other">તમારી સામેના ખેલાડી એ રમત છોડી દીધી છે તો તમે %s સેકન્ડમાં જીત નોંધાવી શકો છો.</item>
+  </plurals>
   <string name="opponentLeftChoices">અન્ય ખેલાડીએ રમત છોડી દીધી છે. તમે વિજયનો દાવો કરી શકો છો, તમે તેને ડ્રો કહી શકો છો અથવા તમે રાહ જોઇ શકો છો.</string>
   <string name="makeYourOpponentResign">તમારા વિરોધી ને રાજીનામું અપાવડાવો</string>
   <string name="forceResignation">વિજયનો દાવો કરો</string>

@@ -1,12 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessStreamers">Những streamer Lichess</string>
+  <string name="lichessStreamer">Những streamer của Lichess</string>
   <string name="live">TRỰC TIẾP!</string>
   <string name="offline">OFFLINE</string>
   <string name="currentlyStreaming">Đang livestream: %s</string>
   <string name="lastStream">Lần stream cuối %s</string>
   <string name="becomeStreamer">Trở thành một streamer Lichess</string>
   <string name="doYouHaveStream">Bạn có kênh YouTube hoặc Twitch không?</string>
+  <string name="hereWeGo">Bắt đầu nào!</string>
+  <string name="allStreamers">Tất cả các streamer</string>
+  <string name="editPage">Sửa trang streamer</string>
+  <string name="yourPage">Trang streamer của bạn</string>
+  <string name="downloadKit">Tải bộ công cụ cho streamer</string>
   <string name="xIsStreaming">%s đang livestream</string>
+  <string name="rules">Luật phát trực tiếp</string>
+  <string name="rule1">Dùng từ khóa \"lichess.org\" ở tên stream của bạn và dùng mục \"Chess\" khi bạn stream ở Lichess.</string>
+  <string name="rule2">Xóa từ khóa khi bạn stream những thứ không liên quan đến Lichess.</string>
+  <string name="rule3">Lichess sẽ tự động phát hiện stream của bạn và cho phép bạn tận hưởng những quyền lợi sau:</string>
+  <string name="perks">Những quyền lợi khi stream với từ khóa</string>
+  <string name="perk1">Nhận được biểu tượng streamer bốc lửa trong trang cá nhân Lichess của bạn.</string>
+  <string name="perk2">Được đẩy lên đầu tiên trong danh sách các streamer.</string>
+  <string name="perk3">Thông báo cho các người theo dõi Lichess của bạn.</string>
+  <string name="approved">Stream của bạn đã được phê duyệt.</string>
+  <string name="pendingReview">Stream của bạn đang được quản trị viên đánh giá.</string>
+  <string name="pleaseFillIn">Hãy điền thông tin của bạn và tải lên một hình ảnh.</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Khi bạn sẵn sàng trờ thành streamer Lichess, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">yêu cầu đánh giá của quản trị viên</string>
+  <string name="anotherLanguage">Nếu stream của bạn sử dụng ngôn ngữ khác tiếng Anh, thêm thẻ ngôn ngữ (%s), để trong ngoặc vuông, vào phần đầu của tên stream của bạn.
+Ví dụ, bạn có thể thêm \"[RU]\" cho tiếng Nga, \"[TR]\" cho tiếng Thổ Nhĩ Kỳ, \"[FR]\" cho tiếng Pháp, v.v. 
+Để phần này vào tựa đề stream trong trang Twitch hoặc YouTube chứ không phải ở cài đặt stream Lichess.
+Nếu stream của bạn dùng tiếng Anh, bạn không cần thêm thẻ ngôn ngữ.</string>
+  <string name="twitchUsername">Tên người dùng hoặc đường dẫn đến trang Twitch của bạn</string>
   <string name="optionalOrEmpty">Tùy chọn. Bỏ trống nếu không có</string>
+  <string name="youtubeChannel">Đường dẫn hoặc ID kênh YouTube của bạn</string>
+  <string name="streamerName">Tên streamer của bạn trên Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="other">Để tên ngắn gọn: tối đa %s ký tự</item>
+  </plurals>
+  <string name="visibility">Hiện lên ở trang các streamer</string>
+  <string name="whenApproved">Khi được quản trị viên xác nhận</string>
+  <string name="headline">Tiêu đề</string>
+  <string name="tellUsAboutTheStream">Giới thiệu về stream của bạn trong một câu</string>
+  <string name="longDescription">Miêu tả dài</string>
+  <string name="xStreamerPicture">Ảnh streamer của %s</string>
+  <string name="changePicture">Thay đổi/xóa ảnh của bạn</string>
+  <string name="uploadPicture">Tải lên hình ảnh</string>
+  <string name="deletePicture">Xóa hình ảnh</string>
+  <string name="maxSize">Kích cỡ tối đa: %s</string>
+  <string name="installBlocker">Cài phần mềm chặn mã độc!</string>
 </resources>

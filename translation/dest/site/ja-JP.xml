@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">友達と対局する</string>
-  <string name="playWithTheMachine">AIと対局する</string>
+  <string name="playWithTheMachine">AI と対局する</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">対局に招待するときこのURLを知らせてください</string>
   <string name="gameOver">終局</string>
   <string name="waitingForOpponent">相手を待っています</string>
@@ -50,7 +50,7 @@
   <string name="theComputerAnalysisHasFailed">コンピューターの解析に失敗しました</string>
   <string name="viewTheComputerAnalysis">コンピューターの解析を見る</string>
   <string name="requestAComputerAnalysis">コンピューターの解析をリクエスト</string>
-  <string name="computerAnalysis">コンピューター分析</string>
+  <string name="computerAnalysis">コンピューター解析</string>
   <string name="computerAnalysisAvailable">コンピュータ解析がされています</string>
   <string name="analysis">棋譜解析</string>
   <string name="depthX">深度 %s</string>
@@ -90,8 +90,8 @@
   </plurals>
   <string name="noGameFound">ゲームが見つかりません</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">設定メニューからさらに広い範囲を指定しますか？</string>
-  <string name="openingExplorer">定跡検索</string>
-  <string name="xOpeningExplorer">%s オープニング・エクスプローラー</string>
+  <string name="openingExplorer">オープニング探索</string>
+  <string name="xOpeningExplorer">%s オープニング探索</string>
   <string name="winPreventedBy50MoveRule">勝勢ながら 50 手ルールでドロー</string>
   <string name="lossSavedBy50MoveRule">敗勢ながら 50 手ルールでドロー</string>
   <string name="allSet">準備完了！</string>
@@ -261,7 +261,7 @@
   </plurals>
   <string name="thisAccountViolatedTos">このアカウントは Lichess の利用規約に違反しました</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">このプレイヤーは不正にレーティングを操作しています</string>
-  <string name="openingExplorerAndTablebase">序盤探索&amp;テーブルベース</string>
+  <string name="openingExplorerAndTablebase">オープニング探索 &amp; テーブルベース</string>
   <string name="takeback">待った</string>
   <string name="proposeATakeback">待ったのお願い</string>
   <string name="takebackPropositionSent">待ったのお願いを送りました</string>
@@ -304,8 +304,8 @@
   <string name="youAreNotInTeam">チーム %s に入っていません</string>
   <string name="backToGame">ゲームに戻る</string>
   <string name="siteDescription">無料オンラインチェス。簡素なインターフェースですぐに対局を。登録不要、広告なし、プラグイン不要。AIと、友達と、知らない相手とも対局できます。</string>
-  <string name="xJoinedTeamY">%1$s がチーム %2$s に参加しました</string>
-  <string name="xCreatedTeamY">%1$s がチーム %2$s を作成しました</string>
+  <string name="xJoinedTeamY">%1$s がチーム %2$s に参加</string>
+  <string name="xCreatedTeamY">%1$s がチーム %2$s を作成</string>
   <string name="xStartedStreaming">%s が配信を開始</string>
   <string name="averageElo">平均レーティング</string>
   <string name="location">住所</string>
@@ -420,6 +420,7 @@
   <string name="lastName">姓</string>
   <string name="biography">自己紹介</string>
   <string name="country">国</string>
+  <string name="thankYou">ありがとう！</string>
   <string name="socialMediaLinks">ソーシャルメディアへのリンク</string>
   <string name="inlineNotation">棋譜を行書き</string>
   <string name="watchLichessTV">Lichess TV を観戦</string>
@@ -428,39 +429,13 @@
   <string name="activeToday">今日の対局数上位</string>
   <string name="activePlayers">総対局数上位</string>
   <string name="bewareTheGameIsRatedButHasNoClock">注意！レイティング対象ですが時間無制限です</string>
-  <string name="yourPuzzleRatingX">タクティクス レーティング: %s</string>
-  <string name="findTheBestMoveForWhite">白の最善手を見つけてください。</string>
-  <string name="findTheBestMoveForBlack">黒の最善手を見つけてください。</string>
-  <string name="toTrackYourProgress">履歴を保存するには:</string>
-  <string name="puzzleId">問題番号 %s</string>
-  <string name="puzzleOfTheDay">今日の問題</string>
-  <string name="clickToSolve">問題を解く</string>
-  <string name="goodMove">次善手</string>
-  <string name="butYouCanDoBetter">もっといい手があります。</string>
-  <string name="bestMove">最善手！</string>
-  <string name="keepGoing">続ける</string>
-  <string name="puzzleFailed">不正解</string>
-  <string name="butYouCanKeepTrying">別の手をどうぞ。</string>
   <string name="success">成功</string>
-  <string name="wasThisPuzzleAnyGood">この問題はよかったですか？</string>
-  <string name="pleaseVotePuzzle">今後の改善のため、上下の矢印で投票をお願いします:</string>
-  <string name="thankYou">ありがとう！</string>
-  <string name="ratingX">レーティング: %s</string>
-  <string name="hidden">非表示</string>
-  <plurals name="playedXTimes">
-    <item quantity="other">解答数のべ %s 回</item>
-  </plurals>
-  <string name="fromGameLink">ゲーム%sから</string>
-  <string name="continueTraining">トレーニングを続ける</string>
-  <string name="retryThisPuzzle">この問題に再挑戦する</string>
-  <string name="thisPuzzleIsCorrect">この問題は正しく、おもしろい。</string>
-  <string name="thisPuzzleIsWrong">この問題はおかしい／つまらない</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s 局対局中</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">指した後 自動的に次のゲームに進む</string>
   <string name="autoSwitch">自動切り替え</string>
-  <string name="puzzles">タクティクス</string>
+  <string name="puzzles">タクティクス問題</string>
   <string name="latestUpdates">最新情報</string>
   <string name="tournamentWinners">トーナメント優勝者</string>
   <string name="name">名称</string>
@@ -507,6 +482,7 @@
   <string name="clockInitialTime">持時間</string>
   <string name="clockIncrement">追加時間</string>
   <string name="privacy">プライバシー（英文）</string>
+  <string name="privacyPolicy">プライバシー・ポリシー</string>
   <string name="letOtherPlayersFollowYou">他人からのフォローを可能にする</string>
   <string name="letOtherPlayersChallengeYou">他人からの挑戦を可能にする</string>
   <string name="letOtherPlayersInviteYouToStudy">研究について他の人からの招待を認める</string>
@@ -527,8 +503,8 @@
   <string name="xAskedY">%1$s が %2$s に質問しました。</string>
   <string name="xAnsweredY">%1$s が %2$s と答えました。</string>
   <string name="xCommentedY">%1$s が %2$s とコメントしました。</string>
-  <string name="victory">勝利！</string>
-  <string name="defeat">失敗</string>
+  <string name="victory">勝ち</string>
+  <string name="defeat">負け</string>
   <string name="victoryVsYInZ">%1$s 対 %2$s、%3$s</string>
   <string name="defeatVsYInZ">%1$s 対 %2$s、%3$s で</string>
   <string name="drawVsYInZ">%1$s 対 %2$s、%3$s で</string>
@@ -547,14 +523,14 @@
   <string name="human">人間</string>
   <string name="computer">コンピューター</string>
   <string name="side">先手後手</string>
-  <string name="clock">時間制限</string>
+  <string name="clock">対局時計</string>
   <string name="unauthorizedError">アクセス権限がありません。</string>
   <string name="noInternetConnection">インターネット接続なし。メニューからオフラインで対局できます。</string>
   <string name="connectedToLichess">lichess.org に接続しています。</string>
   <string name="signedOut">サインアウトしました。</string>
   <string name="loginSuccessful">ログインしました</string>
   <string name="playOnTheBoardOffline">オフライン（2人対局）</string>
-  <string name="playOfflineComputer">オフラインでCPUと対戦する</string>
+  <string name="playOfflineComputer">オフラインで CPU と対局する</string>
   <string name="opponent">対局相手</string>
   <string name="learnMenu">学ぶ</string>
   <string name="studyMenu">研究</string>
@@ -589,31 +565,31 @@
   <string name="streamersMenu">配信者</string>
   <string name="mobileApp">モバイルアプリ</string>
   <string name="webmasters">ウェブサイト運営者の方へ</string>
-  <string name="about">Lichess概要</string>
+  <string name="about">Lichess 概要</string>
   <string name="aboutX">%s について</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s は無料 (%2$s)・自由・広告なし・オープンソースのチェス サーバです。</string>
   <string name="really">本当に</string>
   <string name="contribute">力を貸す</string>
   <string name="termsOfService">利用規約（英文）</string>
   <string name="sourceCode">ソースコード</string>
-  <string name="simultaneousExhibitions">多面指し</string>
+  <string name="simultaneousExhibitions">同時対局</string>
   <string name="host">ホスト</string>
   <string name="hostColorX">ホストの色: %s</string>
-  <string name="createdSimuls">新たな多面指し</string>
-  <string name="hostANewSimul">新たな多面指しを作る</string>
-  <string name="noSimulFound">多面指しが見つかりません</string>
-  <string name="noSimulExplanation">この多面指しは存在しません</string>
-  <string name="returnToSimulHomepage">多面指しトップに戻る</string>
-  <string name="aboutSimul">多面指しでは、1人が多数の相手と同時に対局します。</string>
+  <string name="createdSimuls">新たな同時対局</string>
+  <string name="hostANewSimul">新たな同時対局を作る</string>
+  <string name="noSimulFound">同時対局が見つかりません</string>
+  <string name="noSimulExplanation">この同時対局は存在しません</string>
+  <string name="returnToSimulHomepage">同時対局トップに戻る</string>
+  <string name="aboutSimul">同時対局では、1 人が多数の相手と同時に対局します。</string>
   <string name="aboutSimulImage">この時フィッシャーは 50 人と対局して 47 勝 2 分 1 敗でした。</string>
-  <string name="aboutSimulRealLife">コンセプトは現実の多面指しと同じです。現実世界では1人がテーブルを回って1手ずつ指していきます。</string>
-  <string name="aboutSimulRules">多面指しが始まると、全員がホスト（白番）と対局します。多面指しはすべての対局が終わった時に終了します。</string>
-  <string name="aboutSimulSettings">多面指しは非レート戦です。再対局、待った、持時間追加はできません。</string>
+  <string name="aboutSimulRealLife">コンセプトは現実の同時対局と同じです。現実世界では 1 人がテーブルを回って 1 手ずつ指していきます。</string>
+  <string name="aboutSimulRules">同時対局が始まると、全員がホスト（白番）と対戦します。同時対局はすべての対局が終わった時に終了します。</string>
+  <string name="aboutSimulSettings">同時対局は非レート戦です。再対局、待った、持時間追加はできません。</string>
   <string name="create">作成する</string>
-  <string name="whenCreateSimul">多面指しを作成すると、同時に複数の相手と対局できます。</string>
+  <string name="whenCreateSimul">同時対局を作成すると、同時に複数の相手と対戦できます。</string>
   <string name="simulVariantsHint">複数のバリアントを選ぶと、どのバリアントにするか相手が選べます。</string>
   <string name="simulClockHint">フィッシャーモードの設定。相手が多いほど追加時間は長めに。</string>
-  <string name="simulAddExtraTime">多面指しの手間を考え、自分に持時間をさらに追加できます。</string>
+  <string name="simulAddExtraTime">同時対局の手間を考え、自分に持時間をさらに追加できます。</string>
   <string name="simulHostExtraTime">ホスト延長時間</string>
   <string name="lichessTournaments">Lichess トーナメント</string>
   <string name="tournamentFAQ">アリーナ・トーナメントFAQ</string>
@@ -648,6 +624,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">メールが見つからない場合は、他の場所（スパムフォルダなど）を確認してください。</string>
   <string name="weHaveSentYouAnEmailTo">%sにメールを送信しました。リンクをクリックしてパスワードの変更を完了してください。</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">登録するとあなたは %s に従うと同意したことになります。</string>
+  <string name="readAboutOur">Lichess の %s 文書です。</string>
   <string name="networkLagBetweenYouAndLichess">あなたと Lichess の間のネットワークラグ</string>
   <string name="timeToProcessAMoveOnLichessServer">Lichess サーバが手を処理する時間</string>
   <string name="downloadAnnotated">解説つきダウンロード</string>
@@ -725,7 +702,7 @@
   <string name="error.unknown">エラー</string>
   <string name="custom">自由設定</string>
   <string name="notifications">通知</string>
-  <string name="challenges">チャレンジ</string>
+  <string name="challenges">挑戦</string>
   <string name="perfRatingX">レーティング: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">あと %s 秒以内に初手を指してください</item>
@@ -828,4 +805,7 @@
   <string name="youCannotPostYetPlaySomeGames">何局か指し終えるまで投稿はできません。</string>
   <string name="subscribe">投稿をフォロー</string>
   <string name="unsubscribe">投稿のフォローをはずす</string>
+  <string name="challengeDeclined">挑戦が拒否されました。</string>
+  <string name="challengeAccepted">挑戦が承認されました！</string>
+  <string name="challengeCanceled">挑戦がキャンセルされました。</string>
 </resources>

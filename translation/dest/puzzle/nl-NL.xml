@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Puzzels</string>
+  <string name="puzzleThemes">Puzzelthema\'s</string>
+  <string name="recommended">Aanbevolen</string>
+  <string name="phases">Fasen</string>
+  <string name="motifs">Motieven</string>
+  <string name="advanced">Geavanceerd</string>
+  <string name="lengths">Duur</string>
+  <string name="mates">Schaakmat</string>
+  <string name="goals">Doelen</string>
+  <string name="specialMoves">Speciale zetten</string>
+  <string name="didYouLikeThisPuzzle">Vond je deze puzzel leuk?</string>
+  <string name="voteToLoadNextOne">Stem om de volgende te laden!</string>
+  <string name="yourPuzzleRatingX">Je puzzelscore: %s</string>
+  <string name="findTheBestMoveForWhite">Vind de beste zet voor wit.</string>
+  <string name="findTheBestMoveForBlack">Vind de beste zet voor zwart.</string>
+  <string name="toGetPersonalizedPuzzles">Om gepersonaliseerde puzzels te krijgen:</string>
+  <string name="puzzleId">Puzzel %s</string>
+  <string name="puzzleOfTheDay">Puzzel van de dag</string>
+  <string name="clickToSolve">Klik om op te lossen</string>
+  <string name="goodMove">Goede zet</string>
+  <string name="bestMove">Beste zet!</string>
+  <string name="keepGoing">Ga zo door…</string>
+  <string name="puzzleSuccess">Succes!</string>
+  <string name="puzzleComplete">Puzzel voltooid!</string>
+  <string name="notTheMove">Dat is niet de juiste zet!</string>
+  <string name="trySomethingElse">Probeer iets anders.</string>
+  <string name="ratingX">Rating: %s</string>
+  <string name="hidden">verborgen</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">%s keer gespeeld</item>
+    <item quantity="other">%s keer gespeeld</item>
+  </plurals>
+  <string name="fromGameLink">Van partij %s</string>
+  <string name="continueTraining">Ga verder met de training</string>
+  <string name="difficultyLevel">Moeilijkheidsgraad</string>
+  <string name="normal">Standaard</string>
+  <string name="easier">Makkelijk</string>
+  <string name="easiest">Makkelijker</string>
+  <string name="harder">Moeilijk</string>
+  <string name="hardest">Moeilijker</string>
+  <string name="example">Voorbeeld</string>
+  <string name="addAnotherTheme">Voeg nog een thema toe</string>
+  <string name="jumpToNextPuzzleImmediately">Direct door naar volgende puzzel</string>
+  <string name="puzzleDashboard">Puzzel-dashboard</string>
+  <string name="history">Puzzelscore</string>
+  <string name="won">opgelost</string>
+  <string name="failed">niet opgelost</string>
+</resources>

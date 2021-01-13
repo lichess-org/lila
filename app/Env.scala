@@ -126,7 +126,7 @@ final class Env(
   lazy val gamePaginator = wire[mashup.GameFilterMenu.PaginatorBuilder]
   lazy val pageCache     = wire[http.PageCache]
 
-  private val tryDailyPuzzle: lila.puzzle.Daily.Try = () =>
+  private val tryDailyPuzzle: lila.puzzle.DailyPuzzle.Try = () =>
     Future {
       puzzle.daily.get
     }.flatMap(identity)

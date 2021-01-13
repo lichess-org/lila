@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Bulmacalar</string>
+  <string name="puzzleThemes">Bulmacalar</string>
+  <string name="recommended">Önerilen</string>
+  <string name="phases">Oyun bölümleri</string>
+  <string name="motifs">Motifler</string>
+  <string name="advanced">İleri düzey</string>
+  <string name="lengths">Uzunluğa göre</string>
+  <string name="mates">Matlar</string>
+  <string name="goals">Hedefler</string>
+  <string name="specialMoves">Özel hamleler</string>
+  <string name="didYouLikeThisPuzzle">Bulmacayı beğendiniz mi?</string>
+  <string name="voteToLoadNextOne">Sıradakine geçmek için oy verin!</string>
+  <string name="yourPuzzleRatingX">Bulmaca puanınız: %s</string>
+  <string name="findTheBestMoveForWhite">Beyaz için en iyi hamleyi bulun.</string>
+  <string name="findTheBestMoveForBlack">Siyah için en iyi hamleyi bulun.</string>
+  <string name="toGetPersonalizedPuzzles">Kişiselleştirilmiş bulmacalar için:</string>
+  <string name="puzzleId">Bulmaca %s</string>
+  <string name="puzzleOfTheDay">Günün bulmacası</string>
+  <string name="clickToSolve">Çözmek için tıklayın</string>
+  <string name="goodMove">İyi hamle</string>
+  <string name="bestMove">En iyi hamle!</string>
+  <string name="keepGoing">Devam et...</string>
+  <string name="puzzleSuccess">Başarılı!</string>
+  <string name="puzzleComplete">Bulmaca tamamlandı!</string>
+  <string name="notTheMove">Olmadı!</string>
+  <string name="trySomethingElse">Başka bir şey dene.</string>
+  <string name="ratingX">Puan: %s</string>
+  <string name="hidden">gizli</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">%s kez çözüldü</item>
+    <item quantity="other">%s kez çözüldü</item>
+  </plurals>
+  <string name="fromGameLink">Maçın linki: %s</string>
+  <string name="continueTraining">Pratik yapmaya devam et</string>
+  <string name="difficultyLevel">Zorluk seviyesi</string>
+  <string name="normal">Normal</string>
+  <string name="easier">Kolay</string>
+  <string name="easiest">Çok kolay</string>
+  <string name="harder">Zor</string>
+  <string name="hardest">Çok zor</string>
+  <string name="example">Örnek</string>
+  <string name="addAnotherTheme">Başka bir tema ekle</string>
+  <string name="jumpToNextPuzzleImmediately">Hemen sonraki bulmacaya atla</string>
+  <string name="puzzleDashboard">Bulmaca kontrol paneli</string>
+  <string name="improvementAreas">Gelişim alanları</string>
+  <string name="strengths">Güçlü yönler</string>
+  <string name="history">Bulmaca geçmişi</string>
+  <string name="won">başarılı</string>
+  <string name="failed">başarısız</string>
+</resources>

@@ -32,15 +32,15 @@ export function storedProp(k: string, defaultValue: any) {
 
 export interface StoredJsonProp<T> {
   (): T;
-  (v: T): void;
+  (v: T): T;
 }
 
-export const storedJsonProp = <T>(key: string, defaultValue: T): StoredJsonProp<T> =>
+export const storedJsonProp = <T>(key: string, defaultValue: () => T): StoredJsonProp<T> =>
   (v?: T) => {
     if (defined(v)) {
       storage.set(key, JSON.stringify(v));
       return v;
     }
     const ret = JSON.parse(storage.get(key)!);
-    return (ret !== null) ? ret : defaultValue;
+    return ret !== null ? ret : defaultValue();
   }

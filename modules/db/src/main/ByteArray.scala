@@ -32,7 +32,7 @@ object ByteArray {
 
   implicit def fromBytes(value: Array[Byte]) = new ByteArray(value)
 
-  def parseBytes(s: List[String]) = ByteArray(s map parseByte toArray)
+  def parseBytes(s: List[String]) = ByteArray(s.map(parseByte).toArray)
 
   private def parseByte(s: String): Byte = {
     var i    = s.length - 1

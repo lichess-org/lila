@@ -355,16 +355,6 @@
   <string name="tournamentComplete">Pertandingan selesai</string>
   <string name="movesPlayed">Gerakan dimain</string>
   <string name="whiteWins">Buah putih menang</string>
-  <string name="ratingX">Rating: %s</string>
-  <string name="hidden">tersembunyi</string>
-  <plurals name="playedXTimes">
-    <item quantity="other">Bermain selama %s</item>
-  </plurals>
-  <string name="fromGameLink">Dari permainan %s</string>
-  <string name="continueTraining">Teruskan latihan</string>
-  <string name="retryThisPuzzle">Cuba semula teka teki ini</string>
-  <string name="thisPuzzleIsCorrect">Teka teki ini betul dan menarik</string>
-  <string name="thisPuzzleIsWrong">Teka teki ini salah dan membosankan</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s permainan sedang berlangsung</item>
   </plurals>

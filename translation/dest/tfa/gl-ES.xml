@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="openTwoFactorApp">Abre a aplicación de autenticación en dous pasos no teu dispositivo para ver o código de autenticación e verificar a túa identidade.</string>
+</resources>

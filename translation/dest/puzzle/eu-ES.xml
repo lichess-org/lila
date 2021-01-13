@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Ariketak</string>
+  <string name="puzzleThemes">Ariketen gaiak</string>
+  <string name="recommended">Gomendatutakoak</string>
+  <string name="phases">Faseak</string>
+  <string name="motifs">Gaiak</string>
+  <string name="advanced">Aurreratua</string>
+  <string name="lengths">Luzera</string>
+  <string name="mates">Mateak</string>
+  <string name="goals">Helburuak</string>
+  <string name="specialMoves">Jokaldi bereziak</string>
+  <string name="didYouLikeThisPuzzle">Ariketa gustukoa izan da?</string>
+  <string name="voteToLoadNextOne">Eman bozka hurrengoa kargatzeko!</string>
+  <string name="yourPuzzleRatingX">Ariketen zure sailkapena: %s</string>
+  <string name="findTheBestMoveForWhite">Zurien jokaldi onena bilatu.</string>
+  <string name="findTheBestMoveForBlack">Beltzen jokaldi onena bilatu.</string>
+  <string name="toGetPersonalizedPuzzles">Ariketa pertsonalizatuak lortzeko:</string>
+  <string name="puzzleId">%s ariketa</string>
+  <string name="puzzleOfTheDay">Eguneko ariketa</string>
+  <string name="clickToSolve">Ebazteko klik egin</string>
+  <string name="goodMove">Jokaldi ona</string>
+  <string name="bestMove">Jokaldi onena!</string>
+  <string name="keepGoing">Jarraitu…</string>
+  <string name="puzzleSuccess">Zorionak!</string>
+  <string name="puzzleComplete">Ariketa osatuta!</string>
+  <string name="notTheMove">Hori ez zen jokaldia!</string>
+  <string name="trySomethingElse">Saiatu beste batekin.</string>
+  <string name="ratingX">Sailkapena: %s</string>
+  <string name="hidden">ezkutuan</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Behin jokatuta</item>
+    <item quantity="other">%s aldiz jokatuta</item>
+  </plurals>
+  <string name="fromGameLink">%s partidatik hartua</string>
+  <string name="continueTraining">Entrenatzen jarraitu</string>
+  <string name="difficultyLevel">Zailtasun-maila</string>
+  <string name="normal">Arrunta</string>
+  <string name="easier">Erraza</string>
+  <string name="easiest">Errazena</string>
+  <string name="harder">Zaila</string>
+  <string name="hardest">Zailena</string>
+  <string name="example">Adibidea</string>
+  <string name="addAnotherTheme">Beste gai bat gehitu</string>
+  <string name="jumpToNextPuzzleImmediately">Salto egin hurrengo ariketara berehala</string>
+  <string name="puzzleDashboard">Ariketen kontrol-panela</string>
+  <string name="improvementAreas">Hobetzekoak</string>
+  <string name="strengths">Indarguneak</string>
+  <string name="history">Ariketen historikoa</string>
+  <string name="won">irabazita</string>
+  <string name="failed">huts eginda</string>
+</resources>

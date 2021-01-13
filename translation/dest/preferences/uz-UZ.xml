@@ -6,7 +6,7 @@
   <string name="materialDifference">Materiallar farqi</string>
   <string name="boardHighlights">Doskadagi rang bilan ajratsih (oxirgi yurish va shoh)</string>
   <string name="pieceDestinations">Mumkin bo\'lgan yurishlani ko\'rsatish</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Doska koordinatalari (A-H, 1-8)</string>
+  <string name="boardCoordinates">Doska koordinatalari (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">O\'yin davomida yurishlar ro\'yhatini ko\'rsatish</string>
   <string name="pgnPieceNotation">Yurishlarni qayd qilib borish</string>
   <string name="chessPieceSymbol">Sipoh belgisi</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Ko\'zlar berklitilgan shahmat (sipohlar ko\'rinmas holda)</string>
   <string name="chessClock">Shaxmat Soati</string>
   <string name="tenthsOfSeconds">10 lab sekundlar</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Qachonki vaqt tugashiga &lt; 10 sekundlar bo\'lsa</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Qachonki vaqt tugashiga &lt; 10 sekundlar bo\'lsa</string>
   <string name="horizontalGreenProgressBars">Gorizantal yashil rangdagi jarayon indikatori</string>
   <string name="soundWhenTimeGetsCritical">Vaqt kritik holatga kelganda ovoz ovoz berish</string>
   <string name="giveMoreTime">Takroran berish</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">Faqat vaqtinchalik o\'yinlarda</string>
   <string name="promoteToQueenAutomatically">Qirolicha darajasigacha avtomatik tarzda oshirish</string>
   <string name="whenPremoving">Oldindan yurilganda</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Avtomatik tarzda uch karra takrorlashga ariza berish</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Qachonki vaqt tugashiga &lt; 30 sekundlar bo\'lsa</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Avtomatik tarzda uch karra takrorlashga ariza berish</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Qachonki vaqt tugashiga &lt; 30 sekundlar bo\'lsa</string>
   <string name="moveConfirmation">Yurishni tasdiqlash</string>
   <string name="inCorrespondenceGames">Yozishmali o\'yinlar</string>
   <string name="correspondenceAndUnlimited">Yozishmali va vaqtda chegaralanmagan</string>

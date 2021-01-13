@@ -11,7 +11,7 @@ final class ReferrerRedirect(baseUrl: BaseUrl) {
 
   private lazy val lilaHost = AbsoluteUrl.parse(baseUrl.value).host.value
 
-  private val validCharsRegex = """^[\w-\.:/\?&=@#%\[\]]+$""".r
+  private val validCharsRegex = """^[\w-\.:/\?&=@#%\[\]\+]+$""".r
 
   // allow relative and absolute redirects only to the same domain or
   // subdomains, excluding /mobile (which is shown after logout)

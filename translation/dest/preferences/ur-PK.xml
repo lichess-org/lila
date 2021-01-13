@@ -6,7 +6,7 @@
   <string name="materialDifference">مہروں کا فرق</string>
   <string name="boardHighlights">آخری چال اور شہ بساط پر نمایاں کریں</string>
   <string name="pieceDestinations">مہروں کے ممکنہ گھر (صحیح اور خودکار چالوں کے لیے)۔</string>
-  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">خانہ جات  (A-H, 1-8)</string>
+  <string name="boardCoordinates">خانہ جات  (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">دوران کھیل چالوں کی فہرست</string>
   <string name="pgnPieceNotation">چالوں کی نوٹیشن</string>
   <string name="chessPieceSymbol">شطرنج کے مہرے کہ علامات</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">نابینا شطرنج (مہرے نظر نہیں آئیں کے)۔</string>
   <string name="chessClock">گھڑی سے متعلق</string>
   <string name="tenthsOfSeconds">سیکنڈ کا دسواں حصہ</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">جب بقیہ وقت ۱۰ سیکنڈ سے کم ہو</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">جب بقیہ وقت ۱۰ سیکنڈ سے کم ہو</string>
   <string name="horizontalGreenProgressBars">افقی سبز پیشرفت نما</string>
   <string name="soundWhenTimeGetsCritical">قلت وقت پر آواز کا بجنا</string>
   <string name="giveMoreTime">مزید وقت دیں</string>
@@ -31,8 +31,8 @@
   <string name="inCasualGamesOnly">صرف دوستانہ مقابلوں میں</string>
   <string name="promoteToQueenAutomatically">پیادہ خودبخود وزیر بن جائے</string>
   <string name="whenPremoving">خودکار چالوں میں</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">تیں دفعہ دہرائی پر برابری کا دعویٰ کریں</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">جب بقیہ وقت ۳۰ سیکنڈ سے کم ہو</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">تیں دفعہ دہرائی پر برابری کا دعویٰ کریں</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">جب بقیہ وقت ۳۰ سیکنڈ سے کم ہو</string>
   <string name="moveConfirmation">چال تصدیق پر چلی جائے گی</string>
   <string name="inCorrespondenceGames">قلمی کھیل</string>
   <string name="correspondenceAndUnlimited">کورسپونڈنس اور لا محدود</string>

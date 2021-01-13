@@ -34,14 +34,13 @@ final class Env(
 
   private lazy val povToEntry = wire[PovToEntry]
 
-  private lazy val indexer = wire[Indexer]
+  private lazy val indexer: InsightIndexer = wire[InsightIndexer]
 
-  private lazy val userCacheApi = new UserCacheApi(db(CollName("insight_user_cache")))
+  private lazy val insightUserApi = new InsightUserApi(db(CollName("insight_user_cache")))
 
   lazy val api = wire[InsightApi]
 
-  lila.common.Bus.subscribeFun("analysisReady", "cheatReport") {
-    case lila.analyse.actorApi.AnalysisReady(game, _)        => api.updateGame(game).unit
-    case lila.hub.actorApi.report.CheatReportCreated(userId) => api.ensureLatest(userId).unit
+  lila.common.Bus.subscribeFun("analysisReady") { case lila.analyse.actorApi.AnalysisReady(game, _) =>
+    api.updateGame(game).unit
   }
 }

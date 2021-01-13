@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">पहेलियाँ</string>
+  <string name="puzzleThemes">पहेली विषयों</string>
+  <string name="recommended">सिफारिश की</string>
+  <string name="phases">के चरण</string>
+  <string name="motifs">रूपांकनों</string>
+  <string name="advanced">उन्नत</string>
+  <string name="lengths">लंबाई</string>
+  <string name="mates">साथी</string>
+  <string name="goals">लक्ष्य</string>
+  <string name="specialMoves">विशेष चाल</string>
+  <string name="didYouLikeThisPuzzle">क्या आपको यह पहेली पसंद आई?</string>
+  <string name="voteToLoadNextOne">अगले एक को लोड करने के लिए वोट दें!</string>
+  <string name="yourPuzzleRatingX">आपकी पहेली की रेटिंग:%s</string>
+  <string name="findTheBestMoveForWhite">सफेद रंग के लिए सबसे अच्छी चाल का पता लगाएं।</string>
+  <string name="findTheBestMoveForBlack">काले रंग के लिए सबसे अच्छी चाल का पता लगाएं।</string>
+  <string name="toGetPersonalizedPuzzles">वैयक्तिकृत पहेलियाँ प्राप्त करने के लिए:</string>
+  <string name="puzzleId">पहेलियाँ %s</string>
+  <string name="puzzleOfTheDay">आज की पहेली</string>
+  <string name="clickToSolve">हल करने के लिए क्लिक करें</string>
+  <string name="goodMove">अच्छी चाल!</string>
+  <string name="bestMove">सर्वश्रेष्ठ चाल!</string>
+  <string name="keepGoing">लगे रहें…</string>
+  <string name="puzzleSuccess">सफलता!</string>
+  <string name="puzzleComplete">पहेली पूरी!</string>
+  <string name="notTheMove">यह कदम नहीं है!</string>
+  <string name="trySomethingElse">कुछ और कोशिश करो।</string>
+  <string name="ratingX">रेटिंग: %s</string>
+  <string name="hidden">छिपा हुआ</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">%s समय खेले</item>
+    <item quantity="other">%s समय खेले</item>
+  </plurals>
+  <string name="fromGameLink">%s खेल से</string>
+  <string name="continueTraining">प्रशिक्षण जारी रखें</string>
+  <string name="difficultyLevel">Difficulty level</string>
+  <string name="normal">समान्य</string>
+  <string name="easier">आसान</string>
+  <string name="easiest">सबसे आसान</string>
+  <string name="harder">कठिन</string>
+  <string name="hardest">सबसे कठिन</string>
+  <string name="example">उदाहरण</string>
+  <string name="addAnotherTheme">एक और विषय जोड़ें</string>
+  <string name="jumpToNextPuzzleImmediately">तुरंत अगली पहेली पर जाएं</string>
+  <string name="puzzleDashboard">पहेली डैशबोर्ड</string>
+  <string name="improvementAreas">सुधार क्षेत्रों</string>
+  <string name="strengths">ताकत</string>
+  <string name="history">पहेली इतिहास</string>
+  <string name="won">जीत लिया</string>
+  <string name="failed">अनुत्तीर्ण होना</string>
+</resources>

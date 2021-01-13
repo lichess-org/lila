@@ -1,4 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">Manualul FIDE %s</string>
+  <string name="faqAbbreviation">Întrebări frecvente</string>
+  <string name="frequentlyAskedQuestions">Întrebări Adresate Frecvent</string>
+  <string name="whyIsLichessCalledLichess">De se cheamă Lichess așa?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess e o combinație între live/light/liber și șah. E pronunțat %1$s.</string>
+  <string name="leechess">lii-ces</string>
+  <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o"> Auziți-l pronunțat de un specialist.</string>
+  <string name="whyLiveLightLibre">Live, pentru că jocurile sunt jucate și urmărite în timp real 24/7; light și liber pentru că Lichess e open-source și neîngreunat de prostii proprietare care afectează alte websiteuri.</string>
+  <string name="whyIsLilaCalledLila">De asemenea, codul sursă pentru Lichess, %1$s, vine de la li[șah în sca]la, considerând că cea mai mare parte din Lichess e scrisă în %2$s, un limbaj de programare intuitiv.</string>
+  <string name="howCanIContributeToLichess">Cum pot contribui la Lichess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess e alimentat din donații de la patroni și din eforturile unei echipe de voluntari.</string>
+  <string name="findMoreAndSeeHowHelp">Poți afla mai multe despre %1$s (inclusiv o %2$s). Dacă vrei să ajuți Lichess prin voluntariat cu timpul și abilitățile tale, sunt multe %3$s.</string>
+  <string name="beingAPatron">cum să fii un Patron</string>
+  <string name="breakdownOfOurCosts">analiză a costurilor noastre</string>
+  <string name="otherWaysToHelp">alte feluri de a ajuta</string>
+  <string name="areThereWebsitesBasedOnLichess">Există websiteuri bazate pe Lichess?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Da. Lichess a inspirat într-adevăr alte websiteuri open-source care folosesc %1$s, %2$s sau %3$s.</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
+  <string name="fideHandbookX">Manualul FIDE %s</string>
+  <string name="canIChangeMyUsername">Îmi pot schimba numele de utilizator?</string>
+  <string name="usernamesCannotBeChanged">Nu, numele de utilizator nu poate fi schimbat din motive tehnice și practice. Numele de utilizator sunt stocate în prea multe locuri: baze de date, exporturi, jurnale și mințile oamenilor. Poți ajusta capitalizarea o dată.</string>
 </resources>

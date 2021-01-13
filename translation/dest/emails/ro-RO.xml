@@ -5,18 +5,18 @@
   <string name="emailConfirm_ignore">Dacă nu v-ați înregistrat la Lichess, puteți ignora liniștit acest mesaj.</string>
   <string name="passwordReset_subject">Resetați-vă parola pe lichess.org, %s</string>
   <string name="passwordReset_intro">Am primit o cerere de resetare a parolei pentru contul dvs.</string>
-  <string name="passwordReset_clickOrIgnore">Dacă ați realizat cererea, dați clic pe adresa de mai jos. Dacă nu, puteți ignora acest email.</string>
+  <string name="passwordReset_clickOrIgnore">Dacă dvs. ați realizat cererea, dați clic pe adresa de mai jos. Dacă nu, puteți ignora acest email.</string>
   <string name="emailChange_subject">Confirmați noua adresă de e-mail, %s</string>
   <string name="emailChange_intro">Ați cerut schimbarea adresei de email a contului dvs.</string>
   <string name="emailChange_click">Ca să confirmați că aveți acces la acest email, vă rugăm să dați clic pe adresa de mai jos:</string>
-  <string name="welcome_subject">Bine ați venit la lichess.org, %s</string>
-  <string name="welcome_text">Ați creat cu succes cont pe https://lichess.org.
+  <string name="welcome_subject">Bine ai venit pe lichess.org, %s</string>
+  <string name="welcome_text">Ți-ai creat cu succes contul pe https://lichess.org.
 
-Aici este pagina dvs. de profil: %1$s. O puteți personaliza aici: %2$s.
+Aici e pagina ta de profil: %1$s. O poți personaliza pe %2$s.
 
-Distracție plăcută, iar piesele dvs. să-și găsească calea spre regele oponentului dvs!</string>
+Distracție plăcută și fie ca piesele tale să își găsească mereu calea la regele adversarului tău!</string>
   <string name="logInToLichess">Conectează-te pe lichess.org, %s</string>
-  <string name="common_orPaste">(Nu funcționează să dați click? Încercați să inserați link-ul în browser-ul dvs.!)</string>
-  <string name="common_note">Acesta este un serviciu de email relatat la utilizarea dvs. de %s.</string>
+  <string name="common_orPaste">(Nu merge să dați click? Încercați să-l puneți în browser!)</string>
+  <string name="common_note">Acesta e un email legat de folosirea dumneavoastră a %s.</string>
   <string name="common_contact">Pentru a ne contacta, vă rugăm să utilizați %s.</string>
 </resources>

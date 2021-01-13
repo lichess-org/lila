@@ -39,7 +39,6 @@ final class RankingApi(
         upsert = true
       )
       .void
-      .recover(lila.db.ignoreDuplicateKey)
 
   def remove(userId: User.ID): Funit =
     userRepo byId userId flatMap {

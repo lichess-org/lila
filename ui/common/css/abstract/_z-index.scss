@@ -3,7 +3,7 @@
 /// @type Map
 /// @prop {String} key - Layer’s name
 /// @prop {Number} value - Z value mapped to the key
-$z-indexes: ("cg__promotion": 205, "cg__piece.dragging": 204, "cg__piece.anim": 3, "cg__svg": 2, "cg__piece": 2, "cg__piece.fading": 1, "powertip": 120, "complete": 112, "inquiry": 111, "zen-toggle": 110, "modal": 110, "mselect": 110, "topnav": 110, "fullscreen-mask": 109, "dropdown": 108, "context-menu": 107, "site-header": 106, "reconnecting": 105, "tour-reminder": 104, "nag-circle": 103, "mz-menu": 4, "above-link-overlay": 3, "friend-box": 2, "link-overlay": 2, "game-bookmark": 2, "subnav-side": 2, "default": 0);
+$z-indexes: ("cg__promotion": 205, "cg__piece.dragging": 204, "cg__piece.anim": 3, "cg__svg": 2, "cg__piece": 2, "cg__piece.fading": 1, "powertip": 120, "complete": 112, "inquiry": 111, "zen-toggle": 110, "modal": 110, "mselect": 110, "topnav": 110, "fullscreen-mask": 109, "dropdown": 108, "context-menu": 107, "site-header": 106, "reconnecting": 105, "tour-reminder": 104, "mz-menu": 4, "above-link-overlay": 3, "friend-box": 2, "link-overlay": 2, "game-bookmark": 2, "subnav-side": 2, "default": 0);
 
 /// Get a z-index value from a layer name
 /// @access public

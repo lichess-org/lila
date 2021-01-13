@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzles">Quebra-cabeças</string>
+  <string name="recommended">Recomendado</string>
+  <string name="phases">Fases</string>
+  <string name="advanced">Avançado</string>
+  <string name="lengths">Comprimento</string>
+</resources>

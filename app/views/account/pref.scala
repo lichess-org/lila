@@ -144,13 +144,13 @@ object pref {
               radios(form("behavior.keyboardMove"), booleanChoices)
             ),
             setting(
-              "Snap arrows to valid moves",
+              snapArrowsToValidMoves(),
               radios(form("behavior.arrowSnap"), booleanChoices)
             )(cls := "arrow-snap"),
             setting(
-              "Say \"Good game, well played\" upon defeat or draw",
+              sayGgWpAfterLosingOrDrawing(),
               radios(form("behavior.courtesy"), booleanChoices)
-            )(cls := "arrow-snap")
+            )
           ),
           categFieldset(PrefCateg.Privacy, categ)(
             setting(
