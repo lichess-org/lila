@@ -25,7 +25,7 @@
   <string name="howDoYouMovePieces">Fiqurları necə hərəkət etdirəcəksiniz?</string>
   <string name="clickTwoSquares">İki xanaya klikləyərək</string>
   <string name="dragPiece">Fiquru sürüşdürərək</string>
-  <string name="bothClicksAndDrag">Yaxud</string>
+  <string name="bothClicksAndDrag">Hər ikisi</string>
   <string name="premovesPlayingDuringOpponentTurn">Ön hücumlar (Rəqib hücum etmədən hücum təyin)</string>
   <string name="takebacksWithOpponentApproval">Geri Alma (rəqib razılığı ilə)</string>
   <string name="inCasualGamesOnly">Yalnız adi oyunlarda</string>
