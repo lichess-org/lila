@@ -2,6 +2,7 @@
 <resources>
   <string name="lichessClasses">Siniflər</string>
   <string name="features">Özəlliklər</string>
+  <string name="quicklyGenerateSafeUsernames">Tələbələr üçün sürətli istifadəçi adları və şifrələr yaradın</string>
   <string name="trackStudentProgress">Oyunlarda və tapmacalarda tələbələrin irəliləyişini izləyin</string>
   <string name="messageAllStudents">Bütün tələbələrə yeni dərs materialları haqqında mesaj göndərin</string>
   <string name="freeForAllForever">Heç bir reklam və izləyicisiz, hər kəs üçün 100% pulsuz</string>
@@ -74,6 +75,7 @@
   <string name="notifyAllStudents">Bütün tələbələri xəbərdar edin</string>
   <string name="nothingHere">Hələ heç nə yoxdur.</string>
   <string name="newsEdit1">Bütün sinif xəbərləri tək bölmədə.</string>
+  <string name="newsEdit2">Üstə son xəbərləri əlavə edin. Əvvəlki xəbərləri silməyin.</string>
   <string name="newsEdit3">Xəbərləri bununla ayırın ---
 Bu üfüqi bir xətt göstərəcək.</string>
   <string name="markdownAvailable">Daha inkişaf etmiş sintaksis üçün %s mövcuddur.</string>
