@@ -95,6 +95,8 @@ və ya hücumu blokla!</string>
   <string name="mateInOne">Mat vermə</string>
   <string name="defeatTheOpponentsKing">Rəqib şahını mat et</string>
   <string name="mateInOneIntro">Rəqib, verdiyiniz şahın qarşısını ala bilmədikdə qalib sayılırsız.</string>
+  <string name="attackYourOpponentsKing">Rəqib şahına hücum edin
+müdafiə oluna bilməyəcək bir şəkildə!</string>
   <string name="mateInOneComplete">Təbriklər! Şahmat oyunları belə qazanılır!</string>
   <string name="intermediate">Orta</string>
   <string name="boardSetup">Fuqurların düzülüşü</string>
@@ -131,6 +133,9 @@ Onu çək və qısa qalaqurma et.</string>
   <string name="castlingComplete">Təbriklər! Demək olar hər bir oyunda qalaqurma etməlisən.</string>
   <string name="enPassant">Keçiddə götürmə</string>
   <string name="theSpecialPawnMove">Xüsusi piyada gedişi</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Qaralar piyadanı iki xana 
+irəli gəldi!
+Keçiddə götür.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Keçiddə götürmə yalnız
 piyadanız 5-ci horizontalda olanda mümkündür.</string>
   <string name="takeAllThePawnsEnPassant">Bütün keçiddə piyadaları götür!</string>
