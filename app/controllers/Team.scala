@@ -233,58 +233,66 @@ final class Team(
     AuthOrScopedBody(_.Team.Write)(
       auth = implicit ctx =>
         me =>
-          api countTeamsOf me flatMap { nb =>
-            if (nb >= TeamModel.maxJoin)
-              negotiate(
-                html = BadRequest(views.html.site.message.teamJoinLimit).fuccess,
-                api = _ => BadRequest(jsonError("You have joined too many teams")).fuccess
-              )
-            else
-              negotiate(
-                html = api.join(id, me, none) flatMap {
-                  case Some(Joined(team))   => Redirect(routes.Team.show(team.id)).flashSuccess.fuccess
-                  case Some(Motivate(team)) => Redirect(routes.Team.requestForm(team.id)).flashSuccess.fuccess
-                  case _                    => notFound(ctx)
-                },
-                api = _ => {
-                  implicit val body = ctx.body
-                  forms.apiRequest
-                    .bindFromRequest()
-                    .fold(
-                      newJsonFormError,
-                      setup =>
-                        api.join(id, me, Some(setup.message)) flatMap {
-                          case Some(Joined(_)) => jsonOkResult.fuccess
-                          case Some(Motivate(_)) =>
-                            BadRequest(
-                              jsonError("This team requires confirmation.")
-                            ).fuccess
-                          case _ => notFoundJson("Team not found")
-                        }
-                    )
-                }
-              )
+          api.team(id) flatMap {
+            _ ?? { team =>
+              api countTeamsOf me flatMap { nb =>
+                if (nb >= TeamModel.maxJoin)
+                  negotiate(
+                    html = BadRequest(views.html.site.message.teamJoinLimit).fuccess,
+                    api = _ => BadRequest(jsonError("You have joined too many teams")).fuccess
+                  )
+                else
+                  negotiate(
+                    html = api.join(team, me, none) flatMap {
+                      case Joined => Redirect(routes.Team.show(team.id)).flashSuccess.fuccess
+                      case Motivate =>
+                        Redirect(routes.Team.requestForm(team.id)).flashSuccess.fuccess
+                    },
+                    api = _ => {
+                      implicit val body = ctx.body
+                      forms
+                        .apiRequest(team)
+                        .bindFromRequest()
+                        .fold(
+                          newJsonFormError,
+                          setup =>
+                            api.join(team, me, Some(setup.message)) flatMap {
+                              case Joined => jsonOkResult.fuccess
+                              case Motivate =>
+                                BadRequest(jsonError("This team requires confirmation.")).fuccess
+                              case _ => notFoundJson("Team not found")
+                            }
+                        )
+                    }
+                  )
+              }
+            }
           },
       scoped = implicit req =>
-        me => {
-          implicit val lang = reqLang
-          forms.apiRequest
-            .bindFromRequest()
-            .fold(
-              newJsonFormError,
-              setup =>
-                env.oAuth.server.fetchAppAuthor(req) flatMap {
-                  api.joinApi(id, me, _, Some(setup.message), setup.password)
-                } flatMap {
-                  case Some(Joined(_)) => jsonOkResult.fuccess
-                  case Some(Motivate(_)) =>
-                    Forbidden(
-                      jsonError("This team requires confirmation, and is not owned by the oAuth app owner.")
-                    ).fuccess
-                  case _ => notFoundJson("Team not found")
-                }
-            )
-        }
+        me =>
+          api.team(id) flatMap {
+            _ ?? { team =>
+              implicit val lang = reqLang
+              forms
+                .apiRequest(team)
+                .bindFromRequest()
+                .fold(
+                  newJsonFormError,
+                  setup =>
+                    env.oAuth.server.fetchAppAuthor(req) flatMap {
+                      api.joinApi(team, me, _, setup.message.some)
+                    } flatMap {
+                      case Joined => jsonOkResult.fuccess
+                      case Motivate =>
+                        Forbidden(
+                          jsonError(
+                            "This team requires confirmation, and is not owned by the oAuth app owner."
+                          )
+                        ).fuccess
+                    }
+                )
+            }
+          }
     )
 
   def subscribe(teamId: String) = {

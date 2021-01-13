@@ -4,8 +4,8 @@ import play.api.data._
 import play.api.data.Forms._
 import scala.concurrent.duration._
 
-import lila.db.dsl._
 import lila.common.Form.{ clean, numberIn }
+import lila.db.dsl._
 
 final private[team] class TeamForm(
     teamRepo: TeamRepo,
@@ -15,9 +15,13 @@ final private[team] class TeamForm(
     extends lila.hub.CaptchedForm {
 
   private object Fields {
-    val name        = "name"        -> clean(text(minLength = 3, maxLength = 60))
-    val location    = "location"    -> optional(clean(text(minLength = 3, maxLength = 80)))
-    val password    = "password"    -> optional(clean(text(maxLength = 60)))
+    val name     = "name"     -> clean(text(minLength = 3, maxLength = 60))
+    val location = "location" -> optional(clean(text(minLength = 3, maxLength = 80)))
+    val password = "password" -> optional(clean(text(maxLength = 60)))
+    def passwordCheck(team: Team) = "password" -> optional(text).verifying(
+      "team:incorrectTeamPassword",
+      pw => team.password.fold(true)(_ == pw.??(_.trim))
+    )
     val description = "description" -> clean(text(minLength = 30, maxLength = 2000))
     val open        = "open"        -> number
     val gameId      = "gameId"      -> text
@@ -59,20 +63,17 @@ final private[team] class TeamForm(
   def request(team: Team) = Form(
     mapping(
       "message" -> clean(text(minLength = 30, maxLength = 2000)),
-      Fields.password
-    )(RequestSetup.apply)(RequestSetup.unapply).verifying(
-      "team:incorrectTeamPassword",
-      d => passwordMatches(d, team.password).await(2 seconds, "passwordMatches")
-    )
+      Fields.passwordCheck(team)
+    )(RequestSetup.apply)(RequestSetup.unapply)
   ) fill RequestSetup(
     message = "Hello, I would like to join the team!",
     password = None
   )
 
-  val apiRequest = Form(
+  def apiRequest(team: Team) = Form(
     mapping(
       "message" -> clean(text(minLength = 30, maxLength = 2000)),
-      Fields.password
+      Fields.passwordCheck(team)
     )(RequestSetup.apply)(RequestSetup.unapply)
   )
 
@@ -103,13 +104,6 @@ final private[team] class TeamForm(
 
   private def teamExists(setup: TeamSetup) =
     teamRepo.coll.exists($id(Team nameToId setup.trim.name))
-
-  private def passwordMatches(setup: RequestSetup, password: Option[String]) = {
-    if (password == None || password.get == "") fuTrue
-    else if (setup.password != None && password.get == setup.password.get) fuTrue
-    else
-      fuFalse
-  }
 }
 
 private[team] case class TeamSetup(

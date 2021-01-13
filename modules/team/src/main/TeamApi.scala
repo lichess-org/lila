@@ -117,34 +117,17 @@ final class TeamApi(
       RequestWithUser(request, user)
     }
 
-  def join(teamId: Team.ID, me: User, msg: Option[String]): Fu[Option[Requesting]] =
-    teamRepo.coll.byId[Team](teamId) flatMap {
-      _ ?? { team =>
-        if (team.open) doJoin(team, me) inject Joined(team).some
-        else
-          msg.fold(fuccess[Option[Requesting]](Motivate(team).some)) { txt =>
-            createRequest(team, me, txt) inject Joined(team).some
-          }
-      }
-    }
+  def join(team: Team, me: User, msg: Option[String]): Fu[Requesting] =
+    if (team.open) doJoin(team, me) inject Joined
+    else motivateOrJoin(team, me, msg)
 
-  def joinApi(
-      teamId: Team.ID,
-      me: User,
-      oAuthAppOwner: Option[User.ID],
-      msg: Option[String],
-      password: Option[String]
-  ): Fu[Option[Requesting]] =
-    teamRepo.coll.byId[Team](teamId) flatMap {
-      _ ?? { team =>
-        if (team.open || oAuthAppOwner.contains(team.createdBy)) doJoin(team, me) inject Joined(team).some
-        else if (team.password != None && team.password.get != "" && team.password != password)
-          fuccess[Option[Requesting]](Motivate(team).some)
-        else
-          msg.fold(fuccess[Option[Requesting]](Motivate(team).some)) { txt =>
-            createRequest(team, me, txt) inject Joined(team).some
-          }
-      }
+  def joinApi(team: Team, me: User, oAuthAppOwner: Option[User.ID], msg: Option[String]): Fu[Requesting] =
+    if (team.open || oAuthAppOwner.contains(team.createdBy)) doJoin(team, me) inject Joined
+    else motivateOrJoin(team, me, msg)
+
+  private def motivateOrJoin(team: Team, me: User, msg: Option[String]) =
+    msg.fold(fuccess[Requesting](Motivate)) { txt =>
+      createRequest(team, me, txt) inject Joined
     }
 
   def requestable(teamId: Team.ID, user: User): Fu[Option[Team]] =
