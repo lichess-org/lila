@@ -87,6 +87,8 @@ və ya hücumu blokla!</string>
   <string name="howTheGameStarts">Oyuna necə başlamalı</string>
   <string name="firstPlaceTheRooks">İlk öncə topları yerləşdirin!
 Onlar künclərdə yerəşir.</string>
+  <string name="thenPlaceTheKnights">Sonra atları yerləşdir!
+Onlar topların yanına gedir.</string>
   <string name="placeTheBishops">Filləri yerləşdirin!
 Onlar atların yanına gedir.</string>
   <string name="placeTheQueen">Vəziri qoyun!
@@ -97,7 +99,7 @@ Düz vəzirin yanına.</string>
   <string name="theSpecialKingMove">Xüsusi şah gedişi</string>
   <string name="castleKingSide">Şah cinahına qalaqurma üçün
 şahını iki xana hərəkət etdir!</string>
-  <string name="castleQueenSide">Vəzir cinahına qalaqurma üçün
+  <string name="castleQueenSide">Uzun qalaqurma üçün
 şahını iki xana hərəkət etdir!</string>
   <string name="findAWayToCastleKingSide">Şah tərəfə qalaqurmanın bir yolunu tap!</string>
   <string name="findAWayToCastleQueenSide">Vəzir tərəfə qalaqurmanın bir yolunu tapın!</string>
