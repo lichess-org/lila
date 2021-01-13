@@ -34,6 +34,8 @@
   <string name="inviteALichessAccount">Bir Lichess hesabı dəvət edin</string>
   <string name="inviteDesc4">Heç vaxt kimə gəldi istənilməyən dəvətlər göndərməyin.</string>
   <string name="createANewLichessAccount">Yeni bir Lichess hesabı yaradın</string>
+  <string name="createDesc3">Önəmli: bir tələbənin birdən çox hesabı olmamalıdır.</string>
+  <string name="createDesc4">Əgərhesabları varsa, bunun əvəzinə dəvət formunu istifadə edin.</string>
   <string name="lichessUsername">Lichess istifadəçi adı</string>
   <string name="generateANewUsername">Yeni bir istifadəçi adı yaradın</string>
   <string name="invitationToClass">Tələbə olaraq \"%s\" sinfinə dəvətlisiniz.</string>
