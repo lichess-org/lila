@@ -45,6 +45,5 @@
   <string name="jumpToNextPuzzleImmediately">Rögtön a következő feladányhoz ugrás</string>
   <string name="puzzleDashboard">Feladvány statisztika</string>
   <string name="strengths">Erősségek</string>
-  <string name="won" comment="won&#10;&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">sikeres</string>
-  <string name="failed" comment="failed&#10;&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.">sikertelen</string>
+  <string name="failed">sikertelen</string>
 </resources>
