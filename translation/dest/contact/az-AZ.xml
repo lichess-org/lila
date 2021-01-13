@@ -23,12 +23,14 @@
   <string name="otherReason">başqa bir səbəb</string>
   <string name="doNotReportInForum">Forumdakı oyunçuları şikayət etməyin.</string>
   <string name="doNotSendReportEmails">Bizə şikayət e-poçtları göndərməyin.</string>
+  <string name="doNotMessageModerators">Moderatorlara birbaşa mesaj göndərməyin.</string>
   <string name="wantReportBug">Bir səhv barədə məlumat vermək istəyirəm</string>
   <string name="reportWebsiteIssue">Lichess sayt problemləri GitHubda</string>
   <string name="reportMobileIssue">Lichess mobil tətbiqi problemləri GitHubda</string>
   <string name="reportBugInDiscord">Lichessin Discord serverində</string>
   <string name="illegalPawnCapture">Sehv piyada vurma</string>
   <string name="illegalCastling">Qanunsuz və ya qeyri-mümkün qalaqurma</string>
+  <string name="castlingRules">Qalaqurma qaydalarını başa düşdüyünüzdən əmin olun</string>
   <string name="insufficientMaterial">Mat üçün yetərsiz fiqur</string>
   <string name="noRatingPoints">Heç bir reytinq xalı verilməyib</string>
   <string name="errorPage">Xəta səhifəsi</string>
