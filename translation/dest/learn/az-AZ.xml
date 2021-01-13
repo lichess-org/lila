@@ -80,6 +80,8 @@ bir hərəkətdə!</string>
   <string name="escapeWithTheKing">Şah ilə qaç!</string>
   <string name="theKingCannotEscapeButBlock">Şah qaça bilməz,
 lakin hücumun bloklaya bilərsiz!</string>
+  <string name="youCanGetOutOfCheckByTaking">Hücum edən fiquru vuraraq
+şahdan qurtula bilərsiz.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Bu at müdafiənin
 üstündən şah verdi!</string>
   <string name="escapeOrBlock">Şahla qaç
