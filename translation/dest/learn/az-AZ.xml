@@ -64,6 +64,7 @@ ancaq sən müdafiə oluna bilərsən!</string>
 götürmələrinə imkan verməyin!</string>
   <string name="combat">Döyüş</string>
   <string name="captureAndDefendPieces">Fiqurları vur və müdfiə et</string>
+  <string name="combatIntro">Yaxşı bir döyüşçü həm hücumu, həm müdafiəni bilir!</string>
   <string name="checkInOne">Şah vermə</string>
   <string name="attackTheOpponentsKing">Rəqib şahına hücum et</string>
   <string name="checkInOneGoal">Rəqibin kralını hədəf alın
@@ -89,6 +90,7 @@ Düz vəzirin yanına.</string>
   <string name="enPassant">Keçiddə götürmə</string>
   <string name="theSpecialPawnMove">Xüsusi piyada gedişi</string>
   <string name="takeAllThePawnsEnPassant">Bütün keçiddə piyadaları götür!</string>
+  <string name="enPassantComplete">Təbriklər! Artıq keçiddə piyada götürə bilərsiz.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Oyun heç-heçədir</string>
   <string name="advanced">Ətraflı</string>
