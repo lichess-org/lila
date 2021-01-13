@@ -31,4 +31,5 @@
   <string name="addAnotherTheme">Adăugați o altă temă</string>
   <string name="jumpToNextPuzzleImmediately">Sari imediat la puzzle-ul următor</string>
   <string name="improvementAreas">Zone de îmbunătățit</string>
+  <string name="solved" comment="&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">rezolvat</string>
 </resources>
