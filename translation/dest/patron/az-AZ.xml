@@ -41,6 +41,7 @@
   <string name="changeMonthlyAmount">Aylıq məbləği dəyişdirin (%s)</string>
   <string name="cancelSupport">dəstəyini kəs</string>
   <string name="xOrY">%1$s və ya %2$s</string>
+  <string name="decideHowMuch">Lichessin sizin üçün nə qədər dəyərli olduğuna qərar verin:</string>
   <string name="noLongerSupport">Artıq Lichessi dəstəkləmir</string>
   <string name="paymentHistory">Ödəmə keçmişi</string>
   <string name="paid">Pullu</string>
