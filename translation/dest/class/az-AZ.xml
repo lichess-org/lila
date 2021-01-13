@@ -18,6 +18,7 @@
   <string name="className">Sinif adı</string>
   <string name="classDescription">Sinif açıqlaması</string>
   <string name="teachersOfTheClass">Sinif müəllimləri</string>
+  <string name="theyMustFirstApply">Əvvəlcə Lichess Müəllimi olmaq üçün müraciət etməlidirlər.</string>
   <string name="resetPassword">Şifrəni sıfırla</string>
   <string name="passwordX">Şifrə: %s</string>
   <string name="generateANewPassword">Tələbə üçün yeni bir şifrə yaradın</string>
