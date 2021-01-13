@@ -47,4 +47,6 @@
   <string name="improvementAreas" comment="improvementAreas&#10;&#10;These are puzzle themes that the user is weakest at, and can train on to optimize their progress.">Paranna näitä</string>
   <string name="strengths">Vahvuutesi</string>
   <string name="history">Tehtävähistoria</string>
+  <string name="won">ratkaistu</string>
+  <string name="failed">epäonnistui</string>
 </resources>
