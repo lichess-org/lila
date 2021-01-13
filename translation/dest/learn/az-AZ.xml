@@ -38,6 +38,7 @@
   <string name="knightComplete">Təbriklər! Atı idarə etməyi öyrəndiniz.</string>
   <string name="thePawn">Piyada</string>
   <string name="itMovesForwardOnly">Yalnız irəliləyir</string>
+  <string name="pawnIntro">Piyadalar zəifdir, lakin böyük potensiala sahibdirlər.</string>
   <string name="pawnsMoveForward">Piyadalar irəliyə gedir,
 lakin çapraz vurur!</string>
   <string name="captureThenPromote">Vur və çevril!</string>
@@ -80,17 +81,24 @@ bir hərəkətdə!</string>
 və ya hücumu blokla!</string>
   <string name="mateInOne">Mat vermə</string>
   <string name="defeatTheOpponentsKing">Rəqib şahını mat et</string>
+  <string name="mateInOneComplete">Təbriklər! Şahmat oyunları belə qazanılır!</string>
   <string name="intermediate">Orta</string>
   <string name="boardSetup">Fuqurların düzülüşü</string>
   <string name="howTheGameStarts">Oyuna necə başlamalı</string>
   <string name="firstPlaceTheRooks">İlk öncə topları yerləşdirin!
 Onlar künclərdə yerəşir.</string>
+  <string name="placeTheBishops">Filləri yerləşdirin!
+Onlar atların yanına gedir.</string>
   <string name="placeTheQueen">Vəziri qoyun!
 Özüylə eyni rəngli xanaya.</string>
   <string name="placeTheKing">Şahı qoyun!
 Düz vəzirin yanına.</string>
   <string name="castling">Qalaqurma</string>
   <string name="theSpecialKingMove">Xüsusi şah gedişi</string>
+  <string name="castleKingSide">Şah cinahına qalaqurma üçün
+şahını iki xana hərəkət etdir!</string>
+  <string name="castleQueenSide">Vəzir cinahına qalaqurma üçün
+şahını iki xana hərəkət etdir!</string>
   <string name="findAWayToCastleKingSide">Şah tərəfə qalaqurmanın bir yolunu tap!</string>
   <string name="findAWayToCastleQueenSide">Vəzir tərəfə qalaqurmanın bir yolunu tapın!</string>
   <string name="enPassant">Keçiddə götürmə</string>
