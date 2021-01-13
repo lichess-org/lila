@@ -35,6 +35,7 @@
   <string name="mateIn4">4 Gedişə Mat</string>
   <string name="mateIn4Description">Dörd gedişə mat et.</string>
   <string name="mateIn5">5 və ya daha çox gedişə mat</string>
+  <string name="mateIn5Description">Uzun mat ardıcıllığını həll etməyə çalışın.</string>
   <string name="middlegame">Mittelşpil</string>
   <string name="oneMove">Bir gedişlik tapmaca</string>
   <string name="opening">Debüt</string>
