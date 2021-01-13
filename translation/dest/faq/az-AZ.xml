@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">TSS</string>
+  <string name="faqAbbreviation">FAQ</string>
   <string name="frequentlyAskedQuestions">Tez-tez Soruşulan Suallar</string>
   <string name="whyIsLichessCalledLichess">Lichess-ə niyə Lichess deyirlər?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess, live/light/libre yəni canlı/parlaq/libre ilə şahmatın kombinasiyasıdır. %1$s kimi tələffüz edilir.</string>
