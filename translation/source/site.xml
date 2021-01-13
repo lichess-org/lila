@@ -846,4 +846,5 @@ computer analysis, game chat and shareable URL.</string>
   <string name="challengeDeclined">Challenge declined</string>
   <string name="challengeAccepted">Challenge accepted!</string>
   <string name="challengeCanceled">Challenge canceled.</string>
+  <string name="changelog">Changelog</string>
 </resources>

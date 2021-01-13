@@ -738,6 +738,7 @@ val `availableInNbLanguages` = new I18nKey("availableInNbLanguages")
 val `nbSecondsToPlayTheFirstMove` = new I18nKey("nbSecondsToPlayTheFirstMove")
 val `nbSeconds` = new I18nKey("nbSeconds")
 val `andSaveNbPremoveLines` = new I18nKey("andSaveNbPremoveLines")
+val `changelog` = new I18nKey("changelog")
 
 object arena {
 val `arenaTournaments` = new I18nKey("arena:arenaTournaments")
