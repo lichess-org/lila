@@ -70,6 +70,7 @@
   <string name="veryLong">Çox uzun tapmaca</string>
   <string name="veryLongDescription">4 və daha çox gedişə qələbə.</string>
   <string name="xRayAttack">Rentgen hücumu</string>
+  <string name="xRayAttackDescription">Fiqur, bir xanaya rəqib fiquru üzərindən hücum edir və ya müdafiə edir.</string>
   <string name="zugzwang">Suqsvanq</string>
   <string name="healthyMix">Həftəbecər</string>
 </resources>
