@@ -27,6 +27,7 @@
   <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mat</string>
   <string name="mateDescription">Oyunu üslubuyla qazanın.</string>
   <string name="mateIn1">1 Gedişə Mat</string>
+  <string name="mateIn1Description">Bir gedişə mat edin.</string>
   <string name="mateIn2">2 Gedişə Mat</string>
   <string name="mateIn3">3 Gedişə Mat</string>
   <string name="mateIn4">4 Gedişə Mat</string>
