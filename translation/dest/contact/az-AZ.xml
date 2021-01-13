@@ -31,6 +31,7 @@
   <string name="doNotReportInForum">Forumdakı oyunçuları şikayət etməyin.</string>
   <string name="doNotSendReportEmails">Bizə şikayət e-poçtları göndərməyin.</string>
   <string name="doNotMessageModerators">Moderatorlara birbaşa mesaj göndərməyin.</string>
+  <string name="onlyReports">Yalnız şikayət formu ilə oyunçuları şikayət etmək təsirli olur.</string>
   <string name="wantReportBug">Bir səhv barədə məlumat vermək istəyirəm</string>
   <string name="reportBugInForum">Forumun Lichess Rəy bölməsində</string>
   <string name="reportWebsiteIssue">Lichess sayt problemləri GitHubda</string>
