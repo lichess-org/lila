@@ -48,4 +48,5 @@
   <string name="puzzleDashboard">Страница задач</string>
   <string name="strengths">Сильные стороны</string>
   <string name="history">История задач</string>
+  <string name="solved" comment="&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">решённые</string>
 </resources>
