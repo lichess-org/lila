@@ -218,7 +218,7 @@ final class ChatApi(
               UserLine(
                 user.username,
                 user.title,
-                Writer preprocessUserInput t2,
+                Writer.removeSelfMention(Writer preprocessUserInput t2, user.username),
                 troll = user.isTroll,
                 deleted = false
               )
@@ -300,6 +300,11 @@ final class ChatApi(
     import java.util.regex.{ Matcher, Pattern }
 
     def preprocessUserInput(in: String) = multiline(spam.replace(noShouting(noPrivateUrl(in))))
+
+    def removeSelfMention(in: String, username: User.ID) =
+      if (in.contains('@'))
+        ("""(?i)@(?<![\w@#/]@)""" + username + """(?![@\w-]|\.\w)""").r.replaceAllIn(in, username)
+      else in
 
     def cut(text: String) = Some(text.trim take Line.textMaxSize).filter(_.nonEmpty)
 
