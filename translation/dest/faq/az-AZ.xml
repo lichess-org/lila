@@ -25,7 +25,9 @@
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Lichessdə hansı variantları oynaya bilərəm?</string>
-  <string name="eightVariants">8 şahmat variantı</string>
+  <string name="lichessSupportChessAnd">Lichess standart şahmatı və daha %1$s dəstəkləyir.</string>
+  <string name="eightVariants">8 şahmat variantını</string>
+  <string name="whatIsACPL">Ortalama santipiyada itkisi nədir(OSPİ)?</string>
   <string name="fideHandbookX">FIDE qaydaları %s</string>
   <string name="goodIntroduction">yaxşı giriş</string>
   <string name="officialRulesPDF">rəsmi qaydalar (PDF)</string>
@@ -38,6 +40,7 @@
   <string name="titlesAvailableOnLichess">Lichessdə hansı titullar var?</string>
   <string name="asWellAsManyNMtitles">bir çox milli usta titulları</string>
   <string name="verificationForm">təsdiqləmə formu</string>
+  <string name="canIbecomeLM">Lichess Ustası (LM) adını ala bilərəmmi?</string>
   <string name="noUpperCaseDot">Xeyr.</string>
   <string name="whatUsernameCanIchoose">İstifadəçi adım nə ola bilər?</string>
   <string name="guidelines">təlimatlat</string>
