@@ -2,15 +2,29 @@
 <resources>
   <string name="contact">Əlaqə</string>
   <string name="contactLichess">Lichess ilə əlaqə</string>
+  <string name="whatCanWeHelpYouWith">Sizə nədə kömək edə bilərik?</string>
   <string name="iCantLogIn">Daxil ola bilmirəm</string>
+  <string name="forgotPassword">Şifrəmi unutdum</string>
+  <string name="forgotUsername">İstifadəçi adımı unutdum</string>
+  <string name="accountSupport">Hesabımla əlaqədar köməyə ehtiyacım var</string>
+  <string name="wantCloseAccount">Hesabımı bağlamaq istəyirəm</string>
+  <string name="wantReopen">Hesabımı yenidən açmaq istəyirəm</string>
+  <string name="wantChangeUsername">İstifadəçi adımı dəyişmək istəyirəm</string>
+  <string name="wantReport">Bir oyunçunu bildirmək istəyirəm</string>
   <string name="cheating">hiylə</string>
   <string name="sandbagging">bilərək uduzma</string>
   <string name="trolling">trollama</string>
   <string name="insults">təhqir</string>
   <string name="otherReason">başqa bir səbəb</string>
+  <string name="wantReportBug">Bir səhv barədə məlumat vermək istəyirəm</string>
+  <string name="illegalPawnCapture">Sehv piyada vurma</string>
+  <string name="insufficientMaterial">Mat üçün yetərsiz fiqur</string>
   <string name="errorPage">Xəta səhifəsi</string>
+  <string name="engineAppeal">Şahmat mühərriki istifadəsi və ya hiylə işarəsi</string>
   <string name="otherRestriction">Digər məhdudiyyət</string>
   <string name="monetizing">Lichessdən pul qazanmaq</string>
   <string name="buyingLichess">Lichessi almaq</string>
+  <string name="authorizationToUse">Lichess istifadə icazəsi</string>
   <string name="noneOfTheAbove">Yuxarıdakıların heç biri</string>
+  <string name="sendEmailAt">Bizə %s vasitəsilə bir e-poçt göndərin.</string>
 </resources>

@@ -10,13 +10,24 @@
   <string name="reopen">Yenidən aç</string>
   <string name="removeStudent">Tələbəni sil</string>
   <string name="removedStudents">Çıxarıldı</string>
+  <string name="inviteTheStudentBack">Tələbəni yenidən dəvət edin</string>
   <string name="className">Sinif adı</string>
   <string name="classDescription">Sinif açıqlaması</string>
+  <string name="teachersOfTheClass">Sinif müəllimləri</string>
   <string name="resetPassword">Şifrəni sıfırla</string>
   <string name="passwordX">Şifrə: %s</string>
+  <string name="invitedToXByY" comment="invitedToXByY&#10;&#10;%1$s is the Class name and %$2s is the person who invited">%2$s tərəfindən %1$s adlı sinifə dəvət</string>
   <string name="realName">Həqiqi ad</string>
   <string name="addStudent">Tələbə əlavə et</string>
+  <string name="inviteALichessAccount">Bir Lichess hesabı dəvət edin</string>
+  <string name="createANewLichessAccount">Yeni bir Lichess hesabı yaradın</string>
   <string name="lichessUsername">Lichess istifadəçi adı</string>
+  <string name="generateANewUsername">Yeni bir istifadəçi adı yaradın</string>
+  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+    <item quantity="one">Bir gözlənən dəvət</item>
+    <item quantity="other">%s gözlənən dəvət</item>
+  </plurals>
+  <string name="noPendingInvitations">Gözlənən dəvət yoxdur</string>
   <string name="lastActiveDate">Aktiv</string>
   <string name="managed">İdarə Edilən</string>
   <string name="release">Azad et</string>
@@ -31,11 +42,14 @@
   </plurals>
   <string name="students">Tələbələr</string>
   <string name="progress">İrəliləyiş</string>
+  <string name="noRemovedStudents">Çıxarılan tələbə yoxdur.</string>
   <string name="overDays" comment="overDays&#10;&#10;In the &quot;Progress&quot; tab of a Lichess Class dashboard, &quot;Over days&quot; is the title of a selector. This selector offers a choice between various durations, in days, over which the user can view the progress of the class.">Günlər ərzində</string>
   <string name="timePlaying">Oynama müddəti</string>
+  <string name="variantXOverLastY" comment="variantXOverLastY&#10;&#10;The first variable is a game type (Blitz/Bullet, etc).&#10;The second variable is a duration length (in days).&#10;&#10;This is the heading of a column for a table that appears in the &quot;Progress&quot; tab of the Lichess Class dashboard.">Son %2$s gündə %1$s</string>
   <string name="winrate">Qazanma əmsalı</string>
   <string name="na">Məlumat Yoxdur</string>
   <string name="news">Sinif xəbərləri</string>
   <string name="editNews">Xəbərləri redaktə et</string>
+  <string name="notifyAllStudents">Bütün tələbələri xəbərdar edin</string>
   <string name="nothingHere">Hələ heç nə yoxdur.</string>
 </resources>

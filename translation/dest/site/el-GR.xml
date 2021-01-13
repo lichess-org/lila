@@ -843,4 +843,7 @@
   <string name="youCannotPostYetPlaySomeGames">Δεν μπορείτε να δημοσιεύσετε σε αυτό το φόρουμ ακόμα. Παίξτε μερικά παιχνίδια!</string>
   <string name="subscribe">Εγγραφείτε</string>
   <string name="unsubscribe">Απεγγραφείτε</string>
+  <string name="challengeDeclined">Η πρόκληση δεν έγινε δεκτή</string>
+  <string name="challengeAccepted">Η πρόκληση έγινε δεκτή!</string>
+  <string name="challengeCanceled">Η πρόκληση ακυρώθηκε.</string>
 </resources>

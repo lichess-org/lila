@@ -14,6 +14,7 @@ Məğlub olana vəya bərabərə qalana qədər edilən oyunlardan iki qatı xal
 Məsələn; üst-üstə qazanılan iki oyun ve ardından alınan bir bərabərlik 6 xal dəyərindədir: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Çılğın Modu</string>
   <string name="howIsTheWinnerDecided">Qalib necə təyin olunur?</string>
+  <string name="howDoesPairingWork">Qoşulma necə işləyir?</string>
   <string name="howDoesItEnd">Necə başa çatır?</string>
   <string name="otherRules">Digər vacib qaydalar</string>
   <string name="thisIsPrivate">Bu özəl turnirdir</string>

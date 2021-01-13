@@ -94,6 +94,8 @@ Se %3$s för detta drag för lite övning med det.</string>
   <string name="usernamesNotOffensive">I allmänhet bör användarnamn inte vara: kränkande, utge sig för att vara
 någon annan eller innehålla reklam. Du kan läsa mer i %1$s.</string>
   <string name="guidelines">riktlinjerna</string>
+  <string name="canIChangeMyUsername">Kan jag ändra mitt användarnamn?</string>
+  <string name="usernamesCannotBeChanged">Nej, användarnamn kan inte ändras av tekniska och praktiska skäl. Användarnamn förekommer i för många platser: databaser, exporter, loggar, och människors minne. Du kan justera versalerna en gång.</string>
   <string name="uniqueTrophies">Unika troféer</string>
   <string name="ownerUniqueTrophies">Denna trofé är unik i Lichess historia, ingen annan än %1$s kommer någonsin att ha den.</string>
   <string name="wayOfBerserkExplanation">För att få den, utmanade hiimgosu sig själv att gå bärsärk i och vinna 100%% av partierna i %s.</string>

@@ -27,15 +27,24 @@
   <string name="eightVariants">8 şahmat variantı</string>
   <string name="fideHandbookX">FIDE qaydaları %s</string>
   <string name="goodIntroduction">yaxşı giriş</string>
+  <string name="officialRulesPDF">rəsmi qaydalar (PDF)</string>
   <string name="lichessTraining">Lichess məşqi</string>
+  <string name="threefoldRepetition">Üç dəfə təkrar</string>
+  <string name="threefoldRepetitionLowerCase">üç dəfə təkrar</string>
   <string name="positions">vəziyyətlər</string>
   <string name="configure">konfiqurasiya</string>
   <string name="accounts">Hesablar</string>
+  <string name="asWellAsManyNMtitles">bir çox milli usta titulları</string>
   <string name="verificationForm">təsdiqləmə formu</string>
   <string name="noUpperCaseDot">Xeyr.</string>
+  <string name="whatUsernameCanIchoose">İstifadəçi adım nə ola bilər?</string>
   <string name="guidelines">təlimatlat</string>
+  <string name="canIChangeMyUsername">İstifadəçi adımı dəyişə bilərəmmi?</string>
   <string name="uniqueTrophies">Unikal kuboklar</string>
+  <string name="aHourlyBulletTournament">bir saatlıq Bullet turniri</string>
   <string name="lichessRatings">Lichess reytinqi</string>
   <string name="ratingLeaderboards">liderlik cədvəli</string>
+  <string name="displayPreferences">görüntü ayarları</string>
   <string name="howToThreeDots">Necə...</string>
+  <string name="viewSiteInformationPopUp">Sayt haqqında məlumat pəncərəsinə baxın</string>
 </resources>

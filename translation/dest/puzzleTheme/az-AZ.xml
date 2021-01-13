@@ -7,6 +7,7 @@
   <string name="backRankMate">Arxa xətdə mat</string>
   <string name="bishopEndgame">Fil sonluğu</string>
   <string name="castling">Qalaqurma</string>
+  <string name="capturingDefender">Müdafiəçini vurmaq</string>
   <string name="crushing">Əzici üstünlük</string>
   <string name="equality">Bərabərləşmə</string>
   <string name="kingsideAttack">Şah cinahında hücum</string>
@@ -22,7 +23,9 @@
   <string name="intermezzo">İntermezzo</string>
   <string name="knightEndgame">At sonluğu</string>
   <string name="long">Uzun tapmaca</string>
+  <string name="longDescription">3 gedişə qələbə.</string>
   <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mat</string>
+  <string name="mateDescription">Oyunu üslubuyla qazanın.</string>
   <string name="mateIn1">1 Gedişə Mat</string>
   <string name="mateIn2">2 Gedişə Mat</string>
   <string name="mateIn3">3 Gedişə Mat</string>
@@ -32,6 +35,7 @@
   <string name="oneMove">Bir gedişlik tapmaca</string>
   <string name="opening">Debüt</string>
   <string name="pawnEndgame">Piyada sonluğu</string>
+  <string name="pawnEndgameDescription">Sadəcə piyadalrın olduğu oyun sonu.</string>
   <string name="pin">Bağlama</string>
   <string name="promotion">Çevrilmə</string>
   <string name="queenEndgame">Vəzir sonluğu</string>
@@ -45,7 +49,9 @@
   <string name="skewer">Şiş</string>
   <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Boğma matı</string>
   <string name="trappedPiece">Tələyə düşmüş fiqur</string>
+  <string name="underPromotion">Zəifə Çevrilmə</string>
   <string name="veryLong">Çox uzun tapmaca</string>
+  <string name="veryLongDescription">4 və daha çox gedişə qələbə.</string>
   <string name="xRayAttack">Rentgen hücumu</string>
   <string name="zugzwang">Suqsvanq</string>
   <string name="healthyMix">Həftəbecər</string>

@@ -44,4 +44,7 @@
   <string name="addAnotherTheme">Voeg nog een thema toe</string>
   <string name="jumpToNextPuzzleImmediately">Direct door naar volgende puzzel</string>
   <string name="puzzleDashboard">Puzzel-dashboard</string>
+  <string name="history">Puzzelscore</string>
+  <string name="won">opgelost</string>
+  <string name="failed">niet opgelost</string>
 </resources>

@@ -105,7 +105,7 @@
   <string name="replayMode">Təkrar rejimi</string>
   <string name="realtimeReplay">Gerçək zamada</string>
   <string name="byCPL">CPL üzrə</string>
-  <string name="openStudy">Təhlili aç</string>
+  <string name="openStudy">Çalışmanı aç</string>
   <string name="enable">Aktiv</string>
   <string name="bestMoveArrow">Ən yaxşı gedişi göstər</string>
   <string name="evaluationGauge">Dəyərləndirmə çubuğu</string>
@@ -464,7 +464,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Gedişdən sonra növbəti oyuna avtomatik keçid</string>
   <string name="autoSwitch">Avtomatik keçid / dəyiş</string>
-  <string name="puzzles">Puzzlelar</string>
+  <string name="puzzles">Tapmacalar</string>
   <string name="latestUpdates">Son yeniliklər</string>
   <string name="tournamentWinners">Turnirin qalibləri</string>
   <string name="name">Komanda adı</string>
@@ -635,7 +635,7 @@
   <string name="keyEnterOrExitVariation">giriş/çıxış variasiyası</string>
   <string name="newTournament">Yeni turnir</string>
   <string name="tournamentHomeTitle">Müxtəlif zaman kontrollu və variantlı şahmat turnuri.</string>
-  <string name="tournamentHomeDescription">Sürətli şahmat turnirləri oyna! Rəsmi təyin olunmuş turnirlər qoşul və ya özün turnir yarat. Bulit, Blitz, Klassik, Chess960, King of the Hill, Threecheck və digər sonsuz şahmat əyləncəsi.</string>
+  <string name="tournamentHomeDescription">Sürətli şahmat turnirləri oyna! Rəsmi təyin olunmuş turnirlərə qoşul və ya özün turnir yarat. Bullet, Blitz, Klassik, Chess960, King of the Hill, Threecheck və digər sonsuz şahmat əyləncəsi.</string>
   <string name="tournamentNotFound">Turnir tapılmadı</string>
   <string name="tournamentDoesNotExist">Bu turnir mövcud deyil</string>
   <string name="tournamentMayHaveBeenCanceled">Əgər turnir başlamadan öncə bütün oyunçular turniri tərk edərsə, o turnir ləğv oluna bilər.</string>
@@ -689,7 +689,7 @@
   <string name="zeroAdvertisement">Sıfır reklam</string>
   <string name="fullFeatured">Tam özəllikli</string>
   <string name="phoneAndTablet">Telefon və tablet</string>
-  <string name="bulletBlitzClassical">Bulit, blitz, klassik</string>
+  <string name="bulletBlitzClassical">Bullet, blitz, klassik</string>
   <string name="correspondenceChess">Yazışmalı şahmat</string>
   <string name="onlineAndOfflinePlay">Onlayn və offlayn oyna</string>
   <string name="viewTheSolution">Həlli gör</string>
