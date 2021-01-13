@@ -31,7 +31,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   const autoNext = storedProp('puzzle.autoNext', false);
   const ground = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
   const threatMode = prop(false);
-  const session = new PuzzleSession(opts.data.theme.key);
+  const session = new PuzzleSession(opts.data.theme.key, $('body').data('user'));
 
   // required by ceval
   vm.showComputer = () => vm.mode === 'view';

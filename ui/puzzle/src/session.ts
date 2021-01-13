@@ -17,7 +17,7 @@ export default class PuzzleSession {
   maxSize = 100;
   maxAge = 1000 * 3600;
 
-  constructor(readonly theme: ThemeKey) {
+  constructor(readonly theme: ThemeKey, readonly userId?: string) {
   }
 
   default = () => ({
@@ -26,7 +26,7 @@ export default class PuzzleSession {
     at: Date.now()
   });
 
-  store = storedJsonProp<Store>('puzzle.session', this.default);
+  store = storedJsonProp<Store>(`puzzle.session.${this.userId || 'anon'}`, this.default);
 
   clear = () => this.update(s => ({ ...s, rounds: [] }));
 
