@@ -282,7 +282,8 @@ object layout {
           ),
           a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting()),
           loadScripts(moreJs, chessground)
-        )
+        ),
+        siteFooter()
       )
     )
 
@@ -345,6 +346,16 @@ object layout {
           ctx.me map { me =>
             frag(allNotifications, dasher(me))
           } getOrElse { !ctx.pageData.error option anonDasher(playing) }
+        )
+      )
+  }
+
+  object siteFooter {
+
+    def apply()(implicit ctx: Context) =
+      footer(id := "bottom")(
+        ctx.isAuth option form(action := routes.Auth.logout(), method := "post")(
+            button(cls := "button button-red", tpe := "submit")(trans.logOut.txt())
         )
       )
   }
