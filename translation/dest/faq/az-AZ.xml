@@ -48,6 +48,7 @@
   <string name="whichRatingSystemUsedByLichess">Lichess hansı reytinq sistemindən istifadə edir?</string>
   <string name="similarOpponents">eynigüclü rəqiblər</string>
   <string name="howDoLeaderoardsWork">Sıralama və liderlik cədvəli necə işləyir?</string>
+  <string name="inOrderToAppearsYouMust">%1$s cədvəlinə daxil olmaq üçün bunları etməlisiniz:</string>
   <string name="ratingLeaderboards">liderlik cədvəli</string>
   <string name="beInTopTen">bu reytinqdə ilk 10-da olmaq.</string>
   <string name="howToHideRatingWhilePlaying">Oynayarkən reytinqləri necə gizlətmək olar?</string>
