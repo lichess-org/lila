@@ -6,6 +6,7 @@
   <string name="attraction">Cəlbetmə</string>
   <string name="backRankMate">Arxa xətdə mat</string>
   <string name="bishopEndgame">Fil sonluğu</string>
+  <string name="bishopEndgameDescription">Yalnız fillər və piyadalardan ibarət oyun sonu.</string>
   <string name="castling">Qalaqurma</string>
   <string name="capturingDefender">Müdafiəçini vurmaq</string>
   <string name="crushing">Əzici üstünlük</string>
@@ -22,6 +23,7 @@
   <string name="interference">Yolukəsmə</string>
   <string name="intermezzo">İntermezzo</string>
   <string name="knightEndgame">At sonluğu</string>
+  <string name="knightEndgameDescription">Yalnız atlar və piyadalardan ibarət oyun sonu.</string>
   <string name="long">Uzun tapmaca</string>
   <string name="longDescription">3 gedişə qələbə.</string>
   <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mat</string>
@@ -41,12 +43,13 @@
   <string name="oneMoveDescription">Bir gedişlik tapmacalar.</string>
   <string name="opening">Debüt</string>
   <string name="pawnEndgame">Piyada sonluğu</string>
-  <string name="pawnEndgameDescription">Sadəcə piyadalrın olduğu oyun sonu.</string>
+  <string name="pawnEndgameDescription">Sadəcə piyadalardan ibarət oyun sonu.</string>
   <string name="pin">Bağlama</string>
   <string name="promotion">Çevrilmə</string>
   <string name="queenEndgame">Vəzir sonluğu</string>
   <string name="queenEndgameDescription">Yalnız vəzirlər və piyadalardan ibarət oyun sonu.</string>
   <string name="queenRookEndgame">Vəzir və Top</string>
+  <string name="queenRookEndgameDescription">Yalnız vəzirlər, toplar və piyadalardan ibarət oyun sonu.</string>
   <string name="queensideAttack">Vəzir cinahında hücum</string>
   <string name="quietMove">Sakit gediş</string>
   <string name="rookEndgame">Top sonluğu</string>
@@ -58,6 +61,7 @@
   <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Boğma matı</string>
   <string name="trappedPiece">Tələyə düşmüş fiqur</string>
   <string name="underPromotion">Zəifə Çevrilmə</string>
+  <string name="underPromotionDescription">Ata, filə və ya topa çevrilmə.</string>
   <string name="veryLong">Çox uzun tapmaca</string>
   <string name="veryLongDescription">4 və daha çox gedişə qələbə.</string>
   <string name="xRayAttack">Rentgen hücumu</string>
