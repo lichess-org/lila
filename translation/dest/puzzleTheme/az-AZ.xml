@@ -43,6 +43,7 @@
   <string name="oneMove">Bir gedişlik tapmaca</string>
   <string name="oneMoveDescription">Bir gedişlik tapmacalar.</string>
   <string name="opening">Debüt</string>
+  <string name="openingDescription">Oyunun ilk mərhələsindəki taktikalar.</string>
   <string name="pawnEndgame">Piyada sonluğu</string>
   <string name="pawnEndgameDescription">Sadəcə piyadalardan ibarət oyun sonu.</string>
   <string name="pin">Bağlama</string>
