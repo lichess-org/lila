@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Bulmacalar</string>
-  <string name="puzzleThemes">Bulmacalar</string>
+  <string name="puzzleThemes">Bulmaca temaları</string>
   <string name="recommended">Önerilen</string>
   <string name="phases">Oyun bölümleri</string>
   <string name="motifs">Motifler</string>
@@ -13,8 +13,8 @@
   <string name="didYouLikeThisPuzzle">Bulmacayı beğendiniz mi?</string>
   <string name="voteToLoadNextOne">Sıradakine geçmek için oy verin!</string>
   <string name="yourPuzzleRatingX">Bulmaca puanınız: %s</string>
-  <string name="findTheBestMoveForWhite">Beyaz için en iyi hamleyi bulun.</string>
-  <string name="findTheBestMoveForBlack">Siyah için en iyi hamleyi bulun.</string>
+  <string name="findTheBestMoveForWhite">Beyaz için en iyi hamleyi bulunuz.</string>
+  <string name="findTheBestMoveForBlack">Siyah için en iyi hamleyi bulunuz.</string>
   <string name="toGetPersonalizedPuzzles">Kişiselleştirilmiş bulmacalar için:</string>
   <string name="puzzleId">Bulmaca %s</string>
   <string name="puzzleOfTheDay">Günün bulmacası</string>
@@ -44,9 +44,9 @@
   <string name="addAnotherTheme">Başka bir tema ekle</string>
   <string name="jumpToNextPuzzleImmediately">Hemen sonraki bulmacaya atla</string>
   <string name="puzzleDashboard">Bulmaca kontrol paneli</string>
-  <string name="improvementAreas">Gelişim alanları</string>
+  <string name="improvementAreas" comment="improvementAreas&#10;&#10;These are puzzle themes that the user is weakest at, and can train on to optimize their progress.">Gelişim alanları</string>
   <string name="strengths">Güçlü yönler</string>
-  <string name="history">Bulmaca geçmişi</string>
-  <string name="won">başarılı</string>
-  <string name="failed">başarısız</string>
+  <string name="history" comment="history&#10;&#10;In the puzzle dashboard, the title of a tab for viewing previously attempted puzzles.">Bulmaca geçmişi</string>
+  <string name="won" comment="won&#10;&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">başarılı</string>
+  <string name="failed" comment="failed&#10;&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.">başarısız</string>
 </resources>
