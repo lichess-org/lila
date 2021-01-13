@@ -47,4 +47,6 @@
   <string name="improvementAreas">Plads til forbedring</string>
   <string name="strengths">Styrke</string>
   <string name="history">Opgavehistorik</string>
+  <string name="won">løst</string>
+  <string name="failed">mislykket</string>
 </resources>
