@@ -45,8 +45,10 @@
   <string name="aHourlyBulletTournament">bir saatlıq Bullet turniri</string>
   <string name="lichessRatings">Lichess reytinqi</string>
   <string name="similarOpponents">eynigüclü rəqiblər</string>
+  <string name="howDoLeaderoardsWork">Sıralama və liderlik cədvəli necə işləyir?</string>
   <string name="ratingLeaderboards">liderlik cədvəli</string>
   <string name="beInTopTen">bu reytinqdə ilk 10-da olmaq.</string>
+  <string name="howToHideRatingWhilePlaying">Oynayarkən reytinqləri necə gizlətmək olar?</string>
   <string name="displayPreferences">görüntü ayarları</string>
   <string name="howToThreeDots">Necə...</string>
   <string name="viewSiteInformationPopUp">Sayt haqqında məlumat pəncərəsinə baxın</string>
