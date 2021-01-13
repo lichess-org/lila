@@ -21,6 +21,7 @@
   <string name="trolling">trollama</string>
   <string name="insults">təhqir</string>
   <string name="otherReason">başqa bir səbəb</string>
+  <string name="toReportAPlayer">%s üçün bir oyunçunu şikayət etmək üçün şikayət formunu istifadə edin</string>
   <string name="doNotReportInForum">Forumdakı oyunçuları şikayət etməyin.</string>
   <string name="doNotSendReportEmails">Bizə şikayət e-poçtları göndərməyin.</string>
   <string name="doNotMessageModerators">Moderatorlara birbaşa mesaj göndərməyin.</string>
@@ -35,6 +36,7 @@
   <string name="insufficientMaterial">Mat üçün yetərsiz fiqur</string>
   <string name="noRatingPoints">Heç bir reytinq xalı verilməyib</string>
   <string name="errorPage">Xəta səhifəsi</string>
+  <string name="reportErrorPage">Bir səhv səhifəsi ilə qarşılaşmısınızsa, bu barədə məlumat verə bilərsiniz:</string>
   <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Ban və ya IP məhdudlaşması üçün müraciət edin</string>
   <string name="engineAppeal">Şahmat mühərriki istifadəsi və ya hiylə işarəsi</string>
   <string name="sendAppealTo">Buraya müraciət edə bilərsiniz: %s.</string>
