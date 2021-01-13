@@ -52,6 +52,7 @@
   <string name="thisStudentAccountIsManaged">Bu tələbə hesabı idarə olunur</string>
   <string name="upgradeFromManaged">İdarə ediləndən hesabdan normal hesaba keçin</string>
   <string name="release">Azad et</string>
+  <string name="releaseTheAccount">Hesabı tələbənin özbaşına idarə edə bilməsinə icazə ver.</string>
   <string name="teachers">Müəllimlər</string>
   <plurals name="nbTeachers">
     <item quantity="one">%s müəllim</item>
