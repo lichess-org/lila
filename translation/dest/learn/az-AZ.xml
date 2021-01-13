@@ -58,6 +58,8 @@
   <string name="howTheGameStarts">Oyuna necə başlamalı</string>
   <string name="castling">Qalaqurma</string>
   <string name="theSpecialKingMove">Xüsusi şah gedişi</string>
+  <string name="findAWayToCastleKingSide">Şah tərəfə qalaqurmanın bir yolunu tap!</string>
+  <string name="findAWayToCastleQueenSide">Vəzir tərəfə qalaqurmanın bir yolunu tapın!</string>
   <string name="enPassant">Keçiddə götürmə</string>
   <string name="theSpecialPawnMove">Xüsusi piyada gedişi</string>
   <string name="takeAllThePawnsEnPassant">Bütün keçiddə piyadaları götür!</string>
@@ -78,6 +80,7 @@
   <string name="videos">Videolar</string>
   <string name="watchInstructiveChessVideos">Öyrədici şahmat videolarını izlə</string>
   <string name="playPeople">İnsanlarla oyna</string>
+  <string name="opponentsFromAroundTheWorld">Dünyanın hər yerindən oyunçular</string>
   <string name="playMachine">Kompüterlə oyna</string>
   <string name="letsGo">Getdik!</string>
   <string name="stageX">Mərhələ %s</string>
