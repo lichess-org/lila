@@ -8,21 +8,19 @@ final class InsightApi(
     pipeline: AggregationPipeline,
     userCacheApi: UserCacheApi,
     gameRepo: GameRepo,
-    indexer: Indexer
+    indexer: InsightIndexer
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import InsightApi._
 
   def userCache(user: User): Fu[UserCache] =
-    userCacheApi find user.id flatMap {
-      case Some(c) => fuccess(c)
-      case None =>
-        for {
-          count <- storage count user.id
-          ecos  <- storage ecos user.id
-          c = UserCache.make(user.id, count, ecos)
-          _ <- userCacheApi save c
-        } yield c
+    userCacheApi find user.id getOrElse {
+      for {
+        count <- storage count user.id
+        ecos  <- storage ecos user.id
+        c = UserCache.make(user.id, count, ecos)
+        _ <- userCacheApi save c
+      } yield c
     }
 
   def ask[X](question: Question[X], user: User): Fu[Answer[X]] =

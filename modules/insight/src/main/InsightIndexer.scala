@@ -6,13 +6,13 @@ import reactivemongo.api._
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
+import lila.common.LilaStream
 import lila.db.dsl._
 import lila.game.BSONHandlers.gameBSONHandler
 import lila.game.{ Game, GameRepo, Query }
-import lila.common.LilaStream
 import lila.user.{ User, UserRepo }
 
-final private class Indexer(
+final private class InsightIndexer(
     povToEntry: PovToEntry,
     gameRepo: GameRepo,
     userRepo: UserRepo,
@@ -23,7 +23,7 @@ final private class Indexer(
 ) {
 
   private val workQueue =
-    new lila.hub.DuctSequencer(maxSize = 64, timeout = 1 minute, name = "insightIndexer")
+    new lila.hub.DuctSequencer(maxSize = 128, timeout = 2 minutes, name = "insightIndexer")
 
   def all(userId: User.ID): Funit =
     workQueue {
@@ -73,8 +73,7 @@ final private class Indexer(
       .sort(Query.sortChronological)
       .one[Game](readPreference = ReadPreference.secondaryPreferred)
 
-  private def computeFrom(user: User, from: DateTime, fromNumber: Int): Funit = {
-
+  private def computeFrom(user: User, from: DateTime, fromNumber: Int): Funit =
     storage nbByPerf user.id flatMap { nbs =>
       var nbByPerf = nbs
       def toEntry(game: Game): Fu[Option[Entry]] =
@@ -85,9 +84,7 @@ final private class Indexer(
             logger.warn(e.getMessage, e)
           } map (_.toOption)
         }
-      val query      = gameQuery(user) ++ $doc(Game.BSONFields.createdAt $gte from)
-      val bulkInsert = 50
-      val perSecond  = 800
+      val query = gameQuery(user) ++ $doc(Game.BSONFields.createdAt $gte from)
       gameRepo
         .sortedCursor(query, Query.sortChronological)
         .documentSource(maxGames)
@@ -95,11 +92,10 @@ final private class Indexer(
         .via(LilaStream.collect)
         .zipWithIndex
         .map { case (e, i) => e.copy(number = fromNumber + i.toInt) }
-        .grouped(bulkInsert)
-        .throttle(perSecond / bulkInsert, 1 second)
+        .grouped(100)
         .map(storage.bulkInsert)
         .toMat(Sink.ignore)(Keep.right)
         .run()
     } void
-  }
+
 }
