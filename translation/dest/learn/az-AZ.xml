@@ -36,6 +36,8 @@
   <string name="knightIntro">Yaxşı yerdə axşamladıq. At... biraz çətin bir fiqurdur.</string>
   <string name="knightsHaveAFancyWay">Atların üstündən atlamaq kimi
 özünəməxsus mərifəti var!</string>
+  <string name="knightsCanJumpOverObstacles">Atlar maneələrin üstündən tullana bilər!
+Tullanın və bütün ulduzları toplayın!</string>
   <string name="knightComplete">Təbriklər! Atı idarə etməyi öyrəndiniz.</string>
   <string name="thePawn">Piyada</string>
   <string name="itMovesForwardOnly">Yalnız irəliləyir</string>
