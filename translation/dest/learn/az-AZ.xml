@@ -33,6 +33,7 @@
   <string name="kingComplete">İndi isə əmr sahibinə əmri siz verə bilərsiniz!</string>
   <string name="theKnight">At</string>
   <string name="itMovesInAnLShape">L hərfi formasında hərəkət edir</string>
+  <string name="knightIntro">Yaxşı yerdə axşamladıq. At... biraz çətin bir fiqurdur.</string>
   <string name="knightsHaveAFancyWay">Atların üstündən atlamaq kimi
 özünəməxsus mərifəti var!</string>
   <string name="knightComplete">Təbriklər! Atı idarə etməyi öyrəndiniz.</string>
@@ -55,12 +56,15 @@ lakin çapraz vurur!</string>
   <string name="fundamentals">Təməl Prinsiplər</string>
   <string name="capture">Vurma</string>
   <string name="takeTheEnemyPieces">Rəqib daşlarını vur</string>
+  <string name="captureIntro">Rəqibin müdafiəsiz fiqurlarını müəyyənləşdirin və onları vurun!</string>
   <string name="takeTheBlackPieces">Qara fiqurları vur!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Qara fiqurları götürün!
 Və özünüzünkünü itirməyin.</string>
   <string name="captureComplete">Təbriklər! Şahmat fiqurları ilə necə mübarizə aparacağınızı bilirsiniz!</string>
   <string name="protection">Müdafiə</string>
   <string name="keepYourPiecesSafe">Fiqurlarını qoru</string>
+  <string name="protectionIntro">Rəqibinizin hücum etdiyi fiqurları müəyyənləşdirin və onları müdafiə edin!</string>
+  <string name="protectionComplete">Təbriklər! İtirmədiyiniz bir fiqur qazandığınız bir fiqurdur!</string>
   <string name="escape">Hücum altındasınız!
 Təhlükədən qaçın!</string>
   <string name="noEscape">Qaçış yoxdur,
@@ -111,6 +115,7 @@ Davam etmək üçün bir gediş edir.</string>
   <string name="boardSetupComplete">Təbrikl\'r! Artıq şahmat taxtasını necə quracağınızı bilirsiniz.</string>
   <string name="castling">Qalaqurma</string>
   <string name="theSpecialKingMove">Xüsusi şah gedişi</string>
+  <string name="castlingIntro">Şahı təhlükəsiz yerə gətirin və hücum üçün topu hazırlayın!</string>
   <string name="castleKingSide">Qısa qalaqurma üçün
 şahını iki xana hərəkət etdir!</string>
   <string name="castleQueenSide">Uzun qalaqurma üçün
@@ -123,6 +128,7 @@ Onu çək və qısa qalaqurma et.</string>
 İlk öncə aradakı fiqurları çəkmək lazımdır.</string>
   <string name="findAWayToCastleKingSide">Qısa qalaqurmanın bir yolunu tap!</string>
   <string name="findAWayToCastleQueenSide">Vəzir tərəfə qalaqurmanın bir yolunu tapın!</string>
+  <string name="castlingComplete">Təbriklər! Demək olar hər bir oyunda qalaqurma etməlisən.</string>
   <string name="enPassant">Keçiddə götürmə</string>
   <string name="theSpecialPawnMove">Xüsusi piyada gedişi</string>
   <string name="enPassantOnlyWorksOnFifthRank">Keçiddə götürmə yalnız
