@@ -30,9 +30,11 @@
     <item quantity="other">%s gözlənən dəvət</item>
   </plurals>
   <string name="noPendingInvitations">Gözlənən dəvət yoxdur</string>
+  <string name="onlyVisibleToTeachers">Yalnız sinif müəllimlərinə görünür</string>
   <string name="lastActiveDate">Aktiv</string>
   <string name="managed">İdarə Edilən</string>
   <string name="thisStudentAccountIsManaged">Bu tələbə hesabı idarə olunur</string>
+  <string name="upgradeFromManaged">İdarə ediləndən hesabdan normal hesaba keçin</string>
   <string name="release">Azad et</string>
   <string name="teachers">Müəllimlər</string>
   <plurals name="nbTeachers">
