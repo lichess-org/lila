@@ -45,6 +45,7 @@
   <string name="pin">Bağlama</string>
   <string name="promotion">Çevrilmə</string>
   <string name="queenEndgame">Vəzir sonluğu</string>
+  <string name="queenEndgameDescription">Yalnız vəzirlər və piyadalardan ibarət oyun sonu.</string>
   <string name="queenRookEndgame">Vəzir və Top</string>
   <string name="queensideAttack">Vəzir cinahında hücum</string>
   <string name="quietMove">Sakit gediş</string>
