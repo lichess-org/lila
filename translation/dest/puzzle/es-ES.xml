@@ -25,7 +25,7 @@
   <string name="puzzleSuccess">¡Éxito!</string>
   <string name="puzzleComplete">¡Rompecabezas terminado!</string>
   <string name="notTheMove">¡Ese no es el movimiento!</string>
-  <string name="trySomethingElse">Prueba otra cosa.</string>
+  <string name="trySomethingElse">Prueba otra movimiento.</string>
   <string name="ratingX">Puntuación: %s</string>
   <string name="hidden">oculto</string>
   <plurals name="playedXTimes">
@@ -44,9 +44,9 @@
   <string name="addAnotherTheme">Añadir otro tema</string>
   <string name="jumpToNextPuzzleImmediately">Ir al siguiente rompecabezas inmediatamente</string>
   <string name="puzzleDashboard">Panel de rompecabezas</string>
-  <string name="improvementAreas">Áreas de mejora</string>
+  <string name="improvementAreas" comment="improvementAreas&#10;&#10;These are puzzle themes that the user is weakest at, and can train on to optimize their progress.">Áreas de mejora</string>
   <string name="strengths">Fortalezas</string>
-  <string name="history">Historial de rompecabezas</string>
-  <string name="won">victoria</string>
-  <string name="failed">error</string>
+  <string name="history" comment="history&#10;&#10;In the puzzle dashboard, the title of a tab for viewing previously attempted puzzles.">Historial de rompecabezas</string>
+  <string name="won" comment="won&#10;&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">victoria</string>
+  <string name="failed" comment="failed&#10;&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.">error</string>
 </resources>
