@@ -17,6 +17,7 @@
   <string name="discoveredAttack">Açaraq hücum</string>
   <string name="doubleCheck">İkiqat şah</string>
   <string name="endgame">Endşpil</string>
+  <string name="endgameDescription">Oyunun son mərhələsindəki taktikalar.</string>
   <string name="exposedKing">Müdafiəsiz şah</string>
   <string name="fork">Çəngəl</string>
   <string name="hangingPiece">Qorunmasız fiqur</string>
