@@ -44,9 +44,8 @@
   <string name="addAnotherTheme">Legg til tema</string>
   <string name="jumpToNextPuzzleImmediately">Gå til neste sjakknøtt med én gang</string>
   <string name="puzzleDashboard">Panel for sjakknøtter</string>
-  <string name="improvementAreas" comment="improvementAreas&#10;&#10;These are puzzle themes that the user is weakest at, and can train on to optimize their progress.">Forbedringsområder</string>
+  <string name="improvementAreas">Forbedringsområder</string>
   <string name="strengths">Styrker</string>
-  <string name="history" comment="history&#10;&#10;In the puzzle dashboard, the title of a tab for viewing previously attempted puzzles.">Historikk for sjakknøtter</string>
-  <string name="won" comment="won&#10;&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">løst</string>
-  <string name="failed" comment="failed&#10;&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.">mislykket</string>
+  <string name="history">Historikk for sjakknøtter</string>
+  <string name="failed">mislykket</string>
 </resources>
