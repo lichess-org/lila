@@ -13,12 +13,12 @@ final class InsightApi(
 
   import InsightApi._
 
-  def userCache(user: User): Fu[UserCache] =
+  def userCache(user: User): Fu[InsightUser] =
     userCacheApi find user.id getOrElse {
       for {
         count <- storage count user.id
         ecos  <- storage ecos user.id
-        c = UserCache.make(user.id, count, ecos)
+        c = InsightUser.make(user.id, count, ecos)
         _ <- userCacheApi save c
       } yield c
     }

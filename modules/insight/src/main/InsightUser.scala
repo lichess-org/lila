@@ -7,29 +7,28 @@ import lila.db.dsl._
 import lila.db.AsyncColl
 import lila.user.User
 
-case class UserCache(
+case class InsightUser(
     _id: User.ID, // user id
     count: Int,   // nb insight entries
-    ecos: Set[String],
-    date: DateTime
+    ecos: Set[String]
 ) {
 
   def id = _id
 }
 
-object UserCache {
+object InsightUser {
 
   def make(userId: User.ID, count: Int, ecos: Set[String]) =
-    UserCache(userId, count, ecos, DateTime.now)
+    InsightUser(userId, count, ecos)
 }
 
 final private class UserCacheApi(coll: AsyncColl)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  implicit private val userCacheBSONHandler = Macros.handler[UserCache]
+  implicit private val userCacheBSONHandler = Macros.handler[InsightUser]
 
-  def find(id: String) = coll(_.one[UserCache]($id(id)))
+  def find(id: String) = coll(_.one[InsightUser]($id(id)))
 
-  def save(u: UserCache) = coll(_.update.one($id(u.id), u, upsert = true).void)
+  def save(u: InsightUser) = coll(_.update.one($id(u.id), u, upsert = true).void)
 
   def remove(id: String) = coll(_.delete.one($id(id)).void)
 }
