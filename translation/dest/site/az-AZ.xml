@@ -464,7 +464,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Gedişdən sonra növbəti oyuna avtomatik keçid</string>
   <string name="autoSwitch">Avtomatik keçid / dəyiş</string>
-  <string name="puzzles">Puzzlelar</string>
+  <string name="puzzles">Tapmacalar</string>
   <string name="latestUpdates">Son yeniliklər</string>
   <string name="tournamentWinners">Turnirin qalibləri</string>
   <string name="name">Komanda adı</string>
