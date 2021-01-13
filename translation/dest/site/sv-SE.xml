@@ -842,6 +842,6 @@
   <string name="subscribe">Prenumerera</string>
   <string name="unsubscribe">Avprenumerera</string>
   <string name="challengeDeclined">Utmaning avböjd</string>
-  <string name="challengeAccepted">Utmaning antagen!</string>
+  <string name="challengeAccepted">Utmaning accepterad!</string>
   <string name="challengeCanceled">Utmaning avbruten.</string>
 </resources>
