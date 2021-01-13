@@ -2,6 +2,7 @@
 <resources>
   <string name="lichessClasses">Siniflər</string>
   <string name="features">Özəlliklər</string>
+  <string name="applyToBeLichessTeacher">Lichess müəllimi olmaq üçün müraciət edin</string>
   <string name="noClassesYet">Hələki bir sinif yoxdur.</string>
   <string name="teachersX">Müəllimlər: %s</string>
   <string name="newClass">Yeni sinif</string>
