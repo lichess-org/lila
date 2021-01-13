@@ -54,5 +54,6 @@
   <string name="howToHideRatingWhilePlaying">Oynayarkən reytinqləri necə gizlətmək olar?</string>
   <string name="displayPreferences">görüntü ayarları</string>
   <string name="howToThreeDots">Necə...</string>
+  <string name="enableDisableNotificationPopUps">Bildiriş popupları aktiv və ya deaktiv edilsin?</string>
   <string name="viewSiteInformationPopUp">Sayt haqqında məlumat pəncərəsinə baxın</string>
 </resources>
