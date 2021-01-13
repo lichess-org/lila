@@ -24,6 +24,9 @@
   <string name="realName">Həqiqi ad</string>
   <string name="addStudent">Tələbə əlavə et</string>
   <string name="lichessProfileXCreatedForY" comment="lichessProfileXCreatedForY&#10;&#10;%1$s is the created account (nickname) &#10;%$2s is the real name of the student (only visible for the teacher)">%2$s üçün %1$s Lichess profili yaradıldı.</string>
+  <string name="studentCredentials">Tələbə: %1$s
+İstifadəçi adı: %2$s
+Şifrə: %3$s</string>
   <string name="inviteALichessAccount">Bir Lichess hesabı dəvət edin</string>
   <string name="createANewLichessAccount">Yeni bir Lichess hesabı yaradın</string>
   <string name="lichessUsername">Lichess istifadəçi adı</string>
