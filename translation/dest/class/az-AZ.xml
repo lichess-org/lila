@@ -4,6 +4,7 @@
   <string name="features">Özəlliklər</string>
   <string name="trackStudentProgress">Oyunlarda və tapmacalarda tələbələrin irəliləyişini izləyin</string>
   <string name="messageAllStudents">Bütün tələbələrə yeni dərs materialları haqqında mesaj göndərin</string>
+  <string name="freeForAllForever">Heç bir reklam və izləyicisiz, hər kəs üçün 100% pulsuz</string>
   <string name="applyToBeLichessTeacher">Lichess müəllimi olmaq üçün müraciət edin</string>
   <string name="noClassesYet">Hələki bir sinif yoxdur.</string>
   <string name="teachersX">Müəllimlər: %s</string>
@@ -17,6 +18,7 @@
   <string name="sendAMessage">Bütün tələbələrə mesaj göndərin.</string>
   <string name="className">Sinif adı</string>
   <string name="classDescription">Sinif açıqlaması</string>
+  <string name="visibleByBothStudentsAndTeachers">Həm müəllimlər, həm də sinif şagirdləri tərəfindən görünür</string>
   <string name="teachersOfTheClass">Sinif müəllimləri</string>
   <string name="theyMustFirstApply">Əvvəlcə Lichess Müəllimi olmaq üçün müraciət etməlidirlər.</string>
   <string name="resetPassword">Şifrəni sıfırla</string>
