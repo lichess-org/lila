@@ -49,6 +49,5 @@
   <string name="improvementAreas">Vietos tobulėjimui</string>
   <string name="strengths">Striprybės</string>
   <string name="history">Užduočių istorija</string>
-  <string name="won">nugalėta</string>
   <string name="failed">nepavyko</string>
 </resources>
