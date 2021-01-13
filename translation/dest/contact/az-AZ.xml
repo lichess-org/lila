@@ -15,7 +15,9 @@
   <string name="wantTitle">Titulumun Lichessdə göstərilməsini istəyirəm</string>
   <string name="wantCloseAccount">Hesabımı bağlamaq istəyirəm</string>
   <string name="closeYourAccount">Bu səhifədəki hesabınızı bağlaya bilərsiniz</string>
+  <string name="doNotAskByEmail">Bizdən bir hesabı bağlamağımızı e-poçtla istəməyin, bunu etməyəcəyik.</string>
   <string name="wantReopen">Hesabımı yenidən açmaq istəyirəm</string>
+  <string name="doNotAskByEmailToReopen">Bizdən bir hesabı yenidən açmağımızı e-poçtla istəməyin, etməyəcəyik.</string>
   <string name="wantChangeUsername">İstifadəçi adımı dəyişmək istəyirəm</string>
   <string name="changeUsernameCase">İstifadəçi adınızda böyük və ya kiçik hərf dəyişikliyi etmək üçün bu səhifəni ziyarət edin</string>
   <string name="wantClearHistory">Tarixçəmi və ya reytinqimi sıfırlamaq istəyirəm</string>
@@ -35,6 +37,7 @@
   <string name="reportMobileIssue">Lichess mobil tətbiqi problemləri GitHubda</string>
   <string name="reportBugInDiscord">Lichessin Discord serverində</string>
   <string name="illegalPawnCapture">Sehv piyada vurma</string>
+  <string name="calledEnPassant">Buna \"keçiddə götürmə\" deyirlər və bu şahmatın qaydalarından biridir.</string>
   <string name="illegalCastling">Qanunsuz və ya qeyri-mümkün qalaqurma</string>
   <string name="castlingRules">Qalaqurma qaydalarını başa düşdüyünüzdən əmin olun</string>
   <string name="insufficientMaterial">Mat üçün yetərsiz fiqur</string>
