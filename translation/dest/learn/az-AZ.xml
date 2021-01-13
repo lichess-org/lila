@@ -35,6 +35,7 @@
   <string name="itMovesInAnLShape">L hərfi formasında hərəkət edir</string>
   <string name="knightsHaveAFancyWay">Atların üstündən atlamaq kimi
 özünəməxsus mərifəti var!</string>
+  <string name="knightComplete">Təbriklər! Atı idarə etməyi öyrəndiniz.</string>
   <string name="thePawn">Piyada</string>
   <string name="itMovesForwardOnly">Yalnız irəliləyir</string>
   <string name="pawnsMoveForward">Piyadalar irəliyə gedir,
@@ -44,6 +45,7 @@ lakin çapraz vurur!</string>
 Çevrilməyə ehtiyac yoxdur.</string>
   <string name="grabAllTheStarsNoNeedToPromote">Bütün ulduzları yığın!
 Çevrilməyə ehtiyac yoxdur.</string>
+  <string name="pawnComplete">Təbriklər! Artıq Piyadaların da sizdən gizlədəcək bir şeyləri yoxdur.</string>
   <string name="pawnPromotion">Piyadanın çevrilməsi</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Piyadanız lövhənin sonuna çatdı!</string>
   <string name="itNowPromotesToAStrongerPiece">İndi daha güclü bir fiqura çevrilir.</string>
@@ -72,6 +74,8 @@ bir hərəkətdə!</string>
   <string name="outOfCheck">Şahı qoru</string>
   <string name="defendYourKing">Şahı müdafiə edin</string>
   <string name="escapeWithTheKing">Şah ilə qaç!</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Bu at müdafiənin
+üstündən şah verdi!</string>
   <string name="escapeOrBlock">Şahla qaç
 və ya hücumu blokla!</string>
   <string name="mateInOne">Mat vermə</string>
@@ -79,6 +83,8 @@ və ya hücumu blokla!</string>
   <string name="intermediate">Orta</string>
   <string name="boardSetup">Fuqurların düzülüşü</string>
   <string name="howTheGameStarts">Oyuna necə başlamalı</string>
+  <string name="firstPlaceTheRooks">İlk öncə topları yerləşdirin!
+Onlar künclərdə yerəşir.</string>
   <string name="placeTheQueen">Vəziri qoyun!
 Özüylə eyni rəngli xanaya.</string>
   <string name="placeTheKing">Şahı qoyun!
