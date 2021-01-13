@@ -52,6 +52,8 @@ lakin çapraz vurur!</string>
   <string name="capture">Vurma</string>
   <string name="takeTheEnemyPieces">Rəqib daşlarını vur</string>
   <string name="takeTheBlackPieces">Qara fiqurları vur!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Qara fiqurları götürün!
+Və özünüzünkünü itirməyin.</string>
   <string name="protection">Müdafiə</string>
   <string name="keepYourPiecesSafe">Fiqurlarını qoru</string>
   <string name="escape">Hücum altındasınız!
