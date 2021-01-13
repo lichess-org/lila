@@ -36,6 +36,8 @@
   <string name="thePawn">Piyada</string>
   <string name="itMovesForwardOnly">Yalnız irəliləyir</string>
   <string name="captureThenPromote">Vur və çevril!</string>
+  <string name="useAllThePawns">Bütün piyadalardan istifadə edin!
+Çevrilməyə ehtiyac yoxdur.</string>
   <string name="pawnPromotion">Piyadanın çevrilməsi</string>
   <string name="itNowPromotesToAStrongerPiece">İndi daha güclü bir fiqura çevrilir.</string>
   <string name="selectThePieceYouWant">İstədiyiniz fiquru seçin!</string>
@@ -69,6 +71,7 @@
   <string name="advanced">Ətraflı</string>
   <string name="pieceValue">Fiqur dəyəri</string>
   <string name="evaluatePieceStrength">Fiqur gücü qiymətləndirilməsi</string>
+  <string name="takeThePieceWithTheHighestValue">Ən dəyərli fiquru götürün!</string>
   <string name="checkInTwo">2 gedişə şah</string>
   <string name="twoMovesToGiveCheck">Şah vermək üçün iki gediş</string>
   <string name="whatNext">Sırada nə var?</string>
