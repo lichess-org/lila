@@ -86,6 +86,8 @@ incest
 jerk
 jizz?(um|)
 kaffir
+kb
+keyboard
 kike
 kys
 labia
