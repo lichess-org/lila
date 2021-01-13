@@ -78,6 +78,8 @@ və ya hücumu blokla!</string>
   <string name="intermediate">Orta</string>
   <string name="boardSetup">Fuqurların düzülüşü</string>
   <string name="howTheGameStarts">Oyuna necə başlamalı</string>
+  <string name="placeTheQueen">Vəziri qoyun!
+Özüylə eyni rəngli xanaya.</string>
   <string name="placeTheKing">Şahı qoyun!
 Düz vəzirin yanına.</string>
   <string name="castling">Qalaqurma</string>
