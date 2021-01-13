@@ -12,6 +12,7 @@
   <string name="removeStudent">Tələbəni sil</string>
   <string name="removedStudents">Çıxarıldı</string>
   <string name="inviteTheStudentBack">Tələbəni yenidən dəvət edin</string>
+  <string name="sendAMessage">Bütün tələbələrə mesaj göndərin.</string>
   <string name="className">Sinif adı</string>
   <string name="classDescription">Sinif açıqlaması</string>
   <string name="teachersOfTheClass">Sinif müəllimləri</string>
@@ -31,6 +32,7 @@
   <string name="noPendingInvitations">Gözlənən dəvət yoxdur</string>
   <string name="lastActiveDate">Aktiv</string>
   <string name="managed">İdarə Edilən</string>
+  <string name="thisStudentAccountIsManaged">Bu tələbə hesabı idarə olunur</string>
   <string name="release">Azad et</string>
   <string name="teachers">Müəllimlər</string>
   <plurals name="nbTeachers">
