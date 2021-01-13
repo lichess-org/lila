@@ -38,6 +38,7 @@
   <string name="mateIn5Description">Uzun mat ardıcıllığını həll etməyə çalışın.</string>
   <string name="middlegame">Mittelşpil</string>
   <string name="oneMove">Bir gedişlik tapmaca</string>
+  <string name="oneMoveDescription">Bir gedişlik tapmacalar.</string>
   <string name="opening">Debüt</string>
   <string name="pawnEndgame">Piyada sonluğu</string>
   <string name="pawnEndgameDescription">Sadəcə piyadalrın olduğu oyun sonu.</string>
@@ -48,6 +49,7 @@
   <string name="queensideAttack">Vəzir cinahında hücum</string>
   <string name="quietMove">Sakit gediş</string>
   <string name="rookEndgame">Top sonluğu</string>
+  <string name="rookEndgameDescription">Sadəcə top və piyadaların olduğu oyun sonluğu.</string>
   <string name="sacrifice">Qurban</string>
   <string name="short">Qısa tapmaca</string>
   <string name="shortDescription">2 gedişə qələbə.</string>
