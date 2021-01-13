@@ -17,6 +17,7 @@
   <string name="closeYourAccount">Bu səhifədəki hesabınızı bağlaya bilərsiniz</string>
   <string name="doNotAskByEmail">Bizdən bir hesabı bağlamağımızı e-poçtla istəməyin, bunu etməyəcəyik.</string>
   <string name="wantReopen">Hesabımı yenidən açmaq istəyirəm</string>
+  <string name="reopenOnThisPage">Bu səhifədə hesabınızı yenidən aça bilərsiniz. Yalnız bir dəfə işləyir.</string>
   <string name="doNotAskByEmailToReopen">Bizdən bir hesabı yenidən açmağımızı e-poçtla istəməyin, etməyəcəyik.</string>
   <string name="wantChangeUsername">İstifadəçi adımı dəyişmək istəyirəm</string>
   <string name="changeUsernameCase">İstifadəçi adınızda böyük və ya kiçik hərf dəyişikliyi etmək üçün bu səhifəni ziyarət edin</string>
@@ -41,6 +42,7 @@
   <string name="calledEnPassant">Buna \"keçiddə götürmə\" deyirlər və bu şahmatın qaydalarından biridir.</string>
   <string name="illegalCastling">Qanunsuz və ya qeyri-mümkün qalaqurma</string>
   <string name="castlingRules">Qalaqurma qaydalarını başa düşdüyünüzdən əmin olun</string>
+  <string name="tryCastling">Şahmatda qalaqurma etmək üçün bu kiçik interaktiv oyunu sınayın</string>
   <string name="insufficientMaterial">Mat üçün yetərsiz fiqur</string>
   <string name="noRatingPoints">Heç bir reytinq xalı verilməyib</string>
   <string name="errorPage">Xəta səhifəsi</string>
