@@ -79,6 +79,7 @@ götürmələrinə imkan verməyin!</string>
   <string name="combatComplete">Təbriklər! Şahmat fiqurları ilə necə mübarizə aparacağınızı bilirsiniz!</string>
   <string name="checkInOne">Şah vermə</string>
   <string name="attackTheOpponentsKing">Rəqib şahına hücum et</string>
+  <string name="checkInOneIntro">Rəqibinizə şah vermək üçün onun şahına hücum edin. O da şahını qorumalıdır!</string>
   <string name="checkInOneGoal">Rəqibin kralını hədəf alın
 bir hərəkətdə!</string>
   <string name="outOfCheck">Şahı qoru</string>
