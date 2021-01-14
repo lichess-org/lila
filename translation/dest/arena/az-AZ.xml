@@ -21,6 +21,9 @@ Berserk sıfır başlanğıc vaxtı olan oyunlarda mövcud deyil (0 + 1, 0 + 2).
 
 Berserk yalnız oyunda ən azı 7 gediş etsəniz əlavə bir xal verir.</string>
   <string name="howIsTheWinnerDecided">Qalib necə təyin olunur?</string>
+  <string name="howIsTheWinnerDecidedAnswer">Turnirin təyin olunmuş müddətinin sonunda ən çox xal toplayan oyunçu(lar) qalib(lər) elan olunacaq.
+
+İki və ya daha çox oyunçu eyni xala sahib olduqda, turnir taybrekə qalacaq.</string>
   <string name="howDoesPairingWork">Qoşulma necə işləyir?</string>
   <string name="howDoesItEnd">Necə başa çatır?</string>
   <string name="otherRules">Digər vacib qaydalar</string>
