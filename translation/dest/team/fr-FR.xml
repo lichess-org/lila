@@ -12,9 +12,6 @@
   <string name="noTeamFound">Aucune équipe trouvée</string>
   <string name="joinTeam">Rejoindre l\'équipe</string>
   <string name="quitTeam">Quitter l\'équipe</string>
-  <string name="anyoneCanJoin">Ouverte à tous</string>
-  <string name="aConfirmationIsRequiredToJoin">Une confirmation est requise pour pouvoir rejoindre</string>
-  <string name="joiningPolicy">Politique pour rejoindre</string>
   <plurals name="teamLeaders">
     <item quantity="one">Chef d\'équipe</item>
     <item quantity="other">Chefs d\'équipe</item>
