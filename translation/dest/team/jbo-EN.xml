@@ -10,9 +10,6 @@
   <string name="noTeamFound">no bende do se cmima</string>
   <string name="joinTeam">co\'a cmima</string>
   <string name="quitTeam">co\'u cmima</string>
-  <string name="anyoneCanJoin">ro da cu .e\'a co\'a cmima</string>
-  <string name="aConfirmationIsRequiredToJoin">lo jatna cu jdice lo du\'u ma kau co\'a cmima</string>
-  <string name="joiningPolicy">lo javni co nu cmibi\'o zo\'u</string>
   <string name="teamBestPlayers">lo certu cmima</string>
   <string name="teamRecentMembers">lo pu zi cmibi\'o</string>
 </resources>
