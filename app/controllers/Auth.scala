@@ -450,11 +450,34 @@ final class Auth(
 
   def loginWithToken(token: String) =
     Open { implicit ctx =>
-      Firewall {
-        env.security.loginToken consume token flatMap {
-          _.fold(notFound)(authenticateUser(_))
+      if (ctx.isAuth) Redirect(routes.Lobby.home()).fuccess
+      else
+        Firewall {
+          consumingToken(token) { user =>
+            env.security.loginToken.generate(user) map { newToken =>
+              Ok(html.auth.bits.tokenLoginConfirmation(user, newToken))
+            }
+          }
         }
-      }
+    }
+
+  def loginWithTokenPost(token: String) =
+    Open { implicit ctx =>
+      if (ctx.isAuth) Redirect(routes.Lobby.home()).fuccess
+      else
+        Firewall {
+          consumingToken(token) { authenticateUser(_) }
+        }
+    }
+
+  private def consumingToken(token: String)(f: UserModel => Fu[Result])(implicit ctx: Context) =
+    env.security.loginToken consume token flatMap {
+      case None =>
+        BadRequest {
+          import scalatags.Text.all.stringFrag
+          html.site.message("This token has expired.")(stringFrag("Please go back and try again."))
+        }.fuccess
+      case Some(user) => f(user)
     }
 
   implicit private val limitedDefault =
