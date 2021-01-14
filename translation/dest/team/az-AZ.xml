@@ -12,9 +12,6 @@
   <string name="noTeamFound">Komanda tapılmadı</string>
   <string name="joinTeam">komandaya daxil ol</string>
   <string name="quitTeam">komandadan ayrıl</string>
-  <string name="anyoneCanJoin">İstənilən şəxs qoşula bilər</string>
-  <string name="aConfirmationIsRequiredToJoin">Qoşulmaq üçün təsdiq olunmalıdır</string>
-  <string name="joiningPolicy">Qoşulma siyasəti</string>
   <plurals name="teamLeaders">
     <item quantity="one">Komanda lideri</item>
     <item quantity="other">Komanda liderləri</item>
