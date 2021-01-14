@@ -14,9 +14,6 @@
   <string name="noTeamFound">לא נמצאה קבוצה</string>
   <string name="joinTeam">הצטרף לקבוצה</string>
   <string name="quitTeam">צא מהקבוצה</string>
-  <string name="anyoneCanJoin">כל אחד יכול להצטרף</string>
-  <string name="aConfirmationIsRequiredToJoin">בשביל להצטרף נדרש אישור</string>
-  <string name="joiningPolicy">תנאי ההצטרפות</string>
   <plurals name="teamLeaders">
     <item quantity="one">מוביל הקבוצה</item>
     <item quantity="two">מובילי הקבוצה</item>
