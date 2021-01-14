@@ -11,11 +11,10 @@ import lila.hub.Trouper
 
 final private[tv] class TvTrouper(
     renderer: lila.hub.actors.Renderer,
-    lightUser: LightUser.GetterSync,
+    lightUserSync: LightUser.GetterSync,
     recentTvGames: lila.round.RecentTvGames,
     gameProxyRepo: lila.round.GameProxyRepo,
-    rematches: lila.game.Rematches,
-    lightUserSync: LightUser.GetterSync
+    rematches: lila.game.Rematches
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends Trouper {
 
@@ -47,7 +46,7 @@ final private[tv] class TvTrouper(
 
     case lila.game.actorApi.StartGame(g) =>
       if (g.hasClock) {
-        val candidate = Tv.toCandidate(lightUser)(g)
+        val candidate = Tv.toCandidate(lightUserSync)(g)
         channelTroupers collect {
           case (chan, trouper) if chan filter candidate => trouper
         } foreach (_ addCandidate g)
@@ -58,8 +57,10 @@ final private[tv] class TvTrouper(
     case Selected(channel, game) =>
       import lila.socket.Socket.makeMessage
       import cats.implicits._
-      val player = game player game.naturalOrientation
-      val user   = player.userId flatMap lightUser
+      val player = game.players.sortBy { p =>
+        ~p.rating + ~p.userId.flatMap(lightUserSync).flatMap(_.title).flatMap(Tv.titleScores.get)
+      }.lastOption | game.player(game.naturalOrientation)
+      val user = player.userId flatMap lightUserSync
       (user, player.rating) mapN { (u, r) =>
         channelChampions += (channel -> Tv.Champion(u, r, game.id))
       }
