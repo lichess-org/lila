@@ -12,9 +12,6 @@
   <string name="noTeamFound">No s\'ha trobat cap equip</string>
   <string name="joinTeam">Uneix-te a l\'equip</string>
   <string name="quitTeam">Abandona l\'equip</string>
-  <string name="anyoneCanJoin">Tothom s\'hi pot unir</string>
-  <string name="aConfirmationIsRequiredToJoin">Cal una confirmació per unir-s\'hi</string>
-  <string name="joiningPolicy">Política d\'adhesió</string>
   <plurals name="teamLeaders">
     <item quantity="one">Capità de l\'equip</item>
     <item quantity="other">Capitans de l\'equip</item>
