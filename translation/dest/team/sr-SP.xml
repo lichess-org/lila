@@ -13,9 +13,6 @@
   <string name="noTeamFound">Ниједан тим није пронађен</string>
   <string name="joinTeam">Прикључи се тиму</string>
   <string name="quitTeam">Изађи из тима</string>
-  <string name="anyoneCanJoin">Свако може да се прикључи</string>
-  <string name="aConfirmationIsRequiredToJoin">Потврда је потребна за прикључење</string>
-  <string name="joiningPolicy">Полиса прикључења</string>
   <plurals name="teamLeaders">
     <item quantity="one">Вођа тима</item>
     <item quantity="few">Вође тима</item>
