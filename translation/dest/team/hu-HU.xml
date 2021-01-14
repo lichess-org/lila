@@ -12,9 +12,6 @@
   <string name="noTeamFound">Nem található ilyen csapat</string>
   <string name="joinTeam">Csapathoz csatlakozás</string>
   <string name="quitTeam">Kilépés a csapatból</string>
-  <string name="anyoneCanJoin">Bárki csatlakozhat</string>
-  <string name="aConfirmationIsRequiredToJoin">A csatlakozáshoz visszaigazolás szükséges</string>
-  <string name="joiningPolicy">Csatlakozási irányelvek</string>
   <plurals name="teamLeaders">
     <item quantity="one">Csapatvezető</item>
     <item quantity="other">Csapatvezetők</item>
