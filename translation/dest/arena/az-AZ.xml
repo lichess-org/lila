@@ -13,6 +13,13 @@ Məğlub olana vəya bərabərə qalana qədər edilən oyunlardan iki qatı xal
 
 Məsələn; üst-üstə qazanılan iki oyun ve ardından alınan bir bərabərlik 6 xal dəyərindədir: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Çılğın Modu</string>
+  <string name="berserkAnswer">Bir oyunçu oyunun əvvəlində Berserk düyməsini basdıqda, vaxtının yarısını itirir, ancaq qələbə bir əlavə turnir xalı qazandırır.
+
+Əlavə vaxt artırmalı oyunlarda Berserk-ə keçmək də vaxt artımını ləğv edir (1 + 2 istisnadır, 1 + 0 olur).
+
+Berserk sıfır başlanğıc vaxtı olan oyunlarda mövcud deyil (0 + 1, 0 + 2).
+
+Berserk yalnız oyunda ən azı 7 gediş etsəniz əlavə bir xal verir.</string>
   <string name="howIsTheWinnerDecided">Qalib necə təyin olunur?</string>
   <string name="howDoesPairingWork">Qoşulma necə işləyir?</string>
   <string name="howDoesItEnd">Necə başa çatır?</string>
