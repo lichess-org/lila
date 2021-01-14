@@ -47,5 +47,5 @@
   <string name="jumpToNextPuzzleImmediately">Automaticky prejsť na ďalšiu úlohu</string>
   <string name="puzzleDashboard">Nástenka šachových úloh</string>
   <string name="strengths">Silné stránky</string>
-  <string name="solved" comment="solved&#10;&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">vyriešené</string>
+  <string name="solved">vyriešené</string>
 </resources>
