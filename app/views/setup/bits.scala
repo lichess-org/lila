@@ -95,7 +95,12 @@ private object bits {
 
   def renderTimeMode(form: Form[_])(implicit ctx: Context) =
     div(cls := "time_mode_config optional_config")(
-      div(cls := "label_select")(
+      div(
+        cls := List(
+          "label_select" -> true,
+          "none"         -> ctx.isAnon
+        )
+      )(
         renderLabel(form("timeMode"), trans.timeControl()),
         renderSelect(form("timeMode"), translatedTimeModeChoices)
       ),
