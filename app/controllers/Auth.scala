@@ -141,9 +141,9 @@ final class Auth(
 
   // mobile app BC logout with GET
   def logoutGet =
-    Open { implicit ctx =>
+    Auth { implicit ctx => _ =>
       negotiate(
-        html = notFound,
+        html = Ok(html.auth.bits.logout()).fuccess,
         api = _ => {
           ctxReq.session get api.sessionIdKey foreach env.security.store.delete
           Ok(Json.obj("ok" -> true)).withCookies(env.lilaCookie.newSession).fuccess
