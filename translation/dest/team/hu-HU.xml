@@ -12,6 +12,8 @@
   <string name="noTeamFound">Nem található ilyen csapat</string>
   <string name="joinTeam">Csapathoz csatlakozás</string>
   <string name="quitTeam">Kilépés a csapatból</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Egyénenkénti csatlakozási kérelmek</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Ha engedélyezett, a játékosoknak írniuk kell egy csatlakozási kérelmet, amit elfogadhatsz vagy elutasíthatsz.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Csapatvezető</item>
     <item quantity="other">Csapatvezetők</item>
