@@ -22,12 +22,12 @@ final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: Puzzle
       case Some(user) =>
         {
           val tier =
-            if (user.perfs.puzzle.intRating < 1200 || user.perfs.puzzle.intRating > 1800) PuzzleTier.Good
+            if (user.perfs.puzzle.nb > 5000) PuzzleTier.Good
             else PuzzleTier.Top
           pathApi.nextFor(
             user,
             PuzzleTheme.mix.key,
-            PuzzleTier.Good,
+            tier,
             PuzzleDifficulty.Normal,
             Set.empty
           ) orFail
