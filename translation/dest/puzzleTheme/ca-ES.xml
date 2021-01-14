@@ -27,7 +27,7 @@
   <string name="intermezzo">Intermèdia</string>
   <string name="knightEndgame">Final de cavalls</string>
   <string name="long">Problema llarg</string>
-  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mat</string>
+  <string name="mate">Mat</string>
   <string name="mateIn1">Mat en 1</string>
   <string name="mateIn1Description">Fer escac i mat en una jugada.</string>
   <string name="mateIn2">Mat en 2</string>
