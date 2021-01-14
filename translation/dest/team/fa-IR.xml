@@ -12,9 +12,6 @@
   <string name="noTeamFound">تیمی پیدا نشد</string>
   <string name="joinTeam">پیوستن به تیم</string>
   <string name="quitTeam">خروج از تیم</string>
-  <string name="anyoneCanJoin">هر کسی می تواند ملحق شود</string>
-  <string name="aConfirmationIsRequiredToJoin">برای پیوستن به تیم،تاییدیه لازم است.</string>
-  <string name="joiningPolicy">شرایط پیوستن</string>
   <plurals name="teamLeaders">
     <item quantity="one">رهبر گروه</item>
     <item quantity="other">رهبران گروه</item>
