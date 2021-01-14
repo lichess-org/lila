@@ -47,6 +47,6 @@
   <string name="improvementAreas">Paranna näitä</string>
   <string name="strengths">Vahvuutesi</string>
   <string name="history">Tehtävähistoria</string>
-  <string name="solved" comment="&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">ratkaistu</string>
+  <string name="solved">ratkaistu</string>
   <string name="failed">epäonnistui</string>
 </resources>
