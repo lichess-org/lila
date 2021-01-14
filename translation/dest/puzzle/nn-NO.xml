@@ -47,6 +47,6 @@
   <string name="improvementAreas">Forbetringsområde</string>
   <string name="strengths">Styrke</string>
   <string name="history">Oppgåvehistorikk</string>
-  <string name="solved" comment="&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">løyst</string>
+  <string name="solved">løyst</string>
   <string name="failed">feila</string>
 </resources>
