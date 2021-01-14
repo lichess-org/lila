@@ -12,11 +12,8 @@
   <string name="noTeamFound">Kein Team gefunden</string>
   <string name="joinTeam">Tritt dem Team bei</string>
   <string name="quitTeam">Team verlassen</string>
-  <string name="anyoneCanJoin">Offen für alle</string>
-  <string name="aConfirmationIsRequiredToJoin">Eine Bestätigung ist erforderlich, um beitreten zu können</string>
-  <string name="joiningPolicy">Beitrittsregeln</string>
   <plurals name="teamLeaders">
-    <item quantity="one">Teamleader</item>
+    <item quantity="one">Teamleiter</item>
     <item quantity="other">Teamleiter</item>
   </plurals>
   <string name="teamBestPlayers">Beste Spieler</string>
