@@ -18,4 +18,5 @@
   <string name="puzzleDashboard">Nadzorna plošča uganke</string>
   <string name="strengths">Prednosti</string>
   <string name="history">Zgodovina ugank</string>
+  <string name="solved" comment="solved&#10;&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">rešeno</string>
 </resources>
