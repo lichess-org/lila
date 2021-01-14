@@ -13,9 +13,6 @@
   <string name="noTeamFound">Neatrada nevienu komandu</string>
   <string name="joinTeam">Pievienoties komandai</string>
   <string name="quitTeam">Pamest komandu</string>
-  <string name="anyoneCanJoin">Jebkurš var pievienoties</string>
-  <string name="aConfirmationIsRequiredToJoin">Lai pievienotos, nepieciešams apstiprinājums</string>
-  <string name="joiningPolicy">Pievienošanās noteikumi</string>
   <plurals name="teamLeaders">
     <item quantity="zero">Komandas vadītāji</item>
     <item quantity="one">Komandas vadītājs</item>
