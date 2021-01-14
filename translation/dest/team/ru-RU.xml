@@ -14,9 +14,6 @@
   <string name="noTeamFound">Нет таких клубов</string>
   <string name="joinTeam">Вступить в клуб</string>
   <string name="quitTeam">Покинуть клуб</string>
-  <string name="anyoneCanJoin">Любой может свободно вступить в клуб</string>
-  <string name="aConfirmationIsRequiredToJoin">Для вступления требуется подтверждение</string>
-  <string name="joiningPolicy">Условия вступления</string>
   <plurals name="teamLeaders">
     <item quantity="one">Руководитель клуба</item>
     <item quantity="few">Руководители клуба</item>
