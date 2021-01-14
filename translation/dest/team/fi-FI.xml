@@ -12,6 +12,8 @@
   <string name="noTeamFound">Joukkuetta ei löytynyt</string>
   <string name="joinTeam">Liity joukkueeseen</string>
   <string name="quitTeam">Lähde joukkueesta</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Käy liittymispyynnöt yksitellen läpi</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Jos valitset tämän, pelaajien tulee joukkueeseen liittyäkseen kirjoittaa liittymispyynnöt, jotka voit hylätä tai hyväksyä.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Joukkueen johtaja</item>
     <item quantity="other">Joukkueen johtajat</item>
