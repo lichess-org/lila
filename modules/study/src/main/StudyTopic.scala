@@ -46,7 +46,7 @@ object StudyTopics {
     StudyTopics {
       strs.view
         .flatMap(StudyTopic.fromStr)
-        .take(30)
+        .take(64)
         .toList
         .distinct
     }
