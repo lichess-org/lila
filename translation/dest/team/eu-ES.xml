@@ -12,9 +12,6 @@
   <string name="noTeamFound">Ez da talderik aurkitu</string>
   <string name="joinTeam">Taldean sartu</string>
   <string name="quitTeam">Taldetik atera</string>
-  <string name="anyoneCanJoin">Denontzako irekia</string>
-  <string name="aConfirmationIsRequiredToJoin">Talde buruak eskaerak onartu behar</string>
-  <string name="joiningPolicy">Taldean sartzeko arauak</string>
   <plurals name="teamLeaders">
     <item quantity="one">Taldearen kapitaina</item>
     <item quantity="other">Taldearen kapitainak</item>
