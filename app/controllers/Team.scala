@@ -10,7 +10,7 @@ import views._
 import lila.api.Context
 import lila.app._
 import lila.common.config.MaxPerSecond
-import lila.team.{ Joined, Motivate, Team => TeamModel }
+import lila.team.{ Requesting, Team => TeamModel }
 import lila.user.{ User => UserModel }
 
 final class Team(
@@ -243,11 +243,7 @@ final class Team(
                   )
                 else
                   negotiate(
-                    html = api.join(team, me, none) flatMap {
-                      case Joined => Redirect(routes.Team.show(team.id)).flashSuccess.fuccess
-                      case Motivate =>
-                        Redirect(routes.Team.requestForm(team.id)).flashSuccess.fuccess
-                    },
+                    html = webJoin(team, me, request = none, password = none),
                     api = _ => {
                       implicit val body = ctx.body
                       forms
@@ -256,10 +252,12 @@ final class Team(
                         .fold(
                           newJsonFormError,
                           setup =>
-                            api.join(team, me, Some(setup.message)) flatMap {
-                              case Joined => jsonOkResult.fuccess
-                              case Motivate =>
+                            api.join(team, me, setup.message, setup.password) flatMap {
+                              case Requesting.Joined => jsonOkResult.fuccess
+                              case Requesting.NeedRequest =>
                                 BadRequest(jsonError("This team requires confirmation.")).fuccess
+                              case Requesting.NeedPassword =>
+                                BadRequest(jsonError("This team requires a password.")).fuccess
                               case _ => notFoundJson("Team not found")
                             }
                         )
@@ -280,10 +278,10 @@ final class Team(
                   newJsonFormError,
                   setup =>
                     env.oAuth.server.fetchAppAuthor(req) flatMap {
-                      api.joinApi(team, me, _, setup.message.some)
+                      api.joinApi(team, me, _, setup.message)
                     } flatMap {
-                      case Joined => jsonOkResult.fuccess
-                      case Motivate =>
+                      case Requesting.Joined => jsonOkResult.fuccess
+                      case Requesting.NeedRequest =>
                         Forbidden(
                           jsonError(
                             "This team requires confirmation, and is not owned by the oAuth app owner."
@@ -330,11 +328,20 @@ final class Team(
           .fold(
             err => BadRequest(html.team.request.requestForm(team, err)).fuccess,
             setup =>
-              api.createRequest(team, me, setup.message) inject Redirect(
-                routes.Team.show(team.id)
-              ).flashSuccess
+              if (team.open) webJoin(team, me, request = none, password = setup.password)
+              else
+                setup.message ?? { msg =>
+                  api.createRequest(team, me, msg) inject Redirect(routes.Team.show(team.id)).flashSuccess
+                }
           )
       }
+    }
+
+  private def webJoin(team: TeamModel, me: UserModel, request: Option[String], password: Option[String]) =
+    api.join(team, me, request = request, password = password) flatMap {
+      case Requesting.Joined => Redirect(routes.Team.show(team.id)).flashSuccess.fuccess
+      case Requesting.NeedRequest | Requesting.NeedPassword =>
+        Redirect(routes.Team.requestForm(team.id)).flashSuccess.fuccess
     }
 
   def requestProcess(requestId: String) =

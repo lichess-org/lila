@@ -1,13 +1,13 @@
 package views.html.team
 
+import controllers.routes
 import play.api.data.Form
+import play.api.i18n.Lang
 
-import lila.team.Team
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-
-import controllers.routes
+import lila.team.Team
 
 object form {
 
@@ -26,15 +26,8 @@ object form {
           postForm(cls := "form3", action := routes.Team.create())(
             form3.globalError(form),
             form3.group(form("name"), trans.name())(form3.input(_)),
-            form3.group(form("open"), joiningPolicy()) { _ =>
-              form3.select(
-                form("open"),
-                Seq(0 -> aConfirmationIsRequiredToJoin.txt(), 1 -> anyoneCanJoin.txt())
-              )
-            },
-            form3.group(form("password"), teamPassword(), help = teamPasswordDescriptionForLeader().some)(
-              form3.input(_)
-            ),
+            requestField(form),
+            passwordField(form),
             form3.group(form("location"), trans.location())(form3.input(_)),
             form3.group(form("description"), trans.description())(form3.textarea(_)(rows := 10)),
             views.html.base.captcha(form, captcha),
@@ -59,15 +52,8 @@ object form {
               a(cls := "button button-empty", href := routes.Team.leaders(t.id))(teamLeaders()),
               a(cls := "button button-empty", href := routes.Team.kick(t.id))(kickSomeone())
             ),
-            form3.group(form("open"), joiningPolicy()) { f =>
-              form3.select(
-                f,
-                Seq(0 -> aConfirmationIsRequiredToJoin.txt(), 1 -> anyoneCanJoin.txt())
-              )
-            },
-            form3.group(form("password"), teamPassword(), help = teamPasswordDescriptionForLeader().some)(
-              form3.input(_)
-            ),
+            requestField(form),
+            passwordField(form),
             form3.group(form("location"), trans.location())(form3.input(_)),
             form3.group(form("description"), trans.description())(form3.textarea(_)(rows := 10)),
             form3.group(form("chat"), frag("Team chat")) { f =>
@@ -107,4 +93,20 @@ object form {
       )
     }
   }
+
+  private def requestField(form: Form[_])(implicit lang: Lang) =
+    form3.checkbox(
+      form("request"),
+      trans.team.manuallyReviewAdmissionRequests(),
+      help = trans.team.manuallyReviewAdmissionRequestsHelp().some
+    )
+
+  private def passwordField(form: Form[_])(implicit ctx: Context) =
+    form3.group(
+      form("password"),
+      trans.team.teamPassword(),
+      help = trans.team.teamPasswordDescriptionForLeader().some
+    )(
+      form3.input(_)
+    )
 }

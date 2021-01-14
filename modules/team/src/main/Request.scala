@@ -37,5 +37,8 @@ case class RequestWithUser(request: Request, user: User) {
 }
 
 sealed trait Requesting
-case object Joined   extends Requesting
-case object Motivate extends Requesting
+object Requesting {
+  case object Joined       extends Requesting
+  case object NeedRequest  extends Requesting
+  case object NeedPassword extends Requesting
+}

@@ -117,24 +117,26 @@ final class TeamApi(
       RequestWithUser(request, user)
     }
 
-  def join(team: Team, me: User, msg: Option[String]): Fu[Requesting] =
-    if (team.open) doJoin(team, me) inject Joined
-    else motivateOrJoin(team, me, msg)
+  def join(team: Team, me: User, request: Option[String], password: Option[String]): Fu[Requesting] =
+    if (team.open) {
+      if (team.password.fold(true)(_ == ~password)) doJoin(team, me) inject Requesting.Joined
+      else fuccess(Requesting.NeedPassword)
+    } else motivateOrJoin(team, me, request)
 
   def joinApi(team: Team, me: User, oAuthAppOwner: Option[User.ID], msg: Option[String]): Fu[Requesting] =
-    if (team.open || oAuthAppOwner.contains(team.createdBy)) doJoin(team, me) inject Joined
+    if (team.open || oAuthAppOwner.contains(team.createdBy)) doJoin(team, me) inject Requesting.Joined
     else motivateOrJoin(team, me, msg)
 
   private def motivateOrJoin(team: Team, me: User, msg: Option[String]) =
-    msg.fold(fuccess[Requesting](Motivate)) { txt =>
-      createRequest(team, me, txt) inject Joined
+    msg.fold(fuccess[Requesting](Requesting.NeedRequest)) { txt =>
+      createRequest(team, me, txt) inject Requesting.Joined
     }
 
   def requestable(teamId: Team.ID, user: User): Fu[Option[Team]] =
     for {
       teamOption <- teamRepo.coll.byId[Team](teamId)
       able       <- teamOption.??(requestable(_, user))
-    } yield teamOption filter (_ => able)
+    } yield teamOption ifTrue able
 
   def requestable(team: Team, user: User): Fu[Boolean] =
     for {

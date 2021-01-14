@@ -22,8 +22,11 @@ final private[team] class TeamForm(
       "team:incorrectTeamPassword",
       pw => team.password.fold(true)(_ == pw.??(_.trim))
     )
+    def requestMessage(team: Team) =
+      "message" -> optional(clean(text(minLength = 30, maxLength = 2000)))
+        .verifying("Request message required", msg => msg.isDefined || team.open)
     val description = "description" -> clean(text(minLength = 30, maxLength = 2000))
-    val open        = "open"        -> number
+    val request     = "request"     -> boolean
     val gameId      = "gameId"      -> text
     val move        = "move"        -> text
     val chat        = "chat"        -> numberIn(Team.ChatFor.all)
@@ -35,7 +38,7 @@ final private[team] class TeamForm(
       Fields.location,
       Fields.password,
       Fields.description,
-      Fields.open,
+      Fields.request,
       Fields.gameId,
       Fields.move
     )(TeamSetup.apply)(TeamSetup.unapply)
@@ -49,30 +52,30 @@ final private[team] class TeamForm(
         Fields.location,
         Fields.password,
         Fields.description,
-        Fields.open,
+        Fields.request,
         Fields.chat
       )(TeamEdit.apply)(TeamEdit.unapply)
     ) fill TeamEdit(
       location = team.location,
       password = team.password,
       description = team.description,
-      open = if (team.open) 1 else 0,
+      request = !team.open,
       chat = team.chat
     )
 
   def request(team: Team) = Form(
     mapping(
-      "message" -> clean(text(minLength = 30, maxLength = 2000)),
+      Fields.requestMessage(team),
       Fields.passwordCheck(team)
     )(RequestSetup.apply)(RequestSetup.unapply)
   ) fill RequestSetup(
-    message = "Hello, I would like to join the team!",
+    message = "Hello, I would like to join the team!".some,
     password = None
   )
 
   def apiRequest(team: Team) = Form(
     mapping(
-      "message" -> clean(text(minLength = 30, maxLength = 2000)),
+      Fields.requestMessage(team),
       Fields.passwordCheck(team)
     )(RequestSetup.apply)(RequestSetup.unapply)
   )
@@ -111,12 +114,12 @@ private[team] case class TeamSetup(
     location: Option[String],
     password: Option[String],
     description: String,
-    open: Int,
+    request: Boolean,
     gameId: String,
     move: String
 ) {
 
-  def isOpen = open == 1
+  def isOpen = !request
 
   def trim =
     copy(
@@ -130,11 +133,11 @@ private[team] case class TeamEdit(
     location: Option[String],
     password: Option[String],
     description: String,
-    open: Int,
+    request: Boolean,
     chat: Team.ChatFor
 ) {
 
-  def isOpen = open == 1
+  def isOpen = !request
 
   def trim =
     copy(
@@ -144,6 +147,6 @@ private[team] case class TeamEdit(
 }
 
 private[team] case class RequestSetup(
-    message: String,
+    message: Option[String],
     password: Option[String]
 )

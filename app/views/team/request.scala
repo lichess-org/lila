@@ -1,13 +1,12 @@
 package views.html.team
 
+import controllers.routes
 import play.api.data.Form
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
-
-import controllers.routes
 
 object request {
 
@@ -16,14 +15,6 @@ object request {
   def requestForm(t: lila.team.Team, form: Form[_])(implicit ctx: Context) = {
 
     val title = s"${joinTeam.txt()} ${t.name}"
-
-    val passwordFrag = {
-      if (t.password == None || t.password.get == "") emptyFrag
-      else
-        form3.group(form("password"), teamPassword(), help = teamPasswordDescriptionForRequester().some)(
-          form3.input(_)
-        )
-    }
 
     views.html.base.layout(
       title = title,
@@ -35,10 +26,14 @@ object request {
           h1(title),
           p(style := "margin:2em 0")(richText(t.description)),
           postForm(cls := "form3", action := routes.Team.requestCreate(t.id))(
-            form3.group(form("message"), trans.message())(form3.textarea(_)()),
-            passwordFrag,
+            !t.open ?? frag(
+              form3.group(form("message"), trans.message())(form3.textarea(_)()),
+              p(willBeReviewed())
+            ),
+            t.password.nonEmpty ?? form3.passwordModified(form("password"), teamPassword())(
+              autocomplete := "new-password"
+            ),
             form3.globalError(form),
-            p(willBeReviewed()),
             form3.actions(
               a(href := routes.Team.show(t.slug))(trans.cancel()),
               form3.submit(joinTeam())

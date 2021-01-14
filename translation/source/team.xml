@@ -12,9 +12,8 @@
   <string name="noTeamFound">No team found</string>
   <string name="joinTeam">Join team</string>
   <string name="quitTeam">Leave team</string>
-  <string name="anyoneCanJoin">Free for all</string>
-  <string name="aConfirmationIsRequiredToJoin">A confirmation is required to join</string>
-  <string name="joiningPolicy">Joining policy</string>
+  <string name="manuallyReviewAdmissionRequests">Manually review admission requests</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">If checked, players will need to write a request to join the team, which you can decline or accept.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Team leader</item>
     <item quantity="other">Team leaders</item>
@@ -45,8 +44,7 @@ Players who don't like receiving your messages might leave the team.</string>
   <string name="closeTeam">Close team</string>
   <string name="closeTeamDescription">Closes the team forever.</string>
   <string name="teamPassword">Team password</string>
-  <string name="teamPasswordDescriptionForLeader">(Optional) If your team is not open to everyone, you could set a password and send it to your guests.</string>
-  <string name="teamPasswordDescriptionForRequester">You cannot request access unless you know the team password.</string>
+  <string name="teamPasswordDescriptionForLeader">(Optional) A password that new members must know to join this team.</string>
   <string name="incorrectTeamPassword">Incorrect team password.</string>
   <string name="teamAlreadyExists">This team already exists.</string>
 </resources>
