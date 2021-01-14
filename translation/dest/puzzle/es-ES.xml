@@ -25,7 +25,7 @@
   <string name="puzzleSuccess">¡Éxito!</string>
   <string name="puzzleComplete">¡Rompecabezas terminado!</string>
   <string name="notTheMove">¡Ese no es el movimiento!</string>
-  <string name="trySomethingElse">Prueba otro movimiento.</string>
+  <string name="trySomethingElse">Prueba algo distinto.</string>
   <string name="ratingX">Puntuación: %s</string>
   <string name="hidden">oculto</string>
   <plurals name="playedXTimes">
