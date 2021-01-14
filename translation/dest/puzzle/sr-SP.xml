@@ -45,5 +45,5 @@
   <string name="jumpToNextPuzzleImmediately">Пређи на следећи проблем одмах</string>
   <string name="puzzleDashboard">Табла проблема</string>
   <string name="strengths">Снага</string>
-  <string name="solved" comment="&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">решено</string>
+  <string name="solved">решено</string>
 </resources>
