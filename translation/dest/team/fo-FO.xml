@@ -12,9 +12,6 @@
   <string name="noTeamFound">Einki lið funnið</string>
   <string name="joinTeam">Kom upp í liðið</string>
   <string name="quitTeam">Far úr liðnum</string>
-  <string name="anyoneCanJoin">Øll kunnu taka lut</string>
-  <string name="aConfirmationIsRequiredToJoin">Neyðugt er við eini váttan, áðrenn til ber at luttaka</string>
-  <string name="joiningPolicy">Luttøkutreytir</string>
   <plurals name="teamLeaders">
     <item quantity="one">Liðleiðari</item>
     <item quantity="other">Liðleiðarar</item>
