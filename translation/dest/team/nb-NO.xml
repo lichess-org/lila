@@ -12,9 +12,6 @@
   <string name="noTeamFound">Ingen lag funnet</string>
   <string name="joinTeam">Bli med i klanen</string>
   <string name="quitTeam">Forlat klanen</string>
-  <string name="anyoneCanJoin">Alle kan bli med i denne klanen</string>
-  <string name="aConfirmationIsRequiredToJoin">En bekreftelse kreves for å bli med</string>
-  <string name="joiningPolicy">Regler for å bli med</string>
   <plurals name="teamLeaders">
     <item quantity="one">Lagleder</item>
     <item quantity="other">Lagledere</item>
