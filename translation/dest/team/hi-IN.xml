@@ -12,9 +12,6 @@
   <string name="noTeamFound">कोई समूह नही मिला</string>
   <string name="joinTeam">समूह से जुड़े</string>
   <string name="quitTeam">समूह से हटे</string>
-  <string name="anyoneCanJoin">कोई भी जुड़ सकता है</string>
-  <string name="aConfirmationIsRequiredToJoin">जुड़ने के लिए पुष्टिकरण जरुरी है</string>
-  <string name="joiningPolicy">जुड़ने की नीति</string>
   <plurals name="teamLeaders">
     <item quantity="one">Team leader</item>
     <item quantity="other">टीम के नेता</item>
