@@ -8,9 +8,6 @@
   <string name="noTeamFound">କୋଣସି ଦଳ ମିଳିଲା ନାହିଁ</string>
   <string name="joinTeam">ଦଳରେ ଯୋଗ ଦିଅନ୍ତୁ</string>
   <string name="quitTeam">ଦଳ ଛାଡନ୍ତୁ</string>
-  <string name="anyoneCanJoin">ସମସ୍ତଙ୍କ ପାଇଁ ମାଗଣା</string>
-  <string name="aConfirmationIsRequiredToJoin">ଯୋଗଦେବା ପାଇଁ ଏକ ନିଶ୍ଚିତକରଣ ଆବଶ୍ୟକ</string>
-  <string name="joiningPolicy">ଯୋଗଦେବାର ନୀତି</string>
   <plurals name="teamLeaders">
     <item quantity="one">ଦଳ ନାୟକ</item>
     <item quantity="other">ଦଳର ନେତାମାନେ</item>
