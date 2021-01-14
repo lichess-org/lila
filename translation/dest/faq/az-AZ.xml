@@ -47,6 +47,7 @@ Lichess kompüter analizi Stockfish tərəfindən dəstəklənir.</string>
   <string name="threefoldRepetition">Üç dəfə təkrar</string>
   <string name="threefoldRepetitionLowerCase">üç dəfə təkrar</string>
   <string name="positions">vəziyyətlər</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Bir mövqeyi üç dəfə təkrarladıq. Oyun niyə heç-heçə olmadı?</string>
   <string name="configure">konfiqurasiya</string>
   <string name="accounts">Hesablar</string>
   <string name="titlesAvailableOnLichess">Lichessdə hansı titullar var?</string>
@@ -80,6 +81,7 @@ Diqqət çəkən başqa bir məqam, zaman keçdikcə özünə inam aralığını
 
 Reytinqləri \"nisbi\" rəqəmlər (\"mütləq\" rəqəmlərdən fərqli olaraq) kimi düşünmək daha yaxşıdır: Bir oyunçu hövzəsində reytinqlərdəki nisbi fərqlər kimin nə qədər qazandığını / heç-heçə etdiyini / məğlub olduğunu təxmin etməyə kömək edəcəkdir. \"X reytinqim var\" demək, bu reytinqi müqayisə edəcək digər oyunçular olmasa, heç bir mənası yoxdur.</string>
   <string name="howToHideRatingWhilePlaying">Oynayarkən reytinqləri necə gizlətmək olar?</string>
+  <string name="enableZenMode">%1$s ilə və ya oyun zamanı %2$s düyməsinə basaraq Zen rejimini aktivləşdir.</string>
   <string name="displayPreferences">görüntü ayarları</string>
   <string name="howToThreeDots">Necə...</string>
   <string name="enableDisableNotificationPopUps">Bildiriş popupları aktiv və ya deaktiv edilsin?</string>
