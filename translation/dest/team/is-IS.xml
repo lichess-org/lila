@@ -11,9 +11,6 @@
   <string name="noTeamFound">Ekkert lið fannst</string>
   <string name="joinTeam">Ganga í lið</string>
   <string name="quitTeam">Ganga úr liði</string>
-  <string name="anyoneCanJoin">Allir geta verið með</string>
-  <string name="aConfirmationIsRequiredToJoin">Staðfesting er nauðsynleg, til að vera með</string>
-  <string name="joiningPolicy">Þáttökureglur</string>
   <string name="teamBestPlayers">Bestu liðsmenn</string>
   <string name="teamRecentMembers">Nýjustu liðsmenn</string>
 </resources>
