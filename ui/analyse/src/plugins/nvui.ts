@@ -7,18 +7,31 @@ import { makeConfig as makeCgConfig } from '../ground';
 import { Chessground } from 'chessground';
 import { Redraw, AnalyseData, MaybeVNodes } from '../interfaces';
 import { Player } from 'game';
-import { renderSan, renderPieces, renderBoard, styleSetting } from 'nvui/chess';
+import { renderSan, renderPieces, renderBoard, styleSetting, pieceSetting, prefixSetting, boardSetting, positionSetting } from 'nvui/chess';
+import { boardCommandsHandler, selectionHandler, arrowKeyHandler, positionJumpHandler, pieceJumpingHandler } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { Style } from 'nvui/chess';
 import { commands } from 'nvui/command';
 import * as moveView from '../moveView';
 import { bind } from '../util';
+import throttle from 'common/throttle';
+
+export const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
+
+const selectSound = throttled('select');
+const wrapSound = throttled('wrapAround');
+const borderSound = throttled('outOfBound');
+const errorSound = throttled('error');
 
 lichess.AnalyseNVUI = function(redraw: Redraw) {
 
   const notify = new Notify(redraw),
     moveStyle = styleSetting(),
+    pieceStyle = pieceSetting(),
+    prefixStyle = prefixSetting(),
+    positionStyle = positionSetting(),
+    boardStyle = boardSetting(),
     analysisInProgress = prop(false);
 
   lichess.pubsub.on('analysis.server.progress', (data: AnalyseData) => {
@@ -89,7 +102,19 @@ lichess.AnalyseNVUI = function(redraw: Redraw) {
           h('h2', 'Computer analysis'),
           ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)]),
           h('h2', 'Board'),
-          h('pre.board', renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color)),
+          h('div.board', 
+          {hook: {
+            insert: (el) => {
+              const $board = $(el.elm as HTMLElement);
+              $board.on('keypress', boardCommandsHandler());
+              const $buttons = $board.find('button');
+              $buttons.on('click', selectionHandler(ctrl.data.opponent.color, selectSound));
+              $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
+              $buttons.on('keypress', positionJumpHandler());
+              $buttons.on('keypress', pieceJumpingHandler(wrapSound, errorSound));
+            }
+          }},
+          renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color, pieceStyle.get(), prefixStyle.get(), positionStyle.get(), boardStyle.get())),
           h('div.content', {
             hook: {
               insert: vnode => {
@@ -102,9 +127,39 @@ lichess.AnalyseNVUI = function(redraw: Redraw) {
             'Move notation',
             renderSetting(moveStyle, ctrl.redraw)
           ]),
+          h('h3', 'Board Settings'),
+          h('label', [
+            'Piece style',
+            renderSetting(pieceStyle, ctrl.redraw)
+          ]),
+          h('label', [
+            'Piece prefix style',
+            renderSetting(prefixStyle, ctrl.redraw)
+          ]),
+          h('label', [
+            'Show position',
+            renderSetting(positionStyle, ctrl.redraw)
+          ]),
+          h('label', [
+            'Board layout',
+            renderSetting(boardStyle, ctrl.redraw)
+          ]),
           h('h2', 'Keyboard shortcuts'),
           h('p', [
             'Use arrow keys to navigate in the game.'
+          ]),
+          h('h2', 'Board Mode commands'),
+          h('p', [
+            'Use these commands when focused on the board itself.', h('br'),
+            'o: announce current position.', h('br'),
+            'c: announce last move\'s captured piece.', h('br'),
+            'l: display last move.', h('br'),
+            't: display clocks.', h('br'),
+            'arrow keys: move left, right, up or down.', h('br'),
+            'kqrbnp/KQRBNP: move forward/backward to a piece.', h('br'),
+            '1-8: move to rank 1-8.', h('br'),
+            'Shift+1-8: move to file a-h.', h('br'),
+            '', h('br')
           ]),
           h('h2', 'Commands'),
           h('p', [

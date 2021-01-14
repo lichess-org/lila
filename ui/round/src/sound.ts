@@ -1,6 +1,6 @@
 import throttle from 'common/throttle';
 
-const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
+export const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
 
 export const move = throttled('move');
 export const capture = throttled('capture');
