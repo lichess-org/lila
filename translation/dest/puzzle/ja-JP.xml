@@ -46,6 +46,6 @@
   <string name="improvementAreas">改善ポイント</string>
   <string name="strengths">得意テーマ</string>
   <string name="history">解答履歴</string>
-  <string name="solved" comment="solved&#10;&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">正答済</string>
+  <string name="solved">正答済</string>
   <string name="failed">失敗</string>
 </resources>
