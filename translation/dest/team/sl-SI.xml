@@ -14,9 +14,6 @@
   <string name="noTeamFound">Ni najdenih ekip</string>
   <string name="joinTeam">Pridruži se ekipi</string>
   <string name="quitTeam">Zapusti ekipo</string>
-  <string name="anyoneCanJoin">Kdorkoli se lahko pridruži</string>
-  <string name="aConfirmationIsRequiredToJoin">Za sodelovanje je potrebna potrditev</string>
-  <string name="joiningPolicy">Pravila za včlanjevanje</string>
   <plurals name="teamLeaders">
     <item quantity="one">Vodja ekipe</item>
     <item quantity="two">Vodji ekipe</item>
