@@ -12,9 +12,6 @@
   <string name="noTeamFound">Finn ikkje noko lag</string>
   <string name="joinTeam">Bli med i laget</string>
   <string name="quitTeam">Forlat laget</string>
-  <string name="anyoneCanJoin">Alle kan bli med</string>
-  <string name="aConfirmationIsRequiredToJoin">Stadfesting er påkrevd for å bli med</string>
-  <string name="joiningPolicy">Vilkår for å bli med</string>
   <plurals name="teamLeaders">
     <item quantity="one">Gruppeleiar</item>
     <item quantity="other">Gruppeleiar</item>
