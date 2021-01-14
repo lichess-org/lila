@@ -13,7 +13,7 @@
   <string name="joinTeam">Takıma katıl</string>
   <string name="quitTeam">Takımdan ayrıl</string>
   <string name="manuallyReviewAdmissionRequests">Başvuru taleplerini kendiniz inceleyin</string>
-  <string name="manuallyReviewAdmissionRequestsHelp">Eğer onaylama gerekliyse; oyunculardan, kabul edebileceğiniz veya reddedebileceğiniz, bir takıma katılma metni yazmaları istenecektir.</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">İşaretlendiği takdirde oyunculardan takıma katılma metni yazmaları istenir. Bu istekleri reddedebilir veya kabul edebilirsiniz.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Takım lideri</item>
     <item quantity="other">Takım liderleri</item>
