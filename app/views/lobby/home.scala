@@ -191,7 +191,6 @@ object home {
           a(href := "/privacy")(trans.privacy()),
           a(href := "/source")(trans.sourceCode()),
           a(href := "/ads")("Ads"),
-          a(href := routes.Page.loneBookmark("changelog"))(trans.changelog()),
           views.html.base.bits.connectLinks
         )
       )
