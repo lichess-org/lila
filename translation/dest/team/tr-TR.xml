@@ -12,7 +12,7 @@
   <string name="noTeamFound">Takım bulunamadı</string>
   <string name="joinTeam">Takıma katıl</string>
   <string name="quitTeam">Takımdan ayrıl</string>
-  <string name="manuallyReviewAdmissionRequests">Başvuru taleplerini kendiniz inceleyin</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Başvuru taleplerini kendiniz inceleyin</string>
   <string name="manuallyReviewAdmissionRequestsHelp">İşaretlendiği takdirde oyunculardan takıma katılma metni yazmaları istenir. Bu istekleri reddedebilir veya kabul edebilirsiniz.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Takım lideri</item>
@@ -44,7 +44,7 @@ Mesajlarınızı almayı sevmeyen oyuncular takımdan ayrılabilir.</string>
   <string name="closeTeam">Takımı kapat</string>
   <string name="closeTeamDescription">Takımı sonsuza dek kapatır.</string>
   <string name="teamPassword">Takım şifresi</string>
-  <string name="teamPasswordDescriptionForLeader">(Opsiyonel) Yeni oyuncuların takıma katılabilmek için bilmeleri gereken bir şifre.</string>
+  <string name="teamPasswordDescriptionForLeader">(İsteğe bağlı) Yeni üyelerin takıma katılabilmesi için bilmesi gereken şifredir.</string>
   <string name="incorrectTeamPassword">Yanlış takım şifresi.</string>
   <string name="teamAlreadyExists">Böyle bir takım zaten mevcut.</string>
 </resources>
