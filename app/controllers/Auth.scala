@@ -446,7 +446,7 @@ final class Auth(
   }
 
   def makeLoginToken =
-    AuthOrScoped()(_ => loginTokenFor, _ => loginTokenFor)
+    AuthOrScoped(_.Web.Login)(_ => loginTokenFor, _ => loginTokenFor)
 
   def loginWithToken(token: String) =
     Open { implicit ctx =>
