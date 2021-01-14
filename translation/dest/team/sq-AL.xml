@@ -12,9 +12,6 @@
   <string name="noTeamFound">Nuk u gjet ekip</string>
   <string name="joinTeam">Hyr në ekip</string>
   <string name="quitTeam">Largohu nga ekipi</string>
-  <string name="anyoneCanJoin">I lirë për të gjithë</string>
-  <string name="aConfirmationIsRequiredToJoin">Nevojitet  konfirmim për të hyrë</string>
-  <string name="joiningPolicy">Rregullat e  hyrjes</string>
   <plurals name="teamLeaders">
     <item quantity="one">Lideri i ekipit</item>
     <item quantity="other">Liderët e ekipit</item>
