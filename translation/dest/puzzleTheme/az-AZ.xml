@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Keçid piyadası</string>
+  <string name="advancedPawnDescription">Çevrilən və ya çevrilməyə yaxın bir piyada taktikanın açarıdır.</string>
   <string name="advantage">Üstünlük</string>
   <string name="attackingF2F7">f2 və ya f7 Hücumu</string>
   <string name="attraction">Cəlbetmə</string>
@@ -50,6 +51,7 @@
   <string name="pawnEndgameDescription">Sadəcə piyadalardan ibarət oyun sonu.</string>
   <string name="pin">Bağlama</string>
   <string name="promotion">Çevrilmə</string>
+  <string name="promotionDescription">Çevrilən və ya çevrilməyə yaxın bir piyada taktikanın açarıdır.</string>
   <string name="queenEndgame">Vəzir sonluğu</string>
   <string name="queenEndgameDescription">Yalnız vəzirlər və piyadalardan ibarət oyun sonu.</string>
   <string name="queenRookEndgame">Vəzir və Top</string>
