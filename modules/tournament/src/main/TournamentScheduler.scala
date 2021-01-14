@@ -404,7 +404,7 @@ Thank you all, you rock!"""
           // Because berserking lowers the player rating
           _ map { _.copy(noBerserk = true) }
         },
-      // hourly crazyhouse tournaments!
+      // hourly crazyhouse/chess960 tournaments!
       (0 to 6).toList.flatMap { hourDelta =>
         val date = rightNow plusHours hourDelta
         val hour = date.getHourOfDay
@@ -414,31 +414,28 @@ Thank you all, you rock!"""
           case 5     => HippoBullet
           case _     => Blitz
         }
+        val variant = if (hour % 2 == 0) Chess960 else Crazyhouse
         List(
           at(date, hour) map { date =>
-            Schedule(Hourly, speed, Crazyhouse, none, date).plan
+            Schedule(Hourly, speed, variant, none, date).plan
           },
           at(date, hour, 30) collect {
             case date if speed == Bullet =>
-              Schedule(Hourly, if (hour == 18) HyperBullet else Bullet, Crazyhouse, none, date).plan
+              Schedule(Hourly, if (hour == 18) HyperBullet else Bullet, variant, none, date).plan
           }
         ).flatten
       },
-      // hourly atomic/antichess/chess960 variant tournaments!
+      // hourly atomic/antichess variant tournaments!
       (0 to 6).toList.flatMap { hourDelta =>
         val date = rightNow plusHours hourDelta
         val hour = date.getHourOfDay
-        val speed = hour % 5 match {
-          case 0 | 3 => Bullet
-          case 1     => Blitz
-          case 2     => HippoBullet
-          case _     => SuperBlitz
+        val speed = hour % 6 match {
+          case 1 | 4 => Bullet
+          case 2 | 5 => SuperBlitz
+          case 3     => HippoBullet
+          case _     => Blitz
         }
-        val variant = hour % 3 match {
-          case 0 => Atomic
-          case 1 => Antichess
-          case _ => Chess960
-        }
+        val variant = if (hour % 2 == 0) Atomic else Antichess
         List(
           at(date, hour) map { date =>
             Schedule(Hourly, speed, variant, none, date).plan
