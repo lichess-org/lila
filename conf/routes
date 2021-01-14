@@ -707,7 +707,7 @@ GET   /qa                              controllers.Main.movedPermanently(to: Str
 GET   /help                            controllers.Main.movedPermanently(to: String = "/contact")
 GET   /support                         controllers.Main.movedPermanently(to: String = "/contact")
 GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug: String)
-GET   /page/$bookmark<changelog>       controllers.Page.menuBookmark(bookmark: String)
+GET   /how-to-cheat                    controllers.Page.loneBookmark(bookmark = "how-to-cheat")
 GET   /page/:bookmark                  controllers.Page.loneBookmark(bookmark: String)
 
 # Variants
