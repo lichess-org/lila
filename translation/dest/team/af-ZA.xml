@@ -12,9 +12,6 @@
   <string name="noTeamFound">Geen span gevind nie</string>
   <string name="joinTeam">Sluit aan by die span</string>
   <string name="quitTeam">Verlaat die span</string>
-  <string name="anyoneCanJoin">Enige persoon mag aansluit</string>
-  <string name="aConfirmationIsRequiredToJoin">\'n Bevestiging is nodig om aan te sluit</string>
-  <string name="joiningPolicy">Voorwaardes vir aansluiting</string>
   <plurals name="teamLeaders">
     <item quantity="one">Spanleier</item>
     <item quantity="other">Spanleiers</item>
