@@ -13,9 +13,6 @@
   <string name="noTeamFound">Nu s-a găsit nicio echipă</string>
   <string name="joinTeam">Intră în echipă</string>
   <string name="quitTeam">Ieşi din echipă</string>
-  <string name="anyoneCanJoin">Gratuit pentru toți</string>
-  <string name="aConfirmationIsRequiredToJoin">Este necesară o confirmare pentru a intra</string>
-  <string name="joiningPolicy">Politică de intrare</string>
   <string name="teamBestPlayers">Cei mai buni jucători</string>
   <string name="teamRecentMembers">Cei mai recenţi membri</string>
   <string name="kickSomeone">Dă afară pe cineva din echipă</string>
