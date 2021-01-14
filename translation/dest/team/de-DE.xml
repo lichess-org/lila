@@ -39,4 +39,8 @@
   <string name="leadersChat">Teamleiter-Chat</string>
   <string name="closeTeam">Team auflösen</string>
   <string name="closeTeamDescription">Löst das Team für immer auf.</string>
+  <string name="teamPassword">Team-Passwort</string>
+  <string name="teamPasswordDescriptionForLeader">(Optional) Ein Passwort, dass neue Teammitglieder wissen müssen, um dem Team beitreten zu können.</string>
+  <string name="incorrectTeamPassword">Fehlerhaftes Team-Passwort.</string>
+  <string name="teamAlreadyExists">Dieses Team besteht bereits.</string>
 </resources>
