@@ -41,5 +41,5 @@
   <string name="puzzleDashboard">Kontrolna tabla za probleme</string>
   <string name="improvementAreas">Područja za poboljšanje</string>
   <string name="strengths">Jake strane</string>
-  <string name="solved" comment="&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">riješeno</string>
+  <string name="solved">riješeno</string>
 </resources>
