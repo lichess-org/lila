@@ -223,6 +223,7 @@ $('#asset-version-message').text(lichess.info.message);"""
           sep,
           a(activeCls("source"), href := routes.Page.source())(trans.sourceCode()),
           a(activeCls("help"), href := routes.Page.help())(trans.contribute()),
+          a(activeCls("changelog"), href := routes.Page.loneBookmark("changelog"))("Changelog"),
           a(activeCls("thanks"), href := "/thanks")(trans.thankYou()),
           sep,
           a(activeCls("webmasters"), href := routes.Main.webmasters())(trans.webmasters()),
