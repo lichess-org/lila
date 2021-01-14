@@ -49,7 +49,7 @@
   <string name="knightEndgameDescription">Un finale con soli cavalli e pedoni.</string>
   <string name="long">Tattica lunga</string>
   <string name="longDescription">Vittoria in tre mosse.</string>
-  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Matto</string>
+  <string name="mate">Matto</string>
   <string name="mateDescription">Vinci la partita con stile.</string>
   <string name="mateIn1">Matto in 1</string>
   <string name="mateIn1Description">Dai scacco matto in una mossa.</string>
@@ -89,7 +89,7 @@
   <string name="shortDescription">Vittoria in due mosse.</string>
   <string name="skewer">Infilata</string>
   <string name="skewerDescription">Un tema che consiste in un pezzo di grande valore che viene attaccato e che si sposta, permettendo ad un pezzo dietro di esso di essere catturato o attaccato. Il contrario di un\'inchiodatura.</string>
-  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Matto affogato</string>
+  <string name="smotheredMate">Matto affogato</string>
   <string name="smotheredMateDescription">Uno scacco matto eseguito con un cavallo, in cui il re sotto scacco è incapace di spostarsi poiché circondato (\"affogato\") dai suoi stessi pezzi.</string>
   <string name="trappedPiece">Pezzo intrappolato</string>
   <string name="trappedPieceDescription">Un pezzo che non può evitare la cattura a causa delle sue mosse limitate.</string>
