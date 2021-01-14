@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Bulmacalar</string>
-  <string name="puzzleThemes">Bulmacalar</string>
+  <string name="puzzleThemes">Bulmaca temaları</string>
   <string name="recommended">Önerilen</string>
   <string name="phases">Oyun bölümleri</string>
   <string name="motifs">Motifler</string>
@@ -13,7 +13,7 @@
   <string name="didYouLikeThisPuzzle">Bulmacayı beğendiniz mi?</string>
   <string name="voteToLoadNextOne">Sıradakine geçmek için oy verin!</string>
   <string name="yourPuzzleRatingX">Bulmaca puanınız: %s</string>
-  <string name="findTheBestMoveForWhite">Beyaz için en iyi hamleyi bulun.</string>
+  <string name="findTheBestMoveForWhite">Beyaz için en iyi hamleyi bulunuz.</string>
   <string name="findTheBestMoveForBlack">Siyah için en iyi hamleyi bulun.</string>
   <string name="toGetPersonalizedPuzzles">Kişiselleştirilmiş bulmacalar için:</string>
   <string name="puzzleId">Bulmaca %s</string>
@@ -47,6 +47,6 @@
   <string name="improvementAreas">Gelişim alanları</string>
   <string name="strengths">Güçlü yönler</string>
   <string name="history">Bulmaca geçmişi</string>
-  <string name="won">başarılı</string>
+  <string name="solved" comment="&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">çözüldü</string>
   <string name="failed">başarısız</string>
 </resources>

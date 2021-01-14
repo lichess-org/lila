@@ -49,6 +49,6 @@
   <string name="improvementAreas">Obszary rozwoju</string>
   <string name="strengths">Siła</string>
   <string name="history">Historia zadań</string>
-  <string name="won">udało się</string>
+  <string name="solved" comment="&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">rozwiązane</string>
   <string name="failed">nie udało się</string>
 </resources>

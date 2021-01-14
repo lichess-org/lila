@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">TSS</string>
+  <string name="faqAbbreviation">FAQ</string>
   <string name="frequentlyAskedQuestions">Tez-tez Soruşulan Suallar</string>
   <string name="whyIsLichessCalledLichess">Lichess-ə niyə Lichess deyirlər?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess, live/light/libre yəni canlı/parlaq/libre ilə şahmatın kombinasiyasıdır. %1$s kimi tələffüz edilir.</string>
@@ -18,13 +18,28 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Bəli. Lichess əslində bizə məxsus %1$s, %2$s və ya %3$s istifadə edən digər açıq mənbəli saytlara ilham verdi.</string>
   <string name="fairPlay">Ədalətli Oyun</string>
   <string name="whyFlaggedRatingManipulationOrCheater">Niyə süni qiymətləndirmə manipulyasiyası üçün (başqalarından kömək alma və gücləndirmə) kompüterdən kömək almaq üzrə işarələndim?</string>
+  <string name="cheatDetectionMethods">Lichessin güclü aşkarlama metodları və bütün dəlilləri nəzərdən keçirmək və qərar qəbul etmək üçün hərtərəfli bir prosesi var. Proses tez-tez bir çox moderatoru əhatə edir və uzun müddət çəkə bilər. İşarənin özü xaricində, dəlillər və fərdi işlər üçün qərar qəbul etmə prosesi haqqında təfərrüatlara varmayacağıq. Bunu etmək gələcəkdə aşkarlanmanın qarşısını almağı asanlaşdıracaq və səmərəsiz mübahisələrə dəvət olacaqdır. Bu vaxt və səy daha vacib işlərə daha yaxşı xərclənir. İstifadəçilər %1$s ünvanına elektron poçt ilə müraciət edə bilərlər, lakin qərarlar nadir hallarda pozulur.</string>
   <string name="whenAmIEligibleRatinRefund">Hiyləyə qarşı itirdiyim xalları nə vaxt geri ala biləcəm?</string>
+  <string name="preventLeavingGameWithoutResigning">Oyunçuların təslim olmadan oyunlarını tərk etmələri ilə bağlı nə edilir?</string>
   <string name="howCanIBecomeModerator">Necə moderator ola bilərəm?</string>
   <string name="isCorrespondenceDifferent">Yazışmalı oyun normal şahmatdan fərqlidir?</string>
   <string name="gameplay">Oynama</string>
+  <string name="howBulletBlitzEtcDecided">Bullet, Blitz və digər vaxt nəzarətlərinə necə qərar verilir?</string>
+  <string name="durationFormula">(başlanğıc vaxt) + 40 × (əlavə vaxt)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
-  <string name="eightVariants">8 şahmat variantı</string>
+  <string name="whatVariantsCanIplay">Lichessdə hansı variantları oynaya bilərəm?</string>
+  <string name="lichessSupportChessAnd">Lichess standart şahmatı və daha %1$s dəstəkləyir.</string>
+  <string name="eightVariants">8 şahmat variantını</string>
+  <string name="whatIsACPL">Ortalama santipiyada itkisi nədir(OSPİ)?</string>
+  <string name="acplExplanation">Santipiyada şahmatda üstünlüyü təmsil edən ölçü vahididir. Bir santipiyada piyadanın 1/100 hissəsinə bərabərdir. Bu səbəbdən 100 santipiyada = 1 piyada. Bu dəyərlər oyunda heç bir rəsmi rol oynamır, ancaq oyunçular üçün faydalıdır və mövqeləri qiymətləndirmək üçün kompüter şahmatında vacibdir.
+
+Ən yaxşı kompüter mühərrikləri sıfır santipiyada itirəcək, amma daha az gediş santipiyadayla ölçülən vəziyyətin pisləşməsinə səbəb olacaq.
+
+Bu dəyər oyun keyfiyyətinin göstəricisi kimi istifadə edilə bilər. Bir gedişdə nə qədər az santipiyada itirirsə, oyun daha güclü olur.
+
+Lichess kompüter analizi Stockfish tərəfindən dəstəklənir.</string>
+  <string name="insufficientMaterial">Vaxt azlığı, heç-heçə və yetərsiz fiqur</string>
   <string name="fideHandbookX">FIDE qaydaları %s</string>
   <string name="goodIntroduction">yaxşı giriş</string>
   <string name="officialRulesPDF">rəsmi qaydalar (PDF)</string>
@@ -34,8 +49,10 @@
   <string name="positions">vəziyyətlər</string>
   <string name="configure">konfiqurasiya</string>
   <string name="accounts">Hesablar</string>
+  <string name="titlesAvailableOnLichess">Lichessdə hansı titullar var?</string>
   <string name="asWellAsManyNMtitles">bir çox milli usta titulları</string>
   <string name="verificationForm">təsdiqləmə formu</string>
+  <string name="canIbecomeLM">Lichess Ustası (LM) adını ala bilərəmmi?</string>
   <string name="noUpperCaseDot">Xeyr.</string>
   <string name="whatUsernameCanIchoose">İstifadəçi adım nə ola bilər?</string>
   <string name="guidelines">təlimatlat</string>
@@ -43,8 +60,28 @@
   <string name="uniqueTrophies">Unikal kuboklar</string>
   <string name="aHourlyBulletTournament">bir saatlıq Bullet turniri</string>
   <string name="lichessRatings">Lichess reytinqi</string>
+  <string name="whichRatingSystemUsedByLichess">Lichess hansı reytinq sistemindən istifadə edir?</string>
+  <string name="ratingSystemUsedByLichess">Reytinqlər Mark Glickman tərəfindən hazırlanmış Glicko-2 qiymətləndirmə metodu ilə hesablanır. Bu, çox populyar bir reytinq metodudur və xeyli sayda şahmat təşkilatı tərəfindən istifadə olunur (FIDE hələ də tarixli Elo reytinq sistemini istifadə etdiyi üçün diqqətəlayiq bir əks nümunədir).
+
+Əsasən, Glicko reytinqləri reytinqinizi hesablayarkən \"güvən intervalı\"ndan istifadə edir. Saytı ilk dəfə istifadə etməyə başladığınızda, reytinqiniz 1500 ± 700-dən başlayır. 1500, reytinqinizi, 700 isə güvən aralığını təmsil edir.
+
+Qısacası, sistem reytinqinizin 800 ilə 2200 arasında bir yerdə olduğundan 90% əmindir. Bu inanılmaz dərəcədə qeyri-müəyyəndir. Bu səbəbdən bir oyunçu yeni başlayanda, reytinqləri çox dramatik şəkildə dəyişəcək, potensial olaraq hər dəfə bir neçə yüz bal. Ancaq müəyyən oyunçulara qarşı bəzi oyunlardan sonra güvən intervalı azalacaq və hər oyundan sonra qazanılan / itirilən xal miqdarı azalacaq.
+
+Diqqət çəkən başqa bir məqam, zaman keçdikcə özünə inam aralığının artmasıdır. Bu, bu müddət ərzində bacarıq səviyyəsindəki hər hansı bir dəyişikliklə uyğunlaşmaq üçün daha sürətli xal qazanma / itirmə imkanı verir.</string>
+  <string name="whatIsProvisionalRating">Niyə reytinqin yanında bir sual işarəsi (?) var?</string>
+  <string name="similarOpponents">eynigüclü rəqiblər</string>
+  <string name="howDoLeaderoardsWork">Sıralama və liderlik cədvəli necə işləyir?</string>
+  <string name="inOrderToAppearsYouMust">%1$s cədvəlinə daxil olmaq üçün bunları etməlisiniz:</string>
   <string name="ratingLeaderboards">liderlik cədvəli</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">verilmiş reytinqdə ən azı 30 reytinqli oyun oynamış,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">verilmiş reytinqdə son bir həftə reytinqli oyunlar oynamış,</string>
+  <string name="beInTopTen">bu reytinqdə ilk 10-da olmaq.</string>
+  <string name="whyAreRatingHigherExplanation">Reytinqləri mütləq rəqəmlər hesab etməmək və ya digər təşkilatlarla müqayisə etməmək yaxşıdır. Fərqli təşkilatların fərqli səviyyəli oyunçuları, fərqli reytinq sistemləri var (Elo, Glicko, Glicko-2 və ya yuxarıda göstərilənlərin dəyişdirilmiş bir versiyası). Bu amillər mütləq rəqəmləri (dərəcələri) kəskin şəkildə təsir edə bilər.
+
+Reytinqləri \"nisbi\" rəqəmlər (\"mütləq\" rəqəmlərdən fərqli olaraq) kimi düşünmək daha yaxşıdır: Bir oyunçu hövzəsində reytinqlərdəki nisbi fərqlər kimin nə qədər qazandığını / heç-heçə etdiyini / məğlub olduğunu təxmin etməyə kömək edəcəkdir. \"X reytinqim var\" demək, bu reytinqi müqayisə edəcək digər oyunçular olmasa, heç bir mənası yoxdur.</string>
+  <string name="howToHideRatingWhilePlaying">Oynayarkən reytinqləri necə gizlətmək olar?</string>
   <string name="displayPreferences">görüntü ayarları</string>
   <string name="howToThreeDots">Necə...</string>
+  <string name="enableDisableNotificationPopUps">Bildiriş popupları aktiv və ya deaktiv edilsin?</string>
   <string name="viewSiteInformationPopUp">Sayt haqqında məlumat pəncərəsinə baxın</string>
 </resources>

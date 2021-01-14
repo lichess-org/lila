@@ -46,6 +46,9 @@
   <string name="addAnotherTheme">Добавить другой мотив</string>
   <string name="jumpToNextPuzzleImmediately">Сразу перейти к следующей задаче</string>
   <string name="puzzleDashboard">Страница задач</string>
+  <string name="improvementAreas">Области улучшения</string>
   <string name="strengths">Сильные стороны</string>
   <string name="history">История задач</string>
+  <string name="solved" comment="&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">решённые</string>
+  <string name="failed">неудачные</string>
 </resources>

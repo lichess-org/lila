@@ -42,4 +42,5 @@
   <string name="example">Exempel</string>
   <string name="addAnotherTheme">Lägg till ett annat tema</string>
   <string name="jumpToNextPuzzleImmediately">Hoppa till nästa pussel omedelbart</string>
+  <string name="solved" comment="&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">löst</string>
 </resources>

@@ -47,6 +47,6 @@
   <string name="improvementAreas">Forbedringsområder</string>
   <string name="strengths">Styrker</string>
   <string name="history">Historikk for sjakknøtter</string>
-  <string name="won">vunnet</string>
-  <string name="failed">mislyktes</string>
+  <string name="solved" comment="&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">løst</string>
+  <string name="failed">mislykket</string>
 </resources>

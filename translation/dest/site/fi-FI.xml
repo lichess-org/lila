@@ -510,6 +510,7 @@
   <string name="clockInitialTime">Alkuaika</string>
   <string name="clockIncrement">Lisäaika</string>
   <string name="privacy">Yksityisyys</string>
+  <string name="privacyPolicy">tietosuojakäytännöstämme</string>
   <string name="letOtherPlayersFollowYou">Anna muiden pelaajien seurata sinua</string>
   <string name="letOtherPlayersChallengeYou">Anna muiden pelaajien haastaa sinut</string>
   <string name="letOtherPlayersInviteYouToStudy">Salli muiden pelaajien kutsua sinut tutkielmiin</string>
@@ -655,6 +656,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jos et näe viestiä, tarkista muut paikat joihin se voi olla joutunut (kuten roskaposti- ja spämmikansiot).</string>
   <string name="weHaveSentYouAnEmailTo">Olemme lähettäneet sähköpostiviestin osoitteeseen %s. Klikkaa viestissä olevaa linkkiä nollataksesi salasanasi.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Rekistöitymällä hyväksyt lichessin %s ja sitoudut noudattamaan niitä.</string>
+  <string name="readAboutOur">Lue lisää %s.</string>
   <string name="networkLagBetweenYouAndLichess">Verkkoviive sinun ja lichessin välillä</string>
   <string name="timeToProcessAMoveOnLichessServer">Palvelimen siirtojen käsittelyyn vaatima aika</string>
   <string name="downloadAnnotated">Lataa kommenttien kanssa</string>

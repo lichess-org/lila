@@ -44,9 +44,9 @@
   <string name="addAnotherTheme">Ajouter un autre thème</string>
   <string name="jumpToNextPuzzleImmediately">Passer immédiatement au problème suivant</string>
   <string name="puzzleDashboard">Tableau de bord des problèmes</string>
-  <string name="improvementAreas">Zones d\'entraînement</string>
+  <string name="improvementAreas">Aspects à améliorer</string>
   <string name="strengths">Points forts</string>
   <string name="history">Historique des problèmes</string>
-  <string name="won">réussis</string>
+  <string name="solved" comment="solved&#10;&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">résolu</string>
   <string name="failed">non réussis</string>
 </resources>

@@ -9,6 +9,7 @@
   <string name="yourTurn">نوبت شماست</string>
   <string name="aiNameLevelAiLevel">%1$s سطح %2$s</string>
   <string name="level">سطح</string>
+  <string name="strength">قدرت</string>
   <string name="toggleTheChat">گپ روشن/خاموش</string>
   <string name="toggleSound">صدا روشن/خاموش</string>
   <string name="chat">گپ</string>
@@ -506,6 +507,7 @@
   <string name="clockInitialTime">مقدار زمان اولیه</string>
   <string name="clockIncrement">مقدار زمان اضافی به ازای هر حرکت</string>
   <string name="privacy">حریم شخصی</string>
+  <string name="privacyPolicy">سیاست حریم شخصی</string>
   <string name="letOtherPlayersFollowYou">بقیه بازیکنان شما را دنبال کنند</string>
   <string name="letOtherPlayersChallengeYou">بقیه بازیکنان با شما بازی کنند</string>
   <string name="letOtherPlayersInviteYouToStudy">اجازه دهید دیگر بازیکن شما را به مطالعه دعوت کنند</string>
@@ -645,11 +647,13 @@
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">. ندارید %s چرا شما ریتینگ پایدار برای</string>
   <string name="yourRating">ریتینگ شما</string>
   <string name="cumulative">تجمعی</string>
+  <string name="glicko2Rating">کلیکو(سیستم امتیاز شطرنج)</string>
   <string name="checkYourEmail">ایمیل خود را چک کنید</string>
   <string name="weHaveSentYouAnEmailClickTheLink">ما به شما ایمیل فرستادیم. روی لینکی که در ایمیل است کلیک کنید</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">اگر ایمیل را مشاهده نمی کنید پوشه ی اسپم را بررسی کنید</string>
   <string name="weHaveSentYouAnEmailTo">ایمیل ارسال شد.بر روی لینک داخل ایمیل کلیک کنید تا پسورد شما ریست شود %s  به آدرس</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">ما پایبند خواهید بود %s با کلیک بر روی نام نویسی شما به</string>
+  <string name="readAboutOur">\"درباره ما\".</string>
   <string name="networkLagBetweenYouAndLichess">تاخیر شبکه بین شما و لیچس</string>
   <string name="timeToProcessAMoveOnLichessServer">زمان سپری شده برای پردازش یک حرکت</string>
   <string name="downloadAnnotated">دانلود محتوا</string>
