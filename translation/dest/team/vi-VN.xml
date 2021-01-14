@@ -11,9 +11,6 @@
   <string name="noTeamFound">không tìm thấy đội</string>
   <string name="joinTeam">Tham gia đội</string>
   <string name="quitTeam">Rời đội</string>
-  <string name="anyoneCanJoin">Miễn phí hoàn toàn</string>
-  <string name="aConfirmationIsRequiredToJoin">Xác nhận để tham gia</string>
-  <string name="joiningPolicy">Luật tham gia</string>
   <plurals name="teamLeaders">
     <item quantity="other">Đội trưởng</item>
   </plurals>
