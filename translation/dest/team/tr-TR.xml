@@ -12,9 +12,6 @@
   <string name="noTeamFound">Takım bulunamadı</string>
   <string name="joinTeam">Takıma katıl</string>
   <string name="quitTeam">Takımdan ayrıl</string>
-  <string name="anyoneCanJoin">Herkes katılabilir</string>
-  <string name="aConfirmationIsRequiredToJoin">Katılmak için onay gerekli</string>
-  <string name="joiningPolicy">Katılım koşulları</string>
   <plurals name="teamLeaders">
     <item quantity="one">Takım lideri</item>
     <item quantity="other">Takım liderleri</item>
