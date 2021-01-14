@@ -12,9 +12,6 @@
   <string name="noTeamFound">Nessun gruppo trovato</string>
   <string name="joinTeam">Unisciti al gruppo</string>
   <string name="quitTeam">Abbandona il gruppo</string>
-  <string name="anyoneCanJoin">Aperto a tutti</string>
-  <string name="aConfirmationIsRequiredToJoin">È richiesta una conferma per unirsi</string>
-  <string name="joiningPolicy">Regole di adesione</string>
   <plurals name="teamLeaders">
     <item quantity="one">Capogruppo</item>
     <item quantity="other">Capogruppo</item>
