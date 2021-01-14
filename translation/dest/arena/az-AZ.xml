@@ -29,7 +29,13 @@ Berserk yalnız oyunda ən azı 7 gediş etsəniz əlavə bir xal verir.</string
 Bir oyunu bitirən kimi turnir lobbisinə qayıdın: daha sonra reytinqinizə yaxın bir oyunçu ilə qarşılaşacaqsınız. Beləliklə gözləmə müddətini ən aza edirilir, lakin turnirdəki bütün digər oyunçularla qarşılaşa bilməzsiniz.
 Daha çox oyun oynamaq və daha çox xal qazanmaq üçün sürətli oynayın və lobbiyə qayıdın.</string>
   <string name="howDoesItEnd">Necə başa çatır?</string>
+  <string name="howDoesItEndAnswer">Turnirin başa çatma vaxtı var. Vaxt başa çatdıqda turnir sıralaması dondurulur və qalib elan edilir. Davam edən oyunlar başa çatmalıdır, lakin bu oyunlar turnirə daxil edilməz.</string>
   <string name="otherRules">Digər vacib qaydalar</string>
+  <string name="thereIsACountdown">İlk gedişinizi etmək üçün müəyyən bir vaxt var. Bu vaxt ərzində bir gediş etməmək rəqibin qalibiyyətiylə nəticələnəcək.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">Oyunun ilk %s gedişində heç-heçə etmək heç bir oyunçuya xal qazandırmayacaq.</item>
+    <item quantity="other">Oyunun ilk %s gedişində heç-heçə etmək heç bir oyunçuya xal qazandırmayacaq.</item>
+  </plurals>
   <string name="thisIsPrivate">Bu özəl turnirdir</string>
   <string name="shareUrl">Dəvət etmək ücün, linki paylaş: %s</string>
   <string name="history">Arena Keçmişi</string>
