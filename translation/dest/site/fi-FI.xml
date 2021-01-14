@@ -841,4 +841,7 @@
   <string name="youCannotPostYetPlaySomeGames">Et voi vielä lähettää viestejä foorumeihin. Pelaa ensin muutama peli!</string>
   <string name="subscribe">Tilaa</string>
   <string name="unsubscribe">Peruuta tilaus</string>
+  <string name="challengeDeclined">Haasteesta kieltäydyttiin</string>
+  <string name="challengeAccepted">Haaste hyväksytty!</string>
+  <string name="challengeCanceled">Haaste peruutettu.</string>
 </resources>
