@@ -44,7 +44,7 @@
   <string name="addAnotherTheme">Añadir otro tema</string>
   <string name="jumpToNextPuzzleImmediately">Ir al siguiente rompecabezas inmediatamente</string>
   <string name="puzzleDashboard">Panel de rompecabezas</string>
-  <string name="improvementAreas">Áreas de mejora</string>
+  <string name="improvementAreas">Áreas de mejoramiento</string>
   <string name="strengths">Fortalezas</string>
   <string name="history">Historial de rompecabezas</string>
   <string name="solved" comment="solved&#10;&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">resuelto</string>
