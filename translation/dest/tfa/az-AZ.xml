@@ -5,6 +5,7 @@
   <string name="twoFactorApp">2 mərhələli təsdiqləmə üçün bir tətbiq endirin. Məsələn %1$s və ya %2$s üçün Google Authenticator.</string>
   <string name="scanTheCode">Tətbiq ilə QR kodunu skan edin.</string>
   <string name="enterPassword">Quraşdırmanı tamamlamaq üçün şifrəni və tətbiq tərəfindən yaradılmış kimlik təsdiqləmə kodunu daxil edin. Hər giriş edəndə təsdiqləmə kodunu daxil etməli olacaqsınız.</string>
+  <string name="ifYouCannotScanEnterX">Kodu skan edə bilmirsinizsə, tətbiqinizə %s kodunu daxil edin.</string>
   <string name="authenticationCode">Kimlik təsdiqləmə kodu</string>
   <string name="ifYouLoseAccess">Qeyd: 2 mərhələli təsdiqləmə koduna müraciəti itirsəniz, e-poçt vasitəsilə şifrənizi sıfırlaya bilərsiniz.</string>
   <string name="enableTwoFactor">2 mərhələli təsdiqləməni fəallaşdır</string>
