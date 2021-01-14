@@ -194,12 +194,12 @@ object header {
             div(cls := "profile-side")(
               div(cls := "user-infos")(
                 !ctx.is(u) option frag(
-                  u.marks.engine option div(cls := "warning engine_warning")(
+                  u.marks.engine option div(cls := "warning tos_warning")(
                     span(dataIcon := "j", cls := "is4"),
                     trans.thisAccountViolatedTos()
                   ),
                   (u.marks.boost && (u.count.game > 0 || isGranted(_.Hunter))) option div(
-                    cls := "warning engine_warning"
+                    cls := "warning tos_warning"
                   )(
                     span(dataIcon := "j", cls := "is4"),
                     trans.thisPlayerArtificiallyIncreasesTheirRating(),
