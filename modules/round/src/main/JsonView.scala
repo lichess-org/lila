@@ -168,7 +168,7 @@ final class JsonView(
               commonWatcherJson(game, player, playerUser, withFlags) ++ Json.obj(
                 "version"   -> socket.version.value,
                 "spectator" -> true,
-                "id" -> me.flatMap(game.player).map(_.id)
+                "id"        -> me.flatMap(game.player).map(_.id)
               )
             }.add("onGame" -> (player.isAi || socket.onGame(player.color))),
             "opponent" -> commonWatcherJson(game, opponent, opponentUser, withFlags).add(
@@ -244,8 +244,7 @@ final class JsonView(
           .obj(
             "animationDuration" -> animationMillis(pov, pref),
             "coords"            -> pref.coords,
-            "moveEvent"         -> pref.moveEvent,
-            "resizeHandle"      -> pref.resizeHandle
+            "moveEvent"         -> pref.moveEvent
           )
           .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
           .add("is3d" -> pref.is3d)

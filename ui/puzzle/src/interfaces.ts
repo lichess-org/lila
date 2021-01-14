@@ -109,7 +109,6 @@ export interface PuzzlePrefs {
   rookCastle: boolean;
   moveEvent: number;
   highlight: boolean;
-  resizeHandle: number;
   animation: {
     duration: number;
   };
