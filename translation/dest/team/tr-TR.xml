@@ -13,7 +13,7 @@
   <string name="joinTeam">Takıma katıl</string>
   <string name="quitTeam">Takımdan ayrıl</string>
   <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Başvuruları manuel olarak denetle</string>
-  <string name="manuallyReviewAdmissionRequestsHelp">İşaretlendiği takdirde oyunculardan takıma katılma metni yazmaları istenir. Bu istekleri reddedebilir veya kabul edebilirsiniz.</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Şık işaretliyse, oyuncuların mesaj yazarak yapabileceği takıma katılım başvurusu onayınıza sunulacak.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Takım lideri</item>
     <item quantity="other">Takım liderleri</item>
