@@ -70,7 +70,8 @@ object OAuthScope {
     Team.Write,
     Msg.Write,
     Board.Play,
-    Bot.Play
+    Bot.Play,
+    Web.Login
   )
 
   val byKey: Map[String, OAuthScope] = all.map { s =>
