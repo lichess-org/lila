@@ -48,6 +48,6 @@
   <string name="improvementAreas">Uzlabojamās jomas</string>
   <string name="strengths">Puzles, kas padodas</string>
   <string name="history">Pužļu vēsture</string>
-  <string name="solved" comment="&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">atrisināts</string>
+  <string name="solved">atrisināts</string>
   <string name="failed">neizdevās</string>
 </resources>
