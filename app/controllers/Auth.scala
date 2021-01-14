@@ -436,17 +436,17 @@ final class Auth(
       }
     }
 
-  def makeLoginToken =
-    Auth { _ => me =>
-      JsonOk {
-        env.security.loginToken generate me map { token =>
-          Json.obj(
-            "userId" -> me.id,
-            "url"    -> s"${env.net.baseUrl}${routes.Auth.loginWithToken(token).url}"
-          )
-        }
-      }
+  private def loginTokenFor(me: UserModel) = JsonOk {
+    env.security.loginToken generate me map { token =>
+      Json.obj(
+        "userId" -> me.id,
+        "url"    -> s"${env.net.baseUrl}${routes.Auth.loginWithToken(token).url}"
+      )
     }
+  }
+
+  def makeLoginToken =
+    AuthOrScoped(_.Web.Login)(_ => loginTokenFor, _ => loginTokenFor)
 
   def loginWithToken(token: String) =
     Open { implicit ctx =>
