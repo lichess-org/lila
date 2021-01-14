@@ -455,13 +455,13 @@ final class Auth(
         Firewall {
           consumingToken(token) { user =>
             env.security.loginToken.generate(user) map { newToken =>
-              Ok(html.auth.bits.tokenLoginConfirmation(user, newToken))
+              Ok(html.auth.bits.tokenLoginConfirmation(user, newToken, get("referrer")))
             }
           }
         }
     }
 
-  def loginWithTokenPost(token: String) =
+  def loginWithTokenPost(token: String, referrer: Option[String]) =
     Open { implicit ctx =>
       if (ctx.isAuth) Redirect(routes.Lobby.home()).fuccess
       else

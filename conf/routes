@@ -393,7 +393,7 @@ POST  /password/reset/confirm/:token   controllers.Auth.passwordResetConfirmAppl
 POST  /auth/set-fp/:fp/:ms             controllers.Auth.setFingerPrint(fp: String, ms: Int)
 POST  /auth/token                      controllers.Auth.makeLoginToken
 GET   /auth/token/:token               controllers.Auth.loginWithToken(token: String)
-POST  /auth/token/:token               controllers.Auth.loginWithTokenPost(token: String)
+POST  /auth/token/:token               controllers.Auth.loginWithTokenPost(token: String, referrer: Option[String])
 GET   /auth/magic-link                 controllers.Auth.magicLink
 POST  /auth/magic-link/send            controllers.Auth.magicLinkApply
 GET   /auth/magic-link/sent/:email     controllers.Auth.magicLinkSent(email: String)

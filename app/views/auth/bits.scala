@@ -141,14 +141,14 @@ object bits {
       )
     }
 
-  def tokenLoginConfirmation(user: User, token: String)(implicit ctx: Context) =
+  def tokenLoginConfirmation(user: User, token: String, referrer: Option[String])(implicit ctx: Context) =
     views.html.base.layout(
       title = s"Log in as ${user.username}",
       moreCss = cssTag("form3")
     ) {
       main(cls := "page-small box box-pad")(
         h1("Log in as ", userLink(user)),
-        postForm(action := routes.Auth.loginWithTokenPost(token))(
+        postForm(action := routes.Auth.loginWithTokenPost(token, referrer))(
           form3.actions(
             a(href := routes.Lobby.home())(trans.cancel()),
             submitButton(cls := "button")(s"${user.username} is my Lichess username, log me in")
