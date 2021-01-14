@@ -12,9 +12,6 @@
   <string name="noTeamFound">Joukkuetta ei löytynyt</string>
   <string name="joinTeam">Liity joukkueeseen</string>
   <string name="quitTeam">Lähde joukkueesta</string>
-  <string name="anyoneCanJoin">Kuka tahansa voi liittyä</string>
-  <string name="aConfirmationIsRequiredToJoin">Liittymiseen vaaditaan vahvistus</string>
-  <string name="joiningPolicy">Liittymissäännöt</string>
   <plurals name="teamLeaders">
     <item quantity="one">Joukkueen johtaja</item>
     <item quantity="other">Joukkueen johtajat</item>
