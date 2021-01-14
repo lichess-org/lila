@@ -14,7 +14,7 @@
   <string name="noTeamFound">Nie znaleziono klubu</string>
   <string name="joinTeam">Dołącz do klubu</string>
   <string name="quitTeam">Opuść klub</string>
-  <string name="manuallyReviewAdmissionRequests">Ręczna weryfikacja wniosków o dołączenie</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Ręczna weryfikacja wniosków o dopuszczenie</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Jeśli zaznaczone, gracze będą musieli napisać prośbę o dołączenie do klubu, którą możesz odrzucić lub zaakceptować.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Lider klubu</item>
