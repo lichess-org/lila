@@ -14,9 +14,6 @@
   <string name="noTeamFound">Nenašiel sa tím</string>
   <string name="joinTeam">Vstúpiť do tímu</string>
   <string name="quitTeam">Opustiť tím</string>
-  <string name="anyoneCanJoin">Zdarma pre všetkých</string>
-  <string name="aConfirmationIsRequiredToJoin">Na vstup je potrebné potvrdenie</string>
-  <string name="joiningPolicy">Pravidlá pre vstup</string>
   <plurals name="teamLeaders">
     <item quantity="one">Líder tímu</item>
     <item quantity="few">Lídri tímu</item>
