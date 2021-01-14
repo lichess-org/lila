@@ -25,6 +25,9 @@ Berserk yalnız oyunda ən azı 7 gediş etsəniz əlavə bir xal verir.</string
 
 İki və ya daha çox oyunçu eyni xala sahib olduqda, turnir taybrekə qalacaq.</string>
   <string name="howDoesPairingWork">Qoşulma necə işləyir?</string>
+  <string name="howDoesPairingWorkAnswer">Turnirin əvvəlində oyunçular reytinqlərinə görə qarşılaşırlar.
+Bir oyunu bitirən kimi turnir lobbisinə qayıdın: daha sonra reytinqinizə yaxın bir oyunçu ilə qarşılaşacaqsınız. Beləliklə gözləmə müddətini ən aza edirilir, lakin turnirdəki bütün digər oyunçularla qarşılaşa bilməzsiniz.
+Daha çox oyun oynamaq və daha çox xal qazanmaq üçün sürətli oynayın və lobbiyə qayıdın.</string>
   <string name="howDoesItEnd">Necə başa çatır?</string>
   <string name="otherRules">Digər vacib qaydalar</string>
   <string name="thisIsPrivate">Bu özəl turnirdir</string>
