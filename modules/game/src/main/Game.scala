@@ -697,16 +697,13 @@ object Game {
   val idRegex         = """[\w-]{8}""".r
   def validId(id: ID) = idRegex matches id
 
-  private val boardApiRatedMinClock = chess.Clock.Config(20 * 60, 0)
-
   def isBoardCompatible(game: Game): Boolean =
     game.clock.fold(true) { c =>
-      isBoardCompatible(c.config, game.mode)
+      isBoardCompatible(c.config)
     }
 
-  def isBoardCompatible(clock: Clock.Config, mode: Mode): Boolean =
-    if (mode.rated) clock.estimateTotalTime >= boardApiRatedMinClock.estimateTotalTime
-    else chess.Speed(clock) >= Speed.Rapid
+  def isBoardCompatible(clock: Clock.Config): Boolean =
+    chess.Speed(clock) >= Speed.Rapid
 
   def isBotCompatible(game: Game): Boolean = {
     game.hasAi || game.fromFriend

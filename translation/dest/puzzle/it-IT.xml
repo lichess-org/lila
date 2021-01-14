@@ -46,4 +46,5 @@
   <string name="puzzleDashboard">Pagina dei puzzle</string>
   <string name="improvementAreas">Aree di miglioramento</string>
   <string name="strengths">Punti di forza</string>
+  <string name="solved" comment="&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">risolto</string>
 </resources>

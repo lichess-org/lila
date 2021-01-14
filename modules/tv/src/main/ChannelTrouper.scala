@@ -107,20 +107,7 @@ final private[tv] class ChannelTrouper(
       }
       .flatMap(lightUserSync)
       .flatMap(_.title)
-      .flatMap(titleScores.get)
-
-  private val titleScores = Map(
-    "GM"  -> 500,
-    "WGM" -> 500,
-    "IM"  -> 300,
-    "WIM" -> 300,
-    "FM"  -> 200,
-    "WFM" -> 200,
-    "NM"  -> 100,
-    "CM"  -> 100,
-    "WCM" -> 100,
-    "WNM" -> 100
-  )
+      .flatMap(Tv.titleScores.get)
 }
 
 object ChannelTrouper {

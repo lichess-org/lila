@@ -6,6 +6,10 @@
     <item quantity="one">Lichess.org\'u %1$s aylığına %2$s olaraq dəstəklədi</item>
     <item quantity="other">Lichess.org\'u %1$s aylığına %2$s olaraq dəstəklədi</item>
   </plurals>
+  <plurals name="practicedNbPositions">
+    <item quantity="one">%2$s mövzusunda %1$s pozisiya məşq etdi</item>
+    <item quantity="other">%2$s mövzusunda %1$s pozisiya məşq etdi</item>
+  </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">%s taktiki tapmaca həll etdi</item>
     <item quantity="other">%s taktiki tapmaca həll etdi</item>
@@ -26,6 +30,10 @@
     <item quantity="one">%1$s yazışmalı oyunda</item>
     <item quantity="other">%1$s yazışmalı oyunda</item>
   </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">%s yazışmalı oyun tamamladı</item>
+    <item quantity="other">%s yazışmalı oyun tamamladı</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">%s oyunçunu izləməyə başladı</item>
     <item quantity="other">%s oyunçunu izləməyə başladı</item>
@@ -34,6 +42,14 @@
     <item quantity="one">%s yeni izləyici qazandı</item>
     <item quantity="other">%s yeni izləyici qazandı</item>
   </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">%s sinxron seansa ev sahibliyi etdi</item>
+    <item quantity="other">%s sinxron seansa ev sahibliyi etdi</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">%s sinxron seansda iştirak etdi</item>
+    <item quantity="other">%s sinxron seansda iştirak etdi</item>
+  </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">%s yeni çalışma yaratdı</item>
     <item quantity="other">%s yeni çalışma yaratdı</item>
@@ -41,6 +57,10 @@
   <plurals name="competedInNbTournaments">
     <item quantity="one">%s turnirə qatıldı</item>
     <item quantity="other">%s taktiki tapmaca həll etdi</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">%3$s oyun oynayaraq %4$s turnirində %1$s. oldu (en yaxşı%2$s%% içində)</item>
+    <item quantity="other">%3$s oyun oynayaraq %4$s turnirində %1$s. oldu (en yaxşı%2$s%% içində)</item>
   </plurals>
   <string name="signedUp">lichess.org\'a üzv oldu</string>
   <plurals name="joinedNbTeams">

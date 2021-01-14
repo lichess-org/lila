@@ -47,6 +47,6 @@
   <string name="improvementAreas">Verbesserungsbereiche</string>
   <string name="strengths">Stärken</string>
   <string name="history">Aufgabenverlauf</string>
-  <string name="won">gewonnen</string>
+  <string name="solved" comment="&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">gelöst</string>
   <string name="failed">fehlgeschlagen</string>
 </resources>

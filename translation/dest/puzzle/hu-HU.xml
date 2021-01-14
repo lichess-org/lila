@@ -45,4 +45,6 @@
   <string name="jumpToNextPuzzleImmediately">Rögtön a következő feladányhoz ugrás</string>
   <string name="puzzleDashboard">Feladvány statisztika</string>
   <string name="strengths">Erősségek</string>
+  <string name="history">Korábbi feladványok</string>
+  <string name="failed">sikertelen</string>
 </resources>

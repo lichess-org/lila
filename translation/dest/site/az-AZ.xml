@@ -337,7 +337,7 @@
   <string name="reset">Yenidən</string>
   <string name="apply">Tətbiq et</string>
   <string name="save">Saxla</string>
-  <string name="leaderboard">Lider taxta</string>
+  <string name="leaderboard">Liderlik cədvəli</string>
   <string name="pasteTheFenStringHere">FEN yazısını bura qoyun</string>
   <string name="pasteThePgnStringHere">PGN yazısını bura qoyun</string>
   <string name="fromPosition">Fərqli düzülüşdən</string>
@@ -604,13 +604,13 @@
   <string name="contribute">Yardım etmək</string>
   <string name="termsOfService">Xidmət şərtləri</string>
   <string name="sourceCode">Mənbə kodu</string>
-  <string name="simultaneousExhibitions">Sinxron sərgilər</string>
+  <string name="simultaneousExhibitions">Sinxron seanslar</string>
   <string name="host">Ev sahibi</string>
   <string name="hostColorX">Ev sahibi rəngi: %s</string>
   <string name="createdSimuls">Yeni yaradılmış simullar</string>
   <string name="hostANewSimul">Yeni simul yaratmaq</string>
   <string name="noSimulFound">Simul tabılmadı</string>
-  <string name="noSimulExplanation">Bu sinxiron sərgi mövcud deyil</string>
+  <string name="noSimulExplanation">Bu sinxron seans mövcud deyil.</string>
   <string name="returnToSimulHomepage">Simulun ana səyfəsinə qayıt</string>
   <string name="aboutSimul">Simullar, tək oyunçunun bir neçə oyunçuyla eyni zamanda üz-üzə gəlməsidir</string>
   <string name="aboutSimulImage">50 rəqib içindən, Fischer 47 oyunu qazandı, 2 heç-heçə, və 1 uduzdu</string>

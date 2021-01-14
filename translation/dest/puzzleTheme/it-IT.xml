@@ -36,7 +36,7 @@
   <string name="endgameDescription">Una tattica durante l\'ultima fase della partita.</string>
   <string name="enPassantDescription">Una tattica che coinvolge la regola dell\'en passant, in cui un pedone può catturare un pedone avversario che l\'ha superato usando la propria mossa iniziale di due caselle.</string>
   <string name="exposedKing">Re esposto</string>
-  <string name="exposedKingDescription">Una tattica che include un re con pochi difensori vicini, il che spesso porta al matto.</string>
+  <string name="exposedKingDescription">Una tattica che coinvolge un re con pochi difensori vicini, il che spesso porta al matto.</string>
   <string name="fork">Forchetta</string>
   <string name="forkDescription">Una mossa in cui un pezzo attacca due pezzi avversari contemporaneamente.</string>
   <string name="hangingPiece">Pezzo in presa</string>
@@ -64,7 +64,7 @@
   <string name="middlegame">Mediogioco</string>
   <string name="middlegameDescription">Una tattica durante la seconda fase della partita.</string>
   <string name="oneMove">Tattica di una mossa</string>
-  <string name="oneMoveDescription">Una tattica in una sola mossa.</string>
+  <string name="oneMoveDescription">Vittoria in una sola mossa.</string>
   <string name="opening">Apertura</string>
   <string name="openingDescription">Una tattica durante la prima fase della partita.</string>
   <string name="pawnEndgame">Finale di pedoni</string>
@@ -102,5 +102,5 @@
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">L\'avversario è limitato nella sua scelta della mossa, e tutte le mosse possibili peggiorano la sua posizione.</string>
   <string name="healthyMix">Sano misto</string>
-  <string name="healthyMixDescription">Un po\' di tutto. Nessuna attesa, cosicché si rimane pronti a tutto! Proprio come nelle partite vere.</string>
+  <string name="healthyMixDescription">Un po\' di tutto. Nessuna aspettativa, cosicché si rimane pronti a tutto! Proprio come nelle partite vere.</string>
 </resources>

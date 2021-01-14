@@ -1,6 +1,7 @@
 package views.html
 package auth
 
+import controllers.routes
 import play.api.data.{ Field, Form }
 
 import lila.api.Context
@@ -8,8 +9,6 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.security.RecaptchaForm
 import lila.user.User
-
-import controllers.routes
 
 object bits {
 
@@ -183,6 +182,18 @@ body { margin-top: 45px; }
         h1(cls := "text", dataIcon := "2")("Ooops"),
         p("Sorry, you can't signup to Lichess through Tor!"),
         p("You can play, train and use almost all Lichess features as an anonymous user.")
+      )
+    }
+
+  def logout()(implicit ctx: Context) =
+    views.html.base.layout(
+      title = trans.logOut.txt()
+    ) {
+      main(cls := "page-small box box-pad")(
+        h1(trans.logOut()),
+        form(action := routes.Auth.logout(), method := "post")(
+          button(cls := "button button-red", tpe := "submit")(trans.logOut.txt())
+        )
       )
     }
 }

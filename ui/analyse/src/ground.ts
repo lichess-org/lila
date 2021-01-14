@@ -55,8 +55,8 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     events: {
       move: ctrl.userMove,
       dropNewPiece: ctrl.userNewPiece,
-      insert(elements) {
-        if (!ctrl.embed) resizeHandle(elements, ctrl.data.pref.resizeHandle, ctrl.node.ply);
+      insert(elements: cg.Elements) {
+        if (!ctrl.embed) resizeHandle(elements, 2, ctrl.node.ply);
         if (!ctrl.embed && ctrl.data.pref.coords == 1) changeColorHandle();
       }
     },

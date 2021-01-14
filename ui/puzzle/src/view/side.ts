@@ -35,8 +35,7 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
     }, '#' + game.id))),
     h('p', [
       game.clock, ' • ',
-      game.perf.name, ' • ',
-      ctrl.trans.noarg(game.rated ? 'rated' : 'casual')
+      game.perf.name
     ]),
     h('div.players', game.players.map(p =>
       h('div.player.color-icon.is.text.' + p.color,

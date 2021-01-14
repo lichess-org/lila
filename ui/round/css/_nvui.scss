@@ -21,6 +21,21 @@
     font-family: monospace;
     font-size: 1.5em;
     margin: 0;
+    line-height: 32px;
+    border-collapse: collapse;
+    text-align: center;
+    td, th {
+      width: 32px;
+      border: 1px solid black;
+      .black {
+        background-color: black;
+        color: white;
+      }
+      .white {
+        background-color: white;
+        color: black;
+      }
+    }
   }
 
   .pieces h3 {

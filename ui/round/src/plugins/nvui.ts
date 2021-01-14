@@ -12,16 +12,27 @@ import { plyStep } from '../round';
 import { onInsert } from '../util';
 import { Step, Dests, Position, Redraw } from '../interfaces';
 import * as game from 'game';
-import { renderSan, renderPieces, renderBoard, styleSetting } from 'nvui/chess';
+import { renderSan, renderPieces, renderBoard, styleSetting, pieceSetting, prefixSetting, positionSetting, boardSetting } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
+import { boardCommandsHandler, possibleMovesHandler, lastCapturedCommandHandler, selectionHandler, arrowKeyHandler, positionJumpHandler, pieceJumpingHandler } from 'nvui/chess';
 import { Notify } from 'nvui/notify';
 import { castlingFlavours, supportedVariant, Style } from 'nvui/chess';
 import { commands } from 'nvui/command';
+import { throttled } from '../sound';
+
+const selectSound = throttled('select');
+const wrapSound = throttled('wrapAround');
+const borderSound = throttled('outOfBound');
+const errorSound = throttled('error');
 
 lichess.RoundNVUI = function(redraw: Redraw) {
 
   const notify = new Notify(redraw),
-    moveStyle = styleSetting();
+    moveStyle = styleSetting(),
+    prefixStyle = prefixSetting(),
+    pieceStyle = pieceSetting(),
+    positionStyle = positionSetting(),
+    boardStyle = boardSetting();
 
   lichess.pubsub.on('socket.in.message', line => {
     if (line.u === 'lichess') notify.set(line.t);
@@ -111,11 +122,48 @@ lichess.RoundNVUI = function(redraw: Redraw) {
           game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
         )),
         h('h2', 'Board'),
-        h('pre.board', renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color)),
+        h('div.board', {
+          hook: onInsert(el => {
+            const $board = $(el as HTMLElement);
+            $board.on('keypress', boardCommandsHandler());
+            $board.on('keypress', () => console.log(ctrl));
+            // NOTE: This is the only line different from analysis board listener setup
+            $board.on('keypress', lastCapturedCommandHandler(() => ctrl.data.steps.map(step => step.fen), pieceStyle.get(), prefixStyle.get()));
+            const $buttons = $board.find('button');
+            $buttons.on('click', selectionHandler(ctrl.data.opponent.color, selectSound));
+            $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
+            $buttons.on('keypress', possibleMovesHandler(ctrl.data.player.color, ctrl.chessground.getFen, () => ctrl.chessground.state.pieces));
+            $buttons.on('keypress', positionJumpHandler());
+            $buttons.on('keypress', pieceJumpingHandler(wrapSound, errorSound));
+          })}, renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color, pieceStyle.get(), prefixStyle.get(), positionStyle.get(), boardStyle.get())),
+        h('div.boardstatus', {
+          attrs: {
+            'aria-live': 'polite',
+            'aria-atomic': true
+          }
+        }, ''),
+       // h('p', takes(ctrl.data.steps.map(data => data.fen))),
         h('h2', 'Settings'),
         h('label', [
           'Move notation',
           renderSetting(moveStyle, ctrl.redraw)
+        ]),
+        h('h3', 'Board Settings'),
+        h('label', [
+          'Piece style',
+          renderSetting(pieceStyle, ctrl.redraw)
+        ]),
+        h('label', [
+          'Piece prefix style',
+          renderSetting(prefixStyle, ctrl.redraw)
+        ]),
+        h('label', [
+          'Show position',
+          renderSetting(positionStyle, ctrl.redraw)
+        ]),
+        h('label', [
+          'Board layout',
+          renderSetting(boardStyle, ctrl.redraw)
         ]),
         h('h2', 'Commands'),
         h('p', [
@@ -130,6 +178,20 @@ lichess.RoundNVUI = function(redraw: Redraw) {
           'draw: Offer or accept draw.', h('br'),
           'takeback: Offer or accept take back.', h('br')
         ]),
+        h('h2', 'Board Mode commands'),
+        h('p', [
+          'Use these commands when focused on the board itself.', h('br'),
+          'o: announce current position.', h('br'),
+          'c: announce last move\'s captured piece.', h('br'),
+          'l: announce last move.', h('br'),
+          't: announce clocks.', h('br'),
+          'm: announce possible moves for the selected piece.', h('br'),
+          'shift+m: announce possible moves for the selected pieces which capture..', h('br'),
+          'arrow keys: move left, right, up or down.', h('br'),
+          'kqrbnp/KQRBNP: move forward/backward to a piece.', h('br'),
+          '1-8: move to rank 1-8.', h('br'),
+          'Shift+1-8: move to file a-h.', h('br'),
+        ]),
         h('h2', 'Promotion'),
         h('p', [
           'Standard PGN notation selects the piece to promote to. Example: a8=n promotes to a knight.',
@@ -142,6 +204,7 @@ lichess.RoundNVUI = function(redraw: Redraw) {
 }
 
 const promotionRegex = /^([a-h]x?)?[a-h](1|8)=\w$/;
+const uciPromotionRegex = /^([a-h][1-8])([a-h](1|8))[qrbn]$/;
 
 function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: () => Style, $input: Cash) {
   return () => {
@@ -158,7 +221,14 @@ function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: (
       if (input.match(promotionRegex)) {
         uci = sanToUci(input.slice(0, -2), legalSans) || input;
         promotion = input.slice(-1).toLowerCase();
+      } else if (input.match(uciPromotionRegex)) {
+        uci = input.slice(0, -1);
+        promotion = input.slice(-1).toLowerCase();
       }
+      console.log(uci);
+      console.log(uci.slice(0, -1));
+      console.log(promotion);
+      console.log(legalSans);
 
       if (legalUcis.includes(uci.toLowerCase())) ctrl.socket.send("move", {
         u: uci + promotion

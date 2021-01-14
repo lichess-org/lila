@@ -1,10 +1,10 @@
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode';
-import { Chessground } from 'chessground';
-import { Config as CgConfig } from 'chessground/config';
 import changeColorHandle from 'common/coordsColor';
 import resizeHandle from 'common/resize';
+import { Chessground } from 'chessground';
+import { Config as CgConfig } from 'chessground/config';
 import { Controller } from '../interfaces';
+import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode';
 
 export default function(ctrl: Controller): VNode {
   return h('div.cg-wrap', {
@@ -42,12 +42,7 @@ function makeConfig(ctrl: Controller): CgConfig {
     events: {
       move: ctrl.userMove,
       insert(elements) {
-        resizeHandle(
-          elements,
-          ctrl.pref.resizeHandle,
-          ctrl.vm.node.ply,
-          (_) => true
-        );
+        resizeHandle(elements, 2, ctrl.vm.node.ply, (_) => true);
         if (ctrl.pref.coords == 1) changeColorHandle();
       }
     },

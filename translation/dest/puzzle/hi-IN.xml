@@ -47,6 +47,6 @@
   <string name="improvementAreas">सुधार क्षेत्रों</string>
   <string name="strengths">ताकत</string>
   <string name="history">पहेली इतिहास</string>
-  <string name="won">जीत लिया</string>
+  <string name="solved" comment="&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">हल किया</string>
   <string name="failed">अनुत्तीर्ण होना</string>
 </resources>

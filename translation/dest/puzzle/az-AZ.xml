@@ -47,6 +47,6 @@
   <string name="improvementAreas">Təkmilləşdirmə sahələri</string>
   <string name="strengths">Güc</string>
   <string name="history">Tapmaca keçmişi</string>
-  <string name="won">qazandı</string>
+  <string name="solved">həll edilmiş</string>
   <string name="failed">uğursuz oldu</string>
 </resources>
