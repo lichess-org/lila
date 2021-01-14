@@ -12,6 +12,8 @@
   <string name="noTeamFound">Nenhuma equipe encontrada</string>
   <string name="joinTeam">Juntar-se à equipe</string>
   <string name="quitTeam">Abandonar equipa</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Rever pedidos de admissão manualmente</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Se marcado, os jogadores precisarão escrever um pedido para participar da equipe, que você pode recusar ou aceitar.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Líder da equipe</item>
     <item quantity="other">Líderes da equipe</item>
@@ -41,4 +43,5 @@ Jogadores que não gostem de receber suas mensagens podem deixar a equipe.</stri
   <string name="leadersChat">Chat dos líderes</string>
   <string name="closeTeam">Encerrar equipe</string>
   <string name="closeTeamDescription">Desfazer a equipe permanentemente.</string>
+  <string name="teamPassword">Senha da equipe</string>
 </resources>
