@@ -19,6 +19,7 @@
   <string name="monthly">Aylıq</string>
   <string name="recurringBilling">Təkrarlanan ödəmə, hər ay Dəstəkçi qanadlarınız yenilənəcək.</string>
   <string name="onetime">Bir Dəfəlik</string>
+  <string name="singleDonation">Sizə bir ay müddətində Dəstəkçi qanadları verən tək səfərlik ianə.</string>
   <string name="otherAmount">Digər</string>
   <string name="pleaseEnterAmount">Zəhmət olmasa məbləği ABŞ dollarında daxil edin</string>
   <string name="withCreditCard">Kredit Kartı</string>
