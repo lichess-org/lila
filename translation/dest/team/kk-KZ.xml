@@ -12,9 +12,6 @@
   <string name="noTeamFound">Ешбір топ табылмады</string>
   <string name="joinTeam">Топқа қосылу</string>
   <string name="quitTeam">Топтан шығу</string>
-  <string name="anyoneCanJoin">Барлыққа ашық</string>
-  <string name="aConfirmationIsRequiredToJoin">Қосылу растауды қажет етеді</string>
-  <string name="joiningPolicy">Қосылудың қағидасы</string>
   <plurals name="teamLeaders">
     <item quantity="one">Топ жетекшісі</item>
     <item quantity="other">Топ жетекшілері</item>
