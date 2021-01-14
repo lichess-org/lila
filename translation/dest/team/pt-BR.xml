@@ -44,4 +44,7 @@ Jogadores que não gostem de receber suas mensagens podem deixar a equipe.</stri
   <string name="closeTeam">Encerrar equipe</string>
   <string name="closeTeamDescription">Desfazer a equipe permanentemente.</string>
   <string name="teamPassword">Senha da equipe</string>
+  <string name="teamPasswordDescriptionForLeader">(Opcional) Uma senha que novos membros devem saber para entrar nesta equipe.</string>
+  <string name="incorrectTeamPassword">Senha incorreta da equipe.</string>
+  <string name="teamAlreadyExists">Esta equipe já existe.</string>
 </resources>
