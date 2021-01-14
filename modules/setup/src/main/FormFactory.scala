@@ -98,10 +98,7 @@ final class FormFactory {
       .verifying("Invalid clock", _.validClock)
       .verifying(
         "Invalid time control",
-        hook =>
-          hook.makeClock ?? {
-            lila.game.Game.isBoardCompatible(_, hook.mode)
-          }
+        hook => hook.makeClock ?? lila.game.Game.isBoardCompatible
       )
   )
 
