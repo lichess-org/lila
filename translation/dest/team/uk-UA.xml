@@ -14,9 +14,6 @@
   <string name="noTeamFound">Не знайдено команди</string>
   <string name="joinTeam">Приєднатися до команди</string>
   <string name="quitTeam">Залишити команду</string>
-  <string name="anyoneCanJoin">Кожен може приєднатися</string>
-  <string name="aConfirmationIsRequiredToJoin">Потрібен дозвіл на приєднання</string>
-  <string name="joiningPolicy">Правила приєднання</string>
   <plurals name="teamLeaders">
     <item quantity="one">Лідер команди</item>
     <item quantity="few">Лідери команд</item>
