@@ -11,9 +11,6 @@
   <string name="noTeamFound">팀을 찾지 못했습니다</string>
   <string name="joinTeam">팀 가입</string>
   <string name="quitTeam">팀 탈퇴</string>
-  <string name="anyoneCanJoin">승인 없이 아무나 가입할 수 있습니다</string>
-  <string name="aConfirmationIsRequiredToJoin">가입하기 위해선 승인이 필요합니다</string>
-  <string name="joiningPolicy">가입 정책</string>
   <plurals name="teamLeaders">
     <item quantity="other">팀 운영자</item>
   </plurals>
