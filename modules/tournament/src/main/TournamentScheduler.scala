@@ -409,12 +409,12 @@ Thank you all, you rock!"""
         val date = rightNow plusHours hourDelta
         val hour = date.getHourOfDay
         val speed = hour % 6 match {
-          case 1 | 4 => Bullet
-          case 2 | 5 => SuperBlitz
-          case 3     => HippoBullet
+          case 0 | 3 => Bullet
+          case 1 | 4 => SuperBlitz
+          case 5     => HippoBullet
           case _     => Blitz
         }
-        val variant = if (hour % 2 == 0) Crazyhouse else Chess960
+        val variant = if (hour % 2 == 0) Chess960 else Crazyhouse
         List(
           at(date, hour) map { date =>
             Schedule(Hourly, speed, variant, none, date).plan
