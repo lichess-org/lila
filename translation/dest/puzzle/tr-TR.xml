@@ -47,6 +47,6 @@
   <string name="improvementAreas">Gelişim alanları</string>
   <string name="strengths">Güçlü yönler</string>
   <string name="history">Bulmaca geçmişi</string>
-  <string name="solved" comment="&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">çözüldü</string>
+  <string name="solved">çözüldü</string>
   <string name="failed">başarısız</string>
 </resources>
