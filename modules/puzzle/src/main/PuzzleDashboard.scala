@@ -76,7 +76,9 @@ object PuzzleDashboard {
     PuzzleTheme.mateIn5,
     PuzzleTheme.equality,
     PuzzleTheme.advantage,
-    PuzzleTheme.crushing
+    PuzzleTheme.crushing,
+    PuzzleTheme.master,
+    PuzzleTheme.masterVsMaster
   ).map(_.key)
 
   val relevantThemes = PuzzleTheme.all collect {

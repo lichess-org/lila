@@ -49,6 +49,10 @@
   <string name="knightEndgameDescription">An endgame with only knights and pawns.</string>
   <string name="long">Long puzzle</string>
   <string name="longDescription">Three moves to win.</string>
+  <string name="master">Master games</string>
+  <string name="masterDescription">Puzzles from games played by titled players.</string>
+  <string name="masterVsMaster">Master vs Master games</string>
+  <string name="masterVsMasterDescription">Puzzles from games between two titled players.</string>
   <string name="mate">Mate</string>
   <string name="mateDescription">Win the game with style.</string>
   <string name="mateIn1">Mate in 1</string>

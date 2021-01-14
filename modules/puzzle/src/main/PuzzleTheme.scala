@@ -39,6 +39,8 @@ object PuzzleTheme {
   val kingsideAttack = PuzzleTheme(Key("kingsideAttack"), i.kingsideAttack, i.kingsideAttackDescription)
   val knightEndgame  = PuzzleTheme(Key("knightEndgame"), i.knightEndgame, i.knightEndgameDescription)
   val long           = PuzzleTheme(Key("long"), i.long, i.longDescription)
+  val master         = PuzzleTheme(Key("master"), i.master, i.masterDescription)
+  val masterVsMaster = PuzzleTheme(Key("masterVsMaster"), i.masterVsMaster, i.masterVsMasterDescription)
   val mate           = PuzzleTheme(Key("mate"), i.mate, i.mateDescription)
   val mateIn1        = PuzzleTheme(Key("mateIn1"), i.mateIn1, i.mateIn1Description)
   val mateIn2        = PuzzleTheme(Key("mateIn2"), i.mateIn2, i.mateIn2Description)
@@ -135,6 +137,10 @@ object PuzzleTheme {
       short,
       long,
       veryLong
+    ),
+    trans.puzzle.origin -> List(
+      master,
+      masterVsMaster
     )
   )
 
@@ -161,6 +167,8 @@ object PuzzleTheme {
     endgame,
     equality,
     long,
+    master,
+    masterVsMaster,
     mate,
     mateIn1,
     mateIn2,
