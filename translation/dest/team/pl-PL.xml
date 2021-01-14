@@ -14,9 +14,6 @@
   <string name="noTeamFound">Nie znaleziono klubu</string>
   <string name="joinTeam">Dołącz do klubu</string>
   <string name="quitTeam">Opuść klub</string>
-  <string name="anyoneCanJoin">Każdy może dołączyć</string>
-  <string name="aConfirmationIsRequiredToJoin">Dołączenie wymaga zatwierdzenia</string>
-  <string name="joiningPolicy">Warunki dołączenia</string>
   <plurals name="teamLeaders">
     <item quantity="one">Lider klubu</item>
     <item quantity="few">Liderzy klubu</item>
