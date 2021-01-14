@@ -47,5 +47,6 @@
   <string name="improvementAreas">Hobetzekoak</string>
   <string name="strengths">Indarguneak</string>
   <string name="history">Ariketen historikoa</string>
+  <string name="solved" comment="solved&#10;&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">ebatzita</string>
   <string name="failed">huts eginda</string>
 </resources>
