@@ -11,9 +11,6 @@
   <string name="noTeamFound">你不在任何团队中</string>
   <string name="joinTeam">加入团队</string>
   <string name="quitTeam">退出团队</string>
-  <string name="anyoneCanJoin">对所有人开放</string>
-  <string name="aConfirmationIsRequiredToJoin">本团队需申请批准后方可加入</string>
-  <string name="joiningPolicy">团队加入政策</string>
   <plurals name="teamLeaders">
     <item quantity="other">领队</item>
   </plurals>
