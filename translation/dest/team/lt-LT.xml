@@ -14,9 +14,6 @@
   <string name="noTeamFound">Nerasta jokia komanda</string>
   <string name="joinTeam">Stoti į komandą</string>
   <string name="quitTeam">Palikti komandą</string>
-  <string name="anyoneCanJoin">Prisijungti gali bet kas</string>
-  <string name="aConfirmationIsRequiredToJoin">Įstojimui reikalingas patvirtinimas</string>
-  <string name="joiningPolicy">Stojimo sąlygos</string>
   <plurals name="teamLeaders">
     <item quantity="one">Komandos vadovas</item>
     <item quantity="few">Komandos vadovai</item>
