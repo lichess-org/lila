@@ -38,5 +38,5 @@
   <string name="puzzleDashboard">ဉဏ်စမ်း ဒက်ရှ်ဘုတ်</string>
   <string name="improvementAreas">တိုးတက်စေနိုင်မည့် အပိုင်းများ</string>
   <string name="strengths">အားသာချက်များ</string>
-  <string name="solved" comment="solved&#10;&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">ဖြေပြီး</string>
+  <string name="solved">ဖြေပြီး</string>
 </resources>
