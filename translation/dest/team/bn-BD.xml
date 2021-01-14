@@ -12,9 +12,6 @@
   <string name="noTeamFound">কোন দল পাওয়া যায় নি</string>
   <string name="joinTeam">দলে যোগ দিন</string>
   <string name="quitTeam">দল ত্যাগ করুন</string>
-  <string name="anyoneCanJoin">যে কেউ যোগ দিতে পারে</string>
-  <string name="aConfirmationIsRequiredToJoin">যোগ দেওয়ার জন্য অনুমোদন প্রয়োজন</string>
-  <string name="joiningPolicy">যোগ দেওয়ার নিয়ম</string>
   <plurals name="teamLeaders">
     <item quantity="one">দলনেতা</item>
     <item quantity="other">দলনেতারা</item>
