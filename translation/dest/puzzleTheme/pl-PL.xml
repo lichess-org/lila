@@ -49,6 +49,10 @@
   <string name="knightEndgameDescription">Gra końcowa wyłącznie ze skoczkami i pionami.</string>
   <string name="long">Długie zadanie</string>
   <string name="longDescription">Trzy ruchy by wygrać.</string>
+  <string name="master">Partie mistrzów</string>
+  <string name="masterDescription">Zadania z partii graczy utytułowanych.</string>
+  <string name="masterVsMaster">Mistrz kontra partie mistrzów</string>
+  <string name="masterVsMasterDescription">Zadania z partii pomiędzy dwoma utytułowanymi graczami.</string>
   <string name="mate">Mat</string>
   <string name="mateDescription">Wygraj partię w dobrym stylu.</string>
   <string name="mateIn1">Mat w 1 ruchu</string>
