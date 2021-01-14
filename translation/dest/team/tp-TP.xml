@@ -12,9 +12,6 @@
   <string name="noTeamFound">kulupu li lon ala</string>
   <string name="joinTeam">o lon kulupu</string>
   <string name="quitTeam">o tawa tan kulupu</string>
-  <string name="anyoneCanJoin">jan ale li ken kama lon</string>
-  <string name="aConfirmationIsRequiredToJoin">jan lawa kulupu li wile ken e jan kama</string>
-  <string name="joiningPolicy">jan li ken kama lon kepeken nasin seme?</string>
   <plurals name="teamLeaders">
     <item quantity="one">jan lawa kulupu</item>
     <item quantity="other">jan lawa kulupu </item>
