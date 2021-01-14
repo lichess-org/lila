@@ -35,6 +35,18 @@ export default function(ctrl: Controller): VNode {
   const data = ctrl.getData();
   return h('div.puzzle__feedback.after', [
     h('div.complete', ctrl.trans.noarg(ctrl.vm.lastFeedback == 'win' ? 'puzzleSuccess' : 'puzzleComplete')),
-    data.user ? renderVote(ctrl) : renderContinue(ctrl)
+    data.user ? renderVote(ctrl) : renderContinue(ctrl),
+    h('div.puzzle__more', [
+      h('a', {
+        attrs: {
+          'data-icon': '',
+          href: `/analysis/${ctrl.vm.node.fen.replace(/ /g, '_')}?color=${ctrl.vm.pov}#practice`,
+          title: ctrl.trans.noarg('playWithTheMachine')
+        }
+      }),
+      h('a', {
+        hook: bind('click', ctrl.nextPuzzle)
+      }, ctrl.trans.noarg('continueTraining'))
+    ])
   ]);
 }
