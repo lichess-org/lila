@@ -12,9 +12,6 @@
   <string name="noTeamFound">Ingen hold fundet</string>
   <string name="joinTeam">Tilmeld dig holdet</string>
   <string name="quitTeam">Forlad holdet</string>
-  <string name="anyoneCanJoin">Alle kan tilmelde sig</string>
-  <string name="aConfirmationIsRequiredToJoin">En bekræftelse er nødvendig for at kunne tilmelde sig holdet</string>
-  <string name="joiningPolicy">Tilmeldelsepolitik</string>
   <plurals name="teamLeaders">
     <item quantity="one">Holdleder</item>
     <item quantity="other">Holdledere</item>
