@@ -41,4 +41,5 @@ Azok a játékosok akik nem szeretnek üzeneteket kapni akár ki is léphetnek.<
   <string name="leadersChat">Vezetői csevegő</string>
   <string name="closeTeam">Csapat megszüntetése</string>
   <string name="closeTeamDescription">Véglegesen megszünteti a csapatot.</string>
+  <string name="teamAlreadyExists">Ez a csapat már létezik.</string>
 </resources>
