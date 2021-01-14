@@ -36,7 +36,7 @@ final class Env(
 
   private lazy val indexer: InsightIndexer = wire[InsightIndexer]
 
-  private lazy val insightUserApi = new InsightUserApi(db(CollName("insight_user_cache")))
+  private lazy val insightUserApi = new InsightUserApi(db(CollName("insight_user")))
 
   lazy val api = wire[InsightApi]
 
