@@ -12,9 +12,6 @@
   <string name="noTeamFound">No team found</string>
   <string name="joinTeam">Join team</string>
   <string name="quitTeam">Leave team</string>
-  <string name="anyoneCanJoin">Free for all</string>
-  <string name="aConfirmationIsRequiredToJoin">A confirmation is required to join</string>
-  <string name="joiningPolicy">Joining policy</string>
   <plurals name="teamLeaders">
     <item quantity="one">Team leader</item>
     <item quantity="other">Team leaders</item>
