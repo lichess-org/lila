@@ -9,6 +9,7 @@
   <string name="lengths">Długość zadania</string>
   <string name="mates">Maty</string>
   <string name="goals">Cele</string>
+  <string name="origin">Źródło</string>
   <string name="specialMoves">Szczególne posunięcia</string>
   <string name="didYouLikeThisPuzzle">Czy podobało Ci się to zadanie?</string>
   <string name="voteToLoadNextOne">Zagłosuj, by wczytać następny!</string>
