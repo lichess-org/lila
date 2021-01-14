@@ -12,9 +12,6 @@
   <string name="noTeamFound">Geen team gevonden</string>
   <string name="joinTeam">Word lid van het team</string>
   <string name="quitTeam">Verlaat het team</string>
-  <string name="anyoneCanJoin">Iedereen kan lid worden</string>
-  <string name="aConfirmationIsRequiredToJoin">Een bevestiging is nodig om lid te worden</string>
-  <string name="joiningPolicy">Deelnamebeleid</string>
   <plurals name="teamLeaders">
     <item quantity="one">Teamleider</item>
     <item quantity="other">Teamleiders</item>
