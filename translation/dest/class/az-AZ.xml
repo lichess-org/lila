@@ -21,6 +21,7 @@
   <string name="classDescription">Sinif açıqlaması</string>
   <string name="visibleByBothStudentsAndTeachers">Həm müəllimlər, həm də sinif şagirdləri tərəfindən görünür</string>
   <string name="teachersOfTheClass">Sinif müəllimləri</string>
+  <string name="addLichessUsernames">Müəllim kimi dəvət etmək üçün Lichess istifadəçi adlarını əlavə edin. Hər sətirdə bir.</string>
   <string name="theyMustFirstApply">Əvvəlcə Lichess Müəllimi olmaq üçün müraciət etməlidirlər.</string>
   <string name="resetPassword">Şifrəni sıfırla</string>
   <string name="passwordX">Şifrə: %s</string>
@@ -39,6 +40,8 @@
   <string name="createDesc4">Əgərhesabları varsa, bunun əvəzinə dəvət formunu istifadə edin.</string>
   <string name="lichessUsername">Lichess istifadəçi adı</string>
   <string name="generateANewUsername">Yeni bir istifadəçi adı yaradın</string>
+  <string name="welcomeToClass">Sinifinizə xoş gəlmisiniz: %s.
+Sinifə daxil olmaq üçün link.</string>
   <string name="invitationToClass">Tələbə olaraq \"%s\" sinfinə dəvətlisiniz.</string>
   <string name="clickToViewInvitation">Dəvətə baxmaq üçün linkə toxunun:</string>
   <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
