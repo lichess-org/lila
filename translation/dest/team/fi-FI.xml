@@ -41,4 +41,7 @@ Pelaajat, jotka eivät mielellään ota vastaan viestejäsi, saattavat lähteä 
   <string name="leadersChat">Johtajien chat</string>
   <string name="closeTeam">Sulje joukkue</string>
   <string name="closeTeamDescription">Sulkee joukkueen pysyvästi.</string>
+  <string name="teamPassword">Joukkueen salasana</string>
+  <string name="incorrectTeamPassword">Virheellinen joukkuesalasana.</string>
+  <string name="teamAlreadyExists">Tämä joukuue on jo olemassa.</string>
 </resources>
