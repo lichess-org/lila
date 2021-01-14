@@ -12,6 +12,8 @@
   <string name="noTeamFound">Kein Team gefunden</string>
   <string name="joinTeam">Tritt dem Team bei</string>
   <string name="quitTeam">Team verlassen</string>
+  <string name="manuallyReviewAdmissionRequests">Beitrittsanfragen manuell prüfen</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Wenn diese Option aktiviert ist, müssen Spieler eine Anfrage schreiben, um dem Team beizutreten, welche du ablehnen oder akzeptieren kannst.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Teamleiter</item>
     <item quantity="other">Teamleiter</item>
@@ -40,7 +42,7 @@
   <string name="closeTeam">Team auflösen</string>
   <string name="closeTeamDescription">Löst das Team für immer auf.</string>
   <string name="teamPassword">Team-Passwort</string>
-  <string name="teamPasswordDescriptionForLeader">(Optional) Ein Passwort, dass neue Teammitglieder wissen müssen, um dem Team beitreten zu können.</string>
-  <string name="incorrectTeamPassword">Fehlerhaftes Team-Passwort.</string>
+  <string name="teamPasswordDescriptionForLeader">(Optional) Ein Passwort, das neue Teammitglieder kennen müssen, um dem Team beitreten zu können.</string>
+  <string name="incorrectTeamPassword">Fehlerhaftes Passwort.</string>
   <string name="teamAlreadyExists">Dieses Team besteht bereits.</string>
 </resources>
