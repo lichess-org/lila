@@ -50,7 +50,8 @@ object OAuthScope {
   }
 
   object Web {
-    case object Login extends OAuthScope("web:login", "Create authenticated website sessions")
+    case object Login
+        extends OAuthScope("web:login", "Create authenticated website sessions (grants full access!)")
   }
 
   case class Scoped(user: lila.user.User, scopes: List[OAuthScope])
