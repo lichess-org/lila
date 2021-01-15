@@ -77,13 +77,13 @@
   <string name="winning">Qazandıran</string>
   <string name="losing">Uduzduran</string>
   <string name="drawn">Heç-heçə</string>
-  <string name="unknown">Naməlum</string>
+  <string name="unknown">Bilinməyən</string>
   <string name="database">Verilənlər bazası</string>
   <string name="whiteDrawBlack">Ağlar / Heç-heçə / Qaralar</string>
-  <string name="averageRatingX">Orta reytinq: %s</string>
+  <string name="averageRatingX">Ortalama reytinq: %s</string>
   <string name="recentGames">Son oyunlar</string>
   <string name="topGames">Ən yaxşı oyunlar</string>
-  <string name="masterDbExplanation">%1$s+ FIDE reytinqli oyunçuların %2$s ildən %3$s ilə kimi taxta üzərində oynadığı iki milyon oyun</string>
+  <string name="masterDbExplanation">%1$s+ FIDE reytinqli oyunçuların %2$s ildən %3$s ilə qədər lövhə üzərində oynadığı iki milyon oyun</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">%s yarımgedişə mat</item>
     <item quantity="other">%s yarımgedişə mat</item>
@@ -96,8 +96,8 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bəlkə seçimlər menyusunda daha çox oyun daxil edilməsini seçəsiniz?</string>
   <string name="openingExplorer">Debüt tədqiqatçısı</string>
   <string name="xOpeningExplorer">%s debüt bazası</string>
-  <string name="winPreventedBy50MoveRule">Qələbə 50 gediş qaydasına görə sayılmadı</string>
-  <string name="lossSavedBy50MoveRule">Məğlubiyyət 50 gediş qaydasına görə sayılmadı</string>
+  <string name="winPreventedBy50MoveRule">Qələbə 50 gediş qaydasına görə hesaba alınmadı</string>
+  <string name="lossSavedBy50MoveRule">Məğlubiyyət 50 gediş qaydasına görə hesaba alınmadı</string>
   <string name="allSet">Hazır!</string>
   <string name="importPgn">PGN daxil et</string>
   <string name="delete">Sil</string>
