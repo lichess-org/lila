@@ -21,6 +21,7 @@
   <string name="doNotAskByEmailToReopen">Bizdən bir hesabı yenidən açmağımızı e-poçtla istəməyin, etməyəcəyik.</string>
   <string name="wantChangeUsername">İstifadəçi adımı dəyişmək istəyirəm</string>
   <string name="changeUsernameCase">İstifadəçi adınızda böyük və ya kiçik hərf dəyişikliyi etmək üçün bu səhifəni ziyarət edin</string>
+  <string name="orCloseAccount">Bununla birlikdə, cari hesabınızı bağlaya və yenisini yarada bilərsiniz.</string>
   <string name="wantClearHistory">Tarixçəmi və ya reytinqimi sıfırlamaq istəyirəm</string>
   <string name="wantReport">Bir oyunçunu bildirmək istəyirəm</string>
   <string name="cheating">hiylə</string>
@@ -40,6 +41,7 @@
   <string name="reportBugInDiscord">Lichessin Discord serverində</string>
   <string name="illegalPawnCapture">Sehv piyada vurma</string>
   <string name="calledEnPassant">Buna \"keçiddə götürmə\" deyirlər və bu şahmatın qaydalarından biridir.</string>
+  <string name="tryEnPassant">\"Keçiddə götürmə\" haqqında daha çox məlumat əldə etmək üçün bu kiçik interaktiv oyunu sınayın.</string>
   <string name="illegalCastling">Qanunsuz və ya qeyri-mümkün qalaqurma</string>
   <string name="castlingRules">Qalaqurma qaydalarını başa düşdüyünüzdən əmin olun</string>
   <string name="tryCastling">Şahmatda qalaqurma etmək üçün bu kiçik interaktiv oyunu sınayın</string>
@@ -57,6 +59,7 @@
   <string name="monetizing">Lichessdən pul qazanmaq</string>
   <string name="buyingLichess">Lichessi almaq</string>
   <string name="authorizationToUse">Lichess istifadə icazəsi</string>
+  <string name="welcomeToUse">Biznes məqsədilə olsa belə fəaliyyətiniz üçün Lichess istifadə edə bilərsiniz.</string>
   <string name="creditAppreciated">Tərif qiymətləndirilir, lakin tələb olunmur.</string>
   <string name="noneOfTheAbove">Yuxarıdakıların heç biri</string>
   <string name="sendEmailAt">Bizə %s vasitəsilə bir e-poçt göndərin.</string>
