@@ -33,16 +33,18 @@ final class Auth(
       }
     }
 
+  private def getReferrer(implicit ctx: Context) =
+    get("referrer").filter(env.api.referrerRedirect.valid) orElse
+      ctxReq.session.get(api.AccessUri) getOrElse
+      routes.Lobby.home().url
+
   def authenticateUser(u: UserModel, result: Option[String => Result] = None)(implicit
       ctx: Context
   ): Fu[Result] =
     api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
       negotiate(
         html = fuccess {
-          val redirectTo = get("referrer").filter(env.api.referrerRedirect.valid) orElse
-            ctxReq.session.get(api.AccessUri) getOrElse
-            routes.Lobby.home().url
-          result.fold(Redirect(redirectTo))(_(redirectTo))
+          result.fold(Redirect(getReferrer))(_(getReferrer))
         },
         api = _ => mobileUserOk(u, sessionId)
       ) map authenticateCookie(sessionId)
@@ -450,7 +452,7 @@ final class Auth(
 
   def loginWithToken(token: String) =
     Open { implicit ctx =>
-      if (ctx.isAuth) Redirect(routes.Lobby.home()).fuccess
+      if (ctx.isAuth) Redirect(getReferrer).fuccess
       else
         Firewall {
           consumingToken(token) { user =>
@@ -463,7 +465,7 @@ final class Auth(
 
   def loginWithTokenPost(token: String, referrer: Option[String]) =
     Open { implicit ctx =>
-      if (ctx.isAuth) Redirect(routes.Lobby.home()).fuccess
+      if (ctx.isAuth) Redirect(getReferrer).fuccess
       else
         Firewall {
           consumingToken(token) { authenticateUser(_) }
