@@ -210,7 +210,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                     insert: (vnode) => {
                       $.when(
                         window.lishogi.loadScript(
-                          "compiled/lishogi.editor.min.js"
+                          "compiled/lishogi.editor" + ($("body").data("dev") ? "" : ".min") + ".js"
                         ),
                         $.get("/editor.json", {
                           fen: ctrl.root.node.fen,

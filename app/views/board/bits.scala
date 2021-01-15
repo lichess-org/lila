@@ -39,6 +39,7 @@ object bits {
     trans.boardEditor,
     trans.startPosition,
     trans.clearBoard,
+    trans.fillGotesHand,
     trans.flipBoard,
     trans.loadPosition,
     trans.popularOpenings,
