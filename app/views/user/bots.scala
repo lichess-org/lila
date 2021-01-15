@@ -26,7 +26,9 @@ object bots {
           div(cls := "box__top")(h1(title)),
           table(cls := "slist slist-pad")(
             tbody(
-              users.sortBy(-_.playTime.??(_.total)) map { u =>
+              users.sortBy { u =>
+                (if (u.isVerified) -1 else 1, -u.playTime.??(_.total))
+              } map { u =>
                 tr(
                   td(userLink(u)),
                   u.profile
@@ -34,7 +36,7 @@ object bots {
                     .ifTrue(!u.marks.troll || ctx.is(u))
                     .flatMap(_.nonEmptyBio)
                     .map { bio =>
-                      td(richText(shorten(bio, 400), nl2br = false))
+                      td(shorten(bio, 400))
                     } | td,
                   td(cls := "rating")(u.best3Perfs.map {
                     showPerfRating(u, _)
