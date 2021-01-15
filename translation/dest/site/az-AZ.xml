@@ -176,7 +176,7 @@
   <string name="username">İstifadəçi adı</string>
   <string name="usernameOrEmail">İstifadəçi adı</string>
   <string name="changeUsername">İstidadəçi adını dəyiş</string>
-  <string name="changeUsernameNotSame">Sadəcə istifadəçi adınızdakı böyük/kiçik hərfləri dəyiştirəbilərsiniz. Məsələn \"johndoe\" dən \"JohnDoe\" kimi.</string>
+  <string name="changeUsernameNotSame">Sadəcə istifadəçi adınızdakı böyük/kiçik hərfləri dəyişdirə bilərsiniz. Məsələn \"johndoe\" ilə \"JohnDoe\" kimi.</string>
   <string name="changeUsernameDescription">İstifadəçi adınızı dəyişdirin. Bu prosesi sadəcə 1 (bir) dəfə gərçəkləşdirə bilərsiniz və sadəcə mövcud istifadəçi adınızdakı hərfləri (\"johndoe\", \"JohnDoe\") dəyiştirə bilərsiniz.</string>
   <string name="password">Şifrə</string>
   <string name="changePassword">Parolu dəyiş</string>
@@ -216,7 +216,7 @@
   <string name="playingRightNow">İndi oyna</string>
   <string name="eventInProgress">Hal-hazırda oynayır</string>
   <string name="finished">Bitdi</string>
-  <string name="finishesX">%s sona ərəcək</string>
+  <string name="finishesX">%s sonra başa çatacaq</string>
   <string name="abortGame">Oyunu ləğv et</string>
   <string name="gameAborted">Oyun ləğv olundu</string>
   <string name="standard">Standart</string>
@@ -311,14 +311,14 @@
     <item quantity="other">≥ %1$s reytinqli %2$s oyunu</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">%1$s dənə daha reytinqli %2$s oynamanız gərəklidir</item>
-    <item quantity="other">%1$s dənə daha reytinqli %2$s oynamalısınız</item>
+    <item quantity="one">%1$s dənə daha reytinqli %2$s oyunu oynamalısınız</item>
+    <item quantity="other">%1$s dənə daha reytinqli %2$s oyunu oynamalısınız</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">%s dənə daha reytinqli oyun oynamanız gərəklidir</item>
+    <item quantity="one">%s dənə daha reytinqli oyun oynamalısınız</item>
     <item quantity="other">%s dənə daha reytinqli  oynamanız gərəklidir</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">%s reytinqiniz keçicidir</string>
+  <string name="yourPerfRatingIsProvisional">%s reytinqiniz müvəqqətidir</string>
   <string name="yourPerfRatingIsTooHigh">Haftalık %1$s reytinqiniz (%2$s) gərəkəndən çox</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Haftalık %1$s reytinqiniz (%2$s) gərəkəndən çox</string>
   <string name="yourPerfRatingIsTooLow">%1$s reytinqiniz (%2$s) gərəkəndən az</string>
