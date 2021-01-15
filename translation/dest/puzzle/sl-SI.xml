@@ -9,6 +9,7 @@
   <string name="lengths">Dolžine</string>
   <string name="mates">Mati</string>
   <string name="goals">Cilji</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Izvor</string>
   <string name="didYouLikeThisPuzzle">Ali ti je všeč šahovski problem?</string>
   <string name="voteToLoadNextOne">Glasujte za nalaganje naslednjega!</string>
   <string name="yourPuzzleRatingX">Tvoj rating pri reševanju šahovskih problemov: %s</string>
