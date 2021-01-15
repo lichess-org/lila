@@ -22,6 +22,7 @@
   <string name="endgameDescription">Oyunun son mərhələsindəki taktikalar.</string>
   <string name="exposedKing">Müdafiəsiz şah</string>
   <string name="fork">Çəngəl</string>
+  <string name="forkDescription">Bir fiqurun eyni anda iki rəqib fiquruna hücum etdiyi gediş.</string>
   <string name="hangingPiece">Qorunmasız fiqur</string>
   <string name="interference">Yolukəsmə</string>
   <string name="intermezzo">İntermezzo</string>
@@ -30,6 +31,9 @@
   <string name="long">Uzun tapmaca</string>
   <string name="longDescription">3 gedişə qələbə.</string>
   <string name="master">Usta oyunları</string>
+  <string name="masterDescription">Titullu oyunçuların oynadığı oyunlardan tapmacalar.</string>
+  <string name="masterVsMaster">Usta vs Usta oyunları</string>
+  <string name="masterVsMasterDescription">İki titullu oyunçu arasındakı oyunlardan tapmacalar.</string>
   <string name="mate">Mat</string>
   <string name="mateDescription">Oyunu üslubuyla qazanın.</string>
   <string name="mateIn1">1 Gedişə Mat</string>
