@@ -33,6 +33,7 @@
   <string name="insults">təhqir</string>
   <string name="otherReason">başqa bir səbəb</string>
   <string name="toReportAPlayer">%s üçün bir oyunçunu şikayət etmək üçün şikayət formunu istifadə edin</string>
+  <string name="youCanAlsoReachReportPage">Bir profil səhifəsindəki %s şikayət düyməsinə basaraq da həmin səhifəyə daxil ola bilərsiniz.</string>
   <string name="doNotReportInForum">Forumdakı oyunçuları şikayət etməyin.</string>
   <string name="doNotSendReportEmails">Bizə şikayət e-poçtları göndərməyin.</string>
   <string name="doNotMessageModerators">Moderatorlara birbaşa mesaj göndərməyin.</string>
@@ -42,6 +43,7 @@
   <string name="reportWebsiteIssue">Lichess sayt problemləri GitHubda</string>
   <string name="reportMobileIssue">Lichess mobil tətbiqi problemləri GitHubda</string>
   <string name="reportBugInDiscord">Lichessin Discord serverində</string>
+  <string name="howToReportBug">Lütfən, xətanın necə göründüyünü, bunun əvəzində nə olacağını gözlədiyinizi və xətanı yaradan addımları təsvir edin.</string>
   <string name="illegalPawnCapture">Sehv piyada vurma</string>
   <string name="calledEnPassant">Buna \"keçiddə götürmə\" deyirlər və bu şahmatın qaydalarından biridir.</string>
   <string name="tryEnPassant">\"Keçiddə götürmə\" haqqında daha çox məlumat əldə etmək üçün bu kiçik interaktiv oyunu sınayın.</string>
