@@ -398,12 +398,12 @@
   <string name="standing">Sıralama</string>
   <string name="createANewTournament">Yeni turnir yaradın.</string>
   <string name="tournamentCalendar">Turnir təqvimi</string>
-  <string name="conditionOfEntry">Qatılma şərti:</string>
+  <string name="conditionOfEntry">Qatılma şərtləri:</string>
   <string name="advancedSettings">Ətraflı tənzimləmələr</string>
-  <string name="safeTournamentName">Turnir üçün olduqca güvənli bir ad seçin.</string>
-  <string name="inappropriateNameWarning">Her hansı bir uyğunsuz ad, hesabınızın yasaqlanmasına yol açabilər.</string>
-  <string name="emptyTournamentName">Qutuyu boş bıraxaraq turnirə rastgələ bir Böyük şahmatçının adını verəbilərsiniz.</string>
-  <string name="recommendNotTouching">Bu tənzimləmələrə toxunmamanızı önəririk.</string>
+  <string name="safeTournamentName">Turnir üçün çox etibarlı bir ad seçin.</string>
+  <string name="inappropriateNameWarning">Her hansı uyğunsuz bir ad, hesabınızın bağlanmasına yol aça bilər.</string>
+  <string name="emptyTournamentName">Turnirə görkəmli bir şahmatçının adını vermək üçün boş buraxın.</string>
+  <string name="recommendNotTouching">Bunlara toxunmamağınızı məsləhət görürük.</string>
   <string name="fewerPlayers">Giriş tələbləri qoysanız, turnirinizə daha az oyunçu qoşulacaq.</string>
   <string name="showAdvancedSettings">Ətraflı tənzimləmələr</string>
   <string name="makePrivateTournament">Turniri özəl et və şifrə qoyaraq müraciəti məhdudlaşdır</string>
@@ -471,7 +471,7 @@
   <string name="description">Təsvir</string>
   <string name="no">Xeyr</string>
   <string name="yes">Bəli</string>
-  <string name="help">Kömək</string>
+  <string name="help">Kömək:</string>
   <string name="createANewTopic">Yeni mövzu yarat</string>
   <string name="topics">Mövzular</string>
   <string name="posts">Mesajlar</string>
@@ -480,7 +480,7 @@
   <string name="replies">Cavablar</string>
   <string name="replyToThisTopic">Mövzunu Cavab</string>
   <string name="reply">Cavab</string>
-  <string name="message">İsmarıc</string>
+  <string name="message">Mesaj</string>
   <string name="createTheTopic">Mövzu yarat</string>
   <string name="reportAUser">Istifadəçi şikayət et</string>
   <string name="user">İstifadəçi</string>
@@ -594,7 +594,7 @@
   <string name="tpTimeSpentOnTV">TV-də keçirilimiş zaman: %s</string>
   <string name="watch">Bax</string>
   <string name="videoLibrary">Video kitabxana</string>
-  <string name="streamersMenu">Canlı Yayımlar</string>
+  <string name="streamersMenu">Yayımçılar</string>
   <string name="mobileApp">Mobil proqram</string>
   <string name="webmasters">Web-ustalar</string>
   <string name="about">Haqqında</string>
@@ -708,7 +708,7 @@
   <string name="anonymous">Anonim</string>
   <string name="yourScore">Hesab: %s</string>
   <string name="language">Dil</string>
-  <string name="background">Arxaplan</string>
+  <string name="background">Arxa fon</string>
   <string name="light">İşıq</string>
   <string name="dark">Qaranlıq</string>
   <string name="transparent">Şəffaf</string>
