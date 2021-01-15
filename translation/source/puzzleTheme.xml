@@ -95,6 +95,8 @@
   <string name="skewerDescription">A motif involving a high value piece being attacked, moving out the way, and allowing a lower value piece behind it to be captured or attacked, the inverse of a pin.</string>
   <string name="smotheredMate">Smothered mate</string>
   <string name="smotheredMateDescription">A checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.</string>
+  <string name="superGM">Super GM games</string>
+  <string name="superGMDescription">Puzzles from games played by the best players in the world.</string>
   <string name="trappedPiece">Trapped piece</string>
   <string name="trappedPieceDescription">A piece is unable to escape capture as it has limited moves.</string>
   <string name="underPromotion">Underpromotion</string>

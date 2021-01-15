@@ -63,6 +63,7 @@ object PuzzleTheme {
   val sacrifice       = PuzzleTheme(Key("sacrifice"), i.sacrifice, i.sacrificeDescription)
   val short           = PuzzleTheme(Key("short"), i.short, i.shortDescription)
   val skewer          = PuzzleTheme(Key("skewer"), i.skewer, i.skewerDescription)
+  val superGM         = PuzzleTheme(Key("superGM"), i.superGM, i.superGMDescription)
   val trappedPiece    = PuzzleTheme(Key("trappedPiece"), i.trappedPiece, i.trappedPieceDescription)
   val underPromotion  = PuzzleTheme(Key("underPromotion"), i.underPromotion, i.underPromotionDescription)
   val veryLong        = PuzzleTheme(Key("veryLong"), i.veryLong, i.veryLongDescription)
@@ -140,7 +141,8 @@ object PuzzleTheme {
     ),
     trans.puzzle.origin -> List(
       master,
-      masterVsMaster
+      masterVsMaster,
+      superGM
     )
   )
 
