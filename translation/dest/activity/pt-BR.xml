@@ -19,8 +19,8 @@
     <item quantity="other">Jogou %1$s partidas de %2$s</item>
   </plurals>
   <plurals name="postedNbMessages">
-    <item quantity="one">Postou %1$s mensagem em %2$s</item>
-    <item quantity="other">Postou %1$s mensagens em %2$s</item>
+    <item quantity="one">Publicou %1$s mensagem em %2$s</item>
+    <item quantity="other">Publicou %1$s mensagens em %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">Jogou %1$s movimento</item>
