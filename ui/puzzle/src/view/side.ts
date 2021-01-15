@@ -27,16 +27,13 @@ function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
 }
 
 function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
+  const gameName = `${game.clock} • ${game.perf.name}`
   return h('div.infos', {
     attrs: dataIcon(game.perf.icon)
   }, [h('div', [
-    h('p', ctrl.trans.vdom('fromGameLink', ctrl.vm.mode == 'play' ? h('span.hidden', ctrl.trans.noarg('hidden')) : h('a', {
+    h('p', ctrl.trans.vdom('fromGameLink', ctrl.vm.mode == 'play' ? h('span', gameName) : h('a', {
       attrs: { href: `/${game.id}/${ctrl.vm.pov}#${puzzle.initialPly}` }
-    }, '#' + game.id))),
-    h('p', [
-      game.clock, ' • ',
-      game.perf.name
-    ]),
+    }, gameName))),
     h('div.players', game.players.map(p =>
       h('div.player.color-icon.is.text.' + p.color,
         p.userId ? h('a.user-link.ulpt', {
