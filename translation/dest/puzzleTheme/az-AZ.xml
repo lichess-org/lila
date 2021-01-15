@@ -29,6 +29,7 @@
   <string name="knightEndgameDescription">Yalnız atlar və piyadalardan ibarət oyun sonu.</string>
   <string name="long">Uzun tapmaca</string>
   <string name="longDescription">3 gedişə qələbə.</string>
+  <string name="master">Usta oyunları</string>
   <string name="mate">Mat</string>
   <string name="mateDescription">Oyunu üslubuyla qazanın.</string>
   <string name="mateIn1">1 Gedişə Mat</string>
