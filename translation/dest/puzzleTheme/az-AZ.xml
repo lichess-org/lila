@@ -26,6 +26,7 @@
   <string name="endgame">Endşpil</string>
   <string name="endgameDescription">Oyunun son mərhələsindəki taktikalar.</string>
   <string name="exposedKing">Müdafiəsiz şah</string>
+  <string name="exposedKingDescription">Ətrafında az müdafiəçisi olan şahın olduğu və əksər hallarda mat ilə nəticələnən taktikalar.</string>
   <string name="fork">Çəngəl</string>
   <string name="forkDescription">Bir fiqurun eyni anda iki rəqib fiquruna hücum etdiyi gediş.</string>
   <string name="hangingPiece">Qorunmasız fiqur</string>
