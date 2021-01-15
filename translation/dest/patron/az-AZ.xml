@@ -68,4 +68,5 @@ Və ya buradan: %s.</string>
   <string name="checkOutProfile">Profil səhifənizə baxın!</string>
   <string name="nowLifetime">İndi siz ömürlük Lichess Dəstəkçisisiniz!</string>
   <string name="nowOneMonth">Artıq bir aydır Lichess Dəstəkçisisiniz!</string>
+  <string name="downgradeNextMonth">Bir aydan sonra yenidən ödəniş tələb edilməyəcək və Lichess hesabınız adi bir hesaba qayıdacaq.</string>
 </resources>
