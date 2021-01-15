@@ -49,6 +49,10 @@
   <string name="knightEndgameDescription">Et slutspil med kun springere og bønder.</string>
   <string name="long">Lang opgave</string>
   <string name="longDescription">Tre træk for at vinde.</string>
+  <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Mesterpartier</string>
+  <string name="masterDescription">Opgaver fra partier af spillere med titel.</string>
+  <string name="masterVsMaster" comment="masterVsMaster&#10;&#10;Puzzles from games between two titled players.">Mester mod mester partier</string>
+  <string name="masterVsMasterDescription">Opgaver fra partier mellem to spillere med titel.</string>
   <string name="mate">Mat</string>
   <string name="mateDescription">Vind spillet med stil.</string>
   <string name="mateIn1">Mat i 1</string>
@@ -91,6 +95,8 @@
   <string name="skewerDescription">En manøvre hvor en brik af høj værdi angribes og må flyttes, hvorved en brik af lavere værdi bagved kan tages eller trues. Det omvendte af en binding.</string>
   <string name="smotheredMate">Kvalt mat</string>
   <string name="smotheredMateDescription">En skakmat leveret af en ridder, hvor den matte konge er ude af stand til at bevæge sig, fordi den er omgivet (eller kvalt) af sine egne brikker.</string>
+  <string name="superGM" comment="superGM&#10;&#10;Puzzles from games played by the best players in the world.">Superstormester-partier</string>
+  <string name="superGMDescription">Opgaver fra partier spillet af verdens bedste spillere.</string>
   <string name="trappedPiece">Fastlåste brikker</string>
   <string name="trappedPieceDescription">En brik er ude af stand til at undslippe fangst, da den har begrænsede trækmuligheder.</string>
   <string name="underPromotion">Underforvandling</string>
