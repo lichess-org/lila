@@ -182,7 +182,7 @@ object home {
           a(href := "/about")(trans.aboutX("Lishogi")),
           a(href := "/faq")(trans.faq.faqAbbreviation()),
           a(href := "/contact")(trans.contact.contact()),
-          a(href := "/mobile")(trans.mobileApp()),
+          //a(href := "/mobile")(trans.mobileApp()),
           a(href := routes.Page.tos())(trans.termsOfService()),
           a(href := routes.Page.privacy())(trans.privacy()),
           a(href := routes.Page.source())(trans.sourceCode()),
