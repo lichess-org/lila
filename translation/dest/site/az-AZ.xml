@@ -624,7 +624,7 @@
   <string name="simulAddExtraTime">Simulla başa çıxmaq üçün öz saatına əlavə vaxtlar artıra bilərsən.</string>
   <string name="simulHostExtraTime">Dəvət edənin əlavə vaxtı</string>
   <string name="lichessTournaments">Lichess turnirləri</string>
-  <string name="tournamentFAQ">Arena turnirinin TSS</string>
+  <string name="tournamentFAQ">Arena turnirinin TSS-i</string>
   <string name="tournamentOfficial">Rəsmi</string>
   <string name="timeBeforeTournamentStarts">Turnir başlamadan öncəki zaman</string>
   <string name="averageCentipawnLoss">Fiqurların ortalama nisbi dəyər itkisi</string>
@@ -831,7 +831,7 @@
   <string name="puzzleDesc">Şahmat taktika məşqçisi</string>
   <string name="important">Önəmli</string>
   <string name="yourQuestionMayHaveBeenAnswered">Sizin sualınız %1$s cavablanmış ola bilər.</string>
-  <string name="inTheFAQ">F.A.Q bölməsində</string>
+  <string name="inTheFAQ">T.S.S bölməsində.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Bir istifadəçini aldatma və ya pis davranışa görə bildirmək üçün, %1$s</string>
   <string name="useTheReportForm">şikayət formundan istifadə edin</string>
   <string name="toRequestSupport">Dəstək almaq üçün, %1$s</string>
