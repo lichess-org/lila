@@ -21,8 +21,11 @@
   <string name="cheatDetectionMethods">Lichessin güclü aşkarlama metodları və bütün dəlilləri nəzərdən keçirmək və qərar qəbul etmək üçün hərtərəfli bir prosesi var. Proses tez-tez bir çox moderatoru əhatə edir və uzun müddət çəkə bilər. İşarənin özü xaricində, dəlillər və fərdi işlər üçün qərar qəbul etmə prosesi haqqında təfərrüatlara varmayacağıq. Bunu etmək gələcəkdə aşkarlanmanın qarşısını almağı asanlaşdıracaq və səmərəsiz mübahisələrə dəvət olacaqdır. Bu vaxt və səy daha vacib işlərə daha yaxşı xərclənir. İstifadəçilər %1$s ünvanına elektron poçt ilə müraciət edə bilərlər, lakin qərarlar nadir hallarda pozulur.</string>
   <string name="whenAmIEligibleRatinRefund">Hiyləyə qarşı itirdiyim xalları nə vaxt geri ala biləcəm?</string>
   <string name="preventLeavingGameWithoutResigning">Oyunçuların təslim olmadan oyunlarını tərk etmələri ilə bağlı nə edilir?</string>
+  <string name="leavingGameWithoutResigningExplanation">Rəqibiniz tez-tez oyunlarını dayandırar/tərk edərsə, ona \"oynamağa qadağa qoyulur\", yəni müvəqqəti olaraq oyun oynamaq qadağan olunur. Bu, profilində açıq şəkildə göstərilmir. Lakin bu davranış davam edərsə, qadağanın vaxtı artırılır və bu xarakterli uzun müddətli davranış hesabın bağlanmasına səbəb ola bilir.</string>
   <string name="howCanIBecomeModerator">Necə moderator ola bilərəm?</string>
+  <string name="youCannotApply">Moderator olmaq üçün müraciət etmək mümkün deyil. Moderator olaraq yaxşı olacağını düşündüyümüz birini görsək, onlarla birbaşa əlaqə quracağıq.</string>
   <string name="isCorrespondenceDifferent">Yazışmalı oyun normal şahmatdan fərqlidir?</string>
+  <string name="youCanUseOpeningBookNoEngine">Lichessdə yazışma şahmatı üçün qaydalardakı əsas fərq debüt kitabına icazə verilməsidir. Mühərriklərin istifadəsi hələ də qadağandır və bunu etdiyiniz təqdirdə profiliniz işarələnəcək. ICCF yazışmada mühərrik istifadəsinə icazə versə də, Lichess buna icazə vermir.</string>
   <string name="gameplay">Oynama</string>
   <string name="howBulletBlitzEtcDecided">Bullet, Blitz və digər vaxt nəzarətlərinə necə qərar verilir?</string>
   <string name="durationFormula">(başlanğıc vaxt) + 40 × (əlavə vaxt)</string>
