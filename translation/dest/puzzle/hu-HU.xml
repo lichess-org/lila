@@ -9,6 +9,7 @@
   <string name="lengths">Hossz</string>
   <string name="mates">Matt</string>
   <string name="goals">Célok</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Forrás</string>
   <string name="specialMoves">Különleges lépések</string>
   <string name="didYouLikeThisPuzzle">Tetszett ez a feladvány?</string>
   <string name="voteToLoadNextOne">Szavazz egy újért cserébe!</string>
