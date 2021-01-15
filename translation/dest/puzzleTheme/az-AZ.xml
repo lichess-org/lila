@@ -80,6 +80,7 @@
   <string name="rookEndgame">Top sonluğu</string>
   <string name="rookEndgameDescription">Sadəcə top və piyadaların olduğu oyun sonluğu.</string>
   <string name="sacrifice">Qurban</string>
+  <string name="sacrificeDescription">Məcburi gedişlər seriyasından sonra yenidən üstünlük qazanmaq üçün qısa müddətdə materialdan imtina etməyi əhatə edən bir taktika.</string>
   <string name="short">Qısa tapmaca</string>
   <string name="shortDescription">2 gedişə qələbə.</string>
   <string name="skewer">Şiş</string>
