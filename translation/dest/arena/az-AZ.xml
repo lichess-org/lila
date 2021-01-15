@@ -7,11 +7,11 @@
   <string name="isNotRated">Bu turnir reytinqli deyil ve reqtinqinizə təsir etməyəcək.</string>
   <string name="someRated">Bəzi turnirlər reytinqlidir ve reytinqinizə təsir edəcək.</string>
   <string name="howAreScoresCalculated">Ballar necə hesablanır?</string>
-  <string name="howAreScoresCalculatedAnswer">Qazanılan bir oyun təməldə 2 xal, bərabərlik 1 xal dəyərindədir. Uduzulan bir oyun isə heçbir xal gətirməz. Üst- üstə iki oyun qazandığınız təqdirdə alov ikonu ile simgələnən ikiqat xal seriyasına girərsiniz.
+  <string name="howAreScoresCalculatedAnswer">Qazanılan bir oyun təməldə 2 xal, bərabərlik 1 xal dəyərindədir. Uduzulan bir oyun isə heçbir xal qazandırmır. Üst- üstə iki oyun qazandığınız təqdirdə alov ikonu ile təmsil olunan ikiqat xal seriyasına girirsiniz.
 
-Məğlub olana vəya bərabərə qalana qədər edilən oyunlardan iki qatı xal qazanırsınız. Yəni seriyada ikən bir qalibiyyət 4 xal, bərabərlik 2 xal gətirirkən uduzulan oyundan heçbir xal alınmaz.
+Məğlub olana vəya bərabərə qalana qədər oynanılan oyunlardan iki qatı xal qazanırsınız. Yəni seriyada ikən bir qalibiyyət 4 xal, bərabərlik 2 xal qazandırarkən uduzulan oyundan heçbir xal qazanılmaz.
 
-Məsələn; üst-üstə qazanılan iki oyun ve ardından alınan bir bərabərlik 6 xal dəyərindədir: 2 + 2 + (2 x 1)</string>
+Məsələn; üst-üstə qazanılan iki oyun və ardından alınan bir bərabərlik 6 xal dəyərindədir: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Çılğın Modu</string>
   <string name="berserkAnswer">Bir oyunçu oyunun əvvəlində Berserk düyməsini basdıqda, vaxtının yarısını itirir, ancaq qələbə bir əlavə turnir xalı qazandırır.
 
