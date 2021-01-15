@@ -27,6 +27,8 @@
   <string name="weAreSmallTeam">Biz kiçik bir komandayıq, bu səbəbdən dəstəyiniz böyük bir fərq yaradır!</string>
   <string name="celebratedPatrons">Lichessi var edən dəyərli Dəstəkçilərimiz</string>
   <string name="whereMoneyGoes">Pul hara gedir?</string>
+  <string name="serversAndDeveloper">Hər şeydən əvvəl güclü serverlər.
+Bundan başqa tamştat mühəndis proqramçıya ödəniş edirik: %s, Lichess yaradıcısı.</string>
   <string name="costBreakdown">Detallı maliyyətə baxın</string>
   <string name="officialNonProfit">Lichess rəsmi olaraq qeyri-kommersiya təşkilatıdır?</string>
   <string name="actOfCreation">Bəli, bu da təsis sənədi (fransızca)</string>
@@ -61,6 +63,7 @@ Və ya buradan: %s.</string>
   <string name="viewOthers">Digər Lichess Dəstəkçilərinə baxın</string>
   <string name="date">Tarix</string>
   <string name="amount">Miqdar</string>
+  <string name="transactionCompleted">Əməliyyatınız tamamlandı və ianəniz üçün qəbz sizə elektron poçtla göndərildi.</string>
   <string name="permanentPatron">İndi daimi bir Dəstəkçi hesabınız var.</string>
   <string name="checkOutProfile">Profil səhifənizə baxın!</string>
   <string name="nowLifetime">İndi siz ömürlük Lichess Dəstəkçisisiniz!</string>
