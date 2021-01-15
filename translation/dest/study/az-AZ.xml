@@ -46,14 +46,14 @@
   <string name="annotateWithGlyphs">Simvol ilə izah et</string>
   <string name="theChapterIsTooShortToBeAnalysed">Fəsil təhlil edilməsi üçün çox qısadır.</string>
   <string name="onlyContributorsCanRequestAnalysis">Yalnız çalışma iştirakçıları kompüter təhlili tələb edə bilər.</string>
-  <string name="getAFullComputerAnalysis">Ana xəttin tam server tərəfli kompüter təhlilini alın.</string>
+  <string name="getAFullComputerAnalysis">Ana variant üçün serverdən hərtərəfli kompüter təhlilini alın.</string>
   <string name="makeSureTheChapterIsComplete">Fəsilin tamamlandığına əmin olun. Yalnız bir dəfə təhlil tələbi edə bilərsiniz.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">EYNİLƏŞDİRİLMİŞ bütün üzvlər eyni mövqedə qalır</string>
   <string name="shareChanges">Dəyişiklikləri tamaşaçılarla paylaşın və onları serverdə saxlayın</string>
-  <string name="playing">Oynayır</string>
+  <string name="playing">Oynanılan</string>
   <string name="first">İlk</string>
   <string name="previous">Əvvəlki</string>
-  <string name="next">Sonrakı</string>
+  <string name="next">Növbəti</string>
   <string name="last">Son</string>
   <string name="shareAndExport">Paylaş və ixrac et</string>
   <string name="cloneStudy">Klonla</string>
