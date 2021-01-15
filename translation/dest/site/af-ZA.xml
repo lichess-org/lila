@@ -199,13 +199,7 @@
     <item quantity="other">%s spelle teen jou</item>
   </plurals>
   <string name="cancel">Kanseleer</string>
-  <string name="whiteTimeOut">Wit tyd verstreke
- 
-witTydVerstreke
-
-Wys wanneer Wit se tyd uitgehardloop het. Dit word gevolg deur die eindvoorwaarde, byvoorbeeld
-\'Wit tyd verstreke · Gelykop\'
-Leêr: Webwerf &amp; toep - mees belangrikste rye</string>
+  <string name="whiteTimeOut">Wit tyd verstreke</string>
   <string name="blackTimeOut">Swart time-out</string>
   <string name="drawOfferSent">Gelykop aanbod gestuur</string>
   <string name="drawOfferDeclined">Gelykop aanbod verwerp</string>
