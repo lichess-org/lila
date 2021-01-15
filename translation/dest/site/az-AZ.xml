@@ -61,12 +61,12 @@
   <string name="cloudAnalysis">Bulud təhlili</string>
   <string name="goDeeper">Daha dərinə get</string>
   <string name="showThreat">Təhdidi göstər</string>
-  <string name="inLocalBrowser">yerli səyyahda</string>
+  <string name="inLocalBrowser">bu brauzerdə</string>
   <string name="toggleLocalEvaluation">Yerli qiymətləndirməni aç/bağla</string>
   <string name="promoteVariation">Variasiyanı irəli çək</string>
-  <string name="makeMainLine">Ana yol et</string>
+  <string name="makeMainLine">Ana davam yolu et</string>
   <string name="deleteFromHere">Buradan sil</string>
-  <string name="forceVariation">Variasiyanı göstər</string>
+  <string name="forceVariation">Əsas variasiya et</string>
   <string name="move">Gediş</string>
   <string name="variantLoss">Uduzduracaq variant</string>
   <string name="variantWin">Qazandıracaq variant</string>
