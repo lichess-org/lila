@@ -99,4 +99,15 @@ $user-list-width: 30ch;
       margin: 0 .3em;
     }
   }
+
+  @include breakpoint($mq-not-x-small) {
+    td.rating {
+      display: none;
+    }
+  }
+  @include breakpoint($mq-not-medium) {
+    td:nth-child(4) {
+      display: none;
+    }
+  }
 }
