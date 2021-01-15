@@ -52,6 +52,7 @@
   <string name="master">Meisterpartien</string>
   <string name="masterDescription">Aufgaben aus Partien, die von Spielern mit Titel gespielt werden.</string>
   <string name="masterVsMaster">Master gegen Master Partien</string>
+  <string name="masterVsMasterDescription">Aufgaben aus Partien, die von Spielern mit Titel gespielt werden.</string>
   <string name="mate">Matt</string>
   <string name="mateDescription">Gewinne die Partie mit Stil.</string>
   <string name="mateIn1">Matt in 1</string>
