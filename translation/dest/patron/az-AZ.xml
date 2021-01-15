@@ -12,6 +12,8 @@
   <string name="youHaveLifetime">Ömürlük Dəstəkçi hesabınız var. Bu möhtəşəmdir!</string>
   <string name="patronUntil">Dəstəkçi hesabınızın müddəti %s tarixində başa çatır.</string>
   <string name="ifNotRenewed">Yeniləmədinizsə, hesabınız ödənişsiz hesaba çevriləcək.</string>
+  <string name="weAreNonProfit">Hər kəsin pulsuz, dünya səviyyəli bir şahmat platformasına çıxışı olması lazım olduğuna inandığımız üçün mənfəət güdməyən bir təşkilatıq.</string>
+  <string name="weRelyOnSupport">Bunu mümkün etmək üçün sizin kimi insanların dəstəyinə güvənirik. Lichess istifadə etməkdən xoşunuz gəlirsə, xahiş edərək Dəstəkçi olmaqla bizə dəstək olmağı əsirgəməyin!</string>
   <string name="lifetime">Ömürlük</string>
   <string name="payLifetimeOnce">Bir dəfə %s ödəyin. Əbədi Lichess Dəstəkçisi olun!</string>
   <string name="lifetimePatron">Ömürlük Lichess Dəstəkçisi</string>
@@ -40,6 +42,8 @@ Və ya buradan: %s.</string>
   <string name="bankTransfers">Bank köçürmələrini də qəbul edirik</string>
   <string name="bitcoin">Bitcoin ünvanımız: %s</string>
   <string name="patronFeatures">Bəzi xüsusiyyətlər yalnız Dəstəkçilərə məxsusdur?</string>
+  <string name="noPatronFeatures">Xeyr, çünki Lichess tamamilə azaddır, sonsuza qədər və hər kəs üçün. Bu bir vəddir.
+Bununla belə, Dəstəkçilər yeni bir profil simvolu ilə öyünmə hüquqları əldə edirlər.</string>
   <string name="featuresComparison">Ətraflı özəllik müqayisəsinə baxın</string>
   <plurals name="patronForMonths">
     <item quantity="one">Bir aydır Lichess dəstəkçisidir</item>
