@@ -45,6 +45,11 @@ Bu dəyər oyun keyfiyyətinin göstəricisi kimi istifadə edilə bilər. Bir g
 
 Lichess kompüter analizi Stockfish tərəfindən dəstəklənir.</string>
   <string name="insufficientMaterial">Vaxt azlığı, heç-heçə və yetərsiz fiqur</string>
+  <string name="lichessFollowFIDErules">Bir oyunçunun vaxtı tükənməsi halında, həmin oyunçu əksər hallarda oyunu uduzacaqdır. Lakin, rəqib bu oyunçunuı hər hansı bir qanuni gediş ardıcıllığı ilə (%1$s) mat edə bilməyəcəyi vəziyyətdə oyun heç-heçə olur.
+
+Nadir hallarda buna avtomatik qərar verməsi çətin ola bilər (məcburi gedişlər, qalalar). Varsayılan olaraq həmişə vaxtı tükənməyən oyunçunun tərəfindəyik.
+
+Diqqət yetirin ki, rəqibin şahının qarşısını ala biləcək bir fiqur varsa, tək bir at və ya fillə mat etmək mümkündür.</string>
   <string name="fideHandbookX">FIDE qaydaları %s</string>
   <string name="discoveringEnPassant">Nəyə görə rəqib piyadasını keçmiş bir piyada vurula bilər? (keçiddə götürmə)</string>
   <string name="goodIntroduction">yaxşı giriş</string>
