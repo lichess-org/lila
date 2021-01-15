@@ -231,9 +231,6 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def removeTitle(id: ID): Funit =
     coll.unsetField($id(id), F.title).void
 
-  def setPlayTime(id: ID, playTime: User.PlayTime): Funit =
-    coll.update.one($id(id), $set(F.playTime -> User.playTimeHandler.writeTry(playTime).get)).void
-
   def getPlayTime(id: ID): Fu[Option[User.PlayTime]] =
     coll.primitiveOne[User.PlayTime]($id(id), F.playTime)
 
