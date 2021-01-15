@@ -61,6 +61,7 @@ Lichess kompüter analizi Stockfish tərəfindən dəstəklənir.</string>
   <string name="guidelines">təlimatlat</string>
   <string name="canIChangeMyUsername">İstifadəçi adımı dəyişə bilərəmmi?</string>
   <string name="uniqueTrophies">Unikal kuboklar</string>
+  <string name="wayOfBerserkExplanation">Bunu qazanmaq üçün hiimgosu özünü berserk ilə sınadı və %s oyunlarında 100%% qalib gəldi.</string>
   <string name="aHourlyBulletTournament">bir saatlıq Bullet turniri</string>
   <string name="lichessRatings">Lichess reytinqi</string>
   <string name="whichRatingSystemUsedByLichess">Lichess hansı reytinq sistemindən istifadə edir?</string>
