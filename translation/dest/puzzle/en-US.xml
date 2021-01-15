@@ -9,6 +9,7 @@
   <string name="lengths">Lengths</string>
   <string name="mates">Mates</string>
   <string name="goals">Goals</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Origin</string>
   <string name="specialMoves">Special moves</string>
   <string name="didYouLikeThisPuzzle">Did you like this puzzle?</string>
   <string name="voteToLoadNextOne">Vote to load the next one!</string>
