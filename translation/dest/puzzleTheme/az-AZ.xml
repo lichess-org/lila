@@ -22,6 +22,7 @@
   <string name="equalityDescription">İtirilmiş bir vəziyyətdən çıxın, heç-heçə və ya balanslı bir mövqe əldə edin. (200sp və daha az)</string>
   <string name="kingsideAttack">Şah cinahında hücum</string>
   <string name="kingsideAttackDescription">Qısa qalaqurma edən rəqib şahına hücum.</string>
+  <string name="clearance">Xətt açmaq</string>
   <string name="clearanceDescription">Bir xananı veya bir xətti qarşıdan gələn bir taktika üçün açan, əksər hallarda tempo qazandıran gedişlər.</string>
   <string name="defensiveMove">Müdafiə gedişi</string>
   <string name="defensiveMoveDescription">Material və ya başqa bir üstünlüyü itirməmək üçün lazım olan dəqiq bir gediş və ya gedişlər ardıcıllığı.</string>
