@@ -49,6 +49,10 @@
   <string name="knightEndgameDescription">Un finale con soli cavalli e pedoni.</string>
   <string name="long">Tattica lunga</string>
   <string name="longDescription">Vittoria in tre mosse.</string>
+  <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Partite di giocatori titolati</string>
+  <string name="masterDescription">Puzzle da partite giocate da giocatori intitolati.</string>
+  <string name="masterVsMaster" comment="masterVsMaster&#10;&#10;Puzzles from games between two titled players.">Partite fra giocatori titolati</string>
+  <string name="masterVsMasterDescription">Puzzle da partite fra due giocatori titolati.</string>
   <string name="mate">Matto</string>
   <string name="mateDescription">Vinci la partita con stile.</string>
   <string name="mateIn1">Matto in 1</string>
@@ -91,6 +95,8 @@
   <string name="skewerDescription">Un tema che consiste in un pezzo di grande valore che viene attaccato e che si sposta, permettendo ad un pezzo dietro di esso di essere catturato o attaccato. Il contrario di un\'inchiodatura.</string>
   <string name="smotheredMate">Matto affogato</string>
   <string name="smotheredMateDescription">Uno scacco matto eseguito con un cavallo, in cui il re sotto scacco è incapace di spostarsi poiché circondato (\"affogato\") dai suoi stessi pezzi.</string>
+  <string name="superGM" comment="superGM&#10;&#10;Puzzles from games played by the best players in the world.">Partite di Super GM</string>
+  <string name="superGMDescription">Puzzle da partite giocate dai migliori giocatori del mondo.</string>
   <string name="trappedPiece">Pezzo intrappolato</string>
   <string name="trappedPieceDescription">Un pezzo che non può evitare la cattura a causa delle sue mosse limitate.</string>
   <string name="underPromotion">Sottopromozione</string>
