@@ -116,7 +116,7 @@
   <string name="removesTheDepthLimit">Dərinlik limitini ləğv edir və kompüterinizi isti saxlayır</string>
   <string name="blunder">kobud səhv</string>
   <string name="blunders">Kobud səhvlər</string>
-  <string name="mistake">Yalnış</string>
+  <string name="mistake">Səhv</string>
   <string name="mistakes">Səhvlər</string>
   <string name="inaccuracy">Qeyri-dəqiqlik</string>
   <string name="inaccuracies">Qeyri-dəqiqliklər</string>
@@ -225,7 +225,7 @@
   <string name="casual">Reytinqsiz</string>
   <string name="rated">Reytinqli oyun</string>
   <string name="casualTournament">Reytinqsiz</string>
-  <string name="ratedTournament">Reytingli oyun</string>
+  <string name="ratedTournament">Reytingli</string>
   <string name="thisGameIsRated">Bu, reytinqli oyundur</string>
   <string name="rematch">Əvəzçıxma</string>
   <string name="rematchOfferSent">Əvəzçıxma təklifi göndərildi</string>
