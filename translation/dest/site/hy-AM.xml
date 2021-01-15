@@ -338,6 +338,10 @@
   <string name="createdBy">Ստեղծող՝</string>
   <string name="tournamentIsStarting">Մրցաշարը սկսվում է</string>
   <string name="youArePlaying">Դուք խաղում եք։</string>
+  <string name="winRate">Հաղթանակի տոկոս</string>
+  <string name="berserkRate">Բերսերկի տոկոս</string>
+  <string name="performance">Արտադրողականություն</string>
+  <string name="movesPlayed">Խաղացած քայլեր</string>
   <string name="draws">Ոչ-ոքիներ</string>
   <string name="nextXTournament">Մյուս %s մրցաշարը՝</string>
   <string name="membersOnly">Միայն անդամները</string>
@@ -362,6 +366,7 @@
   <string name="activeToday">Ակտիվ այսօր</string>
   <string name="activePlayers">Ակտիվ խաղացողներ</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Զգուշացում. խաղը վարկանիշային է սակայն առանց ժամանակի</string>
+  <string name="success">Հաջողված է</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">Ընթանում է %s խաղ</item>
     <item quantity="other">Ընթանում է %s խաղ</item>
@@ -401,10 +406,12 @@
   <string name="notes">Նշումներ</string>
   <string name="typePrivateNotesHere">Մասնավոր նշումները մուտքագրեք այստեղ</string>
   <string name="invalidUsernameOrPassword">Սխալ ծածկագիր կամ գաղտնաբառ</string>
+  <string name="incorrectPassword">Գաղտնաբառը սխալ է</string>
   <string name="emailMeALink">Էլեկտրոնային փոստով ուղարկել ինձ  հղումը</string>
   <string name="currentPassword">նախկին գաղտնաբառը</string>
   <string name="newPassword">նոր գաղտնաբառը</string>
   <string name="newPasswordAgain">նոր գաղտնաբառը  (նորից)</string>
+  <string name="newPasswordStrength">Գաղտնաբառի բարդություն</string>
   <string name="privacy">ԳԱՂՏՆԻՈՒԹՅՈՒՆ</string>
   <string name="letOtherPlayersFollowYou">Թույլ տալ ուրիշ խաղացողներին ձեզ հետևել</string>
   <string name="letOtherPlayersChallengeYou">Թույլ տալ ուրիշ խաղացողներին ձեզ մարտահրավեր նետել</string>
