@@ -12,6 +12,8 @@
   <string name="noTeamFound">No team found</string>
   <string name="joinTeam">Join team</string>
   <string name="quitTeam">Leave team</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Manually review admission requests</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">If checked, players will need to write a request to join the team, which you can decline or accept.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Team leader</item>
     <item quantity="other">Team leaders</item>
@@ -41,4 +43,8 @@ Players who don\'t like receiving your messages might leave the team.</string>
   <string name="leadersChat">Leaders chat</string>
   <string name="closeTeam">Close team</string>
   <string name="closeTeamDescription">Closes the team forever.</string>
+  <string name="teamPassword">Team password</string>
+  <string name="teamPasswordDescriptionForLeader">(Optional) A password that new members must know to join this team.</string>
+  <string name="incorrectTeamPassword">Incorrect team password.</string>
+  <string name="teamAlreadyExists">This team already exists.</string>
 </resources>
