@@ -52,7 +52,7 @@
   <string name="master">Ustaların Maçları</string>
   <string name="masterDescription">Unvanlı oyuncuların maçlarından bulmacalar.</string>
   <string name="masterVsMaster">Ustaların ustalara karşı oynadığı oyunlar</string>
-  <string name="masterVsMasterDescription">İki unvanlı oyuncunun oynadığı maçlardan bulmacalar.</string>
+  <string name="masterVsMasterDescription">Unvanlı iki oyuncunun oynadığı maçlardan bulmacalar.</string>
   <string name="mate">Mat</string>
   <string name="mateDescription">Oyunu tarz ile kazanın.</string>
   <string name="mateIn1">1 Hamlede Mat</string>
