@@ -25,6 +25,7 @@
   <string name="defensiveMove">Müdafiə gedişi</string>
   <string name="defensiveMoveDescription">Material və ya başqa bir üstünlüyü itirməmək üçün lazım olan dəqiq bir gediş və ya gedişlər ardıcıllığı.</string>
   <string name="deflection">Yayındırma</string>
+  <string name="deflectionDescription">Rəqib fiqurunu, yerinə yetirdiyi başqa bir vəzifədən, məsələn, vacib bir xananı qorumaqdan yayındıran bir gediş. Bəzən \"həddindən artıq yükləmə\" də deyilir.</string>
   <string name="discoveredAttack">Açaraq hücum</string>
   <string name="doubleCheck">İkiqat şah</string>
   <string name="endgame">Endşpil</string>
@@ -84,7 +85,9 @@
   <string name="short">Qısa tapmaca</string>
   <string name="shortDescription">2 gedişə qələbə.</string>
   <string name="skewer">Şiş</string>
+  <string name="skewerDescription">Dəyərli bir fiqurun hüuma məruz qaldığı, hərəkət edəcəyi halda daha az dəyərli bir fiqurun itiriləcəyi və ya təhlükəyə düşəcəyi motivlər. Bağlamanın tərsi.</string>
   <string name="smotheredMate">Boğma matı</string>
+  <string name="smotheredMateDescription">Öz fiqurları tərəfindən əhatələndiyi (və ya boğulduğu) üçün hərəkət edə bilməyən şahın at ilə mat edilməsi.</string>
   <string name="superGM">Super GM oyunları</string>
   <string name="superGMDescription">Dünyanın ən yaxşı oyunçularının oynadığı oyunlardan tapmacalar.</string>
   <string name="trappedPiece">Tələyə düşmüş fiqur</string>
@@ -98,4 +101,5 @@
   <string name="zugzwang">Suqsvanq</string>
   <string name="zugzwangDescription">Rəqib edə biləcəti gediş sayı məhduddur və istənilən gediş vəziyyəti daha da pisləşdirir.</string>
   <string name="healthyMix">Həftəbecər</string>
+  <string name="healthyMixDescription">Hər şeydən bir az. Nə gözləyəcəyini bilmirsən, ona görə hər şeyə hazır oursan! Eynilə həqiqi oyunlarda olduğu kimi.</string>
 </resources>
