@@ -43,13 +43,13 @@ Bunu Lichess yayım tənzimləmələrində yox, YouTube və ya Twitch səhifəni
   <string name="visibility">Yayımçılar səhifəsində görünsün</string>
   <string name="whenApproved">Moderatorlar tərəfindən təsdiqlənəndə</string>
   <string name="headline">Başlıq</string>
-  <string name="tellUsAboutTheStream">Bir cümlə ilə yayımınız haqqında deyin</string>
+  <string name="tellUsAboutTheStream">Bir cümlə ilə yayımınızı təsvir edin</string>
   <string name="longDescription">Uzun açıqlama</string>
   <string name="xStreamerPicture">%s yayımçı şəkli</string>
   <string name="changePicture">Şəkli dəyişdir/sil</string>
   <string name="uploadPicture">Şəkil yüklə</string>
   <string name="deletePicture">Şəkli sil</string>
-  <string name="maxSize">Mak ölçü: %s</string>
+  <string name="maxSize">Maks ölçü: %s</string>
   <string name="installBlocker">Zərərli proqram əngəlləyici quraşdırın!</string>
   <string name="beSafe">YouTube və Twitch-i bürümüş
 reklam və izləyicilərdən qorunun.
