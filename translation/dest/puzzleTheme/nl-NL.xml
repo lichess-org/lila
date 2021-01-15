@@ -49,8 +49,9 @@
   <string name="knightEndgameDescription">Een eindspel met alleen paarden en pionnen.</string>
   <string name="long">Lange puzzel</string>
   <string name="longDescription">Winnen in drie zetten.</string>
-  <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Meesterpartijen</string>
+  <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Partijen van meesters</string>
   <string name="masterDescription">Puzzels van partijen met één titelhouder.</string>
+  <string name="masterVsMaster" comment="masterVsMaster&#10;&#10;Puzzles from games between two titled players.">Partijen van meesters onderling</string>
   <string name="masterVsMasterDescription">Puzzels van partijen met twee titelhouders.</string>
   <string name="mate">Mat</string>
   <string name="mateDescription">De partij in stijl winnen.</string>
