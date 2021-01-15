@@ -34,8 +34,8 @@ object PuzzleForm {
 
     val round = Form(
       mapping(
-        "win" -> number
-      )(w => RoundData(w == 1, none))(r => none)
+        "win" -> text
+      )(w => RoundData(w == "1" || w == "true", none))(r => none)
     )
 
     val vote = Form(
