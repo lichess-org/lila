@@ -49,6 +49,8 @@
   <string name="knightEndgameDescription">Эндшпиль, в котором на доске остались только кони и пешки.</string>
   <string name="long">Многоходовая задача</string>
   <string name="longDescription">Три хода до победы.</string>
+  <string name="master">Партии мастеров</string>
+  <string name="masterDescription">Задачи из партий титулованных шахматистов.</string>
   <string name="mate">Мат</string>
   <string name="mateDescription">Выиграйте игру красиво.</string>
   <string name="mateIn1">Мат в 1 ход</string>
