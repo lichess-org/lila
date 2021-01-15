@@ -50,6 +50,9 @@
   <string name="long">長手数問題</string>
   <string name="longDescription">3 手で勝ちになります。</string>
   <string name="master">マスターのゲーム</string>
+  <string name="masterDescription">タイトル保持者の対局から採った問題。</string>
+  <string name="masterVsMaster">マスター同士のゲーム</string>
+  <string name="masterVsMasterDescription">双方がタイトル保持者の対局から採った問題。</string>
   <string name="mate">メイト</string>
   <string name="mateDescription">きれいに勝ちを決める。</string>
   <string name="mateIn1">1 手メイト</string>
