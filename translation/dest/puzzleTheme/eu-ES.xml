@@ -49,6 +49,9 @@
   <string name="knightEndgameDescription">Zaldunak eta peoiak bakarrik dituen partida bukaera.</string>
   <string name="long">Ariketa luzea</string>
   <string name="longDescription">Irabazteko hiru jokaldi.</string>
+  <string name="master">Maisuen partidak</string>
+  <string name="masterDescription">Tituludun jokalariek jokatutako partidetan oinarritutako ariketak.</string>
+  <string name="masterVsMaster">Maisuen arteko partidak</string>
   <string name="mate">Mate</string>
   <string name="mateDescription">Irabazi partida estiloarekin.</string>
   <string name="mateIn1">Mate baten</string>
