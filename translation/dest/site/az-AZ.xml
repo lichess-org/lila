@@ -160,7 +160,7 @@
   <string name="timeControl">Vaxta nəzarət</string>
   <string name="realTime">Real vaxt</string>
   <string name="correspondence">Yazışmalı</string>
-  <string name="daysPerTurn">Gündəlik gediş</string>
+  <string name="daysPerTurn">Gediş başına gün</string>
   <string name="oneDay">Bir gün</string>
   <plurals name="nbDays">
     <item quantity="one">%s gün</item>
@@ -171,20 +171,20 @@
     <item quantity="other">%s saat</item>
   </plurals>
   <string name="time">Vaxt</string>
-  <string name="rating">Təsnifat</string>
-  <string name="ratingStats">Reyting statistikaları</string>
+  <string name="rating">Reytinq</string>
+  <string name="ratingStats">Reytinq statistikaları</string>
   <string name="username">İstifadəçi adı</string>
-  <string name="usernameOrEmail">İstifadəçi adı</string>
+  <string name="usernameOrEmail">İstifadəçi adı və ya email</string>
   <string name="changeUsername">İstidadəçi adını dəyiş</string>
   <string name="changeUsernameNotSame">Sadəcə istifadəçi adınızdakı böyük/kiçik hərfləri dəyişdirə bilərsiniz. Məsələn \"johndoe\" ilə \"JohnDoe\" kimi.</string>
   <string name="changeUsernameDescription">İstifadəçi adınızı dəyişdirin. Bu prosesi sadəcə 1 (bir) dəfə gərçəkləşdirə bilərsiniz və sadəcə mövcud istifadəçi adınızdakı hərfləri (\"johndoe\", \"JohnDoe\") dəyiştirə bilərsiniz.</string>
   <string name="password">Şifrə</string>
-  <string name="changePassword">Parolu dəyiş</string>
+  <string name="changePassword">Şifrəni dəyiş</string>
   <string name="changeEmail">Emaili dəyiş</string>
   <string name="email">Email</string>
-  <string name="passwordReset">Parolu yenilə</string>
-  <string name="forgotPassword">Parolu unutdun?</string>
-  <string name="rank">Təsnifat</string>
+  <string name="passwordReset">Şifrəni yenilə</string>
+  <string name="forgotPassword">Şifrəni unutmsuz?</string>
+  <string name="rank">Sıralama</string>
   <string name="rankX">Sıralama: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">Sıralama hər %s dəqiqədə bir yenilənir</item>
@@ -196,16 +196,16 @@
   </plurals>
   <string name="gamesPlayed">Oynadığı oyunlar</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s sizinle oyunlar</item>
-    <item quantity="other">%s sizinle oyunlar</item>
+    <item quantity="one">%s sizinlə oynadığı oyun sayı</item>
+    <item quantity="other">%s sizinlə oynadığı oyun sayı</item>
   </plurals>
-  <string name="cancel">İmtina</string>
+  <string name="cancel">Ləğv et</string>
   <string name="whiteTimeOut">Ağların vaxtı bitdi</string>
   <string name="blackTimeOut">Qaraların vaxtı bitdi</string>
   <string name="drawOfferSent">Heç-heçə təklifi göndərildi</string>
   <string name="drawOfferDeclined">Heç-heçə təklifi rədd edildi</string>
   <string name="drawOfferAccepted">Heç-heçə təklifi qəbul edildi</string>
-  <string name="drawOfferCanceled">Heç-heçə təklifi geri götürüldü</string>
+  <string name="drawOfferCanceled">Heç-heçə təklifi ləğv edildi</string>
   <string name="whiteOffersDraw">Ağ heç-heçə təklif edir</string>
   <string name="blackOffersDraw">Qara heç-heçə təklif edir</string>
   <string name="whiteDeclinesDraw">Ağ heç-heçə təklifini rədd edir</string>
