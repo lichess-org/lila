@@ -98,21 +98,21 @@
   <string name="xOpeningExplorer">%s debüt bazası</string>
   <string name="winPreventedBy50MoveRule">Qələbə 50 gediş qaydasına görə hesaba alınmadı</string>
   <string name="lossSavedBy50MoveRule">Məğlubiyyət 50 gediş qaydasına görə hesaba alınmadı</string>
-  <string name="allSet">Hazır!</string>
+  <string name="allSet">Hər şey hazır!</string>
   <string name="importPgn">PGN daxil et</string>
   <string name="delete">Sil</string>
   <string name="deleteThisImportedGame">Daxil edilmiş bu oyun silinsin?</string>
   <string name="replayMode">Təkrar rejimi</string>
-  <string name="realtimeReplay">Gerçək zamada</string>
+  <string name="realtimeReplay">Gerçək zamanlı</string>
   <string name="byCPL">CPL üzrə</string>
   <string name="openStudy">Çalışmanı aç</string>
-  <string name="enable">Aktiv</string>
+  <string name="enable">Aktiv et</string>
   <string name="bestMoveArrow">Ən yaxşı gedişi göstər</string>
   <string name="evaluationGauge">Dəyərləndirmə çubuğu</string>
   <string name="multipleLines">Oxların sayı</string>
   <string name="cpus">CPU sayı</string>
-  <string name="memory">Yaddaş</string>
-  <string name="infiniteAnalysis">Sonsuz analiz</string>
+  <string name="memory">RAM</string>
+  <string name="infiniteAnalysis">Sonsuz təhlil</string>
   <string name="removesTheDepthLimit">Dərinlik limitini ləğv edir və kompüterinizi isti saxlayır</string>
   <string name="blunder">kobud səhv</string>
   <string name="blunders">Kobud səhvlər</string>
@@ -191,7 +191,7 @@
     <item quantity="other">Sıralama hər %s dəqiqədə bir yenilənir</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s məsələ</item>
+    <item quantity="one">%s tapmaca</item>
     <item quantity="other">%s məsələ</item>
   </plurals>
   <string name="gamesPlayed">Oynadığı oyunlar</string>
@@ -240,8 +240,8 @@
   <string name="play">Oyna</string>
   <string name="inbox">Gələnlər qutusu</string>
   <string name="chatRoom">Söhbət otağı</string>
-  <string name="loginToChat">Yazışmaq üçün qeydiyyatdan keçin</string>
-  <string name="youHaveBeenTimedOut">Siz yazışmadan 10 dəqiqəlik uzaqlaşdırıldınız.</string>
+  <string name="loginToChat">Yazışmaq üçün daxil olun</string>
+  <string name="youHaveBeenTimedOut">Yazışmadan uzaqlaşdırıldınız.</string>
   <string name="spectatorRoom">Tamaşaçı otağı</string>
   <string name="composeMessage">Məktub yaz</string>
   <string name="noNewMessages">Yeni mesaj yoxdur</string>
@@ -268,7 +268,7 @@
     <item quantity="other">%s heç-heçə edirlər</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s oynayır</item>
+    <item quantity="one">%s oynanılır</item>
     <item quantity="other">%s oynayır</item>
   </plurals>
   <string name="exportGames">Oyunları ixrac et</string>
