@@ -76,7 +76,7 @@ object form {
             t.enabled option postForm(cls := "inline", action := routes.Team.disable(t.id))(
               submitButton(
                 dataIcon := "j",
-                cls := "submit button text confirm button-red",
+                cls := "submit button text confirm button-empty button-red",
                 st.title := trans.team.closeTeamDescription.txt() // can actually be reverted
               )(closeTeam())
             ),
