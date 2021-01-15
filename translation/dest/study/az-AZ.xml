@@ -3,12 +3,12 @@
   <string name="private">Özəl</string>
   <string name="myStudies">Çalışmalarım</string>
   <string name="studiesIContributeTo">Töhfə verdiyim çalışmalar</string>
-  <string name="myPublicStudies">İctimai çalışmalarım</string>
+  <string name="myPublicStudies">Hərkəsə açıq çalışmalarım</string>
   <string name="myPrivateStudies">Özəl çalışmalarım</string>
   <string name="myFavoriteStudies">Sevimli çalışmalarım</string>
   <string name="whatAreStudies">Çalışmalar nədir?</string>
   <string name="allStudies">Bütün çalışmalar</string>
-  <string name="studiesCreatedByX">%s yaratdığı çalışmalar</string>
+  <string name="studiesCreatedByX">%s tərəfindən yaradılan çalışmalar</string>
   <string name="noneYet">Hələ ki, yoxdur.</string>
   <string name="hot">Məşhur</string>
   <string name="dateAddedNewest">Əlavə edilmə tarixi (yenidən köhnəyə)</string>
