@@ -86,8 +86,36 @@ $user-list-width: 30ch;
 }
 
 .bots {
+
+  .box {
+    margin-bottom: 2vh;
+  }
+
+  table.slist {
+    border: none;
+  }
+
+  &__featured td {
+    padding: 2rem 1rem;
+  }
+
+  tr:last-child td {
+    padding-bottom: 2vh;
+  }
+
   td:nth-child(3), td:nth-child(4) {
     white-space: nowrap;
+  }
+
+  @include breakpoint($mq-not-small) {
+    td.rating {
+      display: none;
+    }
+  }
+  @include breakpoint($mq-not-large) {
+    td:nth-child(4) {
+      display: none;
+    }
   }
 
   .rating {
@@ -97,17 +125,6 @@ $user-list-width: 30ch;
       }
 
       margin: 0 .3em;
-    }
-  }
-
-  @include breakpoint($mq-not-x-small) {
-    td.rating {
-      display: none;
-    }
-  }
-  @include breakpoint($mq-not-medium) {
-    td:nth-child(4) {
-      display: none;
     }
   }
 }
