@@ -49,6 +49,10 @@
   <string name="knightEndgameDescription">Аттар мен сарбаздары ғана бар ойынсоңы.</string>
   <string name="long">Ұзын жұмбақ</string>
   <string name="longDescription">Жеңіске үш қадам.</string>
+  <string name="master">Шебер ойындары</string>
+  <string name="masterDescription">Атақты ойыншылардың ойындарынан алынған жұмбақтар.</string>
+  <string name="masterVsMaster">Шеберлердің өзара ойындары</string>
+  <string name="masterVsMasterDescription">Екі атақты ойыншылардың ойындарынан алынған жұмбақтар.</string>
   <string name="mate">Мат</string>
   <string name="mateDescription">Ойынды әдемі жеңіп алыңыз.</string>
   <string name="mateIn1">1 жүрісті мат</string>
