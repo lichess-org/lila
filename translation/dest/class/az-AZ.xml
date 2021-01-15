@@ -40,8 +40,11 @@
   <string name="inviteALichessAccount">Bir Lichess hesabı dəvət edin</string>
   <string name="inviteDesc1">Tələbənin Lichess hesabı varsa, onu dərsə dəvət edə bilərsiniz.</string>
   <string name="inviteDesc2">Lichess-də sinifə qoşulmaq üçün içində bir link olan əlaqə mesajı alacaqlar.</string>
+  <string name="inviteDesc3">Önəmli: yalnız tanıdığınız və sinifə fəal bir şəkildə qoşulmaq istəyən tələbələri dəvət edin.</string>
   <string name="inviteDesc4">Heç vaxt kimə gəldi istənilməyən dəvətlər göndərməyin.</string>
   <string name="createANewLichessAccount">Yeni bir Lichess hesabı yaradın</string>
+  <string name="createDesc1">Tələbənin hələ bir Lichess hesabı yoxdursa, burada onun üçün bir hesab yarada bilərsiniz.</string>
+  <string name="createDesc2">Elektron poçt ünvanı tələb olunmur. Bir şifrə yaradılacaq və onu tələbəyə ötürdükdən sonra, sinifə daxil ola bilər.</string>
   <string name="createDesc3">Önəmli: bir tələbənin birdən çox hesabı olmamalıdır.</string>
   <string name="createDesc4">Əgərhesabları varsa, bunun əvəzinə dəvət formunu istifadə edin.</string>
   <string name="lichessUsername">Lichess istifadəçi adı</string>
@@ -62,7 +65,9 @@ Sinifə daxil olmaq üçün link.</string>
   <string name="upgradeFromManaged">İdarə ediləndən hesabdan normal hesaba keçin</string>
   <string name="release">Azad et</string>
   <string name="releaseTheAccount">Hesabı tələbənin özbaşına idarə edə bilməsi üçün azad et.</string>
+  <string name="releaseDesc1">Azad edilmiş bir hesab yenidən idarə oluna bilməz. Tələbə uşaq rejimini dəyişə və şifrəni özü sıfırlaya biləcək.</string>
   <string name="releaseDesc2">Tələbələr, hesabları azad edildikdən sonra sonra sinifdə qalacaqlar.</string>
+  <string name="realUniqueEmail">Tələbənin həqiqi, unikal elektron poçt ünvanı. Hesabı azad etmək üçün bir keçid ilə birlikdə ona təsdiq e-poçtu göndərəcəyik.</string>
   <string name="teachers">Müəllimlər</string>
   <plurals name="nbTeachers">
     <item quantity="one">%s müəllim</item>
