@@ -41,6 +41,7 @@ Bu dəyər oyun keyfiyyətinin göstəricisi kimi istifadə edilə bilər. Bir g
 Lichess kompüter analizi Stockfish tərəfindən dəstəklənir.</string>
   <string name="insufficientMaterial">Vaxt azlığı, heç-heçə və yetərsiz fiqur</string>
   <string name="fideHandbookX">FIDE qaydaları %s</string>
+  <string name="discoveringEnPassant">Nəyə görə rəqib piyadasını keçmiş bir piyada vurula bilər? (keçiddə götürmə)</string>
   <string name="goodIntroduction">yaxşı giriş</string>
   <string name="officialRulesPDF">rəsmi qaydalar (PDF)</string>
   <string name="lichessTraining">Lichess məşqi</string>
@@ -85,6 +86,7 @@ Reytinqləri \"nisbi\" rəqəmlər (\"mütləq\" rəqəmlərdən fərqli olaraq)
   <string name="howToHideRatingWhilePlaying">Oynayarkən reytinqləri necə gizlətmək olar?</string>
   <string name="enableZenMode">%1$s ilə və ya oyun zamanı %2$s düyməsinə basaraq Zen rejimini aktivləşdir.</string>
   <string name="displayPreferences">görüntü ayarları</string>
+  <string name="connexionLostCanIGetMyRatingBack">Gecikmə/əlaqənin kəsilməsi səbəbindən bir oyun uduzdum. Reytinq xallarımı geri ala bilərəmmi?</string>
   <string name="howToThreeDots">Necə...</string>
   <string name="enableDisableNotificationPopUps">Bildiriş popupları aktiv və ya deaktiv edilsin?</string>
   <string name="viewSiteInformationPopUp">Sayt haqqında məlumat pəncərəsinə baxın</string>
