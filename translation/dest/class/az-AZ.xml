@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Siniflər</string>
+  <string name="teachClassesOfChessStudents">Tələbələrinizə Lichess Sinif alətləri dəsti ilə dərs deyin.</string>
   <string name="features">Özəlliklər</string>
   <string name="quicklyGenerateSafeUsernames">Tələbələr üçün sürətli istifadəçi adları və şifrələr yaradın</string>
   <string name="trackStudentProgress">Oyunlarda və tapmacalarda tələbələrin irəliləyişini izləyin</string>
@@ -34,6 +35,7 @@
 İstifadəçi adı: %2$s
 Şifrə: %3$s</string>
   <string name="inviteALichessAccount">Bir Lichess hesabı dəvət edin</string>
+  <string name="inviteDesc2">Lichess-də sinifə qoşulmaq üçün içində bir link olan əlaqə mesajı alacaqlar.</string>
   <string name="inviteDesc4">Heç vaxt kimə gəldi istənilməyən dəvətlər göndərməyin.</string>
   <string name="createANewLichessAccount">Yeni bir Lichess hesabı yaradın</string>
   <string name="createDesc3">Önəmli: bir tələbənin birdən çox hesabı olmamalıdır.</string>
@@ -55,7 +57,8 @@ Sinifə daxil olmaq üçün link.</string>
   <string name="thisStudentAccountIsManaged">Bu tələbə hesabı idarə olunur</string>
   <string name="upgradeFromManaged">İdarə ediləndən hesabdan normal hesaba keçin</string>
   <string name="release">Azad et</string>
-  <string name="releaseTheAccount">Hesabı tələbənin özbaşına idarə edə bilməsinə icazə ver.</string>
+  <string name="releaseTheAccount">Hesabı tələbənin özbaşına idarə edə bilməsi üçün azad et.</string>
+  <string name="releaseDesc2">Tələbələr, hesabları azad edildikdən sonra sonra sinifdə qalacaqlar.</string>
   <string name="teachers">Müəllimlər</string>
   <plurals name="nbTeachers">
     <item quantity="one">%s müəllim</item>
