@@ -11,14 +11,14 @@
   <string name="ratedGames">Reytinqli oyunlar</string>
   <string name="tournamentGames">Turnir oyunları</string>
   <string name="berserkedGames">Berserk oyunları</string>
-  <string name="timeSpentPlaying">Cəmi oynama müddət</string>
+  <string name="timeSpentPlaying">Cəmi oynama müddəti</string>
   <string name="averageOpponent">Ortalama rəqib</string>
   <string name="victories">Qələbələr</string>
   <string name="defeats">Məğlubiyyətlər</string>
   <string name="disconnections">Bağlantı kəsilmələri</string>
   <string name="notEnoughGames">Yetərli sayda oyun oynanılmayıb</string>
-  <string name="highestRating">Ən yüksək xal: %s</string>
-  <string name="lowestRating">Ən aşağı xal: %s</string>
+  <string name="highestRating">Ən yüksək reytinq: %s</string>
+  <string name="lowestRating">Ən aşağı reytinq: %s</string>
   <string name="fromXToY">%1$s tarixindən %2$s qədər</string>
   <string name="winningStreak">Qalibiyyət seriyası</string>
   <string name="losingStreak">Məğlubiyyət seriyası</string>
