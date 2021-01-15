@@ -111,9 +111,10 @@ export default function() {
 
   { // dasher
     let booted: boolean;
-    $('#top .dasher .toggle').one('mouseover click', () => {
+    $('#top .dasher .toggle').one('mouseover click', function (this: HTMLElement) {
       if (booted) return;
       booted = true;
+      $(this).removeAttr('href');
       const $el = $('#dasher_app').html(initiatingHtml),
         playing = $('body').hasClass('playing');
       loadCssPath('dasher');
