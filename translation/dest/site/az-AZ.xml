@@ -222,9 +222,9 @@
   <string name="standard">Standart</string>
   <string name="unlimited">Məhdudiyyətsiz</string>
   <string name="mode">Növ</string>
-  <string name="casual">Adi oyun</string>
+  <string name="casual">Reytinqsiz</string>
   <string name="rated">Reytinqli oyun</string>
-  <string name="casualTournament">Xalsız</string>
+  <string name="casualTournament">Reytinqsiz</string>
   <string name="ratedTournament">Reytingli oyun</string>
   <string name="thisGameIsRated">Bu, reytinqli oyundur</string>
   <string name="rematch">Əvəzçıxma</string>
