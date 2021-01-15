@@ -15,14 +15,14 @@
   <string name="downloadKit">Yayımçı dəstini endir</string>
   <string name="xIsStreaming">%s yayımdadır</string>
   <string name="rules">Yayım qaydaları</string>
-  <string name="rule1">Lichess-də yayım qoşarkən, yayım başlığına \"lichess.org\" açar sözünü daxil edin.</string>
+  <string name="rule1">Lichess-də yayım qoşarkən, yayım başlığına \"lichess.org\" açar sözünü daxil edin və Şahmat kateqoriyasını seçin.</string>
   <string name="rule2">Lichess ilə əlaqəsi olmayan bir yayım edərkən bu açar sözü çıxardın.</string>
-  <string name="rule3">Lichess, yayımınızı avtomatik aşkarlayacaq və bu üstünlükləri fəallaşdıracaq:</string>
+  <string name="rule3">Lichess, yayımınızı avtomatik aşkarlayacaq və bu üstünlükləri aktivləşdirəcək:</string>
   <string name="perks">Açar söz ilə yayım aparmağın üstünlükləri</string>
-  <string name="perk1">Lichess profilinizdə, yanan yayımçı nişanı görünəcək.</string>
-  <string name="perk2">Yayımlayıcılar siyahısında ən üst sırada görünəcəksiniz.</string>
-  <string name="perk3">Lichess izləyiciləriniz bildiriş alacaq.</string>
-  <string name="perk4">Oyun, turnir və çalışmalarınızda yayımınız göstərə biləcəksiniz.</string>
+  <string name="perk1">Lichess profilinizdə, yanan yayımçı nişanını göstər.</string>
+  <string name="perk2">Yayımçılar siyahısında ən üst sırada görünün.</string>
+  <string name="perk3">Lichess izləyicilərinizə bildiriş göndərmək.</string>
+  <string name="perk4">Oyun, turnir və çalışmalarınızda yayımınızı göstərə biləcəksiniz.</string>
   <string name="approved">Yayımınız təsdiqləndi.</string>
   <string name="pendingReview">Yayımınız moderatorlar tərəfindən nəzərdən keçirilir.</string>
   <string name="pleaseFillIn">Lütfən yayımçı məlumatlarını doldurun və bir şəkil yükləyin.</string>
@@ -33,7 +33,7 @@ Nümunə olaraq, Azərbaycanca üçün \"[AZ]\", Türkcə üçün \"[TR]\", Rusc
 Bunu Lichess yayım tənzimləmələrində yox, YouTube və ya Twitch səhifənizdəki yayım başlığınıza qoyun.
 Əgər yayımınız ingiliscə olacaqsa, heç bir dil etiketi daxil etməyinizə ehtiyac yoxdur.</string>
   <string name="twitchUsername">Twitch istifadəçi adınız və ya URL-niz</string>
-  <string name="optionalOrEmpty">İxtiyari. Yoxdursa boş buraxın</string>
+  <string name="optionalOrEmpty">İstəyə bağlı. Yoxdursa boş buraxın</string>
   <string name="youtubeChannel">YouTube kanal kimliyiniz və ya URL-niz</string>
   <string name="streamerName">Lichess-dəki yayımçı adınız</string>
   <plurals name="keepItShort">
