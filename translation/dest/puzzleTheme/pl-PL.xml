@@ -51,7 +51,7 @@
   <string name="longDescription">Trzy ruchy by wygrać.</string>
   <string name="master">Partie mistrzów</string>
   <string name="masterDescription">Zadania z partii graczy utytułowanych.</string>
-  <string name="masterVsMaster">Mistrz kontra partie mistrzów</string>
+  <string name="masterVsMaster">Mistrz kontra Mistrz</string>
   <string name="masterVsMasterDescription">Zadania z partii pomiędzy dwoma utytułowanymi graczami.</string>
   <string name="mate">Mat</string>
   <string name="mateDescription">Wygraj partię w dobrym stylu.</string>
