@@ -64,6 +64,7 @@
   <string name="sendAppealTo">Buraya müraciət edə bilərsiniz: %s.</string>
   <string name="falsePositives">Bəzən yanlış şeylər ola bilər və buna görə üzr istəyirik.</string>
   <string name="ifLegit">Müraciətiniz qanuni olarsa, qadağanı ən qısa müddətdə ləğv edəcəyik.</string>
+  <string name="accountLost">Ancaq həqiqətən bir dəfə də olsa mühərrik yardımından istifadə etdinizsə, təəssüf ki, hesabınızı itirəcəksiniz.</string>
   <string name="otherRestriction">Digər məhdudiyyət</string>
   <string name="collaboration">Əməkdaşlıq, hüquqi, kommersiya</string>
   <string name="monetizing">Lichessdən pul qazanmaq</string>
