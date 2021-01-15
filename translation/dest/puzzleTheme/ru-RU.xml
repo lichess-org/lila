@@ -51,6 +51,8 @@
   <string name="longDescription">Три хода до победы.</string>
   <string name="master">Партии мастеров</string>
   <string name="masterDescription">Задачи из партий титулованных шахматистов.</string>
+  <string name="masterVsMaster">Партии мастеров</string>
+  <string name="masterVsMasterDescription">Задачи из партий, сыгранных титулованными игроками.</string>
   <string name="mate">Мат</string>
   <string name="mateDescription">Выиграйте игру красиво.</string>
   <string name="mateIn1">Мат в 1 ход</string>
