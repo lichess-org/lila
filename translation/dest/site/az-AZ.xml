@@ -2,14 +2,14 @@
 <resources>
   <string name="playWithAFriend">Bir dostunla oyna</string>
   <string name="playWithTheMachine">Kompüterlə oyna</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Kimisə oyuna dəvət etmək üçün, bu URL-ni göndərin</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Kimisə oyuna dəvət etmək üçün, bu URL-i göndərin</string>
   <string name="gameOver">Oyun Bitdi</string>
   <string name="waitingForOpponent">Rəqib gözlənilir</string>
   <string name="waiting">Gözlənilir</string>
   <string name="yourTurn">Sizin növbənizdir</string>
   <string name="aiNameLevelAiLevel">%1$s səviyyə %2$s</string>
   <string name="level">Səviyyə</string>
-  <string name="strength">Güc</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Güc</string>
   <string name="toggleTheChat">Söhbəti aç/bağla</string>
   <string name="toggleSound">Səsi aç/bağla</string>
   <string name="chat">Söhbət</string>
