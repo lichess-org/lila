@@ -191,9 +191,12 @@ At = 3
 Piyada = 1</string>
   <string name="checkInTwo">2 gedişə şah</string>
   <string name="twoMovesToGiveCheck">Şah vermək üçün iki gediş</string>
+  <string name="checkInTwoIntro">Rəqibə şah vermək üçün iki gedişli doğru kombinasiyanı tapın!</string>
   <string name="checkInTwoGoal">Rəqibə iki gedişdə
 şah ver!</string>
+  <string name="checkInTwoComplete">Təbriklər! Şah verdiyiniz üçün, rəqibi şahını qorumağa məcbur etdiz!</string>
   <string name="whatNext">Sırada nə var?</string>
+  <string name="youKnowHowToPlayChess">Təbriklər! Şahmat oynamağı öyrəndiniz! Daha güclü bir oyunçu olmaq istəyirsiniz?</string>
   <string name="register">Qeydiyyat</string>
   <string name="getAFreeLichessAccount">Pulsuz Lichess hesabı əldə edin</string>
   <string name="practice">Məşğələ</string>
