@@ -52,13 +52,18 @@ object String {
 
   def hasLinks = RawHtml.hasLinks _
 
-  def hasZeroWidthChars(s: String) =
+  def hasGarbageChars(s: String) = hasZeroWidthChars(s) || hasInvisibleChars(s)
+
+  private def hasZeroWidthChars(s: String) =
     s.contains('\u200b') ||
       s.contains('\u200c') ||
       s.contains('\u200d') ||
       s.contains('\u200e') ||
       s.contains('\u200f') ||
       s.contains('\u202e') // https://www.fileformat.info/info/unicode/char/202e/index.htm
+
+  private def hasInvisibleChars(s: String) =
+    s.contains('\u1160') // https://www.compart.com/en/unicode/U+1160
 
   object base64 {
     import java.util.Base64

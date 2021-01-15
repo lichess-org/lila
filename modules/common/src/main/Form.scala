@@ -60,7 +60,7 @@ object Form {
   def trim(m: Mapping[String]) = m.transform[String](_.trim, identity)
   def clean(m: Mapping[String]) =
     trim(m)
-      .verifying("This text contains invalid chars", s => !String.hasZeroWidthChars(s))
+      .verifying("This text contains invalid chars", s => !String.hasGarbageChars(s))
 
   def eventName(minLength: Int, maxLength: Int) =
     clean(text).verifying(
