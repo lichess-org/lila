@@ -3,6 +3,7 @@
   <string name="advancedPawn">Keçid piyadası</string>
   <string name="advancedPawnDescription">Çevrilən və ya çevrilməyə yaxın bir piyada taktikanın açarıdır.</string>
   <string name="advantage">Üstünlük</string>
+  <string name="advantageDescription">Həlledici üstünlük əldə etmək üçün fürsətdən istifadə edin. (200-600sp arası)</string>
   <string name="attackingF2F7">f2 və ya f7 Hücumu</string>
   <string name="attraction">Cəlbetmə</string>
   <string name="backRankMate">Arxa xətdə mat</string>
@@ -12,8 +13,10 @@
   <string name="castlingDescription">Şahı təhlükəsiz yerə gətirin və hücum üçün topu hazırlayın.</string>
   <string name="capturingDefender">Müdafiəçini vurmaq</string>
   <string name="crushing">Əzici üstünlük</string>
+  <string name="crushingDescription">Əzici üstünlük əldə etmək üçün rəqibin kobud səhvini müəyyənləşdirin. (600sp və ondan yüksək)</string>
   <string name="equality">Bərabərləşmə</string>
   <string name="kingsideAttack">Şah cinahında hücum</string>
+  <string name="kingsideAttackDescription">Qısa qalaqurma edən rəqib şahına hücum.</string>
   <string name="defensiveMove">Müdafiə gedişi</string>
   <string name="deflection">Yayındırma</string>
   <string name="discoveredAttack">Açaraq hücum</string>
@@ -62,6 +65,7 @@
   <string name="queenRookEndgame">Vəzir və Top</string>
   <string name="queenRookEndgameDescription">Yalnız vəzirlər, toplar və piyadalardan ibarət oyun sonu.</string>
   <string name="queensideAttack">Vəzir cinahında hücum</string>
+  <string name="queensideAttackDescription">Uzun qalaqurma edən rəqib şahına hücum.</string>
   <string name="quietMove">Sakit gediş</string>
   <string name="rookEndgame">Top sonluğu</string>
   <string name="rookEndgameDescription">Sadəcə top və piyadaların olduğu oyun sonluğu.</string>
@@ -70,6 +74,7 @@
   <string name="shortDescription">2 gedişə qələbə.</string>
   <string name="skewer">Şiş</string>
   <string name="smotheredMate">Boğma matı</string>
+  <string name="superGMDescription">Dünyanın ən yaxşı oyunçularının oynadığı oyunlardan tapmacalar.</string>
   <string name="trappedPiece">Tələyə düşmüş fiqur</string>
   <string name="trappedPieceDescription">Gedəcək təhlükəsiz bir xanası olmadığı üçün fiqur vurulmaqdan qaça bilmir.</string>
   <string name="underPromotion">Zəifə Çevrilmə</string>
