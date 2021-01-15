@@ -26,7 +26,7 @@
   <string name="youCannotApply">Moderator olmaq üçün müraciət etmək mümkün deyil. Moderator olaraq yaxşı olacağını düşündüyümüz birini görsək, onlarla birbaşa əlaqə quracağıq.</string>
   <string name="isCorrespondenceDifferent">Yazışmalı oyun normal şahmatdan fərqlidir?</string>
   <string name="youCanUseOpeningBookNoEngine">Lichessdə yazışma şahmatı üçün qaydalardakı əsas fərq debüt kitabına icazə verilməsidir. Mühərriklərin istifadəsi hələ də qadağandır və bunu etdiyiniz təqdirdə profiliniz işarələnəcək. ICCF yazışmada mühərrik istifadəsinə icazə versə də, Lichess buna icazə vermir.</string>
-  <string name="gameplay">Oynama</string>
+  <string name="gameplay">Oynanış</string>
   <string name="howBulletBlitzEtcDecided">Bullet, Blitz və digər vaxt nəzarətlərinə necə qərar verilir?</string>
   <string name="basedOnGameDuration">Lichessdə vaxta nəzarət oyun vaxtına nəzərən dəyişir = %1$s
 Məsələn, 5+3 blitz oyununun təxmini vaxtı 5 × 60 + 40 × 3 = 420 saniyəyə bərabərdir.</string>
