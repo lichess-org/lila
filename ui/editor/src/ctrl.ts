@@ -185,18 +185,23 @@ export default class EditorCtrl {
     this.setFen(fen);
   }
 
+  parsePocket(pocket: string): string {
+    let newPocket = "";
+    for(var i = 0; i < pocket.length; i++){
+      const l = pocket[i];
+      if(parseInt(l))
+        newPocket += pocket[++i].repeat(parseInt(l));
+      else newPocket += l;
+    }
+    return newPocket
+  }
+
   setFen(fen: string): boolean {
     if (this.shogiground) this.shogiground.set({ fen });
     this.clearPocket();
     const splitted = fen.split(' ');
     if(splitted.length >= 3){
-      let pocket = "";
-      for(var i = 0; i < splitted[2].length; i++){
-        const l = splitted[2][i];
-        if(parseInt(l))
-          pocket += splitted[2][++i].repeat(parseInt(l));
-        else pocket += l;
-      }
+      const pocket = this.parsePocket(splitted[2]);
       pocket.split('').map(p => {
         const role = charToRole(p);
         if(role)
@@ -207,6 +212,33 @@ export default class EditorCtrl {
     return true;
   }
 
+  fillGotesHand(): void {
+    const pieceCounts: {[index: string]:number} = { L: 4, N: 4, S: 4, G: 4, P: 18, B: 2, R: 2 };
+    const unpromote: {[index: string]:string} = { T: 'P', D: 'R', H: 'B', U: 'L', M: 'N', A: 'S' };
+    const splitted = this.getFen().split(' ');
+    for (var i = 0; i < splitted[0].length; i++) {
+      const piece = splitted[0][i].toUpperCase();
+      const currPiece = unpromote[piece] ? unpromote[piece] : piece;
+      if (pieceCounts[currPiece]) pieceCounts[currPiece]--;
+    }
+    if (splitted.length >= 3) {
+      const pocket = this.parsePocket(splitted[2]);
+      for (var i = 0; i < pocket.length; i++) {
+        if (pieceCounts[pocket[i]]) pieceCounts[pocket[i]]--;
+      }
+    }
+    this.clearColorPocket('black');
+    for (const p in pieceCounts) {
+      const role = charToRole(p);
+      if (role) {
+        while (pieceCounts[p] > 0) {
+            this.addToPocket('black', role);
+          pieceCounts[p]--;
+        }
+      }
+    }
+  }
+
   setOrientation(o: Color): void {
     this.options.orientation = o;
     if (this.shogiground!.state.orientation !== o)
@@ -215,7 +247,7 @@ export default class EditorCtrl {
   }
 
   addToPocket(c: Color, r: Role): void {
-    if(["pawn", "lance", "knight", "silver", "gold", "bishop", "rook"].includes(r) && this.pockets[c === "white" ? 0 : 1][r] < 10)
+    if(["pawn", "lance", "knight", "silver", "gold", "bishop", "rook"].includes(r) && this.pockets[c === "white" ? 0 : 1][r] < 18)
       this.pockets[c === "white" ? 0 : 1][r]++;
     this.onChange();
   }
@@ -228,6 +260,11 @@ export default class EditorCtrl {
     ["pawn", "lance", "knight", "silver", "gold", "bishop", "rook"].map(p => {
       this.pockets[0][p] = 0;
       this.pockets[1][p] = 0;
+    })
+  }
+  clearColorPocket(c: Color){
+    ["pawn", "lance", "knight", "silver", "gold", "bishop", "rook"].map(p => {
+      this.pockets[c === "white" ? 0 : 1][p] = 0;
     })
   }
 }
