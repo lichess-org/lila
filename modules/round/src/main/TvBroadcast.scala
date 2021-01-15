@@ -11,7 +11,6 @@ import lila.common.LightUser
 import lila.game.actorApi.MoveGameEvent
 import lila.game.Game
 import lila.socket.Socket
-import lila.socket.Socket.makeMessage
 
 final private class TvBroadcast(
     userJsonView: lila.user.JsonView,
@@ -80,7 +79,7 @@ final private class TvBroadcast(
       featured = feat.some
 
     case MoveGameEvent(game, fen, move) =>
-      val msg = makeMessage(
+      val msg = Socket.makeMessage(
         "fen",
         Json
           .obj(
