@@ -203,6 +203,7 @@ export default class EditorCtrl {
           this.addToPocket(p.toUpperCase() === p ? 'white' : 'black', role);
       });
     }
+    this.turn = splitted[1] == 'b' ? 'black' : 'white';
     this.onChange();
     return true;
   }
