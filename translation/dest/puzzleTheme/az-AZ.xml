@@ -74,6 +74,7 @@
   <string name="queensideAttack">Vəzir cinahında hücum</string>
   <string name="queensideAttackDescription">Uzun qalaqurma edən rəqib şahına hücum.</string>
   <string name="quietMove">Sakit gediş</string>
+  <string name="quietMoveDescription">Şah verməyən və ya fiqur ələ keçirməyən, lakin sonrakı gedişdə üçün qarşısıalınmaz bir təhdid hazırlayan gediş.</string>
   <string name="rookEndgame">Top sonluğu</string>
   <string name="rookEndgameDescription">Sadəcə top və piyadaların olduğu oyun sonluğu.</string>
   <string name="sacrifice">Qurban</string>
