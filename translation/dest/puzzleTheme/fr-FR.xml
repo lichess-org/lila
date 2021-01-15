@@ -49,6 +49,10 @@
   <string name="knightEndgameDescription">Une finale avec seulement des cavaliers et des pions.</string>
   <string name="long">Long problème</string>
   <string name="longDescription">Victoire en trois coups.</string>
+  <string name="master">Parties de maîtres</string>
+  <string name="masterDescription">Problèmes tirés de parties jouées par des joueurs titrés</string>
+  <string name="masterVsMaster">Parties jouées entre maîtres</string>
+  <string name="masterVsMasterDescription">Problèmes tirés de parties entre deux joueurs titrés</string>
   <string name="mate">Mat</string>
   <string name="mateDescription">Gagnez la partie avec classe.</string>
   <string name="mateIn1">Mat en 1</string>
