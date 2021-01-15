@@ -110,26 +110,14 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
       .void
 
   def setSeen(id: Challenge.ID) =
-    coll.update
-      .one(
-        $id(id),
-        $doc("$set" -> $doc("seenAt" -> DateTime.now))
-      )
-      .void
+    coll.updateField($id(id), "seenAt", DateTime.now).void
 
   def offline(challenge: Challenge) = setStatus(challenge, Status.Offline, Some(_ plusHours 3))
   def cancel(challenge: Challenge)  = setStatus(challenge, Status.Canceled, Some(_ plusHours 3))
   def decline(challenge: Challenge) = setStatus(challenge, Status.Declined, Some(_ plusHours 3))
   def accept(challenge: Challenge)  = setStatus(challenge, Status.Accepted, Some(_ plusHours 3))
 
-  def statusById(id: Challenge.ID) =
-    coll
-      .find(
-        $id(id),
-        $doc("status" -> true, "_id" -> false).some
-      )
-      .one[Bdoc]
-      .map { _.flatMap(_.getAsOpt[Status]("status")) }
+  def statusById(id: Challenge.ID) = coll.primitiveOne[Status]($id(id), "status")
 
   private def setStatus(
       challenge: Challenge,

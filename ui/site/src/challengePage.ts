@@ -60,7 +60,7 @@ export default function(opts: ChallengeOpts) {
       try {
         lichess.socket.send('ping');
       } catch (e) { }
-      setTimeout(pingNow, 2000);
+      setTimeout(pingNow, 9000);
     }
   }
 

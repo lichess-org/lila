@@ -131,7 +131,7 @@ final class ChallengeApi(
         .dmap(_ exists identity)
 
   private[challenge] def sweep: Funit =
-    repo.realTimeUnseenSince(DateTime.now minusSeconds 10, max = 50).flatMap { cs =>
+    repo.realTimeUnseenSince(DateTime.now minusSeconds 20, max = 50).flatMap { cs =>
       lila.common.Future.applySequentially(cs)(offline).void
     } >>
       repo.expired(50).flatMap { cs =>
