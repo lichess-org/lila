@@ -41,8 +41,8 @@
   <string name="pgnTags">PGN etiketləri</string>
   <string name="like">Bəyən</string>
   <string name="newTag">Yeni etiket</string>
-  <string name="commentThisPosition">Bu mövqedə rəy bildirin</string>
-  <string name="commentThisMove">Bu gedişdə rəy bildirin</string>
+  <string name="commentThisPosition">Bu mövqeyə rəy bildirin</string>
+  <string name="commentThisMove">Bu gedişə rəy bildirin</string>
   <string name="annotateWithGlyphs">Simvol ilə izah et</string>
   <string name="theChapterIsTooShortToBeAnalysed">Fəsil təhlil edilməsi üçün çox qısadır.</string>
   <string name="onlyContributorsCanRequestAnalysis">Yalnız çalışma iştirakçıları kompüter təhlili tələb edə bilər.</string>
