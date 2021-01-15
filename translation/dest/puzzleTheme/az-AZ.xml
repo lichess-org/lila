@@ -87,5 +87,6 @@
   <string name="xRayAttack">Rentgen hücumu</string>
   <string name="xRayAttackDescription">Fiqur, bir xanaya rəqib fiquru üzərindən hücum edir və ya müdafiə edir.</string>
   <string name="zugzwang">Suqsvanq</string>
+  <string name="zugzwangDescription">Rəqib edə biləcəti gediş sayı məhduddur və istənilən gediş vəziyyəti daha da pisləşdirir.</string>
   <string name="healthyMix">Həftəbecər</string>
 </resources>
