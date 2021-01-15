@@ -28,6 +28,8 @@
   <string name="youCanUseOpeningBookNoEngine">Lichessdə yazışma şahmatı üçün qaydalardakı əsas fərq debüt kitabına icazə verilməsidir. Mühərriklərin istifadəsi hələ də qadağandır və bunu etdiyiniz təqdirdə profiliniz işarələnəcək. ICCF yazışmada mühərrik istifadəsinə icazə versə də, Lichess buna icazə vermir.</string>
   <string name="gameplay">Oynama</string>
   <string name="howBulletBlitzEtcDecided">Bullet, Blitz və digər vaxt nəzarətlərinə necə qərar verilir?</string>
+  <string name="basedOnGameDuration">Lichessdə vaxta nəzarət oyun vaxtına nəzərən dəyişir = %1$s
+Məsələn, 5+3 blitz oyununun təxmini vaxtı 5 × 60 + 40 × 3 = 420 saniyəyə bərabərdir.</string>
   <string name="durationFormula">(başlanğıc vaxt) + 40 × (əlavə vaxt)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
