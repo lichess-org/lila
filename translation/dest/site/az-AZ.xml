@@ -115,33 +115,33 @@
   <string name="infiniteAnalysis">Sonsuz təhlil</string>
   <string name="removesTheDepthLimit">Dərinlik limitini ləğv edir və kompüterinizi isti saxlayır</string>
   <string name="blunder">Kobud Səhv</string>
-  <string name="blunders">Kobud səhvlər</string>
+  <string name="blunders">Kobud Səhvlər</string>
   <string name="mistake">Səhv</string>
   <string name="mistakes">Səhvlər</string>
   <string name="inaccuracy">Qeyri-dəqiqlik</string>
   <string name="inaccuracies">Qeyri-dəqiqliklər</string>
-  <string name="moveTimes">gedişin müddəti</string>
-  <string name="flipBoard">Taxtanı firlat</string>
+  <string name="moveTimes">Gediş müddəti</string>
+  <string name="flipBoard">Lövhəni firlat</string>
   <string name="threefoldRepetition">Üç dəfə təkrar</string>
   <string name="claimADraw">Heç-heçəyə iddia</string>
   <string name="offerDraw">Heç-heçə təklif et</string>
   <string name="draw">Heç-heçə</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s əlaqə qurmuş oyunçu</item>
-    <item quantity="other">%s əlaqə qurmuş oyunçu</item>
+    <item quantity="one">%s oyunçu</item>
+    <item quantity="other">%s oyunçu</item>
   </plurals>
-  <string name="currentGames">Hal-hazırda oynanılan oyunlar</string>
+  <string name="currentGames">Cari oyunlar</string>
   <plurals name="nbGames">
-    <item quantity="one">%s Oyunlar</item>
-    <item quantity="other">%s Oyunlar</item>
+    <item quantity="one">%s oyun</item>
+    <item quantity="other">%s oyun</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s nişan edilmiş oyun</item>
-    <item quantity="other">%s nişan edilmiş oyun</item>
+    <item quantity="one">%s yadda saxlanılmış oyun</item>
+    <item quantity="other">%s yadda saxlanılmış oyun</item>
   </plurals>
-  <string name="viewInFullSize">Tam görünüşlə bax</string>
-  <string name="logOut">Xətdən çıx</string>
-  <string name="signIn">Xəttə bağlan</string>
+  <string name="viewInFullSize">Tam ölçüdə bax</string>
+  <string name="logOut">Hesabdan çıx</string>
+  <string name="signIn">Giriş</string>
   <string name="youNeedAnAccountToDoThat">Bunun üçün siz qeydiyyatdan keçməlisiniz</string>
   <string name="signUp">Üzv ol</string>
   <string name="computersAreNotAllowedToPlay">Bilgisayarlar və bilgisayardan yararlan oyunçulara oynamaq qadağandır. Oyun zamanı şahmat programlarından, məlumat bazalarından və ya digər oyunçulardan yardım alınmaması xahiş olunur.</string>
