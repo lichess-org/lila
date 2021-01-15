@@ -101,21 +101,19 @@ case class Streaks(cur: Streak, max: Streak) {
 object Streaks {
   val init = Streaks(Streak.init, Streak.init)
 }
-case class Streak(v: Int, from: Option[RatingAt], to: Option[RatingAt]) {
+case class Streak(v: Int, from: Option[GameAt], to: Option[GameAt]) {
   def apply(cont: Boolean, pov: Pov)(v: Int) = if (cont) inc(pov, v) else Streak.init
   private def inc(pov: Pov, by: Int) =
     copy(
       v = v + by,
-      from = from orElse pov.player.rating.map { RatingAt(_, pov.game.createdAt, pov.gameId) },
-      to = pov.player.ratingAfter.map { RatingAt(_, pov.game.movedAt, pov.gameId) }
+      from = from orElse GameAt(pov.game.createdAt, pov.gameId).some,
+      to = GameAt(pov.game.movedAt, pov.gameId).some
     )
   def period = new Period(v * 1000L)
 }
 object Streak {
   val init = Streak(0, none, none)
 }
-
-case class Bounds(from: RatingAt, to: RatingAt)
 
 case class Count(
     all: Int,
@@ -170,6 +168,11 @@ case class Avg(avg: Double, pop: Int) {
       avg = ((avg * pop) + v) / (pop + 1),
       pop = pop + 1
     )
+}
+
+case class GameAt(at: DateTime, gameId: String)
+object GameAt {
+  def agg(pov: Pov) = GameAt(pov.game.movedAt, pov.gameId)
 }
 
 case class RatingAt(int: Int, at: DateTime, gameId: String)
