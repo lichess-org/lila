@@ -51,7 +51,7 @@
   <string name="longDescription">Üç hamlede kazanç.</string>
   <string name="master">Ustaların oyunları</string>
   <string name="masterDescription">Unvanlı oyuncuların oyunlarından bulmacalar.</string>
-  <string name="masterVsMaster">Ustaların ustalara karşı oynadığı oyunlar</string>
+  <string name="masterVsMaster">Ustaların ustalarla oynadığı oyunlar</string>
   <string name="masterVsMasterDescription">Unvanlı iki oyuncunun oynadığı maçlardan bulmacalar.</string>
   <string name="mate">Mat</string>
   <string name="mateDescription">Oyunu tarz ile kazanın.</string>
