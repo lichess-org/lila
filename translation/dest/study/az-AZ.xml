@@ -84,14 +84,14 @@
   <string name="deleteChapter">Fəsili sil</string>
   <string name="deleteThisChapter">Bu fəsil silinsin? Bunun geri dönüşü yoxdur!</string>
   <string name="clearAllCommentsInThisChapter">Bu fəsildəki bütün rəylər, simvollar və çəkilmiş formalar təmizlənsin?</string>
-  <string name="rightUnderTheBoard">Taxtanın altında</string>
+  <string name="rightUnderTheBoard">Lövhənin altında</string>
   <string name="noPinnedComment">Görünməsin</string>
   <string name="normalAnalysis">Normal təhlil</string>
   <string name="hideNextMoves">Növbəti gedişləri gizlət</string>
   <string name="interactiveLesson">İnteraktiv dərs</string>
   <string name="chapterX">%s. Fəsil</string>
   <string name="empty">Boş</string>
-  <string name="startFromInitialPosition">İlk mövqedən başlasın</string>
+  <string name="startFromInitialPosition">Başlanğıc mövqedən başlasın</string>
   <string name="editor">Redaktor</string>
   <string name="startFromCustomPosition">Özəl mövqedən başlasın</string>
   <string name="loadAGameByUrl">URL ilə oyun yüklə</string>
@@ -102,8 +102,8 @@
     <item quantity="one">PGN mətninizi bura yapışdırın, ən çox %s oyuna qədər</item>
     <item quantity="other">PGN mətninizi bura yapışdırın, ən çox %s oyuna qədər</item>
   </plurals>
-  <string name="urlOfTheGame">Oyun URL-si</string>
-  <string name="loadAGameFromXOrY">%1$s və ya %2$s ilə oyun yüklə</string>
+  <string name="urlOfTheGame">Oyun URL-i</string>
+  <string name="loadAGameFromXOrY">%1$s və ya %2$s ilə oyun yükləyin</string>
   <string name="createChapter">Fəsil yarat</string>
   <string name="configureLiveBroadcast">Canlı yayımı konfiqurasiya et</string>
   <string name="createStudy">Çalışma yarat</string>
