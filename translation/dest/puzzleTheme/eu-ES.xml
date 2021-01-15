@@ -52,6 +52,7 @@
   <string name="master">Maisuen partidak</string>
   <string name="masterDescription">Tituludun jokalariek jokatutako partidetan oinarritutako ariketak.</string>
   <string name="masterVsMaster">Maisuen arteko partidak</string>
+  <string name="masterVsMasterDescription">Tituludun jokalari biren artean jokatutako partidetan oinarritutako ariketak.</string>
   <string name="mate">Mate</string>
   <string name="mateDescription">Irabazi partida estiloarekin.</string>
   <string name="mateIn1">Mate baten</string>
