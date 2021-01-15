@@ -70,6 +70,7 @@
   <string name="buyingLichess">Lichessi almaq</string>
   <string name="authorizationToUse">Lichess istifadə icazəsi</string>
   <string name="welcomeToUse">Biznes məqsədilə olsa belə fəaliyyətiniz üçün Lichess istifadə edə bilərsiniz.</string>
+  <string name="videosAndBooks">Bunu videolarınızda göstərə və kitablarınıza Lichess ekran görüntülərini çap edə bilərsiniz.</string>
   <string name="creditAppreciated">Tərif qiymətləndirilir, lakin tələb olunmur.</string>
   <string name="noneOfTheAbove">Yuxarıdakıların heç biri</string>
   <string name="sendEmailAt">Bizə %s vasitəsilə bir e-poçt göndərin.</string>
