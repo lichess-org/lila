@@ -49,6 +49,10 @@
   <string name="knightEndgameDescription">Végjáték csak huszárokkal és gyalogokkal.</string>
   <string name="long">Hosszú feladvány</string>
   <string name="longDescription">Három lépés a megoldás.</string>
+  <string name="master">Mesterjátszmák</string>
+  <string name="masterDescription">Feladványok mesterek játszmáiból.</string>
+  <string name="masterVsMaster">Mesterek egymás ellen</string>
+  <string name="masterVsMasterDescription">Feladványok két mester egymás elleni játszmáiból.</string>
   <string name="mate">Matt</string>
   <string name="mateDescription">Vidd a játszmát stílusosan.</string>
   <string name="mateIn1">Matt 1 lépésben</string>
