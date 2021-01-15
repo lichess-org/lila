@@ -23,7 +23,7 @@ sürəti artır!</string>
   <string name="youNeedBothBishops">Bir ağ xanalı fil, 
 bir qara xanalı fil. 
 Hər ikisinə ehtiyacın olacaq!</string>
-  <string name="bishopComplete">Təbriklər! Fil fiquruna hakimsiniz.</string>
+  <string name="bishopComplete">Təbriklər! Artıq Fillər sənin dostundur.</string>
   <string name="theQueen">Vəzir</string>
   <string name="queenCombinesRookAndBishop">Vəzir = top + fil</string>
   <string name="queenIntro">Səhnəyə ən güclü şahmat fiquru daxil olur. Zati-aliləri Vəzir!</string>
@@ -32,7 +32,7 @@ Hər ikisinə ehtiyacın olacaq!</string>
   <string name="theMostImportantPiece">Ən önəmli fiqur</string>
   <string name="kingIntro">Siz şahsınız. Döyüşdə uduzsanız, oyunda da məğlubsunuz.</string>
   <string name="theKingIsSlow">Şahın sürəti yavaşdır.</string>
-  <string name="lastOne">Ən sonuncu!</string>
+  <string name="lastOne">Sonuncusu!</string>
   <string name="kingComplete">İndi isə əmr sahibinə əmri siz verə bilərsiniz!</string>
   <string name="theKnight">At</string>
   <string name="itMovesInAnLShape">L hərfi formasında hərəkət edir</string>
