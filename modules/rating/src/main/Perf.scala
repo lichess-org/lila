@@ -61,6 +61,8 @@ case class Perf(
     if (nb < 10) recent
     else (glicko.intRating :: recent) take Perf.recentMaxSize
 
+  def clearRecent = copy(recent = Nil)
+
   def toRating =
     new Rating(
       math.max(Glicko.minRating, glicko.rating),
