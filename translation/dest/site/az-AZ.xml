@@ -28,18 +28,18 @@
   <string name="kingInTheCenter">Şah mərkəzdə</string>
   <string name="threeChecks">Üç şah</string>
   <string name="raceFinished">Yarış bitdi</string>
-  <string name="variantEnding">Variant sonluğu</string>
+  <string name="variantEnding">Variant bitdi</string>
   <string name="newOpponent">Yeni rəqib</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Rəqibiniz sizinlə yeni bir oyun oynamaq istəyir</string>
   <string name="joinTheGame">Oyuna qoşul</string>
-  <string name="whitePlays">Növbə ağlarındır</string>
-  <string name="blackPlays">Növbə qaralarındır</string>
+  <string name="whitePlays">Gediş ağlarındır</string>
+  <string name="blackPlays">Gediş qaralarındır</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">Rəqibiniz oyunu tərk etdi. %s saniyə sonra qələbə tələb edə bilərsiniz.</item>
     <item quantity="other">Rəqibiniz oyunu tərk etdi. %s saniyə sonra qələbə tələb edə bilərsiniz.</item>
   </plurals>
-  <string name="opponentLeftChoices">Rəqibiniz oyunu tərk etdi. Qələbə tələb edə, heç-heçə deyə və ya gözləyə bilərsiniz.</string>
-  <string name="makeYourOpponentResign">Rəqibiniz oyunu tərk etsin</string>
+  <string name="opponentLeftChoices">Rəqibiniz oyunu tərk etdi. Qələbə, heç-heçə tələb edə və ya gözləyə bilərsiniz.</string>
+  <string name="makeYourOpponentResign">Rəqibi məğlubiyyətə məcbur edin</string>
   <string name="forceResignation">Qələbə tələb et</string>
   <string name="forceDraw">Heç-heçə elan et</string>
   <string name="talkInChat">Zəhmət olmasa söhbət vaxtı nəzakətli olun!</string>
@@ -48,7 +48,7 @@
   <string name="blackResigned">Qaralar tərk etdi</string>
   <string name="whiteLeftTheGame">Ağlar oyunu tərk etdi</string>
   <string name="blackLeftTheGame">Qaralar oyunu tərk etdi</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Tamaşaçıların oyuna baxmasına icazə vermək üçün bu URL-ni paylaşın</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Tamaşaçıların oyuna baxmasına icazə vermək üçün bu URL-i paylaşın</string>
   <string name="theComputerAnalysisHasFailed">Kompüter təhlili uğursuz oldu</string>
   <string name="viewTheComputerAnalysis">Kompüter təhlilinə baxın</string>
   <string name="requestAComputerAnalysis">Kompüter təhlilini tələb et</string>
@@ -57,9 +57,9 @@
   <string name="analysis">Təhlil lövhəsi</string>
   <string name="depthX">Dərinlik %s</string>
   <string name="usingServerAnalysis">Server analizi edilir</string>
-  <string name="loadingEngine">Motor yüklənir ...</string>
+  <string name="loadingEngine">Mühəriik yüklənir ...</string>
   <string name="cloudAnalysis">Bulud təhlili</string>
-  <string name="goDeeper">Dərinə get</string>
+  <string name="goDeeper">Daha dərinə get</string>
   <string name="showThreat">Təhdidi göstər</string>
   <string name="inLocalBrowser">yerli səyyahda</string>
   <string name="toggleLocalEvaluation">Yerli qiymətləndirməni aç/bağla</string>
