@@ -46,6 +46,7 @@ Lichess kompüter analizi Stockfish tərəfindən dəstəklənir.</string>
   <string name="lichessTraining">Lichess məşqi</string>
   <string name="threefoldRepetition">Üç dəfə təkrar</string>
   <string name="threefoldRepetitionLowerCase">üç dəfə təkrar</string>
+  <string name="notRepeatedMoves">Gedişləri təkrarlamadıq. Nə üçün oyun gediş təkrarına görə heç-heçə bitti?</string>
   <string name="positions">vəziyyətlər</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Bir mövqeyi üç dəfə təkrarladıq. Oyun niyə heç-heçə olmadı?</string>
   <string name="configure">konfiqurasiya</string>
