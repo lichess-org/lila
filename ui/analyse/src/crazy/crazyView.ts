@@ -1,4 +1,4 @@
-import { drag, selectToDrop } from "./crazyCtrl";
+import { drag, selectToDrop, shadowDrop } from "./crazyCtrl";
 import { h } from "snabbdom";
 import { MouchEvent } from "shogiground/types";
 import { onInsert } from "../util";

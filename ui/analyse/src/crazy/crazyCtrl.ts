@@ -8,7 +8,6 @@ import { Api as ShogigroundApi } from "shogiground/api";
 // @ts-ignore
 import { Shogi } from "shogiutil/vendor/Shogi.js";
 
-// @ts-ignore
 export function shadowDrop(ctrl: AnalyseCtrl, color: Color, e: cg.MouchEvent): void {
   const el = e.target as HTMLElement;
   const role = el.getAttribute("data-role") as cg.Role;
