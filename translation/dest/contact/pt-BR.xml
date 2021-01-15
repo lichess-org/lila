@@ -59,21 +59,21 @@
   <string name="ratedGame">Certifique-se de ter jogado uma partida por pontuação. Jogos casuais não alteram a pontuação dos jogadores.</string>
   <string name="errorPage">Página de erro</string>
   <string name="reportErrorPage">Se você encontrou uma página de erro, você pode reportá-la:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Solicitar por proibição ou restrição de IP</string>
+  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Apelação de banimento ou restrição de IP</string>
   <string name="engineAppeal">Assistência de software de xadrez</string>
-  <string name="sendAppealTo">Você pode enviar um apelo para %s.</string>
-  <string name="falsePositives">Erros acontecem às vezes, e lamentamos que isso aconteça.</string>
-  <string name="ifLegit">Se o seu apelo for legítimo, suspenderemos a proibição o mais rápido possível.</string>
-  <string name="accountLost">No entanto, se você realmente usou a assistência de softwares, mesmo que apenas uma vez, infelizmente sua conta será perdida.</string>
-  <string name="doNotDeny">Não negue ter trapaceado. Se você deseja criar uma nova conta, apenas admita o que fez e mostre que entendeu que foi um erro.</string>
+  <string name="sendAppealTo">Você pode enviar uma apelação para %s.</string>
+  <string name="falsePositives">Erros podem acontecer e lamentamos por isso.</string>
+  <string name="ifLegit">Se a sua apelação for legítima, retiraremos a proibição o mais rápido possível.</string>
+  <string name="accountLost">No entanto, se você realmente usou a assistência de softwares, mesmo que apenas uma vez, infelizmente sua conta não poderá ser recuperada.</string>
+  <string name="doNotDeny">Não minta sobre ter trapaceado. Se você deseja criar uma nova conta, apenas admita o que fez e mostre que entendeu que foi um erro.</string>
   <string name="otherRestriction">Outra restrição</string>
-  <string name="collaboration">Colaboração, legal, comercial</string>
-  <string name="monetizing">Monetizar Lichess</string>
-  <string name="buyingLichess">Comprar Lichess</string>
-  <string name="authorizationToUse">Autorização para usar Lichess</string>
-  <string name="welcomeToUse">Você é bem-vindo a usar Lichess para sua atividade, inclusive comercialmente.</string>
-  <string name="videosAndBooks">Você pode mostrá-lo em seus vídeos e pode imprimir capturas de tela do Lichess em seus livros.</string>
-  <string name="creditAppreciated">O crédito é apreciado, mas não é exigido.</string>
+  <string name="collaboration">Colaborações, termos legais, termos comerciais</string>
+  <string name="monetizing">Monetização do Lichess</string>
+  <string name="buyingLichess">Aquisição do Lichess</string>
+  <string name="authorizationToUse">Autorização para usar o Lichess</string>
+  <string name="welcomeToUse">Você é bem-vindo a usar Lichess para suas atividades, inclusive comercialmente.</string>
+  <string name="videosAndBooks">Você pode mostrá-lo em seus vídeos e pode colocar capturas de tela do Lichess em seus livros.</string>
+  <string name="creditAppreciated">Agradecemos menções, mas isso não é exigido.</string>
   <string name="noneOfTheAbove">Nenhuma das opções acima</string>
   <string name="sendEmailAt">Envie-nos um e-mail para %s.</string>
   <string name="explainYourRequest">Por favor, explique sua solicitação de forma clara e completa. Informe seu nome de usuário no Lichess e qualquer informação que possa nos ajudar a ajudá-lo.</string>
