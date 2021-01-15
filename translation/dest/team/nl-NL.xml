@@ -12,6 +12,7 @@
   <string name="noTeamFound">Geen team gevonden</string>
   <string name="joinTeam">Word lid van het team</string>
   <string name="quitTeam">Verlaat het team</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Handmatig toelatingsverzoeken beoordelen</string>
   <plurals name="teamLeaders">
     <item quantity="one">Teamleider</item>
     <item quantity="other">Teamleiders</item>
