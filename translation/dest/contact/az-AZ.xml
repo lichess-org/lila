@@ -56,6 +56,7 @@
   <string name="fideMate">FIDE Şahmat Qanunları §6.9-a görə, hər hansı bir qanuni gedişlər ardıcıllığı ilə mat mümkündürsə, oyun heç-heçə deyil</string>
   <string name="knightMate">Rəqibin lövhədə şahdan başqa digər bir fiquru varsa, yalnız bir at və ya bir fillə mat etmək mümkündür.</string>
   <string name="noRatingPoints">Heç bir reytinq xalı verilməyib</string>
+  <string name="ratedGame">Reytinqli oyun oynadığınızdan əmin olun. Reytinqsiz oyunlar oyunçuların reytinqlərinə təsir etmir.</string>
   <string name="errorPage">Xəta səhifəsi</string>
   <string name="reportErrorPage">Bir səhv səhifəsi ilə qarşılaşmısınızsa, bu barədə məlumat verə bilərsiniz:</string>
   <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Ban və ya IP məhdudlaşması üçün müraciət edin</string>
