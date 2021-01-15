@@ -84,6 +84,7 @@ Diqqət çəkən başqa bir məqam, zaman keçdikcə özünə inam aralığını
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">verilmiş reytinqdə son bir həftə reytinqli oyunlar oynamış,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">standart şahmatda %1$s-dən az, digər şahmat variantlarında isə %2$s-dən az reytinq yayınmasının olması</string>
   <string name="beInTopTen">bu reytinqdə ilk 10-da olmaq.</string>
+  <string name="whyAreRatingHigher">Niyə reytinqlər FIDE, USCF və ICC kimi digər sayt və təşkilatlarla müqayisədə daha yüksəkdir?</string>
   <string name="whyAreRatingHigherExplanation">Reytinqləri mütləq rəqəmlər hesab etməmək və ya digər təşkilatlarla müqayisə etməmək yaxşıdır. Fərqli təşkilatların fərqli səviyyəli oyunçuları, fərqli reytinq sistemləri var (Elo, Glicko, Glicko-2 və ya yuxarıda göstərilənlərin dəyişdirilmiş bir versiyası). Bu amillər mütləq rəqəmləri (dərəcələri) kəskin şəkildə təsir edə bilər.
 
 Reytinqləri \"nisbi\" rəqəmlər (\"mütləq\" rəqəmlərdən fərqli olaraq) kimi düşünmək daha yaxşıdır: Bir oyunçu hövzəsində reytinqlərdəki nisbi fərqlər kimin nə qədər qazandığını / heç-heçə etdiyini / məğlub olduğunu təxmin etməyə kömək edəcəkdir. \"X reytinqim var\" demək, bu reytinqi müqayisə edəcək digər oyunçular olmasa, heç bir mənası yoxdur.</string>
