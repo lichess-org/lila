@@ -96,6 +96,7 @@
   <string name="smotheredMate">Boğmaca Matı</string>
   <string name="smotheredMateDescription">Kendi taşları tarafından çevrelendiği (ya da boğulduğu) için hareket edemeyen şahın at ile mat edildiği pozisyonlar.</string>
   <string name="superGM">En iyi Büyük Usta oyunları</string>
+  <string name="superGMDescription">En iyi oyuncuların oynadığı oyunlardan bulmacalar.</string>
   <string name="trappedPiece">Tuzağa düşmüş taş</string>
   <string name="trappedPieceDescription">Gidecek güvenli bir kare kalmadığı için kaçacak yerleri olmayan taşlar.</string>
   <string name="underPromotion">Düşük terfi</string>
