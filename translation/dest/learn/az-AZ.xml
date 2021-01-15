@@ -139,6 +139,9 @@ Onu çək və qısa qalaqurma et.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Qaralar piyadanı iki xana 
 irəli gəldi!
 Keçiddə götür.</string>
+  <string name="enPassantOnlyWorksImmediately">Keçiddə götürmə, yalnız
+rəqib piyadanı oynadıqdan
+dərhal sonra keçərlidir.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Keçiddə götürmə yalnız
 piyadanız 5-ci horizontalda olanda mümkündür.</string>
   <string name="takeAllThePawnsEnPassant">Bütün keçiddə piyadaları götür!</string>
