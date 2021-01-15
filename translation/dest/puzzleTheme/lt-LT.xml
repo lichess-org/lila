@@ -49,6 +49,10 @@
   <string name="knightEndgameDescription">Endšpilis tik su žirgais ir pėstininkais.</string>
   <string name="long">Ilgas galvosūkis</string>
   <string name="longDescription">Trys ėjimai laimėti.</string>
+  <string name="master">Meistrų partijos</string>
+  <string name="masterDescription">Užduotys iš tituluotų žaidėjų partijų.</string>
+  <string name="masterVsMaster">Meistrų prieš meistrus partijos</string>
+  <string name="masterVsMasterDescription">Užduotys iš partijų tarp tituluotų žaidėjų.</string>
   <string name="mate">Matas</string>
   <string name="mateDescription">Laimėkite žaidimą su klase.</string>
   <string name="mateIn1">Matas vienu ėjimu</string>
