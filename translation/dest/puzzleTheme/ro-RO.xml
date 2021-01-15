@@ -49,6 +49,7 @@
   <string name="knightEndgameDescription">Un final de partidă doar cu pioni și cai.</string>
   <string name="long">Puzzle lung</string>
   <string name="longDescription">Trei mutări pentru a câștiga.</string>
+  <string name="master">Partidele maeştrilor</string>
   <string name="mate">Mat</string>
   <string name="mateDescription">Câștigă jocul cu stil.</string>
   <string name="mateIn1">Mat din 1</string>
