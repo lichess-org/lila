@@ -31,7 +31,8 @@ final class AppealApi(
             ),
             status = Appeal.Status.Unread,
             createdAt = DateTime.now,
-            updatedAt = DateTime.now
+            updatedAt = DateTime.now,
+            firstUnrepliedAt = DateTime.now
           )
         coll.insert.one(appeal) inject appeal
       case Some(prev) =>
@@ -49,12 +50,12 @@ final class AppealApi(
   def queue: Fu[List[Appeal]] =
     coll
       .find($doc("status" -> Appeal.Status.Unread.key))
-      .sort($doc("updatedAt" -> 1))
+      .sort($doc("firstUnrepliedAt" -> 1))
       .cursor[Appeal]()
       .list(12) flatMap { unreads =>
       coll
         .find($doc("status" $ne Appeal.Status.Unread.key))
-        .sort($doc("updatedAt" -> -1))
+        .sort($doc("firstUnrepliedAt" -> -1))
         .cursor[Appeal]()
         .list(20 - unreads.size) map {
         unreads ::: _

@@ -9,7 +9,10 @@ case class Appeal(
     msgs: Vector[AppealMsg],
     status: Appeal.Status, // from the moderators POV
     createdAt: DateTime,
-    updatedAt: DateTime
+    updatedAt: DateTime,
+    // date of first player message without a mod reply
+    // https://github.com/ornicar/lila/issues/7564
+    firstUnrepliedAt: DateTime
 ) {
   def id       = _id
   def isMuted  = status == Appeal.Status.Muted
@@ -29,7 +32,10 @@ case class Appeal(
       status =
         if (isByMod(msg) && status == Appeal.Status.Unread) Appeal.Status.Read
         else if (!isByMod(msg) && status == Appeal.Status.Read) Appeal.Status.Unread
-        else status
+        else status,
+      firstUnrepliedAt =
+        if (isByMod(msg) || msgs.lastOption.exists(isByMod)) DateTime.now
+        else firstUnrepliedAt
     )
   }
 
