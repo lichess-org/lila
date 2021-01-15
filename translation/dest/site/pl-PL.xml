@@ -263,7 +263,7 @@
 	<string name="confirmMove">Potwierdź ruch</string>
 	<string name="play">Zagraj</string>
 	<string name="inbox">Wiadomości</string>
-	<string name="streamerManager">Streamer manager</string>
+	<string name="streamerManager">Menedżer streamera</string>
 	<string name="chatRoom">Czat</string>
 	<string name="loginToChat">Zaloguj się, aby rozmawiać</string>
 	<string name="youHaveBeenTimedOut">Zostałeś czasowo wyciszony.</string>
@@ -493,7 +493,7 @@
 	<string name="boardEditor">Edytor pozycji</string>
 	<string name="setTheBoard">Ustaw szachownicę</string>
 	<string name="popularOpenings">Popularne otwarcia</string>
-	<string name="handicaps">Handicaps</string>
+	<string name="handicaps">Fory</string>
 	<string name="startPosition">Ustawienie początkowe</string>
 	<string name="clearBoard">Wyczyść szachownicę</string>
 	<string name="savePosition">Zapisz pozycję</string>
@@ -600,7 +600,7 @@
 	<string name="newPasswordAgain">Powtórz nowe hasło</string>
 	<string name="clockInitialTime">Początkowy czas zegara</string>
 	<string name="clockIncrement">Przyrost czasu</string>
-	<string name="clockByoyomi">Clock byoyomi</string>
+	<string name="clockByoyomi">Byoyomi na zegarze</string>
 	<string name="privacy">Prywatność</string>
 	<string name="letOtherPlayersFollowYou">Inni gracze mogą Cię obserwować</string>
 	<string name="letOtherPlayersChallengeYou">Zezwól na zaproszenia od innych graczy</string>
@@ -954,8 +954,8 @@
 	<string name="whiteOffersImpasse">Gote proponuje impas</string>
 	<string name="notationSystem">Notacja</string>
 	<string name="officialBlog">Oficjalny blog Lishogi</string>
-	<string name="blogPostsFromYear">Blog posts from %1$s</string>
+	<string name="blogPostsFromYear">Posty na blogu od %1$s</string>
 	<string name="previousBlogPosts">Poprzednie wpisy</string>
-	<string name="continueReadingThis"> Continue reading this post</string>
+	<string name="continueReadingThis"> Czytaj dalej</string>
 	<string name="discussBlogForum">Dyskutuj o tym wpisie na forum</string>
 </resources>

@@ -731,7 +731,7 @@
 	<string name="error.unknown">エラー</string>
 	<string name="custom">自由設定</string>
 	<string name="notifications">通知</string>
-	<string name="challenges">チャレンジ</string>
+	<string name="challenges">挑戦</string>
 	<string name="perfRatingX">レーティング: %s</string>
 	<plurals name="nbSecondsToPlayTheFirstMove">
 		<item quantity="other">あと %s 秒以内に初手を指してください</item>

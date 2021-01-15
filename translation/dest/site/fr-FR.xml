@@ -878,8 +878,8 @@
 	<string name="whiteOffersImpasse">Gote propose le jishogi</string>
 	<string name="notationSystem">Notation</string>
 	<string name="officialBlog">Blog officiel de Lishogi</string>
-	<string name="blogPostsFromYear">Blog posts from %1$s</string>
+	<string name="blogPostsFromYear">Publications dans l\'année %1$s</string>
 	<string name="previousBlogPosts">Publications précédentes</string>
-	<string name="continueReadingThis"> Continue reading this post</string>
+	<string name="continueReadingThis"> Lire la suite</string>
 	<string name="discussBlogForum">Discutez de cet article dans le forum</string>
 </resources>
