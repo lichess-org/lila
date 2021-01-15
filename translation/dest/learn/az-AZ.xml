@@ -42,6 +42,10 @@ Tullanın və bütün ulduzları toplayın!</string>
   <string name="thePawn">Piyada</string>
   <string name="itMovesForwardOnly">Yalnız irəliləyir</string>
   <string name="pawnIntro">Piyadalar zəifdir, lakin böyük potensiala sahibdirlər.</string>
+  <string name="pawnsMoveOneSquareOnly">Piyadalar yalnız bir xana hərəkət edir.
+Ancaq lövhənin digər tərəfinə çatdıqda daha güclü bir fiqura çevrilirlər!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Əksər hallarda Vəzirə çıxmaq ən yaxşısıdır.
+Amma bəzən At da lazım ola bilər!</string>
   <string name="pawnsMoveForward">Piyadalar irəliyə gedir,
 lakin çapraz vurur!</string>
   <string name="captureThenPromote">Vur və çevril!</string>
