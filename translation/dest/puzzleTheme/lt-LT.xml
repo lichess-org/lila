@@ -95,6 +95,8 @@
   <string name="skewerDescription">Motyvas įtraukiantis brangią figūrą, kuri puolama. Jai pasitraukiant atveriamas kelias nukirsti už jos stovinčią mažiau brangią figūrą.</string>
   <string name="smotheredMate">Uždusintas matas</string>
   <string name="smotheredMateDescription">Matas, kurį atlieka žirgas, kai matuojamas karalius negali pajudėti nes yra apsuptas savo paties figūrų.</string>
+  <string name="superGM">Super GM partijos</string>
+  <string name="superGMDescription">Užduotys iš partijų, kurias žaidė geriausi pasaulio žaidėjai.</string>
   <string name="trappedPiece">Įkalinta figūra</string>
   <string name="trappedPieceDescription">Figūra negali pabėgti, nes turi ribotą skaičių ėjimų.</string>
   <string name="underPromotion">Žemesnis paaukštinimas</string>
