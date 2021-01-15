@@ -51,7 +51,7 @@
   <string name="longDescription">Drei Züge zum Sieg.</string>
   <string name="master">Meisterpartien</string>
   <string name="masterDescription">Aufgaben aus Partien von Spielern mit Titel.</string>
-  <string name="masterVsMaster">Master gegen Master Partien</string>
+  <string name="masterVsMaster">Meister gegen Meister Partien</string>
   <string name="masterVsMasterDescription">Aufgaben aus Partien zwischen zwei Spielern mit Titel.</string>
   <string name="mate">Matt</string>
   <string name="mateDescription">Gewinne die Partie mit Stil.</string>
@@ -95,6 +95,8 @@
   <string name="skewerDescription">Ein Motiv mit einer angegriffenen, hochwertigen Figur, deren Wegziehen erlaubt, dass eine niederwertige Figur hinter ihr geschlagen oder angegriffen werden kann, das Gegenteil einer Fesselung.</string>
   <string name="smotheredMate">Ersticktes Matt</string>
   <string name="smotheredMateDescription">Ein Matt durch einen Springer, in dem der mattgesetzte König sich nicht bewegen kann, weil er von seinen eigenen Figuren umgeben (also erstickt) wird.</string>
+  <string name="superGM">Super-Großmeister-Partien</string>
+  <string name="superGMDescription">Aufgaben aus Partien, die von den besten Spielern der Welt bestritten wurden.</string>
   <string name="trappedPiece">Gefangene Figur</string>
   <string name="trappedPieceDescription">Eine Figur kann dem Schlagen nicht entgehen, weil ihre Zugmöglichkeiten begrenzt wurden.</string>
   <string name="underPromotion">Unterverwandlung</string>

@@ -42,6 +42,10 @@ Tullanın və bütün ulduzları toplayın!</string>
   <string name="thePawn">Piyada</string>
   <string name="itMovesForwardOnly">Yalnız irəliləyir</string>
   <string name="pawnIntro">Piyadalar zəifdir, lakin böyük potensiala sahibdirlər.</string>
+  <string name="pawnsMoveOneSquareOnly">Piyadalar yalnız bir xana hərəkət edir.
+Ancaq lövhənin digər tərəfinə çatdıqda daha güclü bir fiqura çevrilirlər!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Əksər hallarda Vəzirə çıxmaq ən yaxşısıdır.
+Amma bəzən At da lazım ola bilər!</string>
   <string name="pawnsMoveForward">Piyadalar irəliyə gedir,
 lakin çapraz vurur!</string>
   <string name="captureThenPromote">Vur və çevril!</string>
@@ -82,6 +86,7 @@ götürmələrinə imkan verməyin!</string>
   <string name="checkInOneIntro">Rəqibinizə şah vermək üçün onun şahına hücum edin. O da şahını qorumalıdır!</string>
   <string name="checkInOneGoal">Rəqibin kralını hədəf alın
 bir hərəkətdə!</string>
+  <string name="checkInOneComplete">Təbriklər! Şah verdiyiniz üçün, rəqibi şahını qorumağa məcbur etdiz!</string>
   <string name="outOfCheck">Şahı qoru</string>
   <string name="defendYourKing">Şahı müdafiə edin</string>
   <string name="outOfCheckIntro">Rəqib sizə şah verdi!
@@ -95,6 +100,7 @@ lakin hücumun bloklaya bilərsiz!</string>
 üstündən şah verdi!</string>
   <string name="escapeOrBlock">Şahla qaç
 və ya hücumu blokla!</string>
+  <string name="outOfCheckComplete">Təbriklər! Şahınız heç vaxt vurula bilməz, şah verilməkdən müdafiə müdafiə olunduğunuzdan əmin olun!</string>
   <string name="mateInOne">Mat vermə</string>
   <string name="defeatTheOpponentsKing">Rəqib şahını mat et</string>
   <string name="mateInOneIntro">Rəqib, verdiyiniz şahın qarşısını ala bilmədikdə qalib sayılırsız.</string>
@@ -105,6 +111,9 @@ müdafiə oluna bilməyəcək bir şəkildə!</string>
   <string name="boardSetup">Fuqurların düzülüşü</string>
   <string name="howTheGameStarts">Oyuna necə başlamalı</string>
   <string name="boardSetupIntro">İki ordu üz-üzə, döyüşə hazırdır.</string>
+  <string name="thisIsTheInitialPosition">Bu hər bir şahmat oyunun
+başlanğıc vəziyyətidir!
+Davam etmək üçün istənilən bir gediş edin.</string>
   <string name="firstPlaceTheRooks">İlk öncə topları yerləşdirin!
 Onlar künclərdə yerəşir.</string>
   <string name="thenPlaceTheKnights">Sonra atları yerləşdir!
@@ -131,33 +140,63 @@ Onu çək və qısa qalaqurma et.</string>
 İlk öncə aradakı fiqurları çəkmək lazımdır.</string>
   <string name="castleQueenSideMovePiecesFirst">Uzun qalaqurma!
 İlk öncə aradakı fiqurları çəkmək lazımdır.</string>
+  <string name="youCannotCastleIfMoved">Şah yerindən tərpənibsə
+və ya top yerindən tərpənibsə
+qalaqurma edə bilməzsiz.</string>
+  <string name="youCannotCastleIfAttacked">Şahın keçəcəyi xana hücum altında olarsa
+qalaqurma edə bilməzsiz
+Hücumu bloklayın sonra qalaqurma edin!</string>
   <string name="findAWayToCastleKingSide">Qısa qalaqurmanın bir yolunu tap!</string>
   <string name="findAWayToCastleQueenSide">Vəzir tərəfə qalaqurmanın bir yolunu tapın!</string>
   <string name="castlingComplete">Təbriklər! Demək olar hər bir oyunda qalaqurma etməlisən.</string>
   <string name="enPassant">Keçiddə götürmə</string>
   <string name="theSpecialPawnMove">Xüsusi piyada gedişi</string>
+  <string name="enPassantIntro">Rəqib piyada iki xana hərəkət etdikdə, onu bir xana hərəkət etdiyi kimi qəbul edə bilərsiniz.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Qaralar piyadanı iki xana 
 irəli gəldi!
 Keçiddə götür.</string>
+  <string name="enPassantOnlyWorksImmediately">Keçiddə götürmə, yalnız
+rəqib piyadanı oynadıqdan
+dərhal sonra keçərlidir.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Keçiddə götürmə yalnız
 piyadanız 5-ci horizontalda olanda mümkündür.</string>
   <string name="takeAllThePawnsEnPassant">Bütün keçiddə piyadaları götür!</string>
   <string name="enPassantComplete">Təbriklər! Artıq keçiddə piyada götürə bilərsiz.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Oyun heç-heçədir</string>
+  <string name="stalemateIntro">Əgər bir oyunçuya şah verilməyibsə və oyanaya biləcəyi qanuni bir gedişi yoxdursa buna pat deyilir. Oyun heç-heçədir, qalib və məğlub yoxdur.</string>
+  <string name="stalemateGoal">Pat etmək üçün:
+- Qaralar gediş edə bilməməlidir
+- Şah vermək mümkün olmamalıdır.</string>
   <string name="stalemateComplete">Təbriklər! Mat olmaqdansa Pat yaxşıdır!</string>
   <string name="advanced">Ətraflı</string>
   <string name="pieceValue">Fiqur dəyəri</string>
   <string name="evaluatePieceStrength">Fiqur gücü qiymətləndirilməsi</string>
+  <string name="pieceValueIntro">Yüksək hərəkətliliyi olan fiqurlar daha yüksək dəyərə sahibdir!
+Vəzir = 9
+Top = 5
+Fil = 3
+At = 3
+Piyada = 1
+Şah ən dəyərli fiqurdur! Onu itirmək oyunu itirmək deməkdir.</string>
   <string name="queenOverBishop">Ən yüksək
 dəyərli fiquru vur!
 Vəzir &gt; Fil</string>
   <string name="takeThePieceWithTheHighestValue">Ən dəyərli fiquru götürün!</string>
+  <string name="pieceValueComplete">Təbriklər! Artıq fiqurların dəyərini bilirsiniz!
+Vəzir = 9
+Top = 5
+Fil = 3
+At = 3
+Piyada = 1</string>
   <string name="checkInTwo">2 gedişə şah</string>
   <string name="twoMovesToGiveCheck">Şah vermək üçün iki gediş</string>
+  <string name="checkInTwoIntro">Rəqibə şah vermək üçün iki gedişli doğru kombinasiyanı tapın!</string>
   <string name="checkInTwoGoal">Rəqibə iki gedişdə
 şah ver!</string>
+  <string name="checkInTwoComplete">Təbriklər! Şah verdiyiniz üçün, rəqibi şahını qorumağa məcbur etdiz!</string>
   <string name="whatNext">Sırada nə var?</string>
+  <string name="youKnowHowToPlayChess">Təbriklər! Şahmat oynamağı öyrəndiniz! Daha güclü bir oyunçu olmaq istəyirsiniz?</string>
   <string name="register">Qeydiyyat</string>
   <string name="getAFreeLichessAccount">Pulsuz Lichess hesabı əldə edin</string>
   <string name="practice">Məşğələ</string>

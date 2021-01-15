@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Lichess.org hesabınızı təsdiqləyin, %s</string>
-  <string name="emailConfirm_click">Lichess hesabınızı fəallaşdırmaq üçün bağlantıya klikləyin:</string>
+  <string name="emailConfirm_click">Lichess hesabınızı aktivləşdirmək üçün bu linkə klikləyin:</string>
   <string name="emailConfirm_ignore">Lichess-də qeydiyyatdan keçməmisinizsə, bu mesaja əhəmiyyət verməyə bilərsiniz.</string>
   <string name="passwordReset_subject">Lichess.com şifrənizi sıfırlayın, %s</string>
-  <string name="passwordReset_intro">Hesabınızın şifrəsinin sıfırlanması üçün bir sorğu aldıq.</string>
+  <string name="passwordReset_intro">Hesab şifrənizin sıfırlanması üçün bir sorğu aldıq.</string>
   <string name="passwordReset_clickOrIgnore">Bu sorğunu siz etmisinizsə, aşağıdakı bağlantıya klikləyin. Siz etməmisinizsə, bu e-poçta əhəmiyyət verməyin.</string>
   <string name="emailChange_subject">Yeni e-poçt ünvanınızı təsdiqləyin, %s</string>
   <string name="emailChange_intro">E-poçt ünvanınızın dəyişdirilməsi üçün sorğu göndərdiniz.</string>
-  <string name="emailChange_click">Bu e-poçta müraciət edə bildiyinizi təsdiqləmək üçün, zəhmət olmasa aşağıdakı bağlantıya klikləyin:</string>
+  <string name="emailChange_click">Bu e-poçta sizin üçün əlçatandırsa, zəhmət olmasa aşağıdakı bağlantıya klikləyin:</string>
   <string name="welcome_subject">Lichess.org-a Xoş Gəldiniz, %s</string>
-  <string name="welcome_text">Https://lichess.org üzərindən hesabınız uğurla yaradıldı.
+  <string name="welcome_text">https://lichess.org üzərindən hesabınız uğurla yaradıldı.
 
-Profil səhifəniz: %1$s. Profilinizi %2$s üzərindən fərdiləşdirə bilərsiniz.
+Profil səhifəniz: %1$s. Profilinizi %2$s üzərindən özəlləşdirə bilərsiniz.
 
-Əylənin, fiqurlarınız hər zaman rəqibin şahına gedən yolu tapa bilər!</string>
-  <string name="logInToLichess">Lichess.org-də giriş edin, %s</string>
-  <string name="common_orPaste">(Klikləmə işləmədi? Kopyalayıb səyyahda yapışdırmağı sına!)</string>
+Əylənin, fiqurlarınız hər zaman rəqib şahına gedən yolu tapa bilsin!</string>
+  <string name="logInToLichess">Lichess.org-a giriş edin, %s</string>
+  <string name="common_orPaste">(Klikləmə işləmədi? Kopyalayıb brazuerdə yapışdırmağı sına!)</string>
   <string name="common_note">Bu, %s saytından istifadənizlə bağlı xidməti bir e-poçtdur.</string>
-  <string name="common_contact">Bizimlə əlaqə üçün, zəhmət olmasa bundan istifadə edin: %s.</string>
+  <string name="common_contact">Bizimlə əlaqə üçün, zəhmət olmasa bu linkdən istifadə edin: %s.</string>
 </resources>

@@ -49,6 +49,10 @@
   <string name="knightEndgameDescription">Et sluttspill med kun springere og bønder.</string>
   <string name="long">Lang sjakknøtt</string>
   <string name="longDescription">Tre trekk til vinst.</string>
+  <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Mesterpartier</string>
+  <string name="masterDescription">Sjakknøtter fra partier med spillere som har sjakktittel.</string>
+  <string name="masterVsMaster" comment="masterVsMaster&#10;&#10;Puzzles from games between two titled players.">Mestermøter</string>
+  <string name="masterVsMasterDescription">Sjakknøtter fra partier mellom to spillere som har sjakktittel.</string>
   <string name="mate">Matt</string>
   <string name="mateDescription">Vinn partiet med stil.</string>
   <string name="mateIn1">Matt i 1</string>
@@ -91,6 +95,8 @@
   <string name="skewerDescription">Et motiv der en brikke med høy verdi er under angrep og må flyttes, noe som tillater at en brikke med lavere verdi som står bak den, blir slått eller angrepet, det motsatte av en binding.</string>
   <string name="smotheredMate">Kvelermatt</string>
   <string name="smotheredMateDescription">En stilling der en springer setter sjakk matt, og kongen ikke kan flyttes fordi den er omgitt (eller kvalt) av egne brikker.</string>
+  <string name="superGM" comment="superGM&#10;&#10;Puzzles from games played by the best players in the world.">Super-GM-partier</string>
+  <string name="superGMDescription">Sjakknøtter fra partier med verdens beste spillere.</string>
   <string name="trappedPiece">Fanget brikke</string>
   <string name="trappedPieceDescription">En brikke kan ikke unnslippe, siden den har få mulige trekk.</string>
   <string name="underPromotion">Underforvandling</string>

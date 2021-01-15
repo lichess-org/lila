@@ -12,6 +12,8 @@
   <string name="noTeamFound">Geen team gevonden</string>
   <string name="joinTeam">Word lid van het team</string>
   <string name="quitTeam">Verlaat het team</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Handmatig toelatingsverzoeken beoordelen</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Indien aangevinkt, moeten spelers schriftelijk verzoeken om lid te worden van het team. Dat verzoek kun je weigeren of accepteren.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Teamleider</item>
     <item quantity="other">Teamleiders</item>
@@ -41,4 +43,8 @@ Spelers die je berichten niet willen ontvangen kunnen het team verlaten.</string
   <string name="leadersChat">Teamleiderschat</string>
   <string name="closeTeam">Team sluiten</string>
   <string name="closeTeamDescription">Sluit het team voor altijd.</string>
+  <string name="teamPassword">Teamwachtwoord</string>
+  <string name="teamPasswordDescriptionForLeader">(Optioneel) Een wachtwoord dat nieuwe leden moeten weten om lid te worden van het team.</string>
+  <string name="incorrectTeamPassword">Onjuist wachtwoord.</string>
+  <string name="teamAlreadyExists">Deze naam bestaat al.</string>
 </resources>

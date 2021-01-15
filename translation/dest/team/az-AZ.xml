@@ -13,6 +13,7 @@
   <string name="joinTeam">komandaya daxil ol</string>
   <string name="quitTeam">komandadan ayrıl</string>
   <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Qəbul istəklərini əl ilə nəzərdən keçirin</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">İşarəlidirsə, oyunçuların komandaya qoşulmaq üçün bir tələb yazması lazımdır, bu təklifi rədd edə və ya qəbul edə bilərsiniz.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Komanda lideri</item>
     <item quantity="other">Komanda liderləri</item>
@@ -43,6 +44,7 @@ Mesajlarınızı almaq istəməyən oyunçular komandanı tərk edə bilər.</st
   <string name="closeTeam">Komandanı bağla</string>
   <string name="closeTeamDescription">Komandanı həmişəlik bağla.</string>
   <string name="teamPassword">Komanda şifrəsi</string>
+  <string name="teamPasswordDescriptionForLeader">(İstəyə bağlı) Bu komandaya qoşulmaq üçün yeni üzvlərin bilməli olduğu şifrə.</string>
   <string name="incorrectTeamPassword">Yanlış komanda şifrəsi.</string>
   <string name="teamAlreadyExists">Bu komanda artıq mövcuddur.</string>
 </resources>

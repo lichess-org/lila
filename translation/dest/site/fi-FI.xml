@@ -9,6 +9,7 @@
   <string name="yourTurn">Sinun vuorosi</string>
   <string name="aiNameLevelAiLevel">%1$s taso %2$s</string>
   <string name="level">Taso</string>
+  <string name="strength">Vahvuus</string>
   <string name="toggleTheChat">Keskustelu päälle / pois</string>
   <string name="toggleSound">Ääni päälle / pois</string>
   <string name="chat">Keskustelu</string>

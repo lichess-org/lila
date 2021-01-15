@@ -9,7 +9,7 @@
   <string name="lengths">Количество ходов</string>
   <string name="mates">Маты</string>
   <string name="goals">Цели</string>
-  <string name="origin">Из партии</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Из партии</string>
   <string name="specialMoves">Особые ходы</string>
   <string name="didYouLikeThisPuzzle">Понравилась задача?</string>
   <string name="voteToLoadNextOne">Проголосуйте и перейдите к следующей!</string>
@@ -24,7 +24,7 @@
   <string name="bestMove">Лучший ход!</string>
   <string name="keepGoing">Продолжайте...</string>
   <string name="puzzleSuccess">Получилось!</string>
-  <string name="puzzleComplete">Пазл решён !</string>
+  <string name="puzzleComplete">Задача решена!</string>
   <string name="notTheMove">Это не тот ход!</string>
   <string name="trySomethingElse">Попробуйте иначе.</string>
   <string name="ratingX">Рейтинг: %s</string>

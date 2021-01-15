@@ -9,7 +9,8 @@
   <string name="yourTurn">Ձեր հերթն է</string>
   <string name="aiNameLevelAiLevel">%1$s, մակարդակ՝ %2$s</string>
   <string name="level">Մակարդակ</string>
-  <string name="toggleTheChat">Թաքցնել/ցուցադրել զրուցարանը</string>
+  <string name="strength">Ուժ</string>
+  <string name="toggleTheChat">Թաքցնել/ցուցադրել չաթի պատուհանը</string>
   <string name="toggleSound">Անջատել/Միացնել ձայնը</string>
   <string name="chat">Չաթ</string>
   <string name="resign">Հանձնվել</string>
@@ -36,8 +37,8 @@
   <string name="opponentLeftChoices">Հակառակորդը լքել է խաղը։ Դուք կարող եք պահանջել հաղթանակ, ոչ-ոքի կամ սպասել։</string>
   <string name="makeYourOpponentResign">Ստիպել խաղը լքած հակառակորդին հանձնվել</string>
   <string name="forceResignation">Պահանջել հաղթանակ</string>
-  <string name="forceDraw">Պահանջոլ ոչ-ոքի</string>
-  <string name="talkInChat">Զրուցել չաթում</string>
+  <string name="forceDraw">Պահանջել ոչ-ոքի</string>
+  <string name="talkInChat">Խնդրում ենք զրուցարանում լինել բարեհամբյուր:</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Առաջինը, ով կայցելի այս հղումով, կխաղա Ձեզ հետ։</string>
   <string name="whiteResigned">Սպիտակները հանձնվեցին</string>
   <string name="blackResigned">Սևերը հանձնվեցին</string>
@@ -84,11 +85,15 @@
     <item quantity="other">Մատ %s հատ կիսաքայլից</item>
   </plurals>
   <string name="noGameFound">Ոչ մի խաղ չի գտնվել</string>
+  <string name="openingExplorer">Դեբյուտների դիտարկիչ</string>
+  <string name="xOpeningExplorer">%s դեբյուտների դիտարկիչ</string>
   <string name="allSet">Ամեն ինչ պատրաստ է։</string>
   <string name="importPgn">Ներմուծել PGN</string>
   <string name="delete">Ջնջել</string>
+  <string name="openStudy">Բացել ուսուցումը</string>
   <string name="enable">Միացնել</string>
   <string name="bestMoveArrow">Լավագույն քայլի սլաքը</string>
+  <string name="cpus">Պրոցեսորներ</string>
   <string name="memory">Հիշողություն</string>
   <string name="infiniteAnalysis">Անվերջ վերլուծություն</string>
   <string name="blunder">Վրիպում</string>
@@ -97,7 +102,7 @@
   <string name="mistakes">Սխալներ</string>
   <string name="inaccuracy">Անճշտություն</string>
   <string name="inaccuracies">Անճշտություններ</string>
-  <string name="moveTimes">Քայլի ժամանակ</string>
+  <string name="moveTimes">Քայլի տևողություն</string>
   <string name="flipBoard">Շրջել խաղատախտակը</string>
   <string name="threefoldRepetition">Եռակի կրկնություն</string>
   <string name="claimADraw">Պահանջել ոչ-ոքի</string>
@@ -151,6 +156,7 @@
   <string name="ratingStats">Վարկանիշի ստատիստիկա</string>
   <string name="username">Օգտատիրոջ անուն</string>
   <string name="usernameOrEmail">Օգտատիրոջ անուն կամ email</string>
+  <string name="changeUsername">Փոփոխել օգտանուն</string>
   <string name="password">Գաղտնաբառ</string>
   <string name="changePassword">Փոխել գաղտնաբառը</string>
   <string name="changeEmail">Փոխել էլ. փոստը</string>
@@ -183,6 +189,7 @@
   <string name="accept">Համաձայնվել</string>
   <string name="decline">Մերժել</string>
   <string name="playingRightNow">Այս պահին խաղում են</string>
+  <string name="eventInProgress">Խաղում են այս պահին</string>
   <string name="finished">Ավարտվել է</string>
   <string name="finishesX">ավարտվում է %s</string>
   <string name="abortGame">Կասեցնել խաղը</string>
@@ -254,6 +261,7 @@
   <string name="tournamentPoints">Մրցաշարային  միավորներ</string>
   <string name="viewTournament">Դիտել մրցաշարը</string>
   <string name="backToTournament">Վերադարձ դեպի մրցաշարը</string>
+  <string name="thematic">Թեմատիկա</string>
   <string name="backToGame">Վերադառնալ պարտիային</string>
   <string name="siteDescription">Անճար օնլայն շախմատ: Խաղացեք հաճելի ինտերֆեյսով, առանց գրանցման և գովազդի: Խաղացեք համակարգչի, ընկերների կամ անծանոթների հետ:</string>
   <string name="xJoinedTeamY">%1$s միացած թիմեր %2$s</string>
@@ -316,6 +324,11 @@
   <string name="winner">Հաղթող</string>
   <string name="standing">Զբաղեցրած դիրք</string>
   <string name="createANewTournament">Ստեղծել նոր մրցաշար</string>
+  <string name="tournamentCalendar">Մրցաշարի օրացույց</string>
+  <string name="conditionOfEntry">Մուտքի պահանջներ՝</string>
+  <string name="advancedSettings">Ընդլայնված կարգավորումներ</string>
+  <string name="safeTournamentName">Ընտրեք շատ ապահով անվանում մրցաշարի համար։</string>
+  <string name="showAdvancedSettings">Ցույց տալ ընդլայնված կարգավորումները</string>
   <string name="join">Միանալ</string>
   <string name="withdraw">Չեղարկել</string>
   <string name="points">Միավորներ</string>
@@ -324,6 +337,11 @@
   <string name="winStreak">Անընդմեջ հաղթանակներ</string>
   <string name="createdBy">Ստեղծող՝</string>
   <string name="tournamentIsStarting">Մրցաշարը սկսվում է</string>
+  <string name="youArePlaying">Դուք խաղում եք։</string>
+  <string name="winRate">Հաղթանակի տոկոս</string>
+  <string name="berserkRate">Բերսերկի տոկոս</string>
+  <string name="performance">Արտադրողականություն</string>
+  <string name="movesPlayed">Խաղացած քայլեր</string>
   <string name="draws">Ոչ-ոքիներ</string>
   <string name="nextXTournament">Մյուս %s մրցաշարը՝</string>
   <string name="membersOnly">Միայն անդամները</string>
@@ -348,6 +366,7 @@
   <string name="activeToday">Ակտիվ այսօր</string>
   <string name="activePlayers">Ակտիվ խաղացողներ</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Զգուշացում. խաղը վարկանիշային է սակայն առանց ժամանակի</string>
+  <string name="success">Հաջողված է</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">Ընթանում է %s խաղ</item>
     <item quantity="other">Ընթանում է %s խաղ</item>
@@ -387,10 +406,12 @@
   <string name="notes">Նշումներ</string>
   <string name="typePrivateNotesHere">Մասնավոր նշումները մուտքագրեք այստեղ</string>
   <string name="invalidUsernameOrPassword">Սխալ ծածկագիր կամ գաղտնաբառ</string>
+  <string name="incorrectPassword">Գաղտնաբառը սխալ է</string>
   <string name="emailMeALink">Էլեկտրոնային փոստով ուղարկել ինձ  հղումը</string>
   <string name="currentPassword">նախկին գաղտնաբառը</string>
   <string name="newPassword">նոր գաղտնաբառը</string>
   <string name="newPasswordAgain">նոր գաղտնաբառը  (նորից)</string>
+  <string name="newPasswordStrength">Գաղտնաբառի բարդություն</string>
   <string name="privacy">ԳԱՂՏՆԻՈՒԹՅՈՒՆ</string>
   <string name="letOtherPlayersFollowYou">Թույլ տալ ուրիշ խաղացողներին ձեզ հետևել</string>
   <string name="letOtherPlayersChallengeYou">Թույլ տալ ուրիշ խաղացողներին ձեզ մարտահրավեր նետել</string>

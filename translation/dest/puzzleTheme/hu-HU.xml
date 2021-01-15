@@ -49,6 +49,10 @@
   <string name="knightEndgameDescription">Végjáték csak huszárokkal és gyalogokkal.</string>
   <string name="long">Hosszú feladvány</string>
   <string name="longDescription">Három lépés a megoldás.</string>
+  <string name="master">Mesterjátszmák</string>
+  <string name="masterDescription">Feladványok mesterek játszmáiból.</string>
+  <string name="masterVsMaster">Mesterek egymás ellen</string>
+  <string name="masterVsMasterDescription">Feladványok két mester egymás elleni játszmáiból.</string>
   <string name="mate">Matt</string>
   <string name="mateDescription">Vidd a játszmát stílusosan.</string>
   <string name="mateIn1">Matt 1 lépésben</string>
@@ -91,6 +95,8 @@
   <string name="skewerDescription">Az a motívum mikor egy magasabb értékű figurát támadva az kénytelen ellépni szabaddá téve így az utat a kisebb értékű figura leütéséhez. A kötés fordítottja.</string>
   <string name="smotheredMate">Fojtott matt</string>
   <string name="smotheredMateDescription">Olyan huszárral adott matt, ahol a sakkot kapó király nem tud lépni, mert saját figurái veszik körül (fojtják meg).</string>
+  <string name="superGM">Szupernagymesteri játszmák</string>
+  <string name="superGMDescription">Feladványok a világ legjobb játékosai közötti összecsapásokból.</string>
   <string name="trappedPiece">Csapda</string>
   <string name="trappedPieceDescription">Egy figura leütése nem elkerülhető, ha nincs menekülési útja.</string>
   <string name="underPromotion">Minor-átváltozás</string>

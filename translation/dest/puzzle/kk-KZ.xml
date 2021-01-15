@@ -9,6 +9,7 @@
   <string name="lengths">Ұзындық</string>
   <string name="mates">Маттар</string>
   <string name="goals">Мақсаттар</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Түпнұсқа</string>
   <string name="specialMoves">Ерекше жүрістер</string>
   <string name="didYouLikeThisPuzzle">Бұл жұмбақ ұнай ма?</string>
   <string name="voteToLoadNextOne">Келесін ашу үшін дауыс беріңіз!</string>
@@ -47,4 +48,6 @@
   <string name="improvementAreas">Жетілдіру бағыты</string>
   <string name="strengths">Күштілігі</string>
   <string name="history">Жұмбақ журналы</string>
+  <string name="solved">шешілді</string>
+  <string name="failed">шешілмеді</string>
 </resources>

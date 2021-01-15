@@ -95,6 +95,8 @@
   <string name="skewerDescription">Um movimento que envolve uma peça de alto valor sendo atacada fugindo do ataque e permitindo que uma peça de menor valor seja capturada ou atacada, o inverso de cravada.</string>
   <string name="smotheredMate">Mate de Philidor</string>
   <string name="smotheredMateDescription">Um xeque-mate dado por um cavalo onde o rei é incapaz de mover-se porque está cercado (ou sufocado) pelas próprias peças.</string>
+  <string name="superGM">Super partidas de GMs</string>
+  <string name="superGMDescription">Quebra-cabeças de partidas jogadas pelos melhores jogadores do mundo.</string>
   <string name="trappedPiece">Peça presa</string>
   <string name="trappedPieceDescription">Uma peça é incapaz de escapar da captura, pois tem movimentos limitados.</string>
   <string name="underPromotion">Subpromoção</string>

@@ -2,14 +2,14 @@
 <resources>
   <string name="playWithAFriend">Bir dostunla oyna</string>
   <string name="playWithTheMachine">Kompüterlə oyna</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Kimisə oyuna dəvət etmək üçün, bu URL-ni göndərin</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Kimisə oyuna dəvət etmək üçün, bu URL-i göndərin</string>
   <string name="gameOver">Oyun Bitdi</string>
   <string name="waitingForOpponent">Rəqib gözlənilir</string>
   <string name="waiting">Gözlənilir</string>
   <string name="yourTurn">Sizin növbənizdir</string>
   <string name="aiNameLevelAiLevel">%1$s səviyyə %2$s</string>
   <string name="level">Səviyyə</string>
-  <string name="strength">Güc</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Güc</string>
   <string name="toggleTheChat">Söhbəti aç/bağla</string>
   <string name="toggleSound">Səsi aç/bağla</string>
   <string name="chat">Söhbət</string>
@@ -28,18 +28,18 @@
   <string name="kingInTheCenter">Şah mərkəzdə</string>
   <string name="threeChecks">Üç şah</string>
   <string name="raceFinished">Yarış bitdi</string>
-  <string name="variantEnding">Variant sonluğu</string>
+  <string name="variantEnding">Variant bitdi</string>
   <string name="newOpponent">Yeni rəqib</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Rəqibiniz sizinlə yeni bir oyun oynamaq istəyir</string>
   <string name="joinTheGame">Oyuna qoşul</string>
-  <string name="whitePlays">Növbə ağlarındır</string>
-  <string name="blackPlays">Növbə qaralarındır</string>
+  <string name="whitePlays">Gediş ağlarındır</string>
+  <string name="blackPlays">Gediş qaralarındır</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">Rəqibiniz oyunu tərk etdi. %s saniyə sonra qələbə tələb edə bilərsiniz.</item>
     <item quantity="other">Rəqibiniz oyunu tərk etdi. %s saniyə sonra qələbə tələb edə bilərsiniz.</item>
   </plurals>
-  <string name="opponentLeftChoices">Rəqibiniz oyunu tərk etdi. Qələbə tələb edə, heç-heçə deyə və ya gözləyə bilərsiniz.</string>
-  <string name="makeYourOpponentResign">Rəqibiniz oyunu tərk etsin</string>
+  <string name="opponentLeftChoices">Rəqibiniz oyunu tərk etdi. Qələbə, heç-heçə tələb edə və ya gözləyə bilərsiniz.</string>
+  <string name="makeYourOpponentResign">Rəqibi məğlubiyyətə məcbur edin</string>
   <string name="forceResignation">Qələbə tələb et</string>
   <string name="forceDraw">Heç-heçə elan et</string>
   <string name="talkInChat">Zəhmət olmasa söhbət vaxtı nəzakətli olun!</string>
@@ -48,7 +48,7 @@
   <string name="blackResigned">Qaralar tərk etdi</string>
   <string name="whiteLeftTheGame">Ağlar oyunu tərk etdi</string>
   <string name="blackLeftTheGame">Qaralar oyunu tərk etdi</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Tamaşaçıların oyuna baxmasına icazə vermək üçün bu URL-ni paylaşın</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Tamaşaçıların oyuna baxmasına icazə vermək üçün bu URL-i paylaşın</string>
   <string name="theComputerAnalysisHasFailed">Kompüter təhlili uğursuz oldu</string>
   <string name="viewTheComputerAnalysis">Kompüter təhlilinə baxın</string>
   <string name="requestAComputerAnalysis">Kompüter təhlilini tələb et</string>
@@ -57,16 +57,16 @@
   <string name="analysis">Təhlil lövhəsi</string>
   <string name="depthX">Dərinlik %s</string>
   <string name="usingServerAnalysis">Server analizi edilir</string>
-  <string name="loadingEngine">Motor yüklənir ...</string>
+  <string name="loadingEngine">Mühəriik yüklənir ...</string>
   <string name="cloudAnalysis">Bulud təhlili</string>
-  <string name="goDeeper">Dərinə get</string>
+  <string name="goDeeper">Daha dərinə get</string>
   <string name="showThreat">Təhdidi göstər</string>
-  <string name="inLocalBrowser">yerli səyyahda</string>
+  <string name="inLocalBrowser">bu brauzerdə</string>
   <string name="toggleLocalEvaluation">Yerli qiymətləndirməni aç/bağla</string>
   <string name="promoteVariation">Variasiyanı irəli çək</string>
-  <string name="makeMainLine">Ana yol et</string>
+  <string name="makeMainLine">Ana davam yolu et</string>
   <string name="deleteFromHere">Buradan sil</string>
-  <string name="forceVariation">Variasiyanı göstər</string>
+  <string name="forceVariation">Əsas variasiya et</string>
   <string name="move">Gediş</string>
   <string name="variantLoss">Uduzduracaq variant</string>
   <string name="variantWin">Qazandıracaq variant</string>
@@ -77,10 +77,10 @@
   <string name="winning">Qazandıran</string>
   <string name="losing">Uduzduran</string>
   <string name="drawn">Heç-heçə</string>
-  <string name="unknown">Bilinməyən</string>
+  <string name="unknown">Naməlum</string>
   <string name="database">Verilənlər bazası</string>
-  <string name="whiteDrawBlack">Ağ / Heç-heçə / Qara</string>
-  <string name="averageRatingX">Ortalama xal: %s</string>
+  <string name="whiteDrawBlack">Ağlar / Heç-heçə / Qaralar</string>
+  <string name="averageRatingX">Orta reytinq: %s</string>
   <string name="recentGames">Son oyunlar</string>
   <string name="topGames">Ən yaxşı oyunlar</string>
   <string name="masterDbExplanation">%1$s+ FIDE reytinqli oyunçuların %2$s ildən %3$s ilə kimi taxta üzərində oynadığı iki milyon oyun</string>
@@ -222,9 +222,9 @@
   <string name="standard">Standart</string>
   <string name="unlimited">Məhdudiyyətsiz</string>
   <string name="mode">Növ</string>
-  <string name="casual">Adi oyun</string>
+  <string name="casual">Reytinqsiz</string>
   <string name="rated">Reytinqli oyun</string>
-  <string name="casualTournament">Xalsız</string>
+  <string name="casualTournament">Reytinqsiz</string>
   <string name="ratedTournament">Reytingli oyun</string>
   <string name="thisGameIsRated">Bu, reytinqli oyundur</string>
   <string name="rematch">Əvəzçıxma</string>
@@ -405,7 +405,7 @@
   <string name="emptyTournamentName">Qutuyu boş bıraxaraq turnirə rastgələ bir Böyük şahmatçının adını verəbilərsiniz.</string>
   <string name="recommendNotTouching">Bu tənzimləmələrə toxunmamanızı önəririk.</string>
   <string name="fewerPlayers">Giriş tələbləri qoysanız, turnirinizə daha az oyunçu qoşulacaq.</string>
-  <string name="showAdvancedSettings">Qabaqcıl tənzimləmələri göstər</string>
+  <string name="showAdvancedSettings">Ətraflı tənzimləmələr</string>
   <string name="makePrivateTournament">Turniri özəl et və şifrə qoyaraq müraciəti məhdudlaşdır</string>
   <string name="join">Qoşul</string>
   <string name="withdraw">Heç-heçə</string>
@@ -417,7 +417,7 @@
   <string name="tournamentIsStarting">Turnir başlayır.</string>
   <string name="tournamentPairingsAreNowClosed">Turnir qoşulmaları indi bağlıdır.</string>
   <string name="standByX">Hazır ol %s, oyunçular qoşulur!</string>
-  <string name="youArePlaying">Oynanıyırsınız!</string>
+  <string name="youArePlaying">Oyundasınız!</string>
   <string name="winRate">Qazanma əmsalı</string>
   <string name="berserkRate">Berserk əmsalı</string>
   <string name="performance">Performans</string>
@@ -439,7 +439,7 @@
   <string name="isPrivate">Gizli</string>
   <string name="reportXToModerators">%s haqqında moderatorlara şikayət bildir.</string>
   <string name="profileCompletion">Profil tamamlama: %s</string>
-  <string name="xRating">%s qiymətləndirməsi</string>
+  <string name="xRating">%s reytinqi</string>
   <string name="ifNoneLeaveEmpty">Əgər yoxdursa, boş qoyun</string>
   <string name="gameCompletionRate">Oyun tamamlama əmsalı: %s</string>
   <string name="profile">Şəxsi məlumat</string>
@@ -508,7 +508,7 @@
   <string name="newPasswordAgain">Yeni şifrə (təkrar)</string>
   <string name="newPasswordsDontMatch">Yeni şifrələr uyğun gəlmir</string>
   <string name="newPasswordStrength">Etibarlı şifrə</string>
-  <string name="clockInitialTime">Saat başlanğıc vaxtı</string>
+  <string name="clockInitialTime">Saatın başlanğıc vaxtı</string>
   <string name="clockIncrement">Vaxt artırma</string>
   <string name="privacy">Gizlilik</string>
   <string name="privacyPolicy">Gizlilik siyasəti</string>
@@ -599,7 +599,7 @@
   <string name="webmasters">Web-ustalar</string>
   <string name="about">Haqqında</string>
   <string name="aboutX">%s haqqında</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ödənişsizdir (%2$s), sərbəst, reklamsız, açıq mənbəli şahmat serveridir.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ödənişsiz (%2$s), sərbəst, reklamsız, açıq mənbəli şahmat serveridir.</string>
   <string name="really">həqiqətən</string>
   <string name="contribute">Yardım etmək</string>
   <string name="termsOfService">Xidmət şərtləri</string>
@@ -649,7 +649,7 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Sən %1$s oyunçularşn %2$s -dan daha yaxşısan</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %3$s oyunçularından %2$s daha yaxşıdır.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sən müəyyən olunmuş %s reytinqə malik deyilsən.</string>
-  <string name="yourRating">Xalınız</string>
+  <string name="yourRating">Sizin reytinq</string>
   <string name="cumulative">Məcmu</string>
   <string name="glicko2Rating">Glicko-2 reytinqi</string>
   <string name="checkYourEmail">E-poçtunu yoxla</string>
@@ -676,8 +676,8 @@
   <string name="kidMode">Uşaq tərzi</string>
   <string name="kidModeExplanation">Bu təhlükəsizliklə bağlıdır. Uşaq rejimində bütün sayt əlaqələri deaktivdir. Uşaqlarınız və məktəb şagirdləriniz üçün, onları digər internet istifadəçilərindən qorumaq üçün bunu aktiv edin.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Uşaq rejimində, Lichess loqosu %s işarəsini alır, beləliklə uşaqlarınızın təhlükəsiz olduğunu bilirsiniz.</string>
-  <string name="enableKidMode">Uşaq rejimini fəallaşdır</string>
-  <string name="disableKidMode">Uşaq rejimini sıradan çıxart</string>
+  <string name="enableKidMode">Uşaq rejimini aktivləşdir</string>
+  <string name="disableKidMode">Uşaq rejimini deaktiv et</string>
   <string name="security">Təhlükəsizlik</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Bu hesabınıza daxil olan cihazların siyahısıdır. Tanımadığınız sessiyaları ləğv edin.</string>
   <string name="alternativelyYouCanX">Həmçinin %s də edə bilərsiniz.</string>

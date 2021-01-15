@@ -95,6 +95,8 @@
   <string name="skewerDescription">Un motif impliquant l\'attaque d\'une pièce de grande valeur qui en se dégageant permet la capture ou l\'attaque d\'une pièce de moindre valeur située derrière elle, l\'inverse d\'un clouage.</string>
   <string name="smotheredMate">Mat à l\'étouffée</string>
   <string name="smotheredMateDescription">Un mat délivré par un cavalier dans lequel le roi est incapable de s\'échapper parce qu\'il est entouré (ou étouffé) par ses propres pièces.</string>
+  <string name="superGM">Parties de super GM</string>
+  <string name="superGMDescription">Problèmes issus de parties des meilleurs joueurs du monde.</string>
   <string name="trappedPiece">Pièce enfermée</string>
   <string name="trappedPieceDescription">Une pièce forcément capturée car incapable de s\'échapper.</string>
   <string name="underPromotion">Sous-promotion</string>

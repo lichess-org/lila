@@ -9,7 +9,7 @@
   <string name="lengths">Uzunluğa göre</string>
   <string name="mates">Matlar</string>
   <string name="goals">Hedefler</string>
-  <string name="origin">Orijin</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Kaynak</string>
   <string name="specialMoves">Özel hamleler</string>
   <string name="didYouLikeThisPuzzle">Bulmacayı beğendiniz mi?</string>
   <string name="voteToLoadNextOne">Sıradakine geçmek için oy verin!</string>

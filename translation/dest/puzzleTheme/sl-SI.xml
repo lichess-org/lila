@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="master">Igre mojstrov</string>
+  <string name="masterDescription">Igre, ki so jih odigrali igralci z nazivom.</string>
+  <string name="masterVsMaster">Igre mojster proti mojstru</string>
+  <string name="masterVsMasterDescription">Uganke iz iger med igralci z nazivom.</string>
   <string name="queenRookEndgame">Končnica z damo in trdnjavo</string>
   <string name="queenRookEndgameDescription">Končnica z damami, trdnjavami in kmeti.</string>
 </resources>

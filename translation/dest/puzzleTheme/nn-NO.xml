@@ -91,6 +91,8 @@
   <string name="skewerDescription">Ein manøver der ei høgverdig brikke kjem under åtak og må flytte slik at ei brikke av lågare verde som står bak kan slås ut eller verte truga. Spidding kan utførast med løpar, dronning eller tårn. Spiddar vert rekna som motsatsen til binding.</string>
   <string name="smotheredMate">Kvelarmatt</string>
   <string name="smotheredMateDescription">Ein sjakkmatt ved hjelp av ein springar der motspelarens konge er stengd inne (eller kjøvd) av eigne brikker.</string>
+  <string name="superGM" comment="superGM&#10;&#10;Puzzles from games played by the best players in the world.">Superstormeister-parti</string>
+  <string name="superGMDescription">Oppgåver frå parti spela av verdas beste sjakkspelarar.</string>
   <string name="trappedPiece">Fanga brikke</string>
   <string name="trappedPieceDescription">Ei brikke som ikkje kjem unna på grunn av mangel på utvegar.</string>
   <string name="underPromotion">Underforvandling</string>

@@ -51,7 +51,7 @@
   <string name="longDescription">Trzy ruchy by wygrać.</string>
   <string name="master">Partie mistrzów</string>
   <string name="masterDescription">Zadania z partii graczy utytułowanych.</string>
-  <string name="masterVsMaster">Mistrz kontra partie mistrzów</string>
+  <string name="masterVsMaster">Mistrz kontra Mistrz</string>
   <string name="masterVsMasterDescription">Zadania z partii pomiędzy dwoma utytułowanymi graczami.</string>
   <string name="mate">Mat</string>
   <string name="mateDescription">Wygraj partię w dobrym stylu.</string>
@@ -95,6 +95,8 @@
   <string name="skewerDescription">Motyw, w którym bierka o wyższej wartości unikając ataku pozwala na zbicie bądź zaatakowanie bierki o niższej wartości. Odwrotność związania.</string>
   <string name="smotheredMate">Mat Beniowskiego</string>
   <string name="smotheredMateDescription">Mat dawany skoczkiem w którym matowany król nie może się poruszać ponieważ jest otoczony (zduszony) własnymi bierkami.</string>
+  <string name="superGM">Partie arcymistrzów</string>
+  <string name="superGMDescription">Zadania z partii granych przez najlepszych graczy na świecie.</string>
   <string name="trappedPiece">Uwięziona figura</string>
   <string name="trappedPieceDescription">Bierka nie może uniknąć zbicia z powodu ograniczenia mobilności.</string>
   <string name="underPromotion">Słaba promocja</string>

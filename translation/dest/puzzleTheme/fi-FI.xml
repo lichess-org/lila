@@ -49,6 +49,10 @@
   <string name="knightEndgameDescription">Loppupeli, jossa on vain ratsuja ja sotilaita.</string>
   <string name="long">Pitkä tehtävä</string>
   <string name="longDescription">Voittoon tarvitaan kolme siirtoa.</string>
+  <string name="master">Mestaritason pelit</string>
+  <string name="masterDescription">Tehtäviä arvonimen saaneiden pelaajien peleistä.</string>
+  <string name="masterVsMaster">Kahden mestarin väliset pelit</string>
+  <string name="masterVsMasterDescription">Tehtäviä kahden arvonimen saaneen pelaajan välisistä peleistä.</string>
   <string name="mate">Matti</string>
   <string name="mateDescription">Voita peli tyylillä.</string>
   <string name="mateIn1">1 siirron matti</string>
@@ -91,6 +95,8 @@
   <string name="skewerDescription">Siirto, jolla uhataan arvokkaampaa nappulaa, jonka siirtyessä sen takana oleva nappula jää uhatuksi ja on lyötävissä, eli toisin päin kuin kiinnityksessä.</string>
   <string name="smotheredMate">Pussimatti</string>
   <string name="smotheredMateDescription">Ratsun tekemä matti, jossa matitettava kuningas ei pysty liikkumaan, koska sen omat nappulat ympäröivät sitä (eli pussittavat sen).</string>
+  <string name="superGM">Supersuurmestarien pelit</string>
+  <string name="superGMDescription">Tehtäviä maailman parhaiden pelaajien pelaamista peleistä.</string>
   <string name="trappedPiece">Ansaan jäävä nappula</string>
   <string name="trappedPieceDescription">Nappula ei pääse pakenemaan lyömiseltä sopivien pakosiirtojen puuttuessa.</string>
   <string name="underPromotion">Alikorotus</string>

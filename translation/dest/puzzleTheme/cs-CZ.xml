@@ -2,4 +2,5 @@
 <resources>
   <string name="queenRookEndgame">Královna a věž</string>
   <string name="queenRookEndgameDescription">Konec hry jen s královnami, věžemi a pěšci.</string>
+  <string name="superGMDescription">Hádanky z her hraných nejlepšími hráči na světě.</string>
 </resources>

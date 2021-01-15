@@ -95,6 +95,8 @@
   <string name="skewerDescription">Разновидность связки, но в этом случае наоборот, более ценная фигура оказывается на линии атаки перед менее ценной или равноценной фигурой.</string>
   <string name="smotheredMate">Спёртый мат</string>
   <string name="smotheredMateDescription">Мат конём королю, который не может уйти от мата, потому что окружён (спёрт) своими же собственными фигурами.</string>
+  <string name="superGM">Партии супергроссмейстеров</string>
+  <string name="superGMDescription">Задачи из партий, сыгранных лучшими шахматистами в мире.</string>
   <string name="trappedPiece">Ловля фигуры</string>
   <string name="trappedPieceDescription">Фигура не может уйти от нападения, потому что не имеет свободных полей для отхода, или эти поля тоже находятся под нападением.</string>
   <string name="underPromotion">Превращение в слабую фигуру</string>

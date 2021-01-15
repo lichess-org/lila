@@ -49,6 +49,10 @@
   <string name="knightEndgameDescription">Аттар мен сарбаздары ғана бар ойынсоңы.</string>
   <string name="long">Ұзын жұмбақ</string>
   <string name="longDescription">Жеңіске үш қадам.</string>
+  <string name="master">Шебер ойындары</string>
+  <string name="masterDescription">Атақты ойыншылардың ойындарынан алынған жұмбақтар.</string>
+  <string name="masterVsMaster">Шеберлердің өзара ойындары</string>
+  <string name="masterVsMasterDescription">Екі атақты ойыншылардың ойындарынан алынған жұмбақтар.</string>
   <string name="mate">Мат</string>
   <string name="mateDescription">Ойынды әдемі жеңіп алыңыз.</string>
   <string name="mateIn1">1 жүрісті мат</string>
@@ -91,6 +95,8 @@
   <string name="skewerDescription">Байлауға қарама-қарсы: құнды тас соққы астында бола, артындағы арзан тасты беріп, қашуға мәжбүр болатындай жағдай.</string>
   <string name="smotheredMate">Қамаған мат</string>
   <string name="smotheredMateDescription">Өз тастарымен қамалған патша бірде-бір жүріс жасай алмайтын кезде оған қарсыластың аты жасаған мат.</string>
+  <string name="superGM">Супер гроссмейстер ойындары</string>
+  <string name="superGMDescription">Дүние жүзі мықтыларының ойындарынан алынған жұмбақтар.</string>
   <string name="trappedPiece">Тұзаққа түскен</string>
   <string name="trappedPieceDescription">Басып алынудан қаша алмайтын, жүрісі шектелген тас.</string>
   <string name="underPromotion">Кіші айналу</string>
