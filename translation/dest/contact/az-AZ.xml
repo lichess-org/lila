@@ -13,6 +13,7 @@
   <string name="doPasswordReset">İkinci doğrulamanı silmək üçün şifrənizi sıfırlayın</string>
   <string name="accountSupport">Hesabımla əlaqədar köməyə ehtiyacım var</string>
   <string name="wantTitle">Titulumun Lichessdə göstərilməsini istəyirəm</string>
+  <string name="visitTitleConfirmation">Lichess profilinizdə titulunuzu göstərmək və Titullu Arenada iştirak etmək üçün titul təsdiq səhifəsini ziyarət edin</string>
   <string name="wantCloseAccount">Hesabımı bağlamaq istəyirəm</string>
   <string name="closeYourAccount">Bu səhifədəki hesabınızı bağlaya bilərsiniz</string>
   <string name="doNotAskByEmail">Bizdən bir hesabı bağlamağımızı e-poçtla istəməyin, bunu etməyəcəyik.</string>
@@ -21,8 +22,10 @@
   <string name="doNotAskByEmailToReopen">Bizdən bir hesabı yenidən açmağımızı e-poçtla istəməyin, etməyəcəyik.</string>
   <string name="wantChangeUsername">İstifadəçi adımı dəyişmək istəyirəm</string>
   <string name="changeUsernameCase">İstifadəçi adınızda böyük və ya kiçik hərf dəyişikliyi etmək üçün bu səhifəni ziyarət edin</string>
+  <string name="cantChangeMore">Böyük və kiçik hərf xaricində başqa bir dəyişiklik edə bilmərik. Texniki səbəblərə görə bu mümkün deyil.</string>
   <string name="orCloseAccount">Bununla birlikdə, cari hesabınızı bağlaya və yenisini yarada bilərsiniz.</string>
   <string name="wantClearHistory">Tarixçəmi və ya reytinqimi sıfırlamaq istəyirəm</string>
+  <string name="cantClearHistory">Oyun tarixçənizi, tapmaca tarixçənizi və ya reytinqlərinizi sıfırlamaq mümkün deyil.</string>
   <string name="wantReport">Bir oyunçunu bildirmək istəyirəm</string>
   <string name="cheating">hiylə</string>
   <string name="sandbagging">bilərək uduzma</string>
