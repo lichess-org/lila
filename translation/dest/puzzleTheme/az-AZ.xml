@@ -15,6 +15,7 @@
   <string name="castling">Qalaqurma</string>
   <string name="castlingDescription">Şahı təhlükəsiz yerə gətirin və hücum üçün topu hazırlayın.</string>
   <string name="capturingDefender">Müdafiəçini vurmaq</string>
+  <string name="capturingDefenderDescription">Bir fiquru müdafiə edən başqa bir fiquru ələ keçirərək, müdafiəsiz qalan digər fiquru da növbəti gedişdə ələ keçirin.</string>
   <string name="crushing">Əzici üstünlük</string>
   <string name="crushingDescription">Əzici üstünlük əldə etmək üçün rəqibin kobud səhvini müəyyənləşdirin. (600sp və ondan yüksək)</string>
   <string name="equality">Bərabərləşmə</string>
@@ -42,6 +43,7 @@
   <string name="interference">Yolukəsmə</string>
   <string name="interferenceDescription">Bir və ya hər iki rəqib fiqurunu müdafiəsiz buraxmaq üçün iki rəqib fiquru arasına öz fiqurunu qoymaq, məsələn, iki top arasındakı müdafiə olunan bir xanaya bir at qoymaq.</string>
   <string name="intermezzo">İntermezzo</string>
+  <string name="intermezzoDescription">Gözlənilən bir gedişi oynamaq əvəzinə əvvəlcə rəqibin cavab verməyə məcbur olduğu, dbaşqa bir gediş edin. Buna \"Zwischenzug\" və ya \"Ara gediş\" deyilir.</string>
   <string name="knightEndgame">At sonluğu</string>
   <string name="knightEndgameDescription">Yalnız atlar və piyadalardan ibarət oyun sonu.</string>
   <string name="long">Uzun tapmaca</string>
