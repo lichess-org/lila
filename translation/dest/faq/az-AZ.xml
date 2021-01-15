@@ -70,6 +70,7 @@ Qısacası, sistem reytinqinizin 800 ilə 2200 arasında bir yerdə olduğundan 
 
 Diqqət çəkən başqa bir məqam, zaman keçdikcə özünə inam aralığının artmasıdır. Bu, bu müddət ərzində bacarıq səviyyəsindəki hər hansı bir dəyişikliklə uyğunlaşmaq üçün daha sürətli xal qazanma / itirmə imkanı verir.</string>
   <string name="whatIsProvisionalRating">Niyə reytinqin yanında bir sual işarəsi (?) var?</string>
+  <string name="provisionalRatingExplanation">Sual işarəsi reytinqin müvəqqəti olduğunu bildirir. Səbəblər bunlardır:</string>
   <string name="similarOpponents">eynigüclü rəqiblər</string>
   <string name="howDoLeaderoardsWork">Sıralama və liderlik cədvəli necə işləyir?</string>
   <string name="inOrderToAppearsYouMust">%1$s cədvəlinə daxil olmaq üçün bunları etməlisiniz:</string>
