@@ -81,7 +81,7 @@ final class EventStream(
         case SetOnline =>
           onlineApiUsers.setOnline(me.id)
 
-          if (lastSetSeenAt isBefore DateTime.now.minusMinutes(2)) {
+          if (lastSetSeenAt isBefore DateTime.now.minusMinutes(10)) {
             userRepo setSeenAt me.id
             lastSetSeenAt = DateTime.now
           }
