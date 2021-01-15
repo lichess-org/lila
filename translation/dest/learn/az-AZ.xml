@@ -148,6 +148,9 @@ piyadanız 5-ci horizontalda olanda mümkündür.</string>
   <string name="enPassantComplete">Təbriklər! Artıq keçiddə piyada götürə bilərsiz.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Oyun heç-heçədir</string>
+  <string name="stalemateGoal">Pat etmək üçün:
+- Qaralar gediş edə bilməməlidir
+- Şah vermək mümkün olmamalıdır.</string>
   <string name="stalemateComplete">Təbriklər! Mat olmaqdansa Pat yaxşıdır!</string>
   <string name="advanced">Ətraflı</string>
   <string name="pieceValue">Fiqur dəyəri</string>
