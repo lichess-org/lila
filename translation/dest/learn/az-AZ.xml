@@ -143,11 +143,15 @@ Onu çək və qısa qalaqurma et.</string>
   <string name="youCannotCastleIfMoved">Şah yerindən tərpənibsə
 və ya top yerindən tərpənibsə
 qalaqurma edə bilməzsiz.</string>
+  <string name="youCannotCastleIfAttacked">Şahın keçəcəyi xana hücum altında olarsa
+qalaqurma edə bilməzsiz
+Hücumu bloklayın sonra qalaqurma edin!</string>
   <string name="findAWayToCastleKingSide">Qısa qalaqurmanın bir yolunu tap!</string>
   <string name="findAWayToCastleQueenSide">Vəzir tərəfə qalaqurmanın bir yolunu tapın!</string>
   <string name="castlingComplete">Təbriklər! Demək olar hər bir oyunda qalaqurma etməlisən.</string>
   <string name="enPassant">Keçiddə götürmə</string>
   <string name="theSpecialPawnMove">Xüsusi piyada gedişi</string>
+  <string name="enPassantIntro">Rəqib piyada iki xana hərəkət etdikdə, onu bir xana hərəkət etdiyi kimi qəbul edə bilərsiniz.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Qaralar piyadanı iki xana 
 irəli gəldi!
 Keçiddə götür.</string>
@@ -160,6 +164,7 @@ piyadanız 5-ci horizontalda olanda mümkündür.</string>
   <string name="enPassantComplete">Təbriklər! Artıq keçiddə piyada götürə bilərsiz.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Oyun heç-heçədir</string>
+  <string name="stalemateIntro">Əgər bir oyunçuya şah verilməyibsə və oyanaya biləcəyi qanuni bir gedişi yoxdursa buna pat deyilir. Oyun heç-heçədir, qalib və məğlub yoxdur.</string>
   <string name="stalemateGoal">Pat etmək üçün:
 - Qaralar gediş edə bilməməlidir
 - Şah vermək mümkün olmamalıdır.</string>
@@ -167,10 +172,23 @@ piyadanız 5-ci horizontalda olanda mümkündür.</string>
   <string name="advanced">Ətraflı</string>
   <string name="pieceValue">Fiqur dəyəri</string>
   <string name="evaluatePieceStrength">Fiqur gücü qiymətləndirilməsi</string>
+  <string name="pieceValueIntro">Yüksək hərəkətliliyi olan fiqurlar daha yüksək dəyərə sahibdir!
+Vəzir = 9
+Top = 5
+Fil = 3
+At = 3
+Piyada = 1
+Şah ən dəyərli fiqurdur! Onu itirmək oyunu itirmək deməkdir.</string>
   <string name="queenOverBishop">Ən yüksək
 dəyərli fiquru vur!
 Vəzir &gt; Fil</string>
   <string name="takeThePieceWithTheHighestValue">Ən dəyərli fiquru götürün!</string>
+  <string name="pieceValueComplete">Təbriklər! Artıq fiqurların dəyərini bilirsiniz!
+Vəzir = 9
+Top = 5
+Fil = 3
+At = 3
+Piyada = 1</string>
   <string name="checkInTwo">2 gedişə şah</string>
   <string name="twoMovesToGiveCheck">Şah vermək üçün iki gediş</string>
   <string name="checkInTwoGoal">Rəqibə iki gedişdə
