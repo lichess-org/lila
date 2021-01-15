@@ -32,6 +32,7 @@
   <string name="doubleCheckDescription">Bir gedişdə, həm gediş edilən həm də açaraq hücumun ardından yolu açılan fiqur ilə eyni anda şah vermək.</string>
   <string name="endgame">Endşpil</string>
   <string name="endgameDescription">Oyunun son mərhələsindəki taktikalar.</string>
+  <string name="enPassantDescription">Başlanğıcda iki xana irəli gedən piyadanın, rəqib piyada ilə yan yana gəlməsindən sonra, keçiddə götürmə qaydasına əsasən, vurulan piyadanı əhatə edən taktikalar.</string>
   <string name="exposedKing">Müdafiəsiz şah</string>
   <string name="exposedKingDescription">Ətrafında az müdafiəçisi olan şahın olduğu və əksər hallarda mat ilə nəticələnən taktikalar.</string>
   <string name="fork">Çəngəl</string>
@@ -39,6 +40,7 @@
   <string name="hangingPiece">Qorunmasız fiqur</string>
   <string name="hangingPieceDescription">Rəqib fiqurunun müdafiəsiz və ya kifayət qədər müdafiə olunmadığı və vurulmağa hazır olduğunu əhatə edən bir taktika.</string>
   <string name="interference">Yolukəsmə</string>
+  <string name="interferenceDescription">Bir və ya hər iki rəqib fiqurunu müdafiəsiz buraxmaq üçün iki rəqib fiquru arasına öz fiqurunu qoymaq, məsələn, iki top arasındakı müdafiə olunan bir xanaya bir at qoymaq.</string>
   <string name="intermezzo">İntermezzo</string>
   <string name="knightEndgame">At sonluğu</string>
   <string name="knightEndgameDescription">Yalnız atlar və piyadalardan ibarət oyun sonu.</string>
