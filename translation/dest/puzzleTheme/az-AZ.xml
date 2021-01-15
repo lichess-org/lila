@@ -27,7 +27,9 @@
   <string name="deflection">Yayındırma</string>
   <string name="deflectionDescription">Rəqib fiqurunu, yerinə yetirdiyi başqa bir vəzifədən, məsələn, vacib bir xananı qorumaqdan yayındıran bir gediş. Bəzən \"həddindən artıq yükləmə\" də deyilir.</string>
   <string name="discoveredAttack">Açaraq hücum</string>
+  <string name="discoveredAttackDescription">Uzaq mənzilli bir fiqurun yolunu kəsən digər bir fiquru oynayaraq edilən hücum, atı oynayaraq topla hücum etmək kimi.</string>
   <string name="doubleCheck">İkiqat şah</string>
+  <string name="doubleCheckDescription">Bir gedişdə, həm gediş edilən həm də açaraq hücumun ardından yolu açılan fiqur ilə eyni anda şah vermək.</string>
   <string name="endgame">Endşpil</string>
   <string name="endgameDescription">Oyunun son mərhələsindəki taktikalar.</string>
   <string name="exposedKing">Müdafiəsiz şah</string>
@@ -42,9 +44,9 @@
   <string name="knightEndgameDescription">Yalnız atlar və piyadalardan ibarət oyun sonu.</string>
   <string name="long">Uzun tapmaca</string>
   <string name="longDescription">3 gedişə qələbə.</string>
-  <string name="master">Usta oyunları</string>
+  <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Usta oyunları</string>
   <string name="masterDescription">Titullu oyunçuların oynadığı oyunlardan tapmacalar.</string>
-  <string name="masterVsMaster">Usta vs Usta oyunları</string>
+  <string name="masterVsMaster" comment="masterVsMaster&#10;&#10;Puzzles from games between two titled players.">Usta vs Usta oyunları</string>
   <string name="masterVsMasterDescription">İki titullu oyunçu arasındakı oyunlardan tapmacalar.</string>
   <string name="mate">Mat</string>
   <string name="mateDescription">Oyunu üslubuyla qazanın.</string>
@@ -88,7 +90,7 @@
   <string name="skewerDescription">Dəyərli bir fiqurun hüuma məruz qaldığı, hərəkət edəcəyi halda daha az dəyərli bir fiqurun itiriləcəyi və ya təhlükəyə düşəcəyi motivlər. Bağlamanın tərsi.</string>
   <string name="smotheredMate">Boğma matı</string>
   <string name="smotheredMateDescription">Öz fiqurları tərəfindən əhatələndiyi (və ya boğulduğu) üçün hərəkət edə bilməyən şahın at ilə mat edilməsi.</string>
-  <string name="superGM">Super GM oyunları</string>
+  <string name="superGM" comment="superGM&#10;&#10;Puzzles from games played by the best players in the world.">Super GM oyunları</string>
   <string name="superGMDescription">Dünyanın ən yaxşı oyunçularının oynadığı oyunlardan tapmacalar.</string>
   <string name="trappedPiece">Tələyə düşmüş fiqur</string>
   <string name="trappedPieceDescription">Gedəcək təhlükəsiz bir xanası olmadığı üçün fiqur vurulmaqdan qaça bilmir.</string>
