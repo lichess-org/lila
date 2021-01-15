@@ -50,6 +50,7 @@
   <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Ban və ya IP məhdudlaşması üçün müraciət edin</string>
   <string name="engineAppeal">Şahmat mühərriki istifadəsi və ya hiylə işarəsi</string>
   <string name="sendAppealTo">Buraya müraciət edə bilərsiniz: %s.</string>
+  <string name="falsePositives">Bəzən yanlış şeylər ola bilər və buna görə üzr istəyirik.</string>
   <string name="ifLegit">Müraciətiniz qanuni olarsa, qadağanı ən qısa müddətdə ləğv edəcəyik.</string>
   <string name="otherRestriction">Digər məhdudiyyət</string>
   <string name="collaboration">Əməkdaşlıq, hüquqi, kommersiya</string>

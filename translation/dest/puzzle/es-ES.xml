@@ -9,6 +9,7 @@
   <string name="lengths">Duraciones</string>
   <string name="mates">Mates</string>
   <string name="goals">Objetivos</string>
+  <string name="origin">Origen</string>
   <string name="specialMoves">Movimientos especiales</string>
   <string name="didYouLikeThisPuzzle">¿Te ha gustado este rompecabezas?</string>
   <string name="voteToLoadNextOne">¡Vota para cargar el siguiente!</string>
@@ -25,7 +26,7 @@
   <string name="puzzleSuccess">¡Éxito!</string>
   <string name="puzzleComplete">¡Rompecabezas terminado!</string>
   <string name="notTheMove">¡Ese no es el movimiento!</string>
-  <string name="trySomethingElse">Prueba otra movimiento.</string>
+  <string name="trySomethingElse">Prueba algo distinto.</string>
   <string name="ratingX">Puntuación: %s</string>
   <string name="hidden">oculto</string>
   <plurals name="playedXTimes">
@@ -44,9 +45,9 @@
   <string name="addAnotherTheme">Añadir otro tema</string>
   <string name="jumpToNextPuzzleImmediately">Ir al siguiente rompecabezas inmediatamente</string>
   <string name="puzzleDashboard">Panel de rompecabezas</string>
-  <string name="improvementAreas">Áreas de mejora</string>
+  <string name="improvementAreas">Áreas de mejoramiento</string>
   <string name="strengths">Fortalezas</string>
   <string name="history">Historial de rompecabezas</string>
-  <string name="solved" comment="solved&#10;&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">resuelto</string>
+  <string name="solved">resuelto</string>
   <string name="failed">error</string>
 </resources>

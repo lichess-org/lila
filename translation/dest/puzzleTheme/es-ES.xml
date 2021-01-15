@@ -49,7 +49,11 @@
   <string name="knightEndgameDescription">Un final solo con caballos y peones.</string>
   <string name="long">Rompecabezas largo</string>
   <string name="longDescription">Tres movimientos para ganar.</string>
-  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mate</string>
+  <string name="master">Partidas de maestros</string>
+  <string name="masterDescription">Rompecabezas de partidas de jugadores titulados.</string>
+  <string name="masterVsMaster">Partidas entre maestros</string>
+  <string name="masterVsMasterDescription">Rompecabezas de partidas entre jugadores titulados.</string>
+  <string name="mate">Mate</string>
   <string name="mateDescription">Gana la partida con estilo.</string>
   <string name="mateIn1">Mate en 1</string>
   <string name="mateIn1Description">Dar jaque mate en un movimiento.</string>
@@ -89,7 +93,7 @@
   <string name="shortDescription">Dos movimientos para ganar.</string>
   <string name="skewer">Pincho</string>
   <string name="skewerDescription">Un motivo que implica el ataque de una pieza de alto valor, que se aparta del camino y permite capturar o atacar una pieza de menor valor detrás de ella, lo contrario de una clavada.</string>
-  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Mate de la coz</string>
+  <string name="smotheredMate">Mate de la coz</string>
   <string name="smotheredMateDescription">Un jaque mate en el que el caballo ataca al rey contrario, el cual no puede moverse al encontrarse rodeado (o ahogado) por sus propias piezas.</string>
   <string name="trappedPiece">Pieza atrapada</string>
   <string name="trappedPieceDescription">Una pieza no puede escapar de la captura porque tiene movimientos limitados.</string>

@@ -11,9 +11,8 @@
   <string name="noTeamFound">チームが見つかりませんでした</string>
   <string name="joinTeam">チームに参加</string>
   <string name="quitTeam">チームを辞める</string>
-  <string name="anyoneCanJoin">誰でも参加可能</string>
-  <string name="aConfirmationIsRequiredToJoin">参加には確認が必要</string>
-  <string name="joiningPolicy">参加条件</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">入会要請を手動で許可</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">ここにチェックすると、チームに加入したい人は申請が必要になります。許可するかどうかはあなたが決めます。</string>
   <plurals name="teamLeaders">
     <item quantity="other">チームリーダー</item>
   </plurals>
@@ -41,4 +40,8 @@
   <string name="leadersChat">リーダー・チャット</string>
   <string name="closeTeam">チームを解散</string>
   <string name="closeTeamDescription">チームを永久に閉鎖します。</string>
+  <string name="teamPassword">チームのパスワード</string>
+  <string name="teamPasswordDescriptionForLeader">（オプション）新メンバーがこのチームに加入する時に必要なパスワード。</string>
+  <string name="incorrectTeamPassword">チームのパスワードが違います.</string>
+  <string name="teamAlreadyExists">このチームはすでに存在します。</string>
 </resources>

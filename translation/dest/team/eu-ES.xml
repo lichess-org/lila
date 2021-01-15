@@ -12,9 +12,8 @@
   <string name="noTeamFound">Ez da talderik aurkitu</string>
   <string name="joinTeam">Taldean sartu</string>
   <string name="quitTeam">Taldetik atera</string>
-  <string name="anyoneCanJoin">Denontzako irekia</string>
-  <string name="aConfirmationIsRequiredToJoin">Talde buruak eskaerak onartu behar</string>
-  <string name="joiningPolicy">Taldean sartzeko arauak</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Eskuz egiaztatu sartzeko eskaerak</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Aukeratuta badago, taldera sartzeko eskaera bidali beharko da eta hori eskuz onartu edo baztertu beharko duzu.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Taldearen kapitaina</item>
     <item quantity="other">Taldearen kapitainak</item>
@@ -44,4 +43,8 @@ Kontuz, agian mezurik jaso nahi ez duten erabiltzaileek taldea utziko dute-eta.<
   <string name="leadersChat">Kapitainen txata</string>
   <string name="closeTeam">Taldea itxi</string>
   <string name="closeTeamDescription">Taldea betiko itxi.</string>
+  <string name="teamPassword">Taldearen pasahitza</string>
+  <string name="teamPasswordDescriptionForLeader">(Aukerakoa) Taldera sartzeko taldekideek idatzi beharko duten pasahitza.</string>
+  <string name="incorrectTeamPassword">Taldearen pasahitza ez da zuzena.</string>
+  <string name="teamAlreadyExists">Talde hau badago.</string>
 </resources>

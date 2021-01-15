@@ -49,7 +49,11 @@
   <string name="knightEndgameDescription">Эндшпиль, в котором на доске остались только кони и пешки.</string>
   <string name="long">Многоходовая задача</string>
   <string name="longDescription">Три хода до победы.</string>
-  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Мат</string>
+  <string name="master">Партии мастеров</string>
+  <string name="masterDescription">Задачи из партий титулованных шахматистов.</string>
+  <string name="masterVsMaster">Партии мастеров</string>
+  <string name="masterVsMasterDescription">Задачи из партий, сыгранных титулованными игроками.</string>
+  <string name="mate">Мат</string>
   <string name="mateDescription">Выиграйте игру красиво.</string>
   <string name="mateIn1">Мат в 1 ход</string>
   <string name="mateIn1Description">Поставьте мат в один ход.</string>
@@ -89,7 +93,7 @@
   <string name="shortDescription">Два хода до победы.</string>
   <string name="skewer">Линейный удар</string>
   <string name="skewerDescription">Разновидность связки, но в этом случае наоборот, более ценная фигура оказывается на линии атаки перед менее ценной или равноценной фигурой.</string>
-  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Спёртый мат</string>
+  <string name="smotheredMate">Спёртый мат</string>
   <string name="smotheredMateDescription">Мат конём королю, который не может уйти от мата, потому что окружён (спёрт) своими же собственными фигурами.</string>
   <string name="trappedPiece">Ловля фигуры</string>
   <string name="trappedPieceDescription">Фигура не может уйти от нападения, потому что не имеет свободных полей для отхода, или эти поля тоже находятся под нападением.</string>

@@ -12,9 +12,8 @@
   <string name="noTeamFound">Ningún equipo encontrado</string>
   <string name="joinTeam">Unirse al equipo</string>
   <string name="quitTeam">Abandonar el equipo</string>
-  <string name="anyoneCanJoin">Cualquiera puede unirse</string>
-  <string name="aConfirmationIsRequiredToJoin">Se requiere una confirmación para unirse</string>
-  <string name="joiningPolicy">Política para unirse</string>
+  <string name="manuallyReviewAdmissionRequests">Revisar manualmente las solicitudes de admisión</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Si está marcado, los jugadores tendrán que escribir una solicitud para unirse al equipo, que usted puede rechazar o aceptar.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Líder del equipo</item>
     <item quantity="other">Líderes del equipo</item>
@@ -44,4 +43,8 @@ Los jugadores a los que no les guste recibir tus mensajes pueden abandonar el eq
   <string name="leadersChat">Chat de líderes</string>
   <string name="closeTeam">Cerrar equipo</string>
   <string name="closeTeamDescription">Cierra el equipo para siempre.</string>
+  <string name="teamPassword">Contraseña del equipo</string>
+  <string name="teamPasswordDescriptionForLeader">(Opcional) Una contraseña que los nuevos miembros deben saber para unirse a este equipo.</string>
+  <string name="incorrectTeamPassword">Contraseña del equipo incorrecta.</string>
+  <string name="teamAlreadyExists">Este equipo ya existe.</string>
 </resources>

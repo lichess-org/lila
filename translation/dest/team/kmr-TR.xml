@@ -12,9 +12,6 @@
   <string name="noTeamFound">Ti kom nehate dîtin</string>
   <string name="joinTeam">Tevlî komê bibe</string>
   <string name="quitTeam">Ji komê derkeve</string>
-  <string name="anyoneCanJoin">Serbest e ji bo her kesî</string>
-  <string name="aConfirmationIsRequiredToJoin">Rastandineke hewce ye ji bo tevlîbûnê</string>
-  <string name="joiningPolicy">Prensîbên tevlîbûnê</string>
   <string name="teamBestPlayers">Lîzerên çêtirîn</string>
   <string name="teamRecentMembers">Endamên dawîn</string>
   <string name="kickSomeone">Yekî ji komê derxîne</string>

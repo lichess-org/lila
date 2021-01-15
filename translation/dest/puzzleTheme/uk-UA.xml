@@ -49,7 +49,7 @@
   <string name="knightEndgameDescription">Ендшпіль лише з конями та пішаками.</string>
   <string name="long">Багатоходова задача</string>
   <string name="longDescription">Перемога за три ходи.</string>
-  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Мат</string>
+  <string name="mate">Мат</string>
   <string name="mateDescription">Виграйте гру красиво.</string>
   <string name="mateIn1">Мат в 1 хід</string>
   <string name="mateIn1Description">Поставте мат в один хід.</string>
@@ -89,7 +89,7 @@
   <string name="shortDescription">Два ходи до перемоги.</string>
   <string name="skewer">Лінійний удар</string>
   <string name="skewerDescription">Мотив, що включає атаку цінної фігури менш цінною, протилежність зв\'язування.</string>
-  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Спертий мат</string>
+  <string name="smotheredMate">Спертий мат</string>
   <string name="smotheredMateDescription">Мат конем, коли король не може вийти з-під атаки, тому що оточений (спертий) власними фігурами.</string>
   <string name="trappedPiece">Фігура у пастці</string>
   <string name="trappedPieceDescription">Фігура не може уникнути захоплення, тому що не має ходів для відступу.</string>

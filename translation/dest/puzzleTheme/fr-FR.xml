@@ -49,7 +49,11 @@
   <string name="knightEndgameDescription">Une finale avec seulement des cavaliers et des pions.</string>
   <string name="long">Long problème</string>
   <string name="longDescription">Victoire en trois coups.</string>
-  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mat</string>
+  <string name="master">Parties de maîtres</string>
+  <string name="masterDescription">Problèmes tirés de parties jouées par des joueurs titrés</string>
+  <string name="masterVsMaster">Parties jouées entre maîtres</string>
+  <string name="masterVsMasterDescription">Problèmes tirés de parties entre deux joueurs titrés</string>
+  <string name="mate">Mat</string>
   <string name="mateDescription">Gagnez la partie avec classe.</string>
   <string name="mateIn1">Mat en 1</string>
   <string name="mateIn1Description">Matez en un coup.</string>
@@ -89,7 +93,7 @@
   <string name="shortDescription">Victoire en deux coups.</string>
   <string name="skewer">Enfilade</string>
   <string name="skewerDescription">Un motif impliquant l\'attaque d\'une pièce de grande valeur qui en se dégageant permet la capture ou l\'attaque d\'une pièce de moindre valeur située derrière elle, l\'inverse d\'un clouage.</string>
-  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Mat à l\'étouffée</string>
+  <string name="smotheredMate">Mat à l\'étouffée</string>
   <string name="smotheredMateDescription">Un mat délivré par un cavalier dans lequel le roi est incapable de s\'échapper parce qu\'il est entouré (ou étouffé) par ses propres pièces.</string>
   <string name="trappedPiece">Pièce enfermée</string>
   <string name="trappedPieceDescription">Une pièce forcément capturée car incapable de s\'échapper.</string>

@@ -9,6 +9,7 @@
   <string name="lengths">Longueurs</string>
   <string name="mates">Mats</string>
   <string name="goals">Objectifs</string>
+  <string name="origin">Origine</string>
   <string name="specialMoves">Coups spéciaux</string>
   <string name="didYouLikeThisPuzzle">Avez-vous aimé ce problème ?</string>
   <string name="voteToLoadNextOne">Votez pour afficher le suivant !</string>
@@ -47,6 +48,6 @@
   <string name="improvementAreas">Aspects à améliorer</string>
   <string name="strengths">Points forts</string>
   <string name="history">Historique des problèmes</string>
-  <string name="solved" comment="solved&#10;&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">résolu</string>
+  <string name="solved">résolu</string>
   <string name="failed">non réussis</string>
 </resources>

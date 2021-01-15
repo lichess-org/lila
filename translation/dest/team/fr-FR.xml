@@ -12,9 +12,7 @@
   <string name="noTeamFound">Aucune équipe trouvée</string>
   <string name="joinTeam">Rejoindre l\'équipe</string>
   <string name="quitTeam">Quitter l\'équipe</string>
-  <string name="anyoneCanJoin">Ouverte à tous</string>
-  <string name="aConfirmationIsRequiredToJoin">Une confirmation est requise pour pouvoir rejoindre</string>
-  <string name="joiningPolicy">Politique pour rejoindre</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Examiner manuellement les demandes d\'admission</string>
   <plurals name="teamLeaders">
     <item quantity="one">Chef d\'équipe</item>
     <item quantity="other">Chefs d\'équipe</item>
@@ -44,4 +42,8 @@ Les joueurs qui n\'aiment pas recevoir vos messages risquent de quitter l\'équi
   <string name="leadersChat">Chat des chefs de l\'équipe</string>
   <string name="closeTeam">Fermer l\'équipe</string>
   <string name="closeTeamDescription">Ferme l\'équipe définitivement.</string>
+  <string name="teamPassword">Mot de passe de l\'équipe</string>
+  <string name="teamPasswordDescriptionForLeader">(Optionnel) Un mot de passe que les nouveaux membres doivent connaître pour rejoindre cette équipe.</string>
+  <string name="incorrectTeamPassword">Mot de passe d\'équipe incorrect.</string>
+  <string name="teamAlreadyExists">Cette équipe existe déjà.</string>
 </resources>

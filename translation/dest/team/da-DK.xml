@@ -12,9 +12,8 @@
   <string name="noTeamFound">Ingen hold fundet</string>
   <string name="joinTeam">Tilmeld dig holdet</string>
   <string name="quitTeam">Forlad holdet</string>
-  <string name="anyoneCanJoin">Alle kan tilmelde sig</string>
-  <string name="aConfirmationIsRequiredToJoin">En bekræftelse er nødvendig for at kunne tilmelde sig holdet</string>
-  <string name="joiningPolicy">Tilmeldelsepolitik</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Gennemgå anmodninger om optagelse manuelt</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Hvis markeret, skal spillere skriftligt anmode om optagelse på holdet, hvilket du kan afvise eller acceptere.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Holdleder</item>
     <item quantity="other">Holdledere</item>
@@ -44,4 +43,8 @@ Spillere som ikke bryder sig om at modtage dine beskeder forlader måske holdet.
   <string name="leadersChat">Holdleder-chat</string>
   <string name="closeTeam">Luk hold</string>
   <string name="closeTeamDescription">Luk holdet for evigt.</string>
+  <string name="teamPassword">Hold-adgangskode</string>
+  <string name="teamPasswordDescriptionForLeader">(Valgfrit) En adgangskode som nye medlemmer skal kende for at slutte sig til dette hold.</string>
+  <string name="incorrectTeamPassword">Forkert hold-adgangskode.</string>
+  <string name="teamAlreadyExists">Dette hold findes allerede.</string>
 </resources>

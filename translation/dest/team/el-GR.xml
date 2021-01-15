@@ -12,9 +12,6 @@
   <string name="noTeamFound">Δε βρέθηκε ομάδα</string>
   <string name="joinTeam">Συμμετοχή στην ομάδα</string>
   <string name="quitTeam">Αποχώρηση από την ομάδα</string>
-  <string name="anyoneCanJoin">Ανοιχτό σε όλα τα μέλη</string>
-  <string name="aConfirmationIsRequiredToJoin">Απαιτείται επιβεβαίωση για να εγγραφείτε</string>
-  <string name="joiningPolicy">Πολιτική εγγραφής</string>
   <plurals name="teamLeaders">
     <item quantity="one">Αρχηγός ομάδας</item>
     <item quantity="other">Αρχηγοί ομάδας</item>

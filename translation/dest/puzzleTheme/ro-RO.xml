@@ -49,7 +49,11 @@
   <string name="knightEndgameDescription">Un final de partidă doar cu pioni și cai.</string>
   <string name="long">Puzzle lung</string>
   <string name="longDescription">Trei mutări pentru a câștiga.</string>
-  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mat</string>
+  <string name="master">Partidele maeştrilor</string>
+  <string name="masterDescription">Puzzle-uri din meciurile jucate de jucători care au primit titluri FIDE.</string>
+  <string name="masterVsMaster">Partide maestru vs maestru</string>
+  <string name="masterVsMasterDescription">Puzzle-uri din meciurile între doi jucători care au primit titluri FIDE.</string>
+  <string name="mate">Mat</string>
   <string name="mateDescription">Câștigă jocul cu stil.</string>
   <string name="mateIn1">Mat din 1</string>
   <string name="mateIn1Description">Dă mat dintr-o mutare.</string>

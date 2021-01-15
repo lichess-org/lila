@@ -14,9 +14,8 @@
   <string name="noTeamFound">Nie znaleziono klubu</string>
   <string name="joinTeam">Dołącz do klubu</string>
   <string name="quitTeam">Opuść klub</string>
-  <string name="anyoneCanJoin">Każdy może dołączyć</string>
-  <string name="aConfirmationIsRequiredToJoin">Dołączenie wymaga zatwierdzenia</string>
-  <string name="joiningPolicy">Warunki dołączenia</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Ręczna weryfikacja wniosków o dopuszczenie</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Jeśli zaznaczone, gracze będą musieli napisać prośbę o dołączenie do klubu, którą możesz odrzucić lub zaakceptować.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Lider klubu</item>
     <item quantity="few">Liderzy klubu</item>
@@ -50,4 +49,8 @@ Gracze, którzy nie chcą otrzymywać Twoich wiadomości, mogą opuścić klub.<
   <string name="leadersChat">Czat liderów</string>
   <string name="closeTeam">Zamknij klub</string>
   <string name="closeTeamDescription">Zamyka klub na zawsze.</string>
+  <string name="teamPassword">Hasło klubu</string>
+  <string name="teamPasswordDescriptionForLeader">(Opcjonalnie) Hasło, które nowi gracze muszą znać, aby dołączyć do tego klubu.</string>
+  <string name="incorrectTeamPassword">Nieprawidłowe hasło.</string>
+  <string name="teamAlreadyExists">Taki klub już istnieje.</string>
 </resources>

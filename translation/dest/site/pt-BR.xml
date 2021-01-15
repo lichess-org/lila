@@ -146,9 +146,9 @@
   <string name="signUp">Registrar</string>
   <string name="computersAreNotAllowedToPlay">A ajuda de software não é permitida. Por favor, não utilize programas de xadrez, bancos de dados ou o auxilio de outros jogadores durante a partida. Além disso, a criação de múltiplas contas é fortemente desaconselhada e sua prática excessiva acarretará em banimento.</string>
   <string name="games">Partidas</string>
-  <string name="forum">Forum</string>
-  <string name="xPostedInForumY">%1$s postou em %2$s</string>
-  <string name="latestForumPosts">Últimas postagens do forum</string>
+  <string name="forum">Fórum</string>
+  <string name="xPostedInForumY">%1$s publicou no tópico %2$s</string>
+  <string name="latestForumPosts">Últimas publicações no fórum</string>
   <string name="players">Jogadores</string>
   <string name="friends">Amigos</string>
   <string name="discussions">Discussões</string>
@@ -474,7 +474,7 @@
   <string name="help">Ajuda:</string>
   <string name="createANewTopic">Criar novo tópico</string>
   <string name="topics">Tópicos</string>
-  <string name="posts">Postagens</string>
+  <string name="posts">Publicações</string>
   <string name="lastPost">Última postagem</string>
   <string name="views">Visualizações</string>
   <string name="replies">Respostas</string>
@@ -586,8 +586,8 @@
   <string name="whiteCastlingKingside">O-O das brancas</string>
   <string name="blackCastlingKingside">O-O das pretas</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s Postagens no Fórum</item>
-    <item quantity="other">%s Postagens no Fórum</item>
+    <item quantity="one">%s publicação no fórum</item>
+    <item quantity="other">%s publicações no fórum</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Tempo jogando: %s</string>
   <string name="watchGames">Assistir partidas</string>
@@ -837,11 +837,11 @@
   <string name="toRequestSupport">Para solicitar ajuda, %1$s</string>
   <string name="tryTheContactPage">tente a página de contato</string>
   <string name="thisTopicIsArchived">Este tópico foi arquivado e não pode mais ser respondido.</string>
-  <string name="joinTheTeamXToPost">Junte-se ao %1$s para postar neste fórum</string>
-  <string name="teamNamedX">Time %1$s</string>
-  <string name="youCannotPostYetPlaySomeGames">Você não pode postar nos fóruns ainda. Jogue algumas partidas!</string>
-  <string name="subscribe">Inscreva-se</string>
-  <string name="unsubscribe">Cancelar inscrição</string>
+  <string name="joinTheTeamXToPost">Junte-se a %1$s para publicar neste fórum</string>
+  <string name="teamNamedX">Equipe %1$s</string>
+  <string name="youCannotPostYetPlaySomeGames">Você não pode publicar nos fóruns ainda. Jogue algumas partidas!</string>
+  <string name="subscribe">Seguir publicações</string>
+  <string name="unsubscribe">Deixar de seguir publicações</string>
   <string name="challengeDeclined">Desafio recusado</string>
   <string name="challengeAccepted">Desafio aceito!</string>
   <string name="challengeCanceled">Desafio cancelado.</string>

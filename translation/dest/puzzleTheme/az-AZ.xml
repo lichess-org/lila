@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Keçid piyadası</string>
+  <string name="advancedPawnDescription">Çevrilən və ya çevrilməyə yaxın bir piyada taktikanın açarıdır.</string>
   <string name="advantage">Üstünlük</string>
   <string name="attackingF2F7">f2 və ya f7 Hücumu</string>
   <string name="attraction">Cəlbetmə</string>
@@ -28,7 +29,7 @@
   <string name="knightEndgameDescription">Yalnız atlar və piyadalardan ibarət oyun sonu.</string>
   <string name="long">Uzun tapmaca</string>
   <string name="longDescription">3 gedişə qələbə.</string>
-  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mat</string>
+  <string name="mate">Mat</string>
   <string name="mateDescription">Oyunu üslubuyla qazanın.</string>
   <string name="mateIn1">1 Gedişə Mat</string>
   <string name="mateIn1Description">Bir gedişə mat edin.</string>
@@ -50,6 +51,7 @@
   <string name="pawnEndgameDescription">Sadəcə piyadalardan ibarət oyun sonu.</string>
   <string name="pin">Bağlama</string>
   <string name="promotion">Çevrilmə</string>
+  <string name="promotionDescription">Çevrilən və ya çevrilməyə yaxın bir piyada taktikanın açarıdır.</string>
   <string name="queenEndgame">Vəzir sonluğu</string>
   <string name="queenEndgameDescription">Yalnız vəzirlər və piyadalardan ibarət oyun sonu.</string>
   <string name="queenRookEndgame">Vəzir və Top</string>
@@ -62,7 +64,7 @@
   <string name="short">Qısa tapmaca</string>
   <string name="shortDescription">2 gedişə qələbə.</string>
   <string name="skewer">Şiş</string>
-  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Boğma matı</string>
+  <string name="smotheredMate">Boğma matı</string>
   <string name="trappedPiece">Tələyə düşmüş fiqur</string>
   <string name="trappedPieceDescription">Gedəcək təhlükəsiz bir xanası olmadığı üçün fiqur vurulmaqdan qaça bilmir.</string>
   <string name="underPromotion">Zəifə Çevrilmə</string>

@@ -12,9 +12,8 @@
   <string name="noTeamFound">Finn ikkje noko lag</string>
   <string name="joinTeam">Bli med i laget</string>
   <string name="quitTeam">Forlat laget</string>
-  <string name="anyoneCanJoin">Alle kan bli med</string>
-  <string name="aConfirmationIsRequiredToJoin">Stadfesting er påkrevd for å bli med</string>
-  <string name="joiningPolicy">Vilkår for å bli med</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Gå manuelt gjennom førespurnader om opptak</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Om merka av må spelarane skriva ein førespurnad for å bli tatt opp som medlem i laget. Du avslår eller aksepterer førespurnaden.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Gruppeleiar</item>
     <item quantity="other">Gruppeleiar</item>
@@ -44,4 +43,8 @@ Spelarar som ikkje er interesserte i å få meldingar kan kome til å forlate gr
   <string name="leadersChat">Chatt for gruppeleiarar</string>
   <string name="closeTeam">Steng ned laget</string>
   <string name="closeTeamDescription">Steng laget for all framtid.</string>
+  <string name="teamPassword">Laget sitt passord</string>
+  <string name="teamPasswordDescriptionForLeader">(Valfritt) Eit passord som nye medlemar må kjenne for å bli med i dette laget.</string>
+  <string name="incorrectTeamPassword">Feil lag-passord.</string>
+  <string name="teamAlreadyExists">Dette laget finst allereie.</string>
 </resources>

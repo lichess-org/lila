@@ -49,7 +49,7 @@
   <string name="knightEndgameDescription">Koncovka iba s jazdcami a pešiakmi.</string>
   <string name="long">Troj-ťahové úlohy</string>
   <string name="longDescription">Tri ťahy do výhry.</string>
-  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Mat</string>
+  <string name="mate">Mat</string>
   <string name="mateDescription">Vyhrajte hru so štýlom.</string>
   <string name="mateIn1">Mat 1. ťahom</string>
   <string name="mateIn1Description">Dajte mat jedným ťahom.</string>
@@ -89,7 +89,7 @@
   <string name="shortDescription">Dva ťahy do výhry.</string>
   <string name="skewer">Napichnutie</string>
   <string name="skewerDescription">Motív spojený s napadnutím figúry vysokej hodnoty, po ktorej ustúpení je umožnené zobratie alebo napadnutie figúry nižšej hodnoty, opak väzby.</string>
-  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Dusený mat</string>
+  <string name="smotheredMate">Dusený mat</string>
   <string name="smotheredMateDescription">Mat daný jazdcom, pri ktorom sa matovaný kráľ nemá kam pohnúť pretože je obkolesený (alebo zadusený) vlastnými figúrami.</string>
   <string name="trappedPiece">Chytená figúra</string>
   <string name="trappedPieceDescription">Figúra neschopná ujsť vyhodeniu, pretože má limitované možnosti.</string>

@@ -49,7 +49,11 @@
   <string name="knightEndgameDescription">Endšpilis tik su žirgais ir pėstininkais.</string>
   <string name="long">Ilgas galvosūkis</string>
   <string name="longDescription">Trys ėjimai laimėti.</string>
-  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Matas</string>
+  <string name="master">Meistrų partijos</string>
+  <string name="masterDescription">Užduotys iš tituluotų žaidėjų partijų.</string>
+  <string name="masterVsMaster">Meistrų prieš meistrus partijos</string>
+  <string name="masterVsMasterDescription">Užduotys iš partijų tarp tituluotų žaidėjų.</string>
+  <string name="mate">Matas</string>
   <string name="mateDescription">Laimėkite žaidimą su klase.</string>
   <string name="mateIn1">Matas vienu ėjimu</string>
   <string name="mateIn1Description">Atlikite matą vienu ėjimu.</string>
@@ -89,7 +93,7 @@
   <string name="shortDescription">Du ėjimai laimėti.</string>
   <string name="skewer">Pradūrimas</string>
   <string name="skewerDescription">Motyvas įtraukiantis brangią figūrą, kuri puolama. Jai pasitraukiant atveriamas kelias nukirsti už jos stovinčią mažiau brangią figūrą.</string>
-  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Uždusintas matas</string>
+  <string name="smotheredMate">Uždusintas matas</string>
   <string name="smotheredMateDescription">Matas, kurį atlieka žirgas, kai matuojamas karalius negali pajudėti nes yra apsuptas savo paties figūrų.</string>
   <string name="trappedPiece">Įkalinta figūra</string>
   <string name="trappedPieceDescription">Figūra negali pabėgti, nes turi ribotą skaičių ėjimų.</string>

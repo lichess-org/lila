@@ -9,6 +9,7 @@
   <string name="lengths">Distância</string>
   <string name="mates">Xeque-mates</string>
   <string name="goals">Objetivos</string>
+  <string name="origin">Origem</string>
   <string name="specialMoves">Movimentos especiais</string>
   <string name="didYouLikeThisPuzzle">Você gostou deste quebra-cabeças?</string>
   <string name="voteToLoadNextOne">Vote para carregar o próximo!</string>
@@ -47,6 +48,6 @@
   <string name="improvementAreas">Áreas de aprimoramento</string>
   <string name="strengths">Pontos fortes</string>
   <string name="history">Histórico de quebra-cabeças</string>
-  <string name="solved" comment="&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">resolvido</string>
+  <string name="solved">resolvido</string>
   <string name="failed">falhou</string>
 </resources>

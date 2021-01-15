@@ -12,9 +12,6 @@
   <string name="noTeamFound">Jamoa topilmadi</string>
   <string name="joinTeam">Jamoaga qo\'shilish</string>
   <string name="quitTeam">Jamoani tark etish</string>
-  <string name="anyoneCanJoin">Xamma uchun ochiq</string>
-  <string name="aConfirmationIsRequiredToJoin">Qo\'shilish uchun tasdiqlash talab qilingan</string>
-  <string name="joiningPolicy">Qo\'shilish shartlari</string>
   <plurals name="teamLeaders">
     <item quantity="one">Jamoa sardori</item>
     <item quantity="other">Jamoa sardorlari</item>

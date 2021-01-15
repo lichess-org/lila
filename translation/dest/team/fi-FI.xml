@@ -12,9 +12,8 @@
   <string name="noTeamFound">Joukkuetta ei löytynyt</string>
   <string name="joinTeam">Liity joukkueeseen</string>
   <string name="quitTeam">Lähde joukkueesta</string>
-  <string name="anyoneCanJoin">Kuka tahansa voi liittyä</string>
-  <string name="aConfirmationIsRequiredToJoin">Liittymiseen vaaditaan vahvistus</string>
-  <string name="joiningPolicy">Liittymissäännöt</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Käy liittymispyynnöt yksitellen läpi</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Jos valitset tämän, pelaajien tulee joukkueeseen liittyäkseen kirjoittaa liittymispyynnöt, jotka voit hylätä tai hyväksyä.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Joukkueen johtaja</item>
     <item quantity="other">Joukkueen johtajat</item>
@@ -44,4 +43,8 @@ Pelaajat, jotka eivät mielellään ota vastaan viestejäsi, saattavat lähteä 
   <string name="leadersChat">Johtajien chat</string>
   <string name="closeTeam">Sulje joukkue</string>
   <string name="closeTeamDescription">Sulkee joukkueen pysyvästi.</string>
+  <string name="teamPassword">Joukkueen salasana</string>
+  <string name="teamPasswordDescriptionForLeader">(Valinnainen) Salasana, joka uusien jäsenten on tunnettava voidakseen liittyä joukkueeseen.</string>
+  <string name="incorrectTeamPassword">Virheellinen joukkuesalasana.</string>
+  <string name="teamAlreadyExists">Tämä joukuue on jo olemassa.</string>
 </resources>

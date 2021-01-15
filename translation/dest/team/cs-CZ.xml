@@ -14,9 +14,6 @@
   <string name="noTeamFound">Nenalezen žádný tým</string>
   <string name="joinTeam">Připojte se k týmu</string>
   <string name="quitTeam">Odejít z týmu</string>
-  <string name="anyoneCanJoin">Kdokoliv se může přidat</string>
-  <string name="aConfirmationIsRequiredToJoin">Pro připojení je požadováno potvrzení</string>
-  <string name="joiningPolicy">Pravidla vstupu</string>
   <plurals name="teamLeaders">
     <item quantity="one">Vedoucí týmu</item>
     <item quantity="few">Vedoucí týmu</item>

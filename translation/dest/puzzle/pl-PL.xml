@@ -9,6 +9,7 @@
   <string name="lengths">Długość zadania</string>
   <string name="mates">Maty</string>
   <string name="goals">Cele</string>
+  <string name="origin">Źródło</string>
   <string name="specialMoves">Szczególne posunięcia</string>
   <string name="didYouLikeThisPuzzle">Czy podobało Ci się to zadanie?</string>
   <string name="voteToLoadNextOne">Zagłosuj, by wczytać następny!</string>
@@ -49,6 +50,6 @@
   <string name="improvementAreas">Obszary rozwoju</string>
   <string name="strengths">Siła</string>
   <string name="history">Historia zadań</string>
-  <string name="solved" comment="&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">rozwiązane</string>
+  <string name="solved">rozwiązane</string>
   <string name="failed">nie udało się</string>
 </resources>

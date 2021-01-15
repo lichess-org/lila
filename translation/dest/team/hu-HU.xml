@@ -12,9 +12,8 @@
   <string name="noTeamFound">Nem található ilyen csapat</string>
   <string name="joinTeam">Csapathoz csatlakozás</string>
   <string name="quitTeam">Kilépés a csapatból</string>
-  <string name="anyoneCanJoin">Bárki csatlakozhat</string>
-  <string name="aConfirmationIsRequiredToJoin">A csatlakozáshoz visszaigazolás szükséges</string>
-  <string name="joiningPolicy">Csatlakozási irányelvek</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Egyénenkénti csatlakozási kérelmek</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Ha engedélyezett, a játékosoknak írniuk kell egy csatlakozási kérelmet, amit elfogadhatsz vagy elutasíthatsz.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Csapatvezető</item>
     <item quantity="other">Csapatvezetők</item>
@@ -44,4 +43,8 @@ Azok a játékosok akik nem szeretnek üzeneteket kapni akár ki is léphetnek.<
   <string name="leadersChat">Vezetői csevegő</string>
   <string name="closeTeam">Csapat megszüntetése</string>
   <string name="closeTeamDescription">Véglegesen megszünteti a csapatot.</string>
+  <string name="teamPassword">Csapatjelszó</string>
+  <string name="teamPasswordDescriptionForLeader">(Nem kötelező) Olyan jelszó, amit az új tagoknak ismerniük kell a csatlakozáshoz.</string>
+  <string name="incorrectTeamPassword">Helytelen csapatjelszó.</string>
+  <string name="teamAlreadyExists">Ez a csapat már létezik.</string>
 </resources>

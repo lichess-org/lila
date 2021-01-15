@@ -11,9 +11,6 @@
   <string name="noTeamFound">Ningún equipo atopado</string>
   <string name="joinTeam">Únirse ó equipo</string>
   <string name="quitTeam">Sair do equipo</string>
-  <string name="anyoneCanJoin">De acceso libre</string>
-  <string name="aConfirmationIsRequiredToJoin">Precísase confirmación para unirse</string>
-  <string name="joiningPolicy">Política de acceso</string>
   <string name="teamBestPlayers">Mellores xogadores</string>
   <string name="teamRecentMembers">Membros recentes</string>
 </resources>

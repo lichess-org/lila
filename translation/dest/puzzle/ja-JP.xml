@@ -9,6 +9,7 @@
   <string name="lengths">手数</string>
   <string name="mates">メイト</string>
   <string name="goals">目標</string>
+  <string name="origin">出所</string>
   <string name="specialMoves">特殊な手</string>
   <string name="didYouLikeThisPuzzle">この問題は気に入りましたか？</string>
   <string name="voteToLoadNextOne">投票すると次を読み込みます！</string>
@@ -46,6 +47,6 @@
   <string name="improvementAreas">改善ポイント</string>
   <string name="strengths">得意テーマ</string>
   <string name="history">解答履歴</string>
-  <string name="solved" comment="solved&#10;&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">正答済</string>
+  <string name="solved">正答済</string>
   <string name="failed">失敗</string>
 </resources>

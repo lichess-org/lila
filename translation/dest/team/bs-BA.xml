@@ -13,9 +13,8 @@
   <string name="noTeamFound">Nije pronađen nijednan tim</string>
   <string name="joinTeam">Pridružite se timu</string>
   <string name="quitTeam">Napustite tim</string>
-  <string name="anyoneCanJoin">Slobodno za sve</string>
-  <string name="aConfirmationIsRequiredToJoin">Za pridruživanje je potrebna potvrda</string>
-  <string name="joiningPolicy">Pravila pridruživanja</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Ručno pregledajte zahtjeve za prijem</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Ako je ovo označeno, igrači će trebati napisati zahtjev da se pridruže timu, koji možete odbiti ili prihvatiti.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Vođa tima</item>
     <item quantity="few">Vođe tima</item>
@@ -47,4 +46,8 @@ Igrači koji ne vole primati Vaše poruke mogli bi napustiti tim.</string>
   <string name="leadersChat">Razgovor vođa</string>
   <string name="closeTeam">Raspustite ekipu</string>
   <string name="closeTeamDescription">Raspustite ekipu zauvijek.</string>
+  <string name="teamPassword">Lozinka tima</string>
+  <string name="teamPasswordDescriptionForLeader">(Opcionalno) Lozinka koju novi članovi moraju znati da bi se pridružili ovom timu.</string>
+  <string name="incorrectTeamPassword">Netačna lozinka tima.</string>
+  <string name="teamAlreadyExists">Ovaj tim već postoji.</string>
 </resources>

@@ -12,9 +12,6 @@
   <string name="noTeamFound">Garra equipo trobau</string>
   <string name="joinTeam">Unir-se a l\'equipo</string>
   <string name="quitTeam">Abandonar l\'equipo</string>
-  <string name="anyoneCanJoin">Qualsequiera puede unir-se</string>
-  <string name="aConfirmationIsRequiredToJoin">Se requiere una confirmación pa unir-se</string>
-  <string name="joiningPolicy">Politica pa unir-se</string>
   <plurals name="teamLeaders">
     <item quantity="one">Capitán de l\'equipo</item>
     <item quantity="other">Liders de l\'equipo</item>

@@ -14,9 +14,8 @@
   <string name="noTeamFound">Nerasta jokia komanda</string>
   <string name="joinTeam">Stoti į komandą</string>
   <string name="quitTeam">Palikti komandą</string>
-  <string name="anyoneCanJoin">Prisijungti gali bet kas</string>
-  <string name="aConfirmationIsRequiredToJoin">Įstojimui reikalingas patvirtinimas</string>
-  <string name="joiningPolicy">Stojimo sąlygos</string>
+  <string name="manuallyReviewAdmissionRequests">Priėmimo prašymus peržvelgti rankiniu būdu</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Jei pažymėta, norėdami patekti į komandą žaidėjai turės užpildyti prašymą. Šį prašymą galite priimti arba atmesti.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Komandos vadovas</item>
     <item quantity="few">Komandos vadovai</item>
@@ -50,4 +49,8 @@ Taip galite pakviesti žaidėjus prisijungti į turnyrą ar komandos kovą.
   <string name="leadersChat">Vadovų pokalbis</string>
   <string name="closeTeam">Uždaryti komandą</string>
   <string name="closeTeamDescription">Visam laikui uždaryti komandą.</string>
+  <string name="teamPassword">Komandos slaptažodis</string>
+  <string name="teamPasswordDescriptionForLeader">(nebūtina) Slaptažodis, kurį turi žinoti naujai prisijungiantys prie šios komandos žaidėjai.</string>
+  <string name="incorrectTeamPassword">Neteisingas komandos slaptažodis.</string>
+  <string name="teamAlreadyExists">Ši komanda jau egzistuoja.</string>
 </resources>

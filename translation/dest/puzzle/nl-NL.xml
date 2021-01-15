@@ -45,6 +45,6 @@
   <string name="jumpToNextPuzzleImmediately">Direct door naar volgende puzzel</string>
   <string name="puzzleDashboard">Puzzel-dashboard</string>
   <string name="history">Puzzelscore</string>
-  <string name="solved" comment="&#10;In the list of previously attempted puzzles, a tag indicating that the puzzle has been solved.">opgelost</string>
+  <string name="solved">opgelost</string>
   <string name="failed">niet opgelost</string>
 </resources>

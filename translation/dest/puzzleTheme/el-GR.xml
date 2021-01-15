@@ -36,7 +36,7 @@
   <string name="knightEndgameDescription">Ένα τέλος παρτίδας μόνο με ίππους και πιόνια.</string>
   <string name="long">Μεγάλος γρίφος</string>
   <string name="longDescription">Τρεις κινήσεις για να κερδίσετε.</string>
-  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Ματ</string>
+  <string name="mate">Ματ</string>
   <string name="mateDescription">Κερδίστε το παιχνίδι με στυλ.</string>
   <string name="mateIn1">Ματ σε 1</string>
   <string name="mateIn1Description">Κάντε ματ με μια κίνηση.</string>
@@ -74,7 +74,7 @@
   <string name="shortDescription">Δύο κινήσεις για να κερδίσετε.</string>
   <string name="skewer">Σούβλισμα</string>
   <string name="skewerDescription">Ένα μοτίβο όπου ένα κομμάτι υψηλής αξίας δέχεται επίθεση, κάνει στην άκρη, και επιτρέπει την επίθεση ή το πάρσιμο ενός κομματιού μικρότερης αξίας πίσω από αυτό, το αντίστροφο δηλαδή του καρφώματος.</string>
-  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Ματ αποπνιγμού</string>
+  <string name="smotheredMate">Ματ αποπνιγμού</string>
   <string name="smotheredMateDescription">Ένα ματ που γίνεται από έναν ίππο σε έναν βασιλιάς ο οποίος δεν μπορεί να μετακινηθεί όντας περιτριγυρισμένος (ή πνιγμένος) από δικά του κομμάτια.</string>
   <string name="trappedPiece">Παγιδευμένο κομμάτι</string>
   <string name="trappedPieceDescription">Ένα κομμάτι δεν μπορεί να αποφύγει το πάρσιμο, καθώς έχει περιορισμένες κινήσεις.</string>

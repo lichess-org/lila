@@ -11,9 +11,6 @@
   <string name="noTeamFound">Nulle equipa trovate</string>
   <string name="joinTeam">Adherer al equipa</string>
   <string name="quitTeam">Abandonar equipa</string>
-  <string name="anyoneCanJoin">Libere a totes</string>
-  <string name="aConfirmationIsRequiredToJoin">Un confirmation es requirite pro adherer</string>
-  <string name="joiningPolicy">Politica de adhesion</string>
   <string name="teamBestPlayers">Le melior jocatores</string>
   <string name="teamRecentMembers">Membros recente</string>
 </resources>

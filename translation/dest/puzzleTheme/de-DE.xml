@@ -34,7 +34,7 @@
   <string name="doubleCheckDescription">Schachgebot mit zwei Figuren gleichzeitig als Ergebnis eines Abzugsangriffs, bei dem sowohl die abziehende als auch die zuvor blockierte Figur den gegnerischen König angreifen.</string>
   <string name="endgame">Endspiel</string>
   <string name="endgameDescription">Eine Taktik in der letzten Phase des Spiels.</string>
-  <string name="enPassantDescription">Eine Taktik, die die Schachregel \"en passant\" (im Vorübergehen) einbezieht, bei der ein Bauer einen gegnerischen Bauer schlagen kann, der an ihm mit seinem Doppelschritt aus der Ausgangsstellung vorbeigangen ist.</string>
+  <string name="enPassantDescription">Eine Taktik, die die Schachregel \"en passant\" (im Vorübergehen) einbezieht, bei der ein Bauer einen gegnerischen Bauer schlagen kann, der an ihm mit seinem Doppelschritt aus der Ausgangsstellung vorbeigegangen ist.</string>
   <string name="exposedKing">Exponierter König</string>
   <string name="exposedKingDescription">Eine Taktik, bei der der König nur von wenigen Figuren verteidigt wird, was oft zum Matt führt.</string>
   <string name="fork">Gabel</string>
@@ -49,7 +49,11 @@
   <string name="knightEndgameDescription">Ein Endspiel nur mit Springern und Bauern.</string>
   <string name="long">Mehrzügige Aufgabe</string>
   <string name="longDescription">Drei Züge zum Sieg.</string>
-  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Matt</string>
+  <string name="master">Meisterpartien</string>
+  <string name="masterDescription">Aufgaben aus Partien von Spielern mit Titel.</string>
+  <string name="masterVsMaster">Master gegen Master Partien</string>
+  <string name="masterVsMasterDescription">Aufgaben aus Partien zwischen zwei Spielern mit Titel.</string>
+  <string name="mate">Matt</string>
   <string name="mateDescription">Gewinne die Partie mit Stil.</string>
   <string name="mateIn1">Matt in 1</string>
   <string name="mateIn1Description">Mattsetzen in einem Zug.</string>
@@ -89,7 +93,7 @@
   <string name="shortDescription">Zwei Züge zum Sieg.</string>
   <string name="skewer">Spieß (Hinterstellung)</string>
   <string name="skewerDescription">Ein Motiv mit einer angegriffenen, hochwertigen Figur, deren Wegziehen erlaubt, dass eine niederwertige Figur hinter ihr geschlagen oder angegriffen werden kann, das Gegenteil einer Fesselung.</string>
-  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Ersticktes Matt</string>
+  <string name="smotheredMate">Ersticktes Matt</string>
   <string name="smotheredMateDescription">Ein Matt durch einen Springer, in dem der mattgesetzte König sich nicht bewegen kann, weil er von seinen eigenen Figuren umgeben (also erstickt) wird.</string>
   <string name="trappedPiece">Gefangene Figur</string>
   <string name="trappedPieceDescription">Eine Figur kann dem Schlagen nicht entgehen, weil ihre Zugmöglichkeiten begrenzt wurden.</string>

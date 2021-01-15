@@ -12,9 +12,6 @@
   <string name="noTeamFound">Nenhuma equipa encontrada</string>
   <string name="joinTeam">Juntar-se à equipa</string>
   <string name="quitTeam">Abandonar equipa</string>
-  <string name="anyoneCanJoin">Aberto a todos</string>
-  <string name="aConfirmationIsRequiredToJoin">É necessária confirmação para entrar</string>
-  <string name="joiningPolicy">Política de entrada</string>
   <plurals name="teamLeaders">
     <item quantity="one">Líder da equipa</item>
     <item quantity="other">Líderes da equipa</item>

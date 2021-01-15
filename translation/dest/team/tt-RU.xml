@@ -11,9 +11,6 @@
   <string name="noTeamFound">Бер төркем дә табылмады</string>
   <string name="joinTeam">Төркемгә кушылу</string>
   <string name="quitTeam">Төркемнән чыгу</string>
-  <string name="anyoneCanJoin">Һәркем керә ала</string>
-  <string name="aConfirmationIsRequiredToJoin">Керү өчен раслау кирәк</string>
-  <string name="joiningPolicy">Кушылу кагыйдәләре</string>
   <plurals name="teamLeaders">
     <item quantity="other">Төркем җитәкчеләре</item>
   </plurals>

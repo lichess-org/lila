@@ -16,9 +16,6 @@
   <string name="noTeamFound">لايوجد فريق</string>
   <string name="joinTeam">انضم للفريق</string>
   <string name="quitTeam">انسحب من الفريق</string>
-  <string name="anyoneCanJoin">مفتوح للجميع</string>
-  <string name="aConfirmationIsRequiredToJoin">الانضمام بموافقة قائد الفريق</string>
-  <string name="joiningPolicy">قوانين الانضمام</string>
   <string name="teamBestPlayers">أفضل اللاعبين</string>
   <string name="teamRecentMembers">آخر الأعضاء</string>
   <string name="kickSomeone">طرد أحداً ما من الفريق</string>

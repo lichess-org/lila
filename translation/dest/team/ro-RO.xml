@@ -13,9 +13,8 @@
   <string name="noTeamFound">Nu s-a găsit nicio echipă</string>
   <string name="joinTeam">Intră în echipă</string>
   <string name="quitTeam">Ieşi din echipă</string>
-  <string name="anyoneCanJoin">Gratuit pentru toți</string>
-  <string name="aConfirmationIsRequiredToJoin">Este necesară o confirmare pentru a intra</string>
-  <string name="joiningPolicy">Politică de intrare</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Verificați manual cererile de admitere</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Dacă este bifat, jucătorii vor trebui să scrie o cerere pentru a se alătura echipei, pe care o puteți refuza sau accepta.</string>
   <string name="teamBestPlayers">Cei mai buni jucători</string>
   <string name="teamRecentMembers">Cei mai recenţi membri</string>
   <string name="kickSomeone">Dă afară pe cineva din echipă</string>
@@ -30,4 +29,8 @@
   <string name="teamBattle">Luptă în echipă</string>
   <string name="closeTeam">Închide echipa</string>
   <string name="closeTeamDescription">Închide echipa pentru totdeauna.</string>
+  <string name="teamPassword">Parola echipei</string>
+  <string name="teamPasswordDescriptionForLeader">(Opțional) O parolă pe care noii membri trebuie să o cunoască pentru a se alătura acestei echipe.</string>
+  <string name="incorrectTeamPassword">Parola echipei este greșită.</string>
+  <string name="teamAlreadyExists">Această echipă există deja.</string>
 </resources>

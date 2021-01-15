@@ -415,8 +415,8 @@
   <string name="winStreak">Ardıcıl qalibiyyət</string>
   <string name="createdBy">tərəfindən yaradılıb.</string>
   <string name="tournamentIsStarting">Turnir başlayır.</string>
-  <string name="tournamentPairingsAreNowClosed">Turnir cütləşdirmələri indi bağlıdır.</string>
-  <string name="standByX">Hazır ol %s, oyunçular cütləşdirilir!</string>
+  <string name="tournamentPairingsAreNowClosed">Turnir qoşulmaları indi bağlıdır.</string>
+  <string name="standByX">Hazır ol %s, oyunçular qoşulur!</string>
   <string name="youArePlaying">Oynanıyırsınız!</string>
   <string name="winRate">Qazanma əmsalı</string>
   <string name="berserkRate">Berserk əmsalı</string>
@@ -703,7 +703,7 @@
   <string name="xJoinsY">%1$s qoşuldu: %2$s</string>
   <string name="xLikesY">%1$s bəyəndi: %2$s</string>
   <string name="xCreatesStudyY">%1$s %2$s çalışmasını yaratdı</string>
-  <string name="quickPairing">Tez qoşulma</string>
+  <string name="quickPairing">Sürətli qoşulma</string>
   <string name="lobby">Lobbi</string>
   <string name="anonymous">Anonim</string>
   <string name="yourScore">Hesab: %s</string>

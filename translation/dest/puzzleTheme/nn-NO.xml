@@ -49,7 +49,7 @@
   <string name="knightEndgameDescription">Eit sluttspel med berre springarar og bønder.</string>
   <string name="long">Lang taktikkoppgåve</string>
   <string name="longDescription">Vinst i tre trekk.</string>
-  <string name="mate" comment="mate&#10;&#10;A puzzle theme – puzzles involving a checkmate.">Matt</string>
+  <string name="mate">Matt</string>
   <string name="mateDescription">Vinn partiet med stil.</string>
   <string name="mateIn1">Matt i eitt trekk</string>
   <string name="mateIn1Description">Sett matt i eitt trekk.</string>
@@ -89,7 +89,7 @@
   <string name="shortDescription">Vinst i to trekk.</string>
   <string name="skewer">Spidder</string>
   <string name="skewerDescription">Ein manøver der ei høgverdig brikke kjem under åtak og må flytte slik at ei brikke av lågare verde som står bak kan slås ut eller verte truga. Spidding kan utførast med løpar, dronning eller tårn. Spiddar vert rekna som motsatsen til binding.</string>
-  <string name="smotheredMate" comment="smotheredMate&#10;&#10;The title of a theme for puzzles involving a checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.&#10;&#10;The description for this theme is the string smotheredMateDescription">Kvelarmatt</string>
+  <string name="smotheredMate">Kvelarmatt</string>
   <string name="smotheredMateDescription">Ein sjakkmatt ved hjelp av ein springar der motspelarens konge er stengd inne (eller kjøvd) av eigne brikker.</string>
   <string name="trappedPiece">Fanga brikke</string>
   <string name="trappedPieceDescription">Ei brikke som ikkje kjem unna på grunn av mangel på utvegar.</string>

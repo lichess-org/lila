@@ -9,6 +9,7 @@
   <string name="lengths">Luzera</string>
   <string name="mates">Mateak</string>
   <string name="goals">Helburuak</string>
+  <string name="origin">Jatorria</string>
   <string name="specialMoves">Jokaldi bereziak</string>
   <string name="didYouLikeThisPuzzle">Ariketa gustukoa izan da?</string>
   <string name="voteToLoadNextOne">Eman bozka hurrengoa kargatzeko!</string>
@@ -47,5 +48,6 @@
   <string name="improvementAreas">Hobetzekoak</string>
   <string name="strengths">Indarguneak</string>
   <string name="history">Ariketen historikoa</string>
+  <string name="solved">ebatzita</string>
   <string name="failed">huts eginda</string>
 </resources>
