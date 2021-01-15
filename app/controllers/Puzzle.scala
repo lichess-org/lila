@@ -11,6 +11,8 @@ import lila.common.ApiVersion
 import lila.common.config.MaxPerSecond
 import lila.puzzle.PuzzleTheme
 import lila.puzzle.{ Result, PuzzleRound, PuzzleDifficulty, PuzzleReplay, Puzzle => Puz }
+import play.api.data.Form
+import lila.puzzle.PuzzleForm.RoundData
 
 final class Puzzle(
     env: Env,
@@ -75,7 +77,7 @@ final class Puzzle(
     OpenBody { implicit ctx =>
       NoBot {
         Puz.toId(id) ?? { pid =>
-          onComplete(pid, PuzzleTheme findOrAny themeStr, mobileBc = false)
+          onComplete(env.puzzle.forms.round)(pid, PuzzleTheme findOrAny themeStr, mobileBc = false)
         }
       }
     }
@@ -83,16 +85,16 @@ final class Puzzle(
   def mobileBcRound(nid: Long) =
     OpenBody { implicit ctx =>
       Puz.numericalId(nid) ?? {
-        onComplete(_, PuzzleTheme.mix, mobileBc = true)
+        onComplete(env.puzzle.forms.bc.round)(_, PuzzleTheme.mix, mobileBc = true)
       }
     }
 
-  private def onComplete[A](id: Puz.Id, theme: PuzzleTheme, mobileBc: Boolean)(implicit
+  private def onComplete[A](form: Form[RoundData])(id: Puz.Id, theme: PuzzleTheme, mobileBc: Boolean)(implicit
       ctx: BodyContext[A]
   ) = {
     implicit val req = ctx.body
     lila.mon.puzzle.round.attempt(ctx.isAuth, theme.key.value).increment()
-    env.puzzle.forms.round
+    form
       .bindFromRequest()
       .fold(
         jsonFormError,

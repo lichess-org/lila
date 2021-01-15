@@ -32,6 +32,12 @@ object PuzzleForm {
 
   object bc {
 
+    val round = Form(
+      mapping(
+        "win" -> number
+      )(w => RoundData(w == 1, none))(r => none)
+    )
+
     val vote = Form(
       single("vote" -> numberIn(Set(0, 1)))
     )
