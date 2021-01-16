@@ -92,6 +92,10 @@
   <string name="short">Kort pussel</string>
   <string name="shortDescription">Två drag för att vinna.</string>
   <string name="skewer">Dolk</string>
+  <string name="skewerDescription">En taktik som innebär att en värdefull pjäs attackeras för att tvinga bort den från en pjäs bakom som då kan slås eller attackeras. Motsatsen till fastlåsning.</string>
+  <string name="smotheredMate">Kvävmatt</string>
+  <string name="smotheredMateDescription">Schack matt av en springare där den schackade kungen inte kan röra sig eftersom den är instängd (eller kvävd) av sina egna pjäser.</string>
   <string name="superGM" comment="superGM&#10;&#10;Puzzles from games played by the best players in the world.">Super GM-partier</string>
   <string name="superGMDescription">Pussel från partier spelade av de bästa spelarna i världen.</string>
+  <string name="trappedPiece">Fångad pjäs</string>
 </resources>
