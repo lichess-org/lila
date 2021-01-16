@@ -71,6 +71,7 @@ Diqqət yetirin ki, rəqibin şahının qarşısını ala biləcək bir fiqur va
   <string name="canIbecomeLM">Lichess Ustası (LM) adını ala bilərəmmi?</string>
   <string name="noUpperCaseDot">Xeyr.</string>
   <string name="whatUsernameCanIchoose">İstifadəçi adım nə ola bilər?</string>
+  <string name="usernamesNotOffensive">Ümumiyyətlə, istifadəçi adları: təhqiramiz, başqasını təqlid edən və ya reklam məqsədli olmamalıdır. Bu haqda daha çox %1$s bölməsində məlumat ala bilərsiniz.</string>
   <string name="guidelines">təlimatlat</string>
   <string name="canIChangeMyUsername">İstifadəçi adımı dəyişə bilərəmmi?</string>
   <string name="usernamesCannotBeChanged">Xeyr, istifadəçi adları texniki və praktik səbəblərdən dəyişdirilə bilməz. İstifadəçi adları həddindən artıq yerdə istifadə edilir: verilənlər bazaları, yüklənmiş oyunlar, qeydlər və insanların düşüncələrində. İstifadəçi adlarındakı böyük və kiçik hərfləri yalnız bir dəfə dəyişdirə bilərsiniz.</string>
@@ -78,6 +79,7 @@ Diqqət yetirin ki, rəqibin şahının qarşısını ala biləcək bir fiqur va
   <string name="ownerUniqueTrophies">Bu kubok Lichess tarixində bənzərsizdir və %1$s xaric başqa heç kim ona sahib ola bilməz.</string>
   <string name="wayOfBerserkExplanation">Bunu qazanmaq üçün hiimgosu özünü berserk ilə sınadı və %s oyunlarında 100%% qalib gəldi.</string>
   <string name="aHourlyBulletTournament">bir saatlıq Bullet turniri</string>
+  <string name="goldenZeeExplanation">ZugAddict canlı yayım açmışdı və son 2 saat ərzində A.I. 8-ci səviyyə kompüter mühərrikinə 1+0 oyununda qalib gəlməyə çalışırdı. Thibault, canlı yayımda buna nail olarsa, ona unikal bir kubok verəcəyini söylədi. Bir saat sonra, ZugAddict Stockfishi darmadağın etdi və Thibault vədini yerinə yetirdi.</string>
   <string name="lichessRatings">Lichess reytinqi</string>
   <string name="whichRatingSystemUsedByLichess">Lichess hansı reytinq sistemindən istifadə edir?</string>
   <string name="ratingSystemUsedByLichess">Reytinqlər Mark Glickman tərəfindən hazırlanmış Glicko-2 qiymətləndirmə metodu ilə hesablanır. Bu, çox populyar bir reytinq metodudur və xeyli sayda şahmat təşkilatı tərəfindən istifadə olunur (FIDE hələ də tarixli Elo reytinq sistemini istifadə etdiyi üçün diqqətəlayiq bir əks nümunədir).
