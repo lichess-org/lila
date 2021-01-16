@@ -137,7 +137,7 @@ object JsonView {
     (c.asOpt[String] flatMap chess.Color.apply).fold[JsResult[chess.Color]](JsError(Nil))(JsSuccess(_))
   }
   implicit private val roleReader: Reads[chess.Role] = Reads[chess.Role] { v =>
-    (v.asOpt[String] flatMap {r => chess.Role.forsyth(r.head)}).fold[JsResult[chess.Role]](JsError(Nil))(JsSuccess(_))
+    (v.asOpt[String] flatMap {r => chess.Role.forsyth(if(r == "knight") 'n' else r.head)}).fold[JsResult[chess.Role]](JsError(Nil))(JsSuccess(_))
   }
   implicit private val pieceReader = Json.reads[ChessPiece]
 
