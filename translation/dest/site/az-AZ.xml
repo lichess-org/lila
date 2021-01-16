@@ -256,38 +256,38 @@
     <item quantity="other">%s reytinqli</item>
   </plurals>
   <plurals name="nbWins">
-    <item quantity="one">%s qalib gəldi</item>
-    <item quantity="other">%s qalib gəldi</item>
+    <item quantity="one">%s qələbə</item>
+    <item quantity="other">%s qələbə</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s uduzurlar</item>
-    <item quantity="other">%s uduzurlar</item>
+    <item quantity="one">%s məğlubiyyət</item>
+    <item quantity="other">%s məğlubiyyət</item>
   </plurals>
   <plurals name="nbDraws">
     <item quantity="one">%s heç-heçə edirlər</item>
-    <item quantity="other">%s heç-heçə edirlər</item>
+    <item quantity="other">%s heç-heçə</item>
   </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s oynanılır</item>
     <item quantity="other">%s oynayır</item>
   </plurals>
-  <string name="exportGames">Oyunları ixrac et</string>
-  <string name="ratingRange">Elo təsnifatı</string>
+  <string name="exportGames">Oyunları yüklə</string>
+  <string name="ratingRange">Reytinq aralığı</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s saniyə ver</item>
     <item quantity="other">%s saniyə ver</item>
   </plurals>
   <string name="thisAccountViolatedTos">Bu hesap Lichess İstifadə Şərtlərini pozdu</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Bu oyunçu öz reytinqini süni şəklidə artırır</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Bu oyunçu öz reytinqini süni şəklidə artırıb azaldır</string>
   <string name="openingExplorerAndTablebase">Debüt &amp; endşpil bazası</string>
-  <string name="takeback">Gedişi geri götür</string>
-  <string name="proposeATakeback">Gedişi geri götürmə təklifi ver</string>
-  <string name="takebackPropositionSent">Gedişi geri götürmə təklifi göndərildi</string>
-  <string name="takebackPropositionDeclined">Gedişi geri götürmə təklifi rədd edildi</string>
-  <string name="takebackPropositionAccepted">Gedişi geri götürmə təklifi qəbil olundu</string>
-  <string name="takebackPropositionCanceled">Gedişi geri götürmə təklifi ləğv edildi</string>
-  <string name="yourOpponentProposesATakeback">Rəqibiniz gedişini geri götürmək üçün təklif edir</string>
-  <string name="bookmarkThisGame">Bu oyunu nişanla</string>
+  <string name="takeback">Dala qaytarma</string>
+  <string name="proposeATakeback">Dala qaytarma təklif et</string>
+  <string name="takebackPropositionSent">Dala qaytarma təklifi göndərildi</string>
+  <string name="takebackPropositionDeclined">Dala qaytarma rədd edildi</string>
+  <string name="takebackPropositionAccepted">Dala qaytarma təklifi qəbul olundu</string>
+  <string name="takebackPropositionCanceled">Dala qaytarma təklifi ləğv edildi</string>
+  <string name="yourOpponentProposesATakeback">Rəqibiniz dala qaytarma təklifi edir</string>
+  <string name="bookmarkThisGame">Bu oyunu yadda saxla</string>
   <string name="tournament">Turnir</string>
   <string name="tournaments">Turnirlər</string>
   <string name="tournamentPoints">Turnir xalları</string>
@@ -327,11 +327,11 @@
   <string name="mustBeInTeam">%s adlı komandada olmalısınız.</string>
   <string name="youAreNotInTeam">%s komandasının üzvü deyilsiniz</string>
   <string name="backToGame">Oyuna qayıt</string>
-  <string name="siteDescription">Bu, internet şəbəkəsi üzərində pulsuz Şahmat oyunudur. İndi təmiz araüzdə şahmat oynaya bilərsiniz. Qeydiyyat gərəkli deyil. Heçbir reklam və proqram əlavəsinə ehtiyac yoxdur. Komputer, yoldaşların və ya istənilən rəqiblə oynaya bilərsiniz.</string>
-  <string name="xJoinedTeamY">%1$s %2$s komandaya üzv oldu</string>
+  <string name="siteDescription">Pulsuz onlayn şahmat serveridir. Təmiz bir interfeysdə şahmat oynayın. Heç bir qeydiyyat, reklam və plagin tələb olunmur. Kompüter, dostlar və ya təsadüfi rəqiblərlə şahmat oynayın.</string>
+  <string name="xJoinedTeamY">%1$s %2$s komandasına üzv oldu</string>
   <string name="xCreatedTeamY">%1$s %2$s komandasını yaratdı</string>
   <string name="xStartedStreaming">%s canlı yayım başlatdı</string>
-  <string name="averageElo">Orta ELO reytinqi</string>
+  <string name="averageElo">Orta reytinq</string>
   <string name="location">Yer</string>
   <string name="filterGames">Oyunları filterlə</string>
   <string name="reset">Yenidən</string>
