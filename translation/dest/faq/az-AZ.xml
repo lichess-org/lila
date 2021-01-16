@@ -71,6 +71,7 @@ Diqqət yetirin ki, rəqibin şahının qarşısını ala biləcək bir fiqur va
   <string name="whatUsernameCanIchoose">İstifadəçi adım nə ola bilər?</string>
   <string name="guidelines">təlimatlat</string>
   <string name="canIChangeMyUsername">İstifadəçi adımı dəyişə bilərəmmi?</string>
+  <string name="usernamesCannotBeChanged">Xeyr, istifadəçi adları texniki və praktik səbəblərdən dəyişdirilə bilməz. İstifadəçi adları həddindən artıq yerdə istifadə edilir: verilənlər bazaları, yüklənmiş oyunlar, qeydlər və insanların düşüncələrində. İstifadəçi adlarındakı böyük və kiçik hərfləri yalnız bir dəfə dəyişdirə bilərsiniz.</string>
   <string name="uniqueTrophies">Unikal kuboklar</string>
   <string name="ownerUniqueTrophies">Bu kubok Lichess tarixində bənzərsizdir və %1$s xaric başqa heç kim ona sahib ola bilməz.</string>
   <string name="wayOfBerserkExplanation">Bunu qazanmaq üçün hiimgosu özünü berserk ilə sınadı və %s oyunlarında 100%% qalib gəldi.</string>
@@ -88,6 +89,7 @@ Diqqət çəkən başqa bir məqam, zaman keçdikcə özünə inam aralığını
   <string name="provisionalRatingExplanation">Sual işarəsi reytinqin müvəqqəti olduğunu bildirir. Səbəblər bunlardır:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Oyunçu hələ reytinqli oyun kateqoriyasında %1$s ilə kifayət qədər reytinqli oyunlar oynamayıb.</string>
   <string name="similarOpponents">eynigüclü rəqiblər</string>
+  <string name="notPlayedRecently">Oyunçu kifayət qədər yeni oyun oynamadı. Oynadığınız oyunların sayına görə, reytinqinizin yenidən müvəqqəti olması üçün təxminən bir il fəaliyyətsizlik tələb oluna bilər.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Bu konkret olaraq, Glicko-2 reytinq yayınmasının 110-dan çox olması deməkdir. Yayınma sistemin reytinqə olan etibar səviyyəsidir. Yayınma nə qədər az olsa, reytinq o qədər sabitdir.</string>
   <string name="howDoLeaderoardsWork">Sıralama və liderlik cədvəli necə işləyir?</string>
   <string name="inOrderToAppearsYouMust">%1$s cədvəlinə daxil olmaq üçün bunları etməlisiniz:</string>
