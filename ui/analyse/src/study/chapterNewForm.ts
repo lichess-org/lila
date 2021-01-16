@@ -9,7 +9,7 @@ import { chapter as chapterTour } from "./studyTour";
 import { StudyChapterMeta } from "./interfaces";
 import { Redraw } from "../interfaces";
 import AnalyseCtrl from "../ctrl";
-import { switchColorSfen } from "shogiutil/util";
+import { breakSfen, fixSfen } from "shogiutil/util";
 
 export const modeChoices = [
   ["normal", "normalAnalysis"],
@@ -253,15 +253,15 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
             : null,
           activeTab === "fen"
             ? h("div.form-group", [
-                h("input#chapter-hiddenFen.form-control", {
-                  attrs: {
-                    value: switchColorSfen(ctrl.root.node.fen),
-                    placeholder: noarg("loadAPositionFromFen"),
-                  },
-                  hook: bind("keyup", () => {
-                    $("#chapter-fen").val(switchColorSfen($("#chapter-hiddenFen").val()))
-                  }),
+              h("input#chapter-hiddenFen.form-control", {
+                attrs: {
+                  value: fixSfen(ctrl.root.node.fen),
+                  placeholder: noarg("loadAPositionFromFen"),
+                },
+                hook: bind("keyup", () => {
+                  $("#chapter-fen").val(breakSfen($("#chapter-hiddenFen").val()))
                 }),
+              }),
                 h("input#chapter-fen.form-control", {
                   attrs: {
                     type: "hidden",

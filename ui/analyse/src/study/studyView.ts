@@ -90,13 +90,13 @@ function buttons(root: AnalyseCtrl): VNode {
         icon: h('i.glyph-icon'),
         count: (root.node.glyphs || []).length
       }) : null,
-      //toolButton({
-      //  ctrl,
-      //  tab: 'serverEval',
-      //  hint: noarg('computerAnalysis'),
-      //  icon: iconTag(''),
-      //  count: root.data.analysis && '✓'
-      //}),
+      toolButton({
+        ctrl,
+        tab: 'serverEval',
+        hint: noarg('computerAnalysis'),
+        icon: iconTag(''),
+        count: root.data.analysis && '✓'
+      }),
       toolButton({
         ctrl,
         tab: 'multiBoard',
