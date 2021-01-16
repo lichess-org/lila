@@ -16,17 +16,25 @@
   <string name="castlingDescription">Proteger o rei e trazer a torre para o ataque.</string>
   <string name="capturingDefender">Capturar o defensor</string>
   <string name="capturingDefenderDescription">Remove uma peça que seja crítica para a defesa de outra peça, permitindo que esta seja capturada na próxima jogada.</string>
+  <string name="crushing">Esmagar</string>
+  <string name="crushingDescription">Descobre um erro grave do oponente e obtém uma vantagem esmagadora. (avaliação ≥ 600cp)</string>
+  <string name="equality">Igualdade</string>
+  <string name="equalityDescription">Recupera de uma posição perdedora e garante um empate ou uma posição de equilíbrio. (avaliação ≤ 200cp)</string>
   <string name="kingsideAttack">Ataque no lado do rei</string>
   <string name="kingsideAttackDescription">Um ataque ao rei do adversário, depois de este ter feito roque menor (para o lado do rei).</string>
+  <string name="clearance">Limpeza</string>
+  <string name="clearanceDescription">Uma jogada, com tempo, que limpa uma casa, fila, coluna ou diagonal para uma ideia tática subsequente.</string>
   <string name="defensiveMove">Movimento defensivo</string>
   <string name="defensiveMoveDescription">Um movimento ou sequência de movimentos precisos, necessários para evitar uma desvantagem, como por exemplo perda de material.</string>
   <string name="deflection">Desvio</string>
+  <string name="deflectionDescription">Uma jogada que distrai uma peça do adversário de outra função, como por exemplo, proteger uma casa chave. Às vezes também é chamado de sobrecarga.</string>
   <string name="discoveredAttack">Ataque descoberto</string>
   <string name="doubleCheck">Xeque duplo</string>
   <string name="endgame">Final de jogo</string>
   <string name="endgameDescription">Uma tática durante a última fase do jogo.</string>
   <string name="exposedKing">Rei exposto</string>
   <string name="fork">Garfo</string>
+  <string name="interference">Interferência</string>
   <string name="intermezzo">Intermezzo</string>
   <string name="knightEndgame">Final de cavalo</string>
   <string name="long">Problema longo</string>
@@ -43,6 +51,7 @@
   <string name="mateIn5Description">Descobre uma longa sequência que leva ao xeque-mate.</string>
   <string name="middlegame">Meio-jogo</string>
   <string name="middlegameDescription">Uma tática durante a segunda fase do jogo.</string>
+  <string name="quietMove">Jogada subtil</string>
   <string name="rookEndgame">Final de torre</string>
   <string name="sacrifice">Sacrifício</string>
 </resources>
