@@ -41,7 +41,16 @@
   <string name="forkDescription">Ett drag där den rörda pjäsen attackerar två motståndarpjäser samtidigt.</string>
   <string name="hangingPiece">Ogarderad pjäs</string>
   <string name="hangingPieceDescription">En taktik som drar fördel av att en motståndares pjäs är oförsvarad eller otillräckligt försvarad och fri att slå.</string>
+  <string name="interference">Interference</string>
+  <string name="interferenceDescription">Placerar en pjäs mellan två motståndares pjäser för att lämna en eller båda motståndarpjäserna ogarderade, till exempel springare på en garderad ruta mellan två torn.</string>
+  <string name="intermezzo">Mellandrag</string>
+  <string name="intermezzoDescription">Istället för att spela det förväntade draget, görs ett annat drag som utgör ett omedelbart hot som motståndaren måste svara på. Även känt som \"Zwischenzug\" eller \"Intermezzo\".</string>
+  <string name="knightEndgame">Springare-slutspel</string>
+  <string name="knightEndgameDescription">Ett slutspel med bara springare och bönder.</string>
+  <string name="long">Långa pussel</string>
   <string name="longDescription">Tre drag för att vinna.</string>
+  <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Mästarpartier</string>
+  <string name="masterDescription">Pussel från spel som spelas av spelare med mästartitel.</string>
   <string name="mate">Matt</string>
   <string name="mateDescription">Vinn partiet med stil.</string>
   <string name="mateIn1">Matt i 1 drag</string>
