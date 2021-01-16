@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Sizə nədə kömək edə bilərik?</string>
   <string name="visitThisPage">Problemi həll etmək üçün bu səhifəyə keçin</string>
   <string name="iCantLogIn">Daxil ola bilmirəm</string>
-  <string name="noConfirmationEmail">Təsdiq e-poçtumu almadım</string>
+  <string name="noConfirmationEmail">Təsdiq emaili almadım</string>
   <string name="forgotPassword">Şifrəmi unutdum</string>
   <string name="forgotUsername">İstifadəçi adımı unutdum</string>
   <string name="youCanLoginWithEmail">Qeydiyyatdan keçdiyiniz elektron poçt ünvanı ilə daxil ola bilərsiniz</string>
@@ -16,10 +16,10 @@
   <string name="visitTitleConfirmation">Lichess profilinizdə titulunuzu göstərmək və Titullu Arenada iştirak etmək üçün titul təsdiq səhifəsini ziyarət edin</string>
   <string name="wantCloseAccount">Hesabımı bağlamaq istəyirəm</string>
   <string name="closeYourAccount">Bu səhifədəki hesabınızı bağlaya bilərsiniz</string>
-  <string name="doNotAskByEmail">Bizdən bir hesabı bağlamağımızı e-poçtla istəməyin, bunu etməyəcəyik.</string>
+  <string name="doNotAskByEmail">Bizdən bir hesabı bağlamağımızı emaillə istəməyin, bunu etməyəcəyik.</string>
   <string name="wantReopen">Hesabımı yenidən açmaq istəyirəm</string>
   <string name="reopenOnThisPage">Bu səhifədə hesabınızı yenidən aça bilərsiniz. Yalnız bir dəfə işləyir.</string>
-  <string name="doNotAskByEmailToReopen">Bizdən bir hesabı yenidən açmağımızı e-poçtla istəməyin, etməyəcəyik.</string>
+  <string name="doNotAskByEmailToReopen">Bizdən bir hesabı yenidən açmağımızı emaillə istəməyin, etməyəcəyik.</string>
   <string name="wantChangeUsername">İstifadəçi adımı dəyişmək istəyirəm</string>
   <string name="changeUsernameCase">İstifadəçi adınızda böyük və ya kiçik hərf dəyişikliyi etmək üçün bu səhifəni ziyarət edin</string>
   <string name="cantChangeMore">Böyük və kiçik hərf xaricində başqa bir dəyişiklik edə bilmərik. Texniki səbəblərə görə bu mümkün deyil.</string>
@@ -35,7 +35,7 @@
   <string name="toReportAPlayer">%s üçün bir oyunçunu şikayət etmək üçün şikayət formunu istifadə edin</string>
   <string name="youCanAlsoReachReportPage">Bir profil səhifəsindəki %s şikayət düyməsinə basaraq da həmin səhifəyə daxil ola bilərsiniz.</string>
   <string name="doNotReportInForum">Forumdakı oyunçuları şikayət etməyin.</string>
-  <string name="doNotSendReportEmails">Bizə şikayət e-poçtları göndərməyin.</string>
+  <string name="doNotSendReportEmails">Bizə şikayət emailləri göndərməyin.</string>
   <string name="doNotMessageModerators">Moderatorlara birbaşa mesaj göndərməyin.</string>
   <string name="onlyReports">Yalnız şikayət formu ilə oyunçuları şikayət etmək təsirli olur.</string>
   <string name="wantReportBug">Bir səhv barədə məlumat vermək istəyirəm</string>
@@ -75,6 +75,6 @@
   <string name="videosAndBooks">Bunu videolarınızda göstərə və kitablarınıza Lichess ekran görüntülərini çap edə bilərsiniz.</string>
   <string name="creditAppreciated">Tərif qiymətləndirilir, lakin tələb olunmur.</string>
   <string name="noneOfTheAbove">Yuxarıdakıların heç biri</string>
-  <string name="sendEmailAt">Bizə %s vasitəsilə bir e-poçt göndərin.</string>
+  <string name="sendEmailAt">Bizə %s vasitəsilə bir email göndərin.</string>
   <string name="explainYourRequest">Lütfən tələbinizi aydın və hərtərəfli izah edin. Lichess istifadəçi adınızı və sizə kömək etməyimizə yarayacaq məlumatları bildirin.</string>
 </resources>
