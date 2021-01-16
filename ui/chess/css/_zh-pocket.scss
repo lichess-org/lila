@@ -21,6 +21,11 @@
   &-c2 {
     @extend %square;
   }
+  &-c2.shadow-piece{
+    border: 0px solid rgba(21, 120, 27, 0.4);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(21, 120, 28, 0.4) inset;
+  }
   piece {
     display: block;
     width: 100% !important;
