@@ -20,6 +20,8 @@
   <string name="whyFlaggedRatingManipulationOrCheater">Niyə görə süni reytinq manipulyasiyası üçün (bilərək uduzma və başqalarından kömək almaq) və ya kompüterdən kömək alan biri olaraq işarələndim?</string>
   <string name="cheatDetectionMethods">Lichessin güclü aşkarlama metodları və bütün dəlilləri nəzərdən keçirmək və qərar qəbul etmək üçün hərtərəfli bir prosesi var. Proses tez-tez bir çox moderatoru əhatə edir və uzun müddət çəkə bilər. İşarənin özü xaricində, dəlillər və fərdi işlər üçün qərar qəbul etmə prosesi haqqında təfərrüatlara varmayacağıq. Bunu etmək gələcəkdə aşkarlanmanın qarşısını almağı asanlaşdıracaq və səmərəsiz mübahisələrə dəvət olacaqdır. Bu vaxt və səy daha vacib işlərə daha yaxşı xərclənir. İstifadəçilər %1$s ünvanına elektron poçt ilə müraciət edə bilərlər, lakin qərarlar nadir hallarda pozulur.</string>
   <string name="whenAmIEligibleRatinRefund">Hiyləyə qarşı itirdiyim xalları nə vaxt geri ala biləcəm?</string>
+  <string name="ratingRefundExplanation">Bir oyunçu işarələndikdən bir dəqiqə sonra, son 3 gün ərzində oynadığı 40 reytinqli oyun geri alınır. Bu oyunlarda əgər onun rəqibi olsaz, reytinq xalı itirsəz (məğlubiyyət və heç-heçə səbəbilə) və reytinqiniz müvəqqəti deyilsə, geri ödəmə alacaqsız. Geri ödəmə, ən yüksək reytinqinizə və oyundan sonrakı reytinq yüksəlişinizə görə mədudlaşdırılır.
+(Məsələn, bu oyunlardan sonra reytinqiniz çox artarsa, geri ödəmə və ya qismən geri ödəmə ala bilərsiniz.) Geri ödəmə heç vaxt 150 xaldan çox olmayacaq.</string>
   <string name="preventLeavingGameWithoutResigning">Oyunçuların təslim olmadan oyunlarını tərk etmələri ilə bağlı nə edilir?</string>
   <string name="leavingGameWithoutResigningExplanation">Rəqibiniz tez-tez oyunlarını dayandırar/tərk edərsə, ona \"oynamağa qadağa qoyulur\", yəni müvəqqəti olaraq oyun oynamaq qadağan olunur. Bu, profilində açıq şəkildə göstərilmir. Lakin bu davranış davam edərsə, qadağanın vaxtı artırılır və bu xarakterli uzun müddətli davranış hesabın bağlanmasına səbəb ola bilir.</string>
   <string name="howCanIBecomeModerator">Necə moderator ola bilərəm?</string>
@@ -52,8 +54,8 @@ Nadir hallarda buna avtomatik qərar verməsi çətin ola bilər (məcburi gedi�
 Diqqət yetirin ki, rəqibin şahının qarşısını ala biləcək bir fiqur varsa, tək bir at və ya fillə mat etmək mümkündür.</string>
   <string name="fideHandbookX">FIDE qaydaları %s</string>
   <string name="discoveringEnPassant">Nəyə görə rəqib piyadasını keçmiş bir piyada vurula bilər? (keçiddə götürmə)</string>
-  <string name="goodIntroduction">yaxşı giriş</string>
-  <string name="officialRulesPDF">rəsmi qaydalar (PDF)</string>
+  <string name="goodIntroduction">yaxşı izah</string>
+  <string name="officialRulesPDF">rəsmi qaydaların (PDF)</string>
   <string name="lichessTraining">Lichess məşqi</string>
   <string name="threefoldRepetition">Üçqat təkrar</string>
   <string name="threefoldRepetitionExplanation">Əgər bir mövqe üç dəfə təkrarlanarsa, oyunçu %1$s vasitəsilə heç-heçə tələb edə bilər. Lichess %2$s-nin 9.2 (d) bəndində açıqlandığı kimi FIDE qaydalarına tam əməl edir.</string>
