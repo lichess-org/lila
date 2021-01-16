@@ -178,7 +178,7 @@ function renderArrow(brush: DrawBrush, orig: cg.Pos, dest: cg.Pos, current: bool
 
 function renderPiece(pos: cg.Pos, piece: DrawShapePiece, bounds: ClientRect): SVGElement {
   const o = pos2px(pos, bounds),
-    size = bounds.width / 9 * (piece.scale || 1);
+    size = bounds.width / 9 * (piece.scale || 0.8);
   let el = setAttributes(createElement('foreignObject'), {
     className: `${piece.role} ${piece.color}`,
     x: o[0] - size / 2,
