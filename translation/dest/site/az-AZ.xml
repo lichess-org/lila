@@ -654,7 +654,7 @@
   <string name="glicko2Rating">Glicko-2 reytinqi</string>
   <string name="checkYourEmail">Emailini yoxla</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Biz sənə email göndərdik. Hesabını aktivləşdirmək üçün linkə kliklə.</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Əgər e-maili görmürsünzsə, onun ola biləçəyi digər yerləri, məsələn, zibil qutusu, spam, sosial və digər qovluqları nəzərdən keçirin.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Əgər emaili görmürsünzsə, onun ola biləçəyi digər yerləri, məsələn, zibil qutusu, spam, sosial və digər qovluqları nəzərdən keçirin.</string>
   <string name="weHaveSentYouAnEmailTo">Biz %s ünvanına email göndərdik. Şifrəni yeniləmək üçün emailinizdəki linkə klikləyin.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Qeydiyyatdan keçməklə siz, bizim %s ilə razılaşırsınız.</string>
   <string name="readAboutOur">%s haqqında oxuyun.</string>
@@ -684,21 +684,21 @@
   <string name="revokeAllSessions">bütün sessiyaları ləğv et</string>
   <string name="playChessEverywhere">Şahmatı hər yerdə oyna</string>
   <string name="asFreeAsLichess">Lichess kimi azad</string>
-  <string name="builtForTheLoveOfChessNotMoney">Pula görə deyil, şahamat sevgisinə görə yarat</string>
+  <string name="builtForTheLoveOfChessNotMoney">Pula görə deyil, şahmat sevgisinə görə yaradılmışdır</string>
   <string name="everybodyGetsAllFeaturesForFree">Hər kəs bütün özəllikləri pulsuz əldə edir</string>
   <string name="zeroAdvertisement">Sıfır reklam</string>
   <string name="fullFeatured">Tam özəllikli</string>
   <string name="phoneAndTablet">Telefon və tablet</string>
   <string name="bulletBlitzClassical">Bullet, blitz, klassik</string>
   <string name="correspondenceChess">Yazışmalı şahmat</string>
-  <string name="onlineAndOfflinePlay">Onlayn və offlayn oyna</string>
-  <string name="viewTheSolution">Həlli gör</string>
-  <string name="followAndChallengeFriends">Dostlarını izlə və yarışa çağır</string>
+  <string name="onlineAndOfflinePlay">Onlayn və oflayn oyun</string>
+  <string name="viewTheSolution">Həlli bax</string>
+  <string name="followAndChallengeFriends">Dostlarını izlə və oyuna çağır</string>
   <plurals name="availableInNbLanguages">
-    <item quantity="one">%s dillərdə mövcuddur</item>
-    <item quantity="other">%s dillərdə mövcuddur</item>
+    <item quantity="one">%s dildə mövcuddur!</item>
+    <item quantity="other">%s dildə mövcuddur!</item>
   </plurals>
-  <string name="gameAnalysis">Oyun analizi</string>
+  <string name="gameAnalysis">Oyun təhlili</string>
   <string name="xHostsY">%1$s ev sahibi: %2$s</string>
   <string name="xJoinsY">%1$s qoşuldu: %2$s</string>
   <string name="xLikesY">%1$s bəyəndi: %2$s</string>
