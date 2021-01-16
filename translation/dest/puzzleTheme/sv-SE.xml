@@ -47,12 +47,12 @@
   <string name="intermezzoDescription">Istället för att spela det förväntade draget, görs ett annat drag som utgör ett omedelbart hot som motståndaren måste svara på. Även känt som \"Zwischenzug\" eller \"Intermezzo\".</string>
   <string name="knightEndgame">Springare-slutspel</string>
   <string name="knightEndgameDescription">Ett slutspel med bara springare och bönder.</string>
-  <string name="long">Långa pussel</string>
+  <string name="long">Långa schackproblem</string>
   <string name="longDescription">Tre drag för att vinna.</string>
   <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Mästarpartier</string>
-  <string name="masterDescription">Pussel från partier som spelas av spelare med mästartitel.</string>
+  <string name="masterDescription">Schackproblem från partier som spelats av spelare med mästartitel.</string>
   <string name="masterVsMaster" comment="masterVsMaster&#10;&#10;Puzzles from games between two titled players.">Mästare mot Mästare-partier</string>
-  <string name="masterVsMasterDescription">Pussel från partier som spelas av två spelare med mästartitel.</string>
+  <string name="masterVsMasterDescription">Schackproblem från partier som spelats av två spelare med mästartitel.</string>
   <string name="mate">Matt</string>
   <string name="mateDescription">Vinn partiet med stil.</string>
   <string name="mateIn1">Matt i 1 drag</string>
