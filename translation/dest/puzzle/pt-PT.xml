@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Quebra-cabeças</string>
+  <string name="puzzleThemes">Temas de problemas</string>
   <string name="recommended">Recomendado</string>
   <string name="phases">Fases</string>
   <string name="advanced">Avançado</string>
   <string name="lengths">Comprimento</string>
+  <string name="goals">Objetivos</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Origem</string>
+  <string name="specialMoves">Movimentos especiais</string>
+  <string name="didYouLikeThisPuzzle">Gostaste deste problema?</string>
+  <string name="voteToLoadNextOne">Vota para carregares o próximo!</string>
+  <string name="yourPuzzleRatingX">A tua pontuação em problemas: %s</string>
+  <string name="findTheBestMoveForWhite">Encontra a melhor jogada para as brancas.</string>
 </resources>
