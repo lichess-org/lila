@@ -2,6 +2,7 @@
 conf/application.conf
 conf/version.conf
 .metals
+.vscode
 
 logs
 project/project
