@@ -614,7 +614,7 @@
   <string name="returnToSimulHomepage">Sinxron seansın ana səhifəsinə qayıdın</string>
   <string name="aboutSimul">Sinxron seanslar, bir oyunçunun bir neçə oyunçuyla eyni zamanda üz-üzə gəlməsidir.</string>
   <string name="aboutSimulImage">50 rəqib içindən, Fischer 47 oyunu qazandı, 2 heç-heçə etdi, və 1 dəfə məğlub oldu.</string>
-  <string name="aboutSimulRealLife">Konsept real dünya hadisələrindən götürülmüşdür.  Gerçək həyatda, bu simulun tək gedişi etməsi üçün masadan maya hərkətini əhatə edir</string>
+  <string name="aboutSimulRealLife">Konsept real dünyadan götürülmüşdür. Real həyatda, sinxron seans edən ev sahibi bir masadan digərinə keçərək bir-bir gedişlər edir.</string>
   <string name="aboutSimulRules">Simul başladığı zaman hər bir oyunçu ağ fiqurlarla oynayan ustadla oyuna başlayır. Bütün oyunlar bitdiyi zaman simul sona çatır.</string>
   <string name="aboutSimulSettings">Simullar adətən gündəlikdir. Revanşlar, geri almalar və \"daha çox vaxt\" ləğv edilmişdir.</string>
   <string name="create">Yarat</string>
