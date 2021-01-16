@@ -531,26 +531,26 @@
   <string name="xCompetesInY">%1$s, %2$s turnirinə qoşuldu</string>
   <string name="xAskedY">%1$s, %2$s başlıqlı sual soruşdu</string>
   <string name="xAnsweredY">%1$s, %2$s sualını cavablandırdı</string>
-  <string name="xCommentedY">%1$s şərh %2$s</string>
+  <string name="xCommentedY">%1$s, %2$s sualına rəy yazdı</string>
   <string name="victory">Qələbə</string>
   <string name="defeat">Məğlubiyyət</string>
   <string name="victoryVsYInZ">%2$s adlı oyunçuya qarşı %3$s oyununda %1$s</string>
   <string name="defeatVsYInZ">%2$s adlı oyunçuya qarşı %3$s oyununda %1$s</string>
   <string name="drawVsYInZ">%2$s adlı oyunçuya qarşı %3$s oyununda %1$s</string>
-  <string name="timeline">Zaman cədvəli</string>
-  <string name="starting">Başlanğıc</string>
-  <string name="allInformationIsPublicAndOptional">Bütün məlumatlar hər kəsə açıq və seçkiyə bağlıdır.</string>
-  <string name="yourCityRegionOrDepartment">Şəhər və ya rayon</string>
+  <string name="timeline">Xronologiya</string>
+  <string name="starting">Başlayır:</string>
+  <string name="allInformationIsPublicAndOptional">Bütün məlumatlar hər kəsə açıq və istəyə bağlıdır.</string>
+  <string name="yourCityRegionOrDepartment">Sizin şəhər, rayon və ya qəsəbə.</string>
   <string name="biographyDescription">Özünüz haqqında danışın, maraqlarınız, şahmatda nəyi bəyəndiyiniz, sevimli debütləriniz, oyunçular və s...</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="one">Ən çox: %s xarakter</item>
+    <item quantity="one">Ən çox: %s simvol.</item>
     <item quantity="other">Ən çox: %s xarakter</item>
   </plurals>
   <plurals name="blocks">
     <item quantity="one">%s şəxs əngəlləndi</item>
     <item quantity="other">%s şəxs əngəlləndi</item>
   </plurals>
-  <string name="listBlockedPlayers">Ban şəxslərin siyahısı</string>
+  <string name="listBlockedPlayers">Blok edilmiş şəxslərin siyahısı</string>
   <string name="human">İnsan</string>
   <string name="computer">Kompüter</string>
   <string name="side">Tərəf</string>
