@@ -144,7 +144,6 @@ object Quote {
       "Half the variations which are calculated in a tournament game turn out to be completely superfluous. Unfortunately, no one knows in advance which half.",
       "Jan Timman"
     ),
-    new Quote("Chess is as much a mystery as women.", "Purdy"),
     new Quote("Good positions don’t win games, good moves do.", "Gerald Abrahams"),
     new Quote(
       "If I win a tournament, I win it by myself.  I do the playing. Nobody helps me.",
