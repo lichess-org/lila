@@ -85,7 +85,7 @@ dar poți proteja!</string>
   <string name="checkInOneIntro">Ca să dai șah oponentului, atacă-i regele. Va trebui să-l protejeze!</string>
   <string name="checkInOneGoal">Țintește către regele inamic într-o mutare!</string>
   <string name="checkInOneComplete">Felicitări! Ai dat șah inamicului, forțându-l să-și apere regele!</string>
-  <string name="outOfCheck">În afara șahului</string>
+  <string name="outOfCheck">Ieșirea din șah</string>
   <string name="defendYourKing">Apără regele</string>
   <string name="outOfCheckIntro">Ești în șah! Trebuie să evadezi sau să blochezi atacul.</string>
   <string name="escapeWithTheKing">Scăpa cu regele!</string>
