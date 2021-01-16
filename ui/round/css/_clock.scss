@@ -87,7 +87,7 @@
 
     /* ensure updates don't redraw other parts of the document */
     will-change: transform;
-    z-index: -1;
+    z-index: 0;
     display: flex;
 
     &.hour {
