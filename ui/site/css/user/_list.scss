@@ -116,7 +116,7 @@ $user-list-width: 30ch;
       display: none;
     }
   }
-  @include breakpoint($mq-not-large) {
+  @include breakpoint($mq-not-x-large) {
     td:nth-child(4) {
       display: none;
     }
@@ -124,11 +124,7 @@ $user-list-width: 30ch;
 
   .rating {
     span {
-      &::before {
-        margin: 0;
-      }
-
-      margin: 0 .3em;
+      display: block;
     }
   }
 }
