@@ -87,6 +87,7 @@ export function processDraw(state: State): void {
       if (mouseSq !== cur.mouseSq) {
         cur.mouseSq = mouseSq;
         cur.dest = mouseSq !== cur.orig ? mouseSq : undefined;
+        cur.piece = cur.dest ? undefined : state.drawable.piece;
         state.dom.redrawNow();
       }
       processDraw(state);
@@ -128,10 +129,22 @@ function eventBrush(e: cg.MouchEvent): string {
 }
 
 function addShape(drawable: Drawable, cur: DrawCurrent): void {
-  const sameShape = (s: DrawShape) => s.orig === cur.orig && s.dest === cur.dest;
-  const similar = drawable.shapes.find(sameShape);
-  if (similar) drawable.shapes = drawable.shapes.filter(s => !sameShape(s));
-  if (!similar || similar.brush !== cur.brush) drawable.shapes.push(cur);
+  const similarShape = (s: DrawShape) =>
+    s.orig === cur.orig && s.dest === cur.dest;
+  // replacing the piece
+  const diffPieceSameSquare = (s: DrawShape) =>
+    s.orig === cur.orig && s.piece && cur.piece && (s.piece.color !== cur.piece.color || s.piece.role !== cur.piece.role)
+
+  const similar = drawable.shapes.find(similarShape);
+  const diffPiece = drawable.shapes.find(diffPieceSameSquare);
+
+  // If we found something on the target square, first we remove everything on there
+  if (similar) drawable.shapes = drawable.shapes.filter(s => !similarShape(s));
+  // We add the shape if we found no similar or if we are just replacing the piece
+  if (!similar || similar.brush !== cur.brush || diffPiece) drawable.shapes.push(cur);
+  // Adding circle around piece
+  if (cur.piece && (!similar || similar.brush !== cur.brush || diffPiece))
+    drawable.shapes.push({ orig: cur.orig, brush: cur.brush } as DrawShape);
   onChange(drawable);
 }
 
