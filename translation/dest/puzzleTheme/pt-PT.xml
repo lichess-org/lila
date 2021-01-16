@@ -19,6 +19,7 @@
   <string name="kingsideAttack">Ataque no lado do rei</string>
   <string name="kingsideAttackDescription">Um ataque ao rei do adversário, depois de este ter feito roque menor (para o lado do rei).</string>
   <string name="defensiveMove">Movimento defensivo</string>
+  <string name="defensiveMoveDescription">Um movimento ou sequência de movimentos precisos, necessários para evitar uma desvantagem, como por exemplo perda de material.</string>
   <string name="deflection">Desvio</string>
   <string name="discoveredAttack">Ataque descoberto</string>
   <string name="doubleCheck">Xeque duplo</string>
@@ -26,4 +27,22 @@
   <string name="endgameDescription">Uma tática durante a última fase do jogo.</string>
   <string name="exposedKing">Rei exposto</string>
   <string name="fork">Garfo</string>
+  <string name="intermezzo">Intermezzo</string>
+  <string name="knightEndgame">Final de cavalo</string>
+  <string name="long">Problema longo</string>
+  <string name="longDescription">Três movimentos para ganhar.</string>
+  <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Jogos de mestres</string>
+  <string name="masterDescription">Problemas de partidas jogadas por jogadores titulados.</string>
+  <string name="mate">Xeque-mate</string>
+  <string name="mateDescription">Vence a partida com estilo.</string>
+  <string name="mateIn1">Mate em 1</string>
+  <string name="mateIn2">Mate em 2</string>
+  <string name="mateIn3">Mate em 3</string>
+  <string name="mateIn4">Mate em 4</string>
+  <string name="mateIn5">Mate em 5 ou mais</string>
+  <string name="mateIn5Description">Descobre uma longa sequência que leva ao xeque-mate.</string>
+  <string name="middlegame">Meio-jogo</string>
+  <string name="middlegameDescription">Uma tática durante a segunda fase do jogo.</string>
+  <string name="rookEndgame">Final de torre</string>
+  <string name="sacrifice">Sacrifício</string>
 </resources>
