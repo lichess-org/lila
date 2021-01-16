@@ -15,4 +15,15 @@
   <string name="castling">Roque</string>
   <string name="castlingDescription">Proteger o rei e trazer a torre para o ataque.</string>
   <string name="capturingDefender">Capturar o defensor</string>
+  <string name="capturingDefenderDescription">Remove uma peça que seja crítica para a defesa de outra peça, permitindo que esta seja capturada na próxima jogada.</string>
+  <string name="kingsideAttack">Ataque no lado do rei</string>
+  <string name="kingsideAttackDescription">Um ataque ao rei do adversário, depois de este ter feito roque menor (para o lado do rei).</string>
+  <string name="defensiveMove">Movimento defensivo</string>
+  <string name="deflection">Desvio</string>
+  <string name="discoveredAttack">Ataque descoberto</string>
+  <string name="doubleCheck">Xeque duplo</string>
+  <string name="endgame">Final de jogo</string>
+  <string name="endgameDescription">Uma tática durante a última fase do jogo.</string>
+  <string name="exposedKing">Rei exposto</string>
+  <string name="fork">Garfo</string>
 </resources>
