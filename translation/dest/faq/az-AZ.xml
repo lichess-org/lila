@@ -88,6 +88,7 @@ Diqqət çəkən başqa bir məqam, zaman keçdikcə özünə inam aralığını
   <string name="provisionalRatingExplanation">Sual işarəsi reytinqin müvəqqəti olduğunu bildirir. Səbəblər bunlardır:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Oyunçu hələ reytinqli oyun kateqoriyasında %1$s ilə kifayət qədər reytinqli oyunlar oynamayıb.</string>
   <string name="similarOpponents">eynigüclü rəqiblər</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Bu konkret olaraq, Glicko-2 reytinq yayınmasının 110-dan çox olması deməkdir. Yayınma sistemin reytinqə olan etibar səviyyəsidir. Yayınma nə qədər az olsa, reytinq o qədər sabitdir.</string>
   <string name="howDoLeaderoardsWork">Sıralama və liderlik cədvəli necə işləyir?</string>
   <string name="inOrderToAppearsYouMust">%1$s cədvəlinə daxil olmaq üçün bunları etməlisiniz:</string>
   <string name="ratingLeaderboards">liderlik cədvəli</string>
@@ -104,7 +105,13 @@ Reytinqləri \"nisbi\" rəqəmlər (\"mütləq\" rəqəmlərdən fərqli olaraq)
   <string name="enableZenMode">%1$s ilə və ya oyun zamanı %2$s düyməsinə basaraq Zen rejimini aktivləşdir.</string>
   <string name="displayPreferences">görüntü ayarları</string>
   <string name="connexionLostCanIGetMyRatingBack">Gecikmə/əlaqənin kəsilməsi səbəbindən bir oyun uduzdum. Reytinq xallarımı geri ala bilərəmmi?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Təəssüf ki, gecikmə və ya əlaqənin kəsilməsi səbəbi ilə itirilən oyunlar üçün reytinq xallarını geri qaytara bilmərik, problemin sizdən və ya bizdən qaynaqlı olmasından asılı olmayaraq. İkincisi çox nadirdir. Həm də unutmayın ki, Lichess yenidən başldıldığı zaman vaxtla uduzduğunuzda, haqsız bir itkinin qarşısını almaq üçün bu oyunu ləğv edirik.</string>
   <string name="howToThreeDots">Necə...</string>
   <string name="enableDisableNotificationPopUps">Bildiriş popupları aktiv və ya deaktiv edilsin?</string>
   <string name="viewSiteInformationPopUp">Sayt haqqında məlumat pəncərəsinə baxın</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess istəyə bağlı olaraq popup bildirişlər göndərə bilər, məsələn növbə sizin olduğunuzda və ya xüsusi bir mesaj aldığınız zaman.
+
+Brauzerinizin URL çubuğundakı lichess.org ünvanının yanındakı kilid işarəsini toxunun.
+
+Sonra Lichess-dən gələn bildirişlərə icazə veriləcəyini və ya bloklanacağını seçin.</string>
 </resources>
