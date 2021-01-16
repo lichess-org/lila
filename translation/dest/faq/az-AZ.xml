@@ -58,7 +58,7 @@ Diqqət yetirin ki, rəqibin şahının qarşısını ala biləcək bir fiqur va
   <string name="officialRulesPDF">rəsmi qaydaların (PDF)</string>
   <string name="lichessTraining">Lichess məşqi</string>
   <string name="threefoldRepetition">Üçqat təkrar</string>
-  <string name="threefoldRepetitionExplanation">Əgər bir mövqe üç dəfə təkrarlanarsa, oyunçu %1$s vasitəsilə heç-heçə tələb edə bilər. Lichess %2$s-nin 9.2 (d) bəndində açıqlandığı kimi FIDE qaydalarına tam əməl edir.</string>
+  <string name="threefoldRepetitionExplanation">Əgər bir mövqe üç dəfə təkrarlanarsa, oyunçu %1$s vasitəsilə heç-heçə tələb edə bilər. Lichess %2$s 9.2 (d) bəndində açıqlandığı kimi FIDE qaydalarına tam əməl edir.</string>
   <string name="threefoldRepetitionLowerCase">üçqat təkrar</string>
   <string name="notRepeatedMoves">Gedişləri təkrarlamadıq. Nə üçün oyun gediş təkrarına görə heç-heçə bitti?</string>
   <string name="repeatedPositionsThatMatters">Üçqat təkrarlanma %1$s ilə əlaqəlidir, gedişlərlə yox. Təkrarlanma ardıcıl baş vermək məcburiyyətində deyil.</string>
