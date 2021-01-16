@@ -17,6 +17,8 @@ object GameDiff {
 
   private type ClockHistorySide = (Centis, Vector[Centis], Boolean)
 
+  private type PeriodEntriesSide = Vector[Int]
+
   type Diff = (List[Set], List[Unset])
 
   private val w = lila.db.BSON.writer
@@ -61,6 +63,16 @@ object GameDiff {
       o.flatMap {
         case (x, y, z) => ByteArrayBSONHandler.writeOpt(BinaryFormat.clockHistory.writeSide(x, y, z))
       }
+    
+    def getPeriodEntries(color: Color)(g: Game): Option[Vector[Int]] =
+      for {
+        history <- g.clockHistory
+      } yield history.periodEntries(color)
+
+    def periodEntriesToBytes(o: Option[PeriodEntriesSide]) =
+      o.flatMap { x =>
+        ByteArrayBSONHandler.writeOpt(BinaryFormat.periodEntries.writeSide(x))
+      }
 
     if (false) dTry(huffmanPgn, _.pgnMoves, writeBytes compose PgnStorage.Huffman.encode)
     else {
@@ -87,6 +99,8 @@ object GameDiff {
     dOpt(moveTimes, _.binaryMoveTimes, (o: Option[ByteArray]) => o flatMap ByteArrayBSONHandler.writeOpt)
     dOpt(whiteClockHistory, getClockHistory(White), clockHistoryToBytes)
     dOpt(blackClockHistory, getClockHistory(Black), clockHistoryToBytes)
+    dOpt(periodsWhite, getPeriodEntries(White), periodEntriesToBytes)
+    dOpt(periodsBlack, getPeriodEntries(Black), periodEntriesToBytes)
     dOpt(
       clock,
       _.clock,

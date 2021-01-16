@@ -20,6 +20,11 @@ case class Clock(
 
   def remainingTime(c: Color) = (players(c).remaining - pending(c)) nonNeg
 
+  def remainingTimeTurn(c: Color) = {
+    if(players(c).isUsingByoyomi) (players(c).lastMoveTime - pending(c)) nonNeg
+    else (players(c).remaining - pending(c)) nonNeg
+  }
+
   def curPeriod(c: Color) = {
     players(c).curPeriod + {if(players(c).startsAtZero) 1 else 0}
   }
@@ -83,13 +88,13 @@ case class Clock(
         val newC = if (gameActive && config.hasByoyomi && player.isUsingByoyomi) {
           updatePlayer(color){
             _.setRemaining(byo)
-              .copy(lag = lagTrack)
+              .copy(lag = lagTrack, lastMoveTime = moveTime)
           }
         }
         else if(config.hasByoyomi && player.isUsingByoyomi) {
           updatePlayer(color){
             _.takeTime(moveTime)
-              .copy(lag = lagTrack)
+              .copy(lag = lagTrack, lastMoveTime = moveTime)
           }
         }
         else{
@@ -106,7 +111,16 @@ case class Clock(
   // To do: safely add this to takeback to remove inc from player.
   // def deinc = updatePlayer(color, _.giveTime(-incrementOf(color)))
 
-  def takeback = switch
+  def takeback(refundPeriod: Boolean = false) = {
+    if(refundPeriod) addPeriod(color)
+    else this
+  } switch
+
+  def addPeriod(c: Color) = {
+    updatePlayer(c) {
+      _.addPeriod
+    }
+  }
 
   def nextPeriod(c: Color) = {
     updatePlayer(c) {
@@ -115,6 +129,8 @@ case class Clock(
   }
 
   def hasPeriodsLeft(c: Color): Boolean = players(c).hasPeriodsLeft
+
+  def isUsingByoyomi(c: Color): Boolean = players(c).isUsingByoyomi
 
   def giveTime(c: Color, t: Centis) =
     updatePlayer(c) {
@@ -149,6 +165,7 @@ case class Clock(
   def limit                = config.limit
   def limitInMinutes       = config.limitInMinutes
   def limitSeconds         = config.limitSeconds
+  def startsAtZero         = config.startsAtZero
 }
 
 case class ClockPlayer(
@@ -156,12 +173,15 @@ case class ClockPlayer(
     lag: LagTracker,
     elapsed: Centis = Centis(0),
     berserk: Boolean = false,
-    curPeriod: Int = 0
+    curPeriod: Int = 0,
+    lastMoveTime: Centis = Centis(0)
 ) {
 
   def isUsingByoyomi = config.hasByoyomi && (curPeriod > 0 || startsAtZero) && curPeriod <= periods
 
   def nextPeriod = copy(elapsed = elapsed - byoyomi, curPeriod = curPeriod + 1)
+
+  def addPeriod = copy(curPeriod = curPeriod - 1)
 
   def hasPeriodsLeft = periods > curPeriod && config.hasByoyomi
 
