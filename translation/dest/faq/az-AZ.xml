@@ -62,6 +62,7 @@ Diqqət yetirin ki, rəqibin şahının qarşısını ala biləcək bir fiqur va
   <string name="repeatedPositionsThatMatters">Üçqat təkrarlanma %1$s ilə əlaqəlidir, gedişlərlə yox. Təkrarlanma ardıcıl baş vermək məcburiyyətində deyil.</string>
   <string name="positions">vəziyyətlər</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Bir mövqeyi üç dəfə təkrarladıq. Oyun niyə heç-heçə olmadı?</string>
+  <string name="threeFoldHasToBeClaimed">Təkrarın oyunçulardan biri tərəfindən tələb edilməsi lazımdır. Bunu göstərilən düyməni basmaqla və ya son təkrar gedişinizdən əvvəl heç-heçə təklif etməklə edə bilərsiniz, rəqibinizin bu təklifini rədd etməsinin heç bir əhəmiyyəti olmayacaq, üçqat təkrar onsuz da tələb ediləcək. Avtomatik olaraq sizin adınıza təkrarlama tələb etmək üçün Lichessi %1$s edə bilərsiniz. Əlavə olaraq, beşqat təkrarlama həmişə oyunu dərhal bitirir.</string>
   <string name="configure">konfiqurasiya</string>
   <string name="accounts">Hesablar</string>
   <string name="titlesAvailableOnLichess">Lichessdə hansı titullar var?</string>
