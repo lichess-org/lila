@@ -440,6 +440,7 @@
 	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Alapállás</string>
 	<string name="clearBoard">Üres tábla</string>
+	<string name="fillGotesHand">Fill Gote\'s hand</string>
 	<string name="savePosition">Állás mentése</string>
 	<string name="loadPosition">Állás betöltése</string>
 	<string name="isPrivate">Privát</string>

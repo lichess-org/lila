@@ -552,6 +552,7 @@
 	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">وضع البداية</string>
 	<string name="clearBoard">رقعة بلا قطع</string>
+	<string name="fillGotesHand">Fill Gote\'s hand</string>
 	<string name="savePosition">حفظ الوضع</string>
 	<string name="loadPosition">تحميل الوضع</string>
 	<string name="isPrivate">خاص</string>

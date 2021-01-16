@@ -413,6 +413,7 @@
 	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">開始局面</string>
 	<string name="clearBoard">盤面をクリアする</string>
+	<string name="fillGotesHand">Fill Gote\'s hand</string>
 	<string name="savePosition">盤面を保存</string>
 	<string name="loadPosition">局面を読み込む</string>
 	<string name="isPrivate">プライベート</string>

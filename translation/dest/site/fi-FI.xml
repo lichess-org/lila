@@ -440,6 +440,7 @@
 	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Alkuasema</string>
 	<string name="clearBoard">Tyhjennä lauta</string>
+	<string name="fillGotesHand">Fill Gote\'s hand</string>
 	<string name="savePosition">Tallenna asema</string>
 	<string name="loadPosition">Lataa asema</string>
 	<string name="isPrivate">Yksityinen</string>

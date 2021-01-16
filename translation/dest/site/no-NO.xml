@@ -441,6 +441,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Starting position</string>
 	<string name="clearBoard">Clear board</string>
+	<string name="fillGotesHand">Fill Gote\'s hand</string>
 	<string name="savePosition">Save position</string>
 	<string name="loadPosition">Load position</string>
 	<string name="isPrivate">Private</string>

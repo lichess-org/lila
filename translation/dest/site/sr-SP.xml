@@ -469,6 +469,7 @@
 	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Почетна позиција</string>
 	<string name="clearBoard">Уклони фигуре</string>
+	<string name="fillGotesHand">Fill Gote\'s hand</string>
 	<string name="savePosition">Сачувај позицију</string>
 	<string name="loadPosition">Учитај позицију</string>
 	<string name="isPrivate">Приватно</string>

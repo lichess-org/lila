@@ -440,6 +440,7 @@
 	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Startopstilling</string>
 	<string name="clearBoard">Fjern alle brikker</string>
+	<string name="fillGotesHand">Fill Gote\'s hand</string>
 	<string name="savePosition">Gem stilling</string>
 	<string name="loadPosition">Indlæs position</string>
 	<string name="isPrivate">Privat</string>

@@ -440,6 +440,7 @@
 	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Başlangıç konumu</string>
 	<string name="clearBoard">Tahtayı temizle</string>
+	<string name="fillGotesHand">Fill Gote\'s hand</string>
 	<string name="savePosition">Konumu kaydet</string>
 	<string name="loadPosition">Konumu yükle</string>
 	<string name="isPrivate">Özel</string>

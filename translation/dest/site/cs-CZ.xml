@@ -496,6 +496,7 @@
 	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Základní postavení</string>
 	<string name="clearBoard">Prázdná šachovnice</string>
+	<string name="fillGotesHand">Fill Gote\'s hand</string>
 	<string name="savePosition">Uložit pozici</string>
 	<string name="loadPosition">Nahrát pozici</string>
 	<string name="isPrivate">Soukromý</string>

@@ -468,6 +468,7 @@
 	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Poziția de start</string>
 	<string name="clearBoard">Curăță tabla</string>
+	<string name="fillGotesHand">Fill Gote\'s hand</string>
 	<string name="savePosition">Salvează poziția</string>
 	<string name="loadPosition">Încarcă poziția</string>
 	<string name="isPrivate">Privat</string>

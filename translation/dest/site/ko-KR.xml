@@ -412,6 +412,7 @@
 	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">원래대로</string>
 	<string name="clearBoard">보드 지우기</string>
+	<string name="fillGotesHand">Fill Gote\'s hand</string>
 	<string name="savePosition">포지션 저장</string>
 	<string name="loadPosition">포지션 불러오기</string>
 	<string name="isPrivate">비공개</string>
