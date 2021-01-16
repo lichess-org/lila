@@ -70,6 +70,11 @@ Diqqət yetirin ki, rəqibin şahının qarşısını ala biləcək bir fiqur va
   <string name="verificationForm">təsdiqləmə formu</string>
   <string name="canIbecomeLM">Lichess Ustası (LM) adını ala bilərəmmi?</string>
   <string name="noUpperCaseDot">Xeyr.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Bu fəxri titul qeyri-rəsmidir və yalnız Lichessdə mövcuddur.
+
+Nadir hallarda təqdirəlayiq, yaxşı bir lichess üzvü olan yüksək səviyyəli oyunçularımıza öz qərarımıza uyğun mükafat veririk. LM titulunu almırsınız, LM titulu sizə gəlir. Əgər bu titula layiq görülsəniz, bizdən bir mesaj alacaqsınız və qəbul etmək və ya etməmək seçiminə sahib olacaqsız.
+
+LM titulunu bizdən istəməyin.</string>
   <string name="whatUsernameCanIchoose">İstifadəçi adım nə ola bilər?</string>
   <string name="usernamesNotOffensive">Ümumiyyətlə, istifadəçi adları: təhqiramiz, başqasını təqlid edən və ya reklam məqsədli olmamalıdır. Bu haqda daha çox %1$s bölməsində məlumat ala bilərsiniz.</string>
   <string name="guidelines">təlimatlat</string>
