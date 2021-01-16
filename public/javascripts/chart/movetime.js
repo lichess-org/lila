@@ -97,8 +97,8 @@ lishogi.movetimeChart = function (data, trans, notation) {
                   animation: false,
                 },
                 area: {
-                  fillColor: Highcharts.theme.lishogi.area.black,
-                  negativeFillColor: Highcharts.theme.lishogi.area.white, // swapped
+                  fillColor: Highcharts.theme.lishogi.area.white,
+                  negativeFillColor: Highcharts.theme.lishogi.area.black,
                   fillOpacity: 1,
                   threshold: 0,
                   lineWidth: 1,
