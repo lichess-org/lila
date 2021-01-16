@@ -49,8 +49,9 @@
   <string name="knightEndgameDescription">Een eindspel met alleen paarden en pionnen.</string>
   <string name="long">Lange puzzel</string>
   <string name="longDescription">Winnen in drie zetten.</string>
-  <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Meesterpartijen</string>
+  <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Partijen van meesters</string>
   <string name="masterDescription">Puzzels van partijen met één titelhouder.</string>
+  <string name="masterVsMaster" comment="masterVsMaster&#10;&#10;Puzzles from games between two titled players.">Partijen van meesters onderling</string>
   <string name="masterVsMasterDescription">Puzzels van partijen met twee titelhouders.</string>
   <string name="mate">Mat</string>
   <string name="mateDescription">De partij in stijl winnen.</string>
@@ -94,6 +95,8 @@
   <string name="skewerDescription">Een motief waarbij een waardevol stuk wordt aangevallen en vervolgens wordt verplaatst, waardoor een lichter stuk erachter kan worden geslagen of aangevallen. Het omgekeerde van een penning.</string>
   <string name="smotheredMate">Stikmat</string>
   <string name="smotheredMateDescription">Schaakmat met een paard waarbij de aangevallen koning geen zet kan doen omdat hij ingesloten is (of verstikt) door zijn eigen stukken.</string>
+  <string name="superGM" comment="superGM&#10;&#10;Puzzles from games played by the best players in the world.">Partijen van topschakers</string>
+  <string name="superGMDescription">Puzzels van partijen gespeeld door de beste schakers ter wereld.</string>
   <string name="trappedPiece">Ingesloten stuk</string>
   <string name="trappedPieceDescription">Een stuk kan niet meer ontsnappen omdat het geen velden meer heeft.</string>
   <string name="underPromotion">Minorpromotie</string>

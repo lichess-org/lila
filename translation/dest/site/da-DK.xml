@@ -9,7 +9,7 @@
   <string name="yourTurn">Din tur</string>
   <string name="aiNameLevelAiLevel">%1$s niveau %2$s</string>
   <string name="level">Niveau</string>
-  <string name="strength">Styrke</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Styrke</string>
   <string name="toggleTheChat">Skjul/Vis chat</string>
   <string name="toggleSound">slå lyd til/fra</string>
   <string name="chat">Chat</string>
@@ -642,7 +642,7 @@
   <string name="returnToTournamentsHomepage">Vend tilbage til turnerings-forsiden</string>
   <string name="weeklyPerfTypeRatingDistribution">Månedlig %s rating fordeling</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">En %2$s spiller i denne uge.</item>
+    <item quantity="one">%1$s %2$s spiller denne uge.</item>
     <item quantity="other">%1$s %2$s spillere denne uge.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Din %1$s rating er %2$s</string>

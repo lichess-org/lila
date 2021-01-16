@@ -33,7 +33,7 @@
   <string name="pleaseOnlyInvitePeopleYouKnow">Zəhmət olmasa yalnız tanıdığınız və bu çalışmaya aktiv olaraq qoşulmaq istəyən insanları dəvət edin.</string>
   <string name="searchByUsername">İstifadəçi adına görə axtar</string>
   <string name="spectator">Tamaşaçı</string>
-  <string name="contributor">İştirakçı</string>
+  <string name="contributor">Töhfə verən</string>
   <string name="kick">Qov</string>
   <string name="leaveTheStudy">Çalışmanı tərk et</string>
   <string name="youAreNowAContributor">İndi iştirakçısınız</string>
@@ -55,7 +55,7 @@
   <string name="previous">Əvvəlki</string>
   <string name="next">Növbəti</string>
   <string name="last">Son</string>
-  <string name="shareAndExport">Paylaş və ixrac et</string>
+  <string name="shareAndExport">Paylaş və yüklə</string>
   <string name="cloneStudy">Klonla</string>
   <string name="studyPgn">Çalışma PGN-i</string>
   <string name="downloadAllGames">Bütün oyunları endir</string>
@@ -109,7 +109,7 @@
   <string name="createStudy">Çalışma yarat</string>
   <string name="editStudy">Çalışmaya düzəliş et</string>
   <string name="visibility">Görünmə</string>
-  <string name="public">İctimai</string>
+  <string name="public">Hərkəsə açıq</string>
   <string name="unlisted">Siyahıya alınmamış</string>
   <string name="inviteOnly">Yalnız dəvətlə</string>
   <string name="allowCloning">Klonlamağa icazə ver</string>
@@ -117,8 +117,8 @@
   <string name="onlyMe">Yalnız mən</string>
   <string name="contributors">Töhfə verənlər</string>
   <string name="members">Üzvlər</string>
-  <string name="everyone">Hər kəs</string>
-  <string name="enableSync">Eyniləşdirməni fəallaşdır</string>
+  <string name="everyone">Hamı</string>
+  <string name="enableSync">Eyniləşdirməni aktivləşdir</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Bəli: hər kəsi eyni mövqedə saxla</string>
   <string name="noLetPeopleBrowseFreely">Xeyr: sərbəst gəzməyə icazə ver</string>
   <string name="pinnedStudyComment">Sancaqlanmış çalışma rəyləri</string>

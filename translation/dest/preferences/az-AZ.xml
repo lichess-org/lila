@@ -36,10 +36,10 @@
   <string name="moveConfirmation">Gediş təsdiqi</string>
   <string name="inCorrespondenceGames">Qiyabi oyunlar</string>
   <string name="correspondenceAndUnlimited">Müxbir və hədsiz</string>
-  <string name="confirmResignationAndDrawOffers">Oyunu tərk etmə və heç-heçə təkliflərini təsdiqlə</string>
+  <string name="confirmResignationAndDrawOffers">Məğlubiyyət və heç-heçə təkliflərini təsdiqlə</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Qala qurma metodu</string>
-  <string name="castleByMovingTwoSquares">Şahı iki xana sürərək</string>
-  <string name="castleByMovingOntoTheRook">Şahı topun üzərinə gətirərək</string>
+  <string name="castleByMovingTwoSquares">Şahı iki xana hərəkət etdirərək</string>
+  <string name="castleByMovingOntoTheRook">Şahı topa tərəf gətirərək</string>
   <string name="inputMovesWithTheKeyboard">Gedişləri klaviatura ilə daxil et</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Etibarlı gedişlər üçün oxları göstər</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Məğlub olduqda və ya heç-heçə etdikdə \"Yaxşı oyun idi, yaxşı oynadın\" deyin</string>

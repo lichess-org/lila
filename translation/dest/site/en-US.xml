@@ -9,7 +9,7 @@
   <string name="yourTurn">Your turn</string>
   <string name="aiNameLevelAiLevel">%1$s level %2$s</string>
   <string name="level">Level</string>
-  <string name="strength">Strength</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Strength</string>
   <string name="toggleTheChat">Toggle the chat</string>
   <string name="toggleSound">Toggle sound</string>
   <string name="chat">Chat</string>
@@ -845,5 +845,5 @@ computer analysis, game chat and shareable URL.</string>
   <string name="unsubscribe">Unsubscribe</string>
   <string name="challengeDeclined">Challenge declined</string>
   <string name="challengeAccepted">Challenge accepted!</string>
-  <string name="challengeCanceled">Challenge canceled.</string>
+  <string name="challengeCanceled">Challenge canceled</string>
 </resources>

@@ -93,6 +93,8 @@ Moenie om die LM-titel vra nie.</string>
   <string name="whatUsernameCanIchoose">Wat kan my gebruikersnaam wees?</string>
   <string name="usernamesNotOffensive">Oor die algemeen moet gebruikersname nie beledigend wees, iemand anders voordoen of adverteer nie. U kan meer lees oor die %1$s.</string>
   <string name="guidelines">riglyne</string>
+  <string name="canIChangeMyUsername">Kan ek my gebruikersnaam verander?</string>
+  <string name="usernamesCannotBeChanged">Nee, gebruikersname kan nie verander word nie vir tegniese en praktiese redes. Gebruikersname word in te veel plekke gematerialiseer: databasisse, uitvoere, logboeke en mense se geheue. Jy kan die hoofletters en kleinletters een keer verander.</string>
   <string name="uniqueTrophies">Unieke trofeë</string>
   <string name="ownerUniqueTrophies">Daardie trofee is uniek in die geskiedenis van Lichess, niemand anders as %1$s sal dit ooit hê nie.</string>
   <string name="wayOfBerserkExplanation">Om dit te kry, het hiimgosu homself uitgedaag om te berserk en 100 %% wedstryde van %s te wen.</string>

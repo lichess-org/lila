@@ -671,11 +671,11 @@
   <string name="tournamentDoesNotExist">Acest turneu nu există.</string>
   <string name="tournamentMayHaveBeenCanceled">Posibil să fi fost anulat, dacă toți jucătorii au plecat înainte de începerea turneului.</string>
   <string name="returnToTournamentsHomepage">Înapoi la pagina turneului</string>
-  <string name="weeklyPerfTypeRatingDistribution">Distribuția %s săptămânală a palmaresului</string>
+  <string name="weeklyPerfTypeRatingDistribution">Distribuția săptămânală a palmaresului %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">%1$s %2$s jucător în această săptămână.</item>
-    <item quantity="few">%1$s %2$s jucători în această săptămână.</item>
-    <item quantity="other">%1$s %2$s jucători în această săptămână.</item>
+    <item quantity="one">%1$s jucător %2$s în această săptămână.</item>
+    <item quantity="few">%1$s jucători %2$s în această săptămână.</item>
+    <item quantity="other">%1$s jucători %2$s în această săptămână.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Palmaresul dumneavoastră %1$s este %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Sunteți mai bun decât %1$s dintre jucătorii de %2$s.</string>

@@ -4,23 +4,26 @@
   <string name="byPlaying">oynayaraq!</string>
   <string name="menu">Menyu</string>
   <string name="progressX">İrəliləyiş: %s</string>
-  <string name="resetMyProgress">tərəqqi tarixini sıfırla</string>
-  <string name="youWillLoseAllYourProgress">Tərəqqi tarixi itəcək!</string>
+  <string name="resetMyProgress">Irəliləyiş tarixini sıfırla</string>
+  <string name="youWillLoseAllYourProgress">İrəliləyiş tarixi itəcək!</string>
   <string name="play">oyna!</string>
   <string name="chessPieces">Şahmat fiqurları</string>
   <string name="theRook">Top</string>
   <string name="itMovesInStraightLines">Düz xətlə gedir</string>
-  <string name="rookIntro">Top güclü fiqurdur. Əmr verməyə hazırsan?</string>
-  <string name="rookGoal">Ulduza gətirmək üçün top fiquruna kliklə!</string>
-  <string name="grabAllTheStars">Bütün ulduzları əldə et!</string>
+  <string name="rookIntro">Top güclü fiqurdur. Onu idarə etməyə hazırsan?</string>
+  <string name="rookGoal">Ulduza yetişmək üçün top fiquruna kliklə!</string>
+  <string name="grabAllTheStars">Bütün ulduzları topla!</string>
   <string name="theFewerMoves">Daha az gediş et, daha çox xal qazan!</string>
-  <string name="useTwoRooks">Hər iki topdan istifadə etməklə sürəti artır!</string>
+  <string name="useTwoRooks">Hər iki topdan istifadə etməklə
+sürəti artır!</string>
   <string name="rookComplete">Təbriklər! Siz top fiqurunu çox uğurla öyrəndiniz.</string>
   <string name="theBishop">Fil</string>
   <string name="itMovesDiagonally">Çarpaz xətlə gedir</string>
-  <string name="bishopIntro">Sonrakı mərhələdə, Fil fiqurunu necə manevr etməyi öyrənəcəyik!</string>
-  <string name="youNeedBothBishops">Bir ağ-xana fil, bir qara-xana fil. Hər ikisi lazımın olacaq!</string>
-  <string name="bishopComplete">Təbriklər! Fil fiquruna hakimsiniz.</string>
+  <string name="bishopIntro">Sonrakı mərhələdə, Fil fiquru ilə necə manevr etməyi öyrənəcəyik!</string>
+  <string name="youNeedBothBishops">Bir ağ xanalı fil, 
+bir qara xanalı fil. 
+Hər ikisinə ehtiyacın olacaq!</string>
+  <string name="bishopComplete">Təbriklər! Artıq Fillər sənin dostundur.</string>
   <string name="theQueen">Vəzir</string>
   <string name="queenCombinesRookAndBishop">Vəzir = top + fil</string>
   <string name="queenIntro">Səhnəyə ən güclü şahmat fiquru daxil olur. Zati-aliləri Vəzir!</string>
@@ -29,7 +32,7 @@
   <string name="theMostImportantPiece">Ən önəmli fiqur</string>
   <string name="kingIntro">Siz şahsınız. Döyüşdə uduzsanız, oyunda da məğlubsunuz.</string>
   <string name="theKingIsSlow">Şahın sürəti yavaşdır.</string>
-  <string name="lastOne">Ən sonuncu!</string>
+  <string name="lastOne">Sonuncusu!</string>
   <string name="kingComplete">İndi isə əmr sahibinə əmri siz verə bilərsiniz!</string>
   <string name="theKnight">At</string>
   <string name="itMovesInAnLShape">L hərfi formasında hərəkət edir</string>
@@ -55,7 +58,7 @@ lakin çapraz vurur!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Bütün ulduzları yığın!
 Çevrilməyə ehtiyac yoxdur.</string>
   <string name="pawnComplete">Təbriklər! Artıq Piyadaların da sizdən gizlədəcək bir şeyləri yoxdur.</string>
-  <string name="pawnPromotion">Piyadanın çevrilməsi</string>
+  <string name="pawnPromotion">Piyada çevrilməsi</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Piyadanız lövhənin sonuna çatdı!</string>
   <string name="itNowPromotesToAStrongerPiece">İndi daha güclü bir fiqura çevrilir.</string>
   <string name="selectThePieceYouWant">İstədiyiniz fiquru seçin!</string>

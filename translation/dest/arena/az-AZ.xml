@@ -2,16 +2,16 @@
 <resources>
   <string name="arenaTournaments">Arena turnirləri</string>
   <string name="isItRated">Reytinq hesablanırmı?</string>
-  <string name="willBeNotified">Turnir başlayanda xəbərdarlıq olunacaq, gozlediyiniz müddətdə yeni sehifede, yeni oyuna başlaya bilersiniz.</string>
+  <string name="willBeNotified">Turnir başlayanda sizə xəbər veriləcəkdir, buna görə gözləyərkən başqa bir pəncərədə oynamaq təhlükəsizdir.</string>
   <string name="isRated">Bu turnir reytinqlidir və reytinqinizə tesir edəcək.</string>
-  <string name="isNotRated">Bu turnir reytinqli deyil ve reqtinqinizə təsir etməyəcək.</string>
+  <string name="isNotRated">Bu turnir reytinqli deyil ve reytinqinizə təsir etməyəcək.</string>
   <string name="someRated">Bəzi turnirlər reytinqlidir ve reytinqinizə təsir edəcək.</string>
-  <string name="howAreScoresCalculated">Ballar necə hesablanır?</string>
-  <string name="howAreScoresCalculatedAnswer">Qazanılan bir oyun təməldə 2 xal, bərabərlik 1 xal dəyərindədir. Uduzulan bir oyun isə heçbir xal gətirməz. Üst- üstə iki oyun qazandığınız təqdirdə alov ikonu ile simgələnən ikiqat xal seriyasına girərsiniz.
+  <string name="howAreScoresCalculated">Xallar necə hesablanır?</string>
+  <string name="howAreScoresCalculatedAnswer">Qazanılan bir oyun təməldə 2 xal, bərabərlik 1 xal dəyərindədir. Uduzulan bir oyun isə heçbir xal qazandırmır. Üst- üstə iki oyun qazandığınız təqdirdə alov ikonu ile təmsil olunan ikiqat xal seriyasına girirsiniz.
 
-Məğlub olana vəya bərabərə qalana qədər edilən oyunlardan iki qatı xal qazanırsınız. Yəni seriyada ikən bir qalibiyyət 4 xal, bərabərlik 2 xal gətirirkən uduzulan oyundan heçbir xal alınmaz.
+Məğlub olana vəya bərabərə qalana qədər oynanılan oyunlardan iki qatı xal qazanırsınız. Yəni seriyada ikən bir qalibiyyət 4 xal, bərabərlik 2 xal qazandırarkən uduzulan oyundan heçbir xal qazanılmaz.
 
-Məsələn; üst-üstə qazanılan iki oyun ve ardından alınan bir bərabərlik 6 xal dəyərindədir: 2 + 2 + (2 x 1)</string>
+Məsələn; üst-üstə qazanılan iki oyun və ardından alınan bir bərabərlik 6 xal dəyərindədir: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Çılğın Modu</string>
   <string name="berserkAnswer">Bir oyunçu oyunun əvvəlində Berserk düyməsini basdıqda, vaxtının yarısını itirir, ancaq qələbə bir əlavə turnir xalı qazandırır.
 
@@ -37,7 +37,7 @@ Daha çox oyun oynamaq və daha çox xal qazanmaq üçün sürətli oynayın və
     <item quantity="other">Oyunun ilk %s gedişində heç-heçə etmək heç bir oyunçuya xal qazandırmayacaq.</item>
   </plurals>
   <string name="thisIsPrivate">Bu özəl turnirdir</string>
-  <string name="shareUrl">Dəvət etmək ücün, linki paylaş: %s</string>
+  <string name="shareUrl">Dəvət etmək üçün, linki paylaş: %s</string>
   <string name="drawStreak">Ardıcıl heç-heçələr: Bir oyunçu arenada ardıcıl heç-heçə etdikdə, yalnız ilk heç-heçə və ya %s gedişdən çox oynanılan bir oyunun sonunda heç-heçə olarsa xalla nəticələnəcək. Heç-heçə seriyası yalnız qələbə ilə pozula bilər, məğlubiyyət və heç-heçə ilə deyil.</string>
   <string name="history">Arena Keçmişi</string>
 </resources>

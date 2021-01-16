@@ -45,6 +45,8 @@
   <string name="skewerDescription">Motiv u kojem se napada neka teška figura, čije sklanjanje od napada omogućuje uzimanje neke lahke figure koja je iza nje ili napad na nju; obratno od svezivanja.</string>
   <string name="smotheredMate">Ugušeni mat</string>
   <string name="smotheredMateDescription">Mat skakačem u poziciji kad protivnički kralj nema slobodnih polja jer je okružen (ili ugušen) vlastitim figurama.</string>
+  <string name="superGM" comment="superGM&#10;&#10;Puzzles from games played by the best players in the world.">Supervelemajstorske partije</string>
+  <string name="superGMDescription">Problemi iz partija najboljih svjetskih igrača.</string>
   <string name="trappedPiece">Zarobljena figura</string>
   <string name="trappedPieceDescription">Figura ne može izbjeći da bude uzeta jer su joj potezi ograničeni.</string>
   <string name="underPromotion">Potpromocija</string>

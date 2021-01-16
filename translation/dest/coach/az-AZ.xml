@@ -5,10 +5,10 @@
   <string name="areYouCoach">%s sahibi istedadlı şahmat məşqçisisiniz?</string>
   <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM və ya FIDE titulu</string>
   <string name="confirmTitle">Titulunuzu buradan təsdiqləyin və müraciətinizi nəzərdən keçirək.</string>
-  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Bizə %s ünvanından e-poçt göndərin və müraciətinizi nəzərdən keçirək.</string>
-  <string name="location">Yerləşmə</string>
+  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Bizə %s ünvanından email göndərin və müraciətinizi nəzərdən keçirək.</string>
+  <string name="location">Yer</string>
   <string name="languages">Dillər</string>
-  <string name="rating">Xal</string>
+  <string name="rating">Reytinq</string>
   <string name="hourlyRate">Saatlıq qiymət</string>
   <string name="availability">Əlçatımlılıq</string>
   <string name="accepting">Tələbə qəbul edir</string>
@@ -22,7 +22,7 @@
   <string name="otherExperiences">Digər təcrübələr</string>
   <string name="bestSkills">Güclü bacarıqları</string>
   <string name="teachingMethod">Təhsil metodologiyası</string>
-  <string name="publicStudies">İctimai çalışmalar</string>
+  <string name="publicStudies">Hərkəsə açıq çalışmalar</string>
   <string name="youtubeVideos">YouTube videoları</string>
   <plurals name="studentReviews">
     <item quantity="one">Bir tələbə rəy bildirib</item>
@@ -31,5 +31,5 @@
   <string name="thankYouForReview">Rəyiniz üçün təşəkkürlər!</string>
   <string name="xWillApproveIt">%s, tezliklə təsdiqləyəcək və ya bir moderator buna baxacaq.</string>
   <string name="reviewCoach">Bu məşqçiyə rəy bildir</string>
-  <string name="describeExperienceWith">%s müəllimlə olan təcrübələrinizi izah edin</string>
+  <string name="describeExperienceWith">%s müəllimlə olan təcrübələrinizi təsvir edin</string>
 </resources>

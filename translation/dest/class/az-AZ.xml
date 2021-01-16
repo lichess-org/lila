@@ -67,7 +67,7 @@ Sinifə daxil olmaq üçün link.</string>
   <string name="releaseTheAccount">Hesabı tələbənin özbaşına idarə edə bilməsi üçün azad et.</string>
   <string name="releaseDesc1">Azad edilmiş bir hesab yenidən idarə oluna bilməz. Tələbə uşaq rejimini dəyişə və şifrəni özü sıfırlaya biləcək.</string>
   <string name="releaseDesc2">Tələbələr, hesabları azad edildikdən sonra sonra sinifdə qalacaqlar.</string>
-  <string name="realUniqueEmail">Tələbənin həqiqi, unikal elektron poçt ünvanı. Hesabı azad etmək üçün bir keçid ilə birlikdə ona təsdiq e-poçtu göndərəcəyik.</string>
+  <string name="realUniqueEmail">Tələbənin həqiqi, unikal elektron poçt ünvanı. Hesabı azad etmək üçün bir keçid ilə birlikdə ona təsdiq emaili göndərəcəyik.</string>
   <string name="teachers">Müəllimlər</string>
   <plurals name="nbTeachers">
     <item quantity="one">%s müəllim</item>
