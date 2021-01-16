@@ -98,4 +98,14 @@
   <string name="superGM" comment="superGM&#10;&#10;Puzzles from games played by the best players in the world.">Super GM-partier</string>
   <string name="superGMDescription">Pussel från partier spelade av de bästa spelarna i världen.</string>
   <string name="trappedPiece">Fångad pjäs</string>
+  <string name="trappedPieceDescription">En pjäs kan inte komma undan eftersom den inte kan flytta till någon bra ruta.</string>
+  <string name="underPromotion">Underförvandling</string>
+  <string name="underPromotionDescription">Förvandling till springare, löpare eller torn.</string>
+  <string name="veryLong">Mycket långa pussel</string>
+  <string name="veryLongDescription">Fyra eller fler drag för att vinna.</string>
+  <string name="xRayAttack">Röntgenattack</string>
+  <string name="xRayAttackDescription">En pjäs attackerar eller försvarar en ruta, genom en motståndarpjäs.</string>
+  <string name="zugzwang">Zugzwang</string>
+  <string name="zugzwangDescription">Motspelaren har begränsat antal möjliga drag, och alla möjliga drag förvärrar motspelarens position.</string>
+  <string name="healthyMix">Blandad kompott</string>
 </resources>
