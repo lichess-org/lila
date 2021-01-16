@@ -419,7 +419,7 @@ case class Game(
             // for the active color. This ensures the end time in
             // clockHistory always matches the final clock time on
             // the board.
-            if (!finished) history.record(turnColor, clk)
+            if (!finished) history.record(turnColor, clk, true)
             else history
           }
       ),
@@ -881,8 +881,13 @@ case class ClockHistory(
   def update(color: Color, f: Vector[Centis] => Vector[Centis]): ClockHistory =
     color.fold(copy(white = f(white)), copy(black = f(black)))
 
-  def record(color: Color, clock: Clock): ClockHistory = 
-    update(color, _ :+ clock.remainingTimeTurn(color))
+  def record(color: Color, clock: Clock, finalRecord: Boolean = false): ClockHistory = {
+    if(finalRecord && clock.isUsingByoyomi(color)){
+      val remTime = clock.remainingTime(color)
+      update(color, _ :+ (clock.byoyomi - remTime))
+    }
+    else update(color, _ :+ clock.remainingTimeTurn(color))
+  }
 
   def validateStart(clock: Clock): ClockHistory = {
     if(clock.startsAtZero && periodEntries(White).isEmpty && periodEntries(Black).isEmpty)
@@ -900,8 +905,8 @@ case class ClockHistory(
 
   def updateWithByoTime(color: Color, byo: Centis): Vector[Centis] = {
     val standardTimes = color.fold(
-      white.take(turnByoyomiStarted(color)),
-      black.take(turnByoyomiStarted(color))
+      white.take(turnByoyomiStarted(color) - 1),
+      black.take(turnByoyomiStarted(color) - 1)
     )
     standardTimes.padTo(color.fold(white.size, black.size), byo)
   }
@@ -909,10 +914,8 @@ case class ClockHistory(
   def turnByoyomiStarted(color: Color): Int =
     periodEntries.first(color) getOrElse Game.maxPlies
 
-  def enteredNewPeriod(color: Color, turn: Int) = {
-    println("enteredNewPeriod: " + turn)
+  def enteredNewPeriod(color: Color, turn: Int) =
     copy(periodEntries = periodEntries.update(color, turn))
-  }
 
   def turnIsPresent(color: Color, turn: Int): Boolean =
     periodEntries.turnIsPresent(color, turn)
