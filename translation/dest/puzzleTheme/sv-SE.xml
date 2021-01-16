@@ -29,7 +29,12 @@
   <string name="deflection">Avledande drag</string>
   <string name="deflectionDescription">Ett drag som avleder en motståndarpjäs från en annan uppgift, såsom att bevaka en viktig ruta. Kallas Ibland också \"överbelastning\".</string>
   <string name="discoveredAttack">Avdragsattack</string>
+  <string name="discoveredAttackDescription">Flytta en pjäs som tidigare blockerade en attack från en annan pjäs med lång räckvidd, såsom en springare ur vägen för ett torn.</string>
+  <string name="doubleCheck">Dubbelschack</string>
+  <string name="doubleCheckDescription">Schack med två pjäser i samma drag, som ett resultat av avdragsattack (avdragsschack) där både den rörliga pjäsen och den avtäckta pjäsen attackerar motståndarens kung.</string>
   <string name="endgame">Slutspel</string>
+  <string name="endgameDescription">En taktik under spelets sista fas.</string>
+  <string name="enPassantDescription">En taktik som involverar \"en passant\"-regeln, där en bonde kan slå en bonde som har passerat den med ett tvåstegsdrag.</string>
   <string name="longDescription">Tre drag för att vinna.</string>
   <string name="mate">Matt</string>
   <string name="mateDescription">Vinn partiet med stil.</string>
