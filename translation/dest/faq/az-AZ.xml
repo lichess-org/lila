@@ -54,6 +54,14 @@ Nadir hallarda buna avtomatik qərar verməsi çətin ola bilər (məcburi gedi�
 Diqqət yetirin ki, rəqibin şahının qarşısını ala biləcək bir fiqur varsa, tək bir at və ya fillə mat etmək mümkündür.</string>
   <string name="fideHandbookX">FIDE qaydaları %s</string>
   <string name="discoveringEnPassant">Nəyə görə rəqib piyadasını keçmiş bir piyada vurula bilər? (keçiddə götürmə)</string>
+  <string name="explainingEnPassant">Bu, \"keçiddə götürmə\" kimi tanınan qanuni bir gedişdir. Vikipediya məqaləsi buna %1$s verir.
+
+%2$s 3.7 (d) bölməsində bu cür təsvir edilmişdir: 
+
+
+\"Başlanğıc xanasından bir gedişə iki xana irəli gedən piyada, rəqib piyadasına bitişik və eyni sırada olarsa, bu piyada, rəqib piyadasını sanki normal piyadayla fiqur vururmuş kimi vura bilər. Bu gediş yalnız piyada iki xana irəli getdikdən dərhal sonra oynanıla bilər və bu \'keçiddə götürmə \' adlanır.
+
+%3$s bölməsində bu gedişlə bağlı məşq edə bilərsiniz.</string>
   <string name="goodIntroduction">yaxşı izah</string>
   <string name="officialRulesPDF">rəsmi qaydaların (PDF)</string>
   <string name="lichessTraining">Lichess məşqi</string>
