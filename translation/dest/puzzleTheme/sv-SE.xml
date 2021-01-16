@@ -88,8 +88,10 @@
   <string name="rookEndgame">Tornslutspel</string>
   <string name="rookEndgameDescription">Ett slutspel med endast torn och bönder.</string>
   <string name="sacrifice">Offer</string>
+  <string name="sacrificeDescription">En taktik som innebär att man ger upp material på kort sikt, för att vinna en fördel efter en tvingande sekvens av drag.</string>
   <string name="short">Kort pussel</string>
   <string name="shortDescription">Två drag för att vinna.</string>
+  <string name="skewer">Dolk</string>
   <string name="superGM" comment="superGM&#10;&#10;Puzzles from games played by the best players in the world.">Super GM-partier</string>
   <string name="superGMDescription">Pussel från partier spelade av de bästa spelarna i världen.</string>
 </resources>
