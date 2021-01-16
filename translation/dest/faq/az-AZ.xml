@@ -65,6 +65,7 @@ Diqqət yetirin ki, rəqibin şahının qarşısını ala biləcək bir fiqur va
   <string name="configure">konfiqurasiya</string>
   <string name="accounts">Hesablar</string>
   <string name="titlesAvailableOnLichess">Lichessdə hansı titullar var?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess bütün FİDE titullarını, o cümlədən lövhə üzərində qazanılmış titulları, həmçinin %1$s-nu. Bu da FIDE titullarının siyahısı:</string>
   <string name="asWellAsManyNMtitles">bir çox milli usta titulları</string>
   <string name="verificationForm">təsdiqləmə formu</string>
   <string name="canIbecomeLM">Lichess Ustası (LM) adını ala bilərəmmi?</string>
