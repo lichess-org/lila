@@ -112,7 +112,7 @@ export class ClockController {
 
     this.emergMs = 1000 * Math.min(60, Math.max(10, cdata.initial * 0.125));
 
-    this.setClock(d, cdata.white, cdata.black);
+    this.setClock(d, cdata.white, cdata.black, cdata.wPeriods, cdata.bPeriods);
   }
 
   timeRatio = (millis: number): number =>
@@ -122,10 +122,12 @@ export class ClockController {
     d: RoundData,
     white: Seconds,
     black: Seconds,
+    wPer: number,
+    bPer: number,
     delay: Centis = 0
   ) => {
     const isClockRunning =
-        game.playable(d) && (game.playedTurns(d) > 1 || d.clock!.running),
+      game.playable(d) && (game.playedTurns(d) > 1 || d.clock!.running),
       delayMs = delay * 10;
 
     this.times = {
@@ -134,6 +136,8 @@ export class ClockController {
       activeColor: isClockRunning ? d.game.player : undefined,
       lastUpdate: performance.now() + delayMs,
     };
+    this.curPeriods["white"] = wPer;
+    this.curPeriods["black"] = bPer;
 
     if (isClockRunning) this.scheduleTick(this.times[d.game.player], delayMs);
   };
