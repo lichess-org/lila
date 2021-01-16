@@ -35,6 +35,12 @@
   <string name="endgame">Slutspel</string>
   <string name="endgameDescription">En taktik under spelets sista fas.</string>
   <string name="enPassantDescription">En taktik som involverar \"en passant\"-regeln, där en bonde kan slå en bonde som har passerat den med ett tvåstegsdrag.</string>
+  <string name="exposedKing">Oskyddad kung</string>
+  <string name="exposedKingDescription">En taktik som involverar en kung med få försvarare runt omkring sig, leder ofta till schack matt.</string>
+  <string name="fork">Gaffel</string>
+  <string name="forkDescription">Ett drag där den rörda pjäsen attackerar två motståndarpjäser samtidigt.</string>
+  <string name="hangingPiece">Ogarderad pjäs</string>
+  <string name="hangingPieceDescription">En taktik som drar fördel av att en motståndares pjäs är oförsvarad eller otillräckligt försvarad och fri att slå.</string>
   <string name="longDescription">Tre drag för att vinna.</string>
   <string name="mate">Matt</string>
   <string name="mateDescription">Vinn partiet med stil.</string>
