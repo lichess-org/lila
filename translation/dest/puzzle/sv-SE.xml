@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Problem</string>
-  <string name="puzzleThemes">Pusselteman</string>
+  <string name="puzzleThemes">Teman för schackproblem</string>
   <string name="recommended">Rekommenderad</string>
   <string name="phases">Faser</string>
   <string name="motifs">Motiv</string>
@@ -43,11 +43,11 @@
   <string name="hardest">Svåraste</string>
   <string name="example">Exempel</string>
   <string name="addAnotherTheme">Lägg till ett annat tema</string>
-  <string name="jumpToNextPuzzleImmediately">Hoppa till nästa pussel omedelbart</string>
-  <string name="puzzleDashboard">Pusselmeny</string>
+  <string name="jumpToNextPuzzleImmediately">Hoppa till nästa schackproblem direkt</string>
+  <string name="puzzleDashboard">Meny för schackproblem</string>
   <string name="improvementAreas">Förbättringsområden</string>
   <string name="strengths">Styrkor</string>
-  <string name="history">Pusselhistorik</string>
+  <string name="history">Historik för schackproblem</string>
   <string name="solved">löst</string>
   <string name="failed">olöst</string>
 </resources>
