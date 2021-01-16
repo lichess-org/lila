@@ -54,4 +54,16 @@
   <string name="quietMove">Jogada subtil</string>
   <string name="rookEndgame">Final de torre</string>
   <string name="sacrifice">Sacrifício</string>
+  <string name="short">Problema curto</string>
+  <string name="shortDescription">Duas jogadas para ganhar.</string>
+  <string name="underPromotion">Subpromoção</string>
+  <string name="underPromotionDescription">Promoção para um cavalo, bispo ou torre.</string>
+  <string name="veryLong">Problema muito longo</string>
+  <string name="veryLongDescription">Quatro jogadas para ganhar.</string>
+  <string name="xRayAttack">Ataque raio-X</string>
+  <string name="xRayAttackDescription">Uma peça ataque ou defende uma casa através de uma peça inimiga.</string>
+  <string name="zugzwang">Zugzwang</string>
+  <string name="zugzwangDescription">O adversário está limitado quanto aos seus movimentos, e todas as jogadas pioram a sua posição.</string>
+  <string name="healthyMix">Mistura saudável</string>
+  <string name="healthyMixDescription">Um pouco de tudo. Não sabes o que esperar, então ficas pronto para qualquer coisa! Exatamente como em jogos de verdade.</string>
 </resources>
