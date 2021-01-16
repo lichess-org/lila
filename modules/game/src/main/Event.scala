@@ -2,7 +2,6 @@ package lila.game
 
 import play.api.libs.json._
 
-import chess.variant.Standard
 import chess.{
   Centis,
   PromotableRole,
@@ -285,7 +284,9 @@ object Event {
         .add("clock" -> game.clock.map { c =>
           Json.obj(
             "wc" -> c.remainingTime(Color.White).centis,
-            "bc" -> c.remainingTime(Color.Black).centis
+            "bc" -> c.remainingTime(Color.Black).centis,
+            "wp" -> c.curPeriod(Color.White),
+            "bp" -> c.curPeriod(Color.Black)
           )
         })
         .add("ratingDiff" -> ratingDiff.map { rds =>
@@ -337,24 +338,26 @@ object Event {
 
   sealed trait ClockEvent extends Event
 
-  case class Clock(white: Centis, black: Centis, byo: Centis, nextLagComp: Option[Centis] = None) extends ClockEvent {
+  case class Clock(white: Centis, black: Centis, wPer: Int = 0, bPer: Int = 0, nextLagComp: Option[Centis] = None) extends ClockEvent {
     def typ = "clock"
     def data =
       Json
         .obj(
           "white" -> white.toSeconds,
           "black" -> black.toSeconds,
-          "byo"   -> byo.toSeconds
+          "wPer"  -> wPer,
+          "bPer"  -> bPer
         )
         .add("lag"  -> nextLagComp.collect { case Centis(c) if c > 1 => c })
   }
   object Clock {
     def apply(clock: ChessClock): Clock =
       Clock(
-        clock remainingTime Color.White,
-        clock remainingTime Color.Black,
-        clock.byoyomi,
-        clock lagCompEstimate clock.color
+        white = clock remainingTime Color.White,
+        black = clock remainingTime Color.Black,
+        wPer = clock curPeriod Color.White,
+        bPer = clock curPeriod Color.Black,
+        nextLagComp = clock lagCompEstimate clock.color
       )
   }
 
