@@ -50,7 +50,9 @@
   <string name="long">Långa pussel</string>
   <string name="longDescription">Tre drag för att vinna.</string>
   <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Mästarpartier</string>
-  <string name="masterDescription">Pussel från spel som spelas av spelare med mästartitel.</string>
+  <string name="masterDescription">Pussel från partier som spelas av spelare med mästartitel.</string>
+  <string name="masterVsMaster" comment="masterVsMaster&#10;&#10;Puzzles from games between two titled players.">Mästare mot Mästare-partier</string>
+  <string name="masterVsMasterDescription">Pussel från partier som spelas av två spelare med mästartitel.</string>
   <string name="mate">Matt</string>
   <string name="mateDescription">Vinn partiet med stil.</string>
   <string name="mateIn1">Matt i 1 drag</string>
@@ -63,8 +65,16 @@
   <string name="mateIn4Description">Gör schackmatt i fyra drag.</string>
   <string name="mateIn5">Matt i 5 eller fler drag</string>
   <string name="mateIn5Description">Räkna ut en lång schackmattsekvens.</string>
+  <string name="middlegame">Mittspel</string>
+  <string name="middlegameDescription">En taktik under spelets andra fas.</string>
+  <string name="oneMove">Ett drags-pussel</string>
+  <string name="oneMoveDescription">Ett pussel som bara är ett drag långt.</string>
+  <string name="opening">Öppning</string>
+  <string name="openingDescription">En taktik under spelets första fas.</string>
   <string name="pawnEndgame">Bondeslutspel</string>
   <string name="pawnEndgameDescription">Ett slutspel med endast bönder.</string>
+  <string name="pin">Fastlåsning</string>
+  <string name="pinDescription">En taktik som involverar fastlåsning, där en attackerad pjäs inte kan flyttas utan att exponera en mer värdefull pjäs.</string>
   <string name="promotion">Promovering</string>
   <string name="queenRookEndgame">Dam och torn</string>
   <string name="queenRookEndgameDescription">Ett slutspel med endast damer, torn och bönder.</string>
