@@ -108,4 +108,5 @@
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Motspelaren har begränsat antal möjliga drag, och alla möjliga drag förvärrar motspelarens position.</string>
   <string name="healthyMix">Blandad kompott</string>
+  <string name="healthyMixDescription">Lite av varje. Du vet inte vad som kommer, så du behöver vara redo för allt! Precis som i riktiga partier.</string>
 </resources>
