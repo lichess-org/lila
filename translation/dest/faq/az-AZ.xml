@@ -103,7 +103,7 @@ LM titulunu bizdən istəməyin.</string>
   <string name="goldenZeeExplanation">ZugAddict canlı yayım açmışdı və son 2 saat ərzində A.I. 8-ci səviyyə kompüter mühərrikinə 1+0 oyununda qalib gəlməyə çalışırdı. Thibault, canlı yayımda buna nail olarsa, ona unikal bir kubok verəcəyini söylədi. Bir saat sonra, ZugAddict Stockfishi darmadağın etdi və Thibault vədini yerinə yetirdi.</string>
   <string name="lichessRatings">Lichess reytinqi</string>
   <string name="whichRatingSystemUsedByLichess">Lichess hansı reytinq sistemindən istifadə edir?</string>
-  <string name="ratingSystemUsedByLichess">Reytinqlər Mark Glickman tərəfindən hazırlanmış Glicko-2 qiymətləndirmə metodu ilə hesablanır. Bu, çox populyar bir reytinq metodudur və xeyli sayda şahmat təşkilatı tərəfindən istifadə olunur (FIDE hələ də tarixli Elo reytinq sistemini istifadə etdiyi üçün diqqətəlayiq bir əks nümunədir).
+  <string name="ratingSystemUsedByLichess">Reytinqlər Mark Glickman tərəfindən hazırlanmış Glicko-2 qiymətləndirmə metodu ilə hesablanır. Bu, çox populyar bir reytinq metodudur və xeyli sayda şahmat təşkilatı tərəfindən istifadə olunur (FIDE hələ də köhnə Elo reytinq sistemini istifadə etdiyi üçün diqqətəlayiq bir əks nümunədir).
 
 Əsasən, Glicko reytinqləri reytinqinizi hesablayarkən \"güvən intervalı\"ndan istifadə edir. Saytı ilk dəfə istifadə etməyə başladığınızda, reytinqiniz 1500 ± 700-dən başlayır. 1500, reytinqinizi, 700 isə güvən aralığını təmsil edir.
 
@@ -132,9 +132,9 @@ Reytinqləri \"nisbi\" rəqəmlər (\"mütləq\" rəqəmlərdən fərqli olaraq)
   <string name="enableZenMode">%1$s ilə və ya oyun zamanı %2$s düyməsinə basaraq Zen rejimini aktivləşdir.</string>
   <string name="displayPreferences">görüntü tərcihləri</string>
   <string name="connexionLostCanIGetMyRatingBack">Gecikmə/əlaqənin kəsilməsi səbəbindən bir oyun uduzdum. Reytinq xallarımı geri ala bilərəmmi?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Təəssüf ki, gecikmə və ya əlaqənin kəsilməsi səbəbi ilə itirilən oyunlar üçün reytinq xallarını geri qaytara bilmərik, problemin sizdən və ya bizdən qaynaqlı olmasından asılı olmayaraq. İkincisi çox nadirdir. Həm də unutmayın ki, Lichess yenidən başldıldığı zaman vaxtla uduzduğunuzda, haqsız bir itkinin qarşısını almaq üçün bu oyunu ləğv edirik.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Təəssüf ki, gecikmə və ya əlaqənin kəsilməsi səbəbi ilə itirilən oyunlar üçün reytinq xallarını geri qaytara bilmərik, problemin sizdən və ya bizdən qaynaqlı olmasından asılı olmayaraq. İkincisi çox nadirdir. Həm də unutmayın ki, Lichess yenidən başladıldığı zaman vaxtla uduzduğunuzda, haqsız bir itkinin qarşısını almaq üçün bu oyunu ləğv edirik.</string>
   <string name="howToThreeDots">Necə...</string>
-  <string name="enableDisableNotificationPopUps">Bildiriş popupları aktiv və ya deaktiv edilsin?</string>
+  <string name="enableDisableNotificationPopUps">Bildiriş pəncərələri aktiv və ya deaktiv edilsin?</string>
   <string name="viewSiteInformationPopUp">Sayt haqqında məlumat pəncərəsinə baxın</string>
   <string name="lichessCanOptionnalySendPopUps">Lichess istəyə bağlı olaraq popup bildirişlər göndərə bilər, məsələn növbə sizin olduğunuzda və ya xüsusi bir mesaj aldığınız zaman.
 
