@@ -74,14 +74,14 @@
   <string name="open">Aç</string>
   <string name="xBroughtToYouByY">%2$s sizə %1$s tərəfindən gətirildi</string>
   <string name="studyNotFound">Çalışma tapılmadı</string>
-  <string name="editChapter">Fəsilə düzəliş et</string>
+  <string name="editChapter">Fəslə düzəliş et</string>
   <string name="newChapter">Yeni fəsil</string>
   <string name="orientation">İstiqamət</string>
   <string name="analysisMode">Təhlil rejimi</string>
   <string name="pinnedChapterComment">Sancaqlanmış fəsil rəyləri</string>
-  <string name="saveChapter">Fəsili yadda saxla</string>
+  <string name="saveChapter">Fəsli yadda saxla</string>
   <string name="clearAnnotations">İzahları təmizlə</string>
-  <string name="deleteChapter">Fəsili sil</string>
+  <string name="deleteChapter">Fəsli sil</string>
   <string name="deleteThisChapter">Bu fəsil silinsin? Bunun geri dönüşü yoxdur!</string>
   <string name="clearAllCommentsInThisChapter">Bu fəsildəki bütün rəylər, simvollar və çəkilmiş formalar təmizlənsin?</string>
   <string name="rightUnderTheBoard">Lövhənin altında</string>
