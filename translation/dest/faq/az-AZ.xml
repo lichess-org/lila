@@ -47,7 +47,7 @@ Bu dəyər oyun keyfiyyətinin göstəricisi kimi istifadə edilə bilər. Bir g
 
 Lichess kompüter analizi Stockfish tərəfindən dəstəklənir.</string>
   <string name="insufficientMaterial">Vaxt azlığı, heç-heçə və yetərsiz fiqur</string>
-  <string name="lichessFollowFIDErules">Bir oyunçunun vaxtı tükənməsi halında, həmin oyunçu əksər hallarda oyunu uduzacaqdır. Lakin, rəqib bu oyunçunuı hər hansı bir qanuni gediş ardıcıllığı ilə (%1$s) mat edə bilməyəcəyi vəziyyətdə oyun heç-heçə olur.
+  <string name="lichessFollowFIDErules">Bir oyunçunun vaxtı tükənməsi halında, həmin oyunçu əksər hallarda oyunu uduzacaqdır. Lakin, rəqib bu oyunçunu hər hansı bir qanuni gediş ardıcıllığı ilə (%1$s) mat edə bilməyəcəyi vəziyyətdə oyun heç-heçə olur.
 
 Nadir hallarda buna avtomatik qərar verməsi çətin ola bilər (məcburi gedişlər, qalalar). Varsayılan olaraq həmişə vaxtı tükənməyən oyunçunun tərəfindəyik.
 
@@ -68,7 +68,7 @@ Diqqət yetirin ki, rəqibin şahının qarşısını ala biləcək bir fiqur va
   <string name="threefoldRepetition">Üçqat təkrar</string>
   <string name="threefoldRepetitionExplanation">Əgər bir mövqe üç dəfə təkrarlanarsa, oyunçu %1$s vasitəsilə heç-heçə tələb edə bilər. Lichess %2$s 9.2 (d) bəndində açıqlandığı kimi FIDE qaydalarına tam əməl edir.</string>
   <string name="threefoldRepetitionLowerCase">üçqat təkrar</string>
-  <string name="notRepeatedMoves">Gedişləri təkrarlamadıq. Nə üçün oyun gediş təkrarına görə heç-heçə bitti?</string>
+  <string name="notRepeatedMoves">Gedişləri təkrarlamadıq. Nə üçün oyun gediş təkrarına görə heç-heçə bitdi?</string>
   <string name="repeatedPositionsThatMatters">Üçqat təkrarlanma %1$s ilə əlaqəlidir, gedişlərlə yox. Təkrarlanma ardıcıl baş vermək məcburiyyətində deyil.</string>
   <string name="positions">vəziyyətlər</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Bir mövqeyi üç dəfə təkrarladıq. Oyun niyə heç-heçə olmadı?</string>
