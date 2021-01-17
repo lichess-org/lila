@@ -8,13 +8,16 @@
   <string name="equality">Egaligi</string>
   <string name="kingsideAttack">Atako al la reĝa flanko</string>
   <string name="defensiveMove">Defenda movo</string>
+  <string name="discoveredAttack">Malkovrita atako</string>
   <string name="doubleCheck">Duobla ŝako</string>
   <string name="endgame">Finludo</string>
+  <string name="exposedKing">Neprotektita reĝo</string>
   <string name="fork">Forko</string>
   <string name="interference">Interfero</string>
   <string name="knightEndgame">Ĉevala finludo</string>
   <string name="long">Longa puzlo</string>
   <string name="longDescription">Tri movoj por venki.</string>
+  <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Majstraj ludoj</string>
   <string name="mate">Mato</string>
   <string name="mateIn1">Mato en 1</string>
   <string name="mateIn2">Mato en 2</string>
