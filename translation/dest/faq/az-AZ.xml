@@ -39,7 +39,7 @@ Məsələn, 5+3 blitz oyununun təxmini vaxtı 5 × 60 + 40 × 3 = 420 saniyəy�
   <string name="lichessSupportChessAnd">Lichess standart şahmatı və daha %1$s dəstəkləyir.</string>
   <string name="eightVariants">8 şahmat variantını</string>
   <string name="whatIsACPL">Ortalama santipiyada itkisi nədir(OSPİ)?</string>
-  <string name="acplExplanation">Santipiyada şahmatda üstünlüyü təmsil edən ölçü vahididir. Bir santipiyada piyadanın 1/100 hissəsinə bərabərdir. Bu səbəbdən 100 santipiyada = 1 piyada. Bu dəyərlər oyunda heç bir rəsmi rol oynamır, ancaq oyunçular üçün faydalıdır və mövqeləri qiymətləndirmək üçün kompüter şahmatında vacibdir.
+  <string name="acplExplanation">Santipiyada şahmatda üstünlüyü təmsil edən ölçü vahididir. Bir santipiyada piyadanın 1/100 hissəsinə bərabərdir. Bu səbəbdən 100 santipiyada = 1 piyada. Bu dəyərlər oyunda heç bir rəsmi rol oynamır, ancaq oyunçular üçün faydalıdır və pozisiyaları qiymətləndirmək üçün kompüter şahmatında vacibdir.
 
 Ən yaxşı kompüter mühərrikləri sıfır santipiyada itirəcək, amma daha az gediş santipiyadayla ölçülən vəziyyətin pisləşməsinə səbəb olacaq.
 
@@ -66,12 +66,12 @@ Diqqət yetirin ki, rəqibin şahının qarşısını ala biləcək bir fiqur va
   <string name="officialRulesPDF">rəsmi qaydaların (PDF)</string>
   <string name="lichessTraining">Lichess məşqi</string>
   <string name="threefoldRepetition">Üçqat təkrar</string>
-  <string name="threefoldRepetitionExplanation">Əgər bir mövqe üç dəfə təkrarlanarsa, oyunçu %1$s vasitəsilə heç-heçə tələb edə bilər. Lichess %2$s 9.2 (d) bəndində açıqlandığı kimi FIDE qaydalarına tam əməl edir.</string>
+  <string name="threefoldRepetitionExplanation">Əgər bir pozisiya üç dəfə təkrarlanarsa, oyunçu %1$s vasitəsilə heç-heçə tələb edə bilər. Lichess %2$s 9.2 (d) bəndində açıqlandığı kimi FIDE qaydalarına tam əməl edir.</string>
   <string name="threefoldRepetitionLowerCase">üçqat təkrar</string>
   <string name="notRepeatedMoves">Gedişləri təkrarlamadıq. Nə üçün oyun gediş təkrarına görə heç-heçə bitdi?</string>
   <string name="repeatedPositionsThatMatters">Üçqat təkrarlanma %1$s ilə əlaqəlidir, gedişlərlə yox. Təkrarlanma ardıcıl baş vermək məcburiyyətində deyil.</string>
-  <string name="positions">vəziyyətlər</string>
-  <string name="weRepeatedthreeTimesPosButNoDraw">Bir mövqeyi üç dəfə təkrarladıq. Oyun niyə heç-heçə olmadı?</string>
+  <string name="positions">pozisiyalar</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Bir pozisiyanı üç dəfə təkrarladıq. Oyun niyə heç-heçə olmadı?</string>
   <string name="threeFoldHasToBeClaimed">Təkrarın oyunçulardan biri tərəfindən tələb edilməsi lazımdır. Bunu göstərilən düyməni basmaqla və ya son təkrar gedişinizdən əvvəl heç-heçə təklif etməklə edə bilərsiniz, rəqibinizin bu təklifini rədd etməsinin heç bir əhəmiyyəti olmayacaq, üçqat təkrar onsuz da tələb ediləcək. Avtomatik olaraq sizin adınıza təkrarlama tələb etmək üçün Lichessi %1$s edə bilərsiniz. Əlavə olaraq, beşqat təkrarlama həmişə oyunu dərhal bitirir.</string>
   <string name="configure">konfiqurasiya</string>
   <string name="accounts">Hesablar</string>
