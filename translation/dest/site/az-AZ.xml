@@ -340,7 +340,7 @@
   <string name="leaderboard">Liderlik cədvəli</string>
   <string name="pasteTheFenStringHere">FEN mətnini bura yapıştırın</string>
   <string name="pasteThePgnStringHere">PGN mətnini bura yapışdırın</string>
-  <string name="fromPosition">Özəl mövqedən</string>
+  <string name="fromPosition">Pozisiyadan</string>
   <string name="continueFromHere">Buradan davam edin</string>
   <string name="toStudy">Çalışma</string>
   <string name="importGame">Oyun daxil edin</string>
@@ -432,10 +432,10 @@
   <string name="boardEditor">Lövhə redaktoru</string>
   <string name="setTheBoard">Lövhəni tənzimlə</string>
   <string name="popularOpenings">Məşhur debütlər</string>
-  <string name="startPosition">Başlanğıc vəziyyəti</string>
+  <string name="startPosition">Başlanğıc pozisiyası</string>
   <string name="clearBoard">Lövhəni təmizlə</string>
-  <string name="savePosition">Mövqeni yadda saxla</string>
-  <string name="loadPosition">Mövqeni yüklə</string>
+  <string name="savePosition">Pozisiyanı yadda saxla</string>
+  <string name="loadPosition">Pozisiyanı yüklə</string>
   <string name="isPrivate">Özəl</string>
   <string name="reportXToModerators">%s haqqında moderatorlara şikayət bildir.</string>
   <string name="profileCompletion">Profil tamamlama: %s</string>
