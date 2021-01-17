@@ -38,4 +38,6 @@
   <string name="example">Ekzamplo</string>
   <string name="addAnotherTheme">Aldonu novan temon</string>
   <string name="jumpToNextPuzzleImmediately">Tuj iri al la venonta puzlo</string>
+  <string name="puzzleDashboard">Puzla panelo</string>
+  <string name="history">Puzla historio</string>
 </resources>
