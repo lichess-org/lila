@@ -23,7 +23,7 @@
   <string name="winningStreak">Qalibiyyət seriyası</string>
   <string name="losingStreak">Məğlubiyyət seriyası</string>
   <string name="longestStreak">Ən uzun seriya: %s</string>
-  <string name="currentStreak">Hazırki seriya: %s</string>
+  <string name="currentStreak">Hazırkı seriya: %s</string>
   <string name="bestRated">Ən yüksək reytinqli qələbələr</string>
   <string name="worstRated">Ən pis xallı məğlubiyyətlər</string>
   <string name="gamesInARow">Ardıcıl oynanılan oyunlar</string>
