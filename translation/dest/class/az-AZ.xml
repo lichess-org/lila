@@ -39,7 +39,7 @@
 Şifrə: %3$s</string>
   <string name="inviteALichessAccount">Bir Lichess hesabı dəvət edin</string>
   <string name="inviteDesc1">Tələbənin Lichess hesabı varsa, onu dərsə dəvət edə bilərsiniz.</string>
-  <string name="inviteDesc2">Lichess-də sinifə qoşulmaq üçün içində bir link olan əlaqə mesajı alacaqlar.</string>
+  <string name="inviteDesc2">Lichessdə sinifə qoşulmaq üçün içində bir link olan əlaqə mesajı alacaqlar.</string>
   <string name="inviteDesc3">Önəmli: yalnız tanıdığınız və sinifə fəal bir şəkildə qoşulmaq istəyən tələbələri dəvət edin.</string>
   <string name="inviteDesc4">Heç vaxt kimə gəldi istənilməyən dəvətlər göndərməyin.</string>
   <string name="createANewLichessAccount">Yeni bir Lichess hesabı yaradın</string>
