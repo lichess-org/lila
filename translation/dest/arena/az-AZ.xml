@@ -3,13 +3,13 @@
   <string name="arenaTournaments">Arena turnirləri</string>
   <string name="isItRated">Reytinq hesablanırmı?</string>
   <string name="willBeNotified">Turnir başlayanda sizə xəbər veriləcəkdir, buna görə gözləyərkən başqa bir pəncərədə oynamaq təhlükəsizdir.</string>
-  <string name="isRated">Bu turnir reytinqlidir və reytinqinizə tesir edəcək.</string>
-  <string name="isNotRated">Bu turnir reytinqli deyil ve reytinqinizə təsir etməyəcək.</string>
-  <string name="someRated">Bəzi turnirlər reytinqlidir ve reytinqinizə təsir edəcək.</string>
+  <string name="isRated">Bu turnir reytinqlidir və reytinqinizə təsir edəcək.</string>
+  <string name="isNotRated">Bu turnir reytinqli deyil və reytinqinizə təsir etməyəcək.</string>
+  <string name="someRated">Bəzi turnirlər reytinqlidir və reytinqinizə təsir edəcək.</string>
   <string name="howAreScoresCalculated">Xallar necə hesablanır?</string>
   <string name="howAreScoresCalculatedAnswer">Qazanılan bir oyun təməldə 2 xal, bərabərlik 1 xal dəyərindədir. Uduzulan bir oyun isə heçbir xal qazandırmır. Üst- üstə iki oyun qazandığınız təqdirdə alov ikonu ile təmsil olunan ikiqat xal seriyasına girirsiniz.
 
-Məğlub olana vəya bərabərə qalana qədər oynanılan oyunlardan iki qatı xal qazanırsınız. Yəni seriyada ikən bir qalibiyyət 4 xal, bərabərlik 2 xal qazandırarkən uduzulan oyundan heçbir xal qazanılmaz.
+Məğlub olana vəya bərabərə qalana qədər oynanılan oyunlardan iki qatı xal qazanırsınız. Yəni seriyada ikən bir qalibiyyət 4 xal, bərabərlik 2 xal qazandırarkən uduzulan oyundan heç bir xal qazanılmaz.
 
 Məsələn; üst-üstə qazanılan iki oyun və ardından alınan bir bərabərlik 6 xal dəyərindədir: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Çılğın Modu</string>
