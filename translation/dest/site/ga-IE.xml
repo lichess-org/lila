@@ -9,6 +9,7 @@
   <string name="yourTurn">Do shealsa</string>
   <string name="aiNameLevelAiLevel">%1$s leibhéal %2$s</string>
   <string name="level">Leibhéal</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Caighdeán imeartha</string>
   <string name="toggleTheChat">Scoránú comhrá</string>
   <string name="toggleSound">Scoránú fuaime</string>
   <string name="chat">Comhrá</string>
@@ -210,6 +211,7 @@
   <string name="subject">Ábhar</string>
   <string name="recipient">Faighteoir</string>
   <string name="send">Seol</string>
+  <string name="incrementInSeconds">Méadú i soicindí</string>
   <string name="freeOnlineChess">Ficheall Shaor in Aisce Ar Líne</string>
   <string name="spectators">Lucht féachana:</string>
   <plurals name="nbRated">
