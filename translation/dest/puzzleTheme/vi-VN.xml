@@ -50,7 +50,10 @@
   <string name="long">Câu đố dài</string>
   <string name="longDescription">Thắng trong ba nước cờ.</string>
   <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Ván đấu cao cấp</string>
+  <string name="masterDescription">Câu đố từ các trò chơi do người chơi có tiêu đề (GM, IM, NM, FM) chơi.</string>
+  <string name="masterVsMaster" comment="masterVsMaster&#10;&#10;Puzzles from games between two titled players.">Ván đấu giữa 2 kiện tướng</string>
   <string name="mate">Chiếu hết</string>
+  <string name="mateDescription">Chiến thắng trò chơi với phong cách.</string>
   <string name="mateIn1">Chiếu hết trong 1 nước</string>
   <string name="mateIn1Description">Chiếu hết trong một nước cờ.</string>
   <string name="mateIn2">Chiếu hết trong 2 nước</string>
@@ -79,10 +82,12 @@
   <string name="queenRookEndgameDescription">Một thế cờ tàn chỉ có hậu, xe và tốt.</string>
   <string name="queensideAttack">Tấn công cánh hậu</string>
   <string name="queensideAttackDescription">Tấn công vua đối phương sau khi họ nhập thành cánh hậu.</string>
+  <string name="quietMove">Nước đi tĩnh lặng</string>
   <string name="quietMoveDescription">Một nước cờ không chiếu hay ăn quân của đối phương, nhưng lại tạo ra một sự đe dọa không tránh khỏi cho một nước đi sau.</string>
   <string name="rookEndgame">Tàn cuộc với Xe</string>
   <string name="rookEndgameDescription">Một thế cờ tàn chỉ có xe và tốt.</string>
   <string name="sacrifice">Hy sinh</string>
+  <string name="sacrificeDescription">Một chiến thuật liên quan đến việc từ bỏ vật liệu trong thời gian ngắn, để giành lại lợi thế sau một chuỗi di chuyển bắt buộc.</string>
   <string name="short">Câu đố ngắn</string>
   <string name="shortDescription">Thắng trong hai nước cờ.</string>
   <string name="skewer">Đòn xiên</string>
