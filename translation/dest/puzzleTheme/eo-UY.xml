@@ -19,6 +19,9 @@
   <string name="mateIn1">Mato en 1</string>
   <string name="mateIn2">Mato en 2</string>
   <string name="mateIn3">Mato en 3</string>
+  <string name="mateIn4">Mato en 4</string>
+  <string name="mateIn5">Mato en 5 aŭ pli</string>
+  <string name="middlegame">Mezludo</string>
   <string name="pawnEndgame">Peona finludo</string>
   <string name="promotion">Damigo</string>
   <string name="queenEndgame">Dama finludo</string>
