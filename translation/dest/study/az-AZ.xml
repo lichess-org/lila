@@ -41,14 +41,14 @@
   <string name="pgnTags">PGN etiketləri</string>
   <string name="like">Bəyən</string>
   <string name="newTag">Yeni etiket</string>
-  <string name="commentThisPosition">Bu mövqeyə rəy bildirin</string>
+  <string name="commentThisPosition">Bu pozisiyaya rəy bildirin</string>
   <string name="commentThisMove">Bu gedişə rəy bildirin</string>
   <string name="annotateWithGlyphs">Simvol ilə izah et</string>
   <string name="theChapterIsTooShortToBeAnalysed">Fəsil təhlil edilməsi üçün çox qısadır.</string>
   <string name="onlyContributorsCanRequestAnalysis">Yalnız çalışma iştirakçıları kompüter təhlili tələb edə bilər.</string>
   <string name="getAFullComputerAnalysis">Ana variant üçün serverdən hərtərəfli kompüter təhlilini alın.</string>
   <string name="makeSureTheChapterIsComplete">Fəslin tamamlandığına əmin olun. Yalnız bir dəfə təhlil tələbi edə bilərsiniz.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">EYNİLƏŞDİRİLMİŞ bütün üzvlər eyni mövqedə qalır</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">EYNİLƏŞDİRİLMİŞ bütün üzvlər eyni pozisiyada qalır</string>
   <string name="shareChanges">Dəyişiklikləri tamaşaçılarla paylaşın və onları serverdə saxlayın</string>
   <string name="playing">Oynanılan</string>
   <string name="first">İlk</string>
@@ -66,7 +66,7 @@
   <string name="currentChapterUrl">Cari fəsil URL-ii</string>
   <string name="currentGameUrl">Hazırkı oyun URL-i</string>
   <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Pərçimləmək üçün bunu forumda paylaşa bilərsiniz</string>
-  <string name="startAtInitialPosition">Başlanğıc mövqedə başlasın</string>
+  <string name="startAtInitialPosition">Başlanğıc pozisiyada başlasın</string>
   <string name="startAtX">buradan başla: %s</string>
   <string name="embedInYourWebsite">Veb sayt və ya bloqunuzda pərçimləyin</string>
   <string name="readMoreAboutEmbedding">Pərçimləmə haqqında daha ətraflı</string>
@@ -91,11 +91,11 @@
   <string name="interactiveLesson">İnteraktiv dərs</string>
   <string name="chapterX">%s. Fəsil</string>
   <string name="empty">Boş</string>
-  <string name="startFromInitialPosition">Başlanğıc mövqedən başlasın</string>
+  <string name="startFromInitialPosition">Başlanğıc pozisiyadan başlasın</string>
   <string name="editor">Redaktor</string>
-  <string name="startFromCustomPosition">Özəl mövqedən başlasın</string>
+  <string name="startFromCustomPosition">Özəl pozisiyadan başlasın</string>
   <string name="loadAGameByUrl">URL ilə oyun yüklə</string>
-  <string name="loadAPositionFromFen">FEN ilə mövqe yüklə</string>
+  <string name="loadAPositionFromFen">FEN ilə pozisiya yüklə</string>
   <string name="loadAGameFromPgn">PGN ilə oyun yüklə</string>
   <string name="automatic">Avtomatik</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
@@ -119,7 +119,7 @@
   <string name="members">Üzvlər</string>
   <string name="everyone">Hamı</string>
   <string name="enableSync">Eyniləşdirməni aktivləşdir</string>
-  <string name="yesKeepEveryoneOnTheSamePosition">Bəli: hər kəsi eyni mövqedə saxla</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Bəli: hər kəsi eyni pozisiyada saxla</string>
   <string name="noLetPeopleBrowseFreely">Xeyr: sərbəst gəzməyə icazə ver</string>
   <string name="pinnedStudyComment">Sancaqlanmış çalışma rəyləri</string>
   <string name="start">Başlat</string>
