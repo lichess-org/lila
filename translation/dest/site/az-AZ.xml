@@ -93,7 +93,7 @@
     <item quantity="other">Növbəti vurma və ya piyada gedişi %s yarımgediş sonra (50 gediş qaydasının sıfırlanmasına qalan məsafə)</item>
   </plurals>
   <string name="noGameFound">Oyun tapılmadı</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bəlkə seçimlər menyusunda daha çox oyun daxil edilməsini seçəsiniz?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bəlkə tərcihlər menyusunda daha çox oyunun daxil edilməsini seçəsiniz?</string>
   <string name="openingExplorer">Debüt tədqiqatçısı</string>
   <string name="xOpeningExplorer">%s debüt bazası</string>
   <string name="winPreventedBy50MoveRule">Qələbə 50 gediş qaydasına görə hesaba alınmadı</string>
