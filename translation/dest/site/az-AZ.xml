@@ -22,8 +22,8 @@
   <string name="createAGame">Bir oyun yarat</string>
   <string name="whiteIsVictorious">Ağlar qalib gəldi</string>
   <string name="blackIsVictorious">Qaralar qalib gəldi</string>
-  <string name="youPlayTheWhitePieces">Ağlarla oynuyursunuz</string>
-  <string name="youPlayTheBlackPieces">Qaralarla oynuyursunuz</string>
+  <string name="youPlayTheWhitePieces">Ağlarla oynayırsınız</string>
+  <string name="youPlayTheBlackPieces">Qaralarla oynayırsınız</string>
   <string name="itsYourTurn">Sizin növbənizdir!</string>
   <string name="kingInTheCenter">Şah mərkəzdə</string>
   <string name="threeChecks">Üç şah</string>
@@ -57,7 +57,7 @@
   <string name="analysis">Təhlil lövhəsi</string>
   <string name="depthX">Dərinlik %s</string>
   <string name="usingServerAnalysis">Server analizi edilir</string>
-  <string name="loadingEngine">Mühəriik yüklənir ...</string>
+  <string name="loadingEngine">Mühərrik yüklənir ...</string>
   <string name="cloudAnalysis">Bulud təhlili</string>
   <string name="goDeeper">Daha dərinə get</string>
   <string name="showThreat">Təhdidi göstər</string>
@@ -121,9 +121,9 @@
   <string name="inaccuracy">Qeyri-dəqiqlik</string>
   <string name="inaccuracies">Qeyri-dəqiqliklər</string>
   <string name="moveTimes">Gediş müddəti</string>
-  <string name="flipBoard">Lövhəni firlat</string>
+  <string name="flipBoard">Lövhəni fırlat</string>
   <string name="threefoldRepetition">Üçqat təkrar</string>
-  <string name="claimADraw">Heç-heçəyə iddia</string>
+  <string name="claimADraw">Heç-heçə tələb et</string>
   <string name="offerDraw">Heç-heçə təklif et</string>
   <string name="draw">Heç-heçə</string>
   <plurals name="nbPlayers">
