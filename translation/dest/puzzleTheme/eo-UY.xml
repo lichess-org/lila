@@ -28,12 +28,14 @@
   <string name="mateIn5">Mato en 5 aŭ pli</string>
   <string name="middlegame">Mezludo</string>
   <string name="oneMove">Unumova puzlo</string>
+  <string name="opening">Malfermo</string>
   <string name="pawnEndgame">Peona finludo</string>
   <string name="promotion">Damigo</string>
   <string name="queenEndgame">Dama finludo</string>
   <string name="queenRookEndgame">Damo kaj Turo</string>
   <string name="queensideAttack">Atako al la dama flanko</string>
   <string name="rookEndgame">Tura finludo</string>
+  <string name="sacrifice">Ofero</string>
   <string name="short">Mallonga puzlo</string>
   <string name="shortDescription">Du movoj por venki.</string>
   <string name="underPromotionDescription">Damigi al ĉevalo, kuriero aŭ turo.</string>
