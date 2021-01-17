@@ -275,6 +275,8 @@
     <item quantity="many">≥ %1$s cluichí rátáilte %2$s</item>
     <item quantity="other">≥ %1$s cluichí rátáilte %2$s</item>
   </plurals>
+  <string name="yourPerfRatingIsProvisional">Tá rátáil %s sealadach agat</string>
+  <string name="yourPerfRatingIsTooHigh">Tá do rátáil %1$s (%2$s) ró-ard</string>
   <string name="mustBeInTeam">Caithfidh tú a bheith i bhfoireann %s</string>
   <string name="youAreNotInTeam">Níl tú sa bhfoireann %s</string>
   <string name="backToGame">Ar ais don chluiche</string>
