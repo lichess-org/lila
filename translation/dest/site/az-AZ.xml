@@ -225,7 +225,7 @@
   <string name="casual">Reytinqsiz</string>
   <string name="rated">Reytinqli</string>
   <string name="casualTournament">Reytinqsiz</string>
-  <string name="ratedTournament">Reytingli</string>
+  <string name="ratedTournament">Reytinqli</string>
   <string name="thisGameIsRated">Bu, reytinqli oyundur</string>
   <string name="rematch">Revanş</string>
   <string name="rematchOfferSent">Revanş təklifi göndərildi</string>
