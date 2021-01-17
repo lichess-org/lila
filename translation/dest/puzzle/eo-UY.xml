@@ -27,6 +27,10 @@
   <string name="trySomethingElse">Provu ion alian.</string>
   <string name="ratingX">Taksado: %s</string>
   <string name="hidden">kaŝita</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Ludita %s foje</item>
+    <item quantity="other">Ludita %s foje</item>
+  </plurals>
   <string name="fromGameLink">El ludo %s</string>
   <string name="continueTraining">Daŭrigi la trejnadon</string>
   <string name="difficultyLevel">Malfacileca nivelo</string>
@@ -41,4 +45,5 @@
   <string name="puzzleDashboard">Puzla panelo</string>
   <string name="history">Puzla historio</string>
   <string name="solved">solvita</string>
+  <string name="failed">malsukcesis</string>
 </resources>
