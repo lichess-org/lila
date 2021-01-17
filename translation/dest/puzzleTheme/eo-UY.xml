@@ -16,6 +16,9 @@
   <string name="long">Longa puzlo</string>
   <string name="longDescription">Tri movoj por venki.</string>
   <string name="mate">Mato</string>
+  <string name="mateIn1">Mato en 1</string>
+  <string name="mateIn2">Mato en 2</string>
+  <string name="mateIn3">Mato en 3</string>
   <string name="pawnEndgame">Peona finludo</string>
   <string name="promotion">Damigo</string>
   <string name="queenEndgame">Dama finludo</string>
