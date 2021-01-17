@@ -692,7 +692,7 @@
   <string name="bulletBlitzClassical">Bullet, blitz, klassik</string>
   <string name="correspondenceChess">Yazışmalı şahmat</string>
   <string name="onlineAndOfflinePlay">Onlayn və oflayn oyun</string>
-  <string name="viewTheSolution">Həlli bax</string>
+  <string name="viewTheSolution">Həllə bax</string>
   <string name="followAndChallengeFriends">Dostlarını izlə və oyuna çağır</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s dildə mövcuddur!</item>
