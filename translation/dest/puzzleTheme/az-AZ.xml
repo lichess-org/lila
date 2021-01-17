@@ -19,7 +19,7 @@
   <string name="crushing">Əzici üstünlük</string>
   <string name="crushingDescription">Əzici üstünlük əldə etmək üçün rəqibin kobud səhvini müəyyənləşdirin. (600sp və ondan yüksək)</string>
   <string name="equality">Bərabərləşmə</string>
-  <string name="equalityDescription">İtirilmiş bir vəziyyətdən çıxın, heç-heçə və ya balanslı bir mövqe əldə edin. (200sp və daha az)</string>
+  <string name="equalityDescription">İtirilmiş bir pozisiyadan çıxın, heç-heçə və ya balanslı bir mövqe əldə edin. (200sp və daha az)</string>
   <string name="kingsideAttack">Şah cinahında hücum</string>
   <string name="kingsideAttackDescription">Qısa qalaqurma edən rəqib şahına hücum.</string>
   <string name="clearance">Xətt açmaq</string>
