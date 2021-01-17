@@ -23,7 +23,7 @@
   <string name="kingsideAttack">Angriff auf den Königsflügel</string>
   <string name="kingsideAttackDescription">Ein Angriff auf den gegnerischen König, nachdem dieser auf den Königsflügel rochiert hat.</string>
   <string name="clearance">Öffnung</string>
-  <string name="clearanceDescription">Ein Zug, oft mit Tempo, der ein Feld, eine Linie oder Diagonale für eine nachfolgende taktische Idee öffnet.</string>
+  <string name="clearanceDescription">Ein Zug, oft mit Tempo, der ein Feld, eine Linie oder Diagonale für ein nachfolgendes taktisches Motiv öffnet.</string>
   <string name="defensiveMove">Verteidigungszug</string>
   <string name="defensiveMoveDescription">Ein präziser Zug oder eine Zugfolge, die benötigt wird, um kein Material oder einen anderen Vorteil zu verlieren.</string>
   <string name="deflection">Ablenkung</string>
@@ -66,7 +66,7 @@
   <string name="mateIn5">Matt in 5 oder mehr</string>
   <string name="mateIn5Description">Finde eine lange, mattsetzende Zugfolge.</string>
   <string name="middlegame">Mittelspiel</string>
-  <string name="middlegameDescription">Eine Taktik in der mittleren Phase des Spiels, dem Mittelspiel.</string>
+  <string name="middlegameDescription">Eine Taktik in der zweiten Phase des Spiels.</string>
   <string name="oneMove">Einzügige Aufgabe</string>
   <string name="oneMoveDescription">Eine Aufgabe, die nur einen Zug erfordert.</string>
   <string name="opening">Eröffnung</string>
