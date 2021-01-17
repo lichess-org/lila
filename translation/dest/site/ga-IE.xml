@@ -358,6 +358,7 @@
   <string name="standing">Seasamh</string>
   <string name="createANewTournament">Cruthaigh comórtas nua</string>
   <string name="tournamentCalendar">Féilire na gcomórtas</string>
+  <string name="conditionOfEntry">Riachtanais iontrála:</string>
   <string name="advancedSettings">Socruithe níos casta</string>
   <string name="safeTournamentName">Pioc ainm an-sábhailte don chomórtas.</string>
   <string name="inappropriateNameWarning">D\'fhéatfadh go bhfhaighidhfeá aon rud atá neamhoiriúineach in aon chaoi do chuntas dúnta.</string>
