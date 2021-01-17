@@ -93,6 +93,11 @@ $user-list-width: 30ch;
 
   table.slist {
     border: none;
+
+    p {
+      margin: 0;
+      line-height: 2em;
+    }
   }
 
   &__featured td {
