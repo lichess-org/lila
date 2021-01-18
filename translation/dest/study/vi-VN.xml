@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">Riêng tư</string>
+  <string name="myStudies">Khóa học của tôi</string>
+  <string name="studiesIContributeTo">Các nghiên cứu tôi đóng góp</string>
+  <string name="myPublicStudies">Nghiên cứu công khai của tôi</string>
+  <string name="myPrivateStudies">Nghiên cứu cá nhân của tôi</string>
+  <string name="myFavoriteStudies">Nghiên cứu yêu thích của tôi</string>
+  <string name="whatAreStudies">Nghiên cứu là gì?</string>
+  <string name="allStudies">Tất cả các nghiên cứu</string>
+  <string name="studiesCreatedByX">Các nghiên cứu được tạo ra bởi%s</string>
   <string name="noneYet">Chưa có gì cả.</string>
+  <string name="hot">Nóng</string>
+  <string name="dateAddedNewest">Ngày thêm (mới nhất)</string>
+  <string name="dateAddedOldest">Ngày thêm (cũ nhất)</string>
   <string name="recentlyUpdated">Cập nhật gần đây</string>
   <string name="mostPopular">Phổ biến nhất</string>
   <string name="addNewChapter">Thêm một chương mới</string>
