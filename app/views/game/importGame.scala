@@ -21,13 +21,13 @@ object importGame {
         .OpenGraph(
           title = "Paste PGN chess game",
           url = s"$netBaseUrl${routes.Importer.importGame().url}",
-          description = trans.importGameExplanation.txt()
+          description = trans.importGameKifuExplanation.txt()
         )
         .some
     ) {
       main(cls := "importer page-small box box-pad")(
         h1(trans.importGame()),
-        p(cls := "explanation")(trans.importGameExplanation()),
+        p(cls := "explanation")(trans.importGameKifuExplanation()),
         postForm(cls := "form3 import", action := routes.Importer.sendGame())(
           form3.group(form("pgn"), trans.pasteThePgnStringHere())(form3.textarea(_)()),
           form("pgn").value flatMap { pgn =>
