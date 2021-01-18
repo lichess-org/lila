@@ -22,13 +22,14 @@
     "yarn": "^1"
   },
   "dependencies": {
+    "@prettier/plugin-xml": "0.12.0",
     "prettier": "2.2.1",
     "xml2js": "0.4.19"
   },
   "scripts": {
     "format": "yarn prettier --write",
     "lint": "yarn prettier --list-different",
-    "prettier": "prettier \"**/*.{ts,js,json,md,scss,yaml,yml}\""
+    "prettier": "prettier \"**/*.{ts,js,json,md,scss,yaml,yml,xml}\""
   },
   "workspaces": [
     "ui",

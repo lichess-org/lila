@@ -2,5 +2,13 @@
   "proseWrap": "never",
   "quoteProps": "consistent",
   "singleQuote": true,
-  "trailingComma": "all"
+  "trailingComma": "all",
+  "overrides": [
+    {
+      "files": "*.{json,xml}",
+      "options": {
+        "printWidth": 500
+      }
+    }
+  ]
 }
