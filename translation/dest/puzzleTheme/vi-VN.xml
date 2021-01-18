@@ -52,6 +52,7 @@
   <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Ván đấu cao cấp</string>
   <string name="masterDescription">Câu đố từ các trò chơi do người chơi có tiêu đề (GM, IM, NM, FM) chơi.</string>
   <string name="masterVsMaster" comment="masterVsMaster&#10;&#10;Puzzles from games between two titled players.">Ván đấu giữa 2 kiện tướng</string>
+  <string name="masterVsMasterDescription">Câu đố từ các trò chơi giữa người chơi có tiêu đề (GM, IM, NM, FM) chơi.</string>
   <string name="mate">Chiếu hết</string>
   <string name="mateDescription">Chiến thắng trò chơi với phong cách.</string>
   <string name="mateIn1">Chiếu hết trong 1 nước</string>
