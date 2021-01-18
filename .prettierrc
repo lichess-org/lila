@@ -6,7 +6,7 @@
     {
       "files": "*.{json,xml}",
       "options": {
-        "printWidth": 500
+        "printWidth": 10000
       }
     }
   ]
