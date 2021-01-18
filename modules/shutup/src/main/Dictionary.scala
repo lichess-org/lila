@@ -102,6 +102,7 @@ muff
 nazi
 nigg?(er|a|ah)
 nonce
+noob(s|)
 nutsac?k
 pa?edo
 pa?edo(f|ph)ile
