@@ -38,6 +38,7 @@ object topnav {
         div(role := "group")(
           ctx.noBot option frag(
             a(href := routes.Learn.index())(trans.chessBasics()),
+            ctx.noKid option a(href := routes.Page.resources())(trans.shogiResources()),
             a(href := routes.Page.notSupported())(trans.puzzles()), // puzzle
             //a(href := routes.Practice.index())(trans.practice()),
             a(href := routes.Coordinate.home())(trans.coordinates.coordinates())
