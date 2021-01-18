@@ -1,6 +1,7 @@
 package lila.socket
 
 import akka.actor.{ ActorSystem, CoordinatedShutdown }
+import cats.data.NonEmptyList
 import chess.{ Centis, Color }
 import io.lettuce.core._
 import io.lettuce.core.pubsub.StatefulRedisPubSubConnection
@@ -124,14 +125,32 @@ final class RemoteSocket(
 
   private val send: Send = makeSender("site-out").apply _
 
-  def subscribe(channel: Channel, reader: In.Reader)(handler: Handler): Future[Unit] = {
+  def subscribe(channel: Channel, reader: In.Reader)(handler: Handler): Funit =
+    connectAndSubscribe(channel) { message =>
+      reader(RawMsg(message)) collect handler match {
+        case Some(_) => // processed
+        case None    => logger.warn(s"Unhandled $channel $message")
+      }
+    }
+
+  def subscribeRoundRobin(channel: Channel, reader: In.Reader, parallelism: Int)(
+      handler: Handler
+  ): Funit =
+    // subscribe to main channel
+    subscribe(channel, reader)(handler) >> {
+      // and subscribe to subchannels
+      (0 to parallelism)
+        .map { index =>
+          subscribe(s"$channel:$index", reader)(handler)
+        }
+        .sequenceFu
+        .void
+    }
+
+  private def connectAndSubscribe(channel: Channel)(f: String => Unit): Funit = {
     val conn = redisClient.connectPubSub()
     conn.addListener(new pubsub.RedisPubSubAdapter[String, String] {
-      override def message(_channel: String, message: String): Unit =
-        reader(RawMsg(message)) collect handler match {
-          case Some(_) => // processed
-          case None    => logger.warn(s"Unhandled $channel $message")
-        }
+      override def message(_channel: String, message: String): Unit = f(message)
     })
     val subPromise = Promise[Unit]()
     conn.async.subscribe(channel).thenRun { () =>

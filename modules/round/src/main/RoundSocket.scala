@@ -162,7 +162,7 @@ final class RoundSocket(
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("r-out").apply _
 
-  remoteSocketApi.subscribe("r-in", Protocol.In.reader)(
+  remoteSocketApi.subscribeRoundRobin("r-in", Protocol.In.reader, parallelism = 8)(
     roundHandler orElse remoteSocketApi.baseHandler
   ) >>- send(P.Out.boot)
 
