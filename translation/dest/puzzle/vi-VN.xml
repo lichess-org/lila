@@ -40,4 +40,5 @@
   <string name="example">Ví dụ</string>
   <string name="addAnotherTheme">Thêm chủ đề khác</string>
   <string name="jumpToNextPuzzleImmediately">Chuyển tới câu đố tiếp theo ngay lập tức</string>
+  <string name="puzzleDashboard">Bảng điều khiển câu đố</string>
 </resources>
