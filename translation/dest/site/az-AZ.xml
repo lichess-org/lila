@@ -358,7 +358,7 @@
   <string name="retry">Yenidən sına</string>
   <string name="reconnecting">Yenidən qoşulur</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s dost onlayn</item>
+    <item quantity="one">%s onlayn dost</item>
     <item quantity="other">%s dost onlayn</item>
   </plurals>
   <string name="noFriendsOnline">Onlayn dost yoxdur</string>
