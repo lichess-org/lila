@@ -307,7 +307,7 @@ object layout {
             a(href := "/")(
               "lishogi",
               span(if (isProd && !isStage) ".org" else ".dev"),
-              span(style := "vertical-align: super; font-size: 14px;")("beta")
+              span(style := "position: relative; top: -12px; margin-left: 5px; font-size: 14px;")("beta")
             )
           ),
           ctx.blind option h2("Navigation"),

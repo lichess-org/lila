@@ -1,7 +1,7 @@
 package lila.game
 
 import chess.format.{ FEN, Uci }
-import chess.variant.{ Standard, Variant }
+import chess.variant.Variant
 import chess.{
   CheckCount,
   Color,
@@ -113,10 +113,6 @@ object BSONHandlers {
               halfMoveClock = decoded.halfMoveClock,
               positionHashes = decoded.positionHashes,
               checkCount = CheckCount(~decoded.checkCount.headOption, ~decoded.checkCount.lastOption)
-              //checkCount = if (gameVariant.threeCheck) {
-              //  val counts = r.intsD(F.checkCount)
-              //  CheckCount(~counts.headOption, ~counts.lastOption)
-              //} else Game.emptyCheckCount
             ),
             variant = gameVariant,
             crazyData = (gameVariant.standard || gameVariant.fromPosition) option r.get[Data](F.crazyData)
@@ -134,6 +130,11 @@ object BSONHandlers {
       val whiteClockHistory = r bytesO F.whiteClockHistory
       val blackClockHistory = r bytesO F.blackClockHistory
 
+      val perWhite = r bytesD F.periodsWhite
+      val perBlack = r bytesD F.periodsBlack
+
+      val perEnt = BinaryFormat.periodEntries.read(perWhite, perBlack).getOrElse(PeriodEntries.default)
+    
       Game(
         id = light.id,
         whitePlayer = light.whitePlayer,
@@ -145,7 +146,7 @@ object BSONHandlers {
             bb <- blackClockHistory
             history <-
               BinaryFormat.clockHistory
-                .read(clk.limit, bw, bb, (light.status == Status.Outoftime).option(turnColor))
+                .read(clk.limit, bw, bb, perEnt, (light.status == Status.Outoftime).option(turnColor))
             _ = lila.mon.game.loadClockHistory.increment()
           } yield history,
         status = light.status,
@@ -191,6 +192,8 @@ object BSONHandlers {
         F.moveTimes         -> o.binaryMoveTimes,
         F.whiteClockHistory -> clockHistory(White, o.clockHistory, o.chess.clock, o.flagged),
         F.blackClockHistory -> clockHistory(Black, o.clockHistory, o.chess.clock, o.flagged),
+        F.periodsWhite      -> periodEntries(White, o.clockHistory),
+        F.periodsBlack      -> periodEntries(Black, o.clockHistory),
         F.rated             -> w.boolO(o.mode.rated),
         F.variant           -> o.board.variant.exotic.option(w int o.board.variant.id),
         F.bookmarks         -> w.intO(o.bookmarks),
@@ -203,7 +206,7 @@ object BSONHandlers {
         F.simulId           -> o.metadata.simulId,
         F.analysed          -> w.boolO(o.metadata.analysed)
       ) ++ {
-        if (false)
+        if (false) // one day perhaps
           $doc(F.huffmanPgn -> PgnStorage.Huffman.encode(o.pgnMoves take Game.maxPlies))
         else {
           val f = PgnStorage.OldBin
@@ -246,6 +249,11 @@ object BSONHandlers {
       )
     }
   }
+
+  private def periodEntries(color: Color, clockHistory: Option[ClockHistory]) =
+    for {
+      history <- clockHistory
+    } yield BinaryFormat.periodEntries.writeSide(history.periodEntries(color))
 
   private def clockHistory(
       color: Color,

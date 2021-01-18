@@ -40,11 +40,12 @@ object BinaryFormat {
       if (flagged) decoded :+ Centis(0) else decoded
     }
 
-    def read(start: Centis, bw: ByteArray, bb: ByteArray, flagged: Option[Color]) =
+    def read(start: Centis, bw: ByteArray, bb: ByteArray, pe: PeriodEntries, flagged: Option[Color]) =
       Try {
         ClockHistory(
           readSide(start, bw, flagged has White),
-          readSide(start, bb, flagged has Black)
+          readSide(start, bb, flagged has Black),
+          pe
         )
       }.fold(
         e => { logger.warn(s"Exception decoding history", e); none },
@@ -181,6 +182,31 @@ object BinaryFormat {
 
   object clock {
     def apply(start: DateTime) = new clock(Timestamp(start.getMillis))
+  }
+
+  object periodEntries {
+    private val logger = lila.log("periodEntries")
+
+    def writeSide(v: Vector[Int]): ByteArray = {
+      def intToShort(i: Int): Array[Byte] = Array((i >> 8).toByte, i.toByte)
+      (v.flatMap(intToShort _)).toArray
+    }
+    def readSide(ba: ByteArray): Vector[Int] = {
+      def backToInt(b: Array[Byte]): Int =
+        b map toInt match {
+          case Array(b1, b2) => (b1 << 8) + b2
+          case _ => 0
+        }
+        val pairs = ba.value.grouped(2)
+        (pairs map(backToInt _)).toVector
+    }
+    def read(bw: ByteArray, bb: ByteArray) =
+      Try{
+        PeriodEntries(readSide(bw), readSide(bb))
+      }.fold(
+        e => { logger.warn(s"Exception decoding period entries", e); none },
+        some
+      )
   }
 
   object castleLastMove {

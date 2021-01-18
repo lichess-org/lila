@@ -127,11 +127,22 @@ case class Game(
       // then the game ended during a players turn by async event, and
       // the last recorded time is in the history for turnColor.
       val noLastInc = finished && (history.size <= playedTurns) == (color != turnColor)
+      
+      val byoStart = {
+        if(clk.players(color).startsAtZero)
+          0
+        else (history.turnByoyomiStarted(color) - 1)
+      }
 
-      pairs map {
-        case (first, second) => {
+      val outOfTimeByo = (status == Status.Outoftime) && (color == turnColor)
+
+      pairs.zipWithIndex.map {
+        case ((first, second), index) => {
             val d = first - second
-            if (pairs.hasNext || !noLastInc) d + inc else d
+            if(((index+1) >= byoStart) && !pairs.hasNext && outOfTimeByo)
+              clk.byoyomi // If we time out over a period(s) this doesn't work
+            else if((index+1) >= byoStart) second
+            else if (pairs.hasNext || !noLastInc) d + inc else d
           } nonNeg
       } toList
     }
@@ -148,7 +159,13 @@ case class Game(
       b <- moveTimes(!startColor)
     } yield Sequence.interleave(a, b)
 
-  def bothClockStates: Option[Vector[Centis]] = clockHistory.map(_ bothClockStates startColor)
+  def bothClockStates: Option[Vector[Centis]] = {
+    (clock, clockHistory) match {
+      case (Some(c), Some(ch)) => Some(ch.bothClockStates(startColor, c.byoyomi))
+      case (_, Some(ch)) => Some(ch.bothClockStates(startColor, Centis(0)))
+      case _ => None
+    }
+  }
 
   def pgnMoves(color: Color): PgnMoves = {
     val pivot = if (color == startColor) 0 else 1
@@ -175,7 +192,7 @@ case class Game(
     val newClockHistory = for {
       clk <- game.clock
       ch  <- clockHistory
-    } yield ch.record(turnColor, clk)
+    } yield ch.record(turnColor, clk).validateStart(clk)
 
     val updated = copy(
       whitePlayer = copyPlayer(whitePlayer),
@@ -257,8 +274,13 @@ case class Game(
     }
 
   def moveToNextPeriod = {
-    clock map { c =>
-      start.withClock(c.nextPeriod(turnColor))
+    clock map { c => {
+        clockHistory match {
+          case Some(ch) =>
+            start.withClockAndHistory(c.nextPeriod(turnColor), ch.enteredNewPeriod(turnColor, chess.fullMoveNumber))
+          case _ => start.withClock(c.nextPeriod(turnColor))
+        }
+      }
     }
   }
 
@@ -397,7 +419,7 @@ case class Game(
             // for the active color. This ensures the end time in
             // clockHistory always matches the final clock time on
             // the board.
-            if (!finished) history.record(turnColor, clk)
+            if (!finished) history.record(turnColor, clk, true)
             else history
           }
       ),
@@ -486,6 +508,9 @@ case class Game(
   def isClockRunning = clock ?? (_.isRunning)
 
   def withClock(c: Clock) = Progress(this, copy(chess = chess.copy(clock = Some(c))))
+
+  def withClockAndHistory(c: Clock, ch: ClockHistory) =
+    Progress(this, copy(chess = chess.copy(clock = Some(c)), loadClockHistory = _ => Some(ch)))
 
   def correspondenceGiveTime = Progress(this, copy(movedAt = DateTime.now))
 
@@ -770,11 +795,13 @@ object Game {
     val clock             = "c"
     val positionHashes    = "ph"
     val checkCount        = "cc"
-    val historyLastMove    = "cl"
+    val historyLastMove   = "cl"
     val daysPerTurn       = "cd"
     val moveTimes         = "mt"
     val whiteClockHistory = "cw"
     val blackClockHistory = "cb"
+    val periodsWhite      = "pw"
+    val periodsBlack      = "pb"
     val rated             = "ra"
     val analysed          = "an"
     val variant           = "v"
@@ -818,17 +845,56 @@ object CastleLastMove {
   }
 }
 
+// Represents at what turn we entered a new period
+case class PeriodEntries(white: Vector[Int], black: Vector[Int]){
+  def apply(c: Color) =
+    c.fold(white, black)
+
+  def update(c: Color, t: Int) =
+    c.fold(copy(white = white :+ t), copy(black = black :+ t))
+
+  def byoyomi(c: Color): Boolean =
+    c.fold(!white.isEmpty, !black.isEmpty)
+
+  def turnIsPresent(c: Color, t: Int): Boolean = c.fold(white contains t, black contains t)
+  def dropTurn(c: Color, t: Int) = 
+    c.fold(
+      copy(white = white filterNot(_ == t)),
+      copy(black = black filterNot(_ == t))
+    )
+
+  def first(c: Color): Option[Int] = c.fold(white.headOption, black.headOption)
+  def last(c: Color): Option[Int] = c.fold(white.lastOption, black.lastOption)
+}
+
+object PeriodEntries {
+  val default = PeriodEntries(Vector(), Vector())
+  val zeroes = PeriodEntries(Vector(0), Vector(0))
+}
+
 case class ClockHistory(
     white: Vector[Centis] = Vector.empty,
-    black: Vector[Centis] = Vector.empty
+    black: Vector[Centis] = Vector.empty,
+    periodEntries: PeriodEntries = PeriodEntries.default
 ) {
 
   def update(color: Color, f: Vector[Centis] => Vector[Centis]): ClockHistory =
     color.fold(copy(white = f(white)), copy(black = f(black)))
 
-  def record(color: Color, clock: Clock): ClockHistory =
-    update(color, _ :+ clock.remainingTime(color))
+  def record(color: Color, clock: Clock, finalRecord: Boolean = false): ClockHistory = {
+    if(finalRecord && clock.isUsingByoyomi(color)){
+      val remTime = clock.remainingTime(color)
+      update(color, _ :+ (clock.byoyomi - remTime))
+    }
+    else update(color, _ :+ clock.remainingTimeTurn(color))
+  }
 
+  def validateStart(clock: Clock): ClockHistory = {
+    if(clock.startsAtZero && periodEntries(White).isEmpty && periodEntries(Black).isEmpty)
+      copy(periodEntries = PeriodEntries.zeroes)
+    else this
+  }
+  
   def reset(color: Color) = update(color, _ => Vector.empty)
 
   def apply(color: Color): Vector[Centis] = color.fold(white, black)
@@ -837,10 +903,32 @@ case class ClockHistory(
 
   def size = white.size + black.size
 
+  def updateWithByoTime(color: Color, byo: Centis): Vector[Centis] = {
+    val standardTimes = color.fold(
+      white.take(turnByoyomiStarted(color) - 1),
+      black.take(turnByoyomiStarted(color) - 1)
+    )
+    standardTimes.padTo(color.fold(white.size, black.size), byo)
+  }
+
+  def turnByoyomiStarted(color: Color): Int =
+    periodEntries.first(color) getOrElse Game.maxPlies
+
+  def enteredNewPeriod(color: Color, turn: Int) =
+    copy(periodEntries = periodEntries.update(color, turn))
+
+  def turnIsPresent(color: Color, turn: Int): Boolean =
+    periodEntries.turnIsPresent(color, turn)
+
+  def dropTurn(color: Color, turn: Int) = {
+    if(turnIsPresent(color, turn)) copy(periodEntries = periodEntries.dropTurn(color, turn))
+    else this
+  }
+
   // first state is of the color that moved first.
-  def bothClockStates(firstMoveBy: Color): Vector[Centis] =
+  def bothClockStates(firstMoveBy: Color, byo: Centis): Vector[Centis] =
     Sequence.interleave(
-      firstMoveBy.fold(white, black),
-      firstMoveBy.fold(black, white)
+      firstMoveBy.fold(updateWithByoTime(White, byo), updateWithByoTime(Black, byo)),
+      firstMoveBy.fold(updateWithByoTime(Black, byo), updateWithByoTime(White, byo))
     )
 }

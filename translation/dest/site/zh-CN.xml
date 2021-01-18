@@ -412,6 +412,7 @@
 	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">起始局面</string>
 	<string name="clearBoard">清空棋盘</string>
+	<string name="fillGotesHand">Fill Gote\'s hand</string>
 	<string name="savePosition">保存局面</string>
 	<string name="loadPosition">载入局面</string>
 	<string name="isPrivate">私人锦标赛</string>

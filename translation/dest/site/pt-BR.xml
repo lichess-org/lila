@@ -440,6 +440,7 @@
 	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Posição inicial</string>
 	<string name="clearBoard">Limpar tabuleiro</string>
+	<string name="fillGotesHand">Fill Gote\'s hand</string>
 	<string name="savePosition">Guardar posição</string>
 	<string name="loadPosition">Carregar posição</string>
 	<string name="isPrivate">Privado</string>

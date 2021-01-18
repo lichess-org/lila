@@ -441,6 +441,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
 	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Posição inicial</string>
 	<string name="clearBoard">Limpar o tabuleiro</string>
+	<string name="fillGotesHand">Fill Gote\'s hand</string>
 	<string name="savePosition">Guardar a posição</string>
 	<string name="loadPosition">Carregar uma posição</string>
 	<string name="isPrivate">Privado</string>

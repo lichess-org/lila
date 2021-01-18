@@ -496,6 +496,7 @@
 	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Начальная позиция</string>
 	<string name="clearBoard">Очистить доску</string>
+	<string name="fillGotesHand">Fill Gote\'s hand</string>
 	<string name="savePosition">Сохранить позицию</string>
 	<string name="loadPosition">Загрузить позицию</string>
 	<string name="isPrivate">Закрытый</string>

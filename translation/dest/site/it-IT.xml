@@ -441,6 +441,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
 	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Posizione iniziale</string>
 	<string name="clearBoard">Svuota scacchiera</string>
+	<string name="fillGotesHand">Fill Gote\'s hand</string>
 	<string name="savePosition">Salva la posizione</string>
 	<string name="loadPosition">Carica una posizione</string>
 	<string name="isPrivate">Privato</string>

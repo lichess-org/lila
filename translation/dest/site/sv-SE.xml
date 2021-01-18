@@ -440,6 +440,7 @@
 	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Startposition</string>
 	<string name="clearBoard">Rensa brädet</string>
+	<string name="fillGotesHand">Fill Gote\'s hand</string>
 	<string name="savePosition">Spara ställning</string>
 	<string name="loadPosition">Ladda ställning</string>
 	<string name="isPrivate">Privat</string>

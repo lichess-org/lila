@@ -413,6 +413,7 @@
 	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">開始局面</string>
 	<string name="clearBoard">盤面をクリアする</string>
+	<string name="fillGotesHand">Fill Gote\'s hand</string>
 	<string name="savePosition">盤面を保存</string>
 	<string name="loadPosition">局面を読み込む</string>
 	<string name="isPrivate">プライベート</string>
@@ -731,7 +732,7 @@
 	<string name="error.unknown">エラー</string>
 	<string name="custom">自由設定</string>
 	<string name="notifications">通知</string>
-	<string name="challenges">チャレンジ</string>
+	<string name="challenges">挑戦</string>
 	<string name="perfRatingX">レーティング: %s</string>
 	<plurals name="nbSecondsToPlayTheFirstMove">
 		<item quantity="other">あと %s 秒以内に初手を指してください</item>

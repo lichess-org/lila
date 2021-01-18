@@ -476,7 +476,7 @@ export default class RoundController {
       this.shouldSendMoveTime = true;
       const oc = o.clock,
         delay = playing && activeColor ? 0 : oc.lag || 1;
-      if (this.clock) this.clock.setClock(d, oc.white, oc.black, delay);
+      if (this.clock) this.clock.setClock(d, oc.white, oc.black, oc.wPer, oc.bPer, delay);
       else if (this.corresClock) this.corresClock.update(oc.white, oc.black);
     }
     if (this.data.expiration) {
@@ -528,7 +528,7 @@ export default class RoundController {
     this.data = d;
     this.clearJust();
     this.shouldSendMoveTime = false;
-    if (this.clock) this.clock.setClock(d, d.clock!.white, d.clock!.black);
+    if (this.clock) this.clock.setClock(d, d.clock!.white, d.clock!.black, d.clock!.wPeriods, d.clock!.bPeriods);
     if (this.corresClock)
       this.corresClock.update(d.correspondence.white, d.correspondence.black);
     if (!this.replaying()) ground.reload(this);
@@ -565,7 +565,7 @@ export default class RoundController {
     this.setQuietMode();
     this.setLoading(false);
     if (this.clock && o.clock)
-      this.clock.setClock(d, o.clock.wc * 0.01, o.clock.bc * 0.01);
+      this.clock.setClock(d, o.clock.wc * 0.01, o.clock.bc * 0.01, o.clock.wp, o.clock.bp);
     this.redraw();
     this.autoScroll();
     this.onChange();

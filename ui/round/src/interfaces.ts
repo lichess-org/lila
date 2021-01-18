@@ -116,6 +116,8 @@ export interface ApiMove extends Step {
   clock?: {
     white: Seconds;
     black: Seconds;
+    wPer: number;
+    bPer: number;
     lag?: Centis;
   };
   status: Status;
@@ -152,6 +154,8 @@ export interface ApiEnd {
   clock?: {
     wc: Centis;
     bc: Centis;
+    wp: number;
+    bp: number;
   };
 }
 

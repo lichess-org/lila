@@ -440,6 +440,7 @@
 	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Beginstelling</string>
 	<string name="clearBoard">Maak het bord leeg</string>
+	<string name="fillGotesHand">Fill Gote\'s hand</string>
 	<string name="savePosition">Sla de stelling op</string>
 	<string name="loadPosition">Laad een stelling</string>
 	<string name="isPrivate">Privé</string>

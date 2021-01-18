@@ -412,6 +412,7 @@
 	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Thế trận ban đầu</string>
 	<string name="clearBoard">Xóa bàn cờ</string>
+	<string name="fillGotesHand">Fill Gote\'s hand</string>
 	<string name="savePosition">Lưu lại thế trận</string>
 	<string name="loadPosition">Tải thế trận</string>
 	<string name="isPrivate">Riêng tư</string>

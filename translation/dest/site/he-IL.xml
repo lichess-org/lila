@@ -496,6 +496,7 @@
 	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">מצב התחלתי</string>
 	<string name="clearBoard">נקה לוח</string>
+	<string name="fillGotesHand">Fill Gote\'s hand</string>
 	<string name="savePosition">שמור מצב</string>
 	<string name="loadPosition">טען מיקום</string>
 	<string name="isPrivate">פרטי</string>

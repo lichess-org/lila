@@ -1,4 +1,4 @@
-import { drag, selectToDrop } from "./crazyCtrl";
+import { drag, selectToDrop, shadowDrop } from "./crazyCtrl";
 import { h } from "snabbdom";
 import { MouchEvent } from "shogiground/types";
 import { onInsert } from "../util";
@@ -15,6 +15,7 @@ export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
   if (!ctrl.node.crazy) return;
   const pocket = ctrl.node.crazy.pockets[color === "white" ? 0 : 1];
   const dropped = ctrl.justDropped;
+  const shadowPiece = ctrl.shogiground?.state.drawable.piece;
   let captured = ctrl.justCaptured;
 
   if (captured)
@@ -59,6 +60,7 @@ export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
     },
     oKeys.map((role) => {
       let nb = pocket[role] || 0;
+      const sp = (role == shadowPiece?.role && color == shadowPiece?.color);
       const selectedSquare: boolean = (!!ctrl.selected && ctrl.selected[0] === color && ctrl.selected[1] === role && ctrl.shogiground.state.movable.color == color);
       if (activeColor) {
         if (dropped === role) nb--;
@@ -68,6 +70,11 @@ export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
         "div.pocket-c1",
         h(
           "div.pocket-c2",
+          {
+            class: {
+              "shadow-piece": sp,
+            }
+          },
           h("piece." + role + "." + color, {
             class: {
               "selected-square": selectedSquare,

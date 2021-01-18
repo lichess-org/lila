@@ -228,6 +228,17 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               },
               ctrl.trans.noarg("clearBoard")
             ),
+            h(
+              "a.button.button-empty",
+              {
+                on: {
+                  click() {
+                    ctrl.fillGotesHand();
+                  },
+                },
+              },
+              ctrl.trans.noarg("fillGotesHand")
+            ),
           ]),
         ]
       : [
@@ -243,6 +254,18 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 },
               },
               ctrl.trans.noarg("clearBoard")
+            ),
+            h(
+              "a.button.button-empty.text",
+              {
+                attrs: { "data-icon": "N" },
+                on: {
+                  click() {
+                    ctrl.fillGotesHand();
+                  },
+                },
+              },
+              ctrl.trans.noarg("fillGotesHand")
             ),
             h(
               "a.button.button-empty.text",

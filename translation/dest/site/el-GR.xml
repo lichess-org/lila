@@ -441,6 +441,7 @@
 	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Αρχική διάταξη</string>
 	<string name="clearBoard">Εκκαθάριση σκακιέρας</string>
+	<string name="fillGotesHand">Fill Gote\'s hand</string>
 	<string name="savePosition">Αποθηκεύστε τη θέση</string>
 	<string name="loadPosition">Φορτώστε θέση</string>
 	<string name="isPrivate">Ιδιωτικό</string>

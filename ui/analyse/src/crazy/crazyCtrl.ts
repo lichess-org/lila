@@ -8,13 +8,18 @@ import { Api as ShogigroundApi } from "shogiground/api";
 // @ts-ignore
 import { Shogi } from "shogiutil/vendor/Shogi.js";
 
-// @ts-ignore
 export function shadowDrop(ctrl: AnalyseCtrl, color: Color, e: cg.MouchEvent): void {
   const el = e.target as HTMLElement;
-  const role = el.getAttribute("data-role") as cg.Role;
-  ctrl.shogiground.state.drawable.piece = { role: role, color: color };
+  const role = (el.getAttribute("data-role") ??
+    el.firstElementChild!.getAttribute("data-role")) as cg.Role;
+  if (!ctrl.shogiground) return;
+  const curPiece = ctrl.shogiground.state.drawable.piece;
+  if (curPiece && curPiece.role == role && curPiece.color == color)
+    ctrl.shogiground.state.drawable.piece = undefined
+  else ctrl.shogiground.state.drawable.piece = { role: role, color: color };
   e.stopPropagation();
   e.preventDefault();
+  ctrl.redraw();
 }
 
 export function drag(ctrl: AnalyseCtrl, color: Color, e: cg.MouchEvent): void {

@@ -3,7 +3,6 @@ package lila.game
 import play.api.libs.json._
 
 import chess.format.{ FEN, Forsyth }
-import chess.variant.Standard
 import chess.{ Clock, Color, Data, Pocket }
 import lila.common.Json.jodaWrites
 
