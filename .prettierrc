@@ -1,1 +1,4 @@
-{}
+{
+  "singleQuote": true,
+  "proseWrap": "never"
+}
