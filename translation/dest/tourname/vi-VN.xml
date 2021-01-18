@@ -34,5 +34,7 @@
   <string name="yearlyClassical">Cờ chậm hàng năm</string>
   <string name="yearlyXArena">Đấu trường %s hàng năm</string>
   <string name="yearlyX">%s hàng năm</string>
+  <string name="rapidShieldArena">Giải đấu Lá chắn Cờ nhanh</string>
+  <string name="rapidShield">Lá chắn Cờ nhanh</string>
   <string name="xArena">Đấu trường %s</string>
 </resources>

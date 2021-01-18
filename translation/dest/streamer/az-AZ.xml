@@ -15,7 +15,7 @@
   <string name="downloadKit">Yayımçı dəstini endir</string>
   <string name="xIsStreaming">%s yayımdadır</string>
   <string name="rules">Yayım qaydaları</string>
-  <string name="rule1">Lichess-də yayım qoşarkən, yayım başlığına \"lichess.org\" açar sözünü daxil edin və Şahmat kateqoriyasını seçin.</string>
+  <string name="rule1">Lichessdə yayım qoşarkən, yayım başlığına \"lichess.org\" açar sözünü daxil edin və Şahmat kateqoriyasını seçin.</string>
   <string name="rule2">Lichess ilə əlaqəsi olmayan bir yayım edərkən bu açar sözü çıxardın.</string>
   <string name="rule3">Lichess, yayımınızı avtomatik aşkarlayacaq və bu üstünlükləri aktivləşdirəcək:</string>
   <string name="perks">Açar söz ilə yayım aparmağın üstünlükləri</string>
@@ -35,7 +35,7 @@ Bunu Lichess yayım tənzimləmələrində yox, YouTube və ya Twitch səhifəni
   <string name="twitchUsername">Twitch istifadəçi adınız və ya URL-niz</string>
   <string name="optionalOrEmpty">İstəyə bağlı. Yoxdursa boş buraxın</string>
   <string name="youtubeChannel">YouTube kanal kimliyiniz və ya URL-niz</string>
-  <string name="streamerName">Lichess-dəki yayımçı adınız</string>
+  <string name="streamerName">Lichess yayımçı adınız</string>
   <plurals name="keepItShort">
     <item quantity="one">Qısa saxlayın: ən çox %s simvol</item>
     <item quantity="other">Qısa saxlayın: ən çox %s simvol</item>

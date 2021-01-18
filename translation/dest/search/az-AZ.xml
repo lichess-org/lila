@@ -14,10 +14,10 @@
   <string name="loser">Məğlub olan</string>
   <string name="from">Bu tarixdə:</string>
   <string name="to">Bu tarixə qədər:</string>
-  <string name="humanOrComputer">Oyunçunun rəqibi insan mı yoxsa kompüterdimi</string>
+  <string name="humanOrComputer">Oyunçunun rəqibi insanmı yoxsa kompüterdirmi</string>
   <string name="aiLevel">Zorluq səviyyəsi</string>
   <string name="source">Qaynaq</string>
-  <string name="nbTurns">Gediş sayısı</string>
+  <string name="nbTurns">Gediş sayı</string>
   <string name="result">Nəticə</string>
   <string name="winnerColor">Qalibin rəngi</string>
   <string name="date">Tarix</string>

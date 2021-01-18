@@ -9,6 +9,7 @@
   <string name="yourTurn">輪到您了</string>
   <string name="aiNameLevelAiLevel">%1$s 難度 %2$s</string>
   <string name="level">難度</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">強度</string>
   <string name="toggleTheChat">聊天開關</string>
   <string name="toggleSound">聲音開關</string>
   <string name="chat">聊天</string>
@@ -481,6 +482,7 @@
   <string name="clockInitialTime">棋鐘起始時間</string>
   <string name="clockIncrement">加秒</string>
   <string name="privacy">隱私</string>
+  <string name="privacyPolicy">隱私條款</string>
   <string name="letOtherPlayersFollowYou">允许其他玩家关注</string>
   <string name="letOtherPlayersChallengeYou">允许其他玩家挑战</string>
   <string name="letOtherPlayersInviteYouToStudy">允許其他棋手邀請你參加研討</string>
@@ -622,6 +624,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">若您沒收到郵件，請檢查您的其他收件箱，例如垃圾箱、促銷、社交等。</string>
   <string name="weHaveSentYouAnEmailTo">我們發送了一封郵件到 %s。點擊郵件中的連結來重置您的密碼。</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">您一登记，我们就假设您同意尊重我们的使用规则（%s）。</string>
+  <string name="readAboutOur">閱讀我們的%s</string>
   <string name="networkLagBetweenYouAndLichess">您和 lichess 之間的網絡時滯</string>
   <string name="timeToProcessAMoveOnLichessServer">lichess 伺服器上處理走棋的時間</string>
   <string name="downloadAnnotated">下载带笔记的记录</string>
@@ -802,4 +805,7 @@
   <string name="youCannotPostYetPlaySomeGames">您目前不能發表文章在論壇裡，先下幾盤棋吧!</string>
   <string name="subscribe">訂閱</string>
   <string name="unsubscribe">取消訂閱</string>
+  <string name="challengeDeclined">發起的對弈已拒絕</string>
+  <string name="challengeAccepted">發起的對弈已接受</string>
+  <string name="challengeCanceled">發起的對弈已撤銷</string>
 </resources>

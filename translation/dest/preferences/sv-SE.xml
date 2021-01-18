@@ -21,7 +21,7 @@
   <string name="horizontalGreenProgressBars">Horisontella gröna förloppsindikatorer</string>
   <string name="soundWhenTimeGetsCritical">Ljud när tiden blir kritisk</string>
   <string name="giveMoreTime">Ge mer tid</string>
-  <string name="gameBehavior">Spelbeteende</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Spelbeteende</string>
   <string name="howDoYouMovePieces">Flytta pjäser</string>
   <string name="clickTwoSquares">Klicka två rutor</string>
   <string name="dragPiece">Drag pjäs</string>
@@ -41,6 +41,7 @@
   <string name="castleByMovingTwoSquares">Flytta kungen två rutor</string>
   <string name="castleByMovingOntoTheRook">Flytta kungen till tornet eller 2 steg</string>
   <string name="inputMovesWithTheKeyboard">Mata in drag via tangentbord</string>
-  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Säg \"Good game, well played\" vid förlust eller remi</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Dra pilar för giltiga drag</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Säg \"Bra parti, väl spelat\" vid förlust eller remi</string>
   <string name="yourPreferencesHaveBeenSaved">Dina inställningar har sparats.</string>
 </resources>

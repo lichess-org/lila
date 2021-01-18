@@ -726,7 +726,7 @@
   <string name="directlySupportLichess">Ajude Lichess diretamente</string>
   <string name="playChessInStyle">Jogue com estilo</string>
   <string name="chessBasics">Básicos do xadrez</string>
-  <string name="coaches">Tutores</string>
+  <string name="coaches">Professores</string>
   <string name="invalidPgn">PGN inválido</string>
   <string name="invalidFen">FEN inválido</string>
   <string name="error.minLength">O mínimo de caracteres é %s</string>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Problem</string>
+  <string name="puzzleThemes">Teman för schackproblem</string>
   <string name="recommended">Rekommenderad</string>
   <string name="phases">Faser</string>
   <string name="motifs">Motiv</string>
@@ -8,6 +9,7 @@
   <string name="lengths">Längd</string>
   <string name="mates">Mattar</string>
   <string name="goals">Mål</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Ursprung</string>
   <string name="specialMoves">Speciella drag</string>
   <string name="didYouLikeThisPuzzle">Gillade du det här problemet?</string>
   <string name="voteToLoadNextOne">Rösta för att ladda nästa!</string>
@@ -41,6 +43,11 @@
   <string name="hardest">Svåraste</string>
   <string name="example">Exempel</string>
   <string name="addAnotherTheme">Lägg till ett annat tema</string>
-  <string name="jumpToNextPuzzleImmediately">Hoppa till nästa pussel omedelbart</string>
+  <string name="jumpToNextPuzzleImmediately">Hoppa till nästa schackproblem direkt</string>
+  <string name="puzzleDashboard">Meny för schackproblem</string>
+  <string name="improvementAreas">Förbättringsområden</string>
+  <string name="strengths">Styrkor</string>
+  <string name="history">Historik för schackproblem</string>
   <string name="solved">löst</string>
+  <string name="failed">olöst</string>
 </resources>

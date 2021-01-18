@@ -15,10 +15,14 @@
   <string name="castling">Pοκέ</string>
   <string name="castlingDescription">Εξασφαλίστε την ασφάλεια του βασιλιά και αναπτύξτε τον πύργο για επίθεση.</string>
   <string name="capturingDefender">Αιχμαλωτίστε τον αμυνόμενο</string>
+  <string name="crushing">Σύνθλιψη</string>
+  <string name="equality">Ισότητα</string>
+  <string name="equalityDescription">Επιστρέψτε από μια χαμένη θέση και ασφαλίστε μια κλήρωση ή μια ισορροπημένη θέση. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Επίθεση στην πλευρά του βασιλιά</string>
   <string name="kingsideAttackDescription">Επίθεση στον αντίπαλο βασιλιά, μετά από μικρό ροκέ.</string>
   <string name="defensiveMove">Αμυντική κίνηση</string>
   <string name="defensiveMoveDescription">Μια ακριβής κίνηση ή ακολουθία κινήσεων που απαιτείται για να αποφευχθεί η απώλεια υλικού ή άλλου πλεονεκτήματος.</string>
+  <string name="deflection">Εκτροπή</string>
   <string name="discoveredAttack">Επίθεση με αποκάλυψη</string>
   <string name="doubleCheck">Διπλό σαχ</string>
   <string name="doubleCheckDescription">Διπλό σαχ ως αποτέλεσμα μίας επίθεσης με αποκάλυψη, όπου και το μετακινούμενο κομμάτι δίνει σαχ.</string>
@@ -36,6 +40,8 @@
   <string name="knightEndgameDescription">Ένα τέλος παρτίδας μόνο με ίππους και πιόνια.</string>
   <string name="long">Μεγάλος γρίφος</string>
   <string name="longDescription">Τρεις κινήσεις για να κερδίσετε.</string>
+  <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Master παιχνίδια</string>
+  <string name="masterVsMaster" comment="masterVsMaster&#10;&#10;Puzzles from games between two titled players.">Master vs Master παιχνίδια</string>
   <string name="mate">Ματ</string>
   <string name="mateDescription">Κερδίστε το παιχνίδι με στυλ.</string>
   <string name="mateIn1">Ματ σε 1</string>
@@ -66,6 +72,7 @@
   <string name="queenRookEndgameDescription">Ένα τέλος παρτίδας μόνο με βασίλισσες, πύργους και πιόνια.</string>
   <string name="queensideAttack">Επίθεση στην πλευρά της βασίλισσας</string>
   <string name="queensideAttackDescription">Επίθεση στον αντίπαλο βασιλιά, μετά από μεγάλο ροκέ.</string>
+  <string name="quietMove">Ήσυχη κίνηση</string>
   <string name="rookEndgame">Φινάλε Πύργων</string>
   <string name="rookEndgameDescription">Ένα τέλος παρτίδας μόνο με πύργους και πιόνια.</string>
   <string name="sacrifice">Θυσία</string>
@@ -76,12 +83,14 @@
   <string name="skewerDescription">Ένα μοτίβο όπου ένα κομμάτι υψηλής αξίας δέχεται επίθεση, κάνει στην άκρη, και επιτρέπει την επίθεση ή το πάρσιμο ενός κομματιού μικρότερης αξίας πίσω από αυτό, το αντίστροφο δηλαδή του καρφώματος.</string>
   <string name="smotheredMate">Ματ αποπνιγμού</string>
   <string name="smotheredMateDescription">Ένα ματ που γίνεται από έναν ίππο σε έναν βασιλιάς ο οποίος δεν μπορεί να μετακινηθεί όντας περιτριγυρισμένος (ή πνιγμένος) από δικά του κομμάτια.</string>
+  <string name="superGM" comment="superGM&#10;&#10;Puzzles from games played by the best players in the world.">Παιχνίδια Super GM</string>
   <string name="trappedPiece">Παγιδευμένο κομμάτι</string>
   <string name="trappedPieceDescription">Ένα κομμάτι δεν μπορεί να αποφύγει το πάρσιμο, καθώς έχει περιορισμένες κινήσεις.</string>
   <string name="underPromotion">Προαγωγή σε κομμάτι μικρότερης αξίας</string>
   <string name="underPromotionDescription">Προώθηση σε ιππότη, αξιωματικό ή πύργο.</string>
   <string name="veryLong">Πολύ μεγάλος γρίφος</string>
   <string name="veryLongDescription">Τέσσερις κινήσεις ή περισσότερα για να κερδίσετε.</string>
+  <string name="xRayAttack">Επίθεση ακτίνας Χ</string>
   <string name="zugzwang">Τσούγκτσβανγκ</string>
   <string name="zugzwangDescription">Ο αντίπαλος είναι περιορισμένος στις κινήσεις που μπορεί να κάνεί και οποιαδήποτε κίνηση επιλέξει επιδεινώνει την θέση του.</string>
   <string name="healthyMix">Προτεινόμενο μίγμα</string>

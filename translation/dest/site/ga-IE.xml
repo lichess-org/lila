@@ -9,6 +9,7 @@
   <string name="yourTurn">Do shealsa</string>
   <string name="aiNameLevelAiLevel">%1$s leibhéal %2$s</string>
   <string name="level">Leibhéal</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Caighdeán imeartha</string>
   <string name="toggleTheChat">Scoránú comhrá</string>
   <string name="toggleSound">Scoránú fuaime</string>
   <string name="chat">Comhrá</string>
@@ -210,6 +211,7 @@
   <string name="subject">Ábhar</string>
   <string name="recipient">Faighteoir</string>
   <string name="send">Seol</string>
+  <string name="incrementInSeconds">Méadú i soicindí</string>
   <string name="freeOnlineChess">Ficheall Shaor in Aisce Ar Líne</string>
   <string name="spectators">Lucht féachana:</string>
   <plurals name="nbRated">
@@ -273,6 +275,9 @@
     <item quantity="many">≥ %1$s cluichí rátáilte %2$s</item>
     <item quantity="other">≥ %1$s cluichí rátáilte %2$s</item>
   </plurals>
+  <string name="yourPerfRatingIsProvisional">Tá rátáil %s sealadach agat</string>
+  <string name="yourPerfRatingIsTooHigh">Tá do rátáil %1$s (%2$s) ró-ard</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Tá an rátáil seachtainiúil %1$s is fearr agat (%2$s) ró-ard</string>
   <string name="mustBeInTeam">Caithfidh tú a bheith i bhfoireann %s</string>
   <string name="youAreNotInTeam">Níl tú sa bhfoireann %s</string>
   <string name="backToGame">Ar ais don chluiche</string>
@@ -353,6 +358,7 @@
   <string name="standing">Seasamh</string>
   <string name="createANewTournament">Cruthaigh comórtas nua</string>
   <string name="tournamentCalendar">Féilire na gcomórtas</string>
+  <string name="conditionOfEntry">Riachtanais iontrála:</string>
   <string name="advancedSettings">Socruithe níos casta</string>
   <string name="safeTournamentName">Pioc ainm an-sábhailte don chomórtas.</string>
   <string name="inappropriateNameWarning">D\'fhéatfadh go bhfhaighidhfeá aon rud atá neamhoiriúineach in aon chaoi do chuntas dúnta.</string>

@@ -96,6 +96,8 @@ Não perguntes pelo título LM.</string>
 
 Podes ler mais sobre as %1$s.</string>
   <string name="guidelines">orientações</string>
+  <string name="canIChangeMyUsername">Posso mudar o meu nome de utilizador?</string>
+  <string name="usernamesCannotBeChanged">Não, os nomes de utilizador não podem ser alterador por razões técnicas e práticas. Os nomes de utilizador são materializados em demasiados lugares: bases de dados, exportações, registos e nas mentes das pessoas. Só podes ajustar as minúsculas e maiúsculas uma vez.</string>
   <string name="uniqueTrophies">Troféus únicos</string>
   <string name="ownerUniqueTrophies">Este troféu é único na história do Lichess, ninguém para além de %1$s o terá.</string>
   <string name="wayOfBerserkExplanation">Para obtê-lo, hiimgosu desafiou-se a ganhar 100%% dos jogos de %s no modo frenético.</string>

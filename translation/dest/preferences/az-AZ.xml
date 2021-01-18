@@ -13,7 +13,7 @@
   <string name="pgnLetter">Hərf (K, Q, R, B, N)</string>
   <string name="zenMode">Zen rejimi</string>
   <string name="displayBoardResizeHandle">Lövhə ölçüləndirmə tutacağını göstər</string>
-  <string name="onlyOnInitialPosition">Yalnız başlanğıc vəziyyətdə</string>
+  <string name="onlyOnInitialPosition">Yalnız başlanğıc pozisiyada</string>
   <string name="blindfoldChess">Gözübağli şahmat (görünməz fiqurlar)</string>
   <string name="chessClock">Şahmat saat</string>
   <string name="tenthsOfSeconds">Son 10 saniyə</string>

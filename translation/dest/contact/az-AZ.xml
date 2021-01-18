@@ -44,14 +44,14 @@
   <string name="reportMobileIssue">Lichess mobil tətbiqi problemləri GitHubda</string>
   <string name="reportBugInDiscord">Lichessin Discord serverində</string>
   <string name="howToReportBug">Lütfən, xətanın necə göründüyünü, bunun əvəzində nə olacağını gözlədiyinizi və xətanı yaradan addımları təsvir edin.</string>
-  <string name="illegalPawnCapture">Sehv piyada vurma</string>
+  <string name="illegalPawnCapture">Səhv piyada vurma hərəkəti</string>
   <string name="calledEnPassant">Buna \"keçiddə götürmə\" deyirlər və bu şahmatın qaydalarından biridir.</string>
   <string name="tryEnPassant">\"Keçiddə götürmə\" haqqında daha çox məlumat əldə etmək üçün bu kiçik interaktiv oyunu sınayın.</string>
   <string name="illegalCastling">Qanunsuz və ya qeyri-mümkün qalaqurma</string>
-  <string name="castlingPrevented">Yalnız şahın keçdiyi bir xananın hücum altinda olması qalaqurmaya mane ola bilər.</string>
+  <string name="castlingPrevented">Yalnız şahın keçdiyi bir xananın hücum altında olması qalaqurmaya mane ola bilər.</string>
   <string name="castlingRules">Qalaqurma qaydalarını başa düşdüyünüzdən əmin olun</string>
   <string name="tryCastling">Şahmatda qalaqurma etmək üçün bu kiçik interaktiv oyunu sınayın</string>
-  <string name="castlingImported">Oyunu daxil etmisinizsə və ya bir mövqedən başlamısınızsa, qalaqurma ayarlarını düzgün qurduğunuzdan əmin olun.</string>
+  <string name="castlingImported">Oyunu daxil etmisinizsə və ya bir pozisiyadan başlamısınızsa, qalaqurma ayarlarını düzgün qurduğunuzdan əmin olun.</string>
   <string name="insufficientMaterial">Mat üçün yetərsiz fiqur</string>
   <string name="fideMate">FIDE Şahmat Qanunları §6.9-a görə, hər hansı bir qanuni gedişlər ardıcıllığı ilə mat mümkündürsə, oyun heç-heçə deyil</string>
   <string name="knightMate">Rəqibin lövhədə şahdan başqa digər bir fiquru varsa, yalnız bir at və ya bir fillə mat etmək mümkündür.</string>

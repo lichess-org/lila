@@ -4,7 +4,7 @@
   <string name="advancedPawnDescription">Çevrilən və ya çevrilməyə yaxın bir piyada taktikanın açarıdır.</string>
   <string name="advantage">Üstünlük</string>
   <string name="advantageDescription">Həlledici üstünlük əldə etmək üçün fürsətdən istifadə edin. (200-600sp arası)</string>
-  <string name="attackingF2F7">f2 və ya f7 Hücumu</string>
+  <string name="attackingF2F7">f2 və ya f7 hücumu</string>
   <string name="attackingF2F7Description">Qızardılmış qaraciyər (feqatello) hücumunda olduğu kimi, f2-f7 piyadasına hədəflənmiş hücum.</string>
   <string name="attraction">Cəlbetmə</string>
   <string name="attractionDescription">Rəqib fiqurunu müxtəlif taktikalara imkan verən xanaya getməyə məcbur edən, dəyişmə və ya qurban.</string>
@@ -19,11 +19,11 @@
   <string name="crushing">Əzici üstünlük</string>
   <string name="crushingDescription">Əzici üstünlük əldə etmək üçün rəqibin kobud səhvini müəyyənləşdirin. (600sp və ondan yüksək)</string>
   <string name="equality">Bərabərləşmə</string>
-  <string name="equalityDescription">İtirilmiş bir vəziyyətdən çıxın, heç-heçə və ya balanslı bir mövqe əldə edin. (200sp və daha az)</string>
+  <string name="equalityDescription">İtirilmiş bir pozisiyadan çıxın, heç-heçə və ya balanslı bir mövqe əldə edin. (200sp və daha az)</string>
   <string name="kingsideAttack">Şah cinahında hücum</string>
   <string name="kingsideAttackDescription">Qısa qalaqurma edən rəqib şahına hücum.</string>
   <string name="clearance">Xətt açmaq</string>
-  <string name="clearanceDescription">Bir xananı veya bir xətti qarşıdan gələn bir taktika üçün açan, əksər hallarda tempo qazandıran gedişlər.</string>
+  <string name="clearanceDescription">Bir xananı və ya bir xətti qarşıdan gələn bir taktika üçün açan, əksər hallarda tempo qazandıran gedişlər.</string>
   <string name="defensiveMove">Müdafiə gedişi</string>
   <string name="defensiveMoveDescription">Material və ya başqa bir üstünlüyü itirməmək üçün lazım olan dəqiq bir gediş və ya gedişlər ardıcıllığı.</string>
   <string name="deflection">Yayındırma</string>
@@ -44,7 +44,7 @@
   <string name="interference">Yolukəsmə</string>
   <string name="interferenceDescription">Bir və ya hər iki rəqib fiqurunu müdafiəsiz buraxmaq üçün iki rəqib fiquru arasına öz fiqurunu qoymaq, məsələn, iki top arasındakı müdafiə olunan bir xanaya bir at qoymaq.</string>
   <string name="intermezzo">İntermezzo</string>
-  <string name="intermezzoDescription">Gözlənilən bir gedişi oynamaq əvəzinə əvvəlcə rəqibin cavab verməyə məcbur olduğu, dbaşqa bir gediş edin. Buna \"Zwischenzug\" və ya \"Ara gediş\" deyilir.</string>
+  <string name="intermezzoDescription">Gözlənilən bir gedişi oynamaq əvəzinə əvvəlcə rəqibin cavab verməyə məcbur olduğu, başqa bir gediş edin. Buna \"Zwischenzug\" və ya \"Ara gediş\" deyilir.</string>
   <string name="knightEndgame">At sonluğu</string>
   <string name="knightEndgameDescription">Yalnız atlar və piyadalardan ibarət oyun sonu.</string>
   <string name="long">Uzun tapmaca</string>
@@ -106,7 +106,7 @@
   <string name="xRayAttack">Rentgen hücumu</string>
   <string name="xRayAttackDescription">Fiqur, bir xanaya rəqib fiquru üzərindən hücum edir və ya müdafiə edir.</string>
   <string name="zugzwang">Suqsvanq</string>
-  <string name="zugzwangDescription">Rəqib edə biləcəti gediş sayı məhduddur və istənilən gediş vəziyyəti daha da pisləşdirir.</string>
+  <string name="zugzwangDescription">Rəqibin edə biləcəyi gediş sayı məhduddur və istənilən gediş vəziyyəti daha da pisləşdirir.</string>
   <string name="healthyMix">Həftəbecər</string>
-  <string name="healthyMixDescription">Hər şeydən bir az. Nə gözləyəcəyini bilmirsən, ona görə hər şeyə hazır oursan! Eynilə həqiqi oyunlarda olduğu kimi.</string>
+  <string name="healthyMixDescription">Hər şeydən bir az. Nə gözləyəcəyini bilmirsən, ona görə hər şeyə hazır olursan! Eynilə həqiqi oyunlarda olduğu kimi.</string>
 </resources>

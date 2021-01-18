@@ -41,14 +41,14 @@
   <string name="pgnTags">PGN etiketləri</string>
   <string name="like">Bəyən</string>
   <string name="newTag">Yeni etiket</string>
-  <string name="commentThisPosition">Bu mövqeyə rəy bildirin</string>
+  <string name="commentThisPosition">Bu pozisiyaya rəy bildirin</string>
   <string name="commentThisMove">Bu gedişə rəy bildirin</string>
   <string name="annotateWithGlyphs">Simvol ilə izah et</string>
   <string name="theChapterIsTooShortToBeAnalysed">Fəsil təhlil edilməsi üçün çox qısadır.</string>
   <string name="onlyContributorsCanRequestAnalysis">Yalnız çalışma iştirakçıları kompüter təhlili tələb edə bilər.</string>
   <string name="getAFullComputerAnalysis">Ana variant üçün serverdən hərtərəfli kompüter təhlilini alın.</string>
-  <string name="makeSureTheChapterIsComplete">Fəsilin tamamlandığına əmin olun. Yalnız bir dəfə təhlil tələbi edə bilərsiniz.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">EYNİLƏŞDİRİLMİŞ bütün üzvlər eyni mövqedə qalır</string>
+  <string name="makeSureTheChapterIsComplete">Fəslin tamamlandığına əmin olun. Yalnız bir dəfə təhlil tələbi edə bilərsiniz.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">EYNİLƏŞDİRİLMİŞ bütün üzvlər eyni pozisiyada qalır</string>
   <string name="shareChanges">Dəyişiklikləri tamaşaçılarla paylaşın və onları serverdə saxlayın</string>
   <string name="playing">Oynanılan</string>
   <string name="first">İlk</string>
@@ -64,9 +64,9 @@
   <string name="studyUrl">Çalışma URL-i</string>
   <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Yayım URL-i</string>
   <string name="currentChapterUrl">Cari fəsil URL-ii</string>
-  <string name="currentGameUrl">Hazırki oyun URL-si</string>
+  <string name="currentGameUrl">Hazırkı oyun URL-i</string>
   <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Pərçimləmək üçün bunu forumda paylaşa bilərsiniz</string>
-  <string name="startAtInitialPosition">Başlanğıc mövqedə başlasın</string>
+  <string name="startAtInitialPosition">Başlanğıc pozisiyada başlasın</string>
   <string name="startAtX">buradan başla: %s</string>
   <string name="embedInYourWebsite">Veb sayt və ya bloqunuzda pərçimləyin</string>
   <string name="readMoreAboutEmbedding">Pərçimləmə haqqında daha ətraflı</string>
@@ -74,14 +74,14 @@
   <string name="open">Aç</string>
   <string name="xBroughtToYouByY">%2$s sizə %1$s tərəfindən gətirildi</string>
   <string name="studyNotFound">Çalışma tapılmadı</string>
-  <string name="editChapter">Fəsilə düzəliş et</string>
+  <string name="editChapter">Fəslə düzəliş et</string>
   <string name="newChapter">Yeni fəsil</string>
   <string name="orientation">İstiqamət</string>
   <string name="analysisMode">Təhlil rejimi</string>
   <string name="pinnedChapterComment">Sancaqlanmış fəsil rəyləri</string>
-  <string name="saveChapter">Fəsili yadda saxla</string>
+  <string name="saveChapter">Fəsli yadda saxla</string>
   <string name="clearAnnotations">İzahları təmizlə</string>
-  <string name="deleteChapter">Fəsili sil</string>
+  <string name="deleteChapter">Fəsli sil</string>
   <string name="deleteThisChapter">Bu fəsil silinsin? Bunun geri dönüşü yoxdur!</string>
   <string name="clearAllCommentsInThisChapter">Bu fəsildəki bütün rəylər, simvollar və çəkilmiş formalar təmizlənsin?</string>
   <string name="rightUnderTheBoard">Lövhənin altında</string>
@@ -91,11 +91,11 @@
   <string name="interactiveLesson">İnteraktiv dərs</string>
   <string name="chapterX">%s. Fəsil</string>
   <string name="empty">Boş</string>
-  <string name="startFromInitialPosition">Başlanğıc mövqedən başlasın</string>
+  <string name="startFromInitialPosition">Başlanğıc pozisiyadan başlasın</string>
   <string name="editor">Redaktor</string>
-  <string name="startFromCustomPosition">Özəl mövqedən başlasın</string>
+  <string name="startFromCustomPosition">Özəl pozisiyadan başlasın</string>
   <string name="loadAGameByUrl">URL ilə oyun yüklə</string>
-  <string name="loadAPositionFromFen">FEN ilə mövqe yüklə</string>
+  <string name="loadAPositionFromFen">FEN ilə pozisiya yüklə</string>
   <string name="loadAGameFromPgn">PGN ilə oyun yüklə</string>
   <string name="automatic">Avtomatik</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
@@ -119,7 +119,7 @@
   <string name="members">Üzvlər</string>
   <string name="everyone">Hamı</string>
   <string name="enableSync">Eyniləşdirməni aktivləşdir</string>
-  <string name="yesKeepEveryoneOnTheSamePosition">Bəli: hər kəsi eyni mövqedə saxla</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Bəli: hər kəsi eyni pozisiyada saxla</string>
   <string name="noLetPeopleBrowseFreely">Xeyr: sərbəst gəzməyə icazə ver</string>
   <string name="pinnedStudyComment">Sancaqlanmış çalışma rəyləri</string>
   <string name="start">Başlat</string>

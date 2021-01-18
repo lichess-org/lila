@@ -41,12 +41,20 @@
   <string name="forkDescription">Một nước đi mà một quân cờ tấn công hai quân cờ của đối phương cùng lúc.</string>
   <string name="hangingPiece">Quân cờ không được bảo vệ</string>
   <string name="hangingPieceDescription">Một chiến thuật liên quan đến quân cờ của đối phương không được phòng thủ hoặc phòng thủ không đủ dẫn tới việc có thể ăn quân cờ đấy.</string>
+  <string name="interference">Giao thoa</string>
+  <string name="interferenceDescription">Di chuyển một quân cờ giữa hai quân cờ đối thủ để một hoặc cả hai quân cờ đối thủ không bị cản trở, chẳng hạn như một quân Mã trên ô vuông được bảo vệ giữa hai quân Xe.</string>
   <string name="intermezzo">Intermezzo</string>
+  <string name="intermezzoDescription">Thay vì chơi nước đi dự kiến, trước tiên hãy xen vào một nước đi khác gây ra mối đe dọa ngay lập tức mà đối thủ phải trả lời. Còn được gọi là \"Zwischenzug\" hoặc \"Ở giữa\".</string>
   <string name="knightEndgame">Tàn cuộc với Mã</string>
   <string name="knightEndgameDescription">Một thế cờ tàn chỉ có mã và tốt.</string>
   <string name="long">Câu đố dài</string>
   <string name="longDescription">Thắng trong ba nước cờ.</string>
+  <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Ván đấu cao cấp</string>
+  <string name="masterDescription">Câu đố từ các trò chơi do người chơi có tiêu đề (GM, IM, NM, FM) chơi.</string>
+  <string name="masterVsMaster" comment="masterVsMaster&#10;&#10;Puzzles from games between two titled players.">Ván đấu giữa 2 kiện tướng</string>
+  <string name="masterVsMasterDescription">Câu đố từ các trò chơi giữa người chơi có tiêu đề (GM, IM, NM, FM) chơi.</string>
   <string name="mate">Chiếu hết</string>
+  <string name="mateDescription">Chiến thắng trò chơi với phong cách.</string>
   <string name="mateIn1">Chiếu hết trong 1 nước</string>
   <string name="mateIn1Description">Chiếu hết trong một nước cờ.</string>
   <string name="mateIn2">Chiếu hết trong 2 nước</string>
@@ -75,17 +83,22 @@
   <string name="queenRookEndgameDescription">Một thế cờ tàn chỉ có hậu, xe và tốt.</string>
   <string name="queensideAttack">Tấn công cánh hậu</string>
   <string name="queensideAttackDescription">Tấn công vua đối phương sau khi họ nhập thành cánh hậu.</string>
+  <string name="quietMove">Nước đi tĩnh lặng</string>
   <string name="quietMoveDescription">Một nước cờ không chiếu hay ăn quân của đối phương, nhưng lại tạo ra một sự đe dọa không tránh khỏi cho một nước đi sau.</string>
   <string name="rookEndgame">Tàn cuộc với Xe</string>
   <string name="rookEndgameDescription">Một thế cờ tàn chỉ có xe và tốt.</string>
   <string name="sacrifice">Hy sinh</string>
+  <string name="sacrificeDescription">Một chiến thuật liên quan đến việc từ bỏ vật liệu trong thời gian ngắn, để giành lại lợi thế sau một chuỗi di chuyển bắt buộc.</string>
   <string name="short">Câu đố ngắn</string>
   <string name="shortDescription">Thắng trong hai nước cờ.</string>
   <string name="skewer">Đòn xiên</string>
   <string name="skewerDescription">Một mô típ liên quan tới việc một quân cờ có giá trị cao bị tấn công buộc phải di chuyển khỏi vị trí, dẫn tới một quân cờ giá trị thấp hơn ở phía sau bị tấn công hoặc ăn, ngược lại so với ghim.</string>
   <string name="smotheredMateDescription">Một nước chiếu hết với quân mã mà trong đó vua đối phương không thể di chuyển vì bị bao vây bởi chính các quân cờ khác của họ.</string>
+  <string name="superGM" comment="superGM&#10;&#10;Puzzles from games played by the best players in the world.">Ván đấu từ Siêu Đại Kiện Tướng</string>
+  <string name="superGMDescription">Câu đố từ những ván đấu đã được chơi bởi những kì thủ giỏi nhất trên thế giới.</string>
   <string name="trappedPiece">Quân bị kẹt</string>
   <string name="trappedPieceDescription">Một quân cờ không thể thoát khỏi việc bị ăn vì nó bị giới hạn các nước đi.</string>
+  <string name="underPromotion">Phong cấp thấp</string>
   <string name="underPromotionDescription">Phong cấp thành mã, tượng hoặc xe.</string>
   <string name="veryLong">Câu đố rất dài</string>
   <string name="veryLongDescription">Bốn nước cờ hoặc hơn để chiến thắng.</string>
@@ -93,5 +106,6 @@
   <string name="xRayAttackDescription">Một quân cờ tấn công hoặc phòng thủ một ô bàn cờ thông qua một quân cờ khác của đối phương.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Đối phương bị giới hạn các nước mà họ có thể đi và tất cả các nước đi đấy đều khiến vị trị của họ tệ hơn.</string>
+  <string name="healthyMix">Một sự kết hợp nhẹ nhàng</string>
   <string name="healthyMixDescription">Mỗi thứ một chút. Bạn không biết phải chờ đợi gì cả, vậy nên bạn sẽ sẵn sàng cho mọi thứ! Như một ván cờ thật vậy.</string>
 </resources>

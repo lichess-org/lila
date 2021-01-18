@@ -13,7 +13,7 @@
   <string name="sourceUrl">Mənbə URL</string>
   <string name="sourceUrlHelp">Lichess, verdiyiniz URL ilə PGN-i yeniləyəcək. URL, internetdə hamı tərəfindən əldə edilə bilən olmalıdır.</string>
   <string name="roundNumber">Tur sayı</string>
-  <string name="startDate">Öz vaxt qurşağınızdakı başlama tarixi</string>
+  <string name="startDate">Öz saat qurşağınızdakı başlama tarixi</string>
   <string name="startDateHelp">İstəyə bağlı, tədbirin başlama vaxtını bilirsinizsə</string>
   <string name="credits">Mənbəyə bax</string>
   <string name="cloneBroadcast">Yayımı klonla</string>

@@ -2,6 +2,7 @@
 <resources>
   <string name="private">私人的</string>
   <string name="myStudies">我的研究</string>
+  <string name="studiesIContributeTo">我有貢獻的研究</string>
   <string name="myPublicStudies">我的公開研究</string>
   <string name="myPrivateStudies">我的私人研究</string>
   <string name="myFavoriteStudies">我最愛的研究</string>
@@ -10,13 +11,35 @@
   <string name="studiesCreatedByX">%s創建的研究</string>
   <string name="noneYet">暫時沒有...</string>
   <string name="hot">熱門的</string>
+  <string name="dateAddedNewest">新增日期(由新到舊)</string>
+  <string name="dateAddedOldest">新增日期(由舊到新)</string>
   <string name="recentlyUpdated">最近更新</string>
   <string name="mostPopular">最受歡迎</string>
+  <string name="addNewChapter">加入新章節</string>
+  <plurals name="nbChapters">
+    <item quantity="other">第%s章</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="other">%s對局</item>
+  </plurals>
+  <string name="addMembers">新增成員</string>
   <plurals name="nbMembers">
     <item quantity="other">%s位成員</item>
   </plurals>
+  <string name="inviteToTheStudy">邀請加入研究</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">只邀請你所認識的人，以及願意積極投入的人來共同研究</string>
+  <string name="searchByUsername">透過暱稱搜尋</string>
+  <string name="spectator">旁觀者</string>
+  <string name="contributor">共同研究者</string>
   <string name="kick">踢出</string>
+  <string name="leaveTheStudy">退出研究</string>
+  <string name="youAreNowAContributor">你現在是一位研究者了</string>
+  <string name="youAreNowASpectator">你現在是一位旁觀者了</string>
+  <string name="pgnTags">PGN標籤</string>
   <string name="like">喜歡</string>
+  <string name="newTag">新標籤</string>
+  <string name="commentThisPosition">對於目前局面的評論</string>
+  <string name="commentThisMove">對於此棋步的評論</string>
   <string name="first">第一個</string>
   <string name="previous">上一個</string>
   <string name="next">下一個</string>

@@ -1,8 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">Quebra-cabeças</string>
+  <string name="puzzles">Problemas</string>
+  <string name="puzzleThemes">Temas de problemas</string>
   <string name="recommended">Recomendado</string>
   <string name="phases">Fases</string>
+  <string name="motifs">Temas</string>
   <string name="advanced">Avançado</string>
-  <string name="lengths">Comprimento</string>
+  <string name="lengths">Comprimentos</string>
+  <string name="mates">Xeque-mates</string>
+  <string name="goals">Objetivos</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Origem</string>
+  <string name="specialMoves">Movimentos especiais</string>
+  <string name="didYouLikeThisPuzzle">Gostaste deste problema?</string>
+  <string name="voteToLoadNextOne">Vota para carregares o próximo!</string>
+  <string name="yourPuzzleRatingX">A tua pontuação em problemas: %s</string>
+  <string name="findTheBestMoveForWhite">Encontra a melhor jogada para as brancas.</string>
+  <string name="findTheBestMoveForBlack">Encontra a melhor jogada para as pretas.</string>
+  <string name="toGetPersonalizedPuzzles">Para obteres problemas personalizados:</string>
+  <string name="puzzleId">Problema %s</string>
+  <string name="puzzleOfTheDay">Problema do dia</string>
+  <string name="clickToSolve">Clica para resolveres</string>
+  <string name="goodMove">Boa jogada</string>
+  <string name="bestMove">Melhor jogada!</string>
+  <string name="keepGoing">Continua…</string>
+  <string name="puzzleSuccess">Sucesso!</string>
+  <string name="puzzleComplete">Problema completo!</string>
+  <string name="notTheMove">Não é esse movimento!</string>
+  <string name="trySomethingElse">Tenta outra coisa.</string>
+  <string name="ratingX">Pontuação: %s</string>
+  <string name="hidden">oculta</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Jogado %s vez</item>
+    <item quantity="other">Jogado %s vezes</item>
+  </plurals>
+  <string name="fromGameLink">Do jogo %s</string>
+  <string name="continueTraining">Continuar o treino</string>
+  <string name="difficultyLevel">Nível de dificuldade</string>
+  <string name="normal">Normal</string>
+  <string name="easier">Mais fáceis</string>
+  <string name="easiest">Os mais fáceis</string>
+  <string name="harder">Mais difíceis</string>
+  <string name="hardest">Os mais difíceis</string>
+  <string name="example">Exemplo</string>
+  <string name="addAnotherTheme">Adicionar outro tema</string>
+  <string name="jumpToNextPuzzleImmediately">Saltar imediatamente para o próximo problema</string>
+  <string name="puzzleDashboard">Painel de controlo dos problemas</string>
+  <string name="improvementAreas">Áreas a melhorar</string>
+  <string name="strengths">Pontos fortes</string>
+  <string name="history">Histórico de problemas</string>
+  <string name="solved">resolvido</string>
+  <string name="failed">falhado</string>
 </resources>

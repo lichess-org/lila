@@ -2,15 +2,15 @@
 <resources>
   <string name="faqAbbreviation">TSS</string>
   <string name="frequentlyAskedQuestions">Tez-tez Soruşulan Suallar</string>
-  <string name="whyIsLichessCalledLichess">Lichess-ə niyə Lichess deyirlər?</string>
+  <string name="whyIsLichessCalledLichess">Lichess niyə Lichess adlanır?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess, live/light/libre yəni canlı/yüngül/azad ilə chess (şahmat) sözlərinin kombinasiyasıdır. %1$s kimi tələffüz edilir.</string>
   <string name="leechess">lii-chess</string>
   <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Bir mütəxəssisin tələffüzünə qulaq asın.</string>
   <string name="whyLiveLightLibre">Canlı, çünki oyunlar real vaxt kəsiyində 24/7 oynanılır və izlənilir; Lichess açıq mənbəli bir sistem olduğu üçün ödənişsizdir, digər veb saytları narahat edən lazımsız tullantıları ehtiva etmədiyi üçün yüngüldür.</string>
   <string name="whyIsLilaCalledLila">Oxşar olaraq, Lichess üçün mənbə kodu, %1$s, li[chess in sca]la mənasını verir, Lichess intuitiv proqramlaşdırma dili olan %2$s üzərində yazılmışdır.</string>
-  <string name="howCanIContributeToLichess">Lichess-ə necə töhfə verə bilərəm?</string>
+  <string name="howCanIContributeToLichess">Lichessə necə töhfə verə bilərəm?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess, dəstəkçilərin ianələri və bir könüllü komandanın səyləri ilə təchiz edilmişdir.</string>
-  <string name="findMoreAndSeeHowHelp">%2$s da daxil olmaqla %1$s haqqında daha çox məlumat ala bilərsiniz. Əgər vaxtınız və bacarıqlarınızla Lichess-ə könüllü olaraq kömək etmək istəsəniz, burada çoxlu %3$s var.</string>
+  <string name="findMoreAndSeeHowHelp">%2$s da daxil olmaqla %1$s haqqında daha çox məlumat ala bilərsiniz. Əgər vaxtınız və bacarıqlarınızla Lichessə könüllü olaraq kömək etmək istəsəniz, burada çoxlu %3$s var.</string>
   <string name="beingAPatron">dəstəkçi olmaq</string>
   <string name="breakdownOfOurCosts">xərclərimizin bölgüsü</string>
   <string name="otherWaysToHelp">kömək etmək üçün digər yollar</string>
@@ -20,6 +20,8 @@
   <string name="whyFlaggedRatingManipulationOrCheater">Niyə görə süni reytinq manipulyasiyası üçün (bilərək uduzma və başqalarından kömək almaq) və ya kompüterdən kömək alan biri olaraq işarələndim?</string>
   <string name="cheatDetectionMethods">Lichessin güclü aşkarlama metodları və bütün dəlilləri nəzərdən keçirmək və qərar qəbul etmək üçün hərtərəfli bir prosesi var. Proses tez-tez bir çox moderatoru əhatə edir və uzun müddət çəkə bilər. İşarənin özü xaricində, dəlillər və fərdi işlər üçün qərar qəbul etmə prosesi haqqında təfərrüatlara varmayacağıq. Bunu etmək gələcəkdə aşkarlanmanın qarşısını almağı asanlaşdıracaq və səmərəsiz mübahisələrə dəvət olacaqdır. Bu vaxt və səy daha vacib işlərə daha yaxşı xərclənir. İstifadəçilər %1$s ünvanına elektron poçt ilə müraciət edə bilərlər, lakin qərarlar nadir hallarda pozulur.</string>
   <string name="whenAmIEligibleRatinRefund">Hiyləyə qarşı itirdiyim xalları nə vaxt geri ala biləcəm?</string>
+  <string name="ratingRefundExplanation">Bir oyunçu işarələndikdən bir dəqiqə sonra, son 3 gün ərzində oynadığı 40 reytinqli oyun geri alınır. Bu oyunlarda əgər onun rəqibi olsaz, reytinq xalı itirsəz (məğlubiyyət və heç-heçə səbəbilə) və reytinqiniz müvəqqəti deyilsə, geri ödəmə alacaqsız. Geri ödəmə, ən yüksək reytinqinizə və oyundan sonrakı reytinq yüksəlişinizə görə mədudlaşdırılır.
+(Məsələn, bu oyunlardan sonra reytinqiniz çox artarsa, geri ödəmə və ya qismən geri ödəmə ala bilərsiniz.) Geri ödəmə heç vaxt 150 xaldan çox olmayacaq.</string>
   <string name="preventLeavingGameWithoutResigning">Oyunçuların təslim olmadan oyunlarını tərk etmələri ilə bağlı nə edilir?</string>
   <string name="leavingGameWithoutResigningExplanation">Rəqibiniz tez-tez oyunlarını dayandırar/tərk edərsə, ona \"oynamağa qadağa qoyulur\", yəni müvəqqəti olaraq oyun oynamaq qadağan olunur. Bu, profilində açıq şəkildə göstərilmir. Lakin bu davranış davam edərsə, qadağanın vaxtı artırılır və bu xarakterli uzun müddətli davranış hesabın bağlanmasına səbəb ola bilir.</string>
   <string name="howCanIBecomeModerator">Necə moderator ola bilərəm?</string>
@@ -37,7 +39,7 @@ Məsələn, 5+3 blitz oyununun təxmini vaxtı 5 × 60 + 40 × 3 = 420 saniyəy�
   <string name="lichessSupportChessAnd">Lichess standart şahmatı və daha %1$s dəstəkləyir.</string>
   <string name="eightVariants">8 şahmat variantını</string>
   <string name="whatIsACPL">Ortalama santipiyada itkisi nədir(OSPİ)?</string>
-  <string name="acplExplanation">Santipiyada şahmatda üstünlüyü təmsil edən ölçü vahididir. Bir santipiyada piyadanın 1/100 hissəsinə bərabərdir. Bu səbəbdən 100 santipiyada = 1 piyada. Bu dəyərlər oyunda heç bir rəsmi rol oynamır, ancaq oyunçular üçün faydalıdır və mövqeləri qiymətləndirmək üçün kompüter şahmatında vacibdir.
+  <string name="acplExplanation">Santipiyada şahmatda üstünlüyü təmsil edən ölçü vahididir. Bir santipiyada piyadanın 1/100 hissəsinə bərabərdir. Bu səbəbdən 100 santipiyada = 1 piyada. Bu dəyərlər oyunda heç bir rəsmi rol oynamır, ancaq oyunçular üçün faydalıdır və pozisiyaları qiymətləndirmək üçün kompüter şahmatında vacibdir.
 
 Ən yaxşı kompüter mühərrikləri sıfır santipiyada itirəcək, amma daha az gediş santipiyadayla ölçülən vəziyyətin pisləşməsinə səbəb olacaq.
 
@@ -45,32 +47,52 @@ Bu dəyər oyun keyfiyyətinin göstəricisi kimi istifadə edilə bilər. Bir g
 
 Lichess kompüter analizi Stockfish tərəfindən dəstəklənir.</string>
   <string name="insufficientMaterial">Vaxt azlığı, heç-heçə və yetərsiz fiqur</string>
-  <string name="lichessFollowFIDErules">Bir oyunçunun vaxtı tükənməsi halında, həmin oyunçu əksər hallarda oyunu uduzacaqdır. Lakin, rəqib bu oyunçunuı hər hansı bir qanuni gediş ardıcıllığı ilə (%1$s) mat edə bilməyəcəyi vəziyyətdə oyun heç-heçə olur.
+  <string name="lichessFollowFIDErules">Bir oyunçunun vaxtı tükənməsi halında, həmin oyunçu əksər hallarda oyunu uduzacaqdır. Lakin, rəqib bu oyunçunu hər hansı bir qanuni gediş ardıcıllığı ilə (%1$s) mat edə bilməyəcəyi vəziyyətdə oyun heç-heçə olur.
 
 Nadir hallarda buna avtomatik qərar verməsi çətin ola bilər (məcburi gedişlər, qalalar). Varsayılan olaraq həmişə vaxtı tükənməyən oyunçunun tərəfindəyik.
 
 Diqqət yetirin ki, rəqibin şahının qarşısını ala biləcək bir fiqur varsa, tək bir at və ya fillə mat etmək mümkündür.</string>
   <string name="fideHandbookX">FIDE qaydaları %s</string>
   <string name="discoveringEnPassant">Nəyə görə rəqib piyadasını keçmiş bir piyada vurula bilər? (keçiddə götürmə)</string>
-  <string name="goodIntroduction">yaxşı giriş</string>
-  <string name="officialRulesPDF">rəsmi qaydalar (PDF)</string>
+  <string name="explainingEnPassant">Bu, \"keçiddə götürmə\" kimi tanınan qanuni bir gedişdir. Vikipediya məqaləsi buna %1$s verir.
+
+%2$s 3.7 (d) bölməsində bu cür təsvir edilmişdir: 
+
+
+\"Başlanğıc xanasından bir gedişə iki xana irəli gedən piyada, rəqib piyadasına bitişik və eyni sırada olarsa, bu piyada, rəqib piyadasını sanki normal piyadayla fiqur vururmuş kimi vura bilər. Bu gediş yalnız piyada iki xana irəli getdikdən dərhal sonra oynanıla bilər və bu \'keçiddə götürmə \' adlanır.
+
+%3$s bölməsində bu gedişlə bağlı məşq edə bilərsiniz.</string>
+  <string name="goodIntroduction">yaxşı izah</string>
+  <string name="officialRulesPDF">rəsmi qaydaların (PDF)</string>
   <string name="lichessTraining">Lichess məşqi</string>
-  <string name="threefoldRepetition">Üç dəfə təkrar</string>
-  <string name="threefoldRepetitionExplanation">Əgər bir mövqe üç dəfə təkrarlanarsa, oyunçu %1$s vasitəsilə heç-heçə tələb edə bilər. Lichess %2$s-nin 9.2 (d) bəndində açıqlandığı kimi FIDE qaydalarına tam əməl edir.</string>
-  <string name="threefoldRepetitionLowerCase">üç dəfə təkrar</string>
-  <string name="notRepeatedMoves">Gedişləri təkrarlamadıq. Nə üçün oyun gediş təkrarına görə heç-heçə bitti?</string>
-  <string name="repeatedPositionsThatMatters">Üç dəfə təkrarlanma %1$s ilə əlaqəlidir, gedişlərlə yox. Təkrarlanma ardıcıl baş vermək məcburiyyətində deyil.</string>
-  <string name="positions">vəziyyətlər</string>
-  <string name="weRepeatedthreeTimesPosButNoDraw">Bir mövqeyi üç dəfə təkrarladıq. Oyun niyə heç-heçə olmadı?</string>
+  <string name="threefoldRepetition">Üçqat təkrar</string>
+  <string name="threefoldRepetitionExplanation">Əgər bir pozisiya üç dəfə təkrarlanarsa, oyunçu %1$s vasitəsilə heç-heçə tələb edə bilər. Lichess %2$s 9.2 (d) bəndində açıqlandığı kimi FIDE qaydalarına tam əməl edir.</string>
+  <string name="threefoldRepetitionLowerCase">üçqat təkrar</string>
+  <string name="notRepeatedMoves">Gedişləri təkrarlamadıq. Nə üçün oyun gediş təkrarına görə heç-heçə bitdi?</string>
+  <string name="repeatedPositionsThatMatters">Üçqat təkrarlanma %1$s ilə əlaqəlidir, gedişlərlə yox. Təkrarlanma ardıcıl baş vermək məcburiyyətində deyil.</string>
+  <string name="positions">pozisiyalar</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Bir pozisiyanı üç dəfə təkrarladıq. Oyun niyə heç-heçə olmadı?</string>
+  <string name="threeFoldHasToBeClaimed">Təkrarın oyunçulardan biri tərəfindən tələb edilməsi lazımdır. Bunu göstərilən düyməni basmaqla və ya son təkrar gedişinizdən əvvəl heç-heçə təklif etməklə edə bilərsiniz, rəqibinizin bu təklifini rədd etməsinin heç bir əhəmiyyəti olmayacaq, üçqat təkrar onsuz da tələb ediləcək. Avtomatik olaraq sizin adınıza təkrarlama tələb etmək üçün Lichessi %1$s edə bilərsiniz. Əlavə olaraq, beşqat təkrarlama həmişə oyunu dərhal bitirir.</string>
   <string name="configure">konfiqurasiya</string>
   <string name="accounts">Hesablar</string>
   <string name="titlesAvailableOnLichess">Lichessdə hansı titullar var?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess bütün FİDE titullarını, o cümlədən lövhə üzərində qazanılmış titulları, həmçinin %1$s-nu. Bu da FIDE titullarının siyahısı:</string>
+  <string name="showYourTitle">Bir OTB titulunuz varsa, şəxsiyyəti təsdiq edən sənəd/kartın açıq bir şəkli və sənədi/kartı tutan yerdə bir selfi də daxil olmaqla %1$s-nu dolduraraq hesabınızda göstərilməsi üçün müraciət edə bilərsiniz.
+
+Lichessdə titullu bir oyunçu kimi təsdiqlənmək, Titullu Arena tədbirlərində oynamağa imkan verir.
+
+Nəhayət bir də fəxri %2$s adı var.</string>
   <string name="asWellAsManyNMtitles">bir çox milli usta titulları</string>
   <string name="verificationForm">təsdiqləmə formu</string>
   <string name="canIbecomeLM">Lichess Ustası (LM) adını ala bilərəmmi?</string>
   <string name="noUpperCaseDot">Xeyr.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Bu fəxri titul qeyri-rəsmidir və yalnız Lichessdə mövcuddur.
+
+Nadir hallarda təqdirəlayiq, yaxşı bir lichess üzvü olan yüksək səviyyəli oyunçularımıza öz qərarımıza uyğun mükafat veririk. LM titulunu almırsınız, LM titulu sizə gəlir. Əgər bu titula layiq görülsəniz, bizdən bir mesaj alacaqsınız və qəbul etmək və ya etməmək seçiminə sahib olacaqsız.
+
+LM titulunu bizdən istəməyin.</string>
   <string name="whatUsernameCanIchoose">İstifadəçi adım nə ola bilər?</string>
+  <string name="usernamesNotOffensive">Ümumiyyətlə, istifadəçi adları: təhqiramiz, başqasını təqlid edən və ya reklam məqsədli olmamalıdır. Bu haqda daha çox %1$s bölməsində məlumat ala bilərsiniz.</string>
   <string name="guidelines">təlimatlat</string>
   <string name="canIChangeMyUsername">İstifadəçi adımı dəyişə bilərəmmi?</string>
   <string name="usernamesCannotBeChanged">Xeyr, istifadəçi adları texniki və praktik səbəblərdən dəyişdirilə bilməz. İstifadəçi adları həddindən artıq yerdə istifadə edilir: verilənlər bazaları, yüklənmiş oyunlar, qeydlər və insanların düşüncələrində. İstifadəçi adlarındakı böyük və kiçik hərfləri yalnız bir dəfə dəyişdirə bilərsiniz.</string>
@@ -78,9 +100,10 @@ Diqqət yetirin ki, rəqibin şahının qarşısını ala biləcək bir fiqur va
   <string name="ownerUniqueTrophies">Bu kubok Lichess tarixində bənzərsizdir və %1$s xaric başqa heç kim ona sahib ola bilməz.</string>
   <string name="wayOfBerserkExplanation">Bunu qazanmaq üçün hiimgosu özünü berserk ilə sınadı və %s oyunlarında 100%% qalib gəldi.</string>
   <string name="aHourlyBulletTournament">bir saatlıq Bullet turniri</string>
+  <string name="goldenZeeExplanation">ZugAddict canlı yayım açmışdı və son 2 saat ərzində A.I. 8-ci səviyyə kompüter mühərrikinə 1+0 oyununda qalib gəlməyə çalışırdı. Thibault, canlı yayımda buna nail olarsa, ona unikal bir kubok verəcəyini söylədi. Bir saat sonra, ZugAddict Stockfishi darmadağın etdi və Thibault vədini yerinə yetirdi.</string>
   <string name="lichessRatings">Lichess reytinqi</string>
   <string name="whichRatingSystemUsedByLichess">Lichess hansı reytinq sistemindən istifadə edir?</string>
-  <string name="ratingSystemUsedByLichess">Reytinqlər Mark Glickman tərəfindən hazırlanmış Glicko-2 qiymətləndirmə metodu ilə hesablanır. Bu, çox populyar bir reytinq metodudur və xeyli sayda şahmat təşkilatı tərəfindən istifadə olunur (FIDE hələ də tarixli Elo reytinq sistemini istifadə etdiyi üçün diqqətəlayiq bir əks nümunədir).
+  <string name="ratingSystemUsedByLichess">Reytinqlər Mark Glickman tərəfindən hazırlanmış Glicko-2 qiymətləndirmə metodu ilə hesablanır. Bu, çox populyar bir reytinq metodudur və xeyli sayda şahmat təşkilatı tərəfindən istifadə olunur (FIDE hələ də köhnə Elo reytinq sistemini istifadə etdiyi üçün diqqətəlayiq bir əks nümunədir).
 
 Əsasən, Glicko reytinqləri reytinqinizi hesablayarkən \"güvən intervalı\"ndan istifadə edir. Saytı ilk dəfə istifadə etməyə başladığınızda, reytinqiniz 1500 ± 700-dən başlayır. 1500, reytinqinizi, 700 isə güvən aralığını təmsil edir.
 
@@ -107,15 +130,15 @@ Diqqət çəkən başqa bir məqam, zaman keçdikcə özünə inam aralığını
 Reytinqləri \"nisbi\" rəqəmlər (\"mütləq\" rəqəmlərdən fərqli olaraq) kimi düşünmək daha yaxşıdır: Bir oyunçu hövzəsində reytinqlərdəki nisbi fərqlər kimin nə qədər qazandığını / heç-heçə etdiyini / məğlub olduğunu təxmin etməyə kömək edəcəkdir. \"X reytinqim var\" demək, bu reytinqi müqayisə edəcək digər oyunçular olmasa, heç bir mənası yoxdur.</string>
   <string name="howToHideRatingWhilePlaying">Oynayarkən reytinqləri necə gizlətmək olar?</string>
   <string name="enableZenMode">%1$s ilə və ya oyun zamanı %2$s düyməsinə basaraq Zen rejimini aktivləşdir.</string>
-  <string name="displayPreferences">görüntü ayarları</string>
+  <string name="displayPreferences">görüntü tərcihləri</string>
   <string name="connexionLostCanIGetMyRatingBack">Gecikmə/əlaqənin kəsilməsi səbəbindən bir oyun uduzdum. Reytinq xallarımı geri ala bilərəmmi?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Təəssüf ki, gecikmə və ya əlaqənin kəsilməsi səbəbi ilə itirilən oyunlar üçün reytinq xallarını geri qaytara bilmərik, problemin sizdən və ya bizdən qaynaqlı olmasından asılı olmayaraq. İkincisi çox nadirdir. Həm də unutmayın ki, Lichess yenidən başldıldığı zaman vaxtla uduzduğunuzda, haqsız bir itkinin qarşısını almaq üçün bu oyunu ləğv edirik.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Təəssüf ki, gecikmə və ya əlaqənin kəsilməsi səbəbi ilə itirilən oyunlar üçün reytinq xallarını geri qaytara bilmərik, problemin sizdən və ya bizdən qaynaqlı olmasından asılı olmayaraq. İkincisi çox nadirdir. Həm də unutmayın ki, Lichess yenidən başladıldığı zaman vaxtla uduzduğunuzda, haqsız bir itkinin qarşısını almaq üçün bu oyunu ləğv edirik.</string>
   <string name="howToThreeDots">Necə...</string>
-  <string name="enableDisableNotificationPopUps">Bildiriş popupları aktiv və ya deaktiv edilsin?</string>
+  <string name="enableDisableNotificationPopUps">Bildiriş pəncərələri aktiv və ya deaktiv edilsin?</string>
   <string name="viewSiteInformationPopUp">Sayt haqqında məlumat pəncərəsinə baxın</string>
   <string name="lichessCanOptionnalySendPopUps">Lichess istəyə bağlı olaraq popup bildirişlər göndərə bilər, məsələn növbə sizin olduğunuzda və ya xüsusi bir mesaj aldığınız zaman.
 
 Brauzerinizin URL çubuğundakı lichess.org ünvanının yanındakı kilid işarəsini toxunun.
 
-Sonra Lichess-dən gələn bildirişlərə icazə veriləcəyini və ya bloklanacağını seçin.</string>
+Sonra Lichessdən gələn bildirişlərə icazə veriləcəyini və ya bloklanacağını seçin.</string>
 </resources>

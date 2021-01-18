@@ -9,6 +9,7 @@
   <string name="yourTurn">É a tua vez</string>
   <string name="aiNameLevelAiLevel">%1$s nível %2$s</string>
   <string name="level">Nível</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Nível</string>
   <string name="toggleTheChat">Ativar/Desativar o chat</string>
   <string name="toggleSound">Ativar/desativar o som</string>
   <string name="chat">Chat</string>
@@ -511,6 +512,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="clockInitialTime">Tempo inicial no relógio</string>
   <string name="clockIncrement">Incremento no relógio</string>
   <string name="privacy">Privacidade</string>
+  <string name="privacyPolicy">Política de privacidade</string>
   <string name="letOtherPlayersFollowYou">Permitir que outros jogadores te sigam</string>
   <string name="letOtherPlayersChallengeYou">Permitir que outros jogadores te desafiem</string>
   <string name="letOtherPlayersInviteYouToStudy">Permitir que outros jogadores te convidem para estudos</string>
@@ -656,6 +658,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se você não vires o e-mail, verifica outros locais onde este possa estar, como pastas de lixo, spam, social ou outras.</string>
   <string name="weHaveSentYouAnEmailTo">Enviámos-te um e-mail para %s. Clica no link nesse e-mail para redefinires a tua palavra-passe.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ao criares uma conta, concordas comprometeres-te com os nossos %s.</string>
+  <string name="readAboutOur">Lê sobre a nossa %s.</string>
   <string name="networkLagBetweenYouAndLichess">Atraso na rede entre ti e o Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tempo para processar um movimento no servidor do Lichess</string>
   <string name="downloadAnnotated">Descarregar a anotação</string>
@@ -840,4 +843,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="youCannotPostYetPlaySomeGames">Ainda não podes publicar nos fóruns. Joga alguns jogos!</string>
   <string name="subscribe">Subscrever-se</string>
   <string name="unsubscribe">Cancelar a subscrição</string>
+  <string name="challengeDeclined">Desafio recusado</string>
+  <string name="challengeAccepted">Desafio aceite!</string>
+  <string name="challengeCanceled">Desafio cancelado.</string>
 </resources>

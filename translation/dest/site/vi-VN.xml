@@ -9,7 +9,7 @@
   <string name="yourTurn">Lượt của bạn</string>
   <string name="aiNameLevelAiLevel">%1$s cấp độ %2$s</string>
   <string name="level">Cấp độ</string>
-  <string name="strength">Độ mạnh</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Độ mạnh</string>
   <string name="toggleTheChat">Bật/tắt chat</string>
   <string name="toggleSound">Bật/Tắt âm thanh</string>
   <string name="chat">Trò chuyện</string>
@@ -805,4 +805,7 @@
   <string name="youCannotPostYetPlaySomeGames">Bạn bây giờ chưa thể đăng bài lên diễn đàng được. Chơi vài trận đi!</string>
   <string name="subscribe">Đăng kí</string>
   <string name="unsubscribe">Hủy đăng ký</string>
+  <string name="challengeDeclined">Thử thách đấu bị từ chối</string>
+  <string name="challengeAccepted">Lời thách đấu được chấp nhận!</string>
+  <string name="challengeCanceled">Lời thách đấu bị hủy bỏ.</string>
 </resources>
