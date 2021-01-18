@@ -12,6 +12,7 @@
   <string name="noTeamFound">Einki lið funnið</string>
   <string name="joinTeam">Kom upp í liðið</string>
   <string name="quitTeam">Far úr liðnum</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Met um umsóknir um upptøku manuelt</string>
   <plurals name="teamLeaders">
     <item quantity="one">Liðleiðari</item>
     <item quantity="other">Liðleiðarar</item>
