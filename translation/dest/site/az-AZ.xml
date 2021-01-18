@@ -520,8 +520,8 @@
   <string name="fast">Sürətli</string>
   <string name="normal">Normal</string>
   <string name="slow">Yavaş</string>
-  <string name="insideTheBoard">Lövhənin daxilində</string>
-  <string name="outsideTheBoard">Taxtanın xaricində</string>
+  <string name="insideTheBoard">Lövhə daxilində</string>
+  <string name="outsideTheBoard">Lövhə xaricində</string>
   <string name="onSlowGames">Yavaş oyunlarda</string>
   <string name="always">Həmişə</string>
   <string name="never">Heç vaxt</string>
@@ -648,7 +648,7 @@
   <string name="yourPerfTypeRatingIsRating">Sənin %1$s reytinqin %2$s-dir</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Sən %1$s oyunçulardan %2$s daha yaxşısan.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %3$s oyunçularından %2$s daha yaxşıdır.</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sən müəyyən olunmuş %s reytinqə malik deyilsən.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sən müəyyən olunmuş %s reytinqinə malik deyilsən.</string>
   <string name="yourRating">Sizin reytinq</string>
   <string name="cumulative">Məcmu</string>
   <string name="glicko2Rating">Glicko-2 reytinqi</string>
