@@ -22,6 +22,7 @@
   <string name="perk1">Nhận được biểu tượng streamer bốc lửa trong trang cá nhân Lichess của bạn.</string>
   <string name="perk2">Được đẩy lên đầu tiên trong danh sách các streamer.</string>
   <string name="perk3">Thông báo cho các người theo dõi Lichess của bạn.</string>
+  <string name="perk4">Hiển thị stream của bạn trong trò chơi, giải đấu và nghiên cứu của bạn.</string>
   <string name="approved">Stream của bạn đã được phê duyệt.</string>
   <string name="pendingReview">Stream của bạn đang được quản trị viên đánh giá.</string>
   <string name="pleaseFillIn">Hãy điền thông tin của bạn và tải lên một hình ảnh.</string>
@@ -49,4 +50,6 @@ Nếu stream của bạn dùng tiếng Anh, bạn không cần thêm thẻ ngôn
   <string name="deletePicture">Xóa hình ảnh</string>
   <string name="maxSize">Kích cỡ tối đa: %s</string>
   <string name="installBlocker">Cài phần mềm chặn mã độc!</string>
+  <string name="beSafe">An toàn trước quảng cáo và trình theo dõi tấn công Twitch và YouTube.
+Lichess đề xuất uBlock Origin miễn phí và mã nguồn mở.</string>
 </resources>
