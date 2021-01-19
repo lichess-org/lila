@@ -27,11 +27,6 @@
   <string name="wantClearHistory">Haluan tyhjentää historiani tai vahvuuslukuni</string>
   <string name="cantClearHistory">Pelihistoriaasi, tehtävähistoriaasi tai vahvuuslukuja ei voi tyhjentää.</string>
   <string name="wantReport">Haluan ilmoittaa pelaajan</string>
-  <string name="cheating">huijaamisesta</string>
-  <string name="sandbagging">tahallisesta häviämisestä</string>
-  <string name="trolling">trollaamisesta</string>
-  <string name="insults">loukkauksista</string>
-  <string name="otherReason">muusta syystä</string>
   <string name="toReportAPlayer">Ilmoittaaksesi pelaajan %s täytä tämä ilmoituslomake</string>
   <string name="youCanAlsoReachReportPage">Pääset samalle sivulle myös klikkaamalla %s ilmoitusnappia pelaajan profiilisivulla.</string>
   <string name="doNotReportInForum">Älä ilmoita pelaajia foorumilla.</string>
@@ -59,7 +54,7 @@
   <string name="ratedGame">Varmistu että pelasit pisteytetyn pelin. Rennot pelit eivät vaikuta pelaajien vahvuuslukuihin.</string>
   <string name="errorPage">Virhesivu</string>
   <string name="reportErrorPage">Jos törmäsit virhesivuun, voit raportoida sen:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Valita porttikiellosta tai IP-estosta</string>
+  <string name="banAppeal">Valita porttikiellosta tai IP-estosta</string>
   <string name="engineAppeal">Tietokone- tai huijarimerkinnästä</string>
   <string name="sendAppealTo">Voit valittaa osoitteeseen %s.</string>
   <string name="falsePositives">Vääriä positiivisia voi tulla joskus ja olemme pahoillamme siitä.</string>
