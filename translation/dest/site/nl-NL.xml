@@ -9,7 +9,7 @@
   <string name="yourTurn">U bent aan zet</string>
   <string name="aiNameLevelAiLevel">%1$s niveau %2$s</string>
   <string name="level">Niveau</string>
-  <string name="strength">Sterkte</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Sterkte</string>
   <string name="toggleTheChat">Chat aan-/uitzetten</string>
   <string name="toggleSound">Geluid aan-/uitzetten</string>
   <string name="chat">Chat</string>
