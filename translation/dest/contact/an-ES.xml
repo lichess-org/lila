@@ -27,11 +27,6 @@
   <string name="wantClearHistory">Quiero borrar lo mío historial u puntuación</string>
   <string name="cantClearHistory">No ye posible borrar lo tuyo historial de chuegos, historial de rompecabezas u qualificacions.</string>
   <string name="wantReport">Quiero reportar un chugador</string>
-  <string name="cheating">fer trapazas</string>
-  <string name="sandbagging">perder a exprés</string>
-  <string name="trolling">estar molestoso</string>
-  <string name="insults">insultar</string>
-  <string name="otherReason">belatra razón</string>
   <string name="toReportAPlayer">Pa reportar a un chugador per %s, utiliza lo formulario de reporte</string>
   <string name="youCanAlsoReachReportPage">Tamién puetz acceder a ixa pachina pretando lo botón %s en un perfil.</string>
   <string name="doNotReportInForum">No reportes chugadors en o foro.</string>
@@ -59,7 +54,7 @@
   <string name="ratedGame">Asegura-te d\'haber chugau una partida per puntuación. Las partidas amistosas no afectan a las puntuacions d\'os chugadors.</string>
   <string name="errorPage">Pachina d\'error</string>
   <string name="reportErrorPage">Si una pachina te da error, puetz reportar-la:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Apelar per un bloqueyo u una restricción d\'IP</string>
+  <string name="banAppeal">Apelar per un bloqueyo u una restricción d\'IP</string>
   <string name="engineAppeal">Motor u marca de trapacería</string>
   <string name="sendAppealTo">Puetz ninviar una apelación a %s.</string>
   <string name="falsePositives">A vegadas ocurren falsos positivos, y lo lamentamos.</string>
