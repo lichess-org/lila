@@ -9,6 +9,7 @@
   <string name="eventName">Назив догађаја</string>
   <string name="eventDescription">Кратак опис догађаја</string>
   <string name="fullDescription">Цео опис догађаја</string>
+  <string name="sourceUrl">Изворни УРЛ</string>
   <string name="roundNumber">Број рунде</string>
   <string name="startDate">Датум почетка у твојој временској зони</string>
   <string name="cloneBroadcast">Клонирај емитовање</string>
