@@ -36,5 +36,7 @@
   <string name="yearlyX">%s hàng năm</string>
   <string name="rapidShieldArena">Giải đấu Lá chắn Cờ nhanh</string>
   <string name="rapidShield">Lá chắn Cờ nhanh</string>
+  <string name="classicalShieldArena">Đấu trường Khiên Cổ điển</string>
+  <string name="classicalShield">Khiên Cổ điển</string>
   <string name="xArena">Đấu trường %s</string>
 </resources>
