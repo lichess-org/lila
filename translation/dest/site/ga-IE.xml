@@ -603,4 +603,8 @@
   <string name="ultraBulletDesc">Cluichí ar luas gan chiall; níos lú ná 30 soicind</string>
   <string name="important">Tábhachtach</string>
   <string name="inTheFAQ">sna CCana</string>
+  <string name="teamNamedX">Foireann %1$s</string>
+  <string name="challengeDeclined">Níor glacadh leis an dúshlán</string>
+  <string name="challengeAccepted">Glacadh leis an dúshlán!</string>
+  <string name="challengeCanceled">Dúshlán curtha ar ceal.</string>
 </resources>
