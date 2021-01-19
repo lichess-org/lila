@@ -4,6 +4,8 @@
   <string name="advancedPawnDescription">Zaawansowany pion lub pion grożący przemianą jest kluczowy w taktyce.</string>
   <string name="advantage">Przewaga</string>
   <string name="advantageDescription">Wykorzystaj szansę na uzyskanie decydującej przewagi. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="anastasiaMate">Mat Anastazji</string>
+  <string name="anastasiaMateDescription">Skoczek, wieża lub hetman łączą siły, aby złapać przeciwnego króla w pułapkę pomiędzy bandą szachownicy, a jego inną figurą.</string>
   <string name="attackingF2F7">Atak na f2 lub f7</string>
   <string name="attackingF2F7Description">Atak koncentrujący się na pionach f2 lub f7, na przykład taki jak w szewskim macie.</string>
   <string name="attraction">Przyciąganie</string>
