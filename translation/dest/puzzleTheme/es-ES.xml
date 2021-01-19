@@ -42,6 +42,8 @@
   <string name="forkDescription">Movimiento donde la pieza movida ataca a la vez a dos piezas del oponente.</string>
   <string name="hangingPiece">Pieza colgante</string>
   <string name="hangingPieceDescription">Una táctica que implica que una pieza del oponente no sea defendida o suficientemente defendida y quede libre para ser capturada.</string>
+  <string name="hookMate" comment="hookMate&#10;&#10;Checkmate with a rook, knight, and pawn along with one enemy pawn to limit the enemy king's escape.">Mate del gancho</string>
+  <string name="hookMateDescription">Jaque mate con una torre, un caballo y un peón junto con un peón enemigo para limitar el escape del rey adversario.</string>
   <string name="interference">Interferencia</string>
   <string name="interferenceDescription">Mover una pieza entre dos piezas del oponente para dejar una o ambas piezas del oponente sin defensa, por ejemplo un caballo en una casilla entre dos torres.</string>
   <string name="intermezzo">Jugada intermedia</string>
