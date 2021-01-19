@@ -7,7 +7,7 @@
   <string name="anastasiaMate">Anastasias-Matt</string>
   <string name="anastasiaMateDescription">Ein Springer und ein Turm bzw. eine Dame arbeiten zusammen, um den gegnerischen König zwischen dem Brettrand und einer seiner eigenen Figuren einzuschließen.</string>
   <string name="arabianMate">Arabisches Matt</string>
-  <string name="arabianMateDescription">Eind Springer und ein Turm schließen den gegnerischen König zu einem Matt ein.</string>
+  <string name="arabianMateDescription">Ein Springer und ein Turm arbeiten zusammen, um den gegnerischen König am Rand des Bretts festzusetzen.</string>
   <string name="attackingF2F7">Angriff auf f2 oder f7</string>
   <string name="attackingF2F7Description">Ein Angriff, der sich auf den Bauern auf f2 oder f7 konzentriert, wie z. B. bei der Fegatello-Variante.</string>
   <string name="attraction">Hinlenkung oder \"Magnet\"</string>
@@ -16,8 +16,8 @@
   <string name="backRankMateDescription">Setze den König auf der Grundreihe matt, wenn er dort durch seine eigenen Figuren blockiert wird.</string>
   <string name="bishopEndgame">Läuferendspiel</string>
   <string name="bishopEndgameDescription">Ein Endspiel nur mit Läufern und Bauern.</string>
-  <string name="bodenMate">Boden-Matt bzw. allgemeiner Läufer-Kreuzmatt</string>
-  <string name="bodenMateDescription">Zwei angreifende Läufer auf kreuzenden Schrägen setzen den König matt, der durch eigenen Figuren behindert wird.</string>
+  <string name="bodenMate">Bodens-Matt</string>
+  <string name="bodenMateDescription">Zwei angreifende Läufer auf sich kreuzenden Diagonalen setzen den König matt, der durch eigene Figuren behindert wird.</string>
   <string name="castling">Rochade</string>
   <string name="castlingDescription">Bringe deinen König in Sicherheit und den Turm in Angriffsposition.</string>
   <string name="capturingDefender">Schlage den Verteidiger</string>
@@ -25,7 +25,7 @@
   <string name="crushing">Vernichtend</string>
   <string name="crushingDescription">Finde den gegnerischen Patzer, um einen vernichtenden Vorteil zu erhalten. (Bewertung ≥ 600 Hundertstel-Bauern)</string>
   <string name="doubleBishopMate">Läuferpaarmatt</string>
-  <string name="doubleBishopMateDescription">Zwei angreifene Läufer auf nebeneinander liegenden Schrägen setzen einen von eigenem Figuren behinderten König matt.</string>
+  <string name="doubleBishopMateDescription">Zwei angreifende Läufer auf nebeneinander liegenden Diagonalen setzen einen - von eigenen Figuren behinderten - König matt.</string>
   <string name="dovetailMate">Sternmatt</string>
   <string name="dovetailMateDescription">Eine Dame setzt den schräg direkt daneben stehenden König matt, dessen einzigen zwei Fluchtfelder durch eigene Figuren verstellt sind.</string>
   <string name="equality">Ausgleich</string>
