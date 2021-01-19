@@ -6,6 +6,7 @@
   <string name="advantageDescription">Grip sjansen til en avgjørende fordel. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastasias matt</string>
   <string name="anastasiaMateDescription">Tårn eller dronning slår seg sammen med springer for å fange motstanderens konge mellom kanten av brettet og egen brikke.</string>
+  <string name="arabianMate">Arabisk matt</string>
   <string name="attackingF2F7">Angrep mot f2 eller f7</string>
   <string name="attackingF2F7Description">Et angrep med fokus på bonden på f2 eller f7, slik som i fegatello-angrepet.</string>
   <string name="attraction">Magnetoffer</string>
@@ -14,6 +15,7 @@
   <string name="backRankMateDescription">Sett kongen sjakk matt på sisteraden, når den er fanget der av egne brikker.</string>
   <string name="bishopEndgame">Løpersluttspill</string>
   <string name="bishopEndgameDescription">Et sluttspill med kun løpere og bønder.</string>
+  <string name="bodenMate">Bodens matt</string>
   <string name="castling">Rokade</string>
   <string name="castlingDescription">Få kongen i sikkerhet og gjør tårnet klart for angrep.</string>
   <string name="capturingDefender">Slå forsvareren</string>
