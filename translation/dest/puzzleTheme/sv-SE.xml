@@ -77,11 +77,11 @@
   <string name="pinDescription">En taktik som involverar fastlåsning, där en attackerad pjäs inte kan flyttas utan att exponera en mer värdefull pjäs.</string>
   <string name="promotion">Promovering</string>
   <string name="promotionDescription">En taktik som bygger på en bonde som förvandlas eller hotar att förvandlas.</string>
-  <string name="queenEndgame">Dam-slutspel</string>
+  <string name="queenEndgame">Damslutspel</string>
   <string name="queenEndgameDescription">Ett slutspel med endast dam och bönder.</string>
   <string name="queenRookEndgame">Dam och torn</string>
   <string name="queenRookEndgameDescription">Ett slutspel med endast damer, torn och bönder.</string>
-  <string name="queensideAttack">Attack på damsidan</string>
+  <string name="queensideAttack">Damflygelattack</string>
   <string name="queensideAttackDescription">En attack mot motståndarens kung, efter att motståndaren gjort kort rockad.</string>
   <string name="quietMove">Tyst drag</string>
   <string name="quietMoveDescription">Ett drag som inte gör en schackar eller slår, men förbereder ett oundvikligt hot för ett senare drag.</string>
@@ -99,7 +99,7 @@
   <string name="superGMDescription">Schackproblem från partier spelade av de bästa spelarna i världen.</string>
   <string name="trappedPiece">Fångad pjäs</string>
   <string name="trappedPieceDescription">En pjäs kan inte komma undan eftersom den inte kan flytta till någon bra ruta.</string>
-  <string name="underPromotion">Underförvandling</string>
+  <string name="underPromotion">Underpromovering</string>
   <string name="underPromotionDescription">Förvandling till springare, löpare eller torn.</string>
   <string name="veryLong">Mycket långa schackproblem</string>
   <string name="veryLongDescription">Fyra eller fler drag för att vinna.</string>
