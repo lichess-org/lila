@@ -51,6 +51,8 @@
   <string name="long">Troj-ťahové úlohy</string>
   <string name="longDescription">Tri ťahy do výhry.</string>
   <string name="master">Hry majstrov</string>
+  <string name="masterDescription">Diagramy z partií hraných titulovanými hráčmi.</string>
+  <string name="masterVsMaster">Hry majstrov proti majstrom</string>
   <string name="masterVsMasterDescription">Diagramy z hier medzi dvoma titulovanými hráčmi.</string>
   <string name="mate">Mat</string>
   <string name="mateDescription">Vyhrajte hru so štýlom.</string>
