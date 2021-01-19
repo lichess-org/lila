@@ -28,6 +28,7 @@
   <string name="wantReport">Vreau să raportez un jucător</string>
   <string name="reportCheating">Raportați un jucător care trișează</string>
   <string name="reportSandbagging">Raportați un jucător care joacă mai slab în mod intenționat</string>
+  <string name="reportTrolling">Raportați un jucător care provoacă discuții inutile</string>
   <string name="reportInsults">Raportați un jucător pentru insulte</string>
   <string name="reportOtherReason">Raportează un jucător pentru un alt motiv</string>
   <string name="toReportAPlayer">Pentru a raporta un jucător pentru %s, folosiți formularul de raport</string>
