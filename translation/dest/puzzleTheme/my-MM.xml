@@ -13,6 +13,8 @@
   <string name="bishopEndgameDescription">ဘစ်ရှော့များနှင့် ပွန်းများသာ ကျန်သော ပွဲသိမ်းပိုင်း</string>
   <string name="castling">ရထားပြောင်းခြင်း</string>
   <string name="castlingDescription">ဘုရင်အား လုံခြုံရာသို့ ပို့ပြီး ရထားအား ထိုးနှက်ရန် အဆင်သင့် ဖြစ်စေခြင်း</string>
+  <string name="hookMate" comment="hookMate&#10;&#10;Checkmate with a rook, knight, and pawn along with one enemy pawn to limit the enemy king's escape.">ချိတ်ကောက် အမိဖမ်းနည်း</string>
+  <string name="hookMateDescription">ရန်သူ့ ဘုရင် လွတ်လမ်းကို ရန်သူ့ နယ်ရုပ် ကိုယ်တိုင် ပိတ်ထားစဉ် မိမိဘက် နယ်ရုပ်၊ မြင်း၊ ရထားတို့ဖြင့် အမိဖမ်းခြင်း။</string>
   <string name="mateIn3">သုံးလှည့်နှင့် အမိဖမ်းရန်</string>
   <string name="mateIn4">လေးလှည့်နှင့် အမိဖမ်းရန်</string>
   <string name="mateIn5">ငါးလှည့် သို့မဟုတ် အထက်နှင့် အမိဖမ်းရန်</string>
