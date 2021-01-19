@@ -7,6 +7,7 @@
   <string name="anastasiaMate">Anastasias matt</string>
   <string name="anastasiaMateDescription">Tårn eller dronning slår seg sammen med springer for å fange motstanderens konge mellom kanten av brettet og egen brikke.</string>
   <string name="arabianMate">Arabisk matt</string>
+  <string name="arabianMateDescription">Springer og tårn slår seg sammen for å fange motstanderens konge i hjørnet av brettet.</string>
   <string name="attackingF2F7">Angrep mot f2 eller f7</string>
   <string name="attackingF2F7Description">Et angrep med fokus på bonden på f2 eller f7, slik som i fegatello-angrepet.</string>
   <string name="attraction">Magnetoffer</string>
