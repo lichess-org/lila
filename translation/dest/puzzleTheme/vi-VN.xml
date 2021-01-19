@@ -4,6 +4,7 @@
   <string name="advancedPawnDescription">Một quân tốt phong cấp hay đe dọa phong cấp là chìa khóa của chiến thuật.</string>
   <string name="advantage">Lợi thế</string>
   <string name="advantageDescription">Sử dụng cơ hội của bạn để chiếm lấy lợi thế quyết định. (200cp ≤ đánh giá ≤ 600cp)</string>
+  <string name="anastasiaMateDescription">Một quân mã phối hợp cùng quân xe hoặc quân hậu để bẫy quân vua đối phương vào thế kẹp giữa cạnh bàn cờ và một quân khác.</string>
   <string name="attackingF2F7">Tấn công f2 hoặc f7</string>
   <string name="attackingF2F7Description">Một đòn tấn công nhằm vào quân tốt f2 hay f7, ví dụ như trong khai cuộc lá gan rán.</string>
   <string name="attraction">Thu hút</string>
