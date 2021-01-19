@@ -5,6 +5,7 @@
   <string name="advantage">優位</string>
   <string name="advantageDescription">決定的な優位を得てください。（評価値は 200cp 以上 600cp 以下）</string>
   <string name="anastasiaMate">アナスタシアのメイト</string>
+  <string name="anastasiaMateDescription">盤端と味方の駒にはさまれたキングを、ナイトとルーク（またはクイーン）でメイトする形。</string>
   <string name="attackingF2F7">f2/f7への攻撃</string>
   <string name="attackingF2F7Description">f2 か f7 のポーンを狙う攻撃（フライド・リバー・アタックなど）。</string>
   <string name="attraction">アトラクション（引き寄せ）</string>
@@ -42,6 +43,8 @@
   <string name="forkDescription">動いた駒が相手の 2 つの駒を同時に攻撃する手。</string>
   <string name="hangingPiece">浮き駒</string>
   <string name="hangingPieceDescription">守りのない駒、または守り駒の足りない駒をただで取る問題。</string>
+  <string name="hookMate">釣り針のメイト</string>
+  <string name="hookMateDescription">ポーンの隣にいるキングを、ルーク、ナイト、ポーンでメイトする形。</string>
   <string name="interference">インターフェア（干渉）</string>
   <string name="interferenceDescription">相手の 2 つの駒の間に駒を入れて浮き駒を作る問題。相手の 2 個のルークの間に守られたナイトを入れる、など。</string>
   <string name="intermezzo">ツヴィッシェンツーク（利かし）</string>
