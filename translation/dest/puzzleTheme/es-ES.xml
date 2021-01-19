@@ -17,7 +17,7 @@
   <string name="bishopEndgame">Final de alfiles</string>
   <string name="bishopEndgameDescription">Un final solo con alfiles y peones.</string>
   <string name="bodenMate">Mate de Boden</string>
-  <string name="bodenMateDescription">Dos alfiles atacantes en diagonales cruzadas dan mate a un rey obstruido por piezas de su bando.</string>
+  <string name="bodenMateDescription">Dos alfiles atacantes en diagonales cruzadas dan mate al rey obstruido por piezas de su bando.</string>
   <string name="castling">Enroque</string>
   <string name="castlingDescription">Coloca el rey a salvo y pone a la torre en juego para el ataque.</string>
   <string name="capturingDefender">Capturar al defensor</string>
@@ -25,8 +25,9 @@
   <string name="crushing">Aplastante</string>
   <string name="crushingDescription">Detecta el error del oponente para obtener una ventaja decisiva. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Mate de dos alfiles</string>
-  <string name="doubleBishopMateDescription">Dos alfiles atacantes en diagonales adyacentes dan mate a un rey obstruido por piezas de su bando.</string>
+  <string name="doubleBishopMateDescription">Dos alfiles atacantes en diagonales adyacentes dan mate al rey obstruido por piezas de su bando.</string>
   <string name="dovetailMate">Mate de Cozio</string>
+  <string name="dovetailMateDescription">Una dama da mate al rey adyacente, cuyas únicas dos casillas de escape están obstruidas por piezas de su bando.</string>
   <string name="equality">Igualdad</string>
   <string name="equalityDescription">Vuelve de una posición perdedora y asegura un empate o una posición equilibrada. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Ataque en el flanco de rey</string>
