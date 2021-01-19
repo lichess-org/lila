@@ -17,13 +17,15 @@
   <string name="bishopEndgame">Løpersluttspill</string>
   <string name="bishopEndgameDescription">Et sluttspill med kun løpere og bønder.</string>
   <string name="bodenMate">Bodens matt</string>
+  <string name="bodenMateDescription">To angripende løpere på kryssende diagonaler setter matt, da kongen er blokkert av egne brikker.</string>
   <string name="castling">Rokade</string>
   <string name="castlingDescription">Få kongen i sikkerhet og gjør tårnet klart for angrep.</string>
   <string name="capturingDefender">Slå forsvareren</string>
   <string name="capturingDefenderDescription">Ta en brikke som gir avgjørende dekning for en annen brikke, slik at den nå udekkede brikken kan slås senere.</string>
   <string name="crushing">Knusende</string>
   <string name="crushingDescription">Oppdag motstanderens bukk og oppnå en knusende fordel. (eval ≥ 600cp)</string>
-  <string name="doubleBishopMate">Matt med to løpere</string>
+  <string name="doubleBishopMate">Dobbeltløpermatt</string>
+  <string name="doubleBishopMateDescription">To angripende løpere på tilstøtende diagonaler setter matt, da kongen er blokkert av egne brikker.</string>
   <string name="dovetailMate">Halematt</string>
   <string name="dovetailMateDescription">Dronning setter tilstøtende konge matt, da de to eneste fluktfeltene er blokkert av egne brikker.</string>
   <string name="equality">Utligning</string>
