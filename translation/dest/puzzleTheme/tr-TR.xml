@@ -17,7 +17,7 @@
   <string name="bishopEndgame">Fil oyunsonu</string>
   <string name="bishopEndgameDescription">Sadece fil ve piyon içeren oyunsonu.</string>
   <string name="bodenMate">Boden matı</string>
-  <string name="bodenMateDescription">İki filin, kendi taşları tarafından kısıtlanan şaha çaprazlamasına girişerek gerçekleştirdiği matlar.</string>
+  <string name="bodenMateDescription">İki fil, kendi taşları tarafından kısıtlanan şaha farklı açılardan girişerek onu mat eder.</string>
   <string name="castling">Rok</string>
   <string name="castlingDescription">Şahı güvene alırken kaleni saldırıya hazırla.</string>
   <string name="capturingDefender">Savunmayı baltala</string>
@@ -26,6 +26,8 @@
   <string name="crushingDescription">Rakibin vahim hatasını yakalayarak ezici bir üstünlük elde et. (analiz ≥ 600sp)</string>
   <string name="doubleBishopMate">İki fil matı</string>
   <string name="doubleBishopMateDescription">Yan yana konuşlanmış iki fil, kendi taşları tarafından kısıtlanmış şahı mat eder.</string>
+  <string name="dovetailMate">Kurtağzı matı</string>
+  <string name="dovetailMateDescription">İki kaçış yolu da kendi taşlarınca kapatılmış şah, hemen çaprazına konuşlanan vezir tarafından mat edilir.</string>
   <string name="equality">Eşitlik</string>
   <string name="equalityDescription">Kaybeden bir durumdan paçayı kurtararak beraberlik veya dengeli bir pozisyon elde et. (analiz ≤ 200sp)</string>
   <string name="kingsideAttack">Şah tarafına saldırı</string>
