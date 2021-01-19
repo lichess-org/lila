@@ -153,15 +153,15 @@ object contact {
           "report",
           wantReport(),
           List(
-            "cheating"          -> cheating(),
-            "sandbagging"       -> sandbagging(),
-            "trolling"          -> trolling(),
-            "insults"           -> insults(),
-            "some other reason" -> otherReason()
+            "cheating"          -> reportCheating,
+            "sandbagging"       -> reportSandbagging,
+            "trolling"          -> reportTrolling,
+            "insults"           -> reportInsults,
+            "some other reason" -> reportOtherReason
           ).map { case (reason, name) =>
             Leaf(
               reason,
-              frag("Report a player for ", name),
+              name(),
               frag(
                 p(
                   a(href := routes.Report.form())(toReportAPlayer(name)),
