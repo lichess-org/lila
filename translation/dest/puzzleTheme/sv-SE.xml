@@ -42,6 +42,7 @@
   <string name="forkDescription">Ett drag där den rörda pjäsen attackerar två motståndarpjäser samtidigt.</string>
   <string name="hangingPiece">Ogarderad pjäs</string>
   <string name="hangingPieceDescription">En taktik som drar fördel av att en motståndares pjäs är oförsvarad eller otillräckligt försvarad och fri att slå.</string>
+  <string name="hookMateDescription">Schackmatta med ett torn, en springare och en bonde tillsammans med en motståndarbonde för att begränsa motståndarkungens undanflykt.</string>
   <string name="interference">Interference</string>
   <string name="interferenceDescription">Placerar en pjäs mellan två motståndares pjäser för att lämna en eller båda motståndarpjäserna ogarderade, till exempel springare på en garderad ruta mellan två torn.</string>
   <string name="intermezzo">Mellandrag</string>
