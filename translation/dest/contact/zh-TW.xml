@@ -49,6 +49,9 @@
   <string name="buyingLichess">買下 Lichess</string>
   <string name="authorizationToUse">Lichess 的使用授權</string>
   <string name="welcomeToUse">歡迎您使用 Lichess 進行活動，甚至用於商業活動。</string>
+  <string name="creditAppreciated">我們感激您留一句致謝，但這不是必要的。</string>
   <string name="noneOfTheAbove">以上皆非</string>
   <string name="sendEmailAt">請傳送郵件到 %s</string>
+  <string name="explainYourRequest">請清楚的解釋您的請求。
+請提供您的Lichess用戶明和其他可以讓我們幫助您的資訊</string>
 </resources>
