@@ -278,6 +278,7 @@
   <string name="yourPerfRatingIsProvisional">Tá rátáil %s sealadach agat</string>
   <string name="yourPerfRatingIsTooHigh">Tá do rátáil %1$s (%2$s) ró-ard</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Tá an rátáil seachtainiúil %1$s is fearr agat (%2$s) ró-ard</string>
+  <string name="yourPerfRatingIsTooLow">Tá do rátáil %1$s (%2$s) ró-íseal</string>
   <string name="mustBeInTeam">Caithfidh tú a bheith i bhfoireann %s</string>
   <string name="youAreNotInTeam">Níl tú sa bhfoireann %s</string>
   <string name="backToGame">Ar ais don chluiche</string>
@@ -389,6 +390,7 @@
   <string name="nextXTournament">An chéad chomórtas %s eile:</string>
   <string name="averageOpponent">Meanghrádú na gcéilí imeartha</string>
   <string name="membersOnly">Baill amháin</string>
+  <string name="boardEditor">Eagarthóir boird</string>
   <string name="popularOpenings">Oscailtí a bhfuil tóir orthu</string>
   <string name="startPosition">Suíomh tosaithe</string>
   <string name="savePosition">Sábhail suíomh</string>
@@ -583,6 +585,7 @@
   <string name="opening">Oscailt</string>
   <string name="middlegame">Lár an chluiche</string>
   <string name="endgame">Cor deiridh</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">Ní ghlacann %s le dúshláin ach amháin ó chairde.</string>
   <string name="playX">Imir %s</string>
   <string name="sorry">Tá brón orainn :(</string>
   <string name="weHadToTimeYouOutForAWhile">Bhí orainn thú a chur ar fionraí ar feadh tréimhse.</string>
