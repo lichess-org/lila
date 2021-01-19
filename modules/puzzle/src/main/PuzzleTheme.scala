@@ -35,6 +35,7 @@ object PuzzleTheme {
   val exposedKing    = PuzzleTheme(Key("exposedKing"), i.exposedKing, i.exposedKingDescription)
   val fork           = PuzzleTheme(Key("fork"), i.fork, i.forkDescription)
   val hangingPiece   = PuzzleTheme(Key("hangingPiece"), i.hangingPiece, i.hangingPieceDescription)
+  val hookMate       = PuzzleTheme(Key("hookMate"), i.hookMate, i.hookMateDescription)
   val interference   = PuzzleTheme(Key("interference"), i.interference, i.interferenceDescription)
   val intermezzo     = PuzzleTheme(Key("intermezzo"), i.intermezzo, i.intermezzoDescription)
   val kingsideAttack = PuzzleTheme(Key("kingsideAttack"), i.kingsideAttack, i.kingsideAttackDescription)
@@ -121,6 +122,7 @@ object PuzzleTheme {
       mateIn5,
       anastasiaMate,
       backRankMate,
+      hookMate,
       smotheredMate
     ),
     trans.puzzle.specialMoves -> List(

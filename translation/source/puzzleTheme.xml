@@ -43,6 +43,8 @@
   <string name="forkDescription">A move where the moved piece attacks two opponent pieces at once.</string>
   <string name="hangingPiece">Hanging piece</string>
   <string name="hangingPieceDescription">A tactic involving an opponent piece being undefended or insufficiently defended and free to capture.</string>
+  <string name="hookMate">Hook mate</string>
+  <string name="hookMateDescription">Checkmate with a rook, knight, and pawn along with one enemy pawn to limit the enemy king's escape.</string>
   <string name="interference">Interference</string>
   <string name="interferenceDescription">Moving a piece between two opponent pieces to leave one or both opponent pieces undefended, such as a knight on a defended square between two rooks.</string>
   <string name="intermezzo">Intermezzo</string>
