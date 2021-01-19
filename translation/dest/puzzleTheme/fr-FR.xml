@@ -4,6 +4,8 @@
   <string name="advancedPawnDescription">Un pion promouvant ou menaçant d\'être promu est essentiel à la tactique.</string>
   <string name="advantage">Avantage</string>
   <string name="advantageDescription">Saisissez votre chance d\'obtenir un avantage décisif. (200cp ≤ évaluation ≤ 600cp)</string>
+  <string name="anastasiaMate">Mat d\'Anastasie</string>
+  <string name="anastasiaMateDescription">Un cavalier et une tour ou une dame s\'associent pour piéger le roi adverse entre le bord de l\'échiquier et une pièce amie.</string>
   <string name="attackingF2F7">Attaque en f2 ou f7</string>
   <string name="attackingF2F7Description">Une attaque sur le pion f2 ou f7, comme dans l\'attaque fegatello/Fried Liver.</string>
   <string name="attraction">Attraction</string>
