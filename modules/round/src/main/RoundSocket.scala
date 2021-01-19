@@ -160,7 +160,7 @@ final class RoundSocket(
   private def finishRound(gameId: Game.Id): Unit =
     rounds.terminate(gameId.value, _ ! RoundDuct.Stop)
 
-  private lazy val send: String => Unit = remoteSocketApi.makeSender("r-out").apply _
+  private lazy val send: String => Unit = remoteSocketApi.makeSender("r-out", parallelism = 8).apply _
 
   remoteSocketApi.subscribeRoundRobin("r-in", Protocol.In.reader, parallelism = 8)(
     roundHandler orElse remoteSocketApi.baseHandler
