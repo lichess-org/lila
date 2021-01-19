@@ -9,7 +9,7 @@
   <string name="yourTurn">Ваш потез</string>
   <string name="aiNameLevelAiLevel">%1$s ниво %2$s</string>
   <string name="level">Ниво</string>
-  <string name="strength">Снага</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Снага</string>
   <string name="toggleTheChat">Укључи/искључи ћаскање</string>
   <string name="toggleSound">Укључи/искључи звук</string>
   <string name="chat">Ћаскање</string>
