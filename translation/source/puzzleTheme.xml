@@ -4,6 +4,8 @@
   <string name="advancedPawnDescription">A pawn promoting or threatening to promote is key to the tactic.</string>
   <string name="advantage">Advantage</string>
   <string name="advantageDescription">Seize your chance to get a decisive advantage. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="anastasiaMate">Anastasia's mate</string>
+  <string name="anastasiaMateDescription">A knight and rook or queen team up to trap the opposing king between the side of the board and a friendly piece.</string>
   <string name="attackingF2F7">Attacking f2 or f7</string>
   <string name="attackingF2F7Description">An attack focusing on the f2 or f7 pawn, such as in the fried liver opening.</string>
   <string name="attraction">Attraction</string>

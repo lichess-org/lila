@@ -14,6 +14,7 @@ object PuzzleTheme {
   val mix           = PuzzleTheme(Key("mix"), i.healthyMix, i.healthyMixDescription)
   val advancedPawn  = PuzzleTheme(Key("advancedPawn"), i.advancedPawn, i.advancedPawnDescription)
   val advantage     = PuzzleTheme(Key("advantage"), i.advantage, i.advantageDescription)
+  val anastasiaMate = PuzzleTheme(Key("anastasiaMate"), i.anastasiaMate, i.anastasiaMateDescription)
   val attackingF2F7 = PuzzleTheme(Key("attackingF2F7"), i.attackingF2F7, i.attackingF2F7Description)
   val attraction    = PuzzleTheme(Key("attraction"), i.attraction, i.attractionDescription)
   val backRankMate  = PuzzleTheme(Key("backRankMate"), i.backRankMate, i.backRankMateDescription)
@@ -118,8 +119,9 @@ object PuzzleTheme {
       mateIn3,
       mateIn4,
       mateIn5,
-      smotheredMate,
-      backRankMate
+      anastasiaMate,
+      backRankMate,
+      smotheredMate
     ),
     trans.puzzle.specialMoves -> List(
       castling,
