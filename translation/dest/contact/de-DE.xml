@@ -29,7 +29,7 @@
   <string name="wantReport">Ich möchte einen Spieler melden</string>
   <string name="reportCheating">Melde einen Spieler wegen Betrugs</string>
   <string name="reportSandbagging">Melde einen Spieler wegen Tiefstapelei</string>
-  <string name="reportTrolling">Melde einen Spieler wegen Trollens</string>
+  <string name="reportTrolling">Melde einen Spieler wegen bewussten Provozierends</string>
   <string name="reportInsults">Melde einen Spieler wegen Beleidigungen</string>
   <string name="reportOtherReason">Melde einen Spieler aus einem anderen Grund</string>
   <string name="toReportAPlayer">Benutze das Meldeformular, um einen Spieler wegen %s zu melden</string>
