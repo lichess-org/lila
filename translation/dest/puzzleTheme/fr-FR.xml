@@ -26,7 +26,7 @@
   <string name="crushingDescription">Repérez la gaffe de l\'adversaire pour obtenir un avantage écrasant. (évaluation &gt; 600cp)</string>
   <string name="doubleBishopMate">Mat des deux fous</string>
   <string name="doubleBishopMateDescription">Deux fous contrôlant des diagonales adjacentes matent un roi bloqué par ses propres pièces.</string>
-  <string name="dovetailMate">Mat en queue d\'aronde</string>
+  <string name="dovetailMate">Mat de Cozio</string>
   <string name="dovetailMateDescription">Une dame mate un roi placé sur une case adjacente, les deux seules cases de fuite étant occupées par des pièces amies.</string>
   <string name="equality">Égalité</string>
   <string name="equalityDescription">Revenir d\'une position perdante et assurer une nulle ou une position équilibrée. (évaluation ≤ 200cp)</string>
