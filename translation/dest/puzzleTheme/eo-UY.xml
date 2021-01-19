@@ -17,8 +17,8 @@
   <string name="knightEndgame">Ĉevala finludo</string>
   <string name="long">Longa puzlo</string>
   <string name="longDescription">Tri movoj por venki.</string>
-  <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Majstraj ludoj</string>
-  <string name="masterVsMaster" comment="masterVsMaster&#10;&#10;Puzzles from games between two titled players.">Majstro kontraŭ Majtro ludoj</string>
+  <string name="master">Majstraj ludoj</string>
+  <string name="masterVsMaster">Majstro kontraŭ Majtro ludoj</string>
   <string name="masterVsMasterDescription">Puzloj el ludoj inter du titolitaj ŝakistoj.</string>
   <string name="mate">Mato</string>
   <string name="mateIn1">Mato en 1</string>
