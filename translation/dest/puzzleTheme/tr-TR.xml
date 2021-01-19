@@ -4,6 +4,7 @@
   <string name="advancedPawnDescription">Terfi eden veya terfi etmek üzere olan bir piyon taktik bilgisinin olmazsa olmazıdır.</string>
   <string name="advantage">Avantaj yakala</string>
   <string name="advantageDescription">Mutlak bir üstünlük kazanma şansını yakala. (200sp ≤ analiz ≤ 600sp)</string>
+  <string name="anastasiaMate">Anastasia\'nın matı</string>
   <string name="attackingF2F7">Saldırı: f2 ve f7</string>
   <string name="attackingF2F7Description">Kızarmış karaciğer açılışında olduğu gibi f2 veya f7 karesindeki piyonları hedef alan saldırılar.</string>
   <string name="attraction">Tehlikeli sular</string>
