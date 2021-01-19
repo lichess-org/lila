@@ -4,10 +4,10 @@
   <string name="advancedPawnDescription">Ein Bauer, der umwandelt oder umzuwandeln droht, ist Schlüssel zur Taktik.</string>
   <string name="advantage">Vorteil</string>
   <string name="advantageDescription">Nutze deine Chance, um einen entscheidenden Vorteil zu erlangen. (200 Hundertstel-Bauern ≤ Bewertung ≤ 600 Hundertstel-Bauern)</string>
-  <string name="anastasiaMate">Anastasias-Matt</string>
+  <string name="anastasiaMate">Anastasia-Matt</string>
   <string name="anastasiaMateDescription">Ein Springer und ein Turm bzw. eine Dame arbeiten zusammen, um den gegnerischen König zwischen dem Brettrand und einer seiner eigenen Figuren einzuschließen.</string>
   <string name="arabianMate">Arabisches Matt</string>
-  <string name="arabianMateDescription">Ein Springer und ein Turm arbeiten zusammen, um den gegnerischen König am Rand des Bretts festzusetzen.</string>
+  <string name="arabianMateDescription">Ein Springer und ein Turm arbeiten zusammen, um den gegnerischen König in einer Ecke des Bretts matt zu setzen.</string>
   <string name="attackingF2F7">Angriff auf f2 oder f7</string>
   <string name="attackingF2F7Description">Ein Angriff, der sich auf den Bauern auf f2 oder f7 konzentriert, wie z. B. bei der Fegatello-Variante.</string>
   <string name="attraction">Hinlenkung oder \"Magnet\"</string>
