@@ -27,11 +27,6 @@
   <string name="wantClearHistory">Mi volas forigi mian historion aŭ poentaron</string>
   <string name="cantClearHistory">Ne eblas malplenigi vian ludan historion, puzlan historion aŭ poentaron.</string>
   <string name="wantReport">Mi volas raporti ludanton</string>
-  <string name="cheating">trompo</string>
-  <string name="sandbagging">sablokolono</string>
-  <string name="trolling">trolado</string>
-  <string name="insults">insultoj</string>
-  <string name="otherReason">iu alia kialo</string>
   <string name="toReportAPlayer">Por raporti ludanton por %s, uzu la raportan formularon</string>
   <string name="youCanAlsoReachReportPage">Vi ankaŭ povas atingi tiun paĝon alklakante la raportan butonon %s en profilpaĝo.</string>
   <string name="doNotReportInForum">Ne raportu ludantojn en la forumo.</string>
@@ -59,7 +54,7 @@
   <string name="ratedGame">Certigu, ke vi ludis taksitan ludon. Kazaj ludoj ne influas la taksojn de ludantoj.</string>
   <string name="errorPage">Erara paĝo</string>
   <string name="reportErrorPage">Se vi trovas eraran paĝon, vi povas raporti ĝin:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Apelacio por malpermeso aŭ IP limigo</string>
+  <string name="banAppeal">Apelacio por malpermeso aŭ IP limigo</string>
   <string name="engineAppeal">Motoro aŭ trompmarko</string>
   <string name="sendAppealTo">Vi povas sendi apelacion al %s.</string>
   <string name="falsePositives">Falsaj pozitivoj kelkfoje okazas, kaj ni bedaŭras pro tio.</string>
