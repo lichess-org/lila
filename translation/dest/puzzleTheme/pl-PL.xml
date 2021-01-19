@@ -26,6 +26,8 @@
   <string name="crushingDescription">Zauważ błąd przeciwnika, aby uzyskać miażdżącą przewagę (ocena pozycji: powyżej 600cp)</string>
   <string name="doubleBishopMate">Mat dwoma gońcami</string>
   <string name="doubleBishopMateDescription">Dwa atakujące gońce na sąsiednich przekątnych matują króla ograniczonego przez własne bierki.</string>
+  <string name="dovetailMate">Jaskółczy ogon</string>
+  <string name="dovetailMateDescription">Hetman matuje sąsiedniego króla, którego jedyne dwa pola ucieczki są zablokowane przez własne bierki.</string>
   <string name="equality">Równowaga</string>
   <string name="equalityDescription">Odzyskaj remis bądź równowagę wychodząc z przegrywającej pozycji. (ocena pozycji: poniżej 200cp)</string>
   <string name="kingsideAttack">Atak skrzydłem królewskim</string>
@@ -49,6 +51,8 @@
   <string name="forkDescription">Ruch w którym poruszona bierka atakuje jednocześnie dwie bierki przeciwnika.</string>
   <string name="hangingPiece">Wisząca figura</string>
   <string name="hangingPieceDescription">Taktyka wykorzystująca możliwość zbicia niebronionej lub niedostatecznie bronionej bierki przeciwnika.</string>
+  <string name="hookMate">Mat haka</string>
+  <string name="hookMateDescription">Mat wieżą, skoczkiem i pionkiem z wrogim pionem blokującym ucieczkę króla.</string>
   <string name="interference">Przesłona</string>
   <string name="interferenceDescription">Ruch figurą pomiędzy dwie figury przeciwnika, tak, że jedna lub obydwie są niebronione. Na przykład ruch skoczkiem na bronione pole pomiędzy dwie wieże.</string>
   <string name="intermezzo">Wtrącony ruch</string>
