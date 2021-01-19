@@ -18,10 +18,6 @@
   <string name="doNotAskByEmailToReopen">이메일을 보내 계정 복구를 요청하지 마십시오.</string>
   <string name="wantChangeUsername">사용자명을 변경하고 싶습니다</string>
   <string name="wantReport">이용자 신고하기</string>
-  <string name="cheating">부정 행위</string>
-  <string name="trolling">트롤링</string>
-  <string name="insults">부적절한 발언</string>
-  <string name="otherReason">기타</string>
   <string name="doNotReportInForum">포럼에서 이용자를 신고하지 마십시오.</string>
   <string name="doNotSendReportEmails">이메일을 보내 신고하지 마십시오.</string>
   <string name="doNotMessageModerators">관리자에게 디렉트 메시지를 보내지 마십시오.</string>
