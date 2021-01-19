@@ -27,11 +27,6 @@
   <string name="wantClearHistory">Vull esborrar el meu historial o puntuació</string>
   <string name="cantClearHistory">No és possible esborrar l\'historial de jocs, l\'historial de trencaclosques o les classificacions.</string>
   <string name="wantReport">Vull denunciar un jugador</string>
-  <string name="cheating">fer trampes</string>
-  <string name="sandbagging">perdre deliberadament</string>
-  <string name="trolling">ser molest</string>
-  <string name="insults">insults</string>
-  <string name="otherReason">algun altre motiu</string>
   <string name="toReportAPlayer">Per denunciar un usuari per %s, fes servir el formulari de denucies</string>
   <string name="youCanAlsoReachReportPage">També podeu arribar a aquesta pàgina si feu clic al botó de denuncies per %s en una pàgina de perfil.</string>
   <string name="doNotReportInForum">No denunciar jugadors al forum.</string>
@@ -59,7 +54,7 @@
   <string name="ratedGame">Assegura\'t d\'haver jugat una partida puntuable. Les partides amistoses no afecten les puntuacions dels jugadors.</string>
   <string name="errorPage">Pàgina d\'error</string>
   <string name="reportErrorPage">Si una pàgina et dóna error, la pots reportar:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Apel·lació per prohibició o restricció de IP</string>
+  <string name="banAppeal">Apel·lació per prohibició o restricció de IP</string>
   <string name="engineAppeal">Motor o marca de trampa</string>
   <string name="sendAppealTo">Pots enviar una apel·lació a %s.</string>
   <string name="falsePositives">A vegades es detecten falsos positius i demanem disculpes per això.</string>
