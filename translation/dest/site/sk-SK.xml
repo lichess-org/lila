@@ -724,7 +724,7 @@
   <string name="weHaveSentYouAnEmailTo">Poslali sme email na %s. Kliknite na link v emaili na obnovenie hesla.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registráciou súhlasíte aby ste boli viazaný s našimi %s.</string>
   <string name="readAboutOur">Prečítajte si o našej %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Internetové oneskorenie medzi Vami a lichess</string>
+  <string name="networkLagBetweenYouAndLichess">Internetové oneskorenie medzi Vami a lichessom</string>
   <string name="timeToProcessAMoveOnLichessServer">Čas na spracovanie ťahu na lichess serveri</string>
   <string name="downloadAnnotated">Stiahnuť s poznámkami</string>
   <string name="downloadRaw">Stiahnuť čisté PGN</string>
