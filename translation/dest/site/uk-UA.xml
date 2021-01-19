@@ -9,7 +9,7 @@
   <string name="yourTurn">Ваш хід</string>
   <string name="aiNameLevelAiLevel">%1$s рівень %2$s</string>
   <string name="level">Рівень</string>
-  <string name="strength">Рівень</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Рівень</string>
   <string name="toggleTheChat">Вимк./увімк. чат</string>
   <string name="toggleSound">Вимк./увімк. звук</string>
   <string name="chat">Чат</string>
