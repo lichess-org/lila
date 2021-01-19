@@ -27,6 +27,11 @@
   <string name="wantClearHistory">Quiero borrar mi historial o puntuación</string>
   <string name="cantClearHistory">No puedes borrar tu historial de partidas, ejercicios o puntuaciones.</string>
   <string name="wantReport">Quiero denunciar a un jugador</string>
+  <string name="reportCheating">Denunciar a un jugador por hacer trampas</string>
+  <string name="reportSandbagging">Denunciar a un jugador por reducción intencionada de su puntuación</string>
+  <string name="reportTrolling">Denunciar a un jugador por molestar</string>
+  <string name="reportInsults">Denunciar a un jugador por insultos</string>
+  <string name="reportOtherReason">Denunciar a un jugador por alguna otra razón</string>
   <string name="toReportAPlayer">Para denunciar a un jugador por %s, utiliza el formulario de denuncia</string>
   <string name="youCanAlsoReachReportPage">También puedes acceder a esa página pulsando el botón de denuncia %s en un perfil.</string>
   <string name="doNotReportInForum">No denuncie a jugadores en el foro.</string>
