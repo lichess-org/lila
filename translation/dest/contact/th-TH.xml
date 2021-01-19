@@ -24,11 +24,6 @@
   <string name="wantClearHistory">ฉันต้องการล้างประวัติหรือระดับคะแนนของฉัน</string>
   <string name="cantClearHistory">เป็นไปไม่ได้ที่จะล้างประวัติเกม, ประวัติปริศนา หรือระดับคะแนนของคุณ</string>
   <string name="wantReport">ฉันต้องการร้องเรียนผู้เล่น</string>
-  <string name="cheating">การโกง</string>
-  <string name="sandbagging">การแสร้งว่าอ่อนหัด</string>
-  <string name="trolling">การก่อกวน</string>
-  <string name="insults">การดูหมิ่น</string>
-  <string name="otherReason">เหตุผลอื่น</string>
   <string name="toReportAPlayer">เพื่อร้องเรียนผู้เล่นสำหรับ %s, ใช้แบบรายงาน</string>
   <string name="youCanAlsoReachReportPage">คุณสามารถไปที่หน้านั้นได้โดยการคลิกปุ่มรายงาน %s บนหน้าโปรไฟล์</string>
   <string name="doNotReportInForum">อย่าร้องเรียนผู้เล่นในห้องอภิปราย</string>
