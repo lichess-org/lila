@@ -28,6 +28,10 @@
   <string name="cantClearHistory">Невозможно очистить историю игр, историю шахматных задач или рейтинг.</string>
   <string name="wantReport">Я хочу пожаловаться на игрока</string>
   <string name="reportCheating">Сообщить о читерстве</string>
+  <string name="reportSandbagging">Сообщить о манипуляциях с рейтингом</string>
+  <string name="reportTrolling">Сообщить о троллинге</string>
+  <string name="reportInsults">Сообщить об оскорблениях</string>
+  <string name="reportOtherReason">Сообщить об игроке по другой причине</string>
   <string name="toReportAPlayer">Чтобы пожаловаться на игрока за %s, используйте эту форму</string>
   <string name="youCanAlsoReachReportPage">Также вы можете перейти на эту страницу, нажав %s \"Пожаловаться\" на странице профиля.</string>
   <string name="doNotReportInForum">Не пишите об игроках на форуме.</string>
