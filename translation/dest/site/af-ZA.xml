@@ -38,7 +38,7 @@
     <item quantity="one">Jou opponent het die spel verlaat. Jy kan die oorwinning in %s sekonde eis.</item>
     <item quantity="other">Jou opponent het die spel verlaat. Jy kan die oorwinning in %s sekondes eis.</item>
   </plurals>
-  <string name="opponentLeftChoices">Ander speler het spel verlaat. Jy kan \'n oorwinning verklaar, gelykspel eis, of wag.</string>
+  <string name="opponentLeftChoices">Ander speler het die spel verlaat. Jy kan ’n oorwinning verklaar, gelykspel eis, of wag.</string>
   <string name="makeYourOpponentResign">Laat teenstander oorgee</string>
   <string name="forceResignation">Eis die oorwinning</string>
   <string name="forceDraw">Eis \'n gelykop</string>
@@ -49,7 +49,7 @@
   <string name="whiteLeftTheGame">Wit het die spel verlaat</string>
   <string name="blackLeftTheGame">Swart het die spel verlaat</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Deel die URL vir toeskouers</string>
-  <string name="theComputerAnalysisHasFailed">Die rekenaar analise het misluk</string>
+  <string name="theComputerAnalysisHasFailed">Die rekenaaranalise het misluk</string>
   <string name="viewTheComputerAnalysis">Beskou die rekenaar analise</string>
   <string name="requestAComputerAnalysis">Versoek \'n rekenaar analise</string>
   <string name="computerAnalysis">Rekenaar analise</string>
