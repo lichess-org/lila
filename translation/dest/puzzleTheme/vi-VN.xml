@@ -42,6 +42,7 @@
   <string name="forkDescription">Một nước đi mà một quân cờ tấn công hai quân cờ của đối phương cùng lúc.</string>
   <string name="hangingPiece">Quân cờ không được bảo vệ</string>
   <string name="hangingPieceDescription">Một chiến thuật liên quan đến quân cờ của đối phương không được phòng thủ hoặc phòng thủ không đủ dẫn tới việc có thể ăn quân cờ đấy.</string>
+  <string name="hookMateDescription">Chiếu tướng hết cờ bằng quân xe, mã, và tốt cùng với một quân tốt đối phương làm chặn đường vua chạy.</string>
   <string name="interference">Giao thoa</string>
   <string name="interferenceDescription">Di chuyển một quân cờ giữa hai quân cờ đối thủ để một hoặc cả hai quân cờ đối thủ không bị cản trở, chẳng hạn như một quân Mã trên ô vuông được bảo vệ giữa hai quân Xe.</string>
   <string name="intermezzo">Intermezzo</string>
