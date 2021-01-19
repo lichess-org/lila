@@ -43,6 +43,8 @@
   <string name="forkDescription">Gājiens, pēc kura kustinātā figūra uzbrūk diviem pretiniekiem reizē.</string>
   <string name="hangingPiece">Neapsargāta figūra</string>
   <string name="hangingPieceDescription">Taktika, ar kuru var par brīvu nosist pretinieka figūru, kas ir neapsargāta vai nepietiekami apsargāta.</string>
+  <string name="hookMate" comment="hookMate&#10;&#10;Checkmate with a rook, knight, and pawn along with one enemy pawn to limit the enemy king's escape.">Āķa mats</string>
+  <string name="hookMateDescription">Mats ar torni, zirdziņu un bandinieku, kurā iesaistīts viens pretinieka bandinieks, kas ierobežo karaļa izbēgšanu.</string>
   <string name="interference">Iejaukšanās</string>
   <string name="interferenceDescription">Figūras novietošana starp divām pretinieka figūrām tā, lai vismaz viena no tām būtu neapsargāta — piemēram zirdziņa novietošana uz apsargāta lauciņa starp torņiem.</string>
   <string name="intermezzo">Intermezzo</string>
