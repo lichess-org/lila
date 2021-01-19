@@ -27,6 +27,7 @@
   <string name="doubleBishopMate">Mat des deux fous</string>
   <string name="doubleBishopMateDescription">Deux fous contrôlant des diagonales adjacents matent un roi obstrué par ses propres pièces.</string>
   <string name="dovetailMate">Mat en queue d\'aronde</string>
+  <string name="dovetailMateDescription">Une dame mate un roi placé sur une case adjacente, les deux seules cases de fuite étant occupées par des pièces amies.</string>
   <string name="equality">Égalité</string>
   <string name="equalityDescription">Revenir d\'une position perdante et assurer une nulle ou une position équilibrée. (évaluation ≤ 200cp)</string>
   <string name="kingsideAttack">Attaque à l\'aile roi</string>
