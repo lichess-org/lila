@@ -43,6 +43,8 @@
   <string name="forkDescription">Ėjimas, kurio metu perkelta figūra puola dvi ar daugiau priešininko figūrų vienu metu.</string>
   <string name="hangingPiece">Kabanti figūra</string>
   <string name="hangingPieceDescription">Taktika, susijusi su neapginta ar nepakankamai apginta ir lengvai nukertama priešininko figūra.</string>
+  <string name="hookMate">Kablio matas</string>
+  <string name="hookMateDescription">Matas su bokštu, žirgu ir pėstininku palei vieną iš priešininko pėstininkų, apribojančių priešininko karaliaus pabėgimą.</string>
   <string name="interference">Trukdymas</string>
   <string name="interferenceDescription">Figūros perkėlimas tarp dviejų priešininko figūrų, paliekant vieną ar abi jų neapgintas. Pavyzdžiui: perkeliant žirgą į apgintą laukelį tarp dviejų bokštų.</string>
   <string name="intermezzo">Tarpinis ėjimas</string>
