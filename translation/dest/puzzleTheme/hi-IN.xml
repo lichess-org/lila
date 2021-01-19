@@ -5,6 +5,7 @@
   <string name="advantage">लाभ</string>
   <string name="advantageDescription">निर्णायक लाभ प्राप्त करने के लिए अपने अवसर को जब्त करें। (200cp al eval ≤ 600cp)</string>
   <string name="anastasiaMate">अनास्तासिया के मात</string>
+  <string name="anastasiaMateDescription">बोर्ड के किनारे और एक अनुकूल टुकड़े के बीच विरोधी राजा को फंसाने के लिए एक नाइट और रूक या रानी टीम।</string>
   <string name="attackingF2F7">F2 या f7 पर हमला करना</string>
   <string name="attackingF2F7Description">एक हमला f2 या f7 मोहरे पर ध्यान केंद्रित करता है, जैसे कि तले हुए लिवर को खोलना।</string>
   <string name="attraction">आकर्षण</string>
@@ -42,6 +43,8 @@
   <string name="forkDescription">एक चाल जहां स्थानांतरित टुकड़ा एक बार में दो प्रतिद्वंद्वी टुकड़ों पर हमला करता है।</string>
   <string name="hangingPiece">लटकता हुआ टुकड़ा</string>
   <string name="hangingPieceDescription">किसी विरोधी टुकड़े को अपरिभाषित या अपर्याप्त रूप से संरक्षित करने और कब्जा करने के लिए स्वतंत्र होने वाली रणनीति।</string>
+  <string name="hookMate">हुक मात</string>
+  <string name="hookMateDescription">शत्रु राजा के भागने को सीमित करने के लिए एक शत्रु प्यादा के साथ एक हाथी, घोड़ा और प्यादा के साथ चेकमेट।</string>
   <string name="interference">दखल अंदाजी</string>
   <string name="interferenceDescription">दो प्रतिद्वंद्वी टुकड़ों के बीच एक टुकड़े को स्थानांतरित करना एक या दोनों प्रतिद्वंद्वी टुकड़ों को अपरिभाषित करना, जैसे कि दो बदमाशों के बीच बचाव चौक पर एक नाइट।</string>
   <string name="intermezzo">इंटेरमेस्सो</string>
