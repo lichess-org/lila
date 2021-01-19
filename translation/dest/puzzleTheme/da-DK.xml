@@ -6,6 +6,8 @@
   <string name="advantageDescription">Grib chancen for at få en afgørende fordel. (200cb ≤ eval ≤ 600cb)</string>
   <string name="anastasiaMate">Anastasias mat</string>
   <string name="anastasiaMateDescription">En springer og et tårn eller en dronning går sammen om at fange modstanderens konge mellem side af brættet og en venligsindet brik.</string>
+  <string name="arabianMate">Arabisk mat</string>
+  <string name="arabianMateDescription">En springer og et tårn samarbejder om at fange modstanderens konge i et af brættets hjørner.</string>
   <string name="attackingF2F7">Angreb på f2 eller f7</string>
   <string name="attackingF2F7Description">Et angreb som er fokuseret på f2 eller f7 bonden, som det kendes fra Fegatello-angrebet (\"Fried Liver Attack\").</string>
   <string name="attraction">Lokkedue</string>
@@ -14,12 +16,15 @@
   <string name="backRankMateDescription">Sæt kongen skakmat på baglinjen, når den er fanget der af sine egne brikker.</string>
   <string name="bishopEndgame">Løberslutspil</string>
   <string name="bishopEndgameDescription">Et slutspil med kun løbere og bønder.</string>
+  <string name="bodenMate">Bodens mat</string>
+  <string name="bodenMateDescription">To angribende løbere på krydsende diagonaler giver mat til en konge, som er klemt inde af egne brikker.</string>
   <string name="castling">Rokade</string>
   <string name="castlingDescription">Bring din konge i sikkerhed og gør dit tårn klar til angreb.</string>
   <string name="capturingDefender">Tag forsvaren</string>
   <string name="capturingDefenderDescription">Tag en brik som er kritisk i forsvaret af en anden brik, så det er muligt at tage den uforsvarede brik på et efterfølgende træk.</string>
   <string name="crushing">Knusende</string>
   <string name="crushingDescription">Spot modstanderens brøler for at opnå en knusende fordel. (eval ≥ 600cb)</string>
+  <string name="doubleBishopMate">Dobbelt løbermat</string>
   <string name="equality">Udligning</string>
   <string name="equalityDescription">Vend en tabende stilling til en remis eller en lige stilling. (eval ≤ 200cb)</string>
   <string name="kingsideAttack">Angreb på kongesiden</string>
