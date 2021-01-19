@@ -7,7 +7,7 @@
   <string name="anastasiaMate">Anastasia matı</string>
   <string name="anastasiaMateDescription">Bir atın yardımını alan kale veya vezir, rakip şahı kendi taşları ve tahtanın kenarı arasında tuzağa düşürür.</string>
   <string name="arabianMate">Arap matı</string>
-  <string name="arabianMateDescription">At ile kalenin rakip şahı köşeye sıkıştırdığı matlar.</string>
+  <string name="arabianMateDescription">At ile kalenin, rakip şahı tahtanın köşesine sıkıştırdığı matlar.</string>
   <string name="attackingF2F7">Saldırı: f2 ve f7</string>
   <string name="attackingF2F7Description">Kızarmış karaciğer açılışında olduğu gibi f2 veya f7 karesindeki piyonları hedef alan saldırılar.</string>
   <string name="attraction">Tehlikeli sular</string>
@@ -16,12 +16,16 @@
   <string name="backRankMateDescription">Kendi taşları arkasında sıkışıp kalmış şaha koridorun kapısını göster.</string>
   <string name="bishopEndgame">Fil oyunsonu</string>
   <string name="bishopEndgameDescription">Sadece fil ve piyon içeren oyunsonu.</string>
+  <string name="bodenMate">Boden matı</string>
+  <string name="bodenMateDescription">İki filin, kendi taşları tarafından kısıtlanan şaha çaprazlamasına girişerek gerçekleştirdiği matlar.</string>
   <string name="castling">Rok</string>
   <string name="castlingDescription">Şahı güvene alırken kaleni saldırıya hazırla.</string>
   <string name="capturingDefender">Savunmayı baltala</string>
   <string name="capturingDefenderDescription">Bir taşı savunan diğer bir taşı ortadan kaldırarak savunmasız kalan taşı sonraki hamlede ele geçir.</string>
   <string name="crushing">Ezici üstünlük</string>
   <string name="crushingDescription">Rakibin vahim hatasını yakalayarak ezici bir üstünlük elde et. (analiz ≥ 600sp)</string>
+  <string name="doubleBishopMate">İki fil matı</string>
+  <string name="doubleBishopMateDescription">Yan yana konuşlanmış iki fil, kendi taşları tarafından kısıtlanmış şahı mat eder.</string>
   <string name="equality">Eşitlik</string>
   <string name="equalityDescription">Kaybeden bir durumdan paçayı kurtararak beraberlik veya dengeli bir pozisyon elde et. (analiz ≤ 200sp)</string>
   <string name="kingsideAttack">Şah tarafına saldırı</string>
