@@ -9,7 +9,7 @@
   <string name="yourTurn">Dy dro di</string>
   <string name="aiNameLevelAiLevel">%1$s safon %2$s</string>
   <string name="level">Safon</string>
-  <string name="strength">Cryfder</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Cryfder</string>
   <string name="toggleTheChat">Toglo sgwrs</string>
   <string name="toggleSound">Toglo sain</string>
   <string name="chat">Sgwrsio</string>
