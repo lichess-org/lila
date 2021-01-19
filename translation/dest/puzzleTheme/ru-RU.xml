@@ -17,6 +17,7 @@
   <string name="bishopEndgame">Слоновый эндшпиль</string>
   <string name="bishopEndgameDescription">Эндшпиль, где присутствуют лишь слоны и пешки.</string>
   <string name="bodenMate">Мат Бодена</string>
+  <string name="bodenMateDescription">Два слона с пересекающихся диагоналей ставят мат вражескому королю, окружённому собственными фигурами.</string>
   <string name="castling">Рокировка</string>
   <string name="castlingDescription">Поместите короля в надёжное место и выведите в бой ладью.</string>
   <string name="capturingDefender">Уничтожение защитника</string>
