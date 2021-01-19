@@ -5,6 +5,7 @@
   <string name="advantage">Fordel</string>
   <string name="advantageDescription">Grib chancen for at få en afgørende fordel. (200cb ≤ eval ≤ 600cb)</string>
   <string name="anastasiaMate">Anastasias mat</string>
+  <string name="anastasiaMateDescription">En springer og et tårn eller en dronning går sammen om at fange modstanderens konge mellem side af brættet og en venligsindet brik.</string>
   <string name="attackingF2F7">Angreb på f2 eller f7</string>
   <string name="attackingF2F7Description">Et angreb som er fokuseret på f2 eller f7 bonden, som det kendes fra Fegatello-angrebet (\"Fried Liver Attack\").</string>
   <string name="attraction">Lokkedue</string>
@@ -42,6 +43,8 @@
   <string name="forkDescription">Et træk hvor den flyttede brik angriber to af modstanderens brikker på én gang.</string>
   <string name="hangingPiece">Hængende brik</string>
   <string name="hangingPieceDescription">En taktik der indebærer, at en af modstanderens brikker, der ikke forsvares eller ikke forsvares tilstrækkeligt, frit kan tages.</string>
+  <string name="hookMate">Krog-mat</string>
+  <string name="hookMateDescription">Skakmat med tårn, springer og bonde, som sammen med en fjendtlig bonde hindrer modstanderens konge i at undslippe.</string>
   <string name="interference">Obstruktion</string>
   <string name="interferenceDescription">Flytte en brik ind mellem to af modstanderens brikker, så den ene eller begge er uden forsvar, såsom en springer på et forsvaret felt mellem to tårne.</string>
   <string name="intermezzo">Intermezzo</string>
