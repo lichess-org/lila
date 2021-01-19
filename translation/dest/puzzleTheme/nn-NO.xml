@@ -4,6 +4,7 @@
   <string name="advancedPawnDescription">Ein bonde som blir forvandla eller trugar med å bli forvandla er ein taktisk nøkkel.</string>
   <string name="advantage">Fordel</string>
   <string name="advantageDescription">Grip sjansen til å få eit avgjerande fortrinn. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="anastasiaMate">Anastasia-matt</string>
   <string name="attackingF2F7">Gå til åtak på f2 eller f7</string>
   <string name="attackingF2F7Description">Eit åtak som konsentrerar seg om bøndene på f2 eller f7, som til dømes i prøyssisk opning, fegatellovarianten (\"Fried Liver Attack\").</string>
   <string name="attraction">Magnet</string>
