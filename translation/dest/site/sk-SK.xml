@@ -683,7 +683,7 @@
   <string name="aboutSimulSettings">Simultánky sú vždy nebodované. Odvety, vrátenie ťahu a \"pridávania času\" sú zakázané.</string>
   <string name="create">Vytvoriť</string>
   <string name="whenCreateSimul">Po vytvorení simultánky, môžete hrať s niekoľkými hráčmi naraz.</string>
-  <string name="simulVariantsHint">Ak vyberiete viacero variantov, každý hráč si môže vybrať ktorý bude hrať.</string>
+  <string name="simulVariantsHint">Ak vyberiete viacero variantov, každý hráč si môže vybrať, ktorý bude hrať.</string>
   <string name="simulClockHint">Nastavenie (Fisherových) hodín. Čím viac súperov, tým viac času budete potrebovat.</string>
   <string name="simulAddExtraTime">Môžete si pridať dodatočný čas k vašim hodinám pre zlepšenie behu simultánky.</string>
   <string name="simulHostExtraTime">Dotatočný čas pre hostiteľa.</string>
