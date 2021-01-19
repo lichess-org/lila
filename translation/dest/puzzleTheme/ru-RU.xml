@@ -43,6 +43,8 @@
   <string name="forkDescription">Ход, при котором под удар попадают две фигуры противника.</string>
   <string name="hangingPiece">Висячая фигура</string>
   <string name="hangingPieceDescription">Незащищённая или недостаточно защищённая фигура либо берётся сразу, либо становится объектом для атаки.</string>
+  <string name="hookMate">Хук-мат</string>
+  <string name="hookMateDescription">Мат ладьёй и конём, защищённым пешкой, при том, что одна из пешек противника занимает единственное доступное поле для отхода его короля.</string>
   <string name="interference">Перекрытие</string>
   <string name="interferenceDescription">Ход, перекрывающий линию взаимодействия дальнобойных фигур противника, в результате которого одна или обе фигуры становятся беззащитными. Например, конь встаёт на линию между двумя ладьями.</string>
   <string name="intermezzo">Промежуточный ход</string>
