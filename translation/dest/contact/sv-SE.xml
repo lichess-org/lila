@@ -10,7 +10,7 @@
   <string name="forgotUsername">Jag har glömt mitt användarnamn</string>
   <string name="youCanLoginWithEmail">Du kan logga in med den e-postadress du registrerade dig med</string>
   <string name="lost2FA">Jag har förlorat åtkomst till mina tvåfaktorsautentiseringskoder</string>
-  <string name="doPasswordReset">Gör en lösenordsåterställning för att ta bort din andra faktor</string>
+  <string name="doPasswordReset">Återställ ditt lösenord för att ta bort din andra faktor</string>
   <string name="accountSupport">Jag behöver kontosupport</string>
   <string name="wantTitle">Jag vill att min titel visas på Lichess</string>
   <string name="visitTitleConfirmation">För att visa din titel på din Lichess-profil, och delta i Titled Arenas, besök titelns bekräftelsesida</string>
@@ -24,7 +24,7 @@
   <string name="changeUsernameCase">Besök denna sida för att ändra gemener till versaler eller versaler till gemener i ditt användarnamn</string>
   <string name="cantChangeMore">Vi kan inte ändra mer än shiftläget. Av tekniska skäl är det rent ut sagt omöjligt.</string>
   <string name="orCloseAccount">Du kan dock stänga ditt nuvarande konto och skapa ett nytt.</string>
-  <string name="wantClearHistory">Jag vill rensa min historia eller rating</string>
+  <string name="wantClearHistory">Jag vill rensa min historik eller rating</string>
   <string name="cantClearHistory">Det är inte möjligt att rensa din partihistorik, historik för schackproblem eller rating.</string>
   <string name="wantReport">Jag vill rapportera en spelare</string>
   <string name="cheating">fusk</string>

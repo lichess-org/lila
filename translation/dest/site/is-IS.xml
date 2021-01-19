@@ -782,4 +782,6 @@
   <string name="youCannotPostYetPlaySomeGames">Þú mátt ekki pósta enn. Spilaðu nokkra leiki!</string>
   <string name="subscribe">Gerast áskrifandi</string>
   <string name="unsubscribe">Taka úr áskrift</string>
+  <string name="challengeDeclined">Áskorun hafnað</string>
+  <string name="challengeCanceled">Hætt við áskorun.</string>
 </resources>

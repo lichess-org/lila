@@ -21,7 +21,7 @@
   <string name="horizontalGreenProgressBars">Lárétt framvindustika</string>
   <string name="soundWhenTimeGetsCritical">Hljóð þegar lítill tími er eftir</string>
   <string name="giveMoreTime">Gefa meiri tíma</string>
-  <string name="gameBehavior">Framkoma við skákborðið</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Framkoma við skákborðið</string>
   <string name="howDoYouMovePieces">Hvernig hreyfirðu menn?</string>
   <string name="clickTwoSquares">Veldu tvo reiti</string>
   <string name="dragPiece">Dragðu taflmann</string>
@@ -41,5 +41,6 @@
   <string name="castleByMovingTwoSquares">Færa kóng um tvo reiti</string>
   <string name="castleByMovingOntoTheRook">Færa kóng á hrókinn</string>
   <string name="inputMovesWithTheKeyboard">Leika með lyklaborðinu</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Segja \"Good game, well played\" sjálfkrafa eftir tapi eða jafntefli</string>
   <string name="yourPreferencesHaveBeenSaved">Stillingar þínar voru vistaðar</string>
 </resources>
