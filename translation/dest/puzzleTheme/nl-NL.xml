@@ -4,6 +4,8 @@
   <string name="advancedPawnDescription">Een pion die promoveert of dreigt te promoveren is hier cruciaal.</string>
   <string name="advantage">Voordeel</string>
   <string name="advantageDescription">Grijp je kans om een doorslaggevend voordeel te verkrijgen. (200cp ≤ eval ≤ 600 cp)</string>
+  <string name="anastasiaMate">Anastasia\'s mat</string>
+  <string name="anastasiaMateDescription">Een paard werkt samen met een toren of dame om de koning van de tegenstander tussen de zijkant van het bord en een eigen stuk te vangen.</string>
   <string name="attackingF2F7">f2 of f7 aanvallen</string>
   <string name="attackingF2F7Description">Een aanval gericht op de f2 of de f7-pion, zoals in de Fegatello-opening.</string>
   <string name="attraction">Lokken</string>
