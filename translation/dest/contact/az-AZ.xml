@@ -27,11 +27,6 @@
   <string name="wantClearHistory">Tarixçəmi və ya reytinqimi sıfırlamaq istəyirəm</string>
   <string name="cantClearHistory">Oyun tarixçənizi, tapmaca tarixçənizi və ya reytinqlərinizi sıfırlamaq mümkün deyil.</string>
   <string name="wantReport">Bir oyunçunu bildirmək istəyirəm</string>
-  <string name="cheating">hiylə</string>
-  <string name="sandbagging">bilərək uduzma</string>
-  <string name="trolling">trollama</string>
-  <string name="insults">təhqir</string>
-  <string name="otherReason">başqa bir səbəb</string>
   <string name="toReportAPlayer">%s üçün bir oyunçunu şikayət etmək üçün şikayət formunu istifadə edin</string>
   <string name="youCanAlsoReachReportPage">Bir profil səhifəsindəki %s şikayət düyməsinə basaraq da həmin səhifəyə daxil ola bilərsiniz.</string>
   <string name="doNotReportInForum">Forumdakı oyunçuları şikayət etməyin.</string>
@@ -59,7 +54,7 @@
   <string name="ratedGame">Reytinqli oyun oynadığınızdan əmin olun. Reytinqsiz oyunlar oyunçuların reytinqlərinə təsir etmir.</string>
   <string name="errorPage">Xəta səhifəsi</string>
   <string name="reportErrorPage">Bir səhv səhifəsi ilə qarşılaşmısınızsa, bu barədə məlumat verə bilərsiniz:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Ban və ya IP məhdudlaşması üçün müraciət edin</string>
+  <string name="banAppeal">Ban və ya IP məhdudlaşması üçün müraciət edin</string>
   <string name="engineAppeal">Şahmat mühərriki istifadəsi və ya hiylə işarəsi</string>
   <string name="sendAppealTo">Buraya müraciət edə bilərsiniz: %s.</string>
   <string name="falsePositives">Bəzən yanlış şeylər ola bilər və buna görə üzr istəyirik.</string>
