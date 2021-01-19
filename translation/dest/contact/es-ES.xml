@@ -10,7 +10,7 @@
   <string name="forgotUsername">Olvidé mi nombre de usuario</string>
   <string name="youCanLoginWithEmail">Puedes iniciar sesión con la dirección de correo electrónico con la que te registraste</string>
   <string name="lost2FA">Perdí mis códigos de autenticación en dos pasos</string>
-  <string name="doPasswordReset">Completa el formulario de restablecimiento de contraseña para eliminar tu segundo factor</string>
+  <string name="doPasswordReset">Completa el cuadro de restablecimiento de contraseña para eliminar tu segundo factor</string>
   <string name="accountSupport">Necesito soporte de cuenta</string>
   <string name="wantTitle">Quiero que mi título se muestre en Lichess</string>
   <string name="visitTitleConfirmation">Para mostrar tu título en tu perfil de Lichess y participar en los torneos que lo exijan, visita la página de verificación de títulos</string>
@@ -63,7 +63,7 @@
   <string name="engineAppeal">Motor o marca de trampa</string>
   <string name="sendAppealTo">Puedes enviar una apelación a %s.</string>
   <string name="falsePositives">A veces ocurren falsos positivos, y lo lamentamos.</string>
-  <string name="ifLegit">Si su apelación es legítima, levantaremos la prohibición lo antes posible.</string>
+  <string name="ifLegit">Si tu apelación es legítima, levantaremos la prohibición lo antes posible.</string>
   <string name="accountLost">Sin embargo, si realmente utilizó asistencia del motor, incluso una sola vez, su cuenta está lamentablemente perdida.</string>
   <string name="doNotDeny">No niegues haber hecho trampa. Si quieres que se te permita crear una nueva cuenta, sólo tienes que admitir lo que hiciste, y mostrar que has comprendido que se trataba de un error.</string>
   <string name="otherRestriction">Otra restricción</string>
