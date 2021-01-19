@@ -9,7 +9,7 @@
   <string name="yourTurn">Te következel</string>
   <string name="aiNameLevelAiLevel">%1$s szint: %2$s</string>
   <string name="level">Szint</string>
-  <string name="strength">Erősség</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Erősség</string>
   <string name="toggleTheChat">Csevegő ki-be</string>
   <string name="toggleSound">Hang ki-be</string>
   <string name="chat">Csevegés</string>
