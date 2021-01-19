@@ -39,6 +39,8 @@
   <string name="progress">進度</string>
   <string name="noStudents">這個課程內還沒有學生</string>
   <string name="noRemovedStudents">沒有被移除的學生</string>
+  <string name="overDays" comment="overDays&#10;&#10;In the &quot;Progress&quot; tab of a Lichess Class dashboard, &quot;Over days&quot; is the title of a selector. This selector offers a choice between various durations, in days, over which the user can view the progress of the class.">幾天來</string>
+  <string name="timePlaying">奕棋時間</string>
   <string name="winrate">勝率</string>
   <string name="na">N/A</string>
   <string name="news">課程通知</string>
