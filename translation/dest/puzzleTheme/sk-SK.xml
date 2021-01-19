@@ -41,6 +41,7 @@
   <string name="forkDescription">Ťah, pri ktorom figúra útočí na dve nepriateľské figúry naraz.</string>
   <string name="hangingPiece">Visiaca figúra</string>
   <string name="hangingPieceDescription">Taktika spojená so súperovou figúrou, ktorá je nekrytá alebo nedostatočne krytá a je možné ju vziať zadarmo.</string>
+  <string name="hookMateDescription">Mat vežou, jazdcom alebo pešiakom spolu s jedným súperovým pešiakom, ktorý obmedzuje pohyb kráľa.</string>
   <string name="interference">Prekrytie</string>
   <string name="interferenceDescription">Umiestnenie figúry medzi dve súperove figúry čím sa tieto dve stávajú nekrytými, napr. umiestnenie jazdca na kryté pole medzi dve veže.</string>
   <string name="intermezzo">Medziťah</string>
@@ -49,6 +50,7 @@
   <string name="knightEndgameDescription">Koncovka iba s jazdcami a pešiakmi.</string>
   <string name="long">Troj-ťahové úlohy</string>
   <string name="longDescription">Tri ťahy do výhry.</string>
+  <string name="master">Hry majstrov</string>
   <string name="mate">Mat</string>
   <string name="mateDescription">Vyhrajte hru so štýlom.</string>
   <string name="mateIn1">Mat 1. ťahom</string>
