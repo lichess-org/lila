@@ -4,6 +4,8 @@
   <string name="advancedPawnDescription">Um peão prestes a ser promovido ou à beira da promoção é um tema tático.</string>
   <string name="advantage">Vantagem</string>
   <string name="advantageDescription">Aproveite a sua chance de ter uma vantagem decisiva. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="anastasiaMate">Mate Anastasia</string>
+  <string name="anastasiaMateDescription">Um cavalo e uma torre se unem para prender o rei do oponente entre a lateral do tabuleiro e uma peça amiga.</string>
   <string name="attackingF2F7">Atacando f2 ou f7</string>
   <string name="attackingF2F7Description">Um ataque focado no peão de f2 e no peão de f7, como na abertura frango frito.</string>
   <string name="attraction">Atração</string>
@@ -41,6 +43,7 @@
   <string name="forkDescription">Um movimento onde a peça movida ataca duas peças de oponente de uma só vez.</string>
   <string name="hangingPiece">Peça pendurada</string>
   <string name="hangingPieceDescription">Uma táctica que envolve uma peça indefesa do oponente ou insuficientemente defendida e livre para ser capturada.</string>
+  <string name="hookMate">Xeque gancho</string>
   <string name="interference">Interferência</string>
   <string name="interferenceDescription">Mover uma peça entre duas peças do oponente para deixar uma ou duas peças do oponente indefesas, como um cavalo em uma casa defendida por duas torres.</string>
   <string name="intermezzo">Lance intermediário</string>
