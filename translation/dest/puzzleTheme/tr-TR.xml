@@ -27,7 +27,7 @@
   <string name="doubleBishopMate">İki fil matı</string>
   <string name="doubleBishopMateDescription">Yan yana konuşlanmış iki fil, kendi taşları tarafından kısıtlanmış şahı mat eder.</string>
   <string name="dovetailMate">Kurtağzı matı</string>
-  <string name="dovetailMateDescription">İki kaçış yolu da kendi taşlarınca kapatılmış şah, hemen çaprazına konuşlanan vezir tarafından mat edilir.</string>
+  <string name="dovetailMateDescription">İki kaçış yolu da kendi taşlarınca kapalı olan şah, hemen çaprazına konuşlanan vezir tarafından mat edilir.</string>
   <string name="equality">Eşitlik</string>
   <string name="equalityDescription">Kaybeden bir durumdan paçayı kurtararak beraberlik veya dengeli bir pozisyon elde et. (analiz ≤ 200sp)</string>
   <string name="kingsideAttack">Şah tarafına saldırı</string>
