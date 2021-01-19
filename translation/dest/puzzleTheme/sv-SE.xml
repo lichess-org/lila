@@ -44,14 +44,14 @@
   <string name="interference">Interference</string>
   <string name="interferenceDescription">Placerar en pjäs mellan två motståndares pjäser för att lämna en eller båda motståndarpjäserna ogarderade, till exempel springare på en garderad ruta mellan två torn.</string>
   <string name="intermezzo">Mellandrag</string>
-  <string name="intermezzoDescription">Istället för att spela det förväntade draget, görs ett annat drag som utgör ett omedelbart hot som motståndaren måste svara på. Även känt som \"Zwischenzug\" eller \"Intermezzo\".</string>
-  <string name="knightEndgame">Springare-slutspel</string>
+  <string name="intermezzoDescription">Istället för att spela det förväntade draget, görs ett annat drag som utgör ett omedelbart hot som motståndaren måste svara på. Även känt som \"zwischenzug\" eller \"intermezzo\".</string>
+  <string name="knightEndgame">Springareslutspel</string>
   <string name="knightEndgameDescription">Ett slutspel med bara springare och bönder.</string>
   <string name="long">Långa schackproblem</string>
   <string name="longDescription">Tre drag för att vinna.</string>
   <string name="master">Mästarpartier</string>
   <string name="masterDescription">Schackproblem från partier som spelats av spelare med mästartitel.</string>
-  <string name="masterVsMaster">Mästare mot Mästare-partier</string>
+  <string name="masterVsMaster">Mästare mot mästare partier</string>
   <string name="masterVsMasterDescription">Schackproblem från partier som spelats av två spelare med mästartitel.</string>
   <string name="mate">Matt</string>
   <string name="mateDescription">Vinn partiet med stil.</string>
