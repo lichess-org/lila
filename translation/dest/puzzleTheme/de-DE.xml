@@ -16,12 +16,17 @@
   <string name="backRankMateDescription">Setze den König auf der Grundreihe matt, wenn er dort durch seine eigenen Figuren blockiert wird.</string>
   <string name="bishopEndgame">Läuferendspiel</string>
   <string name="bishopEndgameDescription">Ein Endspiel nur mit Läufern und Bauern.</string>
+  <string name="bodenMate">Boden-Matt bzw. allgemeiner Läufer-Kreuzmatt</string>
+  <string name="bodenMateDescription">Zwei angreifende Läufer auf kreuzenden Schrägen setzen den König matt, der durch eigenen Figuren behindert wird.</string>
   <string name="castling">Rochade</string>
   <string name="castlingDescription">Bringe deinen König in Sicherheit und den Turm in Angriffsposition.</string>
   <string name="capturingDefender">Schlage den Verteidiger</string>
   <string name="capturingDefenderDescription">Schlagen einer Figur, die für die Deckung einer anderen Figur von entscheidender Bedeutung ist, sodass die jetzt nicht mehr gedeckte Figur mit dem folgendem Zug geschlagen werden kann.</string>
   <string name="crushing">Vernichtend</string>
   <string name="crushingDescription">Finde den gegnerischen Patzer, um einen vernichtenden Vorteil zu erhalten. (Bewertung ≥ 600 Hundertstel-Bauern)</string>
+  <string name="doubleBishopMate">Läuferpaarmatt</string>
+  <string name="doubleBishopMateDescription">Zwei angreifene Läufer auf nebeneinander liegenden Schrägen setzen einen von eigenem Figuren behinderten König matt.</string>
+  <string name="dovetailMate">Schwalbenschwanzmatt</string>
   <string name="equality">Ausgleich</string>
   <string name="equalityDescription">Komme aus einer verlorenen Stellung zurück und sichere dir ein Remis oder eine ausgeglichene Stellung. (Bewertung ≤ 200 Hundertstel-Bauern)</string>
   <string name="kingsideAttack">Angriff auf den Königsflügel</string>
