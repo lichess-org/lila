@@ -594,6 +594,7 @@
   <string name="tryToWin">Déan iarracht gach cluiche a imríonn tú a bhuachaint (nó comhscór a fháil ar a laghad).</string>
   <string name="resignLostGames">Éirigh as cluichí caillte (ná lig don clog rith amach).</string>
   <string name="agreementAssistance">Aontaím nach nglacfaidh mé le cabhair ar bith i rith mo chluichí (ó ríomhaire fichille, ó leabhar, ó bhunachar sonraí nó ó dhuine eile).</string>
+  <string name="agreementNice">Aontaím go léireoidh mé meas d\'imreoirí eile i gcónaí.</string>
   <string name="edit">Athraigh</string>
   <string name="classical">Clasaiceach</string>
   <string name="ultraBulletDesc">Cluichí ar luas gan chiall; níos lú ná 30 soicind</string>
