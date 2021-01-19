@@ -4,6 +4,7 @@
   <string name="advancedPawnDescription">प्रचार करने या धमकी देने वाला पैदल रणनीति की कुंजी है।</string>
   <string name="advantage">लाभ</string>
   <string name="advantageDescription">निर्णायक लाभ प्राप्त करने के लिए अपने अवसर को जब्त करें। (200cp al eval ≤ 600cp)</string>
+  <string name="anastasiaMate">अनास्तासिया के मात</string>
   <string name="attackingF2F7">F2 या f7 पर हमला करना</string>
   <string name="attackingF2F7Description">एक हमला f2 या f7 मोहरे पर ध्यान केंद्रित करता है, जैसे कि तले हुए लिवर को खोलना।</string>
   <string name="attraction">आकर्षण</string>
