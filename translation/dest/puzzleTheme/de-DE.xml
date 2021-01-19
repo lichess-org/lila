@@ -27,7 +27,7 @@
   <string name="doubleBishopMate">Läuferpaarmatt</string>
   <string name="doubleBishopMateDescription">Zwei angreifende Läufer auf nebeneinander liegenden Diagonalen setzen einen - von eigenen Figuren behinderten - König matt.</string>
   <string name="dovetailMate">Sternmatt</string>
-  <string name="dovetailMateDescription">Eine Dame setzt den nebenstehenden König matt, dessen einzige zwei Fluchtfelder durch eigene Figuren verstellt sind.</string>
+  <string name="dovetailMateDescription">Eine Dame setzt den nebenstehenden König matt, dessen einzigen zwei Fluchtfelder durch eigene Figuren verstellt sind.</string>
   <string name="equality">Ausgleich</string>
   <string name="equalityDescription">Komme aus einer verlorenen Stellung zurück und sichere dir ein Remis oder eine ausgeglichene Stellung. (Bewertung ≤ 200 Hundertstel-Bauern)</string>
   <string name="kingsideAttack">Angriff auf den Königsflügel</string>
