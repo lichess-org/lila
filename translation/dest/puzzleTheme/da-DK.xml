@@ -17,7 +17,7 @@
   <string name="bishopEndgame">Løberslutspil</string>
   <string name="bishopEndgameDescription">Et slutspil med kun løbere og bønder.</string>
   <string name="bodenMate">Bodens mat</string>
-  <string name="bodenMateDescription">To angribende løbere på krydsende diagonaler giver mat til en konge, som er klemt inde af egne brikker.</string>
+  <string name="bodenMateDescription">To angribende løbere på krydsende diagonaler giver mat til en konge, som er blokeret af egne brikker.</string>
   <string name="castling">Rokade</string>
   <string name="castlingDescription">Bring din konge i sikkerhed og gør dit tårn klar til angreb.</string>
   <string name="capturingDefender">Tag forsvaren</string>
@@ -25,6 +25,9 @@
   <string name="crushing">Knusende</string>
   <string name="crushingDescription">Spot modstanderens brøler for at opnå en knusende fordel. (eval ≥ 600cb)</string>
   <string name="doubleBishopMate">Dobbelt løbermat</string>
+  <string name="doubleBishopMateDescription">To angribende løbere på tilstødende diagonaler giver mat til en konge, som er blokeret af egne brikker.</string>
+  <string name="dovetailMate">Duehale mat</string>
+  <string name="dovetailMateDescription">En dronning sætter en tilstødende konge mat, da dennes eneste to felter til flugt er blokeret af egne brikker.</string>
   <string name="equality">Udligning</string>
   <string name="equalityDescription">Vend en tabende stilling til en remis eller en lige stilling. (eval ≤ 200cb)</string>
   <string name="kingsideAttack">Angreb på kongesiden</string>
