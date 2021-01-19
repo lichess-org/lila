@@ -15,12 +15,17 @@
   <string name="averageOpponent">Đối thủ trung bình</string>
   <string name="victories">Thắng</string>
   <string name="defeats">Thua</string>
+  <string name="disconnections">Ngắt kết nối</string>
   <string name="notEnoughGames">Chơi chưa đủ ván</string>
+  <string name="highestRating">Xếp hạng cao nhất: %s</string>
+  <string name="lowestRating">Xếp hạng thấp nhất: %s</string>
   <string name="fromXToY">từ %1$s đến %2$s</string>
   <string name="winningStreak">Chuỗi thắng</string>
   <string name="losingStreak">Chuỗi thua</string>
   <string name="longestStreak">Chuỗi dài nhất: %s</string>
   <string name="currentStreak">Chuỗi hiện tại: %s</string>
+  <string name="bestRated">Chiến thắng được đánh giá cao nhất</string>
+  <string name="worstRated">Trận thua được đánh giá tệ nhất</string>
   <string name="gamesInARow">Các ván cờ được chơi liên tục</string>
   <string name="lessThanOneHour">Ít hơn một giờ giữa các ván cờ</string>
   <string name="maxTimePlaying">Thời gian dài nhất đã chơi</string>
