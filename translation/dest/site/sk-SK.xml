@@ -9,7 +9,7 @@
   <string name="yourTurn">Ste na ťahu</string>
   <string name="aiNameLevelAiLevel">%1$s úrovne %2$s</string>
   <string name="level">Úroveň</string>
-  <string name="strength">Sila</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Sila</string>
   <string name="toggleTheChat">Prepínač okna rozhovoru</string>
   <string name="toggleSound">Prepínač zvuku</string>
   <string name="chat">Rozhovor</string>
