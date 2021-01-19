@@ -4,7 +4,9 @@
   <string name="advancedPawnDescription">Un pedone che promuove o che minaccia di promuovere è la chiave della tattica.</string>
   <string name="advantage">Vantaggio</string>
   <string name="advantageDescription">Cogli l\'occasione per guadagnare un vantaggio decisivo. (200cp ≤ valutazione ≤ 600cp)</string>
+  <string name="anastasiaMate">Matto di Anastasia</string>
   <string name="anastasiaMateDescription">Un cavallo e una torre o una donna si coordinano nell\'intrappolare il re avversario tra un suo pezzo e il bordo della scacchiera.</string>
+  <string name="arabianMate">Matto arabo</string>
   <string name="arabianMateDescription">Un cavallo e una torre si coordinano nell\'intrappolare il re avversario in un angolo della scacchiera.</string>
   <string name="attackingF2F7">Attacco su f2 o f7</string>
   <string name="attackingF2F7Description">Un attacco incentrato sul pedone f2 o f7, come nell\'attacco Fegatello.</string>
@@ -24,6 +26,8 @@
   <string name="crushingDescription">Trova l\'errore grave del tuo avversario per ottenere un vantaggio schiacciante. (valutazione ≥ 600cp)</string>
   <string name="doubleBishopMate">Matto dei due alfieri</string>
   <string name="doubleBishopMateDescription">Due alfieri danno matto lungo diagonali adiacenti ad un re ostruito dai suoi stessi pezzi.</string>
+  <string name="dovetailMate">Matto a coda di rondine</string>
+  <string name="dovetailMateDescription">Una donna dà matto al re in una casa adiacente, mentre le due uniche case di fuga sono occupate da suoi pezzi.</string>
   <string name="equality">Eguaglianza</string>
   <string name="equalityDescription">Recupera una posizione persa e assicurati la patta o una posizione equa. (valutazione ≥ 200cp)</string>
   <string name="kingsideAttack">Attacco sul lato di re</string>
@@ -47,6 +51,7 @@
   <string name="forkDescription">Una mossa in cui un pezzo attacca due pezzi avversari contemporaneamente.</string>
   <string name="hangingPiece">Pezzo in presa</string>
   <string name="hangingPieceDescription">Una tattica che coinvolge un pezzo indifeso o insufficientemente difeso, e che dunque può essere catturato.</string>
+  <string name="hookMate">Matto dell\'uncino</string>
   <string name="hookMateDescription">Matto con torre, cavallo e pedone, con un pedone avversario che ostruisce il suo re.</string>
   <string name="interference">Interposizione</string>
   <string name="interferenceDescription">Spostamento di un pezzo tra due pezzi avversari per lasciare uno o entrambi i pezzi nemici senza difesa, come ad esempio un cavallo difeso tra due torri.</string>
