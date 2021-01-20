@@ -26,6 +26,8 @@
   <string name="crushingDescription">Finn motspelarens feil for å få ein avgjerande fordel. (eval ≥ 600 centibønder)</string>
   <string name="doubleBishopMate">Dobbeltløparmatt</string>
   <string name="doubleBishopMateDescription">To angripande løparar på tilstøytande diagonalar mattar, hjelpt av at kongen er blokkert av eigne brikker.</string>
+  <string name="dovetailMate">Stjertmatt</string>
+  <string name="dovetailMateDescription">Ei dronning plassert heilt inntil motstandarkongen set matt fordi dei to einaste fluktfelta til kongen er blokkert av eigne brikker.</string>
   <string name="equality">Utjamning</string>
   <string name="equalityDescription">Vend ei tapt stilling til remis eller utjamna stilling. (eval ≤ 200 centibønder)</string>
   <string name="kingsideAttack">Åtak på kongefløyen</string>
