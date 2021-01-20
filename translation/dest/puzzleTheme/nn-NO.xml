@@ -7,6 +7,7 @@
   <string name="anastasiaMate">Anastasia-matt</string>
   <string name="anastasiaMateDescription">Eit tårn eller ei dronning samarbeidar med ein springar om å fange motspelarens konge mellom brettkanten og ei av sine eigne brikker.</string>
   <string name="arabianMate">Arabisk matt</string>
+  <string name="arabianMateDescription">Springar og tårn samarbeider om å sette kongen matt inne i hjørnet av brettet.</string>
   <string name="attackingF2F7">Gå til åtak på f2 eller f7</string>
   <string name="attackingF2F7Description">Eit åtak som konsentrerar seg om bøndene på f2 eller f7, som til dømes i prøyssisk opning, fegatellovarianten (\"Fried Liver Attack\").</string>
   <string name="attraction">Magnet</string>
@@ -15,6 +16,7 @@
   <string name="backRankMateDescription">Sjakkmatt på åttanderaden, ved at kongen til motspelaren blir innestengd av sine eigne brikker.</string>
   <string name="bishopEndgame">Løparsluttspel</string>
   <string name="bishopEndgameDescription">Eit sluttspel med berre løparar og bønder.</string>
+  <string name="bodenMate">Bodens matt</string>
   <string name="castling">Rokade</string>
   <string name="castlingDescription">Få kongen din i tryggleik og gjer tårnet klårt for åtak.</string>
   <string name="capturingDefender">Slå ut forsvararen</string>
