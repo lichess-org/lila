@@ -15,6 +15,7 @@
   <string name="backRankMateDescription">Κάντε ματ στον βασιλιά στην τελευταία γραμμή όταν είναι παγιδευμένος εκεί από τα κομμάτια του.</string>
   <string name="bishopEndgame">Φινάλε Αξιωματικών</string>
   <string name="bishopEndgameDescription">Ένα τέλος παρτίδας μόνο με αξιωματικούς και πιόνια.</string>
+  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Ματ του Μποντάν</string>
   <string name="castling">Pοκέ</string>
   <string name="castlingDescription">Εξασφαλίστε την ασφάλεια του βασιλιά και αναπτύξτε τον πύργο για επίθεση.</string>
   <string name="capturingDefender">Αιχμαλωτίστε τον αμυνόμενο</string>
