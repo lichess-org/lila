@@ -107,7 +107,7 @@
   <string name="bestMoveArrow">最善手を表示</string>
   <string name="evaluationGauge">評価値を表示</string>
   <string name="multipleLines">解析ライン数</string>
-  <string name="cpus">CPU 数</string>
+  <string name="cpus">スレッド数</string>
   <string name="memory">メモリ</string>
   <string name="infiniteAnalysis">無限解析</string>
   <string name="removesTheDepthLimit">探索手数の制限をなくし最大限の解析を行なう</string>
