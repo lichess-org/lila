@@ -238,6 +238,7 @@ export default class EditorCtrl {
         }
       }
     }
+    this.onChange();
   }
 
   setOrientation(o: Color): void {
@@ -247,15 +248,15 @@ export default class EditorCtrl {
     this.redraw();
   }
 
-  addToPocket(c: Color, r: Role): void {
+  addToPocket(c: Color, r: Role, reload: boolean = false): void {
     if(["pawn", "lance", "knight", "silver", "gold", "bishop", "rook"].includes(r) && this.pockets[c === "white" ? 0 : 1][r] < 18)
       this.pockets[c === "white" ? 0 : 1][r]++;
-    this.onChange();
+      if(reload) this.onChange();
   }
-  removeFromPocket(c: Color, r: Role): void {
+  removeFromPocket(c: Color, r: Role, reload: boolean = false): void {
     if(this.pockets[c === "white" ? 0 : 1][r] > 0)
       this.pockets[c === "white" ? 0 : 1][r]--;
-    this.onChange();
+    if(reload) this.onChange();
   }
   clearPocket(){
     ["pawn", "lance", "knight", "silver", "gold", "bishop", "rook"].map(p => {
