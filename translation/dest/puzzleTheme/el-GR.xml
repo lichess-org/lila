@@ -4,6 +4,8 @@
   <string name="advancedPawnDescription">Ένα πιόνι που προάγεται ή απειλεί να προαχθεί είναι κλειδί για αυτή την τακτική.</string>
   <string name="advantage">Πλεονέκτημα</string>
   <string name="advantageDescription">Αρπάξτε την ευκαιρία ώστε να αποκτήσετε ένα αποφασιστικό πλεονέκτημα. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="anastasiaMate">To ματ της Αναστασίας</string>
+  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Αραβικό ματ</string>
   <string name="attackingF2F7">Επίθεση στο f2 ή f7</string>
   <string name="attackingF2F7Description">Μια επίθεση που εστιάζει στο πιόνι f2 ή f7, όπως στην επίθεση Φράιντ Λίβερ.</string>
   <string name="attraction">Έλξη</string>
