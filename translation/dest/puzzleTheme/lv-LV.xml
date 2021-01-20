@@ -17,12 +17,15 @@
   <string name="bishopEndgame">Laidņa beigu spēle</string>
   <string name="bishopEndgameDescription">Beigu spēle, kurā iesaistīti tikai laidņi un bandinieki.</string>
   <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Bodena mats</string>
+  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Divi laidņi uz pretēju krāsu krusteniskām diagonālēm piesaka matu karalim, kura izbēgšanu traucē paša figūras.</string>
   <string name="castling">Rokāde</string>
   <string name="castlingDescription">Nogādājiet karali drošībā un novietojiet torni uzbrukuma pozīcijā.</string>
   <string name="capturingDefender">Sargājošas figūras nosišana</string>
   <string name="capturingDefenderDescription">Nosist figūru, kas nepieciešama citas figūras aizsardzībai, padarot iespējamu neaizsargātās figūras nosišanu nākamajā gājienā.</string>
   <string name="crushing">Graušana</string>
   <string name="crushingDescription">Ieraugiet pretinieka rupjo kļūdu, lai iegūtu graujošu pārsvaru. (vērtējums &gt; 600cp)</string>
+  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Dubultlaidņa mats</string>
+  <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Divi laidņi uz blakus diagonālēm piesaka matu karalim, ko ierobežo paša figūras.</string>
   <string name="equality">Vienlīdzība</string>
   <string name="equalityDescription">Atgriezieties no zaudējošas pozīcijas, un iegūstiet neizšķirtu vai vienlīdzīgu pozīciju. (vērtējums ≤ 200cp)</string>
   <string name="kingsideAttack">Karaļa puses uzbrukums</string>
