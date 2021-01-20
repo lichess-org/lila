@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="anastasiaMate">Anastasijin mat</string>
+  <string name="anastasiaMateDescription">Skakač se udružuje s topom ili damom kako bi zarobili protivničkog kralja između ivice table i prijateljske figure.</string>
   <string name="backRankMate">Mat na posljednjem redu</string>
   <string name="backRankMateDescription">Matirajte kralja na njegovom početnom redu kad je zarobljen od vlastitih figura.</string>
   <string name="bishopEndgame">Lovačka završnica</string>
