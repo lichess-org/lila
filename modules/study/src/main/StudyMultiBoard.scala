@@ -78,7 +78,6 @@ final class StudyMultiBoard(
           )
         }
         .map { r =>
-          r.map(lila.db.BSON.debug).foreach(println)
           for {
             doc  <- r
             id   <- doc.getAsOpt[Chapter.Id]("_id")
