@@ -40,6 +40,7 @@
   <string name="whatVariantsCanIplay">有哪些變體是在Lichess上玩得到的？</string>
   <string name="lichessSupportChessAnd">Lichess上有標準國際象棋和%1$s</string>
   <string name="eightVariants">8種變體</string>
+  <string name="fideHandbookX">國際棋聯手冊 %s</string>
   <string name="goodIntroduction">好的自我介紹</string>
   <string name="officialRulesPDF">官方規則 (PDF)</string>
   <string name="lichessTraining">Lichess 訓練</string>

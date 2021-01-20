@@ -4,6 +4,8 @@
   <string name="advancedPawnDescription">Pėstininkas, kuris keičiamas kita figūra, ar tuoj tai darys, čia yra esminė taktika.</string>
   <string name="advantage">Pranašumas</string>
   <string name="advantageDescription">Pasinaudokite proga įgauti esminį pranašumą. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="anastasiaMate">Anastasijos matas</string>
+  <string name="anastasiaMateDescription">Žirgas ir karalienė arba bokštas bendromis jėgomis įkalina priešininko karalių tarp lentos krašto ir kitos figūros.</string>
   <string name="attackingF2F7">F2 ar f7 puolimas</string>
   <string name="attackingF2F7Description">Puolimas, koncentruotas ties f2 ar f7 pėstininkais, panašiai kaip keptų kepenų debiute.</string>
   <string name="attraction">Trauka</string>
@@ -41,6 +43,8 @@
   <string name="forkDescription">Ėjimas, kurio metu perkelta figūra puola dvi ar daugiau priešininko figūrų vienu metu.</string>
   <string name="hangingPiece">Kabanti figūra</string>
   <string name="hangingPieceDescription">Taktika, susijusi su neapginta ar nepakankamai apginta ir lengvai nukertama priešininko figūra.</string>
+  <string name="hookMate">Kablio matas</string>
+  <string name="hookMateDescription">Matas su bokštu, žirgu ir pėstininku palei vieną iš priešininko pėstininkų, apribojančių priešininko karaliaus pabėgimą.</string>
   <string name="interference">Trukdymas</string>
   <string name="interferenceDescription">Figūros perkėlimas tarp dviejų priešininko figūrų, paliekant vieną ar abi jų neapgintas. Pavyzdžiui: perkeliant žirgą į apgintą laukelį tarp dviejų bokštų.</string>
   <string name="intermezzo">Tarpinis ėjimas</string>

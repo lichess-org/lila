@@ -9,7 +9,7 @@
   <string name="yourTurn">Jūsu gājiens</string>
   <string name="aiNameLevelAiLevel">%1$s %2$s. līmenis</string>
   <string name="level">Līmenis</string>
-  <string name="strength">Stiprums</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Stiprums</string>
   <string name="toggleTheChat">Ieslēgt/izslēgt sarunu</string>
   <string name="toggleSound">Ieslēgt/Izslēgt skaņu</string>
   <string name="chat">Saruna</string>

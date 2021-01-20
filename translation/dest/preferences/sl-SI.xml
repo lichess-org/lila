@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Nastavitve</string>
-  <string name="gameDisplay">Videz</string>
+  <string name="gameDisplay">Prikaz igre</string>
   <string name="pieceAnimation">Animacija figur</string>
   <string name="materialDifference">Materialna prednost</string>
   <string name="boardHighlights">Osvetlitev šahovnice (zadnja poteza in kralj v šahu)</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Slepi šah (nevidne figure)</string>
   <string name="chessClock">Šahovska ura</string>
   <string name="tenthsOfSeconds">Desetinke sekunde</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Če je preostanek časa pod 10 sekundami</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Če je preostanek časa pod 10 sekundami</string>
   <string name="horizontalGreenProgressBars">Vodoravna zelena prečka</string>
   <string name="soundWhenTimeGetsCritical">Zvočni signal ko čas postane kritičen</string>
   <string name="giveMoreTime">Dajte več časa</string>

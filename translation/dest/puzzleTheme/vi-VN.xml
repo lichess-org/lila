@@ -4,6 +4,8 @@
   <string name="advancedPawnDescription">Một quân tốt phong cấp hay đe dọa phong cấp là chìa khóa của chiến thuật.</string>
   <string name="advantage">Lợi thế</string>
   <string name="advantageDescription">Sử dụng cơ hội của bạn để chiếm lấy lợi thế quyết định. (200cp ≤ đánh giá ≤ 600cp)</string>
+  <string name="anastasiaMate">Chiếu hết kiểu Anastasia</string>
+  <string name="anastasiaMateDescription">Một quân mã phối hợp cùng quân xe hoặc quân hậu để bẫy quân vua đối phương vào thế kẹp giữa cạnh bàn cờ và một quân khác.</string>
   <string name="attackingF2F7">Tấn công f2 hoặc f7</string>
   <string name="attackingF2F7Description">Một đòn tấn công nhằm vào quân tốt f2 hay f7, ví dụ như trong khai cuộc lá gan rán.</string>
   <string name="attraction">Thu hút</string>
@@ -41,6 +43,8 @@
   <string name="forkDescription">Một nước đi mà một quân cờ tấn công hai quân cờ của đối phương cùng lúc.</string>
   <string name="hangingPiece">Quân cờ không được bảo vệ</string>
   <string name="hangingPieceDescription">Một chiến thuật liên quan đến quân cờ của đối phương không được phòng thủ hoặc phòng thủ không đủ dẫn tới việc có thể ăn quân cờ đấy.</string>
+  <string name="hookMate">Chiếu kiểu móc</string>
+  <string name="hookMateDescription">Chiếu tướng hết cờ bằng quân xe, mã, và tốt cùng với một quân tốt đối phương làm chặn đường vua chạy.</string>
   <string name="interference">Giao thoa</string>
   <string name="interferenceDescription">Di chuyển một quân cờ giữa hai quân cờ đối thủ để một hoặc cả hai quân cờ đối thủ không bị cản trở, chẳng hạn như một quân Mã trên ô vuông được bảo vệ giữa hai quân Xe.</string>
   <string name="intermezzo">Intermezzo</string>
@@ -49,9 +53,9 @@
   <string name="knightEndgameDescription">Một thế cờ tàn chỉ có mã và tốt.</string>
   <string name="long">Câu đố dài</string>
   <string name="longDescription">Thắng trong ba nước cờ.</string>
-  <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Ván đấu cao cấp</string>
+  <string name="master">Ván đấu cao cấp</string>
   <string name="masterDescription">Câu đố từ các trò chơi do người chơi có tiêu đề (GM, IM, NM, FM) chơi.</string>
-  <string name="masterVsMaster" comment="masterVsMaster&#10;&#10;Puzzles from games between two titled players.">Ván đấu giữa 2 kiện tướng</string>
+  <string name="masterVsMaster">Ván đấu giữa 2 kiện tướng</string>
   <string name="masterVsMasterDescription">Câu đố từ các trò chơi giữa người chơi có tiêu đề (GM, IM, NM, FM) chơi.</string>
   <string name="mate">Chiếu hết</string>
   <string name="mateDescription">Chiến thắng trò chơi với phong cách.</string>
@@ -93,8 +97,9 @@
   <string name="shortDescription">Thắng trong hai nước cờ.</string>
   <string name="skewer">Đòn xiên</string>
   <string name="skewerDescription">Một mô típ liên quan tới việc một quân cờ có giá trị cao bị tấn công buộc phải di chuyển khỏi vị trí, dẫn tới một quân cờ giá trị thấp hơn ở phía sau bị tấn công hoặc ăn, ngược lại so với ghim.</string>
+  <string name="smotheredMate">Chiếu kiểu kẹt</string>
   <string name="smotheredMateDescription">Một nước chiếu hết với quân mã mà trong đó vua đối phương không thể di chuyển vì bị bao vây bởi chính các quân cờ khác của họ.</string>
-  <string name="superGM" comment="superGM&#10;&#10;Puzzles from games played by the best players in the world.">Ván đấu từ Siêu Đại Kiện Tướng</string>
+  <string name="superGM">Ván đấu từ Siêu Đại Kiện Tướng</string>
   <string name="superGMDescription">Câu đố từ những ván đấu đã được chơi bởi những kì thủ giỏi nhất trên thế giới.</string>
   <string name="trappedPiece">Quân bị kẹt</string>
   <string name="trappedPieceDescription">Một quân cờ không thể thoát khỏi việc bị ăn vì nó bị giới hạn các nước đi.</string>

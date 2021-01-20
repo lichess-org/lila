@@ -49,9 +49,9 @@
   <string name="knightEndgameDescription">Um final de jogo com apenas cavalos e peões.</string>
   <string name="long">Problema longo</string>
   <string name="longDescription">Três movimentos para ganhar.</string>
-  <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Jogos de mestres</string>
+  <string name="master">Jogos de mestres</string>
   <string name="masterDescription">Problemas de partidas jogadas por jogadores titulados.</string>
-  <string name="masterVsMaster" comment="masterVsMaster&#10;&#10;Puzzles from games between two titled players.">Jogos de Mestre vs Mestre</string>
+  <string name="masterVsMaster">Jogos de Mestre vs Mestre</string>
   <string name="masterVsMasterDescription">Partidas jogadas entre dois jogadores titulados.</string>
   <string name="mate">Xeque-mate</string>
   <string name="mateDescription">Vence a partida com estilo.</string>
@@ -95,7 +95,7 @@
   <string name="skewerDescription">Uma tática que envolve uma peça de alto valor que está ser atacada, mas ao afastar-se, permite que uma peça de menor valor, que estava atrás dela, seja capturada ou atacada. É o inverso da cravada.</string>
   <string name="smotheredMate">Mate de Philidor</string>
   <string name="smotheredMateDescription">Uma xeque-mate feito por um cavalo em que o rei não se pode mover porque está rodeado pelas suas próprias peças. Também conhecido como mate sufocado.</string>
-  <string name="superGM" comment="superGM&#10;&#10;Puzzles from games played by the best players in the world.">Jogos de Super GM</string>
+  <string name="superGM">Jogos de Super GM</string>
   <string name="superGMDescription">Problemas de partidas jogadas pelos melhores jogadores do mundo.</string>
   <string name="trappedPiece">Peça encurralada</string>
   <string name="trappedPieceDescription">Uma peça não consegue escapar à captura, pois tem movimentos limitados.</string>

@@ -4,6 +4,10 @@
   <string name="advancedPawnDescription">Terfi eden veya terfi etmek üzere olan bir piyon taktik bilgisinin olmazsa olmazıdır.</string>
   <string name="advantage">Avantaj yakala</string>
   <string name="advantageDescription">Mutlak bir üstünlük kazanma şansını yakala. (200sp ≤ analiz ≤ 600sp)</string>
+  <string name="anastasiaMate">Anastasia matı</string>
+  <string name="anastasiaMateDescription">Bir atın yardımını alan kale veya vezir, rakip şahı kendi taşları ve tahtanın kenarı arasında tuzağa düşürür.</string>
+  <string name="arabianMate">Arap matı</string>
+  <string name="arabianMateDescription">At ile kalenin, rakip şahı tahtanın köşesine sıkıştırdığı matlar.</string>
   <string name="attackingF2F7">Saldırı: f2 ve f7</string>
   <string name="attackingF2F7Description">Kızarmış karaciğer açılışında olduğu gibi f2 veya f7 karesindeki piyonları hedef alan saldırılar.</string>
   <string name="attraction">Tehlikeli sular</string>
@@ -12,12 +16,18 @@
   <string name="backRankMateDescription">Kendi taşları arkasında sıkışıp kalmış şaha koridorun kapısını göster.</string>
   <string name="bishopEndgame">Fil oyunsonu</string>
   <string name="bishopEndgameDescription">Sadece fil ve piyon içeren oyunsonu.</string>
+  <string name="bodenMate">Boden matı</string>
+  <string name="bodenMateDescription">İki fil, kendi taşları tarafından kısıtlanan şaha farklı açılardan girişerek onu mat eder.</string>
   <string name="castling">Rok</string>
   <string name="castlingDescription">Şahı güvene alırken kaleni saldırıya hazırla.</string>
   <string name="capturingDefender">Savunmayı baltala</string>
   <string name="capturingDefenderDescription">Bir taşı savunan diğer bir taşı ortadan kaldırarak savunmasız kalan taşı sonraki hamlede ele geçir.</string>
   <string name="crushing">Ezici üstünlük</string>
   <string name="crushingDescription">Rakibin vahim hatasını yakalayarak ezici bir üstünlük elde et. (analiz ≥ 600sp)</string>
+  <string name="doubleBishopMate">İki fil matı</string>
+  <string name="doubleBishopMateDescription">Yan yana konuşlanmış iki fil, kendi taşları tarafından kısıtlanmış şahı mat eder.</string>
+  <string name="dovetailMate">Kurtağzı matı</string>
+  <string name="dovetailMateDescription">İki kaçış yolu da kendi taşlarınca kapalı olan şah, hemen çaprazına konuşlanan vezir tarafından mat edilir.</string>
   <string name="equality">Eşitlik</string>
   <string name="equalityDescription">Kaybeden bir durumdan paçayı kurtararak beraberlik veya dengeli bir pozisyon elde et. (analiz ≤ 200sp)</string>
   <string name="kingsideAttack">Şah tarafına saldırı</string>
@@ -41,6 +51,8 @@
   <string name="forkDescription">Bir taşın aynı anda iki rakip taşa saldırdığı hamleler.</string>
   <string name="hangingPiece">Taş düşürme</string>
   <string name="hangingPieceDescription">Savunmasız veya yeterince korunmayan rakip taşların kol gezdiği taktikler.</string>
+  <string name="hookMate">Kanca matı</string>
+  <string name="hookMateDescription">Kale, at ve piyonla birlikte rakip şahın kaçış yolunu kapatan düşman piyonla yapılan bir mat.</string>
   <string name="interference">Müdahale</string>
   <string name="interferenceDescription">Rakip taşların arasına kendi taşını koyarak rakibin bir taşını ya da iki taşını da savunmasız bırak. Rakibin iki kalesinin arasındaki güvenli bir kareye atı oynamak gibi.</string>
   <string name="intermezzo">Ara hamle</string>
@@ -49,9 +61,9 @@
   <string name="knightEndgameDescription">Sadece at ve piyon içeren oyunsonu.</string>
   <string name="long">Uzun bulmaca</string>
   <string name="longDescription">Üç hamlede kazanç.</string>
-  <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Ustaların oyunları</string>
+  <string name="master">Ustaların oyunları</string>
   <string name="masterDescription">Unvanlı oyuncuların oyunlarından bulmacalar.</string>
-  <string name="masterVsMaster" comment="masterVsMaster&#10;&#10;Puzzles from games between two titled players.">Ustaların ustalarla oynadığı oyunlar</string>
+  <string name="masterVsMaster">Ustaların ustalarla oynadığı oyunlar</string>
   <string name="masterVsMasterDescription">Unvanlı iki oyuncunun oyunlarından bulmacalar.</string>
   <string name="mate">Mat</string>
   <string name="mateDescription">Oyunu tarz ile kazanın.</string>
@@ -95,7 +107,7 @@
   <string name="skewerDescription">Değerli bir taşın saldırı altında olduğu, hareketi hâlinde ise arkasındaki daha düşük değerli bir taşın düşeceği ya da tehlikeye gireceği motifler. Bir nevi açmazın tersi.</string>
   <string name="smotheredMate">Boğmaca Matı</string>
   <string name="smotheredMateDescription">Kendi taşları tarafından çevrelendiği (ya da boğulduğu) için hareket edemeyen şahın at ile mat edildiği pozisyonlar.</string>
-  <string name="superGM" comment="superGM&#10;&#10;Puzzles from games played by the best players in the world.">Süper GM\'lerin oyunları</string>
+  <string name="superGM">Süper GM\'lerin oyunları</string>
   <string name="superGMDescription">Dünyanın en iyi oyuncularının oyunlarından bulmacalar.</string>
   <string name="trappedPiece">Tuzağa düşmüş taş</string>
   <string name="trappedPieceDescription">Gidecek güvenli bir kare kalmadığı için kaçacak yerleri olmayan taşlar.</string>

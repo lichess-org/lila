@@ -9,7 +9,7 @@
   <string name="yourTurn">Du bist am Zug</string>
   <string name="aiNameLevelAiLevel">%1$s Stufe %2$s</string>
   <string name="level">Stufe</string>
-  <string name="strength">Stärke</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Stärke</string>
   <string name="toggleTheChat">Chat ein-/ausblenden</string>
   <string name="toggleSound">Ton ein-/ausschalten</string>
   <string name="chat">Chat</string>
@@ -328,9 +328,9 @@
   <string name="youAreNotInTeam">Du bist nicht in Team %s</string>
   <string name="backToGame">Zurück zur Partie</string>
   <string name="siteDescription">Kostenloser Online-Schach-Server. Spiele jetzt auf einer übersichtlichen Benutzeroberfläche Schach! Keine Registrierung und keine Plugins erforderlich, komplett ohne Werbung. Spiele gegen den Computer, Freunde oder zufällige Gegner!</string>
-  <string name="xJoinedTeamY">%1$s trat der Gruppe %2$s bei</string>
+  <string name="xJoinedTeamY" comment="xJoinedTeamY&#10;&#10;Joining is effectively equal to becoming a member.">%1$s trat der Gruppe %2$s bei</string>
   <string name="xCreatedTeamY">%1$s hat das Team %2$s gegründet</string>
-  <string name="xStartedStreaming">%s startete einen Stream</string>
+  <string name="xStartedStreaming">%s hat einen Stream gestartet</string>
   <string name="averageElo">Durchschnittswertung</string>
   <string name="location">Ort</string>
   <string name="filterGames">Partien filtern</string>
@@ -449,7 +449,7 @@
   <string name="biography">Profiltext</string>
   <string name="country">Land</string>
   <string name="thankYou">Vielen Dank!</string>
-  <string name="socialMediaLinks">Social-Media Links</string>
+  <string name="socialMediaLinks">Social-Media-Links</string>
   <string name="inlineNotation">Inline-Notation</string>
   <string name="watchLichessTV">Lichess-TV anschauen</string>
   <string name="previouslyOnLichessTV">Zuletzt auf Lichess TV</string>

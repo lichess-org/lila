@@ -27,11 +27,11 @@
   <string name="wantClearHistory">Желим да избришем своју историју и рејтинг</string>
   <string name="cantClearHistory">Није могуће избрисати вашу историју парија ни проблема, као ни рејтинг.</string>
   <string name="wantReport">Желим да пријавим играча</string>
-  <string name="cheating">варање</string>
-  <string name="sandbagging">намерно губљење партија</string>
-  <string name="trolling">троловање (слично као узнемиравање)</string>
-  <string name="insults">увреде</string>
-  <string name="otherReason">други разлози</string>
+  <string name="reportCheating">Пријавите играча због варања</string>
+  <string name="reportSandbagging">Пријавите играча због играња лошијег од назначеног</string>
+  <string name="reportTrolling">Пријавите играча због троловања</string>
+  <string name="reportInsults">Пријавите играча због вријеђања</string>
+  <string name="reportOtherReason">Пријавите играча због неког другог разлога</string>
   <string name="toReportAPlayer">Да бисте пријавили играча због %s, користите форму за пријављивање</string>
   <string name="youCanAlsoReachReportPage">Такође можете доћи до те странице ако притиснете на %s пријави дугме на страници налога.</string>
   <string name="doNotReportInForum">Не пријављуј играче на форуму.</string>

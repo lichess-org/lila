@@ -9,7 +9,7 @@
   <string name="yourTurn">Η σειρά σας</string>
   <string name="aiNameLevelAiLevel">%1$s επιπέδου %2$s</string>
   <string name="level">Επίπεδο</string>
-  <string name="strength">Ισχύς</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Ισχύς</string>
   <string name="toggleTheChat">Εναλλαγή προβολής της συνομιλίας</string>
   <string name="toggleSound">Εναλλαγή ήχου</string>
   <string name="chat">Συνομιλία</string>
@@ -328,7 +328,7 @@
   <string name="youAreNotInTeam">Δεν είστε στην ομάδα %s</string>
   <string name="backToGame">Επιστρέψτε στο παιχνίδι</string>
   <string name="siteDescription">Δωρεάν διαδικτυακό παιχνίδι Σκακιού. Παίξτε Σκάκι τώρα σε καθαρό γραφικό περιβάλλον. Χωρίς εγγραφές, χωρίς διαφημίσεις, χωρίς πρόσθετα. Παίξτε Σκάκι με τον υπολογιστή, με φίλους ή με τυχαίους αντιπάλους.</string>
-  <string name="xJoinedTeamY">Ο %1$s έθεσε συμμετοχή στην ομάδα %2$s</string>
+  <string name="xJoinedTeamY" comment="xJoinedTeamY&#10;&#10;Joining is effectively equal to becoming a member.">Ο/Η %1$s έγινε μέλος της ομάδα %2$s</string>
   <string name="xCreatedTeamY">Ο %1$s δημιούργησε την ομάδα %2$s</string>
   <string name="xStartedStreaming">%s ξεκίνησε να μεταδίδει</string>
   <string name="averageElo">Μέσος όρος βαθμολογίας</string>

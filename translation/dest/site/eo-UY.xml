@@ -9,7 +9,7 @@
   <string name="yourTurn">Via vico</string>
   <string name="aiNameLevelAiLevel">%1$s nivelo %2$s</string>
   <string name="level">Nivelo</string>
-  <string name="strength">Forto</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Forto</string>
   <string name="toggleTheChat">Baskuligi la babilejon</string>
   <string name="toggleSound">(Mal)ŝalti sonon</string>
   <string name="chat">Babilejo</string>

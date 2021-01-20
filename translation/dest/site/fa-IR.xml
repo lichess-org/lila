@@ -9,7 +9,7 @@
   <string name="yourTurn">نوبت شماست</string>
   <string name="aiNameLevelAiLevel">%1$s سطح %2$s</string>
   <string name="level">سطح</string>
-  <string name="strength">قدرت</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">قدرت</string>
   <string name="toggleTheChat">گپ روشن/خاموش</string>
   <string name="toggleSound">صدا روشن/خاموش</string>
   <string name="chat">گپ</string>

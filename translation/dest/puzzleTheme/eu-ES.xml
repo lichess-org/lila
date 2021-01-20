@@ -4,6 +4,8 @@
   <string name="advancedPawnDescription">Sustatuko den edo sustatze-bidean dagoen peoia da ariketa honen muina.</string>
   <string name="advantage">Abantaila</string>
   <string name="advantageDescription">Abantaila osoa lortzen saiatu (200cp ≤ ebaluazioa ≤ 600cp)</string>
+  <string name="anastasiaMate">Anastasiaren matea</string>
+  <string name="anastasiaMateDescription">Zaldun bat eta gaztelua eta damak aurkariaren erregea taularen bazter baten eta bere pieza baten artean harrapatzen dute.</string>
   <string name="attackingF2F7">f2 edo f7 erasotu</string>
   <string name="attackingF2F7Description">f2 edo f7ko peoia helburu duen erasoa.</string>
   <string name="attraction">Erakarmena</string>
@@ -41,6 +43,8 @@
   <string name="forkDescription">Mugitzen den piezak aurkariaren bi pieza batera erasotzen dituenean.</string>
   <string name="hangingPiece">Defentsarik gabeko pieza</string>
   <string name="hangingPieceDescription">Defentsarik ez duen edo defendatzaile gutxi dituen aurkariaren pieza baten ingurukoak.</string>
+  <string name="hookMate">Hooken matea</string>
+  <string name="hookMateDescription">Gaztelua, zalduna eta peoi batekin ematen den matea aurkariaren peoi batek bere erregearen bidea oztopatzen duelarik.</string>
   <string name="interference">Tartean sartzea</string>
   <string name="interferenceDescription">Aurkariaren bi piezaren artean pieza bat jartzea, horrela aurkariaren piezetako bat edo biak defentsarik gabe utziz.</string>
   <string name="intermezzo">Tarteko-jokaldia</string>
@@ -95,6 +99,8 @@
   <string name="skewerDescription">Erasotua den balio handiko pieza bat mugitzea, erasotik kenduz eta bere atzean dagoen baina gutxiago balio duen pieza bat harrapatzen uztea, iltzaketaren aurkakoa.</string>
   <string name="smotheredMate">Ostikoaren matea</string>
   <string name="smotheredMateDescription">Zaldiak ematen duen matea, aurkariaren erregea bere piezak oztopatzen dutenez ezin delako mugitu.</string>
+  <string name="superGM">Super GMen partidak</string>
+  <string name="superGMDescription">Munduko jokalari onenek jokatutako partidetatik ateratako ariketak.</string>
   <string name="trappedPiece">Harrapatutako pieza</string>
   <string name="trappedPieceDescription">Bere jokaldiak mugatuta dituelako ihes egin ezin duen pieza.</string>
   <string name="underPromotion">Sustapen txikia</string>

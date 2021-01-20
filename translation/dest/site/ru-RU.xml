@@ -9,7 +9,7 @@
   <string name="yourTurn">Ваш ход</string>
   <string name="aiNameLevelAiLevel">%1$s уровня %2$s</string>
   <string name="level">Уровень</string>
-  <string name="strength">Сложность</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Сложность</string>
   <string name="toggleTheChat">Показывать окно чата</string>
   <string name="toggleSound">Вкл/выкл звук</string>
   <string name="chat">Отправить сообщение</string>

@@ -22,6 +22,7 @@
   <string name="otherExperiences">Kinh nghiệm khác</string>
   <string name="bestSkills">Những kỹ năng tốt nhất</string>
   <string name="teachingMethod">Phương pháp giảng dạy</string>
+  <string name="publicStudies">Khóa học công khai</string>
   <string name="youtubeVideos">Các video trên YouTube</string>
   <plurals name="studentReviews">
     <item quantity="other">%s đánh giá của học sinh</item>

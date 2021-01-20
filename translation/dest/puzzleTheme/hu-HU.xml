@@ -4,6 +4,8 @@
   <string name="advancedPawnDescription">Átváltozó vagy átváltozással fenyegető gyalog kulcsfontosságú taktika.</string>
   <string name="advantage">Előny</string>
   <string name="advantageDescription">Ragadd meg a lehetőséget a döntő előny megszerzéséhez. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="anastasiaMate">Anasztázia mattja</string>
+  <string name="anastasiaMateDescription">Egy huszár és egy bástya vagy a vezér közösen csapdába ejtik az ellenfél királyát a tábla széle és egy figurája között.</string>
   <string name="attackingF2F7">f2 vagy f7 támadása</string>
   <string name="attackingF2F7Description">Az f2 vagy f7 gyalog ellen irányuló támadás, mint például a \"sültmáj\" megnyitás.</string>
   <string name="attraction">Ráterelés</string>

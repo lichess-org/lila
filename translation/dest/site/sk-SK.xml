@@ -9,7 +9,7 @@
   <string name="yourTurn">Ste na ťahu</string>
   <string name="aiNameLevelAiLevel">%1$s úrovne %2$s</string>
   <string name="level">Úroveň</string>
-  <string name="strength">Sila</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Sila</string>
   <string name="toggleTheChat">Prepínač okna rozhovoru</string>
   <string name="toggleSound">Prepínač zvuku</string>
   <string name="chat">Rozhovor</string>
@@ -683,7 +683,7 @@
   <string name="aboutSimulSettings">Simultánky sú vždy nebodované. Odvety, vrátenie ťahu a \"pridávania času\" sú zakázané.</string>
   <string name="create">Vytvoriť</string>
   <string name="whenCreateSimul">Po vytvorení simultánky, môžete hrať s niekoľkými hráčmi naraz.</string>
-  <string name="simulVariantsHint">Ak vyberiete viacero variantov, každý hráč si môže vybrať ktorý bude hrať.</string>
+  <string name="simulVariantsHint">Ak vyberiete viacero variantov, každý hráč si môže vybrať, ktorý bude hrať.</string>
   <string name="simulClockHint">Nastavenie (Fisherových) hodín. Čím viac súperov, tým viac času budete potrebovat.</string>
   <string name="simulAddExtraTime">Môžete si pridať dodatočný čas k vašim hodinám pre zlepšenie behu simultánky.</string>
   <string name="simulHostExtraTime">Dotatočný čas pre hostiteľa.</string>
@@ -712,9 +712,9 @@
     <item quantity="other">Tento týždeň hralo %2$s %1$s hráčov.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Vaše %1$s hodnotenie je %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Ste lepší než %1$s z %2$s hráčov</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Ste lepší než %1$s z %2$s hráčov.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s je lepší ako %2$s z %3$s hráčov.</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemáte určené %s hodnotenie.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemáte ustálené %s hodnotenie.</string>
   <string name="yourRating">Váš rating</string>
   <string name="cumulative">Kumulatívne</string>
   <string name="glicko2Rating">Glicko-2 rating</string>
@@ -724,7 +724,7 @@
   <string name="weHaveSentYouAnEmailTo">Poslali sme email na %s. Kliknite na link v emaili na obnovenie hesla.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registráciou súhlasíte aby ste boli viazaný s našimi %s.</string>
   <string name="readAboutOur">Prečítajte si o našej %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Internetové oneskorenie medzi Vami a lichess</string>
+  <string name="networkLagBetweenYouAndLichess">Internetové oneskorenie medzi Vami a lichessom</string>
   <string name="timeToProcessAMoveOnLichessServer">Čas na spracovanie ťahu na lichess serveri</string>
   <string name="downloadAnnotated">Stiahnuť s poznámkami</string>
   <string name="downloadRaw">Stiahnuť čisté PGN</string>

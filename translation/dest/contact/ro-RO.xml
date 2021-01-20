@@ -26,9 +26,11 @@
   <string name="wantClearHistory">Vreau să îmi sterg istoricul sau ratingul</string>
   <string name="cantClearHistory">Nu se poate curăța istoricul jocurilor, istoricul puzzle-urilor sau evaluările.</string>
   <string name="wantReport">Vreau să raportez un jucător</string>
-  <string name="cheating">trișare</string>
-  <string name="insults">insulte</string>
-  <string name="otherReason">alte motive</string>
+  <string name="reportCheating">Raportați un jucător care trișează</string>
+  <string name="reportSandbagging">Raportați un jucător care joacă mai slab în mod intenționat</string>
+  <string name="reportTrolling">Raportați un jucător care provoacă discuții inutile</string>
+  <string name="reportInsults">Raportați un jucător pentru insulte</string>
+  <string name="reportOtherReason">Raportează un jucător pentru un alt motiv</string>
   <string name="toReportAPlayer">Pentru a raporta un jucător pentru %s, folosiți formularul de raport</string>
   <string name="youCanAlsoReachReportPage">De asemenea, poți ajunge la acea pagină dând click pe butonul %s pentru raport pe o pagină a profilului.</string>
   <string name="doNotReportInForum">Nu raportaţi jucătorii din forum.</string>

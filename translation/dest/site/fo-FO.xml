@@ -9,7 +9,7 @@
   <string name="yourTurn">Tú eigur leik</string>
   <string name="aiNameLevelAiLevel">%1$s stig %2$s</string>
   <string name="level">Stig</string>
-  <string name="strength">Styrki</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Styrki</string>
   <string name="toggleTheChat">Goym/Vís kjatt</string>
   <string name="toggleSound">Slá ljóð til/frá</string>
   <string name="chat">Kjatta</string>

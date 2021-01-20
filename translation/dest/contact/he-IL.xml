@@ -27,11 +27,6 @@
   <string name="wantClearHistory">אני רוצה לנקות את ההיסטוריה או הדירוג שלי</string>
   <string name="cantClearHistory">לא ניתן לנקות את היסטוריית המשחק, היסטוריית הפאזלים, או הדירוגים שלך.</string>
   <string name="wantReport">אני רוצה לדווח על שחקן</string>
-  <string name="cheating">רמאות</string>
-  <string name="sandbagging">אי ספורטיביות</string>
-  <string name="trolling">הצקה</string>
-  <string name="insults">עלבונות</string>
-  <string name="otherReason">סיבות אחרות</string>
   <string name="toReportAPlayer">כדי לדווח על שחקן על %s, השתמש בטופס הדיווח</string>
   <string name="youCanAlsoReachReportPage">אתה יכול גם להגיע לדף זה על ידי לחיצה על כפתור הדוח %s בדף הפרופיל.</string>
   <string name="doNotReportInForum">אל תדווחו על שחקנים בפורום.</string>
@@ -59,7 +54,7 @@
   <string name="ratedGame">בדוק אם שיחקת משחק מדורג. משחק לא מדורג לא משפיע על מד הכושר.</string>
   <string name="errorPage">שגיאה בדף</string>
   <string name="reportErrorPage">אם התמודדת עם שגיאה בדף, אתה יכול לדווח על זה:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">ערער על איסור או על הגבלה בIP</string>
+  <string name="banAppeal">ערער על איסור או על הגבלה בIP</string>
   <string name="engineAppeal">סימן מנוע או רמאות</string>
   <string name="sendAppealTo">אתה יכול לשלוח ערעור ל%s.</string>
   <string name="falsePositives">אבחנות שגויות קורות לפעמים, ואנחנו מצטערים על כך.</string>

@@ -9,7 +9,7 @@
   <string name="yourTurn">Ti si na potezi</string>
   <string name="aiNameLevelAiLevel">%1$s, stopnja: %2$s</string>
   <string name="level">Stopnja</string>
-  <string name="strength">Moč</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Moč</string>
   <string name="toggleTheChat">Preklopi klepet</string>
   <string name="toggleSound">Preklopi zvok</string>
   <string name="chat">Klepet</string>

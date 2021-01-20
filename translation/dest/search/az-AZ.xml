@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="search">Axtar</string>
-  <string name="advancedSearch">Mütərəqqi axtarış</string>
+  <string name="advancedSearch">Ətraflı Axtarış</string>
   <plurals name="searchInXGames">
     <item quantity="one">%s şahmat oyunu içində axtar</item>
     <item quantity="other">%s şahmat oyunu içində axtar</item>

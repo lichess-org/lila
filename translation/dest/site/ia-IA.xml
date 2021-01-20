@@ -9,7 +9,7 @@
   <string name="yourTurn">Tu torno</string>
   <string name="aiNameLevelAiLevel">%1$s nivello %2$s</string>
   <string name="level">Nivello</string>
-  <string name="strength">Fortia</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Fortia</string>
   <string name="toggleTheChat">Activar/disactivar le chat</string>
   <string name="toggleSound">Activar/disactivar sono</string>
   <string name="chat">Chat</string>

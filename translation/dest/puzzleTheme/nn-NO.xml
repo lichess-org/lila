@@ -4,6 +4,10 @@
   <string name="advancedPawnDescription">Ein bonde som blir forvandla eller trugar med å bli forvandla er ein taktisk nøkkel.</string>
   <string name="advantage">Fordel</string>
   <string name="advantageDescription">Grip sjansen til å få eit avgjerande fortrinn. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="anastasiaMate">Anastasia-matt</string>
+  <string name="anastasiaMateDescription">Eit tårn eller ei dronning samarbeidar med ein springar om å fange motspelarens konge mellom brettkanten og ei av sine eigne brikker.</string>
+  <string name="arabianMate">Arabisk matt</string>
+  <string name="arabianMateDescription">Springar og tårn samarbeider om å sette kongen matt inne i hjørnet av brettet.</string>
   <string name="attackingF2F7">Gå til åtak på f2 eller f7</string>
   <string name="attackingF2F7Description">Eit åtak som konsentrerar seg om bøndene på f2 eller f7, som til dømes i prøyssisk opning, fegatellovarianten (\"Fried Liver Attack\").</string>
   <string name="attraction">Magnet</string>
@@ -12,12 +16,18 @@
   <string name="backRankMateDescription">Sjakkmatt på åttanderaden, ved at kongen til motspelaren blir innestengd av sine eigne brikker.</string>
   <string name="bishopEndgame">Løparsluttspel</string>
   <string name="bishopEndgameDescription">Eit sluttspel med berre løparar og bønder.</string>
+  <string name="bodenMate">Bodens matt</string>
+  <string name="bodenMateDescription">To angripande løparar på kryssande diagonalar set matt, hjelpt av at kongen er blokkert av eigne brikker.</string>
   <string name="castling">Rokade</string>
   <string name="castlingDescription">Få kongen din i tryggleik og gjer tårnet klårt for åtak.</string>
   <string name="capturingDefender">Slå ut forsvararen</string>
   <string name="capturingDefenderDescription">Slå ut ei brikke som er kritisk som dekning for ei anna brikke, slik at brikka som no står udekka kan fjernast i eit seinare trekk.</string>
   <string name="crushing">Avgjerande fordel</string>
   <string name="crushingDescription">Finn motspelarens feil for å få ein avgjerande fordel. (eval ≥ 600 centibønder)</string>
+  <string name="doubleBishopMate">Dobbeltløparmatt</string>
+  <string name="doubleBishopMateDescription">To angripande løparar på tilstøytande diagonalar mattar, hjelpt av at kongen er blokkert av eigne brikker.</string>
+  <string name="dovetailMate">Stjertmatt</string>
+  <string name="dovetailMateDescription">Ei dronning plassert heilt inntil motstandarkongen set matt fordi dei to einaste fluktfelta til kongen er blokkert av eigne brikker.</string>
   <string name="equality">Utjamning</string>
   <string name="equalityDescription">Vend ei tapt stilling til remis eller utjamna stilling. (eval ≤ 200 centibønder)</string>
   <string name="kingsideAttack">Åtak på kongefløyen</string>
@@ -41,6 +51,8 @@
   <string name="forkDescription">Eit trekk der brikka som vart flytta går til åtak på meir enn ein motstandarbrikke på same tid.</string>
   <string name="hangingPiece">Hengande brikke</string>
   <string name="hangingPieceDescription">Ein taktikk som inneber at ein udekka eller utilstrekkeleg dekka motstandarbrikke med fordel kan slås ut.</string>
+  <string name="hookMate">Krokmatt</string>
+  <string name="hookMateDescription">Sjakkmatt med tårn, springar og bonde pluss ei motstandarbrikke som tek opp av eit felta kongen elles kunne flykta til.</string>
   <string name="interference">Hindring</string>
   <string name="interferenceDescription">Flytte ei brikke mellom to motstandarbrikker for å oppnå at ei eller begge vert udekka. Til dømes ein springar til eit dekka felt mellom to tårn.</string>
   <string name="intermezzo">Mellomtrekk</string>
@@ -91,7 +103,7 @@
   <string name="skewerDescription">Ein manøver der ei høgverdig brikke kjem under åtak og må flytte slik at ei brikke av lågare verde som står bak kan slås ut eller verte truga. Spidding kan utførast med løpar, dronning eller tårn. Spiddar vert rekna som motsatsen til binding.</string>
   <string name="smotheredMate">Kvelarmatt</string>
   <string name="smotheredMateDescription">Ein sjakkmatt ved hjelp av ein springar der motspelarens konge er stengd inne (eller kjøvd) av eigne brikker.</string>
-  <string name="superGM" comment="superGM&#10;&#10;Puzzles from games played by the best players in the world.">Superstormeister-parti</string>
+  <string name="superGM">Superstormeister-parti</string>
   <string name="superGMDescription">Oppgåver frå parti spela av verdas beste sjakkspelarar.</string>
   <string name="trappedPiece">Fanga brikke</string>
   <string name="trappedPieceDescription">Ei brikke som ikkje kjem unna på grunn av mangel på utvegar.</string>

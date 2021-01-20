@@ -4,6 +4,10 @@
   <string name="advancedPawnDescription">En bonde, der forvandles eller truer med at forvandle, er nøglen til taktikken.</string>
   <string name="advantage">Fordel</string>
   <string name="advantageDescription">Grib chancen for at få en afgørende fordel. (200cb ≤ eval ≤ 600cb)</string>
+  <string name="anastasiaMate">Anastasias mat</string>
+  <string name="anastasiaMateDescription">En springer og et tårn eller en dronning går sammen om at fange modstanderens konge mellem side af brættet og en venligsindet brik.</string>
+  <string name="arabianMate">Arabisk mat</string>
+  <string name="arabianMateDescription">En springer og et tårn samarbejder om at fange modstanderens konge i et af brættets hjørner.</string>
   <string name="attackingF2F7">Angreb på f2 eller f7</string>
   <string name="attackingF2F7Description">Et angreb som er fokuseret på f2 eller f7 bonden, som det kendes fra Fegatello-angrebet (\"Fried Liver Attack\").</string>
   <string name="attraction">Lokkedue</string>
@@ -12,12 +16,18 @@
   <string name="backRankMateDescription">Sæt kongen skakmat på baglinjen, når den er fanget der af sine egne brikker.</string>
   <string name="bishopEndgame">Løberslutspil</string>
   <string name="bishopEndgameDescription">Et slutspil med kun løbere og bønder.</string>
+  <string name="bodenMate">Bodens mat</string>
+  <string name="bodenMateDescription">To angribende løbere på krydsende diagonaler giver mat til en konge, som er blokeret af egne brikker.</string>
   <string name="castling">Rokade</string>
   <string name="castlingDescription">Bring din konge i sikkerhed og gør dit tårn klar til angreb.</string>
   <string name="capturingDefender">Tag forsvaren</string>
   <string name="capturingDefenderDescription">Tag en brik som er kritisk i forsvaret af en anden brik, så det er muligt at tage den uforsvarede brik på et efterfølgende træk.</string>
   <string name="crushing">Knusende</string>
   <string name="crushingDescription">Spot modstanderens brøler for at opnå en knusende fordel. (eval ≥ 600cb)</string>
+  <string name="doubleBishopMate">Dobbelt løbermat</string>
+  <string name="doubleBishopMateDescription">To angribende løbere på tilstødende diagonaler giver mat til en konge, som er blokeret af egne brikker.</string>
+  <string name="dovetailMate">Duehale mat</string>
+  <string name="dovetailMateDescription">En dronning sætter en tilstødende konge mat, da dennes eneste to felter til flugt er blokeret af egne brikker.</string>
   <string name="equality">Udligning</string>
   <string name="equalityDescription">Vend en tabende stilling til en remis eller en lige stilling. (eval ≤ 200cb)</string>
   <string name="kingsideAttack">Angreb på kongesiden</string>
@@ -41,6 +51,8 @@
   <string name="forkDescription">Et træk hvor den flyttede brik angriber to af modstanderens brikker på én gang.</string>
   <string name="hangingPiece">Hængende brik</string>
   <string name="hangingPieceDescription">En taktik der indebærer, at en af modstanderens brikker, der ikke forsvares eller ikke forsvares tilstrækkeligt, frit kan tages.</string>
+  <string name="hookMate">Krog-mat</string>
+  <string name="hookMateDescription">Skakmat med tårn, springer og bonde, som sammen med en fjendtlig bonde hindrer modstanderens konge i at undslippe.</string>
   <string name="interference">Obstruktion</string>
   <string name="interferenceDescription">Flytte en brik ind mellem to af modstanderens brikker, så den ene eller begge er uden forsvar, såsom en springer på et forsvaret felt mellem to tårne.</string>
   <string name="intermezzo">Intermezzo</string>
@@ -49,9 +61,9 @@
   <string name="knightEndgameDescription">Et slutspil med kun springere og bønder.</string>
   <string name="long">Lang opgave</string>
   <string name="longDescription">Tre træk for at vinde.</string>
-  <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Mesterpartier</string>
+  <string name="master">Mesterpartier</string>
   <string name="masterDescription">Opgaver fra partier af spillere med titel.</string>
-  <string name="masterVsMaster" comment="masterVsMaster&#10;&#10;Puzzles from games between two titled players.">Mester mod mester partier</string>
+  <string name="masterVsMaster">Mester mod mester partier</string>
   <string name="masterVsMasterDescription">Opgaver fra partier mellem to spillere med titel.</string>
   <string name="mate">Mat</string>
   <string name="mateDescription">Vind spillet med stil.</string>
@@ -95,7 +107,7 @@
   <string name="skewerDescription">En manøvre hvor en brik af høj værdi angribes og må flyttes, hvorved en brik af lavere værdi bagved kan tages eller trues. Det omvendte af en binding.</string>
   <string name="smotheredMate">Kvalt mat</string>
   <string name="smotheredMateDescription">En skakmat leveret af en ridder, hvor den matte konge er ude af stand til at bevæge sig, fordi den er omgivet (eller kvalt) af sine egne brikker.</string>
-  <string name="superGM" comment="superGM&#10;&#10;Puzzles from games played by the best players in the world.">Superstormester-partier</string>
+  <string name="superGM">Superstormester-partier</string>
   <string name="superGMDescription">Opgaver fra partier spillet af verdens bedste spillere.</string>
   <string name="trappedPiece">Fastlåste brikker</string>
   <string name="trappedPieceDescription">En brik er ude af stand til at undslippe fangst, da den har begrænsede trækmuligheder.</string>

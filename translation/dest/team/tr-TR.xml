@@ -3,11 +3,11 @@
   <string name="team">Takım</string>
   <string name="teams">Takımlar</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s üyeler</item>
-    <item quantity="other">%s üye</item>
+    <item quantity="one">%s üye</item>
+    <item quantity="other">%s üyeler</item>
   </plurals>
   <string name="allTeams">Tüm takımlar</string>
-  <string name="newTeam">Yeni Takım</string>
+  <string name="newTeam">Yeni takım</string>
   <string name="myTeams">Takımlarım</string>
   <string name="noTeamFound">Takım bulunamadı</string>
   <string name="joinTeam">Takıma katıl</string>

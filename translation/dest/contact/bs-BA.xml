@@ -27,11 +27,6 @@
   <string name="wantClearHistory">Želim da obrišem moju istoriju ili rejting</string>
   <string name="cantClearHistory">Nije moguće obrisati Vašu istoriju partija, istoriju problema ili rejting.</string>
   <string name="wantReport">Želim prijaviti igrača</string>
-  <string name="cheating">varanje</string>
-  <string name="sandbagging">namjerno obaranje rejtinga</string>
-  <string name="trolling">provociranje</string>
-  <string name="insults">uvrede</string>
-  <string name="otherReason">neki drugi razlog</string>
   <string name="toReportAPlayer">Da biste prijavili igrača za %s, koristite formular za prijavu</string>
   <string name="youCanAlsoReachReportPage">Možete doći do te stranice i klikom na %s report opciju na profilnoj stranici.</string>
   <string name="doNotReportInForum">Ne prijavljujte igrače na forumu.</string>
@@ -59,7 +54,7 @@
   <string name="ratedGame">Potvrdite da ste igrali partiju za rejting bodove. Prijateljske partije na utiču na rejting igrača.</string>
   <string name="errorPage">Stranica u slučaju greške</string>
   <string name="reportErrorPage">Ukoliko ste dobili stranicu u slučaju greške, možete je prijaviti:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Žalba na zabranu ili ograničenje IP adrese</string>
+  <string name="banAppeal">Žalba na zabranu ili ograničenje IP adrese</string>
   <string name="engineAppeal">Oznaka za varalice ili za one koji koriste računar</string>
   <string name="sendAppealTo">Možete poslati žalbu na %s.</string>
   <string name="falsePositives">Ponekad lažni rezultat analize dovede do blokiranja računa, i izvinjavamo se zbog toga.</string>

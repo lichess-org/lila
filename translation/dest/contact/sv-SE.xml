@@ -27,11 +27,11 @@
   <string name="wantClearHistory">Jag vill rensa min historik eller rating</string>
   <string name="cantClearHistory">Det är inte möjligt att rensa din partihistorik, historik för schackproblem eller rating.</string>
   <string name="wantReport">Jag vill rapportera en spelare</string>
-  <string name="cheating">fusk</string>
-  <string name="sandbagging">manipulerar rating</string>
-  <string name="trolling">trolling</string>
-  <string name="insults">förolämpningar</string>
-  <string name="otherReason">någon annan anledning</string>
+  <string name="reportCheating">Rapportera en spelare för fusk</string>
+  <string name="reportSandbagging">Rapportera en spelare för manipulation av rating</string>
+  <string name="reportTrolling">Rapportera en spelare för trollning</string>
+  <string name="reportInsults">Rapportera en spelare för förolämpningar</string>
+  <string name="reportOtherReason">Rapportera en spelare av någon annan anledning</string>
   <string name="toReportAPlayer">För att rapportera en spelare för %s, använder du rapportformuläret</string>
   <string name="youCanAlsoReachReportPage">Du kan också nå den sidan genom att klicka på knappen %s rapportera på en profilsida.</string>
   <string name="doNotReportInForum">Rapportera inte spelare i forumet.</string>
@@ -59,7 +59,7 @@
   <string name="ratedGame">Försäkra dig om att du spelade ett rankat parti. Orankade partier påverkar inte spelarnas rating.</string>
   <string name="errorPage">Felsida</string>
   <string name="reportErrorPage">Om du stöter på en felsida, kan du rapportera det:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Överklaga en avstängning eller IP-begränsning</string>
+  <string name="banAppeal">Överklaga en avstängning eller IP-begränsning</string>
   <string name="engineAppeal">Schackmotor eller fuskstämpel</string>
   <string name="sendAppealTo">Du kan skicka ett överklagande till %s.</string>
   <string name="falsePositives">Falska positiva saker händer ibland, och vi beklagar det.</string>

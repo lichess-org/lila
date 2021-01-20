@@ -2,10 +2,10 @@
 <resources>
   <string name="contact">Kontakt</string>
   <string name="contactLichess">Lichess kontaktieren</string>
-  <string name="whatCanWeHelpYouWith">Wobei können wir dir behilflich sein?</string>
+  <string name="whatCanWeHelpYouWith">Wie können wir dir helfen?</string>
   <string name="visitThisPage">Besuche diese Seite, um das Problem zu lösen</string>
   <string name="iCantLogIn">Ich kann mich nicht einloggen</string>
-  <string name="noConfirmationEmail">Ich erhalte meine Bestätigungsmail nicht</string>
+  <string name="noConfirmationEmail">Ich erhalte meine Bestätigungs-E-Mail nicht</string>
   <string name="forgotPassword">Ich habe mein Passwort vergessen</string>
   <string name="forgotUsername">Ich habe meinen Benutzernamen vergessen</string>
   <string name="youCanLoginWithEmail">Du kannst dich mit der E-Mail-Adresse einloggen, mit der du dich angemeldet hast</string>
@@ -27,13 +27,13 @@
   <string name="wantClearHistory">Ich möchte meinen Verlauf oder meine Wertung löschen</string>
   <string name="cantClearHistory">Es ist nicht möglich deinen Spiel-, Puzzleverlauf oder deine Wertung zu löschen.</string>
   <string name="wantReport">Ich möchte einen Spieler melden</string>
-  <string name="cheating">Betrügens</string>
-  <string name="sandbagging">absichtlichen Verlierens</string>
-  <string name="trolling">Trollens</string>
-  <string name="insults">Beleidigungen</string>
-  <string name="otherReason">ein anderer Grund</string>
+  <string name="reportCheating">Melde einen Spieler wegen Betrugs</string>
+  <string name="reportSandbagging">Melde einen Spieler wegen Tiefstapelei</string>
+  <string name="reportTrolling">Melde einen Spieler wegen bewusstem Provozierens</string>
+  <string name="reportInsults">Melde einen Spieler wegen Beleidigungen</string>
+  <string name="reportOtherReason">Melde einen Spieler aus einem anderen Grund</string>
   <string name="toReportAPlayer">Benutze das Meldeformular, um einen Spieler wegen %s zu melden</string>
-  <string name="youCanAlsoReachReportPage">Du erreichst diese Seite ebenfalls mit dem Meldeknopf (%s) auf Profilseiten.</string>
+  <string name="youCanAlsoReachReportPage">Du erreichst diese Seite ebenfalls, indem du den %s Meldeknopf auf einer Profilseite klickst.</string>
   <string name="doNotReportInForum">Melde keine Spieler im Forum.</string>
   <string name="doNotSendReportEmails">Sende uns keine Meldungen per E-Mail.</string>
   <string name="doNotMessageModerators">Sende den Moderatoren keine direkten Nachrichten.</string>
@@ -59,7 +59,7 @@
   <string name="ratedGame">Stelle sicher, dass du ein gewertetes Spiel spielst. Ungewertete Spiele beeinflussen nicht die Spielerwertungen.</string>
   <string name="errorPage">Fehlerseite</string>
   <string name="reportErrorPage">Falls du eine Fehlerseite entdeckt hast kannst du sie melden:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Einspruch gegen einen Bann oder IP-Beschränkung</string>
+  <string name="banAppeal">Einspruch gegen einen Bann oder IP-Beschränkung</string>
   <string name="engineAppeal">Markierung für Computerunterstützung/Betrug</string>
   <string name="sendAppealTo">Du kannst deinen Einspruch an %s senden.</string>
   <string name="falsePositives">Falsche Positivergebnisse können gelegentlich auftreten und dafür möchten wir uns entschuldigen.</string>

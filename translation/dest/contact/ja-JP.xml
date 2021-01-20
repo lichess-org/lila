@@ -27,11 +27,11 @@
   <string name="wantClearHistory">対局履歴やレーティングをリセットしたい</string>
   <string name="cantClearHistory">対局や問題の履歴、レーティングはリセットできません。</string>
   <string name="wantReport">誰かを通報したい</string>
-  <string name="cheating">不正行為</string>
-  <string name="sandbagging">過小レーティング</string>
-  <string name="trolling">荒らし</string>
-  <string name="insults">侮辱</string>
-  <string name="otherReason">その他</string>
+  <string name="reportCheating">プレイヤーを不正行為で通報する</string>
+  <string name="reportSandbagging">プレイヤーを過小レートで通報する</string>
+  <string name="reportTrolling">プレイヤーを荒らし行為で通報する</string>
+  <string name="reportInsults">プレイヤーを暴言行為で通報する</string>
+  <string name="reportOtherReason">プレイヤーをその他の理由で通報する</string>
   <string name="toReportAPlayer">%s について他のプレイヤーを通報するには、通報用フォームを使ってください</string>
   <string name="youCanAlsoReachReportPage">その人のプロフィールページの通報ボタン（右上 %s）からもできます。</string>
   <string name="doNotReportInForum">他のプレイヤーをフォーラムに通報しないでください。</string>
@@ -59,7 +59,7 @@
   <string name="ratedGame">レート戦だったかどうか確かめてください。非レート戦ではレーティングは動きません。</string>
   <string name="errorPage">エラーページ</string>
   <string name="reportErrorPage">エラーページに出会ったら、以下で報告できます。</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">アクセス禁止や IP 制限への異議申し立て</string>
+  <string name="banAppeal">アクセス禁止や IP 制限への異議申し立て</string>
   <string name="engineAppeal">不正行為の赤マーク</string>
   <string name="sendAppealTo">異議申し立てを %s に送ることができます。</string>
   <string name="falsePositives">申し訳ありませんが、時には間違った判定も起こり得ます。</string>

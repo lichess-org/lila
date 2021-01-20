@@ -27,11 +27,6 @@
   <string name="wantClearHistory">Я хочу очистити свою історію або рейтинг</string>
   <string name="cantClearHistory">Неможливо очистити історію ігор, шахових задач або рейтинг.</string>
   <string name="wantReport">Я хочу поскаржитись на гравця</string>
-  <string name="cheating">нечесна гра</string>
-  <string name="sandbagging">маніпуляції з рейтингом</string>
-  <string name="trolling">тролінг</string>
-  <string name="insults">образи</string>
-  <string name="otherReason">інша причина</string>
   <string name="toReportAPlayer">Щоб поскаржитись на гравця за %s, використовуйте форму звіту</string>
   <string name="youCanAlsoReachReportPage">Ви також можете перейти на цю сторінку, натиснувши кнопку звіту %s на сторінці профілю.</string>
   <string name="doNotReportInForum">Не скаржтесь на гравців на форумі.</string>
@@ -59,7 +54,7 @@
   <string name="ratedGame">Переконайтеся, що Ви зіграли рейтингову гру. Дружні ігри не впливають на рейтинги гравців.</string>
   <string name="errorPage">Сторінка помилки</string>
   <string name="reportErrorPage">Якщо Ви зіткнулися з повідомленням про помилку, Ви можете повідомити про це:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Оскарження бану або обмеження за IP-адресою</string>
+  <string name="banAppeal">Оскарження бану або обмеження за IP-адресою</string>
   <string name="engineAppeal">Відмітка про використання шахового рушія або нечесну гру</string>
   <string name="sendAppealTo">Ви можете надіслати оскарження на %s.</string>
   <string name="falsePositives">Іноді трапляються хибні спрацювання, нам шкода за це.</string>

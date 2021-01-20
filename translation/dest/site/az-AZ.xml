@@ -12,7 +12,7 @@
   <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Güc</string>
   <string name="toggleTheChat">Söhbəti aç/bağla</string>
   <string name="toggleSound">Səsi aç/bağla</string>
-  <string name="chat">Söhbət</string>
+  <string name="chat">Mesaj göndər</string>
   <string name="resign">Tərk et</string>
   <string name="checkmate">Mat</string>
   <string name="stalemate">Pat</string>

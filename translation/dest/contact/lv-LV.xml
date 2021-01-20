@@ -27,11 +27,6 @@
   <string name="wantClearHistory">Vēlos notīrīt savu vēsturi vai reitingu</string>
   <string name="cantClearHistory">Nav iespējams notīrīt spēļu vēsturi, puzļu vēsturi vai reitingus.</string>
   <string name="wantReport">Vēlos ziņot par spēlētāju</string>
-  <string name="cheating">šmaukšanās</string>
-  <string name="sandbagging">tīša zaudēšana</string>
-  <string name="trolling">āzēšana</string>
-  <string name="insults">apvainošana</string>
-  <string name="otherReason">kāds cits iemesls</string>
   <string name="toReportAPlayer">Lai ziņotu par spēlētāju dēļ %s, izmantojiet ziņojuma veidlapu</string>
   <string name="youCanAlsoReachReportPage">Varat arī nonākt tajā lapā, klikšķinot uz %s pogas \"ziņot\" profila lapā.</string>
   <string name="doNotReportInForum">Neziņojiet par spēlētājiem forumā.</string>
@@ -59,7 +54,7 @@
   <string name="ratedGame">Pārliecinieties, ka spēlējāt vērtētu spēli. Draudzīgas spēles nemaina spēlētāju reitingus.</string>
   <string name="errorPage">Kļūdas lapa</string>
   <string name="reportErrorPage">Ja saskārāties ar kļūdas lapu, varat par to ziņot:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Pārsūdzēt liegumu vai IP ierobežojumu</string>
+  <string name="banAppeal">Pārsūdzēt liegumu vai IP ierobežojumu</string>
   <string name="engineAppeal">Dzinēja vai šmaukšanās atzīme</string>
   <string name="sendAppealTo">Varat iesniegt lūgumu %s.</string>
   <string name="falsePositives">Viltus pozitīvi dažreiz notiek, atvainojamies par to.</string>

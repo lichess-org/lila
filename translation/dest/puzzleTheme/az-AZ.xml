@@ -4,6 +4,7 @@
   <string name="advancedPawnDescription">Çevrilən və ya çevrilməyə yaxın bir piyada taktikanın açarıdır.</string>
   <string name="advantage">Üstünlük</string>
   <string name="advantageDescription">Həlledici üstünlük əldə etmək üçün fürsətdən istifadə edin. (200-600sp arası)</string>
+  <string name="anastasiaMate">Anastasiya matı</string>
   <string name="attackingF2F7">f2 və ya f7 hücumu</string>
   <string name="attackingF2F7Description">Qızardılmış qaraciyər (feqatello) hücumunda olduğu kimi, f2-f7 piyadasına hədəflənmiş hücum.</string>
   <string name="attraction">Cəlbetmə</string>
@@ -49,9 +50,9 @@
   <string name="knightEndgameDescription">Yalnız atlar və piyadalardan ibarət oyun sonu.</string>
   <string name="long">Uzun tapmaca</string>
   <string name="longDescription">3 gedişə qələbə.</string>
-  <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Usta oyunları</string>
+  <string name="master">Usta oyunları</string>
   <string name="masterDescription">Titullu oyunçuların oynadığı oyunlardan tapmacalar.</string>
-  <string name="masterVsMaster" comment="masterVsMaster&#10;&#10;Puzzles from games between two titled players.">Usta vs Usta oyunları</string>
+  <string name="masterVsMaster">Usta vs Usta oyunları</string>
   <string name="masterVsMasterDescription">İki titullu oyunçu arasındakı oyunlardan tapmacalar.</string>
   <string name="mate">Mat</string>
   <string name="mateDescription">Oyunu üslubuyla qazanın.</string>
@@ -95,7 +96,7 @@
   <string name="skewerDescription">Dəyərli bir fiqurun hüuma məruz qaldığı, hərəkət edəcəyi halda daha az dəyərli bir fiqurun itiriləcəyi və ya təhlükəyə düşəcəyi motivlər. Bağlamanın tərsi.</string>
   <string name="smotheredMate">Boğma matı</string>
   <string name="smotheredMateDescription">Öz fiqurları tərəfindən əhatələndiyi (və ya boğulduğu) üçün hərəkət edə bilməyən şahın at ilə mat edilməsi.</string>
-  <string name="superGM" comment="superGM&#10;&#10;Puzzles from games played by the best players in the world.">Super GM oyunları</string>
+  <string name="superGM">Super GM oyunları</string>
   <string name="superGMDescription">Dünyanın ən yaxşı oyunçularının oynadığı oyunlardan tapmacalar.</string>
   <string name="trappedPiece">Tələyə düşmüş fiqur</string>
   <string name="trappedPieceDescription">Gedəcək təhlükəsiz bir xanası olmadığı üçün fiqur vurulmaqdan qaça bilmir.</string>

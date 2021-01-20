@@ -27,11 +27,6 @@
   <string name="wantClearHistory">Quero limpar o meu histórico ou pontuação</string>
   <string name="cantClearHistory">Não é possível limpar o teu histórico de jogos, histórico de problemas ou pontuações.</string>
   <string name="wantReport">Quero denunciar um jogador</string>
-  <string name="cheating">fazer batota</string>
-  <string name="sandbagging">perder de propósito/manipular a pontuação de forma artificial</string>
-  <string name="trolling">provocar/irritar</string>
-  <string name="insults">insultos</string>
-  <string name="otherReason">uma outra razão</string>
   <string name="toReportAPlayer">Para denunciar um jogador de %s, usa o formulário de denúncia</string>
   <string name="youCanAlsoReachReportPage">Também podes aceder a essa página clicando no butão de denúncia %s numa página de perfil.</string>
   <string name="doNotReportInForum">Não denuncies jogadores no fórum.</string>
@@ -59,7 +54,7 @@
   <string name="ratedGame">Certifica-te que jogaste uma partida a valer pontos. Jogos amigáveis não afetam as pontuações dos jogadores.</string>
   <string name="errorPage">Página de erro</string>
   <string name="reportErrorPage">Se encontras uma página de erro, podes reportá-lo:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Apelar a um banimento ou restrição de IP</string>
+  <string name="banAppeal">Apelar a um banimento ou restrição de IP</string>
   <string name="engineAppeal">Marcado por fazer batota ou usar a ajuda do computador</string>
   <string name="sendAppealTo">Podes enviar um apelo para %s.</string>
   <string name="falsePositives">Às vezes ocorrem marcações incorretas, e lamentamos que isso aconteça.</string>

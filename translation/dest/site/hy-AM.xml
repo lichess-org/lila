@@ -9,7 +9,7 @@
   <string name="yourTurn">Ձեր հերթն է</string>
   <string name="aiNameLevelAiLevel">%1$s, մակարդակ՝ %2$s</string>
   <string name="level">Մակարդակ</string>
-  <string name="strength">Ուժ</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Ուժ</string>
   <string name="toggleTheChat">Թաքցնել/ցուցադրել չաթի պատուհանը</string>
   <string name="toggleSound">Անջատել/Միացնել ձայնը</string>
   <string name="chat">Չաթ</string>

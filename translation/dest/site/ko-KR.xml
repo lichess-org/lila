@@ -9,7 +9,7 @@
   <string name="yourTurn">내 차례</string>
   <string name="aiNameLevelAiLevel">%1$s 레벨 %2$s</string>
   <string name="level">레벨</string>
-  <string name="strength">강도</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">강도</string>
   <string name="toggleTheChat">채팅 끄기/켜기</string>
   <string name="toggleSound">음소거/음소거 해제</string>
   <string name="chat">채팅</string>

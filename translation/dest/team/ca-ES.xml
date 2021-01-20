@@ -12,9 +12,11 @@
   <string name="noTeamFound">No s\'ha trobat cap equip</string>
   <string name="joinTeam">Uneix-te a l\'equip</string>
   <string name="quitTeam">Abandona l\'equip</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Comprovar manualment peticions d\'admissió</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Si està marcat, els jugadors necessitaran fer una petició per unirse a l\'equip, la qual pots acceptar o rebutjar.</string>
   <plurals name="teamLeaders">
-    <item quantity="one">Capità de l\'equip</item>
-    <item quantity="other">Capitans de l\'equip</item>
+    <item quantity="one">Líder de l\'equip</item>
+    <item quantity="other">Líders de l\'equip</item>
   </plurals>
   <string name="teamBestPlayers">Millors jugadors de l\'equip</string>
   <string name="teamRecentMembers">Membres recents de l\'equip</string>
@@ -41,4 +43,8 @@ Els jugadors que no els agrada rebre missatges podrien abandonar l\'equip.</stri
   <string name="leadersChat">Xat de capitans</string>
   <string name="closeTeam">Eliminar equip</string>
   <string name="closeTeamDescription">Elimina l\'equip definitivament.</string>
+  <string name="teamPassword">Contrasenya de l\'equip</string>
+  <string name="teamPasswordDescriptionForLeader">(Opcional) Una contrasenya que els nous membres han de saber per unirse a l\'equip.</string>
+  <string name="incorrectTeamPassword">Contrasenya d\'equip incorrecta.</string>
+  <string name="teamAlreadyExists">Aquest equip ja existeix.</string>
 </resources>

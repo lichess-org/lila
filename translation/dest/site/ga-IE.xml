@@ -278,6 +278,7 @@
   <string name="yourPerfRatingIsProvisional">Tá rátáil %s sealadach agat</string>
   <string name="yourPerfRatingIsTooHigh">Tá do rátáil %1$s (%2$s) ró-ard</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Tá an rátáil seachtainiúil %1$s is fearr agat (%2$s) ró-ard</string>
+  <string name="yourPerfRatingIsTooLow">Tá do rátáil %1$s (%2$s) ró-íseal</string>
   <string name="mustBeInTeam">Caithfidh tú a bheith i bhfoireann %s</string>
   <string name="youAreNotInTeam">Níl tú sa bhfoireann %s</string>
   <string name="backToGame">Ar ais don chluiche</string>
@@ -389,6 +390,7 @@
   <string name="nextXTournament">An chéad chomórtas %s eile:</string>
   <string name="averageOpponent">Meanghrádú na gcéilí imeartha</string>
   <string name="membersOnly">Baill amháin</string>
+  <string name="boardEditor">Eagarthóir boird</string>
   <string name="popularOpenings">Oscailtí a bhfuil tóir orthu</string>
   <string name="startPosition">Suíomh tosaithe</string>
   <string name="savePosition">Sábhail suíomh</string>
@@ -583,6 +585,7 @@
   <string name="opening">Oscailt</string>
   <string name="middlegame">Lár an chluiche</string>
   <string name="endgame">Cor deiridh</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">Ní ghlacann %s le dúshláin ach amháin ó chairde.</string>
   <string name="playX">Imir %s</string>
   <string name="sorry">Tá brón orainn :(</string>
   <string name="weHadToTimeYouOutForAWhile">Bhí orainn thú a chur ar fionraí ar feadh tréimhse.</string>
@@ -593,9 +596,15 @@
   <string name="playEveryGame">Imir gach cluiche a chuireann tú tús leis.</string>
   <string name="tryToWin">Déan iarracht gach cluiche a imríonn tú a bhuachaint (nó comhscór a fháil ar a laghad).</string>
   <string name="resignLostGames">Éirigh as cluichí caillte (ná lig don clog rith amach).</string>
+  <string name="agreementAssistance">Aontaím nach nglacfaidh mé le cabhair ar bith i rith mo chluichí (ó ríomhaire fichille, ó leabhar, ó bhunachar sonraí nó ó dhuine eile).</string>
+  <string name="agreementNice">Aontaím go léireoidh mé meas d\'imreoirí eile i gcónaí.</string>
   <string name="edit">Athraigh</string>
   <string name="classical">Clasaiceach</string>
   <string name="ultraBulletDesc">Cluichí ar luas gan chiall; níos lú ná 30 soicind</string>
   <string name="important">Tábhachtach</string>
   <string name="inTheFAQ">sna CCana</string>
+  <string name="teamNamedX">Foireann %1$s</string>
+  <string name="challengeDeclined">Níor glacadh leis an dúshlán</string>
+  <string name="challengeAccepted">Glacadh leis an dúshlán!</string>
+  <string name="challengeCanceled">Dúshlán curtha ar ceal.</string>
 </resources>

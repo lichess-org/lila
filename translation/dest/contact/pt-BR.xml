@@ -27,11 +27,10 @@
   <string name="wantClearHistory">Quero limpar meu histórico ou pontuação</string>
   <string name="cantClearHistory">Não é possível limpar seu histórico de jogos, quebra-cabeças ou pontuações.</string>
   <string name="wantReport">Quero denunciar um jogador</string>
-  <string name="cheating">trapacear</string>
-  <string name="sandbagging">manipular pontuação</string>
-  <string name="trolling">provocações (troll)</string>
-  <string name="insults">insultos</string>
-  <string name="otherReason">outra razão</string>
+  <string name="reportCheating">Reportar um jogador por trapaça</string>
+  <string name="reportTrolling">Reportar um jogador por trollagem</string>
+  <string name="reportInsults">Reportar um jogador por insultos</string>
+  <string name="reportOtherReason">Reportar um jogador por algum outro motivo</string>
   <string name="toReportAPlayer">Para denunciar um jogador de %s, use o formulário de denúncia</string>
   <string name="youCanAlsoReachReportPage">Você também pode chegar a essa página clicando no botão de denúncia %s em uma página de perfil.</string>
   <string name="doNotReportInForum">Não denuncie jogadores no fórum.</string>
@@ -59,7 +58,7 @@
   <string name="ratedGame">Certifique-se de ter jogado uma partida por pontuação. Jogos casuais não alteram a pontuação dos jogadores.</string>
   <string name="errorPage">Página de erro</string>
   <string name="reportErrorPage">Se você encontrou uma página de erro, você pode reportá-la:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Apelação de banimento ou restrição de IP</string>
+  <string name="banAppeal">Apelação de banimento ou restrição de IP</string>
   <string name="engineAppeal">Assistência de software de xadrez</string>
   <string name="sendAppealTo">Você pode enviar uma apelação para %s.</string>
   <string name="falsePositives">Erros podem acontecer e lamentamos por isso.</string>

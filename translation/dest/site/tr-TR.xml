@@ -9,7 +9,7 @@
   <string name="yourTurn">Sıra sizde</string>
   <string name="aiNameLevelAiLevel">%1$s seviye %2$s</string>
   <string name="level">Seviye</string>
-  <string name="strength">Kuvvet</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Kuvvet</string>
   <string name="toggleTheChat">Sohbeti aç/kapat</string>
   <string name="toggleSound">Sesi aç/kapat</string>
   <string name="chat">Sohbet</string>
@@ -482,7 +482,7 @@
   <string name="reply">Cevap yaz</string>
   <string name="message">Mesaj</string>
   <string name="createTheTopic">Bildiri oluştur</string>
-  <string name="reportAUser">Bu kullanıcıyı raporla</string>
+  <string name="reportAUser">Kullanıcı ihbar et</string>
   <string name="user">Kullanıcı</string>
   <string name="reason">Sebep</string>
   <string name="whatIsIheMatter">Problem nedir?</string>

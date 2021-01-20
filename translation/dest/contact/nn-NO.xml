@@ -27,11 +27,11 @@
   <string name="wantClearHistory">Jeg vil slette historikken eller ratinga mi</string>
   <string name="cantClearHistory">Det er ikkje mogleg å slette historikken din for parti, taktikkøvingar eller ratingar.</string>
   <string name="wantReport">Eg vil rapportere ein spelar</string>
-  <string name="cheating">fusk</string>
-  <string name="sandbagging">tape med vilje</string>
-  <string name="trolling">trolling</string>
-  <string name="insults">ærekrenking</string>
-  <string name="otherReason">ein annan grunn</string>
+  <string name="reportCheating">Rapporter ein spelar for fusking</string>
+  <string name="reportSandbagging">Rapporter ein spelar for å tapa med forsett (\"sandbagging\")</string>
+  <string name="reportTrolling">Rapporter ein spelar for trolling</string>
+  <string name="reportInsults">Rapporter ein spelar for trakassering</string>
+  <string name="reportOtherReason">Rapporter ein spelar av andre årsaker</string>
   <string name="toReportAPlayer">Bruk rapportskjemaet om du vil rapportere ein spelar for %s</string>
   <string name="youCanAlsoReachReportPage">Du kan også kome til den sida ved å klikke på %s meldingsknappen på ei brukerside.</string>
   <string name="doNotReportInForum">Ikkje rapporter spelarar i forumet.</string>
@@ -59,7 +59,7 @@
   <string name="ratedGame">Forsikre deg om at partiet du spela var rangert. Uforpliktande parti påverkar ikkje ratinga til spelarane.</string>
   <string name="errorPage">Feilside</string>
   <string name="reportErrorPage">Dersom du støtte på ei feilside kan du rapportere det:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Protest ved utestenging eller IP-restriksjon</string>
+  <string name="banAppeal">Protest ved utestenging eller IP-restriksjon</string>
   <string name="engineAppeal">Merknad om juks eller bruk av sjakkcomputer</string>
   <string name="sendAppealTo">Du kan sende ein appell til %s.</string>
   <string name="falsePositives">Vi er lei for at falske positiv kan skje.</string>

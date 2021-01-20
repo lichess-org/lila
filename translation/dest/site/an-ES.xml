@@ -9,7 +9,7 @@
   <string name="yourTurn">Lo tuyo redolín</string>
   <string name="aiNameLevelAiLevel">%1$s libel %2$s</string>
   <string name="level">Libel</string>
-  <string name="strength">Fuerza</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Fuerza</string>
   <string name="toggleTheChat">Amostrar/Amagar chat</string>
   <string name="toggleSound">Activar/Desactivar sons</string>
   <string name="chat">Chat</string>

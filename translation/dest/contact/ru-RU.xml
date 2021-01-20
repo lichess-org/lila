@@ -27,11 +27,11 @@
   <string name="wantClearHistory">Я хочу очистить свою историю или рейтинг</string>
   <string name="cantClearHistory">Невозможно очистить историю игр, историю шахматных задач или рейтинг.</string>
   <string name="wantReport">Я хочу пожаловаться на игрока</string>
-  <string name="cheating">читерство</string>
-  <string name="sandbagging">манипуляции с рейтингом</string>
-  <string name="trolling">троллинг</string>
-  <string name="insults">оскорбления</string>
-  <string name="otherReason">некую другую причину</string>
+  <string name="reportCheating">Сообщить о мошенничестве игрока</string>
+  <string name="reportSandbagging">Сообщить о манипуляциях с рейтингом</string>
+  <string name="reportTrolling">Сообщить о троллинге</string>
+  <string name="reportInsults">Сообщить об оскорблениях</string>
+  <string name="reportOtherReason">Сообщить об игроке по другой причине</string>
   <string name="toReportAPlayer">Чтобы пожаловаться на игрока за %s, используйте эту форму</string>
   <string name="youCanAlsoReachReportPage">Также вы можете перейти на эту страницу, нажав %s \"Пожаловаться\" на странице профиля.</string>
   <string name="doNotReportInForum">Не пишите об игроках на форуме.</string>
@@ -59,7 +59,7 @@
   <string name="ratedGame">Убедитесь, что вы играли рейтинговую игру. Пользовательские игры не влияют на рейтинг игроков.</string>
   <string name="errorPage">Сообщение об ошибке</string>
   <string name="reportErrorPage">Если вы столкнулись с сообщением об ошибке, вы можете сообщить об этом:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Обжалование бана аккаунта или ограничения IP-адреса</string>
+  <string name="banAppeal">Обжалование бана аккаунта или ограничения IP-адреса</string>
   <string name="engineAppeal">Отметка об использовании шахматных движков или читерстве</string>
   <string name="sendAppealTo">Вы можете отправить апелляцию на %s.</string>
   <string name="falsePositives">Иногда случаются ложные срабатывания, мы сожалеем об этом.</string>

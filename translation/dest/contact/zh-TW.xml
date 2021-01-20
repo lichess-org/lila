@@ -24,10 +24,6 @@
   <string name="wantClearHistory">我想要把我的評分紀錄刪除</string>
   <string name="cantClearHistory">我們無法將您的下棋歷史、解題歷史和評分消除</string>
   <string name="wantReport">我想要舉報一位玩家</string>
-  <string name="cheating">作弊</string>
-  <string name="sandbagging">通過輸掉比賽來降低其評分</string>
-  <string name="insults">侮辱</string>
-  <string name="otherReason">其他原因</string>
   <string name="toReportAPlayer">舉報玩家的%s行為，請填寫舉報表單</string>
   <string name="doNotReportInForum">請不要在論壇中檢舉使用者</string>
   <string name="doNotSendReportEmails">請不要使用電子郵件向我們舉報玩家</string>
@@ -39,7 +35,7 @@
   <string name="noRatingPoints">不會得到評分</string>
   <string name="errorPage">錯誤頁面</string>
   <string name="reportErrorPage">如果你遇到了錯誤頁面，你可以回報它:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">懲處上訴</string>
+  <string name="banAppeal">懲處上訴</string>
   <string name="engineAppeal">作弊或電腦操作記號</string>
   <string name="sendAppealTo">您可以將上訴寄到%s</string>
   <string name="ifLegit">如果你的上訴是合理的，我們會盡快撤除懲處。</string>
@@ -49,6 +45,9 @@
   <string name="buyingLichess">買下 Lichess</string>
   <string name="authorizationToUse">Lichess 的使用授權</string>
   <string name="welcomeToUse">歡迎您使用 Lichess 進行活動，甚至用於商業活動。</string>
+  <string name="creditAppreciated">我們感激您留一句致謝，但這不是必要的。</string>
   <string name="noneOfTheAbove">以上皆非</string>
   <string name="sendEmailAt">請傳送郵件到 %s</string>
+  <string name="explainYourRequest">請清楚的解釋您的請求。
+請提供您的Lichess用戶明和其他可以讓我們幫助您的資訊</string>
 </resources>

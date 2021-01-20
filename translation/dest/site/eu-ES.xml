@@ -9,7 +9,7 @@
   <string name="yourTurn">Zure txanda</string>
   <string name="aiNameLevelAiLevel">%1$s, %2$s. maila</string>
   <string name="level">Maila</string>
-  <string name="strength">Indarra</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Indarra</string>
   <string name="toggleTheChat">Txata agertu</string>
   <string name="toggleSound">Soinua</string>
   <string name="chat">Txata</string>

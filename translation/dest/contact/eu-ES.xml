@@ -27,11 +27,11 @@
   <string name="wantClearHistory">Nire historikoa edo puntuazioa berrezarri nahi ditut</string>
   <string name="cantClearHistory">Ezin da zure partiden historikoa, ariketena edo puntuazioa berrezarri.</string>
   <string name="wantReport">Erabiltzaile baten inguruko kexa jarri nahi dut</string>
-  <string name="cheating">tranpak egiten ditu</string>
-  <string name="sandbagging">nahita txartoago jokatzen du</string>
-  <string name="trolling">traba egiten du</string>
-  <string name="insults">irainak botatzen ditu</string>
-  <string name="otherReason">beste arrazoiren bat</string>
+  <string name="reportCheating">Jokalari bat tranpa egiten aritu dela salatu</string>
+  <string name="reportSandbagging">Jokalari bat tranpa egiten aritu dela salatu</string>
+  <string name="reportTrolling">Jokalari bat troll bat bezala aritu dela salatu</string>
+  <string name="reportInsults">Jokalari bat iseka egiten aritu dela salatu</string>
+  <string name="reportOtherReason">Jokalari bat beste zerbaitegatik salatu</string>
   <string name="toReportAPlayer">Jokalari bati buruzko %s kexa egiteko, erabili kexa formularioa</string>
   <string name="youCanAlsoReachReportPage">Orrialde horretara jokalariaren profilaren orrialdeko %s berri emateko botoian sakatuta hel zaitezke.</string>
   <string name="doNotReportInForum">Ez erabili foroa jokalarien inguruko kexa bidaltzeko.</string>
@@ -59,7 +59,7 @@
   <string name="ratedGame">Ziurtatu puntuaziorako baliogarria den partida bat jokatu duzula. Lagunarteko partidek ez dute eraginik jokalarien puntuazioan.</string>
   <string name="errorPage">Errore orrialdea</string>
   <string name="reportErrorPage">Errorea orrialdea agertu bazaizu, horren berri eman diezagukezu:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Debeku edo IP murriztapen baten aurka egitea</string>
+  <string name="banAppeal">Debeku edo IP murriztapen baten aurka egitea</string>
   <string name="engineAppeal">Motore-erabilera edo tranpa marka</string>
   <string name="sendAppealTo">Zure kexa honi bidali diezaiokezu: %s.</string>
   <string name="falsePositives">Batzuetan positibo faltsuak gertatzen dira, barkatu.</string>

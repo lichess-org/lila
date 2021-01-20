@@ -40,8 +40,8 @@
   <string name="knightEndgameDescription">Ένα τέλος παρτίδας μόνο με ίππους και πιόνια.</string>
   <string name="long">Μεγάλος γρίφος</string>
   <string name="longDescription">Τρεις κινήσεις για να κερδίσετε.</string>
-  <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Master παιχνίδια</string>
-  <string name="masterVsMaster" comment="masterVsMaster&#10;&#10;Puzzles from games between two titled players.">Master vs Master παιχνίδια</string>
+  <string name="master">Master παιχνίδια</string>
+  <string name="masterVsMaster">Master vs Master παιχνίδια</string>
   <string name="mate">Ματ</string>
   <string name="mateDescription">Κερδίστε το παιχνίδι με στυλ.</string>
   <string name="mateIn1">Ματ σε 1</string>
@@ -83,7 +83,7 @@
   <string name="skewerDescription">Ένα μοτίβο όπου ένα κομμάτι υψηλής αξίας δέχεται επίθεση, κάνει στην άκρη, και επιτρέπει την επίθεση ή το πάρσιμο ενός κομματιού μικρότερης αξίας πίσω από αυτό, το αντίστροφο δηλαδή του καρφώματος.</string>
   <string name="smotheredMate">Ματ αποπνιγμού</string>
   <string name="smotheredMateDescription">Ένα ματ που γίνεται από έναν ίππο σε έναν βασιλιάς ο οποίος δεν μπορεί να μετακινηθεί όντας περιτριγυρισμένος (ή πνιγμένος) από δικά του κομμάτια.</string>
-  <string name="superGM" comment="superGM&#10;&#10;Puzzles from games played by the best players in the world.">Παιχνίδια Super GM</string>
+  <string name="superGM">Παιχνίδια Super GM</string>
   <string name="trappedPiece">Παγιδευμένο κομμάτι</string>
   <string name="trappedPieceDescription">Ένα κομμάτι δεν μπορεί να αποφύγει το πάρσιμο, καθώς έχει περιορισμένες κινήσεις.</string>
   <string name="underPromotion">Προαγωγή σε κομμάτι μικρότερης αξίας</string>

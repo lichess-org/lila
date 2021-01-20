@@ -27,10 +27,6 @@
   <string name="wantClearHistory">Επιθυμώ να διαγράψω το ιστορικό μου ή το rating</string>
   <string name="cantClearHistory">Δεν είναι δυνατόν να διαγράψετε το ιστορικό παιχνιδιών σας, ιστορικό γρίφων, ή ratings.</string>
   <string name="wantReport">Επιθυμώ να αναφέρω έναν παίχτη</string>
-  <string name="cheating">απάτη</string>
-  <string name="trolling">τρολάρισμα</string>
-  <string name="insults">προσβολές</string>
-  <string name="otherReason">διαφορετικός λόγος</string>
   <string name="toReportAPlayer">Για να αναφέρετε έναν παίκτη για %s, χρησιμοποιήστε τη φόρμα αναφοράς</string>
   <string name="youCanAlsoReachReportPage">Επίσης μπορείτε να επισκεφτείτε αυτή τη σελίδα με κλικ στο %s κουμπί στη σελίδα προφίλ.</string>
   <string name="doNotReportInForum">Μην αναφέρετε παίκτες στο φόρουμ.</string>
@@ -58,7 +54,7 @@
   <string name="ratedGame">Σιγουρευτείτε ότι η παρτίδα ήταν με αξιολόγηση. Οι φιλικές παρτίδες δεν επηρεάζουν την αξιολόγηση των παικτών.</string>
   <string name="errorPage">Σελίδα λάθους</string>
   <string name="reportErrorPage">Αν εμφανίστηκε σελίδα λάθους, μπορείτε να το αναφέρετε:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Ένσταση για αποκλεισμό ή περιορισμό σε IP</string>
+  <string name="banAppeal">Ένσταση για αποκλεισμό ή περιορισμό σε IP</string>
   <string name="engineAppeal">Μηχανή ή σημάδι απάτης</string>
   <string name="sendAppealTo">Μπορείτε να ασκήσετε ένσταση στο %s.</string>
   <string name="ifLegit">Αν η ένστασή σας είναι νόμιμη, θα αποσύρουμε τον αποκλεισμό το συντομότερο δυνατόν.</string>

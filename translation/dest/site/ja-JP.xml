@@ -9,6 +9,7 @@
   <string name="yourTurn">あなたの手番です</string>
   <string name="aiNameLevelAiLevel">%1$s レベル %2$s</string>
   <string name="level">レベル</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">強さ</string>
   <string name="toggleTheChat">チャットのオン・オフ</string>
   <string name="toggleSound">音声のオン・オフ</string>
   <string name="chat">チャット</string>
@@ -106,7 +107,7 @@
   <string name="bestMoveArrow">最善手を表示</string>
   <string name="evaluationGauge">評価値を表示</string>
   <string name="multipleLines">解析ライン数</string>
-  <string name="cpus">CPU数</string>
+  <string name="cpus">スレッド数</string>
   <string name="memory">メモリ</string>
   <string name="infiniteAnalysis">無限解析</string>
   <string name="removesTheDepthLimit">探索手数の制限をなくし最大限の解析を行なう</string>
@@ -304,7 +305,7 @@
   <string name="youAreNotInTeam">チーム %s に入っていません</string>
   <string name="backToGame">ゲームに戻る</string>
   <string name="siteDescription">無料オンラインチェス。簡素なインターフェースですぐに対局を。登録不要、広告なし、プラグイン不要。AIと、友達と、知らない相手とも対局できます。</string>
-  <string name="xJoinedTeamY">%1$s がチーム %2$s に参加</string>
+  <string name="xJoinedTeamY" comment="xJoinedTeamY&#10;&#10;Joining is effectively equal to becoming a member.">%1$s がチーム %2$s に参加</string>
   <string name="xCreatedTeamY">%1$s がチーム %2$s を作成</string>
   <string name="xStartedStreaming">%s が配信を開始</string>
   <string name="averageElo">平均レーティング</string>
