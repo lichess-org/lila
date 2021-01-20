@@ -17,6 +17,20 @@ export const pieceRoles: cg.Role[] = [
   "rook",
 ];
 
+export function shadowDrop(ctrl: RoundController, color: Color, e: cg.MouchEvent): void {
+  const el = e.target as HTMLElement;
+  const role = (el.getAttribute("data-role") ??
+    el.firstElementChild!.getAttribute("data-role")) as cg.Role;
+  if (!ctrl.shogiground) return;
+  const curPiece = ctrl.shogiground.state.drawable.piece;
+  if (curPiece && curPiece.role == role && curPiece.color == color)
+    ctrl.shogiground.state.drawable.piece = undefined
+  else ctrl.shogiground.state.drawable.piece = { role: role, color: color };
+  e.stopPropagation();
+  e.preventDefault();
+  ctrl.redraw();
+}
+
 export function drag(ctrl: RoundController, e: cg.MouchEvent): void {
   if (e.button !== undefined && e.button !== 0) return; // only touch or left click
   if (ctrl.replaying() || !ctrl.isPlaying()) return;

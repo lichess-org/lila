@@ -1,6 +1,6 @@
 import { h } from "snabbdom";
 import * as round from "../round";
-import { drag, crazyKeys, pieceRoles, selectToDrop } from "./crazyCtrl";
+import { drag, crazyKeys, pieceRoles, selectToDrop, shadowDrop } from "./crazyCtrl";
 import * as cg from "shogiground/types";
 import RoundController from "../ctrl";
 import { onInsert } from "../util";
@@ -8,6 +8,7 @@ import { Position } from "../interfaces";
 
 const eventNames1 = ["mousedown", "touchmove"];
 const eventNames2 = ["click"];
+const eventNames3 = ["contextmenu"]
 
 export default function pocket(
   ctrl: RoundController,
@@ -19,6 +20,7 @@ export default function pocket(
     return;
   }
   const droppedRole = ctrl.justDropped,
+    shadowPiece = ctrl.shogiground?.state.drawable.piece,
     preDropRole = ctrl.preDrop,
     pocket = step.crazy.pockets[color === "white" ? 0 : 1],
     usablePos = position === (ctrl.flip ? "top" : "bottom"),
@@ -63,10 +65,16 @@ export default function pocket(
               selectToDrop(ctrl, e);
           })
         );
+        eventNames3.forEach((name) => {
+          el.addEventListener(name, (e) => {
+            shadowDrop(ctrl, color, e as cg.MouchEvent);
+          });
+        });
       }),
     },
     pieceRoles.map((role) => {
       let nb = pocket[role] || 0;
+      const sp = (role == shadowPiece?.role && color == shadowPiece?.color);
       const selectedSquare : boolean = (!!ctrl.selected && ctrl.selected[0] === color && ctrl.selected[1] === role);
       if (activeColor) {
         if (droppedRole === role) nb--;
@@ -76,6 +84,11 @@ export default function pocket(
         "div.pocket-c1",
         h(
           "div.pocket-c2",
+          {
+            class: {
+              "shadow-piece": sp,
+            }
+          },
           h("piece." + role + "." + color, {
             class: { premove: activeColor && preDropRole === role, "selected-square": selectedSquare },
             attrs: {
