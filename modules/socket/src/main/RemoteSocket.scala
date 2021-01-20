@@ -4,7 +4,7 @@ import akka.actor.{ ActorSystem, CoordinatedShutdown }
 import cats.data.NonEmptyList
 import chess.{ Centis, Color }
 import io.lettuce.core._
-import io.lettuce.core.pubsub.StatefulRedisPubSubConnection
+import io.lettuce.core.pubsub.{ StatefulRedisPubSubConnection => PubSub }
 import java.util.concurrent.atomic.AtomicReference
 import java.util.concurrent.ConcurrentHashMap
 import play.api.libs.json._
@@ -116,22 +116,19 @@ final class RemoteSocket(
     case UnFollow(u1, u2) => send(Out.unfollow(u1, u2))
   }
 
-  final class StoppableSender(conn: StatefulRedisPubSubConnection[String, String], channel: Channel)
-      extends Sender {
+  final class StoppableSender(conn: PubSub[String, String], channel: Channel) extends Sender {
     def apply(msg: String): Unit               = if (!stopping) conn.async.publish(channel, msg).unit
     def sticky(_id: String, msg: String): Unit = apply(msg)
   }
 
-  final class RoundRobinSender(
-      conn: StatefulRedisPubSubConnection[String, String],
-      channel: Channel,
-      parallelism: Int
-  ) extends Sender {
-    def apply(msg: String): Unit =
-      if (!stopping) conn.async.publish(s"$channel:${msg.hashCode.abs % parallelism}", msg).unit
+  final class RoundRobinSender(conn: PubSub[String, String], channel: Channel, parallelism: Int)
+      extends Sender {
+    def apply(msg: String): Unit = publish(msg.hashCode.abs % parallelism, msg)
     // use the ID to select the channel, not the entire message
-    def sticky(id: String, msg: String): Unit =
-      if (!stopping) conn.async.publish(s"$channel:${id.hashCode.abs % parallelism}", msg).unit
+    def sticky(id: String, msg: String): Unit = publish(id.hashCode.abs % parallelism, msg)
+
+    private def publish(subChannel: Int, msg: String) =
+      if (!stopping) conn.async.publish(s"$channel:$subChannel", msg).unit
   }
 
   def makeSender(channel: Channel, parallelism: Int = 1): Sender =
