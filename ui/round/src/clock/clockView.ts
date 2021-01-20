@@ -30,7 +30,7 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
     class: {
       outoftime: millis <= 0,
       running: isRunning,
-      emerg: millis < clock.emergMs
+      emerg: millis < clock.emergMs && clock.byoyomi === 0 // if we have byo, why make the clock red
     }
   }, clock.opts.nvui ? [
     h('div.time', {

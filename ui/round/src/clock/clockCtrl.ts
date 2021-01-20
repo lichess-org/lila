@@ -50,6 +50,7 @@ interface EmergSound {
   lowtime(): void;
   nextPeriod(): void;
   tick(): void;
+  byoTicks?: number;
   next?: number;
   delay: Millis;
   playable: {
@@ -77,6 +78,7 @@ export class ClockController {
   barTime: number;
   timeRatioDivisor: number;
   emergMs: Millis;
+  byoEmergeS: Seconds;
 
   elements = {
     white: {},
@@ -84,6 +86,7 @@ export class ClockController {
   } as ColorMap<ClockElements>;
 
   byoyomi: number;
+  initial: number;
 
   startPeriod: number;
   curPeriods = {} as ColorMap<number>;
@@ -100,6 +103,7 @@ export class ClockController {
     }
 
     this.byoyomi = cdata.byoyomi;
+    this.initial = cdata.initial;
 
     this.startPeriod = cdata.periods;
     this.curPeriods["white"] = cdata.wPeriods ?? 0;
@@ -111,9 +115,12 @@ export class ClockController {
     this.timeRatioDivisor = 1 / this.barTime;
 
     this.emergMs = 1000 * Math.min(60, Math.max(10, cdata.initial * 0.125));
+    this.byoEmergeS = 3;
 
     this.setClock(d, cdata.white, cdata.black, cdata.wPeriods, cdata.bPeriods);
   }
+
+  isUsingByo = (color: Color): boolean => this.byoyomi > 0 && (this.curPeriods[color] > 0 || this.initial === 0);
 
   timeRatio = (millis: number): number =>
     Math.min(1, millis * this.timeRatioDivisor);
@@ -151,6 +158,7 @@ export class ClockController {
     this.times[color] += this.byoyomi * 1000;
     if (this.opts.soundColor === color) this.emergSound.nextPeriod();
     this.showBar[color] = false; // let's just not show the bar for byoyomi
+    this.emergSound.byoTicks = undefined;
   }
 
   stopClock = (): Millis | void => {
@@ -159,6 +167,7 @@ export class ClockController {
       const curElapse = this.elapsed();
       this.times[color] = Math.max(0, this.times[color] - curElapse);
       this.times.activeColor = undefined;
+      this.emergSound.byoTicks = undefined;
       return curElapse;
     }
   };
@@ -193,13 +202,18 @@ export class ClockController {
 
     if (this.opts.soundColor === color) {
       if (this.emergSound.playable[color]) {
-        if (millis < this.emergMs && !(now < this.emergSound.next!)) {
+        if (millis < this.emergMs && !(now < this.emergSound.next!) && this.curPeriods[color] === 0) {
           this.emergSound.lowtime();
           this.emergSound.next = now + this.emergSound.delay;
           this.emergSound.playable[color] = false;
         }
       } else if (millis > 1.5 * this.emergMs) {
         this.emergSound.playable[color] = true;
+      }
+      if(this.byoyomi >= 5 && millis > 0 && ((this.emergSound.byoTicks === undefined && millis < this.byoEmergeS * 1000) ||
+        (this.emergSound.byoTicks && Math.floor(millis / 1000) < this.emergSound.byoTicks)) && this.isUsingByo(color)){
+          this.emergSound.byoTicks = Math.floor(millis / 1000);
+          this.emergSound.tick();
       }
     }
   };
