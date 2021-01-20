@@ -6,6 +6,7 @@
   <string name="advanced">Lisavalikud</string>
   <string name="lengths">Pikkused</string>
   <string name="goals">Eesmärgid</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Allikas</string>
   <string name="yourPuzzleRatingX">Sinu lahendamisskoor: %s</string>
   <string name="findTheBestMoveForWhite">Leia parim käik valgele.</string>
   <string name="findTheBestMoveForBlack">Leia parim käik mustale.</string>
@@ -31,4 +32,6 @@
   <string name="harder">Raske</string>
   <string name="hardest">Väga raske</string>
   <string name="example">Näide</string>
+  <string name="solved">lahendatud</string>
+  <string name="failed">ebaõnnestus</string>
 </resources>
