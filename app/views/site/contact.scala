@@ -164,7 +164,7 @@ object contact {
               name(),
               frag(
                 p(
-                  a(href := routes.Report.form())(toReportAPlayer(name)),
+                  a(href := routes.Report.form())(toReportAPlayer(name())),
                   "."
                 ),
                 p(
