@@ -95,7 +95,7 @@
   <string name="veryLongDescription">Τέσσερις κινήσεις ή περισσότερα για να κερδίσετε.</string>
   <string name="xRayAttack">Επίθεση ακτίνας Χ</string>
   <string name="zugzwang">Τσούγκτσβανγκ</string>
-  <string name="zugzwangDescription">Ο αντίπαλος είναι περιορισμένος στις κινήσεις που μπορεί να κάνεί και οποιαδήποτε κίνηση επιλέξει επιδεινώνει την θέση του.</string>
+  <string name="zugzwangDescription">Ο αντίπαλος είναι περιορισμένος στις κινήσεις που μπορεί να κάνει και οποιαδήποτε κίνηση επιλέξει επιδεινώνει την θέση του.</string>
   <string name="healthyMix">Προτεινόμενο μίγμα</string>
   <string name="healthyMixDescription">Λίγο απ\' όλα. Δεν ξέρετε τι να περιμένετε, οπότε παραμένετε σε ετοιμότητα! Όπως στα πραγματικά παιχνίδια.</string>
 </resources>
