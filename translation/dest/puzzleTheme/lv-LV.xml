@@ -6,6 +6,8 @@
   <string name="advantageDescription">Izmantojiet iespēju iegūt noteicošu pārsvaru. (200cp ≤ vērtējums ≤ 600cp)</string>
   <string name="anastasiaMate">Anastāsijas mats</string>
   <string name="anastasiaMateDescription">Zirdziņš ar torni vai dāmu iesprosto pretinieka karali starp galdiņa malu un viņa paša figūru.</string>
+  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Arābu mats</string>
+  <string name="arabianMateDescription">Zirdziņš ar torni kopīgi iesprosto pretinieka karali galdiņa stūrī.</string>
   <string name="attackingF2F7">Uzbrukums f2 vai f7</string>
   <string name="attackingF2F7Description">Uzbrukums, kas koncentrējas uz f2 vai f7 bandinieku, līdzīgi \"fried liver\" (angļ. val. \"cepto aknu\") atklātnei.</string>
   <string name="attraction">Ievilkšana</string>
@@ -14,6 +16,7 @@
   <string name="backRankMateDescription">Piesakiet matu karalim, kuru savā rindā iesprostojušas paša figūras.</string>
   <string name="bishopEndgame">Laidņa beigu spēle</string>
   <string name="bishopEndgameDescription">Beigu spēle, kurā iesaistīti tikai laidņi un bandinieki.</string>
+  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Bodena mats</string>
   <string name="castling">Rokāde</string>
   <string name="castlingDescription">Nogādājiet karali drošībā un novietojiet torni uzbrukuma pozīcijā.</string>
   <string name="capturingDefender">Sargājošas figūras nosišana</string>
