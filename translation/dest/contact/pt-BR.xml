@@ -28,6 +28,7 @@
   <string name="cantClearHistory">Não é possível limpar seu histórico de jogos, quebra-cabeças ou pontuações.</string>
   <string name="wantReport">Quero denunciar um jogador</string>
   <string name="reportCheating">Reportar um jogador por trapaça</string>
+  <string name="reportSandbagging">Reportar um jogador por trapaça</string>
   <string name="reportTrolling">Reportar um jogador por trollagem</string>
   <string name="reportInsults">Reportar um jogador por insultos</string>
   <string name="reportOtherReason">Reportar um jogador por algum outro motivo</string>
