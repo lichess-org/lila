@@ -52,6 +52,7 @@
   <string name="hangingPiece">Lógó figura</string>
   <string name="hangingPieceDescription">Azok a taktikák amik védtelen vagy elégtelenül bevédett, ezért szabadon levehető figurákon alapulnak.</string>
   <string name="hookMate">Horog matt</string>
+  <string name="hookMateDescription">Egy bástya, huszár és gyalog az ellenfél, gyalogja által akadályozott királyát körbevéve adnak mattot.</string>
   <string name="interference">Akadályozás</string>
   <string name="interferenceDescription">Egy figura mozgatása két ellenséges figura közé az egyiket vagy mindkettőt védtelenné téve, például egy huszárral belépni egy védett mezőre két bástya közé.</string>
   <string name="intermezzo">Köztes lépés</string>
