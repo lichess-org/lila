@@ -118,7 +118,8 @@ final class RemoteSocket(
 
   final class StoppableSender(conn: StatefulRedisPubSubConnection[String, String], channel: Channel)
       extends Sender {
-    def apply(msg: String): Unit = if (!stopping) conn.async.publish(channel, msg).unit
+    def apply(msg: String): Unit               = if (!stopping) conn.async.publish(channel, msg).unit
+    def sticky(_id: String, msg: String): Unit = apply(msg)
   }
 
   final class RoundRobinSender(
@@ -128,6 +129,9 @@ final class RemoteSocket(
   ) extends Sender {
     def apply(msg: String): Unit =
       if (!stopping) conn.async.publish(s"$channel:${msg.hashCode.abs % parallelism}", msg).unit
+    // use the ID to select the channel, not the entire message
+    def sticky(id: String, msg: String): Unit =
+      if (!stopping) conn.async.publish(s"$channel:${id.hashCode.abs % parallelism}", msg).unit
   }
 
   def makeSender(channel: Channel, parallelism: Int = 1): Sender =
@@ -195,6 +199,7 @@ object RemoteSocket {
 
   trait Sender {
     def apply(msg: String): Unit
+    def sticky(_id: String, msg: String): Unit
   }
 
   object Protocol {
