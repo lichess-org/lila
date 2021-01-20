@@ -564,6 +564,8 @@ GET    /stat/rating/distribution/:perf controllers.Stat.ratingDistribution(perf:
 GET   /api                             controllers.Api.index
 POST  /api/users                       controllers.Api.usersByIds
 GET   /api/user/puzzle-activity        controllers.Puzzle.activity
+GET   /api/puzzle/activity             controllers.Puzzle.activity
+GET   /api/puzzle/dashboard             controllers.Puzzle.dashboard
 GET   /api/user/:name/tournament/created controllers.Api.tournamentsByOwner(name: String)
 GET   /api/user/:name                  controllers.Api.user(name: String)
 GET   /api/user/:name/activity         controllers.Api.activity(name: String)
