@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="challenges">Herausforderungen</string>
-  <string name="challengeToPlay">Herausforderung zu einer Partie</string>
+  <string name="challengeToPlay">Zu einer Partie herausfordern</string>
   <string name="challengeDeclined">Herausforderung abgelehnt</string>
   <string name="challengeAccepted">Herausforderung angenommen!</string>
-  <string name="challengeCanceled">Herausforderung abgebrochen</string>
+  <string name="challengeCanceled">Herausforderung abgebrochen.</string>
   <string name="registerToSendChallenges">Bitte registriere dich, um Herausforderungen zu senden.</string>
   <string name="youCannotChallengeX">Du kannst %s nicht herausfordern.</string>
   <string name="xDoesNotAcceptChallenges">%s nimmt keine Herausforderungen an.</string>
-  <string name="yourXRatingIsTooFarFromY">Deine %1$s Wertung ist zu weit von %2$s entfernt.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Herausforderung wegen provisorischer %s Wertungszahl nicht möglich.</string>
+  <string name="yourXRatingIsTooFarFromY" comment="yourXRatingIsTooFarFromY&#10;&#10;%1$s is the rating type (blitz, bullet, crazyhouse)&#10;%2$s is another username">Deine %1$s Wertung ist zu weit von %2$s entfernt.</string>
+  <string name="cannotChallengeDueToProvisionalXRating" comment="cannotChallengeDueToProvisionalXRating&#10;&#10;Users can set the preference to deny challenges from other players if their rating is not within a range of 300 points. If you attempt to challenge someone who has turned on this restriction, but one of you has a provisional rating in this area, you will see this message.&#10;&#10;A rating is considered provisional if the player hasn't played enough games for the system to be certain of their exact rating.&#10;&#10;The variable is the type of rating (Blitz, Bullet, Crazyhouse, etc.)">Herausforderung wegen provisorischer %s Wertung nicht möglich.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s nimmt Herausforderungen nur von Freunden an.</string>
   <string name="declineGeneric">Ich nehme derzeit keine Herausforderungen an.</string>
   <string name="declineLater">Ich nehme momentan keine Herausforderungen an, bitte frage später noch einmal.</string>
