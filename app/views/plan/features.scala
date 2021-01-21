@@ -39,8 +39,8 @@ object features {
               "Correspondence shogi with conditional premoves"
             ),
             tr(check)(
-              "Standard shogi",
-              //a(href := routes.Page.variantHome())("8 chess variants (Crazyhouse, Chess960, Horde, ...)")
+              "Standard shogi"
+              // a(href := routes.Page.variantHome())("8 chess variants (Crazyhouse, Chess960, Horde, ...)")
             ),
   
             tr(unlimited)(
@@ -57,7 +57,7 @@ object features {
             //   )
             // ),
             tr(unlimited)(
-              a(href := "https://lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way")(
+              a(href := "https://lishogi.org/study")(
                 "Studies (shared and persistent analysis)"
               )
             ),

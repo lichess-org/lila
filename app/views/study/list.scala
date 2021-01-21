@@ -139,10 +139,10 @@ object list {
         a(cls := active.active(s"topic:$topic"), href := routes.Study.byTopic(topic.value, order.key))(
           topic.value
         )
-      },
-      a(cls := "text", dataIcon := "", href := "https://lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way")(
-        trans.study.whatAreStudies()
-      )
+      }
+      // a(cls := "text", dataIcon := "", href := "https://lishogi.org/blog/V0KrLSkAAMo3hsi4/study-shogi-the-lishogi-way")(
+      //  trans.study.whatAreStudies()
+      //)
     )
   }
 
