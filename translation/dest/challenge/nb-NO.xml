@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">Utfordringer</string>
+  <string name="challengeToPlay">Utfordre til et parti</string>
+  <string name="challengeDeclined">Utfordring avslått</string>
+  <string name="challengeAccepted">Utfordring godtatt!</string>
+  <string name="challengeCanceled">Utfordring avbrutt.</string>
+  <string name="registerToSendChallenges">Registrer deg for å utfordre andre.</string>
+  <string name="youCannotChallengeX">Du kan ikke utfordre %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s godtar ikke utfordringer.</string>
+  <string name="yourXRatingIsTooFarFromY">Ratingen din i %1$s er for langt unna %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Kan ikke utfordre på grunn av provisorisk rating i %s.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s godtar bare utfordringer fra venner.</string>
+</resources>
