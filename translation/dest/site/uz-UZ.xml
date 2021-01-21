@@ -380,7 +380,6 @@
   <string name="more">Ko\'proq</string>
   <string name="memberSince">A\'zo bo\'lgan vaqti</string>
   <string name="lastSeenActive">Faollar %s</string>
-  <string name="challengeToPlay">Shaxmat o\'ynashga taklif qilish</string>
   <string name="player">O\'yinchi</string>
   <string name="list">Ro‘yxat</string>
   <string name="graph">Grafik</string>
@@ -729,7 +728,6 @@
   <string name="error.unknown">Xatolik</string>
   <string name="custom">Boshqa</string>
   <string name="notifications">Xabarlar</string>
-  <string name="challenges">O\'yin takliflari</string>
   <string name="perfRatingX">Reyting: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Birinchi yurish uchun %s sekund</item>
@@ -776,12 +774,6 @@
   <string name="opening">Debyutlar</string>
   <string name="middlegame">Mittelshpil</string>
   <string name="endgame">O\'yin oxiri</string>
-  <string name="registerToSendChallenges">Iltimos o\'yinga chorlash uchun ro\'yhatdan o\'ting.</string>
-  <string name="youCannotChallengeX">Siz %s bilan bellasha olmaysiz.</string>
-  <string name="xDoesNotAcceptChallenges">%s bellashishni qabul qilmadi.</string>
-  <string name="yourXRatingIsTooFarFromY">Sizning %1$s reytingingiz %2$s dan ancha uzoq.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">%s taxminiy belgilangan reyting bilan bellashib bo\'lmaydi.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s ta do\'stlardan qabul qilingan bellashuvlar.</string>
   <string name="conditionalPremoves">Avvaldan shartli yurishlar</string>
   <string name="addCurrentVariation">Joriy yurishlarni qo\'sh</string>
   <string name="playVariationToCreateConditionalPremoves">Shartli avvaldan yurishlarni yaratish uchun variatsiyani o\'ynash</string>
