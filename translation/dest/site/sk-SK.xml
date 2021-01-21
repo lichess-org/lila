@@ -9,7 +9,7 @@
   <string name="yourTurn">Ste na ťahu</string>
   <string name="aiNameLevelAiLevel">%1$s úrovne %2$s</string>
   <string name="level">Úroveň</string>
-  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Sila</string>
+  <string name="strength">Sila</string>
   <string name="toggleTheChat">Prepínač okna rozhovoru</string>
   <string name="toggleSound">Prepínač zvuku</string>
   <string name="chat">Rozhovor</string>
@@ -437,7 +437,6 @@
   <string name="more">Viac</string>
   <string name="memberSince">Členom od</string>
   <string name="lastSeenActive">Posledné prihlásenie %s</string>
-  <string name="challengeToPlay">Vyzvať k hre</string>
   <string name="player">Hráč</string>
   <string name="list">Zoznam</string>
   <string name="graph">Graf</string>
@@ -804,7 +803,6 @@
   <string name="error.unknown">Chyba</string>
   <string name="custom">Vlastná</string>
   <string name="notifications">Upozornenia</string>
-  <string name="challenges">Výzvy</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda na vykonanie prvého ťahu</item>
@@ -855,12 +853,6 @@
   <string name="opening">Otvorenie</string>
   <string name="middlegame">Stredná hra</string>
   <string name="endgame">Koncovka</string>
-  <string name="registerToSendChallenges">Pre odoslanie výzvy sa zaregistrujte!</string>
-  <string name="youCannotChallengeX">Nemôžete vyzvať %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s neprijíma výzvy.</string>
-  <string name="yourXRatingIsTooFarFromY">Medzi Vaším %1$s hodnotením a hodnotením hráča %2$s je príliš veľký rozdiel.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Nemôžete odoslať výzvu kvôli provizórnemu %s hodnoteniu.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s prijíma výzvy iba od priateľov.</string>
   <string name="conditionalPremoves">Podmienené predťahy</string>
   <string name="addCurrentVariation">Pridaj aktuálny variant</string>
   <string name="playVariationToCreateConditionalPremoves">Hrať variant a vytvoriť podmienené predťahy</string>
@@ -916,7 +908,4 @@
   <string name="youCannotPostYetPlaySomeGames">Nemôžeš prispievať do fóra. Zahraj si nejaké hry!</string>
   <string name="subscribe">Prihlásiť sa k odberu</string>
   <string name="unsubscribe">Odhlásiť sa z odberu</string>
-  <string name="challengeDeclined">Výzva odmietnutá</string>
-  <string name="challengeAccepted">Výzva prijatá!</string>
-  <string name="challengeCanceled">Výzva zrušená.</string>
 </resources>
