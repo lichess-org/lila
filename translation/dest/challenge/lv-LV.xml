@@ -19,4 +19,5 @@
   <string name="declineRated">Labāk lūdzu atsūtiet vērtētu izaicinājumu.</string>
   <string name="declineCasual">Labāk lūdzu atsūtiet nevērtētu izaicinājumu.</string>
   <string name="declineStandard">Šobrīd nepieņemu variantu izaicinājumus.</string>
+  <string name="declineVariant">Šobrīd nevēlos spēlēt šo variantu.</string>
 </resources>
