@@ -27,7 +27,6 @@
   <string name="wantClearHistory">Želim da obrišem moju istoriju ili rejting</string>
   <string name="cantClearHistory">Nije moguće obrisati Vašu istoriju partija, istoriju problema ili rejting.</string>
   <string name="wantReport">Želim prijaviti igrača</string>
-  <string name="toReportAPlayer">Da biste prijavili igrača za %s, koristite formular za prijavu</string>
   <string name="youCanAlsoReachReportPage">Možete doći do te stranice i klikom na %s report opciju na profilnoj stranici.</string>
   <string name="doNotReportInForum">Ne prijavljujte igrače na forumu.</string>
   <string name="doNotSendReportEmails">Nemojte nam slati prijave e-mail porukama.</string>
