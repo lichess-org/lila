@@ -13,4 +13,11 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s priima iššūkius tik iš draugų.</string>
   <string name="declineGeneric">Šiuo metu iššūkių nepriimu.</string>
   <string name="declineLater">Šiuo metu nepriimu iššūkių, pabandykite dar kartą vėliau.</string>
+  <string name="declineTooFast">Ši laiko kontrolė man per greita, kitame iššūkyje nurodykite lėtesnį žaidimą.</string>
+  <string name="declineTooSlow">Ši laiko kontrolė man per lėta, kitame iššūkyje nurodykite greitesnį žaidimą.</string>
+  <string name="declineTimeControl">Nepriimu iššūkių su šia laiko kontrole.</string>
+  <string name="declineRated">Vietoje šio iššūkio atsiųskite vertinamą iššūkį.</string>
+  <string name="declineCasual">Vietoje šio iššūkio atsiųskite nevertinamą iššūkį.</string>
+  <string name="declineStandard">Šiuo metu nepriimu variantų iššūkių.</string>
+  <string name="declineVariant">Šiuo metu nenoriu žaisti šio varianto.</string>
 </resources>
