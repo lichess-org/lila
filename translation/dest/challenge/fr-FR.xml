@@ -13,11 +13,11 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s n’accepte que les défis de ses ami(e)s.</string>
   <string name="declineGeneric">Je n\'accepte pas de défis pour le moment.</string>
   <string name="declineLater">Ce n\'est pas un bon moment pour moi, réessayez plus tard s\'il vous plaît.</string>
-  <string name="declineTooFast">Ce contrôle du temps est trop rapide pour moi, réessayez avec avec un jeu plus lent s\'il vous plaît.</string>
-  <string name="declineTooSlow">Ce temps de contrôle est trop lent pour moi, réessayez avec un jeu plus rapide s\'il vous plaît.</string>
-  <string name="declineTimeControl">Je n\'accepte pas de défis avec ce contrôle du temps.</string>
-  <string name="declineRated">Veuillez plutôt m\'envoyer un défi évalué.</string>
-  <string name="declineCasual">Envoyez-moi plutôt un défi informel.</string>
+  <string name="declineTooFast">Ce contrôle de temps est trop rapide pour moi, réessayez avec un contrôle de temps plus lent s\'il vous plaît.</string>
+  <string name="declineTooSlow">Ce contrôle de temps est trop lent pour moi, réessayez avec un contrôle de temps plus rapide s\'il vous plaît.</string>
+  <string name="declineTimeControl">Je n\'accepte pas de défis avec ce contrôle de temps.</string>
+  <string name="declineRated">Envoyez-moi plutôt un défi classé.</string>
+  <string name="declineCasual">Envoyez-moi plutôt un défi amical.</string>
   <string name="declineStandard">Je n\'accepte pas de défis en variantes pour le moment.</string>
   <string name="declineVariant">Je ne veux pas jouer cette variante pour le moment.</string>
 </resources>
