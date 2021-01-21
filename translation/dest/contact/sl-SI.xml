@@ -27,7 +27,6 @@
   <string name="wantClearHistory">Hočem počistiti svojo zgodovino ali rating</string>
   <string name="cantClearHistory">Ni možno pobrisati vaše zgodovine igranih iger, zgodovine ugank ali ratinga.</string>
   <string name="wantReport">Hočem prijaviti igralca</string>
-  <string name="toReportAPlayer">Za prijavo igralca zaradi %s, uporabi obrazec za prijavo</string>
   <string name="youCanAlsoReachReportPage">Do te strani lahko pride tudi s klikom na gumb %s na strani profila uporabnika.</string>
   <string name="doNotReportInForum">Ne prijavite igralcev na forumu.</string>
   <string name="doNotSendReportEmails">Ne pošiljajte nam elektronskih pisem s prijavo.</string>
