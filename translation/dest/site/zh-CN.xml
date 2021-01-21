@@ -355,7 +355,6 @@
   <string name="more">更多</string>
   <string name="memberSince">注册日期</string>
   <string name="lastSeenActive">最近登录%s</string>
-  <string name="challengeToPlay">挑战</string>
   <string name="player">棋手</string>
   <string name="list">列表</string>
   <string name="graph">图表</string>
@@ -698,7 +697,6 @@
   <string name="error.unknown">错误</string>
   <string name="custom">自定义</string>
   <string name="notifications">通知</string>
-  <string name="challenges">挑战</string>
   <string name="perfRatingX">积分：%s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">还剩%s秒走第一步</item>
@@ -743,12 +741,6 @@
   <string name="opening">开局</string>
   <string name="middlegame">中盘</string>
   <string name="endgame">残局</string>
-  <string name="registerToSendChallenges">发送挑战前请注册。</string>
-  <string name="youCannotChallengeX">您不能挑战%s。</string>
-  <string name="xDoesNotAcceptChallenges">%s不接受挑战。</string>
-  <string name="yourXRatingIsTooFarFromY">您的%1$s积分与%2$s相差太远。</string>
-  <string name="cannotChallengeDueToProvisionalXRating">因为您的%s排名不够稳定，您不能进行挑战。</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s只接受朋友的挑战。</string>
   <string name="conditionalPremoves">条件预先走棋</string>
   <string name="addCurrentVariation">添加当前变着</string>
   <string name="playVariationToCreateConditionalPremoves">进入变着以创建条件预先走棋</string>
