@@ -7,7 +7,7 @@
 	<string name="waitingForOpponent">相手を待っています</string>
 	<string name="waiting">待機中</string>
 	<string name="yourTurn">あなたの手番です</string>
-	<string name="aiNameLevelAiLevel">%1$s レべル %2$s</string>
+	<string name="aiNameLevelAiLevel">%1$s レベル %2$s</string>
 	<string name="level">レベル</string>
 	<string name="toggleTheChat">チャットのオン・オフ</string>
 	<string name="toggleSound">音声のオン・オフ</string>
@@ -410,10 +410,10 @@
 	<string name="boardEditor">盤面入力</string>
 	<string name="setTheBoard">盤面を指定</string>
 	<string name="popularOpenings">人気のオープニング</string>
-	<string name="handicaps">Handicaps</string>
+	<string name="handicaps">手合割</string>
 	<string name="startPosition">開始局面</string>
 	<string name="clearBoard">盤面をクリアする</string>
-	<string name="fillGotesHand">Fill Gote\'s hand</string>
+	<string name="fillGotesHand">後手番の手を入力する</string>
 	<string name="savePosition">盤面を保存</string>
 	<string name="loadPosition">局面を読み込む</string>
 	<string name="isPrivate">プライベート</string>

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="isLishogiLagging">Is Lishogi lagging?</string>
-  <string name="measurementInProgressThreeDot">Measurements in progress...</string>
-  <string name="noAndYourNetworkIsGood">No. And your network is good.</string>
-  <string name="noAndYourNetworkIsBad">No. And your network is bad.</string>
-  <string name="yesItWillBeFixedSoon">Yes. It will be fixed soon!</string>
-  <string name="andNowTheLongAnswerLagComposedOfTwoValues">And now, the long answer! Game lag is composed of two unrelated values (lower is better):</string>
-  <string name="lishogiServerLatency">Lishogi server latency</string>
-  <string name="lishogiServerLatencyExplanation">The time it takes to process a move on the server. It\'s the same for everybody, and only depends on the server load. The more players and the higher it gets, but Lishogi developers do their best to keep it low. It rarely exceeds 10ms.</string>
-  <string name="networkBetweenLishogiAndYou">Network between Lishogi and you</string>
-  <string name="networkBetweenLishogiAndYouExplanation">The time it takes to send a move from your computer to Lishogi server, and get the response back. It\'s specific to your distance to Lishogi (France), and to the quality of your Internet connection. Lishogi developers cannot fix your wifi or make light go faster.</string>
-  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">You can find both these values at any time, by clicking your username in the top bar.</string>
-  <string name="lagCompensation">Lag compensation</string>
-  <string name="lagCompensationExplanation">Lishogi compensates network lag. This includes sustained lag and occasional lag spikes. There are limits and heuristics based on time control and the compensated lag so far, so that the result should feel reasonable for both players. As a result, having a higher network lag than your opponent is not a handicap!</string>
+  <string name="isLishogiLagging">क्या Lishogi पिछड़ रही है?</string>
+  <string name="measurementInProgressThreeDot">प्रगति पर माप...</string>
+  <string name="noAndYourNetworkIsGood">नहीं। और आपका नेटवर्क अच्छा है।</string>
+  <string name="noAndYourNetworkIsBad">नहीं। और आपका नेटवर्क खराब है।</string>
+  <string name="yesItWillBeFixedSoon">हाँ। जल्द ही ठीक हो जाएगा!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">और अब, लंबे जवाब! गेम लैग दो असंबंधित मूल्यों से बना है (कम बेहतर है):</string>
+  <string name="lishogiServerLatency">Lichess सर्वर विलंबता</string>
+  <string name="lishogiServerLatencyExplanation">सर्वर पर किसी मूव को प्रोसेस करने में लगने वाला समय। यह सभी के लिए समान है, और केवल सर्वर लोड पर निर्भर करता है। जितने अधिक खिलाड़ी और उतने अधिक, लेकिन Lishogi डेवलपर्स इसे कम रखने की पूरी कोशिश करते हैं। यह शायद ही कभी १०ms से अधिक हो।</string>
+  <string name="networkBetweenLishogiAndYou">Lishogi और आपके बीच नेटवर्क</string>
+  <string name="networkBetweenLishogiAndYouExplanation">आपके कंप्यूटर से Lishogi सर्वर पर एक कदम भेजने में समय लगता है, और प्रतिक्रिया वापस मिलती है। यह Lishogi (फ्रांस), और आपके इंटरनेट कनेक्शन की गुणवत्ता के लिए आपकी दूरी के लिए विशिष्ट है। Lishogi डेवलपर्स आपकी वाईफ़ाई को ठीक नहीं कर सकते हैं या प्रकाश को तेज़ नहीं बना सकते हैं।</string>
+  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">आप इन दोनों मूल्यों को किसी भी समय, शीर्ष बार में अपने उपयोगकर्ता नाम पर क्लिक करके पा सकते हैं।</string>
+  <string name="lagCompensation">लग मुआवजा</string>
+  <string name="lagCompensationExplanation">Lishogi नेटवर्क लैग की भरपाई करता है। इसमें निरंतर अंतराल और कभी-कभी अंतराल स्पाइक्स शामिल हैं। समय पर नियंत्रण और अब तक की क्षतिपूर्ति के आधार पर सीमाएं और आंकड़े हैं, ताकि परिणाम दोनों खिलाड़ियों के लिए उचित लगे। नतीजतन, अपने प्रतिद्वंद्वी की तुलना में एक उच्च नेटवर्क अंतराल होना कोई बाधा नहीं है!</string>
 </resources>
