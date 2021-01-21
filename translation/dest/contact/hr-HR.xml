@@ -27,7 +27,6 @@
   <string name="wantClearHistory">Želim izbrisati svoju povijest ili ocjenu</string>
   <string name="cantClearHistory">Nije moguće izbrisati svoju povijest igara, povijest zagonetka ili ocjenu.</string>
   <string name="wantReport">Želim prijaviti igrača</string>
-  <string name="toReportAPlayer">Da prijevite igrača za %s koristite obrazac za prijavljivanje</string>
   <string name="youCanAlsoReachReportPage">Do te stranice možete doći i klikom na %s gumb za izvještaj na stranici profila.</string>
   <string name="doNotReportInForum">Nemojte prijavljivati igrače na forumu.</string>
   <string name="doNotSendReportEmails">Ne šaljite nam e-poštu s izvješćima.</string>
