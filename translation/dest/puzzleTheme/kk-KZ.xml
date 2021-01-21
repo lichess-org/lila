@@ -27,6 +27,7 @@
   <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Пілдер маты</string>
   <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Қарсылас патшасының бір жағын өз тастары бөгеп тұрғанда, екі піл қатарлас шабуылдайды.</string>
   <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Айырқұйрық мат</string>
+  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">Қарсылас патшасының екі жағын өз тастары бөгеп тұрғанда, уәзір жақыннан мат қояды.</string>
   <string name="equality">Теңдік</string>
   <string name="equalityDescription">Жаман күйден шығып, ойынды тепе-теңдікке не тең күйге жеткізіңіз. (≤ 200 сп)</string>
   <string name="kingsideAttack">Патша жақты шабуыл</string>
@@ -50,6 +51,8 @@
   <string name="forkDescription">Қарсыластың бірден екі тасын ұратын тас жүрісі.</string>
   <string name="hangingPiece">Олжа тас</string>
   <string name="hangingPieceDescription">Қорғанысы нашар не қорғаусыз тұрған қарсылас тасын басып алуды меңзейтін тактика.</string>
+  <string name="hookMate">Қармақ мат</string>
+  <string name="hookMateDescription">Қарсылас патшасына өз сарбазы бөгет бола тұра, ат, тура мен сарбаз арқылы қойылған мат.</string>
   <string name="interference">Бөгет</string>
   <string name="interferenceDescription">Қарсыластың екі байланысқан тастарының арасына бөгет қойып, олардың біреуін не екеуін қорғаусыз ету. Мысалы, екі өзара қорғап тұрған туралардың арасына тұра қалған ат.</string>
   <string name="intermezzo">Аралық жүріс</string>
