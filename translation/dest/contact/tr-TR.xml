@@ -27,12 +27,6 @@
   <string name="wantClearHistory">Oyun geçmişimi veya puanımı sıfırlamak istiyorum</string>
   <string name="cantClearHistory">Oyun geçmişinizi, bulmaca geçmişinizi veya puanlarınızı sıfırlamamız maalesef mümkün değil.</string>
   <string name="wantReport">Bir oyuncuyu şikâyet etmek istiyorum</string>
-  <string name="reportCheating">Hile yapan bir oyuncuyu şikâyet et</string>
-  <string name="reportSandbagging">Kasıtlı olarak puanını düşüren bir oyuncuyu şikâyet et</string>
-  <string name="reportTrolling">Can sıkıntısı veren bir oyuncuyu şikâyet et</string>
-  <string name="reportInsults">Hakaret eden bir oyuncuyu şikâyet et</string>
-  <string name="reportOtherReason">Farklı bir nedenden ötürü bir oyuncuyu şikâyet et</string>
-  <string name="toReportAPlayer">%s sebebiyle şikâyette bulunmak için şikâyet formunu kullanın</string>
   <string name="youCanAlsoReachReportPage">Ayrıca, oyuncunun profilindeki %s butonuna tıklayarak şikâyet formuna ulaşabilirsiniz.</string>
   <string name="doNotReportInForum">Forumdaki oyuncular için şikâyette bulunmayın.</string>
   <string name="doNotSendReportEmails">Bize şikâyet e-postaları göndermeyin.</string>

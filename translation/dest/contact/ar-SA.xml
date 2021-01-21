@@ -27,7 +27,6 @@
   <string name="wantClearHistory">أريد مسح تاريخي أو تقييمي</string>
   <string name="cantClearHistory">لا يمكن مسح تاريخ المباريات أو تاريخ الألغاز أو التقييم.</string>
   <string name="wantReport">أريد أن أبلغ عن لاعب</string>
-  <string name="toReportAPlayer">للإبلاغ عن لاعب لـ %s، استخدم نموذج التبليغ</string>
   <string name="youCanAlsoReachReportPage">يمكنك أيضا الوصول إلى هذه الصفحة بالنقر على زر التبليغ %s في صفحة الملف الشخصي.</string>
   <string name="doNotReportInForum">لا تبلغ عن اللاعبين في المنتدى.</string>
   <string name="doNotSendReportEmails">لا ترسل بالتبليغ عبر البريد الإلكتروني.</string>

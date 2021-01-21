@@ -27,7 +27,6 @@
   <string name="wantClearHistory">Haluan tyhjentää historiani tai vahvuuslukuni</string>
   <string name="cantClearHistory">Pelihistoriaasi, tehtävähistoriaasi tai vahvuuslukuja ei voi tyhjentää.</string>
   <string name="wantReport">Haluan ilmoittaa pelaajan</string>
-  <string name="toReportAPlayer">Ilmoittaaksesi pelaajan %s täytä tämä ilmoituslomake</string>
   <string name="youCanAlsoReachReportPage">Pääset samalle sivulle myös klikkaamalla %s ilmoitusnappia pelaajan profiilisivulla.</string>
   <string name="doNotReportInForum">Älä ilmoita pelaajia foorumilla.</string>
   <string name="doNotSendReportEmails">Älä lähetä meille ilmoituksia sähköpostilla.</string>

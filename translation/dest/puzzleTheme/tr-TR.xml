@@ -5,9 +5,9 @@
   <string name="advantage">Avantaj yakala</string>
   <string name="advantageDescription">Mutlak bir üstünlük kazanma şansını yakala. (200sp ≤ analiz ≤ 600sp)</string>
   <string name="anastasiaMate">Anastasia matı</string>
-  <string name="anastasiaMateDescription">Bir atın yardımını alan kale veya vezir, rakip şahı kendi taşları ve tahtanın kenarı arasında tuzağa düşürür.</string>
-  <string name="arabianMate">Arap matı</string>
-  <string name="arabianMateDescription">At ile kalenin, rakip şahı tahtanın köşesine sıkıştırdığı matlar.</string>
+  <string name="anastasiaMateDescription">Kale veya vezir, atın yardımıyla tahtanın kenarı ve kendi taşı arasında sıkıştırılan rakip şahı mat eder.</string>
+  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Arap matı</string>
+  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">At ile kalenin, rakip şahı tahtanın köşesine sıkıştırdığı matlar.</string>
   <string name="attackingF2F7">Saldırı: f2 ve f7</string>
   <string name="attackingF2F7Description">Kızarmış karaciğer açılışında olduğu gibi f2 veya f7 karesindeki piyonları hedef alan saldırılar.</string>
   <string name="attraction">Tehlikeli sular</string>
@@ -16,18 +16,18 @@
   <string name="backRankMateDescription">Kendi taşları arkasında sıkışıp kalmış şaha koridorun kapısını göster.</string>
   <string name="bishopEndgame">Fil oyunsonu</string>
   <string name="bishopEndgameDescription">Sadece fil ve piyon içeren oyunsonu.</string>
-  <string name="bodenMate">Boden matı</string>
-  <string name="bodenMateDescription">İki fil, kendi taşları tarafından kısıtlanan şaha farklı açılardan girişerek onu mat eder.</string>
+  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Boden matı</string>
+  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">İki fil, kendi taşları tarafından kısıtlanan şaha farklı açılardan girişerek onu mat eder.</string>
   <string name="castling">Rok</string>
   <string name="castlingDescription">Şahı güvene alırken kaleni saldırıya hazırla.</string>
   <string name="capturingDefender">Savunmayı baltala</string>
   <string name="capturingDefenderDescription">Bir taşı savunan diğer bir taşı ortadan kaldırarak savunmasız kalan taşı sonraki hamlede ele geçir.</string>
   <string name="crushing">Ezici üstünlük</string>
   <string name="crushingDescription">Rakibin vahim hatasını yakalayarak ezici bir üstünlük elde et. (analiz ≥ 600sp)</string>
-  <string name="doubleBishopMate">İki fil matı</string>
-  <string name="doubleBishopMateDescription">Yan yana konuşlanmış iki fil, kendi taşları tarafından kısıtlanmış şahı mat eder.</string>
-  <string name="dovetailMate">Kurtağzı matı</string>
-  <string name="dovetailMateDescription">İki kaçış yolu da kendi taşlarınca kapalı olan şah, hemen çaprazına konuşlanan vezir tarafından mat edilir.</string>
+  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Çift fil matı</string>
+  <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Yan yana konuşlanmış iki fil, kendi taşları tarafından kısıtlanmış şahı mat eder.</string>
+  <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Kurtağzı matı</string>
+  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">İki kaçış yolu da kendi taşlarınca kapalı olan şah, hemen çaprazına konuşlanan vezir tarafından mat edilir.</string>
   <string name="equality">Eşitlik</string>
   <string name="equalityDescription">Kaybeden bir durumdan paçayı kurtararak beraberlik veya dengeli bir pozisyon elde et. (analiz ≤ 200sp)</string>
   <string name="kingsideAttack">Şah tarafına saldırı</string>
@@ -52,7 +52,7 @@
   <string name="hangingPiece">Taş düşürme</string>
   <string name="hangingPieceDescription">Savunmasız veya yeterince korunmayan rakip taşların kol gezdiği taktikler.</string>
   <string name="hookMate">Kanca matı</string>
-  <string name="hookMateDescription">Kale, at ve piyonla birlikte rakip şahın kaçış yolunu kapatan düşman piyonla yapılan bir mat.</string>
+  <string name="hookMateDescription">Kale, at, piyon ve rakip şahın kaçışını engelleyen rakip piyonla yapılan mattır.</string>
   <string name="interference">Müdahale</string>
   <string name="interferenceDescription">Rakip taşların arasına kendi taşını koyarak rakibin bir taşını ya da iki taşını da savunmasız bırak. Rakibin iki kalesinin arasındaki güvenli bir kareye atı oynamak gibi.</string>
   <string name="intermezzo">Ara hamle</string>

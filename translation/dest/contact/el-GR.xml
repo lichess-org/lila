@@ -27,7 +27,6 @@
   <string name="wantClearHistory">Επιθυμώ να διαγράψω το ιστορικό μου ή το rating</string>
   <string name="cantClearHistory">Δεν είναι δυνατόν να διαγράψετε το ιστορικό παιχνιδιών σας, ιστορικό γρίφων, ή ratings.</string>
   <string name="wantReport">Επιθυμώ να αναφέρω έναν παίχτη</string>
-  <string name="toReportAPlayer">Για να αναφέρετε έναν παίκτη για %s, χρησιμοποιήστε τη φόρμα αναφοράς</string>
   <string name="youCanAlsoReachReportPage">Επίσης μπορείτε να επισκεφτείτε αυτή τη σελίδα με κλικ στο %s κουμπί στη σελίδα προφίλ.</string>
   <string name="doNotReportInForum">Μην αναφέρετε παίκτες στο φόρουμ.</string>
   <string name="doNotSendReportEmails">Μην μας στέλνετε αναφορές με email.</string>

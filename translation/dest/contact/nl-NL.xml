@@ -27,12 +27,6 @@
   <string name="wantClearHistory">Ik wil mijn geschiedenis of rating wissen</string>
   <string name="cantClearHistory">Het is niet mogelijk uw partijgeschiedenis, puzzelgeschiedenis of rating te wissen.</string>
   <string name="wantReport">Ik wil een speler rapporteren</string>
-  <string name="reportCheating">Rapporteer een speler die valsspeelt</string>
-  <string name="reportSandbagging">Rapporteer een speler die opzettelijk partijen verliest</string>
-  <string name="reportTrolling">Rapporteer een speler die bewust provoceert</string>
-  <string name="reportInsults">Rapporteer een speler die beledigt</string>
-  <string name="reportOtherReason">Rapporteer een speler om een andere reden</string>
-  <string name="toReportAPlayer">Om een speler voor %s te rapporteren, gebruik het rapportformulier</string>
   <string name="youCanAlsoReachReportPage">U kunt deze pagina ook bereiken door op de %s rapporteerknop op een profielpagina te klikken.</string>
   <string name="doNotReportInForum">Rapporteer geen spelers op het forum.</string>
   <string name="doNotSendReportEmails">Stuur ons geen e-mail om een speler te rapporteren.</string>

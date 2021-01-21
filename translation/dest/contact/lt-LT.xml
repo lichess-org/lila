@@ -27,12 +27,7 @@
   <string name="wantClearHistory">Noriu išvalyti savo istoriją ir reitingą</string>
   <string name="cantClearHistory">Nėra galimybės išvalyti savo partijų istorijos, galvosūkių istorijos ar reitingų.</string>
   <string name="wantReport">Noriu pranešti apie žaidėją</string>
-  <string name="reportCheating">Pranešti apie žaidėją už sukčiavimą</string>
-  <string name="reportSandbagging">Pranešti apie žaidėją už reitingo manipuliaciją</string>
-  <string name="reportTrolling">Pranešti apie žaidėją už provokacijas</string>
-  <string name="reportInsults">Pranešti apie žaidėją dėl įžeidimų</string>
-  <string name="reportOtherReason">Pranešti apie žaidėją dėl kitos priežasties</string>
-  <string name="toReportAPlayer">Norėdami pranešti apie žaidėją už %s, naudokite pranešimo formą</string>
+  <string name="toReportAPlayerUseForm">Norėdami pranešti apie žaidėją naudokite pranešimo formą</string>
   <string name="youCanAlsoReachReportPage">Tą puslapį galite pasiekti spustelėdami %s pranešimo mygtuką profilio puslapyje.</string>
   <string name="doNotReportInForum">Nepraneškite apie žaidėjus forume.</string>
   <string name="doNotSendReportEmails">Nesiųskite pranešimų el. laiškų.</string>

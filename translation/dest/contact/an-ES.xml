@@ -27,7 +27,6 @@
   <string name="wantClearHistory">Quiero borrar lo mío historial u puntuación</string>
   <string name="cantClearHistory">No ye posible borrar lo tuyo historial de chuegos, historial de rompecabezas u qualificacions.</string>
   <string name="wantReport">Quiero reportar un chugador</string>
-  <string name="toReportAPlayer">Pa reportar a un chugador per %s, utiliza lo formulario de reporte</string>
   <string name="youCanAlsoReachReportPage">Tamién puetz acceder a ixa pachina pretando lo botón %s en un perfil.</string>
   <string name="doNotReportInForum">No reportes chugadors en o foro.</string>
   <string name="doNotSendReportEmails">No nos ninvies correus electronicos de reporte.</string>

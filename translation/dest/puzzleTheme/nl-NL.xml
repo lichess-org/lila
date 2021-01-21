@@ -6,7 +6,8 @@
   <string name="advantageDescription">Grijp je kans om een doorslaggevend voordeel te verkrijgen. (200cp ≤ eval ≤ 600 cp)</string>
   <string name="anastasiaMate">Anastasia\'s mat</string>
   <string name="anastasiaMateDescription">Een paard werkt samen met een toren of dame om de koning van de tegenstander tussen de zijkant van het bord en een eigen stuk te vangen.</string>
-  <string name="arabianMate">Arabisch mat</string>
+  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Arabisch mat</string>
+  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">Een paard en een toren werken samen om de koning van de tegenstander in een hoek van het bord in te sluiten.</string>
   <string name="attackingF2F7">f2 of f7 aanvallen</string>
   <string name="attackingF2F7Description">Een aanval gericht op de f2 of de f7-pion, zoals in de Fegatello-opening.</string>
   <string name="attraction">Lokken</string>
@@ -15,15 +16,15 @@
   <string name="backRankMateDescription">Zet de koning mat op de achterste rij, ingesloten door zijn eigen stukken.</string>
   <string name="bishopEndgame">Lopereindspel</string>
   <string name="bishopEndgameDescription">Een eindspel met alleen lopers en pionnen.</string>
-  <string name="bodenMate">Mat van Boden</string>
-  <string name="bodenMateDescription">Twee aanvallende lopers op kruisende diagonalen geven schaakmat aan een koning die wordt belemmerd door stukken van de eigen kleur.</string>
+  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Mat van Boden</string>
+  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Twee lopers op kruisende diagonalen geven schaakmat aan een koning die wordt belemmerd door stukken van de eigen kleur.</string>
   <string name="castling">Rokade</string>
   <string name="castlingDescription">Breng de koning in veiligheid en zet de toren in voor een aanval.</string>
   <string name="capturingDefender">De verdediger slaan</string>
   <string name="capturingDefenderDescription">Een stuk slaan dat essentieel is voor de verdediging van een ander stuk, waardoor vervolgens het nu onverdedigde stuk met een volgende zet kan worden geslagen.</string>
   <string name="crushing">Verpletteren</string>
   <string name="crushingDescription">Zie de blunder van de tegenstander om een verpletterend voordeel te verkrijgen. (eval ≥ 600cp)</string>
-  <string name="doubleBishopMate">Dubbele loper mat</string>
+  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Mat met twee lopers</string>
   <string name="equality">Evenwicht</string>
   <string name="equalityDescription">Terugkomen uit een verloren stelling en een remise veiligstellen of een gelijkwaardige stelling bereiken. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Koningsaanval</string>

@@ -27,12 +27,6 @@
   <string name="wantClearHistory">Szeretném törölni az előzményeket vagy az értékszámom</string>
   <string name="cantClearHistory">Nincs lehetőség a játékelőzményed, feladványaid és értékszámod törlésére.</string>
   <string name="wantReport">Jelentenék egy felhasználót</string>
-  <string name="reportCheating">Játékos jelentése csalás miatt</string>
-  <string name="reportSandbagging">Játékos jelentése félrevezetés (sandbagging) miatt</string>
-  <string name="reportTrolling">Játékos jelentése trollkodás miatt</string>
-  <string name="reportInsults">Játékos jelentése sértegetés miatt</string>
-  <string name="reportOtherReason">Játékos jelentése egyéb okból kifolyólag</string>
-  <string name="toReportAPlayer">Játékos jelentéséhez %s miatt használd a bejelentő lapot</string>
   <string name="youCanAlsoReachReportPage">Amit ugyancsak elérhetsz, ha a %s jelentése gombra kattintasz a profil oldalon.</string>
   <string name="doNotReportInForum">Ne jelents játékosokat a fórumban.</string>
   <string name="doNotSendReportEmails">Ne küldj nekünk emailt emiatt.</string>

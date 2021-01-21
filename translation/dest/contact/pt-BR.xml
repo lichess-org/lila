@@ -27,11 +27,6 @@
   <string name="wantClearHistory">Quero limpar meu histórico ou pontuação</string>
   <string name="cantClearHistory">Não é possível limpar seu histórico de jogos, quebra-cabeças ou pontuações.</string>
   <string name="wantReport">Quero denunciar um jogador</string>
-  <string name="reportCheating">Reportar um jogador por trapaça</string>
-  <string name="reportTrolling">Reportar um jogador por trollagem</string>
-  <string name="reportInsults">Reportar um jogador por insultos</string>
-  <string name="reportOtherReason">Reportar um jogador por algum outro motivo</string>
-  <string name="toReportAPlayer">Para denunciar um jogador de %s, use o formulário de denúncia</string>
   <string name="youCanAlsoReachReportPage">Você também pode chegar a essa página clicando no botão de denúncia %s em uma página de perfil.</string>
   <string name="doNotReportInForum">Não denuncie jogadores no fórum.</string>
   <string name="doNotSendReportEmails">Não envie denúncias por e-mails.</string>

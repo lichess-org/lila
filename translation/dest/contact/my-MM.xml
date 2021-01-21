@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="toReportAPlayerUseForm">ကစားသမား တစ်ဦးနှင့် ပတ်သက်၍ တိုင်ကြားလိုလျှင် တိုင်ကြားရေးပုံစံကို သုံးပါ</string>
+</resources>

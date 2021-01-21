@@ -27,7 +27,6 @@
   <string name="wantClearHistory">Vull esborrar el meu historial o puntuació</string>
   <string name="cantClearHistory">No és possible esborrar l\'historial de jocs, l\'historial de trencaclosques o les classificacions.</string>
   <string name="wantReport">Vull denunciar un jugador</string>
-  <string name="toReportAPlayer">Per denunciar un usuari per %s, fes servir el formulari de denucies</string>
   <string name="youCanAlsoReachReportPage">També podeu arribar a aquesta pàgina si feu clic al botó de denuncies per %s en una pàgina de perfil.</string>
   <string name="doNotReportInForum">No denunciar jugadors al forum.</string>
   <string name="doNotSendReportEmails">No ens enviïs correus denunciant jugadors.</string>

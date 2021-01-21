@@ -27,7 +27,6 @@
   <string name="wantClearHistory">Ek wil my geskiedenis of my gradeering uitvee</string>
   <string name="cantClearHistory">Dit is nie moontlik om jou spel geskiedenis, kopkrapper geskiedenis of gradeerings uit te vee nie.</string>
   <string name="wantReport">Ek wil \'n speler aankla</string>
-  <string name="toReportAPlayer">Om \'n speler aan te kla vir %s, gebruik die rapporteringsvorm</string>
   <string name="youCanAlsoReachReportPage">Jy kan ook daardie blad bereik deur die %s aanmeldingsblokkie op die profielblad te klik.</string>
   <string name="doNotReportInForum">Moet nie spelers in die forum aankla nie.</string>
   <string name="doNotSendReportEmails">Moet nie aanklagte e-posse stuur nie.</string>

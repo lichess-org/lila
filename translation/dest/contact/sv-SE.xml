@@ -27,12 +27,6 @@
   <string name="wantClearHistory">Jag vill rensa min historik eller rating</string>
   <string name="cantClearHistory">Det är inte möjligt att rensa din partihistorik, historik för schackproblem eller rating.</string>
   <string name="wantReport">Jag vill rapportera en spelare</string>
-  <string name="reportCheating">Rapportera en spelare för fusk</string>
-  <string name="reportSandbagging">Rapportera en spelare för manipulation av rating</string>
-  <string name="reportTrolling">Rapportera en spelare för trollning</string>
-  <string name="reportInsults">Rapportera en spelare för förolämpningar</string>
-  <string name="reportOtherReason">Rapportera en spelare av någon annan anledning</string>
-  <string name="toReportAPlayer">För att rapportera en spelare för %s, använder du rapportformuläret</string>
   <string name="youCanAlsoReachReportPage">Du kan också nå den sidan genom att klicka på knappen %s rapportera på en profilsida.</string>
   <string name="doNotReportInForum">Rapportera inte spelare i forumet.</string>
   <string name="doNotSendReportEmails">Skicka oss inte rapporter via e-post.</string>

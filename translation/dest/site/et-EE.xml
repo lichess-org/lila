@@ -9,6 +9,7 @@
   <string name="yourTurn">Sinu käik</string>
   <string name="aiNameLevelAiLevel">%1$s tase %2$s</string>
   <string name="level">Tase</string>
+  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Tugevus</string>
   <string name="toggleTheChat">Luba vestlust</string>
   <string name="toggleSound">Luba helid</string>
   <string name="chat">Saada sõnum</string>
@@ -327,7 +328,7 @@
   <string name="youAreNotInTeam">Sa ei ole %s tiimi liige</string>
   <string name="backToGame">Tagasi mängu</string>
   <string name="siteDescription">Tasuta online male. Mängi malet nüüd puhtas kasutajaliideses. Pole registreerimist, pole reklaami, pole pluginaid vaja. Mängi malet arvuti, sõprade või juhusliku vastasega.</string>
-  <string name="xJoinedTeamY">%1$s ühines tiimiga %2$s</string>
+  <string name="xJoinedTeamY" comment="xJoinedTeamY&#10;&#10;Joining is effectively equal to becoming a member.">%1$s ühines tiimiga %2$s</string>
   <string name="xCreatedTeamY">%1$s tegi tiimi %2$s</string>
   <string name="xStartedStreaming">%s alustas otseülekannet</string>
   <string name="averageElo">Keskmine Elo</string>
@@ -511,6 +512,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="clockInitialTime">Kella algne aeg</string>
   <string name="clockIncrement">Kella juurdekasv</string>
   <string name="privacy">Privaatsus</string>
+  <string name="privacyPolicy">Privaatsus</string>
   <string name="letOtherPlayersFollowYou">Luba teistel mängijatel sind jälgida</string>
   <string name="letOtherPlayersChallengeYou">Luba teistel mängijatel sulle väljakutseid esitada</string>
   <string name="letOtherPlayersInviteYouToStudy">Lase teistel mängijatel sind kutsuda õppima</string>
@@ -656,6 +658,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Kui sa ei näe e-posti, vaadata teistes kohtades võib olla, nagu oma Rämpspost, sotsiaal- või muid kaustu.</string>
   <string name="weHaveSentYouAnEmailTo">Saatsime e %s. Kliki lingile e-posti salasõna uuendamise.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registreerides nõustute olema seotud meie %s.</string>
+  <string name="readAboutOur">Lugege rohkem: %s.</string>
   <string name="networkLagBetweenYouAndLichess">Võrgu lag vahel teid ja Lichessi</string>
   <string name="timeToProcessAMoveOnLichessServer">Käigu töötlemise aeg lichess serveril</string>
   <string name="downloadAnnotated">Lae selgitustega</string>
@@ -840,4 +843,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="youCannotPostYetPlaySomeGames">Sa ei saa veel foorumisse postitada. Mängi enne paar mängu!</string>
   <string name="subscribe">Telli</string>
   <string name="unsubscribe">Eemalda</string>
+  <string name="challengeDeclined">Väljakutse tagasi lükatud</string>
+  <string name="challengeAccepted">Väljakutse vastu võetud!</string>
+  <string name="challengeCanceled">Väljakutse tühistatud.</string>
 </resources>

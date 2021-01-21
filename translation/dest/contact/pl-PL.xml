@@ -27,12 +27,7 @@
   <string name="wantClearHistory">Chcę wyczyścić swoją historię lub swój ranking</string>
   <string name="cantClearHistory">Nie jest możliwe wyczyszczenie Twojej historii i rankingu.</string>
   <string name="wantReport">Chcę zgłosić gracza</string>
-  <string name="reportCheating">Zgłoś gracza za oszukiwanie</string>
-  <string name="reportSandbagging">Zgłoś gracza za zaniżanie swojego poziomu</string>
-  <string name="reportTrolling">Zgłoś gracza za trolowanie</string>
-  <string name="reportInsults">Zgłoś gracza za obrażanie</string>
-  <string name="reportOtherReason">Zgłoś gracza z innego powodu</string>
-  <string name="toReportAPlayer">Aby zgłosić gracza za %s, użyj formularza</string>
+  <string name="toReportAPlayerUseForm">Aby zgłosić gracza, użyj formularza</string>
   <string name="youCanAlsoReachReportPage">Możesz również dotrzeć do tej strony klikając przycisk raportu %s na stronie profilowej.</string>
   <string name="doNotReportInForum">Nie zgłaszaj graczy na forum.</string>
   <string name="doNotSendReportEmails">Nie wysyłaj nam zgłoszeń na e-mail.</string>

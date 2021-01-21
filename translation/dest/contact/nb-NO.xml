@@ -27,12 +27,6 @@
   <string name="wantClearHistory">Jeg vil slette historikken eller ratingen min</string>
   <string name="cantClearHistory">Det er ikke mulig å slette historikken din for partier, sjakknøtter eller ratinger.</string>
   <string name="wantReport">Jeg vil rapportere en spiller</string>
-  <string name="reportCheating">Rapporter en spiller for juks</string>
-  <string name="reportSandbagging">Rapporter en spiller for å tape med vilje</string>
-  <string name="reportTrolling">Rapporter en spiller for trolling</string>
-  <string name="reportInsults">Rapporter en spiller for fornærmelser</string>
-  <string name="reportOtherReason">Rapporter en spiller for en annen grunn</string>
-  <string name="toReportAPlayer">Bruk rapportskjemaet om du vil melde en spiller for %s</string>
   <string name="youCanAlsoReachReportPage">Du kan også komme til den sida ved å klikke på %s meldingsknappen på ei brukerside.</string>
   <string name="doNotReportInForum">Ikke meld spillere i forumet.</string>
   <string name="doNotSendReportEmails">Ikke send oss epost med anmelding av spillere.</string>

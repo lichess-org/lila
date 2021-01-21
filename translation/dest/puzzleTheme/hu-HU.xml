@@ -6,6 +6,8 @@
   <string name="advantageDescription">Ragadd meg a lehetőséget a döntő előny megszerzéséhez. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anasztázia mattja</string>
   <string name="anastasiaMateDescription">Egy huszár és egy bástya vagy a vezér közösen csapdába ejtik az ellenfél királyát a tábla széle és egy figurája között.</string>
+  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Arab matt</string>
+  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">Egy huszár és egy bástya közösen sarokba szorítják az ellenfél királyát.</string>
   <string name="attackingF2F7">f2 vagy f7 támadása</string>
   <string name="attackingF2F7Description">Az f2 vagy f7 gyalog ellen irányuló támadás, mint például a \"sültmáj\" megnyitás.</string>
   <string name="attraction">Ráterelés</string>
@@ -14,12 +16,18 @@
   <string name="backRankMateDescription">Adj mattot az alapsoron ragadt királynak, mikor a saját figurái ejtik csapdába.</string>
   <string name="bishopEndgame">Futó végjáték</string>
   <string name="bishopEndgameDescription">Végjáték csak futókkal és gyalogokkal.</string>
+  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Boden mattja</string>
+  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Két támadó futó az átlókat keresztezve adnak mattot a saját figurái által akadályozott királynak.</string>
   <string name="castling">Sáncolás</string>
   <string name="castlingDescription">Helyezd a királyt biztonságba és mozgósítsd a bástyát.</string>
   <string name="capturingDefender">A védő leütése</string>
   <string name="capturingDefenderDescription">Egy olyan figura leütése, amelyik elengedhetetlen egy másik védelméhez, így a védtelen figura a következő lépésben szabadon levehető.</string>
   <string name="crushing">Megsemmisítés</string>
   <string name="crushingDescription">Az ellenfél sakkvakságának kihasználása elsöprő előnnyé fordítható. (&gt; 600cp)</string>
+  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Futópár matt</string>
+  <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">A két futó szomszédos átlókon ad mattot a saját figurája által akadályozott királynak.</string>
+  <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Fecskefark matt</string>
+  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">A vezér mattot ad a szomszédos mezőn álló királynak, aminek mindkét menekülési útját saját figurái foglalják el.</string>
   <string name="equality">Egyenlőség</string>
   <string name="equalityDescription">Visszatérés egy rosszabb állásból és a döntetlen vagy kiegyensúlyozott állás bebiztosítása.</string>
   <string name="kingsideAttack">Királyszárnytámadás</string>
@@ -43,6 +51,8 @@
   <string name="forkDescription">Olyan lépés ahol mozgatott figura egyszerre két ellenséges figurát támad.</string>
   <string name="hangingPiece">Lógó figura</string>
   <string name="hangingPieceDescription">Azok a taktikák amik védtelen vagy elégtelenül bevédett, ezért szabadon levehető figurákon alapulnak.</string>
+  <string name="hookMate">Horog matt</string>
+  <string name="hookMateDescription">Egy bástya, huszár és gyalog az ellenfél, gyalogja által akadályozott királyát körbevéve adnak mattot.</string>
   <string name="interference">Akadályozás</string>
   <string name="interferenceDescription">Egy figura mozgatása két ellenséges figura közé az egyiket vagy mindkettőt védtelenné téve, például egy huszárral belépni egy védett mezőre két bástya közé.</string>
   <string name="intermezzo">Köztes lépés</string>
