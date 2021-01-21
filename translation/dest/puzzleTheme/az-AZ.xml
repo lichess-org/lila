@@ -50,6 +50,8 @@
   <string name="forkDescription">Bir fiqurun eyni anda iki rəqib fiquruna hücum etdiyi gediş.</string>
   <string name="hangingPiece">Qorunmasız fiqur</string>
   <string name="hangingPieceDescription">Rəqib fiqurunun müdafiəsiz və ya kifayət qədər müdafiə olunmadığı və vurulmağa hazır olduğunu əhatə edən bir taktika.</string>
+  <string name="hookMate">Qarmaq matı</string>
+  <string name="hookMateDescription">Top, at, piyada və rəqib şahının qaçışını məhdudlaşdırmaq üçün bir rəqib piyadası ilə birlikdə edilən mat.</string>
   <string name="interference">Yolukəsmə</string>
   <string name="interferenceDescription">Bir və ya hər iki rəqib fiqurunu müdafiəsiz buraxmaq üçün iki rəqib fiquru arasına öz fiqurunu qoymaq, məsələn, iki top arasındakı müdafiə olunan bir xanaya bir at qoymaq.</string>
   <string name="intermezzo">İntermezzo</string>
