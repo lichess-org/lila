@@ -9,7 +9,7 @@
   <string name="yourTurn">Sinu käik</string>
   <string name="aiNameLevelAiLevel">%1$s tase %2$s</string>
   <string name="level">Tase</string>
-  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Tugevus</string>
+  <string name="strength">Tugevus</string>
   <string name="toggleTheChat">Luba vestlust</string>
   <string name="toggleSound">Luba helid</string>
   <string name="chat">Saada sõnum</string>
@@ -328,7 +328,7 @@
   <string name="youAreNotInTeam">Sa ei ole %s tiimi liige</string>
   <string name="backToGame">Tagasi mängu</string>
   <string name="siteDescription">Tasuta online male. Mängi malet nüüd puhtas kasutajaliideses. Pole registreerimist, pole reklaami, pole pluginaid vaja. Mängi malet arvuti, sõprade või juhusliku vastasega.</string>
-  <string name="xJoinedTeamY" comment="xJoinedTeamY&#10;&#10;Joining is effectively equal to becoming a member.">%1$s ühines tiimiga %2$s</string>
+  <string name="xJoinedTeamY">%1$s ühines tiimiga %2$s</string>
   <string name="xCreatedTeamY">%1$s tegi tiimi %2$s</string>
   <string name="xStartedStreaming">%s alustas otseülekannet</string>
   <string name="averageElo">Keskmine Elo</string>
@@ -384,7 +384,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="more">Rohkem</string>
   <string name="memberSince">Liige alates</string>
   <string name="lastSeenActive">Viimane sisenemine %s</string>
-  <string name="challengeToPlay">Väljakutse mängule</string>
   <string name="player">Mängija</string>
   <string name="list">Nimekiri</string>
   <string name="graph">Graafik</string>
@@ -737,7 +736,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="error.unknown">Viga</string>
   <string name="custom">Muu</string>
   <string name="notifications">Teated</string>
-  <string name="challenges">Väljakutsed</string>
   <string name="perfRatingX">Reiting: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund, et teha esimene käik</item>
@@ -784,12 +782,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="opening">Avang</string>
   <string name="middlegame">Keskmäng</string>
   <string name="endgame">Lõppmäng</string>
-  <string name="registerToSendChallenges">Palun registreerige, et väljakutseid saata.</string>
-  <string name="youCannotChallengeX">Te ei saa väljakutset esitada mängijale %s.</string>
-  <string name="xDoesNotAcceptChallenges">Mängija %s ei aktsepteeri väljakutseid.</string>
-  <string name="yourXRatingIsTooFarFromY">Sinu %1$s reiting on liiga suure vahega võrreldes mängijaga %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Ei saa väljakutset esitada ajutise %s reitingu tõttu.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s aktsepteerib väljakutseid ainult oma sõpradelt.</string>
   <string name="conditionalPremoves">Tingimuslikud eelkäigud</string>
   <string name="addCurrentVariation">Lisa praegune varient</string>
   <string name="playVariationToCreateConditionalPremoves">Tingimuslike eelkäikude loomiseks mängi variatsioon</string>
@@ -843,7 +835,4 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="youCannotPostYetPlaySomeGames">Sa ei saa veel foorumisse postitada. Mängi enne paar mängu!</string>
   <string name="subscribe">Telli</string>
   <string name="unsubscribe">Eemalda</string>
-  <string name="challengeDeclined">Väljakutse tagasi lükatud</string>
-  <string name="challengeAccepted">Väljakutse vastu võetud!</string>
-  <string name="challengeCanceled">Väljakutse tühistatud.</string>
 </resources>
