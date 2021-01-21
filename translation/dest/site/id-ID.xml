@@ -304,7 +304,7 @@
   <string name="youAreNotInTeam">Anda tidak masuk di tim %s</string>
   <string name="backToGame">Kembali ke permainan</string>
   <string name="siteDescription">Permainan Catur gratis. Main Catur sekarang dengan antarmuka yang bersih. Tanpa registrasi, tanpa iklan, dan tanpa plugin tambahan. Bermain catur lawan komputer, teman atau lawan manusia secara acak.</string>
-  <string name="xJoinedTeamY">%1$s bergabung tim %2$s</string>
+  <string name="xJoinedTeamY" comment="xJoinedTeamY&#10;&#10;Joining is effectively equal to becoming a member.">%1$s bergabung tim %2$s</string>
   <string name="xCreatedTeamY">%1$s membuat tim %2$s</string>
   <string name="xStartedStreaming">%s memulai streaming</string>
   <string name="averageElo">Rating rata-rata</string>
@@ -476,10 +476,12 @@
   <string name="currentPassword">Password saat ini</string>
   <string name="newPassword">Password baru</string>
   <string name="newPasswordAgain">Password baru (lagi)</string>
+  <string name="newPasswordsDontMatch">Kata sandi baru tidak cocok</string>
   <string name="newPasswordStrength">Kekuatan Kata Sandi</string>
   <string name="clockInitialTime">Waktu awal</string>
   <string name="clockIncrement">Kenaikan waktu</string>
   <string name="privacy">Privasi</string>
+  <string name="privacyPolicy">Kebijakan privasi</string>
   <string name="letOtherPlayersFollowYou">Biarkan pengguna lain mengikuti anda</string>
   <string name="letOtherPlayersChallengeYou">Biarkan pengguna lain menantang anda</string>
   <string name="letOtherPlayersInviteYouToStudy">Ijinkan pemain lain mengajak Anda untuk studi</string>
@@ -621,6 +623,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jika anda tidak melihat surel, cek tempat-tempat lain; seperti junk, spam, sosial, atau berkas lainnya</string>
   <string name="weHaveSentYouAnEmailTo">Kami telah mengirim surel kepada %s. Klik tautan di dalam surel untuk mengubah kata sandi anda.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Dengan mendaftar, anda setuju untuk terikat dengan %s kita.</string>
+  <string name="readAboutOur">Baca tentang %s kami.</string>
   <string name="networkLagBetweenYouAndLichess">Hambatan jaringan antara anda dan lichess.</string>
   <string name="timeToProcessAMoveOnLichessServer">Waktu untuk memproses suatu langkah dalam server lichess</string>
   <string name="downloadAnnotated">Unduh versi anotasi</string>
@@ -801,4 +804,6 @@
   <string name="youCannotPostYetPlaySomeGames">Anda belum bisa mengirim pos di forum ini. Mainkan beberapa permainan!</string>
   <string name="subscribe">Berlangganan</string>
   <string name="unsubscribe">Berhenti berlangganan</string>
+  <string name="challengeDeclined">Tantangan ditolak</string>
+  <string name="challengeAccepted">Tantangan diterima!</string>
 </resources>
