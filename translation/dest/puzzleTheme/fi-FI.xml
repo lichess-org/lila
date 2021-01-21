@@ -5,8 +5,9 @@
   <string name="advantage">Etu</string>
   <string name="advantageDescription">Tartu tilaisuuteen hankkia ratkaiseva etu. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastasian matti</string>
-  <string name="anastasiaMateDescription">Ratsun sekä tornin tai daamin yhteistyöllä vastustajan kuningas jää kiinni laudan reunan ja oman nappulan väliin.</string>
+  <string name="anastasiaMateDescription">Ratsun sekä tornin tai daamin yhteistyöllä vastustajan kuningas jää kiinni laudan reunan ja oman nappulan välissä.</string>
   <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Arabialainen matti</string>
+  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">Ratsun ja tornin yhteistyöllä vastustajan kuningas jää kiinni laudan nurkassa.</string>
   <string name="attackingF2F7">Hyökkäys f2:een tai f7:ään</string>
   <string name="attackingF2F7Description">F2- tai f7-sotilaaseen kohdistuva hyökkäys, kuten esimerkiksi Preussilaisen pelin Fried Liver eli Fegatello-muunnelma.</string>
   <string name="attraction">Houkutus</string>
