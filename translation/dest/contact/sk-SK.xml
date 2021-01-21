@@ -27,7 +27,6 @@
   <string name="wantClearHistory">Chcem vymazať svoju históriu alebo hodnotenie</string>
   <string name="cantClearHistory">Nieje možné vymazať tvoju históriu hier, šachových rébusov či hodnotenia.</string>
   <string name="wantReport">Chcem nahlásiť hráča</string>
-  <string name="toReportAPlayer">Pre nahlásenie hráča kvôli %s, použi ohlasovací formulár</string>
   <string name="youCanAlsoReachReportPage">Môžeš tiež prejsť na danú stránku kliknutím na %s nahlasovacie tlačidlo na profilovej stránke.</string>
   <string name="doNotReportInForum">Nenahlasuj hráčov cez fórum.</string>
   <string name="doNotSendReportEmails">Neposielaj nám nahlásenie hráča emailom.</string>
