@@ -232,7 +232,6 @@
   <string name="more">Тата</string>
   <string name="memberSince">Регистратсиленнӗ кун:</string>
   <string name="lastSeenActive">%s кӗрсе тухнӑ</string>
-  <string name="challengeToPlay">Вӑйа чӗнтер</string>
   <string name="player">Вӑйӑҫӑ</string>
   <string name="list">Тапӑл</string>
   <string name="graph">Графӗк</string>
@@ -479,7 +478,6 @@
   <string name="chessBasics">Шахмат никӗсӗсем</string>
   <string name="coaches">Хӑнӑхтаруҫӑ</string>
   <string name="error.unknown">Йӑнӑш</string>
-  <string name="challenges">Чӗнтерӳ</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">1-мӗш хускану тумашкӑн %s ҫек йулчӗ</item>
   </plurals>
