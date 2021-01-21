@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">Iššūkiai</string>
+  <string name="challengeToPlay">Iškelti iššūkį</string>
+  <string name="challengeDeclined">Iššūkis atmestas</string>
+  <string name="challengeAccepted">Iššūkis priimtas!</string>
+  <string name="challengeCanceled">Iššūkis atšauktas.</string>
+  <string name="registerToSendChallenges">Norėdami kurti iššūkius užsiregistruokite.</string>
+  <string name="youCannotChallengeX">Negalite kelti iššūkio %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s nepriima iššūkių.</string>
+  <string name="yourXRatingIsTooFarFromY">Jūsų %1$s reitingas per toli nuo %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Negalima sukurti iššūkio dėl laikino %s reitingo.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s priima iššūkius tik iš draugų.</string>
+  <string name="declineGeneric">Šiuo metu iššūkių nepriimu.</string>
+  <string name="declineLater">Šiuo metu nepriimu iššūkių, pabandykite dar kartą vėliau.</string>
+</resources>
