@@ -283,10 +283,10 @@
   <string name="takeback">Ανάκληση κίνησης</string>
   <string name="proposeATakeback">Προσφέρετε ανάκληση της προηγούμενης κίνησης</string>
   <string name="takebackPropositionSent">Προσφορά ανάκλησης κίνησης εστάλη</string>
-  <string name="takebackPropositionDeclined">Προσφορά ανάκλησης κίνησης  μη αποδεκτή</string>
+  <string name="takebackPropositionDeclined">Αρνήθηκε η προσφορά ανάκλησης κίνησης</string>
   <string name="takebackPropositionAccepted">Προσφορά ακύρωσης κίνησης αποδεκτή</string>
   <string name="takebackPropositionCanceled">Προσφορά ακύρωσης κίνησης ακυρώθηκε</string>
-  <string name="yourOpponentProposesATakeback">Ο αντίπαλος σας πρότεινε ακύρωση της τελευταίας κίνησης</string>
+  <string name="yourOpponentProposesATakeback">Ο αντίπαλός σας πρότεινε ακύρωση της τελευταίας κίνησης</string>
   <string name="bookmarkThisGame">Προσθέστε σελιδοδείκτη για αυτό το παιχνίδι</string>
   <string name="tournament">Πρωτάθλημα</string>
   <string name="tournaments">Πρωταθλήματα</string>
