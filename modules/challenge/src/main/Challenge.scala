@@ -25,7 +25,8 @@ case class Challenge(
     createdAt: DateTime,
     seenAt: Option[DateTime], // None for open challenges, so they don't sweep
     expiresAt: DateTime,
-    open: Option[Boolean] = None
+    open: Option[Boolean] = None,
+    declineReason: Option[Challenge.DeclineReason] = None
 ) {
 
   import Challenge._
@@ -94,6 +95,13 @@ case class Challenge(
   def isOpen = ~open
 
   lazy val perfType = perfTypeOf(variant, timeControl)
+
+  def anyDeclineReason = declineReason | DeclineReason.default
+
+  def declineWith(reason: DeclineReason) = copy(
+    status = Status.Declined,
+    declineReason = reason.some
+  )
 }
 
 object Challenge {
@@ -113,11 +121,17 @@ object Challenge {
     def apply(id: Int): Option[Status] = all.find(_.id == id)
   }
 
-  sealed abstract class DeclineReason(key: I18nKey)
+  sealed abstract class DeclineReason(val trans: I18nKey) {
+    val key = toString.toLowerCase
+  }
 
   object DeclineReason {
     case object Generic extends DeclineReason(I18nKeys.challenge.declineGeneric)
     case object Later   extends DeclineReason(I18nKeys.challenge.declineLater)
+
+    val default: DeclineReason   = Generic
+    val all: List[DeclineReason] = List(Generic, Later)
+    def apply(key: String)       = all.find(_.key == key) | Generic
   }
 
   case class Rating(int: Int, provisional: Boolean) {

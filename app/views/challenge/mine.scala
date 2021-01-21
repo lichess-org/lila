@@ -25,7 +25,7 @@ object mine {
       moreCss = cssTag("challenge.page")
     ) {
       val challengeLink = s"$netBaseUrl${routes.Round.watcher(c.id, "white")}"
-      main(cls := "page-small challenge-page box box-pad")(
+      main(cls := s"page-small challenge-page box box-pad challenge--${c.status.name}")(
         c.status match {
           case Status.Created | Status.Offline =>
             div(id := "ping-challenge")(
@@ -94,6 +94,10 @@ object mine {
           case Status.Declined =>
             div(cls := "follow-up")(
               h1(trans.challenge.challengeDeclined()),
+              blockquote(cls := "challenge-reason pull-quote")(
+                p(c.anyDeclineReason.trans()),
+                footer(userIdLink(c.destUserId))
+              ),
               bits.details(c),
               a(cls := "button button-fat", href := routes.Lobby.home())(trans.newOpponent())
             )

@@ -138,19 +138,25 @@ final class Challenge(
   def decline(id: String) =
     Auth { implicit ctx => _ =>
       OptionFuResult(api byId id) { c =>
-        if (isForMe(c)) api decline c
-        else notFound
+        isForMe(c) ?? api.decline(c, ChallengeModel.DeclineReason.default)
       }
     }
   def apiDecline(id: String) =
-    Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ => me =>
+    ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { implicit req => me =>
+      implicit val lang = reqLang
       api.activeByIdFor(id, me) flatMap {
         case None =>
           env.bot.player.rematchDecline(id, me) flatMap {
             case true => jsonOkResult.fuccess
             case _    => notFoundJson()
           }
-        case Some(c) => api.decline(c) inject jsonOkResult
+        case Some(c) =>
+          env.challenge.forms.decline
+            .bindFromRequest()
+            .fold(
+              newJsonFormError,
+              data => api.decline(c, data.realReason) inject jsonOkResult
+            )
       }
     }
 
@@ -168,7 +174,7 @@ final class Challenge(
         case Some(c) => api.cancel(c) inject jsonOkResult
         case None =>
           api.activeByIdFor(id, me) flatMap {
-            case Some(c) => api.decline(c) inject jsonOkResult
+            case Some(c) => api.decline(c, ChallengeModel.DeclineReason.default) inject jsonOkResult
             case None =>
               env.game.gameRepo game id dmap {
                 _ flatMap { Pov.ofUserId(_, me.id) }

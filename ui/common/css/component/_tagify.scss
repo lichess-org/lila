@@ -1,8 +1,8 @@
 :root {
-  --tagify-dd-color-primary: $c-primary;
+  --tagify-dd-color-primary: #{$c-primary};
 
   // should be same as "$tags-focus-border-color"
-  --tagify-dd-bg-color: $c-bg-box;
+  --tagify-dd-bg-color: #{$c-bg-box};
 }
 
 .tagify {

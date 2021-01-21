@@ -16,7 +16,7 @@ final class Env(
 
   private lazy val maxPlaying = appConfig.get[Max]("setup.max_playing")
 
-  lazy val forms = wire[FormFactory]
+  lazy val forms = wire[SetupForm]
 
   lazy val processor = wire[Processor]
 }

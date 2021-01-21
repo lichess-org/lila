@@ -8,7 +8,7 @@ import play.api.data.Forms._
 import lila.rating.RatingRange
 import lila.user.{ User, UserContext }
 
-final class FormFactory {
+final class SetupForm {
 
   import Mappings._
 

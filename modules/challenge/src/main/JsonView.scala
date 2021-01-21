@@ -80,6 +80,7 @@ final class JsonView(
       )
       .add("direction" -> direction.map(_.name))
       .add("initialFen" -> c.initialFen)
+      .add("declineReason" -> c.declineReason.map(_.trans.txt()))
 
   private def iconChar(c: Challenge) =
     if (c.variant == chess.variant.FromPosition) '*'
