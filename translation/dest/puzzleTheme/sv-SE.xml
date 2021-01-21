@@ -27,8 +27,8 @@
   <string name="kingsideAttackDescription">En attack mot motståndarens kung, efter att de rockerat på kungsflygeln.</string>
   <string name="clearance">Rensning</string>
   <string name="clearanceDescription">Ett drag, ofta med tempo, som rensar en ruta, linje eller diagonal för en uppföljande taktisk idé.</string>
-  <string name="defensiveMove">Defensiva drag</string>
-  <string name="defensiveMoveDescription">Ett exakt drag eller sekvens av drag som är nödvändiga behövs för att undvika att förlora material eller annan fördel.</string>
+  <string name="defensiveMove">Defensivt drag</string>
+  <string name="defensiveMoveDescription">Ett exakt drag eller sekvens av drag som är nödvändiga för att undvika att förlora material eller annan fördel.</string>
   <string name="deflection">Avledande drag</string>
   <string name="deflectionDescription">Ett drag som avleder en motståndarpjäs från en annan uppgift, såsom att bevaka en viktig ruta. Kallas Ibland också \"överbelastning\".</string>
   <string name="discoveredAttack">Avdragsattack</string>
