@@ -9,7 +9,7 @@
   <string name="yourTurn">Ditt trekk</string>
   <string name="aiNameLevelAiLevel">%1$s på nivå %2$s</string>
   <string name="level">Nivå</string>
-  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Styrke</string>
+  <string name="strength">Styrke</string>
   <string name="toggleTheChat">Chat av/på</string>
   <string name="toggleSound">Lyd av/på</string>
   <string name="chat">Praterom</string>
@@ -384,7 +384,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="more">Meir</string>
   <string name="memberSince">Medlem sidan</string>
   <string name="lastSeenActive">Siste innlogging %s</string>
-  <string name="challengeToPlay">Utfordra til eit parti</string>
   <string name="player">Spelar</string>
   <string name="list">Liste</string>
   <string name="graph">Graf</string>
@@ -740,7 +739,6 @@ i %3$s</string>
   <string name="error.unknown">Feil</string>
   <string name="custom">Tilpassa</string>
   <string name="notifications">Meldingar</string>
-  <string name="challenges">Utfordringar</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund til å ta det første trekket</item>
@@ -787,12 +785,6 @@ i %3$s</string>
   <string name="opening">Opning</string>
   <string name="middlegame">Midtspel</string>
   <string name="endgame">Sluttspel</string>
-  <string name="registerToSendChallenges">Opprett ein konto om du vil utforde andre.</string>
-  <string name="youCannotChallengeX">Du kan ikkje utfordre %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s tek ikkje i mot utfordringar.</string>
-  <string name="yourXRatingIsTooFarFromY">Din %1$s rating er for langt frå %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Kan ikkje utfordre på grunn av mellombels %s rating.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s tek berre mot utfordringar frå vener.</string>
   <string name="conditionalPremoves">Vilkårsbundne førehandstrekk</string>
   <string name="addCurrentVariation">Legg til gjeldande variant</string>
   <string name="playVariationToCreateConditionalPremoves">Spel ein variant for å lage vilkårsbundne førehandstrekk</string>
@@ -846,7 +838,4 @@ i %3$s</string>
   <string name="youCannotPostYetPlaySomeGames">Du kan så langt ikkje skrive oppslag i foraane. Spel nokre parti fyrst!</string>
   <string name="subscribe">Abonner</string>
   <string name="unsubscribe">Avslutt abonnement</string>
-  <string name="challengeDeclined">Utfordring avvist</string>
-  <string name="challengeAccepted">Utfordring akseptert!</string>
-  <string name="challengeCanceled">Utfordring avbroten.</string>
 </resources>
