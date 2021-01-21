@@ -447,7 +447,7 @@ final class Team(
     Action.async {
       import env.team.jsonView._
       import lila.common.paginator.PaginatorJson._
-      JsonFuOk {
+      JsonOk {
         paginator popularTeams page flatMap { pager =>
           env.user.lightUserApi.preloadMany(pager.currentPageResults.flatMap(_.leaders)) inject pager
         }
@@ -478,7 +478,7 @@ final class Team(
     Action.async {
       import env.team.jsonView._
       import lila.common.paginator.PaginatorJson._
-      JsonFuOk {
+      JsonOk {
         if (text.trim.isEmpty) paginator popularTeams page
         else env.teamSearch(text, page)
       }
@@ -487,7 +487,7 @@ final class Team(
   def apiTeamsOf(username: String) =
     Action.async {
       import env.team.jsonView._
-      JsonFuOk {
+      JsonOk {
         api teamsOf username flatMap { teams =>
           env.user.lightUserApi.preloadMany(teams.flatMap(_.leaders)) inject teams
         }
