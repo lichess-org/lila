@@ -5,11 +5,13 @@ import play.api.data.FormError
 import play.api.libs.json._
 import play.api.mvc._
 import scala.annotation.nowarn
+import scala.concurrent.duration._
 import views._
 
 import lila.api.Context
 import lila.app._
 import lila.common.{ EmailAddress, HTTPRequest }
+import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
 import lila.security.{ FingerPrint, Signup }
 import lila.user.User.ClearPassword
@@ -425,17 +427,25 @@ final class Auth(
       }
     }
 
+  private lazy val magicLinkLoginRateLimitPerToken = new RateLimit[String](
+    credits = 3,
+    duration = 1 hour,
+    key = "login.magicLink.token"
+  )
+
   def magicLinkLogin(token: String) =
     Open { implicit ctx =>
-      env.security.magicLink confirm token flatMap {
-        case None =>
-          lila.mon.user.auth.magicLinkConfirm("token_fail").increment()
-          notFound
-        case Some(user) =>
-          authLog(user.username, "-", "Magic link")
-          authenticateUser(user) >>-
-            lila.mon.user.auth.magicLinkConfirm("success").increment().unit
-      }
+      magicLinkLoginRateLimitPerToken(token) {
+        env.security.magicLink confirm token flatMap {
+          case None =>
+            lila.mon.user.auth.magicLinkConfirm("token_fail").increment()
+            notFound
+          case Some(user) =>
+            authLog(user.username, "-", "Magic link")
+            authenticateUser(user) >>-
+              lila.mon.user.auth.magicLinkConfirm("success").increment().unit
+        }
+      }(rateLimitedFu)
     }
 
   private def loginTokenFor(me: UserModel) = JsonOk {
