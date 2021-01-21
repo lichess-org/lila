@@ -1961,6 +1961,13 @@ val `cannotChallengeDueToProvisionalXRating` = new I18nKey("challenge:cannotChal
 val `xOnlyAcceptsChallengesFromFriends` = new I18nKey("challenge:xOnlyAcceptsChallengesFromFriends")
 val `declineGeneric` = new I18nKey("challenge:declineGeneric")
 val `declineLater` = new I18nKey("challenge:declineLater")
+val `declineTooFast` = new I18nKey("challenge:declineTooFast")
+val `declineTooSlow` = new I18nKey("challenge:declineTooSlow")
+val `declineTimeControl` = new I18nKey("challenge:declineTimeControl")
+val `declineRated` = new I18nKey("challenge:declineRated")
+val `declineCasual` = new I18nKey("challenge:declineCasual")
+val `declineStandard` = new I18nKey("challenge:declineStandard")
+val `declineVariant` = new I18nKey("challenge:declineVariant")
 }
 
 }

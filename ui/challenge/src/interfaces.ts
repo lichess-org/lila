@@ -9,7 +9,8 @@ export interface Ctrl {
   update(data: ChallengeData): void
   data(): ChallengeData
   trans(): (key: string) => string
-  decline(id: string): void
+  reasons(): Reasons
+  decline(id: string, reason: string): void
   cancel(id: string): void
   onRedirect(): void
   redirecting(): boolean
@@ -56,12 +57,17 @@ export interface Challenge {
   declined?: boolean
 }
 
+export type Reasons = {
+  [key: string]: string
+}
+
 export interface ChallengeData {
   in: Array<Challenge>
   out: Array<Challenge>
   i18n?: {
     [key: string]: string
   }
+  reasons?: Reasons
 }
 
 export type Redraw = () => void

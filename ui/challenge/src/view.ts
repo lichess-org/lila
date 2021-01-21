@@ -1,11 +1,11 @@
+import { Ctrl, Challenge, ChallengeData, ChallengeDirection, ChallengeUser, TimeControl } from './interfaces'
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { Ctrl, Challenge, ChallengeData, ChallengeDirection, ChallengeUser, TimeControl } from './interfaces'
 
 export function loaded(ctrl: Ctrl): VNode {
   return ctrl.redirecting() ?
-  h('div#challenge-app.dropdown', h('div.initiating', spinner())) :
-  h('div#challenge-app.links.dropdown.rendered', renderContent(ctrl));
+    h('div#challenge-app.dropdown', h('div.initiating', spinner())) :
+    h('div#challenge-app.links.dropdown.rendered', renderContent(ctrl));
 }
 
 export function loading(): VNode {
@@ -54,7 +54,7 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
         ].join(' • '))
       ]),
       h('i', {
-        attrs: {'data-icon': c.perf.icon}
+        attrs: { 'data-icon': c.perf.icon }
       }),
       h('div.buttons', (dir === 'in' ? inButtons : outButtons)(ctrl, c))
     ]);
@@ -84,8 +84,22 @@ function inButtons(ctrl: Ctrl, c: Challenge): VNode[] {
         'data-icon': 'L',
         title: trans('decline')
       },
-      hook: onClick(() => ctrl.decline(c.id))
-    })
+      hook: onClick(() => ctrl.decline(c.id, 'generic'))
+    }),
+    h('select.decline-reason', {
+      hook: {
+        insert: (vnode: VNode) => {
+          const select = (vnode.elm as HTMLSelectElement);
+          select.addEventListener('change', () =>
+            ctrl.decline(c.id, select.value)
+          );
+        }
+      }
+    },
+      Object.entries(ctrl.reasons()).map(([key, name]) =>
+        h('option', { attrs: { value: key } }, key == 'generic' ? '' : name)
+      )
+    )
   ];
 }
 
@@ -127,7 +141,7 @@ function renderUser(u?: ChallengeUser): VNode {
   if (!u) return h('span', 'Open challenge');
   const rating = u.rating + (u.provisional ? '?' : '');
   return h('a.ulpt.user-link', {
-    attrs: { href: `/@/${u.name}`},
+    attrs: { href: `/@/${u.name}` },
     class: { online: !!u.online }
   }, [
     h('i.line' + (u.patron ? '.patron' : '')),
@@ -135,9 +149,9 @@ function renderUser(u?: ChallengeUser): VNode {
       u.title && h('span.utitle', u.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, u.title + ' '),
       u.name + ' (' + rating + ') '
     ]),
-      h('signal', u.lag === undefined ? [] : [1, 2, 3, 4].map((i) => h('i', {
-        class: { off: u.lag! < i}
-      })))
+    h('signal', u.lag === undefined ? [] : [1, 2, 3, 4].map((i) => h('i', {
+      class: { off: u.lag! < i }
+    })))
   ]);
 }
 

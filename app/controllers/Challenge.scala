@@ -12,9 +12,9 @@ import lila.challenge.{ Challenge => ChallengeModel }
 import lila.common.{ HTTPRequest, IpAddress }
 import lila.game.{ AnonCookie, Pov }
 import lila.oauth.{ AccessToken, OAuthScope }
+import lila.setup.ApiConfig
 import lila.socket.Socket.SocketVersion
 import lila.user.{ User => UserModel }
-import lila.setup.ApiConfig
 
 final class Challenge(
     env: Env
@@ -136,9 +136,16 @@ final class Challenge(
     }
 
   def decline(id: String) =
-    Auth { implicit ctx => _ =>
+    AuthBody { implicit ctx => _ =>
       OptionFuResult(api byId id) { c =>
-        isForMe(c) ?? api.decline(c, ChallengeModel.DeclineReason.default)
+        implicit val req = ctx.body
+        isForMe(c) ??
+          api.decline(
+            c,
+            env.challenge.forms.decline
+              .bindFromRequest()
+              .fold(_ => ChallengeModel.DeclineReason.default, _.realReason)
+          )
       }
     }
   def apiDecline(id: String) =
