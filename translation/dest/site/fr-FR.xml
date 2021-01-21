@@ -9,7 +9,7 @@
   <string name="yourTurn">À votre tour</string>
   <string name="aiNameLevelAiLevel">%1$s niveau %2$s</string>
   <string name="level">Niveau</string>
-  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Niveau</string>
+  <string name="strength">Niveau</string>
   <string name="toggleTheChat">Activer/désactiver la discussion</string>
   <string name="toggleSound">Activer/désactiver le son</string>
   <string name="chat">Discussion</string>
@@ -383,7 +383,6 @@
   <string name="more">Plus</string>
   <string name="memberSince">Membre depuis</string>
   <string name="lastSeenActive">Actif %s</string>
-  <string name="challengeToPlay">Défier ce joueur</string>
   <string name="player">Joueur</string>
   <string name="list">Liste</string>
   <string name="graph">Graphique</string>
@@ -736,7 +735,6 @@
   <string name="error.unknown">Erreur</string>
   <string name="custom">Personnalisé</string>
   <string name="notifications">Notifications</string>
-  <string name="challenges">Défis</string>
   <string name="perfRatingX">Classement : %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s seconde pour jouer le premier coup</item>
@@ -783,12 +781,6 @@
   <string name="opening">Ouverture</string>
   <string name="middlegame">Milieu de partie</string>
   <string name="endgame">Fin de partie</string>
-  <string name="registerToSendChallenges">Veuillez vous enregistrer pour envoyer des défis.</string>
-  <string name="youCannotChallengeX">Vous ne pouvez pas défier %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s n’accepte pas les défis.</string>
-  <string name="yourXRatingIsTooFarFromY">Votre classement de %1$s est trop différent de %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Défier est impossible à cause du classement %s provisoire.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s n’accepte que les défis de ses amis.</string>
   <string name="conditionalPremoves">Précoups conditionnels</string>
   <string name="addCurrentVariation">Ajouter la variante en cours</string>
   <string name="playVariationToCreateConditionalPremoves">Jouer une variante pour créer des précoups conditionnels</string>
@@ -842,7 +834,4 @@
   <string name="youCannotPostYetPlaySomeGames">Vous ne pouvez pas encore poster dans les forums. Jouez quelques parties !</string>
   <string name="subscribe">Suivre</string>
   <string name="unsubscribe">Ne plus suivre</string>
-  <string name="challengeDeclined">Défi refusé</string>
-  <string name="challengeAccepted">Défi accepté!</string>
-  <string name="challengeCanceled">Défi annulé</string>
 </resources>
