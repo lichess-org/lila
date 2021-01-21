@@ -262,10 +262,11 @@ final class Puzzle(
         .fuccess
     }
 
-  def dashboard(days: Int) =
-    Scoped(_.Puzzle.Read) { _ => me =>
-      JsonOk {
-        env.puzzle.dashboard(me, days) map env.puzzle.json.dashboardJson map
+  def apiDashboard(days: Int) =
+    Scoped(_.Puzzle.Read) { implicit req => me =>
+      implicit val lang = reqLang
+      JsonOptionOk {
+        env.puzzle.dashboard(me, days) map2 { env.puzzle.jsonView.dashboardJson(_, days) }
       }
     }
 
