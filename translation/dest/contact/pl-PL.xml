@@ -27,6 +27,7 @@
   <string name="wantClearHistory">Chcę wyczyścić swoją historię lub swój ranking</string>
   <string name="cantClearHistory">Nie jest możliwe wyczyszczenie Twojej historii i rankingu.</string>
   <string name="wantReport">Chcę zgłosić gracza</string>
+  <string name="toReportAPlayerUseForm">Aby zgłosić gracza, użyj formularza</string>
   <string name="youCanAlsoReachReportPage">Możesz również dotrzeć do tej strony klikając przycisk raportu %s na stronie profilowej.</string>
   <string name="doNotReportInForum">Nie zgłaszaj graczy na forum.</string>
   <string name="doNotSendReportEmails">Nie wysyłaj nam zgłoszeń na e-mail.</string>
