@@ -410,7 +410,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="more">Više</string>
   <string name="memberSince">Član od</string>
   <string name="lastSeenActive">Zadnja aktivnost %s</string>
-  <string name="challengeToPlay">Poziv na partiju</string>
   <string name="player">Igrač</string>
   <string name="list">Lista</string>
   <string name="graph">Graf</string>
@@ -768,7 +767,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="error.unknown">Pogreška</string>
   <string name="custom">Prilagođeno</string>
   <string name="notifications">Obavijesti</string>
-  <string name="challenges">Izazovi</string>
   <string name="perfRatingX">Rejting: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda da odigrate prvi potez</item>
@@ -817,12 +815,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="opening">Otvaranje</string>
   <string name="middlegame">Središnjica</string>
   <string name="endgame">Završnica</string>
-  <string name="registerToSendChallenges">Za slanje izazova morate se registrirati.</string>
-  <string name="youCannotChallengeX">Ne možeš izazvati %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s ne prihvaća izazove.</string>
-  <string name="yourXRatingIsTooFarFromY">Prevelika je razlika između tvog %1$s rejtinga i onog od %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Nemoguće izazvati zbog privremenog %s rejtinga.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s prihvaća samo izazove od prijatelja.</string>
   <string name="conditionalPremoves">Uvjetni predpotezi</string>
   <string name="addCurrentVariation">Dodajte trenutnu varijantu</string>
   <string name="playVariationToCreateConditionalPremoves">Odigraj varijantu da stvoriš uvjetni predpotez</string>
