@@ -315,7 +315,6 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="more">Mear</string>
   <string name="memberSince">Lid sûnt</string>
   <string name="lastSeenActive">%s Foar it lêst sjoen</string>
-  <string name="challengeToPlay">Utdaagje foar in potsje</string>
   <string name="player">Spiler</string>
   <string name="list">List</string>
   <string name="graph">Grafyk</string>
@@ -521,7 +520,6 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="error.unknown">Fout</string>
   <string name="custom">Oanpast</string>
   <string name="notifications">Meldingen</string>
-  <string name="challenges">Utdagingen</string>
   <string name="doItAgain">Noch in kear dwaan</string>
   <string name="why">Wêrom?</string>
 </resources>
