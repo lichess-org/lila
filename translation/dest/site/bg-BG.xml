@@ -371,7 +371,6 @@
   <string name="more">Още</string>
   <string name="memberSince">Член от</string>
   <string name="lastSeenActive">Последно влизане %s</string>
-  <string name="challengeToPlay">Предизвикай на игра</string>
   <string name="player">Играч</string>
   <string name="list">Списък</string>
   <string name="graph">Графика</string>
@@ -720,7 +719,6 @@
   <string name="error.unknown">Грешка</string>
   <string name="custom">По избор</string>
   <string name="notifications">Известия</string>
-  <string name="challenges">Предизвикателства</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда за първия ход</item>
@@ -767,12 +765,6 @@
   <string name="opening">Дебют</string>
   <string name="middlegame">Мителшпил</string>
   <string name="endgame">Ендшпил</string>
-  <string name="registerToSendChallenges">Моля регистрирайте се, за да отправяте предизвикателства.</string>
-  <string name="youCannotChallengeX">Не можете да предизвикате %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s не приема предизвикателства.</string>
-  <string name="yourXRatingIsTooFarFromY">Разликата между вашият рейтинг %1$s и %2$s е твърде голяма.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Не можете да отправяте предизвикателтсва с временен рейтинг %s.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s приема предизвикателства само от приятели.</string>
   <string name="conditionalPremoves">Предварителен ход под условие</string>
   <string name="addCurrentVariation">Добавяне на настоящата линия</string>
   <string name="playVariationToCreateConditionalPremoves">Изиграйте вариация за да създадете предварителни ходове под условие</string>
