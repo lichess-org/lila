@@ -29,7 +29,7 @@
   <string name="wantReport">Quiero denunciar a un jugador</string>
   <string name="toReportAPlayerUseForm">Para denunciar a un jugador utiliza el formulario de denuncia</string>
   <string name="youCanAlsoReachReportPage">También puedes acceder a esa página pulsando el botón de denuncia %s en un perfil.</string>
-  <string name="doNotReportInForum">No denuncie a jugadores en el foro.</string>
+  <string name="doNotReportInForum">No denuncies a jugadores en el foro.</string>
   <string name="doNotSendReportEmails">No nos envíes correo para denunciar jugadores.</string>
   <string name="doNotMessageModerators">No envíes mensajes directos a los moderadores.</string>
   <string name="onlyReports">La única forma eficaz de denunciar jugadores es mediante el formulario de denuncia.</string>
