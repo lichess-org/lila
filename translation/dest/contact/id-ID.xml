@@ -27,7 +27,6 @@
   <string name="wantClearHistory">Saya ingin menghapus riwayat atau rating</string>
   <string name="cantClearHistory">Sangat mustahil dapat menghapus riwayat permainan, riwayat teka-teki, atau rating Anda.</string>
   <string name="wantReport">Saya ingin melaporkan pemain</string>
-  <string name="toReportAPlayer">Untuk melaporkan pemain terkait %s, gunakan kolom lapor</string>
   <string name="youCanAlsoReachReportPage">Anda juga dapat mencapai halaman itu dengan mengeklik tombol laporan terkait %s pada halaman profil.</string>
   <string name="doNotReportInForum">Jangan melaporkan pemain di dalam forum.</string>
   <string name="doNotSendReportEmails">Jangan kirimkan email laporan kepada kami.</string>
