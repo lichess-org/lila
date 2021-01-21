@@ -14,4 +14,8 @@
   <string name="declineTooFast">Ez az időkorlát nekem túl gyors, kérlek küldj egy új kihívást lassabb játszmára.</string>
   <string name="declineTooSlow">Ez az időkorlát nekem túl lassú, kérlek küldj egy új kihívást gyorsabb játszmára.</string>
   <string name="declineTimeControl">Nem fogadok el kihívásokat ezzel az időkorláttal.</string>
+  <string name="declineRated">Kérlek inkább értékelt játszmára küldj kihívást.</string>
+  <string name="declineCasual">Kérlek inkább nem értékelt játszmára küldj kihívást.</string>
+  <string name="declineStandard">Jelenleg nem fogadok kihívásokat variáns játszmákra.</string>
+  <string name="declineVariant">Most nincs kedvem ezt a variánst játszani.</string>
 </resources>
