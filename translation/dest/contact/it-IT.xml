@@ -28,6 +28,8 @@
   <string name="cantClearHistory">Non è possibile cancellare la cronologia delle partite, la cronologia delle tattiche né i punteggi.</string>
   <string name="wantReport">Voglio segnalare un giocatore</string>
   <string name="reportCheating">Segnala un giocatore per imbrogli</string>
+  <string name="reportSandbagging">Segnala un giocatore che artificialmente abbassa il suo ranking</string>
+  <string name="reportTrolling">Segnala un provocatore</string>
   <string name="reportInsults">Segnala un giocatore per insulti</string>
   <string name="reportOtherReason">Segnala un giocatore per qualche altro motivo</string>
   <string name="toReportAPlayer">Per segnalare un giocatore per %s, utilizza il modulo di segnalazione</string>
