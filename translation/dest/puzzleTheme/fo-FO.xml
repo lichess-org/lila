@@ -4,6 +4,8 @@
   <string name="advancedPawnDescription">Ein finna, ið umskapast ella hóttir við at umskapast, er lykilin til taktikkin.</string>
   <string name="advantage">Fyrimunur</string>
   <string name="advantageDescription">Tak av møguleikanum at fáa avgerandi fyrimun. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="anastasiaMate">Mát Anastasiu</string>
+  <string name="anastasiaMateDescription">Riddari og rókur ella frúgv samstarva um at fanga mótstøðukongin millum síðuna á talvborðinum og eitt vinarligt sinnað fólk.</string>
   <string name="attackingF2F7">Álop á f2 ella f7</string>
   <string name="attackingF2F7Description">Eitt álop, ið savnar seg um f2 ella f7-finnuna, eins og í fegatello-álopinum (Fried Liver Attack).</string>
   <string name="attraction">Atdráttur</string>
