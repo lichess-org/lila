@@ -38,7 +38,7 @@
     <item quantity="one">Ο αντίπαλός σας έφυγε από το παιχνίδι. Διεκδίκηση νίκης σε %s δευτερόλεπτο.</item>
     <item quantity="other">Ο αντίπαλος έφυγε από το παιχνίδι. Διεκδίκηση νίκης σε %s δευτερόλεπτα.</item>
   </plurals>
-  <string name="opponentLeftChoices">Ο αντίπαλος σας έφυγε από το παιχνίδι. Μπορείτε να ισχυρισθείτε νίκη, ισοπαλία, ή να περιμένετε.</string>
+  <string name="opponentLeftChoices">Ο αντίπαλός σας έφυγε από το παιχνίδι. Μπορείτε να ισχυρισθείτε νίκη, ισοπαλία, ή να περιμένετε.</string>
   <string name="makeYourOpponentResign">Αναγκάστε τον αντίπαλό σας να παραιτηθεί</string>
   <string name="forceResignation">Ισχυριστείτε νίκη</string>
   <string name="forceDraw">Δηλώστε ισοπαλία</string>
