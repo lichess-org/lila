@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="declineTooFast">Aquest control de temps és massa ràpid per a mi. Si us plau, desafia\'m un altra vegada amb un ritme més lent.</string>
+</resources>
