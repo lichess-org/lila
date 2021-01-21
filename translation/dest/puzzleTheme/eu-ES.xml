@@ -6,6 +6,8 @@
   <string name="advantageDescription">Abantaila osoa lortzen saiatu (200cp ≤ ebaluazioa ≤ 600cp)</string>
   <string name="anastasiaMate">Anastasiaren matea</string>
   <string name="anastasiaMateDescription">Zaldun bat eta gaztelua eta damak aurkariaren erregea taularen bazter baten eta bere pieza baten artean harrapatzen dute.</string>
+  <string name="arabianMate">Mate arabiarra</string>
+  <string name="arabianMateDescription">Zaldun eta gaztelu banak elkarrekin lan egiten dute aurkariaren erregea xake-taularen bazter baten harrapatzeko.</string>
   <string name="attackingF2F7">f2 edo f7 erasotu</string>
   <string name="attackingF2F7Description">f2 edo f7ko peoia helburu duen erasoa.</string>
   <string name="attraction">Erakarmena</string>
@@ -14,12 +16,18 @@
   <string name="backRankMateDescription">Bere piezekin trabatuta dagoenean erregeari bere errenkadan matea ematea.</string>
   <string name="bishopEndgame">Alfilen bukaera</string>
   <string name="bishopEndgameDescription">Alfilak eta peoiak bakarrik dituen partida-bukaera.</string>
+  <string name="bodenMate">Bodenen matea</string>
+  <string name="bodenMateDescription">Bi alfilek beren piezen artean trabatuta dagoen erregeari ematen dioten matea.</string>
   <string name="castling">Endrokea</string>
   <string name="castlingDescription">Babestu erregea eta ekarri gaztelua erasora.</string>
   <string name="capturingDefender">Defendatzailea harrapatu</string>
   <string name="capturingDefenderDescription">Beste pieza bat defendatzeko funtsezkoa den pieza kentzea, hurrengo jokaldietan lehenengo pieza hori harrapatzeko.</string>
   <string name="crushing">Zapalketa</string>
   <string name="crushingDescription">Akatsa aurkitu eta guztizko abantaila lortu. (ebaluazioa ≥ 600cp)</string>
+  <string name="doubleBishopMate">Bi alfilen matea</string>
+  <string name="doubleBishopMateDescription">Bi alfilek beren piezen artean trabatuta dagoen erregeari ematen dioten matea.</string>
+  <string name="dovetailMate">Mirubuztanaren matea</string>
+  <string name="dovetailMateDescription">Damak ematen duen matea erregearen ihes-laukiak bere piezekin trabatuta daudenean.</string>
   <string name="equality">Berdintasuna</string>
   <string name="equalityDescription">Partida galduta izatetik, berdinketa edo posizio berdintsua lortzera itzuli. (ebaluazioa ≤ 200cp)</string>
   <string name="kingsideAttack">Erregearen aldeko erasoa</string>

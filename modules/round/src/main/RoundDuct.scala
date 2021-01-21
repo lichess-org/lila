@@ -366,9 +366,9 @@ final private[round] class RoundDuct(
         }
       }
 
-    case Moretime(playerId) =>
+    case Moretime(playerId, duration) =>
       handle(playerId) { pov =>
-        moretimer(pov) flatMap {
+        moretimer(pov, duration) flatMap {
           _ ?? { progress =>
             proxy save progress inject progress.events
           }
@@ -404,7 +404,7 @@ final private[round] class RoundDuct(
       handle { game =>
         game.playable ?? {
           messenger.system(game, "Lichess has been updated! Sorry for the inconvenience.")
-          val progress = moretimer.give(game, Color.all, MoretimeDuration(20 seconds))
+          val progress = moretimer.give(game, Color.all, 20 seconds)
           proxy save progress inject progress.events
         }
       }

@@ -1,9 +1,9 @@
 package views
 package html.site
 
+import controllers.routes
 import scala.util.chaining._
 
-import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -149,39 +149,27 @@ object contact {
             )
           )
         ),
-        Branch(
+        Leaf(
           "report",
           wantReport(),
-          List(
-            "cheating"          -> reportCheating,
-            "sandbagging"       -> reportSandbagging,
-            "trolling"          -> reportTrolling,
-            "insults"           -> reportInsults,
-            "some other reason" -> reportOtherReason
-          ).map { case (reason, name) =>
-            Leaf(
-              reason,
-              name(),
-              frag(
-                p(
-                  a(href := routes.Report.form())(toReportAPlayer(name())),
-                  "."
-                ),
-                p(
-                  youCanAlsoReachReportPage(button(cls := "thin button button-empty", dataIcon := "!"))
-                ),
-                p(
-                  doNotMessageModerators(),
-                  br,
-                  doNotReportInForum(),
-                  br,
-                  doNotSendReportEmails(),
-                  br,
-                  onlyReports()
-                )
-              )
+          frag(
+            p(
+              a(href := routes.Report.form())(toReportAPlayerUseForm()),
+              "."
+            ),
+            p(
+              youCanAlsoReachReportPage(button(cls := "thin button button-empty", dataIcon := "!"))
+            ),
+            p(
+              doNotMessageModerators(),
+              br,
+              doNotReportInForum(),
+              br,
+              doNotSendReportEmails(),
+              br,
+              onlyReports()
             )
-          }
+          )
         ),
         Branch(
           "bug",
