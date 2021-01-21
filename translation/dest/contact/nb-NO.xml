@@ -27,6 +27,7 @@
   <string name="wantClearHistory">Jeg vil slette historikken eller ratingen min</string>
   <string name="cantClearHistory">Det er ikke mulig å slette historikken din for partier, sjakknøtter eller ratinger.</string>
   <string name="wantReport">Jeg vil rapportere en spiller</string>
+  <string name="toReportAPlayerUseForm">Bruk rapportskjemaet for å rapportere en spiller</string>
   <string name="youCanAlsoReachReportPage">Du kan også komme til den sida ved å klikke på %s meldingsknappen på ei brukerside.</string>
   <string name="doNotReportInForum">Ikke meld spillere i forumet.</string>
   <string name="doNotSendReportEmails">Ikke send oss epost med anmelding av spillere.</string>
