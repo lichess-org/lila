@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="challenges">Challenges</string>
+  <string name="challengeToPlay">Challenge to a game</string>
+  <string name="challengeDeclined">Challenge declined</string>
+  <string name="challengeAccepted">Challenge accepted!</string>
+  <string name="challengeCanceled">Challenge canceled.</string>
+  <string name="registerToSendChallenges">Please register to send challenges.</string>
+  <string name="youCannotChallengeX">You cannot challenge %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s does not accept challenges.</string>
+  <string name="yourXRatingIsTooFarFromY">Your %1$s rating is too far from %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Cannot challenge due to provisional %s rating.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s only accepts challenges from friends.</string>
+  <string name="declineGeneric">I'm not accepting challenges at the moment.</string>
+  <string name="declineLater">I'm not accepting challenges right now, please ask again later.</string>
+</resources>

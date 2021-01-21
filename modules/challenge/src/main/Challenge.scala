@@ -6,6 +6,7 @@ import chess.{ Color, Mode, Speed }
 import org.joda.time.DateTime
 
 import lila.game.{ Game, PerfPicker }
+import lila.i18n.{ I18nKey, I18nKeys }
 import lila.rating.PerfType
 import lila.user.User
 
@@ -110,6 +111,13 @@ object Challenge {
     case object Accepted extends Status(40)
     val all                            = List(Created, Offline, Canceled, Declined, Accepted)
     def apply(id: Int): Option[Status] = all.find(_.id == id)
+  }
+
+  sealed abstract class DeclineReason(key: I18nKey)
+
+  object DeclineReason {
+    case object Generic extends DeclineReason(I18nKeys.challenge.declineGeneric)
+    case object Later   extends DeclineReason(I18nKeys.challenge.declineLater)
   }
 
   case class Rating(int: Int, provisional: Boolean) {

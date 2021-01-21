@@ -80,7 +80,7 @@ object bots {
               a(
                 dataIcon := "U",
                 cls := List("button button-empty text" -> true),
-                st.title := trans.challengeToPlay.txt(),
+                st.title := trans.challenge.challengeToPlay.txt(),
                 href := s"${routes.Lobby.home()}?user=${u.username}#friend"
               )(trans.play())
             )

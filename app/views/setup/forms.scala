@@ -94,7 +94,7 @@ object forms {
   )(implicit ctx: Context) =
     layout(
       "friend",
-      (if (user.isDefined) trans.challengeToPlay else trans.playWithAFriend)(),
+      (if (user.isDefined) trans.challenge.challengeToPlay else trans.playWithAFriend)(),
       routes.Setup.friend(user map (_.id)),
       error.map(e => raw(e.replace("{{user}}", userIdLink(user.map(_.id)).toString)))
     )(
