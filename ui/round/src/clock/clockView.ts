@@ -39,7 +39,6 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
   ] : [
       clock.showBar && game.bothPlayersHavePlayed(ctrl.data) ? showBar(ctrl, player.color) : undefined,
       h('div.time', {
-        attrs: { title: `${player.color} clock` },
         class: {
           hour: millis > 3600 * 1000
         },
