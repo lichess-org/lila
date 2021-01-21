@@ -601,7 +601,8 @@ POST  /api/challenge/:user             controllers.Challenge.apiCreate(user: Str
 POST  /api/challenge/$id<\w{8}>/accept controllers.Challenge.apiAccept(id: String)
 POST  /api/challenge/$id<\w{8}>/decline controllers.Challenge.apiDecline(id: String)
 POST  /api/challenge/$id<\w{8}>/cancel controllers.Challenge.apiCancel(id: String)
-POST  /api/challenge/$id<\w{8}>/start-clocks controllers.Challenge.apiStartClocks(id: String)
+POST  /api/challenge/$id<\w{8}>/start-clocks  controllers.Challenge.apiStartClocks(id: String)
+POST  /api/round/$id<\w{8}>/add-time/:seconds controllers.Round.apiAddTime(id: String, seconds: Int)
 GET   /api/cloud-eval                  controllers.Api.cloudEval
 GET   /api/broadcast                   controllers.Relay.apiIndex
 POST  /api/import                      controllers.Importer.apiSendGame

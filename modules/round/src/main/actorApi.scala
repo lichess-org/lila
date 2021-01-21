@@ -2,6 +2,7 @@ package lila.round
 package actorApi
 
 import scala.concurrent.Promise
+import scala.concurrent.duration._
 
 import chess.format.Uci
 import chess.{ Color, MoveMetrics }
@@ -48,7 +49,8 @@ package round {
   case class DrawNo(playerId: PlayerId)
   case class TakebackYes(playerId: PlayerId)
   case class TakebackNo(playerId: PlayerId)
-  case class Moretime(playerId: PlayerId)
+  object Moretime { val defaultDuration = 15.seconds }
+  case class Moretime(playerId: PlayerId, seconds: FiniteDuration = Moretime.defaultDuration)
   case object QuietFlag
   case class ClientFlag(color: Color, fromPlayerId: Option[PlayerId])
   case object Abandon

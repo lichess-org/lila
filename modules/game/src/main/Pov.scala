@@ -9,6 +9,8 @@ case class Pov(game: Game, color: Color) {
 
   def playerId = player.id
 
+  def typedPlayerId = Game.PlayerId(player.id)
+
   def fullId = game fullIdOf color
 
   def gameId = game.id
