@@ -26,6 +26,7 @@
   <string name="crushingDescription">Finn bukkin hjá mótleikaranum til tess at ogna tær knúsandi fyrimun. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Tvífalt bispamát</string>
   <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Tveir bispar, ið leypa á á tveimum grannahornalinjum, seta kongin, ið er forðaður av sínum egna fólki, skák og mát.</string>
+  <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Sýlt mát (dúgvuvelamát)</string>
   <string name="equality">Javnstøða</string>
   <string name="equalityDescription">Kom afturíaftur úr eini tapandi støðu, og tryggja tær remis ella eina javna støðu. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Álop kongamegin</string>
