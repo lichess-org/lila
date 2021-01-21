@@ -9,7 +9,7 @@
   <string name="yourTurn">Tocca a te</string>
   <string name="aiNameLevelAiLevel">%1$s livello %2$s</string>
   <string name="level">Livello</string>
-  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Forza</string>
+  <string name="strength">Forza</string>
   <string name="toggleTheChat">Attiva/disattiva la chat</string>
   <string name="toggleSound">Attiva/disattiva audio</string>
   <string name="chat">Chat</string>
@@ -384,7 +384,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="more">Altro</string>
   <string name="memberSince">Membro dal</string>
   <string name="lastSeenActive">Ultimo accesso %s</string>
-  <string name="challengeToPlay">Sfida a una partita</string>
   <string name="player">Giocatore</string>
   <string name="list">Lista</string>
   <string name="graph">Grafico</string>
@@ -737,7 +736,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="error.unknown">Errore</string>
   <string name="custom">Personalizza</string>
   <string name="notifications">Notifiche</string>
-  <string name="challenges">Sfide</string>
   <string name="perfRatingX">Punteggio: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s secondi per giocare la prima mossa</item>
@@ -784,12 +782,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="opening">Apertura</string>
   <string name="middlegame">Mediogioco</string>
   <string name="endgame">Finale</string>
-  <string name="registerToSendChallenges">Per favore, registrati per mandare sfide.</string>
-  <string name="youCannotChallengeX">Non puoi sfidare %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s non accetta sfide.</string>
-  <string name="yourXRatingIsTooFarFromY">Il tuo punteggio %1$s è troppo diverso da %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Non puoi sfidare poiché hai ancora un punteggio provvisorio in %s.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s accetta solo sfide da amici.</string>
   <string name="conditionalPremoves">Premosse condizionali</string>
   <string name="addCurrentVariation">Aggiungi variazione corrente</string>
   <string name="playVariationToCreateConditionalPremoves">Gioca una variazione per creare premosse condizionali</string>
@@ -843,7 +835,4 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="youCannotPostYetPlaySomeGames">Non puoi ancora postare nei forum. Gioca qualche partita!</string>
   <string name="subscribe">Iscriviti</string>
   <string name="unsubscribe">Annullare l\'iscrizione</string>
-  <string name="challengeDeclined">Sfida rifiutata</string>
-  <string name="challengeAccepted">Sfida accettata!</string>
-  <string name="challengeCanceled">Sfida annullata.</string>
 </resources>
