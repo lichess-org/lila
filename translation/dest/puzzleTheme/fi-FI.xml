@@ -12,6 +12,7 @@
   <string name="backRankMateDescription">Matita kuningas takarivillä, kun sen omat nappulat estävät sitä siirtymästä pois.</string>
   <string name="bishopEndgame">Lähettiloppupeli</string>
   <string name="bishopEndgameDescription">Loppupeli, jossa on vain lähettejä ja sotilaita.</string>
+  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Bodenin matti</string>
   <string name="castling">Linnoitus</string>
   <string name="castlingDescription">Vie kuninkaasi turvaan ja tuo tornisi mukaan hyökkäykseen.</string>
   <string name="capturingDefender">Lyö puolustava nappula</string>
