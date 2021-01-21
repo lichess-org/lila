@@ -5,6 +5,9 @@
   <string name="advantage">Артықшылық</string>
   <string name="advantageDescription">Шешуші артықшылық беретін сәтті жіберіп алмаңыз. (200-600 сп)</string>
   <string name="anastasiaMate">Анастасия маты</string>
+  <string name="anastasiaMateDescription">Ат пен тура не уәзірдің бірлесіп, қарсылас патшасын тақта шеті мен өз тасының арасында ұстап алуы.</string>
+  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Арабша мат</string>
+  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">Ат пен тураның бірлесіп қарсылас патшаны тақта бұрышында ұстап алуы.</string>
   <string name="attackingF2F7">f2 не f7-ге шабуылдау</string>
   <string name="attackingF2F7Description">\"Қуырылған бүйрек\" бастауындағыдай f2 не f7 сарбазына бағытталған шабуыл.</string>
   <string name="attraction">Тартымдылық</string>
@@ -13,6 +16,7 @@
   <string name="backRankMateDescription">Өз сабында өз тастарымен қамалған патшаға мат.</string>
   <string name="bishopEndgame">Пiл ойынсоңы</string>
   <string name="bishopEndgameDescription">Пілдер мен сарбаздары ғана бар ойынсоңы.</string>
+  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Бодэн маты</string>
   <string name="castling">Бекіну</string>
   <string name="castlingDescription">Патшаны қорғаулы жерге кіргізіп, тураны шабуылға даярлаңыз.</string>
   <string name="capturingDefender">Қорғаушыны жою</string>
