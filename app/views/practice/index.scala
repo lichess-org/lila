@@ -18,8 +18,8 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
 });"""),
       openGraph = lila.app.ui
         .OpenGraph(
-          title = "Practice your chess",
-          description = "Learn how to master the most common chess positions",
+          title = "Practice your shogi",
+          description = "Learn how to master the most common shogi positions",
           url = s"$netBaseUrl${routes.Page.notSupported()}" // index
         )
         .some
@@ -28,7 +28,7 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
         st.aside(cls := "page-menu__menu practice-side")(
           i(cls := "fat"),
           h1("Practice"),
-          h2("makes your chess perfect"),
+          h2("makes your shogi perfect"),
           div(cls := "progress")(
             div(cls := "text")("Progress: ", data.progressPercent, "%"),
             div(cls := "bar", style := s"width: ${data.progressPercent}%")

@@ -25,7 +25,7 @@ object coordinate {
           title = "Shogi board coordinates trainer",
           url = s"$netBaseUrl${routes.Coordinate.home().url}",
           description =
-            "Knowing the shogiboard coordinates is a very important shogi skill. A square name appears on the board and you must click on the correct square."
+            "Knowing the shogiban coordinates is a very important shogi skill. A square name appears on the board and you must click on the correct square."
         )
         .some,
       zoomable = true
