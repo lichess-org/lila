@@ -6,8 +6,8 @@
   <string name="advantageDescription">Wykorzystaj szansę na uzyskanie decydującej przewagi. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Mat Anastazji</string>
   <string name="anastasiaMateDescription">Skoczek, wieża lub hetman łączą siły, aby złapać przeciwnego króla w pułapkę pomiędzy bandą szachownicy, a jego inną figurą.</string>
-  <string name="arabianMate">Mat arabski</string>
-  <string name="arabianMateDescription">Skoczek i wieża współpracują razem, aby zaciągnąć króla w róg szachownicy.</string>
+  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Mat arabski</string>
+  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">Skoczek i wieża współpracują razem, aby zaciągnąć króla w róg szachownicy.</string>
   <string name="attackingF2F7">Atak na f2 lub f7</string>
   <string name="attackingF2F7Description">Atak koncentrujący się na pionach f2 lub f7, na przykład taki jak w szewskim macie.</string>
   <string name="attraction">Przyciąganie</string>
@@ -16,18 +16,18 @@
   <string name="backRankMateDescription">Zamatuj króla uwięzionego w ostatnim rzędzie przez własne bierki.</string>
   <string name="bishopEndgame">Końcówka gońcowa</string>
   <string name="bishopEndgameDescription">Gra końcowa wyłącznie z gońcami i pionami.</string>
-  <string name="bodenMate">Mat Bodena</string>
-  <string name="bodenMateDescription">Dwa atakujące gońce na przeciwnych przekątnych matują króla ograniczonego przez własne bierki.</string>
+  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Mat Bodena</string>
+  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Dwa atakujące gońce na przeciwnych przekątnych matują króla ograniczonego przez własne bierki.</string>
   <string name="castling">Roszada</string>
   <string name="castlingDescription">Zabezpiecz swojego króla i wprowadź do gry wieżę.</string>
   <string name="capturingDefender">Zabicie obrońcy</string>
   <string name="capturingDefenderDescription">Usunięcie obrońcy który jest kluczowy do obrony innej figury, pozwalając na zbicie niebronionej figury w następnym ruchu.</string>
   <string name="crushing">Zmiażdżenie</string>
   <string name="crushingDescription">Zauważ błąd przeciwnika, aby uzyskać miażdżącą przewagę (ocena pozycji: powyżej 600cp)</string>
-  <string name="doubleBishopMate">Mat dwoma gońcami</string>
-  <string name="doubleBishopMateDescription">Dwa atakujące gońce na sąsiednich przekątnych matują króla ograniczonego przez własne bierki.</string>
-  <string name="dovetailMate">Jaskółczy ogon</string>
-  <string name="dovetailMateDescription">Hetman matuje sąsiedniego króla, którego jedyne dwa pola ucieczki są zablokowane przez własne bierki.</string>
+  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Mat dwoma gońcami</string>
+  <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Dwa atakujące gońce na sąsiednich przekątnych matują króla ograniczonego przez własne bierki.</string>
+  <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Jaskółczy ogon</string>
+  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">Hetman matuje sąsiedniego króla, którego jedyne dwa pola ucieczki są zablokowane przez własne bierki.</string>
   <string name="equality">Równowaga</string>
   <string name="equalityDescription">Odzyskaj remis bądź równowagę wychodząc z przegrywającej pozycji. (ocena pozycji: poniżej 200cp)</string>
   <string name="kingsideAttack">Atak skrzydłem królewskim</string>
