@@ -18,4 +18,6 @@
   <string name="declineTimeControl">Ich nehme keine Herausforderungen mit Bedenkzeit an.</string>
   <string name="declineRated">Bitte fordere mich stattdessen zu einer gewerteten Partie heraus.</string>
   <string name="declineCasual">Bitte fordere mich stattdessen zu einer ungewerteten Partie heraus.</string>
+  <string name="declineStandard">Ich akzeptiere derzeit keine Herausforderungen für andere Spielvarianten.</string>
+  <string name="declineVariant">Ich bin nicht bereit, diese Variante zu spielen.</string>
 </resources>
