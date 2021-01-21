@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">Вызовы</string>
+  <string name="challengeToPlay">Вызвать на игру</string>
+  <string name="challengeDeclined">Вызов отклонён</string>
+  <string name="challengeAccepted">Вызов принят!</string>
+  <string name="challengeCanceled">Вызов отменён.</string>
+  <string name="registerToSendChallenges">Зарегистрируйтесь, чтобы вызывать соперников на игру.</string>
+  <string name="youCannotChallengeX">Вы не можете вызвать на игру %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s не принимает вызовы.</string>
+  <string name="yourXRatingIsTooFarFromY">Ваш рейтинг %1$s слишком далёк от %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Невозможно из-за недостоверности рейтинга %s.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s принимает вызовы только от друзей.</string>
+  <string name="declineGeneric">Я не принимаю вызовы прямо сейчас.</string>
+  <string name="declineLater">Я не принимаю вызовы прямо сейчас, пожалуйста, вызовите меня позже.</string>
+</resources>
