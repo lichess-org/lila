@@ -107,8 +107,8 @@
   <string name="skewerDescription">Un tema che consiste in un pezzo di grande valore che viene attaccato e che si sposta, permettendo ad un pezzo dietro di esso di essere catturato o attaccato. Il contrario di un\'inchiodatura.</string>
   <string name="smotheredMate">Matto affogato</string>
   <string name="smotheredMateDescription">Uno scacco matto eseguito con un cavallo, in cui il re sotto scacco è incapace di spostarsi poiché circondato (\"affogato\") dai suoi stessi pezzi.</string>
-  <string name="superGM">Partite di Super GM</string>
-  <string name="superGMDescription">Puzzle da partite giocate dai migliori giocatori del mondo.</string>
+  <string name="superGM">Partite di Super-GM</string>
+  <string name="superGMDescription">Tattiche da partite giocate dai migliori giocatori del mondo.</string>
   <string name="trappedPiece">Pezzo intrappolato</string>
   <string name="trappedPieceDescription">Un pezzo che non può evitare la cattura a causa delle sue mosse limitate.</string>
   <string name="underPromotion">Sottopromozione</string>
