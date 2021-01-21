@@ -409,7 +409,6 @@
   <string name="more">Mai mult</string>
   <string name="memberSince">Membru din</string>
   <string name="lastSeenActive">Ultima autentificare %s</string>
-  <string name="challengeToPlay">Provocați la o partidă</string>
   <string name="player">Jucător</string>
   <string name="list">Listă</string>
   <string name="graph">Grafic</string>
@@ -769,7 +768,6 @@
   <string name="error.unknown">Eroare</string>
   <string name="custom">Personalizat</string>
   <string name="notifications">Notificări</string>
-  <string name="challenges">Provocări</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s secundă rămasă pentru a începe jocul</item>
@@ -818,12 +816,6 @@
   <string name="opening">Deschidere</string>
   <string name="middlegame">Mijlocul jocului</string>
   <string name="endgame">Sfârșitul jocului</string>
-  <string name="registerToSendChallenges">Vă rugăm să vă înregistrați pentru a trimite provocări.</string>
-  <string name="youCannotChallengeX">Nu puteți să-l provocați pe %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s nu acceptă provocări.</string>
-  <string name="yourXRatingIsTooFarFromY">Scorul tău de la %1$s este prea depărtat de scorul lui %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Nu puteți provoca din cauza scorului provizoriu %s.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s acceptă provocări doar de la prieteni.</string>
   <string name="conditionalPremoves">Mutări anticipate condiționale</string>
   <string name="addCurrentVariation">Adaugă variația curentă</string>
   <string name="playVariationToCreateConditionalPremoves">Joacă o variație pentru a crea mutări anticipate condiționale</string>
@@ -878,7 +870,4 @@
   <string name="youCannotPostYetPlaySomeGames">Încă nu puteți posta în forumuri. Jucați câteva partide!</string>
   <string name="subscribe">Abonați-vă</string>
   <string name="unsubscribe">Dezabonați-vă</string>
-  <string name="challengeDeclined">Provocare refuzată</string>
-  <string name="challengeAccepted">Provocare acceptată!</string>
-  <string name="challengeCanceled">Provocare anulată.</string>
 </resources>
