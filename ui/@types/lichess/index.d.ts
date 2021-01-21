@@ -222,9 +222,6 @@ interface LightUser {
   patron?: boolean
 }
 
-declare var SharedArrayBuffer: any | undefined;
-declare var Atomics: any | undefined;
-
 interface Navigator {
   deviceMemory: number;
 }
