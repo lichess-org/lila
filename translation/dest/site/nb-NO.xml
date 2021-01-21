@@ -9,7 +9,7 @@
   <string name="yourTurn">Ditt trekk</string>
   <string name="aiNameLevelAiLevel">%1$s på nivå %2$s</string>
   <string name="level">Nivå</string>
-  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Styrke</string>
+  <string name="strength">Styrke</string>
   <string name="toggleTheChat">Chat av/på</string>
   <string name="toggleSound">Lyd av/på</string>
   <string name="chat">Chat</string>
@@ -383,7 +383,6 @@
   <string name="more">Mer</string>
   <string name="memberSince">Medlem siden</string>
   <string name="lastSeenActive">Forrige pålogging %s</string>
-  <string name="challengeToPlay">Utfordre til et parti</string>
   <string name="player">Spiller</string>
   <string name="list">Liste</string>
   <string name="graph">Graf</string>
@@ -736,7 +735,6 @@
   <string name="error.unknown">Feil</string>
   <string name="custom">Tilpasset</string>
   <string name="notifications">Varsler</string>
-  <string name="challenges">Utfordringer</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund til å ta det første trekket</item>
@@ -783,12 +781,6 @@
   <string name="opening">Åpning</string>
   <string name="middlegame">Midtspill</string>
   <string name="endgame">Sluttspill</string>
-  <string name="registerToSendChallenges">Opprett en konto om du vil utforde andre.</string>
-  <string name="youCannotChallengeX">Du kan ikke utfordre %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s aksepterer ikke utfordringer.</string>
-  <string name="yourXRatingIsTooFarFromY">%1$s-ratingen din er for langt unna %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Kan ikke utfordre på grunn av provisorisk %s-rating.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s aksepterer kun utfordringer fra venner.</string>
   <string name="conditionalPremoves">Betingede forhåndstrekk</string>
   <string name="addCurrentVariation">Føy til gjeldende variant</string>
   <string name="playVariationToCreateConditionalPremoves">Spill en variant for å lage betingede forhåndstrekk</string>
@@ -842,7 +834,4 @@
   <string name="youCannotPostYetPlaySomeGames">Du kan ikke skrive innlegg i forumene ennå. Spill noen partier!</string>
   <string name="subscribe">Abonner</string>
   <string name="unsubscribe">Avslutt abonnement</string>
-  <string name="challengeDeclined">Utfordring avslått</string>
-  <string name="challengeAccepted">Utfordring godtatt!</string>
-  <string name="challengeCanceled">Utfordring avbrutt.</string>
 </resources>
