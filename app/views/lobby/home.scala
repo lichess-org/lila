@@ -183,6 +183,7 @@ object home {
           a(href := "/faq")(trans.faq.faqAbbreviation()),
           a(href := "/contact")(trans.contact.contact()),
           //a(href := "/mobile")(trans.mobileApp()),
+          ctx.noKid option a(href := routes.Page.resources())(trans.shogiResources()),
           a(href := routes.Page.tos())(trans.termsOfService()),
           a(href := routes.Page.privacy())(trans.privacy()),
           a(href := routes.Page.source())(trans.sourceCode()),
