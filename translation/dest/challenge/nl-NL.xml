@@ -15,4 +15,5 @@
   <string name="declineTooFast">Dit tempo is te snel voor mij, daag me alsjeblieft uit voor een langzamere partij.</string>
   <string name="declineTooSlow">Dit tempo is te traag voor mij, daag me alsjeblieft uit voor een snellere partij.</string>
   <string name="declineTimeControl">Ik neem geen uitdagingen aan met dit tempo.</string>
+  <string name="declineStandard">Momenteel neem ik geen uitdagingen aan voor varianten.</string>
 </resources>
