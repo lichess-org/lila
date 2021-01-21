@@ -27,7 +27,6 @@
   <string name="wantClearHistory">אני רוצה לנקות את ההיסטוריה או הדירוג שלי</string>
   <string name="cantClearHistory">לא ניתן לנקות את היסטוריית המשחק, היסטוריית הפאזלים, או הדירוגים שלך.</string>
   <string name="wantReport">אני רוצה לדווח על שחקן</string>
-  <string name="toReportAPlayer">כדי לדווח על שחקן על %s, השתמש בטופס הדיווח</string>
   <string name="youCanAlsoReachReportPage">אתה יכול גם להגיע לדף זה על ידי לחיצה על כפתור הדוח %s בדף הפרופיל.</string>
   <string name="doNotReportInForum">אל תדווחו על שחקנים בפורום.</string>
   <string name="doNotSendReportEmails">אל תשלחו לנו אימיילים כדי לדווח.</string>
