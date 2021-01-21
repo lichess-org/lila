@@ -5,7 +5,7 @@
   <string name="phases">Faze</string>
   <string name="lengths">Lungimi</string>
   <string name="goals">Obiective</string>
-  <string name="origin">Origine</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Origine</string>
   <string name="specialMoves">Mutări speciale</string>
   <string name="didYouLikeThisPuzzle">Ți-a plăcut această problemă?</string>
   <string name="voteToLoadNextOne">Votează pentru a-l încărca pe următorul!</string>
