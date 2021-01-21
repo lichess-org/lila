@@ -11,13 +11,13 @@
   <string name="pgnPieceNotation">Şahmat notasiyası</string>
   <string name="chessPieceSymbol">Şahmat fiqur simvolu</string>
   <string name="pgnLetter">Hərf (K, Q, R, B, N)</string>
-  <string name="zenMode">Zen rejimi</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen rejimi</string>
   <string name="displayBoardResizeHandle">Lövhə ölçüləndirmə tutacağını göstər</string>
   <string name="onlyOnInitialPosition">Yalnız başlanğıc pozisiyada</string>
   <string name="blindfoldChess">Gözübağlı şahmat (görünməz fiqurlar)</string>
   <string name="chessClock">Şahmat saat</string>
   <string name="tenthsOfSeconds">Son 10 saniyə</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Qalan zaman &lt; 10 saniyə</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Qalan zaman &lt; 10 saniyə</string>
   <string name="horizontalGreenProgressBars">Yaşıl üfüqi tərəqqi bar</string>
   <string name="soundWhenTimeGetsCritical">Zaman azaldığında səslə xəbərdarlıq</string>
   <string name="giveMoreTime">Vaxt ver</string>
