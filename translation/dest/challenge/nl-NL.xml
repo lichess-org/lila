@@ -12,8 +12,11 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s neemt alleen uitdagingen aan van vrienden.</string>
   <string name="declineGeneric">Momenteel neem ik geen uitdagingen aan.</string>
   <string name="declineLater">Op dit moment neem ik geen uitdagingen aan, probeer het later nog eens.</string>
-  <string name="declineTooFast">Dit tempo is te snel voor mij, daag me alsjeblieft uit voor een langzamere partij.</string>
-  <string name="declineTooSlow">Dit tempo is te traag voor mij, daag me alsjeblieft uit voor een snellere partij.</string>
+  <string name="declineTooFast">Dit tempo is mij te snel, daag me a.u.b. uit voor een langzamere partij.</string>
+  <string name="declineTooSlow">Dit tempo is mij te traag, daag me a.u.b. uit voor een snellere partij.</string>
   <string name="declineTimeControl">Ik neem geen uitdagingen aan met dit tempo.</string>
+  <string name="declineRated">Stuur me a.u.b. een uitdaging met rating.</string>
+  <string name="declineCasual">Stuur me a.u.b. een uitdaging zonder rating.</string>
   <string name="declineStandard">Momenteel neem ik geen uitdagingen aan voor varianten.</string>
+  <string name="declineVariant">Momenteel voel ik er niet voor om deze variant te spelen.</string>
 </resources>
