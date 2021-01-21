@@ -9,7 +9,7 @@
   <string name="yourTurn">Ваш хід</string>
   <string name="aiNameLevelAiLevel">%1$s рівень %2$s</string>
   <string name="level">Рівень</string>
-  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Рівень</string>
+  <string name="strength">Рівень</string>
   <string name="toggleTheChat">Вимк./увімк. чат</string>
   <string name="toggleSound">Вимк./увімк. звук</string>
   <string name="chat">Чат</string>
@@ -438,7 +438,6 @@
   <string name="more">Більше</string>
   <string name="memberSince">Зареєстрований</string>
   <string name="lastSeenActive">Був в мережі %s</string>
-  <string name="challengeToPlay">Виклик на гру</string>
   <string name="player">Гравець</string>
   <string name="list">Список</string>
   <string name="graph">Графік</string>
@@ -803,7 +802,6 @@
   <string name="error.unknown">Помилка</string>
   <string name="custom">Своя гра</string>
   <string name="notifications">Сповіщення</string>
-  <string name="challenges">Виклики</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда на перший хід</item>
@@ -854,12 +852,6 @@
   <string name="opening">Дебют</string>
   <string name="middlegame">Міттельшпіль</string>
   <string name="endgame">Ендшпіль</string>
-  <string name="registerToSendChallenges">Зареєструйтесь, щоб викликати суперників на гру.</string>
-  <string name="youCannotChallengeX">Ви не можете викликати на гру %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s не приймає викликів.</string>
-  <string name="yourXRatingIsTooFarFromY">Ваш рейтинг %1$s дуже далекий від %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Неможливо через недостовірність рейтингу %s.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s приймає виклики тільки від друзів.</string>
   <string name="conditionalPremoves">Умовні ходи на випередження</string>
   <string name="addCurrentVariation">Додати поточний варіант</string>
   <string name="playVariationToCreateConditionalPremoves">Виконайте ходи на шахівниці, щоб встановити умовні ходи на випередження</string>
@@ -915,7 +907,4 @@
   <string name="youCannotPostYetPlaySomeGames">Ви не можете писати нові повідомлення у форумах. Зіграйте кілька ігор!</string>
   <string name="subscribe">Підписатись</string>
   <string name="unsubscribe">Відписатись</string>
-  <string name="challengeDeclined">Виклик відхилено</string>
-  <string name="challengeAccepted">Виклик прийнято!</string>
-  <string name="challengeCanceled">Виклик скасовано.</string>
 </resources>
