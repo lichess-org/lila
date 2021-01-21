@@ -27,7 +27,6 @@
   <string name="wantClearHistory">Сакам да ја избришам мојата историја или мојот рејтинг</string>
   <string name="cantClearHistory">Не е возможно да ја избришете вашата историја на партии, загатки, или рејтинг.</string>
   <string name="wantReport">Сакам да пријавам играч</string>
-  <string name="toReportAPlayer">За да пријавите играч за %s, користете го формуларот за пријава</string>
   <string name="youCanAlsoReachReportPage">На страната можете да стигнете и преку кликање на %s копчето на нивниот профил.</string>
   <string name="doNotReportInForum">Не пријавувај играчи на форумот.</string>
   <string name="doNotSendReportEmails">Не ни праќај е-пошта со пријави.</string>
