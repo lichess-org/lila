@@ -20,16 +20,18 @@ object side {
       perf.nonEmpty option showPerf(perf, perfType)
 
     def showPerf(perf: lila.rating.Perf, perfType: PerfType) = {
-      val isGame = lila.rating.PerfType.isGame(perfType)
+      val isPuzzle = perfType == lila.rating.PerfType.Puzzle
       a(
         dataIcon := perfType.iconChar,
         title := perfType.desc,
         cls := List(
           "empty"  -> perf.isEmpty,
-          "game"   -> isGame,
           "active" -> active.has(perfType)
         ),
-        href := isGame option routes.User.perfStat(u.username, perfType.key).url,
+        href := {
+          if (isPuzzle) routes.Puzzle.dashboard(30, "home")
+          else routes.User.perfStat(u.username, perfType.key)
+        },
         span(
           h3(perfType.trans),
           st.rating(
@@ -53,7 +55,7 @@ object side {
             )
           }
         ),
-        isGame option iconTag("G")
+        !isPuzzle option iconTag("G")
       )
     }
 
