@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">Uitdagingen</string>
+  <string name="challengeToPlay">Uitdagen voor een partij</string>
+  <string name="challengeDeclined">Uitdaging geweigerd</string>
+  <string name="challengeAccepted">Uitdaging aangenomen!</string>
+  <string name="challengeCanceled">Uitdaging geannuleerd.</string>
+  <string name="registerToSendChallenges">Gelieve te registreren om uitdagingen te versturen.</string>
+  <string name="youCannotChallengeX">Je kunt %s niet uitdagen.</string>
+  <string name="xDoesNotAcceptChallenges">%s neemt geen uitdagingen aan.</string>
+  <string name="yourXRatingIsTooFarFromY">Je rating van %1$s wijkt te veel af van %2$s.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s neemt alleen uitdagingen aan van vrienden.</string>
+  <string name="declineGeneric">Momenteel neem ik geen uitdagingen aan.</string>
+  <string name="declineLater">Op dit moment neem ik geen uitdagingen aan, probeer het later nog eens.</string>
+</resources>
