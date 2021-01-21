@@ -27,6 +27,7 @@
   <string name="wantClearHistory">Tarixçəmi və ya reytinqimi sıfırlamaq istəyirəm</string>
   <string name="cantClearHistory">Oyun tarixçənizi, tapmaca tarixçənizi və ya reytinqlərinizi sıfırlamaq mümkün deyil.</string>
   <string name="wantReport">Bir oyunçunu bildirmək istəyirəm</string>
+  <string name="toReportAPlayerUseForm">Bir oyunçunu şikayət etmək üçün şikayət formundan istifadə edin</string>
   <string name="youCanAlsoReachReportPage">Bir profil səhifəsindəki %s şikayət düyməsinə basaraq da həmin səhifəyə daxil ola bilərsiniz.</string>
   <string name="doNotReportInForum">Forumdakı oyunçuları şikayət etməyin.</string>
   <string name="doNotSendReportEmails">Bizə şikayət emailləri göndərməyin.</string>
