@@ -11,15 +11,15 @@
   <string name="attraction">Attraktion</string>
   <string name="attractionDescription">Ett byte eller offer som inbjuder eller tvingar motståndarens pjäs till en ruta som ger möjlighet till fler taktiska finesser.</string>
   <string name="backRankMate">Plaskmatt</string>
-  <string name="backRankMateDescription">Schackmattar kungen på första raden, när den är instängd av sina egna pjäser.</string>
+  <string name="backRankMateDescription">Schackmatta kungen på första raden, när den är instängd av sina egna pjäser.</string>
   <string name="bishopEndgame">Löparslutspel</string>
   <string name="bishopEndgameDescription">Ett slutspel med bara löpare och bönder.</string>
   <string name="castling">Rockad</string>
   <string name="castlingDescription">För din kung i säkerhet, och använd ditt torn till att angripa.</string>
   <string name="capturingDefender">Ta försvararen</string>
-  <string name="capturingDefenderDescription">Ta en pjäs som försvarar av en annan pjäs, så att du kan ta den nu oförsvarade pjäsen i nästa drag.</string>
-  <string name="crushing">Krossa</string>
-  <string name="crushingDescription">Upptäck motståndare blunder för att få en förkrossande fördel. (eval ≥ 600cp)</string>
+  <string name="capturingDefenderDescription">Ta en pjäs som försvarar en annan pjäs, så att du kan ta den nu oförsvarade pjäsen i nästa drag.</string>
+  <string name="crushing">Krossande</string>
+  <string name="crushingDescription">Upptäck motståndares blunder för att få en förkrossande fördel. (eval ≥ 600cp)</string>
   <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">En dam levererar matt till en närliggande kung, vars enda två flyktrutor blockeras av egna pjäser.</string>
   <string name="equality">Utjämning</string>
   <string name="equalityDescription">Kom tillbaka från en förlorad position och säkra en remi eller en utjämnad position. (eval ≤ 200cp)</string>
