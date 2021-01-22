@@ -1,15 +1,23 @@
 package lila.storm
 
+import reactivemongo.api.bson.BSONNull
 import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext
 
 import lila.db.AsyncColl
-import lila.memo.CacheApi
 import lila.db.dsl._
+import lila.memo.CacheApi
 import lila.puzzle.PuzzleColls
 
-final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi) {
+final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: ExecutionContext) {
+
+  import BsonHandlers._
 
   val poolSize = 100
+  val theme    = lila.puzzle.PuzzleTheme.mix.key.value
+  val tier     = lila.puzzle.PuzzleTier.Good.key
+
+  val ratings = (1000 to 2000 by 100).toList
 
   private val current = cacheApi.unit[List[StormPuzzle]] {
     _.refreshAfterWrite(10 seconds)
@@ -17,29 +25,58 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi) {
         colls.path {
           _.aggregateList(poolSize) { framework =>
             import framework._
-            Match(pathApi.select(theme, tier, ratingRange)) -> List(
-              Sample(pathSampleSize),
-              Project($doc("puzzleId" -> "$ids", "_id" -> false)),
-              Unwind("puzzleId"),
-              Sample(poolSize),
+            Facet(
+              ratings.map { rating =>
+                rating.toString -> List(
+                  Match(
+                    $doc(
+                      "min" $lte s"${theme}_${tier}_${rating}%04d",
+                      "max" $gt s"${theme}_${tier}_${rating}%04d"
+                    )
+                  ),
+                  Project($doc("_id" -> false, "ids" -> true)),
+                  Sample(1),
+                  UnwindField("ids"),
+                  Sample(20),
+                  Group(BSONNull)("ids" -> PushField("ids"))
+                )
+              }
+            ) -> List(
+              Project($doc("all" -> $doc("$setUnion" -> ratings.map(r => s"$$$r")))),
+              UnwindField("all"),
+              UnwindField("all.ids"),
+              Project($doc("id" -> "$all.ids")),
               PipelineOperator(
                 $doc(
                   "$lookup" -> $doc(
-                    "from"         -> colls.puzzle.name.value,
-                    "localField"   -> "puzzleId",
-                    "foreignField" -> "_id",
-                    "as"           -> "puzzle"
+                    "from" -> colls.puzzle.name.value,
+                    "as"   -> "puzzle",
+                    "let"  -> $doc("id" -> "$id"),
+                    "pipeline" -> $arr(
+                      $doc(
+                        "$match" -> $doc(
+                          "$expr" -> $doc(
+                            "$and" -> $arr(
+                              $doc("$eq" -> $arr("$_id", "$$id")),
+                              $doc("$lt" -> $arr("$glicko.d", 100))
+                            )
+                          )
+                        )
+                      ),
+                      $doc("$project" -> $doc("fen" -> true, "line" -> true, "glicko.r" -> true))
+                    )
                   )
                 )
               ),
-              PipelineOperator(
-                $doc(
-                  "$replaceWith" -> $doc("$arrayElemAt" -> $arr("$puzzle", 0))
-                )
-              )
+              UnwindField("puzzle"),
+              ReplaceRootField("puzzle"),
+              Sample(100),
+              Sort(Ascending("glicko.r")),
+              Project($doc("glicko" -> false))
             )
-          }.map {
-            _.view.flatMap(PuzzleBSONReader.readOpt).toVector
+          }.map { docs =>
+            println(docs map lila.db.BSON.debug)
+            docs.flatMap(StormPuzzleBSONReader.readOpt)
           }
         }
       }

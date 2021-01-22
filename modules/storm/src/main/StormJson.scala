@@ -21,7 +21,7 @@ object StormJson {
     Json.obj(
       "id"   -> p.id,
       "fen"  -> p.fen.value,
-      "line" -> p.line.toList.map(_.uci)
+      "line" -> p.line.toList.map(_.uci).mkString(" ")
     )
   }
 }

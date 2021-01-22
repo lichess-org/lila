@@ -1,0 +1,27 @@
+{
+  "name": "storm",
+  "version": "2.0.0",
+  "private": true,
+  "description": "lichess.org puzzle storm",
+  "keywords": [
+    "chess",
+    "lichess",
+    "puzzle",
+    "storm"
+  ],
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0-or-later",
+  "devDependencies": {
+    "@build/rollupProject": "2.0.0",
+    "@types/lichess": "2.0.0"
+  },
+  "dependencies": {
+    "chessground": "^7.9.2",
+    "common": "2.0.0",
+    "snabbdom": "^0.7.4"
+  },
+  "scripts": {
+    "dev": "rollup --config",
+    "prod": "rollup --config --config-prod"
+  }
+}

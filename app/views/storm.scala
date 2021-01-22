@@ -15,7 +15,7 @@ object storm {
       moreJs = frag(
         jsModule("storm"),
         embedJsUnsafeLoadThen(
-          s"""LichessStorm(${safeJsonValue(
+          s"""LichessStorm.start(${safeJsonValue(
             Json.obj(
               "data" -> json,
               "i18n" -> jsI18n
@@ -25,7 +25,7 @@ object storm {
       ),
       title = "Puzzle Storm"
     ) {
-      main(cls := "box storm-app")
+      main(cls := "box storm")
     }
 
   def jsI18n(implicit ctx: Context) = i18nJsObject(i18nKeys)
