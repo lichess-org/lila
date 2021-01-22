@@ -45,6 +45,7 @@
   <string name="onlyContributorsCanRequestAnalysis">只有研究專案編輯者才能要求電腦分析</string>
   <string name="getAFullComputerAnalysis">請求伺服器完整的分析主要走法</string>
   <string name="makeSureTheChapterIsComplete">確認此章節已完成，您只能要求分析一次</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">所有的SYNC成員處於相同局面</string>
   <string name="playing">下棋中</string>
   <string name="first">第一個</string>
   <string name="previous">上一個</string>
@@ -94,6 +95,7 @@
   <string name="createChapter">建立章節</string>
   <string name="createStudy">建立研究</string>
   <string name="editStudy">編輯此研究</string>
+  <string name="visibility">權限</string>
   <string name="public">公開的</string>
   <string name="inviteOnly">僅限邀請</string>
   <string name="allowCloning">可以複製</string>
@@ -101,6 +103,8 @@
   <string name="onlyMe">僅自己</string>
   <string name="members">成員</string>
   <string name="everyone">所有人</string>
+  <string name="enableSync">允許同步</string>
+  <string name="pinnedStudyComment">置頂研究留言</string>
   <string name="start">開始</string>
   <string name="save">存檔</string>
   <string name="deleteStudy">刪除此研究</string>
