@@ -149,6 +149,14 @@
   <string name="correspondence">tenpo suno mute</string>
   <string name="daysPerTurn">wan musi li kepeken e tenpo suno pi mute seme</string>
   <string name="oneDay">tenpo suno wan</string>
+  <plurals name="nbDays">
+    <item quantity="one">tenpo suno %s</item>
+    <item quantity="other">tenpo suno %s</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">tenpo Ola %s</item>
+    <item quantity="other">tenpo Ola %s</item>
+  </plurals>
   <string name="time">tenpo</string>
   <string name="rating">nanpa</string>
   <string name="ratingStats">nanpa mute</string>
@@ -228,6 +236,10 @@
   </plurals>
   <string name="exportGames">o kama jo e musi</string>
   <string name="ratingRange">nanpa Glicko</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">o pana e tenpo Sekunta %s</item>
+    <item quantity="other">o pana e tenpo Sekunta %s</item>
+  </plurals>
   <string name="thisAccountViolatedTos">jan pi lipu jan ni li pali e ijo ni: ona li ike tawa nasin lawa pi kulupu Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">jan ni li sewi e nanpa ona kepeken ilo</string>
   <string name="takeback">kama jo sin</string>
@@ -289,6 +301,14 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="unblock">pakala e pake</string>
   <string name="followsYou">jan pi tawa poka sina</string>
   <string name="xStartedFollowingY">jan %1$s li kama tawa poka jan %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">jan tawa poka %s</item>
+    <item quantity="other">jan tawa poka %s</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="one">tawa poka jan %s</item>
+    <item quantity="other">tawa poka jan %s</item>
+  </plurals>
   <string name="more">o sona e mute</string>
   <string name="memberSince">tenpo pi kama lon ma ni</string>
   <string name="lastSeenActive">tenpo pini pi lon ma ni %s</string>
@@ -572,6 +592,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="blitzDesc">musi pi tenpo lili (tenpo Minuta 3 - 8)</string>
   <string name="rapidDesc">musi pi tenpo pi suli lili (tenpo Minuta 8 - 25)</string>
   <string name="classicalDesc">musi pi tenpo suli (tenpo Minuta 25 li lili)</string>
+  <string name="correspondenceDesc">musi pi sitelen lipu (tawa lon tenpo suno wan anu mute)</string>
   <string name="important">suli</string>
   <string name="teamNamedX">kulupu %1$s</string>
   <string name="subscribe">o kama jo e sona</string>
