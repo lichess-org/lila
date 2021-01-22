@@ -13,4 +13,11 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s prihvaća samo izazove od prijatelja.</string>
   <string name="declineGeneric">Trenutačno ne prihvaćam izazove.</string>
   <string name="declineLater">Trenutačno nije najbolje vrijeme, molimo Vas pokušajte kasnije.</string>
+  <string name="declineTooFast">Ovaj vremenski format je prebrz za mene, molim Vas da me izazovete na sporiji format.</string>
+  <string name="declineTooSlow">Ovaj vremenski format je prespor za mene, molim Vas da me izazovete na brži format.</string>
+  <string name="declineTimeControl">Ne prihvaćam izazove u ovom vremenskom formatu.</string>
+  <string name="declineRated">Molim Vas da me radije izazovete na rangiranu partiju.</string>
+  <string name="declineCasual">Molim Vas da me radije izazovete na ležernu partiju.</string>
+  <string name="declineStandard">Ne prihvaćam izazove u ovoj varijanti.</string>
+  <string name="declineVariant">Trenutačno ne želim igrati ovu varijantu.</string>
 </resources>
