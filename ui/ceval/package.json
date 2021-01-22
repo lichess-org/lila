@@ -19,7 +19,6 @@
     "prod": "yarn run compile"
   },
   "devDependencies": {
-    "@types/defer-promise": "1.0.0",
     "@types/lichess": "2.0.0",
     "typescript": "^4.1.3"
   },

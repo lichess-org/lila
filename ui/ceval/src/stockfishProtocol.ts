@@ -1,6 +1,6 @@
 import { lichessVariantRules } from 'chessops/compat';
 import { WorkerOpts, Work } from './types';
-import { defer } from 'common/defer';
+import { Deferred, defer } from 'common/defer';
 
 const EVAL_REGEX = new RegExp(''
   + /^info depth (\d+) seldepth \d+ multipv (\d+) /.source
@@ -13,7 +13,7 @@ export default class Protocol {
   private work: Work | null = null;
   private curEval: Tree.ClientEval | null = null;
   private expectedPvs = 1;
-  private stopped: DeferPromise.Deferred<void> | null;
+  private stopped: Deferred<void> | null;
 
   public engineName: string | undefined;
 

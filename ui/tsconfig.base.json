@@ -11,6 +11,6 @@
     "target": "ES2016",
     "module": "commonjs",
     "lib": ["DOM", "ES2017", "DOM.iterable"],
-    "types": ["lichess", "cash", "defer-promise"]
+    "types": ["lichess", "cash"]
   }
 }
