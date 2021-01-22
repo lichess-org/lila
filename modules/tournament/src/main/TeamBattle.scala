@@ -15,6 +15,9 @@ case class TeamBattle(
 
 object TeamBattle {
 
+  val maxTeams     = 1000
+  val displayTeams = 10
+
   def init(teamId: TeamID) = TeamBattle(Set(teamId), 5)
 
   case class TeamVs(teams: chess.Color.Map[TeamID])
@@ -58,8 +61,8 @@ object TeamBattle {
     )(Setup.apply)(Setup.unapply)
       .verifying("We need at least 2 teams", s => s.potentialTeamIds.sizeIs > 1)
       .verifying(
-        "In this version of team battles, no more than 10 teams can be allowed.",
-        s => s.potentialTeamIds.sizeIs <= 10
+        s"In this version of team battles, no more than $maxTeams teams can be allowed.",
+        s => s.potentialTeamIds.sizeIs <= maxTeams
       )
 
     def edit(teams: List[String], nbLeaders: Int) =

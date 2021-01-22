@@ -55,7 +55,7 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
   ): Fu[List[TeamBattle.RankedTeam]] = {
     import TeamBattle.{ RankedTeam, TeamLeader }
     coll
-      .aggregateList(maxDocs = 10) { framework =>
+      .aggregateList(maxDocs = TeamBattle.maxTeams) { framework =>
         import framework._
         Match(selectTour(tourId)) -> List(
           Sort(Descending("m")),
