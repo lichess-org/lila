@@ -9,6 +9,7 @@
   <string name="yourTurn">sina o musi</string>
   <string name="aiNameLevelAiLevel">musi %1$s pi nanpa pona %2$s</string>
   <string name="level">mute pona</string>
+  <string name="strength">wawa pi toki insa</string>
   <string name="toggleTheChat">toki o lon ala lon?</string>
   <string name="toggleSound">kalama</string>
   <string name="chat">tomo toki</string>
@@ -54,6 +55,7 @@
   <string name="computerAnalysis">ilo sona li lukin e musi</string>
   <string name="computerAnalysisAvailable">ilo sona li ken pana e sona musi</string>
   <string name="analysis">sona musi</string>
+  <string name="depthX">sona pi tawa kama: %s</string>
   <string name="usingServerAnalysis">kepeken ilo pana pi lipu sona</string>
   <string name="loadingEngine">ilo lawa li kama...</string>
   <string name="cloudAnalysis">sona tan telo walo lon sewi</string>
@@ -80,8 +82,15 @@
   <string name="whiteDrawBlack">walo / ala / pimeja</string>
   <string name="recentGames">musi namako</string>
   <string name="topGames">musi pona pona</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">lawa mije li moli lon tawa %s</item>
+    <item quantity="other">lawa mije li moli lon tawa %s</item>
+  </plurals>
   <string name="noGameFound">musi ala li lon</string>
   <string name="openingExplorer">ilo open</string>
+  <string name="xOpeningExplorer">ilo lukin pi tawa open pi nasin %s</string>
+  <string name="winPreventedBy50MoveRule">nasin pi tenpo tawa 50 li toki e ni: jan ante li anpa ala</string>
+  <string name="lossSavedBy50MoveRule">nasin pi tenpo tawa 50 li toki e ni: jan ni li anpa ala</string>
   <string name="allSet">ali li pali a!</string>
   <string name="importPgn">pana lon insa ma ni e PGN</string>
   <string name="delete">weka</string>
