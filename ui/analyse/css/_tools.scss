@@ -4,9 +4,6 @@
 
     max-height: 100vh;
 
-    /* magically fixes fit-content on safari 10 */
-    background: $c-bg-box;
-
     .ceval {
       flex: 0 0 38px;
     }

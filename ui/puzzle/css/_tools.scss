@@ -3,9 +3,6 @@
 
   max-height: 90vh;
 
-  /* hack to mitigate safari 10 disaster */
-  background: $c-bg-box;
-
   .ceval-wrap {
     flex: 0 0 38px;
   }
