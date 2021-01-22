@@ -13,6 +13,7 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s accepterar endast utmaningar från vänner.</string>
   <string name="declineGeneric">Jag accepterar inte utmaningar för tillfället.</string>
   <string name="declineLater">Detta är inte rätt tid för mig, vänligen fråga igen senare.</string>
+  <string name="declineTimeControl">Jag accepterar inte utmaningar med denna tidskontroll.</string>
   <string name="declineRated">Vänligen skicka en rankad utmaning istället.</string>
   <string name="declineCasual">Vänligen skicka en orankad utmaning istället.</string>
 </resources>
