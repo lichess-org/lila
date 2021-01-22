@@ -52,6 +52,7 @@
   <string name="hangingPiece">Ilmainen nappula</string>
   <string name="hangingPieceDescription">Taktiikka, jossa vastustajan nappulaa ei ole suojattu lainkaan tai ei riittävästi, ja jossa se on vapaasti lyötävissä.</string>
   <string name="hookMate">Koukkumatti</string>
+  <string name="hookMateDescription">Tornin, ratsun ja sotilaan yhteispelillä syntyvä matti, jossa vastustajan sotilas vie kuninkaaltaan yhden pakoruudun.</string>
   <string name="interference">Katko</string>
   <string name="interferenceDescription">Siirrä nappulasi kahden vastustajan nappulan väliin niin, että yksi tai molemmat vastustajan nappuloista jäävät ilman suojaa, esimerkiksi ratsusi suojattuun ruutuun kahden tornin väliin.</string>
   <string name="intermezzo">Välisiirto</string>
