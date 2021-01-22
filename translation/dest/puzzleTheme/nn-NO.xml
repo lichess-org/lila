@@ -56,7 +56,7 @@
   <string name="interference">Hindring</string>
   <string name="interferenceDescription">Flytte ei brikke mellom to motstandarbrikker for å oppnå at ei eller begge vert udekka. Til dømes ein springar til eit dekka felt mellom to tårn.</string>
   <string name="intermezzo">Mellomtrekk</string>
-  <string name="intermezzoDescription">Eit trekk som kjem før det venta trekket og som motspelaren må svare på. I engelsk sjakklitteratur vert det tyske omgrepet \"Zwischenzug\" nytta.</string>
+  <string name="intermezzoDescription">Eit trekk som kjem før det venta trekket og som utgjer eit trugsmål motspelaren straks må svare på.</string>
   <string name="knightEndgame">Springarsluttspel</string>
   <string name="knightEndgameDescription">Eit sluttspel med berre springarar og bønder.</string>
   <string name="long">Lang taktikkoppgåve</string>
