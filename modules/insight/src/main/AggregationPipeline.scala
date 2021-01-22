@@ -17,7 +17,7 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
         import question.{ dimension, filters, metric }
 
         import lila.insight.{ Dimension => D, Metric => M }
-        import Entry.{ BSONFields => F }
+        import InsightEntry.{ BSONFields => F }
         import Storage._
 
         val sampleGames    = Sample(10_000)

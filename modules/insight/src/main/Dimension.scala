@@ -28,7 +28,7 @@ object Dimension {
 
   import BSONHandlers._
   import Position._
-  import Entry.{ BSONFields => F }
+  import InsightEntry.{ BSONFields => F }
   import lila.rating.BSONHandlers.perfTypeIdHandler
 
   case object Period
