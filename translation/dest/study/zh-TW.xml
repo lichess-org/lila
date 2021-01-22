@@ -40,11 +40,16 @@
   <string name="newTag">新標籤</string>
   <string name="commentThisPosition">對於目前局面的評論</string>
   <string name="commentThisMove">對於此棋步的評論</string>
+  <string name="playing">下棋中</string>
   <string name="first">第一個</string>
   <string name="previous">上一個</string>
   <string name="next">下一個</string>
   <string name="last">最後一個</string>
   <string name="cloneStudy">複製</string>
+  <string name="studyPgn">研究PGN</string>
+  <string name="chapterPgn">章節PGN</string>
+  <string name="studyUrl">研究連結</string>
+  <string name="open">打開</string>
   <string name="hideNextMoves">隱藏下一步</string>
   <string name="empty">空的</string>
   <string name="editor">編輯器</string>
