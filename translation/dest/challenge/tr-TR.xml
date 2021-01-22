@@ -13,5 +13,6 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s sadece arkadaşlarından gelen oyun davetlerini kabul ediyor.</string>
   <string name="declineGeneric">Şimdilik oyun tekliflerini kabul etmiyorum.</string>
   <string name="declineLater">Şu anda müsait değilim, lütfen daha sonra yeniden teklif ediniz.</string>
+  <string name="declineStandard">Şimdilik standart dışı varyantlarda oyun tekliflerini kabul etmiyorum.</string>
   <string name="declineVariant">Şimdilik bu varyantı oynamak istemiyorum.</string>
 </resources>
