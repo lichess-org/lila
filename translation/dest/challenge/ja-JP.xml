@@ -18,4 +18,6 @@
   <string name="declineTimeControl">現在、この持時間での挑戦は受け付けていません。</string>
   <string name="declineRated">代わりにレート戦での挑戦を送ってください。</string>
   <string name="declineCasual">代わりに非レート戦での挑戦を送ってください。</string>
+  <string name="declineStandard">現在、バリアントでの挑戦は受け付けていません。</string>
+  <string name="declineVariant">今はこのバリアントで対戦するつもりはありません。</string>
 </resources>
