@@ -11,6 +11,8 @@ case class TeamBattle(
 ) {
   def hasEnoughTeams     = teams.sizeIs > 1
   lazy val sortedTeamIds = teams.toList.sorted
+
+  def hasTooManyTeams = teams.sizeIs > TeamBattle.displayTeams
 }
 
 object TeamBattle {
