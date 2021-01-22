@@ -26,6 +26,8 @@
   <string name="crushingDescription">Löydä vastustajan munaus ja hanki murskaava etu. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Kahden lähetin matti</string>
   <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Kaksi vierekkäisiltä diagonaaleilta hyökkäävää lähettiä matittaa omien nappuloidensa estämän kuninkaan.</string>
+  <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Cozion matti</string>
+  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">Daami matittaa vieressään olevan kuninkaan, jonka omat nappulat vievät siltä sen ainoat kaksi pakoruutua.</string>
   <string name="equality">Tasoitus</string>
   <string name="equalityDescription">Nouse häviöasemasta takaisin peliin ja saavuta tasapeli tai tasapainoinen asema. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Hyökkäys kuningassivustalla</string>
@@ -49,6 +51,7 @@
   <string name="forkDescription">Siirto, jolla siirrettävä nappula uhkaa samanaikaisesti kahta vastustajan nappulaa.</string>
   <string name="hangingPiece">Ilmainen nappula</string>
   <string name="hangingPieceDescription">Taktiikka, jossa vastustajan nappulaa ei ole suojattu lainkaan tai ei riittävästi, ja jossa se on vapaasti lyötävissä.</string>
+  <string name="hookMate">Koukkumatti</string>
   <string name="interference">Katko</string>
   <string name="interferenceDescription">Siirrä nappulasi kahden vastustajan nappulan väliin niin, että yksi tai molemmat vastustajan nappuloista jäävät ilman suojaa, esimerkiksi ratsusi suojattuun ruutuun kahden tornin väliin.</string>
   <string name="intermezzo">Välisiirto</string>
