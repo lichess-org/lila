@@ -52,25 +52,25 @@ object form {
           form3.split(
             form3.group(
               form("clockTime"),
-              raw("Clock initial time"),
+              trans.clockInitialTime(),
               //help = trans.simulClockHint().some,
               half = true
             )(form3.select(_, clockTimeChoices)),
             form3.group(
               form("clockByoyomi"),
-              raw("Clock byoyomi"),
+              trans.clockByoyomi(),
               half = true
               )(form3.select(_, clockByoyomiChoices))
           ),
           form3.split(
             form3.group(
               form("clockIncrement"),
-              raw("Clock Increment"),
+              trans.clockIncrement(),
               half = true
             )(form3.select(_, clockIncrementChoices)),
             form3.group(
               form("periods"),
-              raw("Number of byoyomi periods"),
+              trans.numberOfByoyomiPeriods(),
               half = true
               )(form3.select(_, periodsChoices))
           ),
@@ -83,13 +83,13 @@ object form {
             )(
               form3.select(_, clockExtraChoices)
             ),
-            form3.group(form("color"), raw("Host color for each game"), half = true)(
+            form3.group(form("color"), trans.hostColorForEachGame(), half = true)(
               form3.select(_, colorChoices)
             )
           ),
           form3.split(
             (teams.size > 0) ?? {
-              form3.group(form("team"), raw("Only members of team"), half = true)(
+              form3.group(form("team"), trans.onlyMembersOfTeam(), half = true)(
                 form3.select(_, List(("", "No Restriction")) ::: teams.map(_.pair))
               )
             },
@@ -121,8 +121,8 @@ object form {
           ),
           form3.group(
             form("text"),
-            raw("Simul description"),
-            help = frag("Anything you want to tell the participants?").some
+            trans.simulDescription(),
+            help = trans.anythingTellParticipants().some
           )(form3.textarea(_)(rows := 10)),
           form3.actions(
             a(href := routes.Simul.home())(trans.cancel()),
