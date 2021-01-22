@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">Meydan okumalar</string>
+  <string name="challengeToPlay">Oyun teklif et</string>
+  <string name="challengeDeclined">Oyun teklifi reddedildi</string>
+</resources>
