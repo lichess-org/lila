@@ -99,14 +99,14 @@
   <string name="sacrificeDescription">Taktikk der ei brikke blir ofra på kort sikt med tanke på seinare vinst eller ei tvungen trekkrekke.</string>
   <string name="short">Kort taktikkoppgåve</string>
   <string name="shortDescription">Vinst i to trekk.</string>
-  <string name="skewer">Spidder</string>
+  <string name="skewer">Spidding</string>
   <string name="skewerDescription">Ein manøver der ei høgverdig brikke kjem under åtak og må flytte slik at ei brikke av lågare verde som står bak kan slås ut eller verte truga. Spidding kan utførast med løpar, dronning eller tårn. Spiddar vert rekna som motsatsen til binding.</string>
   <string name="smotheredMate">Kvelarmatt</string>
   <string name="smotheredMateDescription">Ein sjakkmatt ved hjelp av ein springar der motspelarens konge er stengd inne (eller kjøvd) av eigne brikker.</string>
   <string name="superGM">Superstormeister-parti</string>
   <string name="superGMDescription">Oppgåver frå parti spela av verdas beste sjakkspelarar.</string>
   <string name="trappedPiece">Fanga brikke</string>
-  <string name="trappedPieceDescription">Ei brikke som ikkje kjem unna på grunn av mangel på utvegar.</string>
+  <string name="trappedPieceDescription">Ei brikke som ikkje kjem unna grunna mangel på utvegar.</string>
   <string name="underPromotion">Underforvandling</string>
   <string name="underPromotionDescription">Bondeforvandling til springar, løpar eller tårn.</string>
   <string name="veryLong">Svært lang taktikkoppgåve</string>
