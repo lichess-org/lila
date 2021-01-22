@@ -15,6 +15,7 @@
   <string name="declineLater">今は都合が悪いので、後でもう一度尋ねてください。</string>
   <string name="declineTooFast">この持時間は私には短すぎます。もっと長い持時間で挑戦してください。</string>
   <string name="declineTooSlow">この持時間は私には長すぎます。もっと短い持時間で挑戦してください。</string>
-  <string name="declineTimeControl">現在、この持時間での挑戦を受け付けていません。</string>
+  <string name="declineTimeControl">現在、この持時間での挑戦は受け付けていません。</string>
   <string name="declineRated">代わりにレート戦での挑戦を送ってください。</string>
+  <string name="declineCasual">代わりに非レート戦での挑戦を送ってください。</string>
 </resources>
