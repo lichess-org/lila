@@ -91,11 +91,21 @@ team {
   td {
     padding: 1rem 0.5rem;
   }
-}
 
-.tour__battle-standing {
-  td {
-    padding: 2rem 1rem;
+  .more-teams {
+    padding: 0 !important;
+
+    a {
+      padding: 1rem 0;
+      display: block;
+      text-align: center;
+    }
+  }
+
+  &--full {
+    td {
+      padding: 2rem 1rem;
+    }
   }
 }
 

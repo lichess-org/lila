@@ -1,9 +1,9 @@
+import TournamentController from '../ctrl';
+import { bind, onInsert, playerName } from './util';
 import { h } from 'snabbdom'
+import { TeamBattle, RankedTeam, TournamentData, MaybeVNode } from '../interfaces';
 import { VNode } from 'snabbdom/vnode';
 
-import { bind, onInsert, playerName } from './util';
-import { TeamBattle, RankedTeam } from '../interfaces';
-import TournamentController from '../ctrl';
 
 export function joinWithTeamSelector(ctrl: TournamentController) {
   const onClose = () => {
@@ -46,10 +46,35 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
 
 export function teamStanding(ctrl: TournamentController, klass?: string): VNode | null {
   const battle = ctrl.data.teamBattle,
-    standing = ctrl.data.teamStanding;
+    standing = ctrl.data.teamStanding,
+    bigBattle = battle && Object.keys(battle.teams).length > 10;
   return battle && standing ? h('table.slist.tour__team-standing' + (klass ? '.' + klass : ''), [
-    h('tbody', standing.map(rt => teamTr(ctrl, battle, rt)))
+    h('tbody', [
+      ...standing.map(rt => teamTr(ctrl, battle, rt)),
+      ...(bigBattle ? [
+        extraTeams(ctrl.data),
+        myTeam(ctrl, battle)
+      ] : [])
+    ])
   ]) : null;
+}
+
+function extraTeams(tour: TournamentData): VNode {
+  return h('tr',
+    h('td.more-teams', {
+      attrs: { colspan: 4 }
+    }, h('a', {
+      attrs: {
+        href: `/tournament/${tour.id}/teams`
+      },
+    }, 'View all teams')
+    )
+  );
+}
+
+function myTeam(ctrl: TournamentController, battle: TeamBattle): MaybeVNode {
+  const team = ctrl.data.myTeam;
+  return team && team.rank > 10 ? teamTr(ctrl, battle, team) : undefined;
 }
 
 export function teamName(battle: TeamBattle, teamId: string): VNode {
