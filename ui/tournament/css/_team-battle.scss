@@ -26,12 +26,14 @@ team {
 }
 
 .tour__team-standing {
-  tbody tr:nth-child(odd) {
-    background: $c-bg-zebra;
-  }
+  tbody tr {
+    &:nth-child(odd) {
+      background: $c-bg-zebra;
+    }
 
-  tbody tr:nth-child(even) {
-    background: $c-bg-box;
+    &:nth-child(even) {
+      background: $c-bg-box;
+    }
   }
 
   .team {
@@ -82,7 +84,7 @@ team {
     background: linear-gradient(to left, $c-active-border 0px, $c-active-border 5px, rgba(0, 0, 0, 0) 5px, rgba(0, 0, 0, 0) 100%);
   }
 
-  tr:hover {
+  .tour__main & tr:hover {
     background: mix($c-primary, $c-bg-box, 30%) !important;
   }
 
@@ -91,9 +93,13 @@ team {
   }
 }
 
-.team-battle {
-  &__title {}
+.tour__battle-standing {
+  td {
+    padding: 2rem 1rem;
+  }
+}
 
+.team-battle {
   &__list {
     a {
       display: block;

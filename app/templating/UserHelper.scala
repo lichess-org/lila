@@ -116,7 +116,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       withTitle: Boolean = true,
       truncate: Option[Int] = None,
       params: String = ""
-  )(implicit lang: Lang): Frag =
+  )(implicit lang: Lang): Tag =
     userIdNameLink(
       userId = user.id,
       username = user.name,
@@ -150,7 +150,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       title: Option[Title],
       params: String,
       modIcon: Boolean
-  )(implicit lang: Lang): Frag =
+  )(implicit lang: Lang): Tag =
     a(
       cls := userClass(userId, cssClass, withOnline),
       href := userUrl(username, params = params)
@@ -170,7 +170,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       withPerfRating: Option[PerfType] = None,
       name: Option[Frag] = None,
       params: String = ""
-  )(implicit lang: Lang): Frag =
+  )(implicit lang: Lang): Tag =
     a(
       cls := userClass(user.id, cssClass, withOnline, withPowerTip),
       href := userUrl(user.username, params)

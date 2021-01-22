@@ -236,6 +236,7 @@ GET   /tournament/$id<\w{8}>/team/:team       controllers.Tournament.teamInfo(id
 POST  /tournament/$id<\w{8}>/terminate        controllers.Tournament.terminate(id: String)
 GET   /tournament/$id<\w{8}>/edit             controllers.Tournament.edit(id: String)
 POST  /tournament/$id<\w{8}>/edit             controllers.Tournament.update(id: String)
+GET   /tournament/$id<\w{8}>/teams            controllers.Tournament.battleTeams(id: String)
 GET   /tournament/help                        controllers.Tournament.help(system: Option[String] ?= None)
 GET   /tournament/leaderboard                 controllers.Tournament.leaderboard
 GET   /tournament/shields                     controllers.Tournament.shields

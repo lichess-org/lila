@@ -1,14 +1,14 @@
 package views.html
 package tournament
 
+import controllers.routes
 import play.api.data.Form
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.tournament.TeamBattle
 import lila.tournament.Tournament
-
-import controllers.routes
 
 object teamBattle {
 
@@ -48,6 +48,39 @@ object teamBattle {
             ),
             form3.globalError(form),
             form3.submit("Update teams")(tour.isFinished.option(disabled))
+          )
+        )
+      )
+    )
+
+  private val scoreTag = tag("score")
+
+  def standing(tour: Tournament, battle: TeamBattle, standing: List[TeamBattle.RankedTeam])(implicit
+      ctx: Context
+  ) =
+    views.html.base.layout(
+      title = tour.name(),
+      moreCss = cssTag("tournament.show.team-battle")
+    )(
+      main(cls := "tour__battle-standing box")(
+        h1(a(href := routes.Tournament.show(tour.id))(tour.name())),
+        table(cls := "slist slist-pad tour__team-standing")(
+          tbody(
+            standing.map { t =>
+              tr(
+                td(cls := "rank")(t.rank),
+                td(cls := "team")(teamIdToName(t.teamId)),
+                td(cls := "players")(
+                  fragList(
+                    t.leaders.map { l =>
+                      scoreTag(dataHref := routes.User.show(l.userId), cls := "user-link ulpt")(l.score)
+                    },
+                    "+"
+                  )
+                ),
+                td(cls := "total")(t.score)
+              )
+            }
           )
         )
       )
