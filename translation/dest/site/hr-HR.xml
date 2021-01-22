@@ -9,6 +9,7 @@
   <string name="yourTurn">Tvoj potez</string>
   <string name="aiNameLevelAiLevel">%1$s razina %2$s</string>
   <string name="level">Razina</string>
+  <string name="strength">Jačina</string>
   <string name="toggleTheChat">Uključi/isključi chat</string>
   <string name="toggleSound">Uključi/isključi zvuk</string>
   <string name="chat">Chat</string>
@@ -539,6 +540,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="clockInitialTime">Početno vrijeme</string>
   <string name="clockIncrement">Vremenski dodatak</string>
   <string name="privacy">Privatnost</string>
+  <string name="privacyPolicy">Pravila privatnosti</string>
   <string name="letOtherPlayersFollowYou">Dopusti drugim igračima da te prate</string>
   <string name="letOtherPlayersChallengeYou">Dopusti drugim igračima da te izazovu</string>
   <string name="letOtherPlayersInviteYouToStudy">Dopusti drugim igračima da te pozovu u studiju</string>
@@ -688,6 +690,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ako ne vidiš email, pogledaj na drugim mjestima (otpad/smeće, neželjena pošta, društvene mreže ili druge mape).</string>
   <string name="weHaveSentYouAnEmailTo">Poslali smo email na %s. Klikni link u emailu da resetiraš lozinku.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registracijom prihvaćaš %s</string>
+  <string name="readAboutOur">Pročitaj naša %s.</string>
   <string name="networkLagBetweenYouAndLichess">Mrežno kašnjenje između tebe i lichess-a</string>
   <string name="timeToProcessAMoveOnLichessServer">Vrijeme obrade poteza na lichess serveru</string>
   <string name="downloadAnnotated">Preuzmi s bilješkama</string>
@@ -861,7 +864,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="inTheFAQ">u F.A.Q.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Za prijavu korisnika zbog varanja ili lošeg ponašanja, %1$s</string>
   <string name="useTheReportForm">koristite obrazac za prijavu</string>
-  <string name="toRequestSupport">Za zatraživanje podrške, %1$s</string>
+  <string name="toRequestSupport">Za potraživanje pomoći, %1$s</string>
   <string name="tryTheContactPage">kontaktirajte nas</string>
   <string name="thisTopicIsArchived">Ova tema je arhivirana i na nju više nije moguće odgovoriti.</string>
   <string name="joinTheTeamXToPost">Pridruži se %1$s za objavljivanje na ovom forumu</string>
