@@ -92,7 +92,7 @@
   <string name="queensideAttack">Dronningfløyåtak</string>
   <string name="queensideAttackDescription">Eit åtak på konge som er rokert til dronningfløya (lang rokade).</string>
   <string name="quietMove">Stille trekk</string>
-  <string name="quietMoveDescription">Eit trekk som ikkje gjev ein sjakk eller eit utslag, men som førebur eit uavvendeleg trugsmål i eit seinare trekk.</string>
+  <string name="quietMoveDescription">Trekk som ikkje gjev sjakk eller slår ei brikke, men som førebur eit uavvendeleg trugsmål i eit seinare trekk.</string>
   <string name="rookEndgame">Tårnsluttspel</string>
   <string name="rookEndgameDescription">Sluttspel med berre tårn og bønder.</string>
   <string name="sacrifice">Offer</string>
