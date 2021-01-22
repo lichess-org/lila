@@ -39,7 +39,7 @@ final class Env(
 
   lazy val paginator = wire[PaginatorBuilder]
 
-  lazy val cli = wire[Cli]
+  lazy val cli = wire[TeamCli]
 
   lazy val cached: Cached = wire[Cached]
 
