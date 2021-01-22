@@ -27,6 +27,7 @@
   <string name="wantClearHistory">対局履歴やレーティングをリセットしたい</string>
   <string name="cantClearHistory">対局や問題の履歴、レーティングはリセットできません。</string>
   <string name="wantReport">誰かを通報したい</string>
+  <string name="toReportAPlayerUseForm">プレイヤーの通報には通報用フォームを使ってください</string>
   <string name="youCanAlsoReachReportPage">その人のプロフィールページの通報ボタン（右上 %s）からもできます。</string>
   <string name="doNotReportInForum">他のプレイヤーをフォーラムに通報しないでください。</string>
   <string name="doNotSendReportEmails">通報の際は Lichess にメールを送らないでください。</string>
