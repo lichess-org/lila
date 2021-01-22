@@ -58,6 +58,12 @@ object topic {
                 nameValue = (form("post")("modIcon").name, "true").some,
                 icon = "".some
               ),
+            isGranted(_.Developer) option
+              form3.submit(
+                frag("Create as a dev"),
+                nameValue = (form("post")("devIcon").name, "true").some,
+                icon = "".some
+              ),
             form3.submit(trans.createTheTopic())
           )
         )
@@ -182,6 +188,12 @@ object topic {
                   frag("Reply as a mod"),
                   nameValue = (form("modIcon").name, "true").some,
                   icon = "".some
+                ),
+              isGranted(_.Developer) option
+                form3.submit(
+                  frag("Reply as a dev"),
+                  nameValue = (form("devIcon").name, "true").some,
+                  icon = "".some
                 ),
               form3.submit(trans.reply())
             )

@@ -68,7 +68,8 @@ final private[forum] class TopicApi(
         lang = lang map (_.language),
         number = 1,
         categId = categ.id,
-        modIcon = (~data.post.modIcon && MasterGranter(_.PublicMod)(me)).option(true)
+        modIcon = (~data.post.modIcon && MasterGranter(_.PublicMod)(me)).option(true),
+        devIcon = (~data.post.devIcon && MasterGranter(_.Developer)(me)).option(true)
       )
       env.postRepo.coll.insert.one(post) >>
         env.topicRepo.coll.insert.one(topic withPost post) >>
@@ -108,7 +109,8 @@ final private[forum] class TopicApi(
       lang = none,
       number = 1,
       categId = categ.id,
-      modIcon = true.some
+      modIcon = true.some,
+      devIcon = true.some
     )
     env.postRepo.coll.insert.one(post) >>
       env.topicRepo.coll.insert.one(topic withPost post) >>

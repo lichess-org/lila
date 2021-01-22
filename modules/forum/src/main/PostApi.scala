@@ -47,10 +47,12 @@ final class PostApi(
           troll = me.marks.troll,
           hidden = topic.hidden,
           categId = categ.id,
-          modIcon = (~data.modIcon && MasterGranter(_.PublicMod)(me)).option(true)
+          modIcon = (~data.modIcon && MasterGranter(_.PublicMod)(me)).option(true),
+          devIcon = (~data.devIcon && MasterGranter (_.Developer)(me)).option(true)
         )
         env.postRepo findDuplicate post flatMap {
           case Some(dup) if !post.modIcon.getOrElse(false) => fuccess(dup)
+          case Some(dup) if !post.devIcon.getOrElse(false) => fuccess(dup)
           case _ =>
             env.postRepo.coll.insert.one(post) >>
               env.topicRepo.coll.update.one($id(topic.id), topic withPost post) >> {

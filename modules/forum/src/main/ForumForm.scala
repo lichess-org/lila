@@ -18,7 +18,8 @@ final private[forum] class ForumForm(
       "text"    -> userTextMapping(user, inOwnTeam),
       "gameId"  -> text,
       "move"    -> text,
-      "modIcon" -> optional(boolean)
+      "modIcon" -> optional(boolean),
+      "devIcon" -> optional(boolean)
     )(PostData.apply)(PostData.unapply)
       .verifying(captchaFailMessage, validateCaptcha _)
 
@@ -55,7 +56,8 @@ object ForumForm {
       text: String,
       gameId: String,
       move: String,
-      modIcon: Option[Boolean]
+      modIcon: Option[Boolean],
+      devIcon: Option[Boolean]
   )
 
   case class TopicData(

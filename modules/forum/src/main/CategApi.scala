@@ -58,7 +58,8 @@ final class CategApi(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
         hidden = topic.hidden,
         lang = "en".some,
         categId = categ.id,
-        modIcon = None
+        modIcon = None,
+        devIcon = None
       )
       env.categRepo.coll.insert.one(categ).void >>
         env.postRepo.coll.insert.one(post).void >>

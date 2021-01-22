@@ -42,6 +42,10 @@
     &.moderator::before {
       content: '';
     }
+
+    &.developer::before {
+      content: '';
+    }
   }
 }
 

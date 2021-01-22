@@ -93,7 +93,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       withTitle: Boolean = true,
       truncate: Option[Int] = None,
       params: String = "",
-      modIcon: Boolean = false
+      modIcon: Boolean = false,
+      devIcon: Boolean = false
   )(implicit lang: Lang): Frag =
     userIdOption.flatMap(lightUser).fold[Frag](User.anonymous) { user =>
       userIdNameLink(
@@ -105,7 +106,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
         withOnline = withOnline,
         truncate = truncate,
         params = params,
-        modIcon = modIcon
+        modIcon = modIcon,
+        devIcon = devIcon
       )
     }
 
@@ -126,7 +128,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       withOnline = withOnline,
       truncate = truncate,
       params = params,
-      modIcon = false
+      modIcon = false,
+      devIcon = false
     )
 
   def userIdLink(
@@ -149,13 +152,14 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       truncate: Option[Int],
       title: Option[Title],
       params: String,
-      modIcon: Boolean
+      modIcon: Boolean,
+      devIcon: Boolean
   )(implicit lang: Lang): Frag =
     a(
       cls := userClass(userId, cssClass, withOnline),
       href := userUrl(username, params = params)
     )(
-      withOnline ?? (if (modIcon) moderatorIcon else lineIcon(isPatron)),
+      withOnline ?? (if (modIcon) moderatorIcon else if (devIcon) developerIcon else lineIcon(isPatron)),
       titleTag(title),
       truncate.fold(username)(username.take)
     )
@@ -289,6 +293,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   def patronIcon(implicit lang: Lang): Frag =
     i(cls := "line patron", title := trans.patron.lichessPatron.txt())
   val moderatorIcon: Frag                                                  = i(cls := "line moderator", title := "Lichess Mod")
+  val developerIcon: Frag                                                  = i(cls := "line developer", title := "Lichess Dev")
   private def lineIcon(patron: Boolean)(implicit lang: Lang): Frag         = if (patron) patronIcon else lineIcon
   private def lineIcon(user: Option[LightUser])(implicit lang: Lang): Frag = lineIcon(user.??(_.isPatron))
   def lineIcon(user: LightUser)(implicit lang: Lang): Frag                 = lineIcon(user.isPatron)

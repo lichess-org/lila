@@ -23,7 +23,9 @@ case class Post(
     updatedAt: Option[DateTime] = None,
     erasedAt: Option[DateTime] = None,
     modIcon: Option[Boolean],
+    devIcon: Option[Boolean],
     reactions: Option[Post.Reactions] = None
+    
 ) {
 
   private val permitEditsFor  = 4 hours
@@ -65,6 +67,7 @@ case class Post(
   def hasEdits = editHistory.isDefined
 
   def displayModIcon = ~modIcon
+  def displayDevIcon = ~devIcon
 
   def visibleBy(u: Option[User]): Boolean = !troll || u.fold(false)(visibleBy)
   def visibleBy(u: User): Boolean         = !troll || userId.exists(_ == u.id && u.marks.troll)
@@ -107,7 +110,8 @@ object Post {
       lang: Option[String],
       troll: Boolean,
       hidden: Boolean,
-      modIcon: Option[Boolean]
+      modIcon: Option[Boolean],
+      devIcon: Option[Boolean]
   ): Post = {
 
     Post(
@@ -122,7 +126,8 @@ object Post {
       hidden = hidden,
       createdAt = DateTime.now,
       categId = categId,
-      modIcon = modIcon
+      modIcon = modIcon,
+      devIcon = devIcon
     )
   }
 }

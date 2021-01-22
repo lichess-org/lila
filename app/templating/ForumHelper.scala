@@ -31,11 +31,12 @@ trait ForumHelper { self: UserHelper with StringHelper with HasEnv =>
       post: Post,
       cssClass: Option[String] = None,
       withOnline: Boolean = true,
-      modIcon: Boolean = false
+      modIcon: Boolean = false,
+      devIcon: Boolean = false
   )(implicit lang: Lang): Frag =
     if (post.erased) span(cls := "author")("<erased>")
     else
       post.userId.fold(frag(lila.user.User.anonymous)) { userId =>
-        userIdLink(userId.some, cssClass = cssClass, withOnline = withOnline, modIcon = modIcon)
+        userIdLink(userId.some, cssClass = cssClass, withOnline = withOnline, modIcon = modIcon, devIcon = devIcon)
       }
 }
