@@ -19,4 +19,5 @@
   <string name="declineRated">Send mig gerne en ratet udfordring i stedet.</string>
   <string name="declineCasual">Send mig gerne en ikke-ratet udfordring i stedet.</string>
   <string name="declineStandard">Jeg accepterer ikke variantudfordringer lige nu.</string>
+  <string name="declineVariant">Jeg er ikke villig til at spille denne variant lige nu.</string>
 </resources>
