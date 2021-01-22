@@ -107,7 +107,6 @@ final private class Rematcher(
         case variant      => variant.pieces
       }
       users <- userRepo byIds pov.game.userIds
-      _ = println(users)
       game <- Game.make(
         chess = ChessGame(
           situation = Situation(
