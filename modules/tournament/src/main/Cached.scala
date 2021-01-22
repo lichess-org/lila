@@ -7,6 +7,7 @@ import lila.hub.LightTeam.TeamID
 import lila.memo._
 import lila.memo.CacheApi._
 import lila.user.User
+import play.api.libs.json.JsArray
 
 final private[tournament] class Cached(
     playerRepo: PlayerRepo,
@@ -57,6 +58,19 @@ final private[tournament] class Cached(
     _.expireAfterAccess(1 hour)
       .maximumSize(2048)
       .buildAsyncFuture(playerRepo.computeRanking)
+  }
+
+  object battle {
+
+    val teamStanding =
+      cacheApi[Tournament.ID, List[TeamBattle.RankedTeam]](8, "tournament.teamStanding") {
+        _.expireAfterWrite(1 second)
+          .buildAsyncFuture { id =>
+            tournamentRepo teamBattleOf id flatMap {
+              _ ?? { playerRepo.bestTeamIdsByTour(id, _) }
+            }
+          }
+      }
   }
 
   private[tournament] object sheet {
