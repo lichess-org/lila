@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: minmax(280px, 15vw);
     grid-template-rows: 60px;
-    grid-template-areas: 'side head' 'side meat';
+    grid-template-areas: 'side head' 'side main';
     grid-gap: 0 $block-gap;
   }
 
@@ -12,7 +12,7 @@
   }
 
   .loading {
-    .meat {
+    .insight__main {
       position: relative;
     }
 
@@ -106,11 +106,11 @@
     }
   }
 
-  .meat {
+  .insight__main {
     background: $c-bg-box;
     border: $border;
     border-top: 0;
-    grid-area: meat;
+    grid-area: main;
   }
 
   .axis-form {
