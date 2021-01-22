@@ -89,6 +89,118 @@ object StartingPosition {
           "Handicap_(shogi)",
           "",
           false
+        ),
+        StartingPosition(
+          "十枚落ち",
+          "10-piece",
+          "4k4/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+          "Handicap_(shogi)",
+          "",
+          false
+        ),
+        StartingPosition(
+          "歩三兵",
+          "3 Pawns",
+          "4k4/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b 3p 1",
+          "Handicap_(shogi)",
+          "",
+          false
+        ),
+        StartingPosition(
+          "裸玉",
+          "Naked King",
+          "4k4/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+          "Handicap_(shogi)",
+          "",
+          false
+        ),
+        StartingPosition(
+          "トンボ＋桂香",
+          "Dragonfly + NL",
+          "ln2k2ln/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+          "Handicap_(shogi)",
+          "",
+          false
+        ),
+        StartingPosition(
+          "トンボ＋香",
+          "Dragonfly + L",
+          "l3k3n/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+          "Handicap_(shogi)",
+          "",
+          false
+        ),
+        StartingPosition(
+          "トンボ",
+          "Dragonfly",
+          "4k4/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+          "Handicap_(shogi)",
+          "",
+          false
+        ),
+        StartingPosition(
+          "香得",
+          "Lance Gained",
+          "lnsgkgsn1/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b L 1",
+          "Handicap_(shogi)",
+          "",
+          false
+        ),
+        StartingPosition(
+          "角得",
+          "Bishop Gained",
+          "lnsgkgsnl/1r7/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b B 1",
+          "Handicap_(shogi)",
+          "",
+          false
+        ),
+        StartingPosition(
+          "飛車得",
+          "Rook Gained",
+          "lnsgkgsnl/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b R 1",
+          "Handicap_(shogi)",
+          "",
+          false
+        ),
+        StartingPosition(
+          "飛香得",
+          "Rook-Lance Gained",
+          "lnsgkgsn1/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b RL 1",
+          "Handicap_(shogi)",
+          "",
+          false
+        ),
+        StartingPosition(
+          "二枚得",
+          "2-piece Gained",
+          "lnsgkgsnl/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b RB 1",
+          "Handicap_(shogi)",
+          "",
+          false
+        ),
+        StartingPosition(
+          "四枚得",
+          "4-piece Gained",
+          "1nsgkgsn1/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b RB2L 1",
+          "Handicap_(shogi)",
+          "",
+          false
+        ),
+        StartingPosition(
+          "六枚得",
+          "6-piece Gained",
+          "2sgkgs2/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b RB2L2N 1",
+          "Handicap_(shogi)",
+          "",
+          false
+        ),
+        StartingPosition(
+          "八枚得",
+          "8-piece Gained",
+          "3gkg3/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b RB2L2N2S 1",
+          "Handicap_(shogi)",
+          "",
+          false
         )
       )
     )
@@ -103,6 +215,16 @@ object StartingPosition {
   lazy val featurable = new scala.util.Random(475591).shuffle(all.filter(_.featurable)).toIndexedSeq
 
   def randomFeaturable = featurable(scala.util.Random.nextInt(featurable.size))
+
+  def searchHandicapByFen(fen: Option[format.FEN]): Option[StartingPosition] = {
+    fen flatMap { fe =>
+      this.categories find { _.name == "Handicaps" } flatMap { hcs =>
+        hcs.positions find { _.fen == fe.value }
+      }
+    }
+  }
+
+  def isFENHandicap(fen: Option[format.FEN]): Boolean = searchHandicapByFen(fen).isDefined
 
   object presets {
     val halloween = StartingPosition(
