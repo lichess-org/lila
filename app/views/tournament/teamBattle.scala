@@ -62,9 +62,9 @@ object teamBattle {
       title = tour.name(),
       moreCss = cssTag("tournament.show.team-battle")
     )(
-      main(cls := "tour__battle-standing box")(
+      main(cls := "box")(
         h1(a(href := routes.Tournament.show(tour.id))(tour.name())),
-        table(cls := "slist slist-pad tour__team-standing")(
+        table(cls := "slist slist-pad tour__team-standing tour__team-standing--full")(
           tbody(
             standing.map { t =>
               tr(
