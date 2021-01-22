@@ -36,7 +36,7 @@ object SimulForm {
     "random" -> "Random",
     "black"  -> "Gote/Uwate"
   )
-  val colorDefault = "white"
+  val colorDefault = "black"
 
   private def nameType(host: User) =
     clean(text).verifying(
