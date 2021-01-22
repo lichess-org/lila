@@ -390,6 +390,8 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="newPasswordAgain">o toki sin e nimi tawa ain</string>
   <string name="newPasswordsDontMatch">nimi awen sin tu li ante</string>
   <string name="newPasswordStrength">wawa pi nimi awen</string>
+  <string name="clockInitialTime">suli tenpo lon open</string>
+  <string name="clockIncrement">suli tenpo sin lon tenpo tawa</string>
   <string name="privacy">ken sona pi sina taso</string>
   <string name="privacyPolicy">nasin pi len sona</string>
   <string name="letOtherPlayersFollowYou">jan ante li ken ala ken \"tawa poka\" sina?</string>
@@ -434,6 +436,8 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="unauthorizedError">sina ken ala.</string>
   <string name="noInternetConnection">sina jo ala e linja sona. sina ken musi e musi ni: ona li wile ala e linja sona.</string>
   <string name="connectedToLichess">sina jo e linja sona tawa lipu \"lichess.org\".</string>
+  <string name="signedOut">sina kepeken ala e lipu lawa sina lon tenpo ni</string>
+  <string name="loginSuccessful">sina kepeken e lipu lawa sina lon tenpo ni</string>
   <string name="playOnTheBoardOffline">lon supa musi</string>
   <string name="playOfflineComputer">poki sona</string>
   <string name="opponent">jan ante</string>
@@ -443,6 +447,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="community">kulupu</string>
   <string name="tools">ilo musi</string>
   <string name="increment">tenpo poka</string>
+  <string name="sharePGN">o pana e lipu PGN tawa jan ante</string>
   <string name="playOnline">o musi kepeken linja</string>
   <string name="playOffline">musi lon ala ilo sona</string>
   <string name="shareGameURL">o pana e nimi tawa musi</string>
@@ -464,7 +469,9 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="watchGames">o lukin e musi pi jan ni</string>
   <string name="tpTimeSpentOnTV">tenpo pi ilo lukin: %s</string>
   <string name="watch">o lukin</string>
+  <string name="streamersMenu">jan ni li pali e sitelen tawa pi musi ona</string>
   <string name="mobileApp">pi ilo toki</string>
+  <string name="webmasters">jan ni li pali e lipu kon pi ilo Lichess</string>
   <string name="about">o kama sona e</string>
   <string name="aboutX">%s li seme?</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">musi %1$s li esun ala (%2$s), li pona, li sitelen esun ala, li ilo pana pi lipu sona pi tan open</string>
@@ -472,12 +479,15 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="contribute">o pana e ijo</string>
   <string name="termsOfService">nasin lawa pi ilo ni</string>
   <string name="sourceCode">lon pi pali ilo</string>
+  <string name="simultaneousExhibitions">musi mute lon tenpo sama</string>
   <string name="host">jan suli</string>
   <string name="hostColorX">kule pi jan lawa li %s</string>
   <string name="create">open</string>
   <string name="tournamentOfficial">suli</string>
+  <string name="keyboardShortcuts">lipu pi pali ale pi ilo nena</string>
   <string name="keyMoveBackwardOrForward">o tawa sinpin/monsi</string>
   <string name="keyGoToStartOrEnd">o tawa open/pini</string>
+  <string name="keyShowOrHideComments">o pana (ala) lukin e toki anpa</string>
   <string name="newTournament">o open e musi pi musi mute</string>
   <string name="tournamentHomeDescription">o musi e musi pi tenpo lili! musi mute li lon.</string>
   <string name="tournamentNotFound">musi pi musi mute li lon ala</string>
@@ -495,6 +505,8 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="withEverybody">tawa jan ale</string>
   <string name="kidMode">nasin pi jan lili</string>
   <string name="enableKidMode">o ken e nasin pi jan lili </string>
+  <string name="alternativelyYouCanX">ante la, sina ken %s.</string>
+  <string name="revokeAllSessions">pakala e linja ale</string>
   <string name="bulletBlitzClassical">nasin Bullet, Blitz, Classical</string>
   <string name="gameAnalysis">sona musi</string>
   <string name="xLikesY">sona %2$s li pona tawa %1$s</string>
@@ -512,6 +524,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="boardTheme">sitelen lipu</string>
   <string name="boardSize">suli pi supa musi</string>
   <string name="pieceSet">sitelen ijo</string>
+  <string name="chessBasics">nasin lawa pi musi pi jan lawa moli</string>
   <string name="coaches">jan pi sona pana</string>
   <string name="error.unknown">pakala</string>
   <string name="custom">nasin ante</string>
