@@ -78,9 +78,9 @@ Mira el capítulo del %3$s sobre este movimiento para practicar un poco con él.
   <string name="lichessRecognizeAllOTBtitles">Lichess reconoce todos los títulos FIDE obtenidos OTB (sobre el tablero), así como %1$s. Aquí hay una lista de títulos FIDE:</string>
   <string name="showYourTitle">Si tienes un título OTB, puedes solicitar que se muestre en tu cuenta completando el %1$s, incluyendo una imagen clara de un documento/tarjeta de identificación y una foto tuya portando dicho documento/tarjeta.
 
-  La verificación como jugador titulado en Lichess da acceso a jugar en los eventos de Arena para titulados.
+La verificación como jugador titulado en Lichess da acceso a jugar en los eventos de Arena para titulados.
 
-  Finalmente, hay un título de honor %2$s.</string>
+Finalmente, existe el título honorífico %2$s.</string>
   <string name="asWellAsManyNMtitles">muchos títulos de maestros nacionales</string>
   <string name="verificationForm">formulario de verificación</string>
   <string name="canIbecomeLM">¿Puedo obtener el título de Maestro Lichess (LM)?</string>
@@ -122,7 +122,7 @@ Otro punto que cabe señalar es que, si pasa un tiempo sin jugar, el intervalo d
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">haber jugado una partida por puntos en la última semana para esta modalidad,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">tener una desviación de puntuación menor que %1$s, en ajedrez estándar, y menor que %2$s en variantes,</string>
   <string name="beInTopTen">estar entre los 10 primeros de esta clasificación.</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">El segundo requisito es que los jugadores que ya no usan sus cuentas dejen de poblar los tableros de liderazgo.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">El segundo requisito es que los jugadores que ya no usan sus cuentas dejen de poblar el listado de líderes.</string>
   <string name="whyAreRatingHigher">¿Por qué son más altas las puntuaciones en comparación con otras páginas y organizaciones como FIDE, USCF y el CIC?</string>
   <string name="whyAreRatingHigherExplanation">Lo mejor es no considerar las puntuaciones como cifras absolutas ni compararlas con otras organizaciones. Diferentes organizaciones tienen distintos niveles de jugadores y sistemas de puntuación (Elo, Glicko, Glicko-2 o una versión modificada de los primeros). Estos factores pueden afectar drásticamente los números absolutos (puntuaciones).
 
