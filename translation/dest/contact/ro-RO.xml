@@ -26,6 +26,7 @@
   <string name="wantClearHistory">Vreau să îmi sterg istoricul sau ratingul</string>
   <string name="cantClearHistory">Nu se poate curăța istoricul jocurilor, istoricul puzzle-urilor sau evaluările.</string>
   <string name="wantReport">Vreau să raportez un jucător</string>
+  <string name="toReportAPlayerUseForm">Pentru a raporta un jucător, folosește formularul de raportare</string>
   <string name="youCanAlsoReachReportPage">De asemenea, poți ajunge la acea pagină dând click pe butonul %s pentru raport pe o pagină a profilului.</string>
   <string name="doNotReportInForum">Nu raportaţi jucătorii din forum.</string>
   <string name="doNotSendReportEmails">Nu ne trimiteți e-mailuri de raportare.</string>
