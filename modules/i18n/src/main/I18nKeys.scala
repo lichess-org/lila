@@ -1970,4 +1970,8 @@ val `declineStandard` = new I18nKey("challenge:declineStandard")
 val `declineVariant` = new I18nKey("challenge:declineVariant")
 }
 
+object storm {
+val `moveToStart` = new I18nKey("storm:moveToStart")
+}
+
 }

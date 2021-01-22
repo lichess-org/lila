@@ -55,6 +55,7 @@
     "ui/tree",
     "ui/msg",
     "ui/dgt",
+    "ui/storm",
     "ui/@build/rollupProject",
     "ui/@types/lichess",
     "ui/@types/cash"
