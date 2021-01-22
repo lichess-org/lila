@@ -2,6 +2,8 @@ package lila.tournament
 
 import play.api.i18n.Lang
 
+import lila.hub.LightTeam.TeamID
+
 final class LeaderboardRepo(val coll: lila.db.dsl.Coll)
 
 case class TournamentTop(value: List[Player]) extends AnyVal
@@ -25,7 +27,7 @@ case class GameView(
   def tourAndTeamVs = TourAndTeamVs(tour, teamVs)
 }
 
-case class MyInfo(rank: Int, withdraw: Boolean, gameId: Option[lila.game.Game.ID]) {
+case class MyInfo(rank: Int, withdraw: Boolean, gameId: Option[lila.game.Game.ID], teamId: Option[TeamID]) {
   def page = (rank + 9) / 10
 }
 
