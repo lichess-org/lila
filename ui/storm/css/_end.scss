@@ -1,40 +1,4 @@
-#main-wrap {
-  --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
-
-  @include breakpoint($mq-col2) {
-    --main-max-width: auto;
-  }
-}
-
 .storm {
-  &--play {
-    display: grid;
-
-    &__side {
-      grid-area: side;
-    }
-
-    &__board {
-      grid-area: board;
-    }
-
-    grid-row-gap: $block-gap;
-    grid-column-gap: $block-gap;
-    grid-template-areas: 'board' 'side';
-
-    @include breakpoint($mq-col2) {
-      grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
-      grid-template-rows: fit-content(0);
-      grid-template-areas: 'board   side';
-    }
-
-
-    @include breakpoint($mq-col3) {
-      grid-template-areas: '.    board   side';
-      grid-template-columns: $col3-uniboard-side $col3-uniboard-width $col3-uniboard-table;
-    }
-  }
-
   &--end {
     width: 90vw;
   }

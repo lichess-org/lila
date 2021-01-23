@@ -43,7 +43,6 @@ export default class StormCtrl {
     this.vm.clock.startAt = undefined;
     this.ground(false);
     this.redraw();
-    console.log(this.vm);
   }
 
   userMove = (orig: Key, dest: Key): void => {
@@ -80,6 +79,7 @@ export default class StormCtrl {
         this.vm.moveIndex = 0;
       }
     }
+    this.redraw();
     this.withGround(this.showGround);
   };
 
@@ -129,6 +129,14 @@ export default class StormCtrl {
       lastMove: this.uciToLastMove(this.line()[this.vm.moveIndex])
     };
   }
+
+  comboLevel = () => config.combo.levels.reduce((lvl, [threshold, _], index) => threshold <= this.vm.combo ? index : lvl, 0);
+
+  comboPercent = () => {
+    const lvl = this.comboLevel();
+    const bounds = [config.combo.levels[lvl][0], config.combo.levels[lvl + 1][0]];
+    return Math.floor((this.vm.combo - bounds[0]) / (bounds[1] - bounds[0]) * 100);
+  };
 
   withGround = <A>(f: (cg: CgApi) => A): A | false => {
     const g = this.ground();

@@ -2,16 +2,13 @@ $mq-col2-squeeze: $mq-col2-uniboard-squeeze;
 $mq-col2: $mq-col2-uniboard;
 $mq-col3: $mq-col3-uniboard;
 
-@import "layout";
+#main-wrap {
+  --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
 
-.storm {
-  &__clock {
-    @extend %roboto-fat;
-
-    font-size: 5em;
-
-    &.malus {
-      color: $c-bad;
-    }
+  @include breakpoint($mq-col2) {
+    --main-max-width: auto;
   }
 }
+
+@import "play";
+@import "end";

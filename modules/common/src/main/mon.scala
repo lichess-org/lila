@@ -484,6 +484,11 @@ object mon {
       )
     val crazyGlicko = counter("puzzle.crazyGlicko").withoutTags()
   }
+  object storm {
+    object selector {
+      def time = timer("storm.selector.time").withoutTags()
+    }
+  }
   object game {
     def finish(variant: String, speed: String, source: String, mode: String, status: String) =
       counter("game.finish").withTags(

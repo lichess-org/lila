@@ -1,0 +1,49 @@
+.storm {
+  &__combo {
+    @extend %flex-center-nowrap;
+
+    &__icon {
+      flex: 5em 0 0;
+      width: 5em;
+      height: 5em;
+      background-image: img-url("tornado.png");
+      background-size: cover;
+    }
+
+    &__counter {
+      display: flex;
+      flex-flow: column;
+      margin: 0 1em;
+
+      &__value {
+        strong {
+          @extend %roboto-fat;
+
+          font-size: 2em;
+        }
+
+        span {
+          @extend %roboto;
+        }
+      }
+    }
+
+    &__bar {
+      @extend %box-neat;
+
+      flex: 1 1 100%;
+      height: 3em;
+      background: $c-bg-zebra;
+
+      &__in {
+        @extend %box-radius;
+
+        height: 3em;
+        background: $c-good;
+        box-shadow: 0 0 10px $c-good, 0 0 20px $c-good;
+
+        @include transition;
+      }
+    }
+  }
+}
