@@ -211,7 +211,7 @@
     <item quantity="other">%s odigranih partija s tobom</item>
   </plurals>
   <string name="cancel">Odustani</string>
-  <string name="whiteTimeOut">Bijelome isteklo vrijeme</string>
+  <string name="whiteTimeOut">Bijelom je isteklo vrijeme</string>
   <string name="blackTimeOut">Crnome isteklo vrijeme</string>
   <string name="drawOfferSent">Ponuda remija poslana</string>
   <string name="drawOfferDeclined">Ponuda remija odbijena</string>
@@ -535,7 +535,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="currentPassword">Trenutna lozinka</string>
   <string name="newPassword">Nova lozinka</string>
   <string name="newPasswordAgain">Ponovi novu lozinku</string>
-  <string name="newPasswordsDontMatch">Nova zaporke se ne podudaru</string>
+  <string name="newPasswordsDontMatch">Zaporke se ne podudaraju</string>
   <string name="newPasswordStrength">Snaga zaporke</string>
   <string name="clockInitialTime">Početno vrijeme</string>
   <string name="clockIncrement">Vremenski dodatak</string>
