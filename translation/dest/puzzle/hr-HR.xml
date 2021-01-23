@@ -12,9 +12,11 @@
   <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Podrijetlo</string>
   <string name="specialMoves">Specifični potezi</string>
   <string name="didYouLikeThisPuzzle">Sviđa li ti se ovaj zadatak?</string>
+  <string name="voteToLoadNextOne">Ocijeni i prijeđi na sljedeći zadatak!</string>
   <string name="yourPuzzleRatingX">Tvoj rejting zadataka %s</string>
   <string name="findTheBestMoveForWhite">Pronađi najbolji potez za bijelog.</string>
   <string name="findTheBestMoveForBlack">Pronađi najbolji potez za crnog.</string>
+  <string name="toGetPersonalizedPuzzles">Za personalizirane zadatke:</string>
   <string name="puzzleId">Zadatak %s</string>
   <string name="puzzleOfTheDay">Zadatak dana</string>
   <string name="clickToSolve">Klikni za rješenje</string>
@@ -43,6 +45,7 @@
   <string name="example">Primjer</string>
   <string name="addAnotherTheme">Dodaj novu kategoriju</string>
   <string name="jumpToNextPuzzleImmediately">Automatski učitaj nove zadatke</string>
+  <string name="puzzleDashboard">Sučelje zadataka</string>
   <string name="improvementAreas">Nedostaci</string>
   <string name="strengths">Prednosti</string>
   <string name="history">Povijest zadataka</string>
