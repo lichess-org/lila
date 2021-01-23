@@ -31,4 +31,13 @@
   <string name="equality">Izjednačenje</string>
   <string name="equalityDescription">Pronađi potez koji te dovodi iz gubitničke u podjednaku poziciju. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Napad na kraljevoj strani</string>
+  <string name="kingsideAttackDescription">Napad na protivničkog kralja nakon što je protivnik odigrao malu rokadu.</string>
+  <string name="clearance">Čiščenje</string>
+  <string name="clearanceDescription">Potez (najčešće s tempom) koji oslobađa polje, red ili dijagonalu za nadolazeću taktičku ideju.</string>
+  <string name="defensiveMove">Obrambeni potez</string>
+  <string name="defensiveMoveDescription">Određeni potez ili slijed poteza koje je potrebno odigrati za zadržavanje materijala ili pozicije.</string>
+  <string name="deflection">Otklon</string>
+  <string name="deflectionDescription">Potez koji odvraća protivničku figuru od dužnosti koju obavlja (kao što je kontroliranje značajnog polja). Ova taktika se također zove i \"preopterećenje\".</string>
+  <string name="discoveredAttack">Otkriveni napad</string>
+  <string name="discoveredAttackDescription">Napad izvršen kad se figura koja blokira drugu figuru (kraljicu, lovca ili topa) skloni sa određene dijagonale, reda ili stupca.</string>
 </resources>
