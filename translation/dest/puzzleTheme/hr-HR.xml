@@ -47,6 +47,14 @@
   <string name="enPassantDescription">Taktika koja uključuje pravilo \"en passant\" po kojem pješak uzima protivničkog pješaka koji ga preskače koristeći inicijalno otvaranje pješaka za dva polja.</string>
   <string name="exposedKing">Golišavi kralj</string>
   <string name="exposedKingDescription">Taktika koja uključuje kralja okruženim nekolicinom obrambenih figura što često rezultira matom.</string>
-  <string name="fork">Račva</string>
+  <string name="fork">Rašlje</string>
+  <string name="forkDescription">Situacija u šahovskoj partiji kad jedna figura napadne dvije ili više protivničkih.</string>
+  <string name="hangingPiece">Viseća figura</string>
+  <string name="hangingPieceDescription">Taktika koja uključuje neobranjenu ili nedovoljno obranjenu protivničku figuru besplatnu za uzimanje.</string>
+  <string name="hookMate">Kuka-mat</string>
+  <string name="hookMateDescription">U kuka-matu sudjeluju top, skakač i pješak te jedan protivnički pješak koji onemogućuje bijeg svom kralju.</string>
+  <string name="interference">Podmetanje</string>
+  <string name="interferenceDescription">Pomicanje figure između dvije protivničke figure pritom ih napadajući. Kao rezultat protivnik nije u mogućnosti obraniti obe figure.</string>
+  <string name="intermezzo">Međupotez</string>
   <string name="promotion">Unapređenje</string>
 </resources>
