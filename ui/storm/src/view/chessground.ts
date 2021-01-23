@@ -10,7 +10,7 @@ export default function(ctrl: StormCtrl): VNode {
   return h('div.cg-wrap', {
     hook: {
       insert: vnode => ctrl.ground(Chessground((vnode.elm as HTMLElement), makeConfig(ctrl))),
-      destroy: _ => ctrl.ground()!.destroy()
+      destroy: _ => ctrl.withGround(g => g.destroy())
     }
   });
 }

@@ -9,7 +9,7 @@ import { parseUci, opposite } from 'chessops/util';
 import { prop, Prop } from 'common';
 import { Role } from 'chessground/types';
 import { StormOpts, StormData, StormPuzzle, StormVm, Promotion } from './interfaces';
-import {getNow} from './util';
+import { getNow } from './util';
 
 export default class StormCtrl {
 
@@ -17,7 +17,7 @@ export default class StormCtrl {
   vm: StormVm;
   trans: Trans;
   promotion: Promotion;
-  ground = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
+  ground = prop<CgApi | false>(false) as Prop<CgApi | false>;
 
   constructor(readonly opts: StormOpts, readonly redraw: () => void) {
     this.data = opts.data;
@@ -28,20 +28,27 @@ export default class StormCtrl {
       moveIndex: 0,
       clock: {
         budget: config.clock.initial,
-        startAt: getNow()
       }
     };
-    this.promotion = makePromotion(this.ground, this.makeCgOpts, redraw);
+    this.promotion = makePromotion(this.withGround, this.makeCgOpts, redraw);
   }
 
   clockMillis = (): number | undefined =>
     this.vm.clock.startAt && Math.max(0, this.vm.clock.startAt + this.vm.clock.budget - getNow());
+
+  end = (): void => {
+    this.vm.mode = 'end';
+    this.vm.clock.startAt = undefined;
+    this.ground(false);
+    this.redraw();
+  }
 
   userMove = (orig: Key, dest: Key): void => {
     if (!this.promotion.start(orig, dest, this.playUserMove)) this.playUserMove(orig, dest);
   }
 
   playUserMove = (orig: Key, dest: Key, promotion?: Role): void => {
+    if (!this.vm.clock.startAt) this.vm.clock.startAt = getNow();
     this.promotion.cancel();
     const expected = this.line()[this.vm.moveIndex + 1];
     const uci = `${orig}${dest}${promotion ? (promotion == 'knight' ? 'n' : promotion[0]) : ''}`;
@@ -60,11 +67,18 @@ export default class StormCtrl {
       lichess.sound.play('error');
       this.vm.clock.budget -= config.clock.malus;
       this.vm.clock.malusAt = getNow();
-      this.vm.puzzleIndex++;
-      this.vm.moveIndex = 0;
+      if (!this.boundedClockMillis()) this.end();
+      else {
+        this.vm.puzzleIndex++;
+        this.vm.moveIndex = 0;
+      }
     }
     this.withGround(this.showGround);
   };
+
+  boundedClockMillis = () => this.vm.clock.startAt ?
+    Math.max(0, this.vm.clock.startAt + this.vm.clock.budget - getNow()) :
+    this.vm.clock.budget;
 
   puzzle = (): StormPuzzle => this.data.puzzles[this.vm.puzzleIndex];
 
@@ -99,7 +113,7 @@ export default class StormCtrl {
     };
   }
 
-  private withGround = <A>(f: (cg: CgApi) => A): A | undefined => {
+  withGround = <A>(f: (cg: CgApi) => A): A | false => {
     const g = this.ground();
     return g && f(g);
   }

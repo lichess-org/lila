@@ -5,27 +5,27 @@ import { Config as CgConfig } from 'chessground/config';
 import * as cgUtil from 'chessground/util';
 import { Role } from 'chessground/types';
 import { MaybeVNode, Redraw, Promotion } from './interfaces';
-import { Prop } from 'common';
 
-export default function(getGround: Prop<CgApi>, makeCgOpts: () => CgConfig, redraw: Redraw): Promotion {
+export default function(withGround: <A>(f: (cg: CgApi) => A) => A | false, makeCgOpts: () => CgConfig, redraw: Redraw): Promotion {
 
   let promoting: any = false;
 
   function start(orig: Key, dest: Key, callback: (orig: Key, key: Key, prom: Role) => void) {
-    const g = getGround(),
-    piece = g.state.pieces.get(dest);
-    if (piece && piece.role == 'pawn' && (
-      (dest[1] == '8' && g.state.turnColor == 'black') ||
+    return !!withGround(g => {
+      const piece = g.state.pieces.get(dest);
+      if (piece && piece.role == 'pawn' && (
+        (dest[1] == '8' && g.state.turnColor == 'black') ||
         (dest[1] == '1' && g.state.turnColor == 'white'))) {
-      promoting = {
-        orig: orig,
-        dest: dest,
-        callback: callback
-      };
-      redraw();
-    return true;
-    }
-    return false;
+        promoting = {
+          orig: orig,
+          dest: dest,
+          callback: callback
+        };
+        redraw();
+        return true;
+      }
+      return false;
+    });
   }
 
   function promote(g: CgApi, key: Key, role: Role): void {
@@ -40,7 +40,7 @@ export default function(getGround: Prop<CgApi>, makeCgOpts: () => CgConfig, redr
   }
 
   function finish(role: Role): void {
-    if (promoting) promote(getGround(), promoting.dest, role);
+    if (promoting) withGround(g => promote(g, promoting.dest, role));
     if (promoting.callback) promoting.callback(promoting.orig, promoting.dest, role);
     promoting = false;
   }
@@ -48,7 +48,7 @@ export default function(getGround: Prop<CgApi>, makeCgOpts: () => CgConfig, redr
   function cancel(): void {
     if (promoting) {
       promoting = false;
-      getGround().set(makeCgOpts());
+      withGround(g => g.set(makeCgOpts()));
       redraw();
     }
   }
@@ -63,8 +63,8 @@ export default function(getGround: Prop<CgApi>, makeCgOpts: () => CgConfig, redr
 
     return h('div#promotion-choice.' + vertical, {
       hook: onInsert(el => {
-          el.addEventListener('click', cancel);
-          el.oncontextmenu = () => false;
+        el.addEventListener('click', cancel);
+        el.oncontextmenu = () => false;
       })
     }, pieces.map(function(serverRole, i) {
       const top = (color === orientation ? i : 7 - i) * 12.5;
@@ -86,9 +86,11 @@ export default function(getGround: Prop<CgApi>, makeCgOpts: () => CgConfig, redr
     view() {
       if (!promoting) return;
       const pieces: Role[] = ['queen', 'knight', 'rook', 'bishop'];
-      return renderPromotion(promoting.dest, pieces,
-        cgUtil.opposite(getGround().state.turnColor),
-        getGround().state.orientation);
+      return withGround(g =>
+        renderPromotion(promoting.dest, pieces,
+          cgUtil.opposite(g.state.turnColor),
+          g.state.orientation)
+      ) || null;
     }
   };
 }

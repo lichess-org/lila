@@ -24,7 +24,7 @@ export interface StormData {
   puzzles: StormPuzzle[];
 }
 
-export type StormMode = 'play';
+export type StormMode = 'play' | 'end';
 
 export interface StormVm {
   mode: StormMode;
