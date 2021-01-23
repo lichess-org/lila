@@ -4,16 +4,16 @@ const config = {
     initial: 3 * 60,
     // initial: 3 * 60,
     // initial: 30,
-    malus: 15
+    malus: 5
   },
   combo: {
     levels: [
       // [combo threshold, time bonus]
       [0, 0],
       [5, 5],
-      [15, 10],
-      [30, 15],
-      [50, 20]
+      [12, 10],
+      [20, 15],
+      [30, 20]
       // [0, 0],
       // [2, 10],
       // [4, 10],

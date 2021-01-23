@@ -1,4 +1,4 @@
-@keyframes mod-fade {
+@keyframes mod-fade-out {
   from {
     transform: translate(0, 0);
     opacity: 1;
@@ -19,10 +19,10 @@
     }
 
     &__bonus, &__malus {
-      font-size: 2.3em;
+      font-size: 2.5em;
       color: $c-good;
       margin-left: 1ch;
-      animation: mod-fade 1s ease-in-out;
+      animation: mod-fade-out 1s ease-in-out;
     }
 
     &__malus {
