@@ -10,4 +10,5 @@
   <string name="forgotUsername">Забравих потребителското си име</string>
   <string name="youCanLoginWithEmail">Можете да влезе с email адреса, с който сте регистрирани</string>
   <string name="lost2FA">Нямам достъп до 2-стъпковите кодове за аутентикация</string>
+  <string name="errorPage">Страница за грешката</string>
 </resources>
