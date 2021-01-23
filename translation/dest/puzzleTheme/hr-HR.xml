@@ -104,4 +104,18 @@
   <string name="short">Kratki zadatak</string>
   <string name="shortDescription">Dva poteza za pobjedu.</string>
   <string name="skewer">Ražanj</string>
+  <string name="skewerDescription">Napadom figura sa linijskim djelovanjem (dama, top ili lovac) na jednu figuru (npr. kralja), napadnuta se figura prisiljava na povlačenje što vodi gubitku figure, koja se nalazi na istoj liniji kao i napadnuta figura.</string>
+  <string name="smotheredMate">Ugušeni mat</string>
+  <string name="smotheredMateDescription">Mat kojeg skakač vrši nad kraljem kojemu njegove figure onemogućuju bijeg.</string>
+  <string name="superGM">Super-velemajstorske igre</string>
+  <string name="superGMDescription">Zadaci iz partija najboljih svjetskih velemajstora.</string>
+  <string name="trappedPiece">Zarobljena figura</string>
+  <string name="trappedPieceDescription">Figura koja ne može pobjeći uzimanju.</string>
+  <string name="underPromotion">Potpromaknuće</string>
+  <string name="underPromotionDescription">Promaknuće u skakača, lovca ili topa.</string>
+  <string name="veryLong">Iznimno duga puzla</string>
+  <string name="veryLongDescription">Slijed od četiri ili više poteza nužan za pobjedu.</string>
+  <string name="xRayAttack">Rendgenski napad</string>
+  <string name="xRayAttackDescription">Figura napada ili brani polje kroz protivničku figuru.</string>
+  <string name="zugzwang">Iznuđeni potez (Zugzwang)</string>
 </resources>
