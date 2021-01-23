@@ -30,8 +30,13 @@ export interface StormVm {
   mode: StormMode;
   puzzleIndex: number;
   moveIndex: number;
-  clockBudget: number;
-  clockStartAt?: number;
+  clock: StormClock;
+}
+
+export interface StormClock {
+  budget: number;
+  startAt?: number;
+  malusAt?: number;
 }
 
 export interface StormPuzzle {

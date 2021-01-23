@@ -1,3 +1,5 @@
+import config from './config';
+import makePromotion from './promotion';
 import { Api as CgApi } from 'chessground/api';
 import { Chess } from 'chessops/chess';
 import { chessgroundDests } from 'chessops/compat';
@@ -5,9 +7,9 @@ import { Config as CgConfig } from 'chessground/config';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseUci, opposite } from 'chessops/util';
 import { prop, Prop } from 'common';
+import { Role } from 'chessground/types';
 import { StormOpts, StormData, StormPuzzle, StormVm, Promotion } from './interfaces';
-import makePromotion from './promotion';
-import {Role} from 'chessground/types';
+import {getNow} from './util';
 
 export default class StormCtrl {
 
@@ -24,14 +26,16 @@ export default class StormCtrl {
       mode: 'play',
       puzzleIndex: 0,
       moveIndex: 0,
-      clockBudget: 2 * 60 * 1000,
-      clockStartAt: Date.now()
+      clock: {
+        budget: config.clock.initial,
+        startAt: getNow()
+      }
     };
     this.promotion = makePromotion(this.ground, this.makeCgOpts, redraw);
   }
 
   clockMillis = (): number | undefined =>
-    this.vm.clockStartAt && Math.max(0, this.vm.clockStartAt + this.vm.clockBudget - Date.now());
+    this.vm.clock.startAt && Math.max(0, this.vm.clock.startAt + this.vm.clock.budget - getNow());
 
   userMove = (orig: Key, dest: Key): void => {
     if (!this.promotion.start(orig, dest, this.playUserMove)) this.playUserMove(orig, dest);
@@ -54,6 +58,8 @@ export default class StormCtrl {
       }
     } else {
       lichess.sound.play('error');
+      this.vm.clock.budget -= config.clock.malus;
+      this.vm.clock.malusAt = getNow();
       this.vm.puzzleIndex++;
       this.vm.moveIndex = 0;
     }

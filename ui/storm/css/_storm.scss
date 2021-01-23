@@ -9,5 +9,9 @@ $mq-col3: $mq-col3-uniboard;
     @extend %roboto-fat;
 
     font-size: 5em;
+
+    &.malus {
+      color: $c-bad;
+    }
   }
 }

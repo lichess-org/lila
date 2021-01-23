@@ -15,3 +15,7 @@ export function onInsert<A extends HTMLElement>(f: (element: A) => void): Hooks 
     insert: vnode => f(vnode.elm as A)
   };
 }
+
+export function getNow(): number {
+  return Math.round(performance.now());
+}
