@@ -22,8 +22,8 @@
   <string name="createAGame">Kreiraj partiju</string>
   <string name="whiteIsVictorious">Bijeli je pobjednik</string>
   <string name="blackIsVictorious">Crni je pobjednik</string>
-  <string name="youPlayTheWhitePieces">Igraš s bijelim figurama</string>
-  <string name="youPlayTheBlackPieces">Igraš s crnim figurama</string>
+  <string name="youPlayTheWhitePieces">Igraš bijelim figurama</string>
+  <string name="youPlayTheBlackPieces">Igraš crnim figurama</string>
   <string name="itsYourTurn">Ti si na redu!</string>
   <string name="kingInTheCenter">Kralj na centru</string>
   <string name="threeChecks">Tri šaha</string>
