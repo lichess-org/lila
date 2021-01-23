@@ -279,6 +279,8 @@
   <string name="yourPerfRatingIsTooHigh">Tá do rátáil %1$s (%2$s) ró-ard</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Tá an rátáil seachtainiúil %1$s is fearr agat (%2$s) ró-ard</string>
   <string name="yourPerfRatingIsTooLow">Tá do rátáil %1$s (%2$s) ró-íseal</string>
+  <string name="ratedMoreThanInPerf">Rátáil ≥ %1$s i %2$s</string>
+  <string name="ratedLessThanInPerf">Rátáil ≤ %1$s i %2$s</string>
   <string name="mustBeInTeam">Caithfidh tú a bheith i bhfoireann %s</string>
   <string name="youAreNotInTeam">Níl tú sa bhfoireann %s</string>
   <string name="backToGame">Ar ais don chluiche</string>
@@ -300,6 +302,7 @@
   <string name="toStudy">Staidéar</string>
   <string name="importGame">Déan cluiche a iompórtáil</string>
   <string name="thisIsAChessCaptcha">Seo CAPCHTA fichille.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Cliceáil ar an mbord le bogadh a dhéanamh, agus cruthaigh gur duine thú.</string>
   <string name="captcha.fail">Réitigh an captcha fichille, le do thoil.</string>
   <string name="notACheckmate">Ní marbhsháinn é sin</string>
   <string name="whiteCheckmatesInOneMove">Marbhsháinn ag bán le beart amháin</string>
@@ -390,11 +393,14 @@
   <string name="averageOpponent">Meanghrádú na gcéilí imeartha</string>
   <string name="membersOnly">Baill amháin</string>
   <string name="boardEditor">Eagarthóir boird</string>
+  <string name="setTheBoard">Socraigh an bhord</string>
   <string name="popularOpenings">Oscailtí a bhfuil tóir orthu</string>
   <string name="startPosition">Suíomh tosaithe</string>
+  <string name="clearBoard">Glan an bhord</string>
   <string name="savePosition">Sábhail suíomh</string>
   <string name="loadPosition">Lódáil suíomh</string>
   <string name="isPrivate">Príobháideach</string>
+  <string name="reportXToModerators">Tuairiscigh %s do na modhnóirí</string>
   <string name="xRating">rátáil %s</string>
   <string name="ifNoneLeaveEmpty">Mura bhfuil ann do, fág an bosca folamh</string>
   <string name="profile">Próifíl</string>
