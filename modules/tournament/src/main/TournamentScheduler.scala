@@ -107,7 +107,7 @@ Thank you all, you rock!"""
         secondWeekOf(DECEMBER).withDayOfWeek(SATURDAY)   -> HyperRapid
       ).flatMap {
         case (day, speed) =>
-          at(day, 17) filter farFuture.isAfter map { date =>
+          at(day, 13) filter farFuture.isAfter map { date =>
             Schedule(Yearly, speed, Standard, std, date).plan
           }
       },
@@ -121,7 +121,7 @@ Thank you all, you rock!"""
             month.lastWeek.withDayOfWeek(FRIDAY)    -> Classical
           ).flatMap {
             case (day, speed) =>
-              at(day, 17) map { date =>
+              at(day, 13) map { date =>
                 Schedule(Monthly, speed, Standard, std, date).plan
               }
           },
@@ -133,7 +133,7 @@ Thank you all, you rock!"""
             month.firstWeek.withDayOfWeek(FRIDAY)    -> Classical
           ).flatMap {
             case (day, speed) =>
-              at(day, 16) map { date =>
+              at(day, 12) map { date =>
                 Schedule(Shield, speed, Standard, std, date) plan {
                   _.copy(
                     name = s"${speed.toString} Shield",
@@ -152,7 +152,7 @@ Thank you all, you rock!"""
         nextFriday    -> Classical,
       ).flatMap {
         case (day, speed) =>
-          at(day, 17) map { date =>
+          at(day, 13) map { date =>
             Schedule(Weekly, speed, Standard, std, date pipe orNextWeek).plan
           }
       },
@@ -161,24 +161,27 @@ Thank you all, you rock!"""
         nextSunday   -> Bullet
       ).flatMap {
         case (day, speed) =>
-          at(day, 17) map { date =>
+          at(day, 13) map { date =>
             Schedule(Weekend, speed, Standard, std, date pipe orNextWeek).plan
           }
       },
       List( // daily tournaments!
         at(today, 14) map { date =>
-          Schedule(Daily, HyperRapid, Standard, std, date pipe orTomorrow).plan
+          Schedule(Daily, Bullet, Standard, std, date pipe orTomorrow).plan
         },
         at(today, 16) map { date =>
-          Schedule(Daily, Rapid, Standard, std, date pipe orTomorrow).plan
-        },
-        at(today, 18) map { date =>
           Schedule(Daily, HyperRapid, Standard, std, date pipe orTomorrow).plan
         },
-        at(today, 20) map { date =>
+        at(today, 18) map { date =>
           Schedule(Daily, Rapid, Standard, std, date pipe orTomorrow).plan
         },
+        at(today, 20) map { date =>
+          Schedule(Daily, HyperRapid, Standard, std, date pipe orTomorrow).plan
+        },
         at(today, 22) map { date =>
+          Schedule(Daily, Rapid, Standard, std, date pipe orTomorrow).plan
+        },
+        at(today, 0) map { date =>
           Schedule(Daily, Classical, Standard, std, date pipe orTomorrow).plan
         }
       ).flatten,
@@ -190,10 +193,16 @@ Thank you all, you rock!"""
           Schedule(Eastern, HyperRapid, Standard, std, date pipe orTomorrow).plan
         },
         at(today, 6) map { date =>
-          Schedule(Eastern, HyperRapid, Standard, std, date pipe orTomorrow).plan
+          Schedule(Eastern, Rapid, Standard, std, date pipe orTomorrow).plan
         },
         at(today, 8) map { date =>
+          Schedule(Eastern, HyperRapid, Standard, std, date pipe orTomorrow).plan
+        },
+        at(today, 10) map { date =>
           Schedule(Eastern, Rapid, Standard, std, date pipe orTomorrow).plan
+        },
+        at(today, 12) map { date =>
+          Schedule(Eastern, Classical, Standard, std, date pipe orTomorrow).plan
         }
       ).flatten,
       // hourly standard tournaments!
