@@ -21,4 +21,10 @@
   <string name="castling">Rokada</string>
   <string name="castlingDescription">Dovedi svog kralja na sigurno i postavi svog topa za napad.</string>
   <string name="capturingDefender">Eliminiraj obranu</string>
+  <string name="capturingDefenderDescription">Eliminacijom figure koja brani ili je neizravno uključena u obranu druge figure omogućujete uzimanje figure koja ostaje bez obrane.</string>
+  <string name="crushing">Uništavanje</string>
+  <string name="crushingDescription">Uoči protivničku grešku te pridobij golemu prednost. (eval ≥ 600cp)</string>
+  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Mat lovačkim parom</string>
+  <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Lovački par zadaje mat na susjednim dijagonalama kralju zarobljenom iza prijateljske figure.</string>
+  <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Lastin mat</string>
 </resources>
