@@ -9,8 +9,12 @@
   <string name="eventName">Име на събитието</string>
   <string name="eventDescription">Кратко описание на събитието</string>
   <string name="fullDescription">Пълно описание на събитието</string>
+  <string name="fullDescriptionHelp" comment="fullDescriptionHelp&#10;&#10;%1$s stands for a link to Markdown.&#10;%2$s is the character limit (e.g. 160)">Незадължително дълго описание на излъчването. %1$s е налично. Дължината трябва да по-малка от %2$s знака.</string>
   <string name="sourceUrl">Уебадрес на източника</string>
   <string name="roundNumber">Номер на рунда</string>
   <string name="startDate">Дата на започване във вашата часова зона</string>
+  <string name="startDateHelp">По избор, ако знаете, кога започва събитието</string>
   <string name="credits">Признателност на източника</string>
+  <string name="cloneBroadcast">Клониране на излъчването</string>
+  <string name="resetBroadcast">Нулиране на излъчването</string>
 </resources>
