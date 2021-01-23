@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">Предизвикателства</string>
+  <string name="challengeDeclined">Предизвикателството отказано</string>
+  <string name="challengeAccepted">Предизвикателството прието!</string>
+  <string name="challengeCanceled">Предизвикателството отменено.</string>
+</resources>
