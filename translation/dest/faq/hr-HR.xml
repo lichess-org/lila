@@ -4,7 +4,7 @@
   <string name="frequentlyAskedQuestions">Često postavljena pitanja</string>
   <string name="whyIsLichessCalledLichess">Zašto se Lichess tako zove?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess je šah opisan sa izrazima uživo/lako/beslatno. Izgovara se kao %1$s.</string>
-  <string name="leechess">lee-chess</string>
+  <string name="leechess">li čes</string>
   <string name="hearItPronouncedBySpecialist" comment="hearItPronouncedBySpecialist&#10;&#10;Links to https://www.youtube.com/watch?v=KRpPqcrdE-o">Čujte to izgovara stručnjak.</string>
   <string name="whyLiveLightLibre">Uživo, jer se igre igraju i gledaju u stvarnom vremenu 24/7; lagan i besplatan zbog činjenice da je Lichess otvorenog koda i da nije opterećen vlasničkim smećem koji muči druge web stranice.</string>
   <string name="whyIsLilaCalledLila">Slično tome, izvorni kod Lichess-a, %1$s, stoji za li[chess in sca]la, s obzirom da je najveći dio Lichess-a napisan u %2$s, intuitivnom programskom jeziku.</string>
@@ -38,6 +38,7 @@ Na primjer, procijenjeno trajanje 5+3 računa se kao 5 × 60 + 40 × 3 i iznosi 
   <string name="whatVariantsCanIplay">Koje varijente šaha mogu da igram na Lichess-u?</string>
   <string name="lichessSupportChessAnd">Lichess podržava standardni šah i %1$s.</string>
   <string name="eightVariants">Osmerostruka varijanta šaha</string>
+  <string name="whatIsACPL">Što je prosječan gubitak centi-pješaka (ACPL)?</string>
   <string name="insufficientMaterial">Gubljenje igre zbog isteka vremena, remi i nedostatni šahovski materijal</string>
   <string name="lichessFollowFIDErules">U slučaju da jednom igraču ponestane vremena, taj igrač će obično izgubiti igru. Međutim, igra je remi ako je položaj figura takav da protivnik ne može matirati protivničkog kralja nijednim mogućim nizom legalnih poteza (%1$s).
 
@@ -91,4 +92,5 @@ Nemojte tražiti LM titulu.</string>
   <string name="goldenZeeExplanation">ZugAddict je emitirao i posljednjih 2 sata je pokušavao poraziti A.I. razine 8 u igri 1+0, ali bez uspjeha. Thibault mu je rekao da će dobiti jedinstveni trofej ako to uspješno učini u emitiranju. Sat vremena kasnije razbio je Stockfish, a obećanje je bilo ispunjeno.</string>
   <string name="lichessRatings">Lichess rajgovi</string>
   <string name="whichRatingSystemUsedByLichess">Kakav sistem rangiranja koristi Lichess?</string>
+  <string name="howToThreeDots">Kako...</string>
 </resources>
