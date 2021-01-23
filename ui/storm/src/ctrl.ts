@@ -4,12 +4,12 @@ import { Api as CgApi } from 'chessground/api';
 import { Chess } from 'chessops/chess';
 import { chessgroundDests } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
+import { getNow } from './util';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseUci, opposite } from 'chessops/util';
 import { prop, Prop } from 'common';
 import { Role } from 'chessground/types';
 import { StormOpts, StormData, StormPuzzle, StormVm, Promotion } from './interfaces';
-import { getNow } from './util';
 
 export default class StormCtrl {
 
@@ -28,7 +28,9 @@ export default class StormCtrl {
       moveIndex: 0,
       clock: {
         budget: config.clock.initial,
-      }
+      },
+      history: [],
+      combo: 0
     };
     this.promotion = makePromotion(this.withGround, this.makeCgOpts, redraw);
   }
@@ -41,6 +43,7 @@ export default class StormCtrl {
     this.vm.clock.startAt = undefined;
     this.ground(false);
     this.redraw();
+    console.log(this.vm);
   }
 
   userMove = (orig: Key, dest: Key): void => {
@@ -56,8 +59,10 @@ export default class StormCtrl {
     pos.play(parseUci(uci)!);
     if (pos.isCheckmate() || uci == expected) {
       this.vm.moveIndex++;
+      this.vm.combo++;
       lichess.sound.play('move');
       if (this.vm.moveIndex == this.line().length - 1) {
+        this.pushToHistory(true);
         this.vm.puzzleIndex++;
         this.vm.moveIndex = 0;
       } else {
@@ -65,6 +70,8 @@ export default class StormCtrl {
       }
     } else {
       lichess.sound.play('error');
+      this.pushToHistory(false);
+      this.vm.combo = 0;
       this.vm.clock.budget -= config.clock.malus;
       this.vm.clock.malusAt = getNow();
       if (!this.boundedClockMillis()) this.end();
@@ -79,6 +86,16 @@ export default class StormCtrl {
   boundedClockMillis = () => this.vm.clock.startAt ?
     Math.max(0, this.vm.clock.startAt + this.vm.clock.budget - getNow()) :
     this.vm.clock.budget;
+
+  private pushToHistory = (win: boolean) => {
+    const now = getNow();
+    this.vm.history.push({
+      puzzle: this.puzzle(),
+      win,
+      millis: this.vm.puzzleStartAt ? now - this.vm.puzzleStartAt : 0
+    });
+    this.vm.puzzleStartAt = now;
+  };
 
   puzzle = (): StormPuzzle => this.data.puzzles[this.vm.puzzleIndex];
 

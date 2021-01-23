@@ -12,9 +12,7 @@ export default function renderClock(ctrl: StormCtrl): VNode {
     hook: {
       insert(node) {
         const el = node.elm as HTMLDivElement;
-        refreshInterval = setInterval(() => {
-          renderIn(ctrl, el);
-        }, 100);
+        refreshInterval = setInterval(() => renderIn(ctrl, el), 100);
       },
       destroy() {
         if (refreshInterval) clearInterval(refreshInterval);
@@ -34,7 +32,7 @@ function renderIn(ctrl: StormCtrl, el: HTMLElement) {
     0;
   el.innerText = formatMs(millis + showExtra);
   el.classList.toggle('malus', defined(millisSinceMalus));
-  if (!millis && ctrl.vm.mode == 'play') ctrl.end();
+  if (millis < 1 && ctrl.vm.mode == 'play') ctrl.end();
 }
 
 const pad = (x: number): string => (x < 10 ? '0' : '') + x;

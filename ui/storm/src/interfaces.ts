@@ -31,6 +31,15 @@ export interface StormVm {
   puzzleIndex: number;
   moveIndex: number;
   clock: StormClock;
+  history: Round[];
+  puzzleStartAt?: number;
+  combo: number;
+}
+
+export interface Round {
+  puzzle: StormPuzzle;
+  win: boolean;
+  millis: number;
 }
 
 export interface StormClock {

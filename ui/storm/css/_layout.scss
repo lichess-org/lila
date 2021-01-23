@@ -7,30 +7,91 @@
 }
 
 .storm {
-  grid-area: main;
-  display: grid;
+  &--play {
+    display: grid;
 
-  &__side {
-    grid-area: side;
+    &__side {
+      grid-area: side;
+    }
+
+    &__board {
+      grid-area: board;
+    }
+
+    grid-row-gap: $block-gap;
+    grid-column-gap: $block-gap;
+    grid-template-areas: 'board' 'side';
+
+    @include breakpoint($mq-col2) {
+      grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
+      grid-template-rows: fit-content(0);
+      grid-template-areas: 'board   side';
+    }
+
+
+    @include breakpoint($mq-col3) {
+      grid-template-areas: '.    board   side';
+      grid-template-columns: $col3-uniboard-side $col3-uniboard-width $col3-uniboard-table;
+    }
   }
 
-  &__board {
-    grid-area: board;
+  &--end {
+    width: 90vw;
   }
 
-  grid-row-gap: $block-gap;
-  grid-column-gap: $block-gap;
-  grid-template-areas: 'board' 'side';
+  &__history {
+    &__rounds {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+      align-content: start;
+    }
 
-  @include breakpoint($mq-col2) {
-    grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
-    grid-template-rows: fit-content(0);
-    grid-template-areas: 'board   side';
-  }
+    &__round {
+      padding: .4em;
 
+      &__meta {
+        @extend %flex-between;
+      }
 
-  @include breakpoint($mq-col3) {
-    grid-template-areas: '.    board   side';
-    grid-template-columns: $col3-uniboard-side $col3-uniboard-width $col3-uniboard-table;
+      &__id {
+        visibility: hidden;
+      }
+
+      &:hover .storm__history__round__id {
+        color: $c-font;
+        visibility: visible;
+      }
+    }
+
+    good, bad {
+      @extend %flex-center;
+
+      color: white;
+      padding: 0 .5em .1em .3em;
+      font-size: .9em;
+      opacity: .7;
+
+      &::before {
+        @extend %data-icon;
+
+        margin-right: .2em;
+      }
+    }
+
+    good {
+      background: $c-good;
+
+      &::before {
+        content: 'E';
+      }
+    }
+
+    bad {
+      background: $c-bad;
+
+      &::before {
+        content: 'L';
+      }
+    }
   }
 }
