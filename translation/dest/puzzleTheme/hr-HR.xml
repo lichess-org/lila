@@ -118,4 +118,7 @@
   <string name="xRayAttack">Rendgenski napad</string>
   <string name="xRayAttackDescription">Figura napada ili brani polje kroz protivničku figuru.</string>
   <string name="zugzwang">Iznuđeni potez (Zugzwang)</string>
+  <string name="zugzwangDescription">Protivnik je prisiljen odigrati potez koji mu pogoršava poziciju.</string>
+  <string name="healthyMix">Pomalo svega</string>
+  <string name="healthyMixDescription">Kao i u pravim partijama - budi spreman i očekuj bilo što! Kombinacija svih navedenih vrsta zadataka.</string>
 </resources>
