@@ -47,53 +47,65 @@
       }
     }
 
+    &__bars {
+      display: flex;
+      flex-flow: column;
+      flex: 1 1 100%;
+    }
+
     &__bar {
       @extend %box-neat;
 
-      $c-heat-1: mix($c-good, $c-bg-page, 85%);
-      $c-heat-2: mix($c-good, $c-bg-page, 100%);
-      $c-heat-3: mix($c-good, $c-font, 85%);
-      $c-heat-4: mix($c-good, $c-font, 70%);
-
-      --c-bar-base: #{$c-bg-zebra};
-      --c-in-base: #{$c-heat-1};
-      --c-in-flash: #{mix($c-heat-1, white, 75%)};
-
-      &--1 {
-        --c-bar-base: #{$c-heat-1};
-        --c-in-base: #{$c-heat-2};
-        --c-in-flash: #{mix($c-heat-2, white, 75%)};
-      }
-
-      &--2 {
-        --c-bar-base: #{$c-heat-2};
-        --c-in-base: #{$c-heat-3};
-        --c-in-flash: #{mix($c-heat-3, white, 75%)};
-      }
-
-      &--3 {
-        --c-bar-base: #{$c-heat-3};
-        --c-in-base: #{$c-heat-4};
-        --c-in-flash: #{mix($c-heat-4, white, 75%)};
-      }
+      $c-bar-base: $c-bg-zebra;
+      $c-in-base: $c-brag;
+      $c-in-flash: mix($c-in-base, white, 75%);
 
       flex: 1 1 100%;
-      height: 3em;
-      background: var(--c-bar-base);
+      height: 2.2em;
+      background: $c-bar-base;
 
       &__in {
         @extend %box-radius;
 
-        height: 3em;
-        background: var(--c-in-base);
-        box-shadow: 0 0 10px var(--c-in-base), 0 0 20px var(--c-in-base);
+        height: 2.2em;
+        background: $c-in-base;
+        box-shadow: 0 0 15px $c-in-base;
 
         .storm--mod-move & {
-          background: var(--c-in-flash);
-          box-shadow: 0 0 10px var(--c-in-flash), 0 0 20px var(--c-in-flash);
+          background: $c-in-flash;
+          box-shadow: 0 0 15px $c-in-flash;
         }
 
         transition: all .15s;
+      }
+    }
+
+    &__levels {
+      @extend %flex-center;
+
+      margin-top: .3em;
+    }
+
+    &__level {
+      $c-level: $c-primary;
+
+      flex: 21% 0 0;
+      margin-right: 4%;
+      height: 1em;
+      transform: skewX(-45deg) scaleY(0.70711);
+      // box-shadow: 0 0 15px $c-level;
+      background: mix($c-level, black, 80%);
+
+      &:nth-child(2) {
+        background: $c-level;
+      }
+
+      &:nth-child(3) {
+        background: mix($c-level, white, 60%);
+      }
+
+      &:nth-child(4) {
+        background: mix($c-level, white, 40%);
       }
     }
   }

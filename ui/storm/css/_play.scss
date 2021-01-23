@@ -29,6 +29,12 @@
     }
   }
 
+  &__side {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+  }
+
   &__clock {
     @extend %roboto-fat;
 
@@ -36,6 +42,15 @@
 
     &.malus {
       color: $c-bad;
+    }
+  }
+
+  &__solved {
+    @extend %flex-center;
+
+    strong {
+      font-size: 2em;
+      margin-right: 1rem;
     }
   }
 }

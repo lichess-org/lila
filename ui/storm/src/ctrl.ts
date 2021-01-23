@@ -139,9 +139,12 @@ export default class StormCtrl {
 
   comboPercent = () => {
     const lvl = this.comboLevel();
+    if (lvl == config.combo.levels.length - 1) return 100;
     const bounds = [config.combo.levels[lvl][0], config.combo.levels[lvl + 1][0]];
     return Math.floor((this.vm.combo - bounds[0]) / (bounds[1] - bounds[0]) * 100);
   };
+
+  countWins = (): number => this.vm.history.reduce((c, r) => c + (r.win ? 1 : 0), 0);
 
   withGround = <A>(f: (cg: CgApi) => A): A | false => {
     const g = this.ground();

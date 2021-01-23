@@ -1,12 +1,14 @@
 const config = {
   clock: {
-    initial: 3 * 60 * 1000,
+    initial: 3000 * 60 * 1000,
+    // initial: 3 * 60 * 1000,
     // initial: 30 * 1000,
     malus: 15 * 1000,
     bonus: 1 * 1000
   },
   combo: {
     levels: [
+      // [combo threshold, time bonus]
       [0, 0],
       [3, 5],
       [6, 10],

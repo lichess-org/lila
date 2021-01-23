@@ -27,7 +27,8 @@ const renderPlay = (ctrl: StormCtrl): VNode[] => [
   ]),
   h('div.storm__side', [
     renderCombo(ctrl),
-    renderClock(ctrl)
+    renderClock(ctrl),
+    renderSolved(ctrl)
   ])
 ];
 
@@ -41,11 +42,24 @@ const renderCombo = (ctrl: StormCtrl): VNode =>
       ]),
       h('span.storm__combo__counter__combo', 'COMBO')
     ]),
-    h(`div.storm__combo__bar.storm__combo__bar--${ctrl.comboLevel()}`,
-      h('div.storm__combo__bar__in', {
-        attrs: {
-          style: `width:${ctrl.comboPercent()}%`
-        }
-      })
-    )
+    h('div.storm__combo__bars', [
+      h('div.storm__combo__bar',
+        h('div.storm__combo__bar__in', {
+          attrs: {
+            style: `width:${ctrl.comboPercent()}%`
+          }
+        })
+      ),
+      h('div.storm__combo__levels',
+        [...Array(ctrl.comboLevel()).keys()].map(_ =>
+          h('div.storm__combo__level')
+        )
+      )
+    ])
+  ]);
+
+const renderSolved = (ctrl: StormCtrl): VNode =>
+  h('div.storm__solved', [
+    h('strong', ctrl.countWins()),
+    'puzzles solved'
   ]);
