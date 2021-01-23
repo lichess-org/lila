@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="broadcasts">Излъчване</string>
+  <string name="liveBroadcasts">Излъчвания на турнир на живо</string>
+  <string name="newBroadcast">Нови предавания на живо</string>
+  <string name="upcoming">Предстоящи</string>
+  <string name="completed">Завършени</string>
+  <string name="eventName">Име на събитието</string>
+</resources>
