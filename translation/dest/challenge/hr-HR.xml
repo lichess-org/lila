@@ -16,8 +16,8 @@
   <string name="declineTooFast">Ovaj vremenski format je prebrz za mene, izazovi me na sporiji format.</string>
   <string name="declineTooSlow">Ovaj vremenski format je prebrz za mene, izazovi me na brži format.</string>
   <string name="declineTimeControl">Ne prihvaćam izazove u ovom vremenskom formatu.</string>
-  <string name="declineRated">Radije me izazovi na rangiranu partiju.</string>
-  <string name="declineCasual">Molim Vas da me radije izazovete na ležernu partiju.</string>
+  <string name="declineRated">Radije me izazovi na bodovanu partiju.</string>
+  <string name="declineCasual">Radije me izazovi na ležernu partiju.</string>
   <string name="declineStandard">Ne prihvaćam izazove u ovoj varijanti.</string>
   <string name="declineVariant">Trenutačno ne želim igrati ovu varijantu.</string>
 </resources>
