@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advancedPawn">Pješak napreduje</string>
+  <string name="advancedPawnDescription">Pješak koji se promovira ili prijeti promocijom.</string>
+  <string name="advantage">Prednost</string>
+  <string name="advantageDescription">Iskoristi priliku i pridobij odlučujuču prednost. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="anastasiaMate">Anastazijin mat</string>
+  <string name="anastasiaMateDescription">Skakač i top ili dama udružuju se kako bi uhvatili protivničkog kralja u zamku između ruba ploče s jedne i prijateljske figure s druge strane.</string>
+  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Arapski mat</string>
+  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">Skakač i top zarobljavaju protivničkog kralja u uglu table.</string>
+  <string name="attackingF2F7">Napad na f2 ili f7 polje</string>
+</resources>
