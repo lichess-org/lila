@@ -3,7 +3,14 @@
   <string name="broadcasts">Излъчване</string>
   <string name="liveBroadcasts">Излъчвания на турнир на живо</string>
   <string name="newBroadcast">Нови предавания на живо</string>
+  <string name="ongoing">Текущи</string>
   <string name="upcoming">Предстоящи</string>
   <string name="completed">Завършени</string>
   <string name="eventName">Име на събитието</string>
+  <string name="eventDescription">Кратко описание на събитието</string>
+  <string name="fullDescription">Пълно описание на събитието</string>
+  <string name="sourceUrl">Уебадрес на източника</string>
+  <string name="roundNumber">Номер на рунда</string>
+  <string name="startDate">Дата на започване във вашата часова зона</string>
+  <string name="credits">Признателност на източника</string>
 </resources>
