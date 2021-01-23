@@ -34,10 +34,13 @@ export default class StormCtrl {
   }
 
   playUserMove = (orig: Key, dest: Key, promotion?: Role): void => {
-    this.vm.moveIndex++;
-    const expected = this.line()[this.vm.moveIndex];
+    this.promotion.cancel();
+    const expected = this.line()[this.vm.moveIndex + 1];
     const uci = `${orig}${dest}${promotion ? (promotion == 'knight' ? 'n' : promotion[0]) : ''}`;
-    if (uci == expected) {
+    const pos = this.position();
+    pos.play(parseUci(uci)!);
+    if (pos.isCheckmate() || uci == expected) {
+      this.vm.moveIndex++;
       lichess.sound.play('move');
       if (this.vm.moveIndex == this.line().length - 1) {
         this.vm.puzzleIndex++;

@@ -10,5 +10,7 @@ export default function(ctrl: StormCtrl): VNode {
       chessground(ctrl),
       ctrl.promotion.view()
     ]),
+    h('div.storm__side', [
+    ])
   ]);
 }
