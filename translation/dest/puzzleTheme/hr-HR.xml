@@ -86,5 +86,22 @@
   <string name="pawnEndgame">Pješačka završnica</string>
   <string name="pawnEndgameDescription">Završnica koja uključuje samo pješake.</string>
   <string name="pin">Svezivanje</string>
+  <string name="pinDescription">Taktika koja uključuje protivničku figuru koja je vezana za kralja ili drugu figuru veče vrijednosti.</string>
   <string name="promotion">Unapređenje</string>
+  <string name="promotionDescription">Pješak u postupku ili prijetnji promaknućem je ključan za taktiku.</string>
+  <string name="queenEndgame">Kraljičina završnica</string>
+  <string name="queenEndgameDescription">Završnica u kojoj sudjeluju samo kraljica i pješaci.</string>
+  <string name="queenRookEndgame">Kraljica i top</string>
+  <string name="queenRookEndgameDescription">Završnica u kojoj sudjeluju isključivo kraljica, top i pješaci.</string>
+  <string name="queensideAttack">Napad na kraljičinu stranu</string>
+  <string name="queensideAttackDescription">Napad na protivničkog kralja nakon što je protivnik odigrao veliku rokadu.</string>
+  <string name="quietMove">Tihi potez</string>
+  <string name="quietMoveDescription">Potez koji ne uzima protivničku figuru ni ne stavlja protivničkog kralja u šah ali zato priprema neizbježnu prijetnju za nadolazeće poteze.</string>
+  <string name="rookEndgame">Topovska završnica</string>
+  <string name="rookEndgameDescription">Završnica u kojoj sudjeluju samo topovi i pješaci.</string>
+  <string name="sacrifice">Žrtva</string>
+  <string name="sacrificeDescription">Taktika koja uključuje žrtvu koja rezultira stjecanjem prednosti neposredno nakon forsiranog slijeda poteza.</string>
+  <string name="short">Kratki zadatak</string>
+  <string name="shortDescription">Dva poteza za pobjedu.</string>
+  <string name="skewer">Ražanj</string>
 </resources>
