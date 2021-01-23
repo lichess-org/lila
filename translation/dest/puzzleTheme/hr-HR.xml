@@ -40,4 +40,7 @@
   <string name="deflectionDescription">Potez koji odvraća protivničku figuru od dužnosti koju obavlja (kao što je kontroliranje značajnog polja). Ova taktika se također zove i \"preopterećenje\".</string>
   <string name="discoveredAttack">Otkriveni napad</string>
   <string name="discoveredAttackDescription">Napad izvršen kad se figura koja blokira drugu figuru (kraljicu, lovca ili topa) skloni sa određene dijagonale, reda ili stupca.</string>
+  <string name="doubleCheck">Dvostruki šah</string>
+  <string name="endgame">Završnica</string>
+  <string name="fork">Račva</string>
 </resources>
