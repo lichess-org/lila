@@ -383,7 +383,6 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="more">Máis</string>
   <string name="memberSince">Membro dende</string>
   <string name="lastSeenActive">Última conexión %s</string>
-  <string name="challengeToPlay">Retar a unha partida</string>
   <string name="player">Xogador</string>
   <string name="list">Lista</string>
   <string name="graph">Gráfica</string>
@@ -734,7 +733,6 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="error.unknown">Erro</string>
   <string name="custom">Á medida</string>
   <string name="notifications">Notificacións</string>
-  <string name="challenges">Desafíos</string>
   <string name="perfRatingX">Puntuación: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo para facer o primeiro movemento</item>
@@ -781,12 +779,6 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="opening">Abertura</string>
   <string name="middlegame">Medio xogo</string>
   <string name="endgame">Final</string>
-  <string name="registerToSendChallenges">Por favor, rexístrese para enviar desafíos.</string>
-  <string name="youCannotChallengeX">Non podes desafiar a %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s non acepta desafíos.</string>
-  <string name="yourXRatingIsTooFarFromY">A túa puntuación de %1$s está demasiado lonxe da de %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Non pode desafiar debido ao rating provisorio de %s.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s só acepta desafíos de amigos.</string>
   <string name="conditionalPremoves">Premovementos condicionais</string>
   <string name="addCurrentVariation">Engadir variante actual</string>
   <string name="playVariationToCreateConditionalPremoves">Xogar unha variante para crear premovementos condicionais</string>

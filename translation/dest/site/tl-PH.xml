@@ -382,7 +382,6 @@
   <string name="more">Higit pa</string>
   <string name="memberSince">Miyembro mula pa noong</string>
   <string name="lastSeenActive">Aktibo %s</string>
-  <string name="challengeToPlay">Hamunin sa isang laro</string>
   <string name="player">Manlalaro</string>
   <string name="list">Listahan</string>
   <string name="graph">Graph</string>
@@ -732,7 +731,6 @@
   <string name="error.unknown">Mali</string>
   <string name="custom">Pinasadya</string>
   <string name="notifications">Mga Notipikasyon</string>
-  <string name="challenges">Mga Hamon</string>
   <string name="perfRatingX">Marka: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo na gawin ang unang galaw</item>
@@ -779,12 +777,6 @@
   <string name="opening">Bukasan</string>
   <string name="middlegame">Sa gitna ng laro</string>
   <string name="endgame">Taposin ang laro</string>
-  <string name="registerToSendChallenges">Magrehistro upang magpadala ng mga hamon.</string>
-  <string name="youCannotChallengeX">Hindi mo pwedeng hamonin %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s ay hindi tumatanggap ng mga hamon.</string>
-  <string name="yourXRatingIsTooFarFromY">Ang iyong %1$s marka ay masyadong malayo sa %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Hindi makatanggap ng hamon dahil sa probisyonal na %s marka.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s tumatanggap lamang ng hamon galing sa mga kaibigan.</string>
   <string name="conditionalPremoves">Kondisyonal na mga bago gumalaw</string>
   <string name="addCurrentVariation">Magdagdag ng kasalukuyang pagkakaiba</string>
   <string name="playVariationToCreateConditionalPremoves">Maglaro ng pagkakaiba upang makagawa ng kondisyonal na mga paggalaw</string>

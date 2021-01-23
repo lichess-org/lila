@@ -9,7 +9,7 @@
   <string name="lengths">手数</string>
   <string name="mates">メイト</string>
   <string name="goals">目標</string>
-  <string name="origin">出所</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">出所</string>
   <string name="specialMoves">特殊な手</string>
   <string name="didYouLikeThisPuzzle">この問題は気に入りましたか？</string>
   <string name="voteToLoadNextOne">投票すると次を読み込みます！</string>

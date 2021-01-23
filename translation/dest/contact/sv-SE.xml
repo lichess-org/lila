@@ -27,11 +27,12 @@
   <string name="wantClearHistory">Jag vill rensa min historik eller rating</string>
   <string name="cantClearHistory">Det är inte möjligt att rensa din partihistorik, historik för schackproblem eller rating.</string>
   <string name="wantReport">Jag vill rapportera en spelare</string>
+  <string name="toReportAPlayerUseForm">Använd rapportformuläret för att rapportera en spelare</string>
   <string name="youCanAlsoReachReportPage">Du kan också nå den sidan genom att klicka på knappen %s rapportera på en profilsida.</string>
   <string name="doNotReportInForum">Rapportera inte spelare i forumet.</string>
   <string name="doNotSendReportEmails">Skicka oss inte rapporter via e-post.</string>
   <string name="doNotMessageModerators">Skicka inte direkta meddelanden till moderatorer.</string>
-  <string name="onlyReports">Att bara rapportera spelare via rapportformuläret är effektiv.</string>
+  <string name="onlyReports">Att bara rapportera spelare via rapportformuläret är effektivt.</string>
   <string name="wantReportBug">Jag vill rapportera ett programfel</string>
   <string name="reportBugInForum">I Forumet: Lichess Feedback</string>
   <string name="reportWebsiteIssue">Som ett Lichess-webbplatsärende på GitHub</string>

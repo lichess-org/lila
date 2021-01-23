@@ -352,7 +352,6 @@
   <string name="more">เพิ่มเติม</string>
   <string name="memberSince">สมาชิกตั้งแต่</string>
   <string name="lastSeenActive">ลงชื่อเข้าครั้งล่าสุด %s</string>
-  <string name="challengeToPlay">ท้าดวลเกม</string>
   <string name="player">ผู้เล่น</string>
   <string name="list">รายการ</string>
   <string name="graph">กราฟ</string>
@@ -694,7 +693,6 @@
   <string name="error.unknown">ผิดพลาด</string>
   <string name="custom">กำหนด​เอง</string>
   <string name="notifications">การแจ้งเตือน</string>
-  <string name="challenges">การท้าดวล</string>
   <string name="perfRatingX">ระดับคะแนน: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s วินาทีต้องเริ่มเดินตาแรก</item>
@@ -739,12 +737,6 @@
   <string name="opening">การเปิดเกม</string>
   <string name="middlegame">กลางเกม</string>
   <string name="endgame">ท้ายเกม</string>
-  <string name="registerToSendChallenges">กรุณาลงทะเบียนเพื่อส่งคำท้าดวล</string>
-  <string name="youCannotChallengeX">คุณไม่สามารถท้า %s</string>
-  <string name="xDoesNotAcceptChallenges">%s ไม่รับคำท้า</string>
-  <string name="yourXRatingIsTooFarFromY">ระดับคะแนน %1$s ของคุณห่างจาก %2$s เกินไป</string>
-  <string name="cannotChallengeDueToProvisionalXRating">ไม่สามารถท้าได้เนื่องจากระดับคะแนน %s ชั่วคราว</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s รับคำท้าจากเพื่อนเท่านั้น</string>
   <string name="conditionalPremoves">การเดินล่วงหน้าแบบมีเงื่อนไข</string>
   <string name="addCurrentVariation">เพิ่มการแปรผันปัจจุบัน</string>
   <string name="playVariationToCreateConditionalPremoves">เล่นหนึ่งการแปรผัน เพื่อสร้างการเดินล่วงหน้าแบบมีเงื่อนไข</string>

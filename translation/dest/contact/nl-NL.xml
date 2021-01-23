@@ -27,6 +27,7 @@
   <string name="wantClearHistory">Ik wil mijn geschiedenis of rating wissen</string>
   <string name="cantClearHistory">Het is niet mogelijk uw partijgeschiedenis, puzzelgeschiedenis of rating te wissen.</string>
   <string name="wantReport">Ik wil een speler rapporteren</string>
+  <string name="toReportAPlayerUseForm">Gebruik het rapportformulier als u een speler wilt rapporteren</string>
   <string name="youCanAlsoReachReportPage">U kunt deze pagina ook bereiken door op de %s rapporteerknop op een profielpagina te klikken.</string>
   <string name="doNotReportInForum">Rapporteer geen spelers op het forum.</string>
   <string name="doNotSendReportEmails">Stuur ons geen e-mail om een speler te rapporteren.</string>

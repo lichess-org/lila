@@ -27,6 +27,7 @@
   <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">İki fil matı</string>
   <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">İki fil, öz fiqurları tərəfindən bloklanan şahı bitişik diaqonallardan hücum edərək mat edir.</string>
   <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Koziyo matı</string>
+  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">İki qaçış xanası da öz fiqurları tərəfindən tutulan şaha çarpaz bitişik diaqonaldan vəzirlə edilən mat.</string>
   <string name="equality">Bərabərləşmə</string>
   <string name="equalityDescription">İtirilmiş bir pozisiyadan çıxın, heç-heçə və ya balanslı bir mövqe əldə edin. (200sp və daha az)</string>
   <string name="kingsideAttack">Şah cinahında hücum</string>
@@ -50,6 +51,8 @@
   <string name="forkDescription">Bir fiqurun eyni anda iki rəqib fiquruna hücum etdiyi gediş.</string>
   <string name="hangingPiece">Qorunmasız fiqur</string>
   <string name="hangingPieceDescription">Rəqib fiqurunun müdafiəsiz və ya kifayət qədər müdafiə olunmadığı və vurulmağa hazır olduğunu əhatə edən bir taktika.</string>
+  <string name="hookMate">Qarmaq matı</string>
+  <string name="hookMateDescription">Top, at, piyada və rəqib şahının qaçışını məhdudlaşdırmaq üçün bir rəqib piyadası ilə birlikdə edilən mat.</string>
   <string name="interference">Yolukəsmə</string>
   <string name="interferenceDescription">Bir və ya hər iki rəqib fiqurunu müdafiəsiz buraxmaq üçün iki rəqib fiquru arasına öz fiqurunu qoymaq, məsələn, iki top arasındakı müdafiə olunan bir xanaya bir at qoymaq.</string>
   <string name="intermezzo">İntermezzo</string>

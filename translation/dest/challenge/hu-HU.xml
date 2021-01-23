@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="challenges">Kihívások</string>
+  <string name="challengeToPlay">Kihívás játszmára</string>
+  <string name="challengeDeclined">Kihívás elutasítva</string>
+  <string name="challengeAccepted">Kihívás elfogadva!</string>
+  <string name="challengeCanceled">Kihívás visszavonva.</string>
+  <string name="registerToSendChallenges">A kihíváshoz regisztráció szükséges.</string>
+  <string name="youCannotChallengeX">%s nem kihívható.</string>
+  <string name="xDoesNotAcceptChallenges">%s nem fogad kihívásokat.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s csak barátoktól fogad kihívást.</string>
+  <string name="declineGeneric">Jelenleg nem fogadok kihívásokat.</string>
+  <string name="declineLater">Számomra ez nem a legmegfelelőbb időpont, talán majd máskor.</string>
+  <string name="declineTooFast">Ez az időkorlát nekem túl gyors, kérlek küldj egy új kihívást lassabb játszmára.</string>
+  <string name="declineTooSlow">Ez az időkorlát nekem túl lassú, kérlek küldj egy új kihívást gyorsabb játszmára.</string>
+  <string name="declineTimeControl">Nem fogadok el kihívásokat ezzel az időkorláttal.</string>
+  <string name="declineRated">Kérlek inkább értékelt játszmára küldj kihívást.</string>
+  <string name="declineCasual">Kérlek inkább nem értékelt játszmára küldj kihívást.</string>
+  <string name="declineStandard">Jelenleg nem fogadok kihívásokat variáns játszmákra.</string>
+  <string name="declineVariant">Most nincs kedvem ezt a variánst játszani.</string>
+</resources>

@@ -358,7 +358,6 @@
   <string name="more">Multus</string>
   <string name="memberSince">Membrum ab</string>
   <string name="lastSeenActive">Initus recentissimus %s</string>
-  <string name="challengeToPlay">Ludum imponere</string>
   <string name="player">Lusor</string>
   <string name="list">Tabula</string>
   <string name="graph">Graphus</string>
@@ -670,7 +669,6 @@
   <string name="error.unknown">Culpa</string>
   <string name="custom">Alius</string>
   <string name="notifications">Nuntii</string>
-  <string name="challenges">Provocationes</string>
   <string name="perfRatingX">Ordo: %s</string>
   <string name="seeBestMove">Maxime motum videre</string>
   <string name="hideBestMove">Maxime motum celare</string>
@@ -692,8 +690,6 @@
   </plurals>
   <string name="opening">Principium</string>
   <string name="endgame">Finem ludum</string>
-  <string name="registerToSendChallenges">Si di incostans registrarsi per inviare Sfide.</string>
-  <string name="youCannotChallengeX">Non puoi sfidare %s.</string>
   <string name="playX">Lude %s</string>
   <string name="sorry">Paenitet :(</string>
   <string name="why">Cur?</string>

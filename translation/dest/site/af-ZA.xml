@@ -9,7 +9,7 @@
   <string name="yourTurn">Jou beurt</string>
   <string name="aiNameLevelAiLevel">%1$s vlak %2$s</string>
   <string name="level">Vlak</string>
-  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Krag</string>
+  <string name="strength">Krag</string>
   <string name="toggleTheChat">Wissel klets</string>
   <string name="toggleSound">Wissel klank</string>
   <string name="chat">Klets</string>
@@ -384,7 +384,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="more">Meer</string>
   <string name="memberSince">Lid sedert</string>
   <string name="lastSeenActive">Laas ingeteken %s</string>
-  <string name="challengeToPlay">Daag uit vir \'n spel</string>
   <string name="player">Speler</string>
   <string name="list">Lys</string>
   <string name="graph">Grafiek</string>
@@ -738,7 +737,6 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="error.unknown">Oepsie</string>
   <string name="custom">Pasmaak</string>
   <string name="notifications">Kennisgewings</string>
-  <string name="challenges">Uitdagings</string>
   <string name="perfRatingX">Gradering: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekonde om die eerste skuif te speel</item>
@@ -785,12 +783,6 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="opening">Opening</string>
   <string name="middlegame">Middelspel</string>
   <string name="endgame">Eindspel</string>
-  <string name="registerToSendChallenges">Registreer asseblief om uitdagings te stuur.</string>
-  <string name="youCannotChallengeX">Jy kan nie %s uitdaag nie.</string>
-  <string name="xDoesNotAcceptChallenges">%s aanvaar nie uitdagings nie.</string>
-  <string name="yourXRatingIsTooFarFromY">Jou %1$s gradering is te ver van %2$s af.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Kan nie uitdaag nie aangesien jy \'n voorlopige %s gradering het.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s aanvaar net uitdagings van vriende af.</string>
   <string name="conditionalPremoves">Voorwaardelike voorafskuiwe</string>
   <string name="addCurrentVariation">Voeg huidige variasie by</string>
   <string name="playVariationToCreateConditionalPremoves">Speel \'n variasie om voorwaardige voorafskuiwe te skep</string>
@@ -844,7 +836,4 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="youCannotPostYetPlaySomeGames">U kan nog nie in die forums plaas nie. Speel \'n paar speletjies!</string>
   <string name="subscribe">Skryf in</string>
   <string name="unsubscribe">Beëindig inskrywing</string>
-  <string name="challengeDeclined">Uitdaging geweier</string>
-  <string name="challengeAccepted">Uitdaging aanvaar!</string>
-  <string name="challengeCanceled">Uitdaging gekanselleer.</string>
 </resources>

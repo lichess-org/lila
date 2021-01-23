@@ -382,7 +382,6 @@
   <string name="more">आणखी</string>
   <string name="memberSince">या काळा पासून सदस्य आहेत</string>
   <string name="lastSeenActive">%s सक्रिय</string>
-  <string name="challengeToPlay">आव्हान द्या</string>
   <string name="player">खेळाडू</string>
   <string name="list">यादी</string>
   <string name="graph">आलेख</string>
@@ -731,7 +730,6 @@
   <string name="error.unknown">चूक</string>
   <string name="custom">इतर</string>
   <string name="notifications">Notifications</string>
-  <string name="challenges">आव्हाने</string>
   <string name="perfRatingX">गुणांकन: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">पहिली चाल खेळण्यासाठी %s सेकंद आहेत</item>
@@ -778,12 +776,6 @@
   <string name="opening">ओपनिंग</string>
   <string name="middlegame">मध्यखेळ</string>
   <string name="endgame">खेळाचा शेवट</string>
-  <string name="registerToSendChallenges">कृपया आव्हान देण्यासाठी नोंदणी करा.</string>
-  <string name="youCannotChallengeX">तुम्ही आव्हान देऊ शकत नाही %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s आपले आव्हान स्विकारले नाही.</string>
-  <string name="yourXRatingIsTooFarFromY">तुमची %1$s रेटिंग %2$s पेक्षा फार कमी आहे.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">%s च्या अस्थायी रेटिंगमुळे आव्हान देऊ शकत नाही.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s केवळ मित्रांकडील आव्हाने स्वीकारतात.</string>
   <string name="conditionalPremoves">सशर्त प्रिमुव्ह</string>
   <string name="addCurrentVariation">वर्तमान variation जोडा</string>
   <string name="playVariationToCreateConditionalPremoves">सशर्त प्रिमुव्ह तयार करण्यासाठी variation खेळा</string>

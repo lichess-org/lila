@@ -27,6 +27,7 @@
   <string name="wantClearHistory">Nire historikoa edo puntuazioa berrezarri nahi ditut</string>
   <string name="cantClearHistory">Ezin da zure partiden historikoa, ariketena edo puntuazioa berrezarri.</string>
   <string name="wantReport">Erabiltzaile baten inguruko kexa jarri nahi dut</string>
+  <string name="toReportAPlayerUseForm">Jokalari bati buruzko kexa egiteko, erabili kexa formularioa</string>
   <string name="youCanAlsoReachReportPage">Orrialde horretara jokalariaren profilaren orrialdeko %s berri emateko botoian sakatuta hel zaitezke.</string>
   <string name="doNotReportInForum">Ez erabili foroa jokalarien inguruko kexa bidaltzeko.</string>
   <string name="doNotSendReportEmails">Ez bidali epostaz kexak.</string>

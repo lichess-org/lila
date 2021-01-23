@@ -9,7 +9,7 @@
   <string name="yourTurn">あなたの手番です</string>
   <string name="aiNameLevelAiLevel">%1$s レベル %2$s</string>
   <string name="level">レベル</string>
-  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">強さ</string>
+  <string name="strength">強さ</string>
   <string name="toggleTheChat">チャットのオン・オフ</string>
   <string name="toggleSound">音声のオン・オフ</string>
   <string name="chat">チャット</string>
@@ -305,7 +305,7 @@
   <string name="youAreNotInTeam">チーム %s に入っていません</string>
   <string name="backToGame">ゲームに戻る</string>
   <string name="siteDescription">無料オンラインチェス。簡素なインターフェースですぐに対局を。登録不要、広告なし、プラグイン不要。AIと、友達と、知らない相手とも対局できます。</string>
-  <string name="xJoinedTeamY" comment="xJoinedTeamY&#10;&#10;Joining is effectively equal to becoming a member.">%1$s がチーム %2$s に参加</string>
+  <string name="xJoinedTeamY">%1$s がチーム %2$s に参加</string>
   <string name="xCreatedTeamY">%1$s がチーム %2$s を作成</string>
   <string name="xStartedStreaming">%s が配信を開始</string>
   <string name="averageElo">平均レーティング</string>
@@ -357,7 +357,6 @@
   <string name="more">さらに表示</string>
   <string name="memberSince">登録日</string>
   <string name="lastSeenActive">最後のログイン %s</string>
-  <string name="challengeToPlay">対局を申し込む</string>
   <string name="player">プレイヤー</string>
   <string name="list">リスト</string>
   <string name="graph">グラフ</string>
@@ -703,7 +702,6 @@
   <string name="error.unknown">エラー</string>
   <string name="custom">自由設定</string>
   <string name="notifications">通知</string>
-  <string name="challenges">挑戦</string>
   <string name="perfRatingX">レーティング: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">あと %s 秒以内に初手を指してください</item>
@@ -748,12 +746,6 @@
   <string name="opening">序盤</string>
   <string name="middlegame">中盤</string>
   <string name="endgame">終盤</string>
-  <string name="registerToSendChallenges">チャレンジを送るには登録が必要です。</string>
-  <string name="youCannotChallengeX">%s にチャレンジできません。</string>
-  <string name="xDoesNotAcceptChallenges">%s はチャレンジを受け付けていません。</string>
-  <string name="yourXRatingIsTooFarFromY">%1$s レーティングが %2$s と離れすぎです。</string>
-  <string name="cannotChallengeDueToProvisionalXRating">%s が仮レーティングのためチャレンジできません。</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s は友達からのチャレンジしか受け付けません。</string>
   <string name="conditionalPremoves">コンディショナルムーブ</string>
   <string name="addCurrentVariation">現在の変化を追加する</string>
   <string name="playVariationToCreateConditionalPremoves">駒を動かしてコンディショナルムーブを設定します</string>
@@ -806,7 +798,4 @@
   <string name="youCannotPostYetPlaySomeGames">何局か指し終えるまで投稿はできません。</string>
   <string name="subscribe">投稿をフォロー</string>
   <string name="unsubscribe">投稿のフォローをはずす</string>
-  <string name="challengeDeclined">挑戦が拒否されました。</string>
-  <string name="challengeAccepted">挑戦が承認されました！</string>
-  <string name="challengeCanceled">挑戦がキャンセルされました。</string>
 </resources>

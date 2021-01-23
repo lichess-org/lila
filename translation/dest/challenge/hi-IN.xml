@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="challenges">चुनौतियों</string>
+  <string name="challengeToPlay">एक खेल के लिए चुनौती</string>
+  <string name="challengeDeclined">चुनौती इंकार कर दिया</string>
+  <string name="challengeAccepted">चुनौती स्वीकार की गई!</string>
+  <string name="challengeCanceled">चुनौती रद्द।</string>
+  <string name="registerToSendChallenges">कृपया चुनौतियों को भेजने के लिए पंजीकरण करें।</string>
+  <string name="youCannotChallengeX">आप %s को चुनौती नहीं दे सकते।</string>
+  <string name="xDoesNotAcceptChallenges">%s चुनौतियों को स्वीकार नहीं करता है।</string>
+  <string name="yourXRatingIsTooFarFromY">आपकी %1$s रेटिंग %2$s से बहुत दूर है।</string>
+  <string name="cannotChallengeDueToProvisionalXRating">अनंतिम %s रेटिंग के कारण चुनौती नहीं दी जा सकती।</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s केवल दोस्तों की चुनौतियों को स्वीकार करता है।</string>
+  <string name="declineGeneric">मैं इस समय चुनौतियों को स्वीकार नहीं कर रहा हूं।</string>
+  <string name="declineLater">मैं अभी चुनौतियों को स्वीकार नहीं कर रहा हूं, कृपया बाद में फिर से पूछें।</string>
+</resources>

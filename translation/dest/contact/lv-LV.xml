@@ -27,6 +27,7 @@
   <string name="wantClearHistory">Vēlos notīrīt savu vēsturi vai reitingu</string>
   <string name="cantClearHistory">Nav iespējams notīrīt spēļu vēsturi, puzļu vēsturi vai reitingus.</string>
   <string name="wantReport">Vēlos ziņot par spēlētāju</string>
+  <string name="toReportAPlayerUseForm">Lai ziņotu par spēlētāju, aizpildiet ziņošanas veidlapu</string>
   <string name="youCanAlsoReachReportPage">Varat arī nonākt tajā lapā, klikšķinot uz %s pogas \"ziņot\" profila lapā.</string>
   <string name="doNotReportInForum">Neziņojiet par spēlētājiem forumā.</string>
   <string name="doNotSendReportEmails">Nesūtiet mums ziņojumu e-pastus.</string>

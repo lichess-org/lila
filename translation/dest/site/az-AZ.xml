@@ -9,7 +9,7 @@
   <string name="yourTurn">Sizin növbənizdir</string>
   <string name="aiNameLevelAiLevel">%1$s səviyyə %2$s</string>
   <string name="level">Səviyyə</string>
-  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Güc</string>
+  <string name="strength">Güc</string>
   <string name="toggleTheChat">Söhbəti aç/bağla</string>
   <string name="toggleSound">Səsi aç/bağla</string>
   <string name="chat">Mesaj göndər</string>
@@ -383,7 +383,6 @@
   <string name="more">Daha çox</string>
   <string name="memberSince">Üzvlük tarixi</string>
   <string name="lastSeenActive">Aktiv %s</string>
-  <string name="challengeToPlay">Oyuna çağırış</string>
   <string name="player">Oyunçu</string>
   <string name="list">List</string>
   <string name="graph">Qrafik</string>
@@ -736,7 +735,6 @@
   <string name="error.unknown">Xəta</string>
   <string name="custom">Özəl</string>
   <string name="notifications">Bildirişlər</string>
-  <string name="challenges">Çağırışlar</string>
   <string name="perfRatingX">Reytinq: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">ilk gedişi etmək üçün son %s saniyə</item>
@@ -783,12 +781,6 @@
   <string name="opening">Debüt</string>
   <string name="middlegame">Mittelşpil</string>
   <string name="endgame">Endşpil</string>
-  <string name="registerToSendChallenges">Çağırış göndərmək üçün lütfən qeydiyyatdan keçin.</string>
-  <string name="youCannotChallengeX">%s istifadəçisinə çağırış edə bilməzsiz.</string>
-  <string name="xDoesNotAcceptChallenges">%s çağırışları qəbul etmir.</string>
-  <string name="yourXRatingIsTooFarFromY">Sizin %1$s reytinqiniz %2$s istifadəçisindən çox uzaqdır.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Müvəqqəti %s reytinqi səbəbilə çağırış edə bilməzsiz.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s yalnız dostlarından çağırış qəbul edir.</string>
   <string name="conditionalPremoves">Şərtli öngediş</string>
   <string name="addCurrentVariation">Cari variasiyanı əlavə et</string>
   <string name="playVariationToCreateConditionalPremoves">Şərtli öngedişlər etmək üçün bir variasiya oynayın</string>
@@ -842,7 +834,4 @@
   <string name="youCannotPostYetPlaySomeGames">Hələ forumlarda yazı göndərə bilməzsiniz. Biraz oyun oynayın!</string>
   <string name="subscribe">Abunə ol</string>
   <string name="unsubscribe">Abunəlikdən çıxın</string>
-  <string name="challengeDeclined">Çağırış rədd edildi</string>
-  <string name="challengeAccepted">Çağırış qəbul edildi!</string>
-  <string name="challengeCanceled">Çağırışdan imtina edildi.</string>
 </resources>

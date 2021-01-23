@@ -315,7 +315,6 @@
   <string name="more">Papar lebih</string>
   <string name="memberSince">Ahli sejak</string>
   <string name="lastSeenActive">Aktif: %s</string>
-  <string name="challengeToPlay">Cabar ke permainan</string>
   <string name="player">Pemain</string>
   <string name="list">Senarai</string>
   <string name="graph">Graf</string>
@@ -510,12 +509,6 @@
   <string name="opening">Opening</string>
   <string name="middlegame">Middlegame</string>
   <string name="endgame">Endgame</string>
-  <string name="registerToSendChallenges">Sila daftar untuk hantar cabaran.</string>
-  <string name="youCannotChallengeX">Anda tidak boleh mencabar%s.</string>
-  <string name="xDoesNotAcceptChallenges">%s tidak menerima cabaran.</string>
-  <string name="yourXRatingIsTooFarFromY">Rating anda%1$s jauh daripada rating %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Tidak boleh cabar kerana rating %s masih tidak stabil.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s hanya boleh terima cabaran daripada rakan-rakan.</string>
   <string name="conditionalPremoves">Pre-gerakan bersyarat</string>
   <string name="addCurrentVariation">Tambah variasi semasa</string>
   <string name="playVariationToCreateConditionalPremoves">Tambah variasi untuk membuat pre-gerakan bersyarat</string>

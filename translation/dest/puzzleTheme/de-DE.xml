@@ -17,7 +17,7 @@
   <string name="bishopEndgame">Läuferendspiel</string>
   <string name="bishopEndgameDescription">Ein Endspiel nur mit Läufern und Bauern.</string>
   <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Boden-Matt</string>
-  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Zwei angreifende Läufer auf sich kreuzenden (Neben-)Diagonalen setzen den König matt, der durch eigene Figuren behindert wird.</string>
+  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Zwei angreifende Läufer auf sich kreuzenden Diagonalen setzen den König matt, der durch eigene Figuren behindert wird.</string>
   <string name="castling">Rochade</string>
   <string name="castlingDescription">Bringe deinen König in Sicherheit und den Turm in Angriffsposition.</string>
   <string name="capturingDefender">Schlage den Verteidiger</string>

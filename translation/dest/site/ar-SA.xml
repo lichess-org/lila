@@ -490,7 +490,6 @@
   <string name="more">المزيد</string>
   <string name="memberSince">مسجل منذ</string>
   <string name="lastSeenActive">آخر دخول %s</string>
-  <string name="challengeToPlay">تحدى</string>
   <string name="player">لاعب</string>
   <string name="list">قائمة</string>
   <string name="graph">رسم بياني</string>
@@ -869,7 +868,6 @@
   <string name="error.unknown">خطأ</string>
   <string name="custom">مخصص</string>
   <string name="notifications">إشعارات</string>
-  <string name="challenges">التحديات</string>
   <string name="perfRatingX">التقييم: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="zero">%s ثانية متبقية لاتمام النقلة الأولى</item>
@@ -924,12 +922,6 @@
   <string name="opening">افتتاحية</string>
   <string name="middlegame">جزء منتصف اللعبة</string>
   <string name="endgame">جزء نهاية اللعبة</string>
-  <string name="registerToSendChallenges">الرجاء التسجيل لإرسال التحديات.</string>
-  <string name="youCannotChallengeX">لا يمكنك تحدي %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s لا يقبل التحديات.</string>
-  <string name="yourXRatingIsTooFarFromY">تقييمك %1$s لا يؤهلك لمنافسة %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">لا يمكن اتمام التحدي بسبب التقييم %s المؤقت.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s يقبل التحديات من الأصدقاء فقط.</string>
   <string name="conditionalPremoves">تحريكات شرطية</string>
   <string name="addCurrentVariation">إضافة تنويعة حالية</string>
   <string name="playVariationToCreateConditionalPremoves">إلعب تفريع لإنشاء نقلة مسبقة مشروطة</string>

@@ -6,8 +6,8 @@
   <string name="advantageDescription">Grip sjansen til en avgjørende fordel. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastasias matt</string>
   <string name="anastasiaMateDescription">Tårn eller dronning slår seg sammen med springer for å fange motstanderens konge mellom kanten av brettet og egen brikke.</string>
-  <string name="arabianMate">Arabisk matt</string>
-  <string name="arabianMateDescription">Springer og tårn slår seg sammen for å fange motstanderens konge i hjørnet av brettet.</string>
+  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Arabisk matt</string>
+  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">Springer og tårn slår seg sammen for å fange motstanderens konge i hjørnet av brettet.</string>
   <string name="attackingF2F7">Angrep mot f2 eller f7</string>
   <string name="attackingF2F7Description">Et angrep med fokus på bonden på f2 eller f7, slik som i fegatello-angrepet.</string>
   <string name="attraction">Magnetoffer</string>
@@ -16,18 +16,18 @@
   <string name="backRankMateDescription">Sett kongen sjakk matt på sisteraden, når den er fanget der av egne brikker.</string>
   <string name="bishopEndgame">Løpersluttspill</string>
   <string name="bishopEndgameDescription">Et sluttspill med kun løpere og bønder.</string>
-  <string name="bodenMate">Bodens matt</string>
-  <string name="bodenMateDescription">To angripende løpere på kryssende diagonaler setter matt, da kongen er blokkert av egne brikker.</string>
+  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Bodens matt</string>
+  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">To angripende løpere på kryssende diagonaler setter matt, da kongen er blokkert av egne brikker.</string>
   <string name="castling">Rokade</string>
   <string name="castlingDescription">Få kongen i sikkerhet og gjør tårnet klart for angrep.</string>
   <string name="capturingDefender">Slå forsvareren</string>
   <string name="capturingDefenderDescription">Ta en brikke som gir avgjørende dekning for en annen brikke, slik at den nå udekkede brikken kan slås senere.</string>
   <string name="crushing">Knusende</string>
   <string name="crushingDescription">Oppdag motstanderens bukk og oppnå en knusende fordel. (eval ≥ 600cp)</string>
-  <string name="doubleBishopMate">Dobbeltløpermatt</string>
-  <string name="doubleBishopMateDescription">To angripende løpere på tilstøtende diagonaler setter matt, da kongen er blokkert av egne brikker.</string>
-  <string name="dovetailMate">Halematt</string>
-  <string name="dovetailMateDescription">Dronning setter tilstøtende konge matt, da de to eneste fluktfeltene er blokkert av egne brikker.</string>
+  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Dobbeltløpermatt</string>
+  <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">To angripende løpere på tilstøtende diagonaler setter matt, da kongen er blokkert av egne brikker.</string>
+  <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Halematt</string>
+  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">Dronning setter tilstøtende konge matt, da de to eneste fluktfeltene er blokkert av egne brikker.</string>
   <string name="equality">Utligning</string>
   <string name="equalityDescription">Vend en tapt stilling til remis eller lik stilling. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Angrep på kongefløyen</string>

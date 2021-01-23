@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="challenges">Défis</string>
+  <string name="challengeToPlay">Défier ce joueur</string>
+  <string name="challengeDeclined">Défi refusé</string>
+  <string name="challengeAccepted">Défi accepté!</string>
+  <string name="challengeCanceled">Défi annulé</string>
+  <string name="registerToSendChallenges">Veuillez vous inscrire pour envoyer des défis.</string>
+  <string name="youCannotChallengeX">Vous ne pouvez pas défier %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s n’accepte pas les défis.</string>
+  <string name="yourXRatingIsTooFarFromY" comment="yourXRatingIsTooFarFromY&#10;&#10;%1$s is the rating type (blitz, bullet, crazyhouse)&#10;%2$s is another username&#10;&#10;This message is shown if you are trying too challenge someone who is too strong/weak compared to your rating.">Votre classement de %1$s est trop différent de celui de %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating" comment="cannotChallengeDueToProvisionalXRating&#10;&#10;Users can set the preference to deny challenges from other players if their rating is not within a range of 300 points. If you attempt to challenge someone who has turned on this restriction, but one of you has a provisional rating in this area, you will see this message.&#10;&#10;A rating is considered provisional if the player hasn't played enough games for the system to be certain of their exact rating.&#10;&#10;The variable is the type of rating (Blitz, Bullet, Crazyhouse, etc.)">Défi refusé à cause de la cote %s provisoire</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s n’accepte que les défis de ses ami(e)s.</string>
+  <string name="declineGeneric">Je n\'accepte pas de défis pour le moment.</string>
+  <string name="declineLater">Ce n\'est pas un bon moment pour moi, réessayez plus tard s\'il vous plaît.</string>
+  <string name="declineTooFast">Ce contrôle de temps est trop rapide pour moi, réessayez avec un contrôle de temps plus lent s\'il vous plaît.</string>
+  <string name="declineTooSlow">Ce contrôle de temps est trop lent pour moi, réessayez avec un contrôle de temps plus rapide s\'il vous plaît.</string>
+  <string name="declineTimeControl">Je n\'accepte pas de défis avec ce contrôle de temps.</string>
+  <string name="declineRated">Envoyez-moi plutôt un défi classé.</string>
+  <string name="declineCasual">Envoyez-moi plutôt un défi amical.</string>
+  <string name="declineStandard">Je n\'accepte pas de défis en variantes pour le moment.</string>
+  <string name="declineVariant">Je ne veux pas jouer cette variante pour le moment.</string>
+</resources>

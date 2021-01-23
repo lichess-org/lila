@@ -9,7 +9,7 @@
   <string name="lengths">Luzera</string>
   <string name="mates">Mateak</string>
   <string name="goals">Helburuak</string>
-  <string name="origin">Jatorria</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Jatorria</string>
   <string name="specialMoves">Jokaldi bereziak</string>
   <string name="didYouLikeThisPuzzle">Ariketa gustukoa izan da?</string>
   <string name="voteToLoadNextOne">Eman bozka hurrengoa kargatzeko!</string>

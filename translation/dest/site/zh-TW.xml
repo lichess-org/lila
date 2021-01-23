@@ -9,7 +9,7 @@
   <string name="yourTurn">輪到您了</string>
   <string name="aiNameLevelAiLevel">%1$s 難度 %2$s</string>
   <string name="level">難度</string>
-  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">強度</string>
+  <string name="strength">強度</string>
   <string name="toggleTheChat">聊天開關</string>
   <string name="toggleSound">聲音開關</string>
   <string name="chat">聊天</string>
@@ -356,7 +356,6 @@
   <string name="more">更多</string>
   <string name="memberSince">註冊日期</string>
   <string name="lastSeenActive">最近登入 %s</string>
-  <string name="challengeToPlay">挑戰</string>
   <string name="player">棋手</string>
   <string name="list">列表</string>
   <string name="graph">圖表</string>
@@ -702,7 +701,6 @@
   <string name="error.unknown">錯誤</string>
   <string name="custom">自訂設定</string>
   <string name="notifications">通知</string>
-  <string name="challenges">挑戰</string>
   <string name="perfRatingX">評分:%s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">在%s秒前須下出第一步</item>
@@ -747,12 +745,6 @@
   <string name="opening">開局</string>
   <string name="middlegame">中場</string>
   <string name="endgame">殘局</string>
-  <string name="registerToSendChallenges">請登入以挑戰您的朋友</string>
-  <string name="youCannotChallengeX">您不能挑戰%s</string>
-  <string name="xDoesNotAcceptChallenges">%s不接受挑戰</string>
-  <string name="yourXRatingIsTooFarFromY">您的%1$s評分與%2$s相差太遠</string>
-  <string name="cannotChallengeDueToProvisionalXRating">由於您的%s積分不夠穩定，無法進行挑戰。</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s只接受好友的挑戰</string>
   <string name="conditionalPremoves">預設棋譜</string>
   <string name="addCurrentVariation">加入現有變化</string>
   <string name="playVariationToCreateConditionalPremoves">著一步不同的位置以創建預估走位</string>
@@ -805,7 +797,4 @@
   <string name="youCannotPostYetPlaySomeGames">您目前不能發表文章在論壇裡，先下幾盤棋吧!</string>
   <string name="subscribe">訂閱</string>
   <string name="unsubscribe">取消訂閱</string>
-  <string name="challengeDeclined">發起的對弈已拒絕</string>
-  <string name="challengeAccepted">發起的對弈已接受</string>
-  <string name="challengeCanceled">發起的對弈已撤銷</string>
 </resources>

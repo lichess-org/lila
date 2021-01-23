@@ -355,7 +355,6 @@
   <string name="more">Lainnya</string>
   <string name="memberSince">Anggota sejak</string>
   <string name="lastSeenActive">Login terakhir %s</string>
-  <string name="challengeToPlay">Menantang bermain</string>
   <string name="player">Pemain</string>
   <string name="list">Daftar</string>
   <string name="graph">Grafik</string>
@@ -476,10 +475,12 @@
   <string name="currentPassword">Password saat ini</string>
   <string name="newPassword">Password baru</string>
   <string name="newPasswordAgain">Password baru (lagi)</string>
+  <string name="newPasswordsDontMatch">Kata sandi baru tidak cocok</string>
   <string name="newPasswordStrength">Kekuatan Kata Sandi</string>
   <string name="clockInitialTime">Waktu awal</string>
   <string name="clockIncrement">Kenaikan waktu</string>
   <string name="privacy">Privasi</string>
+  <string name="privacyPolicy">Kebijakan privasi</string>
   <string name="letOtherPlayersFollowYou">Biarkan pengguna lain mengikuti anda</string>
   <string name="letOtherPlayersChallengeYou">Biarkan pengguna lain menantang anda</string>
   <string name="letOtherPlayersInviteYouToStudy">Ijinkan pemain lain mengajak Anda untuk studi</string>
@@ -621,6 +622,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jika anda tidak melihat surel, cek tempat-tempat lain; seperti junk, spam, sosial, atau berkas lainnya</string>
   <string name="weHaveSentYouAnEmailTo">Kami telah mengirim surel kepada %s. Klik tautan di dalam surel untuk mengubah kata sandi anda.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Dengan mendaftar, anda setuju untuk terikat dengan %s kita.</string>
+  <string name="readAboutOur">Baca tentang %s kami.</string>
   <string name="networkLagBetweenYouAndLichess">Hambatan jaringan antara anda dan lichess.</string>
   <string name="timeToProcessAMoveOnLichessServer">Waktu untuk memproses suatu langkah dalam server lichess</string>
   <string name="downloadAnnotated">Unduh versi anotasi</string>
@@ -698,7 +700,6 @@
   <string name="error.unknown">Kesalahan</string>
   <string name="custom">Atur</string>
   <string name="notifications">Notifikasi</string>
-  <string name="challenges">Tantangan</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s detik untuk memainkan langkah pertama</item>
@@ -743,12 +744,6 @@
   <string name="opening">Pembuka</string>
   <string name="middlegame">Setengah permainan</string>
   <string name="endgame">Akhir permainan</string>
-  <string name="registerToSendChallenges">Silahkan daftar untuk mengirim tantangan.</string>
-  <string name="youCannotChallengeX">Anda tidak bisa menantang %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s tidak menerima tantangan.</string>
-  <string name="yourXRatingIsTooFarFromY">Rating %1$s terlalu jauh dari %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Tidak bisa menantang karena sementara%s rating.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s hanya menerima tantangan dari teman.</string>
   <string name="conditionalPremoves">Syarat pra-langkah</string>
   <string name="addCurrentVariation">Tambahkan variasi</string>
   <string name="playVariationToCreateConditionalPremoves">Memainkan sebuah variasi untuk membuat syarat pra-langkah</string>

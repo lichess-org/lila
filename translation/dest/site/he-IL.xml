@@ -436,7 +436,6 @@
   <string name="more">עוד</string>
   <string name="memberSince">רשום מ</string>
   <string name="lastSeenActive">נכנס לאחרונה %s</string>
-  <string name="challengeToPlay">הזמן למשחק</string>
   <string name="player">שחקן</string>
   <string name="list">רשימה</string>
   <string name="graph">גרף</string>
@@ -802,7 +801,6 @@
   <string name="error.unknown">שגיאה</string>
   <string name="custom">התאמה אישית</string>
   <string name="notifications">התראות</string>
-  <string name="challenges">הזמנות למשחק</string>
   <string name="perfRatingX">דירוג: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s שניה לשחק את המסע הראשון</item>
@@ -853,12 +851,6 @@
   <string name="opening">פתיחה</string>
   <string name="middlegame">מציעה</string>
   <string name="endgame">סיום</string>
-  <string name="registerToSendChallenges">הירשם על מנת לשלוח אתגרים.</string>
-  <string name="youCannotChallengeX">לא ניתן לאתגר את %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s לא מקבל אתגרים.</string>
-  <string name="yourXRatingIsTooFarFromY">דירוג שלך %1$s רחוק מדי מ-%2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">אינו יכול לבקש משחק חוזר כי דירוג %s שלו עדיין זמני.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s רק מחבר בין מנויים הרשומים כחברים.</string>
   <string name="conditionalPremoves">מסעים מותנים מראש</string>
   <string name="addCurrentVariation">תוסיף וריאציה הנוכחית</string>
   <string name="playVariationToCreateConditionalPremoves">צור מהלכים מותנים מראש מתוך וריאנט</string>

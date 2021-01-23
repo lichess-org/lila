@@ -9,7 +9,7 @@
   <string name="yourTurn">Your turn</string>
   <string name="aiNameLevelAiLevel">%1$s level %2$s</string>
   <string name="level">Level</string>
-  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Strength</string>
+  <string name="strength">Strength</string>
   <string name="toggleTheChat">Toggle the chat</string>
   <string name="toggleSound">Toggle sound</string>
   <string name="chat">Chat</string>
@@ -384,7 +384,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="more">More</string>
   <string name="memberSince">Member since</string>
   <string name="lastSeenActive">Active %s</string>
-  <string name="challengeToPlay">Challenge to a game</string>
   <string name="player">Player</string>
   <string name="list">List</string>
   <string name="graph">Graph</string>
@@ -737,7 +736,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="error.unknown">Error</string>
   <string name="custom">Custom</string>
   <string name="notifications">Notifications</string>
-  <string name="challenges">Challenges</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s second to play the first move</item>
@@ -784,12 +782,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="opening">Opening</string>
   <string name="middlegame">Middlegame</string>
   <string name="endgame">Endgame</string>
-  <string name="registerToSendChallenges">Please register to send challenges.</string>
-  <string name="youCannotChallengeX">You cannot challenge %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s does not accept challenges.</string>
-  <string name="yourXRatingIsTooFarFromY">Your %1$s rating is too far from %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Cannot challenge due to provisional %s rating.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s only accepts challenges from friends.</string>
   <string name="conditionalPremoves">Conditional premoves</string>
   <string name="addCurrentVariation">Add current variation</string>
   <string name="playVariationToCreateConditionalPremoves">Play a variation to create conditional premoves</string>
@@ -843,7 +835,4 @@ computer analysis, game chat and shareable URL.</string>
   <string name="youCannotPostYetPlaySomeGames">You can\'t post in the forums yet. Play some games!</string>
   <string name="subscribe">Subscribe</string>
   <string name="unsubscribe">Unsubscribe</string>
-  <string name="challengeDeclined">Challenge declined</string>
-  <string name="challengeAccepted">Challenge accepted!</string>
-  <string name="challengeCanceled">Challenge canceled</string>
 </resources>

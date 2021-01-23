@@ -47,9 +47,9 @@
   <string name="castlingRules">Forsikre deg om at du skjønar med rokade-reglane</string>
   <string name="tryCastling">Øv på rokade ved hjelp av dette lille interaktive spelet</string>
   <string name="castlingImported">Vær nøye med å kontrollere at rokaderettane er korrekt sett dersom partiet er importert eller starta frå ein annan stilling enn utgangsposisjonen.</string>
-  <string name="insufficientMaterial">Utilstrekkeleg materiale til å sette matt</string>
+  <string name="insufficientMaterial">Utilstrekkeleg materiale til å setja matt</string>
   <string name="fideMate">I følge FIDEs sjakkregler §6.9, er eit parti ikkje remis dersom ein sjakkmatt er mogleg etter ein lovleg trekkrekkefølge</string>
-  <string name="knightMate">Det er mogleg å sette sjakkmatt med berre éin springar eller éin løpar dersom motspelaren har fleire brikker enn kongen på brettet.</string>
+  <string name="knightMate">Det er mogleg å setja sjakkmatt med berre éin springar eller éin løpar dersom motspelaren har fleire brikker enn kongen på brettet.</string>
   <string name="noRatingPoints">Det blei ikkje tildelt ratingpoeng</string>
   <string name="ratedGame">Forsikre deg om at partiet du spela var rangert. Uforpliktande parti påverkar ikkje ratinga til spelarane.</string>
   <string name="errorPage">Feilside</string>

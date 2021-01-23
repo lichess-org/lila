@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="challenges">Вызовы</string>
+  <string name="challengeToPlay">Вызвать на игру</string>
+  <string name="challengeDeclined">Вызов отклонён</string>
+  <string name="challengeAccepted">Вызов принят!</string>
+  <string name="challengeCanceled">Вызов отменён.</string>
+  <string name="registerToSendChallenges">Зарегистрируйтесь, чтобы вызывать соперников на игру.</string>
+  <string name="youCannotChallengeX">Вы не можете вызвать на игру %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s не принимает вызовы.</string>
+  <string name="yourXRatingIsTooFarFromY">Ваш рейтинг %1$s слишком далёк от %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Невозможно из-за недостоверности рейтинга %s.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s принимает вызовы только от друзей.</string>
+  <string name="declineGeneric">Я не принимаю вызовы прямо сейчас.</string>
+  <string name="declineLater">Я не принимаю вызовы прямо сейчас, пожалуйста, вызовите меня позже.</string>
+  <string name="declineTooFast">Такой контроль времени слишком быстрый для меня, пожалуйста, вызовите меня на игру с контролем времени побольше.</string>
+  <string name="declineTooSlow">Такой контроль слишком медленный для меня, пожалуйста, вызовите меня с контролем времени поменьше.</string>
+  <string name="declineTimeControl">Я не принимаю вызовы с таким контролем времени.</string>
+  <string name="declineRated">Вызовите меня на рейтинговую игру, пожалуйста.</string>
+  <string name="declineCasual">Вызовите меня на товарищескую игру, пожалуйста.</string>
+  <string name="declineStandard">Я не принимаю вызовы на неклассические шахматы прямо сейчас.</string>
+  <string name="declineVariant">Я не хочу играть в этот вариант шахмат прямо сейчас.</string>
+</resources>

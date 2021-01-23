@@ -11,7 +11,7 @@
   <string name="pgnPieceNotation">Notasyon tut</string>
   <string name="chessPieceSymbol">Satranç taşı sembolü</string>
   <string name="pgnLetter">Harf (Ş, V, K, A, F)</string>
-  <string name="zenMode">Odak modu</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Sade görünüm</string>
   <string name="displayBoardResizeHandle">Tahta büyüklüğünü ayarlama kolunu göster</string>
   <string name="onlyOnInitialPosition">Sadece oyunun başında</string>
   <string name="blindfoldChess">Körleme satranç (taşlar gözükmez)</string>

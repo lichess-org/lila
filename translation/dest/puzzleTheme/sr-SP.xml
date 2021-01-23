@@ -4,6 +4,6 @@
   <string name="advancedPawnDescription">Пешак који се промовише или прети да се промовише је кључни мотив тактике.</string>
   <string name="advantage">Предност</string>
   <string name="advantageDescription">Искористите шансу да стекнете одлучујућу предност. (200cp ≤ eval ≤ 600cp)</string>
-  <string name="arabianMate">Арапски мат</string>
+  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Арапски мат</string>
   <string name="attackingF2F7">Напад на f2 или на f7</string>
 </resources>

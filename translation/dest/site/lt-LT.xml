@@ -9,7 +9,7 @@
   <string name="yourTurn">Jūsų ėjimas</string>
   <string name="aiNameLevelAiLevel">%1$s lygis Nr. %2$s</string>
   <string name="level">Lygis</string>
-  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Stiprumas</string>
+  <string name="strength">Stiprumas</string>
   <string name="toggleTheChat">Įjungti / išjungti pokalbį</string>
   <string name="toggleSound">Įjungti / išjungti garsus</string>
   <string name="chat">Pokalbis</string>
@@ -438,7 +438,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="more">Daugiau</string>
   <string name="memberSince">Narys nuo</string>
   <string name="lastSeenActive">Paskutinis prisijungimas %s</string>
-  <string name="challengeToPlay">Pakviesti partijai</string>
   <string name="player">Žaidėjas</string>
   <string name="list">Sąrašas</string>
   <string name="graph">Grafikas</string>
@@ -805,7 +804,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="error.unknown">Klaida</string>
   <string name="custom">Kitoks</string>
   <string name="notifications">Pranešimai</string>
-  <string name="challenges">Iššūkiai</string>
   <string name="perfRatingX">Reitingas: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekundė atlikti pirmąjį ėjimą</item>
@@ -856,12 +854,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="opening">Debiutas</string>
   <string name="middlegame">Mitelšpilis</string>
   <string name="endgame">Endšpilis</string>
-  <string name="registerToSendChallenges">Užsiregistruokite, norėdami mesti iššūkius.</string>
-  <string name="youCannotChallengeX">Negalite mesti iššūkio žaidėjui %s.</string>
-  <string name="xDoesNotAcceptChallenges">Žaidėjas %s nepriima iššūkių.</string>
-  <string name="yourXRatingIsTooFarFromY">Jūsų „%1$s“ reitingas yra per toli nuo žaidėjo „%2$s“.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Iššūkio mesti nepavyko dėl laikino žaidėjo %s reitingo.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">Žaidėjas %s iššūkius priima tik iš draugų.</string>
   <string name="conditionalPremoves">Sąlyginiai išankstiniai ėjimai</string>
   <string name="addCurrentVariation">Pridėti dabartinę variaciją</string>
   <string name="playVariationToCreateConditionalPremoves">Sužaiskite variaciją, norėdami sukurti sąlyginius išankstinius ėjimus</string>
@@ -917,7 +909,4 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="youCannotPostYetPlaySomeGames">Diskutuoti forume dar negalite. Sužaiskite keletą partijų!</string>
   <string name="subscribe">Prenumeruoti</string>
   <string name="unsubscribe">Atsisakyti prenumeratos</string>
-  <string name="challengeDeclined">Iššūkis atmestas</string>
-  <string name="challengeAccepted">Iššūkis priimtas!</string>
-  <string name="challengeCanceled">Iššūkis atšauktas.</string>
 </resources>

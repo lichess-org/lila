@@ -352,7 +352,6 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="more">Has köp</string>
   <string name="memberSince">Agza bolan wagty:</string>
   <string name="lastSeenActive">Soňky aktiwligi: %s</string>
-  <string name="challengeToPlay">Eriş</string>
   <string name="player">Oýunçy</string>
   <string name="list">Sanaw</string>
   <string name="graph">Grafika</string>
@@ -687,7 +686,6 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="error.unknown">Näsazlyk</string>
   <string name="custom">Şahsy</string>
   <string name="notifications">Duýduryşlar</string>
-  <string name="challenges">Erşikler</string>
   <string name="perfRatingX">Reýting: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Ilkinji göçüm üçin %s sekunt</item>
@@ -734,12 +732,6 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="opening">Açylyş</string>
   <string name="middlegame">Oýun ortasy</string>
   <string name="endgame">Oýun ahyry</string>
-  <string name="registerToSendChallenges">Erişmek üçin registrasiýa ediň.</string>
-  <string name="youCannotChallengeX">%s agza erşip bilmersiňiz.</string>
-  <string name="xDoesNotAcceptChallenges">%s erşikleri kabul edenok.</string>
-  <string name="yourXRatingIsTooFarFromY">%1$s reýtingiňiz %2$s agzadan diýseň daş.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Wagtlaýyn %s reýting dowamynda erşip bolmaz.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s diňe dostlaryndan gelen erşikleri kabul edýär.</string>
   <string name="conditionalPremoves">Şertli öň-göçümler</string>
   <string name="addCurrentVariation">Häzirki warianty goş</string>
   <string name="playVariationToCreateConditionalPremoves">Şertli öň-göçümleri goşmak üçin bir wariant oýnaň</string>

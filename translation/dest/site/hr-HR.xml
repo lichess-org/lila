@@ -9,6 +9,7 @@
   <string name="yourTurn">Tvoj potez</string>
   <string name="aiNameLevelAiLevel">%1$s razina %2$s</string>
   <string name="level">Razina</string>
+  <string name="strength">Jačina</string>
   <string name="toggleTheChat">Uključi/isključi chat</string>
   <string name="toggleSound">Uključi/isključi zvuk</string>
   <string name="chat">Chat</string>
@@ -21,8 +22,8 @@
   <string name="createAGame">Kreiraj partiju</string>
   <string name="whiteIsVictorious">Bijeli je pobjednik</string>
   <string name="blackIsVictorious">Crni je pobjednik</string>
-  <string name="youPlayTheWhitePieces">Igraš s bijelim figurama</string>
-  <string name="youPlayTheBlackPieces">Igraš s crnim figurama</string>
+  <string name="youPlayTheWhitePieces">Igraš bijelim figurama</string>
+  <string name="youPlayTheBlackPieces">Igraš crnim figurama</string>
   <string name="itsYourTurn">Ti si na redu!</string>
   <string name="kingInTheCenter">Kralj na centru</string>
   <string name="threeChecks">Tri šaha</string>
@@ -410,7 +411,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="more">Više</string>
   <string name="memberSince">Član od</string>
   <string name="lastSeenActive">Zadnja aktivnost %s</string>
-  <string name="challengeToPlay">Poziv na partiju</string>
   <string name="player">Igrač</string>
   <string name="list">Lista</string>
   <string name="graph">Graf</string>
@@ -540,6 +540,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="clockInitialTime">Početno vrijeme</string>
   <string name="clockIncrement">Vremenski dodatak</string>
   <string name="privacy">Privatnost</string>
+  <string name="privacyPolicy">Pravila privatnosti</string>
   <string name="letOtherPlayersFollowYou">Dopusti drugim igračima da te prate</string>
   <string name="letOtherPlayersChallengeYou">Dopusti drugim igračima da te izazovu</string>
   <string name="letOtherPlayersInviteYouToStudy">Dopusti drugim igračima da te pozovu u studiju</string>
@@ -689,6 +690,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ako ne vidiš email, pogledaj na drugim mjestima (otpad/smeće, neželjena pošta, društvene mreže ili druge mape).</string>
   <string name="weHaveSentYouAnEmailTo">Poslali smo email na %s. Klikni link u emailu da resetiraš lozinku.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registracijom prihvaćaš %s</string>
+  <string name="readAboutOur">Pročitajte naše %s.</string>
   <string name="networkLagBetweenYouAndLichess">Mrežno kašnjenje između tebe i lichess-a</string>
   <string name="timeToProcessAMoveOnLichessServer">Vrijeme obrade poteza na lichess serveru</string>
   <string name="downloadAnnotated">Preuzmi s bilješkama</string>
@@ -768,7 +770,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="error.unknown">Pogreška</string>
   <string name="custom">Prilagođeno</string>
   <string name="notifications">Obavijesti</string>
-  <string name="challenges">Izazovi</string>
   <string name="perfRatingX">Rejting: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda da odigrate prvi potez</item>
@@ -817,12 +818,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="opening">Otvaranje</string>
   <string name="middlegame">Središnjica</string>
   <string name="endgame">Završnica</string>
-  <string name="registerToSendChallenges">Za slanje izazova morate se registrirati.</string>
-  <string name="youCannotChallengeX">Ne možeš izazvati %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s ne prihvaća izazove.</string>
-  <string name="yourXRatingIsTooFarFromY">Prevelika je razlika između tvog %1$s rejtinga i onog od %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Nemoguće izazvati zbog privremenog %s rejtinga.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s prihvaća samo izazove od prijatelja.</string>
   <string name="conditionalPremoves">Uvjetni predpotezi</string>
   <string name="addCurrentVariation">Dodajte trenutnu varijantu</string>
   <string name="playVariationToCreateConditionalPremoves">Odigraj varijantu da stvoriš uvjetni predpotez</string>
@@ -869,7 +864,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="inTheFAQ">u F.A.Q.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Za prijavu korisnika zbog varanja ili lošeg ponašanja, %1$s</string>
   <string name="useTheReportForm">koristite obrazac za prijavu</string>
-  <string name="toRequestSupport">Za zatraživanje podrške, %1$s</string>
+  <string name="toRequestSupport">Za potraživanje pomoći, %1$s</string>
   <string name="tryTheContactPage">kontaktirajte nas</string>
   <string name="thisTopicIsArchived">Ova tema je arhivirana i na nju više nije moguće odgovoriti.</string>
   <string name="joinTheTeamXToPost">Pridruži se %1$s za objavljivanje na ovom forumu</string>

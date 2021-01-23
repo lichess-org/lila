@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="challenges">Izazovi</string>
+  <string name="challengeToPlay">Poziv na partiju</string>
+  <string name="challengeDeclined">Izazov odbijen</string>
+  <string name="challengeAccepted">Izazov prihvaćen!</string>
+  <string name="challengeCanceled">Izazov otkazan.</string>
+  <string name="registerToSendChallenges">Za slanje izazova morate se registrirati.</string>
+  <string name="youCannotChallengeX">Ne možete izazvati %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s ne prihvaća izazove.</string>
+  <string name="yourXRatingIsTooFarFromY" comment="yourXRatingIsTooFarFromY&#10;&#10;%1$s is the rating type (blitz, bullet, crazyhouse)&#10;%2$s is another username&#10;&#10;This message is shown if you are trying too challenge someone who is too strong/weak compared to your rating.">Prevelika je razlika između tvog i %2$s %1$s rejtinga.</string>
+  <string name="cannotChallengeDueToProvisionalXRating" comment="cannotChallengeDueToProvisionalXRating&#10;&#10;Users can set the preference to deny challenges from other players if their rating is not within a range of 300 points. If you attempt to challenge someone who has turned on this restriction, but one of you has a provisional rating in this area, you will see this message.&#10;&#10;A rating is considered provisional if the player hasn't played enough games for the system to be certain of their exact rating.&#10;&#10;The variable is the type of rating (Blitz, Bullet, Crazyhouse, etc.)">Nemoguće izazvati zbog prevelike razlike u %s rejtingu.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s prihvaća samo izazove od prijatelja.</string>
+  <string name="declineGeneric">Trenutačno ne prihvaćam izazove.</string>
+  <string name="declineLater">Trenutačno nije najbolje vrijeme, molimo Vas pokušajte kasnije.</string>
+  <string name="declineTooFast">Ovaj vremenski format je prebrz za mene, molim Vas da me izazovete na sporiji format.</string>
+  <string name="declineTooSlow">Ovaj vremenski format je prespor za mene, molim Vas da me izazovete na brži format.</string>
+  <string name="declineTimeControl">Ne prihvaćam izazove u ovom vremenskom formatu.</string>
+  <string name="declineRated">Molim Vas da me radije izazovete na rangiranu partiju.</string>
+  <string name="declineCasual">Molim Vas da me radije izazovete na ležernu partiju.</string>
+  <string name="declineStandard">Ne prihvaćam izazove u ovoj varijanti.</string>
+  <string name="declineVariant">Trenutačno ne želim igrati ovu varijantu.</string>
+</resources>

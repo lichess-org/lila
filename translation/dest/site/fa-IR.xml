@@ -9,7 +9,7 @@
   <string name="yourTurn">نوبت شماست</string>
   <string name="aiNameLevelAiLevel">%1$s سطح %2$s</string>
   <string name="level">سطح</string>
-  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">قدرت</string>
+  <string name="strength">قدرت</string>
   <string name="toggleTheChat">گپ روشن/خاموش</string>
   <string name="toggleSound">صدا روشن/خاموش</string>
   <string name="chat">گپ</string>
@@ -379,7 +379,6 @@
   <string name="more">بیشتر</string>
   <string name="memberSince">عضویت از تاریخ</string>
   <string name="lastSeenActive">آخرین ورود %s</string>
-  <string name="challengeToPlay">دعوت به بازی</string>
   <string name="player">بازیکن</string>
   <string name="list">لیست</string>
   <string name="graph">نمودار</string>
@@ -732,7 +731,6 @@
   <string name="error.unknown">خطا</string>
   <string name="custom">دلخواه</string>
   <string name="notifications">گزارش</string>
-  <string name="challenges">دعوت به مبارزه</string>
   <string name="perfRatingX">ریتینگ. %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s ثانیه برای شروع اولین حرکت</item>
@@ -779,12 +777,6 @@
   <string name="opening">گشایش</string>
   <string name="middlegame">وسط بازی</string>
   <string name="endgame">آخر بازی</string>
-  <string name="registerToSendChallenges">برای ارسال درخواست بازی باید وارد حساب کاربری شوید.</string>
-  <string name="youCannotChallengeX">شما نمی توانید به %s درخواست بازی بدهید.</string>
-  <string name="xDoesNotAcceptChallenges">%s درخواست بازی را نمی پذیرد.</string>
-  <string name="yourXRatingIsTooFarFromY">امتیاز %1$s شما فاصله زیادی با %2$s دارد؛بنابراین نمی توانید در خواست بازی بدهید.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">به علت امتیاز %s غیر قطعی،امکان ارسال درخواست بازی وجود ندارد.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s فقط درخواست بازی دوستان را می پذیرد.</string>
   <string name="conditionalPremoves">پیش حرکت های شرطی</string>
   <string name="addCurrentVariation">اضافه کردن این نوع حرکات</string>
   <string name="playVariationToCreateConditionalPremoves">یک نوع حرکات را بازی کنید تا پیش حرکت های شرطی را بسازید</string>
