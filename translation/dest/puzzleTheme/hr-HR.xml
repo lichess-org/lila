@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Pješak napreduje</string>
-  <string name="advancedPawnDescription">Pješak koji se promovira ili prijeti promocijom.</string>
+  <string name="advancedPawnDescription">Pješak u postupku ili prijetnji promaknućem je ključan u taktici.</string>
   <string name="advantage">Prednost</string>
   <string name="advantageDescription">Iskoristi priliku i pridobij odlučujuču prednost. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastazijin mat</string>
@@ -36,11 +36,13 @@
   <string name="clearanceDescription">Potez (najčešće s tempom) koji oslobađa polje, red ili dijagonalu za nadolazeću taktičku ideju.</string>
   <string name="defensiveMove">Obrambeni potez</string>
   <string name="defensiveMoveDescription">Određeni potez ili slijed poteza koje je potrebno odigrati za zadržavanje materijala ili pozicije.</string>
-  <string name="deflection">Otklon</string>
+  <string name="deflection">Odvraćanje</string>
   <string name="deflectionDescription">Potez koji odvraća protivničku figuru od dužnosti koju obavlja (kao što je kontroliranje značajnog polja). Ova taktika se također zove i \"preopterećenje\".</string>
   <string name="discoveredAttack">Otkriveni napad</string>
   <string name="discoveredAttackDescription">Napad izvršen kad se figura koja blokira drugu figuru (kraljicu, lovca ili topa) skloni sa određene dijagonale, reda ili stupca.</string>
   <string name="doubleCheck">Dvostruki šah</string>
   <string name="endgame">Završnica</string>
+  <string name="exposedKing">Golišavi kralj</string>
   <string name="fork">Račva</string>
+  <string name="promotion">Unapređenje</string>
 </resources>
