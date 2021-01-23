@@ -2,7 +2,7 @@
   &__tools {
     @extend %box-neat-force, %flex-column;
 
-    max-height: 100vh;
+    background: $c-bg-box;
 
     .ceval {
       flex: 0 0 38px;
