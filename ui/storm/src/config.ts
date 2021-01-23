@@ -4,7 +4,7 @@ const config = {
     initial: 3 * 60,
     // initial: 3 * 60,
     // initial: 30,
-    malus: 5
+    malus: 10
   },
   combo: {
     levels: [
