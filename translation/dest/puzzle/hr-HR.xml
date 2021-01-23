@@ -7,7 +7,7 @@
   <string name="motifs">Motivi</string>
   <string name="advanced">Napredno</string>
   <string name="lengths">Duljine</string>
-  <string name="mates">Matovi</string>
+  <string name="mates">Matevi</string>
   <string name="goals">Ciljevi</string>
   <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Podrijetlo</string>
   <string name="specialMoves">Specifični potezi</string>
@@ -27,6 +27,11 @@
   <string name="trySomethingElse">Pokušajte nešto drugo.</string>
   <string name="ratingX">Rejting: %s</string>
   <string name="hidden">skriven</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Odigrano %s puta</item>
+    <item quantity="few">Odigrano %s puta</item>
+    <item quantity="other">Odigrano %s puta</item>
+  </plurals>
   <string name="fromGameLink">Iz partije %s</string>
   <string name="continueTraining">Nastavi sa zadacima</string>
   <string name="difficultyLevel">Težina zadataka</string>
@@ -38,4 +43,5 @@
   <string name="example">Primjer</string>
   <string name="addAnotherTheme">Dodaj novu kategoriju</string>
   <string name="jumpToNextPuzzleImmediately">Automatski učitaj nove zadatke</string>
+  <string name="failed">neuspješno</string>
 </resources>
