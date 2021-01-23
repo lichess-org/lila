@@ -27,7 +27,7 @@
   <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Mat lovačkim parom</string>
   <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Lovački par zadaje mat na susjednim dijagonalama kralju zarobljenom iza prijateljske figure.</string>
   <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Lastin mat</string>
-  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">Kraljica zadaje mat dodirujuči protivničkog kralja po dijagonali. Kraljeva jedina polja za bijeg zauzeta su njegovim figurama koje ne smiju biti skakači.</string>
+  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">Kraljica zadaje mat dodirujuči protivničkog kralja po dijagonali. Kraljeva jedina polja za bijeg zauzeta su njegovim figurama.</string>
   <string name="equality">Izjednačenje</string>
   <string name="equalityDescription">Pronađi potez koji te dovodi iz gubitničke u podjednaku poziciju. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Napad na kraljevoj strani</string>
@@ -41,8 +41,12 @@
   <string name="discoveredAttack">Otkriveni napad</string>
   <string name="discoveredAttackDescription">Napad izvršen kad se figura koja blokira drugu figuru (kraljicu, lovca ili topa) skloni sa određene dijagonale, reda ili stupca.</string>
   <string name="doubleCheck">Dvostruki šah</string>
+  <string name="doubleCheckDescription">Šah kojeg daju dvije figure istovremeno kao rezultat otkrivenog šaha.</string>
   <string name="endgame">Završnica</string>
+  <string name="endgameDescription">Taktički potezi u završnici.</string>
+  <string name="enPassantDescription">Taktika koja uključuje pravilo \"en passant\" po kojem pješak uzima protivničkog pješaka koji ga preskače koristeći inicijalno otvaranje pješaka za dva polja.</string>
   <string name="exposedKing">Golišavi kralj</string>
+  <string name="exposedKingDescription">Taktika koja uključuje kralja okruženim nekolicinom obrambenih figura što često rezultira matom.</string>
   <string name="fork">Račva</string>
   <string name="promotion">Unapređenje</string>
 </resources>
