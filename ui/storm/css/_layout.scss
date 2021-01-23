@@ -19,6 +19,7 @@
   }
 
   grid-row-gap: $block-gap;
+  grid-column-gap: $block-gap;
   grid-template-areas: 'board' 'side';
 
   @include breakpoint($mq-col2) {

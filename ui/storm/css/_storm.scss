@@ -3,3 +3,11 @@ $mq-col2: $mq-col2-uniboard;
 $mq-col3: $mq-col3-uniboard;
 
 @import "layout";
+
+.storm {
+  &__clock {
+    @extend %roboto-fat;
+
+    font-size: 5em;
+  }
+}

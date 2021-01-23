@@ -24,13 +24,14 @@ export interface StormData {
   puzzles: StormPuzzle[];
 }
 
-export type StormMode = 'init' | 'play';
+export type StormMode = 'play';
 
 export interface StormVm {
   mode: StormMode;
   puzzleIndex: number;
   moveIndex: number;
-  clockMillis: number;
+  clockBudget: number;
+  clockStartAt?: number;
 }
 
 export interface StormPuzzle {

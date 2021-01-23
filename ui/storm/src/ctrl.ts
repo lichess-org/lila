@@ -21,13 +21,17 @@ export default class StormCtrl {
     this.data = opts.data;
     this.trans = lichess.trans(opts.i18n);
     this.vm = {
-      mode: 'init',
+      mode: 'play',
       puzzleIndex: 0,
       moveIndex: 0,
-      clockMillis: 60 * 3
+      clockBudget: 2 * 60 * 1000,
+      clockStartAt: Date.now()
     };
     this.promotion = makePromotion(this.ground, this.makeCgOpts, redraw);
   }
+
+  clockMillis = (): number | undefined =>
+    this.vm.clockStartAt && Math.max(0, this.vm.clockStartAt + this.vm.clockBudget - Date.now());
 
   userMove = (orig: Key, dest: Key): void => {
     if (!this.promotion.start(orig, dest, this.playUserMove)) this.playUserMove(orig, dest);
@@ -56,13 +60,6 @@ export default class StormCtrl {
     this.withGround(this.showGround);
   };
 
-  private withGround = <A>(f: (cg: CgApi) => A): A | undefined => {
-    const g = this.ground();
-    return g && f(g);
-  }
-
-  private showGround = (g: CgApi): void => g.set(this.makeCgOpts());
-
   puzzle = (): StormPuzzle => this.data.puzzles[this.vm.puzzleIndex];
 
   line = (): Uci[] => this.puzzle().line.split(' ');
@@ -79,7 +76,7 @@ export default class StormCtrl {
     const puzzle = this.puzzle();
     const pos = this.position();
     const pov = opposite(parseFen(puzzle.fen).unwrap().turn);
-    const canMove = this.vm.mode == 'init' || this.vm.mode == 'play';
+    const canMove = this.vm.mode == 'play';
     return {
       fen: makeFen(pos.toSetup()),
       orientation: pov,
@@ -95,6 +92,13 @@ export default class StormCtrl {
       lastMove: this.uciToLastMove(this.line()[this.vm.moveIndex])
     };
   }
+
+  private withGround = <A>(f: (cg: CgApi) => A): A | undefined => {
+    const g = this.ground();
+    return g && f(g);
+  }
+
+  private showGround = (g: CgApi): void => g.set(this.makeCgOpts());
 
   private uciToLastMove = (uci: string): [Key, Key] => [uci.substr(0, 2) as Key, uci.substr(2, 2) as Key];
 }
