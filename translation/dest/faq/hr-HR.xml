@@ -110,5 +110,18 @@ U osnovi, sustav je 90% siguran da je vaša ocjena negdje između 800 i 2200. Ne
 
 Još jedna stvar koju treba napomenuti jest da će se s vremenom interval pouzdanosti povećavati. To vam omogućuje brže osvajanje / gubljenje bodova kako biste se podudarali s bilo kakvim promjenama u razini vještina tijekom tog vremena.</string>
   <string name="whatIsProvisionalRating">Zašto se znak upitnik (?) nalazi pokraj mog rejtinga?</string>
+  <string name="provisionalRatingExplanation">Upitnik znači da je vaš rejting privremen. Razlozi uključuju:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Igrač još nije završio dovoljno ocijenjene igre protiv %1$s u ocijenjenim partijama.</string>
+  <string name="similarOpponents">podjednaki protivnici</string>
+  <string name="notPlayedRecently">Igrač nije dugo igrao. Ovisno o broju igara koje ste igrali, možda će trebati oko godinu dana neaktivnosti da bi vaša ocjena ponovno postala privremena.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Konkretno, to znači da je odstupanje Glicko-2 veće od 110. Odstupanje je razina povjerenja koji sustav ima u ocjenu. Što je niže odstupanje, to je ocjena stabilnija.</string>
+  <string name="howDoLeaderoardsWork">Kako funkcioniraju titule i ljestvice poretka?</string>
+  <string name="inOrderToAppearsYouMust">Da biste došli na %1$s, moraš:</string>
+  <string name="ratingLeaderboards">ljestvica poretka</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">odigrati najmanje 30 ocijenjenih partija u određenom rejtingu</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">odigrati ocijenjenu igru ne stariju od tjedan dana,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">imaju ocjenu odstupanja nižu od %1$s, u standardnom šahu, i nižu od %2$s u varijantama,</string>
+  <string name="beInTopTen">biti u top 10 u određenom rejtingu.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Drugi je uvjet da igrači koji više ne koriste svoje račune prestanu popunjavati ploče s rezultatima.</string>
   <string name="howToThreeDots">Kako...</string>
 </resources>
