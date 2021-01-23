@@ -15,8 +15,10 @@ export default function(ctrl: StormCtrl): VNode {
 
 const playModifiers = (ctrl: StormCtrl) => {
   const now = getNow();
+  const malus = ctrl.vm.modifier.malus;
   return {
-    'storm--mod-move': ctrl.vm.modifier.moveAt > now - 90
+    'storm--mod-move': ctrl.vm.modifier.moveAt > now - 90,
+    'storm--mod-malus': !!malus && malus.at > now - 90
   };
 }
 

@@ -1,4 +1,5 @@
 @import "combo";
+@import "clock";
 
 .storm {
   &--play {
@@ -33,16 +34,6 @@
     display: flex;
     flex-flow: column;
     justify-content: space-between;
-  }
-
-  &__clock {
-    @extend %roboto-fat;
-
-    font-size: 5em;
-
-    &.malus {
-      color: $c-bad;
-    }
   }
 
   &__solved {

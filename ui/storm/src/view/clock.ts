@@ -8,17 +8,21 @@ import { VNode } from 'snabbdom/vnode';
 let refreshInterval: Timeout;
 
 export default function renderClock(ctrl: StormCtrl): VNode {
-  return h('div.storm__clock', {
-    hook: {
-      insert(node) {
-        const el = node.elm as HTMLDivElement;
-        refreshInterval = setInterval(() => renderIn(ctrl, el), 100);
-      },
-      destroy() {
-        if (refreshInterval) clearInterval(refreshInterval);
+  const malus = ctrl.vm.modifier.malus;
+  return h('div.storm__clock', [
+    h('div.storm__clock__time', {
+      hook: {
+        insert(node) {
+          const el = node.elm as HTMLDivElement;
+          refreshInterval = setInterval(() => renderIn(ctrl, el), 100);
+        },
+        destroy() {
+          if (refreshInterval) clearInterval(refreshInterval);
+        }
       }
-    }
-  }, formatMs(ctrl.vm.clock.budget));
+    }, formatMs(ctrl.vm.clock.budget)),
+    !!malus && malus.at > getNow() - 900 ? h('div.storm__clock__malus', '-' + malus.seconds) : null
+  ]);
 }
 
 function renderIn(ctrl: StormCtrl, el: HTMLElement) {
@@ -26,13 +30,12 @@ function renderIn(ctrl: StormCtrl, el: HTMLElement) {
   if (!clock.startAt) return;
   const now = getNow();
   const millis = clock.startAt + clock.budget - getNow();
-  const malusAt = ctrl.vm.modifier.malusAt;
-  const millisSinceMalus: number | undefined = malusAt && (now - malusAt < 1000 ? now - malusAt : undefined);
+  const malus = ctrl.vm.modifier.malus;
+  const millisSinceMalus: number | undefined = malus && (now - malus.at < 1000 ? now - malus.at : undefined);
   const showExtra = defined(millisSinceMalus) ?
-    config.clock.malus * (1 - millisSinceMalus / 1000) :
+    config.clock.malus * (1 - millisSinceMalus / 1000) * 1000 :
     0;
   el.innerText = formatMs(millis + showExtra);
-  el.classList.toggle('malus', defined(millisSinceMalus));
   if (millis < 1 && ctrl.vm.mode == 'play') ctrl.end();
 }
 

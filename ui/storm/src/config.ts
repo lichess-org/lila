@@ -1,10 +1,10 @@
 const config = {
+  // all times in seconds
   clock: {
-    initial: 3000 * 60 * 1000,
-    // initial: 3 * 60 * 1000,
-    // initial: 30 * 1000,
-    malus: 15 * 1000,
-    bonus: 1 * 1000
+    initial: 5 * 60,
+    // initial: 3 * 60,
+    // initial: 30,
+    malus: 15
   },
   combo: {
     levels: [

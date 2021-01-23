@@ -27,7 +27,7 @@ export default class StormCtrl {
       puzzleIndex: 0,
       moveIndex: 0,
       clock: {
-        budget: config.clock.initial,
+        budget: config.clock.initial * 1000,
       },
       history: [],
       combo: 0,
@@ -63,7 +63,7 @@ export default class StormCtrl {
       this.vm.moveIndex++;
       this.vm.combo++;
       this.vm.modifier.moveAt = getNow();
-      setTimeout(this.redraw, 100);
+      this.redrawSoon();
       lichess.sound.play('move');
       if (this.vm.moveIndex == this.line().length - 1) {
         this.pushToHistory(true);
@@ -76,17 +76,25 @@ export default class StormCtrl {
       lichess.sound.play('error');
       this.pushToHistory(false);
       this.vm.combo = 0;
-      this.vm.clock.budget -= config.clock.malus;
-      this.vm.modifier.malusAt = getNow();
+      this.vm.clock.budget -= config.clock.malus * 1000;
+      this.vm.modifier.malus = {
+        seconds: config.clock.malus,
+        at: getNow()
+      };
       if (!this.boundedClockMillis()) this.end();
       else {
         this.vm.puzzleIndex++;
         this.vm.moveIndex = 0;
+        this.redrawSoon(1000);
       }
     }
     this.redraw();
     this.withGround(this.showGround);
   };
+
+  private redrawSoon = (delay: number = 100) => setTimeout(this.redraw, delay);
+
+  // private computeComboBonus = (): number =>
 
   boundedClockMillis = () => this.vm.clock.startAt ?
     Math.max(0, this.vm.clock.startAt + this.vm.clock.budget - getNow()) :

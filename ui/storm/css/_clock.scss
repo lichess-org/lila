@@ -1,0 +1,15 @@
+.storm {
+  &__clock {
+    @extend %roboto-fat, %flex-center-nowrap;
+
+    &__time {
+      font-size: 5em;
+    }
+
+    &__malus {
+      font-size: 2em;
+      color: $c-bad;
+      margin-left: 1ch;
+    }
+  }
+}

@@ -50,7 +50,10 @@ export interface StormClock {
 
 export interface StormModifier {
   moveAt: number;
-  malusAt?: number;
+  malus?: {
+    seconds: number;
+    at: number;
+  }
 }
 
 export interface StormPuzzle {
