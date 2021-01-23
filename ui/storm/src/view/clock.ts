@@ -26,7 +26,8 @@ function renderIn(ctrl: StormCtrl, el: HTMLElement) {
   if (!clock.startAt) return;
   const now = getNow();
   const millis = clock.startAt + clock.budget - getNow();
-  const millisSinceMalus: number | undefined = clock.malusAt && (now - clock.malusAt < 1000 ? now - clock.malusAt : undefined);
+  const malusAt = ctrl.vm.modifier.malusAt;
+  const millisSinceMalus: number | undefined = malusAt && (now - malusAt < 1000 ? now - malusAt : undefined);
   const showExtra = defined(millisSinceMalus) ?
     config.clock.malus * (1 - millisSinceMalus / 1000) :
     0;

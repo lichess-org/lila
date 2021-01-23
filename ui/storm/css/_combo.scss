@@ -16,33 +16,84 @@
       margin: 0 1em;
 
       &__value {
+        @extend %flex-center-nowrap;
+
         strong {
           @extend %roboto-fat;
 
-          font-size: 2em;
+          font-size: 2.3em;
+          line-height: 1em;
         }
 
         span {
           @extend %roboto;
+
+          margin-right: .5ch;
         }
+      }
+
+      &__combo {
+        @extend %roboto;
+
+        margin-right: .5ch;
+        font-size: .9em;
+        letter-spacing: -1px;
+      }
+
+      transition: color .1s;
+
+      .storm--mod-move & {
+        color: $c-brag;
       }
     }
 
     &__bar {
       @extend %box-neat;
 
+      $c-heat-1: mix($c-good, $c-bg-page, 85%);
+      $c-heat-2: mix($c-good, $c-bg-page, 100%);
+      $c-heat-3: mix($c-good, $c-font, 85%);
+      $c-heat-4: mix($c-good, $c-font, 70%);
+
+      --c-bar-base: #{$c-bg-zebra};
+      --c-in-base: #{$c-heat-1};
+      --c-in-flash: #{mix($c-heat-1, white, 75%)};
+
+      &--1 {
+        --c-bar-base: #{$c-heat-1};
+        --c-in-base: #{$c-heat-2};
+        --c-in-flash: #{mix($c-heat-2, white, 75%)};
+      }
+
+      &--2 {
+        --c-bar-base: #{$c-heat-2};
+        --c-in-base: #{$c-heat-3};
+        --c-in-flash: #{mix($c-heat-3, white, 75%)};
+      }
+
+      &--3 {
+        --c-bar-base: #{$c-heat-3};
+        --c-in-base: #{$c-heat-4};
+        --c-in-flash: #{mix($c-heat-4, white, 75%)};
+      }
+
       flex: 1 1 100%;
       height: 3em;
-      background: $c-bg-zebra;
+      background: var(--c-bar-base);
 
       &__in {
         @extend %box-radius;
 
         height: 3em;
-        background: $c-good;
-        box-shadow: 0 0 10px $c-good, 0 0 20px $c-good;
+        background: var(--c-in-base);
+        box-shadow: 0 0 10px var(--c-in-base), 0 0 20px var(--c-in-base);
 
-        @include transition;
+        .storm--mod-move & {
+          background: var(--c-in-flash);
+          box-shadow: 0 0 10px var(--c-in-flash), 0 0 20px var(--c-in-flash);
+        }
+
+        transition: all .15s;
       }
     }
   }

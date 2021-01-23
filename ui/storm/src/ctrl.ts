@@ -30,7 +30,10 @@ export default class StormCtrl {
         budget: config.clock.initial,
       },
       history: [],
-      combo: 0
+      combo: 0,
+      modifier: {
+        moveAt: 0
+      }
     };
     this.promotion = makePromotion(this.withGround, this.makeCgOpts, redraw);
   }
@@ -59,6 +62,8 @@ export default class StormCtrl {
     if (pos.isCheckmate() || uci == expected) {
       this.vm.moveIndex++;
       this.vm.combo++;
+      this.vm.modifier.moveAt = getNow();
+      setTimeout(this.redraw, 100);
       lichess.sound.play('move');
       if (this.vm.moveIndex == this.line().length - 1) {
         this.pushToHistory(true);
@@ -72,7 +77,7 @@ export default class StormCtrl {
       this.pushToHistory(false);
       this.vm.combo = 0;
       this.vm.clock.budget -= config.clock.malus;
-      this.vm.clock.malusAt = getNow();
+      this.vm.modifier.malusAt = getNow();
       if (!this.boundedClockMillis()) this.end();
       else {
         this.vm.puzzleIndex++;

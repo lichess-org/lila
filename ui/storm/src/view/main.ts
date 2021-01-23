@@ -4,11 +4,20 @@ import StormCtrl from '../ctrl';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 import renderEnd from "./end";
+import { getNow } from '../util';
 
 export default function(ctrl: StormCtrl): VNode {
-  return h('main.storm.storm--' + ctrl.vm.mode,
-    ctrl.vm.mode == 'play' ? renderPlay(ctrl) : renderEnd(ctrl)
-  );
+  if (ctrl.vm.mode == 'play') return h('main.storm.storm--play', {
+    class: playModifiers(ctrl)
+  }, renderPlay(ctrl));
+  return h('main.storm.storm--end', renderEnd(ctrl));
+}
+
+const playModifiers = (ctrl: StormCtrl) => {
+  const now = getNow();
+  return {
+    'storm--mod-move': ctrl.vm.modifier.moveAt > now - 90
+  };
 }
 
 const renderPlay = (ctrl: StormCtrl): VNode[] => [
@@ -32,11 +41,11 @@ const renderCombo = (ctrl: StormCtrl): VNode =>
       ]),
       h('span.storm__combo__counter__combo', 'COMBO')
     ]),
-    h('div.storm__combo__bar',
+    h(`div.storm__combo__bar.storm__combo__bar--${ctrl.comboLevel()}`,
       h('div.storm__combo__bar__in', {
         attrs: {
           style: `width:${ctrl.comboPercent()}%`
         }
-      }, ctrl.comboLevel())
+      })
     )
   ]);

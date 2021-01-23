@@ -34,6 +34,7 @@ export interface StormVm {
   history: Round[];
   puzzleStartAt?: number;
   combo: number;
+  modifier: StormModifier;
 }
 
 export interface Round {
@@ -45,6 +46,10 @@ export interface Round {
 export interface StormClock {
   budget: number;
   startAt?: number;
+}
+
+export interface StormModifier {
+  moveAt: number;
   malusAt?: number;
 }
 
