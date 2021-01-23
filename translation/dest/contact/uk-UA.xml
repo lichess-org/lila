@@ -27,6 +27,7 @@
   <string name="wantClearHistory">Я хочу очистити свою історію або рейтинг</string>
   <string name="cantClearHistory">Неможливо очистити історію ігор, шахових задач або рейтинг.</string>
   <string name="wantReport">Я хочу поскаржитись на гравця</string>
+  <string name="toReportAPlayerUseForm">Щоб поскаржитись на гравця, використовуйте форму звіту</string>
   <string name="youCanAlsoReachReportPage">Ви також можете перейти на цю сторінку, натиснувши кнопку звіту %s на сторінці профілю.</string>
   <string name="doNotReportInForum">Не скаржтесь на гравців на форумі.</string>
   <string name="doNotSendReportEmails">Не надсилайте нам листи зі скаргами.</string>

@@ -27,6 +27,7 @@
   <string name="wantClearHistory">Szeretném törölni az előzményeket vagy az értékszámom</string>
   <string name="cantClearHistory">Nincs lehetőség a játékelőzményed, feladványaid és értékszámod törlésére.</string>
   <string name="wantReport">Jelentenék egy felhasználót</string>
+  <string name="toReportAPlayerUseForm">Játékos jelentéséhez használd az űrlapot</string>
   <string name="youCanAlsoReachReportPage">Amit ugyancsak elérhetsz, ha a %s jelentése gombra kattintasz a profil oldalon.</string>
   <string name="doNotReportInForum">Ne jelents játékosokat a fórumban.</string>
   <string name="doNotSendReportEmails">Ne küldj nekünk emailt emiatt.</string>

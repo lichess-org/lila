@@ -379,7 +379,6 @@
   <string name="more">थप</string>
   <string name="memberSince">सदस्यता मिति</string>
   <string name="lastSeenActive">%s सकृय</string>
-  <string name="challengeToPlay">खेलको लागि चुनौति दिनुहोस्</string>
   <string name="player">खेलाडी</string>
   <string name="list">सुचि</string>
   <string name="graph">रेखाचित्र</string>
@@ -728,7 +727,6 @@
   <string name="error.unknown">त्रुटि</string>
   <string name="custom">कष्टम</string>
   <string name="notifications">सुचनाहरु</string>
-  <string name="challenges">चुनौतिहरु</string>
   <string name="perfRatingX">रेटिङ: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">पहिलो चाल चाल्न %s सेकेण्ड</item>
@@ -775,12 +773,6 @@
   <string name="opening">शुरुका चालहरु</string>
   <string name="middlegame">बीचको खेल</string>
   <string name="endgame">खेलको समाप्ति</string>
-  <string name="registerToSendChallenges">चुनौति पठाउन दर्ता गरौं।</string>
-  <string name="youCannotChallengeX">तपाइ %sलाइ चुनौति दिन सक्नुहुन्न।</string>
-  <string name="xDoesNotAcceptChallenges">%s चुनौति स्वीकार गर्नुहुन्न।</string>
-  <string name="yourXRatingIsTooFarFromY">तपाइको %1$s रेटिङ %2$s भन्दा धेरै टाढा छ।</string>
-  <string name="cannotChallengeDueToProvisionalXRating">अस्थायी %s रेटिङ को कारण खेलको लागि आमन्त्रण गर्न असम्भव छ।</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s ले मित्रहरुको आमन्त्रण मात्र स्वीकार गर्दछन्।</string>
   <string name="conditionalPremoves">ससर्त प्रिमुभहरु</string>
   <string name="addCurrentVariation">वर्तमान लाइन खेलमा जोडौं</string>
   <string name="playVariationToCreateConditionalPremoves">चाल चालेर ससर्त प्रिमुभहरु श्रीजना गरौं</string>

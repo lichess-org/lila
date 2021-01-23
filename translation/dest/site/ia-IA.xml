@@ -9,7 +9,7 @@
   <string name="yourTurn">Tu torno</string>
   <string name="aiNameLevelAiLevel">%1$s nivello %2$s</string>
   <string name="level">Nivello</string>
-  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Fortia</string>
+  <string name="strength">Fortia</string>
   <string name="toggleTheChat">Activar/disactivar le chat</string>
   <string name="toggleSound">Activar/disactivar sono</string>
   <string name="chat">Chat</string>
@@ -370,7 +370,6 @@
   <string name="more">Plus</string>
   <string name="memberSince">Membro desde</string>
   <string name="lastSeenActive">Ultime connexion %s</string>
-  <string name="challengeToPlay">Defiar a un partita</string>
   <string name="player">Jocator</string>
   <string name="list">Lista</string>
   <string name="graph">Graphico</string>
@@ -714,7 +713,6 @@
   <string name="error.unknown">Error</string>
   <string name="custom">Personalisate</string>
   <string name="notifications">Notificationes</string>
-  <string name="challenges">Defias</string>
   <string name="perfRatingX">Classification: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s secunda pro jocar le prime movimento</item>
@@ -761,12 +759,6 @@
   <string name="opening">Initio de joco</string>
   <string name="middlegame">Medio del joco</string>
   <string name="endgame">Fin del joco</string>
-  <string name="registerToSendChallenges">Per favor, registra un conto pro inviar defias.</string>
-  <string name="youCannotChallengeX">Tu non pote defiar %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s non accepta defias.</string>
-  <string name="yourXRatingIsTooFarFromY">Tu classification de %1$s es troppo distante de %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Defias non es permittite a causa de tu classification provisori %s.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s solmente accepta defias de amicos.</string>
   <string name="conditionalPremoves">Preselectiones conditional</string>
   <string name="addCurrentVariation">Adder variation currente</string>
   <string name="playVariationToCreateConditionalPremoves">Joca un movimento variante pro crear preselectiones conditional</string>

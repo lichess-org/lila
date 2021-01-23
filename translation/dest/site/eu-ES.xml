@@ -9,7 +9,7 @@
   <string name="yourTurn">Zure txanda</string>
   <string name="aiNameLevelAiLevel">%1$s, %2$s. maila</string>
   <string name="level">Maila</string>
-  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Indarra</string>
+  <string name="strength">Indarra</string>
   <string name="toggleTheChat">Txata agertu</string>
   <string name="toggleSound">Soinua</string>
   <string name="chat">Txata</string>
@@ -383,7 +383,6 @@
   <string name="more">Gehiago</string>
   <string name="memberSince">Noiztik kidea:</string>
   <string name="lastSeenActive">Azken aldiz online: %s</string>
-  <string name="challengeToPlay">Partida baterako erronka egin</string>
   <string name="player">Jokalaria</string>
   <string name="list">Zerrenda</string>
   <string name="graph">Grafikoa</string>
@@ -736,7 +735,6 @@
   <string name="error.unknown">Errorea</string>
   <string name="custom">Pertsonalizatua</string>
   <string name="notifications">Jakinarazpenak</string>
-  <string name="challenges">Erronkak</string>
   <string name="perfRatingX">Sailkapena: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Segundo %s lehenengo jokaldia egiteko</item>
@@ -783,12 +781,6 @@
   <string name="opening">Irekiera</string>
   <string name="middlegame">Erdi-jokoa</string>
   <string name="endgame">Finala</string>
-  <string name="registerToSendChallenges">Eman izena erronkak bidaltzeko.</string>
-  <string name="youCannotChallengeX">Ezin diozu %s erabiltzaileri erronka egin.</string>
-  <string name="xDoesNotAcceptChallenges">%s erabiltzaileak ez du erronkarik onartzen.</string>
-  <string name="yourXRatingIsTooFarFromY">Zure %1$s puntuazioa urrunegi dago %2$s-tik.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Ezin duzu erronkarik egin behin-behineko %s puntuazioa duzulako.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s erabiltzaileak bere lagunen erronkak onartzen ditu bakarrik.</string>
   <string name="conditionalPremoves">Baldintzadun aurrejokaldiak</string>
   <string name="addCurrentVariation">Uneko aldaera gehitu</string>
   <string name="playVariationToCreateConditionalPremoves">Aldaera bat jokatu baldintzadun aurre-jokaldiak sortzeko</string>
@@ -842,7 +834,4 @@
   <string name="youCannotPostYetPlaySomeGames">Ezin duzu foroetan idatzi. Jokatu partida batzuk!</string>
   <string name="subscribe">Harpidetu</string>
   <string name="unsubscribe">Harpidetza kendu</string>
-  <string name="challengeDeclined">Erronka baztertuta</string>
-  <string name="challengeAccepted">Erronka onartuta!</string>
-  <string name="challengeCanceled">Erronka bertan behera utzita.</string>
 </resources>

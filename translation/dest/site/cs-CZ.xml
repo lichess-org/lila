@@ -436,7 +436,6 @@
   <string name="more">Více</string>
   <string name="memberSince">Členem od</string>
   <string name="lastSeenActive">Poslední přihlášení %s</string>
-  <string name="challengeToPlay">Vyzvat k partii</string>
   <string name="player">Hráč</string>
   <string name="list">Seznam</string>
   <string name="graph">Graf</string>
@@ -801,7 +800,6 @@
   <string name="error.unknown">Chyba</string>
   <string name="custom">Vlastní</string>
   <string name="notifications">Oznámení</string>
-  <string name="challenges">Výzvy</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda na první tah</item>
@@ -852,12 +850,6 @@
   <string name="opening">Zahájení</string>
   <string name="middlegame">Střední hra</string>
   <string name="endgame">Koncovka</string>
-  <string name="registerToSendChallenges">Pro poslání výzvy se musíte zaregistrovat.</string>
-  <string name="youCannotChallengeX">Nemůžete vyzvat %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s nepřijímá výzvy.</string>
-  <string name="yourXRatingIsTooFarFromY">Vaše %1$s elo je příliš daleko od %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Nelze vyzvat kvůli prozatimnímu %s elu.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s přijímá výzvy pouze od přátel.</string>
   <string name="conditionalPremoves">Podmíněné předtahy</string>
   <string name="addCurrentVariation">Přidat současnou variantu</string>
   <string name="playVariationToCreateConditionalPremoves">Hrajte variantu k vytvoření podmíněných předtahů</string>

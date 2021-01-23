@@ -9,7 +9,7 @@
   <string name="yourTurn">내 차례</string>
   <string name="aiNameLevelAiLevel">%1$s 레벨 %2$s</string>
   <string name="level">레벨</string>
-  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">강도</string>
+  <string name="strength">강도</string>
   <string name="toggleTheChat">채팅 끄기/켜기</string>
   <string name="toggleSound">음소거/음소거 해제</string>
   <string name="chat">채팅</string>
@@ -356,7 +356,6 @@
   <string name="more">더보기</string>
   <string name="memberSince">가입 시기:</string>
   <string name="lastSeenActive">최근 로그인: %s</string>
-  <string name="challengeToPlay">도전하기</string>
   <string name="player">플레이어</string>
   <string name="list">목록</string>
   <string name="graph">그래프</string>
@@ -700,7 +699,6 @@
   <string name="error.unknown">오류</string>
   <string name="custom">사용자 지정</string>
   <string name="notifications">알림</string>
-  <string name="challenges">도전</string>
   <string name="perfRatingX">레이팅: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s 초 안에 첫 수를 두십시오.</item>
@@ -745,12 +743,6 @@
   <string name="opening">오프닝</string>
   <string name="middlegame">미들게임</string>
   <string name="endgame">엔드게임</string>
-  <string name="registerToSendChallenges">시합을 공유하려면 가입하십시오</string>
-  <string name="youCannotChallengeX">%s와는 대국할 수 없습니다.</string>
-  <string name="xDoesNotAcceptChallenges">%s님이 대국을 수락하지 않았습니다.</string>
-  <string name="yourXRatingIsTooFarFromY">당신의 레이팅 등급인 %1$s과 상대의 레이팅 등급인 %2$s과의 격차가 너무 큽니다.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">%s 가 아직 레이팅이 확정되지 않아서 도전하실 수 었습니다</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s님은 친구인 상대만 대국 요청을 수락합니다.</string>
   <string name="conditionalPremoves">수 예측</string>
   <string name="addCurrentVariation">현재의 변화를 추가</string>
   <string name="playVariationToCreateConditionalPremoves">기물을 움직여 조건적인 수를 만들기</string>

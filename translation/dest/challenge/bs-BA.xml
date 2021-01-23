@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="challenges">Izazovi</string>
+  <string name="challengeToPlay">Izazov na partiju</string>
+  <string name="challengeDeclined">Izazov odbijen</string>
+  <string name="challengeAccepted">Izazov prihvaćen!</string>
+  <string name="challengeCanceled">Izazov otkazan.</string>
+  <string name="registerToSendChallenges">Molimo, registrirajte se da biste mogli slati izazove.</string>
+  <string name="youCannotChallengeX">Ne možete izazvati %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s ne prihvata izazove.</string>
+  <string name="yourXRatingIsTooFarFromY" comment="yourXRatingIsTooFarFromY&#10;&#10;%1$s is the rating type (blitz, bullet, crazyhouse)&#10;%2$s is another username&#10;&#10;This message is shown if you are trying too challenge someone who is too strong/weak compared to your rating.">Vaš %1$s rejting predaleko je od %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating" comment="cannotChallengeDueToProvisionalXRating&#10;&#10;Users can set the preference to deny challenges from other players if their rating is not within a range of 300 points. If you attempt to challenge someone who has turned on this restriction, but one of you has a provisional rating in this area, you will see this message.&#10;&#10;A rating is considered provisional if the player hasn't played enough games for the system to be certain of their exact rating.&#10;&#10;The variable is the type of rating (Blitz, Bullet, Crazyhouse, etc.)">Nemoguće izazvati zbog privremenog %s rejtinga.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s prihvata samo izazove od prijatelja.</string>
+  <string name="declineGeneric">Trenutno ne prihvatam izazove.</string>
+  <string name="declineLater">Ne odgovara mi ovaj trenutak; molim, izazovite me ponovo kasnije.</string>
+</resources>

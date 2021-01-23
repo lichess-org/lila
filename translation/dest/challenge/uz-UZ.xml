@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="challenges">Chorlovlar</string>
+  <string name="challengeToPlay">O\'yinga chorlov</string>
+  <string name="challengeDeclined">Chorlovni rad etildi</string>
+  <string name="challengeAccepted">Chorlov qabul qilindi!</string>
+</resources>

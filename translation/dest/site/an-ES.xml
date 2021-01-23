@@ -9,7 +9,7 @@
   <string name="yourTurn">Lo tuyo redolín</string>
   <string name="aiNameLevelAiLevel">%1$s libel %2$s</string>
   <string name="level">Libel</string>
-  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Fuerza</string>
+  <string name="strength">Fuerza</string>
   <string name="toggleTheChat">Amostrar/Amagar chat</string>
   <string name="toggleSound">Activar/Desactivar sons</string>
   <string name="chat">Chat</string>
@@ -383,7 +383,6 @@
   <string name="more">Más</string>
   <string name="memberSince">Miembro dende</string>
   <string name="lastSeenActive">Zaguera visita %s</string>
-  <string name="challengeToPlay">Desafiar a una partida</string>
   <string name="player">Chugador</string>
   <string name="list">Lista</string>
   <string name="graph">Grafico</string>
@@ -734,7 +733,6 @@
   <string name="error.unknown">Error</string>
   <string name="custom">Personalizada</string>
   <string name="notifications">Notificacions</string>
-  <string name="challenges">Retos</string>
   <string name="perfRatingX">Puntuación: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo pa fer lo primer movimiento</item>
@@ -781,12 +779,6 @@
   <string name="opening">Obridura</string>
   <string name="middlegame">Meyo chuego</string>
   <string name="endgame">Final</string>
-  <string name="registerToSendChallenges">Rechistra-te pa desafiar a atros.</string>
-  <string name="youCannotChallengeX">No puetz desafiar a %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s no accepta retos.</string>
-  <string name="yourXRatingIsTooFarFromY">La tuya puntuación de %1$s ye masiau luen d\'a de %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">No puetz ninviar retos perque la tuya puntuación de %s ye provisional.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s nomás accepta retos d\'os suyos amigos.</string>
   <string name="conditionalPremoves">Premovimientos condicionals</string>
   <string name="addCurrentVariation">Anyadir la variant actual</string>
   <string name="playVariationToCreateConditionalPremoves">Chuga una variant pa crear movimientos condicionals</string>

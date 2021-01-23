@@ -62,7 +62,7 @@
     <item quantity="one">Κατατάχθηκε #%1$s (κορυφαίος %2$s%%) με %3$s παιχνίδι σε %4$s</item>
     <item quantity="other">Κατατάχθηκε #%1$s (κορυφαίος %2$s%%) με %3$s παιχνίδια σε %4$s</item>
   </plurals>
-  <string name="signedUp">Εγγεγραμμένοι στο lichess</string>
+  <string name="signedUp">Έκανε εγγραφή στο lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Έγινε μέλος %s ομάδας</item>
     <item quantity="other">Έγινε μέλος %s ομαδών</item>

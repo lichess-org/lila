@@ -380,7 +380,6 @@
   <string name="more">مزید</string>
   <string name="memberSince">رکنیت</string>
   <string name="lastSeenActive">گذشتہ سائن ان %s</string>
-  <string name="challengeToPlay">مقابلے کی دعوت دیں</string>
   <string name="player">کھلاڑی</string>
   <string name="list">فہرست</string>
   <string name="graph">گراف</string>
@@ -729,7 +728,6 @@
   <string name="error.unknown">نقص</string>
   <string name="custom">من پسند</string>
   <string name="notifications">اطلاعات</string>
-  <string name="challenges">مقابلے</string>
   <string name="perfRatingX">درجہ: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">پہلی چال چلنے کے لیے %s سیکنڈ</item>
@@ -776,11 +774,6 @@
   <string name="opening">ابتدا</string>
   <string name="middlegame">درمیان کی بازی</string>
   <string name="endgame">اختتامی بازی</string>
-  <string name="registerToSendChallenges">رجسٹر کریں اور چیلنجز بھیجیں.</string>
-  <string name="youCannotChallengeX">آپ %s کو چیلینج نہیں کر سکتے.</string>
-  <string name="xDoesNotAcceptChallenges">%s چیلنج قبول نہیں کرتے.</string>
-  <string name="yourXRatingIsTooFarFromY">آپ کا درجہ %1$s %2$s سے بہت دور ہے.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s صرف اپنے دوستوں کے چیلنجز قبول کرتا ہے.</string>
   <string name="conditionalPremoves">مشروط پری مووز</string>
   <string name="addCurrentVariation">موجودہ لائن کو شامل کریں</string>
   <string name="playVariationToCreateConditionalPremoves">ایک لائن کھیلیں تا کہ مشروط پری مووز بنا سکیں</string>

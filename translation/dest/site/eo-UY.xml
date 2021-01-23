@@ -9,7 +9,7 @@
   <string name="yourTurn">Via vico</string>
   <string name="aiNameLevelAiLevel">%1$s nivelo %2$s</string>
   <string name="level">Nivelo</string>
-  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Forto</string>
+  <string name="strength">Forto</string>
   <string name="toggleTheChat">Baskuligi la babilejon</string>
   <string name="toggleSound">(Mal)ŝalti sonon</string>
   <string name="chat">Babilejo</string>
@@ -383,7 +383,6 @@
   <string name="more">Pli</string>
   <string name="memberSince">Membro ekde</string>
   <string name="lastSeenActive">Aktiva %s</string>
-  <string name="challengeToPlay">Defii al nova ludo</string>
   <string name="player">Ludanto</string>
   <string name="list">Listo</string>
   <string name="graph">Grafo</string>
@@ -736,7 +735,6 @@
   <string name="error.unknown">Eraro</string>
   <string name="custom">Propra</string>
   <string name="notifications">Sciigoj</string>
-  <string name="challenges">Defioj</string>
   <string name="perfRatingX">Rango: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekundo por ludi la unuan movon</item>
@@ -783,12 +781,6 @@
   <string name="opening">Malfermo</string>
   <string name="middlegame">Mezaĵo</string>
   <string name="endgame">Finaĵo</string>
-  <string name="registerToSendChallenges">Bonvolu registri por sendi defiojn.</string>
-  <string name="youCannotChallengeX">Vi ne povas defii %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s ne akceptas defiojn.</string>
-  <string name="yourXRatingIsTooFarFromY">Via %1$s rango estas tro for de %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Ne povas defii pro duma %s rango.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s nur akceptas defiojn de amikoj.</string>
   <string name="conditionalPremoves">Kondiĉaj antaŭmovoj</string>
   <string name="addCurrentVariation">Aldoni aktualan variaĵon</string>
   <string name="playVariationToCreateConditionalPremoves">Ludi variaĵo por krei kondiĉajn antaŭmovojn</string>
@@ -842,7 +834,4 @@
   <string name="youCannotPostYetPlaySomeGames">Vi jam ne rajtas afiŝi en la forumoj. Ludu iujn ludojn!</string>
   <string name="subscribe">Aboni</string>
   <string name="unsubscribe">Malaboni</string>
-  <string name="challengeDeclined">Defio malkreskis</string>
-  <string name="challengeAccepted">Defio akceptita!</string>
-  <string name="challengeCanceled">Defio nuligita.</string>
 </resources>

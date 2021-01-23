@@ -3,10 +3,10 @@
   <string name="preferences">Sửa giao diện</string>
   <string name="gameDisplay">Hiển thị ván cờ</string>
   <string name="pieceAnimation">Tính linh hoạt của quân cờ</string>
-  <string name="materialDifference">Khác chất</string>
+  <string name="materialDifference">Chênh lệch giá trị quân cờ</string>
   <string name="boardHighlights">Đánh dấu trên bàn cờ (nước đi mới nhất và nước chiếu)</string>
   <string name="pieceDestinations">Các điểm đến của quân cờ (các nước đi hợp lý và nước đi trước)</string>
-  <string name="boardCoordinates">Tạo độ bàn cờ (A-H, 1-8)</string>
+  <string name="boardCoordinates">Tọa độ bàn cờ (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Biên bản ván đấu</string>
   <string name="pgnPieceNotation">Kí hiệu di chuyển</string>
   <string name="chessPieceSymbol">Biểu tượng quân cờ</string>
@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Cờ tưởng (quân cờ vô hình)</string>
   <string name="chessClock">đồng hồ chuyên dụng</string>
   <string name="tenthsOfSeconds">Một phần mười giây</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Khi thời gian còn lại &lt; 10 giây</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Khi thời gian còn lại &lt; 10 giây</string>
   <string name="horizontalGreenProgressBars">Thanh tiến trình ngang màu xanh</string>
   <string name="soundWhenTimeGetsCritical">Âm thanh khi khủng hoảng thời gian</string>
   <string name="giveMoreTime">Cho thêm thời gian</string>

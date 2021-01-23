@@ -6,8 +6,8 @@
   <string name="advantageDescription">Aproveite a sua chance de ter uma vantagem decisiva. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Mate Anastasia</string>
   <string name="anastasiaMateDescription">Um cavalo e uma torre se unem para prender o rei do oponente entre a lateral do tabuleiro e uma peça amiga.</string>
-  <string name="arabianMate">Mate árabe</string>
-  <string name="arabianMateDescription">Um cavalo e uma torre se unem para prender o rei inimigo em um canto do tabuleiro.</string>
+  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Mate árabe</string>
+  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">Um cavalo e uma torre se unem para prender o rei inimigo em um canto do tabuleiro.</string>
   <string name="attackingF2F7">Atacando f2 ou f7</string>
   <string name="attackingF2F7Description">Um ataque focado no peão de f2 e no peão de f7, como na abertura frango frito.</string>
   <string name="attraction">Atração</string>
@@ -16,18 +16,18 @@
   <string name="backRankMateDescription">Dê o xeque-mate no rei na última fileira, quando ele estiver bloqueado pelas próprias peças.</string>
   <string name="bishopEndgame">Finais de bispo</string>
   <string name="bishopEndgameDescription">Final com somente bispos e peões.</string>
-  <string name="bodenMate">Mate de Boden</string>
-  <string name="bodenMateDescription">Dois bispos atacantes em diagonais cruzadas dão um mate em um rei obstruído por peças amigas.</string>
+  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Mate de Boden</string>
+  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Dois bispos atacantes em diagonais cruzadas dão um mate em um rei obstruído por peças amigas.</string>
   <string name="castling">Roque</string>
   <string name="castlingDescription">Traga o seu rei para a segurança, e prepare sua torre para o ataque.</string>
   <string name="capturingDefender">Capture o defensor</string>
   <string name="capturingDefenderDescription">Remover uma peça que seja importante na defesa de outra, permitindo que agora a peça indefesa seja capturada na jogada seguinte.</string>
   <string name="crushing">Punindo</string>
   <string name="crushingDescription">Perceba a capivarada do oponente para obter uma vantagem decisiva. (vantagem ≥ 600cp)</string>
-  <string name="doubleBishopMate">Mate de dois bispos</string>
-  <string name="doubleBishopMateDescription">Dois bispos atacantes em diagonais adjacentes dão um mate em um rei obstruído por peças amigas.</string>
-  <string name="dovetailMate">Mate da cauda de andorinha</string>
-  <string name="dovetailMateDescription">Uma rainha dá um mate em um rei adjacente, cujos únicos dois quadrados de fuga estão obstruídos por peças amigas.</string>
+  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Mate de dois bispos</string>
+  <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Dois bispos atacantes em diagonais adjacentes dão um mate em um rei obstruído por peças amigas.</string>
+  <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Mate da cauda de andorinha</string>
+  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">Uma rainha dá um mate em um rei adjacente, cujos únicos dois quadrados de fuga estão obstruídos por peças amigas.</string>
   <string name="equality">Igualdade</string>
   <string name="equalityDescription">Saia de uma posição perdida, e assegure um empate ou uma posição equilibrada. (aval ≤ 200cp)</string>
   <string name="kingsideAttack">Ataque na ala do Rei</string>

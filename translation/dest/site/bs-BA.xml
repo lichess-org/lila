@@ -9,6 +9,7 @@
   <string name="yourTurn">Vi ste na potezu</string>
   <string name="aiNameLevelAiLevel">%1$s nivo %2$s</string>
   <string name="level">Nivo</string>
+  <string name="strength">Jačina</string>
   <string name="toggleTheChat">Uključite/isključite dopisivanje</string>
   <string name="toggleSound">Uključite/isključite zvuk</string>
   <string name="chat">Dopisivanje</string>
@@ -410,7 +411,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="more">Više</string>
   <string name="memberSince">Član od</string>
   <string name="lastSeenActive">Zadnja aktivnost %s</string>
-  <string name="challengeToPlay">Poziv na partiju</string>
   <string name="player">Igrač</string>
   <string name="list">Lista</string>
   <string name="graph">Graf</string>
@@ -770,7 +770,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="error.unknown">Greška</string>
   <string name="custom">Prilagođeno</string>
   <string name="notifications">Obavijesti</string>
-  <string name="challenges">Izazovi</string>
   <string name="perfRatingX">Rejting: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda da odigrate prvi potez</item>
@@ -819,12 +818,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="opening">Otvaranje</string>
   <string name="middlegame">Središnjica</string>
   <string name="endgame">Završnica</string>
-  <string name="registerToSendChallenges">Za slanje izazova morate se registrovati.</string>
-  <string name="youCannotChallengeX">Ne možete izazvati %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s ne prihvata izazove.</string>
-  <string name="yourXRatingIsTooFarFromY">Prevelika je razlika između Vašeg %1$s rejtinga i rejtinga %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Nemoguće izazvati zbog privremenog %s rejtinga.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s prihvata samo izazove od prijatelja.</string>
   <string name="conditionalPremoves">Uslovni potezi unaprijed</string>
   <string name="addCurrentVariation">Dodajte trenutnu varijaciju</string>
   <string name="playVariationToCreateConditionalPremoves">Odigrajte varijaciju da stvorite uslovni potez unaprijed</string>
@@ -879,7 +872,4 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="youCannotPostYetPlaySomeGames">Još ne možete objavljivati na forumima. Odigrajte nekoliko partija!</string>
   <string name="subscribe">Pretplatite se</string>
   <string name="unsubscribe">Odjavite pretplatu</string>
-  <string name="challengeDeclined">Izazov odbijen</string>
-  <string name="challengeAccepted">Izazov prihvaćen!</string>
-  <string name="challengeCanceled">Izazov otkazan.</string>
 </resources>

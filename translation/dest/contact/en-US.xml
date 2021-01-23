@@ -27,6 +27,7 @@
   <string name="wantClearHistory">I want to clear my history or rating</string>
   <string name="cantClearHistory">It\'s not possible to clear your game history, puzzle history, or ratings.</string>
   <string name="wantReport">I want to report a player</string>
+  <string name="toReportAPlayerUseForm">To report a player, use the report form</string>
   <string name="youCanAlsoReachReportPage">You can also reach that page by clicking the %s report button on a profile page.</string>
   <string name="doNotReportInForum">Do not report players in the forum.</string>
   <string name="doNotSendReportEmails">Do not send us report emails.</string>

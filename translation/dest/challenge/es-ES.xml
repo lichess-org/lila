@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="challenges">Desafíos</string>
+  <string name="challengeToPlay">Desafiar a una partida</string>
+  <string name="challengeDeclined">Desafío rechazado</string>
+  <string name="challengeAccepted">¡Desafío aceptado!</string>
+  <string name="challengeCanceled">Desafío cancelado.</string>
+  <string name="registerToSendChallenges">Por favor regístrate para desafiar a otros jugadores.</string>
+  <string name="youCannotChallengeX">No puedes desafiar a %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s no acepta desafíos.</string>
+  <string name="yourXRatingIsTooFarFromY" comment="yourXRatingIsTooFarFromY&#10;&#10;%1$s is the rating type (blitz, bullet, crazyhouse)&#10;%2$s is another username&#10;&#10;This message is shown if you are trying too challenge someone who is too strong/weak compared to your rating.">Tu puntuación de %1$s está demasiado lejos de la de %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating" comment="cannotChallengeDueToProvisionalXRating&#10;&#10;Users can set the preference to deny challenges from other players if their rating is not within a range of 300 points. If you attempt to challenge someone who has turned on this restriction, but one of you has a provisional rating in this area, you will see this message.&#10;&#10;A rating is considered provisional if the player hasn't played enough games for the system to be certain of their exact rating.&#10;&#10;The variable is the type of rating (Blitz, Bullet, Crazyhouse, etc.)">No puedes desafiar a otros jugadores debido a que tu puntuación de %s es provisional.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s sólo acepta desafíos de sus amigos.</string>
+  <string name="declineGeneric">No estoy aceptando desafíos por el momento.</string>
+  <string name="declineLater">No estoy aceptando desafíos ahora mismo, por favor pregunta de nuevo más tarde.</string>
+  <string name="declineTooFast">Este control de tiempo es demasiado rápido para mí, por favor desafíame de nuevo con una partida más lenta.</string>
+  <string name="declineTooSlow">Este control de tiempo es demasiado lento para mí, por favor desafíame de nuevo con una partida más rápida.</string>
+  <string name="declineTimeControl">No estoy aceptando desafíos con este control de tiempo.</string>
+  <string name="declineRated">En su lugar, desafíame a una partida por puntos.</string>
+  <string name="declineCasual">En su lugar, desafíame a una partida casual.</string>
+  <string name="declineStandard">No estoy aceptando desafíos de variantes en este momento.</string>
+  <string name="declineVariant">No estoy dispuesto a jugar esta variante en este momento.</string>
+</resources>

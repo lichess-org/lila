@@ -455,7 +455,6 @@
   <string name="more">Muioc\'h</string>
   <string name="memberSince">Ezel abaoe an/ar</string>
   <string name="lastSeenActive">Oberiant %s</string>
-  <string name="challengeToPlay">Daeañ ar c\'hoarier-mañ</string>
   <string name="player">C\'hoarier</string>
   <string name="list">Roll</string>
   <string name="graph">Krommenn</string>
@@ -827,7 +826,6 @@
   <string name="error.unknown">Fazi</string>
   <string name="custom">Personelaet</string>
   <string name="notifications">Kemennoù</string>
-  <string name="challenges">Daeoù</string>
   <string name="perfRatingX">Renk: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s eilenn evit fiñval ho pezh kentañ c\'hoazh</item>
@@ -880,12 +878,6 @@
   <string name="opening">Digoradur</string>
   <string name="middlegame">Kreiz ar bartienn</string>
   <string name="endgame">Fin ar c\'hrogad</string>
-  <string name="registerToSendChallenges">Kevreit evit daeañ unan bennak mar plij.</string>
-  <string name="youCannotChallengeX">Ne c\'hallit ket daeañ %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s n\'he/en deus ket c\'hant da vezañ daeet.</string>
-  <string name="yourXRatingIsTooFarFromY">Re vras an diforc\'h etre ho renkadur %1$s hag hini %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Ne c\'hallit ket daeañ abalamour d\'ho renkadur %s a zo da c\'hortoz.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">Ne vez ket degemeret daeoù nemet digant mignoned gant %s.</string>
   <string name="conditionalPremoves">Raktaolioù rekiz</string>
   <string name="addCurrentVariation">Ouzhpennañ an eilstumm o ren</string>
   <string name="playVariationToCreateConditionalPremoves">C\'hoariit ur variant evit krouiñ raktaolioù rekiz</string>

@@ -27,6 +27,7 @@
   <string name="wantClearHistory">मैं अपना इतिहास या रेटिंग मिटाना चाहता हूं</string>
   <string name="cantClearHistory">आपके खेल के इतिहास, पहेली इतिहास, या रेटिंग को मिटाना संभव नहीं है।</string>
   <string name="wantReport">मैं एक खिलाड़ी की रिपोर्ट करना चाहता हूं</string>
+  <string name="toReportAPlayerUseForm">किसी खिलाड़ी को रिपोर्ट करने के लिए, रिपोर्ट फ़ॉर्म का उपयोग करें</string>
   <string name="youCanAlsoReachReportPage">आप प्रोफाइल पेज पर %s रिपोर्ट बटन पर क्लिक करके भी उस पृष्ठ पर पहुँच सकते हैं।</string>
   <string name="doNotReportInForum">मंच में खिलाड़ियों को रिपोर्ट न करें।</string>
   <string name="doNotSendReportEmails">हमें रिपोर्ट ईमेल पर न भेजें।</string>

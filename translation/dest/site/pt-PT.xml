@@ -9,7 +9,7 @@
   <string name="yourTurn">É a tua vez</string>
   <string name="aiNameLevelAiLevel">%1$s nível %2$s</string>
   <string name="level">Nível</string>
-  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Nível</string>
+  <string name="strength">Nível</string>
   <string name="toggleTheChat">Ativar/Desativar o chat</string>
   <string name="toggleSound">Ativar/desativar o som</string>
   <string name="chat">Chat</string>
@@ -384,7 +384,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="more">Mais</string>
   <string name="memberSince">Membro desde</string>
   <string name="lastSeenActive">Ativo %s</string>
-  <string name="challengeToPlay">Desafiar para jogar</string>
   <string name="player">Jogador</string>
   <string name="list">Lista</string>
   <string name="graph">Gráfico</string>
@@ -737,7 +736,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="error.unknown">Erro</string>
   <string name="custom">Personalizado</string>
   <string name="notifications">Notificações</string>
-  <string name="challenges">Desafios</string>
   <string name="perfRatingX">Pontuação: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo para jogar o primeiro movimento</item>
@@ -784,12 +782,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="opening">Abertura</string>
   <string name="middlegame">Meio jogo</string>
   <string name="endgame">Final de jogo</string>
-  <string name="registerToSendChallenges">Por favor regista-te para enviares desafios.</string>
-  <string name="youCannotChallengeX">Não podes desafiar %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s não aceita desafios.</string>
-  <string name="yourXRatingIsTooFarFromY">A tua pontuação em %1$s está muito longe da de %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Não podes desafiar por causa da tua pontuação provisória em %s.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s só aceita desafios de amigos.</string>
   <string name="conditionalPremoves">Movimentos antecipados condicionais</string>
   <string name="addCurrentVariation">Adicionar a variante atual</string>
   <string name="playVariationToCreateConditionalPremoves">Joga uma variante para criares movimentos antecipados condicionais</string>
@@ -843,7 +835,4 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="youCannotPostYetPlaySomeGames">Ainda não podes publicar nos fóruns. Joga alguns jogos!</string>
   <string name="subscribe">Subscrever-se</string>
   <string name="unsubscribe">Cancelar a subscrição</string>
-  <string name="challengeDeclined">Desafio recusado</string>
-  <string name="challengeAccepted">Desafio aceite!</string>
-  <string name="challengeCanceled">Desafio cancelado.</string>
 </resources>

@@ -9,7 +9,7 @@
   <string name="yourTurn">Sinun vuorosi</string>
   <string name="aiNameLevelAiLevel">%1$s taso %2$s</string>
   <string name="level">Taso</string>
-  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Vahvuus</string>
+  <string name="strength">Vahvuus</string>
   <string name="toggleTheChat">Keskustelu päälle / pois</string>
   <string name="toggleSound">Ääni päälle / pois</string>
   <string name="chat">Keskustelu</string>
@@ -383,7 +383,6 @@
   <string name="more">Lisää</string>
   <string name="memberSince">Liittynyt</string>
   <string name="lastSeenActive">Nähty viimeksi %s</string>
-  <string name="challengeToPlay">Haasta peliin</string>
   <string name="player">Pelaaja</string>
   <string name="list">Lista</string>
   <string name="graph">Kaavio</string>
@@ -736,7 +735,6 @@
   <string name="error.unknown">Virhe</string>
   <string name="custom">Mukautettu</string>
   <string name="notifications">Ilmoitukset</string>
-  <string name="challenges">Haasteet</string>
   <string name="perfRatingX">Vahvuusluku: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekuntia aikaa pelata ensimmäinen siirto</item>
@@ -783,12 +781,6 @@
   <string name="opening">Avausvaihe</string>
   <string name="middlegame">Keskipeli</string>
   <string name="endgame">Loppupeli</string>
-  <string name="registerToSendChallenges">Rekisteröidy niin voit lähettää haasteita.</string>
-  <string name="youCannotChallengeX">Et voi haastaa pelaajaa %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s ei ota haasteita vastaan.</string>
-  <string name="yourXRatingIsTooFarFromY">%1$s-vahvuuslukusi on liian kaukana pelaajan %2$s vahvuusluvusta.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Et voi haastaa, koska %s-vahvuuslukusi on tilapäinen.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s ottaa vastaan haasteita vain kavereiltaan.</string>
   <string name="conditionalPremoves">Ehdolliset esisiirrot</string>
   <string name="addCurrentVariation">Lisää nykyinen muunnelma</string>
   <string name="playVariationToCreateConditionalPremoves">Luo ehdollisia esisiirtoja pelaamalla muunnelma</string>
@@ -842,7 +834,4 @@
   <string name="youCannotPostYetPlaySomeGames">Et voi vielä lähettää viestejä foorumeihin. Pelaa ensin muutama peli!</string>
   <string name="subscribe">Tilaa</string>
   <string name="unsubscribe">Peruuta tilaus</string>
-  <string name="challengeDeclined">Haasteesta kieltäydyttiin</string>
-  <string name="challengeAccepted">Haaste hyväksytty!</string>
-  <string name="challengeCanceled">Haaste peruutettu.</string>
 </resources>

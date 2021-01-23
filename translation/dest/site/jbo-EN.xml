@@ -343,7 +343,6 @@
   <string name="more">viska lo zmadu</string>
   <string name="memberSince">cmima be co\'a ku de\'i li</string>
   <string name="lastSeenActive">ca %s ro re\'u zukte</string>
-  <string name="challengeToPlay">talsa fi lo ka jivna</string>
   <string name="player">lo jivna</string>
   <string name="list">liste</string>
   <string name="graph">cartu</string>
@@ -647,7 +646,6 @@
   <string name="error.unknown">srera da</string>
   <string name="custom">cuxna</string>
   <string name="notifications">lo notci</string>
-  <string name="challenges">lo talsa</string>
   <string name="perfRatingX">nilcre fa li %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">zukte .ei lo pa moi kelka\'u ba nu\'i la\'u lo snidu be li su\'e %s</item>
@@ -691,9 +689,6 @@
   <string name="opening">cfari kelka\'u</string>
   <string name="middlegame">nunjvi midju</string>
   <string name="endgame">nunjvi fanmo</string>
-  <string name="registerToSendChallenges">lonu do talsa cu selsa\'u lonu do cmisau .e\'o</string>
-  <string name="youCannotChallengeX">.i do na kakne lo ka talsa la\'o zoi. %s .zoi</string>
-  <string name="xDoesNotAcceptChallenges">.i la\'o zoi. %s .zoi na fitytu\'i lo nuntalsa</string>
   <string name="addCurrentVariation">jmina lo nu cenba</string>
   <string name="playX">zukte la\'o zoi. %s .zoi</string>
   <string name="sorry">fau\'u</string>

@@ -17,7 +17,7 @@
   <string name="humanOrComputer">Si el oponente era humano o un ordenador</string>
   <string name="aiLevel">Nivel I.A</string>
   <string name="source">Origen</string>
-  <string name="nbTurns">Número de turnos</string>
+  <string name="nbTurns">Cantidad de turnos</string>
   <string name="result">Resultado</string>
   <string name="winnerColor">Color del ganador</string>
   <string name="date">Fecha</string>

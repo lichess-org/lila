@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="declineTooFast">Tokratna kontrola je zame prehitra, prosim, ponovno izzivajte s počasnejšo igro.</string>
+  <string name="declineTooSlow">Tokratna kontrola je zame prepočasna, prosim, znova izzivajte s hitrejšo igro.</string>
+  <string name="declineTimeControl">S tem časovnim nadzorom ne sprejemam izzivov.</string>
+  <string name="declineRated">Prosim, pošljite mi rangirani izziv.</string>
+  <string name="declineCasual">Prosim, pošljite mi nerangirani izziv.</string>
+  <string name="declineStandard">Trenutno ne sprejemam variantnih izzivov.</string>
+  <string name="declineVariant">Trenutno nisem pripravljen igrati te različice.</string>
+</resources>

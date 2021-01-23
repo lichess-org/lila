@@ -27,7 +27,7 @@
   <string name="wantClearHistory">Ich möchte meinen Verlauf oder meine Wertung löschen</string>
   <string name="cantClearHistory">Es ist nicht möglich deinen Spiel-, Puzzleverlauf oder deine Wertung zu löschen.</string>
   <string name="wantReport">Ich möchte einen Spieler melden</string>
-  <string name="toReportAPlayerUseForm">Um einen Spieler zu melden, benutze das Meldeformular</string>
+  <string name="toReportAPlayerUseForm">Benutze das Meldeformular, um einen Spieler zu melden</string>
   <string name="youCanAlsoReachReportPage">Du erreichst diese Seite ebenfalls, indem du den %s Meldeknopf auf einer Profilseite klickst.</string>
   <string name="doNotReportInForum">Melde keine Spieler im Forum.</string>
   <string name="doNotSendReportEmails">Sende uns keine Meldungen per E-Mail.</string>

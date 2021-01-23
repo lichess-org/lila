@@ -9,7 +9,7 @@
   <string name="yourTurn">Do shealsa</string>
   <string name="aiNameLevelAiLevel">%1$s leibhéal %2$s</string>
   <string name="level">Leibhéal</string>
-  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Caighdeán imeartha</string>
+  <string name="strength">Caighdeán imeartha</string>
   <string name="toggleTheChat">Scoránú comhrá</string>
   <string name="toggleSound">Scoránú fuaime</string>
   <string name="chat">Comhrá</string>
@@ -341,7 +341,6 @@
   <string name="more">Níos mó</string>
   <string name="memberSince">Ball ó</string>
   <string name="lastSeenActive">Gníomhach %s</string>
-  <string name="challengeToPlay">Seol dúshláin chun imirt</string>
   <string name="player">Imreoir</string>
   <string name="list">Liosta</string>
   <string name="graph">Graf</string>
@@ -568,7 +567,6 @@
   <string name="invalidFen">FEN neamhbhailí</string>
   <string name="error.unknown">Earráid</string>
   <string name="notifications">Fógraí</string>
-  <string name="challenges">Dushláin</string>
   <string name="perfRatingX">Rátáil: %s</string>
   <string name="practiceWithComputer">Cleachtaigh leis an ríomhaire</string>
   <string name="computerThinking">An ríomhaire ag machnamh ...</string>
@@ -585,7 +583,6 @@
   <string name="opening">Oscailt</string>
   <string name="middlegame">Lár an chluiche</string>
   <string name="endgame">Cor deiridh</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">Ní ghlacann %s le dúshláin ach amháin ó chairde.</string>
   <string name="playX">Imir %s</string>
   <string name="sorry">Tá brón orainn :(</string>
   <string name="weHadToTimeYouOutForAWhile">Bhí orainn thú a chur ar fionraí ar feadh tréimhse.</string>
@@ -604,7 +601,4 @@
   <string name="important">Tábhachtach</string>
   <string name="inTheFAQ">sna CCana</string>
   <string name="teamNamedX">Foireann %1$s</string>
-  <string name="challengeDeclined">Níor glacadh leis an dúshlán</string>
-  <string name="challengeAccepted">Glacadh leis an dúshlán!</string>
-  <string name="challengeCanceled">Dúshlán curtha ar ceal.</string>
 </resources>

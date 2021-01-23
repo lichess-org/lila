@@ -374,7 +374,6 @@
   <string name="more">Meira</string>
   <string name="memberSince">Meðlimur síðan</string>
   <string name="lastSeenActive">Síðast tengdur %s</string>
-  <string name="challengeToPlay">Áskorun</string>
   <string name="player">Skákmenn</string>
   <string name="list">Listi</string>
   <string name="graph">Graf</string>
@@ -702,7 +701,6 @@
   <string name="error.unknown">Villa</string>
   <string name="custom">Sérsniðinn</string>
   <string name="notifications">Tilkynningar</string>
-  <string name="challenges">Áskoranir</string>
   <string name="perfRatingX">Skákstig: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekúnda til að spila fyrsta leik</item>
@@ -747,11 +745,6 @@
   </plurals>
   <string name="opening">Byrjun</string>
   <string name="middlegame">Miðtafl</string>
-  <string name="registerToSendChallenges">Skráðu þig inn til að senda áskorarnir.</string>
-  <string name="youCannotChallengeX">Þú getur ekki skorað á %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s tekur ekki við áskorunum.</string>
-  <string name="yourXRatingIsTooFarFromY">Það er of mikill munur á milli %1$sstiganna þína og skákstiganna %2$s.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s samþykkir eingöngu áskoranir frá vinum.</string>
   <string name="playX">Leika %s</string>
   <string name="sorry">Afsakaðu :(</string>
   <string name="weHadToTimeYouOutForAWhile">Við þurftum að setja þig í stutt leikbann.</string>
@@ -782,6 +775,4 @@
   <string name="youCannotPostYetPlaySomeGames">Þú mátt ekki pósta enn. Spilaðu nokkra leiki!</string>
   <string name="subscribe">Gerast áskrifandi</string>
   <string name="unsubscribe">Taka úr áskrift</string>
-  <string name="challengeDeclined">Áskorun hafnað</string>
-  <string name="challengeCanceled">Hætt við áskorun.</string>
 </resources>

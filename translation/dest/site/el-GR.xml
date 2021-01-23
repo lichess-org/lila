@@ -9,7 +9,7 @@
   <string name="yourTurn">Η σειρά σας</string>
   <string name="aiNameLevelAiLevel">%1$s επιπέδου %2$s</string>
   <string name="level">Επίπεδο</string>
-  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Ισχύς</string>
+  <string name="strength">Ισχύς</string>
   <string name="toggleTheChat">Εναλλαγή προβολής της συνομιλίας</string>
   <string name="toggleSound">Εναλλαγή ήχου</string>
   <string name="chat">Συνομιλία</string>
@@ -38,7 +38,7 @@
     <item quantity="one">Ο αντίπαλός σας έφυγε από το παιχνίδι. Διεκδίκηση νίκης σε %s δευτερόλεπτο.</item>
     <item quantity="other">Ο αντίπαλος έφυγε από το παιχνίδι. Διεκδίκηση νίκης σε %s δευτερόλεπτα.</item>
   </plurals>
-  <string name="opponentLeftChoices">Ο αντίπαλος σας έφυγε από το παιχνίδι. Μπορείτε να ισχυρισθείτε νίκη, ισοπαλία, ή να περιμένετε.</string>
+  <string name="opponentLeftChoices">Ο αντίπαλός σας έφυγε από το παιχνίδι. Μπορείτε να ισχυρισθείτε νίκη, ισοπαλία, ή να περιμένετε.</string>
   <string name="makeYourOpponentResign">Αναγκάστε τον αντίπαλό σας να παραιτηθεί</string>
   <string name="forceResignation">Ισχυριστείτε νίκη</string>
   <string name="forceDraw">Δηλώστε ισοπαλία</string>
@@ -283,10 +283,10 @@
   <string name="takeback">Ανάκληση κίνησης</string>
   <string name="proposeATakeback">Προσφέρετε ανάκληση της προηγούμενης κίνησης</string>
   <string name="takebackPropositionSent">Προσφορά ανάκλησης κίνησης εστάλη</string>
-  <string name="takebackPropositionDeclined">Προσφορά ανάκλησης κίνησης  μη αποδεκτή</string>
+  <string name="takebackPropositionDeclined">Αρνήθηκε η προσφορά ανάκλησης κίνησης</string>
   <string name="takebackPropositionAccepted">Προσφορά ακύρωσης κίνησης αποδεκτή</string>
   <string name="takebackPropositionCanceled">Προσφορά ακύρωσης κίνησης ακυρώθηκε</string>
-  <string name="yourOpponentProposesATakeback">Ο αντίπαλος σας πρότεινε ακύρωση της τελευταίας κίνησης</string>
+  <string name="yourOpponentProposesATakeback">Ο αντίπαλός σας πρότεινε ακύρωση της τελευταίας κίνησης</string>
   <string name="bookmarkThisGame">Προσθέστε σελιδοδείκτη για αυτό το παιχνίδι</string>
   <string name="tournament">Πρωτάθλημα</string>
   <string name="tournaments">Πρωταθλήματα</string>
@@ -328,7 +328,7 @@
   <string name="youAreNotInTeam">Δεν είστε στην ομάδα %s</string>
   <string name="backToGame">Επιστρέψτε στο παιχνίδι</string>
   <string name="siteDescription">Δωρεάν διαδικτυακό παιχνίδι Σκακιού. Παίξτε Σκάκι τώρα σε καθαρό γραφικό περιβάλλον. Χωρίς εγγραφές, χωρίς διαφημίσεις, χωρίς πρόσθετα. Παίξτε Σκάκι με τον υπολογιστή, με φίλους ή με τυχαίους αντιπάλους.</string>
-  <string name="xJoinedTeamY" comment="xJoinedTeamY&#10;&#10;Joining is effectively equal to becoming a member.">Ο/Η %1$s έγινε μέλος της ομάδα %2$s</string>
+  <string name="xJoinedTeamY">Ο/Η %1$s έγινε μέλος της ομάδα %2$s</string>
   <string name="xCreatedTeamY">Ο %1$s δημιούργησε την ομάδα %2$s</string>
   <string name="xStartedStreaming">%s ξεκίνησε να μεταδίδει</string>
   <string name="averageElo">Μέσος όρος βαθμολογίας</string>
@@ -384,7 +384,6 @@
   <string name="more">Περισσότερα</string>
   <string name="memberSince">Μέλος από τις</string>
   <string name="lastSeenActive">Τελευταία είσοδος %s</string>
-  <string name="challengeToPlay">Προκαλέστε σε παιχνίδι</string>
   <string name="player">Παίκτης</string>
   <string name="list">Κατάλογος</string>
   <string name="graph">Διάγραμμα</string>
@@ -737,7 +736,6 @@
   <string name="error.unknown">Σφάλμα</string>
   <string name="custom">Προσαρμογή</string>
   <string name="notifications">Ειδοποιήσεις</string>
-  <string name="challenges">Προκλήσεις</string>
   <string name="perfRatingX">Βαθμολογία: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s δευτερόλεπτο για την πρώτη κίνηση</item>
@@ -784,12 +782,6 @@
   <string name="opening">Άνοιγμα</string>
   <string name="middlegame">Μέση φάση παιχνιδιού</string>
   <string name="endgame">Φινάλε</string>
-  <string name="registerToSendChallenges">Παρακαλώ εγγραφείτε για να στείλετε προκλήσεις.</string>
-  <string name="youCannotChallengeX">Δεν μπορείτε να προκαλέσετε %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s δεν δέχεται προκλήσεις.</string>
-  <string name="yourXRatingIsTooFarFromY">Η %1$s βαθμολογία σας απέχει πολύ από τον %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Δεν είναι δυνατή η πρόκληση λόγω της προσωρινής %s βαθμολογίας.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s δέχεται προκλήσεις μόνο από φίλους.</string>
   <string name="conditionalPremoves">Υποθετικές προκινήσεις</string>
   <string name="addCurrentVariation">Προσθέστε τρέχουσα παραλλαγή</string>
   <string name="playVariationToCreateConditionalPremoves">Παίξτε μια παραλλαγή για να δημιουργήσετε υποθετικές προκινήσεις</string>
@@ -843,7 +835,4 @@
   <string name="youCannotPostYetPlaySomeGames">Δεν μπορείτε να δημοσιεύσετε σε αυτό το φόρουμ ακόμα. Παίξτε μερικά παιχνίδια!</string>
   <string name="subscribe">Εγγραφείτε</string>
   <string name="unsubscribe">Απεγγραφείτε</string>
-  <string name="challengeDeclined">Η πρόκληση δεν έγινε δεκτή</string>
-  <string name="challengeAccepted">Η πρόκληση έγινε δεκτή!</string>
-  <string name="challengeCanceled">Η πρόκληση ακυρώθηκε.</string>
 </resources>
