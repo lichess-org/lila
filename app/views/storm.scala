@@ -9,7 +9,7 @@ import lila.common.String.html.safeJsonValue
 
 object storm {
 
-  def home(json: JsObject)(implicit ctx: Context) =
+  def home(data: JsObject, pref: JsObject)(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = frag(cssTag("storm")),
       moreJs = frag(
@@ -17,13 +17,15 @@ object storm {
         embedJsUnsafeLoadThen(
           s"""LichessStorm.start(${safeJsonValue(
             Json.obj(
-              "data" -> json,
+              "data" -> data,
+              "pref" -> pref,
               "i18n" -> jsI18n
             )
           )})"""
         )
       ),
-      title = "Puzzle Storm"
+      title = "Puzzle Storm",
+      zoomable = true
     ) {
       main(cls := "box storm")
     }

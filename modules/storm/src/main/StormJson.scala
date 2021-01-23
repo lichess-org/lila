@@ -11,6 +11,16 @@ final class StormJson {
   def apply(puzzles: List[StormPuzzle]): JsObject = Json.obj(
     "puzzles" -> puzzles
   )
+
+  def pref(p: lila.pref.Pref) =
+    Json.obj(
+      "coords"      -> p.coords,
+      "rookCastle"  -> p.rookCastle,
+      "destination" -> p.destination,
+      "moveEvent"   -> p.moveEvent,
+      "highlight"   -> p.highlight,
+      "is3d"        -> p.is3d
+    )
 }
 
 object StormJson {

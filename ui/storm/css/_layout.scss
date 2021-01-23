@@ -37,7 +37,7 @@
   @include breakpoint($mq-col2) {
     grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
     grid-template-rows: fit-content(0);
-    grid-template-areas: 'board   tools' 'session controls' 'side    side';
+    grid-template-areas: 'board   .';
   }
 
 
