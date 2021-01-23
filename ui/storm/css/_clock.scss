@@ -1,15 +1,32 @@
+@keyframes mod-fade {
+  from {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(0, -10px);
+    opacity: 0;
+  }
+}
+
 .storm {
   &__clock {
-    @extend %roboto-fat, %flex-center-nowrap;
+    @extend %roboto, %flex-center-nowrap;
 
     &__time {
       font-size: 5em;
     }
 
-    &__malus {
-      font-size: 2em;
-      color: $c-bad;
+    &__bonus, &__malus {
+      font-size: 2.3em;
+      color: $c-good;
       margin-left: 1ch;
+      animation: mod-fade 1s ease-in-out;
+    }
+
+    &__malus {
+      color: $c-bad;
     }
   }
 }

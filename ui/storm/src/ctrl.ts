@@ -9,7 +9,7 @@ import { parseFen, makeFen } from 'chessops/fen';
 import { parseUci, opposite } from 'chessops/util';
 import { prop, Prop } from 'common';
 import { Role } from 'chessground/types';
-import { StormOpts, StormData, StormPuzzle, StormVm, Promotion } from './interfaces';
+import { StormOpts, StormData, StormPuzzle, StormVm, Promotion, TimeMod } from './interfaces';
 
 export default class StormCtrl {
 
@@ -63,7 +63,13 @@ export default class StormCtrl {
       this.vm.moveIndex++;
       this.vm.combo++;
       this.vm.modifier.moveAt = getNow();
-      this.redrawSoon();
+      const bonus = this.computeComboBonus();
+      if (bonus) {
+        this.vm.modifier.bonus = bonus;
+        this.vm.clock.budget += bonus.seconds * 1000;
+        this.redrawSlow();
+      }
+      this.redrawQuick();
       lichess.sound.play('move');
       if (this.vm.moveIndex == this.line().length - 1) {
         this.pushToHistory(true);
@@ -85,16 +91,26 @@ export default class StormCtrl {
       else {
         this.vm.puzzleIndex++;
         this.vm.moveIndex = 0;
-        this.redrawSoon(1000);
+        this.redrawSlow();
       }
     }
     this.redraw();
     this.withGround(this.showGround);
   };
 
-  private redrawSoon = (delay: number = 100) => setTimeout(this.redraw, delay);
+  private redrawQuick = () => setTimeout(this.redraw, 100);
+  private redrawSlow = () => setTimeout(this.redraw, 1000);
 
-  // private computeComboBonus = (): number =>
+  private computeComboBonus = (): TimeMod | undefined => {
+    if (this.comboPercent() == 0) {
+      const level = this.comboLevel();
+      if (level > 0) return {
+        seconds: config.combo.levels[level][1],
+        at: getNow()
+      };
+    }
+    return;
+  };
 
   boundedClockMillis = () => this.vm.clock.startAt ?
     Math.max(0, this.vm.clock.startAt + this.vm.clock.budget - getNow()) :

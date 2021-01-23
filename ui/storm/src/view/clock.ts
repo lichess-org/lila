@@ -1,49 +1,54 @@
-import config from '../config';
 import StormCtrl from '../ctrl';
 import { defined } from 'common';
 import { getNow } from '../util';
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
+import {TimeMod} from '../interfaces';
 
 let refreshInterval: Timeout;
 
 export default function renderClock(ctrl: StormCtrl): VNode {
   const malus = ctrl.vm.modifier.malus;
+  const bonus = ctrl.vm.modifier.bonus;
   return h('div.storm__clock', [
     h('div.storm__clock__time', {
       hook: {
         insert(node) {
           const el = node.elm as HTMLDivElement;
+          el.innerText = formatMs(ctrl.vm.clock.budget);
           refreshInterval = setInterval(() => renderIn(ctrl, el), 100);
         },
         destroy() {
           if (refreshInterval) clearInterval(refreshInterval);
         }
       }
-    }, formatMs(ctrl.vm.clock.budget)),
-    !!malus && malus.at > getNow() - 900 ? h('div.storm__clock__malus', '-' + malus.seconds) : null
+    }),
+    !!malus && malus.at > getNow() - 900 ? h('div.storm__clock__malus', '-' + malus.seconds) : null,
+    !!bonus && bonus.at > getNow() - 900 ? h('div.storm__clock__bonus', '+' + bonus.seconds) : null
   ]);
 }
 
 function renderIn(ctrl: StormCtrl, el: HTMLElement) {
   const clock = ctrl.vm.clock;
   if (!clock.startAt) return;
+  const mods = ctrl.vm.modifier;
   const now = getNow();
   const millis = clock.startAt + clock.budget - getNow();
-  const malus = ctrl.vm.modifier.malus;
-  const millisSinceMalus: number | undefined = malus && (now - malus.at < 1000 ? now - malus.at : undefined);
-  const showExtra = defined(millisSinceMalus) ?
-    config.clock.malus * (1 - millisSinceMalus / 1000) * 1000 :
-    0;
-  el.innerText = formatMs(millis + showExtra);
+  const diffs = computeModifierDiff(now, mods.bonus) - computeModifierDiff(now, mods.malus);
+  el.innerText = formatMs(millis - diffs);
   if (millis < 1 && ctrl.vm.mode == 'play') ctrl.end();
 }
 
 const pad = (x: number): string => (x < 10 ? '0' : '') + x;
 
 const formatMs = (millis: number): string => {
-  const date = new Date(Math.max(0, millis + 500)),
+  const date = new Date(Math.max(0, Math.ceil(millis / 1000) * 1000)),
     minutes = date.getUTCMinutes(),
     seconds = date.getUTCSeconds();
   return minutes + ':' + pad(seconds);
+}
+
+function computeModifierDiff(now: number, mod?: TimeMod) {
+  const millisSince: number | undefined = mod && (now - mod.at < 1000 ? now - mod.at : undefined);
+  return defined(millisSince) ? mod!.seconds * 1000 * (1 - millisSince / 1000) : 0;
 }
