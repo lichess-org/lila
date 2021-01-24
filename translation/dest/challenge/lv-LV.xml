@@ -20,4 +20,6 @@
   <string name="declineCasual">Labāk lūdzu atsūtiet nevērtētu izaicinājumu.</string>
   <string name="declineStandard">Šobrīd nepieņemu variantu izaicinājumus.</string>
   <string name="declineVariant">Šobrīd nevēlos spēlēt šo variantu.</string>
+  <string name="declineNoBot">Pašlaik nepieņemu izaicinājumus no botiem.</string>
+  <string name="declineOnlyBot">Pieņemu izaicinājumus tikai no botiem.</string>
 </resources>
