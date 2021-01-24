@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advancedPawn">Napredovani kmet</string>
+  <string name="advancedPawnDescription">Kmet pred promocijo ali s pretnjo po promociji je ključna v taktiki.</string>
+  <string name="advantage">Prednost</string>
   <string name="master">Igre mojstrov</string>
   <string name="masterDescription">Igre, ki so jih odigrali igralci z nazivom.</string>
   <string name="masterVsMaster">Igre mojster proti mojstru</string>
