@@ -21,4 +21,5 @@
   <string name="declineStandard">Şimdilik standart dışı varyantlarda oyun tekliflerini kabul etmiyorum.</string>
   <string name="declineVariant">Şimdilik bu varyantı oynamak istemiyorum.</string>
   <string name="declineNoBot">Botlardan gelen oyun tekliflerini kabul etmiyorum.</string>
+  <string name="declineOnlyBot">Yalnızca botlardan gelen oyun tekliflerini kabul ediyorum.</string>
 </resources>
