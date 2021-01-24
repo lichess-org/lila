@@ -15,11 +15,11 @@
   <string name="weAreNonProfit">Somos una organización sin ánimo de lucro porque creemos que todos deberíamos tener acceso a una plataforma de ajedrez de primera clase y gratuita.</string>
   <string name="weRelyOnSupport">Lo hacemos posible gracias al apoyo de gente como tú. Si te gusta Lichess, por favor ¡considera apoyarnos donando y convirtiéndote en patrón!</string>
   <string name="lifetime">De por vida</string>
-  <string name="payLifetimeOnce">Paga %s una vez. ¡Sé un Patrón de la Lichess para siempre!</string>
+  <string name="payLifetimeOnce">Paga %s una vez. ¡Sé un patrón de Lichess para siempre!</string>
   <string name="lifetimePatron">Patrón de Lichess de por vida</string>
   <string name="makeExtraDonation">¿Hacer una donación adicional?</string>
   <string name="monthly">Mensual</string>
-  <string name="recurringBilling">Facturación recurrente, renovando sus alas de Patrón cada mes.</string>
+  <string name="recurringBilling">Facturación recurrente, renovando tus alas de patrón cada mes.</string>
   <string name="onetime">Una vez</string>
   <string name="singleDonation">Una sola donación que te otorga las alas de patrón durante un mes.</string>
   <string name="otherAmount">Otro</string>
