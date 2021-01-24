@@ -84,31 +84,27 @@
       filter: $c-piece-flash-1;
     }
 
-    20% {
+    25% {
       filter: $c-piece-flash-2;
     }
 
-    40% {
+    50% {
       filter: $c-piece-flash-1;
     }
 
-    60% {
+    75% {
       filter: $c-piece-flash-2;
-    }
-
-    80% {
-      filter: $c-piece-flash-1;
     }
 
     100% {
-      filter: $c-piece-flash-2;
+      filter: $c-piece-flash-1;
     }
   }
 
   &--mod-puzzle {
     .orientation-white piece.white,
     .orientation-black piece.black {
-      animation: my-pieces .5s;
+      animation: my-pieces .4s;
     }
   }
 }
