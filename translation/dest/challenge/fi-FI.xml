@@ -13,4 +13,6 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s ottaa vastaan haasteita vain kavereiltaan.</string>
   <string name="declineGeneric">En ota tällä hetkellä haasteita vastaan.</string>
   <string name="declineLater">Ajankohta ei sovi minulle juuri nyt, pyydä myöhemmin uudelleen.</string>
+  <string name="declineNoBot">En ota vastaan haasteita boteilta.</string>
+  <string name="declineOnlyBot">Otan vastaan haasteita vain boteilta.</string>
 </resources>
