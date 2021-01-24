@@ -44,6 +44,7 @@ export default class TournamentController {
     this.scrollToMe();
     sound.end(this.data);
     sound.countDown(this.data);
+    this.recountTeams();
     this.redirectToMyGame();
   }
 
@@ -64,10 +65,17 @@ export default class TournamentController {
     sound.end(data);
     sound.countDown(data);
     this.joinSpinner = false;
+    this.recountTeams();
     this.redirectToMyGame();
   };
+  
 
   myGameId = () => this.data.me?.gameId;
+
+  private recountTeams() {
+    if (this.data.teamBattle) 
+      this.data.teamBattle.hasMoreThanTenTeams = Object.keys(this.data.teamBattle.teams).length > 10;
+  }
 
   private redirectToMyGame() {
     const gameId = this.myGameId();

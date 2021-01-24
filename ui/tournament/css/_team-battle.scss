@@ -1,15 +1,16 @@
 $team-colors: (0: hsl(274, 100%, 59%), 1: hsl(240, 100%, 67%), 2: #008000, 3: #b22222, 4: hsl(16, 80%, 62%), 5: #9acd32, 6: #ff4500, 7: #2e8b57, 8: #daa520, 9: hsl(32, 75%, 47%));
 
-@each $index, $color in $team-colors {
-  team.ttc-#{$index} {
-    color: #{$color};
-  }
-}
-
 team {
   padding: 1px 5px;
   font-size: .8em;
   font-weight: bold;
+  color: $c-brag;
+}
+
+@each $index, $color in $team-colors {
+  team.ttc-#{$index} {
+    color: #{$color};
+  }
 }
 
 .tour__player-info team {
@@ -105,6 +106,11 @@ team {
   &--full {
     td {
       padding: 2rem 1rem;
+
+      &.team {
+        color: $c-brag;
+        font-weight: bold;
+      }
     }
   }
 }

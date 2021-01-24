@@ -4,7 +4,6 @@ import { h } from 'snabbdom'
 import { TeamBattle, RankedTeam, TournamentData, MaybeVNode } from '../interfaces';
 import { VNode } from 'snabbdom/vnode';
 
-
 export function joinWithTeamSelector(ctrl: TournamentController) {
   const onClose = () => {
     ctrl.joinWithTeamSelector = false;
@@ -78,7 +77,10 @@ function myTeam(ctrl: TournamentController, battle: TeamBattle): MaybeVNode {
 }
 
 export function teamName(battle: TeamBattle, teamId: string): VNode {
-  return h('team.ttc-' + Object.keys(battle.teams).indexOf(teamId), battle.teams[teamId]);
+  return h(
+    battle.hasMoreThanTenTeams ? 'team' : 'team.ttc-' + Object.keys(battle.teams).indexOf(teamId),
+    battle.teams[teamId]
+  );
 }
 
 function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam) {
