@@ -94,6 +94,7 @@ export default class StormCtrl {
       else {
         this.vm.puzzleIndex++;
         this.vm.moveIndex = 0;
+        this.redrawQuick();
         this.redrawSlow();
       }
     }
@@ -166,8 +167,13 @@ export default class StormCtrl {
 
   comboPercent = () => {
     const lvl = this.comboLevel();
-    if (lvl == config.combo.levels.length - 1) return 100;
-    const bounds = [config.combo.levels[lvl][0], config.combo.levels[lvl + 1][0]];
+    const levels = config.combo.levels;
+    const lastLevel = levels[levels.length - 1];
+    if (lvl >= levels.length - 1) {
+      const range = (lastLevel[0] - levels[levels.length - 2][0]);
+      return ((this.vm.combo - lastLevel[0]) / range) * 100 % 100;
+    }
+    const bounds = [levels[lvl][0], levels[lvl + 1][0]];
     return Math.floor((this.vm.combo - bounds[0]) / (bounds[1] - bounds[0]) * 100);
   };
 

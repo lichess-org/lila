@@ -19,8 +19,9 @@ const playModifiers = (ctrl: StormCtrl) => {
   const bonus = ctrl.vm.modifier.bonus;
   return {
     'storm--mod-move': ctrl.vm.modifier.moveAt > now - 90,
-    'storm--mod-malus': !!malus && malus.at > now - 90,
-    'storm--mod-bonus': !!bonus && bonus.at > now - 90
+    'storm--mod-malus-quick': !!malus && malus.at > now - 90,
+    'storm--mod-malus-slow': !!malus && malus.at > now - 950,
+    'storm--mod-bonus-slow': !!bonus && bonus.at > now - 950
   };
 }
 

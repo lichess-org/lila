@@ -24,12 +24,12 @@
       color: $c-good;
       text-shadow: 0 0 15px $c-good;
       margin-left: 1ch;
-      animation: mod-fade-out 1s ease-in-out;
+      animation: mod-fade-out 1.1s ease-in-out;
     }
 
     &__malus {
       color: $c-bad;
-      text-shadow: 0 0 15px $c-good;
+      text-shadow: 0 0 15px $c-bad;
     }
   }
 }

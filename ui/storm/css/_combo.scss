@@ -35,9 +35,13 @@
       height: 5em;
       background-image: img-url("icons/tornado.svg");
       background-size: cover;
+      transform: translate3d(0, 0, 0);
+      backface-visibility: hidden;
+      perspective: 1000px;
 
-      .storm--mod-bonus & {
-        animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+      &:hover,
+      .storm--mod-bonus-slow & {
+        animation: shake 0.8s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
       }
     }
 
@@ -49,16 +53,11 @@
       &__value {
         @extend %flex-center-nowrap;
 
-        font-size: 2.3em;
+        font-size: 2.5em;
         line-height: 1em;
-
-        span {
-          margin-right: .5ch;
-        }
       }
 
       &__combo {
-        margin-right: .5ch;
         font-size: .9em;
       }
 
@@ -99,7 +98,18 @@
           box-shadow: 0 0 15px $c-in-flash;
         }
 
-        transition: all .15s;
+        transition: all .5s ease-in-out;
+
+        .storm--mod-bonus-slow & {
+          width: 100% !important;
+          background: $c-good;
+          box-shadow: 0 0 10px $c-good, 0 0 20px $c-good;
+        }
+        .storm--mod-malus-slow & {
+          transition-property: width;
+          background: $c-bad;
+          box-shadow: 0 0 10px $c-bad, 0 0 20px $c-bad;
+        }
       }
     }
 

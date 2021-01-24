@@ -8,10 +8,10 @@ const realLevels = [
 ];
 const quickLevels = [
   [0, 0],
-  [2, 10],
-  [4, 10],
-  [6, 10],
-  [8, 30]
+  [3, 5],
+  [9, 10],
+  [12, 15],
+  [15, 20]
 ];
 
 const config = {
@@ -23,8 +23,8 @@ const config = {
     malus: 10
   },
   combo: {
-    // levels: realLevels,
-    levels: quickLevels,
+    levels: realLevels,
+    // levels: quickLevels,
   }
 };
 
