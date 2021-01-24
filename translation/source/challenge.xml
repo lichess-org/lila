@@ -20,4 +20,6 @@
   <string name="declineCasual">Please send me a casual challenge instead.</string>
   <string name="declineStandard">I'm not accepting variant challenges right now.</string>
   <string name="declineVariant">I'm not willing to play this variant right now.</string>
+  <string name="declineNoBot">I'm not accepting challenges from bots.</string>
+  <string name="declineOnlyBot">I'm only accepting challenges from bots.</string>
 </resources>

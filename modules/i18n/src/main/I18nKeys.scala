@@ -1968,6 +1968,8 @@ val `declineRated` = new I18nKey("challenge:declineRated")
 val `declineCasual` = new I18nKey("challenge:declineCasual")
 val `declineStandard` = new I18nKey("challenge:declineStandard")
 val `declineVariant` = new I18nKey("challenge:declineVariant")
+val `declineNoBot` = new I18nKey("challenge:declineNoBot")
+val `declineOnlyBot` = new I18nKey("challenge:declineOnlyBot")
 }
 
 object storm {
