@@ -90,6 +90,7 @@ export default class StormCtrl {
         this.pushToHistory(true);
         this.vm.puzzleIndex++;
         this.vm.moveIndex = 0;
+        this.redrawSlow();
       } else {
         this.vm.moveIndex++;
       }

@@ -75,4 +75,40 @@
       }
     }
   }
+
+  $c-piece-flash-1: brightness(1.3);
+  $c-piece-flash-2: brightness(0.7);
+
+  @keyframes my-pieces {
+    0% {
+      filter: $c-piece-flash-1;
+    }
+
+    20% {
+      filter: $c-piece-flash-2;
+    }
+
+    40% {
+      filter: $c-piece-flash-1;
+    }
+
+    60% {
+      filter: $c-piece-flash-2;
+    }
+
+    80% {
+      filter: $c-piece-flash-1;
+    }
+
+    100% {
+      filter: $c-piece-flash-2;
+    }
+  }
+
+  &--mod-puzzle {
+    .orientation-white piece.white,
+    .orientation-black piece.black {
+      animation: my-pieces .5s;
+    }
+  }
 }
