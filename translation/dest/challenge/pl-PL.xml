@@ -20,4 +20,6 @@
   <string name="declineCasual">Zaproś mnie proszę do partii nierankingowej.</string>
   <string name="declineStandard">Nie akceptuję teraz zaproszeń do gry w warianty.</string>
   <string name="declineVariant">Nie chcę grać teraz tego wariantu.</string>
+  <string name="declineNoBot">Nie akceptuję wyzwań od botów.</string>
+  <string name="declineOnlyBot">Akceptuję tylko wyzwania od botów.</string>
 </resources>
