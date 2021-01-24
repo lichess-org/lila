@@ -17,7 +17,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
   val theme    = lila.puzzle.PuzzleTheme.mix.key.value
   val tier     = lila.puzzle.PuzzleTier.Good.key
 
-  val ratings = (1000 to 2600 by 100).toList
+  val ratings = (1000 to 2600 by 150).toList
 
   private val current = cacheApi.unit[List[StormPuzzle]] {
     _.refreshAfterWrite(10 seconds)
