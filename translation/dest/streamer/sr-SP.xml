@@ -20,9 +20,10 @@
   <string name="approved">Твој стрим је одобрен.</string>
   <string name="pendingReview">Твој стрим проверавају модератори.</string>
   <string name="pleaseFillIn">Молимо попуните стримерске информације и поставите слику.</string>
-  <string name="whenReady">Када будете спремни да постанете Личес стример, %s</string>
-  <string name="requestReview">затражите проверу од стране модератора</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Када будете спремни да постанете Личес стример, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">затражите проверу од стране модератора</string>
   <string name="twitchUsername">Твоје Твич корисничко име или УРЛ</string>
+  <string name="optionalOrEmpty">Није обавезно. Оставити празно ако нема</string>
   <string name="youtubeChannel">Твој Јутјуб канал ИД или УРЛ</string>
   <string name="headline">Наслов</string>
   <string name="tellUsAboutTheStream">Реци нам нешто о свом стриму у једној реченици</string>
@@ -31,4 +32,5 @@
   <string name="uploadPicture">Постави слику</string>
   <string name="deletePicture">Избриши слику</string>
   <string name="maxSize">Максимална величина: %s</string>
+  <string name="installBlocker">Инсталирај блокер малвера!</string>
 </resources>
