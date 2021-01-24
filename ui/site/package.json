@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@fnando/sparkline": "^0.3.10",
-    "@yaireo/tagify": "3.9.3",
+    "@yaireo/tagify": "^3.22.1",
     "debounce-promise": "^3.1.2",
     "flatpickr": "^4.6.6",
     "highcharts": "=4.2.5",
