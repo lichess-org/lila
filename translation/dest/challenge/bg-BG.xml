@@ -8,7 +8,7 @@
   <string name="registerToSendChallenges">Регистрирайте се, за да отправяте предизвикателства.</string>
   <string name="youCannotChallengeX">Не може да предизвикате %s.</string>
   <string name="xDoesNotAcceptChallenges">%s не приема предизвикателства.</string>
-  <string name="yourXRatingIsTooFarFromY" comment="yourXRatingIsTooFarFromY&#10;&#10;%1$s is the rating type (blitz, bullet, crazyhouse)&#10;%2$s is another username&#10;&#10;This message is shown if you are trying too challenge someone who is too strong/weak compared to your rating.">Вашият рейтинг %1$s е предалеч от %2$s.</string>
+  <string name="yourXRatingIsTooFarFromY">Вашият рейтинг %1$s е предалеч от %2$s.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s приема предизвикателства само от приятели.</string>
   <string name="declineGeneric">Не приемам предизвикателства в момента.</string>
   <string name="declineLater">Това не е точният момент за мен, моля, опитайте пак по-късно.</string>
