@@ -72,7 +72,9 @@ export default class StormCtrl {
     const expected = this.line()[this.vm.moveIndex + 1];
     const uci = `${orig}${dest}${promotion ? (promotion == 'knight' ? 'n' : promotion[0]) : ''}`;
     const pos = this.position();
-    pos.play(parseUci(uci)!);
+    const move = parseUci(uci)!;
+    const capture = pos.board.occupied.has(move.to);
+    pos.play(move);
     if (pos.isCheckmate() || uci == expected) {
       this.vm.moveIndex++;
       this.vm.combo++;
@@ -85,7 +87,7 @@ export default class StormCtrl {
         this.redrawSlow();
       }
       this.redrawQuick();
-      lichess.sound.play('move');
+      lichess.sound.play(capture ? 'capture' : 'move');
       if (this.vm.moveIndex == this.line().length - 1) {
         this.pushToHistory(true);
         this.vm.puzzleIndex++;
