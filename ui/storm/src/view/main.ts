@@ -38,10 +38,7 @@ const renderCombo = (ctrl: StormCtrl): VNode =>
   h('div.storm__combo', [
     h('div.storm__combo__icon'),
     h('div.storm__combo__counter', [
-      h('span.storm__combo__counter__value', [
-        h('span', 'x'),
-        h('strong', ctrl.vm.combo)
-      ]),
+      h('span.storm__combo__counter__value', ctrl.vm.combo),
       h('span.storm__combo__counter__combo', 'COMBO')
     ]),
     h('div.storm__combo__bars', [
@@ -63,7 +60,7 @@ const renderCombo = (ctrl: StormCtrl): VNode =>
 const renderSolved = (ctrl: StormCtrl): VNode =>
   h('div.storm__solved', [
     h('div', [
-      h('strong', ctrl.countWins()),
+      h('span.storm__solved__value', ctrl.countWins()),
       'puzzles solved'
     ]),
     h('div.alpha', [

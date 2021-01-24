@@ -12,7 +12,8 @@
 
 .storm {
   &__clock {
-    @extend %roboto, %flex-center-nowrap;
+    @extend %flex-center-nowrap;
+    font-family: 'storm';
 
     &__time {
       font-size: 5em;

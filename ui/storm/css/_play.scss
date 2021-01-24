@@ -28,6 +28,7 @@
     //   grid-template-areas: '.    board   side';
     //   grid-template-columns: $col3-uniboard-side $col3-uniboard-width $col3-uniboard-table;
     // }
+ 
   }
 
   &__side {
@@ -37,9 +38,9 @@
   }
 
   &__solved {
-    @extend %flex-center;
 
-    strong {
+    &__value {
+      font-family: 'storm';
       font-size: 2em;
       margin-right: 1rem;
     }

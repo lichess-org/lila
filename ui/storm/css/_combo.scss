@@ -14,6 +14,8 @@
   &__combo {
     @extend %flex-center-nowrap;
 
+    font-family: 'storm';
+
     &__icon {
       flex: 5em 0 0;
       width: 5em;
@@ -30,26 +32,18 @@
       &__value {
         @extend %flex-center-nowrap;
 
-        strong {
-          @extend %roboto-fat;
-
-          font-size: 2.3em;
-          line-height: 1em;
-        }
+        font-size: 2.3em;
+        line-height: 1em;
 
         span {
-          @extend %roboto;
-
           margin-right: .5ch;
         }
       }
 
       &__combo {
-        @extend %roboto;
 
         margin-right: .5ch;
         font-size: .9em;
-        letter-spacing: -1px;
       }
 
       transition: color .1s;
@@ -103,10 +97,10 @@
 
       animation: level-fade-in .3s ease-out;
       transform: skewX(-45deg) scaleY(0.70711);
-
       flex: 21% 0 0;
       margin-right: 4%;
       height: 1em;
+
       // box-shadow: 0 0 15px $c-level;
       background: mix($c-level, black, 80%);
 

@@ -15,10 +15,9 @@ const renderEnd = (ctrl: StormCtrl): VNode[] => [
 
 const renderSummary = (ctrl: StormCtrl): VNode => {
   const wins = ctrl.countWins();
-  console.log(ctrl.trans.vdomPlural('xPuzzlesSolved', wins, h('strong', wins)));
   return h('div.storm__summary', [
     h('div.storm__summary__solved', [
-      h('strong.storm__summary__solved__number', {
+      h('span.storm__summary__solved__number', {
         hook: onInsert(el => numberSpread(el, wins, Math.round(wins * 50), 0)(wins))
       }, '0'),
       h('p', ctrl.trans('puzzlesSolved'))

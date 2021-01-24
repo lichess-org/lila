@@ -10,5 +10,13 @@ $mq-col3: $mq-col3-uniboard;
   }
 }
 
+@font-face {
+  font-family: 'storm';
+  font-style: normal;
+  font-weight: 400;
+
+  src: url("#{$font-path}/alarmclock.woff2") format("woff2");
+}
+
 @import "play";
 @import "end";

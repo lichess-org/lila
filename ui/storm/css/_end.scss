@@ -23,9 +23,9 @@
       margin: auto;
 
       &__number {
-        @extend %roboto;
+        font-family: 'storm';
 
-        font-size: 8em;
+        font-size: 10em;
         width: 3ch;
         text-align: center;
       }
