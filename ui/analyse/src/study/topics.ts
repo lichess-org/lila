@@ -63,7 +63,7 @@ export function formView(ctrl: TopicsCtrl, userId?: string): VNode {
       }, [
         h('textarea', {
           hook: onInsert(elm => setupTagify(elm, userId))
-        }, ctrl.getTopics().join(', ').replace(/[<>]/g, '')),
+        }, ctrl.getTopics().join(', ')),
         h('button.button', {
           type: 'submit'
         }, ctrl.trans.noarg('apply'))
