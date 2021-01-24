@@ -15,9 +15,9 @@
   <string name="declineLater">Detta är inte rätt tid för mig, vänligen fråga igen senare.</string>
   <string name="declineTooFast">Denna tidskontroll är för snabb för mig, vänligen utmana igen med ett långsammare parti.</string>
   <string name="declineTooSlow">Denna tidskontroll är för långsam för mig, vänligen utmana igen med ett snabbare parti.</string>
-  <string name="declineTimeControl">Jag accepterar inte utmaningar med denna tidskontroll.</string>
+  <string name="declineTimeControl">Jag antar inte utmaningar med denna tidskontroll.</string>
   <string name="declineRated">Vänligen skicka en rankad utmaning istället.</string>
   <string name="declineCasual">Vänligen skicka en orankad utmaning istället.</string>
-  <string name="declineStandard">Jag accepterar inte utmaningar med varianter för tillfället.</string>
+  <string name="declineStandard">Jag antar inte utmaningar med varianter för tillfället.</string>
   <string name="declineVariant">Jag vill inte spela denna variant för tillfället.</string>
 </resources>
