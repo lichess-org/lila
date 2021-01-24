@@ -23,8 +23,8 @@ const config = {
     malus: 10
   },
   combo: {
-    // levels: realLevels,
-    levels: quickLevels,
+    levels: realLevels,
+    // levels: quickLevels,
   }
 };
 
