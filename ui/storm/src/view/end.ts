@@ -62,7 +62,7 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
       ])
     ]),
     h('a.storm--end__play.button', {
-      attrs: { href: '/storm/' }
+      attrs: { href: '/storm' }
       // hook: onInsert(e => e.addEventListener('click', ctrl.restart))
     }, ctrl.trans('playAgain'))
   ];
