@@ -20,4 +20,5 @@
   <string name="declineCasual">Bunun yerine puansız oyun teklifi yapınız lütfen.</string>
   <string name="declineStandard">Şimdilik standart dışı varyantlarda oyun tekliflerini kabul etmiyorum.</string>
   <string name="declineVariant">Şimdilik bu varyantı oynamak istemiyorum.</string>
+  <string name="declineNoBot">Botlardan gelen oyun tekliflerini kabul etmiyorum.</string>
 </resources>
