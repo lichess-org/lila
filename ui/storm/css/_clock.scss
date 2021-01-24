@@ -16,18 +16,20 @@
     font-family: 'storm';
 
     &__time {
-      font-size: 5em;
+      font-size: 7em;
     }
 
     &__bonus, &__malus {
-      font-size: 2.5em;
+      font-size: 4em;
       color: $c-good;
+      text-shadow: 0 0 15px $c-good;
       margin-left: 1ch;
       animation: mod-fade-out 1s ease-in-out;
     }
 
     &__malus {
       color: $c-bad;
+      text-shadow: 0 0 15px $c-good;
     }
   }
 }

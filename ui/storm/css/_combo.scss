@@ -1,12 +1,7 @@
 @keyframes level-fade-in {
   from {
-    transform: skewX(-45deg) scaleX(1.414207) translate(100px, 0);
-    opacity: .3;
     background: white;
-  }
-
-  to {
-    opacity: 1;
+    box-shadow: 0 0 15px white, 0 0 25px white;
   }
 }
 
@@ -41,7 +36,6 @@
       }
 
       &__combo {
-
         margin-right: .5ch;
         font-size: .9em;
       }
@@ -95,25 +89,31 @@
     &__level {
       $c-level: $c-primary;
 
-      animation: level-fade-in .3s ease-out;
       transform: skewX(-45deg) scaleY(0.70711);
       flex: 21% 0 0;
       margin-right: 4%;
-      height: 1em;
+      height: 1.2em;
 
       // box-shadow: 0 0 15px $c-level;
-      background: mix($c-level, black, 80%);
+      border: $border;
 
-      &:nth-child(2) {
-        background: $c-level;
-      }
+      &.active {
+        animation: level-fade-in 1s ease-out;
+        background: mix($c-level, black, 80%);
+        border: 1px solid $c-level;
+        box-shadow: 0 0 10px $c-level;
 
-      &:nth-child(3) {
-        background: mix($c-level, white, 60%);
-      }
+        &:nth-child(2) {
+          background: $c-level;
+        }
 
-      &:nth-child(4) {
-        background: mix($c-level, white, 40%);
+        &:nth-child(3) {
+          background: mix($c-level, white, 60%);
+        }
+
+        &:nth-child(4) {
+          background: mix($c-level, white, 40%);
+        }
       }
     }
   }

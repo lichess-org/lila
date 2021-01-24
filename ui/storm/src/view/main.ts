@@ -34,8 +34,9 @@ const renderPlay = (ctrl: StormCtrl): VNode[] => [
   ])
 ];
 
-const renderCombo = (ctrl: StormCtrl): VNode =>
-  h('div.storm__combo', [
+const renderCombo = (ctrl: StormCtrl): VNode => {
+  const level = ctrl.comboLevel();
+  return h('div.storm__combo', [
     h('div.storm__combo__icon'),
     h('div.storm__combo__counter', [
       h('span.storm__combo__counter__value', ctrl.vm.combo),
@@ -50,12 +51,17 @@ const renderCombo = (ctrl: StormCtrl): VNode =>
         })
       ),
       h('div.storm__combo__levels',
-        [...Array(ctrl.comboLevel()).keys()].map(_ =>
-          h('div.storm__combo__level')
+        [0, 1, 2, 3].map(l =>
+          h('div.storm__combo__level', {
+            class: {
+              active: l < level
+            }
+          })
         )
       )
     ])
   ]);
+}
 
 const renderSolved = (ctrl: StormCtrl): VNode =>
   h('div.storm__solved', [
