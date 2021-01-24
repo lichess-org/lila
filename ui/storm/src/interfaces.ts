@@ -24,29 +24,26 @@ export interface StormData {
   puzzles: StormPuzzle[];
 }
 
-export type StormMode = 'play' | 'end';
-
 export interface StormVm {
-  mode: StormMode;
   puzzleIndex: number;
   moveIndex: number;
-  clock: StormClock;
+  clock: number;
   history: Round[];
   puzzleStartAt?: number;
   combo: number;
   comboBest: number;
   modifier: StormModifier;
+  run: {
+    startAt: number;
+    endAt?: number;
+    moves: number;
+  }
 }
 
 export interface Round {
   puzzle: StormPuzzle;
   win: boolean;
   millis: number;
-}
-
-export interface StormClock {
-  budget: number;
-  startAt?: number;
 }
 
 export interface StormModifier {
@@ -73,3 +70,8 @@ export interface Promotion {
   view(): MaybeVNode;
 }
 
+export interface DailyBest {
+  score: number;
+  prev?: number;
+  at: number;
+}

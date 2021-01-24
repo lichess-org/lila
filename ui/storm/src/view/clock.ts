@@ -15,7 +15,7 @@ export default function renderClock(ctrl: StormCtrl): VNode {
       hook: {
         insert(node) {
           const el = node.elm as HTMLDivElement;
-          el.innerText = formatMs(ctrl.vm.clock.budget);
+          el.innerText = formatMs(ctrl.vm.clock);
           refreshInterval = setInterval(() => renderIn(ctrl, el), 100);
         },
         destroy() {
@@ -29,14 +29,14 @@ export default function renderClock(ctrl: StormCtrl): VNode {
 }
 
 function renderIn(ctrl: StormCtrl, el: HTMLElement) {
+  if (!ctrl.vm.run.startAt) return;
   const clock = ctrl.vm.clock;
-  if (!clock.startAt) return;
   const mods = ctrl.vm.modifier;
   const now = getNow();
-  const millis = clock.startAt + clock.budget - getNow();
+  const millis = ctrl.vm.run.startAt + clock - getNow();
   const diffs = computeModifierDiff(now, mods.bonus) - computeModifierDiff(now, mods.malus);
   el.innerText = formatMs(millis - diffs);
-  if (millis < 1 && ctrl.vm.mode == 'play') ctrl.end();
+  if (millis < 1 && !ctrl.vm.run.endAt) ctrl.end();
 }
 
 const pad = (x: number): string => (x < 10 ? '0' : '') + x;

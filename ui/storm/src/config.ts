@@ -18,7 +18,6 @@ const config = {
   // all times in seconds
   clock: {
     initial: 3 * 60,
-    // initial: 3 * 60,
     // initial: 10,
     malus: 10
   },

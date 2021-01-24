@@ -1975,6 +1975,10 @@ val `declineOnlyBot` = new I18nKey("challenge:declineOnlyBot")
 object storm {
 val `moveToStart` = new I18nKey("storm:moveToStart")
 val `puzzlesSolved` = new I18nKey("storm:puzzlesSolved")
+val `newDailyHighscore` = new I18nKey("storm:newDailyHighscore")
+val `newAllTimeHighscore` = new I18nKey("storm:newAllTimeHighscore")
+val `previousHighscoreWasX` = new I18nKey("storm:previousHighscoreWasX")
+val `playAgain` = new I18nKey("storm:playAgain")
 }
 
 }

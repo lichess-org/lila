@@ -9,6 +9,7 @@ import { parseFen, makeFen } from 'chessops/fen';
 import { parseUci, opposite } from 'chessops/util';
 import { prop, Prop } from 'common';
 import { Role } from 'chessground/types';
+import { set as dailyBestSet } from './best';
 import { StormOpts, StormData, StormPuzzle, StormVm, Promotion, TimeMod } from './interfaces';
 
 export default class StormCtrl {
@@ -22,31 +23,41 @@ export default class StormCtrl {
   constructor(readonly opts: StormOpts, readonly redraw: () => void) {
     this.data = opts.data;
     this.trans = lichess.trans(opts.i18n);
+    this.initVm();
+    // this.vm = { "puzzleIndex": 8, "moveIndex": 0, "clock": 30000, "run": { "startAt": getNow() - 1000 * 30, "endAt": getNow(), moves: 72 }, "history": [{ "puzzle": { "id": "OZpGP", "fen": "r1b2rk1/p1q2p1p/2p3p1/8/3pP3/3B1Q2/PPPN2Pb/R4R1K b - - 1 16", "line": "h2f4 f3f4 c7f4 f1f4", "rating": 734 }, "win": true, "millis": 0 }, { "puzzle": { "id": "Dzs5L", "fen": "2br4/p5pp/2p1pk2/5r2/3p4/3N1P2/PPPR2PP/2K1R3 w - - 2 22", "line": "d3e5 f5e5 e1e5 f6e5", "rating": 786 }, "win": true, "millis": 2630 }, { "puzzle": { "id": "R05GW", "fen": "4r1k1/6pn/p1Nq1p1p/1p1p2n1/3P4/P3PP2/1B4PP/2Q2RK1 b - - 1 25", "line": "e8c8 c6e7 d6e7 c1c8", "rating": 830 }, "win": true, "millis": 5034 }, { "puzzle": { "id": "uqRFi", "fen": "7r/6b1/3k2p1/p4p2/PpBp1P2/1P4K1/8/4R3 b - - 2 35", "line": "g7f6 e1e6 d6c5 e6f6", "rating": 947 }, "win": true, "millis": 2731 }, { "puzzle": { "id": "CNE6z", "fen": "6k1/q4p1p/2r1p1p1/3pQP2/1Pb3B1/2P5/6PP/4R2K b - - 0 39", "line": "e6f5 e5e8 g8g7 e8c6", "rating": 979 }, "win": false, "millis": 1514 }, { "puzzle": { "id": "vrupJ", "fen": "r1bq1rk1/4ppbp/p2p1np1/1p6/4P3/P1N1B3/1PP1BPPP/R2Q1RK1 b - - 0 12", "line": "f6g4 e2g4 c8g4 d1g4", "rating": 991 }, "win": true, "millis": 4100 }, { "puzzle": { "id": "Y0ZJA", "fen": "3r2k1/r1R3pp/3P1p2/8/1b2P3/6P1/5PKP/3R4 b - - 1 32", "line": "a7c7 d6c7 d8d1 c7c8q", "rating": 1021 }, "win": false, "millis": 8250 }, { "puzzle": { "id": "Vm6wF", "fen": "8/2kP3p/1N4p1/5p2/7b/r4P1P/5P2/4R1K1 w - - 3 42", "line": "e1c1 c7b6", "rating": 1055 }, "win": true, "millis": 2400 }, { "puzzle": { "id": "OZpGP", "fen": "r1b2rk1/p1q2p1p/2p3p1/8/3pP3/3B1Q2/PPPN2Pb/R4R1K b - - 1 16", "line": "h2f4 f3f4 c7f4 f1f4", "rating": 734 }, "win": true, "millis": 0 }, { "puzzle": { "id": "Dzs5L", "fen": "2br4/p5pp/2p1pk2/5r2/3p4/3N1P2/PPPR2PP/2K1R3 w - - 2 22", "line": "d3e5 f5e5 e1e5 f6e5", "rating": 786 }, "win": true, "millis": 2630 }, { "puzzle": { "id": "R05GW", "fen": "4r1k1/6pn/p1Nq1p1p/1p1p2n1/3P4/P3PP2/1B4PP/2Q2RK1 b - - 1 25", "line": "e8c8 c6e7 d6e7 c1c8", "rating": 830 }, "win": true, "millis": 5034 }, { "puzzle": { "id": "uqRFi", "fen": "7r/6b1/3k2p1/p4p2/PpBp1P2/1P4K1/8/4R3 b - - 2 35", "line": "g7f6 e1e6 d6c5 e6f6", "rating": 947 }, "win": true, "millis": 2731 }, { "puzzle": { "id": "CNE6z", "fen": "6k1/q4p1p/2r1p1p1/3pQP2/1Pb3B1/2P5/6PP/4R2K b - - 0 39", "line": "e6f5 e5e8 g8g7 e8c6", "rating": 979 }, "win": false, "millis": 1514 }, { "puzzle": { "id": "vrupJ", "fen": "r1bq1rk1/4ppbp/p2p1np1/1p6/4P3/P1N1B3/1PP1BPPP/R2Q1RK1 b - - 0 12", "line": "f6g4 e2g4 c8g4 d1g4", "rating": 991 }, "win": true, "millis": 4100 }, { "puzzle": { "id": "Y0ZJA", "fen": "3r2k1/r1R3pp/3P1p2/8/1b2P3/6P1/5PKP/3R4 b - - 1 32", "line": "a7c7 d6c7 d8d1 c7c8q", "rating": 1021 }, "win": false, "millis": 8250 }, { "puzzle": { "id": "Vm6wF", "fen": "8/2kP3p/1N4p1/5p2/7b/r4P1P/5P2/4R1K1 w - - 3 42", "line": "e1c1 c7b6", "rating": 1055 }, "win": true, "millis": 2400 }, { "puzzle": { "id": "OZpGP", "fen": "r1b2rk1/p1q2p1p/2p3p1/8/3pP3/3B1Q2/PPPN2Pb/R4R1K b - - 1 16", "line": "h2f4 f3f4 c7f4 f1f4", "rating": 734 }, "win": true, "millis": 0 }, { "puzzle": { "id": "Dzs5L", "fen": "2br4/p5pp/2p1pk2/5r2/3p4/3N1P2/PPPR2PP/2K1R3 w - - 2 22", "line": "d3e5 f5e5 e1e5 f6e5", "rating": 786 }, "win": true, "millis": 2630 }, { "puzzle": { "id": "R05GW", "fen": "4r1k1/6pn/p1Nq1p1p/1p1p2n1/3P4/P3PP2/1B4PP/2Q2RK1 b - - 1 25", "line": "e8c8 c6e7 d6e7 c1c8", "rating": 830 }, "win": true, "millis": 5034 }, { "puzzle": { "id": "uqRFi", "fen": "7r/6b1/3k2p1/p4p2/PpBp1P2/1P4K1/8/4R3 b - - 2 35", "line": "g7f6 e1e6 d6c5 e6f6", "rating": 947 }, "win": true, "millis": 2731 }, { "puzzle": { "id": "CNE6z", "fen": "6k1/q4p1p/2r1p1p1/3pQP2/1Pb3B1/2P5/6PP/4R2K b - - 0 39", "line": "e6f5 e5e8 g8g7 e8c6", "rating": 979 }, "win": false, "millis": 1514 }, { "puzzle": { "id": "vrupJ", "fen": "r1bq1rk1/4ppbp/p2p1np1/1p6/4P3/P1N1B3/1PP1BPPP/R2Q1RK1 b - - 0 12", "line": "f6g4 e2g4 c8g4 d1g4", "rating": 991 }, "win": true, "millis": 4100 }, { "puzzle": { "id": "Y0ZJA", "fen": "3r2k1/r1R3pp/3P1p2/8/1b2P3/6P1/5PKP/3R4 b - - 1 32", "line": "a7c7 d6c7 d8d1 c7c8q", "rating": 1021 }, "win": false, "millis": 8250 }, { "puzzle": { "id": "Vm6wF", "fen": "8/2kP3p/1N4p1/5p2/7b/r4P1P/5P2/4R1K1 w - - 3 42", "line": "e1c1 c7b6", "rating": 1055 }, "win": true, "millis": 2400 }, { "puzzle": { "id": "OZpGP", "fen": "r1b2rk1/p1q2p1p/2p3p1/8/3pP3/3B1Q2/PPPN2Pb/R4R1K b - - 1 16", "line": "h2f4 f3f4 c7f4 f1f4", "rating": 734 }, "win": true, "millis": 0 }, { "puzzle": { "id": "Dzs5L", "fen": "2br4/p5pp/2p1pk2/5r2/3p4/3N1P2/PPPR2PP/2K1R3 w - - 2 22", "line": "d3e5 f5e5 e1e5 f6e5", "rating": 786 }, "win": true, "millis": 2630 }, { "puzzle": { "id": "R05GW", "fen": "4r1k1/6pn/p1Nq1p1p/1p1p2n1/3P4/P3PP2/1B4PP/2Q2RK1 b - - 1 25", "line": "e8c8 c6e7 d6e7 c1c8", "rating": 830 }, "win": true, "millis": 5034 }, { "puzzle": { "id": "uqRFi", "fen": "7r/6b1/3k2p1/p4p2/PpBp1P2/1P4K1/8/4R3 b - - 2 35", "line": "g7f6 e1e6 d6c5 e6f6", "rating": 947 }, "win": true, "millis": 2731 }, { "puzzle": { "id": "CNE6z", "fen": "6k1/q4p1p/2r1p1p1/3pQP2/1Pb3B1/2P5/6PP/4R2K b - - 0 39", "line": "e6f5 e5e8 g8g7 e8c6", "rating": 979 }, "win": false, "millis": 1514 }, { "puzzle": { "id": "vrupJ", "fen": "r1bq1rk1/4ppbp/p2p1np1/1p6/4P3/P1N1B3/1PP1BPPP/R2Q1RK1 b - - 0 12", "line": "f6g4 e2g4 c8g4 d1g4", "rating": 991 }, "win": true, "millis": 4100 }, { "puzzle": { "id": "Y0ZJA", "fen": "3r2k1/r1R3pp/3P1p2/8/1b2P3/6P1/5PKP/3R4 b - - 1 32", "line": "a7c7 d6c7 d8d1 c7c8q", "rating": 1021 }, "win": false, "millis": 8250 }, { "puzzle": { "id": "Vm6wF", "fen": "8/2kP3p/1N4p1/5p2/7b/r4P1P/5P2/4R1K1 w - - 3 42", "line": "e1c1 c7b6", "rating": 1055 }, "win": true, "millis": 2400 }, { "puzzle": { "id": "OZpGP", "fen": "r1b2rk1/p1q2p1p/2p3p1/8/3pP3/3B1Q2/PPPN2Pb/R4R1K b - - 1 16", "line": "h2f4 f3f4 c7f4 f1f4", "rating": 734 }, "win": true, "millis": 0 }, { "puzzle": { "id": "Dzs5L", "fen": "2br4/p5pp/2p1pk2/5r2/3p4/3N1P2/PPPR2PP/2K1R3 w - - 2 22", "line": "d3e5 f5e5 e1e5 f6e5", "rating": 786 }, "win": true, "millis": 2630 }, { "puzzle": { "id": "R05GW", "fen": "4r1k1/6pn/p1Nq1p1p/1p1p2n1/3P4/P3PP2/1B4PP/2Q2RK1 b - - 1 25", "line": "e8c8 c6e7 d6e7 c1c8", "rating": 830 }, "win": true, "millis": 5034 }, { "puzzle": { "id": "uqRFi", "fen": "7r/6b1/3k2p1/p4p2/PpBp1P2/1P4K1/8/4R3 b - - 2 35", "line": "g7f6 e1e6 d6c5 e6f6", "rating": 947 }, "win": true, "millis": 2731 }, { "puzzle": { "id": "CNE6z", "fen": "6k1/q4p1p/2r1p1p1/3pQP2/1Pb3B1/2P5/6PP/4R2K b - - 0 39", "line": "e6f5 e5e8 g8g7 e8c6", "rating": 979 }, "win": false, "millis": 1514 }, { "puzzle": { "id": "vrupJ", "fen": "r1bq1rk1/4ppbp/p2p1np1/1p6/4P3/P1N1B3/1PP1BPPP/R2Q1RK1 b - - 0 12", "line": "f6g4 e2g4 c8g4 d1g4", "rating": 991 }, "win": true, "millis": 4100 }, { "puzzle": { "id": "Y0ZJA", "fen": "3r2k1/r1R3pp/3P1p2/8/1b2P3/6P1/5PKP/3R4 b - - 1 32", "line": "a7c7 d6c7 d8d1 c7c8q", "rating": 1021 }, "win": false, "millis": 8250 }, { "puzzle": { "id": "Vm6wF", "fen": "8/2kP3p/1N4p1/5p2/7b/r4P1P/5P2/4R1K1 w - - 3 42", "line": "e1c1 c7b6", "rating": 1055 }, "win": true, "millis": 2400 }, { "puzzle": { "id": "OZpGP", "fen": "r1b2rk1/p1q2p1p/2p3p1/8/3pP3/3B1Q2/PPPN2Pb/R4R1K b - - 1 16", "line": "h2f4 f3f4 c7f4 f1f4", "rating": 734 }, "win": true, "millis": 0 }, { "puzzle": { "id": "Dzs5L", "fen": "2br4/p5pp/2p1pk2/5r2/3p4/3N1P2/PPPR2PP/2K1R3 w - - 2 22", "line": "d3e5 f5e5 e1e5 f6e5", "rating": 786 }, "win": true, "millis": 2630 }, { "puzzle": { "id": "R05GW", "fen": "4r1k1/6pn/p1Nq1p1p/1p1p2n1/3P4/P3PP2/1B4PP/2Q2RK1 b - - 1 25", "line": "e8c8 c6e7 d6e7 c1c8", "rating": 830 }, "win": true, "millis": 5034 }, { "puzzle": { "id": "uqRFi", "fen": "7r/6b1/3k2p1/p4p2/PpBp1P2/1P4K1/8/4R3 b - - 2 35", "line": "g7f6 e1e6 d6c5 e6f6", "rating": 947 }, "win": true, "millis": 2731 }, { "puzzle": { "id": "CNE6z", "fen": "6k1/q4p1p/2r1p1p1/3pQP2/1Pb3B1/2P5/6PP/4R2K b - - 0 39", "line": "e6f5 e5e8 g8g7 e8c6", "rating": 979 }, "win": false, "millis": 1514 }, { "puzzle": { "id": "vrupJ", "fen": "r1bq1rk1/4ppbp/p2p1np1/1p6/4P3/P1N1B3/1PP1BPPP/R2Q1RK1 b - - 0 12", "line": "f6g4 e2g4 c8g4 d1g4", "rating": 991 }, "win": true, "millis": 4100 }, { "puzzle": { "id": "Y0ZJA", "fen": "3r2k1/r1R3pp/3P1p2/8/1b2P3/6P1/5PKP/3R4 b - - 1 32", "line": "a7c7 d6c7 d8d1 c7c8q", "rating": 1021 }, "win": false, "millis": 8250 }, { "puzzle": { "id": "Vm6wF", "fen": "8/2kP3p/1N4p1/5p2/7b/r4P1P/5P2/4R1K1 w - - 3 42", "line": "e1c1 c7b6", "rating": 1055 }, "win": true, "millis": 2400 }], "combo": 1, "comboBest": 33, "modifier": { "moveAt": 41982, "bonus": { "seconds": 10, "at": 31331 }, "malus": { "seconds": 10, "at": 39582 } }, "puzzleStartAt": 41982 };
+    this.promotion = makePromotion(this.withGround, this.makeCgOpts, redraw);
+  }
+
+  private initVm = () => {
     this.vm = {
-      mode: 'play',
       puzzleIndex: 0,
       moveIndex: 0,
-      clock: {
-        budget: config.clock.initial * 1000,
-      },
+      clock: config.clock.initial * 1000,
       history: [],
       combo: 0,
       comboBest: 0,
       modifier: {
         moveAt: 0
+      },
+      run: {
+        startAt: 0,
+        moves: 0
       }
     };
-    // this.vm = {"mode":"end","puzzleIndex":8,"moveIndex":0,"clock":{"budget":30000},"history":[{"puzzle":{"id":"OZpGP","fen":"r1b2rk1/p1q2p1p/2p3p1/8/3pP3/3B1Q2/PPPN2Pb/R4R1K b - - 1 16","line":"h2f4 f3f4 c7f4 f1f4","rating":734},"win":true,"millis":0},{"puzzle":{"id":"Dzs5L","fen":"2br4/p5pp/2p1pk2/5r2/3p4/3N1P2/PPPR2PP/2K1R3 w - - 2 22","line":"d3e5 f5e5 e1e5 f6e5","rating":786},"win":true,"millis":2630},{"puzzle":{"id":"R05GW","fen":"4r1k1/6pn/p1Nq1p1p/1p1p2n1/3P4/P3PP2/1B4PP/2Q2RK1 b - - 1 25","line":"e8c8 c6e7 d6e7 c1c8","rating":830},"win":true,"millis":5034},{"puzzle":{"id":"uqRFi","fen":"7r/6b1/3k2p1/p4p2/PpBp1P2/1P4K1/8/4R3 b - - 2 35","line":"g7f6 e1e6 d6c5 e6f6","rating":947},"win":true,"millis":2731},{"puzzle":{"id":"CNE6z","fen":"6k1/q4p1p/2r1p1p1/3pQP2/1Pb3B1/2P5/6PP/4R2K b - - 0 39","line":"e6f5 e5e8 g8g7 e8c6","rating":979},"win":false,"millis":1514},{"puzzle":{"id":"vrupJ","fen":"r1bq1rk1/4ppbp/p2p1np1/1p6/4P3/P1N1B3/1PP1BPPP/R2Q1RK1 b - - 0 12","line":"f6g4 e2g4 c8g4 d1g4","rating":991},"win":true,"millis":4100},{"puzzle":{"id":"Y0ZJA","fen":"3r2k1/r1R3pp/3P1p2/8/1b2P3/6P1/5PKP/3R4 b - - 1 32","line":"a7c7 d6c7 d8d1 c7c8q","rating":1021},"win":false,"millis":8250},{"puzzle":{"id":"Vm6wF","fen":"8/2kP3p/1N4p1/5p2/7b/r4P1P/5P2/4R1K1 w - - 3 42","line":"e1c1 c7b6","rating":1055},"win":true,"millis":2400},{"puzzle":{"id":"OZpGP","fen":"r1b2rk1/p1q2p1p/2p3p1/8/3pP3/3B1Q2/PPPN2Pb/R4R1K b - - 1 16","line":"h2f4 f3f4 c7f4 f1f4","rating":734},"win":true,"millis":0},{"puzzle":{"id":"Dzs5L","fen":"2br4/p5pp/2p1pk2/5r2/3p4/3N1P2/PPPR2PP/2K1R3 w - - 2 22","line":"d3e5 f5e5 e1e5 f6e5","rating":786},"win":true,"millis":2630},{"puzzle":{"id":"R05GW","fen":"4r1k1/6pn/p1Nq1p1p/1p1p2n1/3P4/P3PP2/1B4PP/2Q2RK1 b - - 1 25","line":"e8c8 c6e7 d6e7 c1c8","rating":830},"win":true,"millis":5034},{"puzzle":{"id":"uqRFi","fen":"7r/6b1/3k2p1/p4p2/PpBp1P2/1P4K1/8/4R3 b - - 2 35","line":"g7f6 e1e6 d6c5 e6f6","rating":947},"win":true,"millis":2731},{"puzzle":{"id":"CNE6z","fen":"6k1/q4p1p/2r1p1p1/3pQP2/1Pb3B1/2P5/6PP/4R2K b - - 0 39","line":"e6f5 e5e8 g8g7 e8c6","rating":979},"win":false,"millis":1514},{"puzzle":{"id":"vrupJ","fen":"r1bq1rk1/4ppbp/p2p1np1/1p6/4P3/P1N1B3/1PP1BPPP/R2Q1RK1 b - - 0 12","line":"f6g4 e2g4 c8g4 d1g4","rating":991},"win":true,"millis":4100},{"puzzle":{"id":"Y0ZJA","fen":"3r2k1/r1R3pp/3P1p2/8/1b2P3/6P1/5PKP/3R4 b - - 1 32","line":"a7c7 d6c7 d8d1 c7c8q","rating":1021},"win":false,"millis":8250},{"puzzle":{"id":"Vm6wF","fen":"8/2kP3p/1N4p1/5p2/7b/r4P1P/5P2/4R1K1 w - - 3 42","line":"e1c1 c7b6","rating":1055},"win":true,"millis":2400},{"puzzle":{"id":"OZpGP","fen":"r1b2rk1/p1q2p1p/2p3p1/8/3pP3/3B1Q2/PPPN2Pb/R4R1K b - - 1 16","line":"h2f4 f3f4 c7f4 f1f4","rating":734},"win":true,"millis":0},{"puzzle":{"id":"Dzs5L","fen":"2br4/p5pp/2p1pk2/5r2/3p4/3N1P2/PPPR2PP/2K1R3 w - - 2 22","line":"d3e5 f5e5 e1e5 f6e5","rating":786},"win":true,"millis":2630},{"puzzle":{"id":"R05GW","fen":"4r1k1/6pn/p1Nq1p1p/1p1p2n1/3P4/P3PP2/1B4PP/2Q2RK1 b - - 1 25","line":"e8c8 c6e7 d6e7 c1c8","rating":830},"win":true,"millis":5034},{"puzzle":{"id":"uqRFi","fen":"7r/6b1/3k2p1/p4p2/PpBp1P2/1P4K1/8/4R3 b - - 2 35","line":"g7f6 e1e6 d6c5 e6f6","rating":947},"win":true,"millis":2731},{"puzzle":{"id":"CNE6z","fen":"6k1/q4p1p/2r1p1p1/3pQP2/1Pb3B1/2P5/6PP/4R2K b - - 0 39","line":"e6f5 e5e8 g8g7 e8c6","rating":979},"win":false,"millis":1514},{"puzzle":{"id":"vrupJ","fen":"r1bq1rk1/4ppbp/p2p1np1/1p6/4P3/P1N1B3/1PP1BPPP/R2Q1RK1 b - - 0 12","line":"f6g4 e2g4 c8g4 d1g4","rating":991},"win":true,"millis":4100},{"puzzle":{"id":"Y0ZJA","fen":"3r2k1/r1R3pp/3P1p2/8/1b2P3/6P1/5PKP/3R4 b - - 1 32","line":"a7c7 d6c7 d8d1 c7c8q","rating":1021},"win":false,"millis":8250},{"puzzle":{"id":"Vm6wF","fen":"8/2kP3p/1N4p1/5p2/7b/r4P1P/5P2/4R1K1 w - - 3 42","line":"e1c1 c7b6","rating":1055},"win":true,"millis":2400},{"puzzle":{"id":"OZpGP","fen":"r1b2rk1/p1q2p1p/2p3p1/8/3pP3/3B1Q2/PPPN2Pb/R4R1K b - - 1 16","line":"h2f4 f3f4 c7f4 f1f4","rating":734},"win":true,"millis":0},{"puzzle":{"id":"Dzs5L","fen":"2br4/p5pp/2p1pk2/5r2/3p4/3N1P2/PPPR2PP/2K1R3 w - - 2 22","line":"d3e5 f5e5 e1e5 f6e5","rating":786},"win":true,"millis":2630},{"puzzle":{"id":"R05GW","fen":"4r1k1/6pn/p1Nq1p1p/1p1p2n1/3P4/P3PP2/1B4PP/2Q2RK1 b - - 1 25","line":"e8c8 c6e7 d6e7 c1c8","rating":830},"win":true,"millis":5034},{"puzzle":{"id":"uqRFi","fen":"7r/6b1/3k2p1/p4p2/PpBp1P2/1P4K1/8/4R3 b - - 2 35","line":"g7f6 e1e6 d6c5 e6f6","rating":947},"win":true,"millis":2731},{"puzzle":{"id":"CNE6z","fen":"6k1/q4p1p/2r1p1p1/3pQP2/1Pb3B1/2P5/6PP/4R2K b - - 0 39","line":"e6f5 e5e8 g8g7 e8c6","rating":979},"win":false,"millis":1514},{"puzzle":{"id":"vrupJ","fen":"r1bq1rk1/4ppbp/p2p1np1/1p6/4P3/P1N1B3/1PP1BPPP/R2Q1RK1 b - - 0 12","line":"f6g4 e2g4 c8g4 d1g4","rating":991},"win":true,"millis":4100},{"puzzle":{"id":"Y0ZJA","fen":"3r2k1/r1R3pp/3P1p2/8/1b2P3/6P1/5PKP/3R4 b - - 1 32","line":"a7c7 d6c7 d8d1 c7c8q","rating":1021},"win":false,"millis":8250},{"puzzle":{"id":"Vm6wF","fen":"8/2kP3p/1N4p1/5p2/7b/r4P1P/5P2/4R1K1 w - - 3 42","line":"e1c1 c7b6","rating":1055},"win":true,"millis":2400},{"puzzle":{"id":"OZpGP","fen":"r1b2rk1/p1q2p1p/2p3p1/8/3pP3/3B1Q2/PPPN2Pb/R4R1K b - - 1 16","line":"h2f4 f3f4 c7f4 f1f4","rating":734},"win":true,"millis":0},{"puzzle":{"id":"Dzs5L","fen":"2br4/p5pp/2p1pk2/5r2/3p4/3N1P2/PPPR2PP/2K1R3 w - - 2 22","line":"d3e5 f5e5 e1e5 f6e5","rating":786},"win":true,"millis":2630},{"puzzle":{"id":"R05GW","fen":"4r1k1/6pn/p1Nq1p1p/1p1p2n1/3P4/P3PP2/1B4PP/2Q2RK1 b - - 1 25","line":"e8c8 c6e7 d6e7 c1c8","rating":830},"win":true,"millis":5034},{"puzzle":{"id":"uqRFi","fen":"7r/6b1/3k2p1/p4p2/PpBp1P2/1P4K1/8/4R3 b - - 2 35","line":"g7f6 e1e6 d6c5 e6f6","rating":947},"win":true,"millis":2731},{"puzzle":{"id":"CNE6z","fen":"6k1/q4p1p/2r1p1p1/3pQP2/1Pb3B1/2P5/6PP/4R2K b - - 0 39","line":"e6f5 e5e8 g8g7 e8c6","rating":979},"win":false,"millis":1514},{"puzzle":{"id":"vrupJ","fen":"r1bq1rk1/4ppbp/p2p1np1/1p6/4P3/P1N1B3/1PP1BPPP/R2Q1RK1 b - - 0 12","line":"f6g4 e2g4 c8g4 d1g4","rating":991},"win":true,"millis":4100},{"puzzle":{"id":"Y0ZJA","fen":"3r2k1/r1R3pp/3P1p2/8/1b2P3/6P1/5PKP/3R4 b - - 1 32","line":"a7c7 d6c7 d8d1 c7c8q","rating":1021},"win":false,"millis":8250},{"puzzle":{"id":"Vm6wF","fen":"8/2kP3p/1N4p1/5p2/7b/r4P1P/5P2/4R1K1 w - - 3 42","line":"e1c1 c7b6","rating":1055},"win":true,"millis":2400},{"puzzle":{"id":"OZpGP","fen":"r1b2rk1/p1q2p1p/2p3p1/8/3pP3/3B1Q2/PPPN2Pb/R4R1K b - - 1 16","line":"h2f4 f3f4 c7f4 f1f4","rating":734},"win":true,"millis":0},{"puzzle":{"id":"Dzs5L","fen":"2br4/p5pp/2p1pk2/5r2/3p4/3N1P2/PPPR2PP/2K1R3 w - - 2 22","line":"d3e5 f5e5 e1e5 f6e5","rating":786},"win":true,"millis":2630},{"puzzle":{"id":"R05GW","fen":"4r1k1/6pn/p1Nq1p1p/1p1p2n1/3P4/P3PP2/1B4PP/2Q2RK1 b - - 1 25","line":"e8c8 c6e7 d6e7 c1c8","rating":830},"win":true,"millis":5034},{"puzzle":{"id":"uqRFi","fen":"7r/6b1/3k2p1/p4p2/PpBp1P2/1P4K1/8/4R3 b - - 2 35","line":"g7f6 e1e6 d6c5 e6f6","rating":947},"win":true,"millis":2731},{"puzzle":{"id":"CNE6z","fen":"6k1/q4p1p/2r1p1p1/3pQP2/1Pb3B1/2P5/6PP/4R2K b - - 0 39","line":"e6f5 e5e8 g8g7 e8c6","rating":979},"win":false,"millis":1514},{"puzzle":{"id":"vrupJ","fen":"r1bq1rk1/4ppbp/p2p1np1/1p6/4P3/P1N1B3/1PP1BPPP/R2Q1RK1 b - - 0 12","line":"f6g4 e2g4 c8g4 d1g4","rating":991},"win":true,"millis":4100},{"puzzle":{"id":"Y0ZJA","fen":"3r2k1/r1R3pp/3P1p2/8/1b2P3/6P1/5PKP/3R4 b - - 1 32","line":"a7c7 d6c7 d8d1 c7c8q","rating":1021},"win":false,"millis":8250},{"puzzle":{"id":"Vm6wF","fen":"8/2kP3p/1N4p1/5p2/7b/r4P1P/5P2/4R1K1 w - - 3 42","line":"e1c1 c7b6","rating":1055},"win":true,"millis":2400}],"combo":1,"comboBest":33,"modifier":{"moveAt":41982,"bonus":{"seconds":10,"at":31331},"malus":{"seconds":10,"at":39582}},"puzzleStartAt":41982};
-    this.promotion = makePromotion(this.withGround, this.makeCgOpts, redraw);
+  }
+
+  restart = () => {
+    this.initVm();
+    this.redraw();
   }
 
   clockMillis = (): number | undefined =>
-    this.vm.clock.startAt && Math.max(0, this.vm.clock.startAt + this.vm.clock.budget - getNow());
+    this.vm.run.startAt && Math.max(0, this.vm.run.startAt + this.vm.clock - getNow());
 
   end = (): void => {
-    this.vm.mode = 'end';
-    this.vm.clock.startAt = undefined;
+    this.vm.run.endAt = getNow();
     this.ground(false);
+    dailyBestSet(this.countWins());
     this.redraw();
   }
 
@@ -55,7 +66,8 @@ export default class StormCtrl {
   }
 
   playUserMove = (orig: Key, dest: Key, promotion?: Role): void => {
-    if (!this.vm.clock.startAt) this.vm.clock.startAt = getNow();
+    if (!this.vm.run.moves) this.vm.run.startAt = getNow();
+    this.vm.run.moves++;
     this.promotion.cancel();
     const expected = this.line()[this.vm.moveIndex + 1];
     const uci = `${orig}${dest}${promotion ? (promotion == 'knight' ? 'n' : promotion[0]) : ''}`;
@@ -69,7 +81,7 @@ export default class StormCtrl {
       const bonus = this.computeComboBonus();
       if (bonus) {
         this.vm.modifier.bonus = bonus;
-        this.vm.clock.budget += bonus.seconds * 1000;
+        this.vm.clock += bonus.seconds * 1000;
         this.redrawSlow();
       }
       this.redrawQuick();
@@ -85,7 +97,7 @@ export default class StormCtrl {
       lichess.sound.play('error');
       this.pushToHistory(false);
       this.vm.combo = 0;
-      this.vm.clock.budget -= config.clock.malus * 1000;
+      this.vm.clock -= config.clock.malus * 1000;
       this.vm.modifier.malus = {
         seconds: config.clock.malus,
         at: getNow()
@@ -116,9 +128,9 @@ export default class StormCtrl {
     return;
   };
 
-  boundedClockMillis = () => this.vm.clock.startAt ?
-    Math.max(0, this.vm.clock.startAt + this.vm.clock.budget - getNow()) :
-    this.vm.clock.budget;
+  boundedClockMillis = () => this.vm.run.startAt ?
+    Math.max(0, this.vm.run.startAt + this.vm.clock - getNow()) :
+    this.vm.clock;
 
   private pushToHistory = (win: boolean) => {
     const now = getNow();
@@ -146,7 +158,7 @@ export default class StormCtrl {
     const puzzle = this.puzzle();
     const pos = this.position();
     const pov = opposite(parseFen(puzzle.fen).unwrap().turn);
-    const canMove = this.vm.mode == 'play';
+    const canMove = !this.vm.run.endAt;
     return {
       fen: makeFen(pos.toSetup()),
       orientation: pov,

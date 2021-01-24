@@ -32,8 +32,15 @@ object storm {
 
   def jsI18n(implicit ctx: Context) = i18nJsObject(i18nKeys)
 
-  private val i18nKeys = List(
-    trans.storm.moveToStart,
-    trans.storm.puzzlesSolved
-  ).map(_.key)
+  private val i18nKeys = {
+    import lila.i18n.I18nKeys.{ storm => t }
+    List(
+      t.moveToStart,
+      t.puzzlesSolved,
+      t.newDailyHighscore,
+      t.newAllTimeHighscore,
+      t.previousHighscoreWasX,
+      t.playAgain
+    ).map(_.key)
+  }
 }

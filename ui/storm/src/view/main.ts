@@ -7,7 +7,7 @@ import renderEnd from "./end";
 import { getNow } from '../util';
 
 export default function(ctrl: StormCtrl): VNode {
-  if (ctrl.vm.mode == 'play') return h('main.storm.storm--play', {
+  if (!ctrl.vm.run.endAt) return h('main.storm.storm--play', {
     class: playModifiers(ctrl)
   }, renderPlay(ctrl));
   return h('main.storm.storm--end', renderEnd(ctrl));
@@ -33,7 +33,7 @@ const renderPlay = (ctrl: StormCtrl): VNode[] => [
   h('div.storm__side', [
     renderCombo(ctrl),
     renderClock(ctrl),
-    renderSolved(ctrl)
+    ctrl.vm.run.startAt ? renderSolved(ctrl) : h('div.storm__start', ctrl.trans('moveToStart'))
   ])
 ];
 
