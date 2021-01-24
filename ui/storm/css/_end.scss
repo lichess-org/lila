@@ -1,60 +1,33 @@
+@import "history";
+
 .storm {
   &--end {
     width: 90vw;
   }
 
-  &__history {
-    &__rounds {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
-      align-content: start;
-    }
+  &__summary {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
 
-    &__round {
-      padding: .4em;
+    &__solved {
+      @extend %box-neat;
 
-      &__meta {
-        @extend %flex-between;
-      }
+      display: flex;
+      flex-flow: column;
+      align-items: center;
 
-      &__id {
-        visibility: hidden;
-      }
-
-      &:hover .storm__history__round__id {
-        color: $c-font;
-        visibility: visible;
-      }
-    }
-
-    good, bad {
-      @extend %flex-center;
-
-      color: white;
-      padding: 0 .5em .1em .3em;
-      font-size: .9em;
-      opacity: .7;
-
-      &::before {
-        @extend %data-icon;
-
-        margin-right: .2em;
-      }
-    }
-
-    good {
       background: $c-good;
+      color: $c-good-over;
+      padding: 1em 3em;
+      margin: auto;
 
-      &::before {
-        content: 'E';
-      }
-    }
+      &__number {
+        @extend %roboto;
 
-    bad {
-      background: $c-bad;
-
-      &::before {
-        content: 'L';
+        font-size: 8em;
+        width: 3ch;
+        text-align: center;
       }
     }
   }

@@ -1,10 +1,12 @@
-import { init } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode'
-import klass from 'snabbdom/modules/class';
 import attributes from 'snabbdom/modules/attributes';
-import { Chessground } from 'chessground';
-import { StormOpts } from './interfaces';
+import klass from 'snabbdom/modules/class';
+import menuHover from 'common/menuHover';
 import StormCtrl from './ctrl';
+import { Chessground } from 'chessground';
+import { init } from 'snabbdom';
+import { StormOpts } from './interfaces';
+import { VNode } from 'snabbdom/vnode'
+
 
 const patch = init([klass, attributes]);
 
@@ -27,6 +29,8 @@ export function start(opts: StormOpts) {
   vnode = patch(element, blueprint);
 
   redraw();
+
+  menuHover();
 };
 
 // that's for the rest of lichess to access chessground

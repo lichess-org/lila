@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
   <string name="moveToStart">Move to start</string>
+  <string name="puzzlesSolved">puzzles solved</string>
 </resources>

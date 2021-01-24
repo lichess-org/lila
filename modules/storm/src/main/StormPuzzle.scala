@@ -8,7 +8,8 @@ import lila.puzzle.Puzzle
 case class StormPuzzle(
     id: Puzzle.Id,
     fen: FEN,
-    line: NonEmptyList[Uci.Move]
+    line: NonEmptyList[Uci.Move],
+    rating: Int
 ) {
   // ply after "initial move" when we start solving
   def initialPly: Int =

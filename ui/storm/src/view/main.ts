@@ -69,7 +69,6 @@ const renderSolved = (ctrl: StormCtrl): VNode =>
     h('div.alpha', [
       h('hr'),
       h('strong', 'This is an early preview'),
-      h('p', 'In fact I only spent one day on it.'),
       h('p', "I'm not looking for feedback, yet.")
     ])
   ]);

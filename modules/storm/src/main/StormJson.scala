@@ -29,9 +29,10 @@ object StormJson {
 
   implicit val puzzleWrites: OWrites[StormPuzzle] = OWrites { p =>
     Json.obj(
-      "id"   -> p.id,
-      "fen"  -> p.fen.value,
-      "line" -> p.line.toList.map(_.uci).mkString(" ")
+      "id"     -> p.id,
+      "fen"    -> p.fen.value,
+      "line"   -> p.line.toList.map(_.uci).mkString(" "),
+      "rating" -> p.rating
     )
   }
 }

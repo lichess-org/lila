@@ -1974,6 +1974,7 @@ val `declineOnlyBot` = new I18nKey("challenge:declineOnlyBot")
 
 object storm {
 val `moveToStart` = new I18nKey("storm:moveToStart")
+val `puzzlesSolved` = new I18nKey("storm:puzzlesSolved")
 }
 
 }

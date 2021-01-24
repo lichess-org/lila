@@ -33,6 +33,7 @@ object storm {
   def jsI18n(implicit ctx: Context) = i18nJsObject(i18nKeys)
 
   private val i18nKeys = List(
-    trans.storm.moveToStart
+    trans.storm.moveToStart,
+    trans.storm.puzzlesSolved
   ).map(_.key)
 }

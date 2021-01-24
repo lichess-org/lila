@@ -34,6 +34,7 @@ export interface StormVm {
   history: Round[];
   puzzleStartAt?: number;
   combo: number;
+  comboBest: number;
   modifier: StormModifier;
 }
 
@@ -63,6 +64,7 @@ export interface StormPuzzle {
   id: string;
   fen: string;
   line: string;
+  rating: number;
 }
 
 export interface Promotion {
