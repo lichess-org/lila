@@ -17,7 +17,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
   val theme    = lila.puzzle.PuzzleTheme.mix.key.value
   val tier     = lila.puzzle.PuzzleTier.Good.key
 
-  val ratings = (1000 to 2400 by 100).toList
+  val ratings = (1000 to 2600 by 100).toList
 
   private val current = cacheApi.unit[List[StormPuzzle]] {
     _.refreshAfterWrite(10 seconds)
@@ -59,7 +59,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
                             "$expr" -> $doc(
                               "$and" -> $arr(
                                 $doc("$eq" -> $arr("$_id", "$$id")),
-                                $doc("$lt" -> $arr("$glicko.d", 100))
+                                $doc("$lt" -> $arr("$glicko.d", 90))
                               )
                             )
                           )
@@ -77,7 +77,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
                 ),
                 UnwindField("puzzle"),
                 ReplaceRootField("puzzle"),
-                Sample(110),
+                Sample(100),
                 Sort(Ascending("rating"))
               )
             }.map { docs =>
