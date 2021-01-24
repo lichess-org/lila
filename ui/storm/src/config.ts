@@ -1,10 +1,10 @@
 // [combo threshold, time bonus]
 const realLevels = [
   [0, 0],
-  [5, 5],
-  [12, 10],
-  [20, 15],
-  [30, 20]
+  [5, 3],
+  [12, 5],
+  [20, 7],
+  [30, 10]
 ];
 const quickLevels = [
   [0, 0],
