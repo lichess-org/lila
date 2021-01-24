@@ -11,13 +11,13 @@
   <string name="pgnPieceNotation">Notación de los movimientos</string>
   <string name="chessPieceSymbol">Símbolo de la pieza</string>
   <string name="pgnLetter">Inicial (en inglés) de la pieza (K, Q, R, B, N)</string>
-  <string name="zenMode">Modo Zen</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Modo Zen</string>
   <string name="displayBoardResizeHandle">Mostrar el control de tamaño del tablero</string>
   <string name="onlyOnInitialPosition">Sólo en posición inicial</string>
   <string name="blindfoldChess">Ajedrez a ciegas (piezas invisibles)</string>
   <string name="chessClock">Reloj de ajedrez</string>
   <string name="tenthsOfSeconds">Décimas de segundo</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Cuando queden menos de 10 segundos</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Cuando queden menos de 10 segundos</string>
   <string name="horizontalGreenProgressBars">Barras de progreso horizontales verdes</string>
   <string name="soundWhenTimeGetsCritical">Alerta cuando reste poco tiempo</string>
   <string name="giveMoreTime">Dar más tiempo</string>
