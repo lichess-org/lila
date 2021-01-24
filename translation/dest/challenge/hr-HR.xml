@@ -20,4 +20,6 @@
   <string name="declineCasual">Radije me izazovi na ležernu partiju.</string>
   <string name="declineStandard">Ne prihvaćam izazove u ovoj varijanti.</string>
   <string name="declineVariant">Trenutačno ne želim igrati ovu varijantu.</string>
+  <string name="declineNoBot">Ne prihvaćam izazove od botova.</string>
+  <string name="declineOnlyBot">Prihvaćam izazove isključivo od botova.</string>
 </resources>
