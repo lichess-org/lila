@@ -20,4 +20,6 @@
   <string name="declineCasual">Bitte fordere mich stattdessen zu einer ungewerteten Partie heraus.</string>
   <string name="declineStandard">Ich nehme derzeit keine Herausforderungen für andere Spielvarianten an.</string>
   <string name="declineVariant">Ich bin nicht bereit, diese Variante zu spielen.</string>
+  <string name="declineNoBot">Ich nehme keine Herausforderungen von Bots an.</string>
+  <string name="declineOnlyBot">Ich nehme nur Herausforderungen von Bots an.</string>
 </resources>
