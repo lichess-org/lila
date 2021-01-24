@@ -20,4 +20,6 @@
   <string name="declineCasual">Envoyez-moi plutôt un défi amical.</string>
   <string name="declineStandard">Je n\'accepte pas de défis en variantes pour le moment.</string>
   <string name="declineVariant">Je ne veux pas jouer cette variante pour le moment.</string>
+  <string name="declineNoBot">Je refuse les défis des bots.</string>
+  <string name="declineOnlyBot">J\'accepte uniquement les défis des bots.</string>
 </resources>
