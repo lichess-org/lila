@@ -31,8 +31,8 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
                   rating.toString -> List(
                     Match(
                       $doc(
-                        "min" $lte s"${theme}_${tier}_${rating}%04d",
-                        "max" $gt s"${theme}_${tier}_${rating}%04d"
+                        "min" $lte f"${theme}_${tier}_${rating}%04d",
+                        "max" $gt f"${theme}_${tier}_${rating}%04d"
                       )
                     ),
                     Project($doc("_id" -> false, "ids" -> true)),
