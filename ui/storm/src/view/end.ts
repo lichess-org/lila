@@ -43,6 +43,10 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
             h('td', h('number', run.moves))
           ]),
           h('tr', [
+            h('th', 'Accuracy'),
+            h('td', [h('number', Number(100 * (run.moves - (ctrl.vm.history.length - score)) / run.moves).toFixed(1)), '%'])
+          ]),
+          h('tr', [
             h('th', 'Best combo'),
             h('td', h('number', ctrl.vm.comboBest))
           ]),
@@ -53,10 +57,6 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
           h('tr', [
             h('th', 'Time per move'),
             h('td', [h('number', Number(seconds / run.moves).toFixed(2)), 's'])
-          ]),
-          h('tr', [
-            h('th', 'Mistakes'),
-            h('td', h('number', ctrl.vm.history.length - score))
           ])
         ])
       ])
