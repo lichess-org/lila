@@ -55,7 +55,7 @@ object show {
       robots = s.isPublic,
       chessground = false,
       zoomable = true,
-      csp = defaultCsp.withWebAssembly.withTwitch.withPeer.some,
+      csp = defaultCsp.withWebAssembly.withPeer.some,
       openGraph = lila.app.ui
         .OpenGraph(
           title = s.name.value,

@@ -205,8 +205,6 @@ interface Window {
     palantir(opts: PalantirOpts): Palantir;
   };
   [key: string]: any; // TODO
-
-  crossOriginIsolated?: boolean; // https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/crossOriginIsolated
 }
 
 interface Study{
