@@ -1,6 +1,4 @@
-$mq-col2-squeeze: $mq-col2-uniboard-squeeze;
 $mq-col2: $mq-col2-uniboard;
-$mq-col3: $mq-col3-uniboard;
 
 #main-wrap {
   --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});

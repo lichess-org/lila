@@ -22,27 +22,57 @@
       grid-template-rows: fit-content(0);
       grid-template-areas: 'board   side';
     }
-
-
-    // @include breakpoint($mq-col3) {
-    //   grid-template-areas: '.    board   side';
-    //   grid-template-columns: $col3-uniboard-side $col3-uniboard-width $col3-uniboard-table;
-    // }
- 
   }
 
   &__side {
     display: flex;
     flex-flow: column;
     justify-content: space-between;
+    margin: 0 4vw;
+
+    @include breakpoint($mq-col2) {
+      margin: 0;
+    }
+  }
+
+  &__start {
+    @extend %flex-center;
+
+    font-size: 2em;
+    color: $c-brag;
+    margin: auto;
+
+    @include breakpoint($mq-col2) {
+      margin: 0;
+    }
+
+
+    &::before {
+      content: ' ';
+      width: 1.5em;
+      height: 1.5em;
+      background-image: img-url("icons/tornado.svg");
+      background-size: cover;
+      margin-right: .7em;
+    }
   }
 
   &__solved {
+    text-align: center;
 
-    &__value {
-      font-family: 'storm';
-      font-size: 2em;
-      margin-right: 1rem;
+    @include breakpoint($mq-col2) {
+      text-align: left;
+    }
+
+
+    &__content {
+      @extend %flex-center;
+
+      &__value {
+        font-family: 'storm';
+        font-size: 2em;
+        margin-right: 1rem;
+      }
     }
   }
 }

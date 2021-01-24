@@ -5,50 +5,16 @@
   }
 }
 
-@keyframes shake {
-  10%, 90% {
-    transform: translate3d(-1px, 0, 0);
-  }
-
-  20%, 80% {
-    transform: translate3d(2px, 0, 0);
-  }
-
-  30%, 50%, 70% {
-    transform: translate3d(-4px, 0, 0);
-  }
-
-  40%, 60% {
-    transform: translate3d(4px, 0, 0);
-  }
-}
-
 .storm {
   &__combo {
     @extend %flex-center-nowrap;
 
+    margin: 1em 0;
     font-family: 'storm';
-
-    &__icon {
-      flex: 5em 0 0;
-      width: 5em;
-      height: 5em;
-      background-image: img-url("icons/tornado.svg");
-      background-size: cover;
-      transform: translate3d(0, 0, 0);
-      backface-visibility: hidden;
-      perspective: 1000px;
-
-      &:hover,
-      .storm--mod-bonus-slow & {
-        animation: shake 0.8s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-      }
-    }
 
     &__counter {
       display: flex;
       flex-flow: column;
-      margin: 0 1em;
 
       &__value {
         @extend %flex-center-nowrap;
@@ -72,6 +38,7 @@
       display: flex;
       flex-flow: column;
       flex: 1 1 100%;
+      margin-left: 1em;
     }
 
     &__bar {

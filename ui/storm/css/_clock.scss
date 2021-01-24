@@ -13,10 +13,16 @@
 .storm {
   &__clock {
     @extend %flex-center-nowrap;
+
     font-family: 'storm';
 
     &__time {
       font-size: 7em;
+      margin: auto;
+
+      @include breakpoint($mq-col2) {
+        margin: 0;
+      }
     }
 
     &__bonus, &__malus {
