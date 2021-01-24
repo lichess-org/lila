@@ -88,7 +88,7 @@
   <string name="pin">Clavada</string>
   <string name="pinDescription">Una táctica donde una pieza no puede moverse sin revelar un ataque a una pieza de mayor valor.</string>
   <string name="promotion">Promoción</string>
-  <string name="promotionDescription">Un peón que promueve o amenaza con promover es clave para la táctica.</string>
+  <string name="promotionDescription">Un peón que se promociona o amenaza con promocionarse es clave para la táctica.</string>
   <string name="queenEndgame">Final de damas</string>
   <string name="queenEndgameDescription">Un final solo con damas y peones.</string>
   <string name="queenRookEndgame">Final de dama y torre</string>
