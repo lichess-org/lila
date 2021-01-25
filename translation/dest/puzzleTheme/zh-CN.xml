@@ -10,4 +10,35 @@
   <string name="bishopEndgame">象残局</string>
   <string name="bishopEndgameDescription">象兵残局</string>
   <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">波登杀法</string>
+  <string name="castling">王车易位</string>
+  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">双象杀王</string>
+  <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">燕尾杀法</string>
+  <string name="kingsideAttack">王翼进攻</string>
+  <string name="doubleCheck">双将</string>
+  <string name="endgame">残局</string>
+  <string name="hangingPiece">得子</string>
+  <string name="knightEndgame">马残局</string>
+  <string name="mate">杀王</string>
+  <string name="mateIn1">一步杀</string>
+  <string name="mateIn2">两步杀</string>
+  <string name="mateIn3">三步杀</string>
+  <string name="mateIn4">四步杀</string>
+  <string name="mateIn5">五步或更多步杀</string>
+  <string name="middlegame">中局</string>
+  <string name="opening">开局</string>
+  <string name="pawnEndgame">王兵残局</string>
+  <string name="pawnEndgameDescription">只有兵的残局</string>
+  <string name="pin">牵制</string>
+  <string name="promotion">升变</string>
+  <string name="promotionDescription">兵升变或威胁升变是战术的关键</string>
+  <string name="queenEndgame">后残局</string>
+  <string name="queenRookEndgame">后和车</string>
+  <string name="queenRookEndgameDescription">只有后、车、兵的残局</string>
+  <string name="queensideAttack">后翼进攻</string>
+  <string name="rookEndgame">车兵残局</string>
+  <string name="rookEndgameDescription">只有车和兵的残局</string>
+  <string name="sacrifice">弃子</string>
+  <string name="smotheredMate">闷杀</string>
+  <string name="underPromotion">低升变</string>
+  <string name="zugzwang">楚茨文克（无等着）</string>
 </resources>
