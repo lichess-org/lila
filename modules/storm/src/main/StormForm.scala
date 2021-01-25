@@ -9,7 +9,7 @@ object StormForm {
 
   case class RunData(
       puzzles: Int,
-      wins: Int,
+      score: Int,
       moves: Int,
       combo: Int,
       time: Int,
@@ -19,7 +19,7 @@ object StormForm {
   val run = Form(
     mapping(
       "puzzles" -> number(min = 1, max = 200),
-      "wins"    -> number(min = 1, max = 200),
+      "score"   -> number(min = 1, max = 200),
       "moves"   -> number(min = 1, max = 900),
       "combo"   -> number(min = 1, max = 900),
       "time"    -> number(min = 1, max = 900),

@@ -10,7 +10,7 @@ case class StormRun(
     user: User.ID,
     date: DateTime,
     puzzles: Int,
-    wins: Int,
+    score: Int,
     moves: Int,
     combo: Int,
     time: Int,

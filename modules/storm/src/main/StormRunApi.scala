@@ -9,7 +9,7 @@ import lila.user.User
 final class StormRunApi(coll: Coll)(implicit ctx: ExecutionContext) {
 
   def record(data: StormForm.RunData, user: Option[User]): Funit = {
-    monitor(data)
+    lila.mon.storm.run.score(user.isDefined).record(data.score).unit
     user ?? { u =>
       coll.insert
         .one(
@@ -18,7 +18,7 @@ final class StormRunApi(coll: Coll)(implicit ctx: ExecutionContext) {
             user = u.id,
             date = DateTime.now,
             puzzles = data.puzzles,
-            wins = data.wins,
+            score = data.score,
             moves = data.moves,
             combo = data.combo,
             time = data.time,
@@ -28,6 +28,4 @@ final class StormRunApi(coll: Coll)(implicit ctx: ExecutionContext) {
         .void
     }
   }
-
-  private def monitor(run: StormForm.RunData): Unit = {}
 }

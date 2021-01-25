@@ -491,6 +491,9 @@ object mon {
       val rating                  = histogram("storm.selector.rating").withoutTags()
       def ratingSlice(index: Int) = histogram("storm.selector.ratingSlice").withTag("index", index)
     }
+    object run {
+      def score(auth: Boolean) = histogram("storm.run.score").withTag("auth", auth)
+    }
   }
   object game {
     def finish(variant: String, speed: String, source: String, mode: String, status: String) =
