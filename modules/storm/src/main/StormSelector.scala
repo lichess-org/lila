@@ -19,7 +19,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
   private val theme    = lila.puzzle.PuzzleTheme.mix.key.value
   private val tier     = lila.puzzle.PuzzleTier.Good.key
 
-  private val ratings       = (1000 to 2400 by 150).toList
+  private val ratings       = (1000 to 2650 by 150).toList
   private val ratingBuckets = ratings.size
 
   private val current = cacheApi.unit[List[StormPuzzle]] {
@@ -41,7 +41,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
                     Project($doc("_id" -> false, "ids" -> true)),
                     Sample(1),
                     UnwindField("ids"),
-                    Sample((poolSize * 4) / ratingBuckets),
+                    Sample((poolSize * 5) / ratingBuckets),
                     Group(BSONNull)("ids" -> PushField("ids"))
                   )
                 }
