@@ -57,6 +57,10 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
           h('tr', [
             h('th', 'Time per move'),
             h('td', [h('number', Number(seconds / run.moves).toFixed(2)), 's'])
+          ]),
+          h('tr', [
+            h('th', 'Highest solved'),
+            h('td', h('number', ctrl.vm.history.reduce((h, r) => r.win && r.puzzle.rating > h ? r.puzzle.rating : h, 0)))
           ])
         ])
       ])

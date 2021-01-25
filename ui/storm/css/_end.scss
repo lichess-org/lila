@@ -76,6 +76,8 @@
   &__stats {
     @extend %flex-center;
 
+    padding: 2vh var(--box-padding);
+
     align-items: stretch;
 
     table {
