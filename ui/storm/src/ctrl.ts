@@ -207,6 +207,6 @@ export default class StormCtrl {
 
   private sound = {
     bonus: this.loadSound('other/ping'),
-    end: this.loadSound('other/gewonnen')
+    end: this.loadSound('other/gewonnen', 0.7)
   };
 }
