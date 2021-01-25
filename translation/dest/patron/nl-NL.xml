@@ -37,11 +37,11 @@ Daarnaast betalen we een voltijds ontwikkelaar: %s, de oprichter van Lichess.</s
   <string name="changeMonthlySupport">Kan ik mijn maandelijkse ondersteuning wijzigen of annuleren?</string>
   <string name="changeOrContact">Ja, op elk gewenst moment vanaf deze pagina.
 Of u kunt %s.</string>
-  <string name="contactSupport">lichess ondersteuning contacten</string>
+  <string name="contactSupport">contact opnemen met de Lichess helpdesk</string>
   <string name="otherMethods">Andere vormen van donatie?</string>
   <string name="bankTransfers">We accepteren ook bankoverschrijvingen</string>
-  <string name="bitcoin">En hier is ons bitcoin adres: %s</string>
-  <string name="patronFeatures">Zijn sommige functies gereserveerd voor Patronen?</string>
+  <string name="bitcoin">En hier is ons bitcoinadres: %s</string>
+  <string name="patronFeatures">Zijn sommige functies enkel beschikbaar voor Patronen?</string>
   <string name="noPatronFeatures">Nee, omdat Lichess altijd gratis is, en voor iedereen. Dat is een belofte.
 Het enige verschil? Patronen krijgen een cool nieuw profielpictogram als waardering.</string>
   <string name="featuresComparison">Zie de gedetailleerde functievergelijking</string>
@@ -62,7 +62,7 @@ Het enige verschil? Patronen krijgen een cool nieuw profielpictogram als waarder
   <string name="decideHowMuch">Beslis wat Lichess voor jou waard is:</string>
   <string name="stopPayments">Trek je creditcard terug en stop de betalingen:</string>
   <string name="noLongerSupport">Lichess wordt niet langer gesteund</string>
-  <string name="paymentHistory">Betaalhistorie</string>
+  <string name="paymentHistory">Betaalgeschiedenis</string>
   <string name="paid">Betaald</string>
   <string name="viewOthers">Andere Lichess Patronen bekijken</string>
   <string name="date">Datum</string>
