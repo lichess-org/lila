@@ -200,7 +200,7 @@ export default class StormCtrl {
 
   runStats = (): StormRun => ({
     puzzles: this.vm.history.length,
-    wins: this.countWins(),
+    score: this.countWins(),
     moves: this.vm.run.moves,
     combo: this.vm.comboBest,
     time: (this.vm.run.endAt! - this.vm.run.startAt) / 1000,
