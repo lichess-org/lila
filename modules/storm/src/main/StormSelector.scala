@@ -15,7 +15,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
 
   def apply: Fu[List[StormPuzzle]] = current.get {}
 
-  private val poolSize = 100
+  private val poolSize = 120
   private val theme    = lila.puzzle.PuzzleTheme.mix.key.value
   private val tier     = lila.puzzle.PuzzleTier.Good.key
 
