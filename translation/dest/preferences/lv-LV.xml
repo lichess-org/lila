@@ -35,7 +35,7 @@
   <string name="whenTimeRemainingLessThanThirtySeconds">Ja atlicis &lt; 30 sekundēm</string>
   <string name="moveConfirmation">Gājiena apstiprināšana</string>
   <string name="inCorrespondenceGames">Korespondencšaha spēlēs</string>
-  <string name="correspondenceAndUnlimited">Korespondencšahs un bezgalīgs</string>
+  <string name="correspondenceAndUnlimited">Korespondencšaha un bezgalīgajās spēlēs</string>
   <string name="confirmResignationAndDrawOffers">Apstiprināt padošanos un neizšķirta piedāvājumus</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rokādes metode</string>
   <string name="castleByMovingTwoSquares">Pārvietot karali par diviem lauciņiem</string>
