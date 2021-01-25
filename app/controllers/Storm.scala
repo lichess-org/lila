@@ -13,7 +13,9 @@ final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
   def home =
     Open { implicit ctx =>
       env.storm.selector.apply map { puzzles =>
-        Ok(views.html.storm.home(env.storm.json(puzzles), env.storm.json.pref(ctx.pref)))
+        NoCache {
+          Ok(views.html.storm.home(env.storm.json(puzzles), env.storm.json.pref(ctx.pref)))
+        }
       }
     }
 
