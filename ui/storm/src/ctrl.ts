@@ -90,8 +90,8 @@ export default class StormCtrl {
       lichess.sound.play(capture ? 'capture' : 'move');
       if (this.vm.moveIndex == this.line().length - 1) {
         this.pushToHistory(true);
-        this.vm.puzzleIndex++;
         this.vm.moveIndex = 0;
+        if (!this.incPuzzle()) this.end();
       } else {
         this.vm.moveIndex++;
       }
@@ -106,8 +106,8 @@ export default class StormCtrl {
       };
       if (!this.boundedClockMillis()) this.end();
       else {
-        this.vm.puzzleIndex++;
         this.vm.moveIndex = 0;
+        if (!this.incPuzzle()) this.end();
         this.redrawQuick();
         this.redrawSlow();
       }
@@ -143,6 +143,14 @@ export default class StormCtrl {
     });
     this.vm.puzzleStartAt = now;
   };
+
+  private incPuzzle = (): boolean => {
+    if (this.vm.puzzleIndex < this.data.puzzles.length - 1) {
+      this.vm.puzzleIndex++;
+      return true;
+    }
+    return false;
+  }
 
   puzzle = (): StormPuzzle => this.data.puzzles[this.vm.puzzleIndex];
 
