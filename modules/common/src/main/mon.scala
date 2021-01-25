@@ -486,7 +486,9 @@ object mon {
   }
   object storm {
     object selector {
-      def time = timer("storm.selector.time").withoutTags()
+      val time   = timer("storm.selector.time").withoutTags()
+      val count  = histogram("storm.selector.count").withoutTags()
+      val rating = histogram("storm.selector.count").withoutTags()
     }
   }
   object game {
