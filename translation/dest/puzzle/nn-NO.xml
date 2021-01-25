@@ -48,5 +48,5 @@
   <string name="strengths">Styrkeområde</string>
   <string name="history">Oppgåvehistorikk</string>
   <string name="solved">løyst</string>
-  <string name="failed">feila</string>
+  <string name="failed">uløyst</string>
 </resources>
