@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advancedPawn">进兵</string>
+  <string name="advancedPawnDescription">兵升变或威胁升变是战术的关键</string>
+  <string name="anastasiaMate">阿纳斯塔西亚杀法（车马杀王）</string>
+  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">阿拉伯杀法（车马杀王）</string>
+  <string name="attackingF2F7">进攻f2或f7</string>
+  <string name="attraction">引入</string>
+  <string name="backRankMate">底线杀王</string>
+  <string name="bishopEndgame">象残局</string>
+  <string name="bishopEndgameDescription">象兵残局</string>
+  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">波登杀法</string>
+</resources>
