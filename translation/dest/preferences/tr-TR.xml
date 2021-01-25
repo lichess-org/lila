@@ -24,15 +24,15 @@
   <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Oyun Tercihleri</string>
   <string name="howDoYouMovePieces">Taşları nasıl hareket ettireceksin?</string>
   <string name="clickTwoSquares">İki kareye tıklayarak</string>
-  <string name="dragPiece">Taşı sürükle</string>
-  <string name="bothClicksAndDrag">İkiside</string>
+  <string name="dragPiece">Taşı sürükleyerek</string>
+  <string name="bothClicksAndDrag">İkisi de</string>
   <string name="premovesPlayingDuringOpponentTurn">Ön hamleler (hamle sırası rakipteyken oynama)</string>
   <string name="takebacksWithOpponentApproval">Geri Alma (rakibin onayıyla)</string>
   <string name="inCasualGamesOnly">Sadece puansız oyunlarda</string>
   <string name="promoteToQueenAutomatically">Geçer piyonu otomatik olarak Vezir\'e terfi et</string>
   <string name="whenPremoving">Ön hamlelerde</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Üçlü tekrarda otomatik olarak beraberlik teklif et</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Kalan zaman 30 saniye ise</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Kalan zaman 30 saniyeden az ise</string>
   <string name="moveConfirmation">Hamleyi onayla</string>
   <string name="inCorrespondenceGames">Yazışmalı oyunlarda</string>
   <string name="correspondenceAndUnlimited">Yazışmalı ve sınırsız</string>
