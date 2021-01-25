@@ -1,10 +1,10 @@
 import chessground from './chessground';
 import renderClock from './clock';
+import renderEnd from "./end";
 import StormCtrl from '../ctrl';
+import { getNow } from '../util';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
-import renderEnd from "./end";
-import { getNow } from '../util';
 
 export default function(ctrl: StormCtrl): VNode {
   if (!ctrl.vm.run.endAt) return h('main.storm.storm--play', {
@@ -34,7 +34,7 @@ const renderPlay = (ctrl: StormCtrl): VNode[] => [
   h('div.storm__side', [
     renderCombo(ctrl),
     renderClock(ctrl),
-    ctrl.vm.run.startAt ? renderSolved(ctrl) : h('div.storm__start', ctrl.trans('moveToStart'))
+    ctrl.vm.run.startAt ? renderSolved(ctrl) : renderStart(ctrl)
   ])
 ];
 
@@ -67,13 +67,14 @@ const renderCombo = (ctrl: StormCtrl): VNode => {
 
 const renderSolved = (ctrl: StormCtrl): VNode =>
   h('div.storm__solved', [
-    h('div.storm__solved__content', [
-      h('span.storm__solved__content__value', ctrl.countWins()),
-      'puzzles solved'
-    ]),
-    h('div.alpha', [
-      h('hr'),
-      h('strong', 'This is an early preview'),
-      h('p', "I'm not looking for feedback, yet.")
-    ])
+    h('span.storm__solved__value', ctrl.countWins()),
+    'puzzles solved'
   ]);
+
+const renderStart = (ctrl: StormCtrl) =>
+  h('div.storm__start',
+    h('div.storm__start__text', [
+      h('strong', 'Puzzle Storm'),
+      h('span', ctrl.trans('moveToStart'))
+    ])
+  );

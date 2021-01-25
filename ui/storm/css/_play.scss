@@ -36,9 +36,8 @@
   }
 
   &__start {
-    @extend %flex-center;
+    @extend %flex-center-nowrap;
 
-    font-size: 2em;
     color: $c-brag;
     margin: auto;
 
@@ -49,15 +48,27 @@
 
     &::before {
       content: ' ';
-      width: 1.5em;
-      height: 1.5em;
+      width: 5em;
+      height: 5em;
       background-image: img-url("icons/tornado.svg");
-      background-size: cover;
-      margin-right: .7em;
+      margin-right: 1.5em;
+    }
+
+    &__text {
+      @extend %flex-column;
+      strong {
+        font-size: 2.2em;
+      }
+      span {
+        font-size: 1.5em;
+        letter-spacing: .2em;
+      }
     }
   }
 
   &__solved {
+    @extend %flex-center;
+
     text-align: center;
 
     @include breakpoint($mq-col2) {
@@ -65,14 +76,10 @@
     }
 
 
-    &__content {
-      @extend %flex-center;
-
-      &__value {
-        font-family: 'storm';
-        font-size: 2em;
-        margin-right: 1rem;
-      }
+    &__value {
+      font-family: 'storm';
+      font-size: 2em;
+      margin-right: 1rem;
     }
   }
 }
