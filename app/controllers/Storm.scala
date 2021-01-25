@@ -16,4 +16,15 @@ final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
         Ok(views.html.storm.home(env.storm.json(puzzles), env.storm.json.pref(ctx.pref)))
       }
     }
+
+  def record =
+    OpenBody { implicit ctx =>
+      implicit val req = ctx.body
+      env.storm.forms.run
+        .bindFromRequest()
+        .fold(
+          _ => funit,
+          data => env.storm.runApi.record(data, ctx.me)
+        ) inject jsonOkResult
+    }
 }

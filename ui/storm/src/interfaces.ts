@@ -1,5 +1,5 @@
-import {Role} from 'chessground/types';
 import { VNode } from 'snabbdom/vnode'
+import { Role } from 'chessground/types';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -74,4 +74,13 @@ export interface DailyBest {
   score: number;
   prev?: number;
   at: number;
+}
+
+export interface StormRun {
+  puzzles: number;
+  score: number;
+  moves: number;
+  combo: number;
+  time: number;
+  highest: number;
 }

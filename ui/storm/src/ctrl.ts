@@ -1,3 +1,4 @@
+import * as xhr from './xhr';
 import config from './config';
 import makePromotion from './promotion';
 import { Api as CgApi } from 'chessground/api';
@@ -10,7 +11,7 @@ import { parseUci, opposite } from 'chessops/util';
 import { prop, Prop } from 'common';
 import { Role } from 'chessground/types';
 import { set as dailyBestSet } from './best';
-import { StormOpts, StormData, StormPuzzle, StormVm, Promotion, TimeMod } from './interfaces';
+import { StormOpts, StormData, StormPuzzle, StormVm, Promotion, TimeMod, StormRun } from './interfaces';
 
 export default class StormCtrl {
 
@@ -51,6 +52,7 @@ export default class StormCtrl {
     dailyBestSet(this.countWins());
     this.redraw();
     this.sound.end();
+    xhr.record(this.runStats());
   }
 
   naturalFlag = () => {
@@ -195,6 +197,15 @@ export default class StormCtrl {
     const g = this.ground();
     return g && f(g);
   }
+
+  runStats = (): StormRun => ({
+    puzzles: this.vm.history.length,
+    wins: this.countWins(),
+    moves: this.vm.run.moves,
+    combo: this.vm.comboBest,
+    time: (this.vm.run.endAt! - this.vm.run.startAt) / 1000,
+    highest: this.vm.history.reduce((h, r) => r.win && r.puzzle.rating > h ? r.puzzle.rating : h, 0)
+  });
 
   private showGround = (g: CgApi): void => g.set(this.makeCgOpts());
 

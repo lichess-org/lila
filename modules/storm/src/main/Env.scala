@@ -15,7 +15,13 @@ final class Env(
     ec: scala.concurrent.ExecutionContext
 ) {
 
+  private lazy val runColl = db(CollName("storm_run"))
+
   lazy val selector = wire[StormSelector]
 
-  lazy val json = new StormJson
+  lazy val json = wire[StormJson]
+
+  lazy val runApi = wire[StormRunApi]
+
+  val forms = StormForm
 }

@@ -15,12 +15,10 @@ const renderEnd = (ctrl: StormCtrl): VNode[] => [
 ];
 
 const renderSummary = (ctrl: StormCtrl): VNode[] => {
-  const score = ctrl.countWins();
   const best = dailyBestGet();
-  const run = ctrl.vm.run;
-  const seconds = (run.endAt! - run.startAt) / 1000;
+  const run = ctrl.runStats();
   return [
-    ...(score > (best.prev || 0) ? [
+    ...(run.score > (best.prev || 0) ? [
       h('div.storm--end__high.storm--end__high-daily.bar-glider',
         h('div.storm--end__high__content', [
           h('div.storm--end__high__text', [
@@ -31,7 +29,7 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
       )] : []),
     h('div.storm--end__score', [
       h('span.storm--end__score__number', {
-        hook: onInsert(el => numberSpread(el, score, Math.round(score * 50), 0)(score))
+        hook: onInsert(el => numberSpread(el, run.score, Math.round(run.score * 50), 0)(run.score))
       }, '0'),
       h('p', ctrl.trans('puzzlesSolved'))
     ]),
@@ -44,7 +42,7 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
           ]),
           h('tr', [
             h('th', 'Accuracy'),
-            h('td', [h('number', Number(100 * (run.moves - (ctrl.vm.history.length - score)) / run.moves).toFixed(1)), '%'])
+            h('td', [h('number', Number(100 * (run.moves - (run.puzzles - run.score - 1)) / run.moves).toFixed(1)), '%'])
           ]),
           h('tr', [
             h('th', 'Best combo'),
@@ -52,22 +50,21 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
           ]),
           h('tr', [
             h('th', 'Total time'),
-            h('td', [h('number', Math.round(seconds)), 's'])
+            h('td', [h('number', Math.round(run.time)), 's'])
           ]),
           h('tr', [
             h('th', 'Time per move'),
-            h('td', [h('number', Number(seconds / run.moves).toFixed(2)), 's'])
+            h('td', [h('number', Number(run.time / run.moves).toFixed(2)), 's'])
           ]),
           h('tr', [
             h('th', 'Highest solved'),
-            h('td', h('number', ctrl.vm.history.reduce((h, r) => r.win && r.puzzle.rating > h ? r.puzzle.rating : h, 0)))
+            h('td', h('number', run.highest))
           ])
         ])
       ])
     ]),
     h('a.storm--end__play.button', {
       attrs: { href: '/storm' }
-      // hook: onInsert(e => e.addEventListener('click', ctrl.restart))
     }, ctrl.trans('playAgain'))
   ];
 }
