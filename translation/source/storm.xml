@@ -3,6 +3,8 @@
   <string name="moveToStart">Move to start</string>
   <string name="puzzlesSolved">puzzles solved</string>
   <string name="newDailyHighscore">New daily highscore!</string>
+  <string name="newWeeklyHighscore">New weekly highscore!</string>
+  <string name="newMonthlyHighscore">New monthly highscore!</string>
   <string name="newAllTimeHighscore">New all-time highscore!</string>
   <string name="previousHighscoreWasX">Previous highscore was %s</string>
   <string name="playAgain">Play again</string>

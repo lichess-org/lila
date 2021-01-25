@@ -1,7 +1,6 @@
 import * as miniBoard from "common/mini-board";
 import StormCtrl from '../ctrl';
 import { Chess } from 'chessops/chess';
-import { get as dailyBestGet } from '../best';
 import { h } from 'snabbdom'
 import { numberSpread } from 'common/number';
 import { onInsert } from '../util';
@@ -14,16 +13,23 @@ const renderEnd = (ctrl: StormCtrl): VNode[] => [
   renderHistory(ctrl)
 ];
 
+const newHighI18n = {
+  day: 'newDailyHighscore',
+  week: 'newWeeklyHighscore',
+  month: 'newMonthlyHighscore',
+  allTime: 'newAllTimeHighscore'
+}
+
 const renderSummary = (ctrl: StormCtrl): VNode[] => {
-  const best = dailyBestGet();
   const run = ctrl.runStats();
+  const high = ctrl.vm.run.response?.newHigh;
   return [
-    ...(run.score > (best.prev || 0) ? [
+    ...(high ? [
       h('div.storm--end__high.storm--end__high-daily.bar-glider',
         h('div.storm--end__high__content', [
           h('div.storm--end__high__text', [
-            h('strong', ctrl.trans('newDailyHighscore')),
-            best.prev ? h('span', ctrl.trans('previousHighscoreWasX', best.prev)) : null
+            h('strong', ctrl.trans(newHighI18n[high.key])),
+            high.prev ? h('span', ctrl.trans('previousHighscoreWasX', high.prev)) : null
           ])
         ])
       )] : []),

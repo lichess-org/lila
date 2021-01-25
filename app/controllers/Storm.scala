@@ -25,8 +25,10 @@ final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
       env.storm.forms.run
         .bindFromRequest()
         .fold(
-          _ => funit,
+          _ => fuccess(none),
           data => env.storm.dayApi.addRun(data, ctx.me)
-        ) inject jsonOkResult
+        ) map env.storm.json.newHigh map { json =>
+        Ok(json) as JSON
+      }
     }
 }

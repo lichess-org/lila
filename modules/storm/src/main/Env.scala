@@ -21,6 +21,8 @@ final class Env(
 
   lazy val json = wire[StormJson]
 
+  lazy val highApi = wire[StormHighApi]
+
   lazy val dayApi = wire[StormDayApi]
 
   val forms = StormForm

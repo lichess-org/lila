@@ -21,6 +21,16 @@ final class StormJson {
       "highlight"   -> p.highlight,
       "is3d"        -> p.is3d
     )
+
+  def newHigh(n: Option[StormHigh.NewHigh]) =
+    Json
+      .obj()
+      .add("newHigh" -> n.map { nh =>
+        Json.obj(
+          "key"  -> nh.key,
+          "prev" -> nh.previous
+        )
+      })
 }
 
 object StormJson {

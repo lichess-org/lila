@@ -38,6 +38,8 @@ object storm {
       t.moveToStart,
       t.puzzlesSolved,
       t.newDailyHighscore,
+      t.newWeeklyHighscore,
+      t.newMonthlyHighscore,
       t.newAllTimeHighscore,
       t.previousHighscoreWasX,
       t.playAgain

@@ -10,7 +10,6 @@ import { parseFen, makeFen } from 'chessops/fen';
 import { parseUci, opposite } from 'chessops/util';
 import { prop, Prop } from 'common';
 import { Role } from 'chessground/types';
-import { set as dailyBestSet } from './best';
 import { StormOpts, StormData, StormPuzzle, StormVm, Promotion, TimeMod, StormRun } from './interfaces';
 
 export default class StormCtrl {
@@ -49,10 +48,12 @@ export default class StormCtrl {
   end = (): void => {
     this.vm.run.endAt = getNow();
     this.ground(false);
-    dailyBestSet(this.countWins());
     this.redraw();
     this.sound.end();
-    xhr.record(this.runStats());
+    xhr.record(this.runStats()).then(res => {
+      this.vm.run.response = res;
+      this.redraw();
+    });
   }
 
   naturalFlag = () => {

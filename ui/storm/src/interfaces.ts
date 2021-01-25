@@ -1,5 +1,5 @@
-import { VNode } from 'snabbdom/vnode'
 import { Role } from 'chessground/types';
+import { VNode } from 'snabbdom/vnode'
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -37,6 +37,7 @@ export interface StormVm {
     startAt: number;
     endAt?: number;
     moves: number;
+    response?: RunResponse;
   }
 }
 
@@ -83,4 +84,13 @@ export interface StormRun {
   combo: number;
   time: number;
   highest: number;
+}
+
+export interface RunResponse {
+  newHigh?: NewHigh;
+}
+
+export interface NewHigh {
+  key: 'day' | 'week' | 'month' | 'allTime';
+  prev: number;
 }
