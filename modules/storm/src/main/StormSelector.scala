@@ -11,7 +11,7 @@ import lila.puzzle.PuzzleColls
 
 final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: ExecutionContext) {
 
-  import BsonHandlers._
+  import StormBsonHandlers._
 
   def apply: Fu[List[StormPuzzle]] = current.get {}
 
