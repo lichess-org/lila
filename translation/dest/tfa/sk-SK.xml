@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="twoFactorAuth">Dvojfaktorové overovanie</string>
-  <string name="twoFactorHelp">Dvojfaktorové overenie pridá ďalšiu vrstvu bezpečnosti k vášmu účtu.</string>
-  <string name="twoFactorApp">Stiahnite is aplikáciu pre dvojfaktorové overenie, napríklad Google Authenticator pre %1$s alebo %2$s.</string>
+  <string name="twoFactorAuth">Dvojstupňové overenie</string>
+  <string name="twoFactorHelp">Dvojstupňové overenie pridá ďalšiu vrstvu bezpečnosti k vášmu účtu.</string>
+  <string name="twoFactorApp">Stiahnite is aplikáciu pre dvojstupňové overenie, napríklad Google Authenticator pre %1$s alebo %2$s.</string>
   <string name="scanTheCode">Oskenujte QR kód s aplikáciou.</string>
   <string name="enterPassword">Zadajte vaše heslo a overovací kód vygenerovaný aplikáciou, na dokončenie nastavenia. Overovací kód budete potrebovať pre každé prihlásenie.</string>
+  <string name="ifYouCannotScanEnterX" comment="ifYouCannotScanEnterX&#10;&#10;%s is the authentication code. Example: ..., enter the secret 123456 into your app.">Ak nemôžete naskenovať kód, zadajte tajný %s do Vašej aplikácie.</string>
   <string name="authenticationCode">Overovací kód</string>
   <string name="ifYouLoseAccess">Poznámka: Ak stratíte prístup k vašim dvojfaktorovým overovacím kódom, môžete použiť obnovenie hesla cez email.</string>
   <string name="enableTwoFactor">Zapnúť dvojfaktorové overovanie</string>
@@ -12,4 +13,5 @@
   <string name="twoFactorEnabled">Dvojfaktorové overovanie je zapnuté</string>
   <string name="twoFactorDisable">Potrebujete vaše heslo a overovací kód pre vašu overovaciu aplikáciu na vypnutie dvojfaktorového overovania.
 Ak stratíte prístup k vašim overovacím kódom, môžete tiež použiť obnovenie hesla cez email.</string>
+  <string name="openTwoFactorApp">Otvorte aplikáciu na dvojstupňové overenie na Vašom zariadení, a zistite Váš overovací kód na overenie Vašej identity.</string>
 </resources>

@@ -18,7 +18,7 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Sí. Lichess ha inspirado otras páginas de código abierto que utilizan nuestro %1$s, %2$s, o %3$s.</string>
   <string name="fairPlay">Juego limpio</string>
   <string name="whyFlaggedRatingManipulationOrCheater">¿Por qué estoy marcado por manipulación de la puntuación (perder a propósito o no ganar limpiamente) o asistencia informática?</string>
-  <string name="cheatDetectionMethods">Lichess tiene métodos de detección fuertes y un proceso muy exhaustivo para revisar todas las pruebas antes de tomar una decisión. Normalmente, el proceso implica a muchos moderadores y lleva bastante tiempo. Aparte de la marca en sí, no facilitamos más detalles sobre las pruebas o el proceso de toma de decisiones para casos individuales. Esto haría más fácil evitar la detección en el futuro y abre debates improductivos. Es mejor invertir ese tiempo y esfuerzo en otras cosas importantes. Los usuarios pueden apelar enviando un correo electrónico a %1$s, pero las decisiones rara vez se revierten.</string>
+  <string name="cheatDetectionMethods">Lichess tiene métodos de detección fuertes y un proceso muy exhaustivo para revisar todas las pruebas antes de tomar una decisión. Normalmente, el proceso implica a muchos moderadores y lleva bastante tiempo. Aparte de la marca en sí, no facilitamos más detalles sobre las pruebas o el proceso de toma de decisiones para casos individuales. Esto haría más fácil evitar la detección en el futuro y daría lugar a debates improductivos. Es mejor invertir ese tiempo y esfuerzo en otras cosas más importantes. Los usuarios pueden apelar enviando un correo electrónico a %1$s, pero las decisiones rara vez se revierten.</string>
   <string name="whenAmIEligibleRatinRefund">¿En qué casos se me devuelven automáticamente los puntos perdidos contra un tramposo?</string>
   <string name="ratingRefundExplanation">Un minuto después de marcar a un jugador como tramposo, se toman sus últimas 40 partidas por puntos de los tres últimos días. Si tú fuiste su oponente en esas partidas, perdiste puntos en ellas (bien porque perdiste, bien porque empataste), y tu puntuación no era provisional, entonces se te devuelven puntos. Este reembolso está limitado por tu puntuación máxima y por cómo haya progresado tu puntuación después de aquella partida.
 (Por ejemplo, si tu puntuación ha subido mucho después de aquellas partidas, puede que no se te devuelvan los puntos o sólo se te devuelvan algunos). La devolución en ningún caso será de más de 150 puntos.</string>
@@ -78,9 +78,9 @@ Mira el capítulo del %3$s sobre este movimiento para practicar un poco con él.
   <string name="lichessRecognizeAllOTBtitles">Lichess reconoce todos los títulos FIDE obtenidos OTB (sobre el tablero), así como %1$s. Aquí hay una lista de títulos FIDE:</string>
   <string name="showYourTitle">Si tienes un título OTB, puedes solicitar que se muestre en tu cuenta completando el %1$s, incluyendo una imagen clara de un documento/tarjeta de identificación y una foto tuya portando dicho documento/tarjeta.
 
-  La verificación como jugador titulado en Lichess da acceso a jugar en los eventos de Arena para titulados.
+La verificación como jugador titulado en Lichess da acceso a jugar en los eventos de Arena para titulados.
 
-  Finalmente, hay un título de honor %2$s.</string>
+Finalmente, existe el título honorífico %2$s.</string>
   <string name="asWellAsManyNMtitles">muchos títulos de maestros nacionales</string>
   <string name="verificationForm">formulario de verificación</string>
   <string name="canIbecomeLM">¿Puedo obtener el título de Maestro Lichess (LM)?</string>
@@ -94,7 +94,7 @@ No solicites el título de LM.</string>
   <string name="usernamesNotOffensive">En general, los nombres de usuario no deben: ser ofensivos, suplantar a alguien o hacer publicidad. Puedes leer más sobre las %1$s.</string>
   <string name="guidelines">pautas</string>
   <string name="canIChangeMyUsername">¿Puedo cambiar mi nombre de usuario?</string>
-  <string name="usernamesCannotBeChanged">No, los nombres de usuario no pueden cambiarse por razones técnicas y prácticas. Los nombres de usuario se materializan en muchos lugares: bases de datos, exportaciones, registros y en la mente de las personas. Puedes ajustar las mayúsculas solo una vez.</string>
+  <string name="usernamesCannotBeChanged">No, los nombres de usuario no pueden cambiarse por razones técnicas y prácticas. Los nombres de usuario se materializan en muchos lugares: bases de datos, exportaciones, registros y en la mente de las personas. Puedes ajustar las mayúsculas/minúsculas solo una vez.</string>
   <string name="uniqueTrophies">Trofeos únicos</string>
   <string name="ownerUniqueTrophies">Ese trofeo es único en la historia de Lichess, nadie más que %1$s lo tendrá jamás.</string>
   <string name="wayOfBerserkExplanation">Para obtenerlo, hiimgosu se desafió a sí mismo a berserk y ganó 100%% partidas de %s.</string>
@@ -122,19 +122,19 @@ Otro punto que cabe señalar es que, si pasa un tiempo sin jugar, el intervalo d
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">haber jugado una partida por puntos en la última semana para esta modalidad,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">tener una desviación de puntuación menor que %1$s, en ajedrez estándar, y menor que %2$s en variantes,</string>
   <string name="beInTopTen">estar entre los 10 primeros de esta clasificación.</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">El segundo requisito es que los jugadores que ya no usan sus cuentas dejen de poblar los tableros de liderazgo.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">El segundo requisito es que los jugadores que ya no usan sus cuentas dejen de poblar el listado de líderes.</string>
   <string name="whyAreRatingHigher">¿Por qué son más altas las puntuaciones en comparación con otras páginas y organizaciones como FIDE, USCF y el CIC?</string>
-  <string name="whyAreRatingHigherExplanation">Lo mejor es no considerar las puntuaciones como cifras absolutas ni compararlas con otras organizaciones. Diferentes organizaciones tienen diferentes niveles de jugadores, diferentes sistemas de puntuación (Elo, Glicko, Glicko-2 o una versión modificada de los primeros). Estos factores pueden afectar drásticamente los números absolutos (puntuaciones).
+  <string name="whyAreRatingHigherExplanation">Lo mejor es no considerar las puntuaciones como cifras absolutas ni compararlas con otras organizaciones. Diferentes organizaciones tienen distintos niveles de jugadores y sistemas de puntuación (Elo, Glicko, Glicko-2 o una versión modificada de los primeros). Estos factores pueden afectar drásticamente los números absolutos (puntuaciones).
 
-  Es mejor pensar en las puntuaciones como figuras \"relativas\" (a diferencia de las \"figuras absolutas\"): dentro de un conjunto de jugadores, sus diferencias relativas en las puntuaciones te ayudarán a estimar quién gana/empata/pierde, y con qué frecuencia. Decir \"tengo puntuación X\" significa nada a menos que haya otros jugadores a los que comparar esa puntuación.</string>
+ Es mejor pensar en las puntuaciones como figuras \"relativas\" (a diferencia de las \"figuras absolutas\"): dentro de un conjunto de jugadores, sus diferencias relativas en las puntuaciones te ayudarán a estimar quién gana/empata/pierde, y con qué frecuencia. Decir \"tengo puntuación X\" significa nada a menos que haya otros jugadores con los que comparar esa puntuación.</string>
   <string name="howToHideRatingWhilePlaying">¿Cómo ocultar mis puntuaciones durante las partidas?</string>
-  <string name="enableZenMode">Habilita el modo Zen en %1$so presionando %2$s durante una partida.</string>
+  <string name="enableZenMode">Habilita el modo Zen en %1$s o presionando %2$s durante una partida.</string>
   <string name="displayPreferences">preferencias de visualización</string>
   <string name="connexionLostCanIGetMyRatingBack">He perdido un juego debido a un retraso/desconexión. ¿Puedo recuperar mis puntos?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Desafortunadamente, no podemos devolver puntos en las partidas perdidas debido al retraso de red o desconexión, independientemente de si el problema estaba en tu lado o en el nuestro. Sin embargo, este último caso es muy extraño. También ten en cuenta que cuando Lichess se reinicia y pierdes por que se te haya acabado el tiempo debido a eso, abortamos el juego para prevenir una pérdida injusta.</string>
   <string name="howToThreeDots">Cómo...</string>
   <string name="enableDisableNotificationPopUps">¿Activar o desactivar las notificaciones emergentes?</string>
-  <string name="viewSiteInformationPopUp">Ver ventana emergente de información del sitio</string>
+  <string name="viewSiteInformationPopUp">Ver notificación emergente de información del sitio</string>
   <string name="lichessCanOptionnalySendPopUps">Opcionalmente, Lichess puede enviar notificaciones emergentes, por ejemplo cuando sea tu turno o hayas recibido un mensaje privado.
 
  Haz clic en el icono de bloqueo junto a la dirección de lichess.org, en la barra de URL de tu navegador.

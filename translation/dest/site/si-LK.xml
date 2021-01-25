@@ -72,7 +72,4 @@
   <string name="victoryVsYInZ">%3$s හි %1$s එදිරිව %2$s</string>
   <string name="defeatVsYInZ">%3$s හි %1$s එදිරිව %2$s</string>
   <string name="drawVsYInZ">%3$s හි %1$s එදිරිව %2$s</string>
-  <string name="challengeDeclined">අභියෝගය ප්‍රතික්ෂේප කරනු ලැබුවා</string>
-  <string name="challengeAccepted">අභියෝගය පිළිගනු ලැබුවා!</string>
-  <string name="challengeCanceled">අභියෝගය අත්හරිනු ලැබුවා.</string>
 </resources>

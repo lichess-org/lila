@@ -9,6 +9,7 @@
   <string name="lengths">Longdir</string>
   <string name="mates">Mát</string>
   <string name="goals">Mál</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Uppruni</string>
   <string name="specialMoves">Serligir leikir</string>
   <string name="didYouLikeThisPuzzle">Dámdi tær hesa uppgávuna?</string>
   <string name="voteToLoadNextOne">Atkvøð at innlesa ta næstu!</string>
@@ -44,5 +45,7 @@
   <string name="addAnotherTheme">Legg eitt nýtt tema aftrat</string>
   <string name="jumpToNextPuzzleImmediately">Far beinanvegin til næstu uppgávu</string>
   <string name="puzzleDashboard">Uppgávuyvirlit</string>
+  <string name="improvementAreas">Øki at bøta um</string>
   <string name="strengths">Styrkir</string>
+  <string name="solved">loyst</string>
 </resources>

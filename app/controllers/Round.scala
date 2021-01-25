@@ -2,6 +2,7 @@ package controllers
 
 import play.api.libs.json._
 import play.api.mvc._
+import scala.concurrent.duration._
 import views._
 
 import lila.api.Context
@@ -349,5 +350,18 @@ final class Round(
       OptionOk(env.round.proxyRepo.povIfPresent(fullId) orElse env.game.gameRepo.pov(fullId))(
         html.game.mini(_)
       )
+    }
+
+  def apiAddTime(anyId: String, seconds: Int) =
+    Scoped(_.Challenge.Write) { implicit req => me =>
+      import lila.round.actorApi.round.Moretime
+      if (seconds < 1 || seconds > 86400) BadRequest.fuccess
+      else
+        env.round.proxyRepo.game(lila.game.Game takeGameId anyId) map {
+          _.flatMap { Pov(_, me) }.?? { pov =>
+            env.round.tellRound(pov.gameId, Moretime(pov.typedPlayerId, seconds.seconds))
+            jsonOkResult
+          }
+        }
     }
 }

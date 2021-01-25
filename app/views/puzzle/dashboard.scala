@@ -57,20 +57,12 @@ object dashboard {
         )
       }
     ) { dash =>
-      frag(
+      dash.mostPlayed.size > 2 option
         div(cls := s"${baseClass}__global")(
           metricsOf(days, PuzzleTheme.mix.key, dash.global),
           canvas(cls := s"${baseClass}__radar")
         )
-      )
     }
-
-// data: {
-//     labels: ['Running', 'Swimming', 'Eating', 'Cycling'],
-//     datasets: [{
-//         data: [20, 10, 4, 2]
-//     }]
-// }
 
   def improvementAreas(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: Context) =
     dashboardLayout(
@@ -83,7 +75,7 @@ object dashboard {
       subtitle = "Train these to optimize your progress!",
       dashOpt = dashOpt
     ) { dash =>
-      themeSelection(days, dash.weakThemes)
+      dash.weakThemes.nonEmpty option themeSelection(days, dash.weakThemes)
     }
 
   def strengths(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: Context) =
@@ -97,7 +89,7 @@ object dashboard {
       subtitle = "You perform the best in these themes",
       dashOpt = dashOpt
     ) { dash =>
-      themeSelection(days, dash.strongThemes)
+      dash.strongThemes.nonEmpty option themeSelection(days, dash.strongThemes)
     }
 
   private def dashboardLayout(
@@ -109,7 +101,7 @@ object dashboard {
       dashOpt: Option[PuzzleDashboard],
       moreJs: Frag = emptyFrag
   )(
-      body: PuzzleDashboard => Frag
+      body: PuzzleDashboard => Option[Frag]
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
@@ -136,13 +128,10 @@ object dashboard {
               }
             )
           ),
-          dashOpt match {
-            case None =>
-              div(cls := s"${baseClass}__empty")(
-                a(href := routes.Puzzle.home())("Nothing to show, go play some puzzles first!")
-              )
-            case Some(dash) => body(dash)
-          }
+          dashOpt.flatMap(body) |
+            div(cls := s"${baseClass}__empty")(
+              a(href := routes.Puzzle.home())("Nothing to show, go play some puzzles first!")
+            )
         )
       )
     )

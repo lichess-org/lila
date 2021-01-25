@@ -484,6 +484,20 @@ final class Tournament(
       }.fuccess
     }
 
+  def battleTeams(id: String) =
+    Open { implicit ctx =>
+      repo byId id flatMap {
+        _ ?? { tour =>
+          tour.teamBattle ?? { battle =>
+            env.tournament.cached.battle.teamStanding.get(tour.id) map { standing =>
+              Ok(views.html.tournament.teamBattle.standing(tour, battle, standing))
+            }
+          }
+        }
+      }
+
+    }
+
   private def WithEditableTournament(id: String, me: UserModel)(
       f: Tour => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =

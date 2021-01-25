@@ -37,7 +37,7 @@ final private class InsightIndexer(
       }
     }
 
-  def update(game: Game, userId: String, previous: Entry): Funit =
+  def update(game: Game, userId: String, previous: InsightEntry): Funit =
     povToEntry(game, userId, previous.provisional) flatMap {
       case Right(e) => storage update e.copy(number = previous.number)
       case _        => funit
@@ -76,7 +76,7 @@ final private class InsightIndexer(
   private def computeFrom(user: User, from: DateTime, fromNumber: Int): Funit =
     storage nbByPerf user.id flatMap { nbs =>
       var nbByPerf = nbs
-      def toEntry(game: Game): Fu[Option[Entry]] =
+      def toEntry(game: Game): Fu[Option[InsightEntry]] =
         game.perfType ?? { pt =>
           val nb = nbByPerf.getOrElse(pt, 0) + 1
           nbByPerf = nbByPerf.updated(pt, nb)

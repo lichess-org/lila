@@ -6,6 +6,7 @@ import chess.{ Color, Mode, Speed }
 import org.joda.time.DateTime
 
 import lila.game.{ Game, PerfPicker }
+import lila.i18n.{ I18nKey, I18nKeys }
 import lila.rating.PerfType
 import lila.user.User
 
@@ -24,7 +25,8 @@ case class Challenge(
     createdAt: DateTime,
     seenAt: Option[DateTime], // None for open challenges, so they don't sweep
     expiresAt: DateTime,
-    open: Option[Boolean] = None
+    open: Option[Boolean] = None,
+    declineReason: Option[Challenge.DeclineReason] = None
 ) {
 
   import Challenge._
@@ -93,6 +95,13 @@ case class Challenge(
   def isOpen = ~open
 
   lazy val perfType = perfTypeOf(variant, timeControl)
+
+  def anyDeclineReason = declineReason | DeclineReason.default
+
+  def declineWith(reason: DeclineReason) = copy(
+    status = Status.Declined,
+    declineReason = reason.some
+  )
 }
 
 object Challenge {
@@ -110,6 +119,29 @@ object Challenge {
     case object Accepted extends Status(40)
     val all                            = List(Created, Offline, Canceled, Declined, Accepted)
     def apply(id: Int): Option[Status] = all.find(_.id == id)
+  }
+
+  sealed abstract class DeclineReason(val trans: I18nKey) {
+    val key = toString.toLowerCase
+  }
+
+  object DeclineReason {
+    case object Generic     extends DeclineReason(I18nKeys.challenge.declineGeneric)
+    case object Later       extends DeclineReason(I18nKeys.challenge.declineLater)
+    case object TooFast     extends DeclineReason(I18nKeys.challenge.declineTooFast)
+    case object TooSlow     extends DeclineReason(I18nKeys.challenge.declineTooSlow)
+    case object TimeControl extends DeclineReason(I18nKeys.challenge.declineTimeControl)
+    case object Rated       extends DeclineReason(I18nKeys.challenge.declineRated)
+    case object Casual      extends DeclineReason(I18nKeys.challenge.declineCasual)
+    case object Standard    extends DeclineReason(I18nKeys.challenge.declineStandard)
+    case object Variant     extends DeclineReason(I18nKeys.challenge.declineVariant)
+    case object NoBot       extends DeclineReason(I18nKeys.challenge.declineNoBot)
+    case object OnlyBot     extends DeclineReason(I18nKeys.challenge.declineOnlyBot)
+
+    val default: DeclineReason = Generic
+    val all: List[DeclineReason] =
+      List(Generic, Later, TooFast, TooSlow, TimeControl, Rated, Casual, Standard, Variant, NoBot, OnlyBot)
+    def apply(key: String) = all.find { d => d.key == key.toLowerCase || d.trans.key == key } | Generic
   }
 
   case class Rating(int: Int, provisional: Boolean) {

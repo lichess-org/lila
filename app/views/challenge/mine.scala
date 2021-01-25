@@ -25,11 +25,11 @@ object mine {
       moreCss = cssTag("challenge.page")
     ) {
       val challengeLink = s"$netBaseUrl${routes.Round.watcher(c.id, "white")}"
-      main(cls := "page-small challenge-page box box-pad")(
+      main(cls := s"page-small challenge-page box box-pad challenge--${c.status.name}")(
         c.status match {
           case Status.Created | Status.Offline =>
             div(id := "ping-challenge")(
-              h1(if (c.isOpen) "Open challenge" else trans.challengeToPlay.txt()),
+              h1(if (c.isOpen) "Open challenge" else trans.challenge.challengeToPlay.txt()),
               bits.details(c),
               c.destUserId.map { destId =>
                 div(cls := "waiting")(
@@ -93,13 +93,17 @@ object mine {
             )
           case Status.Declined =>
             div(cls := "follow-up")(
-              h1(trans.challengeDeclined()),
+              h1(trans.challenge.challengeDeclined()),
+              blockquote(cls := "challenge-reason pull-quote")(
+                p(c.anyDeclineReason.trans()),
+                footer(userIdLink(c.destUserId))
+              ),
               bits.details(c),
               a(cls := "button button-fat", href := routes.Lobby.home())(trans.newOpponent())
             )
           case Status.Accepted =>
             div(cls := "follow-up")(
-              h1(trans.challengeAccepted()),
+              h1(trans.challenge.challengeAccepted()),
               bits.details(c),
               a(id := "challenge-redirect", href := routes.Round.watcher(c.id, "white"), cls := "button-fat")(
                 trans.joinTheGame()
@@ -107,7 +111,7 @@ object mine {
             )
           case Status.Canceled =>
             div(cls := "follow-up")(
-              h1(trans.challengeCanceled()),
+              h1(trans.challenge.challengeCanceled()),
               bits.details(c),
               a(cls := "button button-fat", href := routes.Lobby.home())(trans.newOpponent())
             )

@@ -66,7 +66,7 @@ final class PersonalDataExport(
       List(
         textTitle(s"${sessions.size} Connections"),
         sessions.map { s =>
-          s"${s.ip} ${s.date.map(textDate)}\n${s.ua}"
+          s"${s.ip} ${s.date.??(textDate)}\n${s.ua}"
         } mkString "\n\n"
       )
 

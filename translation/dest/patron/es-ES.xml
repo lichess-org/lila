@@ -12,7 +12,7 @@
   <string name="youHaveLifetime">Tienes una cuenta de patrón de por vida. ¡Qué impresionante!</string>
   <string name="patronUntil">Tienes una cuenta de patrón hasta el %s.</string>
   <string name="ifNotRenewed">Si no se renueva, se te degradará a la versión gratuita.</string>
-  <string name="weAreNonProfit">Somos una organización sin ánimo de lucro porque creemos que todos deberíamos tener acceso a una plataforma de ajedrez de de primera clase y gratuita.</string>
+  <string name="weAreNonProfit">Somos una organización sin ánimo de lucro porque creemos que todos deberíamos tener acceso a una plataforma de ajedrez de primera clase y gratuita.</string>
   <string name="weRelyOnSupport">Lo hacemos posible gracias al apoyo de gente como tú. Si te gusta Lichess, por favor ¡considera apoyarnos donando y convirtiéndote en patrón!</string>
   <string name="lifetime">De por vida</string>
   <string name="payLifetimeOnce">Paga %s una vez. ¡Sé un Patrón de la Lichess para siempre!</string>

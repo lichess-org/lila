@@ -1,15 +1,16 @@
 $team-colors: (0: hsl(274, 100%, 59%), 1: hsl(240, 100%, 67%), 2: #008000, 3: #b22222, 4: hsl(16, 80%, 62%), 5: #9acd32, 6: #ff4500, 7: #2e8b57, 8: #daa520, 9: hsl(32, 75%, 47%));
 
-@each $index, $color in $team-colors {
-  team.ttc-#{$index} {
-    color: #{$color};
-  }
-}
-
 team {
   padding: 1px 5px;
   font-size: .8em;
   font-weight: bold;
+  color: $c-brag;
+}
+
+@each $index, $color in $team-colors {
+  team.ttc-#{$index} {
+    color: #{$color};
+  }
 }
 
 .tour__player-info team {
@@ -26,12 +27,14 @@ team {
 }
 
 .tour__team-standing {
-  tbody tr:nth-child(odd) {
-    background: $c-bg-zebra;
-  }
+  tbody tr {
+    &:nth-child(odd) {
+      background: $c-bg-zebra;
+    }
 
-  tbody tr:nth-child(even) {
-    background: $c-bg-box;
+    &:nth-child(even) {
+      background: $c-bg-box;
+    }
   }
 
   .team {
@@ -82,18 +85,37 @@ team {
     background: linear-gradient(to left, $c-active-border 0px, $c-active-border 5px, rgba(0, 0, 0, 0) 5px, rgba(0, 0, 0, 0) 100%);
   }
 
-  tr:hover {
+  .tour__main & tr:hover {
     background: mix($c-primary, $c-bg-box, 30%) !important;
   }
 
   td {
     padding: 1rem 0.5rem;
   }
+
+  .more-teams {
+    padding: 0 !important;
+
+    a {
+      padding: 1rem 0;
+      display: block;
+      text-align: center;
+    }
+  }
+
+  &--full {
+    td {
+      padding: 2rem 1rem;
+
+      &.team {
+        color: $c-brag;
+        font-weight: bold;
+      }
+    }
+  }
 }
 
 .team-battle {
-  &__title {}
-
   &__list {
     a {
       display: block;

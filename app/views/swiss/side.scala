@@ -13,7 +13,12 @@ object side {
 
   private val separator = " • "
 
-  def apply(s: Swiss, verdicts: SwissCondition.All.WithVerdicts, chat: Boolean)(implicit
+  def apply(
+      s: Swiss,
+      verdicts: SwissCondition.All.WithVerdicts,
+      streamers: List[lila.user.User.ID],
+      chat: Boolean
+  )(implicit
       ctx: Context
   ) =
     frag(
@@ -87,6 +92,9 @@ object side {
           )
         else br,
         absClientDateTime(s.startsAt)
+      ),
+      streamers.nonEmpty option div(cls := "context-streamers")(
+        streamers map views.html.streamer.bits.contextual
       ),
       chat option views.html.chat.frag
     )

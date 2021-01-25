@@ -436,7 +436,6 @@
   <string name="more">Яшчэ</string>
   <string name="memberSince">Далучыўся</string>
   <string name="lastSeenActive">Апошні раз бачылі %s</string>
-  <string name="challengeToPlay">Выклікаць на гульню</string>
   <string name="player">Гулец</string>
   <string name="list">Спіс</string>
   <string name="graph">Дыяграма</string>
@@ -799,7 +798,6 @@
   <string name="error.unknown">Памылка</string>
   <string name="custom">Свая гульня</string>
   <string name="notifications">Апавяшчэнні</string>
-  <string name="challenges">Выклікі</string>
   <string name="perfRatingX">Рэйтынг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда на першы ход</item>
@@ -850,12 +848,6 @@
   <string name="opening">Дэбют</string>
   <string name="middlegame">Мітальшпіль</string>
   <string name="endgame">Эндшпіль</string>
-  <string name="registerToSendChallenges">Зарэгіструйцеся, каб выклікаць супернікаў на гульню.</string>
-  <string name="youCannotChallengeX">Вы не можаце выклікаць на гульню %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s не прымае выклікі.</string>
-  <string name="yourXRatingIsTooFarFromY">Ваш рэйтынг у рэжыме «%1$s» значна адрозніваецца ад %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Немагчыма: рэйтынг %s не пацверджаны.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s прымае выклікі толькі ад сяброў.</string>
   <string name="conditionalPremoves">Хады на апярэджанне пры ўмове</string>
   <string name="addCurrentVariation">Дадаць бягучы варыянт</string>
   <string name="playVariationToCreateConditionalPremoves">Згуляйце варыянт, каб стварыць умову для хода на апярэджанне</string>

@@ -28,7 +28,7 @@ object Metric {
 
   import DataType._
   import Position._
-  import Entry.{ BSONFields => F }
+  import InsightEntry.{ BSONFields => F }
 
   case object MeanCpl
       extends Metric(

@@ -27,12 +27,7 @@
   <string name="wantClearHistory">मैं अपना इतिहास या रेटिंग मिटाना चाहता हूं</string>
   <string name="cantClearHistory">आपके खेल के इतिहास, पहेली इतिहास, या रेटिंग को मिटाना संभव नहीं है।</string>
   <string name="wantReport">मैं एक खिलाड़ी की रिपोर्ट करना चाहता हूं</string>
-  <string name="cheating">छल किया गया</string>
-  <string name="sandbagging">जानबूझकर हारना</string>
-  <string name="trolling">मज़ाक उड़ाया गया</string>
-  <string name="insults">अपमान</string>
-  <string name="otherReason">कुछ और कारण</string>
-  <string name="toReportAPlayer">किसी खिलाड़ी को %s के लिए रिपोर्ट करने के लिए, रिपोर्ट फ़ॉर्म का उपयोग करें</string>
+  <string name="toReportAPlayerUseForm">किसी खिलाड़ी को रिपोर्ट करने के लिए, रिपोर्ट फ़ॉर्म का उपयोग करें</string>
   <string name="youCanAlsoReachReportPage">आप प्रोफाइल पेज पर %s रिपोर्ट बटन पर क्लिक करके भी उस पृष्ठ पर पहुँच सकते हैं।</string>
   <string name="doNotReportInForum">मंच में खिलाड़ियों को रिपोर्ट न करें।</string>
   <string name="doNotSendReportEmails">हमें रिपोर्ट ईमेल पर न भेजें।</string>
@@ -40,8 +35,8 @@
   <string name="onlyReports">केवल रिपोर्ट फॉर्म के माध्यम से रिपोर्ट करना ही प्रभावी हैं।</string>
   <string name="wantReportBug">मैं एक बग रिपोर्ट करना चाहता हूं</string>
   <string name="reportBugInForum">फोरम के लिचेस फीडबैक सेक्शन में</string>
-  <string name="reportWebsiteIssue">GitHub पर Lichess website issue के रूप में</string>
-  <string name="reportMobileIssue">GitHub पर Lichess mobile app issue के रूप में</string>
+  <string name="reportWebsiteIssue">GitHub पर एक Lichess वेबसाइट के मुद्दे के रूप में</string>
+  <string name="reportMobileIssue">GitHub पर एक Lichess मोबाइल ऐप के मुद्दे के रूप में</string>
   <string name="reportBugInDiscord">Lichess Discord सर्वर में</string>
   <string name="howToReportBug">कृपया वर्णन करें कि बग कैसा दिखता है, इसके बजाय की आपको क्या होने की उम्मीद है, और बग को पुन: उत्पन्न करने के लिए कदम।</string>
   <string name="illegalPawnCapture">प्यादे की अवैध चाल</string>
@@ -59,7 +54,7 @@
   <string name="ratedGame">सुनिश्चित करें कि आपने एक रेटेड गेम खेला है। आकस्मिक खेल खिलाड़ियों की रेटिंग को प्रभावित नहीं करते हैं।</string>
   <string name="errorPage">त्रुटि पृष्ठ</string>
   <string name="reportErrorPage">यदि आपको कोई त्रुटि आई है, तो आप इसकी रिपोर्ट कर सकते हैं:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">प्रतिबंध या आईपी प्रतिबंध के लिए अपील</string>
+  <string name="banAppeal">प्रतिबंध या आईपी प्रतिबंध के लिए अपील</string>
   <string name="engineAppeal">इंजन या धोखा चिह्न</string>
   <string name="sendAppealTo">आप %s पर अपील भेज सकते हैं।</string>
   <string name="falsePositives">झूठी सकारात्मकता कभी-कभी होती है, और हमें इस पर खेद है</string>

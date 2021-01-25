@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="challenges">挑戰</string>
+  <string name="challengeToPlay">邀請對弈</string>
+  <string name="challengeDeclined">對弈邀請已拒絕</string>
+  <string name="challengeAccepted">對弈邀請已接受</string>
+  <string name="challengeCanceled">對弈邀請已撤銷</string>
+  <string name="registerToSendChallenges">請登入以向其他人發出對弈邀請</string>
+  <string name="youCannotChallengeX">你無法向%s發出對弈邀請</string>
+  <string name="xDoesNotAcceptChallenges">%s沒有接受對弈邀請</string>
+  <string name="yourXRatingIsTooFarFromY">您的%1$s積分與%2$s相差太多</string>
+  <string name="cannotChallengeDueToProvisionalXRating">由於您的%s積分不夠穩定，無法發出挑戰。</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s只接受好友的對弈邀請</string>
+  <string name="declineGeneric">我目前不接受對弈</string>
+  <string name="declineLater">我現在不接受對弈，請晚點再詢問</string>
+</resources>

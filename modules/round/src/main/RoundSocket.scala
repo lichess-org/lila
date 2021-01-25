@@ -75,7 +75,7 @@ final class RoundSocket(
       val duct = new RoundDuct(
         dependencies = roundDependencies,
         gameId = id,
-        socketSend = send
+        socketSend = sendForGameId(id)
       )(ec, proxy)
       terminationDelay schedule Game.Id(id)
       duct.getGame dforeach {
@@ -160,17 +160,19 @@ final class RoundSocket(
   private def finishRound(gameId: Game.Id): Unit =
     rounds.terminate(gameId.value, _ ! RoundDuct.Stop)
 
-  private lazy val send: String => Unit = remoteSocketApi.makeSender("r-out").apply _
+  private lazy val send: Sender = remoteSocketApi.makeSender("r-out", parallelism = 8)
+
+  private lazy val sendForGameId: Game.ID => String => Unit = gameId => msg => send.sticky(gameId, msg)
 
   remoteSocketApi.subscribeRoundRobin("r-in", Protocol.In.reader, parallelism = 8)(
     roundHandler orElse remoteSocketApi.baseHandler
   ) >>- send(P.Out.boot)
 
   Bus.subscribeFun("tvSelect", "roundSocket", "tourStanding", "startGame", "finishGame") {
-    case TvSelect(gameId, speed, json) => send(Protocol.Out.tvSelect(gameId, speed, json))
+    case TvSelect(gameId, speed, json) => sendForGameId(gameId)(Protocol.Out.tvSelect(gameId, speed, json))
     case Tell(gameId, e @ BotConnected(color, v)) =>
       rounds.tell(gameId, e)
-      send(Protocol.Out.botConnected(gameId, color, v))
+      sendForGameId(gameId)(Protocol.Out.botConnected(gameId, color, v))
     case Tell(gameId, msg)          => rounds.tell(gameId, msg)
     case TellIfExists(gameId, msg)  => rounds.tellIfPresent(gameId, msg)
     case TellMany(gameIds, msg)     => rounds.tellIds(gameIds, msg)
@@ -179,11 +181,11 @@ final class RoundSocket(
     case TourStanding(tourId, json) => send(Protocol.Out.tourStanding(tourId, json))
     case lila.game.actorApi.StartGame(game) if game.hasClock =>
       game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
-        send(Protocol.Out.startGame(usersPlaying))
+        sendForGameId(game.id)(Protocol.Out.startGame(usersPlaying))
       }
     case lila.game.actorApi.FinishGame(game, _, _) if game.hasClock =>
       game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
-        send(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
+        sendForGameId(game.id)(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
       }
   }
 

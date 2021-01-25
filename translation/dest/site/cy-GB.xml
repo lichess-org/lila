@@ -275,7 +275,6 @@
   <string name="more">Mwy</string>
   <string name="memberSince">Cofrestrodd</string>
   <string name="lastSeenActive">Wedi mewngofnodi yn ddiweddarach %s</string>
-  <string name="challengeToPlay">Herio i chwarae</string>
   <string name="player">Chwaraewr</string>
   <string name="list">Rhestr</string>
   <string name="graph">Graff</string>
@@ -590,7 +589,6 @@
   <string name="error.unknown">Gwall</string>
   <string name="custom">Dewis amgenach</string>
   <string name="notifications">Hysbysiadau</string>
-  <string name="challenges">Heriau</string>
   <string name="perfRatingX">Graddfa %s</string>
   <string name="practiceWithComputer">Ymarfer gyda cyfrifiadur</string>
   <string name="anotherWasX">Dewis da arall oedd %s</string>
@@ -628,12 +626,6 @@
   <string name="opening">Agoriad</string>
   <string name="middlegame">Y gem ganol</string>
   <string name="endgame">Diweddglo</string>
-  <string name="registerToSendChallenges">Cofrestrwch cyn danfon her.</string>
-  <string name="youCannotChallengeX">Ni fedrwch chi herio %s.</string>
-  <string name="xDoesNotAcceptChallenges">Nid yw %s yn derbyn heriau.</string>
-  <string name="yourXRatingIsTooFarFromY">Mae eich graddfa %1$s yn rhy bell o un %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Ni fedrwch herio gan bod eich graddfa %s yn un dros dro.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">Mae %s dim ond yn derbyn heriau gan ffrindiau.</string>
   <string name="playX">Chwarae %s</string>
   <string name="sorry">Sori :(</string>
   <string name="why">Pam?</string>

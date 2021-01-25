@@ -4,6 +4,10 @@
   <string name="advancedPawnDescription">Un pedone che promuove o che minaccia di promuovere è la chiave della tattica.</string>
   <string name="advantage">Vantaggio</string>
   <string name="advantageDescription">Cogli l\'occasione per guadagnare un vantaggio decisivo. (200cp ≤ valutazione ≤ 600cp)</string>
+  <string name="anastasiaMate">Matto di Anastasia</string>
+  <string name="anastasiaMateDescription">Un cavallo e una torre o una donna si coordinano nell\'intrappolare il re avversario tra un suo pezzo e il bordo della scacchiera.</string>
+  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Matto arabo</string>
+  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">Un cavallo e una torre si coordinano nell\'intrappolare il re avversario in un angolo della scacchiera.</string>
   <string name="attackingF2F7">Attacco su f2 o f7</string>
   <string name="attackingF2F7Description">Un attacco incentrato sul pedone f2 o f7, come nell\'attacco Fegatello.</string>
   <string name="attraction">Adescamento</string>
@@ -12,12 +16,18 @@
   <string name="backRankMateDescription">Matto al re sulla traversa di partenza, dove è intrappolato dai suoi stessi pezzi.</string>
   <string name="bishopEndgame">Finale d\'alfiere</string>
   <string name="bishopEndgameDescription">Un finale con soli alfieri e pedoni.</string>
+  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Matto di Boden</string>
+  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Due alfieri danno matto lungo diagonali perpendicolari ad un re ostruito dai suoi stessi pezzi.</string>
   <string name="castling">Arrocco</string>
   <string name="castlingDescription">Porta il re al sicuro, e sviluppa la torre per attaccare.</string>
   <string name="capturingDefender">Cattura del difensore</string>
   <string name="capturingDefenderDescription">Rimozione di un pezzo essenziale per la difesa di un altro pezzo, che permette al pezzo ora indifeso di essere catturato con una mossa successiva.</string>
   <string name="crushing">Posizione schiacciante</string>
   <string name="crushingDescription">Trova l\'errore grave del tuo avversario per ottenere un vantaggio schiacciante. (valutazione ≥ 600cp)</string>
+  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Matto dei due alfieri</string>
+  <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Due alfieri danno matto lungo diagonali adiacenti ad un re ostruito dai suoi stessi pezzi.</string>
+  <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Matto a coda di rondine</string>
+  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">Una donna dà matto al re in una casa adiacente, mentre le due uniche case di fuga sono occupate da suoi pezzi.</string>
   <string name="equality">Eguaglianza</string>
   <string name="equalityDescription">Recupera una posizione persa e assicurati la patta o una posizione equa. (valutazione ≥ 200cp)</string>
   <string name="kingsideAttack">Attacco sul lato di re</string>
@@ -41,6 +51,8 @@
   <string name="forkDescription">Una mossa in cui un pezzo attacca due pezzi avversari contemporaneamente.</string>
   <string name="hangingPiece">Pezzo in presa</string>
   <string name="hangingPieceDescription">Una tattica che coinvolge un pezzo indifeso o insufficientemente difeso, e che dunque può essere catturato.</string>
+  <string name="hookMate">Matto dell\'uncino</string>
+  <string name="hookMateDescription">Matto con torre, cavallo e pedone, con un pedone avversario che ostruisce il suo re.</string>
   <string name="interference">Interposizione</string>
   <string name="interferenceDescription">Spostamento di un pezzo tra due pezzi avversari per lasciare uno o entrambi i pezzi nemici senza difesa, come ad esempio un cavallo difeso tra due torri.</string>
   <string name="intermezzo">Intermezzo</string>
@@ -49,9 +61,9 @@
   <string name="knightEndgameDescription">Un finale con soli cavalli e pedoni.</string>
   <string name="long">Tattica lunga</string>
   <string name="longDescription">Vittoria in tre mosse.</string>
-  <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Partite di giocatori titolati</string>
+  <string name="master">Partite di giocatori titolati</string>
   <string name="masterDescription">Puzzle da partite giocate da giocatori intitolati.</string>
-  <string name="masterVsMaster" comment="masterVsMaster&#10;&#10;Puzzles from games between two titled players.">Partite fra giocatori titolati</string>
+  <string name="masterVsMaster">Partite fra giocatori titolati</string>
   <string name="masterVsMasterDescription">Puzzle da partite fra due giocatori titolati.</string>
   <string name="mate">Matto</string>
   <string name="mateDescription">Vinci la partita con stile.</string>
@@ -95,8 +107,8 @@
   <string name="skewerDescription">Un tema che consiste in un pezzo di grande valore che viene attaccato e che si sposta, permettendo ad un pezzo dietro di esso di essere catturato o attaccato. Il contrario di un\'inchiodatura.</string>
   <string name="smotheredMate">Matto affogato</string>
   <string name="smotheredMateDescription">Uno scacco matto eseguito con un cavallo, in cui il re sotto scacco è incapace di spostarsi poiché circondato (\"affogato\") dai suoi stessi pezzi.</string>
-  <string name="superGM" comment="superGM&#10;&#10;Puzzles from games played by the best players in the world.">Partite di Super GM</string>
-  <string name="superGMDescription">Puzzle da partite giocate dai migliori giocatori del mondo.</string>
+  <string name="superGM">Partite di Super-GM</string>
+  <string name="superGMDescription">Tattiche da partite giocate dai migliori giocatori del mondo.</string>
   <string name="trappedPiece">Pezzo intrappolato</string>
   <string name="trappedPieceDescription">Un pezzo che non può evitare la cattura a causa delle sue mosse limitate.</string>
   <string name="underPromotion">Sottopromozione</string>

@@ -4,6 +4,10 @@
   <string name="advancedPawnDescription">Een pion die promoveert of dreigt te promoveren is hier cruciaal.</string>
   <string name="advantage">Voordeel</string>
   <string name="advantageDescription">Grijp je kans om een doorslaggevend voordeel te verkrijgen. (200cp ≤ eval ≤ 600 cp)</string>
+  <string name="anastasiaMate">Anastasia\'s mat</string>
+  <string name="anastasiaMateDescription">Een paard werkt samen met een toren of dame om de koning van de tegenstander tussen de zijkant van het bord en een eigen stuk te vangen.</string>
+  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Arabisch mat</string>
+  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">Een paard en een toren werken samen om de koning van de tegenstander in een hoek van het bord in te sluiten.</string>
   <string name="attackingF2F7">f2 of f7 aanvallen</string>
   <string name="attackingF2F7Description">Een aanval gericht op de f2 of de f7-pion, zoals in de Fegatello-opening.</string>
   <string name="attraction">Lokken</string>
@@ -12,12 +16,16 @@
   <string name="backRankMateDescription">Zet de koning mat op de achterste rij, ingesloten door zijn eigen stukken.</string>
   <string name="bishopEndgame">Lopereindspel</string>
   <string name="bishopEndgameDescription">Een eindspel met alleen lopers en pionnen.</string>
-  <string name="castling">Rokade</string>
+  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Mat van Boden</string>
+  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Twee lopers op kruisende diagonalen zetten een koning mat die wordt belemmerd door de eigen stukken.</string>
+  <string name="castling">Rokeren</string>
   <string name="castlingDescription">Breng de koning in veiligheid en zet de toren in voor een aanval.</string>
   <string name="capturingDefender">De verdediger slaan</string>
   <string name="capturingDefenderDescription">Een stuk slaan dat essentieel is voor de verdediging van een ander stuk, waardoor vervolgens het nu onverdedigde stuk met een volgende zet kan worden geslagen.</string>
   <string name="crushing">Verpletteren</string>
   <string name="crushingDescription">Zie de blunder van de tegenstander om een verpletterend voordeel te verkrijgen. (eval ≥ 600cp)</string>
+  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Mat met twee lopers</string>
+  <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Twee lopers op belendende diagonalen zetten een koning mat die wordt belemmerd door de eigen stukken.</string>
   <string name="equality">Evenwicht</string>
   <string name="equalityDescription">Terugkomen uit een verloren stelling en een remise veiligstellen of een gelijkwaardige stelling bereiken. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Koningsaanval</string>
@@ -49,9 +57,9 @@
   <string name="knightEndgameDescription">Een eindspel met alleen paarden en pionnen.</string>
   <string name="long">Lange puzzel</string>
   <string name="longDescription">Winnen in drie zetten.</string>
-  <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Partijen van meesters</string>
+  <string name="master">Partijen van meesters</string>
   <string name="masterDescription">Puzzels van partijen met één titelhouder.</string>
-  <string name="masterVsMaster" comment="masterVsMaster&#10;&#10;Puzzles from games between two titled players.">Partijen van meesters onderling</string>
+  <string name="masterVsMaster">Partijen van meesters onderling</string>
   <string name="masterVsMasterDescription">Puzzels van partijen met twee titelhouders.</string>
   <string name="mate">Mat</string>
   <string name="mateDescription">De partij in stijl winnen.</string>
@@ -95,7 +103,7 @@
   <string name="skewerDescription">Een motief waarbij een waardevol stuk wordt aangevallen en vervolgens wordt verplaatst, waardoor een lichter stuk erachter kan worden geslagen of aangevallen. Het omgekeerde van een penning.</string>
   <string name="smotheredMate">Stikmat</string>
   <string name="smotheredMateDescription">Schaakmat met een paard waarbij de aangevallen koning geen zet kan doen omdat hij ingesloten is (of verstikt) door zijn eigen stukken.</string>
-  <string name="superGM" comment="superGM&#10;&#10;Puzzles from games played by the best players in the world.">Partijen van topschakers</string>
+  <string name="superGM">Partijen van topschakers</string>
   <string name="superGMDescription">Puzzels van partijen gespeeld door de beste schakers ter wereld.</string>
   <string name="trappedPiece">Ingesloten stuk</string>
   <string name="trappedPieceDescription">Een stuk kan niet meer ontsnappen omdat het geen velden meer heeft.</string>

@@ -4,6 +4,10 @@
   <string name="advancedPawnDescription">Pėstininkas, kuris keičiamas kita figūra, ar tuoj tai darys, čia yra esminė taktika.</string>
   <string name="advantage">Pranašumas</string>
   <string name="advantageDescription">Pasinaudokite proga įgauti esminį pranašumą. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="anastasiaMate">Anastasijos matas</string>
+  <string name="anastasiaMateDescription">Žirgas ir karalienė arba bokštas bendromis jėgomis įkalina priešininko karalių tarp lentos krašto ir kitos figūros.</string>
+  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Arabiškasis matas</string>
+  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">Žirgas ir bokštas suvienija jėgas įkalindami priešininko karalių lentos kampe.</string>
   <string name="attackingF2F7">F2 ar f7 puolimas</string>
   <string name="attackingF2F7Description">Puolimas, koncentruotas ties f2 ar f7 pėstininkais, panašiai kaip keptų kepenų debiute.</string>
   <string name="attraction">Trauka</string>
@@ -12,12 +16,18 @@
   <string name="backRankMateDescription">Matas karaliui, esančiam namų eilėje, kai jis užblokuotas savo paties figūrų.</string>
   <string name="bishopEndgame">Rikių endšpilis</string>
   <string name="bishopEndgameDescription">Endšpilis tik su rikiais ir pėstininkais.</string>
+  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Bodeno matas</string>
+  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Du puolantys rikiai susikryžiojančiose įstrižainėse atlieka matą priešininko karaliui, įkalintam draugiškų figūrų.</string>
   <string name="castling">Rokiruotės</string>
   <string name="castlingDescription">Parveskite karalių į saugią vietą ir panaudokite atakai bokštą.</string>
   <string name="capturingDefender">Nukirskite gynėją</string>
   <string name="capturingDefenderDescription">Pašalinkite figūrą, kuri yra kritiškai svarbi kitos figūros gynybai, paruošdami naujai neapsaugotą figūrą kirtimui kitu ėjimu.</string>
   <string name="crushing">Suspaudimas</string>
   <string name="crushingDescription">Pastebėkite priešininko klaidą ir įgaukite ryškią persvarą. (eval ≥ 600cp)</string>
+  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Dvigubų rikių matas</string>
+  <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Du gretimose įstrižainėse puolantys rikiai atlieka matą priešininko karaliui, įkalintam draugiškų figūrų.</string>
+  <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Kozio matas</string>
+  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">Karalienė atlieka matą greta esančiam priešininko karaliui, kurio vieninteliai pabėgimo langeliai užimti draugiškų figūrų.</string>
   <string name="equality">Lygybė</string>
   <string name="equalityDescription">Grįžkite iš pralaiminčios pozicijos ir užsitikrinkite lygiąsias arba balansuotą poziciją. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Karaliaus pusės ataka</string>
@@ -41,6 +51,8 @@
   <string name="forkDescription">Ėjimas, kurio metu perkelta figūra puola dvi ar daugiau priešininko figūrų vienu metu.</string>
   <string name="hangingPiece">Kabanti figūra</string>
   <string name="hangingPieceDescription">Taktika, susijusi su neapginta ar nepakankamai apginta ir lengvai nukertama priešininko figūra.</string>
+  <string name="hookMate">Kablio matas</string>
+  <string name="hookMateDescription">Matas su bokštu, žirgu ir pėstininku palei vieną iš priešininko pėstininkų, apribojančių priešininko karaliaus pabėgimą.</string>
   <string name="interference">Trukdymas</string>
   <string name="interferenceDescription">Figūros perkėlimas tarp dviejų priešininko figūrų, paliekant vieną ar abi jų neapgintas. Pavyzdžiui: perkeliant žirgą į apgintą laukelį tarp dviejų bokštų.</string>
   <string name="intermezzo">Tarpinis ėjimas</string>

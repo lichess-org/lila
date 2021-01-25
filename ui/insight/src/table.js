@@ -4,8 +4,8 @@ var numeral = require('numeral');
 function formatNumber(dt, n) {
   if (dt === 'percent') n = n / 100;
   var f;
-  if (dt === 'seconds') f = '0.0';
-  else if (dt === 'average') f = '0.0';
+  if (dt === 'seconds') f = '0.00';
+  else if (dt === 'average') f = '0.00';
   else if (dt === 'percent') f = '0.0%';
   else f = '0,0';
   return numeral(n).format(f);

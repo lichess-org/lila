@@ -2,7 +2,7 @@
 <resources>
   <string name="emailConfirm_subject">Lichess.org hesabınızı təsdiqləyin, %s</string>
   <string name="emailConfirm_click">Lichess hesabınızı aktivləşdirmək üçün bu linkə klikləyin:</string>
-  <string name="emailConfirm_ignore">Lichess-də qeydiyyatdan keçməmisinizsə, bu mesaja əhəmiyyət verməyə bilərsiniz.</string>
+  <string name="emailConfirm_ignore">Lichessdə qeydiyyatdan keçməmisinizsə, bu mesaja əhəmiyyət verməyə bilərsiniz.</string>
   <string name="passwordReset_subject">Lichess.com şifrənizi sıfırlayın, %s</string>
   <string name="passwordReset_intro">Hesab şifrənizin sıfırlanması üçün bir sorğu aldıq.</string>
   <string name="passwordReset_clickOrIgnore">Bu sorğunu siz etmisinizsə, aşağıdakı bağlantıya klikləyin. Siz etməmisinizsə, bu emailə əhəmiyyət verməyin.</string>

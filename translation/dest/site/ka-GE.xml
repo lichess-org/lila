@@ -335,7 +335,6 @@
   <string name="more">მეტი</string>
   <string name="memberSince">წევრია დან</string>
   <string name="lastSeenActive">ბოლო ვიზიტი %s</string>
-  <string name="challengeToPlay">გამოიწვიეთ სათამაშოდ</string>
   <string name="player">მოთამაშე</string>
   <string name="list">სია</string>
   <string name="graph">გრაფა</string>
@@ -623,7 +622,6 @@
   <string name="error.max">უნდა იყოს ნაკლები ან ტოლი %s_ზე</string>
   <string name="error.unknown">შეცდომა</string>
   <string name="notifications">შეტყობინებები</string>
-  <string name="challenges">გამოწვევები</string>
   <string name="perfRatingX">რეიტინგი: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s წამი პირველი სვლის სათამაშოდ</item>
@@ -652,6 +650,5 @@
     <item quantity="one">%s წამი</item>
     <item quantity="other">%s წამი</item>
   </plurals>
-  <string name="xDoesNotAcceptChallenges">%s არ იღებს გამოწვევებს.</string>
   <string name="conditionalPremoves">პირობითი წინასწარი სვლები</string>
 </resources>

@@ -330,7 +330,7 @@
   <string name="siteDescription">Kostenloser Online-Schach-Server. Spiele jetzt auf einer übersichtlichen Benutzeroberfläche Schach! Keine Registrierung und keine Plugins erforderlich, komplett ohne Werbung. Spiele gegen den Computer, Freunde oder zufällige Gegner!</string>
   <string name="xJoinedTeamY">%1$s trat der Gruppe %2$s bei</string>
   <string name="xCreatedTeamY">%1$s hat das Team %2$s gegründet</string>
-  <string name="xStartedStreaming">%s startete einen Stream</string>
+  <string name="xStartedStreaming">%s hat einen Stream gestartet</string>
   <string name="averageElo">Durchschnittswertung</string>
   <string name="location">Ort</string>
   <string name="filterGames">Partien filtern</string>
@@ -383,7 +383,6 @@
   <string name="more">Mehr</string>
   <string name="memberSince">Mitglied seit</string>
   <string name="lastSeenActive">Zuletzt aktiv %s</string>
-  <string name="challengeToPlay">Zu einer Partie herausfordern</string>
   <string name="player">Spieler</string>
   <string name="list">Liste</string>
   <string name="graph">Graph</string>
@@ -449,7 +448,7 @@
   <string name="biography">Profiltext</string>
   <string name="country">Land</string>
   <string name="thankYou">Vielen Dank!</string>
-  <string name="socialMediaLinks">Social-Media Links</string>
+  <string name="socialMediaLinks">Social-Media-Links</string>
   <string name="inlineNotation">Inline-Notation</string>
   <string name="watchLichessTV">Lichess-TV anschauen</string>
   <string name="previouslyOnLichessTV">Zuletzt auf Lichess TV</string>
@@ -736,7 +735,6 @@
   <string name="error.unknown">Fehler</string>
   <string name="custom">Andere Spielzeit</string>
   <string name="notifications">Benachrichtigungen</string>
-  <string name="challenges">Herausforderungen</string>
   <string name="perfRatingX">Wertung: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s Sekunde, um den ersten Zug zu machen</item>
@@ -783,12 +781,6 @@
   <string name="opening">Eröffnung</string>
   <string name="middlegame">Mittelspiel</string>
   <string name="endgame">Endspiel</string>
-  <string name="registerToSendChallenges">Bitte registriere dich, um Herausforderungen zu senden.</string>
-  <string name="youCannotChallengeX">Du kannst %s nicht herausfordern.</string>
-  <string name="xDoesNotAcceptChallenges">%s akzeptiert keine Herausforderungen.</string>
-  <string name="yourXRatingIsTooFarFromY">Deine %1$s Wertung ist zu weit von %2$s entfernt.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Herausforderung wegen provisorischer %s Wertungszahl nicht möglich.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s akzeptiert Herausforderungen nur von Freunden.</string>
   <string name="conditionalPremoves">Bedingte Vorauszüge</string>
   <string name="addCurrentVariation">Aktuelle Variante hinzufügen</string>
   <string name="playVariationToCreateConditionalPremoves">Spiele eine Variante, um bedingte Vorauszüge hinzuzufügen</string>
@@ -842,7 +834,4 @@
   <string name="youCannotPostYetPlaySomeGames">Du kannst noch nichts in den Foren schreiben. Spiel ein paar Partien!</string>
   <string name="subscribe">Abonnieren</string>
   <string name="unsubscribe">Abonnement beenden</string>
-  <string name="challengeDeclined">Herausforderung abgelehnt</string>
-  <string name="challengeAccepted">Herausforderung angenommen!</string>
-  <string name="challengeCanceled">Herausforderung abgebrochen.</string>
 </resources>

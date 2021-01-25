@@ -372,7 +372,6 @@
   <string name="more">കൂടുതൽ</string>
   <string name="memberSince">അംഗമായത്</string>
   <string name="lastSeenActive">%s പേർ സജീവം</string>
-  <string name="challengeToPlay">ഒരു മത്സരത്തിനു ക്ഷണിക്കുക</string>
   <string name="player">കളിക്കാരന്‍</string>
   <string name="list">പട്ടിക</string>
   <string name="graph">ഗ്രാഫ്</string>
@@ -715,7 +714,6 @@
   <string name="error.unknown">തെറ്റ്</string>
   <string name="custom">ഇച്ഛാനുസൃതം</string>
   <string name="notifications">അറിയിപ്പുകൾ</string>
-  <string name="challenges">വെല്ലുവിളികൾ</string>
   <string name="perfRatingX">നിലവാരം: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">ആദ്യ നീക്കം കളിയ്ക്കാൻ %s സെക്കന്റ് ബാക്കി നിൽക്കുന്നു</item>
@@ -762,12 +760,6 @@
   <string name="opening">ഓപ്പണിങ്</string>
   <string name="middlegame">മിഡിൽഗെയിം</string>
   <string name="endgame">എൻഡ്ഗെയിം</string>
-  <string name="registerToSendChallenges">വെല്ലുവിളികൾ അയക്കാൻ ദയവായി രജിസ്റ്റർ ചെയ്യൂ.</string>
-  <string name="youCannotChallengeX">നിങ്ങൾക്ക് %s -നെ വെല്ലുവിളിക്കാൻ പറ്റില്ല.</string>
-  <string name="xDoesNotAcceptChallenges">%s വെല്ലുവിളികൾ സ്വീകരിക്കുന്നില്ല.</string>
-  <string name="yourXRatingIsTooFarFromY">നിങ്ങളുടെ %1$s റേറ്റിംഗ് %2$s-ൽ നിന്നും വളരെ അകലെയാണ്.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">നിങ്ങളുടെ താത്കാലികമായ %s റേറ്റിംഗ് മൂലം വെല്ലുവിളിക്കാൻ സാധിക്കില്ല.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s അവരുടെ സുഹൃത്തുക്കളിൽ നിന്ന് മാത്രമേ വെല്ലുവിളികൾ സ്വീകരിക്കുന്നുള്ളൂ.</string>
   <string name="conditionalPremoves">സാധ്യമായ premoves</string>
   <string name="addCurrentVariation">ഇപ്പോഴത്തെ വേരിയേഷൻ ചേർക്കുക</string>
   <string name="playVariationToCreateConditionalPremoves">സാഹചര്യ premoves-നു വേണ്ടി ഒരു വേരിയേഷൻ കളിക്കുക</string>

@@ -27,12 +27,6 @@
   <string name="wantClearHistory">Сакам да ја избришам мојата историја или мојот рејтинг</string>
   <string name="cantClearHistory">Не е возможно да ја избришете вашата историја на партии, загатки, или рејтинг.</string>
   <string name="wantReport">Сакам да пријавам играч</string>
-  <string name="cheating">мамење</string>
-  <string name="sandbagging">лажен низок рејтинг</string>
-  <string name="trolling">провоцирање</string>
-  <string name="insults">навреди</string>
-  <string name="otherReason">друга причина</string>
-  <string name="toReportAPlayer">За да пријавите играч за %s, користете го формуларот за пријава</string>
   <string name="youCanAlsoReachReportPage">На страната можете да стигнете и преку кликање на %s копчето на нивниот профил.</string>
   <string name="doNotReportInForum">Не пријавувај играчи на форумот.</string>
   <string name="doNotSendReportEmails">Не ни праќај е-пошта со пријави.</string>
@@ -59,7 +53,7 @@
   <string name="ratedGame">Потврдете дека сте играле рангирана партија. Пријателските партии не влијаат на рејтингот на играчите.</string>
   <string name="errorPage">Страна за грешка</string>
   <string name="reportErrorPage">Ако ја имате добиено страната за грешка, може да пријавите:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Жалба за забрана или ограничување на IP адресата</string>
+  <string name="banAppeal">Жалба за забрана или ограничување на IP адресата</string>
   <string name="engineAppeal">Ознака за мамење или користење компјутерска помош</string>
   <string name="sendAppealTo">Може да се пожалите на %s.</string>
   <string name="falsePositives">Лажни резултати на нашата анализа понекогаш се случуваат, и ве молиме простете ни.</string>

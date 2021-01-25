@@ -383,7 +383,6 @@
   <string name="more">Több</string>
   <string name="memberSince">Tagság kezdete</string>
   <string name="lastSeenActive">Utoljára aktív: %s</string>
-  <string name="challengeToPlay">Kihívás</string>
   <string name="player">Játékos</string>
   <string name="list">Lista</string>
   <string name="graph">Grafikon</string>
@@ -736,7 +735,6 @@
   <string name="error.unknown">Hiba</string>
   <string name="custom">Egyéni</string>
   <string name="notifications">Értesítések</string>
-  <string name="challenges">Kihívások</string>
   <string name="perfRatingX">Pontszám: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s másodperc a kezdőlépés megtételére</item>
@@ -783,12 +781,6 @@
   <string name="opening">Megnyitás</string>
   <string name="middlegame">Középjáték</string>
   <string name="endgame">Végjáték</string>
-  <string name="registerToSendChallenges">A kihíváshoz regisztráció szükséges.</string>
-  <string name="youCannotChallengeX">%s nem kihívható.</string>
-  <string name="xDoesNotAcceptChallenges">%s nem fogad kihívást.</string>
-  <string name="yourXRatingIsTooFarFromY">A pontszámod túl messze van tőle: %2$s (%1$s).</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Nem kihívható az ideiglenes %s pontszám miatt.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s csak barátoktól fogad kihívást.</string>
   <string name="conditionalPremoves">Feltételes előre megadott lépések</string>
   <string name="addCurrentVariation">Változat hozzáadása</string>
   <string name="playVariationToCreateConditionalPremoves">Egy változat megjátszásával, hozzáadható feltételes előre megadott lépés</string>
@@ -842,7 +834,4 @@
   <string name="youCannotPostYetPlaySomeGames">Még nem írhatsz a fórumokba. Játssz néhány partit!</string>
   <string name="subscribe">Feliratkozás</string>
   <string name="unsubscribe">Leiratkozás</string>
-  <string name="challengeDeclined">Kihívás elutasítva</string>
-  <string name="challengeAccepted">Kihívás elfogadva!</string>
-  <string name="challengeCanceled">Kihívás visszavonva.</string>
 </resources>

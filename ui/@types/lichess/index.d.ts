@@ -1,5 +1,5 @@
 interface Lichess {
-  load: Promise<unknown>; // window.onload promise
+  load: Promise<void>; // window.onload promise
   info: any;
   requestIdleCallback(f: () => void, timeout?: number): void;
   sri: string;
@@ -202,9 +202,8 @@ interface Window {
   hopscotch: any;
   LichessSpeech?: LichessSpeech;
   palantir?: {
-    palantir(opts: PalantirOpts): Palantir
+    palantir(opts: PalantirOpts): Palantir;
   };
-
   [key: string]: any; // TODO
 }
 
@@ -222,11 +221,8 @@ interface LightUser {
   patron?: boolean
 }
 
-declare var SharedArrayBuffer: any | undefined;
-declare var Atomics: any | undefined;
-
 interface Navigator {
-  deviceMemory: number;
+  deviceMemory?: number; // https://developer.mozilla.org/en-US/docs/Web/API/Navigator/deviceMemory
 }
 
 declare type VariantKey = 'standard' | 'chess960' | 'antichess' | 'fromPosition' | 'kingOfTheHill' | 'threeCheck' | 'atomic' | 'horde' | 'racingKings' | 'crazyhouse';

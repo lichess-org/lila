@@ -19,7 +19,19 @@ final class ImporterForm {
     )(ImportData.apply)(ImportData.unapply)
   )
 
-  def checkPgn(pgn: String): Validated[String, Preprocessed] = ImportData(pgn, none).preprocess(none)
+  def checkPgn(pgn: String): Validated[String, Preprocessed] = ImporterForm.catchOverflow { () =>
+    ImportData(pgn, none).preprocess(none)
+  }
+}
+
+object ImporterForm {
+
+  def catchOverflow(f: () => Validated[String, Preprocessed]): Validated[String, Preprocessed] = try {
+    f()
+  } catch {
+    case e: RuntimeException if e.getMessage contains "StackOverflowError" =>
+      Validated.Invalid("This PGN seems too long or too complex!")
+  }
 }
 
 private case class TagResult(status: Status, winner: Option[Color])
@@ -42,7 +54,7 @@ case class ImportData(pgn: String, analyse: Option[String]) {
       case Reader.Result.Incomplete(replay, _) => replay
     }
 
-  def preprocess(user: Option[String]): Validated[String, Preprocessed] =
+  def preprocess(user: Option[String]): Validated[String, Preprocessed] = ImporterForm.catchOverflow { () =>
     Parser.full(pgn) flatMap { parsed =>
       Reader.fullWithSans(
         pgn,
@@ -114,4 +126,5 @@ case class ImportData(pgn: String, analyse: Option[String]) {
         Preprocessed(NewGame(dbGame), replay.copy(state = game), initialFen, parsed)
       }
     }
+  }
 }

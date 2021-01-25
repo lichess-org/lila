@@ -82,6 +82,25 @@ final class JsonView(
       "is3d"        -> p.is3d
     )
 
+  def dashboardJson(dash: PuzzleDashboard, days: Int)(implicit lang: Lang) = Json.obj(
+    "days"   -> days,
+    "global" -> dashboardResults(dash.global),
+    "themes" -> JsObject(dash.byTheme.toList.sortBy(-_._2.nb).map { case (key, res) =>
+      key.value -> Json.obj(
+        "theme"   -> PuzzleTheme(key).name.txt(),
+        "results" -> dashboardResults(res)
+      )
+    })
+  )
+
+  private def dashboardResults(res: PuzzleDashboard.Results) = Json.obj(
+    "nb"              -> res.nb,
+    "firstWins"       -> res.wins,
+    "replayWins"      -> res.fixed,
+    "puzzleRatingAvg" -> res.puzzleRatingAvg,
+    "performance"     -> res.performance
+  )
+
   private def puzzleJson(puzzle: Puzzle): JsObject = Json.obj(
     "id"         -> puzzle.id,
     "rating"     -> puzzle.glicko.intRating,

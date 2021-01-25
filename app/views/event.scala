@@ -6,7 +6,7 @@ import play.api.data.Form
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.event.EventForm
+import lila.event.{ Event, EventForm }
 
 object event {
 
@@ -20,7 +20,7 @@ object event {
       )
     }
 
-  def edit(event: lila.event.Event, form: Form[_])(implicit ctx: Context) =
+  def edit(event: Event, form: Form[_])(implicit ctx: Context) =
     layout(title = event.title, css = "mod.form") {
       div(cls := "crud edit page-menu__content box box-pad")(
         div(cls := "box__top")(
@@ -37,7 +37,14 @@ object event {
       )
     }
 
-  def show(e: lila.event.Event)(implicit ctx: Context) =
+  def iconOf(e: Event) =
+    e.icon match {
+      case None                                     => i(cls := "img", dataIcon := "")
+      case Some(c) if c == EventForm.icon.broadcast => i(cls := "img", dataIcon := "")
+      case Some(c)                                  => img(cls := "img", src := assetUrl(s"images/$c"))
+    }
+
+  def show(e: Event)(implicit ctx: Context) =
     views.html.base.layout(
       title = e.title,
       moreCss = cssTag("event"),
@@ -45,9 +52,7 @@ object event {
     ) {
       main(cls := "page-small event box box-pad")(
         div(cls := "box__top")(
-          e.icon map { i =>
-            img(cls := "img", src := assetUrl(s"images/$i"))
-          } getOrElse i(cls := "img", dataIcon := ""),
+          iconOf(e),
           div(
             h1(e.title),
             strong(cls := "headline")(e.headline)
@@ -67,7 +72,7 @@ object event {
       )
     }
 
-  def manager(events: List[lila.event.Event])(implicit ctx: Context) = {
+  def manager(events: List[Event])(implicit ctx: Context) = {
     val title = "Event manager"
     layout(title = title) {
       div(cls := "crud page-menu__content box")(
@@ -134,7 +139,7 @@ object event {
           frag("Icon"),
           half = true,
           help = frag("Displayed on the homepage button").some
-        )(form3.select(_, EventForm.iconChoices))
+        )(form3.select(_, EventForm.icon.choices))
       ),
       form3.group(
         form("headline"),

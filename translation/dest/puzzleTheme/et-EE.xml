@@ -3,4 +3,7 @@
   <string name="advantage">Eelis</string>
   <string name="attraction">Vaatamisväärsus</string>
   <string name="castling">Vangerdus</string>
+  <string name="skewer">Tagurpidisidumine</string>
+  <string name="smotheredMate">Umbmatt</string>
+  <string name="trappedPiece">Lõksus malend</string>
 </resources>

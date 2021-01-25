@@ -339,12 +339,11 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def NoPlaybanOrCurrent(a: => Fu[Result])(implicit ctx: Context): Fu[Result] =
     NoPlayban(NoCurrentGame(a))
 
-  protected def JsonOk[A: Writes](fua: Fu[A]) =
+  protected def JsonOk[A: Writes](fua: Fu[A]): Fu[Result] =
     fua map { a =>
       Ok(Json toJson a) as JSON
     }
-  protected def JsonOk[A: Writes](a: A): Result             = Ok(Json toJson a) as JSON
-  protected def JsonFuOk[A: Writes](fua: Fu[A]): Fu[Result] = fua map { JsonOk(_) }
+  protected def JsonOk[A: Writes](a: A): Result = Ok(Json toJson a) as JSON
 
   protected def JsonOptionOk[A: Writes](fua: Fu[Option[A]]) =
     fua flatMap {

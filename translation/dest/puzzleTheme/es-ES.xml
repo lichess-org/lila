@@ -4,6 +4,10 @@
   <string name="advancedPawnDescription">Un peón que se promociona o amenaza con promocionarse es clave para la táctica.</string>
   <string name="advantage">Ventaja</string>
   <string name="advantageDescription">Aprovecha la oportunidad de obtener una ventaja decisiva. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="anastasiaMate">Mate de Anastasia</string>
+  <string name="anastasiaMateDescription">Un caballo y una torre o dama se unen para atrapar al rey contrario entre un extremo del tablero y una pieza de su bando.</string>
+  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Mate árabe</string>
+  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">Un caballo y una torre se unen para atrapar al rey contrario en una esquina del tablero.</string>
   <string name="attackingF2F7">Atacando f2 o f7</string>
   <string name="attackingF2F7Description">Un ataque centrado en el peón f2 o f7, como en la apertura Fried Liver.</string>
   <string name="attraction">Atracción</string>
@@ -12,12 +16,18 @@
   <string name="backRankMateDescription">Jaque mate en la última fila, donde el rey se encuentra atrapado por sus propias piezas.</string>
   <string name="bishopEndgame">Final de alfiles</string>
   <string name="bishopEndgameDescription">Un final solo con alfiles y peones.</string>
+  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Mate de Boden</string>
+  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Dos alfiles atacantes en diagonales cruzadas dan mate al rey obstruido por piezas de su bando.</string>
   <string name="castling">Enroque</string>
   <string name="castlingDescription">Coloca el rey a salvo y pone a la torre en juego para el ataque.</string>
   <string name="capturingDefender">Capturar al defensor</string>
   <string name="capturingDefenderDescription">Eliminar una pieza fundamental para la defensa de otra, permitiendo capturar la pieza ahora indefensa en el siguiente movimiento.</string>
   <string name="crushing">Aplastante</string>
   <string name="crushingDescription">Detecta el error del oponente para obtener una ventaja decisiva. (eval ≥ 600cp)</string>
+  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Mate de dos alfiles</string>
+  <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Dos alfiles atacantes en diagonales adyacentes dan mate al rey obstruido por piezas de su bando.</string>
+  <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Mate de Cozio</string>
+  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">Una dama da mate al rey adyacente, cuyas únicas dos casillas de escape están obstruidas por piezas de su bando.</string>
   <string name="equality">Igualdad</string>
   <string name="equalityDescription">Vuelve de una posición perdedora y asegura un empate o una posición equilibrada. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Ataque en el flanco de rey</string>
@@ -34,13 +44,15 @@
   <string name="doubleCheckDescription">Jaque con dos piezas a la vez, como resultado de un ataque descubierto donde tanto la pieza en movimiento como la desvelada atacan al rey del oponente.</string>
   <string name="endgame">Final</string>
   <string name="endgameDescription">Una táctica durante la última fase de la partida.</string>
-  <string name="enPassantDescription">Una táctica que involucra la regla en passant, donde un peón puede capturar a un peón oponente que lo ha pasado por alto usando su movimiento inicial de dos casillas.</string>
+  <string name="enPassantDescription">Una táctica que involucra la captura al paso, donde un peón puede capturar a un peón oponente que lo ha pasado por alto usando su movimiento inicial de dos casillas.</string>
   <string name="exposedKing">Rey expuesto</string>
   <string name="exposedKingDescription">Una táctica que involucra a un rey con poca defensa a su alrededor, a menudo conduce a jaque mate.</string>
   <string name="fork">Ataque doble</string>
   <string name="forkDescription">Movimiento donde la pieza movida ataca a la vez a dos piezas del oponente.</string>
   <string name="hangingPiece">Pieza colgante</string>
   <string name="hangingPieceDescription">Una táctica que implica que una pieza del oponente no sea defendida o suficientemente defendida y quede libre para ser capturada.</string>
+  <string name="hookMate">Mate del gancho</string>
+  <string name="hookMateDescription">Jaque mate con una torre, un caballo y un peón junto con un peón enemigo para limitar el escape del rey adversario.</string>
   <string name="interference">Interferencia</string>
   <string name="interferenceDescription">Mover una pieza entre dos piezas del oponente para dejar una o ambas piezas del oponente sin defensa, por ejemplo un caballo en una casilla entre dos torres.</string>
   <string name="intermezzo">Jugada intermedia</string>
@@ -49,9 +61,9 @@
   <string name="knightEndgameDescription">Un final solo con caballos y peones.</string>
   <string name="long">Rompecabezas largo</string>
   <string name="longDescription">Tres movimientos para ganar.</string>
-  <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Partidas de maestros</string>
+  <string name="master">Partidas de maestros</string>
   <string name="masterDescription">Rompecabezas de partidas de jugadores titulados.</string>
-  <string name="masterVsMaster" comment="masterVsMaster&#10;&#10;Puzzles from games between two titled players.">Partidas entre maestros</string>
+  <string name="masterVsMaster">Partidas entre maestros</string>
   <string name="masterVsMasterDescription">Rompecabezas de partidas entre jugadores titulados.</string>
   <string name="mate">Mate</string>
   <string name="mateDescription">Gana la partida con estilo.</string>
@@ -95,7 +107,7 @@
   <string name="skewerDescription">Un motivo que implica el ataque de una pieza de alto valor, que se aparta del camino y permite capturar o atacar una pieza de menor valor detrás de ella, lo contrario de una clavada.</string>
   <string name="smotheredMate">Mate de la coz</string>
   <string name="smotheredMateDescription">Un jaque mate en el que el caballo ataca al rey contrario, el cual no puede moverse al encontrarse rodeado (o ahogado) por sus propias piezas.</string>
-  <string name="superGM" comment="superGM&#10;&#10;Puzzles from games played by the best players in the world.">Partidas de super grandes maestros</string>
+  <string name="superGM">Partidas de super grandes maestros</string>
   <string name="superGMDescription">Rompecabezas de partidas de los mejores jugadores del mundo.</string>
   <string name="trappedPiece">Pieza atrapada</string>
   <string name="trappedPieceDescription">Una pieza no puede escapar de la captura porque tiene movimientos limitados.</string>

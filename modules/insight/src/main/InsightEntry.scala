@@ -7,7 +7,7 @@ import lila.rating.PerfType
 import org.joda.time.DateTime
 import cats.data.NonEmptyList
 
-case class Entry(
+case class InsightEntry(
     id: String,  // gameId + w/b
     number: Int, // auto increment over userId
     userId: String,
@@ -18,7 +18,7 @@ case class Entry(
     opponentRating: Int,
     opponentStrength: RelativeStrength,
     opponentCastling: Castling,
-    moves: List[Move],
+    moves: List[InsightMove],
     queenTrade: QueenTrade,
     result: Result,
     termination: Termination,
@@ -31,7 +31,7 @@ case class Entry(
   def gameId = id take Game.gameIdSize
 }
 
-case object Entry {
+case object InsightEntry {
 
   def povToId(pov: Pov) = pov.gameId + pov.color.letter
 
@@ -58,7 +58,7 @@ case object Entry {
   }
 }
 
-case class Move(
+case class InsightMove(
     phase: Phase,
     tenths: Int,
     role: Role,

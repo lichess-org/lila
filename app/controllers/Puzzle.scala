@@ -1,5 +1,6 @@
 package controllers
 
+import play.api.data.Form
 import play.api.libs.json._
 import scala.util.chaining._
 import views._
@@ -9,10 +10,9 @@ import lila.api.Context
 import lila.app._
 import lila.common.ApiVersion
 import lila.common.config.MaxPerSecond
+import lila.puzzle.PuzzleForm.RoundData
 import lila.puzzle.PuzzleTheme
 import lila.puzzle.{ Result, PuzzleRound, PuzzleDifficulty, PuzzleReplay, Puzzle => Puz }
-import play.api.data.Form
-import lila.puzzle.PuzzleForm.RoundData
 
 final class Puzzle(
     env: Env,
@@ -260,6 +260,14 @@ final class Puzzle(
             Ok.chunked(source).as(ndJsonContentType) pipe noProxyBuffer
         }
         .fuccess
+    }
+
+  def apiDashboard(days: Int) =
+    Scoped(_.Puzzle.Read) { implicit req => me =>
+      implicit val lang = reqLang
+      JsonOptionOk {
+        env.puzzle.dashboard(me, days) map2 { env.puzzle.jsonView.dashboardJson(_, days) }
+      }
     }
 
   def dashboard(days: Int, path: String = "home") =

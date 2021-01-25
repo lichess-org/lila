@@ -410,7 +410,6 @@
   <string name="more">Vairāk</string>
   <string name="memberSince">Dalībnieks kopš</string>
   <string name="lastSeenActive">Aktīvs %s</string>
-  <string name="challengeToPlay">Izaicināt uz spēli</string>
   <string name="player">Spēlētājs</string>
   <string name="list">Saraksts</string>
   <string name="graph">Grafiks</string>
@@ -770,7 +769,6 @@
   <string name="error.unknown">Kļūda</string>
   <string name="custom">Pielāgota</string>
   <string name="notifications">Paziņojumi</string>
-  <string name="challenges">Izaicinājumi</string>
   <string name="perfRatingX">Reitings: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="zero">%s sekundes, lai izdarītu pirmo gājienu</item>
@@ -819,12 +817,6 @@
   <string name="opening">Atklātne</string>
   <string name="middlegame">Vidusspēle</string>
   <string name="endgame">Galotne</string>
-  <string name="registerToSendChallenges">Lūdzu reģistrējaties, lai sūtītu izaicinājumus.</string>
-  <string name="youCannotChallengeX">Jūs nevarat izaicināt %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s nepieņem izaicinājumus.</string>
-  <string name="yourXRatingIsTooFarFromY">Jūsu %1$s reitings ir pārāk tālu no %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Nevar izaicināt pagaidu %s reitinga dēļ.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s pieņem izaicinājumus tikai no draugiem.</string>
   <string name="conditionalPremoves">Nosacījumu priekšgājieni</string>
   <string name="addCurrentVariation">Pievienot pašreizējo variantu</string>
   <string name="playVariationToCreateConditionalPremoves">Izspēlējiet variantu, lai izveidotu nosacījumu priekšgājienus</string>
@@ -879,7 +871,4 @@
   <string name="youCannotPostYetPlaySomeGames">Vēl nevarat rakstīt forumos. Uzspēlējiet dažas spēles!</string>
   <string name="subscribe">Abonēt</string>
   <string name="unsubscribe">Atcelt abonēšanu</string>
-  <string name="challengeDeclined">Izaicinājums noraidīts</string>
-  <string name="challengeAccepted">Izaicinājums pieņemts!</string>
-  <string name="challengeCanceled">Izaicinājums atcelts.</string>
 </resources>

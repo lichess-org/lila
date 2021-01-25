@@ -60,7 +60,7 @@ object mini {
               a(
                 dataIcon := "U",
                 cls := "btn-rack__btn",
-                title := trans.challengeToPlay.txt(),
+                title := trans.challenge.challengeToPlay.txt(),
                 href := s"${routes.Lobby.home()}?user=${u.username}#friend"
               )
             ),

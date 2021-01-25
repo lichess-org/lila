@@ -27,12 +27,7 @@
   <string name="wantClearHistory">I want to clear my history or rating</string>
   <string name="cantClearHistory">It\'s not possible to clear your game history, puzzle history, or ratings.</string>
   <string name="wantReport">I want to report a player</string>
-  <string name="cheating">cheating</string>
-  <string name="sandbagging">sandbagging</string>
-  <string name="trolling">trolling</string>
-  <string name="insults">insults</string>
-  <string name="otherReason">some other reason</string>
-  <string name="toReportAPlayer">To report a player for %s, use the report form</string>
+  <string name="toReportAPlayerUseForm">To report a player, use the report form</string>
   <string name="youCanAlsoReachReportPage">You can also reach that page by clicking the %s report button on a profile page.</string>
   <string name="doNotReportInForum">Do not report players in the forum.</string>
   <string name="doNotSendReportEmails">Do not send us report emails.</string>
@@ -59,7 +54,7 @@
   <string name="ratedGame">Make sure you played a rated game. Casual games do not affect the players ratings.</string>
   <string name="errorPage">Error page</string>
   <string name="reportErrorPage">If you faced an error page, you may report it:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Appeal for a ban or IP restriction</string>
+  <string name="banAppeal">Appeal for a ban or IP restriction</string>
   <string name="engineAppeal">Engine or cheat mark</string>
   <string name="sendAppealTo">You may send an appeal to %s.</string>
   <string name="falsePositives">False positives do happen sometimes, and we\'re sorry about that.</string>

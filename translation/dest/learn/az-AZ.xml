@@ -81,7 +81,7 @@ ancaq sən müdafiə oluna bilərsən!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Hər hansı müdafiəsiz fiquru
 götürmələrinə imkan verməyin!</string>
   <string name="combat">Döyüş</string>
-  <string name="captureAndDefendPieces">Fiqurları vur və müdfiə et</string>
+  <string name="captureAndDefendPieces">Fiqurları vur və müdafiə et</string>
   <string name="combatIntro">Yaxşı bir döyüşçü həm hücumu, həm müdafiəni bilir!</string>
   <string name="combatComplete">Təbriklər! Şahmat fiqurları ilə necə mübarizə aparacağınızı bilirsiniz!</string>
   <string name="checkInOne">Şah vermə</string>
@@ -111,14 +111,14 @@ və ya hücumu blokla!</string>
 müdafiə oluna bilməyəcək bir şəkildə!</string>
   <string name="mateInOneComplete">Təbriklər! Şahmat oyunları belə qazanılır!</string>
   <string name="intermediate">Orta</string>
-  <string name="boardSetup">Fuqurların düzülüşü</string>
+  <string name="boardSetup">Fiqurların düzülüşü</string>
   <string name="howTheGameStarts">Oyuna necə başlamalı</string>
   <string name="boardSetupIntro">İki ordu üz-üzə, döyüşə hazırdır.</string>
   <string name="thisIsTheInitialPosition">Bu hər bir şahmat oyunun
-başlanğıc vəziyyətidir!
+başlanğıc pozisisyasıdır!
 Davam etmək üçün istənilən bir gediş edin.</string>
   <string name="firstPlaceTheRooks">İlk öncə topları yerləşdirin!
-Onlar künclərdə yerəşir.</string>
+Onlar künclərdə yerləşir.</string>
   <string name="thenPlaceTheKnights">Sonra atları yerləşdir!
 Onlar topların yanına gedir.</string>
   <string name="placeTheBishops">Filləri yerləşdirin!
@@ -129,7 +129,7 @@ Onlar atların yanına gedir.</string>
 Düz vəzirin yanına.</string>
   <string name="pawnsFormTheFrontLine">Piyadalar ön xətti təşkil edir.
 Davam etmək üçün bir gediş edir.</string>
-  <string name="boardSetupComplete">Təbrikl\'r! Artıq şahmat taxtasını necə quracağınızı bilirsiniz.</string>
+  <string name="boardSetupComplete">Təbriklər! Artıq şahmat lövhəsini necə quracağınızı bilirsiniz.</string>
   <string name="castling">Qalaqurma</string>
   <string name="theSpecialKingMove">Xüsusi şah gedişi</string>
   <string name="castlingIntro">Şahı təhlükəsiz yerə gətirin və hücum üçün topu hazırlayın!</string>
@@ -167,7 +167,7 @@ piyadanız 5-ci horizontalda olanda mümkündür.</string>
   <string name="enPassantComplete">Təbriklər! Artıq keçiddə piyada götürə bilərsiz.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Oyun heç-heçədir</string>
-  <string name="stalemateIntro">Əgər bir oyunçuya şah verilməyibsə və oyanaya biləcəyi qanuni bir gedişi yoxdursa buna pat deyilir. Oyun heç-heçədir, qalib və məğlub yoxdur.</string>
+  <string name="stalemateIntro">Əgər bir oyunçuya şah verilməyibsə və oynaya biləcəyi qanuni bir gedişi yoxdursa buna pat deyilir. Oyun heç-heçədir, qalib və məğlub yoxdur.</string>
   <string name="stalemateGoal">Pat etmək üçün:
 - Qaralar gediş edə bilməməlidir
 - Şah vermək mümkün olmamalıdır.</string>
@@ -225,7 +225,7 @@ Piyada = 1</string>
   <string name="nailedIt">Bacardın.</string>
   <string name="rightOn">Bax belə!</string>
   <string name="stageXComplete">Mərhələ %s tamamlandı</string>
-  <string name="yourScore">Sizin reytqin:</string>
+  <string name="yourScore">Sizin reytinq</string>
   <string name="next">Növbəti</string>
   <string name="backToMenu">Menyuya qayıt</string>
   <string name="puzzleFailed">Tapmaca həll olunmadı!</string>

@@ -27,12 +27,6 @@
   <string name="wantClearHistory">Dua të fshij historinë time ose rating-un</string>
   <string name="cantClearHistory">Nuk është e mundur të fshini historinë e lojëve, historinë e taktikave, dhe as rating-ut.</string>
   <string name="wantReport">Dua të raportoj një lojtar</string>
-  <string name="cheating">mashtrim</string>
-  <string name="sandbagging">shtiret si i dobët</string>
-  <string name="trolling">përqesh</string>
-  <string name="insults">ofendime</string>
-  <string name="otherReason">arsye tjetër</string>
-  <string name="toReportAPlayer">Për të raportuar një lojtar për %s, përdorni formularin e raportimit</string>
   <string name="youCanAlsoReachReportPage">Ju mund të shkoni në atë faqe edhe duke klikuar butonin e raportimit %s në një faqe profili.</string>
   <string name="doNotReportInForum">Mos raportoni lojtarët në forum.</string>
   <string name="doNotSendReportEmails">Mos na dërgoni email-a për raportim.</string>
@@ -59,7 +53,7 @@
   <string name="ratedGame">Sigurohu qe loze nje loje me pike. Lojet e rastit nuk jane me pike.</string>
   <string name="errorPage">Gabim faqe</string>
   <string name="reportErrorPage">Nese u rastis nje faqe gabim, mund ta raportoni:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Apeloni per nje mbyllje llogarie ose restriktim IP</string>
+  <string name="banAppeal">Apeloni per nje mbyllje llogarie ose restriktim IP</string>
   <string name="engineAppeal">Program ose shenje hileje</string>
   <string name="sendAppealTo">Mund te dergoni nje apel tek %s.</string>
   <string name="falsePositives">Ndonjehere bejme gabim, gjera qe ndodhin, ju kerkojme falje per kete.</string>

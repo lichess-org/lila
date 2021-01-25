@@ -27,12 +27,7 @@
   <string name="wantClearHistory">Jeg vil slette historikken eller ratinga mi</string>
   <string name="cantClearHistory">Det er ikkje mogleg å slette historikken din for parti, taktikkøvingar eller ratingar.</string>
   <string name="wantReport">Eg vil rapportere ein spelar</string>
-  <string name="cheating">fusk</string>
-  <string name="sandbagging">tape med vilje</string>
-  <string name="trolling">trolling</string>
-  <string name="insults">ærekrenking</string>
-  <string name="otherReason">ein annan grunn</string>
-  <string name="toReportAPlayer">Bruk rapportskjemaet om du vil rapportere ein spelar for %s</string>
+  <string name="toReportAPlayerUseForm">Bruk meldeskjemaet om du vil rapportera ein spelar</string>
   <string name="youCanAlsoReachReportPage">Du kan også kome til den sida ved å klikke på %s meldingsknappen på ei brukerside.</string>
   <string name="doNotReportInForum">Ikkje rapporter spelarar i forumet.</string>
   <string name="doNotSendReportEmails">Ikkje send oss epost med rapportering av spelarar.</string>
@@ -52,14 +47,14 @@
   <string name="castlingRules">Forsikre deg om at du skjønar med rokade-reglane</string>
   <string name="tryCastling">Øv på rokade ved hjelp av dette lille interaktive spelet</string>
   <string name="castlingImported">Vær nøye med å kontrollere at rokaderettane er korrekt sett dersom partiet er importert eller starta frå ein annan stilling enn utgangsposisjonen.</string>
-  <string name="insufficientMaterial">Utilstrekkeleg materiale til å sette matt</string>
+  <string name="insufficientMaterial">Utilstrekkeleg materiale til å setja matt</string>
   <string name="fideMate">I følge FIDEs sjakkregler §6.9, er eit parti ikkje remis dersom ein sjakkmatt er mogleg etter ein lovleg trekkrekkefølge</string>
-  <string name="knightMate">Det er mogleg å sette sjakkmatt med berre éin springar eller éin løpar dersom motspelaren har fleire brikker enn kongen på brettet.</string>
+  <string name="knightMate">Det er mogleg å setja sjakkmatt med berre éin springar eller éin løpar dersom motspelaren har fleire brikker enn kongen på brettet.</string>
   <string name="noRatingPoints">Det blei ikkje tildelt ratingpoeng</string>
   <string name="ratedGame">Forsikre deg om at partiet du spela var rangert. Uforpliktande parti påverkar ikkje ratinga til spelarane.</string>
   <string name="errorPage">Feilside</string>
   <string name="reportErrorPage">Dersom du støtte på ei feilside kan du rapportere det:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Protest ved utestenging eller IP-restriksjon</string>
+  <string name="banAppeal">Protest ved utestenging eller IP-restriksjon</string>
   <string name="engineAppeal">Merknad om juks eller bruk av sjakkcomputer</string>
   <string name="sendAppealTo">Du kan sende ein appell til %s.</string>
   <string name="falsePositives">Vi er lei for at falske positiv kan skje.</string>

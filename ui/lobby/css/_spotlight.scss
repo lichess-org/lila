@@ -29,22 +29,14 @@
   }
 
   .img {
-    flex: 0 0 50px;
+    flex: 0 0 42px;
+    width: 44px;
     margin: 0 .5em 0 .3em;
-  }
-
-  img.img {
-    width: 40px;
-  }
-
-  i.img,
-  .img.icon {
-    margin: 0 5px 0 0;
   }
 
   i.img::before {
     color: #fff;
-    font-size: 50px;
+    font-size: 42px;
 
     @if $theme-light {
       text-shadow: 1px 1px 2px $c-link;

@@ -11,14 +11,14 @@
   <string name="noClassesYet">Hələki bir sinif yoxdur.</string>
   <string name="teachersX">Müəllimlər: %s</string>
   <string name="newClass">Yeni sinif</string>
-  <string name="closeClass">Sinifi bağla</string>
+  <string name="closeClass">Sinfi bağla</string>
   <string name="closedByX">%s tərəfindən bağlanıb</string>
   <string name="reopen">Yenidən aç</string>
   <string name="removeStudent">Tələbəni sil</string>
   <string name="removedStudents">Çıxarıldı</string>
   <string name="inviteTheStudentBack">Tələbəni yenidən dəvət edin</string>
   <string name="sendAMessage">Bütün tələbələrə mesaj göndərin.</string>
-  <string name="aLinkToTheClassWillBeAdded">Mesajın sonunda avtomatik olaraq sinifə keçid üçün bir link əlavə ediləcək, bu səbəbdən özünüz daxil etməyinizə ehtiyac yoxdur.</string>
+  <string name="aLinkToTheClassWillBeAdded">Mesajın sonunda avtomatik olaraq sinfə keçid üçün bir link əlavə ediləcək, bu səbəbdən özünüz daxil etməyinizə ehtiyac yoxdur.</string>
   <string name="className">Sinif adı</string>
   <string name="classDescription">Sinif açıqlaması</string>
   <string name="visibleByBothStudentsAndTeachers">Həm müəllimlər, həm də sinif şagirdləri tərəfindən görünür</string>
@@ -29,7 +29,7 @@
   <string name="makeSureToCopy">Şifrəni kopyaladığınızdan və ya bir yerə yazdığınızdan əmin olun. Yenidən görə bilməyəcəksiniz!</string>
   <string name="passwordX">Şifrə: %s</string>
   <string name="generateANewPassword">Tələbə üçün yeni bir şifrə yaradın</string>
-  <string name="invitedToXByY" comment="invitedToXByY&#10;&#10;%1$s is the Class name and %$2s is the person who invited">%2$s tərəfindən %1$s adlı sinifə dəvət</string>
+  <string name="invitedToXByY" comment="invitedToXByY&#10;&#10;%1$s is the Class name and %$2s is the person who invited">%2$s tərəfindən %1$s adlı sinfə dəvət</string>
   <string name="realName">Həqiqi ad</string>
   <string name="privateWillNeverBeShown">Şəxsi. Yalnız sinif daxilində göstərilir. Tələbənin kim olduğunu xatırlamağa kömək edir.</string>
   <string name="addStudent">Tələbə əlavə et</string>
@@ -39,18 +39,18 @@
 Şifrə: %3$s</string>
   <string name="inviteALichessAccount">Bir Lichess hesabı dəvət edin</string>
   <string name="inviteDesc1">Tələbənin Lichess hesabı varsa, onu dərsə dəvət edə bilərsiniz.</string>
-  <string name="inviteDesc2">Lichess-də sinifə qoşulmaq üçün içində bir link olan əlaqə mesajı alacaqlar.</string>
-  <string name="inviteDesc3">Önəmli: yalnız tanıdığınız və sinifə fəal bir şəkildə qoşulmaq istəyən tələbələri dəvət edin.</string>
+  <string name="inviteDesc2">Lichessdə sinfə qoşulmaq üçün içində bir link olan əlaqə mesajı alacaqlar.</string>
+  <string name="inviteDesc3">Önəmli: yalnız tanıdığınız və sinfə fəal bir şəkildə qoşulmaq istəyən tələbələri dəvət edin.</string>
   <string name="inviteDesc4">Heç vaxt kimə gəldi istənilməyən dəvətlər göndərməyin.</string>
   <string name="createANewLichessAccount">Yeni bir Lichess hesabı yaradın</string>
   <string name="createDesc1">Tələbənin hələ bir Lichess hesabı yoxdursa, burada onun üçün bir hesab yarada bilərsiniz.</string>
-  <string name="createDesc2">Elektron poçt ünvanı tələb olunmur. Bir şifrə yaradılacaq və onu tələbəyə ötürdükdən sonra, sinifə daxil ola bilər.</string>
+  <string name="createDesc2">Elektron poçt ünvanı tələb olunmur. Bir şifrə yaradılacaq və onu tələbəyə ötürdükdən sonra, sinfə daxil ola bilər.</string>
   <string name="createDesc3">Önəmli: bir tələbənin birdən çox hesabı olmamalıdır.</string>
-  <string name="createDesc4">Əgərhesabları varsa, bunun əvəzinə dəvət formunu istifadə edin.</string>
+  <string name="createDesc4">Əgər hesabları varsa, bunun əvəzinə dəvət formunu istifadə edin.</string>
   <string name="lichessUsername">Lichess istifadəçi adı</string>
   <string name="generateANewUsername">Yeni bir istifadəçi adı yaradın</string>
-  <string name="welcomeToClass">Sinifinizə xoş gəlmisiniz: %s.
-Sinifə daxil olmaq üçün link.</string>
+  <string name="welcomeToClass">Sinfinizə xoş gəlmisiniz: %s.
+Sinfə daxil olmaq üçün link.</string>
   <string name="invitationToClass">Tələbə olaraq \"%s\" sinfinə dəvətlisiniz.</string>
   <string name="clickToViewInvitation">Dəvətə baxmaq üçün linkə toxunun:</string>
   <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
@@ -66,7 +66,7 @@ Sinifə daxil olmaq üçün link.</string>
   <string name="release">Azad et</string>
   <string name="releaseTheAccount">Hesabı tələbənin özbaşına idarə edə bilməsi üçün azad et.</string>
   <string name="releaseDesc1">Azad edilmiş bir hesab yenidən idarə oluna bilməz. Tələbə uşaq rejimini dəyişə və şifrəni özü sıfırlaya biləcək.</string>
-  <string name="releaseDesc2">Tələbələr, hesabları azad edildikdən sonra sonra sinifdə qalacaqlar.</string>
+  <string name="releaseDesc2">Tələbələr, hesabları azad edildikdən sonra sinifdə qalacaqlar.</string>
   <string name="realUniqueEmail">Tələbənin həqiqi, unikal elektron poçt ünvanı. Hesabı azad etmək üçün bir keçid ilə birlikdə ona təsdiq emaili göndərəcəyik.</string>
   <string name="teachers">Müəllimlər</string>
   <plurals name="nbTeachers">

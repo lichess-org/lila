@@ -24,6 +24,7 @@ export interface TournamentOpts extends Untyped {
 export interface TournamentData extends Untyped {
   teamBattle?: TeamBattle;
   teamStanding?: RankedTeam[];
+  myTeam?: RankedTeam;
   featured?: FeaturedGame;
 }
 
@@ -58,6 +59,7 @@ export interface TeamBattle {
     [id: string]: string
   };
   joinWith: string[];
+  hasMoreThanTenTeams?: boolean;
 }
 
 export interface RankedTeam {

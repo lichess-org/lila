@@ -437,7 +437,6 @@
   <string name="more">Več</string>
   <string name="memberSince">Član od</string>
   <string name="lastSeenActive">Zadnja prijava %s</string>
-  <string name="challengeToPlay">Izzovi na igro</string>
   <string name="player">Igralec</string>
   <string name="list">Seznam</string>
   <string name="graph">Graf</string>
@@ -807,7 +806,6 @@ v %3$s</string>
   <string name="error.unknown">Napaka</string>
   <string name="custom">Po meri</string>
   <string name="notifications">Obvestila</string>
-  <string name="challenges">Izzivi</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund za prvo potezo</item>
@@ -858,12 +856,6 @@ v %3$s</string>
   <string name="opening">Otvoritev</string>
   <string name="middlegame">Sredina igre</string>
   <string name="endgame">Končnica</string>
-  <string name="registerToSendChallenges">Če želite poslati izziv, se prosim registrirajte.</string>
-  <string name="youCannotChallengeX">Ne morete izzvati %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s ne sprejema izzivov.</string>
-  <string name="yourXRatingIsTooFarFromY">Vaš %1$s rating je predaleč od ratinga igralca %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Izzivanje ni mogoče, zaradi začasnega %s ratinga.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s sprejema izzive samo od prijateljev.</string>
   <string name="conditionalPremoves">Pogojne predpoteze</string>
   <string name="addCurrentVariation">Dodaj trenutno varianto</string>
   <string name="playVariationToCreateConditionalPremoves">Igrajte varianto, za ustvarjanje pogojnih predpotez</string>
@@ -919,7 +911,4 @@ v %3$s</string>
   <string name="youCannotPostYetPlaySomeGames">Ne moreš še objavljati na forumu. Igraj nekaj iger!</string>
   <string name="subscribe">Naroči se</string>
   <string name="unsubscribe">Odjava</string>
-  <string name="challengeDeclined">Izziv je zavrnjen</string>
-  <string name="challengeAccepted">Izziv je sprejet!</string>
-  <string name="challengeCanceled">Izziv je preklican.</string>
 </resources>

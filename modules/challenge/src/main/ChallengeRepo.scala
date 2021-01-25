@@ -114,8 +114,12 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
 
   def offline(challenge: Challenge) = setStatus(challenge, Status.Offline, Some(_ plusHours 3))
   def cancel(challenge: Challenge)  = setStatus(challenge, Status.Canceled, Some(_ plusHours 3))
-  def decline(challenge: Challenge) = setStatus(challenge, Status.Declined, Some(_ plusHours 3))
-  def accept(challenge: Challenge)  = setStatus(challenge, Status.Accepted, Some(_ plusHours 3))
+  def decline(challenge: Challenge, reason: Challenge.DeclineReason) =
+    setStatus(challenge, Status.Declined, Some(_ plusHours 3)) >> {
+      (reason != Challenge.DeclineReason.default) ??
+        coll.updateField($id(challenge.id), "declineReason", reason).void
+    }
+  def accept(challenge: Challenge) = setStatus(challenge, Status.Accepted, Some(_ plusHours 3))
 
   def statusById(id: Challenge.ID) = coll.primitiveOne[Status]($id(id), "status")
 

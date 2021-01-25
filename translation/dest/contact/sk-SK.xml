@@ -27,12 +27,6 @@
   <string name="wantClearHistory">Chcem vymazať svoju históriu alebo hodnotenie</string>
   <string name="cantClearHistory">Nieje možné vymazať tvoju históriu hier, šachových rébusov či hodnotenia.</string>
   <string name="wantReport">Chcem nahlásiť hráča</string>
-  <string name="cheating">podvádzanie</string>
-  <string name="sandbagging">zavádzanie (sandbagging)</string>
-  <string name="trolling">trolling</string>
-  <string name="insults">urážky</string>
-  <string name="otherReason">nejaký iný dôvod</string>
-  <string name="toReportAPlayer">Pre nahlásenie hráča kvôli %s, použi ohlasovací formulár</string>
   <string name="youCanAlsoReachReportPage">Môžeš tiež prejsť na danú stránku kliknutím na %s nahlasovacie tlačidlo na profilovej stránke.</string>
   <string name="doNotReportInForum">Nenahlasuj hráčov cez fórum.</string>
   <string name="doNotSendReportEmails">Neposielaj nám nahlásenie hráča emailom.</string>
@@ -53,7 +47,7 @@
   <string name="knightMate">Je možné dať mat iba s jazdcom alebo strelcom, ak súper má viac figúr na šachovnici než len kráľa.</string>
   <string name="noRatingPoints">Neboli udelené žiadne ratingové body</string>
   <string name="errorPage">Chybová stránka</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Požiadať o zabanovanie hráča alebo obmedzenie IP adresy</string>
+  <string name="banAppeal">Požiadať o zabanovanie hráča alebo obmedzenie IP adresy</string>
   <string name="otherRestriction">Iné obmedzenie</string>
   <string name="noneOfTheAbove">Žiadne z uvedených</string>
   <string name="sendEmailAt">Poslať nám email na %s.</string>

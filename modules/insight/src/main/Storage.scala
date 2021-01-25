@@ -11,33 +11,33 @@ final private class Storage(val coll: AsyncColl)(implicit ec: scala.concurrent.E
 
   import Storage._
   import BSONHandlers._
-  import Entry.{ BSONFields => F }
+  import InsightEntry.{ BSONFields => F }
 
-  def fetchFirst(userId: String): Fu[Option[Entry]] =
-    coll(_.find(selectUserId(userId)).sort(sortChronological).one[Entry])
+  def fetchFirst(userId: String): Fu[Option[InsightEntry]] =
+    coll(_.find(selectUserId(userId)).sort(sortChronological).one[InsightEntry])
 
-  def fetchLast(userId: String): Fu[Option[Entry]] =
-    coll(_.find(selectUserId(userId)).sort(sortAntiChronological).one[Entry])
+  def fetchLast(userId: String): Fu[Option[InsightEntry]] =
+    coll(_.find(selectUserId(userId)).sort(sortAntiChronological).one[InsightEntry])
 
   def count(userId: String): Fu[Int] =
     coll(_.countSel(selectUserId(userId)))
 
-  def insert(p: Entry) = coll(_.insert.one(p).void)
+  def insert(p: InsightEntry) = coll(_.insert.one(p).void)
 
-  def bulkInsert(ps: Seq[Entry]) =
+  def bulkInsert(ps: Seq[InsightEntry]) =
     coll {
       _.insert.many(
         ps.flatMap(BSONHandlers.EntryBSONHandler.writeOpt)
       )
     }
 
-  def update(p: Entry) = coll(_.update.one(selectId(p.id), p, upsert = true).void)
+  def update(p: InsightEntry) = coll(_.update.one(selectId(p.id), p, upsert = true).void)
 
-  def remove(p: Entry) = coll(_.delete.one(selectId(p.id)).void)
+  def remove(p: InsightEntry) = coll(_.delete.one(selectId(p.id)).void)
 
   def removeAll(userId: String) = coll(_.delete.one(selectUserId(userId)).void)
 
-  def find(id: String) = coll(_.one[Entry](selectId(id)))
+  def find(id: String) = coll(_.one[InsightEntry](selectId(id)))
 
   def ecos(userId: String): Fu[Set[String]] =
     coll {
@@ -66,7 +66,7 @@ final private class Storage(val coll: AsyncColl)(implicit ec: scala.concurrent.E
 
 private object Storage {
 
-  import Entry.{ BSONFields => F }
+  import InsightEntry.{ BSONFields => F }
 
   def selectId(id: String)     = BSONDocument(F.id -> id)
   def selectUserId(id: String) = BSONDocument(F.userId -> id)

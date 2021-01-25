@@ -9,7 +9,7 @@
   <string name="yourTurn">Sua vez</string>
   <string name="aiNameLevelAiLevel">%1$s nível %2$s</string>
   <string name="level">Nível</string>
-  <string name="strength" comment="strength&#10;&#10;When configuring a new game to play against the computer, the title for a widget selecting the strength of the computer opponent.">Nível</string>
+  <string name="strength">Nível</string>
   <string name="toggleTheChat">Ativar/Desativar chat</string>
   <string name="toggleSound">Ativar/Desativar som</string>
   <string name="chat">Chat</string>
@@ -383,7 +383,6 @@
   <string name="more">Mais</string>
   <string name="memberSince">Membro desde</string>
   <string name="lastSeenActive">Última conexão %s</string>
-  <string name="challengeToPlay">Desafiar para jogar</string>
   <string name="player">Jogador</string>
   <string name="list">Lista</string>
   <string name="graph">Gráfico</string>
@@ -726,7 +725,7 @@
   <string name="directlySupportLichess">Ajude Lichess diretamente</string>
   <string name="playChessInStyle">Jogue com estilo</string>
   <string name="chessBasics">Básicos do xadrez</string>
-  <string name="coaches">Tutores</string>
+  <string name="coaches">Professores</string>
   <string name="invalidPgn">PGN inválido</string>
   <string name="invalidFen">FEN inválido</string>
   <string name="error.minLength">O mínimo de caracteres é %s</string>
@@ -736,7 +735,6 @@
   <string name="error.unknown">Erro</string>
   <string name="custom">Personalizado</string>
   <string name="notifications">Notificações</string>
-  <string name="challenges">Desafios</string>
   <string name="perfRatingX">Classificação: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo para fazer o primeiro lance</item>
@@ -783,12 +781,6 @@
   <string name="opening">Abertura</string>
   <string name="middlegame">Meio-jogo</string>
   <string name="endgame">Finais</string>
-  <string name="registerToSendChallenges">Por favor, registre-se para enviar desafios.</string>
-  <string name="youCannotChallengeX">Você não pode desafiar %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s não aceita desafios.</string>
-  <string name="yourXRatingIsTooFarFromY">A sua classificação %1$s é muito diferente de %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Não pode desafiar devido a pontuação provisória de %s.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s só aceita desafios de amigos.</string>
   <string name="conditionalPremoves">Pré-lances condicionais</string>
   <string name="addCurrentVariation">Adicionar a variação atual</string>
   <string name="playVariationToCreateConditionalPremoves">Jogar uma variação para criar pré-lances condicionais</string>
@@ -842,7 +834,4 @@
   <string name="youCannotPostYetPlaySomeGames">Você não pode publicar nos fóruns ainda. Jogue algumas partidas!</string>
   <string name="subscribe">Seguir publicações</string>
   <string name="unsubscribe">Deixar de seguir publicações</string>
-  <string name="challengeDeclined">Desafio recusado</string>
-  <string name="challengeAccepted">Desafio aceito!</string>
-  <string name="challengeCanceled">Desafio cancelado.</string>
 </resources>

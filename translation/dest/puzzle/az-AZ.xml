@@ -13,7 +13,7 @@
   <string name="specialMoves">Xüsusi gedişlər</string>
   <string name="didYouLikeThisPuzzle">Bu tapmacanı bəyəndiniz?</string>
   <string name="voteToLoadNextOne">Sıradakına keçmək üçün səs verin!</string>
-  <string name="yourPuzzleRatingX">Sizin tapmaca reytinginiz: %s</string>
+  <string name="yourPuzzleRatingX">Sizin tapmaca reytinqiniz: %s</string>
   <string name="findTheBestMoveForWhite">Ağlar üçün ən yaxşı gedişi tapın.</string>
   <string name="findTheBestMoveForBlack">Qaralar üçün ən yaxşı gedişi tapın.</string>
   <string name="toGetPersonalizedPuzzles">Fərdiləşdirilmiş tapmacalar üçün:</string>
@@ -24,7 +24,7 @@
   <string name="bestMove">Ən yaxşı gediş!</string>
   <string name="keepGoing">Davam edin…</string>
   <string name="puzzleSuccess">Uğurlu!</string>
-  <string name="puzzleComplete">Tapmaca tamalandı!</string>
+  <string name="puzzleComplete">Tapmaca tamamlandı!</string>
   <string name="notTheMove">Düzgün gediş deyil!</string>
   <string name="trySomethingElse">Başqa bir şey yoxlayın.</string>
   <string name="ratingX">Reytinq: %s</string>

@@ -9,6 +9,7 @@
   <string name="yourTurn">輪到您了</string>
   <string name="aiNameLevelAiLevel">%1$s 難度 %2$s</string>
   <string name="level">難度</string>
+  <string name="strength">強度</string>
   <string name="toggleTheChat">聊天開關</string>
   <string name="toggleSound">聲音開關</string>
   <string name="chat">聊天</string>
@@ -355,7 +356,6 @@
   <string name="more">更多</string>
   <string name="memberSince">註冊日期</string>
   <string name="lastSeenActive">最近登入 %s</string>
-  <string name="challengeToPlay">挑戰</string>
   <string name="player">棋手</string>
   <string name="list">列表</string>
   <string name="graph">圖表</string>
@@ -481,6 +481,7 @@
   <string name="clockInitialTime">棋鐘起始時間</string>
   <string name="clockIncrement">加秒</string>
   <string name="privacy">隱私</string>
+  <string name="privacyPolicy">隱私條款</string>
   <string name="letOtherPlayersFollowYou">允许其他玩家关注</string>
   <string name="letOtherPlayersChallengeYou">允许其他玩家挑战</string>
   <string name="letOtherPlayersInviteYouToStudy">允許其他棋手邀請你參加研討</string>
@@ -622,6 +623,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">若您沒收到郵件，請檢查您的其他收件箱，例如垃圾箱、促銷、社交等。</string>
   <string name="weHaveSentYouAnEmailTo">我們發送了一封郵件到 %s。點擊郵件中的連結來重置您的密碼。</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">您一登记，我们就假设您同意尊重我们的使用规则（%s）。</string>
+  <string name="readAboutOur">閱讀我們的%s</string>
   <string name="networkLagBetweenYouAndLichess">您和 lichess 之間的網絡時滯</string>
   <string name="timeToProcessAMoveOnLichessServer">lichess 伺服器上處理走棋的時間</string>
   <string name="downloadAnnotated">下载带笔记的记录</string>
@@ -699,7 +701,6 @@
   <string name="error.unknown">錯誤</string>
   <string name="custom">自訂設定</string>
   <string name="notifications">通知</string>
-  <string name="challenges">挑戰</string>
   <string name="perfRatingX">評分:%s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">在%s秒前須下出第一步</item>
@@ -744,12 +745,6 @@
   <string name="opening">開局</string>
   <string name="middlegame">中場</string>
   <string name="endgame">殘局</string>
-  <string name="registerToSendChallenges">請登入以挑戰您的朋友</string>
-  <string name="youCannotChallengeX">您不能挑戰%s</string>
-  <string name="xDoesNotAcceptChallenges">%s不接受挑戰</string>
-  <string name="yourXRatingIsTooFarFromY">您的%1$s評分與%2$s相差太遠</string>
-  <string name="cannotChallengeDueToProvisionalXRating">由於您的%s積分不夠穩定，無法進行挑戰。</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s只接受好友的挑戰</string>
   <string name="conditionalPremoves">預設棋譜</string>
   <string name="addCurrentVariation">加入現有變化</string>
   <string name="playVariationToCreateConditionalPremoves">著一步不同的位置以創建預估走位</string>

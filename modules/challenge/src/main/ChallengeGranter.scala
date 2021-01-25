@@ -2,7 +2,7 @@ package lila.challenge
 
 import play.api.i18n.Lang
 
-import lila.i18n.I18nKeys
+import lila.i18n.I18nKeys.{ challenge => trans }
 import lila.pref.Pref
 import lila.rating.PerfType
 import lila.relation.{ Block, Follow }
@@ -26,13 +26,13 @@ object ChallengeDenied {
 
   def translated(d: ChallengeDenied)(implicit lang: Lang): String =
     d.reason match {
-      case Reason.YouAreAnon               => I18nKeys.registerToSendChallenges.txt()
-      case Reason.YouAreBlocked            => I18nKeys.youCannotChallengeX.txt(d.dest.titleUsername)
-      case Reason.TheyDontAcceptChallenges => I18nKeys.xDoesNotAcceptChallenges.txt(d.dest.titleUsername)
+      case Reason.YouAreAnon               => trans.registerToSendChallenges.txt()
+      case Reason.YouAreBlocked            => trans.youCannotChallengeX.txt(d.dest.titleUsername)
+      case Reason.TheyDontAcceptChallenges => trans.xDoesNotAcceptChallenges.txt(d.dest.titleUsername)
       case Reason.RatingOutsideRange(perf) =>
-        I18nKeys.yourXRatingIsTooFarFromY.txt(perf.trans, d.dest.titleUsername)
-      case Reason.RatingIsProvisional(perf) => I18nKeys.cannotChallengeDueToProvisionalXRating.txt(perf.trans)
-      case Reason.FriendsOnly               => I18nKeys.xOnlyAcceptsChallengesFromFriends.txt(d.dest.titleUsername)
+        trans.yourXRatingIsTooFarFromY.txt(perf.trans, d.dest.titleUsername)
+      case Reason.RatingIsProvisional(perf) => trans.cannotChallengeDueToProvisionalXRating.txt(perf.trans)
+      case Reason.FriendsOnly               => trans.xOnlyAcceptsChallengesFromFriends.txt(d.dest.titleUsername)
       case Reason.BotUltraBullet            => "Bots cannot play UltraBullet. Choose a slower time control."
     }
 }

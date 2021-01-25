@@ -19,8 +19,7 @@ import lila.user.User
 private class RoundConfig(
     @ConfigName("collection.note") val noteColl: CollName,
     @ConfigName("collection.forecast") val forecastColl: CollName,
-    @ConfigName("collection.alarm") val alarmColl: CollName,
-    @ConfigName("moretime") val moretimeDuration: MoretimeDuration
+    @ConfigName("collection.alarm") val alarmColl: CollName
 )
 
 @Module
@@ -59,7 +58,6 @@ final class Env(
     scheduler: akka.actor.Scheduler
 ) {
 
-  implicit private val moretimeLoader  = durationLoader(MoretimeDuration.apply)
   implicit private val animationLoader = durationLoader(AnimationDuration.apply)
   private val config                   = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
 

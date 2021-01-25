@@ -29,7 +29,7 @@ object show {
           image = s.streamer.picturePath.map(p => dbImageUrl(p.value))
         )
         .some,
-      csp = defaultCsp.withTwitch.some
+      csp = defaultCsp.finalizeWithTwitch.some
     )(
       main(cls := "page-menu streamer-show")(
         st.aside(cls := "page-menu__menu")(

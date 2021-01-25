@@ -27,12 +27,7 @@
   <string name="wantClearHistory">Мен өзімнің ойын тарихымды не рейтингімді өшіргім келеді</string>
   <string name="cantClearHistory">Ойын тарихын, жұмбақ шешу тарихын немесе рейтингті өшіру мүмкін емес.</string>
   <string name="wantReport">Мен бір ойыншыға шағым білдіргім келеді</string>
-  <string name="cheating">алдап ойнау</string>
-  <string name="sandbagging">бір артықшылық табу үшін әдейі жеңілу</string>
-  <string name="trolling">арандату</string>
-  <string name="insults">қорлау, кемсіту</string>
-  <string name="otherReason">басқа себеп</string>
-  <string name="toReportAPlayer">%s қатысты шағым жіберу үшін шағым үлгісін қолданыңыз</string>
+  <string name="toReportAPlayerUseForm">Ойыншы үстіне шағымдану үшін шағым үлгісін ашыңыз</string>
   <string name="youCanAlsoReachReportPage">Сонымен қатар, сіз сол парақшаны, куәлік парақшадағы %s шағым батырмасына басып, аша аласыз.</string>
   <string name="doNotReportInForum">Форумдағы ойыншыларға қарсы шағым жібермеңіз.</string>
   <string name="doNotSendReportEmails">Бізге поштамен шағым жібермеңіз.</string>
@@ -59,7 +54,7 @@
   <string name="ratedGame">Бағаланатын ойын екенін тексеріңіз. Қалыпты ойындар ойыншының рейтингіне әсер етпейді.</string>
   <string name="errorPage">Ақаулық парақшасы</string>
   <string name="reportErrorPage">Ақаулық парақшасына тап болсаңыз, осында хабарлауыңызға болады:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Шектеуге не IP шектеуге қарсылық шағымы</string>
+  <string name="banAppeal">Шектеуге не IP шектеуге қарсылық шағымы</string>
   <string name="engineAppeal">Програм не чит марк</string>
   <string name="sendAppealTo">Сіз өтінішті %s жібере аласыз.</string>
   <string name="falsePositives">Жалған әрекеттер кейде болып тұрады, ол үшін кешірім сұраймыз.</string>

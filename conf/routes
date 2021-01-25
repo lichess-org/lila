@@ -124,7 +124,7 @@ GET   /study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.chapterPgn(id: S
 GET   /study/$id<\w{8}>/$chapterId<\w{8}>.gif controllers.Study.chapterGif(id: String, chapterId: String)
 POST  /study/$id<\w{8}>/delete         controllers.Study.delete(id: String)
 GET   /study/$id<\w{8}>/clone          controllers.Study.cloneStudy(id: String)
-POST  /study/$id<\w{8}>/cloneAplly     controllers.Study.cloneApply(id: String)
+POST  /study/$id<\w{8}>/cloneApply     controllers.Study.cloneApply(id: String)
 GET   /study/$id<\w{8}>/$chapterId<\w{8}>        controllers.Study.chapter(id: String, chapterId: String)
 GET   /study/$id<\w{8}>/$chapterId<\w{8}>/meta   controllers.Study.chapterMeta(id: String, chapterId: String)
 GET   /study/embed/$id<\w{8}>/$chapterId<\w{8}>  controllers.Study.embed(id: String, chapterId: String)
@@ -236,6 +236,7 @@ GET   /tournament/$id<\w{8}>/team/:team       controllers.Tournament.teamInfo(id
 POST  /tournament/$id<\w{8}>/terminate        controllers.Tournament.terminate(id: String)
 GET   /tournament/$id<\w{8}>/edit             controllers.Tournament.edit(id: String)
 POST  /tournament/$id<\w{8}>/edit             controllers.Tournament.update(id: String)
+GET   /tournament/$id<\w{8}>/teams            controllers.Tournament.battleTeams(id: String)
 GET   /tournament/help                        controllers.Tournament.help(system: Option[String] ?= None)
 GET   /tournament/leaderboard                 controllers.Tournament.leaderboard
 GET   /tournament/shields                     controllers.Tournament.shields
@@ -564,6 +565,8 @@ GET    /stat/rating/distribution/:perf controllers.Stat.ratingDistribution(perf:
 GET   /api                             controllers.Api.index
 POST  /api/users                       controllers.Api.usersByIds
 GET   /api/user/puzzle-activity        controllers.Puzzle.activity
+GET   /api/puzzle/activity             controllers.Puzzle.activity
+GET   /api/puzzle/dashboard/:days      controllers.Puzzle.apiDashboard(days: Int)
 GET   /api/user/:name/tournament/created controllers.Api.tournamentsByOwner(name: String)
 GET   /api/user/:name                  controllers.Api.user(name: String)
 GET   /api/user/:name/activity         controllers.Api.activity(name: String)
@@ -601,7 +604,8 @@ POST  /api/challenge/:user             controllers.Challenge.apiCreate(user: Str
 POST  /api/challenge/$id<\w{8}>/accept controllers.Challenge.apiAccept(id: String)
 POST  /api/challenge/$id<\w{8}>/decline controllers.Challenge.apiDecline(id: String)
 POST  /api/challenge/$id<\w{8}>/cancel controllers.Challenge.apiCancel(id: String)
-POST  /api/challenge/$id<\w{8}>/start-clocks controllers.Challenge.apiStartClocks(id: String)
+POST  /api/challenge/$id<\w{8}>/start-clocks  controllers.Challenge.apiStartClocks(id: String)
+POST  /api/round/$id<\w{8}>/add-time/:seconds controllers.Round.apiAddTime(id: String, seconds: Int)
 GET   /api/cloud-eval                  controllers.Api.cloudEval
 GET   /api/broadcast                   controllers.Relay.apiIndex
 POST  /api/import                      controllers.Importer.apiSendGame

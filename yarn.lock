@@ -130,11 +130,6 @@
   dependencies:
     moment "^2.10.2"
 
-"@types/defer-promise@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@types/defer-promise/-/defer-promise-1.0.0.tgz#9c5054b7ef63fd0f0497d17b0ea1a849f9c6323b"
-  integrity sha512-NJAgn+jlo8V2TD0rj8zQy1nRzNLX73MQARTSQzWxco94lwzTOwRp7FPu7r4/Cnz715DxCWMGf3epjo7wbDBhVA==
-
 "@types/estree@*":
   version "0.0.46"
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.46.tgz#0fb6bfbbeabd7a30880504993369c4bf1deab1fe"
@@ -192,10 +187,10 @@
   resolved "https://registry.yarnpkg.com/@types/zxcvbn/-/zxcvbn-4.4.0.tgz#fbc1d941cc6d9d37d18405c513ba6b294f89b609"
   integrity sha512-GQLOT+SN20a+AI51y3fAimhyTF4Y0RG+YP3gf91OibIZ7CJmPFgoZi+ZR5a+vRbS01LbQosITWum4ATmJ1Z6Pg==
 
-"@yaireo/tagify@3.9.3":
-  version "3.9.3"
-  resolved "https://registry.yarnpkg.com/@yaireo/tagify/-/tagify-3.9.3.tgz#a6671345b9a3a38eb4a7b18728db2526023e1662"
-  integrity sha512-cS6WyMYY4YD8Op6qwsm1jE2zIxf9RQGJvYkuye4hOzgm4p77aZyByfz1+hmpAWXJZStSpff2iDn7aOB97Smoeg==
+"@yaireo/tagify@^3.22.1":
+  version "3.22.1"
+  resolved "https://registry.yarnpkg.com/@yaireo/tagify/-/tagify-3.22.1.tgz#cbb3ed617b6af7b887ac29f14762ab14ccf7ca4a"
+  integrity sha512-pwokZQyW0qzyC85QYUy9rD4nQyEK8CsEHrCKI73F9kp5yL9g5nQspnKBgJJEyI/AFHyAes4hVAkzrpeuJ0RHrg==
 
 "ab@https://github.com/lichess-org/ab-stub":
   version "1.0.0"
@@ -4137,10 +4132,10 @@ stdout-stream@^1.4.0:
   dependencies:
     readable-stream "^2.0.1"
 
-stockfish-mv.wasm@^0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/stockfish-mv.wasm/-/stockfish-mv.wasm-0.5.1.tgz#71c783d3417056263ff387eb043fd9b4d06e3e4f"
-  integrity sha512-iZA/m2Lkv1SBcCxDXcr+/PE4d4YhUoDgcj5G2P1EU0/3e4JMI0MkQTywMwcApy+pzDxphDv2bcjJRR33p9qmzQ==
+stockfish-mv.wasm@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/stockfish-mv.wasm/-/stockfish-mv.wasm-0.5.2.tgz#08faca73ae2f5b69fb28bd04c20074e443cdaa7e"
+  integrity sha512-MujfrAVAzDkRoVEiYMkGaiAw9wei2hRR8sxD5l7emHDyCbmc0KdlqoIZtS+coQ9CVNaZa1o5JokTKJVv8wJhUQ==
 
 stockfish.js@^10.0.2:
   version "10.0.2"

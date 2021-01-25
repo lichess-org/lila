@@ -38,7 +38,7 @@
   <string name="makeYourOpponentResign">Ստիպել խաղը լքած հակառակորդին հանձնվել</string>
   <string name="forceResignation">Պահանջել հաղթանակ</string>
   <string name="forceDraw">Պահանջել ոչ-ոքի</string>
-  <string name="talkInChat">Խնդրում ենք զրուցարանում լինել բարեհամբյուր:</string>
+  <string name="talkInChat">Խնդրում ենք չաթում լինել բարեհամբյուր:</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Առաջինը, ով կայցելի այս հղումով, կխաղա Ձեզ հետ։</string>
   <string name="whiteResigned">Սպիտակները հանձնվեցին</string>
   <string name="blackResigned">Սևերը հանձնվեցին</string>
@@ -87,6 +87,8 @@
   <string name="noGameFound">Ոչ մի խաղ չի գտնվել</string>
   <string name="openingExplorer">Դեբյուտների դիտարկիչ</string>
   <string name="xOpeningExplorer">%s դեբյուտների դիտարկիչ</string>
+  <string name="winPreventedBy50MoveRule">Հաղթանակը կասեցված Է 50 քայլի օրենքի համաձայն</string>
+  <string name="lossSavedBy50MoveRule">Պարտությունը կասեցված Է 50 քայլի օրենքի համաձայն</string>
   <string name="allSet">Ամեն ինչ պատրաստ է։</string>
   <string name="importPgn">Ներմուծել PGN</string>
   <string name="delete">Ջնջել</string>
@@ -133,6 +135,7 @@
   <string name="latestForumPosts">Վերջին գրառումները ֆորումում</string>
   <string name="players">Խաղացողներ</string>
   <string name="friends">Ընկերներ</string>
+  <string name="discussions">Հաղորդագրություններ</string>
   <string name="today">Այսօր</string>
   <string name="yesterday">Երեկ</string>
   <string name="minutesPerSide">Րոպեներ ամեն կողմի համար</string>
@@ -214,8 +217,8 @@
   <string name="confirmMove">Հաստատել քայլը</string>
   <string name="play">Խաղալ</string>
   <string name="inbox">Փոստարկղ</string>
-  <string name="chatRoom">Չատի պատուհան</string>
-  <string name="loginToChat">Մուտք գործել չատ</string>
+  <string name="chatRoom">Չաթի պատուհան</string>
+  <string name="loginToChat">Մուտք գործել չաթ</string>
   <string name="spectatorRoom">Հանդիսատեսների սենյակ</string>
   <string name="composeMessage">Գրել հաղորդագրություն</string>
   <string name="noNewMessages">Դեռևս նամակներ չունեք</string>
@@ -224,7 +227,7 @@
   <string name="send">Ուղարկել</string>
   <string name="incrementInSeconds">Ավելացումը ըստ վայրկյանների</string>
   <string name="freeOnlineChess">Անվճար օնլայն շախմատ</string>
-  <string name="spectators">հանդիսատեսներ</string>
+  <string name="spectators">Հանդիսատեսներ՝</string>
   <plurals name="nbRated">
     <item quantity="one">%s վարկանիշային</item>
     <item quantity="other">%s վարկանիշային</item>
@@ -263,7 +266,7 @@
   <string name="backToTournament">Վերադարձ դեպի մրցաշարը</string>
   <string name="thematic">Թեմատիկա</string>
   <string name="backToGame">Վերադառնալ պարտիային</string>
-  <string name="siteDescription">Անճար օնլայն շախմատ: Խաղացեք հաճելի ինտերֆեյսով, առանց գրանցման և գովազդի: Խաղացեք համակարգչի, ընկերների կամ անծանոթների հետ:</string>
+  <string name="siteDescription">Անվճար օնլայն շախմատ: Խաղացեք հաճելի ինտերֆեյսով, առանց գրանցման և գովազդի: Խաղացեք համակարգչի, ընկերների կամ անծանոթների հետ:</string>
   <string name="xJoinedTeamY">%1$s միացած թիմեր %2$s</string>
   <string name="xCreatedTeamY">%1$s ստեղծած թիմ %2$s</string>
   <string name="averageElo">Միջին ELO</string>
@@ -310,7 +313,6 @@
   <string name="more">Ավելին</string>
   <string name="memberSince">Անդամ է՝ սկսած</string>
   <string name="lastSeenActive">Վերջին մուտքը %s</string>
-  <string name="challengeToPlay">Ուղարկել խաղի մարտահրավեր</string>
   <string name="player">Խաղացող</string>
   <string name="list">ցուցակ</string>
   <string name="graph">Գրաֆիկ</string>

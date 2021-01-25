@@ -4,6 +4,10 @@
   <string name="advancedPawnDescription">Пешка, готовая к превращению, имеет важное тактическое значение.</string>
   <string name="advantage">Преимущество</string>
   <string name="advantageDescription">Используйте свой шанс получить решающее преимущество. (от 200 до 600 сантипешек)</string>
+  <string name="anastasiaMate">Мат Анастасии</string>
+  <string name="anastasiaMateDescription">Конь и ладья (или ферзь) матуют короля противника между краем доски и другой фигурой противника.</string>
+  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Арабский мат</string>
+  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">Конь и ладья матуют вражеского короля в углу доски.</string>
   <string name="attackingF2F7">Атака f2 или f7</string>
   <string name="attackingF2F7Description">Атака, направленная на пешки f2 или f7, например, в дебюте жареной печени.</string>
   <string name="attraction">Завлечение</string>
@@ -12,6 +16,8 @@
   <string name="backRankMateDescription">Матование короля на его горизонтали, когда он заблокирован своими же фигурами.</string>
   <string name="bishopEndgame">Слоновый эндшпиль</string>
   <string name="bishopEndgameDescription">Эндшпиль, где присутствуют лишь слоны и пешки.</string>
+  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Мат Бодена</string>
+  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Два слона с пересекающихся диагоналей ставят мат вражескому королю, окружённому собственными фигурами.</string>
   <string name="castling">Рокировка</string>
   <string name="castlingDescription">Поместите короля в надёжное место и выведите в бой ладью.</string>
   <string name="capturingDefender">Уничтожение защитника</string>
@@ -41,6 +47,8 @@
   <string name="forkDescription">Ход, при котором под удар попадают две фигуры противника.</string>
   <string name="hangingPiece">Висячая фигура</string>
   <string name="hangingPieceDescription">Незащищённая или недостаточно защищённая фигура либо берётся сразу, либо становится объектом для атаки.</string>
+  <string name="hookMate">Хук-мат</string>
+  <string name="hookMateDescription">Мат ладьёй и конём, защищённым пешкой, при том, что одна из пешек противника занимает единственное доступное поле для отхода его короля.</string>
   <string name="interference">Перекрытие</string>
   <string name="interferenceDescription">Ход, перекрывающий линию взаимодействия дальнобойных фигур противника, в результате которого одна или обе фигуры становятся беззащитными. Например, конь встаёт на линию между двумя ладьями.</string>
   <string name="intermezzo">Промежуточный ход</string>

@@ -4,6 +4,8 @@
   <string name="advancedPawnDescription">Пішак, що загрожує перетворенню, є ключовим для тактики.</string>
   <string name="advantage">Перевага</string>
   <string name="advantageDescription">Скористайтесь шансом отримати вирішальну перевагу. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="anastasiaMate">Мат Анастасії</string>
+  <string name="anastasiaMateDescription">Кінь з турою або ферзем ловлять короля між краєм дошки та власною фігурою.</string>
   <string name="attackingF2F7">Атака f2 або f7</string>
   <string name="attackingF2F7Description">Атака, спрямована на f2 або f7, наприклад, як у дебюті смаженої печінки.</string>
   <string name="attraction">Заманювання</string>

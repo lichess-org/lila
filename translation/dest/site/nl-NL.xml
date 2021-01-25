@@ -383,7 +383,6 @@
   <string name="more">Meer</string>
   <string name="memberSince">Lid sinds</string>
   <string name="lastSeenActive">%s voor het laatst gezien</string>
-  <string name="challengeToPlay">Uitdagen voor een partij</string>
   <string name="player">Speler</string>
   <string name="list">Lijst</string>
   <string name="graph">Grafiek</string>
@@ -736,7 +735,6 @@
   <string name="error.unknown">Fout</string>
   <string name="custom">Aangepast</string>
   <string name="notifications">Meldingen</string>
-  <string name="challenges">Uitdagingen</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s seconde om de eerste zet te spelen</item>
@@ -783,12 +781,6 @@
   <string name="opening">Opening</string>
   <string name="middlegame">Middenspel</string>
   <string name="endgame">Eindspel</string>
-  <string name="registerToSendChallenges">Gelieve te registreren om uitdagingen te versturen.</string>
-  <string name="youCannotChallengeX">Je kunt %s niet uitdagen.</string>
-  <string name="xDoesNotAcceptChallenges">%s accepteert geen uitdagingen.</string>
-  <string name="yourXRatingIsTooFarFromY">Je %1$s-rating wijkt te veel af van %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Kan niet worden uitgedaagd vanwege de tijdelijke %s rating.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s accepteert alleen uitdagingen van vrienden.</string>
   <string name="conditionalPremoves">Voorwaardelijke zetten vooruit</string>
   <string name="addCurrentVariation">Voeg huidige variant toe</string>
   <string name="playVariationToCreateConditionalPremoves">Speel een variant om voorwaardelijke zetten vooruit te maken</string>
@@ -842,7 +834,4 @@
   <string name="youCannotPostYetPlaySomeGames">Je kunt nog geen post in de forums plaatsen. Speel eerst een paar partijen!</string>
   <string name="subscribe">Abonneren</string>
   <string name="unsubscribe">Abonnement opzeggen</string>
-  <string name="challengeDeclined">Uitdaging geweigerd</string>
-  <string name="challengeAccepted">Uitdaging geaccepteerd!</string>
-  <string name="challengeCanceled">Uitdaging geannuleerd.</string>
 </resources>

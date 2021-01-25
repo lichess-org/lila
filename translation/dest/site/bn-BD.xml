@@ -393,7 +393,6 @@
   <string name="more">আরও</string>
   <string name="memberSince">সদস্য রয়েছেন</string>
   <string name="lastSeenActive">শেষ আগমন %s</string>
-  <string name="challengeToPlay">খেলার জন্য চ্যালেঞ্জ ছুঁড়ে দিন</string>
   <string name="player">খেলোয়াড়</string>
   <string name="list">তালিকা</string>
   <string name="graph">গ্রাফ</string>
@@ -742,7 +741,6 @@
   <string name="error.unknown">ক্রুটি</string>
   <string name="custom">স্বনির্ধারিত</string>
   <string name="notifications">বিজ্ঞাপন</string>
-  <string name="challenges">চ্যালেঞ্জ</string>
   <string name="perfRatingX">অনুপাত: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s সেকেন্ডে খেলার প্রথম চাল</item>
@@ -789,12 +787,6 @@
   <string name="opening">উদ্বোধন</string>
   <string name="middlegame">মাধ্যমখেলা</string>
   <string name="endgame">খেলাশেষ</string>
-  <string name="registerToSendChallenges">চ্যালেঞ্জ করার জন্য দয়া করে নিবন্ধন করুন.</string>
-  <string name="youCannotChallengeX">আপনি চ্যালেঞ্জ করতে পারবেন না%s.</string>
-  <string name="xDoesNotAcceptChallenges">%s চ্যালেঞ্জ গ্রহন করবে না.</string>
-  <string name="yourXRatingIsTooFarFromY">আপনার %1$s অনুপাত হয় অনেক বেশি দূরে থেকে %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">কিছু সময় চ্যালেঞ্জ করতে পারবেন না %s অনুপাত.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s শুধু বন্ধুদের থেকে চ্যালেঞ্জ গ্রহন.</string>
   <string name="conditionalPremoves">শর্তাধীন পুনারয়চাল</string>
   <string name="addCurrentVariation">বর্তমান ভিন্ন করুন</string>
   <string name="playVariationToCreateConditionalPremoves">শর্তাধীন পুনারয় চাল তৈরির জন্য একটি ভিন্ন খেলুন</string>

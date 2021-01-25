@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="declineTooFast">Aquest control de temps és massa ràpid per a mi. Si us plau, desafia\'m un altra vegada amb un ritme més lent.</string>
+  <string name="declineTooSlow">Aquest control de temps és massa lent per a mi. Si us plau, desafia\'m una altra vegada amb un ritme més ràpid.</string>
+  <string name="declineTimeControl">No accepto desafiaments amb aquest control de temps.</string>
+</resources>

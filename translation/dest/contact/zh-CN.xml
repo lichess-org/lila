@@ -27,12 +27,6 @@
   <string name="wantClearHistory">我想要清除我的历史或积分</string>
   <string name="cantClearHistory">清除您的对局历史，训练题历史，或积分是不可能的。</string>
   <string name="wantReport">我想要举报一个用户</string>
-  <string name="cheating">作弊</string>
-  <string name="sandbagging">操纵积分</string>
-  <string name="trolling">喷子</string>
-  <string name="insults">侮辱</string>
-  <string name="otherReason">其他原因</string>
-  <string name="toReportAPlayer">想要因为%s而举报用户，请使用举报表单</string>
   <string name="youCanAlsoReachReportPage">您也可以在该用户的个人资料页单击 %s 举报按钮。</string>
   <string name="doNotReportInForum">请不要在论坛举报。</string>
   <string name="doNotSendReportEmails">请不要向我们发送电邮举报。</string>
@@ -59,7 +53,7 @@
   <string name="ratedGame">请确保您参加过积分赛。非积分赛将不会影响选手的积分。</string>
   <string name="errorPage">错误页面</string>
   <string name="reportErrorPage">如果您遇到错误页面，您可以举报：</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">申请禁令或限制IP</string>
+  <string name="banAppeal">申请禁令或限制IP</string>
   <string name="engineAppeal">引擎或作弊标记</string>
   <string name="sendAppealTo">您可以向 %s 发出申诉。</string>
   <string name="falsePositives">误报有时会发生，我们对此表示歉意。</string>

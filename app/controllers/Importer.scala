@@ -1,19 +1,21 @@
 package controllers
 
-import scala.concurrent.duration._
+import play.api.libs.json.Json
 import play.api.mvc._
+import scala.concurrent.duration._
+import views._
 
 import lila.app._
 import lila.common.{ HTTPRequest, IpAddress }
-import play.api.libs.json.Json
-import views._
 
 final class Importer(env: Env) extends LilaController(env) {
 
-  private val ImportRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
-    credits = 200,
-    duration = 1.hour,
-    key = "import.game.ip"
+  private val ImportRateLimitPerIP = lila.memo.RateLimit.composite[IpAddress](
+    key = "import.game.ip",
+    enforce = env.net.rateLimit.value
+  )(
+    ("fast", 4, 1.minute),
+    ("slow", 150, 1.hour)
   )
 
   def importGame =

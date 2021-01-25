@@ -17,6 +17,7 @@ object show {
       verdicts: SwissCondition.All.WithVerdicts,
       data: play.api.libs.json.JsObject,
       chatOption: Option[lila.chat.UserChat.Mine],
+      streamers: List[lila.user.User.ID],
       isLocalMod: Boolean
   )(implicit ctx: Context): Frag = {
     val isDirector       = ctx.userId.has(s.createdBy)
@@ -66,7 +67,7 @@ object show {
     )(
       main(cls := "swiss")(
         st.aside(cls := "swiss__side")(
-          swiss.side(s, verdicts, chatOption.isDefined)
+          swiss.side(s, verdicts, streamers, chatOption.isDefined)
         ),
         div(cls := "swiss__main")(div(cls := "box"))
       )

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="challenges">Avbjóðingar</string>
+  <string name="challengeToPlay">Bjóða av at telva</string>
+  <string name="challengeDeclined">Avbjóðing avvíst</string>
+  <string name="challengeAccepted">Avbjóðing góðtikin!</string>
+  <string name="challengeCanceled">Avbjóðing avlýst.</string>
+  <string name="registerToSendChallenges">Skráset teg vinaliga at senda avbjóðingar.</string>
+  <string name="youCannotChallengeX">Tú kanst ikki bjóða %s av.</string>
+  <string name="xDoesNotAcceptChallenges">%s tekur ikki ímóti avbjóðingum.</string>
+  <string name="yourXRatingIsTooFarFromY">Títt %1$s styrkital er ov langt frá %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Fær ikki bjóðað av vegna fyribils %s styrkital.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s tekur bert við avbjóðingum frá vinum.</string>
+  <string name="declineGeneric">Eg taki ikki móti avbjóðingum í løtuni.</string>
+  <string name="declineLater">Eg taki ikki ímóti avbjóðingum í løtuni. Spyr vinaliga aftur seinni.</string>
+</resources>

@@ -172,9 +172,7 @@ object bits {
         "invert"                                     -> e.isNowOrSoon
       )
     )(
-      e.icon map { i =>
-        img(cls := "img", src := assetUrl(s"images/$i"))
-      } getOrElse i(cls := "img", dataIcon := ""),
+      views.html.event.iconOf(e),
       span(cls := "content")(
         span(cls := "name")(e.title),
         span(cls := "headline")(e.headline),

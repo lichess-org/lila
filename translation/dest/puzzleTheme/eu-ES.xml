@@ -4,6 +4,10 @@
   <string name="advancedPawnDescription">Sustatuko den edo sustatze-bidean dagoen peoia da ariketa honen muina.</string>
   <string name="advantage">Abantaila</string>
   <string name="advantageDescription">Abantaila osoa lortzen saiatu (200cp ≤ ebaluazioa ≤ 600cp)</string>
+  <string name="anastasiaMate">Anastasiaren matea</string>
+  <string name="anastasiaMateDescription">Zaldun bat eta gaztelua eta damak aurkariaren erregea taularen bazter baten eta bere pieza baten artean harrapatzen dute.</string>
+  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Mate arabiarra</string>
+  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">Zaldun eta gaztelu banak elkarrekin lan egiten dute aurkariaren erregea xake-taularen bazter baten harrapatzeko.</string>
   <string name="attackingF2F7">f2 edo f7 erasotu</string>
   <string name="attackingF2F7Description">f2 edo f7ko peoia helburu duen erasoa.</string>
   <string name="attraction">Erakarmena</string>
@@ -12,12 +16,18 @@
   <string name="backRankMateDescription">Bere piezekin trabatuta dagoenean erregeari bere errenkadan matea ematea.</string>
   <string name="bishopEndgame">Alfilen bukaera</string>
   <string name="bishopEndgameDescription">Alfilak eta peoiak bakarrik dituen partida-bukaera.</string>
+  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Bodenen matea</string>
+  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Bi alfilek beren piezen artean trabatuta dagoen erregeari ematen dioten matea.</string>
   <string name="castling">Endrokea</string>
   <string name="castlingDescription">Babestu erregea eta ekarri gaztelua erasora.</string>
   <string name="capturingDefender">Defendatzailea harrapatu</string>
   <string name="capturingDefenderDescription">Beste pieza bat defendatzeko funtsezkoa den pieza kentzea, hurrengo jokaldietan lehenengo pieza hori harrapatzeko.</string>
   <string name="crushing">Zapalketa</string>
   <string name="crushingDescription">Akatsa aurkitu eta guztizko abantaila lortu. (ebaluazioa ≥ 600cp)</string>
+  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Bi alfilen matea</string>
+  <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Bi alfilek beren piezen artean trabatuta dagoen erregeari ematen dioten matea.</string>
+  <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Mirubuztanaren matea</string>
+  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">Damak ematen duen matea erregearen ihes-laukiak bere piezekin trabatuta daudenean.</string>
   <string name="equality">Berdintasuna</string>
   <string name="equalityDescription">Partida galduta izatetik, berdinketa edo posizio berdintsua lortzera itzuli. (ebaluazioa ≤ 200cp)</string>
   <string name="kingsideAttack">Erregearen aldeko erasoa</string>
@@ -41,6 +51,8 @@
   <string name="forkDescription">Mugitzen den piezak aurkariaren bi pieza batera erasotzen dituenean.</string>
   <string name="hangingPiece">Defentsarik gabeko pieza</string>
   <string name="hangingPieceDescription">Defentsarik ez duen edo defendatzaile gutxi dituen aurkariaren pieza baten ingurukoak.</string>
+  <string name="hookMate">Hooken matea</string>
+  <string name="hookMateDescription">Gaztelua, zalduna eta peoi batekin ematen den matea aurkariaren peoi batek bere erregearen bidea oztopatzen duelarik.</string>
   <string name="interference">Tartean sartzea</string>
   <string name="interferenceDescription">Aurkariaren bi piezaren artean pieza bat jartzea, horrela aurkariaren piezetako bat edo biak defentsarik gabe utziz.</string>
   <string name="intermezzo">Tarteko-jokaldia</string>
@@ -95,6 +107,8 @@
   <string name="skewerDescription">Erasotua den balio handiko pieza bat mugitzea, erasotik kenduz eta bere atzean dagoen baina gutxiago balio duen pieza bat harrapatzen uztea, iltzaketaren aurkakoa.</string>
   <string name="smotheredMate">Ostikoaren matea</string>
   <string name="smotheredMateDescription">Zaldiak ematen duen matea, aurkariaren erregea bere piezak oztopatzen dutenez ezin delako mugitu.</string>
+  <string name="superGM">Super GMen partidak</string>
+  <string name="superGMDescription">Munduko jokalari onenek jokatutako partidetatik ateratako ariketak.</string>
   <string name="trappedPiece">Harrapatutako pieza</string>
   <string name="trappedPieceDescription">Bere jokaldiak mugatuta dituelako ihes egin ezin duen pieza.</string>
   <string name="underPromotion">Sustapen txikia</string>

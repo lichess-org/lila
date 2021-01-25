@@ -9,6 +9,7 @@
   <string name="yourTurn">Do shealsa</string>
   <string name="aiNameLevelAiLevel">%1$s leibhéal %2$s</string>
   <string name="level">Leibhéal</string>
+  <string name="strength">Caighdeán imeartha</string>
   <string name="toggleTheChat">Scoránú comhrá</string>
   <string name="toggleSound">Scoránú fuaime</string>
   <string name="chat">Comhrá</string>
@@ -210,6 +211,7 @@
   <string name="subject">Ábhar</string>
   <string name="recipient">Faighteoir</string>
   <string name="send">Seol</string>
+  <string name="incrementInSeconds">Méadú i soicindí</string>
   <string name="freeOnlineChess">Ficheall Shaor in Aisce Ar Líne</string>
   <string name="spectators">Lucht féachana:</string>
   <plurals name="nbRated">
@@ -273,6 +275,10 @@
     <item quantity="many">≥ %1$s cluichí rátáilte %2$s</item>
     <item quantity="other">≥ %1$s cluichí rátáilte %2$s</item>
   </plurals>
+  <string name="yourPerfRatingIsProvisional">Tá rátáil %s sealadach agat</string>
+  <string name="yourPerfRatingIsTooHigh">Tá do rátáil %1$s (%2$s) ró-ard</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Tá an rátáil seachtainiúil %1$s is fearr agat (%2$s) ró-ard</string>
+  <string name="yourPerfRatingIsTooLow">Tá do rátáil %1$s (%2$s) ró-íseal</string>
   <string name="mustBeInTeam">Caithfidh tú a bheith i bhfoireann %s</string>
   <string name="youAreNotInTeam">Níl tú sa bhfoireann %s</string>
   <string name="backToGame">Ar ais don chluiche</string>
@@ -335,7 +341,6 @@
   <string name="more">Níos mó</string>
   <string name="memberSince">Ball ó</string>
   <string name="lastSeenActive">Gníomhach %s</string>
-  <string name="challengeToPlay">Seol dúshláin chun imirt</string>
   <string name="player">Imreoir</string>
   <string name="list">Liosta</string>
   <string name="graph">Graf</string>
@@ -353,6 +358,7 @@
   <string name="standing">Seasamh</string>
   <string name="createANewTournament">Cruthaigh comórtas nua</string>
   <string name="tournamentCalendar">Féilire na gcomórtas</string>
+  <string name="conditionOfEntry">Riachtanais iontrála:</string>
   <string name="advancedSettings">Socruithe níos casta</string>
   <string name="safeTournamentName">Pioc ainm an-sábhailte don chomórtas.</string>
   <string name="inappropriateNameWarning">D\'fhéatfadh go bhfhaighidhfeá aon rud atá neamhoiriúineach in aon chaoi do chuntas dúnta.</string>
@@ -383,6 +389,7 @@
   <string name="nextXTournament">An chéad chomórtas %s eile:</string>
   <string name="averageOpponent">Meanghrádú na gcéilí imeartha</string>
   <string name="membersOnly">Baill amháin</string>
+  <string name="boardEditor">Eagarthóir boird</string>
   <string name="popularOpenings">Oscailtí a bhfuil tóir orthu</string>
   <string name="startPosition">Suíomh tosaithe</string>
   <string name="savePosition">Sábhail suíomh</string>
@@ -560,7 +567,6 @@
   <string name="invalidFen">FEN neamhbhailí</string>
   <string name="error.unknown">Earráid</string>
   <string name="notifications">Fógraí</string>
-  <string name="challenges">Dushláin</string>
   <string name="perfRatingX">Rátáil: %s</string>
   <string name="practiceWithComputer">Cleachtaigh leis an ríomhaire</string>
   <string name="computerThinking">An ríomhaire ag machnamh ...</string>
@@ -587,9 +593,12 @@
   <string name="playEveryGame">Imir gach cluiche a chuireann tú tús leis.</string>
   <string name="tryToWin">Déan iarracht gach cluiche a imríonn tú a bhuachaint (nó comhscór a fháil ar a laghad).</string>
   <string name="resignLostGames">Éirigh as cluichí caillte (ná lig don clog rith amach).</string>
+  <string name="agreementAssistance">Aontaím nach nglacfaidh mé le cabhair ar bith i rith mo chluichí (ó ríomhaire fichille, ó leabhar, ó bhunachar sonraí nó ó dhuine eile).</string>
+  <string name="agreementNice">Aontaím go léireoidh mé meas d\'imreoirí eile i gcónaí.</string>
   <string name="edit">Athraigh</string>
   <string name="classical">Clasaiceach</string>
   <string name="ultraBulletDesc">Cluichí ar luas gan chiall; níos lú ná 30 soicind</string>
   <string name="important">Tábhachtach</string>
   <string name="inTheFAQ">sna CCana</string>
+  <string name="teamNamedX">Foireann %1$s</string>
 </resources>

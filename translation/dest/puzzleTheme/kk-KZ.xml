@@ -4,6 +4,10 @@
   <string name="advancedPawnDescription">Айналуға ұмтылған не айналу қаупін төндіретін сарбаз – тактиканың өзегі.</string>
   <string name="advantage">Артықшылық</string>
   <string name="advantageDescription">Шешуші артықшылық беретін сәтті жіберіп алмаңыз. (200-600 сп)</string>
+  <string name="anastasiaMate">Анастасия маты</string>
+  <string name="anastasiaMateDescription">Ат пен тура не уәзірдің бірлесіп, қарсылас патшасын тақта шеті мен өз тасының арасында ұстап алуы.</string>
+  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Арабша мат</string>
+  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">Ат пен тураның бірлесіп қарсылас патшаны тақта бұрышында ұстап алуы.</string>
   <string name="attackingF2F7">f2 не f7-ге шабуылдау</string>
   <string name="attackingF2F7Description">\"Қуырылған бүйрек\" бастауындағыдай f2 не f7 сарбазына бағытталған шабуыл.</string>
   <string name="attraction">Тартымдылық</string>
@@ -12,12 +16,18 @@
   <string name="backRankMateDescription">Өз сабында өз тастарымен қамалған патшаға мат.</string>
   <string name="bishopEndgame">Пiл ойынсоңы</string>
   <string name="bishopEndgameDescription">Пілдер мен сарбаздары ғана бар ойынсоңы.</string>
+  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Бодэн маты</string>
+  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Қарсылас патшасының бір жағын өз тастары бөгеп тұрғанда, екі піл қиылыса шабуылдайды.</string>
   <string name="castling">Бекіну</string>
   <string name="castlingDescription">Патшаны қорғаулы жерге кіргізіп, тураны шабуылға даярлаңыз.</string>
   <string name="capturingDefender">Қорғаушыны жою</string>
   <string name="capturingDefenderDescription">Бір тасты қорғап тұрған басқа тасты басып алсаңыз, әлгі тас қорғаусыз қалып, оны басып алуға жол ашылады.</string>
   <string name="crushing">Тас-талқан</string>
   <string name="crushingDescription">Жойқын артықшылыққа ие болу үшін қарсыластың қателігін анықтаңыз. (≥ 600 сп)</string>
+  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Пілдер маты</string>
+  <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Қарсылас патшасының бір жағын өз тастары бөгеп тұрғанда, екі піл қатарлас шабуылдайды.</string>
+  <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Айырқұйрық мат</string>
+  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">Қарсылас патшасының екі жағын өз тастары бөгеп тұрғанда, уәзір жақыннан мат қояды.</string>
   <string name="equality">Теңдік</string>
   <string name="equalityDescription">Жаман күйден шығып, ойынды тепе-теңдікке не тең күйге жеткізіңіз. (≤ 200 сп)</string>
   <string name="kingsideAttack">Патша жақты шабуыл</string>
@@ -41,6 +51,8 @@
   <string name="forkDescription">Қарсыластың бірден екі тасын ұратын тас жүрісі.</string>
   <string name="hangingPiece">Олжа тас</string>
   <string name="hangingPieceDescription">Қорғанысы нашар не қорғаусыз тұрған қарсылас тасын басып алуды меңзейтін тактика.</string>
+  <string name="hookMate">Қармақ мат</string>
+  <string name="hookMateDescription">Қарсылас патшасына өз сарбазы бөгет бола тұра, ат, тура мен сарбаз арқылы қойылған мат.</string>
   <string name="interference">Бөгет</string>
   <string name="interferenceDescription">Қарсыластың екі байланысқан тастарының арасына бөгет қойып, олардың біреуін не екеуін қорғаусыз ету. Мысалы, екі өзара қорғап тұрған туралардың арасына тұра қалған ат.</string>
   <string name="intermezzo">Аралық жүріс</string>

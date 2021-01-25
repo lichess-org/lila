@@ -356,7 +356,6 @@
   <string name="more">Thêm</string>
   <string name="memberSince">Thành viên từ</string>
   <string name="lastSeenActive">Lần đăng nhập cuối %s</string>
-  <string name="challengeToPlay">Yêu cầu chơi</string>
   <string name="player">Người chơi</string>
   <string name="list">Danh sách</string>
   <string name="graph">Biểu đồ</string>
@@ -702,7 +701,6 @@
   <string name="error.unknown">Lỗi</string>
   <string name="custom">Tuỳ biến</string>
   <string name="notifications">Thông báo</string>
-  <string name="challenges">Thách đấu</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">Thời gian còn lại để đi nước đầu tiên: %s</item>
@@ -747,12 +745,6 @@
   <string name="opening">Khai cuộc</string>
   <string name="middlegame">Trung cuộc</string>
   <string name="endgame">Tàn cuộc</string>
-  <string name="registerToSendChallenges">Xin vui lòng đăng ký để gửi những lời thách đấu.</string>
-  <string name="youCannotChallengeX">Bạn không thể thách đấu %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s không chấp nhận những lời thách đấu.</string>
-  <string name="yourXRatingIsTooFarFromY">Chỉ số %1$s của bạn quá xa so với %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Không thể thách đấu do xếp hạng %s tạm thời.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s chỉ chấp nhận những thách thức từ bạn bè.</string>
   <string name="conditionalPremoves">Nước đi trước có điều kiện</string>
   <string name="addCurrentVariation">Thêm biến thể hiện tại</string>
   <string name="playVariationToCreateConditionalPremoves">Chơi một biến thể để tạo ra nước đi trước có điều kiện</string>

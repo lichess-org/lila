@@ -4,6 +4,10 @@
   <string name="advancedPawnDescription">A pawn promoting or threatening to promote is key to the tactic.</string>
   <string name="advantage">Advantage</string>
   <string name="advantageDescription">Seize your chance to get a decisive advantage. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="anastasiaMate">Anastasia\'s mate</string>
+  <string name="anastasiaMateDescription">A knight and rook or queen team up to trap the opposing king between the side of the board and a friendly piece.</string>
+  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Arabian mate</string>
+  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">A knight and a rook team up to trap the opposing king on a corner of the board.</string>
   <string name="attackingF2F7">Attacking f2 or f7</string>
   <string name="attackingF2F7Description">An attack focusing on the f2 or f7 pawn, such as in the fried liver opening.</string>
   <string name="attraction">Attraction</string>
@@ -12,12 +16,18 @@
   <string name="backRankMateDescription">Checkmate the king on the home rank, when it is trapped there by its own pieces.</string>
   <string name="bishopEndgame">Bishop endgame</string>
   <string name="bishopEndgameDescription">An endgame with only bishops and pawns.</string>
+  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Boden\'s mate</string>
+  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.</string>
   <string name="castling">Castling</string>
   <string name="castlingDescription">Bring the king to safety, and deploy the rook for attack.</string>
   <string name="capturingDefender">Capture the defender</string>
   <string name="capturingDefenderDescription">Removing a piece that is critical to defense of another piece, allowing the now undefended piece to be captured on a following move.</string>
   <string name="crushing">Crushing</string>
   <string name="crushingDescription">Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)</string>
+  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Double bishop mate</string>
+  <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.</string>
+  <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Dovetail mate</string>
+  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.</string>
   <string name="equality">Equality</string>
   <string name="equalityDescription">Come back from a losing position, and secure a draw or a balanced position. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Kingside attack</string>
@@ -41,6 +51,8 @@
   <string name="forkDescription">A move where the moved piece attacks two opponent pieces at once.</string>
   <string name="hangingPiece">Hanging piece</string>
   <string name="hangingPieceDescription">A tactic involving an opponent piece being undefended or insufficiently defended and free to capture.</string>
+  <string name="hookMate">Hook mate</string>
+  <string name="hookMateDescription">Checkmate with a rook, knight, and pawn along with one enemy pawn to limit the enemy king\'s escape.</string>
   <string name="interference">Interference</string>
   <string name="interferenceDescription">Moving a piece between two opponent pieces to leave one or both opponent pieces undefended, such as a knight on a defended square between two rooks.</string>
   <string name="intermezzo">Intermezzo</string>
@@ -49,9 +61,9 @@
   <string name="knightEndgameDescription">An endgame with only knights and pawns.</string>
   <string name="long">Long puzzle</string>
   <string name="longDescription">Three moves to win.</string>
-  <string name="master" comment="master&#10;&#10;Puzzles from games played by titled players.">Master games</string>
+  <string name="master">Master games</string>
   <string name="masterDescription">Puzzles from games played by titled players.</string>
-  <string name="masterVsMaster" comment="masterVsMaster&#10;&#10;Puzzles from games between two titled players.">Master vs Master games</string>
+  <string name="masterVsMaster">Master vs Master games</string>
   <string name="masterVsMasterDescription">Puzzles from games between two titled players.</string>
   <string name="mate">Mate</string>
   <string name="mateDescription">Win the game with style.</string>
@@ -95,7 +107,7 @@
   <string name="skewerDescription">A motif involving a high value piece being attacked, moving out the way, and allowing a lower value piece behind it to be captured or attacked, the inverse of a pin.</string>
   <string name="smotheredMate">Smothered mate</string>
   <string name="smotheredMateDescription">A checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces.</string>
-  <string name="superGM" comment="superGM&#10;&#10;Puzzles from games played by the best players in the world.">Super GM games</string>
+  <string name="superGM">Super GM games</string>
   <string name="superGMDescription">Puzzles from games played by the best players in the world.</string>
   <string name="trappedPiece">Trapped piece</string>
   <string name="trappedPieceDescription">A piece is unable to escape capture as it has limited moves.</string>

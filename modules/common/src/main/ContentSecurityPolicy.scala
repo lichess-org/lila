@@ -26,7 +26,7 @@ case class ContentSecurityPolicy(
       frameSrc = "https://*.stripe.com" :: frameSrc
     )
 
-  def withTwitch =
+  def finalizeWithTwitch =
     copy(
       defaultSrc = Nil,
       connectSrc = "https://www.twitch.tv" :: "https://www-cdn.jtvnw.net" :: connectSrc,

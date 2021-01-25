@@ -379,7 +379,6 @@
   <string name="more">Zêdetir</string>
   <string name="memberSince">Ji vê demê ve endam e</string>
   <string name="lastSeenActive">Çalakiya dawîn %s</string>
-  <string name="challengeToPlay">Vexwîne lîstikek</string>
   <string name="player">Lîzer</string>
   <string name="list">Lîste</string>
   <string name="graph">Grafîk</string>
@@ -728,7 +727,6 @@
   <string name="error.unknown">Çewtî</string>
   <string name="custom">Xisûsî</string>
   <string name="notifications">Danezan</string>
-  <string name="challenges">Teklîfên lîstinê</string>
   <string name="perfRatingX">Reytîng: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s çirke ji bo lîstina hemleya pêşîn</item>
@@ -775,12 +773,6 @@
   <string name="opening">Destpêk</string>
   <string name="middlegame">Nîvlîstik</string>
   <string name="endgame">Dawiya lîstikê</string>
-  <string name="registerToSendChallenges">Ji kerema xwe qeyd bibe ji bo şandina teklîfan.</string>
-  <string name="youCannotChallengeX">Tu nikarî teklîfa lîstinê bişînî %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s teklîfên lîstinê qebûl nake.</string>
-  <string name="yourXRatingIsTooFarFromY">Reytînga te ya %1$s pir dûr e ji %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Ji ber reytînga te ya demkî ya %s, nikare vexwîne lîstinê.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s tenê ji hevalên xwe teklîfan qebûl dike.</string>
   <string name="conditionalPremoves">Pêşhemleyên mercdar</string>
   <string name="addCurrentVariation">Varyasyona heyî tevlî bike</string>
   <string name="playVariationToCreateConditionalPremoves">Varyasyonekê bilîze da ku pêşheleyên mercdar çêbikî</string>

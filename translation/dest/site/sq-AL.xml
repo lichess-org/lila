@@ -382,7 +382,6 @@
   <string name="more">Më shumë</string>
   <string name="memberSince">Anëtar që prej</string>
   <string name="lastSeenActive">Hyrja e fundit %s</string>
-  <string name="challengeToPlay">Sfidoni në një lojë</string>
   <string name="player">Lojtari</string>
   <string name="list">Lista</string>
   <string name="graph">Grafiku</string>
@@ -733,7 +732,6 @@
   <string name="error.unknown">Gabim</string>
   <string name="custom">te zakonshme</string>
   <string name="notifications">Njoftime</string>
-  <string name="challenges">Sfida</string>
   <string name="perfRatingX">Vleresimi: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekonda te besh levizjen e pare</item>
@@ -780,12 +778,6 @@
   <string name="opening">Hapjet</string>
   <string name="middlegame">Lojë e mesme</string>
   <string name="endgame">Fund-lojët</string>
-  <string name="registerToSendChallenges">Ju lutemi regjistrohuni për të ftoj sfidën.</string>
-  <string name="youCannotChallengeX">Ju nuk mund ta ftoni %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s nuk pranon ftesa.</string>
-  <string name="yourXRatingIsTooFarFromY">Vlerësimi juaj %1$s është shumë larg %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Nuk mund të sfidoj për shkak të vlerësimit të përkohshëm %s.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s vetëm pranon ftesa nga miqtë.</string>
   <string name="conditionalPremoves">Condizionale lëvizje</string>
   <string name="addCurrentVariation">Shtoni variacion</string>
   <string name="playVariationToCreateConditionalPremoves">Luaj një variant për të krijuar variacione</string>

@@ -10,7 +10,7 @@
   <string name="forgotUsername">Olvidé mi nombre de usuario</string>
   <string name="youCanLoginWithEmail">Puedes iniciar sesión con la dirección de correo electrónico con la que te registraste</string>
   <string name="lost2FA">Perdí mis códigos de autenticación en dos pasos</string>
-  <string name="doPasswordReset">Complete un restablecimiento de contraseña para eliminar tu segundo factor</string>
+  <string name="doPasswordReset">Completa el cuadro de restablecimiento de contraseña para eliminar tu segundo factor</string>
   <string name="accountSupport">Necesito soporte de cuenta</string>
   <string name="wantTitle">Quiero que mi título se muestre en Lichess</string>
   <string name="visitTitleConfirmation">Para mostrar tu título en tu perfil de Lichess y participar en los torneos que lo exijan, visita la página de verificación de títulos</string>
@@ -27,14 +27,9 @@
   <string name="wantClearHistory">Quiero borrar mi historial o puntuación</string>
   <string name="cantClearHistory">No puedes borrar tu historial de partidas, ejercicios o puntuaciones.</string>
   <string name="wantReport">Quiero denunciar a un jugador</string>
-  <string name="cheating">hacer trampas</string>
-  <string name="sandbagging">reducción intencionada de su puntuación</string>
-  <string name="trolling">molestar</string>
-  <string name="insults">insultos</string>
-  <string name="otherReason">alguna otra razón</string>
-  <string name="toReportAPlayer">Para denunciar a un jugador por %s, utiliza el formulario de denuncia</string>
+  <string name="toReportAPlayerUseForm">Para denunciar a un jugador utiliza el formulario de denuncia</string>
   <string name="youCanAlsoReachReportPage">También puedes acceder a esa página pulsando el botón de denuncia %s en un perfil.</string>
-  <string name="doNotReportInForum">No denuncie a jugadores en el foro.</string>
+  <string name="doNotReportInForum">No denuncies a jugadores en el foro.</string>
   <string name="doNotSendReportEmails">No nos envíes correo para denunciar jugadores.</string>
   <string name="doNotMessageModerators">No envíes mensajes directos a los moderadores.</string>
   <string name="onlyReports">La única forma eficaz de denunciar jugadores es mediante el formulario de denuncia.</string>
@@ -59,22 +54,22 @@
   <string name="ratedGame">Asegúrate de haber jugado una partida por puntuación. Las partidas amistosas no afectan a las puntuaciones de los jugadores.</string>
   <string name="errorPage">Página de error</string>
   <string name="reportErrorPage">Si una página te da error, puedes reportarla:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Apelar por un bloqueo o una restricción de IP</string>
+  <string name="banAppeal">Apelar por un bloqueo o una restricción de IP</string>
   <string name="engineAppeal">Motor o marca de trampa</string>
   <string name="sendAppealTo">Puedes enviar una apelación a %s.</string>
   <string name="falsePositives">A veces ocurren falsos positivos, y lo lamentamos.</string>
-  <string name="ifLegit">Si su apelación es legítima, levantaremos la prohibición lo antes posible.</string>
-  <string name="accountLost">Sin embargo, si realmente utilizó asistencia del motor, incluso una sola vez, su cuenta está lamentablemente perdida.</string>
+  <string name="ifLegit">Si tu apelación es legítima, levantaremos la prohibición lo antes posible.</string>
+  <string name="accountLost">Sin embargo, si realmente has utilizado asistencia del motor, incluso una sola vez, tu cuenta está lamentablemente perdida.</string>
   <string name="doNotDeny">No niegues haber hecho trampa. Si quieres que se te permita crear una nueva cuenta, sólo tienes que admitir lo que hiciste, y mostrar que has comprendido que se trataba de un error.</string>
   <string name="otherRestriction">Otra restricción</string>
   <string name="collaboration">Colaboración, legal, comercial</string>
   <string name="monetizing">Monetizar Lichess</string>
   <string name="buyingLichess">Comprar Lichess</string>
   <string name="authorizationToUse">Autorización para usar Lichess</string>
-  <string name="welcomeToUse">Puede usar Lichess para su fin, incluso comercial.</string>
-  <string name="videosAndBooks">Puede mostrarlo en vídeos, y puede tomar capturas de pantalla de Lichess en sus libros.</string>
+  <string name="welcomeToUse">Puedes usar Lichess para tu fin particular, incluso comercial.</string>
+  <string name="videosAndBooks">Puedes mostrarlo en vídeos y tomar capturas de pantalla de Lichess en tus libros.</string>
   <string name="creditAppreciated">Se aprecia el crédito, pero no es necesario.</string>
   <string name="noneOfTheAbove">Ninguna de las anteriores</string>
   <string name="sendEmailAt">Envíanos un correo electrónico a %s.</string>
-  <string name="explainYourRequest">Por favor explique su solicitud de forma clara y exhaustiva. Especifique su nombre de usuario en Lichess, y cualquier información que nos pueda ser útil.</string>
+  <string name="explainYourRequest">Por favor explica tu solicitud de forma clara y exhaustiva. Especifica tu nombre de usuario de Lichess y cualquier información que nos pueda ser útil.</string>
 </resources>

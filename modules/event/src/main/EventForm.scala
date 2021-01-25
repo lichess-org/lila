@@ -12,13 +12,17 @@ import lila.user.User
 
 object EventForm {
 
-  val iconChoices = List(
-    ""                    -> "Microphone",
-    "lichess.event.png"   -> "Lichess",
-    "trophy.event.png"    -> "Trophy",
-    "offerspill.logo.png" -> "Offerspill"
-  )
-  val imageDefault = ""
+  object icon {
+    val default   = ""
+    val broadcast = "broadcast.icon"
+    val choices = List(
+      default               -> "Microphone",
+      "lichess.event.png"   -> "Lichess",
+      "trophy.event.png"    -> "Trophy",
+      broadcast             -> "Broadcast",
+      "offerspill.logo.png" -> "Offerspill"
+    )
+  }
 
   val form = Form(
     mapping(
@@ -35,7 +39,7 @@ object EventForm {
         lila.user.UserForm.historicalUsernameField
           .transform[User.ID](_.toLowerCase, identity)
       },
-      "icon"      -> stringIn(iconChoices),
+      "icon"      -> stringIn(icon.choices),
       "countdown" -> boolean
     )(Data.apply)(Data.unapply)
   ) fill Data(

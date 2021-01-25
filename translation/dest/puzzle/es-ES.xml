@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">Rompecabezas</string>
+  <string name="puzzles">Ejercicios</string>
   <string name="puzzleThemes">Temas de rompecabezas</string>
   <string name="recommended">Recomendado</string>
   <string name="phases">Fases</string>
-  <string name="motifs">Motivos</string>
+  <string name="motifs">Temas</string>
   <string name="advanced">Avanzado</string>
   <string name="lengths">Duraciones</string>
   <string name="mates">Mates</string>
   <string name="goals">Objetivos</string>
-  <string name="origin">Origen</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Origen</string>
   <string name="specialMoves">Movimientos especiales</string>
-  <string name="didYouLikeThisPuzzle">¿Te ha gustado este rompecabezas?</string>
+  <string name="didYouLikeThisPuzzle">¿Te gusto este rompecabezas?</string>
   <string name="voteToLoadNextOne">¡Vota para cargar el siguiente!</string>
   <string name="yourPuzzleRatingX">Tu puntuación en los rompecabezas: %s</string>
   <string name="findTheBestMoveForWhite">Encuentra el mejor movimiento para las blancas.</string>
   <string name="findTheBestMoveForBlack">Encuentra el mejor movimiento para las negras.</string>
   <string name="toGetPersonalizedPuzzles">Para conseguir rompecabezas personalizados:</string>
   <string name="puzzleId">Rompecabezas %s</string>
-  <string name="puzzleOfTheDay">Rompecabezas del día</string>
+  <string name="puzzleOfTheDay">ejercicio diario</string>
   <string name="clickToSolve">Clic para resolver</string>
   <string name="goodMove">Buen movimiento</string>
-  <string name="bestMove">¡El mejor movimiento!</string>
+  <string name="bestMove">¡Encontraste el mejor movimiento!</string>
   <string name="keepGoing">Continúa…</string>
   <string name="puzzleSuccess">¡Éxito!</string>
   <string name="puzzleComplete">¡Rompecabezas terminado!</string>

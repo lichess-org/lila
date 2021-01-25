@@ -2,7 +2,7 @@ package lila.team
 
 import lila.db.dsl._
 
-final private[team] class Cli(
+final private[team] class TeamCli(
     teamRepo: TeamRepo,
     api: TeamApi
 )(implicit ec: scala.concurrent.ExecutionContext)

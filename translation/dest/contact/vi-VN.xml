@@ -27,12 +27,6 @@
   <string name="wantClearHistory">Tôi muốn xóa lịch sử hoặc hệ số</string>
   <string name="cantClearHistory">Bạn không thể xóa lịch sử các ván đấu, giải đố hay hệ số.</string>
   <string name="wantReport">Tôi muốn gửi báo cáo về một người chơi</string>
-  <string name="cheating">gian lận</string>
-  <string name="sandbagging">cố tình thua</string>
-  <string name="trolling">phá rối</string>
-  <string name="insults">xúc phạm</string>
-  <string name="otherReason">lý do khác</string>
-  <string name="toReportAPlayer">Để báo cáo một người chơi cho %s, sử dụng mẫu báo cáo</string>
   <string name="youCanAlsoReachReportPage">Bạn cũng có thể truy cập trang đó bằng cách bấm vào nút báo báo %s trên một trang cá nhân.</string>
   <string name="doNotReportInForum">Vui lòng không báo cáo người chơi trong diên đàn.</string>
   <string name="doNotSendReportEmails">Vui lòng không gửi cho chúng tôi email báo cáo.</string>
@@ -59,7 +53,7 @@
   <string name="ratedGame">Xin hãy chắc việc bạn chơi ván cờ xếp hạng. Các ván đấu thường sẽ không ảnh hưởng đến hệ số của người chơi.</string>
   <string name="errorPage">Trang lỗi</string>
   <string name="reportErrorPage">Nếu bạn gặp một trang lỗi, bạn có thẻ báo cáo nó:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Kháng cáo cho việc ban và chặn IP</string>
+  <string name="banAppeal">Kháng cáo cho việc ban và chặn IP</string>
   <string name="engineAppeal">Đánh dấu gian lận hoặc dùng máy tính</string>
   <string name="sendAppealTo">Bạn có thể gửi kháng cáo đến %s.</string>
   <string name="falsePositives">Những giá trị dương do đánh giá sai đôi khi vẫn xảy ra, và chúng tôi xin thứ lỗi vì điều đó.</string>

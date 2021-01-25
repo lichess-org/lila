@@ -7,8 +7,8 @@
     <item quantity="other">Lichess.org\'u %1$s aylığına %2$s olaraq dəstəklədi</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="one">%2$s mövzusunda %1$s mövqe məşq etdi</item>
-    <item quantity="other">%2$s mövzusunda %1$s mövqe məşq etdi</item>
+    <item quantity="one">%2$s mövzusunda %1$s pozisiya məşq etdi</item>
+    <item quantity="other">%2$s mövzusunda %1$s pozisiya məşq etdi</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">%s taktiki tapmaca həll etdi</item>

@@ -93,33 +93,17 @@ lichess.load.then(() => {
     ($(this).parents('form')[0] as HTMLFormElement).submit();
   });
 
-  const langInput = document.getElementById('form3-languages');
+  const langInput = document.getElementById('form3-languages')!;
   const tagify = new Tagify(langInput, {
-    delimiters: null,
     maxTags: 10,
-    whitelist: JSON.parse(langInput?.getAttribute('data-all') || ''),
-    templates: {
-      tag: function(this: any, v, tagData) {
-        return `<tag title='${v}' contenteditable='false' spellcheck="false" class='tagify__tag ${tagData.class ? tagData.class : ""}' ${this.getAttributes(tagData)}>
-                <x title='remove tag' class='tagify__tag__removeBtn'></x>
-                <div>
-                    <span class='tagify__tag-text'>${v}</span>
-                </div>
-            </tag>`;
-      },
-      dropdownItem: function(tagData) {
-        return `<div class='tagify__dropdown__item ${tagData.class ? tagData.class : ""}'>
-                  <span>${tagData.value}</span>
-              </div>`;
-      }
-    },
+    whitelist: JSON.parse(langInput.getAttribute('data-all') || ''),
     enforceWhitelist: true,
     dropdown: {
       enabled: 1
     }
   });
   tagify.addTags(
-    langInput?.getAttribute('data-value')?.split(',').map(code =>
+    langInput.getAttribute('data-value')?.split(',').map(code =>
       tagify.settings.whitelist.find(l => l.code == code)
     ).filter(notNull)
   );

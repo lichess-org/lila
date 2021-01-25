@@ -7,8 +7,9 @@
   <string name="waitingForOpponent">相手を待っています</string>
   <string name="waiting">待機中</string>
   <string name="yourTurn">あなたの手番です</string>
-  <string name="aiNameLevelAiLevel">%1$s レべル %2$s</string>
+  <string name="aiNameLevelAiLevel">%1$s レベル %2$s</string>
   <string name="level">レベル</string>
+  <string name="strength">強さ</string>
   <string name="toggleTheChat">チャットのオン・オフ</string>
   <string name="toggleSound">音声のオン・オフ</string>
   <string name="chat">チャット</string>
@@ -106,7 +107,7 @@
   <string name="bestMoveArrow">最善手を表示</string>
   <string name="evaluationGauge">評価値を表示</string>
   <string name="multipleLines">解析ライン数</string>
-  <string name="cpus">CPU数</string>
+  <string name="cpus">スレッド数</string>
   <string name="memory">メモリ</string>
   <string name="infiniteAnalysis">無限解析</string>
   <string name="removesTheDepthLimit">探索手数の制限をなくし最大限の解析を行なう</string>
@@ -356,7 +357,6 @@
   <string name="more">さらに表示</string>
   <string name="memberSince">登録日</string>
   <string name="lastSeenActive">最後のログイン %s</string>
-  <string name="challengeToPlay">対局を申し込む</string>
   <string name="player">プレイヤー</string>
   <string name="list">リスト</string>
   <string name="graph">グラフ</string>
@@ -666,7 +666,7 @@
   </plurals>
   <string name="gameAnalysis">棋譜解析</string>
   <string name="xHostsY">%1$sが %2$s を作成しました</string>
-  <string name="xJoinsY">%1$sが %2$s に参加しました</string>
+  <string name="xJoinsY">%1$sが %2$s に参加</string>
   <string name="xLikesY">%1$s が %2$s に「いいね」しました。</string>
   <string name="xCreatesStudyY">%1$s が研究 %2$s を作成</string>
   <string name="quickPairing">自動ペアリング</string>
@@ -702,7 +702,6 @@
   <string name="error.unknown">エラー</string>
   <string name="custom">自由設定</string>
   <string name="notifications">通知</string>
-  <string name="challenges">挑戦</string>
   <string name="perfRatingX">レーティング: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">あと %s 秒以内に初手を指してください</item>
@@ -747,12 +746,6 @@
   <string name="opening">序盤</string>
   <string name="middlegame">中盤</string>
   <string name="endgame">終盤</string>
-  <string name="registerToSendChallenges">チャレンジを送るには登録が必要です。</string>
-  <string name="youCannotChallengeX">%s にチャレンジできません。</string>
-  <string name="xDoesNotAcceptChallenges">%s はチャレンジを受け付けていません。</string>
-  <string name="yourXRatingIsTooFarFromY">%1$s レーティングが %2$s と離れすぎです。</string>
-  <string name="cannotChallengeDueToProvisionalXRating">%s が仮レーティングのためチャレンジできません。</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s は友達からのチャレンジしか受け付けません。</string>
   <string name="conditionalPremoves">コンディショナルムーブ</string>
   <string name="addCurrentVariation">現在の変化を追加する</string>
   <string name="playVariationToCreateConditionalPremoves">駒を動かしてコンディショナルムーブを設定します</string>
@@ -805,7 +798,4 @@
   <string name="youCannotPostYetPlaySomeGames">何局か指し終えるまで投稿はできません。</string>
   <string name="subscribe">投稿をフォロー</string>
   <string name="unsubscribe">投稿のフォローをはずす</string>
-  <string name="challengeDeclined">挑戦が拒否されました。</string>
-  <string name="challengeAccepted">挑戦が承認されました！</string>
-  <string name="challengeCanceled">挑戦がキャンセルされました。</string>
 </resources>

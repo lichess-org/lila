@@ -383,7 +383,6 @@
   <string name="more">Meira</string>
   <string name="memberSince">Limur síðani</string>
   <string name="lastSeenActive">Virkin %s</string>
-  <string name="challengeToPlay">Bjóða av at telva</string>
   <string name="player">Telvari</string>
   <string name="list">Listi</string>
   <string name="graph">Strikumynd</string>
@@ -736,7 +735,6 @@
   <string name="error.unknown">Feilur</string>
   <string name="custom">Tillagað</string>
   <string name="notifications">Fráboðanir</string>
-  <string name="challenges">Avbjóðingar</string>
   <string name="perfRatingX">Styrkital: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund at flyta fyrsta leik</item>
@@ -783,12 +781,6 @@
   <string name="opening">Byrjanartalv</string>
   <string name="middlegame">Miðtalv</string>
   <string name="endgame">Endatalv</string>
-  <string name="registerToSendChallenges">Skráset teg vinaliga at senda avbjóðingar.</string>
-  <string name="youCannotChallengeX">Tú kanst ikki bjóða %s av.</string>
-  <string name="xDoesNotAcceptChallenges">%s tekur ikki av avbjóðingum.</string>
-  <string name="yourXRatingIsTooFarFromY">Títt %1$s styrkital er ov langt frá %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Fær ikki bjóðað av vegna fyribils %s styrkital.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s tekur bert við avbjóðingum frá vinum.</string>
   <string name="conditionalPremoves">Treytaðir undanleikir</string>
   <string name="addCurrentVariation">Skoyt núverandi brigdi upp í</string>
   <string name="playVariationToCreateConditionalPremoves">Telva eitt brigdi til tess at skapa treytaðar undanleikir</string>
@@ -842,7 +834,4 @@
   <string name="youCannotPostYetPlaySomeGames">Tú kanst ikki seta uppsløg upp á torgunum enn. Telva nøkur talv!</string>
   <string name="subscribe">Melda til</string>
   <string name="unsubscribe">Melda teg úr</string>
-  <string name="challengeDeclined">Avbjóðing avvíst</string>
-  <string name="challengeAccepted">Avbjóðing góðtikin!</string>
-  <string name="challengeCanceled">Avbjóðing avlýst.</string>
 </resources>

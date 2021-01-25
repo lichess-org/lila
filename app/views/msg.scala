@@ -32,7 +32,7 @@ object msg {
 
   private val i18nKeys = List(
     trans.inbox,
-    trans.challengeToPlay,
+    trans.challenge.challengeToPlay,
     trans.block,
     trans.unblock,
     trans.blocked,
