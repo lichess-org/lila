@@ -59,6 +59,7 @@ export default class StormCtrl {
     this.ground(false);
     dailyBestSet(this.countWins());
     this.redraw();
+    this.sound.end();
   }
 
   naturalFlag = () => {
@@ -90,6 +91,7 @@ export default class StormCtrl {
         this.vm.modifier.bonus = bonus;
         this.vm.clock += bonus.seconds * 1000;
         this.redrawSlow();
+        this.sound.bonus();
       }
       this.redrawQuick();
       lichess.sound.play(capture ? 'capture' : 'move');
@@ -206,4 +208,14 @@ export default class StormCtrl {
   private showGround = (g: CgApi): void => g.set(this.makeCgOpts());
 
   private uciToLastMove = (uci: string): [Key, Key] => [uci.substr(0, 2) as Key, uci.substr(2, 2) as Key];
+
+  private loadSound = (file: string, volume?: number) => {
+    lichess.sound.loadOggOrMp3(file, `${lichess.sound.baseUrl}/${file}`);
+    return () => lichess.sound.play(file, volume);
+  };
+
+  private sound = {
+    bonus: this.loadSound('other/ping'),
+    end: this.loadSound('other/gewonnen')
+  };
 }
