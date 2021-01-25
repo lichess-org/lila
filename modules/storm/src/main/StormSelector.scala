@@ -13,11 +13,14 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
 
   import BsonHandlers._
 
-  val poolSize = 100
-  val theme    = lila.puzzle.PuzzleTheme.mix.key.value
-  val tier     = lila.puzzle.PuzzleTier.Good.key
+  def apply: Fu[List[StormPuzzle]] = current.get {}
 
-  val ratings = (1000 to 2600 by 150).toList
+  private val poolSize = 100
+  private val theme    = lila.puzzle.PuzzleTheme.mix.key.value
+  private val tier     = lila.puzzle.PuzzleTier.Good.key
+
+  private val ratings       = (1000 to 2400 by 150).toList
+  private val ratingBuckets = ratings.size
 
   private val current = cacheApi.unit[List[StormPuzzle]] {
     _.refreshAfterWrite(10 seconds)
@@ -38,7 +41,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
                     Project($doc("_id" -> false, "ids" -> true)),
                     Sample(1),
                     UnwindField("ids"),
-                    Sample(20),
+                    Sample((poolSize * 4) / ratingBuckets),
                     Group(BSONNull)("ids" -> PushField("ids"))
                   )
                 }
@@ -59,7 +62,15 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
                             "$expr" -> $doc(
                               "$and" -> $arr(
                                 $doc("$eq" -> $arr("$_id", "$$id")),
-                                $doc("$lt" -> $arr("$glicko.d", 90))
+                                $doc("$lt" -> $arr("$glicko.d", 90)),
+                                $doc(
+                                  "$regexMatch" -> $doc(
+                                    "input" -> "$fen",
+                                    "regex" -> {
+                                      if (scala.util.Random.nextBoolean()) " w " else " b "
+                                    }
+                                  )
+                                )
                               )
                             )
                           )
@@ -77,7 +88,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
                 ),
                 UnwindField("puzzle"),
                 ReplaceRootField("puzzle"),
-                Sample(100),
+                Sample(poolSize),
                 Sort(Ascending("rating"))
               )
             }.map { docs =>
@@ -85,8 +96,27 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
             }
           }
           .mon(_.storm.selector.time)
+          .logTime("selector")
+          .addEffect { puzzles =>
+            monitor(puzzles.toVector)
+          }
       }
   }
 
-  def apply: Fu[List[StormPuzzle]] = current.get {}
+  private def monitor(puzzles: Vector[StormPuzzle]): Unit = {
+    val nb = puzzles.size
+    lila.mon.storm.selector.count.record(nb)
+    if (nb > 1) {
+      val rest = puzzles.toVector drop 1
+      lila.common.Maths.mean(rest.map(_.rating)) foreach { r =>
+        lila.mon.storm.selector.rating.record(r.toInt).unit
+      }
+      (0 to poolSize by 10) foreach { i =>
+        val slice = rest drop i take 10
+        lila.common.Maths.mean(slice.map(_.rating)) foreach { r =>
+          lila.mon.storm.selector.ratingSlice(i).record(r.toInt)
+        }
+      }
+    }
+  }
 }
