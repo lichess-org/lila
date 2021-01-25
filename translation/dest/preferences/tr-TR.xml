@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Körleme satranç (taşlar görünmez)</string>
   <string name="chessClock">Satranç saati</string>
   <string name="tenthsOfSeconds">Saniyenin Onda Biri</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kalan zaman 10 saniye ise</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kalan zaman 10 saniyeden az ise</string>
   <string name="horizontalGreenProgressBars">Yeşil yatay ilerleme çubuğu</string>
   <string name="soundWhenTimeGetsCritical">Zaman azaldığında sesle uyarı</string>
   <string name="giveMoreTime">Fazladan süre ver</string>
@@ -34,7 +34,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Üçlü tekrarda otomatik olarak beraberlik teklif et</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Kalan zaman 30 saniyeden az ise</string>
   <string name="moveConfirmation">Hamleyi onayla</string>
-  <string name="inCorrespondenceGames">Yazışmalı oyunlarda</string>
+  <string name="inCorrespondenceGames">Yazışmalı oyunlar</string>
   <string name="correspondenceAndUnlimited">Yazışmalı ve sınırsız</string>
   <string name="confirmResignationAndDrawOffers">Oyundan çekilme ve beraberlik tekliflerini onayla</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rok atma yöntemi</string>
