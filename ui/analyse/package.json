@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@badrap/result": "^0.2.6",
-    "@yaireo/tagify": "3.9.3",
+    "@yaireo/tagify": "^3.22.1",
     "ceval": "2.0.0",
     "chat": "2.0.0",
     "chess": "2.0.0",

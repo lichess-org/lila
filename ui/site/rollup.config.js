@@ -33,6 +33,11 @@ export default rollupProject({
             ].map(require.resolve),
             dest: '../../public/vendor/highcharts-4.2.5',
           },
+          // tagify
+          {
+            src: require.resolve('@yaireo/tagify/dist/tagify.min.js'),
+            dest: '../../public/vendor/tagify',
+          },
           // stockfish.js
           {
             src: [
