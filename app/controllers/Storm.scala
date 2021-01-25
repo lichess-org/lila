@@ -33,4 +33,19 @@ final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
         }
       }
     }
+
+  def dashboard(page: Int) =
+    Auth { implicit ctx => me =>
+      get("u")
+        .ifTrue(isGranted(_.Hunter))
+        .??(env.user.repo.named)
+        .map(_ | me)
+        .flatMap { user =>
+          env.storm.dayApi.history(user.id, page) flatMap { history =>
+            env.storm.highApi.get(user.id) map { high =>
+              Ok(views.html.storm.dashboard(user, history, high))
+            }
+          }
+        }
+    }
 }

@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'storm';
+  font-style: normal;
+  font-weight: 400;
+
+  src: url("#{$font-path}/alarmclock.woff2") format("woff2"), url("#{$font-path}/alarmclock.woff") format("woff2");
+}

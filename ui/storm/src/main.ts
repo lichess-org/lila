@@ -14,7 +14,7 @@ import view from './view/main';
 
 export function start(opts: StormOpts) {
 
-  const element = document.querySelector('main.storm') as HTMLElement;
+  const element = document.querySelector('.storm-app') as HTMLElement;
 
   let vnode: VNode;
 

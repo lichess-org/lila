@@ -56,7 +56,7 @@ object side {
             )
           }
         ),
-        !isPuzzle option iconTag("G")
+        iconTag("G")
       )
     }
 
@@ -90,7 +90,7 @@ object side {
       cls := List(
         "empty" -> !storm.nonEmpty
       ),
-      href := routes.Storm.home(),
+      href := routes.Storm.dashboard(),
       span(
         h3("Puzzle Storm"),
         st.rating(

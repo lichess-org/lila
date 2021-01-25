@@ -7,7 +7,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 
 export default function(ctrl: StormCtrl): VNode {
-  if (!ctrl.vm.run.endAt) return h('main.storm.storm--play', {
+  if (!ctrl.vm.run.endAt) return h('div.storm.storm-app.storm--play', {
     class: playModifiers(ctrl)
   }, renderPlay(ctrl));
   return h('main.storm.storm--end', renderEnd(ctrl));

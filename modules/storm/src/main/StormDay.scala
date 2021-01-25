@@ -8,6 +8,9 @@ import lila.common.Day
 import lila.db.dsl._
 import lila.user.User
 import lila.user.UserRepo
+import lila.common.config.MaxPerPage
+import lila.common.paginator.Paginator
+import lila.db.paginator.Adapter
 
 case class StormDay(
     _id: StormDay.Id,
@@ -69,4 +72,17 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo)(i
       }
     }
   }
+
+  def history(userId: User.ID, page: Int): Fu[Paginator[StormDay]] =
+    Paginator(
+      adapter = new Adapter[StormDay](
+        collection = coll,
+        selector = $doc("_id" $startsWith s"${userId}:"),
+        projection = none,
+        sort = $sort desc "_id"
+      ),
+      page,
+      MaxPerPage(30)
+    )
+
 }

@@ -1,0 +1,60 @@
+@import "font";
+@import "play-again";
+
+.storm-dashboard {
+  &__high {
+    &__periods {
+      display: flex;
+      flex-flow: row wrap;
+    }
+
+    &__period {
+      @extend %flex-column, %box-neat;
+
+      align-items: center;
+      justify-content: center;
+      flex: 1 1 auto;
+      margin-right: 2vw;
+      background: $c-bg-zebra;
+      padding: 1.5em 1em;
+
+      strong {
+        font-family: 'storm';
+        font-weight: normal;
+        font-size: 5em;
+      }
+
+      &:first-child {
+        background: $c-brag;
+        color: $c-brag-over;
+
+        strong {
+          font-size: 10em;
+          line-height: 1em;
+        }
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .storm-play-again {
+    margin: 2vh 0;
+  }
+
+  &__history {
+    overflow: hidden;
+
+    th:not(:first-child) {
+      text-align: right;
+    }
+
+    td:not(:first-child) {
+      text-align: right;
+      font-family: 'storm';
+      font-size: 2em;
+    }
+  }
+}
