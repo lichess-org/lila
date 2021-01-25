@@ -36,7 +36,7 @@ function renderIn(ctrl: StormCtrl, el: HTMLElement) {
   const millis = ctrl.vm.run.startAt + clock - getNow();
   const diffs = computeModifierDiff(now, mods.bonus) - computeModifierDiff(now, mods.malus);
   el.innerText = formatMs(millis - diffs);
-  if (millis < 1 && !ctrl.vm.run.endAt) ctrl.end();
+  if (millis < 1 && !ctrl.vm.run.endAt) ctrl.naturalFlag();
 }
 
 const pad = (x: number): string => (x < 10 ? '0' : '') + x;

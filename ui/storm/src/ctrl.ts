@@ -61,6 +61,11 @@ export default class StormCtrl {
     this.redraw();
   }
 
+  naturalFlag = () => {
+    this.pushToHistory(false);
+    this.end();
+  };
+
   userMove = (orig: Key, dest: Key): void => {
     if (!this.promotion.start(orig, dest, this.playUserMove)) this.playUserMove(orig, dest);
   }
