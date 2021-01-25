@@ -46,13 +46,12 @@ const renderCombo = (ctrl: StormCtrl): VNode => {
       h('span.storm__combo__counter__combo', 'COMBO')
     ]),
     h('div.storm__combo__bars', [
-      h('div.storm__combo__bar',
+      h('div.storm__combo__bar', [
         h('div.storm__combo__bar__in', {
-          attrs: {
-            style: `width:${ctrl.comboPercent()}%`
-          }
-        })
-      ),
+          attrs: { style: `width:${ctrl.comboPercent()}%` }
+        }),
+        h('div.storm__combo__bar__in-full')
+      ]),
       h('div.storm__combo__levels',
         [0, 1, 2, 3].map(l =>
           h('div.storm__combo__level', {

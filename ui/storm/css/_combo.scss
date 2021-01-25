@@ -1,10 +1,3 @@
-@keyframes level-fade-in {
-  from {
-    background: white;
-    box-shadow: 0 0 15px white, 0 0 25px white;
-  }
-}
-
 .storm {
   &__combo {
     @extend %flex-center-nowrap;
@@ -48,15 +41,22 @@
       $c-in-base: $c-brag;
       $c-in-flash: mix($c-in-base, white, 75%);
 
-      flex: 1 1 100%;
-      height: 2.2em;
+      flex: 0 0 2.2em;
       background: $c-bar-base;
       border: $border;
+      position: relative;
 
-      &__in {
+      &__in,
+      &__in-full {
         @extend %box-radius;
 
-        height: 2.2em;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 100%;
+      }
+
+      &__in {
         background: $c-in-base;
         box-shadow: 0 0 15px $c-in-base;
 
@@ -68,14 +68,36 @@
         transition: all .5s ease-in-out;
 
         .storm--mod-bonus-slow & {
-          width: 100% !important;
-          background: $c-good;
-          box-shadow: 0 0 10px $c-good, 0 0 20px $c-good;
+          display: none;
         }
+
         .storm--mod-malus-slow & {
           transition-property: width;
           background: $c-bad;
           box-shadow: 0 0 10px $c-bad, 0 0 20px $c-bad;
+        }
+      }
+
+      &__in-full {
+        background: $c-primary;
+        box-shadow: 0 0 10px $c-primary, 0 0 20px $c-primary;
+        width: 100%;
+        display: none;
+        opacity: 0;
+
+        @keyframes bar-full {
+          from {
+            opacity: 1;
+          }
+
+          to {
+            height: 0;
+          }
+        }
+
+        .storm--mod-bonus-slow & {
+          display: block;
+          animation: bar-full .9s ease-in-out;
         }
       }
     }
@@ -95,6 +117,17 @@
       height: 1.2em;
       border: $border;
       background: $c-bg-zebra;
+
+      @keyframes level-fade-in {
+        from {
+          background: white;
+          box-shadow: 0 0 15px white, 0 0 25px white;
+        }
+
+        to {
+          box-shadow: 0 0 10px $c-level;
+        }
+      }
 
       &.active {
         animation: level-fade-in 1s ease-out;
