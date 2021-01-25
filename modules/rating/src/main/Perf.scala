@@ -2,7 +2,7 @@ package lila.rating
 
 import org.goochjs.glicko2.Rating
 import org.joda.time.DateTime
-import reactivemongo.api.bson.BSONDocument
+import reactivemongo.api.bson.{ BSONDocument, Macros }
 
 import lila.db.BSON
 
@@ -98,6 +98,14 @@ case object Perf {
 
   val recentMaxSize = 12
 
+  case class Storm(score: Int, runs: Int) {
+    def nonEmpty = runs > 0
+  }
+
+  object Storm {
+    val default = Storm(0, 0)
+  }
+
   implicit val perfBSONHandler = new BSON[Perf] {
 
     import Glicko.glickoBSONHandler
@@ -120,4 +128,6 @@ case object Perf {
         "la" -> o.latest.map(w.date)
       )
   }
+
+  implicit val stormBSONHandler = Macros.handler[Storm]
 }

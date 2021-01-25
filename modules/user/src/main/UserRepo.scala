@@ -205,6 +205,17 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       )
       .void
 
+  private val incStormRuns = $inc("perfs.storm.runs" -> 1)
+  def addStormRun(userId: User.ID, newHighScore: Option[Int]): Funit =
+    coll.update
+      .one(
+        $id(userId),
+        newHighScore.fold(incStormRuns) { score =>
+          incStormRuns ++ $set("perfs.storm.score" -> score)
+        }
+      )
+      .void
+
   def setProfile(id: ID, profile: Profile): Funit =
     coll.update
       .one(

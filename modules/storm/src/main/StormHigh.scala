@@ -34,18 +34,21 @@ object StormHigh {
 final class StormHighApi(coll: Coll, cacheApi: CacheApi)(implicit ctx: ExecutionContext) {
 
   import StormBsonHandlers._
+  import StormHigh.NewHigh
 
   def get(userId: User.ID): Fu[StormHigh] = cache get userId
 
-  def update(userId: User.ID, prev: StormHigh, score: Int): Option[StormHigh.NewHigh] = {
+  def update(userId: User.ID, prev: StormHigh, score: Int): (StormHigh, Option[NewHigh]) = {
     val newHigh = prev update score
-    (newHigh != prev) ?? {
-      cache.put(userId, fuccess(newHigh))
-      import StormHigh.NewHigh._
-      if (newHigh.allTime >= prev.allTime) AllTime(prev.allTime).some
-      else if (newHigh.month >= prev.month) Month(prev.month).some
-      else if (newHigh.week >= prev.week) Week(prev.week).some
-      else Day(prev.day).some
+    newHigh -> {
+      (newHigh != prev) ?? {
+        cache.put(userId, fuccess(newHigh))
+        import NewHigh._
+        if (newHigh.allTime >= prev.allTime) AllTime(prev.allTime).some
+        else if (newHigh.month >= prev.month) Month(prev.month).some
+        else if (newHigh.week >= prev.week) Week(prev.week).some
+        else Day(prev.day).some
+      }
     }
   }
 

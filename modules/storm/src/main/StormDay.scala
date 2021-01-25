@@ -7,6 +7,7 @@ import scala.concurrent.ExecutionContext
 import lila.common.Day
 import lila.db.dsl._
 import lila.user.User
+import lila.user.UserRepo
 
 case class StormDay(
     _id: StormDay.Id,
@@ -41,7 +42,9 @@ object StormDay {
   def empty(id: Id) = StormDay(id, 0, 0, 0, 0, 0, 0)
 }
 
-final class StormDayApi(coll: Coll, highApi: StormHighApi)(implicit ctx: ExecutionContext) {
+final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo)(implicit
+    ctx: ExecutionContext
+) {
 
   import StormDay._
   import StormBsonHandlers._
@@ -59,7 +62,10 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi)(implicit ctx: Executi
           .flatMap { day =>
             coll.update.one($id(day._id), day, upsert = true)
           }
-          .void inject highApi.update(u.id, prevHigh, data.score)
+          .flatMap { _ =>
+            val (high, newHigh) = highApi.update(u.id, prevHigh, data.score)
+            userRepo.addStormRun(u.id, high.allTime.some.filter(prevHigh.allTime <)) inject newHigh
+          }
       }
     }
   }

@@ -1981,6 +1981,7 @@ val `newMonthlyHighscore` = new I18nKey("storm:newMonthlyHighscore")
 val `newAllTimeHighscore` = new I18nKey("storm:newAllTimeHighscore")
 val `previousHighscoreWasX` = new I18nKey("storm:previousHighscoreWasX")
 val `playAgain` = new I18nKey("storm:playAgain")
+val `xRuns` = new I18nKey("storm:xRuns")
 }
 
 }

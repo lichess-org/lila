@@ -23,7 +23,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
   private val ratingBuckets = ratings.size
 
   private val current = cacheApi.unit[List[StormPuzzle]] {
-    _.refreshAfterWrite(10 seconds)
+    _.refreshAfterWrite(6 seconds)
       .buildAsyncFuture { _ =>
         colls
           .path {

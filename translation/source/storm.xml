@@ -8,4 +8,8 @@
   <string name="newAllTimeHighscore">New all-time highscore!</string>
   <string name="previousHighscoreWasX">Previous highscore was %s</string>
   <string name="playAgain">Play again</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 run</item>
+    <item quantity="other">%s runs</item>
+  </plurals>
 </resources>
