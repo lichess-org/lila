@@ -3,7 +3,7 @@
   <string name="preferences">Seçenekler</string>
   <string name="gameDisplay">Oyun görünümü</string>
   <string name="pieceAnimation">Hamle animasyonu</string>
-  <string name="materialDifference">Malzeme farkı</string>
+  <string name="materialDifference">Taş farkı</string>
   <string name="boardHighlights">Tahta uyarıları (son hamle ve şah çekme)</string>
   <string name="pieceDestinations">Taşın gidebileceği kareler (geçerli hamleler ve ön hamleler)</string>
   <string name="boardCoordinates">Tahta kordinatları (A-H, 1-8)</string>
@@ -14,7 +14,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Sade görünüm</string>
   <string name="displayBoardResizeHandle">Tahta büyüklüğünü ayarlama kolunu göster</string>
   <string name="onlyOnInitialPosition">Sadece oyunun başında</string>
-  <string name="blindfoldChess">Körleme satranç (taşlar gözükmez)</string>
+  <string name="blindfoldChess">Körleme satranç (taşlar görünmez)</string>
   <string name="chessClock">Satranç saati</string>
   <string name="tenthsOfSeconds">Saniyenin Onda Biri</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kalan zaman 10 saniye ise</string>
