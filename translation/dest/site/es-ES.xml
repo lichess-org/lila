@@ -9,7 +9,7 @@
   <string name="yourTurn">Tu turno</string>
   <string name="aiNameLevelAiLevel">%1$s nivel %2$s</string>
   <string name="level">Nivel</string>
-  <string name="strength">Fuerza</string>
+  <string name="strength">Nivel</string>
   <string name="toggleTheChat">Mostrar/Ocultar chat</string>
   <string name="toggleSound">Activar/Desactivar sonido</string>
   <string name="chat">Chat</string>
@@ -656,7 +656,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si no encuentras el correo, mira a ver si está en otras carpetas (spam, social, ...).</string>
   <string name="weHaveSentYouAnEmailTo">Te hemos enviado un correo a %s. Restablece tu contraseña haciendo clic en el enlace.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Al registrarte, aceptas las %s.</string>
-  <string name="readAboutOur">Lee acerca de nuestra %s.</string>
+  <string name="readAboutOur">Lee acerca de nuestro %s.</string>
   <string name="networkLagBetweenYouAndLichess">Retardo de conexión entre tú y lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tiempo para procesar un movimiento en el servidor de Lichess</string>
   <string name="downloadAnnotated">Descargar la partida anotada</string>
