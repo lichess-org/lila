@@ -75,6 +75,9 @@ object features {
               a(href := routes.Puzzle.home())("Tactical puzzles from user games")
             ),
             tr(unlimited)(
+              a(href := routes.Storm.home())("Puzzle Storm")
+            ),
+            tr(unlimited)(
               a(href := s"${routes.UserAnalysis.index()}#explorer")("Opening explorer"),
               " (62 million games!)"
             ),
@@ -88,7 +91,7 @@ object features {
             ),
             tr(unlimited)(
               a(href := routes.Search.index(1))("Advanced search"),
-              " through Lichess 1.5 billion games"
+              " through Lichess 3 billion games"
             ),
             tr(unlimited)(
               a(href := routes.Video.index())("Chess video library")
