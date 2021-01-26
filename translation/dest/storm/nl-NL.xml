@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzlesSolved">puzzels opgelost</string>
+  <string name="newDailyHighscore">Nieuwe dagelijkse highscore!</string>
+  <string name="newWeeklyHighscore">Nieuwe wekelijkse highscore!</string>
+  <string name="newMonthlyHighscore">Nieuwe maandelijkse highscore!</string>
+  <string name="playAgain">Opnieuw spelen</string>
+  <string name="highscoreX">Highscore: %s</string>
+</resources>
