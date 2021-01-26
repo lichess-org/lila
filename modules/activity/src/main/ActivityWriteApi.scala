@@ -70,6 +70,17 @@ final class ActivityWriteApi(
         .void
     }
 
+  def storm(userId: User.ID, score: Int): Funit =
+    getOrCreate(userId) flatMap { a =>
+      coll.update
+        .one(
+          $id(a.id),
+          $set(ActivityFields.storm -> { ~a.storm + score }),
+          upsert = true
+        )
+        .void
+    }
+
   def learn(userId: User.ID, stage: String) =
     update(userId) { a =>
       a.copy(learn = Some(~a.learn + Learn.Stage(stage))).some

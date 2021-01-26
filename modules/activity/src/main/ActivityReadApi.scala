@@ -110,6 +110,7 @@ final class ActivityReadApi(
       interval = a.interval,
       games = a.games,
       puzzles = a.puzzles,
+      storm = a.storm,
       practice = practice,
       posts = postView,
       simuls = simuls,

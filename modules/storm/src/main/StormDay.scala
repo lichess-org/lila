@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 import org.joda.time.Days
 import scala.concurrent.ExecutionContext
 
+import lila.common.Bus
 import lila.common.config.MaxPerPage
 import lila.common.Day
 import lila.common.paginator.Paginator
@@ -64,6 +65,7 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo)(i
   def addRun(data: StormForm.RunData, user: Option[User]): Fu[Option[StormHigh.NewHigh]] = {
     lila.mon.storm.run.score(user.isDefined).record(data.score).unit
     user ?? { u =>
+      Bus.publish(lila.hub.actorApi.storm.StormRun(u.id, data.score), "stormRun")
       highApi get u.id flatMap { prevHigh =>
         val todayId = Id today u.id
         coll

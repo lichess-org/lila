@@ -11,6 +11,7 @@ case class Activity(
     games: Option[Games] = None,
     posts: Option[Posts] = None,
     puzzles: Option[Puzzles] = None,
+    storm: Option[Storm] = None,
     learn: Option[Learn] = None,
     practice: Option[Practice] = None,
     simuls: Option[Simuls] = None,
@@ -27,7 +28,20 @@ case class Activity(
   def interval = new Interval(date, date plusDays 1)
 
   def isEmpty =
-    !stream && List(games, posts, puzzles, learn, practice, simuls, corres, patron, follows, studies, teams)
+    !stream && List(
+      games,
+      posts,
+      puzzles,
+      storm,
+      learn,
+      practice,
+      simuls,
+      corres,
+      patron,
+      follows,
+      studies,
+      teams
+    )
       .forall(_.isEmpty)
 }
 

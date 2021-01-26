@@ -31,6 +31,11 @@ object activities {
   }
   implicit val PuzzlesZero = Zero.instance(Puzzles(ScoreZero.zero))
 
+  case class Storm(runs: Int, score: Int) {
+    def +(s: Int) = Storm(runs = runs + 1, score = score atLeast s)
+  }
+  implicit val StormZero = Zero.instance(Storm(0, 0))
+
   case class Learn(value: Map[Learn.Stage, Int]) {
     def +(stage: Learn.Stage) =
       copy(
