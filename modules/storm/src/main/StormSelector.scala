@@ -19,18 +19,28 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
 
   def apply: Fu[List[StormPuzzle]] = current.get {}
 
-  private val poolSize     = 130
   private val theme        = lila.puzzle.PuzzleTheme.mix.key.value
   private val tier         = lila.puzzle.PuzzleTier.Good.key
   private val maxDeviation = 90
 
-  private val ratings          = (1000 to 2800 by 150).toList
-  private val ratingBuckets    = ratings.size
-  private val puzzlesPerBucket = poolSize / ratingBuckets
-
-  private def puzzlesForBucket(bucket: Int) =
-    if (bucket < ratingBuckets / 2) puzzlesPerBucket - 1
-    else puzzlesPerBucket + 1
+  private val ratingBuckets =
+    List(
+      1000 -> 5,
+      1150 -> 5,
+      1300 -> 6,
+      1450 -> 7,
+      1600 -> 8,
+      1750 -> 9,
+      1900 -> 11,
+      2050 -> 13,
+      2200 -> 15,
+      2350 -> 17,
+      2500 -> 19,
+      2650 -> 21
+    )
+  private val poolSize = ratingBuckets.foldLeft(0) { case (acc, (_, nb)) =>
+    acc + nb
+  }
 
   private val current = cacheApi.unit[List[StormPuzzle]] {
     _.refreshAfterWrite(6 seconds)
@@ -46,7 +56,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
                 )
               )
               Facet(
-                ratings.zipWithIndex.map { case (rating, bucket) =>
+                ratingBuckets.map { case (rating, nbPuzzles) =>
                   rating.toString -> List(
                     Match(
                       $doc(
@@ -58,7 +68,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
                     Project($doc("_id" -> false, "ids" -> true)),
                     UnwindField("ids"),
                     // ensure we have enough after filtering deviation & color
-                    Sample(puzzlesForBucket(bucket) * 6),
+                    Sample(nbPuzzles * 7),
                     PipelineOperator(
                       $doc(
                         "$lookup" -> $doc(
@@ -89,12 +99,12 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
                       )
                     ),
                     UnwindField("puzzle"),
-                    Sample(puzzlesForBucket(bucket)),
+                    Sample(nbPuzzles),
                     ReplaceRootField("puzzle")
                   )
                 }
               ) -> List(
-                Project($doc("all" -> $doc("$setUnion" -> ratings.map(r => s"$$$r")))),
+                Project($doc("all" -> $doc("$setUnion" -> ratingBuckets.map(r => s"$$${r._1}")))),
                 UnwindField("all"),
                 ReplaceRootField("all"),
                 Sort(Ascending("rating"))
