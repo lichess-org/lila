@@ -35,6 +35,39 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
           .path {
             _.aggregateList(poolSize) { framework =>
               import framework._
+              val lookupDoc =
+                $doc(
+                  "$lookup" -> $doc(
+                    "from" -> colls.puzzle.name.value,
+                    "as"   -> "puzzle",
+                    "let"  -> $doc("id" -> "$ids"),
+                    "pipeline" -> $arr(
+                      $doc(
+                        "$match" -> $doc(
+                          "$expr" -> $doc(
+                            "$and" -> $arr(
+                              $doc("$eq"  -> $arr("$_id", "$$id")),
+                              $doc("$lte" -> $arr("$glicko.d", maxDeviation)),
+                              $doc(
+                                "$regexMatch" -> $doc(
+                                  "input" -> "$fen",
+                                  "regex" -> { if (scala.util.Random.nextBoolean()) " w " else " b " }
+                                )
+                              )
+                            )
+                          )
+                        )
+                      ),
+                      $doc(
+                        "$project" -> $doc(
+                          "fen"    -> true,
+                          "line"   -> true,
+                          "rating" -> $doc("$toInt" -> "$glicko.r")
+                        )
+                      )
+                    )
+                  )
+                )
               Facet(
                 ratings.map { rating =>
                   rating.toString -> List(
@@ -48,42 +81,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
                     Sample(1),
                     UnwindField("ids"),
                     Sample(puzzlesPerBucket * 6), // ensure we have enough after filtering deviation & color
-                    PipelineOperator(
-                      $doc(
-                        "$lookup" -> $doc(
-                          "from" -> colls.puzzle.name.value,
-                          "as"   -> "puzzle",
-                          "let"  -> $doc("id" -> "$ids"),
-                          "pipeline" -> $arr(
-                            $doc(
-                              "$match" -> $doc(
-                                "$expr" -> $doc(
-                                  "$and" -> $arr(
-                                    $doc("$eq"  -> $arr("$_id", "$$id")),
-                                    $doc("$lte" -> $arr("$glicko.d", maxDeviation)),
-                                    $doc(
-                                      "$regexMatch" -> $doc(
-                                        "input" -> "$fen",
-                                        "regex" -> {
-                                          if (scala.util.Random.nextBoolean()) " w " else " b "
-                                        }
-                                      )
-                                    )
-                                  )
-                                )
-                              )
-                            ),
-                            $doc(
-                              "$project" -> $doc(
-                                "fen"    -> true,
-                                "line"   -> true,
-                                "rating" -> $doc("$toInt" -> "$glicko.r")
-                              )
-                            )
-                          )
-                        )
-                      )
-                    ),
+                    PipelineOperator(lookupDoc),
                     UnwindField("puzzle"),
                     Sample(puzzlesPerBucket),
                     ReplaceRootField("puzzle")
