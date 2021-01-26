@@ -59,7 +59,7 @@ const renderCombo = (ctrl: StormCtrl): VNode => {
             class: {
               active: l < level
             }
-          }, `+${config.combo.levels[l + 1][1]}s`)
+          }, h('span', `${config.combo.levels[l + 1][1]}s`))
         )
       )
     ])

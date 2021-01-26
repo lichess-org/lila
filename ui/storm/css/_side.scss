@@ -5,7 +5,7 @@
     display: flex;
     flex-flow: column;
     justify-content: space-between;
-    background: $c-bg-zebra;
+    background: $c-bg-box;
     padding: 3vh 2vw;
     margin: 0;
   }
@@ -57,38 +57,16 @@
     }
 
 
-    @keyframes value-shake {
-      10%, 90% {
-        transform: translate3d(-1px, 0, 0);
-      }
-
-      20%, 80% {
-        transform: translate3d(2px, 0, 0);
-      }
-
-      30%, 50%, 70% {
-        transform: translate3d(-4px, 0, 0);
-      }
-
-      40%, 60% {
-        transform: translate3d(4px, 0, 0);
-      }
-    }
-
     &__value {
       font-family: 'storm';
       font-size: 5rem;
       color: $c-brag;
       margin-right: 1rem;
-      transition: color .3s;
+      transition: text-shadow .3s;
     }
 
     .storm--mod-puzzle & {
-      &__value {
-        color: $c-font-clear;
-      }
-
-      animation: value-shake 0.7s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+      text-shadow: 0 0 15px white;
     }
   }
 }

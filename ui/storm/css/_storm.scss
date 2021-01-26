@@ -19,6 +19,7 @@ $mq-col2: $mq-col2-uniboard;
 .storm-play-scores {
   @extend %flex-between;
 
+  color: $c-font-page;
   margin: 2vh 2vw;
 
   @include breakpoint($mq-col2) {

@@ -86,10 +86,8 @@ export default class StormCtrl {
       if (bonus) {
         this.vm.modifier.bonus = bonus;
         this.vm.clock += bonus.seconds * 1000;
-        this.redrawSlow();
         this.sound.bonus();
       }
-      this.redrawQuick();
       this.sound.move(capture);
       if (this.vm.moveIndex == this.line().length - 1) {
         this.pushToHistory(true);
@@ -112,11 +110,11 @@ export default class StormCtrl {
       else {
         this.vm.moveIndex = 0;
         if (!this.incPuzzle()) this.end();
-        this.redrawQuick();
-        this.redrawSlow();
       }
     }
     this.redraw();
+    this.redrawQuick();
+    this.redrawSlow();
     this.withGround(this.showGround);
   };
 
