@@ -39,39 +39,12 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
           .path {
             _.aggregateList(poolSize) { framework =>
               import framework._
-              val lookupDoc =
-                $doc(
-                  "$lookup" -> $doc(
-                    "from" -> colls.puzzle.name.value,
-                    "as"   -> "puzzle",
-                    "let"  -> $doc("id" -> "$ids"),
-                    "pipeline" -> $arr(
-                      $doc(
-                        "$match" -> $doc(
-                          "$expr" -> $doc(
-                            "$and" -> $arr(
-                              $doc("$eq"  -> $arr("$_id", "$$id")),
-                              $doc("$lte" -> $arr("$glicko.d", maxDeviation)),
-                              $doc(
-                                "$regexMatch" -> $doc(
-                                  "input" -> "$fen",
-                                  "regex" -> { if (scala.util.Random.nextBoolean()) " w " else " b " }
-                                )
-                              )
-                            )
-                          )
-                        )
-                      ),
-                      $doc(
-                        "$project" -> $doc(
-                          "fen"    -> true,
-                          "line"   -> true,
-                          "rating" -> $doc("$toInt" -> "$glicko.r")
-                        )
-                      )
-                    )
-                  )
+              val fenColorRegex = $doc(
+                "$regexMatch" -> $doc(
+                  "input" -> "$fen",
+                  "regex" -> { if (scala.util.Random.nextBoolean()) " w " else " b " }
                 )
+              )
               Facet(
                 ratings.zipWithIndex.map { case (rating, bucket) =>
                   rating.toString -> List(
@@ -81,12 +54,40 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
                         "max" $gte f"${theme}_${tier}_${rating}%04d"
                       )
                     ),
-                    Project($doc("_id" -> false, "ids" -> true)),
                     Sample(1),
+                    Project($doc("_id" -> false, "ids" -> true)),
                     UnwindField("ids"),
                     // ensure we have enough after filtering deviation & color
                     Sample(puzzlesForBucket(bucket) * 6),
-                    PipelineOperator(lookupDoc),
+                    PipelineOperator(
+                      $doc(
+                        "$lookup" -> $doc(
+                          "from" -> colls.puzzle.name.value,
+                          "as"   -> "puzzle",
+                          "let"  -> $doc("id" -> "$ids"),
+                          "pipeline" -> $arr(
+                            $doc(
+                              "$match" -> $doc(
+                                "$expr" -> $doc(
+                                  "$and" -> $arr(
+                                    $doc("$eq"  -> $arr("$_id", "$$id")),
+                                    $doc("$lte" -> $arr("$glicko.d", maxDeviation)),
+                                    fenColorRegex
+                                  )
+                                )
+                              )
+                            ),
+                            $doc(
+                              "$project" -> $doc(
+                                "fen"    -> true,
+                                "line"   -> true,
+                                "rating" -> $doc("$toInt" -> "$glicko.r")
+                              )
+                            )
+                          )
+                        )
+                      )
+                    ),
                     UnwindField("puzzle"),
                     Sample(puzzlesForBucket(bucket)),
                     ReplaceRootField("puzzle")
