@@ -67,7 +67,7 @@ Sin embargo, los patrones obtienen derecho a presumir de su nuevo icono de perfi
   <string name="viewOthers">Ver otros Patrones de Lichess</string>
   <string name="date">Fecha</string>
   <string name="amount">Cantidad</string>
-  <string name="transactionCompleted">La transacción ha sido completada, y un recibo de tu donación ha sido enviado por correo electrónico.</string>
+  <string name="transactionCompleted">La transacción ha sido completada y el recibo de la donación se te ha enviado por correo electrónico.</string>
   <string name="permanentPatron">Ahora tienes una cuenta de Patrón permanente.</string>
   <string name="checkOutProfile">¡Échale un vistazo a tu página de perfil!</string>
   <string name="nowLifetime">¡Ahora eres un Patrón de Lichess de por vida!</string>
