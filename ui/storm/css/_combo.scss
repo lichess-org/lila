@@ -8,20 +8,21 @@
     &__counter {
       display: flex;
       flex-flow: column;
-      font-family: 'storm';
       margin-bottom: .25em;
 
       &__value {
         @extend %flex-center-nowrap;
-        justify-content: center;
 
+        justify-content: center;
+        font-family: 'storm';
         font-size: 2.8em;
         line-height: 1em;
         width: 2ch;
       }
 
       &__combo {
-        font-size: .9em;
+        font-size: .7em;
+        color: $c-font-dim;
       }
 
       transition: color .1s;

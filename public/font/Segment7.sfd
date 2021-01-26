@@ -23,7 +23,7 @@ OS2Version: 3
 OS2_WeightWidthSlopeOnly: 0
 OS2_UseTypoMetrics: 0
 CreationTime: 1401560787
-ModificationTime: 1611683937
+ModificationTime: 1611684494
 PfmFamily: 17
 TTFWeight: 600
 TTFWidth: 5
@@ -852,8 +852,8 @@ EndChar
 
 StartChar: period
 Encoding: 46 46 47
-Width: 585
-Flags: MW
+Width: 711
+Flags: MWO
 HStem: -21 100<549 573>
 VStem: 513 95<15 43>
 LayerCount: 2
@@ -1396,7 +1396,7 @@ StartChar: colon
 Encoding: 58 58 59
 Width: 383
 VWidth: 2048
-Flags: HMWO
+Flags: HMW
 LayerCount: 2
 Fore
 SplineSet
