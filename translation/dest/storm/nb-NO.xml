@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">Trekk for å begynne</string>
+</resources>
