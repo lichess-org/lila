@@ -2,9 +2,11 @@
 <resources>
   <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">Doe een zet om te beginnen</string>
   <string name="puzzlesSolved">puzzels opgelost</string>
-  <string name="newDailyHighscore">Nieuwe dagelijkse highscore!</string>
-  <string name="newWeeklyHighscore">Nieuwe wekelijkse highscore!</string>
-  <string name="newMonthlyHighscore">Nieuwe maandelijkse highscore!</string>
+  <string name="newDailyHighscore">Nieuw dagrecord!</string>
+  <string name="newWeeklyHighscore">Nieuw weekrecord!</string>
+  <string name="newMonthlyHighscore">Nieuw maandrecord!</string>
+  <string name="newAllTimeHighscore">Nieuw record aller tijden!</string>
+  <string name="previousHighscoreWasX">Vorige record was %s</string>
   <string name="playAgain">Opnieuw spelen</string>
-  <string name="highscoreX">Highscore: %s</string>
+  <string name="highscoreX">Record: %s</string>
 </resources>
