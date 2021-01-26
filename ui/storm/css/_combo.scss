@@ -4,11 +4,12 @@
     flex-flow: row nowrap;
     align-items: flex-end;
     flex: 0 0 25%;
-    font-family: 'storm';
 
     &__counter {
       display: flex;
       flex-flow: column;
+      font-family: 'storm';
+      margin-bottom: .5em;
 
       &__value {
         @extend %flex-center-nowrap;
@@ -115,9 +116,11 @@
       transform: skewX(-45deg) scaleY(0.70711);
       flex: 21% 0 0;
       margin-right: 4%;
-      height: 1.2em;
+      height: 2em;
+      line-height: 2em;
       border: $border;
       background: $c-bg-zebra;
+      text-align: center;
 
       @keyframes level-fade-in {
         from {
@@ -135,6 +138,7 @@
         background: mix($c-level, black, 80%);
         border: 1px solid $c-level;
         box-shadow: 0 0 10px $c-level;
+        color: white;
 
         &:nth-child(2) {
           background: $c-level;

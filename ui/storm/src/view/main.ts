@@ -5,6 +5,7 @@ import StormCtrl from '../ctrl';
 import { getNow } from '../util';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
+import config from '../config';
 
 export default function(ctrl: StormCtrl): VNode {
   if (!ctrl.vm.run.endAt) return h('div.storm.storm-app.storm--play', {
@@ -58,7 +59,7 @@ const renderCombo = (ctrl: StormCtrl): VNode => {
             class: {
               active: l < level
             }
-          })
+          }, `+${config.combo.levels[l + 1][1]}s`)
         )
       )
     ])

@@ -5,7 +5,7 @@
     font-family: 'storm';
 
     &__time {
-      font-size: 7em;
+      font-size: 6em;
       margin: auto;
 
       @include breakpoint($mq-col2) {
@@ -37,7 +37,7 @@
     }
 
     &__bonus, &__malus {
-      font-size: 4em;
+      font-size: 3.5em;
       color: $c-good;
       text-shadow: 0 0 15px $c-good;
       margin-left: .5ch;
