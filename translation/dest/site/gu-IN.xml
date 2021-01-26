@@ -105,6 +105,12 @@
   <string name="mistake">ભૂલ</string>
   <string name="mistakes">ભૂલો</string>
   <string name="inaccuracy">ચૂક</string>
+  <string name="flipBoard">બોર્ડ ફેરવો</string>
+  <string name="players">ખેલાડીઓ</string>
+  <string name="friends">મિત્રો</string>
+  <string name="today">આજે</string>
+  <string name="yesterday">ગઇકાલે</string>
+  <string name="oneDay">એક દિવસ</string>
   <string name="opening">શરૂઆત</string>
   <string name="playX">%s ચાલો</string>
 </resources>
