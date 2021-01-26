@@ -39,6 +39,8 @@ object storm {
       )
     }
 
+  private val numberTag = tag("number")
+
   def dashboard(user: User, history: Paginator[StormDay], high: StormHigh)(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = frag(cssTag("storm.dashboard")),
@@ -69,11 +71,12 @@ object storm {
           table(cls := "slist slist-pad")(
             thead(
               tr(
-                th("Session"),
-                th("Highscore"),
-                th("Most moves"),
-                th("Max combo"),
-                th("Max time"),
+                th("Best run of day"),
+                th("Score"),
+                th("Moves"),
+                th("Accuracy"),
+                th("Combo"),
+                th("Time"),
                 th("Highest solved"),
                 th("Runs")
               )
@@ -81,13 +84,14 @@ object storm {
             tbody(
               history.currentPageResults.map { day =>
                 tr(
-                  td(momentFromNowServer(day._id.day.toDate)),
-                  td(day.score),
-                  td(day.moves),
-                  td(day.combo),
-                  td(day.time),
-                  td(day.highest),
-                  td(day.runs)
+                  td(showDate(day._id.day.toDate)),
+                  td(numberTag(cls := "score")(day.score)),
+                  td(numberTag(day.moves)),
+                  td(numberTag(f"${day.accuracyPercent}%1.1f"), "%"),
+                  td(numberTag(day.combo)),
+                  td(numberTag(day.time), "s"),
+                  td(numberTag(day.highest)),
+                  td(numberTag(day.runs))
                 )
               },
               pagerNextTable(history, np => addQueryParameter(routes.Storm.dashboard().url, "page", np))

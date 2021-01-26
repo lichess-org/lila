@@ -37,6 +37,7 @@ export interface StormVm {
     startAt: number;
     endAt?: number;
     moves: number;
+    errors: number;
     response?: RunResponse;
   }
 }
@@ -81,6 +82,7 @@ export interface StormRun {
   puzzles: number;
   score: number;
   moves: number;
+  errors: number;
   combo: number;
   time: number;
   highest: number;

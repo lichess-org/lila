@@ -4,32 +4,41 @@ import org.joda.time.DateTime
 import org.joda.time.Days
 import scala.concurrent.ExecutionContext
 
+import lila.common.config.MaxPerPage
 import lila.common.Day
+import lila.common.paginator.Paginator
 import lila.db.dsl._
+import lila.db.paginator.Adapter
 import lila.user.User
 import lila.user.UserRepo
-import lila.common.config.MaxPerPage
-import lila.common.paginator.Paginator
-import lila.db.paginator.Adapter
 
+// stores data of the best run of the day
+// plus the number of runs
 case class StormDay(
     _id: StormDay.Id,
-    runs: Int,
     score: Int,
     moves: Int,
+    errors: Int,
     combo: Int,
     time: Int,
-    highest: Int
+    highest: Int,
+    runs: Int
 ) {
 
-  def add(run: StormForm.RunData) = copy(
-    runs = runs + 1,
-    score = score atLeast run.score,
-    moves = moves atLeast run.moves,
-    combo = combo atLeast run.combo,
-    time = time atLeast run.time,
-    highest = highest atLeast run.highest
-  )
+  def add(run: StormForm.RunData) = {
+    if (run.score > score)
+      copy(
+        score = run.score,
+        moves = run.moves,
+        errors = run.errors,
+        combo = run.combo,
+        time = run.time,
+        highest = run.highest
+      )
+    else this
+  }.copy(runs = runs + 1)
+
+  def accuracyPercent: Float = 100 * (moves - errors) / moves.toFloat
 }
 
 object StormDay {
@@ -42,7 +51,7 @@ object StormDay {
     def allTime(userId: User.ID)   = Id(userId, Day(0))
   }
 
-  def empty(id: Id) = StormDay(id, 0, 0, 0, 0, 0, 0)
+  def empty(id: Id) = StormDay(id, 0, 0, 0, 0, 0, 0, 0)
 }
 
 final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo)(implicit

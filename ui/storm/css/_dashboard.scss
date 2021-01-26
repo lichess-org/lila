@@ -53,8 +53,17 @@
 
     td:not(:first-child) {
       text-align: right;
+    }
+
+    color: $c-font-dim;
+
+    number {
       font-family: 'storm';
       font-size: 2em;
+
+      &.score {
+        color: $c-brag;
+      }
     }
   }
 }

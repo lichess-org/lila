@@ -23,6 +23,7 @@ const newHighI18n = {
 const renderSummary = (ctrl: StormCtrl): VNode[] => {
   const run = ctrl.runStats();
   const high = ctrl.vm.run.response?.newHigh;
+  const accuracy = 100 * (run.moves - run.errors) / run.moves;
   return [
     ...(high ? [
       h('div.storm--end__high.storm--end__high-daily.bar-glider',
@@ -48,7 +49,7 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
           ]),
           h('tr', [
             h('th', 'Accuracy'),
-            h('td', [h('number', Number(100 * (run.moves - (run.puzzles - run.score - 1)) / run.moves).toFixed(1)), '%'])
+            h('td', [h('number', Number(accuracy).toFixed(1)), '%'])
           ]),
           h('tr', [
             h('th', 'Best combo'),
