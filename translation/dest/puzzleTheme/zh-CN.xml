@@ -72,10 +72,16 @@
   <string name="queenRookEndgameDescription">只有后、车、兵的残局</string>
   <string name="queensideAttack">后翼进攻</string>
   <string name="queensideAttackDescription">在对方长易位后进攻对方的王</string>
+  <string name="quietMoveDescription">一步棋没有将军或捉子，但确实为后续准备了一个不可避免的威胁。</string>
   <string name="rookEndgame">车兵残局</string>
   <string name="rookEndgameDescription">只有车和兵的残局</string>
   <string name="sacrifice">弃子</string>
+  <string name="short">短谜题</string>
+  <string name="shortDescription">两步胜</string>
   <string name="smotheredMate">闷杀</string>
   <string name="underPromotion">低升变</string>
+  <string name="underPromotionDescription">升变为马、象或车</string>
+  <string name="veryLong">超级长谜题</string>
+  <string name="veryLongDescription">四步或更多步胜</string>
   <string name="zugzwang">楚茨文克（无等着）</string>
 </resources>
