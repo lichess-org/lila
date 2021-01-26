@@ -9,13 +9,14 @@
       display: flex;
       flex-flow: column;
       font-family: 'storm';
-      margin-bottom: .5em;
+      margin-bottom: .25em;
 
       &__value {
         @extend %flex-center-nowrap;
 
         font-size: 2.8em;
         line-height: 1em;
+        width: 2ch;
       }
 
       &__combo {
@@ -93,7 +94,7 @@
           }
 
           to {
-            height: 0;
+            opacity: 0;
           }
         }
 
