@@ -1,10 +1,10 @@
 package views.html.base
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-
-import controllers.routes
 
 object topnav {
 
@@ -35,12 +35,19 @@ object topnav {
           )
         )
       ),
+      ctx.noBot option st.section(
+        linkTitle(routes.Puzzle.home().path, trans.puzzles()),
+        div(role := "group")(
+          a(href := routes.Puzzle.home())(trans.puzzles()),
+          a(href := routes.Puzzle.dashboard(30, "home"))(trans.puzzle.puzzleDashboard()),
+          a(href := routes.Storm.home())("Puzzle storm")
+        )
+      ),
       st.section(
-        linkTitle(routes.Puzzle.home().path, trans.learnMenu()),
+        linkTitle(routes.Practice.index().path, trans.learnMenu()),
         div(role := "group")(
           ctx.noBot option frag(
             a(href := routes.Learn.index())(trans.chessBasics()),
-            a(href := routes.Puzzle.home())(trans.puzzles()),
             a(href := routes.Practice.index())(trans.practice()),
             a(href := routes.Coordinate.home())(trans.coordinates.coordinates())
           ),
