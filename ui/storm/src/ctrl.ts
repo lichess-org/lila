@@ -229,7 +229,7 @@ export default class StormCtrl {
 
   private sound = {
     move: (take: boolean) => lichess.sound.play(take ? 'capture' : 'move'),
-    bonus: this.loadSound('other/ping'),
+    bonus: this.loadSound('other/ping', 0.8),
     end: this.loadSound('other/gewonnen', 0.6)
   };
 
