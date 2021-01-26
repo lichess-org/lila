@@ -109,7 +109,7 @@
     &__levels {
       @extend %flex-center;
 
-      margin-top: .3em;
+      margin: .3em 0 0 -.6em;
     }
 
     &__level {
