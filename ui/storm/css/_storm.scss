@@ -6,6 +6,9 @@ $mq-col2: $mq-col2-uniboard;
   @include breakpoint($mq-col2) {
     --main-max-width: auto;
   }
+
+
+  user-select: none;
 }
 
 @import "font";
