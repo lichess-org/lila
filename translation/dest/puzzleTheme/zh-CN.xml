@@ -23,8 +23,13 @@
   <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">双象杀王</string>
   <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">燕尾杀法</string>
   <string name="kingsideAttack">王翼进攻</string>
+  <string name="discoveredAttack">闪击</string>
   <string name="doubleCheck">双将</string>
+  <string name="doubleCheckDescription">两个棋子同时将军，作为一种闪击，走动的棋子与后面揭露出来的棋子同时攻击对方的王</string>
   <string name="endgame">残局</string>
+  <string name="exposedKing">暴露的王</string>
+  <string name="exposedKingDescription">王的周围只有很少的防守棋子时的战术，往往导致杀棋</string>
+  <string name="forkDescription">走一步棋使走动的棋子同时攻击对方的两个棋子</string>
   <string name="hangingPiece">得子</string>
   <string name="knightEndgame">马残局</string>
   <string name="mate">杀王</string>
