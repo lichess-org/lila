@@ -13,8 +13,8 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s nimmt Herausforderungen nur von Freunden an.</string>
   <string name="declineGeneric">Ich nehme derzeit keine Herausforderungen an.</string>
   <string name="declineLater">Ich nehme momentan keine Herausforderungen an, bitte frage später noch einmal.</string>
-  <string name="declineTooFast">Diese Bedenkzeit ist zu gering für mich, ich bitte daher um erneutes Herausfordern mit mehr Bedenkzeit.</string>
-  <string name="declineTooSlow">Diese Bedenkzeit ist zu viel für mich, ich bitte daher um erneutes Herausfordern mit weniger Bedenkzeit.</string>
+  <string name="declineTooFast">Diese Bedenkzeit ist zu gering für mich, bitte fordere mich erneut mit einer höheren Bedenkzeit heraus.</string>
+  <string name="declineTooSlow">Diese Bedenkzeit ist zu lang für mich, bitte fordere mich mit weniger Bedenkzeit heraus.</string>
   <string name="declineTimeControl">Ich nehme keine Herausforderungen mit dieser Bedenkzeit an.</string>
   <string name="declineRated">Bitte fordere mich stattdessen zu einer gewerteten Partie heraus.</string>
   <string name="declineCasual">Bitte fordere mich stattdessen zu einer ungewerteten Partie heraus.</string>
