@@ -1,0 +1,39 @@
+.storm-dashboard__high {
+  &__periods {
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  &__period {
+    @extend %flex-column, %box-neat;
+
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 auto;
+    margin-right: 2vw;
+    background: $c-bg-zebra;
+    padding: 1.5em 1em;
+
+    strong {
+      font-family: 'storm';
+      font-weight: normal;
+      font-size: 5em;
+    }
+
+    .highlight-alltime & {
+      &:first-child {
+        background: $c-brag;
+        color: $c-brag-over;
+
+        strong {
+          font-size: 10em;
+          line-height: 1em;
+        }
+      }
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

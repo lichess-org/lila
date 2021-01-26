@@ -1,6 +1,7 @@
 package views.html
 
 import controllers.routes
+import play.api.i18n.Lang
 import play.api.libs.json._
 
 import lila.api.Context
@@ -13,7 +14,7 @@ import lila.user.User
 
 object storm {
 
-  def home(data: JsObject, pref: JsObject)(implicit ctx: Context) =
+  def home(data: JsObject, pref: JsObject, high: Option[StormHigh])(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = frag(cssTag("storm")),
       moreJs = frag(
@@ -33,11 +34,34 @@ object storm {
     ) {
       main(
         div(cls := "storm storm-app"),
-        div(cls := "storm-links box box-pad")(
-          a(href := routes.Storm.dashboard())("My Puzzle Storm dashboard")
-        )
+        high map { h =>
+          frag(
+            div(cls := "storm-play-scores")(
+              span("Puzzle storm highscores"),
+              a(href := routes.Storm.dashboard())("View best runs »")
+            ),
+            div(cls := "storm-dashboard__high__periods")(
+              renderHigh(h)
+            )
+          )
+        }
       )
     }
+
+  private def renderHigh(high: StormHigh)(implicit lang: Lang) =
+    frag(
+      List(
+        (high.allTime, "All-time"),
+        (high.month, "This month"),
+        (high.week, "This week"),
+        (high.day, "Today")
+      ).map { case (value, name) =>
+        div(cls := "storm-dashboard__high__period")(
+          strong(value),
+          span(name)
+        )
+      }
+    )
 
   private val numberTag = tag("number")
 
@@ -52,18 +76,8 @@ object storm {
             userLink(user),
             " • Puzzle Storm highscores"
           ),
-          div(cls := "storm-dashboard__high__periods")(
-            List(
-              (high.allTime, "All-time"),
-              (high.month, "This month"),
-              (high.week, "This week"),
-              (high.day, "Today")
-            ).map { case (value, name) =>
-              div(cls := "storm-dashboard__high__period")(
-                strong(value),
-                span(name)
-              )
-            }
+          div(cls := "storm-dashboard__high__periods highlight-alltime")(
+            renderHigh(high)
           )
         ),
         a(cls := "storm-play-again button", href := routes.Storm.home())(trans.storm.playAgain()),

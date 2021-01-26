@@ -11,7 +11,25 @@ $mq-col2: $mq-col2-uniboard;
 @import "font";
 @import "play";
 @import "end";
+@import "high";
 
-.storm-links {
-  margin-top: 2vh;
+.storm-play-scores {
+  @extend %flex-between;
+
+  margin: 2vh 2vw;
+
+  @include breakpoint($mq-col2) {
+    margin: 2vh 0;
+  }
+
+
+  span {
+    text-transform: uppercase;
+  }
+}
+
+.storm-dashboard__high__periods {
+  @include breakpoint($mq-not-xx-small) {
+    display: none;
+  }
 }
