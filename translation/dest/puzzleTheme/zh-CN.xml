@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="advancedPawn">进兵</string>
+  <string name="advancedPawn">高兵</string>
   <string name="advancedPawnDescription">兵升变或威胁升变是战术的关键</string>
+  <string name="advantage">优势</string>
+  <string name="advantageDescription">抓住你获得决定性优势的机会。(200cp ≤ 估值 ≤ 600cp)</string>
   <string name="anastasiaMate">阿纳斯塔西亚杀法（车马杀王）</string>
   <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">阿拉伯杀法（车马杀王）</string>
   <string name="attackingF2F7">进攻f2或f7</string>
