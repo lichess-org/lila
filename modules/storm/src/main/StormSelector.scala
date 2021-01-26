@@ -28,6 +28,10 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
   private val ratingBuckets    = ratings.size
   private val puzzlesPerBucket = poolSize / ratingBuckets
 
+  private def puzzlesForBucket(bucket: Int) =
+    if (bucket < ratingBuckets / 2) puzzlesPerBucket - 1
+    else puzzlesPerBucket + 1
+
   private val current = cacheApi.unit[List[StormPuzzle]] {
     _.refreshAfterWrite(6 seconds)
       .buildAsyncFuture { _ =>
@@ -69,7 +73,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
                   )
                 )
               Facet(
-                ratings.map { rating =>
+                ratings.zipWithIndex.map { case (rating, bucket) =>
                   rating.toString -> List(
                     Match(
                       $doc(
@@ -80,10 +84,11 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
                     Project($doc("_id" -> false, "ids" -> true)),
                     Sample(1),
                     UnwindField("ids"),
-                    Sample(puzzlesPerBucket * 6), // ensure we have enough after filtering deviation & color
+                    // ensure we have enough after filtering deviation & color
+                    Sample(puzzlesForBucket(bucket) * 6),
                     PipelineOperator(lookupDoc),
                     UnwindField("puzzle"),
-                    Sample(puzzlesPerBucket),
+                    Sample(puzzlesForBucket(bucket)),
                     ReplaceRootField("puzzle")
                   )
                 }
