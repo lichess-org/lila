@@ -9,17 +9,21 @@ import lila.db.dsl._
 import lila.memo.CacheApi
 import lila.puzzle.PuzzleColls
 
+/* The difficulty of storm should remain constant!
+ * Be very careful when adjusting the selector.
+ * Use the grafana average rating per slice chart.
+ */
 final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: ExecutionContext) {
 
   import StormBsonHandlers._
 
   def apply: Fu[List[StormPuzzle]] = current.get {}
 
-  private val poolSize = 120
+  private val poolSize = 130
   private val theme    = lila.puzzle.PuzzleTheme.mix.key.value
   private val tier     = lila.puzzle.PuzzleTier.Good.key
 
-  private val ratings       = (1000 to 2650 by 150).toList
+  private val ratings       = (1000 to 2800 by 150).toList
   private val ratingBuckets = ratings.size
 
   private val current = cacheApi.unit[List[StormPuzzle]] {
