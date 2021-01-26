@@ -8,5 +8,9 @@
   <string name="newAllTimeHighscore">Nieuw record aller tijden!</string>
   <string name="previousHighscoreWasX">Vorige record was %s</string>
   <string name="playAgain">Opnieuw spelen</string>
+  <plurals name="xRuns" comment="xRuns [one] [other]&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
+    <item quantity="one">1 sessie</item>
+    <item quantity="other">%s sessies</item>
+  </plurals>
   <string name="highscoreX">Record: %s</string>
 </resources>
