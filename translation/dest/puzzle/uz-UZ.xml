@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="puzzles">Boshqotirmalar</string>
+  <string name="puzzleThemes">Boshqotirma mavzulari</string>
+  <string name="recommended">Tavsiya etilgan</string>
+  <string name="mates">Motlar</string>
+  <string name="goals">Maqsadlar</string>
   <string name="strengths">Kuchli tomonlari</string>
 </resources>
