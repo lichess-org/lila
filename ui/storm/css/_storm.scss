@@ -24,7 +24,7 @@ $mq-col2: $mq-col2-uniboard;
     margin: 2vh 2vw;
 
     @include breakpoint($mq-col2) {
-      margin: 2vh 0;
+      margin: 2vh .5rem;
     }
 
 

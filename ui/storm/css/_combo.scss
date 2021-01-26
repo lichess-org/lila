@@ -15,13 +15,14 @@
 
         justify-content: center;
         font-family: 'storm';
-        font-size: 2.8em;
-        line-height: 1em;
+        font-size: 2.4em;
+        line-height: .9em;
         width: 2ch;
       }
 
       &__combo {
-        font-size: .7em;
+        font-size: .8em;
+        letter-spacing: -1px;
         color: $c-font-dim;
       }
 

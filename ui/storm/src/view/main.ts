@@ -69,9 +69,7 @@ const renderCombo = (ctrl: StormCtrl): VNode => {
 
 const renderSolved = (ctrl: StormCtrl): VNode =>
   h('div.storm__top.storm__solved', [
-    h('div.storm__solved__text', [
-      h('span.storm__solved__value', ctrl.countWins()),
-    ])
+    h('div.storm__solved__text', ctrl.countWins())
   ]);
 
 const renderStart = (ctrl: StormCtrl) =>
