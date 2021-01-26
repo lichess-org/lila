@@ -16,24 +16,42 @@ $mq-col2: $mq-col2-uniboard;
 @import "end";
 @import "high";
 
-.storm-play-scores {
-  @extend %flex-between;
+.storm {
+  &-play-scores {
+    @extend %flex-between;
 
-  color: $c-font-page;
-  margin: 2vh 2vw;
+    color: $c-font-page;
+    margin: 2vh 2vw;
 
-  @include breakpoint($mq-col2) {
-    margin: 2vh 0;
+    @include breakpoint($mq-col2) {
+      margin: 2vh 0;
+    }
+
+
+    span {
+      text-transform: uppercase;
+    }
   }
 
-
-  span {
-    text-transform: uppercase;
+  &-dashboard__high__periods {
+    @include breakpoint($mq-not-xx-small) {
+      display: none;
+    }
   }
-}
 
-.storm-dashboard__high__periods {
-  @include breakpoint($mq-not-xx-small) {
-    display: none;
+  &--dup {
+    @extend %flex-column;
+
+    justify-content: stretch;
+    text-align: center;
+
+    i {
+      font-size: 15em;
+      line-height: 1.2em;
+    }
+
+    p {
+      margin: 3em 0;
+    }
   }
 }

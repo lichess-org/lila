@@ -1,13 +1,14 @@
 import chessground from './chessground';
+import config from '../config';
 import renderClock from './clock';
 import renderEnd from "./end";
 import StormCtrl from '../ctrl';
 import { getNow } from '../util';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
-import config from '../config';
 
 export default function(ctrl: StormCtrl): VNode {
+  if (ctrl.vm.dupTab) return renderDupTab();
   if (!ctrl.vm.run.endAt) return h('div.storm.storm-app.storm--play', {
     class: playModifiers(ctrl)
   }, renderPlay(ctrl));
@@ -80,3 +81,12 @@ const renderStart = (ctrl: StormCtrl) =>
       h('span', ctrl.trans('moveToStart'))
     ])
   );
+
+const renderDupTab = () =>
+  h('div.storm.storm--dup.box.box-pad', [
+    h('i', { attrs: { 'data-icon': '~' } }),
+    h('p', 'This run was opened in another tab!'),
+    h('a.storm--dup__reload.button', {
+      attrs: { href: '/storm' }
+    }, 'Click to reload')
+  ]);

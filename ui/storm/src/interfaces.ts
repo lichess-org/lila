@@ -40,6 +40,7 @@ export interface StormVm {
     errors: number;
     response?: RunResponse;
   }
+  dupTab?: boolean;
 }
 
 export interface Round {
