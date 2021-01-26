@@ -38,7 +38,7 @@
       transition: opacity .5s;
     }
 
-    &:hover {
+    &[href]:hover {
 
       &::before,
       &::after {

@@ -3,7 +3,7 @@ import StormCtrl from '../ctrl';
 import { Chess } from 'chessops/chess';
 import { h } from 'snabbdom'
 import { numberSpread } from 'common/number';
-import { onInsert } from '../util';
+import { getNow, onInsert } from '../util';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseUci } from 'chessops/util';
 import { VNode } from 'snabbdom/vnode';
@@ -70,7 +70,7 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
       ])
     ]),
     h('a.storm-play-again.button', {
-      attrs: { href: '/storm' }
+      attrs: ctrl.vm.run.endAt! < getNow() - 900 ? { href: '/storm' } : {}
     }, ctrl.trans('playAgain'))
   ];
 }

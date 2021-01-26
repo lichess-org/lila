@@ -44,9 +44,9 @@ final class StormHighApi(coll: Coll, cacheApi: CacheApi)(implicit ctx: Execution
       (newHigh != prev) ?? {
         cache.put(userId, fuccess(newHigh))
         import NewHigh._
-        if (newHigh.allTime >= prev.allTime) AllTime(prev.allTime).some
-        else if (newHigh.month >= prev.month) Month(prev.month).some
-        else if (newHigh.week >= prev.week) Week(prev.week).some
+        if (newHigh.allTime > prev.allTime) AllTime(prev.allTime).some
+        else if (newHigh.month > prev.month) Month(prev.month).some
+        else if (newHigh.week > prev.week) Week(prev.week).some
         else Day(prev.day).some
       }
     }

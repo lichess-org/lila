@@ -54,6 +54,7 @@ export default class StormCtrl {
       this.vm.run.response = res;
       this.redraw();
     });
+    this.redrawSlow();
   }
 
   naturalFlag = () => {
@@ -227,6 +228,6 @@ export default class StormCtrl {
 
   private sound = {
     bonus: this.loadSound('other/ping'),
-    end: this.loadSound('other/gewonnen', 0.7)
+    end: this.loadSound('other/gewonnen', 0.6)
   };
 }

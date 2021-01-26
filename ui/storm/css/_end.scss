@@ -12,16 +12,16 @@
     grid-area: score;
   }
 
-  .storm-play-again {
-    grid-area: play;
-  }
-
   &__stats {
     grid-area: stats;
   }
 
   &__history {
     grid-area: history;
+  }
+
+  .storm-play-again {
+    grid-area: play;
   }
 
   grid-row-gap: $block-gap;
@@ -32,11 +32,6 @@
     grid-template-areas: 'high high' 'score stats' 'play play' 'history history';
   }
 
-  &__play {
-    padding: 3rem 0;
-    font-size: 2em;
-    letter-spacing: .4em;
-  }
 
   &__high {
     @extend %box-neat;
@@ -78,7 +73,6 @@
     @extend %flex-center;
 
     padding: 2vh var(--box-padding);
-
     align-items: stretch;
 
     table {
