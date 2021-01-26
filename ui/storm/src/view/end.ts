@@ -1,9 +1,9 @@
 import * as miniBoard from "common/mini-board";
 import StormCtrl from '../ctrl';
 import { Chess } from 'chessops/chess';
+import { getNow, onInsert } from '../util';
 import { h } from 'snabbdom'
 import { numberSpread } from 'common/number';
-import { getNow, onInsert } from '../util';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseUci } from 'chessops/util';
 import { VNode } from 'snabbdom/vnode';
@@ -83,7 +83,10 @@ const renderHistory = (ctrl: StormCtrl): VNode =>
       ctrl.vm.history.map(round =>
         h('div.storm--end__history__round', [
           h('a.storm--end__history__round__puzzle.mini-board.cg-wrap.is2d', {
-            attrs: { href: `/training/${round.puzzle.id}` },
+            attrs: {
+              href: `/training/${round.puzzle.id}`,
+              target: '_blank'
+            },
             hook: onInsert(e => {
               const pos = Chess.fromSetup(parseFen(round.puzzle.fen).unwrap()).unwrap();
               const uci = round.puzzle.line.split(' ')[0];
