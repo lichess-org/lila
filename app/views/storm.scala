@@ -44,7 +44,10 @@ object storm {
               renderHigh(h)
             )
           )
-        }
+        },
+        div(cls := "storm__about__link")(
+          a(href := routes.Page.loneBookmark("storm"))("About Puzzle Storm")
+        )
       )
     }
 
