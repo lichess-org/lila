@@ -44,6 +44,7 @@
 
       span {
         @extend %roboto;
+
         font-size: 1.5em;
         letter-spacing: .2em;
       }
@@ -53,11 +54,6 @@
   &__solved {
     text-align: center;
     white-space: nowrap;
-
-    @include breakpoint($mq-col2) {
-      text-align: left;
-    }
-
 
     &__value {
       font-family: 'storm';
