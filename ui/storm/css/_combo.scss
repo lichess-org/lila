@@ -13,6 +13,7 @@
 
       &__value {
         @extend %flex-center-nowrap;
+        justify-content: center;
 
         font-size: 2.8em;
         line-height: 1em;
