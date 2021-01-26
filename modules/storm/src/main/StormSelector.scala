@@ -19,12 +19,14 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
 
   def apply: Fu[List[StormPuzzle]] = current.get {}
 
-  private val poolSize = 130
-  private val theme    = lila.puzzle.PuzzleTheme.mix.key.value
-  private val tier     = lila.puzzle.PuzzleTier.Good.key
+  private val poolSize     = 130
+  private val theme        = lila.puzzle.PuzzleTheme.mix.key.value
+  private val tier         = lila.puzzle.PuzzleTier.Good.key
+  private val maxDeviation = 90
 
-  private val ratings       = (1000 to 2800 by 150).toList
-  private val ratingBuckets = ratings.size
+  private val ratings          = (1000 to 2800 by 150).toList
+  private val ratingBuckets    = ratings.size
+  private val puzzlesPerBucket = poolSize / ratingBuckets
 
   private val current = cacheApi.unit[List[StormPuzzle]] {
     _.refreshAfterWrite(6 seconds)
@@ -39,64 +41,62 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
                     Match(
                       $doc(
                         "min" $lte f"${theme}_${tier}_${rating}%04d",
-                        "max" $gt f"${theme}_${tier}_${rating}%04d"
+                        "max" $gte f"${theme}_${tier}_${rating}%04d"
                       )
                     ),
                     Project($doc("_id" -> false, "ids" -> true)),
                     Sample(1),
                     UnwindField("ids"),
-                    Sample((poolSize * 5) / ratingBuckets),
-                    Group(BSONNull)("ids" -> PushField("ids"))
+                    Sample(puzzlesPerBucket * 6), // ensure we have enough after filtering deviation & color
+                    PipelineOperator(
+                      $doc(
+                        "$lookup" -> $doc(
+                          "from" -> colls.puzzle.name.value,
+                          "as"   -> "puzzle",
+                          "let"  -> $doc("id" -> "$ids"),
+                          "pipeline" -> $arr(
+                            $doc(
+                              "$match" -> $doc(
+                                "$expr" -> $doc(
+                                  "$and" -> $arr(
+                                    $doc("$eq"  -> $arr("$_id", "$$id")),
+                                    $doc("$lte" -> $arr("$glicko.d", maxDeviation)),
+                                    $doc(
+                                      "$regexMatch" -> $doc(
+                                        "input" -> "$fen",
+                                        "regex" -> {
+                                          if (scala.util.Random.nextBoolean()) " w " else " b "
+                                        }
+                                      )
+                                    )
+                                  )
+                                )
+                              )
+                            ),
+                            $doc(
+                              "$project" -> $doc(
+                                "fen"    -> true,
+                                "line"   -> true,
+                                "rating" -> $doc("$toInt" -> "$glicko.r")
+                              )
+                            )
+                          )
+                        )
+                      )
+                    ),
+                    UnwindField("puzzle"),
+                    Sample(puzzlesPerBucket),
+                    ReplaceRootField("puzzle")
                   )
                 }
               ) -> List(
                 Project($doc("all" -> $doc("$setUnion" -> ratings.map(r => s"$$$r")))),
                 UnwindField("all"),
-                UnwindField("all.ids"),
-                Project($doc("id" -> "$all.ids")),
-                PipelineOperator(
-                  $doc(
-                    "$lookup" -> $doc(
-                      "from" -> colls.puzzle.name.value,
-                      "as"   -> "puzzle",
-                      "let"  -> $doc("id" -> "$id"),
-                      "pipeline" -> $arr(
-                        $doc(
-                          "$match" -> $doc(
-                            "$expr" -> $doc(
-                              "$and" -> $arr(
-                                $doc("$eq" -> $arr("$_id", "$$id")),
-                                $doc("$lt" -> $arr("$glicko.d", 90)),
-                                $doc(
-                                  "$regexMatch" -> $doc(
-                                    "input" -> "$fen",
-                                    "regex" -> {
-                                      if (scala.util.Random.nextBoolean()) " w " else " b "
-                                    }
-                                  )
-                                )
-                              )
-                            )
-                          )
-                        ),
-                        $doc(
-                          "$project" -> $doc(
-                            "fen"    -> true,
-                            "line"   -> true,
-                            "rating" -> $doc("$toInt" -> "$glicko.r")
-                          )
-                        )
-                      )
-                    )
-                  )
-                ),
-                UnwindField("puzzle"),
-                ReplaceRootField("puzzle"),
-                Sample(poolSize),
+                ReplaceRootField("all"),
                 Sort(Ascending("rating"))
               )
-            }.map { docs =>
-              docs.flatMap(StormPuzzleBSONReader.readOpt)
+            }.map {
+              _.flatMap(StormPuzzleBSONReader.readOpt)
             }
           }
           .mon(_.storm.selector.time)

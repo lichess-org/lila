@@ -78,7 +78,6 @@ final class StormHighApi(coll: Coll, cacheApi: CacheApi)(implicit ctx: Execution
         ) -> Nil
       }
       .map2 { doc =>
-        println(lila.db.BSON.debug(doc))
         def readScore(doc: Bdoc, field: String) =
           ~doc.getAsOpt[List[Bdoc]](field).flatMap(_.headOption).flatMap(_.getAsOpt[Int]("score"))
         StormHigh(
