@@ -51,7 +51,7 @@ export default class StormCtrl {
     this.ground(false);
     this.redraw();
     this.sound.end();
-    xhr.record(this.runStats()).then(res => {
+    xhr.record(this.runStats(), this.data.notAnExploit).then(res => {
       this.vm.run.response = res;
       this.redraw();
     });

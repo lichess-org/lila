@@ -9,7 +9,8 @@ final class StormJson {
   import StormJson.puzzleWrites
 
   def apply(puzzles: List[StormPuzzle]): JsObject = Json.obj(
-    "puzzles" -> puzzles
+    "puzzles"      -> puzzles,
+    "notAnExploit" -> StormForm.notAnExploit
   )
 
   def pref(p: lila.pref.Pref) =

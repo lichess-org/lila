@@ -22,6 +22,7 @@ export interface StormPrefs {
 
 export interface StormData {
   puzzles: StormPuzzle[];
+  notAnExploit: string;
 }
 
 export interface StormVm {

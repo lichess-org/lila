@@ -14,18 +14,23 @@ object StormForm {
       errors: Int,
       combo: Int,
       time: Int,
-      highest: Int
+      highest: Int,
+      notAnExploit: String
   )
 
   val run = Form(
     mapping(
-      "puzzles" -> number(min = 1, max = 200),
-      "score"   -> number(min = 1, max = 200),
-      "moves"   -> number(min = 1, max = 900),
-      "errors"  -> number(min = 1, max = 50),
-      "combo"   -> number(min = 1, max = 900),
-      "time"    -> number(min = 1, max = 900),
-      "highest" -> number(min = lila.rating.Glicko.minRating, max = 4000)
+      "puzzles"      -> number(min = 1, max = 200),
+      "score"        -> number(min = 1, max = 200),
+      "moves"        -> number(min = 1, max = 900),
+      "errors"       -> number(min = 1, max = 50),
+      "combo"        -> number(min = 1, max = 900),
+      "time"         -> number(min = 1, max = 900),
+      "highest"      -> number(min = lila.rating.Glicko.minRating, max = 4000),
+      "notAnExploit" -> nonEmptyText.verifying(_ == notAnExploit)
     )(RunData.apply)(RunData.unapply)
   )
+
+  val notAnExploit =
+    "Yes, we know that you can send whatever score you like. That's why there's no leaderboards and no competition."
 }
