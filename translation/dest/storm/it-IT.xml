@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="moveToStart">Muovi un pedone per iniziare</string>
+  <string name="newDailyHighscore">Nuovo punteggio giornaliero!</string>
+  <string name="newWeeklyHighscore">Nuovo punteggio settimanale!</string>
+  <string name="newAllTimeHighscore">Nuovo punteggio massimo di tutti i tempi!</string>
+  <string name="previousHighscoreWasX">Il punteggio massimo precedente era %s</string>
+  <string name="playAgain">Gioca di nuovo</string>
+</resources>
