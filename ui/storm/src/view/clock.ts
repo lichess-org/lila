@@ -3,7 +3,7 @@ import { defined } from 'common';
 import { getNow } from '../util';
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
-import {TimeMod} from '../interfaces';
+import { TimeMod } from '../interfaces';
 
 let refreshInterval: Timeout;
 
