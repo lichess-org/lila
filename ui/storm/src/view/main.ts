@@ -32,9 +32,9 @@ const renderPlay = (ctrl: StormCtrl): VNode[] => [
     ctrl.promotion.view()
   ]),
   h('div.storm__side', [
-    renderCombo(ctrl),
+    ctrl.vm.run.startAt ? renderSolved(ctrl) : renderStart(ctrl),
     renderClock(ctrl),
-    ctrl.vm.run.startAt ? renderSolved(ctrl) : renderStart(ctrl)
+    renderCombo(ctrl)
   ])
 ];
 
@@ -66,13 +66,14 @@ const renderCombo = (ctrl: StormCtrl): VNode => {
 }
 
 const renderSolved = (ctrl: StormCtrl): VNode =>
-  h('div.storm__solved', [
-    h('span.storm__solved__value', ctrl.countWins()),
-    'puzzles solved'
+  h('div.storm__top.storm__solved', [
+    h('div.storm__solved__text', [
+      h('span.storm__solved__value', ctrl.countWins()),
+    ])
   ]);
 
 const renderStart = (ctrl: StormCtrl) =>
-  h('div.storm__start',
+  h('div.storm__top.storm__start',
     h('div.storm__start__text', [
       h('strong', 'Puzzle Storm'),
       h('span', ctrl.trans('moveToStart'))

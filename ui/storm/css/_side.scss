@@ -1,0 +1,67 @@
+.storm {
+  &__side {
+    @extend %box-neat;
+
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    background: $c-bg-zebra;
+    padding: 2vh 2vw;
+    margin: 0;
+  }
+
+  &__top {
+    flex: 0 0 25%;
+    display: flex;
+    flex-flow: row nowrap;
+
+    &::before {
+      content: ' ';
+      width: 5rem;
+      height: 5rem;
+      background-image: img-url("icons/tornado.svg");
+      background-repeat: no-repeat;
+      margin-right: 1.5rem;
+    }
+  }
+
+  &__start {
+    color: $c-brag;
+    margin: auto;
+
+    @include breakpoint($mq-col2) {
+      margin: 0;
+    }
+
+
+    &__text {
+      @extend %flex-column;
+
+      strong {
+        font-size: 2.2em;
+      }
+
+      span {
+        font-size: 1.5em;
+        letter-spacing: .2em;
+      }
+    }
+  }
+
+  &__solved {
+    text-align: center;
+    white-space: nowrap;
+
+    @include breakpoint($mq-col2) {
+      text-align: left;
+    }
+
+
+    &__value {
+      font-family: 'storm';
+      font-size: 5rem;
+      color: $c-brag;
+      margin-right: 1rem;
+    }
+  }
+}

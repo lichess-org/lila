@@ -1,8 +1,9 @@
 .storm {
   &__combo {
-    @extend %flex-center-nowrap;
-
-    margin: 1em 0;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-end;
+    flex: 0 0 25%;
     font-family: 'storm';
 
     &__counter {
@@ -12,7 +13,7 @@
       &__value {
         @extend %flex-center-nowrap;
 
-        font-size: 2.5em;
+        font-size: 2.8em;
         line-height: 1em;
       }
 
@@ -37,7 +38,7 @@
     &__bar {
       @extend %box-radius;
 
-      $c-bar-base: $c-bg-zebra;
+      $c-bar-base: $c-bg-zebra2;
       $c-in-base: $c-brag;
       $c-in-flash: mix($c-in-base, white, 75%);
 

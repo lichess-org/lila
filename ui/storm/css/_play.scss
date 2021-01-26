@@ -1,3 +1,4 @@
+@import "side";
 @import "combo";
 @import "clock";
 
@@ -21,65 +22,6 @@
       grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
       grid-template-rows: fit-content(0);
       grid-template-areas: 'board   side';
-    }
-  }
-
-  &__side {
-    display: flex;
-    flex-flow: column;
-    justify-content: space-between;
-    margin: 0 4vw;
-
-    @include breakpoint($mq-col2) {
-      margin: 0;
-    }
-  }
-
-  &__start {
-    @extend %flex-center-nowrap;
-
-    color: $c-brag;
-    margin: auto;
-
-    @include breakpoint($mq-col2) {
-      margin: 0;
-    }
-
-
-    &::before {
-      content: ' ';
-      width: 5em;
-      height: 5em;
-      background-image: img-url("icons/tornado.svg");
-      margin-right: 1.5em;
-    }
-
-    &__text {
-      @extend %flex-column;
-      strong {
-        font-size: 2.2em;
-      }
-      span {
-        font-size: 1.5em;
-        letter-spacing: .2em;
-      }
-    }
-  }
-
-  &__solved {
-    @extend %flex-center;
-
-    text-align: center;
-
-    @include breakpoint($mq-col2) {
-      text-align: left;
-    }
-
-
-    &__value {
-      font-family: 'storm';
-      font-size: 2em;
-      margin-right: 1rem;
     }
   }
 }
