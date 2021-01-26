@@ -13,4 +13,13 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s faqat doʻstlardan chorlovni qabul qiladi.</string>
   <string name="declineGeneric">Ayni damda chorlovni qabul qila olmayman.</string>
   <string name="declineLater">Ayni dam men uchun qulay emas, iltimos keyinroq soʻrang.</string>
+  <string name="declineTooFast">Usbu vaqt boshqaruvi men uchun tezlik qiladi, iltimos sekinroq oʻynash uchun uzoqroq vaqt bilan chorlang.</string>
+  <string name="declineTooSlow">Ushbu vaqt boshqaruvi men uchun sekin hisoblanadi, iltimos tezroq oʻyin uchun qisqaroq vaqt bilan chorlang.</string>
+  <string name="declineTimeControl">Men ushbu vaqt boshqaruvidagi chorlovni qabul qila olmayman.</string>
+  <string name="declineRated">Iltimos menga reytingli chorlovni yuboring.</string>
+  <string name="declineCasual">Iltimos menga reytingsiz bellashuv chorlovini joʻnating.</string>
+  <string name="declineStandard">Xozir men bellashuvlar variantlarini qabul qila olmayman.</string>
+  <string name="declineVariant">Ayni damda ushbu variantda oʻynashga men tayyor emasman.</string>
+  <string name="declineNoBot">Ayni damda men botlardan chorlovlarni qabul qila olmayman.</string>
+  <string name="declineOnlyBot">Men faqat botlardan chorlovlarni qabul qila olaman.</string>
 </resources>
