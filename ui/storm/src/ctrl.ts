@@ -90,7 +90,7 @@ export default class StormCtrl {
         this.sound.bonus();
       }
       this.redrawQuick();
-      lichess.sound.play(capture ? 'capture' : 'move');
+      this.sound.move(capture);
       if (this.vm.moveIndex == this.line().length - 1) {
         this.pushToHistory(true);
         this.vm.moveIndex = 0;
@@ -230,6 +230,7 @@ export default class StormCtrl {
   };
 
   private sound = {
+    move: (take: boolean) => lichess.sound.play(take ? 'capture' : 'move'),
     bonus: this.loadSound('other/ping'),
     end: this.loadSound('other/gewonnen', 0.6)
   };
