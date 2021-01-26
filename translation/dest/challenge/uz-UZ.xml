@@ -4,4 +4,13 @@
   <string name="challengeToPlay">O\'yinga chorlov</string>
   <string name="challengeDeclined">Chorlovni rad etildi</string>
   <string name="challengeAccepted">Chorlov qabul qilindi!</string>
+  <string name="challengeCanceled">Chorlov bekor qilindi.</string>
+  <string name="registerToSendChallenges">Iltimos o\'yinga chorlash uchun ro\'yhatdan o\'ting.</string>
+  <string name="youCannotChallengeX">Siz %s ni chorlay olmaysiz.</string>
+  <string name="xDoesNotAcceptChallenges">%s chorlovni qabul qilmadi.</string>
+  <string name="yourXRatingIsTooFarFromY">Sizning %1$s reytingingiz %2$s dan ancha uzoq.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">%s taxminiy belgilangan reyting bilan bellashib bo\'lmaydi.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s faqat doʻstlardan chorlovni qabul qiladi.</string>
+  <string name="declineGeneric">Ayni damda chorlovni qabul qila olmayman.</string>
+  <string name="declineLater">Ayni dam men uchun qulay emas, iltimos keyinroq soʻrang.</string>
 </resources>
