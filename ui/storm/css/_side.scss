@@ -39,9 +39,11 @@
 
       strong {
         font-size: 2.2em;
+        font-weight: normal;
       }
 
       span {
+        @extend %roboto;
         font-size: 1.5em;
         letter-spacing: .2em;
       }
