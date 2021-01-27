@@ -8,5 +8,9 @@
   <string name="newAllTimeHighscore">Tüm zamanların rekoru kırıldı!</string>
   <string name="previousHighscoreWasX">Eski rekor %s idi</string>
   <string name="playAgain">Tekrar oyna</string>
+  <plurals name="xRuns" comment="xRuns [one] [other]&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
+    <item quantity="one">%s kez</item>
+    <item quantity="other">%s deneme</item>
+  </plurals>
   <string name="highscoreX">Rekor: %s</string>
 </resources>
