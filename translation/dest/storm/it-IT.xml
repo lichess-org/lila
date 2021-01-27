@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart">Muovi un pedone per iniziare</string>
+  <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">Muovi un pedone per iniziare</string>
+  <string name="puzzlesSolved">puzzle risolti</string>
   <string name="newDailyHighscore">Nuovo punteggio giornaliero!</string>
   <string name="newWeeklyHighscore">Nuovo punteggio settimanale!</string>
+  <string name="newMonthlyHighscore">Nuovo miglior punteggio del mese!</string>
   <string name="newAllTimeHighscore">Nuovo punteggio massimo di tutti i tempi!</string>
   <string name="previousHighscoreWasX">Il punteggio massimo precedente era %s</string>
   <string name="playAgain">Gioca di nuovo</string>
+  <plurals name="xRuns" comment="xRuns [one] [other]&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
+    <item quantity="one">1 tentativo</item>
+    <item quantity="other">%s tentativi</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm" comment="playedNbRunsOfPuzzleStorm [one] [other]&#10;&#10;This only refers to Puzzle Storm.&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
+    <item quantity="one">Hai fatto un tentativo di %2$s</item>
+    <item quantity="other">Hai fatto %1$s tentativi da%2$s</item>
+  </plurals>
+  <string name="highscoreX">Punteggio più alto:%s</string>
 </resources>
