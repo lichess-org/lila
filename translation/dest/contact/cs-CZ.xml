@@ -27,6 +27,7 @@
   <string name="wantClearHistory">Chci vymazat svou historii nebo rating</string>
   <string name="cantClearHistory">Není možné vymazat Vaši historii her, historii taktických úloh nebo ratingy.</string>
   <string name="wantReport">Chci nahlásit hráče</string>
+  <string name="toReportAPlayerUseForm">Pro nahlášení hráče využijte daný formulář</string>
   <string name="youCanAlsoReachReportPage">Na tuto stránku se můžete také dostat kliknutím na nahlašovací tlačítko %s na profilové stránce.</string>
   <string name="doNotReportInForum">Nenahlašujte hráče ve fóru.</string>
   <string name="doNotSendReportEmails">Neposílejte nám e-maily s nahlášením.</string>
