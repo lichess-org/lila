@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advantage">Výhoda</string>
+  <string name="anastasiaMate">Anastáziin mat</string>
+  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Arabský mat</string>
+  <string name="attackingF2F7">Útok na f2 či f7</string>
+  <string name="capturingDefender">Odstranění obránce</string>
+  <string name="doubleCheck">Dvojný šach</string>
+  <string name="endgame">Koncovka</string>
   <string name="queenRookEndgame">Královna a věž</string>
   <string name="queenRookEndgameDescription">Konec hry jen s královnami, věžemi a pěšci.</string>
   <string name="superGMDescription">Hádanky z her hraných nejlepšími hráči na světě.</string>
