@@ -25,6 +25,25 @@
     }
   }
 
+  &__table {
+    @extend %flex-column;
+    flex: 0 0 25%;
+    justify-content: flex-end;
+  }
+
+  &__control {
+    @extend %flex-center;
+
+    justify-content: flex-end;
+    height: 2.5em;
+    margin-bottom: .2em;
+
+    .button {
+      color: $c-font-dim;
+      padding: .5em 1.5em;
+    }
+  }
+
   &__start {
     color: $c-brag;
     margin: auto;
