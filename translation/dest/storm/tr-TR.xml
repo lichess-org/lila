@@ -8,5 +8,5 @@
   <string name="newAllTimeHighscore">Tüm zamanların yüksek skoru!</string>
   <string name="previousHighscoreWasX">Önceki yüksek puan %s</string>
   <string name="playAgain">Tekrar oyna</string>
-  <string name="highscoreX">En yüksek skor: %s</string>
+  <string name="highscoreX">Rekor: %s</string>
 </resources>
