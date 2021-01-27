@@ -15,4 +15,11 @@
   <string name="declineLater">Non adesso, chiedimelo più tardi per favore.</string>
   <string name="declineTooFast">Questa cadenza è troppo veloce per me, sfidami ad una partita più lenta per favore.</string>
   <string name="declineTooSlow">Questa cadenza è troppo lenta per me, sfidami ad una partita più veloce per favore.</string>
+  <string name="declineTimeControl">Non accetto sfide con questa cadenza di tempo.</string>
+  <string name="declineRated">Mandami una sfida classificata per favore.</string>
+  <string name="declineCasual">Mandami una sfida amichevole per favore.</string>
+  <string name="declineStandard">Al momento non accetto sfide a varianti.</string>
+  <string name="declineVariant">Non voglio giocare a questa variante in questo momento.</string>
+  <string name="declineNoBot">Non accetto sfide da bot.</string>
+  <string name="declineOnlyBot">Accetto solo sfide da bot.</string>
 </resources>
