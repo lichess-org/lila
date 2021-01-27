@@ -114,7 +114,6 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
             }
           }
           .mon(_.storm.selector.time)
-          .logTime("selector")
           .addEffect { puzzles =>
             monitor(puzzles.toVector, poolSize)
           }
