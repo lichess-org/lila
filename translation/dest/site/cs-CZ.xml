@@ -9,6 +9,7 @@
   <string name="yourTurn">Jste na tahu</string>
   <string name="aiNameLevelAiLevel">AI %1$s - úrovně %2$s</string>
   <string name="level">Úroveň</string>
+  <string name="strength">Síla</string>
   <string name="toggleTheChat">Zapnout/vypnout chat</string>
   <string name="toggleSound">Zapnout/vypnout zvuk</string>
   <string name="chat">Chat</string>
@@ -720,6 +721,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Pokud email nenaleznete v doručené poště, zkontrolujte další místa, kde by mohl být, jako spam, zprávy ze sociálních sítí, koš nebo jiné složky.</string>
   <string name="weHaveSentYouAnEmailTo">Zaslali jsme vám email na %s. Klikněte na odkaz v emailu pro přenastavení vašeho hesla.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registrací berete na vědomí naše %s.</string>
+  <string name="readAboutOur">Přečtěte si naše %s.</string>
   <string name="networkLagBetweenYouAndLichess">Síťové zpoždění mezi vámi a lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Čas na zpracování tahu na lichess serveru.</string>
   <string name="downloadAnnotated">Stáhnout s poznámkami</string>
