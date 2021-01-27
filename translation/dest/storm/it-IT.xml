@@ -17,4 +17,17 @@
     <item quantity="other">Hai fatto %1$s tentativi da%2$s</item>
   </plurals>
   <string name="highscoreX">Punteggio più alto:%s</string>
+  <string name="score">Punteggio</string>
+  <string name="moves">Mosse</string>
+  <string name="accuracy">Precisione</string>
+  <string name="combo">Combinazione</string>
+  <string name="time">Tempo</string>
+  <string name="timePerMove">Tempo per messo</string>
+  <string name="highestSolved">Più difficile risolto</string>
+  <string name="puzzlesPlayed">Puzzle iniziati</string>
+  <string name="newRun">Nuovo tentativo (scorciatoia da tastiera: Spazio)</string>
+  <string name="endRun">Termina tentativa (scorciatoria da tastiera: Invio)</string>
+  <string name="puzzleStormHighscores">Classifica di puzzle a raffica</string>
+  <string name="viewBestRuns">Visualizza i migliori tentativi</string>
+  <string name="bestRunOfDay">Migliore prova del giorno</string>
 </resources>
