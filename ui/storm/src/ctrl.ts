@@ -47,6 +47,7 @@ export default class StormCtrl {
     this.vm.run.startAt && Math.max(0, this.vm.run.startAt + this.vm.clock - getNow());
 
   end = (): void => {
+    this.vm.history.reverse();
     this.vm.run.endAt = getNow();
     this.ground(false);
     this.redraw();
