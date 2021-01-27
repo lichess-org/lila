@@ -27,6 +27,7 @@
   <string name="wantClearHistory">Eg vil strika mína hendingagongd ella mítt styrkital</string>
   <string name="cantClearHistory">Tað er ikki møguligt at strika tínar talv- og uppgávuhendingagongdir ella styrkitøl tíni.</string>
   <string name="wantReport">Eg vil melda ein telvara</string>
+  <string name="toReportAPlayerUseForm">Til tess at melda ein telvara, nýt fráboðanaroyðublaðið</string>
   <string name="youCanAlsoReachReportPage">Tú røkkur eisini teirri síðuni við at klikkja %s fráboðanarknøttin á eini vangamyndssíðu.</string>
   <string name="doNotReportInForum">Ikki melda telvarar á torginum.</string>
   <string name="doNotSendReportEmails">Send okkum ikki teldupostar við fráboðanum.</string>
