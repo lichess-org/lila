@@ -18,7 +18,7 @@
   </plurals>
   <string name="highscoreX">Rekor: %s</string>
   <string name="score">Puan</string>
-  <string name="moves">Hamleler</string>
+  <string name="moves">Hamle sayısı</string>
   <string name="accuracy">Başarı</string>
   <string name="combo">Seri</string>
   <string name="time">Süre</string>
@@ -29,5 +29,6 @@
   <string name="endRun">Turu bitir (kısayol: Enter)</string>
   <string name="puzzleStormHighscores">Bulmaca tufanı rekorları</string>
   <string name="viewBestRuns">En iyi denemeleri göster</string>
+  <string name="bestRunOfDay">Günün en iyisi</string>
   <string name="runs">Denemeler</string>
 </resources>
