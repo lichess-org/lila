@@ -38,8 +38,10 @@
   <string name="enPassantDescription">涉及吃过路兵规则的战术，在这种战术中，兵可以吃掉对方初始位置首次走两格的兵</string>
   <string name="exposedKing">暴露的王</string>
   <string name="exposedKingDescription">王的周围只有很少的防守棋子时的战术，往往导致杀棋</string>
+  <string name="fork">击双</string>
   <string name="forkDescription">走一步棋使走动的棋子同时攻击对方的两个棋子</string>
   <string name="hangingPiece">得子</string>
+  <string name="hangingPieceDescription">涉及对方无根或少根的棋子，可以随意吃掉它</string>
   <string name="hookMate">车杀棋</string>
   <string name="hookMateDescription">用车、马、兵杀棋，对方的兵限制王逃跑</string>
   <string name="knightEndgame">马残局</string>
@@ -67,6 +69,7 @@
   <string name="pawnEndgame">王兵残局</string>
   <string name="pawnEndgameDescription">只有兵的残局</string>
   <string name="pin">牵制</string>
+  <string name="pinDescription">一种涉及牵制的策略，一个棋子不能移动否则背后更高价值棋子将被攻击</string>
   <string name="promotion">升变</string>
   <string name="promotionDescription">兵升变或威胁升变是战术的关键</string>
   <string name="queenEndgame">后残局</string>
@@ -79,6 +82,7 @@
   <string name="rookEndgame">车兵残局</string>
   <string name="rookEndgameDescription">只有车和兵的残局</string>
   <string name="sacrifice">弃子</string>
+  <string name="sacrificeDescription">涉及在短期内弃子的策略，以便在强制执行一系列着法后再次获得优势。</string>
   <string name="short">短谜题</string>
   <string name="shortDescription">两步胜</string>
   <string name="smotheredMate">闷杀</string>
