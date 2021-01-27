@@ -6,6 +6,7 @@ import { VNode } from 'snabbdom/vnode';
 import { TimeMod } from '../interfaces';
 
 let refreshInterval: Timeout;
+let lastText: string;
 
 export default function renderClock(ctrl: StormCtrl): VNode {
   const malus = ctrl.vm.modifier.malus;
@@ -35,7 +36,9 @@ function renderIn(ctrl: StormCtrl, el: HTMLElement) {
   const now = getNow();
   const millis = ctrl.vm.run.startAt + clock - getNow();
   const diffs = computeModifierDiff(now, mods.bonus) - computeModifierDiff(now, mods.malus);
-  el.innerText = formatMs(millis - diffs);
+  const text = formatMs(millis - diffs);
+  if (text != lastText) el.innerText = text;
+  lastText = text;
   if (millis < 1 && !ctrl.vm.run.endAt) ctrl.naturalFlag();
 }
 
