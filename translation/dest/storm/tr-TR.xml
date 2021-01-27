@@ -14,7 +14,7 @@
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm" comment="playedNbRunsOfPuzzleStorm [one] [other]&#10;&#10;This only refers to Puzzle Storm.&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
     <item quantity="one">Bir kez %2$s oynadı</item>
-    <item quantity="other">%1$s tur %2$s oynadı</item>
+    <item quantity="other">%1$s kez %2$s oynadı</item>
   </plurals>
   <string name="highscoreX">Rekor: %s</string>
 </resources>
