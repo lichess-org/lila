@@ -21,6 +21,7 @@
       }
 
       &__combo {
+        @extend %roboto;
         font-size: .8em;
         letter-spacing: -1px;
         color: $c-font-dim;
