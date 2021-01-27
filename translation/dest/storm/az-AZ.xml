@@ -2,4 +2,10 @@
 <resources>
   <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">Başlamaq üçün gediş edin</string>
   <string name="puzzlesSolved">tapmacalar həll edildi</string>
+  <string name="newDailyHighscore">Günlük ən yüksək nəticə!</string>
+  <string name="newWeeklyHighscore">Həftəlik ən yüksək nəticə!</string>
+  <string name="newMonthlyHighscore">Aylıq ən yüksək nəticə!</string>
+  <string name="newAllTimeHighscore">Bütün zamanların ən yüksək nəticəsi!</string>
+  <string name="previousHighscoreWasX">Əvvəlki ən yüksək nəticə: %s</string>
+  <string name="highscoreX">Ən yüksək nəticə: %s</string>
 </resources>
