@@ -3,7 +3,7 @@
   <string name="advancedPawn">高兵</string>
   <string name="advancedPawnDescription">兵升变或威胁升变是战术的关键</string>
   <string name="advantage">优势</string>
-  <string name="advantageDescription">抓住你获得决定性优势的机会。(200cp ≤ 估值 ≤ 600cp)</string>
+  <string name="advantageDescription">抓住你获得决定性优势的机会。(200厘兵 ≤ 评估 ≤ 600厘兵)</string>
   <string name="anastasiaMate">阿纳斯塔西亚杀法（车马杀王）</string>
   <string name="anastasiaMateDescription">马与车或者后配合将对方的王将死在被对方棋子卡住的角落</string>
   <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">阿拉伯杀法（车马杀王）</string>
@@ -22,17 +22,21 @@
   <string name="castlingDescription">将王转移到安全的地方，将车投入进攻</string>
   <string name="capturingDefender">消除保护子</string>
   <string name="capturingDefenderDescription">消除保护另一个棋子的重要棋子，可以在接下来的着法中吃掉现在未保护的棋子。</string>
+  <string name="crushing">压倒性优势</string>
   <string name="crushingDescription">发现对手的失误以获得压倒性的优势 (评估 ≥ 600厘兵)</string>
   <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">双象杀王</string>
   <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">双象在交错的斜线上将杀被对方子力阻挡的王</string>
   <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">燕尾杀法</string>
   <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">后贴面杀，王唯一能逃跑的两个格子被自己的棋子阻挡</string>
   <string name="equality">均势</string>
-  <string name="equalityDescription">从要输棋的局面回到和棋或者均势(评估 ≤ 200厘兵)</string>
+  <string name="equalityDescription">从要输棋的局面回到和棋或者均势 (评估 ≤ 200厘兵)</string>
   <string name="kingsideAttack">王翼进攻</string>
   <string name="kingsideAttackDescription">在对方短易位后进攻对方的王</string>
+  <string name="clearance">腾挪</string>
+  <string name="clearanceDescription">一着通常伴随有为后续战术构想腾空棋格、直线或斜线的棋。</string>
   <string name="defensiveMove">防守着法</string>
   <string name="defensiveMoveDescription">避免丢子或失去其他优势所需的精确着法或着法序列。</string>
+  <string name="deflection">引离</string>
   <string name="deflectionDescription">将对方的棋子从另一个它负责的任务中转移出来的一步棋，例如防守一个关键格。有时候也叫“过载”。</string>
   <string name="discoveredAttack">闪击</string>
   <string name="discoveredAttackDescription">移动阻挡长距离棋子的乙方棋子，例如把马离开车的路线</string>
@@ -49,12 +53,17 @@
   <string name="hangingPieceDescription">涉及对方无根或少根的棋子，可以随意吃掉它</string>
   <string name="hookMate">车杀棋</string>
   <string name="hookMateDescription">用车、马、兵杀棋，对方的兵限制王逃跑</string>
+  <string name="interference">拦截</string>
+  <string name="interferenceDescription">走动一个棋子到在两个对手棋子之间，以使一个或两个对手棋子保持不设防状态，例如在两个车之间的防守格上的一个马。</string>
+  <string name="intermezzo">过渡着</string>
   <string name="knightEndgame">马残局</string>
   <string name="knightEndgameDescription">只有马和兵的残局</string>
   <string name="long">长谜题</string>
   <string name="longDescription">三步胜</string>
   <string name="master">大师对局</string>
+  <string name="masterDescription">来自于有名棋手的对局的谜题</string>
   <string name="masterVsMaster">大师与大师对局</string>
+  <string name="masterVsMasterDescription">来自于两位有名棋手的对局的谜题</string>
   <string name="mate">杀王</string>
   <string name="mateDescription">赢棋的方式</string>
   <string name="mateIn1">一步杀</string>
@@ -85,7 +94,8 @@
   <string name="queenRookEndgameDescription">只有后、车、兵的残局</string>
   <string name="queensideAttack">后翼进攻</string>
   <string name="queensideAttackDescription">在对方长易位后进攻对方的王</string>
-  <string name="quietMoveDescription">一步棋没有将军或捉子，但确实为后续准备了一个不可避免的威胁。</string>
+  <string name="quietMove">安静的一着</string>
+  <string name="quietMoveDescription">一步没有将军或捉子棋，但确实为后续准备了一个不可避免的威胁。</string>
   <string name="rookEndgame">车兵残局</string>
   <string name="rookEndgameDescription">只有车和兵的残局</string>
   <string name="sacrifice">弃子</string>
@@ -96,12 +106,13 @@
   <string name="skewerDescription">高价值的棋子被攻击，移开并允许其后方的较低价值的棋子被吃或被攻击（牵制的反面）。</string>
   <string name="smotheredMate">闷杀</string>
   <string name="smotheredMateDescription">由马完成的将杀，王被自己的棋子包围（或困住），因此无法移动。</string>
+  <string name="superGM">超级大师对局</string>
   <string name="superGMDescription">来自于世界上最好的棋手的对局的谜题</string>
   <string name="trappedPiece">被困的棋子</string>
   <string name="trappedPieceDescription">一个棋子由于其走法有限无法逃脱被捉</string>
   <string name="underPromotion">低升变</string>
   <string name="underPromotionDescription">升变为马、象或车</string>
-  <string name="veryLong">超级长谜题</string>
+  <string name="veryLong">超长谜题</string>
   <string name="veryLongDescription">四步或更多步胜</string>
   <string name="zugzwang">楚茨文克（无等着）</string>
   <string name="zugzwangDescription">对手可选的着法是有限的，所有着法都会使其局面更加恶化。</string>
