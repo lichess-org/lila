@@ -8,4 +8,5 @@
   <string name="newAllTimeHighscore">Новый рекорд за все время!</string>
   <string name="previousHighscoreWasX">Прошлый рекорд был %s</string>
   <string name="playAgain">Играть снова</string>
+  <string name="highscoreX">Рекорд: %s</string>
 </resources>

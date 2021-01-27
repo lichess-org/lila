@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">Mugitu hasteko</string>
+  <string name="puzzlesSolved">ariketa ebatzita</string>
+  <string name="newDailyHighscore">Eguneko marka berria!</string>
+  <string name="newWeeklyHighscore">Asteko marka berria!</string>
+  <string name="newMonthlyHighscore">Hileko marka berria!</string>
+  <string name="newAllTimeHighscore">Marka berria!</string>
+  <string name="previousHighscoreWasX">Aurreko marka %s zen</string>
+  <string name="playAgain">Jokatu berriz</string>
+  <plurals name="xRuns" comment="xRuns [one] [other]&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
+    <item quantity="one">Saiakera 1</item>
+    <item quantity="other">%s saiakera</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm" comment="playedNbRunsOfPuzzleStorm [one] [other]&#10;&#10;This only refers to Puzzle Storm.&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
+    <item quantity="one">%2$s ariketaren saiakera bat egin duzu</item>
+    <item quantity="other">%2$s ariketaren %1$s saiakera egin dituzu</item>
+  </plurals>
+  <string name="highscoreX">Marka: %s</string>
+</resources>

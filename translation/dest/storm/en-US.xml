@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">Move to start</string>
+  <string name="puzzlesSolved">puzzles solved</string>
+  <string name="newDailyHighscore">New daily highscore!</string>
+  <string name="newWeeklyHighscore">New weekly highscore!</string>
+  <string name="newMonthlyHighscore">New monthly highscore!</string>
+  <string name="newAllTimeHighscore">New all-time highscore!</string>
+  <string name="previousHighscoreWasX">Previous highscore was %s</string>
+  <string name="playAgain">Play again</string>
+  <plurals name="xRuns" comment="xRuns [one] [other]&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
+    <item quantity="one">1 run</item>
+    <item quantity="other">%s runs</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm" comment="playedNbRunsOfPuzzleStorm [one] [other]&#10;&#10;This only refers to Puzzle Storm.&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
+    <item quantity="one">Played one run of %2$s</item>
+    <item quantity="other">Played %1$s runs of %2$s</item>
+  </plurals>
+  <string name="highscoreX">Highscore: %s</string>
+</resources>

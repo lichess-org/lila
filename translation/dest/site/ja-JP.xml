@@ -154,7 +154,7 @@
   <string name="timeControl">持時間</string>
   <string name="realTime">実時間</string>
   <string name="correspondence">通信チェス</string>
-  <string name="daysPerTurn">1手あたり日数</string>
+  <string name="daysPerTurn">1 手あたり日数</string>
   <string name="oneDay">1日</string>
   <plurals name="nbDays">
     <item quantity="other">%s日</item>

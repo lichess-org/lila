@@ -8,6 +8,8 @@
   <string name="registerToSendChallenges">A kihíváshoz regisztráció szükséges.</string>
   <string name="youCannotChallengeX">%s nem kihívható.</string>
   <string name="xDoesNotAcceptChallenges">%s nem fogad kihívásokat.</string>
+  <string name="yourXRatingIsTooFarFromY">Túl nagy a különbség a te %1$s pontszámod és %2$s-é között.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Nem kihívható az ideiglenes %s pontszám miatt.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s csak barátoktól fogad kihívást.</string>
   <string name="declineGeneric">Jelenleg nem fogadok kihívásokat.</string>
   <string name="declineLater">Számomra ez nem a legmegfelelőbb időpont, talán majd máskor.</string>
@@ -18,4 +20,6 @@
   <string name="declineCasual">Kérlek inkább nem értékelt játszmára küldj kihívást.</string>
   <string name="declineStandard">Jelenleg nem fogadok kihívásokat variáns játszmákra.</string>
   <string name="declineVariant">Most nincs kedvem ezt a variánst játszani.</string>
+  <string name="declineNoBot">Nem fogadok el kihívást botoktól.</string>
+  <string name="declineOnlyBot">Csak botoktól fogadok el kihívást.</string>
 </resources>

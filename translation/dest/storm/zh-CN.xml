@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">回到开始</string>
+  <string name="puzzlesSolved">谜题已解决 ！</string>
+  <string name="newDailyHighscore">新的每日高分！</string>
+  <string name="newWeeklyHighscore">新的每周高分！</string>
+  <string name="newMonthlyHighscore">新月度高分！</string>
+  <string name="newAllTimeHighscore">新的历史最高分！</string>
+  <string name="previousHighscoreWasX">上一次最高得分是 %s</string>
+  <string name="playAgain">再来一局</string>
+</resources>

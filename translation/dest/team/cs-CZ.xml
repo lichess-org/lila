@@ -47,4 +47,8 @@ Hráči, kteří si nepřejí dostávat vaše zprávy mohou opustit tým.</strin
   <string name="leadersChat">Chat vedoucích</string>
   <string name="closeTeam">Zavřít tým</string>
   <string name="closeTeamDescription">Zavřít tým navždy.</string>
+  <string name="teamPassword">Heslo týmu</string>
+  <string name="teamPasswordDescriptionForLeader">(Volitelné) Heslo, které musí noví členové znát pro připojení k tomuto týmu.</string>
+  <string name="incorrectTeamPassword">Nesprávné heslo.</string>
+  <string name="teamAlreadyExists">Tento tým již existuje.</string>
 </resources>

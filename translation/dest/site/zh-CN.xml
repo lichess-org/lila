@@ -9,6 +9,7 @@
   <string name="yourTurn">你的回合</string>
   <string name="aiNameLevelAiLevel">%1$s级別%2$s</string>
   <string name="level">级别</string>
+  <string name="strength">强度</string>
   <string name="toggleTheChat">聊天开关</string>
   <string name="toggleSound">声音开关</string>
   <string name="chat">聊天</string>
@@ -475,10 +476,12 @@
   <string name="currentPassword">当前密码</string>
   <string name="newPassword">新密码</string>
   <string name="newPasswordAgain">重复新密码</string>
+  <string name="newPasswordsDontMatch">两次输入的新密码不一致</string>
   <string name="newPasswordStrength">密码强度</string>
   <string name="clockInitialTime">起始时限</string>
   <string name="clockIncrement">加秒</string>
   <string name="privacy">隐私</string>
+  <string name="privacyPolicy">隐私政策</string>
   <string name="letOtherPlayersFollowYou">允许其他用户关注</string>
   <string name="letOtherPlayersChallengeYou">允许其他玩家挑战</string>
   <string name="letOtherPlayersInviteYouToStudy">允许其他用户邀请您参加研讨</string>

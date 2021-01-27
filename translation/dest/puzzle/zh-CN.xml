@@ -9,6 +9,8 @@
   <string name="lengths">长度</string>
   <string name="mates">杀王</string>
   <string name="goals">目标</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">来源</string>
+  <string name="specialMoves">特殊着法</string>
   <string name="didYouLikeThisPuzzle">你喜欢这道训练题吗？</string>
   <string name="voteToLoadNextOne">投票以加载下一题</string>
   <string name="yourPuzzleRatingX">你的解题积分：%s</string>
@@ -24,6 +26,7 @@
   <string name="puzzleSuccess">解题成功!</string>
   <string name="puzzleComplete">解题完成</string>
   <string name="notTheMove">不是最佳着法</string>
+  <string name="trySomethingElse">尝试其他着法</string>
   <string name="ratingX">积分：%s</string>
   <string name="hidden">隐藏</string>
   <plurals name="playedXTimes">
@@ -40,6 +43,8 @@
   <string name="example">例子</string>
   <string name="addAnotherTheme">添加新的主题</string>
   <string name="jumpToNextPuzzleImmediately">一解决训练题就马上转到下一个</string>
+  <string name="puzzleDashboard">谜题仪表板</string>
+  <string name="improvementAreas">提升区</string>
   <string name="strengths">强度</string>
   <string name="history">解题历史</string>
   <string name="solved">已解决</string>

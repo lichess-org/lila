@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">Faites un coup pour commencer</string>
+  <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">Jouez un coup pour commencer</string>
   <string name="puzzlesSolved">problèmes résolus</string>
   <string name="newDailyHighscore">Nouveau record du jour!</string>
   <string name="newWeeklyHighscore">Nouveau record de la semaine!</string>
