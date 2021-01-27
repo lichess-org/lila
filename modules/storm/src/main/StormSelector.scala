@@ -21,7 +21,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
 
   private val theme        = lila.puzzle.PuzzleTheme.mix.key.value
   private val tier         = lila.puzzle.PuzzleTier.Good.key
-  private val maxDeviation = 90
+  private val maxDeviation = 85
 
   private val ratingBuckets =
     List(
