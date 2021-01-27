@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">ধাঁধা</string>
+  <string name="puzzleThemes">ধাঁধার থিম</string>
+  <string name="recommended">প্রস্তাবিত</string>
+  <string name="phases">পর্যায়</string>
 </resources>
