@@ -2,11 +2,11 @@
 <resources>
   <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">Başlamak için oynayın</string>
   <string name="puzzlesSolved">Bulmacalar çözüldü</string>
-  <string name="newDailyHighscore">Günlük yeni yüksek skor!</string>
-  <string name="newWeeklyHighscore">Haftalık yeni yüksek skor!</string>
-  <string name="newMonthlyHighscore">Aylık yeni yüksek skor!</string>
-  <string name="newAllTimeHighscore">Yeni tüm zamanların yüksek skoru!</string>
+  <string name="newDailyHighscore">Günlük en yüksek skor!</string>
+  <string name="newWeeklyHighscore">Haftalık en yüksek skor!</string>
+  <string name="newMonthlyHighscore">Aylık en yüksek skor!</string>
+  <string name="newAllTimeHighscore">Tüm zamanların yüksek skoru!</string>
   <string name="previousHighscoreWasX">Önceki yüksek puan %s</string>
   <string name="playAgain">Tekrar oyna</string>
-  <string name="highscoreX">Yüksek Skor: %s</string>
+  <string name="highscoreX">En yüksek skor: %s</string>
 </resources>
