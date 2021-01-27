@@ -4,4 +4,11 @@
   <string name="puzzleThemes">ধাঁধার থিম</string>
   <string name="recommended">প্রস্তাবিত</string>
   <string name="phases">পর্যায়</string>
+  <string name="motifs">বিষয়বস্তু</string>
+  <string name="advanced">বিস্তারিত</string>
+  <string name="lengths">দৈর্ঘ্য</string>
+  <string name="mates">চেকমেট নিদর্শন</string>
+  <string name="goals">উদ্দেশ</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">উত্স</string>
+  <string name="specialMoves">বিশেশ চাল</string>
 </resources>
