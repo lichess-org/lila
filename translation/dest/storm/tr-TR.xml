@@ -17,4 +17,6 @@
     <item quantity="other">%1$s kez %2$s oynadı</item>
   </plurals>
   <string name="highscoreX">Rekor: %s</string>
+  <string name="score">Puan</string>
+  <string name="moves">Hamleler</string>
 </resources>
