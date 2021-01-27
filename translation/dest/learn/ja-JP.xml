@@ -196,7 +196,7 @@
 ビショップ = 3
 ナイト = 3
 ポーン = 1</string>
-  <string name="checkInTwo">2手でチェック</string>
+  <string name="checkInTwo">2 手でチェック</string>
   <string name="twoMovesToGiveCheck">2 手動かしてチェックする</string>
   <string name="checkInTwoIntro">相手のキングをチェックする 2 手の組み合わせを考えてください。</string>
   <string name="checkInTwoGoal">2 手で相手のキングを
