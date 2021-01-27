@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">Başlamak için oynayın</string>
-  <string name="puzzlesSolved">Bulmacalar çözüldü</string>
+  <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">Başlamak için hamle yap</string>
+  <string name="puzzlesSolved">bulmaca çözüldü</string>
   <string name="newDailyHighscore">Günün rekoru kırıldı!</string>
   <string name="newWeeklyHighscore">Haftanın rekoru kırıldı!</string>
   <string name="newMonthlyHighscore">Ayın rekoru kırıldı!</string>
   <string name="newAllTimeHighscore">Tüm zamanların rekoru kırıldı!</string>
-  <string name="previousHighscoreWasX">Önceki rekor %s idi</string>
+  <string name="previousHighscoreWasX">Eski rekor %s idi</string>
   <string name="playAgain">Tekrar oyna</string>
   <string name="highscoreX">Rekor: %s</string>
 </resources>
