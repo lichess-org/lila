@@ -8,7 +8,15 @@
   <string name="newAllTimeHighscore">Uusi kaikkien aikojen ennätys!</string>
   <string name="previousHighscoreWasX">Edellinen ennätys oli %s</string>
   <string name="playAgain">Pelaa uudelleen</string>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Pelasin yhden sarjan %2$s</item>
+    <item quantity="other">Pelasi %1$s sarjaa %2$s</item>
+  </plurals>
   <string name="highscoreX">Ennätys: %s</string>
+  <string name="accuracy">Tarkkuus</string>
   <string name="combo">Putki</string>
   <string name="time">Aika</string>
+  <string name="timePerMove">Aika per siirto</string>
+  <string name="viewBestRuns">Näytä parhaat sarjat</string>
+  <string name="bestRunOfDay">Päivän paras sarja</string>
 </resources>
