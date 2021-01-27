@@ -35,8 +35,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
       2050 -> 15,
       2200 -> 17,
       2350 -> 19,
-      2500 -> 21,
-      2650 -> 23
+      2500 -> 21
     )
   private val poolSize = ratingBuckets.foldLeft(0) { case (acc, (_, nb)) =>
     acc + nb
