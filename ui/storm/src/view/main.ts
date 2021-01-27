@@ -3,7 +3,7 @@ import config from '../config';
 import renderClock from './clock';
 import renderEnd from "./end";
 import StormCtrl from '../ctrl';
-import { getNow } from '../util';
+import { getNow, onInsert } from '../util';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 
@@ -36,9 +36,32 @@ const renderPlay = (ctrl: StormCtrl): VNode[] => [
   h('div.storm__side', [
     ctrl.vm.run.startAt ? renderSolved(ctrl) : renderStart(ctrl),
     renderClock(ctrl),
-    renderCombo(ctrl)
+    h('div.storm__table', [
+      renderControls(ctrl),
+      renderCombo(ctrl)
+    ])
   ])
 ];
+
+const renderControls = (ctrl: StormCtrl): VNode =>
+  h('div.storm__control', [
+    h('a.storm__control__reload.button.button-empty', {
+      attrs: {
+        href: '/storm',
+        'data-icon': 'B',
+        title: 'New run'
+      }
+    }),
+    h('a.storm__control__end.button.button-empty', {
+      attrs: {
+        'data-icon': 'b',
+        title: 'End run',
+      },
+      hook: onInsert(el => el.addEventListener('click', () => {
+        if (ctrl.vm.puzzleStartAt) ctrl.end()
+      }))
+    })
+  ]);
 
 const renderCombo = (ctrl: StormCtrl): VNode => {
   const level = ctrl.comboLevel();

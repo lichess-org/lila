@@ -2,6 +2,7 @@
   &__clock {
     @extend %flex-center-nowrap;
 
+    margin-bottom: -1em;
     font-family: 'storm';
 
     &__time {
