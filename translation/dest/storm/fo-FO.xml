@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="score">Stig</string>
+  <string name="moves">Leikir</string>
+  <string name="accuracy">Neyvleiki</string>
+  <string name="combo">Bland</string>
+  <string name="time">Tíð</string>
+  <string name="timePerMove">Tíð fyri hvønn leik</string>
+  <string name="highestSolved">Truplastu loystu uppgávurnar</string>
+  <string name="puzzlesPlayed">Telvdar uppgávur</string>
+  <string name="newRun">Nýtt umfar (snarknøttur: glopp)</string>
+  <string name="endRun">Endaumfar (snarknøttur: Enter)</string>
+</resources>
