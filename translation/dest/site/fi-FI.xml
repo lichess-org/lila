@@ -603,13 +603,13 @@
   <string name="contribute">Osallistu</string>
   <string name="termsOfService">Käyttöehdot</string>
   <string name="sourceCode">Lähdekoodi</string>
-  <string name="simultaneousExhibitions">Yhtäaikainen näytösottelu</string>
+  <string name="simultaneousExhibitions">Simultaanit</string>
   <string name="host">Isäntä</string>
   <string name="hostColorX">Isännän väri: %s</string>
   <string name="createdSimuls">Äskettäin luodut simultaanit</string>
   <string name="hostANewSimul">Isännöi uutta simultaania</string>
   <string name="noSimulFound">Simultaania ei löydy</string>
-  <string name="noSimulExplanation">Tätä simultaaninäytöstä ei ole olemassa.</string>
+  <string name="noSimulExplanation">Tätä simultaania ei ole olemassa.</string>
   <string name="returnToSimulHomepage">Palaa simultaanin kotisivulle</string>
   <string name="aboutSimul">Simultaaneissa yksi pelaaja pelaa useampaa pelaajaa vastaan samanaikaisesti.</string>
   <string name="aboutSimulImage">50:stä vastustajastaan Fischer voitti 47, pelasi kahden kanssa tasan ja hävisi yhdelle.</string>
