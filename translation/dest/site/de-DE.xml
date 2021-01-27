@@ -9,7 +9,7 @@
   <string name="yourTurn">Du bist am Zug</string>
   <string name="aiNameLevelAiLevel">%1$s Stufe %2$s</string>
   <string name="level">Stufe</string>
-  <string name="strength">Stärke</string>
+  <string name="strength">Spielstärke</string>
   <string name="toggleTheChat">Chat ein-/ausblenden</string>
   <string name="toggleSound">Ton ein-/ausschalten</string>
   <string name="chat">Chat</string>
