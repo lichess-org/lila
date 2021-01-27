@@ -30,14 +30,14 @@
   <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">Une dame mate un roi placé sur une case adjacente, les deux seules cases de fuite étant occupées par des pièces amies.</string>
   <string name="equality">Égalité</string>
   <string name="equalityDescription">Revenir d\'une position perdante et assurer une nulle ou une position équilibrée. (évaluation ≤ 200cp)</string>
-  <string name="kingsideAttack">Attaque à l\'aile roi</string>
+  <string name="kingsideAttack">Attaque sur l\'aile roi</string>
   <string name="kingsideAttackDescription">Une attaque du roi adverse, après qu\'il ait fait le petit roque.</string>
   <string name="clearance">Dégagement</string>
   <string name="clearanceDescription">Un coup, souvent avec tempo, qui libère une case, une colonne ou une diagonale en vue d\'une idée tactique.</string>
   <string name="defensiveMove">Coup défensif</string>
   <string name="defensiveMoveDescription">Un coup ou une séquence de coups précis qui est nécessaire pour éviter de perdre du matériel ou un autre avantage.</string>
   <string name="deflection">Déviation</string>
-  <string name="deflectionDescription">Un coup qui détourne une pièce de l\'adversaire d\'une tâche qu\'elle assure, comme la protection d\'une case-clé.</string>
+  <string name="deflectionDescription">Un coup qui dévie une pièce de l\'adversaire d\'une tâche qu\'elle assure, comme la protection d\'une case-clé.</string>
   <string name="discoveredAttack">Attaque à la découverte</string>
   <string name="discoveredAttackDescription">Déplacer une pièce qui bloquait auparavant une attaque par une autre pièce à longue portée, comme un cavalier hors la ligne d\'une tour.</string>
   <string name="doubleCheck">Échec double</string>
