@@ -130,7 +130,7 @@
     <item quantity="one">%s spelar</item>
     <item quantity="other">%s spelarar</item>
   </plurals>
-  <string name="currentGames">Pågåande parti</string>
+  <string name="currentGames">Parti som blir spela no</string>
   <plurals name="nbGames">
     <item quantity="one">%s parti</item>
     <item quantity="other">%s parti</item>
@@ -616,9 +616,9 @@ i %3$s</string>
   <string name="noSimulExplanation">Denne simultanframsyninga finst ikkje.</string>
   <string name="returnToSimulHomepage">Returner til simultanheimesida</string>
   <string name="aboutSimul">Simultanframsyning inneber at ein spelar møter fleire motspelarar samstundes.</string>
-  <string name="aboutSimulImage">Mot 50 motspelarar, vann Fischer 47 parti, spelte to remis og tapte eitt.</string>
+  <string name="aboutSimulImage">Mot 50 motspelarar, fekk Fischer 47 sigrar, to remisar og eit tap.</string>
   <string name="aboutSimulRealLife">Konseptet liknar på verkelege simultansjakkframsyningar, der verten for arrangementet går frå bord til bord og spelar mot fleire motstandarar samstundes.</string>
-  <string name="aboutSimulRules">Når simultanframsyninga startar, byrjar alle deltakarane eit parti mot verten som får spela med dei kvite brikkene. Simultanoppvisninga endar når alle partia er ferdigspelte.</string>
+  <string name="aboutSimulRules">Når simultanframsyninga byrjar, startar alle deltakarane eit parti mot den som er vert. Verten får spela med dei kvite brikkene. Simultanoppvisinga endar når alle partia er ferdigspelte.</string>
   <string name="aboutSimulSettings">Simultanframsyningar er alltid urangerte. Omstart, attendetrekk og \"meirtid\" er slått av.</string>
   <string name="create">Opprett</string>
   <string name="whenCreateSimul">Når du arrangerer ei simultanframsyning spelar du mot fleire motstandarar samstundes.</string>

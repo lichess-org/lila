@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">Aloita tekemällä siirto</string>
+  <string name="puzzlesSolved">tehtävää ratkaistu</string>
+  <string name="newDailyHighscore">Päivän uusi ennätys!</string>
+  <string name="newWeeklyHighscore">Viikon uusi ennätys!</string>
+  <string name="newMonthlyHighscore">Kuukauden uusi ennätys!</string>
+  <string name="newAllTimeHighscore">Uusi kaikkien aikojen ennätys!</string>
+  <string name="previousHighscoreWasX">Edellinen ennätys oli %s</string>
+  <string name="playAgain">Pelaa uudelleen</string>
+  <string name="highscoreX">Ennätys: %s</string>
+</resources>

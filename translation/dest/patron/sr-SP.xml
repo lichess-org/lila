@@ -53,6 +53,7 @@
   <string name="nextPayment">Следећа уплата</string>
   <string name="makeAdditionalDonation">Направи додатну донацију сада</string>
   <string name="changeMonthlyAmount">Промени месечну вредност (%s)</string>
+  <string name="cancelSupport">откажи твоју пордшку</string>
   <string name="xOrY">%1$s или %2$s</string>
   <string name="decideHowMuch">Одлучи колико Личес теби вреди:</string>
   <string name="stopPayments">Повуци своју кредитну картицу и обустави наплате:</string>

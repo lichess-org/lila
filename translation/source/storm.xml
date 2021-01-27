@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="moveToStart">Move to start</string>
+  <string name="puzzlesSolved">puzzles solved</string>
+  <string name="newDailyHighscore">New daily highscore!</string>
+  <string name="newWeeklyHighscore">New weekly highscore!</string>
+  <string name="newMonthlyHighscore">New monthly highscore!</string>
+  <string name="newAllTimeHighscore">New all-time highscore!</string>
+  <string name="previousHighscoreWasX">Previous highscore was %s</string>
+  <string name="playAgain">Play again</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 run</item>
+    <item quantity="other">%s runs</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Played one run of %2$s</item>
+    <item quantity="other">Played %1$s runs of %2$s</item>
+  </plurals>
+  <string name="highscoreX">Highscore: %s</string>
+</resources>

@@ -113,13 +113,13 @@ Sjå meir om dette trekket i %3$s for å få litt øving med det.</string>
   <string name="provisionalRatingExplanation">Spørjeteiknet tyder at ratinga er mellombels. Grunnar til dette kan vere:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Spelaren har så langt ikkje fullførd tilstrekkeleg mange rata parti mot %1$s i ratingkategorien.</string>
   <string name="similarOpponents">motspelarar av tilsvarande spelestyrke</string>
-  <string name="notPlayedRecently">Spelaren har ikkje spela tilstrekkeleg mange nylege parti. Avhengig av talet på parti du har spelt kan du etter omlag eit års inaktivitet få mellombels rating igjen.</string>
+  <string name="notPlayedRecently">Spelaren har ikkje spelt tilstrekkeleg mange nylege parti. Avhengig av talet på parti du har spela kan du etter omlag eit års inaktivitet få mellombels rating igjen.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Det inneber at Glicko-2-avviket er større enn 110. Avviket er eit mål på den tiltrua systemet har til ratingtalet. Desto lågare avvik, desto meir stabil er ei rating.</string>
   <string name="howDoLeaderoardsWork">Korleis fungerer rangeringar og leiartavler?</string>
   <string name="inOrderToAppearsYouMust">For å bli ført opp på %1$s må du:</string>
   <string name="ratingLeaderboards">leiartavler for rating:</string>
-  <string name="havePlayedMoreThanThirtyGamesInThatRating">har spelt minst 30 rata parti under ei gjeven rating,</string>
-  <string name="havePlayedARatedGameAtLeastOneWeekAgo">har spelt eit rata parti sist veke for denne ratinga,</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">har spelt minst 30 rata parti i ein gjeven ratingkategori,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">har spelt eit rata parti i denne ratingkategorien sist veke,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">ha eit ratingsavvik lågare enn %1$s, i standardsjakk og lågare enn %2$s i variantar,</string>
   <string name="beInTopTen">vere på topp ti i denne ratingskategorien.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Det andre kravet er utforma slik at spelarar som ikkje lengre brukar kontoen fell ut av leiartavlene.</string>

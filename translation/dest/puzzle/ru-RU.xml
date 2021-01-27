@@ -46,8 +46,8 @@
   <string name="example">Пример</string>
   <string name="addAnotherTheme">Добавить другой мотив</string>
   <string name="jumpToNextPuzzleImmediately">Сразу перейти к следующей задаче</string>
-  <string name="puzzleDashboard">Страница задач</string>
-  <string name="improvementAreas">Области улучшения</string>
+  <string name="puzzleDashboard">Панель задач</string>
+  <string name="improvementAreas">Слабые стороны</string>
   <string name="strengths">Сильные стороны</string>
   <string name="history">История задач</string>
   <string name="solved">решённые</string>

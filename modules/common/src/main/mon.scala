@@ -484,6 +484,17 @@ object mon {
       )
     val crazyGlicko = counter("puzzle.crazyGlicko").withoutTags()
   }
+  object storm {
+    object selector {
+      val time                    = timer("storm.selector.time").withoutTags()
+      val count                   = histogram("storm.selector.count").withoutTags()
+      val rating                  = histogram("storm.selector.rating").withoutTags()
+      def ratingSlice(index: Int) = histogram("storm.selector.ratingSlice").withTag("index", index)
+    }
+    object run {
+      def score(auth: Boolean) = histogram("storm.run.score").withTag("auth", auth)
+    }
+  }
   object game {
     def finish(variant: String, speed: String, source: String, mode: String, status: String) =
       counter("game.finish").withTags(

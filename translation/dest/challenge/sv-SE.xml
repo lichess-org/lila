@@ -8,16 +8,18 @@
   <string name="registerToSendChallenges">Vänligen registrera ett konto för att skicka utmaningar.</string>
   <string name="youCannotChallengeX">Du kan inte utmana %s.</string>
   <string name="xDoesNotAcceptChallenges">%s accepterar inte utmaningar.</string>
-  <string name="yourXRatingIsTooFarFromY" comment="yourXRatingIsTooFarFromY&#10;&#10;%1$s is the rating type (blitz, bullet, crazyhouse)&#10;%2$s is another username&#10;&#10;This message is shown if you are trying too challenge someone who is too strong/weak compared to your rating.">Din %1$srating är för långt ifrån %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating" comment="cannotChallengeDueToProvisionalXRating&#10;&#10;Users can set the preference to deny challenges from other players if their rating is not within a range of 300 points. If you attempt to challenge someone who has turned on this restriction, but one of you has a provisional rating in this area, you will see this message.&#10;&#10;A rating is considered provisional if the player hasn't played enough games for the system to be certain of their exact rating.&#10;&#10;The variable is the type of rating (Blitz, Bullet, Crazyhouse, etc.)">Kan inte utmana på grund av provisorisk %srating.</string>
+  <string name="yourXRatingIsTooFarFromY">Din %1$srating är för långt ifrån %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Kan inte utmana på grund av provisorisk %srating.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s accepterar endast utmaningar från vänner.</string>
   <string name="declineGeneric">Jag accepterar inte utmaningar för tillfället.</string>
   <string name="declineLater">Detta är inte rätt tid för mig, vänligen fråga igen senare.</string>
   <string name="declineTooFast">Denna tidskontroll är för snabb för mig, vänligen utmana igen med ett långsammare parti.</string>
   <string name="declineTooSlow">Denna tidskontroll är för långsam för mig, vänligen utmana igen med ett snabbare parti.</string>
-  <string name="declineTimeControl">Jag accepterar inte utmaningar med denna tidskontroll.</string>
+  <string name="declineTimeControl">Jag antar inte utmaningar med denna tidskontroll.</string>
   <string name="declineRated">Vänligen skicka en rankad utmaning istället.</string>
   <string name="declineCasual">Vänligen skicka en orankad utmaning istället.</string>
-  <string name="declineStandard">Jag accepterar inte utmaningar med varianter för tillfället.</string>
+  <string name="declineStandard">Jag antar inte utmaningar med varianter för tillfället.</string>
   <string name="declineVariant">Jag vill inte spela denna variant för tillfället.</string>
+  <string name="declineNoBot">Jag antar inte utmaningar från bottar.</string>
+  <string name="declineOnlyBot">Jag antar endast utmaningar från bottar.</string>
 </resources>

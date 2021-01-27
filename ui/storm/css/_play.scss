@@ -1,0 +1,27 @@
+@import "side";
+@import "combo";
+@import "clock";
+
+.storm {
+  &--play {
+    display: grid;
+
+    &__side {
+      grid-area: side;
+    }
+
+    &__board {
+      grid-area: board;
+    }
+
+    grid-row-gap: $block-gap;
+    grid-column-gap: $block-gap;
+    grid-template-areas: 'board' 'side';
+
+    @include breakpoint($mq-col2) {
+      grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
+      grid-template-rows: fit-content(0);
+      grid-template-areas: 'board   side';
+    }
+  }
+}

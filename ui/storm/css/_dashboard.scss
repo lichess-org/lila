@@ -1,0 +1,33 @@
+@import "font";
+@import "play-again";
+@import "high";
+
+.storm-dashboard {
+
+  .storm-play-again {
+    margin: 2vh 0;
+  }
+
+  &__history {
+    overflow: hidden;
+
+    th:not(:first-child) {
+      text-align: right;
+    }
+
+    td:not(:first-child) {
+      text-align: right;
+    }
+
+    color: $c-font-dim;
+
+    number {
+      font-family: 'storm';
+      font-size: 2em;
+
+      &.score {
+        color: $c-brag;
+      }
+    }
+  }
+}

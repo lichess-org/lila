@@ -12,7 +12,7 @@
   <string name="noTeamFound">Kein Team gefunden</string>
   <string name="joinTeam">Tritt dem Team bei</string>
   <string name="quitTeam">Team verlassen</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Beitrittsanfragen manuell prüfen</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Beitrittsanfragen manuell überprüfen</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Wenn diese Option aktiviert ist, müssen Spieler eine Anfrage schreiben, um dem Team beizutreten, welche du ablehnen oder akzeptieren kannst.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Teamleiter</item>
@@ -34,7 +34,7 @@
   <string name="teamTournamentOverview">Ein Arenaturnier, dem nur Mitglieder deines Teams beitreten können</string>
   <string name="messageAllMembers">Benachrichtige alle Mitglieder</string>
   <string name="messageAllMembersOverview">Sende eine private Nachricht an alle Mitglieder des Teams</string>
-  <string name="messageAllMembersLongDescription">Sende eine private Nachricht an alle Mitglieder dieses Teams. Du kannst die Funktion benutzen, um Spieler zu einem Turnier oder einem Team-Kampf aufzurufen. Spieler, die diese Art von Nachrichten nicht empfangen wollen, könnten dein Team verlassen.</string>
+  <string name="messageAllMembersLongDescription">Sende eine private Nachricht an ALLE Mitglieder dieses Teams. Du kannst die Funktion benutzen, um Spieler zu einem Turnier oder einem Team-Kampf aufzurufen. Spieler, die diese Art von Nachrichten nicht empfangen wollen, könnten dein Team verlassen.</string>
   <string name="teamsIlead">Teams, die ich leite</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Möchtest du eines der kommenden Turniere verlinken?</string>
   <string name="usersWhoCanManageThisTeam">Benutzer, die dieses Team verwalten können</string>

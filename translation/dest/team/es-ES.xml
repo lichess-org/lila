@@ -12,8 +12,8 @@
   <string name="noTeamFound">Ningún equipo encontrado</string>
   <string name="joinTeam">Unirse al equipo</string>
   <string name="quitTeam">Abandonar el equipo</string>
-  <string name="manuallyReviewAdmissionRequests">Revisar manualmente las solicitudes de admisión</string>
-  <string name="manuallyReviewAdmissionRequestsHelp">Si está marcado, los jugadores tendrán que escribir una solicitud para unirse al equipo, que usted puede rechazar o aceptar.</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Revisar manualmente las solicitudes de admisión</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Si está marcado, los jugadores tendrán que escribir una solicitud para unirse al equipo, que tú puedes rechazar o aceptar.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Líder del equipo</item>
     <item quantity="other">Líderes del equipo</item>

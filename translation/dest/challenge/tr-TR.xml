@@ -8,8 +8,8 @@
   <string name="registerToSendChallenges">Oyun daveti göndermek için üye olun.</string>
   <string name="youCannotChallengeX">%s adlı oyuncuya oyun daveti gönderemezsiniz.</string>
   <string name="xDoesNotAcceptChallenges">%s oyun davetlerini kabul etmiyor.</string>
-  <string name="yourXRatingIsTooFarFromY" comment="yourXRatingIsTooFarFromY&#10;&#10;%1$s is the rating type (blitz, bullet, crazyhouse)&#10;%2$s is another username&#10;&#10;This message is shown if you are trying too challenge someone who is too strong/weak compared to your rating.">%1$s puanınız %2$s ile kıyaslandığında büyük fark var.</string>
-  <string name="cannotChallengeDueToProvisionalXRating" comment="cannotChallengeDueToProvisionalXRating&#10;&#10;Users can set the preference to deny challenges from other players if their rating is not within a range of 300 points. If you attempt to challenge someone who has turned on this restriction, but one of you has a provisional rating in this area, you will see this message.&#10;&#10;A rating is considered provisional if the player hasn't played enough games for the system to be certain of their exact rating.&#10;&#10;The variable is the type of rating (Blitz, Bullet, Crazyhouse, etc.)">%s puanınız geçici olduğu için başka oyunculara meydan okuyamazsınız.</string>
+  <string name="yourXRatingIsTooFarFromY">%1$s puanınız %2$s ile kıyaslandığında büyük fark var.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">%s puanınız geçici olduğu için başka oyunculara meydan okuyamazsınız.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s sadece arkadaşlarından gelen oyun davetlerini kabul ediyor.</string>
   <string name="declineGeneric">Şimdilik oyun tekliflerini kabul etmiyorum.</string>
   <string name="declineLater">Şu anda müsait değilim, lütfen daha sonra yeniden teklif ediniz.</string>
@@ -20,4 +20,6 @@
   <string name="declineCasual">Bunun yerine puansız oyun teklifi yapınız lütfen.</string>
   <string name="declineStandard">Şimdilik standart dışı varyantlarda oyun tekliflerini kabul etmiyorum.</string>
   <string name="declineVariant">Şimdilik bu varyantı oynamak istemiyorum.</string>
+  <string name="declineNoBot">Botlardan gelen oyun tekliflerini kabul etmiyorum.</string>
+  <string name="declineOnlyBot">Yalnızca botlardan gelen oyun tekliflerini kabul ediyorum.</string>
 </resources>

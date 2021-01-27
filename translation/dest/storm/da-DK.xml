@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="moveToStart">Ryk for at starte</string>
+  <string name="puzzlesSolved">opgaver løst</string>
+  <string name="newDailyHighscore">Ny daglig topscore!</string>
+  <string name="newWeeklyHighscore">Ny ugentlig topscore!</string>
+  <string name="newMonthlyHighscore">Ny månedlig topscore!</string>
+  <string name="previousHighscoreWasX">Tidligere topscore var %s</string>
+  <string name="playAgain">Spil igen</string>
+  <string name="highscoreX">Højeste score: %s</string>
+</resources>

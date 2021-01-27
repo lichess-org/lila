@@ -16,7 +16,7 @@
   <string name="xIsStreaming">%s está transmitiendo</string>
   <string name="rules">Reglas de transmisión</string>
   <string name="rule1">Incluye la palabra clave \"lichess.org\" en el título de tu transmisión cuando transmitas en Lichess.</string>
-  <string name="rule2">Elimina la palabra clave cuando transmitas cosas que no son relativas a Lichess.</string>
+  <string name="rule2">Elimina la palabra clave cuando transmitas contenido que no esté relacionado a Lichess.</string>
   <string name="rule3">Lichess detectará tu transmisión automáticamente y habilitará los siguientes incentivos:</string>
   <string name="perks">Beneficios de transmitir con la palabra clave</string>
   <string name="perk1">Obtén un icono de presentador en tu perfil de Lichess.</string>

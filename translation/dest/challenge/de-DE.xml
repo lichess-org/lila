@@ -8,16 +8,18 @@
   <string name="registerToSendChallenges">Bitte registriere dich, um Herausforderungen zu senden.</string>
   <string name="youCannotChallengeX">Du kannst %s nicht herausfordern.</string>
   <string name="xDoesNotAcceptChallenges">%s nimmt keine Herausforderungen an.</string>
-  <string name="yourXRatingIsTooFarFromY" comment="yourXRatingIsTooFarFromY&#10;&#10;%1$s is the rating type (blitz, bullet, crazyhouse)&#10;%2$s is another username&#10;&#10;This message is shown if you are trying too challenge someone who is too strong/weak compared to your rating.">Deine %1$s Wertung ist zu weit von %2$s entfernt.</string>
-  <string name="cannotChallengeDueToProvisionalXRating" comment="cannotChallengeDueToProvisionalXRating&#10;&#10;Users can set the preference to deny challenges from other players if their rating is not within a range of 300 points. If you attempt to challenge someone who has turned on this restriction, but one of you has a provisional rating in this area, you will see this message.&#10;&#10;A rating is considered provisional if the player hasn't played enough games for the system to be certain of their exact rating.&#10;&#10;The variable is the type of rating (Blitz, Bullet, Crazyhouse, etc.)">Herausforderung wegen provisorischer %s Wertung nicht möglich.</string>
+  <string name="yourXRatingIsTooFarFromY">Deine %1$s Wertung ist zu weit von %2$s entfernt.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Herausforderung wegen provisorischer %s Wertung nicht möglich.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s nimmt Herausforderungen nur von Freunden an.</string>
   <string name="declineGeneric">Ich nehme derzeit keine Herausforderungen an.</string>
   <string name="declineLater">Ich nehme momentan keine Herausforderungen an, bitte frage später noch einmal.</string>
-  <string name="declineTooFast">Diese Bedenkzeit ist zu gering für mich, ich bitte daher um erneutes Herausfordern mit mehr Bedenkzeit.</string>
-  <string name="declineTooSlow">Diese Bedenkzeit ist zu viel für mich, ich bitte daher um erneutes Herausfordern mit weniger Bedenkzeit.</string>
-  <string name="declineTimeControl">Ich nehme keine Herausforderungen mit Bedenkzeit an.</string>
+  <string name="declineTooFast">Diese Bedenkzeit ist zu gering für mich, bitte fordere mich erneut mit einer höheren Bedenkzeit heraus.</string>
+  <string name="declineTooSlow">Diese Bedenkzeit ist zu lang für mich, bitte fordere mich mit weniger Bedenkzeit heraus.</string>
+  <string name="declineTimeControl">Ich nehme keine Herausforderungen mit dieser Bedenkzeit an.</string>
   <string name="declineRated">Bitte fordere mich stattdessen zu einer gewerteten Partie heraus.</string>
   <string name="declineCasual">Bitte fordere mich stattdessen zu einer ungewerteten Partie heraus.</string>
   <string name="declineStandard">Ich nehme derzeit keine Herausforderungen für andere Spielvarianten an.</string>
-  <string name="declineVariant">Ich bin nicht bereit, diese Variante zu spielen.</string>
+  <string name="declineVariant">Ich bin derzeit nicht bereit, diese Variante zu spielen.</string>
+  <string name="declineNoBot">Ich nehme keine Herausforderungen von Bots an.</string>
+  <string name="declineOnlyBot">Ich nehme nur Herausforderungen von Bots an.</string>
 </resources>

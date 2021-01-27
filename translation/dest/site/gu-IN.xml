@@ -100,6 +100,17 @@
   <string name="replayMode">ફરીથી રમો</string>
   <string name="realtimeReplay">વાસ્તવિક સમય માં</string>
   <string name="byCPL">CPL નિયમ દ્વારા</string>
+  <string name="blunder">મોટી ભૂલ</string>
+  <string name="blunders">મોટી ભૂલો</string>
+  <string name="mistake">ભૂલ</string>
+  <string name="mistakes">ભૂલો</string>
+  <string name="inaccuracy">ચૂક</string>
+  <string name="flipBoard">બોર્ડ ફેરવો</string>
+  <string name="players">ખેલાડીઓ</string>
+  <string name="friends">મિત્રો</string>
+  <string name="today">આજે</string>
+  <string name="yesterday">ગઇકાલે</string>
+  <string name="oneDay">એક દિવસ</string>
   <string name="opening">શરૂઆત</string>
   <string name="playX">%s ચાલો</string>
 </resources>

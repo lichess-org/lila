@@ -1,4 +1,4 @@
-import * as miniBoard from "./component/mini-board";
+import * as miniBoard from "common/mini-board";
 import * as miniGame from "./component/mini-game";
 import * as timeago from "./component/timeago";
 import * as xhr from 'common/xhr';

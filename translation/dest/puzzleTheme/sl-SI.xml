@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advancedPawn">Napredovani kmet</string>
+  <string name="advancedPawnDescription">Kmet pred promocijo ali s pretnjo po promociji je ključna v taktiki.</string>
+  <string name="advantage">Prednost</string>
+  <string name="advantageDescription">Izkoristite priložnost in si pridobite odločilno prednost (ocena pozicije med 200 in 600 stotinov kmeta)</string>
+  <string name="anastasiaMate">Anastasijin mat</string>
+  <string name="anastasiaMateDescription">Skakač in trnjava ali dama sodelujejo, da ujamejo nasprotnega kralja ob rob šahovnice in prijateljsko figuro v past.</string>
+  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Arabski mat</string>
   <string name="master">Igre mojstrov</string>
   <string name="masterDescription">Igre, ki so jih odigrali igralci z nazivom.</string>
   <string name="masterVsMaster">Igre mojster proti mojstru</string>

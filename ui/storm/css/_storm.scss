@@ -1,0 +1,63 @@
+$mq-col2: $mq-col2-uniboard;
+
+#main-wrap {
+  --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
+
+  @include breakpoint($mq-col2) {
+    --main-max-width: auto;
+  }
+
+
+  user-select: none;
+}
+
+@import "font";
+@import "play";
+@import "end";
+@import "high";
+
+.storm {
+  &-play-scores {
+    @extend %flex-between;
+
+    color: $c-font-page;
+    margin: 2vh 2vw;
+
+    @include breakpoint($mq-col2) {
+      margin: 2vh .5rem;
+    }
+
+
+    span {
+      text-transform: uppercase;
+    }
+  }
+
+  &-dashboard__high__periods {
+    @include breakpoint($mq-not-xx-small) {
+      display: none;
+    }
+  }
+
+  &--dup {
+    @extend %flex-column;
+
+    justify-content: stretch;
+    text-align: center;
+
+    i {
+      font-size: 15em;
+      line-height: 1.2em;
+    }
+
+    p {
+      margin: 3em 0;
+    }
+  }
+
+  &__about__link {
+    margin-top: 2vh;
+    text-align: center;
+    font-size: .8em;
+  }
+}

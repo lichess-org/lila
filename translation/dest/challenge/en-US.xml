@@ -8,8 +8,8 @@
   <string name="registerToSendChallenges">Please register to send challenges.</string>
   <string name="youCannotChallengeX">You cannot challenge %s.</string>
   <string name="xDoesNotAcceptChallenges">%s does not accept challenges.</string>
-  <string name="yourXRatingIsTooFarFromY" comment="yourXRatingIsTooFarFromY&#10;&#10;%1$s is the rating type (blitz, bullet, crazyhouse)&#10;%2$s is another username&#10;&#10;This message is shown if you are trying too challenge someone who is too strong/weak compared to your rating.">Your %1$s rating is too far from %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating" comment="cannotChallengeDueToProvisionalXRating&#10;&#10;Users can set the preference to deny challenges from other players if their rating is not within a range of 300 points. If you attempt to challenge someone who has turned on this restriction, but one of you has a provisional rating in this area, you will see this message.&#10;&#10;A rating is considered provisional if the player hasn't played enough games for the system to be certain of their exact rating.&#10;&#10;The variable is the type of rating (Blitz, Bullet, Crazyhouse, etc.)">Cannot challenge due to provisional %s rating.</string>
+  <string name="yourXRatingIsTooFarFromY">Your %1$s rating is too far from %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Cannot challenge due to provisional %s rating.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s only accepts challenges from friends.</string>
   <string name="declineGeneric">I\'m not accepting challenges at the moment.</string>
   <string name="declineLater">This is not the right time for me, please ask again later.</string>
@@ -20,4 +20,6 @@
   <string name="declineCasual">Please send me a casual challenge instead.</string>
   <string name="declineStandard">I\'m not accepting variant challenges right now.</string>
   <string name="declineVariant">I\'m not willing to play this variant right now.</string>
+  <string name="declineNoBot">I\'m not accepting challenges from bots.</string>
+  <string name="declineOnlyBot">I\'m only accepting challenges from bots.</string>
 </resources>

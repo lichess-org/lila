@@ -14,6 +14,10 @@ object Day {
 
   def today = Day(Days.daysBetween(genesis, DateTime.now.withTimeAtStartOfDay).getDays)
 
+  def daysAgo(days: Int) = Day(
+    Days.daysBetween(genesis, DateTime.now.minusDays(days).withTimeAtStartOfDay).getDays
+  )
+
   def recent(nb: Int): List[Day] =
     (0 until nb).toList.map { delta =>
       Day(Days.daysBetween(genesis, DateTime.now.minusDays(delta).withTimeAtStartOfDay).getDays)

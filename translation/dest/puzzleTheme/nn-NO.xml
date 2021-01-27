@@ -61,6 +61,10 @@
   <string name="knightEndgameDescription">Sluttspel med berre springarar og bønder.</string>
   <string name="long">Lang taktikkoppgåve</string>
   <string name="longDescription">Vinst i tre trekk.</string>
+  <string name="master">Meisterparti</string>
+  <string name="masterDescription">Sjakknøtter frå parti med spelarar som har sjakktittel.</string>
+  <string name="masterVsMaster">Meister mot meister-parti</string>
+  <string name="masterVsMasterDescription">Sjakknøtter frå parti mellom to spelarar som har sjakktittel.</string>
   <string name="mate">Matt</string>
   <string name="mateDescription">Vinn partiet med stil.</string>
   <string name="mateIn1">Matt i eitt trekk</string>

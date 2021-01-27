@@ -8,8 +8,8 @@
   <string name="registerToSendChallenges">挑戦を送るには登録が必要です。</string>
   <string name="youCannotChallengeX">%s には挑戦できません。</string>
   <string name="xDoesNotAcceptChallenges">%s は挑戦を受け付けていません。</string>
-  <string name="yourXRatingIsTooFarFromY" comment="yourXRatingIsTooFarFromY&#10;&#10;%1$s is the rating type (blitz, bullet, crazyhouse)&#10;%2$s is another username&#10;&#10;This message is shown if you are trying too challenge someone who is too strong/weak compared to your rating.">あなたの %1$s レーティングは %2$s と離れすぎています。</string>
-  <string name="cannotChallengeDueToProvisionalXRating" comment="cannotChallengeDueToProvisionalXRating&#10;&#10;Users can set the preference to deny challenges from other players if their rating is not within a range of 300 points. If you attempt to challenge someone who has turned on this restriction, but one of you has a provisional rating in this area, you will see this message.&#10;&#10;A rating is considered provisional if the player hasn't played enough games for the system to be certain of their exact rating.&#10;&#10;The variable is the type of rating (Blitz, Bullet, Crazyhouse, etc.)">%s レーティングが暫定のため挑戦できません。</string>
+  <string name="yourXRatingIsTooFarFromY">あなたの %1$s レーティングは %2$s と離れすぎています。</string>
+  <string name="cannotChallengeDueToProvisionalXRating">%s レーティングが暫定のため挑戦できません。</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s は友達からの挑戦しか受け付けません。</string>
   <string name="declineGeneric">現在、挑戦を受け付けていません。</string>
   <string name="declineLater">今は都合が悪いので、後でもう一度尋ねてください。</string>
@@ -20,4 +20,6 @@
   <string name="declineCasual">代わりに非レート戦での挑戦を送ってください。</string>
   <string name="declineStandard">現在、バリアントでの挑戦は受け付けていません。</string>
   <string name="declineVariant">今はこのバリアントで対戦するつもりはありません。</string>
+  <string name="declineNoBot">ボットからの挑戦は受け付けていません。</string>
+  <string name="declineOnlyBot">私はボットからの挑戦しか受け付けません。</string>
 </resources>

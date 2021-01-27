@@ -9,9 +9,9 @@
   <string name="freeChess">Gratis schaken voor iedereen, voor altijd!</string>
   <string name="noAdsNoSubs">Geen advertenties, geen abonnementen; maar open-source en passie.</string>
   <string name="thankYou">Hartelijk dank voor je donatie!</string>
-  <string name="youHaveLifetime">Je hebt een levenslang Patroon-account. Dat is super geweldig!</string>
+  <string name="youHaveLifetime">Je hebt een levenslang Patroon-account. Dat is geweldig!</string>
   <string name="patronUntil">Je hebt een Patroon-account tot %s.</string>
-  <string name="ifNotRenewed">Indien niet vernieuwd, wordt je naar het standaard account teruggezet.</string>
+  <string name="ifNotRenewed">Indien niet vernieuwd, word je naar het standaard account teruggezet.</string>
   <string name="weAreNonProfit">Wij zijn een organisatie zonder winstoogmerk omdat wij van mening zijn dat iedereen toegang moet hebben tot een gratis schaakplatform van wereldklasse.</string>
   <string name="weRelyOnSupport">We rekenen op de steun van mensen zoals u om dit mogelijk te maken. Als het gebruik van Lichess u bevalt, overweeg dan alstublieft om ons te steunen door te doneren en een Patroon te worden!</string>
   <string name="lifetime">Levenslang</string>
@@ -19,9 +19,9 @@
   <string name="lifetimePatron">Levenslange Lichess Patroon</string>
   <string name="makeExtraDonation">Een extra donatie maken?</string>
   <string name="monthly">Maandelijks</string>
-  <string name="recurringBilling">Terugkerende betaling, verlengt je beschermvleugels elke maand.</string>
+  <string name="recurringBilling">Terugkerende betaling, verlengt je Patroonvleugels elke maand.</string>
   <string name="onetime">Eenmalig</string>
-  <string name="singleDonation">Een enkele donatie die u de Beschermvleugels geeft voor één maand.</string>
+  <string name="singleDonation">Een enkele donatie die u de Patroonvleugels geeft voor één maand.</string>
   <string name="otherAmount">Overige</string>
   <string name="pleaseEnterAmount">Vul een USD bedrag in</string>
   <string name="withCreditCard">Creditcard</string>
@@ -32,16 +32,16 @@
   <string name="serversAndDeveloper">Allereerst, krachtige servers.
 Daarnaast betalen we een voltijds ontwikkelaar: %s, de oprichter van Lichess.</string>
   <string name="costBreakdown">Zie de gedetailleerde kostenverdeling</string>
-  <string name="officialNonProfit">Is Lichess echt een organisatie zonder winstoogmerk?</string>
-  <string name="actOfCreation">Ja, hier is de akte van oprichting (in Franse taal)</string>
+  <string name="officialNonProfit">Is Lichess aantoonbaar een organisatie zonder winstoogmerk?</string>
+  <string name="actOfCreation">Ja, hier is de akte van oprichting (in het Frans)</string>
   <string name="changeMonthlySupport">Kan ik mijn maandelijkse ondersteuning wijzigen of annuleren?</string>
   <string name="changeOrContact">Ja, op elk gewenst moment vanaf deze pagina.
 Of u kunt %s.</string>
-  <string name="contactSupport">lichess ondersteuning contacten</string>
+  <string name="contactSupport">contact opnemen met de Lichess helpdesk</string>
   <string name="otherMethods">Andere vormen van donatie?</string>
   <string name="bankTransfers">We accepteren ook bankoverschrijvingen</string>
-  <string name="bitcoin">En hier is ons bitcoin adres: %s</string>
-  <string name="patronFeatures">Zijn sommige functies gereserveerd voor Patronen?</string>
+  <string name="bitcoin">En hier is ons bitcoinadres: %s</string>
+  <string name="patronFeatures">Zijn sommige functies enkel beschikbaar voor Patronen?</string>
   <string name="noPatronFeatures">Nee, omdat Lichess altijd gratis is, en voor iedereen. Dat is een belofte.
 Het enige verschil? Patronen krijgen een cool nieuw profielpictogram als waardering.</string>
   <string name="featuresComparison">Zie de gedetailleerde functievergelijking</string>
@@ -62,7 +62,7 @@ Het enige verschil? Patronen krijgen een cool nieuw profielpictogram als waarder
   <string name="decideHowMuch">Beslis wat Lichess voor jou waard is:</string>
   <string name="stopPayments">Trek je creditcard terug en stop de betalingen:</string>
   <string name="noLongerSupport">Lichess wordt niet langer gesteund</string>
-  <string name="paymentHistory">Betaalhistorie</string>
+  <string name="paymentHistory">Betaalgeschiedenis</string>
   <string name="paid">Betaald</string>
   <string name="viewOthers">Andere Lichess Patronen bekijken</string>
   <string name="date">Datum</string>

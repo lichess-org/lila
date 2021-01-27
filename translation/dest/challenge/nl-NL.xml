@@ -8,8 +8,8 @@
   <string name="registerToSendChallenges">Gelieve te registreren om uitdagingen te versturen.</string>
   <string name="youCannotChallengeX">Je kunt %s niet uitdagen.</string>
   <string name="xDoesNotAcceptChallenges">%s neemt geen uitdagingen aan.</string>
-  <string name="yourXRatingIsTooFarFromY" comment="yourXRatingIsTooFarFromY&#10;&#10;%1$s is the rating type (blitz, bullet, crazyhouse)&#10;%2$s is another username&#10;&#10;This message is shown if you are trying too challenge someone who is too strong/weak compared to your rating.">Je rating van %1$s wijkt te veel af van %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating" comment="cannotChallengeDueToProvisionalXRating&#10;&#10;Users can set the preference to deny challenges from other players if their rating is not within a range of 300 points. If you attempt to challenge someone who has turned on this restriction, but one of you has a provisional rating in this area, you will see this message.&#10;&#10;A rating is considered provisional if the player hasn't played enough games for the system to be certain of their exact rating.&#10;&#10;The variable is the type of rating (Blitz, Bullet, Crazyhouse, etc.)">Uitdagen niet mogelijk vanwege voorlopige %s-rating.</string>
+  <string name="yourXRatingIsTooFarFromY">Je rating van %1$s wijkt te veel af van %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Uitdagen niet mogelijk vanwege voorlopige %s-rating.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s neemt alleen uitdagingen aan van vrienden.</string>
   <string name="declineGeneric">Momenteel neem ik geen uitdagingen aan.</string>
   <string name="declineLater">Op dit moment neem ik geen uitdagingen aan, probeer het later nog eens.</string>
@@ -20,4 +20,6 @@
   <string name="declineCasual">Stuur me a.u.b. een uitdaging zonder rating.</string>
   <string name="declineStandard">Momenteel neem ik geen uitdagingen aan voor varianten.</string>
   <string name="declineVariant">Momenteel voel ik er niet voor om deze variant te spelen.</string>
+  <string name="declineNoBot">Ik neem geen uitdagingen van bots aan.</string>
+  <string name="declineOnlyBot">Ik neem alleen uitdagingen van bots aan.</string>
 </resources>

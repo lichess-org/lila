@@ -4,7 +4,7 @@
   <string name="lichessStreamer">Lichess Streamer</string>
   <string name="live">LIVE!</string>
   <string name="offline">OFFLINE</string>
-  <string name="currentlyStreaming">Aktuelle Streams: %s</string>
+  <string name="currentlyStreaming">Streamt gerade: %s</string>
   <string name="lastStream">Letzter Stream %s</string>
   <string name="becomeStreamer">Werde ein Lichess Streamer</string>
   <string name="doYouHaveStream">Hast du einen Twitch oder YouTube-Kanal?</string>
@@ -33,7 +33,7 @@ Das kannst du auf Twitch oder YouTube einstellen, nicht in den Lichess-Streamere
 Falls dein Stream in Englisch ist, bruchst du keine Sprachmarkierung einfügen.</string>
   <string name="twitchUsername">Dein Twitch-Benutzername oder die URL</string>
   <string name="optionalOrEmpty">Optional. Leer lassen falls nicht verfügbar</string>
-  <string name="youtubeChannel">Deine YouTube-Kanal-ID oder die URL</string>
+  <string name="youtubeChannel">Deine YouTube-Kanal-ID oder URL</string>
   <string name="streamerName">Dein Streamername auf Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Kurz fassen: Maximal %s Zeichen</item>

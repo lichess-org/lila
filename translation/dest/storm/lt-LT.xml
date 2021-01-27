@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="moveToStart">Norėdami pradėti padarykite ėjimą</string>
+  <string name="puzzlesSolved">išspręsta užduočių</string>
+  <string name="newDailyHighscore">Naujas kasdieninis rekordas!</string>
+  <string name="newWeeklyHighscore">Naujas savaitinis rekordas!</string>
+  <string name="newMonthlyHighscore">Naujas mėnesinis rekordas!</string>
+  <string name="newAllTimeHighscore">Naujas visų laikų rekordas!</string>
+  <string name="previousHighscoreWasX">Praėjęs rekordas buvo %s</string>
+  <string name="playAgain">Žaisti dar</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 eilė</item>
+    <item quantity="few">%s eilės</item>
+    <item quantity="many">%s eilės</item>
+    <item quantity="other">%s eilių</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Žaista viena %2$s eilė</item>
+    <item quantity="few">Žaistos %1$s %2$s eilės</item>
+    <item quantity="many">Žaista %1$s %2$s eilės</item>
+    <item quantity="other">Žaista %1$s %2$s eilių</item>
+  </plurals>
+  <string name="highscoreX">Rekordas: %s</string>
+</resources>

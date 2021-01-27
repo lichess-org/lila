@@ -153,6 +153,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val video: Video                   = wire[Video]
   lazy val swiss: Swiss                   = wire[Swiss]
   lazy val dgt: DgtCtrl                   = wire[DgtCtrl]
+  lazy val storm: Storm                   = wire[Storm]
 
   // eagerly wire up all controllers
   val router: Router = {

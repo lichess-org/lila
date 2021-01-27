@@ -1,0 +1,75 @@
+.storm--end {
+  &__history {
+
+    h2 {
+      margin: -.5em 0 1em 0;
+    }
+
+    &__rounds {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
+      align-content: start;
+    }
+
+    &__round {
+      padding: .4em;
+
+      &__meta {
+        @extend %flex-between;
+      }
+
+      &__result {
+        @extend %flex-center-nowrap;
+
+        rating {
+          @extend %page-text;
+
+          font-size: .9em;
+        }
+      }
+
+      &__id {
+        @extend %page-text;
+
+        visibility: hidden;
+      }
+
+      &:hover .storm__history__round__id {
+        color: $c-font;
+        visibility: visible;
+      }
+    }
+
+    good, bad {
+      @extend %flex-center;
+
+      color: white;
+      padding: 0 .5em .1em .3em;
+      margin-right: 1ch;
+      font-size: .9em;
+      opacity: .7;
+
+      &::before {
+        @extend %data-icon;
+
+        margin-right: .2em;
+      }
+    }
+
+    good {
+      background: $c-good;
+
+      &::before {
+        content: 'E';
+      }
+    }
+
+    bad {
+      background: $c-bad;
+
+      &::before {
+        content: 'L';
+      }
+    }
+  }
+}

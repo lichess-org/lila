@@ -1972,4 +1972,18 @@ val `declineNoBot` = new I18nKey("challenge:declineNoBot")
 val `declineOnlyBot` = new I18nKey("challenge:declineOnlyBot")
 }
 
+object storm {
+val `moveToStart` = new I18nKey("storm:moveToStart")
+val `puzzlesSolved` = new I18nKey("storm:puzzlesSolved")
+val `newDailyHighscore` = new I18nKey("storm:newDailyHighscore")
+val `newWeeklyHighscore` = new I18nKey("storm:newWeeklyHighscore")
+val `newMonthlyHighscore` = new I18nKey("storm:newMonthlyHighscore")
+val `newAllTimeHighscore` = new I18nKey("storm:newAllTimeHighscore")
+val `previousHighscoreWasX` = new I18nKey("storm:previousHighscoreWasX")
+val `playAgain` = new I18nKey("storm:playAgain")
+val `highscoreX` = new I18nKey("storm:highscoreX")
+val `xRuns` = new I18nKey("storm:xRuns")
+val `playedNbRunsOfPuzzleStorm` = new I18nKey("storm:playedNbRunsOfPuzzleStorm")
+}
+
 }

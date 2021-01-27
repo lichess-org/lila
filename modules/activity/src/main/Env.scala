@@ -41,7 +41,8 @@ final class Env(
     "plan",
     "relation",
     "startStudy",
-    "streamStart"
+    "streamStart",
+    "stormRun"
   ) {
     case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted => write.game(game).unit
     case lila.forum.actorApi.CreatePost(post)                       => write.forumPost(post).unit
@@ -57,6 +58,7 @@ final class Env(
     case lila.hub.actorApi.team.CreateTeam(id, _, userId) => write.team(id, userId).unit
     case lila.hub.actorApi.team.JoinTeam(id, userId)      => write.team(id, userId).unit
     case lila.hub.actorApi.streamer.StreamStart(userId)   => write.streamStart(userId).unit
+    case lila.hub.actorApi.storm.StormRun(userId, score)  => write.storm(userId, score).unit
     case lila.user.User.GDPRErase(user)                   => write.erase(user).unit
   }
 }

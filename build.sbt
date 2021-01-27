@@ -38,7 +38,7 @@ lazy val modules = Seq(
   playban, insight, perfStat, slack, quote, challenge,
   study, studySearch, fishnet, explorer, learn, plan,
   event, coach, practice, evalCache, irwin,
-  activity, relay, streamer, bot, clas, swiss
+  activity, relay, streamer, bot, clas, swiss, storm
 )
 
 lazy val moduleRefs = modules map projectToRef
@@ -60,7 +60,7 @@ lazy val i18n = smallModule("i18n",
     MessageCompiler(
       sourceDir = new File("translation/source"),
       destDir = new File("translation/dest"),
-      dbs = "site arena emails learn activity coordinates study class contact patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme challenge".split(' ').toList,
+      dbs = "site arena emails learn activity coordinates study class contact patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme challenge storm".split(' ').toList,
       compileTo = (sourceManaged in Compile).value
     )
   }.taskValue
@@ -68,6 +68,11 @@ lazy val i18n = smallModule("i18n",
 
 lazy val puzzle = module("puzzle",
   Seq(common, memo, hub, history, db, user, rating, pref, tree, game),
+  reactivemongo.bundle
+)
+
+lazy val storm = module("storm",
+  Seq(common, memo, hub, puzzle, db, user, rating, pref, tree),
   reactivemongo.bundle
 )
 

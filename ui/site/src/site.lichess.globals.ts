@@ -14,7 +14,7 @@ import { unload, redirect, reload } from "./component/reload";
 import announce from "./component/announce";
 import trans from "./component/trans";
 import sound from "./component/sound";
-import * as miniBoard from "./component/mini-board";
+import * as miniBoard from "common/mini-board";
 import * as miniGame from "./component/mini-game";
 import { format as timeago } from "./component/timeago";
 import watchers from "./component/watchers";

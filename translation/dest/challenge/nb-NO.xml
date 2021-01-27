@@ -20,4 +20,6 @@
   <string name="declineCasual">Send meg en utfordring til et uformelt parti i stedet.</string>
   <string name="declineStandard">Jeg godtar ikke utfordringer til varianter for øyeblikket.</string>
   <string name="declineVariant">Jeg ønsker ikke å spille denne varianten for øyeblikket.</string>
+  <string name="declineNoBot">Jeg godtar ikke utfordringer fra boter.</string>
+  <string name="declineOnlyBot">Jeg godtar bare utfordringer fra boter.</string>
 </resources>

@@ -67,6 +67,6 @@ final private class PuzzlePathApi(
 
   def select(theme: PuzzleTheme.Key, tier: PuzzleTier, rating: Range) = $doc(
     "min" $lte f"${theme}_${tier}_${rating.max}%04d",
-    "max" $gt f"${theme}_${tier}_${rating.min}%04d"
+    "max" $gte f"${theme}_${tier}_${rating.min}%04d"
   )
 }

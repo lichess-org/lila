@@ -1,12 +1,13 @@
 package views.html.user.show
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.rating.PerfType
 import lila.user.User
-
-import controllers.routes
+import play.api.i18n.Lang
 
 object side {
 
@@ -55,7 +56,7 @@ object side {
             )
           }
         ),
-        !isPuzzle option iconTag("G")
+        iconTag("G")
       )
     }
 
@@ -77,8 +78,29 @@ object side {
         showNonEmptyPerf(u.perfs.horde, PerfType.Horde),
         showNonEmptyPerf(u.perfs.racingKings, PerfType.RacingKings),
         br,
-        u.noBot option showPerf(u.perfs.puzzle, PerfType.Puzzle)
+        u.noBot option showPerf(u.perfs.puzzle, PerfType.Puzzle),
+        u.noBot option showStorm(u.perfs.storm)
       )
     )
   }
+
+  private def showStorm(storm: lila.rating.Perf.Storm)(implicit lang: Lang) =
+    a(
+      dataIcon := '~',
+      cls := List(
+        "empty" -> !storm.nonEmpty
+      ),
+      href := routes.Storm.dashboard(),
+      span(
+        h3("Puzzle Storm"),
+        st.rating(
+          strong(storm.score),
+          storm.nonEmpty option frag(
+            " ",
+            span(trans.storm.xRuns.plural(storm.runs, storm.runs.localize))
+          )
+        )
+      ),
+      iconTag("G")
+    )
 }

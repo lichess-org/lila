@@ -1,17 +1,19 @@
 .puzzle-history {
-
   &__session {
     margin-bottom: 5em;
 
     &__title {
       @extend %flex-between;
+
       align-items: flex-end;
       margin-bottom: 1rem;
+
       time {
         font-size: 1.5rem;
         margin-right: 1ch;
       }
     }
+
     &__rounds {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
@@ -21,7 +23,6 @@
 
   &__round {
     padding: .4em;
-    color: $c-font;
 
     &__meta {
       @extend %flex-between;
@@ -32,6 +33,7 @@
     }
 
     &:hover .puzzle-history__round__id {
+      color: $c-font;
       visibility: visible;
     }
   }

@@ -1,7 +1,7 @@
 var m = require('mithril');
 var util = require('../util');
 var scoring = require('../score');
-var numberFormat = require('common/number').numberFormat;
+var numberSpread = require('common/number').numberSpread;
 
 function makeStars(rank) {
   var stars = [];
@@ -27,9 +27,7 @@ module.exports = function(ctrl) {
         m('span', {
           config: function(el, isUpdate) {
             if (!isUpdate) setTimeout(function() {
-              spreadNumber(el, 50, function() {
-                return 3000;
-              }, 0)(score);
+              numberSpread(el, 50, 3000, 0)(score);
             }, 300);
           }
         }, 0)
@@ -52,26 +50,3 @@ module.exports = function(ctrl) {
     ])
   );
 };
-
-function spreadNumber(el, nbSteps, getDuration, previous) {
-  var displayed;
-  var display = function(prev, cur, it) {
-    var val = numberFormat(Math.round(((prev * (nbSteps - 1 - it)) + (cur * (it + 1))) / nbSteps));
-    if (val !== displayed) {
-      el.textContent = val;
-      displayed = val;
-    }
-  };
-  var timeouts = [];
-  return function(nb, overrideNbSteps) {
-    if (!el || (!nb && nb !== 0)) return;
-    if (overrideNbSteps) nbSteps = Math.abs(overrideNbSteps);
-    timeouts.forEach(clearTimeout);
-    timeouts = [];
-    var prev = previous === 0 ? 0 : (previous || nb);
-    previous = nb;
-    var interv = Math.abs(getDuration() / nbSteps);
-    for (var i = 0; i < nbSteps; i++)
-      timeouts.push(setTimeout(display.bind(null, prev, nb, i), Math.round(i * interv)));
-  };
-}

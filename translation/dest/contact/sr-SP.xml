@@ -48,6 +48,7 @@
   <string name="fideMate">По FIDE Laws of Chess §6.9, ако је мат могућ са било којим редоследом легалних потеза, партија није реми</string>
   <string name="knightMate">Могуће је матирати уз помоћ само коња или ловца, ако противник има фигура сем краља.</string>
   <string name="noRatingPoints">Рејтинг поени нису додељени</string>
+  <string name="errorPage">Страница са грешком</string>
   <string name="sendAppealTo">Можеш послати жалбу %s.</string>
   <string name="falsePositives">Грешке се могу дешавати понекад, и нама је жао због тога.</string>
   <string name="ifLegit">Ако је твоја жалба легитимна, уклонићемо забрану што пре.</string>

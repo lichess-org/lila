@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">一手指すとスタート</string>
+  <string name="puzzlesSolved">解いた問題</string>
+  <string name="newDailyHighscore">今日のハイスコア更新！</string>
+  <string name="newWeeklyHighscore">今週のハイスコア更新！</string>
+  <string name="newMonthlyHighscore">今月のハイスコア更新！</string>
+  <string name="newAllTimeHighscore">歴代のハイスコア更新！</string>
+  <string name="previousHighscoreWasX">以前のハイスコアは %s</string>
+  <string name="playAgain">もう一度プレイ</string>
+  <plurals name="xRuns" comment="xRuns [one] [other]&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
+    <item quantity="other">%s 回</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm" comment="playedNbRunsOfPuzzleStorm [one] [other]&#10;&#10;This only refers to Puzzle Storm.&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
+    <item quantity="other">%2$s を %1$s 回プレイ</item>
+  </plurals>
+  <string name="highscoreX">ハイスコア：%s</string>
+</resources>
