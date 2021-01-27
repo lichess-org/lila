@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">စတင်ရန် အရုပ် တစ်ရုပ်ကို ရွှေ့ပါ</string>
+  <string name="moveToStart">စတင်ရန် အရုပ် တစ်ရုပ်ကို ရွှေ့ပါ</string>
   <string name="puzzlesSolved">ဖြေပြီးသည့် ဉာဏ်စမ်းများ</string>
   <string name="newDailyHighscore">နေ့အလိုက် အမြင့်ဆုံး ရမှတ် အသစ်</string>
   <string name="newMonthlyHighscore">လအလိုက် အမြင့်ဆုံး ရမှတ် အသစ်</string>
   <string name="newAllTimeHighscore">အမြင့်ဆုံး ရမှတ် အသစ်</string>
   <string name="previousHighscoreWasX">ယခင် အမြင့်ဆုံး ရမှတ်မှ %s ဖြစ်ပါသည်</string>
   <string name="playAgain">ဆက်ကစားမည်</string>
-  <plurals name="xRuns" comment="xRuns [one] [other]&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
+  <plurals name="xRuns">
     <item quantity="other">တစ်ကြိမ်</item>
   </plurals>
   <string name="highscoreX">အမြင့်ဆုံး ရမှတ် %s</string>
