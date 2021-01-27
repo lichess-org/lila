@@ -23,7 +23,7 @@
   <string name="combo" comment="combo in this case means your &quot;best combo&quot; after completing a run of puzzle storm.">Enchaînement</string>
   <string name="time" comment="time in this context means the total time that has passed in your previous run. The string is displayed after completing one puzzle rush">Temps</string>
   <string name="timePerMove">Temps par coup</string>
-  <string name="highestSolved">Problème le plus haut coté résolu</string>
+  <string name="highestSolved">Prob. résolu le plus difficile</string>
   <string name="puzzlesPlayed">Problèmes faits</string>
   <string name="newRun">Nouvel essai (raccourci clavier: Espace)</string>
   <string name="endRun" comment="endRun&#10;&#10;If you want to end the run prematurely, you press enter">Terminer l\'essai (raccourci clavier: Entrée)</string>
