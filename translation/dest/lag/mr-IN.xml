@@ -3,4 +3,11 @@
   <string name="isLichessLagging">लिचेस मागे पडत आहेत का?</string>
   <string name="measurementInProgressThreeDot">प्रगतीपथावर मोजमाप...</string>
   <string name="noAndYourNetworkIsGood">नाही. आणि तुमचे नेटवर्क चांगले आहे.</string>
+  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">नाही. आणि आपले नेटवर्क खराब आहे.</string>
+  <string name="yesItWillBeFixedSoon">होय. लवकरच निश्चित केले जाईल!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">आणि आता, लांब उत्तर! गेम लेग दोन असंबंधित मूल्यांचे बनलेले आहे (कमी चांगले आहे):</string>
+  <string name="lichessServerLatency">लीचेस सर्व्हर विलंब</string>
+  <string name="lichessServerLatencyExplanation">सर्व्हरवरील हलविण्यावर प्रक्रिया करण्यासाठी लागणारा वेळ. प्रत्येकासाठी ते सारखेच आहे आणि ते फक्त सर्व्हर लोडवर अवलंबून असते. जितके अधिक खेळाडू आणि जितके जास्त ते मिळेल, परंतु लाचेस विकसक ते कमी ठेवण्यासाठी सर्वतोपरी प्रयत्न करतात. हे क्वचितच 10 msपेक्षा जास्त आहे.</string>
+  <string name="networkBetweenLichessAndYou">लीचेस आणि आपण दरम्यान नेटवर्क</string>
+  <string name="networkBetweenLichessAndYouExplanation">आपल्या संगणकावरून लिकेस सर्व्हरवर हलविणे आणि प्रतिसाद परत मिळविण्यासाठी लागणारा वेळ. हे आपल्या लायचेस (फ्रान्स) आणि आपल्या इंटरनेट कनेक्शनच्या गुणवत्तेशी संबंधित आहे. लाचेस विकसक आपले वायफाय निराकरण करू शकत नाहीत किंवा जलद वेगाने जाऊ शकत नाहीत.</string>
 </resources>
