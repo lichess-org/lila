@@ -49,17 +49,15 @@ const renderControls = (ctrl: StormCtrl): VNode =>
       attrs: {
         href: '/storm',
         'data-icon': 'B',
-        title: 'New run'
+        title: 'New run (hotkey: Space)'
       }
     }),
     h('a.storm__control__end.button.button-empty', {
       attrs: {
         'data-icon': 'b',
-        title: 'End run',
+        title: 'End run (hotkey: Enter)',
       },
-      hook: onInsert(el => el.addEventListener('click', () => {
-        if (ctrl.vm.puzzleStartAt) ctrl.end()
-      }))
+      hook: onInsert(el => el.addEventListener('click', ctrl.end))
     })
   ]);
 
