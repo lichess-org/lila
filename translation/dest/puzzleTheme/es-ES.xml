@@ -80,7 +80,7 @@
   <string name="middlegame">Medio juego</string>
   <string name="middlegameDescription">Una táctica durante la segunda fase de la partida.</string>
   <string name="oneMove">Ejercicio de un solo movimiento</string>
-  <string name="oneMoveDescription">Un ejercicio de un solo movimiento.</string>
+  <string name="oneMoveDescription">Un movimiento para ganar.</string>
   <string name="opening">Apertura</string>
   <string name="openingDescription">Una táctica durante la primera fase de la partida.</string>
   <string name="pawnEndgame">Final de peones</string>
