@@ -30,7 +30,8 @@ object storm {
         )
       ),
       title = "Puzzle Storm",
-      zoomable = true
+      zoomable = true,
+      chessground = false
     ) {
       main(
         div(cls := "storm storm-app"),
