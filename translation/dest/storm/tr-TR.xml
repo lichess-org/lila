@@ -6,7 +6,7 @@
   <string name="newWeeklyHighscore">Haftanın rekoru kırıldı!</string>
   <string name="newMonthlyHighscore">Ayın rekoru kırıldı!</string>
   <string name="newAllTimeHighscore">Tüm zamanların rekoru kırıldı!</string>
-  <string name="previousHighscoreWasX">Eski rekor %s idi</string>
+  <string name="previousHighscoreWasX">Eski rekor: %s</string>
   <string name="playAgain">Tekrar oyna</string>
   <plurals name="xRuns" comment="xRuns [one] [other]&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
     <item quantity="one">1 deneme</item>
