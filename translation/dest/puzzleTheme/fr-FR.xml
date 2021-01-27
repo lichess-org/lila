@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Pion avancé</string>
-  <string name="advancedPawnDescription">Un pion promouvant ou menaçant d\'être promu est essentiel à la tactique.</string>
+  <string name="advancedPawnDescription">Un pion se promouvant ou menaçant d\'être promu est essentiel à la tactique.</string>
   <string name="advantage">Avantage</string>
   <string name="advantageDescription">Saisissez votre chance d\'obtenir un avantage décisif. (200cp ≤ évaluation ≤ 600cp)</string>
   <string name="anastasiaMate">Mat d\'Anastasie</string>
-  <string name="anastasiaMateDescription">Un cavalier et une tour ou une dame s\'associent pour piéger le roi adverse entre le bord de l\'échiquier et une pièce amie.</string>
+  <string name="anastasiaMateDescription">Un Cavalier et une Tour ou une Dame s\'associent pour piéger le Roi adverse entre le bord de l\'échiquier et une pièce amie.</string>
   <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Mat des Arabes</string>
-  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">Un cavalier et une tour s\'associent pour piéger le roi adverse dans un coin de l\'échiquier.</string>
+  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">Un Cavalier et une Tour s\'associent pour piéger le Roi adverse dans un coin de l\'échiquier.</string>
   <string name="attackingF2F7">Attaque en f2 ou f7</string>
   <string name="attackingF2F7Description">Une attaque sur le pion f2 ou f7, comme dans l\'attaque fegatello/Fried Liver.</string>
   <string name="attraction">Attraction</string>
@@ -19,19 +19,19 @@
   <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Mat de Boden</string>
   <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Deux fous contrôlant des diagonales croisées matent un roi bloqué par ses propres pièces.</string>
   <string name="castling">Roque</string>
-  <string name="castlingDescription">Mettez votre roi en sécurité et développez vos tours pour attaquer.</string>
+  <string name="castlingDescription">Mettez votre Roi en sécurité et développez vos Tours pour attaquer.</string>
   <string name="capturingDefender">Capturez le défenseur</string>
   <string name="capturingDefenderDescription">Retire une pièce essentielle à la défense d\'une autre pièce, permettant à la pièce non protégée d\'être capturée au coup suivant.</string>
-  <string name="crushing">Ecrasant</string>
+  <string name="crushing">Écrasant</string>
   <string name="crushingDescription">Repérez la gaffe de l\'adversaire pour obtenir un avantage écrasant. (évaluation &gt; 600cp)</string>
-  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Mat des deux fous</string>
-  <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Deux fous contrôlant des diagonales adjacentes matent un roi bloqué par ses propres pièces.</string>
+  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Mat des deux Fous</string>
+  <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Deux Fous contrôlant des diagonales adjacentes matent un Roi bloqué par ses propres pièces.</string>
   <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Mat de Cozio</string>
   <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">Une dame mate un roi placé sur une case adjacente, les deux seules cases de fuite étant occupées par des pièces amies.</string>
   <string name="equality">Égalité</string>
   <string name="equalityDescription">Revenir d\'une position perdante et assurer une nulle ou une position équilibrée. (évaluation ≤ 200cp)</string>
   <string name="kingsideAttack">Attaque sur l\'aile roi</string>
-  <string name="kingsideAttackDescription">Une attaque du roi adverse, après qu\'il ait fait le petit roque.</string>
+  <string name="kingsideAttackDescription">Une attaque du Roi adverse, après qu\'il ait fait le petit roque.</string>
   <string name="clearance">Dégagement</string>
   <string name="clearanceDescription">Un coup, souvent avec tempo, qui libère une case, une colonne ou une diagonale en vue d\'une idée tactique.</string>
   <string name="defensiveMove">Coup défensif</string>
@@ -54,11 +54,11 @@
   <string name="hookMate">Mat du crochet</string>
   <string name="hookMateDescription">Mat avec une tour, un cavalier et un pion, avec un pion adverse qui empêche la fuite du roi ennemi.</string>
   <string name="interference">Interception</string>
-  <string name="interferenceDescription">Déplacer une pièce entre deux pièces adverses pour en laisser l\'une ou les deux non protégées, comme un cavalier sur une case défendue entre deux tours.</string>
+  <string name="interferenceDescription">Déplacer une pièce entre deux pièces adverses pour en laisser l\'une ou les deux non protégées, comme un cavalier sur une case défendue entre deux Tours.</string>
   <string name="intermezzo">Coup intermédiaire</string>
   <string name="intermezzoDescription">Au lieu de jouer le coup attendu, jouez d\'abord un autre coup posant une menace immédiate à laquelle l\'adversaire doit répondre. Aussi connu sous le nom de \"Zwischenzug\".</string>
-  <string name="knightEndgame">Finale de cavaliers</string>
-  <string name="knightEndgameDescription">Une finale avec seulement des cavaliers et des pions.</string>
+  <string name="knightEndgame">Finale de Cavaliers</string>
+  <string name="knightEndgameDescription">Une finale avec seulement des Cavaliers et des pions.</string>
   <string name="long">Long problème</string>
   <string name="longDescription">Victoire en trois coups.</string>
   <string name="master">Parties de maîtres</string>
@@ -78,11 +78,11 @@
   <string name="mateIn5">Mat en 5 ou plus</string>
   <string name="mateIn5Description">Trouvez une longue séquence de coups menant au mat.</string>
   <string name="middlegame">Milieu de jeu</string>
-  <string name="middlegameDescription">Une tactique pendant la seconde phase de jeu.</string>
+  <string name="middlegameDescription">Une tactique pendant la seconde phase de la partie.</string>
   <string name="oneMove">Problème à un coup</string>
   <string name="oneMoveDescription">Un problème qui ne dure qu\'un coup.</string>
   <string name="opening">Ouverture</string>
-  <string name="openingDescription">Une tactique durant la première phase de jeu.</string>
+  <string name="openingDescription">Une tactique durant la première phase de la partie.</string>
   <string name="pawnEndgame">Finale de pions</string>
   <string name="pawnEndgameDescription">Une finale avec seulement des pions.</string>
   <string name="pin">Clouage</string>
@@ -92,13 +92,13 @@
   <string name="queenEndgame">Finale de dames</string>
   <string name="queenEndgameDescription">Une finale avec seulement des dames et des pions.</string>
   <string name="queenRookEndgame">Dames et Tours</string>
-  <string name="queenRookEndgameDescription">Une finale avec seulement des dames, tours et pions.</string>
+  <string name="queenRookEndgameDescription">Une finale avec seulement des Dames, Tours et pions.</string>
   <string name="queensideAttack">Attaque à l\'aile dame</string>
   <string name="queensideAttackDescription">Une attaque du roi adverse, après qu\'il ait fait le grand roque.</string>
   <string name="quietMove">Coup silencieux</string>
   <string name="quietMoveDescription">Un mouvement qui ne fait pas échec ni n\'est une capture, mais qui prépare une menace inévitable.</string>
-  <string name="rookEndgame">Finale de tours</string>
-  <string name="rookEndgameDescription">Une finale avec seulement des tours et des pions.</string>
+  <string name="rookEndgame">Finale de Tours</string>
+  <string name="rookEndgameDescription">Une finale avec seulement des Tours et des pions.</string>
   <string name="sacrifice">Sacrifice</string>
   <string name="sacrificeDescription">Une tactique constant à donner du matériel à court terme, pour gagner un avantage après une séquence de coups forcés.</string>
   <string name="short">Court problème</string>
