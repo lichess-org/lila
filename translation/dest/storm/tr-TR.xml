@@ -25,6 +25,9 @@
   <string name="timePerMove">Hamle başına harcanan ortalama süre</string>
   <string name="highestSolved">Çözülen En Yüksek Puanlı Bulmaca</string>
   <string name="puzzlesPlayed">Çözülen bulmacalar</string>
+  <string name="newRun">Yeni tur (kısayol: Boşluk tuşu)</string>
   <string name="endRun">Turu bitir (kısayol: Enter)</string>
+  <string name="puzzleStormHighscores">Bulmaca tufanı rekorları</string>
   <string name="viewBestRuns">En iyi denemeleri göster</string>
+  <string name="runs">Denemeler</string>
 </resources>
