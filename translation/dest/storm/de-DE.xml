@@ -13,8 +13,8 @@
     <item quantity="other">%s Durchläufe</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="one">Einen Durchlauf von %2$s gespielt</item>
-    <item quantity="other">%1$s Durchläufe von %2$s gespielt</item>
+    <item quantity="one">Hat einen Durchlauf von %2$s gespielt</item>
+    <item quantity="other">Hat %1$s Durchläufe von %2$s gespielt</item>
   </plurals>
   <string name="highscoreX">Rekord: %s</string>
   <string name="score">Punktestand</string>
