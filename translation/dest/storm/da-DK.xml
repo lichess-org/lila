@@ -17,4 +17,9 @@
     <item quantity="other">Spillede %1$s runder af %2$s</item>
   </plurals>
   <string name="highscoreX">Rekord: %s</string>
+  <string name="score">Score</string>
+  <string name="moves" comment="moves in this context means your &quot;total moves&quot; you made in your previous puzzle storm attempt. It is displayed after completing one puzzle storm together with your other stats">Træk</string>
+  <string name="accuracy" comment="accuracy is displayed after completing one puzzle rush together with your other stats">Nøjagtighed</string>
+  <string name="time" comment="time in this context means the total time that has passed in your previous run. The string is displayed after completing one puzzle rush">Tid</string>
+  <string name="timePerMove">Tid per træk</string>
 </resources>
