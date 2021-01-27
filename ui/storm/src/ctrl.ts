@@ -41,12 +41,14 @@ export default class StormCtrl {
     };
     this.promotion = makePromotion(this.withGround, this.makeCgOpts, redraw);
     this.checkDupTab();
+    setTimeout(this.hotkeys, 1000);
   }
 
   clockMillis = (): number | undefined =>
     this.vm.run.startAt && Math.max(0, this.vm.run.startAt + this.vm.clock - getNow());
 
   end = (): void => {
+    if (!this.vm.puzzleStartAt) return;
     this.vm.history.reverse();
     this.vm.run.endAt = getNow();
     this.ground(false);
@@ -244,4 +246,11 @@ export default class StormCtrl {
       }
     });
   }
+
+  private hotkeys = () => {
+    window.Mousetrap
+      .bind('space', () => location.reload())
+      .bind('return', this.end);
+  }
+
 }
