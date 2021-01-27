@@ -17,4 +17,18 @@
     <item quantity="other">%1$s Durchläufe von %2$s gespielt</item>
   </plurals>
   <string name="highscoreX">Rekord: %s</string>
+  <string name="score">Punktestand</string>
+  <string name="moves">Züge</string>
+  <string name="accuracy">Genauigkeit</string>
+  <string name="combo">Kombination</string>
+  <string name="time">Zeit</string>
+  <string name="timePerMove">Zeit pro Zug</string>
+  <string name="highestSolved">Schwierigstes gelöste Aufgabe</string>
+  <string name="puzzlesPlayed">Gespielte Aufgaben</string>
+  <string name="newRun">Neuer Durchlauf (drücke: Leerzeichentaste)</string>
+  <string name="endRun">Letzter Durchlauf (drücke: Eingabetaste)</string>
+  <string name="puzzleStormHighscores">Aufgabensturm: Höchstwerte</string>
+  <string name="viewBestRuns">Schaue dir den besten Durchlauf an</string>
+  <string name="bestRunOfDay">Bester Durchlauf heute</string>
+  <string name="runs">Durchläufe</string>
 </resources>
