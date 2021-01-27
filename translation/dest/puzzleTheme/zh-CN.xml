@@ -30,9 +30,12 @@
   <string name="kingsideAttackDescription">在对方短易位后进攻对方的王</string>
   <string name="deflectionDescription">将对方的棋子从另一个它负责的任务中转移出来的一步棋，例如防守一个关键格。有时候也叫“过载”。</string>
   <string name="discoveredAttack">闪击</string>
+  <string name="discoveredAttackDescription">移动阻挡长距离棋子的乙方棋子，例如把马离开车的路线</string>
   <string name="doubleCheck">双将</string>
   <string name="doubleCheckDescription">两个棋子同时将军，作为一种闪击，走动的棋子与后面揭露出来的棋子同时攻击对方的王</string>
   <string name="endgame">残局</string>
+  <string name="endgameDescription">对局最后阶段的战术</string>
+  <string name="enPassantDescription">涉及吃过路兵规则的战术，在这种战术中，兵可以吃掉对方初始位置首次走两格的兵</string>
   <string name="exposedKing">暴露的王</string>
   <string name="exposedKingDescription">王的周围只有很少的防守棋子时的战术，往往导致杀棋</string>
   <string name="forkDescription">走一步棋使走动的棋子同时攻击对方的两个棋子</string>
