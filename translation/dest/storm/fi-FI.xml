@@ -13,10 +13,16 @@
     <item quantity="other">Pelasi %1$s sarjaa %2$s</item>
   </plurals>
   <string name="highscoreX">Ennätys: %s</string>
+  <string name="score">Pisteet</string>
+  <string name="moves">Siirtoja</string>
   <string name="accuracy">Tarkkuus</string>
   <string name="combo">Putki</string>
   <string name="time">Aika</string>
   <string name="timePerMove">Aika per siirto</string>
+  <string name="highestSolved">Vaikein ratkaistu</string>
+  <string name="newRun">Uusi sarja (pikanäppäin: välilyönti)</string>
+  <string name="endRun">Lopeta sarja (pikanäppäin: Enter)</string>
   <string name="viewBestRuns">Näytä parhaat sarjat</string>
   <string name="bestRunOfDay">Päivän paras sarja</string>
+  <string name="runs">Sarjoja</string>
 </resources>
