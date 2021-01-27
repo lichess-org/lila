@@ -19,4 +19,12 @@
   <string name="highscoreX">Rekor: %s</string>
   <string name="score">Puan</string>
   <string name="moves">Hamleler</string>
+  <string name="accuracy">Başarı</string>
+  <string name="combo">Seri</string>
+  <string name="time">Süre</string>
+  <string name="timePerMove">Hamle başına harcanan ortalama süre</string>
+  <string name="highestSolved">Çözülen En Yüksek Puanlı Bulmaca</string>
+  <string name="puzzlesPlayed">Çözülen bulmacalar</string>
+  <string name="endRun">Turu bitir (kısayol: Enter)</string>
+  <string name="viewBestRuns">En iyi denemeleri göster</string>
 </resources>
