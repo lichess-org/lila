@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">সুরু করতে চাল দিন</string>
+  <string name="moveToStart">সুরু করতে চাল দিন</string>
   <string name="puzzlesSolved">ধাঁধা সমাধান করা হয়েছে</string>
   <string name="newDailyHighscore">নতুন দৈনিক হাইস্কোর!</string>
   <string name="newWeeklyHighscore">নতুন সাপ্তাহিক হাইস্কোর!</string>
