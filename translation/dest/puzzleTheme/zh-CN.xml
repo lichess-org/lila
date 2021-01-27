@@ -85,10 +85,19 @@
   <string name="sacrificeDescription">涉及在短期内弃子的策略，以便在强制执行一系列着法后再次获得优势。</string>
   <string name="short">短谜题</string>
   <string name="shortDescription">两步胜</string>
+  <string name="skewer">串击</string>
+  <string name="skewerDescription">高价值的棋子被攻击，移开并允许其后方的较低价值的棋子被吃或被攻击（牵制的反面）。</string>
   <string name="smotheredMate">闷杀</string>
+  <string name="smotheredMateDescription">由马完成的将杀，王被自己的棋子包围（或困住），因此无法移动。</string>
+  <string name="superGMDescription">来自于世界上最好的棋手的对局的谜题</string>
+  <string name="trappedPiece">被困的棋子</string>
+  <string name="trappedPieceDescription">一个棋子由于其走法有限无法逃脱被捉</string>
   <string name="underPromotion">低升变</string>
   <string name="underPromotionDescription">升变为马、象或车</string>
   <string name="veryLong">超级长谜题</string>
   <string name="veryLongDescription">四步或更多步胜</string>
   <string name="zugzwang">楚茨文克（无等着）</string>
+  <string name="zugzwangDescription">对手可选的着法是有限的，所有着法都会使其局面更加恶化。</string>
+  <string name="healthyMix">健康搭配</string>
+  <string name="healthyMixDescription">每个主题中的一点点。您不知道会出现什么，因此您随时准备就绪！ 就像在真实游戏中一样。</string>
 </resources>
