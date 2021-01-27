@@ -29,5 +29,6 @@
   <string name="endRun">Termina tentativa (scorciatoria da tastiera: Invio)</string>
   <string name="puzzleStormHighscores">Classifica di puzzle a raffica</string>
   <string name="viewBestRuns">Visualizza i migliori tentativi</string>
-  <string name="bestRunOfDay">Migliore prova del giorno</string>
+  <string name="bestRunOfDay">Migliore tentativo del giorno</string>
+  <string name="runs">Tentativo</string>
 </resources>
