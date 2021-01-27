@@ -33,13 +33,20 @@ final class Puzzle(
     else
       env.puzzle.jsonView(puzzle = puzzle, theme = theme, replay = replay, user = newUser orElse ctx.me)
 
-  private def renderShow(puzzle: Puz, theme: PuzzleTheme, replay: Option[PuzzleReplay] = None)(implicit
+  private def renderShow(
+      puzzle: Puz,
+      theme: PuzzleTheme,
+      replay: Option[PuzzleReplay] = None
+  )(implicit
       ctx: Context
   ) =
     renderJson(puzzle, theme, replay) zip
       ctx.me.??(u => env.puzzle.session.getDifficulty(u) dmap some) map { case (json, difficulty) =>
         EnableSharedArrayBuffer(
-          Ok(views.html.puzzle.show(puzzle, json, env.puzzle.jsonView.pref(ctx.pref), difficulty))
+          Ok(
+            views.html.puzzle
+              .show(puzzle, json, env.puzzle.jsonView.pref(ctx.pref), difficulty)
+          )
         )
       }
 
@@ -216,8 +223,11 @@ final class Puzzle(
           nextPuzzleForMe(theme.key) flatMap {
             renderShow(_, theme)
           }
-        case None if themeOrId.size == 5 =>
-          OptionFuResult(env.puzzle.api.puzzle find Puz.Id(themeOrId)) { renderShow(_, PuzzleTheme.mix) }
+        case None if themeOrId.size == Puz.idSize =>
+          OptionFuResult(env.puzzle.api.puzzle find Puz.Id(themeOrId)) { puz =>
+            ctx.me.ifTrue(getBool("casual")) foreach { env.puzzle.api.casual.set(_, puz.id) }
+            renderShow(puz, PuzzleTheme.mix)
+          }
         case None =>
           themeOrId.toLongOption
             .flatMap(Puz.numericalId.apply)

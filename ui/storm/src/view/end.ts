@@ -84,7 +84,7 @@ const renderHistory = (ctrl: StormCtrl): VNode =>
         h('div.storm--end__history__round', [
           h('a.storm--end__history__round__puzzle.mini-board.cg-wrap.is2d', {
             attrs: {
-              href: `/training/${round.puzzle.id}`,
+              href: `/training/${round.puzzle.id}?casual=1`,
               target: '_blank'
             },
             hook: onInsert(e => {

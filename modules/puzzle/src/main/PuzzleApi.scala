@@ -146,4 +146,15 @@ final class PuzzleApi(
         }
       }
   }
+
+  object casual {
+
+    private val store = new lila.memo.ExpireSetMemo(30 minutes)
+
+    private def key(user: User, id: Puzzle.Id) = s"${user.id}:${id}"
+
+    def set(user: User, id: Puzzle.Id) = store.put(key(user, id))
+
+    def apply(user: User, id: Puzzle.Id) = store.get(key(user, id))
+  }
 }
