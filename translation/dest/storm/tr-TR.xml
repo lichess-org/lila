@@ -6,7 +6,7 @@
   <string name="newWeeklyHighscore">Haftalık en yüksek skor!</string>
   <string name="newMonthlyHighscore">Aylık en yüksek skor!</string>
   <string name="newAllTimeHighscore">Tüm zamanların yüksek skoru!</string>
-  <string name="previousHighscoreWasX">Önceki yüksek puan %s</string>
+  <string name="previousHighscoreWasX">Önceki rekor %s idi</string>
   <string name="playAgain">Tekrar oyna</string>
   <string name="highscoreX">Rekor: %s</string>
 </resources>
