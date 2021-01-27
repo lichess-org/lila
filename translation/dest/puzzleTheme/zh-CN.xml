@@ -115,6 +115,8 @@
   <string name="underPromotionDescription">升变为马、象或车</string>
   <string name="veryLong">超长谜题</string>
   <string name="veryLongDescription">四步或更多步胜</string>
+  <string name="xRayAttack">穿透攻击</string>
+  <string name="xRayAttackDescription">一个棋子穿过对方的棋子攻击或防守一个格子</string>
   <string name="zugzwang">楚茨文克（无等着）</string>
   <string name="zugzwangDescription">对手可选的着法是有限的，所有着法都会使其局面更加恶化。</string>
   <string name="healthyMix">健康搭配</string>
