@@ -21,4 +21,18 @@
     <item quantity="other">Žaista %1$s %2$s eilių</item>
   </plurals>
   <string name="highscoreX">Rekordas: %s</string>
+  <string name="score">Taškų</string>
+  <string name="moves">Ėjimų</string>
+  <string name="accuracy">Tikslumas</string>
+  <string name="combo">Iš eilės</string>
+  <string name="time">Laikas</string>
+  <string name="timePerMove">Laiko per ėjimą</string>
+  <string name="highestSolved">Daugiausia išspręsta</string>
+  <string name="puzzlesPlayed">Sužaista galvosūkių</string>
+  <string name="newRun">Nauja eilė (klavišas: tarpas)</string>
+  <string name="endRun">Baigti eilę (klavišas: įvesti)</string>
+  <string name="puzzleStormHighscores">Geriausi galvosūkių audros rezultatai</string>
+  <string name="viewBestRuns">Peržiūrėti geriausias eiles</string>
+  <string name="bestRunOfDay">Geriausia dienos eilė</string>
+  <string name="runs">Eilės</string>
 </resources>
