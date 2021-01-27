@@ -22,8 +22,8 @@
   <string name="accuracy">Başarı</string>
   <string name="combo">Seri</string>
   <string name="time">Süre</string>
-  <string name="timePerMove">Hamle başına harcanan ortalama süre</string>
-  <string name="highestSolved">Çözülen En Yüksek Puanlı Bulmaca</string>
+  <string name="timePerMove">Hamle başı harcanan süre</string>
+  <string name="highestSolved">Çözülen en yüksek</string>
   <string name="puzzlesPlayed">Çözülen bulmacalar</string>
   <string name="newRun">Yeni tur (kısayol: Boşluk tuşu)</string>
   <string name="endRun">Turu bitir (kısayol: Enter)</string>
