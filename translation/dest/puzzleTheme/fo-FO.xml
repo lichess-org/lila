@@ -51,6 +51,8 @@
   <string name="forkDescription">Leikur, har flutta fólkið loypur á tvey mótstøðufólk í senn.</string>
   <string name="hangingPiece">Hangandi fólk</string>
   <string name="hangingPieceDescription">Taktisk atgerð móti einum mótstøðufólki, ið ikki er vart ella ikki nóg væl vart, og tí lætt at taka.</string>
+  <string name="hookMate">Húkamát</string>
+  <string name="hookMateDescription">Skák og mát við róki, riddara og finnu, sum saman við einari fíggindafinnu forða mótstøðukonginum í at sleppa til rýmingar.</string>
   <string name="interference">Uppílegging</string>
   <string name="interferenceDescription">Flyt eitt fólk millum tvey mótstøðufólk, so annað mótstøðufólkið stendur óvart ella bæði standa óvard; flyt t.d. ein riddara á ein vardan punt millum tveir rókar.</string>
   <string name="intermezzo">Millumleikur</string>
