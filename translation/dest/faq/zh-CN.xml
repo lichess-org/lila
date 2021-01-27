@@ -93,6 +93,8 @@ Lichess上的电脑分析是基于Stockfish的。</string>
   <string name="whatUsernameCanIchoose">我的用户名可以是什么？</string>
   <string name="usernamesNotOffensive">一般而言，用户名不应该是攻击性、冒用他人或广告。你可以阅读更多关于%1$s 的信息。</string>
   <string name="guidelines">指南</string>
+  <string name="canIChangeMyUsername">我能变更我的用户名吗?</string>
+  <string name="usernamesCannotBeChanged">不可以，由于技术和实际原因，不能更改用户名。 用户名在很多地方都得到了体现：数据库，导出，日志和人们的想法。 您可以一次调整大小写。</string>
   <string name="uniqueTrophies">独一无二的奖杯</string>
   <string name="ownerUniqueTrophies">这个奖杯在Lichess历史上是独一无二的，除了%1$s，任何人都不会有。</string>
   <string name="wayOfBerserkExplanation">为了获得它，hiimgosu疯狂挑战他自己并赢得100%%的%s。</string>
