@@ -136,6 +136,13 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
           lila.mon.storm.selector.ratingSlice(i).record(r.toInt)
         }
       }
+      colls.puzzle {
+        _.update.one(
+          $inIds(puzzles.map(_.id.value)),
+          $inc("storm" -> 1),
+          multi = true
+        )
+      }.unit
     }
   }
 }
