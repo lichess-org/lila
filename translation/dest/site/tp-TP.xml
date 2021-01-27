@@ -83,11 +83,17 @@
   <string name="averageRatingX">suli insa pi nanpa wawa: %s</string>
   <string name="recentGames">musi namako</string>
   <string name="topGames">musi pona pona</string>
+  <string name="masterDbExplanation">sona pi musi ijo 2000000 pi jan musi pi nanpa wawa Elo %1$s (tan tenpo sike %2$s tawa tenpo sike %3$s)</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">lawa mije li moli lon tawa %s</item>
     <item quantity="other">lawa mije li moli lon tawa %s</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">tawa pi jan utala anu moli pi ijo musi lon tawa %s kama (tan nasin pi tawa 50)</item>
+    <item quantity="other">tawa pi jan utala anu moli pi ijo musi lon tawa %s kama (tan nasin pi tawa 50)</item>
+  </plurals>
   <string name="noGameFound">musi ala li lon</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">sina ken sin e musi kepeken lipu pi wile sina.</string>
   <string name="openingExplorer">ilo open</string>
   <string name="xOpeningExplorer">ilo lukin pi tawa open pi nasin %s</string>
   <string name="winPreventedBy50MoveRule">nasin pi tenpo tawa 50 li toki e ni: jan ante li anpa ala</string>
@@ -98,9 +104,11 @@
   <string name="deleteThisImportedGame">o weka ala weka e musi? </string>
   <string name="replayMode">nasin lukin pi kama sin</string>
   <string name="realtimeReplay">tenpo sama</string>
+  <string name="byCPL">tan nanpa CPL</string>
   <string name="openStudy">o tawa e ma sona</string>
   <string name="enable">o ken</string>
   <string name="bestMoveArrow"> ilo utala kon pi tawa pona mute</string>
+  <string name="evaluationGauge">o pana lukin e palisa pi wawa jan</string>
   <string name="multipleLines">mute pi linja tawa</string>
   <string name="cpus">nanpa pi ilo pilin</string>
   <string name="memory">sona</string>
@@ -174,6 +182,14 @@
   <string name="forgotPassword">sina sona ala e nimi sina tawa lon insa?</string>
   <string name="rank">sona jan musi</string>
   <string name="rankX">sona jan musi: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">nanpa ni li sin lon tenpo Minuta %s</item>
+    <item quantity="other">nanpa ni li sin lon tenpo Minuta %s</item>
+  </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">musi %s</item>
+    <item quantity="other">musi %s</item>
+  </plurals>
   <string name="gamesPlayed">sina pini e musi ni</string>
   <string name="cancel">pali ala</string>
   <string name="whiteTimeOut">tenpo walo li pini</string>
@@ -227,6 +243,10 @@
   <string name="incrementInSeconds">tenpo pi kama jo</string>
   <string name="freeOnlineChess">musi pi mani ala</string>
   <string name="spectators">jan lukin</string>
+  <plurals name="nbRated">
+    <item quantity="one">musi %s li ante e nanpa wawa</item>
+    <item quantity="other">musi %s li ante e nanpa wawa</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s li pini pona</item>
     <item quantity="other">pini pona %s</item>
@@ -243,6 +263,7 @@
   </plurals>
   <string name="thisAccountViolatedTos">jan pi lipu jan ni li pali e ijo ni: ona li ike tawa nasin lawa pi kulupu Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">jan ni li sewi e nanpa ona kepeken ilo</string>
+  <string name="openingExplorerAndTablebase">lipu sona pi open musi en pini musi</string>
   <string name="takeback">kama jo sin</string>
   <string name="proposeATakeback">o toki e kama jo sin</string>
   <string name="takebackPropositionSent">jan li sona e toki sina pi kama jo sin</string>
@@ -265,6 +286,18 @@
   <string name="viewTournament">o lukin e musi pi musi mute</string>
   <string name="backToTournament">o tawa musi</string>
   <string name="thematic">nasin suli</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">musi %s ni: ona li ante e nanpa wawa</item>
+    <item quantity="other">musi %s ni: ona li ante e nanpa wawa</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">musi %1$s pi nasin %2$s ni: ona li ante e nanpa wawa</item>
+    <item quantity="other">musi %1$s pi nasin %2$s ni: ona li ante e nanpa wawa</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">sina wile musi e musi %1$s sin pi nasin %2$s</item>
+    <item quantity="other">sina wile musi e musi %1$s sin pi nasin %2$s</item>
+  </plurals>
   <string name="backToGame">o tawa musi</string>
   <string name="siteDescription">musi pi mani ala
 o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun li lon ala. sina en jan pona sina en jan ante li ken musi lon ilo sona.</string>
