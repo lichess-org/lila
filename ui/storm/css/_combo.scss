@@ -20,6 +20,7 @@
 
       &__combo {
         @extend %roboto;
+
         font-size: .8em;
         letter-spacing: -1px;
         color: $c-font-dim;
@@ -44,7 +45,6 @@
 
       $c-bar-base: $c-bg-zebra2;
       $c-in-base: $c-brag;
-      $c-in-flash: mix($c-in-base, white, 75%);
 
       flex: 0 0 2.2em;
       background: $c-bar-base;
@@ -64,12 +64,6 @@
       &__in {
         background: $c-in-base;
         box-shadow: 0 0 15px $c-in-base;
-
-        .storm--mod-move & {
-          background: $c-in-flash;
-          box-shadow: 0 0 15px $c-in-flash;
-        }
-
         transition: all .5s ease-in-out;
 
         .storm--mod-bonus-slow & {

@@ -22,7 +22,6 @@ const playModifiers = (ctrl: StormCtrl) => {
   return {
     'storm--mod-puzzle': !!ctrl.vm.puzzleStartAt && ctrl.vm.puzzleStartAt > now - 90,
     'storm--mod-move': ctrl.vm.modifier.moveAt > now - 90,
-    'storm--mod-malus-quick': !!malus && malus.at > now - 90,
     'storm--mod-malus-slow': !!malus && malus.at > now - 950,
     'storm--mod-bonus-slow': !!bonus && bonus.at > now - 950
   };
