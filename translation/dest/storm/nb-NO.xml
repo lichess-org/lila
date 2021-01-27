@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">Trekk for å begynne</string>
+  <string name="puzzlesSolved">sjakknøtter løst</string>
+  <string name="newDailyHighscore">Ny rekord for dagen!</string>
+  <string name="newWeeklyHighscore">Ny rekord for uken!</string>
+  <string name="newMonthlyHighscore">Ny rekord for måneden!</string>
+  <string name="newAllTimeHighscore">Ny rekord for alle tider!</string>
+  <string name="previousHighscoreWasX">Forrige rekord var %s</string>
+  <string name="playAgain">Spill igjen</string>
+  <plurals name="xRuns" comment="xRuns [one] [other]&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
+    <item quantity="one">1 runde</item>
+    <item quantity="other">%s runder</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm" comment="playedNbRunsOfPuzzleStorm [one] [other]&#10;&#10;This only refers to Puzzle Storm.&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
+    <item quantity="one">Har spilt én runde med %2$s</item>
+    <item quantity="other">Har spilt %1$s runder med %2$s</item>
+  </plurals>
+  <string name="highscoreX">Rekord: %s</string>
+</resources>

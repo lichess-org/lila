@@ -13,4 +13,6 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s tekur bert við avbjóðingum frá vinum.</string>
   <string name="declineGeneric">Eg taki ikki móti avbjóðingum í løtuni.</string>
   <string name="declineLater">Eg taki ikki ímóti avbjóðingum í løtuni. Spyr vinaliga aftur seinni.</string>
+  <string name="declineNoBot">Eg taki ikki móti avbjóðingum frá teldum.</string>
+  <string name="declineOnlyBot">Eg taki bert móti avbjóðingum frá teldum.</string>
 </resources>

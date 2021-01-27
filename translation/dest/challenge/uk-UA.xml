@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="declineNoBot">Я не приймаю виклики від ботів.</string>
+  <string name="declineOnlyBot">Я приймаю виклики лише від ботів.</string>
+</resources>

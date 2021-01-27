@@ -4,4 +4,16 @@
   <string name="lichessStreamer">Lichess стример</string>
   <string name="live">НА ЖИВО!</string>
   <string name="offline">ИЗВЪН ЛИНИЯ</string>
+  <string name="hereWeGo">Идем!</string>
+  <string name="perk3">Известие до последователите ви в Lichess.</string>
+  <string name="longDescription">Дълго описание</string>
+  <string name="changePicture">Промяна/изтриване на снимката ви</string>
+  <string name="uploadPicture">Качване на снимка</string>
+  <string name="deletePicture">Изтриване на снимка</string>
+  <string name="maxSize">Максимална големина: %s</string>
+  <string name="installBlocker">Инсталирайте блокировач на зловреден софтуер!</string>
+  <string name="beSafe">Обезопасете се от реклами и тракери,
+преливащи в Twitch и YouTube.
+Lichess препоръчва uBlock Origin,
+което е безплатно и с отворен код.</string>
 </resources>

@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="twoFactorAuth">Ikki Faktorli Autentifikatsiya</string>
+  <string name="twoFactorHelp">Ikki faktorli autentifikatsiya sizning akkountingizga ximoyalanishning yana bir qatlamini qoʻshadi.</string>
+  <string name="twoFactorApp">Ikki faktorli autentifikatsiya uchun app ni oling, masalan Google Authenticator %1$s yoki %2$s lar uchun.</string>
+  <string name="scanTheCode">QR kodni app yordamida skanerdan oʻtkazing.</string>
+  <string name="enterPassword">Sozlashlarni yakunlash uchun app tomonidan generatsiya qilingan autentifikatsiya kodi va parolni kiriting. Siz har safar (login) kirishni amalga oshirganingizda autentifikatsiya kodini kiritishingiz kerak boʻladi.</string>
+  <string name="ifYouCannotScanEnterX" comment="ifYouCannotScanEnterX&#10;&#10;%s is the authentication code. Example: ..., enter the secret 123456 into your app.">Agar siz kodni skanerdan oʻtkazmasangiz, sirli %s ni appga kiriting.</string>
+  <string name="authenticationCode">Autentifikatsiya kodi</string>
+  <string name="ifYouLoseAccess">Izoh: Agar siz ikki faktorli autentifikatsiyangizga huquqni yoʻqotsangiz, siz parolingizni email orqali tiklashingiz mumkin.</string>
+  <string name="enableTwoFactor">Ikki faktorli autentifikatsiyani yoqish</string>
+  <string name="disableTwoFactor">Ikki faktorli autentifikatsiyani oʻchirish</string>
+  <string name="twoFactorEnabled">Ikki faktorli autentifikatsiya yoqilgan</string>
+  <string name="twoFactorDisable">Ikki faktorli autentifikatsiyani oʻchirish uchun siz autentifikator appdan autentifikatsiya kodi va parolni olishingiz kerak. Agar siz autentifikatsiya kodiga huquqni yoʻqotgan boʻlsangiz, siz parolni email orqali tiklashingiz mumkin.</string>
+  <string name="openTwoFactorApp">Identifikatsiyalashdan oʻtish va autentifikatsiya kodini koʻrish uchun ikki faktorli autentifikatsiya appini qurilmangizda oching. </string>
 </resources>

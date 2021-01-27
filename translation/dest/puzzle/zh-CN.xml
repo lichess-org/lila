@@ -1,12 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">训练题</string>
+  <string name="puzzleThemes">训练主题</string>
   <string name="recommended">我们推荐：</string>
   <string name="phases">阶段</string>
   <string name="motifs">主题</string>
   <string name="advanced">高等</string>
-  <string name="didYouLikeThisPuzzle">你喜欢了这个训练题吗？</string>
-  <string name="keepGoing">继续……</string>
+  <string name="lengths">长度</string>
+  <string name="mates">杀王</string>
+  <string name="goals">目标</string>
+  <string name="didYouLikeThisPuzzle">你喜欢这道训练题吗？</string>
+  <string name="voteToLoadNextOne">投票以加载下一题</string>
+  <string name="yourPuzzleRatingX">你的解题积分：%s</string>
+  <string name="findTheBestMoveForWhite">找出白方的最佳着法</string>
+  <string name="findTheBestMoveForBlack">找出黑方的最佳着法</string>
+  <string name="toGetPersonalizedPuzzles">获取个性化训练题</string>
+  <string name="puzzleId">%s号题</string>
+  <string name="puzzleOfTheDay">每日一题</string>
+  <string name="clickToSolve">点击解题</string>
+  <string name="goodMove">好棋</string>
+  <string name="bestMove">最佳着法！</string>
+  <string name="keepGoing">请继续……</string>
+  <string name="puzzleSuccess">解题成功!</string>
+  <string name="puzzleComplete">解题完成</string>
+  <string name="notTheMove">不是最佳着法</string>
+  <string name="ratingX">积分：%s</string>
+  <string name="hidden">隐藏</string>
+  <plurals name="playedXTimes">
+    <item quantity="other">已被尝试%s次</item>
+  </plurals>
   <string name="fromGameLink">来自 %s 号赛</string>
   <string name="continueTraining">继续训练</string>
   <string name="difficultyLevel">难度</string>
@@ -16,5 +38,10 @@
   <string name="harder">更难</string>
   <string name="hardest">最难</string>
   <string name="example">例子</string>
+  <string name="addAnotherTheme">添加新的主题</string>
   <string name="jumpToNextPuzzleImmediately">一解决训练题就马上转到下一个</string>
+  <string name="strengths">强度</string>
+  <string name="history">解题历史</string>
+  <string name="solved">已解决</string>
+  <string name="failed">失败</string>
 </resources>

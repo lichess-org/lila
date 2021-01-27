@@ -11,7 +11,7 @@
   <string name="myTeams">Komandalarım</string>
   <string name="noTeamFound">Komanda tapılmadı</string>
   <string name="joinTeam">Komandaya qoşul</string>
-  <string name="quitTeam">komandadan ayrıl</string>
+  <string name="quitTeam">Komandanı tərk et</string>
   <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Qəbul istəklərini əl ilə nəzərdən keçirin</string>
   <string name="manuallyReviewAdmissionRequestsHelp">İşarəlidirsə, oyunçuların komandaya qoşulmaq üçün bir tələb yazması lazımdır, bu təklifi rədd edə və ya qəbul edə bilərsiniz.</string>
   <plurals name="teamLeaders">

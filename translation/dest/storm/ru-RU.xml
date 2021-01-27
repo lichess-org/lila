@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">Вернуться к началу</string>
+  <string name="puzzlesSolved">задача решена</string>
+  <string name="newDailyHighscore">Лучший результат за день!</string>
+  <string name="newWeeklyHighscore">Лучший результат за неделю!</string>
+  <string name="newMonthlyHighscore">Лучший результат за месяц!</string>
+  <string name="newAllTimeHighscore">Новый рекорд за все время!</string>
+  <string name="previousHighscoreWasX">Прошлый рекорд был %s</string>
+  <string name="playAgain">Играть снова</string>
+</resources>

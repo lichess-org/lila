@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="declineNoBot">Δεν δέχομαι προκλήσεις από bots.</string>
+  <string name="declineOnlyBot">Δέχομαι μόνο προκλήσεις από bots.</string>
+</resources>

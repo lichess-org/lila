@@ -1,2 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">Предизвикателства</string>
+  <string name="challengeToPlay">Предизвикайте на партия</string>
+  <string name="challengeDeclined">Предизвикателството отказано</string>
+  <string name="challengeAccepted">Предизвикателството прието!</string>
+  <string name="challengeCanceled">Предизвикателството отменено.</string>
+  <string name="registerToSendChallenges">Регистрирайте се, за да отправяте предизвикателства.</string>
+  <string name="youCannotChallengeX">Не може да предизвикате %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s не приема предизвикателства.</string>
+  <string name="yourXRatingIsTooFarFromY">Вашият рейтинг %1$s е предалеч от %2$s.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s приема предизвикателства само от приятели.</string>
+  <string name="declineGeneric">Не приемам предизвикателства в момента.</string>
+  <string name="declineLater">Това не е точният момент за мен, моля, опитайте пак по-късно.</string>
+  <string name="declineTooFast">Този път управлението е пребързо за мен, моля, предизвикайте ме пак с по-бавна игра.</string>
+  <string name="declineTooSlow">Този път управлението е твърде бавно за мен, моля, предизвикайте ме пак с по-бърза игра.</string>
+  <string name="declineTimeControl">Не приемам предизвикателства с такъв времеви формат.</string>
+  <string name="declineRated">Вместо това изпращайте ми рейтингови предизвикателства, моля.</string>
+  <string name="declineCasual">Вместо това изпращайте ми лежерни предизвикателства, моля.</string>
+  <string name="declineStandard">Не приемам вариант за партия шах в момента.</string>
+  <string name="declineVariant">Не желая да играя този вариант в момента.</string>
+</resources>

@@ -9,6 +9,7 @@
   <string name="yourTurn">Sizni yurishingiz</string>
   <string name="aiNameLevelAiLevel">%1$s daraja %2$s</string>
   <string name="level">Daraja</string>
+  <string name="strength">Kuchli tomonlari</string>
   <string name="toggleTheChat">Suhbatni yopish/ochish</string>
   <string name="toggleSound">Ovozni yoqish/o\'chirish</string>
   <string name="chat">Suhbat</string>
@@ -199,6 +200,8 @@
     <item quantity="other">siz o\'ynagan o\'yinlar - %s</item>
   </plurals>
   <string name="cancel">Bekor</string>
+  <string name="whiteTimeOut">Oqlar vaqti tugadi</string>
+  <string name="blackTimeOut">Qoralar vaqti tugadi</string>
   <string name="drawOfferSent">Durrang uchun taklif yuborildi</string>
   <string name="drawOfferDeclined">Durrang taklifi inkor qilindi</string>
   <string name="drawOfferAccepted">Durrang taklifi qabul qilindi</string>
@@ -502,9 +505,12 @@
   <string name="currentPassword">Joriy parol</string>
   <string name="newPassword">Yangi parol</string>
   <string name="newPasswordAgain">Yangi parol (yana)</string>
+  <string name="newPasswordsDontMatch">Yangi parollar mos kelmayabdi</string>
+  <string name="newPasswordStrength">Parol mustahkamligi</string>
   <string name="clockInitialTime">Boshlang\'ich vaqt</string>
   <string name="clockIncrement">Vaqtni oshishi</string>
   <string name="privacy">Shaxsiylik</string>
+  <string name="privacyPolicy">Maxfiylik siyosati</string>
   <string name="letOtherPlayersFollowYou">Boshqa o\'yinchilarga sizni kuzatishiga imkon bering</string>
   <string name="letOtherPlayersChallengeYou">Boshqa o\'yinchilarga siz bilan bellashuviga imkon bering</string>
   <string name="letOtherPlayersInviteYouToStudy">Boshqa o\'yinchilarga sizni ta\'limga chorlashiga imkon bering</string>
@@ -650,6 +656,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Agar siz emailni ko\'rmasangiz, boshqa kataloglaringizni qarab ko\'ring, masalan, spam, ijtimoiy va boshqa shularga o\'xshashlarni.</string>
   <string name="weHaveSentYouAnEmailTo">Biz %s ga hat yubordik. Parolni qayta tiklash uchun emaildagi linkni bosing.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ro\'yhatdan o\'tib bizning %s shartlarimizga roziligingizni bildirasiz.</string>
+  <string name="readAboutOur">Biz haqimizda oʻqing: %s. </string>
   <string name="networkLagBetweenYouAndLichess">Lichess va sizning o\'rtangizdagi tarmoq kechikishi</string>
   <string name="timeToProcessAMoveOnLichessServer">Lichess serverida yurishni amalga oshirish uchun vaqt</string>
   <string name="downloadAnnotated">Annotatsiya holatda yuklash</string>

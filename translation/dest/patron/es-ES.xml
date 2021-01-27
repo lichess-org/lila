@@ -15,11 +15,11 @@
   <string name="weAreNonProfit">Somos una organización sin ánimo de lucro porque creemos que todos deberíamos tener acceso a una plataforma de ajedrez de primera clase y gratuita.</string>
   <string name="weRelyOnSupport">Lo hacemos posible gracias al apoyo de gente como tú. Si te gusta Lichess, por favor ¡considera apoyarnos donando y convirtiéndote en patrón!</string>
   <string name="lifetime">De por vida</string>
-  <string name="payLifetimeOnce">Paga %s una vez. ¡Sé un Patrón de la Lichess para siempre!</string>
+  <string name="payLifetimeOnce">Paga %s una vez. ¡Sé un patrón de Lichess para siempre!</string>
   <string name="lifetimePatron">Patrón de Lichess de por vida</string>
   <string name="makeExtraDonation">¿Hacer una donación adicional?</string>
   <string name="monthly">Mensual</string>
-  <string name="recurringBilling">Facturación recurrente, renovando sus alas de Patrón cada mes.</string>
+  <string name="recurringBilling">Facturación recurrente, renovando tus alas de patrón cada mes.</string>
   <string name="onetime">Una vez</string>
   <string name="singleDonation">Una sola donación que te otorga las alas de patrón durante un mes.</string>
   <string name="otherAmount">Otro</string>
@@ -49,7 +49,7 @@ Sin embargo, los patrones obtienen derecho a presumir de su nuevo icono de perfi
     <item quantity="one">Patrón de Lichess por un mes</item>
     <item quantity="other">Patrón de Lichess por %s meses</item>
   </plurals>
-  <string name="youSupportWith">Soportas lichess.org con %s al mes.</string>
+  <string name="youSupportWith">Apoyas a lichess.org con %s al mes.</string>
   <string name="tyvm">¡Muchas gracias por tu apoyo! ¡Eres genial!</string>
   <string name="currentStatus">Estado actual</string>
   <string name="nextPayment">Próximo pago</string>
@@ -57,17 +57,17 @@ Sin embargo, los patrones obtienen derecho a presumir de su nuevo icono de perfi
   <string name="makeAdditionalDonation">Haz una donación adicional ahora</string>
   <string name="update">Actualizar</string>
   <string name="changeMonthlyAmount">Cambiar la cantidad mensual (%s)</string>
-  <string name="cancelSupport">cancela tu soporte</string>
+  <string name="cancelSupport">cancela tu apoyo</string>
   <string name="xOrY">%1$s o %2$s</string>
   <string name="decideHowMuch">Decide cuanto vale Lichess para ti:</string>
   <string name="stopPayments">Retira tu tarjeta de crédito y detén los pagos:</string>
-  <string name="noLongerSupport">Ya no soporta Lichess</string>
+  <string name="noLongerSupport">Ya no apoyas a Lichess</string>
   <string name="paymentHistory">Historial de pagos</string>
   <string name="paid">Pagado</string>
   <string name="viewOthers">Ver otros Patrones de Lichess</string>
   <string name="date">Fecha</string>
   <string name="amount">Cantidad</string>
-  <string name="transactionCompleted">La transacción ha sido completada, y un recibo de tu donación ha sido enviado por correo electrónico.</string>
+  <string name="transactionCompleted">La transacción ha sido completada y el recibo de la donación se te ha enviado por correo electrónico.</string>
   <string name="permanentPatron">Ahora tienes una cuenta de Patrón permanente.</string>
   <string name="checkOutProfile">¡Échale un vistazo a tu página de perfil!</string>
   <string name="nowLifetime">¡Ahora eres un Patrón de Lichess de por vida!</string>

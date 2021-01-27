@@ -1,4 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="puzzles">Boshqotirmalar</string>
+  <string name="puzzleThemes">Boshqotirma mavzulari</string>
+  <string name="recommended">Tavsiya etilgan</string>
+  <string name="phases">Bosqichlar</string>
+  <string name="motifs">Sabablar</string>
+  <string name="advanced">Yuqori mavqeili</string>
+  <string name="lengths">Uzunliklar</string>
+  <string name="mates">Motlar</string>
+  <string name="goals">Maqsadlar</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Kelib chiqish</string>
+  <string name="specialMoves">Maxsus yurishlar</string>
+  <string name="didYouLikeThisPuzzle">Ushbu boshqotirma yoqdimi?</string>
+  <string name="voteToLoadNextOne">Navbatdagi bittasini oʻqish uchun baholang!</string>
+  <string name="yourPuzzleRatingX">Sizning boshqotirmalardagi reytingingiz: %s</string>
+  <string name="findTheBestMoveForWhite">Oqlar uchun eng yaxshi yurishni toping.</string>
+  <string name="findTheBestMoveForBlack">Qoralar uchun eng yaxshi yurishni toping.</string>
+  <string name="toGetPersonalizedPuzzles">Shaxsiy jumboqlarni yaratish uchun:</string>
+  <string name="puzzleId">%s boshqotirma</string>
+  <string name="puzzleOfTheDay">Kun boshqotirmasi</string>
+  <string name="clickToSolve">Yechish uchun bosing</string>
+  <string name="goodMove">Yaxshi yurish</string>
+  <string name="bestMove">Zo\'r yurish!</string>
+  <string name="keepGoing">Harakatni davom eting…</string>
+  <string name="puzzleSuccess">Muvaffaqiyat!</string>
+  <string name="puzzleComplete">Boshqotirma tugallandi!</string>
+  <string name="notTheMove">Bu yurish emas!</string>
+  <string name="trySomethingElse">Yana urinib koʻring.</string>
+  <string name="ratingX">Reyting: %s</string>
+  <string name="hidden">berkitilgan</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">%s vaqt o\'ynaldi</item>
+    <item quantity="other">%s marta o\'ynaldi</item>
+  </plurals>
+  <string name="fromGameLink">%s o\'yinidan</string>
+  <string name="continueTraining">Shug\'ullanishni davom eting</string>
+  <string name="difficultyLevel">Qiyin daraja</string>
+  <string name="normal">Odatiy</string>
+  <string name="easier">Onsonroq</string>
+  <string name="easiest">Eng Oson</string>
+  <string name="harder">Qiyinroq</string>
+  <string name="hardest">Eng Qiyin</string>
+  <string name="example">Masalan</string>
+  <string name="addAnotherTheme">Boshqa mavzu kiriting</string>
+  <string name="jumpToNextPuzzleImmediately">Keyingi boshqotirmaga birdan oʻtish</string>
+  <string name="puzzleDashboard">Boshqotirma uskunalar doskasi</string>
+  <string name="improvementAreas">Rivojlanish maydonlari</string>
   <string name="strengths">Kuchli tomonlari</string>
+  <string name="history">Boshqotirma tarixi</string>
+  <string name="solved">yechildi</string>
+  <string name="failed">xatolik</string>
 </resources>

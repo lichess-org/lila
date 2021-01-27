@@ -3,10 +3,10 @@
   <string name="preferences">Seçenekler</string>
   <string name="gameDisplay">Oyun görünümü</string>
   <string name="pieceAnimation">Hamle animasyonu</string>
-  <string name="materialDifference">Malzeme farkı</string>
+  <string name="materialDifference">Taş farkı</string>
   <string name="boardHighlights">Tahta uyarıları (son hamle ve şah çekme)</string>
   <string name="pieceDestinations">Taşın gidebileceği kareler (geçerli hamleler ve ön hamleler)</string>
-  <string name="boardCoordinates">Tahta kordinatları (A-H, 1-8)</string>
+  <string name="boardCoordinates">Tahta koordinatları (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Oyun sırasında notasyonu göster</string>
   <string name="pgnPieceNotation">Notasyon tut</string>
   <string name="chessPieceSymbol">Satranç taşı sembolü</string>
@@ -14,34 +14,34 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Sade görünüm</string>
   <string name="displayBoardResizeHandle">Tahta büyüklüğünü ayarlama kolunu göster</string>
   <string name="onlyOnInitialPosition">Sadece oyunun başında</string>
-  <string name="blindfoldChess">Körleme satranç (taşlar gözükmez)</string>
+  <string name="blindfoldChess">Körleme satranç (taşlar görünmez)</string>
   <string name="chessClock">Satranç saati</string>
   <string name="tenthsOfSeconds">Saniyenin Onda Biri</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kalan zaman 10 saniye ise</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kalan zaman 10 saniyeden az ise</string>
   <string name="horizontalGreenProgressBars">Yeşil yatay ilerleme çubuğu</string>
   <string name="soundWhenTimeGetsCritical">Zaman azaldığında sesle uyarı</string>
-  <string name="giveMoreTime">Daha fazla süre ver</string>
-  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Oyun Tercihleri</string>
-  <string name="howDoYouMovePieces">Taşları nasıl hareket ettireceksin?</string>
+  <string name="giveMoreTime">Fazladan süre ver</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Oyun tercihleri</string>
+  <string name="howDoYouMovePieces">Taşları nasıl hareket ettirirsin?</string>
   <string name="clickTwoSquares">İki kareye tıklayarak</string>
-  <string name="dragPiece">Taşı sürükle</string>
-  <string name="bothClicksAndDrag">İkiside</string>
+  <string name="dragPiece">Taşı sürükleyerek</string>
+  <string name="bothClicksAndDrag">İkisi de</string>
   <string name="premovesPlayingDuringOpponentTurn">Ön hamleler (hamle sırası rakipteyken oynama)</string>
   <string name="takebacksWithOpponentApproval">Geri Alma (rakibin onayıyla)</string>
   <string name="inCasualGamesOnly">Sadece puansız oyunlarda</string>
   <string name="promoteToQueenAutomatically">Geçer piyonu otomatik olarak Vezir\'e terfi et</string>
   <string name="whenPremoving">Ön hamlelerde</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Üçlü tekrarda otomatik olarak beraberlik teklif et</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Kalan zaman 30 saniye ise</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Kalan zaman 30 saniyeden az ise</string>
   <string name="moveConfirmation">Hamleyi onayla</string>
-  <string name="inCorrespondenceGames">Yazışmalı oyunlarda</string>
+  <string name="inCorrespondenceGames">Yazışmalı oyunlar</string>
   <string name="correspondenceAndUnlimited">Yazışmalı ve sınırsız</string>
   <string name="confirmResignationAndDrawOffers">Oyundan çekilme ve beraberlik tekliflerini onayla</string>
-  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rok atma tarzı</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rok atma yöntemi</string>
   <string name="castleByMovingTwoSquares">Şahı iki kare sürerek</string>
-  <string name="castleByMovingOntoTheRook">Şahı kalenin üstüne oynama</string>
+  <string name="castleByMovingOntoTheRook">Şahı kalenin üstüne getirerek</string>
   <string name="inputMovesWithTheKeyboard">Hamleleri klavye ile gir</string>
-  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Okları geçerli hamlelere kaydır</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Geçerli hamlelere ok çiz</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Beraberlik veya yenilgiyle biten maçların sonunda \"İyi oyundu, güzel oynadın\" mesajı gönder</string>
   <string name="yourPreferencesHaveBeenSaved">Tercihleriniz kaydedildi.</string>
 </resources>

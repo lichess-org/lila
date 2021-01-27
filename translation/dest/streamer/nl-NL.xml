@@ -7,7 +7,7 @@
   <string name="currentlyStreaming">Nu aan het streamen: %s</string>
   <string name="lastStream">Laatste stream: %s</string>
   <string name="becomeStreamer">Word een Lichess streamer</string>
-  <string name="doYouHaveStream">Heeft u een Twitch- of YouTube-kanaal?</string>
+  <string name="doYouHaveStream">Heb je een Twitch- of YouTube-kanaal?</string>
   <string name="hereWeGo">Daar gaan we!</string>
   <string name="allStreamers">Alle streamers</string>
   <string name="editPage">Wijzig streamer pagina</string>
@@ -26,8 +26,8 @@
   <string name="approved">Je stream is goedgekeurd.</string>
   <string name="pendingReview">Je stream wordt beoordeeld door de toezichthouders.</string>
   <string name="pleaseFillIn">Vul je streamer informatie in en upload een foto.</string>
-  <string name="whenReady">Wanneer u klaar bent om als Lichess stream vermeld te worden, %s</string>
-  <string name="requestReview">verzoek een beoordeling van een toezichthouder</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Wanneer u klaar bent om als Lichess stream vermeld te worden, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">verzoek een beoordeling van een toezichthouder</string>
   <string name="anotherLanguage">Als je stream in een andere taal is dan het Engels, voeg de juiste taaltag toe (%s), ingesloten in vierkante haken, aan het begin van uw stream titel.
 Als voorbeelden plaatst u \"[NL]\" voor Nederlands, \"[DE]\" voor Duits, \"[FR]\" voor Frans, enz.
 Zet het in de stream titel op de Twitch of YouTube pagina, niet in de Lichess stream-instellingen.

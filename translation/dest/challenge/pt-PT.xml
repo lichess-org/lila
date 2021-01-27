@@ -8,8 +8,8 @@
   <string name="registerToSendChallenges">Por favor regista-te para enviar desafios.</string>
   <string name="youCannotChallengeX">Não podes desafiar %s.</string>
   <string name="xDoesNotAcceptChallenges">%s não aceita desafios.</string>
-  <string name="yourXRatingIsTooFarFromY" comment="yourXRatingIsTooFarFromY&#10;&#10;%1$s is the rating type (blitz, bullet, crazyhouse)&#10;%2$s is another username&#10;&#10;This message is shown if you are trying too challenge someone who is too strong/weak compared to your rating.">A tua classificação %1$s é muito diferente de %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating" comment="cannotChallengeDueToProvisionalXRating&#10;&#10;Users can set the preference to deny challenges from other players if their rating is not within a range of 300 points. If you attempt to challenge someone who has turned on this restriction, but one of you has a provisional rating in this area, you will see this message.&#10;&#10;A rating is considered provisional if the player hasn't played enough games for the system to be certain of their exact rating.&#10;&#10;The variable is the type of rating (Blitz, Bullet, Crazyhouse, etc.)">Não podes desafiar por causa do tua pontuação provisória de %s.</string>
+  <string name="yourXRatingIsTooFarFromY">A tua classificação %1$s é muito diferente de %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Não podes desafiar por causa do tua pontuação provisória de %s.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s só aceita desafios de amigos.</string>
   <string name="declineGeneric">Não estou a aceitar desafios com este controlo de tempo.</string>
   <string name="declineLater">Este não é o momento certo para mim, por favor pergunte novamente mais tarde.</string>

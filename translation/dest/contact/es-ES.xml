@@ -34,8 +34,8 @@
   <string name="doNotMessageModerators">No envíes mensajes directos a los moderadores.</string>
   <string name="onlyReports">La única forma eficaz de denunciar jugadores es mediante el formulario de denuncia.</string>
   <string name="wantReportBug">Quiero informar de un error</string>
-  <string name="reportBugInForum">En el Foro de Comentarios de Lichess</string>
-  <string name="reportWebsiteIssue">Como un problema del sitio web de Lichess en GitHub</string>
+  <string name="reportBugInForum">En el foro de comentarios de Lichess</string>
+  <string name="reportWebsiteIssue">Como un problema de la página de Lichess en GitHub</string>
   <string name="reportMobileIssue">Como un problema de la aplicación móvil de Lichess en GitHub</string>
   <string name="reportBugInDiscord">En el servidor de Discord de Lichess</string>
   <string name="howToReportBug">Por favor, describe cómo se ve el error, qué esperabas que sucediera, y los pasos para reproducir el error.</string>

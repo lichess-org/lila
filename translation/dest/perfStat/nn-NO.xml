@@ -16,7 +16,7 @@
   <string name="victories">Sigrar</string>
   <string name="defeats">Tap</string>
   <string name="disconnections">Fråkoplingar</string>
-  <string name="notEnoughGames">For få spelte parti</string>
+  <string name="notEnoughGames">For få spela parti</string>
   <string name="highestRating">Høgaste rating: %s</string>
   <string name="lowestRating">Lågaste rating: %s</string>
   <string name="fromXToY">frå %1$s til %2$s</string>
@@ -26,7 +26,7 @@
   <string name="currentStreak">Noverande rekke: %s</string>
   <string name="bestRated">Beste sigrar</string>
   <string name="worstRated">Verste tap</string>
-  <string name="gamesInARow">Parti spelt på rad</string>
+  <string name="gamesInARow">Parti spela på rad</string>
   <string name="lessThanOneHour">Mindre enn ein time mellom partia</string>
   <string name="maxTimePlaying">Lengste speletid</string>
   <string name="now">no</string>

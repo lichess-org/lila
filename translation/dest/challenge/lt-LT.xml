@@ -20,4 +20,6 @@
   <string name="declineCasual">Vietoje šio iššūkio atsiųskite nevertinamą iššūkį.</string>
   <string name="declineStandard">Šiuo metu nepriimu variantų iššūkių.</string>
   <string name="declineVariant">Šiuo metu nenoriu žaisti šio varianto.</string>
+  <string name="declineNoBot">Nepriimu iššūkių iš programų.</string>
+  <string name="declineOnlyBot">Priimu iššūkius tik iš programų.</string>
 </resources>

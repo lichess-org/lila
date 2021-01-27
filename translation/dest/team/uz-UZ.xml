@@ -12,6 +12,8 @@
   <string name="noTeamFound">Jamoa topilmadi</string>
   <string name="joinTeam">Jamoaga qo\'shilish</string>
   <string name="quitTeam">Jamoani tark etish</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Qabul qilish soʻrovlarini koʻrib chiqish</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Agar belgilangan boʻlsa, oʻyinchilar jamoaga qoʻshilish uchun soʻrov yozishlari kerak. Siz ularni inkor yoki qabul qilishingiz mumkin.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Jamoa sardori</item>
     <item quantity="other">Jamoa sardorlari</item>
@@ -39,4 +41,10 @@ Xabarlaringizni qabul qilishni yoqtirmaydigan oʻyinchilar jamoani tark etishlar
   <string name="youWayWantToLinkOneOfTheseTournaments">Bo\'lajak musobaqalardan birini ulashni xohlaysizmi?</string>
   <string name="usersWhoCanManageThisTeam">Ushbu jamoani boshqaradigan foydalanuvchilar</string>
   <string name="leadersChat">Sardorlar suhbati</string>
+  <string name="closeTeam">Jamoani yopish</string>
+  <string name="closeTeamDescription">Jamoani butunlay yopish.</string>
+  <string name="teamPassword">Jamoa kaliti</string>
+  <string name="teamPasswordDescriptionForLeader">(Ixtiyoriy) Ushbu jamoaga yangi aʻzolarni qoʻshilishida bilishi kerak boʻlgan jamoa kaliti.</string>
+  <string name="incorrectTeamPassword">Jamoa kaliti mos kelmadi.</string>
+  <string name="teamAlreadyExists">Ushbu jamoa mavjud.</string>
 </resources>

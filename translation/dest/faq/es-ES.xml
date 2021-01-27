@@ -99,7 +99,7 @@ No solicites el título de LM.</string>
   <string name="ownerUniqueTrophies">Ese trofeo es único en la historia de Lichess, nadie más que %1$s lo tendrá jamás.</string>
   <string name="wayOfBerserkExplanation">Para obtenerlo, hiimgosu se desafió a sí mismo a berserk y ganó 100%% partidas de %s.</string>
   <string name="aHourlyBulletTournament">un torneo Bullet por hora</string>
-  <string name="goldenZeeExplanation">ZugAddict estaba transmitiendo y durante las dos últimas horas había estado tratando de derrotar a la I.A. nivel 8 en una partida 1+0, sin éxito. Thibault le dijo que si lo hacía con éxito durante la transmisión, obtendría un trofeo único. Una hora después, venció a Stockfish y se cumplió la promesa.</string>
+  <string name="goldenZeeExplanation">ZugAddict estaba transmitiendo y durante las dos últimas horas había estado tratando de derrotar a la I.A. nivel 8 en una partida 1+0, sin éxito. Thibault le dijo que si lo lograba durante la transmisión, obtendría un trofeo único. Una hora después, venció a Stockfish y se cumplió la promesa.</string>
   <string name="lichessRatings">Puntuaciones de Lichess</string>
   <string name="whichRatingSystemUsedByLichess">¿Qué sistema de puntuación utiliza Lichess?</string>
   <string name="ratingSystemUsedByLichess">Las puntuaciones se calculan utilizando el método de clasificación Glicko-2 desarrollado por Mark Glickman. Es un método de puntuación muy popular y que utilizan muchas organizaciones de ajedrez (la FIDE es un contraejemplo notable, ya que todavía utilizan el sistema de puntuación Elo).

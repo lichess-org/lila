@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="moveToStart">Izdariet gājienu, lai sāktu</string>
+  <string name="puzzlesSolved">atrisinātās puzles</string>
+  <string name="newDailyHighscore">Jauns dienas labākais rezultāts!</string>
+  <string name="newWeeklyHighscore">Jauns nedēļas labākais rezultāts!</string>
+  <string name="newMonthlyHighscore">Jauns mēneša labākais rezultāts!</string>
+  <string name="newAllTimeHighscore">Jauns visu laiku labākais rezultāts!</string>
+  <string name="previousHighscoreWasX">Iepriekšējais sasniegums bija %s</string>
+  <string name="playAgain">Spēlēt vēlreiz</string>
+  <plurals name="xRuns">
+    <item quantity="zero">%s izspēlēšanas</item>
+    <item quantity="one">%s izspēlēšana</item>
+    <item quantity="other">%s izspēlēšanas</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="zero">Izspēlēja %2$s %1$s reizes</item>
+    <item quantity="one">Izspēlēja %2$s %1$s reizi</item>
+    <item quantity="other">Izspēlēja %2$s %1$s reizes</item>
+  </plurals>
+  <string name="highscoreX">Labākais rezultāts: %s</string>
+</resources>

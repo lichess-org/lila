@@ -8,8 +8,8 @@
   <string name="registerToSendChallenges">Zarejestruj się, aby zapraszać do gry.</string>
   <string name="youCannotChallengeX">Nie możesz wyzwać %s.</string>
   <string name="xDoesNotAcceptChallenges">%s nie przyjmuje wyzwań.</string>
-  <string name="yourXRatingIsTooFarFromY" comment="yourXRatingIsTooFarFromY&#10;&#10;%1$s is the rating type (blitz, bullet, crazyhouse)&#10;%2$s is another username">Twój ranking (%1$s) jest zbyt odległy od %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating" comment="cannotChallengeDueToProvisionalXRating&#10;&#10;Users can set the preference to deny challenges from other players if their rating is not within a range of 300 points. If you attempt to challenge someone who has turned on this restriction, but one of you has a provisional rating in this area, you will see this message.&#10;&#10;A rating is considered provisional if the player hasn't played enough games for the system to be certain of their exact rating.&#10;&#10;The variable is the type of rating (Blitz, Bullet, Crazyhouse, etc.)">Nie możesz zapraszać ze względu na swój tymczasowy ranking (%s).</string>
+  <string name="yourXRatingIsTooFarFromY">Twój ranking (%1$s) jest zbyt odległy od %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Nie możesz zapraszać ze względu na swój tymczasowy ranking (%s).</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s akceptuje tylko wyzwania od znajomych.</string>
   <string name="declineGeneric">Obecnie nie akceptuję wyzwań.</string>
   <string name="declineLater">Nie mam teraz czasu, spróbuj proszę później.</string>
@@ -20,4 +20,6 @@
   <string name="declineCasual">Zaproś mnie proszę do partii nierankingowej.</string>
   <string name="declineStandard">Nie akceptuję teraz zaproszeń do gry w warianty.</string>
   <string name="declineVariant">Nie chcę grać teraz tego wariantu.</string>
+  <string name="declineNoBot">Nie przyjmuję wyzwań od botów.</string>
+  <string name="declineOnlyBot">Przyjmuję tylko wyzwania od botów.</string>
 </resources>

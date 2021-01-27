@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">Thách đấu</string>
+  <string name="challengeToPlay">Yêu cầu chơi</string>
+  <string name="challengeDeclined">Thử thách đấu bị từ chối</string>
+  <string name="challengeAccepted">Lời thách đấu được chấp nhận!</string>
+  <string name="challengeCanceled">Lời thách đấu bị hủy bỏ.</string>
+  <string name="registerToSendChallenges">Xin vui lòng đăng ký để gửi những lời thách đấu.</string>
+  <string name="youCannotChallengeX">Bạn không thể thách đấu %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s không chấp nhận những lời thách đấu.</string>
+  <string name="yourXRatingIsTooFarFromY">Chỉ số %1$s của bạn quá xa so với %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Không thể thách đấu do xếp hạng %s tạm thời.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s chỉ chấp nhận những thách thức từ bạn bè.</string>
+</resources>

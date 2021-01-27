@@ -9,6 +9,7 @@
   <string name="lengths">Lengder</string>
   <string name="mates">Mattar</string>
   <string name="goals">Mål</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Opphav</string>
   <string name="specialMoves">Spesialtrekk</string>
   <string name="didYouLikeThisPuzzle">Likte du denne oppgåva?</string>
   <string name="voteToLoadNextOne">Stem for å laste den neste!</string>
@@ -29,8 +30,8 @@
   <string name="ratingX">Rating: %s</string>
   <string name="hidden">løynd</string>
   <plurals name="playedXTimes">
-    <item quantity="one">Spelt %s gong</item>
-    <item quantity="other">Spelt %s gonger</item>
+    <item quantity="one">Spela %s gong</item>
+    <item quantity="other">Spela %s gonger</item>
   </plurals>
   <string name="fromGameLink">Frå parti %s</string>
   <string name="continueTraining">Hald fram å øva</string>
@@ -48,5 +49,5 @@
   <string name="strengths">Styrkeområde</string>
   <string name="history">Oppgåvehistorikk</string>
   <string name="solved">løyst</string>
-  <string name="failed">feila</string>
+  <string name="failed">uløyst</string>
 </resources>
