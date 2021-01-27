@@ -30,8 +30,8 @@
   <string name="ratingX">Rating: %s</string>
   <string name="hidden">løynd</string>
   <plurals name="playedXTimes">
-    <item quantity="one">Spelt %s gong</item>
-    <item quantity="other">Spelt %s gonger</item>
+    <item quantity="one">Spela %s gong</item>
+    <item quantity="other">Spela %s gonger</item>
   </plurals>
   <string name="fromGameLink">Frå parti %s</string>
   <string name="continueTraining">Hald fram å øva</string>
