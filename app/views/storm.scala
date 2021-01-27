@@ -38,8 +38,8 @@ object storm {
         high map { h =>
           frag(
             div(cls := "storm-play-scores")(
-              span("Puzzle storm highscores"),
-              a(href := routes.Storm.dashboard())("View best runs »")
+              span(trans.storm.puzzleStormHighscores()),
+              a(href := routes.Storm.dashboard())(trans.storm.viewBestRuns(), " »")
             ),
             div(cls := "storm-dashboard__high__periods")(
               renderHigh(h)
@@ -76,7 +76,7 @@ object storm {
     )(
       main(cls := "storm-dashboard page-small")(
         div(cls := "storm-dashboard__high box box-pad")(
-          h1("Puzzle Storm highscores"),
+          h1(trans.storm.puzzleStormHighscores()),
           div(cls := "storm-dashboard__high__periods highlight-alltime")(
             renderHigh(high)
           )
@@ -86,14 +86,14 @@ object storm {
           table(cls := "slist slist-pad")(
             thead(
               tr(
-                th("Best run of day"),
-                th("Score"),
-                th("Moves"),
-                th("Accuracy"),
-                th("Combo"),
-                th("Time"),
-                th("Highest solved"),
-                th("Runs")
+                th(trans.storm.bestRunOfDay()),
+                th(trans.storm.score()),
+                th(trans.storm.moves()),
+                th(trans.storm.accuracy()),
+                th(trans.storm.combo()),
+                th(trans.storm.time()),
+                th(trans.storm.highestSolved()),
+                th(trans.storm.runs())
               )
             ),
             tbody(
@@ -126,7 +126,19 @@ object storm {
       t.newMonthlyHighscore,
       t.newAllTimeHighscore,
       t.previousHighscoreWasX,
-      t.playAgain
+      t.playAgain,
+      t.score,
+      t.moves,
+      t.accuracy,
+      t.combo,
+      t.time,
+      t.timePerMove,
+      t.highestSolved,
+      t.puzzlesPlayed,
+      t.newRun,
+      t.endRun,
+      t.puzzleStormHighscores,
+      t.viewBestRuns
     ).map(_.key)
   }
 }

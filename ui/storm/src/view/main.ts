@@ -48,13 +48,13 @@ const renderControls = (ctrl: StormCtrl): VNode =>
       attrs: {
         href: '/storm',
         'data-icon': 'B',
-        title: 'New run (hotkey: Space)'
+        title: ctrl.trans('newRun')
       }
     }),
     h('a.storm__control__end.button.button-empty', {
       attrs: {
         'data-icon': 'b',
-        title: 'End run (hotkey: Enter)',
+        title: ctrl.trans('endRun'),
       },
       hook: onInsert(el => el.addEventListener('click', ctrl.end))
     })

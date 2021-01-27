@@ -24,12 +24,13 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
   const run = ctrl.runStats();
   const high = ctrl.vm.run.response?.newHigh;
   const accuracy = 100 * (run.moves - run.errors) / run.moves;
+  const noarg = ctrl.trans.noarg;
   return [
     ...(high ? [
       h('div.storm--end__high.storm--end__high-daily.bar-glider',
         h('div.storm--end__high__content', [
           h('div.storm--end__high__text', [
-            h('strong', ctrl.trans(newHighI18n[high.key])),
+            h('strong', noarg(newHighI18n[high.key])),
             high.prev ? h('span', ctrl.trans('previousHighscoreWasX', high.prev)) : null
           ])
         ])
@@ -38,33 +39,33 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
       h('span.storm--end__score__number', {
         hook: onInsert(el => numberSpread(el, run.score, Math.round(run.score * 50), 0)(run.score))
       }, '0'),
-      h('p', ctrl.trans('puzzlesSolved'))
+      h('p', noarg('puzzlesSolved'))
     ]),
     h('div.storm--end__stats.box.box-pad', [
       h('table.slist', [
         h('tbody', [
           h('tr', [
-            h('th', 'Moves played'),
+            h('th', noarg('moves')),
             h('td', h('number', run.moves))
           ]),
           h('tr', [
-            h('th', 'Accuracy'),
+            h('th', noarg('accuracy')),
             h('td', [h('number', Number(accuracy).toFixed(1)), '%'])
           ]),
           h('tr', [
-            h('th', 'Best combo'),
+            h('th', noarg('combo')),
             h('td', h('number', ctrl.vm.comboBest))
           ]),
           h('tr', [
-            h('th', 'Total time'),
+            h('th', noarg('time')),
             h('td', [h('number', Math.round(run.time)), 's'])
           ]),
           h('tr', [
-            h('th', 'Time per move'),
+            h('th', noarg('timePerMove')),
             h('td', [h('number', Number(run.time / run.moves).toFixed(2)), 's'])
           ]),
           h('tr', [
-            h('th', 'Highest solved'),
+            h('th', noarg('highestSolved')),
             h('td', h('number', run.highest))
           ])
         ])
@@ -72,13 +73,13 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
     ]),
     h('a.storm-play-again.button', {
       attrs: ctrl.vm.run.endAt! < getNow() - 900 ? { href: '/storm' } : {}
-    }, ctrl.trans('playAgain'))
+    }, noarg('playAgain'))
   ];
 }
 
 const renderHistory = (ctrl: StormCtrl): VNode =>
   h('div.storm--end__history.box.box-pad', [
-    h('h2', 'Puzzles played'),
+    h('h2', ctrl.trans('puzzlesPlayed')),
     h('div.storm--end__history__rounds',
       ctrl.vm.history.map(round =>
         h('div.storm--end__history__round', [

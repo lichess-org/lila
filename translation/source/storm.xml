@@ -17,4 +17,18 @@
     <item quantity="other">Played %1$s runs of %2$s</item>
   </plurals>
   <string name="highscoreX">Highscore: %s</string>
+  <string name="score">Score</string>
+  <string name="moves">Moves</string>
+  <string name="accuracy">Accuracy</string>
+  <string name="combo">Combo</string>
+  <string name="time">Time</string>
+  <string name="timePerMove">Time per move</string>
+  <string name="highestSolved">Highest solved</string>
+  <string name="puzzlesPlayed">Puzzles played</string>
+  <string name="newRun">New run (hotkey: Space)</string>
+  <string name="endRun">End run (hotkey: Enter)</string>
+  <string name="puzzleStormHighscores">Puzzle storm highscores</string>
+  <string name="viewBestRuns">View best runs</string>
+  <string name="bestRunOfDay">Best run of day</string>
+  <string name="runs">Runs</string>
 </resources>
