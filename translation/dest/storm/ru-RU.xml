@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">Вернуться к началу</string>
-  <string name="puzzlesSolved">задача решена</string>
-  <string name="newDailyHighscore">Лучший результат за день!</string>
-  <string name="newWeeklyHighscore">Лучший результат за неделю!</string>
-  <string name="newMonthlyHighscore">Лучший результат за месяц!</string>
+  <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">Передвинуться к началу</string>
+  <string name="puzzlesSolved">задачи решены</string>
+  <string name="newDailyHighscore">Новый ежедневный рекорд!</string>
+  <string name="newWeeklyHighscore">Новый еженедельный рекорд!</string>
+  <string name="newMonthlyHighscore">Новый ежемесячный рекорд!</string>
   <string name="newAllTimeHighscore">Новый рекорд за все время!</string>
-  <string name="previousHighscoreWasX">Прошлый рекорд был %s</string>
+  <string name="previousHighscoreWasX">Предыдущий рекорд был %s</string>
   <string name="playAgain">Играть снова</string>
+  <plurals name="xRuns" comment="xRuns [one] [other]&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
+    <item quantity="one">попытка</item>
+    <item quantity="few">%s попыток</item>
+    <item quantity="many">%s попыток</item>
+    <item quantity="other">%s пробегов</item>
+  </plurals>
   <string name="highscoreX">Рекорд: %s</string>
 </resources>
