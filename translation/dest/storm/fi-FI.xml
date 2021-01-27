@@ -9,4 +9,6 @@
   <string name="previousHighscoreWasX">Edellinen ennätys oli %s</string>
   <string name="playAgain">Pelaa uudelleen</string>
   <string name="highscoreX">Ennätys: %s</string>
+  <string name="combo">Putki</string>
+  <string name="time">Aika</string>
 </resources>
