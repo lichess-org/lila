@@ -1,4 +1,4 @@
-name: Lint
+name: Lint code
 
 on:
   push:
