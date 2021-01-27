@@ -22,7 +22,11 @@
   <string name="accuracy">Précision</string>
   <string name="combo">Combo</string>
   <string name="timePerMove">Temps par coup</string>
-  <string name="puzzlesPlayed">Problèmes joués</string>
+  <string name="puzzlesPlayed">Problèmes faits</string>
   <string name="newRun">Nouvel essai (raccourci clavier: Espace)</string>
   <string name="endRun">Terminer l\'essai (raccourci clavier: Entrée)</string>
+  <string name="puzzleStormHighscores">Blitz de problèmes – Meilleurs pointages</string>
+  <string name="viewBestRuns">Voir les meilleurs essais</string>
+  <string name="bestRunOfDay">Meilleur essai du jour</string>
+  <string name="runs">Essais</string>
 </resources>
