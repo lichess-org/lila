@@ -101,9 +101,13 @@
 
     &__number {
       font-family: 'storm';
-      font-size: 14em;
       width: 3ch;
       text-align: center;
+      font-size: 11em;
+
+      @include breakpoint($mq-xx-small) {
+        font-size: 14em;
+      }
     }
   }
 }

@@ -5,29 +5,47 @@
   }
 
   &__period {
-    @extend %flex-column, %box-neat;
+    @extend %flex-column, %box-neat, %roboto;
 
     align-items: center;
     justify-content: center;
     flex: 1 1 auto;
-    margin-right: 2vw;
+    margin-right: 4%;
     background: $c-bg-box;
-    padding: 1.5em 1em;
+    padding: 3em 1em 1.5em 1em;
+
+    @include breakpoint($mq-not-xx-small) {
+      flex: 48% 0;
+      margin-bottom: 1vh;
+
+      &:nth-child(2) {
+        margin-right: 0;
+      }
+    }
+
 
     strong {
       font-family: 'storm';
       font-weight: normal;
-      font-size: 5em;
+      font-size: 3em;
+
+      @include breakpoint($mq-xx-small) {
+        font-size: 5em;
+      }
     }
 
     .highlight-alltime & {
       &:first-child {
-        background: $c-brag;
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.3) 0%, transparent 45%) $c-brag;
         color: $c-brag-over;
 
         strong {
-          font-size: 10em;
-          line-height: 1em;
+          font-size: 4em;
+          line-height: .8em;
+
+          @include breakpoint($mq-xx-small) {
+            font-size: 9em;
+          }
         }
       }
     }

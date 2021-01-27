@@ -76,10 +76,7 @@ object storm {
     )(
       main(cls := "storm-dashboard page-small")(
         div(cls := "storm-dashboard__high box box-pad")(
-          h1(
-            userLink(user),
-            " • Puzzle Storm highscores"
-          ),
+          h1("Puzzle Storm highscores"),
           div(cls := "storm-dashboard__high__periods highlight-alltime")(
             renderHigh(high)
           )

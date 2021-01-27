@@ -22,10 +22,11 @@
   justify-content: center;
   padding: 1em 2em;
   font-size: 2em;
-  letter-spacing: .6em;
+  letter-spacing: .4em;
 
   @include breakpoint($mq-small) {
     justify-content: space-between;
+    letter-spacing: .6em;
 
     &::before,
     &::after {
