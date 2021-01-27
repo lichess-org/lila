@@ -17,4 +17,18 @@
     <item quantity="other">Jugó %1$s rondas de %2$s</item>
   </plurals>
   <string name="highscoreX">Puntuación más alta: %s</string>
+  <string name="score">Puntuación</string>
+  <string name="moves">Movimientos</string>
+  <string name="accuracy">Precisión</string>
+  <string name="combo">Combo</string>
+  <string name="time">Tiempo</string>
+  <string name="timePerMove">Tiempo por movimiento</string>
+  <string name="highestSolved">Problema de mayor dificultad resuelto</string>
+  <string name="puzzlesPlayed">Ejercicios hechos</string>
+  <string name="newRun">Nueva ronda (tecla: Espacio)</string>
+  <string name="endRun">Finalizar ronda (tecla: Enter)</string>
+  <string name="puzzleStormHighscores">Puntuaciones más altas de las rondas de ejercicios</string>
+  <string name="viewBestRuns">Ver las mejores rondas</string>
+  <string name="bestRunOfDay">Mejor ronda del día</string>
+  <string name="runs">Rondas</string>
 </resources>
