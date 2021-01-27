@@ -13,4 +13,10 @@
     <item quantity="few">%s rundi</item>
     <item quantity="other">%s rundi</item>
   </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm" comment="playedNbRunsOfPuzzleStorm [one] [other]&#10;&#10;This only refers to Puzzle Storm.&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
+    <item quantity="one">Odigrao jednu rundu od %2$s</item>
+    <item quantity="few">Odigrao %1$s rundi od %2$s</item>
+    <item quantity="other">Odigrao %1$s rundi %2$s</item>
+  </plurals>
+  <string name="highscoreX">Najbolji rezultat: %s</string>
 </resources>
