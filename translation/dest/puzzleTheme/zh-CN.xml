@@ -56,6 +56,7 @@
   <string name="interference">拦截</string>
   <string name="interferenceDescription">走动一个棋子到在两个对手棋子之间，以使一个或两个对手棋子保持不设防状态，例如在两个车之间的防守格上的一个马。</string>
   <string name="intermezzo">过渡着</string>
+  <string name="intermezzoDescription">首先，不走预期的着法，而走另一着棋，这将构成对手必须应着的直接威胁。</string>
   <string name="knightEndgame">马残局</string>
   <string name="knightEndgameDescription">只有马和兵的残局</string>
   <string name="long">长谜题</string>
@@ -96,7 +97,7 @@
   <string name="queensideAttackDescription">在对方长易位后进攻对方的王</string>
   <string name="quietMove">安静的一着</string>
   <string name="quietMoveDescription">一步没有将军或捉子棋，但确实为后续准备了一个不可避免的威胁。</string>
-  <string name="rookEndgame">车兵残局</string>
+  <string name="rookEndgame">车残局</string>
   <string name="rookEndgameDescription">只有车和兵的残局</string>
   <string name="sacrifice">弃子</string>
   <string name="sacrificeDescription">涉及在短期内弃子的策略，以便在强制执行一系列着法后再次获得优势。</string>
