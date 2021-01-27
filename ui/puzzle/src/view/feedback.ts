@@ -21,7 +21,7 @@ function initial(ctrl: Controller): VNode {
       h('div.no-square', h('piece.king.' + puzzleColor)),
       h('div.instruction', [
         h('strong', ctrl.trans.noarg('yourTurn')),
-        h('em', ctrl.trans.noarg(puzzleColor === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack'))
+        h('em', ctrl.trans.noarg(puzzleColor === 'white' ? 'findTheBestMoveForBlack' : 'findTheBestMoveForWhite'))
       ])
     ]),
     viewSolution(ctrl)

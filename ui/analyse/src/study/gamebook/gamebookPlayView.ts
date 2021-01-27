@@ -90,8 +90,8 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
                 "em",
                 ctrl.trans.noarg(
                   color === "white"
-                    ? "findTheBestMoveForWhite"
-                    : "findTheBestMoveForBlack"
+                    ? "findTheBestMoveForBlack"
+                    : "findTheBestMoveForWhite"
                 )
               ),
             ]),
