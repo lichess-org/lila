@@ -26,6 +26,7 @@
   <string name="puzzleSuccess">解题成功!</string>
   <string name="puzzleComplete">解题完成</string>
   <string name="notTheMove">不是最佳着法</string>
+  <string name="trySomethingElse">尝试其他着法</string>
   <string name="ratingX">积分：%s</string>
   <string name="hidden">隐藏</string>
   <plurals name="playedXTimes">
