@@ -124,7 +124,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
   private def monitor(puzzles: Vector[StormPuzzle], poolSize: Int): Unit = {
     val nb = puzzles.size
     lila.mon.storm.selector.count.record(nb)
-    if (nb < poolSize)
+    if (nb < poolSize * 0.9)
       logger.warn(s"Selector wanted $poolSize puzzles, only got $nb")
     if (nb > 1) {
       val rest = puzzles.toVector drop 1
