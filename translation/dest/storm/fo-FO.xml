@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="moveToStart">Flyt eitt fólk at byrja</string>
+  <string name="puzzlesSolved">uppgávur loystar</string>
+  <string name="newDailyHighscore">Nýtt dagsmet!</string>
+  <string name="newWeeklyHighscore">Nýtt vikumet!</string>
+  <string name="newMonthlyHighscore">Nýtt mánaðarmet!</string>
   <string name="score">Stig</string>
   <string name="moves">Leikir</string>
   <string name="accuracy">Neyvleiki</string>
@@ -10,4 +15,8 @@
   <string name="puzzlesPlayed">Telvdar uppgávur</string>
   <string name="newRun">Nýtt umfar (snarknøttur: glopp)</string>
   <string name="endRun">Endaumfar (snarknøttur: Enter)</string>
+  <string name="puzzleStormHighscores">Háskorur í uppgávuódn</string>
+  <string name="viewBestRuns">Síggj bestu umfør</string>
+  <string name="bestRunOfDay">Dagsins besta umfar</string>
+  <string name="runs">Umfør</string>
 </resources>
