@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzlesSolved">úloh vyřešeno</string>
+  <string name="newDailyHighscore">Nové denní maximum!</string>
+  <string name="newWeeklyHighscore">Nové týdenní maximum!</string>
+  <string name="newMonthlyHighscore">Nové měsíční maximum!</string>
+  <string name="newAllTimeHighscore">Nový osobní rekord!</string>
+  <string name="previousHighscoreWasX">Předchozí rekord byl %s</string>
+  <string name="playAgain">Hrát znovu</string>
+</resources>
