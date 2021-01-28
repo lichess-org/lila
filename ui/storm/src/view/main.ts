@@ -56,7 +56,7 @@ const renderControls = (ctrl: StormCtrl): VNode =>
         'data-icon': 'b',
         title: ctrl.trans('endRun'),
       },
-      hook: onInsert(el => el.addEventListener('click', ctrl.end))
+      hook: onInsert(el => el.addEventListener('click', ctrl.endNow))
     })
   ]);
 

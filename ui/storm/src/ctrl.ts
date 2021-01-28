@@ -68,7 +68,12 @@ export default class StormCtrl {
     this.redrawSlow();
   }
 
-  naturalFlag = () => {
+  endNow = (): void => {
+    this.pushToHistory(false);
+    this.end();
+  };
+
+  naturalFlag = (): void => {
     this.pushToHistory(false);
     this.end();
   };
