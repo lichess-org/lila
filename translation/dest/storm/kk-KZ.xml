@@ -12,4 +12,11 @@
     <item quantity="one">1 кезең</item>
     <item quantity="other">%s кезең</item>
   </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">%2$s кезеңнің бірі ойналды</item>
+    <item quantity="other">%2$s кезеңнің %1$s ойналды</item>
+  </plurals>
+  <string name="highscoreX">Рекорд: %s</string>
+  <string name="score">Ұпай</string>
+  <string name="moves">Жүрістер</string>
 </resources>
