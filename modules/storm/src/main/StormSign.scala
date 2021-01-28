@@ -22,10 +22,10 @@ final class StormSign(secret: Secret, cacheApi: CacheApi) {
 
   def getPrev(user: User): String = store get user.id
 
-  def check(user: User, signed: String): Boolean = {
+  def check(user: User, signed: String): Boolean = signed != "undefined" && {
     val correct =
       !Uptime.startedSinceMinutes(5) || {
-        signer.sha1(s"${store.get(user.id)}:${user.id}") hash_= signed
+        signer.sha1(store.get(user.id)) hash_= signed
       }
     if (correct) store.put(user.id, signed)
     correct
