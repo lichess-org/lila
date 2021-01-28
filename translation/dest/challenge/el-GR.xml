@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challenges">Προκλήσεις</string>
+  <string name="challengeToPlay">Προκαλέστε σε παιχνίδι</string>
+  <string name="challengeDeclined">Η πρόκληση απορρίφθηκε</string>
+  <string name="challengeAccepted">Η πρόκληση έγινε δεκτή!</string>
+  <string name="challengeCanceled">Η πρόκληση ακυρώθηκε.</string>
+  <string name="registerToSendChallenges">Παρακαλώ εγγραφείτε για να στείλετε προκλήσεις.</string>
+  <string name="youCannotChallengeX">Δεν μπορείτε να προκαλέσετε τον %s.</string>
   <string name="xDoesNotAcceptChallenges">%s δεν δέχεται προκλήσεις.</string>
   <string name="yourXRatingIsTooFarFromY">Η %1$s βαθμολογία σας διαφέρει σημαντικά από %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Δεν είναι δυνατή η πρόκληση λόγω της προσωρινής %s βαθμολογίας.</string>
