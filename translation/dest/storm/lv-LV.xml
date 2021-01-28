@@ -19,4 +19,6 @@
     <item quantity="other">Izspēlēja %2$s %1$s reizes</item>
   </plurals>
   <string name="highscoreX">Labākais rezultāts: %s</string>
+  <string name="score">Rezultāts</string>
+  <string name="moves">Gājieni</string>
 </resources>
