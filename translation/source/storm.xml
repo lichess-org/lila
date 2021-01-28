@@ -27,7 +27,7 @@
   <string name="puzzlesPlayed">Puzzles played</string>
   <string name="newRun">New run (hotkey: Space)</string>
   <string name="endRun">End run (hotkey: Enter)</string>
-  <string name="puzzleStormHighscores">Puzzle storm highscores</string>
+  <string name="highscores">Highscores</string>
   <string name="viewBestRuns">View best runs</string>
   <string name="bestRunOfDay">Best run of day</string>
   <string name="runs">Runs</string>

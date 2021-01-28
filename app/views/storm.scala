@@ -41,7 +41,7 @@ object storm {
         high map { h =>
           frag(
             div(cls := "storm-play-scores")(
-              span(trans.storm.puzzleStormHighscores()),
+              span(trans.storm.highscores()),
               a(href := routes.Storm.dashboard())(trans.storm.viewBestRuns(), " »")
             ),
             div(cls := "storm-dashboard__high__periods")(
@@ -79,7 +79,7 @@ object storm {
     )(
       main(cls := "storm-dashboard page-small")(
         div(cls := "storm-dashboard__high box box-pad")(
-          h1(trans.storm.puzzleStormHighscores()),
+          h1("Puzzle Storm • ", trans.storm.highscores()),
           div(cls := "storm-dashboard__high__periods highlight-alltime")(
             renderHigh(high)
           )
@@ -139,9 +139,7 @@ object storm {
       t.highestSolved,
       t.puzzlesPlayed,
       t.newRun,
-      t.endRun,
-      t.puzzleStormHighscores,
-      t.viewBestRuns
+      t.endRun
     ).map(_.key)
   }
 }
