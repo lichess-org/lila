@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart">Бастау үшін жүріңіз</string>
+  <string name="puzzlesSolved">жұмбақ шешілді</string>
+  <string name="newDailyHighscore">Жаңа күндік рекорд!</string>
+  <string name="newWeeklyHighscore">Жаңа апталық рекорд!</string>
+  <string name="newMonthlyHighscore">Жаңа айлық рекорд!</string>
+  <string name="newAllTimeHighscore">Жаңа рекорд!</string>
+  <string name="previousHighscoreWasX">Алдыңғы рекорд %s</string>
+  <string name="playAgain">Қайтадан ойнау</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 кезең</item>
+    <item quantity="other">%s кезең</item>
+  </plurals>
+</resources>
