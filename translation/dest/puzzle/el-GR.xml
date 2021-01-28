@@ -9,6 +9,7 @@
   <string name="lengths">Μήκος γρίφου</string>
   <string name="mates">Ματ</string>
   <string name="goals">Στόχοι</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Πηγή</string>
   <string name="specialMoves">Ειδικές κινήσεις</string>
   <string name="didYouLikeThisPuzzle">Σας άρεσε αυτός ο γρίφος;</string>
   <string name="voteToLoadNextOne">Ψηφίστε για να φορτώσετε το επόμενο!</string>
@@ -47,4 +48,6 @@
   <string name="improvementAreas">Τομείς βελτίωσης</string>
   <string name="strengths">Δυνατά σημεία</string>
   <string name="history">Ιστορικό γρίφων</string>
+  <string name="solved">επιλύθηκε</string>
+  <string name="failed">απέτυχε</string>
 </resources>
