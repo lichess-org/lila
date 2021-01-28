@@ -18,16 +18,15 @@
   </plurals>
   <string name="highscoreX">Rekord: %s</string>
   <string name="score">Poengsum</string>
-  <string name="moves" comment="moves in this context means your &quot;total moves&quot; you made in your previous puzzle storm attempt. It is displayed after completing one puzzle storm together with your other stats">Trekk</string>
-  <string name="accuracy" comment="accuracy is displayed after completing one puzzle rush together with your other stats">Presisjon</string>
-  <string name="combo" comment="combo in this case means your &quot;best combo&quot; after completing a run of puzzle storm.">Kombinasjon</string>
-  <string name="time" comment="time in this context means the total time that has passed in your previous run. The string is displayed after completing one puzzle rush">Tid</string>
+  <string name="moves">Trekk</string>
+  <string name="accuracy">Presisjon</string>
+  <string name="combo">Kombinasjon</string>
+  <string name="time">Tid</string>
   <string name="timePerMove">Tid per trekk</string>
   <string name="highestSolved">Høgste vanskegrad</string>
   <string name="puzzlesPlayed">Spelte oppgåver</string>
   <string name="newRun">Ny runde (hurtigtast: mellomrom)</string>
-  <string name="endRun" comment="endRun&#10;&#10;If you want to end the run prematurely, you press enter">Avslutt runden (hurtigtast: Enter)</string>
-  <string name="puzzleStormHighscores">Oppgåvestorm: høgste poengsum</string>
+  <string name="endRun">Avslutt runden (hurtigtast: Enter)</string>
   <string name="viewBestRuns">Vis beste runde</string>
   <string name="bestRunOfDay">Dagens beste runde</string>
   <string name="runs">Runder</string>
