@@ -27,4 +27,9 @@
   <string name="timePerMove">Vrijeme po potezu</string>
   <string name="highestSolved">Najviše riješeno</string>
   <string name="puzzlesPlayed">Odigrani problemi</string>
+  <string name="newRun">Nova tura (tipka: razmaknica)</string>
+  <string name="endRun">Završite turu (tipka: Enter)</string>
+  <string name="viewBestRuns">Pogledajte najbolje ture</string>
+  <string name="bestRunOfDay">Najbolja tura dana</string>
+  <string name="runs">Ture</string>
 </resources>
