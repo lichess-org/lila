@@ -83,15 +83,15 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
       "div",
       fb === "play"
         ? [
-            h("div.no-square", h("piece.king." + color)),
+            h("div.no-square", h("piece.king." + (color === "white" ? "black" : "white"))),
             h("div.instruction", [
               h("strong", ctrl.trans.noarg("yourTurn")),
               h(
                 "em",
                 ctrl.trans.noarg(
                   color === "white"
-                    ? "findTheBestMoveForWhite"
-                    : "findTheBestMoveForBlack"
+                    ? "findTheBestMoveForBlack"
+                    : "findTheBestMoveForWhite"
                 )
               ),
             ]),
