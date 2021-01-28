@@ -34,7 +34,10 @@ object storm {
       chessground = false
     ) {
       main(
-        div(cls := "storm storm-app"),
+        div(cls := "storm storm-app storm--play")(
+          div(cls := "storm__board main-board"),
+          div(cls := "storm__side")
+        ),
         high map { h =>
           frag(
             div(cls := "storm-play-scores")(
