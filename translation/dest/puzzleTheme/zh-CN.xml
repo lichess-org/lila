@@ -49,7 +49,7 @@
   <string name="exposedKingDescription">王的周围只有很少的防守棋子时的战术，往往导致杀棋</string>
   <string name="fork">击双</string>
   <string name="forkDescription">走一步棋使走动的棋子同时攻击对方的两个棋子</string>
-  <string name="hangingPiece">得子</string>
+  <string name="hangingPiece">无根子</string>
   <string name="hangingPieceDescription">涉及对方无根或少根的棋子，可以随意吃掉它</string>
   <string name="hookMate">勾杀</string>
   <string name="hookMateDescription">用车、马、兵杀棋，对方的兵限制王逃跑</string>
