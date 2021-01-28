@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="declineCasual">Παρακαλώ στείλε μου αντί αυτής μια φιλική πρόκληση.</string>
+  <string name="declineStandard">Δεν δέχομαι προκλήσεις παραλλαγής αυτή τη στιγμή.</string>
+  <string name="declineVariant">Δεν είμαι πρόθυμος να παίξω αυτήν την παραλλαγή αυτή τη στιγμή.</string>
   <string name="declineNoBot">Δεν δέχομαι προκλήσεις από bots.</string>
   <string name="declineOnlyBot">Δέχομαι μόνο προκλήσεις από bots.</string>
 </resources>
