@@ -18,7 +18,7 @@ final private class Limiter(
     }
 
   private val RequestLimitPerIP = new lila.memo.RateLimit[IpAddress](
-    credits = 50,
+    credits = 60,
     duration = 20 hours,
     key = "request_analysis.ip"
   )
