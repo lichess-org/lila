@@ -24,4 +24,10 @@
   <string name="timePerMove">Tid per trekk</string>
   <string name="highestSolved">Høgste vanskegrad</string>
   <string name="puzzlesPlayed">Spelte oppgåver</string>
+  <string name="newRun">Ny runde (hurtigtast: mellomrom)</string>
+  <string name="endRun" comment="endRun&#10;&#10;If you want to end the run prematurely, you press enter">Avslutt runden (hurtigtast: Enter)</string>
+  <string name="puzzleStormHighscores">Oppgåvestorm: høgste poengsum</string>
+  <string name="viewBestRuns">Vis beste runde</string>
+  <string name="bestRunOfDay">Dagens beste runde</string>
+  <string name="runs">Runder</string>
 </resources>
