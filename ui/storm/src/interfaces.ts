@@ -23,6 +23,8 @@ export interface StormPrefs {
 export interface StormData {
   puzzles: StormPuzzle[];
   notAnExploit: string;
+  key?: string;
+  signed?: string;
 }
 
 export interface StormVm {
@@ -88,6 +90,7 @@ export interface StormRun {
   combo: number;
   time: number;
   highest: number;
+  signed?: string;
 }
 
 export interface RunResponse {

@@ -21,6 +21,10 @@ final class Env(
 
   lazy val selector = wire[StormSelector]
 
+  private val signSecret = appConfig.get[Secret]("storm.secret")
+
+  lazy val sign = wire[StormSign]
+
   lazy val json = wire[StormJson]
 
   lazy val highApi = wire[StormHighApi]

@@ -55,7 +55,7 @@ object StormDay {
   def empty(id: Id) = StormDay(id, 0, 0, 0, 0, 0, 0, 0)
 }
 
-final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo)(implicit
+final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo, sign: StormSign)(implicit
     ctx: ExecutionContext
 ) {
 
@@ -65,21 +65,26 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo)(i
   def addRun(data: StormForm.RunData, user: Option[User]): Fu[Option[StormHigh.NewHigh]] = {
     lila.mon.storm.run.score(user.isDefined).record(data.score).unit
     user ?? { u =>
-      Bus.publish(lila.hub.actorApi.storm.StormRun(u.id, data.score), "stormRun")
-      highApi get u.id flatMap { prevHigh =>
-        val todayId = Id today u.id
-        coll
-          .one[StormDay]($id(todayId))
-          .map {
-            _.getOrElse(StormDay empty todayId) add data
-          }
-          .flatMap { day =>
-            coll.update.one($id(day._id), day, upsert = true)
-          }
-          .flatMap { _ =>
-            val (high, newHigh) = highApi.update(u.id, prevHigh, data.score)
-            userRepo.addStormRun(u.id, high.allTime.some.filter(prevHigh.allTime <)) inject newHigh
-          }
+      if (sign.check(u, ~data.signed)) {
+        Bus.publish(lila.hub.actorApi.storm.StormRun(u.id, data.score), "stormRun")
+        highApi get u.id flatMap { prevHigh =>
+          val todayId = Id today u.id
+          coll
+            .one[StormDay]($id(todayId))
+            .map {
+              _.getOrElse(StormDay empty todayId) add data
+            }
+            .flatMap { day =>
+              coll.update.one($id(day._id), day, upsert = true)
+            }
+            .flatMap { _ =>
+              val (high, newHigh) = highApi.update(u.id, prevHigh, data.score)
+              userRepo.addStormRun(u.id, high.allTime.some.filter(prevHigh.allTime <)) inject newHigh
+            }
+        }
+      } else {
+        logger.warn(s"badly signed run from ${u.username} $data")
+        fuccess(none)
       }
     }
   }

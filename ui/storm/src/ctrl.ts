@@ -42,6 +42,7 @@ export default class StormCtrl {
     this.promotion = makePromotion(this.withGround, this.makeCgOpts, redraw);
     this.checkDupTab();
     setTimeout(this.hotkeys, 1000);
+    if (this.data.key) setTimeout(this.signKey, 1000 * 60);
   }
 
   clockMillis = (): number | undefined =>
@@ -218,7 +219,8 @@ export default class StormCtrl {
     errors: this.vm.run.errors,
     combo: this.vm.comboBest,
     time: (this.vm.run.endAt! - this.vm.run.startAt) / 1000,
-    highest: this.vm.history.reduce((h, r) => r.win && r.puzzle.rating > h ? r.puzzle.rating : h, 0)
+    highest: this.vm.history.reduce((h, r) => r.win && r.puzzle.rating > h ? r.puzzle.rating : h, 0),
+    signed: this.data.signed
   });
 
   private showGround = (g: CgApi): void => g.set(this.makeCgOpts());
@@ -253,4 +255,10 @@ export default class StormCtrl {
       .bind('return', this.end);
   }
 
+  private signKey = () => {
+    lichess.socket.send('sk1', this.data.key!);
+    lichess.pubsub.on('socket.in.sk1', signed => {
+      this.data.signed = signed;
+    })
+  }
 }
