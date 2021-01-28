@@ -20,14 +20,15 @@
   <string name="score">Puan</string>
   <string name="moves">Hamle sayısı</string>
   <string name="accuracy">Doğruluk</string>
-  <string name="combo">Kombin</string>
+  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Kombin</string>
   <string name="time">Süre</string>
   <string name="timePerMove">Hamle süresi</string>
-  <string name="highestSolved">Çözülen en zor</string>
+  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Çözülen en zor</string>
   <string name="puzzlesPlayed">Oynanan bulmacalar</string>
   <string name="newRun">Yeni tur (kısayol: Boşluk tuşu)</string>
   <string name="endRun">Turu bitir (kısayol: Enter)</string>
+  <string name="highscores">Rekorlar</string>
   <string name="viewBestRuns">En iyi denemeleri göster</string>
-  <string name="bestRunOfDay">Günün en iyi denemesi</string>
+  <string name="bestRunOfDay">Rekorun tarihi</string>
   <string name="runs">Denemeler</string>
 </resources>
