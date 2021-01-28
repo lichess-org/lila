@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart">回到开始</string>
+  <string name="moveToStart">走一步棋就开始计时</string>
   <string name="puzzlesSolved">谜题已解决 ！</string>
   <string name="newDailyHighscore">新的每日高分！</string>
   <string name="newWeeklyHighscore">新的每周高分！</string>
