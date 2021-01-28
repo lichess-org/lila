@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="score">Điểm</string>
+  <string name="moves">Các nước đi</string>
+  <string name="accuracy">Độ chính xác</string>
+  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Chuỗi</string>
+  <string name="time">Thời gian</string>
+  <string name="timePerMove">Thời gian trên mỗi nước đi</string>
+  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Giải được cao nhất</string>
+  <string name="puzzlesPlayed">Câu đố đã chơi</string>
+  <string name="newRun">Chạy mới (phím nóng: Dấu cách)</string>
+  <string name="endRun">Kết thúc chạy (phím nóng: Enter)</string>
+  <string name="viewBestRuns">Xem các bài chạy tốt nhất</string>
+  <string name="bestRunOfDay">Hoạt động tốt nhất trong ngày</string>
+  <string name="runs">Chạy</string>
+</resources>
