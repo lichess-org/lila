@@ -27,7 +27,6 @@
   <string name="puzzlesPlayed">Quebra-cabeças jogados</string>
   <string name="newRun">Nova rodada (hotkey: espaço)</string>
   <string name="endRun">Finalizar execução (hotkey: Enter)</string>
-  <string name="puzzleStormHighscores">Maiores pontuações do Puzzle storm</string>
   <string name="viewBestRuns">Ver melhores sequências</string>
   <string name="bestRunOfDay">Melhor sequência do dia</string>
   <string name="runs">Sequências</string>
