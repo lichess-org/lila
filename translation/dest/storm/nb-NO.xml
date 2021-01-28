@@ -17,4 +17,7 @@
     <item quantity="other">Har spilt %1$s runder med %2$s</item>
   </plurals>
   <string name="highscoreX">Rekord: %s</string>
+  <string name="highscores">Rekorder</string>
+  <string name="bestRunOfDay">Dagens beste runde</string>
+  <string name="runs">Runder</string>
 </resources>
