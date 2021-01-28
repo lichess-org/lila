@@ -48,10 +48,7 @@ export default class StormCtrl {
     this.promotion = makePromotion(this.withGround, this.makeCgOpts, this.redraw);
     this.checkDupTab();
     setTimeout(this.hotkeys, 1000);
-    if (this.data.key) setTimeout(() => sign(this.data.key!).then(v => {
-      console.log(v, 'received');
-      this.vm.signed(v);
-    }), 1000 * 5);
+    if (this.data.key) setTimeout(() => sign(this.data.key!).then(this.vm.signed), 1000 * 40);
   }
 
   clockMillis = (): number | undefined =>
