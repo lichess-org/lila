@@ -51,6 +51,7 @@
   <string name="forkDescription">Μια κίνηση όπου το μετακινούμενο κομμάτι επιτίθεται ταυτόχρονα σε δύο ή περισσότερα αντίπαλα κομμάτια.</string>
   <string name="hangingPiece">Κρεμασμένα κομμάτια</string>
   <string name="hangingPieceDescription">Μια τακτική όπου ένα αντίπαλο κομμάτι είναι ανυπεράσπιστο ή υπερασπιζόμενο ανεπαρκώς και μπορεί να παρθεί.</string>
+  <string name="hookMate">Ματ με αγκίστρι</string>
   <string name="hookMateDescription">Ματ με πύργο, ίππο, και ένα πιόνι μαζί με ένα εχθρικό πιόνι που εμποδίζει την διαφυγή του αντίπαλου βασιλιά.</string>
   <string name="interference">Παρεμβολή</string>
   <string name="interferenceDescription">Μετακίνηση κομματιού ανάμεσα σε δύο αντίπαλα κομμάτια για να αφήσει ένα ή και τα δύο αντίπαλα κομμάτια ανυπεράσπιστα, όπως ένας ίππος σε υπερασπιζόμενο τετράγωνο ανάμεσα σε δύο πύργους.</string>
@@ -107,6 +108,7 @@
   <string name="smotheredMate">Ματ αποπνιγμού</string>
   <string name="smotheredMateDescription">Ένα ματ που γίνεται από έναν ίππο σε έναν βασιλιάς ο οποίος δεν μπορεί να μετακινηθεί όντας περιτριγυρισμένος (ή πνιγμένος) από δικά του κομμάτια.</string>
   <string name="superGM">Παιχνίδια Super GM</string>
+  <string name="superGMDescription">Γρίφοι από παρτίδες που παίχθηκαν από κορυφαίους παίκτες του κόσμου.</string>
   <string name="trappedPiece">Παγιδευμένο κομμάτι</string>
   <string name="trappedPieceDescription">Ένα κομμάτι δεν μπορεί να αποφύγει το πάρσιμο, καθώς έχει περιορισμένες κινήσεις.</string>
   <string name="underPromotion">Προαγωγή σε κομμάτι μικρότερης αξίας</string>
@@ -114,6 +116,7 @@
   <string name="veryLong">Πολύ μεγάλος γρίφος</string>
   <string name="veryLongDescription">Τέσσερις κινήσεις ή περισσότερα για να κερδίσετε.</string>
   <string name="xRayAttack">Επίθεση ακτίνας Χ</string>
+  <string name="xRayAttackDescription">Κομμάτι που επιτίθεται ή αμύνεται ένα τετράγωνο, πίσω από εχθρικό κομμάτι.</string>
   <string name="zugzwang">Τσούγκτσβανγκ</string>
   <string name="zugzwangDescription">Ο αντίπαλος είναι περιορισμένος στις κινήσεις που μπορεί να κάνει και οποιαδήποτε κίνηση επιλέξει επιδεινώνει την θέση του.</string>
   <string name="healthyMix">Προτεινόμενο μίγμα</string>
