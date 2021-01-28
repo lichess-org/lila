@@ -9,4 +9,9 @@
   <string name="highestSolved">Najťažšia vyriešená úloha</string>
   <string name="puzzlesPlayed">Riešené úlohy</string>
   <string name="newRun">Nový pokus (kláves. skratka: Medzerník)</string>
+  <string name="endRun" comment="endRun&#10;&#10;If you want to end the run prematurely, you press enter">Ukončiť pokus (kláves. skratka: Enter)</string>
+  <string name="puzzleStormHighscores">Smršť šachových úloh</string>
+  <string name="viewBestRuns">Prezrieť najlepšie pokusy</string>
+  <string name="bestRunOfDay">Najlepší pokus dňa</string>
+  <string name="runs">Pokusy</string>
 </resources>
