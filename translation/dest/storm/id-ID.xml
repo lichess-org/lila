@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart">Melangkah untuk memulai</string>
+  <string name="puzzlesSolved">teka-teki terpecahkan</string>
+  <string name="newDailyHighscore">Skor tertinggi harian terbaru!</string>
+  <string name="newWeeklyHighscore">Skor tertinggi mingguan terbaru!</string>
+  <string name="newMonthlyHighscore">Skor tertinggi bulanan terbaru!</string>
+  <string name="newAllTimeHighscore">Skor tertinggi terbaru!</string>
+</resources>
