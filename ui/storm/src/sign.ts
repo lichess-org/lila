@@ -1,6 +1,7 @@
 export default function(serverKey: string): Promise<string> {
   const otp = randomAscii(64);
   lichess.socket.send('sk1', `${serverKey}:${otp}`);
+  console.log(`${serverKey}:${otp}`, 'sent');
   return new Promise(solve =>
     lichess.pubsub.on('socket.in.sk1', encrypted => solve(xor(encrypted, otp)))
   );
