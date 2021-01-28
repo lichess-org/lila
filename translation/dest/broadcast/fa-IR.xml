@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="broadcasts">پخش می شود</string>
+  <string name="liveBroadcasts">پخش زنده مسابقات</string>
+  <string name="newBroadcast">پخش مستقیم جدید</string>
+  <string name="ongoing">در حال اجرا</string>
+  <string name="upcoming">در آینده</string>
+  <string name="completed">کامل شده</string>
+  <string name="eventName">نام رخداد</string>
+  <string name="eventDescription">شرح کوتاه رویداد</string>
+  <string name="fullDescription">شرح کامل رویداد</string>
+  <string name="sourceUrl">منبع لینک</string>
+  <string name="sourceUrlHelp">لینکی که Lichess برای دریافت به روزرسانی های PGN بررسی می کند. باید از طریق اینترنت در دسترس عموم باشد.</string>
+</resources>
