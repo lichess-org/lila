@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="moveToStart">Μετάβαση στην αρχή</string>
+  <string name="puzzlesSolved">γρίφοι που λύθηκαν</string>
+  <string name="newDailyHighscore">Νέο ημερήσιο υψηλότερο σκορ!</string>
+  <string name="newWeeklyHighscore">Νέο εβδομαδιαίο υψηλότερο σκορ!</string>
+  <string name="newMonthlyHighscore">Νέο μηνιαίο υψηλότερο σκορ!</string>
   <string name="newAllTimeHighscore">Νέο υψηλότερο σκορ όλων των εποχών!</string>
   <string name="previousHighscoreWasX">Προηγούμενο υψηλότερο σκορ %s</string>
   <string name="playAgain">Παίξτε ξανά</string>
