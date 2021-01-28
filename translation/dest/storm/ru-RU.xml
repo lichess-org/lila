@@ -22,4 +22,6 @@
   <string name="time" comment="time in this context means the total time that has passed in your previous run. The string is displayed after completing one puzzle rush">Время</string>
   <string name="timePerMove">Времени на ход</string>
   <string name="highestSolved">Труднейшая задача</string>
+  <string name="puzzlesPlayed">Сыгранные задачи</string>
+  <string name="newRun">Новая попытка (клавиша: Пробел)</string>
 </resources>
