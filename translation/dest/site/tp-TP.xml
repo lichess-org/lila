@@ -555,6 +555,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="error.email">nasin pi poki e-mail ni li ike</string>
   <string name="error.email_acceptable">nasin pi poki e-mail ni li ike. o lukin e ona, o weka e pakala, o pali lon tenpo sin.</string>
   <string name="error.email_unique">jan ante li kepeken e poki e-mail ni</string>
+  <string name="error.email_different">nimi nasin e-mail ni li ante ala</string>
   <string name="ifRatingIsPlusMinusX">nanpa wawa ona li lon poka %s pi nanpa wawa sina</string>
   <string name="onlyFriends">jan pona taso</string>
   <string name="menu">lipu open</string>
@@ -583,7 +584,18 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="simultaneousExhibitions">musi mute lon tenpo sama</string>
   <string name="host">jan suli</string>
   <string name="hostColorX">kule pi jan lawa li %s</string>
+  <string name="createdSimuls">musi pi tenpo sama sin</string>
+  <string name="hostANewSimul">o pali e musi mute pi tenpo sama</string>
+  <string name="noSimulFound">musi pi tenpo sama lon ala</string>
+  <string name="noSimulExplanation">musi mute pi tenpo sama ni li lon ala.</string>
+  <string name="returnToSimulHomepage">o tawa lipu lawa pi musi pi tenpo sama</string>
+  <string name="aboutSimul">musi pi tenpo sama la, jan wan li utala e musi mute lon sinpin jan mute ante.</string>
+  <string name="aboutSimulImage">jan Bobby Fischer li musi e musi 50 lon tenpo sama. ona li pini pona e musi 74, li pini pi anpa ala e musi 2, li pini ike e musi 1.</string>
+  <string name="aboutSimulRealLife">lon ijo la, jan wan li tawa tan supa musi wan tawa supa musi ante, li pali e tawa wan.</string>
+  <string name="aboutSimulRules">musi pi tenpo sama li open la, jan musi wan li jan lawa, li kama jan musi walo lon musi ale. jan musi ante li kama jan musi pimeja lon musi wan. musi ale li pini la, musi pi tenpo sama li pini.</string>
+  <string name="aboutSimulSettings">musi pi tenpo sama li ante ala e nanpa wawa jan. sina ken ala pali e musi sin pi jan sama. sina ken ala pali monsi e tawa. sina ken ala sin e tenpo.</string>
   <string name="create">open</string>
+  <string name="lichessTournaments">utala musi pi ilo Lichess</string>
   <string name="tournamentOfficial">suli</string>
   <string name="keyboardShortcuts">lipu pi pali ale pi ilo nena</string>
   <string name="keyMoveBackwardOrForward">o tawa sinpin/monsi</string>
