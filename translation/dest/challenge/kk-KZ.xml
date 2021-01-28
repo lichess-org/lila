@@ -6,4 +6,6 @@
   <string name="challengeAccepted">Шақыруды қабылдады!</string>
   <string name="challengeCanceled">Шақырудың күші жойылды.</string>
   <string name="registerToSendChallenges">Ойынға шақыру үшін тіркеліңіз.</string>
+  <string name="youCannotChallengeX">Сіз %s шақыра алмайсыз.</string>
+  <string name="xDoesNotAcceptChallenges">%s шақыруды қабылдамады.</string>
 </resources>
