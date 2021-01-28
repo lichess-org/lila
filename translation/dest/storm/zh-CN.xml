@@ -8,6 +8,12 @@
   <string name="newAllTimeHighscore">新的历史最高分！</string>
   <string name="previousHighscoreWasX">上一次最高得分是 %s</string>
   <string name="playAgain">再来一局</string>
+  <plurals name="xRuns">
+    <item quantity="other">%s局</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="other">玩了%1$s局的%2$s</item>
+  </plurals>
   <string name="highscoreX">最高分： %s</string>
   <string name="score">得分</string>
   <string name="moves" comment="moves in this context means your &quot;total moves&quot; you made in your previous puzzle storm attempt. It is displayed after completing one puzzle storm together with your other stats">着法</string>
