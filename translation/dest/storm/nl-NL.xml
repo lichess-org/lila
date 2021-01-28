@@ -2,11 +2,11 @@
 <resources>
   <string name="moveToStart">Doe een zet om te beginnen</string>
   <string name="puzzlesSolved">puzzels opgelost</string>
-  <string name="newDailyHighscore">Nieuw dagrecord!</string>
-  <string name="newWeeklyHighscore">Nieuw weekrecord!</string>
-  <string name="newMonthlyHighscore">Nieuw maandrecord!</string>
-  <string name="newAllTimeHighscore">Nieuw record aller tijden!</string>
-  <string name="previousHighscoreWasX">Vorige record was %s</string>
+  <string name="newDailyHighscore">Nieuwe dagelijkse topscore!</string>
+  <string name="newWeeklyHighscore">Nieuwe wekelijkse topscore!</string>
+  <string name="newMonthlyHighscore">Nieuwe maandelijkse topscore!</string>
+  <string name="newAllTimeHighscore">Nieuwe topscore aller tijden!</string>
+  <string name="previousHighscoreWasX">Vorige topscore was %s</string>
   <string name="playAgain">Speel opnieuw</string>
   <plurals name="xRuns">
     <item quantity="one">1 sessie</item>
