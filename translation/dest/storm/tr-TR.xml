@@ -29,6 +29,6 @@
   <string name="endRun">Turu bitir (kısayol: Enter)</string>
   <string name="highscores">Rekorlar</string>
   <string name="viewBestRuns">En iyi denemeleri göster</string>
-  <string name="bestRunOfDay">Rekorun tarihi</string>
-  <string name="runs">Denemeler</string>
+  <string name="bestRunOfDay">Günlük rekorlar</string>
+  <string name="runs">Deneme</string>
 </resources>
