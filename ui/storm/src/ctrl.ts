@@ -11,18 +11,22 @@ import { parseFen, makeFen } from 'chessops/fen';
 import { parseUci, opposite } from 'chessops/util';
 import { prop, Prop } from 'common';
 import { Role } from 'chessground/types';
-import { StormOpts, StormData, StormPuzzle, StormVm, Promotion, TimeMod, StormRun } from './interfaces';
+import { StormOpts, StormData, StormPuzzle, StormVm, Promotion, TimeMod, StormRun, StormPrefs } from './interfaces';
 
 export default class StormCtrl {
 
-  data: StormData;
+  private data: StormData;
+  private redraw: () => void;
+  pref: StormPrefs;
   vm: StormVm;
   trans: Trans;
   promotion: Promotion;
   ground = prop<CgApi | false>(false) as Prop<CgApi | false>;
 
-  constructor(readonly opts: StormOpts, readonly redraw: () => void) {
+  constructor(opts: StormOpts, redraw: (data: StormData) => void) {
     this.data = opts.data;
+    this.pref = opts.pref;
+    this.redraw = () => redraw(this.data);
     this.trans = lichess.trans(opts.i18n);
     this.vm = {
       puzzleIndex: 0,
@@ -41,7 +45,7 @@ export default class StormCtrl {
       },
       signed: prop(undefined)
     };
-    this.promotion = makePromotion(this.withGround, this.makeCgOpts, redraw);
+    this.promotion = makePromotion(this.withGround, this.makeCgOpts, this.redraw);
     this.checkDupTab();
     setTimeout(this.hotkeys, 1000);
     if (this.data.key) setTimeout(() => sign(this.data.key!).then(this.vm.signed), 1000 * 60);

@@ -17,7 +17,7 @@ export default function(ctrl: StormCtrl): VNode {
 
 function makeConfig(ctrl: StormCtrl): CgConfig {
   const opts = ctrl.makeCgOpts();
-  const pref = ctrl.opts.pref;
+  const pref = ctrl.pref;
   return {
     fen: opts.fen,
     orientation: opts.orientation,

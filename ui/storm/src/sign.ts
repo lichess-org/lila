@@ -14,11 +14,7 @@ function xor(a: string, b: string) {
 }
 
 function randomAscii(length: number) {
-  let result = '';
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const charactersLength = characters.length;
-  for (let i = 0; i < length; i++)
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-
-  return result;
+  const result = [];
+  for (let i = 0; i < length; i++) result.push(String.fromCharCode(Math.floor(Math.random() * 128)));
+  return result.join('');
 }

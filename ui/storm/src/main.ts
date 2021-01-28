@@ -28,8 +28,6 @@ export function start(opts: StormOpts) {
   element.innerHTML = '';
   vnode = patch(element, blueprint);
 
-  redraw();
-
   menuHover();
 };
 
