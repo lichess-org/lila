@@ -26,7 +26,7 @@
   <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Hoogste score</string>
   <string name="puzzlesPlayed">Gespeelde puzzels</string>
   <string name="newRun">Nieuwe sessie (sneltoets: Spatiebalk)</string>
-  <string name="endRun">Nieuwe sessie (sneltoets: Enter)</string>
+  <string name="endRun">Sessie stoppen (sneltoets: Enter)</string>
   <string name="highscores">Records</string>
   <string name="viewBestRuns">Bekijk beste sessies</string>
   <string name="bestRunOfDay">Beste sessie van de dag</string>
