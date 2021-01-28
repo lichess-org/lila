@@ -27,6 +27,7 @@
   <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Ματ με δύο αξιωματικούς</string>
   <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Δύο επιτιθέμενοι αξιωματικοί σε κοντινή απόσταση κάνουν ματ σε βασιλιά που εμποδίζεται από φιλικά κομμάτια.</string>
   <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Dovetail ματ</string>
+  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">Βασίλισσα κάνει ματ σε παρακείμενο βασιλιά, του οποίου τα μοναδικά δύο τετράγωνα διαφυγής εμποδίζονται από φιλικά κομμάτια.</string>
   <string name="equality">Ισότητα</string>
   <string name="equalityDescription">Επιστρέψτε από μια χαμένη θέση και ασφαλίστε μια κλήρωση ή μια ισορροπημένη θέση. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Επίθεση στην πλευρά του βασιλιά</string>
@@ -36,11 +37,14 @@
   <string name="defensiveMove">Αμυντική κίνηση</string>
   <string name="defensiveMoveDescription">Μια ακριβής κίνηση ή ακολουθία κινήσεων που απαιτείται για να αποφευχθεί η απώλεια υλικού ή άλλου πλεονεκτήματος.</string>
   <string name="deflection">Εκτροπή</string>
+  <string name="deflectionDescription">Μία κίνηση που απομακρύνει ένα αντίπαλο κομμάτι από υφιστάμενο καθήκον, όπως η φύλαξη ενός τετραγώνου κλειδί. Μερικές φορές ονομάζεται και \"υπερφόρτωση\".</string>
   <string name="discoveredAttack">Επίθεση με αποκάλυψη</string>
+  <string name="discoveredAttackDescription">Μετακίνηση κομματιού που προηγουμένως εμπόδιζε την επίθεση από κομμάτι μεγάλης εμβέλειας, όπως ένας ίππος που εμπόδιζε έναν πύργο.</string>
   <string name="doubleCheck">Διπλό σαχ</string>
   <string name="doubleCheckDescription">Διπλό σαχ ως αποτέλεσμα μίας επίθεσης με αποκάλυψη, όπου και το μετακινούμενο κομμάτι δίνει σαχ.</string>
   <string name="endgame">Φινάλε</string>
   <string name="endgameDescription">Μια τακτική κατά την τελευταία φάση του παιχνιδιού.</string>
+  <string name="enPassantDescription">Τακτικό που αφορά το κανόνα en passant, όπου ένα πιόνι μπορεί να αιχμαλωτίσει ένα αντίπαλο πιόνι που το προσπέρασε χρησιμοποιώντας την αρχική δύο τετραγώνων κίνηση.</string>
   <string name="exposedKing">Εκτεθειμένος βασιλιάς</string>
   <string name="fork">Πιρούνισμα</string>
   <string name="forkDescription">Μια κίνηση όπου το μετακινούμενο κομμάτι επιτίθεται ταυτόχρονα σε δύο ή περισσότερα αντίπαλα κομμάτια.</string>
