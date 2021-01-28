@@ -4,8 +4,11 @@ import cats.implicits._
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
+import lila.common.paginator.Paginator
+import lila.common.config.MaxPerPage
 import lila.db.AsyncColl
 import lila.db.dsl._
+import lila.db.paginator.Adapter
 import lila.memo.CacheApi
 import lila.user.{ User, UserRepo }
 
@@ -25,6 +28,20 @@ final class PuzzleApi(
 
     def delete(id: Puzzle.Id): Funit =
       colls.puzzle(_.delete.one($id(id.value))).void
+
+    def of(user: User, page: Int): Fu[Paginator[Puzzle]] =
+      colls.puzzle { coll =>
+        Paginator(
+          adapter = new Adapter[Puzzle](
+            collection = coll,
+            selector = $doc("users" -> user.id),
+            projection = none,
+            sort = $sort asc "glicko.r"
+          ),
+          page,
+          MaxPerPage(30)
+        )
+      }
   }
 
   object round {

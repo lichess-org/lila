@@ -74,8 +74,9 @@ object storm {
 
   def dashboard(user: User, history: Paginator[StormDay], high: StormHigh)(implicit ctx: Context) =
     views.html.base.layout(
+      title = s"${user.username} Puzzle Storm",
       moreCss = frag(cssTag("storm.dashboard")),
-      title = s"${user.username} Puzzle Storm"
+      moreJs = infiniteScrollTag
     )(
       main(cls := "storm-dashboard page-small")(
         div(cls := "storm-dashboard__high box box-pad")(
@@ -106,7 +107,7 @@ object storm {
                 th(trans.storm.runs())
               )
             ),
-            tbody(
+            tbody(cls := "infinite-scroll")(
               history.currentPageResults.map { day =>
                 tr(
                   td(showDate(day._id.day.toDate)),

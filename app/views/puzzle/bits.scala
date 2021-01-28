@@ -51,6 +51,9 @@ object bits {
       ),
       a(cls := active.active("history"), href := routes.Puzzle.history(1))(
         trans.puzzle.history()
+      ),
+      a(cls := active.active("player"), href := routes.Puzzle.ofPlayer())(
+        "From my games"
       )
     )
 
