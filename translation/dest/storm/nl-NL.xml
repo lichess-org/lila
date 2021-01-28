@@ -27,7 +27,7 @@
   <string name="puzzlesPlayed">Gespeelde puzzels</string>
   <string name="newRun">Nieuwe sessie (sneltoets: Spatiebalk)</string>
   <string name="endRun">Sessie stoppen (sneltoets: Enter)</string>
-  <string name="highscores">Records</string>
+  <string name="highscores">Topscores</string>
   <string name="viewBestRuns">Bekijk beste sessies</string>
   <string name="bestRunOfDay">Beste sessie van de dag</string>
   <string name="runs">Sessies</string>
