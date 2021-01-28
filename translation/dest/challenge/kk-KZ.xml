@@ -8,4 +8,8 @@
   <string name="registerToSendChallenges">Ойынға шақыру үшін тіркеліңіз.</string>
   <string name="youCannotChallengeX">Сіз %s шақыра алмайсыз.</string>
   <string name="xDoesNotAcceptChallenges">%s шақыруды қабылдамады.</string>
+  <string name="yourXRatingIsTooFarFromY">Сіз %1$s рейтингіңіз %2$s-дан тым алшақ.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">%s рейтингіңіз – болжамалы, сондықтан ойынға шақыра алмайсыз.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s тек достардың шақыруын қабылдайды.</string>
+  <string name="declineGeneric">Мен әзірше шақыруларды қабылдамаймын.</string>
 </resources>
