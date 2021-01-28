@@ -12,6 +12,8 @@
   <string name="noTeamFound">Δε βρέθηκε ομάδα</string>
   <string name="joinTeam">Συμμετοχή στην ομάδα</string>
   <string name="quitTeam">Αποχώρηση από την ομάδα</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Χειροκίνητη εξέταση αιτήσεων εισαγωγής</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Αν ενεργοποιηθεί, οι παίκτες θα πρέπει να γράψουν μια αίτηση για να συμμετάσχουν στην ομάδα, την οποία μπορείτε να απορρίψετε ή να αποδεχτείτε.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Αρχηγός ομάδας</item>
     <item quantity="other">Αρχηγοί ομάδας</item>
@@ -41,4 +43,8 @@
   <string name="leadersChat">Chat αρχηγών</string>
   <string name="closeTeam">Κλείστε την ομάδα</string>
   <string name="closeTeamDescription">Κλείνει την ομάδα για πάντα.</string>
+  <string name="teamPassword">Κωδικός ομάδας</string>
+  <string name="teamPasswordDescriptionForLeader">(Προαιρετικό) Ένας κωδικός πρόσβασης που πρέπει να γνωρίζουν τα νέα μέλη για να συμμετάσχουν σε αυτήν την ομάδα.</string>
+  <string name="incorrectTeamPassword">Εσφαλμένος κωδικός ομάδας.</string>
+  <string name="teamAlreadyExists">Αυτή η ομάδα υπάρχει ήδη.</string>
 </resources>
