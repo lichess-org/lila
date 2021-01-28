@@ -3,8 +3,8 @@
   <string name="puzzlesSolved">puzzle-uri rezolvate</string>
   <string name="playAgain">Jucați din nou</string>
   <string name="score">Scor</string>
-  <string name="moves" comment="moves in this context means your &quot;total moves&quot; you made in your previous puzzle storm attempt. It is displayed after completing one puzzle storm together with your other stats">Mutări</string>
-  <string name="accuracy" comment="accuracy is displayed after completing one puzzle rush together with your other stats">Acuratețe</string>
-  <string name="time" comment="time in this context means the total time that has passed in your previous run. The string is displayed after completing one puzzle rush">Timp</string>
+  <string name="moves">Mutări</string>
+  <string name="accuracy">Acuratețe</string>
+  <string name="time">Timp</string>
   <string name="timePerMove">Timp per mutare</string>
 </resources>
