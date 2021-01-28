@@ -8,6 +8,14 @@
   <string name="newAllTimeHighscore">Νέο υψηλότερο σκορ όλων των εποχών!</string>
   <string name="previousHighscoreWasX">Προηγούμενο υψηλότερο σκορ %s</string>
   <string name="playAgain">Παίξτε ξανά</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 γύρος</item>
+    <item quantity="other">%s γύροι</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Παίχθηκε ένας γύρος από %2$s</item>
+    <item quantity="other">Παίχθηκαν %1$s γύροι από %2$s</item>
+  </plurals>
   <string name="highscoreX">Υψηλότερο σκορ: %s</string>
   <string name="score">Βαθμολογία</string>
   <string name="moves">Κινήσεις</string>
