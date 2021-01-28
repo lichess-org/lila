@@ -8,4 +8,6 @@
   <string name="newAllTimeHighscore">新的历史最高分！</string>
   <string name="previousHighscoreWasX">上一次最高得分是 %s</string>
   <string name="playAgain">再来一局</string>
+  <string name="score">得分</string>
+  <string name="combo" comment="combo in this case means your &quot;best combo&quot; after completing a run of puzzle storm.">连击</string>
 </resources>
