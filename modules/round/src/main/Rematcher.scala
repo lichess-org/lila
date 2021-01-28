@@ -2,7 +2,7 @@ package lila.round
 
 import chess.format.Forsyth
 import chess.variant._
-import chess.{ Game => ChessGame, Board, Color => ChessColor, Clock, Situation, Data }
+import chess.{ Game => ChessGame, Board, Color => ChessColor, Clock, Situation, Data, StartingPosition }
 import ChessColor.{ Black, White }
 import com.github.blemale.scaffeine.Cache
 import lila.memo.CacheApi
@@ -98,6 +98,7 @@ final private class Rematcher(
   private def returnGame(pov: Pov): Fu[Game] =
     for {
       initialFen <- gameRepo initialFen pov.game
+      isHandicap = if (pov.game.variant == Standard) false else StartingPosition isFENHandicap initialFen
       situation = initialFen flatMap { fen =>
         Forsyth <<< fen.value
       }
@@ -120,8 +121,8 @@ final private class Rematcher(
           turns = situation ?? (_.turns),
           startedAtTurn = situation ?? (_.turns)
         ),
-        whitePlayer = returnPlayer(pov.game, White, users),
-        blackPlayer = returnPlayer(pov.game, Black, users),
+        whitePlayer = returnPlayer(pov.game, White, users, !isHandicap),
+        blackPlayer = returnPlayer(pov.game, Black, users, !isHandicap),
         mode = if (users.exists(_.lame)) chess.Mode.Casual else pov.game.mode,
         source = pov.game.source | Source.Lobby,
         daysPerTurn = pov.game.daysPerTurn,
@@ -129,13 +130,15 @@ final private class Rematcher(
       ) withUniqueId idGenerator
     } yield game
 
-  private def returnPlayer(game: Game, color: ChessColor, users: List[User]): lila.game.Player =
+  private def returnPlayer(game: Game, color: ChessColor, users: List[User], switchSides: Boolean): lila.game.Player =
     game.opponent(color).aiLevel match {
       case Some(ai) => lila.game.Player.make(color, ai.some)
       case None =>
         lila.game.Player.make(
           color,
-          game.opponent(color).userId.flatMap { id =>
+          game.player(
+            if (switchSides) !color else color
+          ).userId.flatMap { id =>
             users.find(_.id == id)
           },
           PerfPicker.mainOrDefault(game)

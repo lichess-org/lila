@@ -32,11 +32,11 @@ object SimulForm {
 
   val colors = List("white", "random", "black")
   val colorChoices = List(
-    "white"  -> "Sente",
+    "white"  -> "Sente/Shitate",
     "random" -> "Random",
-    "black"  -> "Gote"
+    "black"  -> "Gote/Uwate"
   )
-  val colorDefault = "white"
+  val colorDefault = "black"
 
   private def nameType(host: User) =
     clean(text).verifying(
