@@ -10,6 +10,7 @@
   <string name="puzzlesPlayed">Riešené úlohy</string>
   <string name="newRun">Nový pokus (kláves. skratka: Medzerník)</string>
   <string name="endRun">Ukončiť pokus (kláves. skratka: Enter)</string>
+  <string name="highscores">Najvyššie skóre</string>
   <string name="viewBestRuns">Prezrieť najlepšie pokusy</string>
   <string name="bestRunOfDay">Najlepší pokus dňa</string>
   <string name="runs">Pokusy</string>
