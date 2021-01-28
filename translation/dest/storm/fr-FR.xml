@@ -27,7 +27,7 @@
   <string name="puzzlesPlayed">Problèmes faits</string>
   <string name="newRun">Nouvel essai (raccourci clavier: Espace)</string>
   <string name="endRun">Terminer l\'essai (raccourci clavier: Entrée)</string>
-  <string name="highscores">Scores élevés</string>
+  <string name="highscores">Meilleurs scores</string>
   <string name="viewBestRuns">Voir les meilleurs essais</string>
   <string name="bestRunOfDay">Meilleur essai du jour</string>
   <string name="runs">Essais</string>
