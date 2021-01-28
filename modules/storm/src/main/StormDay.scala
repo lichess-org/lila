@@ -83,7 +83,8 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo, s
             }
         }
       } else {
-        logger.warn(s"badly signed run from ${u.username} $data")
+        if (data.score > 20)
+          logger.warn(s"badly signed run from ${u.username} $data")
         fuccess(none)
       }
     }
