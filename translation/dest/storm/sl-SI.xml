@@ -8,5 +8,10 @@
   <string name="timePerMove">Čas na potezo</string>
   <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Rejting najtežje pravilno rešene uganke</string>
   <string name="puzzlesPlayed">Igrane uganke</string>
+  <string name="newRun">Nova igra (bližnjična tipka: preslednica)</string>
+  <string name="endRun">Konec igre (bližnjična tipka: vnašalka)</string>
   <string name="highscores">Nojboljši rezultati</string>
+  <string name="viewBestRuns">Ogled najboljših iger</string>
+  <string name="bestRunOfDay">Najboljša igra dneva</string>
+  <string name="runs">Igre</string>
 </resources>
