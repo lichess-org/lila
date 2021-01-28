@@ -20,14 +20,13 @@
   <string name="score">Punktestand</string>
   <string name="moves">Züge</string>
   <string name="accuracy">Genauigkeit</string>
-  <string name="combo" comment="combo in this case means your &quot;best combo&quot; after completing a run of puzzle storm.">Kombination</string>
-  <string name="time" comment="time in this context means the total time that has passed in your previous run. The string is displayed after completing one puzzle rush">Zeit</string>
+  <string name="combo">Kombination</string>
+  <string name="time">Zeit</string>
   <string name="timePerMove">Zeit pro Zug</string>
   <string name="highestSolved">Schwierigste, gelöste Aufgabe</string>
   <string name="puzzlesPlayed">Gespielte Aufgaben</string>
   <string name="newRun">Neuer Durchlauf (drücke: Leertaste)</string>
-  <string name="endRun" comment="endRun&#10;&#10;If you want to end the run prematurely, you press enter">Beende den Durchlauf (drücke: Eingabetaste)</string>
-  <string name="puzzleStormHighscores">Puzzle Storm: Höchstwerte</string>
+  <string name="endRun">Beende den Durchlauf (drücke: Eingabetaste)</string>
   <string name="viewBestRuns">Schaue dir die besten Durchläufe an</string>
   <string name="bestRunOfDay">Bester Durchlauf des Tages</string>
   <string name="runs">Durchläufe</string>
