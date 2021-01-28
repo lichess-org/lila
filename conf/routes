@@ -106,6 +106,7 @@ POST  /training/difficulty/:theme      controllers.Puzzle.setDifficulty(theme: S
 GET   /storm                            controllers.Storm.home
 POST  /storm                            controllers.Storm.record
 GET   /storm/dashboard                  controllers.Storm.dashboard(page: Int ?= 1)
+GET   /storm/dashboard/:username        controllers.Storm.dashboardOf(username: String, page: Int ?= 1)
 
 # User Analysis
 GET   /analysis/help                   controllers.UserAnalysis.help

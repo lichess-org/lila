@@ -79,18 +79,18 @@ object side {
         showNonEmptyPerf(u.perfs.racingKings, PerfType.RacingKings),
         br,
         u.noBot option showPerf(u.perfs.puzzle, PerfType.Puzzle),
-        u.noBot option showStorm(u.perfs.storm)
+        u.noBot option showStorm(u.perfs.storm, u)
       )
     )
   }
 
-  private def showStorm(storm: lila.rating.Perf.Storm)(implicit lang: Lang) =
+  private def showStorm(storm: lila.rating.Perf.Storm, user: User)(implicit lang: Lang) =
     a(
       dataIcon := '~',
       cls := List(
         "empty" -> !storm.nonEmpty
       ),
-      href := routes.Storm.dashboard(),
+      href := routes.Storm.dashboardOf(user.username),
       span(
         h3("Puzzle Storm"),
         st.rating(

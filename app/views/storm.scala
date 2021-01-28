@@ -79,7 +79,14 @@ object storm {
     )(
       main(cls := "storm-dashboard page-small")(
         div(cls := "storm-dashboard__high box box-pad")(
-          h1("Puzzle Storm • ", trans.storm.highscores()),
+          h1(
+            !ctx.is(user) option frag(
+              userLink(user),
+              " • "
+            ),
+            "Puzzle Storm • ",
+            trans.storm.highscores()
+          ),
           div(cls := "storm-dashboard__high__periods highlight-alltime")(
             renderHigh(high)
           )
@@ -112,7 +119,16 @@ object storm {
                   td(numberTag(day.runs))
                 )
               },
-              pagerNextTable(history, np => addQueryParameter(routes.Storm.dashboard().url, "page", np))
+              pagerNextTable(
+                history,
+                np =>
+                  addQueryParameter(
+                    if (ctx is user) routes.Storm.dashboard().url
+                    else routes.Storm.dashboardOf(user.username).url,
+                    "page",
+                    np
+                  )
+              )
             )
           )
         )
