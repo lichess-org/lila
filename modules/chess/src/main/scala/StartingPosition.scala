@@ -9,13 +9,13 @@ case class StartingPosition(
     featurable: Boolean = true
 ) {
 
-  def url = s"https://en.wikipedia.org/wiki/$wikiPath"
+  val url = s"https://en.wikipedia.org/wiki/$wikiPath"
 
   val shortName = name takeWhile (':' !=)
 
-  def fullName = s"$eco - $name"
+  val fullName = s"$eco - $name"
 
-  def initial = fen == format.Forsyth.initial
+  val initial = fen == format.Forsyth.initial
 }
 
 object StartingPosition {
