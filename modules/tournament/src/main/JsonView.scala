@@ -368,14 +368,26 @@ final class JsonView(
   def getTeamStanding(tour: Tournament): Fu[Option[JsArray]] =
     tour.isTeamBattle ?? { teamStandingJsonCache get tour.id dmap some }
 
+  def apiTeamStanding(tour: Tournament): Fu[Option[JsArray]] =
+    tour.teamBattle ?? { battle =>
+      if (battle.hasTooManyTeams) bigTeamStandingJsonCache get tour.id dmap some
+      else teamStandingJsonCache get tour.id dmap some
+    }
+
   private val teamStandingJsonCache = cacheApi[Tournament.ID, JsArray](4, "tournament.teamStanding") {
     _.expireAfterWrite(500 millis)
-      .buildAsyncFuture { id =>
-        cached.battle.teamStanding.get(id) map { ranked =>
-          JsArray(ranked take TeamBattle.displayTeams map teamBattleRankedWrites.writes)
-        }
-      }
+      .buildAsyncFuture(fetchAndRenderTeamStandingJson)
   }
+
+  private val bigTeamStandingJsonCache = cacheApi[Tournament.ID, JsArray](4, "tournament.teamStanding.big") {
+    _.expireAfterWrite(2 seconds)
+      .buildAsyncFuture(fetchAndRenderTeamStandingJson)
+  }
+
+  private def fetchAndRenderTeamStandingJson(id: Tournament.ID) =
+    cached.battle.teamStanding.get(id) map { ranked =>
+      JsArray(ranked map teamBattleRankedWrites.writes)
+    }
 
   implicit private val teamBattleRankedWrites: Writes[TeamBattle.RankedTeam] = OWrites { rt =>
     Json.obj(
