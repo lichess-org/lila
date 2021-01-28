@@ -110,7 +110,7 @@
 	<string name="bestMoveArrow">最善手を表示</string>
 	<string name="evaluationGauge">評価値を表示</string>
 	<string name="multipleLines">解析ライン数</string>
-	<string name="cpus">CPU 数</string>
+	<string name="cpus">スレッド数</string>
 	<string name="memory">メモリ</string>
 	<string name="infiniteAnalysis">無限解析</string>
 	<string name="removesTheDepthLimit">探索手数の制限をなくし、できるかぎりの解析を行う</string>
@@ -328,6 +328,8 @@
 	<string name="importGame">棋譜をインポート</string>
 	<string name="importGameExplanation">ゲームの PGN を貼りつけると、ブラウザー上でのリプレイ、
 コンピューター解析、ゲームチャット、共有可能 URL が得られます。</string>
+	<string name="importGameKifuExplanation">ゲームの KIF を貼りつけると、ブラウザー上でのリプレイ、
+コンピューター解析、ゲームチャット、共有可能 URL が得られます。</string>
 	<plurals name="nbImportedGames">
 		<item quantity="other">%s 局をインポート</item>
 	</plurals>
@@ -512,7 +514,7 @@
 	<string name="newPasswordAgain">新しいパスワード（確認）</string>
 	<string name="clockInitialTime">初期持ち時間</string>
 	<string name="clockIncrement">追加時間</string>
-	<string name="clockByoyomi">秒読み</string>
+	<string name="clockByoyomi" comment="clockByoyomi&#10;&#10;https://lishogi.org/tournament/new">秒読み</string>
 	<string name="privacy">プライバシー（英文）</string>
 	<string name="letOtherPlayersFollowYou">他人からのフォローを可能にする</string>
 	<string name="letOtherPlayersChallengeYou">他人からの挑戦を可能にする</string>
@@ -722,6 +724,7 @@
 	<string name="directlySupportLishogi">Lishogi を直接支援</string>
 	<string name="playChessInStyle">グッズ購入</string>
 	<string name="chessBasics">将棋の基本</string>
+	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">コーチ</string>
 	<string name="invalidPgn">無効な PGN</string>
 	<string name="invalidFen">無効な FEN</string>

@@ -327,6 +327,8 @@
 	<string name="toStudy">研究</string>
 	<string name="importGame">導入棋局</string>
 	<string name="importGameExplanation">貼上PGN棋譜後可以重播棋局，使用電腦分析、對局聊天室及取得此棋局的分享連結。</string>
+	<string name="importGameKifuExplanation">Paste a game kifu to get a browsable replay,
+computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="other">已導入%s盤棋局</item>
 	</plurals>
@@ -721,6 +723,7 @@
 	<string name="directlySupportLishogi">Directly support Lishogi</string>
 	<string name="playChessInStyle">Play shogi in style</string>
 	<string name="chessBasics">Shogi basics</string>
+	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">教練</string>
 	<string name="invalidPgn">無效的PGN</string>
 	<string name="invalidFen">無效的FEN</string>

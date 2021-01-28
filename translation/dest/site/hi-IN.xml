@@ -351,6 +351,8 @@
 	<string name="importGame">Import game</string>
 	<string name="importGameExplanation">Paste a game PGN to get a browsable replay,
 computer analysis, game chat and shareable URL.</string>
+	<string name="importGameKifuExplanation">Paste a game kifu to get a browsable replay,
+computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s imported game</item>
 		<item quantity="other">%s imported games</item>
@@ -757,6 +759,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="directlySupportLishogi">Directly support Lishogi</string>
 	<string name="playChessInStyle">Play shogi in style</string>
 	<string name="chessBasics">Shogi basics</string>
+	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Coaches</string>
 	<string name="invalidPgn">Invalid PGN</string>
 	<string name="invalidFen">Invalid FEN</string>

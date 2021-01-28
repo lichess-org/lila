@@ -397,6 +397,8 @@
 	<string name="importGame">Принеси гру</string>
 	<string name="importGameExplanation">Встав PGN гру, аби отримати повтір в огляднику,
 обчислювального розбору, ігрову бесіду і ширильну ланку.</string>
+	<string name="importGameKifuExplanation">Paste a game kifu to get a browsable replay,
+computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s принесена гра</item>
 		<item quantity="few">%s пренесені ігри</item>
@@ -827,6 +829,7 @@
 	<string name="directlySupportLishogi">Directly support Lishogi</string>
 	<string name="playChessInStyle">Play shogi in style</string>
 	<string name="chessBasics">Shogi basics</string>
+	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Тренери</string>
 	<string name="invalidPgn">Неприпустимий PGN</string>
 	<string name="invalidFen">Неприпустимий FEN</string>

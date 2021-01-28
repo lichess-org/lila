@@ -351,6 +351,8 @@
 	<string name="importGame">Εισαγωγή παιχνιδιού</string>
 	<string name="importGameExplanation">Επικολλήστε PGN παιχνιδιού για να δημιουργήσετε περιηγήσιμη αναπαραγωγή, 
 ανάλυση από υπολογιστή, συνομιλία παιχνιδιού και κοινόχρηστο URL.</string>
+	<string name="importGameKifuExplanation">Paste a game kifu to get a browsable replay,
+computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s Εισαγόμενο παιχνίδι</item>
 		<item quantity="other">%s Εισαγόμενα παιχνίδια</item>
@@ -757,6 +759,7 @@
 	<string name="directlySupportLishogi">Directly support Lishogi</string>
 	<string name="playChessInStyle">Play shogi in style</string>
 	<string name="chessBasics">Shogi basics</string>
+	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Προπονητές</string>
 	<string name="invalidPgn">Μη έγκυρο PGN</string>
 	<string name="invalidFen">Μη έγκυρο FEN</string>

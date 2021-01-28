@@ -241,7 +241,7 @@
 	<string name="confirmMove">Confirmer le coup</string>
 	<string name="play">Jouer</string>
 	<string name="inbox">Boîte de réception</string>
-	<string name="streamerManager">Streamer manager</string>
+	<string name="streamerManager">Gestionnaire de streamer</string>
 	<string name="chatRoom">Salon de discussion</string>
 	<string name="loginToChat">Connectez-vous pour discuter</string>
 	<string name="youHaveBeenTimedOut">Vous avez été suspendu temporairement.</string>
@@ -350,6 +350,7 @@
 	<string name="toStudy">Étude</string>
 	<string name="importGame">Importer une partie</string>
 	<string name="importGameExplanation">Quand vous collez une partie en PGN vous pouvez la rejouer, consulter l\'analyse de l\'ordinateur, utiliser le tchat et partager le lien.</string>
+	<string name="importGameKifuExplanation">Quand vous collez le kifu d\'une partie, vous pourrez la rejouer, consulter l\'analyse de l\'ordinateur, accéder au tchat, et obtenir un lien pour la partager.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s partie importée</item>
 		<item quantity="other">%s parties importées</item>
@@ -440,7 +441,7 @@
 	<string name="handicaps">Handicaps</string>
 	<string name="startPosition">Position de départ</string>
 	<string name="clearBoard">Vider l\'échiquier</string>
-	<string name="fillGotesHand">Fill Gote\'s hand</string>
+	<string name="fillGotesHand">Remplir la main de gote</string>
 	<string name="savePosition">Enregistrer la position</string>
 	<string name="loadPosition">Charger une position</string>
 	<string name="isPrivate">Privé</string>
@@ -541,7 +542,7 @@
 	<string name="newPasswordAgain">Nouveau mot de passe (encore)</string>
 	<string name="clockInitialTime">Capital temps initial à la pendule</string>
 	<string name="clockIncrement">Incrément de la pendule</string>
-	<string name="clockByoyomi">Clock byoyomi</string>
+	<string name="clockByoyomi" comment="clockByoyomi&#10;&#10;https://lishogi.org/tournament/new">Byoyomi</string>
 	<string name="privacy">Confidentialité</string>
 	<string name="letOtherPlayersFollowYou">Autoriser les autres joueurs à vous suivre</string>
 	<string name="letOtherPlayersChallengeYou">Autoriser les autres joueurs à vous défier</string>
@@ -756,6 +757,7 @@
 	<string name="directlySupportLishogi">Financer Lishogi</string>
 	<string name="playChessInStyle">Jouez au shogi avec classe</string>
 	<string name="chessBasics">Bases du shogi</string>
+	<string name="shogiResources">Ressources pour le shogi</string>
 	<string name="coaches">Entraîneurs</string>
 	<string name="invalidPgn">PGN non valide</string>
 	<string name="invalidFen">FEN non valide</string>

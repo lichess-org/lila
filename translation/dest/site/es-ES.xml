@@ -350,6 +350,8 @@
 	<string name="toStudy">Estudiar</string>
 	<string name="importGame">Importar partida</string>
 	<string name="importGameExplanation">Al pegar el PGN de una partida, se obtiene una repetición navegable, un análisis por ordenador, un chat de juego y un enlace para compartir.</string>
+	<string name="importGameKifuExplanation">Paste a game kifu to get a browsable replay,
+computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s partida importada</item>
 		<item quantity="other">%s partidas importadas</item>
@@ -756,6 +758,7 @@
 	<string name="directlySupportLishogi">Apoyar económicamente a Lishogi</string>
 	<string name="playChessInStyle">Juega al shogi con estilo</string>
 	<string name="chessBasics">Fundamentos de shogi</string>
+	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Entrenadores</string>
 	<string name="invalidPgn">PGN inválido</string>
 	<string name="invalidFen">FEN inválido</string>

@@ -350,6 +350,8 @@
 	<string name="toStudy">Çalışma oluştur</string>
 	<string name="importGame">Oyun yükle</string>
 	<string name="importGameExplanation">Göz atılabilir bir oyun tekrarı, bilgisayar analizi, oyun sohbeti ve paylaşılabilir bir URL edinmek için bir oyun PGN\'si yapıştırın.</string>
+	<string name="importGameKifuExplanation">Paste a game kifu to get a browsable replay,
+computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s yüklenen oyun</item>
 		<item quantity="other">%s yüklenen oyun</item>
@@ -756,6 +758,7 @@
 	<string name="directlySupportLishogi">Directly support Lishogi</string>
 	<string name="playChessInStyle">Play shogi in style</string>
 	<string name="chessBasics">Shogi basics</string>
+	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Eğitmenler</string>
 	<string name="invalidPgn">Geçersiz PGN</string>
 	<string name="invalidFen">Geçersiz FEN</string>

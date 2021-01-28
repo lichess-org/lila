@@ -442,6 +442,8 @@
 	<string name="toStudy">دراسة</string>
 	<string name="importGame">استورد مباراة</string>
 	<string name="importGameExplanation">عند لصق مباراة PGN تحصل على إمكانية كرار استعراضها وتحليل حاسوبي ودردشة للمباراة ورابط قابل للمشاركة.</string>
+	<string name="importGameKifuExplanation">Paste a game kifu to get a browsable replay,
+computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="zero">مباراة مستوردة %s</item>
 		<item quantity="one">مباراة مستوردة %s</item>
@@ -896,6 +898,7 @@
 	<string name="directlySupportLishogi">Directly support Lishogi</string>
 	<string name="playChessInStyle">Play shogi in style</string>
 	<string name="chessBasics">Shogi basics</string>
+	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">المدربين</string>
 	<string name="invalidPgn">ملف بي جي ان غير صالح</string>
 	<string name="invalidFen">FEN غير صالح</string>

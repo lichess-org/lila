@@ -374,6 +374,8 @@
 	<string name="importGame">Увези игру</string>
 	<string name="importGameExplanation">Кад прекопирате партију у PGN-у, отвори се табла за поновно проигравање,
 рачунарска анализа, прозор за ћаскање и адреса странице коју можете поделити.</string>
+	<string name="importGameKifuExplanation">Paste a game kifu to get a browsable replay,
+computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s увезена игра</item>
 		<item quantity="few">%s увезене игре</item>
@@ -792,6 +794,7 @@
 	<string name="directlySupportLishogi">Directly support Lishogi</string>
 	<string name="playChessInStyle">Play shogi in style</string>
 	<string name="chessBasics">Shogi basics</string>
+	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Тренери</string>
 	<string name="invalidPgn">Неважећи ПГН</string>
 	<string name="invalidFen">Неважећи ФЕН</string>
