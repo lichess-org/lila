@@ -17,9 +17,9 @@
   <string name="bishopEndgame">Слоновый эндшпиль</string>
   <string name="bishopEndgameDescription">Эндшпиль, где присутствуют лишь слоны и пешки.</string>
   <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Мат Бодена</string>
-  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Два слона с пересекающихся диагоналей ставят мат вражескому королю, окружённому собственными фигурами.</string>
+  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Два слона на скрещённых диагоналях ставят мат вражескому королю, окружённому собственными фигурами.</string>
   <string name="castling">Рокировка</string>
-  <string name="castlingDescription">Поместите короля в надёжное место и выведите в бой ладью.</string>
+  <string name="castlingDescription">Помещение короля в надёжное место и вывод в бой ладьи.</string>
   <string name="capturingDefender">Уничтожение защитника</string>
   <string name="capturingDefenderDescription">Избавьтесь от фигуры, защищающей другую фигуру, с последующим взятием фигуры, оставшейся без защиты.</string>
   <string name="crushing">Разгром</string>
@@ -61,8 +61,8 @@
   <string name="knightEndgameDescription">Эндшпиль, в котором на доске остались только кони и пешки.</string>
   <string name="long">Многоходовая задача</string>
   <string name="longDescription">Три хода до победы.</string>
-  <string name="master">Партии мастеров</string>
-  <string name="masterDescription">Задачи из партий титулованных шахматистов.</string>
+  <string name="master">Партии с мастерами</string>
+  <string name="masterDescription">Задачи из партий с участием титулованных игроков.</string>
   <string name="masterVsMaster">Партии мастеров</string>
   <string name="masterVsMasterDescription">Задачи из партий, сыгранных титулованными игроками.</string>
   <string name="mate">Мат</string>
