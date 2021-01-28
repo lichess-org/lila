@@ -37,7 +37,7 @@ final private class Limiter(
     }
 
   private val maxPerDay  = 30
-  private val maxPerWeek = 120
+  private val maxPerWeek = 150
 
   private def perDayCheck(sender: Work.Sender) =
     sender match {
@@ -46,7 +46,7 @@ final private class Limiter(
         def perUser =
           requesterApi.countTodayAndThisWeek(userId) map { case (daily, weekly) =>
             weekly < maxPerWeek &&
-              daily < (if (weekly < maxPerWeek / 2) maxPerDay else maxPerDay / 2)
+              daily < (if (weekly < maxPerWeek * 2 / 3) maxPerDay else maxPerDay * 2 / 3)
           }
         ip.fold(perUser) { ipAddress =>
           RequestLimitPerIP(ipAddress, cost = 1)(perUser)(fuccess(false))
