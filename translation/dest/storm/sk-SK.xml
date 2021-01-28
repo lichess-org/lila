@@ -3,4 +3,10 @@
   <string name="score">Skóre</string>
   <string name="moves" comment="moves in this context means your &quot;total moves&quot; you made in your previous puzzle storm attempt. It is displayed after completing one puzzle storm together with your other stats">Počet ťahov</string>
   <string name="accuracy" comment="accuracy is displayed after completing one puzzle rush together with your other stats">Úspešnosť</string>
+  <string name="combo" comment="combo in this case means your &quot;best combo&quot; after completing a run of puzzle storm.">Kombo</string>
+  <string name="time" comment="time in this context means the total time that has passed in your previous run. The string is displayed after completing one puzzle rush">Čas</string>
+  <string name="timePerMove">Čas na ťah</string>
+  <string name="highestSolved">Najťažšia vyriešená úloha</string>
+  <string name="puzzlesPlayed">Riešené úlohy</string>
+  <string name="newRun">Nový pokus (kláves. skratka: Medzerník)</string>
 </resources>
