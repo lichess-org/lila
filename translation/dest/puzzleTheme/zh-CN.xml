@@ -54,7 +54,7 @@
   <string name="hookMate">勾杀</string>
   <string name="hookMateDescription">用车、马、兵杀棋，对方的兵限制王逃跑</string>
   <string name="interference">拦截</string>
-  <string name="interferenceDescription">走动一个棋子到在两个对手棋子之间，以使一个或两个对手棋子保持不设防状态，例如在两个车之间的防守格上的一个马。</string>
+  <string name="interferenceDescription">走动一个棋子到对手的两个棋子之间，使一个或两个对手棋子处于不设防状态，例如将一个马走到两个车之间的防守格上。</string>
   <string name="intermezzo">过渡着</string>
   <string name="intermezzoDescription">首先，不走预期的着法，而走另一着棋，这将构成对手必须应着的直接威胁。</string>
   <string name="knightEndgame">马残局</string>
@@ -104,7 +104,7 @@
   <string name="short">短谜题</string>
   <string name="shortDescription">两步胜</string>
   <string name="skewer">串击</string>
-  <string name="skewerDescription">高价值的棋子被攻击，移开并允许其后方的较低价值的棋子被吃或被攻击（牵制的反面）。</string>
+  <string name="skewerDescription">攻击对方高价值的棋子，使其走开并允许其后方的较低价值的棋子被吃或被攻击（牵制的反面）。</string>
   <string name="smotheredMate">闷杀</string>
   <string name="smotheredMateDescription">由马完成的将杀，王被自己的棋子包围（或困住），因此无法移动。</string>
   <string name="superGM">超级大师对局</string>
