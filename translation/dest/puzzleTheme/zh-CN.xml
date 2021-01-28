@@ -51,7 +51,7 @@
   <string name="forkDescription">走一步棋使走动的棋子同时攻击对方的两个棋子</string>
   <string name="hangingPiece">得子</string>
   <string name="hangingPieceDescription">涉及对方无根或少根的棋子，可以随意吃掉它</string>
-  <string name="hookMate">车杀棋</string>
+  <string name="hookMate">勾杀</string>
   <string name="hookMateDescription">用车、马、兵杀棋，对方的兵限制王逃跑</string>
   <string name="interference">拦截</string>
   <string name="interferenceDescription">走动一个棋子到在两个对手棋子之间，以使一个或两个对手棋子保持不设防状态，例如在两个车之间的防守格上的一个马。</string>
@@ -83,7 +83,7 @@
   <string name="oneMoveDescription">只有一步棋的谜题</string>
   <string name="opening">开局</string>
   <string name="openingDescription">对局第一阶段的战术</string>
-  <string name="pawnEndgame">王兵残局</string>
+  <string name="pawnEndgame">兵残局</string>
   <string name="pawnEndgameDescription">只有兵的残局</string>
   <string name="pin">牵制</string>
   <string name="pinDescription">一种涉及牵制的策略，一个棋子不能移动否则背后更高价值棋子将被攻击</string>
