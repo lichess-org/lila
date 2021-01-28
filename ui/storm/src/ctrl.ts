@@ -1,6 +1,7 @@
 import * as xhr from './xhr';
 import config from './config';
 import makePromotion from './promotion';
+import sign from './sign';
 import { Api as CgApi } from 'chessground/api';
 import { Chess } from 'chessops/chess';
 import { chessgroundDests } from 'chessops/compat';
@@ -38,11 +39,12 @@ export default class StormCtrl {
         moves: 0,
         errors: 0
       },
+      signed: prop(undefined)
     };
     this.promotion = makePromotion(this.withGround, this.makeCgOpts, redraw);
     this.checkDupTab();
     setTimeout(this.hotkeys, 1000);
-    if (this.data.key) setTimeout(this.signKey, 1000 * 60);
+    if (this.data.key) setTimeout(() => sign(this.data.key!).then(this.vm.signed), 1000 * 60);
   }
 
   clockMillis = (): number | undefined =>
@@ -220,7 +222,7 @@ export default class StormCtrl {
     combo: this.vm.comboBest,
     time: (this.vm.run.endAt! - this.vm.run.startAt) / 1000,
     highest: this.vm.history.reduce((h, r) => r.win && r.puzzle.rating > h ? r.puzzle.rating : h, 0),
-    signed: this.data.signed
+    signed: this.vm.signed()
   });
 
   private showGround = (g: CgApi): void => g.set(this.makeCgOpts());
@@ -253,12 +255,5 @@ export default class StormCtrl {
     window.Mousetrap
       .bind('space', () => location.reload())
       .bind('return', this.end);
-  }
-
-  private signKey = () => {
-    lichess.socket.send('sk1', this.data.key!);
-    lichess.pubsub.on('socket.in.sk1', signed => {
-      this.data.signed = signed;
-    })
   }
 }
