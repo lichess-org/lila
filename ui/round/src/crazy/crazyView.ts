@@ -20,6 +20,8 @@ export default function pocket(
     return;
   }
   const droppedRole = ctrl.justDropped,
+    dropMode = ctrl.shogiground?.state.dropmode,
+    dropPiece = ctrl.shogiground?.state.dropmode.piece,
     shadowPiece = ctrl.shogiground?.state.drawable.piece,
     preDropRole = ctrl.preDrop,
     pocket = step.crazy.pockets[color === "white" ? 0 : 1],
@@ -75,7 +77,8 @@ export default function pocket(
     pieceRoles.map((role) => {
       let nb = pocket[role] || 0;
       const sp = (role == shadowPiece?.role && color == shadowPiece?.color);
-      const selectedSquare : boolean = (!!ctrl.selected && ctrl.selected[0] === color && ctrl.selected[1] === role);
+      const selectedSquare = (dropMode?.active &&
+        dropPiece?.role == role && dropPiece?.color == color); 
       if (activeColor) {
         if (droppedRole === role) nb--;
         if (captured === role) nb++;

@@ -203,5 +203,3 @@ export interface CheckCount {
   white: number;
   black: number;
 }
-
-export type Selected = undefined | [cg.Color, cg.Role];

@@ -44,8 +44,7 @@ import {
   SocketOpts,
   MoveMetadata,
   Position,
-  NvuiPlugin,
-  Selected,
+  NvuiPlugin
 } from "./interfaces";
 import { cancelDropMode } from "shogiground/drop";
 import { notationStyle } from "shogiutil/notation";
@@ -91,8 +90,6 @@ export default class RoundController {
   preDrop?: cg.Role;
   lastDrawOfferAtPly?: Ply;
   nvui?: NvuiPlugin;
-
-  selected: Selected = undefined;
 
   private music?: any;
 
@@ -194,7 +191,6 @@ export default class RoundController {
       this.sendNewPiece(role, key, !!meta.predrop);
     } else this.jump(this.ply);
     cancelDropMode(this.shogiground.state);
-    this.selected = undefined;
     this.redraw();
   };
 
@@ -205,6 +201,7 @@ export default class RoundController {
         atomic.capture(this, dest);
       } else sound.capture();
     } else sound.move();
+    cancelDropMode(this.shogiground.state);
   };
 
   private onPremove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {

@@ -52,12 +52,12 @@ export function selectToDrop(ctrl: RoundController, e: cg.MouchEvent): void {
     color = el.getAttribute("data-color") as cg.Color,
     number = el.getAttribute("data-nb");
   if (!role || !color || number === "0") return;
-  if(!ctrl.selected || ctrl.selected[1] !== role){
+  const dropMode = ctrl.shogiground?.state.dropmode;
+  const dropPiece = ctrl.shogiground?.state.dropmode.piece;
+  if(!dropMode.active || dropPiece?.role !== role){
     setDropMode(ctrl.shogiground.state, { color, role });
-    ctrl.selected = [color, role];
   }
   else{
-    ctrl.selected = undefined;
     cancelDropMode(ctrl.shogiground.state);
   }
   e.stopPropagation();
