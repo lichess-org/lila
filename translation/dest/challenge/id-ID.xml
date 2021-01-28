@@ -16,4 +16,10 @@
   <string name="declineTooFast">Kecepatan waktu terlalu cepat untukku, harap tantang lagi dengan waktu permainan yang lebih lambat.</string>
   <string name="declineTooSlow">Kecepatan waktu terlalu lama untukku, harap tantang lagi dengan waktu permainan yang lebih cepat.</string>
   <string name="declineTimeControl">Saya tidak menerima tantangan dengan waktu permainan seperti ini.</string>
+  <string name="declineRated">Tolong tantang aku dengan permainan di rating.</string>
+  <string name="declineCasual">Tolong tantang aku dengan permainan yang santai.</string>
+  <string name="declineStandard">Saya tidak menerima tantangan variasi sekarang.</string>
+  <string name="declineVariant">Saya tidak ingin bermain variasi ini sekarang.</string>
+  <string name="declineNoBot">Saya tidak menerima tantangan dari bot.</string>
+  <string name="declineOnlyBot">Saya hanya menerima tantangan dari bot.</string>
 </resources>
