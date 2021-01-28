@@ -18,16 +18,16 @@
   </plurals>
   <string name="highscoreX">Puntuación más alta: %s</string>
   <string name="score">Puntuación</string>
-  <string name="moves" comment="moves in this context means your &quot;total moves&quot; you made in your previous puzzle storm attempt. It is displayed after completing one puzzle storm together with your other stats">Movimientos</string>
-  <string name="accuracy" comment="accuracy is displayed after completing one puzzle rush together with your other stats">Precisión</string>
-  <string name="combo" comment="combo in this case means your &quot;best combo&quot; after completing a run of puzzle storm.">Combo</string>
-  <string name="time" comment="time in this context means the total time that has passed in your previous run. The string is displayed after completing one puzzle rush">Tiempo</string>
+  <string name="moves">Movimientos</string>
+  <string name="accuracy">Precisión</string>
+  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Combo</string>
+  <string name="time">Tiempo</string>
   <string name="timePerMove">Tiempo por movimiento</string>
-  <string name="highestSolved">Ejercicio de mayor dificultad resuelto</string>
+  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Ejercicio de mayor dificultad resuelto</string>
   <string name="puzzlesPlayed">Ejercicios hechos</string>
   <string name="newRun">Nueva ronda (tecla: Espacio)</string>
-  <string name="endRun" comment="endRun&#10;&#10;If you want to end the run prematurely, you press enter">Finalizar ronda (tecla: Enter)</string>
-  <string name="puzzleStormHighscores">Puntuaciones más altas de las rondas de ejercicios</string>
+  <string name="endRun">Finalizar ronda (tecla: Enter)</string>
+  <string name="highscores">Puntuaciones más altas</string>
   <string name="viewBestRuns">Ver las mejores rondas</string>
   <string name="bestRunOfDay">Mejor ronda del día</string>
   <string name="runs">Rondas</string>

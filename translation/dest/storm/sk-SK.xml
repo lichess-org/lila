@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="score">Skóre</string>
-  <string name="moves" comment="moves in this context means your &quot;total moves&quot; you made in your previous puzzle storm attempt. It is displayed after completing one puzzle storm together with your other stats">Počet ťahov</string>
-  <string name="accuracy" comment="accuracy is displayed after completing one puzzle rush together with your other stats">Úspešnosť</string>
+  <string name="moves">Počet ťahov</string>
+  <string name="accuracy">Úspešnosť</string>
+  <string name="combo">Kombo</string>
+  <string name="time">Čas</string>
+  <string name="timePerMove">Čas na ťah</string>
+  <string name="highestSolved">Najťažšia vyriešená úloha</string>
+  <string name="puzzlesPlayed">Riešené úlohy</string>
+  <string name="newRun">Nový pokus (kláves. skratka: Medzerník)</string>
+  <string name="endRun">Ukončiť pokus (kláves. skratka: Enter)</string>
+  <string name="highscores">Najvyššie skóre</string>
+  <string name="viewBestRuns">Prezrieť najlepšie pokusy</string>
+  <string name="bestRunOfDay">Najlepší pokus dňa</string>
+  <string name="runs">Pokusy</string>
 </resources>

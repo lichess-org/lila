@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="score">Rezultat</string>
+  <string name="moves">Poteze</string>
+  <string name="accuracy">Točnost</string>
+  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Zaporedje pravilnih potez</string>
+  <string name="time">Čas</string>
+  <string name="timePerMove">Čas na potezo</string>
+  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Rejting najtežje pravilno rešene uganke</string>
+  <string name="puzzlesPlayed">Igrane uganke</string>
+  <string name="newRun">Nova igra (bližnjična tipka: preslednica)</string>
+  <string name="endRun">Konec igre (bližnjična tipka: vnašalka)</string>
+  <string name="highscores">Nojboljši rezultati</string>
+  <string name="viewBestRuns">Ogled najboljših iger</string>
+  <string name="bestRunOfDay">Najboljša igra dneva</string>
+  <string name="runs">Igre</string>
+</resources>

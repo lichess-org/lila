@@ -16,16 +16,16 @@
   </plurals>
   <string name="highscoreX">最高分： %s</string>
   <string name="score">得分</string>
-  <string name="moves" comment="moves in this context means your &quot;total moves&quot; you made in your previous puzzle storm attempt. It is displayed after completing one puzzle storm together with your other stats">着法</string>
-  <string name="accuracy" comment="accuracy is displayed after completing one puzzle rush together with your other stats">准确度</string>
-  <string name="combo" comment="combo in this case means your &quot;best combo&quot; after completing a run of puzzle storm.">连击</string>
-  <string name="time" comment="time in this context means the total time that has passed in your previous run. The string is displayed after completing one puzzle rush">时间</string>
+  <string name="moves">着法</string>
+  <string name="accuracy">准确度</string>
+  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">连击</string>
+  <string name="time">时间</string>
   <string name="timePerMove">平均着法时间</string>
-  <string name="highestSolved">最难解决的谜题</string>
+  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">最难解决的谜题</string>
   <string name="puzzlesPlayed">玩过的谜题</string>
   <string name="newRun">开始新的一组(快捷键：空格)</string>
-  <string name="endRun" comment="endRun&#10;&#10;If you want to end the run prematurely, you press enter">结束本组(快捷键：回车)</string>
-  <string name="puzzleStormHighscores">谜题风暴高分榜</string>
+  <string name="endRun">结束本组(快捷键：回车)</string>
+  <string name="highscores">高分榜</string>
   <string name="viewBestRuns">查看最佳战绩</string>
   <string name="bestRunOfDay">每日最佳战绩</string>
   <string name="runs">组数</string>

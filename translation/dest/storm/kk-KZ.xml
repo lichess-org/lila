@@ -1,2 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart">Бастау үшін жүріңіз</string>
+  <string name="puzzlesSolved">жұмбақ шешілді</string>
+  <string name="newDailyHighscore">Жаңа күндік рекорд!</string>
+  <string name="newWeeklyHighscore">Жаңа апталық рекорд!</string>
+  <string name="newMonthlyHighscore">Жаңа айлық рекорд!</string>
+  <string name="newAllTimeHighscore">Жаңа рекорд!</string>
+  <string name="previousHighscoreWasX">Алдыңғы рекорд %s</string>
+  <string name="playAgain">Қайтадан ойнау</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 кезең</item>
+    <item quantity="other">%s кезең</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">%2$s кезеңнің бірі ойналды</item>
+    <item quantity="other">%2$s кезеңнің %1$s ойналды</item>
+  </plurals>
+  <string name="highscoreX">Рекорд: %s</string>
+  <string name="score">Ұпай</string>
+  <string name="moves">Жүрістер</string>
+  <string name="accuracy">Дәлдік</string>
+  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Комбо</string>
+  <string name="time">Уақыт</string>
+  <string name="timePerMove">Бір жүріс уақыты</string>
+  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Шешілген ең жоғарғы рейтинг</string>
+  <string name="puzzlesPlayed">Ойналған жұмбақтар</string>
+  <string name="newRun">Жаңа кезең (жылдам перне: бос орын)</string>
+  <string name="endRun">Кезеңді аяқтау (жылдам перне: Enter)</string>
+  <string name="highscores">Рекордтар</string>
+  <string name="viewBestRuns">Үздік кезеңдерді көру</string>
+  <string name="bestRunOfDay">Бір күннің үздік кезеңі</string>
+  <string name="runs">Кезеңдер</string>
+</resources>

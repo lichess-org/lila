@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="combo" comment="combo in this case means your &quot;best combo&quot; after completing a run of puzzle storm.">Ratxa</string>
+  <string name="combo">Ratxa</string>
 </resources>

@@ -19,4 +19,17 @@
     <item quantity="other">Odigrao %1$s rundi %2$s</item>
   </plurals>
   <string name="highscoreX">Najbolji rezultat: %s</string>
+  <string name="score">Rezultat</string>
+  <string name="moves">Potezi</string>
+  <string name="accuracy">Preciznost</string>
+  <string name="combo">Kombinirani niz</string>
+  <string name="time">Vrijeme</string>
+  <string name="timePerMove">Vrijeme po potezu</string>
+  <string name="highestSolved">Najviše riješeno</string>
+  <string name="puzzlesPlayed">Odigrani problemi</string>
+  <string name="newRun">Nova tura (tipka: razmaknica)</string>
+  <string name="endRun">Završite turu (tipka: Enter)</string>
+  <string name="viewBestRuns">Pogledajte najbolje ture</string>
+  <string name="bestRunOfDay">Najbolja tura dana</string>
+  <string name="runs">Ture</string>
 </resources>

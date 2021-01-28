@@ -15,14 +15,17 @@
     <item quantity="other">%2$s を %1$s 回プレイ</item>
   </plurals>
   <string name="highscoreX">ハイスコア：%s</string>
-  <string name="moves" comment="moves in this context means your &quot;total moves&quot; you made in your previous puzzle storm attempt. It is displayed after completing one puzzle storm together with your other stats">総手数</string>
-  <string name="accuracy" comment="accuracy is displayed after completing one puzzle rush together with your other stats">正解率</string>
-  <string name="time" comment="time in this context means the total time that has passed in your previous run. The string is displayed after completing one puzzle rush">経過時間</string>
+  <string name="score">スコア</string>
+  <string name="moves">総手数</string>
+  <string name="accuracy">正解率</string>
+  <string name="combo">連続正解手</string>
+  <string name="time">経過時間</string>
   <string name="timePerMove">１手あたりの時間</string>
   <string name="highestSolved">正解問題の最高レート</string>
   <string name="puzzlesPlayed">プレイした問題数</string>
   <string name="newRun">新たなストーム（スペースキー）</string>
-  <string name="endRun" comment="endRun&#10;&#10;If you want to end the run prematurely, you press enter">ストーム終了（Enter キー）</string>
-  <string name="puzzleStormHighscores">問題ストームのハイスコア</string>
+  <string name="endRun">ストーム終了（Enter キー）</string>
+  <string name="viewBestRuns">最高記録を表示</string>
   <string name="bestRunOfDay">今日の最高</string>
+  <string name="runs">回数</string>
 </resources>

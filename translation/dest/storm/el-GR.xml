@@ -1,2 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart">Μετάβαση στην αρχή</string>
+  <string name="puzzlesSolved">γρίφοι που λύθηκαν</string>
+  <string name="newDailyHighscore">Νέο ημερήσιο υψηλότερο σκορ!</string>
+  <string name="newWeeklyHighscore">Νέο εβδομαδιαίο υψηλότερο σκορ!</string>
+  <string name="newMonthlyHighscore">Νέο μηνιαίο υψηλότερο σκορ!</string>
+  <string name="newAllTimeHighscore">Νέο υψηλότερο σκορ όλων των εποχών!</string>
+  <string name="previousHighscoreWasX">Προηγούμενο υψηλότερο σκορ %s</string>
+  <string name="playAgain">Παίξτε ξανά</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 γύρος</item>
+    <item quantity="other">%s γύροι</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Παίχθηκε ένας γύρος από %2$s</item>
+    <item quantity="other">Παίχθηκαν %1$s γύροι από %2$s</item>
+  </plurals>
+  <string name="highscoreX">Υψηλότερο σκορ: %s</string>
+  <string name="score">Βαθμολογία</string>
+  <string name="moves">Κινήσεις</string>
+  <string name="accuracy">Ακρίβεια</string>
+  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Συνδυασμός</string>
+  <string name="time">Χρόνος</string>
+  <string name="timePerMove">Χρόνος ανά κίνηση</string>
+  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Υψηλότερο επιλυμένο</string>
+  <string name="puzzlesPlayed">Παιγμένοι γρίφοι</string>
+  <string name="newRun">Νέος γύρος (πλήκτρο: Space)</string>
+  <string name="endRun">Τερματισμός γύρου (πλήκτρο: Enter)</string>
+  <string name="highscores">Υψηλότερα σκορ</string>
+  <string name="viewBestRuns">Προβολή καλύτερων γύρων</string>
+  <string name="bestRunOfDay">Καλύτερος γύρος της ημέρας</string>
+  <string name="runs">Γύροι</string>
+</resources>

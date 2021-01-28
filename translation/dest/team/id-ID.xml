@@ -11,6 +11,7 @@
   <string name="noTeamFound">Tidak ada tim yang ditemukan</string>
   <string name="joinTeam">Gabung tim</string>
   <string name="quitTeam">Keluar dari tim</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Tinjau permintaan masuk secara manual</string>
   <plurals name="teamLeaders">
     <item quantity="other">Ketua Tim</item>
   </plurals>

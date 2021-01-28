@@ -11,4 +11,5 @@
     <item quantity="other">တစ်ကြိမ်</item>
   </plurals>
   <string name="highscoreX">အမြင့်ဆုံး ရမှတ် %s</string>
+  <string name="highscores">အမြင့်ဆုံးရမှတ်များ</string>
 </resources>

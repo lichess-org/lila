@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Сделайте ход, чтобы начать</string>
-  <string name="puzzlesSolved">задачи решены</string>
-  <string name="newDailyHighscore">Новый ежедневный рекорд!</string>
-  <string name="newWeeklyHighscore">Новый еженедельный рекорд!</string>
-  <string name="newMonthlyHighscore">Новый ежемесячный рекорд!</string>
-  <string name="newAllTimeHighscore">Новый рекорд за все время!</string>
+  <string name="puzzlesSolved">решено задач</string>
+  <string name="newDailyHighscore">Новый дневной рекорд!</string>
+  <string name="newWeeklyHighscore">Новый недельный рекорд!</string>
+  <string name="newMonthlyHighscore">Новый месячный рекорд!</string>
+  <string name="newAllTimeHighscore">Новый рекорд за всё время!</string>
   <string name="previousHighscoreWasX">Предыдущий рекорд был %s</string>
-  <string name="playAgain">Играть снова</string>
+  <string name="playAgain">Сыграть снова</string>
   <plurals name="xRuns">
-    <item quantity="one">попытка</item>
-    <item quantity="few">%s попыток</item>
-    <item quantity="many">%s попыток</item>
-    <item quantity="other">%s пробегов</item>
+    <item quantity="one">1 серия</item>
+    <item quantity="few">%s серии</item>
+    <item quantity="many">%s серий</item>
+    <item quantity="other">%s серий</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Сыграна одна серия в %2$s</item>
+    <item quantity="few">Сыграны %1$s серии в %2$s</item>
+    <item quantity="many">Сыграно %1$s серий в %2$s</item>
+    <item quantity="other">Сыграно %1$s серий в %2$s</item>
   </plurals>
   <string name="highscoreX">Рекорд: %s</string>
   <string name="score">Результат</string>
-  <string name="moves" comment="moves in this context means your &quot;total moves&quot; you made in your previous puzzle storm attempt. It is displayed after completing one puzzle storm together with your other stats">Ходов</string>
-  <string name="accuracy" comment="accuracy is displayed after completing one puzzle rush together with your other stats">Точность</string>
-  <string name="combo" comment="combo in this case means your &quot;best combo&quot; after completing a run of puzzle storm.">Комбо</string>
-  <string name="time" comment="time in this context means the total time that has passed in your previous run. The string is displayed after completing one puzzle rush">Время</string>
+  <string name="moves">Ходов</string>
+  <string name="accuracy">Точность</string>
+  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Комбо</string>
+  <string name="time">Время</string>
   <string name="timePerMove">Времени на ход</string>
-  <string name="highestSolved">Труднейшая задача</string>
+  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Труднейшая задача</string>
   <string name="puzzlesPlayed">Сыгранные задачи</string>
-  <string name="newRun">Новая попытка (клавиша: Пробел)</string>
-  <string name="endRun" comment="endRun&#10;&#10;If you want to end the run prematurely, you press enter">Закончить попытку (клавиша: Ввод)</string>
-  <string name="puzzleStormHighscores">Результаты тактического штурма</string>
-  <string name="viewBestRuns">Посмотреть лучшие попытки</string>
-  <string name="bestRunOfDay">Лучшая попытка дня</string>
-  <string name="runs">Попытки</string>
+  <string name="newRun">Новая серия (клавиша: Пробел)</string>
+  <string name="endRun">Завершить серию (клавиша: Ввод)</string>
+  <string name="highscores">Рекорды</string>
+  <string name="viewBestRuns">Посмотреть лучшие серии</string>
+  <string name="bestRunOfDay">Лучшая серия дня</string>
+  <string name="runs">Серий</string>
 </resources>

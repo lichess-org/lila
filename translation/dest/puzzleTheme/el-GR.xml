@@ -7,6 +7,7 @@
   <string name="anastasiaMate">To ματ της Αναστασίας</string>
   <string name="anastasiaMateDescription">Ένας ίππος και ένας πύργος ή βασίλισσα κάνουν ματ στον αντίπαλο βασιλιά στο περιθώριο της σκακιέρας, όταν ένα φιλικό κομμάτι του εμποδίζει την διαφυγή.</string>
   <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Αραβικό ματ</string>
+  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">Συνεργασία ίππου και πύργου για παγίδευση του αντίπαλου βασιλιά στην άκρη της σκακιέρας.</string>
   <string name="attackingF2F7">Επίθεση στο f2 ή f7</string>
   <string name="attackingF2F7Description">Μια επίθεση που εστιάζει στο πιόνι f2 ή f7, όπως στην επίθεση Φράιντ Λίβερ.</string>
   <string name="attraction">Έλξη</string>
@@ -16,28 +17,44 @@
   <string name="bishopEndgame">Φινάλε Αξιωματικών</string>
   <string name="bishopEndgameDescription">Ένα τέλος παρτίδας μόνο με αξιωματικούς και πιόνια.</string>
   <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Ματ του Μποντάν</string>
+  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Δύο επιτιθέμενοι αξιωματικοί κινούμενοι διαγωνίως κάνουν ματ σε βασιλιά που εμποδίζεται από φιλικά κομμάτια.</string>
   <string name="castling">Pοκέ</string>
   <string name="castlingDescription">Εξασφαλίστε την ασφάλεια του βασιλιά και αναπτύξτε τον πύργο για επίθεση.</string>
   <string name="capturingDefender">Αιχμαλωτίστε τον αμυνόμενο</string>
+  <string name="capturingDefenderDescription">Απομάκρυνση κομματιού που είναι σημαντικό για την υπεράσπιση άλλου κομματιού, επιτρέποντας την αιχμαλώτιση του πλέον ανυπεράσπιστου κομματιού στην επόμενη κίνηση.</string>
   <string name="crushing">Σύνθλιψη</string>
+  <string name="crushingDescription">Εντοπίστε το σοβαρό λάθος του αντιπάλου για να αποκτήσετε συντριπτικό πλεονέκτημα. (eval ≥ 600cp)</string>
+  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Ματ με δύο αξιωματικούς</string>
+  <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Δύο επιτιθέμενοι αξιωματικοί σε κοντινή απόσταση κάνουν ματ σε βασιλιά που εμποδίζεται από φιλικά κομμάτια.</string>
+  <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Dovetail ματ</string>
+  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">Βασίλισσα κάνει ματ σε παρακείμενο βασιλιά, του οποίου τα μοναδικά δύο τετράγωνα διαφυγής εμποδίζονται από φιλικά κομμάτια.</string>
   <string name="equality">Ισότητα</string>
   <string name="equalityDescription">Επιστρέψτε από μια χαμένη θέση και ασφαλίστε μια κλήρωση ή μια ισορροπημένη θέση. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Επίθεση στην πλευρά του βασιλιά</string>
   <string name="kingsideAttackDescription">Επίθεση στον αντίπαλο βασιλιά, μετά από μικρό ροκέ.</string>
+  <string name="clearance">Ελευθέρωση</string>
+  <string name="clearanceDescription">Μία κίνηση, συνήθως με tempo, που ελευθερώνει το τετράγωνο, στήλη ή διαγώνιο για την συνέχιση τακτικής ιδέας.</string>
   <string name="defensiveMove">Αμυντική κίνηση</string>
   <string name="defensiveMoveDescription">Μια ακριβής κίνηση ή ακολουθία κινήσεων που απαιτείται για να αποφευχθεί η απώλεια υλικού ή άλλου πλεονεκτήματος.</string>
   <string name="deflection">Εκτροπή</string>
+  <string name="deflectionDescription">Μία κίνηση που απομακρύνει ένα αντίπαλο κομμάτι από υφιστάμενο καθήκον, όπως η φύλαξη ενός τετραγώνου κλειδί. Μερικές φορές ονομάζεται και \"υπερφόρτωση\".</string>
   <string name="discoveredAttack">Επίθεση με αποκάλυψη</string>
+  <string name="discoveredAttackDescription">Μετακίνηση κομματιού που προηγουμένως εμπόδιζε την επίθεση από κομμάτι μεγάλης εμβέλειας, όπως ένας ίππος που εμπόδιζε έναν πύργο.</string>
   <string name="doubleCheck">Διπλό σαχ</string>
   <string name="doubleCheckDescription">Διπλό σαχ ως αποτέλεσμα μίας επίθεσης με αποκάλυψη, όπου και το μετακινούμενο κομμάτι δίνει σαχ.</string>
   <string name="endgame">Φινάλε</string>
   <string name="endgameDescription">Μια τακτική κατά την τελευταία φάση του παιχνιδιού.</string>
+  <string name="enPassantDescription">Τακτικό που αφορά το κανόνα en passant, όπου ένα πιόνι μπορεί να αιχμαλωτίσει ένα αντίπαλο πιόνι που το προσπέρασε χρησιμοποιώντας την αρχική δύο τετραγώνων κίνηση.</string>
   <string name="exposedKing">Εκτεθειμένος βασιλιάς</string>
+  <string name="exposedKingDescription">Τακτικό που αφορά βασιλιά με λίγα αμυντικά κομμάτια γύρω του, που συχνά οδηγεί σε ματ.</string>
   <string name="fork">Πιρούνισμα</string>
   <string name="forkDescription">Μια κίνηση όπου το μετακινούμενο κομμάτι επιτίθεται ταυτόχρονα σε δύο ή περισσότερα αντίπαλα κομμάτια.</string>
   <string name="hangingPiece">Κρεμασμένα κομμάτια</string>
   <string name="hangingPieceDescription">Μια τακτική όπου ένα αντίπαλο κομμάτι είναι ανυπεράσπιστο ή υπερασπιζόμενο ανεπαρκώς και μπορεί να παρθεί.</string>
+  <string name="hookMate">Ματ με αγκίστρι</string>
+  <string name="hookMateDescription">Ματ με πύργο, ίππο, και ένα πιόνι μαζί με ένα εχθρικό πιόνι που εμποδίζει την διαφυγή του αντίπαλου βασιλιά.</string>
   <string name="interference">Παρεμβολή</string>
+  <string name="interferenceDescription">Μετακίνηση κομματιού ανάμεσα σε δύο αντίπαλα κομμάτια για να αφήσει ένα ή και τα δύο αντίπαλα κομμάτια ανυπεράσπιστα, όπως ένας ίππος σε υπερασπιζόμενο τετράγωνο ανάμεσα σε δύο πύργους.</string>
   <string name="intermezzo">Ενδιάμεση κίνηση</string>
   <string name="intermezzoDescription">Αντί για την αναμενόμενη κίνηση παίζουμε πρώτα μια άλλη κίνηση η οποία δημιουργεί μια άμεση απειλή και που ο αντίπαλος πρέπει να απαντήσει. Επίσης γνωστό ως \"Zwischenzug\" ή \"Intermezzo\".</string>
   <string name="knightEndgame">Φινάλε Ίππων</string>
@@ -45,7 +62,9 @@
   <string name="long">Μεγάλος γρίφος</string>
   <string name="longDescription">Τρεις κινήσεις για να κερδίσετε.</string>
   <string name="master">Master παιχνίδια</string>
+  <string name="masterDescription">Γρίφοι από παρτίδες τιτλούχων παικτών.</string>
   <string name="masterVsMaster">Master vs Master παιχνίδια</string>
+  <string name="masterVsMasterDescription">Γρίφοι από παρτίδες μεταξύ δύο τιτλούχων παικτών.</string>
   <string name="mate">Ματ</string>
   <string name="mateDescription">Κερδίστε το παιχνίδι με στυλ.</string>
   <string name="mateIn1">Ματ σε 1</string>
@@ -77,6 +96,7 @@
   <string name="queensideAttack">Επίθεση στην πλευρά της βασίλισσας</string>
   <string name="queensideAttackDescription">Επίθεση στον αντίπαλο βασιλιά, μετά από μεγάλο ροκέ.</string>
   <string name="quietMove">Ήσυχη κίνηση</string>
+  <string name="quietMoveDescription">Μια κίνηση που δεν δίνει σαχ ή αιχμαλωτίζει, αλλά προετοιμάζει μια αναπόφευκτη απειλή σε επόμενη κίνηση.</string>
   <string name="rookEndgame">Φινάλε Πύργων</string>
   <string name="rookEndgameDescription">Ένα τέλος παρτίδας μόνο με πύργους και πιόνια.</string>
   <string name="sacrifice">Θυσία</string>
@@ -88,6 +108,7 @@
   <string name="smotheredMate">Ματ αποπνιγμού</string>
   <string name="smotheredMateDescription">Ένα ματ που γίνεται από έναν ίππο σε έναν βασιλιάς ο οποίος δεν μπορεί να μετακινηθεί όντας περιτριγυρισμένος (ή πνιγμένος) από δικά του κομμάτια.</string>
   <string name="superGM">Παιχνίδια Super GM</string>
+  <string name="superGMDescription">Γρίφοι από παρτίδες που παίχθηκαν από κορυφαίους παίκτες του κόσμου.</string>
   <string name="trappedPiece">Παγιδευμένο κομμάτι</string>
   <string name="trappedPieceDescription">Ένα κομμάτι δεν μπορεί να αποφύγει το πάρσιμο, καθώς έχει περιορισμένες κινήσεις.</string>
   <string name="underPromotion">Προαγωγή σε κομμάτι μικρότερης αξίας</string>
@@ -95,6 +116,7 @@
   <string name="veryLong">Πολύ μεγάλος γρίφος</string>
   <string name="veryLongDescription">Τέσσερις κινήσεις ή περισσότερα για να κερδίσετε.</string>
   <string name="xRayAttack">Επίθεση ακτίνας Χ</string>
+  <string name="xRayAttackDescription">Κομμάτι που επιτίθεται ή αμύνεται ένα τετράγωνο, πίσω από εχθρικό κομμάτι.</string>
   <string name="zugzwang">Τσούγκτσβανγκ</string>
   <string name="zugzwangDescription">Ο αντίπαλος είναι περιορισμένος στις κινήσεις που μπορεί να κάνει και οποιαδήποτε κίνηση επιλέξει επιδεινώνει την θέση του.</string>
   <string name="healthyMix">Προτεινόμενο μίγμα</string>

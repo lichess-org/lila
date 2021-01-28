@@ -12,17 +12,18 @@
     <item quantity="one">Pelasin yhden sarjan %2$s</item>
     <item quantity="other">Pelasi %1$s sarjaa %2$s</item>
   </plurals>
-  <string name="highscoreX">Ennätys: %s</string>
+  <string name="highscoreX">Paras tulos: %s</string>
   <string name="score">Pisteet</string>
   <string name="moves">Siirtoja</string>
   <string name="accuracy">Tarkkuus</string>
-  <string name="combo">Putki</string>
+  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Putki</string>
   <string name="time">Aika</string>
   <string name="timePerMove">Aika per siirto</string>
-  <string name="highestSolved">Vaikein ratkaistu</string>
+  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Vaikein ratkaistu</string>
+  <string name="puzzlesPlayed">Tehdyt tehtävät</string>
   <string name="newRun">Uusi sarja (pikanäppäin: välilyönti)</string>
   <string name="endRun">Lopeta sarja (pikanäppäin: Enter)</string>
-  <string name="puzzleStormHighscores">Tehtäväpyörteen ennätykset</string>
+  <string name="highscores">Ennätykset</string>
   <string name="viewBestRuns">Näytä parhaat sarjat</string>
   <string name="bestRunOfDay">Päivän paras sarja</string>
   <string name="runs">Sarjoja</string>

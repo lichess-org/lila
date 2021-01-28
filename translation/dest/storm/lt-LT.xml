@@ -31,7 +31,7 @@
   <string name="puzzlesPlayed">Sužaista galvosūkių</string>
   <string name="newRun">Nauja eilė (klavišas: tarpas)</string>
   <string name="endRun">Baigti eilę (klavišas: įvesti)</string>
-  <string name="puzzleStormHighscores">Geriausi galvosūkių audros rezultatai</string>
+  <string name="highscores">Geriausi rezultatai</string>
   <string name="viewBestRuns">Peržiūrėti geriausias eiles</string>
   <string name="bestRunOfDay">Geriausia dienos eilė</string>
   <string name="runs">Eilės</string>

@@ -17,4 +17,18 @@
     <item quantity="other">%2$s futamból %1$s lejátszva</item>
   </plurals>
   <string name="highscoreX">Rekord: %s</string>
+  <string name="score">Pontszám</string>
+  <string name="moves">Lépések</string>
+  <string name="accuracy">Pontosság</string>
+  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Kombó</string>
+  <string name="time">Eltelt idő</string>
+  <string name="timePerMove">Idő lépésenként</string>
+  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Legnehezebb megoldott</string>
+  <string name="puzzlesPlayed">Játszott feladványok</string>
+  <string name="newRun">Új futam (gyorsbill.: Szóköz)</string>
+  <string name="endRun">Futam vége (gyorsbill.: Enter)</string>
+  <string name="highscores">Toplista</string>
+  <string name="viewBestRuns">Legjobb futamok</string>
+  <string name="bestRunOfDay">Napi legjobb futam</string>
+  <string name="runs">Futamok</string>
 </resources>

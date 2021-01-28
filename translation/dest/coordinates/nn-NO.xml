@@ -2,8 +2,8 @@
 <resources>
   <string name="coordinates">Koordinatar</string>
   <string name="coordinateTraining">Koordinatøving</string>
-  <string name="averageScoreAsWhiteX">Gjennomsnittleg poengtall som kvit: %s</string>
-  <string name="averageScoreAsBlackX">Gjennomsnittleg poengtall som svart: %s</string>
+  <string name="averageScoreAsWhiteX">Gjennomsnittleg poengsum som kvit: %s</string>
+  <string name="averageScoreAsBlackX">Gjennomsnittleg poengsum som svart: %s</string>
   <string name="knowingTheChessBoard">Det er svært viktig å kjenne til koordinatane på sjakkbrettet:</string>
   <string name="mostChessCourses">Dei fleste sjakk-kurs nyttar i stor utstrekning algebraisk notasjon.</string>
   <string name="talkToYourChessFriends">Det gjer det lettare å diskutere med sjakkvenene dine, ettersom begge kjenner til \"sjakkspråket\".</string>

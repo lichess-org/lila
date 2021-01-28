@@ -27,6 +27,7 @@
   <string name="wantClearHistory">Επιθυμώ να διαγράψω το ιστορικό μου ή το rating</string>
   <string name="cantClearHistory">Δεν είναι δυνατόν να διαγράψετε το ιστορικό παιχνιδιών σας, ιστορικό γρίφων, ή ratings.</string>
   <string name="wantReport">Επιθυμώ να αναφέρω έναν παίχτη</string>
+  <string name="toReportAPlayerUseForm">Για να αναφέρετε έναν παίκτη, χρησιμοποιήστε τη φόρμα αναφοράς</string>
   <string name="youCanAlsoReachReportPage">Επίσης μπορείτε να επισκεφτείτε αυτή τη σελίδα με κλικ στο %s κουμπί στη σελίδα προφίλ.</string>
   <string name="doNotReportInForum">Μην αναφέρετε παίκτες στο φόρουμ.</string>
   <string name="doNotSendReportEmails">Μην μας στέλνετε αναφορές με email.</string>
@@ -56,10 +57,13 @@
   <string name="banAppeal">Ένσταση για αποκλεισμό ή περιορισμό σε IP</string>
   <string name="engineAppeal">Μηχανή ή σημάδι απάτης</string>
   <string name="sendAppealTo">Μπορείτε να ασκήσετε ένσταση στο %s.</string>
+  <string name="falsePositives">Εσφαλμένοι αποκλεισμοί συμβαίνουν μερικές φορές, και λυπούμαστε γι\' αυτό.</string>
   <string name="ifLegit">Αν η ένστασή σας είναι νόμιμη, θα αποσύρουμε τον αποκλεισμό το συντομότερο δυνατόν.</string>
   <string name="accountLost">Αν όμως πράγματι χρησιμοποιήσατε βοήθεια μηχανής, ακόμη και μία μόνο φορά, τότε δυστυχώς ο λογαριασμός σας θα διαγραφεί.</string>
   <string name="doNotDeny">Μην αρνείστε ότι εξαπατήσατε. Αν θέλετε να σας επιτραπεί η δημιουργία νέου λογαριασμού, απλά παραδεχθείτε τις πράξεις σας, και αποδείξτε ότι καταλάβατε ότι ήταν λάθος σας.</string>
   <string name="otherRestriction">Άλλος περιορισμός</string>
+  <string name="collaboration">Συνεργασίες, νομικά, εμπορικά</string>
+  <string name="monetizing">Έσοδα Lichess</string>
   <string name="buyingLichess">Αγοράζοντας Lichess</string>
   <string name="authorizationToUse">Έγκριση για χρησιμοποίηση του Lichess</string>
   <string name="welcomeToUse">Είστε ευπρόσδεκτοι να χρησιμοποιήσετε το Lichess για τις δραστηριότητές σας, ακόμα και τις εμπορικές.</string>

@@ -1,2 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart">Melangkah untuk memulai</string>
+  <string name="puzzlesSolved">teka-teki terpecahkan</string>
+  <string name="newDailyHighscore">Skor tertinggi harian terbaru!</string>
+  <string name="newWeeklyHighscore">Skor tertinggi mingguan terbaru!</string>
+  <string name="newMonthlyHighscore">Skor tertinggi bulanan terbaru!</string>
+  <string name="newAllTimeHighscore">Skor tertinggi terbaru!</string>
+  <string name="previousHighscoreWasX">Skor tertinggi sebelumnya %s</string>
+  <string name="playAgain">Mainkan lagi</string>
+  <plurals name="xRuns">
+    <item quantity="other">%s berjalan</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="other">Memainkan %1$s kali %2$s</item>
+  </plurals>
+  <string name="highscoreX">Skor tertinggi: %s</string>
+  <string name="score">Skor</string>
+  <string name="moves">Langkah</string>
+  <string name="accuracy">Akurasi</string>
+  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Kombo</string>
+  <string name="time">Waktu</string>
+  <string name="timePerMove">Waktu per langkah</string>
+  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Terpecahkan tertinggi</string>
+  <string name="puzzlesPlayed">Teka-teki dimainkan</string>
+  <string name="newRun">Mulai baru (tombol: Space)</string>
+  <string name="endRun">Akhiri (tombol: Enter)</string>
+  <string name="highscores">Skor tertinggi</string>
+  <string name="viewBestRuns">Lihat hasil terbaik</string>
+  <string name="bestRunOfDay">Hasil terbaik hari ini</string>
+  <string name="runs">Berjalan</string>
+</resources>
