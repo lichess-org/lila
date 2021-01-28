@@ -30,4 +30,7 @@
   <string name="newRun">Spēlēt vēl (taustiņš: atstarpe)</string>
   <string name="endRun">Beigt spēli (ievadīšanas taustiņš)</string>
   <string name="highscores">Labākie rezultāti</string>
+  <string name="viewBestRuns">Skatīt labākos mēģinājumus</string>
+  <string name="bestRunOfDay">Dienas labākais mēģinājums</string>
+  <string name="runs">Mēģinājumi</string>
 </resources>
