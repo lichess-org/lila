@@ -551,6 +551,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="watchGames">o lukin e musi pi jan ni</string>
   <string name="tpTimeSpentOnTV">tenpo pi ilo lukin: %s</string>
   <string name="watch">o lukin</string>
+  <string name="videoLibrary">tomo pi sitelen tawa</string>
   <string name="streamersMenu">jan ni li pali e sitelen tawa pi musi ona</string>
   <string name="mobileApp">pi ilo toki</string>
   <string name="webmasters">jan ni li pali e lipu kon pi ilo Lichess</string>
@@ -582,6 +583,10 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="yourRating">pona sina</string>
   <string name="cumulative">pi pali nanpa poka</string>
   <string name="glicko2Rating">nanpa Glicko-2</string>
+  <string name="downloadAnnotated">o awen e ante pi sitelen sin pi lipu ni</string>
+  <string name="downloadRaw">o awen e lipu ni (ante ala)</string>
+  <string name="downloadImported">o awen e ante tan pi lipu ni</string>
+  <string name="printFriendlyPDF">o awen e lipu PDF (pona tawa ilo lipu)</string>
   <string name="withNobody">tawa jan ala</string>
   <string name="withFriends">tawa jan pona</string>
   <string name="withEverybody">tawa jan ale</string>
