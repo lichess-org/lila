@@ -12,4 +12,10 @@
   <string name="cannotChallengeDueToProvisionalXRating">%s рейтингіңіз – болжамалы, сондықтан ойынға шақыра алмайсыз.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s тек достардың шақыруын қабылдайды.</string>
   <string name="declineGeneric">Мен әзірше шақыруларды қабылдамаймын.</string>
+  <string name="declineLater">Қазір мен үшін ыңғайлы кез емес, кейін сұрап көріңіз.</string>
+  <string name="declineTooFast">Бұл уақыт қалпы мен үшін тым шапшаң, одан баяу ойынға шақыруды жіберіңізші.</string>
+  <string name="declineTooSlow">Бұл уақыт қалпы мен үшін тым баяу, шапшаңдау ойынға шақыруды жіберіңізші.</string>
+  <string name="declineTimeControl">Мен бұндай уақыт қалпындағы ойындарға шақыруды қабылдамаймын.</string>
+  <string name="declineRated">Оның орнына маған бағаланатын шақыруды жіберіңізші.</string>
+  <string name="declineCasual">Оның орнына маған қалыпты шақыруды жіберіңізші.</string>
 </resources>
