@@ -22,7 +22,6 @@
   <string name="highestSolved">Vaikein ratkaistu</string>
   <string name="newRun">Uusi sarja (pikanäppäin: välilyönti)</string>
   <string name="endRun">Lopeta sarja (pikanäppäin: Enter)</string>
-  <string name="puzzleStormHighscores">Tehtäväpyörteen ennätykset</string>
   <string name="viewBestRuns">Näytä parhaat sarjat</string>
   <string name="bestRunOfDay">Päivän paras sarja</string>
   <string name="runs">Sarjoja</string>
