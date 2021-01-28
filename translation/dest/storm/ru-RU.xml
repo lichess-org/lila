@@ -24,4 +24,9 @@
   <string name="highestSolved">Труднейшая задача</string>
   <string name="puzzlesPlayed">Сыгранные задачи</string>
   <string name="newRun">Новая попытка (клавиша: Пробел)</string>
+  <string name="endRun" comment="endRun&#10;&#10;If you want to end the run prematurely, you press enter">Закончить попытку (клавиша: Ввод)</string>
+  <string name="puzzleStormHighscores">Результаты тактического штурма</string>
+  <string name="viewBestRuns">Посмотреть лучшие попытки</string>
+  <string name="bestRunOfDay">Лучшая попытка дня</string>
+  <string name="runs">Попытки</string>
 </resources>
