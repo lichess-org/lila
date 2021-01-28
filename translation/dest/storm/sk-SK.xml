@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="score">Skóre</string>
+  <string name="moves" comment="moves in this context means your &quot;total moves&quot; you made in your previous puzzle storm attempt. It is displayed after completing one puzzle storm together with your other stats">Počet ťahov</string>
+  <string name="accuracy" comment="accuracy is displayed after completing one puzzle rush together with your other stats">Úspešnosť</string>
+</resources>
