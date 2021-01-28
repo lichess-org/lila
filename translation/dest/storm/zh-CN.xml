@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart">走一步棋就开始计时</string>
+  <string name="moveToStart">走一步棋以开始</string>
   <string name="puzzlesSolved">谜题已解决 ！</string>
   <string name="newDailyHighscore">新的每日高分！</string>
   <string name="newWeeklyHighscore">新的每周高分！</string>
@@ -19,7 +19,7 @@
   <string name="moves" comment="moves in this context means your &quot;total moves&quot; you made in your previous puzzle storm attempt. It is displayed after completing one puzzle storm together with your other stats">着法</string>
   <string name="accuracy" comment="accuracy is displayed after completing one puzzle rush together with your other stats">准确度</string>
   <string name="combo" comment="combo in this case means your &quot;best combo&quot; after completing a run of puzzle storm.">连击</string>
-  <string name="time" comment="time in this context means the total time that has passed in your previous run. The string is displayed after completing one puzzle rush">连击</string>
+  <string name="time" comment="time in this context means the total time that has passed in your previous run. The string is displayed after completing one puzzle rush">时间</string>
   <string name="timePerMove">平均着法时间</string>
   <string name="highestSolved">最难解决的谜题</string>
   <string name="puzzlesPlayed">玩过的谜题</string>
