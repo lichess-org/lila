@@ -17,4 +17,7 @@
     <item quantity="other">%2$s futamból %1$s lejátszva</item>
   </plurals>
   <string name="highscoreX">Rekord: %s</string>
+  <string name="score">Pontszám</string>
+  <string name="moves">Lépések</string>
+  <string name="accuracy">Pontosság</string>
 </resources>
