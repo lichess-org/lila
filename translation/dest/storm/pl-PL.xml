@@ -26,7 +26,7 @@
   <string name="accuracy" comment="accuracy is displayed after completing one puzzle rush together with your other stats">Dokładność</string>
   <string name="combo" comment="combo in this case means your &quot;best combo&quot; after completing a run of puzzle storm.">Seria poprawnych posunięć</string>
   <string name="time" comment="time in this context means the total time that has passed in your previous run. The string is displayed after completing one puzzle rush">Czas</string>
-  <string name="timePerMove">Czas na ruch</string>
+  <string name="timePerMove">Czas na posunięcie</string>
   <string name="highestSolved">Najtrudniejsze rozwiązane zadanie</string>
   <string name="puzzlesPlayed">Rozwiązywane zadania</string>
   <string name="newRun">Nowa seria (klawisz skrótu: spacja)</string>
@@ -34,5 +34,5 @@
   <string name="puzzleStormHighscores">Najlepsze wyniki rozwiązywania serii zadań</string>
   <string name="viewBestRuns">Zobacz najlepsze serie</string>
   <string name="bestRunOfDay">Najlepsza seria dnia</string>
-  <string name="runs">Próby</string>
+  <string name="runs">Serie zadań</string>
 </resources>
