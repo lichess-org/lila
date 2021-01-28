@@ -15,4 +15,10 @@
     <item quantity="other">%2$s を %1$s 回プレイ</item>
   </plurals>
   <string name="highscoreX">ハイスコア：%s</string>
+  <string name="moves" comment="moves in this context means your &quot;total moves&quot; you made in your previous puzzle storm attempt. It is displayed after completing one puzzle storm together with your other stats">総手数</string>
+  <string name="accuracy" comment="accuracy is displayed after completing one puzzle rush together with your other stats">正解率</string>
+  <string name="time" comment="time in this context means the total time that has passed in your previous run. The string is displayed after completing one puzzle rush">経過時間</string>
+  <string name="timePerMove">１手あたりの時間</string>
+  <string name="highestSolved">正解問題の最高レート</string>
+  <string name="puzzlesPlayed">プレイした問題数</string>
 </resources>
