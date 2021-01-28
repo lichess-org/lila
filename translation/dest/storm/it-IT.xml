@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart">Muovi un pedone per iniziare</string>
+  <string name="moveToStart">Muovi un pezzo per iniziare</string>
   <string name="puzzlesSolved">puzzle risolti</string>
   <string name="newDailyHighscore">Nuovo punteggio giornaliero!</string>
   <string name="newWeeklyHighscore">Nuovo punteggio settimanale!</string>
