@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">Tantangan</string>
+  <string name="challengeToPlay">Menantang ke permainan</string>
+  <string name="challengeDeclined">Tantangan ditolak</string>
+  <string name="challengeAccepted">Tantangan diterima!</string>
+  <string name="challengeCanceled">Tantangan dibatalkan.</string>
+  <string name="registerToSendChallenges">Harap mendaftar untuk mengirim tantangan.</string>
+  <string name="youCannotChallengeX">Anda tidak dapat menantang %s.</string>
+</resources>
