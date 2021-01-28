@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Bidak terdepan</string>
+  <string name="advancedPawnDescription">Sebuah pion mempromosikan atau mengancam untuk promosi adalah kunci sebuah taktik.</string>
   <string name="advantage">Keuntungan</string>
   <string name="attackingF2F7">Menyerang f2 atau f7</string>
   <string name="attraction">Pikatan</string>
