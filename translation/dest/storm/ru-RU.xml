@@ -2,9 +2,9 @@
 <resources>
   <string name="moveToStart">Сделайте ход, чтобы начать</string>
   <string name="puzzlesSolved">решено задач</string>
-  <string name="newDailyHighscore">Новый ежедневный рекорд!</string>
-  <string name="newWeeklyHighscore">Новый еженедельный рекорд!</string>
-  <string name="newMonthlyHighscore">Новый ежемесячный рекорд!</string>
+  <string name="newDailyHighscore">Новый дневной рекорд!</string>
+  <string name="newWeeklyHighscore">Новый недельный рекорд!</string>
+  <string name="newMonthlyHighscore">Новый месячный рекорд!</string>
   <string name="newAllTimeHighscore">Новый рекорд за всё время!</string>
   <string name="previousHighscoreWasX">Предыдущий рекорд был %s</string>
   <string name="playAgain">Сыграть снова</string>
