@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moves">Κινήσεις</string>
+  <string name="accuracy">Ακρίβεια</string>
+  <string name="time">Χρόνος</string>
+  <string name="timePerMove">Χρόνος ανά κίνηση</string>
+  <string name="newRun">Νέος γύρος (πλήκτρο: Space)</string>
+  <string name="endRun">Τερματισμός γύρου (πλήκτρο: Enter)</string>
+  <string name="viewBestRuns">Προβολή καλύτερων γύρων</string>
+  <string name="bestRunOfDay">Καλύτερος γύρος της ημέρας</string>
+  <string name="runs">Γύροι</string>
+</resources>
