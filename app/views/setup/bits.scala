@@ -12,17 +12,26 @@ private object bits {
 
   val prefix = "sf_"
 
-  def fenInput(field: Field, strict: Boolean, validFen: Option[lila.setup.ValidFen])(implicit
+  def fenInput(form: Form[_], strict: Boolean, validFen: Option[lila.setup.ValidFen])(implicit
       ctx: Context
   ) = {
-    val url = field.value.fold(routes.Editor.index())(routes.Editor.load).url
+    val handicapChoices: List[SelectChoice] =
+      List(("", trans.selectHandicap.txt(), None), (chess.StartingPosition.initial.fen, "平手 - Even", Some("default"))) ++
+      chess.StartingPosition.categories(0).positions.map { v =>
+        (v.fen, v.fullName, None)
+      }
+    val url = form("fen").value.fold(routes.Editor.index())(routes.Editor.load).url
     div(cls := "fen_position optional_config")(
       frag(
+        div(cls := "handicap label_select")(
+          renderLabel(form("handicap"), trans.handicap()),
+          renderSelect(form("handicap"), handicapChoices, (a, b) => a == "default")
+        ),
         div(
           cls := "fen_form",
           dataValidateUrl := s"""${routes.Setup.validateFen()}${strict.??("?strict=1")}"""
         )(
-          form3.input(field)(st.placeholder := trans.pasteTheFenStringHere.txt()),
+          form3.input(form("fen"))(st.placeholder := trans.pasteTheFenStringHere.txt()),
           a(cls := "button button-empty", dataIcon := "m", title := trans.boardEditor.txt(), href := url)
         ),
         a(cls := "board_editor", href := url)(

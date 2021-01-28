@@ -343,6 +343,7 @@
 	<string name="apply">Submit</string>
 	<string name="save">Save</string>
 	<string name="leaderboard">Leaderboard</string>
+	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Paste the FEN text here</string>
 	<string name="pasteThePgnStringHere">Paste the PGN text here</string>
 	<string name="fromPosition">From position</string>
@@ -441,6 +442,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="setTheBoard">Set the board</string>
 	<string name="popularOpenings">Popular openings</string>
 	<string name="handicaps">Handicaps</string>
+	<string name="handicap">Handicap</string>
 	<string name="startPosition">Starting position</string>
 	<string name="clearBoard">Clear board</string>
 	<string name="fillGotesHand">Fill Gote's hand</string>

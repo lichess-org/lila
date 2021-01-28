@@ -1,6 +1,6 @@
 import { FormStore, toFormLines, makeStore } from "./form";
 import LobbyController from "./ctrl";
-import {switchColorSfen} from 'shogiutil/util';
+import { switchColorSfen, displaySfen } from 'shogiutil/util';
 
 const li = window.lishogi;
 
@@ -148,6 +148,7 @@ export default class Setup {
       $variantSelect = $form.find("#sf_variant"),
       $fenPosition = $form.find(".fen_position"),
       $fenInput = $fenPosition.find("input"),
+      $handicapSelect = $fenPosition.find(".handicap select"),
       forceFormPosition = !!$fenInput.val(),
       $timeInput = $form.find(".time_choice [name=time]"),
       $incrementInput = $form.find(".increment_choice [name=increment]"),
@@ -472,7 +473,23 @@ export default class Setup {
         });
       }
     }, 200);
-    $fenInput.on("keyup", validateFen);
+
+    var validateFenWrapper = function(changeHandicapSelect) {
+      return function() {
+        if (changeHandicapSelect) $handicapSelect.val("");
+        validateFen();
+      }
+    }
+    $fenInput.on("keyup", validateFenWrapper(true));
+
+    var setHandicap = function() {
+      const hcSfen = displaySfen($handicapSelect.val());
+      if (hcSfen) {
+        $fenInput.val(displaySfen($handicapSelect.val()));
+        validateFenWrapper(false)();
+      }
+    }
+    $handicapSelect.on("change", setHandicap);
 
     if (forceFormPosition) $variantSelect.val(3);
     $variantSelect

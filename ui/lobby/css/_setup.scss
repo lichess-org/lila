@@ -64,6 +64,7 @@ $c-slider: $c-setup;
       margin: 0.5em auto 0 auto;
     }
     .fen_form {
+      margin-top: 0.5em;
       @extend %flex-center-nowrap;
     }
     .fen_form input {
