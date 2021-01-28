@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">Шақырулар</string>
+  <string name="challengeToPlay">Ойынға шақыру</string>
+  <string name="challengeDeclined">Шақыруды қабылдамады</string>
+  <string name="challengeAccepted">Шақыруды қабылдады!</string>
+  <string name="challengeCanceled">Шақырудың күші жойылды.</string>
+  <string name="registerToSendChallenges">Ойынға шақыру үшін тіркеліңіз.</string>
+</resources>
