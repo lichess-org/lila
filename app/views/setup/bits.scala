@@ -12,16 +12,14 @@ private object bits {
 
   val prefix = "sf_"
 
-  private val handicapChoices: List[SelectChoice] =
-    List((chess.StartingPosition.initial.fen, "平手 - Even", Some("default"))) ++
-    chess.StartingPosition.categories(0).positions.map { v =>
-      (v.fen, v.fullName, None)
-    } ++
-    List(("", "", None))
-
   def fenInput(form: Form[_], strict: Boolean, validFen: Option[lila.setup.ValidFen])(implicit
       ctx: Context
   ) = {
+    val handicapChoices: List[SelectChoice] =
+      List(("", trans.selectHandicap.txt(), None), (chess.StartingPosition.initial.fen, "平手 - Even", Some("default"))) ++
+      chess.StartingPosition.categories(0).positions.map { v =>
+        (v.fen, v.fullName, None)
+      }
     val url = form("fen").value.fold(routes.Editor.index())(routes.Editor.load).url
     div(cls := "fen_position optional_config")(
       frag(

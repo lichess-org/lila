@@ -343,6 +343,7 @@
 	<string name="apply">Submit</string>
 	<string name="save">Save</string>
 	<string name="leaderboard">Leaderboard</string>
+	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Paste the FEN text here</string>
 	<string name="pasteThePgnStringHere">Paste the PGN text here</string>
 	<string name="fromPosition">From position</string>
