@@ -604,17 +604,27 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="keyGoToStartOrEnd">o tawa open/pini</string>
   <string name="keyShowOrHideComments">o pana (ala) lukin e toki anpa</string>
   <string name="newTournament">o open e musi pi musi mute</string>
+  <string name="tournamentHomeTitle">utala musi pi musi pi jan lawa moli pi nasin ante pi nasin tenpo ante</string>
   <string name="tournamentHomeDescription">o musi e musi pi tenpo lili! musi mute li lon.</string>
   <string name="tournamentNotFound">musi pi musi mute li lon ala</string>
   <string name="tournamentDoesNotExist">musi pi musi mute li lon ala</string>
   <string name="tournamentMayHaveBeenCanceled">jan ale li lon, la ona li pini</string>
   <string name="returnToTournamentsHomepage">o tawa lon lipu monsi pi musi ale</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">jan musi %1$s pi nasin %2$s lon tenpo pali ni.</item>
+    <item quantity="other">jan musi %1$s pi nasin %2$s lon tenpo pali ni.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">nanpa %1$s sina li nanpa %2$s</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">sina wawa suli. jan musi %1$s pi nasin %2$s li wawa lili.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">jan %1$s li pona mute. jan %2$s lon %3$s li pona lili.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">sina jo ala e nanpa %s</string>
   <string name="yourRating">pona sina</string>
   <string name="cumulative">pi pali nanpa poka</string>
   <string name="glicko2Rating">nanpa Glicko-2</string>
+  <string name="checkYourEmail">o lukin e poki sitelen Email sina.</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">mi pana e sitelen Email tawa sina. o lukin e ona, o open e nimi nasin tawa ni: lipu lawa sina li open.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">ken la, sitelen Email ni li lon poki pi sitelen esun, anu lon poki pi sitelen ike, anu lon poki pi sitelen tan lipu toki jan.</string>
+  <string name="readAboutOur">o lukin e lipu \"%s\".</string>
   <string name="downloadAnnotated">o awen e ante pi sitelen sin pi lipu ni</string>
   <string name="downloadRaw">o awen e lipu ni (ante ala)</string>
   <string name="downloadImported">o awen e ante tan pi lipu ni</string>
