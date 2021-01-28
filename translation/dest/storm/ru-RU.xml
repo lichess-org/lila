@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">Вернуться к началу</string>
-  <string name="puzzlesSolved">задача решена</string>
-  <string name="newDailyHighscore">Лучший результат за день!</string>
-  <string name="newWeeklyHighscore">Лучший результат за неделю!</string>
-  <string name="newMonthlyHighscore">Лучший результат за месяц!</string>
+  <string name="moveToStart">Сделайте ход, чтобы начать</string>
+  <string name="puzzlesSolved">задачи решены</string>
+  <string name="newDailyHighscore">Новый ежедневный рекорд!</string>
+  <string name="newWeeklyHighscore">Новый еженедельный рекорд!</string>
+  <string name="newMonthlyHighscore">Новый ежемесячный рекорд!</string>
   <string name="newAllTimeHighscore">Новый рекорд за все время!</string>
-  <string name="previousHighscoreWasX">Прошлый рекорд был %s</string>
+  <string name="previousHighscoreWasX">Предыдущий рекорд был %s</string>
   <string name="playAgain">Играть снова</string>
+  <plurals name="xRuns">
+    <item quantity="one">попытка</item>
+    <item quantity="few">%s попыток</item>
+    <item quantity="many">%s попыток</item>
+    <item quantity="other">%s пробегов</item>
+  </plurals>
   <string name="highscoreX">Рекорд: %s</string>
+  <string name="score">Результат</string>
+  <string name="moves" comment="moves in this context means your &quot;total moves&quot; you made in your previous puzzle storm attempt. It is displayed after completing one puzzle storm together with your other stats">Ходов</string>
+  <string name="accuracy" comment="accuracy is displayed after completing one puzzle rush together with your other stats">Точность</string>
+  <string name="combo" comment="combo in this case means your &quot;best combo&quot; after completing a run of puzzle storm.">Комбо</string>
+  <string name="time" comment="time in this context means the total time that has passed in your previous run. The string is displayed after completing one puzzle rush">Время</string>
+  <string name="timePerMove">Времени на ход</string>
+  <string name="highestSolved">Труднейшая задача</string>
+  <string name="puzzlesPlayed">Сыгранные задачи</string>
+  <string name="newRun">Новая попытка (клавиша: Пробел)</string>
+  <string name="endRun" comment="endRun&#10;&#10;If you want to end the run prematurely, you press enter">Закончить попытку (клавиша: Ввод)</string>
+  <string name="puzzleStormHighscores">Результаты тактического штурма</string>
+  <string name="viewBestRuns">Посмотреть лучшие попытки</string>
+  <string name="bestRunOfDay">Лучшая попытка дня</string>
+  <string name="runs">Попытки</string>
 </resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">Aloita tekemällä siirto</string>
+  <string name="moveToStart">Aloita tekemällä siirto</string>
   <string name="puzzlesSolved">tehtävää ratkaistu</string>
   <string name="newDailyHighscore">Päivän uusi ennätys!</string>
   <string name="newWeeklyHighscore">Viikon uusi ennätys!</string>
@@ -8,5 +8,22 @@
   <string name="newAllTimeHighscore">Uusi kaikkien aikojen ennätys!</string>
   <string name="previousHighscoreWasX">Edellinen ennätys oli %s</string>
   <string name="playAgain">Pelaa uudelleen</string>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Pelasin yhden sarjan %2$s</item>
+    <item quantity="other">Pelasi %1$s sarjaa %2$s</item>
+  </plurals>
   <string name="highscoreX">Ennätys: %s</string>
+  <string name="score">Pisteet</string>
+  <string name="moves">Siirtoja</string>
+  <string name="accuracy">Tarkkuus</string>
+  <string name="combo">Putki</string>
+  <string name="time">Aika</string>
+  <string name="timePerMove">Aika per siirto</string>
+  <string name="highestSolved">Vaikein ratkaistu</string>
+  <string name="newRun">Uusi sarja (pikanäppäin: välilyönti)</string>
+  <string name="endRun">Lopeta sarja (pikanäppäin: Enter)</string>
+  <string name="puzzleStormHighscores">Tehtäväpyörteen ennätykset</string>
+  <string name="viewBestRuns">Näytä parhaat sarjat</string>
+  <string name="bestRunOfDay">Päivän paras sarja</string>
+  <string name="runs">Sarjoja</string>
 </resources>

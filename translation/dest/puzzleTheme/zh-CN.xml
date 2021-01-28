@@ -4,9 +4,9 @@
   <string name="advancedPawnDescription">兵升变或威胁升变是战术的关键</string>
   <string name="advantage">优势</string>
   <string name="advantageDescription">抓住你获得决定性优势的机会。(200厘兵 ≤ 评估 ≤ 600厘兵)</string>
-  <string name="anastasiaMate">阿纳斯塔西亚杀法（车马杀王）</string>
+  <string name="anastasiaMate">阿纳斯塔西亚杀法</string>
   <string name="anastasiaMateDescription">马与车或者后配合将对方的王将死在被对方棋子卡住的角落</string>
-  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">阿拉伯杀法（车马杀王）</string>
+  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">阿拉伯杀法</string>
   <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">马与车配合将杀角落位置对方的王</string>
   <string name="attackingF2F7">进攻f2或f7</string>
   <string name="attackingF2F7Description">进攻的焦点集中在f2或f7兵，像在双马防御煎肝进攻中一样</string>
@@ -49,9 +49,9 @@
   <string name="exposedKingDescription">王的周围只有很少的防守棋子时的战术，往往导致杀棋</string>
   <string name="fork">击双</string>
   <string name="forkDescription">走一步棋使走动的棋子同时攻击对方的两个棋子</string>
-  <string name="hangingPiece">得子</string>
+  <string name="hangingPiece">无根子</string>
   <string name="hangingPieceDescription">涉及对方无根或少根的棋子，可以随意吃掉它</string>
-  <string name="hookMate">车杀棋</string>
+  <string name="hookMate">勾杀</string>
   <string name="hookMateDescription">用车、马、兵杀棋，对方的兵限制王逃跑</string>
   <string name="interference">拦截</string>
   <string name="interferenceDescription">走动一个棋子到在两个对手棋子之间，以使一个或两个对手棋子保持不设防状态，例如在两个车之间的防守格上的一个马。</string>
@@ -83,7 +83,7 @@
   <string name="oneMoveDescription">只有一步棋的谜题</string>
   <string name="opening">开局</string>
   <string name="openingDescription">对局第一阶段的战术</string>
-  <string name="pawnEndgame">王兵残局</string>
+  <string name="pawnEndgame">兵残局</string>
   <string name="pawnEndgameDescription">只有兵的残局</string>
   <string name="pin">牵制</string>
   <string name="pinDescription">一种涉及牵制的策略，一个棋子不能移动否则背后更高价值棋子将被攻击</string>

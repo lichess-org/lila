@@ -1,2 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart">Flyt eitt fólk at byrja</string>
+  <string name="puzzlesSolved">uppgávur loystar</string>
+  <string name="newDailyHighscore">Nýtt dagsmet!</string>
+  <string name="newWeeklyHighscore">Nýtt vikumet!</string>
+  <string name="newMonthlyHighscore">Nýtt mánaðarmet!</string>
+  <string name="newAllTimeHighscore">Nýtt met!</string>
+  <string name="previousHighscoreWasX">Undanfarna met var %s</string>
+  <string name="playAgain">Telva aftur</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 umfar</item>
+    <item quantity="other">%s umfør</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Telvaði eitt umfar av %2$s</item>
+    <item quantity="other">Telvaði %1$s umfør av %2$s</item>
+  </plurals>
+  <string name="highscoreX">Met: %s</string>
+  <string name="score">Stig</string>
+  <string name="moves">Leikir</string>
+  <string name="accuracy">Neyvleiki</string>
+  <string name="combo">Bland</string>
+  <string name="time">Tíð</string>
+  <string name="timePerMove">Tíð fyri hvønn leik</string>
+  <string name="highestSolved">Truplastu loystu uppgávurnar</string>
+  <string name="puzzlesPlayed">Telvdar uppgávur</string>
+  <string name="newRun">Nýtt umfar (snarknøttur: glopp)</string>
+  <string name="endRun">Endaumfar (snarknøttur: Enter)</string>
+  <string name="puzzleStormHighscores">Háskorur í uppgávuódn</string>
+  <string name="viewBestRuns">Síggj bestu umfør</string>
+  <string name="bestRunOfDay">Dagsins besta umfar</string>
+  <string name="runs">Umfør</string>
+</resources>

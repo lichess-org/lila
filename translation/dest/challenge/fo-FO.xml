@@ -13,6 +13,13 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s tekur bert við avbjóðingum frá vinum.</string>
   <string name="declineGeneric">Eg taki ikki móti avbjóðingum í løtuni.</string>
   <string name="declineLater">Eg taki ikki ímóti avbjóðingum í løtuni. Spyr vinaliga aftur seinni.</string>
+  <string name="declineTooFast">Henda tíðarásetingin er ov skjót fyri meg. Bjóða mær vinaliga av aftur við einum seinførari talvi.</string>
+  <string name="declineTooSlow">Henda tíðarásetingin er ov sein fyri meg. Bjóða mær vinaliga av aftur við einum skjótari talvi.</string>
+  <string name="declineTimeControl">Eg taki ikki móti avbjóðingum við hesari tíðarásetingini.</string>
+  <string name="declineRated">Send mær vinaliga eina styrkismetta avbjóðing ístaðin.</string>
+  <string name="declineCasual">Send mær vinaliga eina óformella avbjóðing ístaðin.</string>
+  <string name="declineStandard">Eg taki ikki ímóti avbrigdisavbjóðingum í løtuni.</string>
+  <string name="declineVariant">Eg eri ikki sinnað/ur at telva hetta avbrigdið beint nú.</string>
   <string name="declineNoBot">Eg taki ikki móti avbjóðingum frá teldum.</string>
   <string name="declineOnlyBot">Eg taki bert móti avbjóðingum frá teldum.</string>
 </resources>

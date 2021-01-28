@@ -11,6 +11,8 @@
   <string name="noTeamFound">你不在任何团队中</string>
   <string name="joinTeam">加入团队</string>
   <string name="quitTeam">退出团队</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">手动审查接纳请求</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">如果选中，玩家将需要写请求加入团队，您可以拒绝或接受。</string>
   <plurals name="teamLeaders">
     <item quantity="other">领队</item>
   </plurals>
@@ -38,4 +40,8 @@
   <string name="leadersChat">领队聊天</string>
   <string name="closeTeam">关闭团队</string>
   <string name="closeTeamDescription">永远关闭团队。</string>
+  <string name="teamPassword">团队密码</string>
+  <string name="teamPasswordDescriptionForLeader">(可选) 一个密码，新成员必须知道才能加入此团队。</string>
+  <string name="incorrectTeamPassword">团队密码不正确。</string>
+  <string name="teamAlreadyExists">该团队已经存在。</string>
 </resources>

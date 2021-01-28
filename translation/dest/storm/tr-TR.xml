@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">Başlamak için hamle yap</string>
+  <string name="moveToStart">Başlamak için hamle yap</string>
   <string name="puzzlesSolved">bulmaca çözüldü</string>
   <string name="newDailyHighscore">Günün rekoru kırıldı!</string>
   <string name="newWeeklyHighscore">Haftanın rekoru kırıldı!</string>
@@ -8,13 +8,27 @@
   <string name="newAllTimeHighscore">Tüm zamanların rekoru kırıldı!</string>
   <string name="previousHighscoreWasX">Eski rekor: %s</string>
   <string name="playAgain">Tekrar oyna</string>
-  <plurals name="xRuns" comment="xRuns [one] [other]&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
+  <plurals name="xRuns">
     <item quantity="one">1 tur</item>
     <item quantity="other">%s deneme</item>
   </plurals>
-  <plurals name="playedNbRunsOfPuzzleStorm" comment="playedNbRunsOfPuzzleStorm [one] [other]&#10;&#10;This only refers to Puzzle Storm.&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
+  <plurals name="playedNbRunsOfPuzzleStorm">
     <item quantity="one">Bir kez %2$s oynadı</item>
     <item quantity="other">%1$s kez %2$s oynadı</item>
   </plurals>
   <string name="highscoreX">Rekor: %s</string>
+  <string name="score">Puan</string>
+  <string name="moves" comment="moves in this context means your &quot;total moves&quot; you made in your previous puzzle storm attempt. It is displayed after completing one puzzle storm together with your other stats">Hamle sayısı</string>
+  <string name="accuracy" comment="accuracy is displayed after completing one puzzle rush together with your other stats">Doğruluk</string>
+  <string name="combo" comment="combo in this case means your &quot;best combo&quot; after completing a run of puzzle storm.">Kombin</string>
+  <string name="time" comment="time in this context means the total time that has passed in your previous run. The string is displayed after completing one puzzle rush">Süre</string>
+  <string name="timePerMove">Hamle süresi</string>
+  <string name="highestSolved">Çözülen en zor</string>
+  <string name="puzzlesPlayed">Oynanan bulmacalar</string>
+  <string name="newRun">Yeni tur (kısayol: Boşluk tuşu)</string>
+  <string name="endRun" comment="endRun&#10;&#10;If you want to end the run prematurely, you press enter">Turu bitir (kısayol: Enter)</string>
+  <string name="puzzleStormHighscores">Bulmaca tufanı rekorları</string>
+  <string name="viewBestRuns">En iyi denemeleri göster</string>
+  <string name="bestRunOfDay">Günün en iyi denemesi</string>
+  <string name="runs">Denemeler</string>
 </resources>

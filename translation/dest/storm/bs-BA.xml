@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">Povucite potez da biste počeli</string>
+  <string name="moveToStart">Povucite potez da biste počeli</string>
   <string name="puzzlesSolved">riješeni problemi</string>
   <string name="newDailyHighscore">Novi najbolji dnevni rezultat!</string>
   <string name="newWeeklyHighscore">Novi sedmični najbolji rezultat!</string>
@@ -8,12 +8,12 @@
   <string name="newAllTimeHighscore">Novi najbolji rezultat sveukupno!</string>
   <string name="previousHighscoreWasX">Prethodni najbolji rezultat bio je %s</string>
   <string name="playAgain">Igrajte ponovo</string>
-  <plurals name="xRuns" comment="xRuns [one] [other]&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
+  <plurals name="xRuns">
     <item quantity="one">Jedna runda</item>
     <item quantity="few">%s rundi</item>
     <item quantity="other">%s rundi</item>
   </plurals>
-  <plurals name="playedNbRunsOfPuzzleStorm" comment="playedNbRunsOfPuzzleStorm [one] [other]&#10;&#10;This only refers to Puzzle Storm.&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
+  <plurals name="playedNbRunsOfPuzzleStorm">
     <item quantity="one">Odigrao jednu rundu od %2$s</item>
     <item quantity="few">Odigrao %1$s rundi od %2$s</item>
     <item quantity="other">Odigrao %1$s rundi %2$s</item>

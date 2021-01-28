@@ -1,20 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">Jouez un coup pour commencer</string>
+  <string name="moveToStart">Jouez un coup pour commencer</string>
   <string name="puzzlesSolved">problèmes résolus</string>
   <string name="newDailyHighscore">Nouveau record du jour!</string>
   <string name="newWeeklyHighscore">Nouveau record de la semaine!</string>
   <string name="newMonthlyHighscore">Nouveau record du mois!</string>
-  <string name="newAllTimeHighscore">Nouveau record de tous les temps!</string>
+  <string name="newAllTimeHighscore">Nouveau record absolu!</string>
   <string name="previousHighscoreWasX">Le record précédent était %s</string>
   <string name="playAgain">Rejouer</string>
-  <plurals name="xRuns" comment="xRuns [one] [other]&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
+  <plurals name="xRuns">
     <item quantity="one">1 essai</item>
     <item quantity="other">%s essais</item>
   </plurals>
-  <plurals name="playedNbRunsOfPuzzleStorm" comment="playedNbRunsOfPuzzleStorm [one] [other]&#10;&#10;This only refers to Puzzle Storm.&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
+  <plurals name="playedNbRunsOfPuzzleStorm">
     <item quantity="one">A fait un essai de %2$s</item>
     <item quantity="other">A fait %1$s essais de %2$s</item>
   </plurals>
   <string name="highscoreX">Meilleur score : %s</string>
+  <string name="score">Score</string>
+  <string name="moves" comment="moves in this context means your &quot;total moves&quot; you made in your previous puzzle storm attempt. It is displayed after completing one puzzle storm together with your other stats">Coups</string>
+  <string name="accuracy" comment="accuracy is displayed after completing one puzzle rush together with your other stats">Précision</string>
+  <string name="combo" comment="combo in this case means your &quot;best combo&quot; after completing a run of puzzle storm.">Enchaînement</string>
+  <string name="time" comment="time in this context means the total time that has passed in your previous run. The string is displayed after completing one puzzle rush">Temps</string>
+  <string name="timePerMove">Temps par coup</string>
+  <string name="highestSolved">Prob. résolu le plus difficile</string>
+  <string name="puzzlesPlayed">Problèmes faits</string>
+  <string name="newRun">Nouvel essai (raccourci clavier: Espace)</string>
+  <string name="endRun" comment="endRun&#10;&#10;If you want to end the run prematurely, you press enter">Terminer l\'essai (raccourci clavier: Entrée)</string>
+  <string name="puzzleStormHighscores">Blitz de problèmes – Meilleurs résultats</string>
+  <string name="viewBestRuns">Voir les meilleurs essais</string>
+  <string name="bestRunOfDay">Meilleur essai du jour</string>
+  <string name="runs">Essais</string>
 </resources>

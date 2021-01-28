@@ -1,20 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">Mueve para empezar</string>
+  <string name="moveToStart">Mueve para empezar</string>
   <string name="puzzlesSolved">ejercicios resueltos</string>
   <string name="newDailyHighscore">¡Nueva puntuación más alta diaria!</string>
   <string name="newWeeklyHighscore">¡Nueva puntuación más alta semanal!</string>
   <string name="newMonthlyHighscore">¡Nueva puntuación más alta mensual!</string>
-  <string name="newAllTimeHighscore">¡Nueva puntuación más alta de todo tiempo!</string>
+  <string name="newAllTimeHighscore">¡Nueva puntuación más alta absoluta!</string>
   <string name="previousHighscoreWasX">La puntuación más alta anterior era %s</string>
   <string name="playAgain">Jugar de nuevo</string>
-  <plurals name="xRuns" comment="xRuns [one] [other]&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
+  <plurals name="xRuns">
     <item quantity="one">%s ronda</item>
     <item quantity="other">%s rondas</item>
   </plurals>
-  <plurals name="playedNbRunsOfPuzzleStorm" comment="playedNbRunsOfPuzzleStorm [one] [other]&#10;&#10;This only refers to Puzzle Storm.&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
+  <plurals name="playedNbRunsOfPuzzleStorm">
     <item quantity="one">Jugó una ronda de %2$s</item>
     <item quantity="other">Jugó %1$s rondas de %2$s</item>
   </plurals>
   <string name="highscoreX">Puntuación más alta: %s</string>
+  <string name="score">Puntuación</string>
+  <string name="moves" comment="moves in this context means your &quot;total moves&quot; you made in your previous puzzle storm attempt. It is displayed after completing one puzzle storm together with your other stats">Movimientos</string>
+  <string name="accuracy" comment="accuracy is displayed after completing one puzzle rush together with your other stats">Precisión</string>
+  <string name="combo" comment="combo in this case means your &quot;best combo&quot; after completing a run of puzzle storm.">Combo</string>
+  <string name="time" comment="time in this context means the total time that has passed in your previous run. The string is displayed after completing one puzzle rush">Tiempo</string>
+  <string name="timePerMove">Tiempo por movimiento</string>
+  <string name="highestSolved">Ejercicio de mayor dificultad resuelto</string>
+  <string name="puzzlesPlayed">Ejercicios hechos</string>
+  <string name="newRun">Nueva ronda (tecla: Espacio)</string>
+  <string name="endRun" comment="endRun&#10;&#10;If you want to end the run prematurely, you press enter">Finalizar ronda (tecla: Enter)</string>
+  <string name="puzzleStormHighscores">Puntuaciones más altas de las rondas de ejercicios</string>
+  <string name="viewBestRuns">Ver las mejores rondas</string>
+  <string name="bestRunOfDay">Mejor ronda del día</string>
+  <string name="runs">Rondas</string>
 </resources>

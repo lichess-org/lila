@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">Mugitu hasteko</string>
+  <string name="moveToStart">Mugitu hasteko</string>
   <string name="puzzlesSolved">ariketa ebatzita</string>
   <string name="newDailyHighscore">Eguneko marka berria!</string>
   <string name="newWeeklyHighscore">Asteko marka berria!</string>
@@ -8,13 +8,27 @@
   <string name="newAllTimeHighscore">Marka berria!</string>
   <string name="previousHighscoreWasX">Aurreko marka %s zen</string>
   <string name="playAgain">Jokatu berriz</string>
-  <plurals name="xRuns" comment="xRuns [one] [other]&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
+  <plurals name="xRuns">
     <item quantity="one">Saiakera 1</item>
     <item quantity="other">%s saiakera</item>
   </plurals>
-  <plurals name="playedNbRunsOfPuzzleStorm" comment="playedNbRunsOfPuzzleStorm [one] [other]&#10;&#10;This only refers to Puzzle Storm.&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
+  <plurals name="playedNbRunsOfPuzzleStorm">
     <item quantity="one">%2$s ariketaren saiakera bat egin duzu</item>
     <item quantity="other">%2$s ariketaren %1$s saiakera egin dituzu</item>
   </plurals>
   <string name="highscoreX">Marka: %s</string>
+  <string name="score">Puntuazioa</string>
+  <string name="moves" comment="moves in this context means your &quot;total moves&quot; you made in your previous puzzle storm attempt. It is displayed after completing one puzzle storm together with your other stats">Jokaldiak</string>
+  <string name="accuracy" comment="accuracy is displayed after completing one puzzle rush together with your other stats">Zehaztasuna</string>
+  <string name="combo" comment="combo in this case means your &quot;best combo&quot; after completing a run of puzzle storm.">Jarraiak</string>
+  <string name="time" comment="time in this context means the total time that has passed in your previous run. The string is displayed after completing one puzzle rush">Denbora</string>
+  <string name="timePerMove">Jokaldiko denbora</string>
+  <string name="highestSolved">Ebatzitako altuena</string>
+  <string name="puzzlesPlayed">Jokatutako ariketak</string>
+  <string name="newRun">Saiakera berria (espazioa)</string>
+  <string name="endRun" comment="endRun&#10;&#10;If you want to end the run prematurely, you press enter">Amaitu saiakera (enter)</string>
+  <string name="puzzleStormHighscores">Ariketa erauntsiko puntuazio altuenak</string>
+  <string name="viewBestRuns">Ikusi saiakera onenak</string>
+  <string name="bestRunOfDay">Eguneko saiakera onena</string>
+  <string name="runs">Saiakerak</string>
 </resources>

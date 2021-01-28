@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart" comment="moveToStart&#10;&#10;Move is a verb here.&#10;When the player moves a piece, the Puzzle Storm session begins.">Ziehe, um zu beginnen</string>
+  <string name="moveToStart">Ziehe, um zu beginnen</string>
   <string name="puzzlesSolved">Aufgaben abgeschlossen</string>
   <string name="newDailyHighscore">Neuer Tagesrekord!</string>
   <string name="newWeeklyHighscore">Neuer Wochenrekord!</string>
@@ -8,13 +8,27 @@
   <string name="newAllTimeHighscore">Neuer Allzeit-Rekord!</string>
   <string name="previousHighscoreWasX">Der vorherige Rekord war %s</string>
   <string name="playAgain">Erneut spielen</string>
-  <plurals name="xRuns" comment="xRuns [one] [other]&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
+  <plurals name="xRuns">
     <item quantity="one">1 Durchlauf</item>
     <item quantity="other">%s Durchläufe</item>
   </plurals>
-  <plurals name="playedNbRunsOfPuzzleStorm" comment="playedNbRunsOfPuzzleStorm [one] [other]&#10;&#10;This only refers to Puzzle Storm.&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm.">
-    <item quantity="one">Einen Durchlauf von %2$s gespielt</item>
-    <item quantity="other">%1$s Durchläufe von %2$s gespielt</item>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Hat einen Durchlauf von %2$s gespielt</item>
+    <item quantity="other">Hat %1$s Durchläufe von %2$s gespielt</item>
   </plurals>
   <string name="highscoreX">Rekord: %s</string>
+  <string name="score">Punktestand</string>
+  <string name="moves">Züge</string>
+  <string name="accuracy">Genauigkeit</string>
+  <string name="combo" comment="combo in this case means your &quot;best combo&quot; after completing a run of puzzle storm.">Kombination</string>
+  <string name="time" comment="time in this context means the total time that has passed in your previous run. The string is displayed after completing one puzzle rush">Zeit</string>
+  <string name="timePerMove">Zeit pro Zug</string>
+  <string name="highestSolved">Schwierigste, gelöste Aufgabe</string>
+  <string name="puzzlesPlayed">Gespielte Aufgaben</string>
+  <string name="newRun">Neuer Durchlauf (drücke: Leertaste)</string>
+  <string name="endRun" comment="endRun&#10;&#10;If you want to end the run prematurely, you press enter">Beende den Durchlauf (drücke: Eingabetaste)</string>
+  <string name="puzzleStormHighscores">Puzzle Storm: Höchstwerte</string>
+  <string name="viewBestRuns">Schaue dir die besten Durchläufe an</string>
+  <string name="bestRunOfDay">Bester Durchlauf des Tages</string>
+  <string name="runs">Durchläufe</string>
 </resources>
