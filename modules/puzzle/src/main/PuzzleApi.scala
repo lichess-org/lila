@@ -36,7 +36,7 @@ final class PuzzleApi(
             collection = coll,
             selector = $doc("users" -> user.id),
             projection = none,
-            sort = $sort asc "glicko.r"
+            sort = $sort desc "glicko.r"
           ),
           page,
           MaxPerPage(30)
