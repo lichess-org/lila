@@ -43,7 +43,7 @@
   <string name="doubleCheck">Doppelschach</string>
   <string name="doubleCheckDescription">Schachgebot mit zwei Figuren gleichzeitig als Ergebnis eines Abzugsangriffs, bei dem sowohl die abziehende als auch die zuvor blockierte Figur den gegnerischen König angreifen.</string>
   <string name="endgame">Endspiel</string>
-  <string name="endgameDescription">Eine Taktik in der letzten Phase des Spiels.</string>
+  <string name="endgameDescription">Eine Taktik in der letzten Phase der Partie.</string>
   <string name="enPassantDescription">Eine Taktik, die die Schachregel \"en passant\" (im Vorübergehen) einbezieht, bei der ein Bauer einen gegnerischen Bauer schlagen kann, der an ihm mit seinem Doppelschritt aus der Ausgangsstellung vorbeigegangen ist.</string>
   <string name="exposedKing">Exponierter König</string>
   <string name="exposedKingDescription">Eine Taktik, bei der der König nur von wenigen Figuren verteidigt wird, was oft zum Matt führt.</string>
@@ -63,7 +63,7 @@
   <string name="longDescription">Drei Züge zum Sieg.</string>
   <string name="master">Meisterpartien</string>
   <string name="masterDescription">Aufgaben aus Partien von Spielern mit Titel.</string>
-  <string name="masterVsMaster">Meister gegen Meister Partien</string>
+  <string name="masterVsMaster">Partien von Meistern gegen Meister</string>
   <string name="masterVsMasterDescription">Aufgaben aus Partien zwischen zwei Spielern mit Titel.</string>
   <string name="mate">Matt</string>
   <string name="mateDescription">Gewinne die Partie mit Stil.</string>
@@ -82,7 +82,7 @@
   <string name="oneMove">Einzügige Aufgabe</string>
   <string name="oneMoveDescription">Eine Aufgabe, die nur einen Zug erfordert.</string>
   <string name="opening">Eröffnung</string>
-  <string name="openingDescription">Eine Taktik in der ersten Phase des Spiels.</string>
+  <string name="openingDescription">Eine Taktik in der ersten Phase der Partie.</string>
   <string name="pawnEndgame">Bauernendspiel</string>
   <string name="pawnEndgameDescription">Ein Endspiel nur mit Bauern.</string>
   <string name="pin">Fesselung</string>
