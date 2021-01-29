@@ -9,6 +9,7 @@
   <string name="yourTurn">আপনার চাল</string>
   <string name="aiNameLevelAiLevel">%1$s এর লেভেল %2$s</string>
   <string name="level">লেভেল</string>
+  <string name="strength">শক্তি</string>
   <string name="toggleTheChat">আড্ডা চালু/বন্ধ</string>
   <string name="toggleSound">শব্দ চালু/বন্ধ</string>
   <string name="chat">আড্ডা</string>
@@ -518,6 +519,7 @@
   <string name="clockInitialTime">ঘড়ি অনুযায়ী প্রাথমিক সময়</string>
   <string name="clockIncrement">ঘড়ির সময়বৃদ্ধির হার</string>
   <string name="privacy">গোপনীয়তা</string>
+  <string name="privacyPolicy">গোপনীয়তা নীতি</string>
   <string name="letOtherPlayersFollowYou">অন্যান্য খেলোয়ারদের আপানকে অনুসরন করতে দিন</string>
   <string name="letOtherPlayersChallengeYou">অন্যান্য খেলোয়ারদের আপানকে চ্যালেঞ্জ করতে দিন</string>
   <string name="letOtherPlayersInviteYouToStudy">অন্যান্য খেলোয়ারদের আপানকে আমন্ত্রন করতে দিন</string>
@@ -804,12 +806,14 @@
   <string name="why">কেন</string>
   <string name="pleasantChessExperience">আমাদের লক্ষ্য প্রত্যেকের জন্য একটি আনন্দদায়ক দাবা খেলার অভিজ্ঞতা দেয়া।</string>
   <string name="goodPractice">সেই লক্ষ্যে আমাদের অবশ্যই নিশ্চিত করতে হবে যে সমস্ত খেলোয়াড় ভাল অভ্যাস চর্চা করে।</string>
+  <string name="resignLostGames">হেরে জাওা খেলা তি রেসিগ্ন করুন।( সময় সেশ হওার অপ্পেখা করবেন না)।.</string>
   <string name="agreementAssistance">আমি সম্মতি এবং প্রতিশ্রুতি দিচ্ছি যে দাবা খেলার সময় কম্পিউটারের সহায়তা নিয়ে, কোনো প্রোগ্রাম বই, ডেটাবেজ বা অন্যকোনো ব্যাক্তির সহায়তা নিয়ে চিটিং করে খেলবো না).</string>
   <string name="agreementNice">আমি সম্মতি জানাচ্ছি সকল দাবাড়ু খেলোয়াড়দের সঙ্গে শ্রদ্ধাশীল আচরন করবো.</string>
   <string name="agreementAccount">আমি সম্মতি জানাচ্ছি যে নিজের জন্য একটিই একাউন্ট খুলে রাখবো পাশাপাশি অনেকগুলো একাউন্ট খুলে রাখবো না.</string>
   <string name="agreementPolicy">আমি সম্মতি জানাচ্ছি যে আমি লাইচেজের সকল নিয়মকানুন মেনে চলবো.</string>
   <string name="searchOrStartNewDiscussion">খুজুন অথবা নতুন মেসেজ কনভার্সনে যান</string>
   <string name="edit">এডিট বা সম্পাদন করুন</string>
+  <string name="important">গুরুত্বপূর্ণ</string>
   <string name="tryTheContactPage">যোগাযোগ পেজে যেয়ে দেখতে পারেন</string>
   <string name="thisTopicIsArchived">এই টপিক বা বিষয়টি সংরক্ষণাগারভুক্ত করা হয়েছে সুতরাং এর জবাব আর দেওয়া যাবে না.</string>
   <string name="joinTheTeamXToPost">যুক্ত হোন %1$s, এই ফোরামে পোষ্ট করার জন্য</string>
