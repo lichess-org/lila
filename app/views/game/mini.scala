@@ -15,7 +15,7 @@ object mini {
   private val dataLive  = attr("data-live")
   private val dataState = attr("data-state")
   private val dataTime  = attr("data-time")
-  private val cgWrap    = span(cls := "cg-wrap")(cgWrapContent)
+  val cgWrap            = span(cls := "cg-wrap")(cgWrapContent)
 
   def apply(
       pov: Pov,
@@ -54,7 +54,7 @@ object mini {
     )
   }
 
-  private def renderState(pov: Pov) =
+  def renderState(pov: Pov) =
     dataState := s"${Forsyth boardAndColor pov.game.situation},${pov.color.name},${~pov.game.lastMoveKeys}"
 
   private def renderPlayer(pov: Pov)(implicit lang: Lang) =

@@ -1,15 +1,14 @@
 package views.html
 package round
 
+import chess.variant.{ Crazyhouse, Variant }
+import controllers.routes
 import scala.util.chaining._
 
-import chess.variant.{ Crazyhouse, Variant }
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.game.{ Game, Pov }
-
-import controllers.routes
 
 object bits {
 
@@ -101,8 +100,22 @@ object bits {
       ),
       div(cls := "now-playing")(
         playing.partition(_.isMyTurn) pipe { case (myTurn, otherTurn) =>
-          (myTurn ++ otherTurn.take(6 - myTurn.size)) take 9 map {
-            views.html.game.mini(_)
+          (myTurn ++ otherTurn.take(6 - myTurn.size)) take 9 map { pov =>
+            a(href := routes.Round.player(pov.fullId), cls := pov.isMyTurn.option("my_turn"))(
+              span(
+                cls := s"mini-game mini-game--init ${pov.game.variant.key} is2d",
+                views.html.game.mini.renderState(pov)
+              )(views.html.game.mini.cgWrap),
+              span(cls := "meta")(
+                playerText(pov.opponent, withRating = false),
+                span(cls := "indicator")(
+                  if (pov.isMyTurn)
+                    pov.remainingSeconds
+                      .fold[Frag](trans.yourTurn())(secondsFromNow(_, alwaysRelative = true))
+                  else nbsp
+                )
+              )
+            )
           }
         }
       )
