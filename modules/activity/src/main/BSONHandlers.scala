@@ -162,6 +162,7 @@ private object BSONHandlers {
         games    -> o.games,
         posts    -> o.posts,
         puzzles  -> o.puzzles,
+        storm    -> o.storm,
         learn    -> o.learn,
         practice -> o.practice,
         simuls   -> o.simuls,
