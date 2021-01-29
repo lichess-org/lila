@@ -568,6 +568,7 @@
   <string name="clockInitialTime">Počáteční čas</string>
   <string name="clockIncrement">Přídavek</string>
   <string name="privacy">Soukromí</string>
+  <string name="privacyPolicy">Zásady ochrany osobních údajů</string>
   <string name="letOtherPlayersFollowYou">Umožnit ostatním hráčům následovat Tě</string>
   <string name="letOtherPlayersChallengeYou">Umožnit ostatním hráčům vyzvat Tě</string>
   <string name="letOtherPlayersInviteYouToStudy">Nechat ostatní hráče pozvat Vás ke studii</string>
