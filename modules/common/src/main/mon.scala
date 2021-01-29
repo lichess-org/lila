@@ -493,7 +493,7 @@ object mon {
     }
     object run {
       def score(auth: Boolean) = histogram("storm.run.score").withTag("auth", auth)
-      def sign(cause: String)  = histogram("storm.run.sign").withTag("cause", cause)
+      def sign(cause: String)  = counter("storm.run.sign").withTag("cause", cause)
     }
   }
   object game {
