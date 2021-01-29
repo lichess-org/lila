@@ -238,15 +238,15 @@ export default class StormCtrl {
 
   private uciToLastMove = (uci: string): [Key, Key] => [uci.substr(0, 2) as Key, uci.substr(2, 2) as Key];
 
-  private loadSound = (file: string, volume?: number) => {
-    lichess.sound.loadOggOrMp3(file, `${lichess.sound.baseUrl}/${file}`);
+  private loadSound = (file: string, volume?: number, delay?: number) => {
+    setTimeout(() => lichess.sound.loadOggOrMp3(file, `${lichess.sound.baseUrl}/${file}`), delay || 1000);
     return () => lichess.sound.play(file, volume);
   };
 
   private sound = {
     move: (take: boolean) => lichess.sound.play(take ? 'capture' : 'move'),
-    bonus: this.loadSound('other/ping', 0.8),
-    end: this.loadSound('other/gewonnen', 0.6)
+    bonus: this.loadSound('other/ping', 0.8, 1000),
+    end: this.loadSound('other/gewonnen', 0.6, 5000)
   };
 
   private checkDupTab = () => {
