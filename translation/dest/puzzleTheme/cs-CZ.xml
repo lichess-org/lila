@@ -2,7 +2,7 @@
 <resources>
   <string name="advantage">Výhoda</string>
   <string name="anastasiaMate">Anastáziin mat</string>
-  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Arabský mat</string>
+  <string name="arabianMate">Arabský mat</string>
   <string name="attackingF2F7">Útok na f2 či f7</string>
   <string name="capturingDefender">Odstranění obránce</string>
   <string name="doubleCheck">Dvojný šach</string>
