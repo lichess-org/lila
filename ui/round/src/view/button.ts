@@ -288,7 +288,6 @@ export function watcherFollowUp(ctrl: RoundController): VNode | null {
     content = [
       d.game.rematch ? h('a.fbt.text', {
         attrs: {
-          'data-icon': 'v',
           href: `/${d.game.rematch}/${d.opponent.color}`
         }
       }, ctrl.noarg('viewRematch')) : null,
