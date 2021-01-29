@@ -99,6 +99,27 @@ anu pini e utala!</string>
   <string name="mateInOneIntro">ijo ante li utala e jan lawa mije la, jan musi ona li ken ala pini e ni la, jan lawa li moli. jan ante li pini pona!</string>
   <string name="attackYourOpponentsKing">o utala e jan lawa mije lon nasin ni:
 jan musi ante li ken ala pini e ona!</string>
+  <string name="boardSetup">supa musi</string>
+  <string name="howTheGameStarts">nasin pi open musi</string>
+  <string name="boardSetupIntro">kulupu utala tu li lon sinpin pi ona ante. ona li wile utala.</string>
+  <string name="thisIsTheInitialPosition">open musi la, ijo musi ale
+li lon ma ni!
+o pali e tawa.</string>
+  <string name="firstPlaceTheRooks">o tawa e tomo utala!
+ona li wile lon ma pi poka supa.</string>
+  <string name="thenPlaceTheKnights">o tawa e soweli tawa!
+ona li wile lon poka pi tomo utala.</string>
+  <string name="placeTheBishops">o tawa e jan lawa sewi!
+ona li wile lon poka pi soweli tawa.</string>
+  <string name="placeTheQueen">o tawa e jan lawa meli!
+ona li wile lon ma pi kule sama.</string>
+  <string name="placeTheKing">o tawa e jan lawa mije!
+ona li wile lon poka pi jan lawa meli.</string>
+  <string name="pawnsFormTheFrontLine">jan utala li lon sinpin pi ijo ante ale.
+o pali e tawa.</string>
+  <string name="boardSetupComplete">pona a! sina sona e ni: nasin pi open musi li seme?</string>
+  <string name="castling">tawa pi \"tomo awen\"</string>
+  <string name="theSpecialKingMove">jan lawa mije en tomo utala li ken tawa lon tenpo sama</string>
   <string name="stalemate">ken ala tawa</string>
   <string name="advanced">pi sona mute</string>
   <string name="register">kama tawa</string>
