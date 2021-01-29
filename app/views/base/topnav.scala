@@ -62,6 +62,7 @@ object topnav {
         linkTitle(routes.User.list().toString, trans.community()),
         div(role := "group")(
           a(href := routes.User.list())(trans.players()),
+          a(href := routes.PlayApi.botOnline())("Bots"),
           a(href := routes.Team.home())(trans.team.teams()),
           ctx.noKid option a(href := routes.ForumCateg.index())(trans.forum())
         )
