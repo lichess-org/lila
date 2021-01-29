@@ -126,7 +126,7 @@ final class Team(
     Auth { implicit ctx => me =>
       WithOwnedTeam(id) { team =>
         env.team.memberRepo userIdsByTeam team.id map { userIds =>
-          html.team.admin.kick(team, userIds - me.id)
+          html.team.admin.kick(team, userIds.filter(me.id !=))
         }
       }
     }

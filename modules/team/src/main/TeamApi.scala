@@ -261,6 +261,9 @@ final class TeamApi(
   def disable(team: Team, by: User): Funit =
     if (lila.security.Granter(_.ManageTeam)(by) || team.createdBy == by.id || !team.leaders(team.createdBy))
       teamRepo.disable(team).void >>
+        memberRepo.userIdsByTeam(team.id).map {
+          _ foreach cached.invalidateTeamIds
+        } >>
         requestRepo.removeByTeam(team.id).void >>-
         (indexer ! RemoveTeam(team.id))
     else
