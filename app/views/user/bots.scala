@@ -32,7 +32,15 @@ object bots {
                 botTable(featured)
               ),
               div(cls := "box")(
-                div(cls := "box__top")(h1("Community bots")),
+                div(cls := "box__top")(
+                  h1("Community bots"),
+                  a(
+                    cls := "bots__about",
+                    href := "https://lichess.org/blog/WvDNticAAMu_mHKP/welcome-lichess-bots"
+                  )(
+                    "About Lichess Bots"
+                  )
+                ),
                 botTable(all)
               )
             )
