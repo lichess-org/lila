@@ -6,8 +6,8 @@
   <string name="advantageDescription">Aprovecha la oportunidad de obtener una ventaja decisiva. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Mate de Anastasia</string>
   <string name="anastasiaMateDescription">Un caballo y una torre o dama se unen para atrapar al rey contrario entre un extremo del tablero y una pieza de su bando.</string>
-  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Mate árabe</string>
-  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">Un caballo y una torre se unen para atrapar al rey contrario en una esquina del tablero.</string>
+  <string name="arabianMate">Mate árabe</string>
+  <string name="arabianMateDescription">Un caballo y una torre se unen para atrapar al rey contrario en una esquina del tablero.</string>
   <string name="attackingF2F7">Atacando f2 o f7</string>
   <string name="attackingF2F7Description">Un ataque centrado en el peón f2 o f7, como en la apertura Fried Liver.</string>
   <string name="attraction">Atracción</string>
@@ -16,18 +16,18 @@
   <string name="backRankMateDescription">Jaque mate en la última fila, donde el rey se encuentra atrapado por sus propias piezas.</string>
   <string name="bishopEndgame">Final de alfiles</string>
   <string name="bishopEndgameDescription">Un final solo con alfiles y peones.</string>
-  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Mate de Boden</string>
-  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Dos alfiles atacantes en diagonales cruzadas dan mate al rey obstruido por piezas de su bando.</string>
+  <string name="bodenMate">Mate de Boden</string>
+  <string name="bodenMateDescription">Dos alfiles atacantes en diagonales cruzadas dan mate al rey obstruido por piezas de su bando.</string>
   <string name="castling">Enroque</string>
   <string name="castlingDescription">Coloca el rey a salvo y pone a la torre en juego para el ataque.</string>
   <string name="capturingDefender">Capturar al defensor</string>
   <string name="capturingDefenderDescription">Eliminar una pieza fundamental para la defensa de otra, permitiendo capturar la pieza ahora indefensa en el siguiente movimiento.</string>
   <string name="crushing">Aplastante</string>
   <string name="crushingDescription">Detecta el error del oponente para obtener una ventaja decisiva. (eval ≥ 600cp)</string>
-  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Mate de dos alfiles</string>
-  <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Dos alfiles atacantes en diagonales adyacentes dan mate al rey obstruido por piezas de su bando.</string>
-  <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Mate de Cozio</string>
-  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">Una dama da mate al rey adyacente, cuyas únicas dos casillas de escape están obstruidas por piezas de su bando.</string>
+  <string name="doubleBishopMate">Mate de dos alfiles</string>
+  <string name="doubleBishopMateDescription">Dos alfiles atacantes en diagonales adyacentes dan mate al rey obstruido por piezas de su bando.</string>
+  <string name="dovetailMate">Mate de Cozio</string>
+  <string name="dovetailMateDescription">Una dama da mate al rey adyacente, cuyas únicas dos casillas de escape están obstruidas por piezas de su bando.</string>
   <string name="equality">Igualdad</string>
   <string name="equalityDescription">Vuelve de una posición perdedora y asegura un empate o una posición equilibrada. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Ataque en el flanco de rey</string>
