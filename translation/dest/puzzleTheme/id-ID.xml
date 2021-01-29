@@ -6,8 +6,8 @@
   <string name="advantageDescription">Raih kesempatan Anda untuk mendapatkan keuntungan yang besar. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Skakmat Anastasia</string>
   <string name="anastasiaMateDescription">Bidak kuda dan benteng bekerja sama untuk menjebak raja lawan di antara sisi papan di satu sisi dan bidak persahabatan di sisi lain.</string>
-  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Skakmat Arab</string>
-  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">Bidak kuda dan benteng bekerja sama untuk menjebak raja lawan di sudut papan.</string>
+  <string name="arabianMate">Skakmat Arab</string>
+  <string name="arabianMateDescription">Bidak kuda dan benteng bekerja sama untuk menjebak raja lawan di sudut papan.</string>
   <string name="attackingF2F7">Menyerang f2 atau f7</string>
   <string name="attackingF2F7Description">Sebuah serangan memfokuskan pada pion f2 atau f7, seperti pembukaan fried liver.</string>
   <string name="attraction">Pikatan</string>
@@ -16,8 +16,8 @@
   <string name="backRankMateDescription">Skakmat raja di kandang sendiri, ketika terjebak oleh bidaknya sendiri.</string>
   <string name="bishopEndgame">Ending Gajah</string>
   <string name="bishopEndgameDescription">Sebuah ending yang hanya Gajah dan bidak.</string>
-  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Skakmat Boden</string>
-  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Dua bidak gajah yang menyerang dengan diagonal berselang-seling mengantarkan raja skakmat karena terhalang oleh bidaknya sendiri, biasanya benteng dan pion.</string>
+  <string name="bodenMate">Skakmat Boden</string>
+  <string name="bodenMateDescription">Dua bidak gajah yang menyerang dengan diagonal berselang-seling mengantarkan raja skakmat karena terhalang oleh bidaknya sendiri, biasanya benteng dan pion.</string>
   <string name="castling">Rokade</string>
   <string name="castlingDescription">Letakkan posisi raja aman, dan manfaatkan benteng untuk menyerang.</string>
   <string name="capturingDefender">Memakan pelindung</string>
