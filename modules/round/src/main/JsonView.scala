@@ -96,6 +96,7 @@ final class JsonView(
                 "autoQueen" -> (if (pov.game.variant == chess.variant.Antichess) Pref.AutoQueen.NEVER
                                 else pref.autoQueen),
                 "clockTenths" -> pref.clockTenths,
+                "clockCountdown" -> pref.clockCountdown,
                 "moveEvent"   -> pref.moveEvent,
                 "pieceNotation" -> pref.pieceNotation
               )
@@ -194,6 +195,7 @@ final class JsonView(
                 "resizeHandle"      -> pref.resizeHandle,
                 "replay"            -> pref.replay,
                 "clockTenths"       -> pref.clockTenths,
+                "clockCountdown"    -> pref.clockCountdown,
                 "pieceNotation" -> pref.pieceNotation
               )
               .add("is3d" -> pref.is3d)

@@ -41,6 +41,7 @@ object DataForm {
       )(BehaviorData.apply)(BehaviorData.unapply),
       "clock" -> mapping(
         "tenths"   -> checkedNumber(Pref.ClockTenths.choices),
+        "countdown"-> checkedNumber(Pref.ClockCountdown.choices),
         "bar"      -> booleanNumber,
         "sound"    -> booleanNumber,
         "moretime" -> checkedNumber(Pref.Moretime.choices)
@@ -80,6 +81,7 @@ object DataForm {
 
   case class ClockData(
       tenths: Int,
+      countdown: Int,
       bar: Int,
       sound: Int,
       moretime: Int
@@ -103,6 +105,7 @@ object DataForm {
         takeback = behavior.takeback,
         moretime = clock.moretime,
         clockTenths = clock.tenths,
+        clockCountdown = clock.countdown,
         clockBar = clock.bar == 1,
         clockSound = clock.sound == 1,
         follow = follow == 1,
@@ -157,6 +160,7 @@ object DataForm {
         ),
         clock = ClockData(
           tenths = pref.clockTenths,
+          countdown = pref.clockCountdown,
           bar = if (pref.clockBar) 1 else 0,
           sound = if (pref.clockSound) 1 else 0,
           moretime = pref.moretime

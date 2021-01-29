@@ -168,6 +168,7 @@ export interface Pref {
   clockBar: boolean;
   clockSound: boolean;
   clockTenths: 0 | 1 | 2;
+  clockCountdown: 0 | 3 | 5 | 10;
   confirmResign: boolean;
   coords: 0 | 1 | 2;
   destination: boolean;

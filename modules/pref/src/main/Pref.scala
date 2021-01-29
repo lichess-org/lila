@@ -17,6 +17,7 @@ case class Pref(
     takeback: Int,
     moretime: Int,
     clockTenths: Int,
+    clockCountdown: Int,
     clockBar: Boolean,
     clockSound: Boolean,
     premove: Boolean,
@@ -331,6 +332,20 @@ object Pref {
     )
   }
 
+  object ClockCountdown {
+    val NEVER = 0
+    val THREE = 3
+    val FIVE  = 5
+    val TEN   = 10
+
+    val choices = Seq(
+      NEVER   -> "Never",
+      THREE   -> "Last three seconds",
+      FIVE    -> "Last five seconds",
+      TEN     -> "Last ten seconds"
+    )
+  }
+
   object Challenge {
     val NEVER  = 1
     val RATING = 2
@@ -414,6 +429,7 @@ object Pref {
     coords = Coords.OUTSIDE,
     replay = Replay.ALWAYS,
     clockTenths = ClockTenths.LOWTIME,
+    clockCountdown = ClockCountdown.THREE,
     challenge = Challenge.ALWAYS,
     message = Message.ALWAYS,
     studyInvite = StudyInvite.ALWAYS,

@@ -15,6 +15,7 @@ object FormCompatLayer {
         "clock",
         List(
           "clockTenths" -> "tenths",
+          "clockCountdown"-> "countdown",
           "clockBar"    -> "bar",
           "clockSound"  -> "sound",
           "moretime"    -> "moretime"

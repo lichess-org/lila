@@ -221,6 +221,14 @@ trait SetupHelper { self: I18nHelper =>
       (Pref.ClockTenths.ALWAYS, trans.always.txt())
     )
 
+  def translatedClockCountdownChoices(implicit lang: Lang) =
+    List(
+      (Pref.ClockCountdown.NEVER, trans.never.txt()),
+      (Pref.ClockCountdown.THREE, trans.nbSeconds.txt("3")),
+      (Pref.ClockCountdown.FIVE, trans.nbSeconds.txt("5")),
+      (Pref.ClockCountdown.TEN, trans.nbSeconds.txt("10"))
+    )
+
   def translatedMoveEventChoices(implicit lang: Lang) =
     List(
       (Pref.MoveEvent.CLICK, trans.preferences.clickTwoSquares.txt()),

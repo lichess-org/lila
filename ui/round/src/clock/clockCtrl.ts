@@ -24,6 +24,7 @@ export interface ClockData {
   black: Seconds;
   emerg: Seconds;
   showTenths: TenthsPref;
+  clockCountdown: Seconds;
   showBar: boolean;
   moretime: number;
   wPeriods: number;
@@ -115,7 +116,7 @@ export class ClockController {
     this.timeRatioDivisor = 1 / this.barTime;
 
     this.emergMs = 1000 * Math.min(60, Math.max(10, cdata.initial * 0.125));
-    this.byoEmergeS = 3;
+    this.byoEmergeS = cdata.clockCountdown ?? 3;
 
     this.setClock(d, cdata.white, cdata.black, cdata.wPeriods, cdata.bPeriods);
   }

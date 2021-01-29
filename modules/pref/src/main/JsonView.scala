@@ -22,6 +22,7 @@ object JsonView {
       "takeback"      -> p.takeback,
       "moretime"      -> p.moretime,
       "clockTenths"   -> p.clockTenths,
+      "clockCountdown"-> p.clockCountdown,
       "clockBar"      -> p.clockBar,
       "clockSound"    -> p.clockSound,
       "premove"       -> p.premove,

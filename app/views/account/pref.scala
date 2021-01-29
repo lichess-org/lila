@@ -99,6 +99,10 @@ object pref {
               radios(form("clock.tenths"), translatedClockTenthsChoices)
             ),
             setting(
+              "When to start countdown ticking",
+              radios(form("clock.countdown"), translatedClockCountdownChoices)
+            ),
+            setting(
               horizontalGreenProgressBars(),
               radios(form("clock.bar"), booleanChoices)
             ),
