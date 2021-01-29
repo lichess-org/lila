@@ -8,5 +8,11 @@
   <string name="newAllTimeHighscore">নতুন সর্বকালের হাইস্কোর!</string>
   <string name="previousHighscoreWasX">আগের হাইস্কোর তি ছিল %s</string>
   <string name="playAgain">আবার খেলুন</string>
+  <plurals name="xRuns">
+    <item quantity="one">১ দউর</item>
+    <item quantity="other">%s দউর</item>
+  </plurals>
   <string name="highscoreX">হাইস্কোর %s</string>
+  <string name="highscores">হাইস্কোর</string>
+  <string name="runs">চালান</string>
 </resources>
