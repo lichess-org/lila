@@ -39,7 +39,7 @@
   <string name="deflection">Deflection</string>
   <string name="deflectionDescription">A move that distracts an opponent piece from another duty that it performs, such as guarding a key square. Sometimes also called "overloading".</string>
   <string name="discoveredAttack">Discovered attack</string>
-  <string name="discoveredAttackDescription">Moving a piece that previously blocked an attack by another long range piece, such as a knight out of the way of a rook.</string>
+  <string name="discoveredAttackDescription">Moving a piece (such as a knight), that previously blocked an attack by a long range piece (such as a rook), out of the way of that piece.</string>
   <string name="doubleCheck">Double check</string>
   <string name="doubleCheckDescription">Checking with two pieces at once, as a result of a discovered attack where both the moving piece and the unveiled piece attack the opponent's king.</string>
   <string name="endgame">Endgame</string>
