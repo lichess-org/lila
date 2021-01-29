@@ -1,13 +1,13 @@
 package views.html.user.show
 
 import controllers.routes
+import play.api.i18n.Lang
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.rating.PerfType
 import lila.user.User
-import play.api.i18n.Lang
 
 object side {
 
@@ -30,8 +30,8 @@ object side {
           "active" -> active.has(perfType)
         ),
         href := {
-          if (isPuzzle) routes.Puzzle.dashboard(30, "home")
-          else routes.User.perfStat(u.username, perfType.key)
+          if (isPuzzle) ctx.is(u) option routes.Puzzle.dashboard(30, "home").url
+          else routes.User.perfStat(u.username, perfType.key).url.some
         },
         span(
           h3(perfType.trans),
