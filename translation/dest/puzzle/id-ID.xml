@@ -21,14 +21,14 @@
   <string name="goodMove">Langkah bagus</string>
   <string name="bestMove">Langkah Baik!</string>
   <string name="keepGoing">Lanjutkan…</string>
-  <string name="puzzleSuccess">Sukses!</string>
+  <string name="puzzleSuccess">Berhasil!</string>
   <string name="puzzleComplete">Teka-teki terselesaikan!</string>
   <string name="notTheMove">Itu bukan langkahnya!</string>
   <string name="trySomethingElse">Coba lagi lainnya.</string>
   <string name="ratingX">Rating: %s</string>
   <string name="hidden">sembunyi</string>
   <string name="fromGameLink">Dari game %s</string>
-  <string name="continueTraining">Lanjut latihan</string>
+  <string name="continueTraining">Lanjutkan latihan</string>
   <string name="difficultyLevel">Level Sulit</string>
   <string name="normal">Normal</string>
   <string name="easier">Lebih mudah</string>
