@@ -22,7 +22,7 @@
   <string name="time">経過時間</string>
   <string name="timePerMove">１手あたりの時間</string>
   <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">正解問題の最高レート</string>
-  <string name="puzzlesPlayed">プレイした問題数</string>
+  <string name="puzzlesPlayed">プレイした問題</string>
   <string name="newRun">新たなストーム（スペースキー）</string>
   <string name="endRun">ストーム終了（Enter キー）</string>
   <string name="highscores">ハイスコア</string>
