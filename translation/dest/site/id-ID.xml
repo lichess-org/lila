@@ -427,7 +427,7 @@
   <string name="activeToday">Aktif hari ini</string>
   <string name="activePlayers">Pemain aktif</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Awas, permainan ini pake rating namun tanpa pake waktu!</string>
-  <string name="success">Sukses</string>
+  <string name="success">Berhasil</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s pertandingan sedang berlangsung</item>
   </plurals>
