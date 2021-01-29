@@ -56,6 +56,14 @@ $c-slider: $c-setup;
       font-weight: bold;
     }
   }
+  .handicap.label_select {
+    label {
+      flex: 0 0 20%;
+    }
+    #sf_handicap {
+      flex-grow: 1;
+    }
+  }
   .fen_position {
     display: none;
     .board_editor {
@@ -69,8 +77,6 @@ $c-slider: $c-setup;
     }
     .fen_form input {
       flex: 1 1 100%;
-    }
-    .fen_form .button {
     }
   }
   input#fen.success {

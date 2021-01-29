@@ -64,6 +64,11 @@
       &:hover {
         background-color: #14551e50;
       }
+      @media (hover: none) {
+        &:hover {
+          background-color: transparent;
+        }
+      }
       &:first-child:hover {
         @extend %box-radius;
       }
