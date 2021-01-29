@@ -16,4 +16,9 @@
   <string name="findTheBestMoveForWhite">সাদার জন্নে সব থেকে উপযোগী চাল তি খুজে বার করুন।.</string>
   <string name="findTheBestMoveForBlack">কালোর জন্নে সব থেকে উপযোগী চাল তি খুজে বার করুন।.</string>
   <string name="puzzleOfTheDay">আজকের দিনের সেরা ধাঁধা</string>
+  <string name="trySomethingElse">অন্য কিছু চেষ্টা করুন.</string>
+  <string name="improvementAreas">উন্নতি করার জায়গা</string>
+  <string name="strengths">শক্তিমত্তা</string>
+  <string name="history">পূর্বে চেষ্টা করা ধাঁধা</string>
+  <string name="failed">ভুল করা ধাঁদা</string>
 </resources>
