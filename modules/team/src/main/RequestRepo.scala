@@ -33,6 +33,8 @@ final class RequestRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionC
 
   def remove(id: ID) = coll.delete.one($id(id))
 
+  def removeByTeam(teamId: ID) = coll.delete.one(teamQuery(teamId))
+
   def cancel(teamId: ID, user: User): Fu[Boolean] =
     coll.delete.one(selectId(teamId, user.id)).map(_.n == 1)
 }

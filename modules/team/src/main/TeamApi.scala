@@ -245,7 +245,12 @@ final class TeamApi(
     teamRepo.enable(team).void >>- (indexer ! InsertTeam(team))
 
   def disable(team: Team): Funit =
-    teamRepo.disable(team).void >>- (indexer ! RemoveTeam(team.id))
+    teamRepo.disable(team).void >>
+      memberRepo.userIdsByTeam(team.id).map {
+        _ foreach cached.invalidateTeamIds
+      } >>
+      requestRepo.removeByTeam(team.id).void >>-
+      (indexer ! RemoveTeam(team.id))
 
   // delete for ever, with members but not forums
   def delete(team: Team): Funit =
