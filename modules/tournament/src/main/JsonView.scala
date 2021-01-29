@@ -376,17 +376,17 @@ final class JsonView(
 
   private val teamStandingJsonCache = cacheApi[Tournament.ID, JsArray](4, "tournament.teamStanding") {
     _.expireAfterWrite(500 millis)
-      .buildAsyncFuture(fetchAndRenderTeamStandingJson)
+      .buildAsyncFuture(fetchAndRenderTeamStandingJson(TeamBattle.displayTeams))
   }
 
   private val bigTeamStandingJsonCache = cacheApi[Tournament.ID, JsArray](4, "tournament.teamStanding.big") {
     _.expireAfterWrite(2 seconds)
-      .buildAsyncFuture(fetchAndRenderTeamStandingJson)
+      .buildAsyncFuture(fetchAndRenderTeamStandingJson(TeamBattle.maxTeams))
   }
 
-  private def fetchAndRenderTeamStandingJson(id: Tournament.ID) =
+  private def fetchAndRenderTeamStandingJson(max: Int)(id: Tournament.ID) =
     cached.battle.teamStanding.get(id) map { ranked =>
-      JsArray(ranked map teamBattleRankedWrites.writes)
+      JsArray(ranked take max map teamBattleRankedWrites.writes)
     }
 
   implicit private val teamBattleRankedWrites: Writes[TeamBattle.RankedTeam] = OWrites { rt =>
