@@ -77,6 +77,18 @@ ken ala anpa e ijo musi sina!</string>
   <string name="combatIntro">jan utala pona li sona e utala, e awen!</string>
   <string name="combatComplete">pona a! sina sona e nasin utala pi ijo musi!</string>
   <string name="checkInOne">jan lawa li ken moli lon tawa wan</string>
+  <string name="attackTheOpponentsKing">o utala e jan lawa pi jan musi ante</string>
+  <string name="checkInOneIntro">ijo sina li utala e jan lawa pi jan ante la, jan lawa li ken moli. ona li wile awen e jan lawa!</string>
+  <string name="checkInOneGoal">o utala e jan lawa pi jan ante
+kepeken tenpo wan!</string>
+  <string name="checkInOneComplete">pona a! jan lawa ante li ken moli. jan musi ante li wile awen e ona!</string>
+  <string name="outOfCheck">o weka e ken moli</string>
+  <string name="defendYourKing">o awen e jan lawa sina</string>
+  <string name="outOfCheckIntro">jan lawa sina li ken moli! sina wile tawa e ona anu tawa e ijo ante lon nasin utala.</string>
+  <string name="escapeWithTheKing">o tawa e jan lawa tawa ma pona!</string>
+  <string name="theKingCannotEscapeButBlock">jan lawa li ken ala tawa.
+taso, sina ken awen e ona kepeken ijo ante!</string>
+  <string name="youCanGetOutOfCheckByTaking">sina ken anpa e ijo utala.</string>
   <string name="stalemate">ken ala tawa</string>
   <string name="advanced">pi sona mute</string>
   <string name="register">kama tawa</string>
