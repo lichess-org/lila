@@ -24,8 +24,9 @@ private object bits {
     div(cls := "fen_position optional_config")(
       frag(
         div(cls := "handicap label_select")(
-          renderLabel(form("handicap"), trans.handicap()),
-          renderSelect(form("handicap"), handicapChoices, (a, b) => a == "default")
+          renderLabel(form("handicap"), trans.handicap.txt()),
+          renderSelect(form("handicap"), handicapChoices, (a, b) => a == "default"),
+          a(cls := "button button-empty", dataIcon := "", title := trans.handicap.txt(), target := "_blank", href := "https://en.wikipedia.org/wiki/Handicap_(shogi)")
         ),
         div(
           cls := "fen_form",

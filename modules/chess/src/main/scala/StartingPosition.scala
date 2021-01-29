@@ -101,7 +101,7 @@ object StartingPosition {
         StartingPosition(
           "歩三兵",
           "3 Pawns",
-          "4k4/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b 3p 1",
+          "4k4/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b ppp 1",
           "Handicap_(shogi)",
           "",
           false
@@ -181,7 +181,7 @@ object StartingPosition {
         StartingPosition(
           "四枚得",
           "4-piece Gained",
-          "1nsgkgsn1/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b RB2L 1",
+          "1nsgkgsn1/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b RBLL 1",
           "Handicap_(shogi)",
           "",
           false
@@ -189,7 +189,7 @@ object StartingPosition {
         StartingPosition(
           "六枚得",
           "6-piece Gained",
-          "2sgkgs2/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b RB2L2N 1",
+          "2sgkgs2/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b RBLLNN 1",
           "Handicap_(shogi)",
           "",
           false
@@ -197,7 +197,7 @@ object StartingPosition {
         StartingPosition(
           "八枚得",
           "8-piece Gained",
-          "3gkg3/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b RB2L2N2S 1",
+          "3gkg3/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b RBLLNNSS 1",
           "Handicap_(shogi)",
           "",
           false
