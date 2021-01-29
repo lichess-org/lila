@@ -44,6 +44,8 @@ kepeken nasin nasa!</string>
   <string name="pawnsMoveOneSquareOnly">jan utala li tawa lili. taso ona li kama lon poka ante la ona li kama wawa!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">tenpo mute la ni li pona la jan li pali e ijo musi tawa lawa meli.
 tenpo lili la soweli tawa li kepeken mute!</string>
+  <string name="pawnsMoveForward">jan utala li tawa sinpin. taso, ona li anpa e ijo pi ma poka sinpin!</string>
+  <string name="captureThenPromote">o anpa e ijo. ni li pini la, o ante e ijo musi!</string>
   <string name="useAllThePawns">o kepeken jan utala ale! sina wile ala tawa poka ante.</string>
   <string name="aPawnOnTheSecondRank">jan utala lon linja nanpa tu li ken tawa lon poki tu!</string>
   <string name="grabAllTheStarsNoNeedToPromote">o kama jo e mun ale! sina wile ala tawa poka ante.</string>
@@ -52,7 +54,28 @@ tenpo lili la soweli tawa li kepeken mute!</string>
   <string name="yourPawnReachedTheEndOfTheBoard">jan utala sina li kama lon poka ante!</string>
   <string name="itNowPromotesToAStrongerPiece">ona li kama wawa.</string>
   <string name="selectThePieceYouWant">sina wile seme e ona?</string>
+  <string name="fundamentals">nasin suli</string>
+  <string name="capture">o anpa e ijo</string>
+  <string name="takeTheEnemyPieces">o anpa e ijo pi jan musi ante</string>
+  <string name="captureIntro">o lukin e ni: ijo musi seme pi jan ante li awen ala? o anpa e ona!</string>
+  <string name="takeTheBlackPieces">o anpa e ijo musi pimeja!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">o anpa e ijo musi pimeja!
+o awen e ijo musi sina.</string>
+  <string name="captureComplete">pona a! sina sona e nasin utala pi ijo musi.</string>
+  <string name="protection">awen</string>
+  <string name="keepYourPiecesSafe">o awen e ijo musi sina</string>
+  <string name="protectionIntro">o lukin e ni: jan musi ante li ken anpa e ijo seme? o awen e ona!</string>
+  <string name="protectionComplete">pona a! sina awen e ijo musi sina la, ona li pona e musi sina!</string>
+  <string name="escape">ijo sina li awen ala!
+o tawa ma pona!</string>
+  <string name="noEscape">ma pona li lon ala.
+taso, sina ken awen e ijo sina!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">o pali e ni: jan musi ante li
+ken ala anpa e ijo musi sina!</string>
   <string name="combat">utala</string>
+  <string name="captureAndDefendPieces">o anpa en awen e ijo musi</string>
+  <string name="combatIntro">jan utala pona li sona e utala, e awen!</string>
+  <string name="combatComplete">pona a! sina sona e nasin utala pi ijo musi!</string>
   <string name="stalemate">ken ala tawa</string>
   <string name="advanced">pi sona mute</string>
   <string name="register">kama tawa</string>
