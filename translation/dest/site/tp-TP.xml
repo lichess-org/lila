@@ -346,6 +346,10 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="toStudy">o kama sona</string>
   <string name="importGame">o pana e musi</string>
   <string name="importGameExplanation">o pana e lipu PGN kepeken poki pana. sina pali e ni la, sina ken lukin e musi kepeken ilo. sina ken toki e musi. sina ken jo e nimi nasin URL pi musi ni.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">musi %s tan ante</item>
+    <item quantity="other">musi %s tan ante</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">ilo li wile sona e ni: sina jan anu ilo.</string>
   <string name="clickOnTheBoardToMakeYourMove">o tawa lon lipu ni. sina pali e ni la sina jan</string>
   <string name="captcha.fail">o pini pona e lipu ni: ona li wile sona e ni: sina jan ala jan?</string>
@@ -383,6 +387,10 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="player">jan</string>
   <string name="list">sewi tawa anpa</string>
   <string name="graph">sitelen</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">tenpo tawa li lili tawa tenpo Minuta %s</item>
+    <item quantity="other">tenpo tawa li lili tawa tenpo Minuta %s</item>
+  </plurals>
   <string name="required">wile</string>
   <string name="openTournaments">musi open</string>
   <string name="duration">tenpo</string>
@@ -534,6 +542,10 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="allInformationIsPublicAndOptional">sona ale li open. sina wile pana sona ala.</string>
   <string name="yourCityRegionOrDepartment">ma sina</string>
   <string name="biographyDescription">o toki e sina. sina jan seme? ijo seme li pona tawa sina? sina musi e musi pi jan lawa moli kepeken nasin seme? jan musi seme li pona tawa sina?</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="one">sitelen li ken ala jo e suli ni: mute sitelen %s li lili tawa ona.</item>
+    <item quantity="other">sitelen li ken ala jo e suli ni: mute sitelen %s li lili tawa ona.</item>
+  </plurals>
   <plurals name="blocks">
     <item quantity="one">jan %s li weka wawa</item>
     <item quantity="other">jan %s li weka wawa</item>
