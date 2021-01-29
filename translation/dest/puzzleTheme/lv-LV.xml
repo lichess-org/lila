@@ -6,8 +6,8 @@
   <string name="advantageDescription">Izmantojiet iespēju iegūt noteicošu pārsvaru. (200cp ≤ vērtējums ≤ 600cp)</string>
   <string name="anastasiaMate">Anastāsijas mats</string>
   <string name="anastasiaMateDescription">Zirdziņš ar torni vai dāmu iesprosto pretinieka karali starp galdiņa malu un viņa paša figūru.</string>
-  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Arābu mats</string>
-  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">Zirdziņš ar torni kopīgi iesprosto pretinieka karali galdiņa stūrī.</string>
+  <string name="arabianMate">Arābu mats</string>
+  <string name="arabianMateDescription">Zirdziņš ar torni kopīgi iesprosto pretinieka karali galdiņa stūrī.</string>
   <string name="attackingF2F7">Uzbrukums f2 vai f7</string>
   <string name="attackingF2F7Description">Uzbrukums, kas koncentrējas uz f2 vai f7 bandinieku, līdzīgi \"fried liver\" (angļ. val. \"cepto aknu\") atklātnei.</string>
   <string name="attraction">Ievilkšana</string>
@@ -16,18 +16,18 @@
   <string name="backRankMateDescription">Piesakiet matu karalim, kuru savā rindā iesprostojušas paša figūras.</string>
   <string name="bishopEndgame">Laidņa beigu spēle</string>
   <string name="bishopEndgameDescription">Beigu spēle, kurā iesaistīti tikai laidņi un bandinieki.</string>
-  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Bodena mats</string>
-  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Divi laidņi uz pretēju krāsu krusteniskām diagonālēm piesaka matu karalim, kura izbēgšanu traucē paša figūras.</string>
+  <string name="bodenMate">Bodena mats</string>
+  <string name="bodenMateDescription">Divi laidņi uz pretēju krāsu krusteniskām diagonālēm piesaka matu karalim, kura izbēgšanu traucē paša figūras.</string>
   <string name="castling">Rokāde</string>
   <string name="castlingDescription">Nogādājiet karali drošībā un novietojiet torni uzbrukuma pozīcijā.</string>
   <string name="capturingDefender">Sargājošas figūras nosišana</string>
   <string name="capturingDefenderDescription">Nosist figūru, kas nepieciešama citas figūras aizsardzībai, padarot iespējamu neaizsargātās figūras nosišanu nākamajā gājienā.</string>
   <string name="crushing">Graušana</string>
   <string name="crushingDescription">Ieraugiet pretinieka rupjo kļūdu, lai iegūtu graujošu pārsvaru. (vērtējums &gt; 600cp)</string>
-  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Dubultlaidņa mats</string>
-  <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Divi laidņi uz blakus diagonālēm piesaka matu karalim, ko ierobežo paša figūras.</string>
-  <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Kozio mats</string>
-  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">Dāma piesaka matu nostājoties pie pretinieka karaļa tā, ka tā abi neapdraudētie lauciņi ir aizņemti ar paša figūrām.</string>
+  <string name="doubleBishopMate">Dubultlaidņa mats</string>
+  <string name="doubleBishopMateDescription">Divi laidņi uz blakus diagonālēm piesaka matu karalim, ko ierobežo paša figūras.</string>
+  <string name="dovetailMate">Kozio mats</string>
+  <string name="dovetailMateDescription">Dāma piesaka matu nostājoties pie pretinieka karaļa tā, ka tā abi neapdraudētie lauciņi ir aizņemti ar paša figūrām.</string>
   <string name="equality">Vienlīdzība</string>
   <string name="equalityDescription">Atgriezieties no zaudējošas pozīcijas, un iegūstiet neizšķirtu vai vienlīdzīgu pozīciju. (vērtējums ≤ 200cp)</string>
   <string name="kingsideAttack">Karaļa puses uzbrukums</string>
