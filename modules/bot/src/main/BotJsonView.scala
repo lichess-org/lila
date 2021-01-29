@@ -54,6 +54,7 @@ final class BotJsonView(
           "btime"  -> millisOf(game.blackPov),
           "winc"   -> game.clock.??(_.config.increment.millis),
           "binc"   -> game.clock.??(_.config.increment.millis),
+          "byo"    -> game.clock.??(_.config.byoyomi.millis),
           "wdraw"  -> game.whitePlayer.isOfferingDraw,
           "bdraw"  -> game.blackPlayer.isOfferingDraw,
           "status" -> game.status.name
