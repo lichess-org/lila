@@ -13,7 +13,7 @@
   <string name="toggleTheChat">toki o lon ala lon?</string>
   <string name="toggleSound">kalama</string>
   <string name="chat">tomo toki</string>
-  <string name="resign">mi wile pini e musi</string>
+  <string name="resign">o toki e \"mi anpa\"</string>
   <string name="checkmate">mije lawa li moli</string>
   <string name="stalemate">jan ala li ken tawa</string>
   <string name="white">walo</string>
@@ -39,13 +39,13 @@
     <item quantity="other">jan ante li weka tan musi. sina awen la sina ken %s kama pini.</item>
   </plurals>
   <string name="opponentLeftChoices">jan ante li tawa. sina wile ala wile pini e musi ni?</string>
-  <string name="makeYourOpponentResign">jan ante o pini</string>
+  <string name="makeYourOpponentResign">jan ante, o toki e \"mi anpa\"</string>
   <string name="forceResignation">o pini e musi</string>
   <string name="forceDraw">o pini sama</string>
   <string name="talkInChat">o toki pona!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">jan pi nanpa wan lon nimi open ni li musi tawa sina</string>
-  <string name="whiteResigned">walo li pini e musi</string>
-  <string name="blackResigned">pimeja li pini e musi</string>
+  <string name="whiteResigned">jan walo li toki e \"mi anpa\"</string>
+  <string name="blackResigned">jan pimeja li toki e \"mi anpa\"</string>
   <string name="whiteLeftTheGame">walo li weka tan musi</string>
   <string name="blackLeftTheGame">pimeja li weka tan musi</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">o pana e nimi open ni tawa jan ante. jan ni li ken lukin e musi</string>
@@ -717,6 +717,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="boardTheme">sitelen lipu</string>
   <string name="boardSize">suli pi supa musi</string>
   <string name="pieceSet">sitelen ijo</string>
+  <string name="embedInYourWebsite">o kepeken e lipu ni lon lipu HTML ante</string>
   <string name="usernameAlreadyUsed">jan ante li kepeken e nimi jan ni. o pana e nimi ante.</string>
   <string name="usernamePrefixInvalid">nimi jan li ken open kepeken sitelen nimi taso.</string>
   <string name="usernameSuffixInvalid">nimi jan li ken pini kepeken sitelen nimi anu sitelen nanpa.</string>
@@ -744,6 +745,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="anotherWasX">nasin ante li %s</string>
   <string name="bestWasX">pona pona li %s</string>
   <string name="youBrowsedAway">sina kepeken ala e lipu ni</string>
+  <string name="resumePractice">o awen musi pi kama sona</string>
   <string name="theGameIsADraw">jan musi ala li anpa.</string>
   <string name="computerThinking">ilo sona li toki insa ...</string>
   <string name="seeBestMove">o lukin e tawa pona</string>
@@ -759,6 +761,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="xWasPlayed">tawa li %s</string>
   <string name="findBetterMoveForWhite">o alasa e tawa pona tawa jan walo</string>
   <string name="findBetterMoveForBlack">o alasa e tawa pona tawa jan pimeja</string>
+  <string name="resumeLearning">o awen kama sona</string>
   <string name="youCanDoBetter">tawa pi suli pona li lon</string>
   <string name="tryAnotherMoveForWhite">tawa ante pi jan walo li pona</string>
   <string name="tryAnotherMoveForBlack">tawa ante pi jan pimeja li pona</string>
@@ -784,6 +787,9 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="timeoutExpires">tenpo kama la sina ken %s lon sin.</string>
   <string name="why">tan seme?</string>
   <string name="pleasantChessExperience">mi wile e musi pona tawa jan ale.</string>
+  <string name="playEveryGame">sina open musi la, o pini e musi.</string>
+  <string name="tryToWin">o wile e ni: mi wile pini pona (anu pini pi anpa ala) e musi.</string>
+  <string name="resignLostGames">musi li pini ike, o toki \"mi anpa\" (kepeken nena).</string>
   <string name="wishYouGreatGames">mi wile e ni: musi sina pi ilo Lichess li pona.</string>
   <string name="thankYouForReading">sina lukin ale e lipu ni la, sina pona!</string>
   <string name="lifetimeScore">nanpa pona pi musi ale</string>
