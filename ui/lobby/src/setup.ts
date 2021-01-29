@@ -1,6 +1,6 @@
 import { FormStore, toFormLines, makeStore } from "./form";
 import LobbyController from "./ctrl";
-import { switchColorSfen, displaySfen } from 'shogiutil/util';
+import { undisplaySfen, displaySfen } from 'shogiutil/util';
 
 const li = window.lishogi;
 
@@ -229,7 +229,7 @@ export default class Setup {
       ;
     // This switches the color in sfen that is being sent to the server, make it better if you can
     $submits.click(() => {
-      $fenInput.val(switchColorSfen($fenInput.val()));
+      $fenInput.val(undisplaySfen($fenInput.val()));
     })
     const c = this.stores[typ].get();
     if (c) {
@@ -442,7 +442,7 @@ export default class Setup {
 
     var validateFen = li.debounce(function () {
       $fenInput.removeClass("success failure");
-      var fen = switchColorSfen($fenInput.val());
+      var fen = undisplaySfen($fenInput.val());
       if (fen) {
         $.ajax({
           url: $fenInput.parent().data("validate-url"),

@@ -431,27 +431,28 @@ export function fixPocket(sfen: string) {
   return sfen;
 }
 
+// assumes shogi color
 export function fixRoundNumber(fen: string): string {
   const splitted = fen.split(' ');
   const color = splitted[1];
   const turn = splitted[3];
-  // assumes color is fixed
   if (turn && parseInt(turn)) {
     const turnInt = parseInt(turn);
-    let ply = color === "b" ? ((turnInt - 1) * 2) : ((turnInt - 1) * 2 + 1)
-    ply = ply > 0 ? ply : 1;
+    let ply = color === "b" ? (turnInt * 2 - 1) : (turnInt * 2);
     splitted[3] = ply.toString();
     return splitted.join(' ');
   }
   return fen;
 }
 
+// assumes chess fen
 export function breakRoundNumber(sfen: string): string {
   const splitted = sfen.split(' ');
+  const color = splitted[1];
   const ply = splitted[3];
   if (ply && parseInt(ply)) {
     const plyInt = parseInt(ply);
-    const turn = (plyInt / 2) + 1;
+    const turn = color === 'w' ? Math.floor(plyInt / 2) + 1 : Math.floor(plyInt / 2);
     splitted[3] = turn.toString();
     return splitted.join(' ');
   }
