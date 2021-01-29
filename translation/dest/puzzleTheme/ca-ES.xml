@@ -6,8 +6,8 @@
   <string name="advantageDescription">Aprofita l\'oportunitat per agafar avantatge definitiva. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Mat d\'Anastasia</string>
   <string name="anastasiaMateDescription">Un cavall i una torre o una dama es coordinen per atrapar el rei de l\'oponent entre una cantonada del tauler i una peça aliada.</string>
-  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Mat àrab</string>
-  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">Un cavall i una torre es coordinen per atrapar el rei de l\'oponent en una cantonada del tauler.</string>
+  <string name="arabianMate">Mat àrab</string>
+  <string name="arabianMateDescription">Un cavall i una torre es coordinen per atrapar el rei de l\'oponent en una cantonada del tauler.</string>
   <string name="attackingF2F7">Atacant f2 o f7</string>
   <string name="attackingF2F7Description">Un atac centrat en el peó de f2 o f7, com a l\'obertura de l\'atac Fegatello.</string>
   <string name="attraction">Atracció</string>
@@ -16,18 +16,18 @@
   <string name="backRankMateDescription">Fes escac i mat al rei a la primera fila, quan està atrapat per les seves pròpies peces.</string>
   <string name="bishopEndgame">Final d’alfils</string>
   <string name="bishopEndgameDescription">Un final d\'alfils i peons.</string>
-  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Mat de Boden</string>
-  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Dos alfils atacant en diagonals que es creuen fan mat a un rei que queda atrapat entre peces amigues.</string>
+  <string name="bodenMate">Mat de Boden</string>
+  <string name="bodenMateDescription">Dos alfils atacant en diagonals que es creuen fan mat a un rei que queda atrapat entre peces amigues.</string>
   <string name="castling">Enrocant</string>
   <string name="castlingDescription">Assegura el rei, i prepara la torre per l\'atac.</string>
   <string name="capturingDefender">Captura el defensor</string>
   <string name="capturingDefenderDescription">Menjar una peça que és vital per defensar una altra, fent que es pugui menjar la peça que ara ja no està defensada.</string>
   <string name="crushing">Destrucció</string>
   <string name="crushingDescription">Veure l\'error de l\'adversari per a obtenir un gran avantatge (aval ≥ 600cp)</string>
-  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Mat dels dos alfils</string>
-  <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Dos alfils atacant en diagonals adjacents fan mat a un rei que queda obstruït per peces amigues.</string>
-  <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Mat de Cozio</string>
-  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">Una reina fa mat a un rei adjacent que té les dues caselles adjacents obstruïdes per peces amigues.</string>
+  <string name="doubleBishopMate">Mat dels dos alfils</string>
+  <string name="doubleBishopMateDescription">Dos alfils atacant en diagonals adjacents fan mat a un rei que queda obstruït per peces amigues.</string>
+  <string name="dovetailMate">Mat de Cozio</string>
+  <string name="dovetailMateDescription">Una reina fa mat a un rei adjacent que té les dues caselles adjacents obstruïdes per peces amigues.</string>
   <string name="equality">Igualtat</string>
   <string name="equalityDescription">Remunta des d\'una posició perduda i assegura un empat o una posició balancejada. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Atac pel flan de rei</string>
