@@ -320,6 +320,7 @@
 	<string name="apply">적용</string>
 	<string name="save">저장하기</string>
 	<string name="leaderboard">리더보드</string>
+	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">FEN값을 붙여 넣으세요</string>
 	<string name="pasteThePgnStringHere">PGN값을 붙여 넣으세요</string>
 	<string name="fromPosition">정해진 보드판에서 시작</string>
@@ -412,6 +413,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="setTheBoard">보드 세팅하기</string>
 	<string name="popularOpenings">인기 있는 오프닝</string>
 	<string name="handicaps">Handicaps</string>
+	<string name="handicap">Handicap</string>
 	<string name="startPosition">원래대로</string>
 	<string name="clearBoard">보드 지우기</string>
 	<string name="fillGotesHand">Fill Gote\'s hand</string>
@@ -623,6 +625,11 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="simulClockHint">피셔 방식 제한시간 설정: 여러 명의 사람들과 둔다면 더 많은 시간이 필요할 것입니다.</string>
 	<string name="simulAddExtraTime">동시대국을 위하여 당신에게만 여분의 시간을 더할 수 있습니다.</string>
 	<string name="simulHostExtraTime">호스트 연장 시간</string>
+	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
+	<string name="hostColorForEachGame">Host color for each game</string>
+	<string name="onlyMembersOfTeam">Only members of team</string>
+	<string name="simulDescription">Simul description</string>
+	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogi tournaments</string>
 	<string name="tournamentFAQ">아레나 토너먼트 FAQ</string>
 	<string name="tournamentOfficial">공식</string>

@@ -343,6 +343,7 @@
 	<string name="apply">Ota käyttöön</string>
 	<string name="save">Tallenna</string>
 	<string name="leaderboard">Pistetaulukko</string>
+	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Liitä FEN-merkkijono tähän</string>
 	<string name="pasteThePgnStringHere">Liitä PGN-merkkijono tähän</string>
 	<string name="fromPosition">Asemasta</string>
@@ -440,6 +441,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="setTheBoard">Asettele lauta</string>
 	<string name="popularOpenings">Suosittuja avauksia</string>
 	<string name="handicaps">Handicaps</string>
+	<string name="handicap">Handicap</string>
 	<string name="startPosition">Alkuasema</string>
 	<string name="clearBoard">Tyhjennä lauta</string>
 	<string name="fillGotesHand">Fill Gote\'s hand</string>
@@ -656,6 +658,11 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="simulClockHint">Fischer-kellon asetukset. Mitä enemmän pelaajia on, sitä enemmän aikaa saatat tarvita.</string>
 	<string name="simulAddExtraTime">Voit lisätä aikaa kelloosi selviytyäksesi simultaanista.</string>
 	<string name="simulHostExtraTime">Isännän ylimääräinen aika</string>
+	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
+	<string name="hostColorForEachGame">Host color for each game</string>
+	<string name="onlyMembersOfTeam">Only members of team</string>
+	<string name="simulDescription">Simul description</string>
+	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogi tournaments</string>
 	<string name="tournamentFAQ">Areenaturnausten UKK</string>
 	<string name="tournamentOfficial">Virallinen</string>

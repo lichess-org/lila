@@ -343,6 +343,7 @@
 	<string name="apply">Submit</string>
 	<string name="save">Save</string>
 	<string name="leaderboard">Leaderboard</string>
+	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Paste the FEN text here</string>
 	<string name="pasteThePgnStringHere">Paste the PGN text here</string>
 	<string name="fromPosition">From position</string>
@@ -441,6 +442,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="setTheBoard">Set the board</string>
 	<string name="popularOpenings">Popular openings</string>
 	<string name="handicaps">Handicaps</string>
+	<string name="handicap">Handicap</string>
 	<string name="startPosition">Starting position</string>
 	<string name="clearBoard">Clear board</string>
 	<string name="fillGotesHand">Fill Gote\'s hand</string>
@@ -657,6 +659,11 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="simulClockHint">Fischer na Orasan ng pagaayos. Mas maraming manlalaro na iyong nilaro, mas maraming oras ang iyong maaring kailanganin.</string>
 	<string name="simulAddExtraTime">Maaring magdadag ng sobrang oras sa iyong orasan upang mapadali ang simul.</string>
 	<string name="simulHostExtraTime">Maghost ng sobrang oras sa orasan</string>
+	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
+	<string name="hostColorForEachGame">Host color for each game</string>
+	<string name="onlyMembersOfTeam">Only members of team</string>
+	<string name="simulDescription">Simul description</string>
+	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Mga torneo sa Lishogi</string>
 	<string name="tournamentFAQ">Arena tournament FAQ</string>
 	<string name="tournamentOfficial">Official</string>

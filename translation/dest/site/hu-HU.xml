@@ -343,6 +343,7 @@
 	<string name="apply">Mentés</string>
 	<string name="save">Mentés</string>
 	<string name="leaderboard">Ranglista</string>
+	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Másold ide a FEN szöveget</string>
 	<string name="pasteThePgnStringHere">Másold ide a PGN szöveget</string>
 	<string name="fromPosition">Adott állásból</string>
@@ -440,6 +441,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="setTheBoard">Táblaállás</string>
 	<string name="popularOpenings">Népszerű megnyitások</string>
 	<string name="handicaps">Handicaps</string>
+	<string name="handicap">Handicap</string>
 	<string name="startPosition">Alapállás</string>
 	<string name="clearBoard">Üres tábla</string>
 	<string name="fillGotesHand">Fill Gote\'s hand</string>
@@ -656,6 +658,11 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="simulClockHint">Fisher óra beállítás. Minél több játékossal játszol, annál több időre lesz szükség</string>
 	<string name="simulAddExtraTime">Plusz időt adhatsz az órához, hogy a szimultán könnyebb legyen.</string>
 	<string name="simulHostExtraTime">Időbónusz</string>
+	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
+	<string name="hostColorForEachGame">Host color for each game</string>
+	<string name="onlyMembersOfTeam">Only members of team</string>
+	<string name="simulDescription">Simul description</string>
+	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogi tournaments</string>
 	<string name="tournamentFAQ">Aréna verseny GYIK</string>
 	<string name="tournamentOfficial">Hivatalos</string>

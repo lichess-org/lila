@@ -366,6 +366,7 @@
 	<string name="apply">Примени</string>
 	<string name="save">Сачувај</string>
 	<string name="leaderboard">Табела</string>
+	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Убаци FEN текст овде</string>
 	<string name="pasteThePgnStringHere">Убаци PGN текст овде</string>
 	<string name="fromPosition">Од позиције</string>
@@ -469,6 +470,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="setTheBoard">Постави таблу</string>
 	<string name="popularOpenings">Популарна отварања</string>
 	<string name="handicaps">Handicaps</string>
+	<string name="handicap">Handicap</string>
 	<string name="startPosition">Почетна позиција</string>
 	<string name="clearBoard">Уклони фигуре</string>
 	<string name="fillGotesHand">Fill Gote\'s hand</string>
@@ -690,6 +692,11 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="simulClockHint">Фишерово подешавање сата. Што више играча примиш, више времена ће ти бити потребно.</string>
 	<string name="simulAddExtraTime">Можеш додати додатно време на свој сат да ти помогне савладати симултанку.</string>
 	<string name="simulHostExtraTime">Додатно време домаћина</string>
+	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
+	<string name="hostColorForEachGame">Host color for each game</string>
+	<string name="onlyMembersOfTeam">Only members of team</string>
+	<string name="simulDescription">Simul description</string>
+	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogi tournaments</string>
 	<string name="tournamentFAQ">Најчешће постављена питања за арена турнире</string>
 	<string name="tournamentOfficial">Службено</string>

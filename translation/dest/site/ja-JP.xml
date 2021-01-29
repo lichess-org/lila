@@ -320,6 +320,7 @@
 	<string name="apply">適用</string>
 	<string name="save">保存</string>
 	<string name="leaderboard">ランキング</string>
+	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">ここにSFEN形式の局面をペースト</string>
 	<string name="pasteThePgnStringHere">ここにPGN形式の棋譜をペースト</string>
 	<string name="fromPosition">特定の局面から</string>
@@ -413,6 +414,7 @@
 	<string name="setTheBoard">盤面を指定</string>
 	<string name="popularOpenings">人気のオープニング</string>
 	<string name="handicaps">手合割</string>
+	<string name="handicap">Handicap</string>
 	<string name="startPosition">開始局面</string>
 	<string name="clearBoard">盤面をクリアする</string>
 	<string name="fillGotesHand">後手番の手を入力する</string>
@@ -514,7 +516,7 @@
 	<string name="newPasswordAgain">新しいパスワード（確認）</string>
 	<string name="clockInitialTime">初期持ち時間</string>
 	<string name="clockIncrement">追加時間</string>
-	<string name="clockByoyomi" comment="clockByoyomi&#10;&#10;https://lishogi.org/tournament/new">秒読み</string>
+	<string name="clockByoyomi">秒読み</string>
 	<string name="privacy">プライバシー（英文）</string>
 	<string name="letOtherPlayersFollowYou">他人からのフォローを可能にする</string>
 	<string name="letOtherPlayersChallengeYou">他人からの挑戦を可能にする</string>
@@ -624,6 +626,11 @@
 	<string name="simulClockHint">フィッシャーモードの設定。相手が多いほど追加時間は長めに。</string>
 	<string name="simulAddExtraTime">多面指しの手間を考え、自分に持時間をさらに追加できます。</string>
 	<string name="simulHostExtraTime">ホスト延長時間</string>
+	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
+	<string name="hostColorForEachGame">Host color for each game</string>
+	<string name="onlyMembersOfTeam">Only members of team</string>
+	<string name="simulDescription">Simul description</string>
+	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogiトーナメント</string>
 	<string name="tournamentFAQ">アリーナ・トーナメントFAQ</string>
 	<string name="tournamentOfficial">公式</string>

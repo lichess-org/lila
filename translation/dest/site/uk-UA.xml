@@ -389,6 +389,7 @@
 	<string name="apply">Застосувати</string>
 	<string name="save">Збережи</string>
 	<string name="leaderboard">Найкращі гравці</string>
+	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Встав FEN тут</string>
 	<string name="pasteThePgnStringHere">Встав PGN тут</string>
 	<string name="fromPosition">З розташови</string>
@@ -497,6 +498,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="setTheBoard">Устав дошку</string>
 	<string name="popularOpenings">Знанні початки</string>
 	<string name="handicaps">Handicaps</string>
+	<string name="handicap">Handicap</string>
 	<string name="startPosition">Початкова позиція</string>
 	<string name="clearBoard">Вичисть дошку</string>
 	<string name="fillGotesHand">Fill Gote\'s hand</string>
@@ -723,6 +725,11 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="simulClockHint">Лашти годинника Фішера. Чим більше гравців, тим більше часу тобі треба.</string>
 	<string name="simulAddExtraTime">Ви можете додати собі час, щоб упоратися з сеансом.</string>
 	<string name="simulHostExtraTime">Додатковий час для власника</string>
+	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
+	<string name="hostColorForEachGame">Host color for each game</string>
+	<string name="onlyMembersOfTeam">Only members of team</string>
+	<string name="simulDescription">Simul description</string>
+	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogi tournaments</string>
 	<string name="tournamentFAQ">Часті запитання про змаги</string>
 	<string name="tournamentOfficial">Затверджені</string>

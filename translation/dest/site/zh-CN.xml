@@ -320,6 +320,7 @@
 	<string name="apply">应用</string>
 	<string name="save">保存</string>
 	<string name="leaderboard">排行榜</string>
+	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">在此处粘贴FEN字串</string>
 	<string name="pasteThePgnStringHere">在此处粘贴PGN棋谱</string>
 	<string name="fromPosition">自定义局面</string>
@@ -412,6 +413,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="setTheBoard">摆棋</string>
 	<string name="popularOpenings">常见开局</string>
 	<string name="handicaps">Handicaps</string>
+	<string name="handicap">Handicap</string>
 	<string name="startPosition">起始局面</string>
 	<string name="clearBoard">清空棋盘</string>
 	<string name="fillGotesHand">Fill Gote\'s hand</string>
@@ -623,6 +625,11 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="simulClockHint">菲舍尔时钟设置。挑战者越多，您所需时间就可能相应越多。</string>
 	<string name="simulAddExtraTime">您可以为自己附加时间应对车轮战。</string>
 	<string name="simulHostExtraTime">主持的额外时间</string>
+	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
+	<string name="hostColorForEachGame">Host color for each game</string>
+	<string name="onlyMembersOfTeam">Only members of team</string>
+	<string name="simulDescription">Simul description</string>
+	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogi 锦标赛</string>
 	<string name="tournamentFAQ">锦标赛常见问题</string>
 	<string name="tournamentOfficial">官方比赛</string>

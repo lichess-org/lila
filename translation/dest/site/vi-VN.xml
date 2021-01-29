@@ -320,6 +320,7 @@
 	<string name="apply">Áp dụng</string>
 	<string name="save">Lưu</string>
 	<string name="leaderboard">Bảng dẫn đầu</string>
+	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Dán chuỗi FEN ở đây</string>
 	<string name="pasteThePgnStringHere">Dán chuỗi PGN ở đây</string>
 	<string name="fromPosition">Từ thế trận</string>
@@ -412,6 +413,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="setTheBoard">Thiết lập bàn</string>
 	<string name="popularOpenings">Khai cuộc phổ biến</string>
 	<string name="handicaps">Handicaps</string>
+	<string name="handicap">Handicap</string>
 	<string name="startPosition">Thế trận ban đầu</string>
 	<string name="clearBoard">Xóa bàn cờ</string>
 	<string name="fillGotesHand">Fill Gote\'s hand</string>
@@ -623,6 +625,11 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="simulClockHint">Thiết lập Đồng hồ Fischer. Bạn càng chơi với nhiều người thì càng có thể cần nhiều thời gian.</string>
 	<string name="simulAddExtraTime">Bạn có thể thêm thời gian cho đồng hồ của bạn để đấu cờ đồng loạt dễ hơn.</string>
 	<string name="simulHostExtraTime">Thời gian thêm cho người chủ trì</string>
+	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
+	<string name="hostColorForEachGame">Host color for each game</string>
+	<string name="onlyMembersOfTeam">Only members of team</string>
+	<string name="simulDescription">Simul description</string>
+	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogi tournaments</string>
 	<string name="tournamentFAQ">Các câu hỏi thường gặp về đấu trường giải đấu</string>
 	<string name="tournamentOfficial">Chính thức</string>

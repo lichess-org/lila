@@ -343,6 +343,7 @@
 	<string name="apply">Envia</string>
 	<string name="save">Desa</string>
 	<string name="leaderboard">Llista de líders</string>
+	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Enganxa el text FEN aquí</string>
 	<string name="pasteThePgnStringHere">Enganxa el text PGN aquí</string>
 	<string name="fromPosition">Des de la posició</string>
@@ -440,6 +441,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="setTheBoard">Establir el tauler</string>
 	<string name="popularOpenings">Obertures populars</string>
 	<string name="handicaps">Handicaps</string>
+	<string name="handicap">Handicap</string>
 	<string name="startPosition">Posició inicial</string>
 	<string name="clearBoard">Neteja el tauler</string>
 	<string name="fillGotesHand">Fill Gote\'s hand</string>
@@ -659,6 +661,11 @@ en %3$s</string>
 	<string name="simulClockHint">Sistema de Rellotge Fischer. Com més oponents tinguis, més temps et pot caldre.</string>
 	<string name="simulAddExtraTime">Pots afegir temps extra al rellotge per ajudar-te amb les simultànies.</string>
 	<string name="simulHostExtraTime">Temps extra per a l\'amfitrió</string>
+	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
+	<string name="hostColorForEachGame">Host color for each game</string>
+	<string name="onlyMembersOfTeam">Only members of team</string>
+	<string name="simulDescription">Simul description</string>
+	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogi tournaments</string>
 	<string name="tournamentFAQ">Torneig Arena: Preguntes Més Freqüents</string>
 	<string name="tournamentOfficial">Oficial</string>

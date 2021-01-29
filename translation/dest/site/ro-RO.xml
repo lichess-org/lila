@@ -366,6 +366,7 @@
 	<string name="apply">Aplicați</string>
 	<string name="save">Salvează</string>
 	<string name="leaderboard">Clasament</string>
+	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Lipește FEN aici</string>
 	<string name="pasteThePgnStringHere">Lipește PGN aici</string>
 	<string name="fromPosition">De la poziția</string>
@@ -468,6 +469,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="setTheBoard">Aşează tabla</string>
 	<string name="popularOpenings">Deschideri populare</string>
 	<string name="handicaps">Handicaps</string>
+	<string name="handicap">Handicap</string>
 	<string name="startPosition">Poziția de start</string>
 	<string name="clearBoard">Curăță tabla</string>
 	<string name="fillGotesHand">Fill Gote\'s hand</string>
@@ -689,6 +691,11 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="simulClockHint">Configurare de ceas Fischer. Cu cât joci împotriva mai multor jucători, cu atât vei avea nevoie de mai mult timp.</string>
 	<string name="simulAddExtraTime">Poți adăuga timp în plus pe ceasul tău pentru a te ajuta să faci față simultanului.</string>
 	<string name="simulHostExtraTime">Timp suplimentar pe ceasul gazdei</string>
+	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
+	<string name="hostColorForEachGame">Host color for each game</string>
+	<string name="onlyMembersOfTeam">Only members of team</string>
+	<string name="simulDescription">Simul description</string>
+	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogi tournaments</string>
 	<string name="tournamentFAQ">Intrebări și răspunsuri pentru turneu</string>
 	<string name="tournamentOfficial">Oficial</string>

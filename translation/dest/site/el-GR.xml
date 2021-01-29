@@ -343,6 +343,7 @@
 	<string name="apply">Εφαρμογή</string>
 	<string name="save">Αποθήκευση</string>
 	<string name="leaderboard">Πίνακας βαθμολογίας</string>
+	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Επικολλήστε τον κώδικα FEN εδώ</string>
 	<string name="pasteThePgnStringHere">Επικολλήστε το κείμενο του PGN εδώ</string>
 	<string name="fromPosition">Από συγκεκριμένη θέση</string>
@@ -441,6 +442,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="setTheBoard">Στήστε την σκακιέρα</string>
 	<string name="popularOpenings">Δημοφιλή ανοίγματα</string>
 	<string name="handicaps">Handicaps</string>
+	<string name="handicap">Handicap</string>
 	<string name="startPosition">Αρχική διάταξη</string>
 	<string name="clearBoard">Εκκαθάριση σκακιέρας</string>
 	<string name="fillGotesHand">Fill Gote\'s hand</string>
@@ -657,6 +659,11 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="simulClockHint">Ρολόι Φίσερ. Όσους περισσότερους παίκτες παίξετε, τόσο περισσότερο χρόνο ίσως χρειαστείτε.</string>
 	<string name="simulAddExtraTime">Μπορείτε να προσθέσετε επιπλέον χρόνο στο ρολόι σας για να σας βοηθήσει στην έκθεση.</string>
 	<string name="simulHostExtraTime">Παροχή επιπλέον χρόνου στο ρολόι</string>
+	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
+	<string name="hostColorForEachGame">Host color for each game</string>
+	<string name="onlyMembersOfTeam">Only members of team</string>
+	<string name="simulDescription">Simul description</string>
+	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogi tournaments</string>
 	<string name="tournamentFAQ">Τεκμηρίωση πρωταθλημάτων τύπου αρένας</string>
 	<string name="tournamentOfficial">Επίσημο</string>

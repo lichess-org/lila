@@ -343,6 +343,7 @@
 	<string name="apply">Pas toe</string>
 	<string name="save">Stoor</string>
 	<string name="leaderboard">Leierbord</string>
+	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Plak die FEN string hier</string>
 	<string name="pasteThePgnStringHere">Plak die PGN string hier</string>
 	<string name="fromPosition">Van posisie</string>
@@ -441,6 +442,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="setTheBoard">Pak die bord</string>
 	<string name="popularOpenings">Gewilde openinge</string>
 	<string name="handicaps">Handicaps</string>
+	<string name="handicap">Handicap</string>
 	<string name="startPosition">Begin posisie</string>
 	<string name="clearBoard">Maak bord skoon</string>
 	<string name="fillGotesHand">Fill Gote\'s hand</string>
@@ -658,6 +660,11 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
 	<string name="simulClockHint">Fischer Klok stelling. Hoe meer spelers wat jy aanvat, hoe meer tyd kan jy benodig.</string>
 	<string name="simulAddExtraTime">Jy kan ekstra tyd by jou klok sit om jou te help om die simul te hanteer.</string>
 	<string name="simulHostExtraTime">Gasheer ekstra kloktyd</string>
+	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
+	<string name="hostColorForEachGame">Host color for each game</string>
+	<string name="onlyMembersOfTeam">Only members of team</string>
+	<string name="simulDescription">Simul description</string>
+	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogi tournaments</string>
 	<string name="tournamentFAQ">Arena toernooi Vrae</string>
 	<string name="tournamentOfficial">Amptelik</string>

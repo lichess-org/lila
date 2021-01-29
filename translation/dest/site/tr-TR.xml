@@ -343,6 +343,7 @@
 	<string name="apply">Uygula</string>
 	<string name="save">Kaydet</string>
 	<string name="leaderboard">Lider Tablosu</string>
+	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">FEN kodunu buraya yapıştırın</string>
 	<string name="pasteThePgnStringHere">PGN\'yi buraya yapıştırın</string>
 	<string name="fromPosition">Özel pozisyondan</string>
@@ -440,6 +441,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="setTheBoard">Tahtayı ayarla</string>
 	<string name="popularOpenings">Popüler açılışlar</string>
 	<string name="handicaps">Handicaps</string>
+	<string name="handicap">Handicap</string>
 	<string name="startPosition">Başlangıç konumu</string>
 	<string name="clearBoard">Tahtayı temizle</string>
 	<string name="fillGotesHand">Fill Gote\'s hand</string>
@@ -656,6 +658,11 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="simulClockHint">Fischer Saati formatı. Ne kadar fazla oyuncu ile yüzleşirseniz, o kadar fazla zamana ihtiyaç duyabilirsiniz.</string>
 	<string name="simulAddExtraTime">Eş zamanlı gösteride süreyi idare edebilmek için kendi saatinize fazladan zaman ekleyebilirsiniz.</string>
 	<string name="simulHostExtraTime">Ev sahibinin fazladan süresi</string>
+	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
+	<string name="hostColorForEachGame">Host color for each game</string>
+	<string name="onlyMembersOfTeam">Only members of team</string>
+	<string name="simulDescription">Simul description</string>
+	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogi tournaments</string>
 	<string name="tournamentFAQ">Arena turnuvaları SSS</string>
 	<string name="tournamentOfficial">Resmî</string>

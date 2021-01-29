@@ -389,6 +389,7 @@
 	<string name="apply">Použít</string>
 	<string name="save">Uložit</string>
 	<string name="leaderboard">Žebříček</string>
+	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Zde vložte FEN řetězec</string>
 	<string name="pasteThePgnStringHere">Zde vložte PGN řetězec</string>
 	<string name="fromPosition">Z pozice</string>
@@ -496,6 +497,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="setTheBoard">Upravit šachovnici</string>
 	<string name="popularOpenings">Populární zahájení</string>
 	<string name="handicaps">Handicaps</string>
+	<string name="handicap">Handicap</string>
 	<string name="startPosition">Základní postavení</string>
 	<string name="clearBoard">Prázdná šachovnice</string>
 	<string name="fillGotesHand">Fill Gote\'s hand</string>
@@ -722,6 +724,11 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="simulClockHint">Nastavení Fisherových hodin. Čím víc hráčů přijmete, tím víc času budete potřebovat.</string>
 	<string name="simulAddExtraTime">Můžete si přidat více času, abyste  tu simultánku lépe zvládli.</string>
 	<string name="simulHostExtraTime">Hostův bonusový čas</string>
+	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
+	<string name="hostColorForEachGame">Host color for each game</string>
+	<string name="onlyMembersOfTeam">Only members of team</string>
+	<string name="simulDescription">Simul description</string>
+	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogi tournaments</string>
 	<string name="tournamentFAQ">Arena turnaj - často kladené otázky</string>
 	<string name="tournamentOfficial">oficiální</string>

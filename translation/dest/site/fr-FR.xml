@@ -343,6 +343,7 @@
 	<string name="apply">Appliquer</string>
 	<string name="save">Enregistrer</string>
 	<string name="leaderboard">Classements</string>
+	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Coller le FEN ici</string>
 	<string name="pasteThePgnStringHere">Coller le PGN ici</string>
 	<string name="fromPosition">Depuis une position</string>
@@ -439,6 +440,7 @@
 	<string name="setTheBoard">Entrer une position</string>
 	<string name="popularOpenings">Ouvertures courantes</string>
 	<string name="handicaps">Handicaps</string>
+	<string name="handicap">Handicap</string>
 	<string name="startPosition">Position de départ</string>
 	<string name="clearBoard">Vider l\'échiquier</string>
 	<string name="fillGotesHand">Remplir la main de gote</string>
@@ -542,7 +544,7 @@
 	<string name="newPasswordAgain">Nouveau mot de passe (encore)</string>
 	<string name="clockInitialTime">Capital temps initial à la pendule</string>
 	<string name="clockIncrement">Incrément de la pendule</string>
-	<string name="clockByoyomi" comment="clockByoyomi&#10;&#10;https://lishogi.org/tournament/new">Byoyomi</string>
+	<string name="clockByoyomi">Byoyomi</string>
 	<string name="privacy">Confidentialité</string>
 	<string name="letOtherPlayersFollowYou">Autoriser les autres joueurs à vous suivre</string>
 	<string name="letOtherPlayersChallengeYou">Autoriser les autres joueurs à vous défier</string>
@@ -655,6 +657,11 @@
 	<string name="simulClockHint">Configuration de la cadence Fischer. Plus il y a d\'adversaires, plus vous pourriez avoir besoin de temps.</string>
 	<string name="simulAddExtraTime">Vous pouvez ajouter du temps supplémentaire à votre pendule pour gérer la simultanée.</string>
 	<string name="simulHostExtraTime">Temps supplémentaire de l\'hôte</string>
+	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
+	<string name="hostColorForEachGame">Host color for each game</string>
+	<string name="onlyMembersOfTeam">Only members of team</string>
+	<string name="simulDescription">Simul description</string>
+	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Tournois Lishogi</string>
 	<string name="tournamentFAQ">FAQ des tournois</string>
 	<string name="tournamentOfficial">Officiel</string>

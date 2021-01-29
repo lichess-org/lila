@@ -343,6 +343,7 @@
 	<string name="apply">Aplicar</string>
 	<string name="save">Salvar</string>
 	<string name="leaderboard">Classificação</string>
+	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Cole a notação FEN aqui</string>
 	<string name="pasteThePgnStringHere">Cole a notação PGN aqui</string>
 	<string name="fromPosition">A partir da posição</string>
@@ -440,6 +441,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="setTheBoard">Defina a posição</string>
 	<string name="popularOpenings">Aberturas populares</string>
 	<string name="handicaps">Handicaps</string>
+	<string name="handicap">Handicap</string>
 	<string name="startPosition">Posição inicial</string>
 	<string name="clearBoard">Limpar tabuleiro</string>
 	<string name="fillGotesHand">Fill Gote\'s hand</string>
@@ -656,6 +658,11 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="simulClockHint">Configuração de acréscimos no relógio. Quanto mais jogadores admitir, mais tempo pode necessitar.</string>
 	<string name="simulAddExtraTime">Você pode acrescentar tempo adicional a seu relógio, para ajudá-lo a lidar com a simultânea.</string>
 	<string name="simulHostExtraTime">Tempo adicional do simultanista</string>
+	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
+	<string name="hostColorForEachGame">Host color for each game</string>
+	<string name="onlyMembersOfTeam">Only members of team</string>
+	<string name="simulDescription">Simul description</string>
+	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogi tournaments</string>
 	<string name="tournamentFAQ">Perguntas Frequentes sobre torneios no estilo Arena</string>
 	<string name="tournamentOfficial">Oficial</string>

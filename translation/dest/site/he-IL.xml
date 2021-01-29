@@ -389,6 +389,7 @@
 	<string name="apply">תיישם</string>
 	<string name="save">שמור</string>
 	<string name="leaderboard">טבלת השחקנים המובילים</string>
+	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">הדבק מחרוזת FEN כאן</string>
 	<string name="pasteThePgnStringHere">הדבק מחרוזת PGN כאן</string>
 	<string name="fromPosition">מהעמדה</string>
@@ -496,6 +497,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="setTheBoard">הכן את הלוח</string>
 	<string name="popularOpenings">פתיחות פופולריות</string>
 	<string name="handicaps">Handicaps</string>
+	<string name="handicap">Handicap</string>
 	<string name="startPosition">מצב התחלתי</string>
 	<string name="clearBoard">נקה לוח</string>
 	<string name="fillGotesHand">Fill Gote\'s hand</string>
@@ -725,6 +727,11 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="simulClockHint">התקנת שעון של פישר. כאשר אתה משחק עם יותר שחקנים, ייתכן שיקח לך יותר זמן.</string>
 	<string name="simulAddExtraTime">.באפשרותך להוסיף זמן נוסף לשעון שלך כדי לעזור לך להתמודד עם משחק בו-זמנית</string>
 	<string name="simulHostExtraTime">זמן נוסף למארח</string>
+	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
+	<string name="hostColorForEachGame">Host color for each game</string>
+	<string name="onlyMembersOfTeam">Only members of team</string>
+	<string name="simulDescription">Simul description</string>
+	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogi tournaments</string>
 	<string name="tournamentFAQ">שאלות נפוצות לגבי זירת הטורנירים</string>
 	<string name="tournamentOfficial">רשמי</string>

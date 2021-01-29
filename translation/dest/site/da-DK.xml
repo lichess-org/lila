@@ -343,6 +343,7 @@
 	<string name="apply">Anvend</string>
 	<string name="save">Gem</string>
 	<string name="leaderboard">Klassement</string>
+	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Indsæt FEN-teksten her</string>
 	<string name="pasteThePgnStringHere">Indsæt PGN-teksten her</string>
 	<string name="fromPosition">Fra position</string>
@@ -440,6 +441,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="setTheBoard">Opstil bræt</string>
 	<string name="popularOpenings">Populære åbninger</string>
 	<string name="handicaps">Handicaps</string>
+	<string name="handicap">Handicap</string>
 	<string name="startPosition">Startopstilling</string>
 	<string name="clearBoard">Fjern alle brikker</string>
 	<string name="fillGotesHand">Fill Gote\'s hand</string>
@@ -656,6 +658,11 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="simulClockHint">Fischer Clock opsætning. Jo flere spillere du udfordrer, jo mere tid kan være nødvendig.</string>
 	<string name="simulAddExtraTime">Du kan tilføje ekstra tid til dit ur for at hjælpe med at klare simultanspillet.</string>
 	<string name="simulHostExtraTime">Ekstra tid til værtsuret</string>
+	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
+	<string name="hostColorForEachGame">Host color for each game</string>
+	<string name="onlyMembersOfTeam">Only members of team</string>
+	<string name="simulDescription">Simul description</string>
+	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogi tournaments</string>
 	<string name="tournamentFAQ">Arena-turnering FAQ</string>
 	<string name="tournamentOfficial">Officiel</string>

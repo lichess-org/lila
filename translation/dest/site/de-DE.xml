@@ -343,6 +343,7 @@
 	<string name="apply">Anwenden</string>
 	<string name="save">Speichern</string>
 	<string name="leaderboard">Rangliste</string>
+	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Füge den FEN-Text hier ein</string>
 	<string name="pasteThePgnStringHere">Füge den PGN-Text hier ein</string>
 	<string name="fromPosition">Von Stellung</string>
@@ -440,6 +441,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="setTheBoard">Brett aufbauen</string>
 	<string name="popularOpenings">Beliebte Eröffnungen</string>
 	<string name="handicaps">Handicaps</string>
+	<string name="handicap">Handicap</string>
 	<string name="startPosition">Anfangsposition</string>
 	<string name="clearBoard">Brett räumen</string>
 	<string name="fillGotesHand">Fill Gote\'s hand</string>
@@ -656,6 +658,11 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="simulClockHint">Fischer Bedenkzeit. Je mehr Gegner du hast, desto mehr Zeit wirst du benötigen.</string>
 	<string name="simulAddExtraTime">Du kannst dir selbst zusätzliche Zeit hinzufügen, um mit dem Simultan zurechtzukommen.</string>
 	<string name="simulHostExtraTime">Extra Bedenkzeit des Ausrichters</string>
+	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
+	<string name="hostColorForEachGame">Host color for each game</string>
+	<string name="onlyMembersOfTeam">Only members of team</string>
+	<string name="simulDescription">Simul description</string>
+	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogi-Turniere</string>
 	<string name="tournamentFAQ">Arena FAQ</string>
 	<string name="tournamentOfficial">Offiziell</string>
