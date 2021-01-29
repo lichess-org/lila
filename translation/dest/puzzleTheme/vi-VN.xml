@@ -6,8 +6,8 @@
   <string name="advantageDescription">Sử dụng cơ hội của bạn để chiếm lấy lợi thế quyết định. (200cp ≤ đánh giá ≤ 600cp)</string>
   <string name="anastasiaMate">Chiếu hết kiểu Anastasia</string>
   <string name="anastasiaMateDescription">Một quân mã phối hợp cùng quân xe hoặc quân hậu để bẫy quân vua đối phương vào thế kẹp giữa cạnh bàn cờ và một quân khác.</string>
-  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Chiếu hết kiểu Arabian</string>
-  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">Một Mã và một Xe hợp sức để bẫy vua đối phương trên một góc của bàn cờ.</string>
+  <string name="arabianMate">Chiếu hết kiểu Arabian</string>
+  <string name="arabianMateDescription">Một Mã và một Xe hợp sức để bẫy vua đối phương trên một góc của bàn cờ.</string>
   <string name="attackingF2F7">Tấn công f2 hoặc f7</string>
   <string name="attackingF2F7Description">Một đòn tấn công nhằm vào quân tốt f2 hay f7, ví dụ như trong khai cuộc lá gan rán.</string>
   <string name="attraction">Thu hút</string>
@@ -16,18 +16,18 @@
   <string name="backRankMateDescription">Chiếu hết vua trên hàng ngang cuối, nơi nó bị mắc kẹt bởi chính quân của nó.</string>
   <string name="bishopEndgame">Cờ tàn tượng</string>
   <string name="bishopEndgameDescription">Một thế cờ tàn chỉ có tượng và tốt.</string>
-  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Chiếu hết kiểu Boden</string>
-  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Hai Tượng tấn công trên các đường chéo chéo nhau chiếu hết một vị vua bị cản trở bởi các quân cờ giao hữu.</string>
+  <string name="bodenMate">Chiếu hết kiểu Boden</string>
+  <string name="bodenMateDescription">Hai Tượng tấn công trên các đường chéo chéo nhau chiếu hết một vị vua bị cản trở bởi các quân cờ giao hữu.</string>
   <string name="castling">Nhập thành</string>
   <string name="castlingDescription">Chuyển quân vua đến vị trí an toàn, và triển khai quân xe để tấn công.</string>
   <string name="capturingDefender">Ăn quân phòng thủ</string>
   <string name="capturingDefenderDescription">Loại bỏ một quân cực kỳ quan trọng đối với việc bảo vệ một quân cờ khác, khiến cho quân cờ bây giờ không được bảo vệ có thể bị ăn vào một nước sau đó.</string>
   <string name="crushing">Áp đảo</string>
   <string name="crushingDescription">Phát hiện sai lầm nghiêm trọng của đối phương để chiếm được lợi thế áp đảo. (đánh giá ≥ 600cp)</string>
-  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Chiếu hết bằng đôi Tượng</string>
-  <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Hai quân Tượng tấn công trên các đường chéo liền kề chiếu hết một vị vua bị cản trở bởi quân cờ.</string>
-  <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Chiếu hết kiểu Dovetail</string>
-  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">Một Hậu chiếu hết một vị vua kế cận, người có hai ô thoát duy nhất bị cản trở bởi các quân cờ.</string>
+  <string name="doubleBishopMate">Chiếu hết bằng đôi Tượng</string>
+  <string name="doubleBishopMateDescription">Hai quân Tượng tấn công trên các đường chéo liền kề chiếu hết một vị vua bị cản trở bởi quân cờ.</string>
+  <string name="dovetailMate">Chiếu hết kiểu Dovetail</string>
+  <string name="dovetailMateDescription">Một Hậu chiếu hết một vị vua kế cận, người có hai ô thoát duy nhất bị cản trở bởi các quân cờ.</string>
   <string name="equality">Cân bằng</string>
   <string name="equalityDescription">Đảo ngược một thế cờ thua, và đảm bảo một thế trận hòa hoặc cân bằng. (đánh giá ≤ 200cp)</string>
   <string name="kingsideAttack">Tấn công cánh vua</string>
