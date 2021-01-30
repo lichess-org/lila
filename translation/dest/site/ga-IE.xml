@@ -34,8 +34,8 @@
   <string name="joinTheGame">Téigh isteach sa chluiche</string>
   <string name="whitePlays">Beart Bán</string>
   <string name="blackPlays">Beart Dubh</string>
-  <string name="opponentLeftChoices">B\'fhéidir go bhfuil an cluiche fágtha ag do chéile imeartha. Is féidir leat an bua a éileamh, comhscór a éileamh, nó fan.</string>
-  <string name="makeYourOpponentResign">Cuir iallach ar do chéile imeartha éirí as</string>
+  <string name="opponentLeftChoices">D’fhág do chéile comhraic an cluiche. Féadfaidh tú bua a éileamh, cluiche cothrom a eagrú, nó fanacht.</string>
+  <string name="makeYourOpponentResign">Brú a chur ar do chéile comhraic éirí as</string>
   <string name="forceResignation">Éiligh an bua</string>
   <string name="forceDraw">Éiligh comhscór</string>
   <string name="talkInChat">Bí dea-mhéasach sa chomhrá!</string>
