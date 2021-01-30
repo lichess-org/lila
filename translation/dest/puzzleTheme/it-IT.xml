@@ -61,10 +61,10 @@
   <string name="knightEndgameDescription">Un finale con soli cavalli e pedoni.</string>
   <string name="long">Tattica lunga</string>
   <string name="longDescription">Vittoria in tre mosse.</string>
-  <string name="master">Partite di giocatori titolati</string>
-  <string name="masterDescription">Puzzle da partite giocate da giocatori intitolati.</string>
-  <string name="masterVsMaster">Partite fra giocatori titolati</string>
-  <string name="masterVsMasterDescription">Puzzle da partite fra due giocatori titolati.</string>
+  <string name="master">Partite di Maestri</string>
+  <string name="masterDescription">Tattiche da partite giocate da scacchisti titolati.</string>
+  <string name="masterVsMaster">Partite fra Maestri</string>
+  <string name="masterVsMasterDescription">Tattiche da partite giocate fra due scacchisti titolati.</string>
   <string name="mate">Matto</string>
   <string name="mateDescription">Vinci la partita con stile.</string>
   <string name="mateIn1">Matto in 1</string>
