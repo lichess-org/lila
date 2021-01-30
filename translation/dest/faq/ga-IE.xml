@@ -3,6 +3,7 @@
   <string name="faqAbbreviation">CCanna</string>
   <string name="frequentlyAskedQuestions">Ceisteanna Coitianta</string>
   <string name="officialRulesPDF">rialacha oifigiúla (PDF)</string>
+  <string name="threefoldRepetitionExplanation">Má tharlaíonn an suíomh céanna trí huaire, is féidir le himreoirí cluiche cothrom a éileamh faoi %1$s. Úsáideann Lichess rialacha oifigiúla FIDE, mar atá curtha síos in Airteagal 9.2 (d) de %2$s.</string>
   <string name="configure">cumraigh</string>
   <string name="aHourlyBulletTournament">comórtas Bullet gach uair an chloig</string>
 </resources>
