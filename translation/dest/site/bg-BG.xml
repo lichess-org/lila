@@ -495,9 +495,11 @@
   <string name="newPassword">Нова парола</string>
   <string name="newPasswordAgain">Нова парола (повтори)</string>
   <string name="newPasswordsDontMatch">Въведените пароли не съвпадат</string>
+  <string name="newPasswordStrength">Сигурност на паролата</string>
   <string name="clockInitialTime">Начално време на часовника</string>
   <string name="clockIncrement">Добавено време на часовника</string>
   <string name="privacy">Поверителност</string>
+  <string name="privacyPolicy">Политика за поверителност</string>
   <string name="letOtherPlayersFollowYou">Позволи на другите играчи да ви следват</string>
   <string name="letOtherPlayersChallengeYou">Позволи на други играчи да ви предизвикват</string>
   <string name="letOtherPlayersInviteYouToStudy">Позволяване на играчи да ви поканят в проучване</string>
