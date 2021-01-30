@@ -42,30 +42,37 @@ object ofPlayer {
           div(cls := "puzzle-of-player__results")(
             (user, puzzles) match {
               case (Some(u), Some(pager)) =>
-                frag(
-                  p(strong(pager.nbResults), " puzzles found in ", userLink(u), " games."),
-                  div(cls := "puzzle-of-player__pager infinite-scroll")(
-                    pager.currentPageResults.map { puzzle =>
-                      div(cls := "puzzle-of-player__puzzle")(
-                        views.html.board.bits.mini(
-                          fen = puzzle.fenAfterInitialMove,
-                          color = puzzle.color,
-                          lastMove = puzzle.line.head.uci
-                        )(
-                          a(
-                            cls := s"puzzle-of-player__puzzle__board",
-                            href := routes.Puzzle.show(puzzle.id.value)
-                          )
-                        ),
-                        span(cls := "puzzle-of-player__puzzle__meta")(
-                          span(cls := "puzzle-of-player__puzzle__id", s"#${puzzle.id}"),
-                          span(cls := "puzzle-of-player__puzzle__rating", puzzle.glicko.intRating)
-                        )
-                      )
-                    },
-                    pagerNext(pager, np => s"${routes.Puzzle.ofPlayer(u.username.some, np).url}")
+                if (pager.nbResults == 0 && ctx.is(u))
+                  p(
+                    "You have no puzzles in the database, but Lichess still loves you very much.",
+                    br,
+                    "Play rapid games to increase your chances of having a puzzle of yours!"
                   )
-                )
+                else
+                  frag(
+                    p(strong(pager.nbResults), " puzzles found in ", userLink(u), " games."),
+                    div(cls := "puzzle-of-player__pager infinite-scroll")(
+                      pager.currentPageResults.map { puzzle =>
+                        div(cls := "puzzle-of-player__puzzle")(
+                          views.html.board.bits.mini(
+                            fen = puzzle.fenAfterInitialMove,
+                            color = puzzle.color,
+                            lastMove = puzzle.line.head.uci
+                          )(
+                            a(
+                              cls := s"puzzle-of-player__puzzle__board",
+                              href := routes.Puzzle.show(puzzle.id.value)
+                            )
+                          ),
+                          span(cls := "puzzle-of-player__puzzle__meta")(
+                            span(cls := "puzzle-of-player__puzzle__id", s"#${puzzle.id}"),
+                            span(cls := "puzzle-of-player__puzzle__rating", puzzle.glicko.intRating)
+                          )
+                        )
+                      },
+                      pagerNext(pager, np => s"${routes.Puzzle.ofPlayer(u.username.some, np).url}")
+                    )
+                  )
               case (_, _) => emptyFrag
             }
           )
