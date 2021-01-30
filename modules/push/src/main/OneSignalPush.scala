@@ -40,7 +40,9 @@ final private class OneSignalPush(
           )
           .flatMap {
             case res if res.status == 200 || res.status == 400 =>
-              readErrors(res).filterNot(_ contains "must have English language") match {
+              readErrors(res)
+                .filterNot(_ contains "must have English language")
+                .filterNot(_ contains "All included players are not subscribed") match {
                 case Nil => funit
                 case errors =>
                   fufail(s"[push] ${devices.map(_.deviceId)} $data ${res.status} ${errors mkString ","}")
