@@ -8,7 +8,8 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 
 export default function(ctrl: StormCtrl): VNode {
-  if (ctrl.vm.dupTab) return renderDupTab();
+  if (ctrl.vm.dupTab) return renderReload('This run was opened in another tab!');
+  if (ctrl.vm.lateStart) return renderReload('This run has expired!');
   if (!ctrl.vm.run.endAt) return h('div.storm.storm-app.storm--play', {
     class: playModifiers(ctrl)
   }, renderPlay(ctrl));
@@ -100,10 +101,10 @@ const renderStart = (ctrl: StormCtrl) =>
     ])
   );
 
-const renderDupTab = () =>
-  h('div.storm.storm--dup.box.box-pad', [
+const renderReload = (msg: string) =>
+  h('div.storm.storm--reload.box.box-pad', [
     h('i', { attrs: { 'data-icon': '~' } }),
-    h('p', 'This run was opened in another tab!'),
+    h('p', msg),
     h('a.storm--dup__reload.button', {
       attrs: { href: '/storm' }
     }, 'Click to reload')

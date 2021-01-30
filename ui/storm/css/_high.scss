@@ -2,6 +2,10 @@
   &__periods {
     display: flex;
     flex-flow: row wrap;
+
+    @include breakpoint($mq-xx-small) {
+      flex-flow: row nowrap;
+    }
   }
 
   &__period {

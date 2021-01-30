@@ -43,12 +43,19 @@ export default class StormCtrl {
         moves: 0,
         errors: 0
       },
-      signed: prop(undefined)
+      signed: prop(undefined),
+      lateStart: false
     };
     this.promotion = makePromotion(this.withGround, this.makeCgOpts, this.redraw);
     this.checkDupTab();
     setTimeout(this.hotkeys, 1000);
     if (this.data.key) setTimeout(() => sign(this.data.key!).then(this.vm.signed), 1000 * 40);
+    setTimeout(() => {
+      if (!this.vm.run.startAt) {
+        this.vm.lateStart = true;
+        this.redraw();
+      }
+    }, config.timeToStart + 1000);
   }
 
   clockMillis = (): number | undefined =>
