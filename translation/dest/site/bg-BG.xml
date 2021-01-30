@@ -9,6 +9,7 @@
   <string name="yourTurn">Вашият ход</string>
   <string name="aiNameLevelAiLevel">%1$s ниво %2$s</string>
   <string name="level">Ниво</string>
+  <string name="strength">Сила</string>
   <string name="toggleTheChat">Превключи чата</string>
   <string name="toggleSound">Превключи звука</string>
   <string name="chat">Чат</string>
@@ -493,6 +494,7 @@
   <string name="currentPassword">Текуща парола</string>
   <string name="newPassword">Нова парола</string>
   <string name="newPasswordAgain">Нова парола (повтори)</string>
+  <string name="newPasswordsDontMatch">Въведените пароли не съвпадат</string>
   <string name="clockInitialTime">Начално време на часовника</string>
   <string name="clockIncrement">Добавено време на часовника</string>
   <string name="privacy">Поверителност</string>
@@ -757,7 +759,7 @@
   <string name="doItAgain">Направете го пак</string>
   <string name="reviewWhiteMistakes">Преглед на грешки при белите</string>
   <string name="reviewBlackMistakes">Преглед на грешки при черните</string>
-  <string name="advantage">Предимство</string>
+  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Предимство</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s секунда</item>
     <item quantity="other">%s секунди</item>
