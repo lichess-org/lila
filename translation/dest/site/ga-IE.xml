@@ -585,6 +585,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="host">Óstach</string>
   <string name="hostColorX">Dath an óstaigh: %s</string>
   <string name="createdSimuls">Cluichí comhuaineacha nua-chruthaithe</string>
+  <string name="hostANewSimul">Óstáil cluiche comhuaineach nua</string>
   <string name="create">Cruthaigh</string>
   <string name="lichessTournaments">Comórtais Lichess</string>
   <string name="tournamentFAQ">CCanna Comórtas Airéine</string>
