@@ -377,6 +377,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function userJump(path: Tree.Path): void {
+    if (tree.nodeAtPath(path)?.puzzle == 'fail' && vm.mode != 'view') return;
     withGround(g => g.selectSquare(null));
     jump(path);
     speech.node(vm.node, true);
