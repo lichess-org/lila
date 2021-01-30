@@ -609,7 +609,9 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="keyMoveBackwardOrForward">bogadh siar/ar aghaidh</string>
   <string name="keyGoToStartOrEnd">téigh chun tús/deireadh</string>
   <string name="keyShowOrHideComments">taispeáin/folaigh nótaí tráchta</string>
+  <string name="keyEnterOrExitVariation">iontráil/scor athrúchán</string>
   <string name="newTournament">Comórtas Nua</string>
+  <string name="tournamentHomeTitle">Comórtais fichille ina bhfuil leagann ama agus athraitheach éagsúla</string>
   <string name="tournamentNotFound">Níor aimsíodh an comórtas</string>
   <string name="tournamentDoesNotExist">Nil an comórtas seo ann.</string>
   <string name="tournamentMayHaveBeenCanceled">B\'fhéidir go raibh an comórtas curtha ar ceal má d\'fhág gach imreoir sular thosaigh sé.</string>
