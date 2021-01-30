@@ -9,6 +9,7 @@
   <string name="youCannotChallengeX">Не може да предизвикате %s.</string>
   <string name="xDoesNotAcceptChallenges">%s не приема предизвикателства.</string>
   <string name="yourXRatingIsTooFarFromY">Вашият рейтинг %1$s е предалеч от %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Не можете да отправяте предизвикателтсва с временен рейтинг %s.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s приема предизвикателства само от приятели.</string>
   <string name="declineGeneric">Не приемам предизвикателства в момента.</string>
   <string name="declineLater">Това не е точният момент за мен, моля, опитайте пак по-късно.</string>
