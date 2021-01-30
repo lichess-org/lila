@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">Imir le cara</string>
-  <string name="playWithTheMachine">Imir in éadan an ríomhaire</string>
+  <string name="playWithTheMachine">Imir leis an ríomhaire</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Chun cuireadh a thabhairt do dhuine, tabhair an URL seo</string>
   <string name="gameOver">Cluiche Thart</string>
   <string name="waitingForOpponent">Ag fanacht le hiomaitheora</string>
-  <string name="waiting">Fanacht</string>
-  <string name="yourTurn">Do shealsa</string>
+  <string name="waiting">Ag fanacht</string>
+  <string name="yourTurn">Do bheart</string>
   <string name="aiNameLevelAiLevel">%1$s leibhéal %2$s</string>
   <string name="level">Leibhéal</string>
   <string name="strength">Caighdeán imeartha</string>
@@ -577,6 +577,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="simultaneousExhibitions">Taispeántais comhuineacha</string>
   <string name="host">Óstach</string>
   <string name="hostColorX">Dath an óstaigh: %s</string>
+  <string name="createdSimuls">Cluichí comhuaineacha nua-chruthaithe</string>
   <string name="create">Cruthaigh</string>
   <string name="lichessTournaments">Comórtais Lichess</string>
   <string name="tournamentFAQ">CCanna Comórtas Airéine</string>
