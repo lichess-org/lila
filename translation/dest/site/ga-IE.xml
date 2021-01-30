@@ -301,6 +301,8 @@
   <string name="continueFromHere">Lean ar aghaidh anseo</string>
   <string name="toStudy">Staidéar</string>
   <string name="importGame">Déan cluiche a iompórtáil</string>
+  <string name="importGameExplanation">Greamaigh cluiche PGN chun athsheinm brabhsáilte a fháil,
+anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="thisIsAChessCaptcha">Seo CAPCHTA fichille.</string>
   <string name="clickOnTheBoardToMakeYourMove">Cliceáil ar an mbord le bogadh a dhéanamh, agus cruthaigh gur duine thú.</string>
   <string name="captcha.fail">Réitigh an captcha fichille, le do thoil.</string>
@@ -508,10 +510,19 @@
     <item quantity="many">%s carachtairí ar a mhéad.</item>
     <item quantity="other">%s carachtairí ar a mhéad.</item>
   </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s bac</item>
+    <item quantity="two">%s bloic</item>
+    <item quantity="few">%s bloic</item>
+    <item quantity="many">%s bloic</item>
+    <item quantity="other">%s bloc</item>
+  </plurals>
+  <string name="listBlockedPlayers">Liostaigh na himreoirí a chuir tú bac le</string>
   <string name="human">Duine</string>
   <string name="computer">Ríomhaire</string>
   <string name="side">Taobh</string>
   <string name="clock">Clog</string>
+  <string name="unauthorizedError">Rochtain neamhcheadaithe.</string>
   <string name="playOnTheBoardOffline">Ar an gclár</string>
   <string name="playOfflineComputer">Ríomhaire</string>
   <string name="opponent">Céile comhraic</string>
@@ -605,7 +616,7 @@
   <string name="solution">Réiteach</string>
   <string name="waitingForAnalysis">Ag fanacht ar anailís</string>
   <string name="doItAgain">Déan arís é</string>
-  <string name="advantage">Buntáiste</string>
+  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Buntáiste</string>
   <string name="opening">Oscailt</string>
   <string name="middlegame">Lár an chluiche</string>
   <string name="endgame">Cor deiridh</string>
