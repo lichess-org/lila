@@ -2,11 +2,11 @@
 <resources>
   <string name="moveToStart">Muovi un pezzo per iniziare</string>
   <string name="puzzlesSolved">puzzle risolti</string>
-  <string name="newDailyHighscore">Nuovo punteggio giornaliero!</string>
-  <string name="newWeeklyHighscore">Nuovo punteggio settimanale!</string>
-  <string name="newMonthlyHighscore">Nuovo miglior punteggio del mese!</string>
-  <string name="newAllTimeHighscore">Nuovo punteggio massimo di tutti i tempi!</string>
-  <string name="previousHighscoreWasX">Il punteggio massimo precedente era %s</string>
+  <string name="newDailyHighscore">Nuovo record di oggi!</string>
+  <string name="newWeeklyHighscore">Nuovo record della settimana!</string>
+  <string name="newMonthlyHighscore">Nuovo record del mese!</string>
+  <string name="newAllTimeHighscore">Nuovo record di sempre!</string>
+  <string name="previousHighscoreWasX">Il record precedente era %s</string>
   <string name="playAgain">Gioca di nuovo</string>
   <plurals name="xRuns">
     <item quantity="one">1 tentativo</item>
@@ -14,9 +14,9 @@
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
     <item quantity="one">Hai fatto un tentativo di %2$s</item>
-    <item quantity="other">Hai fatto %1$s tentativi da%2$s</item>
+    <item quantity="other">Hai fatto %1$s tentativi di%2$s</item>
   </plurals>
-  <string name="highscoreX">Punteggio più alto:%s</string>
+  <string name="highscoreX">Record: %s</string>
   <string name="score">Punteggio</string>
   <string name="moves">Mosse</string>
   <string name="accuracy">Precisione</string>
