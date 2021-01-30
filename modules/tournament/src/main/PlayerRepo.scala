@@ -121,7 +121,7 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
                 Group(BSONNull)(
                   "nb"     -> SumAll,
                   "rating" -> AvgField("r"),
-                  "perf"   -> AvgField("e"),
+                  "perf"   -> Avg($doc("$cond" -> $arr("$e", "$e", "$r"))),
                   "score"  -> AvgField("s")
                 )
               ),
