@@ -40,4 +40,14 @@
   <string name="easier">ئاسانتر</string>
   <string name="easiest">ئاسانترین</string>
   <string name="harder">قورستر</string>
+  <string name="hardest">قورسترین</string>
+  <string name="example">نموونە</string>
+  <string name="addAnotherTheme">زیادکردنی بابەتێکی دیکە</string>
+  <string name="jumpToNextPuzzleImmediately">بەخێرایی بچۆ سەر مەتەڵێکی دیکە</string>
+  <string name="puzzleDashboard">تەختەی مەتەڵ</string>
+  <string name="improvementAreas">ناوچەی باشترکردن</string>
+  <string name="strengths">هێزەکان</string>
+  <string name="history">مێژووی مەتەڵ</string>
+  <string name="solved">شیکارکراو</string>
+  <string name="failed">شکست</string>
 </resources>
