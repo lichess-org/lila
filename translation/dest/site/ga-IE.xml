@@ -586,6 +586,11 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="hostColorX">Dath an óstaigh: %s</string>
   <string name="createdSimuls">Cluichí comhuaineacha nua-chruthaithe</string>
   <string name="hostANewSimul">Óstáil cluiche comhuaineach nua</string>
+  <string name="noSimulFound">Ní bhfuarthas cluiche comhuaineach</string>
+  <string name="noSimulExplanation">Níl an taispeántas comhuaineach seo ann.</string>
+  <string name="returnToSimulHomepage">Ar aís go leathanach baile cluichí comhuaineach</string>
+  <string name="aboutSimul">Bíonn imreoir aonair os comhair roinnt imreoirí ag an am céanna i gcluichí comhuaineacha.</string>
+  <string name="aboutSimulImage">As 50 céile comhraic, bhuaigh Fischer 47 cluiche, 2 chluiche cothrom agus chaill sé 1.</string>
   <string name="create">Cruthaigh</string>
   <string name="lichessTournaments">Comórtais Lichess</string>
   <string name="tournamentFAQ">CCanna Comórtas Airéine</string>
