@@ -8,8 +8,8 @@
   <string name="registerToSendChallenges">Si prega di registrarsi per inviare le sfide.</string>
   <string name="youCannotChallengeX">Non puoi sfidare %s.</string>
   <string name="xDoesNotAcceptChallenges">%s non accetta sfide.</string>
-  <string name="yourXRatingIsTooFarFromY">Il tuo punteggio in %1$s è troppo diverso da quello di %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Non puoi sfidare poiché hai ancora un %s rating provvisorio.</string>
+  <string name="yourXRatingIsTooFarFromY">Il tuo punteggio %1$s è troppo diverso da quello di %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Non puoi inviare la sfida poiché hai ancora un punteggio %s provvisorio.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s accetta sfide solo da amici.</string>
   <string name="declineGeneric">Al momento non accetto sfide.</string>
   <string name="declineLater">Non adesso, chiedimelo più tardi per favore.</string>
