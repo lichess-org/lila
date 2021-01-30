@@ -31,7 +31,7 @@ final class PgnDump(
       val turns = flags.moves ?? {
         val fenSituation = ts.fen flatMap Forsyth.<<<
         makeTurns(
-          flags applyDelay {
+          flags keepDelayIf game.playable applyDelay {
             if (fenSituation.exists(_.situation.color.black)) ".." +: game.pgnMoves
             else game.pgnMoves
           },
@@ -168,6 +168,7 @@ final class PgnDump(
 
 object PgnDump {
 
+  private val delayMovesBy         = 3
   private val delayKeepsFirstMoves = 5
 
   case class WithFlags(
@@ -178,13 +179,13 @@ object PgnDump {
       opening: Boolean = true,
       literate: Boolean = false,
       pgnInJson: Boolean = false,
-      delayMoves: Int = 0
+      delayMoves: Boolean = false
   ) {
     def applyDelay[M](moves: Seq[M]): Seq[M] =
-      if (delayMoves < 1) moves
-      else moves.take((moves.size - delayMoves) atLeast delayKeepsFirstMoves)
+      if (!delayMoves) moves
+      else moves.take((moves.size - delayMovesBy) atLeast delayKeepsFirstMoves)
 
-    def withDelayIf(cond: Boolean) = copy(delayMoves = cond ?? 3)
+    def keepDelayIf(cond: Boolean) = copy(delayMoves = delayMoves && cond)
   }
 
   def result(game: Game) =
