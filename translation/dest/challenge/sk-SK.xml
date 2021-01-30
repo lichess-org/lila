@@ -16,4 +16,10 @@
   <string name="declineTooFast">Táto časová kontrola je pre mňa prirýchla, prosím vyzvite ma opäť s dlhšou.</string>
   <string name="declineTooSlow">Táto časová kontrola je pre mňa príliš pomalá, prosím vyzvite ma opäť s rýchlejšou.</string>
   <string name="declineTimeControl">Neprijímam výzvy s touto časovou kontrolou.</string>
+  <string name="declineRated">Pošlite mi hodnotenú výzvu, prosím.</string>
+  <string name="declineCasual">Pošlite mi nehodnotenú výzvu, prosím.</string>
+  <string name="declineStandard">Momentálne neprijímam výzvy vo variantoch.</string>
+  <string name="declineVariant">Momentálne nie som ochotný hrať tento variant.</string>
+  <string name="declineNoBot">Neprijímam výzvy od botov.</string>
+  <string name="declineOnlyBot">Prijímam výlučne výzvy od botov.</string>
 </resources>
