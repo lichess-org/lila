@@ -158,7 +158,7 @@ object header {
           }
           .map { note =>
             div(cls := "note")(
-              p(cls := "note__text")(richText(note.text)),
+              p(cls := "note__text")(richText(note.text, expandImg = false)),
               p(cls := "note__meta")(
                 userIdLink(note.from.some),
                 br,

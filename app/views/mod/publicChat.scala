@@ -32,7 +32,7 @@ object publicChat {
                       div(cls := "line")(
                         userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false),
                         " ",
-                        richText(line.text)
+                        richText(line.text, expandImg = false)
                       )
                     }
                   )
@@ -50,7 +50,7 @@ object publicChat {
                         div(cls := "line")(
                           userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false),
                           " ",
-                          richText(line.text)
+                          richText(line.text, expandImg = false)
                         )
                       }
                     )

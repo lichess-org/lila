@@ -77,9 +77,9 @@ object String {
 
   object html {
 
-    def richText(rawText: String, nl2br: Boolean = true): Frag =
+    def richText(rawText: String, nl2br: Boolean = true, expandImg: Boolean = true): Frag =
       raw {
-        val withLinks = RawHtml.addLinks(rawText)
+        val withLinks = RawHtml.addLinks(rawText, expandImg)
         if (nl2br) RawHtml.nl2br(withLinks) else withLinks
       }
 
