@@ -6,8 +6,8 @@
   <string name="advantageDescription">Tak av møguleikanum at fáa avgerandi fyrimun. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Mát Anastasiu</string>
   <string name="anastasiaMateDescription">Riddari og rókur ella frúgv samstarva um at fanga mótstøðukongin millum síðuna á talvborðinum og eitt vinarligt sinnað fólk.</string>
-  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Arábiskt mát</string>
-  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">Ein riddari og ein rókur samstarva um at fanga mótstøðukongin í einum av hornunum á talvborðinum.</string>
+  <string name="arabianMate">Arábiskt mát</string>
+  <string name="arabianMateDescription">Ein riddari og ein rókur samstarva um at fanga mótstøðukongin í einum av hornunum á talvborðinum.</string>
   <string name="attackingF2F7">Álop á f2 ella f7</string>
   <string name="attackingF2F7Description">Eitt álop, ið savnar seg um f2 ella f7-finnuna, eins og í fegatello-álopinum (Fried Liver Attack).</string>
   <string name="attraction">Atdráttur</string>
@@ -16,18 +16,18 @@
   <string name="backRankMateDescription">Set kongin skák og mát á aftasta rað, har egnu fólk hansara byrgja hann inni.</string>
   <string name="bishopEndgame">Bispaendaspæl</string>
   <string name="bishopEndgameDescription">Endaspæl við bispum og finnum.</string>
-  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Bodensmát</string>
-  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Tveir bispar, ið leypa á á krossandi hornalinjum (diagonalum), seta kongin, ið er forðaður av sínum egna fólki, skák og mát.</string>
+  <string name="bodenMate">Bodensmát</string>
+  <string name="bodenMateDescription">Tveir bispar, ið leypa á á krossandi hornalinjum (diagonalum), seta kongin, ið er forðaður av sínum egna fólki, skák og mát.</string>
   <string name="castling">At leypa í borg</string>
   <string name="castlingDescription">Flyt kongin í tryggleika, og tak rókin í nýtslu, so hann fær lopið á.</string>
   <string name="capturingDefender">Tak fólkið, ið verjir</string>
   <string name="capturingDefenderDescription">At beina eitt fólk burtur, ið hevur týdning í verjuni av einum øðrum fólki. Hetta ger tað møguligt at taka fólkið, ið nú er óvart, í einum seinni leiki.</string>
   <string name="crushing">At knúsa</string>
   <string name="crushingDescription">Finn bukkin hjá mótleikaranum til tess at ogna tær knúsandi fyrimun. (eval ≥ 600cp)</string>
-  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Tvífalt bispamát</string>
-  <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Tveir bispar, ið leypa á á tveimum grannahornalinjum, seta kongin, ið er forðaður av sínum egna fólki, skák og mát.</string>
-  <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Sýlt mát (dúgvuvelamát)</string>
-  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">Ein frúgv stendur beint við mótstøðukongin og setir hann skák og mát, tí at kongsins egnu fólk forða konginum í at flýggja til einastu tveir puntarnar, ið eru tøkir.</string>
+  <string name="doubleBishopMate">Tvífalt bispamát</string>
+  <string name="doubleBishopMateDescription">Tveir bispar, ið leypa á á tveimum grannahornalinjum, seta kongin, ið er forðaður av sínum egna fólki, skák og mát.</string>
+  <string name="dovetailMate">Sýlt mát (dúgvuvelamát)</string>
+  <string name="dovetailMateDescription">Ein frúgv stendur beint við mótstøðukongin og setir hann skák og mát, tí at kongsins egnu fólk forða konginum í at flýggja til einastu tveir puntarnar, ið eru tøkir.</string>
   <string name="equality">Javnstøða</string>
   <string name="equalityDescription">Kom afturíaftur úr eini tapandi støðu, og tryggja tær remis ella eina javna støðu. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Álop kongamegin</string>

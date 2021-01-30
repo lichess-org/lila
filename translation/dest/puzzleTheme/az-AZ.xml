@@ -6,8 +6,8 @@
   <string name="advantageDescription">Həlledici üstünlük əldə etmək üçün fürsətdən istifadə edin. (200-600sp arası)</string>
   <string name="anastasiaMate">Anastasiya matı</string>
   <string name="anastasiaMateDescription">Bir atın köməyilə top və ya vəzir, rəqib şahını lövhənin kənarında digər bir rəqib fiquru ilə mat edir.</string>
-  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Ərəb matı</string>
-  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">At və top, rəqib şahını lövhənin bir küncünə sıxışdırıb mat edir.</string>
+  <string name="arabianMate">Ərəb matı</string>
+  <string name="arabianMateDescription">At və top, rəqib şahını lövhənin bir küncünə sıxışdırıb mat edir.</string>
   <string name="attackingF2F7">f2 və ya f7 hücumu</string>
   <string name="attackingF2F7Description">Qızardılmış qaraciyər (feqatello) hücumunda olduğu kimi, f2-f7 piyadasına hədəflənmiş hücum.</string>
   <string name="attraction">Cəlbetmə</string>
@@ -16,18 +16,18 @@
   <string name="backRankMateDescription">Öz fiqurları arasında sıxılıb qalmış şahı mat et.</string>
   <string name="bishopEndgame">Fil sonluğu</string>
   <string name="bishopEndgameDescription">Yalnız fillər və piyadalardan ibarət oyun sonu.</string>
-  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Boden matı</string>
-  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">İki fil, öz fiqurları tərəfindən bloklanan şahı çarpaz diaqonallardan hücum edərək mat edir.</string>
+  <string name="bodenMate">Boden matı</string>
+  <string name="bodenMateDescription">İki fil, öz fiqurları tərəfindən bloklanan şahı çarpaz diaqonallardan hücum edərək mat edir.</string>
   <string name="castling">Qalaqurma</string>
   <string name="castlingDescription">Şahı təhlükəsiz yerə gətirin və hücum üçün topu hazırlayın.</string>
   <string name="capturingDefender">Müdafiəçini vurmaq</string>
   <string name="capturingDefenderDescription">Bir fiquru müdafiə edən başqa bir fiquru ələ keçirərək, müdafiəsiz qalan digər fiquru da növbəti gedişdə ələ keçirin.</string>
   <string name="crushing">Əzici üstünlük</string>
   <string name="crushingDescription">Əzici üstünlük əldə etmək üçün rəqibin kobud səhvini müəyyənləşdirin. (600sp və ondan yüksək)</string>
-  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">İki fil matı</string>
-  <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">İki fil, öz fiqurları tərəfindən bloklanan şahı bitişik diaqonallardan hücum edərək mat edir.</string>
-  <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Koziyo matı</string>
-  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">İki qaçış xanası da öz fiqurları tərəfindən tutulan şaha çarpaz bitişik diaqonaldan vəzirlə edilən mat.</string>
+  <string name="doubleBishopMate">İki fil matı</string>
+  <string name="doubleBishopMateDescription">İki fil, öz fiqurları tərəfindən bloklanan şahı bitişik diaqonallardan hücum edərək mat edir.</string>
+  <string name="dovetailMate">Koziyo matı</string>
+  <string name="dovetailMateDescription">İki qaçış xanası da öz fiqurları tərəfindən tutulan şaha çarpaz bitişik diaqonaldan vəzirlə edilən mat.</string>
   <string name="equality">Bərabərləşmə</string>
   <string name="equalityDescription">İtirilmiş bir pozisiyadan çıxın, heç-heçə və ya balanslı bir mövqe əldə edin. (200sp və daha az)</string>
   <string name="kingsideAttack">Şah cinahında hücum</string>

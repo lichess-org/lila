@@ -47,6 +47,6 @@
   <string name="improvementAreas">改善ポイント</string>
   <string name="strengths">得意テーマ</string>
   <string name="history">解答履歴</string>
-  <string name="solved">正答済</string>
+  <string name="solved">正解</string>
   <string name="failed">失敗</string>
 </resources>

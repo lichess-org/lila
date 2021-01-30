@@ -6,8 +6,8 @@
   <string name="advantageDescription">決定的な優位を得てください。（評価値は 200cp 以上 600cp 以下）</string>
   <string name="anastasiaMate">アナスタシアのメイト</string>
   <string name="anastasiaMateDescription">盤端と味方の駒にはさまれたキングを、ナイトとルーク（またはクイーン）でメイトする形。</string>
-  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">アラビアのメイト</string>
-  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">盤の隅にいるキングを、ナイトとルークでメイトする形。</string>
+  <string name="arabianMate">アラビアのメイト</string>
+  <string name="arabianMateDescription">盤の隅にいるキングを、ナイトとルークでメイトする形。</string>
   <string name="attackingF2F7">f2/f7への攻撃</string>
   <string name="attackingF2F7Description">f2 か f7 のポーンを狙う攻撃（フライド・リバー・アタックなど）。</string>
   <string name="attraction">アトラクション（引き寄せ）</string>
@@ -16,18 +16,18 @@
   <string name="backRankMateDescription">一番下のランクで、上を自分の駒に塞がれたキングをメイトする。</string>
   <string name="bishopEndgame">ビショップ・エンドゲーム</string>
   <string name="bishopEndgameDescription">ビショップとポーンだけの終盤。</string>
-  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">ボーデンのメイト</string>
-  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">味方の駒にじゃまされたキングを、2 個のビショップが交差した効き筋でメイトする形。</string>
+  <string name="bodenMate">ボーデンのメイト</string>
+  <string name="bodenMateDescription">味方の駒にじゃまされたキングを、2 個のビショップが交差した効き筋でメイトする形。</string>
   <string name="castling">キャスリング</string>
   <string name="castlingDescription">キングを安全にし、ルークを攻撃に活用する。</string>
   <string name="capturingDefender">守り駒の除去</string>
   <string name="capturingDefenderDescription">別の駒を守っている駒を消して、無防備になった駒を取る。</string>
   <string name="crushing">圧倒</string>
   <string name="crushingDescription">相手の悪手をとがめて圧倒的な優位を築きます。（評価値は 600cp 以上）</string>
-  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">ダブル・ビショップのメイト</string>
-  <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">味方の駒にじゃまされたキングを、2 個のビショップが平行な効き筋でメイトする形。</string>
-  <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">燕尾のメイト</string>
-  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">斜め後ろを両方とも味方の駒に塞がれたキングを、クイーン1個でメイトする形。</string>
+  <string name="doubleBishopMate">ダブル・ビショップのメイト</string>
+  <string name="doubleBishopMateDescription">味方の駒にじゃまされたキングを、2 個のビショップが平行な効き筋でメイトする形。</string>
+  <string name="dovetailMate">燕尾のメイト</string>
+  <string name="dovetailMateDescription">斜め後ろを両方とも味方の駒に塞がれたキングを、クイーン1個でメイトする形。</string>
   <string name="equality">互角</string>
   <string name="equalityDescription">劣勢の局面から、ドローを確保するか互角の局面に戻します。（評価値は 200cp 以下）</string>
   <string name="kingsideAttack">キングサイド攻撃</string>

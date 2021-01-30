@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">Výzvy</string>
+  <string name="challengeToPlay">Vyzvať na partiu</string>
+  <string name="challengeDeclined">Výzva odmietnutá</string>
+</resources>

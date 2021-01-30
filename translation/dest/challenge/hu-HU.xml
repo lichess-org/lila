@@ -8,7 +8,7 @@
   <string name="registerToSendChallenges">A kihíváshoz regisztráció szükséges.</string>
   <string name="youCannotChallengeX">%s nem kihívható.</string>
   <string name="xDoesNotAcceptChallenges">%s nem fogad kihívásokat.</string>
-  <string name="yourXRatingIsTooFarFromY">Túl nagy az eltérés Ön és %2$s %1$s pontszáma között.</string>
+  <string name="yourXRatingIsTooFarFromY">Túl nagy az eltérés %2$s és a te %1$s pontszámod között.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Nem kihívható az ideiglenes %s pontszám miatt.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s csak barátoktól fogad kihívást.</string>
   <string name="declineGeneric">Jelenleg nem fogadok kihívásokat.</string>

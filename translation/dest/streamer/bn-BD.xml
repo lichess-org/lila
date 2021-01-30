@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessStreamers">লিছেসস স্ত্রেয়ামের</string>
+  <string name="lichessStreamer">লিছেসস স্ত্রেয়ামের</string>
   <string name="live">লাইভ!</string>
   <string name="offline">আই সময় উপস্তি নেই</string>
   <string name="currentlyStreaming">আখন দেখুন: %s</string>
@@ -8,4 +10,8 @@
   <string name="doYouHaveStream">আপনার কি ত্বিতছ বা ইউটিউব চ্যানেল আছে?</string>
   <string name="hereWeGo">জাওাজাক!</string>
   <string name="allStreamers">সব স্ত্রেয়ামের দের তালিকা</string>
+  <string name="editPage">স্ত্রেয়ামের পৃষ্ঠা তে পরিবর্তন করুন</string>
+  <string name="installBlocker">একটা \'malware blocker\' ব্যবহার করুন!</string>
+  <string name="beSafe">ট্বিবিতছ এবং য়উতুবে এর জ্ঞাপন আর ত্রাচকেরস দের থেকে নিরাপদ থাকুন।.
+লিছেসস প্রস্তাব দেয় \'uBlock Origin\' ব্যবহার করার জেতা বিনামূল্যে এবং \'open-source\'।.</string>
 </resources>
