@@ -376,7 +376,7 @@
   <string name="siteDescription">Brezplačni internetni šah. Igraj šah na enostavnem vmesniku. Brez registracije, brez reklam in brez dodatnih vtičnikov. Igraj šah proti računalniku, prijatelju ali naključnemu nasprotniku.</string>
   <string name="xJoinedTeamY">%1$s se je pridružil ekipi %2$s</string>
   <string name="xCreatedTeamY">%1$s je ustvaril ekipo %2$s</string>
-  <string name="xStartedStreaming">%s je pričel z oddajanjem</string>
+  <string name="xStartedStreaming">%s je pričel z prenosom</string>
   <string name="averageElo">Povprečen rating</string>
   <string name="location">Lokacija</string>
   <string name="filterGames">Filtriraj igre</string>
@@ -660,7 +660,7 @@ v %3$s</string>
   <string name="tpTimeSpentOnTV">Čas na TV: %s</string>
   <string name="watch">Glej</string>
   <string name="videoLibrary">Videoteka</string>
-  <string name="streamersMenu">Voditelji oddaj</string>
+  <string name="streamersMenu">Voditelji prenosov</string>
   <string name="mobileApp">Mobilna aplikacija</string>
   <string name="webmasters">Razvijalci</string>
   <string name="about">O</string>
@@ -846,7 +846,7 @@ v %3$s</string>
   <string name="doItAgain">Naredi še enkrat</string>
   <string name="reviewWhiteMistakes">Pregled napak belega</string>
   <string name="reviewBlackMistakes">Pregled napak črnega</string>
-  <string name="advantage">Prednost</string>
+  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Prednost</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekunda</item>
     <item quantity="two">%s sekundi</item>
