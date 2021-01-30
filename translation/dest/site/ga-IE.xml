@@ -595,6 +595,8 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="aboutSimulRules">Nuair a thosaíonn an cluiche comhuaineach, tosaíonn gach imreoir cluiche leis an óstach, a imríonn leis na píosaí bána. Críochnaíonn an cluiche comhuaineach nuair a críochnaíonn gach cluiche.</string>
   <string name="aboutSimulSettings">Bíonn cluichí comhuaineacha ócáideach i gconaí. Tá athimirt, aistarraing agus am breise díchumasaithe.</string>
   <string name="create">Cruthaigh</string>
+  <string name="whenCreateSimul">Nuair a chruthaíonn tú cluiche comhuaineach, imríonn tú roinnt imreoirí ag an am céanna.</string>
+  <string name="simulVariantsHint">Má roghnaíonn tú roinnt leaganacha, faigheann gach imreoir an leagan atá le himirt a roghnú.</string>
   <string name="lichessTournaments">Comórtais Lichess</string>
   <string name="tournamentFAQ">CCanna Comórtas Airéine</string>
   <string name="tournamentOfficial">Oifigiúil</string>
