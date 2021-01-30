@@ -523,6 +523,10 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="side">Taobh</string>
   <string name="clock">Clog</string>
   <string name="unauthorizedError">Rochtain neamhcheadaithe.</string>
+  <string name="noInternetConnection">Gan aon nasc idirlín. Is féidir fós imirt as líne ón roghchlár.</string>
+  <string name="connectedToLichess">Tá tú ceangailte anois le lichess.org</string>
+  <string name="signedOut">Tá tú logáilte amach</string>
+  <string name="loginSuccessful">Tá tú logáilte isteach anois</string>
   <string name="playOnTheBoardOffline">Ar an gclár</string>
   <string name="playOfflineComputer">Ríomhaire</string>
   <string name="opponent">Céile comhraic</string>
@@ -535,6 +539,9 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="sharePGN">Roinn an PGN</string>
   <string name="playOnline">Imir ar líne</string>
   <string name="playOffline">Imir as líne</string>
+  <string name="allowAnalytics">Lig do staitisticí gan ainm</string>
+  <string name="shareGameURL">Roinn URL cluiche</string>
+  <string name="error.required">Tá an réimse seo riachtanach</string>
   <string name="onlyFriends">Cairde amháin</string>
   <string name="menu">Roghchlár</string>
   <string name="castling">Caisleáil</string>
