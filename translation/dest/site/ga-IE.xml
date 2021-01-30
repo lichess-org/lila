@@ -612,6 +612,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="keyEnterOrExitVariation">iontráil/scor athrúchán</string>
   <string name="newTournament">Comórtas Nua</string>
   <string name="tournamentHomeTitle">Comórtais fichille ina bhfuil leagann ama agus athraitheach éagsúla</string>
+  <string name="tournamentHomeDescription">Imir comortais fichille ar luas tapaigh! Bí ar chamchuairt sceidealta oifigiúil, nó cruthaigh do cheann féin. Gasta (Bullet), Tapa (Blitz), Clasaiceach (Classical), Chess960, King of the Hill, Threecheck, agus tuilleadh roghanna ar fáil le haghaidh spraoi fichille gan deireadh.</string>
   <string name="tournamentNotFound">Níor aimsíodh an comórtas</string>
   <string name="tournamentDoesNotExist">Nil an comórtas seo ann.</string>
   <string name="tournamentMayHaveBeenCanceled">B\'fhéidir go raibh an comórtas curtha ar ceal má d\'fhág gach imreoir sular thosaigh sé.</string>
