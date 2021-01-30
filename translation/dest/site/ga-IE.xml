@@ -542,11 +542,23 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="allowAnalytics">Lig do staitisticí gan ainm</string>
   <string name="shareGameURL">Roinn URL cluiche</string>
   <string name="error.required">Tá an réimse seo riachtanach</string>
+  <string name="error.email">Tá an seoladh ríomhphoist seo neamhbhailí</string>
+  <string name="error.email_acceptable">Ní ghlactar leis an seoladh ríomhphoist seo. Seiceáil faoi dhó é le do thoil, agus bain triail eile as.</string>
+  <string name="error.email_unique">Tá an seoladh ríomhphoist seo tógtha cheana féin</string>
+  <string name="error.email_different">Seo do sheoladh ríomhphoist cheana féin</string>
+  <string name="ifRatingIsPlusMinusX">Más é ±%s an rátáil</string>
   <string name="onlyFriends">Cairde amháin</string>
   <string name="menu">Roghchlár</string>
   <string name="castling">Caisleáil</string>
   <string name="whiteCastlingKingside">Bán O-O</string>
   <string name="blackCastlingKingside">Dubh O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">post fóraim %s</item>
+    <item quantity="two">poist fóraim %s</item>
+    <item quantity="few">poist fóraim %s</item>
+    <item quantity="many">poist fóraim %s</item>
+    <item quantity="other">post fóraim %s</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Am caite ag imirt: %s</string>
   <string name="watchGames">Féach ar chluichí</string>
   <string name="tpTimeSpentOnTV">Am ar TV: %s</string>
