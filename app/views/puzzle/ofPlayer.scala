@@ -46,7 +46,7 @@ object ofPlayer {
                   p(
                     "You have no puzzles in the database, but Lichess still loves you very much.",
                     br,
-                    "Play rapid and classical games to increase your chances of having a puzzle of yours!"
+                    "Play rapid and classical games to increase your chances of having a puzzle of yours added!"
                   )
                 else
                   frag(
