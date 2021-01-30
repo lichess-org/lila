@@ -1,2 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart">بجوڵێ بۆ دەستپێکردن</string>
+  <string name="puzzlesSolved">مەتەڵەکان شیکارکران</string>
+  <string name="newDailyHighscore">نمرەی بەرزی نوێی ڕۆژانە!</string>
+  <string name="newWeeklyHighscore">نمرەی بەرزی نوێی هەفتانە!</string>
+  <string name="newMonthlyHighscore">نمرەی بەرزی نوێی مانگانە!</string>
+  <string name="newAllTimeHighscore">نمرەی بەرزی نوێی هەموو کاتەکان!</string>
+  <string name="previousHighscoreWasX">بەرزترین نمرەی پێشوو %s</string>
+  <string name="playAgain">دووبارە یاری بکەوە</string>
+  <string name="highscoreX">بەرزترین نمرە: %s</string>
+  <string name="score">نمرە</string>
+  <string name="moves">جوڵەکان</string>
+  <string name="accuracy">وردی</string>
+  <string name="time">کات</string>
+  <string name="timePerMove">کات بە پێی جوڵە</string>
+  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">زۆرترین شیکارکراو</string>
+  <string name="puzzlesPlayed">مەتەڵی یاریپێکراو</string>
+</resources>
