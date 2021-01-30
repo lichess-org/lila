@@ -564,9 +564,12 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="tpTimeSpentOnTV">Am ar TV: %s</string>
   <string name="watch">Féach</string>
   <string name="videoLibrary">Leabharlann físeáin</string>
+  <string name="streamersMenu">Sruthóir</string>
   <string name="mobileApp">Aip Móibíleach</string>
+  <string name="webmasters">Stiúrthóir gréasáin</string>
   <string name="about">Faoi</string>
   <string name="aboutX">Faoi %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">Is freastalaí fichille foinse oscailte saor in aisce (%2$s) é %1$s, gan aon fhógraí.</string>
   <string name="really">i ndáiríre</string>
   <string name="contribute">Déan Tairbhe</string>
   <string name="termsOfService">Téarmaí Seirbhíse</string>
