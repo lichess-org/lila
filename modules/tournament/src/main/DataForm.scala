@@ -64,7 +64,7 @@ final class DataForm {
       hasChat = tour.hasChat.some
     )
 
-  private val nameType = clean(text).verifying(
+  private val nameType = cleanText.verifying(
     Constraints minLength 2,
     Constraints maxLength 30,
     Constraints.pattern(
@@ -117,7 +117,7 @@ final class DataForm {
       "teamBattleByTeam" -> optional(nonEmptyText),
       "berserkable"      -> optional(boolean),
       "streakable"       -> optional(boolean),
-      "description"      -> optional(clean(nonEmptyText)),
+      "description"      -> optional(cleanNonEmptyText),
       "hasChat"          -> optional(boolean)
     )(TournamentSetup.apply)(TournamentSetup.unapply)
       .verifying("Invalid clock", _.validClock)
