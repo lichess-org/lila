@@ -86,12 +86,12 @@ final class TournamentForm {
         "position"         -> optional(lila.common.Form.fen.playableStrict),
         "mode"             -> optional(number.verifying(Mode.all.map(_.id) contains _)), // deprecated, use rated
         "rated"            -> optional(boolean),
-        "password"         -> optional(clean(nonEmptyText)),
+        "password"         -> optional(cleanNonEmptyText),
         "conditions"       -> Condition.DataForm.all(leaderTeams),
         "teamBattleByTeam" -> optional(nonEmptyText),
         "berserkable"      -> optional(boolean),
         "streakable"       -> optional(boolean),
-        "description"      -> optional(clean(nonEmptyText)),
+        "description"      -> optional(cleanNonEmptyText),
         "hasChat"          -> optional(boolean)
       )(TournamentSetup.apply)(TournamentSetup.unapply)
         .verifying("Invalid clock", _.validClock)
