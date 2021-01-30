@@ -591,6 +591,8 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="returnToSimulHomepage">Ar aís go leathanach baile cluichí comhuaineach</string>
   <string name="aboutSimul">Bíonn imreoir aonair os comhair roinnt imreoirí ag an am céanna i gcluichí comhuaineacha.</string>
   <string name="aboutSimulImage">As 50 céile comhraic, bhuaigh Fischer 47 cluiche, 2 chluiche cothrom agus chaill sé 1.</string>
+  <string name="aboutSimulRealLife">Tógtar an coincheap ó imeachtaí sa saol fíor. Sa fíorshaol, baineann sé seo leis an óstach comhuaineach ag bogadh ó thábla go tábla chun aon bheart amháin a dhéanamh.</string>
+  <string name="aboutSimulRules">Nuair a thosaíonn an cluiche comhuaineach, tosaíonn gach imreoir cluiche leis an óstach, a imríonn leis na píosaí bána. Críochnaíonn an cluiche comhuaineach nuair a críochnaíonn gach cluiche.</string>
   <string name="create">Cruthaigh</string>
   <string name="lichessTournaments">Comórtais Lichess</string>
   <string name="tournamentFAQ">CCanna Comórtas Airéine</string>
