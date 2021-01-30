@@ -12,4 +12,8 @@
   <string name="cannotChallengeDueToProvisionalXRating">Nemôžete odoslať výzvu kvôli provizórnemu %s hodnoteniu.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s prijíma výzvy iba od priateľov.</string>
   <string name="declineGeneric">Momentálne neprijímam výzvy.</string>
+  <string name="declineLater">Teraz pre mňa nie je vhodný čas, prosím spýtajte sa neskôr.</string>
+  <string name="declineTooFast">Táto časová kontrola je pre mňa prirýchla, prosím vyzvite ma opäť s dlhšou.</string>
+  <string name="declineTooSlow">Táto časová kontrola je pre mňa príliš pomalá, prosím vyzvite ma opäť s rýchlejšou.</string>
+  <string name="declineTimeControl">Neprijímam výzvy s touto časovou kontrolou.</string>
 </resources>
