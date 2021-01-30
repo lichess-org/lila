@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">مەتەڵەکان</string>
+  <string name="puzzleThemes">بابەتی مەتەڵەکان</string>
+  <string name="recommended">پێشنیارکراو</string>
+  <string name="phases">قۆناغەکان</string>
+  <string name="motifs">بیرۆکەکان</string>
+  <string name="advanced">پێشکەوتوو</string>
+  <string name="lengths">درێژیەکان</string>
+  <string name="goals">ئامانجەکان</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">سەرچاوە</string>
+  <string name="specialMoves">جوڵە تایبەتەکان</string>
+  <string name="didYouLikeThisPuzzle">ئەم مەتەڵەت بەدڵبوو؟</string>
+</resources>
