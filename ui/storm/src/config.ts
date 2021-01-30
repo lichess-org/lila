@@ -13,7 +13,8 @@ const config = {
       [20, 7],
       [30, 10]
     ],
-  }
+  },
+  timeToStart: 1000 * 60 * 2
 };
 
 export default config;

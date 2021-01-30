@@ -39,7 +39,7 @@ $mq-col2: $mq-col2-uniboard;
     }
   }
 
-  &--dup {
+  &--reload {
     @extend %flex-column;
 
     justify-content: stretch;

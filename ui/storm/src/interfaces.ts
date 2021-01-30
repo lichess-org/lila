@@ -46,6 +46,7 @@ export interface StormVm {
   }
   dupTab?: boolean;
   signed: Prop<string | undefined>;
+  lateStart: boolean;
 }
 
 export interface Round {
