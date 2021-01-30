@@ -34,6 +34,10 @@
   <string name="joinTheGame">Влез в играта</string>
   <string name="whitePlays">Белите на ход</string>
   <string name="blackPlays">Черните на ход</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Опонентът напусна играта. Можете да заявите победа след %s секунди.</item>
+    <item quantity="other">Опонентът напусна играта. Можете да заявите победа след %s секунди.</item>
+  </plurals>
   <string name="opponentLeftChoices">Другият играч може да е напуснал играта. Можете да претендирате победа, претендирате реми, или ижчакате.</string>
   <string name="makeYourOpponentResign">Принуди противника си да се предаде</string>
   <string name="forceResignation">Претендирай победа</string>
@@ -645,6 +649,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ако не намирате писмото, проверете и на другите места, в които може бъде, като например кошче, спам, социални или други папки.</string>
   <string name="weHaveSentYouAnEmailTo">Изпратихме писмо на %s. Натиснете върху връзката в писмото, за да преустановите паролата на вашата регистрация.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Със записването си, се съгласявате да спазвате нашите %s.</string>
+  <string name="readAboutOur">Прочетете за нашата %s.</string>
   <string name="networkLagBetweenYouAndLichess">Мрежово забавяне между вас и lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Времето, което отнема на lichess сървъра, за да обработи един ход</string>
   <string name="downloadAnnotated">Свали анотирана</string>
