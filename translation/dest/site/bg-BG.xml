@@ -354,6 +354,10 @@
   <string name="blackCheckmatesInOneMove">Черните на ход, мат в един ход</string>
   <string name="retry">Опитай отново</string>
   <string name="reconnecting">Свързване</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s приятел онлайн</item>
+    <item quantity="other">%s приятели онлайн</item>
+  </plurals>
   <string name="noFriendsOnline">Няма свързани приятели</string>
   <string name="findFriends">Намери приятели</string>
   <string name="favoriteOpponents">Предпочитани съперници</string>
