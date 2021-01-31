@@ -741,12 +741,20 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="whiteWinsGame">Bhuaigh bán</string>
   <string name="blackWinsGame">Bhuaigh dubh</string>
   <string name="learnFromYourMistakes">Foghlaim ó do bhotúin</string>
+  <string name="learnFromThisMistake">Foghlaim ón mbotún seo</string>
   <string name="skipThisMove">Léim thar an beart seo</string>
   <string name="next">Ar Aghaidh</string>
   <string name="xWasPlayed">Imríodh %s</string>
+  <string name="findBetterMoveForWhite">Faigh beart níos fearr do bán</string>
+  <string name="findBetterMoveForBlack">Faigh beart níos fearr do dubh</string>
+  <string name="resumeLearning">Atosaigh an fhoghlaim</string>
   <string name="youCanDoBetter">Tá beart níos fearr ann</string>
+  <string name="tryAnotherMoveForWhite">Triail beart bán eile</string>
+  <string name="tryAnotherMoveForBlack">Triail beart dubh eile</string>
   <string name="solution">Réiteach</string>
   <string name="waitingForAnalysis">Ag fanacht ar anailís</string>
+  <string name="noMistakesFoundForWhite">Ní bhfuarthas aon bhotúin ó bán</string>
+  <string name="noMistakesFoundForBlack">Ní bhfuarthas aon bhotúin ó dubh</string>
   <string name="doItAgain">Déan arís é</string>
   <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Buntáiste</string>
   <string name="opening">Oscailt</string>
