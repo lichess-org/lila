@@ -612,7 +612,7 @@
   <string name="noSimulExplanation">Tätä simultaania ei ole olemassa.</string>
   <string name="returnToSimulHomepage">Palaa simultaanin kotisivulle</string>
   <string name="aboutSimul">Simultaaneissa yksi pelaaja pelaa useampaa pelaajaa vastaan samanaikaisesti.</string>
-  <string name="aboutSimulImage">50:stä vastustajastaan Fischer voitti 47, pelasi kahden kanssa tasan ja hävisi yhdelle.</string>
+  <string name="aboutSimulImage">50 vastustajastaan Fischer voitti 47, pelasi kahdesti tasan ja hävisi yhden.</string>
   <string name="aboutSimulRealLife">Simultaanien käsite on otettu netin ulkopuolisista tapahtumista; niissä simultaaninäytöksen antaja liikkuu pöydältä toiselle pelaten siirron kerrallaan.</string>
   <string name="aboutSimulRules">Kun simultaani alkaa, jokainen pelaaja aloittaa pelin simultaanin pitäjää vastaan. Simultaanin pitäjä pelaa valkeilla nappuloilla. Simultaani loppuu, kun kaikki pelit ovat loppuneet.</string>
   <string name="aboutSimulSettings">Simultaanit ovat aina rentoja. Revanssit, siirtojen perumiset ja ajan lisääminen ovat pois käytöstä.</string>
