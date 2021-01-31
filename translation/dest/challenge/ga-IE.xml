@@ -9,4 +9,11 @@
   <string name="youCannotChallengeX">Níl cead dúshlán a cuir chuig %s.</string>
   <string name="xDoesNotAcceptChallenges">Ní ghlacann %s le dúshláin.</string>
   <string name="yourXRatingIsTooFarFromY">Tá do rátáil %1$s rófhada ó %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Ní féidir dúshlán a thabhairt mar gheall ar rátáil sealadach %s.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">Ní ghlacann %s ach le dúshláin ó chairde.</string>
+  <string name="declineGeneric">Nílim ag glacadh le dúshláin i láthair na huaire.</string>
+  <string name="declineLater">Ní am ceart dom anois, iarr arís níos déanaí.</string>
+  <string name="declineTooFast">Tá an rialú ama seo ró-thapa dom, tabhair dúshlán arís le cluiche níos moille.</string>
+  <string name="declineTooSlow">Tá an rialú ama seo ró-mhall dom, tabhair dúshlán arís le cluiche níos tapa.</string>
+  <string name="declineTimeControl">Nílim ag glacadh le dúshláin leis an rialú ama seo.</string>
 </resources>
