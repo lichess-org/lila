@@ -1,5 +1,6 @@
 export default function changeColorHandle(): void {
   const dict: { [theme: string]: [string] } = {
+    'solid-orange': ['#503a1c'],
     'solid-natural': ['#3e3423'],
     'kaya1': ['#503a1c'],
     'kaya2': ['#3a2b11'],
