@@ -121,9 +121,7 @@ export function view(root: AnalyseCtrl): VNode {
               setupTextarea(vnode);
               const el = vnode.elm as HTMLInputElement;
               function onChange() {
-                setTimeout(function() {
-                  ctrl.submit(el.value);
-                }, 50);
+                setTimeout(() => ctrl.submit(el.value), 50);
               }
               el.onkeyup = el.onpaste = onChange;
               el.onfocus = function() {

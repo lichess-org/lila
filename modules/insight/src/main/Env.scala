@@ -2,10 +2,8 @@ package lila.insight
 
 import com.softwaremill.macwire._
 import play.api.Configuration
-import reactivemongo.api.MongoConnection.ParsedURI
 
 import lila.common.config._
-import lila.db.DbConfig.uriLoader
 
 @Module
 final class Env(
@@ -23,7 +21,7 @@ final class Env(
 
   private lazy val db = mongo.asyncDb(
     "insight",
-    appConfig.get[ParsedURI]("insight.mongodb.uri")
+    appConfig.get[String]("insight.mongodb.uri")
   )
 
   lazy val share = wire[Share]
@@ -36,14 +34,13 @@ final class Env(
 
   private lazy val povToEntry = wire[PovToEntry]
 
-  private lazy val indexer = wire[Indexer]
+  private lazy val indexer: InsightIndexer = wire[InsightIndexer]
 
-  private lazy val userCacheApi = new UserCacheApi(db(CollName("insight_user_cache")))
+  private lazy val insightUserApi = new InsightUserApi(db(CollName("insight_user")))
 
   lazy val api = wire[InsightApi]
 
-  lila.common.Bus.subscribeFun("analysisReady", "cheatReport") {
-    case lila.analyse.actorApi.AnalysisReady(game, _)        => api updateGame game
-    case lila.hub.actorApi.report.CheatReportCreated(userId) => api ensureLatest userId
+  lila.common.Bus.subscribeFun("analysisReady") { case lila.analyse.actorApi.AnalysisReady(game, _) =>
+    api.updateGame(game).unit
   }
 }

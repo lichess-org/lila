@@ -1,7 +1,7 @@
 package lila.pool
 
 import scala.concurrent.duration._
-import scala.util.Random
+import lila.common.ThreadLocalRandom
 
 import akka.actor._
 import akka.pattern.pipe
@@ -17,7 +17,7 @@ final private class PoolActor(
 
   import PoolActor._
 
-  var members = Vector[PoolMember]()
+  var members = Vector.empty[PoolMember]
 
   var nextWave: Cancellable = _
 
@@ -25,7 +25,7 @@ final private class PoolActor(
 
   def scheduleWave() =
     nextWave = context.system.scheduler.scheduleOnce(
-      config.wave.every + Random.nextInt(1000).millis,
+      config.wave.every + ThreadLocalRandom.nextInt(1000).millis,
       self,
       ScheduledWave
     )
@@ -38,7 +38,7 @@ final private class PoolActor(
       members.find(joiner.is) match {
         case None =>
           members = members :+ PoolMember(joiner, config, rageSit)
-          if (members.size >= config.wave.players.value) self ! FullWave
+          if (members.sizeIs >= config.wave.players.value) self ! FullWave
         case Some(member) if member.ratingRange != joiner.ratingRange =>
           members = members.map {
             case m if m == member => m withRange joiner.ratingRange
@@ -63,9 +63,9 @@ final private class PoolActor(
     case RunWave =>
       nextWave.cancel()
       hookThieve.candidates(config.clock) pipeTo self
+      ()
 
-    case HookThieve.PoolHooks(hooks) => {
-
+    case HookThieve.PoolHooks(hooks) =>
       monitor.withRange(monId).record(members.count(_.hasRange))
 
       val candidates = members ++ hooks.map(_.member)
@@ -88,15 +88,11 @@ final private class PoolActor(
       monitor.candidates(monId).record(candidates.size)
       monitor.paired(monId).record(pairedMembers.size)
       monitor.missed(monId).record(members.size)
-      pairedMembers.foreach { m =>
-        monitor.wait(monId).record(m.waitMillis)
-      }
       pairings.foreach { p =>
         monitor.ratingDiff(monId).record(p.ratingDiff)
       }
 
       scheduleWave()
-    }
 
     case Sris(sris) =>
       members = members.filter { m =>

@@ -6,10 +6,10 @@ object Sequence {
     val iterB   = b.iterator
     val builder = Vector.newBuilder[A]
     while (iterA.hasNext && iterB.hasNext) {
-      builder += iterA.next += iterB.next
+      builder += iterA.next() += iterB.next()
     }
     builder ++= iterA ++= iterB
 
-    builder.result
+    builder.result()
   }
 }

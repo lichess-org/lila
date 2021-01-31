@@ -1,5 +1,7 @@
 package lila.mod
 
+import org.joda.time.DateTime
+
 import lila.db.dsl._
 import lila.report.{ Mod, ModId, Report, Suspect }
 import lila.security.Permission
@@ -53,6 +55,11 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
       Modlog.make(mod, sus, if (sus.user.marks.troll) Modlog.troll else Modlog.untroll)
     }
 
+  def setKidMode(mod: User.ID, kid: User.ID) =
+    add {
+      Modlog(mod, kid.some, Modlog.setKidMode)
+    }
+
   def disableTwoFactor(mod: User.ID, user: User.ID) =
     add {
       Modlog(mod, user.some, Modlog.disableTwoFactor)
@@ -100,7 +107,6 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
       mod: User.ID,
       user: Option[User.ID],
       author: Option[User.ID],
-      ip: Option[String],
       text: String
   ) =
     add {
@@ -109,7 +115,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
         user,
         Modlog.deletePost,
         details = Some(
-          author.??(_ + " ") + ip.??(_ + " ") + text.take(400)
+          author.??(_ + " ") + text.take(400)
         )
       )
     }
@@ -144,9 +150,14 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
       )
     }
 
-  def deleteTeam(mod: User.ID, name: String, desc: String) =
+  def deleteTeam(mod: User.ID, id: String, name: String) =
     add {
-      Modlog(mod, none, Modlog.deleteTeam, details = s"$name / $desc".take(200).some)
+      Modlog(mod, none, Modlog.deleteTeam, details = s"$id / $name".take(200).some)
+    }
+
+  def disableTeam(mod: User.ID, id: String, name: String) =
+    add {
+      Modlog(mod, none, Modlog.disableTeam, details = s"$id / $name".take(200).some)
     }
 
   def terminateTournament(mod: User.ID, name: String) =
@@ -209,8 +220,11 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
       Modlog(mod, teamOwner.some, Modlog.teamEdit, details = Some(teamName take 140))
     }
 
+  def appealPost(mod: User.ID, user: User.ID) =
+    add { Modlog(mod, user.some, Modlog.appealPost, details = none) }
+
   def recent =
-    coll.ext
+    coll
       .find(
         $or(
           $doc("mod"    -> $ne("lichess")),
@@ -238,32 +252,41 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
     )
 
   def userHistory(userId: User.ID): Fu[List[Modlog]] =
-    coll.ext.find($doc("user" -> userId)).sort($sort desc "date").cursor[Modlog]().gather[List](30)
+    coll.find($doc("user" -> userId)).sort($sort desc "date").cursor[Modlog]().gather[List](30)
+
+  def countRecentCheatDetected(userId: User.ID): Fu[Int] =
+    coll.countSel(
+      $doc(
+        "user"   -> userId,
+        "action" -> Modlog.cheatDetected,
+        "date" $gte DateTime.now.minusMonths(6)
+      )
+    )
 
   private def add(m: Modlog): Funit = {
     lila.mon.mod.log.create.increment()
     lila.log("mod").info(m.toString)
-    coll.insert.one(m) >>
-      slackMonitor(m)
+    m.notable ?? {
+      coll.insert.one(m) >> (m.notableSlack ?? slackMonitor(m))
+    }
   }
 
   private def slackMonitor(m: Modlog): Funit = {
     import lila.mod.{ Modlog => M }
-    userRepo.isMonitoredMod(m.mod) flatMap {
-      _ ?? slackApi.monitorMod(
-        m.mod,
-        icon = m.action match {
-          case M.alt | M.engine | M.booster | M.troll | M.closeAccount          => "thorhammer"
-          case M.unalt | M.unengine | M.unbooster | M.untroll | M.reopenAccount => "large_blue_circle"
-          case M.deletePost | M.deleteTeam | M.terminateTournament              => "x"
-          case M.chatTimeout                                                    => "hourglass_flowing_sand"
-          case M.closeTopic                                                     => "lock"
-          case M.openTopic                                                      => "unlock"
-          case M.modMessage                                                     => "left_speech_bubble"
-          case _                                                                => "gear"
-        },
-        text = s"""${m.showAction.capitalize} ${m.user.??(u => s"@$u ")}${~m.details}"""
-      )
+    val icon = m.action match {
+      case M.alt | M.engine | M.booster | M.troll | M.closeAccount          => "thorhammer"
+      case M.unalt | M.unengine | M.unbooster | M.untroll | M.reopenAccount => "large_blue_circle"
+      case M.deletePost | M.deleteTeam | M.terminateTournament              => "x"
+      case M.chatTimeout                                                    => "hourglass_flowing_sand"
+      case M.closeTopic | M.disableTeam                                     => "lock"
+      case M.openTopic | M.enableTeam                                       => "unlock"
+      case M.modMessage                                                     => "left_speech_bubble"
+      case _                                                                => "gear"
     }
+    val text = s"""${m.showAction.capitalize} ${m.user.??(u => s"@$u ")}${~m.details}"""
+    userRepo.isMonitoredMod(m.mod) flatMap {
+      _ ?? slackApi.monitorMod(m.mod, icon = icon, text = text)
+    }
+    slackApi.logMod(m.mod, icon = icon, text = text)
   }
 }

@@ -221,7 +221,8 @@
     <item quantity="other">%s משחקים איתך</item>
   </plurals>
   <string name="cancel">בטל</string>
-  <string name="timeOut">נגמר הזמן</string>
+  <string name="whiteTimeOut">נגמר לך הזמן, שחקן לבן</string>
+  <string name="blackTimeOut">נגמר הזמן לשחור</string>
   <string name="drawOfferSent">הצעת תיקו נשלחה</string>
   <string name="drawOfferDeclined">הצעת התיקו נדחתה</string>
   <string name="drawOfferAccepted">הצעת התיקו התקבלה</string>
@@ -309,6 +310,7 @@
     <item quantity="many">תן %s שניות</item>
     <item quantity="other">תן %s שניות</item>
   </plurals>
+  <string name="thisAccountViolatedTos">החשבון הזה הפר את תנאי השימוש של ליצ\'ס</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">שחקן זה מעלה/מוריד את דירוגו באופן מלאכותי</string>
   <string name="openingExplorerAndTablebase">סייר הפתיחות וניתוח סיומים</string>
   <string name="takeback">החזר מהלך</string>
@@ -434,7 +436,6 @@
   <string name="more">עוד</string>
   <string name="memberSince">רשום מ</string>
   <string name="lastSeenActive">נכנס לאחרונה %s</string>
-  <string name="challengeToPlay">הזמן למשחק</string>
   <string name="player">שחקן</string>
   <string name="list">רשימה</string>
   <string name="graph">גרף</string>
@@ -501,6 +502,7 @@
   <string name="lastName">שם משפחה</string>
   <string name="biography">ביוגרפיה</string>
   <string name="country">מדינה</string>
+  <string name="thankYou">תודה רבה!</string>
   <string name="socialMediaLinks">קישורי רשתות חברתיות</string>
   <string name="inlineNotation">תיאור מהלכים בשורה</string>
   <string name="watchLichessTV">צפה בטלוויזיה של ליצ\'ס TV</string>
@@ -509,36 +511,7 @@
   <string name="activeToday">הכי פעילים היום</string>
   <string name="activePlayers">הכי פעילים</string>
   <string name="bewareTheGameIsRatedButHasNoClock">היזהר, המשחק מדורג אך אין שעון.</string>
-  <string name="yourPuzzleRatingX">דירוג הפאזלים שלך: %s</string>
-  <string name="findTheBestMoveForWhite">מצא את המהלך הטוב ביותר ללבן</string>
-  <string name="findTheBestMoveForBlack">מצא את המהלך הטוב ביותר לשחור</string>
-  <string name="toTrackYourProgress">למעקב אחרי התקדמותך:</string>
-  <string name="puzzleId">פאזל %s</string>
-  <string name="puzzleOfTheDay">הפאזל היומי</string>
-  <string name="clickToSolve">לחץ כדי לפתור</string>
-  <string name="goodMove">מהלך טוב</string>
-  <string name="butYouCanDoBetter">אבל יש מהלך יותר טוב.</string>
-  <string name="bestMove">המהלך הטוב ביותר!</string>
-  <string name="keepGoing">המשך...</string>
-  <string name="puzzleFailed">נכשלת בפאזל</string>
-  <string name="butYouCanKeepTrying">אבל אתה יכול להמשיך לנסות.</string>
   <string name="success">הצלחה</string>
-  <string name="wasThisPuzzleAnyGood">האם אהבת את הפאזל?</string>
-  <string name="pleaseVotePuzzle">עזור לנו להשתפר ע\"י הצבעה. השתמש בחצים למעלה ולמטה.</string>
-  <string name="thankYou">תודה רבה!</string>
-  <string name="ratingX">דירוג: %s</string>
-  <string name="hidden">מוסתר</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">שוחק פעם %s</item>
-    <item quantity="two">שוחק %s פעמים</item>
-    <item quantity="many">שוחק %s פעמים</item>
-    <item quantity="other">שוחק %s פעמים</item>
-  </plurals>
-  <string name="fromGameLink">מהמשחק %s</string>
-  <string name="continueTraining">המשך להתאמן</string>
-  <string name="retryThisPuzzle">נסה שוב את הפאזל.</string>
-  <string name="thisPuzzleIsCorrect">הפאזל נכון ומעניין.</string>
-  <string name="thisPuzzleIsWrong">הפאזל לא נכון או משעמם</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s משחק בתהליך</item>
     <item quantity="two">%s משחקים בתהליך</item>
@@ -547,7 +520,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">המשך אוטומטית למשחק הבא אחרי מהלך</string>
   <string name="autoSwitch">החלפה אוטומטית</string>
-  <string name="puzzles">פאזלים</string>
+  <string name="puzzles">חידות</string>
   <string name="latestUpdates">עדכונים אחרונים</string>
   <string name="tournamentWinners">מנצחי הטורנירים</string>
   <string name="name">שם</string>
@@ -828,7 +801,6 @@
   <string name="error.unknown">שגיאה</string>
   <string name="custom">התאמה אישית</string>
   <string name="notifications">התראות</string>
-  <string name="challenges">הזמנות למשחק</string>
   <string name="perfRatingX">דירוג: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s שניה לשחק את המסע הראשון</item>
@@ -879,12 +851,6 @@
   <string name="opening">פתיחה</string>
   <string name="middlegame">מציעה</string>
   <string name="endgame">סיום</string>
-  <string name="registerToSendChallenges">הירשם על מנת לשלוח אתגרים.</string>
-  <string name="youCannotChallengeX">לא ניתן לאתגר את %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s לא מקבל אתגרים.</string>
-  <string name="yourXRatingIsTooFarFromY">דירוג שלך %1$s רחוק מדי מ-%2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">אינו יכול לבקש משחק חוזר כי דירוג %s שלו עדיין זמני.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s רק מחבר בין מנויים הרשומים כחברים.</string>
   <string name="conditionalPremoves">מסעים מותנים מראש</string>
   <string name="addCurrentVariation">תוסיף וריאציה הנוכחית</string>
   <string name="playVariationToCreateConditionalPremoves">צור מהלכים מותנים מראש מתוך וריאנט</string>
@@ -930,9 +896,12 @@
   <string name="important">חשוב</string>
   <string name="yourQuestionMayHaveBeenAnswered">כנראה שלשאלה שלך כבר יש %1$s</string>
   <string name="inTheFAQ">בשאלות הנפוצות</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">על מנת לדווח על רמאות או על התנהגות עוינת, %1$s</string>
   <string name="useTheReportForm">השתמש בטופס הדוח</string>
+  <string name="toRequestSupport">לבקשת תמיכה, %1$s</string>
   <string name="tryTheContactPage">תנסה את עמוד אנשי הקשר</string>
   <string name="thisTopicIsArchived">נושא זה עבר לארכיון ולא ניתן עוד להשיב עליו.</string>
+  <string name="joinTheTeamXToPost">הצטרף ל %1$s כדי לפרסם בפורום הזה</string>
   <string name="youCannotPostYetPlaySomeGames">אתה עדיין לא יכול לפרסם בפורום זה. שחק כמה משחקים!</string>
   <string name="subscribe">עקוב</string>
   <string name="unsubscribe">בטל את המעקב</string>

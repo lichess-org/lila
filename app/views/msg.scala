@@ -13,14 +13,14 @@ object msg {
     views.html.base.layout(
       moreCss = frag(cssTag("msg")),
       moreJs = frag(
-        jsAt(s"compiled/lichess.msg${isProd ?? ".min"}.js"),
-        embedJsUnsafe(
-          s"""$$(() =>LichessMsg(document.querySelector('.msg-app'), ${safeJsonValue(
+        jsModule("msg"),
+        embedJsUnsafeLoadThen(
+          s"""LichessMsg(${safeJsonValue(
             Json.obj(
               "data" -> json,
               "i18n" -> jsI18n
             )
-          )}))"""
+          )})"""
         )
       ),
       title = "Lichess Inbox"
@@ -32,7 +32,7 @@ object msg {
 
   private val i18nKeys = List(
     trans.inbox,
-    trans.challengeToPlay,
+    trans.challenge.challengeToPlay,
     trans.block,
     trans.unblock,
     trans.blocked,

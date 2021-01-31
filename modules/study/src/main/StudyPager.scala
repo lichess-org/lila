@@ -151,9 +151,8 @@ final class StudyPager(
     me.?? { u =>
       studyRepo.filterLiked(u, studies.map(_.study.id))
     } map { liked =>
-      studies.map {
-        case Study.WithChapters(study, chapters) =>
-          Study.WithChaptersAndLiked(study, chapters, liked(study.id))
+      studies.map { case Study.WithChapters(study, chapters) =>
+        Study.WithChaptersAndLiked(study, chapters, liked(study.id))
       }
     }
 }

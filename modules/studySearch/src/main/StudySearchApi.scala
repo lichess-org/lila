@@ -105,7 +105,8 @@ final class StudySearchApi(
 
   def reset(sinceStr: String) =
     client match {
-      case c: ESClientHttp => {
+      case c: ESClientHttp =>
+        {
           val sinceOption: Either[Unit, Option[DateTime]] =
             if (sinceStr == "reset") Left(()) else Right(parseDate(sinceStr))
           val since = sinceOption match {
@@ -132,7 +133,7 @@ final class StudySearchApi(
               lila.common.Future.retry(() => doStore(study), 5 seconds, 10, retryLogger.some)
             }
             .toMat(Sink.ignore)(Keep.right)
-            .run
+            .run()
         } >> client.refresh
       case _ => funit
     }

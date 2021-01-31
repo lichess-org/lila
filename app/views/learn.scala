@@ -17,21 +17,20 @@ object index {
     views.html.base.layout(
       title = s"${learnChess.txt()} - ${byPlaying.txt()}",
       moreJs = frag(
-        jsAt(s"compiled/lichess.learn${isProd ?? ".min"}.js"),
-        embedJsUnsafe(s"""$$(function() {
-LichessLearn(document.getElementById('learn-app'), ${safeJsonValue(
+        jsModule("learn"),
+        embedJsUnsafeLoadThen(s"""LichessLearn(document.getElementById('learn-app'), ${safeJsonValue(
           Json.obj(
             "data" -> data,
             "i18n" -> i18nJsObject(i18nKeys)
           )
-        )})})""")
+        )})""")
       ),
       moreCss = cssTag("learn"),
       openGraph = lila.app.ui
         .OpenGraph(
           title = "Learn chess by playing",
           description = "You don't know much about chess? Excellent! Let's have fun and learn to play chess!",
-          url = s"$netBaseUrl${routes.Learn.index}"
+          url = s"$netBaseUrl${routes.Learn.index()}"
         )
         .some,
       zoomable = true

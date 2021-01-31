@@ -49,6 +49,11 @@ object OAuthScope {
     case object Play extends OAuthScope("bot:play", "Play games with the bot API")
   }
 
+  object Web {
+    case object Login
+        extends OAuthScope("web:login", "Create authenticated website sessions (grants full access!)")
+  }
+
   case class Scoped(user: lila.user.User, scopes: List[OAuthScope])
 
   type Selector = OAuthScope.type => OAuthScope
@@ -66,7 +71,8 @@ object OAuthScope {
     Team.Write,
     Msg.Write,
     Board.Play,
-    Bot.Play
+    Bot.Play,
+    Web.Login
   )
 
   val byKey: Map[String, OAuthScope] = all.map { s =>

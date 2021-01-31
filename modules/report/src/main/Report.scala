@@ -1,8 +1,7 @@
 package lila.report
 
 import org.joda.time.DateTime
-import ornicar.scalalib.Random
-import scalaz.NonEmptyList
+import cats.data.NonEmptyList
 
 import lila.user.User
 
@@ -30,7 +29,7 @@ case class Report(
 
   def add(atom: Atom) =
     atomBy(atom.by)
-      .fold(copy(atoms = atom <:: atoms)) { existing =>
+      .fold(copy(atoms = atom :: atoms)) { existing =>
         if (existing.text contains atom.text) this
         else
           copy(
@@ -59,7 +58,7 @@ case class Report(
     } take nb
   def onlyAtom: Option[Atom]                       = atoms.tail.isEmpty option atoms.head
   def atomBy(reporterId: ReporterId): Option[Atom] = atoms.toList.find(_.by == reporterId)
-  def bestAtomByHuman: Option[Atom]                = bestAtoms(10).toList.find(_.byHuman)
+  def bestAtomByHuman: Option[Atom]                = bestAtoms(10).find(_.byHuman)
 
   def unprocessedCheat = open && isCheat
   def unprocessedOther = open && isOther
@@ -78,11 +77,13 @@ case class Report(
 
   def boostWith: Option[User.ID] =
     (reason == Reason.Boost) ?? {
-      atoms.toList.filter(_.byLichess).map(_.text).flatMap(_.linesIterator).collectFirst {
+      atoms.toList.withFilter(_.byLichess).flatMap(_.text.linesIterator).collectFirst {
         case Report.farmWithRegex(userId)    => userId
         case Report.sandbagWithRegex(userId) => userId
       }
     }
+
+  def isAppeal = room == Room.Other && atoms.head.text == Report.appealText
 }
 
 object Report {
@@ -119,7 +120,7 @@ object Report {
     def urgency: Int =
       report.score.value.toInt +
         (isOnline ?? 1000) +
-        (report.closed ?? Int.MinValue)
+        (report.closed ?? -999999)
   }
 
   case class ByAndAbout(by: List[Report], about: List[Report]) {
@@ -153,17 +154,18 @@ object Report {
   }
 
   private[report] val spontaneousText = "Spontaneous inquiry"
+  private[report] val appealText      = "Appeal"
 
   def make(c: Candidate.Scored, existing: Option[Report]) =
     c match {
       case c @ Candidate.Scored(candidate, score) =>
         existing.fold(
           Report(
-            _id = Random nextString 8,
+            _id = lila.common.ThreadLocalRandom nextString 8,
             user = candidate.suspect.user.id,
             reason = candidate.reason,
             room = Room(candidate.reason),
-            atoms = NonEmptyList(c.atom),
+            atoms = NonEmptyList.one(c.atom),
             score = score,
             inquiry = none,
             open = true,

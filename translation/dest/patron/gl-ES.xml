@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">Doar</string>
+  <string name="freeAccount">Conta gratuita</string>
+  <string name="lifetime">De por vida</string>
+  <string name="onetime">Unha vez</string>
+</resources>

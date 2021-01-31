@@ -1,15 +1,19 @@
-export function skip(txt: string) {
-  return analyse(txt) && window.lichess.storage.get('chat-spam') != '1';
+import * as xhr from 'common/xhr';
+
+export const skip = (txt: string) => (suspLink(txt) || followMe(txt)) && !isKnownSpammer();
+
+export const selfReport = (txt: string) => {
+  if (isKnownSpammer()) return;
+  const hasSuspLink = suspLink(txt);
+  if (hasSuspLink) xhr.text(
+    `/jslog/${window.location.href.substr(-12)}?n=spam`,
+    {method: 'post'}
+  );
+  if (hasSuspLink || followMe(txt))
+    lichess.storage.set('chat-spam', '1');
 }
-export function hasTeamUrl(txt: string) {
-  return !!txt.match(teamUrlRegex);
-}
-export function report(txt: string) {
-  if (analyse(txt)) {
-    $.post('/jslog/' + window.location.href.substr(-12) + '?n=spam');
-    window.lichess.storage.set('chat-spam', '1');
-  }
-}
+
+const isKnownSpammer = () => lichess.storage.get('chat-spam') == '1'
 
 const spamRegex = new RegExp([
   'xcamweb.com',
@@ -34,13 +38,17 @@ const spamRegex = new RegExp([
   'badoogirls.com',
   'hide.su',
   'wyon.de',
-  'sexdatingcz.club'
-].map(url => {
-  return url.replace(/\./g, '\\.').replace(/\//g, '\\/');
-}).join('|'));
+  'sexdatingcz.club',
+  'qps.ru',
+  'tiny.cc/'
+].map(url =>
+  url.replace(/\./g, '\\.').replace(/\//g, '\\/')
+).join('|'));
 
-function analyse(txt: string) {
-  return !!txt.match(spamRegex);
-}
+const suspLink = (txt: string) => !!txt.match(spamRegex);
 
-const teamUrlRegex = /lichess\.org\/team\//
+const followMeRegex = /follow me|join my team/i;
+const followMe = (txt: string) => !!txt.match(followMeRegex);
+
+const teamUrlRegex = /lichess\.org\/team\//i;
+export const hasTeamUrl = (txt: string) => !!txt.match(teamUrlRegex);

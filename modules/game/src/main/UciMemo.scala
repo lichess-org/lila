@@ -11,7 +11,7 @@ final class UciMemo(gameRepo: GameRepo)(implicit ec: scala.concurrent.ExecutionC
 
   private val cache: Cache[Game.ID, UciVector] = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterAccess(5 minutes)
-    .build[Game.ID, UciVector]
+    .build[Game.ID, UciVector]()
 
   private val hardLimit = 300
 
@@ -41,6 +41,6 @@ final class UciMemo(gameRepo: GameRepo)(implicit ec: scala.concurrent.ExecutionC
   private def compute(game: Game, max: Int): Fu[UciVector] =
     for {
       fen      <- gameRepo initialFen game
-      uciMoves <- UciDump(game.pgnMoves.take(max), fen.map(_.value), game.variant).future
+      uciMoves <- UciDump(game.pgnMoves take max, fen, game.variant).toFuture
     } yield uciMoves.toVector
 }

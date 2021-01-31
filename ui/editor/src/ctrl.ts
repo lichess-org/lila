@@ -32,7 +32,7 @@ export default class EditorCtrl {
     this.cfg = cfg;
     this.options = cfg.options || {};
 
-    this.trans = window.lichess.trans(this.cfg.i18n);
+    this.trans = lichess.trans(this.cfg.i18n);
 
     this.selected = prop('pointer');
 
@@ -49,8 +49,7 @@ export default class EditorCtrl {
       cfg.positions.forEach(p => p.epd = p.fen.split(' ').splice(0, 4).join(' '));
     }
 
-    window.Mousetrap.bind('f', (e: Event) => {
-      e.preventDefault();
+    window.Mousetrap.bind('f', () => {
       if (this.chessground) this.chessground.toggleOrientation();
       redraw();
     });

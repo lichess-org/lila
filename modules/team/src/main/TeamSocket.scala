@@ -6,7 +6,6 @@ import lila.socket.RemoteSocket.{ Protocol => P, _ }
 final private class TeamSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi,
-    teamRepo: TeamRepo,
     cached: Cached
 )(implicit
     ec: scala.concurrent.ExecutionContext,

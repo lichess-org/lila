@@ -3,7 +3,8 @@ package lila.security
 import akka.actor.ActorSystem
 import io.methvin.play.autoconfig._
 import play.api.i18n.Lang
-import play.api.libs.ws.{ WSAuthScheme, WSClient }
+import play.api.libs.ws.DefaultBodyWritables._
+import play.api.libs.ws.{ StandaloneWSClient, WSAuthScheme }
 import scala.concurrent.duration.{ span => _, _ }
 import scalatags.Text.all._
 
@@ -13,7 +14,7 @@ import lila.common.String.html.{ escapeHtml, nl2brUnsafe }
 import lila.i18n.I18nKeys.{ emails => trans }
 
 final class Mailgun(
-    ws: WSClient,
+    ws: StandaloneWSClient,
     config: Mailgun.Config
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -43,7 +44,7 @@ final class Mailgun(
           }
         )
         .addFailureEffect {
-          case _: java.net.ConnectException => lila.mon.email.send.error("timeout").increment()
+          case _: java.net.ConnectException => lila.mon.email.send.error("timeout").increment().unit
           case _                            =>
         }
         .flatMap {
@@ -110,7 +111,13 @@ ${trans.common_contact("https://lichess.org/contact").render}"""
         small(
           trans.common_note(Mailgun.html.noteLink),
           " ",
-          trans.common_contact(noteContact)
+          trans.common_contact(noteContact),
+          " ",
+          lila.i18n.I18nKeys.readAboutOur(
+            a(href := "https://lichess.org/privacy")(
+              lila.i18n.I18nKeys.privacyPolicy()
+            )
+          )
         )
       )
 

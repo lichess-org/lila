@@ -26,13 +26,13 @@ object form {
           action := s"${routes.Report.create()}${reqUser.??(u => "?username=" + u.username)}"
         )(
           form3.globalError(form),
-          form3.group(form("username"), trans.user(), klass = "field_to") { f =>
+          form3.group(form("username"), trans.user(), klass = "field_to complete-parent") { f =>
             reqUser
               .map { user =>
                 frag(userLink(user), form3.hidden(f, user.id.some))
               }
               .getOrElse {
-                div(form3.input(f, klass = "user-autocomplete")(dataTag := "span"))
+                div(form3.input(f, klass = "user-autocomplete")(dataTag := "span", autofocus))
               }
           },
           form3.group(form("reason"), trans.reason()) { f =>
@@ -51,7 +51,7 @@ object form {
     }
 
   def flag(username: String, resource: String, text: String) =
-    postForm(action := routes.Report.flag, cls := "comm-flag")(
+    postForm(action := routes.Report.flag(), cls := "comm-flag")(
       form3.hidden("username", username),
       form3.hidden("resource", resource),
       form3.hidden("text", text take 140),

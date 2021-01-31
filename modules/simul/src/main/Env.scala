@@ -55,12 +55,13 @@ final class Env(
       .buildAsyncFuture(_ => repo.allCreatedFeaturable)
   }
 
-  val featurable = new SimulIsFeaturable((simul: Simul) => featureLimiter(simul.hostId)(true)(false))
+  val featurable = new SimulIsFeaturable((simul: Simul) =>
+    simul.team.isEmpty && featureLimiter(simul.hostId)(true)(false)
+  )
 
   private val featureLimiter = new lila.memo.RateLimit[lila.user.User.ID](
     credits = config.featureViews.value,
     duration = 24 hours,
-    name = "simul homepage views",
     key = "simul.feature",
     log = false
   )
@@ -69,24 +70,25 @@ final class Env(
     simulSocket.rooms.ask[SocketVersion](simulId)(GetVersion)
 
   Bus.subscribeFuns(
-    "finishGame" -> {
-      case lila.game.actorApi.FinishGame(game, _, _) => api finishGame game
+    "finishGame" -> { case lila.game.actorApi.FinishGame(game, _, _) =>
+      api finishGame game
+      ()
     },
-    "adjustCheater" -> {
-      case lila.hub.actorApi.mod.MarkCheater(userId, true) => api ejectCheater userId
+    "adjustCheater" -> { case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
+      api ejectCheater userId
+      ()
     },
-    "simulGetHosts" -> {
-      case lila.hub.actorApi.simul.GetHostIds(promise) => promise completeWith api.currentHostIds
+    "simulGetHosts" -> { case lila.hub.actorApi.simul.GetHostIds(promise) =>
+      promise completeWith api.currentHostIds
     },
-    "moveEventSimul" -> {
-      case lila.hub.actorApi.round.SimulMoveEvent(move, _, opponentUserId) =>
-        Bus.publish(
-          lila.hub.actorApi.socket.SendTo(
-            opponentUserId,
-            lila.socket.Socket.makeMessage("simulPlayerMove", move.gameId)
-          ),
-          "socketUsers"
-        )
+    "moveEventSimul" -> { case lila.hub.actorApi.round.SimulMoveEvent(move, _, opponentUserId) =>
+      Bus.publish(
+        lila.hub.actorApi.socket.SendTo(
+          opponentUserId,
+          lila.socket.Socket.makeMessage("simulPlayerMove", move.gameId)
+        ),
+        "socketUsers"
+      )
     }
   )
 }

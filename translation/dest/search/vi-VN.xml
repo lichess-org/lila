@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="search">Tìm kiếm</string>
-  <string name="advancedSearch">Tìm kiến nâng cao</string>
+  <string name="advancedSearch">Tìm kiếm nâng cao</string>
   <plurals name="searchInXGames">
     <item quantity="other">Tìm kiếm trong %s ván cờ</item>
   </plurals>

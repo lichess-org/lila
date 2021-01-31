@@ -1,7 +1,5 @@
 package views.html.clas
 
-import play.api.data.Form
-
 import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._

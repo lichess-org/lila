@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Eiti su karaliumi per du langelius</string>
   <string name="castleByMovingOntoTheRook">Eiti su karaliumi ant bokšto</string>
   <string name="inputMovesWithTheKeyboard">Ėjimų įvedimas su klaviatūra</string>
+  <string name="snapArrowsToValidMoves">Rodykles užfiksuoti ties leistinais ėjimais</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Nepamirškite nugalėti ar po lygiųjų pasakyti, \"Gera partija, ačiū\"</string>
   <string name="yourPreferencesHaveBeenSaved">Jūsų nuostatos buvo išsaugotos.</string>
 </resources>

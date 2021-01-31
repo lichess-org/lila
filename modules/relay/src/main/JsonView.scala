@@ -1,42 +1,56 @@
 package lila.relay
 
+import com.github.blemale.scaffeine.LoadingCache
 import play.api.libs.json._
+import scala.concurrent.duration._
 
+import lila.common.config.BaseUrl
 import lila.common.Json.jodaWrites
 
-final class JsonView(markup: RelayMarkup) {
+final class JsonView(baseUrl: BaseUrl) {
 
   import JsonView._
 
-  implicit val relayWrites = OWrites[Relay] { r =>
+  private val markdown = new lila.common.Markdown
+  private val markdownCache: LoadingCache[String, String] = lila.memo.CacheApi.scaffeineNoScheduler
+    .expireAfterAccess(10 minutes)
+    .maximumSize(64)
+    .build(markdown.apply)
+
+  implicit private val relayWrites = OWrites[Relay] { r =>
     Json
       .obj(
         "id"          -> r.id,
-        "slug"        -> r.slug,
+        "url"         -> s"$baseUrl/broadcast/${r.slug}/${r.id}",
         "name"        -> r.name,
-        "description" -> r.description,
-        "ownerId"     -> r.ownerId,
-        "sync"        -> r.sync
+        "description" -> r.description
       )
       .add("credit", r.credit)
-      .add("markup" -> r.markup.map(markup.apply))
+      .add("markup" -> r.markup.map(markdownCache.get))
+      .add("startsAt" -> r.startsAt)
+      .add("startedAt" -> r.startedAt)
+      .add("official" -> r.official.option(true))
+      .add("finished" -> r.finished.option(true))
   }
 
-  def makeData(relay: Relay, studyData: lila.study.JsonView.JsData) =
+  def makeData(
+      relay: Relay,
+      studyData: lila.study.JsonView.JsData,
+      canContribute: Boolean
+  ) =
     JsData(
-      relay = relayWrites writes relay,
+      relay = if (canContribute) admin(relay) else public(relay),
       study = studyData.study,
       analysis = studyData.analysis
     )
 
-  def apiShow(r: Relay) =
-    relayWrites
-      .writes(r)
+  def public(r: Relay) = relayWrites writes r
+
+  def admin(r: Relay) =
+    public(r)
       .add("markdown" -> r.markup)
-      .add("startsAt" -> r.startsAt)
-      .add("startedAt" -> r.startedAt)
-      .add("official" -> r.official.option(true))
       .add("throttle" -> r.sync.delay)
+      .add("sync" -> r.sync.some)
 }
 
 object JsonView {

@@ -25,39 +25,39 @@ final private class RatingRefund(
 
   import RatingRefund._
 
-  def schedule(sus: Suspect): Unit = scheduler.scheduleOnce(delay)(apply(sus))
+  def schedule(sus: Suspect): Unit = scheduler.scheduleOnce(delay)(apply(sus).unit).unit
 
-  private def apply(sus: Suspect): Unit =
+  private def apply(sus: Suspect): Funit =
     logApi.wasUnengined(sus) flatMap {
       case true => funit
       case false =>
         def lastGames =
-          gameRepo.coll.ext
+          gameRepo.coll
             .find(
               Query.user(sus.user.id) ++ Query.rated ++ Query
                 .createdSince(DateTime.now minusDays 3) ++ Query.finished
             )
             .sort(Query.sortCreated)
-            .list[Game](40, readPreference = ReadPreference.secondaryPreferred)
+            .cursor[Game](ReadPreference.secondaryPreferred)
+            .list(40)
 
         def makeRefunds(games: List[Game]) =
-          games.foldLeft(Refunds(List.empty)) {
-            case (refs, g) =>
-              (for {
-                perf <- g.perfType
-                op   <- g.playerByUserId(sus.user.id) map g.opponent
-                if !op.provisional
-                victim <- op.userId
-                diff   <- op.ratingDiff
-                if diff < 0
-                rating <- op.rating
-              } yield refs.add(victim, perf, -diff, rating)) | refs
+          games.foldLeft(Refunds(List.empty)) { case (refs, g) =>
+            (for {
+              perf <- g.perfType
+              op   <- g.playerByUserId(sus.user.id) map g.opponent
+              if !op.provisional
+              victim <- op.userId
+              diff   <- op.ratingDiff
+              if diff < 0
+              rating <- op.rating
+            } yield refs.add(victim, perf, -diff, rating)) | refs
           }
 
         def pointsToRefund(ref: Refund, curRating: Int, perfs: PerfStat): Int = {
           ref.diff - (ref.diff + curRating - ref.topRating atLeast 0) / 2 atMost
             perfs.highest.fold(100) { _.int - curRating + 20 }
-        } squeeze (0, 150)
+        }.squeeze(0, 150)
 
         def refundPoints(victim: Victim, pt: PerfType, points: Int): Funit = {
           val newPerf = victim.user.perfs(pt) refund points

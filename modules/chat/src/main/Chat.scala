@@ -77,8 +77,8 @@ case class MixedChat(
   def mapLines(f: Line => Line) = copy(lines = lines map f)
 
   def userIds =
-    lines.collect {
-      case l: UserLine => l.userId
+    lines.collect { case l: UserLine =>
+      l.userId
     }
 }
 

@@ -1,14 +1,14 @@
 package views.html
 package auth
 
+import controllers.routes
 import play.api.data.{ Field, Form }
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.security.RecaptchaForm
 import lila.user.User
-
-import controllers.routes
 
 object bits {
 
@@ -25,6 +25,7 @@ object bits {
       form3.passwordModified(password, trans.password())(
         autocomplete := (if (register) "new-password" else "current-password")
       ),
+      register option form3.passwordComplexityMeter(trans.newPasswordStrength()),
       emailOption.map { email =>
         form3.group(email, trans.email(), help = frag("We will only use it for password reset.").some)(
           form3.input(_, typ = "email")(required)
@@ -32,25 +33,25 @@ object bits {
       }
     )
 
-  def passwordReset(form: Form[_], captcha: lila.common.Captcha, ok: Option[Boolean] = None)(implicit
-      ctx: Context
-  ) =
+  def passwordReset(form: RecaptchaForm[_], fail: Boolean)(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.passwordReset.txt(),
       moreCss = cssTag("auth"),
-      moreJs = captchaTag
+      moreJs = views.html.base.recaptcha.script(form),
+      csp = defaultCsp.withRecaptcha.some
     ) {
       main(cls := "auth auth-signup box box-pad")(
         h1(
-          ok.map { r =>
-            span(cls := (if (r) "is-green" else "is-red"), dataIcon := (if (r) "E" else "L"))
-          },
+          fail option span(cls := "is-red", dataIcon := "L"),
           trans.passwordReset()
         ),
-        postForm(cls := "form3", action := routes.Auth.passwordResetApply)(
+        postForm(id := form.formId, cls := "form3", action := routes.Auth.passwordResetApply())(
           form3.group(form("email"), trans.email())(form3.input(_, typ = "email")(autofocus)),
-          views.html.base.captcha(form, captcha),
-          form3.action(form3.submit(trans.emailMeALink()))
+          form3.action(
+            views.html.base.recaptcha.button(form) {
+              form3.submit(trans.emailMeALink())
+            }
+          )
         )
       )
     }
@@ -71,7 +72,13 @@ object bits {
   ) =
     views.html.base.layout(
       title = s"${u.username} - ${trans.changePassword.txt()}",
-      moreCss = cssTag("form3")
+      moreCss = cssTag("form3"),
+      moreJs = frag(
+        embedJsUnsafeLoadThen("""
+          lichess.loadModule('passwordComplexity').then(() =>
+            passwordComplexity.addPasswordChangeListener('form3-newPasswd1')
+          )""")
+      )
     ) {
       main(cls := "page-small box box-pad")(
         (ok match {
@@ -89,6 +96,7 @@ object bits {
             autofocus,
             autocomplete := "new-password"
           ),
+          form3.passwordComplexityMeter(trans.newPasswordStrength()),
           form3.passwordModified(form("newPasswd2"), trans.newPasswordAgain())(
             autocomplete := "new-password"
           ),
@@ -98,28 +106,26 @@ object bits {
       )
     }
 
-  def magicLink(form: Form[_], captcha: lila.common.Captcha, ok: Option[Boolean] = None)(implicit
-      ctx: Context
-  ) =
+  def magicLink(form: RecaptchaForm[_], fail: Boolean)(implicit ctx: Context) =
     views.html.base.layout(
       title = "Log in by email",
       moreCss = cssTag("auth"),
-      moreJs = captchaTag
+      moreJs = views.html.base.recaptcha.script(form),
+      csp = defaultCsp.withRecaptcha.some
     ) {
       main(cls := "auth auth-signup box box-pad")(
         h1(
-          ok.map { r =>
-            span(cls := (if (r) "is-green" else "is-red"), dataIcon := (if (r) "E" else "L"))
-          },
+          fail option span(cls := "is-red", dataIcon := "L"),
           "Log in by email"
         ),
         p("We will send you an email containing a link to log you in."),
-        postForm(cls := "form3", action := routes.Auth.magicLinkApply)(
+        postForm(id := form.formId, cls := "form3", action := routes.Auth.magicLinkApply())(
           form3.group(form("email"), trans.email())(
             form3.input(_, typ = "email")(autofocus, autocomplete := "email")
           ),
-          views.html.base.captcha(form, captcha),
-          form3.action(form3.submit(trans.emailMeALink()))
+          form3.action(views.html.base.recaptcha.button(form) {
+            form3.submit(trans.emailMeALink())
+          })
         )
       )
     }
@@ -132,6 +138,22 @@ object bits {
         h1(cls := "is-green text", dataIcon := "E")(trans.checkYourEmail()),
         p("We've sent you an email with a link."),
         p(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces())
+      )
+    }
+
+  def tokenLoginConfirmation(user: User, token: String, referrer: Option[String])(implicit ctx: Context) =
+    views.html.base.layout(
+      title = s"Log in as ${user.username}",
+      moreCss = cssTag("form3")
+    ) {
+      main(cls := "page-small box box-pad")(
+        h1("Log in as ", userLink(user)),
+        postForm(action := routes.Auth.loginWithTokenPost(token, referrer))(
+          form3.actions(
+            a(href := routes.Lobby.home())(trans.cancel()),
+            submitButton(cls := "button")(s"${user.username} is my Lichess username, log me in")
+          )
+        )
       )
     }
 
@@ -164,7 +186,7 @@ body { margin-top: 45px; }
 """),
       div(id := "email-confirm")(
         s"Almost there, ${userEmail.username}! Now check your email (${userEmail.email.conceal}) for signup confirmation.",
-        a(href := routes.Auth.checkYourEmail)("Click here for help")
+        a(href := routes.Auth.checkYourEmail())("Click here for help")
       )
     )
 
@@ -176,6 +198,18 @@ body { margin-top: 45px; }
         h1(cls := "text", dataIcon := "2")("Ooops"),
         p("Sorry, you can't signup to Lichess through Tor!"),
         p("You can play, train and use almost all Lichess features as an anonymous user.")
+      )
+    }
+
+  def logout()(implicit ctx: Context) =
+    views.html.base.layout(
+      title = trans.logOut.txt()
+    ) {
+      main(cls := "page-small box box-pad")(
+        h1(trans.logOut()),
+        form(action := routes.Auth.logout(), method := "post")(
+          button(cls := "button button-red", tpe := "submit")(trans.logOut.txt())
+        )
       )
     }
 }

@@ -1,10 +1,17 @@
 @keyframes bar-glider-anim {
-  0%{transform:translateX(-1300px);}
-  100%{transform:translateX(2100px);}
+  0% {
+    transform: translateX(-1300px);
+  }
+
+  100% {
+    transform: translateX(2100px);
+  }
 }
+
 .bar-glider {
   position: relative;
   overflow: hidden;
+
   &::after {
     content: '';
     position: absolute;

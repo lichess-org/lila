@@ -18,8 +18,8 @@ object StudyTopic {
 
   def fromStr(str: String): Option[StudyTopic] =
     str.trim match {
-      case s if s.size >= minLength && s.size <= maxLength => StudyTopic(s).some
-      case _                                               => none
+      case s if s.lengthIs >= minLength && s.lengthIs <= maxLength => StudyTopic(s).some
+      case _                                                       => none
     }
 
   implicit val topicIso = lila.common.Iso.string[StudyTopic](StudyTopic.apply, _.value)
@@ -46,7 +46,7 @@ object StudyTopics {
     StudyTopics {
       strs.view
         .flatMap(StudyTopic.fromStr)
-        .take(30)
+        .take(64)
         .toList
         .distinct
     }
@@ -67,7 +67,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
     topicRepo.coll.byId[Bdoc](str) dmap { _ flatMap docTopic }
 
   def findLike(str: String, myId: Option[User.ID], nb: Int = 10): Fu[StudyTopics] = {
-    (str.size >= 2) ?? {
+    (str.lengthIs >= 2) ?? {
       val favsFu: Fu[List[StudyTopic]] =
         myId.?? { userId =>
           userTopics(userId).map {
@@ -75,10 +75,11 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
           }
         }
       favsFu flatMap { favs =>
-        topicRepo.coll.ext
+        topicRepo.coll
           .find($doc("_id".$startsWith(str, "i")))
           .sort($sort.naturalAsc)
-          .list[Bdoc]((nb - favs.size).some, ReadPreference.secondaryPreferred)
+          .cursor[Bdoc](ReadPreference.secondaryPreferred)
+          .list(nb - favs.size)
           .dmap {
             _ flatMap docTopic
           }
@@ -123,10 +124,11 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
         .void
 
   def popular(nb: Int): Fu[StudyTopics] =
-    topicRepo.coll.ext
+    topicRepo.coll
       .find($empty)
       .sort($sort.naturalAsc)
-      .list[Bdoc](nb.some)
+      .cursor[Bdoc]()
+      .list(nb)
       .dmap {
         _ flatMap docTopic
       }
@@ -146,18 +148,19 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
     recomputeWorkQueue(Future.makeItLast(60 seconds)(recomputeNow)).recover {
       case _: lila.hub.BoundedDuct.EnqueueException => ()
       case e: Exception                             => logger.warn("Can't recompute study topics!", e)
-    }
+    }.unit
 
   private def recomputeNow: Funit =
     studyRepo.coll
       .aggregateWith[Bdoc]() { framework =>
         import framework._
-        Match(
-          $doc(
-            "topics" $exists true,
-            "visibility" -> "public"
-          )
-        ) -> List(
+        List(
+          Match(
+            $doc(
+              "topics" $exists true,
+              "visibility" -> "public"
+            )
+          ),
           Project($doc("topics" -> true, "_id" -> false)),
           UnwindField("topics"),
           SortByFieldCount("topics"),

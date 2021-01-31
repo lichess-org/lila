@@ -29,18 +29,19 @@ final class Main(
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
       fuccess {
-        blindForm.bindFromRequest.fold(
-          _ => BadRequest,
-          {
-            case (enable, redirect) =>
+        blindForm
+          .bindFromRequest()
+          .fold(
+            _ => BadRequest,
+            { case (enable, redirect) =>
               Redirect(redirect) withCookies env.lilaCookie.cookie(
                 env.api.config.accessibility.blindCookieName,
                 if (enable == "0") "" else env.api.config.accessibility.hash,
                 maxAge = env.api.config.accessibility.blindCookieMaxAge.toSeconds.toInt.some,
                 httpOnly = true.some
               )
-          }
-        )
+            }
+          )
       }
     }
 
@@ -48,8 +49,8 @@ final class Main(
 
   def captchaCheck(id: String) =
     Open { implicit ctx =>
-      env.hub.captcher.actor ? ValidCaptcha(id, ~get("solution")) map {
-        case valid: Boolean => Ok(if (valid) 1 else 0)
+      env.hub.captcher.actor ? ValidCaptcha(id, ~get("solution")) map { case valid: Boolean =>
+        Ok(if (valid) 1 else 0)
       }
     }
 
@@ -57,7 +58,7 @@ final class Main(
     Open { implicit ctx =>
       pageHit
       fuccess {
-        html.site.help.webmasters()
+        html.site.page.webmasters
       }
     }
 
@@ -72,8 +73,8 @@ final class Main(
   def mobile =
     Open { implicit ctx =>
       pageHit
-      OptionOk(prismicC getBookmark "mobile-apk") {
-        case (doc, resolver) => html.mobile(doc, resolver)
+      OptionOk(prismicC getBookmark "mobile-apk") { case (doc, resolver) =>
+        html.mobile(doc, resolver)
       }
     }
 
@@ -89,19 +90,18 @@ final class Main(
     Open { ctx =>
       env.round.selfReport(
         userId = ctx.userId,
-        ip = HTTPRequest lastRemoteAddress ctx.req,
+        ip = HTTPRequest ipAddress ctx.req,
         fullId = lila.game.Game.FullId(id),
         name = get("n", ctx.req) | "?"
       )
       NoContent.fuccess
     }
 
-  /**
-    * Event monitoring endpoint
+  /** Event monitoring endpoint
     */
   def jsmon(event: String) =
     Action {
-      lila.mon.http.jsmon(event).increment
+      lila.mon.http.jsmon(event).increment()
       NoContent
     }
 
@@ -125,7 +125,7 @@ final class Main(
         .map {
           case None => NotFound
           case Some(image) =>
-            lila.mon.http.imageBytes.record(image.size)
+            lila.mon.http.imageBytes.record(image.size.toLong)
             Ok(image.data).withHeaders(
               CONTENT_DISPOSITION -> image.name
             ) as image.contentType.getOrElse("image/jpeg")
@@ -161,7 +161,7 @@ Allow: /
           "icons" -> List(32, 64, 128, 192, 256, 512, 1024).map { size =>
             Json.obj(
               "src"   -> s"//${env.net.assetDomain.value}/assets/logo/lichess-favicon-$size.png",
-              "sizes" -> s"${size}x${size}",
+              "sizes" -> s"${size}x$size",
               "type"  -> "image/png"
             )
           },
@@ -219,10 +219,10 @@ Allow: /
   def instantChess =
     Open { implicit ctx =>
       pageHit
-      if (ctx.isAuth) fuccess(Redirect(routes.Lobby.home))
+      if (ctx.isAuth) fuccess(Redirect(routes.Lobby.home()))
       else
         fuccess {
-          Redirect(s"${routes.Lobby.home}#pool/10+0").withCookies(
+          Redirect(s"${routes.Lobby.home()}#pool/10+0").withCookies(
             env.lilaCookie.withSession { s =>
               s + ("theme" -> "ic") + ("pieceSet" -> "icpieces")
             }
@@ -233,7 +233,7 @@ Allow: /
   def legacyQaQuestion(id: Int, @nowarn("cat=unused") slug: String) =
     Open { _ =>
       MovedPermanently {
-        val faq = routes.Main.faq.url
+        val faq = routes.Main.faq().url
         id match {
           case 103  => s"$faq#acpl"
           case 258  => s"$faq#marks"
@@ -242,14 +242,14 @@ Allow: /
           case 110  => s"$faq#name"
           case 29   => s"$faq#titles"
           case 4811 => s"$faq#lm"
-          case 216  => routes.Main.mobile.url
+          case 216  => routes.Main.mobile().url
           case 340  => s"$faq#trophies"
           case 6    => s"$faq#ratings"
           case 207  => s"$faq#hide-ratings"
           case 547  => s"$faq#leaving"
           case 259  => s"$faq#trophies"
           case 342  => s"$faq#provisional"
-          case 50   => routes.Page.help.url
+          case 50   => routes.Page.help().url
           case 46   => s"$faq#name"
           case 122  => s"$faq#marks"
           case _    => faq

@@ -23,14 +23,14 @@ object notFound {
             strong("Page not found!"),
             p(
               "Return to ",
-              a(href := routes.Lobby.home)("the homepage"),
+              a(href := routes.Lobby.home())("the homepage"),
               span(cls := "or-play")(" or play this mini-game")
             )
           )
         ),
         div(cls := "game")(
           iframe(
-            src := staticUrl(s"vendor/ChessPursuit/bin-release/index.html"),
+            src := assetUrl(s"vendor/ChessPursuit/bin-release/index.html"),
             st.frameborder := 0,
             width := 400,
             height := 500

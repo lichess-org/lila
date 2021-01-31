@@ -1,13 +1,13 @@
 package views
 package html.tournament
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.richText
+import lila.common.String.html.markdownLinksOrRichText
 import lila.tournament.{ TeamBattle, Tournament, TournamentShield }
-
-import controllers.routes
 
 object side {
 
@@ -16,13 +16,13 @@ object side {
   def apply(
       tour: Tournament,
       verdicts: lila.tournament.Condition.All.WithVerdicts,
-      streamers: Set[lila.user.User.ID],
+      streamers: List[lila.user.User.ID],
       shieldOwner: Option[TournamentShield.OwnerId],
       chat: Boolean
   )(implicit ctx: Context) =
     frag(
       div(cls := "tour__meta")(
-        st.section(dataIcon := tour.perfType.map(_.iconChar.toString))(
+        st.section(dataIcon := tour.perfType.iconChar.toString)(
           div(
             p(
               tour.clock.show,
@@ -33,8 +33,8 @@ object side {
                   if (tour.variant == chess.variant.KingOfTheHill) tour.variant.shortName
                   else tour.variant.name
                 )
-              } else tour.perfType.map(_.trans),
-              (!tour.position.initial) ?? s"$separator${trans.thematic.txt()}",
+              } else tour.perfType.trans,
+              tour.position.isDefined ?? s"$separator${trans.thematic.txt()}",
               separator,
               tour.durationString
             ),
@@ -51,7 +51,7 @@ object side {
         tour.teamBattle map teamBattle(tour),
         tour.spotlight map { s =>
           st.section(
-            lila.common.String.html.markdownLinks(s.description),
+            markdownLinksOrRichText(s.description),
             shieldOwner map { owner =>
               p(cls := "defender", dataIcon := "5")(
                 "Defender:",
@@ -61,7 +61,7 @@ object side {
           )
         },
         tour.description map { d =>
-          st.section(cls := "description")(richText(d))
+          st.section(cls := "description")(markdownLinksOrRichText(d))
         },
         tour.looksLikePrize option bits.userPrizeDisclaimer(tour.createdBy),
         verdicts.relevant option st.section(
@@ -73,7 +73,7 @@ object side {
           )
         )(
           div(
-            (verdicts.list.size < 2) option p(trans.conditionOfEntry()),
+            verdicts.list.sizeIs < 2 option p(trans.conditionOfEntry()),
             verdicts.list map { v =>
               p(
                 cls := List(
@@ -92,21 +92,25 @@ object side {
         tour.noBerserk option div(cls := "text", dataIcon := "`")("No Berserk allowed"),
         tour.noStreak option div(cls := "text", dataIcon := "Q")("No Arena streaks"),
         !tour.isScheduled option frag(trans.by(userIdLink(tour.createdBy.some)), br),
-        (!tour.isStarted || (tour.isScheduled && !tour.position.initial)) option absClientDateTime(
+        (!tour.isStarted || (tour.isScheduled && tour.position.isDefined)) option absClientDateTime(
           tour.startsAt
         ),
-        !tour.position.initial option p(
-          a(target := "_blank", rel := "noopener", href := tour.position.url)(
-            strong(tour.position.eco),
-            " ",
-            tour.position.name
-          ),
-          separator,
-          a(href := routes.UserAnalysis.parseArg(tour.position.fen.replace(" ", "_")))(trans.analysis())
-        )
+        tour.startingPosition.map { pos =>
+          p(
+            a(targetBlank, href := pos.url)(strong(pos.eco), " ", pos.name),
+            separator,
+            views.html.base.bits.fenAnalysisLink(pos.fen)
+          )
+        } orElse tour.position.map { fen =>
+          p(
+            "Custom position",
+            separator,
+            views.html.base.bits.fenAnalysisLink(fen)
+          )
+        }
       ),
       streamers.nonEmpty option div(cls := "context-streamers")(
-        streamers.toList map views.html.streamer.bits.contextual
+        streamers map views.html.streamer.bits.contextual
       ),
       chat option views.html.chat.frag
     )

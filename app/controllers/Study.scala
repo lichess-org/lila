@@ -79,10 +79,9 @@ final class Study(
     Auth { implicit ctx => me =>
       env.study.pager.mine(me, Order(order), page) flatMap { pag =>
         negotiate(
-          html =
-            env.study.topicApi.userTopics(me.id) map { topics =>
-              Ok(html.study.list.mine(pag, Order(order), me, topics))
-            },
+          html = env.study.topicApi.userTopics(me.id) map { topics =>
+            Ok(html.study.list.mine(pag, Order(order), me, topics))
+          },
           api = _ => apiStudies(pag)
         )
       }
@@ -112,10 +111,9 @@ final class Study(
     Auth { implicit ctx => me =>
       env.study.pager.mineMember(me, Order(order), page) flatMap { pag =>
         negotiate(
-          html =
-            env.study.topicApi.userTopics(me.id) map { topics =>
-              Ok(html.study.list.mineMember(pag, Order(order), me, topics))
-            },
+          html = env.study.topicApi.userTopics(me.id) map { topics =>
+            Ok(html.study.list.mineMember(pag, Order(order), me, topics))
+          },
           api = _ => apiStudies(pag)
         )
       }
@@ -137,10 +135,9 @@ final class Study(
         case None => notFound
         case Some(topic) =>
           env.study.pager.byTopic(topic, ctx.me, Order(order), page) zip
-            ctx.me.??(u => env.study.topicApi.userTopics(u.id) dmap some) map {
-            case (pag, topics) =>
+            ctx.me.??(u => env.study.topicApi.userTopics(u.id) dmap some) map { case (pag, topics) =>
               Ok(html.study.topic.show(topic, pag, Order(order), topics))
-          }
+            }
       }
     }
 
@@ -266,29 +263,33 @@ final class Study(
   def createAs =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      lila.study.DataForm.importGame.form.bindFromRequest.fold(
-        _ => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
-        data =>
-          for {
-            owner   <- env.study.studyRepo.recentByOwner(me.id, 50)
-            contrib <- env.study.studyRepo.recentByContributor(me.id, 50)
-            res <-
-              if (owner.isEmpty && contrib.isEmpty) createStudy(data, me)
-              else Ok(html.study.create(data, owner, contrib)).fuccess
-          } yield res
-      )
+      lila.study.StudyForm.importGame.form
+        .bindFromRequest()
+        .fold(
+          _ => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
+          data =>
+            for {
+              owner   <- env.study.studyRepo.recentByOwner(me.id, 50)
+              contrib <- env.study.studyRepo.recentByContributor(me.id, 50)
+              res <-
+                if (owner.isEmpty && contrib.isEmpty) createStudy(data, me)
+                else Ok(html.study.create(data, owner, contrib)).fuccess
+            } yield res
+        )
     }
 
   def create =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      lila.study.DataForm.importGame.form.bindFromRequest.fold(
-        _ => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
-        data => createStudy(data, me)
-      )
+      lila.study.StudyForm.importGame.form
+        .bindFromRequest()
+        .fold(
+          _ => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
+          data => createStudy(data, me)
+        )
     }
 
-  private def createStudy(data: lila.study.DataForm.importGame.Data, me: lila.user.User)(implicit
+  private def createStudy(data: lila.study.StudyForm.importGame.Data, me: lila.user.User)(implicit
       ctx: Context
   ) =
     env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me) flatMap {
@@ -315,15 +316,17 @@ final class Study(
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
       get("sri") ?? { sri =>
-        lila.study.DataForm.importPgn.form.bindFromRequest.fold(
-          jsonFormError,
-          data =>
-            env.study.api.importPgns(
-              StudyModel.Id(id),
-              data.toChapterDatas,
-              sticky = data.sticky
-            )(Who(me.id, lila.socket.Socket.Sri(sri)))
-        )
+        lila.study.StudyForm.importPgn.form
+          .bindFromRequest()
+          .fold(
+            jsonFormError,
+            data =>
+              env.study.api.importPgns(
+                StudyModel.Id(id),
+                data.toChapterDatas,
+                sticky = data.sticky
+              )(Who(me.id, lila.socket.Socket.Sri(sri)))
+          )
       }
     }
 
@@ -335,40 +338,39 @@ final class Study(
   def embed(id: String, chapterId: String) =
     Action.async { implicit req =>
       env.study.api.byIdWithChapter(id, chapterId).map(_.filterNot(_.study.isPrivate)) flatMap {
-        _.fold(embedNotFound) {
-          case WithChapter(study, chapter) =>
-            for {
-              chapters <- env.study.chapterRepo.idNames(study.id)
-              studyJson <- env.study.jsonView(
-                study.copy(
-                  members = lila.study.StudyMembers(Map.empty) // don't need no members
-                ),
-                List(chapter.metadata),
-                chapter,
-                none
-              )
-              setup      = chapter.setup
-              initialFen = chapter.root.fen.some
-              pov        = userAnalysisC.makePov(initialFen, setup.variant)
-              baseData = env.round.jsonView.userAnalysisJson(
-                pov,
-                lila.pref.Pref.default,
-                initialFen,
-                setup.orientation,
-                owner = false,
-                me = none
-              )
-              analysis = baseData ++ Json.obj(
-                "treeParts" -> partitionTreeJsonWriter.writes {
-                  lila.study.TreeBuilder.makeRoot(chapter.root, setup.variant)
-                }
-              )
-              data = lila.study.JsonView.JsData(study = studyJson, analysis = analysis)
-              result <- negotiate(
-                html = Ok(html.study.embed(study, chapter, chapters, data)).fuccess,
-                api = _ => Ok(Json.obj("study" -> data.study, "analysis" -> data.analysis)).fuccess
-              )
-            } yield result
+        _.fold(embedNotFound) { case WithChapter(study, chapter) =>
+          for {
+            chapters <- env.study.chapterRepo.idNames(study.id)
+            studyJson <- env.study.jsonView(
+              study.copy(
+                members = lila.study.StudyMembers(Map.empty) // don't need no members
+              ),
+              List(chapter.metadata),
+              chapter,
+              none
+            )
+            setup      = chapter.setup
+            initialFen = chapter.root.fen.some
+            pov        = userAnalysisC.makePov(initialFen, setup.variant)
+            baseData = env.round.jsonView.userAnalysisJson(
+              pov,
+              lila.pref.Pref.default,
+              initialFen,
+              setup.orientation,
+              owner = false,
+              me = none
+            )
+            analysis = baseData ++ Json.obj(
+              "treeParts" -> partitionTreeJsonWriter.writes {
+                lila.study.TreeBuilder.makeRoot(chapter.root, setup.variant)
+              }
+            )
+            data = lila.study.JsonView.JsData(study = studyJson, analysis = analysis)
+            result <- negotiate(
+              html = Ok(html.study.embed(study, chapter, chapters, data)).fuccess,
+              api = _ => Ok(Json.obj("study" -> data.study, "analysis" -> data.analysis)).fuccess
+            )
+          } yield result
         }
       } map NoCache
     }
@@ -388,23 +390,20 @@ final class Study(
   private val CloneLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
     credits = 10 * 3,
     duration = 24.hour,
-    name = "clone study per user",
-    key = "clone_study.user"
+    key = "study.clone.user"
   )
 
   private val CloneLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 20 * 3,
     duration = 24.hour,
-    name = "clone study per IP",
-    key = "clone_study.ip"
+    key = "study.clone.ip"
   )
 
   def cloneApply(id: String) =
     Auth { implicit ctx => me =>
-      implicit val default = ornicar.scalalib.Zero.instance[Fu[Result]](notFound)
-      val cost             = if (isGranted(_.Coach) || me.hasTitle) 1 else 3
+      val cost = if (isGranted(_.Coach) || me.hasTitle) 1 else 3
       CloneLimitPerUser(me.id, cost = cost) {
-        CloneLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = cost) {
+        CloneLimitPerIP(HTTPRequest ipAddress ctx.req, cost = cost) {
           OptionFuResult(env.study.api.byId(id)) { prev =>
             CanViewResult(prev) {
               env.study.api.clone(me, prev) map { study =>
@@ -419,17 +418,16 @@ final class Study(
   private val PgnRateLimitPerIp = new lila.memo.RateLimit[IpAddress](
     credits = 30,
     duration = 1.minute,
-    name = "export study PGN per IP",
-    key = "export.study_pgn.ip"
+    key = "export.study.pgn.ip"
   )
 
   def pgn(id: String) =
     Open { implicit ctx =>
-      PgnRateLimitPerIp(HTTPRequest lastRemoteAddress ctx.req) {
+      PgnRateLimitPerIp(HTTPRequest ipAddress ctx.req) {
         OptionFuResult(env.study.api byId id) { study =>
           CanViewResult(study) {
             lila.mon.export.pgn.study.increment()
-            Ok.chunked(env.study.pgnDump(study))
+            Ok.chunked(env.study.pgnDump(study, requestPgnFlags(ctx.req)))
               .withHeaders(
                 noProxyBufferHeader,
                 CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump filename study}.pgn"
@@ -444,35 +442,40 @@ final class Study(
   def chapterPgn(id: String, chapterId: String) =
     Open { implicit ctx =>
       env.study.api.byIdWithChapter(id, chapterId) flatMap {
-        _.fold(notFound) {
-          case WithChapter(study, chapter) =>
-            CanViewResult(study) {
-              lila.mon.export.pgn.studyChapter.increment()
-              Ok(env.study.pgnDump.ofChapter(study)(chapter).toString)
-                .withHeaders(
-                  CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump.filename(study, chapter)}.pgn"
-                )
-                .as(pgnContentType)
-                .fuccess
-            }
+        _.fold(notFound) { case WithChapter(study, chapter) =>
+          CanViewResult(study) {
+            lila.mon.export.pgn.studyChapter.increment()
+            Ok(env.study.pgnDump.ofChapter(study, requestPgnFlags(ctx.req))(chapter).toString)
+              .withHeaders(
+                CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump.filename(study, chapter)}.pgn"
+              )
+              .as(pgnContentType)
+              .fuccess
+          }
         }
       }
     }
 
+  private def requestPgnFlags(req: RequestHeader) =
+    lila.study.PgnDump.WithFlags(
+      comments = getBoolOpt("comments", req) | true,
+      variations = getBoolOpt("variations", req) | true,
+      clocks = getBoolOpt("clocks", req) | true
+    )
+
   def chapterGif(id: String, chapterId: String) =
     Open { implicit ctx =>
       env.study.api.byIdWithChapter(id, chapterId) flatMap {
-        _.fold(notFound) {
-          case WithChapter(study, chapter) =>
-            CanViewResult(study) {
-              env.study.gifExport.ofChapter(chapter) map { stream =>
-                Ok.chunked(stream)
-                  .withHeaders(
-                    noProxyBufferHeader,
-                    CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump.filename(study, chapter)}.gif"
-                  ) as "image/gif"
-              }
+        _.fold(notFound) { case WithChapter(study, chapter) =>
+          CanViewResult(study) {
+            env.study.gifExport.ofChapter(chapter) map { stream =>
+              Ok.chunked(stream)
+                .withHeaders(
+                  noProxyBufferHeader,
+                  CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump.filename(study, chapter)}.gif"
+                ) as "image/gif"
             }
+          }
         }
       }
     }
@@ -503,22 +506,23 @@ final class Study(
   def topics =
     Open { implicit ctx =>
       env.study.topicApi.popular(50) zip
-        ctx.me.??(u => env.study.topicApi.userTopics(u.id) dmap some) map {
-        case (popular, mine) =>
-          val form = mine map lila.study.DataForm.topicsForm
+        ctx.me.??(u => env.study.topicApi.userTopics(u.id) dmap some) map { case (popular, mine) =>
+          val form = mine map lila.study.StudyForm.topicsForm
           Ok(html.study.topic.index(popular, mine, form))
-      }
+        }
     }
 
   def setTopics =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      lila.study.DataForm.topicsForm.bindFromRequest.fold(
-        _ => Redirect(routes.Study.topics).fuccess,
-        topics =>
-          env.study.topicApi.userTopics(me, topics) inject
-            Redirect(routes.Study.topics)
-      )
+      lila.study.StudyForm.topicsForm
+        .bindFromRequest()
+        .fold(
+          _ => Redirect(routes.Study.topics()).fuccess,
+          topics =>
+            env.study.topicApi.userTopics(me, topics) inject
+              Redirect(routes.Study.topics())
+        )
     }
 
   private[controllers] def CanViewResult(

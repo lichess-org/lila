@@ -27,12 +27,7 @@
   <string name="wantClearHistory">Jeg vil slette min historik eller rating</string>
   <string name="cantClearHistory">Det er ikke muligt at slette din historik for partier, taktikopgaver eller ratinger.</string>
   <string name="wantReport">Jeg vil anmelde en spiller</string>
-  <string name="cheating">snyd</string>
-  <string name="sandbagging">tabe med vilje</string>
-  <string name="trolling">trolle</string>
-  <string name="insults">fornærmelser</string>
-  <string name="otherReason">en anden grund</string>
-  <string name="toReportAPlayer">For at anmelde en spiller for %s, brug anmeldelsesformularen</string>
+  <string name="toReportAPlayerUseForm">Brug anmeldelsesformularen for at anmelde en spiller</string>
   <string name="youCanAlsoReachReportPage">Du kan også komme frem til den side ved at klikke på %s anmeldelsesknappen på en profilside.</string>
   <string name="doNotReportInForum">Anmeld ikke spillere i forummet.</string>
   <string name="doNotSendReportEmails">Send os ikke anmeldelsesmails.</string>

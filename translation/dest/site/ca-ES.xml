@@ -82,7 +82,7 @@
   <string name="averageRatingX">Puntuació mitjana: %s</string>
   <string name="recentGames">Partides recents</string>
   <string name="topGames">Millors partides</string>
-  <string name="masterDbExplanation">Dos mil·lions de partides OTB de jugadors amb ELO FIDE +%1$s des de %2$s fins a %3$s</string>
+  <string name="masterDbExplanation">Dos milions de partides OTB de jugadors amb ELO FIDE +%1$s de %2$s fins a %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat en %s mig-moviment</item>
     <item quantity="other">Mat en %s mig-moviments</item>
@@ -175,7 +175,7 @@
   <string name="username">Nom d\'usuari</string>
   <string name="usernameOrEmail">Nom d\'usuari o correu electrònic</string>
   <string name="changeUsername">Canviar nom d\'usuari</string>
-  <string name="changeUsernameNotSame">Només les lletres majúscules poden canviar. Per exemple \"johndoe\" a \"JohnDoe\".</string>
+  <string name="changeUsernameNotSame">Només es pot canviar entre majúscules i minúscules. Per exemple, de \"perecullera\" a \"PereCullera\".</string>
   <string name="changeUsernameDescription">Canvia el teu nom d\'usuari. Això es pot fer una única vegada i només canviant les lletres majúscules per minúscules.</string>
   <string name="password">Contrassenya</string>
   <string name="changePassword">Canvia la contrasenya</string>
@@ -199,7 +199,8 @@
     <item quantity="other">%s partides amb tu</item>
   </plurals>
   <string name="cancel">Cancel·la</string>
-  <string name="timeOut">Temps exhaurit</string>
+  <string name="whiteTimeOut">Les blanques han exhaurit el seu temps</string>
+  <string name="blackTimeOut">Les negres han exhaurit el seu temps</string>
   <string name="drawOfferSent">S\'ha enviat l\'oferta de taules</string>
   <string name="drawOfferDeclined">S\'ha rebutjat l\'oferta de taules</string>
   <string name="drawOfferAccepted">S\'ha acceptat l\'oferta de taules</string>
@@ -211,7 +212,7 @@
   <string name="yourOpponentOffersADraw">El teu oponent t\'ofereix taules</string>
   <string name="accept">Accepta</string>
   <string name="decline">Rebutja</string>
-  <string name="playingRightNow">Jugant-se ara</string>
+  <string name="playingRightNow">En joc</string>
   <string name="eventInProgress">Jugant-se ara</string>
   <string name="finished">Acabat</string>
   <string name="finishesX">finalitza %s</string>
@@ -381,7 +382,6 @@
   <string name="more">Més</string>
   <string name="memberSince">Membre des del</string>
   <string name="lastSeenActive">Darrer accés %s</string>
-  <string name="challengeToPlay">Desafia per a jugar</string>
   <string name="player">Jugador</string>
   <string name="list">Llista</string>
   <string name="graph">Gràfica</string>
@@ -446,6 +446,7 @@
   <string name="lastName">Cognoms</string>
   <string name="biography">Biografia</string>
   <string name="country">País</string>
+  <string name="thankYou">Gràcies!</string>
   <string name="socialMediaLinks">Enllaços a xarxes social</string>
   <string name="inlineNotation">Notació Lineal</string>
   <string name="watchLichessTV">Mira Lichess TV</string>
@@ -454,34 +455,7 @@
   <string name="activeToday">Actius avui</string>
   <string name="activePlayers">Jugadors actius</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Compte, la partida és puntuada però no hi ha rellotge!</string>
-  <string name="yourPuzzleRatingX">La teva puntuació de problemes: %s</string>
-  <string name="findTheBestMoveForWhite">Troba el millor moviment per a les blanques</string>
-  <string name="findTheBestMoveForBlack">Troba el millor moviment per a les negres</string>
-  <string name="toTrackYourProgress">Per seguir el vostre progrés:</string>
-  <string name="puzzleId">Problema %s</string>
-  <string name="puzzleOfTheDay">Problema del dia</string>
-  <string name="clickToSolve">Clica per a resoldre</string>
-  <string name="goodMove">Bon moviment</string>
-  <string name="butYouCanDoBetter">Ho pots fer millor.</string>
-  <string name="bestMove">El millor moviment!</string>
-  <string name="keepGoing">Continua jugant...</string>
-  <string name="puzzleFailed">Solució incorrecta</string>
-  <string name="butYouCanKeepTrying">Però pots seguir intentant-ho.</string>
   <string name="success">Èxit</string>
-  <string name="wasThisPuzzleAnyGood">Ha valgut la pena aquest problema?</string>
-  <string name="pleaseVotePuzzle">Ajudeu lichess a millorar mitjançant el vostre vot amb les fletxes amunt o avall:</string>
-  <string name="thankYou">Gràcies!</string>
-  <string name="ratingX">Puntuació: %s</string>
-  <string name="hidden">ocult</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Intentat %s vegades</item>
-    <item quantity="other">Intentat %s vegades</item>
-  </plurals>
-  <string name="fromGameLink">De la partida %s</string>
-  <string name="continueTraining">Continua l\'entrenament</string>
-  <string name="retryThisPuzzle">Reintenta aquest problema</string>
-  <string name="thisPuzzleIsCorrect">Aquest problema és correcte i interessant</string>
-  <string name="thisPuzzleIsWrong">Aquest problema està malament o és avorrit</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partides en joc</item>
     <item quantity="other">%s partides en joc</item>
@@ -530,9 +504,12 @@
   <string name="currentPassword">Contrasenya actual</string>
   <string name="newPassword">Nova contrasenya</string>
   <string name="newPasswordAgain">Nova contrasenya (de nou)</string>
+  <string name="newPasswordsDontMatch">La nova contrasenya no es correspón</string>
+  <string name="newPasswordStrength">Solidesa de la contrasenya</string>
   <string name="clockInitialTime">Temps inicial al rellotge</string>
   <string name="clockIncrement">Increment de temps</string>
   <string name="privacy">Privacitat</string>
+  <string name="privacyPolicy">Política de privacitat</string>
   <string name="letOtherPlayersFollowYou">Deixa que altres jugadors et segueixin</string>
   <string name="letOtherPlayersChallengeYou">Deixa que altres jugadors et reptin</string>
   <string name="letOtherPlayersInviteYouToStudy">Permetre que altres jugadors et conviden a un estudi</string>
@@ -681,6 +658,7 @@ en %3$s</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si no veus l\'email, comprova altres llocs on pugui ser, com el correu brossa, spam, o altres carpetes</string>
   <string name="weHaveSentYouAnEmailTo">Hem enviat un correu electrònic a %s. Clica a l\'enllaç per renovar la teva contrasenya.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">En registrar-te,dones la teva conformitat a estar legalment obligats per el nostre %s.</string>
+  <string name="readAboutOur">Llegeix sobre la nostre %s.</string>
   <string name="networkLagBetweenYouAndLichess">Retard de la xarxa entre tu i lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Temps per processar un moviment al servidor lichess</string>
   <string name="downloadAnnotated">Descàrrega anotada</string>
@@ -730,7 +708,7 @@ en %3$s</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anònim</string>
   <string name="yourScore">El seu resultat: %s</string>
-  <string name="language">Llenguatge</string>
+  <string name="language">Llengua</string>
   <string name="background">Fons</string>
   <string name="light">Clar</string>
   <string name="dark">Fosc</string>
@@ -759,7 +737,6 @@ en %3$s</string>
   <string name="error.unknown">Error</string>
   <string name="custom">Personalitzat</string>
   <string name="notifications">Avisos</string>
-  <string name="challenges">Reptes</string>
   <string name="perfRatingX">Classificació: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segon per jugar el primer moviment</item>
@@ -806,12 +783,6 @@ en %3$s</string>
   <string name="opening">Obertura</string>
   <string name="middlegame">Joc mitjà</string>
   <string name="endgame">Final</string>
-  <string name="registerToSendChallenges">Si us plau, registra\'t per enviar reptes.</string>
-  <string name="youCannotChallengeX">No pots desafiar a %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s no accepta reptes.</string>
-  <string name="yourXRatingIsTooFarFromY">La teva qualificació de %1$s és massa llunyana de la de %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">No es pot desafiar a causa de la qualificació provisional de %s.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s només acepta reptes dels amics.</string>
   <string name="conditionalPremoves">Premoviments condicionals</string>
   <string name="addCurrentVariation">Afegir variació actual</string>
   <string name="playVariationToCreateConditionalPremoves">Jugar una variació per crear premoviments condicionals</string>

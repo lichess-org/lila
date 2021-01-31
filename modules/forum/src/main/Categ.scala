@@ -1,5 +1,6 @@
 package lila.forum
 
+import lila.hub.LightTeam.TeamID
 import lila.user.User
 
 case class Categ(
@@ -7,7 +8,7 @@ case class Categ(
     name: String,
     desc: String,
     pos: Int,
-    team: Option[String] = None,
+    team: Option[TeamID] = None,
     nbTopics: Int,
     nbPosts: Int,
     lastPostId: String,
@@ -26,15 +27,26 @@ case class Categ(
 
   def isTeam = team.nonEmpty
 
-  def withTopic(post: Post): Categ =
+  def withPost(topic: Topic, post: Post): Categ =
     copy(
       nbTopics = if (post.troll) nbTopics else nbTopics + 1,
       nbPosts = if (post.troll) nbPosts else nbPosts + 1,
-      lastPostId = if (post.troll) lastPostId else post.id,
+      lastPostId = if (post.troll || topic.isTooBig) lastPostId else post.id,
       nbTopicsTroll = nbTopicsTroll + 1,
       nbPostsTroll = nbPostsTroll + 1,
-      lastPostIdTroll = post.id
+      lastPostIdTroll = if (topic.isTooBig) lastPostIdTroll else post.id
     )
 
   def slug = id
+}
+
+object Categ {
+
+  private val TeamSlugPattern = """team-([\w-]++)""".r
+
+  def slugToTeamId(slug: String) =
+    slug match {
+      case TeamSlugPattern(teamId) => teamId.some
+      case _                       => none
+    }
 }

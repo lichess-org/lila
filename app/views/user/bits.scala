@@ -13,13 +13,15 @@ object bits {
 
   def communityMenu(active: String)(implicit ctx: Context) =
     st.nav(cls := "page-menu__menu subnav")(
-      a(cls := active.active("leaderboard"), href := routes.User.list)(trans.leaderboard()),
+      a(cls := active.active("leaderboard"), href := routes.User.list())(trans.leaderboard()),
       a(cls := active.active("ratings"), href := routes.Stat.ratingDistribution("blitz"))(
         trans.ratingStats()
       ),
-      a(cls := active.active("tournament"), href := routes.Tournament.leaderboard)(trans.tournamentWinners()),
-      a(cls := active.active("shield"), href := routes.Tournament.shields)("Shields"),
-      a(cls := active.active("bots"), href := routes.PlayApi.botOnline)("Online bots")
+      a(cls := active.active("tournament"), href := routes.Tournament.leaderboard())(
+        trans.tournamentWinners()
+      ),
+      a(cls := active.active("shield"), href := routes.Tournament.shields())("Shields"),
+      a(cls := active.active("bots"), href := routes.PlayApi.botOnline())("Online bots")
     )
 
   def miniClosed(u: User)(implicit ctx: Context) =
@@ -47,19 +49,19 @@ object bits {
       rankMap.toList.sortBy(_._2).collect {
         case (perf, rank) if rank == 1 =>
           span(cls := "trophy perf top1", title := s"${perf.trans} Champion!")(
-            img(src := staticUrl("images/trophy/Big-Gold-Cup.png"))
+            img(src := assetUrl("images/trophy/Big-Gold-Cup.png"))
           )
         case (perf, rank) if rank <= 10 =>
           span(cls := "trophy perf top10", title := s"${perf.trans} Top 10!")(
-            img(src := staticUrl("images/trophy/Big-Silver-Cup.png"))
+            img(src := assetUrl("images/trophy/Big-Silver-Cup.png"))
           )
         case (perf, rank) if rank <= 50 =>
           span(cls := "trophy perf top50", title := s"${perf.trans} Top 50 player!")(
-            img(src := staticUrl("images/trophy/Fancy-Gold.png"))
+            img(src := assetUrl("images/trophy/Fancy-Gold.png"))
           )
         case (perf, rank) if rank <= 100 =>
           span(cls := "trophy perf", title := s"${perf.trans} Top 100 player!")(
-            img(src := staticUrl("images/trophy/Gold-Cup.png"))
+            img(src := assetUrl("images/trophy/Gold-Cup.png"))
           )
       }
 
@@ -85,7 +87,7 @@ object bits {
         contactEmailLink,
         "."
       ),
-      postForm(action := routes.Pref.verifyTitle)(
+      postForm(action := routes.Pref.verifyTitle())(
         button(cls := "button text", dataIcon := "E", name := "v", value := true)("Got it, thanks!"),
         button(cls := "button", name := "v", value := false)("I don't have an official title")
       )

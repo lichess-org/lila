@@ -6,8 +6,8 @@ object JsonView {
 
   implicit val prefJsonWriter = OWrites[Pref] { p =>
     Json.obj(
-      "dark"          -> p.dark,
-      "transp"        -> p.transp,
+      "dark"          -> (p.bg != Pref.Bg.LIGHT),
+      "transp"        -> (p.bg == Pref.Bg.TRANSPARENT),
       "bgImg"         -> p.bgImgOrDefault,
       "is3d"          -> p.is3d,
       "theme"         -> p.theme,

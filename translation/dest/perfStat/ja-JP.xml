@@ -2,7 +2,7 @@
 <resources>
   <string name="perfStats">%s の統計</string>
   <string name="viewTheGames">対局を表示</string>
-  <string name="provisional">仮定</string>
+  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">仮定</string>
   <string name="notEnoughRatedGames">レート戦が少なすぎて信頼できるレーティングが算出できません。</string>
   <string name="progressOverLastXGames">過去 %s 戦での変動：</string>
   <string name="ratingDeviation">レーティング偏差：%s</string>
@@ -12,7 +12,7 @@
   <string name="tournamentGames">トーナメント対局数</string>
   <string name="berserkedGames">バーサーク局数</string>
   <string name="timeSpentPlaying">総プレイ時間</string>
-  <string name="averageOpponent">対戦相手の平均</string>
+  <string name="averageOpponent">対局相手の平均</string>
   <string name="victories">勝ち</string>
   <string name="defeats">負け</string>
   <string name="disconnections">接続切れ</string>

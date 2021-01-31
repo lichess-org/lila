@@ -73,25 +73,24 @@ object timeline {
             a(href := routes.Simul.show(simulId))(simulName)
           )
         case GameEnd(playerId, opponent, win, perfKey) =>
-          lila.rating.PerfType(perfKey) map {
-            perf =>
-              (win match {
-                case Some(true)  => trans.victoryVsYInZ
-                case Some(false) => trans.defeatVsYInZ
-                case None        => trans.drawVsYInZ
-              })(
-                a(
-                  href := routes.Round.player(playerId),
-                  dataIcon := perf.iconChar,
-                  cls := "text glpt"
-                )(win match {
-                  case Some(true)  => trans.victory()
-                  case Some(false) => trans.defeat()
-                  case None        => trans.draw()
-                }),
-                userIdLink(opponent, withOnline = false),
-                perf.trans
-              )
+          lila.rating.PerfType(perfKey) map { perf =>
+            (win match {
+              case Some(true)  => trans.victoryVsYInZ
+              case Some(false) => trans.defeatVsYInZ
+              case None        => trans.drawVsYInZ
+            })(
+              a(
+                href := routes.Round.player(playerId),
+                dataIcon := perf.iconChar,
+                cls := "text glpt"
+              )(win match {
+                case Some(true)  => trans.victory()
+                case Some(false) => trans.defeat()
+                case None        => trans.draw()
+              }),
+              userIdLink(opponent, withOnline = false),
+              perf.trans
+            )
           }
         case StudyCreate(userId, studyId, studyName) =>
           trans.xCreatesStudyY(
@@ -104,7 +103,7 @@ object timeline {
             a(href := routes.Study.show(studyId))(studyName)
           )
         case PlanStart(userId) =>
-          a(href := routes.Plan.index)(
+          a(href := routes.Plan.index())(
             trans.patron.xBecamePatron(userIdLink(userId.some, withOnline = true))
           )
         case BlogPost(id, slug, title) =>
@@ -113,6 +112,6 @@ object timeline {
           a(cls := "text", dataIcon := "", href := routes.Streamer.show(id))(trans.xStartedStreaming(name))
       },
       " ",
-      momentFromNow(e.date)
+      momentFromNowWithPreload(e.date)
     )
 }

@@ -4,13 +4,16 @@ import SwissCtrl from './ctrl';
 import { isOutcome } from './util';
 
 // when the tournament no longer exists
-function onFail(err) {
-  throw err;
-  // window.lichess.reload();
-}
+const onFail = () => lichess.reload();
 
-const join = (ctrl: SwissCtrl) =>
-  json(`/swiss/${ctrl.data.id}/join`, { method: 'post' }).catch(onFail);
+const join = (ctrl: SwissCtrl, password?: string) =>
+  json(`/swiss/${ctrl.data.id}/join`, {
+    method: 'post',
+    body: JSON.stringify({
+      password: password || ''
+    }),
+    headers: { 'Content-Type': 'application/json'},
+  }).catch(onFail);
 
 const withdraw = (ctrl: SwissCtrl) =>
   json(`/swiss/${ctrl.data.id}/withdraw`, { method: 'post' }).catch(onFail);
@@ -28,13 +31,13 @@ const reload = (ctrl: SwissCtrl) =>
   json(`/swiss/${ctrl.data.id}?page=${ctrl.focusOnMe ? '' : ctrl.page}&playerInfo=${ctrl.playerInfoId || ''}`).then(data => {
     ctrl.reload(data);
     ctrl.redraw();
-  }).catch(onFail);
+  }, onFail);
 
 const playerInfo = (ctrl: SwissCtrl, userId: string) =>
   json(`/swiss/${ctrl.data.id}/player/${userId}`).then(data => {
     ctrl.data.playerInfo = data;
     ctrl.redraw();
-  }).catch(onFail);
+  }, onFail);
 
 const readSheetMin = (str: string) =>
   str ? str.split('|').map(s =>

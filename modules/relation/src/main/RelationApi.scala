@@ -5,13 +5,14 @@ import reactivemongo.api._
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
-import BSONHandlers._
 import lila.common.Bus
+import lila.common.Heapsort.implicits._
 import lila.db.dsl._
 import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ Propagate, Follow => FollowUser }
 import lila.hub.actors
 import lila.memo.CacheApi._
+import lila.relation.BSONHandlers._
 import lila.user.User
 
 final class RelationApi(
@@ -47,12 +48,13 @@ final class RelationApi(
         readPreference = ReadPreference.secondaryPreferred
       ) { framework =>
         import framework._
-        Match(
-          $doc(
-            "$or" -> $arr($doc("u1" -> userId), $doc("u2" -> userId)),
-            "r"   -> Follow
-          )
-        ) -> List(
+        List(
+          Match(
+            $doc(
+              "$or" -> $arr($doc("u1" -> userId), $doc("u2" -> userId)),
+              "r"   -> Follow
+            )
+          ),
           Group(BSONNull)(
             "u1" -> AddFieldToSet("u1"),
             "u2" -> AddFieldToSet("u2")
@@ -149,7 +151,7 @@ final class RelationApi(
               countFollowingCache.update(u1, prev => (prev + 1) atMost config.maxFollow.value)
               timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1).toUsers(List(u2))
               Bus.publish(lila.hub.actorApi.relation.Follow(u1, u2), "relation")
-              lila.mon.relation.follow.increment()
+              lila.mon.relation.follow.increment().unit
             }
         }
     }
@@ -157,7 +159,6 @@ final class RelationApi(
   private val limitFollowRateLimiter = new lila.memo.RateLimit[ID](
     credits = 1,
     duration = 1 hour,
-    name = "follow limit cleanup",
     key = "follow.limit.cleanup"
   )
 
@@ -191,7 +192,7 @@ final class RelationApi(
               lila.hub.actorApi.socket.SendTo(u2, lila.socket.Socket.makeMessage("blockedBy", u1)),
               "socketUsers"
             )
-            lila.mon.relation.block.increment()
+            lila.mon.relation.block.increment().unit
           }
       }
     }
@@ -204,7 +205,7 @@ final class RelationApi(
             countFollowersCache.update(u2, _ - 1)
             countFollowingCache.update(u1, _ - 1)
             Bus.publish(lila.hub.actorApi.relation.UnFollow(u1, u2), "relation")
-            lila.mon.relation.unfollow.increment()
+            lila.mon.relation.unfollow.increment().unit
           }
         case _ => funit
       }
@@ -222,12 +223,12 @@ final class RelationApi(
               lila.hub.actorApi.socket.SendTo(u2, lila.socket.Socket.makeMessage("unblockedBy", u1)),
               "socketUsers"
             )
-            lila.mon.relation.unblock.increment()
+            lila.mon.relation.unblock.increment().unit
           }
         case _ => funit
       }
     }
 
   def searchFollowedBy(u: User, term: String, max: Int): Fu[List[User.ID]] =
-    repo.followingLike(u.id, term) map { _.sorted take max }
+    repo.followingLike(u.id, term) map { _ botN max } // alphabetical order
 }

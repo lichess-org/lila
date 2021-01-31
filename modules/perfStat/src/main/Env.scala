@@ -31,6 +31,6 @@ final class Env(
     case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted =>
       indexer addGame game addFailureEffect { e =>
         lila.log("perfStat").error(s"index game ${game.id}", e)
-      }
+      } unit
   }
 }

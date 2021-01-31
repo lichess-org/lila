@@ -11,21 +11,22 @@ import controllers.routes
 
 object login {
 
-  val twoFactorHelp = span(dataIcon := "")(
-    "Open the two-factor authentication app on your device to view your authentication code and verify your identity."
-  )
+  import trans.tfa._
 
   def apply(form: Form[_], referrer: Option[String])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.signIn.txt(),
-      moreJs = jsTag("login.js"),
+      moreJs = frag(
+        jsModule("login"),
+        embedJsUnsafeLoadThen("""loginSignup.loginStart()""")
+      ),
       moreCss = cssTag("auth")
     ) {
       main(cls := "auth auth-login box box-pad")(
         h1(trans.signIn()),
         postForm(
           cls := "form3",
-          action := s"${routes.Auth.authenticate}${referrer.?? { ref =>
+          action := s"${routes.Auth.authenticate()}${referrer.?? { ref =>
             s"?referrer=${urlencode(ref)}"
           }}"
         )(
@@ -35,7 +36,11 @@ object login {
             form3.submit(trans.signIn(), icon = none)
           ),
           div(cls := "two-factor none")(
-            form3.group(form("token"), raw("Authentication code"), help = Some(twoFactorHelp))(
+            form3.group(
+              form("token"),
+              authenticationCode(),
+              help = Some(span(dataIcon := "")(openTwoFactorApp()))
+            )(
               form3.input(_)(autocomplete := "one-time-code", pattern := "[0-9]{6}")
             ),
             p(cls := "error none")("Invalid code."),
@@ -45,7 +50,7 @@ object login {
         div(cls := "alternative")(
           a(href := routes.Auth.signup())(trans.signUp()),
           a(href := routes.Auth.passwordReset())(trans.passwordReset()),
-          a(href := routes.Auth.magicLink)("Log in by email")
+          a(href := routes.Auth.magicLink())("Log in by email")
         )
       )
     }

@@ -22,8 +22,8 @@ final private class ChallengeSocket(
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("chal-out").apply _
 
-  private lazy val challengeHandler: Handler = {
-    case Protocol.In.OwnerPings(ids) => ids foreach api.ping
+  private lazy val challengeHandler: Handler = { case Protocol.In.OwnerPings(ids) =>
+    ids foreach api.ping
   }
 
   remoteSocketApi.subscribe("chal-in", Protocol.In.reader)(

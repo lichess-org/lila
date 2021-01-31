@@ -9,6 +9,7 @@
   <string name="yourTurn">Ваш потез</string>
   <string name="aiNameLevelAiLevel">%1$s ниво %2$s</string>
   <string name="level">Ниво</string>
+  <string name="strength">Снага</string>
   <string name="toggleTheChat">Укључи/искључи ћаскање</string>
   <string name="toggleSound">Укључи/искључи звук</string>
   <string name="chat">Ћаскање</string>
@@ -210,7 +211,8 @@
     <item quantity="other">%s игара са вама</item>
   </plurals>
   <string name="cancel">Откажи</string>
-  <string name="timeOut">Истекло време</string>
+  <string name="whiteTimeOut">Време истекло белом</string>
+  <string name="blackTimeOut">Време истекло црном</string>
   <string name="drawOfferSent">Захтев за реми је послат</string>
   <string name="drawOfferDeclined">Предлог за реми је одбијен</string>
   <string name="drawOfferAccepted">Предлог за реми је прихваћен</string>
@@ -292,6 +294,7 @@
     <item quantity="few">Додај %s секунде</item>
     <item quantity="other">Додај %s секунди</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Овај налог није поштовао Lichess услове коришћења</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ови играчи вештачки увећавају свој рејтинг</string>
   <string name="openingExplorerAndTablebase">Претраживач отварања &amp; база података</string>
   <string name="takeback">Повлачење потеза</string>
@@ -408,7 +411,6 @@
   <string name="more">Више</string>
   <string name="memberSince">Члан од</string>
   <string name="lastSeenActive">Последња посета %s</string>
-  <string name="challengeToPlay">Изазови на партију</string>
   <string name="player">Играч</string>
   <string name="list">Списак</string>
   <string name="graph">Графикон</string>
@@ -474,6 +476,7 @@
   <string name="lastName">Презиме</string>
   <string name="biography">Биографија</string>
   <string name="country">Држава</string>
+  <string name="thankYou">Хвала!</string>
   <string name="socialMediaLinks">Линкови за социјалне медије</string>
   <string name="inlineNotation">Нотација у реду</string>
   <string name="watchLichessTV">Гледајте Личес ТВ</string>
@@ -482,35 +485,7 @@
   <string name="activeToday">Активни данас</string>
   <string name="activePlayers">Активни играчи</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Пажња, партија је рангирана али се не игра на време!</string>
-  <string name="yourPuzzleRatingX">Ваш рејтинг у тренингу: %s</string>
-  <string name="findTheBestMoveForWhite">Пронађите најбољи потез за белог.</string>
-  <string name="findTheBestMoveForBlack">Пронађите најбољи потез за црног.</string>
-  <string name="toTrackYourProgress">Да пратите свој напредак:</string>
-  <string name="puzzleId">Вежба %s</string>
-  <string name="puzzleOfTheDay">Вежба дана</string>
-  <string name="clickToSolve">Кликните како би решили</string>
-  <string name="goodMove">Добар потез</string>
-  <string name="butYouCanDoBetter">Али постоји бољи потез.</string>
-  <string name="bestMove">Најбољи потез!</string>
-  <string name="keepGoing">Наставите…</string>
-  <string name="puzzleFailed">Вежба неуспешна</string>
-  <string name="butYouCanKeepTrying">Али можете још покушавати.</string>
   <string name="success">Успешно</string>
-  <string name="wasThisPuzzleAnyGood">Да ли је ова вежба била добра?</string>
-  <string name="pleaseVotePuzzle">Помози да се Личес побољша гласајући, користећи стрелицу нагоре или надоле:</string>
-  <string name="thankYou">Хвала!</string>
-  <string name="ratingX">Рејтинг: %s</string>
-  <string name="hidden">сакривен</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Играно %s пут</item>
-    <item quantity="few">Играно %s пута</item>
-    <item quantity="other">Играно %s пута</item>
-  </plurals>
-  <string name="fromGameLink">Из партије %s</string>
-  <string name="continueTraining">Наставите тренинг</string>
-  <string name="retryThisPuzzle">Покушајте поново ову вежбу</string>
-  <string name="thisPuzzleIsCorrect">Ова вежба је правилна и занимљива</string>
-  <string name="thisPuzzleIsWrong">Ова вежба је неправилна или досадна</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s партија се игра</item>
     <item quantity="few">%s партије се играју</item>
@@ -560,9 +535,12 @@
   <string name="currentPassword">Тренутна лозинка</string>
   <string name="newPassword">Нова лозинка</string>
   <string name="newPasswordAgain">Понови нову лозинку</string>
+  <string name="newPasswordsDontMatch">Нове лозинке се не подударају</string>
+  <string name="newPasswordStrength">Јачина лозинке</string>
   <string name="clockInitialTime">Почетно време на сату</string>
   <string name="clockIncrement">Повећање времена</string>
   <string name="privacy">Приватност</string>
+  <string name="privacyPolicy">Политика приватности</string>
   <string name="letOtherPlayersFollowYou">Допустите да вас други играчи прате</string>
   <string name="letOtherPlayersChallengeYou">Допустите да вас други играчи изазову</string>
   <string name="letOtherPlayersInviteYouToStudy">дозволи другим играчима да те позову на проблем</string>
@@ -712,6 +690,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ако не видите е-пошту у пријемном сандучету, проверите је у другим местима (датотекама): Јунк, Социал.</string>
   <string name="weHaveSentYouAnEmailTo">Послали смо Вам е-поруку на %s. Кликните на дати линк да промените Вашу лозинку.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registracijom prihvatate ograničenja predviđe našim %s.</string>
+  <string name="readAboutOur">Прочитајте о нашем %s.</string>
   <string name="networkLagBetweenYouAndLichess">Мрежно кашњење између вас и Лицхесса</string>
   <string name="timeToProcessAMoveOnLichessServer">Време потребно за процесирање на Лицхесс серверу</string>
   <string name="downloadAnnotated">Преузимање белешки.</string>
@@ -791,7 +770,6 @@
   <string name="error.unknown">Грешка</string>
   <string name="custom">Прилагођено</string>
   <string name="notifications">Обавештења</string>
-  <string name="challenges">Изазови</string>
   <string name="perfRatingX">Рејтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунд да одиграте први потез</item>
@@ -840,12 +818,6 @@
   <string name="opening">Отварање</string>
   <string name="middlegame">Средишњица</string>
   <string name="endgame">Завршница</string>
-  <string name="registerToSendChallenges">Молимо вас да се региструјете како би послали изазове.</string>
-  <string name="youCannotChallengeX">Не можете да изазовете %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s не прихвата изазове.</string>
-  <string name="yourXRatingIsTooFarFromY">Ваш рејтинг %1$s, је превише далеко од %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Не можете изазвати јер вам је рејтинг %s привремен.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s прихвата само изазове од пријатеља.</string>
   <string name="conditionalPremoves">Условни пре-потези</string>
   <string name="addCurrentVariation">Додајте тренутну варијацију</string>
   <string name="playVariationToCreateConditionalPremoves">Играјте варијацију да направите условне пре-потезе</string>

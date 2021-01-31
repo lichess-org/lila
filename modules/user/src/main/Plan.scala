@@ -33,8 +33,8 @@ case class Plan(
 
 object Plan {
 
-  val empty = Plan(0, false, none)
-  def start = Plan(1, true, DateTime.now.some)
+  val empty = Plan(0, active = false, none)
+  def start = Plan(1, active = true, DateTime.now.some)
 
   import lila.db.dsl._
   private[user] val planBSONHandler = reactivemongo.api.bson.Macros.handler[Plan]

@@ -9,6 +9,7 @@
   <string name="yourTurn">Jste na tahu</string>
   <string name="aiNameLevelAiLevel">AI %1$s - úrovně %2$s</string>
   <string name="level">Úroveň</string>
+  <string name="strength">Síla</string>
   <string name="toggleTheChat">Zapnout/vypnout chat</string>
   <string name="toggleSound">Zapnout/vypnout zvuk</string>
   <string name="chat">Chat</string>
@@ -221,7 +222,8 @@
     <item quantity="other">%s partií s Vámi</item>
   </plurals>
   <string name="cancel">Zrušit</string>
-  <string name="timeOut">Čas vypršel</string>
+  <string name="whiteTimeOut">Bílému došel čas</string>
+  <string name="blackTimeOut">Černému došel čas</string>
   <string name="drawOfferSent">Nabídka remízy byla odeslána</string>
   <string name="drawOfferDeclined">Soupeř remízu odmítl</string>
   <string name="drawOfferAccepted">Soupeř remízu přijal</string>
@@ -435,7 +437,6 @@
   <string name="more">Více</string>
   <string name="memberSince">Členem od</string>
   <string name="lastSeenActive">Poslední přihlášení %s</string>
-  <string name="challengeToPlay">Vyzvat k partii</string>
   <string name="player">Hráč</string>
   <string name="list">Seznam</string>
   <string name="graph">Graf</string>
@@ -502,6 +503,7 @@
   <string name="lastName">Příjmení</string>
   <string name="biography">O mně</string>
   <string name="country">Země</string>
+  <string name="thankYou">Děkujeme!</string>
   <string name="socialMediaLinks">Odkazy na sociální sítě</string>
   <string name="inlineNotation">Notace v řádcích</string>
   <string name="watchLichessTV">Sledujte Lichess TV</string>
@@ -510,36 +512,7 @@
   <string name="activeToday">Aktivní dnes</string>
   <string name="activePlayers">Aktivní hráči</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Pozor, hra je o body i když je bez hodin!</string>
-  <string name="yourPuzzleRatingX">Váš rating (v úlohách): %s</string>
-  <string name="findTheBestMoveForWhite">Najděte nejlepší tah bílého.</string>
-  <string name="findTheBestMoveForBlack">Najděte nejlepší tah černého.</string>
-  <string name="toTrackYourProgress">Pro sledování Vašeho pokroku:</string>
-  <string name="puzzleId">Úloha %s</string>
-  <string name="puzzleOfTheDay">Úloha dne</string>
-  <string name="clickToSolve">Přejít k řešení</string>
-  <string name="goodMove">Dobrý tah</string>
-  <string name="butYouCanDoBetter">Ale není nejlepší.</string>
-  <string name="bestMove">Nejlepší tah!</string>
-  <string name="keepGoing">Pokračujte ....</string>
-  <string name="puzzleFailed">Úloha nevyřešena</string>
-  <string name="butYouCanKeepTrying">Ale můžete to zkoušet znovu.</string>
   <string name="success">Úspěch</string>
-  <string name="wasThisPuzzleAnyGood">Líbila se Vám tato úloha?</string>
-  <string name="pleaseVotePuzzle">Pomozte zlepšit Lichess díky hlasování, pomocí šipek nahoru a dolů:</string>
-  <string name="thankYou">Děkujeme!</string>
-  <string name="ratingX">Rating: %s</string>
-  <string name="hidden">skryté</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Hráno %skrát</item>
-    <item quantity="few">Hráno %skrát</item>
-    <item quantity="many">Hráno %skrát</item>
-    <item quantity="other">Hráno %skrát</item>
-  </plurals>
-  <string name="fromGameLink">Z partie %s</string>
-  <string name="continueTraining">Pokračovat v tréninku</string>
-  <string name="retryThisPuzzle">Znovu zkusit tuto úlohu</string>
-  <string name="thisPuzzleIsCorrect">Tato úloha je správná a zajímavá</string>
-  <string name="thisPuzzleIsWrong">Tato úloha je špatná nebo nudná</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s rozehraná hra</item>
     <item quantity="few">%s rozehrané hry</item>
@@ -590,9 +563,12 @@
   <string name="currentPassword">Současné heslo</string>
   <string name="newPassword">Nové heslo</string>
   <string name="newPasswordAgain">Nové heslo (znovu)</string>
+  <string name="newPasswordsDontMatch">Nová hesla nesouhlasí</string>
+  <string name="newPasswordStrength">Síla hesla</string>
   <string name="clockInitialTime">Počáteční čas</string>
   <string name="clockIncrement">Přídavek</string>
   <string name="privacy">Soukromí</string>
+  <string name="privacyPolicy">Zásady ochrany osobních údajů</string>
   <string name="letOtherPlayersFollowYou">Umožnit ostatním hráčům následovat Tě</string>
   <string name="letOtherPlayersChallengeYou">Umožnit ostatním hráčům vyzvat Tě</string>
   <string name="letOtherPlayersInviteYouToStudy">Nechat ostatní hráče pozvat Vás ke studii</string>
@@ -746,6 +722,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Pokud email nenaleznete v doručené poště, zkontrolujte další místa, kde by mohl být, jako spam, zprávy ze sociálních sítí, koš nebo jiné složky.</string>
   <string name="weHaveSentYouAnEmailTo">Zaslali jsme vám email na %s. Klikněte na odkaz v emailu pro přenastavení vašeho hesla.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registrací berete na vědomí naše %s.</string>
+  <string name="readAboutOur">Přečtěte si naše %s.</string>
   <string name="networkLagBetweenYouAndLichess">Síťové zpoždění mezi vámi a lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Čas na zpracování tahu na lichess serveru.</string>
   <string name="downloadAnnotated">Stáhnout s poznámkami</string>
@@ -826,7 +803,6 @@
   <string name="error.unknown">Chyba</string>
   <string name="custom">Vlastní</string>
   <string name="notifications">Oznámení</string>
-  <string name="challenges">Výzvy</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda na první tah</item>
@@ -877,12 +853,6 @@
   <string name="opening">Zahájení</string>
   <string name="middlegame">Střední hra</string>
   <string name="endgame">Koncovka</string>
-  <string name="registerToSendChallenges">Pro poslání výzvy se musíte zaregistrovat.</string>
-  <string name="youCannotChallengeX">Nemůžete vyzvat %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s nepřijímá výzvy.</string>
-  <string name="yourXRatingIsTooFarFromY">Vaše %1$s elo je příliš daleko od %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Nelze vyzvat kvůli prozatimnímu %s elu.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s přijímá výzvy pouze od přátel.</string>
   <string name="conditionalPremoves">Podmíněné předtahy</string>
   <string name="addCurrentVariation">Přidat současnou variantu</string>
   <string name="playVariationToCreateConditionalPremoves">Hrajte variantu k vytvoření podmíněných předtahů</string>

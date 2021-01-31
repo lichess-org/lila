@@ -1,5 +1,6 @@
 import { lichessVariantRules } from 'chessops/compat';
 import { WorkerOpts, Work } from './types';
+import { Deferred, defer } from 'common/defer';
 
 const EVAL_REGEX = new RegExp(''
   + /^info depth (\d+) seldepth \d+ multipv (\d+) /.source
@@ -12,7 +13,7 @@ export default class Protocol {
   private work: Work | null = null;
   private curEval: Tree.ClientEval | null = null;
   private expectedPvs = 1;
-  private stopped: DeferPromise.Deferred<void> | null;
+  private stopped: Deferred<void> | null;
 
   public engineName: string | undefined;
 
@@ -26,15 +27,12 @@ export default class Protocol {
     this.send('uci');
 
     // analyse without contempt
+    this.setOption('UCI_Chess960', 'true');
     this.setOption('UCI_AnalyseMode', 'true');
     this.setOption('Analysis Contempt', 'Off');
 
-    if (this.opts.variant === 'fromPosition' || this.opts.variant === 'chess960')
-      this.setOption('UCI_Chess960', 'true');
-    else if (this.opts.variant === 'antichess')
-      this.setOption('UCI_Variant', 'giveaway');
-    else if (this.opts.variant !== 'standard')
-      this.setOption('UCI_Variant', lichessVariantRules(this.opts.variant));
+    if (this.opts.variant === 'antichess') this.setOption('UCI_Variant', 'giveaway'); // for old asmjs fallback
+    else this.setOption('UCI_Variant', lichessVariantRules(this.opts.variant));
   }
 
   private setOption(name: string, value: string | number): void {
@@ -146,13 +144,4 @@ export default class Protocol {
   isComputing(): boolean {
     return !this.stopped;
   }
-}
-
-function defer<A>(): DeferPromise.Deferred<A> {
-  const deferred: Partial<DeferPromise.Deferred<A>> = {};
-  deferred.promise = new Promise<A>((resolve, reject) => {
-    deferred.resolve = resolve;
-    deferred.reject = reject;
-  });
-  return deferred as DeferPromise.Deferred<A>;
 }

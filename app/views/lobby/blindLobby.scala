@@ -30,7 +30,7 @@ object blindLobby {
       a(href := gameLink(pov))(
         playerText(pov.opponent),
         " ",
-        pov.isMyTurn ?? pov.remainingSeconds map { secondsFromNow(_, true) }
+        pov.isMyTurn ?? pov.remainingSeconds map { secondsFromNow(_, alwaysRelative = true) }
       )
     )
 }

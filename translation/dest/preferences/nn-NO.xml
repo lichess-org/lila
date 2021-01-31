@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Flytt kongen to felt</string>
   <string name="castleByMovingOntoTheRook">Sett kongen på tårnet, eller to felt</string>
   <string name="inputMovesWithTheKeyboard">Skriv trekk med tastaturet</string>
+  <string name="snapArrowsToValidMoves">Marker lovlege trekk med piler</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Sei \"Bra parti, godt spela\" etter nederlag eller remis</string>
   <string name="yourPreferencesHaveBeenSaved">Preferansane dine er lagra.</string>
 </resources>

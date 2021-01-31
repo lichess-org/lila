@@ -1,13 +1,12 @@
 package views.html.simul
 
+import controllers.routes
 import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
-
-import controllers.routes
 
 object show {
 
@@ -23,8 +22,8 @@ object show {
       moreCss = cssTag("simul.show"),
       title = sim.fullName,
       moreJs = frag(
-        jsAt(s"compiled/lichess.simul${isProd ?? ".min"}.js"),
-        embedJsUnsafe(s"""lichess.simul=${safeJsonValue(
+        jsModule("simul"),
+        embedJsUnsafeLoadThen(s"""LichessSimul.start(${safeJsonValue(
           Json.obj(
             "data"          -> data,
             "i18n"          -> bits.jsI18n(),
@@ -40,15 +39,10 @@ object show {
               )
             }
           )
-        )}""")
+        )})""")
       )
     ) {
-      main(
-        cls := List(
-          "simul"         -> true,
-          "simul-created" -> sim.isCreated
-        )
-      )(
+      main(cls := "simul")(
         st.aside(cls := "simul__side")(
           div(cls := "simul__meta")(
             div(cls := "game-infos")(
@@ -59,7 +53,11 @@ object show {
                   div(cls := "setup")(
                     sim.variants.map(_.name).mkString(", "),
                     " • ",
-                    trans.casual()
+                    trans.casual(),
+                    (isGranted(_.ManageSimul) || ctx.userId.has(sim.hostId)) && sim.isCreated option frag(
+                      " • ",
+                      a(href := routes.Simul.edit(sim.id), title := "Edit simul")(iconTag("%"))
+                    )
                   )
                 )
               ),
@@ -72,18 +70,18 @@ object show {
                 case Some("black") => trans.black()
                 case _             => trans.randomColor()
               }),
-              sim.position map { pos =>
+              sim.position.flatMap(lila.tournament.Thematic.byFen) map { pos =>
                 frag(
                   br,
-                  a(target := "_blank", rel := "noopener", href := pos.url)(
-                    strong(pos.eco),
-                    " ",
-                    pos.name
-                  ),
+                  a(targetBlank, href := pos.url)(strong(pos.eco), " ", pos.name),
                   " • ",
-                  a(href := routes.UserAnalysis.parseArg(pos.fen.replace(" ", "_")))(
-                    trans.analysis()
-                  )
+                  views.html.base.bits.fenAnalysisLink(pos.fen)
+                )
+              } orElse sim.position.map { fen =>
+                frag(
+                  br,
+                  "Custom position • ",
+                  views.html.base.bits.fenAnalysisLink(fen)
                 )
               }
             ),

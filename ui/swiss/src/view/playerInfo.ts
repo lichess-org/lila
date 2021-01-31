@@ -53,7 +53,7 @@ export default function(ctrl: SwissCtrl): VNode | undefined {
       h('table.pairings.sublist', {
         hook: bind('click', e => {
           const href = ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('data-href');
-          if (href) window.open(href, '_blank');
+          if (href) window.open(href, '_blank', 'noopener');
         })
       }, data.sheet.map((p, i) => {
         const round = ctrl.data.round - i;
@@ -95,7 +95,7 @@ function result(p: Pairing): string {
 }
 
 function setup(vnode: VNode) {
-  const el = vnode.elm as HTMLElement, p = window.lichess.powertip;
+  const el = vnode.elm as HTMLElement, p = lichess.powertip;
   p.manualUserIn(el);
   p.manualGameIn(el);
 }

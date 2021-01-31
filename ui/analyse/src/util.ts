@@ -151,23 +151,15 @@ function toTwitchEmbedUrl(url: string) {
   return undefined;
 }
 
-const commentYoutubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:.*?(?:[?&]v=)|v\/)|youtu\.be\/)(?:[^"&?\/ ]{11})\b/i;
-const commentTwitchRegex = /(?:https?:\/\/)?(?:www\.)?(?:twitch.tv)\/([^"&?/ ]+)(?:\?|&|)(\S*)/i;
-const imgurRegex = /https?:\/\/(?:i\.)?imgur\.com\/(\w+)(?:\.jpe?g|\.png|\.gif)/i;
 const newLineRegex = /\n/g;
 
 function toLink(url: string) {
-  if (!window.crossOriginIsolated) {
-    if (commentYoutubeRegex.test(url)) return toYouTubeEmbed(url) || url;
-    if (commentTwitchRegex.test(url)) return toTwitchEmbed(url) || url;
-    if (imgurRegex.test(url)) return `<img src="${url}" class="embed"/>`;
-  }
   const show = url.replace(/https?:\/\//, '');
   return `<a target="_blank" rel="nofollow noopener noreferrer" href="${url}">${show}</a>`;
 }
 
 export function enrichText(text: string, allowNewlines: boolean = true): string {
-  let html = autolink(window.lichess.escapeHtml(text), toLink);
+  let html = autolink(lichess.escapeHtml(text), toLink);
   if (allowNewlines) html = html.replace(newLineRegex, '<br>');
   return html;
 }
@@ -190,4 +182,18 @@ export function option(value: string, current: string | undefined, name: string)
 
 export function scrollTo(el: HTMLElement | undefined, target: HTMLElement |  null) {
   if (el && target) el.scrollTop = target.offsetTop - el.offsetHeight / 2 + target.offsetHeight / 2;
+}
+
+export function treeReconstruct(parts: any): Tree.Node {	
+  const root = parts[0], nb = parts.length;	
+  let node = root, i: number;	
+  root.id = '';	
+  for (i = 1; i < nb; i++) {	
+    const n = parts[i];	
+    if (node.children) node.children.unshift(n);	
+    else node.children = [n];	
+    node = n;	
+  }	
+  node.children = node.children || [];	
+  return root;	
 }

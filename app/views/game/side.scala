@@ -45,7 +45,7 @@ object side {
                   views.html.bookmark.toggle(game, bookmarked),
                   if (game.imported)
                     div(
-                      a(href := routes.Importer.importGame, title := trans.importGame.txt())("IMPORT"),
+                      a(href := routes.Importer.importGame(), title := trans.importGame.txt())("IMPORT"),
                       separator,
                       if (game.variant.exotic)
                         bits.variantLink(
@@ -77,13 +77,16 @@ object side {
                     )
                 ),
                 game.pgnImport.flatMap(_.date).map(frag(_)) getOrElse {
-                  frag(if (game.isBeingPlayed) trans.playingRightNow() else momentFromNow(game.createdAt))
+                  frag(
+                    if (game.isBeingPlayed) trans.playingRightNow()
+                    else momentFromNowWithPreload(game.createdAt)
+                  )
                 }
               ),
               game.pgnImport.exists(_.date.isDefined) option small(
                 "Imported ",
                 game.pgnImport.flatMap(_.user).map { user =>
-                  trans.by(userIdLink(user.some, None, false))
+                  trans.by(userIdLink(user.some, None, withOnline = false))
                 }
               )
             )
@@ -94,7 +97,9 @@ object side {
                 div(cls := s"player color-icon is ${p.color.name} text")(
                   playerLink(p, withOnline = false, withDiff = true, withBerserk = true)
                 ),
-                tour.flatMap(_.teamVs).map(_.teams(p.color)) map { teamLink(_, false)(cls := "team") }
+                tour.flatMap(_.teamVs).map(_.teams(p.color)) map {
+                  teamLink(_, withIcon = false)(cls := "team")
+                }
               )
             }
           )
@@ -112,7 +117,6 @@ object side {
         },
         initialFen
           .ifTrue(game.variant.chess960)
-          .map(_.value)
           .flatMap {
             chess.variant.Chess960.positionNumber
           }
@@ -130,7 +134,7 @@ object side {
         tour.map { t =>
           st.section(cls := "game__tournament")(
             a(cls := "text", dataIcon := "g", href := routes.Tournament.show(t.tour.id))(t.tour.name()),
-            div(cls := "clock", dataTime := t.tour.secondsToFinish)(div(cls := "time")(t.tour.clockStatus))
+            div(cls := "clock", dataTime := t.tour.secondsToFinish)(t.tour.clockStatus)
           )
         } orElse game.tournamentId.map { tourId =>
           st.section(cls := "game__tournament-link")(tournamentLink(tourId))

@@ -41,5 +41,6 @@
   <string name="castleByMovingTwoSquares">Pomicanjem kralja za dva polja</string>
   <string name="castleByMovingOntoTheRook">Pomicanjem kralja na topa</string>
   <string name="inputMovesWithTheKeyboard">Omogućite unos poteza tastaturom</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Kažite \"Dobra partija, dobro odigrano\" nakon poraza ili remija</string>
   <string name="yourPreferencesHaveBeenSaved">Vaše postavke su sačuvane.</string>
 </resources>

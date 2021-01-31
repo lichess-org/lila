@@ -13,11 +13,17 @@ import playerInfo from './playerInfo';
 export default function(ctrl: SwissCtrl) {
   const d = ctrl.data;
   const content = (d.status == 'created' ? created(ctrl) : (d.status == 'started' ? started(ctrl) : finished(ctrl)));
-  return h('main.' + ctrl.opts.classes, [
+  return h('main.' + ctrl.opts.classes, {
+    hook: {
+      postpatch() {
+        lichess.miniGame.initAll();
+      }
+    }
+  }, [
     h('aside.swiss__side', {
       hook: onInsert(el => {
         $(el).replaceWith(ctrl.opts.$side);
-        ctrl.opts.chat && window.lichess.makeChat(ctrl.opts.chat);
+        ctrl.opts.chat && lichess.makeChat(ctrl.opts.chat);
       })
     }),
     h('div.swiss__underchat', {
@@ -53,7 +59,7 @@ function created(ctrl: SwissCtrl): MaybeVNodes {
 const notice = (ctrl: SwissCtrl): VNode | undefined => {
   const d = ctrl.data;
   return (d.me && !d.me.absent && d.status == 'started' && d.nextRound) ?
-  h('div.swiss__notice.bar-glider', ctrl.trans('standByX', d.me.name)) : undefined;
+    h('div.swiss__notice.bar-glider', ctrl.trans('standByX', d.me.name)) : undefined;
 }
 
 function started(ctrl: SwissCtrl): MaybeVNodes {
@@ -70,7 +76,7 @@ function started(ctrl: SwissCtrl): MaybeVNodes {
 function finished(ctrl: SwissCtrl): MaybeVNodes {
   const pag = pagination.players(ctrl);
   return [
-    h('div.big_top', [
+    h('div.podium-wrap', [
       confetti(ctrl.data),
       header(ctrl),
       podium(ctrl)
@@ -88,7 +94,7 @@ function controls(ctrl: SwissCtrl, pag: Pager): VNode {
 }
 
 function nextRound(ctrl: SwissCtrl): VNode | undefined {
-  if (!ctrl.opts.schedule || ctrl.data.nbOngoing) return;
+  if (!ctrl.opts.schedule || ctrl.data.nbOngoing || ctrl.data.round == 0) return;
   return h('form.schedule-next-round', {
     class: {
       required: !ctrl.data.nextRound
@@ -102,20 +108,22 @@ function nextRound(ctrl: SwissCtrl): VNode | undefined {
       attrs: {
         name: 'date',
         placeholder: 'Schedule the next round',
-        value: ctrl.data.nextRound?.at
+        value: ctrl.data.nextRound?.at || ''
       },
       hook: onInsert((el: HTMLInputElement) =>
-        setTimeout(() => $(el).flatpickr({
+        window['LichessFlatpickr'](el, {
           minDate: 'today',
           maxDate: new Date(Date.now() + 1000 * 3600 * 24 * 31),
           dateFormat: 'Z',
           altInput: true,
           altFormat: 'Y-m-d h:i K',
           enableTime: true,
+          monthSelectorType: 'static',
           onClose() {
             (el.parentNode as HTMLFormElement).submit();
           }
-        }), 600))
+        })
+      )
     })
   ]);
 }
@@ -139,17 +147,24 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
   if (d.canJoin) return ctrl.joinSpinner ? spinner() :
     h('button.fbt.text.highlight', {
       attrs: dataIcon('G'),
-      hook: bind('click', ctrl.join, ctrl.redraw)
+      hook: bind('click', _ => {
+        if (d.password) {
+          const p = prompt(ctrl.trans.noarg('password'));
+          if (p !== null) ctrl.join(p);
+        } else ctrl.join();
+      }, ctrl.redraw)
     }, ctrl.trans.noarg('join'));
 
   if (d.me && d.status != 'finished') return d.me.absent ? (ctrl.joinSpinner ? spinner() : h('button.fbt.text.highlight', {
-      attrs: dataIcon('G'),
-      hook: bind('click', ctrl.join, ctrl.redraw)
-    }, ctrl.trans.noarg('join'))) :
+    attrs: dataIcon('G'),
+    hook: bind('click', _ => ctrl.join(), ctrl.redraw)
+  }, ctrl.trans.noarg('join'))) :
     (ctrl.joinSpinner ? spinner() : h('button.fbt.text', {
       attrs: dataIcon('b'),
       hook: bind('click', ctrl.withdraw, ctrl.redraw)
     }, ctrl.trans.noarg('withdraw')));
+
+  return;
 }
 
 function joinTheGame(ctrl: SwissCtrl) {
@@ -162,10 +177,10 @@ function joinTheGame(ctrl: SwissCtrl) {
 }
 
 function confetti(data: SwissData): VNode | undefined {
-  return (data.me && data.isRecentlyFinished && window.lichess.once('tournament.end.canvas.' + data.id)) ?
+  return (data.me && data.isRecentlyFinished && lichess.once('tournament.end.canvas.' + data.id)) ?
     h('canvas#confetti', {
       hook: {
-        insert: _ => window.lichess.loadScript('javascripts/confetti.js')
+        insert: _ => lichess.loadScript('javascripts/confetti.js')
       }
     }) : undefined;
 }

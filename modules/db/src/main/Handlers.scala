@@ -1,13 +1,14 @@
 package lila.db
 
+import cats.data.NonEmptyList
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
 import scala.util.{ Failure, Success, Try }
-import scalaz.NonEmptyList
 
 import lila.common.Iso._
 import lila.common.{ EmailAddress, IpAddress, Iso, NormalizedEmailAddress }
+import chess.format.FEN
 
 trait Handlers {
 
@@ -97,11 +98,10 @@ trait Handlers {
     def listWriter = collectionWriter[T, List[T]]
     def listReader = collectionReader[List, T]
     tryHandler[NonEmptyList[T]](
-      {
-        case array: BSONArray =>
-          listReader.readTry(array).flatMap {
-            _.toNel toTry s"BSONArray is empty, can't build NonEmptyList"
-          }
+      { case array: BSONArray =>
+        listReader.readTry(array).flatMap {
+          _.toNel toTry s"BSONArray is empty, can't build NonEmptyList"
+        }
       },
       nel => listWriter.writeTry(nel.toList).get
     )
@@ -114,5 +114,7 @@ trait Handlers {
   implicit val normalizedEmailAddressHandler =
     isoHandler[NormalizedEmailAddress, String](normalizedEmailAddressIso)
 
-  implicit val colorBoolHandler = BSONBooleanHandler.as[chess.Color](chess.Color.apply, _.white)
+  implicit val colorBoolHandler = BSONBooleanHandler.as[chess.Color](chess.Color.fromWhite, _.white)
+
+  implicit val FENHandler: BSONHandler[FEN] = stringAnyValHandler[FEN](_.value, FEN.apply)
 }

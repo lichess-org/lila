@@ -5,6 +5,7 @@
   <string name="twoFactorApp">Dapatkan aplikasi untuk otentikasi dua-langkah, misalnya Otentikator Google untuk %1$s atau %2$s.</string>
   <string name="scanTheCode">Pindai kode QR dengan aplikasi.</string>
   <string name="enterPassword">Masukkan kata sandi Anda dan kode otentikasi yang dihasilkan oleh aplikasi untuk menyelesaikan pengaturan. Anda akan memerlukan kode otentikasi setiap kali Anda masuk.</string>
+  <string name="ifYouCannotScanEnterX">Jika anda tidak bisa scan kode, masukkan %s rahasia pada app.</string>
   <string name="authenticationCode">Kode otentikasi</string>
   <string name="ifYouLoseAccess">Catatan: Jika Anda kehilangan akses ke kode otentikasi dua-langkah, Anda dapat melakukan pengaturan ulang kata sandi melalui email.</string>
   <string name="enableTwoFactor">Aktifkan otentikasi dua-langkah</string>

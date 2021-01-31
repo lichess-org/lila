@@ -1,8 +1,9 @@
 package lila.security
 
 import play.api.libs.json._
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.StandaloneWSClient
 import reactivemongo.api.ReadPreference
+import play.api.libs.ws.JsonBodyReadables._
 import scala.concurrent.duration._
 
 import lila.common.Domain
@@ -12,7 +13,7 @@ import lila.db.dsl._
  * Only hit after trying everything else (DnsApi)
  * and save the result forever. */
 final private class CheckMail(
-    ws: WSClient,
+    ws: StandaloneWSClient,
     config: SecurityConfig.CheckMail,
     mongoCache: lila.memo.MongoCache.Api
 )(implicit
@@ -26,10 +27,9 @@ final private class CheckMail(
       cache
         .get(domain)
         .withTimeoutDefault(2.seconds, true)
-        .recover {
-          case e: Exception =>
-            logger.warn(s"CheckMail $domain ${e.getMessage}", e)
-            true
+        .recover { case e: Exception =>
+          logger.warn(s"CheckMail $domain ${e.getMessage}", e)
+          true
         }
 
   // expensive
@@ -43,7 +43,7 @@ final private class CheckMail(
         ),
         ReadPreference.secondaryPreferred
       ) map { ids =>
-      val dropSize = prefix.size + 1
+      val dropSize = prefix.length + 1
       ids.map(_ drop dropSize)
     }
 
@@ -63,15 +63,15 @@ final private class CheckMail(
     ws.url(config.url)
       .withQueryStringParameters("domain" -> domain.value, "disable_test_connection" -> "true")
       .withHttpHeaders("x-rapidapi-key" -> config.key.value)
-      .get
+      .get()
       .withTimeout(15.seconds)
       .map {
         case res if res.status == 200 =>
-          val readBool   = readRandomBoolean(res.json) _
+          val readBool   = readRandomBoolean(res.body[JsValue]) _
           val valid      = readBool("valid")
           val block      = readBool("block")
           val disposable = readBool("disposable")
-          val reason     = ~(res.json \ "reason").asOpt[String]
+          val reason     = ~(res.body[JsValue] \ "reason").asOpt[String]
           val ok         = valid && !block && !disposable
           logger.info(s"CheckMail $domain = $ok ($reason) {valid:$valid,block:$block,disposable:$disposable}")
           ok

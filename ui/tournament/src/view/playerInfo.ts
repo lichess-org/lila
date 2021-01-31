@@ -24,7 +24,7 @@ function playerTitle(player) {
 }
 
 function setup(vnode: VNode) {
-  const el = vnode.elm as HTMLElement, p = window.lichess.powertip;
+  const el = vnode.elm as HTMLElement, p = lichess.powertip;
   p.manualUserIn(el);
   p.manualGameIn(el);
 }
@@ -76,7 +76,7 @@ export default function(ctrl: TournamentController): VNode {
       h('table.pairings.sublist', {
         hook: bind('click', e => {
           const href = ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('data-href');
-          if (href) window.open(href, '_blank');
+          if (href) window.open(href, '_blank', 'noopener');
         })
       }, data.pairings.map(function(p, i) {
         const res = result(p.win, p.status);

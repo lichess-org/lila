@@ -1,6 +1,6 @@
 package lila.lobby
 
-import scala.util.Random.nextBoolean
+import lila.common.ThreadLocalRandom.nextBoolean
 
 sealed abstract class Color(val name: String) {
 
@@ -29,7 +29,7 @@ object Color {
 
   object Random extends Color("random") {
 
-    def resolve = chess.Color(nextBoolean)
+    def resolve = chess.Color.fromWhite(nextBoolean())
 
     def unary_! = this
   }

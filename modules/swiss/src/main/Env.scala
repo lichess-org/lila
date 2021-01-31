@@ -19,6 +19,7 @@ final class Env(
     chatApi: lila.chat.ChatApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
+    historyApi: lila.history.HistoryApi,
     gameProxyRepo: lila.round.GameProxyRepo,
     roundSocket: lila.round.RoundSocket,
     mongoCache: lila.memo.MongoCache.Api,
@@ -49,7 +50,11 @@ final class Env(
 
   private val statsApi = wire[SwissStatsApi]
 
-  val api = wire[SwissApi]
+  lazy val verify = wire[SwissCondition.Verify]
+
+  val api: SwissApi = wire[SwissApi]
+
+  private def teamOf = api.teamOf _
 
   private lazy val socket = wire[SwissSocket]
 
@@ -62,6 +67,8 @@ final class Env(
 
   lazy val forms = wire[SwissForm]
 
+  lazy val feature = wire[SwissFeature]
+
   private lazy val cache: SwissCache = wire[SwissCache]
 
   lazy val getName = new GetSwissName(cache.name.sync)
@@ -72,10 +79,10 @@ final class Env(
     "adjustBooster",
     "teamKick"
   ) {
-    case lila.game.actorApi.FinishGame(game, _, _)           => api.finishGame(game)
-    case lila.hub.actorApi.team.KickFromTeam(teamId, userId) => api.kickFromTeam(teamId, userId)
-    case lila.hub.actorApi.mod.MarkCheater(userId, true)     => api.kickLame(userId)
-    case lila.hub.actorApi.mod.MarkBooster(userId)           => api.kickLame(userId)
+    case lila.game.actorApi.FinishGame(game, _, _)           => api.finishGame(game).unit
+    case lila.hub.actorApi.team.KickFromTeam(teamId, userId) => api.kickFromTeam(teamId, userId).unit
+    case lila.hub.actorApi.mod.MarkCheater(userId, true)     => api.kickLame(userId).unit
+    case lila.hub.actorApi.mod.MarkBooster(userId)           => api.kickLame(userId).unit
   }
 
   ResilientScheduler(

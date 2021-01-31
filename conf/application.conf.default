@@ -1,4 +1,7 @@
 include "base"
 include "version"
 
+# change for additional encryption of password hashes
+user.password.bpass.secret = "9qEYN0ThHer1KWLNekA76Q=="
+
 # override values from base.conf here

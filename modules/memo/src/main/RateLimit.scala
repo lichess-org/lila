@@ -2,13 +2,11 @@ package lila.memo
 
 import scala.concurrent.duration.FiniteDuration
 
-/**
-  * side effect throttler that allows X ops per Y unit of time
+/** side effect throttler that allows X ops per Y unit of time
   */
 final class RateLimit[K](
     credits: Int,
     duration: FiniteDuration,
-    name: String,
     key: String,
     enforce: Boolean = true,
     log: Boolean = true
@@ -21,7 +19,7 @@ final class RateLimit[K](
 
   private def makeClearAt = nowMillis + duration.toMillis
 
-  private lazy val logger  = lila.log("ratelimit").branch(name)
+  private lazy val logger  = lila.log("ratelimit").branch(key)
   private lazy val monitor = lila.mon.security.rateLimit(key)
 
   def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(
@@ -64,22 +62,19 @@ object RateLimit {
   }
 
   def composite[K](
-      name: String,
       key: String,
       enforce: Boolean = true,
       log: Boolean = true
   )(rules: (String, Int, FiniteDuration)*): RateLimiter[K] = {
 
-    val limiters: Seq[RateLimit[K]] = rules.map {
-      case (subKey, credits, duration) =>
-        new RateLimit[K](
-          credits = credits,
-          duration = duration,
-          name = s"$name - $subKey",
-          key = s"$key.$subKey",
-          enforce = enforce,
-          log = log
-        )
+    val limiters: Seq[RateLimit[K]] = rules.map { case (subKey, credits, duration) =>
+      new RateLimit[K](
+        credits = credits,
+        duration = duration,
+        key = s"$key.$subKey",
+        enforce = enforce,
+        log = log
+      )
     }
 
     new RateLimiter[K] {

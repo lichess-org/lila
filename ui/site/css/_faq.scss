@@ -3,17 +3,22 @@
     .answer {
       display: none;
     }
+
     &:target {
       @extend %box-neat;
+
       background: $c-bg-zebra;
       padding: 2em 3em 1em 3em;
       margin-top: 1em;
+
       .answer {
         display: block;
       }
+
       h3 {
         padding-top: 0;
         font-weight: bold;
+
         a {
           color: $c-accent;
         }
@@ -38,16 +43,20 @@
   ol li {
     list-style: decimal outside;
   }
+
   ul li {
     list-style: disc outside;
   }
+
   ol, ul {
     margin-left: 2em;
     margin-bottom: 1em;
   }
+
   em {
     font-style: italic;
   }
+
   img {
     max-width: 100%;
   }

@@ -1,10 +1,10 @@
 package views.html.lobby
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-
-import controllers.routes
 
 object bits {
 
@@ -23,7 +23,7 @@ object bits {
       div(cls := "lobby__leaderboard lobby__box")(
         div(cls := "lobby__box__top")(
           h2(cls := "title text", dataIcon := "C")(trans.leaderboard()),
-          a(cls := "more", href := routes.User.list)(trans.more(), " »")
+          a(cls := "more", href := routes.User.list())(trans.more(), " »")
         ),
         div(cls := "lobby__box__content")(
           table(
@@ -44,7 +44,7 @@ object bits {
       div(cls := "lobby__winners lobby__box")(
         div(cls := "lobby__box__top")(
           h2(cls := "title text", dataIcon := "g")(trans.tournamentWinners()),
-          a(cls := "more", href := routes.Tournament.leaderboard)(trans.more(), " »")
+          a(cls := "more", href := routes.Tournament.leaderboard())(trans.more(), " »")
         ),
         div(cls := "lobby__box__content")(
           table(
@@ -68,16 +68,16 @@ object bits {
           h2(cls := "title text", dataIcon := "g")(trans.openTournaments()),
           span(cls := "more")(trans.more(), " »")
         ),
-        div(id := "enterable_tournaments", cls := "enterable_list lobby__box__content")(
+        div(cls := "enterable_list lobby__box__content")(
           views.html.tournament.bits.enterable(tours)
         )
       ),
-      div(cls := "lobby__simuls lobby__box")(
+      simuls.nonEmpty option div(cls := "lobby__simuls lobby__box")(
         a(cls := "lobby__box__top", href := routes.Simul.home())(
           h2(cls := "title text", dataIcon := "f")(trans.simultaneousExhibitions()),
           span(cls := "more")(trans.more(), " »")
         ),
-        div(id := "enterable_simuls", cls := "enterable_list lobby__box__content")(
+        div(cls := "enterable_list lobby__box__content")(
           views.html.simul.bits.allCreated(simuls)
         )
       )
@@ -166,13 +166,13 @@ object bits {
 
   def spotlight(e: lila.event.Event)(implicit ctx: Context) =
     a(
-      href := (if (e.isNow) e.url else routes.Event.show(e.id).url),
+      href := (if (e.isNow || !e.countdown) e.url else routes.Event.show(e.id).url),
       cls := List(
         s"tour-spotlight event-spotlight id_${e.id}" -> true,
         "invert"                                     -> e.isNowOrSoon
       )
     )(
-      i(cls := "img", dataIcon := ""),
+      views.html.event.iconOf(e),
       span(cls := "content")(
         span(cls := "name")(e.title),
         span(cls := "headline")(e.headline),

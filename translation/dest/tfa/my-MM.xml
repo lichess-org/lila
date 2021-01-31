@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="ifYouCannotScanEnterX">ပုံအား စကင် မလုပ်နိုင်လျှင် လျှို့ဝှက် %s ကို သင့် အက်ပ်သို့ ရိုက်ထည့်ပါ။</string>
+  <string name="openTwoFactorApp">သင့် အတည်ပြုကုဒ်နံပါတ်ကို ကြည့်ပြီး၊ သင် မည်သူမည်ဝါ ဖြစ်ကြောင်း အတည်ပြုရန် သင့် စက်ရှိ နှစ်ဆင့်အတည်ပြု အက်ပ်ကို ဖွင့်ပါ။</string>
+</resources>

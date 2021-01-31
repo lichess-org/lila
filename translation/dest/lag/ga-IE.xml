@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="isLichessLagging">An bhfuil Liches ag titainn?</string>
+  <string name="measurementInProgressThreeDot">Tá tomhais ar siúl...</string>
+  <string name="noAndYourNetworkIsGood">Ní. Agus tá do líonra ar chaighdeán maith.</string>
+  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">Ní. Agus tá do líonra droch-chaighdeán.</string>
+  <string name="yesItWillBeFixedSoon">Tá. Beidh sé socraithe go luath!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">Agus anois, an freagra fada! Tá tuirse aerthaistil cluiche déanta as dhá chineál neamhghaolmhara (Níos lú ná sin níos fearr):</string>
+  <string name="lichessServerLatency">Latency freastalaí i Lichess</string>
+</resources>

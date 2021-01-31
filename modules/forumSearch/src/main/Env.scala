@@ -38,8 +38,8 @@ final class Env(
 
   def cli =
     new lila.common.Cli {
-      def process = {
-        case "forum" :: "search" :: "reset" :: Nil => api.reset inject "done"
+      def process = { case "forum" :: "search" :: "reset" :: Nil =>
+        api.reset inject "done"
       }
     }
 
@@ -49,9 +49,9 @@ final class Env(
     Props(new Actor {
       import lila.forum.actorApi._
       def receive = {
-        case InsertPost(post) => api store post
-        case RemovePost(id)   => client deleteById Id(id)
-        case RemovePosts(ids) => client deleteByIds ids.map(Id.apply)
+        case InsertPost(post) => api.store(post).unit
+        case RemovePost(id)   => client.deleteById(Id(id)).unit
+        case RemovePosts(ids) => client.deleteByIds(ids map Id).unit
       }
     }),
     name = config.actorName

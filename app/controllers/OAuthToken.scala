@@ -1,8 +1,8 @@
 package controllers
 
-import lila.app._
-import lila.oauth.AccessToken
 import views._
+
+import lila.app._
 
 final class OAuthToken(env: Env) extends LilaController(env) {
 
@@ -28,17 +28,23 @@ final class OAuthToken(env: Env) extends LilaController(env) {
   def createApply =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      env.oAuth.forms.token.create.bindFromRequest.fold(
-        err => BadRequest(html.oAuth.token.create(err, me)).fuccess,
-        setup =>
-          tokenApi.create(setup make me) inject
-            Redirect(routes.OAuthToken.index).flashSuccess
-      )
+      env.oAuth.forms.token.create
+        .bindFromRequest()
+        .fold(
+          err => BadRequest(html.oAuth.token.create(err, me)).fuccess,
+          setup =>
+            tokenApi.create(setup make me) inject
+              Redirect(routes.OAuthToken.index()).flashSuccess
+        )
     }
 
-  def delete(id: String) =
+  def delete(publicId: String) =
     Auth { _ => me =>
-      tokenApi.deleteBy(AccessToken.Id(id), me) inject
-        Redirect(routes.OAuthToken.index).flashSuccess
+      tokenApi.deleteByPublicId(publicId, me) map {
+        _ foreach { token =>
+          env.oAuth.server.deleteCached(token.id)
+        }
+      } inject
+        Redirect(routes.OAuthToken.index()).flashSuccess
     }
 }

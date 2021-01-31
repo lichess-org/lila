@@ -7,6 +7,7 @@ import chess.variant.Variant
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl._
+import scala.util.Success
 
 private object BSONHandlers {
 
@@ -25,9 +26,10 @@ private object BSONHandlers {
     }
   )
   implicit val TimeControlBSONHandler = new BSON[TimeControl] {
+    import cats.implicits._
     def reads(r: Reader) =
-      (r.intO("l") |@| r.intO("i")) {
-        case (limit, inc) => TimeControl.Clock(chess.Clock.Config(limit, inc))
+      (r.intO("l"), r.intO("i")) mapN { (limit, inc) =>
+        TimeControl.Clock(chess.Clock.Config(limit, inc))
       } orElse {
         r intO "d" map TimeControl.Correspondence.apply
       } getOrElse TimeControl.Unlimited
@@ -70,6 +72,10 @@ private object BSONHandlers {
         "s" -> a.secret
       )
   }
+  implicit val DeclineReasonBSONHandler = tryHandler[DeclineReason](
+    { case BSONString(k) => Success(Challenge.DeclineReason(k)) },
+    r => BSONString(r.key)
+  )
   implicit val ChallengerBSONHandler = new BSON[Challenger] {
     def reads(r: Reader) =
       if (r contains "id") RegisteredBSONHandler reads r
@@ -82,8 +88,6 @@ private object BSONHandlers {
         case _                        => $empty
       }
   }
-
-  import lila.game.BSONHandlers.FENBSONHandler
 
   implicit val ChallengeBSONHandler = Macros.handler[Challenge]
 }

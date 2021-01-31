@@ -1,0 +1,213 @@
+@import "history";
+
+.puzzle-dashboard {
+  .box__top {
+    display: flex;
+    flex-flow: nowrap;
+    justify-content: flex-start;
+
+    // i {
+    //   flex: 0 0 auto;
+    //   font-size: 4.5em;
+    //   margin-right: .5em;
+    // }
+
+    h1 {
+      flex: 1 1 100%;
+      margin: 0;
+
+      strong {
+        display: block;
+        font-size: 1.5rem;
+        font-weight: normal;
+      }
+    }
+
+    .mselect {
+      display: inline-block;
+      margin-left: 1ch;
+      font-size: 2em;
+
+      &__list > * {
+        font-size: 1.3rem;
+        padding: .3em 1em .3em .7em;
+      }
+    }
+  }
+  
+  &__empty {
+    margin: 8em auto;
+    text-align: center;
+  }
+
+  &__radar {
+    margin-top: 4em;
+  }
+
+  &__metrics {
+    display: flex;
+  }
+
+  &__metric {
+    @extend %box-neat, %flex-column;
+
+    $glow-gradient: linear-gradient(145deg, rgba(255%, 255%, 255%, 0.3) 0%, transparent 45%);
+
+    align-items: center;
+    padding: .4em 0 .6em 0;
+    text-transform: uppercase;
+    flex: 0 0 23.5%;
+    margin-left: 2%;
+    cursor: default;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    strong {
+      @extend %roboto;
+
+      font-size: 2em;
+      line-height: 1.3em;
+      font-weight: normal;
+    }
+
+    span {
+      color: rgba(255%, 255%, 255%, 0.8);
+      letter-spacing: -1px;
+      font-size: .9rem;
+    }
+
+    background: $c-bg-zebra2;
+
+    $c-darken: #333;
+
+    &--win {
+      $c-first: mix($c-good, $c-darken, 85%);
+      $c-fix: mix($c-good, $c-darken, 50%);
+      $c-fail: mix($c-bad, $c-darken, 80%);
+
+      background: #{$glow-gradient}, linear-gradient(to right, $c-first 0%, $c-first var(--first), $c-fix var(--first), $c-fix var(--win), $c-fail var(--win), $c-fail 100%);
+      color: $c-good-over;
+    }
+
+    &--perf {
+      background: #{$glow-gradient} mix($c-brag, $c-darken, 85%);
+      color: $c-good-over;
+    }
+
+    &--fix {
+      .puzzle-dashboard__metrics & {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-evenly;
+      }
+
+      color: $c-good-over;
+      opacity: .7;
+
+      &[href] {
+        opacity: 1;
+        cursor: pointer;
+        background: #{$glow-gradient} mix($c-primary, $c-darken, 80%);
+
+        &:hover {
+          background: #{$glow-gradient} $c-primary;
+          color: $c-good-over;
+        }
+      }
+
+      &:not([href]) {
+        background: none;
+        box-shadow: none;
+        opacity: 1;
+
+        i {
+          opacity: 1;
+          color: mix($c-primary, $c-bg-box, 70%);
+          position: absolute;
+          font-size: 5.5em !important;
+          margin-bottom: .2em;
+        }
+      }
+
+      &__text {
+        @extend %flex-column;
+
+        align-items: center;
+      }
+
+      i {
+        font-size: 4em;
+        opacity: .8;
+        margin-right: -.1em;
+        color: $c-good-over;
+      }
+    }
+
+    @if $theme-light {
+      &--played span {
+        color: $c-font-dim !important;
+      }
+    }
+  }
+
+  &__global .puzzle-dashboard__metric {
+    padding: 1em 0 1.5em 0;
+    border-radius: 8px;
+
+    strong {
+      font-size: 5em;
+    }
+
+    span {
+      color: rgba(255%, 255%, 255%, 0.8);
+      letter-spacing: 2px;
+      font-size: 1rem;
+    }
+  }
+
+  &__themes {
+    margin-top: 6vh;
+
+    &__title {
+      h2 {
+        @include fluid-size("font-size", 20px, 40px);
+      }
+
+      font-size: 1.2em;
+      margin-bottom: 4vh;
+    }
+  }
+
+  &__theme {
+    @extend %flex-center;
+
+    margin-top: 2vh;
+
+    &__meta {
+      flex: 1 1 40%;
+      margin-right: 3vw;
+    }
+
+    &__name {
+      font-size: 1.5em;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    &__description {
+      color: $c-font-dim;
+    }
+
+    .puzzle-dashboard__metrics {
+      flex: 1 1 50ch;
+    }
+
+    .puzzle-dashboard__metric--fix {
+      i {
+        font-size: 1.6em;
+      }
+    }
+  }
+}

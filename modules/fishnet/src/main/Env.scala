@@ -94,35 +94,39 @@ final class Env(
     Props(new Actor {
       def receive = {
         case lila.hub.actorApi.fishnet.AutoAnalyse(gameId) =>
-          analyser(gameId, Work.Sender(userId = none, ip = none, mod = false, system = true))
-        case req: lila.hub.actorApi.fishnet.StudyChapterRequest => analyser study req
+          analyser(
+            gameId,
+            Work.Sender(userId = lila.user.User.lichessId, ip = none, mod = false, system = true)
+          ).unit
+        case req: lila.hub.actorApi.fishnet.StudyChapterRequest => analyser.study(req).unit
       }
     }),
     name = config.actorName
   )
 
   private def disable(username: String) =
-    repo toKey username flatMap { repo.enableClient(_, false) }
+    repo toKey username flatMap { repo.enableClient(_, v = false) }
 
   def cli =
     new lila.common.Cli {
       def process = {
-        case "fishnet" :: "client" :: "create" :: userId :: Nil =>
-          api.createClient(Client.UserId(userId.toLowerCase)) map { client =>
+        case "fishnet" :: "client" :: "create" :: name :: Nil =>
+          val userId = name.toLowerCase
+          api.createClient(Client.UserId(userId)) map { client =>
             Bus.publish(lila.hub.actorApi.fishnet.NewKey(userId, client.key.value), "fishnet")
-            s"Created key: ${(client.key.value)} for: $userId"
+            s"Created key: ${client.key.value} for: $userId"
           }
         case "fishnet" :: "client" :: "delete" :: key :: Nil =>
           repo toKey key flatMap repo.deleteClient inject "done!"
         case "fishnet" :: "client" :: "enable" :: key :: Nil =>
-          repo toKey key flatMap { repo.enableClient(_, true) } inject "done!"
+          repo toKey key flatMap { repo.enableClient(_, v = true) } inject "done!"
         case "fishnet" :: "client" :: "disable" :: key :: Nil => disable(key) inject "done!"
       }
     }
 
   Bus.subscribeFun("adjustCheater", "adjustBooster", "shadowban") {
-    case lila.hub.actorApi.mod.MarkCheater(userId, true) => disable(userId)
-    case lila.hub.actorApi.mod.MarkBooster(userId)       => disable(userId)
-    case lila.hub.actorApi.mod.Shadowban(userId, true)   => disable(userId)
+    case lila.hub.actorApi.mod.MarkCheater(userId, true) => disable(userId).unit
+    case lila.hub.actorApi.mod.MarkBooster(userId)       => disable(userId).unit
+    case lila.hub.actorApi.mod.Shadowban(userId, true)   => disable(userId).unit
   }
 }

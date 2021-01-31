@@ -23,7 +23,7 @@ sealed trait RootOrNode {
   def addChild(node: Node): RootOrNode
   def fullMoveNumber = 1 + ply / 2
   def mainline: List[Node]
-  def color = chess.Color(ply % 2 == 0)
+  def color = chess.Color.fromPly(ply)
   def moveOption: Option[Uci.WithSan]
 }
 
@@ -94,8 +94,8 @@ case class Node(
       score = n.score orElse score,
       clock = n.clock orElse clock,
       crazyData = n.crazyData orElse crazyData,
-      children = n.children.nodes.foldLeft(children) {
-        case (cs, c) => cs addNode c
+      children = n.children.nodes.foldLeft(children) { case (cs, c) =>
+        cs addNode c
       },
       forceVariation = n.forceVariation || forceVariation
     )
@@ -121,13 +121,12 @@ object Node {
       }
 
     def nodesOn(path: Path): List[(Node, Path)] =
-      path.split ?? {
-        case (head, tail) =>
-          get(head) ?? { first =>
-            (first, Path(List(head))) :: first.children.nodesOn(tail).map {
-              case (n, p) => (n, p prepend head)
-            }
+      path.split ?? { case (head, tail) =>
+        get(head) ?? { first =>
+          (first, Path(List(head))) :: first.children.nodesOn(tail).map { case (n, p) =>
+            (n, p prepend head)
           }
+        }
       }
 
     def addNodeAt(node: Node, path: Path): Option[Children] =
@@ -219,16 +218,15 @@ object Node {
 
     // List(0, 0, 1, 0, 2)
     def pathToIndexes(path: Path): Option[List[Int]] =
-      path.split.fold(List.empty[Int].some) {
-        case (head, tail) =>
-          getNodeAndIndex(head) flatMap {
-            case (node, index) => node.children.pathToIndexes(tail).map(rest => index :: rest)
-          }
+      path.split.fold(List.empty[Int].some) { case (head, tail) =>
+        getNodeAndIndex(head) flatMap { case (node, index) =>
+          node.children.pathToIndexes(tail).map(rest => index :: rest)
+        }
       }
 
     def countRecursive: Int =
-      nodes.foldLeft(nodes.size) {
-        case (count, n) => count + n.children.countRecursive
+      nodes.foldLeft(nodes.size) { case (count, n) =>
+        count + n.children.countRecursive
       }
 
     def lastMainlineNode: Option[Node] =
@@ -312,12 +310,12 @@ object Node {
       Chapter.Ply {
         mainline
           .zip(path.ids)
-          .takeWhile {
-            case (node, id) => node.id == id
+          .takeWhile { case (node, id) =>
+            node.id == id
           }
           .lastOption
-          .?? {
-            case (node, _) => node.ply
+          .?? { case (node, _) =>
+            node.ply
           }
       }
 
@@ -335,7 +333,7 @@ object Node {
     def default(variant: chess.variant.Variant) =
       Root(
         ply = 0,
-        fen = FEN(variant.initialFen),
+        fen = variant.initialFen,
         check = false,
         clock = none,
         crazyData = variant.crazyhouse option Crazyhouse.Data.init,
@@ -345,7 +343,7 @@ object Node {
     def fromRoot(b: lila.tree.Root): Root =
       Root(
         ply = b.ply,
-        fen = FEN(b.fen),
+        fen = b.fen,
         check = b.check,
         clock = b.clock,
         crazyData = b.crazyData,
@@ -358,7 +356,7 @@ object Node {
       id = b.id,
       ply = b.ply,
       move = b.move,
-      fen = FEN(b.fen),
+      fen = b.fen,
       check = b.check,
       crazyData = b.crazyData,
       clock = b.clock,

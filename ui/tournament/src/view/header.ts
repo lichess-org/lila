@@ -5,7 +5,7 @@ import { dataIcon } from './util';
 
 function startClock(time) {
   return {
-    insert: vnode => $(vnode.elm as HTMLElement).clock({ time: time })
+    insert: vnode => $(vnode.elm as HTMLElement).clock({ time })
   };
 }
 
@@ -17,10 +17,10 @@ function hasFreq(freq, d) {
 
 function clock(d): VNode | undefined {
   if (d.isFinished) return;
-  if (d.secondsToFinish) return h('div.clock', {
-    hook: startClock(d.secondsToFinish)
-  }, [
-    h('div.time')
+  if (d.secondsToFinish) return h('div.clock', [
+    h('div.time', {
+      hook: startClock(d.secondsToFinish)
+    })
   ]);
   if (d.secondsToStart) {
     if (d.secondsToStart > oneDayInSeconds) return h('div.clock', [
@@ -36,11 +36,11 @@ function clock(d): VNode | undefined {
         }
       })
     ]);
-    return h('div.clock.clock-created', {
-      hook: startClock(d.secondsToStart)
-    }, [
+    return h('div.clock.clock-created', [
       h('span.shy', 'Starting in'),
-      h('span.time.text')
+      h('span.time.text', {
+        hook: startClock(d.secondsToStart)
+      })
     ]);
   }
 }
@@ -50,7 +50,7 @@ function image(d): VNode | undefined {
   if (hasFreq('shield', d) || hasFreq('marathon', d)) return;
   const s = d.spotlight;
   if (s && s.iconImg) return h('img.img', {
-    attrs: { src: window.lichess.assetUrl('images/' + s.iconImg) }
+    attrs: { src: lichess.assetUrl('images/' + s.iconImg) }
   });
   return h('i.img', {
     attrs: dataIcon((s && s.iconFont) || 'g')
@@ -74,14 +74,15 @@ function title(ctrl: TournamentController) {
       h('a', {
         attrs: {
           href: d.greatPlayer.url,
-          target: '_blank'
+          target: '_blank',
+          rel: 'noopener',
         }
       }, d.greatPlayer.name),
       ' Arena'
     ] : [d.fullName]).concat(
       d.private ? [
         ' ',
-        h('span', { attrs: dataIcon('a')})
+        h('span', { attrs: dataIcon('a') })
       ] : [])
   );
 }

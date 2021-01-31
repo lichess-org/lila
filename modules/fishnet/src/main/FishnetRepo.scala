@@ -1,8 +1,8 @@
 package lila.fishnet
 
+import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
-import org.joda.time.DateTime
 
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
@@ -25,38 +25,34 @@ final private class FishnetRepo(
 
   def getClient(key: Client.Key)        = clientCache get key
   def getEnabledClient(key: Client.Key) = getClient(key).map { _.filter(_.enabled) }
-  def getOfflineClient: Fu[Client]      = getEnabledClient(Client.offline.key) getOrElse fuccess(Client.offline)
-  def updateClient(client: Client): Funit =
-    clientColl.update.one(selectClient(client.key), client, upsert = true).void >>-
-      clientCache.invalidate(client.key)
+  def getOfflineClient: Fu[Client] =
+    getEnabledClient(Client.offline.key) getOrElse fuccess(Client.offline)
   def updateClientInstance(client: Client, instance: Client.Instance): Fu[Client] =
     client.updateInstance(instance).fold(fuccess(client)) { updated =>
-      updateClient(updated) inject updated
+      clientColl.update.one(selectClient(client.key), $set("instance" -> updated.instance)) >>-
+        clientCache.invalidate(client.key) inject updated
     }
   def addClient(client: Client)     = clientColl.insert.one(client)
   def deleteClient(key: Client.Key) = clientColl.delete.one(selectClient(key)) >>- clientCache.invalidate(key)
   def enableClient(key: Client.Key, v: Boolean): Funit =
     clientColl.update.one(selectClient(key), $set("enabled" -> v)).void >>- clientCache.invalidate(key)
   def allRecentClients =
-    clientColl.ext
-      .find(
-        $doc(
-          "instance.seenAt" $gt Client.Instance.recentSince
-        )
+    clientColl.list[Client](
+      $doc(
+        "instance.seenAt" $gt Client.Instance.recentSince
       )
-      .list[Client]()
+    )
+
   def lichessClients =
-    clientColl.ext
-      .find(
-        $doc(
-          "enabled" -> true,
-          "userId" $startsWith "lichess-"
-        )
+    clientColl.list[Client](
+      $doc(
+        "enabled" -> true,
+        "userId" $startsWith "lichess-"
       )
-      .list[Client]()
+    )
 
   def addAnalysis(ana: Work.Analysis)    = analysisColl.insert.one(ana).void
-  def getAnalysis(id: Work.Id)           = analysisColl.ext.find(selectWork(id)).one[Work.Analysis]
+  def getAnalysis(id: Work.Id)           = analysisColl.find(selectWork(id)).one[Work.Analysis]
   def updateAnalysis(ana: Work.Analysis) = analysisColl.update.one(selectWork(ana.id), ana).void
   def deleteAnalysis(ana: Work.Analysis) = analysisColl.delete.one(selectWork(ana.id)).void
   def giveUpAnalysis(ana: Work.Analysis) = deleteAnalysis(ana) >>- logger.warn(s"Give up on analysis $ana")
@@ -67,8 +63,8 @@ final private class FishnetRepo(
     private def system(v: Boolean)   = $doc("sender.system" -> v)
     private def acquired(v: Boolean) = $doc("acquired" $exists v)
     private def oldestSeconds(system: Boolean): Fu[Int] =
-      analysisColl.ext
-        .find($doc("sender.system" -> system) ++ acquired(false), $doc("createdAt" -> true))
+      analysisColl
+        .find($doc("sender.system" -> system) ++ acquired(false), $doc("createdAt" -> true).some)
         .sort($sort asc "createdAt")
         .one[Bdoc]
         .map(~_.flatMap(_.getAsOpt[DateTime]("createdAt").map { date =>

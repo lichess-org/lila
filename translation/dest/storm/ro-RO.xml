@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="puzzlesSolved">puzzle-uri rezolvate</string>
+  <string name="playAgain">Jucați din nou</string>
+  <string name="score">Scor</string>
+  <string name="moves">Mutări</string>
+  <string name="accuracy">Acuratețe</string>
+  <string name="time">Timp</string>
+  <string name="timePerMove">Timp per mutare</string>
+</resources>

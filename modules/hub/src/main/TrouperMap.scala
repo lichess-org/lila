@@ -41,11 +41,11 @@ final class TrouperMap[T <: Trouper](
 
   def kill(id: String): Unit = troupers invalidate id
 
-  def killAll(): Unit = troupers.invalidateAll
+  def killAll(): Unit = troupers.invalidateAll()
 
-  def touch(id: String): Unit = troupers getIfPresent id
+  def touch(id: String): Unit = troupers.getIfPresent(id).unit
 
-  def touchOrMake(id: String): Unit = troupers get id
+  def touchOrMake(id: String): Unit = troupers.get(id).unit
 
   private[this] val troupers: LoadingCache[String, T] =
     lila.common.LilaCache

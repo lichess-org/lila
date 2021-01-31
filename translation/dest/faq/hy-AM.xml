@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="faqAbbreviation">ՀՏՀ</string>
+  <string name="leechess">լի֊չես</string>
+  <string name="fairPlay">Արդար խաղ</string>
+  <string name="threefoldRepetition">Եռակի կրկնություն</string>
+  <string name="threefoldRepetitionLowerCase">եռակի կրկնություն</string>
+  <string name="configure">կարգավորել</string>
+  <string name="accounts">Հաշիվներ</string>
+  <string name="noUpperCaseDot">Ոչ.</string>
+  <string name="displayPreferences">ցուցադրել նախընտրանքները</string>
+  <string name="howToThreeDots">Ինչպե՞ս...</string>
+</resources>

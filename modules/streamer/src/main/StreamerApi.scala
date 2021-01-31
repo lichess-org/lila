@@ -1,7 +1,7 @@
 package lila.streamer
 
 import org.joda.time.DateTime
-import reactivemongo.api._
+import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 import lila.db.dsl._
@@ -59,34 +59,34 @@ final class StreamerApi(
   def setLiveNow(ids: List[Streamer.Id]): Funit =
     coll.update.one($doc("_id" $in ids), $set("liveAt" -> DateTime.now), multi = true) >>
       cache.candidateIds.getUnit.map { candidateIds =>
-        if (ids.exists(candidateIds.contains)) cache.candidateIds.invalidateUnit
+        if (ids.exists(candidateIds.contains)) cache.candidateIds.invalidateUnit()
       }
 
   def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] = {
     val streamer = data(prev, asMod)
     coll.update.one($id(streamer.id), streamer) >>-
-      cache.listedIds.invalidateUnit inject {
-      val modChange = Streamer.ModChange(
-        list = prev.approval.granted != streamer.approval.granted option streamer.approval.granted,
-        tier = prev.approval.tier != streamer.approval.tier option streamer.approval.tier
-      )
-      import lila.notify.Notification.Notifies
-      import lila.notify.Notification
-      ~modChange.list ?? {
-        notifyApi.addNotification(
-          Notification.make(
-            Notifies(streamer.userId),
-            lila.notify.GenericLink(
-              url = s"/streamer/edit",
-              title = "Listed on /streamer".some,
-              text = "Your streamer page is public".some,
-              icon = ""
+      cache.listedIds.invalidateUnit() inject {
+        val modChange = Streamer.ModChange(
+          list = prev.approval.granted != streamer.approval.granted option streamer.approval.granted,
+          tier = prev.approval.tier != streamer.approval.tier option streamer.approval.tier
+        )
+        import lila.notify.Notification.Notifies
+        import lila.notify.Notification
+        ~modChange.list ?? {
+          notifyApi.addNotification(
+            Notification.make(
+              Notifies(streamer.userId),
+              lila.notify.GenericLink(
+                url = s"/streamer/edit",
+                title = "Listed on /streamer".some,
+                text = "Your streamer page is public".some,
+                icon = ""
+              )
             )
-          )
-        ) >>- cache.candidateIds.invalidateUnit
+          ) >>- cache.candidateIds.invalidateUnit()
+        }
+        modChange
       }
-      modChange
-    }
   }
 
   def demote(userId: User.ID): Funit =
@@ -154,6 +154,25 @@ final class StreamerApi(
         )
       )
   }
+
+  def sameChannels(streamer: Streamer): Fu[List[Streamer]] =
+    coll
+      .find(
+        $doc(
+          "$or" -> List(
+            streamer.twitch.map(_.userId).map { t =>
+              $doc("twitch.userId" -> t)
+            },
+            streamer.youTube.map(_.channelId).map { t =>
+              $doc("youTube.channelId" -> t)
+            }
+          ).flatten,
+          "_id" $ne streamer.userId
+        )
+      )
+      .sort($sort desc "createdAt")
+      .cursor[Streamer](readPreference = ReadPreference.secondaryPreferred)
+      .list(10)
 
   private object cache {
 

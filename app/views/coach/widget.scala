@@ -36,7 +36,7 @@ object widget {
           width := size,
           height := size,
           cls := "default picture",
-          src := staticUrl("images/placeholder.png"),
+          src := assetUrl("images/placeholder.png"),
           alt := "Default Lichess coach picture"
         )
       }
@@ -48,9 +48,12 @@ object widget {
       pic(c, if (link) 300 else 350),
       div(cls := "overview")(
         (if (link) h2 else h1)(cls := "coach-name")(titleName(c)),
-        c.coach.profile.headline.map { h =>
-          p(cls := s"headline ${if (h.size < 60) "small" else if (h.size < 120) "medium" else "large"}")(h)
-        },
+        c.coach.profile.headline
+          .map { h =>
+            p(
+              cls := s"headline ${if (h.length < 60) "small" else if (h.length < 120) "medium" else "large"}"
+            )(h)
+          },
         table(
           tbody(
             tr(
@@ -62,7 +65,7 @@ object widget {
                 profile.countryInfo.map { c =>
                   frag(
                     span(cls := "country")(
-                      img(cls := "flag", src := staticUrl(s"images/flags/${c.code}.png")),
+                      img(cls := "flag", src := assetUrl(s"images/flags/${c.code}.png")),
                       " ",
                       c.name
                     )
@@ -93,7 +96,7 @@ object widget {
                 td(r)
               )
             },
-            tr(cls := "available")(
+            !link option tr(cls := "available")(
               th(availability()),
               td(
                 if (c.coach.available.value) span(cls := "text", dataIcon := "E")(accepting())

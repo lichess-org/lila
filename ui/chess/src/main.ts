@@ -6,22 +6,20 @@ export function fixCrazySan(san: San): San {
   return san[0] === 'P' ? san.slice(1) : san;
 }
 
-export interface Dests {
-  [square: string]: Key[];
-}
+export type Dests = Map<Key, Key[]>;
 
 export function readDests(lines?: string): Dests | null {
   if (typeof lines === 'undefined') return null;
-  const dests: Dests = {};
-  if (lines) lines.split(' ').forEach(line => {
-    dests[piotr[line[0]]] = line.slice(1).split('').map(c => piotr[c]);
-  });
+  const dests = new Map();
+  if (lines) for (const line of lines.split(' ')) {
+    dests.set(piotr[line[0]], line.slice(1).split('').map(c => piotr[c]));
+  }
   return dests;
 }
 
-export function readDrops(line?: string | null): string[] | null {
+export function readDrops(line?: string | null): Key[] | null {
   if (typeof line === 'undefined' || line === null) return null;
-  return line.match(/.{2}/g) || [];
+  return line.match(/.{2}/g) as Key[] || [];
 }
 
 export const altCastles = {

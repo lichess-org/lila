@@ -1,7 +1,6 @@
 package lila.team
 
 import org.joda.time.DateTime
-import ornicar.scalalib.Random
 import scala.util.chaining._
 
 import lila.user.User
@@ -10,6 +9,7 @@ case class Team(
     _id: Team.ID, // also the url slug
     name: String,
     location: Option[String],
+    password: Option[String],
     description: String,
     nbMembers: Int,
     enabled: Boolean,
@@ -25,8 +25,6 @@ case class Team(
   def slug = id
 
   def disabled = !enabled
-
-  def light = lila.hub.LightTeam(_id, name)
 
   def isChatFor(f: Team.ChatFor.type => Team.ChatFor) =
     chat == f(Team.ChatFor)
@@ -70,16 +68,19 @@ object Team {
   }
 
   def make(
+      id: String,
       name: String,
       location: Option[String],
+      password: Option[String],
       description: String,
       open: Boolean,
       createdBy: User
   ): Team =
     new Team(
-      _id = nameToId(name),
+      _id = id,
       name = name,
       location = location,
+      password = password,
       description = description,
       nbMembers = 1,
       enabled = true,
@@ -93,6 +94,8 @@ object Team {
   def nameToId(name: String) =
     (lila.common.String slugify name) pipe { slug =>
       // if most chars are not latin, go for random slug
-      if (slug.size > (name.size / 2)) slug else Random nextString 8
+      if (slug.lengthIs > (name.lengthIs / 2)) slug else randomId()
     }
+
+  private[team] def randomId() = lila.common.ThreadLocalRandom nextString 8
 }

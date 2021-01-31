@@ -1,19 +1,23 @@
 .clinput-help {
   width: auto;
+
   h3 {
     font-size: 2em;
     margin: .5em 0;
     color: $c-accent;
+
     &:first-child {
       margin-top: 0;
     }
   }
+
   .command {
     display: flex;
     flex-flow: row nowrap;
     align-items: flex-start;
     padding: .7em 0;
     border-top: $border;
+
     p {
       text-align: left;
       font-family: monospace;
@@ -21,10 +25,12 @@
       color: $c-accent;
       font-weight: bold;
     }
+
     span {
       text-align: right;
       white-space: nowrap;
     }
+
     > * {
       flex: 1 1 50%;
     }

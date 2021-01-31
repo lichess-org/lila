@@ -33,14 +33,7 @@ object created {
                 th(trans.players())
               )
             ),
-            tbody(cls := "infinitescroll")(
-              pager.nextPage.map { np =>
-                tr(
-                  th(cls := "pager none")(
-                    a(rel := "next", href := routes.UserTournament.path(u.username, path, np))("Next")
-                  )
-                )
-              },
+            tbody(cls := "infinite-scroll")(
               pager.currentPageResults.map { t =>
                 tr(cls := "paginated")(
                   td(cls := "icon")(iconTag(tournamentIconChar(t))),
@@ -51,7 +44,8 @@ object created {
                   ),
                   td(cls := "text", dataIcon := "r")(t.nbPlayers.localize)
                 )
-              }
+              },
+              pagerNextTable(pager, np => routes.UserTournament.path(u.username, path, np).url)
             )
           )
         )

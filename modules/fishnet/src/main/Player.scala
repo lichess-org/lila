@@ -23,8 +23,8 @@ final class Player(
       Future.delay(delayFor(game) | 0.millis) {
         makeWork(game, level) addEffect redis.request void
       }
-    } recover {
-      case e: Exception => logger.info(e.getMessage)
+    } recover { case e: Exception =>
+      logger.info(e.getMessage)
     }
 
   private val delayFactor  = 0.011f

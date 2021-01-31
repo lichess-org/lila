@@ -2,7 +2,7 @@ import AnalyseCtrl from '../ctrl';
 import { Tab } from './interfaces';
 
 export function study(ctrl: AnalyseCtrl) {
-  window.lichess.loadScript('javascripts/study/tour.js').then(() => {
+  lichess.loadScript('javascripts/study/tour.js').then(() => {
     window.lichess['studyTour']({
       userId: ctrl.opts.userId,
       isContrib: ctrl.study!.members.canContribute(),
@@ -16,7 +16,7 @@ export function study(ctrl: AnalyseCtrl) {
 }
 
 export function chapter(setTab: (tab: string) => void) {
-  window.lichess.loadScript('javascripts/study/tour-chapter.js').then(() => {
+  lichess.loadScript('javascripts/study/tour-chapter.js').then(() => {
     window.lichess['studyTourChapter']({
       setTab
     });

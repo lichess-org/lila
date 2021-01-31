@@ -47,6 +47,7 @@ object jsI18n {
   ).map(_.key)
 
   private val baseTranslations = Vector(
+    trans.anonymous,
     trans.flipBoard,
     trans.aiNameLevelAiLevel,
     trans.yourTurn,
@@ -76,7 +77,8 @@ object jsI18n {
     trans.whiteLeftTheGame,
     trans.blackLeftTheGame,
     trans.draw,
-    trans.timeOut,
+    trans.whiteTimeOut,
+    trans.blackTimeOut,
     trans.whiteIsVictorious,
     trans.blackIsVictorious,
     trans.withdraw,

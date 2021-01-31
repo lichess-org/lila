@@ -37,7 +37,7 @@ module.exports = function(blueprint, opts) {
   };
 
   // cheat
-  Mousetrap.bind(['shift+enter'], complete);
+  // Mousetrap.bind(['shift+enter'], complete);
 
   var assertData = function() {
     return {

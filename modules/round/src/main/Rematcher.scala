@@ -30,7 +30,6 @@ final private class Rematcher(
   private val rateLimit = new lila.memo.RateLimit[String](
     credits = 2,
     duration = 1 minute,
-    name = "round rematch",
     key = "round.rematch"
   )
 
@@ -38,7 +37,7 @@ final private class Rematcher(
 
   private val offers: Cache[Game.ID, Offers] = CacheApi.scaffeineNoScheduler
     .expireAfterWrite(20 minutes)
-    .build[Game.ID, Offers]
+    .build[Game.ID, Offers]()
 
   private val chess960 = new ExpireSetMemo(3 hours)
 
@@ -99,9 +98,7 @@ final private class Rematcher(
   private def returnGame(pov: Pov): Fu[Game] =
     for {
       initialFen <- gameRepo initialFen pov.game
-      situation = initialFen flatMap { fen =>
-        Forsyth <<< fen.value
-      }
+      situation = initialFen flatMap Forsyth.<<<
       pieces = pov.game.variant match {
         case Chess960 =>
           if (chess960 get pov.gameId) Chess960.pieces

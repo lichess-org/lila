@@ -30,7 +30,7 @@ final private[video] class VideoApi(
     userOption match {
       case None =>
         fuccess {
-          videos map { VideoView(_, false) }
+          videos map { VideoView(_, view = false) }
         }
       case Some(user) =>
         view.seenVideoIds(user, videos) map { ids =>
@@ -45,7 +45,7 @@ final private[video] class VideoApi(
     private val maxPerPage = lila.common.config.MaxPerPage(18)
 
     def find(id: Video.ID): Fu[Option[Video]] =
-      videoColl.ext.find($id(id)).one[Video]
+      videoColl.find($id(id)).one[Video]
 
     def search(user: Option[User], query: String, page: Int): Fu[Paginator[VideoView]] = {
       val q = query.split(' ').map { word =>
@@ -177,7 +177,7 @@ final private[video] class VideoApi(
   object view {
 
     def find(videoId: Video.ID, userId: String): Fu[Option[View]] =
-      viewColl.ext
+      viewColl
         .find(
           $doc(
             View.BSONFields.id -> View.makeId(videoId, userId)
@@ -236,21 +236,20 @@ final private[video] class VideoApi(
                 }
                 .dmap { _.flatMap(_.asOpt[TagNb]) }
 
-          allPopular zip allPaths map {
-            case (all, paths) =>
-              val tags = all map { t =>
-                paths find (_._id == t._id) getOrElse TagNb(t._id, 0)
-              } filterNot (_.empty) take max
-              val missing = filterTags filterNot { t =>
-                tags exists (_.tag == t)
-              }
-              val list = tags.take(max - missing.size) ::: missing.flatMap { t =>
-                all find (_.tag == t)
-              }
-              list.sortBy { t =>
-                if (filterTags contains t.tag) Int.MinValue
-                else -t.nb
-              }
+          allPopular zip allPaths map { case (all, paths) =>
+            val tags = all map { t =>
+              paths find (_._id == t._id) getOrElse TagNb(t._id, 0)
+            } filterNot (_.empty) take max
+            val missing = filterTags filterNot { t =>
+              tags exists (_.tag == t)
+            }
+            val list = tags.take(max - missing.size) ::: missing.flatMap { t =>
+              all find (_.tag == t)
+            }
+            list.sortBy { t =>
+              if (filterTags contains t.tag) Int.MinValue
+              else -t.nb
+            }
           }
         }
     }

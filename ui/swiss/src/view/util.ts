@@ -3,6 +3,7 @@ import { h } from 'snabbdom'
 import { Hooks } from 'snabbdom/hooks'
 import { VNode } from 'snabbdom/vnode';
 import { BasePlayer } from '../interfaces';
+import { numberFormat } from 'common/number';
 
 export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
   return onInsert(el =>
@@ -16,7 +17,7 @@ export function bind(eventName: string, f: (e: Event) => any, redraw?: () => voi
 
 export function onInsert(f: (element: HTMLElement) => void): Hooks {
   return {
-    insert(vnode) {
+    insert(vnode: VNode) {
       f(vnode.elm as HTMLElement)
     }
   };
@@ -28,7 +29,7 @@ export function dataIcon(icon: string): Attrs {
   };
 }
 
-export const userName = (u: LightUser) => u.title ? [h('span.title', u.title), ' ' + u.name] : [u.name];
+export const userName = (u: LightUser) => u.title ? [h('span.utitle', u.title), ' ' + u.name] : [u.name];
 
 export function player(p: BasePlayer, asLink: boolean, withRating: boolean) {
   return h('a.ulpt.user-link' + (((p.user.title || '') + p.user.name).length > 15 ? '.long' : ''), {
@@ -48,7 +49,7 @@ export function numberRow(name: string, value: any, typ?: string) {
   return h('tr', [h('th', name), h('td',
     typ === 'raw' ? value : (typ === 'percent' ? (
       value[1] > 0 ? ratio2percent(value[0] / value[1]) : 0
-    ) : window.lichess.numberFormat(value))
+    ) : numberFormat(value))
   )]);
 }
 

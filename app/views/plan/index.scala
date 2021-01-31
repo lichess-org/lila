@@ -25,13 +25,13 @@ object index {
       moreCss = cssTag("plan"),
       moreJs = frag(
         script(src := "https://js.stripe.com/v3/"),
-        jsTag("checkout.js"),
-        embedJsUnsafe(s"""lichess.checkout("$stripePublicKey");""")
+        jsModule("checkout"),
+        embedJsUnsafeLoadThen(s"""checkoutStart("$stripePublicKey")""")
       ),
       openGraph = lila.app.ui
         .OpenGraph(
           title = becomePatron.txt(),
-          url = s"$netBaseUrl${routes.Plan.index.url}",
+          url = s"$netBaseUrl${routes.Plan.index().url}",
           description = freeChess.txt()
         )
         .some,
@@ -210,7 +210,7 @@ object index {
                     if (ctx.isAuth)
                       button(cls := "stripe button")(withCreditCard())
                     else
-                      a(cls := "stripe button", href := routes.Auth.login)(withCreditCard()),
+                      a(cls := "stripe button", href := routes.Auth.login())(withCreditCard()),
                     button(cls := "paypal button")(withPaypal())
                   )
                 )
@@ -240,7 +240,7 @@ object index {
         dd(
           serversAndDeveloper(userIdLink("thibault".some)),
           br,
-          a(href := "/costs", target := "_blank")(costBreakdown()),
+          a(href := routes.Main.costs(), targetBlank)(costBreakdown()),
           "."
         ),
         dt(officialNonProfit()),
@@ -254,11 +254,11 @@ object index {
       dl(
         dt(changeMonthlySupport()),
         dd(
-          changeOrContact(a(href := routes.Main.contact, target := "_blank")(contactSupport()))
+          changeOrContact(a(href := routes.Main.contact(), targetBlank)(contactSupport()))
         ),
         dt(otherMethods()),
         dd(
-          a(href := staticUrl("doc/iban_LICHESS_ORG_00022031601.pdf"), target := "_blank")(bankTransfers()),
+          a(href := assetUrl("doc/iban_LICHESS_ORG_00022031601.pdf"), targetBlank)(bankTransfers()),
           ".",
           br,
           bitcoin(code("15ZA4bBki3uu3yR2ENC2WYa9baVGUZ8Cf8"))
@@ -269,7 +269,7 @@ object index {
         dd(
           noPatronFeatures(),
           br,
-          a(href := routes.Plan.features, target := "_blank")(featuresComparison()),
+          a(href := routes.Plan.features(), targetBlank)(featuresComparison()),
           "."
         )
       )

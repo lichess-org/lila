@@ -6,13 +6,13 @@ import { LogEvent } from './interfaces';
 
 export default function(ctrl: RelayCtrl): VNode | undefined {
   if (ctrl.members.canContribute()) return h('div.relay-admin', {
-    hook: onInsert(_ => window.lichess.loadCssPath('analyse.relay-admin'))
+    hook: onInsert(_ => lichess.loadCssPath('analyse.relay-admin'))
   }, [
     h('h2', [
       h('span.text', { attrs: dataIcon('') }, 'Broadcast manager'),
       h('a', {
         attrs: {
-          href: `/broadcast/${ctrl.data.slug}/${ctrl.data.id}/edit`,
+          href: `${ctrl.data.url}/edit`,
           'data-icon': '%'
         }
       })
@@ -36,7 +36,8 @@ function renderLog(ctrl: RelayCtrl) {
     const err = e.error && h('a', {
       attrs: {
         href: ctrl.data.sync.url,
-        target: '_blank'
+        target: '_blank',
+        rel: 'noopener nofollow',
       }
     }, e.error);
     return h('div' + (err ? '.err' : ''), {

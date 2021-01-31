@@ -25,13 +25,13 @@ object index {
       title = s"${channel.name} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}",
       moreJs = frag(
         roundTag,
-        embedJsUnsafe(
-          s"""lichess=window.lichess||{};customWS=true;onload=function(){LichessRound.boot(${safeJsonValue(
+        embedJsUnsafeLoadThen(
+          s"""LichessRound.boot(${safeJsonValue(
             Json.obj(
               "data" -> data,
               "i18n" -> views.html.round.jsI18n(pov.game)
             )
-          )})}"""
+          )})"""
         )
       ),
       moreCss = cssTag("tv.single"),
@@ -51,13 +51,13 @@ object index {
           side.meta(pov),
           side.channels(channel, champions, "/tv")
         ),
-        views.html.round.bits.roundAppPreload(pov, false),
+        views.html.round.bits.roundAppPreload(pov, controls = false),
         div(cls := "round__underboard")(
           views.html.round.bits.crosstable(cross, pov.game),
           div(cls := "tv-history")(
             h2(trans.previouslyOnLichessTV()),
             div(cls := "now-playing")(
-              history map views.html.game.bits.mini
+              history map { views.html.game.mini(_) }
             )
           )
         )

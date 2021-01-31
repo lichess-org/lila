@@ -32,7 +32,7 @@ final class Insight(env: Env) extends LilaController(env) {
           case Empty  => Ok(html.insight.empty(user)).fuccess
           case s =>
             for {
-              cache  <- env.insight.api userCache user
+              cache  <- env.insight.api insightUser user
               prefId <- env.insight.share getPrefId user
             } yield Ok(
               html.insight.index(

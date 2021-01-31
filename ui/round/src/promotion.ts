@@ -26,8 +26,8 @@ export function sendPromotion(ctrl: RoundController, orig: cg.Key, dest: cg.Key,
 
 export function start(ctrl: RoundController, orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata = {} as cg.MoveMetadata): boolean {
   const d = ctrl.data,
-    piece = ctrl.chessground.state.pieces[dest],
-    premovePiece = ctrl.chessground.state.pieces[orig];
+    piece = ctrl.chessground.state.pieces.get(dest),
+    premovePiece = ctrl.chessground.state.pieces.get(orig);
   if (((piece && piece.role === 'pawn' && !premovePiece) || (premovePiece && premovePiece.role === 'pawn')) && (
     (dest[1] === '8' && d.player.color === 'white') ||
     (dest[1] === '1' && d.player.color === 'black'))) {
@@ -85,7 +85,7 @@ function finish(ctrl: RoundController, role: cg.Role) {
 export function cancel(ctrl: RoundController) {
   cancelPrePromotion(ctrl);
   ctrl.chessground.cancelPremove();
-  if (promoting) xhr.reload(ctrl).then(ctrl.reload);
+  if (promoting) xhr.reload(ctrl).then(ctrl.reload, lichess.reload);
   promoting = undefined;
 }
 

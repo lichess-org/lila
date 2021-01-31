@@ -22,8 +22,8 @@ final class OAuthServer(
   def auth(req: RequestHeader, scopes: List[OAuthScope]): Fu[AuthResult] =
     reqToTokenId(req).fold[Fu[AuthResult]](fufail(MissingAuthorizationHeader)) {
       auth(_, scopes)
-    } recover {
-      case e: AuthError => Left(e)
+    } recover { case e: AuthError =>
+      Left(e)
     }
 
   def auth(tokenId: AccessToken.Id, scopes: List[OAuthScope]): Fu[AuthResult] =
@@ -34,8 +34,8 @@ final class OAuthServer(
           case None    => fufail(NoSuchUser)
           case Some(u) => fuccess(OAuthScope.Scoped(u, at.scopes))
         }
-    } dmap Right.apply recover {
-      case e: AuthError => Left(e)
+    } dmap Right.apply recover { case e: AuthError =>
+      Left(e)
     }
 
   def fetchAppAuthor(req: RequestHeader): Fu[Option[User.ID]] =
@@ -47,25 +47,38 @@ final class OAuthServer(
       }
     }
 
+  def authBoth(scopes: List[OAuthScope])(
+      token1: AccessToken.Id,
+      token2: AccessToken.Id
+  ): Fu[Either[AuthError, (User, User)]] = for {
+    auth1 <- auth(token1, scopes)
+    auth2 <- auth(token2, scopes)
+  } yield for {
+    user1 <- auth1
+    user2 <- auth2
+  } yield (user1.user, user2.user)
+
+  def deleteCached(id: AccessToken.Id): Unit =
+    accessTokenCache.put(id, fuccess(none))
+
   private def reqToTokenId(req: RequestHeader): Option[AccessToken.Id] =
-    req.headers.get(AUTHORIZATION).map(_.split(" ", 2)) collect {
-      case Array("Bearer", tokenStr) => AccessToken.Id(tokenStr)
+    req.headers.get(AUTHORIZATION).map(_.split(" ", 2)) collect { case Array("Bearer", tokenStr) =>
+      AccessToken.Id(tokenStr)
     }
 
   private val accessTokenCache =
-    cacheApi[AccessToken.Id, Option[AccessToken.ForAuth]](16, "oauth.server.personal_access_token") {
+    cacheApi[AccessToken.Id, Option[AccessToken.ForAuth]](32, "oauth.server.personal_access_token") {
       _.expireAfterWrite(5 minutes)
         .buildAsyncFuture(fetchAccessToken)
     }
 
   private def fetchAccessToken(tokenId: AccessToken.Id): Fu[Option[AccessToken.ForAuth]] =
     colls.token {
-      _.ext
-        .findAndUpdate[AccessToken.ForAuth](
-          selector = $doc(F.id -> tokenId),
-          update = $set(F.usedAt -> DateTime.now),
-          fields = AccessToken.forAuthProjection.some
-        )
+      _.ext.findAndUpdate[AccessToken.ForAuth](
+        selector = $doc(F.id -> tokenId),
+        update = $set(F.usedAt -> DateTime.now),
+        fields = AccessToken.forAuthProjection.some
+      )
     }
 }
 
@@ -81,7 +94,7 @@ object OAuthServer {
   case class MissingScope(scopes: List[OAuthScope])    extends AuthError("Missing scope")
   case object NoSuchUser                               extends AuthError("No such user")
 
-  def responseHeaders(acceptedScopes: List[OAuthScope], availableScopes: List[OAuthScope])(
+  def responseHeaders(acceptedScopes: Seq[OAuthScope], availableScopes: Seq[OAuthScope])(
       res: Result
   ): Result =
     res.withHeaders(

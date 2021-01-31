@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="moveToStart">Izdariet gājienu, lai sāktu</string>
+  <string name="puzzlesSolved">atrisinātās puzles</string>
+  <string name="newDailyHighscore">Jauns dienas labākais rezultāts!</string>
+  <string name="newWeeklyHighscore">Jauns nedēļas labākais rezultāts!</string>
+  <string name="newMonthlyHighscore">Jauns mēneša labākais rezultāts!</string>
+  <string name="newAllTimeHighscore">Jauns visu laiku labākais rezultāts!</string>
+  <string name="previousHighscoreWasX">Iepriekšējais sasniegums bija %s</string>
+  <string name="playAgain">Spēlēt vēlreiz</string>
+  <plurals name="xRuns">
+    <item quantity="zero">%s izspēlēšanas</item>
+    <item quantity="one">%s izspēlēšana</item>
+    <item quantity="other">%s izspēlēšanas</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="zero">Izspēlēja %2$s %1$s reizes</item>
+    <item quantity="one">Izspēlēja %2$s %1$s reizi</item>
+    <item quantity="other">Izspēlēja %2$s %1$s reizes</item>
+  </plurals>
+  <string name="highscoreX">Labākais rezultāts: %s</string>
+  <string name="score">Rezultāts</string>
+  <string name="moves">Gājieni</string>
+  <string name="accuracy">Precizitāte</string>
+  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Kombinācija</string>
+  <string name="time">Laiks</string>
+  <string name="timePerMove">Laiks uz gājienu</string>
+  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Labākais atrisinātais</string>
+  <string name="puzzlesPlayed">Izspēlētas puzles</string>
+  <string name="newRun">Spēlēt vēl (taustiņš: atstarpe)</string>
+  <string name="endRun">Beigt spēli (ievadīšanas taustiņš)</string>
+  <string name="highscores">Labākie rezultāti</string>
+  <string name="viewBestRuns">Skatīt labākos mēģinājumus</string>
+  <string name="bestRunOfDay">Dienas labākais mēģinājums</string>
+  <string name="runs">Mēģinājumi</string>
+</resources>

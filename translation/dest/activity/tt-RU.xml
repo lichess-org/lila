@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="activity">Активлык</string>
+  <string name="hostedALiveStream">Стрим үткәрде</string>
+  <plurals name="supportedNbMonths">
+    <item quantity="other">lichess.org сайтына %1$s айга %2$s буларак ярдәм күрсәтте</item>
+  </plurals>
+  <plurals name="practicedNbPositions">
+    <item quantity="other">%2$s-да %1$s күнегү ясады</item>
+  </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="other">%s тактикалык мәсәлә чиште</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="other">%1$s %2$s уенын уйнады</item>
+  </plurals>
+</resources>

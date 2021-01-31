@@ -21,6 +21,7 @@
   <string name="horizontalGreenProgressBars">الشريط الأخضر للساعة</string>
   <string name="soundWhenTimeGetsCritical">الصوت عندما يقارب الوقت على الإنتهاء</string>
   <string name="giveMoreTime">إعطاء مزيد من الوقت</string>
+  <string name="gameBehavior">سلوكيات المباراة</string>
   <string name="howDoYouMovePieces">كيف يمكنك تحريك القطع؟</string>
   <string name="clickTwoSquares">النقر فوق مربعين</string>
   <string name="dragPiece">سحب القطعة</string>

@@ -23,7 +23,7 @@ final private class SecurityConfig(
     @ConfigName("check_mail_api") val checkMail: CheckMail,
     val recaptcha: Recaptcha.Config,
     val mailgun: Mailgun.Config,
-    @ConfigName("ip2proxy.url") val ip2ProxyUrl: String,
+    @ConfigName("ip2proxy") val ip2Proxy: Ip2Proxy,
     @ConfigName("lame_name_check") val lameNameCheck: LameNameCheck
 )
 
@@ -44,12 +44,14 @@ private object SecurityConfig {
   implicit val emailConfirmLoader = AutoConfig.loader[EmailConfirm]
 
   case class Tor(
+      @ConfigName("enabled") enabled: Boolean,
       @ConfigName("provider_url") providerUrl: String,
       @ConfigName("refresh_delay") refreshDelay: FiniteDuration
   )
   implicit val torLoader = AutoConfig.loader[Tor]
 
   case class DisposableEmail(
+      @ConfigName("enabled") enabled: Boolean,
       @ConfigName("provider_url") providerUrl: String,
       @ConfigName("refresh_delay") refreshDelay: FiniteDuration
   )
@@ -66,6 +68,12 @@ private object SecurityConfig {
       key: Secret
   )
   implicit val checkMailLoader = AutoConfig.loader[CheckMail]
+
+  case class Ip2Proxy(
+      enabled: Boolean,
+      url: String
+  )
+  implicit val ip2ProxyLoader = AutoConfig.loader[Ip2Proxy]
 
   implicit val lameNameCheckLoader = boolLoader(LameNameCheck.apply)
 

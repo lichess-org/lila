@@ -1,7 +1,7 @@
 lichess.ratingDistributionChart = function(data) {
   const trans = lichess.trans(data.i18n);
-  lichess.loadScript('javascripts/chart/common.js').done(function() {
-    lichess.chartCommon('highchart').done(function() {
+  lichess.loadScript('javascripts/chart/common.js').then(function() {
+    lichess.chartCommon('highchart').then(function() {
       var disabled = {
         enabled: false
       };
@@ -22,7 +22,7 @@ lichess.ratingDistributionChart = function(data) {
         var cumul = [];
         for (var i = 0; i < data.freq.length; i++)
           cumul.push(Math.round(arraySum(data.freq.slice(0, i)) / sum * 100));
-        $(this).highcharts({
+        Highcharts.chart(this, {
           yAxis: {
             title: noText
           },

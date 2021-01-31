@@ -18,7 +18,7 @@ final class Fishnet(env: Env) extends LilaController(env) {
   def acquire(slow: Boolean = false) =
     ClientAction[JsonApi.Request.Acquire] { _ => client =>
       api.acquire(client, slow) addEffect { jobOpt =>
-        lila.mon.fishnet.http.request(jobOpt.isDefined).increment()
+        lila.mon.fishnet.http.request(jobOpt.isDefined).increment().unit
       } map Right.apply
     }
 
@@ -79,7 +79,7 @@ final class Fishnet(env: Env) extends LilaController(env) {
             BadRequest(jsonError(JsError toJson err)).fuccess
           },
           data =>
-            api.authenticateClient(data, HTTPRequest lastRemoteAddress req) flatMap {
+            api.authenticateClient(data, HTTPRequest ipAddress req) flatMap {
               case Failure(msg) => Unauthorized(jsonError(msg.getMessage)).fuccess
               case Success(client) =>
                 f(data)(client).map {

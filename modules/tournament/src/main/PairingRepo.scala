@@ -2,12 +2,12 @@ package lila.tournament
 
 import akka.stream.Materializer
 import akka.stream.scaladsl._
+import BSONHandlers._
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
 
-import BSONHandlers._
 import lila.db.dsl._
 import lila.game.Game
 import lila.user.User
@@ -26,11 +26,11 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
   private val recentSort     = $doc("d" -> -1)
   private val chronoSort     = $doc("d" -> 1)
 
-  def byId(id: Tournament.ID): Fu[Option[Pairing]] = coll.ext.find($id(id)).one[Pairing]
+  def byId(id: Tournament.ID): Fu[Option[Pairing]] = coll.find($id(id)).one[Pairing]
 
   private[tournament] def lastOpponents(
       tourId: Tournament.ID,
-      userIds: Iterable[User.ID],
+      userIds: Set[User.ID],
       max: Int
   ): Fu[Pairing.LastOpponents] =
     userIds.nonEmpty.?? {
@@ -47,15 +47,18 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
         .mapConcat(_.getAsOpt[List[User.ID]]("u").toList)
         .scan(Map.empty[User.ID, User.ID]) {
           case (acc, List(u1, u2)) =>
-            val acc1 = if (acc.contains(u1)) acc else acc.updated(u1, u2)
-            if (acc.contains(u2)) acc1 else acc1.updated(u2, u1)
+            val b1   = userIds.contains(u1)
+            val b2   = !b1 || userIds.contains(u2)
+            val acc1 = if (!b1 || acc.contains(u1)) acc else acc.updated(u1, u2)
+            if (!b2 || acc.contains(u2)) acc1 else acc1.updated(u2, u1)
+          case (acc, _) => acc
         }
         .takeWhile(
-          r => r.size < nbUsers || !userIds.forall(r.contains),
-          true
+          r => r.sizeIs < nbUsers,
+          inclusive = true
         )
         .toMat(Sink.lastOption)(Keep.right)
-        .run
+        .run()
         .dmap(~_)
     } dmap Pairing.LastOpponents.apply
 
@@ -65,7 +68,8 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
         selectTourUser(tourId, userId),
         $doc("_id" -> false, "u" -> true).some
       )
-      .list[Bdoc]()
+      .cursor[Bdoc]()
+      .list()
       .dmap {
         _.view.flatMap { doc =>
           ~doc.getAsOpt[List[User.ID]]("u").find(userId !=)
@@ -79,7 +83,8 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
         $doc("_id" -> true).some
       )
       .sort(recentSort)
-      .list[Bdoc](nb)
+      .cursor[Bdoc]()
+      .list(nb)
       .dmap {
         _.flatMap(_.getAsOpt[Game.ID]("_id"))
       }
@@ -98,17 +103,20 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
 
   def removeByTour(tourId: Tournament.ID) = coll.delete.one(selectTour(tourId)).void
 
-  private[tournament] def forfeitByTourAndUserId(tourId: Tournament.ID, userId: User.ID) =
-    coll.ext.find(selectTourUser(tourId, userId)).list[Pairing]().flatMap {
-      _.filter(_ notLostBy userId).map { p =>
-        coll.update.one(
-          $id(p.id),
-          $set(
-            "w" -> p.colorOf(userId).map(_.black)
+  private[tournament] def forfeitByTourAndUserId(tourId: Tournament.ID, userId: User.ID): Funit =
+    coll
+      .list[Pairing](selectTourUser(tourId, userId))
+      .flatMap {
+        _.withFilter(_ notLostBy userId).map { p =>
+          coll.update.one(
+            $id(p.id),
+            $set(
+              "w" -> p.colorOf(userId).map(_.black)
+            )
           )
-        )
-      }.sequenceFu
-    }
+        }.sequenceFu
+      }
+      .void
 
   def count(tourId: Tournament.ID): Fu[Int] =
     coll.countSel(selectTour(tourId))
@@ -136,7 +144,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
   def removePlaying(tourId: Tournament.ID) = coll.delete.one(selectTour(tourId) ++ selectPlaying).void
 
   def findPlaying(tourId: Tournament.ID, userId: User.ID): Fu[Option[Pairing]] =
-    coll.ext.find(selectTourUser(tourId, userId) ++ selectPlaying).one[Pairing]
+    coll.find(selectTourUser(tourId, userId) ++ selectPlaying).one[Pairing]
 
   def isPlaying(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] =
     coll.exists(selectTourUser(tourId, userId) ++ selectPlaying)
@@ -145,12 +153,13 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
       tourId: Tournament.ID,
       userId: User.ID
   ): Fu[Pairings] =
-    coll.ext
+    coll
       .find(
         selectTourUser(tourId, userId) ++ selectFinished
       )
       .sort(chronoSort)
-      .list[Pairing]()
+      .cursor[Pairing]()
+      .list()
 
   def insert(pairing: Pairing) =
     coll.insert.one {
@@ -189,7 +198,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
       batchSize: Int = 0,
       readPreference: ReadPreference = ReadPreference.secondaryPreferred
   ): AkkaStreamCursor[Pairing] =
-    coll.ext
+    coll
       .find(selectTour(tournamentId))
       .sort(recentSort)
       .batchSize(batchSize)

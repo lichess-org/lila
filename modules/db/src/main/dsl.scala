@@ -17,7 +17,7 @@
 package lila.db
 
 import ornicar.scalalib.Zero
-import reactivemongo.api._
+
 import reactivemongo.api.bson._
 
 trait dsl {
@@ -207,8 +207,7 @@ trait dsl {
   // End ofTop Level Array Update Operators
   //**********************************************************************************************//
 
-  /**
-    * Represents the initial state of the expression which has only the name of the field.
+  /** Represents the initial state of the expression which has only the name of the field.
     * It does not know the value of the expression.
     */
   trait ElementBuilder {
@@ -235,8 +234,7 @@ trait dsl {
    */
   case class SimpleExpression[V <: BSONValue](field: String, value: V) extends Expression[V]
 
-  /**
-    * Expressions of this type can be cascaded. Examples:
+  /** Expressions of this type can be cascaded. Examples:
     *
     * {{{
     *  "age" $gt 50 $lt 60
@@ -296,7 +294,7 @@ trait dsl {
   }
 
   trait LogicalOperators { self: ElementBuilder =>
-    def $not(f: (String => Expression[Bdoc])): SimpleExpression[Bdoc] = {
+    def $not(f: String => Expression[Bdoc]): SimpleExpression[Bdoc] = {
       val expression = f(field)
       SimpleExpression(field, $doc("$not" -> expression.value))
     }

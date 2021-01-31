@@ -71,33 +71,35 @@ final private class SwissSheetApi(colls: SwissColls)(implicit
   import lila.db.dsl._
   import BsonHandlers._
 
-  def source(swiss: Swiss): Source[(SwissPlayer, Map[SwissRound.Number, SwissPairing], SwissSheet), _] = {
+  def source(
+      swiss: Swiss,
+      sort: Bdoc
+  ): Source[(SwissPlayer, Map[SwissRound.Number, SwissPairing], SwissSheet), _] = {
     val readPreference =
       if (swiss.finishedAt.exists(_ isBefore DateTime.now.minusSeconds(10)))
         ReadPreference.secondaryPreferred
       else ReadPreference.primary
     SwissPlayer
       .fields { f =>
-        colls.player.ext
+        colls.player
           .find($doc(f.swissId -> swiss.id))
-          .sort($sort desc f.score)
+          .sort(sort)
       }
       .cursor[SwissPlayer](readPreference)
       .documentSource()
       .mapAsync(4) { player =>
         SwissPairing.fields { f =>
-          colls.pairing.ext.list[SwissPairing](
+          colls.pairing.list[SwissPairing](
             $doc(f.swissId -> swiss.id, f.players -> player.userId),
             readPreference
           ) dmap { player -> _ }
         }
       }
-      .map {
-        case (player, pairings) =>
-          val pairingMap = pairings.map { p =>
-            p.round -> p
-          }.toMap
-          (player, pairingMap, SwissSheet.one(swiss, pairingMap, player))
+      .map { case (player, pairings) =>
+        val pairingMap = pairings.map { p =>
+          p.round -> p
+        }.toMap
+        (player, pairingMap, SwissSheet.one(swiss, pairingMap, player))
       }
   }
 }

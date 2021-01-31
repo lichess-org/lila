@@ -46,7 +46,7 @@ final class ChatTimeout(
     )
 
   def history(user: User, nb: Int): Fu[List[UserEntry]] =
-    coll.ext.find($doc("user" -> user.id)).sort($sort desc "createdAt").list[UserEntry](nb)
+    coll.find($doc("user" -> user.id)).sort($sort desc "createdAt").cursor[UserEntry]().list(nb)
 
   def checkExpired: Fu[List[Reinstate]] =
     coll.list[Reinstate](
@@ -61,7 +61,7 @@ final class ChatTimeout(
 
   private val idSize = 8
 
-  private def makeId = scala.util.Random.alphanumeric take idSize mkString
+  private def makeId = lila.common.ThreadLocalRandom nextString idSize
 }
 
 object ChatTimeout {
@@ -77,7 +77,7 @@ object ChatTimeout {
     def apply(key: String) = all.find(_.key == key)
   }
   implicit val ReasonBSONHandler: BSONHandler[Reason] = tryHandler[Reason](
-    { case BSONString(value) => Reason(value) toTry s"Invalid reason ${value}" },
+    { case BSONString(value) => Reason(value) toTry s"Invalid reason $value" },
     x => BSONString(x.key)
   )
 

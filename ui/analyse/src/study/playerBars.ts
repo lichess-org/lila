@@ -36,7 +36,7 @@ function renderPlayer(tags: TagArray[], clocks: [VNode, VNode] | undefined, play
     h('div.left', [
       result && h('span.result', result),
       h('span.info', [
-        title && h('span.title', title + ' '),
+        title && h('span.utitle', title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, title + ' '),
         h('span.name', playerNames[color]),
         elo && h('span.elo', elo)
       ])

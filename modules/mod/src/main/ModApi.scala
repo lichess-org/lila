@@ -3,20 +3,16 @@ package lila.mod
 import lila.common.{ Bus, EmailAddress }
 import lila.report.{ Mod, ModId, Room, Suspect, SuspectId }
 import lila.security.{ Granter, Permission }
-import lila.security.{ Firewall, Store => SecurityStore }
 import lila.user.{ LightUserApi, Title, User, UserRepo }
 
 final class ModApi(
     userRepo: UserRepo,
     logApi: ModlogApi,
-    sessionStore: lila.security.Store,
-    firewall: Firewall,
     reportApi: lila.report.ReportApi,
     reporter: lila.hub.actors.Report,
     notifier: ModNotifier,
     lightUserApi: LightUserApi,
-    refunder: RatingRefund,
-    securityStore: SecurityStore
+    refunder: RatingRefund
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def setAlt(mod: Mod, prev: Suspect, v: Boolean): Funit =
@@ -26,7 +22,7 @@ final class ModApi(
       _ <- reportApi.process(mod, sus, Set(Room.Cheat, Room.Print))
       _ <- logApi.alt(mod, sus, v)
     } yield {
-      if (v) notifier.reporters(mod, sus)
+      if (v) notifier.reporters(mod, sus).unit
     }
 
   def setEngine(mod: Mod, prev: Suspect, v: Boolean): Funit =
@@ -53,7 +49,7 @@ final class ModApi(
         reportApi.getMod(modId.value) flatMap {
           _ ?? { mod =>
             lila.mon.cheat.autoMark.increment()
-            setEngine(mod, sus, true)
+            setEngine(mod, sus, v = true)
           }
         }
       }
@@ -91,16 +87,16 @@ final class ModApi(
       }
     } >>
       reportApi.process(mod, sus, Set(Room.Comm)) >>- {
-      if (value) notifier.reporters(mod, sus)
-    } inject sus
+        if (value) notifier.reporters(mod, sus).unit
+      } inject sus
   }
 
   def garbageCollect(sus: Suspect): Funit =
-    for {
-      mod <- reportApi.getLichessMod
-      _   <- setAlt(mod, sus, true)
-      _   <- setTroll(mod, sus, false)
-    } yield logApi.garbageCollect(mod, sus)
+    reportApi.getLichessMod flatMap { mod =>
+      setAlt(mod, sus, v = true) >>
+        setTroll(mod, sus, value = false) >>
+        logApi.garbageCollect(mod, sus)
+    }
 
   def disableTwoFactor(mod: String, username: String): Funit =
     withUser(username) { user =>
@@ -114,17 +110,23 @@ final class ModApi(
       }
     }
 
+  def setKid(mod: String, username: String): Funit =
+    withUser(username) { user =>
+      userRepo.isKid(user.id) flatMap {
+        !_ ?? { (userRepo.setKid(user, true)) } >> logApi.setKidMode(mod, user.id)
+      }
+    }
+
   def setTitle(mod: String, username: String, title: Option[Title]): Funit =
     withUser(username) { user =>
       title match {
-        case None => {
-          userRepo.removeTitle(user.id) >>-
+        case None =>
+          userRepo.removeTitle(user.id) >>
             logApi.removeTitle(mod, user.id) >>-
             lightUserApi.invalidate(user.id)
-        }
         case Some(t) =>
           Title.names.get(t) ?? { tFull =>
-            userRepo.addTitle(user.id, t) >>-
+            userRepo.addTitle(user.id, t) >>
               logApi.addTitle(mod, user.id, s"$t ($tFull)") >>-
               lightUserApi.invalidate(user.id)
           }
@@ -157,20 +159,20 @@ final class ModApi(
 
   def setReportban(mod: Mod, sus: Suspect, v: Boolean): Funit =
     (sus.user.marks.reportban != v) ?? {
-      userRepo.setReportban(sus.user.id, v) >>- logApi.reportban(mod, sus, v)
+      userRepo.setReportban(sus.user.id, v) >> logApi.reportban(mod, sus, v)
     }
 
   def setRankban(mod: Mod, sus: Suspect, v: Boolean): Funit =
     (sus.user.marks.rankban != v) ?? {
       if (v) Bus.publish(lila.hub.actorApi.mod.KickFromRankings(sus.user.id), "kickFromRankings")
-      userRepo.setRankban(sus.user.id, v) >>- logApi.rankban(mod, sus, v)
+      userRepo.setRankban(sus.user.id, v) >> logApi.rankban(mod, sus, v)
     }
 
   def allMods =
     userRepo.userIdsWithRoles(Permission.modPermissions.view.map(_.dbKey).toList) flatMap
       userRepo.enabledByIds dmap {
-      _.sortBy(_.timeNoSee)
-    }
+        _.sortBy(_.timeNoSee)
+      }
 
   private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =
     userRepo named username orFail s"[mod] missing user $username" flatMap op

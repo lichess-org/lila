@@ -42,11 +42,12 @@ final private[team] class PaginatorBuilder(
     def slice(offset: Int, length: Int): Fu[Seq[LightUser]] =
       for {
         docs <-
-          memberRepo.coll.ext
-            .find(selector, $doc("user" -> true, "_id" -> false))
+          memberRepo.coll
+            .find(selector, $doc("user" -> true, "_id" -> false).some)
             .sort(sorting)
             .skip(offset)
-            .list[Bdoc](length)
+            .cursor[Bdoc]()
+            .list(length)
         userIds = docs.flatMap(_ string "user")
         users <- lightUserApi asyncMany userIds
       } yield users.flatten

@@ -39,6 +39,10 @@ object StreamerForm {
         )(ApprovalData.apply)(ApprovalData.unapply)
       )
     )(UserData.apply)(UserData.unapply)
+      .verifying(
+        "Must specify a Twitch and/or YouTube channel.",
+        u => u.twitch.isDefined || u.youTube.isDefined
+      )
   )
 
   def userForm(streamer: Streamer) =
@@ -92,7 +96,12 @@ object StreamerForm {
               chatEnabled = m.chat,
               lastGrantedAt = m.granted.option(DateTime.now) orElse streamer.approval.lastGrantedAt
             )
-          case None => streamer.approval
+          case _ =>
+            streamer.approval.copy(
+              granted = streamer.approval.granted &&
+                newStreamer.twitch.fold(true)(streamer.twitch.has) &&
+                newStreamer.youTube.fold(true)(streamer.youTube.has)
+            )
         }
       )
     }
@@ -121,6 +130,6 @@ object StreamerForm {
   private def nameField =
     of[Name].verifying(
       constraint.minLength[Name](_.value)(3),
-      constraint.maxLength[Name](_.value)(25)
+      constraint.maxLength[Name](_.value)(30)
     )
 }

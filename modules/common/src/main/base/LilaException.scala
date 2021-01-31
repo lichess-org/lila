@@ -1,7 +1,5 @@
 package lila.base
 
-import ornicar.scalalib.ValidTypes._
-
 trait LilaException extends Exception {
   val message: String
 
@@ -10,13 +8,12 @@ trait LilaException extends Exception {
 }
 
 case class LilaInvalid(message: String) extends LilaException
+case class LilaTimeout(message: String) extends LilaException
 
-object LilaException extends scalaz.syntax.ToShowOps {
+object LilaException {
 
   def apply(msg: String) =
     new LilaException {
       val message = msg
     }
-
-  def apply(msg: Failures): LilaException = apply(msg.shows)
 }

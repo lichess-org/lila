@@ -2,12 +2,12 @@ function toBlurArray(player) {
   return player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
 }
 lichess.advantageChart = function(data, trans, el) {
-  lichess.loadScript('javascripts/chart/common.js').done(function() {
-    lichess.loadScript('javascripts/chart/division.js').done(function() {
-      lichess.chartCommon('highchart').done(function() {
+  lichess.loadScript('javascripts/chart/common.js').then(function() {
+    lichess.loadScript('javascripts/chart/division.js').then(function() {
+      lichess.chartCommon('highchart').then(function() {
 
         lichess.advantageChart.update = function(d) {
-          $(el).highcharts().series[0].setData(makeSerieData(d));
+          el.highcharts && el.highcharts.series[0].setData(makeSerieData(d));
         };
 
         var blurs = [ toBlurArray(data.player), toBlurArray(data.opponent) ];
@@ -15,7 +15,7 @@ lichess.advantageChart = function(data, trans, el) {
 
         var makeSerieData = function(d) {
           var partial = !d.analysis || d.analysis.partial;
-          return d.treeParts.slice(1).map(function(node, i) {
+          return d.treeParts.slice(1).map(function(node) {
 
             var color = node.ply & 1, cp;
 
@@ -57,7 +57,7 @@ lichess.advantageChart = function(data, trans, el) {
           text: null
         };
         var serieData = makeSerieData(data);
-        var chart = $(el).highcharts({
+        el.highcharts = Highcharts.chart(el, {
           credits: disabled,
           legend: disabled,
           series: [{

@@ -10,13 +10,13 @@ export interface StoredBooleanProp {
   (v: boolean): void;
 }
 
-const storage = window.lichess.storage;
+const storage = lichess.storage;
 
 export function storedProp(k: string, defaultValue: boolean): StoredBooleanProp;
 export function storedProp<T>(k: string, defaultValue: T): StoredProp<T>;
 export function storedProp(k: string, defaultValue: any) {
-  const sk = 'analyse.' + k;
-  const isBoolean = defaultValue === true || defaultValue === false;
+  const sk = 'analyse.' + k,
+  isBoolean = defaultValue === true || defaultValue === false;
   let value: any;
   return function(v: any) {
     if (defined(v) && v != value) {
@@ -32,16 +32,15 @@ export function storedProp(k: string, defaultValue: any) {
 
 export interface StoredJsonProp<T> {
   (): T;
-  (v: T): void;
+  (v: T): T;
 }
 
-export function storedJsonProp<T>(key: string, defaultValue: T): StoredJsonProp<T> {
-  return function(v?: T) {
+export const storedJsonProp = <T>(key: string, defaultValue: () => T): StoredJsonProp<T> =>
+  (v?: T) => {
     if (defined(v)) {
       storage.set(key, JSON.stringify(v));
       return v;
     }
     const ret = JSON.parse(storage.get(key)!);
-    return (ret !== null) ? ret : defaultValue;
-  };
-}
+    return ret !== null ? ret : defaultValue();
+  }

@@ -1,14 +1,14 @@
 package lila.study
 
 import chess.format.FEN
-import chess.format.pgn.Tags
 import lila.game.{ Namer, Pov }
 import lila.user.User
 
 final private class StudyMaker(
     lightUserApi: lila.user.LightUserApi,
     gameRepo: lila.game.GameRepo,
-    chapterMaker: ChapterMaker
+    chapterMaker: ChapterMaker,
+    pgnDump: lila.game.PgnDump
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(data: StudyMaker.ImportGame, user: User): Fu[Study.WithChapter] =
@@ -28,7 +28,7 @@ final private class StudyMaker(
         game = none,
         name = Chapter.Name("Chapter 1"),
         variant = data.form.variantStr,
-        fen = data.form.fenStr,
+        fen = data.form.fen,
         pgn = data.form.pgnStr,
         orientation = data.form.orientation.name,
         mode = ChapterMaker.Mode.Normal.key,
@@ -46,38 +46,40 @@ final private class StudyMaker(
       pov: Pov,
       initialFen: Option[FEN],
       user: User
-  ): Fu[Study.WithChapter] =
-    chapterMaker.game2root(pov.game, initialFen) flatMap { root =>
-      Namer.gameVsText(pov.game, withRatings = false)(lightUserApi.async) dmap Chapter.Name.apply map {
-        name =>
-          val study = Study.make(user, Study.From.Game(pov.gameId), data.id, Study.Name("Game study").some)
-          val chapter: Chapter = Chapter.make(
-            studyId = study.id,
-            name = name,
-            setup = Chapter.Setup(
-              gameId = pov.gameId.some,
-              variant = pov.game.variant,
-              orientation = pov.color
-            ),
-            root = root,
-            tags = Tags.empty,
-            order = 1,
-            ownerId = user.id,
-            practice = false,
-            gamebook = false,
-            conceal = None
-          )
-          Study.WithChapter(study withChapter chapter, chapter)
-      } addEffect { swc =>
-        chapterMaker.notifyChat(swc.study, pov.game, user.id)
-      }
+  ): Fu[Study.WithChapter] = {
+    for {
+      root <- chapterMaker.game2root(pov.game, initialFen)
+      tags <- pgnDump.tags(pov.game, initialFen, none, withOpening = true)
+      name <- Namer.gameVsText(pov.game, withRatings = false)(lightUserApi.async) dmap Chapter.Name.apply
+      study = Study.make(user, Study.From.Game(pov.gameId), data.id, Study.Name("Game study").some)
+      chapter = Chapter.make(
+        studyId = study.id,
+        name = name,
+        setup = Chapter.Setup(
+          gameId = pov.gameId.some,
+          variant = pov.game.variant,
+          orientation = pov.color
+        ),
+        root = root,
+        tags = PgnTags(tags),
+        order = 1,
+        ownerId = user.id,
+        practice = false,
+        gamebook = false,
+        conceal = None
+      )
+    } yield {
+      Study.WithChapter(study withChapter chapter, chapter)
     }
+  } addEffect { swc =>
+    chapterMaker.notifyChat(swc.study, pov.game, user.id)
+  }
 }
 
 object StudyMaker {
 
   case class ImportGame(
-      form: DataForm.importGame.Data = DataForm.importGame.Data(),
+      form: StudyForm.importGame.Data = StudyForm.importGame.Data(),
       id: Option[Study.Id] = None,
       name: Option[Study.Name] = None,
       settings: Option[Settings] = None,

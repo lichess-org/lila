@@ -1,8 +1,9 @@
 package lila.user
 
+import chess.Speed
 import org.joda.time.DateTime
 
-import chess.Speed
+import lila.common.Heapsort.implicits._
 import lila.db.BSON
 import lila.rating.{ Glicko, Perf, PerfType }
 
@@ -22,7 +23,8 @@ case class Perfs(
     rapid: Perf,
     classical: Perf,
     correspondence: Perf,
-    puzzle: Perf
+    puzzle: Perf,
+    storm: Perf.Storm
 ) {
 
   def perfs =
@@ -59,12 +61,14 @@ case class Perfs(
     }
   }
 
+  implicit private val ratingOrdering = Ordering.by[(PerfType, Perf), Int](_._2.intRating)
+
   def bestPerfs(nb: Int): List[(PerfType, Perf)] = {
     val ps = PerfType.nonPuzzle map { pt =>
       pt -> apply(pt)
     }
     val minNb = math.max(1, ps.foldLeft(0)(_ + _._2.nb) / 15)
-    ps.filter(p => p._2.nb >= minNb).sortBy(-_._2.intRating) take nb
+    ps.filter(p => p._2.nb >= minNb).topN(nb)
   }
 
   def bestPerfType: Option[PerfType] = bestPerf.map(_._1)
@@ -97,10 +101,9 @@ case class Perfs(
   def bestProgress: Int = bestProgressIn(PerfType.leaderboardable)
 
   def bestProgressIn(types: List[PerfType]): Int =
-    types.foldLeft(0) {
-      case (max, t) =>
-        val p = apply(t).progress
-        if (p > max) p else max
+    types.foldLeft(0) { case (max, t) =>
+      val p = apply(t).progress
+      if (p > max) p else max
     }
 
   lazy val perfsMap: Map[String, Perf] = Map(
@@ -148,15 +151,15 @@ case class Perfs(
     }
 
   def inShort =
-    perfs map {
-      case (name, perf) => s"$name:${perf.intRating}"
+    perfs map { case (name, perf) =>
+      s"$name:${perf.intRating}"
     } mkString ", "
 
   def updateStandard =
     copy(
       standard = {
-        val subs = List(bullet, blitz, rapid, classical, correspondence)
-        subs.maxBy(_.latest.fold(0L)(_.getMillis)).latest.fold(standard) { date =>
+        val subs = List(bullet, blitz, rapid, classical, correspondence).filterNot(_.provisional)
+        subs.maxByOption(_.latest.fold(0L)(_.getMillis)).flatMap(_.latest).fold(standard) { date =>
           val nb = subs.map(_.nb).sum
           val glicko = Glicko(
             rating = subs.map(s => s.glicko.rating * (s.nb / nb.toDouble)).sum,
@@ -185,7 +188,7 @@ case object Perfs {
 
   val default = {
     val p = Perf.default
-    Perfs(p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p)
+    Perfs(p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, Perf.Storm.default)
   }
 
   val defaultManaged = {
@@ -248,7 +251,8 @@ case object Perfs {
         rapid = perf("rapid"),
         classical = perf("classical"),
         correspondence = perf("correspondence"),
-        puzzle = perf("puzzle")
+        puzzle = perf("puzzle"),
+        storm = r.getO[Perf.Storm]("storm") getOrElse Perf.Storm.default
       )
     }
 
@@ -271,7 +275,8 @@ case object Perfs {
         "rapid"          -> notNew(o.rapid),
         "classical"      -> notNew(o.classical),
         "correspondence" -> notNew(o.correspondence),
-        "puzzle"         -> notNew(o.puzzle)
+        "puzzle"         -> notNew(o.puzzle),
+        "storm"          -> (o.storm.nonEmpty option o.storm)
       )
   }
 

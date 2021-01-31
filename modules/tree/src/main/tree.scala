@@ -1,18 +1,18 @@
 package lila.tree
 
-import play.api.libs.json._
-
+import chess.Centis
 import chess.format.pgn.{ Glyph, Glyphs }
-import chess.format.{ Uci, UciCharPair }
+import chess.format.{ FEN, Uci, UciCharPair }
 import chess.opening.FullOpening
 import chess.Pos
 import chess.variant.Crazyhouse
+import play.api.libs.json._
 
-import chess.Centis
+import lila.common.Json._
 
 sealed trait Node {
   def ply: Int
-  def fen: String
+  def fen: FEN
   def check: Boolean
   // None when not computed yet
   def dests: Option[Map[Pos, List[Pos]]]
@@ -36,7 +36,7 @@ sealed trait Node {
   def moveOption: Option[Uci.WithSan]
 
   // who's color plays next
-  def color = chess.Color(ply % 2 == 0)
+  def color = chess.Color.fromPly(ply)
 
   def mainlineNodeList: List[Node] =
     dropFirstChild :: children.headOption.fold(List.empty[Node])(_.mainlineNodeList)
@@ -44,7 +44,7 @@ sealed trait Node {
 
 case class Root(
     ply: Int,
-    fen: String,
+    fen: FEN,
     check: Boolean,
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]] = None,
@@ -74,7 +74,7 @@ case class Branch(
     id: UciCharPair,
     ply: Int,
     move: Uci.WithSan,
-    fen: String,
+    fen: FEN,
     check: Boolean,
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]] = None,
@@ -131,7 +131,7 @@ object Node {
   object Comment {
     case class Id(value: String) extends AnyVal
     object Id {
-      def make = Id(scala.util.Random.alphanumeric take 4 mkString)
+      def make = Id(lila.common.ThreadLocalRandom nextString 4)
     }
     private val metaReg = """\[%[^\]]+\]""".r
     case class Text(value: String) extends AnyVal {
@@ -154,7 +154,7 @@ object Node {
           .replaceAll("""\r\n""", "\n") // these 3 lines dedup white spaces and new lines
           .replaceAll("""(?m)(^ *| +(?= |$))""", "")
           .replaceAll("""(?m)^$([\n]+?)(^$[\n]+?^)+""", "$1")
-          .replaceAll("\\{|\\}", "") // {} are reserved in PGN comments
+          .replaceAll("[{}]", "") // {} are reserved in PGN comments
       }
   }
   case class Comments(value: List[Comment]) extends AnyVal {
@@ -303,7 +303,7 @@ object Node {
           .add("forceVariation", forceVariation)
       } catch {
         case e: StackOverflowError =>
-          e.printStackTrace
+          e.printStackTrace()
           sys error s"### StackOverflowError ### in tree.makeNodeJsonWriter($alwaysChildren)"
       }
     }
@@ -311,12 +311,11 @@ object Node {
   def destString(dests: Map[Pos, List[Pos]]): String = {
     val sb    = new java.lang.StringBuilder(80)
     var first = true
-    dests foreach {
-      case (orig, dests) =>
-        if (first) first = false
-        else sb append " "
-        sb append orig.piotr
-        dests foreach { sb append _.piotr }
+    dests foreach { case (orig, dests) =>
+      if (first) first = false
+      else sb append " "
+      sb append orig.piotr
+      dests foreach { sb append _.piotr }
     }
     sb.toString
   }

@@ -47,40 +47,37 @@ final class SwissStatsApi(
     colls.swiss.byId[Swiss](id.value) flatMap {
       _.filter(_.nbPlayers > 0).fold(fuccess(SwissStats())) { swiss =>
         sheetApi
-          .source(swiss)
-          .toMat(Sink.fold(SwissStats()) {
-            case (stats, (player, pairings, sheet)) =>
-              pairings.values.foldLeft((0, 0, 0, 0)) {
-                case ((games, whiteWins, blackWins, draws), pairing) =>
+          .source(swiss, sort = $empty)
+          .toMat(Sink.fold(SwissStats()) { case (stats, (player, pairings, sheet)) =>
+            pairings.values.foldLeft((0, 0, 0, 0)) { case ((games, whiteWins, blackWins, draws), pairing) =>
+              (
+                games + 1,
+                whiteWins + pairing.whiteWins.??(1),
+                blackWins + pairing.blackWins.??(1),
+                draws + pairing.isDraw.??(1)
+              )
+            } match {
+              case (games, whiteWins, blackWins, draws) =>
+                sheet.outcomes.foldLeft((0, 0)) { case ((byes, absences), outcome) =>
                   (
-                    games + 1,
-                    whiteWins + pairing.whiteWins.??(1),
-                    blackWins + pairing.blackWins.??(1),
-                    draws + pairing.isDraw.??(1)
+                    byes + (outcome == SwissSheet.Bye).??(1),
+                    absences + (outcome == SwissSheet.Absent).??(1)
                   )
-              } match {
-                case (games, whiteWins, blackWins, draws) =>
-                  sheet.outcomes.foldLeft((0, 0)) {
-                    case ((byes, absences), outcome) =>
-                      (
-                        byes + (outcome == SwissSheet.Bye).??(1),
-                        absences + (outcome == SwissSheet.Absent).??(1)
-                      )
-                  } match {
-                    case (byes, absences) =>
-                      stats.copy(
-                        games = stats.games + games,
-                        whiteWins = stats.whiteWins + whiteWins,
-                        blackWins = stats.blackWins + blackWins,
-                        draws = stats.draws + draws,
-                        byes = stats.byes + byes,
-                        absences = stats.absences + absences,
-                        averageRating = stats.averageRating + player.rating
-                      )
-                  }
-              }
+                } match {
+                  case (byes, absences) =>
+                    stats.copy(
+                      games = stats.games + games,
+                      whiteWins = stats.whiteWins + whiteWins,
+                      blackWins = stats.blackWins + blackWins,
+                      draws = stats.draws + draws,
+                      byes = stats.byes + byes,
+                      absences = stats.absences + absences,
+                      averageRating = stats.averageRating + player.rating
+                    )
+                }
+            }
           })(Keep.right)
-          .run
+          .run()
           .dmap { s => s.copy(games = s.games / 2, averageRating = s.averageRating / swiss.nbPlayers) }
       }
     }

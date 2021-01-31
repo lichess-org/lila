@@ -6,7 +6,7 @@
   <string name="averageScoreAsBlackX">Puntuació mitja amb negres: %s</string>
   <string name="knowingTheChessBoard">Saber les coordenades del tauler és una habilitat important:</string>
   <string name="mostChessCourses">La majoria de cursos i exercicis usa la notació algebraica de forma extensiva.</string>
-  <string name="talkToYourChessFriends">Facilita parlar amb els teus amics dels escacs, ja que tots n’enteneu l’idioma.</string>
+  <string name="talkToYourChessFriends">Facilita la comunicació amb altres jugadors, ja que tots enteneu l’«idioma dels escacs».</string>
   <string name="youCanAnalyseAGameMoreEffectively">Pots analitzar un joc de forma més eficient si en pots reconèixer ràpidament les coordenades.</string>
   <string name="aSquareNameAppears">Una coordenada apareix en el tauler i has de clicar-nenla casella corresponent. Tens 30 segons per mapejar correctament el màxim de caselles possible!</string>
   <string name="startTraining">Comença l\'entrenament</string>

@@ -1,8 +1,8 @@
-const fs = require('fs-extra');
+const fs = require('fs').promises;
 const parseString = require('xml2js').parseString;
 
 const baseDir = 'translation/source';
-const dbs = 'site arena emails learn activity coordinates study clas contact patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss'.split(' ');
+const dbs = 'site arena emails learn activity coordinates study clas contact patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme challenge storm'.split(' ');
 
 function ucfirst(s) {
   return s.charAt(0).toUpperCase() + s.slice(1);
@@ -42,5 +42,5 @@ ${objs.map(dbCode).join('\n')}
 }
 `;
 
-  fs.writeFile('modules/i18n/src/main/I18nKeys.scala', code);
+  return fs.writeFile('modules/i18n/src/main/I18nKeys.scala', code);
 });

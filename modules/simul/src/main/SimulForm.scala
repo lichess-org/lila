@@ -1,12 +1,15 @@
 package lila.simul
 
+import cats.implicits._
+import chess.format.FEN
+import chess.StartingPosition
 import play.api.data._
 import play.api.data.Forms._
-import play.api.data.validation.{ Constraint, Constraints }
-import lila.user.User
+import play.api.data.validation.Constraint
 
-import chess.StartingPosition
 import lila.common.Form._
+import lila.hub.LeaderTeam
+import lila.user.User
 
 object SimulForm {
 
@@ -31,13 +34,7 @@ object SimulForm {
   val colorDefault = "white"
 
   private def nameType(host: User) =
-    text.verifying(
-      Constraints minLength 2,
-      Constraints maxLength 40,
-      Constraints.pattern(
-        regex = """[\p{L}\p{N}-\s:,;]+""".r,
-        error = "error.unknown"
-      ),
+    eventName(2, 40).verifying(
       Constraint[String] { (t: String) =>
         if (t.toLowerCase contains "lichess")
           validation.Invalid(validation.ValidationError("Must not contain \"lichess\""))
@@ -46,11 +43,10 @@ object SimulForm {
       Constraint[String] { (t: String) =>
         if (
           t.toUpperCase.split(' ').exists { word =>
-            lila.user.Title.all.exists {
-              case (title, name) =>
-                !host.title.has(title) && {
-                  title.value == word || name.toUpperCase == word
-                }
+            lila.user.Title.all.exists { case (title, name) =>
+              !host.title.has(title) && {
+                title.value == word || name.toUpperCase == word
+              }
             }
           }
         )
@@ -59,7 +55,35 @@ object SimulForm {
       }
     )
 
-  def create(host: User) =
+  def create(host: User, teams: List[LeaderTeam]) =
+    baseForm(host, teams) fill Setup(
+      name = host.titleUsername,
+      clockTime = clockTimeDefault,
+      clockIncrement = clockIncrementDefault,
+      clockExtra = clockExtraDefault,
+      variants = List(chess.variant.Standard.id),
+      position = none,
+      color = colorDefault,
+      text = "",
+      team = none,
+      featured = host.hasTitle.some
+    )
+
+  def edit(host: User, teams: List[LeaderTeam], simul: Simul) =
+    baseForm(host, teams) fill Setup(
+      name = simul.name,
+      clockTime = simul.clock.config.limitInMinutes.toInt,
+      clockIncrement = simul.clock.config.increment.roundSeconds,
+      clockExtra = simul.clock.hostExtraMinutes,
+      variants = simul.variants.map(_.id),
+      position = simul.position,
+      color = simul.color | "random",
+      text = simul.text,
+      team = simul.team,
+      featured = host.hasTitle.some
+    )
+
+  private def baseForm(host: User, teams: List[LeaderTeam]) =
     Form(
       mapping(
         "name"           -> nameType(host),
@@ -81,21 +105,12 @@ object SimulForm {
             ) contains _
           )
         }.verifying("At least one variant", _.nonEmpty),
-        "position" -> optional(nonEmptyText),
+        "position" -> optional(lila.common.Form.fen.playableStrict),
         "color"    -> stringIn(colorChoices),
-        "text"     -> text,
-        "team"     -> optional(nonEmptyText)
+        "text"     -> cleanText,
+        "team"     -> optional(nonEmptyText.verifying(id => teams.exists(_.id == id))),
+        "featured" -> optional(boolean)
       )(Setup.apply)(Setup.unapply)
-    ) fill Setup(
-      name = host.titleUsername,
-      clockTime = clockTimeDefault,
-      clockIncrement = clockIncrementDefault,
-      clockExtra = clockExtraDefault,
-      variants = List(chess.variant.Standard.id),
-      position = StartingPosition.initial.fen.some,
-      color = colorDefault,
-      text = "",
-      team = none
     )
 
   val positions = StartingPosition.allWithInitial.map(_.fen)
@@ -103,9 +118,6 @@ object SimulForm {
     p.fen -> p.fullName
   }
   val positionDefault = StartingPosition.initial.fen
-
-  def startingPosition(fen: String, variant: chess.variant.Variant): StartingPosition =
-    Simul.fenIndex.get(fen).ifTrue(variant.standard) | StartingPosition.initial
 
   def setText = Form(single("text" -> text))
 
@@ -115,9 +127,20 @@ object SimulForm {
       clockIncrement: Int,
       clockExtra: Int,
       variants: List[Int],
-      position: Option[String],
+      position: Option[FEN],
       color: String,
       text: String,
-      team: Option[String]
-  )
+      team: Option[String],
+      featured: Option[Boolean]
+  ) {
+    def clock =
+      SimulClock(
+        config = chess.Clock.Config(clockTime * 60, clockIncrement),
+        hostExtraTime = clockExtra * 60
+      )
+
+    def actualVariants = variants.flatMap { chess.variant.Variant(_) }
+
+    def realPosition = position.filterNot(_.initial)
+  }
 }

@@ -1,11 +1,12 @@
 package lila.study
 
+import actorApi.Who
+import cats.data.Validated
+import chess.Centis
+import chess.format.pgn.{ Glyph, Glyphs }
 import play.api.libs.json._
 import scala.concurrent.duration._
 
-import actorApi.Who
-import chess.Centis
-import chess.format.pgn.{ Glyph, Glyphs }
 import lila.common.Bus
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
@@ -231,7 +232,7 @@ final private class StudySocket(
 
   private def moveOrDrop(studyId: Study.Id, m: AnaAny, opts: MoveOpts)(who: Who) =
     m.branch match {
-      case scalaz.Success(branch) if branch.ply < Node.MAX_PLIES =>
+      case Validated.Valid(branch) if branch.ply < Node.MAX_PLIES =>
         m.chapterId.ifTrue(opts.write) foreach { chapterId =>
           api.addNode(
             studyId,
@@ -313,10 +314,9 @@ final private class StudySocket(
         "w" -> who
       )
     )
-  def reloadMembers(members: StudyMembers)(studyId: Study.Id) = {
-    version("members", members)
-    send(RP.Out.tellRoomUsers(studyId, members.ids, makeMessage("reload")))
-  }
+  def reloadMembers(members: StudyMembers, sendTo: Iterable[User.ID])(studyId: Study.Id) =
+    send(RP.Out.tellRoomUsers(studyId, sendTo, makeMessage("members", members)))
+
   def setComment(pos: Position.Ref, comment: Comment, who: Who) =
     version(
       "setComment",
@@ -413,7 +413,6 @@ final private class StudySocket(
   private val InviteLimitPerUser = new lila.memo.RateLimit[User.ID](
     credits = 50,
     duration = 24 hour,
-    name = "study invites per user",
     key = "study_invite.user"
   )
 

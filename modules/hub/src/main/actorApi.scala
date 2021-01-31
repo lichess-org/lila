@@ -10,7 +10,6 @@ import scala.concurrent.Promise
 case class Announce(msg: String, date: DateTime, json: JsObject)
 
 package streamer {
-  case class StreamsOnAir(html: String)
   case class StreamStart(userId: String)
 }
 
@@ -47,7 +46,7 @@ package clas {
 
 package report {
   case class Cheater(userId: String, text: String)
-  case class Shutup(userId: String, text: String, major: Boolean)
+  case class Shutup(userId: String, text: String)
   case class Booster(winnerId: String, loserId: String)
   case class AutoFlag(suspectId: String, resource: String, text: String)
   case class CheatReportCreated(userId: String)
@@ -61,6 +60,10 @@ package security {
 
 package msg {
   case class SystemMsg(userId: String, text: String)
+}
+
+package storm {
+  case class StormRun(userId: String, score: Int)
 }
 
 package shutup {
@@ -100,11 +103,6 @@ package captcha {
   case object AnyCaptcha
   case class GetCaptcha(id: String)
   case class ValidCaptcha(id: String, solution: String)
-}
-
-package lobby {
-  case class ReloadTournaments(html: String)
-  case class ReloadSimuls(html: String)
 }
 
 package simul {
@@ -191,11 +189,6 @@ package timeline {
     def modsOnly(value: Boolean)    = add(ModsOnly(value))
     private def add(p: Propagation) = copy(propagations = p :: propagations)
   }
-}
-
-package game {
-  case class ChangeFeatured(id: String, msg: JsObject)
-  case object Count
 }
 
 package tv {

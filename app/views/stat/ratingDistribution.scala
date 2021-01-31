@@ -20,7 +20,7 @@ object ratingDistribution {
       wrapClass = "full-screen-force",
       moreJs = frag(
         jsTag("chart/ratingDistribution.js"),
-        embedJsUnsafe(s"""lichess.ratingDistributionChart(${safeJsonValue(
+        embedJsUnsafeLoadThen(s"""lichess.ratingDistributionChart(${safeJsonValue(
           Json.obj(
             "freq"     -> data,
             "myRating" -> ctx.me.map(_.perfs(perfType).intRating),

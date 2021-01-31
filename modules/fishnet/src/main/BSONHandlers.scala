@@ -1,7 +1,6 @@
 package lila.fishnet
 
 import lila.db.dsl._
-import lila.game.BSONHandlers.FENBSONHandler
 import reactivemongo.api.bson._
 
 import chess.variant.Variant
@@ -17,10 +16,6 @@ private object BSONHandlers {
     { case BSONString(v) => Client.Skill byKey v toTry s"Invalid client skill $v" },
     x => BSONString(x.key)
   )
-
-  import Client.{ Engine, Engines }
-  implicit val EngineBSONHandler  = Macros.handler[Engine]
-  implicit val EnginesBSONHandler = Macros.handler[Engines]
 
   import Client.Instance
   implicit val InstanceBSONHandler = Macros.handler[Instance]

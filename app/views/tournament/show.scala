@@ -19,14 +19,14 @@ object show {
       verdicts: lila.tournament.Condition.All.WithVerdicts,
       data: play.api.libs.json.JsObject,
       chatOption: Option[lila.chat.UserChat.Mine],
-      streamers: Set[User.ID],
+      streamers: List[User.ID],
       shieldOwner: Option[lila.tournament.TournamentShield.OwnerId]
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = s"${tour.name()} #${tour.id}",
       moreJs = frag(
-        jsAt(s"compiled/lichess.tournament${isProd ?? ".min"}.js"),
-        embedJsUnsafe(s"""lichess=lichess||{};lichess.tournament=${safeJsonValue(
+        jsModule("tournament"),
+        embedJsUnsafeLoadThen(s"""LichessTournament(${safeJsonValue(
           Json.obj(
             "data"   -> data,
             "i18n"   -> bits.jsI18n,
@@ -37,11 +37,12 @@ object show {
                 name = trans.chatRoom.txt(),
                 timeout = c.timeout,
                 public = true,
-                resourceId = lila.chat.Chat.ResourceId(s"tournament/${c.chat.id}")
+                resourceId = lila.chat.Chat.ResourceId(s"tournament/${c.chat.id}"),
+                localMod = ctx.userId has tour.createdBy
               )
             }
           )
-        )}""")
+        )})""")
       ),
       moreCss = cssTag {
         if (tour.isTeamBattle) "tournament.show.team-battle"

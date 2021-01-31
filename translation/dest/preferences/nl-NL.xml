@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Verplaats de koning twee velden</string>
   <string name="castleByMovingOntoTheRook">Verplaats de koning naar de toren</string>
   <string name="inputMovesWithTheKeyboard">Zetten invoeren met het toetsenbord</string>
+  <string name="snapArrowsToValidMoves">Geldige zetten markeren met pijlen</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Zeg \"Goede partij, goed gespeeld\" bij verlies of remise</string>
   <string name="yourPreferencesHaveBeenSaved">Uw voorkeuren werden opgeslagen.</string>
 </resources>

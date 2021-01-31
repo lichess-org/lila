@@ -2,7 +2,7 @@ package lila.slack
 
 import org.joda.time.DateTime
 
-import lila.common.{ ApiVersion, EmailAddress, IpAddress, LightUser }
+import lila.common.{ ApiVersion, EmailAddress, Heapsort, IpAddress, LightUser }
 import lila.hub.actorApi.slack._
 import lila.user.User
 
@@ -20,6 +20,8 @@ final class SlackApi(
 
     private var buffer: Vector[ChargeEvent] = Vector.empty
 
+    implicit private val amountOrdering = Ordering.by[ChargeEvent, Int](_.amount)
+
     def apply(event: ChargeEvent): Funit =
       if (event.amount < 10000) addToBuffer(event)
       else
@@ -29,9 +31,12 @@ final class SlackApi(
 
     private def addToBuffer(event: ChargeEvent): Funit = {
       buffer = buffer :+ event
-      (buffer.head.date isBefore DateTime.now.minusHours(6)) ?? {
-        val patrons   = buffer map (_.username) map userAt mkString ", "
+      (buffer.head.date isBefore DateTime.now.minusHours(12)) ?? {
+        val firsts    = Heapsort.topN(buffer, 10, amountOrdering).map(_.username).map(userAt).mkString(", ")
         val amountSum = buffer.map(_.amount).sum
+        val patrons =
+          if (firsts.lengthIs > 10) s"$firsts and, like, ${firsts.length - 10} others,"
+          else firsts
         displayMessage {
           s"$patrons donated ${amount(amountSum)}. Monthly progress: ${buffer.last.percent}%"
         } >>- {
@@ -54,7 +59,7 @@ final class SlackApi(
       if (username == "Anonymous") "Anonymous"
       else s"@$username"
 
-    private def amount(cents: Int) = s"$$${BigDecimal(cents, 2)}"
+    private def amount(cents: Int) = s"$$${BigDecimal(cents.toLong, 2)}"
   }
 
   def publishEvent(event: Event): Funit =
@@ -99,6 +104,20 @@ final class SlackApi(
             icon = "scroll",
             text = s":$icon: ${linkifyUsers(text)}",
             channel = "tavern-monitor"
+          )
+        )
+      }
+    }
+
+  def logMod(modId: User.ID, icon: String, text: String): Funit =
+    lightUser(modId) flatMap {
+      _ ?? { mod =>
+        client(
+          SlackMessage(
+            username = mod.name,
+            icon = "scroll",
+            text = s":$icon: ${linkifyUsers(text)}",
+            channel = "tavern-log"
           )
         )
       }
@@ -225,8 +244,8 @@ final class SlackApi(
           SlackMessage(
             username = mod.username,
             icon = "spiral_note_pad",
-            text = (s"_*${userLink(user.username)}*_ (${userNotesLink(user.username)}):\n" +
-              linkifyUsers(note.text take 2000)),
+            text = s"_*${userLink(user.username)}*_ (${userNotesLink(user.username)}):\n" +
+              linkifyUsers(note.text take 2000),
             channel = rooms.tavern
           )
       } flatMap client.apply

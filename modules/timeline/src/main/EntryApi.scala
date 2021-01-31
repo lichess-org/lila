@@ -37,7 +37,8 @@ final class EntryApi(
         projection.some
       )
       .sort($sort desc "date")
-      .vector[Entry](max.value, ReadPreference.secondaryPreferred)
+      .cursor[Entry](ReadPreference.secondaryPreferred)
+      .vector(max.value)
 
   def findRecent(typ: String, since: DateTime, max: Max) =
     coll
@@ -46,7 +47,8 @@ final class EntryApi(
         projection.some
       )
       .sort($sort desc "date")
-      .vector[Entry](max.value, ReadPreference.secondaryPreferred)
+      .cursor[Entry](ReadPreference.secondaryPreferred)
+      .vector(max.value)
 
   def channelUserIdRecentExists(channel: String, userId: User.ID): Fu[Boolean] =
     coll.countSel(
@@ -81,7 +83,7 @@ final class EntryApi(
     }
 
     private def fetch: Fu[Vector[Entry]] =
-      coll.ext
+      coll
         .find(
           $doc(
             "users" $exists false,
@@ -89,7 +91,8 @@ final class EntryApi(
           )
         )
         .sort($sort desc "date")
-        .vector[Entry](3, ReadPreference.primary) // must be on primary for cache refresh to work
+        .cursor[Entry](ReadPreference.primary) // must be on primary for cache refresh to work
+        .vector(3)
 
     private[EntryApi] def interleave(entries: Vector[Entry]): Fu[Vector[Entry]] =
       cache.getUnit map { bcs =>
@@ -107,6 +110,6 @@ final class EntryApi(
         }
       }
 
-    def insert(atom: Atom): Funit = coll.insert.one(Entry make atom).void >>- cache.invalidateUnit
+    def insert(atom: Atom): Funit = coll.insert.one(Entry make atom).void >>- cache.invalidateUnit()
   }
 }

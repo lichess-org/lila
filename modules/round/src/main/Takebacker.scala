@@ -21,7 +21,8 @@ final private class Takebacker(
   )(pov: Pov)(implicit proxy: GameProxy): Fu[(Events, TakebackSituation)] =
     IfAllowed(pov.game) {
       pov match {
-        case Pov(game, color) if pov.opponent.isProposingTakeback => {
+        case Pov(game, color) if pov.opponent.isProposingTakeback =>
+          {
             if (
               pov.opponent.proposeTakebackAt == pov.game.turns && color == Color
                 .fromPly(pov.opponent.proposeTakebackAt)
@@ -30,7 +31,8 @@ final private class Takebacker(
           } dmap (_ -> situation.reset)
         case Pov(game, _) if pov.game.playableByAi => single(game) dmap (_ -> situation)
         case Pov(game, _) if pov.opponent.isAi     => double(game) dmap (_ -> situation)
-        case Pov(game, color) if (game playerCanProposeTakeback color) && situation.offerable => {
+        case Pov(game, color) if (game playerCanProposeTakeback color) && situation.offerable =>
+          {
             messenger.system(game, trans.takebackPropositionSent.txt())
             val progress = Progress(game) map { g =>
               g.updatePlayer(color, _ proposeTakeback g.turns)
@@ -51,7 +53,7 @@ final private class Takebacker(
             g.updatePlayer(color, _.removeTakebackProposition)
           }
         } inject {
-          List(Event.TakebackOffers(false, false)) -> situation.decline
+          List(Event.TakebackOffers(white = false, black = false)) -> situation.decline
         }
       case Pov(game, color) if pov.opponent.isProposingTakeback =>
         proxy.save {
@@ -60,7 +62,7 @@ final private class Takebacker(
             g.updatePlayer(!color, _.removeTakebackProposition)
           }
         } inject {
-          List(Event.TakebackOffers(false, false)) -> situation.decline
+          List(Event.TakebackOffers(white = false, black = false)) -> situation.decline
         }
       case _ => fufail(ClientError("[takebacker] invalid no " + pov))
     }
@@ -99,7 +101,7 @@ final private class Takebacker(
   private def single(game: Game)(implicit proxy: GameProxy): Fu[Events] =
     for {
       fen      <- gameRepo initialFen game
-      progress <- Rewind(game, fen).future
+      progress <- Rewind(game, fen).toFuture
       _        <- fuccess { uciMemo.drop(game, 1) }
       events   <- saveAndNotify(progress)
     } yield events
@@ -107,8 +109,8 @@ final private class Takebacker(
   private def double(game: Game)(implicit proxy: GameProxy): Fu[Events] =
     for {
       fen   <- gameRepo initialFen game
-      prog1 <- Rewind(game, fen).future
-      prog2 <- Rewind(prog1.game, fen).future dmap { progress =>
+      prog1 <- Rewind(game, fen).toFuture
+      prog2 <- Rewind(prog1.game, fen).toFuture dmap { progress =>
         prog1 withGame progress.game
       }
       _      <- fuccess { uciMemo.drop(game, 2) }

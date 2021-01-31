@@ -24,7 +24,7 @@ final class RevolutionApi(
   private val cache = cacheApi.unit[PerOwner] {
     _.refreshAfterWrite(1 day)
       .buildAsyncFuture { _ =>
-        tournamentRepo.coll.ext
+        tournamentRepo.coll
           .find(
             $doc(
               "schedule.freq" -> scheduleFreqHandler.writeTry(Schedule.Freq.Unique).get,
@@ -32,9 +32,10 @@ final class RevolutionApi(
               "name" $regex Revolution.namePattern,
               "status" -> statusBSONHandler.writeTry(Status.Finished).get
             ),
-            $doc("winner" -> true, "variant" -> true)
+            $doc("winner" -> true, "variant" -> true).some
           )
-          .list[Bdoc](none, ReadPreference.secondaryPreferred) map { docOpt =>
+          .cursor[Bdoc](ReadPreference.secondaryPreferred)
+          .list() map { docOpt =>
           val awards =
             for {
               doc     <- docOpt

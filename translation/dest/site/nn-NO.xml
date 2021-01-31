@@ -9,6 +9,7 @@
   <string name="yourTurn">Ditt trekk</string>
   <string name="aiNameLevelAiLevel">%1$s på nivå %2$s</string>
   <string name="level">Nivå</string>
+  <string name="strength">Styrke</string>
   <string name="toggleTheChat">Chat av/på</string>
   <string name="toggleSound">Lyd av/på</string>
   <string name="chat">Praterom</string>
@@ -129,7 +130,7 @@
     <item quantity="one">%s spelar</item>
     <item quantity="other">%s spelarar</item>
   </plurals>
-  <string name="currentGames">Pågåande parti</string>
+  <string name="currentGames">Parti som blir spela no</string>
   <plurals name="nbGames">
     <item quantity="one">%s parti</item>
     <item quantity="other">%s parti</item>
@@ -199,7 +200,8 @@
     <item quantity="other">%s parti med deg</item>
   </plurals>
   <string name="cancel">Avbryt</string>
-  <string name="timeOut">Tida er ute</string>
+  <string name="whiteTimeOut">Tida er ute for kvit</string>
+  <string name="blackTimeOut">Tida er ute for svart</string>
   <string name="drawOfferSent">Tilbod om remis er sendt</string>
   <string name="drawOfferDeclined">Remistilbod avslått</string>
   <string name="drawOfferAccepted">Remistilbod godtatt</string>
@@ -382,7 +384,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="more">Meir</string>
   <string name="memberSince">Medlem sidan</string>
   <string name="lastSeenActive">Siste innlogging %s</string>
-  <string name="challengeToPlay">Utfordra til eit parti</string>
   <string name="player">Spelar</string>
   <string name="list">Liste</string>
   <string name="graph">Graf</string>
@@ -447,6 +448,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="lastName">Etternamn</string>
   <string name="biography">Biografi</string>
   <string name="country">Land</string>
+  <string name="thankYou">Takk!</string>
   <string name="socialMediaLinks">Lenker til sosiale media</string>
   <string name="inlineNotation">Innbygd notasjon</string>
   <string name="watchLichessTV">Sjå på Lichess TV</string>
@@ -455,34 +457,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="activeToday">Aktive i dag</string>
   <string name="activePlayers">Aktive spelarar</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Til informasjon, spelet er rata, men er ikkje tidsavgrensa!</string>
-  <string name="yourPuzzleRatingX">Problemløysar-ratinga di: %s</string>
-  <string name="findTheBestMoveForWhite">Finn beste trekket for kvit.</string>
-  <string name="findTheBestMoveForBlack">Finn beste trekket for svart.</string>
-  <string name="toTrackYourProgress">Finn ut kor stor framgang du har:</string>
-  <string name="puzzleId">Oppgåve %s</string>
-  <string name="puzzleOfTheDay">Dagens oppgåve</string>
-  <string name="clickToSolve">Trykk for å løysa oppgåva</string>
-  <string name="goodMove">Godt trekk</string>
-  <string name="butYouCanDoBetter">Men det finst betre trekk.</string>
-  <string name="bestMove">Beste trekk!</string>
-  <string name="keepGoing">Hald fram...</string>
-  <string name="puzzleFailed">Feil trekk</string>
-  <string name="butYouCanKeepTrying">Men du kan halda fram med å prøva.</string>
   <string name="success">Korrekt</string>
-  <string name="wasThisPuzzleAnyGood">Var dette ei god oppgåve?</string>
-  <string name="pleaseVotePuzzle">Gjer lichess betre ved  å stemma, bruk piltastar opp eller ned.</string>
-  <string name="thankYou">Takk!</string>
-  <string name="ratingX">Rating: %s</string>
-  <string name="hidden">skjult</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Spelt %s gong</item>
-    <item quantity="other">Spelt %s gonger</item>
-  </plurals>
-  <string name="fromGameLink">Frå partiet %s</string>
-  <string name="continueTraining">Hald fram å trena</string>
-  <string name="retryThisPuzzle">Prøv om att</string>
-  <string name="thisPuzzleIsCorrect">Denne oppgåva er korrekt og interessant</string>
-  <string name="thisPuzzleIsWrong">Denne oppgåva er feil eller keisam</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s parti pågår</item>
     <item quantity="other">%s parti pågår</item>
@@ -531,9 +506,12 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="currentPassword">Gjeldande passord</string>
   <string name="newPassword">Nytt passord</string>
   <string name="newPasswordAgain">Nytt passord (igjen)</string>
+  <string name="newPasswordsDontMatch">Dei nye passorda stemmer ikkje overreins</string>
+  <string name="newPasswordStrength">Passordstyrke</string>
   <string name="clockInitialTime">Starttid på klokka</string>
   <string name="clockIncrement">Inkrement</string>
   <string name="privacy">Privatsfære</string>
+  <string name="privacyPolicy">Personvernpolitikk</string>
   <string name="letOtherPlayersFollowYou">Lat andre spelarar fylgja deg</string>
   <string name="letOtherPlayersChallengeYou">Lat andre spelarar utfordra deg</string>
   <string name="letOtherPlayersInviteYouToStudy">Lat andre spelarar invitere til studium</string>
@@ -638,9 +616,9 @@ i %3$s</string>
   <string name="noSimulExplanation">Denne simultanframsyninga finst ikkje.</string>
   <string name="returnToSimulHomepage">Returner til simultanheimesida</string>
   <string name="aboutSimul">Simultanframsyning inneber at ein spelar møter fleire motspelarar samstundes.</string>
-  <string name="aboutSimulImage">Mot 50 motspelarar, vann Fischer 47 parti, spelte to remis og tapte eitt.</string>
+  <string name="aboutSimulImage">Mot 50 motspelarar, fekk Fischer 47 sigrar, to remisar og eit tap.</string>
   <string name="aboutSimulRealLife">Konseptet liknar på verkelege simultansjakkframsyningar, der verten for arrangementet går frå bord til bord og spelar mot fleire motstandarar samstundes.</string>
-  <string name="aboutSimulRules">Når simultanframsyninga startar, byrjar alle deltakarane eit parti mot verten som får spela med dei kvite brikkene. Simultanoppvisninga endar når alle partia er ferdigspelte.</string>
+  <string name="aboutSimulRules">Når simultanframsyninga byrjar, startar alle deltakarane eit parti mot den som er vert. Verten får spela med dei kvite brikkene. Simultanoppvisinga endar når alle partia er ferdigspelte.</string>
   <string name="aboutSimulSettings">Simultanframsyningar er alltid urangerte. Omstart, attendetrekk og \"meirtid\" er slått av.</string>
   <string name="create">Opprett</string>
   <string name="whenCreateSimul">Når du arrangerer ei simultanframsyning spelar du mot fleire motstandarar samstundes.</string>
@@ -682,6 +660,7 @@ i %3$s</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Hvis du ikkje ser e-posten, sjekk om den ligg i mappene spam, søppel, sosialt eller liknande.</string>
   <string name="weHaveSentYouAnEmailTo">Vi har sendt en e-post til %s. Trykk på lenka i e-posten for å attendestille passordet ditt.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ved å registrere deg godtek du å binda deg til våre %s.</string>
+  <string name="readAboutOur">Les om vår %s.</string>
   <string name="networkLagBetweenYouAndLichess">Nettverksforseinking mellom deg og lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tida det tar å handsama eit trekk på serveren</string>
   <string name="downloadAnnotated">Last ned kommentert</string>
@@ -760,7 +739,6 @@ i %3$s</string>
   <string name="error.unknown">Feil</string>
   <string name="custom">Tilpassa</string>
   <string name="notifications">Meldingar</string>
-  <string name="challenges">Utfordringar</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund til å ta det første trekket</item>
@@ -807,12 +785,6 @@ i %3$s</string>
   <string name="opening">Opning</string>
   <string name="middlegame">Midtspel</string>
   <string name="endgame">Sluttspel</string>
-  <string name="registerToSendChallenges">Opprett ein konto om du vil utforde andre.</string>
-  <string name="youCannotChallengeX">Du kan ikkje utfordre %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s tek ikkje i mot utfordringar.</string>
-  <string name="yourXRatingIsTooFarFromY">Din %1$s rating er for langt frå %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Kan ikkje utfordre på grunn av mellombels %s rating.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s tek berre mot utfordringar frå vener.</string>
   <string name="conditionalPremoves">Vilkårsbundne førehandstrekk</string>
   <string name="addCurrentVariation">Legg til gjeldande variant</string>
   <string name="playVariationToCreateConditionalPremoves">Spel ein variant for å lage vilkårsbundne førehandstrekk</string>

@@ -1,17 +1,17 @@
-import * as xhr from './xhr';
+import * as xhr from 'common/xhr';
 import notify from 'common/notification';
-import { Ctrl, ChallengeOpts, ChallengeData, ChallengeUser } from './interfaces';
-
-const li = window.lichess;
+import { Ctrl, ChallengeOpts, ChallengeData, ChallengeUser, Reasons } from './interfaces';
 
 export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => void): Ctrl {
 
   let trans = (key: string) => key;
   let redirecting = false;
+  let reasons: Reasons = {};
 
   function update(d: ChallengeData) {
     data = d;
-    if (d.i18n) trans = li.trans(d.i18n).noarg;
+    if (d.i18n) trans = lichess.trans(d.i18n).noarg;
+    if (d.reasons) reasons = d.reasons;
     opts.setCount(countActiveIn());
     notifyNew();
   }
@@ -22,12 +22,12 @@ export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => 
 
   function notifyNew() {
     data.in.forEach(c => {
-      if (li.once('c-' + c.id)) {
-        if (!li.quietMode && data.in.length <= 3) {
+      if (lichess.once('c-' + c.id)) {
+        if (!lichess.quietMode && data.in.length <= 3) {
           opts.show();
-          li.sound.newChallenge();
+          lichess.sound.play('newChallenge');
         }
-        const pushSubsribed = parseInt(li.storage.get('push-subscribed') || '0', 10) + 86400000 >= Date.now(); // 24h
+        const pushSubsribed = parseInt(lichess.storage.get('push-subscribed') || '0', 10) + 86400000 >= Date.now(); // 24h
         !pushSubsribed && c.challenger && notify(showUser(c.challenger) + ' challenges you!');
         opts.pulse();
       }
@@ -45,12 +45,16 @@ export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => 
   return {
     data: () => data,
     trans: () => trans,
+    reasons: () => reasons,
     update,
-    decline(id) {
+    decline(id, reason) {
       data.in.forEach(c => {
         if (c.id === id) {
           c.declined = true;
-          xhr.decline(id).fail(() => window.lichess.announce({msg: 'Failed to send challenge decline'}));
+          xhr.text(
+            `/challenge/${id}/decline`,
+            { method: 'post', body: xhr.form({reason}) }
+          ).catch(() => lichess.announce({ msg: 'Failed to send challenge decline' }));
         }
       });
     },
@@ -58,7 +62,10 @@ export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => 
       data.out.forEach(c => {
         if (c.id === id) {
           c.declined = true;
-          xhr.cancel(id).fail(() => window.lichess.announce({msg: 'Failed to send challenge cancellation'}));
+          xhr.text(
+            `/challenge/${id}/cancel`,
+            { method: 'post' }
+          ).catch(() => lichess.announce({ msg: 'Failed to send challenge cancellation' }));
         }
       });
     },

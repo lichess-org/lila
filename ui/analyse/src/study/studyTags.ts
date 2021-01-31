@@ -49,7 +49,7 @@ function renderPgnTags(chapter: StudyChapter, submit, types: string[], trans: Tr
             selectedType = el.value;
             el.addEventListener('change', _ => {
               selectedType = el.value;
-              $(el).parents('tr').find('input').focus();
+              $(el).parents('tr').find('input').each(function(this: HTMLInputElement) { this.focus() });
             });
           },
           postpatch: (_, vnode) => {
@@ -93,8 +93,8 @@ export function ctrl(root: AnalyseCtrl, getChapter: () => StudyChapter, types) {
   });
 
   return {
-    submit(name) {
-      return value => submit(name, value);
+    submit(name: string) {
+      return (value: string) => submit(name, value);
     },
     getChapter,
     types

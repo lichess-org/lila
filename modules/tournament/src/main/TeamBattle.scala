@@ -9,23 +9,36 @@ case class TeamBattle(
     teams: Set[TeamID],
     nbLeaders: Int
 ) {
-  def hasEnoughTeams     = teams.size > 1
+  def hasEnoughTeams     = teams.sizeIs > 1
   lazy val sortedTeamIds = teams.toList.sorted
+
+  def hasTooManyTeams = teams.sizeIs > TeamBattle.displayTeams
 }
 
 object TeamBattle {
+
+  val maxTeams     = 200
+  val displayTeams = 10
 
   def init(teamId: TeamID) = TeamBattle(Set(teamId), 5)
 
   case class TeamVs(teams: chess.Color.Map[TeamID])
 
-  case class RankedTeam(
-      rank: Int,
-      teamId: TeamID,
-      leaders: List[TeamLeader]
-  ) {
-    def magicScore = leaders.foldLeft(0)(_ + _.magicScore)
-    def score      = leaders.foldLeft(0)(_ + _.score)
+  class RankedTeam(
+      val rank: Int,
+      val teamId: TeamID,
+      val leaders: List[TeamLeader],
+      val score: Int
+  ) extends Ordered[RankedTeam] {
+    private def magicScore = leaders.foldLeft(0)(_ + _.magicScore)
+    def this(rank: Int, teamId: TeamID, leaders: List[TeamLeader]) =
+      this(rank, teamId, leaders, leaders.foldLeft(0)(_ + _.score))
+    def updateRank(newRank: Int) = new RankedTeam(newRank, teamId, leaders, score)
+    override def compare(that: RankedTeam) = {
+      if (this.score > that.score) -1
+      else if (this.score < that.score) 1
+      else that.magicScore - this.magicScore
+    }
   }
 
   case class TeamLeader(userId: User.ID, magicScore: Int) {
@@ -48,10 +61,10 @@ object TeamBattle {
       "teams"     -> nonEmptyText,
       "nbLeaders" -> number(min = 1, max = 20)
     )(Setup.apply)(Setup.unapply)
-      .verifying("We need at least 2 teams", s => s.potentialTeamIds.size > 1)
+      .verifying("We need at least 2 teams", s => s.potentialTeamIds.sizeIs > 1)
       .verifying(
-        "In this version of team battles, no more than 10 teams can be allowed.",
-        s => s.potentialTeamIds.size <= 10
+        s"In this version of team battles, no more than $maxTeams teams can be allowed.",
+        s => s.potentialTeamIds.sizeIs <= maxTeams
       )
 
     def edit(teams: List[String], nbLeaders: Int) =

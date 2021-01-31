@@ -1,11 +1,14 @@
-import { Outcome } from 'chessops/types';
+import PuzzleSession from './session';
+import { Api as CgApi } from 'chessground/api';
 import { CevalCtrl, NodeEvals } from 'ceval';
+import { Config as CgConfig } from 'chessground/config';
+import { Deferred } from 'common/defer';
+import { Outcome } from 'chessops/types';
 import { Prop } from 'common';
+import { Role, Move } from 'chessops/types';
+import { StoredBooleanProp } from 'common/storage';
 import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom/vnode';
-import { Api as CgApi } from 'chessground/api';
-import { Config as CgConfig } from 'chessground/config';
-import { Role, Move } from 'chessops/types';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -21,6 +24,14 @@ export interface KeyboardController {
   toggleThreatMode(): void;
   playBestMove(): void;
 }
+
+export type ThemeKey = string;
+export interface AllThemes {
+  dynamic: ThemeKey[];
+  static: Set<ThemeKey>;
+}
+
+export type PuzzleDifficulty = 'easiest' | 'easier' | 'normal' | 'harder' | 'hardest';
 
 export interface Controller extends KeyboardController {
   nextNodeBest(): string | undefined;
@@ -42,13 +53,16 @@ export interface Controller extends KeyboardController {
   makeCgOpts(): CgConfig;
   viewSolution(): void;
   nextPuzzle(): void;
-  recentHash(): string;
-  callToVote(): boolean;
-  thanks(): boolean;
   vote(v: boolean): void;
+  voteTheme(theme: ThemeKey, v: boolean): void;
   pref: PuzzlePrefs;
+  difficulty?: PuzzleDifficulty;
   userMove(orig: Key, dest: Key): void;
   promotion: any;
+  autoNext: StoredBooleanProp;
+  autoNexting: () => boolean;
+  session: PuzzleSession;
+  allThemes?: AllThemes;
 
   path?: Tree.Path;
   autoScrollRequested?: boolean;
@@ -59,10 +73,10 @@ export interface Vm {
   nodeList: Tree.Node[];
   node: Tree.Node;
   mainline: Tree.Node[];
+  pov: Color;
   mode: 'play' | 'view' | 'try';
-  loading: boolean;
-  round: any;
-  voted?: boolean | null;
+  round?: PuzzleRound;
+  next: Deferred<PuzzleData>;
   justPlayed?: Key;
   resultSent: boolean;
   lastFeedback: 'init' | 'fail' | 'win' | 'good' | 'retry';
@@ -71,6 +85,7 @@ export interface Vm {
   canViewSolution: boolean;
   autoScrollRequested: boolean;
   autoScrollNow: boolean;
+  voteDisabled?: boolean;
   cgConfig: CgConfig;
   showComputer(): boolean;
   showAutoShapes(): boolean;
@@ -80,7 +95,11 @@ export interface PuzzleOpts {
   pref: PuzzlePrefs;
   data: PuzzleData;
   i18n: { [key: string]: string | undefined };
-  element: HTMLElement;
+  difficulty?: PuzzleDifficulty;
+  themes?: {
+    dynamic: string;
+    static: string;
+  }
 }
 
 export interface PuzzlePrefs {
@@ -90,48 +109,80 @@ export interface PuzzlePrefs {
   rookCastle: boolean;
   moveEvent: number;
   highlight: boolean;
-  resizeHandle: number;
   animation: {
     duration: number;
   };
   blindfold: boolean;
 }
 
+export interface Theme {
+  key: ThemeKey;
+  name: string;
+  desc: string;
+  chapter?: string;
+}
+
 export interface PuzzleData {
   puzzle: Puzzle;
-  game: {
-    treeParts: Tree.Node[];
-  };
+  theme: Theme;
+  game: PuzzleGame;
   user: PuzzleUser | undefined;
-  voted: boolean | null | undefined;
+  replay?: PuzzleReplay;
+}
+
+export interface PuzzleReplay {
+  i: number;
+  of: number;
+  days: number;
+}
+
+export interface PuzzleGame {
+  id: string;
+  perf: {
+    icon: string;
+    name: string;
+  };
+  rated: boolean;
+  players: [PuzzlePlayer, PuzzlePlayer];
+  pgn: string;
+  clock: string;
+}
+
+export interface PuzzlePlayer {
+  userId: string;
+  name: string;
+  title?: string;
+  color: Color;
 }
 
 export interface PuzzleUser {
   rating: number;
-  recent: Array<[number, number, number]>;
+  provisional?: boolean;
 }
 
 export interface Puzzle {
-  id: number;
-  enabled: boolean;
-  vote: number;
-  color: Color;
-  lines: Lines;
-  branch: any;
+  id: string;
+  solution: Uci[];
+  rating: number;
+  plays: number;
+  initialPly: number;
+  themes: ThemeKey[];
+}
+
+export interface PuzzleResult {
+  round?: PuzzleRound;
+  next: PuzzleData;
+  replayComplete?: boolean;
+}
+
+export interface RoundThemes {
+  [key: string]: boolean;
 }
 
 export interface PuzzleRound {
-  user: PuzzleUser;
-  round?: {
-    ratingDiff: number;
-    win: boolean;
-  };
-  voted?: null | true | false;
-}
-
-export interface PuzzleVote {
-  0: true | false; // up/down
-  1: number; // new score
+  win: boolean;
+  ratingDiff: number;
+  themes?: RoundThemes;
 }
 
 export interface Promotion {
@@ -139,8 +190,6 @@ export interface Promotion {
   cancel(): void;
   view(): MaybeVNode;
 }
-
-export type Lines = { [uci: string]: Lines } | 'fail' | 'win';
 
 export interface MoveTest {
   move: Move,

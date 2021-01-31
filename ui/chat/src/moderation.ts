@@ -1,8 +1,9 @@
 import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
 import { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason } from './interfaces'
+import { numberFormat } from 'common/number';
+import { userLink, bind } from './util';
 import { userModInfo } from './xhr'
-import { userLink, spinner, bind } from './util';
+import { VNode } from 'snabbdom/vnode'
 
 export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
 
@@ -12,18 +13,18 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   const open = (line: HTMLElement) => {
     const userA = line.querySelector('a.user-link') as HTMLLinkElement;
     const text = (line.querySelector('t') as HTMLElement).innerText;
-    const id = userA.href.split('/')[4];
+    const username = userA.href.split('/')[4];
     if (opts.permissions.timeout) {
       loading = true;
-      userModInfo(id).then(d => {
-        data = {...d, text};
+      userModInfo(username).then(d => {
+        data = { ...d, text };
         loading = false;
         opts.redraw();
       });
     } else {
       data = {
-        id,
-        username: id,
+        id: username.toLowerCase(),
+        username,
         text
       };
     }
@@ -44,7 +45,7 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
     open,
     close,
     timeout(reason: ModerationReason, text: string) {
-      data && window.lichess.pubsub.emit('socket.send', 'timeout', {
+      data && lichess.pubsub.emit('socket.send', 'timeout', {
         userId: data.id,
         reason: reason.key,
         text
@@ -59,13 +60,13 @@ export const lineAction = () => h('i.mod', { attrs: { 'data-icon': '' } });
 
 export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
   if (!ctrl) return;
-  if (ctrl.loading()) return [h('div.loading', spinner())];
+  if (ctrl.loading()) return [h('div.loading')];
   const data = ctrl.data();
   if (!data) return;
   const perms = ctrl.permissions();
 
   const infos = data.history ? h('div.infos.block', [
-    window.lichess.numberFormat(data.games || 0) + ' games',
+    numberFormat(data.games || 0) + ' games',
     data.troll ? 'TROLL' : undefined,
     data.engine ? 'ENGINE' : undefined,
     data.booster ? 'BOOSTER' : undefined
@@ -84,54 +85,54 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
       }, 'coms')
     ] : [])) : undefined;
 
-    const timeout = perms.timeout ? h('div.timeout.block', [
-      h('strong', 'Timeout 10 minutes for'),
-      ...ctrl.reasons.map(r => {
-        return h('a.text', {
-          attrs: { 'data-icon': 'p' },
-          hook: bind('click', () => ctrl.timeout(r, data.text))
-        }, r.name);
-      })
-    ]) : h('div.timeout.block', [
-      h('strong', 'Moderation'),
-      h('a.text', {
+  const timeout = perms.timeout ? h('div.timeout.block', [
+    h('strong', 'Timeout 10 minutes for'),
+    ...ctrl.reasons.map(r => {
+      return h('a.text', {
         attrs: { 'data-icon': 'p' },
-        hook: bind('click', () => ctrl.timeout(ctrl.reasons[0], data.text))
-      }, 'Timeout 10 minutes')
-    ]);
+        hook: bind('click', () => ctrl.timeout(r, data.text))
+      }, r.name);
+    })
+  ]) : h('div.timeout.block', [
+    h('strong', 'Moderation'),
+    h('a.text', {
+      attrs: { 'data-icon': 'p' },
+      hook: bind('click', () => ctrl.timeout(ctrl.reasons[0], data.text))
+    }, 'Timeout 10 minutes')
+  ]);
 
-    const history = data.history ? h('div.history.block', [
-      h('strong', 'Timeout history'),
-      h('table', h('tbody.slist', {
-        hook: {
-          insert: () => window.lichess.pubsub.emit('content_loaded')
-        }
-      }, data.history.map(function(e) {
-        return h('tr', [
-          h('td.reason', e.reason),
-          h('td.mod', e.mod),
-          h('td', h('time.timeago', {
-            attrs: { datetime: e.date }
-          }))
-        ]);
-      })))
-    ]) : undefined;
+  const history = data.history ? h('div.history.block', [
+    h('strong', 'Timeout history'),
+    h('table', h('tbody.slist', {
+      hook: {
+        insert() { lichess.contentLoaded() }
+      }
+    }, data.history.map(function(e) {
+      return h('tr', [
+        h('td.reason', e.reason),
+        h('td.mod', e.mod),
+        h('td', h('time.timeago', {
+          attrs: { datetime: e.date }
+        }))
+      ]);
+    })))
+  ]) : undefined;
 
-    return [
-      h('div.top', { key: 'mod-' + data.id }, [
-        h('span.text', {
-          attrs: {'data-icon': '' },
-        }, [userLink(data.username)]),
-        h('a', {
-          attrs: {'data-icon': 'L'},
-          hook: bind('click', ctrl.close)
-        })
-      ]),
-      h('div.mchat__content.moderation', [
-        h('i.line-text.block', ['"', data.text, '"']),
-        infos,
-        timeout,
-        history
-      ])
-    ];
+  return [
+    h('div.top', { key: 'mod-' + data.id }, [
+      h('span.text', {
+        attrs: { 'data-icon': '' },
+      }, [userLink(data.username)]),
+      h('a', {
+        attrs: { 'data-icon': 'L' },
+        hook: bind('click', ctrl.close)
+      })
+    ]),
+    h('div.mchat__content.moderation', [
+      h('i.line-text.block', ['"', data.text, '"']),
+      infos,
+      timeout,
+      history
+    ])
+  ];
 };

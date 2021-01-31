@@ -7,17 +7,14 @@ export function start(container: HTMLElement) {
   // Chrome, Chromium, Brave, Opera, Safari 12+ are OK
   if (window.chrome) return;
 
-  const runHacks = () => {
-    if (gridHacks.needsBoardHeightFix()) gridHacks.fixMainBoardHeight(container);
-    fixChatHeight(container);
-  }
+  const runHacks = () => fixChatHeight(container);
 
   gridHacks.runner(runHacks);
 
   gridHacks.bindChessgroundResizeOnce(runHacks);
 
   if (!booted) {
-    window.lichess.pubsub.on('chat.resize', runHacks);
+    lichess.pubsub.on('chat.resize', runHacks);
     booted = true;
   }
 }

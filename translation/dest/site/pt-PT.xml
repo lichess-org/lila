@@ -9,6 +9,7 @@
   <string name="yourTurn">É a tua vez</string>
   <string name="aiNameLevelAiLevel">%1$s nível %2$s</string>
   <string name="level">Nível</string>
+  <string name="strength">Nível</string>
   <string name="toggleTheChat">Ativar/Desativar o chat</string>
   <string name="toggleSound">Ativar/desativar o som</string>
   <string name="chat">Chat</string>
@@ -141,7 +142,7 @@
   <string name="viewInFullSize">Ver em tela cheia</string>
   <string name="logOut">Sair</string>
   <string name="signIn">Entrar</string>
-  <string name="youNeedAnAccountToDoThat">Você precisa de uma conta para fazer isso</string>
+  <string name="youNeedAnAccountToDoThat">Precisas de uma conta para fazeres isso</string>
   <string name="signUp">Registar-se</string>
   <string name="computersAreNotAllowedToPlay">Computadores ou jogadores assistidos por computador não estão autorizados a jogar. Por favor não utilizes assistência de programas de xadrez, bases de dados ou outros jogadores enquanto estiveres a jogar. Além disso, a criação de contas múltiplas é fortemente desencorajada e a sua prática excessiva acarretará banimento.</string>
   <string name="games">Partidas</string>
@@ -199,7 +200,8 @@
     <item quantity="other">%s jogos contigo</item>
   </plurals>
   <string name="cancel">Cancelar</string>
-  <string name="timeOut">Tempo esgotado</string>
+  <string name="whiteTimeOut">Acabou o tempo das brancas</string>
+  <string name="blackTimeOut">Acabou o tempo das pretas</string>
   <string name="drawOfferSent">Proposta de empate enviada</string>
   <string name="drawOfferDeclined">Proposta de empate recusada</string>
   <string name="drawOfferAccepted">Proposta de empate aceite</string>
@@ -382,7 +384,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="more">Mais</string>
   <string name="memberSince">Membro desde</string>
   <string name="lastSeenActive">Ativo %s</string>
-  <string name="challengeToPlay">Desafiar para jogar</string>
   <string name="player">Jogador</string>
   <string name="list">Lista</string>
   <string name="graph">Gráfico</string>
@@ -447,6 +448,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="lastName">Apelido</string>
   <string name="biography">Biografia</string>
   <string name="country">País</string>
+  <string name="thankYou">Obrigado!</string>
   <string name="socialMediaLinks">Links das redes sociais</string>
   <string name="inlineNotation">Anotações em linha</string>
   <string name="watchLichessTV">Assistir à TV Lichess</string>
@@ -455,34 +457,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="activeToday">Ativos hoje</string>
   <string name="activePlayers">Jogadores ativos</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Cuidado, o jogo vale pontos, mas não há limite de tempo!</string>
-  <string name="yourPuzzleRatingX">A tua pontuação em problemas: %s</string>
-  <string name="findTheBestMoveForWhite">Encontra a melhor jogada para as brancas.</string>
-  <string name="findTheBestMoveForBlack">Encontra a melhor jogada para as pretas.</string>
-  <string name="toTrackYourProgress">Para acompanhares o teu progresso:</string>
-  <string name="puzzleId">Problema %s</string>
-  <string name="puzzleOfTheDay">Problema do dia</string>
-  <string name="clickToSolve">Clica para resolveres</string>
-  <string name="goodMove">Boa jogada</string>
-  <string name="butYouCanDoBetter">Mas podes fazer melhor.</string>
-  <string name="bestMove">Melhor jogada!</string>
-  <string name="keepGoing">Continua…</string>
-  <string name="puzzleFailed">Problema fracassado</string>
-  <string name="butYouCanKeepTrying">Mas podes continuar a tentar.</string>
   <string name="success">Sucesso</string>
-  <string name="wasThisPuzzleAnyGood">Este problema foi bom?</string>
-  <string name="pleaseVotePuzzle">Ajuda o Lichess a melhorar através do teu voto, usando as setas para cima ou para baixo:</string>
-  <string name="thankYou">Obrigado!</string>
-  <string name="ratingX">Pontuação: %s</string>
-  <string name="hidden">oculta</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Jogado %s vez</item>
-    <item quantity="other">Jogado %s vezes</item>
-  </plurals>
-  <string name="fromGameLink">Da partida %s</string>
-  <string name="continueTraining">Continuar a praticar</string>
-  <string name="retryThisPuzzle">Tentar este problema novamente</string>
-  <string name="thisPuzzleIsCorrect">Este problema está correto e é interessante</string>
-  <string name="thisPuzzleIsWrong">Este problema está errado ou é chato</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s jogo a decorrer</item>
     <item quantity="other">%s jogos a decorrer</item>
@@ -531,9 +506,12 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="currentPassword">Palavra-passe atual</string>
   <string name="newPassword">Nova palavra-chave</string>
   <string name="newPasswordAgain">Nova palavra-passe (novamente)</string>
+  <string name="newPasswordsDontMatch">As novas palavras-passe não coincidem</string>
+  <string name="newPasswordStrength">Força da palavra-passe</string>
   <string name="clockInitialTime">Tempo inicial no relógio</string>
   <string name="clockIncrement">Incremento no relógio</string>
   <string name="privacy">Privacidade</string>
+  <string name="privacyPolicy">Política de privacidade</string>
   <string name="letOtherPlayersFollowYou">Permitir que outros jogadores te sigam</string>
   <string name="letOtherPlayersChallengeYou">Permitir que outros jogadores te desafiem</string>
   <string name="letOtherPlayersInviteYouToStudy">Permitir que outros jogadores te convidem para estudos</string>
@@ -679,6 +657,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se você não vires o e-mail, verifica outros locais onde este possa estar, como pastas de lixo, spam, social ou outras.</string>
   <string name="weHaveSentYouAnEmailTo">Enviámos-te um e-mail para %s. Clica no link nesse e-mail para redefinires a tua palavra-passe.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ao criares uma conta, concordas comprometeres-te com os nossos %s.</string>
+  <string name="readAboutOur">Lê sobre a nossa %s.</string>
   <string name="networkLagBetweenYouAndLichess">Atraso na rede entre ti e o Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tempo para processar um movimento no servidor do Lichess</string>
   <string name="downloadAnnotated">Descarregar a anotação</string>
@@ -757,7 +736,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="error.unknown">Erro</string>
   <string name="custom">Personalizado</string>
   <string name="notifications">Notificações</string>
-  <string name="challenges">Desafios</string>
   <string name="perfRatingX">Pontuação: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo para jogar o primeiro movimento</item>
@@ -804,12 +782,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="opening">Abertura</string>
   <string name="middlegame">Meio jogo</string>
   <string name="endgame">Final de jogo</string>
-  <string name="registerToSendChallenges">Por favor regista-te para enviares desafios.</string>
-  <string name="youCannotChallengeX">Não podes desafiar %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s não aceita desafios.</string>
-  <string name="yourXRatingIsTooFarFromY">A tua pontuação em %1$s está muito longe da de %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Não podes desafiar por causa da tua pontuação provisória em %s.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s só aceita desafios de amigos.</string>
   <string name="conditionalPremoves">Movimentos antecipados condicionais</string>
   <string name="addCurrentVariation">Adicionar a variante atual</string>
   <string name="playVariationToCreateConditionalPremoves">Joga uma variante para criares movimentos antecipados condicionais</string>

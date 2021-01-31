@@ -55,10 +55,9 @@ object FormCompatLayer {
     moveToAndRename(prefix, fields.map(f => (f, f))) _
 
   private def moveToAndRename(prefix: String, fields: List[(String, String)])(data: FormData): FormData =
-    fields.foldLeft(data) {
-      case (d, (orig, dest)) =>
-        val newField = s"$prefix.$dest"
-        d + (newField -> ~d.get(newField).orElse(d.get(orig)))
+    fields.foldLeft(data) { case (d, (orig, dest)) =>
+      val newField = s"$prefix.$dest"
+      d + (newField -> ~d.get(newField).orElse(d.get(orig)))
     }
 
   private def reqToFormData(req: Request[_]): FormData = {

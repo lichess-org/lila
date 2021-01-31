@@ -24,12 +24,12 @@ object mini {
           div(cls := "left")(
             userLink(u, withPowerTip = false),
             u.profileOrDefault.countryInfo map { c =>
-              val hasRoomForNameText = u.username.size + c.shortName.size < 20
+              val hasRoomForNameText = u.username.length + c.shortName.length < 20
               span(
                 cls := "upt__info__top__country",
                 title := (!hasRoomForNameText).option(c.name)
               )(
-                img(cls := "flag", src := staticUrl(s"images/flags/${c.code}.png")),
+                img(cls := "flag", src := assetUrl(s"images/flags/${c.code}.png")),
                 hasRoomForNameText option c.shortName
               )
             }
@@ -60,7 +60,7 @@ object mini {
               a(
                 dataIcon := "U",
                 cls := "btn-rack__btn",
-                title := trans.challengeToPlay.txt(),
+                title := trans.challenge.challengeToPlay.txt(),
                 href := s"${routes.Lobby.home()}?user=${u.username}#friend"
               )
             ),
@@ -84,16 +84,8 @@ object mini {
         ),
         (u.lameOrTroll || u.disabled) option span(cls := "upt__mod__marks")(mod.userMarks(u, None))
       ),
-      (!ctx.pref.isBlindfold) ?? playing map { pov =>
-        frag(
-          gameFen(pov),
-          div(cls := "upt__game-legend")(
-            i(dataIcon := pov.game.perfType.map(_.iconChar.toString), cls := "text")(
-              pov.game.clock.map(_.config.show)
-            ),
-            playerText(pov.opponent, withRating = true)
-          )
-        )
+      playing.ifFalse(ctx.pref.isBlindfold).map {
+        views.html.game.mini(_)
       }
     )
 }

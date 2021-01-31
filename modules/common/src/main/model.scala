@@ -6,6 +6,7 @@ case class ApiVersion(value: Int) extends AnyVal with IntValue with Ordered[ApiV
   def compare(other: ApiVersion) = Integer.compare(value, other.value)
   def gt(other: Int)             = value > other
   def gte(other: Int)            = value >= other
+  def puzzleV2                   = value >= 6
 }
 
 case class AssetVersion(value: String) extends AnyVal with StringValue
@@ -40,11 +41,13 @@ case class NormalizedEmailAddress(value: String) extends AnyVal with StringValue
 case class EmailAddress(value: String) extends AnyVal with StringValue {
   def conceal =
     value split '@' match {
-      case Array(user, domain) => s"${user take 3}*****@${domain}"
+      case Array(user, domain) => s"${user take 3}*****@$domain"
       case _                   => value
     }
+
   def normalize =
     NormalizedEmailAddress {
+      // changing normalization requires database migration!
       val lower = value.toLowerCase
       lower.split('@') match {
         case Array(name, domain) if EmailAddress.gmailLikeNormalizedDomains(domain) =>
@@ -55,6 +58,7 @@ case class EmailAddress(value: String) extends AnyVal with StringValue {
         case _ => lower
       }
     }
+
   def domain: Option[Domain] =
     value split '@' match {
       case Array(_, domain) => Domain from domain.toLowerCase
@@ -75,6 +79,7 @@ object EmailAddress {
   private val regex =
     """^[a-zA-Z0-9\.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$""".r
 
+  // adding normalized domains requires database migration!
   private val gmailLikeNormalizedDomains =
     Set("gmail.com", "googlemail.com", "protonmail.com", "protonmail.ch", "pm.me")
 
@@ -99,9 +104,9 @@ case class Domain private (value: String) extends AnyVal with StringValue {
   // tail.domain.com, tail.domain.co.uk, tail.domain.edu.au, etc.
   def withoutSubdomain: Option[Domain] =
     value.split('.').toList.reverse match {
-      case tld :: sld :: tail :: _ if sld.length <= 3 => Domain from s"$tail.$sld.$tld"
-      case tld :: sld :: _                            => Domain from s"$sld.$tld"
-      case _                                          => none
+      case tld :: sld :: tail :: _ if sld.lengthIs <= 3 => Domain from s"$tail.$sld.$tld"
+      case tld :: sld :: _                              => Domain from s"$sld.$tld"
+      case _                                            => none
     }
   def lower = Domain.Lower(value.toLowerCase)
 }
@@ -120,6 +125,8 @@ object Domain {
 }
 
 case class Strings(value: List[String]) extends AnyVal
+case class UserIds(value: List[String]) extends AnyVal
+case class Ints(value: List[Int])       extends AnyVal
 
 case class Every(value: FiniteDuration)  extends AnyVal
 case class AtMost(value: FiniteDuration) extends AnyVal

@@ -3,16 +3,12 @@ package lila.db
 import org.joda.time.DateTime
 import ornicar.scalalib.Zero
 import reactivemongo.api.bson._
-import reactivemongo.api.bson.compat._
+
 import scala.util.{ Success, Try }
 
 import dsl._
 
-abstract class BSON[T]
-    extends BSONReadOnly[T]
-    with BSONHandler[T]
-    with BSONDocumentReader[T]
-    with BSONDocumentWriter[T] {
+abstract class BSON[T] extends BSONReadOnly[T] with BSONDocumentReader[T] with BSONDocumentWriter[T] {
 
   import BSON._
 
@@ -126,6 +122,7 @@ object BSON extends Handlers {
   def debugDoc(doc: Bdoc): String =
     (doc.elements.toList map {
       case BSONElement(k, v) => s"$k: ${debug(v)}"
+      case x                 => x.toString
     }).mkString("{", ", ", "}")
 
   def print(v: BSONValue): Unit = println(debug(v))

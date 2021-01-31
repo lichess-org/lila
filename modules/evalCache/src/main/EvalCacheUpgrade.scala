@@ -1,13 +1,14 @@
 package lila.evalCache
 
 import play.api.libs.json.{ JsObject, JsString }
-import scala.collection.mutable.AnyRefMap
-import scala.concurrent.duration._
 
+import scala.concurrent.duration._
 import chess.format.FEN
 import chess.variant.Variant
 import lila.socket.Socket
 import lila.memo.ExpireCallbackMemo
+
+import scala.collection.mutable
 
 /* Upgrades the user's eval when a better one becomes available,
  * by remembering the last evalGet of each socket member,
@@ -19,8 +20,8 @@ final private class EvalCacheUpgrade(scheduler: akka.actor.Scheduler)(implicit
 ) {
   import EvalCacheUpgrade._
 
-  private val members       = AnyRefMap.empty[SriString, WatchingMember]
-  private val evals         = AnyRefMap.empty[SetupId, Set[SriString]]
+  private val members       = mutable.AnyRefMap.empty[SriString, WatchingMember]
+  private val evals         = mutable.AnyRefMap.empty[SetupId, Set[SriString]]
   private val expirableSris = new ExpireCallbackMemo(20 minutes, sri => unregister(Socket.Sri(sri)))
 
   private val upgradeMon = lila.mon.evalCache.upgrade
@@ -39,7 +40,7 @@ final private class EvalCacheUpgrade(scheduler: akka.actor.Scheduler)(implicit
     (1 to input.eval.multiPv) flatMap { multiPv =>
       evals get makeSetupId(input.id.variant, input.fen, multiPv)
     } foreach { sris =>
-      val wms = sris.filter(sri.value !=) flatMap members.get
+      val wms = sris.withFilter(sri.value !=) flatMap members.get
       if (wms.nonEmpty) {
         val json = JsonHandlers.writeEval(input.eval, input.fen)
         wms foreach { wm =>
@@ -67,7 +68,7 @@ final private class EvalCacheUpgrade(scheduler: akka.actor.Scheduler)(implicit
   scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
     upgradeMon.members.update(members.size)
     upgradeMon.evals.update(evals.size)
-    upgradeMon.expirable.update(expirableSris.count)
+    upgradeMon.expirable.update(expirableSris.count).unit
   }
 }
 

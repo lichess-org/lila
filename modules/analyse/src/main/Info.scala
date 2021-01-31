@@ -1,5 +1,6 @@
 package lila.analyse
 
+import cats.implicits._
 import chess.Color
 import chess.format.Uci
 
@@ -18,7 +19,7 @@ case class Info(
 
   def turn = 1 + (ply - 1) / 2
 
-  def color = Color(ply % 2 == 1)
+  def color = Color.fromPly(ply - 1)
 
   def encode: String =
     List(
@@ -79,8 +80,8 @@ object Info {
     }
 
   def decodeList(str: String, fromPly: Int): Option[List[Info]] = {
-    str.split(listSeparator).toList.zipWithIndex map {
-      case (infoStr, index) => decode(index + 1 + fromPly, infoStr)
+    str.split(listSeparator).toList.zipWithIndex map { case (infoStr, index) =>
+      decode(index + 1 + fromPly, infoStr)
     }
   }.sequence
 

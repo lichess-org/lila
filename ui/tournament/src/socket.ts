@@ -11,9 +11,9 @@ export default function(send: SocketSend, ctrl: TournamentController) {
     reload() { 
       setTimeout(ctrl.askReload, Math.floor(Math.random() * 4000))
     },
-    redirect(fullId) {
+    redirect(fullId: string) {
       ctrl.redirectFirst(fullId.slice(0, 8), true);
-      return true;
+      return true; // prevent default redirect
     }
   };
 

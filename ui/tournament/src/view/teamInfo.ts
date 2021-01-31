@@ -14,14 +14,14 @@ export default function(ctrl: TournamentController): VNode | undefined {
   const tag = 'div.tour__team-info.tour__actor-info';
   if (!data || data.id !== ctrl.teamInfo.requested) return h(tag, [
     h('div.stats', [
-      h('h2', [ teamTag ]),
+      h('h2', [teamTag]),
       spinner()
     ])
   ]);
   const nbLeaders = ctrl.data.teamStanding?.find(s => s.id == data.id)?.players.length || 0;
 
   const setup = (vnode: VNode) => {
-    window.lichess.powertip.manualUserIn(vnode.elm as HTMLElement);
+    lichess.powertip.manualUserIn(vnode.elm as HTMLElement);
   }
   return h(tag, {
     hook: {
@@ -34,7 +34,7 @@ export default function(ctrl: TournamentController): VNode | undefined {
       hook: bind('click', () => ctrl.showTeamInfo(data.id), ctrl.redraw)
     }),
     h('div.stats', [
-      h('h2', [ teamTag ]),
+      h('h2', [teamTag]),
       h('table', [
         numberRow("Players", data.nbPlayers),
         ...(data.rating ? [
@@ -50,20 +50,16 @@ export default function(ctrl: TournamentController): VNode | undefined {
       ])
     ]),
     h('div', [
-      h('table.players.sublist', {
-        hook: bind('click', e => {
-          const username = ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('data-name');
-          if (username) ctrl.jumpToPageOf(username);
-        })
-      }, data.topPlayers.map((p, i) => h('tr', {
-        key: p.name
+      h('table.players.sublist', data.topPlayers.map((p, i) => h('tr', {
+        key: p.name,
+        hook: bind('click', () => ctrl.jumpToPageOf(p.name))
       }, [
         h('th', '' + (i + 1)),
         h('td', renderPlayer(p, false, true, false, i < nbLeaders)),
         h('td.total', [
           p.fire && !ctrl.data.isFinished ?
-          h('strong.is-gold', { attrs: dataIcon('Q') }, '' + p.score) :
-          h('strong', '' + p.score)
+            h('strong.is-gold', { attrs: dataIcon('Q') }, '' + p.score) :
+            h('strong', '' + p.score)
         ])
       ])))
     ])

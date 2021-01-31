@@ -95,7 +95,6 @@
     <item quantity="other">%s lalao niaraka taminao</item>
   </plurals>
   <string name="cancel">Cancel</string>
-  <string name="timeOut">Lany fotoana</string>
   <string name="drawOfferSent">Lasa ny fangatahana lalao sahala</string>
   <string name="drawOfferDeclined">Lavo ny fangatahana ny hahasahala ny lalao</string>
   <string name="drawOfferAccepted">Nekena ny fangatahana ny hahasahala ny lalao</string>
@@ -211,7 +210,6 @@
   <string name="more">Tohiny</string>
   <string name="memberSince">Mpikambana nanomboka tamin\'ny</string>
   <string name="lastSeenActive">Niditra farany tamin\'ny %s</string>
-  <string name="challengeToPlay">Challenge to a game</string>
   <string name="player">Mpilalao</string>
   <string name="list">Lisitra</string>
   <string name="graph">Graphe</string>
@@ -247,27 +245,13 @@
   <string name="lastName">Fanampin\'anarana</string>
   <string name="biography">Biographie</string>
   <string name="country">Firenena</string>
+  <string name="thankYou">Misaotra!</string>
   <string name="watchLichessTV">Mijereva Lichess TV</string>
   <string name="previouslyOnLichessTV">Teto amin\'ny Lichess TV</string>
   <string name="onlinePlayers">Ny mpilalao connectés</string>
   <string name="activeToday">Mpifaninana nilalao be indrindra androany</string>
   <string name="activePlayers">Mpifaninana nilalao be indrindra</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Tandremo, voasokajy ny lalao nefa tsy misy famataram-potoana !</string>
-  <string name="toTrackYourProgress">Ahafahanao manaraka ny fivoaranao:</string>
-  <string name="puzzleId">Piozila %s</string>
-  <string name="puzzleOfTheDay">Piozila androany</string>
-  <string name="butYouCanDoBetter">Afaka manao tsara kokoa ianao.</string>
-  <string name="puzzleFailed">Tsy voavaha ny piozila</string>
-  <string name="butYouCanKeepTrying">Afaka manandrana hatrany ianao.</string>
-  <string name="thankYou">Misaotra!</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Nanao andrana in-%s</item>
-    <item quantity="other">Nanao andrana in-%s</item>
-  </plurals>
-  <string name="continueTraining">Manohy ny kotrana</string>
-  <string name="retryThisPuzzle">Hamerina hamaha ny piozila</string>
-  <string name="thisPuzzleIsCorrect">Marina ity piozila ity ary mahaliana</string>
-  <string name="thisPuzzleIsWrong">Tsy marina ity piozila ity ary mankaleo</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s ireo lalao amin\'izao fotoana izao</item>
     <item quantity="other">%s ireo lalao amin\'izao fotoana izao</item>

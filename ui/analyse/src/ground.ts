@@ -24,15 +24,13 @@ export function render(ctrl: AnalyseCtrl): VNode {
 }
 
 export function promote(ground: CgApi, key: Key, role: cg.Role) {
-  const pieces = {};
-  const piece = ground.state.pieces[key];
+  const piece = ground.state.pieces.get(key);
   if (piece && piece.role == 'pawn') {
-    pieces[key] = {
+    ground.setPieces(new Map([[key, {
       color: piece.color,
       role,
-      promoted: true
-    };
-    ground.setPieces(pieces);
+      promoted: true,
+    }]]));
   }
 }
 
@@ -57,8 +55,8 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     events: {
       move: ctrl.userMove,
       dropNewPiece: ctrl.userNewPiece,
-      insert(elements) {
-        if (!ctrl.embed) resizeHandle(elements, ctrl.data.pref.resizeHandle, ctrl.node.ply);
+      insert(elements: cg.Elements) {
+        if (!ctrl.embed) resizeHandle(elements, 2, ctrl.node.ply);
         if (!ctrl.embed && ctrl.data.pref.coords == 1) changeColorHandle();
       }
     },
@@ -71,7 +69,8 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     },
     drawable: {
       enabled: !ctrl.embed,
-      eraseOnClick: !ctrl.opts.study || !!ctrl.opts.practice
+      eraseOnClick: !ctrl.opts.study || !!ctrl.opts.practice,
+      defaultSnapToValidMove: (lichess.storage.get('arrow.snap') || 1) != '0'
     },
     highlight: {
       lastMove: pref.highlight,

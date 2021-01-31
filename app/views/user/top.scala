@@ -26,17 +26,16 @@ object top {
         .some
     )(
       main(cls := "page-small box")(
-        h1(a(href := routes.User.list, dataIcon := "I"), title),
+        h1(a(href := routes.User.list(), dataIcon := "I"), title),
         table(cls := "slist slist-pad")(
           tbody(
-            users.zipWithIndex.map {
-              case (u, i) =>
-                tr(
-                  td(i + 1),
-                  td(lightUserLink(u.user)),
-                  td(u.rating),
-                  td(ratingProgress(u.progress))
-                )
+            users.zipWithIndex.map { case (u, i) =>
+              tr(
+                td(i + 1),
+                td(lightUserLink(u.user)),
+                td(u.rating),
+                td(ratingProgress(u.progress))
+              )
             }
           )
         )

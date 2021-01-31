@@ -2,7 +2,7 @@ import { opposite } from 'chessground/util';
 import { evalSwings } from '../nodeFinder';
 import { winningChances } from 'ceval';
 import { path as treePath } from 'tree';
-import { empty, prop } from 'common';
+import { isEmpty, prop } from 'common';
 import { OpeningData } from '../explorer/interfaces';
 import AnalyseCtrl from '../ctrl';
 
@@ -27,13 +27,13 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
 
   function isPlySolved(ply: Ply): boolean {
     return solvedPlies.includes(ply);
-  };
+  }
 
   function findNextNode(): Tree.Node | undefined {
     const colorModulo = color == 'white' ? 1 : 0;
     candidateNodes = evalSwings(root.mainline, n => n.ply % 2 === colorModulo && !explorerCancelPlies.includes(n.ply));
     return candidateNodes.find(n => !isPlySolved(n.ply));
-  };
+  }
 
   function jumpToNext(): void {
     feedback('find');
@@ -134,7 +134,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       path: root.path
     };
     root.userJump(current().prev.path);
-    if (!root.tree.pathIsMainline(bad.path) && empty(bad.node.children))
+    if (!root.tree.pathIsMainline(bad.path) && isEmpty(bad.node.children))
       root.tree.deleteNodeAt(bad.path);
     redraw();
   }

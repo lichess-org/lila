@@ -18,7 +18,7 @@ object bits extends Context.ToLang {
       icon = Some(""),
       moreCss = cssTag("streamer.form").some
     )(
-      postForm(cls := "streamer-new", action := routes.Streamer.create)(
+      postForm(cls := "streamer-new", action := routes.Streamer.create())(
         h2(doYouHaveStream()),
         br,
         br,
@@ -46,7 +46,7 @@ object bits extends Context.ToLang {
           width := size,
           height := size,
           cls := "default picture",
-          src := staticUrl("images/placeholder.png"),
+          src := assetUrl("images/placeholder.png"),
           alt := "Default Lichess streamer picture"
         )
     }
@@ -60,11 +60,11 @@ object bits extends Context.ToLang {
             st.streamer.name
           ),
           (ctx.is(st.user) || isGranted(_.Streamers)) option
-            a(cls := active.active("edit"), href := s"${routes.Streamer.edit}?u=${st.streamer.id.value}")(
+            a(cls := active.active("edit"), href := s"${routes.Streamer.edit()}?u=${st.streamer.id.value}")(
               editPage()
             )
         )
-      } getOrElse a(href := routes.Streamer.edit)(yourPage()),
+      } getOrElse a(href := routes.Streamer.edit())(yourPage()),
       isGranted(_.Streamers) option a(
         cls := active.active("requests"),
         href := s"${routes.Streamer.index()}?requests=1"

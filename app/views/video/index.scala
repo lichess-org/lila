@@ -24,7 +24,7 @@ object index {
           description =
             s"${videos.nbResults} curated chess videos${if (tagString.nonEmpty) " matching the tags " + tagString
             else " • "}free for all",
-          url = s"$netBaseUrl${routes.Video.index}?${control.queryString}"
+          url = s"$netBaseUrl${routes.Video.index()}?${control.queryString}"
         )
         .some,
       control = control
@@ -45,19 +45,19 @@ object index {
         strong(count),
         " videos so far!"
       ),
-      div(cls := "list box__pad infinitescroll")(
+      div(cls := "list box__pad infinite-scroll")(
         videos.currentPageResults.map { bits.card(_, control) },
-        videos.currentPageResults.size < 4 option div(cls := s"not_much nb_${videos.nbResults}")(
+        videos.currentPageResults.sizeIs < 4 option div(cls := s"not_much nb_${videos.nbResults}")(
           if (videos.currentPageResults.isEmpty) "No videos for these tags:"
           else "That's all we got for these tags:",
           control.filter.tags.map { tag =>
-            a(cls := "tag", dataIcon := "o", href := s"${routes.Video.index}?tags=$tag")(tag.capitalize)
+            a(cls := "tag", dataIcon := "o", href := s"${routes.Video.index()}?tags=$tag")(tag.capitalize)
           },
           br,
           br,
-          a(href := routes.Video.index, cls := "button")("Clear search")
+          a(href := routes.Video.index(), cls := "button")("Clear search")
         ),
-        pagerNext(videos, np => s"${routes.Video.index}?${control.queryString}&page=$np")
+        pagerNext(videos, np => s"${routes.Video.index()}?${control.queryString}&page=$np")
       )
     )
   }

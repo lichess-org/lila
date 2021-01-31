@@ -16,7 +16,7 @@ object Namer {
       playerTextUser(player, _, withRating)
     }
 
-  def playerTextUser(player: Player, user: Option[LightUser], withRating: Boolean = false): String =
+  private def playerTextUser(player: Player, user: Option[LightUser], withRating: Boolean = false): String =
     player.aiLevel.fold(
       user.fold(player.name | "Anon.") { u =>
         player.rating.ifTrue(withRating).fold(u.titleName) { r =>
@@ -24,7 +24,7 @@ object Namer {
         }
       }
     ) { level =>
-      s"A.I. level $level"
+      s"Stockfish level $level"
     }
 
   def gameVsTextBlocking(game: Game, withRatings: Boolean = false)(implicit
@@ -34,10 +34,9 @@ object Namer {
 
   def gameVsText(game: Game, withRatings: Boolean = false)(implicit lightUser: LightUser.Getter): Fu[String] =
     game.whitePlayer.userId.??(lightUser) zip
-      game.blackPlayer.userId.??(lightUser) dmap {
-      case (wu, bu) =>
+      game.blackPlayer.userId.??(lightUser) dmap { case (wu, bu) =>
         s"${playerTextUser(game.whitePlayer, wu, withRatings)} - ${playerTextUser(game.blackPlayer, bu, withRatings)}"
-    }
+      }
 
   def ratingString(p: Player) =
     p.rating match {

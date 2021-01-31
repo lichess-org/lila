@@ -11,9 +11,6 @@
   <string name="noTeamFound">Tsy misy vondrona hita</string>
   <string name="joinTeam">Miditra amin\'ny vondrona</string>
   <string name="quitTeam">Miala amin\'ny vondrona</string>
-  <string name="anyoneCanJoin">Afaka miditra ny rehetra</string>
-  <string name="aConfirmationIsRequiredToJoin">Mila fanekena ny fidirana ao amin\'ny vondrona</string>
-  <string name="joiningPolicy">Lalàna mamehy ny fidirana</string>
   <string name="teamBestPlayers">Ny mpilalao mendrika indrindra</string>
   <string name="teamRecentMembers">Mpilalao vao niditra</string>
 </resources>

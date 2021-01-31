@@ -1,14 +1,14 @@
-import { Eval, CevalCtrl, ParentCtrl, NodeEvals } from './types';
-import { renderEval } from './util';
 import * as winningChances from './winningChances';
 import { defined } from 'common';
+import { Eval, CevalCtrl, ParentCtrl, NodeEvals } from './types';
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
-import { opposite, parseUci } from 'chessops/util';
 import { lichessVariantRules } from 'chessops/compat';
-import { parseFen } from 'chessops/fen';
 import { makeSanVariation } from 'chessops/san';
+import { opposite, parseUci } from 'chessops/util';
+import { parseFen } from 'chessops/fen';
+import { renderEval } from './util';
 import { setupPosition } from 'chessops/variant';
+import { VNode } from 'snabbdom/vnode';
 
 let gaugeLast = 0;
 const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
@@ -25,8 +25,8 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
     trans('depthX', evs.client.depth || 0),
     h('span.cloud', { attrs: { title: trans.noarg('cloudAnalysis') } }, 'Cloud')
   ] : [
-    trans('depthX', (evs.client.depth || 0) + '/' + evs.client.maxDepth)
-  ];
+      trans('depthX', (evs.client.depth || 0) + '/' + evs.client.maxDepth)
+    ];
   if (ceval.canGoDeeper()) t.push(h('a.deeper', {
     attrs: {
       title: trans.noarg('goDeeper'),
@@ -70,10 +70,10 @@ function threatButton(ctrl: ParentCtrl): VNode | null {
 function engineName(ctrl: CevalCtrl): VNode[] {
   const version = ctrl.engineName();
   return [
-    h('span', version ? { attrs: { title: version } } : {}, ctrl.technology == 'wasmx' ? 'Stockfish 11+' : 'Stockfish 10+'),
-    ctrl.technology == 'wasmx' ? h('span.native', { attrs: { title: 'Multi-threaded WebAssembly (experimental)' } }, 'wasmx') :
-      (ctrl.technology == 'wasm' ? h('span.native', { attrs: { title: 'WebAssembly' } }, 'wasm') :
-        h('span.asmjs', { attrs: { title: 'JavaScript fallback' } }, 'asmjs'))
+    h('span', version ? { attrs: { title: `${version} (classical eval)` } } : {}, ctrl.technology == 'wasmx' ? 'Stockfish 12+' : 'Stockfish 10+'),
+    ctrl.technology == 'wasmx' ? h('span.wasmx', { attrs: { title: 'Multi-threaded WebAssembly (fastest)' } }, 'wasmx') :
+      (ctrl.technology == 'wasm' ? h('span.wasm', { attrs: { title: 'Single-threaded WebAssembly fallback (second fastest)' } }, 'wasm') :
+        h('span.asmjs', { attrs: { title: 'Single-threaded JavaScript fallback (very slow)' } }, 'asmjs'))
   ];
 }
 
@@ -163,17 +163,17 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
       ...(threatMode ? [trans.noarg('showThreat')] : engineName(instance)),
       h('span.info',
         ctrl.outcome() ? [trans.noarg('gameOver')] :
-        (threatMode ? [threatInfo(ctrl, threat)] : localEvalInfo(ctrl, evs))
+          (threatMode ? [threatInfo(ctrl, threat)] : localEvalInfo(ctrl, evs))
       )
     ])
   ] : [
-    pearl ? h('pearl', [pearl]) : null,
-    h('help', [
-      ...engineName(instance),
-      h('br'),
-      trans.noarg('inLocalBrowser')
-    ])
-  ];
+      pearl ? h('pearl', [pearl]) : null,
+      h('help', [
+        ...engineName(instance),
+        h('br'),
+        trans.noarg('inLocalBrowser')
+      ])
+    ];
 
   const switchButton: VNode | null = ctrl.mandatoryCeval && ctrl.mandatoryCeval() ? null : h('div.switch', {
     attrs: { title: trans.noarg('toggleLocalEvaluation') + ' (l)' }
@@ -207,13 +207,14 @@ function getElFen(el: HTMLElement): string {
 }
 
 function getElUci(e: MouseEvent): string | undefined {
-  return $(e.target as HTMLElement).closest('div.pv').attr('data-uci');
+  return $(e.target as HTMLElement).closest('div.pv').attr('data-uci') || undefined;
 }
 
 function checkHover(el: HTMLElement, instance: CevalCtrl): void {
-  window.lichess.requestIdleCallback(() => {
-    instance.setHovering(getElFen(el), $(el).find('div.pv:hover').attr('data-uci'));
-  });
+  lichess.requestIdleCallback(
+    () => instance.setHovering(getElFen(el), $(el).find('div.pv:hover').attr('data-uci') || undefined),
+    500
+  );
 }
 
 export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
@@ -222,7 +223,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   const multiPv = parseInt(instance.multiPv()),
     node = ctrl.getNode(),
     setup = parseFen(node.fen).unwrap();
-  let pvs : Tree.PvData[], threat = false;
+  let pvs: Tree.PvData[], threat = false;
   if (ctrl.threatMode() && node.threat) {
     pvs = node.threat.pvs;
     threat = true;
@@ -235,12 +236,12 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
     hook: {
       insert: vnode => {
         const el = vnode.elm as HTMLElement;
-        el.addEventListener('mouseover', (e: MouseEvent) => {
-          instance.setHovering(getElFen(el), getElUci(e));
-        });
-        el.addEventListener('mouseout', () => {
-          instance.setHovering(getElFen(el));
-        });
+        el.addEventListener('mouseover', (e: MouseEvent) =>
+          instance.setHovering(getElFen(el), getElUci(e))
+        );
+        el.addEventListener('mouseout', () =>
+          instance.setHovering(getElFen(el))
+        );
         el.addEventListener('mousedown', (e: MouseEvent) => {
           const uci = getElUci(e);
           if (uci) ctrl.playUci(uci);

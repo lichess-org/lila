@@ -17,11 +17,11 @@ object widgets {
   )(implicit ctx: Context): Frag =
     games map { g =>
       val fromPlayer  = user flatMap g.player
-      val firstPlayer = fromPlayer | g.firstPlayer
+      val firstPlayer = fromPlayer | g.player(g.naturalOrientation)
       st.article(cls := "game-row paginated")(
         a(cls := "game-row__overlay", href := gameLink(g, firstPlayer.color, ownerLink)),
         div(cls := "game-row__board")(
-          gameFen(Pov(g, firstPlayer), withLink = false, withTitle = false)
+          views.html.board.bits.mini(Pov(g, firstPlayer))(span)
         ),
         div(cls := "game-row__infos")(
           div(cls := "header", dataIcon := bits.gameIcon(g))(
@@ -31,7 +31,7 @@ object widgets {
                   frag(
                     span("IMPORT"),
                     g.pgnImport.flatMap(_.user).map { user =>
-                      frag(" ", trans.by(userIdLink(user.some, None, false)))
+                      frag(" ", trans.by(userIdLink(user.some, None, withOnline = false)))
                     },
                     separator,
                     if (g.variant.exotic) bits.variantLink(g.variant, g.variant.name.toUpperCase)
@@ -46,7 +46,7 @@ object widgets {
                     if (g.rated) trans.rated.txt() else trans.casual.txt()
                   )
               ),
-              g.pgnImport.flatMap(_.date).fold(momentFromNow(g.createdAt))(frag(_)),
+              g.pgnImport.flatMap(_.date).fold[Frag](momentFromNowWithPreload(g.createdAt))(frag(_)),
               g.tournamentId.map { tourId =>
                 frag(separator, tournamentLink(tourId))
               } orElse
@@ -138,19 +138,18 @@ object widgets {
       } getOrElse {
         player.aiLevel map { level =>
           frag(
-            span(aiName(level, false)),
+            span(aiName(level, withRating = false)),
             br,
             aiRating(level)
           )
         } getOrElse {
-          (player.nameSplit.fold[Frag](anonSpan) {
-            case (name, rating) =>
-              frag(
-                span(name),
-                rating.map { r =>
-                  frag(br, r)
-                }
-              )
+          (player.nameSplit.fold[Frag](anonSpan) { case (name, rating) =>
+            frag(
+              span(name),
+              rating.map { r =>
+                frag(br, r)
+              }
+            )
           })
         }
       }

@@ -16,15 +16,15 @@ object bits {
       implicit ctx: Context
   ) =
     frag(
-      jsTag("challenge.js", defer = true),
-      embedJsUnsafe(s"""lichess=window.lichess||{};customWs=true;lichess_challenge = ${safeJsonValue(
+      jsModule("challengePage"),
+      embedJsUnsafeLoadThen(s"""challengePageStart(${safeJsonValue(
         Json.obj(
           "socketUrl" -> s"/challenge/${c.id}/socket/v$apiVersion",
           "xhrUrl"    -> routes.Challenge.show(c.id, color.map(_.name)).url,
           "owner"     -> owner,
           "data"      -> json
         )
-      )}""")
+      )})""")
     )
 
   def details(c: Challenge)(implicit ctx: Context) =

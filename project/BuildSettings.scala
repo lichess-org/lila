@@ -1,12 +1,13 @@
 import play.sbt.PlayImport._
 import sbt._, Keys._
+import bloop.integrations.sbt.BloopKeys.bloopGenerate
 
 object BuildSettings {
 
   import Dependencies._
 
-  val lilaVersion        = "3.0"
-  val globalScalaVersion = "2.13.2"
+  val lilaVersion        = "3.2"
+  val globalScalaVersion = "2.13.4"
 
   val useEpoll = sys.props.get("epoll").fold(false)(_.toBoolean)
   if (useEpoll) println("--- epoll build ---")
@@ -15,29 +16,28 @@ object BuildSettings {
     Defaults.coreDefaultSettings ++ Seq(
       version := lilaVersion,
       organization := "org.lichess",
+      resolvers += lilaMaven,
       scalaVersion := globalScalaVersion,
-      resolvers ++= Dependencies.Resolvers.commons,
       scalacOptions ++= compilerOptions,
+      // No bloop project for tests
+      bloopGenerate in Test := None,
+      // disable publishing doc and sources
       sources in (Compile, doc) := Seq.empty,
       publishArtifact in (Compile, packageDoc) := false,
-      // disable publishing the main sources jar
-      publishArtifact in (Compile, packageSrc) := false
+      publishArtifact in (Compile, packageSrc) := false,
+      javaOptions ++= Seq("-Xms64m", "-Xmx256m")
     )
 
-  def defaultLibs: Seq[ModuleID] =
-    akka.bundle ++ Seq(
+  lazy val defaultLibs: Seq[ModuleID] =
+    akka.bundle ++ macwire.bundle ++ Seq(
       play.api,
-      scalaz,
       chess,
       scalalib,
       jodaTime,
-      ws,
-      macwire.macros,
-      macwire.util,
       autoconfig
     )
 
-  def module(
+  def smallModule(
       name: String,
       deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]],
       libs: Seq[ModuleID]
@@ -47,25 +47,54 @@ object BuildSettings {
       file("modules/" + name)
     ).dependsOn(deps: _*)
       .settings(
-        libraryDependencies ++= defaultLibs ++ libs,
+        libraryDependencies ++= libs,
         buildSettings,
         srcMain
       )
 
+  def module(
+      name: String,
+      deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]],
+      libs: Seq[ModuleID]
+  ) =
+    smallModule(name, deps, defaultLibs ++ libs)
+
   val compilerOptions = Seq(
+    "-explaintypes",
+    "-feature",
+    "-language:higherKinds",
     "-language:implicitConversions",
     "-language:postfixOps",
-    "-feature",
-    "-unchecked",
-    "-deprecation",
-    "-Xlint:_",
-    "-Ywarn-macros:after",
-    // "-Ywarn-unused:_",
+    "-Ymacro-annotations",
+    // Warnings as errors!
     // "-Xfatal-warnings",
-    "-Xmaxerrs",
-    "15",
-    "-Xmaxwarns",
-    "12"
+    // Linting options
+    "-unchecked",
+    "-Xcheckinit",
+    "-Xlint:adapted-args",
+    "-Xlint:constant",
+    "-Xlint:delayedinit-select",
+    "-Xlint:deprecation",
+    "-Xlint:inaccessible",
+    "-Xlint:infer-any",
+    "-Xlint:missing-interpolator",
+    "-Xlint:nullary-unit",
+    "-Xlint:option-implicit",
+    "-Xlint:package-object-classes",
+    "-Xlint:poly-implicit-overload",
+    "-Xlint:private-shadow",
+    "-Xlint:stars-align",
+    "-Xlint:type-parameter-shadow",
+    "-Wdead-code",
+    "-Wextra-implicit",
+    // "-Wnumeric-widen",
+    // "-Wunused:imports",
+    // "-Wunused:locals",
+    "-Wunused:patvars",
+    // "-Wunused:privates", // unfortunately doesn't work with macros
+    // "-Wunused:implicits",
+    // "-Wunused:params"
+    "-Wvalue-discard"
   )
 
   val srcMain = Seq(

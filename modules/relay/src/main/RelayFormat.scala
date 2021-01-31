@@ -2,14 +2,14 @@ package lila.relay
 
 import io.lemonlabs.uri._
 import play.api.libs.json._
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
 
 import lila.study.MultiPgn
 import lila.memo.CacheApi
 import lila.memo.CacheApi._
 
-final private class RelayFormatApi(ws: WSClient, cacheApi: CacheApi)(implicit
+final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
 
@@ -61,8 +61,8 @@ final private class RelayFormatApi(ws: WSClient, cacheApi: CacheApi)(implicit
           val pgnUrl  = (n: Int) => pgnDoc(replaceLastPart(index, s"game-$n.pgn"))
           looksLikeJson(jsonUrl(1).url).map(_ option jsonUrl) orElse
             looksLikePgn(pgnUrl(1).url).map(_ option pgnUrl) dmap2 {
-            ManyFiles(index, _)
-          }
+              ManyFiles(index, _)
+            }
         }
       }
 
@@ -84,7 +84,7 @@ final private class RelayFormatApi(ws: WSClient, cacheApi: CacheApi)(implicit
 
   private def looksLikePgn(body: String): Boolean =
     MultiPgn.split(body, 1).value.headOption ?? { pgn =>
-      lila.study.PgnImport(pgn, Nil).isSuccess
+      lila.study.PgnImport(pgn, Nil).isValid
     }
   private def looksLikePgn(url: Url): Fu[Boolean] = httpGet(url).map { _ exists looksLikePgn }
 

@@ -1,14 +1,14 @@
 package lila.tournament
 
+import chess.Clock.{ Config => ClockConfig }
+import chess.format.FEN
+import chess.{ Mode, Speed }
 import org.joda.time.{ DateTime, Duration, Interval }
-import ornicar.scalalib.Random
 import play.api.i18n.Lang
 import scala.util.chaining._
 
-import chess.Clock.{ Config => ClockConfig }
-import chess.{ Mode, Speed, StartingPosition }
 import lila.common.GreatPlayer
-import lila.game.PerfPicker
+import lila.common.ThreadLocalRandom
 import lila.i18n.defaultLang
 import lila.rating.PerfType
 import lila.user.User
@@ -20,7 +20,7 @@ case class Tournament(
     clock: ClockConfig,
     minutes: Int,
     variant: chess.variant.Variant,
-    position: StartingPosition,
+    position: Option[FEN],
     mode: Mode,
     password: Option[String] = None,
     conditions: Condition.All,
@@ -107,12 +107,11 @@ case class Tournament(
 
   def speed = Speed(clock)
 
-  def perfType: Option[PerfType] = PerfPicker.perfType(speed, variant, none)
-  def perfLens                   = PerfPicker.mainOrDefault(speed, variant, none)
+  def perfType: PerfType = PerfType(variant, speed)
 
   def durationString =
     if (minutes < 60) s"${minutes}m"
-    else s"${minutes / 60}h" + (if (minutes % 60 != 0) s" ${(minutes % 60)}m" else "")
+    else s"${minutes / 60}h" + (if (minutes % 60 != 0) s" ${minutes % 60}m" else "")
 
   def berserkable = !noBerserk && clock.berserkable
   def streakable  = !noStreak
@@ -138,6 +137,8 @@ case class Tournament(
 
   def ratingVariant = if (variant.fromPosition) chess.variant.Standard else variant
 
+  def startingPosition = position flatMap Thematic.byFen
+
   lazy val looksLikePrize = !isScheduled && lila.common.String.looksLikePrize(s"$name $description")
 
   override def toString = s"$id $startsAt ${name()(defaultLang)} $minutes minutes, $clock, $nbPlayers players"
@@ -157,7 +158,7 @@ object Tournament {
       clock: ClockConfig,
       minutes: Int,
       variant: chess.variant.Variant,
-      position: StartingPosition,
+      position: Option[FEN],
       mode: Mode,
       password: Option[String],
       waitMinutes: Int,
@@ -170,10 +171,10 @@ object Tournament {
   ) =
     Tournament(
       id = makeId,
-      name = name | {
-        if (position.initial) GreatPlayer.randomName
-        else position.shortName
-      },
+      name = name | (position match {
+        case Some(pos) => Thematic.byFen(pos).fold("Custom position")(_.shortName)
+        case None      => GreatPlayer.randomName
+      }),
       status = Status.Created,
       clock = clock,
       minutes = minutes,
@@ -190,7 +191,7 @@ object Tournament {
       noStreak = !streakable,
       schedule = None,
       startsAt = startDate match {
-        case Some(startDate) => startDate plusSeconds scala.util.Random.nextInt(60)
+        case Some(startDate) => startDate plusSeconds ThreadLocalRandom.nextInt(60)
         case None            => DateTime.now plusMinutes waitMinutes
       },
       description = description,
@@ -200,7 +201,7 @@ object Tournament {
   def scheduleAs(sched: Schedule, minutes: Int) =
     Tournament(
       id = makeId,
-      name = sched.name(false)(defaultLang),
+      name = sched.name(full = false)(defaultLang),
       status = Status.Created,
       clock = Schedule clockFor sched,
       minutes = minutes,
@@ -212,14 +213,12 @@ object Tournament {
       mode = Mode.Rated,
       conditions = sched.conditions,
       schedule = Some(sched),
-      startsAt = sched.at plusSeconds scala.util.Random.nextInt(60)
+      startsAt = sched.at plusSeconds ThreadLocalRandom.nextInt(60)
     )
 
   def tournamentUrl(tourId: String): String = s"https://lichess.org/tournament/$tourId"
 
-  def makeId = Random nextString 8
-
-  case class TournamentTable(tours: List[Tournament])
+  def makeId = ThreadLocalRandom nextString 8
 
   case class PastAndNext(past: List[Tournament], next: List[Tournament])
 }

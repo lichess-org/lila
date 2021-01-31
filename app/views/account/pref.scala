@@ -26,8 +26,7 @@ object pref {
           input(
             st.id := s"$prefix$id",
             checked option st.checked,
-            cls := checked option "active",
-            `type` := "radio",
+            tpe := "radio",
             value := v._1.toString,
             name := field.name
           ),
@@ -46,7 +45,7 @@ object pref {
       val booleanChoices = Seq(0 -> trans.no.txt(), 1 -> trans.yes.txt())
       div(cls := "account box box-pad")(
         h1(bits.categName(categ)),
-        postForm(cls := "autosubmit", action := routes.Pref.formApply)(
+        postForm(cls := "autosubmit", action := routes.Pref.formApply())(
           categFieldset(PrefCateg.GameDisplay, categ)(
             setting(
               pieceAnimation(),
@@ -143,6 +142,14 @@ object pref {
             setting(
               inputMovesWithTheKeyboard(),
               radios(form("behavior.keyboardMove"), booleanChoices)
+            ),
+            setting(
+              snapArrowsToValidMoves(),
+              radios(form("behavior.arrowSnap"), booleanChoices)
+            )(cls := "arrow-snap"),
+            setting(
+              sayGgWpAfterLosingOrDrawing(),
+              radios(form("behavior.courtesy"), booleanChoices)
             )
           ),
           categFieldset(PrefCateg.Privacy, categ)(

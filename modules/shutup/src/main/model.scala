@@ -27,7 +27,7 @@ case class TextAnalysis(
     badWords: List[String]
 ) {
 
-  lazy val nbWords = text.split("""\W+""").size
+  lazy val nbWords = text.split("""\W+""").length
 
   def nbBadWords = badWords.size
 
@@ -57,7 +57,7 @@ case class TextReport(textType: TextType, ratios: List[Double]) {
   def nbBad       = ratios.count(_ > TextReport.unacceptableRatio)
   def tolerableNb = (ratios.size / 10) atLeast 3
 
-  def unacceptable = (ratios.size >= minRatios) && (nbBad > tolerableNb)
+  def unacceptable = (ratios.sizeIs >= minRatios) && (nbBad > tolerableNb)
 }
 
 object TextReport {

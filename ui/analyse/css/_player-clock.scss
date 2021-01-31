@@ -6,24 +6,30 @@ $clock-height: 20px;
   position: absolute;
   right: 0;
   padding: 0 .5em;
-
   height: $clock-height;
-
   font-weight: bold;
   text-align: center;
 
   &.top {
     @extend %box-radius-top;
+
     top: #{-$clock-height};
   }
+
   &.bottom {
     @extend %box-radius-bottom;
+
     bottom: #{-$clock-height};
-    z-index: 1; // over the board coords
+    z-index: 1;
+
+    // over the board coords
+ 
   }
+
   &.active {
     background: mix($c-primary, $c-bg-box, 30%);
   }
+
   tenths {
     font-size: 80%;
   }

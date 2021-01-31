@@ -9,7 +9,7 @@ export interface SwissOpts {
   userId?: string;
   schedule?: boolean;
   element: HTMLElement;
-  $side: JQuery;
+  $side: Cash;
   socketSend: SocketSend;
   chat: any;
   i18n: any;
@@ -50,6 +50,7 @@ export interface SwissData {
   podium?: PodiumPlayer[];
   isRecentlyFinished?: boolean;
   stats?: Stats;
+  password?: boolean;
 }
 
 export type Status = 'created' | 'started' | 'finished';
@@ -95,6 +96,7 @@ export interface BasePlayer {
 }
 
 export interface PodiumPlayer extends BasePlayer {
+  engine?: boolean;
 }
 
 export interface Player extends BasePlayer {
@@ -106,10 +108,15 @@ export interface Player extends BasePlayer {
 export interface Board {
   id: string;
   fen: string;
-  color: Color;
   lastMove?: string;
+  orientation: Color;
   white: BoardPlayer;
   black: BoardPlayer;
+  clock?: {
+    white: number;
+    black: number;
+  }
+  winner?: Color;
 }
 
 export interface BoardPlayer extends BasePlayer {

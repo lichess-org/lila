@@ -1,11 +1,11 @@
 package views.html.coach
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
-
-import controllers.routes
 
 object review {
 
@@ -40,7 +40,7 @@ object review {
           p(xWillApproveIt(c.user.realNameOrUsername))
         )
       else if (ctx.isAuth) a(cls := "button button-empty toggle")("Write a review")
-      else a(href := s"${routes.Auth.login}?referrer=${ctx.req.path}", cls := "button")(reviewCoach()),
+      else a(href := s"${routes.Auth.login()}?referrer=${ctx.req.path}", cls := "button")(reviewCoach()),
       postForm(action := routes.Coach.review(c.user.username))(
         barRating(selected = mine.map(_.score), enabled = true),
         textarea(
@@ -54,20 +54,21 @@ object review {
       )
     )
 
+  private val rateStars = tag("rate-stars")
+  private val star      = tag("star")
+
   def barRating(selected: Option[Int], enabled: Boolean) =
     if (enabled)
-      select(cls := "bar-rating", name := "score", required)(
+      select(cls := "rate", name := "score", required)(
         option(value := ""),
         List(1, 2, 3, 4, 5).map { score =>
           option(value := score, selected.contains(score) option st.selected)(score)
         }
       )
     else
-      div(cls := "br-wrapper")(
-        div(cls := "br-widget br-readonly")(
-          List(1, 2, 3, 4, 5).map { s =>
-            a(cls := List("br-selected" -> selected.exists(s.<=)))
-          }
-        )
+      rateStars(
+        List(1, 2, 3, 4, 5).map { s =>
+          star(selected.exists(s.<=) option (cls := "rate-selected"))
+        }
       )
 }

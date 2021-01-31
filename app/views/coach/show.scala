@@ -31,16 +31,7 @@ object show {
     val title     = xCoachesStudents.txt(coachName)
     views.html.base.layout(
       title = title,
-      moreJs = frag(
-        jsAt("vendor/bar-rating/dist/jquery.barrating.min.js"),
-        ctx.isAuth option embedJsUnsafe("""$(function() {
-$(".bar-rating").barrating();
-$('.coach-review-form .toggle').click(function() {
-$(this).remove();
-$('.coach-review-form form').show();
-});
-});""")
-      ),
+      moreJs = jsModule("coach.show"),
       moreCss = cssTag("coach"),
       openGraph = lila.app.ui
         .OpenGraph(
@@ -61,7 +52,7 @@ $('.coach-review-form form').show();
             frag(
               if (c.coach.isListed) p("This page is now public.")
               else "This page is not public yet. ",
-              a(href := routes.Coach.edit, cls := "text", dataIcon := "m")("Edit my coach profile")
+              a(href := routes.Coach.edit(), cls := "text", dataIcon := "m")("Edit my coach profile")
             )
           else
             a(
@@ -93,7 +84,7 @@ $('.coach-review-form form').show();
           profile.youtubeUrls.nonEmpty option st.section(cls := "coach-show__youtube")(
             h2(
               profile.youtubeChannel.map { url =>
-                a(href := url, target := "_blank", rel := "nofollow noopener")(youtubeVideos())
+                a(href := url, targetBlank, rel := "nofollow")(youtubeVideos())
               } getOrElse youtubeVideos()
             ),
             div(cls := "list")(

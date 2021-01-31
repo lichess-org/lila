@@ -13,6 +13,7 @@ body {
   background: $c-bg-page linear-gradient(to bottom, $c-body-gradient, $c-bg-page 116px) no-repeat;
   color: $c-font;
   overflow-x: hidden;
+
   &.fixed-scroll {
     /* prevents scroll bar flicker when dragging a piece out */
     overflow-y: scroll;
@@ -22,6 +23,7 @@ body {
 a {
   color: $c-link;
   text-decoration: none;
+
   &:hover,
   &:active,
   &:focus {
@@ -43,7 +45,9 @@ li {
 
 time {
   font-size: 90%;
-  opacity: 0.9; /* don't use c-color-dim, it overrides too hard */
+  opacity: 0.9;
+
+  /* don't use c-color-dim, it overrides too hard */
 }
 
 hr {
@@ -64,6 +68,7 @@ table, tbody, tfoot, thead, tr, th, td {
   vertical-align: middle;
   text-align: inherit;
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;

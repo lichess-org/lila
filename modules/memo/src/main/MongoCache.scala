@@ -9,8 +9,7 @@ import CacheApi._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 
-/**
-  * To avoid recomputing very expensive values after deploy
+/** To avoid recomputing very expensive values after deploy
   */
 final class MongoCache[K, V: BSONHandler] private (
     name: String,
@@ -28,7 +27,7 @@ final class MongoCache[K, V: BSONHandler] private (
     val dbKey = makeDbKey(k)
     coll.one[Entry]($id(dbKey)) flatMap {
       case None =>
-        lila.mon.mongoCache.request(name, false).increment()
+        lila.mon.mongoCache.request(name, hit = false).increment()
         loader(k)
           .flatMap { v =>
             coll.update.one(
@@ -39,7 +38,7 @@ final class MongoCache[K, V: BSONHandler] private (
           }
           .mon(_.mongoCache.compute(name))
       case Some(entry) =>
-        lila.mon.mongoCache.request(name, true).increment()
+        lila.mon.mongoCache.request(name, hit = true).increment()
         fuccess(entry.v)
     }
   }
@@ -82,7 +81,7 @@ object MongoCache {
         keyToString,
         (wrapper: LoaderWrapper[K, V]) =>
           build(wrapper)(
-            scaffeine(mode).recordStats.initialCapacity(cacheApi.actualCapacity(initialCapacity))
+            scaffeine(mode).recordStats().initialCapacity(cacheApi.actualCapacity(initialCapacity))
           ),
         coll
       )

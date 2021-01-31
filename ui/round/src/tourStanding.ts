@@ -18,7 +18,7 @@ export function tourStandingCtrl(players: TourPlayer[], team: Team | undefined, 
     view(): VNode {
       return h('div', {
         hook: onInsert(_ => {
-          window.lichess.loadCssPath('round.tour-standing');
+          lichess.loadCssPath('round.tour-standing');
         })
       }, [
         team ? h('h3.text', {

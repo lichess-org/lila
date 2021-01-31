@@ -1,11 +1,11 @@
 package lila.security
 
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.Domain
 
 final class DisposableEmailDomain(
-    ws: WSClient,
+    ws: StandaloneWSClient,
     providerUrl: String,
     checkMailBlocked: () => Fu[List[String]]
 )(implicit ec: scala.concurrent.ExecutionContext) {
@@ -16,10 +16,9 @@ final class DisposableEmailDomain(
 
   private[security] def refresh(): Unit =
     for {
-      blacklist <- ws.url(providerUrl).get().map(_.body.linesIterator) recover {
-        case e: Exception =>
-          logger.warn("DisposableEmailDomain.refresh", e)
-          Iterator.empty
+      blacklist <- ws.url(providerUrl).get().map(_.body.linesIterator) recover { case e: Exception =>
+        logger.warn("DisposableEmailDomain.refresh", e)
+        Iterator.empty
       }
       checked <- checkMailBlocked()
     } {
@@ -54,6 +53,7 @@ private object DisposableEmailDomain {
   )
 
   private val whitelist = Set(
+    "fide.com", // https://check-mail.org/domain/fide.com/ says DISPOSABLE / TEMPORARY DOMAIN
     /* Default domains included */
     "aol.com",
     "att.net",

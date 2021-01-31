@@ -1,6 +1,7 @@
 package views.html.streamer
 
 import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -25,16 +26,18 @@ object index {
         a(
           cls := "overlay",
           href := {
-            if (requests) s"${routes.Streamer.edit}?u=${s.user.username}"
+            if (requests) s"${routes.Streamer.edit()}?u=${s.user.username}"
             else routes.Streamer.show(s.user.username).url
           }
         ),
         stream.isDefined option span(cls := "ribbon")(span(trans.streamer.live())),
         bits.pic(s.streamer, s.user),
         div(cls := "overview")(
-          h1(dataIcon := "")(titleTag(s.user.title), stringValueFrag(s.streamer.name)),
+          h1(dataIcon := "")(titleTag(s.user.title), s.streamer.name),
           s.streamer.headline.map(_.value).map { d =>
-            p(cls := s"headline ${if (d.size < 60) "small" else if (d.size < 120) "medium" else "large"}")(d)
+            p(
+              cls := s"headline ${if (d.length < 60) "small" else if (d.length < 120) "medium" else "large"}"
+            )(d)
           },
           div(cls := "services")(
             s.streamer.twitch.map { twitch =>
@@ -73,7 +76,7 @@ object index {
               st.article(cls := "streamer")(widget(s.withoutStream, s.stream))
             }
           ),
-          div(cls := "list infinitescroll")(
+          div(cls := "list infinite-scroll")(
             (live.size % 2 == 1) option div(cls := "none"),
             pager.currentPageResults.map { s =>
               st.article(cls := "streamer paginated", dataDedup := s.streamer.id.value)(widget(s, none))
@@ -86,9 +89,7 @@ object index {
                   "requests",
                   if (requests) 1 else 0
                 )
-            ).map {
-              frag(_, div(cls := "none")) // don't break the even/odd CSS flow
-            }
+            )
           )
         )
       )

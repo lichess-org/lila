@@ -1,9 +1,10 @@
 package lila.study
 
-import chess.format.pgn.{ Dumper, Glyphs, ParsedPgn, San, Tags }
-import chess.format.{ FEN, Forsyth, Uci, UciCharPair }
-
+import cats.data.Validated
 import chess.Centis
+import chess.format.pgn.{ Dumper, Glyphs, ParsedPgn, San, Tags }
+import chess.format.{ Forsyth, Uci, UciCharPair }
+
 import lila.common.LightUser
 import lila.importer.{ ImportData, Preprocessed }
 import lila.tree.Node.{ Comment, Comments, Shapes }
@@ -24,7 +25,7 @@ object PgnImport {
       statusText: String
   )
 
-  def apply(pgn: String, contributors: List[LightUser]): Valid[Result] =
+  def apply(pgn: String, contributors: List[LightUser]): Validated[String, Result] =
     ImportData(pgn, analyse = none).preprocess(user = none).map {
       case Preprocessed(game, replay, initialFen, parsedPgn) =>
         val annotator = findAnnotator(parsedPgn, contributors)
@@ -32,7 +33,7 @@ object PgnImport {
           case (shapes, _, comments) =>
             val root = Node.Root(
               ply = replay.setup.turns,
-              fen = initialFen | FEN(game.variant.initialFen),
+              fen = initialFen | game.variant.initialFen,
               check = replay.setup.situation.check,
               shapes = shapes,
               comments = comments,
@@ -99,20 +100,19 @@ object PgnImport {
       comments: List[String],
       annotator: Option[Comment.Author]
   ): (Shapes, Option[Centis], Comments) =
-    comments.foldLeft((Shapes(Nil), none[Centis], Comments(Nil))) {
-      case ((shapes, clock, comments), txt) =>
-        CommentParser(txt) match {
-          case CommentParser.ParsedComment(s, c, str) =>
-            (
-              (shapes ++ s),
-              c orElse clock,
-              (str.trim match {
-                case "" => comments
-                case com =>
-                  comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Lichess)
-              })
-            )
-        }
+    comments.foldLeft((Shapes(Nil), none[Centis], Comments(Nil))) { case ((shapes, clock, comments), txt) =>
+      CommentParser(txt) match {
+        case CommentParser.ParsedComment(s, c, str) =>
+          (
+            (shapes ++ s),
+            c orElse clock,
+            (str.trim match {
+              case "" => comments
+              case com =>
+                comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Lichess)
+            })
+          )
+      }
     }
 
   private def makeNode(prev: chess.Game, sans: List[San], annotator: Option[Comment.Author]): Option[Node] =
@@ -132,7 +132,7 @@ object PgnImport {
                     id = UciCharPair(uci),
                     ply = game.turns,
                     move = Uci.WithSan(uci, sanStr),
-                    fen = FEN(Forsyth >> game),
+                    fen = Forsyth >> game,
                     check = game.situation.check,
                     shapes = shapes,
                     comments = comments,

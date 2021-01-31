@@ -188,7 +188,6 @@
     <item quantity="other">%s เกมเล่นกับคุณ</item>
   </plurals>
   <string name="cancel">ยกเลิก</string>
-  <string name="timeOut">หมดเวลา</string>
   <string name="drawOfferSent">ส่งการขอเสมอแล้ว</string>
   <string name="drawOfferDeclined">การขอเสมอถูกปฏิเสธ</string>
   <string name="drawOfferAccepted">ยอมรับการขอเสมอแล้ว</string>
@@ -257,6 +256,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">ให้ %s วินาที</item>
   </plurals>
+  <string name="thisAccountViolatedTos">This account violated the Lichess Terms of Service</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">ผู้เล่นรายนี้เพิ่ม/ลดระดับคะแนนตัวเองโดยทุจริต</string>
   <string name="openingExplorerAndTablebase">ตัวสำรวจการเปิด &amp; ฐานตาราง</string>
   <string name="takeback">เดินใหม่</string>
@@ -309,6 +309,7 @@
   <string name="filterGames">กรองเกม</string>
   <string name="reset">คืนค่าเดิม</string>
   <string name="apply">ใช้งาน</string>
+  <string name="save">Save</string>
   <string name="leaderboard">กระดานผู้นำ</string>
   <string name="pasteTheFenStringHere">วางสตริง FEN ที่นี่</string>
   <string name="pasteThePgnStringHere">วางสตริง PGN ที่นี่</string>
@@ -351,7 +352,6 @@
   <string name="more">เพิ่มเติม</string>
   <string name="memberSince">สมาชิกตั้งแต่</string>
   <string name="lastSeenActive">ลงชื่อเข้าครั้งล่าสุด %s</string>
-  <string name="challengeToPlay">ท้าดวลเกม</string>
   <string name="player">ผู้เล่น</string>
   <string name="list">รายการ</string>
   <string name="graph">กราฟ</string>
@@ -415,6 +415,7 @@
   <string name="lastName">นามสกุล</string>
   <string name="biography">ชีวประวัติ</string>
   <string name="country">ประเทศ</string>
+  <string name="thankYou">ขอบคุณ!</string>
   <string name="socialMediaLinks">ลิงก์สื่อโซเชียล</string>
   <string name="inlineNotation">สัญกรณ์ในบรรทัด</string>
   <string name="watchLichessTV">ดู Lichess TV</string>
@@ -423,33 +424,7 @@
   <string name="activeToday">ขยันในวันนี้</string>
   <string name="activePlayers">ผู้เล่นที่ขยัน</string>
   <string name="bewareTheGameIsRatedButHasNoClock">ระวัง, เกมนี้ถูกคิดคะแนนแต่ไม่จับเวลา!</string>
-  <string name="yourPuzzleRatingX">ระดับคะแนนแก้ปริศนาของคุณ: %s</string>
-  <string name="findTheBestMoveForWhite">หาการเดินที่ดีที่สุดสำหรับฝ่ายขาว</string>
-  <string name="findTheBestMoveForBlack">หาการเดินที่ดีที่สุดสำหรับฝ่ายดำ</string>
-  <string name="toTrackYourProgress">เพื่อติดตามความก้าวหน้าของคุณ:</string>
-  <string name="puzzleId">ปริศนา %s</string>
-  <string name="puzzleOfTheDay">ปริศนาประจำวัน</string>
-  <string name="clickToSolve">คลิกเพื่อแก้ปริศนา</string>
-  <string name="goodMove">เดินได้ดี</string>
-  <string name="butYouCanDoBetter">แต่คุณสามารถเดินได้ดีกว่าจุดนั้น</string>
-  <string name="bestMove">เดินได้ดีที่สุด!</string>
-  <string name="keepGoing">เดินต่อไป...</string>
-  <string name="puzzleFailed">แก้ปริศนาไม่สำเร็จ</string>
-  <string name="butYouCanKeepTrying">แต่คุณสามารถลองแก้ต่อได้</string>
   <string name="success">สำเร็จ</string>
-  <string name="wasThisPuzzleAnyGood">ปริศนานี้ดีพอหรือไม่?</string>
-  <string name="pleaseVotePuzzle">ช่วย lichess ปรับปรุงโดยใช้ปุ่มลูกศรขึ้นหรือลง เพื่อทำการโหวต:</string>
-  <string name="thankYou">ขอบคุณ!</string>
-  <string name="ratingX">ระดับคะแนน: %s</string>
-  <string name="hidden">ถูกซ่อน</string>
-  <plurals name="playedXTimes">
-    <item quantity="other">ถูกเล่น %s ครั้ง</item>
-  </plurals>
-  <string name="fromGameLink">จากเกม %s</string>
-  <string name="continueTraining">ฝึกต่อ</string>
-  <string name="retryThisPuzzle">ลองแก้ปริศนานี้อีกครั้ง</string>
-  <string name="thisPuzzleIsCorrect">ปริศนานี้ถูกต้อง และน่าสนใจ</string>
-  <string name="thisPuzzleIsWrong">ปริศนานี้ไม่ถูกต้อง หรือน่าเบื่อ</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s เกมที่กำลังเล่น</item>
   </plurals>
@@ -497,6 +472,7 @@
   <string name="currentPassword">รหัสผ่านปัจจุบัน</string>
   <string name="newPassword">รหัสผ่านใหม่</string>
   <string name="newPasswordAgain">รหัสผ่านใหม่ (อีกครั้ง)</string>
+  <string name="newPasswordsDontMatch">รหัสผ่านใหม่ที่ระบุไม่ตรงกัน</string>
   <string name="clockInitialTime">เวลาเริ่มต้นนาฬิกา</string>
   <string name="clockIncrement">การเพิ่มเวลานาฬิกา</string>
   <string name="privacy">ความเป็นส่วนตัว</string>
@@ -717,7 +693,6 @@
   <string name="error.unknown">ผิดพลาด</string>
   <string name="custom">กำหนด​เอง</string>
   <string name="notifications">การแจ้งเตือน</string>
-  <string name="challenges">การท้าดวล</string>
   <string name="perfRatingX">ระดับคะแนน: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s วินาทีต้องเริ่มเดินตาแรก</item>
@@ -755,19 +730,13 @@
   <string name="doItAgain">ทำอีกครั้ง</string>
   <string name="reviewWhiteMistakes">ทบทวนความผิดพลาดของขาว</string>
   <string name="reviewBlackMistakes">ทบทวนความผิดพลาดของดำ</string>
-  <string name="advantage">ความได้เปรียบ</string>
+  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">ความได้เปรียบ</string>
   <plurals name="nbSeconds">
     <item quantity="other">%s วินาที</item>
   </plurals>
   <string name="opening">การเปิดเกม</string>
   <string name="middlegame">กลางเกม</string>
   <string name="endgame">ท้ายเกม</string>
-  <string name="registerToSendChallenges">กรุณาลงทะเบียนเพื่อส่งคำท้าดวล</string>
-  <string name="youCannotChallengeX">คุณไม่สามารถท้า %s</string>
-  <string name="xDoesNotAcceptChallenges">%s ไม่รับคำท้า</string>
-  <string name="yourXRatingIsTooFarFromY">ระดับคะแนน %1$s ของคุณห่างจาก %2$s เกินไป</string>
-  <string name="cannotChallengeDueToProvisionalXRating">ไม่สามารถท้าได้เนื่องจากระดับคะแนน %s ชั่วคราว</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s รับคำท้าจากเพื่อนเท่านั้น</string>
   <string name="conditionalPremoves">การเดินล่วงหน้าแบบมีเงื่อนไข</string>
   <string name="addCurrentVariation">เพิ่มการแปรผันปัจจุบัน</string>
   <string name="playVariationToCreateConditionalPremoves">เล่นหนึ่งการแปรผัน เพื่อสร้างการเดินล่วงหน้าแบบมีเงื่อนไข</string>

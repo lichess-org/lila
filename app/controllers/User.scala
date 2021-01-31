@@ -10,6 +10,7 @@ import scala.concurrent.duration._
 import scala.language.existentials
 import scala.util.chaining._
 import scalatags.Text.Frag
+import views._
 
 import lila.api.{ BodyContext, Context }
 import lila.app._
@@ -20,13 +21,13 @@ import lila.game.{ Pov, Game => GameModel }
 import lila.rating.PerfType
 import lila.socket.UserLagCache
 import lila.user.{ User => UserModel }
-import views._
 
 final class User(
     env: Env,
     roundC: => Round,
     gameC: => Game,
-    modC: => Mod
+    modC: => Mod,
+    puzzleC: => Puzzle
 ) extends LilaController(env) {
 
   private def relationApi    = env.relation.api
@@ -37,7 +38,10 @@ final class User(
       OptionFuResult(env.user.repo named username) { user =>
         currentlyPlaying(user) orElse lastPlayed(user) flatMap {
           _.fold(fuccess(Redirect(routes.User.show(username)))) { pov =>
-            roundC.watch(pov, userTv = user.some)
+            ctx.me ifFalse pov.game.bothPlayersHaveMoved flatMap { Pov(pov.game, _) } match {
+              case Some(mine) => Redirect(routes.Round.player(mine.fullId)).fuccess
+              case _          => roundC.watch(pov, userTv = user.some)
+            }
           }
         }
       }
@@ -48,9 +52,9 @@ final class User(
       val userId = UserModel normalize username
       env.game.cached.lastPlayedPlayingId(userId) orElse
         env.game.gameRepo.quickLastPlayedId(userId) flatMap {
-        case None         => NotFound("No ongoing game").fuccess
-        case Some(gameId) => gameC.exportGame(gameId, req)
-      }
+          case None         => NotFound("No ongoing game").fuccess
+          case Some(gameId) => gameC.exportGame(gameId, req)
+        }
     }
 
   private def apiGames(u: UserModel, filter: String, page: Int)(implicit ctx: BodyContext[_]) = {
@@ -91,34 +95,40 @@ final class User(
     OpenBody { implicit ctx =>
       Reasonable(page) {
         EnabledUser(username) { u =>
-          negotiate(
-            html = for {
-              nbs <- env.userNbGames(u, ctx, withCrosstable = true)
-              filters = GameFilterMenu(u, nbs, filter)
-              pag <- env.gamePaginator(
-                user = u,
-                nbs = nbs.some,
-                filter = filters.current,
-                me = ctx.me,
-                page = page
-              )(ctx.body)
-              _ <- env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
-              _ <- env.tournament.cached.nameCache preloadMany {
-                pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctxLang)
-              }
-              res <-
-                if (HTTPRequest isSynchronousHttp ctx.req) for {
-                  info   <- env.userInfo(u, nbs, ctx)
-                  _      <- env.team.cached.nameCache preloadMany info.teamIds
-                  social <- env.socialInfo(u, ctx)
-                  searchForm =
-                    (filters.current == GameFilter.Search) option
-                      GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
-                } yield html.user.show.page.games(u, info, pag, filters, searchForm, social)
-                else fuccess(html.user.show.gamesContent(u, nbs, pag, filters, filter))
-            } yield res,
-            api = _ => apiGames(u, filter, page)
-          )
+          if (filter == "search" && ctx.isAnon)
+            negotiate(
+              html = Unauthorized(html.search.login(u.count.game)).fuccess,
+              api = _ => Unauthorized(jsonError("Login required")).fuccess
+            )
+          else
+            negotiate(
+              html = for {
+                nbs <- env.userNbGames(u, ctx, withCrosstable = true)
+                filters = GameFilterMenu(u, nbs, filter, ctx.isAuth)
+                pag <- env.gamePaginator(
+                  user = u,
+                  nbs = nbs.some,
+                  filter = filters.current,
+                  me = ctx.me,
+                  page = page
+                )(ctx.body)
+                _ <- env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
+                _ <- env.tournament.cached.nameCache preloadMany {
+                  pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctxLang)
+                }
+                res <-
+                  if (HTTPRequest isSynchronousHttp ctx.req) for {
+                    info   <- env.userInfo(u, nbs, ctx)
+                    _      <- env.team.cached.nameCache preloadMany info.teamIds
+                    social <- env.socialInfo(u, ctx)
+                    searchForm =
+                      (filters.current == GameFilter.Search) option
+                        GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
+                  } yield html.user.show.page.games(u, info, pag, filters, searchForm, social)
+                  else fuccess(html.user.show.gamesContent(u, nbs, pag, filters, filter))
+              } yield res,
+              api = _ => apiGames(u, filter, page)
+            )
         }
       }
     }
@@ -146,26 +156,26 @@ final class User(
             ctx.userId.?? { env.game.crosstableApi.fetchOrEmpty(user.id, _) dmap some } zip
             ctx.isAuth.?? { env.pref.api.followable(user.id) } zip
             ctx.userId.?? { relationApi.fetchRelation(_, user.id) } flatMap {
-            case blocked ~ crosstable ~ followable ~ relation =>
-              val ping = env.socket.isOnline(user.id) ?? UserLagCache.getLagRating(user.id)
-              negotiate(
-                html = !ctx.is(user) ?? currentlyPlaying(user) map { pov =>
-                  Ok(html.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
-                    .withHeaders(CACHE_CONTROL -> "max-age=5")
-                },
-                api = _ => {
-                  import lila.game.JsonView.crosstableWrites
-                  fuccess(
-                    Ok(
-                      Json.obj(
-                        "crosstable" -> crosstable,
-                        "perfs"      -> lila.user.JsonView.perfs(user, user.best8Perfs)
+              case blocked ~ crosstable ~ followable ~ relation =>
+                val ping = env.socket.isOnline(user.id) ?? UserLagCache.getLagRating(user.id)
+                negotiate(
+                  html = !ctx.is(user) ?? currentlyPlaying(user) map { pov =>
+                    Ok(html.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
+                      .withHeaders(CACHE_CONTROL -> "max-age=5")
+                  },
+                  api = _ => {
+                    import lila.game.JsonView.crosstableWrites
+                    fuccess(
+                      Ok(
+                        Json.obj(
+                          "crosstable" -> crosstable,
+                          "perfs"      -> lila.user.JsonView.perfs(user, user.best8Perfs)
+                        )
                       )
                     )
-                  )
-                }
-              )
-          }
+                  }
+                )
+            }
         else fuccess(Ok(html.user.bits.miniClosed(user)))
       }
     }
@@ -213,7 +223,6 @@ final class User(
   private val UserGamesRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 500,
     duration = 10.minutes,
-    name = "user games web/mobile per IP",
     key = "user_games.web.ip"
   )
 
@@ -222,8 +231,8 @@ final class User(
       filterName: String,
       page: Int
   )(implicit ctx: BodyContext[_]): Fu[Paginator[GameModel]] = {
-    UserGamesRateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = page, msg = s"on ${u.username}") {
-      lila.mon.http.userGamesCost.increment(page)
+    UserGamesRateLimitPerIP(HTTPRequest ipAddress ctx.req, cost = page, msg = s"on ${u.username}") {
+      lila.mon.http.userGamesCost.increment(page.toLong)
       for {
         pagFromDb <- env.gamePaginator(
           user = u,
@@ -336,7 +345,10 @@ final class User(
 
         val nbOthers = getInt("nbOthers") | 100
 
-        val modLog = env.mod.logApi.userHistory(user.id).map(view.modLog)
+        val modLog = for {
+          history <- env.mod.logApi.userHistory(user.id)
+          appeal  <- isGranted(_.Appeals) ?? env.appeal.api.get(user)
+        } yield view.modLog(history, appeal)
 
         val plan = env.plan.api.recentChargesOf(user).map(view.plan).dmap(~_)
 
@@ -356,15 +368,15 @@ final class User(
         }
         val spyFu = env.security.userSpy(user, nbOthers)
         val others = spyFu flatMap { spy =>
-          val familyUserIds = user.id :: spy.otherUserIds.toList
+          val familyUserIds = user.id :: spy.otherUserIds
           (isGranted(_.ModNote) ?? env.user.noteApi
             .forMod(familyUserIds)
             .logTimeIfGt(s"$username noteApi.forMod", 2 seconds)) zip
             env.playban.api.bans(familyUserIds).logTimeIfGt(s"$username playban.bans", 2 seconds) zip
             lila.security.UserSpy.withMeSortedWithEmails(env.user.repo, user, spy) map {
-            case notes ~ bans ~ othersWithEmail =>
-              html.user.mod.otherUsers(user, spy, othersWithEmail, notes, bans, nbOthers)
-          }
+              case notes ~ bans ~ othersWithEmail =>
+                html.user.mod.otherUsers(user, spy, othersWithEmail, notes, bans, nbOthers)
+            }
         }
         val identification = spyFu map { spy =>
           (isGranted(_.Doxing) || (user.lameOrAlt && !user.hasTitle)) ??
@@ -383,7 +395,7 @@ final class User(
         }
         implicit val extractor = EventSource.EventDataExtractor[Frag](_.render)
         Ok.chunked {
-          Source.single(html.user.mod.menu(user)) merge
+          Source.single(html.user.mod.menu) merge
             modZoneSegment(actions, "actions", user) merge
             modZoneSegment(modLog, "modLog", user) merge
             modZoneSegment(plan, "plan", user) merge
@@ -429,14 +441,16 @@ final class User(
   )(err: Form[_] => UserModel => Fu[Result], suc: => Result)(implicit req: Request[_]) =
     env.user.repo named username flatMap {
       _ ?? { user =>
-        env.user.forms.note.bindFromRequest.fold(
-          e => err(e)(user),
-          data =>
-            {
-              val isMod = data.mod && isGranted(_.ModNote, me)
-              env.user.noteApi.write(user, data.text, me, isMod, isMod && ~data.dox)
-            } inject suc
-        )
+        env.user.forms.note
+          .bindFromRequest()
+          .fold(
+            e => err(e)(user),
+            data =>
+              {
+                val isMod = data.mod && isGranted(_.ModNote, me)
+                env.user.noteApi.write(user, data.text, me, isMod, isMod && ~data.dox)
+              } inject suc
+          )
       }
     }
 
@@ -457,11 +471,10 @@ final class User(
         relateds <-
           ops
             .zip(followables)
-            .map {
-              case ((u, nb), followable) =>
-                relationApi.fetchRelation(me.id, u.id) map {
-                  lila.relation.Related(u, nb.some, followable, _)
-                }
+            .map { case ((u, nb), followable) =>
+              relationApi.fetchRelation(me.id, u.id) map {
+                lila.relation.Related(u, nb.some, followable, _)
+              }
             }
             .sequenceFu
       } yield html.user.opponents(me, relateds)
@@ -512,7 +525,8 @@ final class User(
           env.user.repo nameExists term map { r =>
             Ok(JsBoolean(r))
           }
-        case Some(term) => {
+        case Some(term) =>
+          {
             (get("tour"), get("swiss")) match {
               case (Some(tourId), _)  => env.tournament.playerRepo.searchPlayers(tourId, term, 10)
               case (_, Some(swissId)) => env.swiss.api.searchPlayers(lila.swiss.Swiss.Id(swissId), term, 10)
@@ -547,5 +561,15 @@ final class User(
   def myself =
     Auth { _ => me =>
       fuccess(Redirect(routes.User.show(me.username)))
+    }
+
+  def redirect(username: String) =
+    Open { implicit ctx =>
+      tryRedirect(username) getOrElse notFound
+    }
+
+  def tryRedirect(username: String)(implicit ctx: Context): Fu[Option[Result]] =
+    env.user.repo enabledNamed username map2 { user =>
+      Redirect(routes.User.show(user.username))
     }
 }

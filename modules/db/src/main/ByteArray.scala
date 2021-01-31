@@ -6,7 +6,7 @@ import reactivemongo.api.bson._
 
 case class ByteArray(value: Array[Byte]) {
 
-  def isEmpty = value.size == 0
+  def isEmpty = value.lengthIs == 0
 
   def toHexStr = ByteArray.hex hex2Str value
 
@@ -32,7 +32,7 @@ object ByteArray {
 
   implicit def fromBytes(value: Array[Byte]) = new ByteArray(value)
 
-  def parseBytes(s: List[String]) = ByteArray(s map parseByte toArray)
+  def parseBytes(s: List[String]) = ByteArray(s.map(parseByte).toArray)
 
   private def parseByte(s: String): Byte = {
     var i    = s.length - 1

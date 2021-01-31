@@ -21,11 +21,10 @@ case class Analysis(
   def providedByLichess = by exists (_ startsWith "lichess-")
 
   lazy val infoAdvices: InfoAdvices = {
-    (Info.start(startPly) :: infos) sliding 2 collect {
-      case List(prev, info) =>
-        info -> {
-          info.hasVariation ?? Advice(prev, info)
-        }
+    (Info.start(startPly) :: infos) sliding 2 collect { case List(prev, info) =>
+      info -> {
+        info.hasVariation ?? Advice(prev, info)
+      }
     }
   }.toList
 

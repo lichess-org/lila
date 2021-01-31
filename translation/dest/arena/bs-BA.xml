@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arenaTournaments">Turniri u Areni</string>
   <string name="isItRated">Igra li se za rejting bodove?</string>
   <string name="willBeNotified">Bit ćete obaviješteni kada turnir počne, tako da slobodno možete igrati u drugom prozoru dok čekate.</string>
   <string name="isRated">Ovaj turnir se igra za bodove i utjecat će na Vaš rejting.</string>
@@ -38,4 +39,6 @@ Igrajte brzo i vratite se u lobi da igrate više partija i da osvojite što viš
   </plurals>
   <string name="thisIsPrivate">Ovo je privatni turnir</string>
   <string name="shareUrl">Podijelite ovaj link da se ljudi mogu pridružiti: %s</string>
+  <string name="drawStreak">Nizovi remija: Kad igrač ima uzastopne remije u nekoj areni, bodove će dobiti samo za prvi remi ili za remi-partije duže od %s poteza. Niz može biti prekinut samo pobjedom.</string>
+  <string name="history">Historija Arene</string>
 </resources>

@@ -18,12 +18,12 @@ object home {
     views.html.base.layout(
       title = "",
       fullTitle = Some {
-        s"lichess.${if (isProd && !isStage) "org" else "dev"} • ${trans.freeOnlineChess.txt()}"
+        s"lichess.${if (netConfig.isProd) "org" else "dev"} • ${trans.freeOnlineChess.txt()}"
       },
       moreJs = frag(
-        jsAt(s"compiled/lichess.lobby${isProd ?? ".min"}.js", defer = true),
-        embedJsUnsafe(
-          s"""lichess=window.lichess||{};customWS=true;lichess_lobby=${safeJsonValue(
+        jsModule("lobby"),
+        embedJsUnsafeLoadThen(
+          s"""LichessLobby(${safeJsonValue(
             Json.obj(
               "data" -> data,
               "playban" -> playban.map { pb =>
@@ -34,21 +34,20 @@ object home {
               },
               "i18n" -> i18nJsObject(i18nKeys)
             )
-          )}"""
+          )})"""
         )
       ),
       moreCss = cssTag("lobby"),
       chessground = false,
       openGraph = lila.app.ui
         .OpenGraph(
-          image = staticUrl("logo/lichess-tile-wide.png").some,
-          twitterImage = staticUrl("logo/lichess-tile.png").some,
+          image = assetUrl("logo/lichess-tile-wide.png").some,
+          twitterImage = assetUrl("logo/lichess-tile.png").some,
           title = "The best free, adless Chess server",
           url = netBaseUrl,
           description = trans.siteDescription.txt()
         )
-        .some,
-      deferJs = true
+        .some
     ) {
       main(
         cls := List(
@@ -60,7 +59,7 @@ object home {
           div(cls := "lobby__start")(
             ctx.blind option h2("Play"),
             a(
-              href := routes.Setup.hookForm,
+              href := routes.Setup.hookForm(),
               cls := List(
                 "button button-metal config_hook" -> true,
                 "disabled"                        -> (playban.isDefined || currentGame.isDefined || ctx.isBot)
@@ -76,7 +75,7 @@ object home {
               trans.playWithAFriend()
             ),
             a(
-              href := routes.Setup.aiForm,
+              href := routes.Setup.aiForm(),
               cls := List(
                 "button button-metal config_ai" -> true,
                 "disabled"                      -> currentGame.isDefined
@@ -86,19 +85,29 @@ object home {
           ),
           div(cls := "lobby__counters")(
             ctx.blind option h2("Counters"),
-            a(id := "nb_connected_players", href := ctx.noBlind.option(routes.User.list.toString))(
-              trans.nbPlayers(nbPlaceholder)
+            a(
+              id := "nb_connected_players",
+              href := ctx.noBlind.option(routes.User.list().url)
+            )(
+              trans.nbPlayers(
+                strong(dataCount := homepage.counters.members)(homepage.counters.members.localize)
+              )
             ),
-            a(id := "nb_games_in_play", href := ctx.noBlind.option(routes.Tv.games.toString))(
-              trans.nbGamesInPlay(nbPlaceholder)
+            a(
+              id := "nb_games_in_play",
+              href := ctx.noBlind.option(routes.Tv.games().url)
+            )(
+              trans.nbGamesInPlay(
+                strong(dataCount := homepage.counters.rounds)(homepage.counters.rounds.localize)
+              )
             )
           )
         ),
         currentGame.map(bits.currentGameInfo) orElse
           playban.map(bits.playbanInfo) getOrElse {
-          if (ctx.blind) blindLobby(blindGames)
-          else bits.lobbyApp
-        },
+            if (ctx.blind) blindLobby(blindGames)
+            else bits.lobbyApp
+          },
         div(cls := "lobby__side")(
           ctx.blind option h2("Highlights"),
           ctx.noKid option st.section(cls := "lobby__streams")(
@@ -121,14 +130,17 @@ object home {
             div(cls := "timeline")(
               ctx.blind option h2("Timeline"),
               views.html.timeline entries userTimeline,
-              userTimeline.nonEmpty option a(cls := "more", href := routes.Timeline.home)(trans.more(), " »")
+              userTimeline.nonEmpty option a(cls := "more", href := routes.Timeline.home())(
+                trans.more(),
+                " »"
+              )
             )
           else
             div(cls := "about-side")(
               ctx.blind option h2("About"),
               trans.xIsAFreeYLibreOpenSourceChessServer(
                 "Lichess",
-                a(cls := "blue", href := routes.Plan.features)(trans.really.txt())
+                a(cls := "blue", href := routes.Plan.features())(trans.really.txt())
               ),
               " ",
               a(href := "/about")(trans.aboutX("Lichess"), "...")
@@ -136,23 +148,15 @@ object home {
         ),
         featured map { g =>
           div(cls := "lobby__tv")(
-            gameFen(Pov first g, tv = true),
-            views.html.game.bits.vstext(Pov first g)(ctx.some)
+            views.html.game.mini(Pov naturalOrientation g, tv = true)
           )
         },
         puzzle map { p =>
-          div(cls := "lobby__puzzle", title := trans.clickToSolve.txt())(
-            raw(p.html),
-            div(cls := "vstext")(
-              trans.puzzleOfTheDay(),
-              br,
-              p.color.fold(trans.whitePlays, trans.blackPlays)()
-            )
-          )
+          views.html.puzzle.embed.dailyLink(p)(ctx.lang)(cls := "lobby__puzzle")
         },
         ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
         ctx.noKid option div(cls := "lobby__forum lobby__box")(
-          a(cls := "lobby__box__top", href := routes.ForumCateg.index)(
+          a(cls := "lobby__box__top", href := routes.ForumCateg.index())(
             h2(cls := "title text", dataIcon := "d")(trans.latestForumPosts()),
             span(cls := "more")(trans.more(), " »")
           ),
@@ -162,7 +166,7 @@ object home {
         ),
         bits.lastPosts(lastPost),
         div(cls := "lobby__support")(
-          a(href := routes.Plan.index)(
+          a(href := routes.Plan.index())(
             iconTag(patronIconChar),
             span(cls := "lobby__support__text")(
               strong(trans.patron.donate()),
@@ -183,10 +187,10 @@ object home {
           a(href := "/faq")(trans.faq.faqAbbreviation()),
           a(href := "/contact")(trans.contact.contact()),
           a(href := "/mobile")(trans.mobileApp()),
-          a(href := routes.Page.tos)(trans.termsOfService()),
-          a(href := routes.Page.privacy)(trans.privacy()),
-          a(href := routes.Page.source)(trans.sourceCode()),
-          a(href := routes.Page.ads)("Ads"),
+          a(href := routes.Page.tos())(trans.termsOfService()),
+          a(href := "/privacy")(trans.privacy()),
+          a(href := "/source")(trans.sourceCode()),
+          a(href := "/ads")("Ads"),
           views.html.base.bits.connectLinks
         )
       )
@@ -220,6 +224,4 @@ object home {
     trans.custom,
     trans.anonymous
   ).map(_.key)
-
-  private val nbPlaceholder = strong("--,---")
 }

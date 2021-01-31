@@ -16,7 +16,7 @@ case class SwissPairing(
   def gameId                      = id
   def players                     = List(white, black)
   def has(userId: User.ID)        = white == userId || black == userId
-  def colorOf(userId: User.ID)    = chess.Color(white == userId)
+  def colorOf(userId: User.ID)    = chess.Color.fromWhite(white == userId)
   def opponentOf(userId: User.ID) = if (white == userId) black else white
   def winner: Option[User.ID]     = (~status.toOption).map(apply)
   def isOngoing                   = status.isLeft
@@ -57,13 +57,11 @@ object SwissPairing {
   def fields[A](f: Fields.type => A): A = f(Fields)
 
   def toMap(pairings: List[SwissPairing]): PairingMap =
-    pairings.foldLeft[PairingMap](Map.empty) {
-      case (acc, pairing) =>
-        pairing.players.foldLeft(acc) {
-          case (acc, player) =>
-            acc.updatedWith(player) { acc =>
-              (~acc).updated(pairing.round, pairing).some
-            }
+    pairings.foldLeft[PairingMap](Map.empty) { case (acc, pairing) =>
+      pairing.players.foldLeft(acc) { case (acc, player) =>
+        acc.updatedWith(player) { acc =>
+          (~acc).updated(pairing.round, pairing).some
         }
+      }
     }
 }

@@ -31,7 +31,7 @@ final class Env(
   lazy val memberRepo  = new MemberRepo(db(CollName("team_member")))
   lazy val requestRepo = new RequestRepo(db(CollName("team_request")))
 
-  lazy val forms = wire[DataForm]
+  lazy val forms = wire[TeamForm]
 
   lazy val memberStream = wire[TeamMemberStream]
 
@@ -39,7 +39,7 @@ final class Env(
 
   lazy val paginator = wire[PaginatorBuilder]
 
-  lazy val cli = wire[Cli]
+  lazy val cli = wire[TeamCli]
 
   lazy val cached: Cached = wire[Cached]
 
@@ -55,7 +55,7 @@ final class Env(
   lazy val getTeamName = new GetTeamName(cached.blockingTeamName)
 
   lila.common.Bus.subscribeFun("shadowban", "teamIsLeader", "teamJoinedBy", "teamIsLeaderOf") {
-    case lila.hub.actorApi.mod.Shadowban(userId, true) => api deleteRequestsByUserId userId
+    case lila.hub.actorApi.mod.Shadowban(userId, true) => api.deleteRequestsByUserId(userId).unit
     case lila.hub.actorApi.team.IsLeader(teamId, userId, promise) =>
       promise completeWith cached.isLeader(teamId, userId)
     case lila.hub.actorApi.team.IsLeaderOf(leaderId, memberId, promise) =>

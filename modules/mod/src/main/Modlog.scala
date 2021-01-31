@@ -12,6 +12,11 @@ case class Modlog(
     date: DateTime = DateTime.now
 ) {
 
+  def isLichess = mod == lila.user.User.lichessId
+
+  def notable      = action != Modlog.terminateTournament
+  def notableSlack = notable && !isLichess
+
   def showAction =
     action match {
       case Modlog.alt                 => "mark as alt"
@@ -36,6 +41,8 @@ case class Modlog(
       case Modlog.setEmail            => "set email address"
       case Modlog.practiceConfig      => "update practice config"
       case Modlog.deleteTeam          => "delete team"
+      case Modlog.disableTeam         => "disable team"
+      case Modlog.enableTeam          => "enable team"
       case Modlog.terminateTournament => "terminate tournament"
       case Modlog.chatTimeout         => "chat timeout"
       case Modlog.troll               => "shadowban"
@@ -58,10 +65,12 @@ case class Modlog(
       case Modlog.streamerTier        => "set streamer tier"
       case Modlog.teamKick            => "kick from team"
       case Modlog.teamEdit            => "edited team"
+      case Modlog.appealPost          => "posted in appeal"
+      case Modlog.setKidMode          => "set kid mode"
       case a                          => a
     }
 
-  override def toString = s"$mod $showAction ${~user}"
+  override def toString = s"$mod $showAction ${~user} $details"
 }
 
 object Modlog {
@@ -99,6 +108,8 @@ object Modlog {
   val setEmail            = "setEmail"
   val practiceConfig      = "practiceConfig"
   val deleteTeam          = "deleteTeam"
+  val disableTeam         = "disableTeam"
+  val enableTeam          = "enableTeam"
   val terminateTournament = "terminateTournament "
   val chatTimeout         = "chatTimeout "
   val kickFromRankings    = "kickFromRankings"
@@ -118,4 +129,6 @@ object Modlog {
   val streamerTier        = "streamerTier"
   val teamKick            = "teamKick"
   val teamEdit            = "teamEdit"
+  val appealPost          = "appealPost"
+  val setKidMode          = "setKidMode"
 }

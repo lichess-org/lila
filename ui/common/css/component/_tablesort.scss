@@ -27,6 +27,7 @@ th[aria-sort]:not(.no-sort):after {
 
 th[role=columnheader]:not(.no-sort):hover {
   color: $c-font-clear;
+
   &:after {
     opacity: 1;
   }

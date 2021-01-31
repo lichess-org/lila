@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="hourlyRapidArena">Hourly Rapid Arena</string>
+  <string name="dailyRapidArena">데일리 래피드 아레나</string>
+  <string name="easternRapidArena">이스턴 래피드 아레나</string>
   <string name="xTeamBattle">%s 팀 배틀</string>
   <string name="eliteXArena">엘리트 %s 아레나</string>
   <string name="eliteX">엘리트 %s</string>

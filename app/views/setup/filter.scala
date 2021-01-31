@@ -7,8 +7,6 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.rating.RatingRange
 
-import controllers.routes
-
 object filter {
 
   import bits._
@@ -51,12 +49,27 @@ object filter {
               td(trans.ratingRange()),
               td(
                 label(cls := "range")("? - ?"),
-                div(cls := "rating-range")(
-                  renderInput(form("ratingRange"))(
-                    dataMin := RatingRange.min,
-                    dataMax := RatingRange.max
+                div(cls := "rating-range") {
+                  val field = form("ratingRange")
+                  frag(
+                    form3.hidden(field),
+                    input(
+                      name := s"${field.name}_range_min",
+                      tpe := "range",
+                      cls := "range rating-range__min",
+                      min := RatingRange.min,
+                      max := RatingRange.max
+                    ),
+                    "/",
+                    input(
+                      name := s"${field.name}_range_max",
+                      tpe := "range",
+                      cls := "range rating-range__max",
+                      min := RatingRange.min,
+                      max := RatingRange.max
+                    )
                   )
-                )
+                }
               )
             )
           )
@@ -78,11 +91,10 @@ object filter {
       options: Seq[(Any, String, Option[String])],
       checks: Set[String] = Set.empty
   ): Frag =
-    options.zipWithIndex.map {
-      case ((value, text, hint), index) =>
-        div(cls := "checkable")(
-          renderCheckbox(form, key, index, value.toString, raw(text), hint, checks)
-        )
+    options.zipWithIndex.map { case ((value, text, hint), index) =>
+      div(cls := "checkable")(
+        renderCheckbox(form, key, index, value.toString, raw(text), hint, checks)
+      )
     }
 
   private def renderCheckbox(
@@ -92,7 +104,7 @@ object filter {
       value: String,
       content: Frag,
       hint: Option[String],
-      checks: Set[String] = Set.empty
+      checks: Set[String]
   ) =
     label(title := hint)(
       input(

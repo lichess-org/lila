@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Siirrä kuningasta kaksi ruutua</string>
   <string name="castleByMovingOntoTheRook">Siirrä kuningas tornin päälle</string>
   <string name="inputMovesWithTheKeyboard">Syötä siirtoja näppäimistöllä</string>
+  <string name="snapArrowsToValidMoves">Merkitse mahdolliset siirrot nuolilla</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Sano \"Good game, well played\" (suom. \"Hyvä peli, hyvin pelattu\") tasapelin tai tappion jälkeen</string>
   <string name="yourPreferencesHaveBeenSaved">Asetuksesi on tallennettu.</string>
 </resources>

@@ -31,7 +31,7 @@ object checkYourEmail {
               h3("Make sure your email address is correct:"),
               br,
               br,
-              postForm(action := routes.Auth.fixEmail)(
+              postForm(action := routes.Auth.fixEmail())(
                 input(
                   id := "new-email",
                   tpe := "email",
@@ -40,7 +40,7 @@ object checkYourEmail {
                   value := form.flatMap(_("email").value).getOrElse(email.value),
                   pattern := s"^((?!^${email.value}$$).)*$$"
                 ),
-                embedJsUnsafe("""
+                embedJsUnsafeLoadThen("""
 var email = document.getElementById("new-email");
 var currentError = "This is already your current email.";
 email.setCustomValidity(currentError);
@@ -67,7 +67,7 @@ email.setCustomValidity(email.validity.patternMismatch ? currentError : "");
             "Did you wait 5 minutes?",
             br,
             "If so, ",
-            a(href := routes.Account.emailConfirmHelp)("proceed to this page to solve the issue"),
+            a(href := routes.Account.emailConfirmHelp())("proceed to this page to solve the issue"),
             "."
           )
         )

@@ -11,8 +11,8 @@
     <item quantity="other">Harjoitteli %1$s %2$s -tilannetta</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Harjoitteli %s taktiikkatehtävää</item>
-    <item quantity="other">Harjoitteli %s taktiikkatehtävää</item>
+    <item quantity="one">Ratkaisi %s taktiikkatehtävän</item>
+    <item quantity="other">Ratkaisi %s taktiikkatehtävää</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Pelasi %1$s %2$s-pelin</item>
@@ -43,12 +43,12 @@
     <item quantity="other">Sai %s uutta seuraajaa</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="one">Isännöi %s yhtäaikaista näytösottelua</item>
-    <item quantity="other">Isännöi %s yhtäaikaista näytösottelua</item>
+    <item quantity="one">Piti %s simultaanin</item>
+    <item quantity="other">Piti %s simultaania</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="one">Osallistui %s yhtäaikaiseen näytösotteluun</item>
-    <item quantity="other">Osallistui %s yhtäaikaiseen näytösotteluun</item>
+    <item quantity="one">Osallistui %s simultaaniin</item>
+    <item quantity="other">Osallistui %s simultaaniin</item>
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Teki %s uuden tutkielman</item>

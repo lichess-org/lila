@@ -10,6 +10,7 @@
   <string name="allStudies">Ĉiuj studoj</string>
   <string name="studiesCreatedByX">Studoj kreitaj de %s</string>
   <string name="noneYet">Neniu ankoraŭ.</string>
+  <string name="hot">Tendenca</string>
   <string name="dateAddedNewest">Dato aldonita (plej novaj)</string>
   <string name="dateAddedOldest">Dato aldonita (plej malnovaj)</string>
   <string name="recentlyUpdated">Lastatempe ĝisdatigita</string>
@@ -45,6 +46,7 @@
   <string name="annotateWithGlyphs">Komenti per signobildo</string>
   <string name="theChapterIsTooShortToBeAnalysed">La ĉapitro estas tro mallonga por esti analizita.</string>
   <string name="onlyContributorsCanRequestAnalysis">Nur la kontribuantoj de la studo povas peti komputilan analizon.</string>
+  <string name="getAFullComputerAnalysis">Akiru kompletan servilan komputilan analizon de la ĉefa linio.</string>
   <string name="makeSureTheChapterIsComplete">Certiĝu, ke la ĉapitro estas kompleta. Vi nur povas peti analizon unu foje.</string>
   <string name="playing">Ludanta</string>
   <string name="first">Al la unua</string>

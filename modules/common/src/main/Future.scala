@@ -21,11 +21,10 @@ object Future {
   def lazyFold[T, R](
       futures: LazyList[Fu[T]]
   )(zero: R)(op: (R, T) => R)(implicit ec: ExecutionContext): Fu[R] =
-    LazyList.cons.unapply(futures).fold(fuccess(zero)) {
-      case (future, rest) =>
-        future flatMap { f =>
-          lazyFold(rest)(op(zero, f))(op)
-        }
+    LazyList.cons.unapply(futures).fold(fuccess(zero)) { case (future, rest) =>
+      future flatMap { f =>
+        lazyFold(rest)(op(zero, f))(op)
+      }
     }
 
   def filter[A](
@@ -85,7 +84,7 @@ object Future {
     else akka.pattern.after(duration, system.scheduler)(run)
 
   def sleep(duration: FiniteDuration)(implicit ec: ExecutionContext, scheduler: Scheduler): Funit = {
-    val p = Promise[Unit]
+    val p = Promise[Unit]()
     scheduler.scheduleOnce(duration)(p success {})
     p.future
   }

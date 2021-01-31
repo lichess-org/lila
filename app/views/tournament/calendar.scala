@@ -13,8 +13,8 @@ object calendar {
     views.html.base.layout(
       title = "Tournament calendar",
       moreJs = frag(
-        jsAt(s"compiled/lichess.tournamentCalendar${isProd ?? ".min"}.js"),
-        embedJsUnsafe(
+        jsModule("tournament.calendar"),
+        embedJsUnsafeLoadThen(
           s"""LichessTournamentCalendar.app(document.getElementById('tournament-calendar'), ${safeJsonValue(
             Json.obj(
               "data" -> json,

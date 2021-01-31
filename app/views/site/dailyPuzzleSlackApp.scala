@@ -27,13 +27,13 @@ object dailyPuzzleSlackApp {
               alt := "Add to Slack",
               height := 40,
               width := 139,
-              src := staticUrl("images/add-to-slack.png")
+              src := assetUrl("images/add-to-slack.png")
             )
           ),
           h2("Summary"),
           p(
             "By default, the app will post the ",
-            a(href := routes.Puzzle.daily)("daily chess puzzle"),
+            a(href := routes.Puzzle.daily())("daily chess puzzle"),
             " from Lichess to the channel in which it was installed every day (at the same time of day it was installed). Use the ",
             code("/puzzletime"),
             " command to change this setting, e.g. ",

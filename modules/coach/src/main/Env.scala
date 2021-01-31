@@ -42,26 +42,26 @@ final class Env(
 
   lila.common.Bus.subscribeFun("adjustCheater", "finishGame", "shadowban", "setPermissions") {
     case lila.hub.actorApi.mod.Shadowban(userId, true) =>
-      api.toggleApproved(userId, false)
-      api.reviews deleteAllBy userId
+      api.toggleApproved(userId, value = false)
+      api.reviews.deleteAllBy(userId).unit
     case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
-      api.toggleApproved(userId, false)
-      api.reviews deleteAllBy userId
+      api.toggleApproved(userId, value = false)
+      api.reviews.deleteAllBy(userId).unit
     case lila.hub.actorApi.mod.SetPermissions(userId, permissions) =>
-      api.toggleApproved(userId, permissions.has(Permission.Coach.dbKey))
+      api.toggleApproved(userId, permissions.has(Permission.Coach.dbKey)).unit
     case lila.game.actorApi.FinishGame(game, white, black) if game.rated =>
       if (game.perfType.exists(lila.rating.PerfType.standard.contains)) {
         white ?? api.setRating
         black ?? api.setRating
-      }
-    case lila.user.User.GDPRErase(user) => api.reviews deleteAllBy user.id
+      }.unit
+    case lila.user.User.GDPRErase(user) => api.reviews.deleteAllBy(user.id).unit
   }
 
   def cli =
     new lila.common.Cli {
       def process = {
-        case "coach" :: "enable" :: username :: Nil  => api.toggleApproved(username, true)
-        case "coach" :: "disable" :: username :: Nil => api.toggleApproved(username, false)
+        case "coach" :: "enable" :: username :: Nil  => api.toggleApproved(username, value = true)
+        case "coach" :: "disable" :: username :: Nil => api.toggleApproved(username, value = false)
       }
     }
 }

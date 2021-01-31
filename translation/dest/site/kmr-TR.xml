@@ -199,7 +199,6 @@
     <item quantity="other">%s lîstikên bi te re</item>
   </plurals>
   <string name="cancel">Betal bike</string>
-  <string name="timeOut">Dem bihurî</string>
   <string name="drawOfferSent">Pêşniyara wekheviyê hate şandin</string>
   <string name="drawOfferDeclined">Teklîfa wekheviyê hate redkirin</string>
   <string name="drawOfferAccepted">Teklîfa wekheviyê hate qebûlkirin</string>
@@ -380,7 +379,6 @@
   <string name="more">Zêdetir</string>
   <string name="memberSince">Ji vê demê ve endam e</string>
   <string name="lastSeenActive">Çalakiya dawîn %s</string>
-  <string name="challengeToPlay">Vexwîne lîstikek</string>
   <string name="player">Lîzer</string>
   <string name="list">Lîste</string>
   <string name="graph">Grafîk</string>
@@ -445,6 +443,7 @@
   <string name="lastName">Paşnav</string>
   <string name="biography">Biyografî</string>
   <string name="country">Welat</string>
+  <string name="thankYou">Spas!</string>
   <string name="socialMediaLinks">Têkîliyên Medyaya Civakî</string>
   <string name="inlineNotation">Notasyona navrêzî</string>
   <string name="watchLichessTV">Li Lichess TVyê temaşe bike</string>
@@ -453,34 +452,7 @@
   <string name="activeToday">Yên îro çalak bûn</string>
   <string name="activePlayers">Lîzerên aktîv</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Baldar be, lîstik bi reytîng e lê sînorek wextê tine!</string>
-  <string name="yourPuzzleRatingX">Reytînga te ya pazilê: %s</string>
-  <string name="findTheBestMoveForWhite">Hemleya çêtirîn bibîne ji bo spî.</string>
-  <string name="findTheBestMoveForBlack">Hemleya çêtirîn bibîne ji bo reş.</string>
-  <string name="toTrackYourProgress">Ji bo şopandina pêşveçûna xwe:</string>
-  <string name="puzzleId">Pazil %s</string>
-  <string name="puzzleOfTheDay">Pazila rojê</string>
-  <string name="clickToSolve">Bo çareserkirinê bitikîne</string>
-  <string name="goodMove">Hemleya baş</string>
-  <string name="butYouCanDoBetter">Lê tu dikarî yê çêtir bikî.</string>
-  <string name="bestMove">Hemleya çêtirîn!</string>
-  <string name="keepGoing">Bidomîne…</string>
-  <string name="puzzleFailed">Pazil hel nebû</string>
-  <string name="butYouCanKeepTrying">Lê tu dikarî dewam bikî ceribandinên xwe.</string>
   <string name="success">Çêbû</string>
-  <string name="wasThisPuzzleAnyGood">Ev pazil çawa bû?</string>
-  <string name="pleaseVotePuzzle">Bi dengdanê alî Lichessê bike da ku bi pêş bikeve, bo dengdanê tîrên jêrî û jorî bi kar bîne:</string>
-  <string name="thankYou">Spas!</string>
-  <string name="ratingX">Reytîng: %s</string>
-  <string name="hidden">veşartî</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">%s carî hate lîstin</item>
-    <item quantity="other">%s caran hate lîstin</item>
-  </plurals>
-  <string name="fromGameLink">Ji lîstika %s</string>
-  <string name="continueTraining">Dewam bike perwerdeyê</string>
-  <string name="retryThisPuzzle">Vê pazilê nû bike</string>
-  <string name="thisPuzzleIsCorrect">Ev pazil rast û balkêş e</string>
-  <string name="thisPuzzleIsWrong">Ev pazil xelet û acizker e</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s lîstik tê lîstin</item>
     <item quantity="other">%s lîstik tên lîstin</item>
@@ -755,7 +727,6 @@
   <string name="error.unknown">Çewtî</string>
   <string name="custom">Xisûsî</string>
   <string name="notifications">Danezan</string>
-  <string name="challenges">Teklîfên lîstinê</string>
   <string name="perfRatingX">Reytîng: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s çirke ji bo lîstina hemleya pêşîn</item>
@@ -802,12 +773,6 @@
   <string name="opening">Destpêk</string>
   <string name="middlegame">Nîvlîstik</string>
   <string name="endgame">Dawiya lîstikê</string>
-  <string name="registerToSendChallenges">Ji kerema xwe qeyd bibe ji bo şandina teklîfan.</string>
-  <string name="youCannotChallengeX">Tu nikarî teklîfa lîstinê bişînî %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s teklîfên lîstinê qebûl nake.</string>
-  <string name="yourXRatingIsTooFarFromY">Reytînga te ya %1$s pir dûr e ji %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Ji ber reytînga te ya demkî ya %s, nikare vexwîne lîstinê.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s tenê ji hevalên xwe teklîfan qebûl dike.</string>
   <string name="conditionalPremoves">Pêşhemleyên mercdar</string>
   <string name="addCurrentVariation">Varyasyona heyî tevlî bike</string>
   <string name="playVariationToCreateConditionalPremoves">Varyasyonekê bilîze da ku pêşheleyên mercdar çêbikî</string>

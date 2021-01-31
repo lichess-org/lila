@@ -8,7 +8,6 @@ import lila.common.config._
 @Module
 final class Env(
     appConfig: Configuration,
-    db: lila.db.Db,
     gameRepo: lila.game.GameRepo,
     fishnetPlayer: lila.fishnet.Player,
     onStart: lila.round.OnStart,
@@ -17,7 +16,7 @@ final class Env(
 
   private lazy val maxPlaying = appConfig.get[Max]("setup.max_playing")
 
-  lazy val forms = wire[FormFactory]
+  lazy val forms = wire[SetupForm]
 
   lazy val processor = wire[Processor]
 }

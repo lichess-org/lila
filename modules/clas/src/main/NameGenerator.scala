@@ -1,13 +1,12 @@
 package lila.clas
 
-import scala.util.Random
 import scala.concurrent.ExecutionContext
 
 final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionContext) {
 
-  def apply(maxSize: Int = 16, triesLeft: Int = 100): Fu[Option[String]] = {
+  def apply(maxSize: Int = 17, triesLeft: Int = 100): Fu[Option[String]] = {
     val name = anyOf(combinations).map(anyOf).mkString
-    if (name.size <= maxSize) userRepo.nameExists(name) flatMap {
+    if (name.lengthIs <= maxSize) userRepo.nameExists(name) flatMap {
       case true => apply(maxSize, triesLeft - 1)
       case _    => fuccess(name.some)
     }
@@ -16,51 +15,77 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionCo
   }
 
   private def anyOf[A](vec: Vector[A]): A =
-    vec(Random.between(0, vec.size))
+    vec(lila.common.ThreadLocalRandom.nextInt(vec.size))
 
   lazy val combinations = Vector(
     List(adjectives, nouns)
   )
 
   val adjectives = colors ++ positiveAdjectives
-  val nouns      = animals ++ pieces
+  val nouns      = animals ++ pieces ++ jobs
 
   def colors =
     Vector(
-      "Red",
-      "Orange",
-      "Yellow",
-      "Green",
-      "Blue",
-      "Purple",
-      "Brown",
-      "Magenta",
-      "Tan",
-      "Cyan",
-      "Olive",
-      "Maroon",
-      "Navy",
+      "Amber",
       "Aqua",
-      "Turquoise",
-      "Silver",
-      "Lime",
-      "Teal",
-      "Indigo",
-      "Violet",
-      "Pink",
+      "Azure",
+      "Beige",
       "Black",
+      "Blue",
+      "Brass",
+      "Brown",
+      "Burgundy",
+      "Cerulean",
+      "Cherry",
+      "Chestnut",
+      "Cobalt",
+      "Copper",
+      "Crimson",
+      "Cyan",
+      "Emberald",
+      "Fuschia",
+      "Gold",
+      "Gray",
+      "Green",
+      "Indigo",
+      "Lilac",
+      "Lime",
+      "Magenta",
+      "Maroon",
+      "Mint",
+      "Moss",
+      "Navy",
+      "Olive",
+      "Orange",
+      "Pink",
+      "Platinum",
+      "Plum",
+      "Purple",
+      "Red",
+      "Rose",
+      "Ruby",
+      "Saffron",
+      "Sapphire",
+      "Silver",
+      "Steel",
+      "Tan",
+      "Tangerine",
+      "Teal",
+      "Tomato",
+      "Turquoise",
+      "Violet",
       "White",
-      "Gray"
+      "Yellow"
     )
 
   def pieces =
     Vector(
-      "Pawn",
       "Bishop",
+      "King",
       "Knight",
-      "Rook",
+      "Pawn",
       "Queen",
-      "King"
+      "Rook"
     )
 
   def animals =
@@ -70,6 +95,7 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionCo
       "Alpaca",
       "Ant",
       "Antelope",
+      "Anteater",
       "Ape",
       "Armadillo",
       "Baboon",
@@ -110,7 +136,9 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionCo
       "Elephant",
       "Elf",
       "Elk",
+      "Falcon",
       "Ferret",
+      "Finch",
       "Fish",
       "Fly",
       "Fox",
@@ -125,13 +153,16 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionCo
       "Goose",
       "Gorilla",
       "Grasshopper",
+      "Grebe",
       "Griffin",
+      "Grouse",
       "Guinea",
       "Hamster",
       "Hare",
       "Hawk",
       "Hedgehog",
       "Herring",
+      "Heron",
       "Hippopotamus",
       "Hornet",
       "Horse",
@@ -142,7 +173,10 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionCo
       "Jackal",
       "Jellyfish",
       "Kangaroo",
+      "Kingfisher",
+      "Kiwi",
       "Koala",
+      "Lark",
       "Leopard",
       "Lion",
       "Lizard",
@@ -155,8 +189,8 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionCo
       "Manatee",
       "Marten",
       "Mink",
-      "Minotaur",
       "Minnow",
+      "Minotaur",
       "Mole",
       "Monkey",
       "Moose",
@@ -170,6 +204,8 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionCo
       "Ox",
       "Oyster",
       "Panda",
+      "Parrot",
+      "Penguin",
       "Pig",
       "Platypus",
       "Pony",
@@ -178,6 +214,7 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionCo
       "Pug",
       "Rabbit",
       "Raccoon",
+      "Raven",
       "Reindeer",
       "Rhinoceros",
       "Salmon",
@@ -209,6 +246,7 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionCo
       "Wombat",
       "Woodchuck",
       "Worm",
+      "Wren",
       "Yak",
       "Yellowjacket",
       "Zebra"
@@ -937,8 +975,8 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionCo
       "Sisterly",
       "Sizable",
       "Sizzling",
-      "Skillful",
       "Skilled",
+      "Skillful",
       "Sleek",
       "Slick",
       "Slinky",
@@ -1170,5 +1208,37 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionCo
       "Zingy",
       "Zippy",
       "Zooty"
+    )
+
+  def jobs =
+    Vector(
+      "Actor",
+      "Architect",
+      "Artist",
+      "Astronaut",
+      "Astronomer",
+      "Baker",
+      "Barber",
+      "Beekeeper",
+      "Blacksmith",
+      "Botanist",
+      "Builder",
+      "Chef",
+      "Chemist",
+      "Choreographer",
+      "Dentist",
+      "Diver",
+      "Doctor",
+      "Farmer",
+      "Florist",
+      "Gardener",
+      "Geologist",
+      "Journalist",
+      "Judge",
+      "Musician",
+      "Optician",
+      "Runner",
+      "Singer",
+      "Vet"
     )
 }

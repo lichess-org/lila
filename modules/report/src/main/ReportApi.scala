@@ -5,9 +5,9 @@ import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
+import lila.common.Bus
 import lila.db.dsl._
 import lila.memo.CacheApi._
-import lila.common.Bus
 import lila.user.{ User, UserRepo }
 
 final class ReportApi(
@@ -51,31 +51,30 @@ final class ReportApi(
 
   def create(c: Candidate, score: Report.Score => Report.Score = identity): Funit =
     (!c.reporter.user.marks.reportban && !isAlreadySlain(c)) ?? {
-      scorer(c) map (_ withScore score) flatMap {
-        case scored @ Candidate.Scored(candidate, _) =>
-          coll
-            .one[Report](
-              $doc(
-                "user"   -> candidate.suspect.user.id,
-                "reason" -> candidate.reason,
-                "open"   -> true
-              )
+      scorer(c) map (_ withScore score) flatMap { case scored @ Candidate.Scored(candidate, _) =>
+        coll
+          .one[Report](
+            $doc(
+              "user"   -> candidate.suspect.user.id,
+              "reason" -> candidate.reason,
+              "open"   -> true
             )
-            .flatMap { prev =>
-              val report = Report.make(scored, prev)
-              lila.mon.mod.report.create(report.reason.key).increment()
-              if (
-                report.isRecentComm &&
-                report.score.value >= thresholds.slack() &&
-                prev.exists(_.score.value < thresholds.slack())
-              ) slackApi.commReportBurst(c.suspect.user)
-              coll.update.one($id(report.id), report, upsert = true).void >>
-                autoAnalysis(candidate) >>- {
+          )
+          .flatMap { prev =>
+            val report = Report.make(scored, prev)
+            lila.mon.mod.report.create(report.reason.key).increment()
+            if (
+              report.isRecentComm &&
+              report.score.value >= thresholds.slack() &&
+              prev.exists(_.score.value < thresholds.slack())
+            ) slackApi.commReportBurst(c.suspect.user)
+            coll.update.one($id(report.id), report, upsert = true).void >>
+              autoAnalysis(candidate) >>- {
                 if (report.isCheat)
                   Bus.publish(lila.hub.actorApi.report.CheatReportCreated(report.user), "cheatReport")
               }
-            } >>-
-            nbOpenCache.invalidateUnit
+          } >>-
+          maxScoreCache.invalidateUnit()
       }
     }
 
@@ -149,14 +148,29 @@ final class ReportApi(
     getSuspect(userId) zip
       getLichessReporter zip
       findRecent(1, selectRecent(SuspectId(userId), Reason.Cheat)).map(_.flatMap(_.atoms.toList)) flatMap {
-      case Some(suspect) ~ reporter ~ atoms if atoms.forall(_.byHuman) =>
+        case Some(suspect) ~ reporter ~ atoms if atoms.forall(_.byHuman) =>
+          lila.mon.cheat.autoReport.increment()
+          create(
+            Candidate(
+              reporter = reporter,
+              suspect = suspect,
+              reason = Reason.Cheat,
+              text = text
+            )
+          )
+        case _ => funit
+      }
+
+  def autoCheatDetectedReport(userId: User.ID, cheatedGames: Int): Funit =
+    userRepo.byId(userId) zip getLichessReporter flatMap {
+      case Some(user) ~ reporter if !user.lame && cheatedGames >= 3 =>
         lila.mon.cheat.autoReport.increment()
         create(
           Candidate(
             reporter = reporter,
-            suspect = suspect,
+            suspect = Suspect(user),
             reason = Reason.Cheat,
-            text = text
+            text = s"$cheatedGames cheat detected in the last 6 months"
           )
         )
       case _ => funit
@@ -177,23 +191,23 @@ final class ReportApi(
     }
 
   def maybeAutoPlaybanReport(userId: String): Funit =
-    userSpyApi.getUserIdsWithSameIpAndPrint(userId) map { ids =>
-      playbanApi.bans(ids.toList ::: List(userId)) map { bans =>
+    userSpyApi.getUserIdsWithSameIpAndPrint(userId) flatMap { ids =>
+      playbanApi.bans(ids.toList ::: List(userId)) flatMap { bans =>
         (bans.values.sum >= 80) ?? {
           userRepo.byId(userId) zip
             getLichessReporter zip
             findRecent(1, selectRecent(SuspectId(userId), Reason.Playbans)) flatMap {
-            case Some(abuser) ~ reporter ~ past if past.size < 1 =>
-              create(
-                Candidate(
-                  reporter = reporter,
-                  suspect = Suspect(abuser),
-                  reason = Reason.Playbans,
-                  text = s"${bans.values.sum} playbans over ${bans.keys.size} accounts with IP+Print match."
+              case Some(abuser) ~ reporter ~ past if past.isEmpty =>
+                create(
+                  Candidate(
+                    reporter = reporter,
+                    suspect = Suspect(abuser),
+                    reason = Reason.Playbans,
+                    text = s"${bans.values.sum} playbans over ${bans.keys.size} accounts with IP+Print match."
+                  )
                 )
-              )
-            case _ => funit
-          }
+              case _ => funit
+            }
         }
       }
     }
@@ -222,19 +236,19 @@ final class ReportApi(
   def autoBoostReport(winnerId: User.ID, loserId: User.ID): Funit =
     securityApi.shareIpOrPrint(winnerId, loserId) zip
       userRepo.byId(winnerId) zip userRepo.byId(loserId) zip getLichessReporter flatMap {
-      case isSame ~ Some(winner) ~ Some(loser) ~ reporter =>
-        create(
-          Candidate(
-            reporter = reporter,
-            suspect = Suspect(if (isSame) winner else loser),
-            reason = Reason.Boost,
-            text =
-              if (isSame) s"Farms rating points from @${loser.username} (same IP or print)"
-              else s"Sandbagging - the winning player @${winner.username} has different IPs & prints"
+        case isSame ~ Some(winner) ~ Some(loser) ~ reporter if !winner.lame && !loser.lame =>
+          create(
+            Candidate(
+              reporter = reporter,
+              suspect = Suspect(if (isSame) winner else loser),
+              reason = Reason.Boost,
+              text =
+                if (isSame) s"Farms rating points from @${loser.username} (same IP or print)"
+                else s"Sandbagging - the winning player @${winner.username} has different IPs & prints"
+            )
           )
-        )
-      case _ => funit
-    }
+        case _ => funit
+      }
 
   def byId(id: Report.ID) = coll.byId[Report](id)
 
@@ -260,10 +274,9 @@ final class ReportApi(
           $or($id(id), relatedSelector)
         }
         accuracy.invalidate(reportSelector) >>
-          doProcessReport(reportSelector, mod.id).void >>- {
-          nbOpenCache.invalidateUnit
-          lila.mon.mod.report.close.increment()
-        }
+          doProcessReport(reportSelector, mod.id).void >>-
+          maxScoreCache.invalidateUnit() >>-
+          lila.mon.mod.report.close.increment().unit
       }
 
   private def doProcessReport(selector: Bdoc, by: ModId): Funit =
@@ -278,7 +291,7 @@ final class ReportApi(
       )
       .void
 
-  def autoInsultReport(userId: String, text: String, major: Boolean): Funit =
+  def autoInsultReport(userId: String, text: String): Funit =
     getSuspect(userId) zip getLichessReporter flatMap {
       case (Some(suspect), reporter) =>
         create(
@@ -288,7 +301,7 @@ final class ReportApi(
             reason = Reason.Comm,
             text = text
           ),
-          score => if (major) Report.Score(score.value atLeast thresholds.score()) else score
+          score => score
         )
       case _ => funit
     }
@@ -301,51 +314,75 @@ final class ReportApi(
       )
       .void
 
-  private val closedSelect: Bdoc   = $doc("open" -> false)
-  private def scoreThresholdSelect = $doc("score" $gte thresholds.score())
-  private val sortLastAtomAt       = $doc("atoms.0.at" -> -1)
+  private val closedSelect: Bdoc = $doc("open" -> false)
+  private val sortLastAtomAt     = $doc("atoms.0.at" -> -1)
 
   private def roomSelect(room: Option[Room]): Bdoc =
-    room.fold($doc("room" $ne Room.Xfiles.key)) { r =>
+    room.fold($doc("room" $in Room.allButXfiles)) { r =>
       $doc("room" -> r)
     }
 
   private def selectOpenInRoom(room: Option[Room]) =
-    $doc("open" -> true) ++ roomSelect(room) ++ scoreThresholdSelect
+    $doc("open" -> true) ++ roomSelect(room)
 
   private def selectOpenAvailableInRoom(room: Option[Room]) =
     selectOpenInRoom(room) ++ $doc("inquiry" $exists false)
 
-  private val nbOpenCache = cacheApi.unit[Int] {
+  private val maxScoreCache = cacheApi.unit[Room.Scores] {
     _.refreshAfterWrite(5 minutes)
       .buildAsyncFuture { _ =>
-        coll
-          .countSel(selectOpenAvailableInRoom(none))
-          .addEffect(lila.mon.mod.report.unprocessed.update(_))
+        Room.allButXfiles
+          .map { room =>
+            coll // hits the best_open partial index
+              .primitiveOne[Float](
+                selectOpenAvailableInRoom(room.some),
+                $sort desc "score",
+                "score"
+              )
+              .dmap(room -> _)
+          }
+          .sequenceFu
+          .dmap { scores =>
+            Room.Scores(scores.map { case (room, s) =>
+              room -> s.??(_.toInt)
+            }.toMap)
+          }
+          .addEffect { scores =>
+            lila.mon.mod.report.highest.update(scores.highest).unit
+          }
       }
   }
 
-  def nbOpen = nbOpenCache.getUnit
+  def maxScores = maxScoreCache.getUnit
 
   def recent(
       suspect: Suspect,
       nb: Int,
       readPreference: ReadPreference = ReadPreference.secondaryPreferred
   ): Fu[List[Report]] =
-    coll.ext.find($doc("user" -> suspect.id.value)).sort(sortLastAtomAt).list[Report](nb, readPreference)
+    coll
+      .find($doc("user" -> suspect.id.value))
+      .sort(sortLastAtomAt)
+      .cursor[Report](readPreference)
+      .list(nb)
 
   def moreLike(report: Report, nb: Int): Fu[List[Report]] =
-    coll.ext.find($doc("user" -> report.user, "_id" $ne report.id)).sort(sortLastAtomAt).list[Report](nb)
+    coll
+      .find($doc("user" -> report.user, "_id" $ne report.id))
+      .sort(sortLastAtomAt)
+      .cursor[Report]()
+      .list(nb)
 
   def byAndAbout(user: User, nb: Int): Fu[Report.ByAndAbout] =
     for {
       by <-
-        coll.ext
+        coll
           .find(
             $doc("atoms.by" -> user.id)
           )
           .sort(sortLastAtomAt)
-          .list[Report](nb, ReadPreference.secondaryPreferred)
+          .cursor[Report](ReadPreference.secondaryPreferred)
+          .list(nb)
       about <- recent(Suspect(user), nb, ReadPreference.secondaryPreferred)
     } yield Report.ByAndAbout(by, about)
 
@@ -392,7 +429,7 @@ final class ReportApi(
     findBest(1, selectOpenAvailableInRoom(room.some)).map(_.headOption)
 
   private def addSuspectsAndNotes(reports: List[Report]): Fu[List[Report.WithSuspect]] =
-    userRepo byIdsSecondary (reports.map(_.user).distinct) map { users =>
+    userRepo byIdsSecondary reports.map(_.user).distinct map { users =>
       reports
         .flatMap { r =>
           users.find(_.id == r.user) map { u =>
@@ -408,7 +445,7 @@ final class ReportApi(
       cacheApi[User.ID, Option[Accuracy]](512, "report.accuracy") {
         _.expireAfterWrite(24 hours)
           .buildAsyncFuture { reporterId =>
-            coll.ext
+            coll
               .find(
                 $doc(
                   "atoms.by" -> reporterId,
@@ -417,8 +454,9 @@ final class ReportApi(
                 )
               )
               .sort(sortLastAtomAt)
-              .list[Report](20, ReadPreference.secondaryPreferred) flatMap { reports =>
-              if (reports.size < 4) fuccess(none) // not enough data to know
+              .cursor[Report](ReadPreference.secondaryPreferred)
+              .list(20) flatMap { reports =>
+              if (reports.sizeIs < 4) fuccess(none) // not enough data to know
               else {
                 val userIds = reports.map(_.user).distinct
                 userRepo countEngines userIds map { nbEngines =>
@@ -446,31 +484,11 @@ final class ReportApi(
         .void
   }
 
-  def countOpenByRooms: Fu[Room.Counts] =
-    coll
-      .aggregateList(maxDocs = 100) { framework =>
-        import framework._
-        Match(selectOpenAvailableInRoom(none)) -> List(
-          GroupField("room")("nb" -> SumAll)
-        )
-      }
-      .map { docs =>
-        Room.Counts(docs.flatMap { doc =>
-          doc.string("_id") flatMap Room.apply flatMap { room =>
-            doc.int("nb") map { room -> _ }
-          }
-        }.toMap)
-      }
-
   private def findRecent(nb: Int, selector: Bdoc): Fu[List[Report]] =
-    (nb > 0) ?? {
-      coll.ext.find(selector).sort(sortLastAtomAt).list[Report](nb)
-    }
+    (nb > 0) ?? coll.find(selector).sort(sortLastAtomAt).cursor[Report]().list(nb)
 
   private def findBest(nb: Int, selector: Bdoc): Fu[List[Report]] =
-    (nb > 0) ?? {
-      coll.ext.find(selector).sort($sort desc "score").list[Report](nb)
-    }
+    (nb > 0) ?? coll.find(selector).sort($sort desc "score").cursor[Report]().list(nb)
 
   private def selectRecent(suspect: SuspectId, reason: Reason): Bdoc =
     $doc(
@@ -488,23 +506,36 @@ final class ReportApi(
         name = "report.inquiries"
       )
 
-    def all: Fu[List[Report]] = coll.list[Report]($doc("inquiry.mod" $exists true))
+    def allBySuspect: Fu[Map[User.ID, Report.Inquiry]] =
+      coll.list[Report]($doc("inquiry.mod" $exists true)) map {
+        _.view.flatMap { r =>
+          r.inquiry map { i =>
+            r.user -> i
+          }
+        }.toMap
+      }
 
     def ofModId(modId: User.ID): Fu[Option[Report]] = coll.one[Report]($doc("inquiry.mod" -> modId))
+
+    def ofSuspectId(suspectId: User.ID): Fu[Option[Report.Inquiry]] =
+      coll.primitiveOne[Report.Inquiry]($doc("inquiry.mod" $exists true, "user" -> suspectId), "inquiry")
 
     /*
      * If the mod has no current inquiry, just start this one.
      * If they had another inquiry, cancel it and start this one instead.
      * If they already are on this inquiry, cancel it.
+     * Returns the previous and next inquiries
      */
-    def toggle(mod: Mod, id: Report.ID): Fu[Option[Report]] =
+    def toggle(mod: Mod, id: Report.ID): Fu[(Option[Report], Option[Report])] =
       workQueue {
         doToggle(mod, id)
       }
 
-    private def doToggle(mod: Mod, id: Report.ID): Fu[Option[Report]] =
+    private def doToggle(mod: Mod, id: Report.ID): Fu[(Option[Report], Option[Report])] =
       for {
-        report  <- coll.byId[Report](id) orFail s"No report $id found"
+        report <- coll.byId[Report](id) orElse coll.one[Report](
+          $doc("user" -> id, "inquiry.mod" $exists true)
+        ) orFail s"No report $id found"
         current <- ofModId(mod.user.id)
         _       <- current ?? cancel(mod)
         _ <-
@@ -515,13 +546,13 @@ final class ReportApi(
               Report.Inquiry(mod.user.id, DateTime.now)
             )
             .void
-      } yield report.inquiry.isEmpty option report
+      } yield (current, report.inquiry.isEmpty option report)
 
     def toggleNext(mod: Mod, room: Room): Fu[Option[Report]] =
       workQueue {
         findNext(room) flatMap {
           _ ?? { report =>
-            doToggle(mod, report.id)
+            doToggle(mod, report.id).dmap(_._2)
           }
         }
       }
@@ -538,6 +569,12 @@ final class ReportApi(
           .void
 
     def spontaneous(mod: Mod, sus: Suspect): Fu[Report] =
+      openOther(mod, sus, Report.spontaneousText)
+
+    def appeal(mod: Mod, sus: Suspect): Fu[Report] =
+      openOther(mod, sus, Report.appealText)
+
+    private def openOther(mod: Mod, sus: Suspect, name: String): Fu[Report] =
       ofModId(mod.user.id) flatMap { current =>
         current.??(cancel(mod)) >> {
           val report = Report
@@ -546,7 +583,7 @@ final class ReportApi(
                 Reporter(mod.user),
                 sus,
                 Reason.Other,
-                Report.spontaneousText
+                name
               ) scored Report.Score(0),
               none
             )

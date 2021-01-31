@@ -11,9 +11,6 @@
   <string name="noTeamFound">Թիմ գտնված չէ</string>
   <string name="joinTeam">Միանալ թիմին</string>
   <string name="quitTeam">Լքել թիմը</string>
-  <string name="anyoneCanJoin">Ցանկացածը կարող է միանալ</string>
-  <string name="aConfirmationIsRequiredToJoin">Միանալու համար հարկավոր է հաստատել</string>
-  <string name="joiningPolicy">Միանալու պայմանները</string>
   <string name="teamBestPlayers">Թիմի լավագույն խաղացողները</string>
   <string name="teamRecentMembers">Թիմի անդամները</string>
 </resources>

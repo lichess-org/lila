@@ -19,7 +19,7 @@ object theirs {
     views.html.base.layout(
       title = challengeTitle(c),
       openGraph = challengeOpenGraph(c).some,
-      moreJs = bits.js(c, json, false, color),
+      moreJs = bits.js(c, json, owner = false, color),
       moreCss = cssTag("challenge.page")
     ) {
       main(cls := "page-small challenge-page challenge-theirs box box-pad")(
@@ -40,7 +40,7 @@ object theirs {
               ),
               bits.details(c),
               c.notableInitialFen.map { fen =>
-                div(cls := "board-preview", views.html.game.bits.miniBoard(fen, color = !c.finalColor))
+                div(cls := "board-preview", views.html.board.bits.mini(fen, !c.finalColor)(div))
               },
               if (color.map(Challenge.ColorChoice.apply).has(c.colorChoice))
                 badTag(
@@ -64,7 +64,7 @@ object theirs {
                       "You must ",
                       a(
                         cls := "button",
-                        href := s"${routes.Auth.login}?referrer=${routes.Round.watcher(c.id, "white")}"
+                        href := s"${routes.Auth.login()}?referrer=${routes.Round.watcher(c.id, "white")}"
                       )(trans.signIn()),
                       " to join it."
                     )
@@ -73,13 +73,13 @@ object theirs {
             )
           case Status.Declined =>
             div(cls := "follow-up")(
-              h1("Challenge declined"),
+              h1(trans.challenge.challengeDeclined()),
               bits.details(c),
               a(cls := "button button-fat", href := routes.Lobby.home())(trans.newOpponent())
             )
           case Status.Accepted =>
             div(cls := "follow-up")(
-              h1("Challenge accepted!"),
+              h1(trans.challenge.challengeAccepted()),
               bits.details(c),
               a(
                 id := "challenge-redirect",
@@ -91,7 +91,7 @@ object theirs {
             )
           case Status.Canceled =>
             div(cls := "follow-up")(
-              h1("Challenge canceled."),
+              h1(trans.challenge.challengeCanceled()),
               bits.details(c),
               a(cls := "button button-fat", href := routes.Lobby.home())(trans.newOpponent())
             )

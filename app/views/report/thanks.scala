@@ -1,5 +1,7 @@
 package views.html.report
 
+import scala.annotation.nowarn
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -12,17 +14,13 @@ object thanks {
 
     val title = "Thanks for the report"
 
-    val moreJs = embedJsUnsafe("""
+    @nowarn("msg=possible missing interpolator")
+    val moreJs = embedJsUnsafeLoadThen("""
 $('button.report-block').one('click', function() {
-var $button = $(this);
+const $button = $(this);
 $button.find('span').text('Blocking...');
-$.ajax({
-url:$button.data('action'),
-method:'post',
-success: function() {
-$button.find('span').text('Blocked!');
-}
-});
+fetch($button.data('action'), {method:'post'})
+  .then(() => $button.find('span').text('Blocked!'));
 });
 """)
 
@@ -45,7 +43,7 @@ $button.find('span').text('Blocked!');
         br,
         br,
         p(
-          a(href := routes.Lobby.home)("Return to Lichess homepage")
+          a(href := routes.Lobby.home())("Return to Lichess homepage")
         )
       )
 

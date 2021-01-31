@@ -4,6 +4,6 @@ export default rollupProject({
   main: {
     name: 'LichessNotify',
     input: 'src/main.ts',
-    output: 'lichess.notify',
+    output: 'notify',
   },
 });

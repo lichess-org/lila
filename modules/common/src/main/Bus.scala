@@ -29,8 +29,8 @@ object Bus {
   }
 
   def subscribeFuns(subscriptions: (Channel, PartialFunction[Any, Unit])*): Unit =
-    subscriptions foreach {
-      case (channel, subscriber) => subscribeFun(channel)(subscriber)
+    subscriptions foreach { case (channel, subscriber) =>
+      subscribeFun(channel)(subscriber)
     }
 
   def unsubscribe                               = bus.unsubscribe _
@@ -49,7 +49,7 @@ object Bus {
       ec: scala.concurrent.ExecutionContext,
       system: ActorSystem
   ): Fu[A] = {
-    val promise = Promise[A]
+    val promise = Promise[A]()
     val msg     = makeMsg(promise)
     publish(msg, channel)
     promise.future
@@ -65,9 +65,8 @@ object Bus {
     publish = (tellable, event) => tellable ! event
   )
 
-  def keys      = bus.keys
-  def size      = bus.size
-  def destroy() = bus.destroy
+  def keys = bus.keys
+  def size = bus.size
 
   case class AskTimeout(message: String) extends lila.base.LilaException
 }
@@ -80,20 +79,20 @@ final private class EventBus[Event, Channel, Subscriber](
   import java.util.concurrent.ConcurrentHashMap
 
   private val entries = new ConcurrentHashMap[Channel, Set[Subscriber]](initialCapacity)
-  private var alive   = true
 
   def subscribe(subscriber: Subscriber, channel: Channel): Unit =
-    if (alive)
-      entries.compute(
+    entries
+      .compute(
         channel,
         (_: Channel, subs: Set[Subscriber]) => {
           Option(subs).fold(Set(subscriber))(_ + subscriber)
         }
       )
+      .unit
 
   def unsubscribe(subscriber: Subscriber, channel: Channel): Unit =
-    if (alive)
-      entries.computeIfPresent(
+    entries
+      .computeIfPresent(
         channel,
         (_: Channel, subs: Set[Subscriber]) => {
           val newSubs = subs - subscriber
@@ -101,6 +100,7 @@ final private class EventBus[Event, Channel, Subscriber](
           else newSubs
         }
       )
+      .unit
 
   def publish(event: Event, channel: Channel): Unit =
     Option(entries get channel) foreach {
@@ -112,8 +112,4 @@ final private class EventBus[Event, Channel, Subscriber](
   def keys: Set[Channel]       = entries.keySet.asScala.toSet
   def size                     = entries.size
   def sizeOf(channel: Channel) = Option(entries get channel).fold(0)(_.size)
-  def destroy() = {
-    alive = false
-    entries.clear()
-  }
 }

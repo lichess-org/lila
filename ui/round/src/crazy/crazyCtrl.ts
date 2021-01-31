@@ -5,17 +5,15 @@ import RoundController from '../ctrl';
 import * as cg from 'chessground/types';
 import { RoundData } from '../interfaces';
 
-const li = window.lichess;
-
 export const pieceRoles: cg.Role[] = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
 
 export function drag(ctrl: RoundController, e: cg.MouchEvent): void {
   if (e.button !== undefined && e.button !== 0) return; // only touch or left click
   if (ctrl.replaying() || !ctrl.isPlaying()) return;
   const el = e.target as HTMLElement,
-  role = el.getAttribute('data-role') as cg.Role,
-  color = el.getAttribute('data-color') as cg.Color,
-  number = el.getAttribute('data-nb');
+    role = el.getAttribute('data-role') as cg.Role,
+    color = el.getAttribute('data-color') as cg.Color,
+    number = el.getAttribute('data-nb');
   if (!role || !color || number === '0') return;
   e.stopPropagation();
   e.preventDefault();
@@ -47,7 +45,7 @@ export function valid(data: RoundData, role: cg.Role, key: cg.Key): boolean {
 }
 
 export function onEnd() {
-  const store = li.storage.make('crazyKeyHist');
+  const store = lichess.storage.make('crazyKeyHist');
   if (dropWithKey) store.set(10);
   else if (dropWithDrag) {
     const cur = parseInt(store.get()!);
@@ -88,21 +86,19 @@ export function init(ctrl: RoundController) {
   // chessground.setDropMove(state, undefined) is called, which means
   // clicks on the board will not drop a piece.
   // If the piece becomes available, we call into chessground again.
-  window.lichess.pubsub.on('ply', () => {
+  lichess.pubsub.on('ply', () => {
     if (crazyKeys.length > 0) setDrop();
   })
 
   for (let i = 1; i <= 5; i++) {
     const iStr = i.toString();
-    k.bind(iStr, (e: KeyboardEvent) => {
-      e.preventDefault();
+    k.bind(iStr, () => {
       if (!crazyKeys.includes(i)) {
         crazyKeys.push(i);
         setDrop();
       }
-    });
-    k.bind(iStr, (e: KeyboardEvent) => {
-      e.preventDefault();
+    })
+    .bind(iStr, () => {
       const idx = crazyKeys.indexOf(i);
       if (idx >= 0) {
         crazyKeys.splice(idx, 1);
@@ -123,12 +119,12 @@ export function init(ctrl: RoundController) {
   window.addEventListener('blur', resetKeys);
 
   // Handle focus on input bars – these will hide keyup events
-  window.addEventListener('focus', (e) => {
+  window.addEventListener('focus', e => {
     if (e.target && (e.target as HTMLElement).localName === 'input')
       resetKeys();
   }, { capture: true });
 
-  if (li.storage.get('crazyKeyHist') !== '0')
+  if (lichess.storage.get('crazyKeyHist') !== '0')
     preloadMouseIcons(ctrl.data);
 }
 
@@ -136,11 +132,8 @@ export function init(ctrl: RoundController) {
 // so preload when the feature might be used.
 // Images are used in _zh.scss, which should be kept in sync.
 function preloadMouseIcons(data: RoundData) {
-  const colorKey = data.player.color === 'white' ? 'w' : 'b';
-  if (window.fetch !== undefined) {
-    for (const pKey of 'PNBRQ') {
-      fetch(li.assetUrl(`piece/cburnett/${colorKey}${pKey}.svg`));
-    }
-  }
+  const colorKey = data.player.color[0];
+  for (const pKey of 'PNBRQ') 
+    fetch(lichess.assetUrl(`piece/cburnett/${colorKey}${pKey}.svg`));
   mouseIconsLoaded = true;
 }

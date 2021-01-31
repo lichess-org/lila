@@ -4,10 +4,10 @@ import scala.concurrent.duration.Duration
 import scala.concurrent.Future
 
 import org.joda.time.DateTime
-import ornicar.scalalib.{ ValidTypes, Zero }
+import ornicar.scalalib.Zero
 import play.api.libs.json.{ JsError, JsObject }
 
-trait LilaTypes extends ValidTypes {
+trait LilaTypes {
 
   trait IntValue extends Any {
     def value: Int
@@ -28,7 +28,6 @@ trait LilaTypes extends ValidTypes {
   @inline def fuccess[A](a: A): Fu[A] = Future.successful(a)
   def fufail[X](t: Throwable): Fu[X]  = Future.failed(t)
   def fufail[X](s: String): Fu[X]     = fufail(LilaException(s))
-  def fufail[X](f: Failures): Fu[X]   = fufail(LilaException(f))
   val funit                           = fuccess(())
   val fuTrue                          = fuccess(true)
   val fuFalse                         = fuccess(false)

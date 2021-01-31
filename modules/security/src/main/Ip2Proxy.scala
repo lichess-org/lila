@@ -2,25 +2,39 @@ package lila.security
 
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import play.api.libs.json._
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.JsonBodyReadables._
+import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
 
 import lila.common.IpAddress
 
-final class Ip2Proxy(
-    ws: WSClient,
+trait Ip2Proxy {
+
+  def apply(ip: IpAddress): Fu[Boolean]
+
+  def keepProxies(ips: Seq[IpAddress]): Fu[Set[IpAddress]]
+}
+
+final class Ip2ProxySkip extends Ip2Proxy {
+
+  def apply(ip: IpAddress): Fu[Boolean] = fuFalse
+
+  def keepProxies(ips: Seq[IpAddress]): Fu[Set[IpAddress]] = fuccess(Set.empty)
+}
+
+final class Ip2ProxyServer(
+    ws: StandaloneWSClient,
     cacheApi: lila.memo.CacheApi,
     checkUrl: String
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem
-) {
+) extends Ip2Proxy {
 
   def apply(ip: IpAddress): Fu[Boolean] =
-    cache.get(ip).recover {
-      case e: Exception =>
-        logger.warn(s"Ip2Proxy $ip", e)
-        false
+    cache.get(ip).recover { case e: Exception =>
+      logger.warn(s"Ip2Proxy $ip", e)
+      false
     }
 
   def keepProxies(ips: Seq[IpAddress]): Fu[Set[IpAddress]] =
@@ -28,15 +42,14 @@ final class Ip2Proxy(
       .map {
         _.view
           .zip(ips)
-          .collect {
-            case (true, ip) => ip
+          .collect { case (true, ip) =>
+            ip
           }
           .toSet
       }
-      .recover {
-        case e: Exception =>
-          logger.warn(s"Ip2Proxy $ips", e)
-          Set.empty
+      .recover { case e: Exception =>
+        logger.warn(s"Ip2Proxy $ips", e)
+        Set.empty
       }
 
   private def batch(ips: Seq[IpAddress]): Fu[Seq[Boolean]] =
@@ -45,24 +58,24 @@ final class Ip2Proxy(
       case List(ip) => apply(ip).dmap(Seq(_))
       case ips =>
         ips.flatMap(cache.getIfPresent).sequenceFu flatMap { cached =>
-          if (cached.size == ips.size) fuccess(cached)
+          if (cached.sizeIs == ips.size) fuccess(cached)
           else
             ws.url(s"$checkUrl/batch")
               .addQueryStringParameters("ips" -> ips.mkString(","))
               .get()
               .withTimeout(3 seconds)
               .map {
-                _.json.asOpt[Seq[JsObject]] ?? {
+                _.body[JsValue].asOpt[Seq[JsObject]] ?? {
                   _.map(readIsProxy)
                 }
               }
               .flatMap { res =>
-                if (res.size == ips.size) fuccess(res)
+                if (res.sizeIs == ips.size) fuccess(res)
                 else fufail(s"Ip2Proxy missing results for $ips -> $res")
               }
               .addEffect {
-                _.zip(ips) foreach {
-                  case (proxy, ip) => cache.put(ip, fuccess(proxy))
+                _.zip(ips) foreach { case (proxy, ip) =>
+                  cache.put(ip, fuccess(proxy))
                 }
               }
               .monSuccess(_.security.proxy.request)
@@ -77,7 +90,7 @@ final class Ip2Proxy(
         .addQueryStringParameters("ip" -> ip.value)
         .get()
         .withTimeout(2 seconds)
-        .dmap(_.json)
+        .dmap(_.body[JsValue])
         .dmap(readIsProxy)
         .monSuccess(_.security.proxy.request)
     }

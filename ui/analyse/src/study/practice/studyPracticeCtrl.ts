@@ -2,7 +2,6 @@ import * as xhr from '../studyXhr';
 import { prop } from 'common';
 import { storedProp } from 'common/storage';
 import makeSuccess from './studyPracticeSuccess';
-import makeSound from './sound';
 import { readOnlyProp } from '../../util';
 import { StudyPracticeData, Goal, StudyPracticeCtrl } from './interfaces';
 import { StudyData, StudyCtrl } from '../interfaces';
@@ -14,9 +13,11 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
   nbMoves = prop(0),
   // null = ongoing, true = win, false = fail
   success = prop<boolean | null>(null),
-  sound = makeSound(),
   analysisUrl = prop(''),
   autoNext = storedProp('practice-auto-next', true);
+
+  lichess.sound.loadOggOrMp3('practiceSuccess', `${lichess.sound.baseUrl}/other/energy3`);
+  lichess.sound.loadOggOrMp3('practiceFailure', `${lichess.sound.baseUrl}/other/failure2`);
 
   function onLoad() {
     root.showAutoShapes = readOnlyProp(true);
@@ -59,7 +60,7 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
 
   function onVictory(): void {
     saveNbMoves();
-    sound.success();
+    lichess.sound.play('practiceSuccess');
     if (autoNext()) setTimeout(goToNext, 1000);
   }
 
@@ -79,7 +80,7 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
 
   function onFailure(): void {
     root.node.fail = true;
-    sound.failure();
+    lichess.sound.play('practiceFailure');
   }
 
   return {

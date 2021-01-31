@@ -28,7 +28,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
       val cached = if (isPartial) cachedFull - 0 else cachedFull
       def debug  = s"${work.game.variant.key} analysis for ${work.game.id} by ${client.fullId}"
       chess
-        .Replay(work.game.uciList, work.game.initialFen.map(_.value), work.game.variant)
+        .Replay(work.game.uciList, work.game.initialFen, work.game.variant)
         .fold(
           fufail(_),
           replay =>
@@ -39,7 +39,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
                 studyId = work.game.studyId,
                 infos = makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.uciList, work.startPly),
                 startPly = work.startPly,
-                uid = work.sender.userId,
+                uid = work.sender.userId.some,
                 by = !client.lichess option client.userId.value,
                 date = DateTime.now
               )
@@ -76,7 +76,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
 
   private def makeInfos(evals: List[Option[Evaluation]], moves: List[Uci], startedAtPly: Int): List[Info] =
     (evals filterNot (_ ?? (_.isCheckmate)) sliding 2).toList.zip(moves).zipWithIndex map {
-      case ((List(Some(before), Some(after)), move), index) => {
+      case ((List(Some(before), Some(after)), move), index) =>
         val variation = before.cappedPv match {
           case first :: rest if first != move => first :: rest
           case _                              => Nil
@@ -92,7 +92,6 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
           variation = variation.map(_.uci)
         )
         if (info.ply % 2 == 1) info.invert else info
-      }
       case ((_, _), index) => Info(index + 1 + startedAtPly, Eval.empty)
     }
 }

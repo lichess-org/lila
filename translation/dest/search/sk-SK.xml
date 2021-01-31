@@ -16,10 +16,10 @@
   </plurals>
   <string name="opponentName">Meno súpera</string>
   <string name="loser">Porazený</string>
-  <string name="from">Od</string>
+  <string name="from">Z</string>
   <string name="to">Do</string>
   <string name="humanOrComputer">Súper bol človek alebo počítač</string>
-  <string name="aiLevel">Úroveň A.I.</string>
+  <string name="aiLevel">Úroveň umelej inteligencie (AI)</string>
   <string name="source">Zdroj</string>
   <string name="nbTurns">Počet ťahov</string>
   <string name="result">Výsledok</string>

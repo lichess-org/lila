@@ -190,7 +190,6 @@
     <item quantity="other">%s ludi tecum</item>
   </plurals>
   <string name="cancel">Anullare</string>
-  <string name="timeOut">Tempus est effectum</string>
   <string name="drawOfferSent">Missa est pacis conditio</string>
   <string name="drawOfferDeclined">Recusata est pacis conditio</string>
   <string name="drawOfferAccepted">Accepta est pacis conditio</string>
@@ -359,7 +358,6 @@
   <string name="more">Multus</string>
   <string name="memberSince">Membrum ab</string>
   <string name="lastSeenActive">Initus recentissimus %s</string>
-  <string name="challengeToPlay">Ludum imponere</string>
   <string name="player">Lusor</string>
   <string name="list">Tabula</string>
   <string name="graph">Graphus</string>
@@ -408,40 +406,14 @@
   <string name="lastName">Nomen gentilicium</string>
   <string name="biography">Biographia</string>
   <string name="country">Patria</string>
+  <string name="thankYou">Gratias tibi!</string>
   <string name="watchLichessTV">Videre Lichess TV</string>
   <string name="previouslyOnLichessTV">Prius in Lichess TV</string>
   <string name="onlinePlayers">Lusores presentes</string>
   <string name="activeToday">Frequentes hodie</string>
   <string name="activePlayers">Lusores frequentes</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Cave, ludus ordinatus est sed tempore eget!</string>
-  <string name="yourPuzzleRatingX">Ordo tuo problemati: %s</string>
-  <string name="findTheBestMoveForWhite">Inveni motus optimus albo.</string>
-  <string name="findTheBestMoveForBlack">Inveni motus optimus nigro.</string>
-  <string name="toTrackYourProgress">Ut progressum tuum serves:</string>
-  <string name="puzzleId">Problema %s</string>
-  <string name="puzzleOfTheDay">Problema diei</string>
-  <string name="clickToSolve">Lude ad hoc solvendum</string>
-  <string name="goodMove">Bonus motus</string>
-  <string name="butYouCanDoBetter">Sed melius agere potes.</string>
-  <string name="bestMove">Optimus motus!</string>
-  <string name="keepGoing">Perge...</string>
-  <string name="puzzleFailed">Cadis in problemate</string>
-  <string name="butYouCanKeepTrying">Tamen rursum contendere potes.</string>
   <string name="success">Victoria</string>
-  <string name="wasThisPuzzleAnyGood">Fuitne bonum hoc problema?</string>
-  <string name="pleaseVotePuzzle">Meliora lichessem eligendo sorsum vel deorsum:</string>
-  <string name="thankYou">Gratias tibi!</string>
-  <string name="ratingX">Ordo: %s</string>
-  <string name="hidden">occultus</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Ludatum totiens %s</item>
-    <item quantity="other">Ludatum totiens %s</item>
-  </plurals>
-  <string name="fromGameLink">Ab ludo %s</string>
-  <string name="continueTraining">Continuare exercitium</string>
-  <string name="retryThisPuzzle">Reconari hoc problema</string>
-  <string name="thisPuzzleIsCorrect">Hoc problema probatum lepidumque est</string>
-  <string name="thisPuzzleIsWrong">Hoc problema error vel malum est</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s ludi ludentes</item>
     <item quantity="other">%s ludi ludentes</item>
@@ -697,7 +669,6 @@
   <string name="error.unknown">Culpa</string>
   <string name="custom">Alius</string>
   <string name="notifications">Nuntii</string>
-  <string name="challenges">Provocationes</string>
   <string name="perfRatingX">Ordo: %s</string>
   <string name="seeBestMove">Maxime motum videre</string>
   <string name="hideBestMove">Maxime motum celare</string>
@@ -719,8 +690,6 @@
   </plurals>
   <string name="opening">Principium</string>
   <string name="endgame">Finem ludum</string>
-  <string name="registerToSendChallenges">Si di incostans registrarsi per inviare Sfide.</string>
-  <string name="youCannotChallengeX">Non puoi sfidare %s.</string>
   <string name="playX">Lude %s</string>
   <string name="sorry">Paenitet :(</string>
   <string name="why">Cur?</string>

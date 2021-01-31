@@ -58,11 +58,19 @@
   <string name="shareAndExport">Deel &amp; voer uit</string>
   <string name="cloneStudy">Kloneer</string>
   <string name="studyPgn">Studie PGN</string>
+  <string name="downloadAllGames">Laai alle speletjies af</string>
   <string name="chapterPgn">Hoofstuk PGN</string>
+  <string name="downloadGame">Aflaai spel</string>
   <string name="studyUrl">Bestudeer URL</string>
+  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Uitsend-URL</string>
   <string name="currentChapterUrl">Huidige hoofstuk URL</string>
+  <string name="currentGameUrl">Huidige speletjie-URL</string>
+  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">U kan dit in die forum plak om in te bed</string>
   <string name="startAtInitialPosition">Begin by die oorspronklike posisie</string>
   <string name="startAtX">Begin by %s</string>
+  <string name="embedInYourWebsite">Bed in u webwerf of blog</string>
+  <string name="readMoreAboutEmbedding">Lees meer oor inbedding</string>
+  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Slegs openbare studies kan ingebed word!</string>
   <string name="open">Maak oop</string>
   <string name="xBroughtToYouByY">%1$s, aan jou beskikbaar gestel deur %2$s</string>
   <string name="studyNotFound">Studie kon nie gevind word nie</string>

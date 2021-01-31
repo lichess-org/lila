@@ -1,5 +1,6 @@
 .tour__actor-info {
   @extend %box-neat-force;
+
   background: $c-bg-box;
   position: relative;
   align-self: flex-start;
@@ -13,8 +14,11 @@
     top: 4px;
     right: 5px;
     opacity: .6;
-    @include transition();
+
+    @include transition;
+
     color: $c-red;
+
     &:hover {
       opacity: 1;
     }
@@ -22,21 +26,27 @@
 
   .stats {
     @extend %flex-column;
+
     justify-content: center;
+
     h2 {
       @extend %metal;
+
       font-size: 1.4em;
       padding: .6rem 1rem;
       border-bottom: $border;
     }
+
     table {
       margin: 1em auto;
     }
+
     td {
       font-weight: bold;
       padding-left: 10px;
       text-align: right;
       line-height: 1.8em;
+
       &:last-child {
         @extend %roboto;
       }
@@ -45,26 +55,29 @@
 
   .sublist {
     width: 100%;
+
     tr {
       cursor: pointer;
+
       @include transition(background-color);
+
       &:nth-child(odd) {
         background: $c-bg-zebra;
       }
+
       &:hover {
         background: mix($c-link, $c-bg-box, 10%);
       }
     }
+
     th, td {
       padding: .3em;
     }
+
     th {
       @extend %roboto;
+
       padding-left: 7px;
-    }
-    .title {
-      color: $c-brag;
-      font-weight: bold;
     }
   }
 }

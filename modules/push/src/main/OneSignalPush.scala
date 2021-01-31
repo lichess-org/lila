@@ -3,10 +3,12 @@ package lila.push
 import io.methvin.play.autoconfig._
 import play.api.libs.json._
 import play.api.libs.ws._
+import play.api.libs.ws.JsonBodyReadables._
+import play.api.libs.ws.JsonBodyWritables._
 
 final private class OneSignalPush(
     deviceApi: DeviceApi,
-    ws: WSClient,
+    ws: StandaloneWSClient,
     config: OneSignalPush.Config
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -38,18 +40,20 @@ final private class OneSignalPush(
           )
           .flatMap {
             case res if res.status == 200 || res.status == 400 =>
-              readErrors(res).filterNot(_ contains "must have English language") match {
+              readErrors(res)
+                .filterNot(_ contains "must have English language")
+                .filterNot(_ contains "All included players are not subscribed") match {
                 case Nil => funit
                 case errors =>
                   fufail(s"[push] ${devices.map(_.deviceId)} $data ${res.status} ${errors mkString ","}")
               }
             case res =>
-              fufail(s"[push] ${devices.map(_.deviceId)} $data ${lila.log http res}")
+              fufail(s"[push] ${devices.map(_.deviceId)} $data ${lila.log.http(res.status, res.body)}")
           }
     }
 
-  private def readErrors(res: WSResponse): List[String] =
-    ~(res.json \ "errors").asOpt[List[String]]
+  private def readErrors(res: StandaloneWSResponse): List[String] =
+    ~(res.body[JsValue] \ "errors").asOpt[List[String]]
 }
 
 private object OneSignalPush {

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="moveToStart">Mugitu hasteko</string>
+  <string name="puzzlesSolved">ariketa ebatzita</string>
+  <string name="newDailyHighscore">Eguneko marka berria!</string>
+  <string name="newWeeklyHighscore">Asteko marka berria!</string>
+  <string name="newMonthlyHighscore">Hileko marka berria!</string>
+  <string name="newAllTimeHighscore">Marka berria!</string>
+  <string name="previousHighscoreWasX">Aurreko marka %s zen</string>
+  <string name="playAgain">Jokatu berriz</string>
+  <plurals name="xRuns">
+    <item quantity="one">Saiakera 1</item>
+    <item quantity="other">%s saiakera</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">%2$s ariketaren saiakera bat egin duzu</item>
+    <item quantity="other">%2$s ariketaren %1$s saiakera egin dituzu</item>
+  </plurals>
+  <string name="highscoreX">Marka: %s</string>
+  <string name="score">Puntuazioa</string>
+  <string name="moves">Jokaldiak</string>
+  <string name="accuracy">Zehaztasuna</string>
+  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Jarraiak</string>
+  <string name="time">Denbora</string>
+  <string name="timePerMove">Jokaldiko denbora</string>
+  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Ebatzitako altuena</string>
+  <string name="puzzlesPlayed">Jokatutako ariketak</string>
+  <string name="newRun">Saiakera berria (espazioa)</string>
+  <string name="endRun">Amaitu saiakera (enter)</string>
+  <string name="highscores">Puntuazio altuenak</string>
+  <string name="viewBestRuns">Ikusi saiakera onenak</string>
+  <string name="bestRunOfDay">Eguneko saiakera onena</string>
+  <string name="runs">Saiakerak</string>
+</resources>

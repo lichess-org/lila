@@ -1,5 +1,6 @@
 .learn__side-map {
   user-select: none;
+
   .back,
   .categ > h2 {
     display: block;
@@ -10,10 +11,12 @@
     cursor: pointer;
     opacity: 0.81;
   }
+
   .back {
     display: flex;
     color: $c-font;
   }
+
   .back img {
     width: 50px;
     height: 50px;
@@ -23,33 +26,43 @@
     background: rgba(120, 120, 120, 1);
     display: block;
   }
+
   .back:hover {
     background: rgba(120, 120, 120, 0.2);
   }
+
   .categ > h2 {
     border-top: $border;
   }
+
   .categ > h2:hover {
-    background: fade-out($c-primary, .8);
+    background: fade-out($c-primary, 0.8);
   }
+
   .categ.active {
     border: $border;
     border-width: 0 1px;
   }
+
   .categ.active:last-child {
     border-bottom-width: 1px;
   }
+
   .categ.active > h2 {
     cursor: default;
     background: $c-primary;
     color: $c-primary-over;
   }
+
   .categ:not(.active) .categ_stages {
     display: none;
   }
+
   .stage {
     @extend %roboto, %flex-center;
-    @include transition();
+
+    @include transition;
+
     font-size: 1.1em;
     opacity: .9;
     color: $c-font;
@@ -62,28 +75,36 @@
       margin-right: 10px;
       padding: 10px;
     }
+
     i::before {
       font-size: 30px;
     }
+
     &.active {
-      background: fade-out($c-primary, .8);
+      background: fade-out($c-primary, 0.8);
     }
+
     &.active img {
       background: $c-primary;
     }
+
     &.done:hover {
-      background: fade-out($c-good, .8);
+      background: fade-out($c-good, 0.8);
     }
+
     &.done img {
       background: $c-good;
     }
+
     &.future:hover {
-      background: fade-out($c-primary, .8);
+      background: fade-out($c-primary, 0.8);
     }
+
     &.future img {
       opacity: 0.7;
       background: $c-primary;
     }
+
     &:hover {
       filter: brightness(0.9);
       color: $c-font-clearer;

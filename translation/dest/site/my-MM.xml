@@ -68,6 +68,8 @@
   <string name="time">အချိန်</string>
   <string name="username">ကစားသူအမည်</string>
   <string name="usernameOrEmail">ကစားသူအမည် သို့မဟုတ် email လိပ်စာ</string>
+  <string name="whiteTimeOut">အဖြူ အချိန်ကုန်</string>
+  <string name="blackTimeOut">အနက် အချိန်ကုန်</string>
   <string name="play">ကစားမည်</string>
   <string name="thisAccountViolatedTos">ဤအကောင့်က Lichess ၏ ဝန်ဆောင်မှု ဆိုင်ရာ စည်းကမ်းသတ်မှတ်ချက်များကို ဖောက်ဖျက်ခဲ့ပါသည်</string>
   <string name="mustBeInTeam">Must be in team %s</string>
@@ -76,6 +78,10 @@
   </plurals>
   <string name="ifNoneLeaveEmpty">If none, leave empty</string>
   <string name="help">အကူအညီ</string>
+  <string name="newPasswordsDontMatch">စကားဝှက် အသစ်တို့ အချင်းချင်း မကိုက်ညီပါ</string>
+  <string name="newPasswordStrength">စကားဝှက် အားကောင်းမှု</string>
+  <string name="privacyPolicy">ပုဂ္ဂိုလ်ဆိုင်ရာ အချက်အလက် လုံခြုံရေး မူဝါဒ</string>
+  <string name="readAboutOur">ကျွန်ုပ်တို့၏ %s အကြောင်း ဖတ်ရှုပါ။</string>
   <string name="important">အရေးကြီးပါသည်</string>
   <string name="yourQuestionMayHaveBeenAnswered">%1$s တွင် အဖြေ ရှိပြီး ဖြစ်နိုင်ပါသည်။</string>
   <string name="inTheFAQ">အများသိလိုသော မေးခွန်းများတွင် ရှိပါသည်။</string>

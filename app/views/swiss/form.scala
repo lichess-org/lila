@@ -1,14 +1,14 @@
 package views.html.swiss
 
+import controllers.routes
 import play.api.data.Form
 
-import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
-import lila.tournament.{ DataForm => TourForm }
-import lila.swiss.{ Swiss, SwissForm }
 import lila.app.ui.ScalatagsTemplate._
 import lila.hub.LightTeam.TeamID
+import lila.swiss.{ Swiss, SwissCondition, SwissForm }
+import lila.tournament.TournamentForm
 
 object form {
 
@@ -16,10 +16,7 @@ object form {
     views.html.base.layout(
       title = "New Swiss tournament",
       moreCss = cssTag("swiss.form"),
-      moreJs = frag(
-        flatpickrTag,
-        jsTag("tournamentForm.js")
-      )
+      moreJs = jsModule("tourForm")
     ) {
       val fields = new SwissFields(form)
       main(cls := "page-small")(
@@ -29,14 +26,16 @@ object form {
             form3.split(fields.name, fields.nbRounds),
             form3.split(fields.rated, fields.variant),
             fields.clock,
-            fields.description,
+            form3.split(fields.description, fields.position),
             form3.split(
               fields.roundInterval,
               fields.startsAt
             ),
             form3.split(
-              fields.chatFor
+              fields.chatFor,
+              fields.password
             ),
+            condition(form, fields, swiss = none),
             form3.globalError(form),
             form3.actions(
               a(href := routes.Team.show(teamId))(trans.cancel()),
@@ -51,10 +50,7 @@ object form {
     views.html.base.layout(
       title = swiss.name,
       moreCss = cssTag("swiss.form"),
-      moreJs = frag(
-        flatpickrTag,
-        jsTag("tournamentForm.js")
-      )
+      moreJs = jsModule("tourForm")
     ) {
       val fields = new SwissFields(form)
       main(cls := "page-small")(
@@ -64,14 +60,16 @@ object form {
             form3.split(fields.name, fields.nbRounds),
             form3.split(fields.rated, fields.variant),
             fields.clock,
-            fields.description,
+            form3.split(fields.description, fields.position),
             form3.split(
               fields.roundInterval,
               swiss.isCreated option fields.startsAt
             ),
             form3.split(
-              fields.chatFor
+              fields.chatFor,
+              fields.password
             ),
+            condition(form, fields, swiss = swiss.some),
             form3.globalError(form),
             form3.actions(
               a(href := routes.Swiss.show(swiss.id.value))(trans.cancel()),
@@ -86,6 +84,31 @@ object form {
         )
       )
     }
+
+  private def condition(form: Form[_], fields: SwissFields, swiss: Option[Swiss])(implicit ctx: Context) =
+    frag(
+      form3.split(
+        form3.group(form("conditions.nbRatedGame.nb"), frag("Minimum rated games"), half = true)(
+          form3.select(_, SwissCondition.DataForm.nbRatedGameChoices)
+        ),
+        (ctx.me.exists(_.hasTitle) || isGranted(_.ManageTournament)) ?? {
+          form3.checkbox(
+            form("conditions.titled"),
+            frag("Only titled players"),
+            help = frag("Require an official title to join the tournament").some,
+            half = true
+          )
+        }
+      ),
+      form3.split(
+        form3.group(form("conditions.minRating.rating"), frag("Minimum rating"), half = true)(
+          form3.select(_, SwissCondition.DataForm.minRatingChoices)
+        ),
+        form3.group(form("conditions.maxRating.rating"), frag("Maximum weekly rating"), half = true)(
+          form3.select(_, SwissCondition.DataForm.maxRatingChoices)
+        )
+      )
+    )
 }
 
 final private class SwissFields(form: Form[_])(implicit ctx: Context) {
@@ -94,7 +117,6 @@ final private class SwissFields(form: Form[_])(implicit ctx: Context) {
     form3.group(form("name"), trans.name()) { f =>
       div(
         form3.input(f),
-        br,
         small(cls := "form-help")(
           trans.safeTournamentName(),
           br,
@@ -133,7 +155,7 @@ final private class SwissFields(form: Form[_])(implicit ctx: Context) {
         form3.select(_, SwissForm.clockLimitChoices)
       ),
       form3.group(form("clock.increment"), trans.clockIncrement(), half = true)(
-        form3.select(_, TourForm.clockIncrementChoices)
+        form3.select(_, TournamentForm.clockIncrementChoices)
       )
     )
   def roundInterval =
@@ -144,12 +166,24 @@ final private class SwissFields(form: Form[_])(implicit ctx: Context) {
     form3.group(
       form("description"),
       frag("Tournament description"),
-      help = frag("Anything special you want to tell the participants? Try to keep it short.").some
-    )(form3.textarea(_)(rows := 2))
+      help = frag(
+        "Anything special you want to tell the participants? Try to keep it short. Markdown links are available: [name](https://url)"
+      ).some,
+      half = true
+    )(form3.textarea(_)(rows := 4))
+  def position =
+    form3.group(
+      form("position"),
+      trans.startPosition(),
+      klass = "position",
+      half = true,
+      help = views.html.tournament.form.positionInputHelp.some
+    )(form3.input(_))
   def startsAt =
     form3.group(
       form("startsAt"),
       frag("Tournament start date"),
+      help = frag("In your own local timezone").some,
       half = true
     )(form3.flatpickr(_))
 
@@ -165,4 +199,12 @@ final private class SwissFields(form: Form[_])(implicit ctx: Context) {
         )
       )
     }
+
+  def password =
+    form3.group(
+      form("password"),
+      trans.password(),
+      help = trans.makePrivateTournament().some,
+      half = true
+    )(form3.input(_)(autocomplete := "off"))
 }

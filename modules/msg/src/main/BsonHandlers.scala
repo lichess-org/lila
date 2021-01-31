@@ -38,7 +38,7 @@ private object BsonHandlers {
 
   def writeMsg(msg: Msg, threadId: MsgThread.Id): Bdoc =
     msgHandler.writeTry(msg).get ++ $doc(
-      "_id" -> ornicar.scalalib.Random.nextString(10),
+      "_id" -> lila.common.ThreadLocalRandom.nextString(10),
       "tid" -> threadId
     )
 

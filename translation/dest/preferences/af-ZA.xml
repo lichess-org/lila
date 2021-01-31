@@ -21,7 +21,7 @@
   <string name="horizontalGreenProgressBars">Horisontale groen voortgangsbalkies</string>
   <string name="soundWhenTimeGetsCritical">Klank as tyd noop</string>
   <string name="giveMoreTime">Gee meer tyd</string>
-  <string name="gameBehavior">Spel gedrag</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Spel gedrag</string>
   <string name="howDoYouMovePieces">Hoe beweeg jy stukke?</string>
   <string name="clickTwoSquares">Kliek twee blokkies</string>
   <string name="dragPiece">Sleep \'n stuk</string>
@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">Beweeg koning twee blokkies</string>
   <string name="castleByMovingOntoTheRook">Plaas koning op toring</string>
   <string name="inputMovesWithTheKeyboard">Voer skuiwe in met sleutelbord</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Beperk pyltjies tot geldige skuiwe</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Sê \"Good game, well played\" (Goeie spel, mooi gespeel) met \'n nederlaag of gelykop</string>
   <string name="yourPreferencesHaveBeenSaved">Jou voorkeure is gestoor.</string>
 </resources>

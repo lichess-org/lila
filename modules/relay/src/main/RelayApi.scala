@@ -1,11 +1,14 @@
 package lila.relay
 
+import akka.stream.scaladsl.Source
 import org.joda.time.DateTime
 import ornicar.scalalib.Zero
 import play.api.libs.json._
 import reactivemongo.api.bson._
+import scala.concurrent.duration._
 import scala.util.chaining._
 
+import lila.common.config.MaxPerSecond
 import lila.db.dsl._
 import lila.study.{ Settings, Study, StudyApi, StudyMaker }
 import lila.user.User
@@ -16,7 +19,7 @@ final class RelayApi(
     withStudy: RelayWithStudy,
     jsonView: JsonView,
     formatApi: RelayFormatApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
   import BSONHandlers._
   import lila.study.BSONHandlers.LikesBSONHandler
@@ -39,19 +42,17 @@ final class RelayApi(
 
   def fresh(me: Option[User]): Fu[Relay.Fresh] =
     repo.scheduled.flatMap(withStudy andLiked me) zip
-      repo.ongoing.flatMap(withStudy andLiked me) map {
-      case c ~ s => Relay.Fresh(c, s)
-    }
+      repo.ongoing.flatMap(withStudy andLiked me) map { case c ~ s =>
+        Relay.Fresh(c, s)
+      }
 
   private[relay] def toSync =
-    repo.coll.ext
-      .find(
-        $doc(
-          "sync.until" $exists true,
-          "sync.nextAt" $lt DateTime.now
-        )
+    repo.coll.list[Relay](
+      $doc(
+        "sync.until" $exists true,
+        "sync.nextAt" $lt DateTime.now
       )
-      .list[Relay]()
+    )
 
   def setLikes(id: Relay.Id, likes: lila.study.Study.Likes): Funit =
     repo.coll.updateField($id(id), "likes", likes).void
@@ -103,7 +104,7 @@ final class RelayApi(
 
   def reset(relay: Relay, by: User): Funit =
     studyApi.deleteAllChapters(relay.studyId, by) >>
-      requestPlay(relay.id, true)
+      requestPlay(relay.id, v = true)
 
   def cloneRelay(relay: Relay, by: User): Fu[Relay] =
     create(
@@ -114,37 +115,40 @@ final class RelayApi(
   def getOngoing(id: Relay.Id): Fu[Option[Relay]] =
     repo.coll.one[Relay]($doc("_id" -> id, "finished" -> false))
 
+  def officialStream(perSecond: MaxPerSecond, nb: Int): Source[JsObject, _] =
+    repo
+      .officialCursor(perSecond.value)
+      .documentSource(nb)
+      .throttle(perSecond.value, 1.second)
+      .map(jsonView.public)
+
   private[relay] def autoStart: Funit =
-    repo.coll.ext
-      .find(
-        $doc(
-          "startsAt" $lt DateTime.now.plusMinutes(30) // start 30 minutes early to fetch boards
-            $gt DateTime.now.minusDays(1),            // bit late now
-          "startedAt" $exists false,
-          "sync.until" $exists false
-        )
+    repo.coll.list[Relay](
+      $doc(
+        "startsAt" $lt DateTime.now.plusMinutes(30) // start 30 minutes early to fetch boards
+          $gt DateTime.now.minusDays(1),            // bit late now
+        "startedAt" $exists false,
+        "sync.until" $exists false
       )
-      .list[Relay]() flatMap {
+    ) flatMap {
       _.map { relay =>
         logger.info(s"Automatically start $relay")
-        requestPlay(relay.id, true)
+        requestPlay(relay.id, v = true)
       }.sequenceFu.void
     }
 
   private[relay] def autoFinishNotSyncing: Funit =
-    repo.coll.ext
-      .find(
-        $doc(
-          "sync.until" $exists false,
-          "finished" -> false,
-          "startedAt" $lt DateTime.now.minusHours(3),
-          $or(
-            "startsAt" $exists false,
-            "startsAt" $lt DateTime.now
-          )
+    repo.coll.list[Relay](
+      $doc(
+        "sync.until" $exists false,
+        "finished" -> false,
+        "startedAt" $lt DateTime.now.minusHours(3),
+        $or(
+          "startsAt" $exists false,
+          "startsAt" $lt DateTime.now
         )
       )
-      .list[Relay]() flatMap {
+    ) flatMap {
       _.map { relay =>
         logger.info(s"Automatically finish $relay")
         update(relay)(_.finish)
@@ -158,11 +162,11 @@ final class RelayApi(
     repo.coll.delete.one($id(Relay.Id(studyId))).void
 
   private[relay] def publishRelay(relay: Relay): Funit =
-    sendToContributors(relay.id, "relayData", jsonView.relayWrites writes relay)
+    sendToContributors(relay.id, "relayData", jsonView admin relay)
 
   private def sendToContributors(id: Relay.Id, t: String, msg: JsObject): Funit =
     studyApi members Study.Id(id.value) map {
-      _.map(_.contributorIds).filter(_.nonEmpty) foreach { userIds =>
+      _.map(_.contributorIds).withFilter(_.nonEmpty) foreach { userIds =>
         import lila.hub.actorApi.socket.SendTos
         import JsonView.idWrites
         import lila.socket.Socket.makeMessage

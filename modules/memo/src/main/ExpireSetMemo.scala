@@ -8,7 +8,7 @@ final class ExpireSetMemo(ttl: FiniteDuration) {
 
   private val cache: Cache[String, Boolean] = CacheApi.scaffeineNoScheduler
     .expireAfterWrite(ttl)
-    .build[String, Boolean]
+    .build[String, Boolean]()
 
   @nowarn def get(key: String): Boolean = cache.underlying.getIfPresent(key) != null
 
@@ -26,9 +26,9 @@ final class ExpireSetMemo(ttl: FiniteDuration) {
 
   def removeAll(keys: Iterable[String]) = cache invalidateAll keys
 
-  def keys: Iterable[String] = cache.asMap.keys
+  def keys: Iterable[String] = cache.asMap().keys
 
   def keySet: Set[String] = keys.toSet
 
-  def count = cache.estimatedSize.toInt
+  def count = cache.estimatedSize().toInt
 }

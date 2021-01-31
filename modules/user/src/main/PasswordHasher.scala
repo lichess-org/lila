@@ -8,8 +8,7 @@ import com.roundeights.hasher.Implicits._
 
 import lila.common.config.Secret
 
-/**
-  * Encryption for bcrypt hashes.
+/** Encryption for bcrypt hashes.
   *
   * CTS reveals input length, which is fine for
   * this application.
@@ -44,7 +43,7 @@ private object Aes {
 }
 
 case class HashedPassword(bytes: Array[Byte]) extends AnyVal {
-  def parse = bytes.length == 39 option bytes.splitAt(16)
+  def parse = bytes.lengthIs == 39 option bytes.splitAt(16)
 }
 
 final private class PasswordHasher(
@@ -67,10 +66,9 @@ final private class PasswordHasher(
   }
 
   def check(bytes: HashedPassword, p: ClearPassword): Boolean =
-    bytes.parse ?? {
-      case (salt, encHash) =>
-        val hash = aes.decrypt(Aes.iv(salt), encHash)
-        BCrypt.bytesEqualSecure(hash, bHash(salt, p))
+    bytes.parse ?? { case (salt, encHash) =>
+      val hash = aes.decrypt(Aes.iv(salt), encHash)
+      BCrypt.bytesEqualSecure(hash, bHash(salt, p))
     }
 }
 
@@ -82,23 +80,20 @@ object PasswordHasher {
   import lila.common.{ HTTPRequest, IpAddress }
 
   private lazy val rateLimitPerIP = new RateLimit[IpAddress](
-    credits = 30 * 2, // double cost in case of hash check failure
+    credits = 40 * 2, // double cost in case of hash check failure
     duration = 8 minutes,
-    name = "Password hashes per IP",
     key = "password.hashes.ip"
   )
 
   private lazy val rateLimitPerUser = new RateLimit[String](
     credits = 10,
-    duration = 1.hour,
-    name = "Password hashes per user",
+    duration = 30 minutes,
     key = "password.hashes.user"
   )
 
   private lazy val rateLimitGlobal = new RateLimit[String](
     credits = 4 * 10 * 60, // max out 4 cores for 60 seconds
     duration = 1 minute,
-    name = "Password hashes global",
     key = "password.hashes.global"
   )
 
@@ -107,7 +102,7 @@ object PasswordHasher {
   )(username: String, req: RequestHeader)(run: RateLimit.Charge => Fu[A])(default: => Fu[A]): Fu[A] =
     if (enforce.value) {
       val cost = 1
-      val ip   = HTTPRequest lastRemoteAddress req
+      val ip   = HTTPRequest ipAddress req
       rateLimitPerUser(User normalize username, cost = cost) {
         rateLimitPerIP.chargeable(ip, cost = cost) { charge =>
           rateLimitGlobal("-", cost = cost, msg = ip.value) {

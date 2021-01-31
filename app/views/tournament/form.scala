@@ -1,25 +1,22 @@
 package views.html
 package tournament
 
+import controllers.routes
 import play.api.data.{ Field, Form }
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.tournament.{ Condition, DataForm, Tournament }
-
-import controllers.routes
+import lila.hub.LeaderTeam
+import lila.tournament.{ Condition, Tournament, TournamentForm }
 
 object form {
 
-  def create(form: Form[_], myTeams: List[lila.hub.LightTeam])(implicit ctx: Context) =
+  def create(form: Form[_], leaderTeams: List[LeaderTeam])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.newTournament.txt(),
       moreCss = cssTag("tournament.form"),
-      moreJs = frag(
-        flatpickrTag,
-        jsTag("tournamentForm.js")
-      )
+      moreJs = jsModule("tourForm")
     ) {
       val fields = new TourFields(form, none)
       main(cls := "page-small")(
@@ -28,18 +25,17 @@ object form {
             if (fields.isTeamBattle) "New Team Battle"
             else trans.createANewTournament()
           ),
-          postForm(cls := "form3", action := routes.Tournament.create)(
+          postForm(cls := "form3", action := routes.Tournament.create())(
             fields.name,
             form3.split(fields.rated, fields.variant),
-            fields.startPosition,
             fields.clock,
             form3.split(fields.minutes, fields.waitMinutes),
-            fields.description,
+            form3.split(fields.description(true), fields.startPosition),
             form3.globalError(form),
             fieldset(cls := "conditions")(
               fields.advancedSettings,
               div(cls := "form")(
-                condition(form, fields, auto = true, teams = myTeams, tour = none),
+                condition(form, fields, auto = true, teams = leaderTeams, tour = none),
                 fields.startDate
               )
             ),
@@ -54,14 +50,11 @@ object form {
       )
     }
 
-  def edit(tour: Tournament, form: Form[_], myTeams: List[lila.hub.LightTeam])(implicit ctx: Context) =
+  def edit(tour: Tournament, form: Form[_], myTeams: List[LeaderTeam])(implicit ctx: Context) =
     views.html.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.form"),
-      moreJs = frag(
-        flatpickrTag,
-        jsTag("tournamentForm.js")
-      )
+      moreJs = jsModule("tourForm")
     ) {
       val fields = new TourFields(form, tour.some)
       main(cls := "page-small")(
@@ -70,16 +63,15 @@ object form {
           postForm(cls := "form3", action := routes.Tournament.update(tour.id))(
             form3.split(fields.name, tour.isCreated option fields.startDate),
             form3.split(fields.rated, fields.variant),
-            fields.startPosition,
             fields.clock,
             form3.split(
-              if (DataForm.minutes contains tour.minutes) form3.split(fields.minutes)
+              if (TournamentForm.minutes contains tour.minutes) form3.split(fields.minutes)
               else
                 form3.group(form("minutes"), trans.duration(), half = true)(
                   form3.input(_)(tpe := "number")
                 )
             ),
-            fields.description,
+            form3.split(fields.description(true), fields.startPosition),
             form3.globalError(form),
             fieldset(cls := "conditions")(
               fields.advancedSettings,
@@ -110,7 +102,7 @@ object form {
       form: Form[_],
       fields: TourFields,
       auto: Boolean,
-      teams: List[lila.hub.LightTeam],
+      teams: List[LeaderTeam],
       tour: Option[Tournament]
   )(implicit
       ctx: Context
@@ -118,7 +110,7 @@ object form {
     frag(
       form3.split(
         fields.password,
-        (auto && tour.isEmpty && teams.size > 0) option {
+        (auto && tour.isEmpty && teams.nonEmpty) option {
           val baseField = form("conditions.teamMember.teamId")
           val field = ctx.req.queryString get "team" flatMap (_.headOption) match {
             case None       => baseField
@@ -191,24 +183,21 @@ object form {
     )
 
   def startingPosition(field: Field, tour: Option[Tournament]) =
-    st.select(
-      id := form3.id(field),
-      st.name := field.name,
-      cls := "form-control",
-      tour.exists(t => !t.isCreated && t.position.initial).option(disabled := true)
-    )(
-      option(
-        value := chess.StartingPosition.initial.fen,
-        field.value.has(chess.StartingPosition.initial.fen) option selected
-      )(chess.StartingPosition.initial.name),
-      chess.StartingPosition.categories.map { categ =>
-        optgroup(attr("label") := categ.name)(
-          categ.positions.map { v =>
-            option(value := v.fen, field.value.has(v.fen) option selected)(v.fullName)
-          }
-        )
-      }
+    form3.input(field)(
+      tour.exists(t => !t.isCreated && t.position.isEmpty).option(disabled := true)
     )
+
+  val positionInputHelp = frag(
+    "Paste a valid FEN to start every game from a given position.",
+    br,
+    "It only works for standard games, not with variants.",
+    br,
+    "You can use the ",
+    a(href := routes.Editor.index(), target := "_blank")("board editor"),
+    " to generate a FEN position, then paste it here.",
+    br,
+    "Leave empty to start games from the normal initial position."
+  )
 }
 
 final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit ctx: Context) {
@@ -252,32 +241,41 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
       )
     )
   def startPosition =
-    form3.group(form("position"), trans.startPosition(), klass = "position")(
+    form3.group(
+      form("position"),
+      trans.startPosition(),
+      klass = "position",
+      half = true,
+      help = tournament.form.positionInputHelp.some
+    )(
       views.html.tournament.form.startingPosition(_, tour)
     )
   def clock =
     form3.split(
       form3.group(form("clockTime"), trans.clockInitialTime(), half = true)(
-        form3.select(_, DataForm.clockTimeChoices, disabled = disabledAfterStart)
+        form3.select(_, TournamentForm.clockTimeChoices, disabled = disabledAfterStart)
       ),
       form3.group(form("clockIncrement"), trans.clockIncrement(), half = true)(
-        form3.select(_, DataForm.clockIncrementChoices, disabled = disabledAfterStart)
+        form3.select(_, TournamentForm.clockIncrementChoices, disabled = disabledAfterStart)
       )
     )
   def minutes =
     form3.group(form("minutes"), trans.duration(), half = true)(
-      form3.select(_, DataForm.minuteChoices)
+      form3.select(_, TournamentForm.minuteChoices)
     )
   def waitMinutes =
     form3.group(form("waitMinutes"), trans.timeBeforeTournamentStarts(), half = true)(
-      form3.select(_, DataForm.waitMinuteChoices)
+      form3.select(_, TournamentForm.waitMinuteChoices)
     )
-  def description =
+  def description(half: Boolean) =
     form3.group(
       form("description"),
       frag("Tournament description"),
-      help = frag("Anything special you want to tell the participants? Try to keep it short.").some
-    )(form3.textarea(_)(rows := 2))
+      help = frag(
+        "Anything special you want to tell the participants? Try to keep it short. Markdown links are available: [name](https://url)"
+      ).some,
+      half = half
+    )(form3.textarea(_)(rows := 4))
   def password =
     !isTeamBattle option
       form3.group(
@@ -290,7 +288,9 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
     form3.group(
       form("startDate"),
       frag("Custom start date"),
-      help = frag("""This overrides the "Time before tournament starts" setting""").some
+      help = frag(
+        """In your own local timezone. This overrides the "Time before tournament starts" setting"""
+      ).some
     )(form3.flatpickr(_))
   def advancedSettings =
     frag(

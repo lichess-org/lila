@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="moveToStart">Mueve para empezar</string>
+  <string name="puzzlesSolved">ejercicios resueltos</string>
+  <string name="newDailyHighscore">¡Nueva puntuación más alta diaria!</string>
+  <string name="newWeeklyHighscore">¡Nueva puntuación más alta semanal!</string>
+  <string name="newMonthlyHighscore">¡Nueva puntuación más alta mensual!</string>
+  <string name="newAllTimeHighscore">¡Nueva puntuación más alta absoluta!</string>
+  <string name="previousHighscoreWasX">La puntuación más alta anterior era %s</string>
+  <string name="playAgain">Jugar de nuevo</string>
+  <plurals name="xRuns">
+    <item quantity="one">%s ronda</item>
+    <item quantity="other">%s rondas</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Jugó una ronda de %2$s</item>
+    <item quantity="other">Jugó %1$s rondas de %2$s</item>
+  </plurals>
+  <string name="highscoreX">Puntuación más alta: %s</string>
+  <string name="score">Puntuación</string>
+  <string name="moves">Movimientos</string>
+  <string name="accuracy">Precisión</string>
+  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Combo</string>
+  <string name="time">Tiempo</string>
+  <string name="timePerMove">Tiempo por movimiento</string>
+  <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Ejercicio de mayor dificultad resuelto</string>
+  <string name="puzzlesPlayed">Ejercicios hechos</string>
+  <string name="newRun">Nueva ronda (tecla: Espacio)</string>
+  <string name="endRun">Finalizar ronda (tecla: Enter)</string>
+  <string name="highscores">Mejores puntuaciones</string>
+  <string name="viewBestRuns">Ver las mejores rondas</string>
+  <string name="bestRunOfDay">Mejor ronda del día</string>
+  <string name="runs">Rondas</string>
+</resources>

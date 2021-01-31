@@ -8,13 +8,16 @@
     border-top: $border;
     text-align: center;
   }
+
   form.delete button {
     color: red;
   }
+
   .cancel {
     padding: 40px;
     border-top: $border;
   }
+
   .forms > *:first-child {
     margin-top: 40px;
   }

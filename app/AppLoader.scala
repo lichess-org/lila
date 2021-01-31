@@ -4,19 +4,25 @@ import akka.actor.CoordinatedShutdown
 import com.softwaremill.macwire._
 import play.api._
 import play.api.libs.crypto.CookieSignerProvider
+import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc._
 import play.api.mvc.request._
 import play.api.routing.Router
 import router.Routes
+import scala.annotation.nowarn
 
 final class AppLoader extends ApplicationLoader {
   def load(ctx: ApplicationLoader.Context): Application = new LilaComponents(ctx).application
 }
 
-final class LilaComponents(ctx: ApplicationLoader.Context)
-    extends BuiltInComponentsFromContext(ctx)
-    with _root_.controllers.AssetsComponents
-    with play.api.libs.ws.ahc.AhcWSComponents {
+final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInComponentsFromContext(ctx) {
+
+  // https://www.scala-lang.org/api/2.13.4/scala/concurrent/ExecutionContext%24.html#global:scala.concurrent.ExecutionContextExecutor
+  implicit val ec: scala.concurrent.ExecutionContext =
+    scala.concurrent.ExecutionContext.getClass
+      .getDeclaredMethod("opportunistic")
+      .invoke(scala.concurrent.ExecutionContext)
+      .asInstanceOf[scala.concurrent.ExecutionContext]
 
   LoggerConfigurator(ctx.environment.classLoader).foreach {
     _.configure(ctx.environment, ctx.initialConfiguration, Map.empty)
@@ -24,13 +30,11 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
 
   lila.log("boot").info {
     val java             = System.getProperty("java.version")
-    val mem              = Runtime.getRuntime().maxMemory() / 1024 / 1024
+    val mem              = Runtime.getRuntime.maxMemory() / 1024 / 1024
     val appVersionCommit = ~configuration.getOptional[String]("app.version.commit")
     val appVersionDate   = ~configuration.getOptional[String]("app.version.date")
-    s"lila $appVersionCommit $appVersionDate / java ${java}, memory: ${mem}MB"
+    s"lila ${ctx.environment.mode} $appVersionCommit $appVersionDate / java $java, memory: ${mem}MB"
   }
-
-  lila.mon.start(configuration.get[Boolean]("kamon.enabled"))
 
   import _root_.controllers._
 
@@ -49,14 +53,33 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
 
   lazy val httpFilters = Seq(wire[lila.app.http.HttpFilter])
 
-  override lazy val httpErrorHandler = {
-    def someRouter = router.some
-    def mapper     = devContext.map(_.sourceMapper)
-    wire[lila.app.http.ErrorHandler]
-  }
+  override lazy val httpErrorHandler =
+    new lila.app.http.ErrorHandler(
+      environment = ctx.environment,
+      config = configuration,
+      router = router,
+      mainC = main,
+      lobbyC = lobby
+    )
 
   implicit def system = actorSystem
-  implicit def ws     = wsClient
+
+  implicit lazy val httpClient: StandaloneWSClient = {
+    import play.shaded.ahc.org.asynchttpclient.DefaultAsyncHttpClient
+    import play.api.libs.ws.WSConfigParser
+    import play.api.libs.ws.ahc.{ AhcConfigBuilder, AhcWSClientConfigParser, StandaloneAhcWSClient }
+    new StandaloneAhcWSClient(
+      new DefaultAsyncHttpClient(
+        new AhcConfigBuilder(
+          new AhcWSClientConfigParser(
+            new WSConfigParser(configuration.underlying, environment.classLoader).parse(),
+            configuration.underlying,
+            environment.classLoader
+          ).parse()
+        ).build()
+      )
+    )
+  }
 
   // dev assets
   implicit def mimeTypes       = fileMimeTypes
@@ -70,6 +93,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
   lazy val account: Account               = wire[Account]
   lazy val analyse: Analyse               = wire[Analyse]
   lazy val api: Api                       = wire[Api]
+  lazy val appeal: Appeal                 = wire[Appeal]
   lazy val auth: Auth                     = wire[Auth]
   lazy val blog: Blog                     = wire[Blog]
   lazy val bookmark: Bookmark             = wire[Bookmark]
@@ -128,10 +152,12 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
   lazy val userTournament: UserTournament = wire[UserTournament]
   lazy val video: Video                   = wire[Video]
   lazy val swiss: Swiss                   = wire[Swiss]
+  lazy val dgt: DgtCtrl                   = wire[DgtCtrl]
+  lazy val storm: Storm                   = wire[Storm]
 
   // eagerly wire up all controllers
   val router: Router = {
-    val prefix: String = "/"
+    @nowarn val prefix: String = "/"
     wire[Routes]
   }
 

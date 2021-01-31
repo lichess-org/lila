@@ -35,12 +35,7 @@ object edit {
     views.html.account.layout(
       title = s"${c.user.titleUsername} coach page",
       evenMoreCss = frag(cssTag("coach.editor"), cssTag("tagify")),
-      evenMoreJs = frag(
-        jsAt("vendor/jquery.form.min.js"),
-        jsAt("vendor/bar-rating/dist/jquery.barrating.min.js"),
-        tagifyTag,
-        jsTag("coach.form.js")
-      ),
+      evenMoreJs = jsModule("coach.form"),
       active = "coach"
     )(
       div(cls := "account coach-edit box")(
@@ -49,14 +44,14 @@ object edit {
             if (c.coach.hasPicture)
               a(
                 cls := "upload_picture",
-                href := routes.Coach.picture,
+                href := routes.Coach.picture(),
                 title := "Change/delete your profile picture"
               )(
                 widget.pic(c, 250)
               )
             else
               div(cls := "upload_picture")(
-                a(cls := "button", href := routes.Coach.picture)("Upload a profile picture")
+                a(cls := "button", href := routes.Coach.picture())("Upload a profile picture")
               )
           ),
           div(cls := "overview")(
@@ -74,7 +69,7 @@ object edit {
             )
           )
         ),
-        postForm(cls := "box__pad form3 async", action := routes.Coach.edit)(
+        postForm(cls := "box__pad form3 async", action := routes.Coach.edit())(
           div(cls := "tabs")(
             div(dataTab := "basics", cls := "active")("Basics"),
             div(dataTab := "texts")("Texts"),

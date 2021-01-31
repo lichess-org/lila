@@ -101,12 +101,13 @@ Ir nepraraskite savųjų.</string>
   <string name="defeatTheOpponentsKing">Nugalėkite priešo karalių</string>
   <string name="mateInOneIntro">Jūs laimite, kai priešas negali apsiginti nuo šacho.</string>
   <string name="attackYourOpponentsKing">Atakuokite priešo karalių taip, kad jis negalėtų apsiginti!</string>
-  <string name="mateInOneComplete">Sveikiname. Štai kaip laimimos šachmatų partijos!</string>
+  <string name="mateInOneComplete">Sveikiname! Štai kaip laimimos šachmatų partijos!</string>
   <string name="intermediate">Vidutinis</string>
   <string name="boardSetup">Lentos nustatymai</string>
-  <string name="howTheGameStarts">Kaip prasideda žaidimas</string>
+  <string name="howTheGameStarts">Kaip prasideda visos partijos</string>
   <string name="boardSetupIntro">Susiduria dvi armijos, pasiruošusios mūšiui.</string>
-  <string name="thisIsTheInitialPosition">Tai pradinė šachmatų padėtis. Darykite bet kokį ėjimą tam, kad pradėti.</string>
+  <string name="thisIsTheInitialPosition">Tai pradinė šachmatų padėtis.
+Norėdami pradėti padarykite ėjimą.</string>
   <string name="firstPlaceTheRooks">Pradėkite sudėkite bokštus. Jie keliauja į kampus.</string>
   <string name="thenPlaceTheKnights">Tada sudėkite žirgus. Jie statomi prie bokštų.</string>
   <string name="placeTheBishops">Tada sudėkite rikius. Jie keliauja prie žirgų.</string>
@@ -137,7 +138,7 @@ Apsigink nuo šacho ir tik tada atlik rokiruotę!</string>
 atlikti trumpąją rokiruotę!</string>
   <string name="findAWayToCastleQueenSide">Rask būdą
 atlikti ilgąją rokiruotę!</string>
-  <string name="castlingComplete">Sveikiname! Turėtum beveik visada partijos metu atlikti rokiruotę.</string>
+  <string name="castlingComplete">Sveikiname! Partijos metu beveik visada gera mintis atlikti rokiruotę.</string>
   <string name="enPassant">Kirtimas prasilenkiant</string>
   <string name="theSpecialPawnMove">Specialusis ėjimas pėstininku</string>
   <string name="enPassantIntro">Kai varžovo pėstininkas pajudėjo per du laukelius, gali kirsti jį lyg būtų paėjęs vieną.</string>

@@ -19,7 +19,7 @@ interface StudyChapterEditFormCtrl {
   trans: Trans;
 }
 
-export function ctrl(send: SocketSend, chapterConfig: (string) => JQueryPromise<StudyChapterConfig>, trans: Trans, redraw: Redraw): StudyChapterEditFormCtrl {
+export function ctrl(send: SocketSend, chapterConfig: (id: string) => Promise<StudyChapterConfig>, trans: Trans, redraw: Redraw): StudyChapterEditFormCtrl {
 
   const current = prop<StudyChapterMeta | StudyChapterConfig | null>(null);
 

@@ -7,6 +7,7 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.user.User
 
 import controllers.routes
+import lila.common.HTTPRequest
 
 object message {
 
@@ -45,8 +46,11 @@ object message {
 
   def blacklisted(implicit ctx: Context) =
     apply("IP address blacklisted") {
-      "Sorry, your IP address has been used to violate the ToS, and is now blacklisted."
+      blacklistedMessage
     }
+
+  def blacklistedMessage(implicit ctx: Context) =
+    s"Sorry, your IP address ${HTTPRequest ipAddress ctx.req} has been used to violate the ToS, and is now blacklisted."
 
   def privateStudy(study: lila.study.Study)(implicit ctx: Context) =
     apply(
@@ -69,8 +73,8 @@ object message {
 
   def challengeDenied(msg: String)(implicit ctx: Context) =
     apply(
-      title = trans.challengeToPlay.txt(),
-      back = routes.Lobby.home.url.some
+      title = trans.challenge.challengeToPlay.txt(),
+      back = routes.Lobby.home().url.some
     )(msg)
 
   def insightNoGames(u: User)(implicit ctx: Context) =

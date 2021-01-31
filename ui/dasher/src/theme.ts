@@ -1,6 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import changeColorHandle from 'common/coordsColor';
+import * as xhr from 'common/xhr';
 
 import { Redraw, Open, bind, header } from './util'
 
@@ -38,9 +39,12 @@ export function ctrl(data: ThemeData, trans: Trans, dimension: () => keyof Theme
       const d = dimensionData();
       d.current = t;
       applyTheme(t, d.list);
-      $.post('/pref/theme' + (dimension() === 'd3' ? '3d' : ''), {
-        theme: t
-      }).fail(() => window.lichess.announce({msg: 'Failed to save theme preference'}));
+      xhr.text(
+        '/pref/theme' + (dimension() === 'd3' ? '3d' : ''), {
+        body: xhr.form({ theme: t }),
+        method: 'post'
+      })
+        .catch(() => lichess.announce({ msg: 'Failed to save theme preference' }));
       redraw();
     },
     open

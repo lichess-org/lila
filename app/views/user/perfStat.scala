@@ -27,11 +27,13 @@ object perfStat {
       title = s"${u.username} - ${perfStats.txt(perfType.trans)}",
       robots = false,
       moreJs = frag(
-        jsAt("compiled/user.js"),
+        jsModule("user"),
         ratingChart.map { rc =>
           frag(
             jsTag("chart/ratingHistory.js"),
-            embedJsUnsafe(s"lichess.ratingHistoryChart($rc,'${perfType.trans(lila.i18n.defaultLang)}');")
+            embedJsUnsafeLoadThen(
+              s"lichess.ratingHistoryChart($rc,'${perfType.trans(lila.i18n.defaultLang)}');"
+            )
           )
         }
       ),
@@ -75,7 +77,12 @@ object perfStat {
   ): Frag =
     st.section(cls := "glicko")(
       h2(
-        trans.perfRatingX(strong(decimal(perf.glicko.rating).toString)),
+        trans.perfRatingX(
+          strong(
+            if (perf.glicko.clueless) "?"
+            else decimal(perf.glicko.rating).toString
+          )
+        ),
         perf.glicko.provisional option frag(
           " ",
           span(

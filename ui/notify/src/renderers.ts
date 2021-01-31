@@ -195,7 +195,7 @@ function drawTime(n: Notification) {
       title: date.toLocaleString(),
       datetime: n.date
     }
-  }, window.lichess.timeago.format(date));
+  }, lichess.timeago(date));
 }
 
 function userFullName(u?: LightUser) {

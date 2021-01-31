@@ -5,7 +5,7 @@ import { dataIcon } from './util';
 
 function startClock(time: number) {
   return {
-    insert: (vnode: VNode) => $(vnode.elm as HTMLElement).clock({ time: time })
+    insert: (vnode: VNode) => $(vnode.elm as HTMLElement).clock({ time })
   };
 }
 
@@ -26,11 +26,11 @@ function clock(ctrl: SwissCtrl): VNode | undefined {
       }
     })
   ]);
-  return h(`div.clock.clock-created.time-cache-${next.at}`, {
-    hook: startClock(next.in + 1)
-  }, [
+  return h(`div.clock.clock-created.time-cache-${next.at}`, [
     h('span.shy', ctrl.data.status == 'created' ? 'Starting in' : 'Next round'),
-    h('span.time.text')
+    h('span.time.text', {
+      hook: startClock(next.in + 1)
+    })
   ]);
 }
 
@@ -51,7 +51,8 @@ export default function(ctrl: SwissCtrl): VNode {
         h('a', {
           attrs: {
             href: greatPlayer.url,
-            target: '_blank'
+            target: '_blank',
+            rel: 'noopener',
           }
         }, greatPlayer.name),
         ' Tournament'

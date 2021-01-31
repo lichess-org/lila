@@ -4,10 +4,10 @@ import akka.stream.scaladsl._
 import play.api.data._
 import play.api.data.Forms._
 import play.api.mvc._
+import views._
 
 import lila.api.Context
 import lila.app._
-import views._
 
 final class Clas(
     env: Env,
@@ -29,9 +29,9 @@ final class Clas(
             case _ =>
               env.clas.api.student.clasIdsOfUser(me.id) flatMap
                 env.clas.api.clas.byIds map {
-                case List(single) => Redirect(routes.Clas.show(single.id.value))
-                case many         => Ok(views.html.clas.clas.studentIndex(many))
-              }
+                  case List(single) => Redirect(routes.Clas.show(single.id.value))
+                  case many         => Ok(views.html.clas.clas.studentIndex(many))
+                }
           }
       }
     }
@@ -204,10 +204,9 @@ final class Clas(
             val studentIds = students.map(_.user.id)
             env.learn.api.completionPercent(studentIds) zip
               env.practice.api.progress.completionPercent(studentIds) zip
-              env.coordinate.api.bestScores(studentIds) map {
-              case basic ~ practice ~ coords =>
+              env.coordinate.api.bestScores(studentIds) map { case basic ~ practice ~ coords =>
                 views.html.clas.teacherDashboard.learn(clas, students, basic, practice, coords)
-            }
+              }
           }
         }
       }
@@ -300,12 +299,68 @@ final class Clas(
                     )
                   },
                 data =>
-                  env.clas.api.student.create(clas, data, me) map {
-                    case (user, password) =>
-                      Redirect(routes.Clas.studentForm(clas.id.value))
-                        .flashing("created" -> s"${user.id} ${password.value}")
+                  env.clas.api.student.create(clas, data, me) map { s =>
+                    Redirect(routes.Clas.studentForm(clas.id.value))
+                      .flashing("created" -> s"${s.student.userId} ${s.password.value}")
                   }
               )
+          }
+        }
+      }
+    }
+
+  def studentManyForm(id: String) =
+    Secure(_.Teacher) { implicit ctx => me =>
+      WithClassAndStudents(me, id) { (clas, students) =>
+        ctx.req.flash.get("created").?? {
+          _.split('/').toList
+            .flatMap {
+              _.split(' ') match {
+                case Array(u, p) => (u, p).some
+                case _           => none
+              }
+            }
+            .map { case (u, p) =>
+              env.clas.api.student
+                .get(clas, u)
+                .map2(lila.clas.Student.WithPassword(_, lila.user.User.ClearPassword(p)))
+            }
+            .sequenceFu
+            .map(_.flatten)
+        } flatMap { created =>
+          env.clas.api.student.count(clas.id) map { nbStudents =>
+            val form = env.clas.forms.student.manyCreate(lila.clas.Clas.maxStudents - nbStudents)
+            Ok(html.clas.student.manyForm(clas, students, form, nbStudents, created))
+          }
+        }
+      }
+    }
+
+  def studentManyCreate(id: String) =
+    SecureBody(_.Teacher) { implicit ctx => me =>
+      NoTor {
+        Firewall {
+          WithClassAndStudents(me, id) { (clas, students) =>
+            env.clas.api.student.count(clas.id) flatMap { nbStudents =>
+              env.clas.forms.student
+                .manyCreate(lila.clas.Clas.maxStudents - nbStudents)
+                .bindFromRequest()(ctx.body)
+                .fold(
+                  err => BadRequest(html.clas.student.manyForm(clas, students, err, nbStudents)).fuccess,
+                  data =>
+                    env.clas.api.student.manyCreate(clas, data, me) flatMap { many =>
+                      env.user.lightUserApi.preloadMany(many.map(_.student.userId)) inject
+                        Redirect(routes.Clas.studentManyForm(clas.id.value))
+                          .flashing(
+                            "created" -> many
+                              .map { s =>
+                                s"${s.student.userId} ${s.password.value}"
+                              }
+                              .mkString("/")
+                          )
+                    }
+                )
+            }
           }
         }
       }
@@ -332,21 +387,19 @@ final class Clas(
               },
             data =>
               env.user.repo named data.username flatMap {
-                _ ?? {
-                  user =>
-                    import lila.clas.ClasInvite.{ Feedback => F }
-                    env.clas.api.invite.create(clas, user, data.realName, me) map {
-                      feedback =>
-                        Redirect(routes.Clas.studentForm(clas.id.value)).flashing {
-                          feedback match {
-                            case F.Already => "success" -> s"${user.username} is now a student of the class"
-                            case F.Invited => "success" -> s"An invitation has been sent to ${user.username}"
-                            case F.Found   => "warning" -> s"${user.username} already has a pending invitation"
-                            case F.CantMsgKid(url) =>
-                              "warning" -> s"${user.username} is a kid account and can't receive your message. You must give them the invitation URL manually: $url"
-                          }
-                        }
+                _ ?? { user =>
+                  import lila.clas.ClasInvite.{ Feedback => F }
+                  env.clas.api.invite.create(clas, user, data.realName, me) map { feedback =>
+                    Redirect(routes.Clas.studentForm(clas.id.value)).flashing {
+                      feedback match {
+                        case F.Already => "success" -> s"${user.username} is now a student of the class"
+                        case F.Invited => "success" -> s"An invitation has been sent to ${user.username}"
+                        case F.Found   => "warning" -> s"${user.username} already has a pending invitation"
+                        case F.CantMsgKid(url) =>
+                          "warning" -> s"${user.username} is a kid account and can't receive your message. You must give them the invitation URL manually: $url"
+                      }
                     }
+                  }
                 }
               }
           )
@@ -417,9 +470,9 @@ final class Clas(
         WithStudent(clas, username) { s =>
           env.security.store.closeAllSessionsOf(s.user.id) >>
             env.clas.api.student.resetPassword(s.student) map { password =>
-            Redirect(routes.Clas.studentShow(clas.id.value, username))
-              .flashing("password" -> password.value)
-          }
+              Redirect(routes.Clas.studentShow(clas.id.value, username))
+                .flashing("password" -> password.value)
+            }
         }
       }
     }
@@ -464,23 +517,24 @@ final class Clas(
     }
 
   def becomeTeacher =
-    AuthBody { implicit ctx => me =>
+    AuthBody { _ => me =>
       val perm = lila.security.Permission.Teacher.dbKey
       (!me.roles.has(perm) ?? env.user.repo.setRoles(me.id, perm :: me.roles).void) inject
-        Redirect(routes.Clas.index)
+        Redirect(routes.Clas.index())
     }
 
   def invitation(id: String) =
     Auth { implicit ctx => me =>
-      OptionOk(env.clas.api.invite.view(lila.clas.ClasInvite.Id(id), me)) {
-        case (invite -> clas) => views.html.clas.invite.show(clas, invite)
+      OptionOk(env.clas.api.invite.view(lila.clas.ClasInvite.Id(id), me)) { case (invite -> clas) =>
+        views.html.clas.invite.show(clas, invite)
       }
     }
 
   def invitationAccept(id: String) =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      Form(single("v" -> boolean)).bindFromRequest
+      Form(single("v" -> boolean))
+        .bindFromRequest()
         .fold(
           _ => Redirect(routes.Clas.invitation(id)).fuccess,
           v => {
@@ -491,14 +545,14 @@ final class Clas(
               }
             }
             else
-              env.clas.api.invite.decline(inviteId, me) inject
+              env.clas.api.invite.decline(inviteId) inject
                 Redirect(routes.Clas.invitation(id))
           }
         )
     }
 
   def invitationRevoke(id: String) =
-    Secure(_.Teacher) { implicit ctx => me =>
+    Secure(_.Teacher) { _ => me =>
       env.clas.api.invite.get(lila.clas.ClasInvite.Id(id)) flatMap {
         _ ?? { invite =>
           WithClass(me, invite.clasId.value) { clas =>
@@ -511,7 +565,7 @@ final class Clas(
   private def Reasonable(clas: lila.clas.Clas, students: List[lila.clas.Student.WithUser], active: String)(
       f: => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
-    if (students.size <= lila.clas.Clas.maxStudents) f
+    if (students.sizeIs <= lila.clas.Clas.maxStudents) f
     else Unauthorized(views.html.clas.teacherDashboard.unreasonable(clas, students, active)).fuccess
 
   private def WithClass(me: lila.user.User, clasId: String)(

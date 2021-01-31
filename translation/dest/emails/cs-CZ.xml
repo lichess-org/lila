@@ -7,7 +7,7 @@
   <string name="passwordReset_intro">Dostali jsme žádost k obnovení hesla k tvému účtu.</string>
   <string name="passwordReset_clickOrIgnore">Pokud jste provedli tento požadavek, klepněte na odkaz níže. Pokud tomu tak není, můžete ignorovat tento email.</string>
   <string name="emailChange_subject">Potvrďte emailovou adresu, %s</string>
-  <string name="emailChange_intro">Požádali jste o změnu vašé emailové adresy.</string>
+  <string name="emailChange_intro">Požádali jste o změnu vaší emailové adresy.</string>
   <string name="emailChange_click">Pro ověření, zda máte přístup k tomuto e-mailu, klikněte na odkaz níže:</string>
   <string name="welcome_subject">Vítejte na lichess.org, %s</string>
   <string name="welcome_text">Úspěšně jste vytvořili svůj účet na https://lichess.org.
@@ -18,5 +18,5 @@ Hodně zábavy a ať si Vaše figury vždy najdou cestu k soupeřovu králi!</st
   <string name="logInToLichess">Přihlaste se k lichess.org, %s</string>
   <string name="common_orPaste">(Odkaz nefunguje? Zkuste jej zkopírovat do vašeho prohlížeče!)</string>
   <string name="common_note">Tohle je automatický e-mail související s vaším používáním %s.</string>
-  <string name="common_contact">Použij %s k tomu, aby jsi nás kontaktoval.</string>
+  <string name="common_contact">Chcete-li nás kontaktovat, použijte prosím %s.</string>
 </resources>

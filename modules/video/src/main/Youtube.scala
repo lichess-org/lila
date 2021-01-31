@@ -2,13 +2,14 @@ package lila.video
 
 import org.joda.time.DateTime
 import play.api.libs.json._
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.JsonBodyReadables._
+import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.Future
 
 import lila.common.config._
 
 final private[video] class Youtube(
-    ws: WSClient,
+    ws: StandaloneWSClient,
     url: String,
     apiKey: Secret,
     max: Max,
@@ -42,8 +43,8 @@ final private[video] class Youtube(
                 }
               )
             )
-            .recover {
-              case e: Exception => logger.warn("update all youtube", e)
+            .recover { case e: Exception =>
+              logger.warn("update all youtube", e)
             }
         }
         .void
@@ -53,13 +54,13 @@ final private[video] class Youtube(
     api.video.allIds flatMap { ids =>
       ws.url(url)
         .withQueryStringParameters(
-          "id"   -> scala.util.Random.shuffle(ids).take(max.value).mkString(","),
+          "id"   -> lila.common.ThreadLocalRandom.shuffle(ids).take(max.value).mkString(","),
           "part" -> "id,statistics,snippet,contentDetails",
           "key"  -> apiKey.value
         )
         .get() flatMap {
         case res if res.status == 200 =>
-          readEntries reads res.json match {
+          readEntries reads res.body[JsValue] match {
             case JsError(err)          => fufail(err.toString)
             case JsSuccess(entries, _) => fuccess(entries.toList)
           }

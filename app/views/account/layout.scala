@@ -17,7 +17,7 @@ object layout {
     views.html.base.layout(
       title = title,
       moreCss = frag(cssTag("account"), evenMoreCss),
-      moreJs = frag(jsTag("account.js"), evenMoreJs)
+      moreJs = frag(jsModule("account"), evenMoreJs)
     ) {
       def activeCls(c: String) = cls := active.activeO(c)
       main(cls := "account page-menu")(
@@ -34,7 +34,7 @@ object layout {
           a(activeCls("editProfile"), href := routes.Account.profile())(
             trans.editProfile()
           ),
-          isGranted(_.Coach) option a(activeCls("coach"), href := routes.Coach.edit)(
+          isGranted(_.Coach) option a(activeCls("coach"), href := routes.Coach.edit())(
             trans.coach.lichessCoach()
           ),
           div(cls := "sep"),
@@ -54,12 +54,13 @@ object layout {
             trans.security()
           ),
           div(cls := "sep"),
-          a(href := routes.Plan.index)(trans.patron.lichessPatron()),
+          a(href := routes.Plan.index())(trans.patron.lichessPatron()),
           div(cls := "sep"),
-          a(activeCls("oauth.token"), href := routes.OAuthToken.index)(
+          a(activeCls("oauth.token"), href := routes.OAuthToken.index())(
             "API Access tokens"
           ),
-          ctx.noBot option a(activeCls("oauth.app"), href := routes.OAuthApp.index)("OAuth Apps"),
+          ctx.noBot option a(activeCls("oauth.app"), href := routes.OAuthApp.index())("OAuth Apps"),
+          ctx.noBot option a(href := routes.DgtCtrl.index())("DGT board"),
           div(cls := "sep"),
           a(activeCls("close"), href := routes.Account.close())(
             trans.settings.closeAccount()

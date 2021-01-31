@@ -50,8 +50,8 @@ class AnalyserTest extends Specification {
     "compute ratio" in {
       ratio("fuck that shit") must_== 2d / 3
       ratio("Beat them cunting nigger faggots with a communist dick") must_== 4d / 9
-      ratio("hello there") must_== 0
-      ratio("") must_== 0
+      ratio("hello there") must_== 0d
+      ratio("") must_== 0d
     }
     "chessbot variations" in {
       find("foo chessbot bar") must_== List("chessbot")

@@ -2,7 +2,7 @@
 <resources>
   <string name="private">Частная</string>
   <string name="myStudies">Мои разборы</string>
-  <string name="studiesIContributeTo">Разборы с с моим участием</string>
+  <string name="studiesIContributeTo">Разборы с моим участием</string>
   <string name="myPublicStudies">Мои публичные разборы</string>
   <string name="myPrivateStudies">Мои частные разборы</string>
   <string name="myFavoriteStudies">Мои отмеченные разборы</string>
@@ -57,10 +57,10 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Все синхронизированные участники остаются на той же позиции</string>
   <string name="shareChanges">Поделиться изменениями со зрителями и сохранить их на сервере</string>
   <string name="playing">Активные</string>
-  <string name="first">Первая</string>
+  <string name="first">Начало</string>
   <string name="previous">Предыдущая</string>
   <string name="next">Следующая</string>
-  <string name="last">Последняя</string>
+  <string name="last">Конец</string>
   <string name="shareAndExport">Поделиться и экспортировать</string>
   <string name="cloneStudy">Клонировать</string>
   <string name="studyPgn">PGN студии</string>
@@ -68,14 +68,15 @@
   <string name="chapterPgn">PGN главы</string>
   <string name="downloadGame">Скачать партию</string>
   <string name="studyUrl">Ссылка на студию</string>
-  <string name="broadcastUrl">Интернет-адрес трансляции</string>
+  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Интернет-адрес трансляции</string>
   <string name="currentChapterUrl">Ссылка на эту главу</string>
   <string name="currentGameUrl">URL текущей партии</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Вставьте этот код на форум для отображения</string>
+  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Вставьте этот код на форум для вставки</string>
   <string name="startAtInitialPosition">Открыть в начальной позиции</string>
   <string name="startAtX">Начать с %s</string>
   <string name="embedInYourWebsite">Вставить на свой сайт или в блог</string>
-  <string name="readMoreAboutEmbedding">Подробнее об отображении</string>
+  <string name="readMoreAboutEmbedding">Подробнее о вставке на сайт</string>
+  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Вставлять на сайт можно только публичные студии!</string>
   <string name="open">Открыть</string>
   <string name="xBroughtToYouByY">%1$s на %2$s</string>
   <string name="studyNotFound">Студия не найдена</string>

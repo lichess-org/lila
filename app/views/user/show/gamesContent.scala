@@ -1,13 +1,13 @@
 package views.html.user.show
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 import lila.game.{ Game, Pov }
 import lila.user.User
-
-import controllers.routes
 
 object gamesContent {
 
@@ -32,43 +32,31 @@ object gamesContent {
       },
       div(cls := "search__result")(
         if (filterName == "search") {
-          val permalink = a(rel := "nofollow", href := routes.User.games(u.username, filterName))("Permalink")
           if (pager.nbResults > 0)
             frag(
               div(cls := "search__status")(
-                strong(pager.nbResults.localize, " games found"),
-                " • ",
-                permalink
+                strong(pager.nbResults.localize, " games found")
               ),
-              div(cls := "search__rows")(
-                pagerNext(pager, np => routes.User.games(u.username, filterName, np).url) | div(
-                  cls := "none"
-                ),
-                views.html.game.widgets(pager.currentPageResults, user = u.some, ownerLink = ctx is u)
+              div(cls := "search__rows infinite-scroll")(
+                views.html.game.widgets(pager.currentPageResults, user = u.some, ownerLink = ctx is u),
+                pagerNext(pager, np => routes.User.games(u.username, filterName, np).url)
               )
             )
           else
-            div(cls := "search__status")(
-              strong("No game found"),
-              " • ",
-              permalink
-            )
+            div(cls := "search__status")(strong("No game found"))
         } else
           div(
             cls := List(
-              "games infinitescroll" -> true,
-              "now-playing center"   -> (filterName == "playing" && pager.nbResults > 2)
+              "games infinite-scroll" -> true,
+              "now-playing center"    -> (filterName == "playing" && pager.nbResults > 2)
             )
           )(
-            pagerNext(pager, np => routes.User.games(u.username, filterName, np).url) | div(cls := "none"),
             if (filterName == "playing" && pager.nbResults > 2)
-              pager.currentPageResults.flatMap { Pov(_, u) }.map { p =>
-                a(href := gameLink(p), cls := "paginated")(
-                  gameFen(p, withLink = false),
-                  views.html.game.bits.vstext(p)(ctx.some)
-                )
+              pager.currentPageResults.flatMap { Pov(_, u) }.map { pov =>
+                views.html.game.mini(pov)(ctx)(cls := "paginated")
               }
-            else views.html.game.widgets(pager.currentPageResults, user = u.some, ownerLink = ctx is u)
+            else views.html.game.widgets(pager.currentPageResults, user = u.some, ownerLink = ctx is u),
+            pagerNext(pager, np => routes.User.games(u.username, filterName, np).url)
           )
       )
     )

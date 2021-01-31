@@ -1,2 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessCoaches">Lichess treneriai</string>
+  <string name="lichessCoach">Lichess treneris</string>
+  <string name="areYouCoach">Ar esate geras šachmatų treneris su %s?</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM ar FIDE titulu</string>
+  <string name="confirmTitle">Patvirtinkite savo titulą čia ir mes peržiūrėsime jūsų aplikaciją.</string>
+  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Išsiųskite mums el. paštą adresu %s ir mes peržiūrėsime jūsų aplikaciją.</string>
+  <string name="location">Vieta</string>
+  <string name="languages">Kalbos</string>
+  <string name="rating">Reitingas</string>
+  <string name="hourlyRate">Valandinis mokestis</string>
+  <string name="availability">Prieinamumas</string>
+  <string name="accepting">Priimami mokiniai</string>
+  <string name="notAccepting">Kol kas mokiniai nepriimami</string>
+  <string name="xCoachesStudents">%s apmoko šachmatų mokinius</string>
+  <string name="viewXProfile">Peržiūrėti %s profilį</string>
+  <string name="sendPM">Siųsti asmeninę žinutę</string>
+  <string name="aboutMe">Apie mane</string>
+  <string name="playingExperience">Žaidimo patirtis</string>
+  <string name="teachingExperience">Mokymo patirtis</string>
+  <string name="otherExperiences">Kitos patirtys</string>
+  <string name="bestSkills">Geriausi įgūdžiai</string>
+  <string name="teachingMethod">Mokymo metodologija</string>
+  <string name="publicStudies">Viešos studijos</string>
+  <string name="youtubeVideos">YouTube vaizdo įrašai</string>
+  <plurals name="studentReviews">
+    <item quantity="one">Vieno mokinio apžvalga</item>
+    <item quantity="few">%s mokinių apžvalga</item>
+    <item quantity="many">%s mokinio apžvalga</item>
+    <item quantity="other">%s mokinių apžvalga</item>
+  </plurals>
+  <string name="thankYouForReview">Dėkojame už apžvalgą!</string>
+  <string name="xWillApproveIt">%s ją jau greitai patvirtins, arba ją peržiūrės moderatorius.</string>
+  <string name="reviewCoach">Apžvelgti šį trenerį</string>
+  <string name="describeExperienceWith">Apibūdinkite savo mokymosi su %s patirtį</string>
+</resources>

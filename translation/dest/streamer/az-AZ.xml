@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">Lichess yayımlayıcıları</string>
-  <string name="lichessStreamer">Lichess yayımlayıcısı</string>
+  <string name="lichessStreamers">Lichess yayımçıları</string>
+  <string name="lichessStreamer">Lichess yayımçısı</string>
   <string name="live">CANLI!</string>
-  <string name="offline">XƏTDƏN KƏNAR</string>
+  <string name="offline">OFLAYN</string>
   <string name="currentlyStreaming">Hazırda yayımdadır: %s</string>
   <string name="lastStream">Son yayım %s</string>
-  <string name="becomeStreamer">Lichess yayımlayıcısı ol</string>
+  <string name="becomeStreamer">Lichess yayımçısı ol</string>
   <string name="doYouHaveStream">Twitch və ya YouTube kanalınız var?</string>
   <string name="hereWeGo">Getdik!</string>
-  <string name="allStreamers">Bütün yayımlayıcılar</string>
-  <string name="editPage">Yayımlayıcı səhifəsinə düzəliş et</string>
+  <string name="allStreamers">Bütün yayımçılar</string>
+  <string name="editPage">Yayımçı səhifəsinə düzəliş et</string>
   <string name="yourPage">Yayım səhifəniz</string>
-  <string name="downloadKit">Yayımlayıcı dəstini endir</string>
+  <string name="downloadKit">Yayımçı dəstini endir</string>
   <string name="xIsStreaming">%s yayımdadır</string>
   <string name="rules">Yayım qaydaları</string>
-  <string name="rule1">Lichess-də yayım qoşarkən, yayım başlığına \"lichess.org\" açar sözünü daxil edin.</string>
+  <string name="rule1">Lichessdə yayım qoşarkən, yayım başlığına \"lichess.org\" açar sözünü daxil edin və Şahmat kateqoriyasını seçin.</string>
   <string name="rule2">Lichess ilə əlaqəsi olmayan bir yayım edərkən bu açar sözü çıxardın.</string>
-  <string name="rule3">Lichess, yayımınızı avtomatik aşkarlayacaq və bu üstünlükləri fəallaşdıracaq:</string>
+  <string name="rule3">Lichess, yayımınızı avtomatik aşkarlayacaq və bu üstünlükləri aktivləşdirəcək:</string>
   <string name="perks">Açar söz ilə yayım aparmağın üstünlükləri</string>
-  <string name="perk1">Lichess profilinizdə, yanan yayımlayıcı nişanı görünəcək.</string>
-  <string name="perk2">Yayımlayıcılar siyahısında ən üst sırada görünəcəksiniz.</string>
-  <string name="perk3">Lichess izləyiciləriniz bildiriş alacaq.</string>
-  <string name="perk4">Oyun, turnir və çalışmalarınızda yayımınız göstərə biləcəksiniz.</string>
+  <string name="perk1">Lichess profilinizdə, yanan yayımçı nişanını göstər.</string>
+  <string name="perk2">Yayımçılar siyahısında ən üst sırada görünün.</string>
+  <string name="perk3">Lichess izləyicilərinizə bildiriş göndərmək.</string>
+  <string name="perk4">Oyun, turnir və çalışmalarınızda yayımınızı göstərə biləcəksiniz.</string>
   <string name="approved">Yayımınız təsdiqləndi.</string>
   <string name="pendingReview">Yayımınız moderatorlar tərəfindən nəzərdən keçirilir.</string>
-  <string name="pleaseFillIn">Zəhmət olmasa yayımlayıcı məlumatlarını doldurun və bir şəkil yükləyin.</string>
-  <string name="whenReady">Lichess yayımlayıcı kimi siyahılanmaya hazır olanda, %s</string>
-  <string name="requestReview">moderatorun nəzərdən keçirməsini istəyin</string>
+  <string name="pleaseFillIn">Lütfən yayımçı məlumatlarını doldurun və bir şəkil yükləyin.</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Lichess yayımçısı kimi siyahıya alınmağa hazır olanda, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">moderatorun nəzərdən keçirməsini istəyin</string>
   <string name="anotherLanguage">Yayımınız ingilis dilindən fərqli bir dildə olarsa, yayım başlığınızda müvafiq dil etiketini (%s) kvadrat mötərizə içində daxil edin.
 Nümunə olaraq, Azərbaycanca üçün \"[AZ]\", Türkcə üçün \"[TR]\", Rusca üçün \"[RU]\" və s.
 Bunu Lichess yayım tənzimləmələrində yox, YouTube və ya Twitch səhifənizdəki yayım başlığınıza qoyun.
 Əgər yayımınız ingiliscə olacaqsa, heç bir dil etiketi daxil etməyinizə ehtiyac yoxdur.</string>
   <string name="twitchUsername">Twitch istifadəçi adınız və ya URL-niz</string>
-  <string name="optionalOrEmpty">İxtiyari. Yoxdursa boş buraxın</string>
+  <string name="optionalOrEmpty">İstəyə bağlı. Yoxdursa boş buraxın</string>
   <string name="youtubeChannel">YouTube kanal kimliyiniz və ya URL-niz</string>
-  <string name="streamerName">Lichess-dəki yayımlayıcı adınız</string>
+  <string name="streamerName">Lichess yayımçı adınız</string>
   <plurals name="keepItShort">
     <item quantity="one">Qısa saxlayın: ən çox %s simvol</item>
     <item quantity="other">Qısa saxlayın: ən çox %s simvol</item>
   </plurals>
-  <string name="visibility">Yayımlayıcılar səhifəsində görünsün</string>
+  <string name="visibility">Yayımçılar səhifəsində görünsün</string>
   <string name="whenApproved">Moderatorlar tərəfindən təsdiqlənəndə</string>
   <string name="headline">Başlıq</string>
-  <string name="tellUsAboutTheStream">Bir cümlə ilə yayımınız haqqında deyin</string>
+  <string name="tellUsAboutTheStream">Bir cümlə ilə yayımınızı təsvir edin</string>
   <string name="longDescription">Uzun açıqlama</string>
-  <string name="xStreamerPicture">%s yayımlayıcı şəkli</string>
+  <string name="xStreamerPicture">%s yayımçı şəkli</string>
   <string name="changePicture">Şəkli dəyişdir/sil</string>
   <string name="uploadPicture">Şəkil yüklə</string>
   <string name="deletePicture">Şəkli sil</string>
-  <string name="maxSize">Mak ölçü: %s</string>
+  <string name="maxSize">Maks ölçü: %s</string>
   <string name="installBlocker">Zərərli proqram əngəlləyici quraşdırın!</string>
   <string name="beSafe">YouTube və Twitch-i bürümüş
 reklam və izləyicilərdən qorunun.

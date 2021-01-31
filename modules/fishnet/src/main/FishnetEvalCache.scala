@@ -1,7 +1,6 @@
 package lila.fishnet
 
-import chess.format.{ FEN, Forsyth }
-
+import chess.format.Forsyth
 import JsonApi.Request.Evaluation
 
 final private class FishnetEvalCache(
@@ -16,22 +15,21 @@ final private class FishnetEvalCache(
 
   def evals(work: Work.Analysis): Fu[Map[Int, Evaluation]] =
     rawEvals(work.game) map {
-      _.map {
-        case (i, eval) =>
-          val pv = eval.pvs.head
-          i -> Evaluation(
-            pv = pv.moves.value.toList,
-            score = Evaluation
-              .Score(
-                cp = pv.score.cp,
-                mate = pv.score.mate
-              )
-              .invertIf((i + work.startPly) % 2 == 1), // fishnet evals are from POV
-            time = none,
-            nodes = eval.knodes.intNodes.some,
-            nps = none,
-            depth = eval.depth.some
-          )
+      _.map { case (i, eval) =>
+        val pv = eval.pvs.head
+        i -> Evaluation(
+          pv = pv.moves.value.toList,
+          score = Evaluation
+            .Score(
+              cp = pv.score.cp,
+              mate = pv.score.mate
+            )
+            .invertIf((i + work.startPly) % 2 == 1), // fishnet evals are from POV
+          time = none,
+          nodes = eval.knodes.intNodes.some,
+          nps = none,
+          depth = eval.depth.some
+        )
       }.toMap
     }
 
@@ -45,14 +43,8 @@ final private class FishnetEvalCache(
       .fold(
         _ => fuccess(Nil),
         _.zipWithIndex
-          .map {
-            case (sit, index) =>
-              evalCacheApi.getSinglePvEval(
-                game.variant,
-                FEN(Forsyth >> sit)
-              ) dmap2 { (eval: lila.evalCache.EvalCacheEntry.Eval) =>
-                index -> eval
-              }
+          .map { case (sit, index) =>
+            evalCacheApi.getSinglePvEval(game.variant, Forsyth >> sit) dmap2 { index -> _ }
           }
           .sequenceFu
           .map(_.flatten)

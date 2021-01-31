@@ -63,13 +63,13 @@ Ingen grunn til å forvandle.</string>
   <string name="fundamentals">Grunnleggende</string>
   <string name="capture">Slå ut brikker</string>
   <string name="takeTheEnemyPieces">Slå ut motstanderens brikker</string>
-  <string name="captureIntro">Identifiser motstanderens uforsvarte brikker, å slå dem ut!</string>
+  <string name="captureIntro">Oppdag motstanderens udekkede brikker, og slå dem!</string>
   <string name="takeTheBlackPieces">Slå ut de svarte brikkene!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Slå ut de svarte brikkene! Og ikke miste dine egne.</string>
   <string name="captureComplete">Gratulerer! Du vet hvordan man kjemper med sjakkbrikker!</string>
   <string name="protection">Beskyttelse</string>
   <string name="keepYourPiecesSafe">Hold dine brikker trygge</string>
-  <string name="protectionIntro">Identifiser brikkene motstanderen din angriper, og forsvar dem!</string>
+  <string name="protectionIntro">Oppdag brikkene motstanderen angriper, og dekk dem!</string>
   <string name="protectionComplete">Gratulerer! En brikke du ikke mister er en brikke du vinner!</string>
   <string name="escape">Du er under angrep! Unnslipp trusselen!</string>
   <string name="noEscape">Det er ingen flukt,

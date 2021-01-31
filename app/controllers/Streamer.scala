@@ -1,11 +1,11 @@
 package controllers
 
 import play.api.mvc._
+import views._
 
 import lila.api.Context
 import lila.app._
 import lila.streamer.{ Streamer => StreamerModel, StreamerForm }
-import views._
 
 final class Streamer(
     env: Env,
@@ -45,10 +45,9 @@ final class Streamer(
         OptionFuResult(api find username) { s =>
           WithVisibleStreamer(s) {
             for {
-              sws       <- env.streamer.liveStreamApi of s
-              activity  <- env.activity.read.recent(sws.user, 10)
-              following <- ctx.userId.??(env.relation.api.fetchFollows(_, sws.user.id))
-            } yield Ok(html.streamer.show(sws, activity, following))
+              sws      <- env.streamer.liveStreamApi of s
+              activity <- env.activity.read.recent(sws.user, 10)
+            } yield Ok(html.streamer.show(sws, activity))
           }
         }
       }
@@ -60,25 +59,26 @@ final class Streamer(
         NoLame {
           NoShadowban {
             api find me flatMap {
-              case None => api.create(me) inject Redirect(routes.Streamer.edit)
-              case _    => Redirect(routes.Streamer.edit).fuccess
+              case None => api.create(me) inject Redirect(routes.Streamer.edit())
+              case _    => Redirect(routes.Streamer.edit()).fuccess
             }
           }
         }
       }
     }
 
-  private def modData(user: lila.user.User)(implicit ctx: Context) =
+  private def modData(streamer: StreamerModel)(implicit ctx: Context) =
     isGranted(_.ModLog) ?? {
-      env.mod.logApi.userHistory(user.id) zip
-        env.user.noteApi.forMod(user.id) map some
+      env.mod.logApi.userHistory(streamer.userId) zip
+        env.user.noteApi.forMod(streamer.userId) zip
+        env.streamer.api.sameChannels(streamer) map some
     }
 
   def edit =
     Auth { implicit ctx => _ =>
       AsStreamer { s =>
         env.streamer.liveStreamApi of s flatMap { sws =>
-          modData(s.user) map { forMod =>
+          modData(s.streamer) map { forMod =>
             NoCache(Ok(html.streamer.edit(sws, StreamerForm userForm sws.streamer, forMod)))
           }
         }
@@ -92,10 +92,10 @@ final class Streamer(
           implicit val req = ctx.body
           StreamerForm
             .userForm(sws.streamer)
-            .bindFromRequest
+            .bindFromRequest()
             .fold(
               error =>
-                modData(s.user) map { forMod =>
+                modData(s.streamer) map { forMod =>
                   BadRequest(html.streamer.edit(sws, error, forMod))
                 },
               data =>
@@ -112,7 +112,7 @@ final class Streamer(
                     }
                   else {
                     val next = if (sws.streamer is me) "" else s"?u=${sws.user.id}"
-                    Redirect(s"${routes.Streamer.edit().url}${next}").fuccess
+                    Redirect(s"${routes.Streamer.edit().url}$next").fuccess
                   }
                 }
             )
@@ -122,7 +122,7 @@ final class Streamer(
 
   def approvalRequest =
     AuthBody { _ => me =>
-      api.approval.request(me) inject Redirect(routes.Streamer.edit)
+      api.approval.request(me) inject Redirect(routes.Streamer.edit())
     }
 
   def picture =
@@ -137,10 +137,10 @@ final class Streamer(
       AsStreamer { s =>
         ctx.body.body.file("picture") match {
           case Some(pic) =>
-            api.uploadPicture(s.streamer, pic) recover {
-              case e: lila.base.LilaException => BadRequest(html.streamer.picture(s, e.message.some))
-            } inject Redirect(routes.Streamer.edit)
-          case None => fuccess(Redirect(routes.Streamer.edit))
+            api.uploadPicture(s.streamer, pic) recover { case e: Exception =>
+              BadRequest(html.streamer.picture(s, e.getMessage.some))
+            } inject Redirect(routes.Streamer.edit())
+          case None => fuccess(Redirect(routes.Streamer.edit()))
         }
       }
     }
@@ -148,15 +148,22 @@ final class Streamer(
   def pictureDelete =
     Auth { implicit ctx => _ =>
       AsStreamer { s =>
-        api.deletePicture(s.streamer) inject Redirect(routes.Streamer.edit)
+        api.deletePicture(s.streamer) inject Redirect(routes.Streamer.edit())
       }
     }
 
   private def AsStreamer(f: StreamerModel.WithUser => Fu[Result])(implicit ctx: Context) =
     ctx.me.fold(notFound) { me =>
-      api.find(get("u").ifTrue(isGranted(_.Streamers)) | me.id) flatMap {
-        _.fold(Ok(html.streamer.bits.create).fuccess)(f)
-      }
+      if (StreamerModel canApply me)
+        api.find(get("u").ifTrue(isGranted(_.Streamers)) | me.id) flatMap {
+          _.fold(Ok(html.streamer.bits.create).fuccess)(f)
+        }
+      else
+        Ok(
+          html.site.message("Too soon")(
+            scalatags.Text.all.raw("You are not yet allowed to create a streamer profile.")
+          )
+        ).fuccess
     }
 
   private def WithVisibleStreamer(s: StreamerModel.WithUser)(f: Fu[Result])(implicit ctx: Context) =

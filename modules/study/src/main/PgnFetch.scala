@@ -1,8 +1,8 @@
 package lila.study
 
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.StandaloneWSClient
 
-final private class PgnFetch(ws: WSClient) {
+final private class PgnFetch(ws: StandaloneWSClient) {
 
   private type Pgn = String
   private val pgnContentType = "application/x-chess-pgn"

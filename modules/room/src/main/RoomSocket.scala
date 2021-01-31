@@ -67,13 +67,15 @@ object RoomSocket {
   )(implicit ec: ExecutionContext): Handler =
     ({
       case Protocol.In.ChatSay(roomId, userId, msg) =>
-        chat.userChat.write(
-          Chat.Id(roomId.value),
-          userId,
-          msg,
-          publicSource(roomId)(PublicSource),
-          chatBusChan
-        )
+        chat.userChat
+          .write(
+            Chat.Id(roomId.value),
+            userId,
+            msg,
+            publicSource(roomId)(PublicSource),
+            chatBusChan
+          )
+          .unit
       case Protocol.In.ChatTimeout(roomId, modId, suspect, reason, text) =>
         lila.chat.ChatTimeout.Reason(reason) foreach { r =>
           localTimeout.?? { _(roomId, modId, suspect) } foreach { local =>
@@ -100,8 +102,8 @@ object RoomSocket {
       logger.warn("Remote socket boot")
     // rooms.killAll // apparently not
     case Protocol.In.SetVersions(versions) =>
-      versions foreach {
-        case (roomId, version) => rooms.tell(roomId, SetVersion(version))
+      versions foreach { case (roomId, version) =>
+        rooms.tell(roomId, SetVersion(version))
       }
   }
 
@@ -113,9 +115,9 @@ object RoomSocket {
       case ChatLine(id, line: UserLine) =>
         rooms.tellIfPresent(id.value, NotifyVersion("message", lila.chat.JsonView(line), line.troll))
       case OnTimeout(id, userId) =>
-        rooms.tellIfPresent(id.value, NotifyVersion("chat_timeout", userId, false))
+        rooms.tellIfPresent(id.value, NotifyVersion("chat_timeout", userId, troll = false))
       case OnReinstate(id, userId) =>
-        rooms.tellIfPresent(id.value, NotifyVersion("chat_reinstate", userId, false))
+        rooms.tellIfPresent(id.value, NotifyVersion("chat_reinstate", userId, troll = false))
     }
   }
 
@@ -134,20 +136,18 @@ object RoomSocket {
         raw.path match {
           case "room/alives" => KeepAlives(raw.args split "," map RoomId.apply).some
           case "chat/say" =>
-            raw.get(3) {
-              case Array(roomId, userId, msg) => ChatSay(RoomId(roomId), userId, msg).some
+            raw.get(3) { case Array(roomId, userId, msg) =>
+              ChatSay(RoomId(roomId), userId, msg).some
             }
           case "chat/timeout" =>
-            raw.get(5) {
-              case Array(roomId, userId, suspect, reason, text) =>
-                ChatTimeout(RoomId(roomId), userId, suspect, reason, text).some
+            raw.get(5) { case Array(roomId, userId, suspect, reason, text) =>
+              ChatTimeout(RoomId(roomId), userId, suspect, reason, text).some
             }
           case "tell/room/sri" =>
-            raw.get(4) {
-              case arr @ Array(roomId, _, _, _) =>
-                P.In.tellSriMapper.lift(arr drop 1).flatten map {
-                  TellRoomSri(RoomId(roomId), _)
-                }
+            raw.get(4) { case arr @ Array(roomId, _, _, _) =>
+              P.In.tellSriMapper.lift(arr drop 1).flatten map {
+                TellRoomSri(RoomId(roomId), _)
+              }
             }
           case "room/versions" =>
             SetVersions(P.In.commas(raw.args) map {

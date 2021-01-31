@@ -9,6 +9,7 @@
   <string name="yourTurn">你的回合</string>
   <string name="aiNameLevelAiLevel">%1$s级別%2$s</string>
   <string name="level">级别</string>
+  <string name="strength">强度</string>
   <string name="toggleTheChat">聊天开关</string>
   <string name="toggleSound">声音开关</string>
   <string name="chat">聊天</string>
@@ -92,8 +93,8 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">请尝试在“选择”菜单内包括更多棋局。</string>
   <string name="openingExplorer">开局浏览器</string>
   <string name="xOpeningExplorer">%s开局浏览器</string>
-  <string name="winPreventedBy50MoveRule">因50步和棋规则未赢</string>
-  <string name="lossSavedBy50MoveRule">因50步和棋规则未输</string>
+  <string name="winPreventedBy50MoveRule">因50回合规则未赢棋</string>
+  <string name="lossSavedBy50MoveRule">因50回合规则未输棋</string>
   <string name="allSet">一切就绪！</string>
   <string name="importPgn">导入PGN文件</string>
   <string name="delete">删除</string>
@@ -114,7 +115,7 @@
   <string name="blunders">漏着</string>
   <string name="mistake">错着</string>
   <string name="mistakes">错着</string>
-  <string name="inaccuracy">轻微失误</string>
+  <string name="inaccuracy">不精确</string>
   <string name="inaccuracies">轻微失误</string>
   <string name="moveTimes">走棋时间</string>
   <string name="flipBoard">翻转棋盘</string>
@@ -188,7 +189,8 @@
     <item quantity="other">与您下了%s盘棋</item>
   </plurals>
   <string name="cancel">取消</string>
-  <string name="timeOut">超时</string>
+  <string name="whiteTimeOut">白方超时</string>
+  <string name="blackTimeOut">黑方超时</string>
   <string name="drawOfferSent">和棋请求已发送</string>
   <string name="drawOfferDeclined">和棋请求被拒绝</string>
   <string name="drawOfferAccepted">对方同意和棋</string>
@@ -258,6 +260,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">添加对方%s秒</item>
   </plurals>
+  <string name="thisAccountViolatedTos">该账户违反了Lichess服务条款</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">该棋手伪造积分（作弊）</string>
   <string name="openingExplorerAndTablebase">开局浏览器 &amp; 终局数据库</string>
   <string name="takeback">悔棋</string>
@@ -353,7 +356,6 @@
   <string name="more">更多</string>
   <string name="memberSince">注册日期</string>
   <string name="lastSeenActive">最近登录%s</string>
-  <string name="challengeToPlay">挑战</string>
   <string name="player">棋手</string>
   <string name="list">列表</string>
   <string name="graph">图表</string>
@@ -417,6 +419,7 @@
   <string name="lastName">姓</string>
   <string name="biography">个人简介</string>
   <string name="country">国家与地区</string>
+  <string name="thankYou">谢谢！</string>
   <string name="socialMediaLinks">社交媒体链接</string>
   <string name="inlineNotation">棋谱上的步数代号</string>
   <string name="watchLichessTV">观看 Lichess 直播</string>
@@ -425,33 +428,7 @@
   <string name="activeToday">本日活跃棋手</string>
   <string name="activePlayers">活跃棋手</string>
   <string name="bewareTheGameIsRatedButHasNoClock">注意，此棋局是积分赛，但是不计时！</string>
-  <string name="yourPuzzleRatingX">你的解题积分：%s</string>
-  <string name="findTheBestMoveForWhite">找出白方的最佳着</string>
-  <string name="findTheBestMoveForBlack">找出黑方的最佳着</string>
-  <string name="toTrackYourProgress">注册以跟踪你的进度：</string>
-  <string name="puzzleId">%s号题</string>
-  <string name="puzzleOfTheDay">每日一题</string>
-  <string name="clickToSolve">点击解题</string>
-  <string name="goodMove">好棋</string>
-  <string name="butYouCanDoBetter">你还可以做得更好。</string>
-  <string name="bestMove">最佳着！</string>
-  <string name="keepGoing">请继续……</string>
-  <string name="puzzleFailed">解题失败</string>
-  <string name="butYouCanKeepTrying">但你可以继续尝试。</string>
   <string name="success">解题成功</string>
-  <string name="wasThisPuzzleAnyGood">这道题目好不好？</string>
-  <string name="pleaseVotePuzzle">按上箭头键或下箭头键投票来帮助Lichess提高训练题质量：</string>
-  <string name="thankYou">谢谢！</string>
-  <string name="ratingX">积分：%s</string>
-  <string name="hidden">隐藏</string>
-  <plurals name="playedXTimes">
-    <item quantity="other">已被尝试%s次</item>
-  </plurals>
-  <string name="fromGameLink">来自对局%s</string>
-  <string name="continueTraining">继续训练</string>
-  <string name="retryThisPuzzle">重试本题</string>
-  <string name="thisPuzzleIsCorrect">本题正确并有趣</string>
-  <string name="thisPuzzleIsWrong">本题错误或无聊</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s场对局进行中</item>
   </plurals>
@@ -499,9 +476,12 @@
   <string name="currentPassword">当前密码</string>
   <string name="newPassword">新密码</string>
   <string name="newPasswordAgain">重复新密码</string>
+  <string name="newPasswordsDontMatch">两次输入的新密码不一致</string>
+  <string name="newPasswordStrength">密码强度</string>
   <string name="clockInitialTime">起始时限</string>
   <string name="clockIncrement">加秒</string>
   <string name="privacy">隐私</string>
+  <string name="privacyPolicy">隐私政策</string>
   <string name="letOtherPlayersFollowYou">允许其他用户关注</string>
   <string name="letOtherPlayersChallengeYou">允许其他玩家挑战</string>
   <string name="letOtherPlayersInviteYouToStudy">允许其他用户邀请您参加研讨</string>
@@ -643,6 +623,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">如果您没有收到我们的邮件, 请检查您的其他收件箱, 例如垃圾箱, 广告, 社交等.</string>
   <string name="weHaveSentYouAnEmailTo">我们给您的邮箱（%s）发了重置密码的链接。请点击链接来重置您的密码。</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">注册代表您同意我们的 %s 。</string>
+  <string name="readAboutOur">阅读我们的 %s</string>
   <string name="networkLagBetweenYouAndLichess">您和 Lichess 之间的网络延迟</string>
   <string name="timeToProcessAMoveOnLichessServer">Lichess 服务器上处理一步的时间</string>
   <string name="downloadAnnotated">下载有注释的PGN</string>
@@ -720,7 +701,6 @@
   <string name="error.unknown">错误</string>
   <string name="custom">自定义</string>
   <string name="notifications">通知</string>
-  <string name="challenges">挑战</string>
   <string name="perfRatingX">积分：%s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">还剩%s秒走第一步</item>
@@ -765,12 +745,6 @@
   <string name="opening">开局</string>
   <string name="middlegame">中盘</string>
   <string name="endgame">残局</string>
-  <string name="registerToSendChallenges">发送挑战前请注册。</string>
-  <string name="youCannotChallengeX">您不能挑战%s。</string>
-  <string name="xDoesNotAcceptChallenges">%s不接受挑战。</string>
-  <string name="yourXRatingIsTooFarFromY">您的%1$s积分与%2$s相差太远。</string>
-  <string name="cannotChallengeDueToProvisionalXRating">因为您的%s排名不够稳定，您不能进行挑战。</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s只接受朋友的挑战。</string>
   <string name="conditionalPremoves">条件预先走棋</string>
   <string name="addCurrentVariation">添加当前变着</string>
   <string name="playVariationToCreateConditionalPremoves">进入变着以创建条件预先走棋</string>
@@ -802,7 +776,7 @@
   <string name="searchOrStartNewDiscussion">搜索或开始新对话</string>
   <string name="edit">编辑</string>
   <string name="rapid">快棋</string>
-  <string name="classical">经典</string>
+  <string name="classical">慢棋</string>
   <string name="ultraBulletDesc">急速对战：少于 30 秒</string>
   <string name="bulletDesc">高速对战：少于 3 分钟</string>
   <string name="blitzDesc">快速对战：3 到 8 分钟</string>

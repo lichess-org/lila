@@ -80,7 +80,7 @@ final class JsonView(
             "name"   -> host.name,
             "rating" -> simul.hostRating
           )
-          .add("gameId" -> simul.hostGameId)
+          .add("gameId" -> simul.hostGameId.ifTrue(simul.isRunning))
           .add("title" -> host.title)
           .add("patron" -> host.isPatron)
       },
@@ -104,9 +104,8 @@ final class JsonView(
     getLightUser(player.user) map { light =>
       Json
         .obj(
-          "id"      -> player.user,
-          "variant" -> player.variant.key,
-          "rating"  -> player.rating
+          "id"     -> player.user,
+          "rating" -> player.rating
         )
         .add("name" -> light.map(_.name))
         .add("title" -> light.map(_.title))
@@ -118,29 +117,39 @@ final class JsonView(
     playerJson(app.player) map { player =>
       Json.obj(
         "player"   -> player,
+        "variant"  -> app.player.variant.key,
         "accepted" -> app.accepted
       )
     }
 
   private def gameJson(hostId: User.ID, g: Game) =
-    Json.obj(
-      "id"       -> g.id,
-      "status"   -> g.status.id,
-      "fen"      -> (chess.format.Forsyth exportBoard g.board),
-      "lastMove" -> ~g.lastMoveKeys,
-      "orient"   -> g.playerByUserId(hostId).map(_.color)
-    )
+    Json
+      .obj(
+        "id"       -> g.id,
+        "status"   -> g.status.id,
+        "fen"      -> (chess.format.Forsyth boardAndColor g.situation),
+        "lastMove" -> ~g.lastMoveKeys,
+        "orient"   -> g.playerByUserId(hostId).map(_.color)
+      )
+      .add(
+        "clock" -> g.clock.ifTrue(g.isBeingPlayed).map { c =>
+          Json.obj(
+            "white" -> c.remainingTime(chess.White).roundSeconds,
+            "black" -> c.remainingTime(chess.Black).roundSeconds
+          )
+        }
+      )
+      .add("winner" -> g.winnerColor.map(_.name))
 
   private def pairingJson(games: List[Game], hostId: String)(p: SimulPairing): Fu[Option[JsObject]] =
     games.find(_.id == p.gameId) ?? { game =>
       playerJson(p.player) map { player =>
         Json
           .obj(
-            "player"      -> player,
-            "hostColor"   -> p.hostColor,
-            "winnerColor" -> p.winnerColor,
-            "wins"        -> p.wins, // can't be normalized because BC
-            "game"        -> gameJson(hostId, game)
+            "player"    -> player,
+            "variant"   -> p.player.variant.key,
+            "hostColor" -> p.hostColor,
+            "game"      -> gameJson(hostId, game)
           )
           .some
       }

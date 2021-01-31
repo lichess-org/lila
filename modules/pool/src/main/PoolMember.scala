@@ -1,7 +1,5 @@
 package lila.pool
 
-import org.joda.time.DateTime
-
 import lila.rating.RatingRange
 import lila.user.User
 import lila.playban.RageSit
@@ -13,14 +11,11 @@ case class PoolMember(
     ratingRange: Option[RatingRange],
     lame: Boolean,
     blocking: PoolMember.BlockedUsers,
-    since: DateTime,
     rageSitCounter: Int,
     misses: Int = 0 // how many waves they missed
 ) {
 
   def incMisses = copy(misses = misses + 1)
-
-  def waitMillis: Int = (DateTime.now.getMillis - since.getMillis).toInt
 
   def ratingDiff(other: PoolMember) = Math.abs(rating - other.rating)
 
@@ -40,10 +35,9 @@ object PoolMember {
       userId = joiner.userId,
       sri = joiner.sri,
       lame = joiner.lame,
-      rating = joiner.ratingMap.getOrElse(config.perfType.key, 1500),
+      rating = joiner.rating,
       ratingRange = joiner.ratingRange,
       blocking = BlockedUsers(joiner.blocking),
-      since = DateTime.now,
       rageSitCounter = rageSit.counter / 10
     )
 }

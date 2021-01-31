@@ -14,9 +14,6 @@
   <string name="noTeamFound">Каманда не знойдзена</string>
   <string name="joinTeam">Далучыцца да каманды</string>
   <string name="quitTeam">Выйсці з каманды</string>
-  <string name="anyoneCanJoin">Адкрыта для ўсіх</string>
-  <string name="aConfirmationIsRequiredToJoin">Па пацверджанні</string>
-  <string name="joiningPolicy">Умовы далучэння</string>
   <string name="teamBestPlayers">Лепшыя гульцы каманды</string>
   <string name="teamRecentMembers">Нядаўна далучыліся</string>
   <string name="kickSomeone">Выгнаць кагосьці з каманды</string>

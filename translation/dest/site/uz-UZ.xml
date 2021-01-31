@@ -9,6 +9,7 @@
   <string name="yourTurn">Sizni yurishingiz</string>
   <string name="aiNameLevelAiLevel">%1$s daraja %2$s</string>
   <string name="level">Daraja</string>
+  <string name="strength">Kuchli tomonlari</string>
   <string name="toggleTheChat">Suhbatni yopish/ochish</string>
   <string name="toggleSound">Ovozni yoqish/o\'chirish</string>
   <string name="chat">Suhbat</string>
@@ -199,7 +200,8 @@
     <item quantity="other">siz o\'ynagan o\'yinlar - %s</item>
   </plurals>
   <string name="cancel">Bekor</string>
-  <string name="timeOut">Vaqt tugadi</string>
+  <string name="whiteTimeOut">Oqlar vaqti tugadi</string>
+  <string name="blackTimeOut">Qoralar vaqti tugadi</string>
   <string name="drawOfferSent">Durrang uchun taklif yuborildi</string>
   <string name="drawOfferDeclined">Durrang taklifi inkor qilindi</string>
   <string name="drawOfferAccepted">Durrang taklifi qabul qilindi</string>
@@ -275,6 +277,7 @@
     <item quantity="one">%s sekund berish</item>
     <item quantity="other">%s sekundlar berish</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Ushbu hisob Lichess xizmatlari shartlarini buzgan</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ushbu o\'yinchi o\'zinining reytingini suniy holda oshirayabdi/kamaytirayabdi</string>
   <string name="openingExplorerAndTablebase">Sharhni ochish</string>
   <string name="takeback">Ortga yurish</string>
@@ -380,7 +383,6 @@
   <string name="more">Ko\'proq</string>
   <string name="memberSince">A\'zo bo\'lgan vaqti</string>
   <string name="lastSeenActive">Faollar %s</string>
-  <string name="challengeToPlay">Shaxmat o\'ynashga taklif qilish</string>
   <string name="player">O\'yinchi</string>
   <string name="list">Ro‘yxat</string>
   <string name="graph">Grafik</string>
@@ -445,6 +447,7 @@
   <string name="lastName">Familiya</string>
   <string name="biography">Biografiya</string>
   <string name="country">Mamlakat</string>
+  <string name="thankYou">Rahmat!</string>
   <string name="socialMediaLinks">Ijtimoiy media linklari</string>
   <string name="inlineNotation">Ichki yozuv</string>
   <string name="watchLichessTV">Lichess TV ni tomosha qilish</string>
@@ -453,34 +456,7 @@
   <string name="activeToday">Bugungi faollar</string>
   <string name="activePlayers">Faol o\'yinchilar</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Ehtiyot bo\'ling, o\'yin reytingli biroq soatsiz!</string>
-  <string name="yourPuzzleRatingX">Sizning boshqotirmalardagi reytingingiz: %s</string>
-  <string name="findTheBestMoveForWhite">Oqlar uchun eng yaxshi yo\'lni toping.</string>
-  <string name="findTheBestMoveForBlack">Qoralar uchun eng yaxshi yo\'lni toping.</string>
-  <string name="toTrackYourProgress">O\'zingizni rivojlaringizni kuzating:</string>
-  <string name="puzzleId">%s boshqotirma</string>
-  <string name="puzzleOfTheDay">Kun boshqotirmasi</string>
-  <string name="clickToSolve">Yechish uchun bosing</string>
-  <string name="goodMove">Yaxshi yurish</string>
-  <string name="butYouCanDoBetter">Lekin siz yanada yaxshilashingiz mumkin.</string>
-  <string name="bestMove">Zo\'r yurish!</string>
-  <string name="keepGoing">Harakatni davom eting…</string>
-  <string name="puzzleFailed">Boshqotirma yechilmadi</string>
-  <string name="butYouCanKeepTrying">Ammo siz yana urinib ko\'rishingiz mumkin.</string>
   <string name="success">Muvaffaqiyat</string>
-  <string name="wasThisPuzzleAnyGood">Boshqotirma yaxshimikan?</string>
-  <string name="pleaseVotePuzzle">Yuqoriga pastga o\'qlar yordamida baholab Lichess rivoji uchun hissa qo\'shing:</string>
-  <string name="thankYou">Rahmat!</string>
-  <string name="ratingX">Reyting: %s</string>
-  <string name="hidden">berkitilgan</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">%s vaqt o\'ynaldi</item>
-    <item quantity="other">%s marta o\'ynaldi</item>
-  </plurals>
-  <string name="fromGameLink">%s o\'yinidan</string>
-  <string name="continueTraining">Shug\'ullanishni davom eting</string>
-  <string name="retryThisPuzzle">Ushbu boshqotirmani takrorlash</string>
-  <string name="thisPuzzleIsCorrect">Bu boshqotirma qiziq va to\'g\'ri</string>
-  <string name="thisPuzzleIsWrong">Bu boshqotirma xato yoki jonga tegadigan</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s ta o\'yin</item>
     <item quantity="other">%s ta o\'yinlar</item>
@@ -529,9 +505,12 @@
   <string name="currentPassword">Joriy parol</string>
   <string name="newPassword">Yangi parol</string>
   <string name="newPasswordAgain">Yangi parol (yana)</string>
+  <string name="newPasswordsDontMatch">Yangi parollar mos kelmayabdi</string>
+  <string name="newPasswordStrength">Parol mustahkamligi</string>
   <string name="clockInitialTime">Boshlang\'ich vaqt</string>
   <string name="clockIncrement">Vaqtni oshishi</string>
   <string name="privacy">Shaxsiylik</string>
+  <string name="privacyPolicy">Maxfiylik siyosati</string>
   <string name="letOtherPlayersFollowYou">Boshqa o\'yinchilarga sizni kuzatishiga imkon bering</string>
   <string name="letOtherPlayersChallengeYou">Boshqa o\'yinchilarga siz bilan bellashuviga imkon bering</string>
   <string name="letOtherPlayersInviteYouToStudy">Boshqa o\'yinchilarga sizni ta\'limga chorlashiga imkon bering</string>
@@ -677,6 +656,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Agar siz emailni ko\'rmasangiz, boshqa kataloglaringizni qarab ko\'ring, masalan, spam, ijtimoiy va boshqa shularga o\'xshashlarni.</string>
   <string name="weHaveSentYouAnEmailTo">Biz %s ga hat yubordik. Parolni qayta tiklash uchun emaildagi linkni bosing.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ro\'yhatdan o\'tib bizning %s shartlarimizga roziligingizni bildirasiz.</string>
+  <string name="readAboutOur">Biz haqimizda oʻqing: %s. </string>
   <string name="networkLagBetweenYouAndLichess">Lichess va sizning o\'rtangizdagi tarmoq kechikishi</string>
   <string name="timeToProcessAMoveOnLichessServer">Lichess serverida yurishni amalga oshirish uchun vaqt</string>
   <string name="downloadAnnotated">Annotatsiya holatda yuklash</string>
@@ -755,7 +735,6 @@
   <string name="error.unknown">Xatolik</string>
   <string name="custom">Boshqa</string>
   <string name="notifications">Xabarlar</string>
-  <string name="challenges">O\'yin takliflari</string>
   <string name="perfRatingX">Reyting: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Birinchi yurish uchun %s sekund</item>
@@ -802,12 +781,6 @@
   <string name="opening">Debyutlar</string>
   <string name="middlegame">Mittelshpil</string>
   <string name="endgame">O\'yin oxiri</string>
-  <string name="registerToSendChallenges">Iltimos o\'yinga chorlash uchun ro\'yhatdan o\'ting.</string>
-  <string name="youCannotChallengeX">Siz %s bilan bellasha olmaysiz.</string>
-  <string name="xDoesNotAcceptChallenges">%s bellashishni qabul qilmadi.</string>
-  <string name="yourXRatingIsTooFarFromY">Sizning %1$s reytingingiz %2$s dan ancha uzoq.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">%s taxminiy belgilangan reyting bilan bellashib bo\'lmaydi.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s ta do\'stlardan qabul qilingan bellashuvlar.</string>
   <string name="conditionalPremoves">Avvaldan shartli yurishlar</string>
   <string name="addCurrentVariation">Joriy yurishlarni qo\'sh</string>
   <string name="playVariationToCreateConditionalPremoves">Shartli avvaldan yurishlarni yaratish uchun variatsiyani o\'ynash</string>
@@ -848,4 +821,17 @@
   <string name="classicalDesc">Klassik o\'yinlar: 25 minut va undan yuqori bo\'lganlar</string>
   <string name="correspondenceDesc">Yozishmali o\'yinlar: bir yoki bir necha kunli yurishli o\'yinlar</string>
   <string name="puzzleDesc">Shaxmat taktikalarini o\'rgatuvchi murabbiy</string>
+  <string name="important">Muxim</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Sizni savolingiz balki javobini topgandir %1$s</string>
+  <string name="inTheFAQ">F.A.Q. ichida.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Foydalanuvchini aldamchi yoki yomon xulq-atvori haqida xabar berish uchun %1$s</string>
+  <string name="useTheReportForm">hisobot shaklidan foydalaning</string>
+  <string name="toRequestSupport">Yordam soʻrash uchun, %1$s</string>
+  <string name="tryTheContactPage">aloqalar sahifasini qoʻllab koʻring</string>
+  <string name="thisTopicIsArchived">Ushbu mavzu arxivlangan va endi unga javob qaytarib boʻlmaydi.</string>
+  <string name="joinTheTeamXToPost">Ushbu forumda post qoldirish uchun %1$s ga ulaning</string>
+  <string name="teamNamedX">%1$s jamoa</string>
+  <string name="youCannotPostYetPlaySomeGames">Siz xozircha ushbu forumda post qoldira olmaysiz. Oʻyinlar oʻynang!</string>
+  <string name="subscribe">Obuna bo‘lish</string>
+  <string name="unsubscribe">Obunani bekor qiling</string>
 </resources>

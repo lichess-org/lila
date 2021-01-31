@@ -1,10 +1,11 @@
 package lila.fishnet
 
+import cats.data.Validated
+import cats.data.Validated.valid
+import cats.implicits._
 import chess.format.pgn.Dumper
 import chess.format.Uci
 import chess.{ Drop, Move, Replay, Situation }
-import scalaz.Validation.success
-import scalaz.Validation.FlatMap._
 
 import lila.analyse.{ Analysis, Info, PgnMove }
 import lila.base.LilaException
@@ -26,23 +27,24 @@ private object UciToPgn {
       else info.dropVariation
     }
 
-    def uciToPgn(ply: Int, variation: List[String]): Valid[List[PgnMove]] =
+    def uciToPgn(ply: Int, variation: List[String]): Validated[String, List[PgnMove]] =
       for {
         situation <-
-          if (ply == replay.setup.startedAtTurn + 1) success(replay.setup.situation)
+          if (ply == replay.setup.startedAtTurn + 1) valid(replay.setup.situation)
           else replay moveAtPly ply map (_.fold(_.situationBefore, _.situationBefore)) toValid "No move found"
         ucis <- variation.map(Uci.apply).sequence toValid "Invalid UCI moves " + variation
-        moves <- ucis.foldLeft[Valid[(Situation, List[Either[Move, Drop]])]](success(situation -> Nil)) {
-          case (scalaz.Success((sit, moves)), uci: Uci.Move) =>
-            sit.move(uci.orig, uci.dest, uci.promotion) prefixFailuresWith s"ply $ply " map { move =>
-              move.situationAfter -> (Left(move) :: moves)
-            }
-          case (scalaz.Success((sit, moves)), uci: Uci.Drop) =>
-            sit.drop(uci.role, uci.pos) prefixFailuresWith s"ply $ply " map { drop =>
-              drop.situationAfter -> (Right(drop) :: moves)
-            }
-          case (failure, _) => failure
-        }
+        moves <-
+          ucis.foldLeft[Validated[String, (Situation, List[Either[Move, Drop]])]](valid(situation -> Nil)) {
+            case (Validated.Valid((sit, moves)), uci: Uci.Move) =>
+              sit.move(uci.orig, uci.dest, uci.promotion).leftMap(e => s"ply $ply $e") map { move =>
+                move.situationAfter -> (Left(move) :: moves)
+              }
+            case (Validated.Valid((sit, moves)), uci: Uci.Drop) =>
+              sit.drop(uci.role, uci.pos).leftMap(e => s"ply $ply $e") map { drop =>
+                drop.situationAfter -> (Right(drop) :: moves)
+              }
+            case (failure, _) => failure
+          }
       } yield moves._2.reverse map (_.fold(Dumper.apply, Dumper.apply))
 
     onlyMeaningfulVariations.foldLeft[WithErrors[List[Info]]]((Nil, Nil)) {

@@ -5,8 +5,8 @@ import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.user.User
 import lila.memo.CacheApi._
+import lila.user.User
 
 final class PrefApi(
     coll: Coll,
@@ -15,21 +15,27 @@ final class PrefApi(
 
   import PrefHandlers._
 
-  private def fetchPref(id: User.ID): Fu[Option[Pref]] = coll.ext.find($id(id)).one[Pref]
+  private def fetchPref(id: User.ID): Fu[Option[Pref]] = coll.find($id(id)).one[Pref]
 
   private val cache = cacheApi[User.ID, Option[Pref]](65536, "pref.fetchPref") {
     _.expireAfterAccess(10 minutes)
       .buildAsyncFuture(fetchPref)
   }
 
-  def saveTag(user: User, tag: Pref.Tag.type => String, value: String) =
-    coll.update
-      .one(
-        $id(user.id),
-        $set(s"tags.${tag(Pref.Tag)}" -> value),
-        upsert = true
-      )
-      .void >>- { cache invalidate user.id }
+  def saveTag(user: User, tag: Pref.Tag.type => String, value: Boolean) = {
+    if (value)
+      coll.update
+        .one(
+          $id(user.id),
+          $set(s"tags.${tag(Pref.Tag)}" -> "1"),
+          upsert = true
+        )
+        .void
+    else
+      coll.update
+        .one($id(user.id), $unset(s"tags.${tag(Pref.Tag)}"))
+        .void >>- { cache invalidate user.id }
+  } >>- { cache invalidate user.id }
 
   def getPrefById(id: User.ID): Fu[Pref]    = cache get id dmap (_ getOrElse Pref.create(id))
   val getPref                               = getPrefById _
@@ -43,14 +49,14 @@ final class PrefApi(
     getPref(user) dmap RequestPref.queryParamOverride(req)
 
   def followable(userId: User.ID): Fu[Boolean] =
-    coll.ext.find($id(userId), $doc("follow" -> true)).one[Bdoc] dmap {
+    coll.find($id(userId), $doc("follow" -> true).some).one[Bdoc] dmap {
       _ flatMap (_.getAsOpt[Boolean]("follow")) getOrElse Pref.default.follow
     }
 
   def unfollowableIds(userIds: List[User.ID]): Fu[Set[User.ID]] =
     coll.secondaryPreferred.distinctEasy[User.ID, Set](
       "_id",
-      ($inIds(userIds) ++ $doc("follow" -> false))
+      $inIds(userIds) ++ $doc("follow" -> false)
     )
 
   def followableIds(userIds: List[User.ID]): Fu[Set[User.ID]] =

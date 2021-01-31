@@ -8,8 +8,7 @@ import scala.util.Success
 
 import lila.common.Uptime
 
-/**
-  * A synchronous cache from asynchronous computations.
+/** A synchronous cache from asynchronous computations.
   * It will attempt to serve cached responses synchronously.
   * If none is available, it starts an async computation,
   * and either waits for the result or serves a default value.
@@ -42,11 +41,10 @@ final private[memo] class Syncache[K, V](
         def load(k: K) =
           compute(k)
             .mon(_ => recCompute) // monitoring: record async time
-            .recover {
-              case e: Exception =>
-                logger.branch(s"syncache $name").warn(s"key=$k", e)
-                cache invalidate k
-                default(k)
+            .recover { case e: Exception =>
+              logger.branch(s"syncache $name").warn(s"key=$k", e)
+              cache invalidate k
+              default(k)
             }
       })
 
@@ -64,8 +62,7 @@ final private[memo] class Syncache[K, V](
       case _ =>
         incMiss()
         strategy match {
-          case NeverWait            => default(k)
-          case AlwaysWait(duration) => waitForResult(k, future, duration)
+          case NeverWait => default(k)
           case WaitAfterUptime(duration, uptime) =>
             if (Uptime startedSinceSeconds uptime) waitForResult(k, future, duration)
             else default(k)
@@ -107,7 +104,6 @@ object Syncache {
 
   sealed trait Strategy
   case object NeverWait                                                         extends Strategy
-  case class AlwaysWait(duration: FiniteDuration)                               extends Strategy
   case class WaitAfterUptime(duration: FiniteDuration, uptimeSeconds: Int = 20) extends Strategy
 
   sealed trait ExpireAfter

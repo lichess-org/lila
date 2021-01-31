@@ -3,25 +3,27 @@ package controllers
 import play.api.libs.json.Json
 import play.api.mvc._
 import scala.concurrent.duration._
+import views._
 
 import lila.api.Context
 import lila.app._
 import lila.swiss.Swiss.{ Id => SwissId, ChatFor }
 import lila.swiss.{ Swiss => SwissModel }
-import views._
 
 final class Swiss(
     env: Env,
-    tourC: Tournament
+    tourC: Tournament,
+    apiC: Api
+)(implicit
+    mat: akka.stream.Materializer
 ) extends LilaController(env) {
 
   private def swissNotFound(implicit ctx: Context) = NotFound(html.swiss.bits.notFound())
 
   def home =
     Open { implicit ctx =>
-      env.swiss.api.featurable map {
-        case (now, soon) => Ok(html.swiss.home(now, soon))
-      }
+      ctx.userId.??(env.team.cached.teamIdsList) flatMap
+        env.swiss.feature.get map html.swiss.home.apply map { Ok(_) }
     }
 
   def show(id: String) =
@@ -31,11 +33,13 @@ final class Swiss(
         negotiate(
           html = swissOption.fold(swissNotFound.fuccess) { swiss =>
             for {
+              verdicts <- env.swiss.api.verdicts(swiss, ctx.me)
               version  <- env.swiss.version(swiss.id)
               isInTeam <- isCtxInTheTeam(swiss.teamId)
               json <- env.swiss.json(
                 swiss = swiss,
                 me = ctx.me,
+                verdicts = verdicts,
                 reqPage = page,
                 socketVersion = version.some,
                 playerInfo = none,
@@ -49,7 +53,9 @@ final class Swiss(
               _ <- chat ?? { c =>
                 env.user.lightUserApi.preloadMany(c.chat.userIds)
               }
-            } yield Ok(html.swiss.show(swiss, json, chat))
+              streamers  <- streamerCache get swiss.id
+              isLocalMod <- canChat ?? canModChat(swiss)
+            } yield Ok(html.swiss.show(swiss, verdicts, json, chat, streamers, isLocalMod))
           },
           api = _ =>
             swissOption.fold(notFoundJson("No such swiss tournament")) { swiss =>
@@ -57,9 +63,11 @@ final class Swiss(
                 socketVersion <- getBool("socketVersion").??(env.swiss version swiss.id dmap some)
                 isInTeam      <- isCtxInTheTeam(swiss.teamId)
                 playerInfo    <- get("playerInfo").?? { env.swiss.api.playerInfo(swiss, _) }
+                verdicts      <- env.swiss.api.verdicts(swiss, ctx.me)
                 json <- env.swiss.json(
                   swiss = swiss,
                   me = ctx.me,
+                  verdicts = verdicts,
                   reqPage = page,
                   socketVersion = socketVersion,
                   playerInfo = playerInfo,
@@ -89,7 +97,7 @@ final class Swiss(
             .fold(
               err => BadRequest(html.swiss.form.create(err, teamId)).fuccess,
               data =>
-                tourC.rateLimitCreation(me, false, ctx.req) {
+                tourC.rateLimitCreation(me, isPrivate = true, ctx.req, Redirect(routes.Team.show(teamId))) {
                   env.swiss.api.create(data, me, teamId) map { swiss =>
                     Redirect(routes.Swiss.show(swiss.id.value))
                   }
@@ -99,17 +107,18 @@ final class Swiss(
     }
 
   def apiCreate(teamId: String) =
-    ScopedBody() { implicit req => me =>
+    ScopedBody(_.Tournament.Write) { implicit req => me =>
       if (me.isBot || me.lame) notFoundJson("This account cannot create tournaments")
       else
         env.team.cached.isLeader(teamId, me.id) flatMap {
           case false => notFoundJson("You're not a leader of that team")
           case _ =>
-            env.swiss.forms.create.bindFromRequest
+            env.swiss.forms.create
+              .bindFromRequest()
               .fold(
                 jsonFormErrorDefaultLang,
                 data =>
-                  tourC.rateLimitCreation(me, false, req) {
+                  tourC.rateLimitCreation(me, isPrivate = true, req, rateLimited) {
                     JsonOk {
                       env.swiss.api.create(data, me, teamId) map env.swiss.json.api
                     }
@@ -119,18 +128,15 @@ final class Swiss(
     }
 
   def join(id: String) =
-    AuthBody { implicit ctx => me =>
+    AuthBody(parse.json) { implicit ctx => me =>
       NoLameOrBot {
+        val password = ctx.body.body.\("password").asOpt[String]
         env.team.cached.teamIds(me.id) flatMap { teamIds =>
-          env.swiss.api.join(SwissId(id), me, teamIds.contains) flatMap { result =>
-            negotiate(
-              html = Redirect(routes.Swiss.show(id)).fuccess,
-              api = _ =>
-                fuccess {
-                  if (result) jsonOkResult
-                  else BadRequest(Json.obj("joined" -> false))
-                }
-            )
+          env.swiss.api.join(SwissId(id), me, teamIds.contains, password) flatMap { result =>
+            fuccess {
+              if (result) jsonOkResult
+              else BadRequest(Json.obj("joined" -> false))
+            }
           }
         }
       }
@@ -138,12 +144,11 @@ final class Swiss(
 
   def withdraw(id: String) =
     Auth { implicit ctx => me =>
-      env.swiss.api.withdraw(SwissId(id), me.id) flatMap { result =>
+      env.swiss.api.withdraw(SwissId(id), me.id) >>
         negotiate(
           html = Redirect(routes.Swiss.show(id)).fuccess,
           api = _ => fuccess(jsonOkResult)
         )
-      }
     }
 
   def edit(id: String) =
@@ -159,7 +164,7 @@ final class Swiss(
         implicit val req = ctx.body
         env.swiss.forms
           .edit(swiss)
-          .bindFromRequest
+          .bindFromRequest()
           .fold(
             err => BadRequest(html.swiss.form.edit(swiss, err)).fuccess,
             data => env.swiss.api.update(swiss, data) inject Redirect(routes.Swiss.show(id))
@@ -171,11 +176,10 @@ final class Swiss(
     AuthBody { implicit ctx => me =>
       WithEditableSwiss(id, me) { swiss =>
         implicit val req = ctx.body
-        env.swiss.forms
-          .nextRound(swiss)
-          .bindFromRequest
+        env.swiss.forms.nextRound
+          .bindFromRequest()
           .fold(
-            err => Redirect(routes.Swiss.show(id)).fuccess,
+            _ => Redirect(routes.Swiss.show(id)).fuccess,
             date => env.swiss.api.scheduleNextRound(swiss, date) inject Redirect(routes.Swiss.show(id))
           )
       }
@@ -189,7 +193,7 @@ final class Swiss(
     }
 
   def standing(id: String, page: Int) =
-    Open { implicit ctx =>
+    Action.async {
       WithSwiss(id) { swiss =>
         JsonOk {
           env.swiss.standingApi(swiss, page)
@@ -198,7 +202,7 @@ final class Swiss(
     }
 
   def pageOf(id: String, userId: String) =
-    Open { implicit ctx =>
+    Action.async {
       WithSwiss(id) { swiss =>
         env.swiss.api.pageOf(swiss, lila.user.User normalize userId) flatMap {
           _ ?? { page =>
@@ -221,21 +225,25 @@ final class Swiss(
       }
     }
 
-  private val ExportLimitPerIP = new lila.memo.RateLimit[lila.common.IpAddress](
-    credits = 10,
-    duration = 1.minute,
-    name = "swiss export per IP",
-    key = "swiss.export.ip"
-  )
-
   def exportTrf(id: String) =
     Action.async {
       env.swiss.api.byId(SwissId(id)) map {
         case None => NotFound("Tournament not found")
         case Some(swiss) =>
-          Ok.chunked(env.swiss trf swiss intersperse "\n")
+          Ok.chunked(env.swiss.trf(swiss, sorted = true) intersperse "\n")
             .withHeaders(CONTENT_DISPOSITION -> s"attachment; filename=lichess_swiss_$id.trf")
       }
+    }
+
+  def byTeam(id: String) =
+    Action.async { implicit req =>
+      apiC.jsonStream {
+        env.swiss.api
+          .byTeamCursor(id)
+          .documentSource(getInt("max", req) | 100)
+          .map(env.swiss.json.api)
+          .throttle(20, 1.second)
+      }.fuccess
     }
 
   private def WithSwiss(id: String)(f: SwissModel => Fu[Result]): Fu[Result] =
@@ -254,11 +262,28 @@ final class Swiss(
     canHaveChat(swiss.roundInfo)
 
   private[controllers] def canHaveChat(swiss: SwissModel.RoundInfo)(implicit ctx: Context): Fu[Boolean] =
-    swiss.chatFor match {
-      case ChatFor.NONE                  => fuFalse
-      case _ if isGranted(_.ChatTimeout) => fuTrue
-      case ChatFor.LEADERS               => ctx.userId ?? { env.team.cached.isLeader(swiss.teamId, _) }
-      case ChatFor.MEMBERS               => ctx.userId ?? { env.team.api.belongsTo(swiss.teamId, _) }
-      case _                             => fuTrue
+    ctx.noKid ?? {
+      swiss.chatFor match {
+        case ChatFor.NONE                  => fuFalse
+        case _ if isGranted(_.ChatTimeout) => fuTrue
+        case ChatFor.LEADERS               => ctx.userId ?? { env.team.cached.isLeader(swiss.teamId, _) }
+        case ChatFor.MEMBERS               => ctx.userId ?? { env.team.api.belongsTo(swiss.teamId, _) }
+        case _                             => fuTrue
+      }
+    }
+
+  private def canModChat(swiss: SwissModel)(implicit ctx: Context): Fu[Boolean] =
+    if (isGranted(_.ChatTimeout)) fuTrue
+    else ctx.userId ?? { env.team.cached.isLeader(swiss.teamId, _) }
+
+  private val streamerCache =
+    env.memo.cacheApi[SwissModel.Id, List[lila.user.User.ID]](64, "swiss.streamers") {
+      _.refreshAfterWrite(15.seconds)
+        .maximumSize(64)
+        .buildAsyncFuture { id =>
+          env.streamer.liveStreamApi.all.flatMap { streams =>
+            env.swiss.api.filterPlaying(id, streams.streams.map(_.streamer.userId))
+          }
+        }
     }
 }

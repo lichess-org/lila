@@ -22,23 +22,21 @@ object shields {
         div(cls := "page-menu__content box box-pad")(
           h1("Tournament shields"),
           div(cls := "tournament-shields")(
-            history.sorted.map {
-              case (categ, awards) => {
-                section(
-                  h2(
-                    a(href := routes.Tournament.categShields(categ.key))(
-                      span(cls := "shield-trophy")(categ.iconChar.toString),
-                      categ.name
-                    )
-                  ),
-                  ol(awards.map { aw =>
-                    li(
-                      userIdLink(aw.owner.value.some),
-                      a(href := routes.Tournament.show(aw.tourId))(showDate(aw.date))
-                    )
-                  })
-                )
-              }
+            history.sorted.map { case (categ, awards) =>
+              section(
+                h2(
+                  a(href := routes.Tournament.categShields(categ.key))(
+                    span(cls := "shield-trophy")(categ.iconChar.toString),
+                    categ.name
+                  )
+                ),
+                ol(awards.map { aw =>
+                  li(
+                    userIdLink(aw.owner.value.some),
+                    a(href := routes.Tournament.show(aw.tourId))(showDate(aw.date))
+                  )
+                })
+              )
             }
           )
         )
@@ -54,7 +52,7 @@ object shields {
         views.html.user.bits.communityMenu("shield"),
         div(cls := "page-menu__content box")(
           h1(
-            a(href := routes.Tournament.shields, dataIcon := "I", cls := "text"),
+            a(href := routes.Tournament.shields(), dataIcon := "I", cls := "text"),
             categ.name,
             " shields"
           ),

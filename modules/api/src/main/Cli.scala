@@ -34,7 +34,7 @@ final private[api] class Cli(
     case "uptime" :: Nil => fuccess(s"${lila.common.Uptime.seconds} seconds")
     case "change" :: ("asset" | "assets") :: "version" :: Nil =>
       import lila.common.AssetVersion
-      AssetVersion.change
+      AssetVersion.change()
       fuccess(s"Changed to ${AssetVersion.current}")
     case "gdpr" :: "erase" :: username :: "forever" :: Nil =>
       userRepo named username map {
@@ -65,8 +65,8 @@ final private[api] class Cli(
 
   private def run(args: List[String]): Fu[String] = {
     (processors lift args) | fufail("Unknown command: " + args.mkString(" "))
-  } recover {
-    case e: Exception => "ERROR " + e
+  } recover { case e: Exception =>
+    "ERROR " + e
   }
 
   private def processors =

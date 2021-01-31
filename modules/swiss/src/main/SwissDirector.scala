@@ -20,7 +20,7 @@ final private class SwissDirector(
   import BsonHandlers._
 
   // sequenced by SwissApi
-  private[swiss] def startRound(from: Swiss): Fu[Option[(Swiss, List[SwissPairing])]] =
+  private[swiss] def startRound(from: Swiss): Fu[Option[Swiss]] =
     pairingSystem(from)
       .flatMap { pendings =>
         val pendingPairings = pendings.collect { case Right(p) => p }
@@ -29,21 +29,18 @@ final private class SwissDirector(
           val swiss = from.startRound
           for {
             players <- SwissPlayer.fields { f =>
-              colls.player.ext
-                .find($doc(f.swissId -> swiss.id))
-                .list[SwissPlayer]()
+              colls.player.list[SwissPlayer]($doc(f.swissId -> swiss.id))
             }
             ids <- idGenerator.games(pendingPairings.size)
-            pairings = pendingPairings.zip(ids).map {
-              case (SwissPairing.Pending(w, b), id) =>
-                SwissPairing(
-                  id = id,
-                  swissId = swiss.id,
-                  round = swiss.round,
-                  white = w,
-                  black = b,
-                  status = Left(SwissPairing.Ongoing)
-                )
+            pairings = pendingPairings.zip(ids).map { case (SwissPairing.Pending(w, b), id) =>
+              SwissPairing(
+                id = id,
+                swissId = swiss.id,
+                round = swiss.round,
+                white = w,
+                black = b,
+                status = Left(SwissPairing.Ongoing)
+              )
             }
             _ <-
               colls.swiss.update
@@ -68,14 +65,16 @@ final private class SwissDirector(
             _ <- lila.common.Future.applySequentially(games) { game =>
               gameRepo.insertDenormalized(game) >>- onStart(game.id)
             }
-          } yield Some(swiss -> pairings)
+          } yield swiss.some
         }
       }
-      .recover {
-        case PairingSystem.BBPairingException(msg, input) =>
+      .recover { case PairingSystem.BBPairingException(msg, input) =>
+        if (msg contains "The number of rounds is larger than the reported number of rounds.") none
+        else {
           logger.warn(s"BBPairing ${from.id} $msg")
           logger.info(s"BBPairing ${from.id} $input")
-          Some(from -> List.empty[SwissPairing])
+          from.some
+        }
       }
       .monSuccess(_.swiss.startRound)
 
@@ -85,8 +84,11 @@ final private class SwissDirector(
     Game
       .make(
         chess = chess.Game(
-          variantOption = Some(swiss.variant),
-          fen = none
+          variantOption = Some {
+            if (swiss.settings.position.isEmpty) swiss.variant
+            else chess.variant.FromPosition
+          },
+          fen = swiss.settings.position
         ) pipe { g =>
           val turns = g.player.fold(0, 1)
           g.copy(
@@ -108,7 +110,3 @@ final private class SwissDirector(
   private def makePlayer(color: Color, player: SwissPlayer) =
     lila.game.Player.make(color, player.userId, player.rating, player.provisional)
 }
-
-//   private object SwissDirector {
-
-//     case class Result(swiss: Swiss, playerMap: SwissPlayer

@@ -9,8 +9,7 @@ case class ContentSecurityPolicy(
     workerSrc: List[String],
     imgSrc: List[String],
     scriptSrc: List[String],
-    baseUri: List[String],
-    reportTo: List[String]
+    baseUri: List[String]
 ) {
 
   def withNonce(nonce: Nonce) = copy(scriptSrc = nonce.scriptSrc :: scriptSrc)
@@ -27,7 +26,7 @@ case class ContentSecurityPolicy(
       frameSrc = "https://*.stripe.com" :: frameSrc
     )
 
-  def withTwitch =
+  def finalizeWithTwitch =
     copy(
       defaultSrc = Nil,
       connectSrc = "https://www.twitch.tv" :: "https://www-cdn.jtvnw.net" :: connectSrc,
@@ -35,7 +34,6 @@ case class ContentSecurityPolicy(
       fontSrc = Nil,
       frameSrc = Nil,
       workerSrc = Nil,
-      imgSrc = Nil,
       scriptSrc = Nil
     )
 
@@ -54,10 +52,7 @@ case class ContentSecurityPolicy(
       frameSrc = "https://www.google.com" :: frameSrc
     )
 
-  def withPeer =
-    copy(
-      connectSrc = "wss://0.peerjs.com" :: connectSrc
-    )
+  def withPeer = copy(connectSrc = "wss://0.peerjs.com" :: connectSrc)
 
   private def withPrismicEditor(maybe: Boolean): ContentSecurityPolicy =
     if (maybe)
@@ -70,6 +65,8 @@ case class ContentSecurityPolicy(
 
   def withPrismic(editor: Boolean): ContentSecurityPolicy = withPrismicEditor(editor).withTwitter
 
+  def withAnyWs = copy(connectSrc = "ws:" :: "wss:" :: connectSrc)
+
   override def toString: String =
     List(
       "default-src " -> defaultSrc,
@@ -80,8 +77,7 @@ case class ContentSecurityPolicy(
       "worker-src "  -> workerSrc,
       "img-src "     -> imgSrc,
       "script-src "  -> scriptSrc,
-      "base-uri "    -> baseUri,
-      "report-to "   -> reportTo
+      "base-uri "    -> baseUri
     ) collect {
       case (directive, sources) if sources.nonEmpty =>
         sources.mkString(directive, " ", ";")

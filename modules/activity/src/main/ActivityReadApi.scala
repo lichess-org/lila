@@ -3,10 +3,12 @@ package lila.activity
 import org.joda.time.{ DateTime, Interval }
 import reactivemongo.api.ReadPreference
 
+import lila.common.Heapsort
 import lila.db.dsl._
 import lila.game.LightPov
 import lila.practice.PracticeStructure
 import lila.user.User
+import lila.tournament.LeaderboardApi
 
 final class ActivityReadApi(
     coll: Coll,
@@ -28,10 +30,11 @@ final class ActivityReadApi(
   def recent(u: User, nb: Int = recentNb): Fu[Vector[ActivityView]] =
     for {
       activities <-
-        coll.ext
+        coll
           .find(regexId(u.id))
           .sort($sort desc "_id")
-          .vector[Activity](nb, ReadPreference.secondaryPreferred)
+          .cursor[Activity](ReadPreference.secondaryPreferred)
+          .vector(nb)
           .dmap(_.filterNot(_.isEmpty))
           .mon(_.user segment "activity.raws")
       practiceStructure <- activities.exists(_.practice.isDefined) ?? {
@@ -50,11 +53,11 @@ final class ActivityReadApi(
           .mon(_.user segment "activity.posts") dmap some
       }
       practice = (for {
-          p      <- a.practice
-          struct <- practiceStructure
-        } yield p.value flatMap {
-          case (studyId, nb) => struct study studyId map (_ -> nb)
-        } toMap)
+        p      <- a.practice
+        struct <- practiceStructure
+      } yield p.value flatMap { case (studyId, nb) =>
+        struct study studyId map (_ -> nb)
+      } toMap)
       postView = posts.map { p =>
         p.groupBy(_.topic)
           .view
@@ -94,7 +97,11 @@ final class ActivityReadApi(
           .dmap { entries =>
             entries.nonEmpty option ActivityView.Tours(
               nb = entries.size,
-              best = entries.sortBy(_.rankRatio.value).take(activities.maxSubEntries)
+              best = Heapsort.topN(
+                entries,
+                activities.maxSubEntries,
+                Ordering.by[LeaderboardApi.Entry, Double](-_.rankRatio.value)
+              )
             )
           }
           .mon(_.user segment "activity.tours")
@@ -103,6 +110,7 @@ final class ActivityReadApi(
       interval = a.interval,
       games = a.games,
       puzzles = a.puzzles,
+      storm = a.storm,
       practice = practice,
       posts = postView,
       simuls = simuls,
@@ -121,7 +129,7 @@ final class ActivityReadApi(
       case ((false, as), a) if a.interval contains at => (true, as :+ a.copy(signup = true))
       case ((found, as), a)                           => (found, as :+ a)
     }
-    if (!found && views.size < recentNb && DateTime.now.minusDays(8).isBefore(at))
+    if (!found && views.sizeIs < recentNb && DateTime.now.minusDays(8).isBefore(at))
       views :+ ActivityView(
         interval = new Interval(at.withTimeAtStartOfDay, at.withTimeAtStartOfDay plusDays 1),
         signup = true

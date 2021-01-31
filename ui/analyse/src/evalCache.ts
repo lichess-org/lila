@@ -1,18 +1,26 @@
-import { defined, prop, Prop } from 'common';
+import { defined, prop } from 'common';
 import throttle from 'common/throttle';
+
+export interface EvalCacheOpts {
+  variant: VariantKey;
+  receive(ev: Tree.ClientEval, path: Tree.Path): void;
+  send(t: string, d: any): void;
+  getNode(): Tree.Node;
+  canPut(): boolean;
+  canGet(): boolean;
+}
 
 export interface EvalCache {
   onCeval(): void
   fetch(path: Tree.Path, multiPv: number): void
   onCloudEval(serverEval): void
-  upgradable: Prop<boolean>
 }
 
 const evalPutMinDepth = 20;
 const evalPutMinNodes = 3e6;
 const evalPutMaxMoves = 10;
 
-function qualityCheck(ev): boolean {
+function qualityCheck(ev: Tree.ClientEval): boolean {
   // below 500k nodes, the eval might come from an imminent threefold repetition
   // and should therefore be ignored
   return ev.nodes > 500000 && (
@@ -21,7 +29,7 @@ function qualityCheck(ev): boolean {
 }
 
 // from client eval to server eval
-function toPutData(variant, ev) {
+function toPutData(variant: VariantKey, ev: Tree.ClientEval) {
   const data: any = {
     fen: ev.fen,
     knodes: Math.round(ev.nodes / 1000),
@@ -39,14 +47,14 @@ function toPutData(variant, ev) {
 }
 
 // from server eval to client eval
-function toCeval(e) {
+function toCeval(e: Tree.ServerEval) {
   const res: any = {
     fen: e.fen,
     nodes: e.knodes * 1000,
     depth: e.depth,
-    pvs: e.pvs.map(function(from) {
+    pvs: e.pvs.map(from => {
       const to: any = {
-        moves: from.moves.split(' ')
+        moves: (from.moves as any).split(' ') // moves come from the server as a single string
       };
       if (defined(from.cp)) to.cp = from.cp;
       else to.mate = from.mate;
@@ -60,9 +68,10 @@ function toCeval(e) {
   return res;
 }
 
-export function make(opts): EvalCache {
+export function make(opts: EvalCacheOpts): EvalCache {
   const fetchedByFen = {};
   const upgradable = prop(false);
+  lichess.pubsub.on('socket.in.crowd', d => upgradable(d.nb > 2));
   return {
     onCeval: throttle(500, function() {
       const node = opts.getNode(), ev = node.ceval;
@@ -89,7 +98,6 @@ export function make(opts): EvalCache {
     onCloudEval(serverEval) {
       fetchedByFen[serverEval.fen] = serverEval;
       opts.receive(toCeval(serverEval), serverEval.path);
-    },
-    upgradable,
+    }
   };
 };

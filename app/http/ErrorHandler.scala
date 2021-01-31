@@ -6,7 +6,6 @@ import play.api.mvc._
 import play.api.mvc.Results._
 import play.api.routing._
 import play.api.{ Configuration, Environment, UsefulException }
-import play.core.SourceMapper
 import scala.concurrent.Future
 
 import lila.common.HTTPRequest
@@ -14,12 +13,11 @@ import lila.common.HTTPRequest
 final class ErrorHandler(
     environment: Environment,
     config: Configuration,
-    sourceMapper: Option[SourceMapper],
-    router: => Option[Router],
+    router: => Router,
     mainC: => controllers.Main,
     lobbyC: => controllers.Lobby
 )(implicit ec: scala.concurrent.ExecutionContext)
-    extends DefaultHttpErrorHandler(environment, config, sourceMapper, router) {
+    extends DefaultHttpErrorHandler(environment, config, router.some) {
 
   override def onProdServerError(req: RequestHeader, exception: UsefulException) =
     Future {
@@ -36,10 +34,9 @@ final class ErrorHandler(
           )
         })
       else InternalServerError("Sorry, something went wrong.")
-    } recover {
-      case util.control.NonFatal(e) =>
-        lila.log("http").error(s"""Error handler exception on "${exception.getMessage}\"""", e)
-        InternalServerError("Sorry, something went very wrong.")
+    } recover { case util.control.NonFatal(e) =>
+      lila.log("http").error(s"""Error handler exception on "${exception.getMessage}\"""", e)
+      InternalServerError("Sorry, something went very wrong.")
     }
 
   override def onClientError(req: RequestHeader, statusCode: Int, msg: String): Fu[Result] =

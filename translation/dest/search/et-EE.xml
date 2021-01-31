@@ -2,10 +2,19 @@
 <resources>
   <string name="search">Otsi</string>
   <string name="advancedSearch">Täpsem otsing</string>
+  <plurals name="searchInXGames">
+    <item quantity="one">Otsige %s partiist</item>
+    <item quantity="other">Otsige %s partiist</item>
+  </plurals>
+  <plurals name="xGamesFound">
+    <item quantity="one">Leitud üks partii</item>
+    <item quantity="other">Leitud %s partiid</item>
+  </plurals>
   <string name="opponentName">Vastase nimi</string>
   <string name="loser">Kaotaja</string>
   <string name="from">Alates</string>
   <string name="to">Kuni</string>
+  <string name="humanOrComputer">Vastane oli inimene või arvuti</string>
   <string name="aiLevel">A.I. tase</string>
   <string name="source">Allikas</string>
   <string name="nbTurns">Käikude arv</string>
@@ -14,4 +23,5 @@
   <string name="date">Kuupäev</string>
   <string name="sortBy">Sorteerimine</string>
   <string name="analysis">Analüüs</string>
+  <string name="onlyAnalysed">Ainult partiid, mille kohta on tehtud arvutianalüüs</string>
 </resources>

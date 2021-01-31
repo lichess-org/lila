@@ -4,6 +4,6 @@ export default rollupProject({
   main: {
     name: 'LichessSpeech',
     input: 'src/main.ts',
-    output: 'lichess.speech',
+    output: 'speech',
   },
 });

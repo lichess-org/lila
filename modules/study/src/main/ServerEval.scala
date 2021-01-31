@@ -1,14 +1,15 @@
 package lila.study
 
-import play.api.libs.json._
-
 import chess.format.pgn.Glyphs
-import chess.format.{ FEN, Forsyth, Uci, UciCharPair }
+import chess.format.{ Forsyth, Uci, UciCharPair }
+import play.api.libs.json._
+import scala.concurrent.duration._
+
 import lila.analyse.{ Analysis, Info }
 import lila.hub.actorApi.fishnet.StudyChapterRequest
-import lila.{ tree => T }
 import lila.tree.Node.Comment
 import lila.user.User
+import lila.{ tree => T }
 
 object ServerEval {
 
@@ -17,8 +18,12 @@ object ServerEval {
       chapterRepo: ChapterRepo
   )(implicit ec: scala.concurrent.ExecutionContext) {
 
+    private val onceEvery = lila.memo.OnceEvery(5 minutes)
+
     def apply(study: Study, chapter: Chapter, userId: User.ID): Funit =
-      chapter.serverEval.isEmpty ?? {
+      chapter.serverEval.fold(true) { eval =>
+        !eval.done && onceEvery(chapter.id.value)
+      } ?? {
         chapterRepo.startServerEval(chapter) >>- {
           fishnet ! StudyChapterRequest(
             studyId = study.id.value,
@@ -28,11 +33,11 @@ object ServerEval {
             moves = chess.format
               .UciDump(
                 moves = chapter.root.mainline.map(_.move.san),
-                initialFen = chapter.root.fen.value.some,
+                initialFen = chapter.root.fen.some,
                 variant = chapter.setup.variant
               )
               .toOption
-              .map(_.map(chess.format.Uci.apply).flatten) | List.empty,
+              .map(_.flatMap(chess.format.Uci.apply)) | List.empty,
             userId = userId
           )
         }
@@ -65,22 +70,22 @@ object ServerEval {
                             chapterRepo.setComments(
                               node.comments + Comment(
                                 Comment.Id.make,
-                                Comment.Text(adv.makeComment(false, true)),
+                                Comment.Text(adv.makeComment(withEval = false, withBestMove = true)),
                                 Comment.Author.Lichess
                               )
                             )(chapter, path + node) >>
                               chapterRepo.setGlyphs(
                                 node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph))
                               )(chapter, path + node) >> {
-                              chapter.root.nodeAt(path).flatMap { parent =>
-                                analysisLine(parent, chapter.setup.variant, info) flatMap { child =>
-                                  parent.addChild(child).children.get(child.id)
-                                }
-                              } ?? { chapterRepo.setChild(chapter, path, _) }
+                                chapter.root.nodeAt(path).flatMap { parent =>
+                                  analysisLine(parent, chapter.setup.variant, info) flatMap { child =>
+                                    parent.addChild(child).children.get(child.id)
+                                  }
+                                } ?? { chapterRepo.setChild(chapter, path, _) }
+                              }
                           }
-                        }
-                    } inject path + node
-              } void
+                      } inject path + node
+                } void
             } >>- {
               chapterRepo.byId(Chapter.Id(analysis.id)).foreach {
                 _ ?? { chapter =>
@@ -108,32 +113,31 @@ object ServerEval {
       )
 
     private def analysisLine(root: RootOrNode, variant: chess.variant.Variant, info: Info): Option[Node] =
-      chess.Replay.gameMoveWhileValid(info.variation take 20, root.fen.value, variant) match {
+      chess.Replay.gameMoveWhileValid(info.variation take 20, root.fen, variant) match {
         case (_, games, error) =>
           error foreach { logger.info(_) }
           games.reverse match {
             case Nil => none
             case (g, m) :: rest =>
-              rest.foldLeft(makeBranch(g, m)) {
-                case (node, (g, m)) => makeBranch(g, m) addChild node
-              } some
+              rest
+                .foldLeft(makeBranch(g, m)) { case (node, (g, m)) =>
+                  makeBranch(g, m) addChild node
+                } some
           }
       }
 
-    private def makeBranch(g: chess.Game, m: Uci.WithSan) = {
-      val fen = FEN(Forsyth >> g)
+    private def makeBranch(g: chess.Game, m: Uci.WithSan) =
       Node(
         id = UciCharPair(m.uci),
         ply = g.turns,
         move = m,
-        fen = fen,
+        fen = Forsyth >> g,
         check = g.situation.check,
         crazyData = g.situation.board.crazyData,
         clock = none,
         children = Node.emptyChildren,
         forceVariation = false
       )
-    }
   }
 
   case class Progress(chapterId: Chapter.Id, tree: T.Root, analysis: JsObject, division: chess.Division)

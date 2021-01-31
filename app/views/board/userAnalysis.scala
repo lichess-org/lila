@@ -26,7 +26,7 @@ object userAnalysis {
       moreJs = frag(
         analyseTag,
         analyseNvuiTag,
-        embedJsUnsafe(s"""lichess=lichess||{};lichess.user_analysis=${safeJsonValue(
+        embedJsUnsafe(s"""lichess.userAnalysis=${safeJsonValue(
           Json.obj(
             "data" -> data,
             "i18n" -> userAnalysisI18n(withForecast = withForecast),
@@ -42,7 +42,7 @@ object userAnalysis {
       openGraph = lila.app.ui
         .OpenGraph(
           title = "Chess analysis board",
-          url = s"$netBaseUrl${routes.UserAnalysis.index.url}",
+          url = s"$netBaseUrl${routes.UserAnalysis.index().url}",
           description = "Analyse chess positions and variations on an interactive chess board"
         )
         .some,

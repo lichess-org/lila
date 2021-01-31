@@ -1,6 +1,6 @@
 export interface RelayData {
   id: string;
-  slug: string;
+  url: string;
   description: string;
   markup?: string;
   credit?: string;

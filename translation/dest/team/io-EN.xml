@@ -7,9 +7,6 @@
   <string name="noTeamFound">Nula esquado trovita</string>
   <string name="joinTeam">Partoprenar esquado</string>
   <string name="quitTeam">Livar esquado</string>
-  <string name="anyoneCanJoin">Omni povas partoprenar</string>
-  <string name="aConfirmationIsRequiredToJoin">Ratifiko es necesa por partoprenar</string>
-  <string name="joiningPolicy">Partoprenodirekto</string>
   <string name="teamBestPlayers">Maxim bona luderi di esquado</string>
   <string name="teamRecentMembers">Recenta membri di esquado</string>
 </resources>

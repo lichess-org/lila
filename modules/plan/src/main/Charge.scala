@@ -1,7 +1,6 @@
 package lila.plan
 
 import org.joda.time.DateTime
-import ornicar.scalalib.Random
 
 case class Charge(
     _id: String, // random
@@ -34,7 +33,7 @@ object Charge {
       cents: Cents
   ) =
     Charge(
-      _id = Random nextString 8,
+      _id = lila.common.ThreadLocalRandom nextString 8,
       userId = userId,
       stripe = stripe,
       payPal = payPal,

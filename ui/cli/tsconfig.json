@@ -1,6 +1,3 @@
 {
-  "extends": "../tsconfig.base.json",
-  "compilerOptions": {
-    "noEmitOnError": false
-  }
+  "extends": "../tsconfig.base.json"
 }

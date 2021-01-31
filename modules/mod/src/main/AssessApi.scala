@@ -20,7 +20,7 @@ import lila.user.User
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 import reactivemongo.api.bson._
-import scala.util.Random
+import lila.common.ThreadLocalRandom
 
 import chess.Color
 
@@ -47,7 +47,7 @@ final class AssessApi(
     assessRepo.coll.byId[PlayerAssessment](id)
 
   private def getPlayerAssessmentsByUserId(userId: String, nb: Int) =
-    assessRepo.coll.ext
+    assessRepo.coll
       .find($doc("userId" -> userId))
       .sort($doc("date" -> -1))
       .cursor[PlayerAssessment](ReadPreference.secondaryPreferred)
@@ -59,8 +59,8 @@ final class AssessApi(
   def getGameResultsById(gameId: String) =
     getResultsByGameIdAndColor(gameId, Color.White) zip
       getResultsByGameIdAndColor(gameId, Color.Black) map { a =>
-      PlayerAssessments(a._1, a._2)
-    }
+        PlayerAssessments(a._1, a._2)
+      }
 
   private def getPlayerAggregateAssessment(
       userId: String,
@@ -94,7 +94,7 @@ final class AssessApi(
         (gameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
           (gs map { g =>
             analysisRepo.byGame(g) flatMap {
-              _ ?? { onAnalysisReady(g, _, false) }
+              _ ?? { onAnalysisReady(g, _, thenAssessUser = false) }
             }
           }).sequenceFu.void
         }) >> assessUser(user.id)
@@ -151,7 +151,7 @@ final class AssessApi(
   private val assessableSources: Set[Source] = Set(Source.Lobby, Source.Pool, Source.Tournament)
 
   private def randomPercent(percent: Int): Boolean =
-    Random.nextInt(100) < percent
+    ThreadLocalRandom.nextInt(100) < percent
 
   def onGameReady(game: Game, white: User, black: User): Funit = {
 
@@ -178,7 +178,7 @@ final class AssessApi(
 
     def suspCoefVariation(c: Color) = {
       val x = noFastCoefVariation(game player c)
-      x.filter(_ < 0.45f) orElse x.filter(_ < 0.5f).ifTrue(Random.nextBoolean)
+      x.filter(_ < 0.45f) orElse x.filter(_ < 0.5f).ifTrue(ThreadLocalRandom.nextBoolean())
     }
     lazy val whiteSuspCoefVariation = suspCoefVariation(chess.White)
     lazy val blackSuspCoefVariation = suspCoefVariation(chess.Black)

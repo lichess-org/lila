@@ -1,17 +1,17 @@
 package views.html.tournament
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-
-import controllers.routes
 
 object homepageSpotlight {
 
   def apply(tour: lila.tournament.Tournament)(implicit ctx: Context) = {
     val schedClass = tour.schedule ?? { sched =>
       val invert  = (sched.freq.isWeeklyOrBetter && tour.isNowOrSoon) ?? " invert"
-      val distant = (tour.isDistant) ?? " distant little"
+      val distant = tour.isDistant ?? " distant little"
       s"${sched.freq} ${sched.speed} ${sched.variant.key}$invert$distant"
     }
     val tourClass = s"tour-spotlight id_${tour.id} $schedClass"
@@ -19,10 +19,10 @@ object homepageSpotlight {
       a(href := routes.Tournament.show(tour.id), cls := tourClass)(
         frag(
           spot.iconImg map { i =>
-            img(cls := "img", src := staticUrl(s"images/$i"))
+            img(cls := "img", src := assetUrl(s"images/$i"))
           } getOrElse {
             spot.iconFont.fold[Frag](iconTag("g")(cls := "img")) {
-              case "\\" => img(cls := "img icon", src := staticUrl(s"images/globe.svg"))
+              case "\\" => img(cls := "img icon", src := assetUrl(s"images/globe.svg"))
               case i    => iconTag(i)(cls := "img")
             }
           },
@@ -43,9 +43,7 @@ object homepageSpotlight {
         )
       )
     } getOrElse a(href := routes.Tournament.show(tour.id), cls := s"little $tourClass")(
-      tour.perfType.fold(iconTag("g")(cls := "img")) { pt =>
-        iconTag(pt.iconChar)(cls := "img")
-      },
+      iconTag(tour.perfType.iconChar)(cls := "img"),
       span(cls := "content")(
         span(cls := "name")(tour.name()),
         span(cls := "more")(

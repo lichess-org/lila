@@ -4,6 +4,6 @@ export default rollupProject({
   main: {
     name: 'LichessEditor',
     input: 'src/main.ts',
-    output: 'lichess.editor',
+    output: 'editor',
   },
 });

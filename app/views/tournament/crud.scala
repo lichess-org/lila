@@ -1,6 +1,7 @@
 package views.html
 package tournament
 
+import controllers.routes
 import play.api.data.Form
 
 import lila.api.Context
@@ -8,9 +9,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 import lila.tournament.crud.CrudForm
-import lila.tournament.{ DataForm, Tournament }
-
-import controllers.routes
+import lila.tournament.{ Tournament, TournamentForm }
 
 object crud {
 
@@ -21,8 +20,7 @@ object crud {
       title = title,
       moreCss = cssTag(css),
       moreJs = frag(
-        flatpickrTag,
-        delayFlatpickrStartUTC,
+        jsModule("flatpickr"),
         evenMoreJs
       )
     ) {
@@ -39,7 +37,7 @@ object crud {
     ) {
       div(cls := "crud page-menu__content box box-pad")(
         h1("New tournament"),
-        postForm(cls := "form3", action := routes.TournamentCrud.create)(inForm(form, none))
+        postForm(cls := "form3", action := routes.TournamentCrud.create())(inForm(form, none))
       )
     }
 
@@ -71,7 +69,9 @@ object crud {
   private def inForm(form: Form[_], tour: Option[Tournament])(implicit ctx: Context) =
     frag(
       form3.split(
-        form3.group(form("date"), frag("Start date ", strong(utcLink)), half = true)(form3.flatpickr(_)),
+        form3.group(form("date"), frag("Start date ", strong(utcLink)), half = true)(
+          form3.flatpickr(_, utc = true)
+        ),
         form3.group(
           form("name"),
           raw("Name"),
@@ -104,10 +104,10 @@ object crud {
       ),
       form3.split(
         form3.group(form("clockTime"), raw("Clock time"), half = true)(
-          form3.select(_, DataForm.clockTimeChoices)
+          form3.select(_, TournamentForm.clockTimeChoices)
         ),
         form3.group(form("clockIncrement"), raw("Clock increment"), half = true)(
-          form3.select(_, DataForm.clockIncrementChoices)
+          form3.select(_, TournamentForm.clockIncrementChoices)
         )
       ),
       form3.split(
@@ -134,7 +134,7 @@ object crud {
         div(cls := "box__top")(
           h1("Tournament manager"),
           div(cls := "box__top__actions")(
-            a(cls := "button button-green", href := routes.TournamentCrud.form, dataIcon := "O")
+            a(cls := "button button-green", href := routes.TournamentCrud.form(), dataIcon := "O")
           )
         ),
         table(cls := "slist slist-pad")(
@@ -148,17 +148,7 @@ object crud {
               th()
             )
           ),
-          tbody(cls := "infinitescroll")(
-            tours.nextPage.map { n =>
-              frag(
-                tr(
-                  th(cls := "pager none")(
-                    a(rel := "next", href := routes.TournamentCrud.index(n))("Next")
-                  )
-                ),
-                tr()
-              )
-            },
+          tbody(cls := "infinite-scroll")(
             tours.currentPageResults.map { tour =>
               tr(cls := "paginated")(
                 td(
@@ -171,10 +161,11 @@ object crud {
                 td(tour.variant.name),
                 td(tour.clock.toString),
                 td(tour.minutes, "m"),
-                td(showDateTimeUTC(tour.startsAt), " ", momentFromNow(tour.startsAt)),
+                td(showDateTimeUTC(tour.startsAt), " ", momentFromNow(tour.startsAt, alwaysRelative = true)),
                 td(a(href := routes.Tournament.show(tour.id), dataIcon := "v", title := "View on site"))
               )
-            }
+            },
+            pagerNextTable(tours, np => routes.TournamentCrud.index(np).url)
           )
         )
       )

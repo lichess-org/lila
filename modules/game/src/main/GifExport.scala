@@ -2,17 +2,18 @@ package lila.game
 
 import akka.stream.scaladsl._
 import akka.util.ByteString
-import play.api.libs.json._
-import play.api.libs.ws.WSClient
-
-import lila.common.Maths
-import lila.common.config.BaseUrl
-
-import chess.{ Centis, Color, Replay, Situation, Game => ChessGame }
 import chess.format.{ FEN, Forsyth, Uci }
+import chess.{ Centis, Color, Replay, Situation, Game => ChessGame }
+import play.api.libs.json._
+import play.api.libs.ws.JsonBodyWritables._
+import play.api.libs.ws.StandaloneWSClient
+
+import lila.common.config.BaseUrl
+import lila.common.Json._
+import lila.common.Maths
 
 final class GifExport(
-    ws: WSClient,
+    ws: StandaloneWSClient,
     lightUserApi: lila.user.LightUserApi,
     baseUrl: BaseUrl,
     url: String
@@ -22,7 +23,7 @@ final class GifExport(
 
   def fromPov(pov: Pov, initialFen: Option[FEN]): Fu[Source[ByteString, _]] =
     lightUserApi preloadMany pov.game.userIds flatMap { _ =>
-      ws.url(s"${url}/game.gif")
+      ws.url(s"$url/game.gif")
         .withMethod("POST")
         .addHttpHeaders("Content-Type" -> "application/json")
         .withBody(
@@ -45,17 +46,17 @@ final class GifExport(
 
   def gameThumbnail(game: Game): Fu[Source[ByteString, _]] = {
     val query = List(
-      "fen"         -> (Forsyth >> game.chess),
+      "fen"         -> (Forsyth >> game.chess).value,
       "white"       -> Namer.playerTextBlocking(game.whitePlayer, withRating = true)(lightUserApi.sync),
       "black"       -> Namer.playerTextBlocking(game.blackPlayer, withRating = true)(lightUserApi.sync),
-      "orientation" -> game.firstColor.name
+      "orientation" -> game.naturalOrientation.name
     ) ::: List(
       game.lastMoveKeys.map { "lastMove" -> _ },
       game.situation.checkSquare.map { "check" -> _.key }
     ).flatten
 
     lightUserApi preloadMany game.userIds flatMap { _ =>
-      ws.url(s"${url}/image.gif")
+      ws.url(s"$url/image.gif")
         .withMethod("GET")
         .withQueryStringParameters(query: _*)
         .stream() flatMap {
@@ -75,12 +76,12 @@ final class GifExport(
       lastMove.map { "lastMove" -> _ }
     ).flatten
 
-    ws.url(s"${url}/image.gif")
+    ws.url(s"$url/image.gif")
       .withMethod("GET")
       .withQueryStringParameters(query: _*)
       .stream() flatMap {
       case res if res.status != 200 =>
-        logger.warn(s"GifExport thumbnail ${fen} ${res.status}")
+        logger.warn(s"GifExport thumbnail $fen ${res.status}")
         fufail(res.statusText)
       case res => fuccess(res.bodyAsSource)
     }
@@ -104,12 +105,12 @@ final class GifExport(
   private def frames(game: Game, initialFen: Option[FEN]) = {
     Replay.gameMoveWhileValid(
       game.pgnMoves,
-      initialFen.map(_.value) | game.variant.initialFen,
+      initialFen | game.variant.initialFen,
       game.variant
     ) match {
       case (init, games, _) =>
-        val steps = (init, None) :: (games map {
-          case (g, Uci.WithSan(uci, _)) => (g, uci.some)
+        val steps = (init, None) :: (games map { case (g, Uci.WithSan(uci, _)) =>
+          (g, uci.some)
         })
         framesRec(
           steps.zip(scaleMoveTimes(~game.moveTimes).map(_.some).padTo(steps.length, None)),

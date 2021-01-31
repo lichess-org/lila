@@ -3,8 +3,7 @@ package lila.memo
 import play.api.mvc.Result
 import scala.concurrent.duration.FiniteDuration
 
-/**
-  * only allow one future at a time per key
+/** only allow one future at a time per key
   */
 final class FutureConcurrencyLimit[K](
     key: String,
@@ -15,7 +14,7 @@ final class FutureConcurrencyLimit[K](
 
   private val storage = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterWrite(ttl)
-    .build[String, Int]
+    .build[String, Int]()
 
   private val concurrentMap = storage.underlying.asMap
 
@@ -33,7 +32,9 @@ final class FutureConcurrencyLimit[K](
         }
     }
 
-  private def get(k: K) = ~storage.getIfPresent(toString(k))
-  private def inc(k: K) = concurrentMap.compute(toString(k), (_, c) => (~Option(c) + 1) atMost maxConcurrency)
-  private def dec(k: K) = concurrentMap.computeIfPresent(toString(k), (_, c) => (c - 1) atLeast 0)
+  private def get(k: K): Int = ~storage.getIfPresent(toString(k))
+  private def inc(k: K): Unit =
+    concurrentMap.compute(toString(k), (_, c) => (~Option(c) + 1) atMost maxConcurrency).unit
+  private def dec(k: K): Unit =
+    concurrentMap.computeIfPresent(toString(k), (_, c) => (c - 1) atLeast 0).unit
 }

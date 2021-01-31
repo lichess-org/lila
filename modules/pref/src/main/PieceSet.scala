@@ -48,6 +48,7 @@ object PieceSet extends PieceSetObject {
     "gioco",
     "tatiana",
     "staunty",
+    "governor",
     "dubrovny",
     "icpieces",
     "shapes",

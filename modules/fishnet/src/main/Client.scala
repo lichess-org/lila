@@ -1,5 +1,6 @@
 package lila.fishnet
 
+import ornicar.scalalib.Random
 import com.gilt.gfc.semver.SemVer
 import lila.common.IpAddress
 import scala.util.{ Failure, Success, Try }
@@ -48,21 +49,15 @@ object Client {
   case class Version(value: String) extends AnyVal with StringValue
   case class Python(value: String)  extends AnyVal with StringValue
   case class UserId(value: String)  extends AnyVal with StringValue
-  case class Engine(name: String)
-  case class Engines(stockfish: Engine)
 
   case class Instance(
       version: Version,
-      python: Python,
-      engines: Engines,
       ip: IpAddress,
       seenAt: DateTime
   ) {
 
     def update(i: Instance): Option[Instance] =
       if (i.version != version) i.some
-      else if (i.python != python) i.some
-      else if (i.engines != engines) i.some
       else if (i.ip != ip) i.some
       else if (i.seenAt isAfter seenAt.plusMinutes(5)) i.some
       else none
@@ -103,5 +98,5 @@ object Client {
       }
   }
 
-  def makeKey = Key(scala.util.Random.alphanumeric take 8 mkString)
+  def makeKey = Key(Random.secureString(8))
 }

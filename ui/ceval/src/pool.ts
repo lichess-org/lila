@@ -2,6 +2,10 @@ import { sync, Sync } from 'common/sync';
 import { PoolOpts, WorkerOpts, Work } from './types';
 import Protocol from './stockfishProtocol';
 
+export function officialStockfish(variant: VariantKey): boolean {
+  return variant === 'standard' || variant === 'chess960';
+}
+
 export abstract class AbstractWorker {
 
   protected protocol: Sync<Protocol>;
@@ -35,7 +39,7 @@ class WebWorker extends AbstractWorker {
   worker: Worker;
 
   boot(): Promise<Protocol> {
-    this.worker = new Worker(window.lichess.assetUrl(this.url, {sameDomain: true}));
+    this.worker = new Worker(lichess.assetUrl(this.url, {sameDomain: true}));
     const protocol = new Protocol(this.send.bind(this), this.workerOpts);
     this.worker.addEventListener('message', e => {
       protocol.received(e.data);
@@ -68,36 +72,31 @@ class WebWorker extends AbstractWorker {
 }
 
 class ThreadedWasmWorker extends AbstractWorker {
-  static global: Promise<{sf: unknown, protocol: Protocol}> | undefined;
-
-  private sf?: any;
+  private static protocols: {Stockfish?: Promise<Protocol>, StockfishMv?: Promise<Protocol>} = {};
+  private static sf: {Stockfish?: any, StockfishMv?: any} = {};
+  private name: 'Stockfish' | 'StockfishMv';
 
   boot(): Promise<Protocol> {
-    if (!ThreadedWasmWorker.global) ThreadedWasmWorker.global = window.lichess.loadScript(this.url, {sameDomain: true}).then(() => window['Stockfish']()).then(sf => {
-      this.sf = sf;
+    this.name = officialStockfish(this.workerOpts.variant) ? 'Stockfish' : 'StockfishMv';
+    ThreadedWasmWorker.protocols[this.name] ||= lichess.loadScript(this.url, {sameDomain: true}).then(_ => window[this.name]()).then((sf: any) => {
+      ThreadedWasmWorker.sf[this.name] = sf;
       const protocol = new Protocol(this.send.bind(this), this.workerOpts);
       sf.addMessageListener(protocol.received.bind(protocol));
       protocol.init();
-      return {
-        sf,
-        protocol
-      };
+      return protocol;
     });
-    return ThreadedWasmWorker.global.then(global => {
-      this.sf = global.sf;
-      return global.protocol;
-    });
+    return ThreadedWasmWorker.protocols[this.name]!;
   }
 
   destroy() {
-    if (ThreadedWasmWorker.global) {
-      console.log('stopping singleton wasmx worker (instead of destroying) ...');
-      this.stop().then(() => console.log('... successfully stopped'));
-    }
+    // Terminated instances to not get freed reliably
+    // (https://github.com/ornicar/lila/issues/7334). So instead of
+    // destroying, just stop instances and keep them around for reuse.
+    this.protocol.sync?.stop();
   }
 
   send(cmd: string) {
-    if (this.sf) this.sf.postMessage(cmd);
+    ThreadedWasmWorker.sf[this.name]?.postMessage(cmd);
   }
 }
 
@@ -144,12 +143,11 @@ export class Pool {
   }
 
   start(work: Work): void {
-    window.lichess.storage.fire('ceval.pool.start');
     this.getWorker().then(function(worker) {
       worker.start(work);
     }).catch(function(error) {
       console.log(error);
-      setTimeout(() => window.lichess.reload(), 10000);
+      setTimeout(() => lichess.reload(), 10000);
     });
   }
 

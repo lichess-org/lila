@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="challenges">Utfordringer</string>
+  <string name="challengeToPlay">Utfordre til et parti</string>
+  <string name="challengeDeclined">Utfordring avslått</string>
+  <string name="challengeAccepted">Utfordring godtatt!</string>
+  <string name="challengeCanceled">Utfordring avbrutt.</string>
+  <string name="registerToSendChallenges">Registrer deg for å utfordre andre.</string>
+  <string name="youCannotChallengeX">Du kan ikke utfordre %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s godtar ikke utfordringer.</string>
+  <string name="yourXRatingIsTooFarFromY">Ratingen din i %1$s er for langt unna %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Kan ikke utfordre på grunn av provisorisk rating i %s.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s godtar bare utfordringer fra venner.</string>
+  <string name="declineGeneric">Jeg godtar ikke utfordringer for øyeblikket.</string>
+  <string name="declineLater">Det passer ikke akkurat nå, spør senere.</string>
+  <string name="declineTooFast">Denne tidskontrollen er for rask for meg, send en ny utfordring til et tregere parti.</string>
+  <string name="declineTooSlow">Denne tidskontrollen er for treg for meg, send en ny utfordring til et raskere parti.</string>
+  <string name="declineTimeControl">Jeg godtar ikke utfordringer med denne tidskontrollen.</string>
+  <string name="declineRated">Send meg en utfordring til et ratet parti i stedet.</string>
+  <string name="declineCasual">Send meg en utfordring til et uformelt parti i stedet.</string>
+  <string name="declineStandard">Jeg godtar ikke utfordringer til varianter for øyeblikket.</string>
+  <string name="declineVariant">Jeg ønsker ikke å spille denne varianten for øyeblikket.</string>
+  <string name="declineNoBot">Jeg godtar ikke utfordringer fra boter.</string>
+  <string name="declineOnlyBot">Jeg godtar bare utfordringer fra boter.</string>
+</resources>

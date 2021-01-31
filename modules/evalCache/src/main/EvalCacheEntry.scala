@@ -3,7 +3,7 @@ package lila.evalCache
 import chess.format.{ FEN, Forsyth, Uci }
 import chess.variant.Variant
 import org.joda.time.DateTime
-import scalaz.NonEmptyList
+import cats.data.NonEmptyList
 
 import lila.tree.Eval.Score
 import lila.user.User
@@ -12,7 +12,8 @@ case class EvalCacheEntry(
     _id: EvalCacheEntry.Id,
     nbMoves: Int, // multipv cannot be greater than number of legal moves
     evals: List[EvalCacheEntry.Eval],
-    usedAt: DateTime
+    usedAt: DateTime,
+    updatedAt: DateTime
 ) {
 
   import EvalCacheEntry._
@@ -22,7 +23,8 @@ case class EvalCacheEntry(
   def add(eval: Eval) =
     copy(
       evals = EvalCacheSelector(eval :: evals),
-      usedAt = DateTime.now
+      usedAt = DateTime.now,
+      updatedAt = DateTime.now
     )
 
   // finds the best eval with at least multiPv pvs,
@@ -67,7 +69,7 @@ object EvalCacheEntry {
 
     def takePvs(multiPv: Int) =
       copy(
-        pvs = NonEmptyList.nel(pvs.head, pvs.tail.take(multiPv - 1))
+        pvs = NonEmptyList(pvs.head, pvs.tail.take(multiPv - 1))
       )
 
     def depthAboveMin = (depth - MIN_DEPTH) atLeast 0
@@ -87,7 +89,7 @@ object EvalCacheEntry {
 
     def looksValid =
       score.mate match {
-        case None       => moves.value.size > MIN_PV_SIZE
+        case None       => moves.value.toList.sizeIs > MIN_PV_SIZE
         case Some(mate) => mate.value != 0 // sometimes we get #0. Dunno why.
       }
 
@@ -96,7 +98,7 @@ object EvalCacheEntry {
 
   case class Moves(value: NonEmptyList[Uci]) extends AnyVal {
 
-    def truncate = copy(value = NonEmptyList.nel(value.head, value.tail.take(MAX_PV_SIZE - 1)))
+    def truncate = copy(value = NonEmptyList(value.head, value.tail.take(MAX_PV_SIZE - 1)))
   }
 
   case class Trust(value: Double) extends AnyVal {
@@ -121,7 +123,7 @@ object EvalCacheEntry {
       new SmallFen(str)
     }
     def validate(variant: Variant, fen: FEN): Option[SmallFen] =
-      Forsyth.<<@(variant, fen.value).exists(_ playable false) option make(variant, fen)
+      Forsyth.<<@(variant, fen).exists(_ playable false) option make(variant, fen)
   }
 
   case class Id(variant: Variant, smallFen: SmallFen)

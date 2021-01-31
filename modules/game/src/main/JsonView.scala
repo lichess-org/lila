@@ -19,7 +19,7 @@ final class JsonView(rematches: Rematches) {
         "speed"         -> game.speed.key,
         "perf"          -> PerfPicker.key(game),
         "rated"         -> game.rated,
-        "initialFen"    -> initialFen.|(FEN(chess.format.Forsyth.initial)),
+        "initialFen"    -> (initialFen | chess.format.Forsyth.initial),
         "fen"           -> (Forsyth >> game.chess),
         "player"        -> game.turnColor,
         "turns"         -> game.turns,
@@ -62,13 +62,17 @@ object JsonView {
     )
   }
 
-  // implicit val matchupWrites = OWrites[Crosstable.Matchup] { m =>
-  //   Json.obj(
-  //     "users" -> m.users,
-  //     "nbGames" -> m.users.nbGames
-  //   )
-  // }
-  // implicit val crosstableWithMatchupWrites = Json.writes[Crosstable.WithMatchup]
+  implicit val matchupWrites = OWrites[Crosstable.Matchup] { m =>
+    Json.obj(
+      "users"   -> m.users,
+      "nbGames" -> m.users.nbGames
+    )
+  }
+
+  def crosstable(ct: Crosstable, matchup: Option[Crosstable.Matchup]) =
+    crosstableWrites
+      .writes(ct)
+      .add("matchup" -> matchup)
 
   implicit val crazyhousePocketWriter: OWrites[Crazyhouse.Pocket] = OWrites { v =>
     JsObject(

@@ -32,7 +32,7 @@ export interface ChatPlugin {
 export interface ChatData {
   id: string
   name: string
-  lines: Array<Line>
+  lines: Line[];
   userId?: string
   resourceId: string
   loginRequired: boolean
@@ -66,7 +66,7 @@ export interface Ctrl {
   preset: PresetCtrl
   note?: NoteCtrl
   moderation(): ModerationCtrl | undefined
-  post(text: string): void
+  post(text: string): boolean
   trans: Trans
   setTab(tab: Tab): void
   setEnabled(v: boolean): void

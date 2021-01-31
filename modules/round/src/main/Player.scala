@@ -8,6 +8,7 @@ import lila.game.actorApi.MoveGameEvent
 import lila.common.Bus
 import lila.game.{ Game, Pov, Progress, UciMemo }
 import lila.game.Game.PlayerId
+import cats.data.Validated
 
 final private class Player(
     fishnetPlayer: lila.fishnet.Player,
@@ -31,8 +32,8 @@ final private class Player(
             fuccess(Nil)
           case Pov(game, color) if game playableBy color =>
             applyUci(game, uci, blur, lag)
-              .prefixFailuresWith(s"$pov ")
-              .fold(errs => fufail(ClientError(errs.toString)), fuccess)
+              .leftMap(e => s"$pov $e")
+              .fold(errs => fufail(ClientError(errs)), fuccess)
               .flatMap {
                 case Flagged => finisher.outOfTime(game)
                 case MoveApplied(progress, moveOrDrop) =>
@@ -52,8 +53,8 @@ final private class Player(
         round ! TooManyPlies
         fuccess(Nil)
       case Pov(game, color) if game playableBy color =>
-        applyUci(game, uci, false, botLag)
-          .fold(errs => fufail(ClientError(errs.toString)), fuccess)
+        applyUci(game, uci, blur = false, botLag)
+          .fold(errs => fufail(ClientError(errs)), fuccess)
           .flatMap {
             case Flagged => finisher.outOfTime(game)
             case MoveApplied(progress, moveOrDrop) =>
@@ -89,22 +90,22 @@ final private class Player(
   private[round] def fishnet(game: Game, ply: Int, uci: Uci)(implicit proxy: GameProxy): Fu[Events] =
     if (game.playable && game.player.isAi && game.playedTurns == ply) {
       applyUci(game, uci, blur = false, metrics = fishnetLag)
-        .fold(errs => fufail(ClientError(errs.toString)), fuccess)
+        .fold(errs => fufail(ClientError(errs)), fuccess)
         .flatMap {
           case Flagged => finisher.outOfTime(game)
           case MoveApplied(progress, moveOrDrop) =>
             proxy.save(progress) >>-
               uciMemo.add(progress.game, moveOrDrop) >>-
               notifyMove(moveOrDrop, progress.game) >> {
-              if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
-              else
-                fuccess(progress.events)
-            }
+                if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
+                else
+                  fuccess(progress.events)
+              }
         }
     } else
       fufail(
         FishnetError(
-          s"Not AI turn move: ${uci} id: ${game.id} playable: ${game.playable} player: ${game.player}"
+          s"Not AI turn move: $uci id: ${game.id} playable: ${game.playable} player: ${game.player}"
         )
       )
 
@@ -117,18 +118,23 @@ final private class Player(
   private val fishnetLag = MoveMetrics(clientLag = Centis(5).some)
   private val botLag     = MoveMetrics(clientLag = Centis(10).some)
 
-  private def applyUci(game: Game, uci: Uci, blur: Boolean, metrics: MoveMetrics): Valid[MoveResult] =
+  private def applyUci(
+      game: Game,
+      uci: Uci,
+      blur: Boolean,
+      metrics: MoveMetrics
+  ): Validated[String, MoveResult] =
     (uci match {
       case Uci.Move(orig, dest, prom) =>
-        game.chess(orig, dest, prom, metrics) map {
-          case (ncg, move) => ncg -> (Left(move): MoveOrDrop)
+        game.chess(orig, dest, prom, metrics) map { case (ncg, move) =>
+          ncg -> (Left(move): MoveOrDrop)
         }
       case Uci.Drop(role, pos) =>
-        game.chess.drop(role, pos, metrics) map {
-          case (ncg, drop) => ncg -> (Right(drop): MoveOrDrop)
+        game.chess.drop(role, pos, metrics) map { case (ncg, drop) =>
+          ncg -> (Right(drop): MoveOrDrop)
         }
     }).map {
-      case (ncg, _) if ncg.clock.exists(_.outOfTime(game.turnColor, false)) => Flagged
+      case (ncg, _) if ncg.clock.exists(_.outOfTime(game.turnColor, withGrace = false)) => Flagged
       case (newChessGame, moveOrDrop) =>
         MoveApplied(
           game.update(newChessGame, moveOrDrop, blur),

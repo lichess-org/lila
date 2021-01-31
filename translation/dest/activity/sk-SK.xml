@@ -34,9 +34,9 @@
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">Urobil %1$s ťah</item>
-    <item quantity="few">Urobil %1$s ťahy</item>
-    <item quantity="many">Urobil %1$s ťahov</item>
-    <item quantity="other">Urobil %1$s ťahov</item>
+    <item quantity="few">Zahral %1$s ťahy</item>
+    <item quantity="many">Zharal %1$s ťahov</item>
+    <item quantity="other">Zahral %1$s ťahov</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
     <item quantity="one">v %1$s korešpondenčnej hre</item>
@@ -52,15 +52,15 @@
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Začiatok sledovania %s hráča</item>
-    <item quantity="few">Začiatok sledovania %s hráčov</item>
-    <item quantity="many">Začiatok sledovania %s hráčov</item>
-    <item quantity="other">Začiatok sledovania %s hráčov</item>
+    <item quantity="few">Začal sledovať %s hráčov</item>
+    <item quantity="many">Začal sledovať %s hráčov</item>
+    <item quantity="other">Začal sledovať %s hráčov</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">Získanie %s nového sledovateľa</item>
-    <item quantity="few">Získanie %s nových sledovateľov</item>
-    <item quantity="many">Získanie %s nových sledovateľov</item>
-    <item quantity="other">Získanie %s nových sledovateľov</item>
+    <item quantity="one">Získal %s nového sledovateľa</item>
+    <item quantity="few">Získal %s nových sledovateľov</item>
+    <item quantity="many">Získal %s nových sledovateľov</item>
+    <item quantity="other">Získal %s nových sledovateľov</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">Usporiadanie a odohranie %s simultánky</item>
@@ -69,10 +69,10 @@
     <item quantity="other">Usporiadanie a odohranie %s simultánok</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="one">Zúčastnenie sa v %s simultánke</item>
-    <item quantity="few">Zúčastnenie sa v %s simultánkach</item>
-    <item quantity="many">Zúčastnenie sa v %s simultánkach</item>
-    <item quantity="other">Zúčastnenie sa v %s simultánkach</item>
+    <item quantity="one">Zúčastnil sa v %s simultánke</item>
+    <item quantity="few">Zúčastnil sa v %s simultánkach</item>
+    <item quantity="many">Zúčastnil sa v %s simultánkach</item>
+    <item quantity="other">Zúčastnil sa v %s simultánkach</item>
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Vytvorenie %s novej štúdie</item>
@@ -81,18 +81,18 @@
     <item quantity="other">Vytvorenie %s nových štúdií</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">Zúčastnenie sa v %s turnaji</item>
-    <item quantity="few">Zúčastnenie sa v %s turnajoch</item>
-    <item quantity="many">Zúčastnenie sa v %s turnajoch</item>
-    <item quantity="other">Zúčastnenie sa v %s turnajoch</item>
+    <item quantity="one">Zúčastnil sa v %s turnaji</item>
+    <item quantity="few">Zúčastnil sa v %s turnajoch</item>
+    <item quantity="many">Zúčastnil sa v %s turnajoch</item>
+    <item quantity="other">Zúčastnil sa v %s turnajoch</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">Umiestnenie na %1$s mieste (top %2$s%%) s %3$s partiou v %4$s</item>
-    <item quantity="few">Umiestnenie na %1$s mieste (top %2$s%%) s %3$s partiami v %4$s</item>
-    <item quantity="many">Umiestnenie na %1$s mieste (top %2$s%%) s %3$s partiami v %4$s</item>
-    <item quantity="other">Umiestnenie na %1$s mieste (top %2$s%%) s %3$s partiami v %4$s</item>
+    <item quantity="one">Umiestnil sa na %1$s mieste (top %2$s%%) s %3$s partiou v %4$s</item>
+    <item quantity="few">Umiestnil sa na %1$s mieste (top %2$s%%) s %3$s partiami v %4$s</item>
+    <item quantity="many">Umiestnil sa na %1$s mieste (top %2$s%%) s %3$s partiami v %4$s</item>
+    <item quantity="other">Umiestnil sa na %1$s mieste (top %2$s%%) s %3$s partiami v %4$s</item>
   </plurals>
-  <string name="signedUp">Registrácia na lichess.org</string>
+  <string name="signedUp">Registroval sa na Lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Pripojenie sa k %s tímu</item>
     <item quantity="few">Pripojenie sa k %s tímom</item>

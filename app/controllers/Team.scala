@@ -1,18 +1,17 @@
 package controllers
 
 import play.api.data.Form
+import play.api.data.Forms._
 import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
+import views._
 
 import lila.api.Context
 import lila.app._
 import lila.common.config.MaxPerSecond
-import lila.hub.LightTeam
-import lila.security.Granter
-import lila.team.{ Joined, Motivate, Team => TeamModel }
+import lila.team.{ Requesting, Team => TeamModel }
 import lila.user.{ User => UserModel }
-import views._
 
 final class Team(
     env: Env,
@@ -25,29 +24,35 @@ final class Team(
 
   def all(page: Int) =
     Open { implicit ctx =>
-      paginator popularTeams page map {
-        html.team.list.all(_)
+      Reasonable(page) {
+        paginator popularTeams page map {
+          html.team.list.all(_)
+        }
       }
     }
 
   def home(page: Int) =
     Open { implicit ctx =>
       ctx.me.??(api.hasTeams) map {
-        case true  => Redirect(routes.Team.mine)
+        case true  => Redirect(routes.Team.mine())
         case false => Redirect(routes.Team.all(page))
       }
     }
 
   def show(id: String, page: Int) =
     Open { implicit ctx =>
-      OptionFuOk(api team id) { renderTeam(_, page) }
+      Reasonable(page) {
+        OptionFuOk(api team id) { renderTeam(_, page) }
+      }
     }
 
   def search(text: String, page: Int) =
     OpenBody { implicit ctx =>
-      if (text.trim.isEmpty) paginator popularTeams page map { html.team.list.all(_) }
-      else
-        env.teamSearch(text, page) map { html.team.list.search(text, _) }
+      Reasonable(page) {
+        if (text.trim.isEmpty) paginator popularTeams page map { html.team.list.all(_) }
+        else
+          env.teamSearch(text, page) map { html.team.list.search(text, _) }
+      }
     }
 
   private def renderTeam(team: TeamModel, page: Int = 1)(implicit ctx: Context) =
@@ -66,15 +71,10 @@ final class Team(
     } yield html.team.show(team, members, info, chat, version)
 
   private def canHaveChat(team: TeamModel, info: lila.app.mashup.TeamInfo)(implicit ctx: Context): Boolean =
-    !team.isChatFor(_.NONE) && ctx.noKid && {
+    team.enabled && !team.isChatFor(_.NONE) && ctx.noKid && {
       (team.isChatFor(_.LEADERS) && ctx.userId.exists(team.leaders)) ||
       (team.isChatFor(_.MEMBERS) && info.mine) ||
       isGranted(_.ChatTimeout)
-    }
-
-  def legacyUsers(teamId: String) =
-    Action {
-      MovedPermanently(routes.Team.users(teamId).url)
     }
 
   def users(teamId: String) =
@@ -114,7 +114,7 @@ final class Team(
         implicit val req = ctx.body
         forms
           .edit(team)
-          .bindFromRequest
+          .bindFromRequest()
           .fold(
             err => BadRequest(html.team.form.edit(team, err)).fuccess,
             data => api.update(team, data, me) inject Redirect(routes.Team.show(team.id)).flashSuccess
@@ -126,7 +126,7 @@ final class Team(
     Auth { implicit ctx => me =>
       WithOwnedTeam(id) { team =>
         env.team.memberRepo userIdsByTeam team.id map { userIds =>
-          html.team.admin.kick(team, userIds - me.id)
+          html.team.admin.kick(team, userIds.filter(me.id !=))
         }
       }
     }
@@ -135,7 +135,7 @@ final class Team(
     AuthBody { implicit ctx => me =>
       WithOwnedTeam(id) { team =>
         implicit val req = ctx.body
-        forms.selectMember.bindFromRequest.value ?? { api.kick(team, _, me) } inject Redirect(
+        forms.selectMember.bindFromRequest().value ?? { api.kick(team, _, me) } inject Redirect(
           routes.Team.show(team.id)
         ).flashSuccess
       }
@@ -158,10 +158,12 @@ final class Team(
     }
 
   def leaders(id: String) =
-    AuthBody { implicit ctx => _ =>
+    AuthBody { implicit ctx => me =>
       WithOwnedTeam(id) { team =>
         implicit val req = ctx.body
-        forms.leaders(team).bindFromRequest.value ?? { api.setLeaders(team, _) } inject Redirect(
+        forms.leaders(team).bindFromRequest().value ?? {
+          api.setLeaders(team, _, me, isGranted(_.ManageTeam))
+        } inject Redirect(
           routes.Team.show(team.id)
         ).flashSuccess
       }
@@ -170,9 +172,18 @@ final class Team(
   def close(id: String) =
     Secure(_.ManageTeam) { implicit ctx => me =>
       OptionFuResult(api team id) { team =>
-        (api delete team) >>
-          env.mod.logApi.deleteTeam(me.id, team.name, team.description) inject
+        api.delete(team) >>
+          env.mod.logApi.deleteTeam(me.id, team.id, team.name) inject
           Redirect(routes.Team all 1).flashSuccess
+      }
+    }
+
+  def disable(id: String) =
+    Auth { implicit ctx => me =>
+      WithOwnedTeam(id) { team =>
+        api.disable(team, me) >>
+          env.mod.logApi.disableTeam(me.id, team.id, team.name) inject
+          Redirect(routes.Team show id).flashSuccess
       }
     }
 
@@ -189,16 +200,18 @@ final class Team(
     AuthBody { implicit ctx => implicit me =>
       LimitPerWeek(me) {
         implicit val req = ctx.body
-        forms.create.bindFromRequest.fold(
-          err =>
-            forms.anyCaptcha map { captcha =>
-              BadRequest(html.team.form.create(err, captcha))
-            },
-          data =>
-            api.create(data, me) map { team =>
-              Redirect(routes.Team.show(team.id)).flashSuccess
-            }
-        )
+        forms.create
+          .bindFromRequest()
+          .fold(
+            err =>
+              forms.anyCaptcha map { captcha =>
+                BadRequest(html.team.form.create(err, captcha))
+              },
+            data =>
+              api.create(data, me) map { team =>
+                Redirect(routes.Team.show(team.id)).flashSuccess
+              }
+          )
       }
     }
 
@@ -220,57 +233,76 @@ final class Team(
     AuthOrScopedBody(_.Team.Write)(
       auth = implicit ctx =>
         me =>
-          api countTeamsOf me flatMap { nb =>
-            if (nb >= TeamModel.maxJoin)
-              negotiate(
-                html = BadRequest(views.html.site.message.teamJoinLimit).fuccess,
-                api = _ => BadRequest(jsonError("You have joined too many teams")).fuccess
-              )
-            else
-              negotiate(
-                html = api.join(id, me, none) flatMap {
-                  case Some(Joined(team))   => Redirect(routes.Team.show(team.id)).flashSuccess.fuccess
-                  case Some(Motivate(team)) => Redirect(routes.Team.requestForm(team.id)).flashSuccess.fuccess
-                  case _                    => notFound(ctx)
-                },
-                api = _ => {
-                  implicit val body = ctx.body
-                  forms.apiRequest.bindFromRequest
-                    .fold(
-                      newJsonFormError,
-                      msg =>
-                        api.join(id, me, msg) flatMap {
-                          case Some(Joined(_)) => jsonOkResult.fuccess
-                          case Some(Motivate(_)) =>
-                            BadRequest(
-                              jsonError("This team requires confirmation.")
-                            ).fuccess
-                          case _ => notFoundJson("Team not found")
-                        }
-                    )
-                }
-              )
+          api.team(id) flatMap {
+            _ ?? { team =>
+              api countTeamsOf me flatMap { nb =>
+                if (nb >= TeamModel.maxJoin)
+                  negotiate(
+                    html = BadRequest(views.html.site.message.teamJoinLimit).fuccess,
+                    api = _ => BadRequest(jsonError("You have joined too many teams")).fuccess
+                  )
+                else
+                  negotiate(
+                    html = webJoin(team, me, request = none, password = none),
+                    api = _ => {
+                      implicit val body = ctx.body
+                      forms
+                        .apiRequest(team)
+                        .bindFromRequest()
+                        .fold(
+                          newJsonFormError,
+                          setup =>
+                            api.join(team, me, setup.message, setup.password) flatMap {
+                              case Requesting.Joined => jsonOkResult.fuccess
+                              case Requesting.NeedRequest =>
+                                BadRequest(jsonError("This team requires confirmation.")).fuccess
+                              case Requesting.NeedPassword =>
+                                BadRequest(jsonError("This team requires a password.")).fuccess
+                              case _ => notFoundJson("Team not found")
+                            }
+                        )
+                    }
+                  )
+              }
+            }
           },
       scoped = implicit req =>
-        me => {
-          implicit val lang = reqLang
-          forms.apiRequest.bindFromRequest
-            .fold(
-              newJsonFormError,
-              msg =>
-                env.oAuth.server.fetchAppAuthor(req) flatMap {
-                  api.joinApi(id, me, _, msg)
-                } flatMap {
-                  case Some(Joined(_)) => jsonOkResult.fuccess
-                  case Some(Motivate(_)) =>
-                    Forbidden(
-                      jsonError("This team requires confirmation, and is not owned by the oAuth app owner.")
-                    ).fuccess
-                  case _ => notFoundJson("Team not found")
-                }
-            )
-        }
+        me =>
+          api.team(id) flatMap {
+            _ ?? { team =>
+              implicit val lang = reqLang
+              forms
+                .apiRequest(team)
+                .bindFromRequest()
+                .fold(
+                  newJsonFormError,
+                  setup =>
+                    env.oAuth.server.fetchAppAuthor(req) flatMap {
+                      api.joinApi(team, me, _, setup.message)
+                    } flatMap {
+                      case Requesting.Joined => jsonOkResult.fuccess
+                      case Requesting.NeedRequest =>
+                        Forbidden(
+                          jsonError(
+                            "This team requires confirmation, and is not owned by the oAuth app owner."
+                          )
+                        ).fuccess
+                    }
+                )
+            }
+          }
     )
+
+  def subscribe(teamId: String) = {
+    def doSub(req: Request[_], me: UserModel) =
+      Form(single("subscribe" -> optional(boolean)))
+        .bindFromRequest()(req)
+        .fold(_ => funit, v => api.subscribe(teamId, me.id, ~v))
+    AuthOrScopedBody(_.Team.Write)(
+      auth = ctx => me => doSub(ctx.body, me) inject jsonOkResult,
+      scoped = req => me => doSub(req, me) inject jsonOkResult
+    )
+  }
 
   def requests =
     Auth { implicit ctx => me =>
@@ -282,7 +314,7 @@ final class Team(
   def requestForm(id: String) =
     Auth { implicit ctx => me =>
       OptionFuOk(api.requestable(id, me)) { team =>
-        forms.anyCaptcha map { html.team.request.requestForm(team, forms.request, _) }
+        fuccess(html.team.request.requestForm(team, forms.request(team)))
       }
     }
 
@@ -290,30 +322,42 @@ final class Team(
     AuthBody { implicit ctx => me =>
       OptionFuResult(api.requestable(id, me)) { team =>
         implicit val req = ctx.body
-        forms.request.bindFromRequest.fold(
-          err =>
-            forms.anyCaptcha map { captcha =>
-              BadRequest(html.team.request.requestForm(team, err, captcha))
-            },
-          setup =>
-            api.createRequest(team, me, setup.message) inject Redirect(routes.Team.show(team.id)).flashSuccess
-        )
+        forms
+          .request(team)
+          .bindFromRequest()
+          .fold(
+            err => BadRequest(html.team.request.requestForm(team, err)).fuccess,
+            setup =>
+              if (team.open) webJoin(team, me, request = none, password = setup.password)
+              else
+                setup.message ?? { msg =>
+                  api.createRequest(team, me, msg) inject Redirect(routes.Team.show(team.id)).flashSuccess
+                }
+          )
       }
+    }
+
+  private def webJoin(team: TeamModel, me: UserModel, request: Option[String], password: Option[String]) =
+    api.join(team, me, request = request, password = password) flatMap {
+      case Requesting.Joined => Redirect(routes.Team.show(team.id)).flashSuccess.fuccess
+      case Requesting.NeedRequest | Requesting.NeedPassword =>
+        Redirect(routes.Team.requestForm(team.id)).flashSuccess.fuccess
     }
 
   def requestProcess(requestId: String) =
     AuthBody { implicit ctx => me =>
+      import cats.implicits._
       OptionFuRedirectUrl(for {
         requestOption <- api request requestId
         teamOption    <- requestOption.??(req => env.team.teamRepo.byLeader(req.team, me.id))
-      } yield (teamOption |@| requestOption).tupled) {
-        case (team, request) =>
-          implicit val req = ctx.body
-          forms.processRequest.bindFromRequest.fold(
+      } yield (teamOption, requestOption).mapN((_, _))) { case (team, request) =>
+        implicit val req = ctx.body
+        forms.processRequest
+          .bindFromRequest()
+          .fold(
             _ => fuccess(routes.Team.show(team.id).toString),
-            {
-              case (decision, url) =>
-                api.processRequest(team, request, (decision == "accept")) inject url
+            { case (decision, url) =>
+              api.processRequest(team, request, decision == "accept") inject url
             }
           )
       }
@@ -403,7 +447,7 @@ final class Team(
     Action.async {
       import env.team.jsonView._
       import lila.common.paginator.PaginatorJson._
-      JsonFuOk {
+      JsonOk {
         paginator popularTeams page flatMap { pager =>
           env.user.lightUserApi.preloadMany(pager.currentPageResults.flatMap(_.leaders)) inject pager
         }
@@ -434,7 +478,7 @@ final class Team(
     Action.async {
       import env.team.jsonView._
       import lila.common.paginator.PaginatorJson._
-      JsonFuOk {
+      JsonOk {
         if (text.trim.isEmpty) paginator popularTeams page
         else env.teamSearch(text, page)
       }
@@ -443,7 +487,7 @@ final class Team(
   def apiTeamsOf(username: String) =
     Action.async {
       import env.team.jsonView._
-      JsonFuOk {
+      JsonOk {
         api teamsOf username flatMap { teams =>
           env.user.lightUserApi.preloadMany(teams.flatMap(_.leaders)) inject teams
         }
@@ -451,24 +495,25 @@ final class Team(
     }
 
   private def doPmAll(team: TeamModel, me: UserModel)(implicit req: Request[_]): Either[Form[_], Funit] =
-    forms.pmAll.bindFromRequest
+    forms.pmAll
+      .bindFromRequest()
       .fold(
         err => Left(err),
         msg =>
           Right {
             PmAllLimitPerUser(me.id) {
+              val url  = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
               val full = s"""$msg
 ---
-You received this message because you are part of the team lichess.org${routes.Team.show(team.id)}."""
-              env.msg.api.multiPost(me, env.team.memberStream.ids(team, MaxPerSecond(50)), full)
+You received this because you are subscribed to messages of the team $url."""
+              env.msg.api.multiPost(me, env.team.memberStream.subscribedIds(team, MaxPerSecond(50)), full)
               funit // we don't wait for the stream to complete, it would make lichess time out
             }(funit)
           }
       )
 
   private val PmAllLimitPerUser = lila.memo.RateLimit.composite[lila.user.User.ID](
-    name = "team pm all per user",
-    key = "team.pmAll",
+    key = "team.pm.all",
     enforce = env.net.rateLimit.value
   )(
     ("fast", 1, 3.minutes),
@@ -477,9 +522,13 @@ You received this message because you are part of the team lichess.org${routes.T
 
   private def LimitPerWeek[A <: Result](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     api.countCreatedRecently(me) flatMap { count =>
-      if (count > 10 || (count > 3 && !Granter(_.Teacher)(me) && !Granter(_.ManageTeam)(me)))
-        Forbidden(views.html.site.message.teamCreateLimit).fuccess
-      else a
+      val allow =
+        isGranted(_.ManageTeam) ||
+          (isGranted(_.Verified) && count < 100) ||
+          (isGranted(_.Teacher) && count < 10) ||
+          count < 3
+      if (allow) a
+      else Forbidden(views.html.site.message.teamCreateLimit).fuccess
     }
 
   private def WithOwnedTeam(teamId: String)(f: TeamModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
@@ -487,10 +536,4 @@ You received this message because you are part of the team lichess.org${routes.T
       if (ctx.userId.exists(team.leaders.contains) || isGranted(_.ManageTeam)) f(team)
       else renderTeam(team) map { Forbidden(_) }
     }
-
-  private[controllers] def teamsIBelongTo(me: lila.user.User): Fu[List[LightTeam]] =
-    api mine me map { _.map(_.light) }
-
-  private[controllers] def teamsILead(me: lila.user.User): Fu[List[LightTeam]] =
-    api mine me map { _.map(_.light) }
 }

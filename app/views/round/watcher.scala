@@ -36,18 +36,17 @@ object watcher {
 
     bits.layout(
       variant = pov.game.variant,
-      title = gameVsText(pov.game, withRatings = true),
+      title = s"${gameVsText(pov.game, withRatings = true)} • spectator",
       moreJs = frag(
         roundNvuiTag,
         roundTag,
-        embedJsUnsafe(s"""lichess=window.lichess||{};customWS=true;onload=function(){
-LichessRound.boot(${safeJsonValue(
+        embedJsUnsafeLoadThen(s"""LichessRound.boot(${safeJsonValue(
           Json.obj(
             "data" -> data,
             "i18n" -> jsI18n(pov.game),
             "chat" -> chatJson
           )
-        )})}""")
+        )})""")
       ),
       openGraph = povOpenGraph(pov).some,
       chessground = false
@@ -57,7 +56,7 @@ LichessRound.boot(${safeJsonValue(
           bits.side(pov, data, tour, simul, userTv, bookmarked),
           chatOption.map(_ => chat.frag)
         ),
-        bits.roundAppPreload(pov, false),
+        bits.roundAppPreload(pov, controls = false),
         div(cls := "round__underboard")(bits.crosstable(cross, pov.game)),
         div(cls := "round__underchat")(bits underchat pov.game)
       )

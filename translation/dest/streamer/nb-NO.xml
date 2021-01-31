@@ -15,7 +15,7 @@
   <string name="downloadKit">Last ned strømmer-pakken</string>
   <string name="xIsStreaming">%s strømmer nå</string>
   <string name="rules">Strømmeregler</string>
-  <string name="rule1">Du må inkludere \"lichess.org\" i tittelen på strømmen når du strømmer på Lichess.</string>
+  <string name="rule1">Du må inkludere nøkkelordet «lichess.org» i tittelen på strømmen og bruke kategorien «Chess» når du strømmer på Lichess.</string>
   <string name="rule2">Fjern \"lichess.org\" fra tittelen på strømmen når du strømmer noe annet enn Lichess.</string>
   <string name="rule3">Lichess oppdager strømmen din automatisk og gir deg følgende fordeler:</string>
   <string name="perks">Fordeler ved å inkludere \"lichess.org\" i tittelen på strømmen</string>
@@ -26,8 +26,8 @@
   <string name="approved">Strømmen din er godkjent.</string>
   <string name="pendingReview">Strømmen din blir nå vurdert av moderatorne.</string>
   <string name="pleaseFillIn">Vennligst fyll inn informasjon om strømmen din og last opp et bilde.</string>
-  <string name="whenReady">Når du er klar til å bli listet som en Lichess-strømmer, %s</string>
-  <string name="requestReview">be om en vurdering fra en moderator</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Når du er klar til å bli listet som en Lichess-strømmer, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">be om en vurdering fra en moderator</string>
   <string name="anotherLanguage">Hvis du strømmer på et annet språk enn engelsk, pass på å bruke riktig språk-tag (%s) i firkantparenteser først i tittelen på strømmen din.
 For eksempel, start strømmetittelen med \"[RU]\" hvis du strømmer på russisk, \"[TR]\" hvis du strømmer på tyrkisk, \"[FR]\" hvis du strømmer på fransk, eller \"[NO]\" hvis du strømmer på norsk, osv.
 Bruk denne språk-taggen i strømmetittelen din på Twitch eller YouTube, ikke i Lichess-innstillingene dine.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Bermain melawan teman</string>
+  <string name="playWithAFriend">Bermain dengan teman</string>
   <string name="playWithTheMachine">Bermain melawan komputer</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Undang yang lain dengan memberikan URL berikut</string>
   <string name="gameOver">Permainan Berakhir</string>
@@ -188,7 +188,8 @@
     <item quantity="other">%s kali bermain dengan anda</item>
   </plurals>
   <string name="cancel">Batal</string>
-  <string name="timeOut">Waktu habis</string>
+  <string name="whiteTimeOut">Putih kehabisan waktu</string>
+  <string name="blackTimeOut">Hitam kehabisan waktu</string>
   <string name="drawOfferSent">Tawaran remis terkirim</string>
   <string name="drawOfferDeclined">Tawaran remis ditolak</string>
   <string name="drawOfferAccepted">Tawaran remis diterima</string>
@@ -258,6 +259,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">Berikan %s detik</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Akun ini melanggar Ketentuan Layanan Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Pemain ini bertambah/berkurang ratingnya</string>
   <string name="openingExplorerAndTablebase">Penjelajah pembukaan &amp; tablebase</string>
   <string name="takeback">Langkah Batal</string>
@@ -353,7 +355,6 @@
   <string name="more">Lainnya</string>
   <string name="memberSince">Anggota sejak</string>
   <string name="lastSeenActive">Login terakhir %s</string>
-  <string name="challengeToPlay">Menantang bermain</string>
   <string name="player">Pemain</string>
   <string name="list">Daftar</string>
   <string name="graph">Grafik</string>
@@ -417,6 +418,7 @@
   <string name="lastName">Nama Belakang</string>
   <string name="biography">Biografi</string>
   <string name="country">Negara</string>
+  <string name="thankYou">Terima Kasih!</string>
   <string name="socialMediaLinks">Tautan sosial media</string>
   <string name="inlineNotation">Notasi inline</string>
   <string name="watchLichessTV">Nonton Lichess TV</string>
@@ -425,33 +427,7 @@
   <string name="activeToday">Aktif hari ini</string>
   <string name="activePlayers">Pemain aktif</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Awas, permainan ini pake rating namun tanpa pake waktu!</string>
-  <string name="yourPuzzleRatingX">Rating taktik anda: %s</string>
-  <string name="findTheBestMoveForWhite">Temukan langkah terbaik untuk putih.</string>
-  <string name="findTheBestMoveForBlack">Temukan langkah terbaik untuk hitam.</string>
-  <string name="toTrackYourProgress">Lihat perkembangan anda:</string>
-  <string name="puzzleId">Taktik nomer %s</string>
-  <string name="puzzleOfTheDay">Taktik hari ini</string>
-  <string name="clickToSolve">Klik untuk menyelesaikan</string>
-  <string name="goodMove">Langkah bagus</string>
-  <string name="butYouCanDoBetter">Tetapi anda bisa melakukan lebih baik.</string>
-  <string name="bestMove">Langkah terbaik!</string>
-  <string name="keepGoing">Teruskan...</string>
-  <string name="puzzleFailed">Taktik gagal diselesaikan.</string>
-  <string name="butYouCanKeepTrying">Tetapi anda bisa mencoba terus.</string>
-  <string name="success">Sukses</string>
-  <string name="wasThisPuzzleAnyGood">Apakah taktik ini bagus?</string>
-  <string name="pleaseVotePuzzle">Bantu lichess berkembang dengan vote, gunakan tanda panah ke atas atau bawah:</string>
-  <string name="thankYou">Terima Kasih!</string>
-  <string name="ratingX">Rating: %s</string>
-  <string name="hidden">tersembunyi</string>
-  <plurals name="playedXTimes">
-    <item quantity="other">Dimainkan %s kali</item>
-  </plurals>
-  <string name="fromGameLink">Dari permainan %s</string>
-  <string name="continueTraining">Lanjutkan latihan</string>
-  <string name="retryThisPuzzle">Coba lagi taktik ini</string>
-  <string name="thisPuzzleIsCorrect">Taktik ini benar dan menarik</string>
-  <string name="thisPuzzleIsWrong">Taktik ini salah atau membosankan</string>
+  <string name="success">Berhasil</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s pertandingan sedang berlangsung</item>
   </plurals>
@@ -499,9 +475,12 @@
   <string name="currentPassword">Password saat ini</string>
   <string name="newPassword">Password baru</string>
   <string name="newPasswordAgain">Password baru (lagi)</string>
+  <string name="newPasswordsDontMatch">Kata sandi baru tidak cocok</string>
+  <string name="newPasswordStrength">Kekuatan Kata Sandi</string>
   <string name="clockInitialTime">Waktu awal</string>
   <string name="clockIncrement">Kenaikan waktu</string>
   <string name="privacy">Privasi</string>
+  <string name="privacyPolicy">Kebijakan privasi</string>
   <string name="letOtherPlayersFollowYou">Biarkan pengguna lain mengikuti anda</string>
   <string name="letOtherPlayersChallengeYou">Biarkan pengguna lain menantang anda</string>
   <string name="letOtherPlayersInviteYouToStudy">Ijinkan pemain lain mengajak Anda untuk studi</string>
@@ -643,6 +622,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jika anda tidak melihat surel, cek tempat-tempat lain; seperti junk, spam, sosial, atau berkas lainnya</string>
   <string name="weHaveSentYouAnEmailTo">Kami telah mengirim surel kepada %s. Klik tautan di dalam surel untuk mengubah kata sandi anda.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Dengan mendaftar, anda setuju untuk terikat dengan %s kita.</string>
+  <string name="readAboutOur">Baca tentang %s kami.</string>
   <string name="networkLagBetweenYouAndLichess">Hambatan jaringan antara anda dan lichess.</string>
   <string name="timeToProcessAMoveOnLichessServer">Waktu untuk memproses suatu langkah dalam server lichess</string>
   <string name="downloadAnnotated">Unduh versi anotasi</string>
@@ -720,7 +700,6 @@
   <string name="error.unknown">Kesalahan</string>
   <string name="custom">Atur</string>
   <string name="notifications">Notifikasi</string>
-  <string name="challenges">Tantangan</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s detik untuk memainkan langkah pertama</item>
@@ -765,12 +744,6 @@
   <string name="opening">Pembuka</string>
   <string name="middlegame">Setengah permainan</string>
   <string name="endgame">Akhir permainan</string>
-  <string name="registerToSendChallenges">Silahkan daftar untuk mengirim tantangan.</string>
-  <string name="youCannotChallengeX">Anda tidak bisa menantang %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s tidak menerima tantangan.</string>
-  <string name="yourXRatingIsTooFarFromY">Rating %1$s terlalu jauh dari %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Tidak bisa menantang karena sementara%s rating.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s hanya menerima tantangan dari teman.</string>
   <string name="conditionalPremoves">Syarat pra-langkah</string>
   <string name="addCurrentVariation">Tambahkan variasi</string>
   <string name="playVariationToCreateConditionalPremoves">Memainkan sebuah variasi untuk membuat syarat pra-langkah</string>

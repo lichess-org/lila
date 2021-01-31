@@ -7,22 +7,22 @@ import lila.hub.LightTeam.TeamID
 import lila.memo._
 import lila.memo.CacheApi._
 import lila.user.User
+import play.api.libs.json.JsArray
 
 final private[tournament] class Cached(
     playerRepo: PlayerRepo,
     pairingRepo: PairingRepo,
     tournamentRepo: TournamentRepo,
-    cacheApi: CacheApi,
-    scheduler: akka.actor.Scheduler
+    cacheApi: CacheApi
 )(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
 
   val nameCache = cacheApi.sync[(Tournament.ID, Lang), Option[String]](
     name = "tournament.name",
-    initialCapacity = 32768,
-    compute = {
-      case (id, lang) => tournamentRepo byId id dmap2 { _.name()(lang) }
+    initialCapacity = 65536,
+    compute = { case (id, lang) =>
+      tournamentRepo byId id dmap2 { _.name()(lang) }
     },
     default = _ => none,
     strategy = Syncache.WaitAfterUptime(20 millis),
@@ -42,13 +42,8 @@ final private[tournament] class Cached(
     cacheApi[(Tournament.ID, TeamID), Option[TeamBattle.TeamInfo]](16, "tournament.teamInfo") {
       _.expireAfterWrite(5 seconds)
         .maximumSize(64)
-        .buildAsyncFuture {
-          case (tourId, teamId) =>
-            tournamentRepo.teamBattleOf(tourId) flatMap {
-              _ ?? { battle =>
-                playerRepo.teamInfo(tourId, teamId, battle) dmap some
-              }
-            }
+        .buildAsyncFuture { case (tourId, teamId) =>
+          playerRepo.teamInfo(tourId, teamId) dmap some
         }
     }
 
@@ -63,6 +58,19 @@ final private[tournament] class Cached(
     _.expireAfterAccess(1 hour)
       .maximumSize(2048)
       .buildAsyncFuture(playerRepo.computeRanking)
+  }
+
+  object battle {
+
+    val teamStanding =
+      cacheApi[Tournament.ID, List[TeamBattle.RankedTeam]](8, "tournament.teamStanding") {
+        _.expireAfterWrite(1 second)
+          .buildAsyncFuture { id =>
+            tournamentRepo teamBattleOf id flatMap {
+              _ ?? { playerRepo.bestTeamIdsByTour(id, _) }
+            }
+          }
+      }
   }
 
   private[tournament] object sheet {

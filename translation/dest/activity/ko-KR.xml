@@ -20,6 +20,9 @@
   <plurals name="playedNbMoves">
     <item quantity="other">%1$s 수를 둠</item>
   </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="other">%1$s개의 통신전에서</item>
+  </plurals>
   <plurals name="completedNbGames">
     <item quantity="other">%s 번의 통신전을 완료하셨습니다.</item>
   </plurals>

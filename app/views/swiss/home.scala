@@ -3,21 +3,21 @@ package views.html.swiss
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.swiss.Swiss
+import lila.swiss.{ FeaturedSwisses, Swiss }
 
 import controllers.routes
 
 object home {
 
-  def apply(now: List[Swiss], soon: List[Swiss])(implicit ctx: Context) =
+  def apply(featured: FeaturedSwisses)(implicit ctx: Context) =
     views.html.base.layout(
       title = "Swiss tournaments",
       moreCss = cssTag("swiss.home")
     ) {
       main(cls := "page-small box box-pad page swiss-home")(
         h1("Swiss tournaments"),
-        renderList("Now playing")(now),
-        renderList("Starting soon")(soon),
+        renderList("Now playing")(featured.started),
+        renderList("Starting soon")(featured.created),
         div(cls := "swiss-home__infos")(
           div(cls := "wiki")(
             iconTag(""),
@@ -37,7 +37,7 @@ object home {
             )
           ),
           comparison,
-          faq
+          div(id := "faq")(faq)
         )
       )
     }
@@ -64,7 +64,7 @@ object home {
               span(cls := "setup")(
                 s.clock.show,
                 " • ",
-                if (s.variant.exotic) s.variant.name else s.perfType.map(_.trans),
+                if (s.variant.exotic) s.variant.name else s.perfType.trans,
                 " • ",
                 (if (s.settings.rated) trans.ratedTournament else trans.casualTournament)()
               )

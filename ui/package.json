@@ -16,12 +16,12 @@
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
     "gulp-cached": "^1.1.1",
-    "gulp-filter": "^5.1.0",
-    "gulp-if": "^2.0.2",
+    "gulp-filter": "^6.0.0",
+    "gulp-if": "^3.0.0",
     "gulp-rename": "^2.0.0",
     "gulp-sass": "^4.1.0",
     "gulp-sass-inheritance": "^1.1",
     "gulp-size": "^3",
-    "gulp-sourcemaps": "^2.6.5"
+    "gulp-sourcemaps": "^3.0.0"
   }
 }

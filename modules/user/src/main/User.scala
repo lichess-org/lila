@@ -5,7 +5,7 @@ import play.api.i18n.Lang
 import scala.concurrent.duration._
 
 import lila.common.{ EmailAddress, LightUser, NormalizedEmailAddress }
-import lila.rating.PerfType
+import lila.rating.{ Perf, PerfType }
 
 case class User(
     id: String,
@@ -90,7 +90,7 @@ case class User(
 
   private def bestOf(perfTypes: List[PerfType], nb: Int) =
     perfTypes.sortBy { pt =>
-      -(perfs(pt).nb * PerfType.totalTimeRoughEstimation.get(pt).fold(0)(_.roundSeconds))
+      -(perfs(pt).nb * PerfType.totalTimeRoughEstimation.get(pt).??(_.roundSeconds))
     } take nb
 
   def best8Perfs: List[PerfType] = bestOf(User.firstRow, 4) ::: bestOf(User.secondRow, 4)
@@ -119,8 +119,10 @@ case class User(
 
   def addRole(role: String) = copy(roles = role :: roles)
 
-  def isVerified = roles.exists(_ contains "ROLE_VERIFIED")
-  def isApiHog   = roles.exists(_ contains "ROLE_API_HOG")
+  def isVerified   = roles.exists(_ contains "ROLE_VERIFIED")
+  def isSuperAdmin = roles.exists(_ contains "ROLE_SUPER_ADMIN")
+  def isAdmin      = roles.exists(_ contains "ROLE_ADMIN") || isSuperAdmin
+  def isApiHog     = roles.exists(_ contains "ROLE_API_HOG")
 }
 
 object User {
@@ -174,6 +176,7 @@ object User {
   case class ClearPassword(value: String) extends AnyVal {
     override def toString = "ClearPassword(****)"
   }
+
   case class TotpToken(value: String) extends AnyVal
   case class PasswordAndToken(password: ClearPassword, token: Option[TotpToken])
 
@@ -210,10 +213,11 @@ object User {
   // what existing usernames are like
   val historicalUsernameRegex = """(?i)[a-z0-9][\w-]{0,28}[a-z0-9]""".r
   // what new usernames should be like -- now split into further parts for clearer error messages
-  val newUsernameRegex  = """(?i)[a-z][\w-]{0,28}[a-z0-9]""".r
-  val newUsernamePrefix = """(?i)[a-z].*""".r
-  val newUsernameSuffix = """(?i).*[a-z0-9]""".r
-  val newUsernameChars  = """(?i)[\w-]*""".r
+  val newUsernameRegex   = """(?i)[a-z][\w-]{0,28}[a-z0-9]""".r
+  val newUsernamePrefix  = """(?i)[a-z].*""".r
+  val newUsernameSuffix  = """(?i).*[a-z0-9]""".r
+  val newUsernameChars   = """(?i)[\w-]*""".r
+  val newUsernameLetters = """(?i)^([a-z0-9][\w-]?)+$""".r
 
   def couldBeUsername(str: User.ID) = historicalUsernameRegex.matches(str)
 
@@ -265,11 +269,15 @@ object User {
     implicit private def planHandler       = Plan.planBSONHandler
     implicit private def totpSecretHandler = TotpSecret.totpSecretBSONHandler
 
-    def reads(r: BSON.Reader): User =
+    def reads(r: BSON.Reader): User = {
+      val userTitle = r.getO[Title](title)
       User(
         id = r str id,
         username = r str username,
-        perfs = r.getO[Perfs](perfs) | Perfs.default,
+        perfs = r.getO[Perfs](perfs).fold(Perfs.default) { perfs =>
+          if (userTitle has Title.BOT) perfs.copy(ultraBullet = Perf.default)
+          else perfs
+        },
         count = r.get[Count](count),
         enabled = r bool enabled,
         roles = ~r.getO[List[String]](roles),
@@ -280,11 +288,12 @@ object User {
         seenAt = r dateO seenAt,
         kid = r boolD kid,
         lang = r strO lang,
-        title = r.getO[Title](title),
+        title = userTitle,
         plan = r.getO[Plan](plan) | Plan.empty,
         totpSecret = r.getO[TotpSecret](totpSecret),
         marks = r.getO[UserMarks](marks) | UserMarks.empty
       )
+    }
 
     def writes(w: BSON.Writer, o: User) =
       BSONDocument(

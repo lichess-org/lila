@@ -20,7 +20,7 @@ abstract class Duct(implicit ec: scala.concurrent.ExecutionContext) extends lila
     if (stateRef.getAndUpdate(state => Some(state.fold(Queue.empty[Any])(_ enqueue msg))).isEmpty) run(msg)
 
   def ask[A](makeMsg: Promise[A] => Any): Fu[A] = {
-    val promise = Promise[A]
+    val promise = Promise[A]()
     this ! makeMsg(promise)
     promise.future
   }

@@ -1,5 +1,6 @@
 package lila.tournament
 
+import lila.common.Heapsort.implicits._
 import lila.user.User
 
 case class Spotlight(
@@ -14,16 +15,13 @@ object Spotlight {
 
   import Schedule.Freq._
 
+  implicit private val importanceOrdering = Ordering.by[Tournament, Int](_.schedule.??(_.freq.importance))
+
   def select(tours: List[Tournament], user: Option[User], max: Int): List[Tournament] =
-    user.fold(sort(tours) take max) { select(tours, _, max) }
+    user.fold(tours topN max) { select(tours, _, max) }
 
   def select(tours: List[Tournament], user: User, max: Int): List[Tournament] =
-    sort(tours.filter { select(_, user) }) take max
-
-  private def sort(tours: List[Tournament]) =
-    tours.sortBy { t =>
-      -(t.schedule.??(_.freq.importance))
-    }
+    tours.filter { select(_, user) } topN max
 
   private def select(tour: Tournament, user: User): Boolean =
     !tour.isFinished &&
@@ -35,20 +33,18 @@ object Spotlight {
     }
 
   private def automatically(tour: Tournament, user: User): Boolean =
-    tour.perfType ?? { pt =>
-      tour.schedule ?? { sched =>
-        def playedSinceWeeks(weeks: Int) =
-          user.perfs(pt).latest ?? { l =>
-            l.plusWeeks(weeks).isAfterNow
-          }
-        sched.freq match {
-          case Hourly                               => canMaybeJoinLimited(tour, user) && playedSinceWeeks(2)
-          case Daily | Eastern                      => playedSinceWeeks(2)
-          case Weekly | Weekend                     => playedSinceWeeks(4)
-          case Unique                               => playedSinceWeeks(4)
-          case Monthly | Shield | Marathon | Yearly => true
-          case ExperimentalMarathon                 => false
+    tour.schedule ?? { sched =>
+      def playedSinceWeeks(weeks: Int) =
+        user.perfs(tour.perfType).latest ?? {
+          _.plusWeeks(weeks).isAfterNow
         }
+      sched.freq match {
+        case Hourly                               => canMaybeJoinLimited(tour, user) && playedSinceWeeks(2)
+        case Daily | Eastern                      => playedSinceWeeks(2)
+        case Weekly | Weekend                     => playedSinceWeeks(4)
+        case Unique                               => playedSinceWeeks(4)
+        case Monthly | Shield | Marathon | Yearly => true
+        case ExperimentalMarathon                 => false
       }
     }
 

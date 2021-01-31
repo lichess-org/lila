@@ -23,7 +23,7 @@ final class NoteApi(
     coll: Coll
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    ws: play.api.libs.ws.WSClient
+    ws: play.api.libs.ws.StandaloneWSClient
 ) {
 
   import reactivemongo.api.bson._
@@ -31,7 +31,7 @@ final class NoteApi(
   implicit private val noteBSONHandler = Macros.handler[Note]
 
   def get(user: User, me: User, isMod: Boolean): Fu[List[Note]] =
-    coll.ext
+    coll
       .find(
         $doc("to" -> user.id) ++ {
           if (isMod)
@@ -43,24 +43,27 @@ final class NoteApi(
         }
       )
       .sort($sort desc "date")
-      .list[Note](20)
+      .cursor[Note]()
+      .list(20)
 
   def forMod(id: User.ID): Fu[List[Note]] =
-    coll.ext
+    coll
       .find($doc("to" -> id, "mod" -> true))
       .sort($sort desc "date")
-      .list[Note](20)
+      .cursor[Note]()
+      .list(20)
 
   def forMod(ids: List[User.ID]): Fu[List[Note]] =
-    coll.ext
+    coll
       .find($doc("to" $in ids, "mod" -> true))
       .sort($sort desc "date")
-      .list[Note](50)
+      .cursor[Note]()
+      .list(50)
 
   def write(to: User, text: String, from: User, modOnly: Boolean, dox: Boolean) = {
 
     val note = Note(
-      _id = ornicar.scalalib.Random nextString 8,
+      _id = lila.common.ThreadLocalRandom nextString 8,
       from = from.id,
       to = to.id,
       text = text,
@@ -88,7 +91,7 @@ final class NoteApi(
   def lichessWrite(to: User, text: String) =
     userRepo.lichess flatMap {
       _ ?? {
-        write(to, text, _, true, false)
+        write(to, text, _, modOnly = true, dox = false)
       }
     }
 

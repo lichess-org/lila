@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="arenaTournaments">Comórtais Airéine</string>
+  <string name="isItRated">An bhfuil sé rátaithe?</string>
+  <string name="isRated">Tá an comórtas seo rátáilte agus beidh tionchar ar do rátáil.</string>
+  <string name="isNotRated">*Níl *aon rátáil ag an gcomórtas seo agus *ní* dhéanfaidh sé difear do do rátáil.</string>
+  <string name="someRated">Tá roinnt comortais a rátáil agus beidh tionchar acu ar do rátáil.</string>
+  <string name="howDoesPairingWorkAnswer">Ag tús an chomórtais, cuirtear imreoirí le chéile bunaithe ar a rátáil.
+Chomh luath agus a chríochnaíonn tú cluiche, fill ar ais chuig forhalla an chomórtais: ansin beidh tú curtha le himreoir gar do do rátáil. Cinntíonn sé seo an t-íosmhéid ama feithimh, ach b’fhéidir nach dtabharfaidh tú imir le gach imreoir eile sa chomórtas.
+Imir go tapa agus filleadh chuig an forhalla chun níos mó cluichí a imirt agus níos mó pointí a bhuachan.</string>
 </resources>

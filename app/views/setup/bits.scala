@@ -1,12 +1,11 @@
 package views.html.setup
 
+import controllers.routes
 import play.api.data.{ Field, Form }
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-
-import controllers.routes
 
 private object bits {
 
@@ -15,7 +14,7 @@ private object bits {
   def fenInput(field: Field, strict: Boolean, validFen: Option[lila.setup.ValidFen])(implicit
       ctx: Context
   ) = {
-    val url = field.value.fold(routes.Editor.index)(routes.Editor.load).url
+    val url = field.value.fold(routes.Editor.index())(routes.Editor.load).url
     div(cls := "fen_position optional_config")(
       frag(
         div(
@@ -28,12 +27,7 @@ private object bits {
         a(cls := "board_editor", href := url)(
           span(cls := "preview")(
             validFen.map { vf =>
-              div(
-                cls := "mini-board cg-wrap parse-fen is2d",
-                dataColor := vf.color.name,
-                dataFen := vf.fen.value,
-                dataResizable := "1"
-              )(cgWrapContent)
+              views.html.board.bits.mini(vf.fen, vf.color)(div)
             }
           )
         )
@@ -46,8 +40,8 @@ private object bits {
       renderLabel(form("variant"), trans.variant()),
       renderSelect(
         form("variant"),
-        variants.filter {
-          case (id, _, _) => ctx.noBlind || lila.game.Game.blindModeVariants.exists(_.id.toString == id)
+        variants.filter { case (id, _, _) =>
+          ctx.noBlind || lila.game.Game.blindModeVariants.exists(_.id.toString == id)
         }
       )
     )
@@ -58,46 +52,55 @@ private object bits {
       compare: (String, String) => Boolean = (a, b) => a == b
   ) =
     select(id := s"$prefix${field.id}", name := field.name)(
-      options.map {
-        case (value, name, title) =>
-          option(
-            st.value := value,
-            st.title := title,
-            field.value.exists(v => compare(v, value)) option selected
-          )(name)
+      options.map { case (value, name, title) =>
+        option(
+          st.value := value,
+          st.title := title,
+          field.value.exists(v => compare(v, value)) option selected
+        )(name)
       }
     )
 
   def renderRadios(field: Field, options: Seq[SelectChoice]) =
     st.group(cls := "radio")(
-      options.map {
-        case (key, name, hint) =>
-          div(
-            input(
-              `type` := "radio",
-              id := s"$prefix${field.id}_${key}",
-              st.name := field.name,
-              value := key,
-              field.value.has(key) option checked
-            ),
-            label(
-              cls := "required",
-              title := hint,
-              `for` := s"$prefix${field.id}_$key"
-            )(name)
-          )
+      options.map { case (key, name, hint) =>
+        div(
+          input(
+            tpe := "radio",
+            id := s"$prefix${field.id}_$key",
+            st.name := field.name,
+            value := key,
+            field.value.has(key) option checked
+          ),
+          label(
+            cls := "required",
+            title := hint,
+            `for` := s"$prefix${field.id}_$key"
+          )(name)
+        )
       }
     )
 
   def renderInput(field: Field) =
-    input(name := field.name, value := field.value, `type` := "hidden")
+    input(name := field.name, value := field.value, tpe := "hidden")
+
+  def renderDissociatedRange(field: Field) =
+    frag(
+      renderInput(field)(cls := "range-value"),
+      input(name := s"${field.name}_range", tpe := "range")(cls := "range")
+    )
 
   def renderLabel(field: Field, content: Frag) =
     label(`for` := s"$prefix${field.id}")(content)
 
   def renderTimeMode(form: Form[_])(implicit ctx: Context) =
     div(cls := "time_mode_config optional_config")(
-      div(cls := "label_select")(
+      div(
+        cls := List(
+          "label_select" -> true,
+          "none"         -> ctx.isAnon
+        )
+      )(
         renderLabel(form("timeMode"), trans.timeControl()),
         renderSelect(form("timeMode"), translatedTimeModeChoices)
       ),
@@ -114,17 +117,17 @@ private object bits {
         )
       else
         frag(
-          div(cls := "time_choice slider")(
+          div(cls := "time_choice range")(
             trans.minutesPerSide(),
             ": ",
             span(chess.Clock.Config(~form("time").value.map(x => (x.toDouble * 60).toInt), 0).limitString),
-            renderInput(form("time"))
+            renderDissociatedRange(form("time"))
           ),
-          div(cls := "increment_choice slider")(
+          div(cls := "increment_choice range")(
             trans.incrementInSeconds(),
             ": ",
             span(form("increment").value),
-            renderInput(form("increment"))
+            renderDissociatedRange(form("increment"))
           )
         ),
       div(cls := "correspondence")(
@@ -134,11 +137,11 @@ private object bits {
             renderSelect(form("days"), corresDaysChoices)
           )
         else
-          div(cls := "days_choice slider")(
+          div(cls := "days_choice range")(
             trans.daysPerTurn(),
             ": ",
             span(form("days").value),
-            renderInput(form("days"))
+            renderDissociatedRange(form("days"))
           )
       )
     )

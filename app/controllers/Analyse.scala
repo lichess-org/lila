@@ -2,6 +2,7 @@ package controllers
 
 import play.api.mvc._
 
+import chess.White
 import chess.format.FEN
 import lila.api.Context
 import lila.app._
@@ -22,8 +23,8 @@ final class Analyse(
         env.fishnet.analyser(
           game,
           lila.fishnet.Work.Sender(
-            userId = me.id.some,
-            ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
+            userId = me.id,
+            ip = HTTPRequest.ipAddress(ctx.req).some,
             mod = isGranted(_.Hunter) || isGranted(_.Relay),
             system = false
           )
@@ -50,8 +51,7 @@ final class Analyse(
               initialFen,
               analysis = none,
               PgnDump.WithFlags(clocks = false)
-            ) flatMap {
-            case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pgn =>
+            ) flatMap { case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pgn =>
               env.api.roundApi.review(
                 pov,
                 lila.api.Mobile.Api.currentVersion,
@@ -87,7 +87,7 @@ final class Analyse(
                   )
                 )
               }
-          }
+            }
         }
       }
 
@@ -95,7 +95,7 @@ final class Analyse(
     Action.async { implicit req =>
       env.game.gameRepo.gameWithInitialFen(gameId) flatMap {
         case Some((game, initialFen)) =>
-          val pov = Pov(game, chess.Color(color == "white"))
+          val pov = Pov(game, chess.Color.fromName(color) | White)
           env.api.roundApi.embed(
             pov,
             lila.api.Mobile.Api.currentVersion,
@@ -105,15 +105,15 @@ final class Analyse(
             Ok(html.analyse.embed(pov, data))
           }
         case _ => fuccess(NotFound(html.analyse.embed.notFound))
-      }
+      } dmap EnableSharedArrayBuffer
     }
 
   private def RedirectAtFen(pov: Pov, initialFen: Option[FEN])(or: => Fu[Result])(implicit ctx: Context) =
-    get("fen").fold(or) { atFen =>
+    get("fen").map(FEN.clean).fold(or) { atFen =>
       val url = routes.Round.watcher(pov.gameId, pov.color.name)
       fuccess {
         chess.Replay
-          .plyAtFen(pov.game.pgnMoves, initialFen.map(_.value), pov.game.variant, atFen)
+          .plyAtFen(pov.game.pgnMoves, initialFen, pov.game.variant, atFen)
           .fold(
             err => {
               lila.log("analyse").info(s"RedirectAtFen: ${pov.gameId} $atFen $err")

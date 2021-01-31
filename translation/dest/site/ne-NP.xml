@@ -199,7 +199,6 @@
     <item quantity="other">तपाइसँग खेलिएका %s खेलहरु</item>
   </plurals>
   <string name="cancel">रद्द गर्नुहोस्</string>
-  <string name="timeOut">समय सकियो</string>
   <string name="drawOfferSent">बराबरीको प्रस्ताव पठाइयो</string>
   <string name="drawOfferDeclined">बराबरीको प्रस्ताव अस्वीकृत भयो</string>
   <string name="drawOfferAccepted">बराबरीको प्रस्ताव स्वीकृत भयो</string>
@@ -380,7 +379,6 @@
   <string name="more">थप</string>
   <string name="memberSince">सदस्यता मिति</string>
   <string name="lastSeenActive">%s सकृय</string>
-  <string name="challengeToPlay">खेलको लागि चुनौति दिनुहोस्</string>
   <string name="player">खेलाडी</string>
   <string name="list">सुचि</string>
   <string name="graph">रेखाचित्र</string>
@@ -445,6 +443,7 @@
   <string name="lastName">थर</string>
   <string name="biography">जीवनी</string>
   <string name="country">देश</string>
+  <string name="thankYou">धन्यवाद!</string>
   <string name="socialMediaLinks">सामाजिक सञ्जाल लिङ्क</string>
   <string name="inlineNotation">पङ्तिमा नोटेशन</string>
   <string name="watchLichessTV">लीचेस टिभी हेरौं</string>
@@ -453,34 +452,7 @@
   <string name="activeToday">आज कृयाशील</string>
   <string name="activePlayers">कृयाशील खेलाडीहरु</string>
   <string name="bewareTheGameIsRatedButHasNoClock">सावधान, खेल रेटिङवाला हो तर कुनै घडी छैन!</string>
-  <string name="yourPuzzleRatingX">तपाइको प्रशिक्षण रेटिङ: %s</string>
-  <string name="findTheBestMoveForWhite">सेतो को लागि सर्वोत्कृष्ट चाल पत्ता लगाऔं।</string>
-  <string name="findTheBestMoveForBlack">कालोको लागि सर्वोत्कृष्ट चाल पत्ता लगाऔं।</string>
-  <string name="toTrackYourProgress">तपाइको प्रगति ट्र्याक गर्न:</string>
-  <string name="puzzleId">पजल %s</string>
-  <string name="puzzleOfTheDay">आजको पजल</string>
-  <string name="clickToSolve">हल गर्न क्लिक गर्नुहोस्</string>
-  <string name="goodMove">राम्रो चाल</string>
-  <string name="butYouCanDoBetter">योभन्दा राम्रो गर्न सकिन्छ।</string>
-  <string name="bestMove">सर्वोत्कृष्ट चाल</string>
-  <string name="keepGoing">जारी राख्नुहोस्…</string>
-  <string name="puzzleFailed">गलत जवाफ</string>
-  <string name="butYouCanKeepTrying">तर प्रयास गरिरहन सकिन्छ।</string>
   <string name="success">सफलता</string>
-  <string name="wasThisPuzzleAnyGood">के यो राम्रो थियो?</string>
-  <string name="pleaseVotePuzzle">मतदान गरी लीचेसलाइ प्रगति गर्न सहयोग गरौं:</string>
-  <string name="thankYou">धन्यवाद!</string>
-  <string name="ratingX">रेटिङ: %s</string>
-  <string name="hidden">गुप्त</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">%s पटक खेलियो</item>
-    <item quantity="other">%s पटक खेलियो</item>
-  </plurals>
-  <string name="fromGameLink">खेल %s बाट</string>
-  <string name="continueTraining">तालीम जारी राखौं</string>
-  <string name="retryThisPuzzle">पुनः प्रयास गर्नुहोस्</string>
-  <string name="thisPuzzleIsCorrect">यो पजल सहि र चाखलाग्दो छ</string>
-  <string name="thisPuzzleIsWrong">यो पजल गलत वा पट्टाइ लाग्दो छ</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s खेल जारी</item>
     <item quantity="other">%s खेलहरु जारी</item>
@@ -755,7 +727,6 @@
   <string name="error.unknown">त्रुटि</string>
   <string name="custom">कष्टम</string>
   <string name="notifications">सुचनाहरु</string>
-  <string name="challenges">चुनौतिहरु</string>
   <string name="perfRatingX">रेटिङ: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">पहिलो चाल चाल्न %s सेकेण्ड</item>
@@ -802,12 +773,6 @@
   <string name="opening">शुरुका चालहरु</string>
   <string name="middlegame">बीचको खेल</string>
   <string name="endgame">खेलको समाप्ति</string>
-  <string name="registerToSendChallenges">चुनौति पठाउन दर्ता गरौं।</string>
-  <string name="youCannotChallengeX">तपाइ %sलाइ चुनौति दिन सक्नुहुन्न।</string>
-  <string name="xDoesNotAcceptChallenges">%s चुनौति स्वीकार गर्नुहुन्न।</string>
-  <string name="yourXRatingIsTooFarFromY">तपाइको %1$s रेटिङ %2$s भन्दा धेरै टाढा छ।</string>
-  <string name="cannotChallengeDueToProvisionalXRating">अस्थायी %s रेटिङ को कारण खेलको लागि आमन्त्रण गर्न असम्भव छ।</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s ले मित्रहरुको आमन्त्रण मात्र स्वीकार गर्दछन्।</string>
   <string name="conditionalPremoves">ससर्त प्रिमुभहरु</string>
   <string name="addCurrentVariation">वर्तमान लाइन खेलमा जोडौं</string>
   <string name="playVariationToCreateConditionalPremoves">चाल चालेर ससर्त प्रिमुभहरु श्रीजना गरौं</string>

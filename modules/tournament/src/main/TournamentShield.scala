@@ -42,12 +42,17 @@ final class TournamentShieldApi(
       }
     }
 
-  private[tournament] def clear() = cache.invalidateUnit()
+  private[tournament] def clear(): Unit = cache.invalidateUnit().unit
+
+  private[tournament] def clearAfterMarking(userId: User.ID): Funit = cache.getUnit map { hist =>
+    import cats.implicits._
+    if (hist.value.exists(_._2.exists(_.owner.value === userId))) clear()
+  }
 
   private val cache = cacheApi.unit[History] {
     _.refreshAfterWrite(1 day)
       .buildAsyncFuture { _ =>
-        tournamentRepo.coll.ext
+        tournamentRepo.coll
           .find(
             $doc(
               "schedule.freq" -> scheduleFreqHandler.writeTry(Schedule.Freq.Shield).get,
@@ -55,7 +60,8 @@ final class TournamentShieldApi(
             )
           )
           .sort($sort asc "startsAt")
-          .list[Tournament](none, ReadPreference.secondaryPreferred) map { tours =>
+          .cursor[Tournament](ReadPreference.secondaryPreferred)
+          .list() map { tours =>
           for {
             tour   <- tours
             categ  <- Category of tour
@@ -67,8 +73,8 @@ final class TournamentShieldApi(
             tourId = tour.id
           )
         } map {
-          _.foldLeft(Map.empty[Category, List[Award]]) {
-            case (hist, entry) => hist + (entry.categ -> hist.get(entry.categ).fold(List(entry))(entry :: _))
+          _.foldLeft(Map.empty[Category, List[Award]]) { case (hist, entry) =>
+            hist + (entry.categ -> hist.get(entry.categ).fold(List(entry))(entry :: _))
           }
         } dmap History.apply
       }

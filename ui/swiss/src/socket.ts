@@ -5,7 +5,7 @@ export interface SwissSocket {
   receive(tpe: string, data: any): void;
 }
 
-export default function(send: SocketSend, ctrl: SwissCtrl) {
+export function makeSocket(send: SocketSend, ctrl: SwissCtrl) {
 
   const handlers: any = {
     reload() {

@@ -25,7 +25,7 @@ object header {
         h1(cls := s"user-link ${if (isOnline(u.id)) "online" else "offline"}")(
           if (u.isPatron)
             frag(
-              a(href := routes.Plan.index)(patronIcon),
+              a(href := routes.Plan.index())(patronIcon),
               userSpan(u, withPowerTip = false, withOnline = false)
             )
           else userSpan(u, withPowerTip = false)
@@ -40,7 +40,7 @@ object header {
           otherTrophies(info),
           u.plan.active option
             a(
-              href := routes.Plan.index,
+              href := routes.Plan.index(),
               cls := "trophy award patron icon3d",
               ariaTitle(s"Patron since ${showDate(u.plan.sinceDate)}")
             )(patronIconChar)
@@ -78,7 +78,7 @@ object header {
           (ctx is u) option frag(
             a(
               cls := "btn-rack__btn",
-              href := routes.Account.profile,
+              href := routes.Account.profile(),
               titleOrText(trans.editProfile.txt()),
               dataIcon := "%"
             ),
@@ -120,7 +120,7 @@ object header {
             (ctx.isAuth && ctx.noKid) option a(
               titleOrText(trans.reportXToModerators.txt(u.username)),
               cls := "btn-rack__btn",
-              href := s"${routes.Report.form}?username=${u.username}",
+              href := s"${routes.Report.form()}?username=${u.username}",
               dataIcon := "!"
             )
         )
@@ -135,11 +135,11 @@ object header {
             div(cls := "mod-note")(
               submitButton(cls := "button")(trans.send()),
               div(
-                div(form3.cmnToggle("note-mod", "mod", true)),
+                div(form3.cmnToggle("note-mod", "mod", checked = true)),
                 label(`for` := "note-mod")("For moderators only")
               ),
               isGranted(_.Doxing) option div(
-                div(form3.cmnToggle("note-dox", "dox", false)),
+                div(form3.cmnToggle("note-dox", "dox", checked = false)),
                 label(`for` := "note-dox")("Doxing info")
               )
             )
@@ -158,7 +158,7 @@ object header {
           }
           .map { note =>
             div(cls := "note")(
-              p(cls := "note__text")(richText(note.text)),
+              p(cls := "note__text")(richText(note.text, expandImg = false)),
               p(cls := "note__meta")(
                 userIdLink(note.from.some),
                 br,
@@ -194,12 +194,12 @@ object header {
             div(cls := "profile-side")(
               div(cls := "user-infos")(
                 !ctx.is(u) option frag(
-                  u.marks.engine option div(cls := "warning engine_warning")(
+                  u.marks.engine option div(cls := "warning tos_warning")(
                     span(dataIcon := "j", cls := "is4"),
                     trans.thisAccountViolatedTos()
                   ),
                   (u.marks.boost && (u.count.game > 0 || isGranted(_.Hunter))) option div(
-                    cls := "warning engine_warning"
+                    cls := "warning tos_warning"
                   )(
                     span(dataIcon := "j", cls := "is4"),
                     trans.thisPlayerArtificiallyIncreasesTheirRating(),
@@ -226,7 +226,7 @@ It's useful against spambots. These marks are not visible to the public."""
                   },
                   profile.countryInfo.map { c =>
                     span(cls := "country")(
-                      img(cls := "flag", src := staticUrl(s"images/flags/${c.code}.png")),
+                      img(cls := "flag", src := assetUrl(s"images/flags/${c.code}.png")),
                       " ",
                       c.name
                     )
@@ -239,11 +239,11 @@ It's useful against spambots. These marks are not visible to the public."""
                     p(cls := "thin")(trans.gameCompletionRate(s"$c%"))
                   },
                   (ctx is u) option frag(
-                    a(href := routes.Account.profile, title := trans.editProfile.txt())(
+                    a(href := routes.Account.profile(), title := trans.editProfile.txt())(
                       trans.profileCompletion(s"${profile.completionPercent}%")
                     ),
                     br,
-                    a(href := routes.User.opponents)(trans.favoriteOpponents())
+                    a(href := routes.User.opponents())(trans.favoriteOpponents())
                   ),
                   u.playTime.map { playTime =>
                     frag(
@@ -255,9 +255,7 @@ It's useful against spambots. These marks are not visible to the public."""
                   },
                   (!u.marks.troll || ctx.is(u)) option div(cls := "social_links col2")(
                     profile.actualLinks.map { link =>
-                      a(href := link.url, target := "_blank", rel := "nofollow noopener noreferrer")(
-                        link.site.name
-                      )
+                      a(href := link.url, targetBlank, rel := "nofollow")(link.site.name)
                     }
                   ),
                   div(cls := "teams col2")(

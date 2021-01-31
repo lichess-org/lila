@@ -5,10 +5,10 @@ import chess.Speed
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
-import lila.game.PerfPicker
 import lila.hub.LightTeam.TeamID
 import lila.rating.PerfType
 import lila.user.User
+import chess.format.FEN
 
 case class Swiss(
     _id: Swiss.Id,
@@ -39,7 +39,7 @@ case class Swiss(
     isNotFinished && round.value <= settings.nbRounds / 2 && nbPlayers < Swiss.maxPlayers
 
   def allRounds: List[SwissRound.Number]      = (1 to round.value).toList.map(SwissRound.Number.apply)
-  def finishedRounds: List[SwissRound.Number] = (1 to (round.value - 1)).toList.map(SwissRound.Number.apply)
+  def finishedRounds: List[SwissRound.Number] = (1 until round.value).toList.map(SwissRound.Number.apply)
 
   def guessNbRounds  = (nbPlayers - 1) atMost settings.nbRounds atLeast 2
   def actualNbRounds = if (isFinished) round.value else guessNbRounds
@@ -52,8 +52,7 @@ case class Swiss(
 
   def speed = Speed(clock)
 
-  def perfType: Option[PerfType] = PerfPicker.perfType(speed, variant, none)
-  def perfLens                   = PerfPicker.mainOrDefault(speed, variant, none)
+  def perfType: PerfType = PerfType(variant, speed)
 
   def estimatedDuration: FiniteDuration = {
     (clock.limit.toSeconds + clock.increment.toSeconds * 80 + 10) * settings.nbRounds
@@ -62,17 +61,26 @@ case class Swiss(
   def estimatedDurationString = {
     val minutes = estimatedDuration.toMinutes
     if (minutes < 60) s"${minutes}m"
-    else s"${minutes / 60}h" + (if (minutes % 60 != 0) s" ${(minutes % 60)}m" else "")
+    else s"${minutes / 60}h" + (if (minutes % 60 != 0) s" ${minutes % 60}m" else "")
   }
 
   def roundInfo = Swiss.RoundInfo(teamId, settings.chatFor)
+
+  def withConditions(conditions: SwissCondition.All) = copy(
+    settings = settings.copy(conditions = conditions)
+  )
+
+  def unrealisticSettings =
+    !settings.manualRounds &&
+      settings.dailyInterval.isEmpty &&
+      clock.estimateTotalSeconds * 2 * settings.nbRounds > 3600 * 8
 
   lazy val looksLikePrize = lila.common.String.looksLikePrize(s"$name ${~settings.description}")
 }
 
 object Swiss {
 
-  val maxPlayers = 2000
+  val maxPlayers = 4000
 
   case class Id(value: String) extends AnyVal with StringValue
   case class Round(value: Int) extends AnyVal with IntValue
@@ -89,7 +97,10 @@ object Swiss {
       nbRounds: Int,
       rated: Boolean,
       description: Option[String] = None,
+      position: Option[FEN],
       chatFor: ChatFor = ChatFor.default,
+      password: Option[String] = None,
+      conditions: SwissCondition.All,
       roundInterval: FiniteDuration
   ) {
     lazy val intervalSeconds = roundInterval.toSeconds.toInt
@@ -116,7 +127,7 @@ object Swiss {
       (points.value * 10000000 + tieBreak.value * 10000 + perf.value).toInt
     )
 
-  def makeId = Id(scala.util.Random.alphanumeric take 8 mkString)
+  def makeId = Id(lila.common.ThreadLocalRandom nextString 8)
 
   case class PastAndNext(past: List[Swiss], next: List[Swiss])
 

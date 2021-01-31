@@ -1,45 +1,36 @@
 package views.html.puzzle
 
-import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
-import lila.app.ui.EmbedConfig
-import views.html.base.layout.{ bits => layout }
-
 import controllers.routes
+import play.api.i18n.Lang
+
+import lila.app.templating.Environment._
+import lila.app.ui.EmbedConfig
+import lila.app.ui.ScalatagsTemplate._
+import lila.puzzle.DailyPuzzle
 
 object embed {
 
   import EmbedConfig.implicits._
 
-  private val dataStreamUrl = attr("data-stream-url")
-
-  def apply(daily: lila.puzzle.DailyPuzzle)(implicit config: EmbedConfig) =
-    frag(
-      layout.doctype,
-      layout.htmlTag(config.lang)(
-        head(
-          layout.charset,
-          layout.metaCsp(basicCsp),
-          st.headTitle("lichess.org chess puzzle"),
-          layout.pieceSprite(lila.pref.PieceSet.default),
-          cssTagWithTheme("tv.embed", config.bg)
-        ),
-        body(
-          cls := s"base ${config.board}",
-          dataStreamUrl := routes.Tv.feed
-        )(
-          div(id := "daily-puzzle", cls := "embedded", title := trans.clickToSolve.txt())(
-            raw(daily.html),
-            div(cls := "vstext", style := "text-align: center; justify-content: center")(
-              trans.puzzleOfTheDay(),
-              br,
-              daily.color.fold(trans.whitePlays, trans.blackPlays)()
-            )
-          ),
-          jQueryTag,
-          jsAt("javascripts/vendor/chessground.min.js", false),
-          jsAt("compiled/puzzle.js", false)
-        )
-      )
+  def apply(daily: DailyPuzzle.Html)(implicit config: EmbedConfig) =
+    views.html.base.embed(
+      title = "lichess.org chess puzzle",
+      cssModule = "tv.embed"
+    )(
+      dailyLink(daily)(config.lang)(
+        targetBlank,
+        id := "daily-puzzle",
+        cls := "embedded"
+      ),
+      jsModule("puzzle.embed")
     )
+
+  def dailyLink(daily: DailyPuzzle.Html)(implicit lang: Lang) = a(
+    href := routes.Puzzle.daily(),
+    title := trans.puzzle.clickToSolve.txt()
+  )(
+    span(cls := "text")(trans.puzzle.puzzleOfTheDay()),
+    raw(daily.html),
+    span(cls := "text")(daily.color.fold(trans.whitePlays, trans.blackPlays)())
+  )
 }

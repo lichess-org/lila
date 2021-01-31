@@ -16,8 +16,8 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   @inline def dforeach[B](f: A => Unit): Unit = fua.foreach(f)(EC.parasitic)
 
   def >>-(sideEffect: => Unit)(implicit ec: EC): Fu[A] =
-    fua andThen {
-      case _ => sideEffect
+    fua andThen { case _ =>
+      sideEffect
     }
 
   def >>[B](fub: => Fu[B])(implicit ec: EC): Fu[B] =
@@ -58,8 +58,8 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   def logFailure(logger: => lila.log.Logger)(implicit ec: EC): Fu[A] = logFailure(logger, _.toString)
 
   def addFailureEffect(effect: Throwable => Unit)(implicit ec: EC) = {
-    fua.failed.foreach {
-      case e: Throwable => effect(e)
+    fua.failed.foreach { e: Throwable =>
+      effect(e)
     }
     fua
   }
@@ -91,8 +91,8 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   }
 
   def mapFailure(f: Exception => Exception)(implicit ec: EC) =
-    fua recoverWith {
-      case cause: Exception => fufail(f(cause))
+    fua recoverWith { case cause: Exception =>
+      fufail(f(cause))
     }
 
   def prefixFailure(p: => String)(implicit ec: EC) =
@@ -129,7 +129,7 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
     }
 
   def withTimeout(duration: FiniteDuration)(implicit ec: EC, system: ActorSystem): Fu[A] =
-    withTimeout(duration, LilaException(s"Future timed out after $duration"))
+    withTimeout(duration, LilaTimeout(s"Future timed out after $duration"))
 
   def withTimeout(
       duration: FiniteDuration,
@@ -163,6 +163,7 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
     chronometerTry.mon { r =>
       path(lila.mon)(r.isSuccess)
     }.result
+  def monValue(path: A => lila.mon.TimerPath) = chronometer.monValue(path).result
 
   def logTime(name: String)                               = chronometer pp name
   def logTimeIfGt(name: String, duration: FiniteDuration) = chronometer.ppIfGt(name, duration)
@@ -194,12 +195,12 @@ final class PimpedFutureOption[A](private val fua: Fu[Option[A]]) extends AnyVal
 
   def orFail(msg: => String)(implicit ec: EC): Fu[A] =
     fua flatMap {
-      _.fold[Fu[A]](fufail(msg))(fuccess(_))
+      _.fold[Fu[A]](fufail(msg))(fuccess)
     }
 
   def orFailWith(err: => Exception)(implicit ec: EC): Fu[A] =
     fua flatMap {
-      _.fold[Fu[A]](fufail(err))(fuccess(_))
+      _.fold[Fu[A]](fufail(err))(fuccess)
     }
 
   def orElse(other: => Fu[Option[A]])(implicit ec: EC): Fu[Option[A]] =

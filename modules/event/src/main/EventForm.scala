@@ -5,12 +5,24 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.i18n.Lang
 
+import lila.common.Form.stringIn
+import lila.common.Form.UTCDate._
 import lila.i18n.LangList
 import lila.user.User
 
 object EventForm {
 
-  import lila.common.Form.UTCDate._
+  object icon {
+    val default   = ""
+    val broadcast = "broadcast.icon"
+    val choices = List(
+      default               -> "Microphone",
+      "lichess.event.png"   -> "Lichess",
+      "trophy.event.png"    -> "Trophy",
+      broadcast             -> "Broadcast",
+      "offerspill.logo.png" -> "Offerspill"
+    )
+  }
 
   val form = Form(
     mapping(
@@ -23,7 +35,12 @@ object EventForm {
       "enabled"       -> boolean,
       "startsAt"      -> utcDate,
       "finishesAt"    -> utcDate,
-      "hostedBy"      -> optional(lila.user.DataForm.historicalUsernameField)
+      "hostedBy" -> optional {
+        lila.user.UserForm.historicalUsernameField
+          .transform[User.ID](_.toLowerCase, identity)
+      },
+      "icon"      -> stringIn(icon.choices),
+      "countdown" -> boolean
     )(Data.apply)(Data.unapply)
   ) fill Data(
     title = "",
@@ -34,7 +51,8 @@ object EventForm {
     lang = lila.i18n.enLang.code,
     enabled = true,
     startsAt = DateTime.now,
-    finishesAt = DateTime.now
+    finishesAt = DateTime.now,
+    countdown = true
   )
 
   case class Data(
@@ -47,7 +65,9 @@ object EventForm {
       enabled: Boolean,
       startsAt: DateTime,
       finishesAt: DateTime,
-      hostedBy: Option[User.ID] = None
+      hostedBy: Option[User.ID] = None,
+      icon: String = "",
+      countdown: Boolean
   ) {
 
     def update(event: Event) =
@@ -61,7 +81,9 @@ object EventForm {
         enabled = enabled,
         startsAt = startsAt,
         finishesAt = finishesAt,
-        hostedBy = hostedBy
+        hostedBy = hostedBy,
+        icon = icon.some.filter(_.nonEmpty),
+        countdown = countdown
       )
 
     def make(userId: String) =
@@ -78,7 +100,9 @@ object EventForm {
         finishesAt = finishesAt,
         createdBy = Event.UserId(userId),
         createdAt = DateTime.now,
-        hostedBy = hostedBy
+        hostedBy = hostedBy,
+        icon = icon.some.filter(_.nonEmpty),
+        countdown = countdown
       )
   }
 
@@ -95,7 +119,9 @@ object EventForm {
         enabled = event.enabled,
         startsAt = event.startsAt,
         finishesAt = event.finishesAt,
-        hostedBy = event.hostedBy
+        hostedBy = event.hostedBy,
+        icon = ~event.icon,
+        countdown = event.countdown
       )
   }
 }

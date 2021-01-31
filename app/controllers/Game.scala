@@ -26,7 +26,7 @@ final class Game(
             Redirect(routes.User.show(me.username))
         } else
           fuccess {
-            Redirect(routes.Round.watcher(game.id, game.firstColor.name))
+            Redirect(routes.Round.watcher(game.id, game.naturalOrientation.name))
           }
       }
     }
@@ -42,7 +42,8 @@ final class Game(
           format = if (HTTPRequest acceptsJson req) GameApiV2.Format.JSON else GameApiV2.Format.PGN,
           imported = getBool("imported", req),
           flags = requestPgnFlags(req, extended = true),
-          noDelay = get("key", req).exists(env.noDelaySecretSetting.get().value.contains)
+          noDelay = get("key", req).exists(env.noDelaySecretSetting.get().value.contains),
+          playerFile = get("players", req)
         )
         env.api.gameApiV2.exportOne(game, config) flatMap { content =>
           env.api.gameApiV2.filename(game, config.format) map { filename =>
@@ -83,17 +84,16 @@ final class Game(
             max = getInt("max", req) map (_ atLeast 1),
             rated = getBoolOpt("rated", req),
             perfType = (~get("perfType", req) split "," flatMap { lila.rating.PerfType(_) }).toSet,
-            color = get("color", req) flatMap chess.Color.apply,
+            color = get("color", req) flatMap chess.Color.fromName,
             analysed = getBoolOpt("analysed", req),
             ongoing = getBool("ongoing", req),
-            flags = requestPgnFlags(req, extended = false).copy(
-              literate = false
-            ),
+            flags = requestPgnFlags(req, extended = false).copy(literate = false),
             perSecond = MaxPerSecond(me match {
-              case Some(m) if m is user.id => 50
-              case Some(_) if oauth        => 25 // bonus for oauth logged in only (not for CSRF)
-              case _                       => 15
-            })
+              case Some(m) if m is user.id => 60
+              case Some(_) if oauth        => 30 // bonus for oauth logged in only (not for CSRF)
+              case _                       => 20
+            }),
+            playerFile = get("players", req)
           )
           val date = DateTimeFormat forPattern "yyyy-MM-dd" print new DateTime
           apiC
@@ -117,10 +117,11 @@ final class Game(
         ids = req.body.split(',').view.take(300).toSeq,
         format = GameApiV2.Format byRequest req,
         flags = requestPgnFlags(req, extended = false),
-        perSecond = MaxPerSecond(20)
+        perSecond = MaxPerSecond(30),
+        playerFile = get("players", req)
       )
       apiC
-        .GlobalConcurrencyLimitPerIP(HTTPRequest lastRemoteAddress req)(
+        .GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
           env.api.gameApiV2.exportByIds(config)
         ) { source =>
           Ok.chunked(source)

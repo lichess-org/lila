@@ -58,14 +58,15 @@ final class RankingApi(
     }
 
   private def makeId(userId: User.ID, perfType: PerfType) =
-    s"${userId}:${perfType.id}"
+    s"$userId:${perfType.id}"
 
   private[user] def topPerf(perfId: Perf.ID, nb: Int): Fu[List[User.LightPerf]] =
     PerfType.id2key(perfId) ?? { perfKey =>
-      coll.ext
+      coll
         .find($doc("perf" -> perfId, "stable" -> true))
         .sort($doc("rating" -> -1))
-        .list[Ranking](nb, readPreference = ReadPreference.secondaryPreferred)
+        .cursor[Ranking](ReadPreference.secondaryPreferred)
+        .list(nb)
         .flatMap {
           _.map { r =>
             lightUser(r.user).map {
@@ -120,9 +121,9 @@ final class RankingApi(
 
     def of(userId: User.ID): Fu[Map[PerfType, Rank]] =
       cache.getUnit map { all =>
-        all.flatMap {
-          case (pt, ranking) => ranking get userId map (pt -> _)
-        } toMap
+        all.flatMap { case (pt, ranking) =>
+          ranking get userId map (pt -> _)
+        }
       }
 
     private val cache = cacheApi.unit[Map[PerfType, Map[User.ID, Rank]]] {
@@ -137,20 +138,19 @@ final class RankingApi(
     }
 
     private def compute(pt: PerfType): Fu[Map[User.ID, Rank]] =
-      coll.ext
+      coll
         .find(
           $doc("perf" -> pt.id, "stable" -> true),
-          $doc("_id"  -> true)
+          $doc("_id" -> true).some
         )
         .sort($doc("rating" -> -1))
         .cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred)
-        .fold(1 -> Map.newBuilder[User.ID, Rank]) {
-          case (state @ (rank, b), doc) =>
-            doc.string("_id").fold(state) { id =>
-              val user = id takeWhile (':' !=)
-              b += (user -> rank)
-              (rank + 1) -> b
-            }
+        .fold(1 -> Map.newBuilder[User.ID, Rank]) { case (state @ (rank, b), doc) =>
+          doc.string("_id").fold(state) { id =>
+            val user = id takeWhile (':' !=)
+            b += (user -> rank)
+            (rank + 1) -> b
+          }
         }
         .map(_._2.result())
   }
@@ -209,7 +209,7 @@ final class RankingApi(
             (Glicko.minRating to 2800 by Stat.group).map { r =>
               hash.getOrElse(r, 0)
             }.toList
-          } addEffect monitorRatingDistribution(perfId) _
+          } addEffect monitorRatingDistribution(perfId)
       }
 
     /* monitors cumulated ratio of players in each rating group, for a perf
@@ -224,15 +224,17 @@ final class RankingApi(
      * rating.distribution.bullet.2800 => 0.9997
      */
     private def monitorRatingDistribution(perfId: Perf.ID)(nbUsersList: List[NbUsers]): Unit = {
-      val total = nbUsersList.foldLeft(0)(_ + _)
-      (Stat.minRating to 2800 by Stat.group).toList.zip(nbUsersList).foldLeft(0) {
-        case (prev, (rating, nbUsers)) =>
+      val total = nbUsersList.sum
+      (Stat.minRating to 2800 by Stat.group).toList
+        .zip(nbUsersList)
+        .foldLeft(0) { case (prev, (rating, nbUsers)) =>
           val acc = prev + nbUsers
           PerfType(perfId) foreach { pt =>
             lila.mon.rating.distribution(pt.key, rating).update(prev.toDouble / total)
           }
           acc
-      }
+        }
+        .unit
     }
   }
 }

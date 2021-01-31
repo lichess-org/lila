@@ -18,8 +18,8 @@ type Callback = (orig: Key, dest: Key, capture: JustCaptured | undefined, role: 
 let promoting: Promoting | undefined;
 
 export function start(ctrl: AnalyseCtrl, orig: Key, dest: Key, capture: JustCaptured | undefined, callback: Callback): boolean {
-  var s = ctrl.chessground.state;
-  var piece = s.pieces[dest];
+  const s = ctrl.chessground.state;
+  const piece = s.pieces.get(dest);
   if (piece && piece.role == 'pawn' && (
     (dest[1] == '8' && s.turnColor == 'black') ||
     (dest[1] == '1' && s.turnColor == 'white'))) {

@@ -191,7 +191,6 @@
     <item quantity="other">%s өрөг таньтай тоглосон байна</item>
   </plurals>
   <string name="cancel">Цуцлах</string>
-  <string name="timeOut">Цаг дууслаа</string>
   <string name="drawOfferSent">Тэнцэх санал илгээлээ</string>
   <string name="drawOfferDeclined">Тэнцэх саналаас татгалзлаа</string>
   <string name="drawOfferAccepted">Тэнцэх саналыг зөвшөөрлөө</string>
@@ -355,7 +354,6 @@
   <string name="more">Дэлгэрэнгүй үзэх</string>
   <string name="memberSince">Гишүүнчлэлийн огноо:</string>
   <string name="lastSeenActive">Сүүлд холбогдсон огноо: %s</string>
-  <string name="challengeToPlay">Тоглолтод урих</string>
   <string name="player">Гишүүн</string>
   <string name="list">Жагсаалт</string>
   <string name="graph">Үзүүлэлтийн хүснэгт, диаграмм, график</string>
@@ -420,6 +418,7 @@
   <string name="lastName">Эцгийн нэр</string>
   <string name="biography">Намтар</string>
   <string name="country">Улс</string>
+  <string name="thankYou">Баярлалаа!</string>
   <string name="socialMediaLinks">Сошиал холбоосууд</string>
   <string name="inlineNotation">Мөрийн тэмдэглэгээ</string>
   <string name="watchLichessTV">Личессийн суваг үзэх</string>
@@ -428,34 +427,7 @@
   <string name="activeToday">Өнөөдөр хамгийн их идэвхтэй байсан гишүүдийн жагсаалт</string>
   <string name="activePlayers">Идэвхтэй гишүүд</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Энэ өрөг нь чансаа өөрчлөгдөх өрөг боловч цагын хязгаарлалтгүй болохыг анхаарна уу!</string>
-  <string name="yourPuzzleRatingX">Таны бодлогын чансаа: %s</string>
-  <string name="findTheBestMoveForWhite">Цагааны хувьд хамгийн сайн нүүдлийг ол.</string>
-  <string name="findTheBestMoveForBlack">Харын хувьд хамгийн сайн нүүдлийг ол.</string>
-  <string name="toTrackYourProgress">Өсөлт дэвшлээ хянах:</string>
-  <string name="puzzleId">Бодлого №%s</string>
-  <string name="puzzleOfTheDay">Өнөөдрийн бодлого</string>
-  <string name="clickToSolve">Товшиж орж бодлого бодоорой</string>
-  <string name="goodMove">Сайн нүүдэл байна</string>
-  <string name="butYouCanDoBetter">Гэхдээ та үүнээс сайн нүүдэл хийж чадна.</string>
-  <string name="bestMove">Хамгийн оновчтой нүүдэл!</string>
-  <string name="keepGoing">Үргэлжлүүлээд байгаарай...</string>
-  <string name="puzzleFailed">Бодлогыг амжилттай бодож чадсангүй</string>
-  <string name="butYouCanKeepTrying">Гэхдээ та үргэлжлүүлэн бодох боломжтой.</string>
   <string name="success">Зөв</string>
-  <string name="wasThisPuzzleAnyGood">Энэ бодлого хэр байв?</string>
-  <string name="pleaseVotePuzzle">Бодлогын чанарыг үнэлэх</string>
-  <string name="thankYou">Баярлалаа!</string>
-  <string name="ratingX">Чансаа:%s</string>
-  <string name="hidden">Нуугдсан</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Бодлогыг оролдсон тоо: %s</item>
-    <item quantity="other">Бодлогыг оролдсон тоо: %s</item>
-  </plurals>
-  <string name="fromGameLink">%s өргөөс сэдэвлэсэн бодлого</string>
-  <string name="continueTraining">Бодлого үргэлжлүүлэн бодох</string>
-  <string name="retryThisPuzzle">Энэ бодлогыг дахин оролдох</string>
-  <string name="thisPuzzleIsCorrect">Энэ бодлого зөв бөгөөд сонирхолтой байлаа</string>
-  <string name="thisPuzzleIsWrong">Энэ бодлого буруу бөгөөд сонирхолгүй байлаа</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s өрөг тоглогдож байна</item>
     <item quantity="other">%s өрөг тоглогдож байна</item>
@@ -726,7 +698,6 @@
   <string name="error.unknown">Алдаа</string>
   <string name="custom">Өөрийнхөөр</string>
   <string name="notifications">Мэдэгдэлүүд</string>
-  <string name="challenges">Бодлогууд</string>
   <string name="perfRatingX">Чансаа:%s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Эхний нүүдэл хийхэд %s секунд байна</item>
@@ -773,10 +744,6 @@
   <string name="opening">Гараа</string>
   <string name="middlegame">Тоглолтын дунд үе</string>
   <string name="endgame">Төгсгөл үе</string>
-  <string name="registerToSendChallenges">Тулаанд дуудахаар бүртгүүлнэ үү.</string>
-  <string name="youCannotChallengeX">%s-г тулаанд дуудаж болохгүй.</string>
-  <string name="xDoesNotAcceptChallenges">%s дуудлагыг хүлээн авсангүй.</string>
-  <string name="yourXRatingIsTooFarFromY">Таны %1$s үнэлгээ %2$s-с хэт зөрүүтэй байна.</string>
   <string name="sorry">Уучлаарай</string>
   <string name="why">Яагаад</string>
   <string name="thankYouForReading">Уншсанд баярлалаа</string>

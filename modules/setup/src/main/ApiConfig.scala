@@ -1,11 +1,14 @@
 package lila.setup
 
-import chess.Clock
 import chess.format.{ FEN, Forsyth }
+import chess.variant.Chess960
 import chess.variant.FromPosition
+import chess.{ Clock, Speed }
+
+import lila.game.PerfPicker
 import lila.lobby.Color
 import lila.rating.PerfType
-import lila.game.PerfPicker
+import chess.variant.Variant
 
 final case class ApiConfig(
     variant: chess.variant.Variant,
@@ -17,23 +20,21 @@ final case class ApiConfig(
     acceptByToken: Option[String] = None
 ) {
 
-  val strictFen = false
-
   def >> = (variant.key.some, clock, days, rated, color.name.some, position.map(_.value), acceptByToken).some
 
   def perfType: Option[PerfType] = PerfPicker.perfType(chess.Speed(clock), variant, days)
 
-  def validFen =
-    variant != FromPosition || {
-      position ?? { f =>
-        ~(Forsyth <<< f.value).map(_.situation playable strictFen)
-      }
+  def validFen = ApiConfig.validFen(variant, position)
+
+  def validSpeed(isBot: Boolean) =
+    !isBot || clock.fold(true) { c =>
+      Speed(c) >= Speed.Bullet
     }
 
   def mode = chess.Mode(rated)
 
   def autoVariant =
-    if (variant.standard && position.exists(_.value != Forsyth.initial)) copy(variant = FromPosition)
+    if (variant.standard && position.exists(!_.initial)) copy(variant = FromPosition)
     else this
 }
 
@@ -41,7 +42,7 @@ object ApiConfig extends BaseHumanConfig {
 
   lazy val clockLimitSeconds: Set[Int] = Set(0, 15, 30, 45, 60, 90) ++ (2 to 180).view.map(60 *).toSet
 
-  def <<(
+  def from(
       v: Option[String],
       cl: Option[Clock.Config],
       d: Option[Int],
@@ -56,7 +57,15 @@ object ApiConfig extends BaseHumanConfig {
       days = d,
       rated = r,
       color = Color.orDefault(~c),
-      position = pos map FEN,
+      position = pos map FEN.apply,
       acceptByToken = tok
     ).autoVariant
+
+  def validFen(variant: Variant, fen: Option[FEN]) =
+    if (variant.chess960) fen.forall(f => Chess960.positionNumber(f).isDefined)
+    else if (variant.fromPosition)
+      fen exists { f =>
+        (Forsyth <<< f).exists(_.situation playable false)
+      }
+    else true
 }

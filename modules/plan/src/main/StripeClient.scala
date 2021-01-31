@@ -1,13 +1,15 @@
 package lila.plan
 
 import play.api.libs.json._
-import play.api.libs.ws.{ WSClient, WSResponse }
+import play.api.libs.ws.DefaultBodyWritables._
+import play.api.libs.ws.JsonBodyReadables._
+import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
 
 import lila.common.config.Secret
 import lila.user.User
 
 final private class StripeClient(
-    ws: WSClient,
+    ws: StandaloneWSClient,
     config: StripeClient.Config
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -122,10 +124,9 @@ final private class StripeClient(
   private def getOne[A: Reads](url: String, queryString: (String, Any)*): Fu[Option[A]] =
     get[A](url, queryString) dmap Some.apply recover {
       case _: NotFoundException => None
-      case e: DeletedException => {
+      case e: DeletedException =>
         play.api.Logger("stripe").warn(e.getMessage)
         None
-      }
     }
 
   private def getList[A: Reads](url: String, queryString: (String, Any)*): Fu[List[A]] =
@@ -154,38 +155,38 @@ final private class StripeClient(
   private def request(url: String) =
     ws.url(s"${config.endpoint}/$url").withHttpHeaders("Authorization" -> s"Bearer ${config.secretKey.value}")
 
-  private def response[A: Reads](res: WSResponse): Fu[A] =
+  private def response[A: Reads](res: StandaloneWSResponse): Fu[A] =
     res.status match {
       case 200 =>
-        (implicitly[Reads[A]] reads res.json).fold(
+        (implicitly[Reads[A]] reads res.body[JsValue]).fold(
           errs =>
             fufail {
-              if (isDeleted(res.json))
-                new DeletedException(s"[stripe] Upstream resource was deleted: ${res.json}")
-              else new Exception(s"[stripe] Can't parse ${res.json} --- $errs")
+              if (isDeleted(res.body[JsValue]))
+                new DeletedException(s"[stripe] Upstream resource was deleted: ${res.body}")
+              else new Exception(s"[stripe] Can't parse ${res.body} --- $errs")
             },
           fuccess
         )
       case 404 => fufail { new NotFoundException(s"[stripe] Not found") }
       case x if x >= 400 && x < 500 =>
-        (res.json \ "error" \ "message").asOpt[String] match {
-          case None        => fufail { new InvalidRequestException(Json stringify res.json) }
+        (res.body[JsValue] \ "error" \ "message").asOpt[String] match {
+          case None        => fufail { new InvalidRequestException(res.body) }
           case Some(error) => fufail { new InvalidRequestException(error) }
         }
       case status => fufail { new StatusException(s"[stripe] Response status: $status") }
     }
 
   private def isDeleted(js: JsValue): Boolean =
-    (js.asOpt[JsObject] flatMap { o =>
+    js.asOpt[JsObject] flatMap { o =>
       (o \ "deleted").asOpt[Boolean]
-    }) == Some(true)
+    } contains true
 
   private def fixInput(in: Seq[(String, Any)]): Seq[(String, String)] =
-    (in map {
+    in flatMap {
       case (name, Some(x)) => Some(name -> x.toString)
       case (_, None)       => None
       case (name, x)       => Some(name -> x.toString)
-    }).flatten
+    }
 
   private def listReader[A: Reads]: Reads[List[A]] = (__ \ "data").read[List[A]]
 

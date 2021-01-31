@@ -8,20 +8,26 @@
  * Copyright 2007-2019 Brian Cherne
  */
 
-type State = any;
+type State = {
+  timeoutId?: Timeout | void;
+  isActive?: boolean;
+  pX?: number;
+  pY?: number;
+  event?: string;
+};
 
-export const menuHover = () => requestAnimationFrame(function() {
+export default function() {
 
-  if (window.lichess.hasTouchEvents) return;
+  if ('ontouchstart' in window) return;
 
-  const interval = 100;
-  const sensitivity = 10;
+  const interval = 100,
+  sensitivity = 10;
 
   // current X and Y position of mouse, updated during mousemove tracking (shared across instances)
   let cX: number, cY: number;
 
   // saves the current pointer position coordinates based on the given mousemove event
-  const track = (ev: JQueryEventObject) => {
+  const track = (ev: MouseEvent) => {
     cX = ev.pageX;
     cY = ev.pageY;
   };
@@ -38,12 +44,11 @@ export const menuHover = () => requestAnimationFrame(function() {
     const $el = $(this).removeClass('hover'),
       handler = () => $el.toggleClass('hover');
 
-
     // compares current and previous mouse positions
-    const compare = function() {
+    const compare = () => {
       // compare mouse positions to see if pointer has slowed enough to trigger `over` function
-      if ( Math.sqrt( (state.pX-cX)*(state.pX-cX) + (state.pY-cY)*(state.pY-cY) ) < sensitivity ) {
-        $el.off(state.event, track);
+      if (Math.sqrt((state.pX! - cX) * (state.pX! - cX) + (state.pY! - cY) * (state.pY! - cY)) < sensitivity) {
+        $el.off(state.event!, track);
         delete state.timeoutId;
         // set hoverIntent state as active for this element (permits `out` handler to trigger)
         state.isActive = true;
@@ -52,40 +57,40 @@ export const menuHover = () => requestAnimationFrame(function() {
         // set previous coordinates for next comparison
         state.pX = cX; state.pY = cY;
         // use self-calling timeout, guarantees intervals are spaced out properly (avoids JavaScript timer bugs)
-        state.timeoutId = setTimeout(compare, interval );
+        state.timeoutId = setTimeout(compare, interval);
       }
     };
 
     // A private function for handling mouse 'hovering'
-    var handleHover = function(ev: JQueryEventObject) {
+    const handleHover = function(ev: MouseEvent) {
 
       // clear any existing timeout
-      if (state.timeoutId) { state.timeoutId = clearTimeout(state.timeoutId); }
+      if (state.timeoutId) state.timeoutId = clearTimeout(state.timeoutId);
 
       // namespaced event used to register and unregister mousemove tracking
-      var mousemove = state.event = 'mousemove';
+      const mousemove = state.event = 'mousemove';
 
       // handle the event, based on its type
-      if (ev.type == 'mouseenter') {
+      if (ev.type == 'mouseover') {
         // do nothing if already active or a button is pressed (dragging a piece)
-        if (state.isActive || (ev.originalEvent as MouseEvent).buttons) return;
+        if (state.isActive || ev.buttons) return;
         // set "previous" X and Y position based on initial entry point
         state.pX = ev.pageX; state.pY = ev.pageY;
         // update "current" X and Y position based on mousemove
         $el.off(mousemove, track).on(mousemove, track);
         // start polling interval (self-calling timeout) to compare mouse coordinates over time
-        state.timeoutId = setTimeout(compare, interval );
+        state.timeoutId = setTimeout(compare, interval);
       } else { // "mouseleave"
         // do nothing if not already active
         if (!state.isActive) return;
         // unbind expensive mousemove event
-        $el.off(mousemove,track);
+        $el.off(mousemove, track);
         // if hoverIntent state is true, then call the mouseOut function after the specified delay
         state = {};
         handler();
       }
     };
 
-    $el.on('mouseenter', handleHover).on('mouseleave', handleHover);
+    $el.on('mouseover', handleHover).on('mouseleave', handleHover);
   });
-});
+}

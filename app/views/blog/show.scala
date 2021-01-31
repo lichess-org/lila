@@ -11,7 +11,7 @@ object show {
   def apply(doc: io.prismic.Document)(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) =
     views.html.base.layout(
       title = s"${~doc.getText("blog.title")} | Blog",
-      moreJs = jsAt("compiled/embed-analyse.js"),
+      moreJs = jsModule("expandText"),
       openGraph = lila.app.ui
         .OpenGraph(
           `type` = "article",
@@ -25,14 +25,14 @@ object show {
       csp = bits.csp
     )(
       main(cls := "page-menu page-small")(
-        bits.menu(none, false),
+        bits.menu(none, hasActive = false),
         div(cls := s"blog page-menu__content box post ${~doc.getText("blog.cssClasses")}")(
           h1(doc.getText("blog.title")),
           bits.metas(doc),
           doc.getImage("blog.image", "main").map { img =>
             div(cls := "illustration")(st.img(src := img.url))
           },
-          div(cls := "body embed_analyse")(
+          div(cls := "body expand-text")(
             doc
               .getHtml("blog.body", prismic.linkResolver)
               .map(lila.blog.Youtube.fixStartTimes)

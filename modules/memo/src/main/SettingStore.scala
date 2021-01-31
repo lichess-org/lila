@@ -59,13 +59,11 @@ object SettingStore {
   final class StringReader[A](val read: String => Option[A])
 
   object StringReader {
-    implicit val booleanReader = new StringReader[Boolean](v =>
-      v match {
-        case "on" | "yes" | "true" | "1"  => true.some
-        case "off" | "no" | "false" | "0" => false.some
-        case _                            => none
-      }
-    )
+    implicit val booleanReader = new StringReader[Boolean]({
+      case "on" | "yes" | "true" | "1"  => true.some
+      case "off" | "no" | "false" | "0" => false.some
+      case _                            => none
+    })
     implicit val intReader                          = new StringReader[Int](_.toIntOption)
     implicit val stringReader                       = new StringReader[String](some)
     def fromIso[A](iso: lila.common.Iso[String, A]) = new StringReader[A](v => iso.from(v).some)
@@ -75,6 +73,16 @@ object SettingStore {
     val stringsIso                  = lila.common.Iso.strings(",")
     implicit val stringsBsonHandler = lila.db.dsl.isoHandler(stringsIso)
     implicit val stringsReader      = StringReader.fromIso(stringsIso)
+  }
+  object UserIds {
+    val userIdsIso                  = lila.common.Iso.userIds(",")
+    implicit val userIdsBsonHandler = lila.db.dsl.isoHandler(userIdsIso)
+    implicit val userIdsReader      = StringReader.fromIso(userIdsIso)
+  }
+  object Ints {
+    val intsIso                  = lila.common.Iso.ints(",")
+    implicit val intsBsonHandler = lila.db.dsl.isoHandler(intsIso)
+    implicit val intsReader      = StringReader.fromIso(intsIso)
   }
   object Regex {
     val regexIso                  = lila.common.Iso.string[Regex](_.r, _.toString)
@@ -96,6 +104,9 @@ object SettingStore {
     implicit val stringFormable  = new Formable[String](v => Form(single("v" -> text)) fill v)
     implicit val stringsFormable = new Formable[lila.common.Strings](v =>
       Form(single("v" -> text)) fill Strings.stringsIso.to(v)
+    )
+    implicit val userIdsFormable = new Formable[lila.common.UserIds](v =>
+      Form(single("v" -> text)) fill UserIds.userIdsIso.to(v)
     )
   }
 

@@ -27,7 +27,7 @@ final class LeaderboardApi(
   def bestByUser(user: User, page: Int) = paginator(user, page, $sort asc "w")
 
   def timeRange(userId: User.ID, range: (DateTime, DateTime)): Fu[List[Entry]] =
-    repo.coll.ext
+    repo.coll
       .find(
         $doc(
           "u" -> userId,
@@ -35,7 +35,8 @@ final class LeaderboardApi(
         )
       )
       .sort($sort desc "d")
-      .list[Entry]()
+      .cursor[Entry]()
+      .list()
 
   def chart(user: User): Fu[ChartData] = {
     repo.coll
@@ -69,14 +70,12 @@ final class LeaderboardApi(
   }
 
   def getAndDeleteRecent(userId: User.ID, since: DateTime): Fu[List[Tournament.ID]] =
-    repo.coll.ext
-      .find(
-        $doc(
-          "u" -> userId,
-          "d" $gt since
-        )
+    repo.coll.list[Entry](
+      $doc(
+        "u" -> userId,
+        "d" $gt since
       )
-      .list[Entry]() flatMap { entries =>
+    ) flatMap { entries =>
       (entries.nonEmpty ?? repo.coll.delete.one($inIds(entries.map(_.id))).void) inject entries.map(_.tourId)
     }
 
@@ -127,13 +126,12 @@ object LeaderboardApi {
     import ChartData._
     lazy val allPerfResults: PerfResult = perfResults.map(_._2) match {
       case head :: tail =>
-        tail.foldLeft(head) {
-          case (acc, res) =>
-            PerfResult(
-              nb = acc.nb + res.nb,
-              points = res.points ::: acc.points,
-              rank = res.rank ::: acc.rank
-            )
+        tail.foldLeft(head) { case (acc, res) =>
+          PerfResult(
+            nb = acc.nb + res.nb,
+            points = res.points ::: acc.points,
+            rank = res.rank ::: acc.rank
+          )
         }
       case Nil => PerfResult(0, Ints(Nil), Ints(Nil))
     }

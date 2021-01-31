@@ -37,15 +37,16 @@ final class TournamentStandingApi(
       else computeMaybe(tour.id, page)
     } else compute(tour, page)
 
-  private val first = cacheApi[Tournament.ID, JsObject](16, "tournament.page.first") {
+  private val first = cacheApi[Tournament.ID, JsObject](64, "tournament.page.first") {
     _.expireAfterWrite(1 second)
       .buildAsyncFuture { compute(_, 1) }
   }
 
-  private val createdCache = cacheApi[(Tournament.ID, Int), JsObject](2, "tournament.page.createdCache") {
+  // useful for highly anticipated, highly populated tournaments
+  private val createdCache = cacheApi[(Tournament.ID, Int), JsObject](64, "tournament.page.createdCache") {
     _.expireAfterWrite(15 second)
-      .buildAsyncFuture {
-        case (tourId, page) => computeMaybe(tourId, page)
+      .buildAsyncFuture { case (tourId, page) =>
+        computeMaybe(tourId, page)
       }
   }
 
@@ -57,14 +58,13 @@ final class TournamentStandingApi(
   private def computeMaybe(id: Tournament.ID, page: Int): Fu[JsObject] =
     workQueue {
       compute(id, page)
-    } recover {
-      case _: Exception =>
-        lila.mon.tournament.standingOverload.increment()
-        Json.obj(
-          "failed"  -> true,
-          "page"    -> page,
-          "players" -> JsArray()
-        )
+    } recover { case _: Exception =>
+      lila.mon.tournament.standingOverload.increment()
+      Json.obj(
+        "failed"  -> true,
+        "page"    -> page,
+        "players" -> JsArray()
+      )
     }
 
   private def compute(id: Tournament.ID, page: Int): Fu[JsObject] =

@@ -49,8 +49,7 @@ object player {
       moreJs = frag(
         roundNvuiTag,
         roundTag,
-        embedJsUnsafe(s"""lichess=window.lichess||{};customWS=true;onload=function(){
-LichessRound.boot(${safeJsonValue(
+        embedJsUnsafeLoadThen(s"""LichessRound.boot(${safeJsonValue(
           Json
             .obj(
               "data"   -> data,
@@ -58,7 +57,7 @@ LichessRound.boot(${safeJsonValue(
               "userId" -> ctx.userId,
               "chat"   -> chatJson
             )
-        )})}""")
+        )})""")
       ),
       openGraph = povOpenGraph(pov).some,
       chessground = false,
@@ -69,7 +68,7 @@ LichessRound.boot(${safeJsonValue(
           bits.side(pov, data, tour.map(_.tourAndTeamVs), simul, bookmarked = bookmarked),
           chatOption.map(_ => chat.frag)
         ),
-        bits.roundAppPreload(pov, true),
+        bits.roundAppPreload(pov, controls = true),
         div(cls := "round__underboard")(
           bits.crosstable(cross, pov.game),
           (playing.nonEmpty || simul.exists(_ isHost ctx.me)) option

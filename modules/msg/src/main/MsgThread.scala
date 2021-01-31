@@ -18,6 +18,11 @@ case class MsgThread(
   def other(user: LightUser): User.ID = other(user.id)
 
   def delBy(userId: User.ID) = del.exists(_ contains userId)
+
+  def isPriority =
+    !lastMsg.read && {
+      user1 == User.lichessId || user2 == User.lichessId
+    }
 }
 
 object MsgThread {
@@ -30,17 +35,18 @@ object MsgThread {
 
   case class Unread(thread: MsgThread)
 
+  val idSep = '/'
+
   def id(u1: User.ID, u2: User.ID): Id =
     Id {
       sortUsers(u1, u2) match {
-        case (user1, user2) => s"$user1/$user2"
+        case (user1, user2) => s"$user1$idSep$user2"
       }
     }
 
   def make(u1: User.ID, u2: User.ID, msg: Msg): MsgThread =
     sortUsers(u1, u2) match {
       case (user1, user2) =>
-        s"$user1/$user2"
         MsgThread(
           id = id(user1, user2),
           user1 = user1,

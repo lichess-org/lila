@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arenaTournaments">Arēnas turnīri</string>
   <string name="isItRated">Vai tas ir vērtēts?</string>
   <string name="willBeNotified">Saņemsiet paziņojumu, kad turnīrs sāksies, tāpēc gaidot varat droši spēlēt citā cilnē.</string>
   <string name="isRated">Šis ir vērtēts turnīrs un ietekmēs jūsu reitingu.</string>
@@ -39,4 +40,5 @@ Spēlē ātri un atgriezies vestibilā lai spēlētu vairāk spēļu un iegūtu 
   <string name="thisIsPrivate">Šis ir privāts turnīrs</string>
   <string name="shareUrl">Dalies ar šo saiti lai citi pievienotos: %s</string>
   <string name="drawStreak">Atkārtoti neizšķirti: Kad spēlētājs vairākas reizes pēc kārtas panāk neizšķirtu arēnā, punktu ieskaitīs tikai par pirmo neizšķirtu, vai neizšķirtas spēles, kas ilga %s gājienus. Šo secību var pārtraukt tikai uzvara, nevis zaudējums vai neizšķirts.</string>
+  <string name="history">Arēnu vēsture</string>
 </resources>

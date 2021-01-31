@@ -16,7 +16,6 @@ exports.rollupProject = (targets) => {
           name: target.name,
           plugins: [
             terser({
-              safari10: true,
               output: {
                 comments: false,
               },
@@ -29,6 +28,7 @@ exports.rollupProject = (targets) => {
         }
       ],
       plugins: [
+        ...(target.plugins || []),
         resolve(),
         ...(target.js ? [] : [typescript()]),
         commonjs({

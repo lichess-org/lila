@@ -65,20 +65,6 @@ export function countChildrenAndComments(node: Tree.Node) {
   return count;
 }
 
-export function reconstruct(parts: any): Tree.Node {
-  const root = parts[0], nb = parts.length;
-  let node = root, i: number;
-  root.id = '';
-  for (i = 1; i < nb; i++) {
-    const n = parts[i];
-    if (node.children) node.children.unshift(n);
-    else node.children = [n];
-    node = n;
-  }
-  node.children = node.children || [];
-  return root;
-}
-
 // adds n2 into n1
 export function merge(n1: Tree.Node, n2: Tree.Node): void {
   n1.eval = n2.eval;

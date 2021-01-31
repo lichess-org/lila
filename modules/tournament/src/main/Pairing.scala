@@ -80,13 +80,12 @@ private[tournament] object Pairing {
     )
 
   case class Prep(tourId: Tournament.ID, user1: User.ID, user2: User.ID) {
-    def toPairing(gameId: Game.ID)(firstGetsWhite: Boolean): Pairing =
-      if (firstGetsWhite) make(gameId, tourId, user1, user2)
-      else make(gameId, tourId, user2, user1)
+    def toPairing(gameId: Game.ID): Pairing =
+      make(gameId, tourId, user1, user2)
   }
 
-  def prep(tour: Tournament, ps: (Player, Player)) =
-    Prep(tour.id, ps._1.userId, ps._2.userId)
-  def prep(tour: Tournament, p1: Player, p2: Player) =
-    Prep(tour.id, p1.userId, p2.userId)
+  def prepWithColor(tour: Tournament, p1: RankedPlayerWithColorHistory, p2: RankedPlayerWithColorHistory) =
+    if (p1.colorHistory.firstGetsWhite(p2.colorHistory)(() => lila.common.ThreadLocalRandom.nextBoolean()))
+      Prep(tour.id, p1.player.userId, p2.player.userId)
+    else Prep(tour.id, p2.player.userId, p1.player.userId)
 }

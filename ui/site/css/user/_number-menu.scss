@@ -2,8 +2,10 @@
   background: $c-bg-zebra;
   display: flex;
   user-select: none;
+
   .nm-item {
     @extend %roboto;
+
     flex: 1 1 auto;
     color: $c-font;
     text-align: center;
@@ -12,28 +14,37 @@
     text-transform: capitalize;
     white-space: normal;
     font-size: .9em;
+
     &:hover {
       color: $c-link;
     }
   }
+
   &--tabs .nm-item {
     @extend %box-radius-top;
+
     margin-top: .7em;
     padding-bottom: .8em;
-    @include transition();
+
+    @include transition;
+
     border-bottom: $border;
+
     &:first-child {
       border-top-left-radius: 0;
-      border-left: 0!important;
+      border-left: 0 !important;
     }
+
     &:last-child {
       border-top-right-radius: 0;
-      border-right: 0!important;
+      border-right: 0 !important;
     }
+
     &:hover {
       background: mix($c-link, $c-bg-box, 10%);
       color: $c-font-clear;
     }
+
     &.active {
       color: $c-font-clear;
       border: $border;
@@ -41,6 +52,7 @@
       background: $c-bg-box;
     }
   }
+
   strong {
     font-weight: normal;
     font-size: 1.1em;

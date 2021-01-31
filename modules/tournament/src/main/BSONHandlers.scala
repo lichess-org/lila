@@ -1,13 +1,15 @@
 package lila.tournament
 
 import chess.Clock.{ Config => ClockConfig }
+import chess.format.FEN
+import chess.Mode
 import chess.variant.Variant
-import chess.{ Mode, StartingPosition }
+import reactivemongo.api.bson._
+
 import lila.db.BSON
 import lila.db.dsl._
 import lila.rating.PerfType
 import lila.user.User.lichessId
-import reactivemongo.api.bson._
 
 object BSONHandlers {
 
@@ -26,13 +28,19 @@ object BSONHandlers {
     x => BSONString(x.key)
   )
 
+  implicit val scheduleWriter = BSONWriter[Schedule](s =>
+    $doc(
+      "freq"  -> s.freq,
+      "speed" -> s.speed
+    )
+  )
+
   implicit val tournamentClockBSONHandler = tryHandler[ClockConfig](
-    {
-      case doc: BSONDocument =>
-        for {
-          limit <- doc.getAsTry[Int]("limit")
-          inc   <- doc.getAsTry[Int]("increment")
-        } yield ClockConfig(limit, inc)
+    { case doc: BSONDocument =>
+      for {
+        limit <- doc.getAsTry[Int]("limit")
+        inc   <- doc.getAsTry[Int]("increment")
+      } yield ClockConfig(limit, inc)
     },
     c =>
       BSONDocument(
@@ -56,9 +64,9 @@ object BSONHandlers {
   implicit val tournamentHandler = new BSON[Tournament] {
     def reads(r: BSON.Reader) = {
       val variant = r.intO("variant").fold[Variant](Variant.default)(Variant.orDefault)
-      val position: StartingPosition = r.strO("fen").flatMap(Thematic.byFen) orElse
-        r.strO("eco").flatMap(Thematic.byEco) getOrElse // for BC
-        StartingPosition.initial
+      val position: Option[FEN] =
+        r.getO[FEN]("fen").filterNot(_.initial) orElse
+          r.strO("eco").flatMap(Thematic.byEco).map(_.fen) // for BC
       val startsAt   = r date "startsAt"
       val conditions = r.getO[Condition.All]("conditions") getOrElse Condition.All.empty
       Tournament(
@@ -71,7 +79,7 @@ object BSONHandlers {
         position = position,
         mode = r.intO("mode") flatMap Mode.apply getOrElse Mode.Rated,
         password = r.strO("password"),
-        conditions = conditions,
+        conditions = r.getO[Condition.All]("conditions") getOrElse Condition.All.empty,
         teamBattle = r.getO[TeamBattle]("teamBattle"),
         noBerserk = r boolD "noBerserk",
         noStreak = r boolD "noStreak",
@@ -93,25 +101,20 @@ object BSONHandlers {
     }
     def writes(w: BSON.Writer, o: Tournament) =
       $doc(
-        "_id"        -> o.id,
-        "name"       -> o.name,
-        "status"     -> o.status,
-        "clock"      -> o.clock,
-        "minutes"    -> o.minutes,
-        "variant"    -> o.variant.some.filterNot(_.standard).map(_.id),
-        "fen"        -> o.position.some.filterNot(_.initial).map(_.fen),
-        "mode"       -> o.mode.some.filterNot(_.rated).map(_.id),
-        "password"   -> o.password,
-        "conditions" -> o.conditions.ifNonEmpty,
-        "teamBattle" -> o.teamBattle,
-        "noBerserk"  -> w.boolO(o.noBerserk),
-        "noStreak"   -> w.boolO(o.noStreak),
-        "schedule" -> o.schedule.map { s =>
-          $doc(
-            "freq"  -> s.freq,
-            "speed" -> s.speed
-          )
-        },
+        "_id"         -> o.id,
+        "name"        -> o.name,
+        "status"      -> o.status,
+        "clock"       -> o.clock,
+        "minutes"     -> o.minutes,
+        "variant"     -> o.variant.some.filterNot(_.standard).map(_.id),
+        "fen"         -> o.position.map(_.value),
+        "mode"        -> o.mode.some.filterNot(_.rated).map(_.id),
+        "password"    -> o.password,
+        "conditions"  -> o.conditions.ifNonEmpty,
+        "teamBattle"  -> o.teamBattle,
+        "noBerserk"   -> w.boolO(o.noBerserk),
+        "noStreak"    -> w.boolO(o.noStreak),
+        "schedule"    -> o.schedule,
         "nbPlayers"   -> o.nbPlayers,
         "createdAt"   -> w.date(o.createdAt),
         "createdBy"   -> o.nonLichessCreatedBy,

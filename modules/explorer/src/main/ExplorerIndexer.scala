@@ -4,7 +4,8 @@ import akka.stream.scaladsl._
 import chess.format.pgn.Tag
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
-import scala.util.Random.nextFloat
+import play.api.libs.ws.DefaultBodyWritables._
+import lila.common.ThreadLocalRandom.nextFloat
 import scala.util.{ Failure, Success, Try }
 
 import lila.common.LilaStream
@@ -16,7 +17,7 @@ final private class ExplorerIndexer(
     gameRepo: GameRepo,
     userRepo: UserRepo,
     getBotUserIds: lila.user.GetBotIds,
-    ws: play.api.libs.ws.WSClient,
+    ws: play.api.libs.ws.StandaloneWSClient,
     internalEndpoint: InternalEndpoint
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -26,7 +27,7 @@ final private class ExplorerIndexer(
   private val separator           = "\n\n\n"
   private val datePattern         = "yyyy-MM-dd"
   private val dateFormatter       = DateTimeFormat forPattern datePattern
-  private val pgnDateFormat       = DateTimeFormat forPattern "yyyy.MM.dd";
+  private val pgnDateFormat       = DateTimeFormat forPattern "yyyy.MM.dd"
   private val internalEndPointUrl = s"$internalEndpoint/import/lichess"
 
   private def parseDate(str: String): Option[DateTime] =
@@ -60,7 +61,7 @@ final private class ExplorerIndexer(
             }
           }
           .toMat(Sink.ignore)(Keep.right)
-          .run
+          .run()
           .void
       }
     }
@@ -78,7 +79,7 @@ final private class ExplorerIndexer(
     def apply(pgn: String): Unit = {
       buf += pgn
       val startAt = nowMillis
-      if (buf.size >= max) {
+      if (buf.sizeIs >= max) {
         ws.url(internalEndPointUrl).put(buf mkString separator) andThen {
           case Success(res) if res.status == 200 =>
             lila.mon.explorer.index.time.record((nowMillis - startAt) / max)
@@ -90,7 +91,7 @@ final private class ExplorerIndexer(
             logger.warn(s"$err", err)
             lila.mon.explorer.index.count(false).increment(max)
         }
-        buf.clear
+        buf.clear()
       }
     }
   }
@@ -135,7 +136,7 @@ final private class ExplorerIndexer(
       if blackRating >= minPlayerRating
       averageRating = (whiteRating + blackRating) / 2
       if averageRating >= minAverageRating
-      if probability(game, averageRating) > nextFloat
+      if probability(game, averageRating) > nextFloat()
       if !game.userIds.exists(botUserIds.contains)
       if valid(game)
     } yield gameRepo initialFen game flatMap { initialFen =>
@@ -145,19 +146,18 @@ final private class ExplorerIndexer(
             usernames.find(_.toLowerCase == id)
           } orElse game.player(color).userId getOrElse "?"
         val fenTags = initialFen.?? { fen =>
-          List(s"[FEN $fen]")
+          List(Tag(_.FEN, fen))
         }
-        val timeControl = Tag.timeControl(game.clock.map(_.config)).value
         val otherTags = List(
-          s"[LichessID ${game.id}]",
-          s"[Variant ${game.variant.name}]",
-          s"[TimeControl $timeControl]",
-          s"[White ${username(chess.White)}]",
-          s"[Black ${username(chess.Black)}]",
-          s"[WhiteElo $whiteRating]",
-          s"[BlackElo $blackRating]",
-          s"[Result ${PgnDump.result(game)}]",
-          s"[Date ${pgnDateFormat.print(game.createdAt)}]"
+          Tag("LichessID", game.id),
+          Tag(_.Variant, game.variant.name),
+          Tag.timeControl(game.clock.map(_.config)),
+          Tag(_.White, username(chess.White)),
+          Tag(_.Black, username(chess.Black)),
+          Tag(_.WhiteElo, whiteRating),
+          Tag(_.BlackElo, blackRating),
+          Tag(_.Result, PgnDump.result(game)),
+          Tag(_.Date, pgnDateFormat.print(game.createdAt))
         )
         val allTags = fenTags ::: otherTags
         s"${allTags.mkString("\n")}\n\n${game.pgnMoves.take(maxPlies).mkString(" ")}".some

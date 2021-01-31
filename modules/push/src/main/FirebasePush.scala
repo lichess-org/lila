@@ -3,9 +3,10 @@ package lila.push
 import com.google.auth.oauth2.{ AccessToken, GoogleCredentials }
 import io.methvin.play.autoconfig._
 import play.api.libs.json._
-import play.api.libs.ws.WSClient
-import scala.concurrent.{ blocking, Future }
+import play.api.libs.ws.JsonBodyWritables._
+import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
+import scala.concurrent.{ blocking, Future }
 
 import lila.common.Chronometer
 import lila.user.User
@@ -13,7 +14,7 @@ import lila.user.User
 final private class FirebasePush(
     credentialsOpt: Option[GoogleCredentials],
     deviceApi: DeviceApi,
-    ws: WSClient,
+    ws: StandaloneWSClient,
     config: FirebasePush.Config
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -34,7 +35,7 @@ final private class FirebasePush(
               Chronometer.syncMon(_.blocking time "firebase") {
                 blocking {
                   creds.refreshIfExpired()
-                  creds.getAccessToken()
+                  creds.getAccessToken
                 }
               }
             }
@@ -69,7 +70,7 @@ final private class FirebasePush(
       ) flatMap {
       case res if res.status == 200 => funit
       case res if res.status == 404 =>
-        logger.info(s"Delete missing firebase device ${device}")
+        logger.info(s"Delete missing firebase device $device")
         deviceApi delete device
       case res => fufail(s"[push] firebase: ${res.status}")
     }

@@ -1,6 +1,7 @@
 package lila.activity
 
 import lila.db.dsl._
+import lila.db.ignoreDuplicateKey
 import lila.game.Game
 import lila.study.Study
 import lila.user.User
@@ -28,10 +29,13 @@ final class ActivityWriteApi(
               .add(pt, Score.make(game wonBy player.color, RatingProg make player))
           )
           setCorres = game.hasCorrespondenceClock ?? $doc(
-            ActivityFields.corres -> a.corres.orDefault.+(GameId(game.id), false, true)
+            ActivityFields.corres -> a.corres.orDefault.add(GameId(game.id), moved = false, ended = true)
           )
           setters = setGames ++ setCorres
-          _ <- (!setters.isEmpty) ?? coll.update.one($id(a.id), $set(setters), upsert = true).void
+          _ <-
+            (!setters.isEmpty) ?? coll.update
+              .one($id(a.id), $set(setters), upsert = true)
+              .void
         } yield ()
       }
       .sequenceFu
@@ -66,6 +70,17 @@ final class ActivityWriteApi(
         .void
     }
 
+  def storm(userId: User.ID, score: Int): Funit =
+    getOrCreate(userId) flatMap { a =>
+      coll.update
+        .one(
+          $id(a.id),
+          $set(ActivityFields.storm -> { ~a.storm + score }),
+          upsert = true
+        )
+        .void
+    }
+
   def learn(userId: User.ID, stage: String) =
     update(userId) { a =>
       a.copy(learn = Some(~a.learn + Learn.Stage(stage))).some
@@ -82,7 +97,7 @@ final class ActivityWriteApi(
 
   def corresMove(gameId: Game.ID, userId: User.ID) =
     update(userId) { a =>
-      a.copy(corres = Some(~a.corres + (GameId(gameId), true, false))).some
+      a.copy(corres = Some((~a.corres).add(GameId(gameId), moved = true, ended = false))).some
     }
 
   def plan(userId: User.ID, months: Int) =

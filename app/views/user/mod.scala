@@ -1,22 +1,20 @@
 package views.html.user
 
+import controllers.routes
 import play.api.i18n.Lang
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.evaluation.Display
-import lila.security.{ Dated, FingerHash, Permission, UserSpy }
 import lila.playban.RageSit
+import lila.security.{ Permission, UserSpy }
 import lila.user.User
 
-import controllers.routes
-
 object mod {
-
   private def mzSection(key: String) = div(id := s"mz_$key", cls := "mz-section")
 
-  def menu(u: User)(implicit ctx: Context) =
+  def menu =
     mzSection("menu")(
       a(href := "#mz_actions")("Overview"),
       a(href := "#mz_irwin")("Irwin"),
@@ -28,17 +26,21 @@ object mod {
 
   def actions(u: User, emails: User.Emails, erased: User.Erased)(implicit ctx: Context): Frag =
     mzSection("actions")(
-      isGranted(_.UserEvaluate) option div(cls := "btn-rack")(
-        postForm(action := routes.Mod.spontaneousInquiry(u.username), title := "Start an inquiry")(
-          submitButton(cls := "btn-rack__btn inquiry")(i)
-        ),
-        postForm(
-          action := routes.Mod.refreshUserAssess(u.username),
-          title := "Collect data and ask irwin",
-          cls := "xhr"
-        )(
-          submitButton(cls := "btn-rack__btn")("Evaluate")
-        ),
+      div(cls := "btn-rack")(
+        isGranted(_.ModMessage) option {
+          postForm(action := routes.Mod.spontaneousInquiry(u.username), title := "Start an inquiry")(
+            submitButton(cls := "btn-rack__btn inquiry", title := "Hotkey: i")(i)
+          )
+        },
+        isGranted(_.UserEvaluate) option {
+          postForm(
+            action := routes.Mod.refreshUserAssess(u.username),
+            title := "Collect data and ask irwin",
+            cls := "xhr"
+          )(
+            submitButton(cls := "btn-rack__btn")("Evaluate")
+          )
+        },
         isGranted(_.Shadowban) option {
           a(
             cls := "btn-rack__btn",
@@ -46,9 +48,11 @@ object mod {
             title := "View communications"
           )("Comms")
         },
-        postForm(action := routes.Mod.notifySlack(u.id), title := "Notify #tavern", cls := "xhr")(
-          submitButton(cls := "btn-rack__btn")("Slack")
-        )
+        isGranted(_.NotifySlack) option {
+          postForm(action := routes.Mod.notifySlack(u.id), title := "Notify #tavern", cls := "xhr")(
+            submitButton(cls := "btn-rack__btn")("Slack")
+          )
+        }
       ),
       div(cls := "btn-rack")(
         isGranted(_.CloseAccount) option {
@@ -94,6 +98,15 @@ object mod {
             cls := "xhr"
           )(
             submitButton(cls := "btn-rack__btn confirm")("Clear PMs & chats")
+          )
+        },
+        isGranted(_.SetKidMode) option {
+          postForm(
+            action := routes.Mod.kid(u.username),
+            title := "Activate kid mode if not already the case",
+            cls := "xhr"
+          )(
+            submitButton(cls := "btn-rack__btn confirm")("Kid")
           )
         },
         isGranted(_.RemoveRanking) option {
@@ -159,7 +172,7 @@ object mod {
       isGranted(_.SetTitle) option {
         postForm(cls := "fide_title", action := routes.Mod.setTitle(u.username))(
           form3.select(
-            lila.user.DataForm.title.fill(u.title.map(_.value))("title"),
+            lila.user.UserForm.title.fill(u.title.map(_.value))("title"),
             lila.user.Title.acronyms.map(t => t -> t),
             "".some
           )
@@ -238,28 +251,47 @@ object mod {
       )
     }
 
-  def modLog(history: List[lila.mod.Modlog])(implicit lang: Lang) =
+  def modLog(history: List[lila.mod.Modlog], appeal: Option[lila.appeal.Appeal])(implicit lang: Lang) =
     mzSection("mod_log")(
-      strong(cls := "text", dataIcon := "!")(
-        "Moderation history",
-        history.isEmpty option ": nothing to show"
-      ),
-      history.nonEmpty ?? frag(
-        ul(
-          history.map { e =>
-            li(
-              userIdLink(e.mod.some, withTitle = false),
-              " ",
-              b(e.showAction),
-              " ",
-              e.details,
-              " ",
-              momentFromNowServer(e.date)
-            )
-          }
+      div(cls := "mod_log mod_log--history")(
+        strong(cls := "text", dataIcon := "!")(
+          "Moderation history",
+          history.isEmpty option ": nothing to show"
         ),
-        br
-      )
+        history.nonEmpty ?? frag(
+          ul(
+            history.map { e =>
+              li(
+                userIdLink(e.mod.some, withTitle = false),
+                " ",
+                b(e.showAction),
+                " ",
+                e.details,
+                " ",
+                momentFromNowServer(e.date)
+              )
+            }
+          ),
+          br
+        )
+      ),
+      appeal map { a =>
+        frag(
+          div(cls := "mod_log mod_log--appeal")(
+            st.a(href := routes.Appeal.show(a.id))(
+              strong(cls := "text", dataIcon := "!")(
+                "Appeal status: ",
+                a.status.toString
+              )
+            ),
+            br,
+            a.msgs.map(_.text).map(shorten(_, 140)).map(p(_)),
+            a.msgs.size > 1 option st.a(href := routes.Appeal.show(a.id))(
+              frag("and ", pluralize("more message", a.msgs.size - 1))
+            )
+          )
+        )
+      }
     )
 
   def reportLog(u: User)(reports: lila.report.Report.ByAndAbout)(implicit lang: Lang) =
@@ -473,7 +505,13 @@ object mod {
       table(cls := "slist")(
         thead(
           tr(
-            th(pluralize("linked user", spy.otherUsers.size)),
+            th(
+              pluralize("linked user", spy.otherUsers.size),
+              (max < 1000 && true || othersWithEmail.others.sizeIs >= max) option frag(
+                nbsp,
+                a(cls := "more-others")("Load more")
+              )
+            ),
             th("Email"),
             sortNumberTh("Same"),
             th("Games"),
@@ -491,62 +529,58 @@ object mod {
           )
         ),
         tbody(
-          othersWithEmail.others.map {
-            case other @ UserSpy.OtherUser(o, _, _) =>
-              val dox = isGranted(_.Doxing) || (o.lameOrAlt && !o.hasTitle)
-              val userNotes =
-                notes.filter(n => n.to == o.id && (ctx.me.exists(n.isFrom) || isGranted(_.Doxing)))
-              tr(
-                dataTags := s"${other.ips.mkString(" ")} ${other.fps.mkString(" ")}",
-                cls := (o == u) option "same"
+          othersWithEmail.others.map { case other @ UserSpy.OtherUser(o, _, _) =>
+            val dox = isGranted(_.Doxing) || (o.lameOrAlt && !o.hasTitle)
+            val userNotes =
+              notes.filter(n => n.to == o.id && (ctx.me.exists(n.isFrom) || isGranted(_.Doxing)))
+            tr(
+              dataTags := s"${other.ips.mkString(" ")} ${other.fps.mkString(" ")}",
+              cls := (o == u) option "same"
+            )(
+              if (dox || o == u) td(dataSort := o.id)(userLink(o, withBestRating = true, params = "?mod"))
+              else td,
+              if (dox) td(othersWithEmail emailValueOf o)
+              else td,
+              td(
+                // show prints and ips separately
+                dataSort := other.score + (other.ips.nonEmpty ?? 1000000) + (other.fps.nonEmpty ?? 3000000)
               )(
-                if (dox || o == u) td(dataSort := o.id)(userLink(o, withBestRating = true, params = "?mod"))
-                else td,
-                if (dox) td(othersWithEmail emailValueOf o)
-                else td,
-                td(
-                  // show prints and ips separately
-                  dataSort := other.score + (other.ips.nonEmpty ?? 1000000) + (other.fps.nonEmpty ?? 3000000)
-                )(
-                  List(other.ips.size -> "IP", other.fps.size -> "Print")
-                    .collect {
-                      case (nb, name) if nb > 0 => s"$nb $name"
-                    }
-                    .mkString(", ")
-                ),
-                td(dataSort := o.count.game)(o.count.game.localize),
-                markTd(~bans.get(o.id), playban(cls := "text")(~bans.get(o.id))),
-                markTd(o.marks.alt ?? 1, alt),
-                markTd(o.marks.troll ?? 1, shadowban),
-                markTd(o.marks.boost ?? 1, boosting),
-                markTd(o.marks.engine ?? 1, engine),
-                markTd(o.disabled ?? 1, closed),
-                markTd(o.marks.reportban ?? 1, reportban),
-                userNotes.nonEmpty option {
-                  td(dataSort := userNotes.size)(
-                    a(href := s"${routes.User.show(o.username)}?notes")(
-                      notesText(
-                        title := s"Notes from ${userNotes.map(_.from).map(usernameOrId).mkString(", ")}",
-                        cls := "is-green"
-                      ),
-                      userNotes.size
-                    )
+                List(other.ips.size -> "IP", other.fps.size -> "Print")
+                  .collect {
+                    case (nb, name) if nb > 0 => s"$nb $name"
+                  }
+                  .mkString(", ")
+              ),
+              td(dataSort := o.count.game)(o.count.game.localize),
+              markTd(~bans.get(o.id), playban(cls := "text")(~bans.get(o.id))),
+              markTd(o.marks.alt ?? 1, alt),
+              markTd(o.marks.troll ?? 1, shadowban),
+              markTd(o.marks.boost ?? 1, boosting),
+              markTd(o.marks.engine ?? 1, engine),
+              markTd(o.disabled ?? 1, closed),
+              markTd(o.marks.reportban ?? 1, reportban),
+              userNotes.nonEmpty option {
+                td(dataSort := userNotes.size)(
+                  a(href := s"${routes.User.show(o.username)}?notes")(
+                    notesText(
+                      title := s"Notes from ${userNotes.map(_.from).map(usernameOrId).mkString(", ")}",
+                      cls := "is-green"
+                    ),
+                    userNotes.size
                   )
-                } getOrElse td(dataSort := 0),
-                td(dataSort := o.createdAt.getMillis)(momentFromNowServer(o.createdAt)),
-                td(dataSort := o.seenAt.map(_.getMillis.toString))(o.seenAt.map(momentFromNowServer)),
-                isGranted(_.CloseAccount) option td(
-                  o.enabled option button(
-                    cls := "button button-empty button-thin button-red mark-alt",
-                    href := routes.Mod.alt(o.id, !o.marks.alt)
-                  )("ALT")
                 )
+              } getOrElse td(dataSort := 0),
+              td(dataSort := o.createdAt.getMillis)(momentFromNowServer(o.createdAt)),
+              td(dataSort := o.seenAt.map(_.getMillis.toString))(o.seenAt.map(momentFromNowServer)),
+              isGranted(_.CloseAccount) option td(
+                !o.marks.alt option button(
+                  cls := "button button-empty button-thin button-red mark-alt",
+                  href := routes.Mod.alt(o.id, !o.marks.alt)
+                )("ALT")
               )
+            )
           }
         )
-      ),
-      (max < 1000 && max <= othersWithEmail.size) option button(cls := "button more-others")(
-        "Load more users"
       )
     )
 
@@ -596,7 +630,7 @@ object mod {
               .map { ua =>
                 import ua.value.client._
                 tr(
-                  td(if (device.family == "Other") "Computer" else device.family),
+                  td(title := ua.value.ua)(if (device.family == "Other") "Computer" else device.family),
                   td(parts(os.family.some, os.major)),
                   td(parts(userAgent.family.some, userAgent.major)),
                   td(dataSort := ua.date.getMillis)(momentFromNowServer(ua.date)),
@@ -622,7 +656,7 @@ object mod {
             )
           ),
           tbody(
-            spy.ips.sortBy(-_.alts.score).map { ip =>
+            spy.ips.sortBy(ip => (-ip.alts.score, -ip.ip.seconds)).map { ip =>
               tr(cls := ip.blocked option "blocked")(
                 td(a(href := routes.Mod.singleIp(ip.ip.value.value))(ip.ip.value)),
                 td(dataSort := ip.alts.score)(altMarks(ip.alts)),
@@ -653,7 +687,7 @@ object mod {
             )
           ),
           tbody(
-            spy.prints.sortBy(-_.alts.score).map { fp =>
+            spy.prints.sortBy(fp => (-fp.alts.score, -fp.fp.seconds)).map { fp =>
               tr(cls := fp.banned option "blocked")(
                 td(a(href := routes.Mod.print(fp.fp.value.value))(fp.fp.value)),
                 td(dataSort := fp.alts.score)(altMarks(fp.alts)),

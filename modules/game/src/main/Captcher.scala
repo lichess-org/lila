@@ -2,12 +2,11 @@ package lila.game
 
 import akka.actor._
 import akka.pattern.pipe
+import cats.data.NonEmptyList
 import chess.format.pgn.{ Sans, Tags }
 import chess.format.{ pgn, Forsyth }
 import chess.{ Game => ChessGame }
 import scala.util.Success
-import scalaz.Validation.FlatMap._
-import scalaz.NonEmptyList
 
 import lila.common.Captcha
 import lila.hub.actorApi.captcha._
@@ -18,14 +17,14 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
 
   def receive = {
 
-    case AnyCaptcha => sender ! Impl.current
+    case AnyCaptcha => sender() ! Impl.current
 
-    case GetCaptcha(id: String) => Impl get id pipeTo sender
+    case GetCaptcha(id: String) => Impl.get(id).pipeTo(sender()).unit
 
-    case actorApi.NewCaptcha => Impl.refresh
+    case actorApi.NewCaptcha => Impl.refresh.unit
 
     case ValidCaptcha(id: String, solution: String) =>
-      Impl get id map (_ valid solution) pipeTo sender
+      Impl.get(id).map(_ valid solution).pipeTo(sender()).unit
   }
 
   private object Impl {
@@ -39,23 +38,23 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
     def current = challenges.head
 
     def refresh =
-      createFromDb andThen {
-        case Success(Some(captcha)) => add(captcha)
+      createFromDb andThen { case Success(Some(captcha)) =>
+        add(captcha)
       }
 
     // Private stuff
 
-    private val capacity                          = 256
-    private var challenges: NonEmptyList[Captcha] = NonEmptyList(Captcha.default)
+    private val capacity   = 256
+    private var challenges = NonEmptyList.one(Captcha.default)
 
     private def add(c: Captcha): Unit = {
       find(c.gameId) ifNone {
-        challenges = NonEmptyList.nel(c, challenges.list take capacity)
+        challenges = NonEmptyList(c, challenges.toList take capacity)
       }
     }
 
     private def find(id: String): Option[Captcha] =
-      challenges.list.find(_.gameId == id)
+      challenges.find(_.gameId == id)
 
     private def createFromDb: Fu[Option[Captcha]] =
       findCheckmateInDb(10) flatMap {
@@ -79,18 +78,17 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
       for {
         rewinded  <- rewind(moves)
         solutions <- solve(rewinded)
-        moves = rewinded.situation.destinations map {
-          case (from, dests) => from.key -> dests.mkString
+        moves = rewinded.situation.destinations map { case (from, dests) =>
+          from.key -> dests.mkString
         }
       } yield Captcha(game.id, fen(rewinded), rewinded.player.white, solutions, moves = moves)
 
     private def solve(game: ChessGame): Option[Captcha.Solutions] =
       game.situation.moves.view
-        .flatMap {
-          case (_, moves) =>
-            moves filter { move =>
-              (move.after situationOf !game.player).checkMate
-            }
+        .flatMap { case (_, moves) =>
+          moves filter { move =>
+            (move.after situationOf !game.player).checkMate
+          }
         }
         .to(List) map { move =>
         s"${move.orig} ${move.dest}"
@@ -112,6 +110,6 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
         case _        => Nil
       }
 
-    private def fen(game: ChessGame): String = Forsyth >> game takeWhile (_ != ' ')
+    private def fen(game: ChessGame): String = Forsyth exportBoard game.board
   }
 }

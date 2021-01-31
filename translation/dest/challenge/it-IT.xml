@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="challenges">Sfide</string>
+  <string name="challengeToPlay">Sfida a una partita</string>
+  <string name="challengeDeclined">Sfida rifiutata</string>
+  <string name="challengeAccepted">Sfida accettata!</string>
+  <string name="challengeCanceled">Sfida annullata.</string>
+  <string name="registerToSendChallenges">Si prega di registrarsi per inviare le sfide.</string>
+  <string name="youCannotChallengeX">Non puoi sfidare %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s non accetta sfide.</string>
+  <string name="yourXRatingIsTooFarFromY">Il tuo punteggio %1$s è troppo diverso da quello di %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Non puoi inviare la sfida poiché hai ancora un punteggio %s provvisorio.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s accetta sfide solo da amici.</string>
+  <string name="declineGeneric">Al momento non accetto sfide.</string>
+  <string name="declineLater">Non adesso, chiedimelo più tardi per favore.</string>
+  <string name="declineTooFast">Questa cadenza è troppo veloce per me, sfidami ad una partita più lenta per favore.</string>
+  <string name="declineTooSlow">Questa cadenza è troppo lenta per me, sfidami ad una partita più veloce per favore.</string>
+  <string name="declineTimeControl">Non accetto sfide con questa cadenza di tempo.</string>
+  <string name="declineRated">Mandami una sfida classificata per favore.</string>
+  <string name="declineCasual">Mandami una sfida amichevole per favore.</string>
+  <string name="declineStandard">Al momento non accetto sfide a varianti.</string>
+  <string name="declineVariant">Non voglio giocare a questa variante in questo momento.</string>
+  <string name="declineNoBot">Non accetto sfide da bot.</string>
+  <string name="declineOnlyBot">Accetto solo sfide da bot.</string>
+</resources>

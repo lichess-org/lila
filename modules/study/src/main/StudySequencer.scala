@@ -28,7 +28,7 @@ final private class StudySequencer(
   ): Funit =
     sequenceStudy(studyId) { study =>
       chapterRepo.byId(chapterId) flatMap {
-        _ ?? { chapter =>
+        _.filter(_.studyId == studyId) ?? { chapter =>
           f(Study.WithChapter(study, chapter))
         }
       }

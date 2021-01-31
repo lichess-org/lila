@@ -2,7 +2,7 @@ package lila.msg
 
 import akka.stream.scaladsl._
 import org.joda.time.DateTime
-import reactivemongo.api._
+import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 import scala.util.Try
 
@@ -20,7 +20,8 @@ final class MsgApi(
     json: MsgJson,
     notifier: MsgNotify,
     security: MsgSecurity,
-    shutup: lila.hub.actors.Shutup
+    shutup: lila.hub.actors.Shutup,
+    spam: lila.security.Spam
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
@@ -29,12 +30,21 @@ final class MsgApi(
   val msgsPerPage = MaxPerPage(100)
 
   import BsonHandlers._
+  import MsgApi._
 
   def threadsOf(me: User): Fu[List[MsgThread]] =
-    colls.thread.ext
+    colls.thread
       .find($doc("users" -> me.id, "del" $ne me.id))
       .sort($sort desc "lastMsg.date")
-      .list[MsgThread](50)
+      .cursor[MsgThread]()
+      .list(50)
+      .map(prioritize)
+
+  private def prioritize(threads: List[MsgThread]) =
+    threads.find(_.isPriority) match {
+      case None        => threads
+      case Some(found) => found :: threads.filterNot(_.isPriority)
+    }
 
   def convoWith(me: User, username: String, beforeMillis: Option[Long] = None): Fu[Option[MsgConvo]] = {
     val userId   = User.normalize(username)
@@ -68,16 +78,19 @@ final class MsgApi(
       dest: User.ID,
       text: String,
       multi: Boolean = false
-  ): Funit =
-    Msg.make(text, orig) ?? { msg =>
+  ): Fu[PostResult] =
+    Msg.make(text, orig).fold[Fu[PostResult]](fuccess(PostResult.Invalid)) { msgPre =>
       val threadId = MsgThread.id(orig, dest)
       for {
         contacts <- userRepo.contacts(orig, dest) orFail s"Missing convo contact user $orig->$dest"
         isNew    <- !colls.thread.exists($id(threadId))
-        verdict  <- security.can.post(contacts, msg.text, isNew, unlimited = multi)
+        verdict  <- security.can.post(contacts, msgPre.text, isNew, unlimited = multi)
         res <- verdict match {
-          case _: MsgSecurity.Reject => funit
+          case MsgSecurity.Limit     => fuccess(PostResult.Limited)
+          case _: MsgSecurity.Reject => fuccess(PostResult.Bounced)
           case send: MsgSecurity.Send =>
+            val msg =
+              if (verdict == MsgSecurity.Spam) msgPre.copy(text = spam.replace(msgPre.text)) else msgPre
             val msgWrite = colls.msg.insert.one(writeMsg(msg, threadId))
             val threadWrite =
               if (isNew)
@@ -116,8 +129,7 @@ final class MsgApi(
                 )
                 shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(orig, dest, text)
               }
-            }
-          case _ => funit
+            } inject PostResult.Success
         }
       } yield res
     }
@@ -130,12 +142,12 @@ final class MsgApi(
         "lastMsg.read",
         true
       )
-      .map { res =>
-        if (res.nModified > 0) notifier.onRead(threadId, userId, contactId)
+      .flatMap { res =>
+        (res.nModified > 0) ?? notifier.onRead(threadId, userId, contactId)
       }
   }
 
-  def postPreset(dest: User, preset: MsgPreset): Funit =
+  def postPreset(dest: User, preset: MsgPreset): Fu[PostResult] =
     systemPost(dest.id, preset.text)
 
   def systemPost(destId: User.ID, text: String) =
@@ -145,10 +157,10 @@ final class MsgApi(
     destSource
       .filter(orig.id !=)
       .mapAsync(4) {
-        post(orig.id, _, text, multi = true).logFailure(logger).nevermind
+        post(orig.id, _, text, multi = true).logFailure(logger).nevermind(PostResult.Invalid)
       }
       .toMat(Sink.ignore)(Keep.right)
-      .run
+      .run()
       .void
 
   def cliMultiPost(orig: String, dests: Seq[User.ID], text: String): Fu[String] =
@@ -158,23 +170,25 @@ final class MsgApi(
     }
 
   def recentByForMod(user: User, nb: Int): Fu[List[MsgConvo]] =
-    colls.thread.ext
+    colls.thread
       .find($doc("users" -> user.id))
       .sort($sort desc "lastMsg.date")
-      .list[MsgThread](nb)
+      .cursor[MsgThread]()
+      .list(nb)
       .flatMap {
         _.map { thread =>
-          colls.msg.ext
+          colls.msg
             .find($doc("tid" -> thread.id), msgProjection)
             .sort($sort desc "date")
-            .list[Msg](10)
+            .cursor[Msg]()
+            .list(10)
             .flatMap { msgs =>
               lightUserApi async thread.other(user) map { contact =>
                 MsgConvo(
                   contact | LightUser.fallback(thread other user),
                   msgs,
                   lila.relation.Relations(none, none),
-                  false
+                  postable = false
                 )
               }
             }
@@ -197,10 +211,10 @@ final class MsgApi(
       }
   }
 
-  private val msgProjection = $doc("_id" -> false, "tid" -> false)
+  private val msgProjection = $doc("_id" -> false, "tid" -> false).some
 
   private def threadMsgsFor(threadId: MsgThread.Id, me: User, before: Option[DateTime]): Fu[List[Msg]] =
-    colls.msg.ext
+    colls.msg
       .find(
         $doc("tid" -> threadId, "del" $ne me.id) ++ before.?? { b =>
           $doc("date" $lt b)
@@ -208,7 +222,8 @@ final class MsgApi(
         msgProjection
       )
       .sort($sort desc "date")
-      .list[Msg](msgsPerPage.value)
+      .cursor[Msg]()
+      .list(msgsPerPage.value)
 
   private def setReadBy(threadId: MsgThread.Id, me: User, contactId: User.ID): Funit =
     colls.thread.updateField(
@@ -218,7 +233,65 @@ final class MsgApi(
       ),
       "lastMsg.read",
       true
-    ) map { res =>
-      if (res.nModified > 0) notifier.onRead(threadId, me.id, contactId)
+    ) flatMap { res =>
+      (res.nModified > 0) ?? notifier.onRead(threadId, me.id, contactId)
     }
+
+  def allMessagesOf(userId: User.ID): Fu[Vector[(User.ID, String, DateTime)]] =
+    colls.thread
+      .aggregateWith[Bdoc](
+        readPreference = ReadPreference.secondaryPreferred
+      ) { framework =>
+        import framework._
+        List(
+          Match($doc("users" -> userId)),
+          Project($id(true)),
+          PipelineOperator(
+            $doc(
+              "$lookup" -> $doc(
+                "from" -> colls.msg.name,
+                "let"  -> $doc("t" -> "$_id"),
+                "pipeline" -> $arr(
+                  $doc(
+                    "$match" -> $doc(
+                      "$expr" -> $doc(
+                        "$and" -> $arr(
+                          $doc("$eq" -> $arr("$user", userId)),
+                          $doc("$eq" -> $arr("$tid", "$$t"))
+                        )
+                      )
+                    )
+                  )
+                ),
+                "as" -> "msg"
+              )
+            )
+          ),
+          Unwind("msg"),
+          Project($doc("msg.text" -> true, "msg.date" -> true))
+        )
+      }
+      .collect[Vector](maxDocs = 9000)
+      .map { docs =>
+        for {
+          doc  <- docs
+          id   <- doc string "_id"
+          dest <- id.split(MsgThread.idSep).find(userId !=)
+          msg  <- doc child "msg"
+          text <- msg string "text"
+          date <- msg.getAsOpt[DateTime]("date")
+        } yield (dest, text, date)
+      }
+}
+
+object MsgApi {
+
+  sealed trait PostResult
+
+  object PostResult {
+    case object Success extends PostResult
+    case object Invalid extends PostResult
+    case object Limited extends PostResult
+    case object Bounced extends PostResult
+  }
 }

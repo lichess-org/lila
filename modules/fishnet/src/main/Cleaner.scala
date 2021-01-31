@@ -26,7 +26,7 @@ final private class Cleaner(
   private def durationAgo(d: FiniteDuration) = DateTime.now.minusSeconds(d.toSeconds.toInt)
 
   private def cleanAnalysis: Funit =
-    analysisColl.ext
+    analysisColl
       .find($doc("acquired.date" $lt durationAgo(analysisTimeoutBase)))
       .sort($sort desc "acquired.date")
       .cursor[Work.Analysis]()
@@ -43,10 +43,10 @@ final private class Cleaner(
           }
       }
       .toMat(Sink.ignore)(Keep.right)
-      .run
+      .run()
       .void
 
   system.scheduler.scheduleWithFixedDelay(15 seconds, 10 seconds) { () =>
-    cleanAnalysis
+    cleanAnalysis.unit
   }
 }

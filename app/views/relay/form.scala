@@ -17,7 +17,7 @@ object form {
   def create(form: Form[Data])(implicit ctx: Context) =
     layout(newBroadcast.txt())(
       h1(newBroadcast()),
-      inner(form, routes.Relay.create)
+      inner(form, routes.Relay.create())
     )
 
   def edit(r: lila.relay.Relay, form: Form[Data])(implicit ctx: Context) =
@@ -44,10 +44,7 @@ object form {
     views.html.base.layout(
       title = title,
       moreCss = cssTag("relay.form"),
-      moreJs = frag(
-        flatpickrTag,
-        delayFlatpickrStartLocal
-      )
+      moreJs = jsModule("flatpickr")
     )(
       main(cls := "page-small box box-pad")(body)
     )
@@ -63,8 +60,7 @@ object form {
         help = fullDescriptionHelp(
           a(
             href := "https://guides.github.com/features/mastering-markdown/",
-            target := "_blank",
-            rel := "noopener"
+            targetBlank
           )("Markdown"),
           20000.localize
         ).some

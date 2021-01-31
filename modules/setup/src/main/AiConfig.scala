@@ -54,7 +54,7 @@ case class AiConfig(
 
 object AiConfig extends BaseConfig {
 
-  def <<(v: Int, tm: Int, t: Double, i: Int, d: Int, level: Int, c: String, fen: Option[String]) =
+  def from(v: Int, tm: Int, t: Double, i: Int, d: Int, level: Int, c: String, fen: Option[String]) =
     new AiConfig(
       variant = chess.variant.Variant(v) err "Invalid game variant " + v,
       timeMode = TimeMode(tm) err s"Invalid time mode $tm",
@@ -63,7 +63,7 @@ object AiConfig extends BaseConfig {
       days = d,
       level = level,
       color = Color(c) err "Invalid color " + c,
-      fen = fen map FEN
+      fen = fen map FEN.apply
     )
 
   val default = AiConfig(
@@ -84,7 +84,6 @@ object AiConfig extends BaseConfig {
 
   import lila.db.BSON
   import lila.db.dsl._
-  import lila.game.BSONHandlers.FENBSONHandler
 
   implicit private[setup] val aiConfigBSONHandler = new BSON[AiConfig] {
 
@@ -97,7 +96,7 @@ object AiConfig extends BaseConfig {
         days = r int "d",
         level = r int "l",
         color = Color.White,
-        fen = r.getO[FEN]("f") filter (_.value.nonEmpty)
+        fen = r.getO[FEN]("f").filter(_.value.nonEmpty)
       )
 
     def writes(w: BSON.Writer, o: AiConfig) =

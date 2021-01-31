@@ -2,11 +2,14 @@ package lila.api
 
 import akka.actor._
 import com.softwaremill.macwire._
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.StandaloneWSClient
 import play.api.{ Configuration, Mode }
 import scala.concurrent.duration._
 
 import lila.common.config._
+import lila.common.Bus
+import lila.user.User
+import lila.chat.GetLinkCheck
 
 @Module
 final class Env(
@@ -15,6 +18,7 @@ final class Env(
     securityEnv: lila.security.Env,
     teamSearchEnv: lila.teamSearch.Env,
     forumSearchEnv: lila.forumSearch.Env,
+    forumEnv: lila.forum.Env,
     teamEnv: lila.team.Env,
     puzzleEnv: lila.puzzle.Env,
     explorerEnv: lila.explorer.Env,
@@ -25,6 +29,7 @@ final class Env(
     evalCacheEnv: lila.evalCache.Env,
     planEnv: lila.plan.Env,
     gameEnv: lila.game.Env,
+    chatEnv: lila.chat.Env,
     roundEnv: lila.round.Env,
     bookmarkApi: lila.bookmark.BookmarkApi,
     prefApi: lila.pref.PrefApi,
@@ -34,14 +39,16 @@ final class Env(
     relationEnv: lila.relation.Env,
     analyseEnv: lila.analyse.Env,
     lobbyEnv: lila.lobby.Env,
-    setupEnv: lila.setup.Env,
     simulEnv: lila.simul.Env,
     tourEnv: lila.tournament.Env,
     swissEnv: lila.swiss.Env,
     onlineApiUsers: lila.bot.OnlineApiUsers,
     challengeEnv: lila.challenge.Env,
+    socketEnv: lila.socket.Env,
     msgEnv: lila.msg.Env,
-    ws: WSClient,
+    cacheApi: lila.memo.CacheApi,
+    mongoCacheApi: lila.memo.MongoCache.Api,
+    ws: StandaloneWSClient,
     val mode: Mode
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -50,12 +57,15 @@ final class Env(
 
   val config = ApiConfig loadFrom appConfig
   import config.apiToken
+  import net.{ baseUrl, domain }
 
   lazy val pgnDump: PgnDump = wire[PgnDump]
 
   lazy val userApi = wire[UserApi]
 
   lazy val gameApi = wire[GameApi]
+
+  lazy val realPlayers = wire[RealPlayerApi]
 
   lazy val gameApiV2 = wire[GameApiV2]
 
@@ -67,16 +77,29 @@ final class Env(
 
   lazy val eventStream = wire[EventStream]
 
+  lazy val personalDataExport = wire[PersonalDataExport]
+
+  lazy val referrerRedirect = wire[ReferrerRedirect]
+
   lazy val cli = wire[Cli]
 
-  lazy val influxEvent = new InfluxEvent(
+  private lazy val influxEvent = new InfluxEvent(
     ws = ws,
     endpoint = config.influxEventEndpoint,
     env = config.influxEventEnv
   )
-  if (mode == Mode.Prod) system.scheduler.scheduleOnce(5 seconds)(influxEvent.start)
+  if (mode == Mode.Prod) system.scheduler.scheduleOnce(5 seconds)(influxEvent.start())
 
-  system.scheduler.scheduleWithFixedDelay(20 seconds, 10 seconds) { () =>
+  private lazy val linkCheck = wire[LinkCheck]
+
+  Bus.subscribeFun("chatLinkCheck") { case GetLinkCheck(line, source, promise) =>
+    promise completeWith linkCheck(line, source)
+  }
+
+  system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
     lila.mon.bus.classifiers.update(lila.common.Bus.size)
+    // ensure the Lichess user is online
+    socketEnv.remoteSocket.onlineUserIds.getAndUpdate(_ + User.lichessId)
+    userEnv.repo.setSeenAt(User.lichessId)
   }
 }

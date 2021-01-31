@@ -40,4 +40,5 @@ Igraj brzo i vrati se u lobi da igraš više partija i osvojiš više bodova.</s
   <string name="thisIsPrivate">Ovo je privatan turnir</string>
   <string name="shareUrl">Podijeli ovaj URL da se ljudi pridruže: %s</string>
   <string name="drawStreak">Niz remija: Kad igrač ima uzastopne remije u areni, samo prvi remi rezultira bodom ili remiji koji traju više od %s poteza. Niz remija može se prekinuti samo pobjedom, a ne gubitkom ili remijem.</string>
+  <string name="history">Povijest Arene</string>
 </resources>

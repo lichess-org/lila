@@ -1,9 +1,9 @@
 package controllers
 
 import play.api.data._, Forms._
+import views._
 
 import lila.app._
-import views._
 
 final class Dev(env: Env) extends LilaController(env) {
 
@@ -12,7 +12,7 @@ final class Dev(env: Env) extends LilaController(env) {
     env.security.spamKeywordsSetting,
     env.irwin.irwinThresholdsSetting,
     env.explorer.indexFlowSetting,
-    env.report.scoreThresholdSetting,
+    env.report.scoreThresholdsSetting,
     env.report.slackScoreThresholdSetting,
     env.streamer.homepageMaxSetting,
     env.streamer.alwaysFeaturedSetting,
@@ -21,7 +21,8 @@ final class Dev(env: Env) extends LilaController(env) {
     env.plan.donationGoalSetting,
     env.apiTimelineSetting,
     env.noDelaySecretSetting,
-    env.featuredTeamsSetting
+    env.featuredTeamsSetting,
+    env.prizeTournamentMakers
   )
 
   def settings =
@@ -33,26 +34,16 @@ final class Dev(env: Env) extends LilaController(env) {
     SecureBody(_.Settings) { implicit ctx => _ =>
       settingsList.find(_.id == id) ?? { setting =>
         implicit val req = ctx.body
-        setting.form.bindFromRequest.fold(
-          _ => BadRequest(html.dev.settings(settingsList)).fuccess,
-          v => {
-            setting.setString(v.toString) inject {
-              (setting.id, setting.get()) match {
-                case ("friendListToggle", v: Boolean) => env.api.influxEvent.friendListToggle(v)
-                case _                                =>
-              }
-              Redirect(routes.Dev.settings)
-            }
-          }
-        )
+        setting.form
+          .bindFromRequest()
+          .fold(
+            _ => BadRequest(html.dev.settings(settingsList)).fuccess,
+            v => setting.setString(v.toString) inject Redirect(routes.Dev.settings())
+          )
       }
     }
 
-  private val commandForm = Form(
-    single(
-      "command" -> nonEmptyText
-    )
-  )
+  private val commandForm = Form(single("command" -> nonEmptyText))
 
   def cli =
     Secure(_.Cli) { implicit ctx => _ =>
@@ -62,13 +53,15 @@ final class Dev(env: Env) extends LilaController(env) {
   def cliPost =
     SecureBody(_.Cli) { implicit ctx => me =>
       implicit val req = ctx.body
-      commandForm.bindFromRequest.fold(
-        err => BadRequest(html.dev.cli(err, "Invalid command".some)).fuccess,
-        command =>
-          runAs(me.id, command) map { res =>
-            Ok(html.dev.cli(commandForm fill command, s"$command\n\n$res".some))
-          }
-      )
+      commandForm
+        .bindFromRequest()
+        .fold(
+          err => BadRequest(html.dev.cli(err, "Invalid command".some)).fuccess,
+          command =>
+            runAs(me.id, command) map { res =>
+              Ok(html.dev.cli(commandForm fill command, s"$command\n\n$res".some))
+            }
+        )
     }
 
   def command =

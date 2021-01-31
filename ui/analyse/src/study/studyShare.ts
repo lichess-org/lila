@@ -130,6 +130,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
             attrs: {
               href: '/developers#embed-study',
               target: '_blank',
+              rel: 'noopener',
               'data-icon': ''
             }
           }, ctrl.trans.noarg('readMoreAboutEmbedding'))

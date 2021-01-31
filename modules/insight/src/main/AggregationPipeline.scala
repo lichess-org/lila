@@ -17,7 +17,7 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
         import question.{ dimension, filters, metric }
 
         import lila.insight.{ Dimension => D, Metric => M }
-        import Entry.{ BSONFields => F }
+        import InsightEntry.{ BSONFields => F }
         import Storage._
 
         val sampleGames    = Sample(10_000)
@@ -62,15 +62,14 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
         lazy val timeVarianceIdDispatcher =
           TimeVariance.all.reverse
             .drop(1)
-            .foldLeft[BSONValue](BSONInteger(TimeVariance.VeryVariable.intFactored)) {
-              case (acc, tvi) =>
-                $doc(
-                  "$cond" -> $arr(
-                    $doc("$lte" -> $arr("$" + F.moves("v"), tvi.intFactored)),
-                    tvi.intFactored,
-                    acc
-                  )
+            .foldLeft[BSONValue](BSONInteger(TimeVariance.VeryVariable.intFactored)) { case (acc, tvi) =>
+              $doc(
+                "$cond" -> $arr(
+                  $doc("$lte" -> $arr("$" + F.moves("v"), tvi.intFactored)),
+                  tvi.intFactored,
+                  acc
                 )
+              )
             }
         def dimensionGroupId(dim: Dimension[_]): BSONValue =
           dim match {
@@ -145,14 +144,16 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
         val gameMatcher = combineDocs(question.filters.collect {
           case f if f.dimension.isInGame => f.matcher
         })
-        def matchMoves(extraMatcher: Bdoc = $empty) =
+
+        def matchMoves(extraMatcher: Bdoc = $empty): Option[PipelineOperator] =
           combineDocs(extraMatcher :: question.filters.collect {
             case f if f.dimension.isInMove => f.matcher
           } ::: (dimension match {
             case D.TimeVariance => List($doc(F.moves("v") $exists true))
-            case _              => Nil
-          })).some.filterNot(_.isEmpty) map Match
-        def projectForMove =
+            case _              => List.empty[Bdoc]
+          })).some.filterNot(_.isEmpty) map Match.apply
+
+        def projectForMove: Option[PipelineOperator] =
           Project(BSONDocument({
             metric.dbKey :: dimension.dbKey :: filters.collect {
               case lila.insight.Filter(d, _) if d.isInMove => d.dbKey

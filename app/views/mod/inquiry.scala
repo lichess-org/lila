@@ -53,7 +53,7 @@ object inquiry {
     def renderNote(r: lila.user.Note)(implicit ctx: Context) =
       (!r.dox || isGranted(_.Doxing)) option div(cls := "doc note")(
         h3("by ", userIdLink(r.from.some, withOnline = false), ", ", momentFromNow(r.date)),
-        p(richText(r.text))
+        p(richText(r.text, expandImg = false))
       )
 
     def autoNextInput = input(cls := "auto-next", tpe := "hidden", name := "next", value := "1")
@@ -126,7 +126,7 @@ object inquiry {
       div(cls := "links")(
         in.report.boostWith
           .map { userId =>
-            a(href := s"${routes.User.games(in.user.id, "search")}?players.b=${userId}")("View", br, "Games")
+            a(href := s"${routes.User.games(in.user.id, "search")}?players.b=$userId")("View", br, "Games")
           }
           .getOrElse {
             in.report.bestAtomByHuman.map { atom =>
@@ -144,7 +144,7 @@ object inquiry {
         isGranted(_.ModMessage) option div(cls := "dropper warn buttons")(
           iconTag("e"),
           div(
-            lila.msg.MsgPreset.all.map { preset =>
+            env.mod.presets.pmPresets.get().value.map { preset =>
               postForm(action := routes.Mod.warn(in.user.username, preset.name))(
                 submitButton(cls := "fbt")(preset.name),
                 autoNextInput
@@ -214,7 +214,7 @@ object inquiry {
       div(cls := "actions close")(
         span(cls := "switcher", title := "Automatically open next report")(
           span(cls := "switch")(
-            form3.cmnToggle("auto-next", "auto-next", true)
+            form3.cmnToggle("auto-next", "auto-next", checked = true)
           )
         ),
         postForm(
@@ -236,18 +236,17 @@ object inquiry {
     )
   }
 
-  private def thenInput(what: String) = input(tpe := "hidden", name := "then", value := what)
   private def thenForms(url: String, button: Tag) =
     div(
       postForm(
         action := url,
         button("And stay on this report"),
-        thenInput("back")
+        form3.hidden("next", "0")
       ),
       postForm(
         action := url,
         button("Then open profile"),
-        thenInput("profile")
+        form3.hidden("then", "profile")
       )
     )
 }

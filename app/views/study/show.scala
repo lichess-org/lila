@@ -24,7 +24,7 @@ object show {
       moreJs = frag(
         analyseTag,
         analyseNvuiTag,
-        embedJsUnsafe(s"""lichess=window.lichess||{};lichess.study=${safeJsonValue(
+        embedJsUnsafe(s"""lichess.study=${safeJsonValue(
           Json.obj(
             "study"    -> data.study.add("admin" -> isGranted(_.StudyAdmin)),
             "data"     -> data.analysis,
@@ -55,7 +55,7 @@ object show {
       robots = s.isPublic,
       chessground = false,
       zoomable = true,
-      csp = defaultCsp.withWebAssembly.withTwitch.withPeer.some,
+      csp = defaultCsp.withWebAssembly.withPeer.some,
       openGraph = lila.app.ui
         .OpenGraph(
           title = s.name.value,
@@ -70,5 +70,5 @@ object show {
       )
     )
 
-  def socketUrl(id: String) = s"/study/$id/socket/v${apiVersion}"
+  def socketUrl(id: String) = s"/study/$id/socket/v$apiVersion"
 }

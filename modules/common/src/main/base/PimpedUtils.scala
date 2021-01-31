@@ -1,32 +1,21 @@
 package lila.base
 
+import cats.data.Validated
+import com.typesafe.config.Config
 import java.util.concurrent.TimeUnit
+import org.joda.time.{ DateTime, Duration }
+import ornicar.scalalib.Zero
 import scala.concurrent.duration._
 import scala.concurrent.Future
 import scala.util.Try
-
-import com.typesafe.config.Config
-import org.joda.time.{ DateTime, Duration }
-import ornicar.scalalib.Zero
-import scalaz._
-import Scalaz._
 
 import LilaTypes._
 
 final class PimpedOption[A](private val self: Option[A]) extends AnyVal {
 
-  import scalaz.std.{ option => o }
-
   def fold[X](some: A => X, none: => X): X = self.fold(none)(some)
 
-  def |(a: => A): A = self getOrElse a
-
-  def unary_~(implicit z: Zero[A]): A   = self getOrElse z.zero
   def orDefault(implicit z: Zero[A]): A = self getOrElse z.zero
-
-  def toSuccess[E](e: => E): scalaz.Validation[E, A] = o.toSuccess(self)(e)
-
-  def toFailure[B](b: => B): scalaz.Validation[A, B] = o.toFailure(self)(b)
 
   def toTryWith(err: => Exception): Try[A] =
     self.fold[Try[A]](scala.util.Failure(err))(scala.util.Success.apply)
@@ -43,10 +32,10 @@ final class PimpedOption[A](private val self: Option[A]) extends AnyVal {
 final class PimpedString(private val s: String) extends AnyVal {
 
   def replaceIf(t: Char, r: Char): String =
-    if (s.indexOf(t) >= 0) s.replace(t, r) else s
+    if (s.indexOf(t.toInt) >= 0) s.replace(t, r) else s
 
   def replaceIf(t: Char, r: CharSequence): String =
-    if (s.indexOf(t) >= 0) s.replace(String.valueOf(t), r) else s
+    if (s.indexOf(t.toInt) >= 0) s.replace(String.valueOf(t), r) else s
 
   def replaceIf(t: CharSequence, r: CharSequence): String =
     if (s.contains(t)) s.replace(t, r) else s
@@ -65,11 +54,6 @@ final class PimpedDateTime(private val date: DateTime) extends AnyVal {
   def toNow                    = new Duration(date, DateTime.now)
   def atMost(other: DateTime)  = if (other isBefore date) other else date
   def atLeast(other: DateTime) = if (other isAfter date) other else date
-}
-
-final class PimpedValid[A](private val v: Valid[A]) extends AnyVal {
-
-  def future: Fu[A] = v fold (errs => fufail(errs.shows), fuccess)
 }
 
 final class PimpedTry[A](private val v: Try[A]) extends AnyVal {
@@ -91,9 +75,6 @@ final class PimpedTry[A](private val v: Try[A]) extends AnyVal {
 }
 
 final class PimpedEither[A, B](private val v: Either[A, B]) extends AnyVal {
-  import ornicar.scalalib.ValidTypes
-
-  def toValid: Valid[B] = ValidTypes.eitherToValid(v)
 
   def orElse(other: => Either[A, B]): Either[A, B] =
     v match {
@@ -114,4 +95,9 @@ final class PimpedFiniteDuration(private val d: FiniteDuration) extends AnyVal {
     }
 
   def abs = if (d.length < 0) -d else d
+}
+
+final class RichValidated[E, A](private val v: Validated[E, A]) extends AnyVal {
+
+  def toFuture: Fu[A] = v.fold(err => fufail(err.toString), fuccess)
 }

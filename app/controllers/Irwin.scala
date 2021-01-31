@@ -15,7 +15,7 @@ final class Irwin(env: Env) extends LilaController(env) {
 
   def saveReport =
     ScopedBody(parse.json)(Nil) { req => me =>
-      isGranted(_.Admin, me) ?? {
+      IfGranted(_.Admin, req, me) {
         req.body
           .validate[lila.irwin.IrwinReport]
           .fold(
@@ -26,8 +26,8 @@ final class Irwin(env: Env) extends LilaController(env) {
     }
 
   def eventStream =
-    Scoped() { _ => me =>
-      isGranted(_.Admin, me) ?? {
+    Scoped() { req => me =>
+      IfGranted(_.Admin, req, me) {
         noProxyBuffer(Ok.chunked(env.irwin.stream())).fuccess
       }
     }

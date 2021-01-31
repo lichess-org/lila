@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="twoFactorAuth">Bi faktoreko autentikazioa</string>
-  <string name="twoFactorHelp">Bi faktoreko autentikazioak beste segurtasun kapa bat jartzen dio zure kontuari.</string>
-  <string name="twoFactorApp">Lortu bi faktoreko autentikaziorako aplikazioa, adibidez Google Authenticator %1$s edo %2$s plataformarako.</string>
+  <string name="twoFactorAuth">Bi faktoreko autentifikazioa</string>
+  <string name="twoFactorHelp">Bi faktoreko autentifikazioak beste segurtasun kapa bat jartzen dio zure kontuari.</string>
+  <string name="twoFactorApp">Lortu bi faktoreko autentifikaziorako aplikazioa, adibidez Google Authenticator %1$s edo %2$s plataformarako.</string>
   <string name="scanTheCode">QR kodea aplikazioa erabiliz eskaneatu.</string>
   <string name="enterPassword">Idatzi zure pasahitza eta aplikazioak sortutako autentikazio kodea ezarpenak gordetzeko. Webgunera sartzen zaren bakoitzean autentikazio kodea sartu beharko duzu.</string>
+  <string name="ifYouCannotScanEnterX">Ezin baduzu kodea eskaneatu sartu kode hau zure aplikazioan: %s</string>
   <string name="authenticationCode">Autentikazio kodea</string>
   <string name="ifYouLoseAccess">Oharra: bi faktoreko autentikaziora sartzeko aplikazioa galtzen baduzu, pasahitza berrezarri egin dezakezu.</string>
   <string name="enableTwoFactor">Gaitu bi faktoreko autentifikazioa</string>
@@ -12,4 +13,5 @@
   <string name="twoFactorEnabled">Bi faktoreetako autentifikazioa gaituta</string>
   <string name="twoFactorDisable">Pasahitza eta aplikazioak ematen dizun kodea behar duzu bi faktoreko autentikazioa desgaitzeko.
 Aplikazioa galdu edo ezabatu baduzu, pasahitza berrezarri eta eposta bidezko prozesua osatu beharko duzu.</string>
+  <string name="openTwoFactorApp">Ireki bi faktoreko autentifikazio aplikazioa zure telefonoan, ikusi zure autentifikazio kodea eta idatzi hemen.</string>
 </resources>

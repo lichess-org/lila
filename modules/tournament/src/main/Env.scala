@@ -31,6 +31,7 @@ final class Env(
     renderer: lila.hub.actors.Renderer,
     chatApi: lila.chat.ChatApi,
     tellRound: lila.round.TellRound,
+    roundSocket: lila.round.RoundSocket,
     lightUserApi: lila.user.LightUserApi,
     onStart: lila.round.OnStart,
     historyApi: lila.history.HistoryApi,
@@ -48,7 +49,7 @@ final class Env(
 
   private def scheduler = system.scheduler
 
-  lazy val forms = wire[DataForm]
+  lazy val forms = wire[TournamentForm]
 
   lazy val tournamentRepo          = new TournamentRepo(db(config.tournamentColl), config.playerColl)
   lazy val pairingRepo             = new PairingRepo(db(config.pairingColl))
@@ -78,12 +79,15 @@ final class Env(
   private lazy val apiCallbacks = TournamentApi.Callbacks(
     clearJsonViewCache = jsonView.clearCache,
     clearWinnersCache = winners.clearCache,
-    clearTrophyCache = tour => {
-      if (tour.isShield) scheduler.scheduleOnce(10 seconds)(shieldApi.clear)
-      else if (Revolution is tour) scheduler.scheduleOnce(10 seconds)(revolutionApi.clear)
-    },
-    indexLeaderboard = leaderboardIndexer.indexOne _
+    clearTrophyCache = tour =>
+      {
+        if (tour.isShield) scheduler.scheduleOnce(10 seconds) { shieldApi.clear() }
+        else if (Revolution is tour) scheduler.scheduleOnce(10 seconds) { revolutionApi.clear() }.unit
+      }.unit,
+    indexLeaderboard = leaderboardIndexer.indexOne
   )
+
+  private lazy val colorHistoryApi = wire[ColorHistoryApi]
 
   lazy val api: TournamentApi = wire[TournamentApi]
 
@@ -131,6 +135,10 @@ final class Env(
       def process = {
         case "tournament" :: "leaderboard" :: "generate" :: Nil =>
           leaderboardIndexer.generateAll inject "Done!"
+        case "tournament" :: "feature" :: id :: Nil =>
+          api.toggleFeaturing(id, true) inject "Done!"
+        case "tournament" :: "unfeature" :: id :: Nil =>
+          api.toggleFeaturing(id, false) inject "Done!"
       }
     }
 }

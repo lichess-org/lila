@@ -1,19 +1,20 @@
 package lila.clas
 
 import org.joda.time.DateTime
-import scala.concurrent.duration._
 import reactivemongo.api._
+import scala.concurrent.duration._
 
 import lila.common.config.BaseUrl
 import lila.common.EmailAddress
-import lila.security.Permission
 import lila.db.dsl._
-import lila.msg.MsgApi
-import lila.user.{ Authenticator, User, UserRepo }
 import lila.memo.CacheApi._
+import lila.msg.MsgApi
+import lila.security.Permission
+import lila.user.{ Authenticator, User, UserRepo }
 
 final class ClasApi(
     colls: ClasColls,
+    nameGenerator: NameGenerator,
     userRepo: UserRepo,
     msgApi: MsgApi,
     authenticator: Authenticator,
@@ -30,16 +31,18 @@ final class ClasApi(
     def byId(id: Clas.Id) = coll.byId[Clas](id.value)
 
     def of(teacher: User): Fu[List[Clas]] =
-      coll.ext
+      coll
         .find($doc("teachers" -> teacher.id))
         .sort($doc("archived" -> 1, "viewedAt" -> -1))
-        .list[Clas](100)
+        .cursor[Clas]()
+        .list(100)
 
     def byIds(clasIds: List[Clas.Id]): Fu[List[Clas]] =
-      coll.ext
+      coll
         .find($inIds(clasIds))
         .sort($sort desc "createdAt")
-        .list[Clas]()
+        .cursor[Clas]()
+        .list()
 
     def create(data: ClasForm.ClasData, teacher: User): Fu[Clas] = {
       val clas = Clas.make(teacher, data.name, data.desc)
@@ -135,10 +138,11 @@ final class ClasApi(
       of($doc("clasId" -> clas.id) ++ selectArchived(false)) flatMap withUsers
 
     private def of(selector: Bdoc): Fu[List[Student]] =
-      coll.ext
+      coll
         .find(selector)
         .sort($sort asc "userId")
-        .list[Student](500)
+        .cursor[Student]()
+        .list(500)
 
     def clasIdsOfUser(userId: User.ID): Fu[List[Clas.Id]] =
       coll.distinctEasy[Clas.Id, List]("clasId", $doc("userId" -> userId) ++ selectArchived(false))
@@ -162,7 +166,7 @@ final class ClasApi(
       coll.updateField($doc("userId" -> user.id, "managed" -> true), "managed", false).void
 
     def get(clas: Clas, userId: User.ID): Fu[Option[Student]] =
-      coll.ext.one[Student]($id(Student.id(userId, clas.id)))
+      coll.one[Student]($id(Student.id(userId, clas.id)))
 
     def get(clas: Clas, user: User): Fu[Option[Student.WithUser]] =
       get(clas, user.id) map2 { Student.WithUser(_, user) }
@@ -176,7 +180,7 @@ final class ClasApi(
         clas: Clas,
         data: ClasForm.NewStudent,
         teacher: User
-    ): Fu[(User, ClearPassword)] = {
+    ): Fu[Student.WithPassword] = {
       val email    = EmailAddress(s"noreply.class.${clas.id}.${data.username}@lichess.org")
       val password = Student.password.generate
       lila.mon.clas.studentCreate(teacher.id)
@@ -192,13 +196,31 @@ final class ClasApi(
         )
         .orFail(s"No user could be created for ${data.username}")
         .flatMap { user =>
-          userRepo.setKid(user, true) >>
+          val student = Student.make(user, clas, teacher.id, data.realName, managed = true)
+          userRepo.setKid(user, v = true) >>
             userRepo.setManagedUserInitialPerfs(user.id) >>
-            coll.insert.one(Student.make(user, clas, teacher.id, data.realName, managed = true)) >>
+            coll.insert.one(student) >>
             sendWelcomeMessage(teacher.id, user, clas) inject
-            (user -> password)
+            Student.WithPassword(student, password)
         }
     }
+
+    def manyCreate(
+        clas: Clas,
+        data: ClasForm.ManyNewStudent,
+        teacher: User
+    ): Fu[List[Student.WithPassword]] =
+      count(clas.id) flatMap { nbCurrentStudents =>
+        lila.common.Future.linear(data.realNames.take(Clas.maxStudents - nbCurrentStudents)) { realName =>
+          nameGenerator() flatMap { username =>
+            val data = ClasForm.NewStudent(
+              username = username | lila.common.ThreadLocalRandom.nextString(10),
+              realName = realName
+            )
+            create(clas, data, teacher)
+          }
+        }
+      }
 
     def resetPassword(s: Student): Fu[ClearPassword] = {
       val password = Student.password.generate
@@ -239,6 +261,7 @@ $baseUrl/class/${clas.id}
 ${clas.desc}""",
           multi = true
         )
+        .void
   }
 
   object invite {
@@ -247,7 +270,7 @@ ${clas.desc}""",
 
     def create(clas: Clas, user: User, realName: String, teacher: User): Fu[ClasInvite.Feedback] =
       student
-        .archive(Student.id(user.id, clas.id), user, false)
+        .archive(Student.id(user.id, clas.id), user, v = false)
         .map2[ClasInvite.Feedback](_ => Already) getOrElse {
         lila.mon.clas.studentInvite(teacher.id)
         val invite = ClasInvite.make(clas, user, realName, teacher)
@@ -281,14 +304,14 @@ ${clas.desc}""",
                 colls.invite.updateField($id(id), "accepted", true) >>
                 student.sendWelcomeMessage(invite.created.by, user, clas) inject
                 stu.some recoverWith lila.db.recoverDuplicateKey { _ =>
-                student.get(clas, user.id)
-              }
+                  student.get(clas, user.id)
+                }
             }
           }
         }
       }
 
-    def decline(id: ClasInvite.Id, user: User): Fu[Option[ClasInvite]] =
+    def decline(id: ClasInvite.Id): Fu[Option[ClasInvite]] =
       colls.invite.ext
         .findAndUpdate[ClasInvite](
           selector = $id(id),
@@ -296,10 +319,11 @@ ${clas.desc}""",
         )
 
     def listPending(clas: Clas): Fu[List[ClasInvite]] =
-      colls.invite.ext
+      colls.invite
         .find($doc("clasId" -> clas.id, "accepted" $ne true))
         .sort($sort desc "created.at")
-        .list[ClasInvite](100)
+        .cursor[ClasInvite]()
+        .list(100)
 
     def delete(id: ClasInvite.Id): Funit =
       colls.invite.delete.one($id(id)).void

@@ -9,14 +9,10 @@ private object PrefHandlers {
 
   implicit val prefBSONHandler = new BSON[Pref] {
 
-    // implicit val tagsReader = MapReader[String, String]
-    // implicit val tagsWriter = MapWriter[String, String]
-
     def reads(r: BSON.Reader): Pref =
       Pref(
         _id = r str "_id",
-        dark = r.getD("dark", Pref.default.dark),
-        transp = r.getD("transp", Pref.default.transp),
+        bg = r.getD("bg", Pref.default.bg),
         bgImg = r.strO("bgImg"),
         is3d = r.getD("is3d", Pref.default.is3d),
         theme = r.getD("theme", Pref.default.theme),
@@ -59,8 +55,7 @@ private object PrefHandlers {
     def writes(w: BSON.Writer, o: Pref) =
       $doc(
         "_id"           -> o._id,
-        "dark"          -> o.dark,
-        "transp"        -> o.transp,
+        "bg"            -> o.bg,
         "bgImg"         -> o.bgImg,
         "is3d"          -> o.is3d,
         "theme"         -> o.theme,

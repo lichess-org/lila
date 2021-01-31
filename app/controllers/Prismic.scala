@@ -5,7 +5,7 @@ import lila.app._
 
 final class Prismic(
     env: Env
-)(implicit ec: scala.concurrent.ExecutionContext, ws: play.api.libs.ws.WSClient) {
+)(implicit ec: scala.concurrent.ExecutionContext, ws: play.api.libs.ws.StandaloneWSClient) {
 
   private val logger = lila.log("prismic")
 
@@ -14,7 +14,7 @@ final class Prismic(
   implicit def makeLinkResolver(prismicApi: PrismicApi, ref: Option[String] = None) =
     DocumentLinkResolver(prismicApi) {
       case (link, _) => routes.Blog.show(link.id, link.slug, ref).url
-      case _         => routes.Lobby.home.url
+      case _         => routes.Lobby.home().url
     }
 
   private def getDocument(id: String): Fu[Option[Document]] =
@@ -33,10 +33,9 @@ final class Prismic(
       api.bookmarks.get(name) ?? getDocument map2 { (doc: io.prismic.Document) =>
         doc -> makeLinkResolver(api)
       }
-    } recover {
-      case e: Exception =>
-        logger.error(s"bookmark:$name", e)
-        none
+    } recover { case e: Exception =>
+      logger.error(s"bookmark:$name", e)
+      none
     }
 
   def getVariant(variant: chess.variant.Variant) =

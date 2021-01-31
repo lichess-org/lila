@@ -1,26 +1,40 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { prop, Prop } from 'common';
+import * as xhr from 'common/xhr';
 import AnalyseController from '../ctrl';
 import { makeConfig as makeCgConfig } from '../ground';
 import { Chessground } from 'chessground';
 import { Redraw, AnalyseData, MaybeVNodes } from '../interfaces';
 import { Player } from 'game';
-import { renderSan, renderPieces, renderBoard, styleSetting } from 'nvui/chess';
+import { renderSan, renderPieces, renderBoard, styleSetting, pieceSetting, prefixSetting, boardSetting, positionSetting } from 'nvui/chess';
+import { boardCommandsHandler, selectionHandler, arrowKeyHandler, positionJumpHandler, pieceJumpingHandler } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { Style } from 'nvui/chess';
 import { commands } from 'nvui/command';
 import * as moveView from '../moveView';
 import { bind } from '../util';
+import throttle from 'common/throttle';
 
-window.lichess.AnalyseNVUI = function(redraw: Redraw) {
+export const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
+
+const selectSound = throttled('select');
+const wrapSound = throttled('wrapAround');
+const borderSound = throttled('outOfBound');
+const errorSound = throttled('error');
+
+lichess.AnalyseNVUI = function(redraw: Redraw) {
 
   const notify = new Notify(redraw),
     moveStyle = styleSetting(),
+    pieceStyle = pieceSetting(),
+    prefixStyle = prefixSetting(),
+    positionStyle = positionSetting(),
+    boardStyle = boardSetting(),
     analysisInProgress = prop(false);
 
-  window.lichess.pubsub.on('analysis.server.progress', (data: AnalyseData) => {
+  lichess.pubsub.on('analysis.server.progress', (data: AnalyseData) => {
     if (data.analysis && !data.analysis.partial) notify.set('Server-side analysis complete')
   });
 
@@ -46,7 +60,7 @@ window.lichess.AnalyseNVUI = function(redraw: Redraw) {
           h('h2', 'Moves'),
           h('p.moves', {
             attrs: {
-              role : 'log',
+              role: 'log',
               'aria-live': 'off'
             }
           }, renderMainline(ctrl.mainline, ctrl.path, style)),
@@ -55,8 +69,8 @@ window.lichess.AnalyseNVUI = function(redraw: Redraw) {
           h('h2', 'Current position'),
           h('p.position', {
             attrs: {
-              'aria-live' : 'assertive',
-              'aria-atomic' : true
+              'aria-live': 'assertive',
+              'aria-atomic': true
             }
           }, renderCurrentNode(ctrl.node, style)),
           h('h2', 'Move form'),
@@ -64,8 +78,9 @@ window.lichess.AnalyseNVUI = function(redraw: Redraw) {
             hook: {
               insert(vnode) {
                 const $form = $(vnode.elm as HTMLFormElement),
-                  $input = $form.find('.move').val('').focus();
-                $form.submit(onSubmit(ctrl, notify.set, moveStyle.get, $input));
+                  $input = $form.find('.move').val('');
+                $input[0]!.focus();
+                $form.on('submit', onSubmit(ctrl, notify.set, moveStyle.get, $input));
               }
             }
           }, [
@@ -87,7 +102,19 @@ window.lichess.AnalyseNVUI = function(redraw: Redraw) {
           h('h2', 'Computer analysis'),
           ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)]),
           h('h2', 'Board'),
-          h('pre.board', renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color)),
+          h('div.board', 
+          {hook: {
+            insert: (el) => {
+              const $board = $(el.elm as HTMLElement);
+              $board.on('keypress', boardCommandsHandler());
+              const $buttons = $board.find('button');
+              $buttons.on('click', selectionHandler(ctrl.data.opponent.color, selectSound));
+              $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
+              $buttons.on('keypress', positionJumpHandler());
+              $buttons.on('keypress', pieceJumpingHandler(wrapSound, errorSound));
+            }
+          }},
+          renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color, pieceStyle.get(), prefixStyle.get(), positionStyle.get(), boardStyle.get())),
           h('div.content', {
             hook: {
               insert: vnode => {
@@ -100,9 +127,39 @@ window.lichess.AnalyseNVUI = function(redraw: Redraw) {
             'Move notation',
             renderSetting(moveStyle, ctrl.redraw)
           ]),
+          h('h3', 'Board Settings'),
+          h('label', [
+            'Piece style',
+            renderSetting(pieceStyle, ctrl.redraw)
+          ]),
+          h('label', [
+            'Piece prefix style',
+            renderSetting(prefixStyle, ctrl.redraw)
+          ]),
+          h('label', [
+            'Show position',
+            renderSetting(positionStyle, ctrl.redraw)
+          ]),
+          h('label', [
+            'Board layout',
+            renderSetting(boardStyle, ctrl.redraw)
+          ]),
           h('h2', 'Keyboard shortcuts'),
           h('p', [
             'Use arrow keys to navigate in the game.'
+          ]),
+          h('h2', 'Board Mode commands'),
+          h('p', [
+            'Use these commands when focused on the board itself.', h('br'),
+            'o: announce current position.', h('br'),
+            'c: announce last move\'s captured piece.', h('br'),
+            'l: display last move.', h('br'),
+            't: display clocks.', h('br'),
+            'arrow keys: move left, right, up or down.', h('br'),
+            'kqrbnp/KQRBNP: move forward/backward to a piece.', h('br'),
+            '1-8: move to rank 1-8.', h('br'),
+            'Shift+1-8: move to file a-h.', h('br'),
+            '', h('br')
           ]),
           h('h2', 'Commands'),
           h('p', [
@@ -116,9 +173,9 @@ window.lichess.AnalyseNVUI = function(redraw: Redraw) {
   };
 }
 
-function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style: () => Style, $input: JQuery) {
+function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style: () => Style, $input: Cash) {
   return function() {
-    let input = $input.val().trim();
+    let input = ($input.val() as string).trim();
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
     else notify('Invalid command');
@@ -178,17 +235,14 @@ function requestAnalysisButton(ctrl: AnalyseController, inProgress: Prop<boolean
   if (inProgress()) return h('p', 'Server-side analysis in progress');
   if (ctrl.ongoing || ctrl.synthetic) return undefined;
   return h('button', {
-    hook: bind('click', _ =>  {
-      $.ajax({
-        method: 'post',
-        url: `/${ctrl.data.game.id}/request-analysis`,
-        success: () => {
-          inProgress(true);
-          notify('Server-side analysis in progress')
-        },
-        error: () => notify('Cannot run server-side analysis'),
-      });
-    })
+    hook: bind('click', _ =>
+      xhr.text(`/${ctrl.data.game.id}/request-analysis`, {
+        method: 'post'
+      }).then(() => {
+        inProgress(true);
+        notify('Server-side analysis in progress')
+      }, _ => notify('Cannot run server-side analysis'))
+    )
   }, 'Request a computer analysis');
 }
 
@@ -231,7 +285,7 @@ function renderComment(comment: Tree.Comment, style: Style): string {
   return comment.by === 'lichess' ?
     comment.text.replace(/Best move was (.+)\./, (_, san) =>
       'Best move was ' + renderSan(san, undefined, style)) :
-      comment.text;
+    comment.text;
 }
 
 function renderPlayer(ctrl: AnalyseController, player: Player) {
@@ -244,7 +298,7 @@ function userHtml(ctrl: AnalyseController, player: Player) {
     perf = user ? user.perfs[d.game.perf] : null,
     rating = player.rating ? player.rating : (perf && perf.rating),
     rd = player.ratingDiff,
-    ratingDiff = rd ? (rd > 0 ? '+' + rd : ( rd < 0 ? '−' + (-rd) : '')) : '';
+    ratingDiff = rd ? (rd > 0 ? '+' + rd : (rd < 0 ? '−' + (-rd) : '')) : '';
   return user ? h('span', [
     h('a', {
       attrs: { href: '/@/' + user.username }

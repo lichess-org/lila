@@ -1,18 +1,17 @@
 package lila.api
 
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.DefaultBodyWritables._
+import play.api.libs.ws.StandaloneWSClient
 
 final class InfluxEvent(
-    ws: WSClient,
+    ws: StandaloneWSClient,
     endpoint: String,
     env: String
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val seed = ornicar.scalalib.Random.nextString(6)
+  private val seed = lila.common.ThreadLocalRandom.nextString(6)
 
   def start() = apply("lila_start", s"Lila starts: $seed")
-
-  def friendListToggle(value: Boolean) = apply(s"friend_list_$value", s"Toggle friend list: $value")
 
   private def apply(key: String, text: String) =
     ws.url(endpoint)

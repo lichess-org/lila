@@ -27,12 +27,6 @@
   <string name="wantClearHistory">Mi volas forigi mian historion aŭ poentaron</string>
   <string name="cantClearHistory">Ne eblas malplenigi vian ludan historion, puzlan historion aŭ poentaron.</string>
   <string name="wantReport">Mi volas raporti ludanton</string>
-  <string name="cheating">trompo</string>
-  <string name="sandbagging">sablokolono</string>
-  <string name="trolling">trolado</string>
-  <string name="insults">insultoj</string>
-  <string name="otherReason">iu alia kialo</string>
-  <string name="toReportAPlayer">Por raporti ludanton por %s, uzu la raportan formularon</string>
   <string name="youCanAlsoReachReportPage">Vi ankaŭ povas atingi tiun paĝon alklakante la raportan butonon %s en profilpaĝo.</string>
   <string name="doNotReportInForum">Ne raportu ludantojn en la forumo.</string>
   <string name="doNotSendReportEmails">Ne sendu al ni retpoŝtajn raportojn.</string>

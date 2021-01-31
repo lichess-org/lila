@@ -175,7 +175,7 @@ final private[api] class GameApi(
       }
     }
 
-  private def makeUrl(game: Game) = s"${net.baseUrl}/${game.id}/${game.firstPlayer.color.name}"
+  private def makeUrl(game: Game) = s"${net.baseUrl}/${game.id}/${game.naturalOrientation.name}"
 
   private def gamesJson(withFlags: WithFlags)(games: Seq[Game]): Fu[Seq[JsObject]] = {
     val allAnalysis =
@@ -183,9 +183,8 @@ final private[api] class GameApi(
       else fuccess(List.fill(games.size)(none[Analysis]))
     allAnalysis flatMap { analysisOptions =>
       (games map gameRepo.initialFen).sequenceFu map { initialFens =>
-        games zip analysisOptions zip initialFens map {
-          case ((g, analysisOption), initialFen) =>
-            gameToJson(g, analysisOption, initialFen, checkToken(withFlags))
+        games zip analysisOptions zip initialFens map { case ((g, analysisOption), initialFen) =>
+          gameToJson(g, analysisOption, initialFen, checkToken(withFlags))
         }
       }
     }

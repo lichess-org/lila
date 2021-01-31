@@ -1,6 +1,4 @@
-import { h } from 'snabbdom';
 import { Hooks } from 'snabbdom/hooks';
-import { VNode } from 'snabbdom/vnode';
 
 export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => any, redraw?: () => void): void {
   for (const mousedownEvent of ['touchstart', 'mousedown']) {
@@ -32,12 +30,4 @@ export function dataIcon(icon: string) {
   return {
     'data-icon': icon
   };
-}
-
-export function spinner(): VNode {
-  return h('div.spinner', [
-    h('svg', { attrs: { viewBox: '0 0 40 40' } }, [
-      h('circle', {
-        attrs: { cx: 20, cy: 20, r: 18, fill: 'none' }
-      })])]);
 }

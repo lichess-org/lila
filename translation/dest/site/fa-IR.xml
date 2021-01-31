@@ -9,6 +9,7 @@
   <string name="yourTurn">نوبت شماست</string>
   <string name="aiNameLevelAiLevel">%1$s سطح %2$s</string>
   <string name="level">سطح</string>
+  <string name="strength">قدرت</string>
   <string name="toggleTheChat">گپ روشن/خاموش</string>
   <string name="toggleSound">صدا روشن/خاموش</string>
   <string name="chat">گپ</string>
@@ -26,7 +27,7 @@
   <string name="itsYourTurn">نوبت شماست!</string>
   <string name="kingInTheCenter">شاه در مرکز</string>
   <string name="threeChecks">سه کیش</string>
-  <string name="raceFinished">رقابت به اتمام رسید</string>
+  <string name="raceFinished">مسابقه تمام شد</string>
   <string name="variantEnding">اتمام بازی</string>
   <string name="newOpponent">حریف جدید</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">حریف شما می خواهد که دوباره با شما بازی کند</string>
@@ -69,9 +70,9 @@
   <string name="move">حرکت</string>
   <string name="variantLoss">حرکت بازنده</string>
   <string name="variantWin">حرکت برنده</string>
-  <string name="insufficientMaterial">مهره کافی نیست</string>
+  <string name="insufficientMaterial">مواد کافی وجود ندارد</string>
   <string name="pawnMove">حرکت پیاده</string>
-  <string name="capture">گرفتن مهره</string>
+  <string name="capture">بزن</string>
   <string name="close">بستن</string>
   <string name="winning">حرکت برنده</string>
   <string name="losing">حرکت بازنده</string>
@@ -195,7 +196,8 @@
     <item quantity="other">%s بازی با شما</item>
   </plurals>
   <string name="cancel">انصراف</string>
-  <string name="timeOut">وقت تمام شد</string>
+  <string name="whiteTimeOut">زمان سفید به اتمام رسید</string>
+  <string name="blackTimeOut">زمان سیاه به اتمام رسید</string>
   <string name="drawOfferSent">پیشنهاد تساوی ارسال شد</string>
   <string name="drawOfferDeclined">پیشنهاد تساوی پذیرفته نشد</string>
   <string name="drawOfferAccepted">پیشنهاد تساوی پذیرفته شد</string>
@@ -271,6 +273,7 @@
     <item quantity="one">%s ثانیه اضافه کن</item>
     <item quantity="other">%s ثانیه اضافه کن</item>
   </plurals>
+  <string name="thisAccountViolatedTos">این حساب قوانین را نقض کرده است</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">این بازیکن امتیازش را به شکل مجازی تغییر می دهد.</string>
   <string name="openingExplorerAndTablebase">جستجوگر گشایش ها و جدول های مرجع آخربازی</string>
   <string name="takeback">پس گرفتن حرکت</string>
@@ -376,7 +379,6 @@
   <string name="more">بیشتر</string>
   <string name="memberSince">عضویت از تاریخ</string>
   <string name="lastSeenActive">آخرین ورود %s</string>
-  <string name="challengeToPlay">دعوت به بازی</string>
   <string name="player">بازیکن</string>
   <string name="list">لیست</string>
   <string name="graph">نمودار</string>
@@ -441,6 +443,7 @@
   <string name="lastName">نام خانوادگی</string>
   <string name="biography">زندگی نامه</string>
   <string name="country">کشور</string>
+  <string name="thankYou">ممنون!</string>
   <string name="socialMediaLinks">لینک های رسانه های اجتماعی</string>
   <string name="inlineNotation">نمایش اطلاعات درون خطها</string>
   <string name="watchLichessTV">تلویزیون لیچس را ببین</string>
@@ -449,34 +452,7 @@
   <string name="activeToday">فعالیت امروز</string>
   <string name="activePlayers">بازیکنان فعال</string>
   <string name="bewareTheGameIsRatedButHasNoClock">مراقب باشید،این بازی رتبه بندی میشود اما بدون ساعت!</string>
-  <string name="yourPuzzleRatingX">نمره حل مسئله شما : %s</string>
-  <string name="findTheBestMoveForWhite">بهترین حرکت را برای سفید بیابید</string>
-  <string name="findTheBestMoveForBlack">بهترین حرکت را برای سیاه  بیابید</string>
-  <string name="toTrackYourProgress">برای ثبت پیشرفت خود:</string>
-  <string name="puzzleId">مسئله شماره %s</string>
-  <string name="puzzleOfTheDay">مسئله روز</string>
-  <string name="clickToSolve">برای حل کلیک کنید</string>
-  <string name="goodMove">حرکت خوبی بود</string>
-  <string name="butYouCanDoBetter">ولی می‌تواند بهتر باشد</string>
-  <string name="bestMove">بهترین حرکت!</string>
-  <string name="keepGoing">ادامه دهید</string>
-  <string name="puzzleFailed">مسئله را باختید</string>
-  <string name="butYouCanKeepTrying">اما می‌توانید باز هم تلاش کنید</string>
   <string name="success">پیروزی</string>
-  <string name="wasThisPuzzleAnyGood">این جدول چقدر خوب بود؟</string>
-  <string name="pleaseVotePuzzle">با رای دادن مثبت یا منفی به پیشرفت لیچس کمک کنید</string>
-  <string name="thankYou">ممنون!</string>
-  <string name="ratingX">امتیاز: %s</string>
-  <string name="hidden">پنهان</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">این جدول%s بار بازی شده است</item>
-    <item quantity="other">این جدول%s بار بازی شده است</item>
-  </plurals>
-  <string name="fromGameLink">برگرفته شده از بازی %s</string>
-  <string name="continueTraining">ادامه دادن تمرین</string>
-  <string name="retryThisPuzzle">این مسئله را دوباره امتحان کنید</string>
-  <string name="thisPuzzleIsCorrect">این جدول صحیح و جالب است</string>
-  <string name="thisPuzzleIsWrong">این جدول اشتباه یا خسته کننده است</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s بازی در حال انجام است</item>
     <item quantity="other">%s بازی در حال انجام است</item>
@@ -525,9 +501,12 @@
   <string name="currentPassword">رمز جاری</string>
   <string name="newPassword">رمز جدید</string>
   <string name="newPasswordAgain">(رمز جدید(برای دومین بار</string>
+  <string name="newPasswordsDontMatch">کلمه‌های عبور وارد شده مطابقت ندارند</string>
+  <string name="newPasswordStrength">استحکام کلمه عبور</string>
   <string name="clockInitialTime">مقدار زمان اولیه</string>
   <string name="clockIncrement">مقدار زمان اضافی به ازای هر حرکت</string>
   <string name="privacy">حریم شخصی</string>
+  <string name="privacyPolicy">سیاست حریم شخصی</string>
   <string name="letOtherPlayersFollowYou">بقیه بازیکنان شما را دنبال کنند</string>
   <string name="letOtherPlayersChallengeYou">بقیه بازیکنان با شما بازی کنند</string>
   <string name="letOtherPlayersInviteYouToStudy">اجازه دهید دیگر بازیکن شما را به مطالعه دعوت کنند</string>
@@ -550,6 +529,9 @@
   <string name="xCommentedY">%1$s به %2$s پیام داد.</string>
   <string name="victory">پیروزی!</string>
   <string name="defeat">شکست!</string>
+  <string name="victoryVsYInZ">%1$s vs %2$s in %3$s</string>
+  <string name="defeatVsYInZ">%1$s vs %2$s in %3$s</string>
+  <string name="drawVsYInZ">%1$s vs %2$s in %3$s</string>
   <string name="timeline">جدول زمانی</string>
   <string name="starting">شروع</string>
   <string name="allInformationIsPublicAndOptional">تمامی اطلاعات عمومی و اختیاری است.</string>
@@ -577,6 +559,7 @@
   <string name="playOfflineComputer">بازی آفلاین با رایانه</string>
   <string name="opponent">حریف</string>
   <string name="learnMenu">یادگیری</string>
+  <string name="studyMenu">مرور کردن</string>
   <string name="practice">تمرین کردن</string>
   <string name="community">انجمن</string>
   <string name="tools">ابزارها</string>
@@ -611,6 +594,7 @@
   <string name="webmasters">وب مستر ها</string>
   <string name="about">درباره ما</string>
   <string name="aboutX">درباره %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s کاملا رایگان(%2$s)، آزاد، بدون تبلیغات و سرور متن باز است.</string>
   <string name="really">واقعاً</string>
   <string name="contribute">مشارکت</string>
   <string name="termsOfService">قوانین</string>
@@ -658,13 +642,17 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">.است %1$s شما %2$s ریتینگ</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">شما بهتر از %1$s بازیکن ها در %2$s هستید.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s بهتر از %2$s از بازیکنان %3$s میباشد.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">. ندارید %s چرا شما ریتینگ پایدار برای</string>
   <string name="yourRating">ریتینگ شما</string>
+  <string name="cumulative">تجمعی</string>
+  <string name="glicko2Rating">کلیکو(سیستم امتیاز شطرنج)</string>
   <string name="checkYourEmail">ایمیل خود را چک کنید</string>
   <string name="weHaveSentYouAnEmailClickTheLink">ما به شما ایمیل فرستادیم. روی لینکی که در ایمیل است کلیک کنید</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">اگر ایمیل را مشاهده نمی کنید پوشه ی اسپم را بررسی کنید</string>
   <string name="weHaveSentYouAnEmailTo">ایمیل ارسال شد.بر روی لینک داخل ایمیل کلیک کنید تا پسورد شما ریست شود %s  به آدرس</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">ما پایبند خواهید بود %s با کلیک بر روی نام نویسی شما به</string>
+  <string name="readAboutOur">\"درباره ما\".</string>
   <string name="networkLagBetweenYouAndLichess">تاخیر شبکه بین شما و لیچس</string>
   <string name="timeToProcessAMoveOnLichessServer">زمان سپری شده برای پردازش یک حرکت</string>
   <string name="downloadAnnotated">دانلود محتوا</string>
@@ -743,7 +731,6 @@
   <string name="error.unknown">خطا</string>
   <string name="custom">دلخواه</string>
   <string name="notifications">گزارش</string>
-  <string name="challenges">دعوت به مبارزه</string>
   <string name="perfRatingX">ریتینگ. %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s ثانیه برای شروع اولین حرکت</item>
@@ -790,12 +777,6 @@
   <string name="opening">گشایش</string>
   <string name="middlegame">وسط بازی</string>
   <string name="endgame">آخر بازی</string>
-  <string name="registerToSendChallenges">برای ارسال درخواست بازی باید وارد حساب کاربری شوید.</string>
-  <string name="youCannotChallengeX">شما نمی توانید به %s درخواست بازی بدهید.</string>
-  <string name="xDoesNotAcceptChallenges">%s درخواست بازی را نمی پذیرد.</string>
-  <string name="yourXRatingIsTooFarFromY">امتیاز %1$s شما فاصله زیادی با %2$s دارد؛بنابراین نمی توانید در خواست بازی بدهید.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">به علت امتیاز %s غیر قطعی،امکان ارسال درخواست بازی وجود ندارد.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s فقط درخواست بازی دوستان را می پذیرد.</string>
   <string name="conditionalPremoves">پیش حرکت های شرطی</string>
   <string name="addCurrentVariation">اضافه کردن این نوع حرکات</string>
   <string name="playVariationToCreateConditionalPremoves">یک نوع حرکات را بازی کنید تا پیش حرکت های شرطی را بسازید</string>
@@ -805,4 +786,40 @@
     <item quantity="one">و پیش حرکت %s را حفظ کنید</item>
     <item quantity="other">و پیش حرکت های %s را حفظ کنید</item>
   </plurals>
+  <string name="sorry">متاسفم :(</string>
+  <string name="weHadToTimeYouOutForAWhile">شما برای مدتی مسدود شدید.</string>
+  <string name="why">چرا؟</string>
+  <string name="pleasantChessExperience">هدف ما مهیا ساختن تجربه لذت بخش شطرنج به همه افراد است.</string>
+  <string name="goodPractice">به همین منظور، ما باید اطمینان حاصل کنیم که تمام بازیکنان تمرین خوب را دنبال میکنند.</string>
+  <string name="potentialProblem">زمانی که مشکلی احتمالی شناسایی شد ، این پیام را نمایش می دهیم.</string>
+  <string name="howToAvoidThis">چگونه از این امر جلوگیری کنیم؟</string>
+  <string name="playEveryGame">هر بازی که استارت میزنید را بازی کنید.</string>
+  <string name="tryToWin">در هر بازی برای پیروزی (یا حداقل تساوی) تلاش کنید.</string>
+  <string name="resignLostGames">بازی های از دست رفته را انصراف دهید(نگذارید زمان تمام شود).</string>
+  <string name="temporaryInconvenience">ما برای این مشکل موقت عذرخواهی می کنیم،</string>
+  <string name="wishYouGreatGames">و برای شما بازیهای عالی در lichess.org آرزو می کنیم.</string>
+  <string name="thankYouForReading">از اینکه متن را خواندید متشکریم!</string>
+  <string name="lifetimeScore">امتیاز کل</string>
+  <string name="currentMatchScore">امتیاز بازی فعلی</string>
+  <string name="agreementAssistance">من تضمین میکنم که در حین بازی ها کمک نگیرم ( از انجین ، کتاب ، پایگاه داده یا شخصی دیگر)</string>
+  <string name="agreementNice">من تضمین میکنم که همیشه به بازیکن های دیگر احترام بگذارم.</string>
+  <string name="agreementAccount">من تضمین می کنم که هیچ  وقت مولتی اکانت ( حساب اضافه ) تشکیل ندهم .</string>
+  <string name="agreementPolicy">من تضمین میکنم که به تمام قوانین و خط مشی های لیچس پایبند باشم .</string>
+  <string name="searchOrStartNewDiscussion">جستجو یا شروع کردن مکالمه جدید</string>
+  <string name="edit">ویرایش</string>
+  <string name="rapid">سریع</string>
+  <string name="classical">کلاسیک</string>
+  <string name="ultraBulletDesc">بازی های سریع دیوانه وار : کمتر از 30 ثانیه</string>
+  <string name="bulletDesc">بازی های فوق سریع : کمتر از 3 دقیقه</string>
+  <string name="blitzDesc">بازی های سریع : 3 تا 8 دقیقه</string>
+  <string name="rapidDesc">بازی های رپید ( سرعتی ) : 8 تا 25 دقیقه</string>
+  <string name="classicalDesc">بازی های کلاسیک : 25 دقیقه یا بیشتر</string>
+  <string name="correspondenceDesc">بازی های مکاتبه ای : یک  یا چند روز برای هر حرکت</string>
+  <string name="puzzleDesc">تمرین تاکتیک های شطرنج</string>
+  <string name="important">مهم!</string>
+  <string name="inTheFAQ">در سوالات متداول باشد.</string>
+  <string name="useTheReportForm">از فرم گزارش استفاده کنید.</string>
+  <string name="tryTheContactPage">با این صفحه ارتباط بگیرید.</string>
+  <string name="subscribe">مشترک شدن</string>
+  <string name="unsubscribe">لغو اشتراک</string>
 </resources>

@@ -13,28 +13,12 @@ object show {
 
   def apply(
       s: lila.streamer.Streamer.WithUserAndStream,
-      activities: Vector[lila.activity.ActivityView],
-      following: Boolean
+      activities: Vector[lila.activity.ActivityView]
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = s"${s.titleName} streams chess",
       moreCss = cssTag("streamer.show"),
-      moreJs = frag(
-        jsTag("ads.js"),
-        embedJsUnsafe(
-          """
-$(function() {
-$('button.follow').click(function() {
-var klass = 'active';
-$(this).toggleClass(klass);
-$.ajax({
-url: '/rel/' + ($(this).hasClass('active') ? 'follow/' : 'unfollow/') + $(this).data('user'),
-method:'post'
-});
-});
-});"""
-        )
-      ),
+      moreJs = frag(jsTag("ads.js")),
       openGraph = lila.app.ui
         .OpenGraph(
           title = s"${s.titleName} streams chess",
@@ -45,7 +29,7 @@ method:'post'
           image = s.streamer.picturePath.map(p => dbImageUrl(p.value))
         )
         .some,
-      csp = defaultCsp.withTwitch.some
+      csp = defaultCsp.finalizeWithTwitch.some
     )(
       main(cls := "page-menu streamer-show")(
         st.aside(cls := "page-menu__menu")(
@@ -55,20 +39,20 @@ method:'post'
                 iframe(
                   st.frameborder := "0",
                   frame.scrolling := "no",
-                  src := s"https://www.youtube.com/live_chat?v=$videoId&embed_domain=$netDomain"
+                  src := s"https://www.youtube.com/live_chat?v=$videoId&embed_domain=${netConfig.domain}"
                 )
               case _ =>
                 s.streamer.twitch.map { twitch =>
                   iframe(
                     st.frameborder := "0",
                     frame.scrolling := "yes",
-                    src := s"https://twitch.tv/embed/${twitch.userId}/chat?${(ctx.currentBg != "light") ?? "darkpopout&"}parent=${netDomain}"
+                    src := s"https://twitch.tv/embed/${twitch.userId}/chat?${(ctx.currentBg != "light") ?? "darkpopout&"}parent=${netConfig.domain}"
                   )
                 }
             }
           ),
           bits.menu("show", s.withoutStream.some),
-          a(cls := "ads-vulnerable blocker none button button-metal", href := "https://getublockorigin.com")(
+          a(cls := "ads-vulnerable blocker none button button-metal", href := "https://ublockorigin.com")(
             i(dataIcon := ""),
             strong(installBlocker()),
             beSafe()
@@ -88,14 +72,14 @@ method:'post'
               s.streamer.twitch.map { twitch =>
                 div(cls := "box embed twitch")(
                   iframe(
-                    src := s"https://player.twitch.tv/?channel=${twitch.userId}&parent=$netDomain",
+                    src := s"https://player.twitch.tv/?channel=${twitch.userId}&parent=${netConfig.domain}",
                     frame.allowfullscreen
                   )
                 )
               } getOrElse div(cls := "box embed")(div(cls := "nostream")(offline()))
           },
           div(cls := "box streamer")(
-            views.html.streamer.header(s, following.some),
+            views.html.streamer.header(s),
             div(cls := "description")(richText(s.streamer.description.fold("")(_.value))),
             a(cls := "ratings", href := routes.User.show(s.user.username))(
               s.user.best6Perfs.map { showPerfRating(s.user, _) }

@@ -10,7 +10,7 @@ final class ExpireCallbackMemo(ttl: FiniteDuration, callback: String => Unit)(im
     .scaffeine(mode)
     .expireAfterWrite(ttl)
     .removalListener((key: String, _: Boolean, _) => callback(key))
-    .build[String, Boolean]
+    .build[String, Boolean]()
 
   @inline private def isNotNull[A](a: A) = a != null
 
@@ -20,7 +20,7 @@ final class ExpireCallbackMemo(ttl: FiniteDuration, callback: String => Unit)(im
 
   def remove(key: String) = cache invalidate key
 
-  def count = cache.estimatedSize.toInt
+  def count = cache.estimatedSize().toInt
 
-  def keySet: Set[String] = cache.asMap.keys.toSet
+  def keySet: Set[String] = cache.asMap().keys.toSet
 }

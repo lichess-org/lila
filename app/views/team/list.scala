@@ -34,7 +34,7 @@ object list {
           h1(myTeams()),
           standardFlash(),
           table(cls := "slist slist-pad")(
-            if (teams.size > 0) tbody(teams.map(bits.teamTr(_)))
+            if (teams.nonEmpty) tbody(teams.map(bits.teamTr(_)))
             else noTeam()
           )
         )
@@ -49,7 +49,7 @@ object list {
           h1(teamsIlead()),
           standardFlash(),
           table(cls := "slist slist-pad")(
-            if (teams.size > 0) tbody(teams.map(bits.teamTr(_)))
+            if (teams.nonEmpty) tbody(teams.map(bits.teamTr(_)))
             else noTeam()
           )
         )
@@ -87,9 +87,9 @@ object list {
           standardFlash(),
           table(cls := "slist slist-pad")(
             if (teams.nbResults > 0)
-              tbody(cls := "infinitescroll")(
-                pagerNextTable(teams, nextPageUrl),
-                teams.currentPageResults map { bits.teamTr(_) }
+              tbody(cls := "infinite-scroll")(
+                teams.currentPageResults map { bits.teamTr(_) },
+                pagerNextTable(teams, nextPageUrl)
               )
             else noTeam()
           )

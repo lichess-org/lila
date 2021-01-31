@@ -21,7 +21,7 @@ case class Assessible(analysed: Analysed, color: Color) {
   lazy val alwaysHasAdvantage: Boolean =
     !analysis.infos.exists { info =>
       info.cp.fold(info.mate.fold(false) { a =>
-        (a.signum == color.fold(-1, 1))
+        a.signum == color.fold(-1, 1)
       }) { cp =>
         color.fold(cp.centipawns < -100, cp.centipawns > 100)
       }
@@ -128,7 +128,7 @@ case class Assessible(analysed: Analysed, color: Color) {
       _id = game.id + "/" + color.name,
       gameId = game.id,
       userId = ~game.player(color).userId,
-      white = (color == Color.White),
+      white = color == Color.White,
       assessment = rankCheating,
       date = DateTime.now,
       // meta

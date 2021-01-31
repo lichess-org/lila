@@ -1,6 +1,7 @@
 package lila.learn
 
 import reactivemongo.api.ReadPreference
+import cats.implicits._
 
 import lila.db.dsl._
 import lila.user.User
@@ -54,13 +55,10 @@ final class LearnApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext)
         )
       }
       .map {
-        _.view
-          .flatMap { obj =>
-            (obj.string("_id") |@| obj.int("nb")).tupled
+        _.view.flatMap { obj =>
+          (obj string "_id", obj int "nb") mapN { (k, v) =>
+            k -> (v * 100f / maxCompletion).toInt
           }
-          .map {
-            case (k, v) => k -> (v * 100f / maxCompletion).toInt
-          }
-          .toMap
+        }.toMap
       }
 }

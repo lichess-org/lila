@@ -3,26 +3,23 @@ package lila.irwin
 import lila.memo.SettingStore.{ Formable, StringReader }
 import play.api.data.Form
 import play.api.data.Forms.{ single, text }
+import lila.common.Ints
 
 case class IrwinThresholds(report: Int, mark: Int)
 
 private object IrwinThresholds {
-  val defaultThresholds = IrwinThresholds(88, 95)
 
-  val thresholdsIso = lila.common.Iso[String, IrwinThresholds](
-    str =>
+  private val defaultThresholds = IrwinThresholds(88, 95)
+
+  val thresholdsIso = lila.common.Iso
+    .ints(",")
+    .map[IrwinThresholds](
       {
-        str.split(',').map(_.trim) match {
-          case Array(rs, ms) =>
-            for {
-              report <- rs.toIntOption
-              mark   <- ms.toIntOption
-            } yield IrwinThresholds(report, mark)
-          case _ => none
-        }
-      } | defaultThresholds,
-    t => s"${t.report}, ${t.mark}"
-  )
+        case Ints(List(r, m)) => IrwinThresholds(r, m)
+        case _                => defaultThresholds
+      },
+      t => Ints(List(t.report, t.mark))
+    )
 
   implicit val thresholdsBsonHandler  = lila.db.dsl.isoHandler(thresholdsIso)
   implicit val thresholdsStringReader = StringReader.fromIso(thresholdsIso)

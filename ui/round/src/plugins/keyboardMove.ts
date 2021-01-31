@@ -1,12 +1,17 @@
-import sanWriter from './sanWriter';
-import { CgDests } from '../interfaces';
+import { Dests } from '../interfaces';
+import { sanWriter, SanToUci } from './sanWriter';
+import { KeyboardMove } from '../keyboardMove';
 
 const keyRegex = /^[a-h][1-8]$/;
 const fileRegex = /^[a-h]$/;
 const crazyhouseRegex = /^\w?@[a-h][1-8]$/;
 const ambiguousPromotionCaptureRegex = /^([a-h]x?)?[a-h](1|8)$/;
-const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrq]$/;
+const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrqNBRQ]$/;
 
+interface Opts {
+  input: HTMLInputElement;
+  ctrl: KeyboardMove;
+}
 interface SubmitOpts {
   force?: boolean;
   server?: boolean;
@@ -14,37 +19,43 @@ interface SubmitOpts {
 }
 type Submit = (v: string, submitOpts: SubmitOpts) => void;
 
-window.lichess.keyboardMove = function(opts: any) {
+lichess.keyboardMove = function(opts: Opts) {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
-  let sans: any = null;
+  let legalSans: SanToUci | null = null;
+
+  const isKey = (v: string): v is Key => !!v.match(keyRegex);
 
   const submit: Submit = function(v: string, submitOpts: SubmitOpts) {
     // consider 0's as O's for castling
     v = v.replace(/0/g, 'O');
-    const foundUci = v.length >= 2 && sans && sanToUci(v, sans);
-    if (foundUci) {
-      // ambiguous castle
-      if (v.toLowerCase() === 'o-o' && sans['O-O-O'] && !submitOpts.force) return;
-      // ambiguous UCI
-      if (v.match(keyRegex) && opts.ctrl.hasSelected()) opts.ctrl.select(v);
-      // ambiguous promotion (also check sans[v] here because bc8 could mean Bc8)
-      if (v.match(ambiguousPromotionCaptureRegex) && sans[v] && !submitOpts.force) return;
-      else opts.ctrl.san(foundUci.slice(0, 2), foundUci.slice(2));
+    const foundUci = v.length >= 2 && legalSans && sanToUci(v, legalSans);
+    if (v == 'resign') {
+      opts.ctrl.resign(true, true);
       clear();
-    } else if (sans && v.match(keyRegex)) {
+    }
+    else if (legalSans && foundUci) {
+      // ambiguous castle
+      if (v.toLowerCase() === 'o-o' && legalSans['O-O-O'] && !submitOpts.force) return;
+      // ambiguous UCI
+      if (isKey(v) && opts.ctrl.hasSelected()) opts.ctrl.select(v);
+      // ambiguous promotion (also check legalSans[v] here because bc8 could mean Bc8)
+      if (v.match(ambiguousPromotionCaptureRegex) && legalSans[v] && !submitOpts.force) return;
+      else opts.ctrl.san(foundUci.slice(0, 2) as Key, foundUci.slice(2) as Key);
+      clear();
+    } else if (legalSans && isKey(v)) {
       opts.ctrl.select(v);
       clear();
-    } else if (sans && v.match(fileRegex)) {
+    } else if (legalSans && v.match(fileRegex)) {
       // do nothing
-    } else if (sans && v.match(promotionRegex)) {
-      const foundUci = sanToUci(v.replace('=', '').slice(0, -1), sans);
+    } else if (legalSans && v.match(promotionRegex)) {
+      const foundUci = sanToUci(v.replace('=', '').slice(0, -1), legalSans);
       if (!foundUci) return;
-      opts.ctrl.promote(foundUci.slice(0, 2), foundUci.slice(2), v.slice(-1).toUpperCase());
+      opts.ctrl.promote(foundUci.slice(0, 2) as Key, foundUci.slice(2) as Key, v.slice(-1).toUpperCase());
       clear();
     } else if (v.match(crazyhouseRegex)) {
       if (v.length === 3) v = 'P' + v;
-      opts.ctrl.drop(v.slice(2), v[0].toUpperCase());
+      opts.ctrl.drop(v.slice(2) as Key, v[0].toUpperCase());
       clear();
     } else if (v.length > 0 && 'clock'.startsWith(v.toLowerCase())) {
       if ('clock' === v.toLowerCase()) {
@@ -52,22 +63,22 @@ window.lichess.keyboardMove = function(opts: any) {
         clear();
       }
     } else if (submitOpts.yourMove && v.length > 1) {
-      setTimeout(window.lichess.sound.error, 500);
+      setTimeout(() => lichess.sound.play('error'), 500);
       opts.input.value = '';
     }
     else {
-      const wrong = v.length && sans && !sanCandidates(v, sans).length;
-      if (wrong && !opts.input.classList.contains('wrong')) window.lichess.sound.error();
-      opts.input.classList.toggle('wrong', wrong);
+      const wrong = v.length && legalSans && !sanCandidates(v, legalSans).length;
+      if (wrong && !opts.input.classList.contains('wrong')) lichess.sound.play('error');
+      opts.input.classList.toggle('wrong', !!wrong);
     }
   };
-  const clear = function() {
+  const clear = () => {
     opts.input.value = '';
     opts.input.classList.remove('wrong');
   };
   makeBindings(opts, submit, clear);
-  return function(fen: string, dests: CgDests, yourMove: boolean) {
-    sans = dests && Object.keys(dests).length ? sanWriter(fen, destsToUcis(dests)) : null;
+  return (fen: string, dests: Dests | undefined, yourMove: boolean) => {
+    legalSans = dests && dests.size > 0 ? sanWriter(fen, destsToUcis(dests)) : null;
     submit(opts.input.value, {
       server: true,
       yourMove: yourMove
@@ -76,15 +87,14 @@ window.lichess.keyboardMove = function(opts: any) {
 }
 
 function makeBindings(opts: any, submit: Submit, clear: Function) {
-  window.Mousetrap.bind('enter', function() {
-    opts.input.focus();
-  });
+  window.Mousetrap.bind('enter', () => opts.input.focus());
   /* keypress doesn't cut it here;
    * at the time it fires, the last typed char
    * is not available yet. Reported by:
    * https://lichess.org/forum/lichess-feedback/keyboard-input-changed-today-maybe-a-bug
    */
-  opts.input.addEventListener('keyup', function(e: KeyboardEvent) {
+  opts.input.addEventListener('keyup', (e: KeyboardEvent) => {
+    if (!e.isTrusted) return;
     const v = (e.target as HTMLInputElement).value;
     if (v.includes('/')) {
       focusChat();
@@ -95,47 +105,43 @@ function makeBindings(opts: any, submit: Submit, clear: Function) {
       force: e.which === 13
     });
   });
-  opts.input.addEventListener('focus', function() {
-    opts.ctrl.setFocus(true);
-  });
-  opts.input.addEventListener('blur', function() {
-    opts.ctrl.setFocus(false);
-  });
+  opts.input.addEventListener('focus', () => opts.ctrl.setFocus(true));
+  opts.input.addEventListener('blur', () => opts.ctrl.setFocus(false));
   // prevent default on arrow keys: they only replay moves
   opts.input.addEventListener('keydown', function(e: KeyboardEvent) {
     if (e.which > 36 && e.which < 41) {
       if (e.which == 37) opts.ctrl.jump(-1);
       else if (e.which == 38) opts.ctrl.jump(-999);
       else if (e.which == 39) opts.ctrl.jump(1);
-      else  opts.ctrl.jump(999);
+      else opts.ctrl.jump(999);
       e.preventDefault();
     }
   });
 }
 
-function sanToUci(san: string, sans): Key[] | undefined {
-  if (san in sans) return sans[san];
+function sanToUci(san: string, legalSans: SanToUci): Uci | undefined {
+  if (san in legalSans) return legalSans[san];
   const lowered = san.toLowerCase();
-  for (let i in sans)
-    if (i.toLowerCase() === lowered) return sans[i];
+  for (let i in legalSans)
+    if (i.toLowerCase() === lowered) return legalSans[i];
   return;
 }
 
-function sanCandidates(san: string, sans) {
-  const lowered = san.toLowerCase();
-  return Object.keys(sans).filter(function(s) {
+function sanCandidates(san: string, legalSans: SanToUci): San[] {
+  // replace '=' in promotion moves (#7326)
+  const lowered = san.replace('=', '').toLowerCase();
+  return Object.keys(legalSans).filter(function(s) {
     return s.toLowerCase().startsWith(lowered);
   });
 }
 
-function destsToUcis(dests: CgDests) {
+function destsToUcis(dests: Dests): Uci[] {
   const ucis: string[] = [];
-  Object.keys(dests).forEach(function(orig) {
-    const d = dests[orig];
-    if (d) d.forEach(function(dest) {
+  for (const [orig, d] of dests) {
+    d.forEach(function(dest) {
       ucis.push(orig + dest);
     });
-  });
+  }
   return ucis;
 }
 
@@ -150,11 +156,11 @@ function readClocks(clockCtrl: any | undefined) {
     const time = clockCtrl.millisOf(color);
     const date = new Date(time);
     const msg = (time >= 3600000 ? simplePlural(Math.floor(time / 3600000), 'hour') : '') + ' ' +
-      simplePlural(date.getUTCMinutes(), 'minute') +  ' ' +
+      simplePlural(date.getUTCMinutes(), 'minute') + ' ' +
       simplePlural(date.getUTCSeconds(), 'second');
     return `${color}: ${msg}`;
   });
-  window.lichess.sound.say(msgs.join('. '));
+  lichess.sound.say(msgs.join('. '));
 }
 
 function simplePlural(nb: number, word: string) {

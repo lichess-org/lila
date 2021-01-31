@@ -21,14 +21,14 @@ final private class SwissRankingApi(
   def update(res: SwissScoring.Result): Unit =
     scoreCache.put(
       res.swiss.id,
-      res.leaderboard.zipWithIndex.map {
-        case ((p, _), i) => p.userId -> (i + 1)
+      res.leaderboard.zipWithIndex.map { case ((p, _), i) =>
+        p.userId -> (i + 1)
       }.toMap
     )
 
   private val scoreCache = cacheApi.scaffeine
     .expireAfterWrite(60 minutes)
-    .build[Swiss.Id, Ranking]
+    .build[Swiss.Id, Ranking]()
 
   private val dbCache = cacheApi[Swiss.Id, Ranking](512, "swiss.ranking") {
     _.expireAfterAccess(1 hour)
@@ -40,8 +40,8 @@ final private class SwissRankingApi(
     SwissPlayer.fields { f =>
       colls.player.primitive[User.ID]($doc(f.swissId -> id), $sort desc f.score, f.userId)
     } map {
-      _.view.zipWithIndex.map {
-        case (user, i) => (user, i + 1)
+      _.view.zipWithIndex.map { case (user, i) =>
+        (user, i + 1)
       }.toMap
     }
 }

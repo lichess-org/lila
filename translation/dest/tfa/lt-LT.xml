@@ -5,6 +5,7 @@
   <string name="twoFactorApp">Dviejų lygių tapatumo nustatymui reikalinga programa, pvz., „Google Authenticator“, skirta „%1$s“ arba „%2$s“.</string>
   <string name="scanTheCode">Nuskaitykite QR kodą su programa.</string>
   <string name="enterPassword">Įveskite slaptažodį ir programoje sugeneruota kodą, norėdami užbaigti sąranką. Tapatumo nustatymo kodas bus reikalingas kiekvieno prisijungimo metu.</string>
+  <string name="ifYouCannotScanEnterX">Jei nepavyksta nuskenuoti kodo, įveskite paslaptį %s į savo programėlę.</string>
   <string name="authenticationCode">Tapatumo nustatymo kodas</string>
   <string name="ifYouLoseAccess">Dėmesio: jeigu prarasite priėjimą prie savo dviejų lygių tapatumo nustatymo kodų, slaptažodį galėsite pasikeisti el. paštu.</string>
   <string name="enableTwoFactor">Įjungti dviejų lygių tapatumo nustatymą</string>
@@ -12,4 +13,5 @@
   <string name="twoFactorEnabled">Dviejų lygių tapatumo nustatymas įjungtas</string>
   <string name="twoFactorDisable">Norint išjungti dviejų lygių tapatumo nustatymą, reikalingas slaptažodis ir kodas iš tam skirtos programos.
 Jeigu nebeturite priėjimo prie savo kodų, galite pasikeisti slaptažodį el. paštu.</string>
+  <string name="openTwoFactorApp">Norėdami pamatyti autentikacijos kodą ir patvirtinti savo tapatybę, savo įrenginyje atverkite dviejų-faktorių autentikacijos programėlę.</string>
 </resources>

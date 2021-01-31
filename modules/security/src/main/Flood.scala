@@ -4,7 +4,7 @@ import com.github.blemale.scaffeine.Cache
 import org.joda.time.Instant
 import scala.concurrent.duration.FiniteDuration
 
-import lila.common.base.StringUtils.levenshtein
+import lila.common.base.Levenshtein.isLevenshteinDistanceLessThan
 import lila.user.User
 
 final class Flood(duration: FiniteDuration) {
@@ -15,7 +15,7 @@ final class Flood(duration: FiniteDuration) {
 
   private val cache: Cache[User.ID, Messages] = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterAccess(duration)
-    .build[User.ID, Messages]
+    .build[User.ID, Messages]()
 
   def allowMessage(uid: User.ID, text: String): Boolean = {
     val msg  = Message(text, Instant.now)
@@ -29,21 +29,33 @@ final class Flood(duration: FiniteDuration) {
     msgs.lift(floodNumber) ?? (_.date isAfter msg.date.minus(10000L))
 }
 
-private[security] object Flood {
+private object Flood {
 
-  case class Message(text: String, date: Instant)
+  // ui/chat/src/preset.ts
+  private val passList = Set(
+    "Hello",
+    "Good luck",
+    "Have fun!",
+    "You too!",
+    "Good game",
+    "Well played",
+    "Thank you",
+    "I've got to go",
+    "Bye!"
+  )
 
-  type Messages = List[Message]
+  private[security] case class Message(text: String, date: Instant)
 
-  def duplicateMessage(msg: Message, msgs: Messages): Boolean =
-    msgs.headOption ?? { m =>
+  private type Messages = List[Message]
+
+  private[security] def duplicateMessage(msg: Message, msgs: Messages): Boolean =
+    !passList.contains(msg.text) && msgs.headOption.?? { m =>
       similar(m.text, msg.text) || msgs.tail.headOption.?? { m2 =>
         similar(m2.text, msg.text)
       }
     }
 
   private def similar(s1: String, s2: String): Boolean = {
-    val distance = levenshtein(s1, s2)
-    distance < 2 || distance < s1.length.min(s2.length) / 8
+    isLevenshteinDistanceLessThan(s1, s2, (s1.length.min(s2.length) >> 3) atLeast 2)
   }
 }

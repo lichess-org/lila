@@ -28,8 +28,8 @@ public class RatingCalculator {
   private final static int ITERATION_MAX =  3000;
   private final static double DAYS_PER_MILLI =  1.0 / (1000 * 60 * 60 * 24);
 
-  private double tau; // constrains volatility over time
-  private double defaultVolatility;
+  private final double tau; // constrains volatility over time
+  private final double defaultVolatility;
   private double ratingPeriodsPerMilli;
 
 
@@ -93,7 +93,7 @@ public class RatingCalculator {
       } else {
         // if a player does not compete during the rating period, then only Step 6 applies.
         // the player's rating and volatility parameters remain the same but deviation increases
-        
+
         player.setWorkingRating(player.getGlicko2Rating());
         player.setWorkingRatingDeviation(calculateNewRD(player.getGlicko2RatingDeviation(), player.getVolatility(), elapsedRatingPeriods));
         player.setWorkingVolatility(player.getVolatility());
@@ -147,7 +147,7 @@ public class RatingCalculator {
 
     // step 5.2 - set the initial values of the iterative algorithm to come in step 5.4
     double A = a;
-    double B = 0.0;
+    double B;
     if ( Math.pow(delta, 2) > Math.pow(phi, 2) + v ) {
       B = Math.log( Math.pow(delta, 2) - Math.pow(phi, 2) - v );
     } else {

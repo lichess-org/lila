@@ -55,7 +55,7 @@ object Work {
   }
 
   case class Sender(
-      userId: Option[String],
+      userId: lila.user.User.ID,
       ip: Option[IpAddress],
       mod: Boolean,
       system: Boolean
@@ -63,7 +63,7 @@ object Work {
 
     override def toString =
       if (system) lila.user.User.lichessId
-      else userId orElse ip.map(_.value) getOrElse "unknown"
+      else userId
   }
 
   case class Clock(wtime: Int, btime: Int, inc: Int)
@@ -113,5 +113,5 @@ object Work {
     override def toString = s"id:$id game:${game.id} tries:$tries requestedBy:$sender acquired:$acquired"
   }
 
-  def makeId = Id(scala.util.Random.alphanumeric take 8 mkString)
+  def makeId = Id(lila.common.ThreadLocalRandom nextString 8)
 }

@@ -4,6 +4,6 @@ export default rollupProject({
   main: {
     name: 'LichessChat',
     input: 'src/main.ts',
-    output: 'lichess.chat',
+    output: 'chat',
   },
 });

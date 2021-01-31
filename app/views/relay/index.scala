@@ -36,7 +36,7 @@ object index {
         div(cls := "box__top")(
           h1(liveBroadcasts()),
           a(
-            href := routes.Relay.form,
+            href := routes.Relay.form(),
             cls := "new button button-empty",
             title := newBroadcast.txt(),
             dataIcon := "O"
@@ -50,7 +50,7 @@ object index {
         },
         st.section(
           h2(completed()),
-          div(cls := "infinitescroll")(
+          div(cls := "infinite-scroll")(
             pager.currentPageResults.map { show.widget(_, "paginated") },
             pagerNext(pager, np => addQueryParameter(url.url, "page", np))
           )

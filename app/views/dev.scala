@@ -63,7 +63,7 @@ object dev {
             "Only use if you know exactly what you're doing."
           ),
           res map { pre(_) },
-          postForm(action := routes.Dev.cliPost)(
+          postForm(action := routes.Dev.cliPost())(
             form3.input(form("command"))(autofocus)
           ),
           h2("Command examples:"),
@@ -78,7 +78,9 @@ fishnet client create {username}
 gdpr erase {username} forever
 patron lifetime {username}
 patron month {username}
-eval-cache drop 8/8/1k6/8/2K5/1P6/8/8 w - - 0 1
+tournament feature {id}
+tournament unfeature {id}
+eval-cache drop standard 8/8/1k6/8/2K5/1P6/8/8 w - - 0 1
 """)
         )
       )

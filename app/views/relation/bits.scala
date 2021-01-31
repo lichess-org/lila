@@ -66,8 +66,7 @@ object bits {
   private def pagTable(pager: Paginator[Related], call: Call)(implicit ctx: Context) =
     table(cls := "slist")(
       if (pager.nbResults > 0)
-        tbody(cls := "infinitescroll")(
-          pagerNextTable(pager, np => addQueryParameter(call.url, "page", np)),
+        tbody(cls := "infinite-scroll")(
           pager.currentPageResults.map { r =>
             tr(cls := "paginated")(
               td(userLink(r.user)),
@@ -75,7 +74,8 @@ object bits {
               td(trans.nbGames.pluralSame(r.user.count.game)),
               td(actions(r.user.id, relation = r.relation, followable = r.followable, blocked = false))
             )
-          }
+          },
+          pagerNextTable(pager, np => addQueryParameter(call.url, "page", np))
         )
       else tbody(tr(td(colspan := 2)("None found.", br)))
     )

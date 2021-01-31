@@ -1,6 +1,8 @@
 package lila.chat
 
 import lila.user.User
+import scala.concurrent.Promise
+import lila.hub.actorApi.shutup.PublicSource
 
 case class UserModInfo(
     user: User,
@@ -21,3 +23,5 @@ object BusChan {
 
   type Select = BusChan.type => BusChan
 }
+
+case class GetLinkCheck(line: UserLine, source: PublicSource, promise: Promise[Boolean])

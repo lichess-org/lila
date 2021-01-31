@@ -4,7 +4,7 @@ import akka.actor._
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
 
 import lila.common.config._
@@ -32,7 +32,7 @@ final class Env(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
-    ws: WSClient
+    ws: StandaloneWSClient
 ) {
 
   private val config = appConfig.get[UserConfig]("user")(AutoConfig.loader)
@@ -70,24 +70,23 @@ final class Env(
 
   lazy val authenticator = wire[Authenticator]
 
-  lazy val forms = wire[DataForm]
+  lazy val forms = wire[UserForm]
 
   lila.common.Bus.subscribeFuns(
-    "adjustCheater" -> {
-      case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
-        rankingApi remove userId
-        repo.setRoles(userId, Nil)
+    "adjustCheater" -> { case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
+      rankingApi remove userId
+      repo.setRoles(userId, Nil).unit
     },
-    "adjustBooster" -> {
-      case lila.hub.actorApi.mod.MarkBooster(userId) => rankingApi remove userId
+    "adjustBooster" -> { case lila.hub.actorApi.mod.MarkBooster(userId) =>
+      rankingApi.remove(userId).unit
     },
-    "kickFromRankings" -> {
-      case lila.hub.actorApi.mod.KickFromRankings(userId) => rankingApi remove userId
+    "kickFromRankings" -> { case lila.hub.actorApi.mod.KickFromRankings(userId) =>
+      rankingApi.remove(userId).unit
     },
-    "gdprErase" -> {
-      case User.GDPRErase(user) =>
-        repo erase user
-        noteApi erase user
+    "gdprErase" -> { case User.GDPRErase(user) =>
+      repo erase user
+      noteApi erase user
+      ()
     }
   )
 }

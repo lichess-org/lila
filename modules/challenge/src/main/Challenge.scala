@@ -1,11 +1,12 @@
 package lila.challenge
 
 import chess.format.FEN
-import chess.variant.{ FromPosition, Horde, RacingKings, Variant }
+import chess.variant.{ Chess960, FromPosition, Horde, RacingKings, Variant }
 import chess.{ Color, Mode, Speed }
 import org.joda.time.DateTime
 
-import lila.game.PerfPicker
+import lila.game.{ Game, PerfPicker }
+import lila.i18n.{ I18nKey, I18nKeys }
 import lila.rating.PerfType
 import lila.user.User
 
@@ -20,11 +21,12 @@ case class Challenge(
     finalColor: chess.Color,
     challenger: Challenge.Challenger,
     destUser: Option[Challenge.Challenger.Registered],
-    rematchOf: Option[String],
+    rematchOf: Option[Game.ID],
     createdAt: DateTime,
     seenAt: Option[DateTime], // None for open challenges, so they don't sweep
     expiresAt: DateTime,
-    open: Option[Boolean] = None
+    open: Option[Boolean] = None,
+    declineReason: Option[Challenge.DeclineReason] = None
 ) {
 
   import Challenge._
@@ -86,13 +88,20 @@ case class Challenge(
 
   def notableInitialFen: Option[FEN] =
     variant match {
-      case FromPosition | Horde | RacingKings => initialFen
-      case _                                  => none
+      case FromPosition | Horde | RacingKings | Chess960 => initialFen
+      case _                                             => none
     }
 
   def isOpen = ~open
 
   lazy val perfType = perfTypeOf(variant, timeControl)
+
+  def anyDeclineReason = declineReason | DeclineReason.default
+
+  def declineWith(reason: DeclineReason) = copy(
+    status = Status.Declined,
+    declineReason = reason.some
+  )
 }
 
 object Challenge {
@@ -110,6 +119,29 @@ object Challenge {
     case object Accepted extends Status(40)
     val all                            = List(Created, Offline, Canceled, Declined, Accepted)
     def apply(id: Int): Option[Status] = all.find(_.id == id)
+  }
+
+  sealed abstract class DeclineReason(val trans: I18nKey) {
+    val key = toString.toLowerCase
+  }
+
+  object DeclineReason {
+    case object Generic     extends DeclineReason(I18nKeys.challenge.declineGeneric)
+    case object Later       extends DeclineReason(I18nKeys.challenge.declineLater)
+    case object TooFast     extends DeclineReason(I18nKeys.challenge.declineTooFast)
+    case object TooSlow     extends DeclineReason(I18nKeys.challenge.declineTooSlow)
+    case object TimeControl extends DeclineReason(I18nKeys.challenge.declineTimeControl)
+    case object Rated       extends DeclineReason(I18nKeys.challenge.declineRated)
+    case object Casual      extends DeclineReason(I18nKeys.challenge.declineCasual)
+    case object Standard    extends DeclineReason(I18nKeys.challenge.declineStandard)
+    case object Variant     extends DeclineReason(I18nKeys.challenge.declineVariant)
+    case object NoBot       extends DeclineReason(I18nKeys.challenge.declineNoBot)
+    case object OnlyBot     extends DeclineReason(I18nKeys.challenge.declineOnlyBot)
+
+    val default: DeclineReason = Generic
+    val all: List[DeclineReason] =
+      List(Generic, Later, TooFast, TooSlow, TimeControl, Rated, Casual, Standard, Variant, NoBot, OnlyBot)
+    def apply(key: String) = all.find { d => d.key == key.toLowerCase || d.trans.key == key } | Generic
   }
 
   case class Rating(int: Int, provisional: Boolean) {
@@ -169,12 +201,12 @@ object Challenge {
 
   private val idSize = 8
 
-  private def randomId = ornicar.scalalib.Random nextString idSize
+  private def randomId = lila.common.ThreadLocalRandom nextString idSize
 
   def toRegistered(variant: Variant, timeControl: TimeControl)(u: User) =
     Challenger.Registered(u.id, Rating(u.perfs(perfTypeOf(variant, timeControl))))
 
-  def randomColor = chess.Color(scala.util.Random.nextBoolean)
+  def randomColor = chess.Color.fromWhite(lila.common.ThreadLocalRandom.nextBoolean())
 
   def make(
       variant: Variant,
@@ -184,7 +216,7 @@ object Challenge {
       color: String,
       challenger: Challenger,
       destUser: Option[User],
-      rematchOf: Option[String]
+      rematchOf: Option[Game.ID]
   ): Challenge = {
     val (colorChoice, finalColor) = color match {
       case "white" => ColorChoice.White  -> chess.White
@@ -202,7 +234,10 @@ object Challenge {
       variant = variant,
       initialFen =
         if (variant == FromPosition) initialFen
-        else !variant.standardInitialPosition option FEN(variant.initialFen),
+        else if (variant == Chess960) initialFen filter { fen =>
+          Chess960.positionNumber(fen).isDefined
+        }
+        else !variant.standardInitialPosition option variant.initialFen,
       timeControl = timeControl,
       mode = finalMode,
       colorChoice = colorChoice,

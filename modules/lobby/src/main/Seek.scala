@@ -2,7 +2,6 @@ package lila.lobby
 
 import chess.{ Mode, Speed }
 import org.joda.time.DateTime
-import ornicar.scalalib.Random
 import play.api.libs.json._
 import play.api.i18n.Lang
 
@@ -62,7 +61,7 @@ case class Seek(
         ),
         "mode"  -> realMode.id,
         "days"  -> daysPerTurn,
-        "color" -> chess.Color(color).??(_.name),
+        "color" -> chess.Color.fromName(color).??(_.name),
         "perf" -> Json.obj(
           "icon" -> perfType.map(_.iconChar.toString),
           "name" -> perfType.map(_.trans)
@@ -87,7 +86,7 @@ object Seek {
       blocking: Set[String]
   ): Seek =
     new Seek(
-      _id = Random nextString idSize,
+      _id = lila.common.ThreadLocalRandom nextString idSize,
       variant = variant.id,
       daysPerTurn = daysPerTurn,
       mode = mode.id,
@@ -99,7 +98,7 @@ object Seek {
 
   def renew(seek: Seek) =
     new Seek(
-      _id = Random nextString idSize,
+      _id = lila.common.ThreadLocalRandom nextString idSize,
       variant = seek.variant,
       daysPerTurn = seek.daysPerTurn,
       mode = seek.mode,

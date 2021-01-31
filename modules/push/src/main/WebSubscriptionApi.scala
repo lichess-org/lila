@@ -10,14 +10,15 @@ import lila.user.User
 final class WebSubscriptionApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def getSubscriptions(max: Int)(userId: User.ID): Fu[List[WebSubscription]] =
-    coll.ext
+    coll
       .find(
         $doc(
           "userId" -> userId
         )
       )
       .sort($doc("seenAt" -> -1))
-      .list[Bdoc](max)
+      .cursor[Bdoc]()
+      .list(max)
       .map { docs =>
         docs.flatMap { doc =>
           for {
@@ -28,7 +29,7 @@ final class WebSubscriptionApi(coll: Coll)(implicit ec: scala.concurrent.Executi
         }
       }
 
-  def subscribe(user: User, subscription: WebSubscription, sessionId: String): Funit = {
+  def subscribe(user: User, subscription: WebSubscription, sessionId: String): Funit =
     coll.update
       .one(
         $id(sessionId),
@@ -42,7 +43,6 @@ final class WebSubscriptionApi(coll: Coll)(implicit ec: scala.concurrent.Executi
         upsert = true
       )
       .void
-  }
 
   def unsubscribeBySession(sessionId: String): Funit = {
     coll.delete.one($id(sessionId)).void

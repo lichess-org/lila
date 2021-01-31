@@ -1,10 +1,10 @@
 package lila.common
 
-import scalaz.NonEmptyList
+import cats.data.NonEmptyList
 
 case class Captcha(
     gameId: String,
-    fen: String,
+    fenBoard: String,
     white: Boolean,
     solutions: Captcha.Solutions,
     moves: Map[String, String]
@@ -19,9 +19,9 @@ object Captcha {
 
   val default = Captcha(
     gameId = "00000000",
-    fen = "1k3b1r/r5pp/pNQppq2/2p5/4P3/P3B3/1P3PPP/n4RK1",
+    fenBoard = "1k3b1r/r5pp/pNQppq2/2p5/4P3/P3B3/1P3PPP/n4RK1",
     white = true,
-    solutions = NonEmptyList("c6 c8"),
+    solutions = NonEmptyList.one("c6 c8"),
     moves = Map("c6" -> "c8")
   )
 

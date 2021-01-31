@@ -32,16 +32,15 @@ object AggregationClusters {
       metricValues = Metric valuesOf question.metric
       x     <- getId[X](doc)(question.dimension.bson)
       stack <- doc.getAsOpt[List[StackEntry]]("stack")
-      points = metricValues.map {
-        case Metric.MetricValue(id, name) =>
-          name -> Point(stack.find(_.metric == id).??(_.v.toDouble.get))
+      points = metricValues.map { case Metric.MetricValue(id, name) =>
+        name -> Point(stack.find(_.metric == id).??(_.v.toDouble.get))
       }
       total = stack.map(_.v.toInt.get).sum
       percents =
         if (total == 0) points
         else
-          points.map {
-            case (n, p) => n -> Point(100 * p.y / total)
+          points.map { case (n, p) =>
+            n -> Point(100 * p.y / total)
           }
       ids <- doc.getAsOpt[List[String]]("ids")
     } yield Cluster(x, Insight.Stacked(percents), total, ids)

@@ -1,13 +1,14 @@
 package lila.clas
 
 import org.joda.time.{ DateTime, Period }
-
-import lila.rating.PerfType
-import lila.game.{ Game, GameRepo }
-import lila.user.User
-import lila.db.dsl._
 import reactivemongo.api._
 import reactivemongo.api.bson._
+
+import lila.db.dsl._
+import lila.game.{ Game, GameRepo }
+import lila.puzzle.PuzzleRound
+import lila.rating.PerfType
+import lila.user.User
 
 case class ClasProgress(
     perfType: PerfType,
@@ -42,7 +43,7 @@ case class StudentProgress(
 final class ClasProgressApi(
     gameRepo: GameRepo,
     historyApi: lila.history.HistoryApi,
-    puzzleRoundRepo: lila.puzzle.RoundRepo,
+    puzzleColls: lila.puzzle.PuzzleColls,
     getStudentIds: () => Fu[Set[User.ID]]
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -58,27 +59,25 @@ final class ClasProgressApi(
 
     val progressesFu = historyApi.progresses(users, perfType, days)
 
-    playStatsFu zip progressesFu map {
-      case (playStats, progresses) =>
-        ClasProgress(
-          perfType,
-          days,
-          users zip progresses map {
-            case (u, rating) =>
-              val playStat = playStats get u.id
-              u.id -> StudentProgress(
-                nb = playStat.??(_.nb),
-                rating = rating,
-                wins = playStat.??(_.wins),
-                millis = playStat.??(_.millis)
-              )
-          } toMap
-        )
+    playStatsFu zip progressesFu map { case (playStats, progresses) =>
+      ClasProgress(
+        perfType,
+        days,
+        users zip progresses map { case (u, rating) =>
+          val playStat = playStats get u.id
+          u.id -> StudentProgress(
+            nb = playStat.??(_.nb),
+            rating = rating,
+            wins = playStat.??(_.wins),
+            millis = playStat.??(_.millis)
+          )
+        } toMap
+      )
     }
   }
 
   private def getPuzzleStats(userIds: List[User.ID], days: Int): Fu[Map[User.ID, PlayStats]] =
-    puzzleRoundRepo.coll.get.flatMap {
+    puzzleColls.round {
       _.aggregateList(
         maxDocs = Int.MaxValue,
         ReadPreference.secondaryPreferred
@@ -86,15 +85,15 @@ final class ClasProgressApi(
         import framework._
         Match(
           $doc(
-            "u" $in userIds,
-            "a" $gt (DateTime.now minusDays days)
+            PuzzleRound.BSONFields.user $in userIds,
+            PuzzleRound.BSONFields.date $gt DateTime.now.minusDays(days)
           )
         ) -> List(
           GroupField("u")(
             "nb" -> SumAll,
             "win" -> Sum(
               $doc(
-                "$cond" -> $arr($doc("$lt" -> $arr("$m", 0)), 1, 0)
+                "$cond" -> $arr("$w", 1, 0)
               )
             )
           )

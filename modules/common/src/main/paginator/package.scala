@@ -1,6 +1,6 @@
 package lila.common
 
-import scalaz.Functor
+import cats.Functor
 
 package object paginator {
 

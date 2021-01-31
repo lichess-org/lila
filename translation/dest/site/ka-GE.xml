@@ -23,16 +23,20 @@
   <string name="blackIsVictorious">შავებმა გაიმარჯვეს</string>
   <string name="youPlayTheWhitePieces">თქვენ თამაშობთ თეთრი ფიგურებით</string>
   <string name="youPlayTheBlackPieces">თქვენ თამაშობთ შავი ფიგურებით</string>
-  <string name="itsYourTurn">თვენი ჯერია!</string>
+  <string name="itsYourTurn">თქვენი ჯერია!</string>
   <string name="kingInTheCenter">მეფე ცენტრში</string>
   <string name="threeChecks">სამი ქიში</string>
-  <string name="raceFinished">რასის დასრულდა</string>
+  <string name="raceFinished">შეჯიბრი დასრულდა</string>
   <string name="variantEnding">ვარიანტის დასასრული</string>
   <string name="newOpponent">ახალი მეტოქე</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">თქვენს მეტოქეს სურს ხელმეორედ თამაში</string>
   <string name="joinTheGame">თამაშში ჩართვა</string>
   <string name="whitePlays">თეთრების სვლაა</string>
   <string name="blackPlays">შავების სვლაა</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">თქვენმა მოწინააღმდეგემ დატოვა თამაში. შეგიძლიათ გამარჯვება მოიპოვოთ %s წამში.</item>
+    <item quantity="other">მოწინააღმდეგემ დატოვა თამაში. თქვენ გაიმარჯვებთ %s წამში.</item>
+  </plurals>
   <string name="opponentLeftChoices">შესაძლოა, მეტოქემ თამაში დატოვა. შეგიძლიათ მოიპოვოთ გამარჯვება, გამოაცხადოთ ფრე, ან დაელოდოთ მეტოქის დაბრუნებას.</string>
   <string name="makeYourOpponentResign">აიძულეთ მეტოქეს დათმოს</string>
   <string name="forceResignation">გამარჯვების მოპოვება</string>
@@ -174,7 +178,6 @@
     <item quantity="other">%s თამაშები თქვენ წინააღმდეგ</item>
   </plurals>
   <string name="cancel">გაუქმება</string>
-  <string name="timeOut">დრო ამოიწერუა</string>
   <string name="drawOfferSent">ყაიმის შეთავაზება გაგზავნილია</string>
   <string name="drawOfferDeclined">ყაიმის შეთავაზება უარყოფილია</string>
   <string name="drawOfferAccepted">ყაიმის შეთავაზება მიღებულია</string>
@@ -332,7 +335,6 @@
   <string name="more">მეტი</string>
   <string name="memberSince">წევრია დან</string>
   <string name="lastSeenActive">ბოლო ვიზიტი %s</string>
-  <string name="challengeToPlay">გამოიწვიეთ სათამაშოდ</string>
   <string name="player">მოთამაშე</string>
   <string name="list">სია</string>
   <string name="graph">გრაფა</string>
@@ -395,40 +397,14 @@
   <string name="lastName">გვარი</string>
   <string name="biography">ბიოგრაფია</string>
   <string name="country">ქვეყანა</string>
+  <string name="thankYou">გმადლობთ შეფასებისთვის!</string>
   <string name="watchLichessTV">უყურეთ ტელევიზიას</string>
   <string name="previouslyOnLichessTV">წინა Lichess TV-ზე</string>
   <string name="onlinePlayers">ონლაინ მოთამაშეები</string>
   <string name="activeToday">აქტიურები დღეს</string>
   <string name="activePlayers">აქტიური მოთამაშეები</string>
   <string name="bewareTheGameIsRatedButHasNoClock">ყურადღებით! თამაშის შედეგი მოქმედებს რეიტინგზე, თუმცა დრო არ აითვლება.</string>
-  <string name="yourPuzzleRatingX">თქვენი ეტიუდების რეიტინგია: %s</string>
-  <string name="findTheBestMoveForWhite">იპოვე საუკეთესო სვლა თეთრისათვის</string>
-  <string name="findTheBestMoveForBlack">იპოვე საუკეთესო სვლა შავისათვის</string>
-  <string name="toTrackYourProgress">თქვენი წინსვლისთვის თვალის მისადევნებლად:</string>
-  <string name="puzzleId">ეტიუდი %s</string>
-  <string name="puzzleOfTheDay">დღის ეტიუდი</string>
-  <string name="clickToSolve">დააჭირეთ პასუხისთვის</string>
-  <string name="goodMove">კარგი სვლა</string>
-  <string name="butYouCanDoBetter">თუმცა უკეთესიც შეგიძლია.</string>
-  <string name="bestMove">საუკეთესო სვლა!</string>
-  <string name="keepGoing">ასე გააგრძელე</string>
-  <string name="puzzleFailed">ფაზლში დამარცხდი</string>
-  <string name="butYouCanKeepTrying">ისევ შეგიძლია სცადო.</string>
   <string name="success">წარმატება</string>
-  <string name="wasThisPuzzleAnyGood">როგორ შეაფასებდი ამ ფაზლს?</string>
-  <string name="pleaseVotePuzzle">გააუმჯობესეთ Lichess ხმის მიცემით ზემოთ ან ქვემოთ მიმართული ისრების მეშვეობით:</string>
-  <string name="thankYou">გმადლობთ შეფასებისთვის!</string>
-  <string name="ratingX">რეიტინგი: %s</string>
-  <string name="hidden">დამალული</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">ნათამაშებია %s</item>
-    <item quantity="other">ნათამაშებია %s</item>
-  </plurals>
-  <string name="fromGameLink">თამაშიდან %s</string>
-  <string name="continueTraining">გააგრძელე ვარჯიში</string>
-  <string name="retryThisPuzzle">გაიმეორე ეს ფაზლი</string>
-  <string name="thisPuzzleIsCorrect">ფაზლი სახალისო და საინტერესოა</string>
-  <string name="thisPuzzleIsWrong">ფაზლი მოსაწყენია</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s მიმდინარე თამაში</item>
     <item quantity="other">%s მიმდინარე თამაში</item>
@@ -646,7 +622,6 @@
   <string name="error.max">უნდა იყოს ნაკლები ან ტოლი %s_ზე</string>
   <string name="error.unknown">შეცდომა</string>
   <string name="notifications">შეტყობინებები</string>
-  <string name="challenges">გამოწვევები</string>
   <string name="perfRatingX">რეიტინგი: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s წამი პირველი სვლის სათამაშოდ</item>
@@ -675,6 +650,5 @@
     <item quantity="one">%s წამი</item>
     <item quantity="other">%s წამი</item>
   </plurals>
-  <string name="xDoesNotAcceptChallenges">%s არ იღებს გამოწვევებს.</string>
   <string name="conditionalPremoves">პირობითი წინასწარი სვლები</string>
 </resources>

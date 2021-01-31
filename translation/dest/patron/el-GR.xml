@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="donate">Δωρίστε</string>
-  <string name="lichessPatron">Lichess Δωρητής</string>
+  <string name="donate">Κάντε δωρεά</string>
+  <string name="lichessPatron">Υποστηρικτής του Lichess</string>
   <string name="freeAccount">Δωρεάν λογαριασμός</string>
-  <string name="becomePatron">Γίνετε Lichess Δωρητής</string>
-  <string name="xBecamePatron">%s έγινε Lichess Δωρητής</string>
-  <string name="newPatrons">Νέοι Δωρητές</string>
-  <string name="freeChess">Δωρεάν σκάκι για όλους, εφ όρου ζωής!</string>
-  <string name="noAdsNoSubs">Χωρίς διαφημίσεις, χωρίς συνδρομές\' αλλά με ανοιχτό λογισμικό και πάθος.</string>
+  <string name="becomePatron">Υποστηρίξτε το Lichess</string>
+  <string name="xBecamePatron">%s έγινε Δωρητής του Lichess</string>
+  <string name="newPatrons">Νέοι Υποστηρικτές</string>
+  <string name="freeChess">Δωρεάν σκάκι για όλους, για πάντα!</string>
+  <string name="noAdsNoSubs">Χωρίς διαφημίσεις, χωρίς συνδρομές, αλλά με ανοιχτό κώδικα και πάθος.</string>
   <string name="thankYou">Σας ευχαριστούμε για την δωρεά!</string>
   <string name="youHaveLifetime">Έχετε έναν εφ όρου ζωής λογαριασμό Δωρητή. Αυτό είναι φανταστικό!</string>
   <string name="patronUntil">Έχετε έναν λογαριασμό Δωρητή μέχρι %s.</string>
@@ -32,7 +32,7 @@
   <string name="serversAndDeveloper">Καταρχήν, σε δυνατούς σέρβερς.
 Έπειτα πληρώνουμε έναν προγραμματιστή πλήρους απασχόλησης: %s, ιδρυτής του Lichess.</string>
   <string name="costBreakdown">Δείτε τα αναλυτικά έξοδα</string>
-  <string name="officialNonProfit">Είναι το Lichess επίσημα χωρίς κέρδος;</string>
+  <string name="officialNonProfit">Είναι το Lichess επίσημα μια μη κερδοσκοπική οργάνωση;</string>
   <string name="actOfCreation">Ναι, εδώ είναι η πράξη δημιουργίας (στα γαλλικά)</string>
   <string name="changeMonthlySupport">Μπορώ να αλλάξω/ακυρώσω την μηνιαία υποστήριξη μου;</string>
   <string name="changeOrContact">Ναι, οποιαδήποτε στιγμή, από αυτή τη σελίδα.

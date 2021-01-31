@@ -1,8 +1,8 @@
 $(function() {
   var $form = $("main.importer form");
-  $form.submit(function() {
-    setTimeout(function() { $form.html(lichess.spinnerHtml); }, 50);
-  });
+  $form.on('submit', () => 
+    setTimeout(() => $form.html(lichess.spinnerHtml), 50)
+  );
 
   if (window.FileReader) {
     $form.find('input[type=file]').on('change', function() {

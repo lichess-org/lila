@@ -57,25 +57,25 @@ private object I18nQuantity {
       else Other
 
     def lithuanian(c: Count) = {
-      val rem100 = c % 100;
-      val rem10  = c % 10;
+      val rem100 = c % 100
+      val rem10  = c % 10
       if (rem10 == 1 && !(rem100 >= 11 && rem100 <= 19)) One
       else if (rem10 >= 2 && rem10 <= 9 && !(rem100 >= 11 && rem100 <= 19)) Few
       else Other
     }
 
     def polish(c: Count) = {
-      val rem100 = c % 100;
-      val rem10  = c % 10;
+      val rem100 = c % 100
+      val rem10  = c % 10
       if (c == 1) One
       else if (rem10 >= 2 && rem10 <= 4 && !(rem100 >= 12 && rem100 <= 14)) Few
       else Other
     }
 
     def romanian(c: Count) = {
-      val rem100 = c % 100;
+      val rem100 = c % 100
       if (c == 1) One
-      else if ((c == 0 || (rem100 >= 1 && rem100 <= 19))) Few
+      else if (c == 0 || (rem100 >= 1 && rem100 <= 19)) Few
       else Other
     }
 
@@ -130,46 +130,44 @@ private object I18nQuantity {
 
   import selectors._
 
-  private val langMap: Map[Language, Selector] = LangList.all.map {
+  private val langMap: Map[Language, Selector] = LangList.all.map { case (lang, _) =>
+    lang.language -> (lang.language match {
 
-    case (lang, _) =>
-      lang.language -> (lang.language match {
+      case "fr" | "ff" | "kab" => french
 
-        case "fr" | "ff" | "kab" => french _
+      case "cs" | "sk" => czech
 
-        case "cs" | "sk" => czech _
+      case "hr" | "ru" | "sr" | "uk" | "be" | "bs" | "sh" => balkan
 
-        case "hr" | "ru" | "sr" | "uk" | "be" | "bs" | "sh" => balkan _
+      case "lv" => latvian
 
-        case "lv" => latvian _
+      case "lt" => lithuanian
 
-        case "lt" => lithuanian _
+      case "pl" => polish
 
-        case "pl" => polish _
+      case "ro" | "mo" => romanian
 
-        case "ro" | "mo" => romanian _
+      case "sl" => slovenian
 
-        case "sl" => slovenian _
+      case "ar" => arabic
 
-        case "ar" => arabic _
+      case "mk" => macedonian
 
-        case "mk" => macedonian _
+      case "cy" | "br" => welsh
 
-        case "cy" | "br" => welsh _
+      case "mt" => maltese
 
-        case "mt" => maltese _
+      case "ga" | "se" | "sma" | "smi" | "smj" | "smn" | "sms" => two
 
-        case "ga" | "se" | "sma" | "smi" | "smj" | "smn" | "sms" => two _
+      case "ak" | "am" | "bh" | "fil" | "tl" | "guw" | "hi" | "ln" | "mg" | "nso" | "ti" | "wa" =>
+        selectors.zero
 
-        case "ak" | "am" | "bh" | "fil" | "tl" | "guw" | "hi" | "ln" | "mg" | "nso" | "ti" | "wa" =>
-          selectors.zero _
+      case "az" | "bm" | "fa" | "ig" | "hu" | "ja" | "kde" | "kea" | "ko" | "my" | "ses" | "sg" | "to" |
+          "tr" | "vi" | "wo" | "yo" | "zh" | "bo" | "dz" | "id" | "jv" | "ka" | "km" | "kn" | "ms" | "th" |
+          "tp" | "io" | "ia" =>
+        selectors.none
 
-        case "az" | "bm" | "fa" | "ig" | "hu" | "ja" | "kde" | "kea" | "ko" | "my" | "ses" | "sg" | "to" |
-            "tr" | "vi" | "wo" | "yo" | "zh" | "bo" | "dz" | "id" | "jv" | "ka" | "km" | "kn" | "ms" | "th" |
-            "tp" | "io" | "ia" =>
-          selectors.none _
-
-        case _ => default _
-      })
+      case _ => default
+    })
   }
 }

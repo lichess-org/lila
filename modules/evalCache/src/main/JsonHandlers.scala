@@ -1,10 +1,11 @@
 package lila.evalCache
 
+import cats.implicits._
+import chess.format.{ FEN, Uci }
 import play.api.libs.json._
 
-import chess.format.{ FEN, Uci }
-import EvalCacheEntry._
 import lila.common.Json._
+import lila.evalCache.EvalCacheEntry._
 import lila.tree.Eval._
 
 object JsonHandlers {
@@ -15,7 +16,7 @@ object JsonHandlers {
 
   def writeEval(e: Eval, fen: FEN) =
     Json.obj(
-      "fen"    -> fen.value,
+      "fen"    -> fen,
       "knodes" -> e.knodes,
       "depth"  -> e.depth,
       "pvs"    -> e.pvs.toList.map(writePv)

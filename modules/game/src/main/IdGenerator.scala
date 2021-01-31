@@ -36,12 +36,12 @@ object IdGenerator {
   private[this] val whiteSuffixChars = ('0' to '4') ++ ('A' to 'Z') mkString
   private[this] val blackSuffixChars = ('5' to '9') ++ ('a' to 'z') mkString
 
-  def uncheckedGame: Game.ID = Random nextString Game.gameIdSize
+  def uncheckedGame: Game.ID = lila.common.ThreadLocalRandom nextString Game.gameIdSize
 
   def player(color: Color): Player.ID = {
     // Trick to avoid collisions between player ids in the same game.
     val suffixChars = color.fold(whiteSuffixChars, blackSuffixChars)
-    val suffix      = suffixChars(secureRandom nextInt suffixChars.size)
+    val suffix      = suffixChars(secureRandom nextInt suffixChars.length)
     Random.secureString(Game.playerIdSize - 1) + suffix
   }
 }

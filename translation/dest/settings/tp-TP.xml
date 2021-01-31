@@ -2,6 +2,9 @@
 <resources>
   <string name="settings">ante</string>
   <string name="closeAccount">o pini e lipu jan</string>
+  <string name="closingIsDefinitive">sina weka e lipu sina la sina ken ala pali e ijo tan. sina wile ala wile pali e ni?</string>
+  <string name="cantOpenSimilarAccount">tenpo kama la sina ken ala open e lipu sin kepeken nimi sama. sina ken ala pali e ni kepeken sitelen lili pi suli ante.</string>
   <string name="changedMindDoNotCloseAccount">mi ante e lawa. o pini ala e lipu jan mi</string>
+  <string name="closeAccountExplanation">sina wile ala wile pini e lipu sina? pali ni li awen. tenpo kama ALA la sina ken open e lipu sina.</string>
   <string name="thisAccountIsClosed">lipu kan ni li pini.</string>
 </resources>

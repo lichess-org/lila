@@ -3,6 +3,7 @@ main.importer {
     margin: 3vh 0;
     text-align: center;
   }
+
   form {
     label.pgn {
       display: block;
@@ -16,7 +17,7 @@ main.importer {
 
     textarea {
       width: 98%;
-      height: 20vh!important;
+      height: 20vh !important;
       padding: .5em;
     }
 
@@ -24,6 +25,7 @@ main.importer {
       float: left;
       margin-right: 10px;
     }
+
     .analyse > label {
       cursor: pointer;
     }
@@ -41,6 +43,7 @@ main.importer {
       margin: 10px 0;
       color: red;
     }
+
     .wait {
       display: none;
     }

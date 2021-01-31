@@ -7,6 +7,7 @@ import io.lemonlabs.uri.AbsoluteUrl
 
 import lila.security.Granter
 import lila.user.User
+import lila.common.Form.{ cleanNonEmptyText, cleanText }
 
 final class RelayForm {
 
@@ -15,15 +16,15 @@ final class RelayForm {
 
   val form = Form(
     mapping(
-      "name"        -> text(minLength = 3, maxLength = 80),
-      "description" -> text(minLength = 3, maxLength = 400),
-      "markup"      -> optional(text(maxLength = 20000)),
+      "name"        -> cleanText(minLength = 3, maxLength = 80),
+      "description" -> cleanText(minLength = 3, maxLength = 400),
+      "markup"      -> optional(cleanText(maxLength = 20000)),
       "official"    -> optional(boolean),
       "syncUrl" -> optional {
         nonEmptyText.verifying("Invalid source", validSource _)
       },
       "syncUrlRound" -> optional(number(min = 1, max = 999)),
-      "credit"       -> optional(nonEmptyText),
+      "credit"       -> optional(cleanNonEmptyText),
       "startsAt"     -> optional(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp),
       "throttle"     -> optional(number(min = 2, max = 60))
     )(Data.apply)(Data.unapply)
@@ -42,23 +43,25 @@ object RelayForm {
       AbsoluteUrl
         .parse(url)
         .hostOption
-        .exists {
-          _.apexDomain.fold(true) { d =>
-            !blacklist.contains(d)
+        .exists { host =>
+          host.apexDomain.fold(true) { apex =>
+            !blocklist.contains(apex) && (
+              // only allow public API, not arbitrary URLs
+              apex != "chess.com" || url.startsWith("https://api.chess.com/pub")
+            )
           }
         }
     } catch {
       case _: io.lemonlabs.uri.parsing.UriParsingException => false
     }
 
-  private val blacklist = List(
+  private val blocklist = List(
     "twitch.tv",
     "twitch.com",
     "youtube.com",
     "youtu.be",
     "lichess.org",
     "google.com",
-    "chess.com",
     "vk.com",
     "localhost",
     "chess-results.com",
@@ -84,7 +87,7 @@ object RelayForm {
     def cleanUrl: Option[String] =
       syncUrl.map { u =>
         val trimmed = u.trim
-        if (trimmed endsWith "/") trimmed.take(trimmed.size - 1)
+        if (trimmed endsWith "/") trimmed.take(trimmed.length - 1)
         else trimmed
       }
 

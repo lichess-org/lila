@@ -14,7 +14,11 @@ function podiumStats(p: PodiumPlayer, trans: Trans): VNode {
 }
 
 function podiumPosition(p: PodiumPlayer, pos: string, trans: Trans): VNode | undefined {
-  return p ? h('div.' + pos, [
+  return p ? h('div.' + pos, {
+    class: {
+      engine: !!p.engine
+    }
+  }, [
     h('div.trophy'),
     h('a.text.ulpt.user-link', {
       attrs: { href: '/@/' + p.user.name }
@@ -25,7 +29,7 @@ function podiumPosition(p: PodiumPlayer, pos: string, trans: Trans): VNode | und
 
 export default function podium(ctrl: SwissCtrl) {
   const p = ctrl.data.podium || [];
-  return h('div.swiss__podium', [
+  return h('div.podium', [
     podiumPosition(p[1], 'second', ctrl.trans),
     podiumPosition(p[0], 'first', ctrl.trans),
     podiumPosition(p[2], 'third', ctrl.trans)

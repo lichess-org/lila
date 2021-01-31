@@ -24,6 +24,7 @@ export interface KeyboardMove {
   jump(delta: number): void;
   justSelected(): boolean;
   clock(): ClockController | undefined;
+  resign(v: boolean, immediately?: boolean): void;
 }
 
 const sanToRole: { [key: string]: cg.Role } = {
@@ -55,7 +56,7 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
       const crazyData = root.data.crazyhouse;
       const color = root.data.player.color;
       // Square occupied
-      if (!role || !crazyData || cgState.pieces[key]) return;
+      if (!role || !crazyData || cgState.pieces.has(key)) return;
       // Piece not in Pocket
       if (!crazyData.pockets[color === 'white' ? 0 : 1][role]) return;
       if (!crazyValid(root.data, role, key)) return;
@@ -67,7 +68,7 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
       const role = sanToRole[piece];
       if (!role || role == 'pawn') return;
       root.chessground.cancelMove();
-      sendPromotion(root, orig, dest, role, {premove: false});
+      sendPromotion(root, orig, dest, role, { premove: false });
     },
     update(step, yourMove: boolean = false) {
       if (handler) handler(step.fen, cgState.movable.dests, yourMove);
@@ -101,7 +102,8 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
     justSelected() {
       return Date.now() - lastSelect < 500;
     },
-    clock: () => root.clock
+    clock: () => root.clock,
+    resign: root.resign
   };
 }
 
@@ -112,17 +114,14 @@ export function render(ctrl: KeyboardMove) {
         spellcheck: false,
         autocomplete: false
       },
-      hook: onInsert(el => {
-        window.lichess.loadScript('compiled/lichess.round.keyboardMove.min.js').then(() => {
-          ctrl.registerHandler(window.lichess.keyboardMove({
-            input: el,
-            ctrl
-          }));
-        });
-      })
+      hook: onInsert(input =>
+        lichess.loadModule('round.keyboardMove').then(() =>
+          ctrl.registerHandler(lichess.keyboardMove({ input, ctrl }))
+        )
+      )
     }),
     ctrl.hasFocus() ?
-    h('em', 'Enter SAN (Nc3) or UCI (b1c3) moves, or type / to focus chat') :
-    h('strong', 'Press <enter> to focus')
+      h('em', 'Enter SAN (Nc3) or UCI (b1c3) moves, or type / to focus chat') :
+      h('strong', 'Press <enter> to focus')
   ]);
 }

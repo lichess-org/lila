@@ -27,7 +27,7 @@ object index {
         div(cls := "blog index page-menu__content page-small box")(
           div(cls := "box__top")(
             h1("Lichess Official Blog"),
-            a(cls := "atom", href := routes.Blog.atom, dataIcon := "3")
+            a(cls := "atom", href := routes.Blog.atom(), dataIcon := "3")
           ),
           primaryPost map { post =>
             frag(
@@ -35,7 +35,7 @@ object index {
               h2("Previous blog posts")
             )
           },
-          div(cls := "blog-cards list infinitescroll")(
+          div(cls := "blog-cards list infinite-scroll")(
             pager.currentPageResults flatMap MiniPost.fromDocument("blog", "wide") map { post =>
               primaryPost.fold(true)(_.id != post.id) option bits.postCard(post, "paginated".some, h3)
             },

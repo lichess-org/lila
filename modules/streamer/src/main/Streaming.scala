@@ -3,7 +3,8 @@ package lila.streamer
 import akka.actor._
 import org.joda.time.DateTime
 import play.api.libs.json._
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.JsonBodyReadables._
+import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
 import scala.util.chaining._
 
@@ -12,17 +13,14 @@ import lila.common.config.Secret
 import lila.user.User
 
 final private class Streaming(
-    ws: WSClient,
-    renderer: lila.hub.actors.Renderer,
+    ws: StandaloneWSClient,
     api: StreamerApi,
     isOnline: User.ID => Boolean,
     timeline: lila.hub.actors.Timeline,
     keyword: Stream.Keyword,
-    alwaysFeatured: () => lila.common.Strings,
+    alwaysFeatured: () => lila.common.UserIds,
     googleApiKey: Secret,
-    twitchCredentials: () => (String, String),
-    homepageSpots: () => Int,
-    lightUserApi: lila.user.LightUserApi
+    twitchCredentials: () => (String, String)
 ) extends Actor {
 
   import Stream._
@@ -37,12 +35,12 @@ final private class Streaming(
 
   def receive = {
 
-    case Streaming.Get => sender ! liveStreams
+    case Streaming.Get => sender() ! liveStreams
 
-    case Tick => updateStreams addEffectAnyway scheduleTick
+    case Tick => updateStreams.addEffectAnyway(scheduleTick()).unit
   }
 
-  private def scheduleTick = context.system.scheduler.scheduleOnce(15 seconds, self, Tick)
+  private def scheduleTick(): Unit = context.system.scheduler.scheduleOnce(15 seconds, self, Tick).unit
 
   self ! Tick
 
@@ -56,21 +54,15 @@ final private class Streaming(
       (twitchStreams, youTubeStreams) <-
         fetchTwitchStreams(streamers, 0, None, Nil) zip fetchYouTubeStreams(streamers)
       streams = LiveStreams {
-        scala.util.Random.shuffle {
+        lila.common.ThreadLocalRandom.shuffle {
           (twitchStreams ::: youTubeStreams) pipe dedupStreamers
         }
       }
-      _ <- api.setLiveNow(streamers.filter(streams.has).map(_.id))
+      _ <- api.setLiveNow(streamers.withFilter(streams.has).map(_.id))
     } yield publishStreams(streamers, streams)
 
   def publishStreams(streamers: List[Streamer], newStreams: LiveStreams) = {
-    import makeTimeout.short
-    import akka.pattern.ask
     if (newStreams != liveStreams) {
-      renderer.actor ? newStreams.homepage(homepageSpots()).withTitles(lightUserApi) foreach {
-        case html: String =>
-          Bus.publish(lila.hub.actorApi.streamer.StreamsOnAir(html), "streams")
-      }
       newStreams.streams filterNot { s =>
         liveStreams has s.streamer
       } foreach { s =>
@@ -120,16 +112,15 @@ final private class Streaming(
         .get()
         .flatMap {
           case res if res.status == 200 =>
-            res.json.validate[Twitch.Result](twitchResultReads) match {
+            res.body[JsValue].validate[Twitch.Result](twitchResultReads) match {
               case JsSuccess(result, _) => fuccess(result)
-              case JsError(err)         => fufail(s"twitch $err ${lila.log http res}")
+              case JsError(err)         => fufail(s"twitch $err ${lila.log.http(res.status, res.body)}")
             }
-          case res => fufail(s"twitch ${lila.log http res}")
+          case res => fufail(s"twitch ${lila.log.http(res.status, res.body)}")
         }
-        .recover {
-          case e: Exception =>
-            logger.warn(e.getMessage)
-            Twitch.Result(None, None)
+        .recover { case e: Exception =>
+          logger.warn(e.getMessage)
+          Twitch.Result(None, None)
         }
         .monSuccess(_.tv.streamer.twitch)
         .flatMap { result =>
@@ -141,7 +132,7 @@ final private class Streaming(
               acc ::: result.streams(
                 keyword,
                 streamers,
-                alwaysFeatured().value.map(_.toLowerCase)
+                alwaysFeatured().value
               )
             )
           else fuccess(acc)
@@ -171,7 +162,7 @@ final private class Streaming(
             )
             .get()
             .flatMap { res =>
-              res.json.validate[YouTube.Result](youtubeResultReads) match {
+              res.body[JsValue].validate[YouTube.Result](youtubeResultReads) match {
                 case JsSuccess(data, _) =>
                   fuccess(YouTube.StreamsFetched(data.streams(keyword, youtubeStreamers), now))
                 case JsError(err) =>
@@ -179,10 +170,9 @@ final private class Streaming(
               }
             }
             .monSuccess(_.tv.streamer.youTube)
-            .recover {
-              case e: Exception =>
-                logger.warn(e.getMessage)
-                YouTube.StreamsFetched(Nil, now)
+            .recover { case e: Exception =>
+              logger.warn(e.getMessage)
+              YouTube.StreamsFetched(Nil, now)
             }
         }
       res dmap { r =>

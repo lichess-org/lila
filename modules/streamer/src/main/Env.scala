@@ -19,13 +19,11 @@ private class StreamerConfig(
 @Module
 final class Env(
     appConfig: Configuration,
-    ws: play.api.libs.ws.WSClient,
+    ws: play.api.libs.ws.StandaloneWSClient,
     settingStore: lila.memo.SettingStore.Builder,
-    renderer: lila.hub.actors.Renderer,
     isOnline: lila.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
     notifyApi: lila.notify.NotifyApi,
-    lightUserApi: lila.user.LightUserApi,
     userRepo: lila.user.UserRepo,
     timeline: lila.hub.actors.Timeline,
     db: lila.db.Db,
@@ -43,11 +41,11 @@ final class Env(
   private lazy val photographer = new lila.db.Photographer(imageRepo, "streamer")
 
   lazy val alwaysFeaturedSetting = {
-    import lila.memo.SettingStore.Strings._
-    import lila.common.Strings
-    settingStore[Strings](
+    import lila.memo.SettingStore.UserIds._
+    import lila.common.UserIds
+    settingStore[UserIds](
       "streamerAlwaysFeatured",
-      default = Strings(Nil),
+      default = UserIds(Nil),
       text =
         "Twitch streamers who get featured without the keyword - lichess usernames separated by a comma".some
     )
@@ -75,7 +73,6 @@ final class Env(
     Props(
       new Streaming(
         ws = ws,
-        renderer = renderer,
         api = api,
         isOnline = isOnline,
         timeline = timeline,
@@ -86,20 +83,18 @@ final class Env(
           twitchCredentialsSetting.get().split(' ') match {
             case Array(client, secret) => (client, secret)
             case _                     => ("", "")
-          },
-        homepageSpots = homepageMaxSetting.get _,
-        lightUserApi = lightUserApi
+          }
       )
     )
   )
 
   lazy val liveStreamApi = wire[LiveStreamApi]
 
-  lila.common.Bus.subscribeFun("adjustCheater") {
-    case lila.hub.actorApi.mod.MarkCheater(userId, true) => api demote userId
+  lila.common.Bus.subscribeFun("adjustCheater") { case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
+    api.demote(userId).unit
   }
 
   system.scheduler.scheduleWithFixedDelay(1 hour, 1 day) { () =>
-    api.autoDemoteFakes
+    api.autoDemoteFakes.unit
   }
 }

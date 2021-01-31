@@ -14,8 +14,8 @@ final class UnsubApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext)
   def set(channel: String, userId: User.ID, v: Boolean): Funit = {
     if (v) coll.insert.one(select(channel, userId)).void
     else coll.delete.one(select(channel, userId)).void
-  } recover {
-    case _: Exception => ()
+  } recover { case _: Exception =>
+    ()
   }
 
   def get(channel: String, userId: User.ID): Fu[Boolean] =

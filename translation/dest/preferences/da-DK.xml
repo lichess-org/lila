@@ -12,7 +12,7 @@
   <string name="chessPieceSymbol">Skakbrik-symbol</string>
   <string name="pgnLetter">Bogstaver (K, Q, R, B, N)</string>
   <string name="zenMode">Zentilstand</string>
-  <string name="displayBoardResizeHandle">Vis indstilling af brætstørrelse</string>
+  <string name="displayBoardResizeHandle">Vis brætstørrelse justering</string>
   <string name="onlyOnInitialPosition">Kun ved indledende position</string>
   <string name="blindfoldChess">Blindskak</string>
   <string name="chessClock">Skakur</string>
@@ -37,9 +37,11 @@
   <string name="inCorrespondenceGames">I korrespondancepartier</string>
   <string name="correspondenceAndUnlimited">Korrespondance og ubegrænset</string>
   <string name="confirmResignationAndDrawOffers">Bekræft opgivelse og tilbud om remis</string>
-  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rokade metode</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rokade-metode</string>
   <string name="castleByMovingTwoSquares">Flyt kongen to felter</string>
   <string name="castleByMovingOntoTheRook">Flyt kongen over på tårn</string>
   <string name="inputMovesWithTheKeyboard">Lav træk med tastaturet</string>
+  <string name="snapArrowsToValidMoves">Marker lovlige træk med pile</string>
+  <string name="sayGgWpAfterLosingOrDrawing">Sig \"Godt spil, godt spillet\" ved nederlag eller remis</string>
   <string name="yourPreferencesHaveBeenSaved">Dine præferencer er blevet gemt.</string>
 </resources>

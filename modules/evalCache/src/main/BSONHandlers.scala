@@ -2,7 +2,7 @@ package lila.evalCache
 
 import reactivemongo.api.bson._
 import scala.util.{ Success, Try }
-import scalaz.NonEmptyList
+import cats.data.NonEmptyList
 
 import chess.format.Uci
 import lila.db.dsl._
@@ -42,11 +42,11 @@ private object BSONHandlers {
                     scoreRead(score) err s"Invalid score $score",
                     movesRead(moves) err s"Invalid moves $moves"
                   )
-                case x => sys error s"Invalid PV $pvStr: ${x.toList} (in ${value})"
+                case x => sys error s"Invalid PV $pvStr: ${x.toList} (in $value)"
               }
             }
           }.flatMap {
-            _.toNel toTry s"Empty PVs ${value}"
+            _.toNel toTry s"Empty PVs $value"
           }
         case b => lila.db.BSON.handlerBadType[NonEmptyList[Pv]](b)
       }
@@ -59,23 +59,22 @@ private object BSONHandlers {
   }
 
   implicit val EntryIdHandler = tryHandler[Id](
-    {
-      case BSONString(value) =>
-        value split ':' match {
-          case Array(fen) => Success(Id(chess.variant.Standard, SmallFen raw fen))
-          case Array(variantId, fen) =>
-            Success(
-              Id(
-                variantId.toIntOption flatMap chess.variant.Variant.apply err s"Invalid evalcache variant $variantId",
-                SmallFen raw fen
-              )
+    { case BSONString(value) =>
+      value split ':' match {
+        case Array(fen) => Success(Id(chess.variant.Standard, SmallFen raw fen))
+        case Array(variantId, fen) =>
+          Success(
+            Id(
+              variantId.toIntOption flatMap chess.variant.Variant.apply err s"Invalid evalcache variant $variantId",
+              SmallFen raw fen
             )
-          case _ => lila.db.BSON.handlerBadValue(s"Invalid evalcache id ${value}")
-        }
+          )
+        case _ => lila.db.BSON.handlerBadValue(s"Invalid evalcache id $value")
+      }
     },
     x =>
       BSONString {
-        if (x.variant.standard || x.variant == chess.variant.FromPosition) x.smallFen.value
+        if (x.variant.standard || x.variant.fromPosition) x.smallFen.value
         else s"${x.variant.id}:${x.smallFen.value}"
       }
   )

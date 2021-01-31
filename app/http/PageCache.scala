@@ -1,15 +1,13 @@
 package lila.app
 package http
 
-import play.api.i18n.Lang
 import play.api.mvc._
 import scala.concurrent.duration._
 
 import lila.common.HTTPRequest
 import lila.api.Context
-import lila.i18n.I18nLangPicker
 
-final class PageCache(security: lila.security.SecurityApi, cacheApi: lila.memo.CacheApi) {
+final class PageCache(cacheApi: lila.memo.CacheApi) {
 
   private val cache = cacheApi.notLoading[String, Result](16, "pageCache") {
     _.expireAfterWrite(1.seconds).buildAsync()

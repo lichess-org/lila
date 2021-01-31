@@ -37,5 +37,5 @@ final private class MainWatcher(
       }
     }
 
-  system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute)(() => watch)
+  system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute)(() => watch.unit)
 }

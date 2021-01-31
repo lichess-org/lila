@@ -30,14 +30,14 @@ object String {
     }
   }
 
+  private[this] def oneline(s: String) = s.replace('\n', ' ')
   def shorten(text: String, length: Int, sep: String = "…") = {
-    val t = text.replace('\n', ' ')
-    if (t.size > (length + sep.size)) (t take length) ++ sep
-    else t
+    if (text.lengthIs > length + sep.length) oneline(text take length) ++ sep
+    else oneline(text)
   }
 
   def isShouting(text: String) =
-    text.length >= 5 && {
+    text.lengthIs >= 5 && {
       import java.lang.Character._
       // true if >1/2 of the latin letters are uppercase
       (text take 80).foldLeft(0) { (i, c) =>
@@ -49,6 +49,8 @@ object String {
       } > 0
     }
   def noShouting(str: String): String = if (isShouting(str)) str.toLowerCase else str
+
+  def hasLinks = RawHtml.hasLinks _
 
   object base64 {
     import java.util.Base64
@@ -66,9 +68,10 @@ object String {
   val atUsernameRegex = RawHtml.atUsernameRegex
 
   object html {
-    def richText(rawText: String, nl2br: Boolean = true): Frag =
+
+    def richText(rawText: String, nl2br: Boolean = true, expandImg: Boolean = true): Frag =
       raw {
-        val withLinks = RawHtml.addLinks(rawText)
+        val withLinks = RawHtml.addLinks(rawText, expandImg)
         if (nl2br) RawHtml.nl2br(withLinks) else withLinks
       }
 
@@ -86,10 +89,12 @@ object String {
     def unescapeHtml(html: String): String =
       org.apache.commons.text.StringEscapeUtils.unescapeHtml4(html)
 
-    def markdownLinks(text: String): Frag =
-      raw {
-        RawHtml.markdownLinks(text)
-      }
+    def markdownLinksOrRichText(text: String): Frag = {
+      val escaped = escapeHtmlRaw(text)
+      val marked  = RawHtml.justMarkdownLinks(escaped)
+      if (marked == escaped) richText(text)
+      else nl2brUnsafe(marked)
+    }
 
     def safeJsonValue(jsValue: JsValue): String = {
       // Borrowed from:
@@ -98,21 +103,21 @@ object String {
         case JsNull         => "null"
         case JsString(s)    => safeJsonString(s)
         case JsNumber(n)    => n.toString
-        case JsBoolean(b)   => if (b) "true" else "false"
+        case JsFalse        => "false"
+        case JsTrue         => "true"
         case JsArray(items) => items.map(safeJsonValue).mkString("[", ",", "]")
-        case JsObject(fields) => {
+        case JsObject(fields) =>
           fields
-            .map {
-              case (k, v) => s"${safeJsonString(k)}:${safeJsonValue(v)}"
+            .map { case (k, v) =>
+              s"${safeJsonString(k)}:${safeJsonValue(v)}"
             }
             .mkString("{", ",", "}")
-        }
       }
     }
   }
 
   private val prizeRegex =
-    """(?i)(prize|\$|€|£|¥|₽|元|₹|₱|₿|rupee|rupiah|ringgit|usd|dollar|paypal|cash|award|\bfees?\b)""".r.unanchored
+    """(?i)(prize|\$|€|£|¥|₽|元|₹|₱|₿|rupee|rupiah|ringgit|usd|dollar|paypal|cash|award|\bfees?\b|\beuros?\b|price|btc|bitcoin)""".r.unanchored
 
   def looksLikePrize(txt: String) = prizeRegex matches txt
 }

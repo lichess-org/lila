@@ -33,7 +33,7 @@ object clas {
           )
         ),
         div(cls := "clas-home__onboard")(
-          postForm(action := routes.Clas.becomeTeacher)(
+          postForm(action := routes.Clas.becomeTeacher())(
             submitButton(cls := "button button-fat")(trans.clas.applyToBeLichessTeacher())
           )
         )
@@ -46,7 +46,7 @@ object clas {
       div(cls := "box__top")(
         h1(trans.clas.lichessClasses()),
         a(
-          href := routes.Clas.form,
+          href := routes.Clas.form(),
           cls := "new button button-empty",
           title := trans.clas.newClass.txt(),
           dataIcon := "O"
@@ -101,7 +101,7 @@ object clas {
         innerForm(form, c.some),
         hr,
         c.isActive option postForm(
-          action := routes.Clas.archive(c.id.value, true),
+          action := routes.Clas.archive(c.id.value, v = true),
           cls := "clas-edit__archive"
         )(
           form3.submit(trans.clas.closeClass(), icon = none)(

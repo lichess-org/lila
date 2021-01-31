@@ -2,4 +2,14 @@
 <resources>
   <string name="search">جستجو</string>
   <string name="advancedSearch">جستجوی پیشرفته</string>
+  <plurals name="searchInXGames">
+    <item quantity="one">جستجو در بازی </item>
+    <item quantity="other">جستوی بازی ها </item>
+  </plurals>
+  <plurals name="xGamesFound">
+    <item quantity="one">هیچ بازی یافت نشد</item>
+    <item quantity="other">‎‫هیچ بازی ای پیدا نشد</item>
+  </plurals>
+  <string name="analysis">برسی بازی</string>
+  <string name="onlyAnalysed">فقط بازی هایی که تجزیه تحلیل کامپیوتر در آنها موجود است</string>
 </resources>

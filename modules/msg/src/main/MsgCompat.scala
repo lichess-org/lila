@@ -23,7 +23,8 @@ final class MsgCompat(
   def inbox(me: User, pageOpt: Option[Int]): Fu[JsObject] = {
     val page = pageOpt.fold(1)(_ atLeast 1 atMost 2)
     api.threadsOf(me) flatMap { allThreads =>
-      val threads = allThreads.drop((page - 1) * maxPerPage.value).take(maxPerPage.value)
+      val threads =
+        allThreads.slice((page - 1) * maxPerPage.value, (page - 1) * maxPerPage.value + maxPerPage.value)
       lightUserApi.preloadMany(threads.map(_ other me)) inject
         PaginatorJson {
           Paginator
@@ -64,7 +65,7 @@ final class MsgCompat(
   def create(me: User)(implicit req: play.api.mvc.Request[_]): Either[Form[_], Fu[User.ID]] =
     Form(
       mapping(
-        "username" -> lila.user.DataForm.historicalUsernameField
+        "username" -> lila.user.UserForm.historicalUsernameField
           .verifying("Unknown username", { blockingFetchUser(_).isDefined })
           .verifying(
             "Sorry, this player doesn't accept new messages",
@@ -77,7 +78,7 @@ final class MsgCompat(
         "subject" -> text(minLength = 3, maxLength = 100),
         "text"    -> text(minLength = 3, maxLength = 8000)
       )(ThreadData.apply)(ThreadData.unapply)
-    ).bindFromRequest
+    ).bindFromRequest()
       .fold(
         err => Left(err),
         data => {
@@ -87,10 +88,11 @@ final class MsgCompat(
       )
 
   def reply(me: User, userId: User.ID)(implicit req: play.api.mvc.Request[_]): Either[Form[_], Funit] =
-    Form(single("text" -> text(minLength = 3))).bindFromRequest
+    Form(single("text" -> text(minLength = 3)))
+      .bindFromRequest()
       .fold(
         err => Left(err),
-        text => Right(api.post(me.id, userId, text))
+        text => Right(api.post(me.id, userId, text).void)
       )
 
   private def blockingFetchUser(username: String) =

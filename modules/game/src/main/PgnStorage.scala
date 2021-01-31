@@ -1,7 +1,8 @@
 package lila.game
 
+import chess._
 import chess.format.Uci
-import chess.{ variant => _, ToOptionOpsFromOption => _, _ }
+
 import lila.db.ByteArray
 
 sealed trait PgnStorage
@@ -25,12 +26,7 @@ private object PgnStorage {
 
   case object Huffman extends PgnStorage {
 
-    import org.lichess.compression.game.{
-      Encoder,
-      Square => JavaSquare,
-      Piece => JavaPiece,
-      Role => JavaRole
-    }
+    import org.lichess.compression.game.{ Encoder, Piece => JavaPiece, Role => JavaRole }
     import scala.jdk.CollectionConverters._
 
     def encode(pgnMoves: PgnMoves) =
@@ -45,8 +41,8 @@ private object PgnStorage {
         val unmovedRooks = decoded.unmovedRooks.asScala.view.flatMap(chessPos).to(Set)
         Decoded(
           pgnMoves = decoded.pgnMoves.toVector,
-          pieces = decoded.pieces.asScala.view.flatMap {
-            case (k, v) => chessPos(k).map(_ -> chessPiece(v))
+          pieces = decoded.pieces.asScala.view.flatMap { case (k, v) =>
+            chessPos(k).map(_ -> chessPiece(v))
           }.toMap,
           positionHashes = decoded.positionHashes,
           unmovedRooks = UnmovedRooks(unmovedRooks),
@@ -61,8 +57,7 @@ private object PgnStorage {
         )
       }
 
-    private def chessPos(sq: Integer): Option[Pos] =
-      Pos.posAt(JavaSquare.file(sq) + 1, JavaSquare.rank(sq) + 1)
+    private def chessPos(sq: Integer): Option[Pos] = Pos(sq)
     private def chessRole(role: JavaRole): Role =
       role match {
         case JavaRole.PAWN   => Pawn
@@ -72,7 +67,8 @@ private object PgnStorage {
         case JavaRole.QUEEN  => Queen
         case JavaRole.KING   => King
       }
-    private def chessPiece(piece: JavaPiece): Piece = Piece(Color(piece.white), chessRole(piece.role))
+    private def chessPiece(piece: JavaPiece): Piece =
+      Piece(Color.fromWhite(piece.white), chessRole(piece.role))
   }
 
   case class Decoded(

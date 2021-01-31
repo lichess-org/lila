@@ -9,6 +9,7 @@
   <string name="yourTurn">Sinu käik</string>
   <string name="aiNameLevelAiLevel">%1$s tase %2$s</string>
   <string name="level">Tase</string>
+  <string name="strength">Tugevus</string>
   <string name="toggleTheChat">Luba vestlust</string>
   <string name="toggleSound">Luba helid</string>
   <string name="chat">Saada sõnum</string>
@@ -199,7 +200,8 @@
     <item quantity="other">%s mängu sinuga</item>
   </plurals>
   <string name="cancel">Katkesta</string>
-  <string name="timeOut">Aja ületus</string>
+  <string name="whiteTimeOut">Valgete aeg on läbi</string>
+  <string name="blackTimeOut">Mustade aeg on läbi</string>
   <string name="drawOfferSent">Viigi pakkumine saadetud</string>
   <string name="drawOfferDeclined">Viigi pakkumine tagasi lükatud</string>
   <string name="drawOfferAccepted">Viigi pakkumine vastu võetud</string>
@@ -275,6 +277,7 @@
     <item quantity="one">Lisa %s sekund</item>
     <item quantity="other">Lisa %s sekundit</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Selle konto kasutaja rikkus Lichessi teenusetingimusi</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">See mängija kunstlikult tõstab / vähendab oma reitingut</string>
   <string name="openingExplorerAndTablebase">Avangute uurija &amp; lõppmängude andmebaas</string>
   <string name="takeback">Tagasivõtt</string>
@@ -381,7 +384,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="more">Rohkem</string>
   <string name="memberSince">Liige alates</string>
   <string name="lastSeenActive">Viimane sisenemine %s</string>
-  <string name="challengeToPlay">Väljakutse mängule</string>
   <string name="player">Mängija</string>
   <string name="list">Nimekiri</string>
   <string name="graph">Graafik</string>
@@ -446,6 +448,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="lastName">Perekonnanimi</string>
   <string name="biography">Elulugu</string>
   <string name="country">Maa</string>
+  <string name="thankYou">Aitäh!</string>
   <string name="socialMediaLinks">Sotsiaalmeedia Lingid</string>
   <string name="inlineNotation">Tekstisisene märge</string>
   <string name="watchLichessTV">Vaata Lichess TV-d</string>
@@ -454,34 +457,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="activeToday">aktiivne täna</string>
   <string name="activePlayers">aktiivsed mängijad</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Tähelepanu, mäng on reitinguga aga ilma ajakontrollita!</string>
-  <string name="yourPuzzleRatingX">Sinu lahendamisskoor: %s</string>
-  <string name="findTheBestMoveForWhite">Leia parim käik valgele</string>
-  <string name="findTheBestMoveForBlack">Leia parim käik mustale</string>
-  <string name="toTrackYourProgress">Vaata oma arengut</string>
-  <string name="puzzleId">%s ülesanne</string>
-  <string name="puzzleOfTheDay">Päevaülesanne</string>
-  <string name="clickToSolve">Lahendamiseks vajuta</string>
-  <string name="goodMove">Hea käik</string>
-  <string name="butYouCanDoBetter">Aga mitte parim võimalik.</string>
-  <string name="bestMove">Parim käik</string>
-  <string name="keepGoing">Jätka samas vaimus</string>
-  <string name="puzzleFailed">Kukkusid läbi</string>
-  <string name="butYouCanKeepTrying">Aga võid uuesti proovida</string>
   <string name="success">Edukas</string>
-  <string name="wasThisPuzzleAnyGood">Oli see huvitav pusle?</string>
-  <string name="pleaseVotePuzzle">Aita lichess\'i paremaks muuta, hääletades üles või alla nuppu kasutades:</string>
-  <string name="thankYou">Aitäh!</string>
-  <string name="ratingX">Reiting %s</string>
-  <string name="hidden">peidetud</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Mängitud %s korda</item>
-    <item quantity="other">Mängitud %s korda</item>
-  </plurals>
-  <string name="fromGameLink">%s mängudest</string>
-  <string name="continueTraining">Jätka treeningut</string>
-  <string name="retryThisPuzzle">Proovi uuesti</string>
-  <string name="thisPuzzleIsCorrect">See ülesanne on korrektne ja huvitav</string>
-  <string name="thisPuzzleIsWrong">See ülesanne on vale ja igav</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s mängitud mängu</item>
     <item quantity="other">%s mängitud mängu</item>
@@ -530,7 +506,12 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="currentPassword">Praegune salasõna</string>
   <string name="newPassword">Uus salasõna</string>
   <string name="newPasswordAgain">Uus salasõna (uuesti)</string>
+  <string name="newPasswordsDontMatch">Uued paroolid ei ühti</string>
+  <string name="newPasswordStrength">Salasõna tugevus</string>
+  <string name="clockInitialTime">Kella algne aeg</string>
+  <string name="clockIncrement">Kella juurdekasv</string>
   <string name="privacy">Privaatsus</string>
+  <string name="privacyPolicy">Privaatsus</string>
   <string name="letOtherPlayersFollowYou">Luba teistel mängijatel sind jälgida</string>
   <string name="letOtherPlayersChallengeYou">Luba teistel mängijatel sulle väljakutseid esitada</string>
   <string name="letOtherPlayersInviteYouToStudy">Lase teistel mängijatel sind kutsuda õppima</string>
@@ -666,6 +647,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Sinu %1$s reiting on %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Oled %1$s %2$s mängijatest parem.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s on parem kui %2$s %3$s mängijatest.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sul ei ole veel väljakujunenud %s reitingut.</string>
   <string name="yourRating">Sinu reiting</string>
   <string name="cumulative">Kogenenum kui</string>
@@ -675,6 +657,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Kui sa ei näe e-posti, vaadata teistes kohtades võib olla, nagu oma Rämpspost, sotsiaal- või muid kaustu.</string>
   <string name="weHaveSentYouAnEmailTo">Saatsime e %s. Kliki lingile e-posti salasõna uuendamise.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registreerides nõustute olema seotud meie %s.</string>
+  <string name="readAboutOur">Lugege rohkem: %s.</string>
   <string name="networkLagBetweenYouAndLichess">Võrgu lag vahel teid ja Lichessi</string>
   <string name="timeToProcessAMoveOnLichessServer">Käigu töötlemise aeg lichess serveril</string>
   <string name="downloadAnnotated">Lae selgitustega</string>
@@ -753,7 +736,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="error.unknown">Viga</string>
   <string name="custom">Muu</string>
   <string name="notifications">Teated</string>
-  <string name="challenges">Väljakutsed</string>
   <string name="perfRatingX">Reiting: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund, et teha esimene käik</item>
@@ -800,12 +782,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="opening">Avang</string>
   <string name="middlegame">Keskmäng</string>
   <string name="endgame">Lõppmäng</string>
-  <string name="registerToSendChallenges">Palun registreerige, et väljakutseid saata.</string>
-  <string name="youCannotChallengeX">Te ei saa väljakutset esitada mängijale %s.</string>
-  <string name="xDoesNotAcceptChallenges">Mängija %s ei aktsepteeri väljakutseid.</string>
-  <string name="yourXRatingIsTooFarFromY">Sinu %1$s reiting on liiga suure vahega võrreldes mängijaga %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Ei saa väljakutset esitada ajutise %s reitingu tõttu.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s aktsepteerib väljakutseid ainult oma sõpradelt.</string>
   <string name="conditionalPremoves">Tingimuslikud eelkäigud</string>
   <string name="addCurrentVariation">Lisa praegune varient</string>
   <string name="playVariationToCreateConditionalPremoves">Tingimuslike eelkäikude loomiseks mängi variatsioon</string>
@@ -839,6 +815,24 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="edit">Muuda</string>
   <string name="rapid">Kiirmale</string>
   <string name="classical">Klassikaline</string>
+  <string name="ultraBulletDesc">Ultrakiired mängud: vähem kui 30 sekundit</string>
+  <string name="bulletDesc">Ülikiired mängud: vähem kui 3 minutit</string>
+  <string name="blitzDesc">Väga kiired mängud: 3 kuni 8 minutit</string>
+  <string name="rapidDesc">Kiired mängud: 8 kuni 25 minutit</string>
+  <string name="classicalDesc">Klassikalised mängud: 25 minutit ja kauem</string>
+  <string name="correspondenceDesc">Kirjavahetusmängud: üks või enam päeva käigu kohta</string>
+  <string name="puzzleDesc">Male taktikate treener</string>
+  <string name="important">Tähtis</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Sinu küsimusele võib juba vastus leiduda %1$s</string>
+  <string name="inTheFAQ">KKK-s.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Et teatada sohitegijast %1$s</string>
+  <string name="useTheReportForm">kasuta aruande vormi</string>
+  <string name="toRequestSupport">Et taotleda tuge %1$s</string>
+  <string name="tryTheContactPage">kasutage kontakti lehte</string>
+  <string name="thisTopicIsArchived">See teema on arhiveeritud ja sellele ei saa enam vastata.</string>
+  <string name="joinTheTeamXToPost">Ühine %1$s-ga et sellesse foorumisse postitada</string>
+  <string name="teamNamedX">%1$s tiim</string>
+  <string name="youCannotPostYetPlaySomeGames">Sa ei saa veel foorumisse postitada. Mängi enne paar mängu!</string>
   <string name="subscribe">Telli</string>
   <string name="unsubscribe">Eemalda</string>
 </resources>

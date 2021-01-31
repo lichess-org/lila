@@ -1,7 +1,7 @@
 package lila.insight
 
 import scala.util.chaining._
-import scalaz.NonEmptyList
+import cats.data.NonEmptyList
 
 import chess.format.FEN
 import chess.{ Board, Centis, Role, Stats }
@@ -27,7 +27,7 @@ final private class PovToEntry(
       advices: Map[Ply, Advice]
   )
 
-  def apply(game: Game, userId: String, provisional: Boolean): Fu[Either[Game, Entry]] =
+  def apply(game: Game, userId: String, provisional: Boolean): Fu[Either[Game, InsightEntry]] =
     enrich(game, userId, provisional) map
       (_ flatMap convert toRight game)
 
@@ -36,8 +36,7 @@ final private class PovToEntry(
       gameRepo setUnanalysed game.id
       analysisRepo remove game.id
       true
-    }
-    false
+    } else false
   }
 
   private def enrich(game: Game, userId: String, provisional: Boolean): Fu[Option[RichPov]] =
@@ -45,8 +44,7 @@ final private class PovToEntry(
     else
       lila.game.Pov.ofUserId(game, userId) ?? { pov =>
         gameRepo.initialFen(game) zip
-          (game.metadata.analysed ?? analysisRepo.byId(game.id)) map {
-          case (fen, an) =>
+          (game.metadata.analysed ?? analysisRepo.byId(game.id)) map { case (fen, an) =>
             for {
               boards <-
                 chess.Replay
@@ -73,7 +71,7 @@ final private class PovToEntry(
                 }.toMap
               }
             )
-        }
+          }
       }
 
   private def pgnMoveToRole(pgn: String): Role =
@@ -86,7 +84,7 @@ final private class PovToEntry(
       case _         => chess.Pawn
     }
 
-  private def makeMoves(from: RichPov): List[Move] = {
+  private def makeMoves(from: RichPov): List[InsightMove] = {
     val cpDiffs = ~from.moveAccuracy toVector
     val prevInfos = from.analysis.?? { an =>
       Accuracy.prevColorInfos(from.pov, an) pipe { is =>
@@ -103,7 +101,7 @@ final private class PovToEntry(
     }
     val blurs = {
       val bools = from.pov.player.blurs.booleans
-      bools ++ Array.fill(movetimes.size - bools.size)(false)
+      bools ++ Array.fill(movetimes.size - bools.length)(false)
     }
     val timeCvs = slidingMoveTimesCvs(movetimes)
     movetimes.zip(roles).zip(boards).zip(blurs).zip(timeCvs).zipWithIndex.map {
@@ -126,7 +124,7 @@ final private class PovToEntry(
             }
           case _ => none
         }
-        Move(
+        InsightMove(
           phase = Phase.of(from.division, ply),
           tenths = movetime.roundTenths,
           role = role,
@@ -152,7 +150,7 @@ final private class PovToEntry(
         .sliding(sliding)
         .map { a =>
           // drop outliers
-          coefVariation(a.map(_.centis + 10).toSeq.sorted.drop(1).dropRight(1))
+          coefVariation(a.map(_.centis + 10).sorted.drop(1).dropRight(1))
         }
       sides ++ cvs ++ sides
     }
@@ -176,7 +174,7 @@ final private class PovToEntry(
       }
     }
 
-  private def convert(from: RichPov): Option[Entry] = {
+  private def convert(from: RichPov): Option[InsightEntry] = {
     import from._
     import pov.game
     for {
@@ -184,8 +182,8 @@ final private class PovToEntry(
       myRating <- pov.player.rating
       opRating <- pov.opponent.rating
       perfType <- game.perfType
-    } yield Entry(
-      id = Entry povToId pov,
+    } yield InsightEntry(
+      id = InsightEntry povToId pov,
       number = 0, // temporary :-/ the Indexer will set it
       userId = myId,
       color = pov.color,

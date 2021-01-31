@@ -1,12 +1,14 @@
 package lila.security
 
-import play.api.libs.json._
-import play.api.libs.ws.WSClient
-import play.api.mvc.RequestHeader
 import io.methvin.play.autoconfig._
+import play.api.libs.json._
+import play.api.libs.ws.DefaultBodyWritables._
+import play.api.libs.ws.JsonBodyReadables._
+import play.api.libs.ws.StandaloneWSClient
+import play.api.mvc.RequestHeader
 
-import lila.common.HTTPRequest
 import lila.common.config._
+import lila.common.HTTPRequest
 
 trait Recaptcha {
 
@@ -33,42 +35,60 @@ object RecaptchaSkip extends Recaptcha {
 }
 
 final class RecaptchaGoogle(
-    ws: WSClient,
+    ws: StandaloneWSClient,
     netDomain: NetDomain,
     config: Recaptcha.Config
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends Recaptcha {
 
-  private case class Response(
+  private case class GoodResponse(
       success: Boolean,
       hostname: String
   )
+  implicit private val goodReader = Json.reads[GoodResponse]
 
-  implicit private val responseReader = Json.reads[Response]
+  private case class BadResponse(
+      `error-codes`: List[String]
+  ) {
+    def missingInput      = `error-codes` contains "missing-input-response"
+    override def toString = `error-codes` mkString ","
+  }
+  implicit private val badReader = Json.reads[BadResponse]
 
   def verify(response: String, req: RequestHeader): Fu[Boolean] = {
+    val client = HTTPRequest clientName req
     ws.url(config.endpoint)
       .post(
         Map(
           "secret"   -> config.privateKey.value,
           "response" -> response,
-          "remoteip" -> HTTPRequest.lastRemoteAddress(req).value
+          "remoteip" -> HTTPRequest.ipAddress(req).value
         )
       ) flatMap {
       case res if res.status == 200 =>
-        res.json.validate[Response] match {
+        res.body[JsValue].validate[GoodResponse] match {
           case JsSuccess(res, _) =>
-            fuccess {
-              res.success && res.hostname == netDomain.value
-            }
+            lila.mon.security.recaptcha.hit(client, "success").increment()
+            fuccess(res.success && res.hostname == netDomain.value)
           case JsError(err) =>
-            fufail(s"$err ${res.json}")
+            res.body[JsValue].validate[BadResponse].asOpt match {
+              case Some(err) if err.missingInput =>
+                logger.info(s"recaptcha missing ${HTTPRequest printClient req}")
+                lila.mon.security.recaptcha.hit(client, "missing").increment()
+                fuccess(HTTPRequest.apiVersion(req).isDefined)
+              case Some(err) =>
+                lila.mon.security.recaptcha.hit(client, err.toString).increment()
+                fuccess(false)
+              case _ =>
+                lila.mon.security.recaptcha.hit(client, "error").increment()
+                logger.info(s"recaptcha $err ${res.body}")
+                fuccess(false)
+            }
         }
-      case res => fufail(s"${res.status} ${res.body}")
-    } recover {
-      case e: Exception =>
-        logger.info(s"recaptcha ${e.getMessage}")
-        true
+      case res =>
+        lila.mon.security.recaptcha.hit(client, res.status.toString).increment()
+        logger.info(s"recaptcha ${res.status} ${res.body}")
+        fuccess(false)
     }
   }
 }

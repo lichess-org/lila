@@ -7,7 +7,7 @@ import lila.game.{ Game, Query }
 import lila.user.User
 
 import play.api.mvc.Request
-import scalaz.{ IList, NonEmptyList }
+import cats.data.NonEmptyList
 
 sealed abstract class GameFilter(val name: String)
 
@@ -37,13 +37,13 @@ object GameFilterMenu {
   import GameFilter._
 
   val all: NonEmptyList[GameFilter] =
-    NonEmptyList.nel(All, IList(Me, Rated, Win, Loss, Draw, Playing, Bookmark, Imported, Search))
+    NonEmptyList.of(All, Me, Rated, Win, Loss, Draw, Playing, Bookmark, Imported, Search)
 
-  def apply(user: User, nbs: UserInfo.NbGames, currentName: String): GameFilterMenu = {
+  def apply(user: User, nbs: UserInfo.NbGames, currentName: String, isAuth: Boolean): GameFilterMenu = {
 
-    val filters: NonEmptyList[GameFilter] = NonEmptyList.nel(
+    val filters: NonEmptyList[GameFilter] = NonEmptyList(
       All,
-      IList fromList List(
+      List(
         (~nbs.withMe > 0) option Me,
         (user.count.rated > 0) option Rated,
         (user.count.win > 0) option Win,
@@ -52,7 +52,7 @@ object GameFilterMenu {
         (nbs.playing > 0) option Playing,
         (nbs.bookmark > 0) option Bookmark,
         (nbs.imported > 0) option Imported,
-        (user.count.game > 0) option Search
+        (isAuth && user.count.game > 0) option Search
       ).flatten
     )
 
@@ -62,7 +62,7 @@ object GameFilterMenu {
   }
 
   def currentOf(filters: NonEmptyList[GameFilter], name: String) =
-    (filters.list find (_.name == name)) | filters.head
+    filters.find(_.name == name) | filters.head
 
   private def cachedNbOf(
       user: User,

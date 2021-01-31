@@ -2,6 +2,7 @@ package lila.swiss
 
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
+import play.api.i18n.Lang
 import play.api.libs.json._
 import scala.concurrent.ExecutionContext
 
@@ -10,7 +11,7 @@ import lila.db.dsl._
 import lila.game.Game
 import lila.quote.Quote.quoteWriter
 import lila.socket.Socket.SocketVersion
-import lila.user.User
+import lila.user.{ User, UserRepo }
 
 final class SwissJson(
     colls: SwissColls,
@@ -18,6 +19,7 @@ final class SwissJson(
     rankingApi: SwissRankingApi,
     boardApi: SwissBoardApi,
     statsApi: SwissStatsApi,
+    userRepo: UserRepo,
     lightUserApi: lila.user.LightUserApi
 )(implicit ec: ExecutionContext) {
 
@@ -33,10 +35,11 @@ final class SwissJson(
       swiss: Swiss,
       me: Option[User],
       isInTeam: Boolean,
+      verdicts: SwissCondition.All.WithVerdicts,
       reqPage: Option[Int] = None, // None = focus on me
       socketVersion: Option[SocketVersion] = None,
       playerInfo: Option[SwissPlayer.ViewExt] = None
-  ): Fu[JsObject] = {
+  )(implicit lang: Lang): Fu[JsObject] = {
     for {
       myInfo <- me.?? { fetchMyInfo(swiss, _) }
       page = reqPage orElse myInfo.map(_.page) getOrElse 1
@@ -47,8 +50,10 @@ final class SwissJson(
     } yield swissJsonBase(swiss) ++ Json
       .obj(
         "canJoin" -> {
-          (swiss.isNotFinished && myInfo.exists(_.player.absent)) ||
-          (myInfo.isEmpty && swiss.isEnterable && isInTeam)
+          {
+            (swiss.isNotFinished && myInfo.exists(_.player.absent)) ||
+            (myInfo.isEmpty && swiss.isEnterable && isInTeam)
+          } && verdicts.accepted
         },
         "standing" -> standing,
         "boards"   -> boards.map(boardJson)
@@ -59,6 +64,7 @@ final class SwissJson(
       .add("playerInfo" -> playerInfo.map { playerJsonExt(swiss, _) })
       .add("podium" -> podium)
       .add("isRecentlyFinished" -> swiss.isRecentlyFinished)
+      .add("password" -> swiss.settings.password.isDefined)
       .add("stats" -> stats)
       .add("greatPlayer" -> GreatPlayer.wikiUrl(swiss.name).map { url =>
         Json.obj("name" -> swiss.name, "url" -> url)
@@ -90,9 +96,8 @@ final class SwissJson(
     }
 
   private def updatePlayerRating(swiss: Swiss, player: SwissPlayer, user: User): Funit =
-    swiss.perfType
-      .ifTrue(swiss.settings.rated)
-      .map(user.perfs.apply)
+    swiss.settings.rated
+      .option(user perfs swiss.perfType)
       .filter(_.intRating != player.rating)
       .?? { perf =>
         SwissPlayer.fields { f =>
@@ -108,26 +113,47 @@ final class SwissJson(
   private def podiumJson(swiss: Swiss): Fu[Option[JsArray]] =
     swiss.isFinished ?? {
       SwissPlayer.fields { f =>
-        colls.player.ext
+        colls.player
           .find($doc(f.swissId -> swiss.id))
           .sort($sort desc f.score)
-          .list[SwissPlayer](3) map { top3 =>
+          .cursor[SwissPlayer]()
+          .list(3) flatMap { top3 =>
           // check that the winner is still correctly denormalized
-          top3.headOption.map(_.userId).filter(w => swiss.winnerId.fold(true)(w !=)) foreach {
-            colls.swiss.updateField($id(swiss.id), "winnerId", _).void
-          }
-          JsArray {
-            top3.map { player =>
-              playerJsonBase(
-                swiss,
-                player,
-                lightUserApi.sync(player.userId) | LightUser.fallback(player.userId),
-                performance = true
-              )
+          top3.headOption
+            .map(_.userId)
+            .filter(w => swiss.winnerId.fold(true)(w !=))
+            .foreach {
+              colls.swiss.updateField($id(swiss.id), "winnerId", _).void
             }
-          }.some
+            .unit
+          userRepo.filterEngine(top3.map(_.userId)) map { engines =>
+            JsArray(
+              top3.map { player =>
+                playerJsonBase(
+                  player,
+                  lightUserApi.sync(player.userId) | LightUser.fallback(player.userId),
+                  performance = true
+                ).add("engine", engines(player.userId))
+              }
+            ).some
+          }
         }
       }
+    }
+
+  def playerResult(player: SwissPlayer, rank: Int): Fu[JsObject] =
+    lightUserApi.asyncFallback(player.userId) map { user =>
+      Json
+        .obj(
+          "rank"     -> rank,
+          "score"    -> player.score.value,
+          "tieBreak" -> player.tieBreak.value,
+          "rating"   -> player.rating,
+          "username" -> user.name
+        )
+        .add("title" -> user.title)
+        .add("performance" -> player.performance)
+        .add("absent" -> player.absent)
     }
 }
 
@@ -163,7 +189,7 @@ object SwissJson {
       })
 
   private[swiss] def playerJson(swiss: Swiss, view: SwissPlayer.View): JsObject =
-    playerJsonBase(swiss, view, false) ++ Json
+    playerJsonBase(view, performance = false) ++ Json
       .obj(
         "sheetMin" -> swiss.allRounds
           .map(view.pairings.get)
@@ -175,32 +201,29 @@ object SwissJson {
       )
 
   def playerJsonExt(swiss: Swiss, view: SwissPlayer.ViewExt): JsObject =
-    playerJsonBase(swiss, view, true) ++ Json.obj(
+    playerJsonBase(view, performance = true) ++ Json.obj(
       "sheet" -> swiss.allRounds
         .zip(view.sheet.outcomes)
         .reverse
-        .map {
-          case (round, outcome) =>
-            view.pairings.get(round).fold[JsValue](JsString(outcomeJson(outcome))) { p =>
-              pairingJson(view.player, p.pairing) ++
-                Json.obj(
-                  "user"   -> p.player.user,
-                  "rating" -> p.player.player.rating
-                )
-            }
+        .map { case (round, outcome) =>
+          view.pairings.get(round).fold[JsValue](JsString(outcomeJson(outcome))) { p =>
+            pairingJson(view.player, p.pairing) ++
+              Json.obj(
+                "user"   -> p.player.user,
+                "rating" -> p.player.player.rating
+              )
+          }
         }
     )
 
   private def playerJsonBase(
-      swiss: Swiss,
       view: SwissPlayer.Viewish,
       performance: Boolean
   ): JsObject =
-    playerJsonBase(swiss, view.player, view.user, performance) ++
+    playerJsonBase(view.player, view.user, performance) ++
       Json.obj("rank" -> view.rank)
 
   private def playerJsonBase(
-      swiss: Swiss,
       p: SwissPlayer,
       user: LightUser,
       performance: Boolean
@@ -258,13 +281,24 @@ object SwissJson {
       )
 
   private[swiss] def boardJson(b: SwissBoard.WithGame) =
-    Json.obj(
-      "id"       -> b.game.id,
-      "fen"      -> (chess.format.Forsyth exportBoard b.game.board),
-      "lastMove" -> ~b.game.lastMoveKeys,
-      "white"    -> boardPlayerJson(b.board.white),
-      "black"    -> boardPlayerJson(b.board.black)
-    )
+    Json
+      .obj(
+        "id"          -> b.game.id,
+        "fen"         -> chess.format.Forsyth.boardAndColor(b.game.situation),
+        "lastMove"    -> ~b.game.lastMoveKeys,
+        "orientation" -> b.game.naturalOrientation.name,
+        "white"       -> boardPlayerJson(b.board.white),
+        "black"       -> boardPlayerJson(b.board.black)
+      )
+      .add(
+        "clock" -> b.game.clock.ifTrue(b.game.isBeingPlayed).map { c =>
+          Json.obj(
+            "white" -> c.remainingTime(chess.White).roundSeconds,
+            "black" -> c.remainingTime(chess.Black).roundSeconds
+          )
+        }
+      )
+      .add("winner" -> b.game.winnerColor.map(_.name))
 
   private def boardPlayerJson(player: SwissBoard.Player) =
     Json.obj(

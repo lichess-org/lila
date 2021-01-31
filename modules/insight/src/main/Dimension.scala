@@ -28,7 +28,7 @@ object Dimension {
 
   import BSONHandlers._
   import Position._
-  import Entry.{ BSONFields => F }
+  import InsightEntry.{ BSONFields => F }
   import lila.rating.BSONHandlers.perfTypeIdHandler
 
   case object Period
@@ -222,7 +222,7 @@ object Dimension {
       case Phase                   => key.toIntOption flatMap lila.insight.Phase.byId.get
       case Result                  => key.toIntOption flatMap lila.insight.Result.byId.get
       case Termination             => key.toIntOption flatMap lila.insight.Termination.byId.get
-      case Color                   => chess.Color(key)
+      case Color                   => chess.Color.fromName(key)
       case Opening                 => EcopeningDB.allByEco get key
       case OpponentStrength        => key.toIntOption flatMap RelativeStrength.byId.get
       case PieceRole               => chess.Role.all.find(_.name == key)
@@ -281,7 +281,8 @@ object Dimension {
       case TimeVariance            => JsString(v.name)
     }
 
-  def filtersOf[X](d: Dimension[X], selected: List[X]): Bdoc =
+  def filtersOf[X](d: Dimension[X], selected: List[X]): Bdoc = {
+    import cats.implicits._
     d match {
       case Dimension.MovetimeRange =>
         selected match {
@@ -289,7 +290,7 @@ object Dimension {
           case xs  => $doc(d.dbKey $in xs.flatMap(_.tenths.toList))
         }
       case Dimension.Period =>
-        selected.sortBy(-_.days).headOption.fold($empty) { period =>
+        selected.maximumByOption(_.days).fold($empty) { period =>
           $doc(d.dbKey $gt period.min)
         }
       case _ =>
@@ -299,6 +300,7 @@ object Dimension {
           case xs      => $doc(d.dbKey -> $doc("$in" -> BSONArray(xs)))
         }
     }
+  }
 
   def dataTypeOf[X](d: Dimension[X]): String =
     d match {

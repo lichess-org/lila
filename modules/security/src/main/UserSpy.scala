@@ -48,19 +48,16 @@ final class UserSpyApi(
       val ips = distinctRecent(infos.map(_.datedIp))
       val fps = distinctRecent(infos.flatMap(_.datedFp))
       fetchOtherUsers(user, ips.map(_.value).toSet, fps.map(_.value).toSet, maxOthers) zip
-        ip2proxy.keepProxies(ips.map(_.value).toList) map {
-        case otherUsers ~ proxies =>
-          val othersByIp = otherUsers.foldLeft(Map.empty[IpAddress, Set[User]]) {
-            case (acc, other) =>
-              other.ips.foldLeft(acc) {
-                case (acc, ip) => acc.updated(ip, acc.getOrElse(ip, Set.empty) + other.user)
-              }
+        ip2proxy.keepProxies(ips.map(_.value).toList) map { case (otherUsers, proxies) =>
+          val othersByIp = otherUsers.foldLeft(Map.empty[IpAddress, Set[User]]) { case (acc, other) =>
+            other.ips.foldLeft(acc) { case (acc, ip) =>
+              acc.updated(ip, acc.getOrElse(ip, Set.empty) + other.user)
+            }
           }
-          val othersByFp = otherUsers.foldLeft(Map.empty[FingerHash, Set[User]]) {
-            case (acc, other) =>
-              other.fps.foldLeft(acc) {
-                case (acc, fp) => acc.updated(fp, acc.getOrElse(fp, Set.empty) + other.user)
-              }
+          val othersByFp = otherUsers.foldLeft(Map.empty[FingerHash, Set[User]]) { case (acc, other) =>
+            other.fps.foldLeft(acc) { case (acc, fp) =>
+              acc.updated(fp, acc.getOrElse(fp, Set.empty) + other.user)
+            }
           }
           UserSpy(
             ips = ips.map { ip =>
@@ -84,7 +81,7 @@ final class UserSpyApi(
             })).toList,
             otherUsers = otherUsers
           )
-      }
+        }
     }
 
   private[security] def userHasPrint(u: User): Fu[Boolean] =
@@ -156,7 +153,7 @@ final class UserSpyApi(
 
   def getUserIdsWithSameIpAndPrint(userId: User.ID): Fu[Set[User.ID]] =
     for {
-      (ips, fps) <- nextValues("ip", userId, 100) zip nextValues("fp", userId, 100)
+      (ips, fps) <- nextValues("ip", userId) zip nextValues("fp", userId)
       users <- (ips.nonEmpty && fps.nonEmpty) ?? store.coll.secondaryPreferred.distinctEasy[User.ID, Set](
         "user",
         $doc(
@@ -167,7 +164,7 @@ final class UserSpyApi(
       )
     } yield users
 
-  private def nextValues(field: String, userId: User.ID, max: Int): Fu[Set[String]] =
+  private def nextValues(field: String, userId: User.ID): Fu[Set[String]] =
     store.coll.secondaryPreferred.distinctEasy[String, Set](field, $doc("user" -> userId))
 }
 
@@ -227,7 +224,6 @@ object UserSpy {
 
   case class WithMeSortedWithEmails(others: List[OtherUser], emails: Map[User.ID, EmailAddress]) {
     def emailValueOf(u: User) = emails.get(u.id).map(_.value)
-    def size                  = others.size
   }
 
   def withMeSortedWithEmails(

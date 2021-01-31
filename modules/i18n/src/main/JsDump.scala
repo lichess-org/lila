@@ -17,7 +17,7 @@ object JsDump {
 
   private type JsTrans = Iterable[(String, JsString)]
 
-  private def removeDbPrefix(key: MessageKey): String = {
+  def removeDbPrefix(key: MessageKey): String = {
     val index = key.indexOf(':')
     if (index > 0) key.drop(index + 1) else key
   }
@@ -28,8 +28,8 @@ object JsDump {
       case literal: Simple  => List(k -> JsString(literal.message))
       case literal: Escaped => List(k -> JsString(literal.message))
       case plurals: Plurals =>
-        plurals.messages.map {
-          case (quantity, msg) => s"$k${quantitySuffix(quantity)}" -> JsString(msg)
+        plurals.messages.map { case (quantity, msg) =>
+          s"$k${quantitySuffix(quantity)}" -> JsString(msg)
         }
     }
   }

@@ -2,7 +2,7 @@ package lila.slack
 
 import com.softwaremill.macwire._
 import play.api.{ Configuration, Mode }
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.Lilakka
 import lila.common.config._
@@ -15,7 +15,7 @@ final class Env(
     appConfig: Configuration,
     getLightUser: lila.common.LightUser.Getter,
     noteApi: lila.user.NoteApi,
-    ws: WSClient,
+    ws: StandaloneWSClient,
     shutdown: akka.actor.CoordinatedShutdown,
     mode: Mode
 )(implicit ec: scala.concurrent.ExecutionContext) {
@@ -32,8 +32,8 @@ final class Env(
   }
 
   lila.common.Bus.subscribeFun("slack", "plan", "userNote") {
-    case d: ChargeEvent                                => api charge d
-    case Note(from, to, text, true) if from != "Irwin" => api.userModNote(from, to, text)
-    case e: Event                                      => api publishEvent e
+    case d: ChargeEvent                                => api.charge(d).unit
+    case Note(from, to, text, true) if from != "Irwin" => api.userModNote(from, to, text).unit
+    case e: Event                                      => api.publishEvent(e).unit
   }
 }

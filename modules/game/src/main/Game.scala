@@ -5,12 +5,13 @@ import chess.format.{ FEN, Uci }
 import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.variant.{ FromPosition, Standard, Variant }
 import chess.{ Castles, Centis, CheckCount, Clock, Color, Mode, MoveOrDrop, Speed, Status, Game => ChessGame }
+import org.joda.time.DateTime
+
 import lila.common.Sequence
 import lila.db.ByteArray
 import lila.rating.PerfType
 import lila.rating.PerfType.Classical
 import lila.user.User
-import org.joda.time.DateTime
 
 case class Game(
     id: Game.ID,
@@ -50,20 +51,22 @@ case class Game(
   def player(c: Color.type => Color): Player = player(c(Color))
 
   def isPlayerFullId(player: Player, fullId: String): Boolean =
-    (fullId.size == Game.fullIdSize) && player.id == (fullId drop Game.gameIdSize)
+    (fullId.lengthIs == Game.fullIdSize) && player.id == (fullId drop Game.gameIdSize)
 
   def player: Player = player(turnColor)
 
-  def playerByUserId(userId: String): Option[Player]   = players.find(_.userId contains userId)
-  def opponentByUserId(userId: String): Option[Player] = playerByUserId(userId) map opponent
+  def playerByUserId(userId: User.ID): Option[Player]   = players.find(_.userId contains userId)
+  def opponentByUserId(userId: User.ID): Option[Player] = playerByUserId(userId) map opponent
+
+  def hasUserIds(userId1: User.ID, userId2: User.ID) =
+    playerByUserId(userId1).isDefined && playerByUserId(userId2).isDefined
 
   def opponent(p: Player): Player = opponent(p.color)
 
   def opponent(c: Color): Player = player(!c)
 
-  lazy val firstColor = Color(whitePlayer before blackPlayer)
-  def firstPlayer     = player(firstColor)
-  def secondPlayer    = player(!firstColor)
+  lazy val naturalOrientation =
+    if (variant.racingKings) White else Color.fromWhite(whitePlayer before blackPlayer)
 
   def turnColor = chess.player
 
@@ -97,7 +100,7 @@ case class Game(
   // because if moretime was given,
   // elapsed time is no longer representing the game duration
   def durationSeconds: Option[Int] =
-    (movedAt.getSeconds - createdAt.getSeconds) match {
+    movedAt.getSeconds - createdAt.getSeconds match {
       case seconds if seconds > 60 * 60 * 12 => none // no way it lasted more than 12 hours, come on.
       case seconds                           => seconds.toInt.some
     }
@@ -128,11 +131,11 @@ case class Game(
       // the last recorded time is in the history for turnColor.
       val noLastInc = finished && (history.size <= playedTurns) == (color != turnColor)
 
-      pairs map {
-        case (first, second) => {
-            val d = first - second
-            if (pairs.hasNext || !noLastInc) d + inc else d
-          } nonNeg
+      pairs map { case (first, second) =>
+        {
+          val d = first - second
+          if (pairs.hasNext || !noLastInc) d + inc else d
+        } nonNeg
       } toList
     }
   } orElse binaryMoveTimes.map { binary =>
@@ -182,7 +185,7 @@ case class Game(
       whitePlayer = copyPlayer(whitePlayer),
       blackPlayer = copyPlayer(blackPlayer),
       chess = game,
-      binaryMoveTimes = (!isPgnImport && !chess.clock.isDefined).option {
+      binaryMoveTimes = (!isPgnImport && chess.clock.isEmpty).option {
         BinaryFormat.moveTime.write {
           binaryMoveTimes.?? { t =>
             BinaryFormat.moveTime.read(t, playedTurns)
@@ -326,8 +329,8 @@ case class Game(
     finishedOrAborted &&
       nonMandatory &&
       !boosted && ! {
-      hasAi && variant == FromPosition && clock.exists(_.config.limitSeconds < 60)
-    }
+        hasAi && variant == FromPosition && clock.exists(_.config.limitSeconds < 60)
+      }
 
   def playerCanProposeTakeback(color: Color) =
     started && playable && !isTournament && !isSimul &&
@@ -346,7 +349,7 @@ case class Game(
 
   def berserkable = clock.??(_.config.berserkable) && status == Status.Started && playedTurns < 2
 
-  def goBerserk(color: Color) =
+  def goBerserk(color: Color): Option[Progress] =
     clock.ifTrue(berserkable && !player(color).berserk).map { c =>
       val newClock = c goBerserk color
       Progress(
@@ -369,7 +372,7 @@ case class Game(
 
   def resignable      = playable && !abortable
   def drawable        = playable && !abortable
-  def forceResignable = resignable && nonAi && !fromFriend && hasClock
+  def forceResignable = resignable && nonAi && !fromFriend && hasClock && !isSwiss
 
   def finish(status: Status, winner: Option[Color]) = {
     val newClock = clock map { _.stop }
@@ -446,8 +449,10 @@ case class Game(
 
   private def outoftimeClock(withGrace: Boolean): Boolean =
     clock ?? { c =>
-      started && playable && (bothPlayersHaveMoved || isSimul || isSwiss) && {
-        (!c.isRunning && !c.isInit) || c.outOfTime(turnColor, withGrace)
+      started && playable && (bothPlayersHaveMoved || isSimul || isSwiss || fromFriend) && {
+        c.outOfTime(turnColor, withGrace) || {
+          !c.isRunning && c.players.exists(_.elapsed.centis > 0)
+        }
       }
     }
 
@@ -518,7 +523,7 @@ case class Game(
   def onePlayerHasMoved    = playedTurns > 0
   def bothPlayersHaveMoved = playedTurns > 1
 
-  def startColor = Color(chess.startedAtTurn % 2 == 0)
+  def startColor = Color.fromPly(chess.startedAtTurn)
 
   def playerMoves(color: Color): Int =
     if (color == startColor) (playedTurns + 1) / 2
@@ -692,19 +697,19 @@ object Game {
   val idRegex         = """[\w-]{8}""".r
   def validId(id: ID) = idRegex matches id
 
-  private val boardApiRatedMinClock = chess.Clock.Config(20 * 60, 0)
-
   def isBoardCompatible(game: Game): Boolean =
     game.clock.fold(true) { c =>
-      isBoardCompatible(c.config, game.mode)
+      isBoardCompatible(c.config)
     }
 
-  def isBoardCompatible(clock: Clock.Config, mode: Mode): Boolean =
-    if (mode.rated) clock.estimateTotalTime >= boardApiRatedMinClock.estimateTotalTime
-    else chess.Speed(clock) >= Speed.Rapid
+  def isBoardCompatible(clock: Clock.Config): Boolean =
+    chess.Speed(clock) >= Speed.Rapid
 
-  def isBotCompatible(game: Game) =
-    game.hasAi || game.source.contains(Source.Friend)
+  def isBotCompatible(game: Game): Boolean = {
+    game.hasAi || game.fromFriend
+  } && isBotCompatible(game.speed)
+
+  def isBotCompatible(speed: Speed): Boolean = speed >= Speed.Bullet
 
   private[game] val emptyCheckCount = CheckCount(0, 0)
 

@@ -1,0 +1,29 @@
+select.rate {
+  display: none;
+}
+
+rate-stars {
+  display: flex;
+  align-items: center;
+
+  &.rate-active star {
+    cursor: pointer;
+  }
+}
+
+star {
+  font: 2em 'lichess';
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  text-decoration: none;
+  padding: 0 .1em;
+
+  &:after {
+    content: 't';
+    color: $c-shade;
+  }
+
+  &.rate-selected:after {
+    color: $c-brag;
+  }
+}

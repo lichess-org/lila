@@ -2,7 +2,7 @@ lichess.highchartsPromise;
 lichess.chartCommon = function(type) {
   if (lichess.highchartsPromise) return lichess.highchartsPromise;
   var file = type === 'highstock' ? 'highstock.js' : 'highcharts.js';
-  return lichess.highchartsPromise = lichess.loadScript('vendor/highcharts-4.2.5/' + file, { noVersion: true }).done(function() {
+  return lichess.highchartsPromise = lichess.loadScript('vendor/highcharts-4.2.5/' + file, { noVersion: true }).then(function() {
     // Drop-in fix for Highcharts issue #8477 on older Highcharts versions. The
     // issue is fixed since Highcharts v6.1.1.
     Highcharts.wrap(Highcharts.Axis.prototype, 'getPlotLinePath', function(proceed) {

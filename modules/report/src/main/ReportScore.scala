@@ -13,8 +13,8 @@ final private class ReportScore(
     } map
       impl.fixedAutoCommPrintScore(candidate) map
       impl.commFlagScore(candidate) map { score =>
-      candidate scored Report.Score(score atLeast 5 atMost 100)
-    }
+        candidate scored Report.Score(score atLeast 5 atMost 100)
+      }
 
   private object impl {
 

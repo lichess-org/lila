@@ -1,49 +1,19 @@
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
 import { bind, titleNameToId, onInsert } from '../util';
-import { prop, Prop } from 'common';
+import { h } from 'snabbdom'
 import { modal } from '../modal';
+import { prop, Prop } from 'common';
 import { StudyMemberMap } from './interfaces';
+import { VNode } from 'snabbdom/vnode'
 
-export function ctrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: () => void, redraw: () => void, trans: Trans) {
-  const open = prop(false);
-  let followings: string[] = [];
-  let spectators: string[] = [];
-  function updateFollowings(f) {
-    followings = f(followings);
-    if (open()) redraw();
-  };
+export function makeCtrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: () => void, redraw: () => void, trans: Trans) {
+  const open = prop(false),
+    spectators = prop<string[]>([]);
   return {
     open,
-    candidates() {
-      const existing = members();
-      return followings.concat(spectators).filter(function(elem, idx, arr) {
-        return arr.indexOf(elem) >= idx && // remove duplicates
-          !existing.hasOwnProperty(titleNameToId(elem)); // remove existing members
-      }).sort();
-    },
     members,
-    setSpectators(usernames: string[]) {
-      spectators = usernames;
-    },
-    setFollowings(usernames: string[]) {
-      updateFollowings((_: string[])  => usernames)
-    },
-    delFollowing(username: string) {
-      updateFollowings(function(prevs: string[]) {
-        return prevs.filter(function(u: string) {
-          return username !== u;
-        });
-      });
-    },
-    addFollowing(username: string) {
-      updateFollowings(function(prevs: string[]) {
-        return prevs.concat([username]);
-      });
-    },
+    spectators,
     toggle() {
       open(!open());
-      if (open()) send('following_onlines');
     },
     invite(titleName: string) {
       send("invite", titleNameToId(titleName));
@@ -54,8 +24,10 @@ export function ctrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: ()
   };
 };
 
-export function view(ctrl): VNode {
-  const candidates = ctrl.candidates();
+export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
+  const candidates = ctrl.spectators()
+    .filter(s => !ctrl.members()[titleNameToId(s)]) // remove existing members
+    .sort();
   return modal({
     class: 'study__invite',
     onClose() {
@@ -68,17 +40,20 @@ export function view(ctrl): VNode {
       h('div.input-wrapper', [ // because typeahead messes up with snabbdom
         h('input', {
           attrs: { placeholder: ctrl.trans.noarg('searchByUsername') },
-          hook: onInsert<HTMLInputElement>(el => {
-            window.lichess.userAutocomplete($(el), {
-              tag: 'span',
-              onSelect(v) {
-                ctrl.invite(v.name);
-                $(el).typeahead('close');
-                el.value = '';
-                ctrl.redraw();
-              }
-            });
-          })
+          hook: onInsert<HTMLInputElement>(input =>
+            lichess.userComplete().then(uac => {
+              uac({
+                input,
+                tag: 'span',
+                onSelect(v) {
+                  input.value = '';
+                  ctrl.invite(v.name);
+                  ctrl.redraw();
+                }
+              });
+              input.focus();
+            })
+          )
         })
       ]),
       candidates.length ? h('div.users', candidates.map(function(username: string) {

@@ -20,7 +20,7 @@ function cache(view, dataToKey) {
   };
 }
 
-var renderMeat = cache(function(ctrl) {
+var renderMain = cache(function(ctrl) {
   if (ctrl.vm.broken) return m('div.broken', [
     m('i[data-icon=j]'),
     'Insights are unavailable.',
@@ -73,6 +73,6 @@ module.exports = function(ctrl) {
         'data-icon': '7'
       }, 'Chess Insights')
     ]),
-    m('div.meat.box', renderMeat(ctrl))
+    m('div.insight__main.box', renderMain(ctrl))
   ]);
 };

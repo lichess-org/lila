@@ -18,17 +18,15 @@ final private[timeline] class Push(
 
   implicit def ec = context.dispatcher
 
-  def receive = {
-
-    case Propagate(data, propagations) =>
-      propagate(propagations) flatMap { users =>
-        unsubApi.filterUnsub(data.channel, users)
-      } foreach { users =>
-        if (users.nonEmpty)
-          makeEntry(users, data) >>-
-            lila.common.Bus.publish(ReloadTimelines(users), "lobbySocket")
-        lila.mon.timeline.notification.increment(users.size)
-      }
+  def receive = { case Propagate(data, propagations) =>
+    propagate(propagations) flatMap { users =>
+      unsubApi.filterUnsub(data.channel, users)
+    } foreach { users =>
+      if (users.nonEmpty)
+        makeEntry(users, data) >>-
+          lila.common.Bus.publish(ReloadTimelines(users), "lobbySocket")
+      lila.mon.timeline.notification.increment(users.size)
+    }
   }
 
   private def propagate(propagations: List[Propagation]): Fu[List[User.ID]] =

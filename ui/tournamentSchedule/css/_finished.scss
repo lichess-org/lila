@@ -1,44 +1,72 @@
-.tour-home__list {
-  max-width: 1200px;
+.arena-list {
   .slist {
-    td {
-      padding: 1em inherit;
-      &.duration {
-        white-space: nowrap;
+
+    .date {
+      @include breakpoint($mq-not-x-small) {
+        display: none;
       }
     }
+    .players {
+      @include breakpoint($mq-not-xx-small) {
+        display: none;
+      }
+    }
+
+    td {
+      padding: 1em inherit;
+
+      > span, > a > span {
+        display: block;
+        margin: .5em 0;
+      }
+
+      &.players {
+        white-space: nowrap;
+      }
+
+      i {
+        color: $c-brag;
+      }
+    }
+
     .header {
       letter-spacing: 2px;
       cursor: pointer;
-      @include transition();
+
+      @include transition;
+
       padding: 0;
+
       &:hover {
         transform: translateX(3px);
       }
+
       a {
         padding: 1em;
         display: block;
       }
     }
+
     a {
       color: $c-font;
+
       &:hover {
         color: $c-link-hover;
       }
     }
+
     .name {
       font-size: 1.5em;
       display: block;
+
       @include breakpoint($mq-large) {
         letter-spacing: 3px;
       }
     }
   }
+
   .icon i {
     font-size: 4em;
-    opacity: 0.6;
-  }
-  .tour-scheduled .icon i {
     color: $c-brag;
     opacity: 0.8;
   }

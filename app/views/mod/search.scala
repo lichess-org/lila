@@ -24,7 +24,7 @@ object search {
         views.html.mod.menu("search"),
         div(cls := "mod-search page-menu__content box")(
           h1("Search users"),
-          st.form(cls := "search box__pad", action := routes.Mod.search, method := "GET")(
+          st.form(cls := "search box__pad", action := routes.Mod.search(), method := "GET")(
             input(
               name := "q",
               autofocus,
@@ -125,25 +125,24 @@ object search {
         )
       ),
       tbody(
-        users.map {
-          case lila.user.User.WithEmails(u, emails) =>
-            tr(
-              td(
-                userLink(u, withBestRating = true, params = "?mod"),
-                (isGranted(_.Doxing) && isGranted(_.SetEmail)) option
-                  email(emails.list.map(_.value).mkString(", "))
-              ),
-              td(u.count.game.localize),
-              td(
-                u.marks.alt option mark("ALT"),
-                u.marks.engine option mark("ENGINE"),
-                u.marks.boost option mark("BOOSTER"),
-                u.marks.troll option mark("SHADOWBAN")
-              ),
-              td(u.disabled option mark("CLOSED")),
-              td(momentFromNow(u.createdAt)),
-              td(u.seenAt.map(momentFromNow(_)))
-            )
+        users.map { case lila.user.User.WithEmails(u, emails) =>
+          tr(
+            td(
+              userLink(u, withBestRating = true, params = "?mod"),
+              (isGranted(_.Doxing) && isGranted(_.SetEmail)) option
+                email(emails.list.map(_.value).mkString(", "))
+            ),
+            td(u.count.game.localize),
+            td(
+              u.marks.alt option mark("ALT"),
+              u.marks.engine option mark("ENGINE"),
+              u.marks.boost option mark("BOOSTER"),
+              u.marks.troll option mark("SHADOWBAN")
+            ),
+            td(u.disabled option mark("CLOSED")),
+            td(momentFromNow(u.createdAt)),
+            td(u.seenAt.map(momentFromNow(_)))
+          )
         }
       )
     )

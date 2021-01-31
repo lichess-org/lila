@@ -19,6 +19,7 @@
   </plurals>
   <string name="addMembers">멤버 추가</string>
   <string name="searchByUsername">사용자 이름으로 검색</string>
+  <string name="kick">강제 퇴장</string>
   <string name="theChapterIsTooShortToBeAnalysed">분석되기 너무 짧은 챕터입니다.</string>
   <string name="previous">이전</string>
   <string name="next">다음</string>

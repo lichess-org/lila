@@ -3,12 +3,12 @@ package lila.security
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.{ BSONHandler, Macros }
+import reactivemongo.api.CursorProducer
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
 import scala.concurrent.blocking
-import scala.util.Random
+import scala.concurrent.duration._
 
-import lila.common.{ ApiVersion, HTTPRequest, IpAddress }
+import lila.common.{ ApiVersion, HTTPRequest, IpAddress, ThreadLocalRandom }
 import lila.db.dsl._
 import lila.user.User
 
@@ -63,10 +63,11 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
         $doc(
           "_id"  -> sessionId,
           "user" -> userId,
-          "ip" -> (HTTPRequest.lastRemoteAddress(req) match {
+          "ip" -> (HTTPRequest.ipAddress(req) match {
             // randomize stresser IPs to relieve mod tools
-            case ip if ip == localIp => IpAddress(s"127.0.${Random nextInt 256}.${Random nextInt 256}")
-            case ip                  => ip
+            case ip if ip == localIp =>
+              IpAddress(s"127.0.${ThreadLocalRandom nextInt 256}.${ThreadLocalRandom nextInt 256}")
+            case ip => ip
           }),
           "ua"   -> HTTPRequest.userAgent(req).|("?"),
           "date" -> DateTime.now,
@@ -113,13 +114,18 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
 
   implicit private val UserSessionBSONHandler = Macros.handler[UserSession]
   def openSessions(userId: User.ID, nb: Int): Fu[List[UserSession]] =
-    coll.ext
-      .find(
-        $doc("user" -> userId, "up" -> true)
-      )
+    coll
+      .find($doc("user" -> userId, "up" -> true))
       .sort($doc("date" -> -1))
       .cursor[UserSession]()
       .gather[List](nb)
+
+  def allSessions(userId: User.ID): Fu[List[UserSession]] =
+    coll
+      .find($doc("user" -> userId))
+      .sort($doc("date" -> -1))
+      .cursor[UserSession](ReadPreference.secondaryPreferred)
+      .gather[List](200)
 
   def setFingerPrint(id: String, fp: FingerPrint): Fu[FingerHash] =
     FingerHash(fp) match {
@@ -135,16 +141,17 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
     }
 
   def chronoInfoByUser(user: User): Fu[List[Info]] =
-    coll.ext
+    coll
       .find(
         $doc(
           "user" -> user.id,
           "date" $gt (user.createdAt atLeast DateTime.now.minusYears(1))
         ),
-        $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true, "date" -> true)
+        $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true, "date" -> true).some
       )
       .sort($sort desc "date")
-      .list[Info](1000)(InfoReader)
+      .cursor[Info]()(InfoReader, implicitly[CursorProducer[Info]])
+      .list(1000)
 
   // remains of never-confirmed accounts that got cleaned up
   private[security] def deletePreviousSessions(user: User) =
@@ -156,7 +163,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
   implicit private val DedupInfoReader = Macros.reader[DedupInfo]
 
   def dedup(userId: User.ID, keepSessionId: String): Funit =
-    coll.ext
+    coll
       .find(
         $doc(
           "user" -> userId,
@@ -164,14 +171,14 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
         )
       )
       .sort($doc("date" -> -1))
-      .list[DedupInfo]()
+      .cursor[DedupInfo]()
+      .list()
       .flatMap { sessions =>
         val olds = sessions
           .groupBy(_.compositeKey)
           .view
           .values
-          .map(_ drop 1)
-          .flatten
+          .flatMap(_ drop 1)
           .filter(_._id != keepSessionId)
           .map(_._id)
         coll.delete.one($inIds(olds)).void
@@ -180,7 +187,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
   implicit private val IpAndFpReader = Macros.reader[IpAndFp]
 
   def ipsAndFps(userIds: List[User.ID], max: Int = 100): Fu[List[IpAndFp]] =
-    coll.ext.find($doc("user" $in userIds)).list[IpAndFp](max, ReadPreference.secondaryPreferred)
+    coll.secondary.list[IpAndFp]($doc("user" $in userIds), max)
 
   def ips(user: User): Fu[Set[IpAddress]] =
     coll.distinctEasy[IpAddress, Set]("ip", $doc("user" -> user.id))

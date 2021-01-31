@@ -38,4 +38,5 @@ Ludu rapide kaj revenu al la vestiblo por ludi pli da ludoj kaj venki pli da pun
   <string name="thisIsPrivate">Tio estas privata turniro</string>
   <string name="shareUrl">Kunhavigu ĉi tiun URLon por lasi homojn aliĝi: %s</string>
   <string name="drawStreak">Remizaj strekoj: Kiam ludanto havas sinsekvajn remizojn en arena, nur la unua remizo rezultigos punkton, aŭ remizojn daŭrantajn pli ol %s movoj. La streĉa streĉo povas esti rompita nur per venko, ne perdo aŭ remizo.</string>
+  <string name="history">Historia Areno</string>
 </resources>

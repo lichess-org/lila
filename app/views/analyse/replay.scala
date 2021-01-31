@@ -1,17 +1,16 @@
 package views.html.analyse
 
+import bits.dataPanel
 import chess.variant.Crazyhouse
+import controllers.routes
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 
-import bits.dataPanel
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
 import lila.game.Pov
-
-import controllers.routes
 
 object replay {
 
@@ -59,13 +58,11 @@ object replay {
         href := s"${routes.Game.exportOne(game.id)}?imported=1"
       )(trans.downloadImported()),
       ctx.noBlind option frag(
-        a(dataIcon := "=", cls := "text embed-howto", target := "_blank")(
-          trans.embedInYourWebsite()
-        ),
+        a(dataIcon := "=", cls := "text embed-howto")(trans.embedInYourWebsite()),
         a(
           dataIcon := "$",
           cls := "text",
-          target := "_blank",
+          targetBlank,
           href := cdnUrl(routes.Export.gif(pov.gameId, pov.color.name).url)
         )(
           "Share as a GIF"
@@ -83,19 +80,20 @@ object replay {
       moreJs = frag(
         analyseTag,
         analyseNvuiTag,
-        embedJsUnsafe(s"""lichess=lichess||{};lichess.analyse=${safeJsonValue(
-          Json.obj(
-            "data"   -> data,
-            "i18n"   -> jsI18n(),
-            "userId" -> ctx.userId,
-            "chat"   -> chatJson,
-            "explorer" -> Json.obj(
-              "endpoint"          -> explorerEndpoint,
-              "tablebaseEndpoint" -> tablebaseEndpoint
-            ),
-            "hunter" -> isGranted(_.Hunter)
-          )
-        )}""")
+        embedJsUnsafeLoadThen(s"""LichessAnalyse.boot(${safeJsonValue(
+          Json
+            .obj(
+              "data"   -> data,
+              "i18n"   -> jsI18n(),
+              "userId" -> ctx.userId,
+              "chat"   -> chatJson,
+              "explorer" -> Json.obj(
+                "endpoint"          -> explorerEndpoint,
+                "tablebaseEndpoint" -> tablebaseEndpoint
+              )
+            )
+            .add("hunter" -> isGranted(_.Hunter))
+        )})""")
       ),
       openGraph = povOpenGraph(pov).some
     )(

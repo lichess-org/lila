@@ -9,6 +9,7 @@
   <string name="yourTurn">Tu turno</string>
   <string name="aiNameLevelAiLevel">%1$s nivel %2$s</string>
   <string name="level">Nivel</string>
+  <string name="strength">Nivel</string>
   <string name="toggleTheChat">Mostrar/Ocultar chat</string>
   <string name="toggleSound">Activar/Desactivar sonido</string>
   <string name="chat">Chat</string>
@@ -199,7 +200,8 @@
     <item quantity="other">%s partidas contigo</item>
   </plurals>
   <string name="cancel">Cancelar</string>
-  <string name="timeOut">Tiempo agotado</string>
+  <string name="whiteTimeOut">Las blancas agotaron su tiempo</string>
+  <string name="blackTimeOut">Las negras agotaron su tiempo</string>
   <string name="drawOfferSent">Oferta de tablas enviada</string>
   <string name="drawOfferDeclined">Oferta de tablas rechazada</string>
   <string name="drawOfferAccepted">Oferta de tablas aceptada</string>
@@ -275,7 +277,7 @@
     <item quantity="one">Dar %s segundo</item>
     <item quantity="other">Dar %s segundos</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Esta cuenta ha violado los Términos de Servicio de Lichess</string>
+  <string name="thisAccountViolatedTos">Este usuario no cumple los términos de servicio de Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jugador incrementa o disminuye artificialmente su puntuación</string>
   <string name="openingExplorerAndTablebase">Explorador de aperturas y base de datos de finales</string>
   <string name="takeback">Deshacer jugada</string>
@@ -381,7 +383,6 @@
   <string name="more">Más</string>
   <string name="memberSince">Miembro desde</string>
   <string name="lastSeenActive">Última visita %s</string>
-  <string name="challengeToPlay">Desafiar a una partida</string>
   <string name="player">Jugador</string>
   <string name="list">Lista</string>
   <string name="graph">Gráfico</string>
@@ -446,6 +447,7 @@
   <string name="lastName">Apellido</string>
   <string name="biography">Biografía</string>
   <string name="country">País</string>
+  <string name="thankYou">¡Gracias!</string>
   <string name="socialMediaLinks">Enlaces a redes sociales</string>
   <string name="inlineNotation">Notación compacta</string>
   <string name="watchLichessTV">Ver Lichess TV</string>
@@ -454,34 +456,7 @@
   <string name="activeToday">Activos hoy</string>
   <string name="activePlayers">Jugadores activos</string>
   <string name="bewareTheGameIsRatedButHasNoClock">¡Cuidado, el juego es por puntos pero sin límite de tiempo!</string>
-  <string name="yourPuzzleRatingX">Tu puntuación en los ejercicios de táctica: %s</string>
-  <string name="findTheBestMoveForWhite">Encuentra el mejor movimiento para las blancas.</string>
-  <string name="findTheBestMoveForBlack">Encuentra el mejor movimiento para las negras.</string>
-  <string name="toTrackYourProgress">Para hacer un seguimiento de tu progreso:</string>
-  <string name="puzzleId">Ejercicio %s</string>
-  <string name="puzzleOfTheDay">Ejercicio del día</string>
-  <string name="clickToSolve">Clic para resolver</string>
-  <string name="goodMove">Buena jugada</string>
-  <string name="butYouCanDoBetter">Pero puedes hacerlo mejor.</string>
-  <string name="bestMove">¡El mejor movimiento!</string>
-  <string name="keepGoing">Continúa...</string>
-  <string name="puzzleFailed">Ejercicio fallido</string>
-  <string name="butYouCanKeepTrying">Pero puedes seguir intentándolo.</string>
   <string name="success">Éxito</string>
-  <string name="wasThisPuzzleAnyGood">¿Crees que este ejercicio es bueno?</string>
-  <string name="pleaseVotePuzzle">Ayuda a lichess a mejorar. Vota usando las flechas arriba o abajo:</string>
-  <string name="thankYou">¡Gracias!</string>
-  <string name="ratingX">Puntuacion: %s</string>
-  <string name="hidden">oculto</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Jugado %s vez</item>
-    <item quantity="other">Jugado %s veces</item>
-  </plurals>
-  <string name="fromGameLink">De la partida %s</string>
-  <string name="continueTraining">Continuar entrenamiento</string>
-  <string name="retryThisPuzzle">Reintentar este ejercicio</string>
-  <string name="thisPuzzleIsCorrect">Este ejercicio es correcto e interesante</string>
-  <string name="thisPuzzleIsWrong">Este ejercicio es erróneo o aburrido</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partida en juego</item>
     <item quantity="other">%s partidas en juego</item>
@@ -530,9 +505,12 @@
   <string name="currentPassword">Contraseña actual</string>
   <string name="newPassword">Nueva contraseña</string>
   <string name="newPasswordAgain">Nueva contraseña (otra vez)</string>
+  <string name="newPasswordsDontMatch">Las contraseñas nuevas no coinciden</string>
+  <string name="newPasswordStrength">Seguridad de la contraseña</string>
   <string name="clockInitialTime">Tiempo inicial del reloj</string>
   <string name="clockIncrement">Incremento</string>
   <string name="privacy">Privacidad</string>
+  <string name="privacyPolicy">Política de privacidad</string>
   <string name="letOtherPlayersFollowYou">Permitir que otros jugadores te sigan</string>
   <string name="letOtherPlayersChallengeYou">Permitir que otros jugadores te desafíen</string>
   <string name="letOtherPlayersInviteYouToStudy">Permitir que otros jugadores te inviten a estudios</string>
@@ -620,15 +598,15 @@
   <string name="webmasters">Desarrolladores</string>
   <string name="about">Acerca de</string>
   <string name="aboutX">Acerca de %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s es un servidor de ajedrez totalmente gratuito (%2$s) creado con código abierto, libre, sin publicidad.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s es un servidor de ajedrez libre y gratuito (%2$s) de código abierto y sin publicidad.</string>
   <string name="really">realmente</string>
   <string name="contribute">Contribuir</string>
   <string name="termsOfService">Condiciones del servicio</string>
   <string name="sourceCode">Código fuente</string>
-  <string name="simultaneousExhibitions">Exhibiciones simultáneas</string>
+  <string name="simultaneousExhibitions">Partidas simultáneas</string>
   <string name="host">Anfitrión</string>
   <string name="hostColorX">Color del anfitrión: %s</string>
-  <string name="createdSimuls">Nuevas simultáneas creadas</string>
+  <string name="createdSimuls">Simultáneas nuevas</string>
   <string name="hostANewSimul">Crear una nueva simultánea</string>
   <string name="noSimulFound">Simultánea no encontrada</string>
   <string name="noSimulExplanation">Esta exhibición simultánea no existe.</string>
@@ -668,7 +646,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Tu puntuación en %1$s es %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Eres mejor que el %1$s de los jugadores de %2$s.</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s es mejor que %2$s de %3$s jugadores.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s es mejor que el %2$s de los jugadores de %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">No tienes una puntuación de %s  establecida.</string>
   <string name="yourRating">Tu puntuación</string>
   <string name="cumulative">Acumulado</string>
@@ -678,6 +656,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si no encuentras el correo, mira a ver si está en otras carpetas (spam, social, ...).</string>
   <string name="weHaveSentYouAnEmailTo">Te hemos enviado un correo a %s. Restablece tu contraseña haciendo clic en el enlace.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Al registrarte, aceptas las %s.</string>
+  <string name="readAboutOur">Lee acerca de nuestra %s.</string>
   <string name="networkLagBetweenYouAndLichess">Retardo de conexión entre tú y lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tiempo para procesar un movimiento en el servidor de Lichess</string>
   <string name="downloadAnnotated">Descargar la partida anotada</string>
@@ -756,7 +735,6 @@
   <string name="error.unknown">Error</string>
   <string name="custom">Personalizado</string>
   <string name="notifications">Notificaciones</string>
-  <string name="challenges">Desafíos</string>
   <string name="perfRatingX">Puntuación: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo para hacer el primer movimiento</item>
@@ -803,16 +781,10 @@
   <string name="opening">Apertura</string>
   <string name="middlegame">Medio juego</string>
   <string name="endgame">Final</string>
-  <string name="registerToSendChallenges">Regístrate para desafiar a otros.</string>
-  <string name="youCannotChallengeX">No puedes desafiar a %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s no acepta desafíos.</string>
-  <string name="yourXRatingIsTooFarFromY">Tu puntuación de %1$s está demasiado lejos de la de %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">No puedes enviar desafíos porque tu puntuación de %s es provisional.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s sólo acepta desafíos de sus amigos.</string>
-  <string name="conditionalPremoves">Premovimientos condicionales</string>
+  <string name="conditionalPremoves">Movimientos condicionales</string>
   <string name="addCurrentVariation">Añadir la variante actual</string>
   <string name="playVariationToCreateConditionalPremoves">Juega una variante para crear movimientos condicionales</string>
-  <string name="noConditionalPremoves">Sin movimientos anticipados condicionales</string>
+  <string name="noConditionalPremoves">Sin movimientos condicionales</string>
   <string name="playX">Jugar %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">y ahorra %s línea de premovimiento</item>
@@ -833,7 +805,7 @@
   <string name="wishYouGreatGames">y esperamos que disfrutes de lichess.org.</string>
   <string name="thankYouForReading">¡Gracias por tomarte el tiempo para leer esto!</string>
   <string name="lifetimeScore">Puntuación histórica</string>
-  <string name="currentMatchScore">Puntuación actual</string>
+  <string name="currentMatchScore">Resultados de este enfrentamiento</string>
   <string name="agreementAssistance">Me comprometo a no recibir ayuda externa durante mis partidas (de un ordenador, un libro, una base de datos u otra persona).</string>
   <string name="agreementNice">Me comprometo a respetar siempre a otros jugadores.</string>
   <string name="agreementAccount">Me comprometo a no crear múltiples cuentas.</string>
@@ -850,15 +822,15 @@
   <string name="correspondenceDesc">Partidas por correspondencia: uno o varios días por jugada</string>
   <string name="puzzleDesc">Entrenador de táctica de ajedrez</string>
   <string name="important">Importante</string>
-  <string name="yourQuestionMayHaveBeenAnswered">Tu pregunta puede que ya tenga una respuesta %1$s</string>
-  <string name="inTheFAQ">en las Preguntas Frecuentes</string>
-  <string name="toReportSomeoneForCheatingOrBadBehavior">Para reportar a un usuario por fraude o mala conducta, %1$s</string>
-  <string name="useTheReportForm">usar el formulario de informe</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Puede que tu pregunta ya tenga respuesta %1$s</string>
+  <string name="inTheFAQ">en las preguntas frecuentes.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Para denunciar a un usuario por tramposo o por mal comportamiento, %1$s</string>
+  <string name="useTheReportForm">usa el formulario de informe</string>
   <string name="toRequestSupport">Para solicitar soporte, %1$s</string>
   <string name="tryTheContactPage">prueba la página de contacto</string>
-  <string name="thisTopicIsArchived">Este tema ha sido archivado y ya no puede ser respondido.</string>
-  <string name="joinTheTeamXToPost">Únete a %1$s, para publicar en este foro</string>
-  <string name="teamNamedX">%1$s equipo</string>
+  <string name="thisTopicIsArchived">Este tema ha sido archivado y ya no admite respuestas.</string>
+  <string name="joinTheTeamXToPost">Únete a %1$s para publicar en este foro</string>
+  <string name="teamNamedX">equipo %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Aún no puedes publicar en los foros. ¡Juega algunas partidas!</string>
   <string name="subscribe">Suscribirse</string>
   <string name="unsubscribe">Cancelar la suscripción</string>

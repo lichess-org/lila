@@ -9,6 +9,7 @@
   <string name="yourTurn">Sinun vuorosi</string>
   <string name="aiNameLevelAiLevel">%1$s taso %2$s</string>
   <string name="level">Taso</string>
+  <string name="strength">Vahvuus</string>
   <string name="toggleTheChat">Keskustelu päälle / pois</string>
   <string name="toggleSound">Ääni päälle / pois</string>
   <string name="chat">Keskustelu</string>
@@ -199,7 +200,8 @@
     <item quantity="other">%s pelejä kanssasi</item>
   </plurals>
   <string name="cancel">Peruuta</string>
-  <string name="timeOut">Aika loppui</string>
+  <string name="whiteTimeOut">Valkealta loppui aika</string>
+  <string name="blackTimeOut">Mustalta loppui aika</string>
   <string name="drawOfferSent">Tasapeliehdotus lähetetty</string>
   <string name="drawOfferDeclined">Tasapeliehdotus hylätty</string>
   <string name="drawOfferAccepted">Tasapeliehdotus hyväksytty</string>
@@ -275,6 +277,7 @@
     <item quantity="one">Anna %s sekuntia</item>
     <item quantity="other">Anna %s sekuntia</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Tämä tili rikkoi Lichessin käyttöehtoja</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Tämä pelaaja yrittää keinotekoisesti nostaa pisteitään</string>
   <string name="openingExplorerAndTablebase">Avaus- ja loppupelitietokanta</string>
   <string name="takeback">Peruuta siirto</string>
@@ -380,7 +383,6 @@
   <string name="more">Lisää</string>
   <string name="memberSince">Liittynyt</string>
   <string name="lastSeenActive">Nähty viimeksi %s</string>
-  <string name="challengeToPlay">Haasta peliin</string>
   <string name="player">Pelaaja</string>
   <string name="list">Lista</string>
   <string name="graph">Kaavio</string>
@@ -445,6 +447,7 @@
   <string name="lastName">Sukunimi</string>
   <string name="biography">Kuvaus</string>
   <string name="country">Maa</string>
+  <string name="thankYou">Kiitos!</string>
   <string name="socialMediaLinks">Sosiaalisen median linkit</string>
   <string name="inlineNotation">Rivinsisäinen kommentointi</string>
   <string name="watchLichessTV">Katso Lichess TV:tä</string>
@@ -453,34 +456,7 @@
   <string name="activeToday">Aktiivisena tänään</string>
   <string name="activePlayers">Aktiiviset pelaajat</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Huomaa, että peli on pisteytetty, vaikka siinä ei olekaan aikarajoitetta!</string>
-  <string name="yourPuzzleRatingX">Tehtävävahvuuslukusi: %s</string>
-  <string name="findTheBestMoveForWhite">Etsi valkean paras siirto.</string>
-  <string name="findTheBestMoveForBlack">Etsi paras siirto mustalle.</string>
-  <string name="toTrackYourProgress">Seurataksesi edistymistäsi:</string>
-  <string name="puzzleId">Tehtävä %s</string>
-  <string name="puzzleOfTheDay">Päivän tehtävä</string>
-  <string name="clickToSolve">Klikkaa ratkaistaksesi</string>
-  <string name="goodMove">Hyvä siirto</string>
-  <string name="butYouCanDoBetter">Mutta parempikin löytyy.</string>
-  <string name="bestMove">Paras siirto!</string>
-  <string name="keepGoing">Jatka...</string>
-  <string name="puzzleFailed">Tehtävä epäonnistui</string>
-  <string name="butYouCanKeepTrying">Mutta voit jatkaa yrittämistä.</string>
   <string name="success">Onnistuit</string>
-  <string name="wasThisPuzzleAnyGood">Piditkö tästä tehtävästä?</string>
-  <string name="pleaseVotePuzzle">Auta lichessiä parantamaan tehtäviä äänestämällä nuolilla:</string>
-  <string name="thankYou">Kiitos!</string>
-  <string name="ratingX">Vahvuusluku: %s</string>
-  <string name="hidden">piilotettu</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Pelattu %s kertaa</item>
-    <item quantity="other">Pelattu %s kertaa</item>
-  </plurals>
-  <string name="fromGameLink">Pelistä %s</string>
-  <string name="continueTraining">Jatka harjoittelua</string>
-  <string name="retryThisPuzzle">Yritä uudestaan</string>
-  <string name="thisPuzzleIsCorrect">Tämä tehtävä toimii ja on mielenkiintoinen</string>
-  <string name="thisPuzzleIsWrong">Tämä tehtävä on tylsä tai virheellinen</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s peliä meneillään</item>
     <item quantity="other">%s peliä meneillään</item>
@@ -529,9 +505,12 @@
   <string name="currentPassword">Nykyinen salasana</string>
   <string name="newPassword">Uusi salasana</string>
   <string name="newPasswordAgain">Varmista uusi salasana</string>
+  <string name="newPasswordsDontMatch">Uudet salasanat eivät täsmää</string>
+  <string name="newPasswordStrength">Salasanan vahvuus</string>
   <string name="clockInitialTime">Alkuaika</string>
   <string name="clockIncrement">Lisäaika</string>
   <string name="privacy">Yksityisyys</string>
+  <string name="privacyPolicy">tietosuojakäytännöstämme</string>
   <string name="letOtherPlayersFollowYou">Anna muiden pelaajien seurata sinua</string>
   <string name="letOtherPlayersChallengeYou">Anna muiden pelaajien haastaa sinut</string>
   <string name="letOtherPlayersInviteYouToStudy">Salli muiden pelaajien kutsua sinut tutkielmiin</string>
@@ -624,18 +603,18 @@
   <string name="contribute">Osallistu</string>
   <string name="termsOfService">Käyttöehdot</string>
   <string name="sourceCode">Lähdekoodi</string>
-  <string name="simultaneousExhibitions">Yhtäaikainen näytösottelu</string>
+  <string name="simultaneousExhibitions">Simultaanit</string>
   <string name="host">Isäntä</string>
   <string name="hostColorX">Isännän väri: %s</string>
   <string name="createdSimuls">Äskettäin luodut simultaanit</string>
   <string name="hostANewSimul">Isännöi uutta simultaania</string>
   <string name="noSimulFound">Simultaania ei löydy</string>
-  <string name="noSimulExplanation">Tätä simultaaninäytöstä ei ole olemassa.</string>
+  <string name="noSimulExplanation">Tätä simultaania ei ole olemassa.</string>
   <string name="returnToSimulHomepage">Palaa simultaanin kotisivulle</string>
   <string name="aboutSimul">Simultaaneissa yksi pelaaja pelaa useampaa pelaajaa vastaan samanaikaisesti.</string>
   <string name="aboutSimulImage">50:stä vastustajastaan Fischer voitti 47, pelasi kahden kanssa tasan ja hävisi yhdelle.</string>
   <string name="aboutSimulRealLife">Simultaanien käsite on otettu netin ulkopuolisista tapahtumista; niissä simultaaninäytöksen antaja liikkuu pöydältä toiselle pelaten siirron kerrallaan.</string>
-  <string name="aboutSimulRules">Kun simultaani alkaa, kaikki pelaajat aloittavat pelin isännän kanssa; isäntä pelaa valkeilla nappuloilla. Näytös loppuu kun kaikki pelit ovat loppuneet.</string>
+  <string name="aboutSimulRules">Kun simultaani alkaa, jokainen pelaaja aloittaa pelin simultaanin pitäjää vastaan. Simultaanin pitäjä pelaa valkeilla nappuloilla. Simultaani loppuu, kun kaikki pelit ovat loppuneet.</string>
   <string name="aboutSimulSettings">Simultaanit ovat aina rentoja. Revanssit, siirtojen perumiset ja ajan lisääminen ovat pois käytöstä.</string>
   <string name="create">Luo</string>
   <string name="whenCreateSimul">Jos luot simultaanin, sinun täytyy pelata useita pelaajia vastaan kerralla.</string>
@@ -677,6 +656,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jos et näe viestiä, tarkista muut paikat joihin se voi olla joutunut (kuten roskaposti- ja spämmikansiot).</string>
   <string name="weHaveSentYouAnEmailTo">Olemme lähettäneet sähköpostiviestin osoitteeseen %s. Klikkaa viestissä olevaa linkkiä nollataksesi salasanasi.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Rekistöitymällä hyväksyt lichessin %s ja sitoudut noudattamaan niitä.</string>
+  <string name="readAboutOur">Lue lisää %s.</string>
   <string name="networkLagBetweenYouAndLichess">Verkkoviive sinun ja lichessin välillä</string>
   <string name="timeToProcessAMoveOnLichessServer">Palvelimen siirtojen käsittelyyn vaatima aika</string>
   <string name="downloadAnnotated">Lataa kommenttien kanssa</string>
@@ -755,7 +735,6 @@
   <string name="error.unknown">Virhe</string>
   <string name="custom">Mukautettu</string>
   <string name="notifications">Ilmoitukset</string>
-  <string name="challenges">Haasteet</string>
   <string name="perfRatingX">Vahvuusluku: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekuntia aikaa pelata ensimmäinen siirto</item>
@@ -802,12 +781,6 @@
   <string name="opening">Avausvaihe</string>
   <string name="middlegame">Keskipeli</string>
   <string name="endgame">Loppupeli</string>
-  <string name="registerToSendChallenges">Rekisteröidy niin voit lähettää haasteita.</string>
-  <string name="youCannotChallengeX">Et voi haastaa pelaajaa %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s ei ota haasteita vastaan.</string>
-  <string name="yourXRatingIsTooFarFromY">%1$s-vahvuuslukusi on liian kaukana pelaajan %2$s vahvuusluvusta.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Et voi haastaa, koska %s-vahvuuslukusi on tilapäinen.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s ottaa vastaan haasteita vain kavereiltaan.</string>
   <string name="conditionalPremoves">Ehdolliset esisiirrot</string>
   <string name="addCurrentVariation">Lisää nykyinen muunnelma</string>
   <string name="playVariationToCreateConditionalPremoves">Luo ehdollisia esisiirtoja pelaamalla muunnelma</string>

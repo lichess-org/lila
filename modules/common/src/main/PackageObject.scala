@@ -2,15 +2,13 @@ package lila
 
 trait PackageObject extends Lilaisms {
 
-  def !![A](msg: String): Valid[A] = msg.failureNel[A]
-
   def nowNanos: Long  = System.nanoTime()
   def nowMillis: Long = System.currentTimeMillis()
   def nowCentis: Long = nowMillis / 10
   def nowTenths: Long = nowMillis / 100
   def nowSeconds: Int = (nowMillis / 1000).toInt
 
-  type ~[+A, +B] = Tuple2[A, B]
+  type ~[A, B] = Tuple2[A, B]
   object ~ {
     def apply[A, B](x: A, y: B)                              = Tuple2(x, y)
     def unapply[A, B](x: Tuple2[A, B]): Option[Tuple2[A, B]] = Some(x)
@@ -33,4 +31,6 @@ trait PackageObject extends Lilaisms {
     def seconds(s: Int): Timeout        = Timeout(s.seconds)
     def minutes(m: Int): Timeout        = Timeout(m.minutes)
   }
+
+  def some[A](a: A): Option[A] = Some(a)
 }

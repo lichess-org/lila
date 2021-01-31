@@ -6,7 +6,6 @@ import io.methvin.play.autoconfig._
 import play.api.Configuration
 
 import lila.common.config._
-import lila.security.Firewall
 import lila.user.User
 
 @Module
@@ -27,10 +26,9 @@ final class Env(
     reporter: lila.hub.actors.Report,
     fishnet: lila.hub.actors.Fishnet,
     perfStat: lila.perfStat.Env,
-    firewall: Firewall,
+    settingStore: lila.memo.SettingStore.Builder,
     reportApi: lila.report.ReportApi,
     lightUserApi: lila.user.LightUserApi,
-    userSpyApi: lila.security.UserSpyApi,
     securityApi: lila.security.SecurityApi,
     tournamentApi: lila.tournament.TournamentApi,
     gameRepo: lila.game.GameRepo,
@@ -43,8 +41,7 @@ final class Env(
     rankingApi: lila.user.RankingApi,
     noteApi: lila.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
-    slackApi: lila.slack.SlackApi,
-    securityStore: lila.security.Store
+    slackApi: lila.slack.SlackApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
@@ -87,35 +84,42 @@ final class Env(
 
   lazy val stream = wire[ModStream]
 
+  lazy val presets = wire[ModPresetsApi]
+
   // api actor
   lila.common.Bus.subscribe(
     system.actorOf(
       Props(new Actor {
         def receive = {
           case lila.analyse.actorApi.AnalysisReady(game, analysis) =>
-            assessApi.onAnalysisReady(game, analysis)
+            assessApi.onAnalysisReady(game, analysis).unit
           case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) if !game.aborted =>
-            (whiteUserOption |@| blackUserOption) apply {
-              case (whiteUser, blackUser) =>
-                boosting.check(game, whiteUser, blackUser) >>
-                  assessApi.onGameReady(game, whiteUser, blackUser)
+            import cats.implicits._
+            (whiteUserOption, blackUserOption) mapN { (whiteUser, blackUser) =>
+              boosting.check(game, whiteUser, blackUser) >>
+                assessApi.onGameReady(game, whiteUser, blackUser)
             }
             if (game.status == chess.Status.Cheat)
-              game.loserUserId foreach { logApi.cheatDetected(_, game.id) }
+              game.loserUserId foreach { userId =>
+                logApi.cheatDetected(userId, game.id) >>
+                  logApi.countRecentCheatDetected(userId) flatMap {
+                    reportApi.autoCheatDetectedReport(userId, _)
+                  }
+              }
           case lila.hub.actorApi.mod.ChatTimeout(mod, user, reason, text) =>
-            logApi.chatTimeout(mod, user, reason, text)
+            logApi.chatTimeout(mod, user, reason, text).unit
           case lila.hub.actorApi.security.GCImmediateSb(userId) =>
-            reportApi getSuspect userId orFail s"No such suspect $userId" flatMap { sus =>
-              reportApi.getLichessMod map { mod =>
-                api.setTroll(mod, sus, true)
+            reportApi getSuspect userId orFail s"No such suspect $userId" foreach { sus =>
+              reportApi.getLichessMod foreach { mod =>
+                api.setTroll(mod, sus, value = true)
               }
             }
           case lila.hub.actorApi.security.GarbageCollect(userId) =>
-            reportApi getSuspect userId orFail s"No such suspect $userId" flatMap { sus =>
+            reportApi getSuspect userId orFail s"No such suspect $userId" foreach { sus =>
               api.garbageCollect(sus) >> publicChat.delete(sus)
             }
           case lila.hub.actorApi.mod.AutoWarning(userId, subject) =>
-            logApi.modMessage(User.lichessId, userId, subject)
+            logApi.modMessage(User.lichessId, userId, subject).unit
         }
       }),
       name = config.actorName

@@ -3,12 +3,14 @@ $vp-max-width: 1200px;
 
 .box {
   @extend %box-shadow;
+
   background: $c-bg-box;
 
-  @include fluid-size('--box-padding', 15px, 60px);
+  @include fluid-size("--box-padding", 15px, 60px);
 
   &-pad {
     @extend %box-padding;
+
     .box__top {
       padding: 0 0 var(--box-padding) 0;
     }
@@ -24,20 +26,28 @@ $vp-max-width: 1200px;
     }
 
     /* flex gutters, waiting for row-gap to be implemented for flexbox.  https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Mastering_Wrapping_of_Flex_Items#Creating_gutters_between_items */
-    > h1, > div, > form { margin-top: 1rem; }
+    > h1, > div, > form {
+      margin-top: 1rem;
+    }
+
     /* end of flex gutter hack */
 
     &__actions {
       @extend %flex-wrap;
 
       /* flex gutters, waiting for row-gap to be implemented for flexbox.  https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Mastering_Wrapping_of_Flex_Items#Creating_gutters_between_items */
-      margin-left:  -1rem;
-      > * { margin-left: 1rem; }
+      margin-left: -1rem;
+
+      > * {
+        margin-left: 1rem;
+      }
+
       /* end of flex gutter hack */
 
       .button {
         @extend %flex-center;
       }
+
       > :not(:first-child) {
         margin-left: 1rem;
       }
@@ -46,6 +56,7 @@ $vp-max-width: 1200px;
 
   &:not(.box-pad) > h1 {
     @extend %box-padding;
+
     margin: 0;
   }
 

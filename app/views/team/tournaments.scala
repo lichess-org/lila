@@ -24,7 +24,7 @@ object tournaments {
             " • ",
             trans.tournaments()
           ),
-          div(cls := "team-tournaments team-tournaments--both")(
+          div(cls := "team-events team-tournaments team-tournaments--both")(
             div(cls := "team-tournaments__next")(
               h2("Upcoming tournaments"),
               table(cls := "slist slist-pad slist-invert")(
@@ -61,8 +61,8 @@ object tournaments {
                   span(cls := "setup")(
                     t.clock.show,
                     " • ",
-                    if (t.variant.exotic) t.variant.name else t.perfType.map(_.trans),
-                    !t.position.initial option frag(" • ", trans.thematic()),
+                    if (t.variant.exotic) t.variant.name else t.perfType.trans,
+                    t.position.isDefined option frag(" • ", trans.thematic()),
                     " • ",
                     t.mode.fold(trans.casualTournament, trans.ratedTournament)(),
                     " • ",
@@ -75,7 +75,7 @@ object tournaments {
                   span(cls := "setup")(
                     s.clock.show,
                     " • ",
-                    if (s.variant.exotic) s.variant.name else s.perfType.map(_.trans),
+                    if (s.variant.exotic) s.variant.name else s.perfType.trans,
                     " • ",
                     (if (s.settings.rated) trans.ratedTournament else trans.casualTournament)()
                   )

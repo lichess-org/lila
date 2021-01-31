@@ -2,9 +2,7 @@ package lila.security
 
 import lila.common.constants.bannedYoutubeIds
 
-final class Spam(
-    spamKeywords: () => lila.common.Strings
-) {
+final class Spam(spamKeywords: () => lila.common.Strings) {
 
   def detect(text: String) =
     staticBlacklist.exists(text.contains) ||
@@ -13,19 +11,25 @@ final class Spam(
   private def referBlacklist =
     List(
       /* While links to other chess websites are welcome,
-       * refer links grant the referrer money,
+       * refer links grant the referrer money or advantages,
        * effectively inducing spam */
       "chess24.com?ref=",
       "chess.com/register?refId=",
       "chess.com/register?ref_id=",
-      "decodechess.com/ref/"
+      "chess.com/membership?ref_id=",
+      "decodechess.com/ref/",
+      "aimchess.com/i/"
     )
 
-  private lazy val staticBlacklist = List("chess-bot.com") ::: bannedYoutubeIds ::: referBlacklist
+  private lazy val staticBlacklist = List(
+    "chess-bot.com",
+    "/auth/magic-link/login/",
+    "/auth/token/"
+  ) ::: bannedYoutubeIds ::: referBlacklist
 
   def replace(text: String) =
-    replacements.foldLeft(text) {
-      case (t, (regex, rep)) => regex.replaceAllIn(t, rep)
+    replacements.foldLeft(text) { case (t, (regex, rep)) =>
+      regex.replaceAllIn(t, rep)
     }
 
   /* Keep the link to the website but remove the referrer ID */

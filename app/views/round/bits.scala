@@ -1,15 +1,14 @@
 package views.html
 package round
 
+import chess.variant.{ Crazyhouse, Variant }
+import controllers.routes
 import scala.util.chaining._
 
-import chess.variant.{ Crazyhouse, Variant }
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.game.{ Game, Pov }
-
-import controllers.routes
 
 object bits {
 
@@ -35,7 +34,6 @@ object bits {
       chessground = chessground,
       playing = playing,
       robots = robots,
-      deferJs = true,
       zoomable = true,
       csp = defaultCsp.withPeer.some
     )(body)
@@ -96,26 +94,29 @@ object bits {
         "round-toggle-autoswitch" pipe { id =>
           span(cls := "move-on switcher", st.title := trans.automaticallyProceedToNextGameAfterMoving.txt())(
             label(`for` := id)(trans.autoSwitch()),
-            span(cls := "switch")(form3.cmnToggle(id, id, false))
+            span(cls := "switch")(form3.cmnToggle(id, id, checked = false))
           )
         }
       ),
       div(cls := "now-playing")(
-        playing.partition(_.isMyTurn) pipe {
-          case (myTurn, otherTurn) =>
-            (myTurn ++ otherTurn.take(6 - myTurn.size)) take 9 map { pov =>
-              a(href := routes.Round.player(pov.fullId), cls := pov.isMyTurn.option("my_turn"))(
-                gameFen(pov, withLink = false, withTitle = false, withLive = false),
-                span(cls := "meta")(
-                  playerText(pov.opponent, withRating = false),
-                  span(cls := "indicator")(
-                    if (pov.isMyTurn)
-                      pov.remainingSeconds.fold[Frag](trans.yourTurn())(secondsFromNow(_, true))
-                    else nbsp
-                  )
+        playing.partition(_.isMyTurn) pipe { case (myTurn, otherTurn) =>
+          (myTurn ++ otherTurn.take(6 - myTurn.size)) take 9 map { pov =>
+            a(href := routes.Round.player(pov.fullId), cls := pov.isMyTurn.option("my_turn"))(
+              span(
+                cls := s"mini-game mini-game--init ${pov.game.variant.key} is2d",
+                views.html.game.mini.renderState(pov)
+              )(views.html.game.mini.cgWrap),
+              span(cls := "meta")(
+                playerText(pov.opponent, withRating = false),
+                span(cls := "indicator")(
+                  if (pov.isMyTurn)
+                    pov.remainingSeconds
+                      .fold[Frag](trans.yourTurn())(secondsFromNow(_, alwaysRelative = true))
+                  else nbsp
                 )
               )
-            }
+            )
+          }
         }
       )
     )
@@ -130,7 +131,7 @@ object bits {
   )(implicit ctx: Context) =
     views.html.game.side(
       pov,
-      (data \ "game" \ "initialFen").asOpt[String].map(chess.format.FEN),
+      (data \ "game" \ "initialFen").asOpt[String].map(chess.format.FEN.apply),
       tour,
       simul = simul,
       userTv = userTv,
@@ -140,12 +141,6 @@ object bits {
   def roundAppPreload(pov: Pov, controls: Boolean)(implicit ctx: Context) =
     div(cls := "round__app")(
       div(cls := "round__app__board main-board")(chessground(pov)),
-      div(cls := "round__app__table"),
-      div(cls := "ruser ruser-top user-link")(i(cls := "line"), a(cls := "text")(playerText(pov.opponent))),
-      div(cls := "ruser ruser-bottom user-link")(i(cls := "line"), a(cls := "text")(playerText(pov.player))),
-      div(cls := "rclock rclock-top preload")(div(cls := "time")(nbsp)),
-      div(cls := "rclock rclock-bottom preload")(div(cls := "time")(nbsp)),
-      div(cls := "rmoves")(div(cls := "moves")),
-      controls option div(cls := "rcontrols")(i(cls := "ddloader"))
+      div(cls := "col1-rmoves-preload")
     )
 }

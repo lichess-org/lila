@@ -50,7 +50,9 @@ final class Env(
 
   lazy val jsonView = wire[JsonView]
 
+  val forms = new ChallengeForm
+
   system.scheduler.scheduleWithFixedDelay(10 seconds, 3 seconds) { () =>
-    api.sweep
+    api.sweep.unit
   }
 }

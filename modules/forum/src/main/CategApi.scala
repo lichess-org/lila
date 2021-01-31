@@ -12,16 +12,16 @@ final class CategApi(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
     for {
       categs <- env.categRepo withTeams teams
       views <- (categs map { categ =>
-          env.postApi get (categ lastPostId forUser) map { topicPost =>
-            CategView(
-              categ,
-              topicPost map {
-                case (topic, post) => (topic, post, env.postApi lastPageOf topic)
-              },
-              forUser
-            )
-          }
-        }).sequenceFu
+        env.postApi get (categ lastPostId forUser) map { topicPost =>
+          CategView(
+            categ,
+            topicPost map { case (topic, post) =>
+              (topic, post, env.postApi lastPageOf topic)
+            },
+            forUser
+          )
+        }
+      }).sequenceFu
     } yield views
 
   def makeTeam(slug: String, name: String): Funit =
@@ -50,8 +50,7 @@ final class CategApi(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
       val post = Post.make(
         topicId = topic.id,
         author = none,
-        userId = User.lichessId.some,
-        ip = none,
+        userId = User.lichessId,
         text =
           "Welcome to the %s forum!\nOnly members of the team can post here, but everybody can read." format name,
         number = 1,
@@ -64,7 +63,7 @@ final class CategApi(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
       env.categRepo.coll.insert.one(categ).void >>
         env.postRepo.coll.insert.one(post).void >>
         env.topicRepo.coll.insert.one(topic withPost post).void >>
-        env.categRepo.coll.update.one($id(categ.id), categ withTopic post).void
+        env.categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)).void
     }
 
   def show(slug: String, page: Int, forUser: Option[User]): Fu[Option[(Categ, Paginator[TopicView])]] =

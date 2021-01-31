@@ -2,7 +2,6 @@ package lila.lobby
 
 import chess.{ Clock, Mode, Speed }
 import org.joda.time.DateTime
-import ornicar.scalalib.Random
 import play.api.i18n.Lang
 import play.api.libs.json._
 
@@ -76,7 +75,7 @@ case class Hook(
       .add("rating" -> rating)
       .add("variant" -> realVariant.exotic.option(realVariant.key))
       .add("ra" -> realMode.rated.option(1))
-      .add("c" -> chess.Color(color).map(_.name))
+      .add("c" -> chess.Color.fromName(color).map(_.name))
       .add("perf" -> perfType.map(_.trans))
 
   def randomColor = color == "random"
@@ -94,11 +93,10 @@ case class Hook(
       member = lila.pool.PoolMember(
         userId = user.??(_.id),
         sri = sri,
-        rating = rating | lila.rating.Glicko.defaultIntRating,
+        rating = rating | lila.rating.Glicko.default.intRating,
         ratingRange = realRatingRange,
         lame = user.??(_.lame),
         blocking = lila.pool.PoolMember.BlockedUsers(user.??(_.blocking)),
-        since = createdAt,
         rageSitCounter = 0
       )
     )
@@ -123,7 +121,7 @@ object Hook {
       boardApi: Boolean = false
   ): Hook =
     new Hook(
-      id = Random nextString idSize,
+      id = lila.common.ThreadLocalRandom nextString idSize,
       sri = sri,
       variant = variant.id,
       clock = clock,

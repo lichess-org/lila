@@ -8,11 +8,14 @@ interface Modal {
   content: MaybeVNodes;
   onInsert?: (el: HTMLElement) => void;
   onClose(): void;
+  noClickAway?: boolean;
 }
 
 export function modal(d: Modal): VNode {
   return h('div#modal-overlay', {
-    hook: bind('mousedown', d.onClose)
+    ...(!d.noClickAway)
+      ? {hook: bind('mousedown', d.onClose)}
+      : {}
   }, [
     h('div#modal-wrap.study__modal.' + d.class, {
       hook: onInsert(el => {

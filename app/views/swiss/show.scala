@@ -1,31 +1,33 @@
 package views.html
 package swiss
 
+import controllers.routes
 import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
-import lila.swiss.Swiss
-
-import controllers.routes
+import lila.swiss.{ Swiss, SwissCondition }
 
 object show {
 
   def apply(
       s: Swiss,
+      verdicts: SwissCondition.All.WithVerdicts,
       data: play.api.libs.json.JsObject,
-      chatOption: Option[lila.chat.UserChat.Mine]
+      chatOption: Option[lila.chat.UserChat.Mine],
+      streamers: List[lila.user.User.ID],
+      isLocalMod: Boolean
   )(implicit ctx: Context): Frag = {
     val isDirector       = ctx.userId.has(s.createdBy)
     val hasScheduleInput = isDirector && s.settings.manualRounds && s.isNotFinished
     views.html.base.layout(
       title = s"${s.name} #${s.id}",
       moreJs = frag(
-        jsAt(s"compiled/lichess.swiss${isProd ?? ".min"}.js"),
-        hasScheduleInput option flatpickrTag,
-        embedJsUnsafe(s"""LichessSwiss.start(${safeJsonValue(
+        jsModule("swiss"),
+        hasScheduleInput option jsModule("flatpickr"),
+        embedJsUnsafeLoadThen(s"""LichessSwiss.start(${safeJsonValue(
           Json
             .obj(
               "data"   -> data,
@@ -37,7 +39,8 @@ object show {
                   name = trans.chatRoom.txt(),
                   timeout = c.timeout,
                   public = true,
-                  resourceId = lila.chat.Chat.ResourceId(s"swiss/${c.chat.id}")
+                  resourceId = lila.chat.Chat.ResourceId(s"swiss/${c.chat.id}"),
+                  localMod = isLocalMod
                 )
               }
             )
@@ -64,7 +67,7 @@ object show {
     )(
       main(cls := "swiss")(
         st.aside(cls := "swiss__side")(
-          swiss.side(s, chatOption.isDefined)
+          swiss.side(s, verdicts, streamers, chatOption.isDefined)
         ),
         div(cls := "swiss__main")(div(cls := "box"))
       )

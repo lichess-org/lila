@@ -1,13 +1,19 @@
 .main-board {
   @extend %square;
+
   &__preload {
     position: absolute;
   }
+
   .cg-wrap {
     @extend %abs-100;
   }
 }
 
-.mini-board {
+.mini-board, .mini-game .cg-wrap {
   @extend %square;
+}
+
+.cg-wrap, .mini-game .cg-wrap {
+  display: table; // part of hack to round to full pixel size in chrome
 }

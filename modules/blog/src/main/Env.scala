@@ -18,7 +18,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    ws: play.api.libs.ws.WSClient
+    ws: play.api.libs.ws.StandaloneWSClient
 ) {
 
   private val config = appConfig.get[BlogConfig]("blog")(AutoConfig.loader)

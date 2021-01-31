@@ -16,13 +16,13 @@ final class Firewall(
 
   private var current: Set[String] = Set.empty
 
-  scheduler.scheduleOnce(10 minutes)(loadFromDb)
+  scheduler.scheduleOnce(10 minutes)(loadFromDb.unit)
 
   def blocksIp(ip: IpAddress): Boolean = current contains ip.value
 
   def blocks(req: RequestHeader): Boolean = {
     val v = blocksIp {
-      lila.common.HTTPRequest lastRemoteAddress req
+      lila.common.HTTPRequest ipAddress req
     }
     if (v) lila.mon.security.firewall.block.increment()
     v
@@ -44,12 +44,12 @@ final class Firewall(
     }.sequenceFu >> loadFromDb
 
   def unblockIps(ips: Iterable[IpAddress]): Funit =
-    coll.delete.one($inIds(ips.filter(validIp))).void >>- loadFromDb
+    coll.delete.one($inIds(ips.filter(validIp))).void >>- loadFromDb.unit
 
   private def loadFromDb: Funit =
     coll.distinctEasy[String, Set]("_id", $empty, ReadPreference.secondaryPreferred).map { ips =>
       current = ips
-      lila.mon.security.firewall.ip.update(ips.size)
+      lila.mon.security.firewall.ip.update(ips.size).unit
     }
 
   private def validIp(ip: IpAddress) =

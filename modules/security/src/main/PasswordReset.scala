@@ -49,6 +49,10 @@ ${Mailgun.txt.serviceNote}
 
   private val tokener = new StringToken[User.ID](
     secret = tokenerSecret,
-    getCurrentValue = id => userRepo getPasswordHash id dmap (~_)
+    getCurrentValue = id =>
+      for {
+        hash  <- userRepo getPasswordHash id
+        email <- userRepo email id
+      } yield ~hash + email.fold("")(_.value)
   )
 }

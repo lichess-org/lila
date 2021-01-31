@@ -16,14 +16,11 @@ object coordinate {
     views.html.base.layout(
       title = trans.coordinates.coordinateTraining.txt(),
       moreCss = cssTag("coordinate"),
-      moreJs = frag(
-        jsTag("vendor/sparkline.min.js"),
-        jsAt("compiled/coordinate.js")
-      ),
+      moreJs = jsModule("coordinate"),
       openGraph = lila.app.ui
         .OpenGraph(
           title = "Chess board coordinates trainer",
-          url = s"$netBaseUrl${routes.Coordinate.home.url}",
+          url = s"$netBaseUrl${routes.Coordinate.home().url}",
           description =
             "Knowing the chessboard coordinates is a very important chess skill. A square name appears on the board and you must click on the correct square."
         )
@@ -42,15 +39,8 @@ object coordinate {
             if (ctx.isAuth) scoreOption.map { score =>
               div(cls := "scores")(scoreCharts(score))
             }
-            else
-              div(cls := "register")(
-                p(trans.toTrackYourProgress()),
-                p(cls := "signup")(
-                  a(cls := "button", href := routes.Auth.signup)(trans.signUp())
-                )
-              )
           ),
-          form(cls := "color buttons", action := routes.Coordinate.color)(
+          form(cls := "color buttons", action := routes.Coordinate.color(), method := "post")(
             st.group(cls := "radio")(
               List(Color.BLACK, Color.RANDOM, Color.WHITE).map { id =>
                 div(
@@ -95,14 +85,13 @@ object coordinate {
       List(
         (trans.coordinates.averageScoreAsWhiteX, score.white),
         (trans.coordinates.averageScoreAsBlackX, score.black)
-      ).map {
-        case (averageScoreX, s) =>
-          div(cls := "chart_container")(
-            s.nonEmpty option frag(
-              p(averageScoreX(raw(s"""<strong>${"%.2f".format(s.sum.toDouble / s.size)}</strong>"""))),
-              div(cls := "user_chart", attr("data-points") := safeJsonValue(Json toJson s))
-            )
+      ).map { case (averageScoreX, s) =>
+        div(cls := "chart_container")(
+          s.nonEmpty option frag(
+            p(averageScoreX(raw(s"""<strong>${"%.2f".format(s.sum.toDouble / s.size)}</strong>"""))),
+            div(cls := "user_chart", attr("data-points") := safeJsonValue(Json toJson s))
           )
+        )
       }
     )
 }

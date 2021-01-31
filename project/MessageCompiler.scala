@@ -34,41 +34,40 @@ object MessageCompiler {
           db -> (destDir / db / s"$locale.xml")
         }
 
-    val isNew = xmlFiles.exists {
-      case (_, file) => !isFileEmpty(file) && file.lastModified > scalaFile.lastModified
+    val isNew = xmlFiles.exists { case (_, file) =>
+      !isFileEmpty(file) && file.lastModified > scalaFile.lastModified
     }
     if (!isNew) scalaFile
     else
       printToFile(scalaFile) {
-        val puts = xmlFiles flatMap {
-          case (db, file) =>
-            try {
-              val xml = XML.loadFile(file)
-              xml.child.collect {
-                case e if e.label == "string" =>
-                  val safe = escape(e.text)
-                  val translation = escapeHtmlOption(safe) match {
-                    case None          => s"""new Simple(\"\"\"$safe\"\"\")"""
-                    case Some(escaped) => s"""new Escaped(\"\"\"$safe\"\"\",\"\"\"$escaped\"\"\")"""
+        val puts = xmlFiles flatMap { case (db, file) =>
+          try {
+            val xml = XML.loadFile(file)
+            xml.child.collect {
+              case e if e.label == "string" =>
+                val safe = escape(e.text)
+                val translation = escapeHtmlOption(safe) match {
+                  case None          => s"""new Simple(\"\"\"$safe\"\"\")"""
+                  case Some(escaped) => s"""new Escaped(\"\"\"$safe\"\"\",\"\"\"$escaped\"\"\")"""
+                }
+                s"""m.put(${toKey(e, db)},$translation)"""
+              case e if e.label == "plurals" =>
+                val items: Map[String, String] = e.child
+                  .filter(_.label == "item")
+                  .map { i =>
+                    ucfirst(i.\("@quantity").toString) -> s"""\"\"\"${escape(i.text)}\"\"\""""
                   }
-                  s"""m.put(${toKey(e, db)},$translation)"""
-                case e if e.label == "plurals" =>
-                  val items: Map[String, String] = e.child
-                    .filter(_.label == "item")
-                    .map { i =>
-                      ucfirst(i.\("@quantity").toString) -> s"""\"\"\"${escape(i.text)}\"\"\""""
-                    }
-                    .toMap
-                  s"""m.put(${toKey(e, db)},new Plurals(${pluralMap(items)}))"""
-              }
-            } catch {
-              case _: Exception => Nil
+                  .toMap
+                s"""m.put(${toKey(e, db)},new Plurals(${pluralMap(items)}))"""
             }
+          } catch {
+            case _: Exception => Nil
+          }
         }
 
         s"""package lila.i18n
 
-import I18nQuantity._
+${if (puts.exists(_ contains "new Plurals(")) "import I18nQuantity._" else ""}
 
 // format: OFF
 private object `$locale` {
@@ -83,9 +82,15 @@ ${puts mkString "\n"}
       }
   }
 
-  private def isFileEmpty(file: File) = {
-    !file.exists() || Source.fromFile(file, "UTF-8").getLines.drop(1).next == "<resources></resources>"
-  }
+  private def isFileEmpty(file: File) =
+    !file.exists() || {
+      val source = Source.fromFile(file, "UTF-8")
+      try {
+        source.getLines.drop(1).next == "<resources></resources>"
+      } finally {
+        source.close()
+      }
+    }
 
   private def packageName(db: String) = if (db == "class") "clas" else db
 
@@ -132,7 +137,7 @@ private object Registry {
   private val badChars = """[<>&"'\r\n]""".r.pattern
   private def escapeHtmlOption(s: String): Option[String] =
     if (badChars.matcher(s).find) Some {
-      val sb = new java.lang.StringBuilder(s.size + 10) // wet finger style
+      val sb = new java.lang.StringBuilder(s.length + 10) // wet finger style
       var i  = 0
       while (i < s.length) {
         s.charAt(i) match {

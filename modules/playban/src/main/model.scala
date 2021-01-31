@@ -27,7 +27,7 @@ case class UserRecord(
       case o if o != Outcome.Good         => 1
     } sum
 
-  def badOutcomeRatio: Float = if (bans.size < 3) 0.4f else 0.3f
+  def badOutcomeRatio: Float = if (bans.sizeIs < 3) 0.4f else 0.3f
 
   def minBadOutcomes: Int =
     bans.size match {
@@ -49,7 +49,7 @@ case class UserRecord(
         // too many bad overall
         badOutcomeScore >= (badOutcomeRatio * nbOutcomes atLeast minBadOutcomes.toFloat) || {
           // bad result streak
-          outcomes.size >= badOutcomesStreakSize &&
+          outcomes.sizeIs >= badOutcomesStreakSize &&
           outcomes.takeRight(badOutcomesStreakSize).forall(Outcome.Good !=)
         }
       }
@@ -93,8 +93,7 @@ object TempBan {
 
   private val baseMinutes = 10
 
-  /**
-    * Create a playban. First offense: 10 min.
+  /** Create a playban. First offense: 10 min.
     * Multiplier of repeat offense after X days:
     * - 0 days: 3x
     * - 0 - 3 days: linear scale from 3x to 1x
@@ -106,7 +105,7 @@ object TempBan {
       (bans.lastOption ?? { prev =>
         prev.endsAt.toNow.getStandardHours.toSaturatedInt match {
           case h if h < 72 => prev.mins * (132 - h) / 60
-          case h           => prev.mins - Math.pow(h / 12, 1.5).toInt
+          case h           => (55.6 * prev.mins / (Math.pow(5.56 * prev.mins - 54.6, h / 720) + 54.6)).toInt
         }
       } atLeast baseMinutes) * (if (accountCreationDate.plusDays(3).isAfterNow) 2 else 1)
     }

@@ -14,7 +14,7 @@ object emailConfirm {
     views.html.base.layout(
       title = "Email confirmation",
       moreCss = cssTag("mod.misc"),
-      moreJs = embedJsUnsafe("""$('.mod-confirm form input').on('paste', function() {
+      moreJs = embedJsUnsafeLoadThen("""$('.mod-confirm form input').on('paste', function() {
 setTimeout(function() { $(this).parent().submit(); }.bind(this), 50);
 }).each(function() {
 this.setSelectionRange(this.value.length, this.value.length);
@@ -30,7 +30,7 @@ this.setSelectionRange(this.value.length, this.value.length);
             "If you provide an email and a username, it will set the email to that user, ",
             "but only if the user has not yet confirmed their email."
           ),
-          st.form(cls := "search", action := routes.Mod.emailConfirm, method := "GET")(
+          st.form(cls := "search", action := routes.Mod.emailConfirm(), method := "GET")(
             input(name := "q", placeholder := "<email> <username (optional)>", value := query, autofocus)
           ),
           user.map { u =>

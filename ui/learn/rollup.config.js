@@ -4,7 +4,7 @@ export default rollupProject({
   main: {
     name: 'LichessLearn',
     input: 'src/main.js',
-    output: 'lichess.learn',
+    output: 'learn',
     js: true,
   },
 });

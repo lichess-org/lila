@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { empty } from 'common';
+import { isEmpty } from 'common';
 import { fixCrazySan } from 'chess';
 import { path as treePath, ops as treeOps } from 'tree';
 import * as moveView from '../moveView';
@@ -36,7 +36,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
   if (opts.isMainline) {
     const isWhite = main.ply % 2 === 1,
     commentTags = renderMainlineCommentsOf(ctx, main, conceal, true).filter(nonEmpty);
-    if (!cs[1] && empty(commentTags) && !main.forceVariation) return ((isWhite ? [moveView.renderIndex(main.ply, false)] : []) as MaybeVNodes).concat(
+    if (!cs[1] && isEmpty(commentTags) && !main.forceVariation) return ((isWhite ? [moveView.renderIndex(main.ply, false)] : []) as MaybeVNodes).concat(
       renderMoveAndChildrenOf(ctx, main, {
         parentPath: opts.parentPath,
         isMainline: true,
@@ -163,7 +163,7 @@ function renderInline(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 
 function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Conceal, withColor: boolean): MaybeVNodes {
 
-  if (!ctx.ctrl.showComments || empty(node.comments)) return [];
+  if (!ctx.ctrl.showComments || isEmpty(node.comments)) return [];
 
   const colorClass = withColor ? (node.ply % 2 === 0 ? '.black ' : '.white ') : '';
 
@@ -201,7 +201,7 @@ export default function(ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
   return h('div.tview2.tview2-column', {
     hook: mainHook(ctrl)
   }, ([
-    empty(commentTags) ? null : h('interrupt', commentTags),
+    isEmpty(commentTags) ? null : h('interrupt', commentTags),
     root.ply & 1 ? moveView.renderIndex(root.ply, false) : null,
     root.ply & 1 ? emptyMove() : null
   ] as MaybeVNodes).concat(renderChildrenOf(ctx, root, {

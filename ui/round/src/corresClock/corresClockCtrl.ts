@@ -28,9 +28,8 @@ export function ctrl(root: RoundController, data: CorresClockData, onFlag: () =>
 
   const timePercentDivisor = 0.1 / data.increment;
 
-  function timePercent(color: Color): number {
-    return Math.max(0, Math.min(100, times[color] * timePercentDivisor));
-  }
+  const timePercent = (color: Color): number =>
+    Math.max(0, Math.min(100, times[color] * timePercentDivisor));
 
   let times: Times;
 
@@ -50,9 +49,7 @@ export function ctrl(root: RoundController, data: CorresClockData, onFlag: () =>
     if (times[color] <= 0) onFlag();
   }
 
-  function millisOf(color: Color): Millis {
-    return Math.max(0, times[color]);
-  }
+  const millisOf = (color: Color): Millis => Math.max(0, times[color]);
 
   return {
     root,

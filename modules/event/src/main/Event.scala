@@ -18,7 +18,9 @@ case class Event(
     createdAt: DateTime,
     startsAt: DateTime,
     finishesAt: DateTime,
-    hostedBy: Option[User.ID] = None
+    hostedBy: Option[User.ID] = None,
+    icon: Option[String] = None,
+    countdown: Boolean
 ) {
 
   def willStartLater = startsAt.isAfterNow
@@ -45,7 +47,7 @@ case class Event(
 
 object Event {
 
-  def makeId = ornicar.scalalib.Random nextString 8
+  def makeId = lila.common.ThreadLocalRandom nextString 8
 
   case class UserId(value: String) extends AnyVal
 }

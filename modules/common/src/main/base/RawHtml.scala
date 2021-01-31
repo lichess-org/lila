@@ -7,6 +7,7 @@ import scala.annotation.{ switch, tailrec }
 import lila.common.base.StringUtils.escapeHtmlRaw
 
 final object RawHtml {
+
   def nl2br(s: String): String = {
     val sb      = new jStringBuilder(s.length)
     var counter = 0
@@ -57,11 +58,13 @@ final object RawHtml {
         idx = m.end
       } while (m.find)
       if (idx < text.length) buf += text.substring(idx)
-      buf.result
+      buf.result()
     } else List(text)
   }
 
-  def addLinks(text: String): String =
+  def hasLinks(text: String) = urlPattern.matcher(text).find
+
+  def addLinks(text: String, expandImg: Boolean = true): String =
     expandAtUser(text).map { expanded =>
       val m = urlPattern.matcher(expanded)
 
@@ -114,7 +117,7 @@ final object RawHtml {
             val url    = (if (isHttp) "http://" else "https://") + allButScheme
             val text   = if (isHttp) url else allButScheme
             val imgHtml = {
-              if (end < sArr.length && sArr(end) == '"') None
+              if ((end < sArr.length && sArr(end) == '"') || !expandImg) None
               else imgUrl(url)
             }
             sb.append(
@@ -159,8 +162,8 @@ final object RawHtml {
       while (
         (sArr(last): @switch) match {
           case '.' | ',' | '?' | '!' | ':' | ';' | '–' | '—' | '@' | '\'' => true
-          case '('                                                        => { parenCnt -= 1; true }
-          case ')'                                                        => { parenCnt += 1; parenCnt <= 0 }
+          case '('                                                        => parenCnt -= 1; true
+          case ')'                                                        => parenCnt += 1; parenCnt <= 0
           case _                                                          => false
         }
       ) { last -= 1 }
@@ -183,8 +186,6 @@ final object RawHtml {
 
   private[this] val markdownLinkRegex = """\[([^]]++)\]\((https?://[^)]++)\)""".r
 
-  def markdownLinks(text: String): String =
-    nl2br {
-      markdownLinkRegex.replaceAllIn(escapeHtmlRaw(text), """<a href="$2">$1</a>""")
-    }
+  def justMarkdownLinks(escapedHtml: String): String =
+    markdownLinkRegex.replaceAllIn(escapedHtml, """<a href="$2">$1</a>""")
 }

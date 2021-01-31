@@ -15,7 +15,7 @@ final class Signup(
     store: Store,
     api: SecurityApi,
     ipTrust: IpTrust,
-    forms: DataForm,
+    forms: SecurityForm,
     emailAddressValidator: EmailAddressValidator,
     emailConfirm: EmailConfirm,
     recaptcha: Recaptcha,
@@ -37,7 +37,7 @@ final class Signup(
     case object YesBecauseUA           extends MustConfirmEmail(true)
 
     def apply(print: Option[FingerPrint])(implicit req: RequestHeader): Fu[MustConfirmEmail] = {
-      val ip = HTTPRequest lastRemoteAddress req
+      val ip = HTTPRequest ipAddress req
       store.recentByIpExists(ip) flatMap { ipExists =>
         if (ipExists) fuccess(YesBecauseIpExists)
         else if (HTTPRequest weirdUA req) fuccess(YesBecauseUA)
@@ -57,17 +57,18 @@ final class Signup(
   }
 
   def website(blind: Boolean)(implicit req: Request[_], lang: Lang): Fu[Signup.Result] =
-    forms.signup.website.bindFromRequest.fold[Fu[Signup.Result]](
-      err => fuccess(Signup.Bad(err tap signupErrLog)),
-      data =>
-        recaptcha.verify(~data.recaptchaResponse, req).flatMap {
-          case false =>
-            authLog(data.username, data.email, "Signup recaptcha fail")
-            fuccess(Signup.Bad(forms.signup.website fill data))
-          case true =>
-            signupRateLimit(data.username, if (data.recaptchaResponse.isDefined) 1 else 2) {
-              MustConfirmEmail(data.fingerPrint) flatMap {
-                mustConfirm =>
+    forms.signup.website.form
+      .bindFromRequest()
+      .fold[Fu[Signup.Result]](
+        err => fuccess(Signup.Bad(err tap signupErrLog)),
+        data =>
+          recaptcha.verify(~data.recaptchaResponse, req).flatMap {
+            case false =>
+              authLog(data.username, data.email, "Signup recaptcha fail")
+              fuccess(Signup.Bad(forms.signup.website.form fill data))
+            case true =>
+              signupRateLimit(data.username, if (data.recaptchaResponse.isDefined) 1 else 2) {
+                MustConfirmEmail(data.fingerPrint) flatMap { mustConfirm =>
                   lila.mon.user.register.count(none)
                   lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
                   val email = emailAddressValidator
@@ -87,10 +88,10 @@ final class Signup(
                     .flatMap {
                       confirmOrAllSet(email, mustConfirm, data.fingerPrint, none)
                     }
+                }
               }
-            }
-        }
-    )
+          }
+      )
 
   private def confirmOrAllSet(
       email: EmailAddressValidator.Acceptable,
@@ -112,38 +113,39 @@ final class Signup(
   def mobile(
       apiVersion: ApiVersion
   )(implicit req: Request[_], lang: Lang): Fu[Signup.Result] =
-    forms.signup.mobile.bindFromRequest.fold[Fu[Signup.Result]](
-      err => fuccess(Signup.Bad(err tap signupErrLog)),
-      data =>
-        signupRateLimit(data.username, cost = 2) {
-          val email = emailAddressValidator
-            .validate(data.realEmail) err s"Invalid email ${data.email}"
-          val mustConfirm = MustConfirmEmail.YesBecauseMobile
-          lila.mon.user.register.count(apiVersion.some)
-          lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
-          val passwordHash = authenticator passEnc User.ClearPassword(data.password)
-          userRepo
-            .create(
-              data.username,
-              passwordHash,
-              email.acceptable,
-              false,
-              apiVersion.some,
-              mustConfirmEmail = mustConfirm.value
-            )
-            .orFail(s"No user could be created for ${data.username}")
-            .addEffect { logSignup(req, _, email.acceptable, none, apiVersion.some, mustConfirm) }
-            .flatMap {
-              confirmOrAllSet(email, mustConfirm, none, apiVersion.some)
-            }
-        }
-    )
+    forms.signup.mobile
+      .bindFromRequest()
+      .fold[Fu[Signup.Result]](
+        err => fuccess(Signup.Bad(err tap signupErrLog)),
+        data =>
+          signupRateLimit(data.username, cost = 2) {
+            val email = emailAddressValidator
+              .validate(data.realEmail) err s"Invalid email ${data.email}"
+            val mustConfirm = MustConfirmEmail.YesBecauseMobile
+            lila.mon.user.register.count(apiVersion.some).increment()
+            lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
+            val passwordHash = authenticator passEnc User.ClearPassword(data.password)
+            userRepo
+              .create(
+                data.username,
+                passwordHash,
+                email.acceptable,
+                blind = false,
+                apiVersion.some,
+                mustConfirmEmail = mustConfirm.value
+              )
+              .orFail(s"No user could be created for ${data.username}")
+              .addEffect { logSignup(req, _, email.acceptable, none, apiVersion.some, mustConfirm) }
+              .flatMap {
+                confirmOrAllSet(email, mustConfirm, none, apiVersion.some)
+              }
+          }
+      )
 
   private def HasherRateLimit =
     PasswordHasher.rateLimit[Signup.Result](enforce = netConfig.rateLimit) _
 
   private lazy val signupRateLimitPerIP = RateLimit.composite[IpAddress](
-    name = "Accounts per IP",
     key = "account.create.ip",
     enforce = netConfig.rateLimit.value
   )(
@@ -157,7 +159,7 @@ final class Signup(
       f: => Fu[Signup.Result]
   )(implicit req: RequestHeader): Fu[Signup.Result] =
     HasherRateLimit(username, req) { _ =>
-      signupRateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = cost)(f)(rateLimitDefault)
+      signupRateLimitPerIP(HTTPRequest ipAddress req, cost = cost)(f)(rateLimitDefault)
     }(rateLimitDefault)
 
   private def logSignup(
@@ -171,9 +173,9 @@ final class Signup(
     authLog(
       user.username,
       email.value,
-      s"fp: ${fingerPrint} mustConfirm: $mustConfirm fp: ${fingerPrint.??(_.value)} api: ${apiVersion.??(_.value)}"
+      s"fp: $fingerPrint mustConfirm: $mustConfirm fp: ${fingerPrint.??(_.value)} api: ${apiVersion.??(_.value)}"
     )
-    val ip = HTTPRequest lastRemoteAddress req
+    val ip = HTTPRequest ipAddress req
     ipTrust.isSuspicious(ip) foreach { susp =>
       slack.signup(user, email, ip, fingerPrint.flatMap(_.hash).map(_.value), apiVersion, susp)
     }

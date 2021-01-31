@@ -7,27 +7,22 @@ import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.{ AssetVersion, ContentSecurityPolicy, Nonce }
 
-import scala.util.Random
-
 trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
-  def isProd: Boolean
-
-  def netDomain: lila.common.config.NetDomain
-  lazy val assetDomain    = env.net.assetDomain
-  lazy val socketDomains  = env.net.socketDomains
-  lazy val vapidPublicKey = env.push.vapidPublicKey
+  private lazy val netDomain      = env.net.domain
+  private lazy val assetDomain    = env.net.assetDomain
+  private lazy val assetBaseUrl   = env.net.assetBaseUrl
+  private lazy val socketDomains  = env.net.socketDomains
+  private lazy val minifiedAssets = env.net.minifiedAssets
+  lazy val vapidPublicKey         = env.push.vapidPublicKey
 
   lazy val sameAssetDomain = netDomain.value == assetDomain.value
-
-  lazy val assetBaseUrl = env.net.assetBaseUrl
 
   def assetVersion = AssetVersion.current
 
   def assetUrl(path: String): String = s"$assetBaseUrl/assets/_$assetVersion/$path"
 
-  def cdnUrl(path: String)    = s"$assetBaseUrl$path"
-  def staticUrl(path: String) = s"$assetBaseUrl/assets/$path"
+  def cdnUrl(path: String) = s"$assetBaseUrl$path"
 
   def dbImageUrl(path: String) = s"$assetBaseUrl/image/$path"
 
@@ -35,88 +30,44 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     cssTagWithTheme(name, ctx.currentBg)
 
   def cssTagWithTheme(name: String, theme: String): Frag =
-    cssAt(s"css/$name.$theme.${if (isProd) "min" else "dev"}.css")
+    cssAt(s"css/$name.$theme.${if (minifiedAssets) "min" else "dev"}.css")
 
   def cssTagNoTheme(name: String): Frag =
-    cssAt(s"css/$name.${if (isProd) "min" else "dev"}.css")
+    cssAt(s"css/$name.${if (minifiedAssets) "min" else "dev"}.css")
 
   private def cssAt(path: String): Frag =
-    link(href := assetUrl(path), tpe := "text/css", rel := "stylesheet")
+    link(href := assetUrl(path), rel := "stylesheet")
 
-  def jsTag(name: String, defer: Boolean = false): Frag =
-    jsAt("javascripts/" + name, defer = defer)
+  // load scripts in <head> and always use defer
+  def jsAt(path: String): Frag = script(deferAttr, src := assetUrl(path))
 
-  /* about async & defer, see https://flaviocopes.com/javascript-async-defer/
-   * we want defer only, to ensure scripts are executed in order of declaration,
-   * so that round.js doesn't run before site.js */
-  def jsAt(path: String, defer: Boolean = false): Frag =
-    script(
-      defer option deferAttr,
-      src := assetUrl(path)
-    )
+  def jsTag(name: String): Frag = jsAt(s"javascripts/$name")
 
-  lazy val jQueryTag = raw {
-    s"""<script src="${staticUrl("javascripts/vendor/jquery.min.js")}"></script>"""
-  }
+  def jsModule(name: String): Frag =
+    jsAt(s"compiled/$name${minifiedAssets ?? ".min"}.js")
 
-  def roundTag = jsAt(s"compiled/lichess.round${isProd ?? ".min"}.js", defer = true)
-  def roundNvuiTag(implicit ctx: Context) =
-    ctx.blind option
-      jsAt(s"compiled/lichess.round.nvui.min.js", defer = true)
+  def depsTag = jsAt("compiled/deps.min.js")
 
-  def analyseTag = jsAt(s"compiled/lichess.analyse${isProd ?? ".min"}.js")
-  def analyseNvuiTag(implicit ctx: Context) =
-    ctx.blind option
-      jsAt(s"compiled/lichess.analyse.nvui.min.js")
+  def roundTag                            = jsModule("round")
+  def roundNvuiTag(implicit ctx: Context) = ctx.blind option jsModule("round.nvui")
 
-  def captchaTag = jsAt(s"compiled/captcha.js")
+  def analyseTag                            = jsModule("analysisBoard")
+  def analyseNvuiTag(implicit ctx: Context) = ctx.blind option jsModule("analysisBoard.nvui")
 
-  lazy val highchartsLatestTag = raw {
-    s"""<script src="${staticUrl("vendor/highcharts-4.2.5/highcharts.js")}"></script>"""
-  }
-
-  lazy val highchartsMoreTag = raw {
-    s"""<script src="${staticUrl("vendor/highcharts-4.2.5/highcharts-more.js")}"></script>"""
-  }
-
-  lazy val fingerprintTag = raw {
-    s"""<script async src="${staticUrl("javascripts/fipr.js")}"></script>"""
-  }
-
-  lazy val flatpickrTag = raw {
-    s"""<script defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
-  }
-
-  lazy val nonAsyncFlatpickrTag = raw {
-    s"""<script defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
-  }
-
-  lazy val tagifyTag = raw {
-    s"""<script src="${staticUrl("vendor/tagify/tagify.min.js")}"></script>"""
-  }
-
-  def delayFlatpickrStartUTC(implicit ctx: Context) =
-    embedJsUnsafe {
-      """$(function() { setTimeout(function() { $(".flatpickr").flatpickr(); }, 1000) });"""
-    }
-
-  def delayFlatpickrStartLocal(implicit ctx: Context) =
-    embedJsUnsafe {
-      """$(function() { setTimeout(function() { $(".flatpickr").flatpickr({
-  maxDate: new Date(Date.now() + 1000 * 3600 * 24 * 31),
-  dateFormat: 'Z',
-  altInput: true,
-  altFormat: 'Y-m-d h:i K'
-}); }, 1000) });"""
-    }
-
-  lazy val infiniteScrollTag = jsTag("vendor/jquery.infinitescroll.min.js")
+  def captchaTag          = jsModule("captcha")
+  def infiniteScrollTag   = jsModule("infiniteScroll")
+  def chessgroundTag      = jsAt("javascripts/vendor/chessground.min.js")
+  def cashTag             = jsAt("javascripts/vendor/cash.min.js")
+  def fingerprintTag      = jsAt("javascripts/fipr.js")
+  def tagifyTag           = jsAt("vendor/tagify/tagify.min.js")
+  def highchartsLatestTag = jsAt("vendor/highcharts-4.2.5/highcharts.js")
+  def highchartsMoreTag   = jsAt("vendor/highcharts-4.2.5/highcharts-more.js")
 
   def prismicJs(implicit ctx: Context): Frag =
     raw {
       isGranted(_.Prismic) ?? {
         embedJsUnsafe("""window.prismic={endpoint:'https://lichess.prismic.io/api/v2'}""").render ++
-          """<script type="text/javascript" src="//static.cdn.prismic.io/prismic.min.js"></script>"""
+          """<script src="//static.cdn.prismic.io/prismic.min.js"></script>"""
       }
     }
 
@@ -135,8 +86,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
       workerSrc = List("'self'", assets),
       imgSrc = List("data:", "*"),
       scriptSrc = List("'self'", assets),
-      baseUri = List("'none'"),
-      reportTo = if (Random.nextInt(1000) == 0) List("default") else Nil
+      baseUri = List("'none'")
     )
   }
 
@@ -157,4 +107,10 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     raw {
       s"""<script nonce="$nonce">$js</script>"""
     }
+
+  def embedJsUnsafeLoadThen(js: String)(implicit ctx: Context): Frag =
+    embedJsUnsafe(s"""lichess.load.then(()=>{$js})""")
+
+  def embedJsUnsafeLoadThen(js: String, nonce: Nonce): Frag =
+    embedJsUnsafe(s"""lichess.load.then(()=>{$js})""", nonce)
 }

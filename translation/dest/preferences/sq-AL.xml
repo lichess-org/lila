@@ -12,6 +12,8 @@
   <string name="chessPieceSymbol">Simboli i figures se shahut</string>
   <string name="pgnLetter">Shkronja (K, Q, R, B, N)</string>
   <string name="zenMode">Modaliteti zen</string>
+  <string name="displayBoardResizeHandle">Shfaq opsionin për zmadhim të tabelës</string>
+  <string name="onlyOnInitialPosition">Vetëm në pozicionin fillestar</string>
   <string name="blindfoldChess">Shah i verber (gurë të padukshëm)</string>
   <string name="chessClock">Ora e shahut</string>
   <string name="tenthsOfSeconds">Të dhjetat e sekondës</string>
@@ -19,6 +21,7 @@
   <string name="horizontalGreenProgressBars">Shufra e gjelbërt e progresit</string>
   <string name="soundWhenTimeGetsCritical">Tingull gjatë kohës kritike</string>
   <string name="giveMoreTime">Jep më shumë kohë</string>
+  <string name="gameBehavior">Sjellja e lojës</string>
   <string name="howDoYouMovePieces">Si i leviz figurat?</string>
   <string name="clickTwoSquares">Kliko dy kuadrate</string>
   <string name="dragPiece">Terhiqe figuren</string>

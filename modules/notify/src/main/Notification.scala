@@ -3,7 +3,6 @@ package lila.notify
 import lila.common.paginator.Paginator
 import lila.notify.MentionedInThread.PostId
 import org.joda.time.DateTime
-import ornicar.scalalib.Random
 
 case class NewNotification(notification: Notification, unreadNotifications: Int)
 
@@ -34,7 +33,7 @@ object Notification {
 
   def make(notifies: Notification.Notifies, content: NotificationContent): Notification = {
     val idSize = 8
-    val id     = Random nextString idSize
+    val id     = lila.common.ThreadLocalRandom nextString idSize
     new Notification(id, notifies, content, NotificationRead(false), DateTime.now)
   }
 }
