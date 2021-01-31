@@ -22,6 +22,13 @@ Imir go tapa agus filleadh chuig an forhalla chun níos mó cluichí a imirt agu
   <string name="howDoesItEnd">Conas a chríochnaíonn sé?</string>
   <string name="otherRules">Rialacha tábhachtacha eile</string>
   <string name="thereIsACountdown">Tá comhaireamh síos ann do do chéad bheart. Mura ndéantar beart laistigh den tréimhse seo, cailllfear an cluiche do do chéile comhraic.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">Ní bhfaighfaidh aon ficheallaí pointe ar bith má tá comhscór eagraithe laistigh den chéad %s beart.</item>
+    <item quantity="two">Ní bhfaighfaidh aon ficheallaí pointe ar bith má tá comhscór eagraithe laistigh den chéad %s bheart.</item>
+    <item quantity="few">Ní bhfaighfaidh aon ficheallaí pointe ar bith má tá comhscór eagraithe laistigh den chéad %s mbeart.</item>
+    <item quantity="many">Ní bhfaighfaidh aon ficheallaí pointe ar bith má tá comhscór eagraithe laistigh den chéad %s beart.</item>
+    <item quantity="other">Ní bhfaighfaidh aon ficheallaí pointe ar bith má tá comhscór eagraithe laistigh den chéad %s beart.</item>
+  </plurals>
   <string name="thisIsPrivate">Is comórtas príobháideach é seo</string>
   <string name="shareUrl">Comhroinn an URL seo chun ligean do imreoirí a bheith páirteach: %s</string>
   <string name="history">Stair sa Láthair</string>
