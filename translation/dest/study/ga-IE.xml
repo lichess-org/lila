@@ -85,6 +85,7 @@
   <string name="clearAnnotations">Glan anótála</string>
   <string name="deleteChapter">Scrios caibidil</string>
   <string name="deleteThisChapter">Scrios an chaibidil seo? Níl aon dul ar ais!</string>
+  <string name="rightUnderTheBoard">Díreach faoin gclár</string>
   <string name="noPinnedComment">Faic</string>
   <string name="normalAnalysis">Gnáth-anailís</string>
   <string name="hideNextMoves">Folaigh na bearta ina dhiaidh seo</string>
@@ -110,4 +111,7 @@
   <string name="start">Tosú</string>
   <string name="save">Sábháil</string>
   <string name="clearChat">Glan comhrá</string>
+  <string name="deleteStudy">Scrios an staidéar</string>
+  <string name="deleteTheEntireStudy">Scrios an staidéar iomlán? Níl aon dul ar ais!</string>
+  <string name="whereDoYouWantToStudyThat">Cá háit ar mhaith leat staidéar a dhéanamh air sin?</string>
 </resources>
