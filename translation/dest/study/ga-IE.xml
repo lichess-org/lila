@@ -52,6 +52,7 @@
   <string name="newTag">Clib nua</string>
   <string name="commentThisPosition">Déan trácht ar an suíomh seo</string>
   <string name="commentThisMove">Déan trácht ar an mbeart seo</string>
+  <string name="annotateWithGlyphs">Nodaireacht le glifeanna</string>
   <string name="playing">Ag imirt</string>
   <string name="first">Céad</string>
   <string name="previous">Roimhe</string>
