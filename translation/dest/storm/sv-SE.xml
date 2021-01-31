@@ -25,4 +25,6 @@
   <string name="endRun">Avsluta försök (snabbkommando: retur)</string>
   <string name="highscores">Rekord</string>
   <string name="viewBestRuns">Se bästa försök</string>
+  <string name="bestRunOfDay">Dagens bästa försök</string>
+  <string name="runs">Försök</string>
 </resources>
