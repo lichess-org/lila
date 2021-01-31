@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Flytta för att starta</string>
+  <string name="newDailyHighscore">Nytt dagligt rekord!</string>
+  <string name="newWeeklyHighscore">Nytt vecko-rekord!</string>
+  <string name="newMonthlyHighscore">Nytt månads-rekord!</string>
+  <string name="newAllTimeHighscore">Nytt rekord!</string>
+  <string name="previousHighscoreWasX">Tidigare rekord var %s</string>
   <string name="playAgain">Spela igen</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 försök</item>
+    <item quantity="other">%s försök</item>
+  </plurals>
 </resources>
