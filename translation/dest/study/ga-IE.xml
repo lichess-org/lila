@@ -53,6 +53,7 @@
   <string name="commentThisPosition">Déan trácht ar an suíomh seo</string>
   <string name="commentThisMove">Déan trácht ar an mbeart seo</string>
   <string name="annotateWithGlyphs">Nodaireacht le glifeanna</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Tá an chaibidil ró-ghearr le hanailís a dhéanamh uirthi.</string>
   <string name="playing">Ag imirt</string>
   <string name="first">Céad</string>
   <string name="previous">Roimhe</string>
