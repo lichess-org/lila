@@ -93,6 +93,7 @@
   <string name="empty">Folamh</string>
   <string name="startFromInitialPosition">Tosaigh ón suíomh tosaigh</string>
   <string name="editor">Eagarthóir</string>
+  <string name="loadAGameFromPgn">Lódáil cluichí ó PGN</string>
   <string name="automatic">Uathoibríoch</string>
   <string name="createChapter">Cruthaigh caibidil</string>
   <string name="createStudy">Cruthaigh staidéar</string>
