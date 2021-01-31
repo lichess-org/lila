@@ -6,6 +6,13 @@
   <string name="newClass">Rang nua</string>
   <string name="closeClass">Dún rang</string>
   <string name="closedByX">Dúnta ag %s</string>
+  <string name="reopen">Athoscailt</string>
+  <string name="removeStudent">Bain mac léinn</string>
+  <string name="removedStudents">Bainte</string>
+  <string name="inviteTheStudentBack">Tabhair cuireadh don mhac léinn teacht ar ais</string>
+  <string name="className">Ainm ranga</string>
+  <string name="classDescription">Tuairisc ranga</string>
+  <string name="teachersOfTheClass">Múinteoirí ranga</string>
   <string name="realName">Fíorainm</string>
   <string name="addStudent">Cuir mac léinn leis</string>
   <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
