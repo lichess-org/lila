@@ -755,11 +755,17 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="waitingForAnalysis">Ag fanacht ar anailís</string>
   <string name="noMistakesFoundForWhite">Ní bhfuarthas aon bhotúin ó bán</string>
   <string name="noMistakesFoundForBlack">Ní bhfuarthas aon bhotúin ó dubh</string>
+  <string name="doneReviewingWhiteMistakes">Déanta ag athbhreithniú botúin bhána</string>
+  <string name="doneReviewingBlackMistakes">Déanta ag athbhreithniú botúin dhubh</string>
   <string name="doItAgain">Déan arís é</string>
+  <string name="reviewWhiteMistakes">Athbhreithniú botúin bhána</string>
+  <string name="reviewBlackMistakes">Athbhreithniú botúin dhubh</string>
   <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Buntáiste</string>
   <string name="opening">Oscailt</string>
   <string name="middlegame">Lár an chluiche</string>
   <string name="endgame">Cor deiridh</string>
+  <string name="conditionalPremoves">Réamhbheart coinníollach</string>
+  <string name="addCurrentVariation">Cuir athrúchán reatha leis</string>
   <string name="playX">Imir %s</string>
   <string name="sorry">Tá brón orainn :(</string>
   <string name="weHadToTimeYouOutForAWhile">Bhí orainn thú a chur ar fionraí ar feadh tréimhse.</string>
