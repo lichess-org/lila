@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Ranganna</string>
+  <string name="teachClassesOfChessStudents">Múin ranganna ficheallaithe leis an tsraith uirlisí ranganna Lichess.</string>
   <string name="features">Gnéithe</string>
+  <string name="quicklyGenerateSafeUsernames">Cruthaigh ainmneacha úsáideora agus pasfhocail shábháilte go tapa do mhic léinn</string>
+  <string name="noClassesYet">Níl aon ranganna fós.</string>
   <string name="teachersX">Múinteoirí: %s</string>
   <string name="newClass">Rang nua</string>
   <string name="closeClass">Dún rang</string>
@@ -10,6 +13,7 @@
   <string name="removeStudent">Bain mac léinn</string>
   <string name="removedStudents">Bainte</string>
   <string name="inviteTheStudentBack">Tabhair cuireadh don mhac léinn teacht ar ais</string>
+  <string name="sendAMessage">Seol teachtaireacht chuig gach mac léinn.</string>
   <string name="className">Ainm ranga</string>
   <string name="classDescription">Tuairisc ranga</string>
   <string name="teachersOfTheClass">Múinteoirí ranga</string>
