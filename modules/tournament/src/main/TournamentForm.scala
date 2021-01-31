@@ -88,7 +88,7 @@ final class TournamentForm {
         "rated"            -> optional(boolean),
         "password"         -> optional(cleanNonEmptyText),
         "conditions"       -> Condition.DataForm.all(leaderTeams),
-        "teamBattleByTeam" -> optional(nonEmptyText),
+        "teamBattleByTeam" -> optional(nonEmptyText.verifying(id => leaderTeams.exists(_.id == id))),
         "berserkable"      -> optional(boolean),
         "streakable"       -> optional(boolean),
         "description"      -> optional(cleanNonEmptyText),
