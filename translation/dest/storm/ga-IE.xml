@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart">Bog le tosú</string>
+  <string name="puzzlesSolved">fadhbhanna déanta</string>
+  <string name="score">Scór</string>
+  <string name="moves">Bearta</string>
+  <string name="time">Am</string>
+</resources>
