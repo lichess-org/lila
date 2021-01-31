@@ -68,7 +68,11 @@
   <string name="currentChapterUrl">URL caibidil reatha</string>
   <string name="currentGameUrl">URL cluiche reatha</string>
   <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Is féidir é seo a ghreamú san fhóram chun leabú</string>
+  <string name="startAtInitialPosition">Tosaigh ag an suíomh tosaigh</string>
   <string name="startAtX">Tosú ag %s</string>
+  <string name="embedInYourWebsite">Leabaithe i do shuíomh Gréasáin nó i do bhlag</string>
+  <string name="readMoreAboutEmbedding">Léigh tuilleadh faoi leabú</string>
+  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Ní féidir ach staidéir phoiblí a leabú!</string>
   <string name="open">Oscailte</string>
   <string name="xBroughtToYouByY">%1$s, a thugann %2$s chugat</string>
   <string name="studyNotFound">Níor aimsíodh staidéar</string>
@@ -80,6 +84,7 @@
   <string name="saveChapter">Sábháil caibidil</string>
   <string name="clearAnnotations">Glan anótála</string>
   <string name="deleteChapter">Scrios caibidil</string>
+  <string name="deleteThisChapter">Scrios an chaibidil seo? Níl aon dul ar ais!</string>
   <string name="noPinnedComment">Faic</string>
   <string name="normalAnalysis">Gnáth-anailís</string>
   <string name="hideNextMoves">Folaigh na bearta ina dhiaidh seo</string>
