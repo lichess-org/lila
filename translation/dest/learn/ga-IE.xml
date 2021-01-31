@@ -111,6 +111,10 @@ gan féidir leis é a cosaint!</string>
   <string name="intermediate">Meanleibhéal</string>
   <string name="boardSetup">Leag amach an clár</string>
   <string name="howTheGameStarts">Conas a tosaíonn an cluiche</string>
+  <string name="boardSetupIntro">Tá an dá arm in aghaidh a chéile, réidh don chath.</string>
+  <string name="thisIsTheInitialPosition">Seo an suíomh tosaigh
+de gach cluiche fichille!
+Déan aon beart le leanúint.</string>
   <string name="castling">Caisliú</string>
   <string name="theSpecialKingMove">Beart speisialta an rí</string>
   <string name="enPassant">En passant</string>
