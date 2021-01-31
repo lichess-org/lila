@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Gníomhaíocht</string>
+  <plurals name="playedNbMoves">
+    <item quantity="one">%1$s beart imeartha</item>
+    <item quantity="two">%1$s bheart imeartha</item>
+    <item quantity="few">%1$s beart imeartha</item>
+    <item quantity="many">%1$s beart imeartha</item>
+    <item quantity="other">%1$s beart imeartha</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">i %1$s cluiche comhfhreagrais</item>
+    <item quantity="two">i %1$s chluiche comhfhreagrais</item>
+    <item quantity="few">i %1$s cluiche comhfhreagrais</item>
+    <item quantity="many">i %1$s cluiche comhfhreagrais</item>
+    <item quantity="other">i %1$s cluiche comhfhreagrais</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">%s cluiche comhfhreagrais críochnaithe</item>
+    <item quantity="two">%s chluiche comhfhreagrais críochnaithe</item>
+    <item quantity="few">%s gcluiche comhfhreagrais críochnaithe</item>
+    <item quantity="many">%s cluiche comhfhreagrais críochnaithe</item>
+    <item quantity="other">%s cluiche comhfhreagrais críochnaithe</item>
+  </plurals>
 </resources>
