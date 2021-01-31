@@ -87,6 +87,13 @@
   <string name="recentGames">Cluichí dheireanacha</string>
   <string name="topGames">Cluichí is fearr</string>
   <string name="masterDbExplanation">Dhá mhilliúin cluichí thar an mbord %1$s imreoirí le rátáil FIDE ó %2$s go %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Marbhsháinn i %s leath-bheart</item>
+    <item quantity="two">Marbhsháinn i %s leath-bheart</item>
+    <item quantity="few">Marbhsháinn i %s leath-bheart</item>
+    <item quantity="many">Marbhsháinn i %s leath-bheart</item>
+    <item quantity="other">Marbhsháinn i %s leath-bheart</item>
+  </plurals>
   <string name="noGameFound">Ní bhfuarathas aon cluichí</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">D\'fheadfaí níos mó cluichí a chur san áireamh leis an sainroghchlár.</string>
   <string name="openingExplorer">Fiosraitheoir tionscnaimh</string>
