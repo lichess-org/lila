@@ -10,6 +10,7 @@
   <string name="allStudies">Gach staidéar</string>
   <string name="studiesCreatedByX">Staidéir a chruthaigh %s</string>
   <string name="noneYet">Níl aon cheann fós.</string>
+  <string name="hot">Te</string>
   <string name="mostPopular">Móréilimh</string>
   <string name="addNewChapter">Cuir caibidil nua leis</string>
   <plurals name="nbChapters">
@@ -41,10 +42,19 @@
   <string name="contributor">Rannpháirtí</string>
   <string name="kick">Ciceáil</string>
   <string name="leaveTheStudy">Fág an staidéar</string>
+  <string name="pgnTags">Clibeanna PGN</string>
+  <string name="like">Is maith liom</string>
+  <string name="newTag">Clib nua</string>
   <string name="playing">Ag imirt</string>
   <string name="first">Céad</string>
   <string name="previous">Roimhe</string>
   <string name="next">Ar aghaidh</string>
   <string name="last">Deiridh</string>
+  <string name="shareAndExport">Comhroinn &amp; easpórtáil</string>
+  <string name="cloneStudy">Déan cóip</string>
+  <string name="studyPgn">Déan staidéar ar PGN</string>
+  <string name="downloadAllGames">Íoslódáil gach cluiche</string>
+  <string name="chapterPgn">PGN caibidle</string>
+  <string name="downloadGame">Íoslódáil cluiche</string>
   <string name="open">Oscailte</string>
 </resources>
