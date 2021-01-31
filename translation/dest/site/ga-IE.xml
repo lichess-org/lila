@@ -291,6 +291,27 @@
     <item quantity="many">%s chluichí rátáilte</item>
     <item quantity="other">%s chluichí rátáilte</item>
   </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s bua</item>
+    <item quantity="two">%s bhua</item>
+    <item quantity="few">%s mbua</item>
+    <item quantity="many">%s bua</item>
+    <item quantity="other">%s bua</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s caill</item>
+    <item quantity="two">%s chaill</item>
+    <item quantity="few">%s gcaill</item>
+    <item quantity="many">%s caill</item>
+    <item quantity="other">%s caill</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s cothrom</item>
+    <item quantity="two">%s chothrom</item>
+    <item quantity="few">%s gcothrom</item>
+    <item quantity="many">%s cothrom</item>
+    <item quantity="other">%s comhscór</item>
+  </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s á imirt</item>
     <item quantity="two">%s á imirt</item>
@@ -321,6 +342,13 @@
   <string name="tournament">Comórtas</string>
   <string name="tournaments">Comórtais</string>
   <string name="tournamentPoints">Pointí ó chomórtais</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s pointe comórtais</item>
+    <item quantity="two">%s phointe comórtais</item>
+    <item quantity="few">%s bpointe comórtais</item>
+    <item quantity="many">%s pointe comórtais</item>
+    <item quantity="other">%s pointe comórtais</item>
+  </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s staidéar</item>
     <item quantity="two">%s staidéir</item>
