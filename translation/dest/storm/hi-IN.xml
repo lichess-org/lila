@@ -12,4 +12,6 @@
   <string name="score">स्कोर</string>
   <string name="moves">चाल</string>
   <string name="time">समय</string>
+  <string name="timePerMove">समय प्रति चाल</string>
+  <string name="runs">रन</string>
 </resources>
