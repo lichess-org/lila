@@ -2,4 +2,5 @@
 <resources>
   <string name="arenaTournaments">Comórtais Airéine</string>
   <string name="isItRated">An bhfuil sé rátaithe?</string>
+  <string name="isRated">Tá an comórtas seo rátáilte agus beidh tionchar ar do rátáil.</string>
 </resources>
