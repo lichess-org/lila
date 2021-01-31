@@ -35,7 +35,7 @@ lishogi.advantageChart = function (data, trans, el, notation) {
                 node.ply +
                 ". " +
                 notation({ san: node.san, uci: node.uci, fen: node.fen }),
-              y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
+              y: 2 / (1 + Math.exp(-0.0006 * cp)) - 1,
             };
             if (!partial && blurs[color].shift() === "1") {
               point.marker = {
