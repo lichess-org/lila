@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">Dúshláin</string>
+  <string name="challengeToPlay">Dúshlán cluiche</string>
+  <string name="challengeDeclined">Dúshlán diúltaithe</string>
+  <string name="challengeAccepted">Dúshlán glactha!</string>
+  <string name="challengeCanceled">Dúshlán ar ceal.</string>
+  <string name="registerToSendChallenges">Cláraigh le do thoil chun dúshláin a sheoladh.</string>
+  <string name="youCannotChallengeX">Níl cead dúshlán a cuir chuig %s.</string>
+  <string name="xDoesNotAcceptChallenges">Ní ghlacann %s le dúshláin.</string>
+  <string name="yourXRatingIsTooFarFromY">Tá do rátáil %1$s rófhada ó %2$s.</string>
+</resources>
