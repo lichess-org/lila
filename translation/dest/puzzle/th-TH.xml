@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">ปริศนา</string>
+  <string name="recommended">แนะนำ</string>
+  <string name="didYouLikeThisPuzzle">คุณชอบปริศนานี้ไหม?</string>
+  <string name="findTheBestMoveForWhite">หาการเดินที่ดีที่สุดสำหรับฝ่ายขาว</string>
+  <string name="findTheBestMoveForBlack">หาการเดินที่ดีที่สุดสำหรับฝ่ายดำ</string>
+  <string name="puzzleOfTheDay">ปริศนาประจำวัน</string>
+</resources>
