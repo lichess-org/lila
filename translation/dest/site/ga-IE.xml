@@ -143,7 +143,7 @@
   <string name="timeControl">Smacht ama</string>
   <string name="realTime">Fíor-am</string>
   <string name="correspondence">Comhfhreagras</string>
-  <string name="daysPerTurn">Laethanta san beart</string>
+  <string name="daysPerTurn">Laethanta do gach beart</string>
   <string name="oneDay">Lá amháin</string>
   <plurals name="nbDays">
     <item quantity="one">%s lá</item>
@@ -151,6 +151,13 @@
     <item quantity="few">%s lá</item>
     <item quantity="many">%s lá</item>
     <item quantity="other">%s lá</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s uair</item>
+    <item quantity="two">%s uair</item>
+    <item quantity="few">%s uair</item>
+    <item quantity="many">%s uair</item>
+    <item quantity="other">%s uair</item>
   </plurals>
   <string name="time">Am</string>
   <string name="rating">Rátáil</string>
@@ -625,10 +632,10 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
     <item quantity="many">%1$s %2$s imreoirí an tseachtain seo.</item>
     <item quantity="other">%1$s %2$s imreoirí an tseachtain seo.</item>
   </plurals>
-  <string name="yourPerfTypeRatingIsRating">Is é do rátá %1$s %2$s.</string>
+  <string name="yourPerfTypeRatingIsRating">Is é do rátáil %1$s %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Tá tú níos fearr ná %1$s as %2$s imreoirí.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">Tá %1$s níos fearr ná %2$s as %3$s imreoirí.</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Níl rátá %s bunaithe agat.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Níl rátáil %s bunaithe agat.</string>
   <string name="yourRating">Do rátáil</string>
   <string name="cumulative">Carnach</string>
   <string name="glicko2Rating">Rátáil Glicko-2</string>
@@ -749,4 +756,5 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="teamNamedX">Foireann %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Níl cead postáil sna fóraim go fóill. Imir roinnt cluichí!</string>
   <string name="subscribe">Liostáil</string>
+  <string name="unsubscribe">Díliostáil</string>
 </resources>
