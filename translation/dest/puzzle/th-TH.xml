@@ -4,7 +4,7 @@
   <string name="recommended">แนะนำ</string>
   <string name="phases">ช่วงของเกม</string>
   <string name="didYouLikeThisPuzzle">คุณชอบปริศนานี้ไหม?</string>
-  <string name="findTheBestMoveForWhite">หาการเดินที่ดีที่สุดสำหรับฝ่ายขาว</string>
+  <string name="findTheBestMoveForWhite">Find the best move for white.</string>
   <string name="findTheBestMoveForBlack">หาการเดินที่ดีที่สุดสำหรับฝ่ายดำ</string>
   <string name="puzzleOfTheDay">ปริศนาประจำวัน</string>
   <string name="goodMove">เดินได้ดี</string>
