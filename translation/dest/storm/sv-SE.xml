@@ -22,5 +22,5 @@
   <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Högsta lösta</string>
   <string name="puzzlesPlayed">Spelade schackproblem</string>
   <string name="newRun">Nytt försök (snabbkommando: mellanslag)</string>
-  <string name="endRun">Avsluta försök (snabbkommando: Enter)</string>
+  <string name="endRun">Avsluta försök (snabbkommando: retur)</string>
 </resources>
