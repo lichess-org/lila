@@ -736,7 +736,17 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="rapidDesc">Cluichí mear: 8 go 25 nóiméad</string>
   <string name="classicalDesc">Cluichí clasaiceacha: 25 nóiméad agus níos mó</string>
   <string name="correspondenceDesc">Cluichí comhfhreagrais: lá amháin nó níos mó do gach beart</string>
+  <string name="puzzleDesc">Traenálaí beartaíocht fichille</string>
   <string name="important">Tábhachtach</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Seans go bhfuil freagra ar do cheist cheana féin %1$s</string>
   <string name="inTheFAQ">sna CCana</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Chun úsáideoir a thuairisciú maidir le caimiléireacht nó drochiompar, %1$s</string>
+  <string name="useTheReportForm">úsáid as an bhfoirm tuarascála</string>
+  <string name="toRequestSupport">Chun iarr ar tacaíocht, %1$s</string>
+  <string name="tryTheContactPage">triail an leathanach teagmhála</string>
+  <string name="thisTopicIsArchived">Cuireadh an t-ábhar seo i gcartlann agus ní féidir freagra a thabhairt air a thuilleadh.</string>
+  <string name="joinTheTeamXToPost">Comhcheangail an %1$s, le postáil san fhóram seo</string>
   <string name="teamNamedX">Foireann %1$s</string>
+  <string name="youCannotPostYetPlaySomeGames">Níl cead postáil sna fóraim go fóill. Imir roinnt cluichí!</string>
+  <string name="subscribe">Liostáil</string>
 </resources>
