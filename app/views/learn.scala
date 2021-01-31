@@ -190,6 +190,8 @@ LishogiLearn(document.getElementById('learn-app'), ${safeJsonValue(
       youKnowHowToPlayChess,
       register,
       getAFreeLishogiAccount,
+      shogiResources,
+      curatedShogiResources,
       practice,
       learnCommonChessPositions,
       puzzles,
