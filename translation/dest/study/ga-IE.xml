@@ -93,4 +93,14 @@
   <string name="editStudy">Cuir staidéar in eagar</string>
   <string name="visibility">Infheictheacht</string>
   <string name="public">Poiblí</string>
+  <string name="unlisted">Neamhliostaithe</string>
+  <string name="inviteOnly">Tabhair cuireadh amháin</string>
+  <string name="nobody">Níl einne</string>
+  <string name="onlyMe">Mise amháin</string>
+  <string name="contributors">Rannpháirtithe</string>
+  <string name="members">Baill</string>
+  <string name="everyone">Gach duine</string>
+  <string name="start">Tosú</string>
+  <string name="save">Sábháil</string>
+  <string name="clearChat">Glan comhrá</string>
 </resources>
