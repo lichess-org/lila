@@ -373,6 +373,20 @@
     <item quantity="many">≥ %1$s cluichí rátáilte %2$s</item>
     <item quantity="other">≥ %1$s cluichí rátáilte %2$s</item>
   </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Caithfidh tú %1$s cluiche rátáilte \"%2$s\" eile a imirt</item>
+    <item quantity="two">Caithfidh tú %1$s chluiche rátáilte \"%2$s\" eile a imirt</item>
+    <item quantity="few">Caithfidh tú %1$s gcluiche rátáilte \"%2$s\" eile a imirt</item>
+    <item quantity="many">Caithfidh tú %1$s gcluiche rátáilte \"%2$s\" eile a imirt</item>
+    <item quantity="other">Caithfidh tú %1$s cluiche rátáilte %2$s níos mó a imirt</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Caithfidh tú %s cluiche rátáilte eile a imirt</item>
+    <item quantity="two">Caithfidh tú %s chluiche rátáilte eile a imirt</item>
+    <item quantity="few">Caithfidh tú %s gcluiche rátáilte eile a imirt</item>
+    <item quantity="many">Caithfidh tú %s cluiche rátáilte eile a imirt</item>
+    <item quantity="other">Caithfidh tú %s cluiche rátáilte eile a imirt</item>
+  </plurals>
   <string name="yourPerfRatingIsProvisional">Tá rátáil %s sealadach agat</string>
   <string name="yourPerfRatingIsTooHigh">Tá do rátáil %1$s (%2$s) ró-ard</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Tá an rátáil seachtainiúil %1$s is fearr agat (%2$s) ró-ard</string>
@@ -401,6 +415,13 @@
   <string name="importGame">Déan cluiche a iompórtáil</string>
   <string name="importGameExplanation">Greamaigh cluiche PGN chun athsheinm brabhsáilte a fháil,
 anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s cluiche iompórtáilte</item>
+    <item quantity="two">%s chluiche iompórtáilte</item>
+    <item quantity="few">%s gcluiche iompórtáilte</item>
+    <item quantity="many">%s cluiche iompórtáilte</item>
+    <item quantity="other">%s cluiche iompórtáilte</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Seo CAPCHTA fichille.</string>
   <string name="clickOnTheBoardToMakeYourMove">Cliceáil ar an mbord le bogadh a dhéanamh, agus cruthaigh gur duine thú.</string>
   <string name="captcha.fail">Réitigh an captcha fichille, le do thoil.</string>
@@ -521,6 +542,13 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="activePlayers">Imreoirí gníomhach</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Aire duit, tá an cluiche seo rátáilte ach níl clog ann!</string>
   <string name="success">D\'éirigh leat</string>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s cluiche san imirt</item>
+    <item quantity="two">%s chluiche san imirt</item>
+    <item quantity="few">%s gcluiche san imirt</item>
+    <item quantity="many">%s cluiche san imirt</item>
+    <item quantity="other">%s cluiche san imirt</item>
+  </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Téigh ar aghaidh chuig an chéad cluiche eile go huathoibríoch i ndiaidh bogadh</string>
   <string name="autoSwitch">Athrú uathoibríoch</string>
   <string name="puzzles">Fadbhbanna</string>
@@ -765,6 +793,13 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="onlineAndOfflinePlay">Imir ar líne agus as líne</string>
   <string name="viewTheSolution">Féach ar an réiteach</string>
   <string name="followAndChallengeFriends">Lean agus tabhair dúshlán faoi chairde</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">Ar fáil i %s teanga!</item>
+    <item quantity="two">Ar fáil i %s theanga!</item>
+    <item quantity="few">Ar fáil i %s dteanga!</item>
+    <item quantity="many">Ar fáil i %s teanga!</item>
+    <item quantity="other">Ar fáil i %s teanga!</item>
+  </plurals>
   <string name="gameAnalysis">Anailís cluiche</string>
   <string name="xHostsY">óstálann %1$s %2$s</string>
   <string name="xJoinsY">tagann %1$s %2$s</string>
@@ -804,6 +839,13 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="custom">Saincheaptha</string>
   <string name="notifications">Fógraí</string>
   <string name="perfRatingX">Rátáil: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s soicind chun an chéad bheart a imirt</item>
+    <item quantity="two">%s soicind chun an chéad bheart a imirt</item>
+    <item quantity="few">%s soicind chun an chéad bheart a imirt</item>
+    <item quantity="many">%s soicind chun an chéad bheart a imirt</item>
+    <item quantity="other">%s soicind chun an chéad bheart a imirt</item>
+  </plurals>
   <string name="practiceWithComputer">Cleachtaigh leis an ríomhaire</string>
   <string name="anotherWasX">Ceann eile ab ea %s</string>
   <string name="bestWasX">Is fearr %s</string>
@@ -838,6 +880,13 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="reviewWhiteMistakes">Athbhreithniú botúin bhána</string>
   <string name="reviewBlackMistakes">Athbhreithniú botúin dhubh</string>
   <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Buntáiste</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s soicind</item>
+    <item quantity="two">%s soicind</item>
+    <item quantity="few">%s soicind</item>
+    <item quantity="many">%s soicind</item>
+    <item quantity="other">%s soicind</item>
+  </plurals>
   <string name="opening">Oscailt</string>
   <string name="middlegame">Lár an chluiche</string>
   <string name="endgame">Cor deiridh</string>
