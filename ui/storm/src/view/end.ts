@@ -25,6 +25,7 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
   const high = ctrl.vm.run.response?.newHigh;
   const accuracy = 100 * (run.moves - run.errors) / run.moves;
   const noarg = ctrl.trans.noarg;
+  const scoreSteps = Math.min(run.score, 50);
   return [
     ...(high ? [
       h('div.storm--end__high.storm--end__high-daily.bar-glider',
@@ -37,7 +38,7 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
       )] : []),
     h('div.storm--end__score', [
       h('span.storm--end__score__number', {
-        hook: onInsert(el => numberSpread(el, run.score, Math.round(run.score * 50), 0)(run.score))
+        hook: onInsert(el => numberSpread(el, scoreSteps, Math.round(scoreSteps * 50), 0)(run.score))
       }, '0'),
       h('p', noarg('puzzlesSolved'))
     ]),
