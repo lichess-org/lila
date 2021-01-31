@@ -115,8 +115,22 @@ gan féidir leis é a cosaint!</string>
   <string name="thisIsTheInitialPosition">Seo an suíomh tosaigh
 de gach cluiche fichille!
 Déan aon beart le leanúint.</string>
+  <string name="firstPlaceTheRooks">I dtús leag amach na caisil!
+Téann siad sna cúinní.</string>
+  <string name="thenPlaceTheKnights">Ansin leag amach na ridirí!
+Téann siad in aice leis na caisil.</string>
+  <string name="placeTheBishops">Leag amach na heaspaig!
+Téann siad in aice leis na ridirí.</string>
+  <string name="placeTheQueen">Leag amach an bhanríon!
+Téann sí ar a dath féin.</string>
+  <string name="placeTheKing">Leag amach an rí!
+Díreach in aice lena bhanríon.</string>
+  <string name="pawnsFormTheFrontLine">Ceithearnigh ar líne tosaigh.
+Déan aon bheart le leanúint.</string>
+  <string name="boardSetupComplete">Comhghairdeas! Tá a fhios agat anois leagan amach clár fichille.</string>
   <string name="castling">Caisliú</string>
   <string name="theSpecialKingMove">Beart speisialta an rí</string>
+  <string name="castlingIntro">Cuir do rí chuig sábháilteachta, agus scaoil do caiseal le haghaidh ionsaí!</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Beart speisialta an ceithearnach</string>
   <string name="enPassantComplete">Comhghairdeas! Is féidir marú \"en passant\" anois.</string>
