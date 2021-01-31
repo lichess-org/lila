@@ -9,6 +9,7 @@
   <string name="yourTurn">Вашият ход</string>
   <string name="aiNameLevelAiLevel">%1$s ниво %2$s</string>
   <string name="level">Ниво</string>
+  <string name="strength">Сила</string>
   <string name="toggleTheChat">Превключи чата</string>
   <string name="toggleSound">Превключи звука</string>
   <string name="chat">Чат</string>
@@ -33,6 +34,10 @@
   <string name="joinTheGame">Влез в играта</string>
   <string name="whitePlays">Белите на ход</string>
   <string name="blackPlays">Черните на ход</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Опонентът напусна играта. Можете да заявите победа след %s секунди.</item>
+    <item quantity="other">Опонентът напусна играта. Можете да заявите победа след %s секунди.</item>
+  </plurals>
   <string name="opponentLeftChoices">Другият играч може да е напуснал играта. Можете да претендирате победа, претендирате реми, или ижчакате.</string>
   <string name="makeYourOpponentResign">Принуди противника си да се предаде</string>
   <string name="forceResignation">Претендирай победа</string>
@@ -349,6 +354,10 @@
   <string name="blackCheckmatesInOneMove">Черните на ход, мат в един ход</string>
   <string name="retry">Опитай отново</string>
   <string name="reconnecting">Свързване</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s приятел онлайн</item>
+    <item quantity="other">%s приятели онлайн</item>
+  </plurals>
   <string name="noFriendsOnline">Няма свързани приятели</string>
   <string name="findFriends">Намери приятели</string>
   <string name="favoriteOpponents">Предпочитани съперници</string>
@@ -493,9 +502,12 @@
   <string name="currentPassword">Текуща парола</string>
   <string name="newPassword">Нова парола</string>
   <string name="newPasswordAgain">Нова парола (повтори)</string>
+  <string name="newPasswordsDontMatch">Въведените пароли не съвпадат</string>
+  <string name="newPasswordStrength">Сигурност на паролата</string>
   <string name="clockInitialTime">Начално време на часовника</string>
   <string name="clockIncrement">Добавено време на часовника</string>
   <string name="privacy">Поверителност</string>
+  <string name="privacyPolicy">Политика за поверителност</string>
   <string name="letOtherPlayersFollowYou">Позволи на другите играчи да ви следват</string>
   <string name="letOtherPlayersChallengeYou">Позволи на други играчи да ви предизвикват</string>
   <string name="letOtherPlayersInviteYouToStudy">Позволяване на играчи да ви поканят в проучване</string>
@@ -641,6 +653,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ако не намирате писмото, проверете и на другите места, в които може бъде, като например кошче, спам, социални или други папки.</string>
   <string name="weHaveSentYouAnEmailTo">Изпратихме писмо на %s. Натиснете върху връзката в писмото, за да преустановите паролата на вашата регистрация.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Със записването си, се съгласявате да спазвате нашите %s.</string>
+  <string name="readAboutOur">Прочетете за нашата %s.</string>
   <string name="networkLagBetweenYouAndLichess">Мрежово забавяне между вас и lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Времето, което отнема на lichess сървъра, за да обработи един ход</string>
   <string name="downloadAnnotated">Свали анотирана</string>
@@ -757,7 +770,7 @@
   <string name="doItAgain">Направете го пак</string>
   <string name="reviewWhiteMistakes">Преглед на грешки при белите</string>
   <string name="reviewBlackMistakes">Преглед на грешки при черните</string>
-  <string name="advantage">Предимство</string>
+  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Предимство</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s секунда</item>
     <item quantity="other">%s секунди</item>

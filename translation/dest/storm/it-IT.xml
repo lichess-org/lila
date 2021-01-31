@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart">Muovi un pezzo per iniziare</string>
+  <string name="moveToStart">Fai una mossa per iniziare</string>
   <string name="puzzlesSolved">puzzle risolti</string>
-  <string name="newDailyHighscore">Nuovo punteggio giornaliero!</string>
-  <string name="newWeeklyHighscore">Nuovo punteggio settimanale!</string>
-  <string name="newMonthlyHighscore">Nuovo miglior punteggio del mese!</string>
-  <string name="newAllTimeHighscore">Nuovo punteggio massimo di tutti i tempi!</string>
-  <string name="previousHighscoreWasX">Il punteggio massimo precedente era %s</string>
+  <string name="newDailyHighscore">Nuovo record di oggi!</string>
+  <string name="newWeeklyHighscore">Nuovo record della settimana!</string>
+  <string name="newMonthlyHighscore">Nuovo record del mese!</string>
+  <string name="newAllTimeHighscore">Nuovo record di sempre!</string>
+  <string name="previousHighscoreWasX">Il record precedente era %s</string>
   <string name="playAgain">Gioca di nuovo</string>
   <plurals name="xRuns">
     <item quantity="one">1 tentativo</item>
@@ -14,20 +14,20 @@
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
     <item quantity="one">Hai fatto un tentativo di %2$s</item>
-    <item quantity="other">Hai fatto %1$s tentativi da%2$s</item>
+    <item quantity="other">Hai fatto %1$s tentativi di%2$s</item>
   </plurals>
-  <string name="highscoreX">Punteggio più alto:%s</string>
+  <string name="highscoreX">Record: %s</string>
   <string name="score">Punteggio</string>
   <string name="moves">Mosse</string>
   <string name="accuracy">Precisione</string>
-  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Combinazione</string>
+  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Combo</string>
   <string name="time">Tempo</string>
   <string name="timePerMove">Tempo per mossa</string>
   <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Più difficile risolto</string>
   <string name="puzzlesPlayed">Puzzle giocati</string>
   <string name="newRun">Nuovo tentativo (scorciatoia da tastiera: Spazio)</string>
-  <string name="endRun">Termina tentativo (scorciatoria da tastiera: Invio)</string>
-  <string name="highscores">Punteggio più alto</string>
+  <string name="endRun">Termina tentativo (scorciatoia da tastiera: Invio)</string>
+  <string name="highscores">Record</string>
   <string name="viewBestRuns">Visualizza i migliori tentativi</string>
   <string name="bestRunOfDay">Migliore tentativo del giorno</string>
   <string name="runs">Tentativo</string>

@@ -3,5 +3,8 @@
   <string name="faqAbbreviation">CCanna</string>
   <string name="frequentlyAskedQuestions">Ceisteanna Coitianta</string>
   <string name="officialRulesPDF">rialacha oifigiúla (PDF)</string>
+  <string name="threefoldRepetitionExplanation">Má tharlaíonn an suíomh céanna trí huaire, is féidir le himreoirí cluiche cothrom a éileamh faoi %1$s. Úsáideann Lichess rialacha oifigiúla FIDE, mar atá curtha síos in Airteagal 9.2 (d) de %2$s.</string>
+  <string name="threeFoldHasToBeClaimed">Caithfear athshuíomh a éileamh ag ceann de na himreoirí. Is féidir leat é sin a dhéanamh trí brú an cnaipe a thaispeántar, nó trí cluiche cothrom a offráil roimh do bheart deiridh. is cuma má dhiúltaíonn do chéile comhraic an cluiche cothrom, éileofar an athhshuíomh ar aon nós. Féadfaidh tú %1$s Lichess an athshuíomh a maígh ar do shon go huathoibríoch. Mar rud breis, má dtarlíonn athshuíomh cúig huaire críochnaíonn an cluiche láithreach.</string>
+  <string name="configure">cumraigh</string>
   <string name="aHourlyBulletTournament">comórtas Bullet gach uair an chloig</string>
 </resources>

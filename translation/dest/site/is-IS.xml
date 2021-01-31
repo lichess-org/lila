@@ -276,7 +276,7 @@
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Þessi skákmaður hækkar/lækkar stig sín með vafasömum hætti</string>
   <string name="openingExplorerAndTablebase">Opnunarvafri og endataflsútreikningar</string>
   <string name="takeback">Afturköllun</string>
-  <string name="proposeATakeback">Byðja um afturköllun</string>
+  <string name="proposeATakeback">Biðja um afturköllun</string>
   <string name="takebackPropositionSent">Boð um afturköllun sent</string>
   <string name="takebackPropositionDeclined">Boði um afturköllun hafnað</string>
   <string name="takebackPropositionAccepted">Boð um afturköllun samþykkt</string>
@@ -738,7 +738,7 @@
   <string name="doItAgain">Gera aftur</string>
   <string name="reviewWhiteMistakes">Skoða mistök hvítrar</string>
   <string name="reviewBlackMistakes">Skoða mistök svartrar</string>
-  <string name="advantage">Yfirhönd</string>
+  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Yfirhönd</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekúnda</item>
     <item quantity="other">%s sekúndur</item>

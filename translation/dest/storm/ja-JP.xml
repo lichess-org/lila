@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">一手指すとスタート</string>
-  <string name="puzzlesSolved">解いた問題</string>
+  <string name="puzzlesSolved">正解数</string>
   <string name="newDailyHighscore">今日のハイスコア更新！</string>
   <string name="newWeeklyHighscore">今週のハイスコア更新！</string>
   <string name="newMonthlyHighscore">今月のハイスコア更新！</string>

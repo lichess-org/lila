@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">هەژماری lichess.org بسەلمێنە %s</string>
-  <string name="emailConfirm_click">بۆ کارا کردنی حیسابی \"لیچێس\"ەکەت بەستەرەکە داگرە:</string>
+  <string name="emailConfirm_click">بۆ کارا کردنی هەژماری \"لیچێس\"ـەکەت بەستەرەکە داگرە:</string>
   <string name="emailConfirm_ignore">ئەگەر خۆت تۆمار نەکردووە لە Lichess ئەوا دەتوانی ئەم نامەیە بشتگوێ بخەیت.</string>
   <string name="passwordReset_subject">ووشەی نهێنی هەژماری lichess.org رێک بخەوە %s</string>
   <string name="passwordReset_intro">داواکارییەکمان پێگەیش بۆ ئەوەی ووشەی تێپەڕی هەژمارەکەت رێکبخەین.</string>
@@ -13,6 +13,7 @@
   <string name="welcome_text">هەژمارەکەت بەسەرکەوتووی دروستکرا لە https://lichess.org.
 ئەمە لاپەرەی هەژمارەکەتە:%1$s. لێرە دەتوانی بەخواستی خۆت ڕێکی بخەی %2$s.
 کاتێکی خۆش, وە هیوادارین داشەکانت هەمووکاتێک ڕێگایک ببیننەوە بۆ سەر پادشای دوژمن!</string>
+  <string name="logInToLichess">%sچوونە ناو هەژماری Lichess.org</string>
   <string name="common_orPaste">(کلیککردن سودی نییە ؟ هەوڵبدە کۆپی پێستی بکەی لە براوسەرەکەت)</string>
   <string name="common_note">ئەمە خزمەتگوزاری ئیمێڵییە, پەیوەستە بە بەکارهێنانت بۆ %s.</string>
   <string name="common_contact">بۆ پەیوەندی کردن, تکایە ئەم لینکە بەکاربهێنە %s.</string>

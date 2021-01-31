@@ -16,7 +16,7 @@
     <item quantity="one">Eén sessie %2$s gespeeld</item>
     <item quantity="other">%1$s sessies %2$s gespeeld</item>
   </plurals>
-  <string name="highscoreX">Record: %s</string>
+  <string name="highscoreX">Topscore: %s</string>
   <string name="score">Score</string>
   <string name="moves">Zetten</string>
   <string name="accuracy">Nauwkeurigheid</string>
