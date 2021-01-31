@@ -164,8 +164,8 @@ caisliú ar taobh na mbanríon!</string>
   <string name="checkInTwo">Sáinn i dhá beart</string>
   <string name="twoMovesToGiveCheck">Dhá beart chun sáinn</string>
   <string name="checkInTwoComplete">Comhghairdeas! Sháinn tú do chéile comhraic, agus is gá dó a rí a cosaint!</string>
-  <string name="whatNext">Cad é an chéad chéim eile?</string>
-  <string name="youKnowHowToPlayChess">Tá fhios agat conas ficheall a imirt, comhghairdeas! Ba mhaith leat imreoir níos láidre a bheith?</string>
+  <string name="whatNext">Cad eile?</string>
+  <string name="youKnowHowToPlayChess">Tá fhios agat conas ficheall a imirt, comhghairdeas! Ar mhaith leat bheith níos láidre mar imreoir?</string>
   <string name="register">Cláraigh</string>
   <string name="getAFreeLichessAccount">Faigh cuntas saor Lichess</string>
   <string name="practice">Cleachtaigh</string>
