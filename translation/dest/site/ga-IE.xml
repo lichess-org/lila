@@ -94,6 +94,13 @@
     <item quantity="many">Marbhsháinn i %s leath-bheart</item>
     <item quantity="other">Marbhsháinn i %s leath-bheart</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">An chéad marú nó beart ceithearnach eile i %s leath-bheart (ag dul i dtreo náid as 50 beart)</item>
+    <item quantity="two">An chéad marú nó beart ceithearnaigh eile i %s leath-bheart (ag dul i dtreo náid as 50 beart)</item>
+    <item quantity="few">An chéad marú nó beart ceithearnaigh eile i %s leath-bheart (ag dul i dtreo náid as 50 beart)</item>
+    <item quantity="many">An chéad marú nó beart ceithearnaigh eile i %s leath-bheart (ag dul i dtreo náid as 50 beart)</item>
+    <item quantity="other">An chéad marú nó beart ceithearnaigh eile i %s leath-bheart (ag dul i dtreo náid as 50 beart)</item>
+  </plurals>
   <string name="noGameFound">Níor aimsíodh cluiche</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">D\'fheadfaí níos mó cluichí a chur san áireamh ón roghchlár?</string>
   <string name="openingExplorer">Taighde Oscailt</string>
@@ -128,7 +135,28 @@
   <string name="claimADraw">Máigh cluiche cothrom</string>
   <string name="offerDraw">Tairg Comhscór</string>
   <string name="draw">Comhscór</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s imreoir</item>
+    <item quantity="two">%s imreoir</item>
+    <item quantity="few">%s imreoir</item>
+    <item quantity="many">%s imreoir</item>
+    <item quantity="other">%s imreoir</item>
+  </plurals>
   <string name="currentGames">Cluichí ar siúl</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s cluiche</item>
+    <item quantity="two">%s chluiche</item>
+    <item quantity="few">%s gcluiche</item>
+    <item quantity="many">%s cluiche</item>
+    <item quantity="other">%s cluiche</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s leabharmharc</item>
+    <item quantity="two">%s leabharmharc</item>
+    <item quantity="few">%s leabharmharc</item>
+    <item quantity="many">%s leabharmharc</item>
+    <item quantity="other">%s leabharmharc</item>
+  </plurals>
   <string name="viewInFullSize">Amharc lánmhéide</string>
   <string name="logOut">Logáil amach</string>
   <string name="signIn">Logáil isteach</string>
@@ -190,6 +218,13 @@
     <item quantity="other">Nuashonraítear céimíocht gach %s nóimead</item>
   </plurals>
   <string name="gamesPlayed">Cluichí imeartha</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s cluiche leat</item>
+    <item quantity="two">%s chluiche leat</item>
+    <item quantity="few">%s gcluiche leat</item>
+    <item quantity="many">%s cluiche leat</item>
+    <item quantity="other">%s cluiche leat</item>
+  </plurals>
   <string name="cancel">Cealaigh</string>
   <string name="whiteTimeOut">Am an Bháin istigh</string>
   <string name="blackTimeOut">Am an Duibh istigh</string>
