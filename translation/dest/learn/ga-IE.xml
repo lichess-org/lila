@@ -147,6 +147,11 @@ nó má tá an caiseal bogtha cheanna.</string>
   <string name="youCannotCastleIfAttacked">Níol cheart caisliú má
 tá an rí ag dul trasna cearnóg atá faoi ionsaí namhaid.
 Cuir bac ar an sáinn ansin caisliú!</string>
+  <string name="findAWayToCastleKingSide">Faigh bealach chun
+caisliú ar taobh an rí!</string>
+  <string name="findAWayToCastleQueenSide">Faigh bealach chun
+caisliú ar taobh na mbanríon!</string>
+  <string name="castlingComplete">Comhghairdeas! Ba chóir duit caisliú i gcluiche beagnach i gcónaí.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Beart speisialta an ceithearnach</string>
   <string name="enPassantComplete">Comhghairdeas! Is féidir marú \"en passant\" anois.</string>
