@@ -163,7 +163,14 @@ export default function(opts: CevalOpts): CevalCtrl {
     const step = steps[steps.length - 1];
 
     const existing = threatMode ? step.threat : step.ceval;
-    if (existing && existing.depth >= maxD) return;
+    if (existing && existing.depth >= maxD) {
+      lastStarted = {
+        path,
+        steps,
+        threatMode
+      };
+      return;
+    }
 
     const work: Work = {
       initialFen: steps[0].fen,
