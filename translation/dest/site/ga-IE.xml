@@ -94,8 +94,8 @@
     <item quantity="many">Marbhsháinn i %s leath-bheart</item>
     <item quantity="other">Marbhsháinn i %s leath-bheart</item>
   </plurals>
-  <string name="noGameFound">Ní bhfuarathas aon cluichí</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">D\'fheadfaí níos mó cluichí a chur san áireamh leis an sainroghchlár.</string>
+  <string name="noGameFound">Níor aimsíodh cluiche</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">D\'fheadfaí níos mó cluichí a chur san áireamh ón roghchlár?</string>
   <string name="openingExplorer">Fiosraitheoir tionscnaimh</string>
   <string name="xOpeningExplorer">%s fiosraitheoir tionscnaimh</string>
   <string name="winPreventedBy50MoveRule">Bac ar bhua toisc riail an 50 bhogadh</string>
