@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="realName">Fíorainm</string>
   <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
     <item quantity="one">Cuireadh amháin ar feitheamh</item>
     <item quantity="two">%s chuireadh ar feitheamh</item>
