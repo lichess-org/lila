@@ -21,6 +21,7 @@ Chomh luath agus a chríochnaíonn tú cluiche, fill ar ais chuig forhalla an ch
 Imir go tapa agus filleadh chuig an forhalla chun níos mó cluichí a imirt agus níos mó pointí a bhuachan.</string>
   <string name="howDoesItEnd">Conas a chríochnaíonn sé?</string>
   <string name="otherRules">Rialacha tábhachtacha eile</string>
+  <string name="thereIsACountdown">Tá comhaireamh síos ann do do chéad bheart. Mura ndéantar beart laistigh den tréimhse seo, cailllfear an cluiche do do chéile comhraic.</string>
   <string name="thisIsPrivate">Is comórtas príobháideach é seo</string>
   <string name="shareUrl">Comhroinn an URL seo chun ligean do imreoirí a bheith páirteach: %s</string>
   <string name="history">Stair sa Láthair</string>
