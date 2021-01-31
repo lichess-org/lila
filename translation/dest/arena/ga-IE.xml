@@ -15,9 +15,11 @@ Is é sin, 4 phointe don bua, cluiche cothrom 2 phointe, agus fós ní bhfaighfe
 Mar shampla, dhá bhua agus ansin cluiche caillte ina dhiaidh, sin 6 bpointe: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Láthair le Báiní</string>
   <string name="howIsTheWinnerDecided">Conas a chinntear an buaiteoir?</string>
+  <string name="howDoesPairingWork">Conas a oibríonn an phéireáil?</string>
   <string name="howDoesPairingWorkAnswer">Ag tús an chomórtais, cuirtear imreoirí le chéile bunaithe ar a rátáil.
 Chomh luath agus a chríochnaíonn tú cluiche, fill ar ais chuig forhalla an chomórtais: ansin beidh tú curtha le himreoir gar do do rátáil. Cinntíonn sé seo an t-íosmhéid ama feithimh, ach b’fhéidir nach dtabharfaidh tú imir le gach imreoir eile sa chomórtas.
 Imir go tapa agus filleadh chuig an forhalla chun níos mó cluichí a imirt agus níos mó pointí a bhuachan.</string>
   <string name="howDoesItEnd">Conas a chríochnaíonn sé?</string>
   <string name="otherRules">Rialacha tábhachtacha eile</string>
+  <string name="thisIsPrivate">Is comórtas príobháideach é seo</string>
 </resources>
