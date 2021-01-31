@@ -185,11 +185,11 @@ Bishop = 3
 Knight = 3
 Pawn = 1
 The king is priceless! Losing it means losing the game.</string>
-  <string name="queenOverBishop">Take the piece
-with the highest value!
-Queen > Bishop</string>
-  <string name="takeThePieceWithTheHighestValue">Take the piece
-with the highest value!</string>
+  <string name="queenOverBishop">Take the piece that makes
+the most sense in this situation.
+A queen is more valuable than a bishop.</string>
+  <string name="takeThePieceWithTheHighestValue">Take the piece that makes
+the most sense in this situation.</string>
   <string name="pieceValueComplete">Congratulations! You know the value of material!
 Queen = 9
 Rook = 5
