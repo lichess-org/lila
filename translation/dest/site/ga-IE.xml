@@ -687,7 +687,12 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="correspondenceChess">Comhfhreagrais fichille</string>
   <string name="onlineAndOfflinePlay">Imir ar líne agus as líne</string>
   <string name="viewTheSolution">Féach ar an réiteach</string>
+  <string name="followAndChallengeFriends">Lean agus tabhair dúshlán faoi chairde</string>
   <string name="gameAnalysis">Anailís cluiche</string>
+  <string name="xHostsY">óstálann %1$s %2$s</string>
+  <string name="xJoinsY">tagann %1$s %2$s</string>
+  <string name="xLikesY">Is maith le %1$s %2$s</string>
+  <string name="xCreatesStudyY">cruthaíonn %1$s staidéar %2$s</string>
   <string name="quickPairing">Péireáil tapaidh</string>
   <string name="lobby">Forsheomra</string>
   <string name="anonymous">Gan ainm</string>
@@ -697,6 +702,8 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="light">Geal</string>
   <string name="dark">Dorcha</string>
   <string name="transparent">Trédhearcach</string>
+  <string name="backgroundImageUrl">URL íomhá cúlra:</string>
+  <string name="boardGeometry">Céimseata an chlár</string>
   <string name="pieceSet">Foireann fichille</string>
   <string name="chessBasics">Bunrudaí fichille</string>
   <string name="coaches">Bainisteoirí</string>
