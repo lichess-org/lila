@@ -99,7 +99,7 @@ final class Puzzle(
   def ofPlayer(name: Option[String], page: Int) =
     Open { implicit ctx =>
       val fixed = name.map(_.trim).filter(_.nonEmpty)
-      fixed.??(env.user.repo.named) orElse fuccess(ctx.me) flatMap { user =>
+      fixed.??(env.user.repo.enabledNamed) orElse fuccess(ctx.me) flatMap { user =>
         user.?? { env.puzzle.api.puzzle.of(_, page) dmap some } map { puzzles =>
           Ok(views.html.puzzle.ofPlayer(~fixed, user, puzzles))
         }
