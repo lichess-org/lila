@@ -766,12 +766,22 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="endgame">Cor deiridh</string>
   <string name="conditionalPremoves">Réamhbheart coinníollach</string>
   <string name="addCurrentVariation">Cuir athrúchán reatha leis</string>
+  <string name="playVariationToCreateConditionalPremoves">Imir athrúchán chun réamhbheart coinníollach a chruthú</string>
+  <string name="noConditionalPremoves">Gan aon réamhbheart coinníollach</string>
   <string name="playX">Imir %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">agus sábháil %s líne réamhbheart</item>
+    <item quantity="two">agus sábháil %s líne réamhbheart</item>
+    <item quantity="few">agus sábháil %s líne réamhbheart</item>
+    <item quantity="many">agus sábháil %s líne réamhbheart</item>
+    <item quantity="other">agus sábháil %s líne réamhbheart</item>
+  </plurals>
   <string name="sorry">Tá brón orainn :(</string>
   <string name="weHadToTimeYouOutForAWhile">Bhí orainn thú a chur ar fionraí ar feadh tréimhse.</string>
   <string name="timeoutExpires">Beidh an tréimhse fionraithe thart %s.</string>
   <string name="why">Cén fáth?</string>
   <string name="pleasantChessExperience">Is mian dúinn atmaisféar maith fichille a chur ar fáil do chách.</string>
+  <string name="goodPractice">De bhrí sin, ní mór dúinn a chinntiú go leanann gach imreoir dea-chleachtas.</string>
   <string name="potentialProblem">Nuair a aimsítear fadhb fhéideartha, taispeánann muid an teachtaireacht seo.</string>
   <string name="howToAvoidThis">Conas é seo a sheachaint?</string>
   <string name="playEveryGame">Imir gach cluiche a chuireann tú tús leis.</string>
