@@ -23,4 +23,6 @@
   <string name="puzzlesPlayed">Spelade schackproblem</string>
   <string name="newRun">Nytt försök (snabbkommando: mellanslag)</string>
   <string name="endRun">Avsluta försök (snabbkommando: retur)</string>
+  <string name="highscores">Rekord</string>
+  <string name="viewBestRuns">Se bästa försök</string>
 </resources>
