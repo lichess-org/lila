@@ -131,6 +131,22 @@ Déan aon bheart le leanúint.</string>
   <string name="castling">Caisliú</string>
   <string name="theSpecialKingMove">Beart speisialta an rí</string>
   <string name="castlingIntro">Cuir do rí chuig sábháilteachta, agus scaoil do caiseal le haghaidh ionsaí!</string>
+  <string name="castleKingSide">Bog do rí dhá chearnóg
+le caisliú ar taobh an rí!</string>
+  <string name="castleQueenSide">Bog do rí dhá chearnóg
+le caisliú ar taobh na mbanríona!</string>
+  <string name="theKnightIsInTheWay">Tá an ridire ar an mbealach!
+Bog é, ansin caisliú ar taobh an rí.</string>
+  <string name="castleKingSideMovePiecesFirst">Caisliú ar taobh an rí!
+Caithfidh tú píosaí a thógáil amach ar dtús.</string>
+  <string name="castleQueenSideMovePiecesFirst">Caisliú ar taobh na mbanríona!
+Caithfidh tú píosaí a thógáil amach ar dtús.</string>
+  <string name="youCannotCastleIfMoved">Níol cheart caisliú má
+tá an rí bogtha cheanna
+nó má tá an caiseal bogtha cheanna.</string>
+  <string name="youCannotCastleIfAttacked">Níol cheart caisliú má
+tá an rí ag dul trasna cearnóg atá faoi ionsaí namhaid.
+Cuir bac ar an sáinn ansin caisliú!</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Beart speisialta an ceithearnach</string>
   <string name="enPassantComplete">Comhghairdeas! Is féidir marú \"en passant\" anois.</string>
