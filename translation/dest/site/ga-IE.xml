@@ -751,7 +751,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="yourRating">Do rátáil</string>
   <string name="cumulative">Carnach</string>
   <string name="glicko2Rating">Rátáil Glicko-2</string>
-  <string name="checkYourEmail">Féach ar do ríomhphost</string>
+  <string name="checkYourEmail">Seiceáil ar do r-phost</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Tá ríomhphost seolta againn. Cliceáil ar an nasc sa ríomhphost chun do chuntas a ghníomhachtú.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Mura bhfeiceann tú an ríomhphost, seiceáil áiteanna eile a d’fhéadfadh é a bheith ann, mar i do bhruscar, spam, sóisialta nó fillteáin eile.</string>
   <string name="weHaveSentYouAnEmailTo">Tá ríomhphost seolta againn chuig %s. Cliceáil ar an nasc sa ríomhphost chun do phasfhocal a athshocrú.</string>
@@ -861,8 +861,8 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="blackWinsGame">Bhuaigh dubh</string>
   <string name="learnFromYourMistakes">Foghlaim ó do bhotúin</string>
   <string name="learnFromThisMistake">Foghlaim ón mbotún seo</string>
-  <string name="skipThisMove">Léim thar an beart seo</string>
-  <string name="next">Ar Aghaidh</string>
+  <string name="skipThisMove">Scip an bheart seo</string>
+  <string name="next">Ar aghaidh</string>
   <string name="xWasPlayed">Imríodh %s</string>
   <string name="findBetterMoveForWhite">Faigh beart níos fearr do bán</string>
   <string name="findBetterMoveForBlack">Faigh beart níos fearr do dubh</string>
