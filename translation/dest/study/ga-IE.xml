@@ -70,5 +70,27 @@
   <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Is féidir é seo a ghreamú san fhóram chun leabú</string>
   <string name="open">Oscailte</string>
   <string name="xBroughtToYouByY">%1$s, a thugann %2$s chugat</string>
+  <string name="studyNotFound">Níor aimsíodh staidéar</string>
+  <string name="editChapter">Cuir caibidil in eagar</string>
+  <string name="newChapter">Caibidil nua</string>
   <string name="orientation">Treoshuíomh</string>
+  <string name="analysisMode">Modh anailíse</string>
+  <string name="pinnedChapterComment">Trácht caibidil pionnáilte</string>
+  <string name="saveChapter">Sábháil caibidil</string>
+  <string name="clearAnnotations">Glan anótála</string>
+  <string name="deleteChapter">Scrios caibidil</string>
+  <string name="noPinnedComment">Faic</string>
+  <string name="normalAnalysis">Gnáth-anailís</string>
+  <string name="hideNextMoves">Folaigh na bearta ina dhiaidh seo</string>
+  <string name="interactiveLesson">Ceacht idirghníomhach</string>
+  <string name="chapterX">Caibidil %s</string>
+  <string name="empty">Folamh</string>
+  <string name="startFromInitialPosition">Tosaigh ón suíomh tosaigh</string>
+  <string name="editor">Eagarthóir</string>
+  <string name="automatic">Uathoibríoch</string>
+  <string name="createChapter">Cruthaigh caibidil</string>
+  <string name="createStudy">Cruthaigh staidéar</string>
+  <string name="editStudy">Cuir staidéar in eagar</string>
+  <string name="visibility">Infheictheacht</string>
+  <string name="public">Poiblí</string>
 </resources>
