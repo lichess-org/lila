@@ -11,4 +11,7 @@
     <item quantity="one">1 försök</item>
     <item quantity="other">%s försök</item>
   </plurals>
+  <string name="highscoreX">Rekord: %s</string>
+  <string name="score">Poäng</string>
+  <string name="moves">Drag</string>
 </resources>
