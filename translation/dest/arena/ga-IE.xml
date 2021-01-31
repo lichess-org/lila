@@ -7,7 +7,14 @@
   <string name="isNotRated">*Níl *aon rátáil ag an gcomórtas seo agus *ní* dhéanfaidh sé difear do do rátáil.</string>
   <string name="someRated">Tá roinnt comortais a rátáil agus beidh tionchar acu ar do rátáil.</string>
   <string name="howAreScoresCalculated">Conas a ríomhtar scóir?</string>
+  <string name="howAreScoresCalculatedAnswer">Tá bunscór 2 phointe ag bua, cluiche cothrom 1 pointe, caill 0 pointe.
+Má bhuann tú dhá chluiche as a chéile tosóidh tú stríoc pointe dúbailte, arna léiriú le íocón bladhm.
+Is fiú pointí dúbailte iad na cluichí a leanann go dtí go caillfear cluiche.
+Is é sin, 4 phointe don bua, cluiche cothrom 2 phointe, agus fós ní bhfaighfear pointe do cailluint cluiche.
+
+Mar shampla, dhá bhua agus ansin cluiche caillte ina dhiaidh, sin 6 bpointe: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Láthair le Báiní</string>
+  <string name="howIsTheWinnerDecided">Conas a chinntear an buaiteoir?</string>
   <string name="howDoesPairingWorkAnswer">Ag tús an chomórtais, cuirtear imreoirí le chéile bunaithe ar a rátáil.
 Chomh luath agus a chríochnaíonn tú cluiche, fill ar ais chuig forhalla an chomórtais: ansin beidh tú curtha le himreoir gar do do rátáil. Cinntíonn sé seo an t-íosmhéid ama feithimh, ach b’fhéidir nach dtabharfaidh tú imir le gach imreoir eile sa chomórtas.
 Imir go tapa agus filleadh chuig an forhalla chun níos mó cluichí a imirt agus níos mó pointí a bhuachan.</string>
