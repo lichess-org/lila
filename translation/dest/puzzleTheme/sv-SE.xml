@@ -5,6 +5,7 @@
   <string name="advantage">Fördel</string>
   <string name="advantageDescription">Ta chansen att få en avgörande fördel. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastasias matt</string>
+  <string name="anastasiaMateDescription">En springare samarbetar med ett torn eller en dam för att fånga motståndarkungen mellan kanten på brädet och en vänlig pjäs.</string>
   <string name="arabianMateDescription">En springare och ett torn samarbetar för att fånga motståndarkungen i ett hörn av brädet.</string>
   <string name="attackingF2F7">Attackera f2 eller f7</string>
   <string name="attackingF2F7Description">En attack som fokuserar på f2 eller f7 bonden, som i stekt leveröppning.</string>
