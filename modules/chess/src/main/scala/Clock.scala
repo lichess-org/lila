@@ -81,23 +81,23 @@ case class Clock(
 
         val moveTime = (elapsed - lagComp) nonNeg
 
-        val clockActive = gameActive && moveTime < player.remaining
+        val clockActive = gameActive && (player.hasPeriodsLeft || moveTime <= player.remaining)
         val inc         = clockActive ?? player.increment
         val byo         = clockActive ?? player.byoyomi
 
-        val newC = if (gameActive && config.hasByoyomi && player.isUsingByoyomi) {
+        val newC = if (gameActive && player.isUsingByoyomi) {
           updatePlayer(color){
             _.setRemaining(byo)
               .copy(lag = lagTrack, lastMoveTime = moveTime)
           }
         }
-        else if(config.hasByoyomi && player.isUsingByoyomi) {
+        else if (player.isUsingByoyomi) {
           updatePlayer(color){
             _.takeTime(moveTime)
               .copy(lag = lagTrack, lastMoveTime = moveTime)
           }
         }
-        else{
+        else {
           updatePlayer(color) {
           _.takeTime(moveTime - inc)
             .copy(lag = lagTrack)
@@ -301,7 +301,6 @@ object Clock {
         } yield Config(init, inc, byo, per)
       case _ => none
     }
-
   //def apply(limit: Int, increment: Int): Clock = apply(Config(limit, increment))
   def apply(limit: Int, increment: Int, byoyomi: Int, periods: Int): Clock = {
     apply(Config(limit, increment, byoyomi, periods))

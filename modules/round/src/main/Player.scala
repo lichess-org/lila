@@ -134,8 +134,10 @@ final private class Player(
         }
     }).map {
       case (ncg, _) if (ncg.clock.exists(
-        c => c.outOfTime(game.turnColor, false) &&
-        !c.hasPeriodsLeft(game.turnColor))) => Flagged
+        c => {
+          c.outOfTime(game.turnColor, false) &&
+          !c.hasPeriodsLeft(game.turnColor)
+        })) => Flagged
       case (newChessGame, moveOrDrop) => {
         val cg = {
           if(newChessGame.clock.exists(c => c.outOfTime(game.turnColor, false) && c.hasPeriodsLeft(game.turnColor))){

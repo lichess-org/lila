@@ -488,7 +488,7 @@ case class Game(
   private def outoftimeClock(withGrace: Boolean): Boolean =
     clock ?? { c =>
       clockValidity && {
-        (!c.isRunning && !c.isInit) || c.outOfTime(turnColor, withGrace)
+        (!c.isRunning && c.players.exists(_.elapsed.centis > 0)) || c.outOfTime(turnColor, withGrace)
       }
     }
 
