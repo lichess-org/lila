@@ -6,4 +6,9 @@
   <string name="findTheBestMoveForWhite">หาการเดินที่ดีที่สุดสำหรับฝ่ายขาว</string>
   <string name="findTheBestMoveForBlack">หาการเดินที่ดีที่สุดสำหรับฝ่ายดำ</string>
   <string name="puzzleOfTheDay">ปริศนาประจำวัน</string>
+  <string name="goodMove">เดินได้ดี</string>
+  <plurals name="playedXTimes">
+    <item quantity="other">ถูกเล่น %s ครั้ง</item>
+  </plurals>
+  <string name="fromGameLink">จากเกม %s</string>
 </resources>
