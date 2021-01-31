@@ -96,12 +96,12 @@
   </plurals>
   <string name="noGameFound">Níor aimsíodh cluiche</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">D\'fheadfaí níos mó cluichí a chur san áireamh ón roghchlár?</string>
-  <string name="openingExplorer">Fiosraitheoir tionscnaimh</string>
-  <string name="xOpeningExplorer">%s fiosraitheoir tionscnaimh</string>
-  <string name="winPreventedBy50MoveRule">Bac ar bhua toisc riail an 50 bhogadh</string>
-  <string name="lossSavedBy50MoveRule">Bac ar cailliúint toisc riail an 50 bhogadh</string>
-  <string name="allSet">Réidh le n-imeacht!</string>
-  <string name="importPgn">Iompórtaigh PGN</string>
+  <string name="openingExplorer">Taighde Oscailt</string>
+  <string name="xOpeningExplorer">%s taighde oscailt</string>
+  <string name="winPreventedBy50MoveRule">Bac ar bua mar gheall ar an riail 50 beart</string>
+  <string name="lossSavedBy50MoveRule">Bac ar cailliúint mar gheall ar an riail 50 beart</string>
+  <string name="allSet">Réidh le himirt!</string>
+  <string name="importPgn">Iompórtáil PGN</string>
   <string name="delete">Scrios</string>
   <string name="deleteThisImportedGame">Scrios an gluiche iompórtáilte?</string>
   <string name="replayMode">Mód athimeartha</string>
