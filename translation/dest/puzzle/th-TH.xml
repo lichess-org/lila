@@ -7,6 +7,7 @@
   <string name="didYouLikeThisPuzzle">คุณชอบปริศนานี้ไหม?</string>
   <string name="findTheBestMoveForWhite">หาการเดินที่ดีที่สุดสำหรับฝ่ายขาว</string>
   <string name="findTheBestMoveForBlack">หาการเดินที่ดีที่สุดสำหรับฝ่ายดำ</string>
+  <string name="puzzleId">ปริศนา %s</string>
   <string name="puzzleOfTheDay">ปริศนาประจำวัน</string>
   <string name="goodMove">เดินได้ดี</string>
   <string name="keepGoing">เดินต่อไป...</string>
@@ -16,6 +17,9 @@
   </plurals>
   <string name="fromGameLink">จากเกม %s</string>
   <string name="difficultyLevel">ระดับความยาก</string>
+  <string name="normal">ปานกลาง</string>
+  <string name="easier">ง่าย</string>
   <string name="easiest">ง่ายที่สุด</string>
+  <string name="harder">ยาก</string>
   <string name="hardest">ยากที่สุด</string>
 </resources>
