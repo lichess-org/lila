@@ -10,6 +10,23 @@
   <string name="allStudies">Gach staidéar</string>
   <string name="studiesCreatedByX">Staidéir a chruthaigh %s</string>
   <string name="noneYet">Níl aon cheann fós.</string>
+  <string name="mostPopular">Móréilimh</string>
+  <string name="addNewChapter">Cuir caibidil nua leis</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s Caibidil</item>
+    <item quantity="two">%s Chaibidil</item>
+    <item quantity="few">%s gCaibidil</item>
+    <item quantity="many">%s Caibidil</item>
+    <item quantity="other">%s Caibidil</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s Cluiche</item>
+    <item quantity="two">%s Chluiche</item>
+    <item quantity="few">%s gCluiche</item>
+    <item quantity="many">%s Cluiche</item>
+    <item quantity="other">%s Cluiche</item>
+  </plurals>
+  <string name="addMembers">Cuir baill leis</string>
   <plurals name="nbMembers">
     <item quantity="one">%s Comhalta</item>
     <item quantity="two">%s Chomhalta</item>
@@ -17,11 +34,17 @@
     <item quantity="many">%s Comhalta</item>
     <item quantity="other">%s Comhalta</item>
   </plurals>
+  <string name="inviteToTheStudy">Tabhair cuireadh don staidéar</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Ná tabhair cuireadh ach do dhaoine a bhfuil aithne agat orthu, agus ar mian leo go gníomhach a bheith páirteach sa staidéar seo.</string>
   <string name="searchByUsername">Cuardaigh de réir ainm úsáideora</string>
   <string name="spectator">Breathnóir</string>
   <string name="contributor">Rannpháirtí</string>
   <string name="kick">Ciceáil</string>
   <string name="leaveTheStudy">Fág an staidéar</string>
+  <string name="playing">Ag imirt</string>
+  <string name="first">Céad</string>
+  <string name="previous">Roimhe</string>
+  <string name="next">Ar aghaidh</string>
+  <string name="last">Deiridh</string>
   <string name="open">Oscailte</string>
 </resources>
