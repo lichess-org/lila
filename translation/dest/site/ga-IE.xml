@@ -217,6 +217,13 @@
     <item quantity="many">Nuashonraítear céimíocht gach %s nóimead</item>
     <item quantity="other">Nuashonraítear céimíocht gach %s nóimead</item>
   </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s fadhb</item>
+    <item quantity="two">%s fadhb</item>
+    <item quantity="few">%s fadhb</item>
+    <item quantity="many">%s fadhb</item>
+    <item quantity="other">%s fadhb</item>
+  </plurals>
   <string name="gamesPlayed">Cluichí imeartha</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s cluiche leat</item>
