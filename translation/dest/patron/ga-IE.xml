@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lifetime">Saol</string>
+  <string name="makeExtraDonation">Déan tabhartas breise?</string>
+  <string name="monthly">Míosúil</string>
+  <string name="onetime">Aonuaire</string>
   <string name="otherAmount">Eile</string>
   <string name="pleaseEnterAmount">Iontráil méid in USD le do thoil</string>
   <string name="withCreditCard">Cárta creidmheasa</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Is foireann bheag muid, agus déanann do thacaíocht difríocht mhór!</string>
+  <string name="celebratedPatrons">Na Pátrúin onóra a thugann tacaíocht do Lichess</string>
+  <string name="whereMoneyGoes">Cá dtéann an t-airgead?</string>
 </resources>
