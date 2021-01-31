@@ -84,7 +84,7 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo, s
         }
       } else {
         if (data.time > 40) {
-          logger.warn(s"badly signed run from ${u.username} $data")
+          if (data.score > 99) logger.warn(s"badly signed run from ${u.username} $data")
           lila.mon.storm.run
             .sign(data.signed match {
               case None              => "missing"
