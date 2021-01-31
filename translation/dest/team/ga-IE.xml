@@ -4,4 +4,12 @@
   <string name="allTeams">Na foirne go léir</string>
   <string name="newTeam">Foireann nua</string>
   <string name="myTeams">M\'fhoirne</string>
+  <string name="beingReviewed">Tá ceannaire foirne ag athbhreithniú d’iarratas ar bheith páirteach.</string>
+  <string name="teamBattle">Cath Foirne</string>
+  <string name="teamTournament">Comórtas foirne</string>
+  <string name="messageAllMembersOverview">Seol teachtaireacht phríobháideach chuig gach ball den fhoireann</string>
+  <string name="messageAllMembersLongDescription">Seol teachtaireacht phríobháideach chuig GACH ball den fhoireann.
+Is féidir leat é seo a úsáid chun glaoch a chuir ar imreoirí chun páirt a ghlacadh i gcomórtas nó i gcath foirne.
+D’fhéadfadh imreoirí nach maith leo do theachtaireachtaí a fháil an fhoireann a fhágáil.</string>
+  <string name="teamsIlead">Foirne ina bhfuil mé i gceannas</string>
 </resources>
