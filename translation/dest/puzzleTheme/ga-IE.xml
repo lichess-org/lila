@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="fork">Gabhal</string>
+  <string name="pin">Teannta</string>
+  <string name="promotion">Ardú</string>
   <string name="queenRookEndgame">Cor deiridh don Banríon agus Casieal</string>
   <string name="queenRookEndgameDescription">Cor deiridh gan aon píosa ach banríona, caisil, agus ceithearnaigh.</string>
+  <string name="quietMove">Beart cúin</string>
+  <string name="sacrifice">Íobairt</string>
+  <string name="short">Fadhbh gearr</string>
+  <string name="skewer">Sá</string>
 </resources>
