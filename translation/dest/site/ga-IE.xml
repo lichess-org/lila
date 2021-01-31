@@ -175,6 +175,13 @@
   <string name="forgotPassword">Pasfhocal dearmadta</string>
   <string name="rank">Céimíocht</string>
   <string name="rankX">Áit: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Nuashonraítear céimíocht gach %s nóimead</item>
+    <item quantity="two">Nuashonraítear céimíocht gach %s nóimead</item>
+    <item quantity="few">Nuashonraítear céimíocht gach %s nóimead</item>
+    <item quantity="many">Nuashonraítear céimíocht gach %s nóimead</item>
+    <item quantity="other">Nuashonraítear céimíocht gach %s nóimead</item>
+  </plurals>
   <string name="gamesPlayed">Cluichí imeartha</string>
   <string name="cancel">Cealaigh</string>
   <string name="whiteTimeOut">Am an Bháin istigh</string>
@@ -378,7 +385,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="createANewTournament">Cruthaigh comórtas nua</string>
   <string name="tournamentCalendar">Féilire na gcomórtas</string>
   <string name="conditionOfEntry">Riachtanais iontrála:</string>
-  <string name="advancedSettings">Socruithe níos casta</string>
+  <string name="advancedSettings">Ardsocruithe</string>
   <string name="safeTournamentName">Pioc ainm an-sábhailte don chomórtas.</string>
   <string name="inappropriateNameWarning">D\'fhéatfadh go bhfhaighidhfeá aon rud atá neamhoiriúineach in aon chaoi do chuntas dúnta.</string>
   <string name="emptyTournamentName">Fág folamh chun an chomórtas a ainmniú in ainneoin d\'imreoir fichille cáiliúil.</string>
@@ -399,7 +406,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="youArePlaying">Tá tú ag imirt!</string>
   <string name="winRate">Ráta bua</string>
   <string name="berserkRate">Ráta berserk</string>
-  <string name="performance">Caighdeán imeartha</string>
+  <string name="performance">Cruthú</string>
   <string name="tournamentComplete">Comórtas críochnaithe</string>
   <string name="movesPlayed">Bogaidh imeartha</string>
   <string name="whiteWins">Buanna ag bán</string>
@@ -419,7 +426,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="reportXToModerators">Tuairiscigh %s do na modhnóirí</string>
   <string name="profileCompletion">Comhlánú próifíle: %s</string>
   <string name="xRating">rátáil %s</string>
-  <string name="ifNoneLeaveEmpty">Mura bhfuil ann do, fág an bosca folamh</string>
+  <string name="ifNoneLeaveEmpty">Mura bhfuil, fág folamh</string>
   <string name="gameCompletionRate">Ráta críochnúcháin cluiche: %s</string>
   <string name="profile">Próifíl</string>
   <string name="editProfile">Cuir próifíl in eagar</string>
@@ -509,9 +516,9 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="xCommentedY">Dúirt %1$s %2$s</string>
   <string name="victory">Bua</string>
   <string name="defeat">Cailleadh</string>
-  <string name="victoryVsYInZ">%1$s i gcoinne %2$s i %3$s</string>
-  <string name="defeatVsYInZ">%1$s i gcoinne %2$s i %3$s</string>
-  <string name="drawVsYInZ">%1$s i gcoinne %2$s i %3$s</string>
+  <string name="victoryVsYInZ">%1$s in aghaidh %2$s i %3$s</string>
+  <string name="defeatVsYInZ">%1$s in aghaidh %2$s i %3$s</string>
+  <string name="drawVsYInZ">%1$s in aghaidh %2$s i %3$s</string>
   <string name="timeline">Amlíne</string>
   <string name="starting">Ag tosú:</string>
   <string name="allInformationIsPublicAndOptional">Tá an t-eolas ar fad roghnach agus beidh sé infheicthe do chách.</string>
