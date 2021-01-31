@@ -146,6 +146,7 @@ final class RoundSocket(
       versions foreach { case (roomId, version) =>
         rounds.tell(roomId, SetVersion(version))
       }
+      send(Protocol.Out.versioningReady)
     case P.In.Ping(id) => send(P.Out.pong(id))
     case P.In.WsBoot =>
       logger.warn("Remote socket boot")
@@ -357,6 +358,8 @@ object RoundSocket {
       def startGame(users: List[User.ID]) = s"r/start ${P.Out.commas(users)}"
       def finishGame(gameId: Game.ID, winner: Option[Color], users: List[User.ID]) =
         s"r/finish $gameId ${P.Out.color(winner)} ${P.Out.commas(users)}"
+
+      def versioningReady = "r/versioning-ready"
     }
   }
 
