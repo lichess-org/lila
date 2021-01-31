@@ -472,7 +472,7 @@
   <string name="currentPassword">รหัสผ่านปัจจุบัน</string>
   <string name="newPassword">รหัสผ่านใหม่</string>
   <string name="newPasswordAgain">รหัสผ่านใหม่ (อีกครั้ง)</string>
-  <string name="newPasswordsDontMatch">รหัสผ่านที่ระบุไม่ตรงกัน</string>
+  <string name="newPasswordsDontMatch">รหัสผ่านใหม่ที่ระบุไม่ตรงกัน</string>
   <string name="clockInitialTime">เวลาเริ่มต้นนาฬิกา</string>
   <string name="clockIncrement">การเพิ่มเวลานาฬิกา</string>
   <string name="privacy">ความเป็นส่วนตัว</string>
@@ -730,7 +730,7 @@
   <string name="doItAgain">ทำอีกครั้ง</string>
   <string name="reviewWhiteMistakes">ทบทวนความผิดพลาดของขาว</string>
   <string name="reviewBlackMistakes">ทบทวนความผิดพลาดของดำ</string>
-  <string name="advantage">ความได้เปรียบ</string>
+  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">ความได้เปรียบ</string>
   <plurals name="nbSeconds">
     <item quantity="other">%s วินาที</item>
   </plurals>
