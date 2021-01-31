@@ -115,6 +115,7 @@ gan féidir leis é a cosaint!</string>
   <string name="theSpecialKingMove">Beart speisialta an rí</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Beart speisialta an ceithearnach</string>
+  <string name="enPassantComplete">Comhghairdeas! Is féidir marú \"en passant\" anois.</string>
   <string name="stalemate">Leamhsháinn</string>
   <string name="theGameIsADraw">Is cothrom é an cluiche</string>
   <string name="advanced">Ardeolas</string>
