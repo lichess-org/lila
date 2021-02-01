@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="anastasiaMate">Marbhsháinn Anastasia</string>
+  <string name="arabianMate">Marbhsháinn Arabaigh</string>
+  <string name="backRankMate">Marbhsháinn céim ar cúl</string>
   <string name="bishopEndgame">Cor deiridh easpaig</string>
   <string name="bishopEndgameDescription">Cor deiridh le easpaig agus ceithearnaigh amháin.</string>
+  <string name="bodenMate">Marbhsháinn Boden</string>
+  <string name="castling">Caisliú</string>
+  <string name="doubleBishopMate">Marbhsháinn dhá easpag</string>
+  <string name="dovetailMate">Marbhsháinn déada</string>
   <string name="endgame">Cor deiridh</string>
   <string name="endgameDescription">Beartaíocht i gcor deiridh na cluiche.</string>
   <string name="fork">Gabhal</string>
+  <string name="hookMate">Marbhsháinn corrán</string>
   <string name="knightEndgame">Cor deiridh ridire</string>
   <string name="knightEndgameDescription">Cor deiridh le ridirí agus ceithearnaigh amháin.</string>
   <string name="mate">Marbhsháinn</string>
   <string name="mateIn1">Marbhsháinn i beart amháin</string>
+  <string name="mateIn1Description">Tabhair Marbhsháinn i mbeart amháin.</string>
   <string name="mateIn2">Marbhsháinn i 2 bheart</string>
+  <string name="mateIn2Description">Tabhair Marbhsháinn i dhá bheart.</string>
   <string name="mateIn3">Marbhsháinn i 3 bheart</string>
+  <string name="mateIn3Description">Tabhair Marbhsháinn i dtrí bheart.</string>
   <string name="mateIn4">Marbhsháinn i 4 bheart</string>
+  <string name="mateIn4Description">Tabhair Marbhsháinn i ceithre bheart.</string>
   <string name="mateIn5">Marbhsháinn i 5 mbeart nó níos mó</string>
   <string name="middlegame">Lár an cluiche</string>
   <string name="middlegameDescription">Beartaíocht san dara céim den chluiche.</string>
