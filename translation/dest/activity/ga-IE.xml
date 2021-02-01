@@ -36,6 +36,13 @@
     <item quantity="many">San iomaíocht i %s comórtas</item>
     <item quantity="other">San iomaíocht i %s comórtas</item>
   </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">Céimíocht #%1$s (an %2$s%% is fearr) le %3$s cluiche i %4$s</item>
+    <item quantity="two">Céimíocht #%1$s (an %2$s%% is fearr) le %3$s chluiche i %4$s</item>
+    <item quantity="few">Céimíocht #%1$s (an %2$s%% is fearr) le %3$s gcluiche i %4$s</item>
+    <item quantity="many">Céimíocht #%1$s (an %2$s%% is fearr) le %3$s cluiche i %4$s</item>
+    <item quantity="other">Céimíocht #%1$s (an %2$s%% is fearr) le %3$s cluiche i %4$s</item>
+  </plurals>
   <plurals name="joinedNbTeams">
     <item quantity="one">Isteach i %s foireann</item>
     <item quantity="two">Isteach i %s fhoireann</item>
