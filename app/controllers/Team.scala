@@ -506,7 +506,11 @@ final class Team(
               val full = s"""$msg
 ---
 You received this because you are subscribed to messages of the team $url."""
-              env.msg.api.multiPost(me, env.team.memberStream.subscribedIds(team, MaxPerSecond(50)), full)
+              env.msg.api
+                .multiPost(me, env.team.memberStream.subscribedIds(team, MaxPerSecond(50)), full)
+                .addEffect { nb =>
+                  lila.mon.team.massPm(team.id).record(nb).unit
+                }
               funit // we don't wait for the stream to complete, it would make lichess time out
             }(funit)
           }
