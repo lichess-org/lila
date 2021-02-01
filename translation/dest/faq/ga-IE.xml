@@ -9,7 +9,14 @@
   <string name="threefoldRepetitionExplanation">Má tharlaíonn an suíomh céanna trí huaire, is féidir le himreoirí cluiche cothrom a éileamh faoi %1$s. Úsáideann Lichess rialacha oifigiúla FIDE, mar atá curtha síos in Airteagal 9.2 (d) de %2$s.</string>
   <string name="threeFoldHasToBeClaimed">Caithfear athshuíomh a éileamh ag ceann de na himreoirí. Is féidir leat é sin a dhéanamh trí brú an cnaipe a thaispeántar, nó trí cluiche cothrom a offráil roimh do bheart deiridh. is cuma má dhiúltaíonn do chéile comhraic an cluiche cothrom, éileofar an athhshuíomh ar aon nós. Féadfaidh tú %1$s Lichess an athshuíomh a maígh ar do shon go huathoibríoch. Mar rud breis, má dtarlíonn athshuíomh cúig huaire críochnaíonn an cluiche láithreach.</string>
   <string name="configure">cumraigh</string>
+  <string name="canIbecomeLM">An féidir liom an teideal Máistir Lichess (LM) a fháil?</string>
   <string name="noUpperCaseDot">Ní féidir.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Tá an teideal onórach seo neamhoifigiúil agus níl sé ar fáíl ach ar Lichess.
+
+Is annamh a bhronnann muid é ar ficheallaí suntasacha atá ina saoránaigh mhaithe Lichess, faoi rogha fúinn. Ní bhfaigheann tú an teideal LM, faigheann an teideal LM thú. Má cháilíonn tú, gheobhaidh tú teachtaireacht uainn maidir leis agus an rogha glacadh leis nó diúltú.
+
+Ná iarr ar an teideal LM.</string>
+  <string name="whatUsernameCanIchoose">Cad is féidir a bheith ar m\'ainm úsáideora?</string>
   <string name="ownerUniqueTrophies">Tá an trófaí sin ar leithligh i stair Lichess, ní bheidh sé ag éinne riamh seachas %1$s.</string>
   <string name="wayOfBerserkExplanation">Chun é a fháil, thug hiimgosu dúshlán dó féin Báiní a dhéanamh agus cluichí 100 %% de %s a bhuachan.</string>
   <string name="aHourlyBulletTournament">comórtas Bullet gach uair an chloig</string>
