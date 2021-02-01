@@ -157,6 +157,11 @@ caisliú ar taobh na mbanríon!</string>
   <string name="blackJustMovedThePawnByTwoSquares">Bog dubh an ceithearnach
 dhá chearnóg!
 Marú é en passant.</string>
+  <string name="enPassantOnlyWorksImmediately">Oibríonn en passant amháin
+díreach tar éis 
+beart ceithearnach an chéile comhraic.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Oibríonn en passant amháin
+nuair atá do cheithearnach ar an 5ú céim.</string>
   <string name="takeAllThePawnsEnPassant">Tóg na ceithearnigh uile en passant!</string>
   <string name="enPassantComplete">Comhghairdeas! Is féidir marú \"en passant\" anois.</string>
   <string name="stalemate">Leamhsháinn</string>
