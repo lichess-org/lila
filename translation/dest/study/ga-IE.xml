@@ -58,6 +58,7 @@
   <string name="getAFullComputerAnalysis">Faigh anailís ríomhaire iomlán ón freastalaí ar an bpríomhlíne.</string>
   <string name="makeSureTheChapterIsComplete">Bí cinnte go bhfuil an chaibidil críochnaithe. Ní féidir leat iarr ar anailís ach uair amháin.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Fanann gach ball SYNC sa suíomh céanna</string>
+  <string name="shareChanges">Roinn athruithe le lucht féachana agus sábháil iad ar an freastalaí</string>
   <string name="playing">Ag imirt</string>
   <string name="first">Céad</string>
   <string name="previous">Roimhe</string>
@@ -91,6 +92,7 @@
   <string name="clearAnnotations">Glan anótála</string>
   <string name="deleteChapter">Scrios caibidil</string>
   <string name="deleteThisChapter">Scrios an chaibidil seo? Níl aon dul ar ais!</string>
+  <string name="clearAllCommentsInThisChapter">Glan gach trácht, glif agus cruthanna tarraingthe sa chaibidil seo?</string>
   <string name="rightUnderTheBoard">Díreach faoin gclár</string>
   <string name="noPinnedComment">Faic</string>
   <string name="normalAnalysis">Gnáth-anailís</string>
@@ -100,6 +102,8 @@
   <string name="empty">Folamh</string>
   <string name="startFromInitialPosition">Tosaigh ón suíomh tosaigh</string>
   <string name="editor">Eagarthóir</string>
+  <string name="startFromCustomPosition">Tosaigh ón suíomh saincheaptha</string>
+  <string name="loadAGameByUrl">Lód cluichí le URLanna</string>
   <string name="loadAPositionFromFen">Luchtaigh suíomh ó FEN</string>
   <string name="loadAGameFromPgn">Lódáil cluichí ó PGN</string>
   <string name="automatic">Uathoibríoch</string>
@@ -127,6 +131,7 @@
   <string name="members">Baill</string>
   <string name="everyone">Gach duine</string>
   <string name="enableSync">Cuir sinc ar chumas</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Cinnte: coinnigh gach duine ar an suíomh céanna</string>
   <string name="noLetPeopleBrowseFreely">Na déan: lig do dhaoine brabhsáil go saor</string>
   <string name="pinnedStudyComment">Trácht staidéir greamaithe</string>
   <string name="start">Tosú</string>
