@@ -154,6 +154,7 @@ caisliú ar taobh na mbanríon!</string>
   <string name="castlingComplete">Comhghairdeas! Ba chóir duit caisliú i gcluiche beagnach i gcónaí.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Beart speisialta an ceithearnach</string>
+  <string name="enPassantIntro">Nuair a bogann ceithearnach do chéile comhraic dhá chearnóg, tá cead é a mharú mar a bhog sé le cearnóg amháin.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Bog dubh an ceithearnach
 dhá chearnóg!
 Marú é en passant.</string>
@@ -167,6 +168,9 @@ nuair atá do cheithearnach ar an 5ú céim.</string>
   <string name="stalemate">Leamhsháinn</string>
   <string name="theGameIsADraw">Is cothrom é an cluiche</string>
   <string name="stalemateIntro">Nuair nach bhfuil ficheallaí i sáinn agus mura bhfuil beart dlíthiúil aige, seo leamhsáinn. Seo cluiche cothrom: ní bhuaigh éinne, ní chailleann éinne.</string>
+  <string name="stalemateGoal">Chun leamhsháinn a dhéanamh ar dubh:
+- Níl aon beart dlithiúil ag dubh
+- Níl aon sáinn ann.</string>
   <string name="stalemateComplete">Comhghairdeas! Is fearr duit a bheith i leamhsháinn ná marbhsháinn!</string>
   <string name="advanced">Ardeolas</string>
   <string name="pieceValue">Méid na píosaí</string>
