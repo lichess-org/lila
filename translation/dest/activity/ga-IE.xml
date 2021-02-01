@@ -9,6 +9,20 @@
     <item quantity="many">Thacaigh lichess.org ar feadh %1$s mí mar %2$s</item>
     <item quantity="other">Thacaigh lichess.org ar feadh %1$s mí mar %2$s</item>
   </plurals>
+  <plurals name="practicedNbPositions">
+    <item quantity="one">Rinneadh cleactadh ar seasamh amháin de chuid %2$s</item>
+    <item quantity="two">Rinneadh cleactadh ar %1$s seasaimh de chuid %2$s</item>
+    <item quantity="few">Rinneadh cleactadh ar %1$s seasaimh de chuid %2$s</item>
+    <item quantity="many">Rinneadh cleactadh ar %1$s seasaimh de chuid %2$s</item>
+    <item quantity="other">Rinneadh cleactadh ar %1$s seasaimh de chuid %2$s</item>
+  </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">Fadhb amháin beartaíochta réitithe</item>
+    <item quantity="two">%s fadhbanna beartaíochta réitithe</item>
+    <item quantity="few">%s fadhbanna beartaíochta réitithe</item>
+    <item quantity="many">%s fadhbanna beartaíochta réitithe</item>
+    <item quantity="other">%s fadhbanna beartaíochta réitithe</item>
+  </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">%1$s beart imeartha</item>
     <item quantity="two">%1$s bheart imeartha</item>
@@ -29,6 +43,13 @@
     <item quantity="few">%s gcluiche comhfhreagrais críochnaithe</item>
     <item quantity="many">%s cluiche comhfhreagrais críochnaithe</item>
     <item quantity="other">%s cluiche comhfhreagrais críochnaithe</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">Fuarthas %s leantóir nua</item>
+    <item quantity="two">Fuarthas %s leantóir nua</item>
+    <item quantity="few">Fuarthas %s leantóir nua</item>
+    <item quantity="many">Fuarthas %s leantóir nua</item>
+    <item quantity="other">Fuarthas %s leantóir nua</item>
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Chruthaigh %s staidéar nua</item>
@@ -51,6 +72,7 @@
     <item quantity="many">Céimíocht #%1$s (an %2$s%% is fearr) le %3$s cluiche i %4$s</item>
     <item quantity="other">Céimíocht #%1$s (an %2$s%% is fearr) le %3$s cluiche i %4$s</item>
   </plurals>
+  <string name="signedUp">Sínithe suas le lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Isteach i %s foireann</item>
     <item quantity="two">Isteach i %s fhoireann</item>
