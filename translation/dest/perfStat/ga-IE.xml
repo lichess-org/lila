@@ -8,4 +8,5 @@
   <string name="averageOpponent">Meán céile comhraic</string>
   <string name="highestRating">Rátáil is airde: %s</string>
   <string name="lowestRating">Rátáil is ísle: %s</string>
+  <string name="now">anois</string>
 </resources>
