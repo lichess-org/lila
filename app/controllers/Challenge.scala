@@ -309,17 +309,17 @@ final class Challenge(
         )
     }
 
-  def bulk(userId: String) =
+  def bulk =
     ScopedBody(_.Challenge.Bulk) { implicit req => me =>
       implicit val lang = reqLang
-      lila.setup.BulkChallenge.form
+      lila.setup.SetupBulk.form
         .bindFromRequest()
         .fold(
           newJsonFormError,
           data =>
-            env.setup.bulk(data) flatMap {
+            env.setup.bulk(data) map {
               case Left(badTokens) =>
-                import lila.setup.BulkChallenge.BadToken
+                import lila.setup.SetupBulk.BadToken
                 import play.api.libs.json._
                 BadRequest(
                   Json.obj(
@@ -329,10 +329,15 @@ final class Challenge(
                       }
                     }
                   )
-                ).fuccess
+                )
               case Right(bulk) =>
-                println(bulk)
-                ???
+                env.challenge.bulk(me, bulk).thenPp
+                Ok(Json.obj("games" -> bulk.games.map { g =>
+                  Json.obj(
+                    "gameId"  -> g.id,
+                    "userIds" -> Json.arr(g.white, g.black)
+                  )
+                })) as JSON
             }
         )
     }

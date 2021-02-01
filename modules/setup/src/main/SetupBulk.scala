@@ -3,18 +3,19 @@ package lila.setup
 import akka.stream.scaladsl._
 import chess.format.FEN
 import chess.variant.Variant
-import chess.{ Clock, Speed }
+import chess.{ Clock, Mode, Speed }
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
 
 import lila.game.Game
+import lila.game.IdGenerator
 import lila.oauth.AccessToken
 import lila.oauth.OAuthScope
 import lila.oauth.OAuthServer
 import lila.user.User
 
-object BulkChallenge {
+object SetupBulk {
 
   val maxGames = 500
 
@@ -23,8 +24,15 @@ object BulkChallenge {
   val form = Form[BulkFormData](
     mapping(
       "tokens" -> nonEmptyText
-        .verifying("Not enough tokens", t => extractTokenPairs(t).isEmpty)
-        .verifying(s"Too many tokens (max: ${maxGames * 2})", t => extractTokenPairs(t).sizeIs > maxGames),
+        .verifying("Not enough tokens", t => extractTokenPairs(t).nonEmpty)
+        .verifying(s"Too many tokens (max: ${maxGames * 2})", t => extractTokenPairs(t).sizeIs < maxGames)
+        .verifying(
+          "Tokens must be unique",
+          t => {
+            val tokens = extractTokenPairs(t).view.flatMap { case (w, b) => Vector(w, b) }.toVector
+            tokens.size == tokens.distinct.size
+          }
+        ),
       SetupForm.api.variant,
       "clock" -> SetupForm.api.clockMapping,
       "rated" -> boolean
@@ -48,24 +56,26 @@ object BulkChallenge {
 
   case class BadToken(token: AccessToken.Id, error: OAuthServer.AuthError)
 
-  case class ScheduledBulkPairing(
-      players: List[(User.ID, User.ID)],
+  case class ScheduledGame(id: Game.ID, white: User.ID, black: User.ID)
+
+  case class ScheduledBulk(
+      games: List[ScheduledGame],
       variant: Variant,
       clock: Clock.Config,
-      rated: Boolean,
+      mode: Mode,
       pairAt: DateTime,
       startClocksAt: DateTime
   )
 }
 
-final class BulkChallengeApi(oauthServer: OAuthServer)(implicit
+final class BulkChallengeApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(implicit
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
 ) {
 
-  import BulkChallenge._
+  import SetupBulk._
 
-  def apply(data: BulkFormData): Fu[Either[List[BadToken], ScheduledBulkPairing]] =
+  def apply(data: BulkFormData): Fu[Either[List[BadToken], ScheduledBulk]] =
     Source(extractTokenPairs(data.tokens))
       .mapConcat { case (whiteToken, blackToken) =>
         List(whiteToken, blackToken) // flatten now, re-pair later!
@@ -81,24 +91,26 @@ final class BulkChallengeApi(oauthServer: OAuthServer)(implicit
         case (Right(_), Left(bad))         => Left(bad :: Nil)
         case (Right(users), Right(scoped)) => Right(scoped.user.id :: users)
       }
-      .map {
-        _.map {
-          _.reverse
+      .flatMap {
+        case Left(errors) => fuccess(Left(errors.reverse))
+        case Right(allPlayers) =>
+          val pairs = allPlayers.reverse
             .grouped(2)
             .collect { case List(w, b) => (w, b) }
             .toList
-        }.left.map(_.reverse)
-      }
-      .map {
-        _.map { players =>
-          ScheduledBulkPairing(
-            players,
-            data.variant,
-            data.clock,
-            data.rated,
-            DateTime.now,
-            DateTime.now
-          )
-        }
+          idGenerator
+            .games(pairs.size)
+            .map {
+              _.toList zip pairs
+            }
+            .map {
+              _.map { case (id, (w, b)) =>
+                ScheduledGame(id, w, b)
+              }
+            }
+            .dmap {
+              ScheduledBulk(_, data.variant, data.clock, Mode(data.rated), DateTime.now, DateTime.now)
+            }
+            .dmap(Right.apply)
       }
 }

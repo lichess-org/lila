@@ -10,6 +10,7 @@ import lila.oauth.OAuthServer
 final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
+    idGenerator: lila.game.IdGenerator,
     fishnetPlayer: lila.fishnet.Player,
     onStart: lila.round.OnStart,
     gameCache: lila.game.Cached,

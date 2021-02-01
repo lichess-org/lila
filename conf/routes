@@ -612,12 +612,12 @@ GET   /api/account/preferences         controllers.Pref.apiGet
 POST  /api/challenge/ai                controllers.Setup.apiAi
 POST  /api/challenge/open              controllers.Challenge.openCreate
 POST  /api/challenge/admin/:orig/:dest controllers.Challenge.apiCreateAdmin(orig: String, dest: String)
+POST  /api/challenge/bulk              controllers.Challenge.bulk
 POST  /api/challenge/:user             controllers.Challenge.apiCreate(user: String)
 POST  /api/challenge/$id<\w{8}>/accept controllers.Challenge.apiAccept(id: String)
 POST  /api/challenge/$id<\w{8}>/decline controllers.Challenge.apiDecline(id: String)
 POST  /api/challenge/$id<\w{8}>/cancel controllers.Challenge.apiCancel(id: String)
 POST  /api/challenge/$id<\w{8}>/start-clocks  controllers.Challenge.apiStartClocks(id: String)
-POST  /api/challenge/bulk              controllers.Challenge.bulk
 POST  /api/round/$id<\w{8}>/add-time/:seconds controllers.Round.apiAddTime(id: String, seconds: Int)
 GET   /api/cloud-eval                  controllers.Api.cloudEval
 GET   /api/broadcast                   controllers.Relay.apiIndex

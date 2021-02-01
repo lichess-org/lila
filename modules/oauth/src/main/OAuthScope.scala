@@ -65,6 +65,7 @@ object OAuthScope {
     Email.Read,
     Challenge.Read,
     Challenge.Write,
+    Challenge.Bulk,
     Study.Read,
     Study.Write,
     Tournament.Write,
