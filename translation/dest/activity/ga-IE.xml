@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Gníomhaíocht</string>
-  <string name="hostedALiveStream">Sruth beo faoi óstaíocht</string>
+  <string name="hostedALiveStream">Bhí sruth beo faoi cúram</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Thacaigh lichess.org ar feadh %1$s mí mar %2$s</item>
-    <item quantity="two">Thacaigh lichess.org ar feadh %1$s mhí mar %2$s</item>
+    <item quantity="one">Thacaíodh le lichess.org ar feadh mí amháin mar %2$s</item>
+    <item quantity="two">Thacaíodh le lichess.org ar feadh %1$s mhí mar %2$s</item>
     <item quantity="few">Thacaigh lichess.org ar feadh %1$s mí mar %2$s</item>
-    <item quantity="many">Thacaigh lichess.org ar feadh %1$s mí mar %2$s</item>
-    <item quantity="other">Thacaigh lichess.org ar feadh %1$s mí mar %2$s</item>
+    <item quantity="many">Thacaíodh le lichess.org ar feadh %1$s mhí mar %2$s</item>
+    <item quantity="other">Thacaíodh le lichess.org ar feadh %1$s mhí mar %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Rinneadh cleactadh ar seasamh amháin de chuid %2$s</item>
@@ -22,6 +22,13 @@
     <item quantity="few">%s fadhbanna beartaíochta réitithe</item>
     <item quantity="many">%s fadhbanna beartaíochta réitithe</item>
     <item quantity="other">%s fadhbanna beartaíochta réitithe</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">Imríodh cluiche amháin %2$s</item>
+    <item quantity="two">Imríodh %1$s cluichí %2$s</item>
+    <item quantity="few">Imríodh %1$s cluichí %2$s</item>
+    <item quantity="many">Imríodh %1$s cluichí %2$s</item>
+    <item quantity="other">Imríodh %1$s cluichí %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">%1$s beart imeartha</item>
