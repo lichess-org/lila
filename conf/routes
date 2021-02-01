@@ -20,11 +20,12 @@ GET   /games/export/:username          controllers.Game.exportByUser(username: S
 GET   /tv                              controllers.Tv.index
 GET   /tv/frame                        controllers.Tv.frame
 GET   /tv/feed                         controllers.Tv.feed
-GET   /tv/channels                     controllers.Tv.channels
+GET   /tv/channels                     controllers.Main.movedPermanently(to: String = "/api/tv/channels")
 GET   /tv/:chanKey                     controllers.Tv.onChannel(chanKey: String)
 GET   /tv/$gameId<\w{8}>/$color<white|black>/sides controllers.Tv.sides(gameId: String, color: String)
 GET   /games                           controllers.Tv.games
 GET   /games/:chanKey                  controllers.Tv.gamesChannel(chanKey: String)
+GET   /api/tv/channels                 controllers.Tv.channels
 
 # Relation
 POST  /rel/follow/:userId              controllers.Relation.follow(userId: String)
