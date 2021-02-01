@@ -18,8 +18,10 @@
   <string name="removedStudents">Bainte</string>
   <string name="inviteTheStudentBack">Tabhair cuireadh don dalta teacht ar ais</string>
   <string name="sendAMessage">Seol teachtaireacht chuig gach dalta.</string>
+  <string name="aLinkToTheClassWillBeAdded">Cuirfear nasc don rang sa ghnáthchúrsa ag deireadh na teachtaireachta, mar sin ní gá duit é a iniaigh roimh ré.</string>
   <string name="className">Ainm ranga</string>
   <string name="classDescription">Tuairisc ranga</string>
+  <string name="visibleByBothStudentsAndTeachers">Infheicthe ag múinteoirí agus daltaí an ranga araon</string>
   <string name="teachersOfTheClass">Múinteoirí ranga</string>
   <string name="addLichessUsernames">Cuir ainmneacha úsáideora Lichess leis chun cuireadh a thabhairt dóibh mar mhúinteoirí. Ceann sa líne.</string>
   <string name="theyMustFirstApply">Caithfidh siad iarratas a dhéanamh ar dtús le bheith ina Múinteoirí Lichess.</string>
@@ -51,6 +53,13 @@ Seo an nasc le dul isteach sa rang.</string>
   <string name="releaseDesc1">Ní féidir cuntas scaoilte a bhainistiú arís. Beidh an dalta in ann modh páiste a scoránú agus pasfhocal a athshocrú iad féin.</string>
   <string name="realUniqueEmail">Seoladh ríomhphoist fíor, uathúil an dalta. Seolfaimid r-phost dearbhaithe chuige, le nasc chun an cuntas a scaoileadh.</string>
   <string name="teachers">Múinteoirí</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Múiteoir</item>
+    <item quantity="two">%s mhúinteoir</item>
+    <item quantity="few">%s múinteoir</item>
+    <item quantity="many">%s múinteoir</item>
+    <item quantity="other">%s múinteoir</item>
+  </plurals>
   <plurals name="nbStudents">
     <item quantity="one">Dalta</item>
     <item quantity="two">%s dalta</item>
@@ -59,11 +68,18 @@ Seo an nasc le dul isteach sa rang.</string>
     <item quantity="other">%s dalta</item>
   </plurals>
   <string name="students">Daltaí</string>
+  <string name="progress">Dul chun cinn</string>
   <string name="noStudents">Níl aon dalta sa rang, fós.</string>
+  <string name="noRemovedStudents">Gan aon dalta bainte.</string>
+  <string name="overDays" comment="overDays&#10;&#10;In the &quot;Progress&quot; tab of a Lichess Class dashboard, &quot;Over days&quot; is the title of a selector. This selector offers a choice between various durations, in days, over which the user can view the progress of the class.">Thar laethanta</string>
   <string name="timePlaying">Am ag imirt</string>
+  <string name="variantXOverLastY" comment="variantXOverLastY&#10;&#10;The first variable is a game type (Blitz/Bullet, etc).&#10;The second variable is a duration length (in days).&#10;&#10;This is the heading of a column for a table that appears in the &quot;Progress&quot; tab of the Lichess Class dashboard.">%1$s le %2$s lá anuas</string>
+  <string name="winrate">Ráta buaite</string>
   <string name="na">N/B</string>
   <string name="news">Nuacht ranga</string>
   <string name="editNews">Cuir nuacht in eagar</string>
   <string name="notifyAllStudents">Cuir in iúl do gach dalta</string>
   <string name="nothingHere">Níl aon rud anseo, fós.</string>
+  <string name="newsEdit1">Nuacht ranga ar fad i réimse amháin.</string>
+  <string name="newsEdit2">Cuir an nuacht is déanaí ag an mbarr. Ná scrios nuacht roimhe seo.</string>
 </resources>
