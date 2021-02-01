@@ -30,6 +30,7 @@ Nuair a bhíonn an líon céanna pointí ag beirt fhicheallaí nó níos mó, is
 Chomh luath agus a chríochnaíonn tú cluiche, fill ar ais chuig forhalla an chomórtais: ansin beidh tú curtha le himreoir gar do do rátáil. Cinntíonn sé seo an t-íosmhéid ama feithimh, ach b’fhéidir nach dtabharfaidh tú imir le gach imreoir eile sa chomórtas.
 Imir go tapa agus filleadh chuig an forhalla chun níos mó cluichí a imirt agus níos mó pointí a bhuachan.</string>
   <string name="howDoesItEnd">Conas a chríochnaíonn sé?</string>
+  <string name="howDoesItEndAnswer">Tá clog comhaireamh síos sa chomórtas. Nuair a ritheann an am amach, reoitear rátálacha an chomórtais, agus fógraítear an buaiteoir. Caithfear cluichí atá idir lámha a chríochnú, ach níl siad san áireamh don chomórtas.</string>
   <string name="otherRules">Rialacha tábhachtacha eile</string>
   <string name="thereIsACountdown">Tá comhaireamh síos ann do do chéad bheart. Mura ndéantar beart laistigh den tréimhse seo, cailllfear an cluiche do do chéile comhraic.</string>
   <plurals name="drawingWithinNbMoves">
