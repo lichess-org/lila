@@ -2,6 +2,13 @@
 <resources>
   <string name="activity">Gníomhaíocht</string>
   <string name="hostedALiveStream">Sruth beo faoi óstaíocht</string>
+  <plurals name="supportedNbMonths">
+    <item quantity="one">Thacaigh lichess.org ar feadh %1$s mí mar %2$s</item>
+    <item quantity="two">Thacaigh lichess.org ar feadh %1$s mhí mar %2$s</item>
+    <item quantity="few">Thacaigh lichess.org ar feadh %1$s mí mar %2$s</item>
+    <item quantity="many">Thacaigh lichess.org ar feadh %1$s mí mar %2$s</item>
+    <item quantity="other">Thacaigh lichess.org ar feadh %1$s mí mar %2$s</item>
+  </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">%1$s beart imeartha</item>
     <item quantity="two">%1$s bheart imeartha</item>
