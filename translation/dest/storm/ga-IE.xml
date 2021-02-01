@@ -2,6 +2,8 @@
 <resources>
   <string name="moveToStart">Bog le tosú</string>
   <string name="puzzlesSolved">fadhbhanna déanta</string>
+  <string name="newDailyHighscore">Ardscór laethúil nua!</string>
+  <string name="newWeeklyHighscore">Ardscór seachtainiúil nua!</string>
   <string name="newMonthlyHighscore">Ardscór míosa nua!</string>
   <string name="newAllTimeHighscore">Ardscór nua an tsaoil!</string>
   <string name="previousHighscoreWasX">Ba é %s an ardscór roimhe seo</string>
