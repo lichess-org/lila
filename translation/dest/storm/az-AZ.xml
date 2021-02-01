@@ -25,6 +25,7 @@
   <string name="timePerMove">Gediş başına vaxt</string>
   <string name="highestSolved" comment="highestSolved&#10;&#10;The rating of the highest rated puzzle solved correctly.">Ən çətin tapmaca</string>
   <string name="puzzlesPlayed">Ən çətin tapmaca</string>
+  <string name="newRun">Yeni tur (qısayol: Boşluq düyməsi)</string>
   <string name="endRun">Turu bitir</string>
   <string name="highscores">Ən yüksək ballar</string>
   <string name="viewBestRuns">Ən yaxşı cəhdləri göstər</string>
