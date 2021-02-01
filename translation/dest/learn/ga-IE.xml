@@ -175,6 +175,13 @@ nuair atá do cheithearnach ar an 5ú céim.</string>
   <string name="advanced">Ardeolas</string>
   <string name="pieceValue">Méid na píosaí</string>
   <string name="evaluatePieceStrength">Meas láidir na píosaí</string>
+  <string name="pieceValueIntro">Tá luach níos airde ag píosaí a bhfuil soghluaisteacht ard acu!
+Banríon = 9
+Rook = 5
+Easpag = 3
+Ridire = 3
+Ceithearnach = 1
+Tá an rí gan phraghas! Má chailltear, sin deireadh an cluiche.</string>
   <string name="queenOverBishop">Tóg an píosa
 leis an luach is airde!
 Banríon &gt; Easpag</string>
