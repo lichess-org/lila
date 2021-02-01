@@ -10,7 +10,7 @@
   <string name="aiNameLevelAiLevel">%1$s, %2$s. maila</string>
   <string name="level">Maila</string>
   <string name="strength">Indarra</string>
-  <string name="toggleTheChat">Txata agertu</string>
+  <string name="toggleTheChat">Erakutsi/ezkutatu txata</string>
   <string name="toggleSound">Soinua</string>
   <string name="chat">Txata</string>
   <string name="resign">Amore eman</string>
@@ -773,7 +773,7 @@
   <string name="doItAgain">Egin berriz</string>
   <string name="reviewWhiteMistakes">Zurien akatsak bilatu</string>
   <string name="reviewBlackMistakes">Beltzen akatsak bilatu</string>
-  <string name="advantage">Abantaila</string>
+  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">Abantaila</string>
   <plurals name="nbSeconds">
     <item quantity="one">Segundo %s</item>
     <item quantity="other">%s segundo</item>
