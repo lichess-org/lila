@@ -628,7 +628,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="starting">Ag tosú:</string>
   <string name="allInformationIsPublicAndOptional">Tá an t-eolas ar fad roghnach agus beidh sé infheicthe do chách.</string>
   <string name="yourCityRegionOrDepartment">Do chathair, réigiún nó cúige.</string>
-  <string name="biographyDescription">Labhair fút féin, faoi do shuimeanna, faoi fichelle, na oscailtí is fearr leat, imreoirí,...</string>
+  <string name="biographyDescription">Labhair fút féin, faoi do shuimeanna, faoi ficheall, na oscailtí is fearr leat, ficheallaithe, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">%s carachtar ar a mhéad.</item>
     <item quantity="two">%s carachtairí ar a mhéad.</item>
@@ -643,7 +643,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
     <item quantity="many">%s bloic</item>
     <item quantity="other">%s bloc</item>
   </plurals>
-  <string name="listBlockedPlayers">Liostaigh na himreoirí a chuir tú bac le</string>
+  <string name="listBlockedPlayers">Liostaigh ficheallaithe a chuir tú bac le</string>
   <string name="human">Duine</string>
   <string name="computer">Ríomhaire</string>
   <string name="side">Taobh</string>
@@ -708,10 +708,10 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="noSimulFound">Ní bhfuarthas cluiche comhuaineach</string>
   <string name="noSimulExplanation">Níl an taispeántas comhuaineach seo ann.</string>
   <string name="returnToSimulHomepage">Ar aís go leathanach baile cluichí comhuaineach</string>
-  <string name="aboutSimul">Bíonn imreoir aonair os comhair roinnt imreoirí ag an am céanna i gcluichí comhuaineacha.</string>
+  <string name="aboutSimul">Bíonn ficheallaí aonair os comhair roinnt ficheallaithe ag an am céanna i gcluichí comhuaineacha.</string>
   <string name="aboutSimulImage">As 50 céile comhraic, bhuaigh Fischer 47 cluiche, 2 chluiche cothrom agus chaill sé 1.</string>
   <string name="aboutSimulRealLife">Tógtar an coincheap ó imeachtaí sa saol fíor. Sa fíorshaol, baineann sé seo leis an óstach comhuaineach ag bogadh ó thábla go tábla chun aon bheart amháin a dhéanamh.</string>
-  <string name="aboutSimulRules">Nuair a thosaíonn an cluiche comhuaineach, tosaíonn gach imreoir cluiche leis an óstach, a imríonn leis na píosaí bána. Críochnaíonn an cluiche comhuaineach nuair a críochnaíonn gach cluiche.</string>
+  <string name="aboutSimulRules">Nuair a thosaíonn an cluiche comhuaineach, tosaíonn gach ficheallaí cluiche leis an óstach, a imríonn leis na píosaí bána. Críochnaíonn an cluiche comhuaineach nuair a críochnaíonn gach cluiche.</string>
   <string name="aboutSimulSettings">Bíonn cluichí comhuaineacha ócáideach i gconaí. Tá athimirt, aistarraing agus am breise díchumasaithe.</string>
   <string name="create">Cruthaigh</string>
   <string name="whenCreateSimul">Nuair a chruthaíonn tú cluiche comhuaineach, imríonn tú roinnt imreoirí ag an am céanna.</string>
@@ -738,15 +738,15 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="returnToTournamentsHomepage">Fill ar leathanach baile na gcomórtas</string>
   <string name="weeklyPerfTypeRatingDistribution">Dáileadh %s rátá seachtainiúil</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">%1$s %2$s imreoir an tseachtain seo.</item>
-    <item quantity="two">%1$s %2$s imreoirí an tseachtain seo.</item>
-    <item quantity="few">%1$s %2$s imreoirí an tseachtain seo.</item>
-    <item quantity="many">%1$s %2$s imreoirí an tseachtain seo.</item>
-    <item quantity="other">%1$s %2$s imreoirí an tseachtain seo.</item>
+    <item quantity="one">%1$s %2$s ficheallaí an tseachtain seo.</item>
+    <item quantity="two">%1$s %2$s fhicheallaí an tseachtain seo.</item>
+    <item quantity="few">%1$s %2$s bhficheallaí an tseachtain seo.</item>
+    <item quantity="many">%1$s %2$s ficheallaí an tseachtain seo.</item>
+    <item quantity="other">%1$s %2$s ficheallaí an tseachtain seo.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Is é do rátáil %1$s %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Tá tú níos fearr ná %1$s as %2$s imreoirí.</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">Tá %1$s níos fearr ná %2$s as %3$s imreoirí.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Tá tú níos fearr ná %1$s as ficheallaithe %2$s.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">Tá %1$s níos fearr ná %2$s as ficheallaithe %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Níl rátáil %s bunaithe agat.</string>
   <string name="yourRating">Do rátáil</string>
   <string name="cumulative">Carnach</string>
@@ -766,7 +766,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="crosstable">Trastábla</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Is féidir scrollú thar an gclár freisin chun bogadh sa chluiche.</string>
   <string name="analysisShapesHowTo">Brúigh shift + cliceáil nó deaschliceáil chun ciorcail agus saigheada a tharraingt ar an gclár.</string>
-  <string name="letOtherPlayersMessageYou">Lig d’imreoirí eile teachtaireacht a chur chugat</string>
+  <string name="letOtherPlayersMessageYou">Lig do ficheallaithe teachtaireacht a chur chugat</string>
   <string name="shareYourInsightsData">Comhroinn do chuid sonraí léargas fichille</string>
   <string name="withNobody">Le duine ar bith</string>
   <string name="withFriends">Le cairde</string>
@@ -919,7 +919,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="lifetimeScore">Scór saoil</string>
   <string name="currentMatchScore">Scór reatha an chluiche</string>
   <string name="agreementAssistance">Aontaím nach nglacfaidh mé le cabhair ar bith i rith mo chluichí (ó ríomhaire fichille, ó leabhar, ó bhunachar sonraí nó ó dhuine eile).</string>
-  <string name="agreementNice">Aontaím go léireoidh mé meas d\'imreoirí eile i gcónaí.</string>
+  <string name="agreementNice">Aontaím go mbeidh meas agam i gcónaí do ficheallaithe eile.</string>
   <string name="agreementAccount">Aontaím nach gcruthóidh mé ilcuntais.</string>
   <string name="agreementPolicy">Aontaím go leanfaidh mé gach polasaithe Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cuardaigh nó cuir tús le comhrá nua</string>
