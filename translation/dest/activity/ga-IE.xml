@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Gníomhaíocht</string>
+  <string name="hostedALiveStream">Sruth beo faoi óstaíocht</string>
   <plurals name="playedNbMoves">
     <item quantity="one">%1$s beart imeartha</item>
     <item quantity="two">%1$s bheart imeartha</item>
