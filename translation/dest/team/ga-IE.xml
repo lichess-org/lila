@@ -12,5 +12,6 @@
 Is féidir leat é seo a úsáid chun glaoch a chuir ar imreoirí chun páirt a ghlacadh i gcomórtas nó i gcath foirne.
 D’fhéadfadh imreoirí nach maith leo do theachtaireachtaí a fháil an fhoireann a fhágáil.</string>
   <string name="teamsIlead">Foirne ina bhfuil mé i gceannas</string>
+  <string name="usersWhoCanManageThisTeam">Úsáideoirí atá in ann an fhoireann seo a bhainistiú</string>
   <string name="closeTeam">Dún foireann</string>
 </resources>
