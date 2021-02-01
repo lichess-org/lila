@@ -4,7 +4,7 @@ import chess.format.FEN
 import play.api.data._
 import play.api.data.Forms._
 
-import lila.common.Form.clean
+import lila.common.Form.cleanNonEmptyText
 
 object StudyForm {
 
@@ -60,7 +60,7 @@ object StudyForm {
 
     lazy val form = Form(
       mapping(
-        "name"        -> clean(text),
+        "name"        -> cleanNonEmptyText,
         "orientation" -> optional(nonEmptyText),
         "variant"     -> optional(nonEmptyText),
         "mode"        -> nonEmptyText.verifying(ChapterMaker.Mode(_).isDefined),

@@ -53,6 +53,11 @@
 Για πρόσβαση πατήστε στον σύνδεσμο.</string>
   <string name="invitationToClass">Προσκληθήκατε να συμμετάσχετε στην τάξη \"%s\" ως μαθητής.</string>
   <string name="clickToViewInvitation">Κάντε κλικ στο link για να δείτε την πρόσκληση:</string>
+  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+    <item quantity="one">Μια εκκρεμή πρόσκληση</item>
+    <item quantity="other">%s εκκρεμείς προσκλήσεις</item>
+  </plurals>
+  <string name="noPendingInvitations">Χωρίς εκκρεμείς προσκλήσεις</string>
   <string name="onlyVisibleToTeachers">Ορατό μόνο στους δάσκαλους της τάξης</string>
   <string name="lastActiveDate">Ενεργό</string>
   <string name="managed">Διαχειρίζεται</string>
@@ -60,7 +65,9 @@
   <string name="upgradeFromManaged">Αναβάθμιση από διαχειριζόμενη σε αυτόνομη</string>
   <string name="release">Απελευθέρωση</string>
   <string name="releaseTheAccount">Απελευθερώστε τον λογαριασμό για να μπορεί ο μαθητής να τον διαχειριστεί ο ίδιος.</string>
+  <string name="releaseDesc1">Η διαχείριση υπάρχοντος λογαριασμού δεν είναι δυνατή. Ο μαθητής μπορεί μόνο ο ίδιος να εναλλάξει την λειτουργία για παιδιά και να επαναφέρει το κωδικό πρόσβασης.</string>
   <string name="releaseDesc2">Ο μαθητής θα παραμείνει στην τάξη μετά την απελευθέρωση του λογαριασμού του.</string>
+  <string name="realUniqueEmail">Πραγματική, μοναδική διεύθυνση ηλεκτρονικού ταχυδρομείου του μαθητή. Θα στείλουμε ένα email επιβεβαίωσης σε αυτήν, με ένα σύνδεσμο για ενεργοποίηση του λογαριασμού.</string>
   <string name="teachers">Δάσκαλοι</string>
   <plurals name="nbTeachers">
     <item quantity="one">Δάσκαλος</item>
@@ -74,6 +81,7 @@
   <string name="progress">Πρόοδος</string>
   <string name="noStudents">Χωρίς μαθητές στη τάξη, ακόμη.</string>
   <string name="noRemovedStudents">Χωρίς διαγραμμένους μαθητές.</string>
+  <string name="overDays" comment="overDays&#10;&#10;In the &quot;Progress&quot; tab of a Lichess Class dashboard, &quot;Over days&quot; is the title of a selector. This selector offers a choice between various durations, in days, over which the user can view the progress of the class.">Διάστημα ημερών</string>
   <string name="timePlaying">Χρόνος παίζοντας</string>
   <string name="variantXOverLastY" comment="variantXOverLastY&#10;&#10;The first variable is a game type (Blitz/Bullet, etc).&#10;The second variable is a duration length (in days).&#10;&#10;This is the heading of a column for a table that appears in the &quot;Progress&quot; tab of the Lichess Class dashboard.">%1$s για την τελευταία %2$s</string>
   <string name="winrate">Ποσοστό νικών</string>

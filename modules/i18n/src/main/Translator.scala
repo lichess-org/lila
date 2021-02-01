@@ -33,10 +33,7 @@ object Translator {
             logger.warn(s"Failed to format html $lang/$key -> $translation (${args.toList})", e)
             Some(RawFrag(key))
         }
-      } getOrElse {
-        logger.info(s"No translation found for $quantity $key in $lang")
-        RawFrag(key)
-      }
+      } getOrElse RawFrag(key)
 
     private def escapeArgs(args: Seq[Any]): Seq[RawFrag] =
       args.map {
@@ -73,10 +70,7 @@ object Translator {
             logger.warn(s"Failed to format txt $lang/$key -> $translation (${args.toList})", e)
             Some(key)
         }
-      } getOrElse {
-        logger.info(s"No translation found for $quantity $lang/$key in $lang")
-        key
-      }
+      } getOrElse key
   }
 
   private[i18n] def findTranslation(key: MessageKey, lang: Lang): Option[Translation] =

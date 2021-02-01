@@ -1,2 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">挑战</string>
+  <string name="challengeToPlay">发起挑战</string>
+  <string name="challengeDeclined">拒绝挑战</string>
+  <string name="challengeAccepted">接受挑战</string>
+  <string name="challengeCanceled">挑战已取消。</string>
+  <string name="registerToSendChallenges">发起挑战前请先注册。</string>
+  <string name="youCannotChallengeX">您不能挑战%s。</string>
+  <string name="xDoesNotAcceptChallenges">%s不接受挑战。</string>
+  <string name="yourXRatingIsTooFarFromY">您的%1$s积分与%2$s相差太远。</string>
+  <string name="cannotChallengeDueToProvisionalXRating">由于您的%s排名不够稳定，您不能进行挑战。</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s只接受好友的挑战。</string>
+  <string name="declineGeneric">我目前不接受挑战。</string>
+  <string name="declineLater">这不是我合适的时机，请稍后再试。</string>
+  <string name="declineTooFast">这次时限对我来说太快了，请再次用较慢的对局来挑战。</string>
+  <string name="declineTooSlow">这次时限对我来说太慢了，请再次用较快的对局来挑战。</string>
+  <string name="declineTimeControl">我不接受此次时限的挑战。</string>
+  <string name="declineRated">请向我发送积分的挑战。</string>
+  <string name="declineCasual">请向我发送无积分的挑战。</string>
+  <string name="declineStandard">我现在不接变体的挑战。</string>
+  <string name="declineVariant">我现在不想玩这个变体。</string>
+  <string name="declineNoBot">我不接受机器人的挑战。</string>
+  <string name="declineOnlyBot">我只接受机器人的挑战。</string>
+</resources>

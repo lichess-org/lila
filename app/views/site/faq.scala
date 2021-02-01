@@ -261,6 +261,9 @@ object faq {
           whichRatingSystemUsedByLichess.txt(),
           p(
             ratingSystemUsedByLichess()
+          ),
+          p(
+            a(href := routes.Page.loneBookmark("rating-systems"))("More about rating systems")
           )
         ),
         question(

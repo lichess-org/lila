@@ -1,7 +1,7 @@
 .puzzle-themes {
-
   h2 {
     @extend %box-padding-horiz, %roboto;
+
     margin-top: 1em;
   }
 
@@ -9,9 +9,12 @@
     display: grid;
     margin-left: var(--box-padding);
     grid-template-columns: repeat(auto-fill, minmax(50ch, 1fr));
+
     @include breakpoint($mq-not-xx-small) {
       grid-template-columns: repeat(auto-fill, minmax(40ch, 1fr));
     }
+
+
     &.puzzle-recommended {
       display: block;
     }
@@ -19,19 +22,23 @@
 
   &__link {
     @extend %box-radius;
+
     display: flex;
     padding: 1.5em 1em 1.5em 0;
 
     &::before {
       @extend %data-icon;
+
       content: '-';
       color: $c-font-dimmer;
       flex: 0 0 1.6em;
       text-align: center;
       font-size: 4.5em;
     }
+
     &:hover {
       background: mix($c-bg-box, $c-link, 90%);
+
       &::before {
         color: $c-primary;
       }
@@ -41,8 +48,10 @@
       &::before {
         display: none;
       }
+
       padding-left: 1em;
     }
+
 
     > span {
       flex: 1 1 100%;
@@ -55,8 +64,10 @@
       display: block;
       line-height: 1em;
       margin: .1em 0 .25em 0;
+
       em {
         @extend %roboto;
+
         color: $c-font-dimmer;
         font-size: .8em;
         margin-left: .7ch;
@@ -66,19 +77,24 @@
 
     .puzzle-recommended & {
       @extend %box-neat;
+
       font-size: 1.2em;
       background: mix($c-bg-box, $c-good, 80%);
       color: $c-good;
       margin: 2em 4em;
+
       &::before {
         color: $c-good;
       }
+
       > span {
         color: $c-font;
       }
+
       &:hover {
         background: mix($c-bg-box, $c-good, 74%);
       }
+
       @include breakpoint($mq-not-small) {
         margin: 2em var(--box-padding) 2em 0;
       }
@@ -87,6 +103,54 @@
 
   &__db {
     @extend %box-padding;
+
     text-align: center;
+  }
+}
+
+.puzzle-of-player {
+  &__form {
+    input {
+      margin-right: 1em;
+      width: 30ch;
+      display: inline-block;
+    }
+  }
+
+  &__pager {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
+    align-content: start;
+  }
+
+  &__results {
+    p {
+      font-size: 1.5em;
+      margin: 2em 0;
+    }
+  }
+
+  &__puzzle {
+    padding: .4em;
+    
+
+    &__meta {
+      @extend %flex-between;
+      font-size: .9em;
+      padding: 0 .3em;
+    }
+
+    &__rating {
+
+    }
+
+    &__id {
+      opacity: 0;
+      @include transition;
+    }
+
+    &:hover .puzzle-of-player__puzzle__id {
+      opacity: 1;
+    }
   }
 }

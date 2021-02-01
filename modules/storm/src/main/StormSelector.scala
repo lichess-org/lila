@@ -21,7 +21,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
 
   private val theme        = lila.puzzle.PuzzleTheme.mix.key.value
   private val tier         = lila.puzzle.PuzzleTier.Good.key
-  private val maxDeviation = 90
+  private val maxDeviation = 85
 
   private val ratingBuckets =
     List(
@@ -35,8 +35,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
       2050 -> 15,
       2200 -> 17,
       2350 -> 19,
-      2500 -> 21,
-      2650 -> 23
+      2500 -> 21
     )
   private val poolSize = ratingBuckets.foldLeft(0) { case (acc, (_, nb)) =>
     acc + nb
@@ -136,6 +135,13 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
           lila.mon.storm.selector.ratingSlice(i).record(r.toInt)
         }
       }
+      colls.puzzle {
+        _.update.one(
+          $inIds(puzzles.map(_.id.value)),
+          $inc("storm" -> 1),
+          multi = true
+        )
+      }.unit
     }
   }
 }

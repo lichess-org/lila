@@ -1,13 +1,13 @@
 package views.html.user.show
 
 import controllers.routes
+import play.api.i18n.Lang
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.rating.PerfType
 import lila.user.User
-import play.api.i18n.Lang
 
 object side {
 
@@ -30,8 +30,8 @@ object side {
           "active" -> active.has(perfType)
         ),
         href := {
-          if (isPuzzle) routes.Puzzle.dashboard(30, "home")
-          else routes.User.perfStat(u.username, perfType.key)
+          if (isPuzzle) ctx.is(u) option routes.Puzzle.dashboard(30, "home").url
+          else routes.User.perfStat(u.username, perfType.key).url.some
         },
         span(
           h3(perfType.trans),
@@ -79,18 +79,18 @@ object side {
         showNonEmptyPerf(u.perfs.racingKings, PerfType.RacingKings),
         br,
         u.noBot option showPerf(u.perfs.puzzle, PerfType.Puzzle),
-        u.noBot option showStorm(u.perfs.storm)
+        u.noBot option showStorm(u.perfs.storm, u)
       )
     )
   }
 
-  private def showStorm(storm: lila.rating.Perf.Storm)(implicit lang: Lang) =
+  private def showStorm(storm: lila.rating.Perf.Storm, user: User)(implicit lang: Lang) =
     a(
       dataIcon := '~',
       cls := List(
         "empty" -> !storm.nonEmpty
       ),
-      href := routes.Storm.dashboard(),
+      href := routes.Storm.dashboardOf(user.username),
       span(
         h3("Puzzle Storm"),
         st.rating(

@@ -86,7 +86,7 @@
   <string name="captureAndDefendPieces">駒を取り、駒を守る</string>
   <string name="combatIntro">すぐれた戦士は攻撃と防御、両方を使いこなす！</string>
   <string name="combatComplete">おめでとう！　相手の駒との戦い方を身につけました！</string>
-  <string name="checkInOne">1手でチェック</string>
+  <string name="checkInOne">1 手でチェック</string>
   <string name="attackTheOpponentsKing">相手のキングを攻撃する</string>
   <string name="checkInOneIntro">チェックするには相手のキングを攻撃します。相手は何か防ぐしかない。</string>
   <string name="checkInOneGoal">1 手で相手のキングを
@@ -105,7 +105,7 @@
   <string name="escapeOrBlock">キングを逃がすか
 合い駒で防ぐか</string>
   <string name="outOfCheckComplete">おめでとう！　キングを取られたらおしまいなので、チェックが来たら必ず防ぐこと！</string>
-  <string name="mateInOne">1手でメイト</string>
+  <string name="mateInOne">1 手でメイト</string>
   <string name="defeatTheOpponentsKing">相手のキングをメイトする</string>
   <string name="mateInOneIntro">相手がチェックを防げなくなれば、あなたの勝ちです。</string>
   <string name="attackYourOpponentsKing">防げないような
@@ -196,7 +196,7 @@
 ビショップ = 3
 ナイト = 3
 ポーン = 1</string>
-  <string name="checkInTwo">2手でチェック</string>
+  <string name="checkInTwo">2 手でチェック</string>
   <string name="twoMovesToGiveCheck">2 手動かしてチェックする</string>
   <string name="checkInTwoIntro">相手のキングをチェックする 2 手の組み合わせを考えてください。</string>
   <string name="checkInTwoGoal">2 手で相手のキングを

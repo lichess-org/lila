@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="wantClearHistory">Ba mhaith liom mo stair nó mo rátáil a ghlanadh</string>
+  <string name="cantClearHistory">Ní féidir stair do chluiche, stair bhfreagra, nó rátálacha a ghlanadh.</string>
+  <string name="noRatingPoints">Níor bronnadh aon phointí rátála</string>
+  <string name="ratedGame">Déan cinnte gur imir tú cluiche rátáilte. Ní dhéanann cluichí ócáideacha difear do rátálacha na n-imreoirí.</string>
+</resources>

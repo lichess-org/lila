@@ -47,30 +47,49 @@ final private[puzzle] class DailyPuzzle(
         .one[Puzzle]
     }
 
-  private def findNew =
+  private def findNew: Fu[Option[Puzzle]] =
     colls
       .path {
         _.aggregateOne() { framework =>
           import framework._
-          Match(pathApi.select(PuzzleTheme.mix.key, PuzzleTier.Top, 1200 to 2200)) -> List(
+          Match(pathApi.select(PuzzleTheme.mix.key, PuzzleTier.Top, 1300 to 2000)) -> List(
             Sample(1),
-            Project($doc("ids" -> true))
+            Project($doc("ids" -> true, "_id" -> false)),
+            UnwindField("ids"),
+            PipelineOperator(
+              $doc(
+                "$lookup" -> $doc(
+                  "from" -> colls.puzzle.name.value,
+                  "as"   -> "puzzle",
+                  "let"  -> $doc("id" -> "$ids"),
+                  "pipeline" -> $arr(
+                    $doc(
+                      "$match" -> $doc(
+                        "$expr" -> $doc(
+                          $doc("$eq" -> $arr("$_id", "$$id"))
+                        )
+                      )
+                    ),
+                    $doc("$match" -> $doc("day" $exists false))
+                  )
+                )
+              )
+            ),
+            UnwindField("puzzle"),
+            ReplaceRootField("puzzle"),
+            AddFields($doc("dayScore" -> $doc("$multiply" -> $arr("$plays", "$vote")))),
+            Sort(Descending("dayScore")),
+            Limit(1)
           )
-        }.dmap(~_.flatMap(_.getAsOpt[List[Puzzle.Id]]("ids")))
-      } flatMap { ids =>
-      colls.puzzle { c =>
-        c.find($doc(F.id $in ids, F.day $exists false))
-          .sort($doc(F.vote -> -1, F.voteUp -> -1))
-          .one[Puzzle] flatMap {
-          case Some(puzzle) =>
-            c.update.one(
-              $id(puzzle.id),
-              $set(F.day -> DateTime.now)
-            ) inject puzzle.some
-          case None => fuccess(none)
         }
       }
-    }
+      .flatMap { docOpt =>
+        docOpt.flatMap(PuzzleBSONReader.readOpt) ?? { puzzle =>
+          colls.puzzle {
+            _.update.one($id(puzzle.id), $set(F.day -> DateTime.now))
+          } inject puzzle.some
+        }
+      }
 }
 
 object DailyPuzzle {

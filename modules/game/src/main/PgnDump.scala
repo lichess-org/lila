@@ -30,14 +30,11 @@ final class PgnDump(
     tagsFuture map { ts =>
       val turns = flags.moves ?? {
         val fenSituation = ts.fen flatMap Forsyth.<<<
-        val moves2 =
-          if (fenSituation.exists(_.situation.color.black)) ".." +: game.pgnMoves
-          else game.pgnMoves
-        val moves3 =
-          if (flags.delayMoves > 0) moves2 dropRight flags.delayMoves
-          else moves2
         makeTurns(
-          moves3,
+          flags keepDelayIf game.playable applyDelay {
+            if (fenSituation.exists(_.situation.color.black)) ".." +: game.pgnMoves
+            else game.pgnMoves
+          },
           fenSituation.map(_.fullMoveNumber) | 1,
           flags.clocks ?? ~game.bothClockStates,
           game.startColor
@@ -171,6 +168,9 @@ final class PgnDump(
 
 object PgnDump {
 
+  private val delayMovesBy         = 3
+  private val delayKeepsFirstMoves = 5
+
   case class WithFlags(
       clocks: Boolean = true,
       moves: Boolean = true,
@@ -179,8 +179,14 @@ object PgnDump {
       opening: Boolean = true,
       literate: Boolean = false,
       pgnInJson: Boolean = false,
-      delayMoves: Int = 0
-  )
+      delayMoves: Boolean = false
+  ) {
+    def applyDelay[M](moves: Seq[M]): Seq[M] =
+      if (!delayMoves) moves
+      else moves.take((moves.size - delayMovesBy) atLeast delayKeepsFirstMoves)
+
+    def keepDelayIf(cond: Boolean) = copy(delayMoves = delayMoves && cond)
+  }
 
   def result(game: Game) =
     if (game.finished) Color.showResult(game.winnerColor)

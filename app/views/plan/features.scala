@@ -79,7 +79,7 @@ object features {
             ),
             tr(unlimited)(
               a(href := s"${routes.UserAnalysis.index()}#explorer")("Opening explorer"),
-              " (62 million games!)"
+              " (280 million games!)"
             ),
             tr(unlimited)(
               a(href := s"${routes.UserAnalysis.parseArg("QN4n1/6r1/3k4/8/b2K4/8/8/8_b_-_-")}#explorer")(

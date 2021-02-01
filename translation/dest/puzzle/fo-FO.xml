@@ -47,5 +47,7 @@
   <string name="puzzleDashboard">Uppgávuyvirlit</string>
   <string name="improvementAreas">Øki at bøta um</string>
   <string name="strengths">Styrkir</string>
+  <string name="history">Uppgávusøga</string>
   <string name="solved">loyst</string>
+  <string name="failed">miseydnaðist</string>
 </resources>

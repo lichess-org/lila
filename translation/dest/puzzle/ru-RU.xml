@@ -9,7 +9,7 @@
   <string name="lengths">Количество ходов</string>
   <string name="mates">Маты</string>
   <string name="goals">Цели</string>
-  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Из партии</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">Из партий</string>
   <string name="specialMoves">Особые ходы</string>
   <string name="didYouLikeThisPuzzle">Понравилась задача?</string>
   <string name="voteToLoadNextOne">Проголосуйте и перейдите к следующей!</string>

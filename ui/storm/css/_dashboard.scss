@@ -3,7 +3,6 @@
 @import "high";
 
 .storm-dashboard {
-
   .storm-play-again {
     margin: 2vh 0;
   }
@@ -27,6 +26,28 @@
 
       &.score {
         color: $c-brag;
+      }
+    }
+
+    @include breakpoint($mq-not-small) {
+      td, th {
+        &:nth-child(3),
+        &:nth-child(5),
+        &:nth-child(6) {
+          display: none;
+        }
+      }
+    }
+
+    @include breakpoint($mq-not-xx-small) {
+      td, th {
+        &:nth-child(3),
+        &:nth-child(4),
+        &:nth-child(5),
+        &:nth-child(6),
+        &:nth-child(7) {
+          display: none;
+        }
       }
     }
   }

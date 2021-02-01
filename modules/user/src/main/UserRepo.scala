@@ -94,6 +94,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def nameds(usernames: List[String]): Fu[List[User]] = coll.byIds[User](usernames.map(normalize))
 
+  def enabledNamed(username: String): Fu[Option[User]] = enabledById(normalize(username))
+
   // expensive, send to secondary
   def byIdsSortRatingNoBot(ids: Iterable[ID], nb: Int): Fu[List[User]] =
     coll
@@ -623,19 +625,19 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.update
       .one(
         $id(user.id),
-        $unset(F.profile) ++ $set(
-          "enabled"  -> false,
-          "erasedAt" -> DateTime.now
+        $unset(F.profile, F.email, F.verbatimEmail, F.prevEmail, F.blind) ++ $set(
+          F.enabled  -> false,
+          F.erasedAt -> DateTime.now
         )
       )
       .void
 
   def isErased(user: User): Fu[User.Erased] =
     user.disabled ?? {
-      coll.exists($id(user.id) ++ $doc("erasedAt" $exists true))
+      coll.exists($id(user.id) ++ $doc(F.erasedAt $exists true))
     } map User.Erased.apply
 
-  def byIdNotErased(id: ID): Fu[Option[User]] = coll.one[User]($id(id) ++ $doc("erasedAt" $exists false))
+  def byIdNotErased(id: ID): Fu[Option[User]] = coll.one[User]($id(id) ++ $doc(F.erasedAt $exists false))
 
   def filterClosedOrInactiveIds(since: DateTime)(ids: Iterable[ID]): Fu[List[ID]] =
     coll.distinctEasy[ID, List](
@@ -675,7 +677,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     ) ++ {
       (email.value != normalizedEmail.value) ?? $doc(F.verbatimEmail -> email)
     } ++ {
-      if (blind) $doc("blind" -> true) else $empty
+      if (blind) $doc(F.blind -> true) else $empty
     }
   }
 }

@@ -7,6 +7,7 @@ import scala.concurrent.duration._
 import scala.util.Try
 
 import lila.common.config.MaxPerPage
+import lila.common.LilaStream
 import lila.common.{ Bus, LightUser }
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
@@ -153,15 +154,14 @@ final class MsgApi(
   def systemPost(destId: User.ID, text: String) =
     post(User.lichessId, destId, text, multi = true)
 
-  def multiPost(orig: User, destSource: Source[User.ID, _], text: String): Funit =
+  def multiPost(orig: User, destSource: Source[User.ID, _], text: String): Fu[Int] =
     destSource
       .filter(orig.id !=)
       .mapAsync(4) {
         post(orig.id, _, text, multi = true).logFailure(logger).nevermind(PostResult.Invalid)
       }
-      .toMat(Sink.ignore)(Keep.right)
+      .toMat(LilaStream.sinkCount)(Keep.right)
       .run()
-      .void
 
   def cliMultiPost(orig: String, dests: Seq[User.ID], text: String): Fu[String] =
     userRepo named orig flatMap {

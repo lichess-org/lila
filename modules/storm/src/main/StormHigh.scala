@@ -60,22 +60,20 @@ final class StormHighApi(coll: Coll, cacheApi: CacheApi)(implicit ctx: Execution
     coll
       .aggregateOne() { framework =>
         import framework._
-        val todayId = StormDay.Id today userId
-        val project = Project($doc("_id" -> false, "score" -> true))
-        def bestSince(sinceId: StormDay.Id) = List(
-          Match($doc("_id" $lte todayId $gt sinceId)),
-          Sort(Descending("score")),
-          Limit(1),
-          project
-        )
-        Facet(
-          List(
-            "day"     -> List(Match($id(todayId)), project),
-            "week"    -> bestSince(StormDay.Id.lastWeek(userId)),
-            "month"   -> bestSince(StormDay.Id.lastMonth(userId)),
-            "allTime" -> bestSince(StormDay.Id.allTime(userId))
+        def matchSince(sinceId: User.ID => StormDay.Id) = Match($doc("_id" $gte sinceId(userId)))
+        val scoreSort                                   = Sort(Descending("score"))
+        Match($doc("_id" $lte StormDay.Id.today(userId) $gt StormDay.Id.allTime(userId))) -> List(
+          Project($doc("score" -> true)),
+          Sort(Descending("_id")),
+          Facet(
+            List(
+              "day"     -> List(Limit(1), matchSince(StormDay.Id.today)),
+              "week"    -> List(Limit(7), matchSince(StormDay.Id.lastWeek), scoreSort, Limit(1)),
+              "month"   -> List(Limit(30), matchSince(StormDay.Id.lastMonth), scoreSort, Limit(1)),
+              "allTime" -> List(scoreSort, Limit(1))
+            )
           )
-        ) -> Nil
+        )
       }
       .map2 { doc =>
         def readScore(doc: Bdoc, field: String) =

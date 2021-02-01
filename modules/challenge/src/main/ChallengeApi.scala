@@ -14,7 +14,7 @@ final class ChallengeApi(
     repo: ChallengeRepo,
     challengeMaker: ChallengeMaker,
     userRepo: UserRepo,
-    joiner: Joiner,
+    joiner: ChallengeJoiner,
     jsonView: JsonView,
     gameCache: lila.game.Cached,
     maxPlaying: Max,

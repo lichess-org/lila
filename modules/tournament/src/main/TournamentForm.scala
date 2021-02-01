@@ -60,9 +60,11 @@ final class TournamentForm {
       hasChat = tour.hasChat.some
     )
 
+  private val blockList = List("lichess", "liсhess")
+
   private def nameType(user: User) = eventName(2, 30).verifying(
     Constraint[String] { (t: String) =>
-      if (t.toLowerCase.contains("lichess") && !user.isVerified && !user.isAdmin)
+      if (blockList.exists(t.toLowerCase.contains) && !user.isVerified && !user.isAdmin)
         validation.Invalid(validation.ValidationError("Must not contain \"lichess\""))
       else validation.Valid
     }
@@ -84,12 +86,12 @@ final class TournamentForm {
         "position"         -> optional(lila.common.Form.fen.playableStrict),
         "mode"             -> optional(number.verifying(Mode.all.map(_.id) contains _)), // deprecated, use rated
         "rated"            -> optional(boolean),
-        "password"         -> optional(clean(nonEmptyText)),
+        "password"         -> optional(cleanNonEmptyText),
         "conditions"       -> Condition.DataForm.all(leaderTeams),
-        "teamBattleByTeam" -> optional(nonEmptyText),
+        "teamBattleByTeam" -> optional(nonEmptyText.verifying(id => leaderTeams.exists(_.id == id))),
         "berserkable"      -> optional(boolean),
         "streakable"       -> optional(boolean),
-        "description"      -> optional(clean(nonEmptyText)),
+        "description"      -> optional(cleanNonEmptyText),
         "hasChat"          -> optional(boolean)
       )(TournamentSetup.apply)(TournamentSetup.unapply)
         .verifying("Invalid clock", _.validClock)

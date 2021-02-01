@@ -6,8 +6,8 @@
   <string name="advantageDescription">Tartu tilaisuuteen hankkia ratkaiseva etu. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastasian matti</string>
   <string name="anastasiaMateDescription">Ratsun sekä tornin tai daamin yhteistyöllä vastustajan kuningas jää kiinni laudan reunan ja oman nappulan välissä.</string>
-  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Arabialainen matti</string>
-  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">Ratsun ja tornin yhteistyöllä vastustajan kuningas jää kiinni laudan nurkassa.</string>
+  <string name="arabianMate">Arabialainen matti</string>
+  <string name="arabianMateDescription">Ratsun ja tornin yhteistyöllä vastustajan kuningas jää kiinni laudan nurkassa.</string>
   <string name="attackingF2F7">Hyökkäys f2:een tai f7:ään</string>
   <string name="attackingF2F7Description">F2- tai f7-sotilaaseen kohdistuva hyökkäys, kuten esimerkiksi Preussilaisen pelin Fried Liver eli Fegatello-muunnelma.</string>
   <string name="attraction">Houkutus</string>
@@ -16,18 +16,18 @@
   <string name="backRankMateDescription">Matita kuningas takarivillä, kun sen omat nappulat estävät sitä siirtymästä pois.</string>
   <string name="bishopEndgame">Lähettiloppupeli</string>
   <string name="bishopEndgameDescription">Loppupeli, jossa on vain lähettejä ja sotilaita.</string>
-  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Bodenin matti</string>
-  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Kaksi ristiäviltä diagonaaleilta hyökkäävää lähettiä matittaa omien nappuloidensa estämän kuninkaan.</string>
+  <string name="bodenMate">Bodenin matti</string>
+  <string name="bodenMateDescription">Kaksi ristiäviltä diagonaaleilta hyökkäävää lähettiä matittaa omien nappuloidensa estämän kuninkaan.</string>
   <string name="castling">Linnoitus</string>
   <string name="castlingDescription">Vie kuninkaasi turvaan ja tuo tornisi mukaan hyökkäykseen.</string>
   <string name="capturingDefender">Lyö puolustava nappula</string>
   <string name="capturingDefenderDescription">Lyö toisen nappulan suojelemiseen käytetty nappula, jotta voit seuraavilla siirroilla lyödä toisen nappulan, joka ei ole enää suojeltu.</string>
   <string name="crushing">Murskaava etu</string>
   <string name="crushingDescription">Löydä vastustajan munaus ja hanki murskaava etu. (eval ≥ 600cp)</string>
-  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Kahden lähetin matti</string>
-  <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Kaksi vierekkäisiltä diagonaaleilta hyökkäävää lähettiä matittaa omien nappuloidensa estämän kuninkaan.</string>
-  <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Cozion matti</string>
-  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">Daami matittaa vieressään olevan kuninkaan, jonka omat nappulat vievät siltä sen ainoat kaksi pakoruutua.</string>
+  <string name="doubleBishopMate">Kahden lähetin matti</string>
+  <string name="doubleBishopMateDescription">Kaksi vierekkäisiltä diagonaaleilta hyökkäävää lähettiä matittaa omien nappuloidensa estämän kuninkaan.</string>
+  <string name="dovetailMate">Cozion matti</string>
+  <string name="dovetailMateDescription">Daami matittaa vieressään olevan kuninkaan, jonka omat nappulat vievät siltä sen ainoat kaksi pakoruutua.</string>
   <string name="equality">Tasoitus</string>
   <string name="equalityDescription">Nouse häviöasemasta takaisin peliin ja saavuta tasapeli tai tasapainoinen asema. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Hyökkäys kuningassivustalla</string>

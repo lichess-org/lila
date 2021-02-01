@@ -5,7 +5,7 @@
   <string name="advantage">Fördel</string>
   <string name="advantageDescription">Ta chansen att få en avgörande fördel. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastasias matt</string>
-  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">En springare och ett torn samarbetar för att fånga motståndarkungen i ett hörn av brädet.</string>
+  <string name="arabianMateDescription">En springare och ett torn samarbetar för att fånga motståndarkungen i ett hörn av brädet.</string>
   <string name="attackingF2F7">Attackera f2 eller f7</string>
   <string name="attackingF2F7Description">En attack som fokuserar på f2 eller f7 bonden, som i stekt leveröppning.</string>
   <string name="attraction">Attraktion</string>
@@ -20,7 +20,7 @@
   <string name="capturingDefenderDescription">Ta en pjäs som försvarar en annan pjäs, så att du kan ta den nu oförsvarade pjäsen i nästa drag.</string>
   <string name="crushing">Krossande</string>
   <string name="crushingDescription">Upptäck motståndares blunder för att få en förkrossande fördel. (eval ≥ 600cp)</string>
-  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">En dam levererar matt till en närliggande kung, vars enda två flyktrutor blockeras av egna pjäser.</string>
+  <string name="dovetailMateDescription">En dam levererar matt till en närliggande kung, vars enda två flyktrutor blockeras av egna pjäser.</string>
   <string name="equality">Utjämning</string>
   <string name="equalityDescription">Kom tillbaka från en förlorad position och säkra en remi eller en utjämnad position. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Kungsflygelattack</string>

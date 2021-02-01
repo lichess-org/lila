@@ -21,6 +21,10 @@ final class Env(
 
   lazy val selector = wire[StormSelector]
 
+  private val signSecret = appConfig.get[Secret]("storm.secret")
+
+  lazy val sign = wire[StormSign]
+
   lazy val json = wire[StormJson]
 
   lazy val highApi = wire[StormHighApi]
@@ -28,4 +32,10 @@ final class Env(
   lazy val dayApi = wire[StormDayApi]
 
   val forms = StormForm
+
+  lila.common.Bus.subscribeFuns(
+    "gdprErase" -> { case lila.user.User.GDPRErase(user) =>
+      dayApi.eraseAllFor(user).unit
+    }
+  )
 }

@@ -15,7 +15,8 @@ object StormForm {
       combo: Int,
       time: Int,
       highest: Int,
-      notAnExploit: String
+      notAnExploit: String,
+      signed: Option[String]
   )
 
   val run = Form(
@@ -23,11 +24,12 @@ object StormForm {
       "puzzles"      -> number(min = 1, max = 200),
       "score"        -> number(min = 1, max = 200),
       "moves"        -> number(min = 1, max = 900),
-      "errors"       -> number(min = 1, max = 50),
+      "errors"       -> number(min = 0, max = 50),
       "combo"        -> number(min = 1, max = 900),
       "time"         -> number(min = 1, max = 900),
       "highest"      -> number(min = lila.rating.Glicko.minRating, max = 4000),
-      "notAnExploit" -> nonEmptyText.verifying(_ == notAnExploit)
+      "notAnExploit" -> nonEmptyText.verifying(_ == notAnExploit),
+      "signed"       -> optional(nonEmptyText)
     )(RunData.apply)(RunData.unapply)
   )
 

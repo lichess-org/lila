@@ -47,9 +47,19 @@
       width: 100%;
     }
 
+    img,
+    .block-img {
+      max-width: 100%;
+    }
+
     .block-img {
       margin: 1em auto;
       text-align: center;
+
+      img {
+        width: auto;
+        height: auto;
+      }
     }
 
     .center {

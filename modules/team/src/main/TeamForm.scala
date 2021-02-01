@@ -4,7 +4,7 @@ import play.api.data._
 import play.api.data.Forms._
 import scala.concurrent.duration._
 
-import lila.common.Form.{ clean, numberIn }
+import lila.common.Form.{ cleanText, numberIn }
 import lila.db.dsl._
 
 final private[team] class TeamForm(
@@ -15,17 +15,17 @@ final private[team] class TeamForm(
     extends lila.hub.CaptchedForm {
 
   private object Fields {
-    val name     = "name"     -> clean(text(minLength = 3, maxLength = 60))
-    val location = "location" -> optional(clean(text(minLength = 3, maxLength = 80)))
-    val password = "password" -> optional(clean(text(maxLength = 60)))
+    val name     = "name"     -> cleanText(minLength = 3, maxLength = 60)
+    val location = "location" -> optional(cleanText(minLength = 3, maxLength = 80))
+    val password = "password" -> optional(cleanText(maxLength = 60))
     def passwordCheck(team: Team) = "password" -> optional(text).verifying(
       "team:incorrectTeamPassword",
       pw => team.password.fold(true)(_ == pw.??(_.trim))
     )
     def requestMessage(team: Team) =
-      "message" -> optional(clean(text(minLength = 30, maxLength = 2000)))
+      "message" -> optional(cleanText(minLength = 30, maxLength = 2000))
         .verifying("Request message required", msg => msg.isDefined || team.open)
-    val description = "description" -> clean(text(minLength = 30, maxLength = 2000))
+    val description = "description" -> cleanText(minLength = 30, maxLength = 2000)
     val request     = "request"     -> boolean
     val gameId      = "gameId"      -> text
     val move        = "move"        -> text
@@ -96,7 +96,7 @@ final private[team] class TeamForm(
   def createWithCaptcha = withCaptcha(create)
 
   val pmAll = Form(
-    single("message" -> clean(text(minLength = 3, maxLength = 9000)))
+    single("message" -> cleanText(minLength = 3, maxLength = 9000))
   )
 
   def leaders(t: Team) =

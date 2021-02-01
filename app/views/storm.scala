@@ -30,15 +30,19 @@ object storm {
         )
       ),
       title = "Puzzle Storm",
-      zoomable = true
+      zoomable = true,
+      chessground = false
     ) {
       main(
-        div(cls := "storm storm-app"),
+        div(cls := "storm storm-app storm--play")(
+          div(cls := "storm__board main-board"),
+          div(cls := "storm__side")
+        ),
         high map { h =>
           frag(
             div(cls := "storm-play-scores")(
-              span("Puzzle storm highscores"),
-              a(href := routes.Storm.dashboard())("View best runs »")
+              span(trans.storm.highscores()),
+              a(href := routes.Storm.dashboard())(trans.storm.viewBestRuns(), " »")
             ),
             div(cls := "storm-dashboard__high__periods")(
               renderHigh(h)
@@ -70,14 +74,19 @@ object storm {
 
   def dashboard(user: User, history: Paginator[StormDay], high: StormHigh)(implicit ctx: Context) =
     views.html.base.layout(
+      title = s"${user.username} Puzzle Storm",
       moreCss = frag(cssTag("storm.dashboard")),
-      title = s"${user.username} Puzzle Storm"
+      moreJs = infiniteScrollTag
     )(
       main(cls := "storm-dashboard page-small")(
         div(cls := "storm-dashboard__high box box-pad")(
           h1(
-            userLink(user),
-            " • Puzzle Storm highscores"
+            !ctx.is(user) option frag(
+              userLink(user),
+              " • "
+            ),
+            "Puzzle Storm • ",
+            trans.storm.highscores()
           ),
           div(cls := "storm-dashboard__high__periods highlight-alltime")(
             renderHigh(high)
@@ -88,17 +97,17 @@ object storm {
           table(cls := "slist slist-pad")(
             thead(
               tr(
-                th("Best run of day"),
-                th("Score"),
-                th("Moves"),
-                th("Accuracy"),
-                th("Combo"),
-                th("Time"),
-                th("Highest solved"),
-                th("Runs")
+                th(trans.storm.bestRunOfDay()),
+                th(trans.storm.score()),
+                th(trans.storm.moves()),
+                th(trans.storm.accuracy()),
+                th(trans.storm.combo()),
+                th(trans.storm.time()),
+                th(trans.storm.highestSolved()),
+                th(trans.storm.runs())
               )
             ),
-            tbody(
+            tbody(cls := "infinite-scroll")(
               history.currentPageResults.map { day =>
                 tr(
                   td(showDate(day._id.day.toDate)),
@@ -111,7 +120,16 @@ object storm {
                   td(numberTag(day.runs))
                 )
               },
-              pagerNextTable(history, np => addQueryParameter(routes.Storm.dashboard().url, "page", np))
+              pagerNextTable(
+                history,
+                np =>
+                  addQueryParameter(
+                    if (ctx is user) routes.Storm.dashboard().url
+                    else routes.Storm.dashboardOf(user.username).url,
+                    "page",
+                    np
+                  )
+              )
             )
           )
         )
@@ -128,7 +146,17 @@ object storm {
       t.newMonthlyHighscore,
       t.newAllTimeHighscore,
       t.previousHighscoreWasX,
-      t.playAgain
+      t.playAgain,
+      t.score,
+      t.moves,
+      t.accuracy,
+      t.combo,
+      t.time,
+      t.timePerMove,
+      t.highestSolved,
+      t.puzzlesPlayed,
+      t.newRun,
+      t.endRun
     ).map(_.key)
   }
 }

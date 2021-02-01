@@ -40,7 +40,7 @@ object topnav {
         div(role := "group")(
           a(href := routes.Puzzle.home())(trans.puzzles()),
           a(href := routes.Puzzle.dashboard(30, "home"))(trans.puzzle.puzzleDashboard()),
-          a(href := routes.Storm.home())("Puzzle storm")
+          a(href := routes.Storm.home())("Puzzle Storm")
         )
       ),
       st.section(

@@ -6,8 +6,8 @@
   <string name="advantageDescription">Используйте свой шанс получить решающее преимущество. (от 200 до 600 сантипешек)</string>
   <string name="anastasiaMate">Мат Анастасии</string>
   <string name="anastasiaMateDescription">Конь и ладья (или ферзь) матуют короля противника между краем доски и другой фигурой противника.</string>
-  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Арабский мат</string>
-  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">Конь и ладья матуют вражеского короля в углу доски.</string>
+  <string name="arabianMate">Арабский мат</string>
+  <string name="arabianMateDescription">Конь и ладья матуют вражеского короля в углу доски.</string>
   <string name="attackingF2F7">Атака f2 или f7</string>
   <string name="attackingF2F7Description">Атака, направленная на пешки f2 или f7, например, в дебюте жареной печени.</string>
   <string name="attraction">Завлечение</string>
@@ -16,20 +16,20 @@
   <string name="backRankMateDescription">Матование короля на его горизонтали, когда он заблокирован своими же фигурами.</string>
   <string name="bishopEndgame">Слоновый эндшпиль</string>
   <string name="bishopEndgameDescription">Эндшпиль, где присутствуют лишь слоны и пешки.</string>
-  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Мат Бодена</string>
-  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Два слона с пересекающихся диагоналей ставят мат вражескому королю, окружённому собственными фигурами.</string>
+  <string name="bodenMate">Мат Бодена</string>
+  <string name="bodenMateDescription">Два слона на скрещённых диагоналях ставят мат вражескому королю, окружённому собственными фигурами.</string>
   <string name="castling">Рокировка</string>
-  <string name="castlingDescription">Поместите короля в надёжное место и выведите в бой ладью.</string>
+  <string name="castlingDescription">Помещение короля в надёжное место и вывод в бой ладьи.</string>
   <string name="capturingDefender">Уничтожение защитника</string>
   <string name="capturingDefenderDescription">Избавьтесь от фигуры, защищающей другую фигуру, с последующим взятием фигуры, оставшейся без защиты.</string>
   <string name="crushing">Разгром</string>
   <string name="crushingDescription">Используйте зевок противника для получения сокрушительного преимущества. (600 и более сантипешек)</string>
-  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Мат двумя слонами</string>
-  <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Два слона атакующей стороны на ставят мат на пересекающихся диагоналях, в то время как король противника стеснён его же фигурой.</string>
-  <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Мат «ласточкин хвост»</string>
-  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">Мат ферзём стоящему рядом королю противника, единственные два поля отхода которого занимают его же фигуры.</string>
+  <string name="doubleBishopMate">Мат двумя слонами</string>
+  <string name="doubleBishopMateDescription">Два слона атакующей стороны ставят мат на смежных диагоналях, в то время как король противника стеснён своей же фигурой.</string>
+  <string name="dovetailMate">Мат «ласточкин хвост»</string>
+  <string name="dovetailMateDescription">Мат ферзём стоящему рядом королю противника, единственные два поля отхода которого занимают его же фигуры.</string>
   <string name="equality">Уравнение</string>
-  <string name="equalityDescription">Отыграйтесь из проигранной позиции: сведите партию вничью или получите позиционное равенство. (менее 200 сантипешек)</string>
+  <string name="equalityDescription">Отыграйтесь из проигранной позиции: сведите партию на ничью или получите позиционное равенство. (менее 200 сантипешек)</string>
   <string name="kingsideAttack">Атака на королевском фланге</string>
   <string name="kingsideAttackDescription">Атака на рокированного в короткую сторону короля противника.</string>
   <string name="clearance">Освобождение линии или поля</string>
@@ -59,14 +59,14 @@
   <string name="intermezzoDescription">Вместо того, чтобы сделать ожидаемый ход, сначала делается другой ход, представляющий непосредственную угрозу, на которую противник должен ответить. Также известен как «Zwischenzug» или «Intermezzo».</string>
   <string name="knightEndgame">Коневой эндшпиль</string>
   <string name="knightEndgameDescription">Эндшпиль, в котором на доске остались только кони и пешки.</string>
-  <string name="long">Многоходовая задача</string>
+  <string name="long">Трёхходовая задача</string>
   <string name="longDescription">Три хода до победы.</string>
-  <string name="master">Партии мастеров</string>
-  <string name="masterDescription">Задачи из партий титулованных шахматистов.</string>
+  <string name="master">Партии с мастерами</string>
+  <string name="masterDescription">Задачи из партий с участием титулованных игроков.</string>
   <string name="masterVsMaster">Партии мастеров</string>
-  <string name="masterVsMasterDescription">Задачи из партий, сыгранных титулованными игроками.</string>
+  <string name="masterVsMasterDescription">Задачи из партий, сыгранных титулованными игроками между собой.</string>
   <string name="mate">Мат</string>
-  <string name="mateDescription">Выиграйте игру красиво.</string>
+  <string name="mateDescription">Закончите игру красиво.</string>
   <string name="mateIn1">Мат в 1 ход</string>
   <string name="mateIn1Description">Поставьте мат в один ход.</string>
   <string name="mateIn2">Мат в два хода</string>
@@ -101,7 +101,7 @@
   <string name="rookEndgameDescription">Эндшпиль с ладьями и пешками.</string>
   <string name="sacrifice">Жертва</string>
   <string name="sacrificeDescription">Тактический приём, в котором временно отдаётся материал, но в последующей серии ходов он приводит к получению гораздо большего преимущества.</string>
-  <string name="short">Малоходовая задача</string>
+  <string name="short">Двухходовая задача</string>
   <string name="shortDescription">Два хода до победы.</string>
   <string name="skewer">Линейный удар</string>
   <string name="skewerDescription">Разновидность связки, но в этом случае наоборот, более ценная фигура оказывается на линии атаки перед менее ценной или равноценной фигурой.</string>
@@ -113,7 +113,7 @@
   <string name="trappedPieceDescription">Фигура не может уйти от нападения, потому что не имеет свободных полей для отхода, или эти поля тоже находятся под нападением.</string>
   <string name="underPromotion">Превращение в слабую фигуру</string>
   <string name="underPromotionDescription">Превращение пешки не в ферзя, а в коня, слона или ладью.</string>
-  <string name="veryLong">Сверхмногоходовая задача</string>
+  <string name="veryLong">Многоходовая задача</string>
   <string name="veryLongDescription">Четыре или более ходов для победы.</string>
   <string name="xRayAttack">Рентген</string>
   <string name="xRayAttackDescription">Ситуация, когда на линии нападения или защиты дальнобойной фигуры стоит фигура противника.</string>

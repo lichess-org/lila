@@ -316,7 +316,7 @@ final class Tournament(
     }
 
   def apiCreate =
-    ScopedBody() { implicit req => me =>
+    ScopedBody(_.Tournament.Write) { implicit req => me =>
       if (me.isBot || me.lame) notFoundJson("This account cannot create tournaments")
       else doApiCreate(me)
     }
@@ -388,6 +388,37 @@ final class Tournament(
                     Redirect(routes.Tournament.show(tour.id))
               )
           case tour => Redirect(routes.Tournament.show(tour.id)).fuccess
+        }
+      }
+    }
+
+  def apiTeamBattleUpdate(id: String) =
+    ScopedBody(_.Tournament.Write) { implicit req => me =>
+      implicit def lang = reqLang
+      repo byId id flatMap {
+        _ ?? {
+          case tour if (tour.createdBy == me.id || isGranted(_.ManageTournament, me)) && !tour.isFinished =>
+            lila.tournament.TeamBattle.DataForm.empty
+              .bindFromRequest()
+              .fold(
+                newJsonFormError,
+                res =>
+                  api.teamBattleUpdate(tour, res, env.team.api.filterExistingIds) >> {
+                    repo byId tour.id map (_ | tour) flatMap { tour =>
+                      jsonView(
+                        tour,
+                        none,
+                        none,
+                        getUserTeamIds = getUserTeamIds,
+                        env.team.getTeamName,
+                        none,
+                        none,
+                        partial = false
+                      )
+                    } map { Ok(_) }
+                  }
+              )
+          case _ => BadRequest(jsonError("Can't update that tournament.")).fuccess
         }
       }
     }

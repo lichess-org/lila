@@ -1,12 +1,11 @@
 package views.html.oAuth.token
 
+import controllers.routes
 import play.api.data.Form
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-
-import controllers.routes
 
 object create {
 
@@ -55,7 +54,27 @@ object create {
           form3.actions(
             a(href := routes.OAuthToken.index())("Cancel"),
             form3.submit(trans.apply())
-          )
+          ),
+          br,
+          div {
+            val url =
+              s"${netBaseUrl}${routes.OAuthToken.create()}?scopes[]=challenge:write&scopes[]=puzzle:read&description=Prefilled+token+example"
+            frag(
+              h2("Note for the attention of developers only:"),
+              p(
+                "It is possible to pre-fill this form by tweaking the query parameters of the URL.",
+                br,
+                "For example: ",
+                a(href := url)(url),
+                br,
+                "ticks the challenge:create and puzzle:read permissions, and sets the token description.",
+                br,
+                "The permission codes can be found in the HTML code of the form.",
+                br,
+                "Giving these pre-filled URLs to your users will help them get the right token permissions."
+              )
+            )
+          }
         )
       )
     )

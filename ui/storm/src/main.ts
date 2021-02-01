@@ -28,9 +28,8 @@ export function start(opts: StormOpts) {
   element.innerHTML = '';
   vnode = patch(element, blueprint);
 
-  redraw();
-
   menuHover();
+  $('script').remove();
 };
 
 // that's for the rest of lichess to access chessground

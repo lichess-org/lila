@@ -2,4 +2,5 @@
 <resources>
   <string name="preferences">Socruithe</string>
   <string name="chessClock">Clog fichille</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Máigh cluiche cothrom ar athrshuíomh faoi thrí go huathoibríoch</string>
 </resources>

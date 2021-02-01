@@ -53,7 +53,7 @@ object inquiry {
     def renderNote(r: lila.user.Note)(implicit ctx: Context) =
       (!r.dox || isGranted(_.Doxing)) option div(cls := "doc note")(
         h3("by ", userIdLink(r.from.some, withOnline = false), ", ", momentFromNow(r.date)),
-        p(richText(r.text))
+        p(richText(r.text, expandImg = false))
       )
 
     def autoNextInput = input(cls := "auto-next", tpe := "hidden", name := "next", value := "1")

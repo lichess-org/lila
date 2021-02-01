@@ -11,11 +11,11 @@ final class MemberRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCo
   import BSONHandlers._
 
   // expensive with thousands of members!
-  def userIdsByTeam(teamId: Team.ID): Fu[Set[Team.ID]] =
-    coll.secondaryPreferred.distinctEasy[String, Set]("user", $doc("team" -> teamId))
+  def userIdsByTeam(teamId: Team.ID): Fu[List[Team.ID]] =
+    coll.secondaryPreferred.distinctEasy[String, List]("user", $doc("team" -> teamId))
 
-  def teamIdsByUser(userId: User.ID): Fu[Set[Team.ID]] =
-    coll.distinctEasy[Team.ID, Set]("team", $doc("user" -> userId))
+  def teamIdsByUser(userId: User.ID): Fu[List[Team.ID]] =
+    coll.distinctEasy[Team.ID, List]("team", $doc("user" -> userId))
 
   def removeByteam(teamId: Team.ID): Funit =
     coll.delete.one(teamQuery(teamId)).void

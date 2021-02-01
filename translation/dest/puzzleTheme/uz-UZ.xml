@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Arabcha mot</string>
+  <string name="arabianMate">Arabcha mot</string>
   <string name="attackingF2F7">f2 yoki f7 hujum</string>
   <string name="attraction">Jozibasi</string>
 </resources>

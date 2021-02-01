@@ -1,4 +1,5 @@
 import { Role } from 'chessground/types';
+import {Prop} from 'common';
 import { VNode } from 'snabbdom/vnode'
 
 export type MaybeVNode = VNode | string | null | undefined;
@@ -23,6 +24,8 @@ export interface StormPrefs {
 export interface StormData {
   puzzles: StormPuzzle[];
   notAnExploit: string;
+  key?: string;
+  signed?: string;
 }
 
 export interface StormVm {
@@ -42,6 +45,8 @@ export interface StormVm {
     response?: RunResponse;
   }
   dupTab?: boolean;
+  signed: Prop<string | undefined>;
+  lateStart: boolean;
 }
 
 export interface Round {
@@ -88,6 +93,7 @@ export interface StormRun {
   combo: number;
   time: number;
   highest: number;
+  signed?: string;
 }
 
 export interface RunResponse {

@@ -225,7 +225,7 @@ lazy val lobby = module("lobby",
 )
 
 lazy val setup = module("setup",
-  Seq(common, db, memo, hub, socket, game, user, lobby, pref, relation),
+  Seq(common, db, memo, hub, socket, game, user, lobby, pref, relation, oauth),
   reactivemongo.bundle
 )
 

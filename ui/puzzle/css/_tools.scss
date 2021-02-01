@@ -1,7 +1,7 @@
 .puzzle__tools {
   @extend %box-neat-force, %flex-column;
 
-  max-height: 90vh;
+  background: $c-bg-box;
 
   .ceval-wrap {
     flex: 0 0 38px;
@@ -59,6 +59,7 @@
       flex: 1 0 17rem;
     }
   }
+
 
   background: $c-bg-high;
   justify-content: center;
@@ -125,6 +126,7 @@
   .view_solution.show {
     visibility: visible;
     opacity: 0.8;
+
     @include transition(opacity, 1.5s);
   }
 }

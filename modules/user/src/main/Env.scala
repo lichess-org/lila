@@ -85,8 +85,7 @@ final class Env(
     },
     "gdprErase" -> { case User.GDPRErase(user) =>
       repo erase user
-      noteApi erase user
-      ()
+      noteApi.erase(user).unit
     }
   )
 }

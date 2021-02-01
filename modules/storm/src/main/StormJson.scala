@@ -3,15 +3,18 @@ package lila.storm
 import play.api.libs.json._
 
 import lila.common.Json._
+import lila.user.User
 
-final class StormJson {
+final class StormJson(sign: StormSign) {
 
   import StormJson.puzzleWrites
 
-  def apply(puzzles: List[StormPuzzle]): JsObject = Json.obj(
-    "puzzles"      -> puzzles,
-    "notAnExploit" -> StormForm.notAnExploit
-  )
+  def apply(puzzles: List[StormPuzzle], user: Option[User]): JsObject = Json
+    .obj(
+      "puzzles"      -> puzzles,
+      "notAnExploit" -> StormForm.notAnExploit
+    )
+    .add("key" -> user.map(sign.getPrev))
 
   def pref(p: lila.pref.Pref) =
     Json.obj(

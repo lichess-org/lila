@@ -73,6 +73,11 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       )
     )
 
+  def filterEnabled(teamIds: List[Team.ID]): Fu[List[Team.ID]] =
+    coll.distinctEasy[Team.ID, Set]("_id", $inIds(teamIds) ++ $doc("enabled" -> false)) map { disabledIds =>
+      teamIds.filterNot(disabledIds.contains)
+    }
+
   def incMembers(teamId: String, by: Int): Funit =
     coll.update.one($id(teamId), $inc("nbMembers" -> by)).void
 

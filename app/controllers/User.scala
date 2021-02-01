@@ -569,7 +569,7 @@ final class User(
     }
 
   def tryRedirect(username: String)(implicit ctx: Context): Fu[Option[Result]] =
-    env.user.repo named username map2 { user =>
+    env.user.repo enabledNamed username map2 { user =>
       Redirect(routes.User.show(user.username))
     }
 }

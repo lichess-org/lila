@@ -6,8 +6,8 @@
   <string name="advantageDescription">Iskoristi priliku i pridobij odlučujuču prednost. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastazijin mat</string>
   <string name="anastasiaMateDescription">Skakač i top ili dama udružuju se kako bi uhvatili protivničkog kralja u zamku između ruba ploče s jedne i njegove figure s druge strane.</string>
-  <string name="arabianMate" comment="arabianMate&#10;&#10;A knight and a rook team up to trap the opposing king on a corner of the board.">Arapski mat</string>
-  <string name="arabianMateDescription" comment="arabianMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Arabian_mate">Skakač i top udružuju snage kako bi zarobili suparničkog kralja u uglu igraće ploče.</string>
+  <string name="arabianMate">Arapski mat</string>
+  <string name="arabianMateDescription">Skakač i top udružuju snage kako bi zarobili suparničkog kralja u uglu igraće ploče.</string>
   <string name="attackingF2F7">Napad na f2 ili f7 polje</string>
   <string name="attackingF2F7Description">Napad na f2 ili f7 pješaka kao što je napad lovcem popularno nazvan \"fried liver opening\".</string>
   <string name="attraction">Privlačenje</string>
@@ -16,18 +16,18 @@
   <string name="backRankMateDescription">Top ili dama matiraju kralja koji se nalazi na njegovom prvom redu (odnosno osmom iz perspektive protivnika) te je zagrađen svojim figurama.</string>
   <string name="bishopEndgame">Lovčeva završnica</string>
   <string name="bishopEndgameDescription">Završnica u kojoj sudjeluju samo lovci i pješaci.</string>
-  <string name="bodenMate" comment="bodenMate&#10;&#10;Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces.">Bodenov mat</string>
-  <string name="bodenMateDescription" comment="bodenMateDescription&#10;&#10;see https://en.wikipedia.org/wiki/Boden%27s_Mate&#10;">Dva lovca napadaju po unakrsnim dijagonalama i matiraju kralja okruženog njegovim figurama.</string>
+  <string name="bodenMate">Bodenov mat</string>
+  <string name="bodenMateDescription">Dva lovca napadaju po unakrsnim dijagonalama i matiraju kralja okruženog njegovim figurama.</string>
   <string name="castling">Rokada</string>
   <string name="castlingDescription">Dovedi svog kralja na sigurno i postavi svog topa za napad.</string>
   <string name="capturingDefender">Eliminiraj obranu</string>
   <string name="capturingDefenderDescription">Eliminacijom figure koja brani ili je neizravno uključena u obranu druge figure omogućujete uzimanje figure koja ostaje bez obrane.</string>
   <string name="crushing">Uništavanje</string>
   <string name="crushingDescription">Uoči protivničku grešku te pridobij golemu prednost. (eval ≥ 600cp)</string>
-  <string name="doubleBishopMate" comment="doubleBishopMate&#10;&#10;Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.">Mat lovačkim parom</string>
-  <string name="doubleBishopMateDescription" comment="doubleBishopMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Double_bishop_mate">Lovački par zadaje mat na susjednim dijagonalama kralju zarobljenom iza prijateljske figure.</string>
-  <string name="dovetailMate" comment="dovetailMate&#10;&#10;A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.&#10;&#10;Also known as Cozio's mate - feel free to use this name">Lastin mat</string>
-  <string name="dovetailMateDescription" comment="dovetailMateDescription&#10;&#10;See https://en.wikipedia.org/wiki/Checkmate_pattern#Cozio's_mate&#10;(paste url in browser, link incorrect due to apostrophe ):">Kraljica zadaje mat dodirujuči protivničkog kralja po dijagonali. Kraljeva jedina polja za bijeg zauzeta su njegovim figurama.</string>
+  <string name="doubleBishopMate">Mat lovačkim parom</string>
+  <string name="doubleBishopMateDescription">Lovački par zadaje mat na susjednim dijagonalama kralju zarobljenom iza prijateljske figure.</string>
+  <string name="dovetailMate">Lastin mat</string>
+  <string name="dovetailMateDescription">Kraljica zadaje mat dodirujuči protivničkog kralja po dijagonali. Kraljeva jedina polja za bijeg zauzeta su njegovim figurama.</string>
   <string name="equality">Izjednačenje</string>
   <string name="equalityDescription">Pronađi potez koji te dovodi iz gubitničke u podjednaku poziciju. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Napad na kraljevoj strani</string>

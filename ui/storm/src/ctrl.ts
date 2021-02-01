@@ -1,6 +1,7 @@
 import * as xhr from './xhr';
 import config from './config';
 import makePromotion from './promotion';
+import sign from './sign';
 import { Api as CgApi } from 'chessground/api';
 import { Chess } from 'chessops/chess';
 import { chessgroundDests } from 'chessops/compat';
@@ -10,18 +11,22 @@ import { parseFen, makeFen } from 'chessops/fen';
 import { parseUci, opposite } from 'chessops/util';
 import { prop, Prop } from 'common';
 import { Role } from 'chessground/types';
-import { StormOpts, StormData, StormPuzzle, StormVm, Promotion, TimeMod, StormRun } from './interfaces';
+import { StormOpts, StormData, StormPuzzle, StormVm, Promotion, TimeMod, StormRun, StormPrefs } from './interfaces';
 
 export default class StormCtrl {
 
-  data: StormData;
+  private data: StormData;
+  private redraw: () => void;
+  pref: StormPrefs;
   vm: StormVm;
   trans: Trans;
   promotion: Promotion;
   ground = prop<CgApi | false>(false) as Prop<CgApi | false>;
 
-  constructor(readonly opts: StormOpts, readonly redraw: () => void) {
+  constructor(opts: StormOpts, redraw: (data: StormData) => void) {
     this.data = opts.data;
+    this.pref = opts.pref;
+    this.redraw = () => redraw(this.data);
     this.trans = lichess.trans(opts.i18n);
     this.vm = {
       puzzleIndex: 0,
@@ -38,10 +43,19 @@ export default class StormCtrl {
         moves: 0,
         errors: 0
       },
+      signed: prop(undefined),
+      lateStart: false
     };
-    this.promotion = makePromotion(this.withGround, this.makeCgOpts, redraw);
+    this.promotion = makePromotion(this.withGround, this.makeCgOpts, this.redraw);
     this.checkDupTab();
     setTimeout(this.hotkeys, 1000);
+    if (this.data.key) setTimeout(() => sign(this.data.key!).then(this.vm.signed), 1000 * 40);
+    setTimeout(() => {
+      if (!this.vm.run.startAt) {
+        this.vm.lateStart = true;
+        this.redraw();
+      }
+    }, config.timeToStart + 1000);
   }
 
   clockMillis = (): number | undefined =>
@@ -61,7 +75,12 @@ export default class StormCtrl {
     this.redrawSlow();
   }
 
-  naturalFlag = () => {
+  endNow = (): void => {
+    this.pushToHistory(false);
+    this.end();
+  };
+
+  naturalFlag = (): void => {
     this.pushToHistory(false);
     this.end();
   };
@@ -218,22 +237,23 @@ export default class StormCtrl {
     errors: this.vm.run.errors,
     combo: this.vm.comboBest,
     time: (this.vm.run.endAt! - this.vm.run.startAt) / 1000,
-    highest: this.vm.history.reduce((h, r) => r.win && r.puzzle.rating > h ? r.puzzle.rating : h, 0)
+    highest: this.vm.history.reduce((h, r) => r.win && r.puzzle.rating > h ? r.puzzle.rating : h, 0),
+    signed: this.vm.signed()
   });
 
   private showGround = (g: CgApi): void => g.set(this.makeCgOpts());
 
   private uciToLastMove = (uci: string): [Key, Key] => [uci.substr(0, 2) as Key, uci.substr(2, 2) as Key];
 
-  private loadSound = (file: string, volume?: number) => {
-    lichess.sound.loadOggOrMp3(file, `${lichess.sound.baseUrl}/${file}`);
+  private loadSound = (file: string, volume?: number, delay?: number) => {
+    setTimeout(() => lichess.sound.loadOggOrMp3(file, `${lichess.sound.baseUrl}/${file}`), delay || 1000);
     return () => lichess.sound.play(file, volume);
   };
 
   private sound = {
     move: (take: boolean) => lichess.sound.play(take ? 'capture' : 'move'),
-    bonus: this.loadSound('other/ping', 0.8),
-    end: this.loadSound('other/gewonnen', 0.6)
+    bonus: this.loadSound('other/ping', 0.8, 1000),
+    end: this.loadSound('other/gewonnen', 0.6, 5000)
   };
 
   private checkDupTab = () => {
@@ -252,5 +272,4 @@ export default class StormCtrl {
       .bind('space', () => location.reload())
       .bind('return', this.end);
   }
-
 }

@@ -8,7 +8,8 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 
 export default function(ctrl: StormCtrl): VNode {
-  if (ctrl.vm.dupTab) return renderDupTab();
+  if (ctrl.vm.dupTab) return renderReload('This run was opened in another tab!');
+  if (ctrl.vm.lateStart) return renderReload('This run has expired!');
   if (!ctrl.vm.run.endAt) return h('div.storm.storm-app.storm--play', {
     class: playModifiers(ctrl)
   }, renderPlay(ctrl));
@@ -22,7 +23,6 @@ const playModifiers = (ctrl: StormCtrl) => {
   return {
     'storm--mod-puzzle': !!ctrl.vm.puzzleStartAt && ctrl.vm.puzzleStartAt > now - 90,
     'storm--mod-move': ctrl.vm.modifier.moveAt > now - 90,
-    'storm--mod-malus-quick': !!malus && malus.at > now - 90,
     'storm--mod-malus-slow': !!malus && malus.at > now - 950,
     'storm--mod-bonus-slow': !!bonus && bonus.at > now - 950
   };
@@ -49,15 +49,15 @@ const renderControls = (ctrl: StormCtrl): VNode =>
       attrs: {
         href: '/storm',
         'data-icon': 'B',
-        title: 'New run (hotkey: Space)'
+        title: ctrl.trans('newRun')
       }
     }),
     h('a.storm__control__end.button.button-empty', {
       attrs: {
         'data-icon': 'b',
-        title: 'End run (hotkey: Enter)',
+        title: ctrl.trans('endRun'),
       },
-      hook: onInsert(el => el.addEventListener('click', ctrl.end))
+      hook: onInsert(el => el.addEventListener('click', ctrl.endNow))
     })
   ]);
 
@@ -101,10 +101,10 @@ const renderStart = (ctrl: StormCtrl) =>
     ])
   );
 
-const renderDupTab = () =>
-  h('div.storm.storm--dup.box.box-pad', [
+const renderReload = (msg: string) =>
+  h('div.storm.storm--reload.box.box-pad', [
     h('i', { attrs: { 'data-icon': '~' } }),
-    h('p', 'This run was opened in another tab!'),
+    h('p', msg),
     h('a.storm--dup__reload.button', {
       attrs: { href: '/storm' }
     }, 'Click to reload')

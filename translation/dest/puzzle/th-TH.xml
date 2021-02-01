@@ -1,2 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">ปริศนา</string>
+  <string name="recommended">แนะนำ</string>
+  <string name="phases">ช่วงของเกม</string>
+  <string name="didYouLikeThisPuzzle">คุณชอบปริศนานี้ไหม?</string>
+  <string name="findTheBestMoveForWhite">Find the best move for white.</string>
+  <string name="findTheBestMoveForBlack">หาการเดินที่ดีที่สุดสำหรับฝ่ายดำ</string>
+  <string name="puzzleOfTheDay">ปริศนาประจำวัน</string>
+  <string name="goodMove">เดินได้ดี</string>
+  <string name="puzzleComplete">แก้ไขปริศนาสำเร็จ!</string>
+  <plurals name="playedXTimes">
+    <item quantity="other">ถูกเล่น %s ครั้ง</item>
+  </plurals>
+  <string name="fromGameLink">จากเกม %s</string>
+  <string name="easiest">ง่ายที่สุด</string>
+  <string name="hardest">ยากที่สุด</string>
+</resources>

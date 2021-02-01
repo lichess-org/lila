@@ -493,6 +493,7 @@ object mon {
     }
     object run {
       def score(auth: Boolean) = histogram("storm.run.score").withTag("auth", auth)
+      def sign(cause: String)  = counter("storm.run.sign").withTag("cause", cause)
     }
   }
   object game {
@@ -601,6 +602,12 @@ object mon {
     val users     = counter("api.cost").withTag("endpoint", "users")
     val game      = counter("api.cost").withTag("endpoint", "game")
     val activity  = counter("api.cost").withTag("endpoint", "activity")
+    object challenge {
+      object bulk {
+        def scheduleNb(byUserId: String) = counter("api.challenge.bulk.schedule.nb").withTag("by", byUserId)
+        def createNb(byUserId: String)   = counter("api.challenge.bulk.create.nb").withTag("by", byUserId)
+      }
+    }
   }
   object export {
     object pgn {

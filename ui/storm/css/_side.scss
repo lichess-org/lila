@@ -6,8 +6,12 @@
     flex-flow: column;
     justify-content: space-between;
     background: $c-bg-box;
-    padding: 3vh 2vw;
     margin: 0;
+    padding: 2vh 2vw;
+
+    @include breakpoint($mq-col2) {
+      padding: 3vh 2vw;
+    }
   }
 
   &__top {
@@ -27,6 +31,7 @@
 
   &__table {
     @extend %flex-column;
+
     flex: 0 0 25%;
     justify-content: flex-end;
   }
@@ -57,15 +62,23 @@
       @extend %flex-column;
 
       strong {
-        font-size: 2.2em;
+        font-size: 2em;
         font-weight: normal;
+
+        @include breakpoint($mq-col2) {
+          font-size: 2.2em;
+        }
       }
 
       span {
         @extend %roboto;
 
-        font-size: 1.5em;
-        letter-spacing: .2em;
+        letter-spacing: .1em;
+
+        @include breakpoint($mq-col2) {
+          font-size: 1.5em;
+          letter-spacing: .2em;
+        }
       }
     }
   }

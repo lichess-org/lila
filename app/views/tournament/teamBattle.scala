@@ -69,7 +69,7 @@ object teamBattle {
             standing.map { t =>
               tr(
                 td(cls := "rank")(t.rank),
-                td(cls := "team")(teamIdToName(t.teamId)),
+                td(cls := "team")(teamLink(t.teamId)),
                 td(cls := "players")(
                   fragList(
                     t.leaders.map { l =>
