@@ -486,7 +486,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="advancedSettings">Ardsocruithe</string>
   <string name="safeTournamentName">Pioc ainm an-sábhailte don chomórtas.</string>
   <string name="inappropriateNameWarning">D\'fhéatfadh go bhfhaighidhfeá aon rud atá neamhoiriúineach in aon chaoi do chuntas dúnta.</string>
-  <string name="emptyTournamentName">Fág folamh chun an chomórtas a ainmniú in ainneoin d\'imreoir fichille cáiliúil.</string>
+  <string name="emptyTournamentName">Fág folamh chun an comórtas a ainmniú i ndiaidh ficheallaí suntasach.</string>
   <string name="recommendNotTouching">Molaimid iad seo a fhágáil mar atá.</string>
   <string name="fewerPlayers">Má shocraíonn tú rialacha a mbaineann le chuir isteach ar an gcomórtas, beidh níos lú imreoirí ag do chomórtas.</string>
   <string name="showAdvancedSettings">Taispeán na socruithe níos casta</string>
@@ -720,7 +720,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="simulAddExtraTime">Féadfaidh tú am breise a chur le do chlog chun cabhrú leat déileáil leis an gcluiche comhuaineach.</string>
   <string name="simulHostExtraTime">Óstáil am-clog breise</string>
   <string name="lichessTournaments">Comórtais Lichess</string>
-  <string name="tournamentFAQ">CCanna Comórtas Airéine</string>
+  <string name="tournamentFAQ">CCanna Comórtas Láthair</string>
   <string name="tournamentOfficial">Oifigiúil</string>
   <string name="timeBeforeTournamentStarts">Am fágtha sula thosnaíonn an comórtas</string>
   <string name="averageCentipawnLoss">Meánchaillteanas ceithearnach sa lár</string>
