@@ -57,15 +57,6 @@ db.trophyKind.insert({
   withCustomImage: false
 });
 db.trophyKind.insert({
-  _id: "bongcloudWarrior",
-  name: "Bongcloud Warrior",
-  icon: "~",
-  url: "//lichess.org/forum/lichess-feedback/bongcloud-trophy",
-  klass: "fire-trophy",
-  order: NumberInt(8),
-  withCustomImage: false
-});
-db.trophyKind.insert({
   _id: "developer",
   name: "Lichess developer",
   icon: "\ue000",
