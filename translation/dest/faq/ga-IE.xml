@@ -2,6 +2,7 @@
 <resources>
   <string name="faqAbbreviation">CCanna</string>
   <string name="frequentlyAskedQuestions">Ceisteanna Coitianta</string>
+  <string name="fideHandbookX">Lámhleabhair FIDE %s</string>
   <string name="goodIntroduction">réamhrá maith</string>
   <string name="officialRulesPDF">rialacha oifigiúla (PDF)</string>
   <string name="lichessTraining">Traenáil Lichess</string>
