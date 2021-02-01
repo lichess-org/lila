@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="dailyXArena">Láthair Laethúil %s</string>
+  <string name="easternClassicalArena">Láthair Clasaiceach an Oirthir</string>
+  <string name="easternXArena">Láthair an Oirthir %s</string>
+  <string name="easternX">An Oirthir %s</string>
   <string name="xArena">%s Láthair</string>
 </resources>
