@@ -9,6 +9,9 @@
   <string name="castling">Caisliú</string>
   <string name="doubleBishopMate">Marbhsháinn dhá easpag</string>
   <string name="dovetailMate">Marbhsháinn déada</string>
+  <string name="defensiveMove">Beart cosanta</string>
+  <string name="discoveredAttack">Ionsaí nochta</string>
+  <string name="doubleCheck">Sáinn faoi dhó</string>
   <string name="endgame">Cor deiridh</string>
   <string name="endgameDescription">Beartaíocht i gcor deiridh na cluiche.</string>
   <string name="fork">Gabhal</string>
