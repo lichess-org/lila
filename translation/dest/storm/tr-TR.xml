@@ -17,7 +17,7 @@
     <item quantity="other">%1$s kez %2$s oynadı</item>
   </plurals>
   <string name="highscoreX">Rekor: %s</string>
-  <string name="score">Puan</string>
+  <string name="score">Günlük rekor</string>
   <string name="moves">Hamle sayısı</string>
   <string name="accuracy">Başarı oranı</string>
   <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consequtive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Kombo</string>
@@ -29,6 +29,6 @@
   <string name="endRun">Turu bitir (kısayol: Enter)</string>
   <string name="highscores">Rekorlar</string>
   <string name="viewBestRuns">En iyi denemeleri göster</string>
-  <string name="bestRunOfDay">Günlük rekorlar</string>
+  <string name="bestRunOfDay">Tarih</string>
   <string name="runs">Deneme sayısı</string>
 </resources>
