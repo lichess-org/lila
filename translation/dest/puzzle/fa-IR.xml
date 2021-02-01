@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="puzzles">معما</string>
+  <string name="puzzleThemes">تم پازل هت</string>
+  <string name="recommended">توصیه شده
+عنوان برای تم های پازل ها قابل مشاهده است در  https://lichess.org/training/themes
+تنها موضوع تحت عنوان \"healthy mix\" است. تغییرd نخواهد کرد.</string>
+  <string name="phases">فاز ها</string>
+  <string name="motifs">موضوع</string>
   <string name="advanced">پیشرفته</string>
+  <string name="lengths">مدت</string>
+  <string name="mates">مات</string>
+  <string name="goals">اهداف</string>
+  <string name="origin" comment="origin&#10;&#10;In this case origin stands for the game the puzzle was found in.">منشا</string>
+  <string name="specialMoves">حرکات مخصوص</string>
+  <string name="didYouLikeThisPuzzle">شما این پازل را دوست داشتید؟</string>
   <string name="puzzleOfTheDay">مسئله روز</string>
   <string name="bestMove">بهترین حرکت!</string>
   <string name="keepGoing">ادامه دهید…</string>
