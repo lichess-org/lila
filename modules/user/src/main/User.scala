@@ -252,7 +252,11 @@ object User {
     val totpSecret            = "totp"
     val changedCase           = "changedCase"
     val marks                 = "marks"
+    val erasedAt              = "erasedAt"
+    val blind                 = "blind"
   }
+
+  def withFields[A](f: BSONFields.type => A): A = f(BSONFields)
 
   import lila.db.BSON
   import lila.db.dsl._

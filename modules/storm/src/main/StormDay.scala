@@ -103,7 +103,7 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo, s
     Paginator(
       adapter = new Adapter[StormDay](
         collection = coll,
-        selector = $doc("_id" $startsWith s"${userId}:"),
+        selector = idRegexFor(userId),
         projection = none,
         sort = $sort desc "_id"
       ),
@@ -111,4 +111,8 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo, s
       MaxPerPage(30)
     )
 
+  def eraseAllFor(user: User) =
+    coll.delete.one(idRegexFor(user.id)).void
+
+  private def idRegexFor(userId: User.ID) = $doc("_id" $startsWith s"${userId}:")
 }
