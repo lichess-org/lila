@@ -162,8 +162,22 @@ caisliú ar taobh na mbanríon!</string>
   <string name="advanced">Ardeolas</string>
   <string name="pieceValue">Méid na píosaí</string>
   <string name="evaluatePieceStrength">Meas láidir na píosaí</string>
+  <string name="queenOverBishop">Tóg an píosa
+leis an luach is airde!
+Banríon &gt; Easpag</string>
+  <string name="takeThePieceWithTheHighestValue">Tóg an píosa
+leis an luach is airde!</string>
+  <string name="pieceValueComplete">Comhghairdeas! Tá luach na píosaí ar eolas agat!
+Banríon = 9
+Rook = 5
+Easpag = 3
+Ridire = 3
+Ceithearnach = 1</string>
   <string name="checkInTwo">Sáinn i dhá beart</string>
   <string name="twoMovesToGiveCheck">Dhá beart chun sáinn</string>
+  <string name="checkInTwoIntro">Faigh an comhcheangal cheart de dhá bheart a sáinniú rí an chéile comhraic!</string>
+  <string name="checkInTwoGoal">Bhagair rí an chéile comhraic
+i dhá bheart!</string>
   <string name="checkInTwoComplete">Comhghairdeas! Sháinn tú do chéile comhraic, agus is gá dó a rí a cosaint!</string>
   <string name="whatNext">Cad eile?</string>
   <string name="youKnowHowToPlayChess">Tá fhios agat conas ficheall a imirt, comhghairdeas! Ar mhaith leat bheith níos láidre mar imreoir?</string>
