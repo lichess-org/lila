@@ -154,6 +154,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val swiss: Swiss                   = wire[Swiss]
   lazy val dgt: DgtCtrl                   = wire[DgtCtrl]
   lazy val storm: Storm                   = wire[Storm]
+  lazy val bulkPairing: BulkPairing       = wire[BulkPairing]
 
   // eagerly wire up all controllers
   val router: Router = {

@@ -309,47 +309,6 @@ final class Challenge(
         )
     }
 
-  def bulk =
-    ScopedBody(_.Challenge.Bulk) { implicit req => me =>
-      implicit val lang = reqLang
-      import lila.setup.SetupBulk
-      lila.setup.SetupBulk.form
-        .bindFromRequest()
-        .fold(
-          newJsonFormError,
-          data =>
-            env.setup.bulk(data, me) flatMap {
-              case Left(SetupBulk.RateLimited) =>
-                TooManyRequests(
-                  jsonError(s"Ratelimited! Max games per 10 minutes: ${SetupBulk.maxGames}")
-                ).fuccess
-              case Left(SetupBulk.BadTokens(tokens)) =>
-                import lila.setup.SetupBulk.BadToken
-                import play.api.libs.json._
-                BadRequest(
-                  Json.obj(
-                    "tokens" -> JsObject {
-                      tokens.map { case BadToken(token, error) =>
-                        token.value -> JsString(error.message)
-                      }
-                    }
-                  )
-                ).fuccess
-              case Right(bulk) =>
-                env.challenge.bulk.schedule(bulk) map {
-                  case Some(error) => BadRequest(jsonError(error))
-                  case _ =>
-                    Ok(Json.obj("games" -> bulk.games.map { g =>
-                      Json.obj(
-                        "gameId"  -> g.id,
-                        "userIds" -> Json.arr(g.white, g.black)
-                      )
-                    })) as JSON
-                }
-            }
-        )
-    }
-
   def apiCreateAdmin(origName: String, destName: String) =
     ScopedBody(_.Challenge.Write) { implicit req => admin =>
       IfGranted(_.ApiChallengeAdmin, req, admin) {

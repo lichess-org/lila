@@ -40,16 +40,22 @@ final class ChallengeBulkApi(
   private val workQueue =
     new DuctSequencers(maxSize = 16, expiration = 10 minutes, timeout = 10 seconds, name = "challenge.bulk")
 
-  def schedule(bulk: ScheduledBulk): Fu[Option[String]] = workQueue(bulk.by) {
-    if (bulk.pairAt.isBeforeNow) makePairings(bulk) inject none
+  def scheduledBy(me: User): Fu[List[ScheduledBulk]] =
+    coll.list[ScheduledBulk]($doc("by" -> me.id))
+
+  def deleteBy(id: String, me: User): Fu[Boolean] =
+    coll.delete.one($doc("_id" -> id, "by" -> me.id)).map(_.n == 1)
+
+  def schedule(bulk: ScheduledBulk): Fu[Either[String, ScheduledBulk]] = workQueue(bulk.by) {
+    if (bulk.pairAt.isBeforeNow) makePairings(bulk) inject Right(bulk.copy(pairedAt = DateTime.now.some))
     else
       coll.list[ScheduledBulk]($doc("by" -> bulk.by, "pairedAt" $exists false)) flatMap { bulks =>
         val nbGames = bulks.map(_.games.size).sum
-        if (bulks.sizeIs >= 10) fuccess("Already too many bulks queued".some)
-        else if (bulks.map(_.games.size).sum >= 1000) fuccess("Already too many games queued".some)
+        if (bulks.sizeIs >= 10) fuccess(Left("Already too many bulks queued"))
+        else if (bulks.map(_.games.size).sum >= 1000) fuccess(Left("Already too many games queued"))
         else if (bulks.exists(_ collidesWith bulk))
-          fuccess("A bulk containing the same players is scheduled at the same time".some)
-        else coll.insert.one(bulk) inject none
+          fuccess(Left("A bulk containing the same players is scheduled at the same time"))
+        else coll.insert.one(bulk) inject Right(bulk)
       }
   }
 

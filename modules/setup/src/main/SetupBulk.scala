@@ -7,6 +7,7 @@ import chess.{ Clock, Mode, Speed }
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
+import play.api.libs.json.Json
 import scala.concurrent.duration._
 
 import lila.game.Game
@@ -106,6 +107,32 @@ object SetupBulk {
   sealed trait ScheduleError
   case class BadTokens(tokens: List[BadToken]) extends ScheduleError
   case object RateLimited                      extends ScheduleError
+
+  def toJson(bulk: ScheduledBulk) = {
+    import bulk._
+    import lila.common.Json.jodaWrites
+    Json.obj(
+      "id" -> _id,
+      "games" -> games.map { g =>
+        Json.obj(
+          "id"    -> g.id,
+          "white" -> g.white,
+          "black" -> g.black
+        )
+      },
+      "variant" -> variant.key,
+      "clock" -> Json.obj(
+        "limit"     -> clock.limitSeconds,
+        "increment" -> clock.incrementSeconds
+      ),
+      "rated"         -> mode.rated,
+      "pairAt"        -> pairAt,
+      "startClocksAt" -> startClocksAt,
+      "scheduledAt"   -> scheduledAt,
+      "pairedAt"      -> pairedAt
+    )
+  }
+
 }
 
 final class BulkChallengeApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(implicit

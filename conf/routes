@@ -612,7 +612,6 @@ GET   /api/account/preferences         controllers.Pref.apiGet
 POST  /api/challenge/ai                controllers.Setup.apiAi
 POST  /api/challenge/open              controllers.Challenge.openCreate
 POST  /api/challenge/admin/:orig/:dest controllers.Challenge.apiCreateAdmin(orig: String, dest: String)
-POST  /api/challenge/bulk              controllers.Challenge.bulk
 POST  /api/challenge/:user             controllers.Challenge.apiCreate(user: String)
 POST  /api/challenge/$id<\w{8}>/accept controllers.Challenge.apiAccept(id: String)
 POST  /api/challenge/$id<\w{8}>/decline controllers.Challenge.apiDecline(id: String)
@@ -622,6 +621,9 @@ POST  /api/round/$id<\w{8}>/add-time/:seconds controllers.Round.apiAddTime(id: S
 GET   /api/cloud-eval                  controllers.Api.cloudEval
 GET   /api/broadcast                   controllers.Relay.apiIndex
 POST  /api/import                      controllers.Importer.apiSendGame
+GET   /api/bulk-pairing                controllers.BulkPairing.list
+POST  /api/bulk-pairing                controllers.BulkPairing.create
+DELETE /api/bulk-pairing/:id           controllers.BulkPairing.delete(id: String)
 
 GET   /api/games/user/:username        controllers.Game.apiExportByUser(username: String)
 
