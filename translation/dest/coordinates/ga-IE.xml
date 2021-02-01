@@ -4,5 +4,7 @@
   <string name="coordinateTraining">Cleachtadh comhordanáide</string>
   <string name="averageScoreAsWhiteX">Meánscór le bán: %s</string>
   <string name="averageScoreAsBlackX">Meánscór le dubh: %s</string>
+  <string name="knowingTheChessBoard">Is scil fichille an-tábhachtach é eolas a bheith agat ar chomhordanáidí an chláir fichille:</string>
+  <string name="mostChessCourses">Baineann an chuid is mó de chúrsaí agus cleachtaí fichille úsáid as an nodaireacht ailgéabrach go fairsing.</string>
   <string name="startTraining">Tosaigh</string>
 </resources>
