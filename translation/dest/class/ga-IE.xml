@@ -43,7 +43,9 @@ Seo an nasc le dul isteach sa rang.</string>
   <string name="lastActiveDate">Gníomhach</string>
   <string name="managed">Faoi bhainistíocht</string>
   <string name="thisStudentAccountIsManaged">Tá cuntas an dalta seo faoi bhainistíocht</string>
-  <string name="upgradeFromManaged">Uasghrádú ó bhainistíocht go féinrialaitheach</string>
+  <string name="upgradeFromManaged">Uasghrádú ó bhainistíocht go neamhspleách</string>
+  <string name="releaseTheAccount">Scaoil an cuntas ionas gur féidir leis an dalta é a bhainistiú go neamhspleách.</string>
+  <string name="releaseDesc1">Ní féidir cuntas scaoilte a bhainistiú arís. Beidh an dalta in ann modh páiste a scoránú agus pasfhocal a athshocrú iad féin.</string>
   <string name="realUniqueEmail">Seoladh ríomhphoist fíor, uathúil an dalta. Seolfaimid r-phost dearbhaithe chuige, le nasc chun an cuntas a scaoileadh.</string>
   <plurals name="nbStudents">
     <item quantity="one">Dalta</item>
