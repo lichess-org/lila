@@ -18,6 +18,7 @@ object OAuthScope {
   object Challenge {
     case object Read  extends OAuthScope("challenge:read", "Read incoming challenges")
     case object Write extends OAuthScope("challenge:write", "Create, accept, decline challenges")
+    case object Bulk  extends OAuthScope("challenge:bulk", "Create many games at once for other players")
   }
 
   object Study {

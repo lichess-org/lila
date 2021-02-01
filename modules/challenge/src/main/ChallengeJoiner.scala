@@ -8,7 +8,7 @@ import scala.util.chaining._
 import lila.game.{ Game, Player, Pov, Source }
 import lila.user.User
 
-final private class Joiner(
+final private class ChallengeJoiner(
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
     onStart: lila.round.OnStart
@@ -20,13 +20,13 @@ final private class Joiner(
       case _ if color.map(Challenge.ColorChoice.apply).has(c.colorChoice) => fuccess(None)
       case _ =>
         c.challengerUserId.??(userRepo.byId) flatMap { origUser =>
-          val game = Joiner.createGame(c, origUser, destUser, color)
+          val game = ChallengeJoiner.createGame(c, origUser, destUser, color)
           (gameRepo insertDenormalized game) >>- onStart(game.id) inject Pov(game, !c.finalColor).some
         }
     }
 }
 
-private object Joiner {
+private object ChallengeJoiner {
 
   def createGame(
       c: Challenge,

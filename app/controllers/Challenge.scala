@@ -277,7 +277,7 @@ final class Challenge(
         .user(me)
         .bindFromRequest()
         .fold(
-          err => BadRequest(apiFormError(err)).fuccess,
+          newJsonFormError,
           config => {
             val cost = if (me.isApiHog) 0 else 1
             ChallengeIpRateLimit(HTTPRequest ipAddress req, cost = cost) {
@@ -306,6 +306,34 @@ final class Challenge(
               }(rateLimitedFu)
             }(rateLimitedFu)
           }
+        )
+    }
+
+  def bulk(userId: String) =
+    ScopedBody(_.Challenge.Bulk) { implicit req => me =>
+      implicit val lang = reqLang
+      lila.setup.BulkChallenge.form
+        .bindFromRequest()
+        .fold(
+          newJsonFormError,
+          data =>
+            env.setup.bulk(data) flatMap {
+              case Left(badTokens) =>
+                import lila.setup.BulkChallenge.BadToken
+                import play.api.libs.json._
+                BadRequest(
+                  Json.obj(
+                    "tokens" -> JsObject {
+                      badTokens.map { case BadToken(token, error) =>
+                        token.value -> JsString(error.message)
+                      }
+                    }
+                  )
+                ).fuccess
+              case Right(bulk) =>
+                println(bulk)
+                ???
+            }
         )
     }
 

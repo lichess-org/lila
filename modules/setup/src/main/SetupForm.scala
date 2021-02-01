@@ -8,7 +8,7 @@ import play.api.data.Forms._
 import lila.rating.RatingRange
 import lila.user.{ User, UserContext }
 
-final class SetupForm {
+object SetupForm {
 
   import Mappings._
 
@@ -104,14 +104,15 @@ final class SetupForm {
 
   object api {
 
-    private lazy val clock = "clock" -> optional(
+    lazy val clockMapping =
       mapping(
         "limit"     -> number.verifying(ApiConfig.clockLimitSeconds.contains _),
         "increment" -> increment
       )(chess.Clock.Config.apply)(chess.Clock.Config.unapply)
-    )
 
-    private lazy val variant =
+    lazy val clock = "clock" -> optional(clockMapping)
+
+    lazy val variant =
       "variant" -> optional(text.verifying(Variant.byKey.contains _))
 
     def user(from: User) =
