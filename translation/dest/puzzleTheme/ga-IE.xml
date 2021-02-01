@@ -14,10 +14,15 @@
   <string name="mateIn4">Marbhsháinn i 4 bheart</string>
   <string name="mateIn5">Marbhsháinn i 5 mbeart nó níos mó</string>
   <string name="middlegame">Lár an cluiche</string>
+  <string name="middlegameDescription">Beartaíocht san dara céim den chluiche.</string>
+  <string name="oneMove">Fadhbh beart-amháin</string>
+  <string name="oneMoveDescription">Fadhbh nach bhfuil ach beart amháin fada.</string>
   <string name="opening">Oscail</string>
+  <string name="openingDescription">Beartaíocht san céad céim den chluiche.</string>
   <string name="pawnEndgame">Cor deiridh na ceithearnaigh</string>
   <string name="pawnEndgameDescription">Deireadh cluiche le ceithearnaigh amháin.</string>
   <string name="pin">Teannta</string>
+  <string name="pinDescription">Beartaíocht le teannta, nuair nach féidir le píosa bogadh gan ionsaí a nochtadh ar phíosa le cuacht níos mó.</string>
   <string name="promotion">Ardú</string>
   <string name="queenEndgame">Cor deiridh na mbanríona</string>
   <string name="queenEndgameDescription">Cor deiridh le banríonacha agus ceithearnaigh amháin.</string>
@@ -31,6 +36,8 @@
   <string name="sacrifice">Íobairt</string>
   <string name="short">Fadhbh gearr</string>
   <string name="skewer">Sá</string>
+  <string name="smotheredMate">Sáinn plúchta</string>
+  <string name="trappedPiece">Píosa gafa</string>
   <string name="veryLong">Fadhbh an-fhada</string>
   <string name="veryLongDescription">Ceithre bheart nó níos mó le buachan.</string>
   <string name="xRayAttack">Ionsaí x-ghathaithe</string>
