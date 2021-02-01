@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="rating">Rátáil</string>
+  <string name="accepting">Glac le daltaí</string>
+  <string name="notAccepting">Gan glacadh le daltaí faoi láthair</string>
+  <string name="xCoachesStudents">Cóitseáileann %s daltaí fichille</string>
+  <plurals name="studentReviews">
+    <item quantity="one">Athbhreithniú dalta amháin</item>
+    <item quantity="two">Athbhreithniú %s dalta</item>
+    <item quantity="few">Athbhreithniú %s dalta</item>
+    <item quantity="many">Athbhreithniú %s dalta</item>
+    <item quantity="other">Athbhreithniú %s dalta</item>
+  </plurals>
 </resources>
