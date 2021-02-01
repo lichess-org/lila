@@ -40,7 +40,7 @@ object PieceSet extends PieceSetObject {
     "Vald_opt",
     "Intl_Colored_2D",
     "Intl_Colored_3D",
-    "Intl_Colored_Shadowed",
+    "Intl_Shadowed",
     "Intl_Monochrome_2D",
     "Intl_Wooden_3D",
     "international",

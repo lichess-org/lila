@@ -15,7 +15,7 @@ themes = [
   ['international', 'svg'],
   ['Intl_Colored_2D', 'svg'],
   ['Intl_Colored_3D', 'svg'],
-  ['Intl_Colored_Shadowed', 'svg'],
+  ['Intl_Shadowed', 'svg'],
   ['Intl_Monochrome_2D', 'svg'],
   ['Intl_Wooden_3D', 'svg'],
   ['kanji_brown', 'svg'],
