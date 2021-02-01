@@ -14,6 +14,13 @@ Is é sin, 4 phointe don bua, cluiche cothrom 2 phointe, agus fós ní bhfaighfe
 
 Mar shampla, dhá bhua agus ansin cluiche caillte ina dhiaidh, sin 6 bpointe: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Láthair le Báiní</string>
+  <string name="berserkAnswer">Nuair a chliceálann imreoir an cnaipe Báiní ag tús an chluiche, cailleann siad leath a gcuid ama ar an chlog, ach faigheann siad pointe comórtais breise amháin don bua.
+
+Ag dul le Bainí i maor ama le incrimint caillfear an t-incrimint fosta (is eisceacht é 1 + 2, tugann sé 1 + 0).
+
+Níl Bainí ar fáil le haghaidh cluichí a dtosnaíonn le náid (0 + 1, 0 + 2).
+
+Ní thugann Berserk pointe breise ach má imríonn tú 7 mbeart ar a laghad sa chluiche.</string>
   <string name="howIsTheWinnerDecided">Conas a chinntear an buaiteoir?</string>
   <string name="howDoesPairingWork">Conas a oibríonn an phéireáil?</string>
   <string name="howDoesPairingWorkAnswer">Ag tús an chomórtais, cuirtear imreoirí le chéile bunaithe ar a rátáil.
