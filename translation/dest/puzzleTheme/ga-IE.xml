@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="bishopEndgame">Cor deiridh easpaig</string>
+  <string name="bishopEndgameDescription">Cor deiridh le easpaig agus ceithearnaigh amháin.</string>
+  <string name="endgame">Cor deiridh</string>
+  <string name="endgameDescription">Beartaíocht i gcor deiridh na cluiche.</string>
   <string name="fork">Gabhal</string>
+  <string name="knightEndgame">Cor deiridh ridire</string>
+  <string name="knightEndgameDescription">Cor deiridh le ridirí agus ceithearnaigh amháin.</string>
   <string name="mate">Marbhsháinn</string>
   <string name="mateIn1">Marbhsháinn i beart amháin</string>
   <string name="mateIn2">Marbhsháinn i 2 bheart</string>
@@ -9,12 +15,19 @@
   <string name="mateIn5">Marbhsháinn i 5 mbeart nó níos mó</string>
   <string name="middlegame">Lár an cluiche</string>
   <string name="opening">Oscail</string>
+  <string name="pawnEndgame">Cor deiridh na ceithearnaigh</string>
   <string name="pawnEndgameDescription">Deireadh cluiche le ceithearnaigh amháin.</string>
   <string name="pin">Teannta</string>
   <string name="promotion">Ardú</string>
+  <string name="queenEndgame">Cor deiridh na mbanríona</string>
+  <string name="queenEndgameDescription">Cor deiridh le banríonacha agus ceithearnaigh amháin.</string>
   <string name="queenRookEndgame">Cor deiridh don Banríon agus Casieal</string>
   <string name="queenRookEndgameDescription">Cor deiridh gan aon píosa ach banríona, caisil, agus ceithearnaigh.</string>
+  <string name="queensideAttack">Ionsaí ar taobh na mbanríona</string>
+  <string name="queensideAttackDescription">Ionsaí ar rí an namhaid, tar éis dóibh caisliú ar taobh na mbanríona.</string>
   <string name="quietMove">Beart cúin</string>
+  <string name="rookEndgame">Cor deiridh caiseal</string>
+  <string name="rookEndgameDescription">Cor deiridh le caisil agus ceithearnaigh amháin.</string>
   <string name="sacrifice">Íobairt</string>
   <string name="short">Fadhbh gearr</string>
   <string name="skewer">Sá</string>
