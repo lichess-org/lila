@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Ziehe, um zu beginnen</string>
-  <string name="puzzlesSolved">Aufgaben abgeschlossen</string>
+  <string name="puzzlesSolved">Aufgaben gelöst</string>
   <string name="newDailyHighscore">Neuer Tagesrekord!</string>
   <string name="newWeeklyHighscore">Neuer Wochenrekord!</string>
   <string name="newMonthlyHighscore">Neuer monatlicher Rekord!</string>
@@ -28,7 +28,7 @@
   <string name="newRun">Neuer Durchlauf (drücke: Leertaste)</string>
   <string name="endRun">Beende den Durchlauf (drücke: Eingabetaste)</string>
   <string name="highscores">Rekorde</string>
-  <string name="viewBestRuns">Schaue dir deine besten Durchläufe an</string>
+  <string name="viewBestRuns">Beste Durchläufe anzeigen</string>
   <string name="bestRunOfDay">Bester Durchlauf des Tages</string>
   <string name="runs">Durchläufe</string>
 </resources>
