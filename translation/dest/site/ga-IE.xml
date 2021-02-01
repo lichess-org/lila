@@ -209,7 +209,7 @@
   <string name="passwordReset">Athshocraigh pasfhocal</string>
   <string name="forgotPassword">Pasfhocal dearmadta</string>
   <string name="rank">Céimíocht</string>
-  <string name="rankX">Áit: %s</string>
+  <string name="rankX">Céim: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">Nuashonraítear céimíocht gach %s nóimead</item>
     <item quantity="two">Nuashonraítear céimíocht gach %s nóimead</item>
