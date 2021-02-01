@@ -3,7 +3,6 @@ package lila.swiss
 import chess.Clock.{ Config => ClockConfig }
 import chess.Color
 import chess.format.FEN
-import chess.variant.Variant
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
@@ -13,26 +12,8 @@ import lila.user.User
 
 private object BsonHandlers {
 
-  implicit val clockHandler = tryHandler[ClockConfig](
-    { case doc: BSONDocument =>
-      for {
-        limit <- doc.getAsTry[Int]("limit")
-        inc   <- doc.getAsTry[Int]("increment")
-      } yield ClockConfig(limit, inc)
-    },
-    c =>
-      BSONDocument(
-        "limit"     -> c.limitSeconds,
-        "increment" -> c.incrementSeconds
-      )
-  )
-  implicit val variantHandler = lila.db.dsl.quickHandler[Variant](
-    {
-      case BSONString(v) => Variant orDefault v
-      case _             => Variant.default
-    },
-    v => BSONString(v.key)
-  )
+  implicit val variantHandler       = variantByKeyHandler
+  implicit val clockHandler         = clockConfigHandler
   implicit val swissPointsHandler   = intAnyValHandler[Swiss.Points](_.double, Swiss.Points.apply)
   implicit val swissTieBreakHandler = doubleAnyValHandler[Swiss.TieBreak](_.value, Swiss.TieBreak.apply)
   implicit val swissPerformanceHandler =

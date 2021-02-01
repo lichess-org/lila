@@ -9,6 +9,7 @@ import scala.util.{ Failure, Success, Try }
 import lila.common.Iso._
 import lila.common.{ EmailAddress, IpAddress, Iso, NormalizedEmailAddress }
 import chess.format.FEN
+import chess.variant.Variant
 
 trait Handlers {
 
@@ -117,4 +118,28 @@ trait Handlers {
   implicit val colorBoolHandler = BSONBooleanHandler.as[chess.Color](chess.Color.fromWhite, _.white)
 
   implicit val FENHandler: BSONHandler[FEN] = stringAnyValHandler[FEN](_.value, FEN.apply)
+
+  implicit val modeHandler = BSONBooleanHandler.as[chess.Mode](chess.Mode.apply, _.rated)
+
+  val variantByKeyHandler: BSONHandler[Variant] = quickHandler[Variant](
+    {
+      case BSONString(v) => Variant orDefault v
+      case _             => Variant.default
+    },
+    v => BSONString(v.key)
+  )
+
+  val clockConfigHandler = tryHandler[chess.Clock.Config](
+    { case doc: BSONDocument =>
+      for {
+        limit <- doc.getAsTry[Int]("limit")
+        inc   <- doc.getAsTry[Int]("increment")
+      } yield chess.Clock.Config(limit, inc)
+    },
+    c =>
+      BSONDocument(
+        "limit"     -> c.limitSeconds,
+        "increment" -> c.incrementSeconds
+      )
+  )
 }

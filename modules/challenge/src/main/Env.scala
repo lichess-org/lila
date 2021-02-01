@@ -30,6 +30,8 @@ final class Env(
 
   private lazy val maxPlaying = appConfig.get[Max]("setup.max_playing")
 
+  private val colls = wire[ChallengeColls]
+
   def version(challengeId: Challenge.ID): Fu[SocketVersion] =
     socket.rooms.ask[SocketVersion](challengeId)(GetVersion)
 
@@ -43,10 +45,7 @@ final class Env(
 
   lazy val granter = wire[ChallengeGranter]
 
-  private lazy val repo = new ChallengeRepo(
-    coll = db(CollName("challenge")),
-    maxPerUser = maxPlaying
-  )
+  private lazy val repo = wire[ChallengeRepo]
 
   lazy val jsonView = wire[JsonView]
 
@@ -54,7 +53,16 @@ final class Env(
 
   val forms = new ChallengeForm
 
-  system.scheduler.scheduleWithFixedDelay(10 seconds, 3 seconds) { () =>
+  system.scheduler.scheduleWithFixedDelay(10 seconds, 3343 millis) { () =>
     api.sweep.unit
   }
+
+  system.scheduler.scheduleWithFixedDelay(20 seconds, 2897 millis) { () =>
+    bulk.tick.unit
+  }
+}
+
+private class ChallengeColls(db: lila.db.Db) {
+  val challenge = db(CollName("challenge"))
+  val bulk      = db(CollName("challenge_bulk"))
 }

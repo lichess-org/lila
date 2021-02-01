@@ -48,7 +48,6 @@ private object BSONHandlers {
     { case BSONInteger(v) => Status(v) toTry s"No such status: $v" },
     x => BSONInteger(x.id)
   )
-  implicit val ModeBSONHandler = BSONBooleanHandler.as[Mode](Mode.apply, _.rated)
   implicit val RatingBSONHandler = new BSON[Rating] {
     def reads(r: Reader) = Rating(r.int("i"), r.boolD("p"))
     def writes(w: Writer, r: Rating) =

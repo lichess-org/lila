@@ -19,9 +19,18 @@ object SetupBulk {
 
   val maxGames = 500
 
-  case class BulkFormData(tokens: String, variant: Variant, clock: Clock.Config, rated: Boolean)
+  case class BulkFormData(
+      tokens: String,
+      variant: Variant,
+      clock: Clock.Config,
+      rated: Boolean,
+      pairAt: Option[DateTime],
+      startClocksAt: Option[DateTime]
+  )
 
-  val form = Form[BulkFormData](
+  private def timestampInNearFuture = longNumber(max = DateTime.now.plusDays(1).getMillis)
+
+  def form = Form[BulkFormData](
     mapping(
       "tokens" -> nonEmptyText
         .verifying("Not enough tokens", t => extractTokenPairs(t).nonEmpty)
@@ -34,10 +43,27 @@ object SetupBulk {
           }
         ),
       SetupForm.api.variant,
-      "clock" -> SetupForm.api.clockMapping,
-      "rated" -> boolean
-    ) { (tokens: String, variant: Option[String], clock: Clock.Config, rated: Boolean) =>
-      BulkFormData(tokens, Variant orDefault ~variant, clock, rated)
+      "clock"         -> SetupForm.api.clockMapping,
+      "rated"         -> boolean,
+      "pairAt"        -> optional(timestampInNearFuture),
+      "startClocksAt" -> optional(timestampInNearFuture)
+    ) {
+      (
+          tokens: String,
+          variant: Option[String],
+          clock: Clock.Config,
+          rated: Boolean,
+          pairTs: Option[Long],
+          clockTs: Option[Long]
+      ) =>
+        BulkFormData(
+          tokens,
+          Variant orDefault ~variant,
+          clock,
+          rated,
+          pairTs.map { new DateTime(_) },
+          clockTs.map { new DateTime(_) }
+        )
     }(_ => None)
   )
 
@@ -59,13 +85,22 @@ object SetupBulk {
   case class ScheduledGame(id: Game.ID, white: User.ID, black: User.ID)
 
   case class ScheduledBulk(
+      _id: String,
+      by: User.ID,
       games: List[ScheduledGame],
       variant: Variant,
       clock: Clock.Config,
       mode: Mode,
       pairAt: DateTime,
-      startClocksAt: DateTime
-  )
+      startClocksAt: Option[DateTime],
+      scheduledAt: DateTime,
+      pairedAt: Option[DateTime] = None
+  ) {
+    def userSet = Set(games.flatMap(g => List(g.white, g.black)))
+    def collidesWith(other: ScheduledBulk) = {
+      pairAt == other.pairAt || startClocksAt == startClocksAt
+    } && userSet.exists(other.userSet.contains)
+  }
 }
 
 final class BulkChallengeApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(implicit
@@ -75,7 +110,7 @@ final class BulkChallengeApi(oauthServer: OAuthServer, idGenerator: IdGenerator)
 
   import SetupBulk._
 
-  def apply(data: BulkFormData): Fu[Either[List[BadToken], ScheduledBulk]] =
+  def apply(data: BulkFormData, me: User): Fu[Either[List[BadToken], ScheduledBulk]] =
     Source(extractTokenPairs(data.tokens))
       .mapConcat { case (whiteToken, blackToken) =>
         List(whiteToken, blackToken) // flatten now, re-pair later!
@@ -98,6 +133,7 @@ final class BulkChallengeApi(oauthServer: OAuthServer, idGenerator: IdGenerator)
             .grouped(2)
             .collect { case List(w, b) => (w, b) }
             .toList
+          lila.mon.api.challenge.bulk.scheduleNb(me.id).increment(pairs.size).unit
           idGenerator
             .games(pairs.size)
             .map {
@@ -109,7 +145,17 @@ final class BulkChallengeApi(oauthServer: OAuthServer, idGenerator: IdGenerator)
               }
             }
             .dmap {
-              ScheduledBulk(_, data.variant, data.clock, Mode(data.rated), DateTime.now, DateTime.now)
+              ScheduledBulk(
+                _id = lila.common.ThreadLocalRandom nextString 8,
+                by = me.id,
+                _,
+                data.variant,
+                data.clock,
+                Mode(data.rated),
+                pairAt = data.pairAt | DateTime.now,
+                startClocksAt = data.startClocksAt,
+                scheduledAt = DateTime.now
+              )
             }
             .dmap(Right.apply)
       }

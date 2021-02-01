@@ -317,7 +317,7 @@ final class Challenge(
         .fold(
           newJsonFormError,
           data =>
-            env.setup.bulk(data) map {
+            env.setup.bulk(data, me) flatMap {
               case Left(badTokens) =>
                 import lila.setup.SetupBulk.BadToken
                 import play.api.libs.json._
@@ -329,15 +329,16 @@ final class Challenge(
                       }
                     }
                   )
-                )
+                ).fuccess
               case Right(bulk) =>
-                env.challenge.bulk(me, bulk).thenPp
-                Ok(Json.obj("games" -> bulk.games.map { g =>
-                  Json.obj(
-                    "gameId"  -> g.id,
-                    "userIds" -> Json.arr(g.white, g.black)
-                  )
-                })) as JSON
+                env.challenge.bulk.schedule(bulk) inject {
+                  Ok(Json.obj("games" -> bulk.games.map { g =>
+                    Json.obj(
+                      "gameId"  -> g.id,
+                      "userIds" -> Json.arr(g.white, g.black)
+                    )
+                  })) as JSON
+                }
             }
         )
     }

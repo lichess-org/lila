@@ -6,12 +6,14 @@ import scala.annotation.nowarn
 import lila.common.config.Max
 import lila.db.dsl._
 
-final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
+final private class ChallengeRepo(colls: ChallengeColls, maxPerUser: Max)(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
 
   import BSONHandlers._
   import Challenge._
+
+  private val coll = colls.challenge
 
   def byId(id: Challenge.ID) = coll.find($id(id)).one[Challenge]
 
