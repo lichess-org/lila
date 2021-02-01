@@ -54,6 +54,9 @@
   <string name="commentThisMove">Déan trácht ar an mbeart seo</string>
   <string name="annotateWithGlyphs">Nodaireacht le glifeanna</string>
   <string name="theChapterIsTooShortToBeAnalysed">Tá an chaibidil ró-ghearr le hanailís a dhéanamh uirthi.</string>
+  <string name="getAFullComputerAnalysis">Faigh anailís ríomhaire iomlán ón freastalaí ar an bpríomhlíne.</string>
+  <string name="makeSureTheChapterIsComplete">Bí cinnte go bhfuil an chaibidil críochnaithe. Ní féidir leat iarr ar anailís ach uair amháin.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Fanann gach ball SYNC sa suíomh céanna</string>
   <string name="playing">Ag imirt</string>
   <string name="first">Céad</string>
   <string name="previous">Roimhe</string>
@@ -96,8 +99,17 @@
   <string name="empty">Folamh</string>
   <string name="startFromInitialPosition">Tosaigh ón suíomh tosaigh</string>
   <string name="editor">Eagarthóir</string>
+  <string name="loadAPositionFromFen">Luchtaigh suíomh ó FEN</string>
   <string name="loadAGameFromPgn">Lódáil cluichí ó PGN</string>
   <string name="automatic">Uathoibríoch</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">Greamaigh do théacs PGN anseo, suas le %s cluiche</item>
+    <item quantity="two">Greamaigh do théacs PGN anseo, suas le %s chluiche</item>
+    <item quantity="few">Greamaigh do théacs PGN anseo, suas le %s gcluiche</item>
+    <item quantity="many">Greamaigh do théacs PGN anseo, suas le %s cluiche</item>
+    <item quantity="other">Greamaigh do théacs PGN anseo, suas le %s cluiche</item>
+  </plurals>
+  <string name="urlOfTheGame">URL na gcluichí, ceann amháin an líne</string>
   <string name="loadAGameFromXOrY">Lódáil cluichí ó %1$s nó %2$s</string>
   <string name="createChapter">Cruthaigh caibidil</string>
   <string name="configureLiveBroadcast">Cumraigh craoladh beo</string>
@@ -107,6 +119,7 @@
   <string name="public">Poiblí</string>
   <string name="unlisted">Neamhliostaithe</string>
   <string name="inviteOnly">Tabhair cuireadh amháin</string>
+  <string name="allowCloning">Lig clónáil</string>
   <string name="nobody">Níl einne</string>
   <string name="onlyMe">Mise amháin</string>
   <string name="contributors">Rannpháirtithe</string>
