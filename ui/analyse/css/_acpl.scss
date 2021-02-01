@@ -5,6 +5,9 @@
   align-items: flex-start;
   line-height: 1.15em;
   margin-top: 1em;
+  .hidden {
+      visibility: hidden;
+  }
   td {
     text-align: center;
     &:first-child {

@@ -4,7 +4,7 @@ import AnalyseCtrl from "./ctrl";
 import { findTag } from "./study/studyChapters";
 import * as game from "game";
 import { defined } from "common";
-import { bind, dataIcon } from "./util";
+// import { bind, dataIcon } from "./util";
 
 type AdviceKind = "inaccuracy" | "mistake" | "blunder";
 
@@ -114,6 +114,9 @@ function doRender(ctrl: AnalyseCtrl): VNode {
     },
     [
       playerTable(ctrl, "white"),
+      h("div.hidden", "-"),
+      // i don't think it's worth it considering the current browser engine
+      /*
       ctrl.study
         ? null
         : h(
@@ -125,6 +128,7 @@ function doRender(ctrl: AnalyseCtrl): VNode {
             },
             ctrl.trans.noarg("learnFromYourMistakes")
           ),
+          */
       playerTable(ctrl, "black"),
     ]
   );

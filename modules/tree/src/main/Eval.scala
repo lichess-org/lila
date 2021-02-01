@@ -63,9 +63,9 @@ object Eval {
 
   object Cp {
 
-    val CEILING = 1000
+    val CEILING = 5500
 
-    val initial = Cp(15)
+    val initial = Cp(50)
   }
 
   case class Mate(value: Int) extends AnyVal with Ordered[Mate] {
