@@ -39,6 +39,9 @@ Seo an nasc le dul isteach sa rang.</string>
     <item quantity="other">%s cuireadh ar feitheamh</item>
   </plurals>
   <string name="noPendingInvitations">Gan cuireadh ar feitheamh</string>
+  <string name="managed">Faoi bhainistíocht</string>
+  <string name="upgradeFromManaged">Uasghrádú ó bhainistíocht go féinrialaitheach</string>
+  <string name="realUniqueEmail">Seoladh ríomhphoist fíor, uathúil an dalta. Seolfaimid r-phost dearbhaithe chuige, le nasc chun an cuntas a scaoileadh.</string>
   <plurals name="nbStudents">
     <item quantity="one">Dalta</item>
     <item quantity="two">%s dalta</item>
@@ -47,4 +50,5 @@ Seo an nasc le dul isteach sa rang.</string>
     <item quantity="other">%s dalta</item>
   </plurals>
   <string name="students">Daltaí</string>
+  <string name="noStudents">Níl aon dalta sa rang, fós.</string>
 </resources>
