@@ -30,11 +30,14 @@ object SetupBulk {
       startClocksAt: Option[DateTime]
   )
 
-  private def timestampInNearFuture = longNumber(max = DateTime.now.plusDays(1).getMillis)
+  private def timestampInNearFuture = longNumber(
+    min = DateTime.now.minusMinutes(1).getMillis,
+    max = DateTime.now.plusDays(1).getMillis
+  )
 
   def form = Form[BulkFormData](
     mapping(
-      "tokens" -> nonEmptyText
+      "players" -> nonEmptyText
         .verifying("Not enough tokens", t => extractTokenPairs(t).nonEmpty)
         .verifying(s"Too many tokens (max: ${maxGames * 2})", t => extractTokenPairs(t).sizeIs < maxGames)
         .verifying(
