@@ -229,7 +229,11 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
     threat = true;
   } else if (node.ceval) pvs = node.ceval.pvs;
   else pvs = [];
-  if (threat) setup.turn = opposite(setup.turn);
+  if (threat) {
+    setup.turn = opposite(setup.turn);
+    if (setup.turn == 'white')
+        setup.fullmoves += 1;
+  }
   const pos = setupPosition(lichessVariantRules(instance.variant.key), setup);
   return h('div.pv_box', {
     attrs: { 'data-fen': node.fen },
