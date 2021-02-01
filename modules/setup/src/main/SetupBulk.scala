@@ -7,6 +7,7 @@ import chess.{ Clock, Mode, Speed }
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
+import scala.concurrent.duration._
 
 import lila.game.Game
 import lila.game.IdGenerator
@@ -101,6 +102,10 @@ object SetupBulk {
       pairAt == other.pairAt || startClocksAt == startClocksAt
     } && userSet.exists(other.userSet.contains)
   }
+
+  sealed trait ScheduleError
+  case class BadTokens(tokens: List[BadToken]) extends ScheduleError
+  case object RateLimited                      extends ScheduleError
 }
 
 final class BulkChallengeApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(implicit
@@ -110,7 +115,15 @@ final class BulkChallengeApi(oauthServer: OAuthServer, idGenerator: IdGenerator)
 
   import SetupBulk._
 
-  def apply(data: BulkFormData, me: User): Fu[Either[List[BadToken], ScheduledBulk]] =
+  type Result = Either[ScheduleError, ScheduledBulk]
+
+  private val rateLimit = new lila.memo.RateLimit[User.ID](
+    credits = maxGames,
+    duration = 10.minutes,
+    key = "challenge.bulk"
+  )
+
+  def apply(data: BulkFormData, me: User): Fu[Result] =
     Source(extractTokenPairs(data.tokens))
       .mapConcat { case (whiteToken, blackToken) =>
         List(whiteToken, blackToken) // flatten now, re-pair later!
@@ -127,36 +140,39 @@ final class BulkChallengeApi(oauthServer: OAuthServer, idGenerator: IdGenerator)
         case (Right(users), Right(scoped)) => Right(scoped.user.id :: users)
       }
       .flatMap {
-        case Left(errors) => fuccess(Left(errors.reverse))
+        case Left(errors) => fuccess(Left(BadTokens(errors.reverse)))
         case Right(allPlayers) =>
           val pairs = allPlayers.reverse
             .grouped(2)
             .collect { case List(w, b) => (w, b) }
             .toList
-          lila.mon.api.challenge.bulk.scheduleNb(me.id).increment(pairs.size).unit
-          idGenerator
-            .games(pairs.size)
-            .map {
-              _.toList zip pairs
-            }
-            .map {
-              _.map { case (id, (w, b)) =>
-                ScheduledGame(id, w, b)
+          val nbGames = pairs.size
+          rateLimit[Fu[Result]](me.id, cost = nbGames) {
+            lila.mon.api.challenge.bulk.scheduleNb(me.id).increment(nbGames).unit
+            idGenerator
+              .games(nbGames)
+              .map {
+                _.toList zip pairs
               }
-            }
-            .dmap {
-              ScheduledBulk(
-                _id = lila.common.ThreadLocalRandom nextString 8,
-                by = me.id,
-                _,
-                data.variant,
-                data.clock,
-                Mode(data.rated),
-                pairAt = data.pairAt | DateTime.now,
-                startClocksAt = data.startClocksAt,
-                scheduledAt = DateTime.now
-              )
-            }
-            .dmap(Right.apply)
+              .map {
+                _.map { case (id, (w, b)) =>
+                  ScheduledGame(id, w, b)
+                }
+              }
+              .dmap {
+                ScheduledBulk(
+                  _id = lila.common.ThreadLocalRandom nextString 8,
+                  by = me.id,
+                  _,
+                  data.variant,
+                  data.clock,
+                  Mode(data.rated),
+                  pairAt = data.pairAt | DateTime.now,
+                  startClocksAt = data.startClocksAt,
+                  scheduledAt = DateTime.now
+                )
+              }
+              .dmap(Right.apply)
+          }(fuccess(Left(RateLimited)))
       }
 }

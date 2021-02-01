@@ -312,19 +312,24 @@ final class Challenge(
   def bulk =
     ScopedBody(_.Challenge.Bulk) { implicit req => me =>
       implicit val lang = reqLang
+      import lila.setup.SetupBulk
       lila.setup.SetupBulk.form
         .bindFromRequest()
         .fold(
           newJsonFormError,
           data =>
             env.setup.bulk(data, me) flatMap {
-              case Left(badTokens) =>
+              case Left(SetupBulk.RateLimited) =>
+                TooManyRequests(
+                  jsonError(s"Ratelimited! Max games per 10 minutes: ${SetupBulk.maxGames}")
+                ).fuccess
+              case Left(SetupBulk.BadTokens(tokens)) =>
                 import lila.setup.SetupBulk.BadToken
                 import play.api.libs.json._
                 BadRequest(
                   Json.obj(
                     "tokens" -> JsObject {
-                      badTokens.map { case BadToken(token, error) =>
+                      tokens.map { case BadToken(token, error) =>
                         token.value -> JsString(error.message)
                       }
                     }

@@ -38,7 +38,7 @@ final class ChallengeBulkApi(
   private val coll = colls.bulk
 
   private val workQueue =
-    new DuctSequencers(maxSize = 64, expiration = 1 minute, timeout = 10 seconds, name = "challenge.bulk")
+    new DuctSequencers(maxSize = 16, expiration = 10 minutes, timeout = 10 seconds, name = "challenge.bulk")
 
   def schedule(bulk: ScheduledBulk): Fu[Option[String]] = workQueue(bulk.by) {
     if (bulk.pairAt.isBeforeNow) makePairings(bulk) inject none
@@ -58,12 +58,20 @@ final class ChallengeBulkApi(
 
   private def checkForPairing: Funit =
     coll.one[ScheduledBulk]($doc("pairAt" $lte DateTime.now, "pairedAt" $exists false)) flatMap {
-      _ ?? makePairings
+      _ ?? { bulk =>
+        workQueue(bulk.by) {
+          makePairings(bulk).void
+        }
+      }
     }
 
   private def checkForClocks: Funit =
     coll.one[ScheduledBulk]($doc("startClocksAt" $lte DateTime.now, "pairedAt" $exists true)) flatMap {
-      _ ?? startClocks
+      _ ?? { bulk =>
+        workQueue(bulk.by) {
+          startClocks(bulk)
+        }
+      }
     }
 
   private def startClocks(bulk: ScheduledBulk): Funit = workQueue(bulk.by) {
@@ -71,7 +79,7 @@ final class ChallengeBulkApi(
     coll.delete.one($id(bulk._id)).void
   }
 
-  private def makePairings(bulk: ScheduledBulk): Funit = workQueue(bulk.by) {
+  private def makePairings(bulk: ScheduledBulk): Funit = {
     val perfType = PerfType(bulk.variant, Speed(bulk.clock))
     Source(bulk.games)
       .mapAsyncUnordered(8) { game =>
