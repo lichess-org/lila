@@ -17,11 +17,11 @@
     <item quantity="other">Rinneadh cleactadh ar %1$s seasaimh de chuid %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Fadhb amháin beartaíochta réitithe</item>
-    <item quantity="two">%s fadhbanna beartaíochta réitithe</item>
-    <item quantity="few">%s fadhbanna beartaíochta réitithe</item>
-    <item quantity="many">%s fadhbanna beartaíochta réitithe</item>
-    <item quantity="other">%s fadhbanna beartaíochta réitithe</item>
+    <item quantity="one">%s fadhb beartach réitithe</item>
+    <item quantity="two">%s fhadhb beartach réitithe</item>
+    <item quantity="few">%s bhfadhb beartach réitithe</item>
+    <item quantity="many">%s fadhb beartach réitithe</item>
+    <item quantity="other">%s fadhb beartach réitithe</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Imríodh cluiche amháin %2$s</item>
