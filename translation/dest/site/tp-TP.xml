@@ -774,6 +774,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="doItAgain">o pali sin</string>
   <string name="reviewWhiteMistakes">o lukin e tawa ike pi jan walo</string>
   <string name="reviewBlackMistakes">o lukin e tawa ike pi jan pimeja</string>
+  <string name="advantage" comment="advantage&#10;&#10;When inspecting the results of the computer analysis, this is the title of a tooltip displaying the advantage for white at a specific point in the game.">ante pi suli pona pi jan musi tu</string>
   <plurals name="nbSeconds">
     <item quantity="one">tenpo lili %s</item>
     <item quantity="other">tenpo lili %s</item>
